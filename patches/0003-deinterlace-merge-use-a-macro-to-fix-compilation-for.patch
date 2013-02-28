@@ -1,0 +1,86 @@
+From 84731850fde69dba7626c5e833cec838b7407677 Mon Sep 17 00:00:00 2001
+From: =?UTF-8?q?Felix=20Paul=20K=C3=BChne?= <fkuehne@videolan.org>
+Date: Fri, 10 Aug 2012 16:02:07 +0200
+Subject: [PATCH 03/10] deinterlace/merge: use a macro to fix compilation for
+ iOS
+
+---
+ modules/video_filter/deinterlace/merge_arm.S | 26 ++++++++++----------------
+ 1 file changed, 10 insertions(+), 16 deletions(-)
+
+diff --git a/modules/video_filter/deinterlace/merge_arm.S b/modules/video_filter/deinterlace/merge_arm.S
+index dd77902..03e5042 100644
+--- a/modules/video_filter/deinterlace/merge_arm.S
++++ b/modules/video_filter/deinterlace/merge_arm.S
+@@ -18,6 +18,8 @@
+  @ Inc., 51 Franklin Street, Fifth Floor, Boston MA 02110-1301, USA.
+  @****************************************************************************/
+ 
++#include "../../arm_neon/asm.S"
++
+ 	.syntax	unified
+ 	.arm
+ 	.arch	armv6
+@@ -29,11 +31,8 @@
+ #define	SRC2	r2
+ #define	SIZE	r3
+ 
+-	.align 2
+-	.global merge8_arm_neon
+-	.type	merge8_arm_neon, %function
+ 	@ NOTE: Offset and pitch must be multiple of 16-bytes in VLC.
+-merge8_arm_neon:
++function merge8_arm_neon, export=1
+ 	cmp		SIZE,	#64
+ 	blo		2f
+ 1:
+@@ -70,11 +69,9 @@ merge8_arm_neon:
+ 	vhadd.u8	q0,	q0,	q8
+ 	vst1.u8		{q0},		[DEST,:128]!
+ 	bx		lr
++endfunc
+ 
+-	.align 2
+-	.global merge16_arm_neon
+-	.type	merge16_arm_neon, %function
+-merge16_arm_neon:
++function merge16_arm_neon, export=1
+ 	cmp		SIZE,	#64
+ 	blo		2f
+ 1:
+@@ -111,11 +108,9 @@ merge16_arm_neon:
+ 	vhadd.u16	q0,	q0,	q8
+ 	vst1.u16	{q0},		[DEST,:128]!
+ 	bx		lr
++endfunc
+ 
+-	.align 2
+-	.global merge8_armv6
+-	.type	merge8_armv6, %function
+-merge8_armv6:
++function merge8_armv6, export=1
+ 	push		{r4-r9,lr}
+ 1:
+ 	pld		[SRC1, #64]
+@@ -133,11 +128,9 @@ merge8_armv6:
+ 	stm		DEST!,	{r6-r7}
+ 	popeq		{r4-r9,pc}
+ 	b		1b
++endfunc
+ 
+-	.align 2
+-	.global merge16_armv6
+-	.type	merge16_armv6, %function
+-merge16_armv6:
++function merge16_armv6, export=1
+ 	push		{r4-r9,lr}
+ 1:
+ 	pld		[SRC1, #64]
+@@ -155,3 +148,4 @@ merge16_armv6:
+ 	stm		DEST!,	{r6-r7}
+ 	popeq		{r4-r9,pc}
+ 	b		1b
++endfunc
+-- 
+1.7.12.4 (Apple Git-37)
+

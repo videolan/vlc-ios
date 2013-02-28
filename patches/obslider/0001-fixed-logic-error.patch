@@ -1,0 +1,27 @@
+From bd47a2dcbdbe4402675b4250911417dd7860338b Mon Sep 17 00:00:00 2001
+From: =?UTF-8?q?Felix=20Paul=20K=C3=BChne?= <fkuehne@videolan.org>
+Date: Fri, 19 Oct 2012 13:12:57 +0200
+Subject: [PATCH] fixed logic error
+
+---
+ OBSlider/OBSlider.m |    4 ++--
+ 1 file changed, 2 insertions(+), 2 deletions(-)
+
+diff --git a/OBSlider/OBSlider.m b/OBSlider/OBSlider.m
+index f4d1586..53d880a 100644
+--- a/OBSlider/OBSlider.m
++++ b/OBSlider/OBSlider.m
+@@ -127,8 +127,8 @@
+          
+         CGRect trackRect = [self trackRectForBounds:self.bounds];
+         realPositionValue = realPositionValue + (self.maximumValue - self.minimumValue) * (trackingOffset / trackRect.size.width);
+-        if ( (self.beganTrackingLocation.y < currentLocation.y) && (currentLocation.y < previousLocation.y) ||
+-             (self.beganTrackingLocation.y > currentLocation.y) && (currentLocation.y > previousLocation.y) )
++        if ( ((self.beganTrackingLocation.y < currentLocation.y) && (currentLocation.y < previousLocation.y)) ||
++             ((self.beganTrackingLocation.y > currentLocation.y) && (currentLocation.y > previousLocation.y)) )
+             {
+             // We are getting closer to the slider, go closer to the real location
+             self.value = self.value + self.scrubbingSpeed * (self.maximumValue - self.minimumValue) * (trackingOffset / trackRect.size.width) + (realPositionValue - self.value) / ( 1 + fabsf(currentLocation.y - self.beganTrackingLocation.y));
+-- 
+1.7.10.2 (Apple Git-33)
+

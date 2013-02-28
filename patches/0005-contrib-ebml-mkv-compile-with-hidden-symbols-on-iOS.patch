@@ -1,0 +1,51 @@
+From d2660459eea1c67a1aa243c7ff86bcc887b9ff34 Mon Sep 17 00:00:00 2001
+From: =?UTF-8?q?Felix=20Paul=20K=C3=BChne?= <fkuehne@videolan.org>
+Date: Sat, 11 Aug 2012 13:29:25 +0200
+Subject: [PATCH 05/10] contrib/ebml+mkv: compile with hidden symbols on iOS
+
+---
+ contrib/src/ebml/rules.mak     | 6 ++++--
+ contrib/src/matroska/rules.mak | 6 +++++-
+ 2 files changed, 9 insertions(+), 3 deletions(-)
+
+diff --git a/contrib/src/ebml/rules.mak b/contrib/src/ebml/rules.mak
+index 3708b33..f4f01c7 100644
+--- a/contrib/src/ebml/rules.mak
++++ b/contrib/src/ebml/rules.mak
+@@ -16,8 +16,10 @@ libebml: libebml-$(EBML_VERSION).tar.bz2 .sum-ebml
+ 	$(MOVE)
+ 
+ # libebml requires exceptions
+-EBML_EXTRA_FLAGS = CXXFLAGS="${CXXFLAGS} -fexceptions" \
+-					CPPFLAGS=""
++EBML_EXTRA_FLAGS = CXXFLAGS="${CXXFLAGS} -fexceptions" CPPFLAGS=""
++ifdef HAVE_IOS
++EBML_EXTRA_FLAGS += " -fvisibility=hidden"
++endif
+ 
+ .ebml: libebml
+ ifdef HAVE_WIN32
+diff --git a/contrib/src/matroska/rules.mak b/contrib/src/matroska/rules.mak
+index 62ecf0d..cfd6a2e 100644
+--- a/contrib/src/matroska/rules.mak
++++ b/contrib/src/matroska/rules.mak
+@@ -18,11 +18,15 @@ libmatroska: libmatroska-$(MATROSKA_VERSION).tar.bz2 .sum-matroska
+ 	$(APPLY) $(SRC)/matroska/no-ansi.patch
+ 	$(MOVE)
+ 
++ifdef HAVE_IOS
++MATROSKA_EXTRA_FLAGS = CXXFLAGS="${CXXFLAGS} -fvisibility=hidden"
++endif
++
+ .matroska: libmatroska
+ ifdef HAVE_WIN32
+ 	cd $< && $(MAKE) -C make/mingw32 prefix="$(PREFIX)" $(HOSTVARS) SHARED=no EBML_DLL=no libmatroska.a
+ else
+-	cd $< && $(MAKE) -C make/linux prefix="$(PREFIX)" $(HOSTVARS) staticlib
++	cd $< && $(MAKE) -C make/linux prefix="$(PREFIX)" $(HOSTVARS) $(MATROSKA_EXTRA_FLAGS) staticlib
+ endif
+ 	cd $< && $(MAKE) -C make/linux install_staticlib install_headers prefix="$(PREFIX)" $(HOSTVARS)
+ 	$(RANLIB) "$(PREFIX)/lib/libmatroska.a"
+-- 
+1.7.12.4 (Apple Git-37)
+

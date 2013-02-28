@@ -1,0 +1,48 @@
+From 55bf6943338a9d6c9e7bf9e381ee18eea3b8566a Mon Sep 17 00:00:00 2001
+From: =?UTF-8?q?Felix=20Paul=20K=C3=BChne?= <fkuehne@videolan.org>
+Date: Wed, 26 Sep 2012 19:23:24 +0200
+Subject: [PATCH 07/10] vout_ios: respond to HUD visiblity changes by adapting
+ the layout accordingly
+
+---
+ modules/video_output/ios.m | 11 +++++++++++
+ 1 file changed, 11 insertions(+)
+
+diff --git a/modules/video_output/ios.m b/modules/video_output/ios.m
+index b513911..53c8216 100644
+--- a/modules/video_output/ios.m
++++ b/modules/video_output/ios.m
+@@ -344,12 +344,15 @@ static void OpenglSwap(vlc_gl_t *gl)
+         _framebufferDirty = NO;
+ 
+         [self setAutoresizingMask:UIViewAutoresizingFlexibleWidth | UIViewAutoresizingFlexibleHeight];
++
++        [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(toggleHUDmode:) name:@"VLCHUDModeChanged" object:nil];
+     }
+     return self;
+ }
+ 
+ - (void) dealloc
+ {
++    [[NSNotificationCenter defaultCenter] removeObserver:self];
+     [_context release];
+     [super dealloc];
+ }
+@@ -365,6 +368,14 @@ static void OpenglSwap(vlc_gl_t *gl)
+     }
+ }
+ 
++/**
++ * gets called when the status bar resizes
++ */
++- (void)toggleHUDmode:(NSNotification *)aNotification
++{
++    [self layoutSubviews];
++}
++
+ 
+ /**
+  * Method called by UIKit when we have been resized
+-- 
+1.7.12.4 (Apple Git-37)
+

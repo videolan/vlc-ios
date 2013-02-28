@@ -1,0 +1,68 @@
+From ddc3391e6423dbad343595f367ba0da6a5c641eb Mon Sep 17 00:00:00 2001
+From: =?UTF-8?q?Felix=20Paul=20K=C3=BChne?= <fkuehne@videolan.org>
+Date: Wed, 27 Feb 2013 20:58:35 +0100
+Subject: [PATCH 10/10] extras/.../ios: compilation fix
+
+---
+ configure.ac                | 7 +++----
+ extras/package/ios/build.sh | 2 +-
+ modules/access/Modules.am   | 2 +-
+ 3 files changed, 5 insertions(+), 6 deletions(-)
+
+diff --git a/configure.ac b/configure.ac
+index b36390e..0b76b1e 100644
+--- a/configure.ac
++++ b/configure.ac
+@@ -1885,13 +1885,12 @@ AC_ARG_ENABLE(screen,
+     [disable screen capture (default enabled)])])
+ if test "${enable_screen}" != "no"; then
+   if test "${SYS}" = "darwin"; then
+-    AC_CHECK_HEADERS(OpenGL/gl.h, [
+-      AC_CHECK_HEADERS(ApplicationServices/ApplicationServices.h, [
+-        VLC_ADD_PLUGIN([screen])
+-      ])
++    AC_CHECK_HEADERS(ApplicationServices/ApplicationServices.h, [
++      VLC_ADD_PLUGIN([screen])
+     ])
+   fi
+ fi
++AM_CONDITIONAL(HAVE_MAC_SCREEN, [test "${SYS}" = "darwin" -a "x${enable_screen}" != "xno"])
+ 
+ dnl
+ dnl  Real RTSP plugin
+diff --git a/extras/package/ios/build.sh b/extras/package/ios/build.sh
+index d666ec6..0d4d7c7 100755
+--- a/extras/package/ios/build.sh
++++ b/extras/package/ios/build.sh
+@@ -199,7 +199,6 @@ fi
+     --disable-caca \
+     --disable-gettext \
+     --disable-mpcdec \
+-    --disable-screen \
+     --disable-upnp \
+     --disable-gme \
+     --disable-tremor \
+@@ -320,6 +319,7 @@ ${VLCROOT}/configure \
+     --enable-speex \
+     --enable-theora \
+     --enable-flac \
++    --disable-screen \
+     --disable-freetype \
+     --disable-taglib \
+     --disable-mmx > ${out} # MMX and SSE support requires llvm which is broken on Simulator
+diff --git a/modules/access/Modules.am b/modules/access/Modules.am
+index d4bfa25..bc9cfae 100644
+--- a/modules/access/Modules.am
++++ b/modules/access/Modules.am
+@@ -180,7 +180,7 @@ libscreen_plugin_la_SOURCES += screen/win32.c
+ libscreen_plugin_la_LIBADD += -lgdi32
+ libvlc_LTLIBRARIES += libscreen_plugin.la
+ endif
+-if HAVE_DARWIN
++if HAVE_MAC_SCREEN
+ libscreen_plugin_la_SOURCES += screen/mac.c
+ libscreen_plugin_la_LDFLAGS = $(AM_LDFLAGS)
+ libscreen_plugin_la_LDFLAGS += "-Wl,-framework,OpenGL,-framework,ApplicationServices"
+-- 
+1.7.12.4 (Apple Git-37)
+
