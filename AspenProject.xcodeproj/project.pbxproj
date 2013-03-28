@@ -17,11 +17,11 @@
 		7D94FCF316DE7D1000F2623B /* Default@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 7D94FCF216DE7D1000F2623B /* Default@2x.png */; };
 		7D94FCF516DE7D1100F2623B /* Default-568h@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 7D94FCF416DE7D1100F2623B /* Default-568h@2x.png */; };
 		7D94FCF816DE7D1100F2623B /* VLCPlaylistViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 7D94FCF716DE7D1100F2623B /* VLCPlaylistViewController.m */; };
-		7D94FCFB16DE7D1100F2623B /* VLCDetailViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 7D94FCFA16DE7D1100F2623B /* VLCDetailViewController.m */; };
+		7D94FCFB16DE7D1100F2623B /* VLCMovieViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 7D94FCFA16DE7D1100F2623B /* VLCMovieViewController.m */; };
 		7D94FCFE16DE7D1100F2623B /* VLCPlaylistViewController_iPhone.xib in Resources */ = {isa = PBXBuildFile; fileRef = 7D94FCFC16DE7D1100F2623B /* VLCPlaylistViewController_iPhone.xib */; };
 		7D94FD0116DE7D1100F2623B /* VLCPlaylistViewController_iPad.xib in Resources */ = {isa = PBXBuildFile; fileRef = 7D94FCFF16DE7D1100F2623B /* VLCPlaylistViewController_iPad.xib */; };
-		7D94FD0416DE7D1100F2623B /* VLCDetailViewController_iPhone.xib in Resources */ = {isa = PBXBuildFile; fileRef = 7D94FD0216DE7D1100F2623B /* VLCDetailViewController_iPhone.xib */; };
-		7D94FD0716DE7D1100F2623B /* VLCDetailViewController_iPad.xib in Resources */ = {isa = PBXBuildFile; fileRef = 7D94FD0516DE7D1100F2623B /* VLCDetailViewController_iPad.xib */; };
+		7D94FD0416DE7D1100F2623B /* VLCMovieViewController_iPhone.xib in Resources */ = {isa = PBXBuildFile; fileRef = 7D94FD0216DE7D1100F2623B /* VLCMovieViewController_iPhone.xib */; };
+		7D94FD0716DE7D1100F2623B /* VLCMovieViewController_iPad.xib in Resources */ = {isa = PBXBuildFile; fileRef = 7D94FD0516DE7D1100F2623B /* VLCMovieViewController_iPad.xib */; };
 		CC1BBC3F1704934300A20CBF /* libMobileVLCKit.a in Frameworks */ = {isa = PBXBuildFile; fileRef = CC1BBC3E1704934200A20CBF /* libMobileVLCKit.a */; };
 		CC1BBC411704934D00A20CBF /* libMobileMediaLibraryKit.a in Frameworks */ = {isa = PBXBuildFile; fileRef = CC1BBC401704934C00A20CBF /* libMobileMediaLibraryKit.a */; };
 		CC1BBC431704935E00A20CBF /* MediaLibrary.mom in Resources */ = {isa = PBXBuildFile; fileRef = CC1BBC421704935E00A20CBF /* MediaLibrary.mom */; };
@@ -53,12 +53,12 @@
 		7D94FCF416DE7D1100F2623B /* Default-568h@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "Default-568h@2x.png"; sourceTree = "<group>"; };
 		7D94FCF616DE7D1100F2623B /* VLCPlaylistViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = VLCPlaylistViewController.h; sourceTree = "<group>"; };
 		7D94FCF716DE7D1100F2623B /* VLCPlaylistViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = VLCPlaylistViewController.m; sourceTree = "<group>"; };
-		7D94FCF916DE7D1100F2623B /* VLCDetailViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = VLCDetailViewController.h; sourceTree = "<group>"; };
-		7D94FCFA16DE7D1100F2623B /* VLCDetailViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = VLCDetailViewController.m; sourceTree = "<group>"; };
+		7D94FCF916DE7D1100F2623B /* VLCMovieViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = VLCMovieViewController.h; sourceTree = "<group>"; };
+		7D94FCFA16DE7D1100F2623B /* VLCMovieViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = VLCMovieViewController.m; sourceTree = "<group>"; };
 		7D94FCFD16DE7D1100F2623B /* en */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = en; path = en.lproj/VLCPlaylistViewController_iPhone.xib; sourceTree = "<group>"; };
 		7D94FD0016DE7D1100F2623B /* en */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = en; path = en.lproj/VLCPlaylistViewController_iPad.xib; sourceTree = "<group>"; };
-		7D94FD0316DE7D1100F2623B /* en */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = en; path = en.lproj/VLCDetailViewController_iPhone.xib; sourceTree = "<group>"; };
-		7D94FD0616DE7D1100F2623B /* en */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = en; path = en.lproj/VLCDetailViewController_iPad.xib; sourceTree = "<group>"; };
+		7D94FD0316DE7D1100F2623B /* en */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = en; path = en.lproj/VLCMovieViewController_iPhone.xib; sourceTree = "<group>"; };
+		7D94FD0616DE7D1100F2623B /* en */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = en; path = en.lproj/VLCMovieViewController_iPad.xib; sourceTree = "<group>"; };
 		CC1BBC3E1704934200A20CBF /* libMobileVLCKit.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; name = libMobileVLCKit.a; path = "ImportedSources/VLCKit/build/Release-iphonesimulator/libMobileVLCKit.a"; sourceTree = "<group>"; };
 		CC1BBC401704934C00A20CBF /* libMobileMediaLibraryKit.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; name = libMobileMediaLibraryKit.a; path = "ImportedSources/MediaLibraryKit/build/Release-iphonesimulator/libMobileMediaLibraryKit.a"; sourceTree = "<group>"; };
 		CC1BBC421704935E00A20CBF /* MediaLibrary.mom */ = {isa = PBXFileReference; lastKnownFileType = file.bplist; name = MediaLibrary.mom; path = "ImportedSources/MediaLibraryKit/build/Release-iphonesimulator/MediaLibrary.mom"; sourceTree = "<group>"; };
@@ -145,12 +145,12 @@
 				7D94FCEE16DE7D1000F2623B /* VLCAppDelegate.m */,
 				7D94FCF616DE7D1100F2623B /* VLCPlaylistViewController.h */,
 				7D94FCF716DE7D1100F2623B /* VLCPlaylistViewController.m */,
-				7D94FCF916DE7D1100F2623B /* VLCDetailViewController.h */,
-				7D94FCFA16DE7D1100F2623B /* VLCDetailViewController.m */,
+				7D94FCF916DE7D1100F2623B /* VLCMovieViewController.h */,
+				7D94FCFA16DE7D1100F2623B /* VLCMovieViewController.m */,
 				7D94FCFC16DE7D1100F2623B /* VLCPlaylistViewController_iPhone.xib */,
 				7D94FCFF16DE7D1100F2623B /* VLCPlaylistViewController_iPad.xib */,
-				7D94FD0216DE7D1100F2623B /* VLCDetailViewController_iPhone.xib */,
-				7D94FD0516DE7D1100F2623B /* VLCDetailViewController_iPad.xib */,
+				7D94FD0216DE7D1100F2623B /* VLCMovieViewController_iPhone.xib */,
+				7D94FD0516DE7D1100F2623B /* VLCMovieViewController_iPad.xib */,
 				7D94FCE516DE7D1000F2623B /* Supporting Files */,
 			);
 			path = AspenProject;
@@ -239,8 +239,8 @@
 				7D94FCF516DE7D1100F2623B /* Default-568h@2x.png in Resources */,
 				7D94FCFE16DE7D1100F2623B /* VLCPlaylistViewController_iPhone.xib in Resources */,
 				7D94FD0116DE7D1100F2623B /* VLCPlaylistViewController_iPad.xib in Resources */,
-				7D94FD0416DE7D1100F2623B /* VLCDetailViewController_iPhone.xib in Resources */,
-				7D94FD0716DE7D1100F2623B /* VLCDetailViewController_iPad.xib in Resources */,
+				7D94FD0416DE7D1100F2623B /* VLCMovieViewController_iPhone.xib in Resources */,
+				7D94FD0716DE7D1100F2623B /* VLCMovieViewController_iPad.xib in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -254,7 +254,7 @@
 				7D94FCEB16DE7D1000F2623B /* main.m in Sources */,
 				7D94FCEF16DE7D1000F2623B /* VLCAppDelegate.m in Sources */,
 				7D94FCF816DE7D1100F2623B /* VLCPlaylistViewController.m in Sources */,
-				7D94FCFB16DE7D1100F2623B /* VLCDetailViewController.m in Sources */,
+				7D94FCFB16DE7D1100F2623B /* VLCMovieViewController.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -285,20 +285,20 @@
 			name = VLCPlaylistViewController_iPad.xib;
 			sourceTree = "<group>";
 		};
-		7D94FD0216DE7D1100F2623B /* VLCDetailViewController_iPhone.xib */ = {
+		7D94FD0216DE7D1100F2623B /* VLCMovieViewController_iPhone.xib */ = {
 			isa = PBXVariantGroup;
 			children = (
 				7D94FD0316DE7D1100F2623B /* en */,
 			);
-			name = VLCDetailViewController_iPhone.xib;
+			name = VLCMovieViewController_iPhone.xib;
 			sourceTree = "<group>";
 		};
-		7D94FD0516DE7D1100F2623B /* VLCDetailViewController_iPad.xib */ = {
+		7D94FD0516DE7D1100F2623B /* VLCMovieViewController_iPad.xib */ = {
 			isa = PBXVariantGroup;
 			children = (
 				7D94FD0616DE7D1100F2623B /* en */,
 			);
-			name = VLCDetailViewController_iPad.xib;
+			name = VLCMovieViewController_iPad.xib;
 			sourceTree = "<group>";
 		};
 /* End PBXVariantGroup section */

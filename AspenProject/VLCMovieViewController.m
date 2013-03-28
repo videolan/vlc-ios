@@ -1,35 +1,35 @@
 //
-//  VLCDetailViewController.m
+//  VLCMovieViewController.m
 //  AspenProject
 //
 //  Created by Felix Paul Kühne on 27.02.13.
 //  Copyright (c) 2013 VideoLAN. All rights reserved.
 //
 
-#import "VLCDetailViewController.h"
+#import "VLCMovieViewController.h"
 
-@interface VLCDetailViewController ()
+@interface VLCMovieViewController ()
 @property (strong, nonatomic) UIPopoverController *masterPopoverController;
 - (void)configureView;
 @end
 
-@implementation VLCDetailViewController
+@implementation VLCMovieViewController
 
 - (void)dealloc
 {
-    [_detailItem release];
+    [_mediaItem release];
     [_detailDescriptionLabel release];
     [_masterPopoverController release];
     [super dealloc];
 }
 
-#pragma mark - Managing the detail item
+#pragma mark - Managing the media item
 
-- (void)setDetailItem:(id)newDetailItem
+- (void)setMediaItem:(id)newMediaItem
 {
-    if (_detailItem != newDetailItem) {
-        [_detailItem release];
-        _detailItem = [newDetailItem retain];
+    if (_mediaItem != newMediaItem) {
+        [_mediaItem release];
+        _mediaItem = [newMediaItem retain];
 
         // Update the view.
         [self configureView];
@@ -42,17 +42,18 @@
 
 - (void)configureView
 {
-    // Update the user interface for the detail item.
+    // Update the user interface for the media item.
 
-    if (self.detailItem) {
-        self.detailDescriptionLabel.text = [self.detailItem description];
+    if (self.mediaItem) {
+        self.detailDescriptionLabel.text = [self.mediaItem title];
+        self.title = [self.mediaItem title];
     }
 }
 
 - (void)viewDidLoad
 {
     [super viewDidLoad];
-	// Do any additional setup after loading the view, typically from a nib.
+    // Do any additional setup after loading the view, typically from a nib.
     [self configureView];
 }
 
@@ -66,7 +67,7 @@
 {
     self = [super initWithNibName:nibNameOrNil bundle:nibBundleOrNil];
     if (self) {
-        self.title = NSLocalizedString(@"Detail", @"Detail");
+        self.title = @"Video Playback";
     }
     return self;
 }

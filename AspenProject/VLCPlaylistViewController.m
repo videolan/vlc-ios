@@ -11,7 +11,7 @@
 
 #import "VLCPlaylistViewController.h"
 
-#import "VLCDetailViewController.h"
+#import "VLCMovieViewController.h"
 
 @interface VLCPlaylistViewController () {
     NSMutableArray *_foundMedia;
@@ -35,7 +35,7 @@
 
 - (void)dealloc
 {
-    [_detailViewController release];
+    [_movieViewController release];
     [_foundMedia release];
     [super dealloc];
 }
@@ -80,7 +80,6 @@
 
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section
 {
-    APLog(@"found %u media", _foundMedia.count);
     return _foundMedia.count;
 }
 
@@ -99,7 +98,6 @@
 
     MLFile *object = _foundMedia[indexPath.row];
     cell.textLabel.text = object.title;
-    APLog(@"returning cell with title %@", object.title);
     return cell;
 }
 
@@ -137,16 +135,15 @@
 
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
 {
-    MLFile *object = _foundMedia[indexPath.row];
+    MLFile *mediaObject = _foundMedia[indexPath.row];
     if ([[UIDevice currentDevice] userInterfaceIdiom] == UIUserInterfaceIdiomPhone) {
-	    if (!self.detailViewController) {
-	        self.detailViewController = [[[VLCDetailViewController alloc] initWithNibName:@"VLCDetailViewController_iPhone" bundle:nil] autorelease];
-	    }
-	    self.detailViewController.detailItem = object;
-        [self.navigationController pushViewController:self.detailViewController animated:YES];
-    } else {
-        self.detailViewController.detailItem = object;
-    }
+        if (!self.movieViewController) {
+            self.movieViewController = [[[VLCMovieViewController alloc] initWithNibName:@"VLCMovieViewController_iPhone" bundle:nil] autorelease];
+        }
+        self.movieViewController.mediaItem = mediaObject;
+        [self.navigationController pushViewController:self.movieViewController animated:YES];
+    } else
+        self.movieViewController.mediaItem = mediaObject;
 }
 
 #pragma mark - UI implementation

@@ -7,10 +7,11 @@
 //
 
 #import <UIKit/UIKit.h>
+#import <MediaLibraryKit/MLFile.h>
 
-@interface VLCDetailViewController : UIViewController <UISplitViewControllerDelegate>
+@interface VLCMovieViewController : UIViewController <UISplitViewControllerDelegate>
 
-@property (strong, nonatomic) id detailItem;
+@property (strong, nonatomic) MLFile *mediaItem;
 
 @property (strong, nonatomic) IBOutlet UILabel *detailDescriptionLabel;
 

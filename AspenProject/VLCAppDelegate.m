@@ -12,7 +12,7 @@
 
 #import "VLCPlaylistViewController.h"
 
-#import "VLCDetailViewController.h"
+#import "VLCMovieViewController.h"
 
 @implementation VLCAppDelegate
 
@@ -37,14 +37,14 @@
         _playlistViewController = [[VLCPlaylistViewController alloc] initWithNibName:@"VLCPlaylistViewController_iPad" bundle:nil];
         UINavigationController *masterNavigationController = [[[UINavigationController alloc] initWithRootViewController:_playlistViewController] autorelease];
 
-        VLCDetailViewController *detailViewController = [[[VLCDetailViewController alloc] initWithNibName:@"VLCDetailViewController_iPad" bundle:nil] autorelease];
-        UINavigationController *detailNavigationController = [[[UINavigationController alloc] initWithRootViewController:detailViewController] autorelease];
+        VLCMovieViewController *movieViewController = [[[VLCMovieViewController alloc] initWithNibName:@"VLCMovieViewController_iPad" bundle:nil] autorelease];
+        UINavigationController *movieNavigationController = [[[UINavigationController alloc] initWithRootViewController:movieViewController] autorelease];
 
-    	_playlistViewController.detailViewController = detailViewController;
+        _playlistViewController.movieViewController = movieViewController;
 
         self.splitViewController = [[[UISplitViewController alloc] init] autorelease];
-        self.splitViewController.delegate = detailViewController;
-        self.splitViewController.viewControllers = @[masterNavigationController, detailNavigationController];
+        self.splitViewController.delegate = movieViewController;
+        self.splitViewController.viewControllers = @[masterNavigationController, movieNavigationController];
 
         self.window.rootViewController = self.splitViewController;
     }

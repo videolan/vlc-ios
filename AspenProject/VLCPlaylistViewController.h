@@ -8,11 +8,11 @@
 
 #import <UIKit/UIKit.h>
 
-@class VLCDetailViewController;
+@class VLCMovieViewController;
 
 @interface VLCPlaylistViewController : UITableViewController
 
-@property (strong, nonatomic) VLCDetailViewController *detailViewController;
+@property (strong, nonatomic) VLCMovieViewController *movieViewController;
 
 - (void)updateViewContents;
 
