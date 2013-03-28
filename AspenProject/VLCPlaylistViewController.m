@@ -62,8 +62,8 @@
 
 - (void)updateMediaDatabase
 {
-    [[MLMediaLibrary sharedMediaLibrary] updateDatabase];
-    
+    [[MLMediaLibrary sharedMediaLibrary] updateMediaDatabase];
+
     if (_foundMedia)
         [_foundMedia release];
 
