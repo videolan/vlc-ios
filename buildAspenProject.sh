@@ -122,7 +122,7 @@ fi
 cd ..
 fi
 if ! [ -e MediaLibraryKit ]; then
-git clone git://git.videolan.org/MediaLibraryKit.git
+git clone -b Aspen --single-branch git://git.videolan.org/MediaLibraryKit.git
 fi
 if ! [ -e VLCKit ]; then
 git clone git://git.videolan.org/vlc-bindings/VLCKit.git
@@ -158,11 +158,6 @@ else
 fi
 framework_build="${aspen_root_dir}/ImportedSources/VLCKit/${xcbuilddir}"
 mlkit_build="${aspen_root_dir}/ImportedSources/MediaLibraryKit/${xcbuilddir}"
-
-spushd MediaLibraryKit
-rm -f External/MobileVLCKit
-ln -sf ${framework_build} External/MobileVLCKit
-spopd
 
 spopd #ImportedSources
 
