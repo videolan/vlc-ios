@@ -159,6 +159,11 @@ fi
 framework_build="${aspen_root_dir}/ImportedSources/VLCKit/${xcbuilddir}"
 mlkit_build="${aspen_root_dir}/ImportedSources/MediaLibraryKit/${xcbuilddir}"
 
+spushd MediaLibraryKit
+rm -f External/MobileVLCKit
+ln -sf ${framework_build} External/MobileVLCKit
+spopd
+
 spopd #ImportedSources
 
 rm -f External/MobileVLCKit
