@@ -14,6 +14,6 @@
 
 @property (strong, nonatomic) VLCDetailViewController *detailViewController;
 
-- (void)updateMediaDatabase;
+- (void)updateViewContents;
 
 @end

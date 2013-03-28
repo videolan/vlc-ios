@@ -95,7 +95,7 @@
         }
     }
     [[MLMediaLibrary sharedMediaLibrary] addFilePaths:filePaths];
-    [_playlistViewController updateMediaDatabase];
+    [_playlistViewController updateViewContents];
 }
 
 @end

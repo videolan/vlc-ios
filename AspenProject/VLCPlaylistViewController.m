@@ -49,7 +49,8 @@
 
     self.navigationItem.rightBarButtonItem = self.editButtonItem;
 
-    [self updateMediaDatabase];
+    [self updateViewContents];
+    [[MLMediaLibrary sharedMediaLibrary] libraryDidAppear];
 }
 
 - (void)didReceiveMemoryWarning
@@ -60,7 +61,7 @@
 
 #pragma mark - Table View
 
-- (void)updateMediaDatabase
+- (void)updateViewContents
 {
     [[MLMediaLibrary sharedMediaLibrary] updateMediaDatabase];
 
@@ -68,6 +69,8 @@
         [_foundMedia release];
 
     _foundMedia = [[NSMutableArray arrayWithArray:[MLFile allFiles]] retain];
+
+    [self.tableView reloadData];
 }
 
 - (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView
@@ -77,6 +80,7 @@
 
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section
 {
+    NSLog(@"found %u media", _foundMedia.count);
     return _foundMedia.count;
 }
 
@@ -96,6 +100,7 @@
 
     MLFile *object = _foundMedia[indexPath.row];
     cell.textLabel.text = object.title;
+    NSLog(@"returning cell with title %@", object.title);
     return cell;
 }
 
@@ -143,6 +148,12 @@
     } else {
         self.detailViewController.detailItem = object;
     }
+}
+
+#pragma mark - UI implementation
+- (void)showAboutView:(id)sender
+{
+    NSLog(@"asked to show the about view");
 }
 
 @end
