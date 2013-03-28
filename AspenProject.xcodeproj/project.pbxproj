@@ -16,12 +16,25 @@
 		7D94FCF116DE7D1000F2623B /* Default.png in Resources */ = {isa = PBXBuildFile; fileRef = 7D94FCF016DE7D1000F2623B /* Default.png */; };
 		7D94FCF316DE7D1000F2623B /* Default@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 7D94FCF216DE7D1000F2623B /* Default@2x.png */; };
 		7D94FCF516DE7D1100F2623B /* Default-568h@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 7D94FCF416DE7D1100F2623B /* Default-568h@2x.png */; };
-		7D94FCF816DE7D1100F2623B /* VLCMasterViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 7D94FCF716DE7D1100F2623B /* VLCMasterViewController.m */; };
+		7D94FCF816DE7D1100F2623B /* VLCPlaylistViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 7D94FCF716DE7D1100F2623B /* VLCPlaylistViewController.m */; };
 		7D94FCFB16DE7D1100F2623B /* VLCDetailViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 7D94FCFA16DE7D1100F2623B /* VLCDetailViewController.m */; };
-		7D94FCFE16DE7D1100F2623B /* VLCMasterViewController_iPhone.xib in Resources */ = {isa = PBXBuildFile; fileRef = 7D94FCFC16DE7D1100F2623B /* VLCMasterViewController_iPhone.xib */; };
-		7D94FD0116DE7D1100F2623B /* VLCMasterViewController_iPad.xib in Resources */ = {isa = PBXBuildFile; fileRef = 7D94FCFF16DE7D1100F2623B /* VLCMasterViewController_iPad.xib */; };
+		7D94FCFE16DE7D1100F2623B /* VLCPlaylistViewController_iPhone.xib in Resources */ = {isa = PBXBuildFile; fileRef = 7D94FCFC16DE7D1100F2623B /* VLCPlaylistViewController_iPhone.xib */; };
+		7D94FD0116DE7D1100F2623B /* VLCPlaylistViewController_iPad.xib in Resources */ = {isa = PBXBuildFile; fileRef = 7D94FCFF16DE7D1100F2623B /* VLCPlaylistViewController_iPad.xib */; };
 		7D94FD0416DE7D1100F2623B /* VLCDetailViewController_iPhone.xib in Resources */ = {isa = PBXBuildFile; fileRef = 7D94FD0216DE7D1100F2623B /* VLCDetailViewController_iPhone.xib */; };
 		7D94FD0716DE7D1100F2623B /* VLCDetailViewController_iPad.xib in Resources */ = {isa = PBXBuildFile; fileRef = 7D94FD0516DE7D1100F2623B /* VLCDetailViewController_iPad.xib */; };
+		CC1BBC3F1704934300A20CBF /* libMobileVLCKit.a in Frameworks */ = {isa = PBXBuildFile; fileRef = CC1BBC3E1704934200A20CBF /* libMobileVLCKit.a */; };
+		CC1BBC411704934D00A20CBF /* libMobileMediaLibraryKit.a in Frameworks */ = {isa = PBXBuildFile; fileRef = CC1BBC401704934C00A20CBF /* libMobileMediaLibraryKit.a */; };
+		CC1BBC431704935E00A20CBF /* MediaLibrary.mom in Resources */ = {isa = PBXBuildFile; fileRef = CC1BBC421704935E00A20CBF /* MediaLibrary.mom */; };
+		CC1BBC461704938300A20CBF /* libiconv.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = CC1BBC451704938300A20CBF /* libiconv.dylib */; };
+		CC1BBC481704938B00A20CBF /* libstdc++.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = CC1BBC471704938B00A20CBF /* libstdc++.dylib */; };
+		CC1BBC4A1704939300A20CBF /* libz.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = CC1BBC491704939300A20CBF /* libz.dylib */; };
+		CC1BBC4C1704939B00A20CBF /* libsqlite3.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = CC1BBC4B1704939B00A20CBF /* libsqlite3.dylib */; };
+		CC1BBC4E170493A300A20CBF /* libbz2.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = CC1BBC4D170493A300A20CBF /* libbz2.dylib */; };
+		CC1BBC50170493AA00A20CBF /* libxml2.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = CC1BBC4F170493AA00A20CBF /* libxml2.dylib */; };
+		CC1BBC52170493B100A20CBF /* OpenGLES.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = CC1BBC51170493B100A20CBF /* OpenGLES.framework */; };
+		CC1BBC54170493B800A20CBF /* AudioToolbox.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = CC1BBC53170493B800A20CBF /* AudioToolbox.framework */; };
+		CC1BBC56170493C100A20CBF /* QuartzCore.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = CC1BBC55170493C100A20CBF /* QuartzCore.framework */; };
+		CC1BBC58170493E100A20CBF /* CoreData.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = CC1BBC57170493E100A20CBF /* CoreData.framework */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -38,14 +51,27 @@
 		7D94FCF016DE7D1000F2623B /* Default.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = Default.png; sourceTree = "<group>"; };
 		7D94FCF216DE7D1000F2623B /* Default@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "Default@2x.png"; sourceTree = "<group>"; };
 		7D94FCF416DE7D1100F2623B /* Default-568h@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "Default-568h@2x.png"; sourceTree = "<group>"; };
-		7D94FCF616DE7D1100F2623B /* VLCMasterViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = VLCMasterViewController.h; sourceTree = "<group>"; };
-		7D94FCF716DE7D1100F2623B /* VLCMasterViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = VLCMasterViewController.m; sourceTree = "<group>"; };
+		7D94FCF616DE7D1100F2623B /* VLCPlaylistViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = VLCPlaylistViewController.h; sourceTree = "<group>"; };
+		7D94FCF716DE7D1100F2623B /* VLCPlaylistViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = VLCPlaylistViewController.m; sourceTree = "<group>"; };
 		7D94FCF916DE7D1100F2623B /* VLCDetailViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = VLCDetailViewController.h; sourceTree = "<group>"; };
 		7D94FCFA16DE7D1100F2623B /* VLCDetailViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = VLCDetailViewController.m; sourceTree = "<group>"; };
-		7D94FCFD16DE7D1100F2623B /* en */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = en; path = en.lproj/VLCMasterViewController_iPhone.xib; sourceTree = "<group>"; };
-		7D94FD0016DE7D1100F2623B /* en */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = en; path = en.lproj/VLCMasterViewController_iPad.xib; sourceTree = "<group>"; };
+		7D94FCFD16DE7D1100F2623B /* en */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = en; path = en.lproj/VLCPlaylistViewController_iPhone.xib; sourceTree = "<group>"; };
+		7D94FD0016DE7D1100F2623B /* en */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = en; path = en.lproj/VLCPlaylistViewController_iPad.xib; sourceTree = "<group>"; };
 		7D94FD0316DE7D1100F2623B /* en */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = en; path = en.lproj/VLCDetailViewController_iPhone.xib; sourceTree = "<group>"; };
 		7D94FD0616DE7D1100F2623B /* en */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = en; path = en.lproj/VLCDetailViewController_iPad.xib; sourceTree = "<group>"; };
+		CC1BBC3E1704934200A20CBF /* libMobileVLCKit.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; name = libMobileVLCKit.a; path = "ImportedSources/VLCKit/build/Release-iphonesimulator/libMobileVLCKit.a"; sourceTree = "<group>"; };
+		CC1BBC401704934C00A20CBF /* libMobileMediaLibraryKit.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; name = libMobileMediaLibraryKit.a; path = "ImportedSources/MediaLibraryKit/build/Release-iphonesimulator/libMobileMediaLibraryKit.a"; sourceTree = "<group>"; };
+		CC1BBC421704935E00A20CBF /* MediaLibrary.mom */ = {isa = PBXFileReference; lastKnownFileType = file.bplist; name = MediaLibrary.mom; path = "ImportedSources/MediaLibraryKit/build/Release-iphonesimulator/MediaLibrary.mom"; sourceTree = "<group>"; };
+		CC1BBC451704938300A20CBF /* libiconv.dylib */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.dylib"; name = libiconv.dylib; path = usr/lib/libiconv.dylib; sourceTree = SDKROOT; };
+		CC1BBC471704938B00A20CBF /* libstdc++.dylib */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.dylib"; name = "libstdc++.dylib"; path = "usr/lib/libstdc++.dylib"; sourceTree = SDKROOT; };
+		CC1BBC491704939300A20CBF /* libz.dylib */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.dylib"; name = libz.dylib; path = usr/lib/libz.dylib; sourceTree = SDKROOT; };
+		CC1BBC4B1704939B00A20CBF /* libsqlite3.dylib */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.dylib"; name = libsqlite3.dylib; path = usr/lib/libsqlite3.dylib; sourceTree = SDKROOT; };
+		CC1BBC4D170493A300A20CBF /* libbz2.dylib */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.dylib"; name = libbz2.dylib; path = usr/lib/libbz2.dylib; sourceTree = SDKROOT; };
+		CC1BBC4F170493AA00A20CBF /* libxml2.dylib */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.dylib"; name = libxml2.dylib; path = usr/lib/libxml2.dylib; sourceTree = SDKROOT; };
+		CC1BBC51170493B100A20CBF /* OpenGLES.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = OpenGLES.framework; path = System/Library/Frameworks/OpenGLES.framework; sourceTree = SDKROOT; };
+		CC1BBC53170493B800A20CBF /* AudioToolbox.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AudioToolbox.framework; path = System/Library/Frameworks/AudioToolbox.framework; sourceTree = SDKROOT; };
+		CC1BBC55170493C100A20CBF /* QuartzCore.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = QuartzCore.framework; path = System/Library/Frameworks/QuartzCore.framework; sourceTree = SDKROOT; };
+		CC1BBC57170493E100A20CBF /* CoreData.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreData.framework; path = System/Library/Frameworks/CoreData.framework; sourceTree = SDKROOT; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -53,6 +79,18 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				CC1BBC58170493E100A20CBF /* CoreData.framework in Frameworks */,
+				CC1BBC56170493C100A20CBF /* QuartzCore.framework in Frameworks */,
+				CC1BBC54170493B800A20CBF /* AudioToolbox.framework in Frameworks */,
+				CC1BBC52170493B100A20CBF /* OpenGLES.framework in Frameworks */,
+				CC1BBC50170493AA00A20CBF /* libxml2.dylib in Frameworks */,
+				CC1BBC4E170493A300A20CBF /* libbz2.dylib in Frameworks */,
+				CC1BBC4C1704939B00A20CBF /* libsqlite3.dylib in Frameworks */,
+				CC1BBC4A1704939300A20CBF /* libz.dylib in Frameworks */,
+				CC1BBC481704938B00A20CBF /* libstdc++.dylib in Frameworks */,
+				CC1BBC461704938300A20CBF /* libiconv.dylib in Frameworks */,
+				CC1BBC411704934D00A20CBF /* libMobileMediaLibraryKit.a in Frameworks */,
+				CC1BBC3F1704934300A20CBF /* libMobileVLCKit.a in Frameworks */,
 				7D94FCDF16DE7D1000F2623B /* UIKit.framework in Frameworks */,
 				7D94FCE116DE7D1000F2623B /* Foundation.framework in Frameworks */,
 				7D94FCE316DE7D1000F2623B /* CoreGraphics.framework in Frameworks */,
@@ -66,6 +104,7 @@
 			isa = PBXGroup;
 			children = (
 				7D94FCE416DE7D1000F2623B /* AspenProject */,
+				CC1BBC441704936500A20CBF /* External VLC Libraries */,
 				7D94FCDD16DE7D1000F2623B /* Frameworks */,
 				7D94FCDC16DE7D1000F2623B /* Products */,
 			);
@@ -82,6 +121,16 @@
 		7D94FCDD16DE7D1000F2623B /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
+				CC1BBC57170493E100A20CBF /* CoreData.framework */,
+				CC1BBC55170493C100A20CBF /* QuartzCore.framework */,
+				CC1BBC53170493B800A20CBF /* AudioToolbox.framework */,
+				CC1BBC51170493B100A20CBF /* OpenGLES.framework */,
+				CC1BBC4F170493AA00A20CBF /* libxml2.dylib */,
+				CC1BBC4D170493A300A20CBF /* libbz2.dylib */,
+				CC1BBC4B1704939B00A20CBF /* libsqlite3.dylib */,
+				CC1BBC491704939300A20CBF /* libz.dylib */,
+				CC1BBC471704938B00A20CBF /* libstdc++.dylib */,
+				CC1BBC451704938300A20CBF /* libiconv.dylib */,
 				7D94FCDE16DE7D1000F2623B /* UIKit.framework */,
 				7D94FCE016DE7D1000F2623B /* Foundation.framework */,
 				7D94FCE216DE7D1000F2623B /* CoreGraphics.framework */,
@@ -94,12 +143,12 @@
 			children = (
 				7D94FCED16DE7D1000F2623B /* VLCAppDelegate.h */,
 				7D94FCEE16DE7D1000F2623B /* VLCAppDelegate.m */,
-				7D94FCF616DE7D1100F2623B /* VLCMasterViewController.h */,
-				7D94FCF716DE7D1100F2623B /* VLCMasterViewController.m */,
+				7D94FCF616DE7D1100F2623B /* VLCPlaylistViewController.h */,
+				7D94FCF716DE7D1100F2623B /* VLCPlaylistViewController.m */,
 				7D94FCF916DE7D1100F2623B /* VLCDetailViewController.h */,
 				7D94FCFA16DE7D1100F2623B /* VLCDetailViewController.m */,
-				7D94FCFC16DE7D1100F2623B /* VLCMasterViewController_iPhone.xib */,
-				7D94FCFF16DE7D1100F2623B /* VLCMasterViewController_iPad.xib */,
+				7D94FCFC16DE7D1100F2623B /* VLCPlaylistViewController_iPhone.xib */,
+				7D94FCFF16DE7D1100F2623B /* VLCPlaylistViewController_iPad.xib */,
 				7D94FD0216DE7D1100F2623B /* VLCDetailViewController_iPhone.xib */,
 				7D94FD0516DE7D1100F2623B /* VLCDetailViewController_iPad.xib */,
 				7D94FCE516DE7D1000F2623B /* Supporting Files */,
@@ -119,6 +168,16 @@
 				7D94FCF416DE7D1100F2623B /* Default-568h@2x.png */,
 			);
 			name = "Supporting Files";
+			sourceTree = "<group>";
+		};
+		CC1BBC441704936500A20CBF /* External VLC Libraries */ = {
+			isa = PBXGroup;
+			children = (
+				CC1BBC421704935E00A20CBF /* MediaLibrary.mom */,
+				CC1BBC401704934C00A20CBF /* libMobileMediaLibraryKit.a */,
+				CC1BBC3E1704934200A20CBF /* libMobileVLCKit.a */,
+			);
+			name = "External VLC Libraries";
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -173,12 +232,13 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				CC1BBC431704935E00A20CBF /* MediaLibrary.mom in Resources */,
 				7D94FCE916DE7D1000F2623B /* InfoPlist.strings in Resources */,
 				7D94FCF116DE7D1000F2623B /* Default.png in Resources */,
 				7D94FCF316DE7D1000F2623B /* Default@2x.png in Resources */,
 				7D94FCF516DE7D1100F2623B /* Default-568h@2x.png in Resources */,
-				7D94FCFE16DE7D1100F2623B /* VLCMasterViewController_iPhone.xib in Resources */,
-				7D94FD0116DE7D1100F2623B /* VLCMasterViewController_iPad.xib in Resources */,
+				7D94FCFE16DE7D1100F2623B /* VLCPlaylistViewController_iPhone.xib in Resources */,
+				7D94FD0116DE7D1100F2623B /* VLCPlaylistViewController_iPad.xib in Resources */,
 				7D94FD0416DE7D1100F2623B /* VLCDetailViewController_iPhone.xib in Resources */,
 				7D94FD0716DE7D1100F2623B /* VLCDetailViewController_iPad.xib in Resources */,
 			);
@@ -193,7 +253,7 @@
 			files = (
 				7D94FCEB16DE7D1000F2623B /* main.m in Sources */,
 				7D94FCEF16DE7D1000F2623B /* VLCAppDelegate.m in Sources */,
-				7D94FCF816DE7D1100F2623B /* VLCMasterViewController.m in Sources */,
+				7D94FCF816DE7D1100F2623B /* VLCPlaylistViewController.m in Sources */,
 				7D94FCFB16DE7D1100F2623B /* VLCDetailViewController.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -209,20 +269,20 @@
 			name = InfoPlist.strings;
 			sourceTree = "<group>";
 		};
-		7D94FCFC16DE7D1100F2623B /* VLCMasterViewController_iPhone.xib */ = {
+		7D94FCFC16DE7D1100F2623B /* VLCPlaylistViewController_iPhone.xib */ = {
 			isa = PBXVariantGroup;
 			children = (
 				7D94FCFD16DE7D1100F2623B /* en */,
 			);
-			name = VLCMasterViewController_iPhone.xib;
+			name = VLCPlaylistViewController_iPhone.xib;
 			sourceTree = "<group>";
 		};
-		7D94FCFF16DE7D1100F2623B /* VLCMasterViewController_iPad.xib */ = {
+		7D94FCFF16DE7D1100F2623B /* VLCPlaylistViewController_iPad.xib */ = {
 			isa = PBXVariantGroup;
 			children = (
 				7D94FD0016DE7D1100F2623B /* en */,
 			);
-			name = VLCMasterViewController_iPad.xib;
+			name = VLCPlaylistViewController_iPad.xib;
 			sourceTree = "<group>";
 		};
 		7D94FD0216DE7D1100F2623B /* VLCDetailViewController_iPhone.xib */ = {
@@ -303,9 +363,25 @@
 		7D94FD0B16DE7D1100F2623B /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
+				COPY_PHASE_STRIP = NO;
+				DEAD_CODE_STRIPPING = NO;
+				GCC_C_LANGUAGE_STANDARD = c99;
+				GCC_OPTIMIZATION_LEVEL = 3;
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "AspenProject/AspenProject-Prefix.pch";
+				HEADER_SEARCH_PATHS = (
+					"$(SRCROOT)/External/MobileVLCKit/include",
+					"$(SRCROOT)/External/MediaLibraryKit/include",
+				);
 				INFOPLIST_FILE = "AspenProject/AspenProject-Info.plist";
+				LIBRARY_SEARCH_PATHS = (
+					"$(inherited)",
+					"\"$(SRCROOT)/External/MediaLibraryKit\"",
+					"\"$(SRCROOT)/External/MobileVLCKit\"",
+					"\"$(SRCROOT)/ImportedSources/VLCKit/build/Release-iphonesimulator\"",
+					"\"$(SRCROOT)/ImportedSources/MediaLibraryKit/build/Release-iphonesimulator\"",
+				);
+				OTHER_LDFLAGS = "-Wl,-no_pie";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				WRAPPER_EXTENSION = app;
 			};
@@ -314,9 +390,25 @@
 		7D94FD0C16DE7D1100F2623B /* Release */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
+				COPY_PHASE_STRIP = NO;
+				DEAD_CODE_STRIPPING = NO;
+				GCC_C_LANGUAGE_STANDARD = c99;
+				GCC_OPTIMIZATION_LEVEL = 3;
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "AspenProject/AspenProject-Prefix.pch";
+				HEADER_SEARCH_PATHS = (
+					"$(SRCROOT)/External/MobileVLCKit/include",
+					"$(SRCROOT)/External/MediaLibraryKit/include",
+				);
 				INFOPLIST_FILE = "AspenProject/AspenProject-Info.plist";
+				LIBRARY_SEARCH_PATHS = (
+					"$(inherited)",
+					"\"$(SRCROOT)/External/MediaLibraryKit\"",
+					"\"$(SRCROOT)/External/MobileVLCKit\"",
+					"\"$(SRCROOT)/ImportedSources/VLCKit/build/Release-iphonesimulator\"",
+					"\"$(SRCROOT)/ImportedSources/MediaLibraryKit/build/Release-iphonesimulator\"",
+				);
+				OTHER_LDFLAGS = "-Wl,-no_pie";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				WRAPPER_EXTENSION = app;
 			};
@@ -341,6 +433,7 @@
 				7D94FD0C16DE7D1100F2623B /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
 	};
