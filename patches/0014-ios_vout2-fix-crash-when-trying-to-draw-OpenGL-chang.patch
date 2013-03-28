@@ -1,0 +1,100 @@
+From 5480de322f8f0c78c8a9da060c94a652e1d445a6 Mon Sep 17 00:00:00 2001
+From: =?UTF-8?q?Felix=20Paul=20K=C3=BChne?= <fkuehne@videolan.org>
+Date: Thu, 28 Mar 2013 12:34:46 +0100
+Subject: [PATCH 1/2] ios_vout2: fix crash when trying to draw OpenGL changes
+ while the app is in the background
+
+---
+ modules/video_output/ios2.m | 25 +++++++++++++++++++++----
+ 1 file changed, 21 insertions(+), 4 deletions(-)
+
+diff --git a/modules/video_output/ios2.m b/modules/video_output/ios2.m
+index a18f8f2..0774550 100644
+--- a/modules/video_output/ios2.m
++++ b/modules/video_output/ios2.m
+@@ -89,9 +89,11 @@ vlc_module_end ()
+     GLuint _frameBuffer;
+ 
+     BOOL _bufferNeedReset;
++    BOOL _appActive;
+ }
+ @property (readwrite) vout_display_t* voutDisplay;
+ @property (readonly) EAGLContext* eaglContext;
++@property (readonly) BOOL isAppActive;
+ 
+ - (void)createBuffers;
+ - (void)destroyBuffers;
+@@ -189,6 +191,8 @@ static int Open(vlc_object_t *this)
+     vd->control = Control;
+ 
+     /* */
++    [[NSNotificationCenter defaultCenter] addObserver:sys->glESView selector:@selector(applicationStateChanged:) name:UIApplicationWillResignActiveNotification object:nil];
++    [[NSNotificationCenter defaultCenter] addObserver:sys->glESView selector:@selector(applicationStateChanged:) name:UIApplicationDidBecomeActiveNotification object:nil];
+     [sys->glESView performSelectorOnMainThread:@selector(reshape) withObject:nil waitUntilDone:YES];
+ 
+     [autoreleasePool release];
+@@ -311,7 +315,8 @@ static void PictureDisplay(vout_display_t *vd, picture_t *pic, subpicture_t *sub
+ {
+     vout_display_sys_t *sys = vd->sys;
+     sys->has_first_frame = true;
+-    vout_display_opengl_Display(sys->vgl, &vd->source);
++    if ([sys->glESView isAppActive])
++        vout_display_opengl_Display(sys->vgl, &vd->source);
+ 
+     picture_Release(pic);
+ 
+@@ -324,7 +329,8 @@ static void PictureRender(vout_display_t *vd, picture_t *pic, subpicture_t *subp
+ 
+     vout_display_sys_t *sys = vd->sys;
+ 
+-    vout_display_opengl_Prepare(sys->vgl, pic, subpicture);
++    if ([sys->glESView isAppActive])
++        vout_display_opengl_Prepare(sys->vgl, pic, subpicture);
+ }
+ 
+ static picture_pool_t *PicturePool(vout_display_t *vd, unsigned requested_count)
+@@ -350,14 +356,15 @@ static int OpenglESClean(vlc_gl_t *gl)
+ static void OpenglESSwap(vlc_gl_t *gl)
+ {
+     vout_display_sys_t *sys = (vout_display_sys_t *)gl->sys;
+-    [[sys->glESView eaglContext] presentRenderbuffer:GL_RENDERBUFFER];
++    if ([sys->glESView isAppActive])
++        [[sys->glESView eaglContext] presentRenderbuffer:GL_RENDERBUFFER];
+ }
+ 
+ /*****************************************************************************
+  * Our UIView object
+  *****************************************************************************/
+ @implementation VLCOpenGLES2VideoView
+-@synthesize voutDisplay = _voutDisplay, eaglContext = _eaglContext;
++@synthesize voutDisplay = _voutDisplay, eaglContext = _eaglContext, isAppActive = _appActive;
+ 
+ + (Class)layerClass
+ {
+@@ -384,6 +391,8 @@ static void OpenglESSwap(vlc_gl_t *gl)
+     [self performSelectorOnMainThread:@selector(reshape) withObject:nil waitUntilDone:NO];
+     [self setAutoresizingMask: UIViewAutoresizingFlexibleWidth | UIViewAutoresizingFlexibleHeight];
+ 
++    _appActive = ([UIApplication sharedApplication].applicationState == UIApplicationStateActive);
++
+     return self;
+ }
+ 
+@@ -484,6 +493,14 @@ static void OpenglESSwap(vlc_gl_t *gl)
+     glViewport(place.x, place.y, place.width, place.height);
+ }
+ 
++- (void)applicationStateChanged:(NSNotification *)notification
++{
++    if ([[notification name] isEqualToString: UIApplicationWillResignActiveNotification])
++        _appActive = NO;
++    else
++        _appActive = YES;
++}
++
+ - (void)updateConstraints
+ {
+     [self reshape];
+-- 
+1.7.12.4 (Apple Git-37)
+
