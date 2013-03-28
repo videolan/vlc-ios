@@ -10,15 +10,14 @@
 
 @interface VLCMovieViewController ()
 @property (strong, nonatomic) UIPopoverController *masterPopoverController;
-- (void)configureView;
 @end
 
 @implementation VLCMovieViewController
+@synthesize movieView=_movieView;
 
 - (void)dealloc
 {
     [_mediaItem release];
-    [_detailDescriptionLabel release];
     [_masterPopoverController release];
     [super dealloc];
 }
@@ -30,9 +29,6 @@
     if (_mediaItem != newMediaItem) {
         [_mediaItem release];
         _mediaItem = [newMediaItem retain];
-
-        // Update the view.
-        [self configureView];
     }
 
     if (self.masterPopoverController != nil) {
@@ -40,21 +36,37 @@
     }
 }
 
-- (void)configureView
-{
-    // Update the user interface for the media item.
-
-    if (self.mediaItem) {
-        self.detailDescriptionLabel.text = [self.mediaItem title];
-        self.title = [self.mediaItem title];
-    }
-}
-
 - (void)viewDidLoad
 {
     [super viewDidLoad];
     // Do any additional setup after loading the view, typically from a nib.
-    [self configureView];
+
+    [super viewDidLoad];
+    _mediaPlayer = [[VLCMediaPlayer alloc] init];
+    [_mediaPlayer setDelegate:self];
+    [_mediaPlayer setDrawable:self.movieView];
+}
+
+- (void)viewWillAppear:(BOOL)animated
+{
+    [super viewWillAppear:animated];
+    if (self.mediaItem) {
+        self.title = [self.mediaItem title];
+
+        [_mediaPlayer setMedia:[VLCMedia mediaWithURL:[NSURL URLWithString:self.mediaItem.url]]];
+        if (self.mediaItem.lastPosition && [self.mediaItem.lastPosition floatValue] < 0.99)
+            [_mediaPlayer setPosition:[self.mediaItem.lastPosition floatValue]];
+        [_mediaPlayer play];
+
+        [UIApplication sharedApplication].idleTimerDisabled = YES;
+    }
+}
+
+- (void)viewWillDisappear:(BOOL)animated
+{
+    [_mediaPlayer pause];
+    [UIApplication sharedApplication].idleTimerDisabled = NO;
+    [super viewWillDisappear:animated];
 }
 
 - (void)didReceiveMemoryWarning

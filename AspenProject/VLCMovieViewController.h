@@ -9,9 +9,13 @@
 #import <UIKit/UIKit.h>
 
 @interface VLCMovieViewController : UIViewController <UISplitViewControllerDelegate>
+{
+    VLCMediaPlayer *_mediaPlayer;
+    UIView *_movieView;
+}
+
+@property (nonatomic, retain) IBOutlet UIView * movieView;
 
 @property (strong, nonatomic) MLFile *mediaItem;
-
-@property (strong, nonatomic) IBOutlet UILabel *detailDescriptionLabel;
 
 @end
