@@ -80,7 +80,7 @@
 
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section
 {
-    NSLog(@"found %u media", _foundMedia.count);
+    APLog(@"found %u media", _foundMedia.count);
     return _foundMedia.count;
 }
 
@@ -97,10 +97,9 @@
         }
     }
 
-
     MLFile *object = _foundMedia[indexPath.row];
     cell.textLabel.text = object.title;
-    NSLog(@"returning cell with title %@", object.title);
+    APLog(@"returning cell with title %@", object.title);
     return cell;
 }
 
@@ -153,7 +152,7 @@
 #pragma mark - UI implementation
 - (void)showAboutView:(id)sender
 {
-    NSLog(@"asked to show the about view");
+    APLog(@"asked to show the about view");
 }
 
 @end
