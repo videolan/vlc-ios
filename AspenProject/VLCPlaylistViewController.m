@@ -6,9 +6,6 @@
 //  Copyright (c) 2013 VideoLAN. All rights reserved.
 //
 
-#import <MediaLibraryKit/MLFile.h>
-#import <MediaLibraryKit/MLMediaLibrary.h>
-
 #import "VLCPlaylistViewController.h"
 
 #import "VLCMovieViewController.h"

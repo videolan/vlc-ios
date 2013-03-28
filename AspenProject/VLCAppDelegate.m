@@ -8,8 +8,6 @@
 
 #import "VLCAppDelegate.h"
 
-#import <MediaLibraryKit/MLMediaLibrary.h>
-
 #import "VLCPlaylistViewController.h"
 
 #import "VLCMovieViewController.h"

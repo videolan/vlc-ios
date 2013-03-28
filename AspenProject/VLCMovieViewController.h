@@ -7,7 +7,6 @@
 //
 
 #import <UIKit/UIKit.h>
-#import <MediaLibraryKit/MLFile.h>
 
 @interface VLCMovieViewController : UIViewController <UISplitViewControllerDelegate>
 
