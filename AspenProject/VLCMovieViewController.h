@@ -12,10 +12,21 @@
 {
     VLCMediaPlayer *_mediaPlayer;
     UIView *_movieView;
+    UIView *_tabBarView;
+    UIBarButtonItem * _backButton;
+    UISlider *_positionSlider;
+    UIBarButtonItem *_timeDisplay;
 }
 
 @property (nonatomic, retain) IBOutlet UIView * movieView;
+@property (nonatomic, retain) IBOutlet UIView * tapBarView;
+@property (nonatomic, retain) IBOutlet UIBarButtonItem * backButton;
+@property (nonatomic, retain) IBOutlet UISlider * positionSlider;
+@property (nonatomic, retain) IBOutlet UIBarButtonItem * timeDisplay;
 
 @property (strong, nonatomic) MLFile *mediaItem;
+
+- (IBAction)closePlayback:(id)sender;
+- (IBAction)positionSliderAction:(id)sender;
 
 @end

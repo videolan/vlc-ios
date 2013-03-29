@@ -13,7 +13,7 @@
 @end
 
 @implementation VLCMovieViewController
-@synthesize movieView=_movieView;
+@synthesize movieView=_movieView, tapBarView=_tapBarView, backButton=_backButton, positionSlider=_positionSlider, timeDisplay=_timeDisplay;
 
 - (void)dealloc
 {
@@ -39,12 +39,13 @@
 - (void)viewDidLoad
 {
     [super viewDidLoad];
-    // Do any additional setup after loading the view, typically from a nib.
-
-    [super viewDidLoad];
     _mediaPlayer = [[VLCMediaPlayer alloc] init];
     [_mediaPlayer setDelegate:self];
     [_mediaPlayer setDrawable:self.movieView];
+    self.navigationItem.leftBarButtonItem = self.backButton;
+    self.navigationItem.titleView = self.positionSlider;
+    self.navigationItem.rightBarButtonItem = self.timeDisplay;
+    self.navigationItem.rightBarButtonItem.style = UIBarButtonItemStylePlain;
 }
 
 - (void)viewWillAppear:(BOOL)animated
@@ -60,6 +61,8 @@
 
         [UIApplication sharedApplication].idleTimerDisabled = YES;
     }
+    self.tapBarView.hidden = NO;
+    self.tapBarView.alpha = 1.0f;
 }
 
 - (void)viewWillDisappear:(BOOL)animated
@@ -78,10 +81,26 @@
 - (id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil
 {
     self = [super initWithNibName:nibNameOrNil bundle:nibBundleOrNil];
-    if (self) {
+    if (self)
         self.title = @"Video Playback";
-    }
     return self;
+}
+
+#pragma mark - controls
+
+- (IBAction)closePlayback:(id)sender
+{
+    [self.navigationController popViewControllerAnimated:YES];
+}
+
+- (IBAction)positionSliderAction:(UISlider *)sender
+{
+    _mediaPlayer.position = sender.value;
+}
+
+- (void)mediaPlayerTimeChanged:(NSNotification *)aNotification {
+    self.positionSlider.value = [_mediaPlayer position];
+    self.timeDisplay.title = [[_mediaPlayer remainingTime] stringValue];
 }
 
 #pragma mark - Split view
