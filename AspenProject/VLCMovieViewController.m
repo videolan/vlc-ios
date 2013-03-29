@@ -127,9 +127,9 @@
 - (IBAction)switchAudioTrack:(id)sender
 {
     _audiotrackActionSheet = [[UIActionSheet alloc] initWithTitle:NSLocalizedString(@"Choose Audio Track", @"audio track selector") delegate:self cancelButtonTitle:nil destructiveButtonTitle:nil otherButtonTitles: nil];
-    NSArray * audioTracks = [_mediaPlayer audioTracks];
+    NSArray * audioTracks = [_mediaPlayer audioTrackNames];
     NSUInteger count = [audioTracks count];
-    for (NSUInteger i = 1; i < count; i++) // skip the "Disable menu item"
+    for (NSUInteger i = 0; i < count; i++)
         [_audiotrackActionSheet addButtonWithTitle:[audioTracks objectAtIndex:i]];
     [_audiotrackActionSheet addButtonWithTitle:NSLocalizedString(@"Cancel", @"audio track selector")];
     [_audiotrackActionSheet setCancelButtonIndex:[_audiotrackActionSheet numberOfButtons] - 1];
@@ -138,9 +138,11 @@
 
 - (IBAction)switchSubtitleTrack:(id)sender
 {
-    _subtitleActionSheet = [[UIActionSheet alloc] initWithTitle:NSLocalizedString(@"Choose Subtitle Track", @"subtitle track selector") delegate:self cancelButtonTitle:nil destructiveButtonTitle:nil otherButtonTitles: nil];
-    NSArray * spuTracks = [_mediaPlayer videoSubTitles];
+    NSArray * spuTracks = [_mediaPlayer videoSubTitlesNames];
     NSUInteger count = [spuTracks count];
+    if (count <= 1)
+        return;
+    _subtitleActionSheet = [[UIActionSheet alloc] initWithTitle:NSLocalizedString(@"Choose Subtitle Track", @"subtitle track selector") delegate:self cancelButtonTitle:nil destructiveButtonTitle:nil otherButtonTitles: nil];
     for (NSUInteger i = 0; i < count; i++)
         [_subtitleActionSheet addButtonWithTitle:[spuTracks objectAtIndex:i]];
     [_subtitleActionSheet addButtonWithTitle:NSLocalizedString(@"Cancel", @"subtitle track selector")];
@@ -149,15 +151,22 @@
 }
 
 - (void)actionSheet:(UIActionSheet *)actionSheet clickedButtonAtIndex:(NSInteger)buttonIndex {
-    if (buttonIndex == 0) { // "Cancel" button
-        APLog(@"action sheet was canceled");
-        return;
-    }
+    NSUInteger arrayIndex = 0;
+    NSArray * indexArray;
+    NSArray * namesArray;
     if (actionSheet == _subtitleActionSheet) {
-        _mediaPlayer.currentVideoSubTitleIndex = buttonIndex;
+        namesArray = _mediaPlayer.videoSubTitlesNames;
+        arrayIndex = [namesArray indexOfObject:[actionSheet buttonTitleAtIndex:buttonIndex]];
+        indexArray = _mediaPlayer.videoSubTitlesIndexes;
+        _mediaPlayer.currentVideoSubTitleIndex = [[indexArray objectAtIndex:arrayIndex] intValue];
         [_subtitleActionSheet release];
     } else {
-        _mediaPlayer.currentAudioTrackIndex = buttonIndex;
+        namesArray = _mediaPlayer.audioTrackNames;
+        arrayIndex = [namesArray indexOfObject:[actionSheet buttonTitleAtIndex:buttonIndex]];
+        indexArray = _mediaPlayer.audioTrackIndexes;
+        APLog(@"audio index to be set %i", [[indexArray objectAtIndex:arrayIndex] intValue]);
+        _mediaPlayer.currentAudioTrackIndex = [[indexArray objectAtIndex:arrayIndex] intValue];
+        APLog(@"actual audio track index: %i", _mediaPlayer.currentAudioTrackIndex);
         [_audiotrackActionSheet release];
     }
 }
