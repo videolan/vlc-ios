@@ -13,7 +13,7 @@
 @end
 
 @implementation VLCMovieViewController
-@synthesize movieView=_movieView, tapBarView=_tapBarView, backButton=_backButton, positionSlider=_positionSlider, timeDisplay=_timeDisplay;
+@synthesize movieView=_movieView, tapBarView=_tapBarView, backButton=_backButton, positionSlider=_positionSlider, timeDisplay=_timeDisplay, playPauseButton = _playPauseButton, bwdButton = _bwdButton, fwdButton = _fwdButton, subtitleSwitcherButton = _subtitleSwitcherButton, audioSwitcherButton = _audioSwitcherButton, controllerPanel = _controllerPanel;
 
 - (void)dealloc
 {
@@ -101,6 +101,65 @@
 - (void)mediaPlayerTimeChanged:(NSNotification *)aNotification {
     self.positionSlider.value = [_mediaPlayer position];
     self.timeDisplay.title = [[_mediaPlayer remainingTime] stringValue];
+}
+
+- (IBAction)play:(id)sender
+{
+    if ([_mediaPlayer isPlaying]) {
+        [_mediaPlayer pause];
+        _playPauseButton.titleLabel.text = @"Pse";
+    } else {
+        [_mediaPlayer play];
+        _playPauseButton.titleLabel.text = @"Play";
+    }
+}
+
+- (IBAction)forward:(id)sender
+{
+    [_mediaPlayer mediumJumpForward];
+}
+
+- (IBAction)backward:(id)sender
+{
+    [_mediaPlayer mediumJumpBackward];
+}
+
+- (IBAction)switchAudioTrack:(id)sender
+{
+    _audiotrackActionSheet = [[UIActionSheet alloc] initWithTitle:NSLocalizedString(@"Choose Audio Track", @"audio track selector") delegate:self cancelButtonTitle:nil destructiveButtonTitle:nil otherButtonTitles: nil];
+    NSArray * audioTracks = [_mediaPlayer audioTracks];
+    NSUInteger count = [audioTracks count];
+    for (NSUInteger i = 1; i < count; i++) // skip the "Disable menu item"
+        [_audiotrackActionSheet addButtonWithTitle:[audioTracks objectAtIndex:i]];
+    [_audiotrackActionSheet addButtonWithTitle:NSLocalizedString(@"Cancel", @"audio track selector")];
+    [_audiotrackActionSheet setCancelButtonIndex:[_audiotrackActionSheet numberOfButtons] - 1];
+    [_audiotrackActionSheet showFromRect:[self.audioSwitcherButton frame] inView:self.audioSwitcherButton animated:YES];
+}
+
+- (IBAction)switchSubtitleTrack:(id)sender
+{
+    _subtitleActionSheet = [[UIActionSheet alloc] initWithTitle:NSLocalizedString(@"Choose Subtitle Track", @"subtitle track selector") delegate:self cancelButtonTitle:nil destructiveButtonTitle:nil otherButtonTitles: nil];
+    NSArray * spuTracks = [_mediaPlayer videoSubTitles];
+    NSUInteger count = [spuTracks count];
+    for (NSUInteger i = 0; i < count; i++)
+        [_subtitleActionSheet addButtonWithTitle:[spuTracks objectAtIndex:i]];
+    [_subtitleActionSheet addButtonWithTitle:NSLocalizedString(@"Cancel", @"subtitle track selector")];
+    [_subtitleActionSheet setCancelButtonIndex:[_subtitleActionSheet numberOfButtons] - 1];
+    [_subtitleActionSheet showFromRect:[self.subtitleSwitcherButton frame] inView:self.subtitleSwitcherButton animated:YES];
+}
+
+- (void)actionSheet:(UIActionSheet *)actionSheet clickedButtonAtIndex:(NSInteger)buttonIndex {
+    if (buttonIndex == 0) { // "Cancel" button
+        APLog(@"action sheet was canceled");
+        return;
+    }
+    if (actionSheet == _subtitleActionSheet) {
+        _mediaPlayer.currentVideoSubTitleIndex = buttonIndex;
+        [_subtitleActionSheet release];
+    } else {
+        _mediaPlayer.currentAudioTrackIndex = buttonIndex;
+        [_audiotrackActionSheet release];
+    }
 }
 
 #pragma mark - Split view
