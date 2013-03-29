@@ -157,16 +157,18 @@
     if (actionSheet == _subtitleActionSheet) {
         namesArray = _mediaPlayer.videoSubTitlesNames;
         arrayIndex = [namesArray indexOfObject:[actionSheet buttonTitleAtIndex:buttonIndex]];
-        indexArray = _mediaPlayer.videoSubTitlesIndexes;
-        _mediaPlayer.currentVideoSubTitleIndex = [[indexArray objectAtIndex:arrayIndex] intValue];
+        if (arrayIndex != NSNotFound) {
+            indexArray = _mediaPlayer.videoSubTitlesIndexes;
+            _mediaPlayer.currentVideoSubTitleIndex = [[indexArray objectAtIndex:arrayIndex] intValue];
+        }
         [_subtitleActionSheet release];
     } else {
         namesArray = _mediaPlayer.audioTrackNames;
         arrayIndex = [namesArray indexOfObject:[actionSheet buttonTitleAtIndex:buttonIndex]];
-        indexArray = _mediaPlayer.audioTrackIndexes;
-        APLog(@"audio index to be set %i", [[indexArray objectAtIndex:arrayIndex] intValue]);
-        _mediaPlayer.currentAudioTrackIndex = [[indexArray objectAtIndex:arrayIndex] intValue];
-        APLog(@"actual audio track index: %i", _mediaPlayer.currentAudioTrackIndex);
+        if (arrayIndex != NSNotFound) {
+            indexArray = _mediaPlayer.audioTrackIndexes;
+            _mediaPlayer.currentAudioTrackIndex = [[indexArray objectAtIndex:arrayIndex] intValue];
+        }
         [_audiotrackActionSheet release];
     }
 }
