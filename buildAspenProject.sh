@@ -197,7 +197,7 @@ buildxcodeproj MobileVLCKit "MobileVLCKit"
 spopd
 
 spushd MediaLibraryKit
-buildxcodeproj MobileMediaLibraryKit
+buildxcodeproj MediaLibraryKit
 spopd
 
 spopd # ImportedSources
