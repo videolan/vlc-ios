@@ -82,8 +82,8 @@
 #if LOCAL_PLAYBACK_HACK && TARGET_IPHONE_SIMULATOR
     NSString *directoryPath = @"/Users/fkuehne/Desktop/VideoLAN docs/Clips/sel/";
 #else
-    NSArray *searchPaths = NSSearchPathForDirectoriesInDomains(NSUserDomainMask, NSDocumentDirectory, YES);
-    NSString *directoryPath = [paths objectAtIndex:0];
+    NSArray *searchPaths = NSSearchPathForDirectoriesInDomains(NSDocumentDirectory, NSUserDomainMask, YES);
+    NSString *directoryPath = [searchPaths objectAtIndex:0];
 #endif
     NSArray *foundFiles = [[NSFileManager defaultManager] contentsOfDirectoryAtPath:directoryPath error:nil];
     NSMutableArray *filePaths = [NSMutableArray arrayWithCapacity:[foundFiles count]];

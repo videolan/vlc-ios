@@ -31,9 +31,8 @@
         _mediaItem = [newMediaItem retain];
     }
 
-    if (self.masterPopoverController != nil) {
+    if (self.masterPopoverController != nil)
         [self.masterPopoverController dismissPopoverAnimated:YES];
-    }
 }
 
 - (void)viewDidLoad
@@ -101,6 +100,11 @@
 - (void)mediaPlayerTimeChanged:(NSNotification *)aNotification {
     self.positionSlider.value = [_mediaPlayer position];
     self.timeDisplay.title = [[_mediaPlayer remainingTime] stringValue];
+}
+
+- (void)mediaPlayerStateChanged:(NSNotification *)aNotification
+{
+    // TODO
 }
 
 - (IBAction)play:(id)sender
