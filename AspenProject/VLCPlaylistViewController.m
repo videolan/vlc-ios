@@ -7,8 +7,8 @@
 //
 
 #import "VLCPlaylistViewController.h"
-
 #import "VLCMovieViewController.h"
+#import "VLCPlaylistTableViewCell.h"
 
 @interface VLCPlaylistViewController () {
     NSMutableArray *_foundMedia;
@@ -39,6 +39,8 @@
 
 - (void)viewDidLoad
 {
+    self.tableView.rowHeight = [VLCPlaylistTableViewCell heightOfCell];
+    self.tableView.separatorColor = [UIColor colorWithWhite:.2 alpha:1.];
     [super viewDidLoad];
 
     UIBarButtonItem *addButton = [[[UIBarButtonItem alloc] initWithTitle:@"About" style:UIBarButtonItemStyleBordered target:self action:@selector(showAboutView:)] autorelease];
@@ -85,21 +87,20 @@
 {
     static NSString *CellIdentifier = @"Cell";
 
-    UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:CellIdentifier];
+    VLCPlaylistTableViewCell *cell = (VLCPlaylistTableViewCell *)[tableView dequeueReusableCellWithIdentifier:CellIdentifier];
     if (cell == nil) {
-        cell = [[[UITableViewCell alloc] initWithStyle:UITableViewCellStyleSubtitle reuseIdentifier:CellIdentifier] autorelease];
+        cell = [VLCPlaylistTableViewCell cellWithReuseIdentifier:CellIdentifier];
     }
 
     MLFile *object = _foundMedia[indexPath.row];
-    cell.textLabel.text = object.title;
-    cell.detailTextLabel.text = [NSString stringWithFormat:@"%@ — %.2f MB", [VLCTime timeWithNumber:[object duration]], [object fileSizeInBytes] / 2e6];
-    cell.imageView.image = object.computedThumbnail;
+    cell.titleLabel.text = object.title;
+    cell.subtitleLabel.text = [NSString stringWithFormat:@"%@ — %.2f MB", [VLCTime timeWithNumber:[object duration]], [object fileSizeInBytes] / 2e6];
+    cell.thumbnailView.image = object.computedThumbnail;
     return cell;
 }
 
 - (BOOL)tableView:(UITableView *)tableView canEditRowAtIndexPath:(NSIndexPath *)indexPath
 {
-    // Return NO if you do not want the specified item to be editable.
     return YES;
 }
 
