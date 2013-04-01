@@ -1,0 +1,37 @@
+From d53127fcec0f13e4a77ae45e433666f10b25c1f6 Mon Sep 17 00:00:00 2001
+From: =?UTF-8?q?Felix=20Paul=20K=C3=BChne?= <fkuehne@videolan.org>
+Date: Mon, 1 Apr 2013 16:49:48 +0200
+Subject: [PATCH 1/4] audiounit_ios: fix multi-channel audio
+
+---
+ modules/audio_output/audiounit_ios.c | 5 +++--
+ 1 file changed, 3 insertions(+), 2 deletions(-)
+
+diff --git a/modules/audio_output/audiounit_ios.c b/modules/audio_output/audiounit_ios.c
+index 6574ea9..e4d28cc 100644
+--- a/modules/audio_output/audiounit_ios.c
++++ b/modules/audio_output/audiounit_ios.c
+@@ -199,9 +199,10 @@ static int StartAnalog(audio_output_t *p_aout, audio_sample_format_t *fmt)
+     AudioStreamBasicDescription streamDescription;
+     streamDescription.mSampleRate = fmt->i_rate;
+     fmt->i_format = VLC_CODEC_FL32;
++    fmt->i_physical_channels = AOUT_CHANS_STEREO;
+     streamDescription.mFormatID = kAudioFormatLinearPCM;
+     streamDescription.mFormatFlags = kAudioFormatFlagsNativeFloatPacked; // FL32
+-    streamDescription.mChannelsPerFrame = 2;
++    streamDescription.mChannelsPerFrame = aout_FormatNbChannels(fmt);
+     streamDescription.mFramesPerPacket = 1;
+     streamDescription.mBitsPerChannel = 32;
+     streamDescription.mBytesPerFrame = streamDescription.mBitsPerChannel * streamDescription.mChannelsPerFrame / 8;
+@@ -323,7 +324,7 @@ static void Play (audio_output_t * p_aout, block_t * p_block)
+         }
+ 
+         /* move data to buffer */
+-        if (unlikely(TPCircularBufferProduceBytes(&p_sys->circular_buffer, p_block->p_buffer, p_block->i_buffer)))
++        if (unlikely(!TPCircularBufferProduceBytes(&p_sys->circular_buffer, p_block->p_buffer, p_block->i_buffer)))
+             msg_Warn(p_aout, "Audio buffer was dropped");
+ 
+         if (!p_sys->i_bytes_per_sample)
+-- 
+1.7.12.4 (Apple Git-37)
+

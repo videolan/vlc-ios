@@ -1,0 +1,49 @@
+From ea8f1aaf72fb28e9f979a42b96d761796532e0dd Mon Sep 17 00:00:00 2001
+From: =?UTF-8?q?Felix=20Paul=20K=C3=BChne?= <fkuehne@videolan.org>
+Date: Mon, 1 Apr 2013 16:51:10 +0200
+Subject: [PATCH 2/4] audiounit_ios: remove a write-only variable and related
+ code
+
+---
+ modules/audio_output/audiounit_ios.c | 11 -----------
+ 1 file changed, 11 deletions(-)
+
+diff --git a/modules/audio_output/audiounit_ios.c b/modules/audio_output/audiounit_ios.c
+index e4d28cc..24e1266 100644
+--- a/modules/audio_output/audiounit_ios.c
++++ b/modules/audio_output/audiounit_ios.c
+@@ -58,7 +58,6 @@
+  *****************************************************************************/
+ struct aout_sys_t
+ {
+-    uint8_t                     chans_to_reorder;   /* do we need channel reordering */
+     uint8_t                     chan_table[AOUT_CHAN_MAX];
+ 
+     UInt32                      i_numberOfChannels;
+@@ -163,7 +162,6 @@ static int StartAnalog(audio_output_t *p_aout, audio_sample_format_t *fmt)
+     UInt32                      i_param_size = 0;
+     AudioComponentDescription   desc;
+     AURenderCallbackStruct      callback;
+-    p_aout->sys->chans_to_reorder = 0;
+     OSStatus status;
+ 
+     /* Lets go find our Component */
+@@ -314,15 +312,6 @@ static void Play (audio_output_t * p_aout, block_t * p_block)
+             p_sys->b_got_first_sample = true;
+         }
+ 
+-        /* Do the channel reordering */
+-        if (p_sys->chans_to_reorder) {
+-           aout_ChannelReorder(p_block->p_buffer,
+-                               p_block->i_buffer,
+-                               p_sys->chans_to_reorder,
+-                               p_sys->chan_table,
+-                               VLC_CODEC_FL32);
+-        }
+-
+         /* move data to buffer */
+         if (unlikely(!TPCircularBufferProduceBytes(&p_sys->circular_buffer, p_block->p_buffer, p_block->i_buffer)))
+             msg_Warn(p_aout, "Audio buffer was dropped");
+-- 
+1.7.12.4 (Apple Git-37)
+

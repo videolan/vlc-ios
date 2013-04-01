@@ -1,0 +1,53 @@
+From fccd961db6c7e33e3993be2d7d682344a9796c64 Mon Sep 17 00:00:00 2001
+From: =?UTF-8?q?Felix=20Paul=20K=C3=BChne?= <fkuehne@videolan.org>
+Date: Mon, 1 Apr 2013 17:06:01 +0200
+Subject: [PATCH 4/4] audiounit_ios: more cleanup
+
+---
+ modules/audio_output/audiounit_ios.c | 9 ---------
+ 1 file changed, 9 deletions(-)
+
+diff --git a/modules/audio_output/audiounit_ios.c b/modules/audio_output/audiounit_ios.c
+index a4af9d2..1faaf58 100644
+--- a/modules/audio_output/audiounit_ios.c
++++ b/modules/audio_output/audiounit_ios.c
+@@ -58,9 +58,6 @@
+  *****************************************************************************/
+ struct aout_sys_t
+ {
+-    uint8_t                     chan_table[AOUT_CHAN_MAX];
+-
+-    UInt32                      i_numberOfChannels;
+     TPCircularBuffer            circular_buffer;    /* circular buffer to swap the audio data */
+ 
+     /* AUHAL specific */
+@@ -70,8 +67,6 @@ struct aout_sys_t
+     int                         i_rate;             /* media sample rate */
+     int                         i_bytes_per_sample;
+     bool                        b_got_first_sample;
+-
+-    vlc_mutex_t                 lock;
+ };
+ 
+ #pragma mark -
+@@ -109,8 +104,6 @@ static int Open(vlc_object_t *obj)
+     if (unlikely(sys == NULL))
+         return VLC_ENOMEM;
+ 
+-    vlc_mutex_init(&sys->lock);
+-
+     aout->sys = sys;
+     aout->start = Start;
+     aout->stop = Stop;
+@@ -123,8 +116,6 @@ static void Close(vlc_object_t *obj)
+     audio_output_t *aout = (audio_output_t *)obj;
+     aout_sys_t *sys = aout->sys;
+ 
+-    vlc_mutex_destroy(&sys->lock);
+-
+     free(sys);
+ }
+ 
+-- 
+1.7.12.4 (Apple Git-37)
+

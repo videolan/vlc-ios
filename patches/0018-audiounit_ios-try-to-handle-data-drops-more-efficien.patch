@@ -1,0 +1,29 @@
+From 13592a7641bdeecaec39af1043e5bd806f082d08 Mon Sep 17 00:00:00 2001
+From: =?UTF-8?q?Felix=20Paul=20K=C3=BChne?= <fkuehne@videolan.org>
+Date: Mon, 1 Apr 2013 16:54:57 +0200
+Subject: [PATCH 3/4] audiounit_ios: try to handle data drops more efficiently
+
+Needs mooar testing
+---
+ modules/audio_output/audiounit_ios.c | 5 ++---
+ 1 file changed, 2 insertions(+), 3 deletions(-)
+
+diff --git a/modules/audio_output/audiounit_ios.c b/modules/audio_output/audiounit_ios.c
+index 24e1266..a4af9d2 100644
+--- a/modules/audio_output/audiounit_ios.c
++++ b/modules/audio_output/audiounit_ios.c
+@@ -392,9 +392,8 @@ static OSStatus RenderCallback(vlc_object_t *p_obj,
+ 
+     /* check if we have enough data */
+     if (!availableBytes) {
+-        /* return an empty buffer so silence is played until we have data */
+-        for (UInt32 j = 0; j < inNumberFrames; j++)
+-            targetBuffer[j] = 0.;
++        /* bail out and restart unit the next time we receive some data */
++        Flush(p_aout, false);
+     } else {
+         memcpy(targetBuffer, buffer, __MIN(bytesToCopy, availableBytes));
+         TPCircularBufferConsume(&p_sys->circular_buffer, __MIN(bytesToCopy, availableBytes));
+-- 
+1.7.12.4 (Apple Git-37)
+
