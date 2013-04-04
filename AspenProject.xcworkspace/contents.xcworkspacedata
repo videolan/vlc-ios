@@ -1,0 +1,26 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Workspace
+   version = "1.0">
+   <FileRef
+      location = "group:AspenProject.xcodeproj">
+   </FileRef>
+   <FileRef
+      location = "group:ImportedSources/MediaLibraryKit/MediaLibraryKit.xcodeproj">
+   </FileRef>
+   <FileRef
+      location = "group:ImportedSources/VLCKit/MobileVLCKit.xcodeproj">
+   </FileRef>
+   <Group
+      location = "container:"
+      name = "VLC Internals">
+      <FileRef
+         location = "group:ImportedSources/vlc/modules/video_output/ios2.m">
+      </FileRef>
+      <FileRef
+         location = "group:ImportedSources/vlc/modules/video_output/opengl.c">
+      </FileRef>
+      <FileRef
+         location = "group:ImportedSources/vlc/modules/audio_output/audiounit_ios.c">
+      </FileRef>
+   </Group>
+</Workspace>

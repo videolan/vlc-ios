@@ -1,7 +1,6 @@
 !Makefile
 *.mode*
 *.pbxuser
-*.xcworkspace
 xcuserdata
 .DS_Store
 build
