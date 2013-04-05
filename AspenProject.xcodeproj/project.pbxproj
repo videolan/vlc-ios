@@ -25,6 +25,7 @@
 		A79246C3170F114E0036AAF2 /* VLCPlaylistTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = A79246BE170F114E0036AAF2 /* VLCPlaylistTableViewCell.xib */; };
 		A79246C4170F114E0036AAF2 /* VLCPlaylistViewController~ipad.xib in Resources */ = {isa = PBXBuildFile; fileRef = A79246BF170F114E0036AAF2 /* VLCPlaylistViewController~ipad.xib */; };
 		A79246C5170F114E0036AAF2 /* VLCPlaylistViewController~iphone.xib in Resources */ = {isa = PBXBuildFile; fileRef = A79246C0170F114E0036AAF2 /* VLCPlaylistViewController~iphone.xib */; };
+		A79246C8170F11DF0036AAF2 /* Localizable.strings in Resources */ = {isa = PBXBuildFile; fileRef = A79246C6170F11DF0036AAF2 /* Localizable.strings */; };
 		CC1BBC3F1704934300A20CBF /* libMobileVLCKit.a in Frameworks */ = {isa = PBXBuildFile; fileRef = CC1BBC3E1704934200A20CBF /* libMobileVLCKit.a */; };
 		CC1BBC431704935E00A20CBF /* MediaLibrary.mom in Resources */ = {isa = PBXBuildFile; fileRef = CC1BBC421704935E00A20CBF /* MediaLibrary.mom */; };
 		CC1BBC461704938300A20CBF /* libiconv.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = CC1BBC451704938300A20CBF /* libiconv.dylib */; };
@@ -66,6 +67,8 @@
 		A79246BE170F114E0036AAF2 /* VLCPlaylistTableViewCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; name = VLCPlaylistTableViewCell.xib; path = Resources/VLCPlaylistTableViewCell.xib; sourceTree = SOURCE_ROOT; };
 		A79246BF170F114E0036AAF2 /* VLCPlaylistViewController~ipad.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; name = "VLCPlaylistViewController~ipad.xib"; path = "Resources/VLCPlaylistViewController~ipad.xib"; sourceTree = SOURCE_ROOT; };
 		A79246C0170F114E0036AAF2 /* VLCPlaylistViewController~iphone.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; name = "VLCPlaylistViewController~iphone.xib"; path = "Resources/VLCPlaylistViewController~iphone.xib"; sourceTree = SOURCE_ROOT; };
+		A79246C7170F11DF0036AAF2 /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/Localizable.strings; sourceTree = "<group>"; };
+		A79246C9170F11E40036AAF2 /* ru */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = ru; path = ru.lproj/Localizable.strings; sourceTree = "<group>"; };
 		CC1BBC3E1704934200A20CBF /* libMobileVLCKit.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; name = libMobileVLCKit.a; path = "ImportedSources/VLCKit/build/Release-iphonesimulator/libMobileVLCKit.a"; sourceTree = "<group>"; };
 		CC1BBC421704935E00A20CBF /* MediaLibrary.mom */ = {isa = PBXFileReference; lastKnownFileType = file.bplist; name = MediaLibrary.mom; path = "ImportedSources/MediaLibraryKit/build/Release-iphonesimulator/MediaLibrary.mom"; sourceTree = "<group>"; };
 		CC1BBC451704938300A20CBF /* libiconv.dylib */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.dylib"; name = libiconv.dylib; path = usr/lib/libiconv.dylib; sourceTree = SDKROOT; };
@@ -197,6 +200,7 @@
 		A7924697170F0ED20036AAF2 /* Resources */ = {
 			isa = PBXGroup;
 			children = (
+				A79246C6170F11DF0036AAF2 /* Localizable.strings */,
 				A7924698170F0ED20036AAF2 /* Default-568h@2x.png */,
 				A7924699170F0ED20036AAF2 /* Default.png */,
 				A792469A170F0ED20036AAF2 /* Default@2x.png */,
@@ -250,6 +254,7 @@
 			hasScannedForEncodings = 0;
 			knownRegions = (
 				en,
+				ru,
 			);
 			mainGroup = 7D94FCD216DE7D1000F2623B;
 			productRefGroup = 7D94FCDC16DE7D1000F2623B /* Products */;
@@ -275,6 +280,7 @@
 				A79246C3170F114E0036AAF2 /* VLCPlaylistTableViewCell.xib in Resources */,
 				A79246C4170F114E0036AAF2 /* VLCPlaylistViewController~ipad.xib in Resources */,
 				A79246C5170F114E0036AAF2 /* VLCPlaylistViewController~iphone.xib in Resources */,
+				A79246C8170F11DF0036AAF2 /* Localizable.strings in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -295,6 +301,18 @@
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXSourcesBuildPhase section */
+
+/* Begin PBXVariantGroup section */
+		A79246C6170F11DF0036AAF2 /* Localizable.strings */ = {
+			isa = PBXVariantGroup;
+			children = (
+				A79246C7170F11DF0036AAF2 /* en */,
+				A79246C9170F11E40036AAF2 /* ru */,
+			);
+			name = Localizable.strings;
+			sourceTree = "<group>";
+		};
+/* End PBXVariantGroup section */
 
 /* Begin XCBuildConfiguration section */
 		7D94FD0816DE7D1100F2623B /* Debug */ = {
