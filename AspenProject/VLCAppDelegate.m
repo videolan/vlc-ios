@@ -27,15 +27,16 @@
 {
     self.window = [[[UIWindow alloc] initWithFrame:[[UIScreen mainScreen] bounds]] autorelease];
     // Override point for customization after application launch.
-    if ([[UIDevice currentDevice] userInterfaceIdiom] == UIUserInterfaceIdiomPhone) {
-        _playlistViewController = [[VLCPlaylistViewController alloc] initWithNibName:@"VLCPlaylistViewController_iPhone" bundle:nil];
+    _playlistViewController = [[VLCPlaylistViewController alloc] initWithNibName:@"VLCPlaylistViewController" bundle:nil];
+    if (UI_USER_INTERFACE_IDIOM() == UIUserInterfaceIdiomPhone) {
+
         self.navigationController = [[[UINavigationController alloc] initWithRootViewController:_playlistViewController] autorelease];
         self.window.rootViewController = self.navigationController;
     } else {
-        _playlistViewController = [[VLCPlaylistViewController alloc] initWithNibName:@"VLCPlaylistViewController_iPad" bundle:nil];
+        _playlistViewController = [[VLCPlaylistViewController alloc] initWithNibName:@"VLCPlaylistViewController" bundle:nil];
         UINavigationController *masterNavigationController = [[[UINavigationController alloc] initWithRootViewController:_playlistViewController] autorelease];
 
-        VLCMovieViewController *movieViewController = [[[VLCMovieViewController alloc] initWithNibName:@"VLCMovieViewController_iPad" bundle:nil] autorelease];
+        VLCMovieViewController *movieViewController = [[[VLCMovieViewController alloc] initWithNibName:@"VLCMovieViewController" bundle:nil] autorelease];
         UINavigationController *movieNavigationController = [[[UINavigationController alloc] initWithRootViewController:movieViewController] autorelease];
 
         _playlistViewController.movieViewController = movieViewController;

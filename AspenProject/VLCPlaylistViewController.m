@@ -135,7 +135,7 @@
     MLFile *mediaObject = _foundMedia[indexPath.row];
     if ([[UIDevice currentDevice] userInterfaceIdiom] == UIUserInterfaceIdiomPhone) {
         if (!self.movieViewController) {
-            self.movieViewController = [[[VLCMovieViewController alloc] initWithNibName:@"VLCMovieViewController_iPhone" bundle:nil] autorelease];
+            self.movieViewController = [[[VLCMovieViewController alloc] initWithNibName:@"VLCMovieViewController" bundle:nil] autorelease];
         }
         self.movieViewController.mediaItem = mediaObject;
         [self.navigationController pushViewController:self.movieViewController animated:YES];
