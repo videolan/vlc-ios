@@ -25,8 +25,8 @@
 		7DA62098170A0A8900643D11 /* VLCPlaylistTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 7DA62096170A0A8900643D11 /* VLCPlaylistTableViewCell.xib */; };
 		7DA6209B170A0CE500643D11 /* VLCPlaylistTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 7DA6209A170A0CE500643D11 /* VLCPlaylistTableViewCell.m */; };
 		7DADC55F1704FABF001DAC63 /* OBSlider.m in Sources */ = {isa = PBXBuildFile; fileRef = 7DADC55E1704FABF001DAC63 /* OBSlider.m */; };
+		A7924696170F0BA90036AAF2 /* libMediaLibraryKit.a in Frameworks */ = {isa = PBXBuildFile; fileRef = A7924695170F0BA90036AAF2 /* libMediaLibraryKit.a */; };
 		CC1BBC3F1704934300A20CBF /* libMobileVLCKit.a in Frameworks */ = {isa = PBXBuildFile; fileRef = CC1BBC3E1704934200A20CBF /* libMobileVLCKit.a */; };
-		CC1BBC411704934D00A20CBF /* libMobileMediaLibraryKit.a in Frameworks */ = {isa = PBXBuildFile; fileRef = CC1BBC401704934C00A20CBF /* libMobileMediaLibraryKit.a */; };
 		CC1BBC431704935E00A20CBF /* MediaLibrary.mom in Resources */ = {isa = PBXBuildFile; fileRef = CC1BBC421704935E00A20CBF /* MediaLibrary.mom */; };
 		CC1BBC461704938300A20CBF /* libiconv.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = CC1BBC451704938300A20CBF /* libiconv.dylib */; };
 		CC1BBC481704938B00A20CBF /* libstdc++.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = CC1BBC471704938B00A20CBF /* libstdc++.dylib */; };
@@ -67,8 +67,8 @@
 		7DA6209A170A0CE500643D11 /* VLCPlaylistTableViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = VLCPlaylistTableViewCell.m; sourceTree = "<group>"; };
 		7DADC55D1704FABF001DAC63 /* OBSlider.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = OBSlider.h; path = ImportedSources/OBSlider/OBSlider/OBSlider.h; sourceTree = SOURCE_ROOT; };
 		7DADC55E1704FABF001DAC63 /* OBSlider.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = OBSlider.m; path = ImportedSources/OBSlider/OBSlider/OBSlider.m; sourceTree = SOURCE_ROOT; };
+		A7924695170F0BA90036AAF2 /* libMediaLibraryKit.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; name = libMediaLibraryKit.a; path = "ImportedSources/MediaLibraryKit/build/Release-iphonesimulator/libMediaLibraryKit.a"; sourceTree = "<group>"; };
 		CC1BBC3E1704934200A20CBF /* libMobileVLCKit.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; name = libMobileVLCKit.a; path = "ImportedSources/VLCKit/build/Release-iphonesimulator/libMobileVLCKit.a"; sourceTree = "<group>"; };
-		CC1BBC401704934C00A20CBF /* libMobileMediaLibraryKit.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; name = libMobileMediaLibraryKit.a; path = "ImportedSources/MediaLibraryKit/build/Release-iphonesimulator/libMobileMediaLibraryKit.a"; sourceTree = "<group>"; };
 		CC1BBC421704935E00A20CBF /* MediaLibrary.mom */ = {isa = PBXFileReference; lastKnownFileType = file.bplist; name = MediaLibrary.mom; path = "ImportedSources/MediaLibraryKit/build/Release-iphonesimulator/MediaLibrary.mom"; sourceTree = "<group>"; };
 		CC1BBC451704938300A20CBF /* libiconv.dylib */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.dylib"; name = libiconv.dylib; path = usr/lib/libiconv.dylib; sourceTree = SDKROOT; };
 		CC1BBC471704938B00A20CBF /* libstdc++.dylib */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.dylib"; name = "libstdc++.dylib"; path = "usr/lib/libstdc++.dylib"; sourceTree = SDKROOT; };
@@ -97,11 +97,11 @@
 				CC1BBC4A1704939300A20CBF /* libz.dylib in Frameworks */,
 				CC1BBC481704938B00A20CBF /* libstdc++.dylib in Frameworks */,
 				CC1BBC461704938300A20CBF /* libiconv.dylib in Frameworks */,
-				CC1BBC411704934D00A20CBF /* libMobileMediaLibraryKit.a in Frameworks */,
 				CC1BBC3F1704934300A20CBF /* libMobileVLCKit.a in Frameworks */,
 				7D94FCDF16DE7D1000F2623B /* UIKit.framework in Frameworks */,
 				7D94FCE116DE7D1000F2623B /* Foundation.framework in Frameworks */,
 				7D94FCE316DE7D1000F2623B /* CoreGraphics.framework in Frameworks */,
+				A7924696170F0BA90036AAF2 /* libMediaLibraryKit.a in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -202,8 +202,8 @@
 		CC1BBC441704936500A20CBF /* External VLC Libraries */ = {
 			isa = PBXGroup;
 			children = (
+				A7924695170F0BA90036AAF2 /* libMediaLibraryKit.a */,
 				CC1BBC421704935E00A20CBF /* MediaLibrary.mom */,
-				CC1BBC401704934C00A20CBF /* libMobileMediaLibraryKit.a */,
 				CC1BBC3E1704934200A20CBF /* libMobileVLCKit.a */,
 			);
 			name = "External VLC Libraries";
