@@ -23,6 +23,8 @@
     UIButton *_audioSwitcherButton;
     UIView *_controllerPanel;
 
+    BOOL _controlsHidden;
+
     UIActionSheet *_subtitleActionSheet;
     UIActionSheet *_audiotrackActionSheet;
 }

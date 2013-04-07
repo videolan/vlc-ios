@@ -9,7 +9,7 @@
 #import "VLCMovieViewController.h"
 #import "VLCExternalDisplayController.h"
 
-@interface VLCMovieViewController ()
+@interface VLCMovieViewController () <UIGestureRecognizerDelegate>
 @property (nonatomic, retain) UIPopoverController *masterPopoverController;
 @property (nonatomic, retain) UIWindow *externalWindow;
 @end
@@ -59,6 +59,12 @@
     if ([self hasExternalDisplay]) {
         [self showOnExternalDisplay];
     }
+
+    _movieView.userInteractionEnabled = NO;
+    UITapGestureRecognizer *recognizer = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(toogleControlsVisible)];
+    recognizer.delegate = self;
+    [self.view addGestureRecognizer:recognizer];
+    [recognizer release];
 }
 
 - (void)viewWillAppear:(BOOL)animated
@@ -97,6 +103,38 @@
     if (self)
         self.title = @"Video Playback";
     return self;
+}
+
+#pragma mark - controls visibility
+
+- (BOOL)gestureRecognizer:(UIGestureRecognizer *)gestureRecognizer shouldReceiveTouch:(UITouch *)touch
+{
+    if (touch.view != self.view) {
+        return NO;
+    }
+
+    return YES;
+}
+
+- (void)toogleControlsVisible
+{
+    _controlsHidden = !_controlsHidden;
+    CGFloat alpha = _controlsHidden? 0.0f: 1.0f;
+
+    if (!_controlsHidden) {
+        _controllerPanel.hidden = NO;
+        _controllerPanel.alpha = 0.0f;
+    }
+
+    void (^animationBlock)() = ^() {
+        _controllerPanel.alpha = alpha;
+    };
+
+    void (^completionBlock)(BOOL finished) = ^(BOOL finished) {
+        _controllerPanel.hidden = _controlsHidden;
+    };
+
+    [UIView animateWithDuration:0.3f animations:animationBlock completion:completionBlock];
 }
 
 #pragma mark - controls
