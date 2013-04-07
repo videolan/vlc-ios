@@ -90,9 +90,8 @@
     static NSString *CellIdentifier = @"Cell";
 
     VLCPlaylistTableViewCell *cell = (VLCPlaylistTableViewCell *)[tableView dequeueReusableCellWithIdentifier:CellIdentifier];
-    if (cell == nil) {
+    if (cell == nil)
         cell = [VLCPlaylistTableViewCell cellWithReuseIdentifier:CellIdentifier];
-    }
 
     MLFile *object = _foundMedia[indexPath.row];
     cell.titleLabel.text = object.title;

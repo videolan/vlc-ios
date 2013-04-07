@@ -124,9 +124,8 @@
 
 - (BOOL)gestureRecognizer:(UIGestureRecognizer *)gestureRecognizer shouldReceiveTouch:(UITouch *)touch
 {
-    if (touch.view != self.view) {
+    if (touch.view != self.view)
         return NO;
-    }
 
     return YES;
 }
