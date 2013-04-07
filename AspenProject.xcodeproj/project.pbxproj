@@ -16,6 +16,11 @@
 		7D94FCFB16DE7D1100F2623B /* VLCMovieViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 7D94FCFA16DE7D1100F2623B /* VLCMovieViewController.m */; };
 		7DA6209B170A0CE500643D11 /* VLCPlaylistTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 7DA6209A170A0CE500643D11 /* VLCPlaylistTableViewCell.m */; };
 		7DADC55F1704FABF001DAC63 /* OBSlider.m in Sources */ = {isa = PBXBuildFile; fileRef = 7DADC55E1704FABF001DAC63 /* OBSlider.m */; };
+		7DBC3B311711DB1E00DCF688 /* Aspen.png in Resources */ = {isa = PBXBuildFile; fileRef = 7DBC3B301711DB1E00DCF688 /* Aspen.png */; };
+		7DBC3B351711DC1200DCF688 /* Aspen72.png in Resources */ = {isa = PBXBuildFile; fileRef = 7DBC3B341711DC1200DCF688 /* Aspen72.png */; };
+		7DBC3B371711DCAB00DCF688 /* Aspen144.png in Resources */ = {isa = PBXBuildFile; fileRef = 7DBC3B361711DCAB00DCF688 /* Aspen144.png */; };
+		7DBC3B391711DD0200DCF688 /* Aspen114.png in Resources */ = {isa = PBXBuildFile; fileRef = 7DBC3B381711DD0200DCF688 /* Aspen114.png */; };
+		7DBC3B3B1711DD0900DCF688 /* Aspen57.png in Resources */ = {isa = PBXBuildFile; fileRef = 7DBC3B3A1711DD0900DCF688 /* Aspen57.png */; };
 		A7924696170F0BA90036AAF2 /* libMediaLibraryKit.a in Frameworks */ = {isa = PBXBuildFile; fileRef = A7924695170F0BA90036AAF2 /* libMediaLibraryKit.a */; };
 		A79246A7170F0ED20036AAF2 /* Default-568h@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = A7924698170F0ED20036AAF2 /* Default-568h@2x.png */; };
 		A79246A8170F0ED20036AAF2 /* Default.png in Resources */ = {isa = PBXBuildFile; fileRef = A7924699170F0ED20036AAF2 /* Default.png */; };
@@ -59,6 +64,11 @@
 		7DA6209A170A0CE500643D11 /* VLCPlaylistTableViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = VLCPlaylistTableViewCell.m; sourceTree = "<group>"; };
 		7DADC55D1704FABF001DAC63 /* OBSlider.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = OBSlider.h; path = ImportedSources/OBSlider/OBSlider/OBSlider.h; sourceTree = SOURCE_ROOT; };
 		7DADC55E1704FABF001DAC63 /* OBSlider.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = OBSlider.m; path = ImportedSources/OBSlider/OBSlider/OBSlider.m; sourceTree = SOURCE_ROOT; };
+		7DBC3B301711DB1E00DCF688 /* Aspen.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = Aspen.png; sourceTree = "<group>"; };
+		7DBC3B341711DC1200DCF688 /* Aspen72.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = Aspen72.png; sourceTree = "<group>"; };
+		7DBC3B361711DCAB00DCF688 /* Aspen144.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = Aspen144.png; sourceTree = "<group>"; };
+		7DBC3B381711DD0200DCF688 /* Aspen114.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = Aspen114.png; sourceTree = "<group>"; };
+		7DBC3B3A1711DD0900DCF688 /* Aspen57.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = Aspen57.png; sourceTree = "<group>"; };
 		A7924695170F0BA90036AAF2 /* libMediaLibraryKit.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; name = libMediaLibraryKit.a; path = "ImportedSources/MediaLibraryKit/build/Release-iphonesimulator/libMediaLibraryKit.a"; sourceTree = "<group>"; };
 		A7924698170F0ED20036AAF2 /* Default-568h@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "Default-568h@2x.png"; sourceTree = "<group>"; };
 		A7924699170F0ED20036AAF2 /* Default.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = Default.png; sourceTree = "<group>"; };
@@ -202,9 +212,22 @@
 			name = Imported;
 			sourceTree = "<group>";
 		};
+		7DBC3B3C1711DD1E00DCF688 /* Icons */ = {
+			isa = PBXGroup;
+			children = (
+				7DBC3B301711DB1E00DCF688 /* Aspen.png */,
+				7DBC3B341711DC1200DCF688 /* Aspen72.png */,
+				7DBC3B361711DCAB00DCF688 /* Aspen144.png */,
+				7DBC3B3A1711DD0900DCF688 /* Aspen57.png */,
+				7DBC3B381711DD0200DCF688 /* Aspen114.png */,
+			);
+			name = Icons;
+			sourceTree = "<group>";
+		};
 		A7924697170F0ED20036AAF2 /* Resources */ = {
 			isa = PBXGroup;
 			children = (
+				7DBC3B3C1711DD1E00DCF688 /* Icons */,
 				A79246C6170F11DF0036AAF2 /* Localizable.strings */,
 				A7924698170F0ED20036AAF2 /* Default-568h@2x.png */,
 				A7924699170F0ED20036AAF2 /* Default.png */,
@@ -286,6 +309,11 @@
 				A79246C4170F114E0036AAF2 /* VLCPlaylistViewController~ipad.xib in Resources */,
 				A79246C5170F114E0036AAF2 /* VLCPlaylistViewController~iphone.xib in Resources */,
 				A79246C8170F11DF0036AAF2 /* Localizable.strings in Resources */,
+				7DBC3B311711DB1E00DCF688 /* Aspen.png in Resources */,
+				7DBC3B351711DC1200DCF688 /* Aspen72.png in Resources */,
+				7DBC3B371711DCAB00DCF688 /* Aspen144.png in Resources */,
+				7DBC3B391711DD0200DCF688 /* Aspen114.png in Resources */,
+				7DBC3B3B1711DD0900DCF688 /* Aspen57.png in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
