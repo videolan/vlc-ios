@@ -68,6 +68,7 @@
                    name:UIScreenDidConnectNotification object:nil];
     [center addObserver:self selector:@selector(handleExternalScreenDidDisconnect:)
                    name:UIScreenDidDisconnectNotification object:nil];
+    [center addObserver:self selector:@selector(appWillResign:) name:UIApplicationWillResignActiveNotification object:nil];
 
     if ([self hasExternalDisplay]) {
         [self showOnExternalDisplay];
@@ -90,9 +91,9 @@
         self.title = [self.mediaItem title];
 
         [_mediaPlayer setMedia:[VLCMedia mediaWithURL:[NSURL URLWithString:self.mediaItem.url]]];
+        [_mediaPlayer play];
         if (self.mediaItem.lastPosition && [self.mediaItem.lastPosition floatValue] < 0.99)
             [_mediaPlayer setPosition:[self.mediaItem.lastPosition floatValue]];
-        [_mediaPlayer play];
     }
 }
 
@@ -100,9 +101,9 @@
 {
     [self.navigationController setNavigationBarHidden:NO animated:YES];
     [UIApplication sharedApplication].statusBarStyle = UIStatusBarStyleBlackOpaque;
-
     [_mediaPlayer pause];
     [super viewWillDisappear:animated];
+    self.mediaItem.lastPosition = [NSNumber numberWithFloat:[_mediaPlayer position]];
 }
 
 - (void)didReceiveMemoryWarning
@@ -262,6 +263,11 @@
     // Called when the view is shown again in the split view, invalidating the button and popover controller.
     [self.navigationItem setLeftBarButtonItem:nil animated:YES];
     self.masterPopoverController = nil;
+}
+
+- (void)appWillResign:(NSNotification *)aNotification
+{
+    self.mediaItem.lastPosition = [NSNumber numberWithFloat:[_mediaPlayer position]];
 }
 
 #pragma mark - External Display
