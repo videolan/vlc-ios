@@ -9,6 +9,7 @@
 #import "VLCPlaylistViewController.h"
 #import "VLCMovieViewController.h"
 #import "VLCPlaylistTableViewCell.h"
+#import "VLCAboutViewController.h"
 
 @interface VLCPlaylistViewController () {
     NSMutableArray *_foundMedia;
@@ -32,6 +33,7 @@
 
 - (void)dealloc
 {
+    [_aboutViewController release];
     [_movieViewController release];
     [_foundMedia release];
     [super dealloc];
@@ -146,7 +148,13 @@
 #pragma mark - UI implementation
 - (void)showAboutView:(id)sender
 {
-    APLog(@"asked to show the about view");
+    if ([[UIDevice currentDevice] userInterfaceIdiom] == UIUserInterfaceIdiomPhone) {
+        if (!self.aboutViewController) {
+            self.aboutViewController = [[[VLCAboutViewController alloc] initWithNibName:@"VLCAboutViewController" bundle:nil] autorelease];
+        }
+        [self.navigationController pushViewController:self.aboutViewController animated:YES];
+    } else
+        APLog(@"about panel not supported on iPad");
 }
 
 @end
