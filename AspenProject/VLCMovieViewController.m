@@ -24,6 +24,16 @@
     [_masterPopoverController release];
     [_externalWindow release];
     [_toolbar release];
+    [_movieView release];
+    [_backButton release];
+    [_positionSlider release];
+    [_timeDisplay release];
+    [_playPauseButton release];
+    [_bwdButton release];
+    [_fwdButton release];
+    [_subtitleActionSheet release];
+    [_audioSwitcherButton release];
+    [_controllerPanel release];
     [[NSNotificationCenter defaultCenter] removeObserver:self];
     [super dealloc];
 }
@@ -262,14 +272,14 @@
     UIScreen *screen = [[UIScreen screens] objectAtIndex:1];
     screen.overscanCompensation = UIScreenOverscanCompensationInsetApplicationFrame;
 
-    self.externalWindow = [[UIWindow alloc] initWithFrame:screen.bounds];
+    self.externalWindow = [[[UIWindow alloc] initWithFrame:screen.bounds] autorelease];
 
     UIViewController *controller = [[VLCExternalDisplayController alloc] init];
     self.externalWindow.rootViewController = controller;
     [controller.view addSubview:_movieView];
     controller.view.frame = screen.bounds;
     _movieView.frame = screen.bounds;
-
+    [controller release];
 
     self.externalWindow.screen = screen;
     self.externalWindow.hidden = NO;
