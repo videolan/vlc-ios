@@ -79,8 +79,6 @@
         if (self.mediaItem.lastPosition && [self.mediaItem.lastPosition floatValue] < 0.99)
             [_mediaPlayer setPosition:[self.mediaItem.lastPosition floatValue]];
         [_mediaPlayer play];
-
-        [UIApplication sharedApplication].idleTimerDisabled = YES;
     }
 }
 
@@ -89,7 +87,6 @@
     [self.navigationController setNavigationBarHidden:NO animated:YES];
 
     [_mediaPlayer pause];
-    [UIApplication sharedApplication].idleTimerDisabled = NO;
     [super viewWillDisappear:animated];
 }
 
