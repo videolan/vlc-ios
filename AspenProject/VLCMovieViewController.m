@@ -124,16 +124,20 @@
     CGFloat alpha = _controlsHidden? 0.0f: 1.0f;
 
     if (!_controlsHidden) {
-        _controllerPanel.hidden = NO;
         _controllerPanel.alpha = 0.0f;
+        _controllerPanel.hidden = NO;
+        _toolbar.alpha = 0.0f;
+        _toolbar.hidden = NO;
     }
 
     void (^animationBlock)() = ^() {
         _controllerPanel.alpha = alpha;
+        _toolbar.alpha = alpha;
     };
 
     void (^completionBlock)(BOOL finished) = ^(BOOL finished) {
         _controllerPanel.hidden = _controlsHidden;
+        _toolbar.hidden = _controlsHidden;
     };
 
     [UIView animateWithDuration:0.3f animations:animationBlock completion:completionBlock];
