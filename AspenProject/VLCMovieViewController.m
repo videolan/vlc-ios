@@ -34,6 +34,9 @@
     [_subtitleActionSheet release];
     [_audioSwitcherButton release];
     [_controllerPanel release];
+
+    [_mediaPlayer stop];
+    [_mediaPlayer release];
     [[NSNotificationCenter defaultCenter] removeObserver:self];
     [super dealloc];
 }
