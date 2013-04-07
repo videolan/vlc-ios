@@ -12,7 +12,6 @@
 {
     VLCMediaPlayer *_mediaPlayer;
     UIView *_movieView;
-    UIView *_tabBarView;
     UIBarButtonItem * _backButton;
     UISlider *_positionSlider;
     UIBarButtonItem *_timeDisplay;
@@ -22,6 +21,7 @@
     UIButton *_subtitleSwitcherButton;
     UIButton *_audioSwitcherButton;
     UIView *_controllerPanel;
+    UIToolbar *_toolbar;
 
     BOOL _controlsHidden;
 
@@ -30,7 +30,6 @@
 }
 
 @property (nonatomic, retain) IBOutlet UIView * movieView;
-@property (nonatomic, retain) IBOutlet UIView * tapBarView;
 @property (nonatomic, retain) IBOutlet UIBarButtonItem * backButton;
 @property (nonatomic, retain) IBOutlet UISlider * positionSlider;
 @property (nonatomic, retain) IBOutlet UIBarButtonItem * timeDisplay;
@@ -39,6 +38,7 @@
 @property (nonatomic, retain) IBOutlet UIButton * fwdButton;
 @property (nonatomic, retain) IBOutlet UIButton * subtitleSwitcherButton;
 @property (nonatomic, retain) IBOutlet UIButton * audioSwitcherButton;
+@property (nonatomic, retain) IBOutlet UIToolbar * toolbar;
 @property (nonatomic, retain) IBOutlet UIView * controllerPanel;
 
 @property (strong, nonatomic) MLFile *mediaItem;

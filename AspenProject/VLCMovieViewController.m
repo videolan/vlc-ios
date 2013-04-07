@@ -15,13 +15,15 @@
 @end
 
 @implementation VLCMovieViewController
-@synthesize movieView=_movieView, tapBarView=_tapBarView, backButton=_backButton, positionSlider=_positionSlider, timeDisplay=_timeDisplay, playPauseButton = _playPauseButton, bwdButton = _bwdButton, fwdButton = _fwdButton, subtitleSwitcherButton = _subtitleSwitcherButton, audioSwitcherButton = _audioSwitcherButton, controllerPanel = _controllerPanel;
+@synthesize movieView=_movieView, backButton=_backButton, positionSlider=_positionSlider, timeDisplay=_timeDisplay, playPauseButton = _playPauseButton, bwdButton = _bwdButton, fwdButton = _fwdButton, subtitleSwitcherButton = _subtitleSwitcherButton, audioSwitcherButton = _audioSwitcherButton;
+@synthesize toolbar = _toolbar,  controllerPanel = _controllerPanel;
 
 - (void)dealloc
 {
     [_mediaItem release];
     [_masterPopoverController release];
     [_externalWindow release];
+    [_toolbar release];
     [[NSNotificationCenter defaultCenter] removeObserver:self];
     [super dealloc];
 }
@@ -42,13 +44,11 @@
 - (void)viewDidLoad
 {
     [super viewDidLoad];
+    self.wantsFullScreenLayout = YES;
+
     _mediaPlayer = [[VLCMediaPlayer alloc] init];
     [_mediaPlayer setDelegate:self];
     [_mediaPlayer setDrawable:self.movieView];
-    self.navigationItem.leftBarButtonItem = self.backButton;
-    self.navigationItem.titleView = self.positionSlider;
-    self.navigationItem.rightBarButtonItem = self.timeDisplay;
-    self.navigationItem.rightBarButtonItem.style = UIBarButtonItemStylePlain;
 
     NSNotificationCenter *center = [NSNotificationCenter defaultCenter];
     [center addObserver:self selector:@selector(handleExternalScreenDidConnect:)
@@ -70,6 +70,8 @@
 - (void)viewWillAppear:(BOOL)animated
 {
     [super viewWillAppear:animated];
+    [self.navigationController setNavigationBarHidden:YES animated:YES];
+
     if (self.mediaItem) {
         self.title = [self.mediaItem title];
 
@@ -80,12 +82,12 @@
 
         [UIApplication sharedApplication].idleTimerDisabled = YES;
     }
-    self.tapBarView.hidden = NO;
-    self.tapBarView.alpha = 1.0f;
 }
 
 - (void)viewWillDisappear:(BOOL)animated
 {
+    [self.navigationController setNavigationBarHidden:NO animated:YES];
+
     [_mediaPlayer pause];
     [UIApplication sharedApplication].idleTimerDisabled = NO;
     [super viewWillDisappear:animated];
