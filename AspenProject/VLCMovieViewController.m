@@ -153,6 +153,7 @@
     };
 
     [UIView animateWithDuration:0.3f animations:animationBlock completion:completionBlock];
+    [[UIApplication sharedApplication] setStatusBarHidden:_controlsHidden withAnimation:UIStatusBarAnimationFade];
 }
 
 #pragma mark - controls
