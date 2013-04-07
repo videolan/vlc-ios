@@ -7,9 +7,11 @@
 //
 
 #import "VLCMovieViewController.h"
+#import "VLCExternalDisplayController.h"
 
 @interface VLCMovieViewController ()
-@property (strong, nonatomic) UIPopoverController *masterPopoverController;
+@property (nonatomic, retain) UIPopoverController *masterPopoverController;
+@property (nonatomic, retain) UIWindow *externalWindow;
 @end
 
 @implementation VLCMovieViewController
@@ -19,6 +21,8 @@
 {
     [_mediaItem release];
     [_masterPopoverController release];
+    [_externalWindow release];
+    [[NSNotificationCenter defaultCenter] removeObserver:self];
     [super dealloc];
 }
 
@@ -45,6 +49,16 @@
     self.navigationItem.titleView = self.positionSlider;
     self.navigationItem.rightBarButtonItem = self.timeDisplay;
     self.navigationItem.rightBarButtonItem.style = UIBarButtonItemStylePlain;
+
+    NSNotificationCenter *center = [NSNotificationCenter defaultCenter];
+    [center addObserver:self selector:@selector(handleExternalScreenDidConnect:)
+                   name:UIScreenDidConnectNotification object:nil];
+    [center addObserver:self selector:@selector(handleExternalScreenDidDisconnect:)
+                   name:UIScreenDidDisconnectNotification object:nil];
+
+    if ([self hasExternalDisplay]) {
+        [self showOnExternalDisplay];
+    }
 }
 
 - (void)viewWillAppear:(BOOL)animated
@@ -191,6 +205,51 @@
     // Called when the view is shown again in the split view, invalidating the button and popover controller.
     [self.navigationItem setLeftBarButtonItem:nil animated:YES];
     self.masterPopoverController = nil;
+}
+
+#pragma mark - External Display
+
+- (BOOL)hasExternalDisplay
+{
+    return ([[UIScreen screens] count] > 1);
+}
+
+- (void)showOnExternalDisplay
+{
+    UIScreen *screen = [[UIScreen screens] objectAtIndex:1];
+    screen.overscanCompensation = UIScreenOverscanCompensationInsetApplicationFrame;
+
+    self.externalWindow = [[UIWindow alloc] initWithFrame:screen.bounds];
+
+    UIViewController *controller = [[VLCExternalDisplayController alloc] init];
+    self.externalWindow.rootViewController = controller;
+    [controller.view addSubview:_movieView];
+    controller.view.frame = screen.bounds;
+    _movieView.frame = screen.bounds;
+
+
+    self.externalWindow.screen = screen;
+    self.externalWindow.hidden = NO;
+}
+
+- (void)hideFromExternalDisplay
+{
+    [self.view addSubview:_movieView];
+    [self.view sendSubviewToBack:_movieView];
+    _movieView.frame = self.view.frame;
+
+    self.externalWindow.hidden = YES;
+    self.externalWindow = nil;
+}
+
+- (void)handleExternalScreenDidConnect:(NSNotification *)notification
+{
+    [self showOnExternalDisplay];
+}
+
+- (void)handleExternalScreenDidDisconnect:(NSNotification *)notification
+{
+    [self hideFromExternalDisplay];
 }
 
 @end
