@@ -47,10 +47,8 @@
 
         self.window.rootViewController = self.splitViewController;
     }
-    UINavigationBar *navbar = self.navigationController.navigationBar;
-    navbar.barStyle = UIBarStyleBlack;
-    navbar.translucent = YES;
-    navbar.tintColor = [UIColor colorWithWhite:.15 alpha:1.];
+
+    self.navigationController.navigationBar.barStyle = UIBarStyleBlack;
     [self.window makeKeyAndVisible];
     return YES;
 }
