@@ -33,7 +33,7 @@
 {
     [super viewDidLoad];
 
-    self.textContents.attributedText = [[[NSAttributedString alloc] initWithString:[NSString stringWithContentsOfFile:[[NSBundle mainBundle] pathForResource:@"About Contents" ofType:@"txt"] encoding:NSUTF8StringEncoding error:nil]] autorelease];
+    self.textContents.text = [NSString stringWithContentsOfFile:[[NSBundle mainBundle] pathForResource:@"About Contents" ofType:@"txt"] encoding:NSUTF8StringEncoding error:nil];
     self.aspenVersion.text = [NSString stringWithFormat:@"Version: %@", [[NSBundle mainBundle] objectForInfoDictionaryKey:@"CFBundleVersion"]];
     self.vlckitVersion.text = [NSString stringWithFormat:@"Based on:\n%@",[[VLCLibrary sharedLibrary] version]];
 }
