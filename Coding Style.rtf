@@ -1,0 +1,182 @@
+{\rtf1\ansi\ansicpg1252\cocoartf949\cocoasubrtf540
+{\fonttbl\f0\fswiss\fcharset0 Helvetica;\f1\fnil\fcharset0 Monaco;}
+{\colortbl;\red255\green255\blue255;\red0\green134\blue2;\red195\green0\blue0;}
+\pard\tx720\tx1440\tx2160\tx2880\tx3600\tx4320\tx5040\tx5760\tx6480\tx7200\tx7920\tx8640\qc\pardirnatural
+
+\f0\fs36 \cf0 Coding Rules\
+\pard\tx720\tx1440\tx2160\tx2880\tx3600\tx4320\tx5040\tx5760\tx6480\tx7200\tx7920\tx8640\ql\qnatural\pardirnatural
+
+\fs24 \cf0 \
+
+\fs28 Cocoa coding style for the naming.\
+\
+\pard\tx720\tx1440\tx2160\tx2880\tx3600\tx4320\tx5040\tx5760\tx6480\tx7200\tx7920\tx8640\sl480\slmult1\ql\qnatural\pardirnatural
+
+\f1\fs20 \cf0 variableNaming
+\f0\fs28  variable should use capitalization on all word expect the first and never '_' ie\
+\pard\tx720\tx1440\tx2160\tx2880\tx3600\tx4320\tx5040\tx5760\tx6480\tx7200\tx7920\tx8640\fi540\ql\qnatural\pardirnatural
+
+\b\fs24 \cf2 RIGHT\
+
+\f1\b0\fs18 \cf0 BOOL isFirstTimeReading;\
+int age;\
+
+\f0\fs24 \
+
+\b \cf3 WRONG\
+
+\f1\b0\fs18 \cf0 BOOL is_first_time_reading;\
+int Age;\
+int isFirstTimeReading_ever;\
+\
+\pard\tx720\tx1440\tx2160\tx2880\tx3600\tx4320\tx5040\tx5760\tx6480\tx7200\tx7920\tx8640\sl480\slmult1\ql\qnatural\pardirnatural
+
+\f0\fs28 \cf0 Objective-C Instance variable must be prefixed with _\
+\pard\tx720\tx1440\tx2160\tx2880\tx3600\tx4320\tx5040\tx5760\tx6480\tx7200\tx7920\tx8640\fi540\ql\qnatural\pardirnatural
+
+\b\fs24 \cf2 RIGHT\
+
+\f1\b0\fs18 \cf0 @interface Object \{\
+	  BOOL _isFirstTimeReading;\
+	  int _age;\
+\}\
+
+\f0\fs24 \
+
+\b \cf3 WRONG\
+
+\f1\b0\fs18 \cf0 @interface Object \{\
+	  BOOL isFirstTimeReading;\
+	  int age;\
+\}
+\f0\fs28 \
+\pard\tx720\tx1440\tx2160\tx2880\tx3600\tx4320\tx5040\tx5760\tx6480\tx7200\tx7920\tx8640\ql\qnatural\pardirnatural
+
+\fs24 \cf0 \
+\pard\tx720\tx1440\tx2160\tx2880\tx3600\tx4320\tx5040\tx5760\tx6480\tx7200\tx7920\tx8640\sl480\slmult1\ql\qnatural\pardirnatural
+
+\f1\fs20 \cf0 Pointer *
+\f0\fs28  must be preceded with a space and with no space after ie\
+\pard\tx720\tx1440\tx2160\tx2880\tx3600\tx4320\tx5040\tx5760\tx6480\tx7200\tx7920\tx8640\fi540\ql\qnatural\pardirnatural
+
+\b\fs24 \cf2 RIGHT\
+
+\f1\b0\fs18 \cf0 void *pointer;\
+
+\f0\fs24 \
+
+\b \cf3 WRONG\
+
+\f1\b0\fs18 \cf0 void * pointer;\
+void* pointer;\
+void*pointer;\
+\pard\tx720\tx1440\tx2160\tx2880\tx3600\tx4320\tx5040\tx5760\tx6480\tx7200\tx7920\tx8640\ql\qnatural\pardirnatural
+
+\f0\fs24 \cf0 \
+\pard\tx720\tx1440\tx2160\tx2880\tx3600\tx4320\tx5040\tx5760\tx6480\tx7200\tx7920\tx8640\sl480\slmult1\ql\qnatural\pardirnatural
+
+\f1\fs20 \cf0 if
+\f0\fs28 , 
+\f1\fs18 switch
+\f0\fs28 , and other keyword that are not function but takes parameter should have a space before ()\
+\pard\tx720\tx1440\tx2160\tx2880\tx3600\tx4320\tx5040\tx5760\tx6480\tx7200\tx7920\tx8640\fi540\ql\qnatural\pardirnatural
+
+\b\fs24 \cf2 RIGHT\
+
+\f1\b0\fs18 \cf0 if (a) \{\
+  ...\
+\}\
+function();\
+
+\f0\fs24 \
+
+\b \cf3 WRONG\
+
+\f1\b0\fs18 \cf0 if( a )\
+if ( a )\
+if(a)\
+function ();\
+\pard\tx720\tx1440\tx2160\tx2880\tx3600\tx4320\tx5040\tx5760\tx6480\tx7200\tx7920\tx8640\ql\qnatural\pardirnatural
+
+\f0\fs24 \cf0 \
+\pard\tx720\tx1440\tx2160\tx2880\tx3600\tx4320\tx5040\tx5760\tx6480\tx7200\tx7920\tx8640\sl480\slmult1\ql\qnatural\pardirnatural
+
+\f1\fs18 \cf0 \{\}
+\f0\fs28  usage\
+\pard\tx720\tx1440\tx2160\tx2880\tx3600\tx4320\tx5040\tx5760\tx6480\tx7200\tx7920\tx8640\li540\ql\qnatural\pardirnatural
+
+\b\fs24 \cf2 RIGHT\
+
+\f1\b0\fs18 \cf0 if (a) \{\
+   ...\
+\}\
+while (a) \{\
+   ...\
+\}\
+void function()\
+\{\
+   ...\
+\}\
+- (void)functionWithParameter:(BOOL)parameter\
+\{\
+   ...\
+\}\
+
+\f0\b\fs24 \cf3 WRONG
+\b0 \cf0 \
+
+\f1\fs18 - (void)function \{\
+   ...\
+\}\
+if (a)\
+\{\
+   ...\
+\}\
+\pard\tx720\tx1440\tx2160\tx2880\tx3600\tx4320\tx5040\tx5760\tx6480\tx7200\tx7920\tx8640\ql\qnatural\pardirnatural
+
+\f0\fs24 \cf0 \
+\pard\tx720\tx1440\tx2160\tx2880\tx3600\tx4320\tx5040\tx5760\tx6480\tx7200\tx7920\tx8640\sl480\slmult1\ql\qnatural\pardirnatural
+
+\fs28 \cf0 Prefer early 
+\f1\fs18 return
+\f0\fs28  ie:\
+\pard\tx720\tx1440\tx2160\tx2880\tx3600\tx4320\tx5040\tx5760\tx6480\tx7200\tx7920\tx8640\fi540\ql\qnatural\pardirnatural
+
+\b\fs24 \cf2 PREFER\
+
+\f1\b0\fs18 \cf0 if (!a)\
+    return;\
+
+\f0\fs24 \
+
+\b \cf3 OVER\
+
+\f1\b0\fs18 \cf0 if (a) \{\
+  ...\
+  ...\
+\}\
+
+\f0\fs24 \
+\pard\tx720\tx1440\tx2160\tx2880\tx3600\tx4320\tx5040\tx5760\tx6480\tx7200\tx7920\tx8640\sl480\slmult1\ql\qnatural\pardirnatural
+
+\fs28 \cf0 Objective C code - Don't call multiply the same method\
+\pard\tx720\tx1440\tx2160\tx2880\tx3600\tx4320\tx5040\tx5760\tx6480\tx7200\tx7920\tx8640\li540\ql\qnatural\pardirnatural
+
+\b\fs24 \cf2 RIGHT\
+
+\f1\b0\fs18 \cf0 NSWindow *window = [self window];\
+NSRect frame = [window frame];\
+frame.origin.x = 0;\
+[window setFrame:frame display:NO];\
+\pard\tx720\tx1440\tx2160\tx2880\tx3600\tx4320\tx5040\tx5760\tx6480\tx7200\tx7920\tx8640\fi540\ql\qnatural\pardirnatural
+
+\f0\b\fs24 \cf3 WRONG\
+\pard\tx720\tx1440\tx2160\tx2880\tx3600\tx4320\tx5040\tx5760\tx6480\tx7200\tx7920\tx8640\li540\ql\qnatural\pardirnatural
+
+\f1\b0\fs18 \cf0 NSRect frame = [[self window] frame];\
+frame.origin.x = 0;\
+[[self window] setFrame:frame display:NO];\
+\pard\tx720\tx1440\tx2160\tx2880\tx3600\tx4320\tx5040\tx5760\tx6480\tx7200\tx7920\tx8640\sl480\slmult1\ql\qnatural\pardirnatural
+
+\f0\fs24 \cf0 \
+}
