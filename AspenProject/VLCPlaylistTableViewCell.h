@@ -10,8 +10,8 @@
 
 @interface VLCPlaylistTableViewCell : UITableViewCell
 {
-    UILabel * _titleLabel;
-    UILabel * _subtitleLabel;
+    UILabel *_titleLabel;
+    UILabel *_subtitleLabel;
     UIImageView *_thumbnailView;
 }
 @property (nonatomic, retain) IBOutlet UILabel *titleLabel;

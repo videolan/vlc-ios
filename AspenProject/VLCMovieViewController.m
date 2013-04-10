@@ -87,14 +87,15 @@
     [self.navigationController setNavigationBarHidden:YES animated:YES];
     [UIApplication sharedApplication].statusBarStyle = UIStatusBarStyleBlackTranslucent;
 
-    if (self.mediaItem) {
-        self.title = [self.mediaItem title];
+    if (!self.mediaItem)
+        return;
 
-        [_mediaPlayer setMedia:[VLCMedia mediaWithURL:[NSURL URLWithString:self.mediaItem.url]]];
-        [_mediaPlayer play];
-        if (self.mediaItem.lastPosition && [self.mediaItem.lastPosition floatValue] < 0.99)
-            [_mediaPlayer setPosition:[self.mediaItem.lastPosition floatValue]];
-    }
+    self.title = [self.mediaItem title];
+
+    [_mediaPlayer setMedia:[VLCMedia mediaWithURL:[NSURL URLWithString:self.mediaItem.url]]];
+    [_mediaPlayer play];
+    if (self.mediaItem.lastPosition && [self.mediaItem.lastPosition floatValue] < 0.99)
+        [_mediaPlayer setPosition:[self.mediaItem.lastPosition floatValue]];
 }
 
 - (void)viewWillDisappear:(BOOL)animated
@@ -202,7 +203,7 @@
 - (IBAction)switchAudioTrack:(id)sender
 {
     _audiotrackActionSheet = [[UIActionSheet alloc] initWithTitle:NSLocalizedString(@"Choose Audio Track", @"audio track selector") delegate:self cancelButtonTitle:nil destructiveButtonTitle:nil otherButtonTitles: nil];
-    NSArray * audioTracks = [_mediaPlayer audioTrackNames];
+    NSArray *audioTracks = [_mediaPlayer audioTrackNames];
     NSUInteger count = [audioTracks count];
     for (NSUInteger i = 0; i < count; i++)
         [_audiotrackActionSheet addButtonWithTitle:[audioTracks objectAtIndex:i]];
@@ -213,7 +214,7 @@
 
 - (IBAction)switchSubtitleTrack:(id)sender
 {
-    NSArray * spuTracks = [_mediaPlayer videoSubTitlesNames];
+    NSArray *spuTracks = [_mediaPlayer videoSubTitlesNames];
     NSUInteger count = [spuTracks count];
     if (count <= 1)
         return;
@@ -227,8 +228,8 @@
 
 - (void)actionSheet:(UIActionSheet *)actionSheet clickedButtonAtIndex:(NSInteger)buttonIndex {
     NSUInteger arrayIndex = 0;
-    NSArray * indexArray;
-    NSArray * namesArray;
+    NSArray *indexArray;
+    NSArray *namesArray;
     if (actionSheet == _subtitleActionSheet) {
         namesArray = _mediaPlayer.videoSubTitlesNames;
         arrayIndex = [namesArray indexOfObject:[actionSheet buttonTitleAtIndex:buttonIndex]];

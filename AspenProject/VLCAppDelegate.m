@@ -90,7 +90,7 @@
 #endif
     NSArray *foundFiles = [[NSFileManager defaultManager] contentsOfDirectoryAtPath:directoryPath error:nil];
     NSMutableArray *filePaths = [NSMutableArray arrayWithCapacity:[foundFiles count]];
-    for (NSString * fileName in foundFiles) {
+    for (NSString *fileName in foundFiles) {
         if ([fileName rangeOfString:@"\\.(3gp|3gp|3gp2|3gpp|amv|asf|avi|divx|dv|flv|f4v|gvi|gxf|m1v|m2p|m2t|m2ts|m2v|m4v|mkv|moov|mov|mp2v|mp4|mpeg|mpeg1|mpeg2|mpeg4|mpg|mpv|mt2s|mts|mxf|oga|ogm|ogv|ogx|spx|ps|qt|rm|rmvb|ts|tts|vob|webm|wm|wmv)$" options:NSRegularExpressionSearch|NSCaseInsensitiveSearch].length != 0) {
             [filePaths addObject:[directoryPath stringByAppendingPathComponent:fileName]];
         }

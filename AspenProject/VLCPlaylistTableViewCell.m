@@ -16,7 +16,7 @@
     NSArray *nibContentArray = [[NSBundle mainBundle] loadNibNamed:@"VLCPlaylistTableViewCell" owner:nil options:nil];
     NSAssert([nibContentArray count] == 1, @"meh");
     NSAssert([[nibContentArray lastObject] isKindOfClass:[VLCPlaylistTableViewCell class]], @"meh meh");
-    VLCPlaylistTableViewCell * cell = (VLCPlaylistTableViewCell *)[nibContentArray lastObject];
+    VLCPlaylistTableViewCell *cell = (VLCPlaylistTableViewCell *)[nibContentArray lastObject];
     CGRect frame = [cell frame];
     UIView *background = [[UIView alloc] initWithFrame:frame];
     background.backgroundColor = [UIColor colorWithWhite:.05 alpha:1.];

@@ -12,7 +12,7 @@
 {
     VLCMediaPlayer *_mediaPlayer;
     UIView *_movieView;
-    UIBarButtonItem * _backButton;
+    UIBarButtonItem *_backButton;
     UISlider *_positionSlider;
     UIBarButtonItem *_timeDisplay;
     UIButton *_playPauseButton;
@@ -29,17 +29,17 @@
     UIActionSheet *_audiotrackActionSheet;
 }
 
-@property (nonatomic, retain) IBOutlet UIView * movieView;
-@property (nonatomic, retain) IBOutlet UIBarButtonItem * backButton;
-@property (nonatomic, retain) IBOutlet UISlider * positionSlider;
-@property (nonatomic, retain) IBOutlet UIBarButtonItem * timeDisplay;
-@property (nonatomic, retain) IBOutlet UIButton * playPauseButton;
-@property (nonatomic, retain) IBOutlet UIButton * bwdButton;
-@property (nonatomic, retain) IBOutlet UIButton * fwdButton;
-@property (nonatomic, retain) IBOutlet UIButton * subtitleSwitcherButton;
-@property (nonatomic, retain) IBOutlet UIButton * audioSwitcherButton;
-@property (nonatomic, retain) IBOutlet UIToolbar * toolbar;
-@property (nonatomic, retain) IBOutlet UIView * controllerPanel;
+@property (nonatomic, retain) IBOutlet UIView *movieView;
+@property (nonatomic, retain) IBOutlet UIBarButtonItem *backButton;
+@property (nonatomic, retain) IBOutlet UISlider *positionSlider;
+@property (nonatomic, retain) IBOutlet UIBarButtonItem *timeDisplay;
+@property (nonatomic, retain) IBOutlet UIButton *playPauseButton;
+@property (nonatomic, retain) IBOutlet UIButton *bwdButton;
+@property (nonatomic, retain) IBOutlet UIButton *fwdButton;
+@property (nonatomic, retain) IBOutlet UIButton *subtitleSwitcherButton;
+@property (nonatomic, retain) IBOutlet UIButton *audioSwitcherButton;
+@property (nonatomic, retain) IBOutlet UIToolbar *toolbar;
+@property (nonatomic, retain) IBOutlet UIView *controllerPanel;
 
 @property (strong, nonatomic) MLFile *mediaItem;
 
