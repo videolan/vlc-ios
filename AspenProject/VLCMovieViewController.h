@@ -11,17 +11,6 @@
 @interface VLCMovieViewController : UIViewController <UISplitViewControllerDelegate, VLCMediaPlayerDelegate, UIActionSheetDelegate>
 {
     VLCMediaPlayer *_mediaPlayer;
-    UIView *_movieView;
-    UIBarButtonItem *_backButton;
-    UISlider *_positionSlider;
-    UIBarButtonItem *_timeDisplay;
-    UIButton *_playPauseButton;
-    UIButton *_bwdButton;
-    UIButton *_fwdButton;
-    UIButton *_subtitleSwitcherButton;
-    UIButton *_audioSwitcherButton;
-    UIView *_controllerPanel;
-    UIToolbar *_toolbar;
 
     BOOL _controlsHidden;
 

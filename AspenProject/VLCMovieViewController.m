@@ -15,9 +15,6 @@
 @end
 
 @implementation VLCMovieViewController
-@synthesize movieView=_movieView, backButton=_backButton, positionSlider=_positionSlider, timeDisplay=_timeDisplay, playPauseButton = _playPauseButton, bwdButton = _bwdButton, fwdButton = _fwdButton, subtitleSwitcherButton = _subtitleSwitcherButton, audioSwitcherButton = _audioSwitcherButton;
-@synthesize toolbar = _toolbar,  controllerPanel = _controllerPanel, playingExternallyView = _playingExternallyView,
-    playingExternallyTitle = _playingExternallyTitle, playingExternallyDescription = _playingExternallyDescription;
 
 - (void)dealloc
 {
