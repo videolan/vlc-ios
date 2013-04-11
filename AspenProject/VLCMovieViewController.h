@@ -40,7 +40,10 @@
 @property (nonatomic, retain) IBOutlet UIButton *audioSwitcherButton;
 @property (nonatomic, retain) IBOutlet UIToolbar *toolbar;
 @property (nonatomic, retain) IBOutlet UIView *controllerPanel;
+
 @property (nonatomic, retain) IBOutlet UIView *playingExternallyView;
+@property (nonatomic, retain) IBOutlet UILabel *playingExternallyTitle;
+@property (nonatomic, retain) IBOutlet UILabel *playingExternallyDescription;
 
 @property (strong, nonatomic) MLFile *mediaItem;
 

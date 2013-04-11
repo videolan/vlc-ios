@@ -496,6 +496,22 @@
 					<int key="connectionID">112</int>
 				</object>
 				<object class="IBConnectionRecord">
+					<object class="IBCocoaTouchOutletConnection" key="connection">
+						<string key="label">playingExternallyDescription</string>
+						<reference key="source" ref="372490531"/>
+						<reference key="destination" ref="360323160"/>
+					</object>
+					<int key="connectionID">113</int>
+				</object>
+				<object class="IBConnectionRecord">
+					<object class="IBCocoaTouchOutletConnection" key="connection">
+						<string key="label">playingExternallyTitle</string>
+						<reference key="source" ref="372490531"/>
+						<reference key="destination" ref="529141063"/>
+					</object>
+					<int key="connectionID">114</int>
+				</object>
+				<object class="IBConnectionRecord">
 					<object class="IBCocoaTouchEventConnection" key="connection">
 						<string key="label">switchSubtitleTrack:</string>
 						<reference key="source" ref="649952457"/>
@@ -722,7 +738,7 @@
 			<nil key="activeLocalization"/>
 			<dictionary class="NSMutableDictionary" key="localizations"/>
 			<nil key="sourceID"/>
-			<int key="maxID">112</int>
+			<int key="maxID">114</int>
 		</object>
 		<object class="IBClassDescriber" key="IBDocument.Classes">
 			<array class="NSMutableArray" key="referencedPartialClassDescriptions">
@@ -784,6 +800,8 @@
 						<string key="fwdButton">UIButton</string>
 						<string key="movieView">UIView</string>
 						<string key="playPauseButton">UIButton</string>
+						<string key="playingExternallyDescription">UILabel</string>
+						<string key="playingExternallyTitle">UILabel</string>
 						<string key="playingExternallyView">UIView</string>
 						<string key="positionSlider">UISlider</string>
 						<string key="subtitleSwitcherButton">UIButton</string>
@@ -818,6 +836,14 @@
 						<object class="IBToOneOutletInfo" key="playPauseButton">
 							<string key="name">playPauseButton</string>
 							<string key="candidateClassName">UIButton</string>
+						</object>
+						<object class="IBToOneOutletInfo" key="playingExternallyDescription">
+							<string key="name">playingExternallyDescription</string>
+							<string key="candidateClassName">UILabel</string>
+						</object>
+						<object class="IBToOneOutletInfo" key="playingExternallyTitle">
+							<string key="name">playingExternallyTitle</string>
+							<string key="candidateClassName">UILabel</string>
 						</object>
 						<object class="IBToOneOutletInfo" key="playingExternallyView">
 							<string key="name">playingExternallyView</string>

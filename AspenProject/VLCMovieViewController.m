@@ -16,7 +16,8 @@
 
 @implementation VLCMovieViewController
 @synthesize movieView=_movieView, backButton=_backButton, positionSlider=_positionSlider, timeDisplay=_timeDisplay, playPauseButton = _playPauseButton, bwdButton = _bwdButton, fwdButton = _fwdButton, subtitleSwitcherButton = _subtitleSwitcherButton, audioSwitcherButton = _audioSwitcherButton;
-@synthesize toolbar = _toolbar,  controllerPanel = _controllerPanel, playingExternallyView = _playingExternallyView;
+@synthesize toolbar = _toolbar,  controllerPanel = _controllerPanel, playingExternallyView = _playingExternallyView,
+    playingExternallyTitle = _playingExternallyTitle, playingExternallyDescription = _playingExternallyDescription;
 
 - (void)dealloc
 {
@@ -35,6 +36,8 @@
     [_audioSwitcherButton release];
     [_controllerPanel release];
     [_playingExternallyView release];
+    [_playingExternallyTitle release];
+    [_playingExternallyDescription release];
 
     [_mediaPlayer stop];
     [_mediaPlayer release];
@@ -71,6 +74,8 @@
                    name:UIScreenDidDisconnectNotification object:nil];
     [center addObserver:self selector:@selector(appWillResign:) name:UIApplicationWillResignActiveNotification object:nil];
 
+    _playingExternallyTitle.text = NSLocalizedString(@"PLAYING_EXTERNALLY_TITLE", @"");
+    _playingExternallyDescription.text = NSLocalizedString(@"PLAYING_EXTERNALLY_DESC", @"");
     if ([self hasExternalDisplay]) {
         [self showOnExternalDisplay];
     }
