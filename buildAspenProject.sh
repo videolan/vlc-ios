@@ -150,7 +150,17 @@ cd ..
 fi
 if ! [ -e AQGridView ]; then
 git clone git://github.com/AlanQuatermain/AQGridView.git
+cd AQGridView
+git am ../../patches/aqgridview/*.patch
+if [ $? -ne 0 ]; then
+git am --abort
+info "Applying the patches failed, aborting git-am"
+exit 1
 fi
+cd ..
+fi
+
+exit
 
 info "Setup 'External' folders"
 
