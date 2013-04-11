@@ -148,6 +148,9 @@ exit 1
 fi
 cd ..
 fi
+if ! [ -e AQGridView ]; then
+git clone git://github.com/AlanQuatermain/AQGridView.git
+fi
 
 info "Setup 'External' folders"
 
