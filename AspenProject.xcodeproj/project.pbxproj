@@ -44,6 +44,10 @@
 		A79246C4170F114E0036AAF2 /* VLCPlaylistViewController~ipad.xib in Resources */ = {isa = PBXBuildFile; fileRef = A79246BF170F114E0036AAF2 /* VLCPlaylistViewController~ipad.xib */; };
 		A79246C5170F114E0036AAF2 /* VLCPlaylistViewController~iphone.xib in Resources */ = {isa = PBXBuildFile; fileRef = A79246C0170F114E0036AAF2 /* VLCPlaylistViewController~iphone.xib */; };
 		A79246C8170F11DF0036AAF2 /* Localizable.strings in Resources */ = {isa = PBXBuildFile; fileRef = A79246C6170F11DF0036AAF2 /* Localizable.strings */; };
+		A7CB0DB11716F72600050CF3 /* PlayingExternally@2x~iphone.png in Resources */ = {isa = PBXBuildFile; fileRef = A7CB0DAD1716F72600050CF3 /* PlayingExternally@2x~iphone.png */; };
+		A7CB0DB21716F72600050CF3 /* PlayingExternally~iphone.png in Resources */ = {isa = PBXBuildFile; fileRef = A7CB0DAE1716F72600050CF3 /* PlayingExternally~iphone.png */; };
+		A7CB0DB31716F72600050CF3 /* PlayingExternally~ipad.png in Resources */ = {isa = PBXBuildFile; fileRef = A7CB0DAF1716F72600050CF3 /* PlayingExternally~ipad.png */; };
+		A7CB0DB41716F72600050CF3 /* PlayingExternally@2x~ipad.png in Resources */ = {isa = PBXBuildFile; fileRef = A7CB0DB01716F72600050CF3 /* PlayingExternally@2x~ipad.png */; };
 		A7DA16D1171083DF00D6FED9 /* VLCExternalDisplayController.m in Sources */ = {isa = PBXBuildFile; fileRef = A7DA16D0171083DF00D6FED9 /* VLCExternalDisplayController.m */; };
 		CC1BBC3F1704934300A20CBF /* libMobileVLCKit.a in Frameworks */ = {isa = PBXBuildFile; fileRef = CC1BBC3E1704934200A20CBF /* libMobileVLCKit.a */; };
 		CC1BBC431704935E00A20CBF /* MediaLibrary.mom in Resources */ = {isa = PBXBuildFile; fileRef = CC1BBC421704935E00A20CBF /* MediaLibrary.mom */; };
@@ -120,6 +124,10 @@
 		A79246C0170F114E0036AAF2 /* VLCPlaylistViewController~iphone.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; name = "VLCPlaylistViewController~iphone.xib"; path = "Resources/VLCPlaylistViewController~iphone.xib"; sourceTree = SOURCE_ROOT; };
 		A79246C7170F11DF0036AAF2 /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/Localizable.strings; sourceTree = "<group>"; };
 		A79246C9170F11E40036AAF2 /* ru */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = ru; path = ru.lproj/Localizable.strings; sourceTree = "<group>"; };
+		A7CB0DAD1716F72600050CF3 /* PlayingExternally@2x~iphone.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "PlayingExternally@2x~iphone.png"; sourceTree = "<group>"; };
+		A7CB0DAE1716F72600050CF3 /* PlayingExternally~iphone.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "PlayingExternally~iphone.png"; sourceTree = "<group>"; };
+		A7CB0DAF1716F72600050CF3 /* PlayingExternally~ipad.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "PlayingExternally~ipad.png"; sourceTree = "<group>"; };
+		A7CB0DB01716F72600050CF3 /* PlayingExternally@2x~ipad.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "PlayingExternally@2x~ipad.png"; sourceTree = "<group>"; };
 		A7DA16CF171083DF00D6FED9 /* VLCExternalDisplayController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = VLCExternalDisplayController.h; sourceTree = "<group>"; };
 		A7DA16D0171083DF00D6FED9 /* VLCExternalDisplayController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = VLCExternalDisplayController.m; sourceTree = "<group>"; };
 		CC1BBC3E1704934200A20CBF /* libMobileVLCKit.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; name = libMobileVLCKit.a; path = "ImportedSources/VLCKit/build/Release-iphonesimulator/libMobileVLCKit.a"; sourceTree = "<group>"; };
@@ -312,6 +320,10 @@
 				7DBC3B48171204EC00DCF688 /* About Contents.txt */,
 				7DBC3B3C1711DD1E00DCF688 /* Icons */,
 				A79246C6170F11DF0036AAF2 /* Localizable.strings */,
+				A7CB0DAD1716F72600050CF3 /* PlayingExternally@2x~iphone.png */,
+				A7CB0DAE1716F72600050CF3 /* PlayingExternally~iphone.png */,
+				A7CB0DAF1716F72600050CF3 /* PlayingExternally~ipad.png */,
+				A7CB0DB01716F72600050CF3 /* PlayingExternally@2x~ipad.png */,
 				A7924698170F0ED20036AAF2 /* Default-568h@2x.png */,
 				A7924699170F0ED20036AAF2 /* Default.png */,
 				A792469A170F0ED20036AAF2 /* Default@2x.png */,
@@ -399,6 +411,10 @@
 				7DBC3B3B1711DD0900DCF688 /* Aspen57.png in Resources */,
 				7DBC3B451711FC6C00DCF688 /* VLCAboutViewController~iphone.xib in Resources */,
 				7DBC3B49171204ED00DCF688 /* About Contents.txt in Resources */,
+				A7CB0DB11716F72600050CF3 /* PlayingExternally@2x~iphone.png in Resources */,
+				A7CB0DB21716F72600050CF3 /* PlayingExternally~iphone.png in Resources */,
+				A7CB0DB31716F72600050CF3 /* PlayingExternally~ipad.png in Resources */,
+				A7CB0DB41716F72600050CF3 /* PlayingExternally@2x~ipad.png in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

@@ -16,7 +16,7 @@
 
 @implementation VLCMovieViewController
 @synthesize movieView=_movieView, backButton=_backButton, positionSlider=_positionSlider, timeDisplay=_timeDisplay, playPauseButton = _playPauseButton, bwdButton = _bwdButton, fwdButton = _fwdButton, subtitleSwitcherButton = _subtitleSwitcherButton, audioSwitcherButton = _audioSwitcherButton;
-@synthesize toolbar = _toolbar,  controllerPanel = _controllerPanel;
+@synthesize toolbar = _toolbar,  controllerPanel = _controllerPanel, playingExternallyView = _playingExternallyView;
 
 - (void)dealloc
 {
@@ -34,6 +34,7 @@
     [_subtitleActionSheet release];
     [_audioSwitcherButton release];
     [_controllerPanel release];
+    [_playingExternallyView release];
 
     [_mediaPlayer stop];
     [_mediaPlayer release];
@@ -292,6 +293,7 @@
     _movieView.frame = screen.bounds;
     [controller release];
 
+    self.playingExternallyView.hidden = NO;
     self.externalWindow.screen = screen;
     self.externalWindow.hidden = NO;
 }
@@ -302,6 +304,7 @@
     [self.view sendSubviewToBack:_movieView];
     _movieView.frame = self.view.frame;
 
+    self.playingExternallyView.hidden = YES;
     self.externalWindow.hidden = YES;
     self.externalWindow = nil;
 }
