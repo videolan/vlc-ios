@@ -160,8 +160,6 @@ fi
 cd ..
 fi
 
-exit
-
 info "Setup 'External' folders"
 
 if [ "$PLATFORM" = "Simulator" ]; then
