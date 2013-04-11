@@ -41,7 +41,8 @@
 - (void)viewWillAppear:(BOOL)animated
 {
     [self.navigationController setNavigationBarHidden:YES animated:NO];
-    [UIApplication sharedApplication].statusBarStyle = UIStatusBarStyleBlackTranslucent;
+    if (UI_USER_INTERFACE_IDIOM() == UIUserInterfaceIdiomPhone)
+        [UIApplication sharedApplication].statusBarStyle = UIStatusBarStyleBlackTranslucent;
     [super viewWillAppear:animated];
 }
 
