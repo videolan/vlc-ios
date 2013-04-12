@@ -7,14 +7,25 @@
 //
 
 #import <UIKit/UIKit.h>
+#import "AQGridView.h"
 
 @class VLCMovieViewController;
 @class VLCAboutViewController;
 
-@interface VLCPlaylistViewController : UITableViewController
+@interface VLCPlaylistViewController : UIViewController <AQGridViewDataSource, AQGridViewDelegate, UITableViewDataSource, UITableViewDelegate>
+{
+    UITableView *_tableView;
+    AQGridView *_gridview;
+}
 
 @property (strong, nonatomic) VLCMovieViewController *movieViewController;
 @property (strong, nonatomic) VLCAboutViewController *aboutViewController;
+
+@property (nonatomic, retain) IBOutlet UITableView *tableView;
+
+@property (nonatomic, retain) IBOutlet UIBarButtonItem *ipadAboutButton;
+@property (nonatomic, retain) IBOutlet AQGridView *gridView;
+@property (nonatomic, retain) IBOutlet UIToolbar *ipadToolBar;
 
 - (void)updateViewContents;
 

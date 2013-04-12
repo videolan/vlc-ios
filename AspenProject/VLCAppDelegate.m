@@ -26,27 +26,11 @@
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions
 {
     self.window = [[[UIWindow alloc] initWithFrame:[[UIScreen mainScreen] bounds]] autorelease];
-    // Override point for customization after application launch.
+
     _playlistViewController = [[VLCPlaylistViewController alloc] initWithNibName:@"VLCPlaylistViewController" bundle:nil];
-    if (UI_USER_INTERFACE_IDIOM() == UIUserInterfaceIdiomPhone) {
 
-        self.navigationController = [[[UINavigationController alloc] initWithRootViewController:_playlistViewController] autorelease];
-        self.window.rootViewController = self.navigationController;
-    } else {
-        _playlistViewController = [[VLCPlaylistViewController alloc] initWithNibName:@"VLCPlaylistViewController" bundle:nil];
-        UINavigationController *masterNavigationController = [[[UINavigationController alloc] initWithRootViewController:_playlistViewController] autorelease];
-
-        VLCMovieViewController *movieViewController = [[[VLCMovieViewController alloc] initWithNibName:@"VLCMovieViewController" bundle:nil] autorelease];
-        UINavigationController *movieNavigationController = [[[UINavigationController alloc] initWithRootViewController:movieViewController] autorelease];
-
-        _playlistViewController.movieViewController = movieViewController;
-
-        self.splitViewController = [[[UISplitViewController alloc] init] autorelease];
-        self.splitViewController.delegate = movieViewController;
-        self.splitViewController.viewControllers = @[masterNavigationController, movieNavigationController];
-
-        self.window.rootViewController = self.splitViewController;
-    }
+    self.navigationController = [[[UINavigationController alloc] initWithRootViewController:_playlistViewController] autorelease];
+    self.window.rootViewController = self.navigationController;
 
     self.navigationController.navigationBar.barStyle = UIBarStyleBlack;
     [self.window makeKeyAndVisible];
