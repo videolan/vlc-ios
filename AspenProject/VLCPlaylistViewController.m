@@ -18,7 +18,7 @@
 @end
 
 @implementation VLCPlaylistViewController
-@synthesize ipadAboutButton=_ipadAboutButton, gridView=_gridview, ipadToolBar=_ipadToolBar;
+@synthesize gridView=_gridview;
 
 - (id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil
 {
@@ -32,8 +32,6 @@
 - (void)dealloc
 {
     [_tableView release];
-    [_ipadAboutButton release];
-    [_ipadToolBar release];
     [_gridview release];
     [_aboutViewController release];
     [_movieViewController release];

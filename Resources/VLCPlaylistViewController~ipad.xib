@@ -40,7 +40,6 @@
 						<string key="NSFrameSize">{768, 1004}</string>
 						<reference key="NSSuperview" ref="647120888"/>
 						<reference key="NSWindow"/>
-						<reference key="NSNextKeyView"/>
 						<string key="NSReuseIdentifierKey">_NS:9</string>
 						<object class="NSColor" key="IBUIBackgroundColor">
 							<int key="NSColorSpace">3</int>
@@ -52,7 +51,6 @@
 				<string key="NSFrame">{{0, 20}, {768, 1004}}</string>
 				<reference key="NSSuperview"/>
 				<reference key="NSWindow"/>
-				<reference key="NSNextKeyView"/>
 				<object class="NSColor" key="IBUIBackgroundColor">
 					<int key="NSColorSpace">3</int>
 					<bytes key="NSWhite">MQA</bytes>
@@ -177,22 +175,12 @@
 					<string key="superclassName">UIViewController</string>
 					<dictionary class="NSMutableDictionary" key="outlets">
 						<string key="gridView">AQGridView</string>
-						<string key="ipadAboutButton">UIBarButtonItem</string>
-						<string key="ipadToolBar">UIToolbar</string>
 						<string key="tableView">UITableView</string>
 					</dictionary>
 					<dictionary class="NSMutableDictionary" key="toOneOutletInfosByName">
 						<object class="IBToOneOutletInfo" key="gridView">
 							<string key="name">gridView</string>
 							<string key="candidateClassName">AQGridView</string>
-						</object>
-						<object class="IBToOneOutletInfo" key="ipadAboutButton">
-							<string key="name">ipadAboutButton</string>
-							<string key="candidateClassName">UIBarButtonItem</string>
-						</object>
-						<object class="IBToOneOutletInfo" key="ipadToolBar">
-							<string key="name">ipadToolBar</string>
-							<string key="candidateClassName">UIToolbar</string>
 						</object>
 						<object class="IBToOneOutletInfo" key="tableView">
 							<string key="name">tableView</string>

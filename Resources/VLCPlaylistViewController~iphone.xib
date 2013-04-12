@@ -173,22 +173,12 @@
 					<string key="superclassName">UIViewController</string>
 					<dictionary class="NSMutableDictionary" key="outlets">
 						<string key="gridView">AQGridView</string>
-						<string key="ipadAboutButton">UIBarButtonItem</string>
-						<string key="ipadToolBar">UIToolbar</string>
 						<string key="tableView">UITableView</string>
 					</dictionary>
 					<dictionary class="NSMutableDictionary" key="toOneOutletInfosByName">
 						<object class="IBToOneOutletInfo" key="gridView">
 							<string key="name">gridView</string>
 							<string key="candidateClassName">AQGridView</string>
-						</object>
-						<object class="IBToOneOutletInfo" key="ipadAboutButton">
-							<string key="name">ipadAboutButton</string>
-							<string key="candidateClassName">UIBarButtonItem</string>
-						</object>
-						<object class="IBToOneOutletInfo" key="ipadToolBar">
-							<string key="name">ipadToolBar</string>
-							<string key="candidateClassName">UIToolbar</string>
 						</object>
 						<object class="IBToOneOutletInfo" key="tableView">
 							<string key="name">tableView</string>
