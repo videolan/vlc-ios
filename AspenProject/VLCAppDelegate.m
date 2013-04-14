@@ -19,7 +19,6 @@
     [_playlistViewController release];
     [_window release];
     [_navigationController release];
-    [_splitViewController release];
     [super dealloc];
 }
 

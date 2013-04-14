@@ -13,7 +13,6 @@
 @end
 
 @implementation VLCAboutViewController
-@synthesize textContents=_textContents, aspenVersion=_aspenVersion, vlckitVersion=_vlckitVersion;
 
 - (id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil
 {
@@ -26,6 +25,7 @@
     [_textContents release];
     [_aspenVersion release];
     [_vlckitVersion release];
+    [_dismissButton release];
     [super dealloc];
 }
 

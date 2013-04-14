@@ -18,7 +18,6 @@
 @end
 
 @implementation VLCPlaylistViewController
-@synthesize gridView=_gridview;
 
 - (id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil
 {
@@ -32,7 +31,7 @@
 - (void)dealloc
 {
     [_tableView release];
-    [_gridview release];
+    [_gridView release];
     [_aboutViewController release];
     [_movieViewController release];
     [_foundMedia release];

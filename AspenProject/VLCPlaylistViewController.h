@@ -13,13 +13,10 @@
 @class VLCAboutViewController;
 
 @interface VLCPlaylistViewController : UIViewController <AQGridViewDataSource, AQGridViewDelegate, UITableViewDataSource, UITableViewDelegate>
-{
-    UITableView *_tableView;
-    AQGridView *_gridview;
-}
 
-@property (strong, nonatomic) VLCMovieViewController *movieViewController;
-@property (strong, nonatomic) VLCAboutViewController *aboutViewController;
+
+@property (nonatomic, retain) VLCMovieViewController *movieViewController;
+@property (nonatomic, retain) VLCAboutViewController *aboutViewController;
 
 @property (nonatomic, retain) IBOutlet UITableView *tableView;
 @property (nonatomic, retain) IBOutlet AQGridView *gridView;

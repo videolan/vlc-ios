@@ -9,7 +9,6 @@
 #import "VLCPlaylistTableViewCell.h"
 
 @implementation VLCPlaylistTableViewCell
-@synthesize titleLabel = _titleLabel, subtitleLabel = _subtitleLabel, thumbnailView = _thumbnailView;
 
 + (VLCPlaylistTableViewCell *)cellWithReuseIdentifier:(NSString *)ident
 {

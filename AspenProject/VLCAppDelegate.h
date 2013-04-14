@@ -14,10 +14,8 @@
     VLCPlaylistViewController *_playlistViewController;
 }
 
-@property (strong, nonatomic) UIWindow *window;
+@property (nonatomic, retain) UIWindow *window;
 
-@property (strong, nonatomic) UINavigationController *navigationController;
-
-@property (strong, nonatomic) UISplitViewController *splitViewController;
+@property (nonatomic, retain) UINavigationController *navigationController;
 
 @end

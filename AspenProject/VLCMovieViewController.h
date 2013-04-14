@@ -8,7 +8,7 @@
 
 #import <UIKit/UIKit.h>
 
-@interface VLCMovieViewController : UIViewController <UISplitViewControllerDelegate, VLCMediaPlayerDelegate, UIActionSheetDelegate>
+@interface VLCMovieViewController : UIViewController <VLCMediaPlayerDelegate, UIActionSheetDelegate>
 {
     VLCMediaPlayer *_mediaPlayer;
 
@@ -34,7 +34,7 @@
 @property (nonatomic, retain) IBOutlet UILabel *playingExternallyTitle;
 @property (nonatomic, retain) IBOutlet UILabel *playingExternallyDescription;
 
-@property (strong, nonatomic) MLFile *mediaItem;
+@property (nonatomic, retain) MLFile *mediaItem;
 
 - (IBAction)closePlayback:(id)sender;
 - (IBAction)positionSliderAction:(id)sender;
