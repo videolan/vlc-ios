@@ -1,0 +1,231 @@
+From 282d6daa3c4e2132f892da3b3a82c5171ae411c4 Mon Sep 17 00:00:00 2001
+From: =?UTF-8?q?Felix=20Paul=20K=C3=BChne?= <fkuehne@videolan.org>
+Date: Sun, 28 Apr 2013 17:35:08 +0200
+Subject: [PATCH 3/3] Upgrade ObjC syntax
+
+---
+ Classes/AQGridView.m           | 16 ++++++++--------
+ Classes/AQGridViewCell.m       | 18 +++++++++---------
+ Classes/AQGridViewUpdateInfo.m | 24 ++++++++++++------------
+ 3 files changed, 29 insertions(+), 29 deletions(-)
+
+diff --git a/Classes/AQGridView.m b/Classes/AQGridView.m
+index babe070..38d2525 100755
+--- a/Classes/AQGridView.m
++++ b/Classes/AQGridView.m
+@@ -574,7 +574,7 @@ NSString * const AQGridViewSelectionDidChangeNotification = @"AQGridViewSelectio
+ 
+ - (AQGridViewCell *) dequeueReusableCellWithIdentifier: (NSString *) reuseIdentifier
+ {
+-	NSMutableSet * cells = [_reusableGridCells objectForKey: reuseIdentifier];
++	NSMutableSet * cells = _reusableGridCells[reuseIdentifier];
+ 	AQGridViewCell * cell = [cells anyObject];
+ 	if ( cell == nil )
+ 		return ( nil );
+@@ -589,11 +589,11 @@ NSString * const AQGridViewSelectionDidChangeNotification = @"AQGridViewSelectio
+ {
+ 	for ( AQGridViewCell * cell in reusableCells )
+ 	{
+-		NSMutableSet * reuseSet = [_reusableGridCells objectForKey: cell.reuseIdentifier];
++		NSMutableSet * reuseSet = _reusableGridCells[cell.reuseIdentifier];
+ 		if ( reuseSet == nil )
+ 		{
+ 			reuseSet = [[NSMutableSet alloc] initWithCapacity: 32];
+-			[_reusableGridCells setObject: reuseSet forKey: cell.reuseIdentifier];
++			_reusableGridCells[cell.reuseIdentifier] = reuseSet;
+ 		}
+ 		else if ( [reuseSet member: cell] == cell )
+ 		{
+@@ -724,7 +724,7 @@ NSString * const AQGridViewSelectionDidChangeNotification = @"AQGridViewSelectio
+ {
+ 	// simple case -- there's a cell already, we can just ask for its frame
+ 	if ( NSLocationInRange(index, _visibleIndices) )
+-		return ( [[_visibleCells objectAtIndex: [self visibleCellListIndexForItemIndex: index]] frame] );
++		return ( [_visibleCells[[self visibleCellListIndexForItemIndex: index]] frame] );
+ 
+ 	// complex case-- compute the frame manually
+ 	return ( [self fixCellFrame: CGRectZero forGridRect: [_gridData cellRectAtIndex: index]] );
+@@ -738,7 +738,7 @@ NSString * const AQGridViewSelectionDidChangeNotification = @"AQGridViewSelectio
+ 	// we don't clip to visible range-- when animating edits the visible cell list can contain extra items
+ 	NSUInteger visibleCellListIndex = [self visibleCellListIndexForItemIndex: index];
+ 	if ( visibleCellListIndex < [_visibleCells count] )
+-		return ( [_visibleCells objectAtIndex: visibleCellListIndex] );
++		return ( _visibleCells[visibleCellListIndex] );
+ 	return ( nil );
+ }
+ 
+@@ -1340,7 +1340,7 @@ NSString * const AQGridViewSelectionDidChangeNotification = @"AQGridViewSelectio
+ 					// NB: In UITableView:
+ 					// if ( [self usesGestureRecognizers] && [self isDragging] ) skip next line
+ 					[self performSelector: @selector(_gridViewDeferredTouchesBegan:)
+-							   withObject: [NSNumber numberWithUnsignedInteger: index]
++							   withObject: @(index)
+ 							   afterDelay: 0.0];
+ 				}
+ 			}
+@@ -1485,7 +1485,7 @@ NSArray * __sortDescriptors;
+ {
+     static dispatch_once_t onceToken;
+     dispatch_once(&onceToken, ^{
+-		__sortDescriptors = [[NSArray alloc] initWithObjects: [[NSSortDescriptor alloc] initWithKey: @"displayIndex" ascending: YES], nil];
++		__sortDescriptors = @[[[NSSortDescriptor alloc] initWithKey: @"displayIndex" ascending: YES]];
+     });
+ 
+ 	[_visibleCells sortUsingDescriptors: __sortDescriptors];
+@@ -1654,7 +1654,7 @@ NSArray * __sortDescriptors;
+                     NSUInteger i, count = [_visibleCells count];
+                     for ( i = 0; i < count; i++ )
+                     {
+-                        AQGridViewCell * cell = [_visibleCells objectAtIndex: i];
++                        AQGridViewCell * cell = _visibleCells[i];
+                         if ( [newVisibleIndices containsIndex: cell.displayIndex] == NO &&
+                             [animatingDestinationIndices containsIndex: cell.displayIndex] == NO )
+                         {
+diff --git a/Classes/AQGridViewCell.m b/Classes/AQGridViewCell.m
+index d5307df..1eb72ba 100644
+--- a/Classes/AQGridViewCell.m
++++ b/Classes/AQGridViewCell.m
+@@ -127,7 +127,7 @@
+         _contentView.autoresizesSubviews = YES;
+         self.autoresizesSubviews = YES;
+         _contentView.backgroundColor = [UIColor whiteColor];
+-		[_contentView.layer setValue: [NSNumber numberWithBool: YES] forKey: @"KoboHackInterestingLayer"];
++		[_contentView.layer setValue: @YES forKey: @"KoboHackInterestingLayer"];
+         [self addSubview: _contentView];
+     }
+ 	return ( _contentView );
+@@ -206,7 +206,7 @@
+ 			id value = view.backgroundColor;
+ 			if ( value == nil )
+ 				value = [NSNull null];
+-			[info setObject: value forKey: @"backgroundColor"];
++			info[@"backgroundColor"] = value;
+ 			
+ 			view.opaque = NO;
+ 			view.backgroundColor = color;
+@@ -223,7 +223,7 @@
+ 		NSMutableDictionary * info = (NSMutableDictionary *) objc_unretainedObject(CFDictionaryGetValue( _selectionColorInfo, objc_unretainedPointer(view) ));
+ 		if ( info != nil )
+ 		{
+-			id value = [info objectForKey: @"backgroundColor"];
++			id value = info[@"backgroundColor"];
+ 			if ( value == nil )
+ 				continue;
+ 			
+@@ -254,15 +254,15 @@
+ 			
+ 			// don't overwrite any prior cache of a view's original highlighted state.
+ 			// this is because 'highlighted' will be set, then 'selected', which can perform 'highlight' again before the animation completes
+-			if ( [info objectForKey: @"highlighted"] == nil )
++			if ( info[@"highlighted"] == nil )
+ 			{
+ 				id value = [view valueForKey: @"highlighted"];
+ 				if ( value == nil )
+-					value = [NSNumber numberWithBool: NO];
+-				[info setObject: value forKey: @"highlighted"];
++					value = @NO;
++				info[@"highlighted"] = value;
+ 			}
+ 			
+-			[view setValue: [NSNumber numberWithBool: YES]
++			[view setValue: @YES
+ 					forKey: @"highlighted"];
+ 		}
+ 		
+@@ -278,7 +278,7 @@
+ 			NSMutableDictionary * info = (NSMutableDictionary *) objc_unretainedObject(CFDictionaryGetValue( _selectionColorInfo, objc_unretainedPointer(view) ));
+ 			if ( info != nil )
+ 			{
+-				id value = [info objectForKey: @"highlighted"];
++				id value = info[@"highlighted"];
+ 				[view setValue: value forKey: @"highlighted"];
+ 			}
+ 		}
+@@ -388,7 +388,7 @@
+ 											  interval: 0.1
+ 												target: self
+ 											  selector: @selector(flipHighlightTimerFired:)
+-											  userInfo: [NSNumber numberWithBool: highlightOn]
++											  userInfo: @(highlightOn)
+ 											   repeats: NO];
+ 		[[NSRunLoop currentRunLoop] addTimer: _fadeTimer forMode: NSDefaultRunLoopMode];
+ 	}
+diff --git a/Classes/AQGridViewUpdateInfo.m b/Classes/AQGridViewUpdateInfo.m
+index 9bf5148..f016dec 100644
+--- a/Classes/AQGridViewUpdateInfo.m
++++ b/Classes/AQGridViewUpdateInfo.m
+@@ -562,8 +562,8 @@
+ 	
+ 	CGSize cellSize = cell.frame.size;
+     
+-    [itemsToSetBeforeAnimation setObject: [NSNumber numberWithFloat: 0.0] forKey: @"alpha"];
+-    [itemsToAnimate setObject: [NSNumber numberWithFloat: 1.0] forKey: @"alpha"];
++    itemsToSetBeforeAnimation[@"alpha"] = @0.0f;
++    itemsToAnimate[@"alpha"] = @1.0f;
+ 	
+ 	switch ( animation )
+ 	{
+@@ -576,36 +576,36 @@
+ 		case AQGridViewItemAnimationRight:
+ 		{
+ 			CGPoint center = cell.center;
+-			[itemsToAnimate setObject: [NSValue valueWithCGPoint: center] forKey: @"center"];
++			itemsToAnimate[@"center"] = [NSValue valueWithCGPoint: center];
+ 			center.x += cellSize.width;
+-			[itemsToSetBeforeAnimation setObject: [NSValue valueWithCGPoint: center] forKey: @"center"];
++			itemsToSetBeforeAnimation[@"center"] = [NSValue valueWithCGPoint: center];
+ 			break;
+ 		}
+ 			
+ 		case AQGridViewItemAnimationLeft:
+ 		{
+ 			CGPoint center = cell.center;
+-			[itemsToAnimate setObject: [NSValue valueWithCGPoint: center] forKey: @"center"];
++			itemsToAnimate[@"center"] = [NSValue valueWithCGPoint: center];
+ 			center.x -= cellSize.width;
+-			[itemsToSetBeforeAnimation setObject: [NSValue valueWithCGPoint: center] forKey: @"center"];
++			itemsToSetBeforeAnimation[@"center"] = [NSValue valueWithCGPoint: center];
+ 			break;
+ 		}
+ 			
+ 		case AQGridViewItemAnimationTop:
+ 		{
+ 			CGPoint center = cell.center;
+-			[itemsToAnimate setObject: [NSValue valueWithCGPoint: center] forKey: @"center"];
++			itemsToAnimate[@"center"] = [NSValue valueWithCGPoint: center];
+ 			center.y -= cellSize.height;
+-			[itemsToSetBeforeAnimation setObject: [NSValue valueWithCGPoint: center] forKey: @"center"];
++			itemsToSetBeforeAnimation[@"center"] = [NSValue valueWithCGPoint: center];
+ 			break;
+ 		}
+ 			
+ 		case AQGridViewItemAnimationBottom:
+ 		{
+ 			CGPoint center = cell.center;
+-			[itemsToAnimate setObject: [NSValue valueWithCGPoint: center] forKey: @"center"];
++			itemsToAnimate[@"center"] = [NSValue valueWithCGPoint: center];
+ 			center.y += cellSize.height;
+-			[itemsToSetBeforeAnimation setObject: [NSValue valueWithCGPoint: center] forKey: @"center"];
++			itemsToSetBeforeAnimation[@"center"] = [NSValue valueWithCGPoint: center];
+ 			break;
+ 		}
+ 			
+@@ -616,13 +616,13 @@
+ 	[UIView setAnimationsEnabled: NO];
+ 	for ( NSString * keyPath in itemsToSetBeforeAnimation )
+ 	{
+-		[cell setValue: [itemsToSetBeforeAnimation objectForKey: keyPath] forKey: keyPath];
++		[cell setValue: itemsToSetBeforeAnimation[keyPath] forKey: keyPath];
+ 	}
+ 	[UIView setAnimationsEnabled: YES];
+ 	
+ 	for ( NSString * keyPath in itemsToAnimate )
+ 	{
+-		[cell setValue: [itemsToAnimate objectForKey: keyPath] forKey: keyPath];
++		[cell setValue: itemsToAnimate[keyPath] forKey: keyPath];
+ 	}
+     
+ }
+-- 
+1.7.12.4 (Apple Git-37)
+
