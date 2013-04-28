@@ -1,0 +1,28 @@
+From 680f331d813aa98e1bbe8b19845a442ea47d2515 Mon Sep 17 00:00:00 2001
+From: =?UTF-8?q?Felix=20Paul=20K=C3=BChne?= <fkuehne@videolan.org>
+Date: Sun, 28 Apr 2013 19:35:59 +0200
+Subject: [PATCH 4/4] ARC compilation fix
+
+---
+ Classes/AQGridView.m | 4 ++--
+ 1 file changed, 2 insertions(+), 2 deletions(-)
+
+diff --git a/Classes/AQGridView.m b/Classes/AQGridView.m
+index 38d2525..aaa0c9a 100755
+--- a/Classes/AQGridView.m
++++ b/Classes/AQGridView.m
+@@ -1278,9 +1278,9 @@ NSString * const AQGridViewSelectionDidChangeNotification = @"AQGridViewSelectio
+ - (BOOL) _gestureRecognizerIsHandlingTouches: (NSSet *) touches
+ {
+ 	// see if the touch is (possibly) being tracked by a gesture recognizer
+-	for ( id recognizer in self.gestureRecognizers )
++	for ( UIGestureRecognizer* recognizer in self.gestureRecognizers )
+ 	{
+-		switch ( [recognizer state] )
++		switch ( recognizer.state )
+ 		{
+ 			case UIGestureRecognizerStateEnded:
+ 			case UIGestureRecognizerStateCancelled:
+-- 
+1.7.12.4 (Apple Git-37)
+
