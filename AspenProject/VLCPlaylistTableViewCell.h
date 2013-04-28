@@ -10,9 +10,9 @@
 
 @interface VLCPlaylistTableViewCell : UITableViewCell
 
-@property (nonatomic, retain) IBOutlet UILabel *titleLabel;
-@property (nonatomic, retain) IBOutlet UILabel *subtitleLabel;
-@property (nonatomic, retain) IBOutlet UIImageView *thumbnailView;
+@property (nonatomic, strong) IBOutlet UILabel *titleLabel;
+@property (nonatomic, strong) IBOutlet UILabel *subtitleLabel;
+@property (nonatomic, strong) IBOutlet UIImageView *thumbnailView;
 
 + (VLCPlaylistTableViewCell *)cellWithReuseIdentifier:(NSString *)ident;
 + (CGFloat)heightOfCell;

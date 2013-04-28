@@ -10,10 +10,10 @@
 
 @interface VLCAboutViewController : UIViewController
 
-@property (nonatomic, retain) IBOutlet UITextView *textContents;
-@property (nonatomic, retain) IBOutlet UILabel *aspenVersion;
-@property (nonatomic, retain) IBOutlet UILabel *vlckitVersion;
-@property (nonatomic, retain) IBOutlet UIBarButtonItem *dismissButton;
+@property (nonatomic, strong) IBOutlet UITextView *textContents;
+@property (nonatomic, strong) IBOutlet UILabel *aspenVersion;
+@property (nonatomic, strong) IBOutlet UILabel *vlckitVersion;
+@property (nonatomic, strong) IBOutlet UIBarButtonItem *dismissButton;
 
 - (IBAction)dismiss:(id)sender;
 

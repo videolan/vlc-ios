@@ -20,14 +20,6 @@
     return self;
 }
 
-- (void)dealloc
-{
-    [_textContents release];
-    [_aspenVersion release];
-    [_vlckitVersion release];
-    [_dismissButton release];
-    [super dealloc];
-}
 
 - (void)viewDidLoad
 {

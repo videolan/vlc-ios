@@ -14,21 +14,14 @@
 
 @implementation VLCAppDelegate
 
-- (void)dealloc
-{
-    [_playlistViewController release];
-    [_window release];
-    [_navigationController release];
-    [super dealloc];
-}
 
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions
 {
-    self.window = [[[UIWindow alloc] initWithFrame:[[UIScreen mainScreen] bounds]] autorelease];
+    self.window = [[UIWindow alloc] initWithFrame:[[UIScreen mainScreen] bounds]];
 
     _playlistViewController = [[VLCPlaylistViewController alloc] initWithNibName:@"VLCPlaylistViewController" bundle:nil];
 
-    self.navigationController = [[[UINavigationController alloc] initWithRootViewController:_playlistViewController] autorelease];
+    self.navigationController = [[UINavigationController alloc] initWithRootViewController:_playlistViewController];
     self.window.rootViewController = self.navigationController;
 
     self.navigationController.navigationBar.barStyle = UIBarStyleBlack;

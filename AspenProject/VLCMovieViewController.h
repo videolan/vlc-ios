@@ -18,23 +18,23 @@
     UIActionSheet *_audiotrackActionSheet;
 }
 
-@property (nonatomic, retain) IBOutlet UIView *movieView;
-@property (nonatomic, retain) IBOutlet UIBarButtonItem *backButton;
-@property (nonatomic, retain) IBOutlet UISlider *positionSlider;
-@property (nonatomic, retain) IBOutlet UIBarButtonItem *timeDisplay;
-@property (nonatomic, retain) IBOutlet UIButton *playPauseButton;
-@property (nonatomic, retain) IBOutlet UIButton *bwdButton;
-@property (nonatomic, retain) IBOutlet UIButton *fwdButton;
-@property (nonatomic, retain) IBOutlet UIButton *subtitleSwitcherButton;
-@property (nonatomic, retain) IBOutlet UIButton *audioSwitcherButton;
-@property (nonatomic, retain) IBOutlet UIToolbar *toolbar;
-@property (nonatomic, retain) IBOutlet UIView *controllerPanel;
+@property (nonatomic, strong) IBOutlet UIView *movieView;
+@property (nonatomic, strong) IBOutlet UIBarButtonItem *backButton;
+@property (nonatomic, strong) IBOutlet UISlider *positionSlider;
+@property (nonatomic, strong) IBOutlet UIBarButtonItem *timeDisplay;
+@property (nonatomic, strong) IBOutlet UIButton *playPauseButton;
+@property (nonatomic, strong) IBOutlet UIButton *bwdButton;
+@property (nonatomic, strong) IBOutlet UIButton *fwdButton;
+@property (nonatomic, strong) IBOutlet UIButton *subtitleSwitcherButton;
+@property (nonatomic, strong) IBOutlet UIButton *audioSwitcherButton;
+@property (nonatomic, strong) IBOutlet UIToolbar *toolbar;
+@property (nonatomic, strong) IBOutlet UIView *controllerPanel;
 
-@property (nonatomic, retain) IBOutlet UIView *playingExternallyView;
-@property (nonatomic, retain) IBOutlet UILabel *playingExternallyTitle;
-@property (nonatomic, retain) IBOutlet UILabel *playingExternallyDescription;
+@property (nonatomic, strong) IBOutlet UIView *playingExternallyView;
+@property (nonatomic, strong) IBOutlet UILabel *playingExternallyTitle;
+@property (nonatomic, strong) IBOutlet UILabel *playingExternallyDescription;
 
-@property (nonatomic, retain) MLFile *mediaItem;
+@property (nonatomic, strong) MLFile *mediaItem;
 
 - (IBAction)closePlayback:(id)sender;
 - (IBAction)positionSliderAction:(id)sender;

@@ -20,11 +20,9 @@
     UIView *background = [[UIView alloc] initWithFrame:frame];
     background.backgroundColor = [UIColor colorWithWhite:.05 alpha:1.];
     cell.backgroundView = background;
-    [background autorelease];
     UIView *highlightedBackground = [[UIView alloc] initWithFrame:frame];
     highlightedBackground.backgroundColor = [UIColor colorWithWhite:.2 alpha:1.];
     cell.selectedBackgroundView = highlightedBackground;
-    [highlightedBackground autorelease];
 
     return cell;
 }

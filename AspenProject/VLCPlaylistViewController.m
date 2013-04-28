@@ -28,15 +28,6 @@
     return self;
 }
 
-- (void)dealloc
-{
-    [_tableView release];
-    [_gridView release];
-    [_aboutViewController release];
-    [_movieViewController release];
-    [_foundMedia release];
-    [super dealloc];
-}
 
 - (void)viewDidLoad
 {
@@ -44,7 +35,7 @@
     self.tableView.separatorColor = [UIColor colorWithWhite:.2 alpha:1.];
     [super viewDidLoad];
 
-    UIBarButtonItem *addButton = [[[UIBarButtonItem alloc] initWithTitle:@"About" style:UIBarButtonItemStyleBordered target:self action:@selector(showAboutView:)] autorelease];
+    UIBarButtonItem *addButton = [[UIBarButtonItem alloc] initWithTitle:@"About" style:UIBarButtonItemStyleBordered target:self action:@selector(showAboutView:)];
     self.navigationItem.leftBarButtonItem = addButton;
 
     self.navigationItem.rightBarButtonItem = self.editButtonItem;
@@ -65,10 +56,8 @@
 {
     [[MLMediaLibrary sharedMediaLibrary] updateMediaDatabase];
 
-    if (_foundMedia)
-        [_foundMedia release];
 
-    _foundMedia = [[NSMutableArray arrayWithArray:[MLFile allFiles]] retain];
+    _foundMedia = [NSMutableArray arrayWithArray:[MLFile allFiles]];
 
     if ([[UIDevice currentDevice] userInterfaceIdiom] == UIUserInterfaceIdiomPhone)
         [self.tableView reloadData];
@@ -121,7 +110,7 @@
 {
     MLFile *mediaObject = _foundMedia[indexPath.row];
     if (!self.movieViewController) {
-        self.movieViewController = [[[VLCMovieViewController alloc] initWithNibName:@"VLCMovieViewController" bundle:nil] autorelease];
+        self.movieViewController = [[VLCMovieViewController alloc] initWithNibName:@"VLCMovieViewController" bundle:nil];
     }
     self.movieViewController.mediaItem = mediaObject;
     [self.navigationController pushViewController:self.movieViewController animated:YES];
@@ -161,7 +150,7 @@
 {
     MLFile *mediaObject = _foundMedia[index];
     if (!self.movieViewController) {
-        self.movieViewController = [[[VLCMovieViewController alloc] initWithNibName:@"VLCMovieViewController" bundle:nil] autorelease];
+        self.movieViewController = [[VLCMovieViewController alloc] initWithNibName:@"VLCMovieViewController" bundle:nil];
     }
     self.movieViewController.mediaItem = mediaObject;
     [self.navigationController pushViewController:self.movieViewController animated:YES];
@@ -172,7 +161,7 @@
 {
     if ([[UIDevice currentDevice] userInterfaceIdiom] == UIUserInterfaceIdiomPhone) {
         if (!self.aboutViewController) {
-            self.aboutViewController = [[[VLCAboutViewController alloc] initWithNibName:@"VLCAboutViewController" bundle:nil] autorelease];
+            self.aboutViewController = [[VLCAboutViewController alloc] initWithNibName:@"VLCAboutViewController" bundle:nil];
         }
         [self.navigationController pushViewController:self.aboutViewController animated:YES];
     } else

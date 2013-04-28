@@ -14,13 +14,6 @@
 
 @implementation VLCPlaylistGridViewCell
 
-- (void)dealloc
-{
-    [_thumbnailView release];
-    [_titleLabel release];
-    [_subtitleLabel release];
-    [super dealloc];
-}
 
 - (id)initWithFrame:(CGRect)frame reuseIdentifier:(NSString *)reuseIdentifier
 {

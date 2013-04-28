@@ -10,36 +10,17 @@
 #import "VLCExternalDisplayController.h"
 
 @interface VLCMovieViewController () <UIGestureRecognizerDelegate>
-@property (nonatomic, retain) UIPopoverController *masterPopoverController;
-@property (nonatomic, retain) UIWindow *externalWindow;
+@property (nonatomic, strong) UIPopoverController *masterPopoverController;
+@property (nonatomic, strong) UIWindow *externalWindow;
 @end
 
 @implementation VLCMovieViewController
 
 - (void)dealloc
 {
-    [_mediaItem release];
-    [_masterPopoverController release];
-    [_externalWindow release];
-    [_toolbar release];
-    [_movieView release];
-    [_backButton release];
-    [_positionSlider release];
-    [_timeDisplay release];
-    [_playPauseButton release];
-    [_bwdButton release];
-    [_fwdButton release];
-    [_subtitleActionSheet release];
-    [_audioSwitcherButton release];
-    [_controllerPanel release];
-    [_playingExternallyView release];
-    [_playingExternallyTitle release];
-    [_playingExternallyDescription release];
 
     [_mediaPlayer stop];
-    [_mediaPlayer release];
     [[NSNotificationCenter defaultCenter] removeObserver:self];
-    [super dealloc];
 }
 
 #pragma mark - Managing the media item
@@ -47,8 +28,7 @@
 - (void)setMediaItem:(id)newMediaItem
 {
     if (_mediaItem != newMediaItem) {
-        [_mediaItem release];
-        _mediaItem = [newMediaItem retain];
+        _mediaItem = newMediaItem;
     }
 
     if (self.masterPopoverController != nil)
@@ -81,7 +61,6 @@
     UITapGestureRecognizer *recognizer = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(toogleControlsVisible)];
     recognizer.delegate = self;
     [self.view addGestureRecognizer:recognizer];
-    [recognizer release];
 }
 
 - (void)viewWillAppear:(BOOL)animated
@@ -241,7 +220,6 @@
             indexArray = _mediaPlayer.videoSubTitlesIndexes;
             _mediaPlayer.currentVideoSubTitleIndex = [[indexArray objectAtIndex:arrayIndex] intValue];
         }
-        [_subtitleActionSheet release];
     } else {
         namesArray = _mediaPlayer.audioTrackNames;
         arrayIndex = [namesArray indexOfObject:[actionSheet buttonTitleAtIndex:buttonIndex]];
@@ -249,7 +227,6 @@
             indexArray = _mediaPlayer.audioTrackIndexes;
             _mediaPlayer.currentAudioTrackIndex = [[indexArray objectAtIndex:arrayIndex] intValue];
         }
-        [_audiotrackActionSheet release];
     }
 }
 
@@ -272,14 +249,13 @@
     UIScreen *screen = [[UIScreen screens] objectAtIndex:1];
     screen.overscanCompensation = UIScreenOverscanCompensationInsetApplicationFrame;
 
-    self.externalWindow = [[[UIWindow alloc] initWithFrame:screen.bounds] autorelease];
+    self.externalWindow = [[UIWindow alloc] initWithFrame:screen.bounds];
 
     UIViewController *controller = [[VLCExternalDisplayController alloc] init];
     self.externalWindow.rootViewController = controller;
     [controller.view addSubview:_movieView];
     controller.view.frame = screen.bounds;
     _movieView.frame = screen.bounds;
-    [controller release];
 
     self.playingExternallyView.hidden = NO;
     self.externalWindow.screen = screen;
