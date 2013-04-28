@@ -87,7 +87,7 @@
     [UIApplication sharedApplication].statusBarStyle = UIStatusBarStyleBlackOpaque;
     [_mediaPlayer pause];
     [super viewWillDisappear:animated];
-    self.mediaItem.lastPosition = [NSNumber numberWithFloat:[_mediaPlayer position]];
+    self.mediaItem.lastPosition = @([_mediaPlayer position]);
 }
 
 - (void)didReceiveMemoryWarning
@@ -189,7 +189,7 @@
     NSArray *audioTracks = [_mediaPlayer audioTrackNames];
     NSUInteger count = [audioTracks count];
     for (NSUInteger i = 0; i < count; i++)
-        [_audiotrackActionSheet addButtonWithTitle:[audioTracks objectAtIndex:i]];
+        [_audiotrackActionSheet addButtonWithTitle:audioTracks[i]];
     [_audiotrackActionSheet addButtonWithTitle:NSLocalizedString(@"Cancel", @"audio track selector")];
     [_audiotrackActionSheet setCancelButtonIndex:[_audiotrackActionSheet numberOfButtons] - 1];
     [_audiotrackActionSheet showFromRect:[self.audioSwitcherButton frame] inView:self.audioSwitcherButton animated:YES];
@@ -203,7 +203,7 @@
         return;
     _subtitleActionSheet = [[UIActionSheet alloc] initWithTitle:NSLocalizedString(@"Choose Subtitle Track", @"subtitle track selector") delegate:self cancelButtonTitle:nil destructiveButtonTitle:nil otherButtonTitles: nil];
     for (NSUInteger i = 0; i < count; i++)
-        [_subtitleActionSheet addButtonWithTitle:[spuTracks objectAtIndex:i]];
+        [_subtitleActionSheet addButtonWithTitle:spuTracks[i]];
     [_subtitleActionSheet addButtonWithTitle:NSLocalizedString(@"Cancel", @"subtitle track selector")];
     [_subtitleActionSheet setCancelButtonIndex:[_subtitleActionSheet numberOfButtons] - 1];
     [_subtitleActionSheet showFromRect:[self.subtitleSwitcherButton frame] inView:self.subtitleSwitcherButton animated:YES];
@@ -218,14 +218,14 @@
         arrayIndex = [namesArray indexOfObject:[actionSheet buttonTitleAtIndex:buttonIndex]];
         if (arrayIndex != NSNotFound) {
             indexArray = _mediaPlayer.videoSubTitlesIndexes;
-            _mediaPlayer.currentVideoSubTitleIndex = [[indexArray objectAtIndex:arrayIndex] intValue];
+            _mediaPlayer.currentVideoSubTitleIndex = [indexArray[arrayIndex] intValue];
         }
     } else {
         namesArray = _mediaPlayer.audioTrackNames;
         arrayIndex = [namesArray indexOfObject:[actionSheet buttonTitleAtIndex:buttonIndex]];
         if (arrayIndex != NSNotFound) {
             indexArray = _mediaPlayer.audioTrackIndexes;
-            _mediaPlayer.currentAudioTrackIndex = [[indexArray objectAtIndex:arrayIndex] intValue];
+            _mediaPlayer.currentAudioTrackIndex = [indexArray[arrayIndex] intValue];
         }
     }
 }
@@ -234,7 +234,7 @@
 
 - (void)appWillResign:(NSNotification *)aNotification
 {
-    self.mediaItem.lastPosition = [NSNumber numberWithFloat:[_mediaPlayer position]];
+    self.mediaItem.lastPosition = @([_mediaPlayer position]);
 }
 
 #pragma mark - External Display
@@ -246,7 +246,7 @@
 
 - (void)showOnExternalDisplay
 {
-    UIScreen *screen = [[UIScreen screens] objectAtIndex:1];
+    UIScreen *screen = [UIScreen screens][1];
     screen.overscanCompensation = UIScreenOverscanCompensationInsetApplicationFrame;
 
     self.externalWindow = [[UIWindow alloc] initWithFrame:screen.bounds];
