@@ -1,0 +1,155 @@
+From 885ddfe009c833098aa9eecdb839668ad9eb80d4 Mon Sep 17 00:00:00 2001
+From: =?UTF-8?q?Felix=20Paul=20K=C3=BChne?= <fkuehne@videolan.org>
+Date: Sun, 28 Apr 2013 17:14:56 +0200
+Subject: [PATCH 2/2] Convert code to ARC
+
+---
+ Classes/AQGridView.h             |  8 ++++----
+ Classes/AQGridView.m             |  2 +-
+ Classes/AQGridViewAnimatorItem.h |  2 +-
+ Classes/AQGridViewCell.h         | 10 +++++-----
+ Classes/AQGridViewCell.m         |  3 +--
+ Classes/AQGridViewController.h   |  2 +-
+ Classes/AQGridViewUpdateInfo.m   |  1 -
+ 7 files changed, 13 insertions(+), 15 deletions(-)
+
+diff --git a/Classes/AQGridView.h b/Classes/AQGridView.h
+index 2f8d460..07b1bc8 100755
+--- a/Classes/AQGridView.h
++++ b/Classes/AQGridView.h
+@@ -227,20 +227,20 @@ extern NSString * const AQGridViewSelectionDidChangeNotification;
+ //  this property is set to YES, or to vertical otherwise.
+ @property (nonatomic, assign) BOOL clipsContentWidthToBounds __attribute__((deprecated));	// default is YES. If you want to enable horizontal scrolling, set this to NO.
+ 
+-@property (nonatomic, retain) UIView * backgroundView;		// specifies a view to place behind the cells
++@property (nonatomic, strong) UIView * backgroundView;		// specifies a view to place behind the cells
+ @property (nonatomic) BOOL backgroundViewExtendsUp;			// default is NO. If YES, the background view extends upward and is visible during a bounce.
+ @property (nonatomic) BOOL backgroundViewExtendsDown;		// default is NO. If YES, the background view extends downward and is visible during a bounce.
+ @property (nonatomic) BOOL usesPagedHorizontalScrolling;	// default is NO, and scrolls verticalls only. Set to YES to have horizontal-only scrolling by page.
+ 
+ @property (nonatomic) AQGridViewCellSeparatorStyle separatorStyle;	// default is AQGridViewCellSeparatorStyleEmptySpace
+-@property (nonatomic, retain) UIColor * separatorColor;		// ignored unless separatorStyle == AQGridViewCellSeparatorStyleSingleLine. Default is standard separator gray.
++@property (nonatomic, strong) UIColor * separatorColor;		// ignored unless separatorStyle == AQGridViewCellSeparatorStyleSingleLine. Default is standard separator gray.
+ 
+ - (AQGridViewCell *) dequeueReusableCellWithIdentifier: (NSString *) reuseIdentifier;
+ 
+ // Headers and Footers
+ 
+-@property (nonatomic, retain) UIView * gridHeaderView;
+-@property (nonatomic, retain) UIView * gridFooterView;
++@property (nonatomic, strong) UIView * gridHeaderView;
++@property (nonatomic, strong) UIView * gridFooterView;
+ 
+ @property (nonatomic, assign) CGFloat leftContentInset;
+ @property (nonatomic, assign) CGFloat rightContentInset;
+diff --git a/Classes/AQGridView.m b/Classes/AQGridView.m
+index 3f62735..babe070 100755
+--- a/Classes/AQGridView.m
++++ b/Classes/AQGridView.m
+@@ -908,7 +908,7 @@ NSString * const AQGridViewSelectionDidChangeNotification = @"AQGridViewSelectio
+ {
+ 	NSAssert([_updateInfoStack lastObject] != nil, @"_updateInfoStack should not be empty at this point" );
+     
+-	__block AQGridViewUpdateInfo * info = [_updateInfoStack lastObject];
++	__weak AQGridViewUpdateInfo * info = [_updateInfoStack lastObject];
+ 
+ 	if ( info.numberOfUpdates == 0 )
+ 	{
+diff --git a/Classes/AQGridViewAnimatorItem.h b/Classes/AQGridViewAnimatorItem.h
+index a6449ef..0542e84 100644
+--- a/Classes/AQGridViewAnimatorItem.h
++++ b/Classes/AQGridViewAnimatorItem.h
+@@ -12,7 +12,7 @@
+ 
+ + (AQGridViewAnimatorItem *) itemWithView: (UIView *) aView index: (NSUInteger) anIndex;
+ 
+-@property (nonatomic, retain) UIView * animatingView;	// probably an AQGridViewCell, maybe a UIImageView
++@property (nonatomic, strong) UIView * animatingView;	// probably an AQGridViewCell, maybe a UIImageView
+ @property (nonatomic, assign) NSUInteger index;			// the DESTINATION index -- use NSNotFound if this is being deleted
+ 
+ - (NSUInteger) hash;
+diff --git a/Classes/AQGridViewCell.h b/Classes/AQGridViewCell.h
+index e23f978..4476791 100644
+--- a/Classes/AQGridViewCell.h
++++ b/Classes/AQGridViewCell.h
+@@ -92,13 +92,13 @@ typedef enum {
+ - (id) initWithFrame: (CGRect) frame reuseIdentifier: (NSString *) reuseIdentifier;
+ 
+ // If you want to customize cells by simply adding additional views, you should add them to the content view so they will be positioned appropriately as the cell transitions into and out of editing mode.
+-@property (nonatomic, readonly, retain) UIView * contentView;
++@property (nonatomic, readonly, strong) UIView * contentView;
+ 
+ // default is nil. The background view will be added as a subview behind all other views
+-@property (nonatomic, retain) UIView * backgroundView;
++@property (nonatomic, strong) UIView * backgroundView;
+ 
+ // The 'selectedBackgroundView' will be added as a subview directly above the backgroundView if not nil, or behind all other views. It is added as a subview only when the cell is selected. Calling -setSelected:animated: will cause the 'selectedBackgroundView' to animate in and out with an alpha fade.
+-@property (nonatomic, retain) UIView * selectedBackgroundView;
++@property (nonatomic, strong) UIView * selectedBackgroundView;
+ 
+ @property (nonatomic, readonly, copy) NSString * reuseIdentifier;
+ - (void) prepareForReuse;		// if the cell is reusable (has a reuse identifier), this is called just before the cell is returned from the grid view method dequeueReusableCellWithIdentifier:.  If you override, you MUST call super.
+@@ -106,12 +106,12 @@ typedef enum {
+ @property (nonatomic) AQGridViewCellSelectionStyle selectionStyle;		// default is AQGridViewCellSelectionStyleGlow
+ @property (nonatomic, getter=isSelected) BOOL selected;					// default is NO
+ @property (nonatomic, getter=isHighlighted) BOOL highlighted;			// default is NO
+-@property (nonatomic, retain) UIColor * selectionGlowColor;				// default is dark grey, ignored if selectionStyle != AQGridViewCellSelectionStyleGlow
++@property (nonatomic, strong) UIColor * selectionGlowColor;				// default is dark grey, ignored if selectionStyle != AQGridViewCellSelectionStyleGlow
+ @property (nonatomic) CGFloat selectionGlowShadowRadius;				// default is 12.0, ignored if selectionStyle != AQGridViewCellSelectionStyleGlow
+ 
+ // this can be overridden by subclasses to return a subview's layer to which to add the glow
+ // the default implementation returns the contentView's layer
+-@property (nonatomic, readonly) CALayer * glowSelectionLayer;
++@property (weak, nonatomic, readonly) CALayer * glowSelectionLayer;
+ 
+ - (void) setSelected: (BOOL) selected animated: (BOOL) animated;
+ - (void) setHighlighted: (BOOL) highlighted animated: (BOOL) animated;
+diff --git a/Classes/AQGridViewCell.m b/Classes/AQGridViewCell.m
+index 837586f..d5307df 100644
+--- a/Classes/AQGridViewCell.m
++++ b/Classes/AQGridViewCell.m
+@@ -45,7 +45,7 @@
+ #endif
+ 
+ @interface AQGridViewCell ()
+-@property (nonatomic, retain) UIView * contentView;
++@property (nonatomic, strong) UIView * contentView;
+ @property (nonatomic, copy) NSString * reuseIdentifier;
+ - (void) flipHighlightTimerFired: (NSTimer *) timer;
+ @end
+@@ -98,7 +98,6 @@
+ {
+ 	if ( _selectionColorInfo != NULL )
+ 		CFRelease( _selectionColorInfo );
+-    [super dealloc];
+ }
+ 
+ - (NSComparisonResult) compareOriginAgainstCell: (AQGridViewCell *) otherCell
+diff --git a/Classes/AQGridViewController.h b/Classes/AQGridViewController.h
+index e23fb80..b89121b 100644
+--- a/Classes/AQGridViewController.h
++++ b/Classes/AQGridViewController.h
+@@ -47,7 +47,7 @@
+ 	BOOL _popoverShowing;
+ }
+ 
+-@property (nonatomic, retain) AQGridView * gridView;
++@property (nonatomic, strong) AQGridView * gridView;
+ @property (nonatomic) BOOL clearsSelectionOnViewWillAppear;
+ 
+ @end
+diff --git a/Classes/AQGridViewUpdateInfo.m b/Classes/AQGridViewUpdateInfo.m
+index 12d7665..9bf5148 100644
+--- a/Classes/AQGridViewUpdateInfo.m
++++ b/Classes/AQGridViewUpdateInfo.m
+@@ -70,7 +70,6 @@
+ 		free( _oldToNewIndexMap );
+ 	if ( _newToOldIndexMap != NULL )
+ 		free( _newToOldIndexMap );
+-    [super dealloc];
+ }
+ 
+ - (NSMutableArray *) updateItemArrayForAction: (AQGridViewUpdateAction) action
+-- 
+1.7.12.4 (Apple Git-37)
+
