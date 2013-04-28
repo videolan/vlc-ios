@@ -1,0 +1,93 @@
+From baeb9d2044195cd6ce202d96a37c45a9ebf20101 Mon Sep 17 00:00:00 2001
+From: =?UTF-8?q?Felix=20Paul=20K=C3=BChne?= <fkuehne@videolan.org>
+Date: Sun, 28 Apr 2013 17:34:36 +0200
+Subject: [PATCH 3/3] Upgrade ObjC syntax
+
+---
+ OBSlider/OBSlider.m | 30 +++++++++++++-----------------
+ 1 file changed, 13 insertions(+), 17 deletions(-)
+
+diff --git a/OBSlider/OBSlider.m b/OBSlider/OBSlider.m
+index 1dcf4bc..6b8a2c3 100644
+--- a/OBSlider/OBSlider.m
++++ b/OBSlider/OBSlider.m
+@@ -37,7 +37,7 @@
+     {
+         self.scrubbingSpeeds = [self defaultScrubbingSpeeds];
+         self.scrubbingSpeedChangePositions = [self defaultScrubbingSpeedChangePositions];
+-        self.scrubbingSpeed = [[self.scrubbingSpeeds objectAtIndex:0] floatValue];
++        self.scrubbingSpeed = [(self.scrubbingSpeeds)[0] floatValue];
+     }
+     return self;
+ }
+@@ -64,7 +64,7 @@
+             self.scrubbingSpeedChangePositions = [self defaultScrubbingSpeedChangePositions];
+         }
+ 
+-        self.scrubbingSpeed = [[self.scrubbingSpeeds objectAtIndex:0] floatValue];
++        self.scrubbingSpeed = [(self.scrubbingSpeeds)[0] floatValue];
+     }
+     return self;
+ }
+@@ -94,7 +94,7 @@
+ 
+ - (NSUInteger) findIndexOfLowerScrubbingSpeed:(NSArray*)scrubbingSpeedPositions :(CGFloat)verticalOffset {
+     for (int i=0; i < [scrubbingSpeedPositions count]; i++) {
+-        NSNumber *obj = [scrubbingSpeedPositions objectAtIndex:i];
++        NSNumber *obj = scrubbingSpeedPositions[i];
+         if (verticalOffset < [obj floatValue]) {
+             return i;
+         }
+@@ -117,7 +117,7 @@
+         if (scrubbingSpeedChangePosIndex == NSNotFound) {
+             scrubbingSpeedChangePosIndex = [self.scrubbingSpeeds count];
+         }
+-        self.scrubbingSpeed = [[self.scrubbingSpeeds objectAtIndex:scrubbingSpeedChangePosIndex - 1] floatValue];
++        self.scrubbingSpeed = [(self.scrubbingSpeeds)[scrubbingSpeedChangePosIndex - 1] floatValue];
+ 
+         CGRect trackRect = [self trackRectForBounds:self.bounds];
+         realPositionValue = realPositionValue + (self.maximumValue - self.minimumValue) * (trackingOffset / trackRect.size.width);
+@@ -142,7 +142,7 @@
+ {
+     if (self.tracking)
+     {
+-        self.scrubbingSpeed = [[self.scrubbingSpeeds objectAtIndex:0] floatValue];
++        self.scrubbingSpeed = [(self.scrubbingSpeeds)[0] floatValue];
+         [self sendActionsForControlEvents:UIControlEventValueChanged];
+     }
+ }
+@@ -155,23 +155,19 @@
+ // Used in -initWithFrame: and -initWithCoder:
+ - (NSArray *) defaultScrubbingSpeeds
+ {
+-    return [NSArray arrayWithObjects:
+-            [NSNumber numberWithFloat:1.0f],
+-            [NSNumber numberWithFloat:0.5f],
+-            [NSNumber numberWithFloat:0.25f],
+-            [NSNumber numberWithFloat:0.1f],
+-            nil];
++    return @[@1.0f,
++             @0.5f,
++             @0.25f,
++             @0.1f];
+ }
+ 
+ 
+ - (NSArray *) defaultScrubbingSpeedChangePositions
+ {
+-    return [NSArray arrayWithObjects:
+-            [NSNumber numberWithFloat:0.0f],
+-            [NSNumber numberWithFloat:50.0f],
+-            [NSNumber numberWithFloat:100.0f],
+-            [NSNumber numberWithFloat:150.0f],
+-            nil];
++    return @[@0.0f,
++             @50.0f,
++             @100.0f,
++             @150.0f];
+ }
+ 
+ @end
+-- 
+1.7.12.4 (Apple Git-37)
+

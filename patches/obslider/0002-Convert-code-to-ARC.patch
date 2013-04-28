@@ -1,7 +1,7 @@
 From 7a8668248c5a9ddd65728adc1fd41e9845ec0164 Mon Sep 17 00:00:00 2001
 From: =?UTF-8?q?Felix=20Paul=20K=C3=BChne?= <fkuehne@videolan.org>
 Date: Sun, 28 Apr 2013 17:14:15 +0200
-Subject: [PATCH] Convert code to ARC
+Subject: [PATCH 2/3] Convert code to ARC
 
 ---
  OBSlider/OBSlider.h |  8 ++++----
