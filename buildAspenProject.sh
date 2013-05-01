@@ -193,13 +193,16 @@ spushd ImportedSources
 spushd vlc/extras/package/ios
 info "Building vlc"
 args=""
-if [ "$PLATFORM" = "Simulator" ]; then
-    args="${args} -s"
-fi
 if [ "$VERBOSE" = "yes" ]; then
     args="${args} -v"
 fi
-./build.sh ${args} -k "${SDK}"
+if [ "$PLATFORM" = "Simulator" ]; then
+    args="${args} -s"
+    ./build.sh ${args} -k "${SDK}"
+else
+    ./build.sh -a armv7 ${args} -k "${SDK}" && ./build.sh -a armv7s ${args} -k "${SDK}"
+fi
+
 spopd
 
 spushd VLCKit
