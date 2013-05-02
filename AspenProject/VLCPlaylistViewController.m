@@ -149,9 +149,9 @@
 - (void)gridView:(AQGridView *)gridView didSelectItemAtIndex:(NSUInteger)index
 {
     MLFile *mediaObject = _foundMedia[index];
-    if (!self.movieViewController) {
+    if (!self.movieViewController)
         self.movieViewController = [[VLCMovieViewController alloc] initWithNibName:@"VLCMovieViewController" bundle:nil];
-    }
+
     self.movieViewController.mediaItem = mediaObject;
     [self.navigationController pushViewController:self.movieViewController animated:YES];
 }
@@ -159,13 +159,9 @@
 #pragma mark - UI implementation
 - (void)showAboutView:(id)sender
 {
-    if ([[UIDevice currentDevice] userInterfaceIdiom] == UIUserInterfaceIdiomPhone) {
-        if (!self.aboutViewController) {
-            self.aboutViewController = [[VLCAboutViewController alloc] initWithNibName:@"VLCAboutViewController" bundle:nil];
-        }
-        [self.navigationController pushViewController:self.aboutViewController animated:YES];
-    } else
-        APLog(@"about panel not supported on iPad");
+    if (!self.aboutViewController)
+        self.aboutViewController = [[VLCAboutViewController alloc] initWithNibName:@"VLCAboutViewController" bundle:nil];
+    [self.navigationController pushViewController:self.aboutViewController animated:YES];
 }
 
 @end
