@@ -126,15 +126,15 @@ git clone -b Aspen --single-branch git://git.videolan.org/MediaLibraryKit.git
 fi
 if ! [ -e VLCKit ]; then
 git clone git://git.videolan.org/vlc-bindings/VLCKit.git
-#info "Applying patches to VLCKit.git"
-#cd VLCKit
-#git am ../../patches/vlckit/*.patch
-#if [ $? -ne 0 ]; then
-#git am --abort
-#info "Applying the patches failed, aborting git-am"
-#exit 1
-#fi
-#cd ..
+info "Applying patches to VLCKit.git"
+cd VLCKit
+git am ../../patches/vlckit/*.patch
+if [ $? -ne 0 ]; then
+git am --abort
+info "Applying the patches failed, aborting git-am"
+exit 1
+fi
+cd ..
 fi
 if ! [ -e OBSlider ]; then
 git clone git://github.com/sylverb/OBSlider.git
