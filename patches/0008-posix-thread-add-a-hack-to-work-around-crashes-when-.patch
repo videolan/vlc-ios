@@ -1,4 +1,4 @@
-From 5fd96f258ad64fb72618207acc231c458865f7cc Mon Sep 17 00:00:00 2001
+From a07116b26e2ba8a937bfb068fc0d1ab33609568a Mon Sep 17 00:00:00 2001
 From: =?UTF-8?q?Felix=20Paul=20K=C3=BChne?= <fkuehne@videolan.org>
 Date: Thu, 18 Oct 2012 18:38:17 +0200
 Subject: [PATCH 08/10] posix/thread: add a hack to work-around crashes when

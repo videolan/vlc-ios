@@ -1,4 +1,4 @@
-From d2660459eea1c67a1aa243c7ff86bcc887b9ff34 Mon Sep 17 00:00:00 2001
+From 2ddc656d08a49df7c16a12ccd143e96c584c104f Mon Sep 17 00:00:00 2001
 From: =?UTF-8?q?Felix=20Paul=20K=C3=BChne?= <fkuehne@videolan.org>
 Date: Sat, 11 Aug 2012 13:29:25 +0200
 Subject: [PATCH 05/10] contrib/ebml+mkv: compile with hidden symbols on iOS

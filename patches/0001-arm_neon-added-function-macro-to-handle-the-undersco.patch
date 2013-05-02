@@ -1,4 +1,4 @@
-From d93255b9e7c661f953e446dfb1f4f63aeb48d192 Mon Sep 17 00:00:00 2001
+From 1d816363fdeb48c5c3e7aa398d2599b008f380ab Mon Sep 17 00:00:00 2001
 From: David Geldreich <david.geldreich@free.fr>
 Date: Fri, 20 Apr 2012 16:41:19 +0200
 Subject: [PATCH 01/10] arm_neon: added function macro to handle the

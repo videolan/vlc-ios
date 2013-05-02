@@ -1,4 +1,4 @@
-From 4dc4c72304446e736a0e209f2fcc180331bb724a Mon Sep 17 00:00:00 2001
+From f6f81f5294e0ec195901599404d0d47127b7f4a9 Mon Sep 17 00:00:00 2001
 From: =?UTF-8?q?Felix=20Paul=20K=C3=BChne?= <fkuehne@videolan.org>
 Date: Thu, 13 Sep 2012 01:36:39 +0200
 Subject: [PATCH 06/10] contrib/ebml: fix CXXFLAG visibility hack

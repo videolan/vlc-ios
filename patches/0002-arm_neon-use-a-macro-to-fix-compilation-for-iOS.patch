@@ -1,4 +1,4 @@
-From f14f3ae2e751adf56485a18ef9953c9936af6991 Mon Sep 17 00:00:00 2001
+From bac6f36e8e76d149c3f4df993b6e13f443555cb9 Mon Sep 17 00:00:00 2001
 From: =?UTF-8?q?Felix=20Paul=20K=C3=BChne?= <fkuehne@videolan.org>
 Date: Fri, 10 Aug 2012 16:01:49 +0200
 Subject: [PATCH 02/10] arm_neon: use a macro to fix compilation for iOS
