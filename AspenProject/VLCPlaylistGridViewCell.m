@@ -36,7 +36,7 @@
     _subtitleLabel.adjustsFontSizeToFitWidth = YES;
     _subtitleLabel.minimumFontSize = 8.;
 
-    self.backgroundColor = [UIColor colorWithWhite:.5 alpha:1.];
+    self.backgroundColor = [UIColor colorWithWhite:0. alpha:1.];
     self.contentView.backgroundColor = self.backgroundColor;
     _thumbnailView.backgroundColor = self.backgroundColor;
     _titleLabel.backgroundColor = self.backgroundColor;
