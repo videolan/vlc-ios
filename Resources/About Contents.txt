@@ -22,7 +22,7 @@ Copyright © 2000 - 2013 the libav developers - LGPLv2.1 or later
 Copyright © 2001 - 2013 Josh Coalson et al. - Xiph.org BSD license
 
 	freetype
-David Turner, Robert Wilhelm, and Werner Lemberg - FreeType Project License
+Copyright © 2003, 2005, 2006, 2012 by David Turner, Robert Wilhelm, and Werner Lemberg - FreeType Project License
 
 	GSM
 Copyright © 1992 - 1994, 2009 Jutta Degener & Carsten Bormann - GSM permissive license
