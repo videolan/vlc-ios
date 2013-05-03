@@ -1,0 +1,87 @@
+From 37a0eb47e096280e612740c90d0e02d362554160 Mon Sep 17 00:00:00 2001
+From: =?UTF-8?q?Felix=20Paul=20K=C3=BChne?= <fkuehne@videolan.org>
+Date: Fri, 3 May 2013 14:21:19 +0200
+Subject: [PATCH 12/12] [HACK] freetype: added a fake font lookup mechanism
+ for iOS to use the packaged demo fonts
+
+---
+ modules/text_renderer/freetype.c | 42 ++++++++++++++++++++++++++++++++++++++++
+ 1 file changed, 42 insertions(+)
+
+diff --git a/modules/text_renderer/freetype.c b/modules/text_renderer/freetype.c
+index 1325d3e..a070edd 100644
+--- a/modules/text_renderer/freetype.c
++++ b/modules/text_renderer/freetype.c
+@@ -106,6 +106,9 @@
+ #include <TargetConditionals.h>
+ #if !TARGET_OS_IPHONE
+ #include <Carbon/Carbon.h>
++#else
++#include <CoreFoundation/CoreFoundation.h>
++#include <vlc_url.h>
+ #endif
+ #include <sys/param.h>                         /* for MAXPATHLEN */
+ #undef HAVE_FONTCONFIG
+@@ -818,6 +821,40 @@ static char* MacLegacy_Select( filter_t *p_filter, const char* psz_fontname,
+ 
+     return psz_path;
+ }
++#else
++static char *iOSFake_Select( filter_t *p_filter, bool b_monospace, bool b_bold,
++                             bool b_italic )
++{
++    // included for future implementation
++    VLC_UNUSED(p_filter);
++    VLC_UNUSED(b_bold);
++    VLC_UNUSED(b_italic);
++    VLC_UNUSED(b_monospace);
++
++    CFURLRef fileURL;
++    fileURL = CFBundleCopyResourceURL(CFBundleGetMainBundle(), b_monospace ?
++                                      CFSTR("SourceSansPro-Regular.ttf") : CFSTR("SourceCodePro-Regular.ttf"),
++                                      NULL,
++                                      NULL);
++    CFStringRef urlString = CFURLCopyFileSystemPath(fileURL, kCFURLPOSIXPathStyle);
++    CFRelease(fileURL);
++
++    if (!urlString)
++        return NULL;
++
++    CFIndex length = CFStringGetLength(urlString);
++    if (!length)
++        return NULL;
++    length++;
++
++    char *psz_path = (char *)malloc(length);
++    CFStringGetCString(urlString, psz_path, length, kCFStringEncodingUTF8);
++    CFRelease(urlString);
++
++    psz_path = strdup(psz_path);
++
++    return psz_path;
++}
+ #endif
+ #endif
+ 
+@@ -2004,6 +2041,8 @@ static FT_Face LoadFace( filter_t *p_filter,
+ #elif defined( __APPLE__ )
+ #if !TARGET_OS_IPHONE
+         psz_fontfile = MacLegacy_Select( p_filter, p_style->psz_fontname, false, false, -1, &i_idx );
++#else
++        psz_fontfile = iOSFake_Select( p_filter, false, false, false );
+ #endif
+ #elif defined( WIN32 )
+         psz_fontfile = Win32_Select( p_filter,
+@@ -2920,6 +2959,9 @@ static int Create( vlc_object_t *p_this )
+ #elif defined(__APPLE__)
+ #if !TARGET_OS_IPHONE
+     psz_fontfile = MacLegacy_Select( p_filter, psz_fontfamily, false, false, 0, &fontindex );
++#else
++    psz_fontfile = iOSFake_Select( p_filter, false, false, false );
++    psz_monofontfile = iOSFake_Select( p_filter, true, false, false );
+ #endif
+ #elif defined(WIN32)
+     psz_fontfile = Win32_Select( p_filter, psz_fontfamily, false, false,
+-- 
+1.7.12.4 (Apple Git-37)
+
