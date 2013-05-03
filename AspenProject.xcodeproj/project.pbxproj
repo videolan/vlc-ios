@@ -28,6 +28,8 @@
 		7D94FCFB16DE7D1100F2623B /* VLCMovieViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 7D94FCFA16DE7D1100F2623B /* VLCMovieViewController.m */; };
 		7D9529531732EFCA006F5B40 /* VLCAboutViewController~ipad.xib in Resources */ = {isa = PBXBuildFile; fileRef = 7D9529521732EFCA006F5B40 /* VLCAboutViewController~ipad.xib */; };
 		7DA6209B170A0CE500643D11 /* VLCPlaylistTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 7DA6209A170A0CE500643D11 /* VLCPlaylistTableViewCell.m */; };
+		7DA8B0FB173318E80029698C /* SourceCodePro-Regular.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 7DA8B0F9173318E80029698C /* SourceCodePro-Regular.ttf */; };
+		7DA8B0FC173318E80029698C /* SourceSansPro-Regular.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 7DA8B0FA173318E80029698C /* SourceSansPro-Regular.ttf */; };
 		7DADC55F1704FABF001DAC63 /* OBSlider.m in Sources */ = {isa = PBXBuildFile; fileRef = 7DADC55E1704FABF001DAC63 /* OBSlider.m */; };
 		7DBC3B311711DB1E00DCF688 /* Aspen.png in Resources */ = {isa = PBXBuildFile; fileRef = 7DBC3B301711DB1E00DCF688 /* Aspen.png */; };
 		7DBC3B351711DC1200DCF688 /* Aspen72.png in Resources */ = {isa = PBXBuildFile; fileRef = 7DBC3B341711DC1200DCF688 /* Aspen72.png */; };
@@ -56,7 +58,6 @@
 		CC1BBC431704935E00A20CBF /* MediaLibrary.mom in Resources */ = {isa = PBXBuildFile; fileRef = CC1BBC421704935E00A20CBF /* MediaLibrary.mom */; };
 		CC1BBC461704938300A20CBF /* libiconv.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = CC1BBC451704938300A20CBF /* libiconv.dylib */; };
 		CC1BBC481704938B00A20CBF /* libstdc++.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = CC1BBC471704938B00A20CBF /* libstdc++.dylib */; };
-		CC1BBC4A1704939300A20CBF /* libz.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = CC1BBC491704939300A20CBF /* libz.dylib */; };
 		CC1BBC4C1704939B00A20CBF /* libsqlite3.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = CC1BBC4B1704939B00A20CBF /* libsqlite3.dylib */; };
 		CC1BBC4E170493A300A20CBF /* libbz2.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = CC1BBC4D170493A300A20CBF /* libbz2.dylib */; };
 		CC1BBC50170493AA00A20CBF /* libxml2.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = CC1BBC4F170493AA00A20CBF /* libxml2.dylib */; };
@@ -109,6 +110,8 @@
 		7D9529521732EFCA006F5B40 /* VLCAboutViewController~ipad.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; name = "VLCAboutViewController~ipad.xib"; path = "Resources/VLCAboutViewController~ipad.xib"; sourceTree = SOURCE_ROOT; };
 		7DA62099170A0CE500643D11 /* VLCPlaylistTableViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = VLCPlaylistTableViewCell.h; sourceTree = "<group>"; };
 		7DA6209A170A0CE500643D11 /* VLCPlaylistTableViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = VLCPlaylistTableViewCell.m; sourceTree = "<group>"; };
+		7DA8B0F9173318E80029698C /* SourceCodePro-Regular.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "SourceCodePro-Regular.ttf"; sourceTree = "<group>"; };
+		7DA8B0FA173318E80029698C /* SourceSansPro-Regular.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "SourceSansPro-Regular.ttf"; sourceTree = "<group>"; };
 		7DADC55D1704FABF001DAC63 /* OBSlider.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = OBSlider.h; path = ImportedSources/OBSlider/OBSlider/OBSlider.h; sourceTree = SOURCE_ROOT; };
 		7DADC55E1704FABF001DAC63 /* OBSlider.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = OBSlider.m; path = ImportedSources/OBSlider/OBSlider/OBSlider.m; sourceTree = SOURCE_ROOT; };
 		7DBC3B301711DB1E00DCF688 /* Aspen.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = Aspen.png; sourceTree = "<group>"; };
@@ -164,7 +167,6 @@
 				CC1BBC50170493AA00A20CBF /* libxml2.dylib in Frameworks */,
 				CC1BBC4E170493A300A20CBF /* libbz2.dylib in Frameworks */,
 				CC1BBC4C1704939B00A20CBF /* libsqlite3.dylib in Frameworks */,
-				CC1BBC4A1704939300A20CBF /* libz.dylib in Frameworks */,
 				CC1BBC481704938B00A20CBF /* libstdc++.dylib in Frameworks */,
 				CC1BBC461704938300A20CBF /* libiconv.dylib in Frameworks */,
 				CC1BBC3F1704934300A20CBF /* libMobileVLCKit.a in Frameworks */,
@@ -329,6 +331,8 @@
 		A7924697170F0ED20036AAF2 /* Resources */ = {
 			isa = PBXGroup;
 			children = (
+				7DA8B0F9173318E80029698C /* SourceCodePro-Regular.ttf */,
+				7DA8B0FA173318E80029698C /* SourceSansPro-Regular.ttf */,
 				7DBC3B48171204EC00DCF688 /* About Contents.txt */,
 				7DBC3B3C1711DD1E00DCF688 /* Icons */,
 				A79246C6170F11DF0036AAF2 /* Localizable.strings */,
@@ -428,6 +432,8 @@
 				A7CB0DB41716F72600050CF3 /* PlayingExternally@2x~ipad.png in Resources */,
 				7D33D41617182615008AF0E0 /* VLCMovieViewController~ipad.xib in Resources */,
 				7D9529531732EFCA006F5B40 /* VLCAboutViewController~ipad.xib in Resources */,
+				7DA8B0FB173318E80029698C /* SourceCodePro-Regular.ttf in Resources */,
+				7DA8B0FC173318E80029698C /* SourceSansPro-Regular.ttf in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
