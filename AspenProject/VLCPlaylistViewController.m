@@ -22,12 +22,11 @@
 - (id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil
 {
     self = [super initWithNibName:nibNameOrNil bundle:nibBundleOrNil];
-    if (self) {
+    if (self)
         self.title = @"Aspen";
-    }
+
     return self;
 }
-
 
 - (void)viewDidLoad
 {
@@ -42,12 +41,12 @@
 
     [self updateViewContents];
     [[MLMediaLibrary sharedMediaLibrary] libraryDidAppear];
-}
 
-- (void)didReceiveMemoryWarning
-{
-    [super didReceiveMemoryWarning];
-    // Dispose of any resources that can be recreated.
+    if ([[UIDevice currentDevice] userInterfaceIdiom] == UIUserInterfaceIdiomPad) {
+        _gridView.separatorStyle = AQGridViewCellSeparatorStyleEmptySpace;
+        _gridView.alwaysBounceVertical = YES;
+        _gridView.indicatorStyle = UIScrollViewIndicatorStyleWhite;
+    }
 }
 
 #pragma mark - Table View
@@ -55,7 +54,6 @@
 - (void)updateViewContents
 {
     [[MLMediaLibrary sharedMediaLibrary] updateMediaDatabase];
-
 
     _foundMedia = [NSMutableArray arrayWithArray:[MLFile allFiles]];
 

@@ -14,7 +14,6 @@
 
 @interface VLCPlaylistViewController : UIViewController <AQGridViewDataSource, AQGridViewDelegate, UITableViewDataSource, UITableViewDelegate>
 
-
 @property (nonatomic, strong) VLCMovieViewController *movieViewController;
 @property (nonatomic, strong) VLCAboutViewController *aboutViewController;
 
