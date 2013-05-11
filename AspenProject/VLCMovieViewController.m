@@ -18,7 +18,6 @@
 
 - (void)dealloc
 {
-
     [_mediaPlayer stop];
     [[NSNotificationCenter defaultCenter] removeObserver:self];
 }
@@ -27,9 +26,8 @@
 
 - (void)setMediaItem:(id)newMediaItem
 {
-    if (_mediaItem != newMediaItem) {
+    if (_mediaItem != newMediaItem)
         _mediaItem = newMediaItem;
-    }
 
     if (self.masterPopoverController != nil)
         [self.masterPopoverController dismissPopoverAnimated:YES];
@@ -44,6 +42,9 @@
     [_mediaPlayer setDelegate:self];
     [_mediaPlayer setDrawable:self.movieView];
 
+    self.videoFilterView.hidden = YES;
+    _videoFiltersHidden = YES;
+
     NSNotificationCenter *center = [NSNotificationCenter defaultCenter];
     [center addObserver:self selector:@selector(handleExternalScreenDidConnect:)
                    name:UIScreenDidConnectNotification object:nil];
@@ -53,9 +54,8 @@
 
     _playingExternallyTitle.text = NSLocalizedString(@"PLAYING_EXTERNALLY_TITLE", @"");
     _playingExternallyDescription.text = NSLocalizedString(@"PLAYING_EXTERNALLY_DESC", @"");
-    if ([self hasExternalDisplay]) {
+    if ([self hasExternalDisplay])
         [self showOnExternalDisplay];
-    }
 
     _movieView.userInteractionEnabled = NO;
     UITapGestureRecognizer *recognizer = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(toogleControlsVisible)];
@@ -77,6 +77,7 @@
 
     [_mediaPlayer setMedia:[VLCMedia mediaWithURL:[NSURL URLWithString:self.mediaItem.url]]];
     [_mediaPlayer play];
+
     if (self.mediaItem.lastPosition && [self.mediaItem.lastPosition floatValue] < 0.99)
         [_mediaPlayer setPosition:[self.mediaItem.lastPosition floatValue]];
 }
@@ -121,19 +122,31 @@
 
     if (!_controlsHidden) {
         _controllerPanel.alpha = 0.0f;
-        _controllerPanel.hidden = NO;
+        _controllerPanel.hidden = !_videoFiltersHidden;
         _toolbar.alpha = 0.0f;
         _toolbar.hidden = NO;
+        _videoFilterView.alpha = 0.0f;
+        _videoFilterView.hidden = _videoFiltersHidden;
+        _videoFilterButton.alpha = 0.0f;
+        _videoFilterButton.hidden = NO;
     }
 
     void (^animationBlock)() = ^() {
         _controllerPanel.alpha = alpha;
         _toolbar.alpha = alpha;
+        _videoFilterView.alpha = alpha;
+        _videoFilterButton.alpha = alpha;
+        _videoFilterButton.hidden = NO;
     };
 
     void (^completionBlock)(BOOL finished) = ^(BOOL finished) {
-        _controllerPanel.hidden = _controlsHidden;
+        if (_videoFiltersHidden)
+            _controllerPanel.hidden = _controlsHidden;
+        else
+            _controllerPanel.hidden = YES;
         _toolbar.hidden = _controlsHidden;
+        _videoFilterView.hidden = _videoFiltersHidden;
+        _videoFilterButton.hidden = _controlsHidden;
     };
 
     [UIView animateWithDuration:0.3f animations:animationBlock completion:completionBlock];
@@ -228,6 +241,31 @@
             _mediaPlayer.currentAudioTrackIndex = [indexArray[arrayIndex] intValue];
         }
     }
+}
+
+#pragma mark - Video Filter UI
+
+- (IBAction)videoFilterToggle:(id)sender
+{
+    self.videoFilterView.hidden = !_videoFiltersHidden;
+    _videoFiltersHidden = self.videoFilterView.hidden;
+    self.controllerPanel.hidden = !_videoFiltersHidden;
+}
+
+- (IBAction)videoFilterSliderAction:(id)sender
+{
+    if (sender == self.hueSlider)
+        _mediaPlayer.hue = (int)self.hueSlider.value;
+    else if (sender == self.contrastSlider)
+        _mediaPlayer.contrast = self.contrastSlider.value;
+    else if (sender == self.brightnessSlider)
+        _mediaPlayer.brightness = self.brightnessSlider.value;
+    else if (sender == self.saturationSlider)
+        _mediaPlayer.saturation = self.saturationSlider.value;
+    else if (sender == self.gammaSlider)
+        _mediaPlayer.gamma = self.gammaSlider.value;
+    else
+        APLog(@"unknown sender for videoFilterSliderAction");
 }
 
 #pragma mark -

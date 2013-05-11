@@ -13,6 +13,7 @@
     VLCMediaPlayer *_mediaPlayer;
 
     BOOL _controlsHidden;
+    BOOL _videoFiltersHidden;
 
     UIActionSheet *_subtitleActionSheet;
     UIActionSheet *_audiotrackActionSheet;
@@ -34,6 +35,19 @@
 @property (nonatomic, strong) IBOutlet UILabel *playingExternallyTitle;
 @property (nonatomic, strong) IBOutlet UILabel *playingExternallyDescription;
 
+@property (nonatomic, strong) IBOutlet UIView *videoFilterView;
+@property (nonatomic, strong) IBOutlet UIButton *videoFilterButton;
+@property (nonatomic, strong) IBOutlet UILabel *hueLabel;
+@property (nonatomic, strong) IBOutlet UISlider *hueSlider;
+@property (nonatomic, strong) IBOutlet UILabel *contrastLabel;
+@property (nonatomic, strong) IBOutlet UISlider *contrastSlider;
+@property (nonatomic, strong) IBOutlet UILabel *brightnessLabel;
+@property (nonatomic, strong) IBOutlet UISlider *brightnessSlider;
+@property (nonatomic, strong) IBOutlet UILabel *saturationLabel;
+@property (nonatomic, strong) IBOutlet UISlider *saturationSlider;
+@property (nonatomic, strong) IBOutlet UILabel *gammaLabel;
+@property (nonatomic, strong) IBOutlet UISlider *gammaSlider;
+
 @property (nonatomic, strong) MLFile *mediaItem;
 
 - (IBAction)closePlayback:(id)sender;
@@ -44,5 +58,8 @@
 - (IBAction)forward:(id)sender;
 - (IBAction)switchAudioTrack:(id)sender;
 - (IBAction)switchSubtitleTrack:(id)sender;
+
+- (IBAction)videoFilterToggle:(id)sender;
+- (IBAction)videoFilterSliderAction:(id)sender;
 
 @end
