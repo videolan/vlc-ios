@@ -1,0 +1,31 @@
+From 1837167a2a81aa2e5ad669cc29c5c5d7c13d630f Mon Sep 17 00:00:00 2001
+From: =?UTF-8?q?Felix=20Paul=20Ku=CC=88hne?= <fkuehne@videolan.org>
+Date: Sat, 11 May 2013 15:29:47 +0200
+Subject: [PATCH 14/14] contrib: disable some ARM ASM in libav until
+ gas-preprocessor is fixed (following XBMC's example)
+
+---
+ contrib/src/ffmpeg/rules.mak | 7 +++++++
+ 1 file changed, 7 insertions(+)
+
+diff --git a/contrib/src/ffmpeg/rules.mak b/contrib/src/ffmpeg/rules.mak
+index 6951933..ec3e9e6 100644
+--- a/contrib/src/ffmpeg/rules.mak
++++ b/contrib/src/ffmpeg/rules.mak
+@@ -56,6 +56,13 @@ ifeq ($(ARCH),arm)
+ FFMPEGCONF += --arch=arm
+ ifdef HAVE_NEON
+ FFMPEGCONF += --enable-neon
++ifdef HAVE_IOS
++ifeq ($(ARCH),arm)
++FFMPEGCONF += --disable-armv5te
++FFMPEGCONF += --disable-armv6
++FFMPEGCONF += --disable-armv6t2
++FFMPEGCONF += --extra-cflags='-mfpu=neon -mfloat-abi=softfp -mvectorize-with-neon-quad'
++endif
+ endif
+ ifdef HAVE_ARMV7A
+ FFMPEGCONF += --cpu=cortex-a8
+-- 
+1.7.12.4 (Apple Git-37)
+
