@@ -302,12 +302,11 @@
     [self resetIdleTimer];
 }
 
-#pragma mark - app multi tasking
+#pragma mark -
 
 - (void)appWillResign:(NSNotification *)aNotification
 {
     self.mediaItem.lastPosition = @([_mediaPlayer position]);
-    [_mediaPlayer pause];
 }
 
 #pragma mark - External Display
