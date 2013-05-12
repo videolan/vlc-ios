@@ -60,6 +60,8 @@
     UITapGestureRecognizer *recognizer = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(toogleControlsVisible)];
     recognizer.delegate = self;
     [self.view addGestureRecognizer:recognizer];
+
+    [self resetIdleTimer];
 }
 
 - (void)viewWillAppear:(BOOL)animated
@@ -147,6 +149,33 @@
     [[UIApplication sharedApplication] setStatusBarHidden:_controlsHidden withAnimation:UIStatusBarAnimationFade];
 }
 
+- (void)resetIdleTimer
+{
+    if (!_idleTimer)
+        _idleTimer = [NSTimer scheduledTimerWithTimeInterval:2.
+                                                      target:self
+                                                    selector:@selector(idleTimerExceeded)
+                                                    userInfo:nil
+                                                     repeats:NO];
+    else {
+        if (fabs([_idleTimer.fireDate timeIntervalSinceNow]) < 2.)
+            [_idleTimer setFireDate:[NSDate dateWithTimeIntervalSinceNow:2.]];
+    }
+}
+
+- (void)idleTimerExceeded
+{
+    _idleTimer = nil;
+    if (!_controlsHidden)
+        [self toogleControlsVisible];
+}
+
+- (UIResponder *)nextResponder
+{
+    [self resetIdleTimer];
+    return [super nextResponder];
+}
+
 #pragma mark - controls
 
 - (IBAction)closePlayback:(id)sender
@@ -157,6 +186,7 @@
 - (IBAction)positionSliderAction:(UISlider *)sender
 {
     _mediaPlayer.position = sender.value;
+    [self resetIdleTimer];
 }
 
 - (void)mediaPlayerTimeChanged:(NSNotification *)aNotification {
@@ -269,6 +299,7 @@
         _mediaPlayer.gamma = self.gammaSlider.value = 1.;
     } else
         APLog(@"unknown sender for videoFilterSliderAction");
+    [self resetIdleTimer];
 }
 
 #pragma mark - app multi tasking

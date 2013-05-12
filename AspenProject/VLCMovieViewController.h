@@ -17,6 +17,8 @@
 
     UIActionSheet *_subtitleActionSheet;
     UIActionSheet *_audiotrackActionSheet;
+
+    NSTimer *_idleTimer;
 }
 
 @property (nonatomic, strong) IBOutlet UIView *movieView;
