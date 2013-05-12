@@ -108,8 +108,12 @@
 - (void)tableView:(UITableView *)tableView commitEditingStyle:(UITableViewCellEditingStyle)editingStyle forRowAtIndexPath:(NSIndexPath *)indexPath
 {
     if (editingStyle == UITableViewCellEditingStyleDelete) {
-        [_foundMedia removeObjectAtIndex:indexPath.row];
+        NSUInteger row = indexPath.row;
+        MLFile *mediaObject = _foundMedia[row];
+        [[NSFileManager defaultManager] removeItemAtPath:[[NSURL URLWithString:mediaObject.url] path] error:nil];
+        [_foundMedia removeObjectAtIndex:row];
         [self.tableView deleteRowsAtIndexPaths:@[indexPath] withRowAnimation:UITableViewRowAnimationFade];
+        [self.gridView deleteItemsAtIndices:[NSIndexSet indexSetWithIndex:row] withAnimation:AQGridViewItemAnimationFade];
     } else if (editingStyle == UITableViewCellEditingStyleInsert) {
         // Create a new instance of the appropriate class, insert it into the array, and add a new row to the table view.
     }
