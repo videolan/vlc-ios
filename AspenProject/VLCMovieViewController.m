@@ -258,9 +258,12 @@
         _mediaPlayer.hue = (int)self.hueSlider.value;
     else if (sender == self.contrastSlider)
         _mediaPlayer.contrast = self.contrastSlider.value;
-    else if (sender == self.brightnessSlider)
-        _mediaPlayer.brightness = self.brightnessSlider.value;
-    else if (sender == self.saturationSlider)
+    else if (sender == self.brightnessSlider) {
+        if ([self hasExternalDisplay])
+            _mediaPlayer.brightness = self.brightnessSlider.value;
+        else
+            [[UIScreen mainScreen] setBrightness:(self.brightnessSlider.value / 2.)];
+    } else if (sender == self.saturationSlider)
         _mediaPlayer.saturation = self.saturationSlider.value;
     else if (sender == self.gammaSlider)
         _mediaPlayer.gamma = self.gammaSlider.value;
