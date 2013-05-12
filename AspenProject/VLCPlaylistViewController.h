@@ -28,5 +28,6 @@
 @property (nonatomic, strong) IBOutlet UITabBarItem *networkStreamsBarItem;
 
 - (void)updateViewContents;
+- (void)openMovieFromURL:(NSURL *)url;
 
 @end

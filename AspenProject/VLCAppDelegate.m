@@ -14,7 +14,6 @@
 
 @implementation VLCAppDelegate
 
-
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions
 {
     self.window = [[UIWindow alloc] initWithFrame:[[UIScreen mainScreen] bounds]];
@@ -26,7 +25,18 @@
 
     self.navigationController.navigationBar.barStyle = UIBarStyleBlack;
     [self.window makeKeyAndVisible];
+
     return YES;
+}
+
+- (BOOL)application:(UIApplication *)application openURL:(NSURL *)url sourceApplication:(NSString *)sourceApplication annotation:(id)annotation
+{
+    if (_playlistViewController && url != nil) {
+        APLog(@"%@ requested %@ to be opened", sourceApplication, url);
+        [_playlistViewController openMovieFromURL:url];
+        return YES;
+    }
+    return NO;
 }
 
 - (void)applicationWillResignActive:(UIApplication *)application

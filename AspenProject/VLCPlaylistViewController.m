@@ -200,13 +200,17 @@
 
 - (void)alertView:(UIAlertView *)alertView clickedButtonAtIndex:(NSInteger)buttonIndex
 {
-    if (buttonIndex == 1) {
-        if (!self.movieViewController)
-            self.movieViewController = [[VLCMovieViewController alloc] initWithNibName:@"VLCMovieViewController" bundle:nil];
+    if (buttonIndex == 1)
+        [self openMovieFromURL:_pasteURL];
+}
 
-        self.movieViewController.url = _pasteURL;
-        [self.navigationController pushViewController:self.movieViewController animated:YES];
-    }
+- (void)openMovieFromURL:(NSURL *)url
+{
+    if (!self.movieViewController)
+        self.movieViewController = [[VLCMovieViewController alloc] initWithNibName:@"VLCMovieViewController" bundle:nil];
+
+    self.movieViewController.url = url;
+    [self.navigationController pushViewController:self.movieViewController animated:YES];
 }
 
 @end

@@ -35,6 +35,90 @@
 	<string>1.0</string>
 	<key>CFBundleSignature</key>
 	<string>????</string>
+	<key>CFBundleURLTypes</key>
+	<array>
+		<dict>
+			<key>CFBundleTypeRole</key>
+			<string>Viewer</string>
+			<key>CFBundleURLName</key>
+			<string>RTSP</string>
+			<key>CFBundleURLSchemes</key>
+			<array>
+				<string>rtsp</string>
+			</array>
+		</dict>
+		<dict>
+			<key>CFBundleTypeRole</key>
+			<string>Viewer</string>
+			<key>CFBundleURLName</key>
+			<string>Multimedia Stream URL</string>
+			<key>CFBundleURLSchemes</key>
+			<array>
+				<string>mms</string>
+				<string>mmsh</string>
+			</array>
+		</dict>
+		<dict>
+			<key>CFBundleTypeRole</key>
+			<string>Viewer</string>
+			<key>CFBundleURLName</key>
+			<string>UDP URL</string>
+			<key>CFBundleURLSchemes</key>
+			<array>
+				<string>udp</string>
+			</array>
+		</dict>
+		<dict>
+			<key>CFBundleTypeRole</key>
+			<string>Viewer</string>
+			<key>CFBundleURLName</key>
+			<string>RTP URL</string>
+			<key>CFBundleURLSchemes</key>
+			<array>
+				<string>rtp</string>
+			</array>
+		</dict>
+		<dict>
+			<key>CFBundleTypeRole</key>
+			<string>Viewer</string>
+			<key>CFBundleURLName</key>
+			<string>RTMP</string>
+			<key>CFBundleURLSchemes</key>
+			<array>
+				<string>rtmp</string>
+			</array>
+		</dict>
+		<dict>
+			<key>CFBundleTypeRole</key>
+			<string>Viewer</string>
+			<key>CFBundleURLName</key>
+			<string>SFTP</string>
+			<key>CFBundleURLSchemes</key>
+			<array>
+				<string>sftp</string>
+			</array>
+		</dict>
+		<dict>
+			<key>CFBundleTypeRole</key>
+			<string>Viewer</string>
+			<key>CFBundleURLName</key>
+			<string>FTP</string>
+			<key>CFBundleURLSchemes</key>
+			<array>
+				<string>ftp</string>
+			</array>
+		</dict>
+		<dict>
+			<key>CFBundleTypeRole</key>
+			<string>Viewer</string>
+			<key>CFBundleURLName</key>
+			<string>SMB</string>
+			<key>CFBundleURLSchemes</key>
+			<array>
+				<string>smb</string>
+			</array>
+		</dict>
+	</array>
 	<key>CFBundleVersion</key>
 	<string>1.0</string>
 	<key>LSRequiresIPhoneOS</key>
