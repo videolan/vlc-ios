@@ -39,15 +39,25 @@
 
     self.navigationItem.rightBarButtonItem = self.editButtonItem;
 
-    [self updateViewContents];
-    [[MLMediaLibrary sharedMediaLibrary] libraryDidAppear];
-
     if ([[UIDevice currentDevice] userInterfaceIdiom] == UIUserInterfaceIdiomPad) {
         _gridView.separatorStyle = AQGridViewCellSeparatorStyleEmptySpace;
         _gridView.alwaysBounceVertical = YES;
         _gridView.indicatorStyle = UIScrollViewIndicatorStyleWhite;
     } else
         self.tabBar.selectedItem = self.localFilesBarItem;
+}
+
+- (void)viewDidAppear:(BOOL)animated
+{
+    [super viewDidAppear:animated];
+    [self performSelector:@selector(updateViewContents) withObject:nil afterDelay:.3];
+    [[MLMediaLibrary sharedMediaLibrary] performSelector:@selector(libraryDidAppear) withObject:nil afterDelay:1.];
+}
+
+- (void)viewDidDisappear:(BOOL)animated
+{
+    [super viewDidDisappear:animated];
+    [[MLMediaLibrary sharedMediaLibrary] libraryDidDisappear];
 }
 
 #pragma mark - Table View
