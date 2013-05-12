@@ -85,6 +85,8 @@
 
 - (void)viewWillDisappear:(BOOL)animated
 {
+    if (_idleTimer)
+        [_idleTimer invalidate];
     [self.navigationController setNavigationBarHidden:NO animated:YES];
     [UIApplication sharedApplication].statusBarStyle = UIStatusBarStyleBlackOpaque;
     [_mediaPlayer pause];
