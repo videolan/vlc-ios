@@ -18,7 +18,6 @@
 
 - (void)dealloc
 {
-    [_mediaPlayer stop];
     [[NSNotificationCenter defaultCenter] removeObserver:self];
 }
 
@@ -89,12 +88,7 @@
     [_mediaPlayer pause];
     [super viewWillDisappear:animated];
     self.mediaItem.lastPosition = @([_mediaPlayer position]);
-}
-
-- (void)didReceiveMemoryWarning
-{
-    [super didReceiveMemoryWarning];
-    // Dispose of any resources that can be recreated.
+    [_mediaPlayer stop];
 }
 
 - (id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil
