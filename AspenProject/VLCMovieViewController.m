@@ -271,11 +271,12 @@
         APLog(@"unknown sender for videoFilterSliderAction");
 }
 
-#pragma mark -
+#pragma mark - app multi tasking
 
 - (void)appWillResign:(NSNotification *)aNotification
 {
     self.mediaItem.lastPosition = @([_mediaPlayer position]);
+    [_mediaPlayer pause];
 }
 
 #pragma mark - External Display
