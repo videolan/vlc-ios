@@ -46,7 +46,8 @@
         _gridView.separatorStyle = AQGridViewCellSeparatorStyleEmptySpace;
         _gridView.alwaysBounceVertical = YES;
         _gridView.indicatorStyle = UIScrollViewIndicatorStyleWhite;
-    }
+    } else
+        self.tabBar.selectedItem = self.localFilesBarItem;
 }
 
 #pragma mark - Table View
@@ -155,11 +156,57 @@
 }
 
 #pragma mark - UI implementation
+- (void)setEditing:(BOOL)editing animated:(BOOL)animated
+{
+    if (self.tableView.editing) {
+        self.editButtonItem.style = UIBarButtonItemStylePlain;
+        self.editButtonItem.title = NSLocalizedString(@"Edit", @"edit bar button item");
+        [self.tableView setEditing:NO animated:YES];
+    } else {
+        self.editButtonItem.style = UIBarButtonItemStyleDone;
+        self.editButtonItem.title = NSLocalizedString(@"Done", @"edit bar button item");
+        [self.tableView setEditing:YES animated:YES];
+    }
+}
+
 - (void)showAboutView:(id)sender
 {
     if (!self.aboutViewController)
         self.aboutViewController = [[VLCAboutViewController alloc] initWithNibName:@"VLCAboutViewController" bundle:nil];
     [self.navigationController pushViewController:self.aboutViewController animated:YES];
+}
+
+#pragma mark - tab bar
+- (void)tabBar:(UITabBar *)tabBar didSelectItem:(UITabBarItem *)item
+{
+    if (item == self.networkStreamsBarItem) {
+        if ([[UIPasteboard generalPasteboard] containsPasteboardTypes:[NSArray arrayWithObjects:@"public.url", @"public.text", nil]]) {
+            _pasteURL = [[UIPasteboard generalPasteboard] valueForPasteboardType:@"public.url"];
+            if (!_pasteURL || [[_pasteURL absoluteString] isEqualToString:@""]) {
+                NSString * pasteString = [[UIPasteboard generalPasteboard] valueForPasteboardType:@"public.text"];
+                _pasteURL = [NSURL URLWithString:pasteString];
+            }
+
+            if (_pasteURL && ![[_pasteURL scheme] isEqualToString:@""] && ![[_pasteURL absoluteString] isEqualToString:@""]) {
+                NSString * messageString = [NSString stringWithFormat:@"Do you want to open %@?", [_pasteURL absoluteString]];
+                UIAlertView * alert = [[UIAlertView alloc] initWithTitle:@"Open URL?" message:messageString delegate:self cancelButtonTitle:@"Cancel" otherButtonTitles:@"Open", nil];
+                [alert show];
+            }
+        }
+    }
+
+    self.tabBar.selectedItem = self.localFilesBarItem;
+}
+
+- (void)alertView:(UIAlertView *)alertView clickedButtonAtIndex:(NSInteger)buttonIndex
+{
+    if (buttonIndex == 1) {
+        if (!self.movieViewController)
+            self.movieViewController = [[VLCMovieViewController alloc] initWithNibName:@"VLCMovieViewController" bundle:nil];
+
+        self.movieViewController.url = _pasteURL;
+        [self.navigationController pushViewController:self.movieViewController animated:YES];
+    }
 }
 
 @end

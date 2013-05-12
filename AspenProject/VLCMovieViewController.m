@@ -71,12 +71,17 @@
     if (UI_USER_INTERFACE_IDIOM() == UIUserInterfaceIdiomPhone)
         [UIApplication sharedApplication].statusBarStyle = UIStatusBarStyleBlackTranslucent;
 
-    if (!self.mediaItem)
+    if (!self.mediaItem && !self.url)
         return;
 
-    self.title = [self.mediaItem title];
+    if (self.mediaItem) {
+        self.title = [self.mediaItem title];
+        [_mediaPlayer setMedia:[VLCMedia mediaWithURL:[NSURL URLWithString:self.mediaItem.url]]];
+    } else {
+        [_mediaPlayer setMedia:[VLCMedia mediaWithURL:self.url]];
+        self.title = @"Network Stream";
+    }
 
-    [_mediaPlayer setMedia:[VLCMedia mediaWithURL:[NSURL URLWithString:self.mediaItem.url]]];
     [_mediaPlayer play];
 
     if (self.mediaItem.lastPosition && [self.mediaItem.lastPosition floatValue] < 0.99)

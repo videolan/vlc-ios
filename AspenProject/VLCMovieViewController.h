@@ -52,6 +52,7 @@
 @property (nonatomic, strong) IBOutlet UIButton *resetVideoFilterButton;
 
 @property (nonatomic, strong) MLFile *mediaItem;
+@property (nonatomic, strong) NSURL *url;
 
 - (IBAction)closePlayback:(id)sender;
 - (IBAction)positionSliderAction:(id)sender;
