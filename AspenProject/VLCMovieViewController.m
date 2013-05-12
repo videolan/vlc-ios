@@ -264,7 +264,13 @@
         _mediaPlayer.saturation = self.saturationSlider.value;
     else if (sender == self.gammaSlider)
         _mediaPlayer.gamma = self.gammaSlider.value;
-    else
+    else if (sender == self.resetVideoFilterButton) {
+        _mediaPlayer.hue = self.hueSlider.value = 0.;
+        _mediaPlayer.contrast = self.contrastSlider.value = 1.;
+        _mediaPlayer.brightness = self.brightnessSlider.value = 1.;
+        _mediaPlayer.saturation = self.saturationSlider.value = 1.;
+        _mediaPlayer.gamma = self.gammaSlider.value = 1.;
+    } else
         APLog(@"unknown sender for videoFilterSliderAction");
 }
 

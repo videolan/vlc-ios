@@ -47,6 +47,7 @@
 @property (nonatomic, strong) IBOutlet UISlider *saturationSlider;
 @property (nonatomic, strong) IBOutlet UILabel *gammaLabel;
 @property (nonatomic, strong) IBOutlet UISlider *gammaSlider;
+@property (nonatomic, strong) IBOutlet UIButton *resetVideoFilterButton;
 
 @property (nonatomic, strong) MLFile *mediaItem;
 
