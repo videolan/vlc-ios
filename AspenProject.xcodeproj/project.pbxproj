@@ -128,6 +128,7 @@
 		7DC87AEC17412A1F009DC250 /* VLCLinearProgressIndicator.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = VLCLinearProgressIndicator.h; sourceTree = "<group>"; };
 		7DC87AED17412A1F009DC250 /* VLCLinearProgressIndicator.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = VLCLinearProgressIndicator.m; sourceTree = "<group>"; };
 		7DC87AEF17413634009DC250 /* de */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = de; path = de.lproj/Localizable.strings; sourceTree = "<group>"; };
+		7DC87AF017413A17009DC250 /* fr */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = fr; path = fr.lproj/Localizable.strings; sourceTree = "<group>"; };
 		7DDD0428172D98E5005A7B10 /* CFNetwork.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CFNetwork.framework; path = System/Library/Frameworks/CFNetwork.framework; sourceTree = SDKROOT; };
 		7DE480CF173FEA30003613E0 /* VLCCircularProgressIndicator.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = VLCCircularProgressIndicator.h; sourceTree = "<group>"; };
 		7DE480D0173FEA30003613E0 /* VLCCircularProgressIndicator.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = VLCCircularProgressIndicator.m; sourceTree = "<group>"; };
@@ -406,6 +407,7 @@
 				en,
 				ru,
 				de,
+				fr,
 			);
 			mainGroup = 7D94FCD216DE7D1000F2623B;
 			productRefGroup = 7D94FCDC16DE7D1000F2623B /* Products */;
@@ -489,6 +491,7 @@
 				A79246C7170F11DF0036AAF2 /* en */,
 				A79246C9170F11E40036AAF2 /* ru */,
 				7DC87AEF17413634009DC250 /* de */,
+				7DC87AF017413A17009DC250 /* fr */,
 			);
 			name = Localizable.strings;
 			sourceTree = "<group>";
