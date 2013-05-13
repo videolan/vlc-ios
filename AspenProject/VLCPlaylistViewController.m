@@ -43,10 +43,10 @@
         _gridView.separatorStyle = AQGridViewCellSeparatorStyleEmptySpace;
         _gridView.alwaysBounceVertical = YES;
         _gridView.indicatorStyle = UIScrollViewIndicatorStyleWhite;
-    } else {
-        self.tabBar.selectedItem = self.localFilesBarItem;
-        self.networkStreamsBarItem.title = NSLocalizedString(@"Network",@"");
     }
+
+    self.tabBar.selectedItem = self.localFilesBarItem;
+    self.networkStreamsBarItem.title = NSLocalizedString(@"Network",@"");
 }
 
 - (void)viewWillAppear:(BOOL)animated
