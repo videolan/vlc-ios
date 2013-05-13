@@ -9,7 +9,7 @@
 #import "VLCPlaylistViewController.h"
 #import "VLCMovieViewController.h"
 #import "VLCPlaylistTableViewCell.h"
-#import "VLCPlaylistGridViewCell.h"
+#import "VLCPlaylistGridView.h"
 #import "VLCAboutViewController.h"
 
 @interface VLCPlaylistViewController () {
@@ -49,9 +49,16 @@
     }
 }
 
+- (void)viewWillAppear:(BOOL)animated
+{
+    [self.gridView deselectItemAtIndex:self.gridView.indexOfSelectedItem animated:animated];
+    [super viewWillAppear:animated];
+}
+
 - (void)viewDidAppear:(BOOL)animated
 {
     [super viewDidAppear:animated];
+
     [self performSelector:@selector(updateViewContents) withObject:nil afterDelay:.3];
     [[MLMediaLibrary sharedMediaLibrary] performSelector:@selector(libraryDidAppear) withObject:nil afterDelay:1.];
 }
@@ -144,23 +151,34 @@
 {
     static NSString *AQCellIdentifier = @"AQCell";
 
-    VLCPlaylistGridViewCell *cell = (VLCPlaylistGridViewCell *)[gridView dequeueReusableCellWithIdentifier:AQCellIdentifier];
+    AQGridViewCell *cell = (AQGridViewCell *)[gridView dequeueReusableCellWithIdentifier:AQCellIdentifier];
     if (cell == nil) {
-        cell = [[VLCPlaylistGridViewCell alloc] initWithFrame:CGRectMake(0.0, 0.0, 384.,216.) reuseIdentifier:AQCellIdentifier];
-        cell.selectionStyle = AQGridViewCellSelectionStyleBlueGray;
+        VLCPlaylistGridView *cellViewClass = [[VLCPlaylistGridView alloc] init];
+
+        NSArray *array = [[NSBundle mainBundle] loadNibNamed:@"VLCPlaylistGridView" owner:cellViewClass options:nil];
+        cellViewClass = [array objectAtIndex:0];
+        cell = [[AQGridViewCell alloc] initWithFrame:cellViewClass.frame reuseIdentifier:AQCellIdentifier];
+        [cell.contentView addSubview:cellViewClass];
+        cell.selectionStyle = AQGridViewCellSelectionStyleGlow;
     }
 
     MLFile *object = _foundMedia[index];
-    cell.title = object.title;
-    cell.subtitle = [NSString stringWithFormat:@"%@ — %.2f MB", [VLCTime timeWithNumber:[object duration]], [object fileSizeInBytes] / 2e6];
-    cell.thumbnail = object.computedThumbnail;
+    VLCPlaylistGridView *cellView = (VLCPlaylistGridView *)[[cell contentView] viewWithTag:1];
+    cellView.title = object.title;
+    cellView.subtitle = [NSString stringWithFormat:@"%@ — %.2f MB", [VLCTime timeWithNumber:[object duration]], [object fileSizeInBytes] / 2e6];
+    cellView.thumbnail = object.computedThumbnail;
+    cellView.progressView.progress = object.lastPosition.floatValue;
 
     return cell;
 }
 
 - (CGSize)portraitGridCellSizeForGridView:(AQGridView *)gridView
 {
-    static CGSize cellSize = { 384., 216. };
+    VLCPlaylistGridView *cellViewClass = [[VLCPlaylistGridView alloc] init];
+    NSArray *array = [[NSBundle mainBundle] loadNibNamed:@"VLCPlaylistGridView" owner:cellViewClass options:nil];
+    cellViewClass = [array objectAtIndex:0];
+
+    CGSize cellSize = CGSizeMake(cellViewClass.frame.size.width, cellViewClass.frame.size.height);
     return cellSize;
 }
 
