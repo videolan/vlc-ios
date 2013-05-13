@@ -15,6 +15,7 @@
 @interface VLCPlaylistViewController : UIViewController <AQGridViewDataSource, AQGridViewDelegate, UITableViewDataSource, UITableViewDelegate, UITabBarDelegate>
 {
     NSURL *_pasteURL;
+    BOOL _editMode;
 }
 
 @property (nonatomic, strong) VLCMovieViewController *movieViewController;
@@ -29,5 +30,6 @@
 
 - (void)updateViewContents;
 - (void)openMovieFromURL:(NSURL *)url;
+- (void)removeMediaObject:(MLFile *)mediaObject;
 
 @end

@@ -14,9 +14,12 @@
 @property (nonatomic, strong) IBOutlet UILabel *subtitleLabel;
 @property (nonatomic, strong) IBOutlet UIImageView *thumbnailView;
 @property (nonatomic, strong) IBOutlet VLCLinearProgressIndicator *progressView;
+@property (nonatomic, strong) IBOutlet UIButton *removeMediaButton;
 
-@property (nonatomic, copy) UIImage *thumbnail;
-@property (nonatomic, copy) NSString *title;
-@property (nonatomic, copy) NSString *subtitle;
+@property (nonatomic, retain) MLFile *mediaObject;
+
+@property (nonatomic) BOOL editable;
+
+- (IBAction)removeMedia:(id)sender;
 
 @end

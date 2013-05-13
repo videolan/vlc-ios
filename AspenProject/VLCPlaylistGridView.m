@@ -7,6 +7,7 @@
 //
 
 #import "VLCPlaylistGridView.h"
+#import "VLCAppDelegate.h"
 
 @interface VLCPlaylistGridView (Hack)
 @property (nonatomic, retain) NSString * reuseIdentifier;
@@ -14,37 +15,34 @@
 
 @implementation VLCPlaylistGridView
 
-- (UIImage *)thumbnail
+- (BOOL)editable
 {
-    return _thumbnailView.image;
+    return !self.removeMediaButton.hidden;
 }
 
-- (void)setThumbnail:(UIImage *)newThumb
+- (void)setEditable:(BOOL)editable
 {
-    self.thumbnailView.image = newThumb;
+    self.removeMediaButton.hidden = !editable;
+}
+
+- (void)setMediaObject:(MLFile *)mediaObject
+{
+    [mediaObject willDisplay];
+
+    self.titleLabel.text = mediaObject.title;
+    self.subtitleLabel.text = [NSString stringWithFormat:@"%@ — %.2f MB", [VLCTime timeWithNumber:[mediaObject duration]], [mediaObject fileSizeInBytes] / 2e6];
+    self.thumbnailView.image = mediaObject.computedThumbnail;
+    self.progressView.progress = mediaObject.lastPosition.floatValue;
+
+    _mediaObject = mediaObject;
+
     [self setNeedsDisplay];
 }
 
-- (NSString *)title
+- (IBAction)removeMedia:(id)sender
 {
-    return _titleLabel.text;
-}
-
-- (void)setTitle:(NSString *)newTitle
-{
-    self.titleLabel.text = newTitle;
-    [self setNeedsDisplay];
-}
-
-- (NSString *)subtitle
-{
-    return @"";
-}
-
-- (void)setSubtitle:(NSString *)newSubtitle
-{
-    self.subtitleLabel.text = newSubtitle;
-    [self setNeedsDisplay];
+    VLCAppDelegate* appDelegate = [UIApplication sharedApplication].delegate;
+    [appDelegate.playlistViewController removeMediaObject:self.mediaObject];
 }
 
 @end

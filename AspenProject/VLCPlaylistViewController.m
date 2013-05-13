@@ -69,6 +69,15 @@
     [[MLMediaLibrary sharedMediaLibrary] libraryDidDisappear];
 }
 
+- (void)removeMediaObject:(MLFile *)mediaObject
+{
+    [[NSFileManager defaultManager] removeItemAtPath:[[NSURL URLWithString:mediaObject.url] path] error:nil];
+    NSUInteger index = [_foundMedia indexOfObject:mediaObject];
+    [_foundMedia removeObjectAtIndex:index];
+    [self.tableView deleteRowsAtIndexPaths:[NSIndexPath indexPathWithIndex:index] withRowAnimation:UITableViewRowAnimationFade];
+    [self.gridView deleteItemsAtIndices:[NSIndexSet indexSetWithIndex:index] withAnimation:AQGridViewItemAnimationFade];
+}
+
 #pragma mark - Table View
 
 - (void)updateViewContents
@@ -119,16 +128,8 @@
 
 - (void)tableView:(UITableView *)tableView commitEditingStyle:(UITableViewCellEditingStyle)editingStyle forRowAtIndexPath:(NSIndexPath *)indexPath
 {
-    if (editingStyle == UITableViewCellEditingStyleDelete) {
-        NSUInteger row = indexPath.row;
-        MLFile *mediaObject = _foundMedia[row];
-        [[NSFileManager defaultManager] removeItemAtPath:[[NSURL URLWithString:mediaObject.url] path] error:nil];
-        [_foundMedia removeObjectAtIndex:row];
-        [self.tableView deleteRowsAtIndexPaths:@[indexPath] withRowAnimation:UITableViewRowAnimationFade];
-        [self.gridView deleteItemsAtIndices:[NSIndexSet indexSetWithIndex:row] withAnimation:AQGridViewItemAnimationFade];
-    } else if (editingStyle == UITableViewCellEditingStyleInsert) {
-        // Create a new instance of the appropriate class, insert it into the array, and add a new row to the table view.
-    }
+    if (editingStyle == UITableViewCellEditingStyleDelete)
+        [self removeMediaObject: _foundMedia[indexPath.row]];
 }
 
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
@@ -162,12 +163,8 @@
         cell.selectionStyle = AQGridViewCellSelectionStyleGlow;
     }
 
-    MLFile *object = _foundMedia[index];
     VLCPlaylistGridView *cellView = (VLCPlaylistGridView *)[[cell contentView] viewWithTag:1];
-    cellView.title = object.title;
-    cellView.subtitle = [NSString stringWithFormat:@"%@ — %.2f MB", [VLCTime timeWithNumber:[object duration]], [object fileSizeInBytes] / 2e6];
-    cellView.thumbnail = object.computedThumbnail;
-    cellView.progressView.progress = object.lastPosition.floatValue;
+    cellView.mediaObject = _foundMedia[index];
 
     return cell;
 }
@@ -195,14 +192,25 @@
 #pragma mark - UI implementation
 - (void)setEditing:(BOOL)editing animated:(BOOL)animated
 {
-    if (self.tableView.editing) {
-        self.editButtonItem.style = UIBarButtonItemStylePlain;
-        self.editButtonItem.title = NSLocalizedString(@"Edit",@"");
-        [self.tableView setEditing:NO animated:YES];
-    } else {
+    if (_editMode != editing)
+        _editMode = editing;
+    else
+        _editMode = !editing;
+
+    if ([[UIDevice currentDevice] userInterfaceIdiom] == UIUserInterfaceIdiomPad) {
+        NSUInteger count = _foundMedia.count;
+        for (NSUInteger x = 0; x < count; x++) {
+            [(VLCPlaylistGridView *)[[[self.gridView cellForItemAtIndex:x] contentView] viewWithTag:1] setEditable:_editMode];
+        }
+    } else
+        [self.tableView setEditing:_editMode animated:YES];
+
+    if (_editMode) {
         self.editButtonItem.style = UIBarButtonItemStyleDone;
         self.editButtonItem.title = NSLocalizedString(@"Done",@"");
-        [self.tableView setEditing:YES animated:YES];
+    } else {
+        self.editButtonItem.style = UIBarButtonItemStylePlain;
+        self.editButtonItem.title = NSLocalizedString(@"Edit",@"");
     }
 }
 
