@@ -321,6 +321,13 @@
     self.mediaItem.lastPosition = @([_mediaPlayer position]);
 }
 
+#pragma mark - autorotation
+
+- (BOOL)shouldAutorotateToInterfaceOrientation:(UIInterfaceOrientation)toInterfaceOrientation {
+    return UI_USER_INTERFACE_IDIOM() == UIUserInterfaceIdiomPad
+           || toInterfaceOrientation != UIInterfaceOrientationMaskPortraitUpsideDown;
+}
+
 #pragma mark - External Display
 
 - (BOOL)hasExternalDisplay
