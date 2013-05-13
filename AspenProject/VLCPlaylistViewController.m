@@ -34,7 +34,7 @@
     self.tableView.separatorColor = [UIColor colorWithWhite:.2 alpha:1.];
     [super viewDidLoad];
 
-    UIBarButtonItem *addButton = [[UIBarButtonItem alloc] initWithTitle:@"About" style:UIBarButtonItemStyleBordered target:self action:@selector(showAboutView:)];
+    UIBarButtonItem *addButton = [[UIBarButtonItem alloc] initWithTitle:NSLocalizedString(@"About",@"") style:UIBarButtonItemStyleBordered target:self action:@selector(showAboutView:)];
     self.navigationItem.leftBarButtonItem = addButton;
 
     self.navigationItem.rightBarButtonItem = self.editButtonItem;
@@ -43,8 +43,10 @@
         _gridView.separatorStyle = AQGridViewCellSeparatorStyleEmptySpace;
         _gridView.alwaysBounceVertical = YES;
         _gridView.indicatorStyle = UIScrollViewIndicatorStyleWhite;
-    } else
+    } else {
         self.tabBar.selectedItem = self.localFilesBarItem;
+        self.networkStreamsBarItem.title = NSLocalizedString(@"Network",@"");
+    }
 }
 
 - (void)viewDidAppear:(BOOL)animated
@@ -177,11 +179,11 @@
 {
     if (self.tableView.editing) {
         self.editButtonItem.style = UIBarButtonItemStylePlain;
-        self.editButtonItem.title = NSLocalizedString(@"Edit", @"edit bar button item");
+        self.editButtonItem.title = NSLocalizedString(@"Edit",@"");
         [self.tableView setEditing:NO animated:YES];
     } else {
         self.editButtonItem.style = UIBarButtonItemStyleDone;
-        self.editButtonItem.title = NSLocalizedString(@"Done", @"edit bar button item");
+        self.editButtonItem.title = NSLocalizedString(@"Done",@"");
         [self.tableView setEditing:YES animated:YES];
     }
 }

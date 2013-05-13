@@ -43,6 +43,11 @@
 
     self.videoFilterView.hidden = YES;
     _videoFiltersHidden = YES;
+    _hueLabel.text = NSLocalizedString(@"Hue", @"");
+    _contrastLabel.text = NSLocalizedString(@"Contrast", @"");
+    _brightnessLabel.text = NSLocalizedString(@"Brightness", @"");
+    _saturationLabel.text = NSLocalizedString(@"Saturation", @"");
+    _gammaLabel.text = NSLocalizedString(@"Gamma", @"");
 
     NSNotificationCenter *center = [NSNotificationCenter defaultCenter];
     [center addObserver:self selector:@selector(handleExternalScreenDidConnect:)
