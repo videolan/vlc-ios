@@ -19,11 +19,13 @@
 
     UIBezierPath* bezierPath = [UIBezierPath bezierPath];
 
-    [bezierPath moveToPoint:CGPointMake((self.progress * rect.size.width) - rect.size.height + 3., 2.)];
+    float progress_width = self.progress * rect.size.width;
+
+    [bezierPath moveToPoint:CGPointMake(progress_width - rect.size.height + 3., 2.)];
 
     // Create our triangle
-    [bezierPath addLineToPoint:CGPointMake((self.progress * rect.size.width) - (rect.size.height/2), rect.size.height - 5.)];
-    [bezierPath addLineToPoint:CGPointMake((self.progress * rect.size.width) - 3., 2.)];
+    [bezierPath addLineToPoint:CGPointMake(progress_width - (rect.size.height/2), rect.size.height - 5.)];
+    [bezierPath addLineToPoint:CGPointMake(progress_width - 3., 2.)];
     [bezierPath closePath];
 
     // Set the display for the path, and stroke it
