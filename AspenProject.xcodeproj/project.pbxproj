@@ -39,6 +39,7 @@
 		7DBC3B441711FC6C00DCF688 /* VLCAboutViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 7DBC3B421711FC6C00DCF688 /* VLCAboutViewController.m */; };
 		7DBC3B451711FC6C00DCF688 /* VLCAboutViewController~iphone.xib in Resources */ = {isa = PBXBuildFile; fileRef = 7DBC3B431711FC6C00DCF688 /* VLCAboutViewController~iphone.xib */; };
 		7DBC3B49171204ED00DCF688 /* About Contents.txt in Resources */ = {isa = PBXBuildFile; fileRef = 7DBC3B48171204EC00DCF688 /* About Contents.txt */; };
+		7DC87AEE17412A1F009DC250 /* VLCLinearProgressIndicator.m in Sources */ = {isa = PBXBuildFile; fileRef = 7DC87AED17412A1F009DC250 /* VLCLinearProgressIndicator.m */; };
 		7DDD0429172D98E5005A7B10 /* CFNetwork.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 7DDD0428172D98E5005A7B10 /* CFNetwork.framework */; };
 		7DE480D1173FEA30003613E0 /* VLCCircularProgressIndicator.m in Sources */ = {isa = PBXBuildFile; fileRef = 7DE480D0173FEA30003613E0 /* VLCCircularProgressIndicator.m */; };
 		A7924696170F0BA90036AAF2 /* libMediaLibraryKit.a in Frameworks */ = {isa = PBXBuildFile; fileRef = A7924695170F0BA90036AAF2 /* libMediaLibraryKit.a */; };
@@ -124,6 +125,8 @@
 		7DBC3B421711FC6C00DCF688 /* VLCAboutViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = VLCAboutViewController.m; sourceTree = "<group>"; };
 		7DBC3B431711FC6C00DCF688 /* VLCAboutViewController~iphone.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; name = "VLCAboutViewController~iphone.xib"; path = "../Resources/VLCAboutViewController~iphone.xib"; sourceTree = "<group>"; };
 		7DBC3B48171204EC00DCF688 /* About Contents.txt */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = "About Contents.txt"; sourceTree = "<group>"; };
+		7DC87AEC17412A1F009DC250 /* VLCLinearProgressIndicator.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = VLCLinearProgressIndicator.h; sourceTree = "<group>"; };
+		7DC87AED17412A1F009DC250 /* VLCLinearProgressIndicator.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = VLCLinearProgressIndicator.m; sourceTree = "<group>"; };
 		7DDD0428172D98E5005A7B10 /* CFNetwork.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CFNetwork.framework; path = System/Library/Frameworks/CFNetwork.framework; sourceTree = SDKROOT; };
 		7DE480CF173FEA30003613E0 /* VLCCircularProgressIndicator.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = VLCCircularProgressIndicator.h; sourceTree = "<group>"; };
 		7DE480D0173FEA30003613E0 /* VLCCircularProgressIndicator.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = VLCCircularProgressIndicator.m; sourceTree = "<group>"; };
@@ -280,6 +283,8 @@
 				A7DA16D0171083DF00D6FED9 /* VLCExternalDisplayController.m */,
 				7DE480CF173FEA30003613E0 /* VLCCircularProgressIndicator.h */,
 				7DE480D0173FEA30003613E0 /* VLCCircularProgressIndicator.m */,
+				7DC87AEC17412A1F009DC250 /* VLCLinearProgressIndicator.h */,
+				7DC87AED17412A1F009DC250 /* VLCLinearProgressIndicator.m */,
 				7DADC5601704FACC001DAC63 /* Imported */,
 				7DADC55C1704FAA8001DAC63 /* XIBs */,
 				A7924697170F0ED20036AAF2 /* Resources */,
@@ -469,6 +474,7 @@
 				7D6B07C51716C9B8003280C4 /* UIColor+AQGridView.m in Sources */,
 				7D6B07F71716D45C003280C4 /* VLCPlaylistGridViewCell.m in Sources */,
 				7DE480D1173FEA30003613E0 /* VLCCircularProgressIndicator.m in Sources */,
+				7DC87AEE17412A1F009DC250 /* VLCLinearProgressIndicator.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
