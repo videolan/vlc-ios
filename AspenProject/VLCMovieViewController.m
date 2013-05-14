@@ -45,11 +45,11 @@
 
     self.videoFilterView.hidden = YES;
     _videoFiltersHidden = YES;
-    _hueLabel.text = NSLocalizedString(@"Hue", @"");
-    _contrastLabel.text = NSLocalizedString(@"Contrast", @"");
-    _brightnessLabel.text = NSLocalizedString(@"Brightness", @"");
-    _saturationLabel.text = NSLocalizedString(@"Saturation", @"");
-    _gammaLabel.text = NSLocalizedString(@"Gamma", @"");
+    _hueLabel.text = NSLocalizedString(@"VFILTER_HUE", @"");
+    _contrastLabel.text = NSLocalizedString(@"VFILTER_CONTRAST", @"");
+    _brightnessLabel.text = NSLocalizedString(@"VFILTER_BRIGHTNESS", @"");
+    _saturationLabel.text = NSLocalizedString(@"VFILTER_SATURATION", @"");
+    _gammaLabel.text = NSLocalizedString(@"VFILTER_GAMMA", @"");
 
     self.playbackView.hidden = YES;
 
@@ -247,12 +247,12 @@
 
 - (IBAction)switchAudioTrack:(id)sender
 {
-    _audiotrackActionSheet = [[UIActionSheet alloc] initWithTitle:NSLocalizedString(@"Choose Audio Track", @"audio track selector") delegate:self cancelButtonTitle:nil destructiveButtonTitle:nil otherButtonTitles: nil];
+    _audiotrackActionSheet = [[UIActionSheet alloc] initWithTitle:NSLocalizedString(@"CHOOSE_AUDIO_TRACK", @"audio track selector") delegate:self cancelButtonTitle:nil destructiveButtonTitle:nil otherButtonTitles: nil];
     NSArray *audioTracks = [_mediaPlayer audioTrackNames];
     NSUInteger count = [audioTracks count];
     for (NSUInteger i = 0; i < count; i++)
         [_audiotrackActionSheet addButtonWithTitle:audioTracks[i]];
-    [_audiotrackActionSheet addButtonWithTitle:NSLocalizedString(@"Cancel", @"audio track selector")];
+    [_audiotrackActionSheet addButtonWithTitle:NSLocalizedString(@"BUTTON_CANCEL", @"cancel button")];
     [_audiotrackActionSheet setCancelButtonIndex:[_audiotrackActionSheet numberOfButtons] - 1];
     [_audiotrackActionSheet showFromRect:[self.audioSwitcherButton frame] inView:self.audioSwitcherButton animated:YES];
 }
@@ -263,10 +263,10 @@
     NSUInteger count = [spuTracks count];
     if (count <= 1)
         return;
-    _subtitleActionSheet = [[UIActionSheet alloc] initWithTitle:NSLocalizedString(@"Choose Subtitle Track", @"subtitle track selector") delegate:self cancelButtonTitle:nil destructiveButtonTitle:nil otherButtonTitles: nil];
+    _subtitleActionSheet = [[UIActionSheet alloc] initWithTitle:NSLocalizedString(@"CHOOSE_SUBTITLE_TRACK", @"subtitle track selector") delegate:self cancelButtonTitle:nil destructiveButtonTitle:nil otherButtonTitles: nil];
     for (NSUInteger i = 0; i < count; i++)
         [_subtitleActionSheet addButtonWithTitle:spuTracks[i]];
-    [_subtitleActionSheet addButtonWithTitle:NSLocalizedString(@"Cancel", @"subtitle track selector")];
+    [_subtitleActionSheet addButtonWithTitle:NSLocalizedString(@"BUTTON_CANCEL", @"cancel button")];
     [_subtitleActionSheet setCancelButtonIndex:[_subtitleActionSheet numberOfButtons] - 1];
     [_subtitleActionSheet showFromRect:[self.subtitleSwitcherButton frame] inView:self.subtitleSwitcherButton animated:YES];
 }

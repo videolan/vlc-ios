@@ -34,7 +34,7 @@
     self.tableView.separatorColor = [UIColor colorWithWhite:.2 alpha:1.];
     [super viewDidLoad];
 
-    UIBarButtonItem *addButton = [[UIBarButtonItem alloc] initWithTitle:NSLocalizedString(@"About",@"") style:UIBarButtonItemStyleBordered target:self action:@selector(showAboutView:)];
+    UIBarButtonItem *addButton = [[UIBarButtonItem alloc] initWithTitle:NSLocalizedString(@"BUTTON_ABOUT",@"") style:UIBarButtonItemStyleBordered target:self action:@selector(showAboutView:)];
     self.navigationItem.leftBarButtonItem = addButton;
 
     self.navigationItem.rightBarButtonItem = self.editButtonItem;
@@ -46,7 +46,7 @@
     }
 
     self.tabBar.selectedItem = self.localFilesBarItem;
-    self.networkStreamsBarItem.title = NSLocalizedString(@"Network",@"");
+    self.networkStreamsBarItem.title = NSLocalizedString(@"TABBAR_NETWORK",@"");
 }
 
 - (void)viewWillAppear:(BOOL)animated
@@ -207,10 +207,10 @@
 
     if (_editMode) {
         self.editButtonItem.style = UIBarButtonItemStyleDone;
-        self.editButtonItem.title = NSLocalizedString(@"Done",@"");
+        self.editButtonItem.title = NSLocalizedString(@"BUTTON_DONE",@"");
     } else {
         self.editButtonItem.style = UIBarButtonItemStylePlain;
-        self.editButtonItem.title = NSLocalizedString(@"Edit",@"");
+        self.editButtonItem.title = NSLocalizedString(@"BUTTON_EDIT",@"");
     }
 }
 
@@ -234,7 +234,7 @@
 
             if (_pasteURL && ![[_pasteURL scheme] isEqualToString:@""] && ![[_pasteURL absoluteString] isEqualToString:@""]) {
                 NSString * messageString = [NSString stringWithFormat:@"Do you want to open %@?", [_pasteURL absoluteString]];
-                UIAlertView * alert = [[UIAlertView alloc] initWithTitle:@"Open URL?" message:messageString delegate:self cancelButtonTitle:@"Cancel" otherButtonTitles:@"Open", nil];
+                UIAlertView * alert = [[UIAlertView alloc] initWithTitle:@"Open URL?" message:messageString delegate:self cancelButtonTitle:NSLocalizedString(@"BUTTON_CANCEL", @"") otherButtonTitles:NSLocalizedString(@"BUTTON_OPEN", @""), nil];
                 [alert show];
             }
         }
