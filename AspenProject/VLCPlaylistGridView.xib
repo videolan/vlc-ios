@@ -2,9 +2,9 @@
 <archive type="com.apple.InterfaceBuilder3.CocoaTouch.iPad.XIB" version="8.00">
 	<data>
 		<int key="IBDocument.SystemTarget">1296</int>
-		<string key="IBDocument.SystemVersion">12E40</string>
+		<string key="IBDocument.SystemVersion">12D78</string>
 		<string key="IBDocument.InterfaceBuilderVersion">3084</string>
-		<string key="IBDocument.AppKitVersion">1187.39</string>
+		<string key="IBDocument.AppKitVersion">1187.37</string>
 		<string key="IBDocument.HIToolboxVersion">626.00</string>
 		<object class="NSMutableDictionary" key="IBDocument.PluginVersions">
 			<string key="NS.key.0">com.apple.InterfaceBuilder.IBCocoaTouchPlugin</string>
@@ -57,7 +57,7 @@
 						<string key="NSFrame">{{54, 10}, {277, 156}}</string>
 						<reference key="NSSuperview" ref="93090196"/>
 						<reference key="NSWindow"/>
-						<reference key="NSNextKeyView" ref="863064291"/>
+						<reference key="NSNextKeyView" ref="296556150"/>
 						<string key="NSReuseIdentifierKey">_NS:9</string>
 						<bool key="IBUIUserInteractionEnabled">NO</bool>
 						<string key="targetRuntimeIdentifier">IBIPadFramework</string>
@@ -108,6 +108,7 @@
 						<string key="NSFrame">{{20, 203}, {344, 28}}</string>
 						<reference key="NSSuperview" ref="93090196"/>
 						<reference key="NSWindow"/>
+						<reference key="NSNextKeyView"/>
 						<string key="NSReuseIdentifierKey">_NS:9</string>
 						<bool key="IBUIOpaque">NO</bool>
 						<bool key="IBUIClipsSubviews">YES</bool>
@@ -152,16 +153,15 @@
 					<object class="IBUIButton" id="296556150">
 						<reference key="NSNextResponder" ref="93090196"/>
 						<int key="NSvFlags">-2147483356</int>
-						<string key="NSFrame">{{11, 10}, {33, 29}}</string>
+						<string key="NSFrame">{{314, 0}, {33, 29}}</string>
 						<reference key="NSSuperview" ref="93090196"/>
 						<reference key="NSWindow"/>
+						<reference key="NSNextKeyView" ref="863064291"/>
 						<string key="NSReuseIdentifierKey">_NS:9</string>
 						<bool key="IBUIOpaque">NO</bool>
 						<string key="targetRuntimeIdentifier">IBIPadFramework</string>
 						<int key="IBUIContentHorizontalAlignment">0</int>
 						<int key="IBUIContentVerticalAlignment">0</int>
-						<int key="IBUIButtonType">1</int>
-						<string key="IBUINormalTitle">x</string>
 						<object class="NSColor" key="IBUIHighlightedTitleColor">
 							<int key="NSColorSpace">3</int>
 							<bytes key="NSWhite">MQA</bytes>
@@ -173,6 +173,10 @@
 						<object class="NSColor" key="IBUINormalTitleShadowColor">
 							<int key="NSColorSpace">3</int>
 							<bytes key="NSWhite">MC41AA</bytes>
+						</object>
+						<object class="NSCustomResource" key="IBUINormalImage">
+							<string key="NSClassName">NSImage</string>
+							<string key="NSResourceName">DeleteButton.png</string>
 						</object>
 						<object class="IBUIFontDescription" key="IBUIFontDescription">
 							<int key="type">2</int>
@@ -314,6 +318,7 @@
 						<int key="objectID">20</int>
 						<reference key="object" ref="296556150"/>
 						<reference key="parent" ref="93090196"/>
+						<string key="objectName">Delete button</string>
 					</object>
 				</array>
 			</object>
@@ -405,6 +410,10 @@
 		</object>
 		<bool key="IBDocument.PluginDeclaredDependenciesTrackSystemTargetVersion">YES</bool>
 		<int key="IBDocument.defaultPropertyAccessControl">3</int>
+		<object class="NSMutableDictionary" key="IBDocument.LastKnownImageSizes">
+			<string key="NS.key.0">DeleteButton.png</string>
+			<string key="NS.object.0">{29, 29}</string>
+		</object>
 		<string key="IBCocoaTouchPluginVersion">2083</string>
 	</data>
 </archive>

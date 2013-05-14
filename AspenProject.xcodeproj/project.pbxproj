@@ -57,6 +57,8 @@
 		A7CB0DB31716F72600050CF3 /* PlayingExternally~ipad.png in Resources */ = {isa = PBXBuildFile; fileRef = A7CB0DAF1716F72600050CF3 /* PlayingExternally~ipad.png */; };
 		A7CB0DB41716F72600050CF3 /* PlayingExternally@2x~ipad.png in Resources */ = {isa = PBXBuildFile; fileRef = A7CB0DB01716F72600050CF3 /* PlayingExternally@2x~ipad.png */; };
 		A7DA16D1171083DF00D6FED9 /* VLCExternalDisplayController.m in Sources */ = {isa = PBXBuildFile; fileRef = A7DA16D0171083DF00D6FED9 /* VLCExternalDisplayController.m */; };
+		A7FF9F3E17428C1900999819 /* DeleteButton.png in Resources */ = {isa = PBXBuildFile; fileRef = A7FF9F3D17428C1900999819 /* DeleteButton.png */; };
+		A7FF9F4017428C3800999819 /* DeleteButton@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = A7FF9F3F17428C3800999819 /* DeleteButton@2x.png */; };
 		CC1BBC3F1704934300A20CBF /* libMobileVLCKit.a in Frameworks */ = {isa = PBXBuildFile; fileRef = CC1BBC3E1704934200A20CBF /* libMobileVLCKit.a */; };
 		CC1BBC431704935E00A20CBF /* MediaLibrary.mom in Resources */ = {isa = PBXBuildFile; fileRef = CC1BBC421704935E00A20CBF /* MediaLibrary.mom */; };
 		CC1BBC461704938300A20CBF /* libiconv.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = CC1BBC451704938300A20CBF /* libiconv.dylib */; };
@@ -150,6 +152,8 @@
 		A7CB0DB01716F72600050CF3 /* PlayingExternally@2x~ipad.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "PlayingExternally@2x~ipad.png"; sourceTree = "<group>"; };
 		A7DA16CF171083DF00D6FED9 /* VLCExternalDisplayController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = VLCExternalDisplayController.h; sourceTree = "<group>"; };
 		A7DA16D0171083DF00D6FED9 /* VLCExternalDisplayController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = VLCExternalDisplayController.m; sourceTree = "<group>"; };
+		A7FF9F3D17428C1900999819 /* DeleteButton.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = DeleteButton.png; sourceTree = "<group>"; };
+		A7FF9F3F17428C3800999819 /* DeleteButton@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "DeleteButton@2x.png"; sourceTree = "<group>"; };
 		CC1BBC3E1704934200A20CBF /* libMobileVLCKit.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; name = libMobileVLCKit.a; path = "ImportedSources/VLCKit/build/Release-iphonesimulator/libMobileVLCKit.a"; sourceTree = "<group>"; };
 		CC1BBC421704935E00A20CBF /* MediaLibrary.mom */ = {isa = PBXFileReference; lastKnownFileType = file.bplist; name = MediaLibrary.mom; path = "ImportedSources/MediaLibraryKit/build/Release-iphonesimulator/MediaLibrary.mom"; sourceTree = "<group>"; };
 		CC1BBC451704938300A20CBF /* libiconv.dylib */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.dylib"; name = libiconv.dylib; path = usr/lib/libiconv.dylib; sourceTree = SDKROOT; };
@@ -356,6 +360,8 @@
 				A7CB0DAF1716F72600050CF3 /* PlayingExternally~ipad.png */,
 				A7CB0DB01716F72600050CF3 /* PlayingExternally@2x~ipad.png */,
 				A7924698170F0ED20036AAF2 /* Default-568h@2x.png */,
+				A7FF9F3D17428C1900999819 /* DeleteButton.png */,
+				A7FF9F3F17428C3800999819 /* DeleteButton@2x.png */,
 				A7924699170F0ED20036AAF2 /* Default.png */,
 				A792469A170F0ED20036AAF2 /* Default@2x.png */,
 			);
@@ -452,6 +458,8 @@
 				7DA8B0FB173318E80029698C /* SourceCodePro-Regular.ttf in Resources */,
 				7DA8B0FC173318E80029698C /* SourceSansPro-Regular.ttf in Resources */,
 				7DC87AF217413EE3009DC250 /* VLCPlaylistGridView.xib in Resources */,
+				A7FF9F3E17428C1900999819 /* DeleteButton.png in Resources */,
+				A7FF9F4017428C3800999819 /* DeleteButton@2x.png in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
