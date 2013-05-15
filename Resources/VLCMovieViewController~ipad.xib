@@ -334,7 +334,6 @@
 								<string key="NSFrame">{{261, 20}, {44, 44}}</string>
 								<reference key="NSSuperview" ref="734589612"/>
 								<reference key="NSWindow"/>
-								<reference key="NSNextKeyView"/>
 								<string key="NSReuseIdentifierKey">_NS:9</string>
 								<reference key="IBUIBackgroundColor" ref="8046438"/>
 								<bool key="IBUIOpaque">NO</bool>
@@ -379,6 +378,28 @@
 						<int key="IBUIContentVerticalAlignment">0</int>
 						<int key="IBUIButtonType">1</int>
 						<string key="IBUINormalTitle">VF</string>
+						<reference key="IBUIHighlightedTitleColor" ref="33107367"/>
+						<object class="NSColor" key="IBUINormalTitleColor">
+							<int key="NSColorSpace">1</int>
+							<bytes key="NSRGB">MC4xOTYwNzg0MzQ2IDAuMzA5ODAzOTMyOSAwLjUyMTU2ODY1NgA</bytes>
+						</object>
+						<reference key="IBUINormalTitleShadowColor" ref="25335422"/>
+						<reference key="IBUIFontDescription" ref="581809469"/>
+						<reference key="IBUIFont" ref="560717679"/>
+					</object>
+					<object class="IBUIButton" id="959094125">
+						<reference key="NSNextResponder" ref="647120888"/>
+						<int key="NSvFlags">297</int>
+						<string key="NSFrame">{{20, 481}, {45, 44}}</string>
+						<reference key="NSSuperview" ref="647120888"/>
+						<reference key="NSWindow"/>
+						<string key="NSReuseIdentifierKey">_NS:9</string>
+						<bool key="IBUIOpaque">NO</bool>
+						<string key="targetRuntimeIdentifier">IBIPadFramework</string>
+						<int key="IBUIContentHorizontalAlignment">0</int>
+						<int key="IBUIContentVerticalAlignment">0</int>
+						<int key="IBUIButtonType">1</int>
+						<string key="IBUINormalTitle">PB</string>
 						<reference key="IBUIHighlightedTitleColor" ref="33107367"/>
 						<object class="NSColor" key="IBUINormalTitleColor">
 							<int key="NSColorSpace">1</int>
@@ -606,6 +627,125 @@
 						<reference key="NSSuperview" ref="647120888"/>
 						<reference key="NSWindow"/>
 						<reference key="NSNextKeyView" ref="24746056"/>
+						<string key="NSReuseIdentifierKey">_NS:10</string>
+						<object class="NSColor" key="IBUIBackgroundColor">
+							<int key="NSColorSpace">3</int>
+							<bytes key="NSWhite">MC42NjY2NjY2NjY3IDAuNwA</bytes>
+						</object>
+						<string key="targetRuntimeIdentifier">IBIPadFramework</string>
+					</object>
+					<object class="IBUIView" id="567155588">
+						<reference key="NSNextResponder" ref="647120888"/>
+						<int key="NSvFlags">293</int>
+						<array class="NSMutableArray" key="NSSubviews">
+							<object class="IBUISlider" id="238880395">
+								<reference key="NSNextResponder" ref="567155588"/>
+								<int key="NSvFlags">292</int>
+								<string key="NSFrame">{{18, 19}, {284, 23}}</string>
+								<reference key="NSSuperview" ref="567155588"/>
+								<reference key="NSWindow"/>
+								<reference key="NSNextKeyView" ref="86224047"/>
+								<string key="NSReuseIdentifierKey">_NS:9</string>
+								<bool key="IBUIOpaque">NO</bool>
+								<string key="targetRuntimeIdentifier">IBIPadFramework</string>
+								<int key="IBUIContentHorizontalAlignment">0</int>
+								<int key="IBUIContentVerticalAlignment">0</int>
+								<float key="IBUIMinValue">-17</float>
+								<float key="IBUIMaxValue">17</float>
+							</object>
+							<object class="IBUILabel" id="86224047">
+								<reference key="NSNextResponder" ref="567155588"/>
+								<int key="NSvFlags">292</int>
+								<string key="NSFrame">{{20, 5}, {280, 21}}</string>
+								<reference key="NSSuperview" ref="567155588"/>
+								<reference key="NSWindow"/>
+								<reference key="NSNextKeyView" ref="1000595153"/>
+								<string key="NSReuseIdentifierKey">_NS:9</string>
+								<bool key="IBUIOpaque">NO</bool>
+								<bool key="IBUIClipsSubviews">YES</bool>
+								<int key="IBUIContentMode">7</int>
+								<bool key="IBUIUserInteractionEnabled">NO</bool>
+								<string key="targetRuntimeIdentifier">IBIPadFramework</string>
+								<string key="IBUIText">Playback speed</string>
+								<reference key="IBUITextColor" ref="33107367"/>
+								<nil key="IBUIHighlightedColor"/>
+								<int key="IBUIBaselineAdjustment">0</int>
+								<reference key="IBUIFontDescription" ref="51899153"/>
+								<reference key="IBUIFont" ref="96503569"/>
+								<bool key="IBUIAdjustsFontSizeToFit">NO</bool>
+							</object>
+							<object class="IBUILabel" id="1000595153">
+								<reference key="NSNextResponder" ref="567155588"/>
+								<int key="NSvFlags">292</int>
+								<string key="NSFrame">{{20, 5}, {280, 21}}</string>
+								<reference key="NSSuperview" ref="567155588"/>
+								<reference key="NSWindow"/>
+								<reference key="NSNextKeyView" ref="86492204"/>
+								<string key="NSReuseIdentifierKey">_NS:9</string>
+								<bool key="IBUIOpaque">NO</bool>
+								<bool key="IBUIClipsSubviews">YES</bool>
+								<int key="IBUIContentMode">7</int>
+								<bool key="IBUIUserInteractionEnabled">NO</bool>
+								<string key="targetRuntimeIdentifier">IBIPadFramework</string>
+								<string key="IBUIText">1.00x</string>
+								<reference key="IBUITextColor" ref="33107367"/>
+								<nil key="IBUIHighlightedColor"/>
+								<int key="IBUIBaselineAdjustment">0</int>
+								<int key="IBUITextAlignment">2</int>
+								<reference key="IBUIFontDescription" ref="51899153"/>
+								<reference key="IBUIFont" ref="96503569"/>
+								<bool key="IBUIAdjustsFontSizeToFit">NO</bool>
+							</object>
+							<object class="IBUIButton" id="86492204">
+								<reference key="NSNextResponder" ref="567155588"/>
+								<int key="NSvFlags">292</int>
+								<string key="NSFrame">{{103, 49}, {116, 44}}</string>
+								<reference key="NSSuperview" ref="567155588"/>
+								<reference key="NSWindow"/>
+								<reference key="NSNextKeyView" ref="306477855"/>
+								<string key="NSReuseIdentifierKey">_NS:9</string>
+								<bool key="IBUIOpaque">NO</bool>
+								<string key="targetRuntimeIdentifier">IBIPadFramework</string>
+								<int key="IBUIContentHorizontalAlignment">0</int>
+								<int key="IBUIContentVerticalAlignment">0</int>
+								<int key="IBUIButtonType">1</int>
+								<string key="IBUINormalTitle">Aspect Ratio</string>
+								<reference key="IBUIHighlightedTitleColor" ref="33107367"/>
+								<object class="NSColor" key="IBUINormalTitleColor">
+									<int key="NSColorSpace">1</int>
+									<bytes key="NSRGB">MC4xOTYwNzg0MzQ2IDAuMzA5ODAzOTMyOSAwLjUyMTU2ODY1NgA</bytes>
+								</object>
+								<reference key="IBUINormalTitleShadowColor" ref="25335422"/>
+								<reference key="IBUIFontDescription" ref="581809469"/>
+								<reference key="IBUIFont" ref="560717679"/>
+							</object>
+							<object class="IBUIButton" id="306477855">
+								<reference key="NSNextResponder" ref="567155588"/>
+								<int key="NSvFlags">292</int>
+								<string key="NSFrame">{{131, 100}, {59, 44}}</string>
+								<reference key="NSSuperview" ref="567155588"/>
+								<reference key="NSWindow"/>
+								<string key="NSReuseIdentifierKey">_NS:9</string>
+								<bool key="IBUIOpaque">NO</bool>
+								<string key="targetRuntimeIdentifier">IBIPadFramework</string>
+								<int key="IBUIContentHorizontalAlignment">0</int>
+								<int key="IBUIContentVerticalAlignment">0</int>
+								<int key="IBUIButtonType">1</int>
+								<string key="IBUINormalTitle">Crop</string>
+								<reference key="IBUIHighlightedTitleColor" ref="33107367"/>
+								<object class="NSColor" key="IBUINormalTitleColor">
+									<int key="NSColorSpace">1</int>
+									<bytes key="NSRGB">MC4xOTYwNzg0MzQ2IDAuMzA5ODAzOTMyOSAwLjUyMTU2ODY1NgA</bytes>
+								</object>
+								<reference key="IBUINormalTitleShadowColor" ref="25335422"/>
+								<reference key="IBUIFontDescription" ref="581809469"/>
+								<reference key="IBUIFont" ref="560717679"/>
+							</object>
+						</array>
+						<string key="NSFrame">{{142, 426}, {320, 154}}</string>
+						<reference key="NSSuperview" ref="647120888"/>
+						<reference key="NSWindow"/>
+						<reference key="NSNextKeyView" ref="238880395"/>
 						<string key="NSReuseIdentifierKey">_NS:10</string>
 						<object class="NSColor" key="IBUIBackgroundColor">
 							<int key="NSColorSpace">3</int>
@@ -853,6 +993,62 @@
 					<int key="connectionID">175</int>
 				</object>
 				<object class="IBConnectionRecord">
+					<object class="IBCocoaTouchOutletConnection" key="connection">
+						<string key="label">playbackView</string>
+						<reference key="source" ref="841351856"/>
+						<reference key="destination" ref="567155588"/>
+					</object>
+					<int key="connectionID">184</int>
+				</object>
+				<object class="IBConnectionRecord">
+					<object class="IBCocoaTouchOutletConnection" key="connection">
+						<string key="label">playbackButton</string>
+						<reference key="source" ref="841351856"/>
+						<reference key="destination" ref="959094125"/>
+					</object>
+					<int key="connectionID">185</int>
+				</object>
+				<object class="IBConnectionRecord">
+					<object class="IBCocoaTouchOutletConnection" key="connection">
+						<string key="label">cropButton</string>
+						<reference key="source" ref="841351856"/>
+						<reference key="destination" ref="306477855"/>
+					</object>
+					<int key="connectionID">189</int>
+				</object>
+				<object class="IBConnectionRecord">
+					<object class="IBCocoaTouchOutletConnection" key="connection">
+						<string key="label">aspectRatioButton</string>
+						<reference key="source" ref="841351856"/>
+						<reference key="destination" ref="86492204"/>
+					</object>
+					<int key="connectionID">190</int>
+				</object>
+				<object class="IBConnectionRecord">
+					<object class="IBCocoaTouchOutletConnection" key="connection">
+						<string key="label">playbackSpeedSlider</string>
+						<reference key="source" ref="841351856"/>
+						<reference key="destination" ref="238880395"/>
+					</object>
+					<int key="connectionID">191</int>
+				</object>
+				<object class="IBConnectionRecord">
+					<object class="IBCocoaTouchOutletConnection" key="connection">
+						<string key="label">playbackSpeedIndicator</string>
+						<reference key="source" ref="841351856"/>
+						<reference key="destination" ref="1000595153"/>
+					</object>
+					<int key="connectionID">193</int>
+				</object>
+				<object class="IBConnectionRecord">
+					<object class="IBCocoaTouchOutletConnection" key="connection">
+						<string key="label">playbackSpeedLabel</string>
+						<reference key="source" ref="841351856"/>
+						<reference key="destination" ref="86224047"/>
+					</object>
+					<int key="connectionID">194</int>
+				</object>
+				<object class="IBConnectionRecord">
 					<object class="IBCocoaTouchEventConnection" key="connection">
 						<string key="label">closePlayback:</string>
 						<reference key="source" ref="270679370"/>
@@ -977,6 +1173,42 @@
 					</object>
 					<int key="connectionID">155</int>
 				</object>
+				<object class="IBConnectionRecord">
+					<object class="IBCocoaTouchEventConnection" key="connection">
+						<string key="label">videoDimensionAction:</string>
+						<reference key="source" ref="306477855"/>
+						<reference key="destination" ref="841351856"/>
+						<int key="IBEventType">7</int>
+					</object>
+					<int key="connectionID">188</int>
+				</object>
+				<object class="IBConnectionRecord">
+					<object class="IBCocoaTouchEventConnection" key="connection">
+						<string key="label">videoDimensionAction:</string>
+						<reference key="source" ref="86492204"/>
+						<reference key="destination" ref="841351856"/>
+						<int key="IBEventType">7</int>
+					</object>
+					<int key="connectionID">187</int>
+				</object>
+				<object class="IBConnectionRecord">
+					<object class="IBCocoaTouchEventConnection" key="connection">
+						<string key="label">playbackSpeedSliderAction:</string>
+						<reference key="source" ref="238880395"/>
+						<reference key="destination" ref="841351856"/>
+						<int key="IBEventType">13</int>
+					</object>
+					<int key="connectionID">192</int>
+				</object>
+				<object class="IBConnectionRecord">
+					<object class="IBCocoaTouchEventConnection" key="connection">
+						<string key="label">videoDimensionAction:</string>
+						<reference key="source" ref="959094125"/>
+						<reference key="destination" ref="841351856"/>
+						<int key="IBEventType">7</int>
+					</object>
+					<int key="connectionID">186</int>
+				</object>
 			</array>
 			<object class="IBMutableOrderedSet" key="objectRecords">
 				<array key="orderedObjects">
@@ -1007,6 +1239,8 @@
 							<reference ref="753155309"/>
 							<reference ref="390045305"/>
 							<reference ref="11334779"/>
+							<reference ref="567155588"/>
+							<reference ref="959094125"/>
 						</array>
 						<reference key="parent" ref="0"/>
 					</object>
@@ -1193,6 +1427,49 @@
 						<reference key="object" ref="437839795"/>
 						<reference key="parent" ref="11334779"/>
 					</object>
+					<object class="IBObjectRecord">
+						<int key="objectID">176</int>
+						<reference key="object" ref="567155588"/>
+						<array class="NSMutableArray" key="children">
+							<reference ref="306477855"/>
+							<reference ref="86492204"/>
+							<reference ref="1000595153"/>
+							<reference ref="238880395"/>
+							<reference ref="86224047"/>
+						</array>
+						<reference key="parent" ref="647120888"/>
+						<string key="objectName">Controls panel</string>
+					</object>
+					<object class="IBObjectRecord">
+						<int key="objectID">177</int>
+						<reference key="object" ref="306477855"/>
+						<reference key="parent" ref="567155588"/>
+					</object>
+					<object class="IBObjectRecord">
+						<int key="objectID">178</int>
+						<reference key="object" ref="86492204"/>
+						<reference key="parent" ref="567155588"/>
+					</object>
+					<object class="IBObjectRecord">
+						<int key="objectID">179</int>
+						<reference key="object" ref="1000595153"/>
+						<reference key="parent" ref="567155588"/>
+					</object>
+					<object class="IBObjectRecord">
+						<int key="objectID">180</int>
+						<reference key="object" ref="238880395"/>
+						<reference key="parent" ref="567155588"/>
+					</object>
+					<object class="IBObjectRecord">
+						<int key="objectID">181</int>
+						<reference key="object" ref="86224047"/>
+						<reference key="parent" ref="567155588"/>
+					</object>
+					<object class="IBObjectRecord">
+						<int key="objectID">182</int>
+						<reference key="object" ref="959094125"/>
+						<reference key="parent" ref="647120888"/>
+					</object>
 				</array>
 			</object>
 			<dictionary class="NSMutableDictionary" key="flattenedProperties">
@@ -1229,6 +1506,13 @@
 				<string key="151.IBPluginDependency">com.apple.InterfaceBuilder.IBCocoaTouchPlugin</string>
 				<string key="152.IBPluginDependency">com.apple.InterfaceBuilder.IBCocoaTouchPlugin</string>
 				<string key="153.IBPluginDependency">com.apple.InterfaceBuilder.IBCocoaTouchPlugin</string>
+				<string key="176.IBPluginDependency">com.apple.InterfaceBuilder.IBCocoaTouchPlugin</string>
+				<string key="177.IBPluginDependency">com.apple.InterfaceBuilder.IBCocoaTouchPlugin</string>
+				<string key="178.IBPluginDependency">com.apple.InterfaceBuilder.IBCocoaTouchPlugin</string>
+				<string key="179.IBPluginDependency">com.apple.InterfaceBuilder.IBCocoaTouchPlugin</string>
+				<string key="180.IBPluginDependency">com.apple.InterfaceBuilder.IBCocoaTouchPlugin</string>
+				<string key="181.IBPluginDependency">com.apple.InterfaceBuilder.IBCocoaTouchPlugin</string>
+				<string key="182.IBPluginDependency">com.apple.InterfaceBuilder.IBCocoaTouchPlugin</string>
 				<string key="8.IBPluginDependency">com.apple.InterfaceBuilder.IBCocoaTouchPlugin</string>
 				<string key="99.IBPluginDependency">com.apple.InterfaceBuilder.IBCocoaTouchPlugin</string>
 			</dictionary>
@@ -1236,7 +1520,7 @@
 			<nil key="activeLocalization"/>
 			<dictionary class="NSMutableDictionary" key="localizations"/>
 			<nil key="sourceID"/>
-			<int key="maxID">175</int>
+			<int key="maxID">194</int>
 		</object>
 		<object class="IBClassDescriber" key="IBDocument.Classes">
 			<array class="NSMutableArray" key="referencedPartialClassDescriptions">
@@ -1256,9 +1540,11 @@
 						<string key="closePlayback:">id</string>
 						<string key="forward:">id</string>
 						<string key="play:">id</string>
+						<string key="playbackSpeedSliderAction:">id</string>
 						<string key="positionSliderAction:">id</string>
 						<string key="switchAudioTrack:">id</string>
 						<string key="switchSubtitleTrack:">id</string>
+						<string key="videoDimensionAction:">id</string>
 						<string key="videoFilterSliderAction:">id</string>
 						<string key="videoFilterToggle:">id</string>
 					</dictionary>
@@ -1279,6 +1565,10 @@
 							<string key="name">play:</string>
 							<string key="candidateClassName">id</string>
 						</object>
+						<object class="IBActionInfo" key="playbackSpeedSliderAction:">
+							<string key="name">playbackSpeedSliderAction:</string>
+							<string key="candidateClassName">id</string>
+						</object>
 						<object class="IBActionInfo" key="positionSliderAction:">
 							<string key="name">positionSliderAction:</string>
 							<string key="candidateClassName">id</string>
@@ -1291,6 +1581,10 @@
 							<string key="name">switchSubtitleTrack:</string>
 							<string key="candidateClassName">id</string>
 						</object>
+						<object class="IBActionInfo" key="videoDimensionAction:">
+							<string key="name">videoDimensionAction:</string>
+							<string key="candidateClassName">id</string>
+						</object>
 						<object class="IBActionInfo" key="videoFilterSliderAction:">
 							<string key="name">videoFilterSliderAction:</string>
 							<string key="candidateClassName">id</string>
@@ -1301,6 +1595,7 @@
 						</object>
 					</dictionary>
 					<dictionary class="NSMutableDictionary" key="outlets">
+						<string key="aspectRatioButton">UIButton</string>
 						<string key="audioSwitcherButton">UIButton</string>
 						<string key="backButton">UIBarButtonItem</string>
 						<string key="brightnessLabel">UILabel</string>
@@ -1309,6 +1604,7 @@
 						<string key="contrastLabel">UILabel</string>
 						<string key="contrastSlider">UISlider</string>
 						<string key="controllerPanel">UIView</string>
+						<string key="cropButton">UIButton</string>
 						<string key="fwdButton">UIButton</string>
 						<string key="gammaLabel">UILabel</string>
 						<string key="gammaSlider">UISlider</string>
@@ -1316,6 +1612,11 @@
 						<string key="hueSlider">UISlider</string>
 						<string key="movieView">UIView</string>
 						<string key="playPauseButton">UIButton</string>
+						<string key="playbackButton">UIButton</string>
+						<string key="playbackSpeedIndicator">UILabel</string>
+						<string key="playbackSpeedLabel">UILabel</string>
+						<string key="playbackSpeedSlider">UISlider</string>
+						<string key="playbackView">UIView</string>
 						<string key="playingExternallyDescription">UILabel</string>
 						<string key="playingExternallyTitle">UILabel</string>
 						<string key="playingExternallyView">UIView</string>
@@ -1330,6 +1631,10 @@
 						<string key="videoFilterView">UIView</string>
 					</dictionary>
 					<dictionary class="NSMutableDictionary" key="toOneOutletInfosByName">
+						<object class="IBToOneOutletInfo" key="aspectRatioButton">
+							<string key="name">aspectRatioButton</string>
+							<string key="candidateClassName">UIButton</string>
+						</object>
 						<object class="IBToOneOutletInfo" key="audioSwitcherButton">
 							<string key="name">audioSwitcherButton</string>
 							<string key="candidateClassName">UIButton</string>
@@ -1362,6 +1667,10 @@
 							<string key="name">controllerPanel</string>
 							<string key="candidateClassName">UIView</string>
 						</object>
+						<object class="IBToOneOutletInfo" key="cropButton">
+							<string key="name">cropButton</string>
+							<string key="candidateClassName">UIButton</string>
+						</object>
 						<object class="IBToOneOutletInfo" key="fwdButton">
 							<string key="name">fwdButton</string>
 							<string key="candidateClassName">UIButton</string>
@@ -1389,6 +1698,26 @@
 						<object class="IBToOneOutletInfo" key="playPauseButton">
 							<string key="name">playPauseButton</string>
 							<string key="candidateClassName">UIButton</string>
+						</object>
+						<object class="IBToOneOutletInfo" key="playbackButton">
+							<string key="name">playbackButton</string>
+							<string key="candidateClassName">UIButton</string>
+						</object>
+						<object class="IBToOneOutletInfo" key="playbackSpeedIndicator">
+							<string key="name">playbackSpeedIndicator</string>
+							<string key="candidateClassName">UILabel</string>
+						</object>
+						<object class="IBToOneOutletInfo" key="playbackSpeedLabel">
+							<string key="name">playbackSpeedLabel</string>
+							<string key="candidateClassName">UILabel</string>
+						</object>
+						<object class="IBToOneOutletInfo" key="playbackSpeedSlider">
+							<string key="name">playbackSpeedSlider</string>
+							<string key="candidateClassName">UISlider</string>
+						</object>
+						<object class="IBToOneOutletInfo" key="playbackView">
+							<string key="name">playbackView</string>
+							<string key="candidateClassName">UIView</string>
 						</object>
 						<object class="IBToOneOutletInfo" key="playingExternallyDescription">
 							<string key="name">playingExternallyDescription</string>
