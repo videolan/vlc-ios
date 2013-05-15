@@ -9,6 +9,8 @@
 #import "VLCMovieViewController.h"
 #import "VLCExternalDisplayController.h"
 
+#define INPUT_RATE_DEFAULT  1000.
+
 @interface VLCMovieViewController () <UIGestureRecognizerDelegate>
 @property (nonatomic, strong) UIPopoverController *masterPopoverController;
 @property (nonatomic, strong) UIWindow *externalWindow;
@@ -48,6 +50,8 @@
     _brightnessLabel.text = NSLocalizedString(@"Brightness", @"");
     _saturationLabel.text = NSLocalizedString(@"Saturation", @"");
     _gammaLabel.text = NSLocalizedString(@"Gamma", @"");
+
+    self.playbackView.hidden = YES;
 
     NSNotificationCenter *center = [NSNotificationCenter defaultCenter];
     [center addObserver:self selector:@selector(handleExternalScreenDidConnect:)
@@ -91,6 +95,8 @@
 
     if (self.mediaItem.lastPosition && [self.mediaItem.lastPosition floatValue] < 0.99)
         [_mediaPlayer setPosition:[self.mediaItem.lastPosition floatValue]];
+    self.playbackSpeedSlider.value = [self _playbackSpeed];
+    [self _updatePlaybackSpeedIndicator];
 }
 
 - (void)viewWillDisappear:(BOOL)animated
@@ -137,6 +143,10 @@
         _videoFilterView.hidden = _videoFiltersHidden;
         _videoFilterButton.alpha = 0.0f;
         _videoFilterButton.hidden = NO;
+        _playbackView.alpha = 0.0f;
+        _playbackView.hidden = _playbackViewHidden;
+        _playbackButton.alpha = 0.0f;
+        _playbackButton.hidden = NO;
     }
 
     void (^animationBlock)() = ^() {
@@ -144,17 +154,20 @@
         _toolbar.alpha = alpha;
         _videoFilterView.alpha = alpha;
         _videoFilterButton.alpha = alpha;
-        _videoFilterButton.hidden = NO;
+        _playbackView.alpha = alpha;
+        _playbackButton.alpha = alpha;
     };
 
     void (^completionBlock)(BOOL finished) = ^(BOOL finished) {
-        if (_videoFiltersHidden)
+        if (_videoFiltersHidden && _playbackViewHidden)
             _controllerPanel.hidden = _controlsHidden;
         else
             _controllerPanel.hidden = YES;
         _toolbar.hidden = _controlsHidden;
         _videoFilterView.hidden = _videoFiltersHidden;
         _videoFilterButton.hidden = _controlsHidden;
+        _playbackView.hidden = _playbackViewHidden;
+        _playbackButton.hidden = _controlsHidden;
     };
 
     [UIView animateWithDuration:0.3f animations:animationBlock completion:completionBlock];
@@ -283,6 +296,9 @@
 
 - (IBAction)videoFilterToggle:(id)sender
 {
+    if (!_playbackViewHidden)
+        self.playbackView.hidden = _playbackViewHidden = YES;
+
     self.videoFilterView.hidden = !_videoFiltersHidden;
     _videoFiltersHidden = self.videoFilterView.hidden;
     self.controllerPanel.hidden = !_videoFiltersHidden;
@@ -312,6 +328,54 @@
     } else
         APLog(@"unknown sender for videoFilterSliderAction");
     [self resetIdleTimer];
+}
+
+#pragma mark - playback view
+- (IBAction)playbackSpeedSliderAction:(UISlider *)sender
+{
+    double speed = pow(2, sender.value / 17.);
+    float rate = INPUT_RATE_DEFAULT / speed;
+    if (_currentPlaybackRate != rate)
+        [_mediaPlayer setRate:INPUT_RATE_DEFAULT / rate];
+    _currentPlaybackRate = rate;
+    [self _updatePlaybackSpeedIndicator];
+    [self resetIdleTimer];
+}
+
+- (void)_updatePlaybackSpeedIndicator
+{
+    float f_value = self.playbackSpeedSlider.value;
+    double speed =  pow(2, f_value / 17.);
+    NSLog(@"raw value %f, speed. %f", f_value, speed);
+    self.playbackSpeedIndicator.text = [NSString stringWithFormat:@"%.2fx", speed];
+}
+
+- (float)_playbackSpeed
+{
+    float f_rate = _mediaPlayer.rate;
+
+    double value = 17 * log(f_rate) / log(2.);
+    float returnValue = (int) ((value > 0) ? value + .5 : value - .5);
+
+    if (returnValue < -34.)
+        returnValue = -34.;
+    else if (returnValue > 34.)
+        returnValue = 34.;
+
+    _currentPlaybackRate = returnValue;
+    return returnValue;
+}
+
+- (IBAction)videoDimensionAction:(id)sender
+{
+    if (sender == self.playbackButton) {
+        if (!_videoFiltersHidden)
+            self.videoFilterButton.hidden = _videoFiltersHidden = YES;
+
+        self.playbackView.hidden = !_playbackViewHidden;
+        _playbackViewHidden = self.playbackView.hidden;
+        self.controllerPanel.hidden = !_playbackViewHidden;
+    }
 }
 
 #pragma mark -

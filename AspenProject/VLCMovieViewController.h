@@ -14,9 +14,12 @@
 
     BOOL _controlsHidden;
     BOOL _videoFiltersHidden;
+    BOOL _playbackViewHidden;
 
     UIActionSheet *_subtitleActionSheet;
     UIActionSheet *_audiotrackActionSheet;
+
+    float _currentPlaybackRate;
 
     NSTimer *_idleTimer;
 }
@@ -51,6 +54,14 @@
 @property (nonatomic, strong) IBOutlet UISlider *gammaSlider;
 @property (nonatomic, strong) IBOutlet UIButton *resetVideoFilterButton;
 
+@property (nonatomic, strong) IBOutlet UIView *playbackView;
+@property (nonatomic, strong) IBOutlet UIButton *playbackButton;
+@property (nonatomic, strong) IBOutlet UISlider *playbackSpeedSlider;
+@property (nonatomic, strong) IBOutlet UILabel *playbackSpeedLabel;
+@property (nonatomic, strong) IBOutlet UILabel *playbackSpeedIndicator;
+@property (nonatomic, strong) IBOutlet UIButton *aspectRatioButton;
+@property (nonatomic, strong) IBOutlet UIButton *cropButton;
+
 @property (nonatomic, strong) MLFile *mediaItem;
 @property (nonatomic, strong) NSURL *url;
 
@@ -65,5 +76,8 @@
 
 - (IBAction)videoFilterToggle:(id)sender;
 - (IBAction)videoFilterSliderAction:(id)sender;
+
+- (IBAction)playbackSpeedSliderAction:(id)sender;
+- (IBAction)videoDimensionAction:(id)sender;
 
 @end

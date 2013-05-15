@@ -2,7 +2,7 @@
 <archive type="com.apple.InterfaceBuilder3.CocoaTouch.iPad.XIB" version="8.00">
 	<data>
 		<int key="IBDocument.SystemTarget">1296</int>
-		<string key="IBDocument.SystemVersion">12E40</string>
+		<string key="IBDocument.SystemVersion">12E47</string>
 		<string key="IBDocument.InterfaceBuilderVersion">3084</string>
 		<string key="IBDocument.AppKitVersion">1187.39</string>
 		<string key="IBDocument.HIToolboxVersion">626.00</string>
@@ -117,7 +117,7 @@
 								<string key="NSFrame">{{51, 303}, {298, 53}}</string>
 								<reference key="NSSuperview" ref="753155309"/>
 								<reference key="NSWindow"/>
-								<reference key="NSNextKeyView" ref="734589612"/>
+								<reference key="NSNextKeyView" ref="11334779"/>
 								<string key="NSReuseIdentifierKey">_NS:9</string>
 								<reference key="IBUIBackgroundColor" ref="8046438"/>
 								<bool key="IBUIOpaque">NO</bool>
@@ -334,6 +334,7 @@
 								<string key="NSFrame">{{261, 20}, {44, 44}}</string>
 								<reference key="NSSuperview" ref="734589612"/>
 								<reference key="NSWindow"/>
+								<reference key="NSNextKeyView"/>
 								<string key="NSReuseIdentifierKey">_NS:9</string>
 								<reference key="IBUIBackgroundColor" ref="8046438"/>
 								<bool key="IBUIOpaque">NO</bool>
@@ -370,6 +371,7 @@
 						<string key="NSFrame">{{704, 481}, {44, 44}}</string>
 						<reference key="NSSuperview" ref="647120888"/>
 						<reference key="NSWindow"/>
+						<reference key="NSNextKeyView" ref="734589612"/>
 						<string key="NSReuseIdentifierKey">_NS:9</string>
 						<bool key="IBUIOpaque">NO</bool>
 						<string key="targetRuntimeIdentifier">IBIPadFramework</string>
@@ -561,6 +563,7 @@
 								<string key="NSFrame">{{8, 151}, {280, 21}}</string>
 								<reference key="NSSuperview" ref="11334779"/>
 								<reference key="NSWindow"/>
+								<reference key="NSNextKeyView" ref="437839795"/>
 								<string key="NSReuseIdentifierKey">_NS:9</string>
 								<bool key="IBUIOpaque">NO</bool>
 								<bool key="IBUIClipsSubviews">YES</bool>
@@ -581,6 +584,7 @@
 								<string key="NSFrame">{{270, 166}, {18, 19}}</string>
 								<reference key="NSSuperview" ref="11334779"/>
 								<reference key="NSWindow"/>
+								<reference key="NSNextKeyView" ref="390045305"/>
 								<string key="NSReuseIdentifierKey">_NS:9</string>
 								<bool key="IBUIOpaque">NO</bool>
 								<string key="targetRuntimeIdentifier">IBIPadFramework</string>
