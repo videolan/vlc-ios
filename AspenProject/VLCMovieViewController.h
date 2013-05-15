@@ -18,10 +18,12 @@
 
     UIActionSheet *_subtitleActionSheet;
     UIActionSheet *_audiotrackActionSheet;
-    UIActionSheet *_aspectRatioActionSheet;
-    UIActionSheet *_cropActionSheet;
 
     float _currentPlaybackRate;
+    NSArray *_cropRatios;
+    NSUInteger _currentCropMask;
+    NSArray *_aspectRatios;
+    NSUInteger _currentAspectRatioMask;
 
     NSTimer *_idleTimer;
 }

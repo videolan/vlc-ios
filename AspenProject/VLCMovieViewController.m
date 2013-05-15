@@ -71,6 +71,9 @@
     recognizer.delegate = self;
     [self.view addGestureRecognizer:recognizer];
 
+    _cropRatios = @[@"Default", @"16:10", @"16:9", @"2:39:1", @"5:3", @"4:3", @"5:4", @"1:1"];
+    _aspectRatios = @[@"Default", @"1:1", @"4:3", @"16:9", @"16:10", @"2.21:1", @"2:35:1", @"2.39:1", @"5:4"];
+
     [self resetIdleTimer];
 }
 
@@ -107,6 +110,9 @@
         self.subtitleSwitcherButton.hidden = NO;
     else
         self.subtitleSwitcherButton.hidden = YES;
+
+    _currentAspectRatioMask = _currentCropMask = 0;
+    _mediaPlayer.videoAspectRatio = _mediaPlayer.videoCropGeometry = NULL;
 
     [super viewWillAppear:animated];
 }
@@ -359,20 +365,6 @@
             indexArray = _mediaPlayer.audioTrackIndexes;
             _mediaPlayer.currentAudioTrackIndex = [indexArray[arrayIndex] intValue];
         }
-    } else if (actionSheet == _aspectRatioActionSheet) {
-        if (actionSheet.cancelButtonIndex != buttonIndex) {
-            if ([[actionSheet buttonTitleAtIndex:buttonIndex] isEqualToString:@"Default"])
-                _mediaPlayer.videoAspectRatio = NULL;
-            else
-                _mediaPlayer.videoAspectRatio = (char *)[[actionSheet buttonTitleAtIndex:buttonIndex] UTF8String];
-        }
-    } else if (actionSheet == _cropActionSheet) {
-        if (actionSheet.cancelButtonIndex != buttonIndex) {
-            if ([[actionSheet buttonTitleAtIndex:buttonIndex] isEqualToString:@"Default"])
-                _mediaPlayer.videoCropGeometry = NULL;
-            else
-                _mediaPlayer.videoCropGeometry = (char *)[[actionSheet buttonTitleAtIndex:buttonIndex] UTF8String];
-        }
     }
 }
 
@@ -458,25 +450,29 @@
         self.playbackSpeedView.hidden = !_playbackSpeedViewHidden;
         _playbackSpeedViewHidden = self.playbackSpeedView.hidden;
     } else if (sender == self.aspectRatioButton) {
-        NSArray *ratios = @[@"Default", @"1:1", @"4:3", @"16:9", @"16:10", @"2.21:1", @"2:35:1", @"2.39:1", @"5:4"];
-        NSUInteger count = [ratios count];
+        NSUInteger count = [_aspectRatios count];
 
-        _aspectRatioActionSheet = [[UIActionSheet alloc] initWithTitle:@"Choose Aspect Ratio" delegate:self cancelButtonTitle:nil destructiveButtonTitle:nil otherButtonTitles: nil];
-        for (NSUInteger i = 0; i < count; i++)
-            [_aspectRatioActionSheet addButtonWithTitle:ratios[i]];
-        [_aspectRatioActionSheet addButtonWithTitle:NSLocalizedString(@"Cancel", @"")];
-        [_aspectRatioActionSheet setCancelButtonIndex:[_aspectRatioActionSheet numberOfButtons] - 1];
-        [_aspectRatioActionSheet showFromRect:[self.aspectRatioButton frame] inView:self.aspectRatioButton animated:YES];
+        if (_currentAspectRatioMask + 1 > count - 1) {
+            _mediaPlayer.videoAspectRatio = NULL;
+            _currentAspectRatioMask = 0;
+            APLog(@"AR=Default");
+        } else {
+            _currentAspectRatioMask++;
+            _mediaPlayer.videoAspectRatio = (char *)[_aspectRatios[_currentAspectRatioMask] UTF8String];
+            APLog(@"AR=%@", _aspectRatios[_currentAspectRatioMask]);
+        }
     } else if (sender == self.cropButton) {
-        NSArray *ratios = @[@"Default", @"16:10", @"16:9", @"1.85:1", @"2.21:1", @"2.35:1", @"2:39:1", @"5:3", @"4:3", @"5:4", @"1:1"];
-        NSUInteger count = [ratios count];
+        NSUInteger count = [_cropRatios count];
 
-        _cropActionSheet = [[UIActionSheet alloc] initWithTitle:@"Choose Crop Mask" delegate:self cancelButtonTitle:nil destructiveButtonTitle:nil otherButtonTitles: nil];
-        for (NSUInteger i = 0; i < count; i++)
-            [_cropActionSheet addButtonWithTitle:ratios[i]];
-        [_cropActionSheet addButtonWithTitle:NSLocalizedString(@"Cancel", @"")];
-        [_cropActionSheet setCancelButtonIndex:[_cropActionSheet numberOfButtons] - 1];
-        [_cropActionSheet showFromRect:[self.cropButton frame] inView:self.cropButton animated:YES];
+        if (_currentCropMask + 1 > count - 1) {
+            _mediaPlayer.videoCropGeometry = NULL;
+            _currentCropMask = 0;
+            APLog(@"CROP=Default");
+        } else {
+            _currentCropMask++;
+            _mediaPlayer.videoCropGeometry = (char *)[_cropRatios[_currentCropMask] UTF8String];
+            APLog(@"CROP=%@", _cropRatios[_currentCropMask]);
+        }
     }
 }
 
