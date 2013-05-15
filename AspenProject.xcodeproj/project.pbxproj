@@ -19,6 +19,8 @@
 		7D10BC7F1743FA0F00DA7059 /* play@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 7D10BC731743FA0F00DA7059 /* play@2x.png */; };
 		7D10BC801743FA0F00DA7059 /* subtitles.png in Resources */ = {isa = PBXBuildFile; fileRef = 7D10BC741743FA0F00DA7059 /* subtitles.png */; };
 		7D10BC811743FA0F00DA7059 /* subtitles@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 7D10BC751743FA0F00DA7059 /* subtitles@2x.png */; };
+		7D10BC841743FB4A00DA7059 /* reset.png in Resources */ = {isa = PBXBuildFile; fileRef = 7D10BC821743FB4A00DA7059 /* reset.png */; };
+		7D10BC851743FB4A00DA7059 /* reset@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 7D10BC831743FB4A00DA7059 /* reset@2x.png */; };
 		7D33D41617182615008AF0E0 /* VLCMovieViewController~ipad.xib in Resources */ = {isa = PBXBuildFile; fileRef = 7D33D41517182615008AF0E0 /* VLCMovieViewController~ipad.xib */; };
 		7D6B07BC1716C9B8003280C4 /* AQGridView.m in Sources */ = {isa = PBXBuildFile; fileRef = 7D6B07A61716C9B8003280C4 /* AQGridView.m */; };
 		7D6B07BD1716C9B8003280C4 /* AQGridViewAnimatorItem.m in Sources */ = {isa = PBXBuildFile; fileRef = 7D6B07AA1716C9B8003280C4 /* AQGridViewAnimatorItem.m */; };
@@ -97,6 +99,8 @@
 		7D10BC731743FA0F00DA7059 /* play@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "play@2x.png"; sourceTree = "<group>"; };
 		7D10BC741743FA0F00DA7059 /* subtitles.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = subtitles.png; sourceTree = "<group>"; };
 		7D10BC751743FA0F00DA7059 /* subtitles@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "subtitles@2x.png"; sourceTree = "<group>"; };
+		7D10BC821743FB4A00DA7059 /* reset.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = reset.png; sourceTree = "<group>"; };
+		7D10BC831743FB4A00DA7059 /* reset@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "reset@2x.png"; sourceTree = "<group>"; };
 		7D33D41517182615008AF0E0 /* VLCMovieViewController~ipad.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; name = "VLCMovieViewController~ipad.xib"; path = "Resources/VLCMovieViewController~ipad.xib"; sourceTree = SOURCE_ROOT; };
 		7D6B07A51716C9B8003280C4 /* AQGridView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = AQGridView.h; path = ImportedSources/AQGridView/Classes/AQGridView.h; sourceTree = SOURCE_ROOT; };
 		7D6B07A61716C9B8003280C4 /* AQGridView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = AQGridView.m; path = ImportedSources/AQGridView/Classes/AQGridView.m; sourceTree = SOURCE_ROOT; };
@@ -270,6 +274,8 @@
 		7D10BC691743F9CB00DA7059 /* Filters and stuff */ = {
 			isa = PBXGroup;
 			children = (
+				7D10BC821743FB4A00DA7059 /* reset.png */,
+				7D10BC831743FB4A00DA7059 /* reset@2x.png */,
 			);
 			name = "Filters and stuff";
 			path = ../AspenProject;
@@ -549,6 +555,8 @@
 				7D10BC7F1743FA0F00DA7059 /* play@2x.png in Resources */,
 				7D10BC801743FA0F00DA7059 /* subtitles.png in Resources */,
 				7D10BC811743FA0F00DA7059 /* subtitles@2x.png in Resources */,
+				7D10BC841743FB4A00DA7059 /* reset.png in Resources */,
+				7D10BC851743FB4A00DA7059 /* reset@2x.png in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

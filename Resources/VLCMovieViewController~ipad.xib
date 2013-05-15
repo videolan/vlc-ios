@@ -609,7 +609,7 @@
 							<object class="IBUIButton" id="437839795">
 								<reference key="NSNextResponder" ref="11334779"/>
 								<int key="NSvFlags">292</int>
-								<string key="NSFrame">{{270, 166}, {18, 19}}</string>
+								<string key="NSFrame">{{270, 167}, {18, 18}}</string>
 								<reference key="NSSuperview" ref="11334779"/>
 								<reference key="NSWindow"/>
 								<reference key="NSNextKeyView" ref="390045305"/>
@@ -618,14 +618,16 @@
 								<string key="targetRuntimeIdentifier">IBIPadFramework</string>
 								<int key="IBUIContentHorizontalAlignment">0</int>
 								<int key="IBUIContentVerticalAlignment">0</int>
-								<int key="IBUIButtonType">3</int>
-								<bool key="IBUIShowsTouchWhenHighlighted">YES</bool>
 								<reference key="IBUIHighlightedTitleColor" ref="33107367"/>
 								<object class="NSColor" key="IBUINormalTitleColor">
 									<int key="NSColorSpace">1</int>
 									<bytes key="NSRGB">MC4xOTYwNzg0MzQ2IDAuMzA5ODAzOTMyOSAwLjUyMTU2ODY1NgA</bytes>
 								</object>
 								<reference key="IBUINormalTitleShadowColor" ref="25335422"/>
+								<object class="NSCustomResource" key="IBUINormalImage">
+									<string key="NSClassName">NSImage</string>
+									<string key="NSResourceName">reset.png</string>
+								</object>
 								<reference key="IBUIFontDescription" ref="581809469"/>
 								<reference key="IBUIFont" ref="560717679"/>
 							</object>
@@ -1797,6 +1799,7 @@
 			<string key="backward.png">{100, 66}</string>
 			<string key="forward.png">{100, 66}</string>
 			<string key="play.png">{66, 66}</string>
+			<string key="reset.png">{19, 19}</string>
 			<string key="subtitles.png">{66, 66}</string>
 		</dictionary>
 		<string key="IBCocoaTouchPluginVersion">2083</string>
