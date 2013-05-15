@@ -650,8 +650,8 @@
 								<string key="targetRuntimeIdentifier">IBIPadFramework</string>
 								<int key="IBUIContentHorizontalAlignment">0</int>
 								<int key="IBUIContentVerticalAlignment">0</int>
-								<float key="IBUIMinValue">-17</float>
-								<float key="IBUIMaxValue">17</float>
+								<float key="IBUIMinValue">-34</float>
+								<float key="IBUIMaxValue">34</float>
 							</object>
 							<object class="IBUILabel" id="86224047">
 								<reference key="NSNextResponder" ref="567155588"/>
