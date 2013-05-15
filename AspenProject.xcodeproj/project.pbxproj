@@ -7,6 +7,18 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		7D10BC761743FA0F00DA7059 /* audio.png in Resources */ = {isa = PBXBuildFile; fileRef = 7D10BC6A1743FA0F00DA7059 /* audio.png */; };
+		7D10BC771743FA0F00DA7059 /* audio@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 7D10BC6B1743FA0F00DA7059 /* audio@2x.png */; };
+		7D10BC781743FA0F00DA7059 /* backward.png in Resources */ = {isa = PBXBuildFile; fileRef = 7D10BC6C1743FA0F00DA7059 /* backward.png */; };
+		7D10BC791743FA0F00DA7059 /* backward@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 7D10BC6D1743FA0F00DA7059 /* backward@2x.png */; };
+		7D10BC7A1743FA0F00DA7059 /* forward.png in Resources */ = {isa = PBXBuildFile; fileRef = 7D10BC6E1743FA0F00DA7059 /* forward.png */; };
+		7D10BC7B1743FA0F00DA7059 /* forward@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 7D10BC6F1743FA0F00DA7059 /* forward@2x.png */; };
+		7D10BC7C1743FA0F00DA7059 /* pause.png in Resources */ = {isa = PBXBuildFile; fileRef = 7D10BC701743FA0F00DA7059 /* pause.png */; };
+		7D10BC7D1743FA0F00DA7059 /* pause@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 7D10BC711743FA0F00DA7059 /* pause@2x.png */; };
+		7D10BC7E1743FA0F00DA7059 /* play.png in Resources */ = {isa = PBXBuildFile; fileRef = 7D10BC721743FA0F00DA7059 /* play.png */; };
+		7D10BC7F1743FA0F00DA7059 /* play@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 7D10BC731743FA0F00DA7059 /* play@2x.png */; };
+		7D10BC801743FA0F00DA7059 /* subtitles.png in Resources */ = {isa = PBXBuildFile; fileRef = 7D10BC741743FA0F00DA7059 /* subtitles.png */; };
+		7D10BC811743FA0F00DA7059 /* subtitles@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 7D10BC751743FA0F00DA7059 /* subtitles@2x.png */; };
 		7D33D41617182615008AF0E0 /* VLCMovieViewController~ipad.xib in Resources */ = {isa = PBXBuildFile; fileRef = 7D33D41517182615008AF0E0 /* VLCMovieViewController~ipad.xib */; };
 		7D6B07BC1716C9B8003280C4 /* AQGridView.m in Sources */ = {isa = PBXBuildFile; fileRef = 7D6B07A61716C9B8003280C4 /* AQGridView.m */; };
 		7D6B07BD1716C9B8003280C4 /* AQGridViewAnimatorItem.m in Sources */ = {isa = PBXBuildFile; fileRef = 7D6B07AA1716C9B8003280C4 /* AQGridViewAnimatorItem.m */; };
@@ -73,6 +85,18 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		7D10BC6A1743FA0F00DA7059 /* audio.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = audio.png; sourceTree = "<group>"; };
+		7D10BC6B1743FA0F00DA7059 /* audio@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "audio@2x.png"; sourceTree = "<group>"; };
+		7D10BC6C1743FA0F00DA7059 /* backward.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = backward.png; sourceTree = "<group>"; };
+		7D10BC6D1743FA0F00DA7059 /* backward@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "backward@2x.png"; sourceTree = "<group>"; };
+		7D10BC6E1743FA0F00DA7059 /* forward.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = forward.png; sourceTree = "<group>"; };
+		7D10BC6F1743FA0F00DA7059 /* forward@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "forward@2x.png"; sourceTree = "<group>"; };
+		7D10BC701743FA0F00DA7059 /* pause.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = pause.png; sourceTree = "<group>"; };
+		7D10BC711743FA0F00DA7059 /* pause@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "pause@2x.png"; sourceTree = "<group>"; };
+		7D10BC721743FA0F00DA7059 /* play.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = play.png; sourceTree = "<group>"; };
+		7D10BC731743FA0F00DA7059 /* play@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "play@2x.png"; sourceTree = "<group>"; };
+		7D10BC741743FA0F00DA7059 /* subtitles.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = subtitles.png; sourceTree = "<group>"; };
+		7D10BC751743FA0F00DA7059 /* subtitles@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "subtitles@2x.png"; sourceTree = "<group>"; };
 		7D33D41517182615008AF0E0 /* VLCMovieViewController~ipad.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; name = "VLCMovieViewController~ipad.xib"; path = "Resources/VLCMovieViewController~ipad.xib"; sourceTree = SOURCE_ROOT; };
 		7D6B07A51716C9B8003280C4 /* AQGridView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = AQGridView.h; path = ImportedSources/AQGridView/Classes/AQGridView.h; sourceTree = SOURCE_ROOT; };
 		7D6B07A61716C9B8003280C4 /* AQGridView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = AQGridView.m; path = ImportedSources/AQGridView/Classes/AQGridView.m; sourceTree = SOURCE_ROOT; };
@@ -194,6 +218,63 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		7D10BC651743F9A100DA7059 /* External Playback */ = {
+			isa = PBXGroup;
+			children = (
+				A7CB0DAD1716F72600050CF3 /* PlayingExternally@2x~iphone.png */,
+				A7CB0DAE1716F72600050CF3 /* PlayingExternally~iphone.png */,
+				A7CB0DAF1716F72600050CF3 /* PlayingExternally~ipad.png */,
+				A7CB0DB01716F72600050CF3 /* PlayingExternally@2x~ipad.png */,
+			);
+			name = "External Playback";
+			sourceTree = "<group>";
+		};
+		7D10BC661743F9AC00DA7059 /* Library View */ = {
+			isa = PBXGroup;
+			children = (
+				A7FF9F3D17428C1900999819 /* DeleteButton.png */,
+				A7FF9F3F17428C3800999819 /* DeleteButton@2x.png */,
+			);
+			name = "Library View";
+			sourceTree = "<group>";
+		};
+		7D10BC671743F9BA00DA7059 /* Launch Screen */ = {
+			isa = PBXGroup;
+			children = (
+				A7924698170F0ED20036AAF2 /* Default-568h@2x.png */,
+				A7924699170F0ED20036AAF2 /* Default.png */,
+				A792469A170F0ED20036AAF2 /* Default@2x.png */,
+			);
+			name = "Launch Screen";
+			sourceTree = "<group>";
+		};
+		7D10BC681743F9C300DA7059 /* Playback Controls */ = {
+			isa = PBXGroup;
+			children = (
+				7D10BC6A1743FA0F00DA7059 /* audio.png */,
+				7D10BC6B1743FA0F00DA7059 /* audio@2x.png */,
+				7D10BC6C1743FA0F00DA7059 /* backward.png */,
+				7D10BC6D1743FA0F00DA7059 /* backward@2x.png */,
+				7D10BC6E1743FA0F00DA7059 /* forward.png */,
+				7D10BC6F1743FA0F00DA7059 /* forward@2x.png */,
+				7D10BC701743FA0F00DA7059 /* pause.png */,
+				7D10BC711743FA0F00DA7059 /* pause@2x.png */,
+				7D10BC721743FA0F00DA7059 /* play.png */,
+				7D10BC731743FA0F00DA7059 /* play@2x.png */,
+				7D10BC741743FA0F00DA7059 /* subtitles.png */,
+				7D10BC751743FA0F00DA7059 /* subtitles@2x.png */,
+			);
+			name = "Playback Controls";
+			sourceTree = "<group>";
+		};
+		7D10BC691743F9CB00DA7059 /* Filters and stuff */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			name = "Filters and stuff";
+			path = ../AspenProject;
+			sourceTree = "<group>";
+		};
 		7D6B07A31716C9A6003280C4 /* OBSlider */ = {
 			isa = PBXGroup;
 			children = (
@@ -350,20 +431,16 @@
 		A7924697170F0ED20036AAF2 /* Resources */ = {
 			isa = PBXGroup;
 			children = (
+				7D10BC691743F9CB00DA7059 /* Filters and stuff */,
+				7D10BC681743F9C300DA7059 /* Playback Controls */,
 				7DA8B0F9173318E80029698C /* SourceCodePro-Regular.ttf */,
 				7DA8B0FA173318E80029698C /* SourceSansPro-Regular.ttf */,
 				7DBC3B48171204EC00DCF688 /* About Contents.txt */,
 				7DBC3B3C1711DD1E00DCF688 /* Icons */,
 				A79246C6170F11DF0036AAF2 /* Localizable.strings */,
-				A7CB0DAD1716F72600050CF3 /* PlayingExternally@2x~iphone.png */,
-				A7CB0DAE1716F72600050CF3 /* PlayingExternally~iphone.png */,
-				A7CB0DAF1716F72600050CF3 /* PlayingExternally~ipad.png */,
-				A7CB0DB01716F72600050CF3 /* PlayingExternally@2x~ipad.png */,
-				A7924698170F0ED20036AAF2 /* Default-568h@2x.png */,
-				A7FF9F3D17428C1900999819 /* DeleteButton.png */,
-				A7FF9F3F17428C3800999819 /* DeleteButton@2x.png */,
-				A7924699170F0ED20036AAF2 /* Default.png */,
-				A792469A170F0ED20036AAF2 /* Default@2x.png */,
+				7D10BC651743F9A100DA7059 /* External Playback */,
+				7D10BC671743F9BA00DA7059 /* Launch Screen */,
+				7D10BC661743F9AC00DA7059 /* Library View */,
 			);
 			path = Resources;
 			sourceTree = SOURCE_ROOT;
@@ -460,6 +537,18 @@
 				7DC87AF217413EE3009DC250 /* VLCPlaylistGridView.xib in Resources */,
 				A7FF9F3E17428C1900999819 /* DeleteButton.png in Resources */,
 				A7FF9F4017428C3800999819 /* DeleteButton@2x.png in Resources */,
+				7D10BC761743FA0F00DA7059 /* audio.png in Resources */,
+				7D10BC771743FA0F00DA7059 /* audio@2x.png in Resources */,
+				7D10BC781743FA0F00DA7059 /* backward.png in Resources */,
+				7D10BC791743FA0F00DA7059 /* backward@2x.png in Resources */,
+				7D10BC7A1743FA0F00DA7059 /* forward.png in Resources */,
+				7D10BC7B1743FA0F00DA7059 /* forward@2x.png in Resources */,
+				7D10BC7C1743FA0F00DA7059 /* pause.png in Resources */,
+				7D10BC7D1743FA0F00DA7059 /* pause@2x.png in Resources */,
+				7D10BC7E1743FA0F00DA7059 /* play.png in Resources */,
+				7D10BC7F1743FA0F00DA7059 /* play@2x.png in Resources */,
+				7D10BC801743FA0F00DA7059 /* subtitles.png in Resources */,
+				7D10BC811743FA0F00DA7059 /* subtitles@2x.png in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

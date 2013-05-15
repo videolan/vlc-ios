@@ -274,8 +274,8 @@
 - (void)mediaPlayerStateChanged:(NSNotification *)aNotification
 {
     // TODO
-    NSString *playPauseTitle = [_mediaPlayer isPlaying]? @"Pse": @"Play";
-    [_playPauseButton setTitle:playPauseTitle forState:UIControlStateNormal];
+    UIImage *playPauseImage = [_mediaPlayer isPlaying]? [UIImage imageNamed:@"pause"] : [UIImage imageNamed:@"play"];
+    [_playbackButton setImage:playPauseImage forState:UIControlStateNormal];
 }
 
 - (IBAction)playPause
