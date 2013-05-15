@@ -136,7 +136,7 @@
 
     if (!_controlsHidden) {
         _controllerPanel.alpha = 0.0f;
-        _controllerPanel.hidden = !_videoFiltersHidden;
+        _controllerPanel.hidden = !_videoFiltersHidden || !_playbackViewHidden;
         _toolbar.alpha = 0.0f;
         _toolbar.hidden = NO;
         _videoFilterView.alpha = 0.0f;
@@ -282,12 +282,26 @@
             indexArray = _mediaPlayer.videoSubTitlesIndexes;
             _mediaPlayer.currentVideoSubTitleIndex = [indexArray[arrayIndex] intValue];
         }
-    } else {
+    } else if (actionSheet == _audiotrackActionSheet) {
         namesArray = _mediaPlayer.audioTrackNames;
         arrayIndex = [namesArray indexOfObject:[actionSheet buttonTitleAtIndex:buttonIndex]];
         if (arrayIndex != NSNotFound) {
             indexArray = _mediaPlayer.audioTrackIndexes;
             _mediaPlayer.currentAudioTrackIndex = [indexArray[arrayIndex] intValue];
+        }
+    } else if (actionSheet == _aspectRatioActionSheet) {
+        if (actionSheet.cancelButtonIndex != buttonIndex) {
+            if ([[actionSheet buttonTitleAtIndex:buttonIndex] isEqualToString:@"Default"])
+                _mediaPlayer.videoAspectRatio = NULL;
+            else
+                _mediaPlayer.videoAspectRatio = (char *)[[actionSheet buttonTitleAtIndex:buttonIndex] UTF8String];
+        }
+    } else if (actionSheet == _cropActionSheet) {
+        if (actionSheet.cancelButtonIndex != buttonIndex) {
+            if ([[actionSheet buttonTitleAtIndex:buttonIndex] isEqualToString:@"Default"])
+                _mediaPlayer.videoCropGeometry = NULL;
+            else
+                _mediaPlayer.videoCropGeometry = (char *)[[actionSheet buttonTitleAtIndex:buttonIndex] UTF8String];
         }
     }
 }
@@ -346,7 +360,6 @@
 {
     float f_value = self.playbackSpeedSlider.value;
     double speed =  pow(2, f_value / 17.);
-    NSLog(@"raw value %f, speed. %f", f_value, speed);
     self.playbackSpeedIndicator.text = [NSString stringWithFormat:@"%.2fx", speed];
 }
 
@@ -375,6 +388,26 @@
         self.playbackView.hidden = !_playbackViewHidden;
         _playbackViewHidden = self.playbackView.hidden;
         self.controllerPanel.hidden = !_playbackViewHidden;
+    } else if (sender == self.aspectRatioButton) {
+        NSArray *ratios = @[@"Default", @"1:1", @"4:3", @"16:9", @"16:10", @"2.21:1", @"2:35:1", @"2.39:1", @"5:4"];
+        NSUInteger count = [ratios count];
+
+        _aspectRatioActionSheet = [[UIActionSheet alloc] initWithTitle:@"Choose Aspect Ratio" delegate:self cancelButtonTitle:nil destructiveButtonTitle:nil otherButtonTitles: nil];
+        for (NSUInteger i = 0; i < count; i++)
+            [_aspectRatioActionSheet addButtonWithTitle:ratios[i]];
+        [_aspectRatioActionSheet addButtonWithTitle:NSLocalizedString(@"Cancel", @"subtitle track selector")];
+        [_aspectRatioActionSheet setCancelButtonIndex:[_aspectRatioActionSheet numberOfButtons] - 1];
+        [_aspectRatioActionSheet showFromRect:[self.aspectRatioButton frame] inView:self.aspectRatioButton animated:YES];
+    } else if (sender == self.cropButton) {
+        NSArray *ratios = @[@"Default", @"16:10", @"16:9", @"1.85:1", @"2.21:1", @"2.35:1", @"2:39:1", @"5:3", @"4:3", @"5:4", @"1:1"];
+        NSUInteger count = [ratios count];
+
+        _cropActionSheet = [[UIActionSheet alloc] initWithTitle:@"Choose Aspect Ratio" delegate:self cancelButtonTitle:nil destructiveButtonTitle:nil otherButtonTitles: nil];
+        for (NSUInteger i = 0; i < count; i++)
+            [_cropActionSheet addButtonWithTitle:ratios[i]];
+        [_cropActionSheet addButtonWithTitle:NSLocalizedString(@"Cancel", @"subtitle track selector")];
+        [_cropActionSheet setCancelButtonIndex:[_cropActionSheet numberOfButtons] - 1];
+        [_cropActionSheet showFromRect:[self.cropButton frame] inView:self.cropButton animated:YES];
     }
 }
 

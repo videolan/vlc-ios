@@ -18,6 +18,8 @@
 
     UIActionSheet *_subtitleActionSheet;
     UIActionSheet *_audiotrackActionSheet;
+    UIActionSheet *_aspectRatioActionSheet;
+    UIActionSheet *_cropActionSheet;
 
     float _currentPlaybackRate;
 
