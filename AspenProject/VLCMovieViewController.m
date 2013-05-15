@@ -119,6 +119,47 @@
     return self;
 }
 
+#pragma mark - remote events
+
+- (void)viewDidAppear:(BOOL)animated
+{
+    [super viewDidAppear:animated];
+    [[UIApplication sharedApplication] beginReceivingRemoteControlEvents];
+    [self becomeFirstResponder];
+}
+
+- (void)viewDidDisappear:(BOOL)animated
+{
+    [super viewDidDisappear:animated];
+    [[UIApplication sharedApplication] endReceivingRemoteControlEvents];
+    [self resignFirstResponder];
+}
+
+- (BOOL)canBecomeFirstResponder
+{
+    return YES;
+}
+
+- (void)remoteControlReceivedWithEvent:(UIEvent *)event
+{
+    switch (event.subtype) {
+        case UIEventSubtypeRemoteControlPlay:
+            [_mediaPlayer play];
+            break;
+            
+        case UIEventSubtypeRemoteControlPause:
+            [_mediaPlayer pause];
+            break;
+
+        case UIEventSubtypeRemoteControlTogglePlayPause:
+            [self play:nil];
+            break;
+
+        default:
+            break;
+    }
+}
+
 #pragma mark - controls visibility
 
 - (BOOL)gestureRecognizer:(UIGestureRecognizer *)gestureRecognizer shouldReceiveTouch:(UITouch *)touch
