@@ -19,8 +19,16 @@
 		7D10BC7F1743FA0F00DA7059 /* play@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 7D10BC731743FA0F00DA7059 /* play@2x.png */; };
 		7D10BC801743FA0F00DA7059 /* subtitles.png in Resources */ = {isa = PBXBuildFile; fileRef = 7D10BC741743FA0F00DA7059 /* subtitles.png */; };
 		7D10BC811743FA0F00DA7059 /* subtitles@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 7D10BC751743FA0F00DA7059 /* subtitles@2x.png */; };
-		7D10BC841743FB4A00DA7059 /* reset.png in Resources */ = {isa = PBXBuildFile; fileRef = 7D10BC821743FB4A00DA7059 /* reset.png */; };
-		7D10BC851743FB4A00DA7059 /* reset@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 7D10BC831743FB4A00DA7059 /* reset@2x.png */; };
+		7D10BCA01743FE7B00DA7059 /* aspectratio.png in Resources */ = {isa = PBXBuildFile; fileRef = 7D10BC961743FE7B00DA7059 /* aspectratio.png */; };
+		7D10BCA11743FE7B00DA7059 /* aspectratio@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 7D10BC971743FE7B00DA7059 /* aspectratio@2x.png */; };
+		7D10BCA21743FE7B00DA7059 /* crop.png in Resources */ = {isa = PBXBuildFile; fileRef = 7D10BC981743FE7B00DA7059 /* crop.png */; };
+		7D10BCA31743FE7B00DA7059 /* crop@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 7D10BC991743FE7B00DA7059 /* crop@2x.png */; };
+		7D10BCA41743FE7B00DA7059 /* effects.png in Resources */ = {isa = PBXBuildFile; fileRef = 7D10BC9A1743FE7B00DA7059 /* effects.png */; };
+		7D10BCA51743FE7B00DA7059 /* effects@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 7D10BC9B1743FE7B00DA7059 /* effects@2x.png */; };
+		7D10BCA61743FE7B00DA7059 /* reset.png in Resources */ = {isa = PBXBuildFile; fileRef = 7D10BC9C1743FE7B00DA7059 /* reset.png */; };
+		7D10BCA71743FE7B00DA7059 /* reset@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 7D10BC9D1743FE7B00DA7059 /* reset@2x.png */; };
+		7D10BCA81743FE7B00DA7059 /* speed.png in Resources */ = {isa = PBXBuildFile; fileRef = 7D10BC9E1743FE7B00DA7059 /* speed.png */; };
+		7D10BCA91743FE7B00DA7059 /* speed@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 7D10BC9F1743FE7B00DA7059 /* speed@2x.png */; };
 		7D33D41617182615008AF0E0 /* VLCMovieViewController~ipad.xib in Resources */ = {isa = PBXBuildFile; fileRef = 7D33D41517182615008AF0E0 /* VLCMovieViewController~ipad.xib */; };
 		7D6B07BC1716C9B8003280C4 /* AQGridView.m in Sources */ = {isa = PBXBuildFile; fileRef = 7D6B07A61716C9B8003280C4 /* AQGridView.m */; };
 		7D6B07BD1716C9B8003280C4 /* AQGridViewAnimatorItem.m in Sources */ = {isa = PBXBuildFile; fileRef = 7D6B07AA1716C9B8003280C4 /* AQGridViewAnimatorItem.m */; };
@@ -99,8 +107,16 @@
 		7D10BC731743FA0F00DA7059 /* play@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "play@2x.png"; sourceTree = "<group>"; };
 		7D10BC741743FA0F00DA7059 /* subtitles.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = subtitles.png; sourceTree = "<group>"; };
 		7D10BC751743FA0F00DA7059 /* subtitles@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "subtitles@2x.png"; sourceTree = "<group>"; };
-		7D10BC821743FB4A00DA7059 /* reset.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = reset.png; sourceTree = "<group>"; };
-		7D10BC831743FB4A00DA7059 /* reset@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "reset@2x.png"; sourceTree = "<group>"; };
+		7D10BC961743FE7B00DA7059 /* aspectratio.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = aspectratio.png; path = Resources/aspectratio.png; sourceTree = SOURCE_ROOT; };
+		7D10BC971743FE7B00DA7059 /* aspectratio@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "aspectratio@2x.png"; path = "Resources/aspectratio@2x.png"; sourceTree = SOURCE_ROOT; };
+		7D10BC981743FE7B00DA7059 /* crop.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = crop.png; path = Resources/crop.png; sourceTree = SOURCE_ROOT; };
+		7D10BC991743FE7B00DA7059 /* crop@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "crop@2x.png"; path = "Resources/crop@2x.png"; sourceTree = SOURCE_ROOT; };
+		7D10BC9A1743FE7B00DA7059 /* effects.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = effects.png; path = Resources/effects.png; sourceTree = SOURCE_ROOT; };
+		7D10BC9B1743FE7B00DA7059 /* effects@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "effects@2x.png"; path = "Resources/effects@2x.png"; sourceTree = SOURCE_ROOT; };
+		7D10BC9C1743FE7B00DA7059 /* reset.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = reset.png; path = Resources/reset.png; sourceTree = SOURCE_ROOT; };
+		7D10BC9D1743FE7B00DA7059 /* reset@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "reset@2x.png"; path = "Resources/reset@2x.png"; sourceTree = SOURCE_ROOT; };
+		7D10BC9E1743FE7B00DA7059 /* speed.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = speed.png; path = Resources/speed.png; sourceTree = SOURCE_ROOT; };
+		7D10BC9F1743FE7B00DA7059 /* speed@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "speed@2x.png"; path = "Resources/speed@2x.png"; sourceTree = SOURCE_ROOT; };
 		7D33D41517182615008AF0E0 /* VLCMovieViewController~ipad.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; name = "VLCMovieViewController~ipad.xib"; path = "Resources/VLCMovieViewController~ipad.xib"; sourceTree = SOURCE_ROOT; };
 		7D6B07A51716C9B8003280C4 /* AQGridView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = AQGridView.h; path = ImportedSources/AQGridView/Classes/AQGridView.h; sourceTree = SOURCE_ROOT; };
 		7D6B07A61716C9B8003280C4 /* AQGridView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = AQGridView.m; path = ImportedSources/AQGridView/Classes/AQGridView.m; sourceTree = SOURCE_ROOT; };
@@ -274,8 +290,16 @@
 		7D10BC691743F9CB00DA7059 /* Filters and stuff */ = {
 			isa = PBXGroup;
 			children = (
-				7D10BC821743FB4A00DA7059 /* reset.png */,
-				7D10BC831743FB4A00DA7059 /* reset@2x.png */,
+				7D10BC961743FE7B00DA7059 /* aspectratio.png */,
+				7D10BC971743FE7B00DA7059 /* aspectratio@2x.png */,
+				7D10BC981743FE7B00DA7059 /* crop.png */,
+				7D10BC991743FE7B00DA7059 /* crop@2x.png */,
+				7D10BC9A1743FE7B00DA7059 /* effects.png */,
+				7D10BC9B1743FE7B00DA7059 /* effects@2x.png */,
+				7D10BC9C1743FE7B00DA7059 /* reset.png */,
+				7D10BC9D1743FE7B00DA7059 /* reset@2x.png */,
+				7D10BC9E1743FE7B00DA7059 /* speed.png */,
+				7D10BC9F1743FE7B00DA7059 /* speed@2x.png */,
 			);
 			name = "Filters and stuff";
 			path = ../AspenProject;
@@ -555,8 +579,16 @@
 				7D10BC7F1743FA0F00DA7059 /* play@2x.png in Resources */,
 				7D10BC801743FA0F00DA7059 /* subtitles.png in Resources */,
 				7D10BC811743FA0F00DA7059 /* subtitles@2x.png in Resources */,
-				7D10BC841743FB4A00DA7059 /* reset.png in Resources */,
-				7D10BC851743FB4A00DA7059 /* reset@2x.png in Resources */,
+				7D10BCA01743FE7B00DA7059 /* aspectratio.png in Resources */,
+				7D10BCA11743FE7B00DA7059 /* aspectratio@2x.png in Resources */,
+				7D10BCA21743FE7B00DA7059 /* crop.png in Resources */,
+				7D10BCA31743FE7B00DA7059 /* crop@2x.png in Resources */,
+				7D10BCA41743FE7B00DA7059 /* effects.png in Resources */,
+				7D10BCA51743FE7B00DA7059 /* effects@2x.png in Resources */,
+				7D10BCA61743FE7B00DA7059 /* reset.png in Resources */,
+				7D10BCA71743FE7B00DA7059 /* reset@2x.png in Resources */,
+				7D10BCA81743FE7B00DA7059 /* speed.png in Resources */,
+				7D10BCA91743FE7B00DA7059 /* speed@2x.png in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

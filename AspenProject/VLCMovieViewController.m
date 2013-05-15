@@ -51,7 +51,8 @@
     _saturationLabel.text = NSLocalizedString(@"VFILTER_SATURATION", @"");
     _gammaLabel.text = NSLocalizedString(@"VFILTER_GAMMA", @"");
 
-    self.playbackView.hidden = YES;
+    self.playbackSpeedView.hidden = YES;
+    _playbackSpeedViewHidden = YES;
 
     NSNotificationCenter *center = [NSNotificationCenter defaultCenter];
     [center addObserver:self selector:@selector(handleExternalScreenDidConnect:)
@@ -66,7 +67,7 @@
         [self showOnExternalDisplay];
 
     _movieView.userInteractionEnabled = NO;
-    UITapGestureRecognizer *recognizer = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(toogleControlsVisible)];
+    UITapGestureRecognizer *recognizer = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(toggleControlsVisible)];
     recognizer.delegate = self;
     [self.view addGestureRecognizer:recognizer];
 
@@ -181,24 +182,28 @@
     return YES;
 }
 
-- (void)toogleControlsVisible
+- (void)toggleControlsVisible
 {
     _controlsHidden = !_controlsHidden;
     CGFloat alpha = _controlsHidden? 0.0f: 1.0f;
 
     if (!_controlsHidden) {
         _controllerPanel.alpha = 0.0f;
-        _controllerPanel.hidden = !_videoFiltersHidden || !_playbackViewHidden;
+        _controllerPanel.hidden = !_videoFiltersHidden;
         _toolbar.alpha = 0.0f;
         _toolbar.hidden = NO;
         _videoFilterView.alpha = 0.0f;
         _videoFilterView.hidden = _videoFiltersHidden;
+        _playbackSpeedView.alpha = 0.0f;
+        _playbackSpeedView.hidden = _playbackSpeedViewHidden;
+        _playbackSpeedButton.alpha = 0.0f;
+        _playbackSpeedButton.hidden = NO;
         _videoFilterButton.alpha = 0.0f;
         _videoFilterButton.hidden = NO;
-        _playbackView.alpha = 0.0f;
-        _playbackView.hidden = _playbackViewHidden;
-        _playbackButton.alpha = 0.0f;
-        _playbackButton.hidden = NO;
+        _cropButton.alpha = 0.0f;
+        _cropButton.hidden = NO;
+        _aspectRatioButton.alpha = 0.0f;
+        _aspectRatioButton.hidden = NO;
     }
 
     void (^animationBlock)() = ^() {
@@ -206,20 +211,33 @@
         _toolbar.alpha = alpha;
         _videoFilterView.alpha = alpha;
         _videoFilterButton.alpha = alpha;
-        _playbackView.alpha = alpha;
-        _playbackButton.alpha = alpha;
+        _playbackSpeedView.alpha = alpha;
+        _playbackSpeedButton.alpha = alpha;
+        _videoFilterButton.alpha = alpha;
+        _cropButton.alpha = alpha;
+        _aspectRatioButton.alpha = alpha;
     };
 
     void (^completionBlock)(BOOL finished) = ^(BOOL finished) {
-        if (_videoFiltersHidden && _playbackViewHidden)
+        if (_videoFiltersHidden) {
             _controllerPanel.hidden = _controlsHidden;
-        else
-            _controllerPanel.hidden = YES;
+            _playbackSpeedButton.hidden = _controlsHidden;
+            _videoFilterButton.hidden = _controlsHidden;
+            _cropButton.hidden = _controlsHidden;
+            _aspectRatioButton.hidden = _controlsHidden;
+        } else {
+            _controllerPanel.hidden = NO;
+            _playbackSpeedButton.hidden = NO;
+            _videoFilterButton.hidden = NO;
+            _cropButton.hidden = NO;
+            _aspectRatioButton.hidden = NO;
+        }
         _toolbar.hidden = _controlsHidden;
         _videoFilterView.hidden = _videoFiltersHidden;
-        _videoFilterButton.hidden = _controlsHidden;
-        _playbackView.hidden = _playbackViewHidden;
-        _playbackButton.hidden = _controlsHidden;
+        if (_controlsHidden)
+            _playbackSpeedView.hidden = YES;
+        else
+            _playbackSpeedView.hidden = _playbackSpeedViewHidden;
     };
 
     [UIView animateWithDuration:0.3f animations:animationBlock completion:completionBlock];
@@ -244,7 +262,7 @@
 {
     _idleTimer = nil;
     if (!_controlsHidden)
-        [self toogleControlsVisible];
+        [self toggleControlsVisible];
 }
 
 - (UIResponder *)nextResponder
@@ -362,8 +380,8 @@
 
 - (IBAction)videoFilterToggle:(id)sender
 {
-    if (!_playbackViewHidden)
-        self.playbackView.hidden = _playbackViewHidden = YES;
+    if (!_playbackSpeedViewHidden)
+        self.playbackSpeedView.hidden = _playbackSpeedViewHidden = YES;
 
     self.videoFilterView.hidden = !_videoFiltersHidden;
     _videoFiltersHidden = self.videoFilterView.hidden;
@@ -433,13 +451,12 @@
 
 - (IBAction)videoDimensionAction:(id)sender
 {
-    if (sender == self.playbackButton) {
+    if (sender == self.playbackSpeedButton) {
         if (!_videoFiltersHidden)
-            self.videoFilterButton.hidden = _videoFiltersHidden = YES;
+            self.videoFilterView.hidden = _videoFiltersHidden = YES;
 
-        self.playbackView.hidden = !_playbackViewHidden;
-        _playbackViewHidden = self.playbackView.hidden;
-        self.controllerPanel.hidden = !_playbackViewHidden;
+        self.playbackSpeedView.hidden = !_playbackSpeedViewHidden;
+        _playbackSpeedViewHidden = self.playbackSpeedView.hidden;
     } else if (sender == self.aspectRatioButton) {
         NSArray *ratios = @[@"Default", @"1:1", @"4:3", @"16:9", @"16:10", @"2.21:1", @"2:35:1", @"2.39:1", @"5:4"];
         NSUInteger count = [ratios count];
@@ -447,17 +464,17 @@
         _aspectRatioActionSheet = [[UIActionSheet alloc] initWithTitle:@"Choose Aspect Ratio" delegate:self cancelButtonTitle:nil destructiveButtonTitle:nil otherButtonTitles: nil];
         for (NSUInteger i = 0; i < count; i++)
             [_aspectRatioActionSheet addButtonWithTitle:ratios[i]];
-        [_aspectRatioActionSheet addButtonWithTitle:NSLocalizedString(@"Cancel", @"subtitle track selector")];
+        [_aspectRatioActionSheet addButtonWithTitle:NSLocalizedString(@"Cancel", @"")];
         [_aspectRatioActionSheet setCancelButtonIndex:[_aspectRatioActionSheet numberOfButtons] - 1];
         [_aspectRatioActionSheet showFromRect:[self.aspectRatioButton frame] inView:self.aspectRatioButton animated:YES];
     } else if (sender == self.cropButton) {
         NSArray *ratios = @[@"Default", @"16:10", @"16:9", @"1.85:1", @"2.21:1", @"2.35:1", @"2:39:1", @"5:3", @"4:3", @"5:4", @"1:1"];
         NSUInteger count = [ratios count];
 
-        _cropActionSheet = [[UIActionSheet alloc] initWithTitle:@"Choose Aspect Ratio" delegate:self cancelButtonTitle:nil destructiveButtonTitle:nil otherButtonTitles: nil];
+        _cropActionSheet = [[UIActionSheet alloc] initWithTitle:@"Choose Crop Mask" delegate:self cancelButtonTitle:nil destructiveButtonTitle:nil otherButtonTitles: nil];
         for (NSUInteger i = 0; i < count; i++)
             [_cropActionSheet addButtonWithTitle:ratios[i]];
-        [_cropActionSheet addButtonWithTitle:NSLocalizedString(@"Cancel", @"subtitle track selector")];
+        [_cropActionSheet addButtonWithTitle:NSLocalizedString(@"Cancel", @"")];
         [_cropActionSheet setCancelButtonIndex:[_cropActionSheet numberOfButtons] - 1];
         [_cropActionSheet showFromRect:[self.cropButton frame] inView:self.cropButton animated:YES];
     }

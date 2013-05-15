@@ -14,7 +14,7 @@
 
     BOOL _controlsHidden;
     BOOL _videoFiltersHidden;
-    BOOL _playbackViewHidden;
+    BOOL _playbackSpeedViewHidden;
 
     UIActionSheet *_subtitleActionSheet;
     UIActionSheet *_audiotrackActionSheet;
@@ -56,8 +56,8 @@
 @property (nonatomic, strong) IBOutlet UISlider *gammaSlider;
 @property (nonatomic, strong) IBOutlet UIButton *resetVideoFilterButton;
 
-@property (nonatomic, strong) IBOutlet UIView *playbackView;
-@property (nonatomic, strong) IBOutlet UIButton *playbackButton;
+@property (nonatomic, strong) IBOutlet UIView *playbackSpeedView;
+@property (nonatomic, strong) IBOutlet UIButton *playbackSpeedButton;
 @property (nonatomic, strong) IBOutlet UISlider *playbackSpeedSlider;
 @property (nonatomic, strong) IBOutlet UILabel *playbackSpeedLabel;
 @property (nonatomic, strong) IBOutlet UILabel *playbackSpeedIndicator;
