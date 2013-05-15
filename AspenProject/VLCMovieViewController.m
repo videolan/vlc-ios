@@ -75,7 +75,6 @@
 
 - (void)viewWillAppear:(BOOL)animated
 {
-    [super viewWillAppear:animated];
     [self.navigationController setNavigationBarHidden:YES animated:YES];
     if (UI_USER_INTERFACE_IDIOM() == UIUserInterfaceIdiomPhone)
         [UIApplication sharedApplication].statusBarStyle = UIStatusBarStyleBlackTranslucent;
@@ -97,6 +96,18 @@
         [_mediaPlayer setPosition:[self.mediaItem.lastPosition floatValue]];
     self.playbackSpeedSlider.value = [self _playbackSpeed];
     [self _updatePlaybackSpeedIndicator];
+
+    if ([[_mediaPlayer audioTrackIndexes] count] > 2)
+        self.audioSwitcherButton.hidden = NO;
+    else
+        self.audioSwitcherButton.hidden = YES;
+
+    if ([[_mediaPlayer videoSubTitlesIndexes] count] > 1)
+        self.subtitleSwitcherButton.hidden = NO;
+    else
+        self.subtitleSwitcherButton.hidden = YES;
+
+    [super viewWillAppear:animated];
 }
 
 - (void)viewWillDisappear:(BOOL)animated
