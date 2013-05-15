@@ -2,9 +2,9 @@
 <archive type="com.apple.InterfaceBuilder3.CocoaTouch.iPad.XIB" version="8.00">
 	<data>
 		<int key="IBDocument.SystemTarget">1296</int>
-		<string key="IBDocument.SystemVersion">12E47</string>
+		<string key="IBDocument.SystemVersion">12D78</string>
 		<string key="IBDocument.InterfaceBuilderVersion">3084</string>
-		<string key="IBDocument.AppKitVersion">1187.39</string>
+		<string key="IBDocument.AppKitVersion">1187.37</string>
 		<string key="IBDocument.HIToolboxVersion">626.00</string>
 		<object class="NSMutableDictionary" key="IBDocument.PluginVersions">
 			<string key="NS.key.0">com.apple.InterfaceBuilder.IBCocoaTouchPlugin</string>
@@ -1085,12 +1085,12 @@
 				</object>
 				<object class="IBConnectionRecord">
 					<object class="IBCocoaTouchEventConnection" key="connection">
-						<string key="label">play:</string>
+						<string key="label">playPause</string>
 						<reference key="source" ref="606697150"/>
-						<reference key="destination" ref="841351856"/>
+						<reference key="destination" ref="606714003"/>
 						<int key="IBEventType">7</int>
 					</object>
-					<int key="connectionID">138</int>
+					<int key="connectionID">195</int>
 				</object>
 				<object class="IBConnectionRecord">
 					<object class="IBCocoaTouchEventConnection" key="connection">
@@ -1520,7 +1520,7 @@
 			<nil key="activeLocalization"/>
 			<dictionary class="NSMutableDictionary" key="localizations"/>
 			<nil key="sourceID"/>
-			<int key="maxID">194</int>
+			<int key="maxID">195</int>
 		</object>
 		<object class="IBClassDescriber" key="IBDocument.Classes">
 			<array class="NSMutableArray" key="referencedPartialClassDescriptions">
@@ -1539,7 +1539,7 @@
 						<string key="backward:">id</string>
 						<string key="closePlayback:">id</string>
 						<string key="forward:">id</string>
-						<string key="play:">id</string>
+						<string key="playPause">id</string>
 						<string key="playbackSpeedSliderAction:">id</string>
 						<string key="positionSliderAction:">id</string>
 						<string key="switchAudioTrack:">id</string>
@@ -1561,8 +1561,8 @@
 							<string key="name">forward:</string>
 							<string key="candidateClassName">id</string>
 						</object>
-						<object class="IBActionInfo" key="play:">
-							<string key="name">play:</string>
+						<object class="IBActionInfo" key="playPause">
+							<string key="name">playPause</string>
 							<string key="candidateClassName">id</string>
 						</object>
 						<object class="IBActionInfo" key="playbackSpeedSliderAction:">

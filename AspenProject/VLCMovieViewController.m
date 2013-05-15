@@ -152,7 +152,7 @@
             break;
 
         case UIEventSubtypeRemoteControlTogglePlayPause:
-            [self play:nil];
+            [self playPause];
             break;
 
         default:
@@ -263,16 +263,16 @@
 - (void)mediaPlayerStateChanged:(NSNotification *)aNotification
 {
     // TODO
+    NSString *playPauseTitle = [_mediaPlayer isPlaying]? @"Pse": @"Play";
+    [_playPauseButton setTitle:playPauseTitle forState:UIControlStateNormal];
 }
 
-- (IBAction)play:(id)sender
+- (IBAction)playPause
 {
     if ([_mediaPlayer isPlaying]) {
         [_mediaPlayer pause];
-        _playPauseButton.titleLabel.text = @"Pse";
     } else {
         [_mediaPlayer play];
-        _playPauseButton.titleLabel.text = @"Play";
     }
 }
 

@@ -70,7 +70,7 @@
 - (IBAction)closePlayback:(id)sender;
 - (IBAction)positionSliderAction:(id)sender;
 
-- (IBAction)play:(id)sender;
+- (IBAction)playPause;
 - (IBAction)backward:(id)sender;
 - (IBAction)forward:(id)sender;
 - (IBAction)switchAudioTrack:(id)sender;
