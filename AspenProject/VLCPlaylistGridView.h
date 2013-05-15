@@ -7,8 +7,9 @@
 //
 
 #import "VLCLinearProgressIndicator.h"
+#import "AQGridViewCell.h"
 
-@interface VLCPlaylistGridView : UIView
+@interface VLCPlaylistGridView : AQGridViewCell
 
 @property (nonatomic, strong) IBOutlet UILabel *titleLabel;
 @property (nonatomic, strong) IBOutlet UILabel *subtitleLabel;
@@ -18,8 +19,7 @@
 
 @property (nonatomic, retain) MLFile *mediaObject;
 
-@property (nonatomic) BOOL editable;
-
 - (IBAction)removeMedia:(id)sender;
++ (CGSize)preferredSize;
 
 @end

@@ -150,33 +150,22 @@
 
 - (AQGridViewCell *)gridView:(AQGridView *)gridView cellForItemAtIndex:(NSUInteger)index
 {
-    static NSString *AQCellIdentifier = @"AQCell";
+    static NSString *AQCellIdentifier = @"AQPlaylistCell";
 
-    AQGridViewCell *cell = (AQGridViewCell *)[gridView dequeueReusableCellWithIdentifier:AQCellIdentifier];
+    VLCPlaylistGridView *cell = (VLCPlaylistGridView *)[gridView dequeueReusableCellWithIdentifier:AQCellIdentifier];
     if (cell == nil) {
-        VLCPlaylistGridView *cellViewClass = [[VLCPlaylistGridView alloc] init];
-
-        NSArray *array = [[NSBundle mainBundle] loadNibNamed:@"VLCPlaylistGridView" owner:cellViewClass options:nil];
-        cellViewClass = [array objectAtIndex:0];
-        cell = [[AQGridViewCell alloc] initWithFrame:cellViewClass.frame reuseIdentifier:AQCellIdentifier];
-        [cell.contentView addSubview:cellViewClass];
+        cell = [[[NSBundle mainBundle] loadNibNamed:@"VLCPlaylistGridView" owner:self options:nil] lastObject];
         cell.selectionStyle = AQGridViewCellSelectionStyleGlow;
     }
 
-    VLCPlaylistGridView *cellView = (VLCPlaylistGridView *)[[cell contentView] viewWithTag:1];
-    cellView.mediaObject = _foundMedia[index];
+    cell.mediaObject = _foundMedia[index];
 
     return cell;
 }
 
 - (CGSize)portraitGridCellSizeForGridView:(AQGridView *)gridView
 {
-    VLCPlaylistGridView *cellViewClass = [[VLCPlaylistGridView alloc] init];
-    NSArray *array = [[NSBundle mainBundle] loadNibNamed:@"VLCPlaylistGridView" owner:cellViewClass options:nil];
-    cellViewClass = [array objectAtIndex:0];
-
-    CGSize cellSize = CGSizeMake(cellViewClass.frame.size.width, cellViewClass.frame.size.height);
-    return cellSize;
+    return [VLCPlaylistGridView preferredSize];
 }
 
 - (void)gridView:(AQGridView *)gridView didSelectItemAtIndex:(NSUInteger)index
@@ -197,13 +186,11 @@
     else
         _editMode = !editing;
 
-    if ([[UIDevice currentDevice] userInterfaceIdiom] == UIUserInterfaceIdiomPad) {
-        NSUInteger count = _foundMedia.count;
-        for (NSUInteger x = 0; x < count; x++) {
-            [(VLCPlaylistGridView *)[[[self.gridView cellForItemAtIndex:x] contentView] viewWithTag:1] setEditable:_editMode];
-        }
-    } else
+    if (UI_USER_INTERFACE_IDIOM() == UIUserInterfaceIdiomPad) {
+        [self.gridView setEditing:_editMode];
+    } else {
         [self.tableView setEditing:_editMode animated:YES];
+    }
 
     if (_editMode) {
         self.editButtonItem.style = UIBarButtonItemStyleDone;

@@ -10,19 +10,33 @@
 #import "VLCAppDelegate.h"
 
 @interface VLCPlaylistGridView (Hack)
-@property (nonatomic, retain) NSString * reuseIdentifier;
+@property (nonatomic, retain) NSString *reuseIdentifier;
 @end
 
 @implementation VLCPlaylistGridView
 
-- (BOOL)editable
-{
-    return !self.removeMediaButton.hidden;
+- (void)awakeFromNib {
+    [super awakeFromNib];
+    _contentView = self;
+    self.backgroundColor = [UIColor blackColor];
+    self.reuseIdentifier = @"AQPlaylistCell";
 }
 
-- (void)setEditable:(BOOL)editable
+- (void)setEditing:(BOOL)editing animated:(BOOL)animated
 {
-    self.removeMediaButton.hidden = !editable;
+    [super setEditing:editing animated:animated];
+    self.removeMediaButton.hidden = !editing;
+}
+
+- (void)prepareForReuse
+{
+    [super prepareForReuse];
+    self.removeMediaButton.hidden = YES;
+}
+
++ (CGSize)preferredSize
+{
+    return CGSizeMake(384, 240);
 }
 
 - (void)setMediaObject:(MLFile *)mediaObject
