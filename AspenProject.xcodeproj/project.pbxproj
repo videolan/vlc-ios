@@ -53,7 +53,6 @@
 		7DA8B0FB173318E80029698C /* SourceCodePro-Regular.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 7DA8B0F9173318E80029698C /* SourceCodePro-Regular.ttf */; };
 		7DA8B0FC173318E80029698C /* SourceSansPro-Regular.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 7DA8B0FA173318E80029698C /* SourceSansPro-Regular.ttf */; };
 		7DADC55F1704FABF001DAC63 /* OBSlider.m in Sources */ = {isa = PBXBuildFile; fileRef = 7DADC55E1704FABF001DAC63 /* OBSlider.m */; };
-		7DBC3B311711DB1E00DCF688 /* Aspen.png in Resources */ = {isa = PBXBuildFile; fileRef = 7DBC3B301711DB1E00DCF688 /* Aspen.png */; };
 		7DBC3B351711DC1200DCF688 /* Aspen72.png in Resources */ = {isa = PBXBuildFile; fileRef = 7DBC3B341711DC1200DCF688 /* Aspen72.png */; };
 		7DBC3B371711DCAB00DCF688 /* Aspen144.png in Resources */ = {isa = PBXBuildFile; fileRef = 7DBC3B361711DCAB00DCF688 /* Aspen144.png */; };
 		7DBC3B391711DD0200DCF688 /* Aspen114.png in Resources */ = {isa = PBXBuildFile; fileRef = 7DBC3B381711DD0200DCF688 /* Aspen114.png */; };
@@ -65,6 +64,7 @@
 		7DC87AF217413EE3009DC250 /* VLCPlaylistGridView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 7DC87AF117413EE3009DC250 /* VLCPlaylistGridView.xib */; };
 		7DDD0429172D98E5005A7B10 /* CFNetwork.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 7DDD0428172D98E5005A7B10 /* CFNetwork.framework */; };
 		7DE480D1173FEA30003613E0 /* VLCCircularProgressIndicator.m in Sources */ = {isa = PBXBuildFile; fileRef = 7DE480D0173FEA30003613E0 /* VLCCircularProgressIndicator.m */; };
+		A7035BBE174519600057DFA7 /* iTunesArtwork in Resources */ = {isa = PBXBuildFile; fileRef = A7035BBD174519600057DFA7 /* iTunesArtwork */; };
 		A7924696170F0BA90036AAF2 /* libMediaLibraryKit.a in Frameworks */ = {isa = PBXBuildFile; fileRef = A7924695170F0BA90036AAF2 /* libMediaLibraryKit.a */; };
 		A79246A7170F0ED20036AAF2 /* Default-568h@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = A7924698170F0ED20036AAF2 /* Default-568h@2x.png */; };
 		A79246A8170F0ED20036AAF2 /* Default.png in Resources */ = {isa = PBXBuildFile; fileRef = A7924699170F0ED20036AAF2 /* Default.png */; };
@@ -163,7 +163,6 @@
 		7DA8B0FA173318E80029698C /* SourceSansPro-Regular.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "SourceSansPro-Regular.ttf"; sourceTree = "<group>"; };
 		7DADC55D1704FABF001DAC63 /* OBSlider.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = OBSlider.h; path = ImportedSources/OBSlider/OBSlider/OBSlider.h; sourceTree = SOURCE_ROOT; };
 		7DADC55E1704FABF001DAC63 /* OBSlider.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = OBSlider.m; path = ImportedSources/OBSlider/OBSlider/OBSlider.m; sourceTree = SOURCE_ROOT; };
-		7DBC3B301711DB1E00DCF688 /* Aspen.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = Aspen.png; sourceTree = "<group>"; };
 		7DBC3B341711DC1200DCF688 /* Aspen72.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = Aspen72.png; sourceTree = "<group>"; };
 		7DBC3B361711DCAB00DCF688 /* Aspen144.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = Aspen144.png; sourceTree = "<group>"; };
 		7DBC3B381711DD0200DCF688 /* Aspen114.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = Aspen114.png; sourceTree = "<group>"; };
@@ -180,6 +179,7 @@
 		7DDD0428172D98E5005A7B10 /* CFNetwork.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CFNetwork.framework; path = System/Library/Frameworks/CFNetwork.framework; sourceTree = SDKROOT; };
 		7DE480CF173FEA30003613E0 /* VLCCircularProgressIndicator.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = VLCCircularProgressIndicator.h; sourceTree = "<group>"; };
 		7DE480D0173FEA30003613E0 /* VLCCircularProgressIndicator.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = VLCCircularProgressIndicator.m; sourceTree = "<group>"; };
+		A7035BBD174519600057DFA7 /* iTunesArtwork */ = {isa = PBXFileReference; lastKnownFileType = file; path = iTunesArtwork; sourceTree = "<group>"; };
 		A7924695170F0BA90036AAF2 /* libMediaLibraryKit.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; name = libMediaLibraryKit.a; path = External/MediaLibraryKit/libMediaLibraryKit.a; sourceTree = "<group>"; };
 		A7924698170F0ED20036AAF2 /* Default-568h@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "Default-568h@2x.png"; sourceTree = "<group>"; };
 		A7924699170F0ED20036AAF2 /* Default.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = Default.png; sourceTree = "<group>"; };
@@ -449,7 +449,7 @@
 		7DBC3B3C1711DD1E00DCF688 /* Icons */ = {
 			isa = PBXGroup;
 			children = (
-				7DBC3B301711DB1E00DCF688 /* Aspen.png */,
+				A7035BBD174519600057DFA7 /* iTunesArtwork */,
 				7DBC3B341711DC1200DCF688 /* Aspen72.png */,
 				7DBC3B361711DCAB00DCF688 /* Aspen144.png */,
 				7DBC3B3A1711DD0900DCF688 /* Aspen57.png */,
@@ -549,7 +549,6 @@
 				A79246C3170F114E0036AAF2 /* VLCPlaylistTableViewCell.xib in Resources */,
 				A79246C5170F114E0036AAF2 /* VLCPlaylistViewController~iphone.xib in Resources */,
 				A79246C8170F11DF0036AAF2 /* Localizable.strings in Resources */,
-				7DBC3B311711DB1E00DCF688 /* Aspen.png in Resources */,
 				7DBC3B351711DC1200DCF688 /* Aspen72.png in Resources */,
 				7DBC3B371711DCAB00DCF688 /* Aspen144.png in Resources */,
 				7DBC3B391711DD0200DCF688 /* Aspen114.png in Resources */,
@@ -589,6 +588,7 @@
 				7D10BCA71743FE7B00DA7059 /* reset@2x.png in Resources */,
 				7D10BCA81743FE7B00DA7059 /* speed.png in Resources */,
 				7D10BCA91743FE7B00DA7059 /* speed@2x.png in Resources */,
+				A7035BBE174519600057DFA7 /* iTunesArtwork in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
