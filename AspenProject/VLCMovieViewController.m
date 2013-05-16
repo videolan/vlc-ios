@@ -299,7 +299,7 @@
 {
     // TODO
     UIImage *playPauseImage = [_mediaPlayer isPlaying]? [UIImage imageNamed:@"pause"] : [UIImage imageNamed:@"play"];
-    [_playbackButton setImage:playPauseImage forState:UIControlStateNormal];
+    [_playPauseButton setImage:playPauseImage forState:UIControlStateNormal];
 }
 
 - (IBAction)playPause
