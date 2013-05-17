@@ -7,6 +7,7 @@
 //
 
 #import <UIKit/UIKit.h>
+#import "VLCStatusLabel.h"
 
 @interface VLCMovieViewController : UIViewController <VLCMediaPlayerDelegate, UIActionSheetDelegate>
 {
@@ -39,6 +40,7 @@
 @property (nonatomic, strong) IBOutlet UIButton *audioSwitcherButton;
 @property (nonatomic, strong) IBOutlet UIToolbar *toolbar;
 @property (nonatomic, strong) IBOutlet UIView *controllerPanel;
+@property (nonatomic, strong) IBOutlet VLCStatusLabel *statusLabel;
 
 @property (nonatomic, strong) IBOutlet UIView *playingExternallyView;
 @property (nonatomic, strong) IBOutlet UILabel *playingExternallyTitle;

@@ -455,11 +455,11 @@
         if (_currentAspectRatioMask + 1 > count - 1) {
             _mediaPlayer.videoAspectRatio = NULL;
             _currentAspectRatioMask = 0;
-            APLog(@"AR=Default");
+            [self.statusLabel showStatusMessage:[NSString stringWithFormat:NSLocalizedString(@"AR_CHANGED", @""), NSLocalizedString(@"DEFAULT", @"")]];
         } else {
             _currentAspectRatioMask++;
             _mediaPlayer.videoAspectRatio = (char *)[_aspectRatios[_currentAspectRatioMask] UTF8String];
-            APLog(@"AR=%@", _aspectRatios[_currentAspectRatioMask]);
+            [self.statusLabel showStatusMessage:[NSString stringWithFormat:NSLocalizedString(@"AR_CHANGED", @""), _aspectRatios[_currentAspectRatioMask]]];
         }
     } else if (sender == self.cropButton) {
         NSUInteger count = [_cropRatios count];
@@ -467,11 +467,11 @@
         if (_currentCropMask + 1 > count - 1) {
             _mediaPlayer.videoCropGeometry = NULL;
             _currentCropMask = 0;
-            APLog(@"CROP=Default");
+            [self.statusLabel showStatusMessage:[NSString stringWithFormat:NSLocalizedString(@"CROP_CHANGED", @""), NSLocalizedString(@"DEFAULT", @"")]];
         } else {
             _currentCropMask++;
             _mediaPlayer.videoCropGeometry = (char *)[_cropRatios[_currentCropMask] UTF8String];
-            APLog(@"CROP=%@", _cropRatios[_currentCropMask]);
+            [self.statusLabel showStatusMessage:[NSString stringWithFormat:NSLocalizedString(@"CROP_CHANGED", @""), _cropRatios[_currentCropMask]]];
         }
     }
 }
