@@ -297,7 +297,13 @@
 
 - (void)mediaPlayerStateChanged:(NSNotification *)aNotification
 {
-    // TODO
+    VLCMediaPlayerState currentState = _mediaPlayer.state;
+
+    if (currentState == VLCMediaPlayerStateError) {
+        [self.statusLabel showStatusMessage:NSLocalizedString(@"PLAYBACK_FAILED", @"")];
+        [self performSelector:@selector(dismiss:) withObject:nil afterDelay:2.];
+    }
+
     UIImage *playPauseImage = [_mediaPlayer isPlaying]? [UIImage imageNamed:@"pause"] : [UIImage imageNamed:@"play"];
     [_playPauseButton setImage:playPauseImage forState:UIControlStateNormal];
 }
