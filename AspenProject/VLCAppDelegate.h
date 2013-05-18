@@ -10,6 +10,9 @@
 #import "VLCPlaylistViewController.h"
 
 @interface VLCAppDelegate : UIResponder <UIApplicationDelegate>
+{
+    NSURL *_tempURL;
+}
 
 @property (nonatomic, readonly) VLCPlaylistViewController *playlistViewController;
 

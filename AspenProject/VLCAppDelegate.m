@@ -33,10 +33,31 @@
 {
     if (_playlistViewController && url != nil) {
         APLog(@"%@ requested %@ to be opened", sourceApplication, url);
-        [_playlistViewController openMovieFromURL:url];
+
+        if (url.isFileURL) {
+            UIAlertView * alert = [[UIAlertView alloc] initWithTitle:NSLocalizedString(@"SAVE_FILE", @"") message:[NSString stringWithFormat:NSLocalizedString(@"SAVE_FILE_LONG", @""), url.lastPathComponent] delegate:self cancelButtonTitle:NSLocalizedString(@"BUTTON_CANCEL", @"") otherButtonTitles:NSLocalizedString(@"BUTTON_SAVE", @""), nil];
+            _tempURL = url;
+            [alert show];
+        } else
+            [_playlistViewController openMovieFromURL:url];
         return YES;
     }
     return NO;
+}
+
+- (void)alertView:(UIAlertView *)alertView clickedButtonAtIndex:(NSInteger)buttonIndex
+{
+    if (buttonIndex == 1) {
+        NSArray *searchPaths = NSSearchPathForDirectoriesInDomains(NSDocumentDirectory, NSUserDomainMask, YES);
+        NSString *directoryPath = [searchPaths objectAtIndex:0];
+        NSURL *destinationURL = [NSURL URLWithString:[NSString stringWithFormat:@"file://%@/%@", directoryPath, _tempURL.lastPathComponent]];
+        NSError *theError;
+        [[NSFileManager defaultManager] copyItemAtURL:_tempURL toURL:destinationURL error:&theError];
+
+        [self updateMediaList];
+    }
+
+    [_playlistViewController openMovieFromURL:_tempURL];
 }
 
 - (void)applicationWillResignActive:(UIApplication *)application
