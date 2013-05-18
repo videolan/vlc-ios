@@ -8,6 +8,7 @@
 
 #import "VLCMovieViewController.h"
 #import "VLCExternalDisplayController.h"
+#import <sys/sysctl.h> // for sysctlbyname
 
 #define INPUT_RATE_DEFAULT  1000.
 
@@ -94,6 +95,58 @@
 
     self.positionSlider.value = 0.;
 
+    [super viewWillAppear:animated];
+
+    if (![self _isMediaSuitableForDevice]) {
+        UIAlertView * alert = [[UIAlertView alloc] initWithTitle:NSLocalizedString(@"DEVICE_TOOSLOW_TITLE", @"") message:[NSString stringWithFormat:NSLocalizedString(@"DEVICE_TOOSLOW", @""), [[UIDevice currentDevice] model], self.mediaItem.title] delegate:self cancelButtonTitle:NSLocalizedString(@"BUTTON_CANCEL", @"") otherButtonTitles:NSLocalizedString(@"BUTTON_OPEN", @""), nil];
+        [alert show];
+    } else
+        [self _playNewMedia];
+}
+
+- (BOOL)_isMediaSuitableForDevice
+{
+    if (!self.mediaItem)
+        return YES;
+
+    NSUInteger totalNumberOfPixels = [[[self.mediaItem videoTrack] valueForKey:@"width"] doubleValue] * [[[self.mediaItem videoTrack] valueForKey:@"height"] doubleValue];
+
+    size_t size;
+    sysctlbyname("hw.machine", NULL, &size, NULL, 0);
+
+    char *answer = malloc(size);
+    sysctlbyname("hw.machine", answer, &size, NULL, 0);
+
+    NSString *currentMachine = @(answer);
+    free(answer);
+
+    if ([currentMachine hasPrefix:@"iPhone2"] || [currentMachine hasPrefix:@"iPhone3"] || [currentMachine hasPrefix:@"iPad1"] || [currentMachine hasPrefix:@"iPod3"] || [currentMachine hasPrefix:@"iPod4"]) {
+        // iPhone 3GS, iPhone 4, first gen. iPad, 3rd and 4th generation iPod touch
+        APLog(@"this is a cat one device");
+        return (totalNumberOfPixels < 600000); // between 480p and 720p
+    } else if ([currentMachine hasPrefix:@"iPhone4"] || [currentMachine hasPrefix:@"iPad3,1"] || [currentMachine hasPrefix:@"iPad3,2"] || [currentMachine hasPrefix:@"iPad3,3"] || [currentMachine hasPrefix:@"iPod4"] || [currentMachine hasPrefix:@"iPad2"] || [currentMachine hasPrefix:@"iPod5"]) {
+        // iPhone 4S, iPad 2 and 3, iPod 4 and 5
+        APLog(@"this is a cat two device");
+        return (totalNumberOfPixels < 922000); // 720p
+    } else {
+        // iPhone 5, iPad 4
+        APLog(@"this is a cat three device");
+        return (totalNumberOfPixels < 2074000); // 1080p
+    }
+
+    return YES;
+}
+
+- (void)alertView:(UIAlertView *)alertView clickedButtonAtIndex:(NSInteger)buttonIndex
+{
+    if (buttonIndex == 1)
+        [self _playNewMedia];
+    else
+        [self closePlayback:nil];
+}
+
+- (void)_playNewMedia
+{
     [_mediaPlayer play];
 
     if (self.mediaItem.lastPosition && [self.mediaItem.lastPosition floatValue] < 0.99)
@@ -103,8 +156,6 @@
 
     _currentAspectRatioMask = _currentCropMask = 0;
     _mediaPlayer.videoAspectRatio = _mediaPlayer.videoCropGeometry = NULL;
-
-    [super viewWillAppear:animated];
 
     [self resetIdleTimer];
 }
@@ -293,7 +344,7 @@
 
     if (currentState == VLCMediaPlayerStateError) {
         [self.statusLabel showStatusMessage:NSLocalizedString(@"PLAYBACK_FAILED", @"")];
-        [self performSelector:@selector(dismiss:) withObject:nil afterDelay:2.];
+        [self performSelector:@selector(closePlayback:) withObject:nil afterDelay:2.];
     }
 
     UIImage *playPauseImage = [_mediaPlayer isPlaying]? [UIImage imageNamed:@"pause"] : [UIImage imageNamed:@"play"];
