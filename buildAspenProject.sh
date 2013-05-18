@@ -218,6 +218,6 @@ spopd # ImportedSources
 
 
 # Build the Aspen Project now
-buildxcodeproj AspenProject
+buildxcodeproj "VLC for iOS" "vlc-ios"
 
 info "Build completed"
