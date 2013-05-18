@@ -28,6 +28,10 @@
 @property (nonatomic, strong) IBOutlet UITabBarItem *localFilesBarItem;
 @property (nonatomic, strong) IBOutlet UITabBarItem *networkStreamsBarItem;
 
+@property (nonatomic, strong) IBOutlet UIView *emptyLibraryView;
+@property (nonatomic, strong) IBOutlet UILabel *emptyLibraryLabel;
+@property (nonatomic, strong) IBOutlet UILabel *emptyLibraryLongDescriptionLabel;
+
 - (void)updateViewContents;
 - (void)openMovieFromURL:(NSURL *)url;
 - (void)removeMediaObject:(MLFile *)mediaObject;

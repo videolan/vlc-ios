@@ -47,12 +47,20 @@
 
     self.tabBar.selectedItem = self.localFilesBarItem;
     self.networkStreamsBarItem.title = NSLocalizedString(@"TABBAR_NETWORK",@"");
+
+    self.emptyLibraryLabel.text = NSLocalizedString(@"EMPTY_LIBRARY", @"");
+    self.emptyLibraryLongDescriptionLabel.lineBreakMode = UILineBreakModeWordWrap;
+    self.emptyLibraryLongDescriptionLabel.numberOfLines = 0;
+    self.emptyLibraryLongDescriptionLabel.text = NSLocalizedString(@"EMPTY_LIBRARY_LONG", @"");
+    [self.emptyLibraryLongDescriptionLabel sizeToFit];
 }
 
 - (void)viewWillAppear:(BOOL)animated
 {
     [self.gridView deselectItemAtIndex:self.gridView.indexOfSelectedItem animated:animated];
     [super viewWillAppear:animated];
+
+    [self _displayEmptyLibraryViewIfNeeded];
 }
 
 - (void)viewDidAppear:(BOOL)animated
@@ -74,6 +82,21 @@
     [[NSFileManager defaultManager] removeItemAtPath:[[NSURL URLWithString:mediaObject.url] path] error:nil];
 
     [self updateViewContents];
+    [self _displayEmptyLibraryViewIfNeeded];
+}
+
+- (void)_displayEmptyLibraryViewIfNeeded
+{
+    if (_foundMedia.count > 0) {
+        if (self.emptyLibraryView.superview)
+            [self.emptyLibraryView removeFromSuperview];
+    } else {
+        if ([[UIDevice currentDevice] userInterfaceIdiom] == UIUserInterfaceIdiomPhone)
+            self.emptyLibraryView.frame = self.tableView.frame;
+        else
+            self.emptyLibraryView.frame = self.gridView.frame;
+        [self.view addSubview:self.emptyLibraryView];
+    }
 }
 
 #pragma mark - Table View
@@ -202,18 +225,28 @@
 }
 
 /* deprecated in iOS 6 */
-- (BOOL)shouldAutorotateToInterfaceOrientation:(UIInterfaceOrientation)toInterfaceOrientation {
-    return YES; // We support all 4 possible orientations
+- (BOOL)shouldAutorotateToInterfaceOrientation:(UIInterfaceOrientation)toInterfaceOrientation
+{
+    if (_foundMedia.count > 0)
+        return YES;
+    else
+        return NO;
 }
 
 /* introduced in iOS 6 */
 - (NSUInteger)supportedInterfaceOrientations {
-    return UIInterfaceOrientationMaskAll;
+    if (_foundMedia.count > 0)
+        return UIInterfaceOrientationMaskAll;
+    else
+        return UIInterfaceOrientationMaskPortrait;
 }
 
 /* introduced in iOS 6 */
 - (BOOL)shouldAutorotate {
-    return YES;
+    if (_foundMedia.count > 0)
+        return YES;
+    else
+        return NO;
 }
 
 #pragma mark - tab bar
