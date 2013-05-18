@@ -2,9 +2,9 @@
 <archive type="com.apple.InterfaceBuilder3.CocoaTouch.iPad.XIB" version="8.00">
 	<data>
 		<int key="IBDocument.SystemTarget">1296</int>
-		<string key="IBDocument.SystemVersion">12D78</string>
+		<string key="IBDocument.SystemVersion">12E52</string>
 		<string key="IBDocument.InterfaceBuilderVersion">3084</string>
-		<string key="IBDocument.AppKitVersion">1187.37</string>
+		<string key="IBDocument.AppKitVersion">1187.39</string>
 		<string key="IBDocument.HIToolboxVersion">626.00</string>
 		<object class="NSMutableDictionary" key="IBDocument.PluginVersions">
 			<string key="NS.key.0">com.apple.InterfaceBuilder.IBCocoaTouchPlugin</string>
@@ -42,6 +42,7 @@
 						<int key="NSvFlags">292</int>
 						<string key="NSFrame">{{52, 8}, {281, 160}}</string>
 						<reference key="NSSuperview" ref="93090196"/>
+						<reference key="NSWindow"/>
 						<reference key="NSNextKeyView" ref="978623485"/>
 						<string key="NSReuseIdentifierKey">_NS:9</string>
 						<object class="NSColor" key="IBUIBackgroundColor">
@@ -55,6 +56,7 @@
 						<int key="NSvFlags">274</int>
 						<string key="NSFrame">{{54, 10}, {277, 156}}</string>
 						<reference key="NSSuperview" ref="93090196"/>
+						<reference key="NSWindow"/>
 						<reference key="NSNextKeyView" ref="296556150"/>
 						<string key="NSReuseIdentifierKey">_NS:9</string>
 						<bool key="IBUIUserInteractionEnabled">NO</bool>
@@ -63,8 +65,9 @@
 					<object class="IBUILabel" id="276503826">
 						<reference key="NSNextResponder" ref="93090196"/>
 						<int key="NSvFlags">264</int>
-						<string key="NSFrame">{{20, 182}, {344, 21}}</string>
+						<string key="NSFrame">{{52, 182}, {281, 21}}</string>
 						<reference key="NSSuperview" ref="93090196"/>
+						<reference key="NSWindow"/>
 						<reference key="NSNextKeyView" ref="610797449"/>
 						<string key="NSReuseIdentifierKey">_NS:9</string>
 						<bool key="IBUIOpaque">NO</bool>
@@ -89,11 +92,11 @@
 						<int key="IBUIBaselineAdjustment">0</int>
 						<int key="IBUITextAlignment">1</int>
 						<object class="IBUIFontDescription" key="IBUIFontDescription">
-							<int key="type">2</int>
+							<int key="type">1</int>
 							<double key="pointSize">20</double>
 						</object>
 						<object class="NSFont" key="IBUIFont">
-							<string key="NSName">Helvetica-Bold</string>
+							<string key="NSName">Helvetica</string>
 							<double key="NSSize">20</double>
 							<int key="NSfFlags">16</int>
 						</object>
@@ -102,8 +105,9 @@
 					<object class="IBUILabel" id="610797449">
 						<reference key="NSNextResponder" ref="93090196"/>
 						<int key="NSvFlags">264</int>
-						<string key="NSFrame">{{20, 203}, {344, 28}}</string>
+						<string key="NSFrame">{{52, 203}, {281, 28}}</string>
 						<reference key="NSSuperview" ref="93090196"/>
+						<reference key="NSWindow"/>
 						<string key="NSReuseIdentifierKey">_NS:9</string>
 						<bool key="IBUIOpaque">NO</bool>
 						<bool key="IBUIClipsSubviews">YES</bool>
@@ -136,6 +140,7 @@
 						<int key="NSvFlags">292</int>
 						<string key="NSFrame">{{54, 154}, {277, 12}}</string>
 						<reference key="NSSuperview" ref="93090196"/>
+						<reference key="NSWindow"/>
 						<reference key="NSNextKeyView" ref="276503826"/>
 						<string key="NSReuseIdentifierKey">_NS:9</string>
 						<object class="NSColor" key="IBUIBackgroundColor">
@@ -149,6 +154,7 @@
 						<int key="NSvFlags">-2147483356</int>
 						<string key="NSFrame">{{314, 0}, {33, 29}}</string>
 						<reference key="NSSuperview" ref="93090196"/>
+						<reference key="NSWindow"/>
 						<reference key="NSNextKeyView" ref="863064291"/>
 						<string key="NSReuseIdentifierKey">_NS:9</string>
 						<bool key="IBUIOpaque">NO</bool>
@@ -184,6 +190,7 @@
 				</array>
 				<string key="NSFrameSize">{384, 243}</string>
 				<reference key="NSSuperview"/>
+				<reference key="NSWindow"/>
 				<reference key="NSNextKeyView" ref="470328177"/>
 				<string key="NSReuseIdentifierKey">_NS:9</string>
 				<object class="NSColor" key="IBUIBackgroundColor">
@@ -334,7 +341,74 @@
 			<nil key="sourceID"/>
 			<int key="maxID">22</int>
 		</object>
-		<object class="IBClassDescriber" key="IBDocument.Classes"/>
+		<object class="IBClassDescriber" key="IBDocument.Classes">
+			<array class="NSMutableArray" key="referencedPartialClassDescriptions">
+				<object class="IBPartialClassDescription">
+					<string key="className">AQGridViewCell</string>
+					<string key="superclassName">UIView</string>
+					<object class="IBClassDescriptionSource" key="sourceIdentifier">
+						<string key="majorKey">IBProjectSource</string>
+						<string key="minorKey">./Classes/AQGridViewCell.h</string>
+					</object>
+				</object>
+				<object class="IBPartialClassDescription">
+					<string key="className">VLCLinearProgressIndicator</string>
+					<string key="superclassName">UIProgressView</string>
+					<object class="IBClassDescriptionSource" key="sourceIdentifier">
+						<string key="majorKey">IBProjectSource</string>
+						<string key="minorKey">./Classes/VLCLinearProgressIndicator.h</string>
+					</object>
+				</object>
+				<object class="IBPartialClassDescription">
+					<string key="className">VLCPlaylistGridView</string>
+					<string key="superclassName">AQGridViewCell</string>
+					<object class="NSMutableDictionary" key="actions">
+						<string key="NS.key.0">removeMedia:</string>
+						<string key="NS.object.0">id</string>
+					</object>
+					<object class="NSMutableDictionary" key="actionInfosByName">
+						<string key="NS.key.0">removeMedia:</string>
+						<object class="IBActionInfo" key="NS.object.0">
+							<string key="name">removeMedia:</string>
+							<string key="candidateClassName">id</string>
+						</object>
+					</object>
+					<dictionary class="NSMutableDictionary" key="outlets">
+						<string key="progressView">VLCLinearProgressIndicator</string>
+						<string key="removeMediaButton">UIButton</string>
+						<string key="subtitleLabel">UILabel</string>
+						<string key="thumbnailView">UIImageView</string>
+						<string key="titleLabel">UILabel</string>
+					</dictionary>
+					<dictionary class="NSMutableDictionary" key="toOneOutletInfosByName">
+						<object class="IBToOneOutletInfo" key="progressView">
+							<string key="name">progressView</string>
+							<string key="candidateClassName">VLCLinearProgressIndicator</string>
+						</object>
+						<object class="IBToOneOutletInfo" key="removeMediaButton">
+							<string key="name">removeMediaButton</string>
+							<string key="candidateClassName">UIButton</string>
+						</object>
+						<object class="IBToOneOutletInfo" key="subtitleLabel">
+							<string key="name">subtitleLabel</string>
+							<string key="candidateClassName">UILabel</string>
+						</object>
+						<object class="IBToOneOutletInfo" key="thumbnailView">
+							<string key="name">thumbnailView</string>
+							<string key="candidateClassName">UIImageView</string>
+						</object>
+						<object class="IBToOneOutletInfo" key="titleLabel">
+							<string key="name">titleLabel</string>
+							<string key="candidateClassName">UILabel</string>
+						</object>
+					</dictionary>
+					<object class="IBClassDescriptionSource" key="sourceIdentifier">
+						<string key="majorKey">IBProjectSource</string>
+						<string key="minorKey">./Classes/VLCPlaylistGridView.h</string>
+					</object>
+				</object>
+			</array>
+		</object>
 		<int key="IBDocument.localizationMode">0</int>
 		<string key="IBDocument.TargetRuntimeIdentifier">IBIPadFramework</string>
 		<object class="NSMutableDictionary" key="IBDocument.PluginDeclaredDependencies">
