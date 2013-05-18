@@ -335,7 +335,7 @@
 
 - (void)mediaPlayerTimeChanged:(NSNotification *)aNotification {
     self.positionSlider.value = [_mediaPlayer position];
-    self.timeDisplay.title = [[_mediaPlayer remainingTime] stringValue];
+    self.timeDisplay.text = [[_mediaPlayer remainingTime] stringValue];
 }
 
 - (void)mediaPlayerStateChanged:(NSNotification *)aNotification

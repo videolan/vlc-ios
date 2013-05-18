@@ -32,7 +32,7 @@
 @property (nonatomic, strong) IBOutlet UIView *movieView;
 @property (nonatomic, strong) IBOutlet UIBarButtonItem *backButton;
 @property (nonatomic, strong) IBOutlet UISlider *positionSlider;
-@property (nonatomic, strong) IBOutlet UIBarButtonItem *timeDisplay;
+@property (nonatomic, strong) IBOutlet UILabel *timeDisplay;
 @property (nonatomic, strong) IBOutlet UIButton *playPauseButton;
 @property (nonatomic, strong) IBOutlet UIButton *bwdButton;
 @property (nonatomic, strong) IBOutlet UIButton *fwdButton;
