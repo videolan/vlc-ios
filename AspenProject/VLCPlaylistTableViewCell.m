@@ -27,6 +27,11 @@
     return cell;
 }
 
+- (void)observeValueForKeyPath:(NSString *)keyPath ofObject:(id)object change:(NSDictionary *)change context:(void *)context
+{
+    [self _updatedDisplayedInformation];
+}
+
 - (void)setMediaObject:(MLFile *)mediaObject
 {
     if (_mediaObject != mediaObject) {
