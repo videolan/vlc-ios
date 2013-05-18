@@ -2,7 +2,7 @@
 <Workspace
    version = "1.0">
    <FileRef
-      location = "group:AspenProject.xcodeproj">
+      location = "group:VLC for iOS.xcodeproj">
    </FileRef>
    <FileRef
       location = "group:ImportedSources/MediaLibraryKit/MediaLibraryKit.xcodeproj">

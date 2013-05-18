@@ -147,13 +147,13 @@
 		7D6B07BB1716C9B8003280C4 /* UIColor+AQGridView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = "UIColor+AQGridView.m"; path = "ImportedSources/AQGridView/Classes/UIColor+AQGridView.m"; sourceTree = SOURCE_ROOT; };
 		7D6B07F51716D45B003280C4 /* VLCPlaylistGridView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = VLCPlaylistGridView.h; sourceTree = "<group>"; };
 		7D6B07F61716D45B003280C4 /* VLCPlaylistGridView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = VLCPlaylistGridView.m; sourceTree = "<group>"; };
-		7D94FCDB16DE7D1000F2623B /* AspenProject.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = AspenProject.app; sourceTree = BUILT_PRODUCTS_DIR; };
+		7D94FCDB16DE7D1000F2623B /* vlc-ios.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "vlc-ios.app"; sourceTree = BUILT_PRODUCTS_DIR; };
 		7D94FCDE16DE7D1000F2623B /* UIKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = UIKit.framework; path = System/Library/Frameworks/UIKit.framework; sourceTree = SDKROOT; };
 		7D94FCE016DE7D1000F2623B /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = System/Library/Frameworks/Foundation.framework; sourceTree = SDKROOT; };
 		7D94FCE216DE7D1000F2623B /* CoreGraphics.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreGraphics.framework; path = System/Library/Frameworks/CoreGraphics.framework; sourceTree = SDKROOT; };
-		7D94FCE616DE7D1000F2623B /* AspenProject-Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = "AspenProject-Info.plist"; sourceTree = "<group>"; };
+		7D94FCE616DE7D1000F2623B /* VLC for iOS-Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = "VLC for iOS-Info.plist"; sourceTree = "<group>"; };
 		7D94FCEA16DE7D1000F2623B /* main.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = main.m; sourceTree = "<group>"; };
-		7D94FCEC16DE7D1000F2623B /* AspenProject-Prefix.pch */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "AspenProject-Prefix.pch"; sourceTree = "<group>"; };
+		7D94FCEC16DE7D1000F2623B /* VLC for iOS-Prefix.pch */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "VLC for iOS-Prefix.pch"; sourceTree = "<group>"; };
 		7D94FCED16DE7D1000F2623B /* VLCAppDelegate.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = VLCAppDelegate.h; sourceTree = "<group>"; };
 		7D94FCEE16DE7D1000F2623B /* VLCAppDelegate.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = VLCAppDelegate.m; sourceTree = "<group>"; };
 		7D94FCF616DE7D1100F2623B /* VLCPlaylistViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = VLCPlaylistViewController.h; sourceTree = "<group>"; };
@@ -375,7 +375,7 @@
 		7D94FCDC16DE7D1000F2623B /* Products */ = {
 			isa = PBXGroup;
 			children = (
-				7D94FCDB16DE7D1000F2623B /* AspenProject.app */,
+				7D94FCDB16DE7D1000F2623B /* vlc-ios.app */,
 			);
 			name = Products;
 			sourceTree = "<group>";
@@ -430,9 +430,9 @@
 		7D94FCE516DE7D1000F2623B /* Supporting Files */ = {
 			isa = PBXGroup;
 			children = (
-				7D94FCE616DE7D1000F2623B /* AspenProject-Info.plist */,
+				7D94FCE616DE7D1000F2623B /* VLC for iOS-Info.plist */,
 				7D94FCEA16DE7D1000F2623B /* main.m */,
-				7D94FCEC16DE7D1000F2623B /* AspenProject-Prefix.pch */,
+				7D94FCEC16DE7D1000F2623B /* VLC for iOS-Prefix.pch */,
 			);
 			name = "Supporting Files";
 			sourceTree = "<group>";
@@ -504,9 +504,9 @@
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
-		7D94FCDA16DE7D1000F2623B /* AspenProject */ = {
+		7D94FCDA16DE7D1000F2623B /* vlc-ios */ = {
 			isa = PBXNativeTarget;
-			buildConfigurationList = 7D94FD0A16DE7D1100F2623B /* Build configuration list for PBXNativeTarget "AspenProject" */;
+			buildConfigurationList = 7D94FD0A16DE7D1100F2623B /* Build configuration list for PBXNativeTarget "vlc-ios" */;
 			buildPhases = (
 				7D94FCD716DE7D1000F2623B /* Sources */,
 				7D94FCD816DE7D1000F2623B /* Frameworks */,
@@ -516,9 +516,9 @@
 			);
 			dependencies = (
 			);
-			name = AspenProject;
+			name = "vlc-ios";
 			productName = AspenProject;
-			productReference = 7D94FCDB16DE7D1000F2623B /* AspenProject.app */;
+			productReference = 7D94FCDB16DE7D1000F2623B /* vlc-ios.app */;
 			productType = "com.apple.product-type.application";
 		};
 /* End PBXNativeTarget section */
@@ -531,7 +531,7 @@
 				LastUpgradeCheck = 0460;
 				ORGANIZATIONNAME = VideoLAN;
 			};
-			buildConfigurationList = 7D94FCD616DE7D1000F2623B /* Build configuration list for PBXProject "AspenProject" */;
+			buildConfigurationList = 7D94FCD616DE7D1000F2623B /* Build configuration list for PBXProject "VLC for iOS" */;
 			compatibilityVersion = "Xcode 3.2";
 			developmentRegion = English;
 			hasScannedForEncodings = 0;
@@ -546,7 +546,7 @@
 			projectDirPath = "";
 			projectRoot = "";
 			targets = (
-				7D94FCDA16DE7D1000F2623B /* AspenProject */,
+				7D94FCDA16DE7D1000F2623B /* vlc-ios */,
 			);
 		};
 /* End PBXProject section */
@@ -724,12 +724,12 @@
 				GCC_C_LANGUAGE_STANDARD = c99;
 				GCC_OPTIMIZATION_LEVEL = 3;
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
-				GCC_PREFIX_HEADER = "AspenProject/AspenProject-Prefix.pch";
+				GCC_PREFIX_HEADER = "AspenProject/VLC for iOS-Prefix.pch";
 				HEADER_SEARCH_PATHS = (
 					"$(SRCROOT)/External/MobileVLCKit/include",
 					"$(SRCROOT)/External/MediaLibraryKit/include",
 				);
-				INFOPLIST_FILE = "AspenProject/AspenProject-Info.plist";
+				INFOPLIST_FILE = "AspenProject/VLC for iOS-Info.plist";
 				IPHONEOS_DEPLOYMENT_TARGET = 5.1;
 				LIBRARY_SEARCH_PATHS = (
 					"$(inherited)",
@@ -737,7 +737,7 @@
 					"\"$(SRCROOT)/External/MobileVLCKit\"",
 				);
 				OTHER_LDFLAGS = "-Wl,-no_pie";
-				PRODUCT_NAME = "$(TARGET_NAME)";
+				PRODUCT_NAME = "vlc-ios";
 				WRAPPER_EXTENSION = app;
 			};
 			name = Debug;
@@ -752,12 +752,12 @@
 				GCC_C_LANGUAGE_STANDARD = c99;
 				GCC_OPTIMIZATION_LEVEL = 3;
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
-				GCC_PREFIX_HEADER = "AspenProject/AspenProject-Prefix.pch";
+				GCC_PREFIX_HEADER = "AspenProject/VLC for iOS-Prefix.pch";
 				HEADER_SEARCH_PATHS = (
 					"$(SRCROOT)/External/MobileVLCKit/include",
 					"$(SRCROOT)/External/MediaLibraryKit/include",
 				);
-				INFOPLIST_FILE = "AspenProject/AspenProject-Info.plist";
+				INFOPLIST_FILE = "AspenProject/VLC for iOS-Info.plist";
 				IPHONEOS_DEPLOYMENT_TARGET = 5.1;
 				LIBRARY_SEARCH_PATHS = (
 					"$(inherited)",
@@ -765,7 +765,7 @@
 					"\"$(SRCROOT)/External/MobileVLCKit\"",
 				);
 				OTHER_LDFLAGS = "-Wl,-no_pie";
-				PRODUCT_NAME = "$(TARGET_NAME)";
+				PRODUCT_NAME = "vlc-ios";
 				WRAPPER_EXTENSION = app;
 			};
 			name = Release;
@@ -805,12 +805,12 @@
 				GCC_C_LANGUAGE_STANDARD = c99;
 				GCC_OPTIMIZATION_LEVEL = 3;
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
-				GCC_PREFIX_HEADER = "AspenProject/AspenProject-Prefix.pch";
+				GCC_PREFIX_HEADER = "AspenProject/VLC for iOS-Prefix.pch";
 				HEADER_SEARCH_PATHS = (
 					"$(SRCROOT)/External/MobileVLCKit/include",
 					"$(SRCROOT)/External/MediaLibraryKit/include",
 				);
-				INFOPLIST_FILE = "AspenProject/AspenProject-Info.plist";
+				INFOPLIST_FILE = "AspenProject/VLC for iOS-Info.plist";
 				IPHONEOS_DEPLOYMENT_TARGET = 5.1;
 				LIBRARY_SEARCH_PATHS = (
 					"$(inherited)",
@@ -818,7 +818,7 @@
 					"\"$(SRCROOT)/External/MobileVLCKit\"",
 				);
 				OTHER_LDFLAGS = "-Wl,-no_pie";
-				PRODUCT_NAME = "$(TARGET_NAME)";
+				PRODUCT_NAME = "vlc-ios";
 				WRAPPER_EXTENSION = app;
 			};
 			name = Distribution;
@@ -826,7 +826,7 @@
 /* End XCBuildConfiguration section */
 
 /* Begin XCConfigurationList section */
-		7D94FCD616DE7D1000F2623B /* Build configuration list for PBXProject "AspenProject" */ = {
+		7D94FCD616DE7D1000F2623B /* Build configuration list for PBXProject "VLC for iOS" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
 				7D94FD0816DE7D1100F2623B /* Debug */,
@@ -836,7 +836,7 @@
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
 		};
-		7D94FD0A16DE7D1100F2623B /* Build configuration list for PBXNativeTarget "AspenProject" */ = {
+		7D94FD0A16DE7D1100F2623B /* Build configuration list for PBXNativeTarget "vlc-ios" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
 				7D94FD0B16DE7D1100F2623B /* Debug */,
