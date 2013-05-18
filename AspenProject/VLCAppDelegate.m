@@ -103,7 +103,7 @@
             [filePaths addObject:[directoryPath stringByAppendingPathComponent:fileName]];
 
             /* exclude media files from backup (QA1719) */
-            fileURL = [NSURL URLWithString:fileName];
+            fileURL = [NSURL URLWithString:[NSString stringWithFormat:@"file://%@/%@", directoryPath, fileName]];
             [fileURL setResourceValue:[NSNumber numberWithBool:YES] forKey:NSURLIsExcludedFromBackupKey error:nil];
         }
     }
