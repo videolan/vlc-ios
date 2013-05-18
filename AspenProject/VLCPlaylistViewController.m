@@ -72,10 +72,8 @@
 - (void)removeMediaObject:(MLFile *)mediaObject
 {
     [[NSFileManager defaultManager] removeItemAtPath:[[NSURL URLWithString:mediaObject.url] path] error:nil];
-    NSUInteger index = [_foundMedia indexOfObject:mediaObject];
-    [_foundMedia removeObjectAtIndex:index];
-    [self.tableView deleteRowsAtIndexPaths:[NSIndexPath indexPathWithIndex:index] withRowAnimation:UITableViewRowAnimationFade];
-    [self.gridView deleteItemsAtIndices:[NSIndexSet indexSetWithIndex:index] withAnimation:AQGridViewItemAnimationFade];
+
+    [self updateViewContents];
 }
 
 #pragma mark - Table View
@@ -130,9 +128,9 @@
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
 {
     MLFile *mediaObject = _foundMedia[indexPath.row];
-    if (!self.movieViewController) {
+    if (!self.movieViewController)
         self.movieViewController = [[VLCMovieViewController alloc] initWithNibName:@"VLCMovieViewController" bundle:nil];
-    }
+
     self.movieViewController.mediaItem = mediaObject;
     [self.navigationController pushViewController:self.movieViewController animated:YES];
 }
