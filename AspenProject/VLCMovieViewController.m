@@ -73,8 +73,6 @@
 
     _cropRatios = @[@"Default", @"16:10", @"16:9", @"2:39:1", @"5:3", @"4:3", @"5:4", @"1:1"];
     _aspectRatios = @[@"Default", @"1:1", @"4:3", @"16:9", @"16:10", @"2.21:1", @"2:35:1", @"2.39:1", @"5:4"];
-
-    [self resetIdleTimer];
 }
 
 - (void)viewWillAppear:(BOOL)animated
@@ -107,6 +105,8 @@
     _mediaPlayer.videoAspectRatio = _mediaPlayer.videoCropGeometry = NULL;
 
     [super viewWillAppear:animated];
+
+    [self resetIdleTimer];
 }
 
 - (void)viewWillDisappear:(BOOL)animated
