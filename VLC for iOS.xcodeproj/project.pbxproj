@@ -147,7 +147,7 @@
 		7D6B07BB1716C9B8003280C4 /* UIColor+AQGridView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = "UIColor+AQGridView.m"; path = "ImportedSources/AQGridView/Classes/UIColor+AQGridView.m"; sourceTree = SOURCE_ROOT; };
 		7D6B07F51716D45B003280C4 /* VLCPlaylistGridView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = VLCPlaylistGridView.h; sourceTree = "<group>"; };
 		7D6B07F61716D45B003280C4 /* VLCPlaylistGridView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = VLCPlaylistGridView.m; sourceTree = "<group>"; };
-		7D94FCDB16DE7D1000F2623B /* vlc-ios.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "vlc-ios.app"; sourceTree = BUILT_PRODUCTS_DIR; };
+		7D94FCDB16DE7D1000F2623B /* VLC for iOS.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "VLC for iOS.app"; sourceTree = BUILT_PRODUCTS_DIR; };
 		7D94FCDE16DE7D1000F2623B /* UIKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = UIKit.framework; path = System/Library/Frameworks/UIKit.framework; sourceTree = SDKROOT; };
 		7D94FCE016DE7D1000F2623B /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = System/Library/Frameworks/Foundation.framework; sourceTree = SDKROOT; };
 		7D94FCE216DE7D1000F2623B /* CoreGraphics.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreGraphics.framework; path = System/Library/Frameworks/CoreGraphics.framework; sourceTree = SDKROOT; };
@@ -375,7 +375,7 @@
 		7D94FCDC16DE7D1000F2623B /* Products */ = {
 			isa = PBXGroup;
 			children = (
-				7D94FCDB16DE7D1000F2623B /* vlc-ios.app */,
+				7D94FCDB16DE7D1000F2623B /* VLC for iOS.app */,
 			);
 			name = Products;
 			sourceTree = "<group>";
@@ -518,7 +518,7 @@
 			);
 			name = "vlc-ios";
 			productName = AspenProject;
-			productReference = 7D94FCDB16DE7D1000F2623B /* vlc-ios.app */;
+			productReference = 7D94FCDB16DE7D1000F2623B /* VLC for iOS.app */;
 			productType = "com.apple.product-type.application";
 		};
 /* End PBXNativeTarget section */
@@ -737,7 +737,7 @@
 					"\"$(SRCROOT)/External/MobileVLCKit\"",
 				);
 				OTHER_LDFLAGS = "-Wl,-no_pie";
-				PRODUCT_NAME = "vlc-ios";
+				PRODUCT_NAME = "VLC for iOS";
 				WRAPPER_EXTENSION = app;
 			};
 			name = Debug;
@@ -765,7 +765,7 @@
 					"\"$(SRCROOT)/External/MobileVLCKit\"",
 				);
 				OTHER_LDFLAGS = "-Wl,-no_pie";
-				PRODUCT_NAME = "vlc-ios";
+				PRODUCT_NAME = "VLC for iOS";
 				WRAPPER_EXTENSION = app;
 			};
 			name = Release;
@@ -818,7 +818,7 @@
 					"\"$(SRCROOT)/External/MobileVLCKit\"",
 				);
 				OTHER_LDFLAGS = "-Wl,-no_pie";
-				PRODUCT_NAME = "vlc-ios";
+				PRODUCT_NAME = "VLC for iOS";
 				WRAPPER_EXTENSION = app;
 			};
 			name = Distribution;
