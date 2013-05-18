@@ -45,7 +45,7 @@
 						<reference key="NSWindow"/>
 						<reference key="NSNextKeyView" ref="978623485"/>
 						<string key="NSReuseIdentifierKey">_NS:9</string>
-						<object class="NSColor" key="IBUIBackgroundColor">
+						<object class="NSColor" key="IBUIBackgroundColor" id="959397564">
 							<int key="NSColorSpace">3</int>
 							<bytes key="NSWhite">MC42NjY2NjY2NjY3AA</bytes>
 						</object>
@@ -65,7 +65,7 @@
 					<object class="IBUILabel" id="276503826">
 						<reference key="NSNextResponder" ref="93090196"/>
 						<int key="NSvFlags">264</int>
-						<string key="NSFrame">{{52, 182}, {281, 21}}</string>
+						<string key="NSFrame">{{52, 176}, {281, 21}}</string>
 						<reference key="NSSuperview" ref="93090196"/>
 						<reference key="NSWindow"/>
 						<reference key="NSNextKeyView" ref="610797449"/>
@@ -76,13 +76,7 @@
 						<bool key="IBUIUserInteractionEnabled">NO</bool>
 						<string key="targetRuntimeIdentifier">IBIPadFramework</string>
 						<string key="IBUIText">Label</string>
-						<object class="NSColor" key="IBUITextColor">
-							<int key="NSColorSpace">3</int>
-							<bytes key="NSWhite">MQA</bytes>
-							<object class="NSColorSpace" key="NSCustomColorSpace" id="585223183">
-								<int key="NSID">2</int>
-							</object>
-						</object>
+						<reference key="IBUITextColor" ref="959397564"/>
 						<nil key="IBUIHighlightedColor"/>
 						<object class="NSColor" key="IBUIShadowColor" id="398609642">
 							<int key="NSColorSpace">1</int>
@@ -105,7 +99,7 @@
 					<object class="IBUILabel" id="610797449">
 						<reference key="NSNextResponder" ref="93090196"/>
 						<int key="NSvFlags">264</int>
-						<string key="NSFrame">{{52, 203}, {281, 28}}</string>
+						<string key="NSFrame">{{52, 197}, {281, 28}}</string>
 						<reference key="NSSuperview" ref="93090196"/>
 						<reference key="NSWindow"/>
 						<string key="NSReuseIdentifierKey">_NS:9</string>
@@ -117,8 +111,7 @@
 						<string key="IBUIText">Subtitle</string>
 						<object class="NSColor" key="IBUITextColor">
 							<int key="NSColorSpace">3</int>
-							<bytes key="NSWhite">MQA</bytes>
-							<reference key="NSCustomColorSpace" ref="585223183"/>
+							<bytes key="NSWhite">MC4zMzMzMzMzMzMzAA</bytes>
 						</object>
 						<nil key="IBUIHighlightedColor"/>
 						<reference key="IBUIShadowColor" ref="398609642"/>
