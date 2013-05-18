@@ -111,13 +111,8 @@
     if (cell == nil)
         cell = [VLCPlaylistTableViewCell cellWithReuseIdentifier:CellIdentifier];
 
-    MLFile *object = _foundMedia[indexPath.row];
-    cell.titleLabel.text = object.title;
-    cell.subtitleLabel.text = [NSString stringWithFormat:@"%@ — %.2f MB", [VLCTime timeWithNumber:[object duration]], [object fileSizeInBytes] / 2e6];
-    cell.thumbnailView.image = object.computedThumbnail;
-    cell.progressIndicator.progress = object.lastPosition.floatValue;
-    if (cell.progressIndicator.progress < 0.1f)
-        cell.progressIndicator.hidden = YES;
+    cell.mediaObject = _foundMedia[indexPath.row];
+
     return cell;
 }
 

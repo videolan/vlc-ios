@@ -27,6 +27,44 @@
     return cell;
 }
 
+- (void)setMediaObject:(MLFile *)mediaObject
+{
+    if (_mediaObject != mediaObject) {
+        [_mediaObject removeObserver:self forKeyPath:@"computedThumbnail"];
+        [_mediaObject removeObserver:self forKeyPath:@"lastPosition"];
+        [_mediaObject removeObserver:self forKeyPath:@"duration"];
+        [_mediaObject removeObserver:self forKeyPath:@"fileSizeInBytes"];
+        [_mediaObject removeObserver:self forKeyPath:@"title"];
+        [_mediaObject removeObserver:self forKeyPath:@"thumbnailTimeouted"];
+        [_mediaObject didHide];
+
+        _mediaObject = mediaObject;
+
+        [_mediaObject addObserver:self forKeyPath:@"computedThumbnail" options:0 context:nil];
+        [_mediaObject addObserver:self forKeyPath:@"lastPosition" options:0 context:nil];
+        [_mediaObject addObserver:self forKeyPath:@"duration" options:0 context:nil];
+        [_mediaObject addObserver:self forKeyPath:@"fileSizeInBytes" options:0 context:nil];
+        [_mediaObject addObserver:self forKeyPath:@"title" options:0 context:nil];
+        [_mediaObject addObserver:self forKeyPath:@"thumbnailTimeouted" options:0 context:nil];
+        [_mediaObject willDisplay];
+    }
+
+    [self _updatedDisplayedInformation];
+}
+
+- (void)_updatedDisplayedInformation
+{
+    self.titleLabel.text = self.mediaObject.title;
+    self.subtitleLabel.text = [NSString stringWithFormat:@"%@ — %.2f MB", [VLCTime timeWithNumber:[self.mediaObject duration]], [self.mediaObject fileSizeInBytes] / 2e6];
+    self.thumbnailView.image = self.mediaObject.computedThumbnail;
+    self.progressIndicator.progress = self.mediaObject.lastPosition.floatValue;
+
+    if (self.progressIndicator.progress < 0.1f)
+        self.progressIndicator.hidden = YES;
+
+    [self setNeedsDisplay];
+}
+
 + (CGFloat)heightOfCell
 {
     return 80.;
