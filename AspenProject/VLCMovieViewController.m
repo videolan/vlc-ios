@@ -94,22 +94,14 @@
         self.title = @"Network Stream";
     }
 
+    self.positionSlider.value = 0.;
+
     [_mediaPlayer play];
 
     if (self.mediaItem.lastPosition && [self.mediaItem.lastPosition floatValue] < 0.99)
         [_mediaPlayer setPosition:[self.mediaItem.lastPosition floatValue]];
     self.playbackSpeedSlider.value = [self _playbackSpeed];
     [self _updatePlaybackSpeedIndicator];
-
-    if ([[_mediaPlayer audioTrackIndexes] count] > 2)
-        self.audioSwitcherButton.hidden = NO;
-    else
-        self.audioSwitcherButton.hidden = YES;
-
-    if ([[_mediaPlayer videoSubTitlesIndexes] count] > 1)
-        self.subtitleSwitcherButton.hidden = NO;
-    else
-        self.subtitleSwitcherButton.hidden = YES;
 
     _currentAspectRatioMask = _currentCropMask = 0;
     _mediaPlayer.videoAspectRatio = _mediaPlayer.videoCropGeometry = NULL;
@@ -164,7 +156,7 @@
         case UIEventSubtypeRemoteControlPlay:
             [_mediaPlayer play];
             break;
-            
+
         case UIEventSubtypeRemoteControlPause:
             [_mediaPlayer pause];
             break;
@@ -306,6 +298,16 @@
 
     UIImage *playPauseImage = [_mediaPlayer isPlaying]? [UIImage imageNamed:@"pause"] : [UIImage imageNamed:@"play"];
     [_playPauseButton setImage:playPauseImage forState:UIControlStateNormal];
+
+    if ([[_mediaPlayer audioTrackIndexes] count] > 2)
+        self.audioSwitcherButton.hidden = NO;
+    else
+        self.audioSwitcherButton.hidden = YES;
+
+    if ([[_mediaPlayer videoSubTitlesIndexes] count] > 1)
+        self.subtitleSwitcherButton.hidden = NO;
+    else
+        self.subtitleSwitcherButton.hidden = YES;
 }
 
 - (IBAction)playPause
