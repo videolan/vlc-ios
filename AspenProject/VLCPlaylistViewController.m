@@ -208,6 +208,21 @@
     [self.navigationController pushViewController:self.aboutViewController animated:YES];
 }
 
+/* deprecated in iOS 6 */
+- (BOOL)shouldAutorotateToInterfaceOrientation:(UIInterfaceOrientation)toInterfaceOrientation {
+    return YES; // We support all 4 possible orientations
+}
+
+/* introduced in iOS 6 */
+- (NSUInteger)supportedInterfaceOrientations {
+    return UIInterfaceOrientationMaskAll;
+}
+
+/* introduced in iOS 6 */
+- (BOOL)shouldAutorotate {
+    return YES;
+}
+
 #pragma mark - tab bar
 - (void)tabBar:(UITabBar *)tabBar didSelectItem:(UITabBarItem *)item
 {
