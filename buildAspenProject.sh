@@ -177,8 +177,8 @@ spopd
 
 spopd #ImportedSources
 
-rm -f External/MobileVLCKit
-rm -f External/MediaLibraryKit
+rm -rf External
+mkdir External
 ln -sf ${framework_build} External/MobileVLCKit
 ln -sf ${mlkit_build} External/MediaLibraryKit
 
