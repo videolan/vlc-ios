@@ -11,9 +11,6 @@
 @class VLCSettingsViewController;
 
 @interface VLCAddMediaViewController : UIViewController
-{
-    NSURL *_pasteURL;
-}
 
 @property (strong, nonatomic) VLCSettingsViewController *settingsViewController;
 
@@ -24,6 +21,10 @@
 @property (strong, nonatomic) IBOutlet UIButton *settingsButton;
 @property (strong, nonatomic) IBOutlet UIButton *showInformationOnHTTPUploadButton;
 @property (strong, nonatomic) IBOutlet UISwitch *httpUploadServerSwitch;
+
+@property (strong, nonatomic) IBOutlet UIView *openURLView;
+@property (strong, nonatomic) IBOutlet UITextField *openURLField;
+@property (strong, nonatomic) IBOutlet UIButton *openURLButton;
 
 - (IBAction)openAboutPanel:(id)sender;
 - (IBAction)openNetworkStream:(id)sender;

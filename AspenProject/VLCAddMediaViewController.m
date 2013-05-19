@@ -34,14 +34,18 @@
     [super viewDidLoad];
 
     if (UI_USER_INTERFACE_IDIOM() == UIUserInterfaceIdiomPhone)
-        self.dismissButton.titleLabel.text = NSLocalizedString(@"BUTTON_DONE", @"");
-    self.aboutButton.titleLabel.text = NSLocalizedString(@"ABOUT_APP", @"");
-    self.openNetworkStreamButton.titleLabel.text = NSLocalizedString(@"OPEN_NETWORK", @"");
-    self.downloadFromHTTPServerButton.titleLabel.text = NSLocalizedString(@"DOWNLOAD_FROM_HTTP", @"");
+        [self.dismissButton setTitle:NSLocalizedString(@"BUTTON_DONE", @"") forState:UIControlStateNormal];
+    [self.aboutButton setTitle:NSLocalizedString(@"ABOUT_APP", @"") forState:UIControlStateNormal];
+    [self.openNetworkStreamButton setTitle:NSLocalizedString(@"OPEN_NETWORK", @"") forState:UIControlStateNormal];
+    [self.downloadFromHTTPServerButton setTitle:NSLocalizedString(@"DOWNLOAD_FROM_HTTP", @"") forState:UIControlStateNormal];
+    [self.openURLButton setTitle:NSLocalizedString(@"BUTTON_OPEN", @"") forState:UIControlStateNormal];
 }
 
 - (void)viewWillAppear:(BOOL)animated
 {
+    [self.openURLButton sizeToFit];
+    if (self.openURLView.superview)
+        [self.openURLView removeFromSuperview];
     [super viewWillAppear:animated];
 }
 
@@ -72,32 +76,24 @@
 
 - (IBAction)openNetworkStream:(id)sender
 {
-    if ([[UIPasteboard generalPasteboard] containsPasteboardTypes:[NSArray arrayWithObjects:@"public.url", @"public.text", nil]]) {
-        _pasteURL = [[UIPasteboard generalPasteboard] valueForPasteboardType:@"public.url"];
-        if (!_pasteURL || [[_pasteURL absoluteString] isEqualToString:@""]) {
-            NSString *pasteString = [[UIPasteboard generalPasteboard] valueForPasteboardType:@"public.text"];
-            _pasteURL = [NSURL URLWithString:pasteString];
-        }
+    if (sender == self.openNetworkStreamButton) {
+        if ([[UIPasteboard generalPasteboard] containsPasteboardTypes:[NSArray arrayWithObjects:@"public.url", @"public.text", nil]]) {
+            NSURL *pasteURL = [[UIPasteboard generalPasteboard] valueForPasteboardType:@"public.url"];
+            if (!pasteURL || [[pasteURL absoluteString] isEqualToString:@""]) {
+                NSString *pasteString = [[UIPasteboard generalPasteboard] valueForPasteboardType:@"public.text"];
+                pasteURL = [NSURL URLWithString:pasteString];
+            }
 
-        if (_pasteURL && ![[_pasteURL scheme] isEqualToString:@""] && ![[_pasteURL absoluteString] isEqualToString:@""]) {
-            NSString *messageString = [NSString stringWithFormat:@"Do you want to open %@?", [_pasteURL absoluteString]];
-            UIAlertView *alert = [[UIAlertView alloc] initWithTitle:NSLocalizedString(@"OPEN_URL", @"") message:messageString delegate:self cancelButtonTitle:NSLocalizedString(@"BUTTON_CANCEL", @"") otherButtonTitles:NSLocalizedString(@"BUTTON_OPEN", @""), nil];
-            [alert show];
-        } else {
-            UIAlertView *alert = [[UIAlertView alloc] initWithTitle:NSLocalizedString(@"OPEN_URL", @"") message:NSLocalizedString(@"OPEN_URL_NOVALIDVALUE", @"") delegate:self cancelButtonTitle:nil otherButtonTitles:NSLocalizedString(@"BUTTON_OPEN", @""), nil];
-            [alert show];
+            if (pasteURL && ![[pasteURL scheme] isEqualToString:@""] && ![[pasteURL absoluteString] isEqualToString:@""]) {
+                self.openURLField.text = [pasteURL absoluteString];
+            }
+            [self.openNetworkStreamButton addSubview:self.openURLView];
         }
-    }
-}
-
-- (void)alertView:(UIAlertView *)alertView clickedButtonAtIndex:(NSInteger)buttonIndex
-{
-    if (buttonIndex == 1) {
+    } else {
         VLCAppDelegate* appDelegate = [UIApplication sharedApplication].delegate;
-        [appDelegate.playlistViewController openMovieFromURL:_pasteURL];
+        [appDelegate.playlistViewController openMovieFromURL:[NSURL URLWithString:self.openURLField.text]];
+        [self _hideAnimated:YES];
     }
-
-    [self _hideAnimated:NO];
 }
 
 - (IBAction)downloadFromHTTPServer:(id)sender
