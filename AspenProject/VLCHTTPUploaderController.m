@@ -39,32 +39,30 @@ static const int httpLogLevel = HTTP_LOG_LEVEL_VERBOSE; // | HTTP_LOG_FLAG_TRACE
         [DDLog addLogger:[DDTTYLogger sharedInstance]];
 
         // Initalize our http server
-        httpServer = [[HTTPServer alloc] init];
+        _httpServer = [[HTTPServer alloc] init];
 
         // Tell the server to broadcast its presence via Bonjour.
         // This allows browsers such as Safari to automatically discover our service.
-        [httpServer setType:@"_http._tcp."];
+        [self.httpServer setType:@"_http._tcp."];
 
         // Serve files from the standard Sites folder
         NSString *docRoot = [[[NSBundle mainBundle] pathForResource:@"index" ofType:@"html"] stringByDeletingLastPathComponent];
 
         DDLogInfo(@"Setting document root: %@", docRoot);
 
-        [httpServer setDocumentRoot:docRoot];
+        [self.httpServer setDocumentRoot:docRoot];
 
-        [httpServer setConnectionClass:[VLCHTTPConnection class]];
+        [self.httpServer setConnectionClass:[VLCHTTPConnection class]];
 
         NSError *error = nil;
-        if(![httpServer start:&error])
+        if(![self.httpServer start:&error])
         {
             DDLogError(@"Error starting HTTP Server: %@", error);
             return false;
         }
         return true;
-    }
-    else
-    {
-        [httpServer stop];
+    } else {
+        [self.httpServer stop];
         return true;
     }
 }

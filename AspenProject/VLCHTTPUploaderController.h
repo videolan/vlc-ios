@@ -11,9 +11,9 @@
 
 @class HTTPServer;
 
-@interface VLCHTTPUploaderController : NSObject {
-    HTTPServer *httpServer;
-}
+@interface VLCHTTPUploaderController : NSObject
+
+@property (nonatomic, readonly) HTTPServer *httpServer;
 
 -(BOOL)changeHTTPServerState:(BOOL)state;
 
