@@ -12,6 +12,7 @@
 #import "VLCPlaylistGridView.h"
 #import "VLCAboutViewController.h"
 #import "VLCPasscodeLockViewController.h"
+#import "VLCAddMediaViewController.h"
 
 @interface VLCPlaylistViewController () {
     NSMutableArray *_foundMedia;
@@ -35,7 +36,7 @@
     self.tableView.separatorColor = [UIColor colorWithWhite:.2 alpha:1.];
     [super viewDidLoad];
 
-    UIBarButtonItem *addButton = [[UIBarButtonItem alloc] initWithTitle:NSLocalizedString(@"BUTTON_ABOUT",@"") style:UIBarButtonItemStyleBordered target:self action:@selector(showAboutView:)];
+    UIBarButtonItem *addButton = [[UIBarButtonItem alloc] initWithTitle:NSLocalizedString(@"BUTTON_ADD_MEDIA",@"") style:UIBarButtonItemStyleBordered target:self action:@selector(leftButtonAction:)];
     self.navigationItem.leftBarButtonItem = addButton;
 
     self.navigationItem.rightBarButtonItem = self.editButtonItem;
@@ -45,9 +46,6 @@
         _gridView.alwaysBounceVertical = YES;
         _gridView.indicatorStyle = UIScrollViewIndicatorStyleWhite;
     }
-
-    self.tabBar.selectedItem = self.localFilesBarItem;
-    self.networkStreamsBarItem.title = NSLocalizedString(@"TABBAR_NETWORK",@"");
 
     self.emptyLibraryLabel.text = NSLocalizedString(@"EMPTY_LIBRARY", @"");
     self.emptyLibraryLongDescriptionLabel.lineBreakMode = UILineBreakModeWordWrap;
@@ -248,11 +246,26 @@
     }
 }
 
-- (void)showAboutView:(id)sender
+- (IBAction)leftButtonAction:(id)sender
 {
-    if (!self.aboutViewController)
-        self.aboutViewController = [[VLCAboutViewController alloc] initWithNibName:@"VLCAboutViewController" bundle:nil];
-    [self.navigationController pushViewController:self.aboutViewController animated:YES];
+    if (self.addMediaViewController == nil)
+        self.addMediaViewController = [[VLCAddMediaViewController alloc] initWithNibName:@"VLCAddMediaViewController" bundle:nil];
+
+    if (UI_USER_INTERFACE_IDIOM() == UIUserInterfaceIdiomPad) {
+		self.addMediaViewController.contentSizeForViewInPopover = self.addMediaViewController.view.frame.size;
+        if (self.addMediaPopoverController == nil) {
+            self.addMediaPopoverController = [[UIPopoverController alloc] initWithContentViewController:self.addMediaViewController];
+            self.addMediaPopoverController.delegate = self;
+        }
+
+        if (self.addMediaPopoverController.popoverVisible)
+            [self.addMediaPopoverController dismissPopoverAnimated:YES];
+        else
+            [self.addMediaPopoverController presentPopoverFromBarButtonItem:self.navigationItem.leftBarButtonItem
+                                                   permittedArrowDirections:UIPopoverArrowDirectionUp
+                                                                   animated:YES];
+    } else
+        [self.navigationController presentViewController:self.addMediaViewController animated:YES completion:NULL];
 }
 
 /* deprecated in iOS 6 */
@@ -280,33 +293,7 @@
         return NO;
 }
 
-#pragma mark - tab bar
-- (void)tabBar:(UITabBar *)tabBar didSelectItem:(UITabBarItem *)item
-{
-    if (item == self.networkStreamsBarItem) {
-        if ([[UIPasteboard generalPasteboard] containsPasteboardTypes:[NSArray arrayWithObjects:@"public.url", @"public.text", nil]]) {
-            _pasteURL = [[UIPasteboard generalPasteboard] valueForPasteboardType:@"public.url"];
-            if (!_pasteURL || [[_pasteURL absoluteString] isEqualToString:@""]) {
-                NSString * pasteString = [[UIPasteboard generalPasteboard] valueForPasteboardType:@"public.text"];
-                _pasteURL = [NSURL URLWithString:pasteString];
-            }
-
-            if (_pasteURL && ![[_pasteURL scheme] isEqualToString:@""] && ![[_pasteURL absoluteString] isEqualToString:@""]) {
-                NSString * messageString = [NSString stringWithFormat:@"Do you want to open %@?", [_pasteURL absoluteString]];
-                UIAlertView * alert = [[UIAlertView alloc] initWithTitle:NSLocalizedString(@"OPEN_URL", @"") message:messageString delegate:self cancelButtonTitle:NSLocalizedString(@"BUTTON_CANCEL", @"") otherButtonTitles:NSLocalizedString(@"BUTTON_OPEN", @""), nil];
-                [alert show];
-            }
-        }
-    }
-
-    self.tabBar.selectedItem = self.localFilesBarItem;
-}
-
-- (void)alertView:(UIAlertView *)alertView clickedButtonAtIndex:(NSInteger)buttonIndex
-{
-    if (buttonIndex == 1)
-        [self openMovieFromURL:_pasteURL];
-}
+#pragma mark - coin coin
 
 - (void)openMovieFromURL:(NSURL *)url
 {
@@ -316,5 +303,6 @@
     self.movieViewController.url = url;
     [self.navigationController pushViewController:self.movieViewController animated:YES];
 }
+
 
 @end
