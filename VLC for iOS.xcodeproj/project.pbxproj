@@ -44,6 +44,8 @@
 		7D6B07F71716D45C003280C4 /* VLCPlaylistGridView.m in Sources */ = {isa = PBXBuildFile; fileRef = 7D6B07F61716D45B003280C4 /* VLCPlaylistGridView.m */; };
 		7D6BA10E1747F26300C0E203 /* VLCPasscodeLockViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 7D6BA10C1747F26300C0E203 /* VLCPasscodeLockViewController.m */; };
 		7D6BA10F1747F26300C0E203 /* VLCPasscodeLockViewController~iphone.xib in Resources */ = {isa = PBXBuildFile; fileRef = 7D6BA10D1747F26300C0E203 /* VLCPasscodeLockViewController~iphone.xib */; };
+		7D6BA1121748EA8300C0E203 /* playback_background.png in Resources */ = {isa = PBXBuildFile; fileRef = 7D6BA1101748EA8300C0E203 /* playback_background.png */; };
+		7D6BA1131748EA8300C0E203 /* playback_background@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 7D6BA1111748EA8300C0E203 /* playback_background@2x.png */; };
 		7D94FCDF16DE7D1000F2623B /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 7D94FCDE16DE7D1000F2623B /* UIKit.framework */; };
 		7D94FCE116DE7D1000F2623B /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 7D94FCE016DE7D1000F2623B /* Foundation.framework */; };
 		7D94FCE316DE7D1000F2623B /* CoreGraphics.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 7D94FCE216DE7D1000F2623B /* CoreGraphics.framework */; };
@@ -152,6 +154,8 @@
 		7D6BA10B1747F26300C0E203 /* VLCPasscodeLockViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = VLCPasscodeLockViewController.h; sourceTree = "<group>"; };
 		7D6BA10C1747F26300C0E203 /* VLCPasscodeLockViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = VLCPasscodeLockViewController.m; sourceTree = "<group>"; };
 		7D6BA10D1747F26300C0E203 /* VLCPasscodeLockViewController~iphone.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; name = "VLCPasscodeLockViewController~iphone.xib"; path = "../Resources/VLCPasscodeLockViewController~iphone.xib"; sourceTree = "<group>"; };
+		7D6BA1101748EA8300C0E203 /* playback_background.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = playback_background.png; sourceTree = "<group>"; };
+		7D6BA1111748EA8300C0E203 /* playback_background@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "playback_background@2x.png"; sourceTree = "<group>"; };
 		7D94FCDB16DE7D1000F2623B /* VLC for iOS.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "VLC for iOS.app"; sourceTree = BUILT_PRODUCTS_DIR; };
 		7D94FCDE16DE7D1000F2623B /* UIKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = UIKit.framework; path = System/Library/Frameworks/UIKit.framework; sourceTree = SDKROOT; };
 		7D94FCE016DE7D1000F2623B /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = System/Library/Frameworks/Foundation.framework; sourceTree = SDKROOT; };
@@ -281,6 +285,8 @@
 		7D10BC681743F9C300DA7059 /* Playback Controls */ = {
 			isa = PBXGroup;
 			children = (
+				7D6BA1101748EA8300C0E203 /* playback_background.png */,
+				7D6BA1111748EA8300C0E203 /* playback_background@2x.png */,
 				7D10BC6A1743FA0F00DA7059 /* audio.png */,
 				7D10BC6B1743FA0F00DA7059 /* audio@2x.png */,
 				7D10BC6C1743FA0F00DA7059 /* backward.png */,
@@ -615,6 +621,8 @@
 				A7035BBE174519600057DFA7 /* iTunesArtwork in Resources */,
 				A7035BC217451D4A0057DFA7 /* Aspen.png in Resources */,
 				7D6BA10F1747F26300C0E203 /* VLCPasscodeLockViewController~iphone.xib in Resources */,
+				7D6BA1121748EA8300C0E203 /* playback_background.png in Resources */,
+				7D6BA1131748EA8300C0E203 /* playback_background@2x.png in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

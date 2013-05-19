@@ -2,9 +2,9 @@
 <archive type="com.apple.InterfaceBuilder3.CocoaTouch.iPad.XIB" version="8.00">
 	<data>
 		<int key="IBDocument.SystemTarget">1296</int>
-		<string key="IBDocument.SystemVersion">12D78</string>
+		<string key="IBDocument.SystemVersion">12E52</string>
 		<string key="IBDocument.InterfaceBuilderVersion">3084</string>
-		<string key="IBDocument.AppKitVersion">1187.37</string>
+		<string key="IBDocument.AppKitVersion">1187.39</string>
 		<string key="IBDocument.HIToolboxVersion">626.00</string>
 		<object class="NSMutableDictionary" key="IBDocument.PluginVersions">
 			<string key="NS.key.0">com.apple.InterfaceBuilder.IBCocoaTouchPlugin</string>
@@ -44,7 +44,7 @@
 						<reference key="NSNextResponder" ref="647120888"/>
 						<int key="NSvFlags">274</int>
 						<array class="NSMutableArray" key="NSSubviews"/>
-						<string key="NSFrame">{{0, -20}, {768, 1024}}</string>
+						<string key="NSFrame">{{0, -20}, {768, 859}}</string>
 						<reference key="NSSuperview" ref="647120888"/>
 						<reference key="NSNextKeyView" ref="189908447"/>
 						<string key="NSReuseIdentifierKey">_NS:9</string>
@@ -247,6 +247,20 @@
 						<reference key="NSNextResponder" ref="647120888"/>
 						<int key="NSvFlags">269</int>
 						<array class="NSMutableArray" key="NSSubviews">
+							<object class="IBUIImageView" id="968986218">
+								<reference key="NSNextResponder" ref="734589612"/>
+								<int key="NSvFlags">292</int>
+								<string key="NSFrameSize">{320, 83}</string>
+								<reference key="NSSuperview" ref="734589612"/>
+								<reference key="NSNextKeyView" ref="121962198"/>
+								<string key="NSReuseIdentifierKey">_NS:9</string>
+								<bool key="IBUIUserInteractionEnabled">NO</bool>
+								<string key="targetRuntimeIdentifier">IBIPadFramework</string>
+								<object class="NSCustomResource" key="IBUIImage">
+									<string key="NSClassName">NSImage</string>
+									<string key="NSResourceName">playback_background.png</string>
+								</object>
+							</object>
 							<object class="IBUIButton" id="1020021014">
 								<reference key="NSNextResponder" ref="734589612"/>
 								<int key="NSvFlags">292</int>
@@ -365,6 +379,7 @@
 								<int key="NSvFlags">292</int>
 								<string key="NSFrame">{{252, 20}, {44, 44}}</string>
 								<reference key="NSSuperview" ref="734589612"/>
+								<reference key="NSNextKeyView"/>
 								<string key="NSReuseIdentifierKey">_NS:9</string>
 								<reference key="IBUIBackgroundColor" ref="8046438"/>
 								<bool key="IBUIOpaque">NO</bool>
@@ -387,12 +402,8 @@
 						</array>
 						<string key="NSFrame">{{224, 852}, {320, 83}}</string>
 						<reference key="NSSuperview" ref="647120888"/>
-						<reference key="NSNextKeyView" ref="121962198"/>
+						<reference key="NSNextKeyView" ref="968986218"/>
 						<string key="NSReuseIdentifierKey">_NS:10</string>
-						<object class="NSColor" key="IBUIBackgroundColor">
-							<int key="NSColorSpace">3</int>
-							<bytes key="NSWhite">MC42NjY2NjY2NjY3IDAuNwA</bytes>
-						</object>
 						<string key="targetRuntimeIdentifier">IBIPadFramework</string>
 					</object>
 					<object class="IBUIButton" id="390045305">
@@ -1326,44 +1337,6 @@
 						<reference key="parent" ref="189908447"/>
 					</object>
 					<object class="IBObjectRecord">
-						<int key="objectID">104</int>
-						<reference key="object" ref="734589612"/>
-						<array class="NSMutableArray" key="children">
-							<reference ref="606697150"/>
-							<reference ref="1020021014"/>
-							<reference ref="968847030"/>
-							<reference ref="627610352"/>
-							<reference ref="121962198"/>
-						</array>
-						<reference key="parent" ref="647120888"/>
-						<string key="objectName">Controls panel</string>
-					</object>
-					<object class="IBObjectRecord">
-						<int key="objectID">109</int>
-						<reference key="object" ref="968847030"/>
-						<reference key="parent" ref="734589612"/>
-					</object>
-					<object class="IBObjectRecord">
-						<int key="objectID">108</int>
-						<reference key="object" ref="121962198"/>
-						<reference key="parent" ref="734589612"/>
-					</object>
-					<object class="IBObjectRecord">
-						<int key="objectID">107</int>
-						<reference key="object" ref="606697150"/>
-						<reference key="parent" ref="734589612"/>
-					</object>
-					<object class="IBObjectRecord">
-						<int key="objectID">106</int>
-						<reference key="object" ref="627610352"/>
-						<reference key="parent" ref="734589612"/>
-					</object>
-					<object class="IBObjectRecord">
-						<int key="objectID">105</int>
-						<reference key="object" ref="1020021014"/>
-						<reference key="parent" ref="734589612"/>
-					</object>
-					<object class="IBObjectRecord">
 						<int key="objectID">121</int>
 						<reference key="object" ref="191158010"/>
 						<array class="NSMutableArray" key="children"/>
@@ -1550,6 +1523,50 @@
 						<reference key="parent" ref="25751072"/>
 						<string key="objectName">Position Slider</string>
 					</object>
+					<object class="IBObjectRecord">
+						<int key="objectID">104</int>
+						<reference key="object" ref="734589612"/>
+						<array class="NSMutableArray" key="children">
+							<reference ref="606697150"/>
+							<reference ref="1020021014"/>
+							<reference ref="968847030"/>
+							<reference ref="627610352"/>
+							<reference ref="121962198"/>
+							<reference ref="968986218"/>
+						</array>
+						<reference key="parent" ref="647120888"/>
+						<string key="objectName">Controls panel</string>
+					</object>
+					<object class="IBObjectRecord">
+						<int key="objectID">109</int>
+						<reference key="object" ref="968847030"/>
+						<reference key="parent" ref="734589612"/>
+					</object>
+					<object class="IBObjectRecord">
+						<int key="objectID">107</int>
+						<reference key="object" ref="606697150"/>
+						<reference key="parent" ref="734589612"/>
+					</object>
+					<object class="IBObjectRecord">
+						<int key="objectID">106</int>
+						<reference key="object" ref="627610352"/>
+						<reference key="parent" ref="734589612"/>
+					</object>
+					<object class="IBObjectRecord">
+						<int key="objectID">105</int>
+						<reference key="object" ref="1020021014"/>
+						<reference key="parent" ref="734589612"/>
+					</object>
+					<object class="IBObjectRecord">
+						<int key="objectID">108</int>
+						<reference key="object" ref="121962198"/>
+						<reference key="parent" ref="734589612"/>
+					</object>
+					<object class="IBObjectRecord">
+						<int key="objectID">228</int>
+						<reference key="object" ref="968986218"/>
+						<reference key="parent" ref="734589612"/>
+					</object>
 				</array>
 			</object>
 			<dictionary class="NSMutableDictionary" key="flattenedProperties">
@@ -1558,6 +1575,7 @@
 				<string key="-2.CustomClassName">UIResponder</string>
 				<string key="-2.IBPluginDependency">com.apple.InterfaceBuilder.IBCocoaTouchPlugin</string>
 				<string key="102.IBPluginDependency">com.apple.InterfaceBuilder.IBCocoaTouchPlugin</string>
+				<string key="104.CustomClassName">UIImageView</string>
 				<string key="104.IBPluginDependency">com.apple.InterfaceBuilder.IBCocoaTouchPlugin</string>
 				<string key="105.IBPluginDependency">com.apple.InterfaceBuilder.IBCocoaTouchPlugin</string>
 				<string key="106.IBPluginDependency">com.apple.InterfaceBuilder.IBCocoaTouchPlugin</string>
@@ -1596,6 +1614,7 @@
 				<string key="220.IBPluginDependency">com.apple.InterfaceBuilder.IBCocoaTouchPlugin</string>
 				<string key="221.CustomClassName">OBSlider</string>
 				<string key="221.IBPluginDependency">com.apple.InterfaceBuilder.IBCocoaTouchPlugin</string>
+				<string key="228.IBPluginDependency">com.apple.InterfaceBuilder.IBCocoaTouchPlugin</string>
 				<string key="8.IBPluginDependency">com.apple.InterfaceBuilder.IBCocoaTouchPlugin</string>
 				<string key="99.IBPluginDependency">com.apple.InterfaceBuilder.IBCocoaTouchPlugin</string>
 			</dictionary>
@@ -1603,274 +1622,9 @@
 			<nil key="activeLocalization"/>
 			<dictionary class="NSMutableDictionary" key="localizations"/>
 			<nil key="sourceID"/>
-			<int key="maxID">224</int>
+			<int key="maxID">228</int>
 		</object>
-		<object class="IBClassDescriber" key="IBDocument.Classes">
-			<array class="NSMutableArray" key="referencedPartialClassDescriptions">
-				<object class="IBPartialClassDescription">
-					<string key="className">OBSlider</string>
-					<string key="superclassName">UISlider</string>
-					<object class="IBClassDescriptionSource" key="sourceIdentifier">
-						<string key="majorKey">IBProjectSource</string>
-						<string key="minorKey">./Classes/OBSlider.h</string>
-					</object>
-				</object>
-				<object class="IBPartialClassDescription">
-					<string key="className">VLCMovieViewController</string>
-					<string key="superclassName">UIViewController</string>
-					<dictionary class="NSMutableDictionary" key="actions">
-						<string key="backward:">id</string>
-						<string key="closePlayback:">id</string>
-						<string key="forward:">id</string>
-						<string key="playPause">id</string>
-						<string key="playbackSpeedSliderAction:">id</string>
-						<string key="positionSliderAction:">id</string>
-						<string key="switchAudioTrack:">id</string>
-						<string key="switchSubtitleTrack:">id</string>
-						<string key="videoDimensionAction:">id</string>
-						<string key="videoFilterSliderAction:">id</string>
-						<string key="videoFilterToggle:">id</string>
-					</dictionary>
-					<dictionary class="NSMutableDictionary" key="actionInfosByName">
-						<object class="IBActionInfo" key="backward:">
-							<string key="name">backward:</string>
-							<string key="candidateClassName">id</string>
-						</object>
-						<object class="IBActionInfo" key="closePlayback:">
-							<string key="name">closePlayback:</string>
-							<string key="candidateClassName">id</string>
-						</object>
-						<object class="IBActionInfo" key="forward:">
-							<string key="name">forward:</string>
-							<string key="candidateClassName">id</string>
-						</object>
-						<object class="IBActionInfo" key="playPause">
-							<string key="name">playPause</string>
-							<string key="candidateClassName">id</string>
-						</object>
-						<object class="IBActionInfo" key="playbackSpeedSliderAction:">
-							<string key="name">playbackSpeedSliderAction:</string>
-							<string key="candidateClassName">id</string>
-						</object>
-						<object class="IBActionInfo" key="positionSliderAction:">
-							<string key="name">positionSliderAction:</string>
-							<string key="candidateClassName">id</string>
-						</object>
-						<object class="IBActionInfo" key="switchAudioTrack:">
-							<string key="name">switchAudioTrack:</string>
-							<string key="candidateClassName">id</string>
-						</object>
-						<object class="IBActionInfo" key="switchSubtitleTrack:">
-							<string key="name">switchSubtitleTrack:</string>
-							<string key="candidateClassName">id</string>
-						</object>
-						<object class="IBActionInfo" key="videoDimensionAction:">
-							<string key="name">videoDimensionAction:</string>
-							<string key="candidateClassName">id</string>
-						</object>
-						<object class="IBActionInfo" key="videoFilterSliderAction:">
-							<string key="name">videoFilterSliderAction:</string>
-							<string key="candidateClassName">id</string>
-						</object>
-						<object class="IBActionInfo" key="videoFilterToggle:">
-							<string key="name">videoFilterToggle:</string>
-							<string key="candidateClassName">id</string>
-						</object>
-					</dictionary>
-					<dictionary class="NSMutableDictionary" key="outlets">
-						<string key="aspectRatioButton">UIButton</string>
-						<string key="audioSwitcherButton">UIButton</string>
-						<string key="backButton">UIBarButtonItem</string>
-						<string key="brightnessLabel">UILabel</string>
-						<string key="brightnessSlider">UISlider</string>
-						<string key="bwdButton">UIButton</string>
-						<string key="contrastLabel">UILabel</string>
-						<string key="contrastSlider">UISlider</string>
-						<string key="controllerPanel">UIView</string>
-						<string key="cropButton">UIButton</string>
-						<string key="fwdButton">UIButton</string>
-						<string key="gammaLabel">UILabel</string>
-						<string key="gammaSlider">UISlider</string>
-						<string key="hueLabel">UILabel</string>
-						<string key="hueSlider">UISlider</string>
-						<string key="movieView">UIView</string>
-						<string key="playPauseButton">UIButton</string>
-						<string key="playbackSpeedButton">UIButton</string>
-						<string key="playbackSpeedIndicator">UILabel</string>
-						<string key="playbackSpeedLabel">UILabel</string>
-						<string key="playbackSpeedSlider">UISlider</string>
-						<string key="playbackSpeedView">UIView</string>
-						<string key="playingExternallyDescription">UILabel</string>
-						<string key="playingExternallyTitle">UILabel</string>
-						<string key="playingExternallyView">UIView</string>
-						<string key="positionSlider">UISlider</string>
-						<string key="resetVideoFilterButton">UIButton</string>
-						<string key="saturationLabel">UILabel</string>
-						<string key="saturationSlider">UISlider</string>
-						<string key="statusLabel">VLCStatusLabel</string>
-						<string key="subtitleSwitcherButton">UIButton</string>
-						<string key="timeDisplay">UILabel</string>
-						<string key="toolbar">UIToolbar</string>
-						<string key="videoFilterButton">UIButton</string>
-						<string key="videoFilterView">UIView</string>
-					</dictionary>
-					<dictionary class="NSMutableDictionary" key="toOneOutletInfosByName">
-						<object class="IBToOneOutletInfo" key="aspectRatioButton">
-							<string key="name">aspectRatioButton</string>
-							<string key="candidateClassName">UIButton</string>
-						</object>
-						<object class="IBToOneOutletInfo" key="audioSwitcherButton">
-							<string key="name">audioSwitcherButton</string>
-							<string key="candidateClassName">UIButton</string>
-						</object>
-						<object class="IBToOneOutletInfo" key="backButton">
-							<string key="name">backButton</string>
-							<string key="candidateClassName">UIBarButtonItem</string>
-						</object>
-						<object class="IBToOneOutletInfo" key="brightnessLabel">
-							<string key="name">brightnessLabel</string>
-							<string key="candidateClassName">UILabel</string>
-						</object>
-						<object class="IBToOneOutletInfo" key="brightnessSlider">
-							<string key="name">brightnessSlider</string>
-							<string key="candidateClassName">UISlider</string>
-						</object>
-						<object class="IBToOneOutletInfo" key="bwdButton">
-							<string key="name">bwdButton</string>
-							<string key="candidateClassName">UIButton</string>
-						</object>
-						<object class="IBToOneOutletInfo" key="contrastLabel">
-							<string key="name">contrastLabel</string>
-							<string key="candidateClassName">UILabel</string>
-						</object>
-						<object class="IBToOneOutletInfo" key="contrastSlider">
-							<string key="name">contrastSlider</string>
-							<string key="candidateClassName">UISlider</string>
-						</object>
-						<object class="IBToOneOutletInfo" key="controllerPanel">
-							<string key="name">controllerPanel</string>
-							<string key="candidateClassName">UIView</string>
-						</object>
-						<object class="IBToOneOutletInfo" key="cropButton">
-							<string key="name">cropButton</string>
-							<string key="candidateClassName">UIButton</string>
-						</object>
-						<object class="IBToOneOutletInfo" key="fwdButton">
-							<string key="name">fwdButton</string>
-							<string key="candidateClassName">UIButton</string>
-						</object>
-						<object class="IBToOneOutletInfo" key="gammaLabel">
-							<string key="name">gammaLabel</string>
-							<string key="candidateClassName">UILabel</string>
-						</object>
-						<object class="IBToOneOutletInfo" key="gammaSlider">
-							<string key="name">gammaSlider</string>
-							<string key="candidateClassName">UISlider</string>
-						</object>
-						<object class="IBToOneOutletInfo" key="hueLabel">
-							<string key="name">hueLabel</string>
-							<string key="candidateClassName">UILabel</string>
-						</object>
-						<object class="IBToOneOutletInfo" key="hueSlider">
-							<string key="name">hueSlider</string>
-							<string key="candidateClassName">UISlider</string>
-						</object>
-						<object class="IBToOneOutletInfo" key="movieView">
-							<string key="name">movieView</string>
-							<string key="candidateClassName">UIView</string>
-						</object>
-						<object class="IBToOneOutletInfo" key="playPauseButton">
-							<string key="name">playPauseButton</string>
-							<string key="candidateClassName">UIButton</string>
-						</object>
-						<object class="IBToOneOutletInfo" key="playbackSpeedButton">
-							<string key="name">playbackSpeedButton</string>
-							<string key="candidateClassName">UIButton</string>
-						</object>
-						<object class="IBToOneOutletInfo" key="playbackSpeedIndicator">
-							<string key="name">playbackSpeedIndicator</string>
-							<string key="candidateClassName">UILabel</string>
-						</object>
-						<object class="IBToOneOutletInfo" key="playbackSpeedLabel">
-							<string key="name">playbackSpeedLabel</string>
-							<string key="candidateClassName">UILabel</string>
-						</object>
-						<object class="IBToOneOutletInfo" key="playbackSpeedSlider">
-							<string key="name">playbackSpeedSlider</string>
-							<string key="candidateClassName">UISlider</string>
-						</object>
-						<object class="IBToOneOutletInfo" key="playbackSpeedView">
-							<string key="name">playbackSpeedView</string>
-							<string key="candidateClassName">UIView</string>
-						</object>
-						<object class="IBToOneOutletInfo" key="playingExternallyDescription">
-							<string key="name">playingExternallyDescription</string>
-							<string key="candidateClassName">UILabel</string>
-						</object>
-						<object class="IBToOneOutletInfo" key="playingExternallyTitle">
-							<string key="name">playingExternallyTitle</string>
-							<string key="candidateClassName">UILabel</string>
-						</object>
-						<object class="IBToOneOutletInfo" key="playingExternallyView">
-							<string key="name">playingExternallyView</string>
-							<string key="candidateClassName">UIView</string>
-						</object>
-						<object class="IBToOneOutletInfo" key="positionSlider">
-							<string key="name">positionSlider</string>
-							<string key="candidateClassName">UISlider</string>
-						</object>
-						<object class="IBToOneOutletInfo" key="resetVideoFilterButton">
-							<string key="name">resetVideoFilterButton</string>
-							<string key="candidateClassName">UIButton</string>
-						</object>
-						<object class="IBToOneOutletInfo" key="saturationLabel">
-							<string key="name">saturationLabel</string>
-							<string key="candidateClassName">UILabel</string>
-						</object>
-						<object class="IBToOneOutletInfo" key="saturationSlider">
-							<string key="name">saturationSlider</string>
-							<string key="candidateClassName">UISlider</string>
-						</object>
-						<object class="IBToOneOutletInfo" key="statusLabel">
-							<string key="name">statusLabel</string>
-							<string key="candidateClassName">VLCStatusLabel</string>
-						</object>
-						<object class="IBToOneOutletInfo" key="subtitleSwitcherButton">
-							<string key="name">subtitleSwitcherButton</string>
-							<string key="candidateClassName">UIButton</string>
-						</object>
-						<object class="IBToOneOutletInfo" key="timeDisplay">
-							<string key="name">timeDisplay</string>
-							<string key="candidateClassName">UILabel</string>
-						</object>
-						<object class="IBToOneOutletInfo" key="toolbar">
-							<string key="name">toolbar</string>
-							<string key="candidateClassName">UIToolbar</string>
-						</object>
-						<object class="IBToOneOutletInfo" key="videoFilterButton">
-							<string key="name">videoFilterButton</string>
-							<string key="candidateClassName">UIButton</string>
-						</object>
-						<object class="IBToOneOutletInfo" key="videoFilterView">
-							<string key="name">videoFilterView</string>
-							<string key="candidateClassName">UIView</string>
-						</object>
-					</dictionary>
-					<object class="IBClassDescriptionSource" key="sourceIdentifier">
-						<string key="majorKey">IBProjectSource</string>
-						<string key="minorKey">./Classes/VLCMovieViewController.h</string>
-					</object>
-				</object>
-				<object class="IBPartialClassDescription">
-					<string key="className">VLCStatusLabel</string>
-					<string key="superclassName">UILabel</string>
-					<object class="IBClassDescriptionSource" key="sourceIdentifier">
-						<string key="majorKey">IBProjectSource</string>
-						<string key="minorKey">./Classes/VLCStatusLabel.h</string>
-					</object>
-				</object>
-			</array>
-		</object>
+		<object class="IBClassDescriber" key="IBDocument.Classes"/>
 		<int key="IBDocument.localizationMode">0</int>
 		<string key="IBDocument.TargetRuntimeIdentifier">IBIPadFramework</string>
 		<object class="NSMutableDictionary" key="IBDocument.PluginDeclaredDependencies">
@@ -1888,6 +1642,7 @@
 			<string key="effects.png">{33, 24}</string>
 			<string key="forward.png">{100, 66}</string>
 			<string key="play.png">{66, 66}</string>
+			<string key="playback_background.png">{320, 83}</string>
 			<string key="reset.png">{19, 19}</string>
 			<string key="speed.png">{24, 24}</string>
 			<string key="subtitles.png">{66, 66}</string>
