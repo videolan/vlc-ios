@@ -162,8 +162,8 @@ exit 1
 fi
 cd ..
 fi
-if ! [ -e CocoaHTTPServer-Iphone ]; then
-git clone git://github.com/vodkhang/CocoaHTTPServer-Iphone.git
+if ! [ -e CocoaHTTPServer ]; then
+git clone git://github.com/robbiehanson/CocoaHTTPServer.git
 #cd AQGridView
 #git am ../../patches/aqgridview/*.patch
 #if [ $? -ne 0 ]; then
