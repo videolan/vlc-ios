@@ -11,6 +11,9 @@
 @interface VLCPasscodeLockViewController : UIViewController
 {
     NSString *_passcode;
+    NSString *_tmpPasscode;
+
+    NSUInteger _resetStage;
 }
 
 @property (nonatomic, strong) IBOutlet UILabel *enterPasscodeLabel;

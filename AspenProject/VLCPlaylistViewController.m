@@ -52,6 +52,8 @@
     self.emptyLibraryLongDescriptionLabel.numberOfLines = 0;
     self.emptyLibraryLongDescriptionLabel.text = NSLocalizedString(@"EMPTY_LIBRARY_LONG", @"");
     [self.emptyLibraryLongDescriptionLabel sizeToFit];
+
+    self.passcodeLockViewController = [[VLCPasscodeLockViewController alloc] initWithNibName:@"VLCPasscodeLockViewController" bundle:nil];
 }
 
 - (void)viewWillAppear:(BOOL)animated
@@ -116,9 +118,6 @@
         self.passcodeValidated = YES;
         return;
     }
-
-    if (!self.passcodeLockViewController)
-        self.passcodeLockViewController = [[VLCPasscodeLockViewController alloc] initWithNibName:@"VLCPasscodeLockViewController" bundle:nil];
 
     if (!self.passcodeValidated) {
         if ([self.nextPasscodeCheckDate earlierDate:[NSDate date]] == self.nextPasscodeCheckDate)

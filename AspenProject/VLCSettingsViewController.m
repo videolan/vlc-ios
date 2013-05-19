@@ -39,6 +39,7 @@
 {
     if (self.passcodeLockSwitch.on) {
         VLCAppDelegate* appDelegate = [UIApplication sharedApplication].delegate;
+        [self.view addSubview:appDelegate.playlistViewController.passcodeLockViewController.view];
         [appDelegate.playlistViewController.passcodeLockViewController resetPasscode];
     } else
         [[NSUserDefaults standardUserDefaults] setObject:@0 forKey:@"PasscodeProtection"];
