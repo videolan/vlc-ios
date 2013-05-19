@@ -107,6 +107,9 @@ info "Preparing build dirs"
 
 mkdir -p ImportedSources
 
+rm -rf External
+mkdir -p External
+
 spushd ImportedSources
 
 if ! [ -e vlc ]; then
@@ -189,8 +192,6 @@ spopd
 
 spopd #ImportedSources
 
-rm -rf External
-mkdir External
 ln -sf ${framework_build} External/MobileVLCKit
 ln -sf ${mlkit_build} External/MediaLibraryKit
 
