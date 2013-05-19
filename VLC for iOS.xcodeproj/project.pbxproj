@@ -19,7 +19,6 @@
 		2915540817490A1E00B86CAD /* MultipartFormDataParser.m in Sources */ = {isa = PBXBuildFile; fileRef = 291553FC17490A1E00B86CAD /* MultipartFormDataParser.m */; };
 		2915540917490A1E00B86CAD /* MultipartMessageHeader.m in Sources */ = {isa = PBXBuildFile; fileRef = 291553FE17490A1E00B86CAD /* MultipartMessageHeader.m */; };
 		2915540A17490A1E00B86CAD /* MultipartMessageHeaderField.m in Sources */ = {isa = PBXBuildFile; fileRef = 2915540017490A1E00B86CAD /* MultipartMessageHeaderField.m */; };
-		2915542117490A9C00B86CAD /* About.txt in Resources */ = {isa = PBXBuildFile; fileRef = 2915540C17490A9C00B86CAD /* About.txt */; };
 		2915542217490A9C00B86CAD /* GCDAsyncSocket.m in Sources */ = {isa = PBXBuildFile; fileRef = 2915540E17490A9C00B86CAD /* GCDAsyncSocket.m */; };
 		2915542317490A9C00B86CAD /* About.txt in Resources */ = {isa = PBXBuildFile; fileRef = 2915541017490A9C00B86CAD /* About.txt */; };
 		2915542417490A9C00B86CAD /* DDAbstractDatabaseLogger.m in Sources */ = {isa = PBXBuildFile; fileRef = 2915541217490A9C00B86CAD /* DDAbstractDatabaseLogger.m */; };
@@ -163,7 +162,6 @@
 		291553FE17490A1E00B86CAD /* MultipartMessageHeader.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MultipartMessageHeader.m; sourceTree = "<group>"; };
 		291553FF17490A1E00B86CAD /* MultipartMessageHeaderField.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MultipartMessageHeaderField.h; sourceTree = "<group>"; };
 		2915540017490A1E00B86CAD /* MultipartMessageHeaderField.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MultipartMessageHeaderField.m; sourceTree = "<group>"; };
-		2915540C17490A9C00B86CAD /* About.txt */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = About.txt; sourceTree = "<group>"; };
 		2915540D17490A9C00B86CAD /* GCDAsyncSocket.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GCDAsyncSocket.h; sourceTree = "<group>"; };
 		2915540E17490A9C00B86CAD /* GCDAsyncSocket.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GCDAsyncSocket.m; sourceTree = "<group>"; };
 		2915541017490A9C00B86CAD /* About.txt */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = About.txt; sourceTree = "<group>"; };
@@ -424,7 +422,6 @@
 		2915540B17490A9C00B86CAD /* CocoaAsyncSocket */ = {
 			isa = PBXGroup;
 			children = (
-				2915540C17490A9C00B86CAD /* About.txt */,
 				2915540D17490A9C00B86CAD /* GCDAsyncSocket.h */,
 				2915540E17490A9C00B86CAD /* GCDAsyncSocket.m */,
 			);
@@ -868,7 +865,6 @@
 				7D6BA10F1747F26300C0E203 /* VLCPasscodeLockViewController~iphone.xib in Resources */,
 				7D6BA1121748EA8300C0E203 /* playback_background.png in Resources */,
 				7D6BA1131748EA8300C0E203 /* playback_background@2x.png in Resources */,
-				2915542117490A9C00B86CAD /* About.txt in Resources */,
 				2915542317490A9C00B86CAD /* About.txt in Resources */,
 				2915542B17490A9C00B86CAD /* README.txt in Resources */,
 				7D6BA1181748EFE100C0E203 /* VLCAddMediaViewController~ipad.xib in Resources */,

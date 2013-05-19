@@ -13,6 +13,10 @@
 #import "VLCMovieViewController.h"
 #import "VLCHTTPUploaderController.h"
 #import "VLCSettingsViewController.h"
+#import "HTTPServer.h"
+
+#import <ifaddrs.h>
+#import <arpa/inet.h>
 
 @interface VLCAddMediaViewController () {
     VLCHTTPUploaderController *_uploadController;
@@ -114,14 +118,37 @@
     [appDelegate.playlistViewController.navigationController presentModalViewController:self.settingsViewController animated:YES];
 }
 
-- (IBAction)showInformationOnHTTPServer:(id)sender
+- (NSString *)_currentIPAddress
 {
+    NSString *address = @"";
+    struct ifaddrs *interfaces = NULL;
+    struct ifaddrs *temp_addr = NULL;
+    int success = getifaddrs(&interfaces);
+    if (success == 0) {
+        temp_addr = interfaces;
+        while(temp_addr != NULL) {
+            if(temp_addr->ifa_addr->sa_family == AF_INET) {
+                if([[NSString stringWithUTF8String:temp_addr->ifa_name] isEqualToString:@"en0"])
+                    address = [NSString stringWithUTF8String:inet_ntoa(((struct sockaddr_in *)temp_addr->ifa_addr)->sin_addr)];
+            }
+            temp_addr = temp_addr->ifa_next;
+        }
+    }
+    // Free memory
+    freeifaddrs(interfaces);
+    return address;
 }
 
 - (IBAction)toggleHTTPServer:(UISwitch *)sender
 {
     _uploadController = [[VLCHTTPUploaderController alloc] init];
     [_uploadController changeHTTPServerState: sender.on];
+
+    HTTPServer *server = _uploadController.httpServer;
+    if (server.isRunning)
+        self.httpUploadServerLocationLabel.text = [NSString stringWithFormat:@"http://%@:%i", [self _currentIPAddress], server.listeningPort];
+    else
+        self.httpUploadServerLocationLabel.text = NSLocalizedString(@"HTTP_UPLOAD_SERVER_OFF", @"");
 }
 
 @end
