@@ -39,6 +39,11 @@
 {
     if (self.passcodeLockSwitch.on) {
         VLCAppDelegate* appDelegate = [UIApplication sharedApplication].delegate;
+        if (UI_USER_INTERFACE_IDIOM() == UIUserInterfaceIdiomPad) {
+            CGRect frame = self.view.frame;
+            frame.size.height -= 44.;
+            appDelegate.playlistViewController.passcodeLockViewController.view.frame = frame;
+        }
         [self.view addSubview:appDelegate.playlistViewController.passcodeLockViewController.view];
         [appDelegate.playlistViewController.passcodeLockViewController resetPasscode];
     } else
