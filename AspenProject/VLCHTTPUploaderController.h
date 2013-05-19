@@ -24,7 +24,7 @@
 @interface VLCHTTPConnection : HTTPConnection  {
     MultipartFormDataParser*        parser;
 	NSFileHandle*					storeFile;
-	
+
 	NSMutableArray*					uploadedFiles;
 }
 
