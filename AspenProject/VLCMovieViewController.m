@@ -389,7 +389,7 @@
         [_audiotrackActionSheet addButtonWithTitle:audioTracks[i]];
     [_audiotrackActionSheet addButtonWithTitle:NSLocalizedString(@"BUTTON_CANCEL", @"cancel button")];
     [_audiotrackActionSheet setCancelButtonIndex:[_audiotrackActionSheet numberOfButtons] - 1];
-    [_audiotrackActionSheet showFromRect:[self.audioSwitcherButton frame] inView:self.audioSwitcherButton animated:YES];
+    [_audiotrackActionSheet showInView:self.audioSwitcherButton];
 }
 
 - (IBAction)switchSubtitleTrack:(id)sender
@@ -403,7 +403,7 @@
         [_subtitleActionSheet addButtonWithTitle:spuTracks[i]];
     [_subtitleActionSheet addButtonWithTitle:NSLocalizedString(@"BUTTON_CANCEL", @"cancel button")];
     [_subtitleActionSheet setCancelButtonIndex:[_subtitleActionSheet numberOfButtons] - 1];
-    [_subtitleActionSheet showFromRect:[self.subtitleSwitcherButton frame] inView:self.subtitleSwitcherButton animated:YES];
+    [_subtitleActionSheet showInView: self.subtitleSwitcherButton];
 }
 
 - (void)actionSheet:(UIActionSheet *)actionSheet clickedButtonAtIndex:(NSInteger)buttonIndex {
