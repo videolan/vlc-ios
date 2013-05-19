@@ -159,6 +159,18 @@ exit 1
 fi
 cd ..
 fi
+if ! [ -e CocoaHTTPServer-Iphone ]; then
+git clone git://github.com/vodkhang/CocoaHTTPServer-Iphone.git
+#cd AQGridView
+#git am ../../patches/aqgridview/*.patch
+#if [ $? -ne 0 ]; then
+#git am --abort
+#info "Applying the patches failed, aborting git-am"
+#exit 1
+#fi
+cd ..
+fi
+
 
 info "Setup 'External' folders"
 
