@@ -173,6 +173,14 @@ git clone git://github.com/robbiehanson/CocoaHTTPServer.git
 #fi
 cd ..
 fi
+if ! [ -e Dropbox ]; then
+DROPBOXSDKVERSION=1.3.4
+curl -O https://www.dropbox.com/static/developers/dropbox-ios-sdk-${DROPBOXSDKVERSION}.zip
+unzip -q dropbox-ios-sdk-${DROPBOXSDKVERSION}.zip
+mv dropbox-ios-sdk-${DROPBOXSDKVERSION} Dropbox
+rm dropbox-ios-sdk-${DROPBOXSDKVERSION}.zip
+rm -rf __MACOSX
+fi
 
 
 info "Setup 'External' folders"
