@@ -55,7 +55,7 @@
     [self _hideAnimated:YES];
 }
 
-- (void)openAboutPanel:(id)sender
+- (IBAction)openAboutPanel:(id)sender
 {
     VLCAppDelegate* appDelegate = [UIApplication sharedApplication].delegate;
 
@@ -66,7 +66,7 @@
     [self _hideAnimated:NO];
 }
 
-- (void)openNetworkStream:(id)sender
+- (IBAction)openNetworkStream:(id)sender
 {
     if ([[UIPasteboard generalPasteboard] containsPasteboardTypes:[NSArray arrayWithObjects:@"public.url", @"public.text", nil]]) {
         _pasteURL = [[UIPasteboard generalPasteboard] valueForPasteboardType:@"public.url"];
@@ -93,9 +93,21 @@
     [self _hideAnimated:NO];
 }
 
-- (void)downloadFromHTTPServer:(id)sender
+- (IBAction)downloadFromHTTPServer:(id)sender
 {
     //TODO
+}
+
+- (IBAction)showSettings:(id)sender
+{
+}
+
+- (IBAction)showInformationOnHTTPServer:(id)sender
+{
+}
+
+- (IBAction)toggleHTTPServer:(id)sender
+{
 }
 
 @end

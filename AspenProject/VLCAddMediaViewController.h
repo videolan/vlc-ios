@@ -17,9 +17,15 @@
 @property (strong, nonatomic) IBOutlet UIButton *aboutButton;
 @property (strong, nonatomic) IBOutlet UIButton *openNetworkStreamButton;
 @property (strong, nonatomic) IBOutlet UIButton *downloadFromHTTPServerButton;
+@property (strong, nonatomic) IBOutlet UIButton *settingsButton;
+@property (strong, nonatomic) IBOutlet UIButton *showInformationOnHTTPUploadButton;
+@property (strong, nonatomic) IBOutlet UISwitch *httpUploadServerSwitch;
 
 - (IBAction)openAboutPanel:(id)sender;
 - (IBAction)openNetworkStream:(id)sender;
 - (IBAction)downloadFromHTTPServer:(id)sender;
+- (IBAction)showSettings:(id)sender;
+- (IBAction)showInformationOnHTTPServer:(id)sender;
+- (IBAction)toggleHTTPServer:(id)sender;
 
 @end
