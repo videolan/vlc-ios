@@ -11,8 +11,11 @@
 #import "VLCPlaylistViewController.h"
 #import "VLCAboutViewController.h"
 #import "VLCMovieViewController.h"
+#import "VLCHTTPUploaderController.h"
 
-@interface VLCAddMediaViewController ()
+@interface VLCAddMediaViewController () {
+    VLCHTTPUploaderController *_uploadController;
+}
 
 @end
 
@@ -106,8 +109,10 @@
 {
 }
 
-- (IBAction)toggleHTTPServer:(id)sender
+- (IBAction)toggleHTTPServer:(UISwitch *)sender
 {
+    _uploadController = [[VLCHTTPUploaderController alloc] init];
+    [_uploadController changeHTTPServerState: sender.on];
 }
 
 @end

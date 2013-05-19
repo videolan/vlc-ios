@@ -7,6 +7,8 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		29125E5617492219003F03E5 /* index.html in Resources */ = {isa = PBXBuildFile; fileRef = 29125E5417492219003F03E5 /* index.html */; };
+		29125E5717492219003F03E5 /* upload.html in Resources */ = {isa = PBXBuildFile; fileRef = 29125E5517492219003F03E5 /* upload.html */; };
 		2915540117490A1E00B86CAD /* DDData.m in Sources */ = {isa = PBXBuildFile; fileRef = 291553EB17490A1E00B86CAD /* DDData.m */; };
 		2915540217490A1E00B86CAD /* DDNumber.m in Sources */ = {isa = PBXBuildFile; fileRef = 291553ED17490A1E00B86CAD /* DDNumber.m */; };
 		2915540317490A1E00B86CAD /* DDRange.m in Sources */ = {isa = PBXBuildFile; fileRef = 291553EF17490A1E00B86CAD /* DDRange.m */; };
@@ -36,6 +38,7 @@
 		2915544017490B9C00B86CAD /* HTTPRedirectResponse.m in Sources */ = {isa = PBXBuildFile; fileRef = 2915543817490B9C00B86CAD /* HTTPRedirectResponse.m */; };
 		2915544117490B9C00B86CAD /* WebSocket.m in Sources */ = {isa = PBXBuildFile; fileRef = 2915543A17490B9C00B86CAD /* WebSocket.m */; };
 		2915544317490D4A00B86CAD /* Security.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 2915544217490D4A00B86CAD /* Security.framework */; };
+		29CE2D44174912C600922D8F /* VLCHTTPUploaderController.m in Sources */ = {isa = PBXBuildFile; fileRef = 29CE2D42174912C600922D8F /* VLCHTTPUploaderController.m */; };
 		7D10BC761743FA0F00DA7059 /* audio.png in Resources */ = {isa = PBXBuildFile; fileRef = 7D10BC6A1743FA0F00DA7059 /* audio.png */; };
 		7D10BC771743FA0F00DA7059 /* audio@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 7D10BC6B1743FA0F00DA7059 /* audio@2x.png */; };
 		7D10BC781743FA0F00DA7059 /* backward.png in Resources */ = {isa = PBXBuildFile; fileRef = 7D10BC6C1743FA0F00DA7059 /* backward.png */; };
@@ -133,6 +136,8 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		29125E5417492219003F03E5 /* index.html */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.html; path = index.html; sourceTree = "<group>"; };
+		29125E5517492219003F03E5 /* upload.html */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.html; path = upload.html; sourceTree = "<group>"; };
 		291553EA17490A1E00B86CAD /* DDData.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DDData.h; sourceTree = "<group>"; };
 		291553EB17490A1E00B86CAD /* DDData.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DDData.m; sourceTree = "<group>"; };
 		291553EC17490A1E00B86CAD /* DDNumber.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DDNumber.h; sourceTree = "<group>"; };
@@ -189,6 +194,8 @@
 		2915543917490B9C00B86CAD /* WebSocket.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = WebSocket.h; path = ImportedSources/CocoaHTTPServer/Core/WebSocket.h; sourceTree = SOURCE_ROOT; };
 		2915543A17490B9C00B86CAD /* WebSocket.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = WebSocket.m; path = ImportedSources/CocoaHTTPServer/Core/WebSocket.m; sourceTree = SOURCE_ROOT; };
 		2915544217490D4A00B86CAD /* Security.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Security.framework; path = System/Library/Frameworks/Security.framework; sourceTree = SDKROOT; };
+		29CE2D41174912C600922D8F /* VLCHTTPUploaderController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = VLCHTTPUploaderController.h; sourceTree = "<group>"; };
+		29CE2D42174912C600922D8F /* VLCHTTPUploaderController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = VLCHTTPUploaderController.m; sourceTree = "<group>"; };
 		7D10BC6A1743FA0F00DA7059 /* audio.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = audio.png; sourceTree = "<group>"; };
 		7D10BC6B1743FA0F00DA7059 /* audio@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "audio@2x.png"; sourceTree = "<group>"; };
 		7D10BC6C1743FA0F00DA7059 /* backward.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = backward.png; sourceTree = "<group>"; };
@@ -345,6 +352,15 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		29125E5317492219003F03E5 /* web */ = {
+			isa = PBXGroup;
+			children = (
+				29125E5417492219003F03E5 /* index.html */,
+				29125E5517492219003F03E5 /* upload.html */,
+			);
+			path = web;
+			sourceTree = "<group>";
+		};
 		291553E817490A0400B86CAD /* CocoaHTTPServer */ = {
 			isa = PBXGroup;
 			children = (
@@ -636,6 +652,8 @@
 				7DA6209A170A0CE500643D11 /* VLCPlaylistTableViewCell.m */,
 				7D6B07F51716D45B003280C4 /* VLCPlaylistGridView.h */,
 				7D6B07F61716D45B003280C4 /* VLCPlaylistGridView.m */,
+				29CE2D41174912C600922D8F /* VLCHTTPUploaderController.h */,
+				29CE2D42174912C600922D8F /* VLCHTTPUploaderController.m */,
 				A7DA16CF171083DF00D6FED9 /* VLCExternalDisplayController.h */,
 				A7DA16D0171083DF00D6FED9 /* VLCExternalDisplayController.m */,
 				7D6BA1141748EFE100C0E203 /* VLCAddMediaViewController.h */,
@@ -704,6 +722,7 @@
 		A7924697170F0ED20036AAF2 /* Resources */ = {
 			isa = PBXGroup;
 			children = (
+				29125E5317492219003F03E5 /* web */,
 				A7035BBD174519600057DFA7 /* iTunesArtwork */,
 				7D10BC691743F9CB00DA7059 /* Filters and stuff */,
 				7D10BC681743F9C300DA7059 /* Playback Controls */,
@@ -842,6 +861,8 @@
 				2915542B17490A9C00B86CAD /* README.txt in Resources */,
 				7D6BA1181748EFE100C0E203 /* VLCAddMediaViewController~ipad.xib in Resources */,
 				7D6BA11A174911C200C0E203 /* VLCAddMediaViewController~iphone.xib in Resources */,
+				29125E5617492219003F03E5 /* index.html in Resources */,
+				29125E5717492219003F03E5 /* upload.html in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -901,6 +922,7 @@
 				2915544017490B9C00B86CAD /* HTTPRedirectResponse.m in Sources */,
 				2915544117490B9C00B86CAD /* WebSocket.m in Sources */,
 				7D6BA1171748EFE100C0E203 /* VLCAddMediaViewController.m in Sources */,
+				29CE2D44174912C600922D8F /* VLCHTTPUploaderController.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
