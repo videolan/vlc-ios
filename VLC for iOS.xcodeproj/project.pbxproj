@@ -1021,6 +1021,7 @@
 					"\"$(SRCROOT)/External/MediaLibraryKit\"",
 					"\"$(SRCROOT)/External/MobileVLCKit\"",
 				);
+				ONLY_ACTIVE_ARCH = YES;
 				OTHER_LDFLAGS = "-Wl,-no_pie";
 				PRODUCT_NAME = "VLC for iOS";
 				WRAPPER_EXTENSION = app;
@@ -1031,6 +1032,8 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				CLANG_ENABLE_OBJC_ARC = YES;
+				CODE_SIGN_IDENTITY = "iPhone Distribution";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Distribution";
 				COPY_PHASE_STRIP = NO;
 				DEAD_CODE_STRIPPING = NO;
 				EXCLUDED_SOURCE_FILE_NAMES = "";
@@ -1049,8 +1052,11 @@
 					"\"$(SRCROOT)/External/MediaLibraryKit\"",
 					"\"$(SRCROOT)/External/MobileVLCKit\"",
 				);
+				ONLY_ACTIVE_ARCH = NO;
 				OTHER_LDFLAGS = "-Wl,-no_pie";
 				PRODUCT_NAME = "VLC for iOS";
+				PROVISIONING_PROFILE = "";
+				"PROVISIONING_PROFILE[sdk=iphoneos*]" = "";
 				WRAPPER_EXTENSION = app;
 			};
 			name = Release;
@@ -1084,6 +1090,8 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				CLANG_ENABLE_OBJC_ARC = YES;
+				CODE_SIGN_IDENTITY = "iPhone Distribution";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Distribution";
 				COPY_PHASE_STRIP = NO;
 				DEAD_CODE_STRIPPING = NO;
 				EXCLUDED_SOURCE_FILE_NAMES = "iTunesArtwork*";
@@ -1102,8 +1110,11 @@
 					"\"$(SRCROOT)/External/MediaLibraryKit\"",
 					"\"$(SRCROOT)/External/MobileVLCKit\"",
 				);
+				ONLY_ACTIVE_ARCH = NO;
 				OTHER_LDFLAGS = "-Wl,-no_pie";
 				PRODUCT_NAME = "VLC for iOS";
+				PROVISIONING_PROFILE = "";
+				"PROVISIONING_PROFILE[sdk=iphoneos*]" = "";
 				WRAPPER_EXTENSION = app;
 			};
 			name = Distribution;
