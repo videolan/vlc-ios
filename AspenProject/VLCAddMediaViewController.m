@@ -75,13 +75,16 @@
     if ([[UIPasteboard generalPasteboard] containsPasteboardTypes:[NSArray arrayWithObjects:@"public.url", @"public.text", nil]]) {
         _pasteURL = [[UIPasteboard generalPasteboard] valueForPasteboardType:@"public.url"];
         if (!_pasteURL || [[_pasteURL absoluteString] isEqualToString:@""]) {
-            NSString * pasteString = [[UIPasteboard generalPasteboard] valueForPasteboardType:@"public.text"];
+            NSString *pasteString = [[UIPasteboard generalPasteboard] valueForPasteboardType:@"public.text"];
             _pasteURL = [NSURL URLWithString:pasteString];
         }
 
         if (_pasteURL && ![[_pasteURL scheme] isEqualToString:@""] && ![[_pasteURL absoluteString] isEqualToString:@""]) {
-            NSString * messageString = [NSString stringWithFormat:@"Do you want to open %@?", [_pasteURL absoluteString]];
-            UIAlertView * alert = [[UIAlertView alloc] initWithTitle:NSLocalizedString(@"OPEN_URL", @"") message:messageString delegate:self cancelButtonTitle:NSLocalizedString(@"BUTTON_CANCEL", @"") otherButtonTitles:NSLocalizedString(@"BUTTON_OPEN", @""), nil];
+            NSString *messageString = [NSString stringWithFormat:@"Do you want to open %@?", [_pasteURL absoluteString]];
+            UIAlertView *alert = [[UIAlertView alloc] initWithTitle:NSLocalizedString(@"OPEN_URL", @"") message:messageString delegate:self cancelButtonTitle:NSLocalizedString(@"BUTTON_CANCEL", @"") otherButtonTitles:NSLocalizedString(@"BUTTON_OPEN", @""), nil];
+            [alert show];
+        } else {
+            UIAlertView *alert = [[UIAlertView alloc] initWithTitle:NSLocalizedString(@"OPEN_URL", @"") message:NSLocalizedString(@"OPEN_URL_NOVALIDVALUE", @"") delegate:self cancelButtonTitle:nil otherButtonTitles:NSLocalizedString(@"BUTTON_OPEN", @""), nil];
             [alert show];
         }
     }
