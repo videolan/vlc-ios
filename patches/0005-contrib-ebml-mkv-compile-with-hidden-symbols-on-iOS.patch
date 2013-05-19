@@ -1,26 +1,27 @@
-From 2ddc656d08a49df7c16a12ccd143e96c584c104f Mon Sep 17 00:00:00 2001
+From 6641efb6f09db3d9b67c64590d365985c1dda8fd Mon Sep 17 00:00:00 2001
 From: =?UTF-8?q?Felix=20Paul=20K=C3=BChne?= <fkuehne@videolan.org>
 Date: Sat, 11 Aug 2012 13:29:25 +0200
-Subject: [PATCH 05/10] contrib/ebml+mkv: compile with hidden symbols on iOS
+Subject: [PATCH 5/8] contrib/ebml+mkv: compile with hidden symbols on iOS
 
 ---
- contrib/src/ebml/rules.mak     | 6 ++++--
- contrib/src/matroska/rules.mak | 6 +++++-
- 2 files changed, 9 insertions(+), 3 deletions(-)
+ contrib/src/ebml/rules.mak     |    7 +++++--
+ contrib/src/matroska/rules.mak |    6 +++++-
+ 2 files changed, 10 insertions(+), 3 deletions(-)
 
 diff --git a/contrib/src/ebml/rules.mak b/contrib/src/ebml/rules.mak
-index 3708b33..f4f01c7 100644
+index 3708b33..862553c 100644
 --- a/contrib/src/ebml/rules.mak
 +++ b/contrib/src/ebml/rules.mak
-@@ -16,8 +16,10 @@ libebml: libebml-$(EBML_VERSION).tar.bz2 .sum-ebml
+@@ -16,8 +16,11 @@ libebml: libebml-$(EBML_VERSION).tar.bz2 .sum-ebml
  	$(MOVE)
  
  # libebml requires exceptions
 -EBML_EXTRA_FLAGS = CXXFLAGS="${CXXFLAGS} -fexceptions" \
 -					CPPFLAGS=""
-+EBML_EXTRA_FLAGS = CXXFLAGS="${CXXFLAGS} -fexceptions" CPPFLAGS=""
 +ifdef HAVE_IOS
-+EBML_EXTRA_FLAGS += " -fvisibility=hidden"
++EBML_EXTRA_FLAGS = CXXFLAGS="${CXXFLAGS} -fexceptions -fvisibility=hidden" CPPFLAGS=""
++else
++EBML_EXTRA_FLAGS = CXXFLAGS="${CXXFLAGS} -fexceptions" CPPFLAGS=""
 +endif
  
  .ebml: libebml
@@ -47,5 +48,5 @@ index 62ecf0d..cfd6a2e 100644
  	cd $< && $(MAKE) -C make/linux install_staticlib install_headers prefix="$(PREFIX)" $(HOSTVARS)
  	$(RANLIB) "$(PREFIX)/lib/libmatroska.a"
 -- 
-1.7.12.4 (Apple Git-37)
+1.7.10.2 (Apple Git-33)
 

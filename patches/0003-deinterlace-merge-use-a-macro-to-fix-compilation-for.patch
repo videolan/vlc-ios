@@ -1,11 +1,11 @@
-From 1ba34f66bf7f73358069e7ba9d6022be08e47bf6 Mon Sep 17 00:00:00 2001
+From 91ba88834cc99e4c6ee2280147cdf23ee5b5d0e7 Mon Sep 17 00:00:00 2001
 From: =?UTF-8?q?Felix=20Paul=20K=C3=BChne?= <fkuehne@videolan.org>
 Date: Fri, 10 Aug 2012 16:02:07 +0200
-Subject: [PATCH 03/10] deinterlace/merge: use a macro to fix compilation for
+Subject: [PATCH 3/8] deinterlace/merge: use a macro to fix compilation for
  iOS
 
 ---
- modules/video_filter/deinterlace/merge_arm.S | 26 ++++++++++----------------
+ modules/video_filter/deinterlace/merge_arm.S |   26 ++++++++++----------------
  1 file changed, 10 insertions(+), 16 deletions(-)
 
 diff --git a/modules/video_filter/deinterlace/merge_arm.S b/modules/video_filter/deinterlace/merge_arm.S
@@ -82,5 +82,5 @@ index dd77902..03e5042 100644
  	b		1b
 +endfunc
 -- 
-1.7.12.4 (Apple Git-37)
+1.7.10.2 (Apple Git-33)
 
