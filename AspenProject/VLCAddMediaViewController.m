@@ -12,6 +12,7 @@
 #import "VLCAboutViewController.h"
 #import "VLCMovieViewController.h"
 #import "VLCHTTPUploaderController.h"
+#import "VLCSettingsViewController.h"
 
 @interface VLCAddMediaViewController () {
     VLCHTTPUploaderController *_uploadController;
@@ -103,6 +104,15 @@
 
 - (IBAction)showSettings:(id)sender
 {
+    if (!self.settingsViewController)
+        self.settingsViewController = [[VLCSettingsViewController alloc] initWithNibName:@"VLCSettingsViewController" bundle:nil];
+
+    [self _hideAnimated:NO];
+
+    VLCAppDelegate* appDelegate = [UIApplication sharedApplication].delegate;
+
+    self.settingsViewController.modalPresentationStyle = UIModalPresentationFormSheet;
+    [appDelegate.playlistViewController.navigationController presentModalViewController:self.settingsViewController animated:YES];
 }
 
 - (IBAction)showInformationOnHTTPServer:(id)sender

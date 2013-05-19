@@ -17,5 +17,6 @@
 @property (nonatomic, strong) IBOutlet UITextField *enterCodeField;
 
 - (IBAction)textFieldValueChanged:(id)sender;
+- (void)resetPasscode;
 
 @end

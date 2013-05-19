@@ -8,10 +8,14 @@
 
 #import <UIKit/UIKit.h>
 
+@class VLCSettingsViewController;
+
 @interface VLCAddMediaViewController : UIViewController
 {
     NSURL *_pasteURL;
 }
+
+@property (strong, nonatomic) VLCSettingsViewController *settingsViewController;
 
 @property (strong, nonatomic) IBOutlet UIButton *dismissButton;
 @property (strong, nonatomic) IBOutlet UIButton *aboutButton;

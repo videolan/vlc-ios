@@ -57,4 +57,9 @@
     }
 }
 
+- (void)resetPasscode
+{
+    
+}
+
 @end

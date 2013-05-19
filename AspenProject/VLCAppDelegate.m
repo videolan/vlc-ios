@@ -18,7 +18,7 @@
 {
     NSUserDefaults *defaults = [NSUserDefaults standardUserDefaults];
 
-    NSDictionary *appDefaults = @{@"Passcode" : @""};
+    NSDictionary *appDefaults = @{@"Passcode" : @"", @"PasscodeProtection" : @0};
 
     [defaults registerDefaults:appDefaults];
 }
