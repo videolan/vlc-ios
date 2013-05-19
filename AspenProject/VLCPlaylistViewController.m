@@ -11,6 +11,7 @@
 #import "VLCPlaylistTableViewCell.h"
 #import "VLCPlaylistGridView.h"
 #import "VLCAboutViewController.h"
+#import "VLCPasscodeLockViewController.h"
 
 @interface VLCPlaylistViewController () {
     NSMutableArray *_foundMedia;
@@ -60,15 +61,26 @@
     [self.gridView deselectItemAtIndex:self.gridView.indexOfSelectedItem animated:animated];
     [super viewWillAppear:animated];
 
+    if ([[UIDevice currentDevice] userInterfaceIdiom] == UIUserInterfaceIdiomPhone)
+        self.tableView.hidden = YES;
+    else
+        self.gridView.hidden = YES;
+
     [self _displayEmptyLibraryViewIfNeeded];
 }
 
 - (void)viewDidAppear:(BOOL)animated
 {
-    [super viewDidAppear:animated];
+    [self validatePasscode];
+    if ([[UIDevice currentDevice] userInterfaceIdiom] == UIUserInterfaceIdiomPhone)
+        self.tableView.hidden = NO;
+    else
+        self.gridView.hidden = NO;
 
     [self performSelector:@selector(updateViewContents) withObject:nil afterDelay:.3];
     [[MLMediaLibrary sharedMediaLibrary] performSelector:@selector(libraryDidAppear) withObject:nil afterDelay:1.];
+
+    [super viewDidAppear:animated];
 }
 
 - (void)viewDidDisappear:(BOOL)animated
@@ -96,6 +108,25 @@
         else
             self.emptyLibraryView.frame = self.gridView.frame;
         [self.view addSubview:self.emptyLibraryView];
+    }
+}
+
+- (void)validatePasscode
+{
+    NSUserDefaults *defaults = [NSUserDefaults standardUserDefaults];
+    if ([[defaults objectForKey:@"Passcode"] isEqualToString:@""]) {
+        self.passcodeValidated = YES;
+        return;
+    }
+
+    if (!self.passcodeLockViewController)
+        self.passcodeLockViewController = [[VLCPasscodeLockViewController alloc] initWithNibName:@"VLCPasscodeLockViewController" bundle:nil];
+
+    if (!self.passcodeValidated) {
+        if ([self.nextPasscodeCheckDate earlierDate:[NSDate date]] == self.nextPasscodeCheckDate)
+            [self.navigationController pushViewController:self.passcodeLockViewController animated:YES];
+        else
+            self.passcodeValidated = YES;
     }
 }
 
