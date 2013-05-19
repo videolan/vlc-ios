@@ -94,7 +94,6 @@
     [[NSFileManager defaultManager] removeItemAtPath:[[NSURL URLWithString:mediaObject.url] path] error:nil];
 
     [self updateViewContents];
-    [self _displayEmptyLibraryViewIfNeeded];
 }
 
 - (void)_displayEmptyLibraryViewIfNeeded
@@ -139,6 +138,8 @@
         [self.tableView reloadData];
     else
         [self.gridView reloadData];
+
+    [self _displayEmptyLibraryViewIfNeeded];
 }
 
 - (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView
