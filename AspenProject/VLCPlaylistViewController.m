@@ -25,7 +25,7 @@
 {
     self = [super initWithNibName:nibNameOrNil bundle:nibBundleOrNil];
     if (self)
-        self.title = @"VLC for iOS";
+        self.title = @"VLC";
 
     return self;
 }
