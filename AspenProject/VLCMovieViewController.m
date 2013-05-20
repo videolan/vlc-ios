@@ -46,7 +46,8 @@
 
     NSUserDefaults *defaults = [NSUserDefaults standardUserDefaults];
     NSArray *options = @[[defaults objectForKey:kVLCSettingVerboseOutput],
-                         [defaults objectForKey:kVLCSettingStretchAudio]];
+                         [defaults objectForKey:kVLCSettingStretchAudio],
+                         [defaults objectForKey:kVLCSettingTextEncoding]];
 
     _mediaPlayer = [[VLCMediaPlayer alloc] initWithOptions:options];
     [_mediaPlayer setDelegate:self];
