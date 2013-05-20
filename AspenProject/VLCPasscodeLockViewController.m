@@ -61,6 +61,7 @@
                 NSUserDefaults *defaults;
                 [defaults setObject:@1 forKey:@"PasscodeProtection"];
                 [defaults setObject:_tmpPasscode forKey:@"Passcode"];
+                [defaults synchronize];
                 _passcode = _tmpPasscode;
                 _resetStage = 0;
                 appDelegate.playlistViewController.nextPasscodeCheckDate = [NSDate dateWithTimeIntervalSinceNow:300]; // five min

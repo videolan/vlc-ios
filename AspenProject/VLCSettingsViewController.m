@@ -46,8 +46,11 @@
         }
         [self.view addSubview:appDelegate.playlistViewController.passcodeLockViewController.view];
         [appDelegate.playlistViewController.passcodeLockViewController resetPasscode];
-    } else
-        [[NSUserDefaults standardUserDefaults] setObject:@0 forKey:@"PasscodeProtection"];
+    } else {
+        NSUserDefaults *defaults = [NSUserDefaults standardUserDefaults];
+        [defaults setObject:@0 forKey:@"PasscodeProtection"];
+        [defaults synchronize];
+    }
 }
 
 - (IBAction)dismiss:(id)sender
