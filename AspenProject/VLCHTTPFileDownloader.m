@@ -85,12 +85,16 @@
 
     VLCAppDelegate * appDelegate = [UIApplication sharedApplication].delegate;
     [appDelegate updateMediaList];
+
+    [_mediaViewController dismiss:nil];
 }
 
 -(void)connection:(NSURLConnection *)connection didFailWithError:(NSError *)error {
     APLog(@"http file download failed (%i)", error.code);
     _downloadInProgress = NO;
     _progressIndicator.hidden = YES;
+
+    [_mediaViewController dismiss:nil];
 }
 
 @end

@@ -28,6 +28,7 @@
 @property (strong, nonatomic) IBOutlet UITextField *openURLField;
 @property (strong, nonatomic) IBOutlet UIButton *openURLButton;
 
+- (IBAction)dismiss:(id)sender;
 - (IBAction)openAboutPanel:(id)sender;
 - (IBAction)openNetworkStream:(id)sender;
 - (IBAction)downloadFromHTTPServer:(id)sender;
