@@ -171,7 +171,7 @@ git clone git://github.com/robbiehanson/CocoaHTTPServer.git
 #info "Applying the patches failed, aborting git-am"
 #exit 1
 #fi
-cd ..
+#cd ..
 fi
 if ! [ -e Dropbox ]; then
 DROPBOXSDKVERSION=1.3.4
