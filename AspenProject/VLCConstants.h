@@ -11,3 +11,7 @@
 #define kVLCSettingPasscodeKey @"Passcode"
 #define kVLCSettingPasscodeOnKey @"PasscodeProtection"
 #define kVLCSettingContinueAudioInBackgroundKey @"BackgroundAudioPlayback"
+#define kVLCSettingStretchAudio @"StretchAudio"
+#define kVLCSettingStretchAudioDefaultValue @"--no-audio-time-stretch"
+#define kVLCSettingVerboseOutput @"VerboseLogs"
+#define kVLCSettingVerboseOutputDefaultValue @"--verbose=3"

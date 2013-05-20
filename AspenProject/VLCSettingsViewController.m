@@ -26,6 +26,8 @@
     self.dismissButton.title = NSLocalizedString(@"BUTTON_DONE", @"");
     self.passcodeLockLabel.text = NSLocalizedString(@"PREF_PASSCODE", @"");
     self.audioPlaybackInBackgroundLabel.text = NSLocalizedString(@"PREF_AUDIOBACKGROUND", @"");
+    self.audioStretchingLabel.text = NSLocalizedString(@"PREF_AUDIOSTRETCH", @"");
+    self.debugOutputLabel.text = NSLocalizedString(@"PREF_VERBOSEDEBUG", @"");
 }
 
 - (void)viewWillAppear:(BOOL)animated
@@ -33,6 +35,8 @@
     NSUserDefaults *defaults = [NSUserDefaults standardUserDefaults];
     self.passcodeLockSwitch.on = [[defaults objectForKey:kVLCSettingPasscodeOnKey] intValue];
     self.audioPlaybackInBackgroundSwitch.on = [[defaults objectForKey:kVLCSettingContinueAudioInBackgroundKey] intValue];
+    self.audioStretchingSwitch.on = ![[defaults objectForKey:kVLCSettingStretchAudio] isEqualToString:kVLCSettingStretchAudioDefaultValue];
+    self.debugOutputSwitch.on = [[defaults objectForKey:kVLCSettingVerboseOutput] isEqualToString:kVLCSettingVerboseOutputDefaultValue];
 
     [super viewWillAppear:animated];
 }
@@ -56,6 +60,16 @@
         }
     } else if (sender == self.audioPlaybackInBackgroundSwitch) {
         [defaults setObject:@(self.audioPlaybackInBackgroundSwitch.on) forKey:kVLCSettingContinueAudioInBackgroundKey];
+    } else if (sender == self.audioStretchingSwitch) {
+        if (self.audioStretchingSwitch.on)
+            [defaults setObject:@"--audio-time-stretch" forKey:kVLCSettingStretchAudio];
+        else
+            [defaults setObject:kVLCSettingStretchAudioDefaultValue forKey:kVLCSettingStretchAudio];
+    } else if (sender == self.debugOutputSwitch) {
+        if (self.debugOutputSwitch.on)
+            [defaults setObject:kVLCSettingVerboseOutputDefaultValue forKey:kVLCSettingVerboseOutput];
+        else
+            [defaults setObject:@"--verbose=0" forKey:kVLCSettingVerboseOutput];
     }
 
     [defaults synchronize];

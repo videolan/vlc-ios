@@ -17,6 +17,12 @@
 @property (nonatomic, strong) IBOutlet UISwitch *audioPlaybackInBackgroundSwitch;
 @property (nonatomic, strong) IBOutlet UILabel *audioPlaybackInBackgroundLabel;
 
+@property (nonatomic, strong) IBOutlet UISwitch *audioStretchingSwitch;
+@property (nonatomic, strong) IBOutlet UILabel *audioStretchingLabel;
+
+@property (nonatomic, strong) IBOutlet UISwitch *debugOutputSwitch;
+@property (nonatomic, strong) IBOutlet UILabel *debugOutputLabel;
+
 - (IBAction)toggleSetting:(id)sender;
 
 - (IBAction)dismiss:(id)sender;
