@@ -88,11 +88,10 @@
                 pasteURL = [NSURL URLWithString:pasteString];
             }
 
-            if (pasteURL && ![[pasteURL scheme] isEqualToString:@""] && ![[pasteURL absoluteString] isEqualToString:@""]) {
+            if (pasteURL && ![[pasteURL scheme] isEqualToString:@""] && ![[pasteURL absoluteString] isEqualToString:@""])
                 self.openURLField.text = [pasteURL absoluteString];
-            }
-            [self.openNetworkStreamButton addSubview:self.openURLView];
         }
+        [self.openNetworkStreamButton addSubview:self.openURLView];
     } else {
         VLCAppDelegate* appDelegate = [UIApplication sharedApplication].delegate;
         [appDelegate.playlistViewController openMovieFromURL:[NSURL URLWithString:self.openURLField.text]];
