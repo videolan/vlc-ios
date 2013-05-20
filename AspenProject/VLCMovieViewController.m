@@ -81,8 +81,7 @@
     recognizer.delegate = self;
     [self.view addGestureRecognizer:recognizer];
 
-    _cropRatios = @[@"Default", @"16:10", @"16:9", @"2:39:1", @"5:3", @"4:3", @"5:4", @"1:1"];
-    _aspectRatios = @[@"Default", @"1:1", @"4:3", @"16:9", @"16:10", @"2.21:1", @"2:35:1", @"2.39:1", @"5:4"];
+    _aspectRatios = @[@"Default", @"4:3", @"16:9", @"16:10", @"2.21:1"];
 }
 
 - (void)viewWillAppear:(BOOL)animated
@@ -164,8 +163,8 @@
     self.playbackSpeedSlider.value = [self _playbackSpeed];
     [self _updatePlaybackSpeedIndicator];
 
-    _currentAspectRatioMask = _currentCropMask = 0;
-    _mediaPlayer.videoAspectRatio = _mediaPlayer.videoCropGeometry = NULL;
+    _currentAspectRatioMask = 0;
+    _mediaPlayer.videoAspectRatio =  NULL;
 
     [self resetIdleTimer];
 }
@@ -260,8 +259,6 @@
         _playbackSpeedButton.hidden = NO;
         _videoFilterButton.alpha = 0.0f;
         _videoFilterButton.hidden = NO;
-        _cropButton.alpha = 0.0f;
-        _cropButton.hidden = NO;
         _aspectRatioButton.alpha = 0.0f;
         _aspectRatioButton.hidden = NO;
     }
@@ -274,7 +271,6 @@
         _playbackSpeedView.alpha = alpha;
         _playbackSpeedButton.alpha = alpha;
         _videoFilterButton.alpha = alpha;
-        _cropButton.alpha = alpha;
         _aspectRatioButton.alpha = alpha;
     };
 
@@ -283,13 +279,11 @@
             _controllerPanel.hidden = _controlsHidden;
             _playbackSpeedButton.hidden = _controlsHidden;
             _videoFilterButton.hidden = _controlsHidden;
-            _cropButton.hidden = _controlsHidden;
             _aspectRatioButton.hidden = _controlsHidden;
         } else {
             _controllerPanel.hidden = NO;
             _playbackSpeedButton.hidden = NO;
             _videoFilterButton.hidden = NO;
-            _cropButton.hidden = NO;
             _aspectRatioButton.hidden = NO;
         }
         _toolbar.hidden = _controlsHidden;
@@ -530,18 +524,6 @@
             _currentAspectRatioMask++;
             _mediaPlayer.videoAspectRatio = (char *)[_aspectRatios[_currentAspectRatioMask] UTF8String];
             [self.statusLabel showStatusMessage:[NSString stringWithFormat:NSLocalizedString(@"AR_CHANGED", @""), _aspectRatios[_currentAspectRatioMask]]];
-        }
-    } else if (sender == self.cropButton) {
-        NSUInteger count = [_cropRatios count];
-
-        if (_currentCropMask + 1 > count - 1) {
-            _mediaPlayer.videoCropGeometry = NULL;
-            _currentCropMask = 0;
-            [self.statusLabel showStatusMessage:[NSString stringWithFormat:NSLocalizedString(@"CROP_CHANGED", @""), NSLocalizedString(@"DEFAULT", @"")]];
-        } else {
-            _currentCropMask++;
-            _mediaPlayer.videoCropGeometry = (char *)[_cropRatios[_currentCropMask] UTF8String];
-            [self.statusLabel showStatusMessage:[NSString stringWithFormat:NSLocalizedString(@"CROP_CHANGED", @""), _cropRatios[_currentCropMask]]];
         }
     }
 }

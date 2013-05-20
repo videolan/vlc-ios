@@ -21,8 +21,6 @@
     UIActionSheet *_audiotrackActionSheet;
 
     float _currentPlaybackRate;
-    NSArray *_cropRatios;
-    NSUInteger _currentCropMask;
     NSArray *_aspectRatios;
     NSUInteger _currentAspectRatioMask;
 
@@ -66,7 +64,6 @@
 @property (nonatomic, strong) IBOutlet UILabel *playbackSpeedLabel;
 @property (nonatomic, strong) IBOutlet UILabel *playbackSpeedIndicator;
 @property (nonatomic, strong) IBOutlet UIButton *aspectRatioButton;
-@property (nonatomic, strong) IBOutlet UIButton *cropButton;
 
 @property (nonatomic, strong) MLFile *mediaItem;
 @property (nonatomic, strong) NSURL *url;
