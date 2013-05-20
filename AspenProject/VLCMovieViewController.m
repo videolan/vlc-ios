@@ -97,6 +97,7 @@
     if (self.mediaItem) {
         self.title = [self.mediaItem title];
         [_mediaPlayer setMedia:[VLCMedia mediaWithURL:[NSURL URLWithString:self.mediaItem.url]]];
+        self.mediaItem.unread = @0;
     } else {
         [_mediaPlayer setMedia:[VLCMedia mediaWithURL:self.url]];
         self.title = @"Network Stream";

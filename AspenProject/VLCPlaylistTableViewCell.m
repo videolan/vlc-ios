@@ -41,6 +41,7 @@
         [_mediaObject removeObserver:self forKeyPath:@"fileSizeInBytes"];
         [_mediaObject removeObserver:self forKeyPath:@"title"];
         [_mediaObject removeObserver:self forKeyPath:@"thumbnailTimeouted"];
+        [_mediaObject removeObserver:self forKeyPath:@"unread"];
         [_mediaObject didHide];
 
         _mediaObject = mediaObject;
@@ -51,6 +52,7 @@
         [_mediaObject addObserver:self forKeyPath:@"fileSizeInBytes" options:0 context:nil];
         [_mediaObject addObserver:self forKeyPath:@"title" options:0 context:nil];
         [_mediaObject addObserver:self forKeyPath:@"thumbnailTimeouted" options:0 context:nil];
+        [_mediaObject addObserver:self forKeyPath:@"unread" options:0 context:nil];
         [_mediaObject willDisplay];
     }
 
