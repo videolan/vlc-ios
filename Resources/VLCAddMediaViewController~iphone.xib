@@ -85,7 +85,7 @@
 						<string key="NSFrame">{{0, 120}, {320, 60}}</string>
 						<reference key="NSSuperview" ref="892317093"/>
 						<reference key="NSWindow"/>
-						<reference key="NSNextKeyView" ref="839269668"/>
+						<reference key="NSNextKeyView" ref="973946330"/>
 						<string key="NSReuseIdentifierKey">_NS:9</string>
 						<reference key="IBUIBackgroundColor" ref="937037271"/>
 						<bool key="IBUIOpaque">NO</bool>
@@ -258,9 +258,9 @@
 						<reference key="IBUIBackgroundColor" ref="937037271"/>
 						<string key="targetRuntimeIdentifier">IBCocoaTouchFramework</string>
 					</object>
-					<object class="IBUIView" id="839269668">
+					<object class="IBUIView" id="973946330">
 						<reference key="NSNextResponder" ref="892317093"/>
-						<int key="NSvFlags">-2147483348</int>
+						<int key="NSvFlags">-2147483356</int>
 						<string key="NSFrame">{{9, 130}, {40, 40}}</string>
 						<reference key="NSSuperview" ref="892317093"/>
 						<reference key="NSWindow"/>
@@ -441,7 +441,7 @@
 					<object class="IBCocoaTouchOutletConnection" key="connection">
 						<string key="label">httpDownloadProgressIndicator</string>
 						<reference key="source" ref="372490531"/>
-						<reference key="destination" ref="839269668"/>
+						<reference key="destination" ref="973946330"/>
 					</object>
 					<int key="connectionID">74</int>
 				</object>
@@ -537,7 +537,7 @@
 							<reference ref="485650876"/>
 							<reference ref="1021636329"/>
 							<reference ref="205209326"/>
-							<reference ref="839269668"/>
+							<reference ref="973946330"/>
 						</array>
 						<reference key="parent" ref="0"/>
 					</object>
@@ -627,7 +627,7 @@
 					</object>
 					<object class="IBObjectRecord">
 						<int key="objectID">73</int>
-						<reference key="object" ref="839269668"/>
+						<reference key="object" ref="973946330"/>
 						<reference key="parent" ref="892317093"/>
 					</object>
 				</array>
