@@ -15,3 +15,5 @@
 #define kVLCSettingStretchAudioDefaultValue @"--no-audio-time-stretch"
 #define kVLCSettingVerboseOutput @"VerboseLogs"
 #define kVLCSettingVerboseOutputDefaultValue @"--verbose=3"
+#define kVLCSettingTextEncoding @"subsdec-encoding"
+#define kVLCSettingTextEncodingDefaultValue @""

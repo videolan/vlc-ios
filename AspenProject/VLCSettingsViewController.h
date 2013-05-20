@@ -8,7 +8,7 @@
 
 #import <UIKit/UIKit.h>
 
-@interface VLCSettingsViewController : UIViewController
+@interface VLCSettingsViewController : UIViewController <UIPickerViewDataSource, UIPickerViewDelegate>
 
 @property (nonatomic, strong) IBOutlet UIBarButtonItem *dismissButton;
 @property (nonatomic, strong) IBOutlet UISwitch *passcodeLockSwitch;
@@ -22,6 +22,9 @@
 
 @property (nonatomic, strong) IBOutlet UISwitch *debugOutputSwitch;
 @property (nonatomic, strong) IBOutlet UILabel *debugOutputLabel;
+
+@property (nonatomic, strong) IBOutlet UIPickerView *textEncodingPicker;
+@property (nonatomic, strong) IBOutlet UILabel *textEncodingLabel;
 
 - (IBAction)toggleSetting:(id)sender;
 
