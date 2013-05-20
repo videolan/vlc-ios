@@ -63,6 +63,11 @@
 		7D10BCA91743FE7B00DA7059 /* speed@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 7D10BC9F1743FE7B00DA7059 /* speed@2x.png */; };
 		7D31CF091746AF09005997E0 /* VLCStatusLabel.m in Sources */ = {isa = PBXBuildFile; fileRef = 7D31CF081746AF09005997E0 /* VLCStatusLabel.m */; };
 		7D33D41617182615008AF0E0 /* VLCMovieViewController~ipad.xib in Resources */ = {isa = PBXBuildFile; fileRef = 7D33D41517182615008AF0E0 /* VLCMovieViewController~ipad.xib */; };
+		7D3EAFF8174A2651002062C2 /* vlcetix512.png in Resources */ = {isa = PBXBuildFile; fileRef = 7D3EAFF7174A2651002062C2 /* vlcetix512.png */; };
+		7D3EAFFD174A265C002062C2 /* vlcetix57.png in Resources */ = {isa = PBXBuildFile; fileRef = 7D3EAFF9174A265C002062C2 /* vlcetix57.png */; };
+		7D3EAFFE174A265C002062C2 /* vlcetix72.png in Resources */ = {isa = PBXBuildFile; fileRef = 7D3EAFFA174A265C002062C2 /* vlcetix72.png */; };
+		7D3EAFFF174A265C002062C2 /* vlcetix114.png in Resources */ = {isa = PBXBuildFile; fileRef = 7D3EAFFB174A265C002062C2 /* vlcetix114.png */; };
+		7D3EB000174A265C002062C2 /* vlcetix144.png in Resources */ = {isa = PBXBuildFile; fileRef = 7D3EAFFC174A265C002062C2 /* vlcetix144.png */; };
 		7D6B07BC1716C9B8003280C4 /* AQGridView.m in Sources */ = {isa = PBXBuildFile; fileRef = 7D6B07A61716C9B8003280C4 /* AQGridView.m */; };
 		7D6B07BD1716C9B8003280C4 /* AQGridViewAnimatorItem.m in Sources */ = {isa = PBXBuildFile; fileRef = 7D6B07AA1716C9B8003280C4 /* AQGridViewAnimatorItem.m */; };
 		7D6B07BE1716C9B8003280C4 /* AQGridViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 7D6B07AC1716C9B8003280C4 /* AQGridViewCell.m */; };
@@ -223,6 +228,12 @@
 		7D31CF071746AF09005997E0 /* VLCStatusLabel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = VLCStatusLabel.h; sourceTree = "<group>"; };
 		7D31CF081746AF09005997E0 /* VLCStatusLabel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = VLCStatusLabel.m; sourceTree = "<group>"; };
 		7D33D41517182615008AF0E0 /* VLCMovieViewController~ipad.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; name = "VLCMovieViewController~ipad.xib"; path = "Resources/VLCMovieViewController~ipad.xib"; sourceTree = SOURCE_ROOT; };
+		7D3EAFF7174A2651002062C2 /* vlcetix512.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = vlcetix512.png; sourceTree = "<group>"; };
+		7D3EAFF9174A265C002062C2 /* vlcetix57.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = vlcetix57.png; sourceTree = "<group>"; };
+		7D3EAFFA174A265C002062C2 /* vlcetix72.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = vlcetix72.png; sourceTree = "<group>"; };
+		7D3EAFFB174A265C002062C2 /* vlcetix114.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = vlcetix114.png; sourceTree = "<group>"; };
+		7D3EAFFC174A265C002062C2 /* vlcetix144.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = vlcetix144.png; sourceTree = "<group>"; };
+		7D3EB00A174A280C002062C2 /* vlcetix1024.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = vlcetix1024.png; sourceTree = "<group>"; };
 		7D6B07A51716C9B8003280C4 /* AQGridView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = AQGridView.h; path = ImportedSources/AQGridView/Classes/AQGridView.h; sourceTree = SOURCE_ROOT; };
 		7D6B07A61716C9B8003280C4 /* AQGridView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = AQGridView.m; path = ImportedSources/AQGridView/Classes/AQGridView.m; sourceTree = SOURCE_ROOT; };
 		7D6B07A71716C9B8003280C4 /* AQGridView+CellLayout.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = "AQGridView+CellLayout.h"; path = "ImportedSources/AQGridView/Classes/AQGridView+CellLayout.h"; sourceTree = SOURCE_ROOT; };
@@ -696,11 +707,11 @@
 				7D6BA119174911C200C0E203 /* VLCAddMediaViewController~iphone.xib */,
 				7D6BA11D17491F5F00C0E203 /* VLCSettingsViewController.xib */,
 				A79246BD170F114E0036AAF2 /* VLCMovieViewController~iphone.xib */,
-				A79246BE170F114E0036AAF2 /* VLCPlaylistTableViewCell.xib */,
 				A79246C0170F114E0036AAF2 /* VLCPlaylistViewController~iphone.xib */,
+				A79246BC170F114E0036AAF2 /* VLCPlaylistViewController~ipad.xib */,
+				A79246BE170F114E0036AAF2 /* VLCPlaylistTableViewCell.xib */,
 				7DC87AF117413EE3009DC250 /* VLCPlaylistGridView.xib */,
 				7D33D41517182615008AF0E0 /* VLCMovieViewController~ipad.xib */,
-				A79246BC170F114E0036AAF2 /* VLCPlaylistViewController~ipad.xib */,
 				7D6BA10D1747F26300C0E203 /* VLCPasscodeLockViewController~iphone.xib */,
 			);
 			name = XIBs;
@@ -719,6 +730,12 @@
 		7DBC3B3C1711DD1E00DCF688 /* Icons */ = {
 			isa = PBXGroup;
 			children = (
+				7D3EAFF9174A265C002062C2 /* vlcetix57.png */,
+				7D3EAFFA174A265C002062C2 /* vlcetix72.png */,
+				7D3EAFFB174A265C002062C2 /* vlcetix114.png */,
+				7D3EAFFC174A265C002062C2 /* vlcetix144.png */,
+				7D3EAFF7174A2651002062C2 /* vlcetix512.png */,
+				7D3EB00A174A280C002062C2 /* vlcetix1024.png */,
 				A7035BC117451D4A0057DFA7 /* Aspen.png */,
 				7DBC3B341711DC1200DCF688 /* Aspen72.png */,
 				7DBC3B361711DCAB00DCF688 /* Aspen144.png */,
@@ -872,6 +889,11 @@
 				29125E5617492219003F03E5 /* index.html in Resources */,
 				29125E5717492219003F03E5 /* upload.html in Resources */,
 				7D6BA11F17491F5F00C0E203 /* VLCSettingsViewController.xib in Resources */,
+				7D3EAFF8174A2651002062C2 /* vlcetix512.png in Resources */,
+				7D3EAFFD174A265C002062C2 /* vlcetix57.png in Resources */,
+				7D3EAFFE174A265C002062C2 /* vlcetix72.png in Resources */,
+				7D3EAFFF174A265C002062C2 /* vlcetix114.png in Resources */,
+				7D3EB000174A265C002062C2 /* vlcetix144.png in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
