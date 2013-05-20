@@ -6,6 +6,8 @@
 //  Copyright (c) 2013 VideoLAN. All rights reserved.
 //
 
+#define kVLCVersionCodename @"Aspen"
+
 #define kVLCSettingPasscodeKey @"Passcode"
 #define kVLCSettingPasscodeOnKey @"PasscodeProtection"
 #define kVLCSettingContinueAudioInBackgroundKey @"BackgroundAudioPlayback"
