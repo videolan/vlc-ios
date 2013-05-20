@@ -14,6 +14,8 @@
     NSURL *_tempURL;
 }
 
+- (void)updateMediaList;
+
 @property (nonatomic, readonly) VLCPlaylistViewController *playlistViewController;
 
 @property (nonatomic, strong) UIWindow *window;
