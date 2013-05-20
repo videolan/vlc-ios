@@ -178,7 +178,8 @@
     [UIApplication sharedApplication].statusBarStyle = UIStatusBarStyleBlackOpaque;
     [_mediaPlayer pause];
     [super viewWillDisappear:animated];
-    self.mediaItem.lastPosition = @([_mediaPlayer position]);
+    if (self.mediaItem)
+        self.mediaItem.lastPosition = @([_mediaPlayer position]);
     [_mediaPlayer stop];
 }
 
@@ -549,15 +550,13 @@
 
 - (void)applicationWillResignActive:(NSNotification *)aNotification
 {
-    NSLog(@"applicationWillResignActive");
-    self.mediaItem.lastPosition = @([_mediaPlayer position]);
+    if (self.mediaItem)
+        self.mediaItem.lastPosition = @([_mediaPlayer position]);
 
     if (![[[NSUserDefaults standardUserDefaults] objectForKey:kVLCSettingContinueAudioInBackgroundKey] intValue]) {
-        NSLog(@"pausing playback");
         [_mediaPlayer pause];
         _shouldResumePlaying = YES;
-    } else
-        NSLog(@"continuing playback");
+    }
 }
 
 - (void)applicationDidEnterBackground:(NSNotification *)notification
