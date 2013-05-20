@@ -127,8 +127,6 @@
     }
 }
 
-#pragma mark - Table View
-
 - (void)updateViewContents
 {
     [[MLMediaLibrary sharedMediaLibrary] updateMediaDatabase];
@@ -137,11 +135,16 @@
 
     if ([[UIDevice currentDevice] userInterfaceIdiom] == UIUserInterfaceIdiomPhone)
         [self.tableView reloadData];
-    else
+    else {
         [self.gridView reloadData];
+        [self.gridView setNeedsDisplay];
+    }
 
     [self _displayEmptyLibraryViewIfNeeded];
 }
+
+
+#pragma mark - Table View
 
 - (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView
 {
