@@ -84,6 +84,8 @@
 		7D6B07F71716D45C003280C4 /* VLCPlaylistGridView.m in Sources */ = {isa = PBXBuildFile; fileRef = 7D6B07F61716D45B003280C4 /* VLCPlaylistGridView.m */; };
 		7D6B08BD174A807100A05173 /* vlc.png in Resources */ = {isa = PBXBuildFile; fileRef = 7D6B08BC174A807100A05173 /* vlc.png */; };
 		7D6B08BF174A811E00A05173 /* vlc@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 7D6B08BE174A811E00A05173 /* vlc@2x.png */; };
+		7D6B08C2174A831900A05173 /* vlc-xmas.png in Resources */ = {isa = PBXBuildFile; fileRef = 7D6B08C0174A831900A05173 /* vlc-xmas.png */; };
+		7D6B08C3174A831900A05173 /* vlc-xmas@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 7D6B08C1174A831900A05173 /* vlc-xmas@2x.png */; };
 		7D6BA10E1747F26300C0E203 /* VLCPasscodeLockViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 7D6BA10C1747F26300C0E203 /* VLCPasscodeLockViewController.m */; };
 		7D6BA10F1747F26300C0E203 /* VLCPasscodeLockViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 7D6BA10D1747F26300C0E203 /* VLCPasscodeLockViewController.xib */; };
 		7D6BA1121748EA8300C0E203 /* playback_background.png in Resources */ = {isa = PBXBuildFile; fileRef = 7D6BA1101748EA8300C0E203 /* playback_background.png */; };
@@ -272,6 +274,8 @@
 		7D6B08BB174A72A900A05173 /* VLCConstants.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = VLCConstants.h; sourceTree = "<group>"; };
 		7D6B08BC174A807100A05173 /* vlc.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = vlc.png; sourceTree = "<group>"; };
 		7D6B08BE174A811E00A05173 /* vlc@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "vlc@2x.png"; sourceTree = "<group>"; };
+		7D6B08C0174A831900A05173 /* vlc-xmas.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "vlc-xmas.png"; sourceTree = "<group>"; };
+		7D6B08C1174A831900A05173 /* vlc-xmas@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "vlc-xmas@2x.png"; sourceTree = "<group>"; };
 		7D6BA10B1747F26300C0E203 /* VLCPasscodeLockViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = VLCPasscodeLockViewController.h; sourceTree = "<group>"; };
 		7D6BA10C1747F26300C0E203 /* VLCPasscodeLockViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = VLCPasscodeLockViewController.m; sourceTree = "<group>"; };
 		7D6BA10D1747F26300C0E203 /* VLCPasscodeLockViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; name = VLCPasscodeLockViewController.xib; path = ../Resources/VLCPasscodeLockViewController.xib; sourceTree = "<group>"; };
@@ -752,6 +756,8 @@
 			children = (
 				7D6B08BC174A807100A05173 /* vlc.png */,
 				7D6B08BE174A811E00A05173 /* vlc@2x.png */,
+				7D6B08C0174A831900A05173 /* vlc-xmas.png */,
+				7D6B08C1174A831900A05173 /* vlc-xmas@2x.png */,
 				7D3EAFF9174A265C002062C2 /* vlcetix57.png */,
 				7D3EAFFA174A265C002062C2 /* vlcetix72.png */,
 				7D3EAFFB174A265C002062C2 /* vlcetix114.png */,
@@ -918,6 +924,8 @@
 				7D3EB000174A265C002062C2 /* vlcetix144.png in Resources */,
 				7D6B08BD174A807100A05173 /* vlc.png in Resources */,
 				7D6B08BF174A811E00A05173 /* vlc@2x.png in Resources */,
+				7D6B08C2174A831900A05173 /* vlc-xmas.png in Resources */,
+				7D6B08C3174A831900A05173 /* vlc-xmas@2x.png in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

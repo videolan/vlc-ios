@@ -37,6 +37,18 @@
     [super viewDidLoad];
 
     UIBarButtonItem *addButton = [[UIBarButtonItem alloc] initWithImage:[UIImage imageNamed:@"vlc"] style:UIBarButtonItemStyleBordered target:self action:@selector(leftButtonAction:)];
+
+    /* After day 354 of the year, the usual VLC cone is replaced by another cone
+     * wearing a Father Xmas hat.
+     * Note: this icon doesn't represent an endorsement of The Coca-Cola Company
+     * and should not be confused with the idea of religious statements or propagation there off
+     */
+    NSCalendar *gregorian =
+    [[NSCalendar alloc] initWithCalendarIdentifier:NSGregorianCalendar];
+    NSUInteger dayOfYear = [gregorian ordinalityOfUnit:NSDayCalendarUnit inUnit:NSYearCalendarUnit forDate:[NSDate date]];
+    if (dayOfYear >= 354)
+        addButton.image = [UIImage imageNamed:@"vlc-xmas"];
+
     self.navigationItem.leftBarButtonItem = addButton;
 
     self.navigationItem.rightBarButtonItem = self.editButtonItem;
