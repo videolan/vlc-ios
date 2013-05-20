@@ -36,7 +36,7 @@ static const int httpLogLevel = HTTP_LOG_LEVEL_VERBOSE; // | HTTP_LOG_FLAG_TRACE
 -(BOOL)changeHTTPServerState:(BOOL)state
 {
     if(state) {
-        // To keep things simple and fast, we're just going to log to the Xcode console.
+        // Just log to the Xcode console.
         [DDLog addLogger:[DDTTYLogger sharedInstance]];
 
         // Initalize our http server
@@ -52,12 +52,21 @@ static const int httpLogLevel = HTTP_LOG_LEVEL_VERBOSE; // | HTTP_LOG_FLAG_TRACE
         DDLogInfo(@"Setting document root: %@", docRoot);
 
         [self.httpServer setDocumentRoot:docRoot];
-
+        
+        [self.httpServer setPort:8888];
+         
         [self.httpServer setConnectionClass:[VLCHTTPConnection class]];
 
         NSError *error = nil;
         if(![self.httpServer start:&error])
         {
+            /* Address already in Use, take a random one */
+            if(error.code == 48) {
+                DDLogError(@"Address already in use, trying another one");
+                [self.httpServer setPort:0];
+                if([self.httpServer start:&error])
+                    return true;
+            }
             DDLogError(@"Error starting HTTP Server: %@", error);
             return false;
         }
