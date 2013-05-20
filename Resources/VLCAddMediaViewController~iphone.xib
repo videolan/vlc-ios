@@ -90,7 +90,6 @@
 						<reference key="IBUIBackgroundColor" ref="937037271"/>
 						<bool key="IBUIOpaque">NO</bool>
 						<string key="targetRuntimeIdentifier">IBCocoaTouchFramework</string>
-						<bool key="IBUIEnabled">NO</bool>
 						<int key="IBUIContentHorizontalAlignment">0</int>
 						<int key="IBUIContentVerticalAlignment">0</int>
 						<string key="IBUINormalTitle">Download from HTTP Server</string>
@@ -283,6 +282,7 @@
 						<int key="NSvFlags">294</int>
 						<string key="NSFrame">{{20, 15}, {201, 30}}</string>
 						<reference key="NSSuperview" ref="574364168"/>
+						<reference key="NSWindow"/>
 						<reference key="NSNextKeyView" ref="293148001"/>
 						<string key="NSReuseIdentifierKey">_NS:9</string>
 						<bool key="IBUIOpaque">NO</bool>
@@ -311,6 +311,7 @@
 						<int key="NSvFlags">289</int>
 						<string key="NSFrame">{{229, 8}, {70, 44}}</string>
 						<reference key="NSSuperview" ref="574364168"/>
+						<reference key="NSWindow"/>
 						<string key="NSReuseIdentifierKey">_NS:9</string>
 						<bool key="IBUIOpaque">NO</bool>
 						<string key="targetRuntimeIdentifier">IBCocoaTouchFramework</string>
@@ -330,6 +331,7 @@
 				</array>
 				<string key="NSFrameSize">{320, 60}</string>
 				<reference key="NSSuperview"/>
+				<reference key="NSWindow"/>
 				<reference key="NSNextKeyView" ref="309180653"/>
 				<string key="NSReuseIdentifierKey">_NS:9</string>
 				<reference key="IBUIBackgroundColor" ref="937037271"/>
@@ -633,14 +635,18 @@
 					<string key="className">VLCAddMediaViewController</string>
 					<string key="superclassName">UIViewController</string>
 					<dictionary class="NSMutableDictionary" key="actions">
+						<string key="dismiss:">id</string>
 						<string key="downloadFromHTTPServer:">id</string>
 						<string key="openAboutPanel:">id</string>
 						<string key="openNetworkStream:">id</string>
-						<string key="showInformationOnHTTPServer:">id</string>
 						<string key="showSettings:">id</string>
 						<string key="toggleHTTPServer:">id</string>
 					</dictionary>
 					<dictionary class="NSMutableDictionary" key="actionInfosByName">
+						<object class="IBActionInfo" key="dismiss:">
+							<string key="name">dismiss:</string>
+							<string key="candidateClassName">id</string>
+						</object>
 						<object class="IBActionInfo" key="downloadFromHTTPServer:">
 							<string key="name">downloadFromHTTPServer:</string>
 							<string key="candidateClassName">id</string>
@@ -651,10 +657,6 @@
 						</object>
 						<object class="IBActionInfo" key="openNetworkStream:">
 							<string key="name">openNetworkStream:</string>
-							<string key="candidateClassName">id</string>
-						</object>
-						<object class="IBActionInfo" key="showInformationOnHTTPServer:">
-							<string key="name">showInformationOnHTTPServer:</string>
 							<string key="candidateClassName">id</string>
 						</object>
 						<object class="IBActionInfo" key="showSettings:">
