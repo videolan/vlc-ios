@@ -36,7 +36,7 @@
     self.tableView.separatorColor = [UIColor colorWithWhite:.2 alpha:1.];
     [super viewDidLoad];
 
-    UIBarButtonItem *addButton = [[UIBarButtonItem alloc] initWithTitle:NSLocalizedString(@"BUTTON_ADD_MEDIA",@"") style:UIBarButtonItemStyleBordered target:self action:@selector(leftButtonAction:)];
+    UIBarButtonItem *addButton = [[UIBarButtonItem alloc] initWithImage:[UIImage imageNamed:@"vlc"] style:UIBarButtonItemStyleBordered target:self action:@selector(leftButtonAction:)];
     self.navigationItem.leftBarButtonItem = addButton;
 
     self.navigationItem.rightBarButtonItem = self.editButtonItem;
