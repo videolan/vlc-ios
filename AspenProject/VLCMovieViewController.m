@@ -44,7 +44,11 @@
     [super viewDidLoad];
     self.wantsFullScreenLayout = YES;
 
-    _mediaPlayer = [[VLCMediaPlayer alloc] init];
+    NSUserDefaults *defaults = [NSUserDefaults standardUserDefaults];
+    NSArray *options = @[[defaults objectForKey:kVLCSettingVerboseOutput],
+                         [defaults objectForKey:kVLCSettingStretchAudio]];
+
+    _mediaPlayer = [[VLCMediaPlayer alloc] initWithOptions:options];
     [_mediaPlayer setDelegate:self];
     [_mediaPlayer setDrawable:self.movieView];
 
