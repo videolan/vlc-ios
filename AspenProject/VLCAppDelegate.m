@@ -58,7 +58,7 @@
 {
     if (buttonIndex == 1) {
         NSArray *searchPaths = NSSearchPathForDirectoriesInDomains(NSDocumentDirectory, NSUserDomainMask, YES);
-        NSString *directoryPath = [searchPaths objectAtIndex:0];
+        NSString *directoryPath = searchPaths[0];
         NSURL *destinationURL = [NSURL URLWithString:[NSString stringWithFormat:@"file://%@/%@", directoryPath, _tempURL.lastPathComponent]];
         NSError *theError;
         [[NSFileManager defaultManager] copyItemAtURL:_tempURL toURL:destinationURL error:&theError];
@@ -102,7 +102,7 @@
     NSString *directoryPath = @"/Users/fkuehne/Desktop/VideoLAN docs/Clips/sel/";
 #else
     NSArray *searchPaths = NSSearchPathForDirectoriesInDomains(NSDocumentDirectory, NSUserDomainMask, YES);
-    NSString *directoryPath = [searchPaths objectAtIndex:0];
+    NSString *directoryPath = searchPaths[0];
 #endif
     NSArray *foundFiles = [[NSFileManager defaultManager] contentsOfDirectoryAtPath:directoryPath error:nil];
     NSMutableArray *filePaths = [NSMutableArray arrayWithCapacity:[foundFiles count]];
@@ -113,7 +113,7 @@
 
             /* exclude media files from backup (QA1719) */
             fileURL = [NSURL URLWithString:[NSString stringWithFormat:@"file://%@/%@", directoryPath, fileName]];
-            [fileURL setResourceValue:[NSNumber numberWithBool:YES] forKey:NSURLIsExcludedFromBackupKey error:nil];
+            [fileURL setResourceValue:@YES forKey:NSURLIsExcludedFromBackupKey error:nil];
         }
     }
     [[MLMediaLibrary sharedMediaLibrary] addFilePaths:filePaths];
