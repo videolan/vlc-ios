@@ -13,6 +13,10 @@
 #define INPUT_RATE_DEFAULT  1000.
 
 @interface VLCMovieViewController () <UIGestureRecognizerDelegate>
+{
+    BOOL _shouldResumePlaying;
+}
+
 @property (nonatomic, strong) UIPopoverController *masterPopoverController;
 @property (nonatomic, strong) UIWindow *externalWindow;
 @end
@@ -60,7 +64,12 @@
                    name:UIScreenDidConnectNotification object:nil];
     [center addObserver:self selector:@selector(handleExternalScreenDidDisconnect:)
                    name:UIScreenDidDisconnectNotification object:nil];
-    [center addObserver:self selector:@selector(appWillResign:) name:UIApplicationWillResignActiveNotification object:nil];
+    [center addObserver:self selector:@selector(applicationWillResignActive:)
+                   name:UIApplicationWillResignActiveNotification object:nil];
+    [center addObserver:self selector:@selector(applicationDidBecomeActive:)
+                   name:UIApplicationDidBecomeActiveNotification object:nil];
+    [center addObserver:self selector:@selector(applicationDidEnterBackground:)
+                   name:UIApplicationDidEnterBackgroundNotification object:nil];
 
     _playingExternallyTitle.text = NSLocalizedString(@"PLAYING_EXTERNALLY_TITLE", @"");
     _playingExternallyDescription.text = NSLocalizedString(@"PLAYING_EXTERNALLY_DESC", @"");
@@ -535,11 +544,33 @@
     }
 }
 
-#pragma mark -
+#pragma mark - background interaction
 
-- (void)appWillResign:(NSNotification *)aNotification
+- (void)applicationWillResignActive:(NSNotification *)aNotification
 {
+    NSLog(@"applicationWillResignActive");
     self.mediaItem.lastPosition = @([_mediaPlayer position]);
+
+    if (![[[NSUserDefaults standardUserDefaults] objectForKey:kVLCSettingContinueAudioInBackgroundKey] intValue]) {
+        NSLog(@"pausing playback");
+        [_mediaPlayer pause];
+        _shouldResumePlaying = YES;
+    } else
+        NSLog(@"continuing playback");
+}
+
+- (void)applicationDidEnterBackground:(NSNotification *)notification
+{
+    _shouldResumePlaying = NO;
+}
+
+- (void)applicationDidBecomeActive:(NSNotification *)notification
+{
+    NSLog(@"applicationDidBecomeActive");
+    if (_shouldResumePlaying) {
+        _shouldResumePlaying = NO;
+        [_mediaPlayer play];
+    }
 }
 
 #pragma mark - autorotation

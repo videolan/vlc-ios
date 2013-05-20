@@ -174,7 +174,7 @@ IEvDvGhuZSBhbmQgR2xlYiBQaW5pZ2luA</string>
 					</object>
 					<object class="IBUIImageView" id="589611976">
 						<reference key="NSNextResponder" ref="191373211"/>
-						<int key="NSvFlags">289</int>
+						<int key="NSvFlags">293</int>
 						<string key="NSFrame">{{105, 64}, {160, 160}}</string>
 						<reference key="NSSuperview" ref="191373211"/>
 						<reference key="NSWindow"/>
@@ -193,7 +193,6 @@ IEvDvGhuZSBhbmQgR2xlYiBQaW5pZ2luA</string>
 						<string key="NSFrame">{{84, 257}, {600, 747}}</string>
 						<reference key="NSSuperview" ref="191373211"/>
 						<reference key="NSWindow"/>
-						<reference key="NSNextKeyView"/>
 						<string key="NSReuseIdentifierKey">_NS:9</string>
 						<object class="NSColor" key="IBUIBackgroundColor" id="115530952">
 							<int key="NSColorSpace">3</int>

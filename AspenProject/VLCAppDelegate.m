@@ -18,7 +18,7 @@
 {
     NSUserDefaults *defaults = [NSUserDefaults standardUserDefaults];
 
-    NSDictionary *appDefaults = @{@"Passcode" : @"", @"PasscodeProtection" : @0};
+    NSDictionary *appDefaults = @{kVLCSettingPasscodeKey : @"", kVLCSettingPasscodeOnKey : @0, kVLCSettingContinueAudioInBackgroundKey : @1};
 
     [defaults registerDefaults:appDefaults];
 }

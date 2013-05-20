@@ -16,6 +16,8 @@
 #import <MobileVLCKit/MobileVLCKit.h>
 #import <MediaLibraryKit/MediaLibraryKit.h>
 
+#import "VLCConstants.h"
+
 #ifndef NDEBUG
 #define APLog(format, ...) NSLog(format, ## __VA_ARGS__)
 #else

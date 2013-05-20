@@ -25,12 +25,14 @@
 
     self.dismissButton.title = NSLocalizedString(@"BUTTON_DONE", @"");
     self.passcodeLockLabel.text = NSLocalizedString(@"PREF_PASSCODE", @"");
+    self.audioPlaybackInBackgroundLabel.text = NSLocalizedString(@"PREF_AUDIOBACKGROUND", @"");
 }
 
 - (void)viewWillAppear:(BOOL)animated
 {
     NSUserDefaults *defaults = [NSUserDefaults standardUserDefaults];
-    self.passcodeLockSwitch.on = [[defaults objectForKey:@"PasscodeProtection"] intValue];
+    self.passcodeLockSwitch.on = [[defaults objectForKey:kVLCSettingPasscodeOnKey] intValue];
+    self.audioPlaybackInBackgroundSwitch.on = [[defaults objectForKey:kVLCSettingContinueAudioInBackgroundKey] intValue];
 
     [super viewWillAppear:animated];
 }
@@ -48,9 +50,16 @@
         [appDelegate.playlistViewController.passcodeLockViewController resetPasscode];
     } else {
         NSUserDefaults *defaults = [NSUserDefaults standardUserDefaults];
-        [defaults setObject:@0 forKey:@"PasscodeProtection"];
+        [defaults setObject:@0 forKey:kVLCSettingPasscodeOnKey];
         [defaults synchronize];
     }
+}
+
+- (IBAction)toggleAudioInBackGroundSetting:(id)sender
+{
+    NSUserDefaults *defaults = [NSUserDefaults standardUserDefaults];
+    [defaults setObject:@(self.audioPlaybackInBackgroundSwitch.on) forKey:kVLCSettingContinueAudioInBackgroundKey];
+    [defaults synchronize];
 }
 
 - (IBAction)dismiss:(id)sender

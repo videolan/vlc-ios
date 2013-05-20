@@ -71,7 +71,7 @@
 					<object class="IBUILabel" id="890162779">
 						<reference key="NSNextResponder" ref="1058981638"/>
 						<int key="NSvFlags">292</int>
-						<string key="NSFrame">{{20, 75}, {259, 21}}</string>
+						<string key="NSFrame">{{20, 75}, {415, 21}}</string>
 						<reference key="NSSuperview" ref="1058981638"/>
 						<reference key="NSWindow"/>
 						<reference key="NSNextKeyView" ref="268284080"/>
@@ -82,17 +82,17 @@
 						<bool key="IBUIUserInteractionEnabled">NO</bool>
 						<string key="targetRuntimeIdentifier">IBCocoaTouchFramework</string>
 						<string key="IBUIText">Passcode Lock</string>
-						<object class="NSColor" key="IBUITextColor">
+						<object class="NSColor" key="IBUITextColor" id="33374124">
 							<int key="NSColorSpace">3</int>
 							<bytes key="NSWhite">MC42NjY2NjY2NjY3AA</bytes>
 						</object>
 						<nil key="IBUIHighlightedColor"/>
 						<int key="IBUIBaselineAdjustment">0</int>
-						<object class="IBUIFontDescription" key="IBUIFontDescription">
+						<object class="IBUIFontDescription" key="IBUIFontDescription" id="210361183">
 							<int key="type">1</int>
 							<double key="pointSize">17</double>
 						</object>
-						<object class="NSFont" key="IBUIFont">
+						<object class="NSFont" key="IBUIFont" id="965406955">
 							<string key="NSName">Helvetica</string>
 							<double key="NSSize">17</double>
 							<int key="NSfFlags">16</int>
@@ -103,6 +103,43 @@
 						<reference key="NSNextResponder" ref="1058981638"/>
 						<int key="NSvFlags">289</int>
 						<string key="NSFrame">{{428, 72}, {94, 27}}</string>
+						<reference key="NSSuperview" ref="1058981638"/>
+						<reference key="NSWindow"/>
+						<reference key="NSNextKeyView" ref="76469752"/>
+						<string key="NSReuseIdentifierKey">_NS:9</string>
+						<bool key="IBUIOpaque">NO</bool>
+						<string key="targetRuntimeIdentifier">IBCocoaTouchFramework</string>
+						<int key="IBUIContentHorizontalAlignment">0</int>
+						<int key="IBUIContentVerticalAlignment">0</int>
+					</object>
+					<object class="IBUILabel" id="76469752">
+						<reference key="NSNextResponder" ref="1058981638"/>
+						<int key="NSvFlags">290</int>
+						<string key="NSFrame">{{20, 116}, {415, 42}}</string>
+						<reference key="NSSuperview" ref="1058981638"/>
+						<reference key="NSWindow"/>
+						<reference key="NSNextKeyView" ref="115965713"/>
+						<string key="NSReuseIdentifierKey">_NS:9</string>
+						<bool key="IBUIOpaque">NO</bool>
+						<bool key="IBUIClipsSubviews">YES</bool>
+						<int key="IBUIContentMode">7</int>
+						<bool key="IBUIUserInteractionEnabled">NO</bool>
+						<string key="targetRuntimeIdentifier">IBCocoaTouchFramework</string>
+						<string key="IBUIText">Continue audio playback in background</string>
+						<reference key="IBUITextColor" ref="33374124"/>
+						<nil key="IBUIHighlightedColor"/>
+						<int key="IBUIBaselineAdjustment">0</int>
+						<int key="IBUINumberOfLines">2</int>
+						<int key="IBUILineBreakMode">0</int>
+						<reference key="IBUIFontDescription" ref="210361183"/>
+						<reference key="IBUIFont" ref="965406955"/>
+						<bool key="IBUIAdjustsFontSizeToFit">NO</bool>
+						<double key="preferredMaxLayoutWidth">415</double>
+					</object>
+					<object class="IBUISwitch" id="115965713">
+						<reference key="NSNextResponder" ref="1058981638"/>
+						<int key="NSvFlags">289</int>
+						<string key="NSFrame">{{428, 123}, {94, 27}}</string>
 						<reference key="NSSuperview" ref="1058981638"/>
 						<reference key="NSWindow"/>
 						<string key="NSReuseIdentifierKey">_NS:9</string>
@@ -164,6 +201,22 @@
 					<int key="connectionID">38</int>
 				</object>
 				<object class="IBConnectionRecord">
+					<object class="IBCocoaTouchOutletConnection" key="connection">
+						<string key="label">audioPlaybackInBackgroundLabel</string>
+						<reference key="source" ref="372490531"/>
+						<reference key="destination" ref="76469752"/>
+					</object>
+					<int key="connectionID">42</int>
+				</object>
+				<object class="IBConnectionRecord">
+					<object class="IBCocoaTouchOutletConnection" key="connection">
+						<string key="label">audioPlaybackInBackgroundSwitch</string>
+						<reference key="source" ref="372490531"/>
+						<reference key="destination" ref="115965713"/>
+					</object>
+					<int key="connectionID">43</int>
+				</object>
+				<object class="IBConnectionRecord">
 					<object class="IBCocoaTouchEventConnection" key="connection">
 						<string key="label">dismiss:</string>
 						<reference key="source" ref="320254837"/>
@@ -179,6 +232,15 @@
 						<int key="IBEventType">13</int>
 					</object>
 					<int key="connectionID">36</int>
+				</object>
+				<object class="IBConnectionRecord">
+					<object class="IBCocoaTouchEventConnection" key="connection">
+						<string key="label">toggleAudioInBackGroundSetting:</string>
+						<reference key="source" ref="115965713"/>
+						<reference key="destination" ref="372490531"/>
+						<int key="IBEventType">13</int>
+					</object>
+					<int key="connectionID">44</int>
 				</object>
 			</array>
 			<object class="IBMutableOrderedSet" key="objectRecords">
@@ -207,6 +269,8 @@
 							<reference ref="222768752"/>
 							<reference ref="890162779"/>
 							<reference ref="268284080"/>
+							<reference ref="76469752"/>
+							<reference ref="115965713"/>
 						</array>
 						<reference key="parent" ref="0"/>
 					</object>
@@ -241,6 +305,16 @@
 						<array class="NSMutableArray" key="children"/>
 						<reference key="parent" ref="1058981638"/>
 					</object>
+					<object class="IBObjectRecord">
+						<int key="objectID">39</int>
+						<reference key="object" ref="76469752"/>
+						<reference key="parent" ref="1058981638"/>
+					</object>
+					<object class="IBObjectRecord">
+						<int key="objectID">40</int>
+						<reference key="object" ref="115965713"/>
+						<reference key="parent" ref="1058981638"/>
+					</object>
 				</array>
 			</object>
 			<dictionary class="NSMutableDictionary" key="flattenedProperties">
@@ -253,13 +327,15 @@
 				<string key="19.IBPluginDependency">com.apple.InterfaceBuilder.IBCocoaTouchPlugin</string>
 				<string key="20.IBPluginDependency">com.apple.InterfaceBuilder.IBCocoaTouchPlugin</string>
 				<string key="26.IBPluginDependency">com.apple.InterfaceBuilder.IBCocoaTouchPlugin</string>
+				<string key="39.IBPluginDependency">com.apple.InterfaceBuilder.IBCocoaTouchPlugin</string>
 				<string key="4.IBPluginDependency">com.apple.InterfaceBuilder.IBCocoaTouchPlugin</string>
+				<string key="40.IBPluginDependency">com.apple.InterfaceBuilder.IBCocoaTouchPlugin</string>
 			</dictionary>
 			<dictionary class="NSMutableDictionary" key="unlocalizedProperties"/>
 			<nil key="activeLocalization"/>
 			<dictionary class="NSMutableDictionary" key="localizations"/>
 			<nil key="sourceID"/>
-			<int key="maxID">38</int>
+			<int key="maxID">44</int>
 		</object>
 		<object class="IBClassDescriber" key="IBDocument.Classes">
 			<array class="NSMutableArray" key="referencedPartialClassDescriptions">
@@ -268,11 +344,16 @@
 					<string key="superclassName">UIViewController</string>
 					<dictionary class="NSMutableDictionary" key="actions">
 						<string key="dismiss:">id</string>
+						<string key="toggleAudioInBackGroundSetting:">id</string>
 						<string key="togglePasscodeLockSetting:">id</string>
 					</dictionary>
 					<dictionary class="NSMutableDictionary" key="actionInfosByName">
 						<object class="IBActionInfo" key="dismiss:">
 							<string key="name">dismiss:</string>
+							<string key="candidateClassName">id</string>
+						</object>
+						<object class="IBActionInfo" key="toggleAudioInBackGroundSetting:">
+							<string key="name">toggleAudioInBackGroundSetting:</string>
 							<string key="candidateClassName">id</string>
 						</object>
 						<object class="IBActionInfo" key="togglePasscodeLockSetting:">
@@ -281,11 +362,21 @@
 						</object>
 					</dictionary>
 					<dictionary class="NSMutableDictionary" key="outlets">
+						<string key="audioPlaybackInBackgroundLabel">UILabel</string>
+						<string key="audioPlaybackInBackgroundSwitch">UISwitch</string>
 						<string key="dismissButton">UIBarButtonItem</string>
 						<string key="passcodeLockLabel">UILabel</string>
 						<string key="passcodeLockSwitch">UISwitch</string>
 					</dictionary>
 					<dictionary class="NSMutableDictionary" key="toOneOutletInfosByName">
+						<object class="IBToOneOutletInfo" key="audioPlaybackInBackgroundLabel">
+							<string key="name">audioPlaybackInBackgroundLabel</string>
+							<string key="candidateClassName">UILabel</string>
+						</object>
+						<object class="IBToOneOutletInfo" key="audioPlaybackInBackgroundSwitch">
+							<string key="name">audioPlaybackInBackgroundSwitch</string>
+							<string key="candidateClassName">UISwitch</string>
+						</object>
 						<object class="IBToOneOutletInfo" key="dismissButton">
 							<string key="name">dismissButton</string>
 							<string key="candidateClassName">UIBarButtonItem</string>
