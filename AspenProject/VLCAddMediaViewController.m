@@ -14,12 +14,14 @@
 #import "VLCHTTPUploaderController.h"
 #import "VLCSettingsViewController.h"
 #import "HTTPServer.h"
+#import "Reachability.h"
 
 #import <ifaddrs.h>
 #import <arpa/inet.h>
 
 @interface VLCAddMediaViewController () {
     VLCHTTPUploaderController *_uploadController;
+    Reachability *_reachability;
 }
 
 @end
@@ -33,6 +35,12 @@
     return self;
 }
 
+- (void)dealloc
+{
+    [_reachability stopNotifier];
+    [[NSNotificationCenter defaultCenter] removeObserver:self];
+}
+
 - (void)viewDidLoad
 {
     [super viewDidLoad];
@@ -43,6 +51,25 @@
     [self.openNetworkStreamButton setTitle:NSLocalizedString(@"OPEN_NETWORK", @"") forState:UIControlStateNormal];
     [self.downloadFromHTTPServerButton setTitle:NSLocalizedString(@"DOWNLOAD_FROM_HTTP", @"") forState:UIControlStateNormal];
     [self.openURLButton setTitle:NSLocalizedString(@"BUTTON_OPEN", @"") forState:UIControlStateNormal];
+
+    _reachability = [Reachability reachabilityForLocalWiFi];
+    [_reachability startNotifier];
+
+    [self netReachabilityChanged:nil];
+
+    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(netReachabilityChanged:) name:kReachabilityChangedNotification object:nil];
+}
+
+- (void)netReachabilityChanged:(NSNotification *)notification
+{
+    if (_reachability.currentReachabilityStatus == ReachableViaWiFi) {
+        self.httpUploadServerSwitch.enabled = YES;
+        self.httpUploadServerLocationLabel.text = NSLocalizedString(@"HTTP_UPLOAD_SERVER_OFF", @"");
+    } else {
+        self.httpUploadServerSwitch.enabled = NO;
+        self.httpUploadServerSwitch.on = NO;
+        self.httpUploadServerLocationLabel.text = NSLocalizedString(@"HTTP_UPLOAD_NO_CONNECTIVITY", @"");
+    }
 }
 
 - (void)viewWillAppear:(BOOL)animated
@@ -50,6 +77,7 @@
     [self.openURLButton sizeToFit];
     if (self.openURLView.superview)
         [self.openURLView removeFromSuperview];
+
     [super viewWillAppear:animated];
 }
 
@@ -81,7 +109,7 @@
 - (IBAction)openNetworkStream:(id)sender
 {
     if (sender == self.openNetworkStreamButton) {
-        if ([[UIPasteboard generalPasteboard] containsPasteboardTypes:[NSArray arrayWithObjects:@"public.url", @"public.text", nil]]) {
+        if ([[UIPasteboard generalPasteboard] containsPasteboardTypes:@[@"public.url", @"public.text"]]) {
             NSURL *pasteURL = [[UIPasteboard generalPasteboard] valueForPasteboardType:@"public.url"];
             if (!pasteURL || [[pasteURL absoluteString] isEqualToString:@""]) {
                 NSString *pasteString = [[UIPasteboard generalPasteboard] valueForPasteboardType:@"public.text"];
@@ -127,8 +155,8 @@
         temp_addr = interfaces;
         while(temp_addr != NULL) {
             if(temp_addr->ifa_addr->sa_family == AF_INET) {
-                if([[NSString stringWithUTF8String:temp_addr->ifa_name] isEqualToString:@"en0"])
-                    address = [NSString stringWithUTF8String:inet_ntoa(((struct sockaddr_in *)temp_addr->ifa_addr)->sin_addr)];
+                if([@(temp_addr->ifa_name) isEqualToString:@"en0"])
+                    address = @(inet_ntoa(((struct sockaddr_in *)temp_addr->ifa_addr)->sin_addr));
             }
             temp_addr = temp_addr->ifa_next;
         }

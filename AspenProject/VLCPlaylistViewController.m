@@ -272,6 +272,9 @@
 /* deprecated in iOS 6 */
 - (BOOL)shouldAutorotateToInterfaceOrientation:(UIInterfaceOrientation)toInterfaceOrientation
 {
+    if (UIInterfaceOrientationIsPortrait(toInterfaceOrientation))
+        return YES;
+
     if (_foundMedia.count > 0)
         return YES;
     else
