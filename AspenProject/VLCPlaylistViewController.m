@@ -235,11 +235,10 @@
     else
         _editMode = !editing;
 
-    if (UI_USER_INTERFACE_IDIOM() == UIUserInterfaceIdiomPad) {
+    if (UI_USER_INTERFACE_IDIOM() == UIUserInterfaceIdiomPad)
         [self.gridView setEditing:_editMode];
-    } else {
+    else
         [self.tableView setEditing:_editMode animated:YES];
-    }
 
     if (_editMode) {
         self.editButtonItem.style = UIBarButtonItemStyleDone;

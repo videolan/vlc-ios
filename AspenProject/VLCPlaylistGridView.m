@@ -15,6 +15,11 @@
 
 @implementation VLCPlaylistGridView
 
++ (CGSize)preferredSize
+{
+    return CGSizeMake(288, 220);
+}
+
 - (void)awakeFromNib {
     [super awakeFromNib];
     _contentView = self;
@@ -32,11 +37,6 @@
 {
     [super prepareForReuse];
     self.removeMediaButton.hidden = YES;
-}
-
-+ (CGSize)preferredSize
-{
-    return CGSizeMake(384, 243);
 }
 
 - (void)observeValueForKeyPath:(NSString *)keyPath ofObject:(id)object change:(NSDictionary *)change context:(void *)context
