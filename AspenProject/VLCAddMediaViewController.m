@@ -15,6 +15,7 @@
 #import "VLCSettingsViewController.h"
 #import "HTTPServer.h"
 #import "Reachability.h"
+#import "VLCHTTPFileDownloader.h"
 
 #import <ifaddrs.h>
 #import <arpa/inet.h>
@@ -22,6 +23,7 @@
 @interface VLCAddMediaViewController () {
     VLCHTTPUploaderController *_uploadController;
     Reachability *_reachability;
+    VLCHTTPFileDownloader *_httpDownloader;
 }
 
 @end
@@ -121,6 +123,8 @@
         }
         if (self.openURLView.superview)
             [self.openURLView removeFromSuperview];
+        [self.openURLButton removeTarget:nil action:NULL forControlEvents:UIControlEventTouchUpInside];
+        [self.openURLButton addTarget:self action:@selector(openNetworkStream:) forControlEvents:UIControlEventTouchUpInside];
         [self.openNetworkStreamButton addSubview:self.openURLView];
     } else {
         VLCAppDelegate* appDelegate = [UIApplication sharedApplication].delegate;
@@ -131,6 +135,11 @@
 
 - (IBAction)downloadFromHTTPServer:(id)sender
 {
+    if (_httpDownloader) {
+        if (_httpDownloader.downloadInProgress)
+            return;
+    }
+
     if (sender == self.downloadFromHTTPServerButton) {
         if ([[UIPasteboard generalPasteboard] containsPasteboardTypes:@[@"public.url", @"public.text"]]) {
             NSURL *pasteURL = [[UIPasteboard generalPasteboard] valueForPasteboardType:@"public.url"];
@@ -144,12 +153,22 @@
         }
         if (self.openURLView.superview)
             [self.openURLView removeFromSuperview];
+        [self.openURLButton removeTarget:nil action:NULL forControlEvents:UIControlEventTouchUpInside];
+        [self.openURLButton addTarget:self action:@selector(downloadFromHTTPServer:) forControlEvents:UIControlEventTouchUpInside];
         [self.downloadFromHTTPServerButton addSubview:self.openURLView];
     } else {
-        VLCAppDelegate* appDelegate = [UIApplication sharedApplication].delegate;
         NSURL *URLtoSave = [NSURL URLWithString:self.openURLField.text];
-        if ([URLtoSave.scheme isEqualToString:@"http"] || [URLtoSave.scheme isEqualToString:@"https"])
-            [appDelegate application:[UIApplication sharedApplication] openURL:URLtoSave sourceApplication:@"self" annotation:nil];
+        if (([URLtoSave.scheme isEqualToString:@"http"] || [URLtoSave.scheme isEqualToString:@"https"]) && ![URLtoSave.lastPathComponent.pathExtension isEqualToString:@""]) {
+            if (!_httpDownloader) {
+                _httpDownloader = [[VLCHTTPFileDownloader alloc] init];
+                _httpDownloader.mediaViewController = self;
+            }
+            [_httpDownloader downloadFileFromURL:URLtoSave];
+            [self.openURLView removeFromSuperview];
+        } else {
+            APLog(@"URL is not a file download");
+            [self _hideAnimated:YES];
+        }
     }
 }
 

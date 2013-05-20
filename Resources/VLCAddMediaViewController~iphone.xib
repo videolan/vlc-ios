@@ -85,7 +85,7 @@
 						<string key="NSFrame">{{0, 120}, {320, 60}}</string>
 						<reference key="NSSuperview" ref="892317093"/>
 						<reference key="NSWindow"/>
-						<reference key="NSNextKeyView" ref="485650876"/>
+						<reference key="NSNextKeyView" ref="839269668"/>
 						<string key="NSReuseIdentifierKey">_NS:9</string>
 						<reference key="IBUIBackgroundColor" ref="937037271"/>
 						<bool key="IBUIOpaque">NO</bool>
@@ -108,6 +108,7 @@
 						<string key="NSFrame">{{0, 340}, {320, 60}}</string>
 						<reference key="NSSuperview" ref="892317093"/>
 						<reference key="NSWindow"/>
+						<reference key="NSNextKeyView"/>
 						<string key="NSReuseIdentifierKey">_NS:9</string>
 						<reference key="IBUIBackgroundColor" ref="937037271"/>
 						<bool key="IBUIOpaque">NO</bool>
@@ -257,6 +258,20 @@
 						<reference key="IBUIBackgroundColor" ref="937037271"/>
 						<string key="targetRuntimeIdentifier">IBCocoaTouchFramework</string>
 					</object>
+					<object class="IBUIView" id="839269668">
+						<reference key="NSNextResponder" ref="892317093"/>
+						<int key="NSvFlags">-2147483348</int>
+						<string key="NSFrame">{{9, 130}, {40, 40}}</string>
+						<reference key="NSSuperview" ref="892317093"/>
+						<reference key="NSWindow"/>
+						<reference key="NSNextKeyView" ref="485650876"/>
+						<string key="NSReuseIdentifierKey">_NS:9</string>
+						<object class="NSColor" key="IBUIBackgroundColor">
+							<int key="NSColorSpace">3</int>
+							<bytes key="NSWhite">MCAwAA</bytes>
+						</object>
+						<string key="targetRuntimeIdentifier">IBCocoaTouchFramework</string>
+					</object>
 				</array>
 				<string key="NSFrameSize">{320, 400}</string>
 				<reference key="NSSuperview"/>
@@ -312,6 +327,7 @@
 						<string key="NSFrame">{{229, 8}, {70, 44}}</string>
 						<reference key="NSSuperview" ref="574364168"/>
 						<reference key="NSWindow"/>
+						<reference key="NSNextKeyView"/>
 						<string key="NSReuseIdentifierKey">_NS:9</string>
 						<bool key="IBUIOpaque">NO</bool>
 						<string key="targetRuntimeIdentifier">IBCocoaTouchFramework</string>
@@ -422,6 +438,14 @@
 					<int key="connectionID">70</int>
 				</object>
 				<object class="IBConnectionRecord">
+					<object class="IBCocoaTouchOutletConnection" key="connection">
+						<string key="label">httpDownloadProgressIndicator</string>
+						<reference key="source" ref="372490531"/>
+						<reference key="destination" ref="839269668"/>
+					</object>
+					<int key="connectionID">74</int>
+				</object>
+				<object class="IBConnectionRecord">
 					<object class="IBCocoaTouchEventConnection" key="connection">
 						<string key="label">openNetworkStream:</string>
 						<reference key="source" ref="233942944"/>
@@ -513,6 +537,7 @@
 							<reference ref="485650876"/>
 							<reference ref="1021636329"/>
 							<reference ref="205209326"/>
+							<reference ref="839269668"/>
 						</array>
 						<reference key="parent" ref="0"/>
 					</object>
@@ -600,6 +625,11 @@
 						<reference key="object" ref="892025683"/>
 						<reference key="parent" ref="485650876"/>
 					</object>
+					<object class="IBObjectRecord">
+						<int key="objectID">73</int>
+						<reference key="object" ref="839269668"/>
+						<reference key="parent" ref="892317093"/>
+					</object>
 				</array>
 			</object>
 			<dictionary class="NSMutableDictionary" key="flattenedProperties">
@@ -622,12 +652,14 @@
 				<string key="63.IBPluginDependency">com.apple.InterfaceBuilder.IBCocoaTouchPlugin</string>
 				<string key="64.IBPluginDependency">com.apple.InterfaceBuilder.IBCocoaTouchPlugin</string>
 				<string key="69.IBPluginDependency">com.apple.InterfaceBuilder.IBCocoaTouchPlugin</string>
+				<string key="73.CustomClassName">VLCCircularProgressIndicator</string>
+				<string key="73.IBPluginDependency">com.apple.InterfaceBuilder.IBCocoaTouchPlugin</string>
 			</dictionary>
 			<dictionary class="NSMutableDictionary" key="unlocalizedProperties"/>
 			<nil key="activeLocalization"/>
 			<dictionary class="NSMutableDictionary" key="localizations"/>
 			<nil key="sourceID"/>
-			<int key="maxID">70</int>
+			<int key="maxID">74</int>
 		</object>
 		<object class="IBClassDescriber" key="IBDocument.Classes">
 			<array class="NSMutableArray" key="referencedPartialClassDescriptions">
@@ -635,7 +667,6 @@
 					<string key="className">VLCAddMediaViewController</string>
 					<string key="superclassName">UIViewController</string>
 					<dictionary class="NSMutableDictionary" key="actions">
-						<string key="dismiss:">id</string>
 						<string key="downloadFromHTTPServer:">id</string>
 						<string key="openAboutPanel:">id</string>
 						<string key="openNetworkStream:">id</string>
@@ -643,10 +674,6 @@
 						<string key="toggleHTTPServer:">id</string>
 					</dictionary>
 					<dictionary class="NSMutableDictionary" key="actionInfosByName">
-						<object class="IBActionInfo" key="dismiss:">
-							<string key="name">dismiss:</string>
-							<string key="candidateClassName">id</string>
-						</object>
 						<object class="IBActionInfo" key="downloadFromHTTPServer:">
 							<string key="name">downloadFromHTTPServer:</string>
 							<string key="candidateClassName">id</string>
@@ -672,6 +699,7 @@
 						<string key="aboutButton">UIButton</string>
 						<string key="dismissButton">UIButton</string>
 						<string key="downloadFromHTTPServerButton">UIButton</string>
+						<string key="httpDownloadProgressIndicator">VLCCircularProgressIndicator</string>
 						<string key="httpUploadServerLocationLabel">UILabel</string>
 						<string key="httpUploadServerSwitch">UISwitch</string>
 						<string key="openNetworkStreamButton">UIButton</string>
@@ -692,6 +720,10 @@
 						<object class="IBToOneOutletInfo" key="downloadFromHTTPServerButton">
 							<string key="name">downloadFromHTTPServerButton</string>
 							<string key="candidateClassName">UIButton</string>
+						</object>
+						<object class="IBToOneOutletInfo" key="httpDownloadProgressIndicator">
+							<string key="name">httpDownloadProgressIndicator</string>
+							<string key="candidateClassName">VLCCircularProgressIndicator</string>
 						</object>
 						<object class="IBToOneOutletInfo" key="httpUploadServerLocationLabel">
 							<string key="name">httpUploadServerLocationLabel</string>
@@ -725,6 +757,14 @@
 					<object class="IBClassDescriptionSource" key="sourceIdentifier">
 						<string key="majorKey">IBProjectSource</string>
 						<string key="minorKey">./Classes/VLCAddMediaViewController.h</string>
+					</object>
+				</object>
+				<object class="IBPartialClassDescription">
+					<string key="className">VLCCircularProgressIndicator</string>
+					<string key="superclassName">UIProgressView</string>
+					<object class="IBClassDescriptionSource" key="sourceIdentifier">
+						<string key="majorKey">IBProjectSource</string>
+						<string key="minorKey">./Classes/VLCCircularProgressIndicator.h</string>
 					</object>
 				</object>
 			</array>

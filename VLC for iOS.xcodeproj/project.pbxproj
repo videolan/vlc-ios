@@ -70,6 +70,7 @@
 		7D3EB000174A265C002062C2 /* vlcetix144.png in Resources */ = {isa = PBXBuildFile; fileRef = 7D3EAFFC174A265C002062C2 /* vlcetix144.png */; };
 		7D3EB012174A3530002062C2 /* Reachability.m in Sources */ = {isa = PBXBuildFile; fileRef = 7D3EB011174A3530002062C2 /* Reachability.m */; };
 		7D3EB014174A353E002062C2 /* SystemConfiguration.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 7D3EB013174A353E002062C2 /* SystemConfiguration.framework */; };
+		7D3EB017174A46FB002062C2 /* VLCHTTPFileDownloader.m in Sources */ = {isa = PBXBuildFile; fileRef = 7D3EB016174A46FB002062C2 /* VLCHTTPFileDownloader.m */; };
 		7D6B07BC1716C9B8003280C4 /* AQGridView.m in Sources */ = {isa = PBXBuildFile; fileRef = 7D6B07A61716C9B8003280C4 /* AQGridView.m */; };
 		7D6B07BD1716C9B8003280C4 /* AQGridViewAnimatorItem.m in Sources */ = {isa = PBXBuildFile; fileRef = 7D6B07AA1716C9B8003280C4 /* AQGridViewAnimatorItem.m */; };
 		7D6B07BE1716C9B8003280C4 /* AQGridViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 7D6B07AC1716C9B8003280C4 /* AQGridViewCell.m */; };
@@ -239,6 +240,8 @@
 		7D3EB010174A3530002062C2 /* Reachability.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Reachability.h; sourceTree = "<group>"; };
 		7D3EB011174A3530002062C2 /* Reachability.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Reachability.m; sourceTree = "<group>"; };
 		7D3EB013174A353E002062C2 /* SystemConfiguration.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = SystemConfiguration.framework; path = System/Library/Frameworks/SystemConfiguration.framework; sourceTree = SDKROOT; };
+		7D3EB015174A46FB002062C2 /* VLCHTTPFileDownloader.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = VLCHTTPFileDownloader.h; sourceTree = "<group>"; };
+		7D3EB016174A46FB002062C2 /* VLCHTTPFileDownloader.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = VLCHTTPFileDownloader.m; sourceTree = "<group>"; };
 		7D6B07A51716C9B8003280C4 /* AQGridView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = AQGridView.h; path = ImportedSources/AQGridView/Classes/AQGridView.h; sourceTree = SOURCE_ROOT; };
 		7D6B07A61716C9B8003280C4 /* AQGridView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = AQGridView.m; path = ImportedSources/AQGridView/Classes/AQGridView.m; sourceTree = SOURCE_ROOT; };
 		7D6B07A71716C9B8003280C4 /* AQGridView+CellLayout.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = "AQGridView+CellLayout.h"; path = "ImportedSources/AQGridView/Classes/AQGridView+CellLayout.h"; sourceTree = SOURCE_ROOT; };
@@ -682,6 +685,8 @@
 				A7DA16D0171083DF00D6FED9 /* VLCExternalDisplayController.m */,
 				7D6BA1141748EFE100C0E203 /* VLCAddMediaViewController.h */,
 				7D6BA1151748EFE100C0E203 /* VLCAddMediaViewController.m */,
+				7D3EB015174A46FB002062C2 /* VLCHTTPFileDownloader.h */,
+				7D3EB016174A46FB002062C2 /* VLCHTTPFileDownloader.m */,
 				7D6BA10B1747F26300C0E203 /* VLCPasscodeLockViewController.h */,
 				7D6BA10C1747F26300C0E203 /* VLCPasscodeLockViewController.m */,
 				7D6BA11B17491F5F00C0E203 /* VLCSettingsViewController.h */,
@@ -965,6 +970,7 @@
 				29CE2D44174912C600922D8F /* VLCHTTPUploaderController.m in Sources */,
 				7D6BA11E17491F5F00C0E203 /* VLCSettingsViewController.m in Sources */,
 				7D3EB012174A3530002062C2 /* Reachability.m in Sources */,
+				7D3EB017174A46FB002062C2 /* VLCHTTPFileDownloader.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
