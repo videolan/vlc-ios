@@ -16,6 +16,7 @@
 @property (nonatomic, strong) IBOutlet UIImageView *thumbnailView;
 @property (nonatomic, strong) IBOutlet VLCLinearProgressIndicator *progressView;
 @property (nonatomic, strong) IBOutlet UIButton *removeMediaButton;
+@property (nonatomic, strong) IBOutlet UIImageView *mediaIsUnreadView;
 
 @property (nonatomic, retain) MLFile *mediaObject;
 

@@ -69,6 +69,8 @@
     if (self.progressIndicator.progress < 0.1f)
         self.progressIndicator.hidden = YES;
 
+    self.mediaIsUnreadView.hidden = !self.mediaObject.unread.intValue;
+
     [self setNeedsDisplay];
 }
 
