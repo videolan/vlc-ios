@@ -17,8 +17,7 @@
 @property (nonatomic, strong) IBOutlet UISwitch *audioPlaybackInBackgroundSwitch;
 @property (nonatomic, strong) IBOutlet UILabel *audioPlaybackInBackgroundLabel;
 
-- (IBAction)togglePasscodeLockSetting:(id)sender;
-- (IBAction)toggleAudioInBackGroundSetting:(id)sender;
+- (IBAction)toggleSetting:(id)sender;
 
 - (IBAction)dismiss:(id)sender;
 
