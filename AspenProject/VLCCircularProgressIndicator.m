@@ -12,7 +12,6 @@
 
 - (void)drawRect:(CGRect)rect
 {
-    NSLog(@"draw Rect");
     self.backgroundColor = [UIColor clearColor];
     CGContextClearRect(UIGraphicsGetCurrentContext(), rect);
 
