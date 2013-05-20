@@ -119,6 +119,8 @@
             if (pasteURL && ![[pasteURL scheme] isEqualToString:@""] && ![[pasteURL absoluteString] isEqualToString:@""])
                 self.openURLField.text = [pasteURL absoluteString];
         }
+        if (self.openURLView.superview)
+            [self.openURLView removeFromSuperview];
         [self.openNetworkStreamButton addSubview:self.openURLView];
     } else {
         VLCAppDelegate* appDelegate = [UIApplication sharedApplication].delegate;
@@ -129,7 +131,26 @@
 
 - (IBAction)downloadFromHTTPServer:(id)sender
 {
-    //TODO
+    if (sender == self.downloadFromHTTPServerButton) {
+        if ([[UIPasteboard generalPasteboard] containsPasteboardTypes:@[@"public.url", @"public.text"]]) {
+            NSURL *pasteURL = [[UIPasteboard generalPasteboard] valueForPasteboardType:@"public.url"];
+            if (!pasteURL || [[pasteURL absoluteString] isEqualToString:@""]) {
+                NSString *pasteString = [[UIPasteboard generalPasteboard] valueForPasteboardType:@"public.text"];
+                pasteURL = [NSURL URLWithString:pasteString];
+            }
+
+            if (pasteURL && ![[pasteURL scheme] isEqualToString:@""] && ![[pasteURL absoluteString] isEqualToString:@""])
+                self.openURLField.text = [pasteURL absoluteString];
+        }
+        if (self.openURLView.superview)
+            [self.openURLView removeFromSuperview];
+        [self.downloadFromHTTPServerButton addSubview:self.openURLView];
+    } else {
+        VLCAppDelegate* appDelegate = [UIApplication sharedApplication].delegate;
+        NSURL *URLtoSave = [NSURL URLWithString:self.openURLField.text];
+        if ([URLtoSave.scheme isEqualToString:@"http"] || [URLtoSave.scheme isEqualToString:@"https"])
+            [appDelegate application:[UIApplication sharedApplication] openURL:URLtoSave sourceApplication:@"self" annotation:nil];
+    }
 }
 
 - (IBAction)showSettings:(id)sender
