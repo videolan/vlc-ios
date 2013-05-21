@@ -53,7 +53,7 @@
     [self.openNetworkStreamButton setTitle:NSLocalizedString(@"OPEN_NETWORK", @"") forState:UIControlStateNormal];
     [self.downloadFromHTTPServerButton setTitle:NSLocalizedString(@"DOWNLOAD_FROM_HTTP", @"") forState:UIControlStateNormal];
     [self.openURLButton setTitle:NSLocalizedString(@"BUTTON_OPEN", @"") forState:UIControlStateNormal];
-
+    self.httpUploadLabel.text = NSLocalizedString(@"HTTP_UPLOAD", @"");
     _reachability = [Reachability reachabilityForLocalWiFi];
     [_reachability startNotifier];
 

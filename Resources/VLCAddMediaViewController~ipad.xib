@@ -2,9 +2,9 @@
 <archive type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="8.00">
 	<data>
 		<int key="IBDocument.SystemTarget">1296</int>
-		<string key="IBDocument.SystemVersion">12E52</string>
+		<string key="IBDocument.SystemVersion">12D78</string>
 		<string key="IBDocument.InterfaceBuilderVersion">3084</string>
-		<string key="IBDocument.AppKitVersion">1187.39</string>
+		<string key="IBDocument.AppKitVersion">1187.37</string>
 		<string key="IBDocument.HIToolboxVersion">626.00</string>
 		<object class="NSMutableDictionary" key="IBDocument.PluginVersions">
 			<string key="NS.key.0">com.apple.InterfaceBuilder.IBCocoaTouchPlugin</string>
@@ -258,7 +258,7 @@
 				<string key="targetRuntimeIdentifier">IBCocoaTouchFramework</string>
 			</object>
 			<object class="IBUIView" id="239666395">
-				<reference key="NSNextResponder"/>
+				<nil key="NSNextResponder"/>
 				<int key="NSvFlags">292</int>
 				<array class="NSMutableArray" key="NSSubviews">
 					<object class="IBUITextField" id="988543427">
@@ -266,7 +266,6 @@
 						<int key="NSvFlags">294</int>
 						<string key="NSFrame">{{20, 15}, {201, 30}}</string>
 						<reference key="NSSuperview" ref="239666395"/>
-						<reference key="NSWindow"/>
 						<reference key="NSNextKeyView" ref="712064142"/>
 						<string key="NSReuseIdentifierKey">_NS:9</string>
 						<reference key="IBUIBackgroundColor" ref="937037271"/>
@@ -296,7 +295,6 @@
 						<int key="NSvFlags">289</int>
 						<string key="NSFrame">{{229, 8}, {70, 44}}</string>
 						<reference key="NSSuperview" ref="239666395"/>
-						<reference key="NSWindow"/>
 						<string key="NSReuseIdentifierKey">_NS:9</string>
 						<reference key="IBUIBackgroundColor" ref="937037271"/>
 						<bool key="IBUIOpaque">NO</bool>
@@ -316,8 +314,6 @@
 					</object>
 				</array>
 				<string key="NSFrameSize">{320, 60}</string>
-				<reference key="NSSuperview"/>
-				<reference key="NSWindow"/>
 				<reference key="NSNextKeyView" ref="988543427"/>
 				<string key="NSReuseIdentifierKey">_NS:9</string>
 				<reference key="IBUIBackgroundColor" ref="937037271"/>
@@ -414,6 +410,14 @@
 						<reference key="destination" ref="438150818"/>
 					</object>
 					<int key="connectionID">64</int>
+				</object>
+				<object class="IBConnectionRecord">
+					<object class="IBCocoaTouchOutletConnection" key="connection">
+						<string key="label">httpUploadLabel</string>
+						<reference key="source" ref="372490531"/>
+						<reference key="destination" ref="1058448762"/>
+					</object>
+					<int key="connectionID">65</int>
 				</object>
 				<object class="IBConnectionRecord">
 					<object class="IBCocoaTouchEventConnection" key="connection">
@@ -598,7 +602,7 @@
 			<nil key="activeLocalization"/>
 			<dictionary class="NSMutableDictionary" key="localizations"/>
 			<nil key="sourceID"/>
-			<int key="maxID">64</int>
+			<int key="maxID">65</int>
 		</object>
 		<object class="IBClassDescriber" key="IBDocument.Classes">
 			<array class="NSMutableArray" key="referencedPartialClassDescriptions">
@@ -644,6 +648,7 @@
 						<string key="dismissButton">UIButton</string>
 						<string key="downloadFromHTTPServerButton">UIButton</string>
 						<string key="httpDownloadProgressIndicator">VLCCircularProgressIndicator</string>
+						<string key="httpUploadLabel">UILabel</string>
 						<string key="httpUploadServerLocationLabel">UILabel</string>
 						<string key="httpUploadServerSwitch">UISwitch</string>
 						<string key="openNetworkStreamButton">UIButton</string>
@@ -668,6 +673,10 @@
 						<object class="IBToOneOutletInfo" key="httpDownloadProgressIndicator">
 							<string key="name">httpDownloadProgressIndicator</string>
 							<string key="candidateClassName">VLCCircularProgressIndicator</string>
+						</object>
+						<object class="IBToOneOutletInfo" key="httpUploadLabel">
+							<string key="name">httpUploadLabel</string>
+							<string key="candidateClassName">UILabel</string>
 						</object>
 						<object class="IBToOneOutletInfo" key="httpUploadServerLocationLabel">
 							<string key="name">httpUploadServerLocationLabel</string>

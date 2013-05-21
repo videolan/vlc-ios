@@ -22,6 +22,7 @@
 @property (strong, nonatomic) IBOutlet UIButton *downloadFromHTTPServerButton;
 @property (strong, nonatomic) IBOutlet UIButton *settingsButton;
 @property (strong, nonatomic) IBOutlet UISwitch *httpUploadServerSwitch;
+@property (strong, nonatomic) IBOutlet UILabel *httpUploadLabel;
 @property (strong, nonatomic) IBOutlet UILabel *httpUploadServerLocationLabel;
 
 @property (strong, nonatomic) IBOutlet UIView *openURLView;
