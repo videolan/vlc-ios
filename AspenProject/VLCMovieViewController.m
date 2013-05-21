@@ -373,11 +373,10 @@
 
 - (IBAction)playPause
 {
-    if ([_mediaPlayer isPlaying]) {
+    if ([_mediaPlayer isPlaying])
         [_mediaPlayer pause];
-    } else {
+    else
         [_mediaPlayer play];
-    }
 }
 
 - (IBAction)forward:(id)sender
@@ -543,7 +542,8 @@
     if (![[[NSUserDefaults standardUserDefaults] objectForKey:kVLCSettingContinueAudioInBackgroundKey] intValue]) {
         [_mediaPlayer pause];
         _shouldResumePlaying = YES;
-    }
+    } else
+        _mediaPlayer.currentVideoTrackIndex = 0;
 }
 
 - (void)applicationDidEnterBackground:(NSNotification *)notification
@@ -553,11 +553,11 @@
 
 - (void)applicationDidBecomeActive:(NSNotification *)notification
 {
-    NSLog(@"applicationDidBecomeActive");
     if (_shouldResumePlaying) {
         _shouldResumePlaying = NO;
         [_mediaPlayer play];
-    }
+    } else
+        _mediaPlayer.currentVideoTrackIndex = 1;
 }
 
 #pragma mark - autorotation
