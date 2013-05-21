@@ -44,15 +44,6 @@
     [super viewDidLoad];
     self.wantsFullScreenLayout = YES;
 
-    NSUserDefaults *defaults = [NSUserDefaults standardUserDefaults];
-    NSArray *options = @[[defaults objectForKey:kVLCSettingVerboseOutput],
-                         [defaults objectForKey:kVLCSettingStretchAudio],
-                         [defaults objectForKey:kVLCSettingTextEncoding]];
-
-    _mediaPlayer = [[VLCMediaPlayer alloc] initWithOptions:options];
-    [_mediaPlayer setDelegate:self];
-    [_mediaPlayer setDrawable:self.movieView];
-
     self.videoFilterView.hidden = YES;
     _videoFiltersHidden = YES;
     _hueLabel.text = NSLocalizedString(@"VFILTER_HUE", @"");
@@ -91,6 +82,15 @@
 
 - (void)viewWillAppear:(BOOL)animated
 {
+    NSUserDefaults *defaults = [NSUserDefaults standardUserDefaults];
+    NSArray *options = @[[defaults objectForKey:kVLCSettingVerboseOutput],
+                         [defaults objectForKey:kVLCSettingStretchAudio],
+                         [defaults objectForKey:kVLCSettingTextEncoding]];
+
+    _mediaPlayer = [[VLCMediaPlayer alloc] initWithOptions:options];
+    [_mediaPlayer setDelegate:self];
+    [_mediaPlayer setDrawable:self.movieView];
+
     [self.navigationController setNavigationBarHidden:YES animated:YES];
     if (UI_USER_INTERFACE_IDIOM() == UIUserInterfaceIdiomPhone)
         [UIApplication sharedApplication].statusBarStyle = UIStatusBarStyleBlackTranslucent;
@@ -185,6 +185,7 @@
     if (self.mediaItem)
         self.mediaItem.lastPosition = @([_mediaPlayer position]);
     [_mediaPlayer stop];
+    _mediaPlayer = nil; // save memory and some CPU time
 }
 
 - (id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil
