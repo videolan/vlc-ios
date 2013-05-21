@@ -358,6 +358,9 @@
         [self performSelector:@selector(closePlayback:) withObject:nil afterDelay:2.];
     }
 
+    if (currentState == VLCMediaPlayerStateEnded || currentState == VLCMediaPlayerStateStopped)
+        [self performSelector:@selector(closePlayback:) withObject:nil afterDelay:2.];
+
     UIImage *playPauseImage = [_mediaPlayer isPlaying]? [UIImage imageNamed:@"pause"] : [UIImage imageNamed:@"play"];
     [_playPauseButton setImage:playPauseImage forState:UIControlStateNormal];
 
