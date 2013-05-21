@@ -236,6 +236,7 @@ static const int httpLogLevel = HTTP_LOG_LEVEL_VERBOSE; // | HTTP_LOG_FLAG_TRACE
 		}
 		storeFile = [NSFileHandle fileHandleForWritingAtPath:filePath];
 		[uploadedFiles addObject: [NSString stringWithFormat:@"/upload/%@", filename]];
+        [UIApplication sharedApplication].networkActivityIndicatorVisible = YES;
     }
 }
 
@@ -252,6 +253,7 @@ static const int httpLogLevel = HTTP_LOG_LEVEL_VERBOSE; // | HTTP_LOG_FLAG_TRACE
 	// as the file part is over, we close the file.
 	[storeFile closeFile];
 	storeFile = nil;
+    [UIApplication sharedApplication].networkActivityIndicatorVisible = NO;
 
     /* update media library when file upload was completed */
     VLCAppDelegate* appDelegate = [UIApplication sharedApplication].delegate;
