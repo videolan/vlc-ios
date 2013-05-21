@@ -7,11 +7,13 @@
 //
 
 #import <UIKit/UIKit.h>
-#import "VLCPlaylistViewController.h"
 
+@class VLCPlaylistViewController;
+@class PAPasscodeViewController;
 @interface VLCAppDelegate : UIResponder <UIApplicationDelegate>
 {
     NSURL *_tempURL;
+    PAPasscodeViewController *_passcodeLockController;
 }
 
 - (void)updateMediaList;
@@ -21,5 +23,7 @@
 @property (nonatomic, strong) UIWindow *window;
 
 @property (nonatomic, strong) UINavigationController *navigationController;
+
+@property (nonatomic, retain) NSDate *nextPasscodeCheckDate;
 
 @end

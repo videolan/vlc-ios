@@ -88,8 +88,6 @@
 		7D6B08C3174A831900A05173 /* vlc-xmas@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 7D6B08C1174A831900A05173 /* vlc-xmas@2x.png */; };
 		7D6B08C7174A910500A05173 /* mediaUnread@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 7D6B08C6174A910500A05173 /* mediaUnread@2x.png */; };
 		7D6B08C9174A927700A05173 /* mediaUnread.png in Resources */ = {isa = PBXBuildFile; fileRef = 7D6B08C8174A927700A05173 /* mediaUnread.png */; };
-		7D6BA10E1747F26300C0E203 /* VLCPasscodeLockViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 7D6BA10C1747F26300C0E203 /* VLCPasscodeLockViewController.m */; };
-		7D6BA10F1747F26300C0E203 /* VLCPasscodeLockViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 7D6BA10D1747F26300C0E203 /* VLCPasscodeLockViewController.xib */; };
 		7D6BA1121748EA8300C0E203 /* playback_background.png in Resources */ = {isa = PBXBuildFile; fileRef = 7D6BA1101748EA8300C0E203 /* playback_background.png */; };
 		7D6BA1131748EA8300C0E203 /* playback_background@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 7D6BA1111748EA8300C0E203 /* playback_background@2x.png */; };
 		7D6BA1171748EFE100C0E203 /* VLCAddMediaViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 7D6BA1151748EFE100C0E203 /* VLCAddMediaViewController.m */; };
@@ -131,6 +129,13 @@
 		A79246C3170F114E0036AAF2 /* VLCPlaylistTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = A79246BE170F114E0036AAF2 /* VLCPlaylistTableViewCell.xib */; };
 		A79246C5170F114E0036AAF2 /* VLCPlaylistViewController~iphone.xib in Resources */ = {isa = PBXBuildFile; fileRef = A79246C0170F114E0036AAF2 /* VLCPlaylistViewController~iphone.xib */; };
 		A79246C8170F11DF0036AAF2 /* Localizable.strings in Resources */ = {isa = PBXBuildFile; fileRef = A79246C6170F11DF0036AAF2 /* Localizable.strings */; };
+		A7A0E9F5174BA66000162F25 /* papasscode_background.png in Resources */ = {isa = PBXBuildFile; fileRef = A7A0E9ED174BA66000162F25 /* papasscode_background.png */; };
+		A7A0E9F6174BA66000162F25 /* papasscode_background@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = A7A0E9EE174BA66000162F25 /* papasscode_background@2x.png */; };
+		A7A0E9F7174BA66000162F25 /* papasscode_failed_bg.png in Resources */ = {isa = PBXBuildFile; fileRef = A7A0E9EF174BA66000162F25 /* papasscode_failed_bg.png */; };
+		A7A0E9F8174BA66000162F25 /* papasscode_failed_bg@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = A7A0E9F0174BA66000162F25 /* papasscode_failed_bg@2x.png */; };
+		A7A0E9F9174BA66000162F25 /* papasscode_marker.png in Resources */ = {isa = PBXBuildFile; fileRef = A7A0E9F1174BA66000162F25 /* papasscode_marker.png */; };
+		A7A0E9FA174BA66000162F25 /* papasscode_marker@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = A7A0E9F2174BA66000162F25 /* papasscode_marker@2x.png */; };
+		A7A0E9FB174BA66000162F25 /* PAPasscodeViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = A7A0E9F4174BA66000162F25 /* PAPasscodeViewController.m */; };
 		A7CB0DB11716F72600050CF3 /* PlayingExternally@2x~iphone.png in Resources */ = {isa = PBXBuildFile; fileRef = A7CB0DAD1716F72600050CF3 /* PlayingExternally@2x~iphone.png */; };
 		A7CB0DB21716F72600050CF3 /* PlayingExternally~iphone.png in Resources */ = {isa = PBXBuildFile; fileRef = A7CB0DAE1716F72600050CF3 /* PlayingExternally~iphone.png */; };
 		A7CB0DB31716F72600050CF3 /* PlayingExternally~ipad.png in Resources */ = {isa = PBXBuildFile; fileRef = A7CB0DAF1716F72600050CF3 /* PlayingExternally~ipad.png */; };
@@ -280,9 +285,6 @@
 		7D6B08C1174A831900A05173 /* vlc-xmas@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "vlc-xmas@2x.png"; sourceTree = "<group>"; };
 		7D6B08C6174A910500A05173 /* mediaUnread@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "mediaUnread@2x.png"; sourceTree = "<group>"; };
 		7D6B08C8174A927700A05173 /* mediaUnread.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = mediaUnread.png; sourceTree = "<group>"; };
-		7D6BA10B1747F26300C0E203 /* VLCPasscodeLockViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = VLCPasscodeLockViewController.h; sourceTree = "<group>"; };
-		7D6BA10C1747F26300C0E203 /* VLCPasscodeLockViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = VLCPasscodeLockViewController.m; sourceTree = "<group>"; };
-		7D6BA10D1747F26300C0E203 /* VLCPasscodeLockViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; name = VLCPasscodeLockViewController.xib; path = ../Resources/VLCPasscodeLockViewController.xib; sourceTree = "<group>"; };
 		7D6BA1101748EA8300C0E203 /* playback_background.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = playback_background.png; sourceTree = "<group>"; };
 		7D6BA1111748EA8300C0E203 /* playback_background@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "playback_background@2x.png"; sourceTree = "<group>"; };
 		7D6BA1141748EFE100C0E203 /* VLCAddMediaViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = VLCAddMediaViewController.h; sourceTree = "<group>"; };
@@ -340,6 +342,14 @@
 		A79246C0170F114E0036AAF2 /* VLCPlaylistViewController~iphone.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; name = "VLCPlaylistViewController~iphone.xib"; path = "Resources/VLCPlaylistViewController~iphone.xib"; sourceTree = SOURCE_ROOT; };
 		A79246C7170F11DF0036AAF2 /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/Localizable.strings; sourceTree = "<group>"; };
 		A79246C9170F11E40036AAF2 /* ru */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = ru; path = ru.lproj/Localizable.strings; sourceTree = "<group>"; };
+		A7A0E9ED174BA66000162F25 /* papasscode_background.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = papasscode_background.png; sourceTree = "<group>"; };
+		A7A0E9EE174BA66000162F25 /* papasscode_background@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "papasscode_background@2x.png"; sourceTree = "<group>"; };
+		A7A0E9EF174BA66000162F25 /* papasscode_failed_bg.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = papasscode_failed_bg.png; sourceTree = "<group>"; };
+		A7A0E9F0174BA66000162F25 /* papasscode_failed_bg@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "papasscode_failed_bg@2x.png"; sourceTree = "<group>"; };
+		A7A0E9F1174BA66000162F25 /* papasscode_marker.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = papasscode_marker.png; sourceTree = "<group>"; };
+		A7A0E9F2174BA66000162F25 /* papasscode_marker@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "papasscode_marker@2x.png"; sourceTree = "<group>"; };
+		A7A0E9F3174BA66000162F25 /* PAPasscodeViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PAPasscodeViewController.h; sourceTree = "<group>"; };
+		A7A0E9F4174BA66000162F25 /* PAPasscodeViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PAPasscodeViewController.m; sourceTree = "<group>"; };
 		A7CB0DAD1716F72600050CF3 /* PlayingExternally@2x~iphone.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "PlayingExternally@2x~iphone.png"; sourceTree = "<group>"; };
 		A7CB0DAE1716F72600050CF3 /* PlayingExternally~iphone.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "PlayingExternally~iphone.png"; sourceTree = "<group>"; };
 		A7CB0DAF1716F72600050CF3 /* PlayingExternally~ipad.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "PlayingExternally~ipad.png"; sourceTree = "<group>"; };
@@ -640,6 +650,7 @@
 		7D94FCD216DE7D1000F2623B = {
 			isa = PBXGroup;
 			children = (
+				A7A0E9EB174BA66000162F25 /* PAPasscode */,
 				7D94FCE416DE7D1000F2623B /* AspenProject */,
 				CC1BBC441704936500A20CBF /* External VLC Libraries */,
 				7D94FCDD16DE7D1000F2623B /* Frameworks */,
@@ -703,8 +714,6 @@
 				7D6BA1151748EFE100C0E203 /* VLCAddMediaViewController.m */,
 				7D3EB015174A46FB002062C2 /* VLCHTTPFileDownloader.h */,
 				7D3EB016174A46FB002062C2 /* VLCHTTPFileDownloader.m */,
-				7D6BA10B1747F26300C0E203 /* VLCPasscodeLockViewController.h */,
-				7D6BA10C1747F26300C0E203 /* VLCPasscodeLockViewController.m */,
 				7D6BA11B17491F5F00C0E203 /* VLCSettingsViewController.h */,
 				7D6BA11C17491F5F00C0E203 /* VLCSettingsViewController.m */,
 				7D31CF061746AEF2005997E0 /* UI Elements */,
@@ -740,7 +749,6 @@
 				A79246BE170F114E0036AAF2 /* VLCPlaylistTableViewCell.xib */,
 				7DC87AF117413EE3009DC250 /* VLCPlaylistGridView.xib */,
 				7D33D41517182615008AF0E0 /* VLCMovieViewController~ipad.xib */,
-				7D6BA10D1747F26300C0E203 /* VLCPasscodeLockViewController.xib */,
 			);
 			name = XIBs;
 			sourceTree = "<group>";
@@ -797,6 +805,29 @@
 			);
 			path = Resources;
 			sourceTree = SOURCE_ROOT;
+		};
+		A7A0E9EB174BA66000162F25 /* PAPasscode */ = {
+			isa = PBXGroup;
+			children = (
+				A7A0E9EC174BA66000162F25 /* Assets */,
+				A7A0E9F3174BA66000162F25 /* PAPasscodeViewController.h */,
+				A7A0E9F4174BA66000162F25 /* PAPasscodeViewController.m */,
+			);
+			path = PAPasscode;
+			sourceTree = "<group>";
+		};
+		A7A0E9EC174BA66000162F25 /* Assets */ = {
+			isa = PBXGroup;
+			children = (
+				A7A0E9ED174BA66000162F25 /* papasscode_background.png */,
+				A7A0E9EE174BA66000162F25 /* papasscode_background@2x.png */,
+				A7A0E9EF174BA66000162F25 /* papasscode_failed_bg.png */,
+				A7A0E9F0174BA66000162F25 /* papasscode_failed_bg@2x.png */,
+				A7A0E9F1174BA66000162F25 /* papasscode_marker.png */,
+				A7A0E9F2174BA66000162F25 /* papasscode_marker@2x.png */,
+			);
+			path = Assets;
+			sourceTree = "<group>";
 		};
 		CC1BBC441704936500A20CBF /* External VLC Libraries */ = {
 			isa = PBXGroup;
@@ -913,7 +944,6 @@
 				7D10BCA91743FE7B00DA7059 /* speed@2x.png in Resources */,
 				A7035BBE174519600057DFA7 /* iTunesArtwork in Resources */,
 				A7035BC217451D4A0057DFA7 /* Aspen.png in Resources */,
-				7D6BA10F1747F26300C0E203 /* VLCPasscodeLockViewController.xib in Resources */,
 				7D6BA1121748EA8300C0E203 /* playback_background.png in Resources */,
 				7D6BA1131748EA8300C0E203 /* playback_background@2x.png in Resources */,
 				2915542317490A9C00B86CAD /* About.txt in Resources */,
@@ -934,6 +964,12 @@
 				7D6B08C3174A831900A05173 /* vlc-xmas@2x.png in Resources */,
 				7D6B08C7174A910500A05173 /* mediaUnread@2x.png in Resources */,
 				7D6B08C9174A927700A05173 /* mediaUnread.png in Resources */,
+				A7A0E9F5174BA66000162F25 /* papasscode_background.png in Resources */,
+				A7A0E9F6174BA66000162F25 /* papasscode_background@2x.png in Resources */,
+				A7A0E9F7174BA66000162F25 /* papasscode_failed_bg.png in Resources */,
+				A7A0E9F8174BA66000162F25 /* papasscode_failed_bg@2x.png in Resources */,
+				A7A0E9F9174BA66000162F25 /* papasscode_marker.png in Resources */,
+				A7A0E9FA174BA66000162F25 /* papasscode_marker@2x.png in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -966,7 +1002,6 @@
 				7DE480D1173FEA30003613E0 /* VLCCircularProgressIndicator.m in Sources */,
 				7DC87AEE17412A1F009DC250 /* VLCLinearProgressIndicator.m in Sources */,
 				7D31CF091746AF09005997E0 /* VLCStatusLabel.m in Sources */,
-				7D6BA10E1747F26300C0E203 /* VLCPasscodeLockViewController.m in Sources */,
 				2915540117490A1E00B86CAD /* DDData.m in Sources */,
 				2915540217490A1E00B86CAD /* DDNumber.m in Sources */,
 				2915540317490A1E00B86CAD /* DDRange.m in Sources */,
@@ -997,6 +1032,7 @@
 				7D6BA11E17491F5F00C0E203 /* VLCSettingsViewController.m in Sources */,
 				7D3EB012174A3530002062C2 /* Reachability.m in Sources */,
 				7D3EB017174A46FB002062C2 /* VLCHTTPFileDownloader.m in Sources */,
+				A7A0E9FB174BA66000162F25 /* PAPasscodeViewController.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

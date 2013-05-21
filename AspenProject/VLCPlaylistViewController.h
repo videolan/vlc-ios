@@ -11,7 +11,6 @@
 
 @class VLCMovieViewController;
 @class VLCAboutViewController;
-@class VLCPasscodeLockViewController;
 @class VLCAddMediaViewController;
 
 @interface VLCPlaylistViewController : UIViewController <AQGridViewDataSource, AQGridViewDelegate, UITableViewDataSource, UITableViewDelegate, UITabBarDelegate, UIPopoverControllerDelegate>
@@ -19,12 +18,8 @@
     BOOL _editMode;
 }
 
-@property (nonatomic, retain) NSDate *nextPasscodeCheckDate;
-@property (nonatomic) BOOL passcodeValidated;
-
 @property (nonatomic, strong) VLCMovieViewController *movieViewController;
 @property (nonatomic, strong) VLCAboutViewController *aboutViewController;
-@property (nonatomic, strong) VLCPasscodeLockViewController *passcodeLockViewController;
 @property (nonatomic, strong) VLCAddMediaViewController *addMediaViewController;
 
 @property (nonatomic, strong) UIPopoverController *addMediaPopoverController;
@@ -38,7 +33,6 @@
 
 - (IBAction)leftButtonAction:(id)sender;
 
-- (void)validatePasscode;
 - (void)updateViewContents;
 - (void)openMovieFromURL:(NSURL *)url;
 - (void)removeMediaObject:(MLFile *)mediaObject;

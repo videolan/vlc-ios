@@ -9,8 +9,14 @@
 #import "VLCAppDelegate.h"
 
 #import "VLCPlaylistViewController.h"
-
 #import "VLCMovieViewController.h"
+#import "PAPasscodeViewController.h"
+
+@interface VLCAppDelegate () <PAPasscodeViewControllerDelegate>
+
+@property (nonatomic) BOOL passcodeValidated;
+
+@end
 
 @implementation VLCAppDelegate
 
@@ -77,18 +83,17 @@
 
 - (void)applicationWillEnterForeground:(UIApplication *)application
 {
-    NSUserDefaults *defaults = [NSUserDefaults standardUserDefaults];
-    if (![[defaults objectForKey:@"Passcode"] isEqualToString:@""])
-        self.playlistViewController.passcodeValidated = NO;
-    else
-        self.playlistViewController.passcodeValidated = YES;
-
-    NSLog(@"applicationWillEnterForeground: %i", self.playlistViewController.passcodeValidated);
+    NSLog(@"applicationWillEnterForeground: %i", self.passcodeValidated);
 }
 
 - (void)applicationDidBecomeActive:(UIApplication *)application
 {
     [self updateMediaList];
+}
+
+- (void)applicationDidEnterBackground:(UIApplication *)application
+{
+    [self validatePasscode]; // Lock library when going to background
 }
 
 - (void)applicationWillTerminate:(UIApplication *)application
@@ -119,6 +124,45 @@
     }
     [[MLMediaLibrary sharedMediaLibrary] addFilePaths:filePaths];
     [_playlistViewController updateViewContents];
+}
+
+#pragma mark - pass code validation
+
+- (void)validatePasscode
+{
+    NSUserDefaults *defaults = [NSUserDefaults standardUserDefaults];
+    NSString *passcode = [defaults objectForKey:kVLCSettingPasscodeKey];
+    if ([passcode isEqualToString:@""]) {
+        self.passcodeValidated = YES;
+        return;
+    }
+    
+    if (!self.passcodeValidated) {
+        if ([self.nextPasscodeCheckDate earlierDate:[NSDate date]] == self.nextPasscodeCheckDate) {
+            _passcodeLockController = [[PAPasscodeViewController alloc] initForAction:PasscodeActionEnter];
+            _passcodeLockController.delegate = self;
+            _passcodeLockController.passcode = passcode;
+            self.window.rootViewController = _passcodeLockController;
+        } else
+            self.passcodeValidated = YES;
+    }
+}
+
+
+- (void)PAPasscodeViewControllerDidCancel:(PAPasscodeViewController *)controller
+{
+    // TODO remove cancel button for Enter action
+}
+
+- (void)PAPasscodeViewControllerDidEnterPasscode:(PAPasscodeViewController *)controller
+{
+    // TODO add transition animation
+    self.window.rootViewController = self.navigationController;
+}
+
+- (void)PAPasscodeViewController:(PAPasscodeViewController *)controller didFailToEnterPasscode:(NSInteger)attempts
+{
+    // TODO handle error attempts
 }
 
 @end

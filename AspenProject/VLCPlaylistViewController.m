@@ -11,7 +11,6 @@
 #import "VLCPlaylistTableViewCell.h"
 #import "VLCPlaylistGridView.h"
 #import "VLCAboutViewController.h"
-#import "VLCPasscodeLockViewController.h"
 #import "VLCAddMediaViewController.h"
 
 @interface VLCPlaylistViewController () {
@@ -65,8 +64,6 @@
     self.emptyLibraryLongDescriptionLabel.numberOfLines = 0;
     self.emptyLibraryLongDescriptionLabel.text = NSLocalizedString(@"EMPTY_LIBRARY_LONG", @"");
     [self.emptyLibraryLongDescriptionLabel sizeToFit];
-
-    self.passcodeLockViewController = [[VLCPasscodeLockViewController alloc] initWithNibName:@"VLCPasscodeLockViewController" bundle:nil];
 }
 
 - (void)viewWillAppear:(BOOL)animated
@@ -84,7 +81,6 @@
 
 - (void)viewDidAppear:(BOOL)animated
 {
-    [self validatePasscode];
     if ([[UIDevice currentDevice] userInterfaceIdiom] == UIUserInterfaceIdiomPhone)
         self.tableView.hidden = NO;
     else
@@ -123,21 +119,6 @@
     }
 }
 
-- (void)validatePasscode
-{
-    NSUserDefaults *defaults = [NSUserDefaults standardUserDefaults];
-    if ([[defaults objectForKey:@"Passcode"] isEqualToString:@""]) {
-        self.passcodeValidated = YES;
-        return;
-    }
-
-    if (!self.passcodeValidated) {
-        if ([self.nextPasscodeCheckDate earlierDate:[NSDate date]] == self.nextPasscodeCheckDate)
-            [self.navigationController pushViewController:self.passcodeLockViewController animated:YES];
-        else
-            self.passcodeValidated = YES;
-    }
-}
 
 - (void)updateViewContents
 {

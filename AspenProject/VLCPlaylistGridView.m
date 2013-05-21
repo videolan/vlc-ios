@@ -8,6 +8,7 @@
 
 #import "VLCPlaylistGridView.h"
 #import "VLCAppDelegate.h"
+#import "VLCPlaylistViewController.h"
 
 @interface VLCPlaylistGridView (Hack)
 @property (nonatomic, retain) NSString *reuseIdentifier;

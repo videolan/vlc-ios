@@ -8,10 +8,10 @@
 
 #import "VLCSettingsViewController.h"
 #import "VLCPlaylistViewController.h"
-#import "VLCPasscodeLockViewController.h"
+#import "PAPasscodeViewController.h"
 #import "VLCAppDelegate.h"
 
-@interface VLCSettingsViewController ()
+@interface VLCSettingsViewController () <PAPasscodeViewControllerDelegate>
 {
     NSArray *_userFacingTextEncodingNames;
     NSArray *_textEncodingNames;
@@ -67,14 +67,9 @@
 
     if (sender == self.passcodeLockSwitch) {
         if (self.passcodeLockSwitch.on) {
-            VLCAppDelegate* appDelegate = [UIApplication sharedApplication].delegate;
-            if (UI_USER_INTERFACE_IDIOM() == UIUserInterfaceIdiomPad) {
-                CGRect frame = self.view.frame;
-                frame.size.height -= 44.;
-                appDelegate.playlistViewController.passcodeLockViewController.view.frame = frame;
-            }
-            [self.view addSubview:appDelegate.playlistViewController.passcodeLockViewController.view];
-            [appDelegate.playlistViewController.passcodeLockViewController resetPasscode];
+            PAPasscodeViewController *passcodeLockController = [[PAPasscodeViewController alloc] initForAction:PasscodeActionSet];
+            passcodeLockController.delegate = self;
+            [self presentModalViewController:passcodeLockController animated:YES];
         } else {
             [defaults setObject:@0 forKey:kVLCSettingPasscodeOnKey];
         }
@@ -123,6 +118,26 @@
 - (NSInteger)pickerView:(UIPickerView *)pickerView numberOfRowsInComponent:(NSInteger)component
 {
     return _textEncodingNames.count;
+}
+
+#pragma mark - PAPasscode delegate
+
+- (void)PAPasscodeViewControllerDidCancel:(PAPasscodeViewController *)controller
+{
+    self.passcodeLockSwitch.on = NO;
+    [controller dismissModalViewControllerAnimated:YES];
+}
+
+- (void)PAPasscodeViewControllerDidSetPasscode:(PAPasscodeViewController *)controller
+{
+    NSUserDefaults *defaults = [NSUserDefaults standardUserDefaults];
+    [defaults setObject:@(1) forKey:kVLCSettingPasscodeOnKey];
+    [defaults setObject:controller.passcode forKey:kVLCSettingPasscodeKey];
+    [defaults synchronize];
+    VLCAppDelegate* appDelegate = [UIApplication sharedApplication].delegate;
+    appDelegate.nextPasscodeCheckDate = [NSDate dateWithTimeIntervalSinceNow:300];
+    
+    [controller dismissModalViewControllerAnimated:YES];
 }
 
 @end
