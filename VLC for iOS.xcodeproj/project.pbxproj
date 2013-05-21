@@ -650,7 +650,6 @@
 		7D94FCD216DE7D1000F2623B = {
 			isa = PBXGroup;
 			children = (
-				A7A0E9EB174BA66000162F25 /* PAPasscode */,
 				7D94FCE416DE7D1000F2623B /* AspenProject */,
 				CC1BBC441704936500A20CBF /* External VLC Libraries */,
 				7D94FCDD16DE7D1000F2623B /* Frameworks */,
@@ -756,6 +755,7 @@
 		7DADC5601704FACC001DAC63 /* Imported */ = {
 			isa = PBXGroup;
 			children = (
+				A7A0E9EB174BA66000162F25 /* PAPasscode */,
 				7D3EB010174A3530002062C2 /* Reachability.h */,
 				7D3EB011174A3530002062C2 /* Reachability.m */,
 				291553E817490A0400B86CAD /* CocoaHTTPServer */,
@@ -813,7 +813,8 @@
 				A7A0E9F3174BA66000162F25 /* PAPasscodeViewController.h */,
 				A7A0E9F4174BA66000162F25 /* PAPasscodeViewController.m */,
 			);
-			path = PAPasscode;
+			name = PAPasscode;
+			path = ../PAPasscode;
 			sourceTree = "<group>";
 		};
 		A7A0E9EC174BA66000162F25 /* Assets */ = {
