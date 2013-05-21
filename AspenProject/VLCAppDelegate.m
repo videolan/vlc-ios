@@ -156,7 +156,8 @@
 
 - (void)PAPasscodeViewControllerDidEnterPasscode:(PAPasscodeViewController *)controller
 {
-    // TODO add transition animation
+    // TODO add transition animation, i.e. fade
+    self.nextPasscodeCheckDate = [NSDate dateWithTimeIntervalSinceNow:300];
     self.window.rootViewController = self.navigationController;
 }
 
