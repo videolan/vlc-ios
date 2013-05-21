@@ -38,6 +38,7 @@
     } else {
         _downloadInProgress = YES;
         _progressIndicator.hidden = NO;
+        [UIApplication sharedApplication].networkActivityIndicatorVisible = YES;
     }
 }
 
@@ -82,6 +83,7 @@
     APLog(@"http file download complete");
     _downloadInProgress = NO;
     _progressIndicator.hidden = YES;
+    [UIApplication sharedApplication].networkActivityIndicatorVisible = NO;
 
     VLCAppDelegate * appDelegate = [UIApplication sharedApplication].delegate;
     [appDelegate updateMediaList];
@@ -93,6 +95,7 @@
     APLog(@"http file download failed (%i)", error.code);
     _downloadInProgress = NO;
     _progressIndicator.hidden = YES;
+    [UIApplication sharedApplication].networkActivityIndicatorVisible = NO;
 
     [_mediaViewController dismiss:nil];
 }
