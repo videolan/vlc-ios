@@ -24,7 +24,7 @@
 {
     NSUserDefaults *defaults = [NSUserDefaults standardUserDefaults];
 
-    NSDictionary *appDefaults = @{kVLCSettingPasscodeKey : @"", kVLCSettingPasscodeOnKey : @0, kVLCSettingContinueAudioInBackgroundKey : @1, kVLCSettingStretchAudio : kVLCSettingStretchAudioDefaultValue, kVLCSettingVerboseOutput : kVLCSettingVerboseOutputDefaultValue, kVLCSettingTextEncoding : kVLCSettingTextEncodingDefaultValue};
+    NSDictionary *appDefaults = @{kVLCSettingPasscodeKey : @"", kVLCSettingPasscodeOnKey : @(NO), kVLCSettingContinueAudioInBackgroundKey : @(YES), kVLCSettingStretchAudio : kVLCSettingStretchAudioDefaultValue, kVLCSettingVerboseOutput : kVLCSettingVerboseOutputDefaultValue, kVLCSettingTextEncoding : kVLCSettingTextEncodingDefaultValue};
 
     [defaults registerDefaults:appDefaults];
 }

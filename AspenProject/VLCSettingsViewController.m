@@ -48,8 +48,8 @@
 - (void)viewWillAppear:(BOOL)animated
 {
     NSUserDefaults *defaults = [NSUserDefaults standardUserDefaults];
-    self.passcodeLockSwitch.on = [[defaults objectForKey:kVLCSettingPasscodeOnKey] intValue];
-    self.audioPlaybackInBackgroundSwitch.on = [[defaults objectForKey:kVLCSettingContinueAudioInBackgroundKey] intValue];
+    self.passcodeLockSwitch.on = [[defaults objectForKey:kVLCSettingPasscodeOnKey] boolValue];
+    self.audioPlaybackInBackgroundSwitch.on = [[defaults objectForKey:kVLCSettingContinueAudioInBackgroundKey] boolValue];
     self.audioStretchingSwitch.on = ![[defaults objectForKey:kVLCSettingStretchAudio] isEqualToString:kVLCSettingStretchAudioDefaultValue];
     self.debugOutputSwitch.on = [[defaults objectForKey:kVLCSettingVerboseOutput] isEqualToString:kVLCSettingVerboseOutputDefaultValue];
 
@@ -71,7 +71,7 @@
             passcodeLockController.delegate = self;
             [self presentModalViewController:passcodeLockController animated:YES];
         } else {
-            [defaults setObject:@0 forKey:kVLCSettingPasscodeOnKey];
+            [defaults setObject:@(NO) forKey:kVLCSettingPasscodeOnKey];
         }
     } else if (sender == self.audioPlaybackInBackgroundSwitch) {
         [defaults setObject:@(self.audioPlaybackInBackgroundSwitch.on) forKey:kVLCSettingContinueAudioInBackgroundKey];
@@ -131,7 +131,7 @@
 - (void)PAPasscodeViewControllerDidSetPasscode:(PAPasscodeViewController *)controller
 {
     NSUserDefaults *defaults = [NSUserDefaults standardUserDefaults];
-    [defaults setObject:@(1) forKey:kVLCSettingPasscodeOnKey];
+    [defaults setObject:@(YES) forKey:kVLCSettingPasscodeOnKey];
     [defaults setObject:controller.passcode forKey:kVLCSettingPasscodeKey];
     [defaults synchronize];
     VLCAppDelegate* appDelegate = [UIApplication sharedApplication].delegate;

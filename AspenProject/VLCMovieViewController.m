@@ -540,7 +540,7 @@
     if (self.mediaItem)
         self.mediaItem.lastPosition = @([_mediaPlayer position]);
 
-    if (![[[NSUserDefaults standardUserDefaults] objectForKey:kVLCSettingContinueAudioInBackgroundKey] intValue]) {
+    if (![[[NSUserDefaults standardUserDefaults] objectForKey:kVLCSettingContinueAudioInBackgroundKey] boolValue]) {
         [_mediaPlayer pause];
         _shouldResumePlaying = YES;
     } else
