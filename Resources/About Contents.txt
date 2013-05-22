@@ -6,17 +6,20 @@ Copyright © 2007-2013 Pierre d’Herbemont, Felix Paul Kühne, Faustino E. Osun
 	MediaLibraryKit
 Copyright © 2010-2013 Pierre d’Herbemont and Felix Paul Kühne - LGPLv2.1 or later
 
-	OBSlider
-Copyright © 2011 Ole Begemann and contributors - MIT License
-
 	libvlc
 Copyright © 1996-2013 VideoLAN and VLC Authors - LGPLv2.1 or later
 
 	AQGridView
 Copyright © 2010, Kobo Inc. - AQGridView license
 
+	CocoaHTTPServer
+Copyright © 2011, Deusty, LLC - 2-clause BSD License
+
+	OBSlider
+Copyright © 2011 Ole Begemann and contributors - MIT License
+
 	PAPasscodeViewController
-Copyright (c) 2012, Denis Hennessy (Peer Assembly) - 3-clause BSD License
+Copyright © 2012, Denis Hennessy (Peer Assembly) - 3-clause BSD License
 
 	libass
 Copyright © 2006 - 2013 Grigori Goronzy and contributors - ISC License
