@@ -164,14 +164,6 @@ cd ..
 fi
 if ! [ -e CocoaHTTPServer ]; then
 git clone git://github.com/robbiehanson/CocoaHTTPServer.git
-#cd AQGridView
-#git am ../../patches/aqgridview/*.patch
-#if [ $? -ne 0 ]; then
-#git am --abort
-#info "Applying the patches failed, aborting git-am"
-#exit 1
-#fi
-#cd ..
 fi
 if ! [ -e Dropbox ]; then
 DROPBOXSDKVERSION=1.3.4
@@ -181,7 +173,9 @@ mv dropbox-ios-sdk-${DROPBOXSDKVERSION} Dropbox
 rm dropbox-ios-sdk-${DROPBOXSDKVERSION}.zip
 rm -rf __MACOSX
 fi
-
+if ! [ -e InAppSettingsKit ]; then
+git clone git://github.com/futuretap/InAppSettingsKit.git
+fi
 
 info "Setup 'External' folders"
 
