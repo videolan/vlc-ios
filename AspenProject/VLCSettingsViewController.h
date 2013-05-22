@@ -6,27 +6,15 @@
 //  Copyright (c) 2013 VideoLAN. All rights reserved.
 //
 
-#import <UIKit/UIKit.h>
+#import "IASKAppSettingsViewController.h"
+#import "PAPasscodeViewController.h"
 
-@interface VLCSettingsViewController : UIViewController <UIPickerViewDataSource, UIPickerViewDelegate>
+@interface VLCSettingsViewController : UIViewController <IASKSettingsDelegate, PAPasscodeViewControllerDelegate>
 
+@property (nonatomic, strong) IBOutlet UIToolbar *topToolbar;
 @property (nonatomic, strong) IBOutlet UIBarButtonItem *dismissButton;
-@property (nonatomic, strong) IBOutlet UISwitch *passcodeLockSwitch;
-@property (nonatomic, strong) IBOutlet UILabel *passcodeLockLabel;
 
-@property (nonatomic, strong) IBOutlet UISwitch *audioPlaybackInBackgroundSwitch;
-@property (nonatomic, strong) IBOutlet UILabel *audioPlaybackInBackgroundLabel;
-
-@property (nonatomic, strong) IBOutlet UISwitch *audioStretchingSwitch;
-@property (nonatomic, strong) IBOutlet UILabel *audioStretchingLabel;
-
-@property (nonatomic, strong) IBOutlet UISwitch *debugOutputSwitch;
-@property (nonatomic, strong) IBOutlet UILabel *debugOutputLabel;
-
-@property (nonatomic, strong) IBOutlet UIPickerView *textEncodingPicker;
-@property (nonatomic, strong) IBOutlet UILabel *textEncodingLabel;
-
-- (IBAction)toggleSetting:(id)sender;
+@property (nonatomic, retain) IBOutlet IASKAppSettingsViewController *appSettingsViewController;
 
 - (IBAction)dismiss:(id)sender;
 

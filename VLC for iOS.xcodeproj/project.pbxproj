@@ -103,6 +103,7 @@
 		7D6B08F7174D65B500A05173 /* IASKSwitch.m in Sources */ = {isa = PBXBuildFile; fileRef = 7D6B08E8174D65B500A05173 /* IASKSwitch.m */; settings = {COMPILER_FLAGS = "-fno-objc-arc"; }; };
 		7D6B08F8174D65B500A05173 /* IASKTextField.m in Sources */ = {isa = PBXBuildFile; fileRef = 7D6B08EA174D65B500A05173 /* IASKTextField.m */; settings = {COMPILER_FLAGS = "-fno-objc-arc"; }; };
 		7D6B08FA174D716200A05173 /* MessageUI.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 7D6B08F9174D716200A05173 /* MessageUI.framework */; };
+		7D6B08FC174D773C00A05173 /* Settings.bundle in Resources */ = {isa = PBXBuildFile; fileRef = 7D6B08FB174D773C00A05173 /* Settings.bundle */; };
 		7D6BA1121748EA8300C0E203 /* playback_background.png in Resources */ = {isa = PBXBuildFile; fileRef = 7D6BA1101748EA8300C0E203 /* playback_background.png */; };
 		7D6BA1131748EA8300C0E203 /* playback_background@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 7D6BA1111748EA8300C0E203 /* playback_background@2x.png */; };
 		7D6BA1171748EFE100C0E203 /* VLCAddMediaViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 7D6BA1151748EFE100C0E203 /* VLCAddMediaViewController.m */; };
@@ -330,6 +331,7 @@
 		7D6B08E9174D65B500A05173 /* IASKTextField.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = IASKTextField.h; sourceTree = "<group>"; };
 		7D6B08EA174D65B500A05173 /* IASKTextField.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = IASKTextField.m; sourceTree = "<group>"; };
 		7D6B08F9174D716200A05173 /* MessageUI.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = MessageUI.framework; path = System/Library/Frameworks/MessageUI.framework; sourceTree = SDKROOT; };
+		7D6B08FB174D773C00A05173 /* Settings.bundle */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.plug-in"; name = Settings.bundle; path = Resources/Settings.bundle; sourceTree = SOURCE_ROOT; };
 		7D6BA1101748EA8300C0E203 /* playback_background.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = playback_background.png; sourceTree = "<group>"; };
 		7D6BA1111748EA8300C0E203 /* playback_background@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "playback_background@2x.png"; sourceTree = "<group>"; };
 		7D6BA1141748EFE100C0E203 /* VLCAddMediaViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = VLCAddMediaViewController.h; sourceTree = "<group>"; };
@@ -899,6 +901,7 @@
 		A7924697170F0ED20036AAF2 /* Resources */ = {
 			isa = PBXGroup;
 			children = (
+				7D6B08FB174D773C00A05173 /* Settings.bundle */,
 				29125E5317492219003F03E5 /* web */,
 				A7035BBD174519600057DFA7 /* iTunesArtwork */,
 				7D10BC691743F9CB00DA7059 /* Filters and stuff */,
@@ -1080,6 +1083,7 @@
 				A7A0E9F8174BA66000162F25 /* papasscode_failed_bg@2x.png in Resources */,
 				A7A0E9F9174BA66000162F25 /* papasscode_marker.png in Resources */,
 				A7A0E9FA174BA66000162F25 /* papasscode_marker@2x.png in Resources */,
+				7D6B08FC174D773C00A05173 /* Settings.bundle in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

@@ -83,9 +83,9 @@
 - (void)viewWillAppear:(BOOL)animated
 {
     NSUserDefaults *defaults = [NSUserDefaults standardUserDefaults];
-    NSArray *options = @[[defaults objectForKey:kVLCSettingVerboseOutput],
-                         [defaults objectForKey:kVLCSettingStretchAudio],
-                         [defaults objectForKey:kVLCSettingTextEncoding]];
+    NSArray *options = @[[[defaults objectForKey:kVLCSettingVerboseOutput] intValue] ? kVLCSettingVerboseOutputOnValue : kVLCSettingVerboseOutputOffValue,
+                         [[defaults objectForKey:kVLCSettingStretchAudio] intValue] ? kVLCSettingStretchAudioOnValue : kVLCSettingStretchAudioOffValue,
+                         [NSString stringWithFormat:@"--subsdec-encoding=%@",[defaults objectForKey:kVLCSettingTextEncoding]]];
 
     _mediaPlayer = [[VLCMediaPlayer alloc] initWithOptions:options];
     [_mediaPlayer setDelegate:self];
