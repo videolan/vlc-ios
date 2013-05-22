@@ -15,6 +15,9 @@ Copyright © 2010, Kobo Inc. - AQGridView license
 	CocoaHTTPServer
 Copyright © 2011, Deusty, LLC - 2-clause BSD License
 
+	InAppSettingsKit
+Copyright © 2009, 2010 Luc Vandal, Edovia Inc., Ortwin Gentz, FutureTap GmbH - 2-clause BSD License
+
 	OBSlider
 Copyright © 2011 Ole Begemann and contributors - MIT License
 
