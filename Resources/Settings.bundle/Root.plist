@@ -8,7 +8,7 @@
 			<key>Type</key>
 			<string>PSGroupSpecifier</string>
 			<key>Title</key>
-			<string>Video</string>
+			<string>VIDEO_TITLE</string>
 		</dict>
 		<dict>
 			<key>Type</key>
@@ -108,7 +108,7 @@
 			<key>DefaultValue</key>
 			<string>Windows-1252</string>
 		</dict>
-        <dict>
+		<dict>
 			<key>Type</key>
 			<string>PSGroupSpecifier</string>
 			<key>Title</key>

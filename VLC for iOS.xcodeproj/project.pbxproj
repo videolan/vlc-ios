@@ -849,15 +849,15 @@
 			children = (
 				7DBC3B431711FC6C00DCF688 /* VLCAboutViewController~iphone.xib */,
 				7D9529521732EFCA006F5B40 /* VLCAboutViewController~ipad.xib */,
+				7D33D41517182615008AF0E0 /* VLCMovieViewController~ipad.xib */,
 				7D6BA1161748EFE100C0E203 /* VLCAddMediaViewController~ipad.xib */,
 				7D6BA119174911C200C0E203 /* VLCAddMediaViewController~iphone.xib */,
 				7D6BA11D17491F5F00C0E203 /* VLCSettingsViewController.xib */,
 				A79246BD170F114E0036AAF2 /* VLCMovieViewController~iphone.xib */,
 				A79246C0170F114E0036AAF2 /* VLCPlaylistViewController~iphone.xib */,
 				A79246BC170F114E0036AAF2 /* VLCPlaylistViewController~ipad.xib */,
-				A79246BE170F114E0036AAF2 /* VLCPlaylistTableViewCell.xib */,
 				7DC87AF117413EE3009DC250 /* VLCPlaylistGridView.xib */,
-				7D33D41517182615008AF0E0 /* VLCMovieViewController~ipad.xib */,
+				A79246BE170F114E0036AAF2 /* VLCPlaylistTableViewCell.xib */,
 			);
 			name = XIBs;
 			sourceTree = "<group>";
