@@ -8,12 +8,14 @@
 
 #import <UIKit/UIKit.h>
 
-@class VLCSettingsViewController;
+@class VLCSettingsController;
 @class VLCCircularProgressIndicator;
+@class IASKAppSettingsViewController;
 
 @interface VLCAddMediaViewController : UIViewController
 
-@property (strong, nonatomic) VLCSettingsViewController *settingsViewController;
+@property (strong, nonatomic) IASKAppSettingsViewController *settingsViewController;
+@property (strong, nonatomic) VLCSettingsController *settingsController;
 
 @property (strong, nonatomic) IBOutlet UIButton *dismissButton;
 @property (strong, nonatomic) IBOutlet UIButton *aboutButton;

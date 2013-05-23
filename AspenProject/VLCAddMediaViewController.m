@@ -12,10 +12,11 @@
 #import "VLCAboutViewController.h"
 #import "VLCMovieViewController.h"
 #import "VLCHTTPUploaderController.h"
-#import "VLCSettingsViewController.h"
+#import "VLCSettingsController.h"
 #import "HTTPServer.h"
 #import "Reachability.h"
 #import "VLCHTTPFileDownloader.h"
+#import "IASKAppSettingsViewController.h"
 
 #import <ifaddrs.h>
 #import <arpa/inet.h>
@@ -175,14 +176,22 @@
 - (IBAction)showSettings:(id)sender
 {
     if (!self.settingsViewController)
-        self.settingsViewController = [[VLCSettingsViewController alloc] initWithNibName:@"VLCSettingsViewController" bundle:nil];
+        self.settingsViewController = [[IASKAppSettingsViewController alloc] initWithStyle:UITableViewStyleGrouped];
 
-    [self _hideAnimated:NO];
-
-    VLCAppDelegate* appDelegate = [UIApplication sharedApplication].delegate;
+    if (!self.settingsController)
+        self.settingsController = [[VLCSettingsController alloc] init];
 
     self.settingsViewController.modalPresentationStyle = UIModalPresentationFormSheet;
-    [appDelegate.playlistViewController.navigationController presentModalViewController:self.settingsViewController animated:YES];
+    self.settingsViewController.delegate = self.settingsController;
+    self.settingsViewController.showDoneButton = YES;
+    self.settingsViewController.showCreditsFooter = NO;
+
+    self.settingsController.viewController = self.settingsViewController;
+
+    UINavigationController *navController = [[UINavigationController alloc] initWithRootViewController:self.settingsViewController];
+    navController.navigationBarHidden = NO;
+    navController.navigationBar.barStyle = UIBarStyleBlack;
+    [self presentModalViewController:navController animated:YES];
 }
 
 - (NSString *)_currentIPAddress

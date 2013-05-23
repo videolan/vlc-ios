@@ -39,6 +39,7 @@
 		2915544317490D4A00B86CAD /* Security.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 2915544217490D4A00B86CAD /* Security.framework */; };
 		293DF2F417494F8200BB880F /* DropboxSDK.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 7D05ADEA174945CE0087550C /* DropboxSDK.framework */; };
 		29CE2D44174912C600922D8F /* VLCHTTPUploaderController.m in Sources */ = {isa = PBXBuildFile; fileRef = 29CE2D42174912C600922D8F /* VLCHTTPUploaderController.m */; };
+		7D07A4E9174EA47800759D10 /* VLCSettingsController.m in Sources */ = {isa = PBXBuildFile; fileRef = 7D07A4E7174EA47800759D10 /* VLCSettingsController.m */; };
 		7D10BC761743FA0F00DA7059 /* audio.png in Resources */ = {isa = PBXBuildFile; fileRef = 7D10BC6A1743FA0F00DA7059 /* audio.png */; };
 		7D10BC771743FA0F00DA7059 /* audio@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 7D10BC6B1743FA0F00DA7059 /* audio@2x.png */; };
 		7D10BC781743FA0F00DA7059 /* backward.png in Resources */ = {isa = PBXBuildFile; fileRef = 7D10BC6C1743FA0F00DA7059 /* backward.png */; };
@@ -109,8 +110,6 @@
 		7D6BA1171748EFE100C0E203 /* VLCAddMediaViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 7D6BA1151748EFE100C0E203 /* VLCAddMediaViewController.m */; };
 		7D6BA1181748EFE100C0E203 /* VLCAddMediaViewController~ipad.xib in Resources */ = {isa = PBXBuildFile; fileRef = 7D6BA1161748EFE100C0E203 /* VLCAddMediaViewController~ipad.xib */; };
 		7D6BA11A174911C200C0E203 /* VLCAddMediaViewController~iphone.xib in Resources */ = {isa = PBXBuildFile; fileRef = 7D6BA119174911C200C0E203 /* VLCAddMediaViewController~iphone.xib */; };
-		7D6BA11E17491F5F00C0E203 /* VLCSettingsViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 7D6BA11C17491F5F00C0E203 /* VLCSettingsViewController.m */; };
-		7D6BA11F17491F5F00C0E203 /* VLCSettingsViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 7D6BA11D17491F5F00C0E203 /* VLCSettingsViewController.xib */; };
 		7D94FCDF16DE7D1000F2623B /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 7D94FCDE16DE7D1000F2623B /* UIKit.framework */; };
 		7D94FCE116DE7D1000F2623B /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 7D94FCE016DE7D1000F2623B /* Foundation.framework */; };
 		7D94FCE316DE7D1000F2623B /* CoreGraphics.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 7D94FCE216DE7D1000F2623B /* CoreGraphics.framework */; };
@@ -233,6 +232,8 @@
 		29CE2D41174912C600922D8F /* VLCHTTPUploaderController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = VLCHTTPUploaderController.h; sourceTree = "<group>"; };
 		29CE2D42174912C600922D8F /* VLCHTTPUploaderController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = VLCHTTPUploaderController.m; sourceTree = "<group>"; };
 		7D05ADEA174945CE0087550C /* DropboxSDK.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = DropboxSDK.framework; path = ImportedSources/Dropbox/DropboxSDK.framework; sourceTree = "<group>"; };
+		7D07A4E6174EA47800759D10 /* VLCSettingsController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = VLCSettingsController.h; sourceTree = "<group>"; };
+		7D07A4E7174EA47800759D10 /* VLCSettingsController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = VLCSettingsController.m; sourceTree = "<group>"; };
 		7D10BC6A1743FA0F00DA7059 /* audio.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = audio.png; sourceTree = "<group>"; };
 		7D10BC6B1743FA0F00DA7059 /* audio@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "audio@2x.png"; sourceTree = "<group>"; };
 		7D10BC6C1743FA0F00DA7059 /* backward.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = backward.png; sourceTree = "<group>"; };
@@ -338,9 +339,6 @@
 		7D6BA1151748EFE100C0E203 /* VLCAddMediaViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = VLCAddMediaViewController.m; sourceTree = "<group>"; };
 		7D6BA1161748EFE100C0E203 /* VLCAddMediaViewController~ipad.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; name = "VLCAddMediaViewController~ipad.xib"; path = "../Resources/VLCAddMediaViewController~ipad.xib"; sourceTree = "<group>"; };
 		7D6BA119174911C200C0E203 /* VLCAddMediaViewController~iphone.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; name = "VLCAddMediaViewController~iphone.xib"; path = "Resources/VLCAddMediaViewController~iphone.xib"; sourceTree = SOURCE_ROOT; };
-		7D6BA11B17491F5F00C0E203 /* VLCSettingsViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = VLCSettingsViewController.h; sourceTree = "<group>"; };
-		7D6BA11C17491F5F00C0E203 /* VLCSettingsViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = VLCSettingsViewController.m; sourceTree = "<group>"; };
-		7D6BA11D17491F5F00C0E203 /* VLCSettingsViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; name = VLCSettingsViewController.xib; path = ../Resources/VLCSettingsViewController.xib; sourceTree = "<group>"; };
 		7D94FCDB16DE7D1000F2623B /* VLC for iOS.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "VLC for iOS.app"; sourceTree = BUILT_PRODUCTS_DIR; };
 		7D94FCDE16DE7D1000F2623B /* UIKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = UIKit.framework; path = System/Library/Frameworks/UIKit.framework; sourceTree = SDKROOT; };
 		7D94FCE016DE7D1000F2623B /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = System/Library/Frameworks/Foundation.framework; sourceTree = SDKROOT; };
@@ -812,6 +810,7 @@
 				7D94FCF916DE7D1100F2623B /* VLCMovieViewController.h */,
 				7D94FCFA16DE7D1100F2623B /* VLCMovieViewController.m */,
 				7DA62099170A0CE500643D11 /* VLCPlaylistTableViewCell.h */,
+				7D31CF061746AEF2005997E0 /* UI Elements */,
 				7DA6209A170A0CE500643D11 /* VLCPlaylistTableViewCell.m */,
 				7D6B07F51716D45B003280C4 /* VLCPlaylistGridView.h */,
 				7D6B07F61716D45B003280C4 /* VLCPlaylistGridView.m */,
@@ -823,9 +822,8 @@
 				7D6BA1151748EFE100C0E203 /* VLCAddMediaViewController.m */,
 				7D3EB015174A46FB002062C2 /* VLCHTTPFileDownloader.h */,
 				7D3EB016174A46FB002062C2 /* VLCHTTPFileDownloader.m */,
-				7D6BA11B17491F5F00C0E203 /* VLCSettingsViewController.h */,
-				7D6BA11C17491F5F00C0E203 /* VLCSettingsViewController.m */,
-				7D31CF061746AEF2005997E0 /* UI Elements */,
+				7D07A4E6174EA47800759D10 /* VLCSettingsController.h */,
+				7D07A4E7174EA47800759D10 /* VLCSettingsController.m */,
 				7DADC5601704FACC001DAC63 /* Imported */,
 				7DADC55C1704FAA8001DAC63 /* XIBs */,
 				A7924697170F0ED20036AAF2 /* Resources */,
@@ -852,7 +850,6 @@
 				7D33D41517182615008AF0E0 /* VLCMovieViewController~ipad.xib */,
 				7D6BA1161748EFE100C0E203 /* VLCAddMediaViewController~ipad.xib */,
 				7D6BA119174911C200C0E203 /* VLCAddMediaViewController~iphone.xib */,
-				7D6BA11D17491F5F00C0E203 /* VLCSettingsViewController.xib */,
 				A79246BD170F114E0036AAF2 /* VLCMovieViewController~iphone.xib */,
 				A79246C0170F114E0036AAF2 /* VLCPlaylistViewController~iphone.xib */,
 				A79246BC170F114E0036AAF2 /* VLCPlaylistViewController~ipad.xib */,
@@ -1065,7 +1062,6 @@
 				7D6BA11A174911C200C0E203 /* VLCAddMediaViewController~iphone.xib in Resources */,
 				29125E5617492219003F03E5 /* index.html in Resources */,
 				29125E5717492219003F03E5 /* upload.html in Resources */,
-				7D6BA11F17491F5F00C0E203 /* VLCSettingsViewController.xib in Resources */,
 				7D3EAFF8174A2651002062C2 /* vlcetix512.png in Resources */,
 				7D3EAFFD174A265C002062C2 /* vlcetix57.png in Resources */,
 				7D3EAFFE174A265C002062C2 /* vlcetix72.png in Resources */,
@@ -1143,7 +1139,6 @@
 				2915544117490B9C00B86CAD /* WebSocket.m in Sources */,
 				7D6BA1171748EFE100C0E203 /* VLCAddMediaViewController.m in Sources */,
 				29CE2D44174912C600922D8F /* VLCHTTPUploaderController.m in Sources */,
-				7D6BA11E17491F5F00C0E203 /* VLCSettingsViewController.m in Sources */,
 				7D3EB012174A3530002062C2 /* Reachability.m in Sources */,
 				7D3EB017174A46FB002062C2 /* VLCHTTPFileDownloader.m in Sources */,
 				A7A0E9FB174BA66000162F25 /* PAPasscodeViewController.m in Sources */,
@@ -1161,6 +1156,7 @@
 				7D6B08F6174D65B500A05173 /* IASKSlider.m in Sources */,
 				7D6B08F7174D65B500A05173 /* IASKSwitch.m in Sources */,
 				7D6B08F8174D65B500A05173 /* IASKTextField.m in Sources */,
+				7D07A4E9174EA47800759D10 /* VLCSettingsController.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
