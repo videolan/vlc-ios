@@ -8,7 +8,7 @@
 			<key>Type</key>
 			<string>PSGroupSpecifier</string>
 			<key>Title</key>
-			<string>Generic</string>
+			<string>SETTINGS_GENERIC_TITLE</string>
 		</dict>
 		<dict>
 			<key>DefaultValue</key>
@@ -16,7 +16,7 @@
 			<key>Key</key>
 			<string>PasscodeProtection</string>
 			<key>Title</key>
-			<string>Passcode Lock</string>
+			<string>SETTINGS_PASSCODE_LOCK</string>
 			<key>Type</key>
 			<string>PSToggleSwitchSpecifier</string>
 		</dict>
@@ -24,7 +24,7 @@
 			<key>Type</key>
 			<string>PSGroupSpecifier</string>
 			<key>Title</key>
-			<string>VIDEO_TITLE</string>
+			<string>SETTINGS_VIDEO_TITLE</string>
 		</dict>
 		<dict>
 			<key>Type</key>
@@ -118,7 +118,7 @@
 				<string>Windows-1258</string>
 			</array>
 			<key>Title</key>
-			<string>Subtitles Text Encoding</string>
+			<string>SETTINGS_SUBTITLE_TEXT_ENCODING</string>
 			<key>Key</key>
 			<string>subsdec-encoding</string>
 			<key>DefaultValue</key>
@@ -128,13 +128,13 @@
 			<key>Type</key>
 			<string>PSGroupSpecifier</string>
 			<key>Title</key>
-			<string>Audio</string>
+			<string>SETTINGS_AUDIO_TITLE</string>
 		</dict>
 		<dict>
 			<key>Type</key>
 			<string>PSToggleSwitchSpecifier</string>
 			<key>Title</key>
-			<string>Time-stretching audio</string>
+			<string>SETTINGS_TIME_STRETCH_AUDIO</string>
 			<key>Key</key>
 			<string>StretchAudio</string>
 			<key>DefaultValue</key>
@@ -146,7 +146,7 @@
 			<key>Key</key>
 			<string>BackgroundAudioPlayback</string>
 			<key>Title</key>
-			<string>Audio playback in background</string>
+			<string>SETTINGS_BACKGROUND_AUDIO</string>
 			<key>Type</key>
 			<string>PSToggleSwitchSpecifier</string>
 		</dict>
@@ -154,13 +154,13 @@
 			<key>Type</key>
 			<string>PSGroupSpecifier</string>
 			<key>Title</key>
-			<string>Advanced</string>
+			<string>SETTINGS_ADVANCED_TITLE</string>
 		</dict>
 		<dict>
 			<key>Type</key>
 			<string>PSToggleSwitchSpecifier</string>
 			<key>Title</key>
-			<string>Verbose debug logs</string>
+			<string>SETTINGS_VERBOSE_LOGS</string>
 			<key>Key</key>
 			<string>VerboseLogs</string>
 			<key>DefaultValue</key>
