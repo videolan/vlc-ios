@@ -55,6 +55,7 @@
     [self.downloadFromHTTPServerButton setTitle:NSLocalizedString(@"DOWNLOAD_FROM_HTTP", @"") forState:UIControlStateNormal];
     [self.openURLButton setTitle:NSLocalizedString(@"BUTTON_OPEN", @"") forState:UIControlStateNormal];
     self.httpUploadLabel.text = NSLocalizedString(@"HTTP_UPLOAD", @"");
+    [self.settingsButton setTitle:NSLocalizedString(@"Settings", @"") forState:UIControlStateNormal]; // plain text key to keep compatibility with InAppSettingsKit's upstream
     _reachability = [Reachability reachabilityForLocalWiFi];
     [_reachability startNotifier];
 
