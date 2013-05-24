@@ -57,7 +57,10 @@
 
 + (CGFloat)heightOfCell
 {
-    return 80.;
+    if ([[UIDevice currentDevice] userInterfaceIdiom] == UIUserInterfaceIdiomPad)
+        return 80.;
+
+    return 48.;
 }
 
 @end

@@ -88,7 +88,7 @@
 		7D5E39CA174FC2F3007DAFA1 /* dropbox-white.png in Resources */ = {isa = PBXBuildFile; fileRef = 7D5E39C8174FC2F3007DAFA1 /* dropbox-white.png */; };
 		7D5E39CB174FC2F3007DAFA1 /* dropbox-white@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 7D5E39C9174FC2F3007DAFA1 /* dropbox-white@2x.png */; };
 		7D5E39CF174FCE04007DAFA1 /* VLCDropboxTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 7D5E39CE174FCE04007DAFA1 /* VLCDropboxTableViewCell.m */; };
-		7D5E39D1174FCF43007DAFA1 /* VLCDropboxTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 7D5E39D0174FCF43007DAFA1 /* VLCDropboxTableViewCell.xib */; };
+		7D5E39D1174FCF43007DAFA1 /* VLCDropboxTableViewCell~ipad.xib in Resources */ = {isa = PBXBuildFile; fileRef = 7D5E39D0174FCF43007DAFA1 /* VLCDropboxTableViewCell~ipad.xib */; };
 		7D6B07BC1716C9B8003280C4 /* AQGridView.m in Sources */ = {isa = PBXBuildFile; fileRef = 7D6B07A61716C9B8003280C4 /* AQGridView.m */; };
 		7D6B07BD1716C9B8003280C4 /* AQGridViewAnimatorItem.m in Sources */ = {isa = PBXBuildFile; fileRef = 7D6B07AA1716C9B8003280C4 /* AQGridViewAnimatorItem.m */; };
 		7D6B07BE1716C9B8003280C4 /* AQGridViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 7D6B07AC1716C9B8003280C4 /* AQGridViewCell.m */; };
@@ -150,6 +150,7 @@
 		7DC87AF217413EE3009DC250 /* VLCPlaylistGridView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 7DC87AF117413EE3009DC250 /* VLCPlaylistGridView.xib */; };
 		7DDD0429172D98E5005A7B10 /* CFNetwork.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 7DDD0428172D98E5005A7B10 /* CFNetwork.framework */; };
 		7DE480D1173FEA30003613E0 /* VLCCircularProgressIndicator.m in Sources */ = {isa = PBXBuildFile; fileRef = 7DE480D0173FEA30003613E0 /* VLCCircularProgressIndicator.m */; };
+		7DF65C2D174FF3F400F43330 /* VLCDropboxTableViewCell~iphone.xib in Resources */ = {isa = PBXBuildFile; fileRef = 7DF65C2C174FF3F400F43330 /* VLCDropboxTableViewCell~iphone.xib */; };
 		A7035BBE174519600057DFA7 /* iTunesArtwork in Resources */ = {isa = PBXBuildFile; fileRef = A7035BBD174519600057DFA7 /* iTunesArtwork */; };
 		A7035BC217451D4A0057DFA7 /* Aspen.png in Resources */ = {isa = PBXBuildFile; fileRef = A7035BC117451D4A0057DFA7 /* Aspen.png */; };
 		A7924696170F0BA90036AAF2 /* libMediaLibraryKit.a in Frameworks */ = {isa = PBXBuildFile; fileRef = A7924695170F0BA90036AAF2 /* libMediaLibraryKit.a */; };
@@ -306,7 +307,7 @@
 		7D5E39C9174FC2F3007DAFA1 /* dropbox-white@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "dropbox-white@2x.png"; sourceTree = "<group>"; };
 		7D5E39CD174FCE04007DAFA1 /* VLCDropboxTableViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = VLCDropboxTableViewCell.h; sourceTree = "<group>"; };
 		7D5E39CE174FCE04007DAFA1 /* VLCDropboxTableViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = VLCDropboxTableViewCell.m; sourceTree = "<group>"; };
-		7D5E39D0174FCF43007DAFA1 /* VLCDropboxTableViewCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; name = VLCDropboxTableViewCell.xib; path = ../Resources/VLCDropboxTableViewCell.xib; sourceTree = "<group>"; };
+		7D5E39D0174FCF43007DAFA1 /* VLCDropboxTableViewCell~ipad.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; name = "VLCDropboxTableViewCell~ipad.xib"; path = "../Resources/VLCDropboxTableViewCell~ipad.xib"; sourceTree = "<group>"; };
 		7D6B07A51716C9B8003280C4 /* AQGridView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = AQGridView.h; path = ImportedSources/AQGridView/Classes/AQGridView.h; sourceTree = SOURCE_ROOT; };
 		7D6B07A61716C9B8003280C4 /* AQGridView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = AQGridView.m; path = ImportedSources/AQGridView/Classes/AQGridView.m; sourceTree = SOURCE_ROOT; };
 		7D6B07A71716C9B8003280C4 /* AQGridView+CellLayout.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = "AQGridView+CellLayout.h"; path = "ImportedSources/AQGridView/Classes/AQGridView+CellLayout.h"; sourceTree = SOURCE_ROOT; };
@@ -412,6 +413,7 @@
 		7DDD0428172D98E5005A7B10 /* CFNetwork.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CFNetwork.framework; path = System/Library/Frameworks/CFNetwork.framework; sourceTree = SDKROOT; };
 		7DE480CF173FEA30003613E0 /* VLCCircularProgressIndicator.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = VLCCircularProgressIndicator.h; sourceTree = "<group>"; };
 		7DE480D0173FEA30003613E0 /* VLCCircularProgressIndicator.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = VLCCircularProgressIndicator.m; sourceTree = "<group>"; };
+		7DF65C2C174FF3F400F43330 /* VLCDropboxTableViewCell~iphone.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; name = "VLCDropboxTableViewCell~iphone.xib"; path = "../Resources/VLCDropboxTableViewCell~iphone.xib"; sourceTree = "<group>"; };
 		A7035BBD174519600057DFA7 /* iTunesArtwork */ = {isa = PBXFileReference; lastKnownFileType = file; path = iTunesArtwork; sourceTree = "<group>"; };
 		A7035BC117451D4A0057DFA7 /* Aspen.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = Aspen.png; sourceTree = "<group>"; };
 		A7924695170F0BA90036AAF2 /* libMediaLibraryKit.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; name = libMediaLibraryKit.a; path = External/MediaLibraryKit/libMediaLibraryKit.a; sourceTree = "<group>"; };
@@ -917,16 +919,17 @@
 			children = (
 				7DBC3B431711FC6C00DCF688 /* VLCAboutViewController~iphone.xib */,
 				7D9529521732EFCA006F5B40 /* VLCAboutViewController~ipad.xib */,
-				7D33D41517182615008AF0E0 /* VLCMovieViewController~ipad.xib */,
 				7D6BA1161748EFE100C0E203 /* VLCAddMediaViewController~ipad.xib */,
 				7D6BA119174911C200C0E203 /* VLCAddMediaViewController~iphone.xib */,
 				A79246BD170F114E0036AAF2 /* VLCMovieViewController~iphone.xib */,
+				7D33D41517182615008AF0E0 /* VLCMovieViewController~ipad.xib */,
 				A79246C0170F114E0036AAF2 /* VLCPlaylistViewController~iphone.xib */,
 				A79246BC170F114E0036AAF2 /* VLCPlaylistViewController~ipad.xib */,
 				7DC87AF117413EE3009DC250 /* VLCPlaylistGridView.xib */,
 				A79246BE170F114E0036AAF2 /* VLCPlaylistTableViewCell.xib */,
 				7D5E39C5174FBAF3007DAFA1 /* VLCDropboxTableViewController.xib */,
-				7D5E39D0174FCF43007DAFA1 /* VLCDropboxTableViewCell.xib */,
+				7D5E39D0174FCF43007DAFA1 /* VLCDropboxTableViewCell~ipad.xib */,
+				7DF65C2C174FF3F400F43330 /* VLCDropboxTableViewCell~iphone.xib */,
 			);
 			name = XIBs;
 			sourceTree = "<group>";
@@ -1158,7 +1161,7 @@
 				7D5E39C7174FBAF3007DAFA1 /* VLCDropboxTableViewController.xib in Resources */,
 				7D5E39CA174FC2F3007DAFA1 /* dropbox-white.png in Resources */,
 				7D5E39CB174FC2F3007DAFA1 /* dropbox-white@2x.png in Resources */,
-				7D5E39D1174FCF43007DAFA1 /* VLCDropboxTableViewCell.xib in Resources */,
+				7D5E39D1174FCF43007DAFA1 /* VLCDropboxTableViewCell~ipad.xib in Resources */,
 				7D2159E9174FD32F00EC00E8 /* page_white_text.png in Resources */,
 				7D2159EA174FD32F00EC00E8 /* folder.png in Resources */,
 				7D2159EB174FD32F00EC00E8 /* page_white.png in Resources */,
@@ -1167,6 +1170,7 @@
 				7D2159F0174FD49C00EC00E8 /* folder_public.png in Resources */,
 				7D2159F2174FD6CD00EC00E8 /* page_white_film.png in Resources */,
 				7D2159F4174FEB0600EC00E8 /* package.png in Resources */,
+				7DF65C2D174FF3F400F43330 /* VLCDropboxTableViewCell~iphone.xib in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
