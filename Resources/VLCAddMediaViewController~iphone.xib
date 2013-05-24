@@ -2,9 +2,9 @@
 <archive type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="8.00">
 	<data>
 		<int key="IBDocument.SystemTarget">1296</int>
-		<string key="IBDocument.SystemVersion">12D78</string>
+		<string key="IBDocument.SystemVersion">12E52</string>
 		<string key="IBDocument.InterfaceBuilderVersion">3084</string>
-		<string key="IBDocument.AppKitVersion">1187.37</string>
+		<string key="IBDocument.AppKitVersion">1187.39</string>
 		<string key="IBDocument.HIToolboxVersion">626.00</string>
 		<object class="NSMutableDictionary" key="IBDocument.PluginVersions">
 			<string key="NS.key.0">com.apple.InterfaceBuilder.IBCocoaTouchPlugin</string>
@@ -105,7 +105,7 @@
 					<object class="IBUIButton" id="1021636329">
 						<reference key="NSNextResponder" ref="892317093"/>
 						<int key="NSvFlags">292</int>
-						<string key="NSFrame">{{0, 340}, {320, 60}}</string>
+						<string key="NSFrame">{{0, 395}, {320, 60}}</string>
 						<reference key="NSSuperview" ref="892317093"/>
 						<reference key="NSWindow"/>
 						<string key="NSReuseIdentifierKey">_NS:9</string>
@@ -154,7 +154,7 @@
 					<object class="IBUIButton" id="205209326">
 						<reference key="NSNextResponder" ref="892317093"/>
 						<int key="NSvFlags">292</int>
-						<string key="NSFrame">{{0, 272}, {320, 60}}</string>
+						<string key="NSFrame">{{0, 327}, {320, 60}}</string>
 						<reference key="NSSuperview" ref="892317093"/>
 						<reference key="NSWindow"/>
 						<reference key="NSNextKeyView" ref="1021636329"/>
@@ -174,6 +174,32 @@
 						<reference key="IBUIFontDescription" ref="886215057"/>
 						<reference key="IBUIFont" ref="327024238"/>
 					</object>
+					<object class="IBUIButton" id="475346595">
+						<reference key="NSNextResponder" ref="892317093"/>
+						<int key="NSvFlags">292</int>
+						<string key="NSFrame">{{0, 259}, {320, 60}}</string>
+						<reference key="NSSuperview" ref="892317093"/>
+						<reference key="NSWindow"/>
+						<reference key="NSNextKeyView" ref="205209326"/>
+						<string key="NSReuseIdentifierKey">_NS:9</string>
+						<reference key="IBUIBackgroundColor" ref="937037271"/>
+						<bool key="IBUIOpaque">NO</bool>
+						<string key="targetRuntimeIdentifier">IBCocoaTouchFramework</string>
+						<int key="IBUIContentHorizontalAlignment">0</int>
+						<int key="IBUIContentVerticalAlignment">0</int>
+						<reference key="IBUIHighlightedTitleColor" ref="878206399"/>
+						<object class="NSColor" key="IBUINormalTitleColor">
+							<int key="NSColorSpace">1</int>
+							<bytes key="NSRGB">MC4xOTYwNzg0MzQ2IDAuMzA5ODAzOTMyOSAwLjUyMTU2ODY1NgA</bytes>
+						</object>
+						<reference key="IBUINormalTitleShadowColor" ref="1025413593"/>
+						<object class="NSCustomResource" key="IBUINormalImage">
+							<string key="NSClassName">NSImage</string>
+							<string key="NSResourceName">dropbox-black.png</string>
+						</object>
+						<reference key="IBUIFontDescription" ref="886215057"/>
+						<reference key="IBUIFont" ref="327024238"/>
+					</object>
 					<object class="IBUIView" id="485650876">
 						<reference key="NSNextResponder" ref="892317093"/>
 						<int key="NSvFlags">292</int>
@@ -181,7 +207,7 @@
 							<object class="IBUISwitch" id="434153343">
 								<reference key="NSNextResponder" ref="485650876"/>
 								<int key="NSvFlags">292</int>
-								<string key="NSFrame">{{208, 16}, {94, 27}}</string>
+								<string key="NSFrame">{{208, 5}, {94, 27}}</string>
 								<reference key="NSSuperview" ref="485650876"/>
 								<reference key="NSWindow"/>
 								<reference key="NSNextKeyView" ref="892025683"/>
@@ -194,7 +220,7 @@
 							<object class="IBUILabel" id="238446432">
 								<reference key="NSNextResponder" ref="485650876"/>
 								<int key="NSvFlags">292</int>
-								<string key="NSFrame">{{20, 19}, {195, 21}}</string>
+								<string key="NSFrame">{{20, 8}, {195, 21}}</string>
 								<reference key="NSSuperview" ref="485650876"/>
 								<reference key="NSWindow"/>
 								<reference key="NSNextKeyView" ref="434153343"/>
@@ -219,10 +245,10 @@
 							<object class="IBUILabel" id="892025683">
 								<reference key="NSNextResponder" ref="485650876"/>
 								<int key="NSvFlags">292</int>
-								<string key="NSFrame">{{20, 48}, {280, 21}}</string>
+								<string key="NSFrame">{{20, 37}, {280, 21}}</string>
 								<reference key="NSSuperview" ref="485650876"/>
 								<reference key="NSWindow"/>
-								<reference key="NSNextKeyView" ref="205209326"/>
+								<reference key="NSNextKeyView" ref="475346595"/>
 								<string key="NSReuseIdentifierKey">_NS:9</string>
 								<bool key="IBUIOpaque">NO</bool>
 								<bool key="IBUIClipsSubviews">YES</bool>
@@ -249,7 +275,7 @@
 								<bool key="IBUIAdjustsFontSizeToFit">NO</bool>
 							</object>
 						</array>
-						<string key="NSFrame">{{0, 188}, {320, 76}}</string>
+						<string key="NSFrame">{{0, 188}, {320, 63}}</string>
 						<reference key="NSSuperview" ref="892317093"/>
 						<reference key="NSWindow"/>
 						<reference key="NSNextKeyView" ref="238446432"/>
@@ -272,7 +298,7 @@
 						<string key="targetRuntimeIdentifier">IBCocoaTouchFramework</string>
 					</object>
 				</array>
-				<string key="NSFrameSize">{320, 400}</string>
+				<string key="NSFrameSize">{320, 455}</string>
 				<reference key="NSSuperview"/>
 				<reference key="NSWindow"/>
 				<reference key="NSNextKeyView" ref="765845946"/>
@@ -288,7 +314,7 @@
 				<string key="targetRuntimeIdentifier">IBCocoaTouchFramework</string>
 			</object>
 			<object class="IBUIView" id="574364168">
-				<nil key="NSNextResponder"/>
+				<reference key="NSNextResponder"/>
 				<int key="NSvFlags">292</int>
 				<array class="NSMutableArray" key="NSSubviews">
 					<object class="IBUITextField" id="309180653">
@@ -296,6 +322,7 @@
 						<int key="NSvFlags">294</int>
 						<string key="NSFrame">{{20, 15}, {201, 30}}</string>
 						<reference key="NSSuperview" ref="574364168"/>
+						<reference key="NSWindow"/>
 						<reference key="NSNextKeyView" ref="293148001"/>
 						<string key="NSReuseIdentifierKey">_NS:9</string>
 						<bool key="IBUIOpaque">NO</bool>
@@ -324,6 +351,7 @@
 						<int key="NSvFlags">289</int>
 						<string key="NSFrame">{{229, 8}, {70, 44}}</string>
 						<reference key="NSSuperview" ref="574364168"/>
+						<reference key="NSWindow"/>
 						<string key="NSReuseIdentifierKey">_NS:9</string>
 						<bool key="IBUIOpaque">NO</bool>
 						<string key="targetRuntimeIdentifier">IBCocoaTouchFramework</string>
@@ -342,6 +370,8 @@
 					</object>
 				</array>
 				<string key="NSFrameSize">{320, 60}</string>
+				<reference key="NSSuperview"/>
+				<reference key="NSWindow"/>
 				<reference key="NSNextKeyView" ref="309180653"/>
 				<string key="NSReuseIdentifierKey">_NS:9</string>
 				<reference key="IBUIBackgroundColor" ref="937037271"/>
@@ -448,6 +478,14 @@
 					<int key="connectionID">75</int>
 				</object>
 				<object class="IBConnectionRecord">
+					<object class="IBCocoaTouchOutletConnection" key="connection">
+						<string key="label">dropboxButton</string>
+						<reference key="source" ref="372490531"/>
+						<reference key="destination" ref="475346595"/>
+					</object>
+					<int key="connectionID">79</int>
+				</object>
+				<object class="IBConnectionRecord">
 					<object class="IBCocoaTouchEventConnection" key="connection">
 						<string key="label">openNetworkStream:</string>
 						<reference key="source" ref="233942944"/>
@@ -509,6 +547,15 @@
 					</object>
 					<int key="connectionID">67</int>
 				</object>
+				<object class="IBConnectionRecord">
+					<object class="IBCocoaTouchEventConnection" key="connection">
+						<string key="label">showDropbox:</string>
+						<reference key="source" ref="475346595"/>
+						<reference key="destination" ref="372490531"/>
+						<int key="IBEventType">7</int>
+					</object>
+					<int key="connectionID">78</int>
+				</object>
 			</array>
 			<object class="IBMutableOrderedSet" key="objectRecords">
 				<array key="orderedObjects">
@@ -537,9 +584,10 @@
 							<reference ref="306241553"/>
 							<reference ref="765845946"/>
 							<reference ref="485650876"/>
+							<reference ref="973946330"/>
 							<reference ref="1021636329"/>
 							<reference ref="205209326"/>
-							<reference ref="973946330"/>
+							<reference ref="475346595"/>
 						</array>
 						<reference key="parent" ref="0"/>
 					</object>
@@ -587,8 +635,8 @@
 						<int key="objectID">51</int>
 						<reference key="object" ref="485650876"/>
 						<array class="NSMutableArray" key="children">
-							<reference ref="238446432"/>
 							<reference ref="434153343"/>
+							<reference ref="238446432"/>
 							<reference ref="892025683"/>
 						</array>
 						<reference key="parent" ref="892317093"/>
@@ -632,6 +680,11 @@
 						<reference key="object" ref="973946330"/>
 						<reference key="parent" ref="892317093"/>
 					</object>
+					<object class="IBObjectRecord">
+						<int key="objectID">76</int>
+						<reference key="object" ref="475346595"/>
+						<reference key="parent" ref="892317093"/>
+					</object>
 				</array>
 			</object>
 			<dictionary class="NSMutableDictionary" key="flattenedProperties">
@@ -656,12 +709,13 @@
 				<string key="69.IBPluginDependency">com.apple.InterfaceBuilder.IBCocoaTouchPlugin</string>
 				<string key="73.CustomClassName">VLCCircularProgressIndicator</string>
 				<string key="73.IBPluginDependency">com.apple.InterfaceBuilder.IBCocoaTouchPlugin</string>
+				<string key="76.IBPluginDependency">com.apple.InterfaceBuilder.IBCocoaTouchPlugin</string>
 			</dictionary>
 			<dictionary class="NSMutableDictionary" key="unlocalizedProperties"/>
 			<nil key="activeLocalization"/>
 			<dictionary class="NSMutableDictionary" key="localizations"/>
 			<nil key="sourceID"/>
-			<int key="maxID">75</int>
+			<int key="maxID">79</int>
 		</object>
 		<object class="IBClassDescriber" key="IBDocument.Classes">
 			<array class="NSMutableArray" key="referencedPartialClassDescriptions">
@@ -673,6 +727,7 @@
 						<string key="downloadFromHTTPServer:">id</string>
 						<string key="openAboutPanel:">id</string>
 						<string key="openNetworkStream:">id</string>
+						<string key="showDropbox:">id</string>
 						<string key="showSettings:">id</string>
 						<string key="toggleHTTPServer:">id</string>
 					</dictionary>
@@ -693,6 +748,10 @@
 							<string key="name">openNetworkStream:</string>
 							<string key="candidateClassName">id</string>
 						</object>
+						<object class="IBActionInfo" key="showDropbox:">
+							<string key="name">showDropbox:</string>
+							<string key="candidateClassName">id</string>
+						</object>
 						<object class="IBActionInfo" key="showSettings:">
 							<string key="name">showSettings:</string>
 							<string key="candidateClassName">id</string>
@@ -706,6 +765,7 @@
 						<string key="aboutButton">UIButton</string>
 						<string key="dismissButton">UIButton</string>
 						<string key="downloadFromHTTPServerButton">UIButton</string>
+						<string key="dropboxButton">UIButton</string>
 						<string key="httpDownloadProgressIndicator">VLCCircularProgressIndicator</string>
 						<string key="httpUploadLabel">UILabel</string>
 						<string key="httpUploadServerLocationLabel">UILabel</string>
@@ -727,6 +787,10 @@
 						</object>
 						<object class="IBToOneOutletInfo" key="downloadFromHTTPServerButton">
 							<string key="name">downloadFromHTTPServerButton</string>
+							<string key="candidateClassName">UIButton</string>
+						</object>
+						<object class="IBToOneOutletInfo" key="dropboxButton">
+							<string key="name">dropboxButton</string>
 							<string key="candidateClassName">UIButton</string>
 						</object>
 						<object class="IBToOneOutletInfo" key="httpDownloadProgressIndicator">
@@ -789,6 +853,10 @@
 		</object>
 		<bool key="IBDocument.PluginDeclaredDependenciesTrackSystemTargetVersion">YES</bool>
 		<int key="IBDocument.defaultPropertyAccessControl">3</int>
+		<object class="NSMutableDictionary" key="IBDocument.LastKnownImageSizes">
+			<string key="NS.key.0">dropbox-black.png</string>
+			<string key="NS.object.0">{179, 60}</string>
+		</object>
 		<string key="IBCocoaTouchPluginVersion">2083</string>
 	</data>
 </archive>

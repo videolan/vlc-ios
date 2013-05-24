@@ -145,6 +145,16 @@
 				<string>smb</string>
 			</array>
 		</dict>
+		<dict>
+			<key>CFBundleTypeRole</key>
+			<string>Viewer</string>
+			<key>CFBundleURLName</key>
+			<string>Dropbox</string>
+			<key>CFBundleURLSchemes</key>
+			<array>
+				<string>db-a60fc6qj9zdg7bw</string>
+			</array>
+		</dict>
 	</array>
 	<key>CFBundleVersion</key>
 	<string>1.0</string>

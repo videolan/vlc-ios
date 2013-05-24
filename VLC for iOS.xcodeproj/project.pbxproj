@@ -40,6 +40,7 @@
 		293DF2F417494F8200BB880F /* DropboxSDK.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 7D05ADEA174945CE0087550C /* DropboxSDK.framework */; };
 		29CE2D44174912C600922D8F /* VLCHTTPUploaderController.m in Sources */ = {isa = PBXBuildFile; fileRef = 29CE2D42174912C600922D8F /* VLCHTTPUploaderController.m */; };
 		7D07A4E9174EA47800759D10 /* VLCSettingsController.m in Sources */ = {isa = PBXBuildFile; fileRef = 7D07A4E7174EA47800759D10 /* VLCSettingsController.m */; };
+		7D07A4ED174EB81200759D10 /* VLCDropboxController.m in Sources */ = {isa = PBXBuildFile; fileRef = 7D07A4EC174EB81200759D10 /* VLCDropboxController.m */; };
 		7D10BC761743FA0F00DA7059 /* audio.png in Resources */ = {isa = PBXBuildFile; fileRef = 7D10BC6A1743FA0F00DA7059 /* audio.png */; };
 		7D10BC771743FA0F00DA7059 /* audio@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 7D10BC6B1743FA0F00DA7059 /* audio@2x.png */; };
 		7D10BC781743FA0F00DA7059 /* backward.png in Resources */ = {isa = PBXBuildFile; fileRef = 7D10BC6C1743FA0F00DA7059 /* backward.png */; };
@@ -62,6 +63,13 @@
 		7D10BCA71743FE7B00DA7059 /* reset@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 7D10BC9D1743FE7B00DA7059 /* reset@2x.png */; };
 		7D10BCA81743FE7B00DA7059 /* speed.png in Resources */ = {isa = PBXBuildFile; fileRef = 7D10BC9E1743FE7B00DA7059 /* speed.png */; };
 		7D10BCA91743FE7B00DA7059 /* speed@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 7D10BC9F1743FE7B00DA7059 /* speed@2x.png */; };
+		7D2159E9174FD32F00EC00E8 /* page_white_text.png in Resources */ = {isa = PBXBuildFile; fileRef = 7D2159E5174FD32F00EC00E8 /* page_white_text.png */; };
+		7D2159EA174FD32F00EC00E8 /* folder.png in Resources */ = {isa = PBXBuildFile; fileRef = 7D2159E6174FD32F00EC00E8 /* folder.png */; };
+		7D2159EB174FD32F00EC00E8 /* page_white.png in Resources */ = {isa = PBXBuildFile; fileRef = 7D2159E7174FD32F00EC00E8 /* page_white.png */; };
+		7D2159EC174FD32F00EC00E8 /* folder_photos.png in Resources */ = {isa = PBXBuildFile; fileRef = 7D2159E8174FD32F00EC00E8 /* folder_photos.png */; };
+		7D2159EF174FD49C00EC00E8 /* folder_user.png in Resources */ = {isa = PBXBuildFile; fileRef = 7D2159ED174FD49C00EC00E8 /* folder_user.png */; };
+		7D2159F0174FD49C00EC00E8 /* folder_public.png in Resources */ = {isa = PBXBuildFile; fileRef = 7D2159EE174FD49C00EC00E8 /* folder_public.png */; };
+		7D2159F2174FD6CD00EC00E8 /* page_white_film.png in Resources */ = {isa = PBXBuildFile; fileRef = 7D2159F1174FD6CD00EC00E8 /* page_white_film.png */; };
 		7D31CF091746AF09005997E0 /* VLCStatusLabel.m in Sources */ = {isa = PBXBuildFile; fileRef = 7D31CF081746AF09005997E0 /* VLCStatusLabel.m */; };
 		7D33D41617182615008AF0E0 /* VLCMovieViewController~ipad.xib in Resources */ = {isa = PBXBuildFile; fileRef = 7D33D41517182615008AF0E0 /* VLCMovieViewController~ipad.xib */; };
 		7D3EAFF8174A2651002062C2 /* vlcetix512.png in Resources */ = {isa = PBXBuildFile; fileRef = 7D3EAFF7174A2651002062C2 /* vlcetix512.png */; };
@@ -72,6 +80,14 @@
 		7D3EB012174A3530002062C2 /* Reachability.m in Sources */ = {isa = PBXBuildFile; fileRef = 7D3EB011174A3530002062C2 /* Reachability.m */; };
 		7D3EB014174A353E002062C2 /* SystemConfiguration.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 7D3EB013174A353E002062C2 /* SystemConfiguration.framework */; };
 		7D3EB017174A46FB002062C2 /* VLCHTTPFileDownloader.m in Sources */ = {isa = PBXBuildFile; fileRef = 7D3EB016174A46FB002062C2 /* VLCHTTPFileDownloader.m */; };
+		7D5E39C0174FB95A007DAFA1 /* dropbox-black.png in Resources */ = {isa = PBXBuildFile; fileRef = 7D5E39BF174FB95A007DAFA1 /* dropbox-black.png */; };
+		7D5E39C2174FBA28007DAFA1 /* dropbox-black@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 7D5E39C1174FBA28007DAFA1 /* dropbox-black@2x.png */; };
+		7D5E39C6174FBAF3007DAFA1 /* VLCDropboxTableViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 7D5E39C4174FBAF3007DAFA1 /* VLCDropboxTableViewController.m */; };
+		7D5E39C7174FBAF3007DAFA1 /* VLCDropboxTableViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 7D5E39C5174FBAF3007DAFA1 /* VLCDropboxTableViewController.xib */; };
+		7D5E39CA174FC2F3007DAFA1 /* dropbox-white.png in Resources */ = {isa = PBXBuildFile; fileRef = 7D5E39C8174FC2F3007DAFA1 /* dropbox-white.png */; };
+		7D5E39CB174FC2F3007DAFA1 /* dropbox-white@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 7D5E39C9174FC2F3007DAFA1 /* dropbox-white@2x.png */; };
+		7D5E39CF174FCE04007DAFA1 /* VLCDropboxTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 7D5E39CE174FCE04007DAFA1 /* VLCDropboxTableViewCell.m */; };
+		7D5E39D1174FCF43007DAFA1 /* VLCDropboxTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 7D5E39D0174FCF43007DAFA1 /* VLCDropboxTableViewCell.xib */; };
 		7D6B07BC1716C9B8003280C4 /* AQGridView.m in Sources */ = {isa = PBXBuildFile; fileRef = 7D6B07A61716C9B8003280C4 /* AQGridView.m */; };
 		7D6B07BD1716C9B8003280C4 /* AQGridViewAnimatorItem.m in Sources */ = {isa = PBXBuildFile; fileRef = 7D6B07AA1716C9B8003280C4 /* AQGridViewAnimatorItem.m */; };
 		7D6B07BE1716C9B8003280C4 /* AQGridViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 7D6B07AC1716C9B8003280C4 /* AQGridViewCell.m */; };
@@ -234,6 +250,8 @@
 		7D05ADEA174945CE0087550C /* DropboxSDK.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = DropboxSDK.framework; path = ImportedSources/Dropbox/DropboxSDK.framework; sourceTree = "<group>"; };
 		7D07A4E6174EA47800759D10 /* VLCSettingsController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = VLCSettingsController.h; sourceTree = "<group>"; };
 		7D07A4E7174EA47800759D10 /* VLCSettingsController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = VLCSettingsController.m; sourceTree = "<group>"; };
+		7D07A4EB174EB81200759D10 /* VLCDropboxController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = VLCDropboxController.h; sourceTree = "<group>"; };
+		7D07A4EC174EB81200759D10 /* VLCDropboxController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = VLCDropboxController.m; sourceTree = "<group>"; };
 		7D10BC6A1743FA0F00DA7059 /* audio.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = audio.png; sourceTree = "<group>"; };
 		7D10BC6B1743FA0F00DA7059 /* audio@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "audio@2x.png"; sourceTree = "<group>"; };
 		7D10BC6C1743FA0F00DA7059 /* backward.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = backward.png; sourceTree = "<group>"; };
@@ -256,6 +274,13 @@
 		7D10BC9D1743FE7B00DA7059 /* reset@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "reset@2x.png"; path = "Resources/reset@2x.png"; sourceTree = SOURCE_ROOT; };
 		7D10BC9E1743FE7B00DA7059 /* speed.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = speed.png; path = Resources/speed.png; sourceTree = SOURCE_ROOT; };
 		7D10BC9F1743FE7B00DA7059 /* speed@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "speed@2x.png"; path = "Resources/speed@2x.png"; sourceTree = SOURCE_ROOT; };
+		7D2159E5174FD32F00EC00E8 /* page_white_text.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = page_white_text.png; sourceTree = "<group>"; };
+		7D2159E6174FD32F00EC00E8 /* folder.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = folder.png; sourceTree = "<group>"; };
+		7D2159E7174FD32F00EC00E8 /* page_white.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = page_white.png; sourceTree = "<group>"; };
+		7D2159E8174FD32F00EC00E8 /* folder_photos.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = folder_photos.png; sourceTree = "<group>"; };
+		7D2159ED174FD49C00EC00E8 /* folder_user.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = folder_user.png; sourceTree = "<group>"; };
+		7D2159EE174FD49C00EC00E8 /* folder_public.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = folder_public.png; sourceTree = "<group>"; };
+		7D2159F1174FD6CD00EC00E8 /* page_white_film.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = page_white_film.png; sourceTree = "<group>"; };
 		7D31CF071746AF09005997E0 /* VLCStatusLabel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = VLCStatusLabel.h; sourceTree = "<group>"; };
 		7D31CF081746AF09005997E0 /* VLCStatusLabel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = VLCStatusLabel.m; sourceTree = "<group>"; };
 		7D33D41517182615008AF0E0 /* VLCMovieViewController~ipad.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; name = "VLCMovieViewController~ipad.xib"; path = "Resources/VLCMovieViewController~ipad.xib"; sourceTree = SOURCE_ROOT; };
@@ -270,6 +295,16 @@
 		7D3EB013174A353E002062C2 /* SystemConfiguration.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = SystemConfiguration.framework; path = System/Library/Frameworks/SystemConfiguration.framework; sourceTree = SDKROOT; };
 		7D3EB015174A46FB002062C2 /* VLCHTTPFileDownloader.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = VLCHTTPFileDownloader.h; sourceTree = "<group>"; };
 		7D3EB016174A46FB002062C2 /* VLCHTTPFileDownloader.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = VLCHTTPFileDownloader.m; sourceTree = "<group>"; };
+		7D5E39BF174FB95A007DAFA1 /* dropbox-black.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "dropbox-black.png"; sourceTree = "<group>"; };
+		7D5E39C1174FBA28007DAFA1 /* dropbox-black@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "dropbox-black@2x.png"; sourceTree = "<group>"; };
+		7D5E39C3174FBAF3007DAFA1 /* VLCDropboxTableViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = VLCDropboxTableViewController.h; sourceTree = "<group>"; };
+		7D5E39C4174FBAF3007DAFA1 /* VLCDropboxTableViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = VLCDropboxTableViewController.m; sourceTree = "<group>"; };
+		7D5E39C5174FBAF3007DAFA1 /* VLCDropboxTableViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; name = VLCDropboxTableViewController.xib; path = ../Resources/VLCDropboxTableViewController.xib; sourceTree = "<group>"; };
+		7D5E39C8174FC2F3007DAFA1 /* dropbox-white.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "dropbox-white.png"; sourceTree = "<group>"; };
+		7D5E39C9174FC2F3007DAFA1 /* dropbox-white@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "dropbox-white@2x.png"; sourceTree = "<group>"; };
+		7D5E39CD174FCE04007DAFA1 /* VLCDropboxTableViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = VLCDropboxTableViewCell.h; sourceTree = "<group>"; };
+		7D5E39CE174FCE04007DAFA1 /* VLCDropboxTableViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = VLCDropboxTableViewCell.m; sourceTree = "<group>"; };
+		7D5E39D0174FCF43007DAFA1 /* VLCDropboxTableViewCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; name = VLCDropboxTableViewCell.xib; path = ../Resources/VLCDropboxTableViewCell.xib; sourceTree = "<group>"; };
 		7D6B07A51716C9B8003280C4 /* AQGridView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = AQGridView.h; path = ImportedSources/AQGridView/Classes/AQGridView.h; sourceTree = SOURCE_ROOT; };
 		7D6B07A61716C9B8003280C4 /* AQGridView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = AQGridView.m; path = ImportedSources/AQGridView/Classes/AQGridView.m; sourceTree = SOURCE_ROOT; };
 		7D6B07A71716C9B8003280C4 /* AQGridView+CellLayout.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = "AQGridView+CellLayout.h"; path = "ImportedSources/AQGridView/Classes/AQGridView+CellLayout.h"; sourceTree = SOURCE_ROOT; };
@@ -641,6 +676,24 @@
 			path = ../AspenProject;
 			sourceTree = "<group>";
 		};
+		7D2159E4174FD31900EC00E8 /* Dropbox */ = {
+			isa = PBXGroup;
+			children = (
+				7D2159ED174FD49C00EC00E8 /* folder_user.png */,
+				7D2159EE174FD49C00EC00E8 /* folder_public.png */,
+				7D2159E5174FD32F00EC00E8 /* page_white_text.png */,
+				7D2159F1174FD6CD00EC00E8 /* page_white_film.png */,
+				7D2159E6174FD32F00EC00E8 /* folder.png */,
+				7D2159E7174FD32F00EC00E8 /* page_white.png */,
+				7D2159E8174FD32F00EC00E8 /* folder_photos.png */,
+				7D5E39BF174FB95A007DAFA1 /* dropbox-black.png */,
+				7D5E39C1174FBA28007DAFA1 /* dropbox-black@2x.png */,
+				7D5E39C8174FC2F3007DAFA1 /* dropbox-white.png */,
+				7D5E39C9174FC2F3007DAFA1 /* dropbox-white@2x.png */,
+			);
+			name = Dropbox;
+			sourceTree = "<group>";
+		};
 		7D31CF061746AEF2005997E0 /* UI Elements */ = {
 			isa = PBXGroup;
 			children = (
@@ -652,6 +705,19 @@
 				7D31CF081746AF09005997E0 /* VLCStatusLabel.m */,
 			);
 			name = "UI Elements";
+			sourceTree = "<group>";
+		};
+		7D5E39CC174FCDBE007DAFA1 /* Dropbox Integration */ = {
+			isa = PBXGroup;
+			children = (
+				7D07A4EB174EB81200759D10 /* VLCDropboxController.h */,
+				7D07A4EC174EB81200759D10 /* VLCDropboxController.m */,
+				7D5E39C3174FBAF3007DAFA1 /* VLCDropboxTableViewController.h */,
+				7D5E39C4174FBAF3007DAFA1 /* VLCDropboxTableViewController.m */,
+				7D5E39CD174FCE04007DAFA1 /* VLCDropboxTableViewCell.h */,
+				7D5E39CE174FCE04007DAFA1 /* VLCDropboxTableViewCell.m */,
+			);
+			name = "Dropbox Integration";
 			sourceTree = "<group>";
 		};
 		7D6B07A31716C9A6003280C4 /* OBSlider */ = {
@@ -810,7 +876,6 @@
 				7D94FCF916DE7D1100F2623B /* VLCMovieViewController.h */,
 				7D94FCFA16DE7D1100F2623B /* VLCMovieViewController.m */,
 				7DA62099170A0CE500643D11 /* VLCPlaylistTableViewCell.h */,
-				7D31CF061746AEF2005997E0 /* UI Elements */,
 				7DA6209A170A0CE500643D11 /* VLCPlaylistTableViewCell.m */,
 				7D6B07F51716D45B003280C4 /* VLCPlaylistGridView.h */,
 				7D6B07F61716D45B003280C4 /* VLCPlaylistGridView.m */,
@@ -824,6 +889,8 @@
 				7D3EB016174A46FB002062C2 /* VLCHTTPFileDownloader.m */,
 				7D07A4E6174EA47800759D10 /* VLCSettingsController.h */,
 				7D07A4E7174EA47800759D10 /* VLCSettingsController.m */,
+				7D5E39CC174FCDBE007DAFA1 /* Dropbox Integration */,
+				7D31CF061746AEF2005997E0 /* UI Elements */,
 				7DADC5601704FACC001DAC63 /* Imported */,
 				7DADC55C1704FAA8001DAC63 /* XIBs */,
 				A7924697170F0ED20036AAF2 /* Resources */,
@@ -855,6 +922,8 @@
 				A79246BC170F114E0036AAF2 /* VLCPlaylistViewController~ipad.xib */,
 				7DC87AF117413EE3009DC250 /* VLCPlaylistGridView.xib */,
 				A79246BE170F114E0036AAF2 /* VLCPlaylistTableViewCell.xib */,
+				7D5E39C5174FBAF3007DAFA1 /* VLCDropboxTableViewController.xib */,
+				7D5E39D0174FCF43007DAFA1 /* VLCDropboxTableViewCell.xib */,
 			);
 			name = XIBs;
 			sourceTree = "<group>";
@@ -910,6 +979,7 @@
 				A79246C6170F11DF0036AAF2 /* Localizable.strings */,
 				7D10BC651743F9A100DA7059 /* External Playback */,
 				7D10BC671743F9BA00DA7059 /* Launch Screen */,
+				7D2159E4174FD31900EC00E8 /* Dropbox */,
 				7D10BC661743F9AC00DA7059 /* Library View */,
 			);
 			path = Resources;
@@ -1080,6 +1150,19 @@
 				A7A0E9F9174BA66000162F25 /* papasscode_marker.png in Resources */,
 				A7A0E9FA174BA66000162F25 /* papasscode_marker@2x.png in Resources */,
 				7D6B08FC174D773C00A05173 /* Settings.bundle in Resources */,
+				7D5E39C0174FB95A007DAFA1 /* dropbox-black.png in Resources */,
+				7D5E39C2174FBA28007DAFA1 /* dropbox-black@2x.png in Resources */,
+				7D5E39C7174FBAF3007DAFA1 /* VLCDropboxTableViewController.xib in Resources */,
+				7D5E39CA174FC2F3007DAFA1 /* dropbox-white.png in Resources */,
+				7D5E39CB174FC2F3007DAFA1 /* dropbox-white@2x.png in Resources */,
+				7D5E39D1174FCF43007DAFA1 /* VLCDropboxTableViewCell.xib in Resources */,
+				7D2159E9174FD32F00EC00E8 /* page_white_text.png in Resources */,
+				7D2159EA174FD32F00EC00E8 /* folder.png in Resources */,
+				7D2159EB174FD32F00EC00E8 /* page_white.png in Resources */,
+				7D2159EC174FD32F00EC00E8 /* folder_photos.png in Resources */,
+				7D2159EF174FD49C00EC00E8 /* folder_user.png in Resources */,
+				7D2159F0174FD49C00EC00E8 /* folder_public.png in Resources */,
+				7D2159F2174FD6CD00EC00E8 /* page_white_film.png in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -1157,6 +1240,9 @@
 				7D6B08F7174D65B500A05173 /* IASKSwitch.m in Sources */,
 				7D6B08F8174D65B500A05173 /* IASKTextField.m in Sources */,
 				7D07A4E9174EA47800759D10 /* VLCSettingsController.m in Sources */,
+				7D07A4ED174EB81200759D10 /* VLCDropboxController.m in Sources */,
+				7D5E39C6174FBAF3007DAFA1 /* VLCDropboxTableViewController.m in Sources */,
+				7D5E39CF174FCE04007DAFA1 /* VLCDropboxTableViewCell.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

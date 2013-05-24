@@ -228,4 +228,16 @@
         self.httpUploadServerLocationLabel.text = NSLocalizedString(@"HTTP_UPLOAD_SERVER_OFF", @"");
 }
 
+- (IBAction)showDropbox:(id)sender
+{
+    VLCAppDelegate *appDelegate = [UIApplication sharedApplication].delegate;
+
+    appDelegate.dropboxTableViewController.modalPresentationStyle = UIModalPresentationFormSheet;
+
+    UINavigationController *navController = [[UINavigationController alloc] initWithRootViewController:appDelegate.dropboxTableViewController];
+    navController.navigationBarHidden = NO;
+    navController.navigationBar.barStyle = UIBarStyleBlack;
+    [self presentModalViewController:navController animated:YES];
+}
+
 @end

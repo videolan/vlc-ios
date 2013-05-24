@@ -6,7 +6,7 @@
 //  Copyright (c) 2013 VideoLAN. All rights reserved.
 //
 
-#import <UIKit/UIKit.h>
+#import "VLCDropboxTableViewController.h"
 
 @class VLCPlaylistViewController;
 @class PAPasscodeViewController;
@@ -19,6 +19,7 @@
 - (void)updateMediaList;
 
 @property (nonatomic, readonly) VLCPlaylistViewController *playlistViewController;
+@property (nonatomic, readonly) VLCDropboxTableViewController *dropboxTableViewController;
 
 @property (nonatomic, strong) UIWindow *window;
 

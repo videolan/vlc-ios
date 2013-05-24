@@ -26,6 +26,7 @@
 @property (strong, nonatomic) IBOutlet UISwitch *httpUploadServerSwitch;
 @property (strong, nonatomic) IBOutlet UILabel *httpUploadLabel;
 @property (strong, nonatomic) IBOutlet UILabel *httpUploadServerLocationLabel;
+@property (strong, nonatomic) IBOutlet UIButton *dropboxButton;
 
 @property (strong, nonatomic) IBOutlet UIView *openURLView;
 @property (strong, nonatomic) IBOutlet UITextField *openURLField;
@@ -35,6 +36,7 @@
 - (IBAction)openAboutPanel:(id)sender;
 - (IBAction)openNetworkStream:(id)sender;
 - (IBAction)downloadFromHTTPServer:(id)sender;
+- (IBAction)showDropbox:(id)sender;
 - (IBAction)showSettings:(id)sender;
 - (IBAction)toggleHTTPServer:(id)sender;
 
