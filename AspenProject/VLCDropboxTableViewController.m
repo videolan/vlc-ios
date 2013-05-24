@@ -22,6 +22,8 @@
     UIBarButtonItem *_progressBarButtonItem;
     UIBarButtonItem *_downloadingBarLabel;
     UIProgressView *_progressView;
+
+    UIActivityIndicatorView *_activityIndicator;
 }
 
 @end
@@ -69,6 +71,17 @@
     self.navigationController.toolbarHidden = NO;
     self.navigationController.toolbar.barStyle = UIBarStyleBlack;
     [self _showProgressInToolbar:NO];
+
+    _activityIndicator = [[UIActivityIndicatorView alloc] initWithActivityIndicatorStyle:UIActivityIndicatorViewStyleWhiteLarge];
+    _activityIndicator.hidesWhenStopped = YES;
+
+    CGRect aiFrame = _activityIndicator.frame;
+    CGSize tvSize = self.tableView.frame.size;
+    aiFrame.origin.x = (tvSize.width - aiFrame.size.width) / 2.;
+    aiFrame.origin.y = (tvSize.height - aiFrame.size.height) / 2.;
+    _activityIndicator.frame = aiFrame;
+
+    [self.view addSubview:_activityIndicator];
 }
 
 - (void)_showProgressInToolbar:(BOOL)value
@@ -79,6 +92,12 @@
         _progressView.progress = 0.;
         [self setToolbarItems:@[[[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemFlexibleSpace target:nil action:nil], _downloadingBarLabel, _progressBarButtonItem, [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemFlexibleSpace target:nil action:nil]] animated:YES];
     }
+}
+
+- (void)_requestInformationForCurrentPath
+{
+    [_activityIndicator startAnimating];
+    [_dropboxController requestDirectoryListingAtPath:_currentPath];
 }
 
 - (void)viewWillAppear:(BOOL)animated
@@ -94,7 +113,7 @@
 - (IBAction)folderUp:(id)sender
 {
     _currentPath = [_currentPath stringByDeletingLastPathComponent];
-    [_dropboxController requestDirectoryListingAtPath:_currentPath];
+    [self _requestInformationForCurrentPath];
 }
 
 #pragma mark - Table view data source
@@ -133,7 +152,7 @@
     } else {
         /* dive into subdirectory */
         _currentPath = [_currentPath stringByAppendingFormat:@"/%@", selectedFile.filename];
-        [_dropboxController requestDirectoryListingAtPath:_currentPath];
+        [self _requestInformationForCurrentPath];
     }
 
     [self.tableView deselectRowAtIndexPath:indexPath animated:NO];
@@ -143,6 +162,8 @@
 
 - (void)mediaListUpdated
 {
+    [_activityIndicator stopAnimating];
+
     [self.tableView reloadData];
 
     NSUInteger count = _dropboxController.currentListFiles.count;
@@ -178,7 +199,7 @@
         [self.loginToDropboxView removeFromSuperview];
 
     _currentPath = @"/";
-    [_dropboxController requestDirectoryListingAtPath:_currentPath];
+    [self _requestInformationForCurrentPath];
 }
 
 #pragma mark - login dialog
