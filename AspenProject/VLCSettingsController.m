@@ -42,8 +42,7 @@
 
 - (void)settingsViewControllerDidEnd:(IASKAppSettingsViewController*)sender
 {
-    VLCAppDelegate* appDelegate = [UIApplication sharedApplication].delegate;
-    [appDelegate.playlistViewController.navigationController dismissModalViewControllerAnimated:YES];
+    [self.viewController.navigationController dismissModalViewControllerAnimated:YES];
 }
 
 #pragma mark - PAPasscode delegate
