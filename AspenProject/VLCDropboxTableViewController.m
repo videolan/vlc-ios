@@ -167,7 +167,9 @@
     [self.tableView reloadData];
 
     NSUInteger count = _dropboxController.currentListFiles.count;
-    if (count != 1)
+    if (count == 0)
+        _numberOfFilesBarButtonItem.title = NSLocalizedString(@"NO_FILES", @"");
+    else if (count != 1)
         _numberOfFilesBarButtonItem.title = [NSString stringWithFormat:NSLocalizedString(@"NUM_OF_FILES", @""), count];
     else
         _numberOfFilesBarButtonItem.title = NSLocalizedString(@"ONE_FILE", @"");
