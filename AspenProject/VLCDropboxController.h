@@ -12,6 +12,10 @@
 @required
 - (void)mediaListUpdated;
 
+@optional
+- (void)operationWithProgressInformationStarted;
+- (void)currentProgressInformation:(float)progress;
+- (void)operationWithProgressInformationStopped;
 @end
 
 @interface VLCDropboxController : NSObject <DBRestClientDelegate, DBSessionDelegate, DBNetworkRequestDelegate>

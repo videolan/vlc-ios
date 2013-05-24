@@ -20,6 +20,8 @@
 
     UIBarButtonItem *_numberOfFilesBarButtonItem;
     UIBarButtonItem *_progressBarButtonItem;
+    UIBarButtonItem *_downloadingBarLabel;
+    UIProgressView *_progressView;
 }
 
 @end
@@ -56,12 +58,27 @@
     self.tableView.rowHeight = [VLCDropboxTableViewCell heightOfCell];
     self.tableView.separatorColor = [UIColor colorWithWhite:.2 alpha:1.];
 
-    _numberOfFilesBarButtonItem = [[UIBarButtonItem alloc] initWithTitle:[NSString stringWithFormat:NSLocalizedString(@"NUM_OF_FILES", @""), 0] style:UIBarButtonItemStylePlain target:self action:nil];
+    _numberOfFilesBarButtonItem = [[UIBarButtonItem alloc] initWithTitle:[NSString stringWithFormat:NSLocalizedString(@"NUM_OF_FILES", @""), 0] style:UIBarButtonItemStylePlain target:nil action:nil];
     [_numberOfFilesBarButtonItem setTitleTextAttributes:@{ UITextAttributeFont : [UIFont systemFontOfSize:11.] } forState:UIControlStateNormal];
+
+    _progressView = [[UIProgressView alloc] initWithProgressViewStyle:UIProgressViewStyleBar];
+    _progressBarButtonItem = [[UIBarButtonItem alloc] initWithCustomView:_progressView];
+    _downloadingBarLabel = [[UIBarButtonItem alloc] initWithTitle:NSLocalizedString(@"DOWNLOADING",@"") style:UIBarButtonItemStylePlain target:nil action:nil];
+    [_downloadingBarLabel setTitleTextAttributes:@{ UITextAttributeFont : [UIFont systemFontOfSize:11.] } forState:UIControlStateNormal];
 
     self.navigationController.toolbarHidden = NO;
     self.navigationController.toolbar.barStyle = UIBarStyleBlack;
-    [self setToolbarItems:@[[[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemFlexibleSpace target:nil action:nil], _numberOfFilesBarButtonItem, [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemFlexibleSpace target:nil action:nil]] animated:NO];
+    [self _showProgressInToolbar:NO];
+}
+
+- (void)_showProgressInToolbar:(BOOL)value
+{
+    if (!value)
+        [self setToolbarItems:@[[[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemFlexibleSpace target:nil action:nil], _numberOfFilesBarButtonItem, [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemFlexibleSpace target:nil action:nil]] animated:YES];
+    else {
+        _progressView.progress = 0.;
+        [self setToolbarItems:@[[[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemFlexibleSpace target:nil action:nil], _downloadingBarLabel, _progressBarButtonItem, [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemFlexibleSpace target:nil action:nil]] animated:YES];
+    }
 }
 
 - (void)viewWillAppear:(BOOL)animated
@@ -133,6 +150,21 @@
         _numberOfFilesBarButtonItem.title = [NSString stringWithFormat:NSLocalizedString(@"NUM_OF_FILES", @""), count];
     else
         _numberOfFilesBarButtonItem.title = NSLocalizedString(@"ONE_FILE", @"");
+}
+
+- (void)operationWithProgressInformationStarted
+{
+    [self _showProgressInToolbar:YES];
+}
+
+- (void)currentProgressInformation:(float)progress
+{
+    [_progressView setProgress: progress animated:YES];
+}
+
+- (void)operationWithProgressInformationStopped
+{
+    [self _showProgressInToolbar:NO];
 }
 
 #pragma mark - communication with app delegate

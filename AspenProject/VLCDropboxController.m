@@ -60,6 +60,9 @@
         //FIXME: add UI hook to display activity
 
         [[self restClient] loadFile:file.path intoPath:filePath];
+
+        if ([self.delegate respondsToSelector:@selector(operationWithProgressInformationStarted)])
+            [self.delegate operationWithProgressInformationStarted];
     }
 }
 
@@ -102,16 +105,22 @@
     /* update library now that we got a file */
     VLCAppDelegate *appDelegate = [UIApplication sharedApplication].delegate;
     [appDelegate updateMediaList];
+
+    if ([self.delegate respondsToSelector:@selector(operationWithProgressInformationStopped)])
+        [self.delegate operationWithProgressInformationStopped];
 }
 
 - (void)restClient:(DBRestClient*)client loadFileFailedWithError:(NSError*)error
 {
     APLog(@"DBFile download failed with error %i", error.code);
+    if ([self.delegate respondsToSelector:@selector(operationWithProgressInformationStopped)])
+        [self.delegate operationWithProgressInformationStopped];
 }
 
 - (void)restClient:(DBRestClient*)client loadProgress:(CGFloat)progress forFile:(NSString*)destPath
 {
-    APLog(@"Download progress for DBFile '%@' %f", destPath.lastPathComponent, progress);
+    if ([self.delegate respondsToSelector:@selector(currentProgressInformation:)])
+        [self.delegate currentProgressInformation:progress];
 }
 
 #pragma mark - DBSession delegate
