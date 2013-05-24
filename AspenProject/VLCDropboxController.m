@@ -56,8 +56,7 @@
 {
     if (!file.isDirectory) {
         NSArray *searchPaths = NSSearchPathForDirectoriesInDomains(NSDocumentDirectory, NSUserDomainMask, YES);
-        NSString *filePath = [searchPaths[0] stringByAppendingString:file.filename];
-        //FIXME: add UI hook to display activity
+        NSString *filePath = [searchPaths[0] stringByAppendingFormat:@"/%@", file.filename];
 
         [[self restClient] loadFile:file.path intoPath:filePath];
 
