@@ -44,6 +44,10 @@
 
     UIBarButtonItem *addButton = [[UIBarButtonItem alloc] initWithTitle:NSLocalizedString(@"BUTTON_DONE", @"") style:UIBarButtonItemStyleDone target:self action:@selector(dismiss:)];
     self.navigationItem.rightBarButtonItem = addButton;
+
+    UIBarButtonItem *backButton = [[UIBarButtonItem alloc] initWithTitle:@".." style:UIBarButtonItemStyleBordered target:self action:@selector(folderUp:)];
+    self.navigationItem.leftBarButtonItem = backButton;
+
     self.navigationItem.titleView = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"dropbox-white"]];
 
     self.tableView.rowHeight = [VLCDropboxTableViewCell heightOfCell];
@@ -58,6 +62,12 @@
 - (IBAction)dismiss:(id)sender
 {
     [self.navigationController dismissModalViewControllerAnimated:YES];
+}
+
+- (IBAction)folderUp:(id)sender
+{
+    _currentPath = [_currentPath stringByDeletingLastPathComponent];
+    [_dropboxController requestDirectoryListingAtPath:_currentPath];
 }
 
 #pragma mark - Table view data source
