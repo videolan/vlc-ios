@@ -66,7 +66,7 @@
 #pragma mark - restClient delegate
 - (BOOL)_supportedFileExtension:(NSString *)filename
 {
-    if ([filename rangeOfString:kSupportedFileExtensions options:NSRegularExpressionSearch|NSCaseInsensitiveSearch].length != 0)
+    if ([filename rangeOfString:kSupportedFileExtensions options:NSRegularExpressionSearch|NSCaseInsensitiveSearch].length != 0 || [filename rangeOfString:kSupportedSubtitleFileExtensions options:NSRegularExpressionSearch|NSCaseInsensitiveSearch].length != 0)
         return YES;
 
     return NO;
