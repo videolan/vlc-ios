@@ -15,6 +15,9 @@ Copyright © 2010, Kobo Inc. - AQGridView license
 	CocoaHTTPServer
 Copyright © 2011, Deusty, LLC - 2-clause BSD License
 
+	Dropbox SDK
+Copyright (c) 2010 Dropbox (Evenflow, Inc.) - MIT License
+
 	InAppSettingsKit
 Copyright © 2009, 2010 Luc Vandal, Edovia Inc., Ortwin Gentz, FutureTap GmbH - 2-clause BSD License
 
