@@ -17,6 +17,9 @@
 {
     VLCDropboxController *_dropboxController;
     NSString *_currentPath;
+
+    UIBarButtonItem *_numberOfFilesBarButtonItem;
+    UIBarButtonItem *_progressBarButtonItem;
 }
 
 @end
@@ -52,6 +55,13 @@
 
     self.tableView.rowHeight = [VLCDropboxTableViewCell heightOfCell];
     self.tableView.separatorColor = [UIColor colorWithWhite:.2 alpha:1.];
+
+    _numberOfFilesBarButtonItem = [[UIBarButtonItem alloc] initWithTitle:[NSString stringWithFormat:NSLocalizedString(@"NUM_OF_FILES", @""), 0] style:UIBarButtonItemStylePlain target:self action:nil];
+    [_numberOfFilesBarButtonItem setTitleTextAttributes:@{ UITextAttributeFont : [UIFont systemFontOfSize:11.] } forState:UIControlStateNormal];
+
+    self.navigationController.toolbarHidden = NO;
+    self.navigationController.toolbar.barStyle = UIBarStyleBlack;
+    [self setToolbarItems:@[[[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemFlexibleSpace target:nil action:nil], _numberOfFilesBarButtonItem, [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemFlexibleSpace target:nil action:nil]] animated:NO];
 }
 
 - (void)viewWillAppear:(BOOL)animated
@@ -117,6 +127,12 @@
 - (void)mediaListUpdated
 {
     [self.tableView reloadData];
+
+    NSUInteger count = _dropboxController.currentListFiles.count;
+    if (count != 1)
+        _numberOfFilesBarButtonItem.title = [NSString stringWithFormat:NSLocalizedString(@"NUM_OF_FILES", @""), count];
+    else
+        _numberOfFilesBarButtonItem.title = NSLocalizedString(@"ONE_FILE", @"");
 }
 
 #pragma mark - communication with app delegate
