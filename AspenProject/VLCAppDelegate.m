@@ -139,7 +139,7 @@
 {
     NSUserDefaults *defaults = [NSUserDefaults standardUserDefaults];
     NSString *passcode = [defaults objectForKey:kVLCSettingPasscodeKey];
-    if ([passcode isEqualToString:@""] || ![[defaults objectForKey:kVLCSettingPasscodeOnKey] intValue]) {
+    if ([passcode isEqualToString:@""] || ![[defaults objectForKey:kVLCSettingPasscodeOnKey] boolValue]) {
         self.passcodeValidated = YES;
         return;
     }
