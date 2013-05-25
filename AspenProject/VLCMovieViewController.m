@@ -182,6 +182,7 @@
     }
     [self.navigationController setNavigationBarHidden:NO animated:YES];
     [UIApplication sharedApplication].statusBarStyle = UIStatusBarStyleBlackOpaque;
+    [[UIApplication sharedApplication] setStatusBarHidden:NO withAnimation:UIStatusBarAnimationFade];
     [_mediaPlayer pause];
     [super viewWillDisappear:animated];
     if (self.mediaItem)
