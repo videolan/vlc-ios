@@ -155,12 +155,6 @@
     }
 }
 
-
-- (void)PAPasscodeViewControllerDidCancel:(PAPasscodeViewController *)controller
-{
-    // TODO remove cancel button for Enter action
-}
-
 - (void)PAPasscodeViewControllerDidEnterPasscode:(PAPasscodeViewController *)controller
 {
     // TODO add transition animation, i.e. fade
