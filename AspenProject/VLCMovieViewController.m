@@ -77,7 +77,7 @@
     recognizer.delegate = self;
     [self.view addGestureRecognizer:recognizer];
 
-    _aspectRatios = @[@"Default", @"4:3", @"16:9", @"16:10", @"2.21:1"];
+    _aspectRatios = @[@"DEFAULT", @"4:3", @"16:9", @"16:10", @"2.21:1", @"FILL_TO_SCREEN"];
 }
 
 - (void)viewWillAppear:(BOOL)animated
@@ -101,7 +101,7 @@
     if (self.mediaItem) {
         self.title = [self.mediaItem title];
         [_mediaPlayer setMedia:[VLCMedia mediaWithURL:[NSURL URLWithString:self.mediaItem.url]]];
-        self.mediaItem.unread = @0;
+        self.mediaItem.unread = @(NO);
     } else {
         [_mediaPlayer setMedia:[VLCMedia mediaWithURL:self.url]];
         self.title = @"Network Stream";
@@ -529,10 +529,37 @@
 
         if (_currentAspectRatioMask + 1 > count - 1) {
             _mediaPlayer.videoAspectRatio = NULL;
+            _mediaPlayer.videoCropGeometry = NULL;
             _currentAspectRatioMask = 0;
             [self.statusLabel showStatusMessage:[NSString stringWithFormat:NSLocalizedString(@"AR_CHANGED", @""), NSLocalizedString(@"DEFAULT", @"")]];
         } else {
             _currentAspectRatioMask++;
+
+            if ([_aspectRatios[_currentAspectRatioMask] isEqualToString:@"FILL_TO_SCREEN"]) {
+                UIScreen *screen;
+                if (![self hasExternalDisplay])
+                    screen = [UIScreen mainScreen];
+                else
+                    screen = [UIScreen screens][1];
+
+                float f_ar = screen.bounds.size.width / screen.bounds.size.height;
+
+                if (f_ar == (float)(640./1136.)) // iPhone 5 aka 16:9.01
+                    _mediaPlayer.videoCropGeometry = "16:9";
+                else if (f_ar == (float)(2./3.)) // all other iPhones
+                    _mediaPlayer.videoCropGeometry = "16:10"; // libvlc doesn't support 2:3 crop
+                else if (f_ar == .75) // all iPads
+                    _mediaPlayer.videoCropGeometry = "4:3";
+                else if (f_ar == .5625) // AirPlay
+                    _mediaPlayer.videoCropGeometry = "16:9";
+                else
+                    APLog(@"unknown screen format %f, can't crop", f_ar);
+
+                [self.statusLabel showStatusMessage:NSLocalizedString(@"FILL_TO_SCREEN", @"")];
+                return;
+            }
+
+            _mediaPlayer.videoCropGeometry = NULL;
             _mediaPlayer.videoAspectRatio = (char *)[_aspectRatios[_currentAspectRatioMask] UTF8String];
             [self.statusLabel showStatusMessage:[NSString stringWithFormat:NSLocalizedString(@"AR_CHANGED", @""), _aspectRatios[_currentAspectRatioMask]]];
         }
