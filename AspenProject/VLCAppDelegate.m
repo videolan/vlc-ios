@@ -49,7 +49,6 @@
 - (BOOL)application:(UIApplication *)application openURL:(NSURL *)url sourceApplication:(NSString *)sourceApplication annotation:(id)annotation
 {
     if ([[DBSession sharedSession] handleOpenURL:url]) {
-        NSLog(@"dropbox URL handled");
         [self.dropboxTableViewController updateViewAfterSessionChange];
         return YES;
     }
@@ -91,7 +90,7 @@
 
 - (void)applicationWillEnterForeground:(UIApplication *)application
 {
-    NSLog(@"applicationWillEnterForeground: %i", self.passcodeValidated);
+    APLog(@"applicationWillEnterForeground: %i", self.passcodeValidated);
 }
 
 - (void)applicationDidBecomeActive:(UIApplication *)application
@@ -140,11 +139,11 @@
 {
     NSUserDefaults *defaults = [NSUserDefaults standardUserDefaults];
     NSString *passcode = [defaults objectForKey:kVLCSettingPasscodeKey];
-    if ([passcode isEqualToString:@""]) {
+    if ([passcode isEqualToString:@""] || ![[defaults objectForKey:kVLCSettingPasscodeOnKey] intValue]) {
         self.passcodeValidated = YES;
         return;
     }
-    
+
     if (!self.passcodeValidated) {
         if ([self.nextPasscodeCheckDate earlierDate:[NSDate date]] == self.nextPasscodeCheckDate) {
             _passcodeLockController = [[PAPasscodeViewController alloc] initForAction:PasscodeActionEnter];

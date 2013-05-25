@@ -31,7 +31,7 @@
 - (void)settingDidChange:(NSNotification*)notification
 {
     if ([notification.object isEqual:kVLCSettingPasscodeOnKey]) {
-        BOOL passcodeOn = (BOOL)[[notification.userInfo objectForKey:@"PasscodeProtection"] intValue];
+        BOOL passcodeOn = (BOOL)[[notification.userInfo objectForKey:kVLCSettingPasscodeOnKey] intValue];
 
         if (passcodeOn) {
             PAPasscodeViewController *passcodeLockController = [[PAPasscodeViewController alloc] initForAction:PasscodeActionSet];
