@@ -86,6 +86,7 @@
 - (void)viewWillAppear:(BOOL)animated
 {
     self.navigationController.toolbarHidden = NO;
+    [self updateViewAfterSessionChange];
     [super viewWillAppear:animated];
 }
 
@@ -109,11 +110,6 @@
 {
     [_activityIndicator startAnimating];
     [_dropboxController requestDirectoryListingAtPath:_currentPath];
-}
-
-- (void)viewWillAppear:(BOOL)animated
-{
-    [self updateViewAfterSessionChange];
 }
 
 - (IBAction)dismiss:(id)sender
