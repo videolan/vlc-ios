@@ -9,6 +9,7 @@ SDK=iphoneos6.1
 SDK_MIN=5.1
 VERBOSE=no
 CONFIGURATION="Release"
+TESTEDHASH=effa2ea1f
 
 usage()
 {
@@ -116,6 +117,7 @@ if ! [ -e vlc ]; then
 git clone git://git.videolan.org/vlc.git
 info "Applying patches to vlc.git"
 cd vlc
+git checkout ${TESTEDHASH}
 git am ../../patches/*.patch
 if [ $? -ne 0 ]; then
 git am --abort
