@@ -166,6 +166,20 @@
 			<key>DefaultValue</key>
 			<false/>
 		</dict>
+		<dict>
+			<key>Type</key>
+			<string>PSGroupSpecifier</string>
+			<key>Title</key>
+			<string>SETTINGS_FILE_SYNC</string>
+		</dict>
+		<dict>
+			<key>Key</key>
+			<string>UnlinkDropbox</string>
+			<key>Title</key>
+			<string>SETTINGS_UNLINK_DROPBOX</string>
+			<key>Type</key>
+			<string>IASKButtonSpecifier</string>
+		</dict>
 	</array>
 	<key>StringsTable</key>
 	<string>Root</string>

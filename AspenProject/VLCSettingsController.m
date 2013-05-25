@@ -10,6 +10,7 @@
 #import "VLCAppDelegate.h"
 #import "VLCPlaylistViewController.h"
 #import "IASKSettingsReader.h"
+#import <DropboxSDK/DropboxSDK.h>
 
 @implementation VLCSettingsController
 
@@ -43,6 +44,11 @@
 - (void)settingsViewControllerDidEnd:(IASKAppSettingsViewController*)sender
 {
     [self.viewController.navigationController dismissModalViewControllerAnimated:YES];
+}
+
+- (void)settingsViewController:(IASKAppSettingsViewController*)sender buttonTappedForSpecifier:(IASKSpecifier*)specifier {
+	if ([specifier.key isEqualToString:@"UnlinkDropbox"])
+        [[DBSession sharedSession] unlinkAll];
 }
 
 #pragma mark - PAPasscode delegate
