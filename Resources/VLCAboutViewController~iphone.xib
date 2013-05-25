@@ -2,7 +2,7 @@
 <archive type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="8.00">
 	<data>
 		<int key="IBDocument.SystemTarget">1296</int>
-		<string key="IBDocument.SystemVersion">12E52</string>
+		<string key="IBDocument.SystemVersion">12E55</string>
 		<string key="IBDocument.InterfaceBuilderVersion">3084</string>
 		<string key="IBDocument.AppKitVersion">1187.39</string>
 		<string key="IBDocument.HIToolboxVersion">626.00</string>
@@ -191,7 +191,7 @@
 						<bool key="IBUIUserInteractionEnabled">NO</bool>
 						<string key="targetRuntimeIdentifier">IBCocoaTouchFramework</string>
 						<string type="base64-UTF8" key="IBUIText">Q29weXJpZ2h0IMKpIDIwMTMgVmlkZW9MQU4gYW5kIGF1dGhvcnMNV3JpdHRlbiBieSBGZWxpeCBQYXVs
-IEvDvGhuZSBhbmQgR2xlYiBQaW5pZ2luA</string>
+IEvDvGhuZSwgR2xlYiBQaW5pZ2luLCBhbmQgSmVhbi1CYXB0aXN0ZSBLZW1wZg</string>
 						<reference key="IBUITextColor" ref="592679588"/>
 						<nil key="IBUIHighlightedColor"/>
 						<int key="IBUIBaselineAdjustment">0</int>
