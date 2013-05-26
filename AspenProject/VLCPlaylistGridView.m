@@ -8,7 +8,6 @@
 
 #import "VLCPlaylistGridView.h"
 #import "VLCAppDelegate.h"
-#import "VLCPlaylistViewController.h"
 
 @interface VLCPlaylistGridView (Hack)
 @property (nonatomic, retain) NSString *reuseIdentifier;
@@ -89,8 +88,8 @@
 
 - (IBAction)removeMedia:(id)sender
 {
-    VLCAppDelegate* appDelegate = [UIApplication sharedApplication].delegate;
-    [appDelegate.playlistViewController removeMediaObject:self.mediaObject];
+    NSUInteger cellIndex = [self.gridView indexForCell:self];
+    [self.gridView.delegate gridView:self.gridView commitEditingStyle:UITableViewCellEditingStyleDelete forRowAtIndex:cellIndex];
 }
 
 @end

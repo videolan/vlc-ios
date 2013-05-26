@@ -9,6 +9,7 @@
 #import "VLCLinearProgressIndicator.h"
 #import "AQGridViewCell.h"
 
+@class AQGridView;
 @interface VLCPlaylistGridView : AQGridViewCell
 
 @property (nonatomic, strong) IBOutlet UILabel *titleLabel;
@@ -17,6 +18,9 @@
 @property (nonatomic, strong) IBOutlet VLCLinearProgressIndicator *progressView;
 @property (nonatomic, strong) IBOutlet UIButton *removeMediaButton;
 @property (nonatomic, strong) IBOutlet UIImageView *mediaIsUnreadView;
+
+// Temporary workaround: until better solution 
+@property (nonatomic, weak) AQGridView *gridView;
 
 @property (nonatomic, retain) MLFile *mediaObject;
 

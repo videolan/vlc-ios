@@ -107,7 +107,6 @@
     }
 }
 
-
 - (void)updateViewContents
 {
     [[MLMediaLibrary sharedMediaLibrary] updateMediaDatabase];
@@ -186,6 +185,7 @@
     if (cell == nil) {
         cell = [[[NSBundle mainBundle] loadNibNamed:@"VLCPlaylistGridView" owner:self options:nil] lastObject];
         cell.selectionStyle = AQGridViewCellSelectionStyleGlow;
+        cell.gridView = gridView;
     }
 
     cell.mediaObject = _foundMedia[index];
@@ -208,6 +208,12 @@
 
     self.movieViewController.mediaItem = mediaObject;
     [self.navigationController pushViewController:self.movieViewController animated:YES];
+}
+
+- (void)gridView:(AQGridView *)aGridView commitEditingStyle:(UITableViewCellEditingStyle)editingStyle forRowAtIndex:(NSUInteger)index
+{
+    if (editingStyle == UITableViewCellEditingStyleDelete)
+        [self removeMediaObject: _foundMedia[index]];
 }
 
 #pragma mark - UI implementation
