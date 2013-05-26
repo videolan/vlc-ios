@@ -256,29 +256,17 @@
 /* deprecated in iOS 6 */
 - (BOOL)shouldAutorotateToInterfaceOrientation:(UIInterfaceOrientation)toInterfaceOrientation
 {
-    if (UIInterfaceOrientationIsPortrait(toInterfaceOrientation))
-        return YES;
-
-    if (_foundMedia.count > 0)
-        return YES;
-    else
-        return NO;
+    return (toInterfaceOrientation == UIInterfaceOrientationPortrait) || (_foundMedia.count > 0);
 }
 
 /* introduced in iOS 6 */
 - (NSUInteger)supportedInterfaceOrientations {
-    if (_foundMedia.count > 0)
-        return UIInterfaceOrientationMaskAll;
-    else
-        return UIInterfaceOrientationMaskPortrait;
+    return (_foundMedia.count > 0)? UIInterfaceOrientationMaskAll: UIInterfaceOrientationMaskPortrait;
 }
 
 /* introduced in iOS 6 */
 - (BOOL)shouldAutorotate {
-    if (_foundMedia.count > 0)
-        return YES;
-    else
-        return NO;
+    return (_foundMedia.count > 0);
 }
 
 #pragma mark - coin coin
