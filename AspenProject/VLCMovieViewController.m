@@ -77,6 +77,23 @@
     recognizer.delegate = self;
     [self.view addGestureRecognizer:recognizer];
 
+    UISwipeGestureRecognizer *leftSwipeRecognizer = [[VLCHorizontalSwipeGestureRecognizer alloc] initWithTarget:self action:nil];
+    leftSwipeRecognizer.direction = UISwipeGestureRecognizerDirectionLeft;
+    leftSwipeRecognizer.delegate = self;
+    [self.view addGestureRecognizer:leftSwipeRecognizer];
+    UISwipeGestureRecognizer *rightSwipeRecognizer = [[VLCHorizontalSwipeGestureRecognizer alloc] initWithTarget:self action:nil];
+    rightSwipeRecognizer.direction = UISwipeGestureRecognizerDirectionRight;
+    rightSwipeRecognizer.delegate = self;
+    [self.view addGestureRecognizer:rightSwipeRecognizer];
+    UISwipeGestureRecognizer *upSwipeRecognizer = [[VLCVerticalSwipeGestureRecognizer alloc] initWithTarget:self action:nil];
+    upSwipeRecognizer.direction = UISwipeGestureRecognizerDirectionUp;
+    upSwipeRecognizer.delegate = self;
+    [self.view addGestureRecognizer:upSwipeRecognizer];
+    UISwipeGestureRecognizer *downSwipeRecognizer = [[VLCVerticalSwipeGestureRecognizer alloc] initWithTarget:self action:nil];
+    downSwipeRecognizer.direction = UISwipeGestureRecognizerDirectionDown;
+    downSwipeRecognizer.delegate = self;
+    [self.view addGestureRecognizer:downSwipeRecognizer];
+
     _aspectRatios = @[@"DEFAULT", @"4:3", @"16:9", @"16:10", @"2.21:1", @"FILL_TO_SCREEN"];
 }
 
@@ -449,6 +466,31 @@
             indexArray = _mediaPlayer.audioTrackIndexes;
             _mediaPlayer.currentAudioTrackIndex = [indexArray[arrayIndex] intValue];
         }
+    }
+}
+
+#pragma mark - swipe gestures
+
+- (void)horizontalSwipePercentage:(CGFloat)percentage inView:(UIView *)view
+{
+    if (percentage != 0.) {
+        _mediaPlayer.position = _mediaPlayer.position + percentage;
+    }
+}
+
+- (void)verticalSwipePercentage:(CGFloat)percentage inView:(UIView *)view half:(NSUInteger)half
+{
+    if (percentage != 0.) {
+        if (half > 0) {
+            CGFloat currentValue = self.brightnessSlider.value;
+            currentValue = currentValue + percentage;
+            self.brightnessSlider.value = currentValue;
+            if ([self hasExternalDisplay])
+                _mediaPlayer.brightness = currentValue;
+            else
+                [[UIScreen mainScreen] setBrightness:currentValue / 2];
+        } else
+            NSLog(@"volume setting through swipe not implemented");//_mediaPlayer.audio.volume = percentage * 200;
     }
 }
 

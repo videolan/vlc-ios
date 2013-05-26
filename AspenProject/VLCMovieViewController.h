@@ -8,8 +8,10 @@
 
 #import <UIKit/UIKit.h>
 #import "VLCStatusLabel.h"
+#import "VLCHorizontalSwipeGestureRecognizer.h"
+#import "VLCVerticalSwipeGestureRecognizer.h"
 
-@interface VLCMovieViewController : UIViewController <VLCMediaPlayerDelegate, UIActionSheetDelegate>
+@interface VLCMovieViewController : UIViewController <VLCMediaPlayerDelegate, UIActionSheetDelegate, VLCHorizontalSwipeGestureRecognizer, VLCVerticalSwipeGestureRecognizer>
 {
     VLCMediaPlayer *_mediaPlayer;
 
