@@ -30,8 +30,6 @@
 
 - (void)viewDidLoad
 {
-    self.tableView.rowHeight = [VLCPlaylistTableViewCell heightOfCell];
-    self.tableView.separatorColor = [UIColor colorWithWhite:.2 alpha:1.];
     [super viewDidLoad];
 
     UIBarButtonItem *addButton = [[UIBarButtonItem alloc] initWithImage:[UIImage imageNamed:@"vlc"] style:UIBarButtonItemStyleBordered target:self action:@selector(leftButtonAction:)];
@@ -47,15 +45,17 @@
     if (dayOfYear >= 354)
         addButton.image = [UIImage imageNamed:@"vlc-xmas"];
 
+    self.editButtonItem.title = NSLocalizedString(@"BUTTON_EDIT", @"");
     self.navigationItem.leftBarButtonItem = addButton;
-
     self.navigationItem.rightBarButtonItem = self.editButtonItem;
-    self.navigationItem.rightBarButtonItem.title = NSLocalizedString(@"BUTTON_EDIT", @"");
 
-    if ([[UIDevice currentDevice] userInterfaceIdiom] == UIUserInterfaceIdiomPad) {
+    if (UI_USER_INTERFACE_IDIOM() == UIUserInterfaceIdiomPad) {
         _gridView.separatorStyle = AQGridViewCellSeparatorStyleEmptySpace;
         _gridView.alwaysBounceVertical = YES;
         _gridView.indicatorStyle = UIScrollViewIndicatorStyleWhite;
+    } else {
+        _tableView.rowHeight = [VLCPlaylistTableViewCell heightOfCell];
+        _tableView.separatorColor = [UIColor colorWithWhite:.2 alpha:1.];
     }
 
     self.emptyLibraryLabel.text = NSLocalizedString(@"EMPTY_LIBRARY", @"");
@@ -67,24 +67,12 @@
 
 - (void)viewWillAppear:(BOOL)animated
 {
-    [self.gridView deselectItemAtIndex:self.gridView.indexOfSelectedItem animated:animated];
     [super viewWillAppear:animated];
-
-    if ([[UIDevice currentDevice] userInterfaceIdiom] == UIUserInterfaceIdiomPhone)
-        self.tableView.hidden = YES;
-    else
-        self.gridView.hidden = YES;
-
     [self _displayEmptyLibraryViewIfNeeded];
 }
 
 - (void)viewDidAppear:(BOOL)animated
 {
-    if ([[UIDevice currentDevice] userInterfaceIdiom] == UIUserInterfaceIdiomPhone)
-        self.tableView.hidden = NO;
-    else
-        self.gridView.hidden = NO;
-
     [self performSelector:@selector(updateViewContents) withObject:nil afterDelay:.3];
     [[MLMediaLibrary sharedMediaLibrary] performSelector:@selector(libraryDidAppear) withObject:nil afterDelay:1.];
 
@@ -110,7 +98,7 @@
         if (self.emptyLibraryView.superview)
             [self.emptyLibraryView removeFromSuperview];
     } else {
-        if ([[UIDevice currentDevice] userInterfaceIdiom] == UIUserInterfaceIdiomPhone)
+        if (UI_USER_INTERFACE_IDIOM() == UIUserInterfaceIdiomPhone)
             self.emptyLibraryView.frame = self.tableView.frame;
         else
             self.emptyLibraryView.frame = self.gridView.frame;
@@ -125,7 +113,7 @@
 
     _foundMedia = [NSMutableArray arrayWithArray:[MLFile allFiles]];
 
-    if ([[UIDevice currentDevice] userInterfaceIdiom] == UIUserInterfaceIdiomPhone)
+    if (UI_USER_INTERFACE_IDIOM() == UIUserInterfaceIdiomPhone)
         [self.tableView reloadData];
     else {
         [self.gridView reloadData];
@@ -211,6 +199,8 @@
 
 - (void)gridView:(AQGridView *)gridView didSelectItemAtIndex:(NSUInteger)index
 {
+    [self.gridView deselectItemAtIndex:index animated:YES];
+
     MLFile *mediaObject = _foundMedia[index];
     if (!self.movieViewController)
         self.movieViewController = [[VLCMovieViewController alloc] initWithNibName:@"VLCMovieViewController" bundle:nil];
