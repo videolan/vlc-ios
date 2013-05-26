@@ -10,7 +10,6 @@
 #import "VLCMovieViewController.h"
 #import "VLCPlaylistTableViewCell.h"
 #import "VLCPlaylistGridView.h"
-#import "VLCAboutViewController.h"
 #import "VLCAddMediaViewController.h"
 
 @interface VLCPlaylistViewController () {

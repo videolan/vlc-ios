@@ -35,15 +35,12 @@
 - (void)viewWillAppear:(BOOL)animated
 {
     [self.navigationController setNavigationBarHidden:YES animated:NO];
-    if (UI_USER_INTERFACE_IDIOM() == UIUserInterfaceIdiomPhone)
-        [UIApplication sharedApplication].statusBarStyle = UIStatusBarStyleBlackTranslucent;
     [super viewWillAppear:animated];
 }
 
 - (void)viewWillDisappear:(BOOL)animated
 {
     [self.navigationController setNavigationBarHidden:NO animated:YES];
-    [UIApplication sharedApplication].statusBarStyle = UIStatusBarStyleBlackOpaque;
     [super viewWillDisappear:animated];
 }
 

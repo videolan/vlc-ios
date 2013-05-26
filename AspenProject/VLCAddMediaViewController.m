@@ -102,10 +102,8 @@
 - (IBAction)openAboutPanel:(id)sender
 {
     VLCAppDelegate* appDelegate = [UIApplication sharedApplication].delegate;
-
-    if (!appDelegate.playlistViewController.aboutViewController)
-        appDelegate.playlistViewController.aboutViewController = [[VLCAboutViewController alloc] initWithNibName:@"VLCAboutViewController" bundle:nil];
-    [appDelegate.playlistViewController.navigationController pushViewController:appDelegate.playlistViewController.aboutViewController animated:YES];
+    UIViewController *aboutController = [[VLCAboutViewController alloc] initWithNibName:@"VLCAboutViewController" bundle:nil];
+    [appDelegate.playlistViewController.navigationController pushViewController:aboutController animated:YES];
 
     [self _hideAnimated:NO];
 }
