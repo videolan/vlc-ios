@@ -117,7 +117,7 @@ if ! [ -e vlc ]; then
 git clone git://git.videolan.org/vlc.git
 info "Applying patches to vlc.git"
 cd vlc
-git checkout ${TESTEDHASH}
+git checkout -B aspen ${TESTEDHASH}
 git am ../../patches/*.patch
 if [ $? -ne 0 ]; then
 git am --abort
