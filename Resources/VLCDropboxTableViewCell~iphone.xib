@@ -2,7 +2,7 @@
 <archive type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="8.00">
 	<data>
 		<int key="IBDocument.SystemTarget">1296</int>
-		<string key="IBDocument.SystemVersion">12E52</string>
+		<string key="IBDocument.SystemVersion">12E55</string>
 		<string key="IBDocument.InterfaceBuilderVersion">3084</string>
 		<string key="IBDocument.AppKitVersion">1187.39</string>
 		<string key="IBDocument.HIToolboxVersion">626.00</string>
@@ -54,10 +54,10 @@
 							<object class="IBUILabel" id="207506414">
 								<reference key="NSNextResponder" ref="162418872"/>
 								<int key="NSvFlags">290</int>
-								<string key="NSFrame">{{45, 8}, {240, 18}}</string>
+								<string key="NSFrame">{{45, 8}, {270, 18}}</string>
 								<reference key="NSSuperview" ref="162418872"/>
 								<reference key="NSWindow"/>
-								<reference key="NSNextKeyView" ref="775158982"/>
+								<reference key="NSNextKeyView"/>
 								<string key="NSReuseIdentifierKey">_NS:9</string>
 								<bool key="IBUIOpaque">NO</bool>
 								<bool key="IBUIClipsSubviews">YES</bool>
@@ -88,7 +88,7 @@
 							<object class="IBUILabel" id="625431089">
 								<reference key="NSNextResponder" ref="162418872"/>
 								<int key="NSvFlags">266</int>
-								<string key="NSFrame">{{45, 25}, {240, 15}}</string>
+								<string key="NSFrame">{{45, 25}, {270, 15}}</string>
 								<reference key="NSSuperview" ref="162418872"/>
 								<reference key="NSWindow"/>
 								<string key="NSReuseIdentifierKey">_NS:9</string>
@@ -115,21 +115,6 @@
 									<int key="NSfFlags">16</int>
 								</object>
 								<bool key="IBUIAdjustsFontSizeToFit">NO</bool>
-							</object>
-							<object class="IBUIImageView" id="775158982">
-								<reference key="NSNextResponder" ref="162418872"/>
-								<int key="NSvFlags">297</int>
-								<string key="NSFrame">{{293, 13}, {22, 22}}</string>
-								<reference key="NSSuperview" ref="162418872"/>
-								<reference key="NSWindow"/>
-								<reference key="NSNextKeyView" ref="625431089"/>
-								<string key="NSReuseIdentifierKey">_NS:9</string>
-								<bool key="IBUIUserInteractionEnabled">NO</bool>
-								<string key="targetRuntimeIdentifier">IBCocoaTouchFramework</string>
-								<object class="NSCustomResource" key="IBUIImage">
-									<string key="NSClassName">NSImage</string>
-									<string key="NSResourceName">mediaUnread.png</string>
-								</object>
 							</object>
 						</array>
 						<string key="NSFrameSize">{320, 47}</string>
@@ -189,14 +174,6 @@
 					</object>
 					<int key="connectionID">10</int>
 				</object>
-				<object class="IBConnectionRecord">
-					<object class="IBCocoaTouchOutletConnection" key="connection">
-						<string key="label">itemIsaFolderView</string>
-						<reference key="source" ref="962619467"/>
-						<reference key="destination" ref="775158982"/>
-					</object>
-					<int key="connectionID">22</int>
-				</object>
 			</array>
 			<object class="IBMutableOrderedSet" key="objectRecords">
 				<array key="orderedObjects">
@@ -222,7 +199,6 @@
 						<reference key="object" ref="962619467"/>
 						<array class="NSMutableArray" key="children">
 							<reference ref="207506414"/>
-							<reference ref="775158982"/>
 							<reference ref="784253519"/>
 							<reference ref="625431089"/>
 						</array>
@@ -243,18 +219,12 @@
 						<reference key="object" ref="625431089"/>
 						<reference key="parent" ref="962619467"/>
 					</object>
-					<object class="IBObjectRecord">
-						<int key="objectID">20</int>
-						<reference key="object" ref="775158982"/>
-						<reference key="parent" ref="962619467"/>
-					</object>
 				</array>
 			</object>
 			<dictionary class="NSMutableDictionary" key="flattenedProperties">
 				<string key="-1.IBPluginDependency">com.apple.InterfaceBuilder.IBCocoaTouchPlugin</string>
 				<string key="-2.CustomClassName">UIResponder</string>
 				<string key="-2.IBPluginDependency">com.apple.InterfaceBuilder.IBCocoaTouchPlugin</string>
-				<string key="20.IBPluginDependency">com.apple.InterfaceBuilder.IBCocoaTouchPlugin</string>
 				<string key="3.CustomClassName">VLCDropboxTableViewCell</string>
 				<string key="3.IBPluginDependency">com.apple.InterfaceBuilder.IBCocoaTouchPlugin</string>
 				<string key="4.IBPluginDependency">com.apple.InterfaceBuilder.IBCocoaTouchPlugin</string>
@@ -273,16 +243,11 @@
 					<string key="className">VLCDropboxTableViewCell</string>
 					<string key="superclassName">UITableViewCell</string>
 					<dictionary class="NSMutableDictionary" key="outlets">
-						<string key="itemIsaFolderView">UIImageView</string>
 						<string key="subtitleLabel">UILabel</string>
 						<string key="thumbnailView">UIImageView</string>
 						<string key="titleLabel">UILabel</string>
 					</dictionary>
 					<dictionary class="NSMutableDictionary" key="toOneOutletInfosByName">
-						<object class="IBToOneOutletInfo" key="itemIsaFolderView">
-							<string key="name">itemIsaFolderView</string>
-							<string key="candidateClassName">UIImageView</string>
-						</object>
 						<object class="IBToOneOutletInfo" key="subtitleLabel">
 							<string key="name">subtitleLabel</string>
 							<string key="candidateClassName">UILabel</string>
@@ -311,10 +276,6 @@
 		</object>
 		<bool key="IBDocument.PluginDeclaredDependenciesTrackSystemTargetVersion">YES</bool>
 		<int key="IBDocument.defaultPropertyAccessControl">3</int>
-		<object class="NSMutableDictionary" key="IBDocument.LastKnownImageSizes">
-			<string key="NS.key.0">mediaUnread.png</string>
-			<string key="NS.object.0">{25, 25}</string>
-		</object>
 		<string key="IBCocoaTouchPluginVersion">2083</string>
 	</data>
 </archive>

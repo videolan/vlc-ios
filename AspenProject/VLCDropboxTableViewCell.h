@@ -13,7 +13,6 @@
 @property (nonatomic, strong) IBOutlet UILabel *titleLabel;
 @property (nonatomic, strong) IBOutlet UILabel *subtitleLabel;
 @property (nonatomic, strong) IBOutlet UIImageView *thumbnailView;
-@property (nonatomic, strong) IBOutlet UIImageView *itemIsaFolderView;
 
 @property (nonatomic, retain) DBMetadata *fileMetadata;
 

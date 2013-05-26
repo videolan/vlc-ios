@@ -50,7 +50,6 @@
     self.thumbnailView.image = [UIImage imageNamed:self.fileMetadata.icon];
     if (!self.thumbnailView.image)
         APLog(@"missing icon for type '%@'", self.fileMetadata.icon);
-    self.itemIsaFolderView.hidden = !self.fileMetadata.isDirectory;
 
     [self setNeedsDisplay];
 }
