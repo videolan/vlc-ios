@@ -101,11 +101,13 @@
 
 - (IBAction)openAboutPanel:(id)sender
 {
-    VLCAppDelegate* appDelegate = [UIApplication sharedApplication].delegate;
     UIViewController *aboutController = [[VLCAboutViewController alloc] initWithNibName:@"VLCAboutViewController" bundle:nil];
-    [appDelegate.playlistViewController.navigationController pushViewController:aboutController animated:YES];
 
-    [self _hideAnimated:NO];
+    UINavigationController *navController = [[UINavigationController alloc] initWithRootViewController:aboutController];
+    navController.navigationBarHidden = NO;
+    navController.navigationBar.barStyle = UIBarStyleBlack;
+
+    [self presentModalViewController:navController animated:YES];
 }
 
 - (IBAction)openNetworkStream:(id)sender
