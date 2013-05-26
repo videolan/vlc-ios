@@ -725,6 +725,50 @@
 			name = "Dropbox Integration";
 			sourceTree = "<group>";
 		};
+		7D5F7AB717526573006CCCFA /* Accessory dialogs */ = {
+			isa = PBXGroup;
+			children = (
+				7DBC3B411711FC6C00DCF688 /* VLCAboutViewController.h */,
+				7DBC3B421711FC6C00DCF688 /* VLCAboutViewController.m */,
+			);
+			name = "Accessory dialogs";
+			sourceTree = "<group>";
+		};
+		7D5F7AB81752658E006CCCFA /* Everything Playlist */ = {
+			isa = PBXGroup;
+			children = (
+				7D94FCF616DE7D1100F2623B /* VLCPlaylistViewController.h */,
+				7D94FCF716DE7D1100F2623B /* VLCPlaylistViewController.m */,
+				7DA62099170A0CE500643D11 /* VLCPlaylistTableViewCell.h */,
+				7DA6209A170A0CE500643D11 /* VLCPlaylistTableViewCell.m */,
+				7D6B07F51716D45B003280C4 /* VLCPlaylistGridView.h */,
+				7D6B07F61716D45B003280C4 /* VLCPlaylistGridView.m */,
+			);
+			name = "Everything Playlist";
+			sourceTree = "<group>";
+		};
+		7D5F7AB9175265B2006CCCFA /* Playback */ = {
+			isa = PBXGroup;
+			children = (
+				7D94FCF916DE7D1100F2623B /* VLCMovieViewController.h */,
+				7D94FCFA16DE7D1100F2623B /* VLCMovieViewController.m */,
+				A7DA16CF171083DF00D6FED9 /* VLCExternalDisplayController.h */,
+				A7DA16D0171083DF00D6FED9 /* VLCExternalDisplayController.m */,
+			);
+			name = Playback;
+			sourceTree = "<group>";
+		};
+		7D5F7ABA175265CB006CCCFA /* HTTP Connectivity */ = {
+			isa = PBXGroup;
+			children = (
+				29CE2D41174912C600922D8F /* VLCHTTPUploaderController.h */,
+				29CE2D42174912C600922D8F /* VLCHTTPUploaderController.m */,
+				7D3EB015174A46FB002062C2 /* VLCHTTPFileDownloader.h */,
+				7D3EB016174A46FB002062C2 /* VLCHTTPFileDownloader.m */,
+			);
+			name = "HTTP Connectivity";
+			sourceTree = "<group>";
+		};
 		7D6B07A31716C9A6003280C4 /* OBSlider */ = {
 			isa = PBXGroup;
 			children = (
@@ -874,26 +918,14 @@
 				7D6B08BB174A72A900A05173 /* VLCConstants.h */,
 				7D94FCED16DE7D1000F2623B /* VLCAppDelegate.h */,
 				7D94FCEE16DE7D1000F2623B /* VLCAppDelegate.m */,
-				7D94FCF616DE7D1100F2623B /* VLCPlaylistViewController.h */,
-				7D94FCF716DE7D1100F2623B /* VLCPlaylistViewController.m */,
-				7DBC3B411711FC6C00DCF688 /* VLCAboutViewController.h */,
-				7DBC3B421711FC6C00DCF688 /* VLCAboutViewController.m */,
-				7D94FCF916DE7D1100F2623B /* VLCMovieViewController.h */,
-				7D94FCFA16DE7D1100F2623B /* VLCMovieViewController.m */,
-				7DA62099170A0CE500643D11 /* VLCPlaylistTableViewCell.h */,
-				7DA6209A170A0CE500643D11 /* VLCPlaylistTableViewCell.m */,
-				7D6B07F51716D45B003280C4 /* VLCPlaylistGridView.h */,
-				7D6B07F61716D45B003280C4 /* VLCPlaylistGridView.m */,
-				29CE2D41174912C600922D8F /* VLCHTTPUploaderController.h */,
-				29CE2D42174912C600922D8F /* VLCHTTPUploaderController.m */,
-				A7DA16CF171083DF00D6FED9 /* VLCExternalDisplayController.h */,
-				A7DA16D0171083DF00D6FED9 /* VLCExternalDisplayController.m */,
 				7D6BA1141748EFE100C0E203 /* VLCMenuViewController.h */,
 				7D6BA1151748EFE100C0E203 /* VLCMenuViewController.m */,
-				7D3EB015174A46FB002062C2 /* VLCHTTPFileDownloader.h */,
-				7D3EB016174A46FB002062C2 /* VLCHTTPFileDownloader.m */,
 				7D07A4E6174EA47800759D10 /* VLCSettingsController.h */,
 				7D07A4E7174EA47800759D10 /* VLCSettingsController.m */,
+				7D5F7ABA175265CB006CCCFA /* HTTP Connectivity */,
+				7D5F7AB9175265B2006CCCFA /* Playback */,
+				7D5F7AB81752658E006CCCFA /* Everything Playlist */,
+				7D5F7AB717526573006CCCFA /* Accessory dialogs */,
 				7D5E39CC174FCDBE007DAFA1 /* Dropbox Integration */,
 				7D31CF061746AEF2005997E0 /* UI Elements */,
 				7DADC5601704FACC001DAC63 /* Imported */,
