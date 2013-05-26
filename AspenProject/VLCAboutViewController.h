@@ -13,8 +13,5 @@
 @property (nonatomic, strong) IBOutlet UITextView *textContents;
 @property (nonatomic, strong) IBOutlet UILabel *aspenVersion;
 @property (nonatomic, strong) IBOutlet UILabel *vlckitVersion;
-@property (nonatomic, strong) IBOutlet UIBarButtonItem *dismissButton;
-
-- (IBAction)dismiss:(id)sender;
 
 @end

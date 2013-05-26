@@ -2,9 +2,9 @@
 <archive type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="8.00">
 	<data>
 		<int key="IBDocument.SystemTarget">1296</int>
-		<string key="IBDocument.SystemVersion">12E55</string>
+		<string key="IBDocument.SystemVersion">12D78</string>
 		<string key="IBDocument.InterfaceBuilderVersion">3084</string>
-		<string key="IBDocument.AppKitVersion">1187.39</string>
+		<string key="IBDocument.AppKitVersion">1187.37</string>
 		<string key="IBDocument.HIToolboxVersion">626.00</string>
 		<object class="NSMutableDictionary" key="IBDocument.PluginVersions">
 			<string key="NS.key.0">com.apple.InterfaceBuilder.IBCocoaTouchPlugin</string>
@@ -12,11 +12,9 @@
 		</object>
 		<array key="IBDocument.IntegratedClassDependencies">
 			<string>IBProxyObject</string>
-			<string>IBUIBarButtonItem</string>
 			<string>IBUIImageView</string>
 			<string>IBUILabel</string>
 			<string>IBUITextView</string>
-			<string>IBUIToolbar</string>
 			<string>IBUIView</string>
 		</array>
 		<array key="IBDocument.PluginDependencies">
@@ -42,7 +40,7 @@
 					<object class="IBUIImageView" id="690699265">
 						<reference key="NSNextResponder" ref="191373211"/>
 						<int key="NSvFlags">293</int>
-						<string key="NSFrame">{{20, 49}, {120, 120}}</string>
+						<string key="NSFrame">{{20, 24}, {120, 120}}</string>
 						<reference key="NSSuperview" ref="191373211"/>
 						<reference key="NSWindow"/>
 						<reference key="NSNextKeyView" ref="347055423"/>
@@ -57,7 +55,7 @@
 					<object class="IBUILabel" id="347055423">
 						<reference key="NSNextResponder" ref="191373211"/>
 						<int key="NSvFlags">293</int>
-						<string key="NSFrame">{{160, 64}, {140, 21}}</string>
+						<string key="NSFrame">{{160, 39}, {140, 21}}</string>
 						<reference key="NSSuperview" ref="191373211"/>
 						<reference key="NSWindow"/>
 						<reference key="NSNextKeyView" ref="700999125"/>
@@ -89,7 +87,7 @@
 					<object class="IBUILabel" id="700999125">
 						<reference key="NSNextResponder" ref="191373211"/>
 						<int key="NSvFlags">293</int>
-						<string key="NSFrame">{{160, 87}, {140, 21}}</string>
+						<string key="NSFrame">{{160, 62}, {140, 21}}</string>
 						<reference key="NSSuperview" ref="191373211"/>
 						<reference key="NSWindow"/>
 						<reference key="NSNextKeyView" ref="564366035"/>
@@ -117,7 +115,7 @@
 					<object class="IBUILabel" id="564366035">
 						<reference key="NSNextResponder" ref="191373211"/>
 						<int key="NSvFlags">293</int>
-						<string key="NSFrame">{{160, 116}, {140, 32}}</string>
+						<string key="NSFrame">{{160, 91}, {140, 32}}</string>
 						<reference key="NSSuperview" ref="191373211"/>
 						<reference key="NSWindow"/>
 						<reference key="NSNextKeyView" ref="856471446"/>
@@ -140,7 +138,7 @@
 					<object class="IBUITextView" id="832811267">
 						<reference key="NSNextResponder" ref="191373211"/>
 						<int key="NSvFlags">274</int>
-						<string key="NSFrame">{{0, 233}, {320, 315}}</string>
+						<string key="NSFrame">{{0, 208}, {320, 315}}</string>
 						<reference key="NSSuperview" ref="191373211"/>
 						<reference key="NSWindow"/>
 						<string key="NSReuseIdentifierKey">_NS:9</string>
@@ -180,7 +178,7 @@
 					<object class="IBUILabel" id="856471446">
 						<reference key="NSNextResponder" ref="191373211"/>
 						<int key="NSvFlags">290</int>
-						<string key="NSFrame">{{20, 177}, {280, 48}}</string>
+						<string key="NSFrame">{{20, 152}, {280, 48}}</string>
 						<reference key="NSSuperview" ref="191373211"/>
 						<reference key="NSWindow"/>
 						<reference key="NSNextKeyView" ref="832811267"/>
@@ -202,38 +200,11 @@ IEvDvGhuZSwgR2xlYiBQaW5pZ2luLCBhbmQgSmVhbi1CYXB0aXN0ZSBLZW1wZg</string>
 						<bool key="IBUIAdjustsFontSizeToFit">NO</bool>
 						<double key="preferredMaxLayoutWidth">280</double>
 					</object>
-					<object class="IBUIToolbar" id="993099781">
-						<reference key="NSNextResponder" ref="191373211"/>
-						<int key="NSvFlags">290</int>
-						<string key="NSFrameSize">{320, 44}</string>
-						<reference key="NSSuperview" ref="191373211"/>
-						<reference key="NSWindow"/>
-						<reference key="NSNextKeyView" ref="690699265"/>
-						<string key="NSReuseIdentifierKey">_NS:9</string>
-						<bool key="IBUIOpaque">NO</bool>
-						<bool key="IBUIClipsSubviews">YES</bool>
-						<bool key="IBUIClearsContextBeforeDrawing">NO</bool>
-						<string key="targetRuntimeIdentifier">IBCocoaTouchFramework</string>
-						<int key="IBUIBarStyle">2</int>
-						<array class="NSMutableArray" key="IBUIItems">
-							<object class="IBUIBarButtonItem" id="956109572">
-								<string key="targetRuntimeIdentifier">IBCocoaTouchFramework</string>
-								<reference key="IBUIToolbar" ref="993099781"/>
-								<int key="IBUISystemItemIdentifier">5</int>
-							</object>
-							<object class="IBUIBarButtonItem" id="1036514022">
-								<string key="targetRuntimeIdentifier">IBCocoaTouchFramework</string>
-								<int key="IBUIStyle">1</int>
-								<reference key="IBUIToolbar" ref="993099781"/>
-								<int key="IBUISystemItemIdentifier">0</int>
-							</object>
-						</array>
-					</object>
 				</array>
 				<string key="NSFrame">{{0, 20}, {320, 548}}</string>
 				<reference key="NSSuperview"/>
 				<reference key="NSWindow"/>
-				<reference key="NSNextKeyView" ref="993099781"/>
+				<reference key="NSNextKeyView"/>
 				<object class="IBUISimulatedStatusBarMetrics" key="IBUISimulatedStatusBarMetrics"/>
 				<object class="IBUIScreenMetrics" key="IBUISimulatedDestinationMetrics">
 					<string key="IBUISimulatedSizeMetricsClass">IBUIScreenMetrics</string>
@@ -289,22 +260,6 @@ IEvDvGhuZSwgR2xlYiBQaW5pZ2luLCBhbmQgSmVhbi1CYXB0aXN0ZSBLZW1wZg</string>
 					</object>
 					<int key="connectionID">47</int>
 				</object>
-				<object class="IBConnectionRecord">
-					<object class="IBCocoaTouchOutletConnection" key="connection">
-						<string key="label">dismissButton</string>
-						<reference key="source" ref="372490531"/>
-						<reference key="destination" ref="1036514022"/>
-					</object>
-					<int key="connectionID">110</int>
-				</object>
-				<object class="IBConnectionRecord">
-					<object class="IBCocoaTouchEventConnection" key="connection">
-						<string key="label">dismiss:</string>
-						<reference key="source" ref="1036514022"/>
-						<reference key="destination" ref="372490531"/>
-					</object>
-					<int key="connectionID">111</int>
-				</object>
 			</array>
 			<object class="IBMutableOrderedSet" key="objectRecords">
 				<array key="orderedObjects">
@@ -318,13 +273,12 @@ IEvDvGhuZSwgR2xlYiBQaW5pZ2luLCBhbmQgSmVhbi1CYXB0aXN0ZSBLZW1wZg</string>
 						<int key="objectID">1</int>
 						<reference key="object" ref="191373211"/>
 						<array class="NSMutableArray" key="children">
-							<reference ref="832811267"/>
 							<reference ref="690699265"/>
-							<reference ref="564366035"/>
-							<reference ref="856471446"/>
 							<reference ref="347055423"/>
 							<reference ref="700999125"/>
-							<reference ref="993099781"/>
+							<reference ref="564366035"/>
+							<reference ref="832811267"/>
+							<reference ref="856471446"/>
 						</array>
 						<reference key="parent" ref="0"/>
 					</object>
@@ -375,25 +329,6 @@ IEvDvGhuZSwgR2xlYiBQaW5pZ2luLCBhbmQgSmVhbi1CYXB0aXN0ZSBLZW1wZg</string>
 						<array class="NSMutableArray" key="children"/>
 						<reference key="parent" ref="191373211"/>
 					</object>
-					<object class="IBObjectRecord">
-						<int key="objectID">105</int>
-						<reference key="object" ref="993099781"/>
-						<array class="NSMutableArray" key="children">
-							<reference ref="1036514022"/>
-							<reference ref="956109572"/>
-						</array>
-						<reference key="parent" ref="191373211"/>
-					</object>
-					<object class="IBObjectRecord">
-						<int key="objectID">108</int>
-						<reference key="object" ref="1036514022"/>
-						<reference key="parent" ref="993099781"/>
-					</object>
-					<object class="IBObjectRecord">
-						<int key="objectID">112</int>
-						<reference key="object" ref="956109572"/>
-						<reference key="parent" ref="993099781"/>
-					</object>
 				</array>
 			</object>
 			<dictionary class="NSMutableDictionary" key="flattenedProperties">
@@ -402,9 +337,6 @@ IEvDvGhuZSwgR2xlYiBQaW5pZ2luLCBhbmQgSmVhbi1CYXB0aXN0ZSBLZW1wZg</string>
 				<string key="-2.CustomClassName">UIResponder</string>
 				<string key="-2.IBPluginDependency">com.apple.InterfaceBuilder.IBCocoaTouchPlugin</string>
 				<string key="1.IBPluginDependency">com.apple.InterfaceBuilder.IBCocoaTouchPlugin</string>
-				<string key="105.IBPluginDependency">com.apple.InterfaceBuilder.IBCocoaTouchPlugin</string>
-				<string key="108.IBPluginDependency">com.apple.InterfaceBuilder.IBCocoaTouchPlugin</string>
-				<string key="112.IBPluginDependency">com.apple.InterfaceBuilder.IBCocoaTouchPlugin</string>
 				<string key="4.IBPluginDependency">com.apple.InterfaceBuilder.IBCocoaTouchPlugin</string>
 				<string key="5.IBPluginDependency">com.apple.InterfaceBuilder.IBCocoaTouchPlugin</string>
 				<string key="6.IBPluginDependency">com.apple.InterfaceBuilder.IBCocoaTouchPlugin</string>
@@ -423,20 +355,8 @@ IEvDvGhuZSwgR2xlYiBQaW5pZ2luLCBhbmQgSmVhbi1CYXB0aXN0ZSBLZW1wZg</string>
 				<object class="IBPartialClassDescription">
 					<string key="className">VLCAboutViewController</string>
 					<string key="superclassName">UIViewController</string>
-					<object class="NSMutableDictionary" key="actions">
-						<string key="NS.key.0">dismiss:</string>
-						<string key="NS.object.0">id</string>
-					</object>
-					<object class="NSMutableDictionary" key="actionInfosByName">
-						<string key="NS.key.0">dismiss:</string>
-						<object class="IBActionInfo" key="NS.object.0">
-							<string key="name">dismiss:</string>
-							<string key="candidateClassName">id</string>
-						</object>
-					</object>
 					<dictionary class="NSMutableDictionary" key="outlets">
 						<string key="aspenVersion">UILabel</string>
-						<string key="dismissButton">UIBarButtonItem</string>
 						<string key="textContents">UITextView</string>
 						<string key="vlckitVersion">UILabel</string>
 					</dictionary>
@@ -444,10 +364,6 @@ IEvDvGhuZSwgR2xlYiBQaW5pZ2luLCBhbmQgSmVhbi1CYXB0aXN0ZSBLZW1wZg</string>
 						<object class="IBToOneOutletInfo" key="aspenVersion">
 							<string key="name">aspenVersion</string>
 							<string key="candidateClassName">UILabel</string>
-						</object>
-						<object class="IBToOneOutletInfo" key="dismissButton">
-							<string key="name">dismissButton</string>
-							<string key="candidateClassName">UIBarButtonItem</string>
 						</object>
 						<object class="IBToOneOutletInfo" key="textContents">
 							<string key="name">textContents</string>

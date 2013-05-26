@@ -104,7 +104,6 @@
     UIViewController *aboutController = [[VLCAboutViewController alloc] initWithNibName:@"VLCAboutViewController" bundle:nil];
 
     UINavigationController *navController = [[UINavigationController alloc] initWithRootViewController:aboutController];
-    navController.navigationBarHidden = NO;
     navController.navigationBar.barStyle = UIBarStyleBlack;
 
     [self presentModalViewController:navController animated:YES];

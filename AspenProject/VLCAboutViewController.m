@@ -8,7 +8,9 @@
 
 #import "VLCAboutViewController.h"
 
-@interface VLCAboutViewController ()
+@interface VLCAboutViewController () {
+    UIBarButtonItem *_dismissButton;
+}
 
 @end
 
@@ -24,29 +26,19 @@
 - (void)viewDidLoad
 {
     [super viewDidLoad];
-
-    self.dismissButton.title = NSLocalizedString(@"BUTTON_DONE", @"");
-    self.dismissButton.style = UIBarButtonItemStyleDone;
     self.textContents.text = [NSString stringWithContentsOfFile:[[NSBundle mainBundle] pathForResource:@"About Contents" ofType:@"txt"] encoding:NSUTF8StringEncoding error:nil];
     self.aspenVersion.text = [[NSString stringWithFormat:NSLocalizedString(@"VERSION_FORMAT",@""), [[NSBundle mainBundle] objectForInfoDictionaryKey:@"CFBundleVersion"]] stringByAppendingFormat:@" %@", kVLCVersionCodename];
     self.vlckitVersion.text = [NSString stringWithFormat:NSLocalizedString(@"BASED_ON_FORMAT",@""),[[VLCLibrary sharedLibrary] version]];
+
+    _dismissButton = [[UIBarButtonItem alloc] initWithTitle:NSLocalizedString(@"BUTTON_DONE", @"")
+                                                      style:UIBarButtonItemStyleDone
+                                                     target:self action:@selector(dismiss)];
+    self.navigationItem.rightBarButtonItem = _dismissButton;
 }
 
-- (void)viewWillAppear:(BOOL)animated
+- (void)dismiss
 {
-    [self.navigationController setNavigationBarHidden:YES animated:NO];
-    [super viewWillAppear:animated];
-}
-
-- (void)viewWillDisappear:(BOOL)animated
-{
-    [self.navigationController setNavigationBarHidden:NO animated:YES];
-    [super viewWillDisappear:animated];
-}
-
-- (IBAction)dismiss:(id)sender
-{
-    [self.navigationController dismissModalViewControllerAnimated:YES];
+    [self dismissModalViewControllerAnimated:YES];
 }
 
 @end
