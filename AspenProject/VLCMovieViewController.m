@@ -250,11 +250,11 @@
     return YES;
 }
 
-- (void)toggleControlsVisible
+- (void)setControlsHidden:(BOOL)hidden animated:(BOOL)animated
 {
-    _controlsHidden = !_controlsHidden;
+    _controlsHidden = hidden;
     CGFloat alpha = _controlsHidden? 0.0f: 1.0f;
-
+    
     if (!_controlsHidden) {
         _controllerPanel.alpha = 0.0f;
         _controllerPanel.hidden = !_videoFiltersHidden;
@@ -271,7 +271,7 @@
         _aspectRatioButton.alpha = 0.0f;
         _aspectRatioButton.hidden = NO;
     }
-
+    
     void (^animationBlock)() = ^() {
         _controllerPanel.alpha = alpha;
         _toolbar.alpha = alpha;
@@ -282,7 +282,7 @@
         _videoFilterButton.alpha = alpha;
         _aspectRatioButton.alpha = alpha;
     };
-
+    
     void (^completionBlock)(BOOL finished) = ^(BOOL finished) {
         if (_videoFiltersHidden) {
             _controllerPanel.hidden = _controlsHidden;
@@ -302,9 +302,17 @@
         else
             _playbackSpeedView.hidden = _playbackSpeedViewHidden;
     };
+    
+    UIStatusBarAnimation animationType = animated? UIStatusBarAnimationFade: UIStatusBarAnimationNone;
+    NSTimeInterval animationDuration = animated? 0.3: 0.0;
+    
+    [[UIApplication sharedApplication] setStatusBarHidden:_controlsHidden withAnimation:animationType];
+    [UIView animateWithDuration:animationDuration animations:animationBlock completion:completionBlock];
+}
 
-    [UIView animateWithDuration:0.3f animations:animationBlock completion:completionBlock];
-    [[UIApplication sharedApplication] setStatusBarHidden:_controlsHidden withAnimation:UIStatusBarAnimationFade];
+- (void)toggleControlsVisible
+{    
+    [self setControlsHidden:!_controlsHidden animated:YES];
 }
 
 - (void)resetIdleTimer
@@ -338,6 +346,7 @@
 
 - (IBAction)closePlayback:(id)sender
 {
+    [self setControlsHidden:NO animated:NO];
     [self.navigationController popViewControllerAnimated:YES];
 }
 
