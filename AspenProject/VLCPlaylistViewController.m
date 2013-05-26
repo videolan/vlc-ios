@@ -98,11 +98,13 @@
         if (self.emptyLibraryView.superview)
             [self.emptyLibraryView removeFromSuperview];
     } else {
-        if (UI_USER_INTERFACE_IDIOM() == UIUserInterfaceIdiomPhone)
-            self.emptyLibraryView.frame = self.tableView.frame;
-        else
-            self.emptyLibraryView.frame = self.gridView.frame;
+        self.emptyLibraryView.frame = self.view.frame;
         [self.view addSubview:self.emptyLibraryView];
+    }
+
+    if (UI_USER_INTERFACE_IDIOM() == UIUserInterfaceIdiomPhone) {
+        _tableView.separatorStyle = (_foundMedia.count > 0)? UITableViewCellSeparatorStyleSingleLine:
+                                                             UITableViewCellSeparatorStyleNone;
     }
 }
 
