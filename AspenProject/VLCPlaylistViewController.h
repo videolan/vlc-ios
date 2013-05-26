@@ -13,9 +13,6 @@
 @class VLCAddMediaViewController;
 
 @interface VLCPlaylistViewController : UIViewController <AQGridViewDataSource, AQGridViewDelegate, UITableViewDataSource, UITableViewDelegate, UITabBarDelegate, UIPopoverControllerDelegate>
-{
-    BOOL _editMode;
-}
 
 @property (nonatomic, strong) VLCMovieViewController *movieViewController;
 @property (nonatomic, strong) VLCAddMediaViewController *addMediaViewController;

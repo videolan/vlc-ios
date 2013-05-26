@@ -45,7 +45,6 @@
     if (dayOfYear >= 354)
         addButton.image = [UIImage imageNamed:@"vlc-xmas"];
 
-    self.editButtonItem.title = NSLocalizedString(@"BUTTON_EDIT", @"");
     self.navigationItem.leftBarButtonItem = addButton;
     self.navigationItem.rightBarButtonItem = self.editButtonItem;
 
@@ -214,23 +213,12 @@
 #pragma mark - UI implementation
 - (void)setEditing:(BOOL)editing animated:(BOOL)animated
 {
-    if (_editMode != editing)
-        _editMode = editing;
-    else
-        _editMode = !editing;
+    [super setEditing:editing animated:animated];
 
     if (UI_USER_INTERFACE_IDIOM() == UIUserInterfaceIdiomPad)
-        [self.gridView setEditing:_editMode];
+        [self.gridView setEditing:editing];
     else
-        [self.tableView setEditing:_editMode animated:YES];
-
-    if (_editMode) {
-        self.editButtonItem.style = UIBarButtonItemStyleDone;
-        self.editButtonItem.title = NSLocalizedString(@"BUTTON_DONE",@"");
-    } else {
-        self.editButtonItem.style = UIBarButtonItemStylePlain;
-        self.editButtonItem.title = NSLocalizedString(@"BUTTON_EDIT",@"");
-    }
+        [self.tableView setEditing:editing animated:YES];
 }
 
 - (IBAction)leftButtonAction:(id)sender
