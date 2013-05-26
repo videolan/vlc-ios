@@ -1,12 +1,12 @@
 //
-//  VLCAddMediaViewController.m
+//  VLCMenuViewController.m
 //  VLC for iOS
 //
 //  Created by Felix Paul Kühne on 19.05.13.
 //  Copyright (c) 2013 VideoLAN. All rights reserved.
 //
 
-#import "VLCAddMediaViewController.h"
+#import "VLCMenuViewController.h"
 #import "VLCAppDelegate.h"
 #import "VLCPlaylistViewController.h"
 #import "VLCAboutViewController.h"
@@ -21,7 +21,7 @@
 #import <ifaddrs.h>
 #import <arpa/inet.h>
 
-@interface VLCAddMediaViewController () {
+@interface VLCMenuViewController () {
     VLCHTTPUploaderController *_uploadController;
     Reachability *_reachability;
     VLCHTTPFileDownloader *_httpDownloader;
@@ -29,7 +29,7 @@
 
 @end
 
-@implementation VLCAddMediaViewController
+@implementation VLCMenuViewController
 
 - (id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil
 {

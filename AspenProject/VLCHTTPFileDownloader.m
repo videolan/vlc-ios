@@ -7,7 +7,7 @@
 //
 
 #import "VLCHTTPFileDownloader.h"
-#import "VLCAddMediaViewController.h"
+#import "VLCMenuViewController.h"
 #import "VLCCircularProgressIndicator.h"
 #import "VLCAppDelegate.h"
 

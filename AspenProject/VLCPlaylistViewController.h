@@ -10,12 +10,12 @@
 #import "AQGridView.h"
 
 @class VLCMovieViewController;
-@class VLCAddMediaViewController;
+@class VLCMenuViewController;
 
 @interface VLCPlaylistViewController : UIViewController <AQGridViewDataSource, AQGridViewDelegate, UITableViewDataSource, UITableViewDelegate, UITabBarDelegate, UIPopoverControllerDelegate>
 
 @property (nonatomic, strong) VLCMovieViewController *movieViewController;
-@property (nonatomic, strong) VLCAddMediaViewController *addMediaViewController;
+@property (nonatomic, strong) VLCMenuViewController *addMediaViewController;
 @property (nonatomic, strong) UIPopoverController *addMediaPopoverController;
 
 @property (nonatomic, strong) IBOutlet UITableView *tableView;

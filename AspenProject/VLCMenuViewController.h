@@ -1,5 +1,5 @@
 //
-//  VLCAddMediaViewController.h
+//  VLCMenuViewController.h
 //  VLC for iOS
 //
 //  Created by Felix Paul Kühne on 19.05.13.
@@ -12,7 +12,7 @@
 @class VLCCircularProgressIndicator;
 @class IASKAppSettingsViewController;
 
-@interface VLCAddMediaViewController : UIViewController
+@interface VLCMenuViewController : UIViewController
 
 @property (strong, nonatomic) IASKAppSettingsViewController *settingsViewController;
 @property (strong, nonatomic) VLCSettingsController *settingsController;

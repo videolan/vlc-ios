@@ -2,7 +2,7 @@
 <archive type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="8.00">
 	<data>
 		<int key="IBDocument.SystemTarget">1296</int>
-		<string key="IBDocument.SystemVersion">12E52</string>
+		<string key="IBDocument.SystemVersion">12E55</string>
 		<string key="IBDocument.InterfaceBuilderVersion">3084</string>
 		<string key="IBDocument.AppKitVersion">1187.39</string>
 		<string key="IBDocument.HIToolboxVersion">626.00</string>
@@ -35,7 +35,7 @@
 				<string key="targetRuntimeIdentifier">IBCocoaTouchFramework</string>
 			</object>
 			<object class="IBUIView" id="892317093">
-				<reference key="NSNextResponder"/>
+				<nil key="NSNextResponder"/>
 				<int key="NSvFlags">292</int>
 				<array class="NSMutableArray" key="NSSubviews">
 					<object class="IBUIButton" id="233942944">
@@ -43,7 +43,6 @@
 						<int key="NSvFlags">292</int>
 						<string key="NSFrameSize">{320, 60}</string>
 						<reference key="NSSuperview" ref="892317093"/>
-						<reference key="NSWindow"/>
 						<reference key="NSNextKeyView" ref="306241553"/>
 						<string key="NSReuseIdentifierKey">_NS:9</string>
 						<object class="NSColor" key="IBUIBackgroundColor" id="937037271">
@@ -82,8 +81,6 @@
 						<int key="NSvFlags">292</int>
 						<string key="NSFrame">{{0, 68}, {320, 60}}</string>
 						<reference key="NSSuperview" ref="892317093"/>
-						<reference key="NSWindow"/>
-						<reference key="NSNextKeyView"/>
 						<string key="NSReuseIdentifierKey">_NS:9</string>
 						<reference key="IBUIBackgroundColor" ref="937037271"/>
 						<bool key="IBUIOpaque">NO</bool>
@@ -105,7 +102,6 @@
 						<int key="NSvFlags">292</int>
 						<string key="NSFrame">{{0, 275}, {320, 60}}</string>
 						<reference key="NSSuperview" ref="892317093"/>
-						<reference key="NSWindow"/>
 						<reference key="NSNextKeyView" ref="1021636329"/>
 						<string key="NSReuseIdentifierKey">_NS:9</string>
 						<reference key="IBUIBackgroundColor" ref="937037271"/>
@@ -128,7 +124,6 @@
 						<int key="NSvFlags">292</int>
 						<string key="NSFrame">{{0, 343}, {320, 60}}</string>
 						<reference key="NSSuperview" ref="892317093"/>
-						<reference key="NSWindow"/>
 						<string key="NSReuseIdentifierKey">_NS:9</string>
 						<reference key="IBUIBackgroundColor" ref="937037271"/>
 						<bool key="IBUIOpaque">NO</bool>
@@ -150,7 +145,6 @@
 						<int key="NSvFlags">-2147483348</int>
 						<string key="NSFrame">{{10, 78}, {40, 40}}</string>
 						<reference key="NSSuperview" ref="892317093"/>
-						<reference key="NSWindow"/>
 						<string key="NSReuseIdentifierKey">_NS:9</string>
 						<object class="NSColor" key="IBUIBackgroundColor">
 							<int key="NSColorSpace">3</int>
@@ -163,7 +157,6 @@
 						<int key="NSvFlags">292</int>
 						<string key="NSFrame">{{0, 207}, {320, 60}}</string>
 						<reference key="NSSuperview" ref="892317093"/>
-						<reference key="NSWindow"/>
 						<string key="NSReuseIdentifierKey">_NS:9</string>
 						<reference key="IBUIBackgroundColor" ref="937037271"/>
 						<bool key="IBUIOpaque">NO</bool>
@@ -192,7 +185,6 @@
 								<int key="NSvFlags">292</int>
 								<string key="NSFrame">{{208, 5}, {94, 27}}</string>
 								<reference key="NSSuperview" ref="136452396"/>
-								<reference key="NSWindow"/>
 								<reference key="NSNextKeyView" ref="800651050"/>
 								<string key="NSReuseIdentifierKey">_NS:9</string>
 								<bool key="IBUIOpaque">NO</bool>
@@ -205,7 +197,6 @@
 								<int key="NSvFlags">292</int>
 								<string key="NSFrame">{{20, 8}, {195, 21}}</string>
 								<reference key="NSSuperview" ref="136452396"/>
-								<reference key="NSWindow"/>
 								<reference key="NSNextKeyView" ref="854423543"/>
 								<string key="NSReuseIdentifierKey">_NS:9</string>
 								<bool key="IBUIOpaque">NO</bool>
@@ -230,7 +221,6 @@
 								<int key="NSvFlags">292</int>
 								<string key="NSFrame">{{20, 37}, {280, 21}}</string>
 								<reference key="NSSuperview" ref="136452396"/>
-								<reference key="NSWindow"/>
 								<reference key="NSNextKeyView" ref="502729697"/>
 								<string key="NSReuseIdentifierKey">_NS:9</string>
 								<bool key="IBUIOpaque">NO</bool>
@@ -260,7 +250,6 @@
 						</array>
 						<string key="NSFrame">{{0, 136}, {320, 63}}</string>
 						<reference key="NSSuperview" ref="892317093"/>
-						<reference key="NSWindow"/>
 						<reference key="NSNextKeyView" ref="342130383"/>
 						<string key="NSReuseIdentifierKey">_NS:9</string>
 						<reference key="IBUIBackgroundColor" ref="937037271"/>
@@ -268,8 +257,6 @@
 					</object>
 				</array>
 				<string key="NSFrameSize">{320, 403}</string>
-				<reference key="NSSuperview"/>
-				<reference key="NSWindow"/>
 				<reference key="NSNextKeyView" ref="233942944"/>
 				<string key="NSReuseIdentifierKey">_NS:9</string>
 				<object class="NSColor" key="IBUIBackgroundColor">
@@ -283,7 +270,7 @@
 				<string key="targetRuntimeIdentifier">IBCocoaTouchFramework</string>
 			</object>
 			<object class="IBUIView" id="239666395">
-				<reference key="NSNextResponder"/>
+				<nil key="NSNextResponder"/>
 				<int key="NSvFlags">292</int>
 				<array class="NSMutableArray" key="NSSubviews">
 					<object class="IBUITextField" id="988543427">
@@ -291,7 +278,6 @@
 						<int key="NSvFlags">294</int>
 						<string key="NSFrame">{{20, 15}, {201, 30}}</string>
 						<reference key="NSSuperview" ref="239666395"/>
-						<reference key="NSWindow"/>
 						<reference key="NSNextKeyView" ref="712064142"/>
 						<string key="NSReuseIdentifierKey">_NS:9</string>
 						<reference key="IBUIBackgroundColor" ref="937037271"/>
@@ -321,7 +307,6 @@
 						<int key="NSvFlags">289</int>
 						<string key="NSFrame">{{229, 8}, {70, 44}}</string>
 						<reference key="NSSuperview" ref="239666395"/>
-						<reference key="NSWindow"/>
 						<string key="NSReuseIdentifierKey">_NS:9</string>
 						<reference key="IBUIBackgroundColor" ref="937037271"/>
 						<bool key="IBUIOpaque">NO</bool>
@@ -341,8 +326,6 @@
 					</object>
 				</array>
 				<string key="NSFrameSize">{320, 60}</string>
-				<reference key="NSSuperview"/>
-				<reference key="NSWindow"/>
 				<reference key="NSNextKeyView" ref="988543427"/>
 				<string key="NSReuseIdentifierKey">_NS:9</string>
 				<reference key="IBUIBackgroundColor" ref="937037271"/>
@@ -631,7 +614,7 @@
 				</array>
 			</object>
 			<dictionary class="NSMutableDictionary" key="flattenedProperties">
-				<string key="-1.CustomClassName">VLCAddMediaViewController</string>
+				<string key="-1.CustomClassName">VLCMenuViewController</string>
 				<string key="-1.IBPluginDependency">com.apple.InterfaceBuilder.IBCocoaTouchPlugin</string>
 				<string key="-2.CustomClassName">UIResponder</string>
 				<string key="-2.IBPluginDependency">com.apple.InterfaceBuilder.IBCocoaTouchPlugin</string>
@@ -659,122 +642,6 @@
 		</object>
 		<object class="IBClassDescriber" key="IBDocument.Classes">
 			<array class="NSMutableArray" key="referencedPartialClassDescriptions">
-				<object class="IBPartialClassDescription">
-					<string key="className">VLCAddMediaViewController</string>
-					<string key="superclassName">UIViewController</string>
-					<dictionary class="NSMutableDictionary" key="actions">
-						<string key="dismiss:">id</string>
-						<string key="downloadFromHTTPServer:">id</string>
-						<string key="openAboutPanel:">id</string>
-						<string key="openNetworkStream:">id</string>
-						<string key="showDropbox:">id</string>
-						<string key="showSettings:">id</string>
-						<string key="toggleHTTPServer:">id</string>
-					</dictionary>
-					<dictionary class="NSMutableDictionary" key="actionInfosByName">
-						<object class="IBActionInfo" key="dismiss:">
-							<string key="name">dismiss:</string>
-							<string key="candidateClassName">id</string>
-						</object>
-						<object class="IBActionInfo" key="downloadFromHTTPServer:">
-							<string key="name">downloadFromHTTPServer:</string>
-							<string key="candidateClassName">id</string>
-						</object>
-						<object class="IBActionInfo" key="openAboutPanel:">
-							<string key="name">openAboutPanel:</string>
-							<string key="candidateClassName">id</string>
-						</object>
-						<object class="IBActionInfo" key="openNetworkStream:">
-							<string key="name">openNetworkStream:</string>
-							<string key="candidateClassName">id</string>
-						</object>
-						<object class="IBActionInfo" key="showDropbox:">
-							<string key="name">showDropbox:</string>
-							<string key="candidateClassName">id</string>
-						</object>
-						<object class="IBActionInfo" key="showSettings:">
-							<string key="name">showSettings:</string>
-							<string key="candidateClassName">id</string>
-						</object>
-						<object class="IBActionInfo" key="toggleHTTPServer:">
-							<string key="name">toggleHTTPServer:</string>
-							<string key="candidateClassName">id</string>
-						</object>
-					</dictionary>
-					<dictionary class="NSMutableDictionary" key="outlets">
-						<string key="aboutButton">UIButton</string>
-						<string key="dismissButton">UIButton</string>
-						<string key="downloadFromHTTPServerButton">UIButton</string>
-						<string key="dropboxButton">UIButton</string>
-						<string key="httpDownloadProgressIndicator">VLCCircularProgressIndicator</string>
-						<string key="httpUploadLabel">UILabel</string>
-						<string key="httpUploadServerLocationLabel">UILabel</string>
-						<string key="httpUploadServerSwitch">UISwitch</string>
-						<string key="openNetworkStreamButton">UIButton</string>
-						<string key="openURLButton">UIButton</string>
-						<string key="openURLField">UITextField</string>
-						<string key="openURLView">UIView</string>
-						<string key="settingsButton">UIButton</string>
-					</dictionary>
-					<dictionary class="NSMutableDictionary" key="toOneOutletInfosByName">
-						<object class="IBToOneOutletInfo" key="aboutButton">
-							<string key="name">aboutButton</string>
-							<string key="candidateClassName">UIButton</string>
-						</object>
-						<object class="IBToOneOutletInfo" key="dismissButton">
-							<string key="name">dismissButton</string>
-							<string key="candidateClassName">UIButton</string>
-						</object>
-						<object class="IBToOneOutletInfo" key="downloadFromHTTPServerButton">
-							<string key="name">downloadFromHTTPServerButton</string>
-							<string key="candidateClassName">UIButton</string>
-						</object>
-						<object class="IBToOneOutletInfo" key="dropboxButton">
-							<string key="name">dropboxButton</string>
-							<string key="candidateClassName">UIButton</string>
-						</object>
-						<object class="IBToOneOutletInfo" key="httpDownloadProgressIndicator">
-							<string key="name">httpDownloadProgressIndicator</string>
-							<string key="candidateClassName">VLCCircularProgressIndicator</string>
-						</object>
-						<object class="IBToOneOutletInfo" key="httpUploadLabel">
-							<string key="name">httpUploadLabel</string>
-							<string key="candidateClassName">UILabel</string>
-						</object>
-						<object class="IBToOneOutletInfo" key="httpUploadServerLocationLabel">
-							<string key="name">httpUploadServerLocationLabel</string>
-							<string key="candidateClassName">UILabel</string>
-						</object>
-						<object class="IBToOneOutletInfo" key="httpUploadServerSwitch">
-							<string key="name">httpUploadServerSwitch</string>
-							<string key="candidateClassName">UISwitch</string>
-						</object>
-						<object class="IBToOneOutletInfo" key="openNetworkStreamButton">
-							<string key="name">openNetworkStreamButton</string>
-							<string key="candidateClassName">UIButton</string>
-						</object>
-						<object class="IBToOneOutletInfo" key="openURLButton">
-							<string key="name">openURLButton</string>
-							<string key="candidateClassName">UIButton</string>
-						</object>
-						<object class="IBToOneOutletInfo" key="openURLField">
-							<string key="name">openURLField</string>
-							<string key="candidateClassName">UITextField</string>
-						</object>
-						<object class="IBToOneOutletInfo" key="openURLView">
-							<string key="name">openURLView</string>
-							<string key="candidateClassName">UIView</string>
-						</object>
-						<object class="IBToOneOutletInfo" key="settingsButton">
-							<string key="name">settingsButton</string>
-							<string key="candidateClassName">UIButton</string>
-						</object>
-					</dictionary>
-					<object class="IBClassDescriptionSource" key="sourceIdentifier">
-						<string key="majorKey">IBProjectSource</string>
-						<string key="minorKey">./Classes/VLCAddMediaViewController.h</string>
-					</object>
-				</object>
 				<object class="IBPartialClassDescription">
 					<string key="className">VLCCircularProgressIndicator</string>
 					<string key="superclassName">UIProgressView</string>

@@ -124,9 +124,9 @@
 		7D6B08FC174D773C00A05173 /* Settings.bundle in Resources */ = {isa = PBXBuildFile; fileRef = 7D6B08FB174D773C00A05173 /* Settings.bundle */; };
 		7D6BA1121748EA8300C0E203 /* playback_background.png in Resources */ = {isa = PBXBuildFile; fileRef = 7D6BA1101748EA8300C0E203 /* playback_background.png */; };
 		7D6BA1131748EA8300C0E203 /* playback_background@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 7D6BA1111748EA8300C0E203 /* playback_background@2x.png */; };
-		7D6BA1171748EFE100C0E203 /* VLCAddMediaViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 7D6BA1151748EFE100C0E203 /* VLCAddMediaViewController.m */; };
-		7D6BA1181748EFE100C0E203 /* VLCAddMediaViewController~ipad.xib in Resources */ = {isa = PBXBuildFile; fileRef = 7D6BA1161748EFE100C0E203 /* VLCAddMediaViewController~ipad.xib */; };
-		7D6BA11A174911C200C0E203 /* VLCAddMediaViewController~iphone.xib in Resources */ = {isa = PBXBuildFile; fileRef = 7D6BA119174911C200C0E203 /* VLCAddMediaViewController~iphone.xib */; };
+		7D6BA1171748EFE100C0E203 /* VLCMenuViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 7D6BA1151748EFE100C0E203 /* VLCMenuViewController.m */; };
+		7D6BA1181748EFE100C0E203 /* VLCMenuViewController~ipad.xib in Resources */ = {isa = PBXBuildFile; fileRef = 7D6BA1161748EFE100C0E203 /* VLCMenuViewController~ipad.xib */; };
+		7D6BA11A174911C200C0E203 /* VLCMenuViewController~iphone.xib in Resources */ = {isa = PBXBuildFile; fileRef = 7D6BA119174911C200C0E203 /* VLCMenuViewController~iphone.xib */; };
 		7D94FCDF16DE7D1000F2623B /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 7D94FCDE16DE7D1000F2623B /* UIKit.framework */; };
 		7D94FCE116DE7D1000F2623B /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 7D94FCE016DE7D1000F2623B /* Foundation.framework */; };
 		7D94FCE316DE7D1000F2623B /* CoreGraphics.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 7D94FCE216DE7D1000F2623B /* CoreGraphics.framework */; };
@@ -373,10 +373,10 @@
 		7D6B08FB174D773C00A05173 /* Settings.bundle */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.plug-in"; name = Settings.bundle; path = Resources/Settings.bundle; sourceTree = SOURCE_ROOT; };
 		7D6BA1101748EA8300C0E203 /* playback_background.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = playback_background.png; sourceTree = "<group>"; };
 		7D6BA1111748EA8300C0E203 /* playback_background@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "playback_background@2x.png"; sourceTree = "<group>"; };
-		7D6BA1141748EFE100C0E203 /* VLCAddMediaViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = VLCAddMediaViewController.h; sourceTree = "<group>"; };
-		7D6BA1151748EFE100C0E203 /* VLCAddMediaViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = VLCAddMediaViewController.m; sourceTree = "<group>"; };
-		7D6BA1161748EFE100C0E203 /* VLCAddMediaViewController~ipad.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; name = "VLCAddMediaViewController~ipad.xib"; path = "../Resources/VLCAddMediaViewController~ipad.xib"; sourceTree = "<group>"; };
-		7D6BA119174911C200C0E203 /* VLCAddMediaViewController~iphone.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; name = "VLCAddMediaViewController~iphone.xib"; path = "Resources/VLCAddMediaViewController~iphone.xib"; sourceTree = SOURCE_ROOT; };
+		7D6BA1141748EFE100C0E203 /* VLCMenuViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = VLCMenuViewController.h; sourceTree = "<group>"; };
+		7D6BA1151748EFE100C0E203 /* VLCMenuViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = VLCMenuViewController.m; sourceTree = "<group>"; };
+		7D6BA1161748EFE100C0E203 /* VLCMenuViewController~ipad.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; name = "VLCMenuViewController~ipad.xib"; path = "../Resources/VLCMenuViewController~ipad.xib"; sourceTree = "<group>"; };
+		7D6BA119174911C200C0E203 /* VLCMenuViewController~iphone.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; name = "VLCMenuViewController~iphone.xib"; path = "Resources/VLCMenuViewController~iphone.xib"; sourceTree = SOURCE_ROOT; };
 		7D94FCDB16DE7D1000F2623B /* VLC for iOS.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "VLC for iOS.app"; sourceTree = BUILT_PRODUCTS_DIR; };
 		7D94FCDE16DE7D1000F2623B /* UIKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = UIKit.framework; path = System/Library/Frameworks/UIKit.framework; sourceTree = SDKROOT; };
 		7D94FCE016DE7D1000F2623B /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = System/Library/Frameworks/Foundation.framework; sourceTree = SDKROOT; };
@@ -888,8 +888,8 @@
 				29CE2D42174912C600922D8F /* VLCHTTPUploaderController.m */,
 				A7DA16CF171083DF00D6FED9 /* VLCExternalDisplayController.h */,
 				A7DA16D0171083DF00D6FED9 /* VLCExternalDisplayController.m */,
-				7D6BA1141748EFE100C0E203 /* VLCAddMediaViewController.h */,
-				7D6BA1151748EFE100C0E203 /* VLCAddMediaViewController.m */,
+				7D6BA1141748EFE100C0E203 /* VLCMenuViewController.h */,
+				7D6BA1151748EFE100C0E203 /* VLCMenuViewController.m */,
 				7D3EB015174A46FB002062C2 /* VLCHTTPFileDownloader.h */,
 				7D3EB016174A46FB002062C2 /* VLCHTTPFileDownloader.m */,
 				7D07A4E6174EA47800759D10 /* VLCSettingsController.h */,
@@ -919,8 +919,8 @@
 			children = (
 				7DBC3B431711FC6C00DCF688 /* VLCAboutViewController~iphone.xib */,
 				7D9529521732EFCA006F5B40 /* VLCAboutViewController~ipad.xib */,
-				7D6BA1161748EFE100C0E203 /* VLCAddMediaViewController~ipad.xib */,
-				7D6BA119174911C200C0E203 /* VLCAddMediaViewController~iphone.xib */,
+				7D6BA1161748EFE100C0E203 /* VLCMenuViewController~ipad.xib */,
+				7D6BA119174911C200C0E203 /* VLCMenuViewController~iphone.xib */,
 				A79246BD170F114E0036AAF2 /* VLCMovieViewController~iphone.xib */,
 				7D33D41517182615008AF0E0 /* VLCMovieViewController~ipad.xib */,
 				A79246C0170F114E0036AAF2 /* VLCPlaylistViewController~iphone.xib */,
@@ -1134,8 +1134,8 @@
 				7D6BA1131748EA8300C0E203 /* playback_background@2x.png in Resources */,
 				2915542317490A9C00B86CAD /* About.txt in Resources */,
 				2915542B17490A9C00B86CAD /* README.txt in Resources */,
-				7D6BA1181748EFE100C0E203 /* VLCAddMediaViewController~ipad.xib in Resources */,
-				7D6BA11A174911C200C0E203 /* VLCAddMediaViewController~iphone.xib in Resources */,
+				7D6BA1181748EFE100C0E203 /* VLCMenuViewController~ipad.xib in Resources */,
+				7D6BA11A174911C200C0E203 /* VLCMenuViewController~iphone.xib in Resources */,
 				29125E5617492219003F03E5 /* index.html in Resources */,
 				29125E5717492219003F03E5 /* upload.html in Resources */,
 				7D3EAFF8174A2651002062C2 /* vlcetix512.png in Resources */,
@@ -1228,7 +1228,7 @@
 				2915543F17490B9C00B86CAD /* HTTPFileResponse.m in Sources */,
 				2915544017490B9C00B86CAD /* HTTPRedirectResponse.m in Sources */,
 				2915544117490B9C00B86CAD /* WebSocket.m in Sources */,
-				7D6BA1171748EFE100C0E203 /* VLCAddMediaViewController.m in Sources */,
+				7D6BA1171748EFE100C0E203 /* VLCMenuViewController.m in Sources */,
 				29CE2D44174912C600922D8F /* VLCHTTPUploaderController.m in Sources */,
 				7D3EB012174A3530002062C2 /* Reachability.m in Sources */,
 				7D3EB017174A46FB002062C2 /* VLCHTTPFileDownloader.m in Sources */,

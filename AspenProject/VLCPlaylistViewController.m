@@ -10,7 +10,7 @@
 #import "VLCMovieViewController.h"
 #import "VLCPlaylistTableViewCell.h"
 #import "VLCPlaylistGridView.h"
-#import "VLCAddMediaViewController.h"
+#import "VLCMenuViewController.h"
 
 @interface VLCPlaylistViewController () {
     NSMutableArray *_foundMedia;
@@ -230,7 +230,7 @@
 - (IBAction)leftButtonAction:(id)sender
 {
     if (self.addMediaViewController == nil)
-        self.addMediaViewController = [[VLCAddMediaViewController alloc] initWithNibName:@"VLCAddMediaViewController" bundle:nil];
+        self.addMediaViewController = [[VLCMenuViewController alloc] initWithNibName:@"VLCAddMediaViewController" bundle:nil];
 
     if (UI_USER_INTERFACE_IDIOM() == UIUserInterfaceIdiomPad) {
 		self.addMediaViewController.contentSizeForViewInPopover = self.addMediaViewController.view.frame.size;

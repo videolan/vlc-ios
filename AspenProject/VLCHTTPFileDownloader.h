@@ -6,11 +6,11 @@
 //  Copyright (c) 2013 VideoLAN. All rights reserved.
 //
 
-@class VLCAddMediaViewController;
+@class VLCMenuViewController;
 
 @interface VLCHTTPFileDownloader : NSObject
 
-@property (nonatomic, retain) VLCAddMediaViewController *mediaViewController;
+@property (nonatomic, retain) VLCMenuViewController *mediaViewController;
 @property (nonatomic, readonly) BOOL downloadInProgress;
 
 - (void)downloadFileFromURL:(NSURL *)url;
