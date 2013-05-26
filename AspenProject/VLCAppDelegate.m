@@ -33,7 +33,7 @@
 {
     self.window = [[UIWindow alloc] initWithFrame:[[UIScreen mainScreen] bounds]];
 
-    _playlistViewController = [[VLCPlaylistViewController alloc] initWithNibName:@"VLCPlaylistViewController" bundle:nil];
+    _playlistViewController = [[VLCPlaylistViewController alloc] init];
 
     self.navigationController = [[UINavigationController alloc] initWithRootViewController:_playlistViewController];
     self.window.rootViewController = self.navigationController;

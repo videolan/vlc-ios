@@ -157,10 +157,10 @@
 		A79246A7170F0ED20036AAF2 /* Default-568h@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = A7924698170F0ED20036AAF2 /* Default-568h@2x.png */; };
 		A79246A8170F0ED20036AAF2 /* Default.png in Resources */ = {isa = PBXBuildFile; fileRef = A7924699170F0ED20036AAF2 /* Default.png */; };
 		A79246A9170F0ED20036AAF2 /* Default@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = A792469A170F0ED20036AAF2 /* Default@2x.png */; };
-		A79246C1170F114E0036AAF2 /* VLCPlaylistViewController~ipad.xib in Resources */ = {isa = PBXBuildFile; fileRef = A79246BC170F114E0036AAF2 /* VLCPlaylistViewController~ipad.xib */; };
+		A79246C1170F114E0036AAF2 /* VLCEmptyLibraryView~ipad.xib in Resources */ = {isa = PBXBuildFile; fileRef = A79246BC170F114E0036AAF2 /* VLCEmptyLibraryView~ipad.xib */; };
 		A79246C2170F114E0036AAF2 /* VLCMovieViewController~iphone.xib in Resources */ = {isa = PBXBuildFile; fileRef = A79246BD170F114E0036AAF2 /* VLCMovieViewController~iphone.xib */; };
 		A79246C3170F114E0036AAF2 /* VLCPlaylistTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = A79246BE170F114E0036AAF2 /* VLCPlaylistTableViewCell.xib */; };
-		A79246C5170F114E0036AAF2 /* VLCPlaylistViewController~iphone.xib in Resources */ = {isa = PBXBuildFile; fileRef = A79246C0170F114E0036AAF2 /* VLCPlaylistViewController~iphone.xib */; };
+		A79246C5170F114E0036AAF2 /* VLCEmptyLibraryView~iphone.xib in Resources */ = {isa = PBXBuildFile; fileRef = A79246C0170F114E0036AAF2 /* VLCEmptyLibraryView~iphone.xib */; };
 		A79246C8170F11DF0036AAF2 /* Localizable.strings in Resources */ = {isa = PBXBuildFile; fileRef = A79246C6170F11DF0036AAF2 /* Localizable.strings */; };
 		A7A0E9F5174BA66000162F25 /* papasscode_background.png in Resources */ = {isa = PBXBuildFile; fileRef = A7A0E9ED174BA66000162F25 /* papasscode_background.png */; };
 		A7A0E9F6174BA66000162F25 /* papasscode_background@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = A7A0E9EE174BA66000162F25 /* papasscode_background@2x.png */; };
@@ -420,10 +420,10 @@
 		A7924698170F0ED20036AAF2 /* Default-568h@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "Default-568h@2x.png"; sourceTree = "<group>"; };
 		A7924699170F0ED20036AAF2 /* Default.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = Default.png; sourceTree = "<group>"; };
 		A792469A170F0ED20036AAF2 /* Default@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "Default@2x.png"; sourceTree = "<group>"; };
-		A79246BC170F114E0036AAF2 /* VLCPlaylistViewController~ipad.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; name = "VLCPlaylistViewController~ipad.xib"; path = "Resources/VLCPlaylistViewController~ipad.xib"; sourceTree = SOURCE_ROOT; };
+		A79246BC170F114E0036AAF2 /* VLCEmptyLibraryView~ipad.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; name = "VLCEmptyLibraryView~ipad.xib"; path = "Resources/VLCEmptyLibraryView~ipad.xib"; sourceTree = SOURCE_ROOT; };
 		A79246BD170F114E0036AAF2 /* VLCMovieViewController~iphone.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; name = "VLCMovieViewController~iphone.xib"; path = "Resources/VLCMovieViewController~iphone.xib"; sourceTree = SOURCE_ROOT; };
 		A79246BE170F114E0036AAF2 /* VLCPlaylistTableViewCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; name = VLCPlaylistTableViewCell.xib; path = Resources/VLCPlaylistTableViewCell.xib; sourceTree = SOURCE_ROOT; };
-		A79246C0170F114E0036AAF2 /* VLCPlaylistViewController~iphone.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; name = "VLCPlaylistViewController~iphone.xib"; path = "Resources/VLCPlaylistViewController~iphone.xib"; sourceTree = SOURCE_ROOT; };
+		A79246C0170F114E0036AAF2 /* VLCEmptyLibraryView~iphone.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; name = "VLCEmptyLibraryView~iphone.xib"; path = "Resources/VLCEmptyLibraryView~iphone.xib"; sourceTree = SOURCE_ROOT; };
 		A79246C7170F11DF0036AAF2 /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/Localizable.strings; sourceTree = "<group>"; };
 		A79246C9170F11E40036AAF2 /* ru */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = ru; path = ru.lproj/Localizable.strings; sourceTree = "<group>"; };
 		A7A0E9ED174BA66000162F25 /* papasscode_background.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = papasscode_background.png; sourceTree = "<group>"; };
@@ -955,8 +955,8 @@
 				7D6BA119174911C200C0E203 /* VLCMenuViewController~iphone.xib */,
 				A79246BD170F114E0036AAF2 /* VLCMovieViewController~iphone.xib */,
 				7D33D41517182615008AF0E0 /* VLCMovieViewController~ipad.xib */,
-				A79246C0170F114E0036AAF2 /* VLCPlaylistViewController~iphone.xib */,
-				A79246BC170F114E0036AAF2 /* VLCPlaylistViewController~ipad.xib */,
+				A79246C0170F114E0036AAF2 /* VLCEmptyLibraryView~iphone.xib */,
+				A79246BC170F114E0036AAF2 /* VLCEmptyLibraryView~ipad.xib */,
 				7DC87AF117413EE3009DC250 /* VLCPlaylistGridView.xib */,
 				A79246BE170F114E0036AAF2 /* VLCPlaylistTableViewCell.xib */,
 				7D5E39C5174FBAF3007DAFA1 /* VLCDropboxTableViewController.xib */,
@@ -1116,10 +1116,10 @@
 				A79246A7170F0ED20036AAF2 /* Default-568h@2x.png in Resources */,
 				A79246A8170F0ED20036AAF2 /* Default.png in Resources */,
 				A79246A9170F0ED20036AAF2 /* Default@2x.png in Resources */,
-				A79246C1170F114E0036AAF2 /* VLCPlaylistViewController~ipad.xib in Resources */,
+				A79246C1170F114E0036AAF2 /* VLCEmptyLibraryView~ipad.xib in Resources */,
 				A79246C2170F114E0036AAF2 /* VLCMovieViewController~iphone.xib in Resources */,
 				A79246C3170F114E0036AAF2 /* VLCPlaylistTableViewCell.xib in Resources */,
-				A79246C5170F114E0036AAF2 /* VLCPlaylistViewController~iphone.xib in Resources */,
+				A79246C5170F114E0036AAF2 /* VLCEmptyLibraryView~iphone.xib in Resources */,
 				A79246C8170F11DF0036AAF2 /* Localizable.strings in Resources */,
 				7DBC3B351711DC1200DCF688 /* Aspen72.png in Resources */,
 				7DBC3B371711DCAB00DCF688 /* Aspen144.png in Resources */,

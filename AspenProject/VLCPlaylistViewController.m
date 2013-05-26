@@ -12,7 +12,11 @@
 #import "VLCPlaylistGridView.h"
 #import "VLCMenuViewController.h"
 
-@interface VLCPlaylistViewController () {
+@implementation EmptyLibraryView
+@end
+
+@interface VLCPlaylistViewController () <AQGridViewDataSource, AQGridViewDelegate,
+                                         UITableViewDataSource, UITableViewDelegate> {
     NSMutableArray *_foundMedia;
 }
 @end
@@ -27,6 +31,26 @@
 
     return self;
 }
+
+- (void)loadView {
+    if (UI_USER_INTERFACE_IDIOM() == UIUserInterfaceIdiomPhone) {
+        _tableView = [[UITableView alloc] initWithFrame:[UIScreen mainScreen].bounds style:UITableViewStylePlain];
+        _tableView.delegate = self;
+        _tableView.dataSource = self;
+        self.view = _tableView;
+    } else {
+        _gridView = [[AQGridView alloc] initWithFrame:[UIScreen mainScreen].bounds];
+        _gridView.delegate = self;
+        _gridView.dataSource = self;
+        self.view = _gridView;
+    }
+
+    self.view.backgroundColor = [UIColor blackColor];
+    self.view.autoresizingMask = UIViewAutoresizingFlexibleHeight | UIViewAutoresizingFlexibleWidth;
+    self.emptyLibraryView = [[[NSBundle mainBundle] loadNibNamed:@"VLCEmptyLibraryView" owner:self options:nil] lastObject];
+}
+
+#pragma mark -
 
 - (void)viewDidLoad
 {
@@ -57,11 +81,11 @@
         _tableView.separatorColor = [UIColor colorWithWhite:.2 alpha:1.];
     }
 
-    self.emptyLibraryLabel.text = NSLocalizedString(@"EMPTY_LIBRARY", @"");
-    self.emptyLibraryLongDescriptionLabel.lineBreakMode = UILineBreakModeWordWrap;
-    self.emptyLibraryLongDescriptionLabel.numberOfLines = 0;
-    self.emptyLibraryLongDescriptionLabel.text = NSLocalizedString(@"EMPTY_LIBRARY_LONG", @"");
-    [self.emptyLibraryLongDescriptionLabel sizeToFit];
+    _emptyLibraryView.emptyLibraryLabel.text = NSLocalizedString(@"EMPTY_LIBRARY", @"");
+    _emptyLibraryView.emptyLibraryLongDescriptionLabel.lineBreakMode = UILineBreakModeWordWrap;
+    _emptyLibraryView.emptyLibraryLongDescriptionLabel.numberOfLines = 0;
+    _emptyLibraryView.emptyLibraryLongDescriptionLabel.text = NSLocalizedString(@"EMPTY_LIBRARY_LONG", @"");
+    [_emptyLibraryView.emptyLibraryLongDescriptionLabel sizeToFit];
 }
 
 - (void)viewWillAppear:(BOOL)animated
