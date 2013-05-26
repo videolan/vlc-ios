@@ -89,6 +89,8 @@
 		7D5E39CB174FC2F3007DAFA1 /* dropbox-white@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 7D5E39C9174FC2F3007DAFA1 /* dropbox-white@2x.png */; };
 		7D5E39CF174FCE04007DAFA1 /* VLCDropboxTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 7D5E39CE174FCE04007DAFA1 /* VLCDropboxTableViewCell.m */; };
 		7D5E39D1174FCF43007DAFA1 /* VLCDropboxTableViewCell~ipad.xib in Resources */ = {isa = PBXBuildFile; fileRef = 7D5E39D0174FCF43007DAFA1 /* VLCDropboxTableViewCell~ipad.xib */; };
+		7D5F7AC317529430006CCCFA /* VLCHorizontalSwipeGestureRecognizer.m in Sources */ = {isa = PBXBuildFile; fileRef = 7D5F7AC217529430006CCCFA /* VLCHorizontalSwipeGestureRecognizer.m */; };
+		7D5F7AC61752943F006CCCFA /* VLCVerticalSwipeGestureRecognizer.m in Sources */ = {isa = PBXBuildFile; fileRef = 7D5F7AC51752943F006CCCFA /* VLCVerticalSwipeGestureRecognizer.m */; };
 		7D6B07BC1716C9B8003280C4 /* AQGridView.m in Sources */ = {isa = PBXBuildFile; fileRef = 7D6B07A61716C9B8003280C4 /* AQGridView.m */; };
 		7D6B07BD1716C9B8003280C4 /* AQGridViewAnimatorItem.m in Sources */ = {isa = PBXBuildFile; fileRef = 7D6B07AA1716C9B8003280C4 /* AQGridViewAnimatorItem.m */; };
 		7D6B07BE1716C9B8003280C4 /* AQGridViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 7D6B07AC1716C9B8003280C4 /* AQGridViewCell.m */; };
@@ -308,6 +310,10 @@
 		7D5E39CD174FCE04007DAFA1 /* VLCDropboxTableViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = VLCDropboxTableViewCell.h; sourceTree = "<group>"; };
 		7D5E39CE174FCE04007DAFA1 /* VLCDropboxTableViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = VLCDropboxTableViewCell.m; sourceTree = "<group>"; };
 		7D5E39D0174FCF43007DAFA1 /* VLCDropboxTableViewCell~ipad.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; name = "VLCDropboxTableViewCell~ipad.xib"; path = "../Resources/VLCDropboxTableViewCell~ipad.xib"; sourceTree = "<group>"; };
+		7D5F7AC117529430006CCCFA /* VLCHorizontalSwipeGestureRecognizer.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = VLCHorizontalSwipeGestureRecognizer.h; sourceTree = "<group>"; };
+		7D5F7AC217529430006CCCFA /* VLCHorizontalSwipeGestureRecognizer.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = VLCHorizontalSwipeGestureRecognizer.m; sourceTree = "<group>"; };
+		7D5F7AC41752943F006CCCFA /* VLCVerticalSwipeGestureRecognizer.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = VLCVerticalSwipeGestureRecognizer.h; sourceTree = "<group>"; };
+		7D5F7AC51752943F006CCCFA /* VLCVerticalSwipeGestureRecognizer.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = VLCVerticalSwipeGestureRecognizer.m; sourceTree = "<group>"; };
 		7D6B07A51716C9B8003280C4 /* AQGridView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = AQGridView.h; path = ImportedSources/AQGridView/Classes/AQGridView.h; sourceTree = SOURCE_ROOT; };
 		7D6B07A61716C9B8003280C4 /* AQGridView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = AQGridView.m; path = ImportedSources/AQGridView/Classes/AQGridView.m; sourceTree = SOURCE_ROOT; };
 		7D6B07A71716C9B8003280C4 /* AQGridView+CellLayout.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = "AQGridView+CellLayout.h"; path = "ImportedSources/AQGridView/Classes/AQGridView+CellLayout.h"; sourceTree = SOURCE_ROOT; };
@@ -702,6 +708,10 @@
 		7D31CF061746AEF2005997E0 /* UI Elements */ = {
 			isa = PBXGroup;
 			children = (
+				7D5F7AC117529430006CCCFA /* VLCHorizontalSwipeGestureRecognizer.h */,
+				7D5F7AC217529430006CCCFA /* VLCHorizontalSwipeGestureRecognizer.m */,
+				7D5F7AC41752943F006CCCFA /* VLCVerticalSwipeGestureRecognizer.h */,
+				7D5F7AC51752943F006CCCFA /* VLCVerticalSwipeGestureRecognizer.m */,
 				7DE480CF173FEA30003613E0 /* VLCCircularProgressIndicator.h */,
 				7DE480D0173FEA30003613E0 /* VLCCircularProgressIndicator.m */,
 				7DC87AEC17412A1F009DC250 /* VLCLinearProgressIndicator.h */,
@@ -1283,6 +1293,8 @@
 				7D07A4ED174EB81200759D10 /* VLCDropboxController.m in Sources */,
 				7D5E39C6174FBAF3007DAFA1 /* VLCDropboxTableViewController.m in Sources */,
 				7D5E39CF174FCE04007DAFA1 /* VLCDropboxTableViewCell.m in Sources */,
+				7D5F7AC317529430006CCCFA /* VLCHorizontalSwipeGestureRecognizer.m in Sources */,
+				7D5F7AC61752943F006CCCFA /* VLCVerticalSwipeGestureRecognizer.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
