@@ -276,17 +276,26 @@
 /* deprecated in iOS 6 */
 - (BOOL)shouldAutorotateToInterfaceOrientation:(UIInterfaceOrientation)toInterfaceOrientation
 {
-    return (toInterfaceOrientation == UIInterfaceOrientationPortrait) || (_foundMedia.count > 0);
+    if (UI_USER_INTERFACE_IDIOM() == UIUserInterfaceIdiomPad)
+        return YES;
+
+    return (_foundMedia.count > 0) || toInterfaceOrientation == UIInterfaceOrientationPortrait;
 }
 
+// RootController is responsible for supporting interface orientation(iOS6.0+), i.e. navigation controller
+// so this will not work as intended without "voodoo magic"(UINavigationController category, subclassing, etc)
 /* introduced in iOS 6 */
 - (NSUInteger)supportedInterfaceOrientations {
-    return (_foundMedia.count > 0)? UIInterfaceOrientationMaskAll: UIInterfaceOrientationMaskPortrait;
+    if (UI_USER_INTERFACE_IDIOM() == UIUserInterfaceIdiomPad)
+        return UIInterfaceOrientationMaskAll;
+
+    return (_foundMedia.count > 0)? UIInterfaceOrientationMaskAllButUpsideDown:
+                                    UIInterfaceOrientationMaskPortrait;
 }
 
 /* introduced in iOS 6 */
 - (BOOL)shouldAutorotate {
-    return (_foundMedia.count > 0);
+    return (UI_USER_INTERFACE_IDIOM() == UIUserInterfaceIdiomPad) || (_foundMedia.count > 0);
 }
 
 #pragma mark - coin coin
