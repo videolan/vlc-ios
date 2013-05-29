@@ -65,7 +65,7 @@
 							<int key="NSColorSpace">3</int>
 							<bytes key="NSWhite">MC41AA</bytes>
 						</object>
-						<object class="NSCustomResource" key="IBUINormalBackgroundImage" id="466401850">
+						<object class="NSCustomResource" key="IBUINormalBackgroundImage" id="181125913">
 							<string key="NSClassName">NSImage</string>
 							<string key="NSResourceName">menuBtnBck.png</string>
 						</object>
@@ -95,7 +95,7 @@
 						<reference key="IBUIHighlightedTitleColor" ref="878206399"/>
 						<reference key="IBUINormalTitleColor" ref="937037271"/>
 						<reference key="IBUINormalTitleShadowColor" ref="1025413593"/>
-						<reference key="IBUINormalBackgroundImage" ref="466401850"/>
+						<reference key="IBUINormalBackgroundImage" ref="181125913"/>
 						<reference key="IBUIFontDescription" ref="886215057"/>
 						<reference key="IBUIFont" ref="327024238"/>
 					</object>
@@ -116,7 +116,7 @@
 						<reference key="IBUIHighlightedTitleColor" ref="878206399"/>
 						<reference key="IBUINormalTitleColor" ref="937037271"/>
 						<reference key="IBUINormalTitleShadowColor" ref="1025413593"/>
-						<reference key="IBUINormalBackgroundImage" ref="466401850"/>
+						<reference key="IBUINormalBackgroundImage" ref="181125913"/>
 						<reference key="IBUIFontDescription" ref="886215057"/>
 						<reference key="IBUIFont" ref="327024238"/>
 					</object>
@@ -136,7 +136,7 @@
 						<reference key="IBUIHighlightedTitleColor" ref="878206399"/>
 						<reference key="IBUINormalTitleColor" ref="937037271"/>
 						<reference key="IBUINormalTitleShadowColor" ref="1025413593"/>
-						<reference key="IBUINormalBackgroundImage" ref="466401850"/>
+						<reference key="IBUINormalBackgroundImage" ref="181125913"/>
 						<reference key="IBUIFontDescription" ref="886215057"/>
 						<reference key="IBUIFont" ref="327024238"/>
 					</object>
@@ -172,7 +172,7 @@
 							<string key="NSClassName">NSImage</string>
 							<string key="NSResourceName">dropboxLabel.png</string>
 						</object>
-						<reference key="IBUINormalBackgroundImage" ref="466401850"/>
+						<reference key="IBUINormalBackgroundImage" ref="181125913"/>
 						<reference key="IBUIFontDescription" ref="886215057"/>
 						<reference key="IBUIFont" ref="327024238"/>
 					</object>
@@ -180,7 +180,7 @@
 						<reference key="NSNextResponder" ref="892317093"/>
 						<int key="NSvFlags">292</int>
 						<array class="NSMutableArray" key="NSSubviews">
-							<object class="IBUIImageView" id="907093611">
+							<object class="IBUIImageView" id="643865985">
 								<reference key="NSNextResponder" ref="136452396"/>
 								<int key="NSvFlags">292</int>
 								<string key="NSFrameSize">{320, 63}</string>
@@ -189,7 +189,7 @@
 								<string key="NSReuseIdentifierKey">_NS:9</string>
 								<bool key="IBUIUserInteractionEnabled">NO</bool>
 								<string key="targetRuntimeIdentifier">IBCocoaTouchFramework</string>
-								<reference key="IBUIImage" ref="466401850"/>
+								<reference key="IBUIImage" ref="181125913"/>
 							</object>
 							<object class="IBUISwitch" id="854423543">
 								<reference key="NSNextResponder" ref="136452396"/>
@@ -281,14 +281,29 @@
 				<string key="targetRuntimeIdentifier">IBCocoaTouchFramework</string>
 			</object>
 			<object class="IBUIView" id="239666395">
-				<nil key="NSNextResponder"/>
+				<reference key="NSNextResponder"/>
 				<int key="NSvFlags">292</int>
 				<array class="NSMutableArray" key="NSSubviews">
+					<object class="IBUIImageView" id="1016620540">
+						<reference key="NSNextResponder" ref="239666395"/>
+						<int key="NSvFlags">292</int>
+						<string key="NSFrameSize">{320, 60}</string>
+						<reference key="NSSuperview" ref="239666395"/>
+						<reference key="NSWindow"/>
+						<string key="NSReuseIdentifierKey">_NS:9</string>
+						<bool key="IBUIUserInteractionEnabled">NO</bool>
+						<string key="targetRuntimeIdentifier">IBCocoaTouchFramework</string>
+						<object class="NSCustomResource" key="IBUIImage">
+							<string key="NSClassName">NSImage</string>
+							<string key="NSResourceName">menuBtnBckHighlight.png</string>
+						</object>
+					</object>
 					<object class="IBUITextField" id="988543427">
 						<reference key="NSNextResponder" ref="239666395"/>
 						<int key="NSvFlags">294</int>
 						<string key="NSFrame">{{20, 15}, {201, 30}}</string>
 						<reference key="NSSuperview" ref="239666395"/>
+						<reference key="NSWindow"/>
 						<reference key="NSNextKeyView" ref="712064142"/>
 						<string key="NSReuseIdentifierKey">_NS:9</string>
 						<reference key="IBUIBackgroundColor" ref="937037271"/>
@@ -318,6 +333,7 @@
 						<int key="NSvFlags">289</int>
 						<string key="NSFrame">{{229, 8}, {70, 44}}</string>
 						<reference key="NSSuperview" ref="239666395"/>
+						<reference key="NSWindow"/>
 						<string key="NSReuseIdentifierKey">_NS:9</string>
 						<reference key="IBUIBackgroundColor" ref="937037271"/>
 						<bool key="IBUIOpaque">NO</bool>
@@ -337,6 +353,8 @@
 					</object>
 				</array>
 				<string key="NSFrameSize">{320, 60}</string>
+				<reference key="NSSuperview"/>
+				<reference key="NSWindow"/>
 				<reference key="NSNextKeyView" ref="988543427"/>
 				<string key="NSReuseIdentifierKey">_NS:9</string>
 				<reference key="IBUIBackgroundColor" ref="937037271"/>
@@ -574,6 +592,7 @@
 						<array class="NSMutableArray" key="children">
 							<reference ref="712064142"/>
 							<reference ref="988543427"/>
+							<reference ref="1016620540"/>
 						</array>
 						<reference key="parent" ref="0"/>
 					</object>
@@ -604,7 +623,7 @@
 							<reference ref="800651050"/>
 							<reference ref="342130383"/>
 							<reference ref="854423543"/>
-							<reference ref="907093611"/>
+							<reference ref="643865985"/>
 						</array>
 						<reference key="parent" ref="892317093"/>
 					</object>
@@ -625,8 +644,13 @@
 					</object>
 					<object class="IBObjectRecord">
 						<int key="objectID">77</int>
-						<reference key="object" ref="907093611"/>
+						<reference key="object" ref="643865985"/>
 						<reference key="parent" ref="136452396"/>
+					</object>
+					<object class="IBObjectRecord">
+						<int key="objectID">78</int>
+						<reference key="object" ref="1016620540"/>
+						<reference key="parent" ref="239666395"/>
 					</object>
 				</array>
 			</object>
@@ -651,12 +675,13 @@
 				<string key="69.IBPluginDependency">com.apple.InterfaceBuilder.IBCocoaTouchPlugin</string>
 				<string key="70.IBPluginDependency">com.apple.InterfaceBuilder.IBCocoaTouchPlugin</string>
 				<string key="77.IBPluginDependency">com.apple.InterfaceBuilder.IBCocoaTouchPlugin</string>
+				<string key="78.IBPluginDependency">com.apple.InterfaceBuilder.IBCocoaTouchPlugin</string>
 			</dictionary>
 			<dictionary class="NSMutableDictionary" key="unlocalizedProperties"/>
 			<nil key="activeLocalization"/>
 			<dictionary class="NSMutableDictionary" key="localizations"/>
 			<nil key="sourceID"/>
-			<int key="maxID">77</int>
+			<int key="maxID">78</int>
 		</object>
 		<object class="IBClassDescriber" key="IBDocument.Classes">
 			<array class="NSMutableArray" key="referencedPartialClassDescriptions">
@@ -712,7 +737,7 @@
 					</dictionary>
 					<dictionary class="NSMutableDictionary" key="outlets">
 						<string key="aboutButton">UIButton</string>
-						<string key="dismissButton">UIButton</string>
+						<string key="dismissToolBar">UIToolbar</string>
 						<string key="downloadFromHTTPServerButton">UIButton</string>
 						<string key="dropboxButton">UIButton</string>
 						<string key="httpDownloadProgressIndicator">VLCCircularProgressIndicator</string>
@@ -730,9 +755,9 @@
 							<string key="name">aboutButton</string>
 							<string key="candidateClassName">UIButton</string>
 						</object>
-						<object class="IBToOneOutletInfo" key="dismissButton">
-							<string key="name">dismissButton</string>
-							<string key="candidateClassName">UIButton</string>
+						<object class="IBToOneOutletInfo" key="dismissToolBar">
+							<string key="name">dismissToolBar</string>
+							<string key="candidateClassName">UIToolbar</string>
 						</object>
 						<object class="IBToOneOutletInfo" key="downloadFromHTTPServerButton">
 							<string key="name">downloadFromHTTPServerButton</string>
@@ -797,6 +822,7 @@
 		<dictionary class="NSMutableDictionary" key="IBDocument.LastKnownImageSizes">
 			<string key="dropboxLabel.png">{159, 43}</string>
 			<string key="menuBtnBck.png">{320, 60}</string>
+			<string key="menuBtnBckHighlight.png">{320, 60}</string>
 		</dictionary>
 		<string key="IBCocoaTouchPluginVersion">2083</string>
 	</data>
