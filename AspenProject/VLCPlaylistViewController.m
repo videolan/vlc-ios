@@ -57,6 +57,8 @@
     [super viewDidLoad];
 
     UIBarButtonItem *addButton = [[UIBarButtonItem alloc] initWithImage:[UIImage imageNamed:@"vlc"] style:UIBarButtonItemStyleBordered target:self action:@selector(leftButtonAction:)];
+    [addButton setBackgroundImage:[UIImage imageNamed:@"button"] forState:UIControlStateNormal barMetrics:UIBarMetricsDefault];
+    [addButton setBackgroundImage:[UIImage imageNamed:@"buttonHighlight"] forState:UIControlStateHighlighted barMetrics:UIBarMetricsDefault];
 
     /* After day 354 of the year, the usual VLC cone is replaced by another cone
      * wearing a Father Xmas hat.
@@ -70,7 +72,11 @@
         addButton.image = [UIImage imageNamed:@"vlc-xmas"];
 
     self.navigationItem.leftBarButtonItem = addButton;
-    self.navigationItem.rightBarButtonItem = self.editButtonItem;
+
+    UIBarButtonItem *editButton = self.editButtonItem;
+    [editButton setBackgroundImage:[UIImage imageNamed:@"button"] forState:UIControlStateNormal barMetrics:UIBarMetricsDefault];
+    [editButton setBackgroundImage:[UIImage imageNamed:@"buttonHighlight"] forState:UIControlStateHighlighted barMetrics:UIBarMetricsDefault];
+    self.navigationItem.rightBarButtonItem = editButton;
 
     if (UI_USER_INTERFACE_IDIOM() == UIUserInterfaceIdiomPad) {
         _gridView.separatorStyle = AQGridViewCellSeparatorStyleEmptySpace;

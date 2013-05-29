@@ -41,6 +41,12 @@
 		29CE2D44174912C600922D8F /* VLCHTTPUploaderController.m in Sources */ = {isa = PBXBuildFile; fileRef = 29CE2D42174912C600922D8F /* VLCHTTPUploaderController.m */; };
 		7D07A4E9174EA47800759D10 /* VLCSettingsController.m in Sources */ = {isa = PBXBuildFile; fileRef = 7D07A4E7174EA47800759D10 /* VLCSettingsController.m */; };
 		7D07A4ED174EB81200759D10 /* VLCDropboxController.m in Sources */ = {isa = PBXBuildFile; fileRef = 7D07A4EC174EB81200759D10 /* VLCDropboxController.m */; };
+		7D07F708175665ED00CDE21C /* navBarBackground@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 7D07F706175665ED00CDE21C /* navBarBackground@2x.png */; };
+		7D07F709175665ED00CDE21C /* navBarBackground.png in Resources */ = {isa = PBXBuildFile; fileRef = 7D07F707175665ED00CDE21C /* navBarBackground.png */; };
+		7D07F70C175669A800CDE21C /* button.png in Resources */ = {isa = PBXBuildFile; fileRef = 7D07F70A175669A800CDE21C /* button.png */; };
+		7D07F70D175669A800CDE21C /* button@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 7D07F70B175669A800CDE21C /* button@2x.png */; };
+		7D07F710175669D800CDE21C /* buttonHighlight.png in Resources */ = {isa = PBXBuildFile; fileRef = 7D07F70E175669D800CDE21C /* buttonHighlight.png */; };
+		7D07F711175669D800CDE21C /* buttonHighlight@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 7D07F70F175669D800CDE21C /* buttonHighlight@2x.png */; };
 		7D10BC761743FA0F00DA7059 /* audio.png in Resources */ = {isa = PBXBuildFile; fileRef = 7D10BC6A1743FA0F00DA7059 /* audio.png */; };
 		7D10BC771743FA0F00DA7059 /* audio@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 7D10BC6B1743FA0F00DA7059 /* audio@2x.png */; };
 		7D10BC781743FA0F00DA7059 /* backward.png in Resources */ = {isa = PBXBuildFile; fileRef = 7D10BC6C1743FA0F00DA7059 /* backward.png */; };
@@ -256,6 +262,12 @@
 		7D07A4E7174EA47800759D10 /* VLCSettingsController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = VLCSettingsController.m; sourceTree = "<group>"; };
 		7D07A4EB174EB81200759D10 /* VLCDropboxController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = VLCDropboxController.h; sourceTree = "<group>"; };
 		7D07A4EC174EB81200759D10 /* VLCDropboxController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = VLCDropboxController.m; sourceTree = "<group>"; };
+		7D07F706175665ED00CDE21C /* navBarBackground@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "navBarBackground@2x.png"; sourceTree = "<group>"; };
+		7D07F707175665ED00CDE21C /* navBarBackground.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = navBarBackground.png; sourceTree = "<group>"; };
+		7D07F70A175669A800CDE21C /* button.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = button.png; sourceTree = "<group>"; };
+		7D07F70B175669A800CDE21C /* button@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "button@2x.png"; sourceTree = "<group>"; };
+		7D07F70E175669D800CDE21C /* buttonHighlight.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = buttonHighlight.png; sourceTree = "<group>"; };
+		7D07F70F175669D800CDE21C /* buttonHighlight@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "buttonHighlight@2x.png"; sourceTree = "<group>"; };
 		7D10BC6A1743FA0F00DA7059 /* audio.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = audio.png; sourceTree = "<group>"; };
 		7D10BC6B1743FA0F00DA7059 /* audio@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "audio@2x.png"; sourceTree = "<group>"; };
 		7D10BC6C1743FA0F00DA7059 /* backward.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = backward.png; sourceTree = "<group>"; };
@@ -630,6 +642,12 @@
 		7D10BC661743F9AC00DA7059 /* Library View */ = {
 			isa = PBXGroup;
 			children = (
+				7D07F70A175669A800CDE21C /* button.png */,
+				7D07F70B175669A800CDE21C /* button@2x.png */,
+				7D07F70E175669D800CDE21C /* buttonHighlight.png */,
+				7D07F70F175669D800CDE21C /* buttonHighlight@2x.png */,
+				7D07F706175665ED00CDE21C /* navBarBackground@2x.png */,
+				7D07F707175665ED00CDE21C /* navBarBackground.png */,
 				7D6B08C8174A927700A05173 /* mediaUnread.png */,
 				7D6B08C6174A910500A05173 /* mediaUnread@2x.png */,
 				A7FF9F3D17428C1900999819 /* DeleteButton.png */,
@@ -1215,6 +1233,12 @@
 				7D2159F2174FD6CD00EC00E8 /* page_white_film.png in Resources */,
 				7D2159F4174FEB0600EC00E8 /* package.png in Resources */,
 				7DF65C2D174FF3F400F43330 /* VLCDropboxTableViewCell~iphone.xib in Resources */,
+				7D07F708175665ED00CDE21C /* navBarBackground@2x.png in Resources */,
+				7D07F709175665ED00CDE21C /* navBarBackground.png in Resources */,
+				7D07F70C175669A800CDE21C /* button.png in Resources */,
+				7D07F70D175669A800CDE21C /* button@2x.png in Resources */,
+				7D07F710175669D800CDE21C /* buttonHighlight.png in Resources */,
+				7D07F711175669D800CDE21C /* buttonHighlight@2x.png in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

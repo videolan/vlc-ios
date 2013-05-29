@@ -36,9 +36,12 @@
     _playlistViewController = [[VLCPlaylistViewController alloc] init];
 
     self.navigationController = [[UINavigationController alloc] initWithRootViewController:_playlistViewController];
+    UINavigationBar *navBar = self.navigationController.navigationBar;
+    [navBar setBackgroundImage:[UIImage imageNamed:@"navBarBackground"] forBarMetrics:UIBarMetricsDefault];
+    navBar.barStyle = UIBarStyleBlack;
+
     self.window.rootViewController = self.navigationController;
 
-    self.navigationController.navigationBar.barStyle = UIBarStyleBlack;
     [self.window makeKeyAndVisible];
 
     _dropboxTableViewController = [[VLCDropboxTableViewController alloc] initWithNibName:@"VLCDropboxTableViewController" bundle:nil];
