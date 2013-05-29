@@ -48,8 +48,10 @@
 {
     [super viewDidLoad];
 
-    if (UI_USER_INTERFACE_IDIOM() == UIUserInterfaceIdiomPhone)
+    if (UI_USER_INTERFACE_IDIOM() == UIUserInterfaceIdiomPhone) {
         [self.dismissButton setTitle:NSLocalizedString(@"BUTTON_DONE", @"") forState:UIControlStateNormal];
+        [self.dismissToolBar setBackgroundImage:[UIImage imageNamed:@"navBarBackground"] forToolbarPosition:UIToolbarPositionAny barMetrics:UIBarMetricsDefault];
+    }
     [self.aboutButton setTitle:NSLocalizedString(@"ABOUT_APP", @"") forState:UIControlStateNormal];
     [self.openNetworkStreamButton setTitle:NSLocalizedString(@"OPEN_NETWORK", @"") forState:UIControlStateNormal];
     [self.downloadFromHTTPServerButton setTitle:NSLocalizedString(@"DOWNLOAD_FROM_HTTP", @"") forState:UIControlStateNormal];
@@ -105,6 +107,7 @@
 
     UINavigationController *navController = [[UINavigationController alloc] initWithRootViewController:aboutController];
     navController.navigationBar.barStyle = UIBarStyleBlack;
+    [navController.navigationBar setBackgroundImage:[UIImage imageNamed:@"navBarBackground"] forBarMetrics:UIBarMetricsDefault];
 
     [self presentModalViewController:navController animated:YES];
 }
@@ -191,6 +194,7 @@
     UINavigationController *navController = [[UINavigationController alloc] initWithRootViewController:self.settingsViewController];
     navController.navigationBarHidden = NO;
     navController.navigationBar.barStyle = UIBarStyleBlack;
+    [navController.navigationBar setBackgroundImage:[UIImage imageNamed:@"navBarBackground"] forBarMetrics:UIBarMetricsDefault];
     [self presentModalViewController:navController animated:YES];
 }
 
@@ -236,6 +240,7 @@
     UINavigationController *navController = [[UINavigationController alloc] initWithRootViewController:appDelegate.dropboxTableViewController];
     navController.navigationBarHidden = NO;
     navController.navigationBar.barStyle = UIBarStyleBlack;
+    [navController.navigationBar setBackgroundImage:[UIImage imageNamed:@"navBarBackground"] forBarMetrics:UIBarMetricsDefault];
     [self presentModalViewController:navController animated:YES];
 }
 
