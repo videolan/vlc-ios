@@ -1,0 +1,66 @@
+From 4b3e2f0a17466c066f94db0c6acd155d571e72fe Mon Sep 17 00:00:00 2001
+From: =?UTF-8?q?Felix=20Paul=20K=C3=BChne?= <fkuehne@videolan.org>
+Date: Wed, 29 May 2013 13:25:54 +0200
+Subject: [PATCH 9/9] libass: fix text rendering on iOS by providing a font
+ lookup mechanism for the font shipped with Aspen
+
+---
+ modules/codec/libass.c | 35 +++++++++++++++++++++++++++++++++++
+ 1 file changed, 35 insertions(+)
+
+diff --git a/modules/codec/libass.c b/modules/codec/libass.c
+index b32791c..b3fee5f 100644
+--- a/modules/codec/libass.c
++++ b/modules/codec/libass.c
+@@ -29,6 +29,13 @@
+ #   include "config.h"
+ #endif
+ 
++#if defined (__APPLE__)
++#include <TargetConditionals.h>
++#if TARGET_OS_IPHONE
++#include <CoreFoundation/CoreFoundation.h>
++#endif
++#endif
++
+ #include <string.h>
+ #include <limits.h>
+ #include <assert.h>
+@@ -213,6 +220,34 @@ static int Create( vlc_object_t *p_this )
+ #if defined( __ANDROID__ )
+     const char *psz_font = "/system/fonts/DroidSans-Bold.ttf";
+     const char *psz_family = "Droid Sans Bold";
++#elif defined (__APPLE__)
++#if !TARGET_OS_IPHONE
++    const char *psz_font = NULL; /* We don't ship a default font with VLC */
++    const char *psz_family = "Arial"; /* Use Arial if we can't find anything more suitable */
++#else
++    CFURLRef fileURL;
++    fileURL = CFBundleCopyResourceURL(CFBundleGetMainBundle(), CFSTR("SourceSansPro-Regular.ttf"),
++                                      NULL,
++                                      NULL);
++    CFStringRef urlString = CFURLCopyFileSystemPath(fileURL, kCFURLPOSIXPathStyle);
++    CFRelease(fileURL);
++
++    if (!urlString)
++        return VLC_EGENERIC;
++
++    CFIndex length = CFStringGetLength(urlString);
++    if (!length)
++        return VLC_EGENERIC;
++    length++;
++
++    char *psz_path = (char *)malloc(length);
++    CFStringGetCString(urlString, psz_path, length, kCFStringEncodingUTF8);
++    CFRelease(urlString);
++
++    const char *psz_font = (const char *)strdup(psz_path);
++    free(psz_path);
++    const char *psz_family = "Source Sans Pro";
++#endif
+ #else
+     const char *psz_font = NULL; /* We don't ship a default font with VLC */
+     const char *psz_family = "Arial"; /* Use Arial if we can't find anything more suitable */
+-- 
+1.7.12.4 (Apple Git-37)
+
