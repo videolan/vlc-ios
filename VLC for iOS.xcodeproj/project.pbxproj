@@ -59,6 +59,10 @@
 		7D07F727175688D300CDE21C /* doneButton@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 7D07F723175688D300CDE21C /* doneButton@2x.png */; };
 		7D07F728175688D300CDE21C /* doneButtonHighlight.png in Resources */ = {isa = PBXBuildFile; fileRef = 7D07F724175688D300CDE21C /* doneButtonHighlight.png */; };
 		7D07F729175688D300CDE21C /* doneButtonHighlight@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 7D07F725175688D300CDE21C /* doneButtonHighlight@2x.png */; };
+		7D07F72E175691CC00CDE21C /* backButton.png in Resources */ = {isa = PBXBuildFile; fileRef = 7D07F72A175691CB00CDE21C /* backButton.png */; };
+		7D07F72F175691CC00CDE21C /* backButton@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 7D07F72B175691CC00CDE21C /* backButton@2x.png */; };
+		7D07F730175691CC00CDE21C /* backButtonHighlight.png in Resources */ = {isa = PBXBuildFile; fileRef = 7D07F72C175691CC00CDE21C /* backButtonHighlight.png */; };
+		7D07F731175691CC00CDE21C /* backButtonHighlight@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 7D07F72D175691CC00CDE21C /* backButtonHighlight@2x.png */; };
 		7D10BC761743FA0F00DA7059 /* audio.png in Resources */ = {isa = PBXBuildFile; fileRef = 7D10BC6A1743FA0F00DA7059 /* audio.png */; };
 		7D10BC771743FA0F00DA7059 /* audio@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 7D10BC6B1743FA0F00DA7059 /* audio@2x.png */; };
 		7D10BC781743FA0F00DA7059 /* backward.png in Resources */ = {isa = PBXBuildFile; fileRef = 7D10BC6C1743FA0F00DA7059 /* backward.png */; };
@@ -292,6 +296,10 @@
 		7D07F723175688D300CDE21C /* doneButton@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "doneButton@2x.png"; sourceTree = "<group>"; };
 		7D07F724175688D300CDE21C /* doneButtonHighlight.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = doneButtonHighlight.png; sourceTree = "<group>"; };
 		7D07F725175688D300CDE21C /* doneButtonHighlight@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "doneButtonHighlight@2x.png"; sourceTree = "<group>"; };
+		7D07F72A175691CB00CDE21C /* backButton.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = backButton.png; sourceTree = "<group>"; };
+		7D07F72B175691CC00CDE21C /* backButton@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "backButton@2x.png"; sourceTree = "<group>"; };
+		7D07F72C175691CC00CDE21C /* backButtonHighlight.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = backButtonHighlight.png; sourceTree = "<group>"; };
+		7D07F72D175691CC00CDE21C /* backButtonHighlight@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "backButtonHighlight@2x.png"; sourceTree = "<group>"; };
 		7D10BC6A1743FA0F00DA7059 /* audio.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = audio.png; sourceTree = "<group>"; };
 		7D10BC6B1743FA0F00DA7059 /* audio@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "audio@2x.png"; sourceTree = "<group>"; };
 		7D10BC6C1743FA0F00DA7059 /* backward.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = backward.png; sourceTree = "<group>"; };
@@ -666,6 +674,10 @@
 		7D10BC661743F9AC00DA7059 /* Library View */ = {
 			isa = PBXGroup;
 			children = (
+				7D07F72A175691CB00CDE21C /* backButton.png */,
+				7D07F72B175691CC00CDE21C /* backButton@2x.png */,
+				7D07F72C175691CC00CDE21C /* backButtonHighlight.png */,
+				7D07F72D175691CC00CDE21C /* backButtonHighlight@2x.png */,
 				7D07F722175688D300CDE21C /* doneButton.png */,
 				7D07F723175688D300CDE21C /* doneButton@2x.png */,
 				7D07F724175688D300CDE21C /* doneButtonHighlight.png */,
@@ -1287,6 +1299,10 @@
 				7D07F727175688D300CDE21C /* doneButton@2x.png in Resources */,
 				7D07F728175688D300CDE21C /* doneButtonHighlight.png in Resources */,
 				7D07F729175688D300CDE21C /* doneButtonHighlight@2x.png in Resources */,
+				7D07F72E175691CC00CDE21C /* backButton.png in Resources */,
+				7D07F72F175691CC00CDE21C /* backButton@2x.png in Resources */,
+				7D07F730175691CC00CDE21C /* backButtonHighlight.png in Resources */,
+				7D07F731175691CC00CDE21C /* backButtonHighlight@2x.png in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

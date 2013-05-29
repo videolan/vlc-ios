@@ -56,8 +56,8 @@
     self.navigationItem.rightBarButtonItem = addButton;
 
     _backButton = [[UIBarButtonItem alloc] initWithTitle:@"" style:UIBarButtonItemStyleBordered target:self action:@selector(folderUp:)];
-    [_backButton setBackgroundImage:[UIImage imageNamed:@"button"] forState:UIControlStateNormal barMetrics:UIBarMetricsDefault];
-    [_backButton setBackgroundImage:[UIImage imageNamed:@"buttonHighlight"] forState:UIControlStateHighlighted barMetrics:UIBarMetricsDefault];
+    [_backButton setBackgroundImage:[UIImage imageNamed:@"backButton"] forState:UIControlStateNormal barMetrics:UIBarMetricsDefault];
+    [_backButton setBackgroundImage:[UIImage imageNamed:@"backButtonHighlight"] forState:UIControlStateHighlighted barMetrics:UIBarMetricsDefault];
     self.navigationItem.leftBarButtonItem = _backButton;
 
     self.navigationItem.titleView = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"dropbox-white"]];
