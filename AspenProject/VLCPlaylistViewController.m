@@ -259,13 +259,13 @@
 
 - (IBAction)leftButtonAction:(id)sender
 {
-    if (self.addMediaViewController == nil)
-        self.addMediaViewController = [[VLCMenuViewController alloc] initWithNibName:@"VLCAddMediaViewController" bundle:nil];
+    if (self.menuViewController == nil)
+        self.menuViewController = [[VLCMenuViewController alloc] initWithNibName:@"VLCMenuViewController" bundle:nil];
 
     if (UI_USER_INTERFACE_IDIOM() == UIUserInterfaceIdiomPad) {
-		self.addMediaViewController.contentSizeForViewInPopover = self.addMediaViewController.view.frame.size;
+		self.menuViewController.contentSizeForViewInPopover = self.menuViewController.view.frame.size;
         if (self.addMediaPopoverController == nil) {
-            self.addMediaPopoverController = [[UIPopoverController alloc] initWithContentViewController:self.addMediaViewController];
+            self.addMediaPopoverController = [[UIPopoverController alloc] initWithContentViewController:self.menuViewController];
             self.addMediaPopoverController.delegate = self;
         }
 
@@ -276,7 +276,7 @@
                                                    permittedArrowDirections:UIPopoverArrowDirectionUp
                                                                    animated:YES];
     } else
-        [self.navigationController presentViewController:self.addMediaViewController animated:YES completion:NULL];
+        [self.navigationController presentViewController:self.menuViewController animated:YES completion:NULL];
 }
 
 /* deprecated in iOS 6 */
