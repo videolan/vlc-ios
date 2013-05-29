@@ -68,7 +68,6 @@
     _downloadingBarLabel = [[UIBarButtonItem alloc] initWithTitle:NSLocalizedString(@"DOWNLOADING",@"") style:UIBarButtonItemStylePlain target:nil action:nil];
     [_downloadingBarLabel setTitleTextAttributes:@{ UITextAttributeFont : [UIFont systemFontOfSize:11.] } forState:UIControlStateNormal];
 
-    self.navigationController.toolbar.barStyle = UIBarStyleBlack;
     [self _showProgressInToolbar:NO];
 
     _activityIndicator = [[UIActivityIndicatorView alloc] initWithActivityIndicatorStyle:UIActivityIndicatorViewStyleWhiteLarge];
@@ -86,6 +85,7 @@
 - (void)viewWillAppear:(BOOL)animated
 {
     self.navigationController.toolbarHidden = NO;
+    self.navigationController.toolbar.barStyle = UIBarStyleBlack;
     [self updateViewAfterSessionChange];
     [super viewWillAppear:animated];
 }
