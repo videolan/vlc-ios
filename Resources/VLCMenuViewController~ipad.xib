@@ -13,6 +13,7 @@
 		<array key="IBDocument.IntegratedClassDependencies">
 			<string>IBProxyObject</string>
 			<string>IBUIButton</string>
+			<string>IBUIImageView</string>
 			<string>IBUILabel</string>
 			<string>IBUISwitch</string>
 			<string>IBUITextField</string>
@@ -35,7 +36,7 @@
 				<string key="targetRuntimeIdentifier">IBCocoaTouchFramework</string>
 			</object>
 			<object class="IBUIView" id="892317093">
-				<nil key="NSNextResponder"/>
+				<reference key="NSNextResponder"/>
 				<int key="NSvFlags">292</int>
 				<array class="NSMutableArray" key="NSSubviews">
 					<object class="IBUIButton" id="233942944">
@@ -43,6 +44,7 @@
 						<int key="NSvFlags">292</int>
 						<string key="NSFrameSize">{320, 60}</string>
 						<reference key="NSSuperview" ref="892317093"/>
+						<reference key="NSWindow"/>
 						<reference key="NSNextKeyView" ref="306241553"/>
 						<string key="NSReuseIdentifierKey">_NS:9</string>
 						<object class="NSColor" key="IBUIBackgroundColor" id="937037271">
@@ -58,13 +60,14 @@
 							<int key="NSColorSpace">3</int>
 							<bytes key="NSWhite">MQA</bytes>
 						</object>
-						<object class="NSColor" key="IBUINormalTitleColor">
-							<int key="NSColorSpace">1</int>
-							<bytes key="NSRGB">MC4xOTYwNzg0MzQ2IDAuMzA5ODAzOTMyOSAwLjUyMTU2ODY1NgA</bytes>
-						</object>
+						<reference key="IBUINormalTitleColor" ref="937037271"/>
 						<object class="NSColor" key="IBUINormalTitleShadowColor" id="1025413593">
 							<int key="NSColorSpace">3</int>
 							<bytes key="NSWhite">MC41AA</bytes>
+						</object>
+						<object class="NSCustomResource" key="IBUINormalBackgroundImage" id="466401850">
+							<string key="NSClassName">NSImage</string>
+							<string key="NSResourceName">menuBtnBck.png</string>
 						</object>
 						<object class="IBUIFontDescription" key="IBUIFontDescription" id="886215057">
 							<int key="type">2</int>
@@ -81,6 +84,7 @@
 						<int key="NSvFlags">292</int>
 						<string key="NSFrame">{{0, 68}, {320, 60}}</string>
 						<reference key="NSSuperview" ref="892317093"/>
+						<reference key="NSWindow"/>
 						<string key="NSReuseIdentifierKey">_NS:9</string>
 						<reference key="IBUIBackgroundColor" ref="937037271"/>
 						<bool key="IBUIOpaque">NO</bool>
@@ -89,11 +93,9 @@
 						<int key="IBUIContentVerticalAlignment">0</int>
 						<string key="IBUINormalTitle">Download from HTTP Server</string>
 						<reference key="IBUIHighlightedTitleColor" ref="878206399"/>
-						<object class="NSColor" key="IBUINormalTitleColor">
-							<int key="NSColorSpace">1</int>
-							<bytes key="NSRGB">MC4xOTYwNzg0MzQ2IDAuMzA5ODAzOTMyOSAwLjUyMTU2ODY1NgA</bytes>
-						</object>
+						<reference key="IBUINormalTitleColor" ref="937037271"/>
 						<reference key="IBUINormalTitleShadowColor" ref="1025413593"/>
+						<reference key="IBUINormalBackgroundImage" ref="466401850"/>
 						<reference key="IBUIFontDescription" ref="886215057"/>
 						<reference key="IBUIFont" ref="327024238"/>
 					</object>
@@ -102,6 +104,7 @@
 						<int key="NSvFlags">292</int>
 						<string key="NSFrame">{{0, 275}, {320, 60}}</string>
 						<reference key="NSSuperview" ref="892317093"/>
+						<reference key="NSWindow"/>
 						<reference key="NSNextKeyView" ref="1021636329"/>
 						<string key="NSReuseIdentifierKey">_NS:9</string>
 						<reference key="IBUIBackgroundColor" ref="937037271"/>
@@ -111,11 +114,9 @@
 						<int key="IBUIContentVerticalAlignment">0</int>
 						<string key="IBUINormalTitle">Settings</string>
 						<reference key="IBUIHighlightedTitleColor" ref="878206399"/>
-						<object class="NSColor" key="IBUINormalTitleColor">
-							<int key="NSColorSpace">1</int>
-							<bytes key="NSRGB">MC4xOTYwNzg0MzQ2IDAuMzA5ODAzOTMyOSAwLjUyMTU2ODY1NgA</bytes>
-						</object>
+						<reference key="IBUINormalTitleColor" ref="937037271"/>
 						<reference key="IBUINormalTitleShadowColor" ref="1025413593"/>
+						<reference key="IBUINormalBackgroundImage" ref="466401850"/>
 						<reference key="IBUIFontDescription" ref="886215057"/>
 						<reference key="IBUIFont" ref="327024238"/>
 					</object>
@@ -124,6 +125,7 @@
 						<int key="NSvFlags">292</int>
 						<string key="NSFrame">{{0, 343}, {320, 60}}</string>
 						<reference key="NSSuperview" ref="892317093"/>
+						<reference key="NSWindow"/>
 						<string key="NSReuseIdentifierKey">_NS:9</string>
 						<reference key="IBUIBackgroundColor" ref="937037271"/>
 						<bool key="IBUIOpaque">NO</bool>
@@ -132,11 +134,9 @@
 						<int key="IBUIContentVerticalAlignment">0</int>
 						<string key="IBUINormalTitle">About VLC for iOS</string>
 						<reference key="IBUIHighlightedTitleColor" ref="878206399"/>
-						<object class="NSColor" key="IBUINormalTitleColor">
-							<int key="NSColorSpace">1</int>
-							<bytes key="NSRGB">MC4xOTYwNzg0MzQ2IDAuMzA5ODAzOTMyOSAwLjUyMTU2ODY1NgA</bytes>
-						</object>
+						<reference key="IBUINormalTitleColor" ref="937037271"/>
 						<reference key="IBUINormalTitleShadowColor" ref="1025413593"/>
+						<reference key="IBUINormalBackgroundImage" ref="466401850"/>
 						<reference key="IBUIFontDescription" ref="886215057"/>
 						<reference key="IBUIFont" ref="327024238"/>
 					</object>
@@ -145,6 +145,7 @@
 						<int key="NSvFlags">-2147483348</int>
 						<string key="NSFrame">{{10, 78}, {40, 40}}</string>
 						<reference key="NSSuperview" ref="892317093"/>
+						<reference key="NSWindow"/>
 						<string key="NSReuseIdentifierKey">_NS:9</string>
 						<object class="NSColor" key="IBUIBackgroundColor">
 							<int key="NSColorSpace">3</int>
@@ -157,6 +158,7 @@
 						<int key="NSvFlags">292</int>
 						<string key="NSFrame">{{0, 207}, {320, 60}}</string>
 						<reference key="NSSuperview" ref="892317093"/>
+						<reference key="NSWindow"/>
 						<string key="NSReuseIdentifierKey">_NS:9</string>
 						<reference key="IBUIBackgroundColor" ref="937037271"/>
 						<bool key="IBUIOpaque">NO</bool>
@@ -164,15 +166,13 @@
 						<int key="IBUIContentHorizontalAlignment">0</int>
 						<int key="IBUIContentVerticalAlignment">0</int>
 						<reference key="IBUIHighlightedTitleColor" ref="878206399"/>
-						<object class="NSColor" key="IBUINormalTitleColor">
-							<int key="NSColorSpace">1</int>
-							<bytes key="NSRGB">MC4xOTYwNzg0MzQ2IDAuMzA5ODAzOTMyOSAwLjUyMTU2ODY1NgA</bytes>
-						</object>
+						<reference key="IBUINormalTitleColor" ref="937037271"/>
 						<reference key="IBUINormalTitleShadowColor" ref="1025413593"/>
 						<object class="NSCustomResource" key="IBUINormalImage">
 							<string key="NSClassName">NSImage</string>
-							<string key="NSResourceName">dropbox-black.png</string>
+							<string key="NSResourceName">dropboxLabel.png</string>
 						</object>
+						<reference key="IBUINormalBackgroundImage" ref="466401850"/>
 						<reference key="IBUIFontDescription" ref="886215057"/>
 						<reference key="IBUIFont" ref="327024238"/>
 					</object>
@@ -180,11 +180,23 @@
 						<reference key="NSNextResponder" ref="892317093"/>
 						<int key="NSvFlags">292</int>
 						<array class="NSMutableArray" key="NSSubviews">
+							<object class="IBUIImageView" id="907093611">
+								<reference key="NSNextResponder" ref="136452396"/>
+								<int key="NSvFlags">292</int>
+								<string key="NSFrameSize">{320, 63}</string>
+								<reference key="NSSuperview" ref="136452396"/>
+								<reference key="NSWindow"/>
+								<string key="NSReuseIdentifierKey">_NS:9</string>
+								<bool key="IBUIUserInteractionEnabled">NO</bool>
+								<string key="targetRuntimeIdentifier">IBCocoaTouchFramework</string>
+								<reference key="IBUIImage" ref="466401850"/>
+							</object>
 							<object class="IBUISwitch" id="854423543">
 								<reference key="NSNextResponder" ref="136452396"/>
 								<int key="NSvFlags">292</int>
 								<string key="NSFrame">{{208, 5}, {94, 27}}</string>
 								<reference key="NSSuperview" ref="136452396"/>
+								<reference key="NSWindow"/>
 								<reference key="NSNextKeyView" ref="800651050"/>
 								<string key="NSReuseIdentifierKey">_NS:9</string>
 								<bool key="IBUIOpaque">NO</bool>
@@ -197,6 +209,7 @@
 								<int key="NSvFlags">292</int>
 								<string key="NSFrame">{{20, 8}, {195, 21}}</string>
 								<reference key="NSSuperview" ref="136452396"/>
+								<reference key="NSWindow"/>
 								<reference key="NSNextKeyView" ref="854423543"/>
 								<string key="NSReuseIdentifierKey">_NS:9</string>
 								<bool key="IBUIOpaque">NO</bool>
@@ -205,10 +218,7 @@
 								<bool key="IBUIUserInteractionEnabled">NO</bool>
 								<string key="targetRuntimeIdentifier">IBCocoaTouchFramework</string>
 								<string key="IBUIText">HTTP Upload</string>
-								<object class="NSColor" key="IBUITextColor">
-									<int key="NSColorSpace">1</int>
-									<bytes key="NSRGB">MC4xOTYwNzg0MzQ2IDAuMzA5ODAzOTMyOSAwLjUyMTU2ODY1NgA</bytes>
-								</object>
+								<reference key="IBUITextColor" ref="937037271"/>
 								<nil key="IBUIHighlightedColor"/>
 								<int key="IBUIBaselineAdjustment">0</int>
 								<int key="IBUITextAlignment">1</int>
@@ -221,6 +231,7 @@
 								<int key="NSvFlags">292</int>
 								<string key="NSFrame">{{20, 37}, {280, 21}}</string>
 								<reference key="NSSuperview" ref="136452396"/>
+								<reference key="NSWindow"/>
 								<reference key="NSNextKeyView" ref="502729697"/>
 								<string key="NSReuseIdentifierKey">_NS:9</string>
 								<bool key="IBUIOpaque">NO</bool>
@@ -229,10 +240,7 @@
 								<bool key="IBUIUserInteractionEnabled">NO</bool>
 								<string key="targetRuntimeIdentifier">IBCocoaTouchFramework</string>
 								<string key="IBUIText">Inactive Server</string>
-								<object class="NSColor" key="IBUITextColor">
-									<int key="NSColorSpace">1</int>
-									<bytes key="NSRGB">MC4xOTYwNzg0MzQ2IDAuMzA5ODAzOTMyOSAwLjUyMTU2ODY1NgA</bytes>
-								</object>
+								<reference key="IBUITextColor" ref="937037271"/>
 								<nil key="IBUIHighlightedColor"/>
 								<int key="IBUIBaselineAdjustment">0</int>
 								<int key="IBUITextAlignment">1</int>
@@ -250,6 +258,7 @@
 						</array>
 						<string key="NSFrame">{{0, 136}, {320, 63}}</string>
 						<reference key="NSSuperview" ref="892317093"/>
+						<reference key="NSWindow"/>
 						<reference key="NSNextKeyView" ref="342130383"/>
 						<string key="NSReuseIdentifierKey">_NS:9</string>
 						<reference key="IBUIBackgroundColor" ref="937037271"/>
@@ -257,6 +266,8 @@
 					</object>
 				</array>
 				<string key="NSFrameSize">{320, 403}</string>
+				<reference key="NSSuperview"/>
+				<reference key="NSWindow"/>
 				<reference key="NSNextKeyView" ref="233942944"/>
 				<string key="NSReuseIdentifierKey">_NS:9</string>
 				<object class="NSColor" key="IBUIBackgroundColor">
@@ -593,6 +604,7 @@
 							<reference ref="800651050"/>
 							<reference ref="342130383"/>
 							<reference ref="854423543"/>
+							<reference ref="907093611"/>
 						</array>
 						<reference key="parent" ref="892317093"/>
 					</object>
@@ -609,6 +621,11 @@
 					<object class="IBObjectRecord">
 						<int key="objectID">70</int>
 						<reference key="object" ref="854423543"/>
+						<reference key="parent" ref="136452396"/>
+					</object>
+					<object class="IBObjectRecord">
+						<int key="objectID">77</int>
+						<reference key="object" ref="907093611"/>
 						<reference key="parent" ref="136452396"/>
 					</object>
 				</array>
@@ -633,12 +650,13 @@
 				<string key="68.IBPluginDependency">com.apple.InterfaceBuilder.IBCocoaTouchPlugin</string>
 				<string key="69.IBPluginDependency">com.apple.InterfaceBuilder.IBCocoaTouchPlugin</string>
 				<string key="70.IBPluginDependency">com.apple.InterfaceBuilder.IBCocoaTouchPlugin</string>
+				<string key="77.IBPluginDependency">com.apple.InterfaceBuilder.IBCocoaTouchPlugin</string>
 			</dictionary>
 			<dictionary class="NSMutableDictionary" key="unlocalizedProperties"/>
 			<nil key="activeLocalization"/>
 			<dictionary class="NSMutableDictionary" key="localizations"/>
 			<nil key="sourceID"/>
-			<int key="maxID">76</int>
+			<int key="maxID">77</int>
 		</object>
 		<object class="IBClassDescriber" key="IBDocument.Classes">
 			<array class="NSMutableArray" key="referencedPartialClassDescriptions">
@@ -648,6 +666,122 @@
 					<object class="IBClassDescriptionSource" key="sourceIdentifier">
 						<string key="majorKey">IBProjectSource</string>
 						<string key="minorKey">./Classes/VLCCircularProgressIndicator.h</string>
+					</object>
+				</object>
+				<object class="IBPartialClassDescription">
+					<string key="className">VLCMenuViewController</string>
+					<string key="superclassName">UIViewController</string>
+					<dictionary class="NSMutableDictionary" key="actions">
+						<string key="dismiss:">id</string>
+						<string key="downloadFromHTTPServer:">id</string>
+						<string key="openAboutPanel:">id</string>
+						<string key="openNetworkStream:">id</string>
+						<string key="showDropbox:">id</string>
+						<string key="showSettings:">id</string>
+						<string key="toggleHTTPServer:">id</string>
+					</dictionary>
+					<dictionary class="NSMutableDictionary" key="actionInfosByName">
+						<object class="IBActionInfo" key="dismiss:">
+							<string key="name">dismiss:</string>
+							<string key="candidateClassName">id</string>
+						</object>
+						<object class="IBActionInfo" key="downloadFromHTTPServer:">
+							<string key="name">downloadFromHTTPServer:</string>
+							<string key="candidateClassName">id</string>
+						</object>
+						<object class="IBActionInfo" key="openAboutPanel:">
+							<string key="name">openAboutPanel:</string>
+							<string key="candidateClassName">id</string>
+						</object>
+						<object class="IBActionInfo" key="openNetworkStream:">
+							<string key="name">openNetworkStream:</string>
+							<string key="candidateClassName">id</string>
+						</object>
+						<object class="IBActionInfo" key="showDropbox:">
+							<string key="name">showDropbox:</string>
+							<string key="candidateClassName">id</string>
+						</object>
+						<object class="IBActionInfo" key="showSettings:">
+							<string key="name">showSettings:</string>
+							<string key="candidateClassName">id</string>
+						</object>
+						<object class="IBActionInfo" key="toggleHTTPServer:">
+							<string key="name">toggleHTTPServer:</string>
+							<string key="candidateClassName">id</string>
+						</object>
+					</dictionary>
+					<dictionary class="NSMutableDictionary" key="outlets">
+						<string key="aboutButton">UIButton</string>
+						<string key="dismissButton">UIButton</string>
+						<string key="downloadFromHTTPServerButton">UIButton</string>
+						<string key="dropboxButton">UIButton</string>
+						<string key="httpDownloadProgressIndicator">VLCCircularProgressIndicator</string>
+						<string key="httpUploadLabel">UILabel</string>
+						<string key="httpUploadServerLocationLabel">UILabel</string>
+						<string key="httpUploadServerSwitch">UISwitch</string>
+						<string key="openNetworkStreamButton">UIButton</string>
+						<string key="openURLButton">UIButton</string>
+						<string key="openURLField">UITextField</string>
+						<string key="openURLView">UIView</string>
+						<string key="settingsButton">UIButton</string>
+					</dictionary>
+					<dictionary class="NSMutableDictionary" key="toOneOutletInfosByName">
+						<object class="IBToOneOutletInfo" key="aboutButton">
+							<string key="name">aboutButton</string>
+							<string key="candidateClassName">UIButton</string>
+						</object>
+						<object class="IBToOneOutletInfo" key="dismissButton">
+							<string key="name">dismissButton</string>
+							<string key="candidateClassName">UIButton</string>
+						</object>
+						<object class="IBToOneOutletInfo" key="downloadFromHTTPServerButton">
+							<string key="name">downloadFromHTTPServerButton</string>
+							<string key="candidateClassName">UIButton</string>
+						</object>
+						<object class="IBToOneOutletInfo" key="dropboxButton">
+							<string key="name">dropboxButton</string>
+							<string key="candidateClassName">UIButton</string>
+						</object>
+						<object class="IBToOneOutletInfo" key="httpDownloadProgressIndicator">
+							<string key="name">httpDownloadProgressIndicator</string>
+							<string key="candidateClassName">VLCCircularProgressIndicator</string>
+						</object>
+						<object class="IBToOneOutletInfo" key="httpUploadLabel">
+							<string key="name">httpUploadLabel</string>
+							<string key="candidateClassName">UILabel</string>
+						</object>
+						<object class="IBToOneOutletInfo" key="httpUploadServerLocationLabel">
+							<string key="name">httpUploadServerLocationLabel</string>
+							<string key="candidateClassName">UILabel</string>
+						</object>
+						<object class="IBToOneOutletInfo" key="httpUploadServerSwitch">
+							<string key="name">httpUploadServerSwitch</string>
+							<string key="candidateClassName">UISwitch</string>
+						</object>
+						<object class="IBToOneOutletInfo" key="openNetworkStreamButton">
+							<string key="name">openNetworkStreamButton</string>
+							<string key="candidateClassName">UIButton</string>
+						</object>
+						<object class="IBToOneOutletInfo" key="openURLButton">
+							<string key="name">openURLButton</string>
+							<string key="candidateClassName">UIButton</string>
+						</object>
+						<object class="IBToOneOutletInfo" key="openURLField">
+							<string key="name">openURLField</string>
+							<string key="candidateClassName">UITextField</string>
+						</object>
+						<object class="IBToOneOutletInfo" key="openURLView">
+							<string key="name">openURLView</string>
+							<string key="candidateClassName">UIView</string>
+						</object>
+						<object class="IBToOneOutletInfo" key="settingsButton">
+							<string key="name">settingsButton</string>
+							<string key="candidateClassName">UIButton</string>
+						</object>
+					</dictionary>
+					<object class="IBClassDescriptionSource" key="sourceIdentifier">
+						<string key="majorKey">IBProjectSource</string>
+						<string key="minorKey">./Classes/VLCMenuViewController.h</string>
 					</object>
 				</object>
 			</array>
@@ -660,10 +794,10 @@
 		</object>
 		<bool key="IBDocument.PluginDeclaredDependenciesTrackSystemTargetVersion">YES</bool>
 		<int key="IBDocument.defaultPropertyAccessControl">3</int>
-		<object class="NSMutableDictionary" key="IBDocument.LastKnownImageSizes">
-			<string key="NS.key.0">dropbox-black.png</string>
-			<string key="NS.object.0">{179, 60}</string>
-		</object>
+		<dictionary class="NSMutableDictionary" key="IBDocument.LastKnownImageSizes">
+			<string key="dropboxLabel.png">{159, 43}</string>
+			<string key="menuBtnBck.png">{320, 60}</string>
+		</dictionary>
 		<string key="IBCocoaTouchPluginVersion">2083</string>
 	</data>
 </archive>
