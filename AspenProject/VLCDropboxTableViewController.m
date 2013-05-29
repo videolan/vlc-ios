@@ -59,6 +59,7 @@
     self.navigationItem.leftBarButtonItem = _backButton;
 
     self.navigationItem.titleView = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"dropbox-white"]];
+    self.navigationItem.titleView.contentMode = UIViewContentModeScaleAspectFit;
 
     self.tableView.rowHeight = [VLCDropboxTableViewCell heightOfCell];
     self.tableView.separatorColor = [UIColor colorWithWhite:.2 alpha:1.];
