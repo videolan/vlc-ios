@@ -44,8 +44,15 @@
 
 - (void)_updatedDisplayedInformation
 {
-    self.titleLabel.text = self.fileMetadata.filename;
-    self.subtitleLabel.text = (self.fileMetadata.totalBytes > 0) ? self.fileMetadata.humanReadableSize : @"";
+    if (self.fileMetadata.isDirectory) {
+        self.folderTitleLabel.text = self.fileMetadata.filename;
+        self.titleLabel.text = @"";
+        self.subtitleLabel.text = @"";
+    } else {
+        self.titleLabel.text = self.fileMetadata.filename;
+        self.subtitleLabel.text = (self.fileMetadata.totalBytes > 0) ? self.fileMetadata.humanReadableSize : @"";
+        self.folderTitleLabel.text = @"";
+    }
 
     self.thumbnailView.image = [UIImage imageNamed:self.fileMetadata.icon];
     if (!self.thumbnailView.image)

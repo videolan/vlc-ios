@@ -11,6 +11,7 @@
 @interface VLCDropboxTableViewCell : UITableViewCell
 
 @property (nonatomic, strong) IBOutlet UILabel *titleLabel;
+@property (nonatomic, strong) IBOutlet UILabel *folderTitleLabel;
 @property (nonatomic, strong) IBOutlet UILabel *subtitleLabel;
 @property (nonatomic, strong) IBOutlet UIImageView *thumbnailView;
 
