@@ -18,7 +18,6 @@
 @property (strong, nonatomic) VLCSettingsController *settingsController;
 
 @property (strong, nonatomic) IBOutlet UIToolbar *dismissToolBar;
-@property (strong, nonatomic) IBOutlet UIButton *dismissButton;
 @property (strong, nonatomic) IBOutlet UIButton *aboutButton;
 @property (strong, nonatomic) IBOutlet UIButton *openNetworkStreamButton;
 @property (strong, nonatomic) IBOutlet VLCCircularProgressIndicator *httpDownloadProgressIndicator;

@@ -49,7 +49,15 @@
     [super viewDidLoad];
 
     if (UI_USER_INTERFACE_IDIOM() == UIUserInterfaceIdiomPhone) {
-        [self.dismissButton setTitle:NSLocalizedString(@"BUTTON_DONE", @"") forState:UIControlStateNormal];
+        UIBarButtonItem *dismissButton = [[UIBarButtonItem alloc] initWithTitle:NSLocalizedString(@"BUTTON_DONE", @"")
+                                                                          style:UIBarButtonItemStyleBordered
+                                                                         target:self
+                                                                         action:@selector(dismiss:)];
+        [dismissButton setBackgroundImage:[UIImage imageNamed:@"doneButton"] forState:UIControlStateNormal barMetrics:UIBarMetricsDefault];
+        [dismissButton setBackgroundImage:[UIImage imageNamed:@"doneButtonHighlight"] forState:UIControlStateHighlighted barMetrics:UIBarMetricsDefault];
+
+        self.dismissToolBar.items = @[[[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemFlexibleSpace target:nil action:nil], dismissButton];
+
         [self.dismissToolBar setBackgroundImage:[UIImage imageNamed:@"navBarBackground"] forToolbarPosition:UIToolbarPositionAny barMetrics:UIBarMetricsDefault];
     }
     [self.aboutButton setTitle:NSLocalizedString(@"ABOUT_APP", @"") forState:UIControlStateNormal];
@@ -196,6 +204,10 @@
     navController.navigationBar.barStyle = UIBarStyleBlack;
     [navController.navigationBar setBackgroundImage:[UIImage imageNamed:@"navBarBackground"] forBarMetrics:UIBarMetricsDefault];
     [self presentModalViewController:navController animated:YES];
+
+    [self.settingsViewController.navigationItem.rightBarButtonItem setBackgroundImage:[UIImage imageNamed:@"doneButton"] forState:UIControlStateNormal barMetrics:UIBarMetricsDefault];
+    [self.settingsViewController.navigationItem.rightBarButtonItem setBackgroundImage:[UIImage imageNamed:@"doneButtonHighlight"] forState:UIControlStateHighlighted barMetrics:UIBarMetricsDefault];
+    self.settingsViewController.navigationItem.rightBarButtonItem.style = UIBarButtonItemStylePlain;
 }
 
 - (NSString *)_currentIPAddress

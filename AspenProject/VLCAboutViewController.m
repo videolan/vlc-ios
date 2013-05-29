@@ -31,8 +31,10 @@
     self.vlckitVersion.text = [NSString stringWithFormat:NSLocalizedString(@"BASED_ON_FORMAT",@""),[[VLCLibrary sharedLibrary] version]];
 
     _dismissButton = [[UIBarButtonItem alloc] initWithTitle:NSLocalizedString(@"BUTTON_DONE", @"")
-                                                      style:UIBarButtonItemStyleDone
+                                                      style:UIBarButtonItemStyleBordered
                                                      target:self action:@selector(dismiss)];
+    [_dismissButton setBackgroundImage:[UIImage imageNamed:@"doneButton"] forState:UIControlStateNormal barMetrics:UIBarMetricsDefault];
+    [_dismissButton setBackgroundImage:[UIImage imageNamed:@"doneButtonHighlight"] forState:UIControlStateHighlighted barMetrics:UIBarMetricsDefault];
     self.navigationItem.rightBarButtonItem = _dismissButton;
 }
 

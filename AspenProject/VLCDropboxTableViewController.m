@@ -50,7 +50,9 @@
     [DBSession setSharedSession:dbSession];
     [DBRequest setNetworkRequestDelegate:_dropboxController];
 
-    UIBarButtonItem *addButton = [[UIBarButtonItem alloc] initWithTitle:NSLocalizedString(@"BUTTON_DONE", @"") style:UIBarButtonItemStyleDone target:self action:@selector(dismiss:)];
+    UIBarButtonItem *addButton = [[UIBarButtonItem alloc] initWithTitle:NSLocalizedString(@"BUTTON_DONE", @"") style:UIBarButtonItemStyleBordered target:self action:@selector(dismiss:)];
+    [addButton setBackgroundImage:[UIImage imageNamed:@"doneButton"] forState:UIControlStateNormal barMetrics:UIBarMetricsDefault];
+    [addButton setBackgroundImage:[UIImage imageNamed:@"doneButtonHighlight"] forState:UIControlStateHighlighted barMetrics:UIBarMetricsDefault];
     self.navigationItem.rightBarButtonItem = addButton;
 
     _backButton = [[UIBarButtonItem alloc] initWithTitle:@"" style:UIBarButtonItemStyleBordered target:self action:@selector(folderUp:)];
