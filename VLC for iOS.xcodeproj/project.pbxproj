@@ -411,6 +411,7 @@
 		7DBC3B421711FC6C00DCF688 /* VLCAboutViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = VLCAboutViewController.m; sourceTree = "<group>"; };
 		7DBC3B431711FC6C00DCF688 /* VLCAboutViewController~iphone.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; name = "VLCAboutViewController~iphone.xib"; path = "../Resources/VLCAboutViewController~iphone.xib"; sourceTree = "<group>"; };
 		7DBC3B48171204EC00DCF688 /* About Contents.txt */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = "About Contents.txt"; sourceTree = "<group>"; };
+		7DBDAE96175652840027BA52 /* VLCDropboxConstants.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = VLCDropboxConstants.h; sourceTree = "<group>"; };
 		7DC87AEC17412A1F009DC250 /* VLCLinearProgressIndicator.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = VLCLinearProgressIndicator.h; sourceTree = "<group>"; };
 		7DC87AED17412A1F009DC250 /* VLCLinearProgressIndicator.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = VLCLinearProgressIndicator.m; sourceTree = "<group>"; };
 		7DC87AEF17413634009DC250 /* de */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = de; path = de.lproj/Localizable.strings; sourceTree = "<group>"; };
@@ -725,6 +726,7 @@
 		7D5E39CC174FCDBE007DAFA1 /* Dropbox Integration */ = {
 			isa = PBXGroup;
 			children = (
+				7DBDAE96175652840027BA52 /* VLCDropboxConstants.h */,
 				7D07A4EB174EB81200759D10 /* VLCDropboxController.h */,
 				7D07A4EC174EB81200759D10 /* VLCDropboxController.m */,
 				7D5E39C3174FBAF3007DAFA1 /* VLCDropboxTableViewController.h */,

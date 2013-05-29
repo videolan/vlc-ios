@@ -11,6 +11,7 @@
 #import "VLCDropboxController.h"
 #import "VLCAppDelegate.h"
 #import "VLCPlaylistViewController.h"
+#import "VLCDropboxConstants.h"
 #import <DropboxSDK/DropboxSDK.h>
 
 @interface VLCDropboxTableViewController ()
@@ -44,8 +45,7 @@
     _dropboxController = [[VLCDropboxController alloc] init];
     _dropboxController.delegate = self;
 
-#warning Dropbox app secret missing, login will fail
-    DBSession* dbSession = [[DBSession alloc] initWithAppKey:@"a60fc6qj9zdg7bw" appSecret:@"" root:kDBRootDropbox];
+    DBSession* dbSession = [[DBSession alloc] initWithAppKey:kVLCDropboxAppKey appSecret:kVLCDropboxPrivateKey root:kDBRootDropbox];
     [DBSession setSharedSession:dbSession];
     [DBRequest setNetworkRequestDelegate:_dropboxController];
 
