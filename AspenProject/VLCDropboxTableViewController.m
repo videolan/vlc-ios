@@ -23,6 +23,7 @@
     UIBarButtonItem *_progressBarButtonItem;
     UIBarButtonItem *_downloadingBarLabel;
     UIProgressView *_progressView;
+    UIBarButtonItem *_backButton;
 
     UIActivityIndicatorView *_activityIndicator;
 }
@@ -52,8 +53,10 @@
     UIBarButtonItem *addButton = [[UIBarButtonItem alloc] initWithTitle:NSLocalizedString(@"BUTTON_DONE", @"") style:UIBarButtonItemStyleDone target:self action:@selector(dismiss:)];
     self.navigationItem.rightBarButtonItem = addButton;
 
-    UIBarButtonItem *backButton = [[UIBarButtonItem alloc] initWithTitle:@".." style:UIBarButtonItemStyleBordered target:self action:@selector(folderUp:)];
-    self.navigationItem.leftBarButtonItem = backButton;
+    _backButton = [[UIBarButtonItem alloc] initWithTitle:@"" style:UIBarButtonItemStyleBordered target:self action:@selector(folderUp:)];
+    [_backButton setBackgroundImage:[UIImage imageNamed:@"button"] forState:UIControlStateNormal barMetrics:UIBarMetricsDefault];
+    [_backButton setBackgroundImage:[UIImage imageNamed:@"buttonHighlight"] forState:UIControlStateHighlighted barMetrics:UIBarMetricsDefault];
+    self.navigationItem.leftBarButtonItem = _backButton;
 
     self.navigationItem.titleView = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"dropbox-white"]];
 
@@ -180,6 +183,14 @@
         _numberOfFilesBarButtonItem.title = [NSString stringWithFormat:NSLocalizedString(@"NUM_OF_FILES", @""), count];
     else
         _numberOfFilesBarButtonItem.title = NSLocalizedString(@"ONE_FILE", @"");
+
+    NSString *backButtonTitle = _currentPath.lastPathComponent;
+    if ([backButtonTitle isEqualToString:@"/"]) {
+        backButtonTitle = @"";
+        _backButton.enabled = NO;
+    } else
+        _backButton.enabled = YES;
+    _backButton.title = backButtonTitle;
 }
 
 - (void)operationWithProgressInformationStarted
