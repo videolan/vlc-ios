@@ -160,8 +160,9 @@
 {
     DBMetadata *selectedFile = _dropboxController.currentListFiles[indexPath.row];
     if (!selectedFile.isDirectory) {
-        /* selected item is a proper file, download it */
-        [_dropboxController downloadFileToDocumentFolder:selectedFile];
+        /* selected item is a proper file, ask the user if s/he wants to download it */
+        UIAlertView * alert = [[UIAlertView alloc] initWithTitle:NSLocalizedString(@"DROPBOX_DOWNLOAD", @"") message:[NSString stringWithFormat:NSLocalizedString(@"DROPBOX_DL_LONG", @""), selectedFile.filename, [[UIDevice currentDevice] model]] delegate:self cancelButtonTitle:NSLocalizedString(@"BUTTON_CANCEL", @"") otherButtonTitles:NSLocalizedString(@"BUTTON_DOWNLOAD", @""), nil];
+        [alert show];
     } else {
         /* dive into subdirectory */
         _currentPath = [_currentPath stringByAppendingFormat:@"/%@", selectedFile.filename];
@@ -169,6 +170,14 @@
     }
 
     [self.tableView deselectRowAtIndexPath:indexPath animated:NO];
+}
+
+- (void)alertView:(UIAlertView *)alertView clickedButtonAtIndex:(NSInteger)buttonIndex
+{
+    if (buttonIndex == 1) {
+        DBMetadata *selectedFile = _dropboxController.currentListFiles[self.tableView.indexPathForSelectedRow.row];
+        [_dropboxController downloadFileToDocumentFolder:selectedFile];
+    }
 }
 
 #pragma mark - dropbox controller delegate
