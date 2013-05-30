@@ -1,0 +1,71 @@
+From 0b816ffc8447a88cac3dd99e7a576637f96692a9 Mon Sep 17 00:00:00 2001
+From: Gleb Pinigin <gpinigin@gmail.com>
+Date: Mon, 25 Mar 2013 11:09:33 +0700
+Subject: [PATCH 4/4] MINOR implement network timeout(default 60s)
+
+---
+ src/network/io.c | 19 +++++++++++++++++--
+ 1 file changed, 17 insertions(+), 2 deletions(-)
+
+diff --git a/src/network/io.c b/src/network/io.c
+index 7cc9764..16ea48c 100644
+--- a/src/network/io.c
++++ b/src/network/io.c
+@@ -33,6 +33,7 @@
+ #endif
+ 
+ #include <vlc_common.h>
++#include <vlc_access.h>
+ 
+ #include <stdlib.h>
+ #include <stdio.h>
+@@ -69,6 +70,9 @@
+ # define SOL_DCCP 269
+ #endif
+ 
++#define MAX_TIMEOUT 60000
++#define POLL_TIMEOUT 10000
++
+ #include "libvlc.h" /* vlc_object_waitpipe */
+ 
+ extern int rootwrap_bind (int family, int socktype, int protocol,
+@@ -265,15 +269,19 @@ net_Read (vlc_object_t *restrict p_this, int fd, const v_socket_t *vs,
+     if (ufd[1].fd == -1)
+         return -1; /* vlc_object_waitpipe() sets errno */
+ 
++    int i_timepassed = 0;
++
+     while (i_buflen > 0)
+     {
+-        if (poll (ufd, sizeof (ufd) / sizeof (ufd[0]), -1) < 0)
++        if (poll (ufd, sizeof (ufd) / sizeof (ufd[0]), POLL_TIMEOUT) < 0)
+         {
+             if (errno != EINTR)
+                 goto error;
+             continue;
+         }
+ 
++        i_timepassed += POLL_TIMEOUT;
++
+         if (i_total > 0)
+         {
+             /* Errors (-1) and EOF (0) will be returned on next call,
+@@ -357,7 +365,14 @@ net_Read (vlc_object_t *restrict p_this, int fd, const v_socket_t *vs,
+                 case EWOULDBLOCK:
+ #endif
+                 case EINTR:  /* asynchronous signal */
+-                    continue;
++                    if (i_timepassed >= MAX_TIMEOUT && i_total == 0)
++                    {
++                        access_t *p_access = (access_t *)p_this;
++                        p_access->info.b_eof = true;
++                        goto error;
++                    }
++                    else
++                        continue;
+             }
+ #endif
+             goto error;
+-- 
+1.7.12.4 (Apple Git-37)
+
