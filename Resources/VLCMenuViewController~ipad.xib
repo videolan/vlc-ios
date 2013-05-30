@@ -748,6 +748,7 @@
 						<string key="openURLButton">UIButton</string>
 						<string key="openURLField">UITextField</string>
 						<string key="openURLView">UIView</string>
+						<string key="scrollView">UIScrollView</string>
 						<string key="settingsButton">UIButton</string>
 					</dictionary>
 					<dictionary class="NSMutableDictionary" key="toOneOutletInfosByName">
@@ -798,6 +799,10 @@
 						<object class="IBToOneOutletInfo" key="openURLView">
 							<string key="name">openURLView</string>
 							<string key="candidateClassName">UIView</string>
+						</object>
+						<object class="IBToOneOutletInfo" key="scrollView">
+							<string key="name">scrollView</string>
+							<string key="candidateClassName">UIScrollView</string>
 						</object>
 						<object class="IBToOneOutletInfo" key="settingsButton">
 							<string key="name">settingsButton</string>

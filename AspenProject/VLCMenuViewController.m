@@ -59,6 +59,8 @@
         self.dismissToolBar.items = @[[[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemFlexibleSpace target:nil action:nil], dismissButton];
 
         [self.dismissToolBar setBackgroundImage:[UIImage imageNamed:@"navBarBackground"] forToolbarPosition:UIToolbarPositionAny barMetrics:UIBarMetricsDefault];
+
+        self.scrollView.contentSize = self.view.frame.size;
     }
     [self.aboutButton setTitle:NSLocalizedString(@"ABOUT_APP", @"") forState:UIControlStateNormal];
     [self.openNetworkStreamButton setTitle:NSLocalizedString(@"OPEN_NETWORK", @"") forState:UIControlStateNormal];

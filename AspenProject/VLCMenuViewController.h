@@ -17,6 +17,7 @@
 @property (strong, nonatomic) IASKAppSettingsViewController *settingsViewController;
 @property (strong, nonatomic) VLCSettingsController *settingsController;
 
+@property (strong, nonatomic) IBOutlet UIScrollView *scrollView;
 @property (strong, nonatomic) IBOutlet UIToolbar *dismissToolBar;
 @property (strong, nonatomic) IBOutlet UIButton *aboutButton;
 @property (strong, nonatomic) IBOutlet UIButton *openNetworkStreamButton;
