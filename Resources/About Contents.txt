@@ -1,4 +1,4 @@
-Aspen makes use of the following libraries and frameworks:
+VLC for iOS makes use of the following libraries, fonts and frameworks:
 
 	MobileVLCKit
 Copyright © 2007-2013 Pierre d’Herbemont, Felix Paul Kühne, Faustino E. Osuna, et al. - LGPLv2.1 or later
@@ -26,6 +26,9 @@ Copyright © 2011 Ole Begemann and contributors - MIT License
 
 	PAPasscodeViewController
 Copyright © 2012, Denis Hennessy (Peer Assembly) - 3-clause BSD License
+
+	Source Sans Pro and Source Code Pro
+Copyright 2010, 2012 Adobe Systems Incorporated, with Reserved Font Name 'Source'. All Rights Reserved. Source is a trademark of Adobe Systems Incorporated in the United States and/or other countries. - SIL Open Font License, Version 1.1.
 
 	libass
 Copyright © 2006 - 2013 Grigori Goronzy and contributors - ISC License
