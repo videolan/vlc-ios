@@ -1,0 +1,34 @@
+From dde84f7d01777cbf82e9f7bcb15960f206ec5a33 Mon Sep 17 00:00:00 2001
+From: =?UTF-8?q?Felix=20Paul=20K=C3=BChne?= <fkuehne@videolan.org>
+Date: Fri, 31 May 2013 10:54:44 +0200
+Subject: [PATCH] Disable Bonjour announcements since those are too unstable
+
+---
+ Core/HTTPServer.m | 4 ++--
+ 1 file changed, 2 insertions(+), 2 deletions(-)
+
+diff --git a/Core/HTTPServer.m b/Core/HTTPServer.m
+index 57384f7..0f227b2 100644
+--- a/Core/HTTPServer.m
++++ b/Core/HTTPServer.m
+@@ -416,7 +416,7 @@ static const int httpLogLevel = HTTP_LOG_LEVEL_INFO; // | HTTP_LOG_FLAG_TRACE;
+ 			HTTPLogInfo(@"%@: Started HTTP server on port %hu", THIS_FILE, [asyncSocket localPort]);
+ 			
+ 			isRunning = YES;
+-			[self publishBonjour];
++//			[self publishBonjour];
+ 		}
+ 		else
+ 		{
+@@ -442,7 +442,7 @@ static const int httpLogLevel = HTTP_LOG_LEVEL_INFO; // | HTTP_LOG_FLAG_TRACE;
+ 	dispatch_sync(serverQueue, ^{ @autoreleasepool {
+ 		
+ 		// First stop publishing the service via bonjour
+-		[self unpublishBonjour];
++		//[self unpublishBonjour];
+ 		
+ 		// Stop listening / accepting incoming connections
+ 		[asyncSocket disconnect];
+-- 
+1.7.12.4 (Apple Git-37)
+

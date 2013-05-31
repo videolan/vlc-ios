@@ -166,6 +166,14 @@ cd ..
 fi
 if ! [ -e CocoaHTTPServer ]; then
 git clone git://github.com/robbiehanson/CocoaHTTPServer.git
+cd CocoaHTTPServer
+git am ../../patches/cocoahttpserver/*.patch
+if [ $? -ne 0 ]; then
+git am --abort
+info "Applying the patches failed, aborting git-am"
+exit 1
+fi
+cd ..
 fi
 if ! [ -e Dropbox ]; then
 DROPBOXSDKVERSION=1.3.4
