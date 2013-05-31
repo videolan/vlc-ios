@@ -180,7 +180,7 @@
 {
     [_mediaPlayer play];
 
-    if (self.mediaItem.lastPosition && [self.mediaItem.lastPosition floatValue] < 0.99)
+    if (self.mediaItem.lastPosition && [self.mediaItem.lastPosition floatValue] < .95)
         [_mediaPlayer setPosition:[self.mediaItem.lastPosition floatValue]];
     self.playbackSpeedSlider.value = [self _playbackSpeed];
     [self _updatePlaybackSpeedIndicator];
