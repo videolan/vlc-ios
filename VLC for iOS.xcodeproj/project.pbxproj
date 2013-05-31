@@ -20,7 +20,6 @@
 		2915540917490A1E00B86CAD /* MultipartMessageHeader.m in Sources */ = {isa = PBXBuildFile; fileRef = 291553FE17490A1E00B86CAD /* MultipartMessageHeader.m */; };
 		2915540A17490A1E00B86CAD /* MultipartMessageHeaderField.m in Sources */ = {isa = PBXBuildFile; fileRef = 2915540017490A1E00B86CAD /* MultipartMessageHeaderField.m */; };
 		2915542217490A9C00B86CAD /* GCDAsyncSocket.m in Sources */ = {isa = PBXBuildFile; fileRef = 2915540E17490A9C00B86CAD /* GCDAsyncSocket.m */; };
-		2915542317490A9C00B86CAD /* About.txt in Resources */ = {isa = PBXBuildFile; fileRef = 2915541017490A9C00B86CAD /* About.txt */; };
 		2915542417490A9C00B86CAD /* DDAbstractDatabaseLogger.m in Sources */ = {isa = PBXBuildFile; fileRef = 2915541217490A9C00B86CAD /* DDAbstractDatabaseLogger.m */; };
 		2915542517490A9C00B86CAD /* DDASLLogger.m in Sources */ = {isa = PBXBuildFile; fileRef = 2915541417490A9C00B86CAD /* DDASLLogger.m */; };
 		2915542617490A9C00B86CAD /* DDFileLogger.m in Sources */ = {isa = PBXBuildFile; fileRef = 2915541617490A9C00B86CAD /* DDFileLogger.m */; };
@@ -28,7 +27,6 @@
 		2915542817490A9C00B86CAD /* DDTTYLogger.m in Sources */ = {isa = PBXBuildFile; fileRef = 2915541A17490A9C00B86CAD /* DDTTYLogger.m */; };
 		2915542917490A9C00B86CAD /* ContextFilterLogFormatter.m in Sources */ = {isa = PBXBuildFile; fileRef = 2915541D17490A9C00B86CAD /* ContextFilterLogFormatter.m */; };
 		2915542A17490A9C00B86CAD /* DispatchQueueLogFormatter.m in Sources */ = {isa = PBXBuildFile; fileRef = 2915541F17490A9C00B86CAD /* DispatchQueueLogFormatter.m */; };
-		2915542B17490A9C00B86CAD /* README.txt in Resources */ = {isa = PBXBuildFile; fileRef = 2915542017490A9C00B86CAD /* README.txt */; };
 		2915543B17490B9C00B86CAD /* HTTPAsyncFileResponse.m in Sources */ = {isa = PBXBuildFile; fileRef = 2915542E17490B9C00B86CAD /* HTTPAsyncFileResponse.m */; };
 		2915543C17490B9C00B86CAD /* HTTPDataResponse.m in Sources */ = {isa = PBXBuildFile; fileRef = 2915543017490B9C00B86CAD /* HTTPDataResponse.m */; };
 		2915543D17490B9C00B86CAD /* HTTPDynamicFileResponse.m in Sources */ = {isa = PBXBuildFile; fileRef = 2915543217490B9C00B86CAD /* HTTPDynamicFileResponse.m */; };
@@ -1244,8 +1242,6 @@
 				A7035BC217451D4A0057DFA7 /* Aspen.png in Resources */,
 				7D6BA1121748EA8300C0E203 /* playback_background.png in Resources */,
 				7D6BA1131748EA8300C0E203 /* playback_background@2x.png in Resources */,
-				2915542317490A9C00B86CAD /* About.txt in Resources */,
-				2915542B17490A9C00B86CAD /* README.txt in Resources */,
 				7D6BA1181748EFE100C0E203 /* VLCMenuViewController~ipad.xib in Resources */,
 				7D6BA11A174911C200C0E203 /* VLCMenuViewController~iphone.xib in Resources */,
 				29125E5617492219003F03E5 /* index.html in Resources */,
