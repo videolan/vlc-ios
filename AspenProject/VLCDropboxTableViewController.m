@@ -79,12 +79,6 @@
     _activityIndicator = [[UIActivityIndicatorView alloc] initWithActivityIndicatorStyle:UIActivityIndicatorViewStyleWhiteLarge];
     _activityIndicator.hidesWhenStopped = YES;
 
-    CGRect aiFrame = _activityIndicator.frame;
-    CGSize tvSize = self.tableView.frame.size;
-    aiFrame.origin.x = (tvSize.width - aiFrame.size.width) / 2.;
-    aiFrame.origin.y = (tvSize.height - aiFrame.size.height) / 2.;
-    _activityIndicator.frame = aiFrame;
-
     [self.view addSubview:_activityIndicator];
 }
 
@@ -94,6 +88,12 @@
     self.navigationController.toolbar.barStyle = UIBarStyleBlack;
     [self updateViewAfterSessionChange];
     [super viewWillAppear:animated];
+
+    CGRect aiFrame = _activityIndicator.frame;
+    CGSize tvSize = self.tableView.frame.size;
+    aiFrame.origin.x = (tvSize.width - aiFrame.size.width) / 2.;
+    aiFrame.origin.y = (tvSize.height - aiFrame.size.height) / 2.;
+    _activityIndicator.frame = aiFrame;
 }
 
 - (void)viewWillDisappear:(BOOL)animated
