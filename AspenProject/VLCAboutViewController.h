@@ -8,7 +8,7 @@
 
 #import <UIKit/UIKit.h>
 
-@interface VLCAboutViewController : UIViewController
+@interface VLCAboutViewController : UIViewController <UIWebViewDelegate>
 
 @property (nonatomic, strong) IBOutlet UIWebView *webView;
 @property (nonatomic, strong) IBOutlet UILabel *aspenVersion;
