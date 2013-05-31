@@ -120,7 +120,7 @@
 			<key>Title</key>
 			<string>SETTINGS_TIME_STRETCH_AUDIO</string>
 			<key>Key</key>
-			<string>StretchAudio</string>
+			<string>audio-time-stretch</string>
 			<key>DefaultValue</key>
 			<false/>
 		</dict>
@@ -133,22 +133,6 @@
 			<string>SETTINGS_BACKGROUND_AUDIO</string>
 			<key>Type</key>
 			<string>PSToggleSwitchSpecifier</string>
-		</dict>
-		<dict>
-			<key>Type</key>
-			<string>PSGroupSpecifier</string>
-			<key>Title</key>
-			<string>SETTINGS_ADVANCED_TITLE</string>
-		</dict>
-		<dict>
-			<key>Type</key>
-			<string>PSToggleSwitchSpecifier</string>
-			<key>Title</key>
-			<string>SETTINGS_VERBOSE_LOGS</string>
-			<key>Key</key>
-			<string>VerboseLogs</string>
-			<key>DefaultValue</key>
-			<false/>
 		</dict>
 	</array>
 	<key>StringsTable</key>
