@@ -1,3 +1,8 @@
+We would like to thank the following people for tests, ideas and translations:
+Luca Barbato, Adrien Maglo, Alexandre Perraud
+
+... and Applidium for a first port of VLC to iOS.
+
 VLC for iOS makes use of the following libraries, fonts and frameworks:
 
 	MobileVLCKit
