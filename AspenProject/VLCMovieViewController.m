@@ -15,6 +15,7 @@
 @interface VLCMovieViewController () <UIGestureRecognizerDelegate>
 {
     BOOL _shouldResumePlaying;
+    BOOL _viewAppeared;
 }
 
 @property (nonatomic, strong) UIPopoverController *masterPopoverController;
@@ -133,6 +134,9 @@
         [alert show];
     } else
         [self _playNewMedia];
+
+    [self setControlsHidden:NO animated:YES];
+    _viewAppeared = YES;
 }
 
 - (BOOL)_isMediaSuitableForDevice
@@ -193,6 +197,7 @@
 
 - (void)viewWillDisappear:(BOOL)animated
 {
+    _viewAppeared = NO;
     if (_idleTimer) {
         [_idleTimer invalidate];
         _idleTimer = nil;
@@ -271,7 +276,7 @@
 {
     _controlsHidden = hidden;
     CGFloat alpha = _controlsHidden? 0.0f: 1.0f;
-    
+
     if (!_controlsHidden) {
         _controllerPanel.alpha = 0.0f;
         _controllerPanel.hidden = !_videoFiltersHidden;
@@ -288,7 +293,7 @@
         _aspectRatioButton.alpha = 0.0f;
         _aspectRatioButton.hidden = NO;
     }
-    
+
     void (^animationBlock)() = ^() {
         _controllerPanel.alpha = alpha;
         _toolbar.alpha = alpha;
@@ -299,7 +304,7 @@
         _videoFilterButton.alpha = alpha;
         _aspectRatioButton.alpha = alpha;
     };
-    
+
     void (^completionBlock)(BOOL finished) = ^(BOOL finished) {
         if (_videoFiltersHidden) {
             _controllerPanel.hidden = _controlsHidden;
@@ -319,16 +324,16 @@
         else
             _playbackSpeedView.hidden = _playbackSpeedViewHidden;
     };
-    
+
     UIStatusBarAnimation animationType = animated? UIStatusBarAnimationFade: UIStatusBarAnimationNone;
     NSTimeInterval animationDuration = animated? 0.3: 0.0;
-    
-    [[UIApplication sharedApplication] setStatusBarHidden:_controlsHidden withAnimation:animationType];
+
+    [[UIApplication sharedApplication] setStatusBarHidden:_viewAppeared ? _controlsHidden : NO withAnimation:animationType];
     [UIView animateWithDuration:animationDuration animations:animationBlock completion:completionBlock];
 }
 
 - (void)toggleControlsVisible
-{    
+{
     [self setControlsHidden:!_controlsHidden animated:YES];
 }
 
