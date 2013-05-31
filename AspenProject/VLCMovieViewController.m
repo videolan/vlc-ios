@@ -78,6 +78,7 @@
     recognizer.delegate = self;
     [self.view addGestureRecognizer:recognizer];
 
+#if 0 // FIXME: trac #8742
     UISwipeGestureRecognizer *leftSwipeRecognizer = [[VLCHorizontalSwipeGestureRecognizer alloc] initWithTarget:self action:nil];
     leftSwipeRecognizer.direction = UISwipeGestureRecognizerDirectionLeft;
     leftSwipeRecognizer.delegate = self;
@@ -94,6 +95,7 @@
     downSwipeRecognizer.direction = UISwipeGestureRecognizerDirectionDown;
     downSwipeRecognizer.delegate = self;
     [self.view addGestureRecognizer:downSwipeRecognizer];
+#endif
 
     _aspectRatios = @[@"DEFAULT", @"4:3", @"16:9", @"16:10", @"2.21:1", @"FILL_TO_SCREEN"];
 }
