@@ -10,7 +10,7 @@
 
 @interface VLCAboutViewController : UIViewController
 
-@property (nonatomic, strong) IBOutlet UITextView *textContents;
+@property (nonatomic, strong) IBOutlet UIWebView *webView;
 @property (nonatomic, strong) IBOutlet UILabel *aspenVersion;
 @property (nonatomic, strong) IBOutlet UILabel *vlckitVersion;
 

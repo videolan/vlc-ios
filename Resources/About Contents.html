@@ -1,0 +1,606 @@
+<html>
+<head>
+</head>
+<body bgcolor=#000000>
+<div style="text-align:left; background-color:#000000; border:solid black 1px; padding:0.5em 1em 0.5em 1em; overflow:auto; font-size:10pt; font-family:Helvetica; color:#b3b3b3">We would like to thank the following people for tests, ideas and translations:<br />
+Luca Barbato, Adrien Maglo, Alexandre Perraud<br />
+<br />
+... and Applidium for a first port of VLC to iOS.<br />
+<br />
+<br />
+VLC for iOS makes use of the following libraries, fonts and frameworks:<br />
+<br />
+&nbsp;&nbsp;&nbsp;&nbsp;MobileVLCKit<br />
+Copyright &copy; 2007-2013 Pierre d&rsquo;Herbemont, Felix Paul K&uuml;hne, Faustino E. Osuna, et al. - LGPLv2.1 or later<br />
+<br />
+&nbsp;&nbsp;&nbsp;&nbsp;MediaLibraryKit<br />
+Copyright &copy; 2010-2013 Pierre d&rsquo;Herbemont and Felix Paul K&uuml;hne - LGPLv2.1 or later<br />
+<br />
+&nbsp;&nbsp;&nbsp;&nbsp;libvlc<br />
+Copyright &copy; 1996-2013 VideoLAN and VLC Authors - LGPLv2.1 or later<br />
+<br />
+&nbsp;&nbsp;&nbsp;&nbsp;AQGridView<br />
+Copyright &copy; 2010, Kobo Inc. - AQGridView license<br />
+<br />
+&nbsp;&nbsp;&nbsp;&nbsp;CocoaHTTPServer<br />
+Copyright &copy; 2011, Deusty, LLC - 2-clause BSD License<br />
+<br />
+&nbsp;&nbsp;&nbsp;&nbsp;Dropbox SDK<br />
+Copyright &copy; 2010 Dropbox (Evenflow, Inc.) - MIT License<br />
+<br />
+&nbsp;&nbsp;&nbsp;&nbsp;InAppSettingsKit<br />
+Copyright &copy; 2009, 2010 Luc Vandal, Edovia Inc., Ortwin Gentz, FutureTap GmbH - 2-clause BSD License<br />
+<br />
+&nbsp;&nbsp;&nbsp;&nbsp;OBSlider<br />
+Copyright &copy; 2011 Ole Begemann and contributors - MIT License<br />
+<br />
+&nbsp;&nbsp;&nbsp;&nbsp;PAPasscodeViewController<br />
+Copyright &copy; 2012, Denis Hennessy (Peer Assembly) - 3-clause BSD License<br />
+<br />
+&nbsp;&nbsp;&nbsp;&nbsp;Source Sans Pro and Source Code Pro<br />
+Copyright 2010, 2012 Adobe Systems Incorporated, with Reserved Font Name 'Source'. All Rights Reserved. Source is a trademark of Adobe Systems Incorporated in the United States and/or other countries. - SIL Open Font License, Version 1.1.<br />
+<br />
+&nbsp;&nbsp;&nbsp;&nbsp;libass<br />
+Copyright &copy; 2006 - 2013 Grigori Goronzy and contributors - ISC License<br />
+<br />
+&nbsp;&nbsp;&nbsp;&nbsp;libav<br />
+Copyright &copy; 2000 - 2013 the libav developers - LGPLv2.1 or later<br />
+<br />
+&nbsp;&nbsp;&nbsp;&nbsp;libFLAC<br />
+Copyright &copy; 2001 - 2013 Josh Coalson et al. - Xiph.org BSD license<br />
+<br />
+&nbsp;&nbsp;&nbsp;&nbsp;freetype<br />
+Copyright &copy; 2003, 2005, 2006, 2012 David Turner, Robert Wilhelm, and Werner Lemberg - FreeType Project License<br />
+<br />
+&nbsp;&nbsp;&nbsp;&nbsp;GNU FriBidi<br />
+Copyright &copy; 2005, 2007 - 2009, 2012 Dov Grobgeld, Roozbeh Pournader - LGPLv2.1 or later<br />
+<br />
+&nbsp;&nbsp;&nbsp;&nbsp;GSM<br />
+Copyright &copy; 1992 - 1994, 2009 Jutta Degener &amp; Carsten Bormann - GSM permissive license<br />
+<br />
+&nbsp;&nbsp;&nbsp;&nbsp;harfbuzz<br />
+Copyright &copy; 2010, 2011, 2012 &nbsp;Google, Inc., &copy; 2012 &nbsp;Mozilla Foundation, &copy; 2011 Codethink Limited, &copy; 2008, 2010 &nbsp;Nokia Corporation and/or its subsidiary(-ies), &copy; 2009 Keith Stribley, &copy; 2009 Martin Hosken and SIL International, &copy; 2007 Chris Wilson, &copy; 2006 Behdad Esfahbod, &copy; 2005 David Turner, &copy; 2004, 2007, 2008, 2009, 2010 Red Hat, Inc., &copy; 1998-2004 David Turner and Werner Lemberg - Old MIT License<br />
+<br />
+&nbsp;&nbsp;&nbsp;&nbsp;libdvbpsi<br />
+Copyright &copy; 2001-2013 VideoLAN and authors - LGPLv2.1 or later<br />
+<br />
+&nbsp;&nbsp;&nbsp;&nbsp;libebml<br />
+Copyright &copy; 2002-2013 Steve Lhomme - LGPLv2.1 or later<br />
+<br />
+&nbsp;&nbsp;&nbsp;&nbsp;liblive555<br />
+Copyright &copy; 1996-2013 Live Networks, Inc. - LGPLv2.1 or later<br />
+<br />
+&nbsp;&nbsp;&nbsp;&nbsp;libmatroska<br />
+Copyright &copy; 2002-2013 Steve Lhomme - LGPLv2.1 or later<br />
+<br />
+&nbsp;&nbsp;&nbsp;&nbsp;libmodplug<br />
+Oliver Lapicque, Konstanty - Public domain<br />
+<br />
+&nbsp;&nbsp;&nbsp;&nbsp;libogg<br />
+Copyright &copy; 2002 Xiph.org Foundation - Xiph.org BSD license<br />
+<br />
+&nbsp;&nbsp;&nbsp;&nbsp;libpng<br />
+Copyright &copy; 2004, 2006-2012 Glenn Randers-Perhson, et al. - libpng license<br />
+<br />
+&nbsp;&nbsp;&nbsp;&nbsp;libtheora<br />
+Copyright &copy; Xiph.org Foundation - Xiph.org BSD license<br />
+<br />
+&nbsp;&nbsp;&nbsp;&nbsp;libxml2<br />
+Copyright &copy; 1998-2003 Daniel Veillard - MIT License<br />
+<br />
+&nbsp;&nbsp;&nbsp;&nbsp;lua<br />
+Copyright &copy; 1994-2008 Lua.org, PUC-Rio. - MIT License<br />
+<br />
+&nbsp;&nbsp;&nbsp;&nbsp;OpenJpeg<br />
+Copyright &copy; 2002-2012, Communcations and Remote Sensing Laboratory, UCL, Belgium - ISC License<br />
+<br />
+&nbsp;&nbsp;&nbsp;&nbsp;Opus<br />
+Copyright 2001-2011 Xiph.Org, Skype Limited, Octasic, Jean-Marc Valin, Timothy B. Terriberry, CSIRO, Gregory Maxwell, Mark Borgerding, Erik de Castro Lopo - Xiph.org BSD License<br />
+<br />
+&nbsp;&nbsp;&nbsp;&nbsp;Speex, Speexdsp<br />
+Copyright &copy; 1992-2008 Xiph.org Foundation, Jean-Marc Valin, Analog Devices Inc. Commonwealth Scientific and Industrial Research Organisation, David Row, Jutta Degener, Carsten Bormann - 3-clause BSD License<br />
+<br />
+&nbsp;&nbsp;&nbsp;&nbsp;zlib<br />
+Copyright &copy; 1995-2012 Jean-loup Gailly and Mark Adler - zlib license<br />
+<br />
+<br />
+GNU LESSER GENERAL PUBLIC LICENSE<br />
+Version 2.1, February 1999<br />
+<br />
+Copyright (C) 1991, 1999 Free Software Foundation, Inc.<br />
+51 Franklin Street, Fifth Floor, Boston, MA 02110-1301 USA<br />
+Everyone is permitted to copy and distribute verbatim copies of this license document, but changing it is not allowed.<br />
+<br />
+[This is the first released version of the Lesser GPL. It also counts as the successor of the GNU Library Public License, version 2, hence the version number 2.1.]<br />
+<br />
+Preamble<br />
+<br />
+The licenses for most software are designed to take away your freedom to share and change it. &nbsp;By contrast, the GNU General Public Licenses are intended to guarantee your freedom to share and change free software--to make sure the software is free for all its users.<br />
+<br />
+This license, the Lesser General Public License, applies to some specially designated software packages--typically libraries--of the Free Software Foundation and other authors who decide to use it. &nbsp;You can use it too, but we suggest you first think carefully about whether this license or the ordinary General Public License is the better strategy to use in any particular case, based on the explanations below.<br />
+<br />
+When we speak of free software, we are referring to freedom of use, not price. &nbsp;Our General Public Licenses are designed to make sure that you have the freedom to distribute copies of free software (and charge for this service if you wish); that you receive source code or can get it if you want it; that you can change the software and use pieces of it in new free programs; and that you are informed that you can do these things.<br />
+<br />
+To protect your rights, we need to make restrictions that forbid distributors to deny you these rights or to ask you to surrender these rights. &nbsp;These restrictions translate to certain responsibilities for you if you distribute copies of the library or if you modify it.<br />
+<br />
+For example, if you distribute copies of the library, whether gratis or for a fee, you must give the recipients all the rights that we gave you. &nbsp;You must make sure that they, too, receive or can get the source code. &nbsp;If you link other code with the library, you must provide complete object files to the recipients, so that they can relink them with the library after making changes to the library and recompiling it. &nbsp;And you must show them these terms so they know their rights.<br />
+<br />
+We protect your rights with a two-step method: (1) we copyright the library, and (2) we offer you this license, which gives you legal permission to copy, distribute and/or modify the library.<br />
+<br />
+To protect each distributor, we want to make it very clear that there is no warranty for the free library. &nbsp;Also, if the library is modified by someone else and passed on, the recipients should know that what they have is not the original version, so that the original author's reputation will not be affected by problems that might be introduced by others.<br />
+<br />
+<br />
+Finally, software patents pose a constant threat to the existence of any free program. &nbsp;We wish to make sure that a company cannot effectively restrict the users of a free program by obtaining a restrictive license from a patent holder. &nbsp;Therefore, we insist that any patent license obtained for a version of the library must be consistent with the full freedom of use specified in this license.<br />
+<br />
+Most GNU software, including some libraries, is covered by the ordinary GNU General Public License. &nbsp;This license, the GNU Lesser General Public License, applies to certain designated libraries, and is quite different from the ordinary General Public License. &nbsp;We use this license for certain libraries in order to permit linking those libraries into non-free programs.<br />
+<br />
+When a program is linked with a library, whether statically or using a shared library, the combination of the two is legally speaking a combined work, a derivative of the original library. &nbsp;The ordinary General Public License therefore permits such linking only if the entire combination fits its criteria of freedom. &nbsp;The Lesser General Public License permits more lax criteria for linking other code with the library.<br />
+<br />
+We call this license the &quot;Lesser&quot; General Public License because it does Less to protect the user's freedom than the ordinary General Public License. &nbsp;It also provides other free software developers Less of an advantage over competing non-free programs. &nbsp;These disadvantages are the reason we use the ordinary General Public License for many libraries. &nbsp;However, the Lesser license provides advantages in certain special circumstances.<br />
+<br />
+For example, on rare occasions, there may be a special need to encourage the widest possible use of a certain library, so that it becomes a de-facto standard. &nbsp;To achieve this, non-free programs must be allowed to use the library. &nbsp;A more frequent case is that a free<br />
+library does the same job as widely used non-free libraries. &nbsp;In this case, there is little to gain by limiting the free library to free software only, so we use the Lesser General Public License.<br />
+<br />
+In other cases, permission to use a particular library in non-free programs enables a greater number of people to use a large body of free software. &nbsp;For example, permission to use the GNU C Library in non-free programs enables many more people to use the whole GNU operating system, as well as its variant, the GNU/Linux operating system.<br />
+<br />
+Although the Lesser General Public License is Less protective of the users' freedom, it does ensure that the user of a program that is linked with the Library has the freedom and the wherewithal to run that program using a modified version of the Library.<br />
+<br />
+The precise terms and conditions for copying, distribution and modification follow. &nbsp;Pay close attention to the difference between a &quot;work based on the library&quot; and a &quot;work that uses the library&quot;. &nbsp;The former contains code derived from the library, whereas the latter must be combined with the library in order to run.<br />
+<br />
+<br />
+GNU LESSER GENERAL PUBLIC LICENSE<br />
+TERMS AND CONDITIONS FOR COPYING, DISTRIBUTION AND MODIFICATION<br />
+<br />
+0. This License Agreement applies to any software library or other program which contains a notice placed by the copyright holder or other authorized party saying it may be distributed under the terms of this Lesser General Public License (also called &quot;this License&quot;). Each licensee is addressed as &quot;you&quot;.<br />
+<br />
+A &quot;library&quot; means a collection of software functions and/or data prepared so as to be conveniently linked with application programs (which use some of those functions and data) to form executables.<br />
+<br />
+The &quot;Library&quot;, below, refers to any such software library or work which has been distributed under these terms. &nbsp;A &quot;work based on the Library&quot; means either the Library or any derivative work under copyright law: that is to say, a work containing the Library or a portion of it, either verbatim or with modifications and/or translated straightforwardly into another language. &nbsp;(Hereinafter, translation is included without limitation in the term &quot;modification&quot;.)<br />
+<br />
+&quot;Source code&quot; for a work means the preferred form of the work for making modifications to it. &nbsp;For a library, complete source code means all the source code for all modules it contains, plus any associated interface definition files, plus the scripts used to control compilation and installation of the library.<br />
+<br />
+Activities other than copying, distribution and modification are not covered by this License; they are outside its scope. &nbsp;The act of running a program using the Library is not restricted, and output from such a program is covered only if its contents constitute a work based on the Library (independent of the use of the Library in a tool for writing it). &nbsp;Whether that is true depends on what the Library does and what the program that uses the Library does.<br />
+<br />
+1. You may copy and distribute verbatim copies of the Library's complete source code as you receive it, in any medium, provided that you conspicuously and appropriately publish on each copy an appropriate copyright notice and disclaimer of warranty; keep intact all the notices that refer to this License and to the absence of any warranty; and distribute a copy of this License along with the Library.<br />
+<br />
+You may charge a fee for the physical act of transferring a copy, and you may at your option offer warranty protection in exchange for a fee.<br />
+<br />
+<br />
+2. You may modify your copy or copies of the Library or any portion of it, thus forming a work based on the Library, and copy and distribute such modifications or work under the terms of Section 1 above, provided that you also meet all of these conditions:<br />
+<br />
+a) The modified work must itself be a software library.<br />
+<br />
+b) You must cause the files modified to carry prominent notices stating that you changed the files and the date of any change.<br />
+<br />
+c) You must cause the whole of the work to be licensed at no charge to all third parties under the terms of this License.<br />
+<br />
+d) If a facility in the modified Library refers to a function or a table of data to be supplied by an application program that uses the facility, other than as an argument passed when the facility is invoked, then you must make a good faith effort to ensure that, in the event an application does not supply such function or table, the facility still operates, and performs whatever part of its purpose remains meaningful.<br />
+<br />
+(For example, a function in a library to compute square roots has a purpose that is entirely well-defined independent of the application. &nbsp;Therefore, Subsection 2d requires that any application-supplied function or table used by this function must be optional: if the application does not supply it, the square root function must still compute square roots.)<br />
+<br />
+These requirements apply to the modified work as a whole. &nbsp;If identifiable sections of that work are not derived from the Library, and can be reasonably considered independent and separate works in themselves, then this License, and its terms, do not apply to those sections when you distribute them as separate works. &nbsp;But when you distribute the same sections as part of a whole which is a work based on the Library, the distribution of the whole must be on the terms of this License, whose permissions for other licensees extend to the entire whole, and thus to each and every part regardless of who wrote it.<br />
+<br />
+Thus, it is not the intent of this section to claim rights or contest your rights to work written entirely by you; rather, the intent is to exercise the right to control the distribution of derivative or collective works based on the Library.<br />
+<br />
+In addition, mere aggregation of another work not based on the Library with the Library (or with a work based on the Library) on a volume of a storage or distribution medium does not bring the other work under the scope of this License.<br />
+<br />
+3. You may opt to apply the terms of the ordinary GNU General Public License instead of this License to a given copy of the Library. &nbsp;To do this, you must alter all the notices that refer to this License, so that they refer to the ordinary GNU General Public License, version 2, instead of to this License. &nbsp;(If a newer version than version 2 of the ordinary GNU General Public License has appeared, then you can specify that version instead if you wish.) &nbsp;Do not make any other change in these notices.<br />
+<br />
+<br />
+Once this change is made in a given copy, it is irreversible for that copy, so the ordinary GNU General Public License applies to all subsequent copies and derivative works made from that copy.<br />
+<br />
+This option is useful when you wish to copy part of the code of the Library into a program that is not a library.<br />
+<br />
+4. You may copy and distribute the Library (or a portion or derivative of it, under Section 2) in object code or executable form under the terms of Sections 1 and 2 above provided that you accompany it with the complete corresponding machine-readable source code, which must be distributed under the terms of Sections 1 and 2 above on a medium customarily used for software interchange.<br />
+<br />
+If distribution of object code is made by offering access to copy from a designated place, then offering equivalent access to copy the source code from the same place satisfies the requirement to distribute the source code, even though third parties are not compelled to copy the source along with the object code.<br />
+<br />
+5. A program that contains no derivative of any portion of the Library, but is designed to work with the Library by being compiled or linked with it, is called a &quot;work that uses the Library&quot;. &nbsp;Such a work, in isolation, is not a derivative work of the Library, and therefore falls outside the scope of this License.<br />
+<br />
+However, linking a &quot;work that uses the Library&quot; with the Library creates an executable that is a derivative of the Library (because it contains portions of the Library), rather than a &quot;work that uses the library&quot;. &nbsp;The executable is therefore covered by this License. Section 6 states terms for distribution of such executables.<br />
+<br />
+When a &quot;work that uses the Library&quot; uses material from a header file that is part of the Library, the object code for the work may be a derivative work of the Library even though the source code is not. Whether this is true is especially significant if the work can be linked without the Library, or if the work is itself a library. &nbsp;The threshold for this to be true is not precisely defined by law.<br />
+<br />
+If such an object file uses only numerical parameters, data structure layouts and accessors, and small macros and small inline functions (ten lines or less in length), then the use of the object file is unrestricted, regardless of whether it is legally a derivative work. &nbsp;(Executables containing this object code plus portions of the Library will still fall under Section 6.)<br />
+<br />
+Otherwise, if the work is a derivative of the Library, you may distribute the object code for the work under the terms of Section 6. Any executables containing that work also fall under Section 6, whether or not they are linked directly with the Library itself.<br />
+<br />
+<br />
+6. As an exception to the Sections above, you may also combine or link a &quot;work that uses the Library&quot; with the Library to produce a work containing portions of the Library, and distribute that work under terms of your choice, provided that the terms permit modification of the work for the customer's own use and reverse engineering for debugging such modifications.<br />
+<br />
+You must give prominent notice with each copy of the work that the Library is used in it and that the Library and its use are covered by this License. &nbsp;You must supply a copy of this License. &nbsp;If the work during execution displays copyright notices, you must include the<br />
+copyright notice for the Library among them, as well as a reference directing the user to the copy of this License. &nbsp;Also, you must do one of these things:<br />
+<br />
+a) Accompany the work with the complete corresponding machine-readable source code for the Library including whatever changes were used in the work (which must be distributed under Sections 1 and 2 above); and, if the work is an executable linked with the Library, with the complete machine-readable &quot;work that uses the Library&quot;, as object code and/or source code, so that the user can modify the Library and then relink to produce a modified executable containing the modified Library. &nbsp;(It is understood that the user who changes the contents of definitions files in the Library will not necessarily be able to recompile the application to use the modified definitions.)<br />
+<br />
+b) Use a suitable shared library mechanism for linking with the Library. &nbsp;A suitable mechanism is one that (1) uses at run time a copy of the library already present on the user's computer system, rather than copying library functions into the executable, and (2) will operate properly with a modified version of the library, if the user installs one, as long as the modified version is interface-compatible with the version that the work was made with.<br />
+<br />
+c) Accompany the work with a written offer, valid for at least three years, to give the same user the materials specified in Subsection 6a, above, for a charge no more than the cost of performing this distribution.<br />
+<br />
+d) If distribution of the work is made by offering access to copy from a designated place, offer equivalent access to copy the above specified materials from the same place.<br />
+<br />
+e) Verify that the user has already received a copy of these materials or that you have already sent this user a copy.<br />
+<br />
+For an executable, the required form of the &quot;work that uses the Library&quot; must include any data and utility programs needed for reproducing the executable from it. &nbsp;However, as a special exception, the materials to be distributed need not include anything that is normally distributed (in either source or binary form) with the major components (compiler, kernel, and so on) of the operating system on which the executable runs, unless that component itself accompanies the executable.<br />
+<br />
+It may happen that this requirement contradicts the license restrictions of other proprietary libraries that do not normally accompany the operating system. &nbsp;Such a contradiction means you cannot use both them and the Library together in an executable that you<br />
+distribute.<br />
+<br />
+<br />
+7. You may place library facilities that are a work based on the Library side-by-side in a single library together with other library facilities not covered by this License, and distribute such a combined library, provided that the separate distribution of the work based on the Library and of the other library facilities is otherwise permitted, and provided that you do these two things:<br />
+<br />
+a) Accompany the combined library with a copy of the same work based on the Library, uncombined with any other library facilities. &nbsp;This must be distributed under the terms of the Sections above.<br />
+<br />
+b) Give prominent notice with the combined library of the fact that part of it is a work based on the Library, and explaining where to find the accompanying uncombined form of the same work.<br />
+<br />
+8. You may not copy, modify, sublicense, link with, or distribute the Library except as expressly provided under this License. &nbsp;Any attempt otherwise to copy, modify, sublicense, link with, or distribute the Library is void, and will automatically terminate your rights under this License. &nbsp;However, parties who have received copies, or rights, from you under this License will not have their licenses terminated so long as such parties remain in full compliance.<br />
+<br />
+9. You are not required to accept this License, since you have not signed it. &nbsp;However, nothing else grants you permission to modify or distribute the Library or its derivative works. &nbsp;These actions are prohibited by law if you do not accept this License. &nbsp;Therefore, by modifying or distributing the Library (or any work based on the Library), you indicate your acceptance of this License to do so, and all its terms and conditions for copying, distributing or modifying the Library or works based on it.<br />
+<br />
+10. Each time you redistribute the Library (or any work based on the Library), the recipient automatically receives a license from the original licensor to copy, distribute, link with or modify the Library subject to these terms and conditions. &nbsp;You may not impose any further<br />
+restrictions on the recipients' exercise of the rights granted herein. You are not responsible for enforcing compliance by third parties with this License.<br />
+<br />
+<br />
+11. If, as a consequence of a court judgment or allegation of patent infringement or for any other reason (not limited to patent issues), conditions are imposed on you (whether by court order, agreement or otherwise) that contradict the conditions of this License, they do not excuse you from the conditions of this License. &nbsp;If you cannot distribute so as to satisfy simultaneously your obligations under this License and any other pertinent obligations, then as a consequence you may not distribute the Library at all. &nbsp;For example, if a patent license would not permit royalty-free redistribution of the Library by all those who receive copies directly or indirectly through you, then the only way you could satisfy both it and this License would be to refrain entirely from distribution of the Library.<br />
+<br />
+If any portion of this section is held invalid or unenforceable under any particular circumstance, the balance of the section is intended to apply, and the section as a whole is intended to apply in other circumstances.<br />
+<br />
+It is not the purpose of this section to induce you to infringe any patents or other property right claims or to contest validity of any such claims; this section has the sole purpose of protecting the integrity of the free software distribution system which is implemented by public license practices. &nbsp;Many people have made generous contributions to the wide range of software distributed through that system in reliance on consistent application of that system; it is up to the author/donor to decide if he or she is willing to distribute software through any other system and a licensee cannot impose that choice.<br />
+<br />
+This section is intended to make thoroughly clear what is believed to be a consequence of the rest of this License.<br />
+<br />
+12. If the distribution and/or use of the Library is restricted in certain countries either by patents or by copyrighted interfaces, the original copyright holder who places the Library under this License may add an explicit geographical distribution limitation excluding those countries, so that distribution is permitted only in or among countries not thus excluded. &nbsp;In such case, this License incorporates the limitation as if written in the body of this License.<br />
+<br />
+13. The Free Software Foundation may publish revised and/or new versions of the Lesser General Public License from time to time. Such new versions will be similar in spirit to the present version, but may differ in detail to address new problems or concerns.<br />
+<br />
+Each version is given a distinguishing version number. &nbsp;If the Library specifies a version number of this License which applies to it and &quot;any later version&quot;, you have the option of following the terms and conditions either of that version or of any later version published by the Free Software Foundation. &nbsp;If the Library does not specify a license version number, you may choose any version ever published by the Free Software Foundation.<br />
+<br />
+<br />
+14. If you wish to incorporate parts of the Library into other free programs whose distribution conditions are incompatible with these, write to the author to ask for permission. &nbsp;For software which is copyrighted by the Free Software Foundation, write to the Free Software Foundation; we sometimes make exceptions for this. &nbsp;Our decision will be guided by the two goals of preserving the free status of all derivatives of our free software and of promoting the sharing and reuse of software generally.<br />
+<br />
+NO WARRANTY<br />
+<br />
+15. BECAUSE THE LIBRARY IS LICENSED FREE OF CHARGE, THERE IS NO WARRANTY FOR THE LIBRARY, TO THE EXTENT PERMITTED BY APPLICABLE LAW.<br />
+EXCEPT WHEN OTHERWISE STATED IN WRITING THE COPYRIGHT HOLDERS AND/OR OTHER PARTIES PROVIDE THE LIBRARY &quot;AS IS&quot; WITHOUT WARRANTY OF ANY<br />
+KIND, EITHER EXPRESSED OR IMPLIED, INCLUDING, BUT NOT LIMITED TO, THE IMPLIED WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE. &nbsp;THE ENTIRE RISK AS TO THE QUALITY AND PERFORMANCE OF THE LIBRARY IS WITH YOU. &nbsp;SHOULD THE LIBRARY PROVE DEFECTIVE, YOU ASSUME THE COST OF ALL NECESSARY SERVICING, REPAIR OR CORRECTION.<br />
+<br />
+16. IN NO EVENT UNLESS REQUIRED BY APPLICABLE LAW OR AGREED TO IN WRITING WILL ANY COPYRIGHT HOLDER, OR ANY OTHER PARTY WHO MAY MODIFY AND/OR REDISTRIBUTE THE LIBRARY AS PERMITTED ABOVE, BE LIABLE TO YOU FOR DAMAGES, INCLUDING ANY GENERAL, SPECIAL, INCIDENTAL OR<br />
+CONSEQUENTIAL DAMAGES ARISING OUT OF THE USE OR INABILITY TO USE THE LIBRARY (INCLUDING BUT NOT LIMITED TO LOSS OF DATA OR DATA BEING RENDERED INACCURATE OR LOSSES SUSTAINED BY YOU OR THIRD PARTIES OR A FAILURE OF THE LIBRARY TO OPERATE WITH ANY OTHER SOFTWARE), EVEN IF<br />
+SUCH HOLDER OR OTHER PARTY HAS BEEN ADVISED OF THE POSSIBILITY OF SUCH DAMAGES.<br />
+<br />
+END OF TERMS AND CONDITIONS<br />
+<br />
+<br />
+How to Apply These Terms to Your New Libraries<br />
+<br />
+If you develop a new library, and you want it to be of the greatest possible use to the public, we recommend making it free software that everyone can redistribute and change. &nbsp;You can do so by permitting redistribution under these terms (or, alternatively, under the terms of the ordinary General Public License).<br />
+<br />
+To apply these terms, attach the following notices to the library. &nbsp;It is safest to attach them to the start of each source file to most effectively convey the exclusion of warranty; and each file should have at least the &quot;copyright&quot; line and a pointer to where the full notice is found.<br />
+<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&lt;one line to give the library's name and a brief idea of what it does.&gt;<br />
+&nbsp;&nbsp;&nbsp;&nbsp;Copyright (C) &lt;year&gt; &nbsp;&lt;name of author&gt;<br />
+<br />
+&nbsp;&nbsp;&nbsp;&nbsp;This library is free software; you can redistribute it and/or<br />
+&nbsp;&nbsp;&nbsp;&nbsp;modify it under the terms of the GNU Lesser General Public<br />
+&nbsp;&nbsp;&nbsp;&nbsp;License as published by the Free Software Foundation; either<br />
+&nbsp;&nbsp;&nbsp;&nbsp;version 2.1 of the License, or (at your option) any later version.<br />
+<br />
+&nbsp;&nbsp;&nbsp;&nbsp;This library is distributed in the hope that it will be useful,<br />
+&nbsp;&nbsp;&nbsp;&nbsp;but WITHOUT ANY WARRANTY; without even the implied warranty of<br />
+&nbsp;&nbsp;&nbsp;&nbsp;MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. &nbsp;See the GNU<br />
+&nbsp;&nbsp;&nbsp;&nbsp;Lesser General Public License for more details.<br />
+<br />
+&nbsp;&nbsp;&nbsp;&nbsp;You should have received a copy of the GNU Lesser General Public<br />
+&nbsp;&nbsp;&nbsp;&nbsp;License along with this library; if not, write to the Free Software<br />
+&nbsp;&nbsp;&nbsp;&nbsp;Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301 USA<br />
+<br />
+Also add information on how to contact you by electronic and paper mail.<br />
+<br />
+You should also get your employer (if you work as a programmer) or your school, if any, to sign a &quot;copyright disclaimer&quot; for the library, if necessary. &nbsp;Here is a sample; alter the names:<br />
+<br />
+&nbsp;&nbsp;Yoyodyne, Inc., hereby disclaims all copyright interest in the<br />
+&nbsp;&nbsp;library `Frob' (a library for tweaking knobs) written by James Random Hacker.<br />
+<br />
+&nbsp;&nbsp;&lt;signature of Ty Coon&gt;, 1 April 1990<br />
+&nbsp;&nbsp;Ty Coon, President of Vice<br />
+<br />
+That's all there is to it!<br />
+<br />
+MIT License<br />
+Permission is hereby granted, free of charge, to any person obtaining a copy of this software and associated documentation files (the &quot;Software&quot;), to deal in the Software without restriction, including without limitation the rights to use, copy, modify, merge, publish, distribute, sublicense, and/or sell copies of the Software, and to permit persons to whom the Software is furnished to do so, subject to the following conditions:<br />
+<br />
+The above copyright notice and this permission notice shall be included in all copies or substantial portions of the Software.<br />
+<br />
+THE SOFTWARE IS PROVIDED &quot;AS IS&quot;, WITHOUT WARRANTY OF ANY KIND, EXPRESS OR IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY, FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.<br />
+<br />
+Xiph.org BSD License<br />
+Redistribution and use in source and binary forms, with or without modification, are permitted provided that the following conditions are met:<br />
+<br />
+&bull; &nbsp;&nbsp;Redistributions of source code must retain the above copyright notice, this list of conditions and the following disclaimer.<br />
+&bull; &nbsp;&nbsp;Redistributions in binary form must reproduce the above copyright notice, this list of conditions and the following disclaimer in the documentation and/or other materials provided with the distribution.<br />
+&bull; &nbsp;&nbsp;Neither the name of the Xiph.org Foundation nor the names of its contributors may be used to endorse or promote products derived from this software without specific prior written permission.<br />
+<br />
+THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS ``AS IS'' AND ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THE IMPLIED WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE ARE DISCLAIMED. &nbsp;IN NO EVENT SHALL THE FOUNDATION OR CONTRIBUTORS BE LIABLE FOR ANY DIRECT, INDIRECT, INCIDENTAL, SPECIAL, EXEMPLARY, OR CONSEQUENTIAL DAMAGES (INCLUDING, BUT NOT LIMITED TO, PROCUREMENT OF SUBSTITUTE GOODS OR SERVICES; LOSS OF USE, DATA, OR PROFITS; OR BUSINESS INTERRUPTION) HOWEVER CAUSED AND ON ANY THEORY OF LIABILITY, WHETHER IN CONTRACT, STRICT LIABILITY, OR TORT (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.<br />
+<br />
+GSM permissive license<br />
+Any use of this software is permitted provided that this notice is not removed and that neither the authors nor the Technische Universitaet Berlin are deemed to have made any representations as to the suitability of this software for any purpose nor are held responsible for any defects of this software. &nbsp;THERE IS ABSOLUTELY NO WARRANTY FOR THIS SOFTWARE.<br />
+<br />
+As a matter of courtesy, the authors request to be informed about uses this software has found, about bugs in this software, and about any improvements that may be of general interest.<br />
+<br />
+Berlin, 28.11.1994<br />
+Jutta Degener<br />
+Carsten Bormann<br />
+<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;oOo<br />
+<br />
+Since the original terms of 15 years ago maybe do not make our intentions completely clear given today's refined usage of the legal terms, we append this additional permission:<br />
+<br />
+Permission to use, copy, modify, and distribute this software for any purpose with or without fee is hereby granted, provided that this notice is not removed and that neither the authors nor the Technische Universitaet Berlin are deemed to have made any representations as to the suitability of this software for any purpose nor are held responsible for any defects of this software. &nbsp;THERE IS ABSOLUTELY NO WARRANTY FOR THIS SOFTWARE.<br />
+<br />
+Old MIT License<br />
+Permission is hereby granted, without written agreement and without license or royalty fees, to use, copy, modify, and distribute this software and its documentation for any purpose, provided that the above copyright notice and the following two paragraphs appear in all copies of this software.<br />
+<br />
+IN NO EVENT SHALL THE COPYRIGHT HOLDER BE LIABLE TO ANY PARTY FOR DIRECT, INDIRECT, SPECIAL, INCIDENTAL, OR CONSEQUENTIAL DAMAGES ARISING OUT OF THE USE OF THIS SOFTWARE AND ITS DOCUMENTATION, EVEN IF THE COPYRIGHT HOLDER HAS BEEN ADVISED OF THE POSSIBILITY OF SUCH<br />
+DAMAGE.<br />
+<br />
+THE COPYRIGHT HOLDER SPECIFICALLY DISCLAIMS ANY WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THE IMPLIED WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE. &nbsp;THE SOFTWARE PROVIDED HEREUNDER IS ON AN &quot;AS IS&quot; BASIS, AND THE COPYRIGHT HOLDER HAS NO OBLIGATION TO PROVIDE MAINTENANCE, SUPPORT, UPDATES, ENHANCEMENTS, OR MODIFICATIONS.<br />
+<br />
+libpng license<br />
+This copy of the libpng notices is provided for your convenience. &nbsp;In case of any discrepancy between this copy and the notices in the file png.h that is included in the libpng distribution, the latter shall prevail.<br />
+<br />
+COPYRIGHT NOTICE, DISCLAIMER, and LICENSE:<br />
+<br />
+If you modify libpng you may insert additional notices immediately following this sentence.<br />
+<br />
+This code is released under the libpng license.<br />
+<br />
+libpng versions 1.2.6, August 15, 2004, through 1.6.1, March 28, 2013, are Copyright (c) 2004, 2006-2012 Glenn Randers-Pehrson, and are distributed according to the same disclaimer and license as libpng-1.2.5 with the following individual added to the list of Contributing Authors<br />
+<br />
+&nbsp;&nbsp;&nbsp;Cosmin Truta<br />
+<br />
+libpng versions 1.0.7, July 1, 2000, through 1.2.5 - October 3, 2002, are Copyright (c) 2000-2002 Glenn Randers-Pehrson, and are distributed according to the same disclaimer and license as libpng-1.0.6 with the following individuals added to the list of Contributing Authors<br />
+<br />
+&nbsp;&nbsp;&nbsp;Simon-Pierre Cadieux<br />
+&nbsp;&nbsp;&nbsp;Eric S. Raymond<br />
+&nbsp;&nbsp;&nbsp;Gilles Vollant<br />
+<br />
+and with the following additions to the disclaimer:<br />
+<br />
+There is no warranty against interference with your enjoyment of the library or against infringement. &nbsp;There is no warranty that our efforts or the library will fulfill any of your particular purposes or needs. &nbsp;This library is provided with all faults, and the entire risk of satisfactory quality, performance, accuracy, and effort is with the user.<br />
+<br />
+libpng versions 0.97, January 1998, through 1.0.6, March 20, 2000, are Copyright (c) 1998, 1999 Glenn Randers-Pehrson, and are distributed according to the same disclaimer and license as libpng-0.96, with the following individuals added to the list of Contributing Authors:<br />
+<br />
+&nbsp;&nbsp;&nbsp;Tom Lane<br />
+&nbsp;&nbsp;&nbsp;Glenn Randers-Pehrson<br />
+&nbsp;&nbsp;&nbsp;Willem van Schaik<br />
+<br />
+libpng versions 0.89, June 1996, through 0.96, May 1997, are Copyright (c) 1996, 1997 Andreas Dilger<br />
+Distributed according to the same disclaimer and license as libpng-0.88,<br />
+with the following individuals added to the list of Contributing Authors:<br />
+<br />
+&nbsp;&nbsp;&nbsp;John Bowler<br />
+&nbsp;&nbsp;&nbsp;Kevin Bracey<br />
+&nbsp;&nbsp;&nbsp;Sam Bushell<br />
+&nbsp;&nbsp;&nbsp;Magnus Holmgren<br />
+&nbsp;&nbsp;&nbsp;Greg Roelofs<br />
+&nbsp;&nbsp;&nbsp;Tom Tanner<br />
+<br />
+libpng versions 0.5, May 1995, through 0.88, January 1996, are Copyright (c) 1995, 1996 Guy Eric Schalnat, Group 42, Inc.<br />
+<br />
+For the purposes of this copyright and license, &quot;Contributing Authors&quot; is defined as the following set of individuals:<br />
+<br />
+&nbsp;&nbsp;&nbsp;Andreas Dilger<br />
+&nbsp;&nbsp;&nbsp;Dave Martindale<br />
+&nbsp;&nbsp;&nbsp;Guy Eric Schalnat<br />
+&nbsp;&nbsp;&nbsp;Paul Schmidt<br />
+&nbsp;&nbsp;&nbsp;Tim Wegner<br />
+<br />
+The PNG Reference Library is supplied &quot;AS IS&quot;. &nbsp;The Contributing Authors and Group 42, Inc. disclaim all warranties, expressed or implied, including, without limitation, the warranties of merchantability and of fitness for any purpose. &nbsp;The Contributing Authors and Group 42, Inc. assume no liability for direct, indirect, incidental, special, exemplary, or consequential damages, which may result from the use of the PNG Reference Library, even if advised of the possibility of such damage.<br />
+<br />
+Permission is hereby granted to use, copy, modify, and distribute this source code, or portions hereof, for any purpose, without fee, subject to the following restrictions:<br />
+<br />
+1. The origin of this source code must not be misrepresented.<br />
+<br />
+2. Altered versions must be plainly marked as such and must not be misrepresented as being the original source.<br />
+<br />
+3. This Copyright notice may not be removed or altered from any source or altered source distribution.<br />
+<br />
+The Contributing Authors and Group 42, Inc. specifically permit, without fee, and encourage the use of this source code as a component to supporting the PNG file format in commercial products. &nbsp;If you use this source code in a product, acknowledgment is not required but would be appreciated.<br />
+<br />
+<br />
+A &quot;png_get_copyright&quot; function is available, for convenient use in &quot;about&quot; boxes and the like:<br />
+<br />
+&nbsp;&nbsp;&nbsp;printf(&quot;%s&quot;,png_get_copyright(NULL));<br />
+<br />
+Also, the PNG logo (in PNG format, of course) is supplied in the files &quot;pngbar.png&quot; and &quot;pngbar.jpg (88x31) and &quot;pngnow.png&quot; (98x31).<br />
+<br />
+Libpng is OSI Certified Open Source Software. &nbsp;OSI Certified Open Source is a certification mark of the Open Source Initiative.<br />
+<br />
+Glenn Randers-Pehrson<br />
+glennrp at users.sourceforge.net<br />
+March 28, 2013<br />
+<br />
+ISC License<br />
+Copyright (c) 4-digit year, Company or Person's Name Permission to use, copy, modify, and/or distribute this software for any purpose with or without fee is hereby granted, &nbsp;rovided that the above copyright notice and this permission notice appear in all copies. THE SOFTWARE IS PROVIDED &quot;AS IS&quot; AND THE AUTHOR DISCLAIMS ALL WARRANTIES WITH REGARD TO THIS SOFTWARE INCLUDING ALL IMPLIED WARRANTIES OF MERCHANTABILITY AND FITNESS. IN NO EVENT SHALL THE AUTHOR BE LIABLE FOR ANY SPECIAL, DIRECT, INDIRECT, OR CONSEQUENTIAL DAMAGES OR ANY DAMAGES WHATSOEVER RESULTING FROM LOSS OF USE, DATA OR PROFITS, WHETHER IN AN ACTION OF CONTRACT, NEGLIGENCE OR OTHER TORTIOUS ACTION, ARISING OUT OF OR IN CONNECTION WITH THE USE OR PERFORMANCE OF THIS SOFTWARE.<br />
+<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;The FreeType Project LICENSE<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;----------------------------<br />
+<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;2006-Jan-27<br />
+<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Copyright 1996-2002, 2006 by<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;David Turner, Robert Wilhelm, and Werner Lemberg<br />
+<br />
+<br />
+<br />
+Introduction<br />
+============<br />
+<br />
+&nbsp;&nbsp;The FreeType &nbsp;Project is distributed in &nbsp;several archive packages;<br />
+&nbsp;&nbsp;some of them may contain, in addition to the FreeType font engine,<br />
+&nbsp;&nbsp;various tools and &nbsp;contributions which rely on, or &nbsp;relate to, the<br />
+&nbsp;&nbsp;FreeType Project.<br />
+<br />
+&nbsp;&nbsp;This &nbsp;license applies &nbsp;to all &nbsp;files found &nbsp;in such &nbsp;packages, and<br />
+&nbsp;&nbsp;which do not &nbsp;fall under their own explicit &nbsp;license. &nbsp;The license<br />
+&nbsp;&nbsp;affects &nbsp;thus &nbsp;the &nbsp;FreeType &nbsp;&nbsp;font &nbsp;engine, &nbsp;the &nbsp;test &nbsp;programs,<br />
+&nbsp;&nbsp;documentation and makefiles, at the very least.<br />
+<br />
+&nbsp;&nbsp;This &nbsp;license &nbsp;&nbsp;was &nbsp;inspired &nbsp;by &nbsp;the &nbsp;BSD, &nbsp;&nbsp;Artistic, &nbsp;and &nbsp;IJG<br />
+&nbsp;&nbsp;(Independent JPEG &nbsp;Group) licenses, which &nbsp;all encourage inclusion<br />
+&nbsp;&nbsp;and &nbsp;use of &nbsp;free &nbsp;software in &nbsp;commercial &nbsp;and freeware &nbsp;products<br />
+&nbsp;&nbsp;alike. &nbsp;As a consequence, its main points are that:<br />
+<br />
+&nbsp;&nbsp;&nbsp;&nbsp;o We don't promise that this software works. However, we will be<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;interested in any kind of bug reports. (`as is' distribution)<br />
+<br />
+&nbsp;&nbsp;&nbsp;&nbsp;o You can &nbsp;use this software for whatever you &nbsp;want, in parts or<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;full form, without having to pay us. (`royalty-free' usage)<br />
+<br />
+&nbsp;&nbsp;&nbsp;&nbsp;o You may not pretend that &nbsp;you wrote this software. &nbsp;If you use<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;it, or &nbsp;only parts of it, &nbsp;in a program, &nbsp;you must acknowledge<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;somewhere &nbsp;in &nbsp;your &nbsp;documentation &nbsp;that &nbsp;you &nbsp;have &nbsp;used &nbsp;the<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;FreeType code. (`credits')<br />
+<br />
+&nbsp;&nbsp;We &nbsp;specifically &nbsp;permit &nbsp;and &nbsp;encourage &nbsp;the &nbsp;inclusion &nbsp;of &nbsp;this<br />
+&nbsp;&nbsp;software, with &nbsp;or without modifications, &nbsp;in commercial products.<br />
+&nbsp;&nbsp;We &nbsp;disclaim &nbsp;all warranties &nbsp;covering &nbsp;The &nbsp;FreeType Project &nbsp;and<br />
+&nbsp;&nbsp;assume no liability related to The FreeType Project.<br />
+<br />
+<br />
+&nbsp;&nbsp;Finally, &nbsp;many &nbsp;people &nbsp;asked &nbsp;us &nbsp;for &nbsp;a &nbsp;preferred &nbsp;form &nbsp;for &nbsp;a<br />
+&nbsp;&nbsp;credit/disclaimer to use in compliance with this license. &nbsp;We thus<br />
+&nbsp;&nbsp;encourage you to use the following text:<br />
+<br />
+&nbsp;&nbsp;&nbsp;&quot;&quot;&quot;<br />
+&nbsp;&nbsp;&nbsp;&nbsp;Portions of this software are copyright &#65533; &lt;year&gt; The FreeType<br />
+&nbsp;&nbsp;&nbsp;&nbsp;Project (www.freetype.org). &nbsp;All rights reserved.<br />
+&nbsp;&nbsp;&nbsp;&quot;&quot;&quot;<br />
+<br />
+&nbsp;&nbsp;Please replace &lt;year&gt; with the value from the FreeType version you<br />
+&nbsp;&nbsp;actually use.<br />
+<br />
+<br />
+Legal Terms<br />
+===========<br />
+<br />
+0. Definitions<br />
+--------------<br />
+<br />
+&nbsp;&nbsp;Throughout this license, &nbsp;the terms `package', `FreeType Project',<br />
+&nbsp;&nbsp;and &nbsp;`FreeType &nbsp;archive' refer &nbsp;to &nbsp;the &nbsp;set &nbsp;of files &nbsp;originally<br />
+&nbsp;&nbsp;distributed &nbsp;by the &nbsp;authors &nbsp;(David Turner, &nbsp;Robert Wilhelm, &nbsp;and<br />
+&nbsp;&nbsp;Werner Lemberg) as the `FreeType Project', be they named as alpha,<br />
+&nbsp;&nbsp;beta or final release.<br />
+<br />
+&nbsp;&nbsp;`You' refers to &nbsp;the licensee, or person using &nbsp;the project, where<br />
+&nbsp;&nbsp;`using' is a generic term including compiling the project's source<br />
+&nbsp;&nbsp;code as &nbsp;well as linking it &nbsp;to form a &nbsp;`program' or `executable'.<br />
+&nbsp;&nbsp;This &nbsp;program is &nbsp;referred to &nbsp;as &nbsp;`a program &nbsp;using the &nbsp;FreeType<br />
+&nbsp;&nbsp;engine'.<br />
+<br />
+&nbsp;&nbsp;This &nbsp;license applies &nbsp;to all &nbsp;files distributed &nbsp;in &nbsp;the original<br />
+&nbsp;&nbsp;FreeType &nbsp;Project, &nbsp;&nbsp;including &nbsp;all &nbsp;source &nbsp;&nbsp;code, &nbsp;binaries &nbsp;and<br />
+&nbsp;&nbsp;documentation, &nbsp;unless &nbsp;otherwise &nbsp;stated &nbsp;&nbsp;in &nbsp;the &nbsp;file &nbsp;in &nbsp;its<br />
+&nbsp;&nbsp;original, unmodified form as &nbsp;distributed in the original archive.<br />
+&nbsp;&nbsp;If you are &nbsp;unsure whether or not a particular &nbsp;file is covered by<br />
+&nbsp;&nbsp;this license, you must contact us to verify this.<br />
+<br />
+&nbsp;&nbsp;The FreeType &nbsp;Project is copyright (C) 1996-2000 &nbsp;by David Turner,<br />
+&nbsp;&nbsp;Robert Wilhelm, and Werner Lemberg. &nbsp;All rights reserved except as<br />
+&nbsp;&nbsp;specified below.<br />
+<br />
+1. No Warranty<br />
+--------------<br />
+<br />
+&nbsp;&nbsp;THE FREETYPE PROJECT &nbsp;IS PROVIDED `AS IS' WITHOUT &nbsp;WARRANTY OF ANY<br />
+&nbsp;&nbsp;KIND, EITHER &nbsp;EXPRESS OR IMPLIED, &nbsp;INCLUDING, BUT NOT &nbsp;LIMITED TO,<br />
+&nbsp;&nbsp;WARRANTIES &nbsp;OF &nbsp;MERCHANTABILITY &nbsp;&nbsp;AND &nbsp;FITNESS &nbsp;FOR &nbsp;A &nbsp;PARTICULAR<br />
+&nbsp;&nbsp;PURPOSE. &nbsp;IN NO EVENT WILL ANY OF THE AUTHORS OR COPYRIGHT HOLDERS<br />
+&nbsp;&nbsp;BE LIABLE &nbsp;FOR ANY DAMAGES CAUSED &nbsp;BY THE USE OR &nbsp;THE INABILITY TO<br />
+&nbsp;&nbsp;USE, OF THE FREETYPE PROJECT.<br />
+<br />
+2. Redistribution<br />
+-----------------<br />
+<br />
+&nbsp;&nbsp;This &nbsp;license &nbsp;grants &nbsp;a &nbsp;worldwide, royalty-free, &nbsp;perpetual &nbsp;and<br />
+&nbsp;&nbsp;irrevocable right &nbsp;and license to use, &nbsp;execute, perform, compile,<br />
+&nbsp;&nbsp;display, &nbsp;copy, &nbsp;&nbsp;create &nbsp;derivative &nbsp;works &nbsp;&nbsp;of, &nbsp;distribute &nbsp;and<br />
+&nbsp;&nbsp;sublicense the &nbsp;FreeType Project (in &nbsp;both source and &nbsp;object code<br />
+&nbsp;&nbsp;forms) &nbsp;and &nbsp;derivative works &nbsp;thereof &nbsp;for &nbsp;any &nbsp;purpose; and &nbsp;to<br />
+&nbsp;&nbsp;authorize others &nbsp;to exercise &nbsp;some or all &nbsp;of the &nbsp;rights granted<br />
+&nbsp;&nbsp;herein, subject to the following conditions:<br />
+<br />
+&nbsp;&nbsp;&nbsp;&nbsp;o Redistribution of &nbsp;source code &nbsp;must retain this &nbsp;license file<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;(`FTL.TXT') unaltered; any &nbsp;additions, deletions or changes to<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;the original &nbsp;files must be clearly &nbsp;indicated in accompanying<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;documentation. &nbsp;&nbsp;The &nbsp;copyright &nbsp;&nbsp;notices &nbsp;of &nbsp;the &nbsp;unaltered,<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;original &nbsp;files must &nbsp;be &nbsp;preserved in &nbsp;all &nbsp;copies of &nbsp;source<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;files.<br />
+<br />
+&nbsp;&nbsp;&nbsp;&nbsp;o Redistribution in binary form must provide a &nbsp;disclaimer &nbsp;that<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;states &nbsp;that &nbsp;the software is based in part of the work of the<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;FreeType Team, &nbsp;in &nbsp;the &nbsp;distribution &nbsp;documentation. &nbsp;We also<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;encourage you to put an URL to the FreeType web page &nbsp;in &nbsp;your<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;documentation, though this isn't mandatory.<br />
+<br />
+&nbsp;&nbsp;These conditions &nbsp;apply to any &nbsp;software derived from or &nbsp;based on<br />
+&nbsp;&nbsp;the FreeType Project, &nbsp;not just the unmodified files. &nbsp;&nbsp;If you use<br />
+&nbsp;&nbsp;our work, you &nbsp;must acknowledge us. &nbsp;However, no &nbsp;fee need be paid<br />
+&nbsp;&nbsp;to us.<br />
+<br />
+3. Advertising<br />
+--------------<br />
+<br />
+&nbsp;&nbsp;Neither the &nbsp;FreeType authors and &nbsp;contributors nor you &nbsp;shall use<br />
+&nbsp;&nbsp;the name of the &nbsp;other for commercial, advertising, or promotional<br />
+&nbsp;&nbsp;purposes without specific prior written permission.<br />
+<br />
+&nbsp;&nbsp;We suggest, &nbsp;but do not require, that &nbsp;you use one or &nbsp;more of the<br />
+&nbsp;&nbsp;following phrases to refer &nbsp;to this software in your documentation<br />
+&nbsp;&nbsp;or advertising &nbsp;materials: `FreeType Project', &nbsp;`FreeType Engine',<br />
+&nbsp;&nbsp;`FreeType library', or `FreeType Distribution'.<br />
+<br />
+&nbsp;&nbsp;As &nbsp;you have &nbsp;not signed &nbsp;this license, &nbsp;you are &nbsp;not &nbsp;required to<br />
+&nbsp;&nbsp;accept &nbsp;it. &nbsp;&nbsp;However, &nbsp;as &nbsp;the FreeType &nbsp;Project &nbsp;is &nbsp;copyrighted<br />
+&nbsp;&nbsp;material, only &nbsp;this license, or &nbsp;another one contracted &nbsp;with the<br />
+&nbsp;&nbsp;authors, grants you &nbsp;the right to use, distribute, &nbsp;and modify it.<br />
+&nbsp;&nbsp;Therefore, &nbsp;by &nbsp;using, &nbsp;distributing, &nbsp;or modifying &nbsp;the &nbsp;FreeType<br />
+&nbsp;&nbsp;Project, you indicate that you understand and accept all the terms<br />
+&nbsp;&nbsp;of this license.<br />
+<br />
+4. Contacts<br />
+-----------<br />
+<br />
+&nbsp;&nbsp;There are two mailing lists related to FreeType:<br />
+<br />
+&nbsp;&nbsp;&nbsp;&nbsp;o freetype@nongnu.org<br />
+<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Discusses general use and applications of FreeType, as well as<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;future and &nbsp;wanted additions to the &nbsp;library and distribution.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;If &nbsp;you are looking &nbsp;for support, &nbsp;start in &nbsp;this list &nbsp;if you<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;haven't found anything to help you in the documentation.<br />
+<br />
+&nbsp;&nbsp;&nbsp;&nbsp;o freetype-devel@nongnu.org<br />
+<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Discusses bugs, &nbsp;as well &nbsp;as engine internals, &nbsp;design issues,<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;specific licenses, porting, etc.<br />
+<br />
+&nbsp;&nbsp;Our home page can be found at<br />
+<br />
+&nbsp;&nbsp;&nbsp;&nbsp;http://www.freetype.org<br />
+<br />
+zlib License<br />
+This software is provided 'as-is', without any express or implied warranty. &nbsp;In no event will the authors be held liable for any damages arising from the use of this software.<br />
+<br />
+Permission is granted to anyone to use this software for any purpose, including commercial applications, and to alter it and redistribute it freely, subject to the following restrictions:<br />
+<br />
+1. The origin of this software must not be misrepresented; you must not claim that you wrote the original software. If you use this software in a product, an acknowledgment in the product documentation would be appreciated but is not required.<br />
+2. Altered source versions must be plainly marked as such, and must not be misrepresented as being the original software.<br />
+3. This notice may not be removed or altered from any source distribution.<br />
+<br />
+Jean-loup Gailly &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Mark Adler<br />
+jloup@gzip.org &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;madler@alumni.caltech.edu<br />
+</div>
+</body>
+</html>

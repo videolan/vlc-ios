@@ -101,6 +101,7 @@
 		7D3EB012174A3530002062C2 /* Reachability.m in Sources */ = {isa = PBXBuildFile; fileRef = 7D3EB011174A3530002062C2 /* Reachability.m */; };
 		7D3EB014174A353E002062C2 /* SystemConfiguration.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 7D3EB013174A353E002062C2 /* SystemConfiguration.framework */; };
 		7D3EB017174A46FB002062C2 /* VLCHTTPFileDownloader.m in Sources */ = {isa = PBXBuildFile; fileRef = 7D3EB016174A46FB002062C2 /* VLCHTTPFileDownloader.m */; };
+		7D5DD5C717590ABF001421E3 /* About Contents.html in Resources */ = {isa = PBXBuildFile; fileRef = 7D5DD5C617590ABF001421E3 /* About Contents.html */; };
 		7D5E39C0174FB95A007DAFA1 /* dropbox-black.png in Resources */ = {isa = PBXBuildFile; fileRef = 7D5E39BF174FB95A007DAFA1 /* dropbox-black.png */; };
 		7D5E39C2174FBA28007DAFA1 /* dropbox-black@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 7D5E39C1174FBA28007DAFA1 /* dropbox-black@2x.png */; };
 		7D5E39C6174FBAF3007DAFA1 /* VLCDropboxTableViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 7D5E39C4174FBAF3007DAFA1 /* VLCDropboxTableViewController.m */; };
@@ -165,7 +166,6 @@
 		7DBC3B3B1711DD0900DCF688 /* Aspen57.png in Resources */ = {isa = PBXBuildFile; fileRef = 7DBC3B3A1711DD0900DCF688 /* Aspen57.png */; };
 		7DBC3B441711FC6C00DCF688 /* VLCAboutViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 7DBC3B421711FC6C00DCF688 /* VLCAboutViewController.m */; };
 		7DBC3B451711FC6C00DCF688 /* VLCAboutViewController~iphone.xib in Resources */ = {isa = PBXBuildFile; fileRef = 7DBC3B431711FC6C00DCF688 /* VLCAboutViewController~iphone.xib */; };
-		7DBC3B49171204ED00DCF688 /* About Contents.txt in Resources */ = {isa = PBXBuildFile; fileRef = 7DBC3B48171204EC00DCF688 /* About Contents.txt */; };
 		7DC87AEE17412A1F009DC250 /* VLCLinearProgressIndicator.m in Sources */ = {isa = PBXBuildFile; fileRef = 7DC87AED17412A1F009DC250 /* VLCLinearProgressIndicator.m */; };
 		7DC87AF217413EE3009DC250 /* VLCPlaylistGridView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 7DC87AF117413EE3009DC250 /* VLCPlaylistGridView.xib */; };
 		7DDD0429172D98E5005A7B10 /* CFNetwork.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 7DDD0428172D98E5005A7B10 /* CFNetwork.framework */; };
@@ -340,6 +340,7 @@
 		7D3EB013174A353E002062C2 /* SystemConfiguration.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = SystemConfiguration.framework; path = System/Library/Frameworks/SystemConfiguration.framework; sourceTree = SDKROOT; };
 		7D3EB015174A46FB002062C2 /* VLCHTTPFileDownloader.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = VLCHTTPFileDownloader.h; sourceTree = "<group>"; };
 		7D3EB016174A46FB002062C2 /* VLCHTTPFileDownloader.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = VLCHTTPFileDownloader.m; sourceTree = "<group>"; };
+		7D5DD5C617590ABF001421E3 /* About Contents.html */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.html; path = "About Contents.html"; sourceTree = "<group>"; };
 		7D5E39BF174FB95A007DAFA1 /* dropbox-black.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "dropbox-black.png"; sourceTree = "<group>"; };
 		7D5E39C1174FBA28007DAFA1 /* dropbox-black@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "dropbox-black@2x.png"; sourceTree = "<group>"; };
 		7D5E39C3174FBAF3007DAFA1 /* VLCDropboxTableViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = VLCDropboxTableViewController.h; sourceTree = "<group>"; };
@@ -449,7 +450,6 @@
 		7DBC3B411711FC6C00DCF688 /* VLCAboutViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = VLCAboutViewController.h; sourceTree = "<group>"; };
 		7DBC3B421711FC6C00DCF688 /* VLCAboutViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = VLCAboutViewController.m; sourceTree = "<group>"; };
 		7DBC3B431711FC6C00DCF688 /* VLCAboutViewController~iphone.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; name = "VLCAboutViewController~iphone.xib"; path = "../Resources/VLCAboutViewController~iphone.xib"; sourceTree = "<group>"; };
-		7DBC3B48171204EC00DCF688 /* About Contents.txt */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = "About Contents.txt"; sourceTree = "<group>"; };
 		7DBDAE96175652840027BA52 /* VLCDropboxConstants.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = VLCDropboxConstants.h; sourceTree = "<group>"; };
 		7DC87AEC17412A1F009DC250 /* VLCLinearProgressIndicator.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = VLCLinearProgressIndicator.h; sourceTree = "<group>"; };
 		7DC87AED17412A1F009DC250 /* VLCLinearProgressIndicator.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = VLCLinearProgressIndicator.m; sourceTree = "<group>"; };
@@ -1083,7 +1083,7 @@
 				7D10BC681743F9C300DA7059 /* Playback Controls */,
 				7DA8B0F9173318E80029698C /* SourceCodePro-Regular.ttf */,
 				7DA8B0FA173318E80029698C /* SourceSansPro-Regular.ttf */,
-				7DBC3B48171204EC00DCF688 /* About Contents.txt */,
+				7D5DD5C617590ABF001421E3 /* About Contents.html */,
 				7DBC3B3C1711DD1E00DCF688 /* Icons */,
 				A79246C6170F11DF0036AAF2 /* Localizable.strings */,
 				7D10BC651743F9A100DA7059 /* External Playback */,
@@ -1198,7 +1198,6 @@
 				7DBC3B391711DD0200DCF688 /* Aspen114.png in Resources */,
 				7DBC3B3B1711DD0900DCF688 /* Aspen57.png in Resources */,
 				7DBC3B451711FC6C00DCF688 /* VLCAboutViewController~iphone.xib in Resources */,
-				7DBC3B49171204ED00DCF688 /* About Contents.txt in Resources */,
 				A7CB0DB11716F72600050CF3 /* PlayingExternally@2x~iphone.png in Resources */,
 				A7CB0DB21716F72600050CF3 /* PlayingExternally~iphone.png in Resources */,
 				A7CB0DB31716F72600050CF3 /* PlayingExternally~ipad.png in Resources */,
@@ -1293,6 +1292,7 @@
 				7D07F72F175691CC00CDE21C /* backButton@2x.png in Resources */,
 				7D07F730175691CC00CDE21C /* backButtonHighlight.png in Resources */,
 				7D07F731175691CC00CDE21C /* backButtonHighlight@2x.png in Resources */,
+				7D5DD5C717590ABF001421E3 /* About Contents.html in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
