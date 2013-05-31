@@ -102,12 +102,7 @@
 
 - (void)viewWillAppear:(BOOL)animated
 {
-    NSUserDefaults *defaults = [NSUserDefaults standardUserDefaults];
-    NSArray *options = @[[[defaults objectForKey:kVLCSettingVerboseOutput] boolValue] ? kVLCSettingVerboseOutputOnValue : kVLCSettingVerboseOutputOffValue,
-                         [[defaults objectForKey:kVLCSettingStretchAudio] boolValue] ? kVLCSettingStretchAudioOnValue : kVLCSettingStretchAudioOffValue,
-                         [NSString stringWithFormat:@"--subsdec-encoding=%@",[defaults objectForKey:kVLCSettingTextEncoding]]];
-
-    _mediaPlayer = [[VLCMediaPlayer alloc] initWithOptions:options];
+    _mediaPlayer = [[VLCMediaPlayer alloc] init];
     [_mediaPlayer setDelegate:self];
     [_mediaPlayer setDrawable:self.movieView];
 
@@ -118,14 +113,23 @@
     if (!self.mediaItem && !self.url)
         return;
 
+    VLCMedia *media;
     if (self.mediaItem) {
         self.title = [self.mediaItem title];
-        [_mediaPlayer setMedia:[VLCMedia mediaWithURL:[NSURL URLWithString:self.mediaItem.url]]];
+        media = [VLCMedia mediaWithURL:[NSURL URLWithString:self.mediaItem.url]];
         self.mediaItem.unread = @(NO);
     } else {
-        [_mediaPlayer setMedia:[VLCMedia mediaWithURL:self.url]];
+        media = [VLCMedia mediaWithURL:self.url];
         self.title = @"Network Stream";
     }
+
+    NSUserDefaults *defaults = [NSUserDefaults standardUserDefaults];
+    [media addOptions:
+     @{kVLCSettingStretchAudio :
+           [[defaults objectForKey:kVLCSettingStretchAudio] boolValue] ? kVLCSettingStretchAudioOnValue : kVLCSettingStretchAudioOffValue,
+        kVLCSettingTextEncoding : [defaults objectForKey:kVLCSettingTextEncoding]}];
+
+    [_mediaPlayer setMedia:media];
 
     self.positionSlider.value = 0.;
 
