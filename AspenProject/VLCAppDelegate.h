@@ -11,10 +11,6 @@
 @class VLCPlaylistViewController;
 @class PAPasscodeViewController;
 @interface VLCAppDelegate : UIResponder <UIApplicationDelegate>
-{
-    NSURL *_tempURL;
-    PAPasscodeViewController *_passcodeLockController;
-}
 
 - (void)updateMediaList;
 

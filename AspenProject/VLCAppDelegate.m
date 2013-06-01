@@ -12,7 +12,10 @@
 #import "VLCMovieViewController.h"
 #import "PAPasscodeViewController.h"
 
-@interface VLCAppDelegate () <PAPasscodeViewControllerDelegate>
+@interface VLCAppDelegate () <PAPasscodeViewControllerDelegate> {
+    NSURL *_tempURL;
+    PAPasscodeViewController *_passcodeLockController;
+}
 
 @property (nonatomic) BOOL passcodeValidated;
 
