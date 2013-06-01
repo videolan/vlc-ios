@@ -42,7 +42,11 @@
 
 - (BOOL)webView:(UIWebView *)webView shouldStartLoadWithRequest:(NSURLRequest *)request navigationType:(UIWebViewNavigationType)navigationType
 {
-    return ![[UIApplication sharedApplication] openURL:request.URL];
+    NSURL *requestURL = request.URL;
+    if (![requestURL.scheme isEqualToString:@""])
+        return ![[UIApplication sharedApplication] openURL:requestURL];
+    else
+        return YES;
 }
 
 - (void)dismiss
