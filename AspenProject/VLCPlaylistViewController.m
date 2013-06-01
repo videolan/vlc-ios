@@ -250,7 +250,14 @@
 - (void)setEditing:(BOOL)editing animated:(BOOL)animated
 {
     [super setEditing:editing animated:animated];
-
+    
+    NSString *editImage = editing? @"doneButton": @"button";
+    NSString *editImageHighlight = editing? @"doneButtonHighlight": @"buttonHighlight";
+    [self.editButtonItem setBackgroundImage:[UIImage imageNamed:editImage] forState:UIControlStateNormal
+                                 barMetrics:UIBarMetricsDefault];
+    [self.editButtonItem setBackgroundImage:[UIImage imageNamed:editImageHighlight]
+                                   forState:UIControlStateHighlighted barMetrics:UIBarMetricsDefault];
+    
     if (UI_USER_INTERFACE_IDIOM() == UIUserInterfaceIdiomPad)
         [self.gridView setEditing:editing];
     else
