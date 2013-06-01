@@ -7,14 +7,19 @@
 //
 
 #import "VLCAppDelegate.h"
+#import "DirectoryWatcher.h"
 
 #import "VLCPlaylistViewController.h"
 #import "VLCMovieViewController.h"
 #import "PAPasscodeViewController.h"
 
-@interface VLCAppDelegate () <PAPasscodeViewControllerDelegate> {
+@interface VLCAppDelegate () <PAPasscodeViewControllerDelegate, DirectoryWatcherDelegate> {
     NSURL *_tempURL;
     PAPasscodeViewController *_passcodeLockController;
+
+    DirectoryWatcher *_directoryWatcher;
+    NSTimer *_addMediaTimer;
+    NSMutableDictionary *_addedFiles;
 }
 
 @property (nonatomic) BOOL passcodeValidated;
@@ -35,6 +40,8 @@
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions
 {
     self.window = [[UIWindow alloc] initWithFrame:[[UIScreen mainScreen] bounds]];
+
+    _directoryWatcher = [DirectoryWatcher watchFolderWithPath:[self directoryPath] delegate:self];
 
     _playlistViewController = [[VLCPlaylistViewController alloc] init];
 
@@ -114,7 +121,71 @@
     // Called when the application is about to terminate. Save data if appropriate. See also applicationDidEnterBackground:.
 }
 
-- (void)updateMediaList
+#pragma mark - directory watcher delegate
+
+- (void)addFileTimerFired
+{
+    NSArray *allKeys = [_addedFiles allKeys];
+    for (NSString *fileURL in allKeys) {
+        NSDictionary *attribs = [[NSFileManager defaultManager] attributesOfItemAtPath:fileURL error:nil];
+
+        NSNumber *prevFetchedSize = [_addedFiles objectForKey:fileURL];
+        NSNumber *updatedSize = [attribs objectForKey:NSFileSize];
+        if ([prevFetchedSize compare:updatedSize] == NSOrderedSame) {
+            [_addedFiles removeObjectForKey:fileURL];
+            [[MLMediaLibrary sharedMediaLibrary] addFilePaths:@[fileURL]];
+            [_playlistViewController updateViewContents];
+        } else {
+            [_addedFiles setObject:updatedSize forKey:fileURL];
+        }
+    }
+    
+    if (_addedFiles.count == 0) {
+        [_addMediaTimer invalidate];
+        _addMediaTimer = nil;
+    }
+}
+
+- (void)directoryDidChange:(DirectoryWatcher *)folderWatcher
+{
+    NSArray *foundFiles = [[NSFileManager defaultManager] contentsOfDirectoryAtPath:[self directoryPath] error:nil];
+    NSMutableArray *matchedFiles = [NSMutableArray arrayWithCapacity:foundFiles.count];
+    for (NSString *fileName in foundFiles) {
+        if ([fileName rangeOfString:kSupportedFileExtensions options:NSRegularExpressionSearch|NSCaseInsensitiveSearch].length != 0) {
+            [matchedFiles addObject:[[self directoryPath] stringByAppendingPathComponent:fileName]];
+        }
+    }
+
+    NSArray *mediaFiles = [MLFile allFiles];
+    NSMutableArray *mediaFilesPaths = [NSMutableArray arrayWithCapacity:mediaFiles.count];
+    for (MLFile *file in mediaFiles) {
+        [mediaFilesPaths addObject:file.url];
+    }
+
+    if (mediaFiles.count > matchedFiles.count) { // File was deleted
+        [self updateMediaList];
+
+    } else if (mediaFiles.count < matchedFiles.count) { // File was added
+        NSPredicate *filterPredicate = [NSPredicate predicateWithFormat:@"not (self in %@)", mediaFilesPaths];
+        NSArray *addedFiles = [matchedFiles filteredArrayUsingPredicate:filterPredicate];
+
+        _addedFiles = [NSMutableDictionary dictionaryWithCapacity:[addedFiles count]];
+        for (NSString *fileURL in addedFiles) {
+            [_addedFiles setObject:@(0) forKey:fileURL];
+        }
+
+        _addMediaTimer = [NSTimer scheduledTimerWithTimeInterval:2. target:self
+                                                        selector:@selector(addFileTimerFired)
+                                                        userInfo:nil repeats:YES];
+
+    } else {
+        APLog(@"Directory content changes for undefined reason");
+    }
+}
+
+#pragma mark - media list methods
+
+- (NSString *)directoryPath
 {
 #define LOCAL_PLAYBACK_HACK 1
 #if LOCAL_PLAYBACK_HACK && TARGET_IPHONE_SIMULATOR
@@ -123,6 +194,13 @@
     NSArray *searchPaths = NSSearchPathForDirectoriesInDomains(NSDocumentDirectory, NSUserDomainMask, YES);
     NSString *directoryPath = searchPaths[0];
 #endif
+
+    return directoryPath;
+}
+
+- (void)updateMediaList
+{
+    NSString *directoryPath = [self directoryPath];
     NSArray *foundFiles = [[NSFileManager defaultManager] contentsOfDirectoryAtPath:directoryPath error:nil];
     NSMutableArray *filePaths = [NSMutableArray arrayWithCapacity:[foundFiles count]];
     NSURL *fileURL;
