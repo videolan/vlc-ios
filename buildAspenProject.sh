@@ -142,16 +142,7 @@ git clone git://git.videolan.org/vlc-bindings/VLCKit.git
 #cd ..
 fi
 if ! [ -e OBSlider ]; then
-git clone git://github.com/sylverb/OBSlider.git
-info "Applying patches to OBSlider.git"
-cd OBSlider
-git am ../../patches/obslider/*.patch
-if [ $? -ne 0 ]; then
-git am --abort
-info "Applying the patches failed, aborting git-am"
-exit 1
-fi
-cd ..
+git clone git://github.com/ole/OBSlider.git
 fi
 if ! [ -e AQGridView ]; then
 git clone git://github.com/AlanQuatermain/AQGridView.git
