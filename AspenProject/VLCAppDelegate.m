@@ -8,6 +8,7 @@
 
 #import "VLCAppDelegate.h"
 #import "DirectoryWatcher.h"
+#import "NSString+SupportedMedia.h"
 
 #import "VLCPlaylistViewController.h"
 #import "VLCMovieViewController.h"
@@ -151,7 +152,7 @@
     NSArray *foundFiles = [[NSFileManager defaultManager] contentsOfDirectoryAtPath:[self directoryPath] error:nil];
     NSMutableArray *matchedFiles = [NSMutableArray arrayWithCapacity:foundFiles.count];
     for (NSString *fileName in foundFiles) {
-        if ([fileName rangeOfString:kSupportedFileExtensions options:NSRegularExpressionSearch|NSCaseInsensitiveSearch].length != 0) {
+        if ([fileName isSupportedMediaFormat]) {
             [matchedFiles addObject:[[self directoryPath] stringByAppendingPathComponent:fileName]];
         }
     }
@@ -205,7 +206,7 @@
     NSMutableArray *filePaths = [NSMutableArray arrayWithCapacity:[foundFiles count]];
     NSURL *fileURL;
     for (NSString *fileName in foundFiles) {
-        if ([fileName rangeOfString:kSupportedFileExtensions options:NSRegularExpressionSearch|NSCaseInsensitiveSearch].length != 0) {
+        if ([fileName isSupportedMediaFormat]) {
             [filePaths addObject:[directoryPath stringByAppendingPathComponent:fileName]];
 
             /* exclude media files from backup (QA1719) */

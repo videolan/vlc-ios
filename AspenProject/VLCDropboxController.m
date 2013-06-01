@@ -7,6 +7,7 @@
 //
 
 #import "VLCDropboxController.h"
+#import "NSString+SupportedMedia.h"
 #import "VLCAppDelegate.h"
 
 @interface VLCDropboxController ()
@@ -68,7 +69,7 @@
 #pragma mark - restClient delegate
 - (BOOL)_supportedFileExtension:(NSString *)filename
 {
-    if ([filename rangeOfString:kSupportedFileExtensions options:NSRegularExpressionSearch|NSCaseInsensitiveSearch].length != 0 || [filename rangeOfString:kSupportedSubtitleFileExtensions options:NSRegularExpressionSearch|NSCaseInsensitiveSearch].length != 0)
+    if ([filename isSupportedMediaFormat] || [filename isSupportedSubtitleFormat])
         return YES;
 
     return NO;

@@ -190,6 +190,7 @@
 		A7A0E9FA174BA66000162F25 /* papasscode_marker@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = A7A0E9F2174BA66000162F25 /* papasscode_marker@2x.png */; };
 		A7A0E9FB174BA66000162F25 /* PAPasscodeViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = A7A0E9F4174BA66000162F25 /* PAPasscodeViewController.m */; };
 		A7C30259175A3C7A00AD4388 /* DirectoryWatcher.m in Sources */ = {isa = PBXBuildFile; fileRef = A7C30258175A3C7A00AD4388 /* DirectoryWatcher.m */; };
+		A7C3025E175A53D400AD4388 /* NSString+SupportedMedia.m in Sources */ = {isa = PBXBuildFile; fileRef = A7C3025D175A53D400AD4388 /* NSString+SupportedMedia.m */; };
 		A7CB0DB11716F72600050CF3 /* PlayingExternally@2x~iphone.png in Resources */ = {isa = PBXBuildFile; fileRef = A7CB0DAD1716F72600050CF3 /* PlayingExternally@2x~iphone.png */; };
 		A7CB0DB21716F72600050CF3 /* PlayingExternally~iphone.png in Resources */ = {isa = PBXBuildFile; fileRef = A7CB0DAE1716F72600050CF3 /* PlayingExternally~iphone.png */; };
 		A7CB0DB31716F72600050CF3 /* PlayingExternally~ipad.png in Resources */ = {isa = PBXBuildFile; fileRef = A7CB0DAF1716F72600050CF3 /* PlayingExternally~ipad.png */; };
@@ -484,6 +485,8 @@
 		A7A0E9F4174BA66000162F25 /* PAPasscodeViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PAPasscodeViewController.m; sourceTree = "<group>"; };
 		A7C30257175A3C7A00AD4388 /* DirectoryWatcher.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DirectoryWatcher.h; sourceTree = "<group>"; };
 		A7C30258175A3C7A00AD4388 /* DirectoryWatcher.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DirectoryWatcher.m; sourceTree = "<group>"; };
+		A7C3025C175A53D400AD4388 /* NSString+SupportedMedia.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSString+SupportedMedia.h"; sourceTree = "<group>"; };
+		A7C3025D175A53D400AD4388 /* NSString+SupportedMedia.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSString+SupportedMedia.m"; sourceTree = "<group>"; };
 		A7CB0DAD1716F72600050CF3 /* PlayingExternally@2x~iphone.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "PlayingExternally@2x~iphone.png"; sourceTree = "<group>"; };
 		A7CB0DAE1716F72600050CF3 /* PlayingExternally~iphone.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "PlayingExternally~iphone.png"; sourceTree = "<group>"; };
 		A7CB0DAF1716F72600050CF3 /* PlayingExternally~ipad.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "PlayingExternally~ipad.png"; sourceTree = "<group>"; };
@@ -1007,6 +1010,7 @@
 				7D5F7AB717526573006CCCFA /* Accessory dialogs */,
 				7D5E39CC174FCDBE007DAFA1 /* Dropbox Integration */,
 				7D31CF061746AEF2005997E0 /* UI Elements */,
+				A7C3025A175A538700AD4388 /* Extensions */,
 				7DADC5601704FACC001DAC63 /* Imported */,
 				7DADC55C1704FAA8001DAC63 /* XIBs */,
 				A7924697170F0ED20036AAF2 /* Resources */,
@@ -1122,6 +1126,15 @@
 				A7A0E9F2174BA66000162F25 /* papasscode_marker@2x.png */,
 			);
 			path = Assets;
+			sourceTree = "<group>";
+		};
+		A7C3025A175A538700AD4388 /* Extensions */ = {
+			isa = PBXGroup;
+			children = (
+				A7C3025C175A53D400AD4388 /* NSString+SupportedMedia.h */,
+				A7C3025D175A53D400AD4388 /* NSString+SupportedMedia.m */,
+			);
+			name = Extensions;
 			sourceTree = "<group>";
 		};
 		CC1BBC441704936500A20CBF /* External VLC Libraries */ = {
@@ -1383,6 +1396,7 @@
 				7D5F7AC317529430006CCCFA /* VLCHorizontalSwipeGestureRecognizer.m in Sources */,
 				7D5F7AC61752943F006CCCFA /* VLCVerticalSwipeGestureRecognizer.m in Sources */,
 				A7C30259175A3C7A00AD4388 /* DirectoryWatcher.m in Sources */,
+				A7C3025E175A53D400AD4388 /* NSString+SupportedMedia.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
