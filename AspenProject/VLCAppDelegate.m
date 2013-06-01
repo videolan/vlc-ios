@@ -135,12 +135,15 @@
         if ([prevFetchedSize compare:updatedSize] == NSOrderedSame) {
             [_addedFiles removeObjectForKey:fileURL];
             [[MLMediaLibrary sharedMediaLibrary] addFilePaths:@[fileURL]];
+            
+            // TODO Should we update media db after adding new files?
+            [[MLMediaLibrary sharedMediaLibrary] updateMediaDatabase];             
             [_playlistViewController updateViewContents];
         } else {
             [_addedFiles setObject:updatedSize forKey:fileURL];
         }
     }
-    
+
     if (_addedFiles.count == 0) {
         [_addMediaTimer invalidate];
         _addMediaTimer = nil;
@@ -158,17 +161,27 @@
     }
 
     NSArray *mediaFiles = [MLFile allFiles];
-    NSMutableArray *mediaFilesPaths = [NSMutableArray arrayWithCapacity:mediaFiles.count];
-    for (MLFile *file in mediaFiles) {
-        [mediaFilesPaths addObject:file.url];
-    }
-
     if (mediaFiles.count > matchedFiles.count) { // File was deleted
-        [self updateMediaList];
+        [[MLMediaLibrary sharedMediaLibrary] updateMediaDatabase];
+        [_playlistViewController updateViewContents];
 
     } else if (mediaFiles.count < matchedFiles.count) { // File was added
-        NSPredicate *filterPredicate = [NSPredicate predicateWithFormat:@"not (self in %@)", mediaFilesPaths];
-        NSArray *addedFiles = [matchedFiles filteredArrayUsingPredicate:filterPredicate];
+
+        NSMutableArray *addedFiles = [NSMutableArray array];
+        for (NSString *fileName in matchedFiles) {
+            NSURL *fileURL = [NSURL fileURLWithPath:fileName];
+
+            BOOL found = NO;
+            for (MLFile *mediaFile in mediaFiles) {
+                if ([mediaFile.url isEqualToString:fileURL.absoluteString]) {
+                    found = YES;
+                }
+            }
+
+            if (!found) {
+                [addedFiles addObject:fileName];
+            }
+        }
 
         _addedFiles = [NSMutableDictionary dictionaryWithCapacity:[addedFiles count]];
         for (NSString *fileURL in addedFiles) {
@@ -179,8 +192,6 @@
                                                         selector:@selector(addFileTimerFired)
                                                         userInfo:nil repeats:YES];
 
-    } else {
-        APLog(@"Directory content changes for undefined reason");
     }
 }
 

@@ -117,8 +117,6 @@
 - (void)removeMediaObject:(MLFile *)mediaObject
 {
     [[NSFileManager defaultManager] removeItemAtPath:[[NSURL URLWithString:mediaObject.url] path] error:nil];
-
-    [self updateViewContents];
 }
 
 - (void)_displayEmptyLibraryViewIfNeeded
@@ -142,8 +140,6 @@
 
 - (void)updateViewContents
 {
-    [[MLMediaLibrary sharedMediaLibrary] updateMediaDatabase];
-
     _foundMedia = [NSMutableArray arrayWithArray:[MLFile allFiles]];
 
     if (UI_USER_INTERFACE_IDIOM() == UIUserInterfaceIdiomPhone)
