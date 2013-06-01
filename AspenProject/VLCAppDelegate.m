@@ -136,6 +136,10 @@
             [_addedFiles removeObjectForKey:fileURL];
             [[MLMediaLibrary sharedMediaLibrary] addFilePaths:@[fileURL]];
             
+            /* exclude media files from backup (QA1719) */
+            NSURL *excludeURL = [NSURL fileURLWithPath:fileURL];
+            [excludeURL setResourceValue:@YES forKey:NSURLIsExcludedFromBackupKey error:nil];
+            
             // TODO Should we update media db after adding new files?
             [[MLMediaLibrary sharedMediaLibrary] updateMediaDatabase];             
             [_playlistViewController updateViewContents];
@@ -166,7 +170,6 @@
         [_playlistViewController updateViewContents];
 
     } else if (mediaFiles.count < matchedFiles.count) { // File was added
-
         NSMutableArray *addedFiles = [NSMutableArray array];
         for (NSString *fileName in matchedFiles) {
             NSURL *fileURL = [NSURL fileURLWithPath:fileName];
