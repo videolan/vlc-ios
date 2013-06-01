@@ -73,10 +73,10 @@
 
     self.navigationItem.leftBarButtonItem = addButton;
 
-    UIBarButtonItem *editButton = self.editButtonItem;
-    [editButton setBackgroundImage:[UIImage imageNamed:@"button"] forState:UIControlStateNormal barMetrics:UIBarMetricsDefault];
-    [editButton setBackgroundImage:[UIImage imageNamed:@"buttonHighlight"] forState:UIControlStateHighlighted barMetrics:UIBarMetricsDefault];
-    self.navigationItem.rightBarButtonItem = editButton;
+    [self.editButtonItem setBackgroundImage:[UIImage imageNamed:@"button"]
+                                   forState:UIControlStateNormal barMetrics:UIBarMetricsDefault];
+    [self.editButtonItem setBackgroundImage:[UIImage imageNamed:@"buttonHighlight"]
+                                   forState:UIControlStateHighlighted barMetrics:UIBarMetricsDefault];
 
     if (UI_USER_INTERFACE_IDIOM() == UIUserInterfaceIdiomPad) {
         _gridView.separatorStyle = AQGridViewCellSeparatorStyleEmptySpace;
@@ -126,9 +126,12 @@
     if (_foundMedia.count > 0) {
         if (self.emptyLibraryView.superview)
             [self.emptyLibraryView removeFromSuperview];
+        
+        self.navigationItem.rightBarButtonItem = self.editButtonItem;
     } else {
         self.emptyLibraryView.frame = self.view.frame;
         [self.view addSubview:self.emptyLibraryView];
+        self.navigationItem.rightBarButtonItem = nil;
     }
 
     if (UI_USER_INTERFACE_IDIOM() == UIUserInterfaceIdiomPhone) {
