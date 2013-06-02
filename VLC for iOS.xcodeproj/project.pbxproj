@@ -169,6 +169,10 @@
 		7DC87AEE17412A1F009DC250 /* VLCLinearProgressIndicator.m in Sources */ = {isa = PBXBuildFile; fileRef = 7DC87AED17412A1F009DC250 /* VLCLinearProgressIndicator.m */; };
 		7DC87AF217413EE3009DC250 /* VLCPlaylistGridView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 7DC87AF117413EE3009DC250 /* VLCPlaylistGridView.xib */; };
 		7DDD0429172D98E5005A7B10 /* CFNetwork.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 7DDD0428172D98E5005A7B10 /* CFNetwork.framework */; };
+		7DE18629175BA9A5006C0173 /* badgeUnread@2x~ipad.png in Resources */ = {isa = PBXBuildFile; fileRef = 7DE1862B175BA9A5006C0173 /* badgeUnread@2x~ipad.png */; };
+		7DE1862C175BA9A9006C0173 /* badgeUnread@2x~iphone.png in Resources */ = {isa = PBXBuildFile; fileRef = 7DE1862E175BA9A9006C0173 /* badgeUnread@2x~iphone.png */; };
+		7DE1862F175BA9AC006C0173 /* badgeUnread~ipad.png in Resources */ = {isa = PBXBuildFile; fileRef = 7DE18631175BA9AC006C0173 /* badgeUnread~ipad.png */; };
+		7DE18632175BA9AF006C0173 /* badgeUnread~iphone.png in Resources */ = {isa = PBXBuildFile; fileRef = 7DE18634175BA9AF006C0173 /* badgeUnread~iphone.png */; };
 		7DE480D1173FEA30003613E0 /* VLCCircularProgressIndicator.m in Sources */ = {isa = PBXBuildFile; fileRef = 7DE480D0173FEA30003613E0 /* VLCCircularProgressIndicator.m */; };
 		7DF65C2D174FF3F400F43330 /* VLCDropboxTableViewCell~iphone.xib in Resources */ = {isa = PBXBuildFile; fileRef = 7DF65C2C174FF3F400F43330 /* VLCDropboxTableViewCell~iphone.xib */; };
 		A7035BBE174519600057DFA7 /* iTunesArtwork in Resources */ = {isa = PBXBuildFile; fileRef = A7035BBD174519600057DFA7 /* iTunesArtwork */; };
@@ -191,10 +195,6 @@
 		A7A0E9FB174BA66000162F25 /* PAPasscodeViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = A7A0E9F4174BA66000162F25 /* PAPasscodeViewController.m */; };
 		A7C30259175A3C7A00AD4388 /* DirectoryWatcher.m in Sources */ = {isa = PBXBuildFile; fileRef = A7C30258175A3C7A00AD4388 /* DirectoryWatcher.m */; };
 		A7C3025E175A53D400AD4388 /* NSString+SupportedMedia.m in Sources */ = {isa = PBXBuildFile; fileRef = A7C3025D175A53D400AD4388 /* NSString+SupportedMedia.m */; };
-		A7C30263175B17F100AD4388 /* badgeUnread@2x~ipad.png in Resources */ = {isa = PBXBuildFile; fileRef = A7C3025F175B17EE00AD4388 /* badgeUnread@2x~ipad.png */; };
-		A7C30264175B17F100AD4388 /* badgeUnread@2x~iphone.png in Resources */ = {isa = PBXBuildFile; fileRef = A7C30260175B17EE00AD4388 /* badgeUnread@2x~iphone.png */; };
-		A7C30265175B17F100AD4388 /* badgeUnread~ipad.png in Resources */ = {isa = PBXBuildFile; fileRef = A7C30261175B17EF00AD4388 /* badgeUnread~ipad.png */; };
-		A7C30266175B17F100AD4388 /* badgeUnread~iphone.png in Resources */ = {isa = PBXBuildFile; fileRef = A7C30262175B17F000AD4388 /* badgeUnread~iphone.png */; };
 		A7CB0DB11716F72600050CF3 /* PlayingExternally@2x~iphone.png in Resources */ = {isa = PBXBuildFile; fileRef = A7CB0DAD1716F72600050CF3 /* PlayingExternally@2x~iphone.png */; };
 		A7CB0DB21716F72600050CF3 /* PlayingExternally~iphone.png in Resources */ = {isa = PBXBuildFile; fileRef = A7CB0DAE1716F72600050CF3 /* PlayingExternally~iphone.png */; };
 		A7CB0DB31716F72600050CF3 /* PlayingExternally~ipad.png in Resources */ = {isa = PBXBuildFile; fileRef = A7CB0DAF1716F72600050CF3 /* PlayingExternally~ipad.png */; };
@@ -464,6 +464,10 @@
 		7DC87AF017413A17009DC250 /* fr */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = fr; path = fr.lproj/Localizable.strings; sourceTree = "<group>"; };
 		7DC87AF117413EE3009DC250 /* VLCPlaylistGridView.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; name = VLCPlaylistGridView.xib; path = ../Resources/VLCPlaylistGridView.xib; sourceTree = "<group>"; };
 		7DDD0428172D98E5005A7B10 /* CFNetwork.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CFNetwork.framework; path = System/Library/Frameworks/CFNetwork.framework; sourceTree = SDKROOT; };
+		7DE1862A175BA9A5006C0173 /* en */ = {isa = PBXFileReference; lastKnownFileType = file; name = en; path = "en.lproj/badgeUnread@2x~ipad.png"; sourceTree = "<group>"; };
+		7DE1862D175BA9A9006C0173 /* en */ = {isa = PBXFileReference; lastKnownFileType = file; name = en; path = "en.lproj/badgeUnread@2x~iphone.png"; sourceTree = "<group>"; };
+		7DE18630175BA9AC006C0173 /* en */ = {isa = PBXFileReference; lastKnownFileType = file; name = en; path = "en.lproj/badgeUnread~ipad.png"; sourceTree = "<group>"; };
+		7DE18633175BA9AF006C0173 /* en */ = {isa = PBXFileReference; lastKnownFileType = file; name = en; path = "en.lproj/badgeUnread~iphone.png"; sourceTree = "<group>"; };
 		7DE480CF173FEA30003613E0 /* VLCCircularProgressIndicator.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = VLCCircularProgressIndicator.h; sourceTree = "<group>"; };
 		7DE480D0173FEA30003613E0 /* VLCCircularProgressIndicator.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = VLCCircularProgressIndicator.m; sourceTree = "<group>"; };
 		7DF65C2C174FF3F400F43330 /* VLCDropboxTableViewCell~iphone.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; name = "VLCDropboxTableViewCell~iphone.xib"; path = "../Resources/VLCDropboxTableViewCell~iphone.xib"; sourceTree = "<group>"; };
@@ -491,10 +495,6 @@
 		A7C30258175A3C7A00AD4388 /* DirectoryWatcher.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DirectoryWatcher.m; sourceTree = "<group>"; };
 		A7C3025C175A53D400AD4388 /* NSString+SupportedMedia.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSString+SupportedMedia.h"; sourceTree = "<group>"; };
 		A7C3025D175A53D400AD4388 /* NSString+SupportedMedia.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSString+SupportedMedia.m"; sourceTree = "<group>"; };
-		A7C3025F175B17EE00AD4388 /* badgeUnread@2x~ipad.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "badgeUnread@2x~ipad.png"; sourceTree = "<group>"; };
-		A7C30260175B17EE00AD4388 /* badgeUnread@2x~iphone.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "badgeUnread@2x~iphone.png"; sourceTree = "<group>"; };
-		A7C30261175B17EF00AD4388 /* badgeUnread~ipad.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "badgeUnread~ipad.png"; sourceTree = "<group>"; };
-		A7C30262175B17F000AD4388 /* badgeUnread~iphone.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "badgeUnread~iphone.png"; sourceTree = "<group>"; };
 		A7CB0DAD1716F72600050CF3 /* PlayingExternally@2x~iphone.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "PlayingExternally@2x~iphone.png"; sourceTree = "<group>"; };
 		A7CB0DAE1716F72600050CF3 /* PlayingExternally~iphone.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "PlayingExternally~iphone.png"; sourceTree = "<group>"; };
 		A7CB0DAF1716F72600050CF3 /* PlayingExternally~ipad.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "PlayingExternally~ipad.png"; sourceTree = "<group>"; };
@@ -684,10 +684,10 @@
 		7D10BC661743F9AC00DA7059 /* Library View */ = {
 			isa = PBXGroup;
 			children = (
-				A7C3025F175B17EE00AD4388 /* badgeUnread@2x~ipad.png */,
-				A7C30260175B17EE00AD4388 /* badgeUnread@2x~iphone.png */,
-				A7C30261175B17EF00AD4388 /* badgeUnread~ipad.png */,
-				A7C30262175B17F000AD4388 /* badgeUnread~iphone.png */,
+				7DE1862B175BA9A5006C0173 /* badgeUnread@2x~ipad.png */,
+				7DE1862E175BA9A9006C0173 /* badgeUnread@2x~iphone.png */,
+				7DE18631175BA9AC006C0173 /* badgeUnread~ipad.png */,
+				7DE18634175BA9AF006C0173 /* badgeUnread~iphone.png */,
 				7D07F72A175691CB00CDE21C /* backButton.png */,
 				7D07F72B175691CC00CDE21C /* backButton@2x.png */,
 				7D07F72C175691CC00CDE21C /* backButtonHighlight.png */,
@@ -1325,10 +1325,10 @@
 				7D07F730175691CC00CDE21C /* backButtonHighlight.png in Resources */,
 				7D07F731175691CC00CDE21C /* backButtonHighlight@2x.png in Resources */,
 				7D5DD5C717590ABF001421E3 /* About Contents.html in Resources */,
-				A7C30263175B17F100AD4388 /* badgeUnread@2x~ipad.png in Resources */,
-				A7C30264175B17F100AD4388 /* badgeUnread@2x~iphone.png in Resources */,
-				A7C30265175B17F100AD4388 /* badgeUnread~ipad.png in Resources */,
-				A7C30266175B17F100AD4388 /* badgeUnread~iphone.png in Resources */,
+				7DE18629175BA9A5006C0173 /* badgeUnread@2x~ipad.png in Resources */,
+				7DE1862C175BA9A9006C0173 /* badgeUnread@2x~iphone.png in Resources */,
+				7DE1862F175BA9AC006C0173 /* badgeUnread~ipad.png in Resources */,
+				7DE18632175BA9AF006C0173 /* badgeUnread~iphone.png in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -1419,6 +1419,38 @@
 /* End PBXSourcesBuildPhase section */
 
 /* Begin PBXVariantGroup section */
+		7DE1862B175BA9A5006C0173 /* badgeUnread@2x~ipad.png */ = {
+			isa = PBXVariantGroup;
+			children = (
+				7DE1862A175BA9A5006C0173 /* en */,
+			);
+			name = "badgeUnread@2x~ipad.png";
+			sourceTree = "<group>";
+		};
+		7DE1862E175BA9A9006C0173 /* badgeUnread@2x~iphone.png */ = {
+			isa = PBXVariantGroup;
+			children = (
+				7DE1862D175BA9A9006C0173 /* en */,
+			);
+			name = "badgeUnread@2x~iphone.png";
+			sourceTree = "<group>";
+		};
+		7DE18631175BA9AC006C0173 /* badgeUnread~ipad.png */ = {
+			isa = PBXVariantGroup;
+			children = (
+				7DE18630175BA9AC006C0173 /* en */,
+			);
+			name = "badgeUnread~ipad.png";
+			sourceTree = "<group>";
+		};
+		7DE18634175BA9AF006C0173 /* badgeUnread~iphone.png */ = {
+			isa = PBXVariantGroup;
+			children = (
+				7DE18633175BA9AF006C0173 /* en */,
+			);
+			name = "badgeUnread~iphone.png";
+			sourceTree = "<group>";
+		};
 		A79246C6170F11DF0036AAF2 /* Localizable.strings */ = {
 			isa = PBXVariantGroup;
 			children = (
