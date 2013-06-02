@@ -2,9 +2,9 @@
 <archive type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="8.00">
 	<data>
 		<int key="IBDocument.SystemTarget">1296</int>
-		<string key="IBDocument.SystemVersion">12E52</string>
+		<string key="IBDocument.SystemVersion">12D78</string>
 		<string key="IBDocument.InterfaceBuilderVersion">3084</string>
-		<string key="IBDocument.AppKitVersion">1187.39</string>
+		<string key="IBDocument.AppKitVersion">1187.37</string>
 		<string key="IBDocument.HIToolboxVersion">626.00</string>
 		<object class="NSMutableDictionary" key="IBDocument.PluginVersions">
 			<string key="NS.key.0">com.apple.InterfaceBuilder.IBCocoaTouchPlugin</string>
@@ -94,7 +94,6 @@
 								<string key="NSFrame">{{137, 60}, {178, 15}}</string>
 								<reference key="NSSuperview" ref="162418872"/>
 								<reference key="NSWindow"/>
-								<reference key="NSNextKeyView"/>
 								<string key="NSReuseIdentifierKey">_NS:9</string>
 								<bool key="IBUIOpaque">NO</bool>
 								<bool key="IBUIClipsSubviews">YES</bool>
@@ -137,7 +136,7 @@
 							<object class="IBUIImageView" id="775158982">
 								<reference key="NSNextResponder" ref="162418872"/>
 								<int key="NSvFlags">297</int>
-								<string key="NSFrame">{{293, 29}, {22, 22}}</string>
+								<string key="NSFrame">{{99, 5}, {31, 31}}</string>
 								<reference key="NSSuperview" ref="162418872"/>
 								<reference key="NSWindow"/>
 								<reference key="NSNextKeyView" ref="442944742"/>
@@ -146,7 +145,7 @@
 								<string key="targetRuntimeIdentifier">IBCocoaTouchFramework</string>
 								<object class="NSCustomResource" key="IBUIImage">
 									<string key="NSClassName">NSImage</string>
-									<string key="NSResourceName">mediaUnread.png</string>
+									<string key="NSResourceName">badgeUnread~iphone.png</string>
 								</object>
 							</object>
 						</array>
@@ -356,8 +355,8 @@
 		<bool key="IBDocument.PluginDeclaredDependenciesTrackSystemTargetVersion">YES</bool>
 		<int key="IBDocument.defaultPropertyAccessControl">3</int>
 		<object class="NSMutableDictionary" key="IBDocument.LastKnownImageSizes">
-			<string key="NS.key.0">mediaUnread.png</string>
-			<string key="NS.object.0">{25, 25}</string>
+			<string key="NS.key.0">badgeUnread~iphone.png</string>
+			<string key="NS.object.0">{35, 35}</string>
 		</object>
 		<string key="IBCocoaTouchPluginVersion">2083</string>
 	</data>
