@@ -16,6 +16,7 @@
 {
     BOOL _shouldResumePlaying;
     BOOL _viewAppeared;
+    BOOL _displayRemainingTime;
 }
 
 @property (nonatomic, strong) UIPopoverController *masterPopoverController;
@@ -23,6 +24,15 @@
 @end
 
 @implementation VLCMovieViewController
+
++ (void)initialize
+{
+    NSUserDefaults *defaults = [NSUserDefaults standardUserDefaults];
+
+    NSDictionary *appDefaults = @{kVLCShowRemainingTime : @(YES)};
+
+    [defaults registerDefaults:appDefaults];
+}
 
 - (void)dealloc
 {
@@ -74,9 +84,15 @@
         [self showOnExternalDisplay];
 
     _movieView.userInteractionEnabled = NO;
-    UITapGestureRecognizer *recognizer = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(toggleControlsVisible)];
-    recognizer.delegate = self;
-    [self.view addGestureRecognizer:recognizer];
+    UITapGestureRecognizer *tapOnVideoRecognizer = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(toggleControlsVisible)];
+    tapOnVideoRecognizer.delegate = self;
+    [self.view addGestureRecognizer:tapOnVideoRecognizer];
+
+    UITapGestureRecognizer *tapOnTimeRecognizer = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(toggleTimeDisplay)];
+    self.timeDisplay.userInteractionEnabled = YES;
+    [self.timeDisplay addGestureRecognizer:tapOnTimeRecognizer];
+
+    _displayRemainingTime = [[[NSUserDefaults standardUserDefaults] objectForKey:kVLCShowRemainingTime] boolValue];
 
 #if 0 // FIXME: trac #8742
     UISwipeGestureRecognizer *leftSwipeRecognizer = [[VLCHorizontalSwipeGestureRecognizer alloc] initWithTarget:self action:nil];
@@ -241,6 +257,8 @@
     [super viewDidDisappear:animated];
     [[UIApplication sharedApplication] endReceivingRemoteControlEvents];
     [self resignFirstResponder];
+
+    [[NSUserDefaults standardUserDefaults] setBool:_displayRemainingTime forKey:kVLCShowRemainingTime];
 }
 
 - (BOOL)canBecomeFirstResponder
@@ -386,7 +404,10 @@
 
 - (void)mediaPlayerTimeChanged:(NSNotification *)aNotification {
     self.positionSlider.value = [_mediaPlayer position];
-    self.timeDisplay.text = [[_mediaPlayer remainingTime] stringValue];
+    if (_displayRemainingTime)
+        self.timeDisplay.text = [[_mediaPlayer remainingTime] stringValue];
+    else
+        self.timeDisplay.text = [[_mediaPlayer time] stringValue];
 }
 
 - (void)mediaPlayerStateChanged:(NSNotification *)aNotification
@@ -478,6 +499,11 @@
             _mediaPlayer.currentAudioTrackIndex = [indexArray[arrayIndex] intValue];
         }
     }
+}
+
+- (void)toggleTimeDisplay
+{
+    _displayRemainingTime = !_displayRemainingTime;
 }
 
 #pragma mark - swipe gestures
