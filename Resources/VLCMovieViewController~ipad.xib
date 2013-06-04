@@ -424,7 +424,6 @@
 								<string key="NSFrame">{{20, 72}, {274, 22}}</string>
 								<reference key="NSSuperview" ref="734589612"/>
 								<reference key="NSWindow"/>
-								<reference key="NSNextKeyView"/>
 								<string key="NSReuseIdentifierKey">_NS:9</string>
 								<string key="targetRuntimeIdentifier">IBIPadFramework</string>
 							</object>
@@ -518,7 +517,7 @@
 							<object class="IBUISlider" id="24746056">
 								<reference key="NSNextResponder" ref="11334779"/>
 								<int key="NSvFlags">292</int>
-								<string key="NSFrame">{{6, 14}, {284, 23}}</string>
+								<string key="NSFrame">{{6, 90}, {284, 23}}</string>
 								<reference key="NSSuperview" ref="11334779"/>
 								<reference key="NSWindow"/>
 								<reference key="NSNextKeyView" ref="862821738"/>
@@ -532,7 +531,7 @@
 							<object class="IBUILabel" id="862821738">
 								<reference key="NSNextResponder" ref="11334779"/>
 								<int key="NSvFlags">292</int>
-								<string key="NSFrame">{{8, 0}, {280, 21}}</string>
+								<string key="NSFrame">{{8, 76}, {280, 21}}</string>
 								<reference key="NSSuperview" ref="11334779"/>
 								<reference key="NSWindow"/>
 								<reference key="NSNextKeyView" ref="434129328"/>
@@ -596,7 +595,7 @@
 							<object class="IBUISlider" id="782907453">
 								<reference key="NSNextResponder" ref="11334779"/>
 								<int key="NSvFlags">292</int>
-								<string key="NSFrame">{{6, 90}, {284, 23}}</string>
+								<string key="NSFrame">{{6, 17}, {284, 23}}</string>
 								<reference key="NSSuperview" ref="11334779"/>
 								<reference key="NSWindow"/>
 								<reference key="NSNextKeyView" ref="986518323"/>
@@ -611,7 +610,7 @@
 							<object class="IBUILabel" id="986518323">
 								<reference key="NSNextResponder" ref="11334779"/>
 								<int key="NSvFlags">292</int>
-								<string key="NSFrame">{{8, 76}, {280, 21}}</string>
+								<string key="NSFrame">{{8, 3}, {280, 21}}</string>
 								<reference key="NSSuperview" ref="11334779"/>
 								<reference key="NSWindow"/>
 								<reference key="NSNextKeyView" ref="591247397"/>
@@ -1921,7 +1920,7 @@
 			<string key="effects.png">{33, 24}</string>
 			<string key="forward.png">{100, 66}</string>
 			<string key="play.png">{66, 66}</string>
-			<string key="playback_background.png">{320, 83}</string>
+			<string key="playback_background.png">{314, 94}</string>
 			<string key="reset.png">{19, 19}</string>
 			<string key="speed.png">{24, 24}</string>
 			<string key="subtitles.png">{66, 66}</string>
