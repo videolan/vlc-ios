@@ -204,10 +204,20 @@
 
 - (void)_playNewMedia
 {
+    if (self.mediaItem.lastPosition && [self.mediaItem.lastPosition floatValue] < .95) {
+        if (self.mediaItem.duration.intValue != 0) {
+            NSNumber *playbackPositionInTime = @(self.mediaItem.lastPosition.floatValue * (self.mediaItem.duration.intValue / 1000.));
+            [_mediaPlayer.media addOptions:@{@"start-time": playbackPositionInTime}];
+            APLog(@"set starttime to %i", playbackPositionInTime.intValue);
+        }
+    }
+
     [_mediaPlayer play];
 
-    if (self.mediaItem.lastPosition && [self.mediaItem.lastPosition floatValue] < .95)
+    /* fallback if an invalid duration was reported by MLKit */
+    if (self.mediaItem.duration.intValue == 0 && self.mediaItem.lastPosition && [self.mediaItem.lastPosition floatValue] < .95)
         [_mediaPlayer setPosition:[self.mediaItem.lastPosition floatValue]];
+
     self.playbackSpeedSlider.value = [self _playbackSpeed];
     [self _updatePlaybackSpeedIndicator];
 
