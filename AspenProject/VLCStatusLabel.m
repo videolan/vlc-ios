@@ -13,6 +13,15 @@
 - (void)showStatusMessage:(NSString *)message
 {
     self.text = message;
+
+    /* layout and horizontal center in super view */
+    [self sizeToFit];
+    CGRect selfFrame = self.frame;
+    CGRect parentFrame = [self window].bounds;
+    selfFrame.size.width += 15.; // take extra width into account for our custom drawing
+    selfFrame.origin.x = (parentFrame.size.width - selfFrame.size.width) / 2.;
+    [self setFrame:selfFrame];
+
     [self setNeedsDisplay];
     [self _toggleVisibility:NO];
 
