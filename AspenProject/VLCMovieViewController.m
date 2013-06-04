@@ -17,6 +17,7 @@
     BOOL _shouldResumePlaying;
     BOOL _viewAppeared;
     BOOL _displayRemainingTime;
+    BOOL _positionSet;
 }
 
 @property (nonatomic, strong) UIPopoverController *masterPopoverController;
@@ -408,8 +409,17 @@
 
 - (IBAction)positionSliderAction:(UISlider *)sender
 {
-    _mediaPlayer.position = sender.value;
+    [self performSelector:@selector(_setPositionForReal) withObject:nil afterDelay:0.3];
+    _positionSet = NO;
     [self resetIdleTimer];
+}
+
+- (void)_setPositionForReal
+{
+    if (!_positionSet) {
+        _mediaPlayer.position = _positionSlider.value;
+        _positionSet = YES;
+    }
 }
 
 - (void)mediaPlayerTimeChanged:(NSNotification *)aNotification {
