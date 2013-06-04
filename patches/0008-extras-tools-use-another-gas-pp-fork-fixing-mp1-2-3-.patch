@@ -1,4 +1,4 @@
-From 0c4c00bd78877abc3ae2ac9f817e6fecc162a393 Mon Sep 17 00:00:00 2001
+From c011e518c1fd149fb3925b5410b023bafced1c65 Mon Sep 17 00:00:00 2001
 From: =?UTF-8?q?Felix=20Paul=20K=C3=BChne?= <fkuehne@videolan.org>
 Date: Tue, 28 May 2013 14:22:02 +0200
 Subject: [PATCH 8/8] extras/tools: use another gas-pp fork fixing mp1/2/3
@@ -10,7 +10,7 @@ Subject: [PATCH 8/8] extras/tools: use another gas-pp fork fixing mp1/2/3
  2 files changed, 4 insertions(+), 4 deletions(-)
 
 diff --git a/extras/tools/packages.mak b/extras/tools/packages.mak
-index 60ac2b5..d7e78e7 100644
+index 60ac2b5..e0247ba 100644
 --- a/extras/tools/packages.mak
 +++ b/extras/tools/packages.mak
 @@ -32,8 +32,8 @@ XZ_URL=http://tukaani.org/xz/xz-$(XZ_VERSION).tar.bz2
@@ -19,13 +19,13 @@ index 60ac2b5..d7e78e7 100644
  
 -GAS_URL=https://github.com/mansr/gas-preprocessor/tarball/master
 -GAS_VERSION=76a72f0
-+GAS_URL=https://github.com/mstorsjo/gas-preprocessor/tarball/irp-if
++GAS_URL=https://github.com/libav/gas-preprocessor/tarball/master
 +GAS_VERSION=c76b628
  
  RAGEL_VERSION=6.8
  RAGEL_URL=http://www.complang.org/ragel/ragel-$(RAGEL_VERSION).tar.gz
 diff --git a/extras/tools/tools.mak b/extras/tools/tools.mak
-index c9c94a1..37df7b1 100644
+index c9c94a1..d33e67c 100644
 --- a/extras/tools/tools.mak
 +++ b/extras/tools/tools.mak
 @@ -216,10 +216,10 @@ CLEAN_PKG += openssl
@@ -33,11 +33,11 @@ index c9c94a1..37df7b1 100644
  
  # gas-preprocessor
 -mansr-gas-preprocessor-$(GAS_VERSION).tar.gz:
-+mstorsjo-gas-preprocessor-$(GAS_VERSION).tar.gz:
++libav-gas-preprocessor-$(GAS_VERSION).tar.gz:
  	$(call download,$(GAS_URL))
  
 -gas: mansr-gas-preprocessor-$(GAS_VERSION).tar.gz
-+gas: mstorsjo-gas-preprocessor-$(GAS_VERSION).tar.gz
++gas: libav-gas-preprocessor-$(GAS_VERSION).tar.gz
  	$(UNPACK)
  	$(MOVE)
  
