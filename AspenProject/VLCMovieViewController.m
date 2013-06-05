@@ -14,6 +14,21 @@
 
 @interface VLCMovieViewController () <UIGestureRecognizerDelegate>
 {
+    VLCMediaPlayer *_mediaPlayer;
+
+    BOOL _controlsHidden;
+    BOOL _videoFiltersHidden;
+    BOOL _playbackSpeedViewHidden;
+
+    UIActionSheet *_subtitleActionSheet;
+    UIActionSheet *_audiotrackActionSheet;
+
+    float _currentPlaybackRate;
+    NSArray *_aspectRatios;
+    NSUInteger _currentAspectRatioMask;
+
+    NSTimer *_idleTimer;
+
     BOOL _shouldResumePlaying;
     BOOL _viewAppeared;
     BOOL _displayRemainingTime;
@@ -29,9 +44,7 @@
 + (void)initialize
 {
     NSUserDefaults *defaults = [NSUserDefaults standardUserDefaults];
-
     NSDictionary *appDefaults = @{kVLCShowRemainingTime : @(YES)};
-
     [defaults registerDefaults:appDefaults];
 }
 
@@ -225,7 +238,7 @@
     _currentAspectRatioMask = 0;
     _mediaPlayer.videoAspectRatio =  NULL;
 
-    [self resetIdleTimer];
+    [self _resetIdleTimer];
 }
 
 - (void)viewWillDisappear:(BOOL)animated
@@ -372,7 +385,7 @@
     [self setControlsHidden:!_controlsHidden animated:YES];
 }
 
-- (void)resetIdleTimer
+- (void)_resetIdleTimer
 {
     if (!_idleTimer)
         _idleTimer = [NSTimer scheduledTimerWithTimeInterval:2.
@@ -395,7 +408,7 @@
 
 - (UIResponder *)nextResponder
 {
-    [self resetIdleTimer];
+    [self _resetIdleTimer];
     return [super nextResponder];
 }
 
@@ -411,7 +424,7 @@
 {
     [self performSelector:@selector(_setPositionForReal) withObject:nil afterDelay:0.3];
     _positionSet = NO;
-    [self resetIdleTimer];
+    [self _resetIdleTimer];
 }
 
 - (void)_setPositionForReal
@@ -586,7 +599,7 @@
         _mediaPlayer.gamma = self.gammaSlider.value = 1.;
     } else
         APLog(@"unknown sender for videoFilterSliderAction");
-    [self resetIdleTimer];
+    [self _resetIdleTimer];
 }
 
 #pragma mark - playback view
@@ -598,7 +611,7 @@
         [_mediaPlayer setRate:INPUT_RATE_DEFAULT / rate];
     _currentPlaybackRate = rate;
     [self _updatePlaybackSpeedIndicator];
-    [self resetIdleTimer];
+    [self _resetIdleTimer];
 }
 
 - (void)_updatePlaybackSpeedIndicator

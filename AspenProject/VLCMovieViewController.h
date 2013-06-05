@@ -12,22 +12,6 @@
 #import "VLCVerticalSwipeGestureRecognizer.h"
 
 @interface VLCMovieViewController : UIViewController <VLCMediaPlayerDelegate, UIActionSheetDelegate, VLCHorizontalSwipeGestureRecognizer, VLCVerticalSwipeGestureRecognizer>
-{
-    VLCMediaPlayer *_mediaPlayer;
-
-    BOOL _controlsHidden;
-    BOOL _videoFiltersHidden;
-    BOOL _playbackSpeedViewHidden;
-
-    UIActionSheet *_subtitleActionSheet;
-    UIActionSheet *_audiotrackActionSheet;
-
-    float _currentPlaybackRate;
-    NSArray *_aspectRatios;
-    NSUInteger _currentAspectRatioMask;
-
-    NSTimer *_idleTimer;
-}
 
 @property (nonatomic, strong) IBOutlet UIView *movieView;
 @property (nonatomic, strong) IBOutlet UIBarButtonItem *backButton;
