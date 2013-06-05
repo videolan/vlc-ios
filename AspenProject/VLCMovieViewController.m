@@ -458,6 +458,8 @@
 - (IBAction)positionSliderAction:(UISlider *)sender
 {
     [self performSelector:@selector(_setPositionForReal) withObject:nil afterDelay:0.3];
+    VLCTime *newPosition = [VLCTime timeWithInt:(int)(_positionSlider.value * self.mediaItem.duration.intValue)];
+    self.timeDisplay.text = newPosition.stringValue;
     _positionSet = NO;
     [self _resetIdleTimer];
 }
