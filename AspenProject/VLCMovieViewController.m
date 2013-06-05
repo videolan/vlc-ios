@@ -28,6 +28,7 @@
     NSUInteger _currentAspectRatioMask;
 
     NSTimer *_idleTimer;
+    NSTimer *_videoFilterIdleTimer;
 
     BOOL _shouldResumePlaying;
     BOOL _viewAppeared;
@@ -257,6 +258,8 @@
         self.mediaItem.lastPosition = @([_mediaPlayer position]);
     [_mediaPlayer stop];
     _mediaPlayer = nil; // save memory and some CPU time
+
+    [self videoFilterIdleTimerExceeded]; // hide filter UI for next run
 }
 
 - (id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil
@@ -399,11 +402,38 @@
     }
 }
 
+- (void)_resetVideoFilterIdleTimer
+{
+    if (!_videoFilterIdleTimer)
+        _videoFilterIdleTimer = [NSTimer scheduledTimerWithTimeInterval:4.
+                                                                 target:self
+                                                               selector:@selector(videoFilterIdleTimerExceeded)
+                                                               userInfo:nil
+                                                                repeats:NO];
+    else {
+        if (fabs([_videoFilterIdleTimer.fireDate timeIntervalSinceNow]) < 4.)
+            [_videoFilterIdleTimer setFireDate:[NSDate dateWithTimeIntervalSinceNow:4.]];
+    }
+}
+
 - (void)idleTimerExceeded
 {
     _idleTimer = nil;
     if (!_controlsHidden)
         [self toggleControlsVisible];
+}
+
+- (void)videoFilterIdleTimerExceeded
+{
+    _videoFilterIdleTimer = nil;
+
+    if (!_videoFiltersHidden)
+        _videoFiltersHidden = YES;
+
+    if (!_playbackSpeedViewHidden)
+        _playbackSpeedViewHidden = YES;
+
+    [self setControlsHidden:_controlsHidden animated:YES];
 }
 
 - (UIResponder *)nextResponder
@@ -574,6 +604,8 @@
     self.videoFilterView.hidden = !_videoFiltersHidden;
     _videoFiltersHidden = self.videoFilterView.hidden;
     self.controllerPanel.hidden = !_videoFiltersHidden;
+
+    [self _resetVideoFilterIdleTimer];
 }
 
 - (IBAction)videoFilterSliderAction:(id)sender
@@ -600,6 +632,7 @@
     } else
         APLog(@"unknown sender for videoFilterSliderAction");
     [self _resetIdleTimer];
+    [self _resetVideoFilterIdleTimer];
 }
 
 #pragma mark - playback view
@@ -612,6 +645,7 @@
     _currentPlaybackRate = rate;
     [self _updatePlaybackSpeedIndicator];
     [self _resetIdleTimer];
+    [self _resetVideoFilterIdleTimer];
 }
 
 - (void)_updatePlaybackSpeedIndicator
@@ -645,6 +679,7 @@
 
         self.playbackSpeedView.hidden = !_playbackSpeedViewHidden;
         _playbackSpeedViewHidden = self.playbackSpeedView.hidden;
+        [self _resetVideoFilterIdleTimer];
     } else if (sender == self.aspectRatioButton) {
         NSUInteger count = [_aspectRatios count];
 
