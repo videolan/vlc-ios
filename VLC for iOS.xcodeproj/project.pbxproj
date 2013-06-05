@@ -348,6 +348,11 @@
 		7D3EB015174A46FB002062C2 /* VLCHTTPFileDownloader.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = VLCHTTPFileDownloader.h; sourceTree = "<group>"; };
 		7D3EB016174A46FB002062C2 /* VLCHTTPFileDownloader.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = VLCHTTPFileDownloader.m; sourceTree = "<group>"; };
 		7D49E178175A47A4002D1450 /* ja */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = ja; path = ja.lproj/Localizable.strings; sourceTree = "<group>"; };
+		7D4BE733175F82CA00861CD4 /* fi */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = fi; path = fi.lproj/Localizable.strings; sourceTree = "<group>"; };
+		7D4BE734175F82CA00861CD4 /* fi */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = fi; path = "fi.lproj/badgeUnread@2x~ipad.png"; sourceTree = "<group>"; };
+		7D4BE735175F82CA00861CD4 /* fi */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = fi; path = "fi.lproj/badgeUnread@2x~iphone.png"; sourceTree = "<group>"; };
+		7D4BE736175F82CA00861CD4 /* fi */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = fi; path = "fi.lproj/badgeUnread~ipad.png"; sourceTree = "<group>"; };
+		7D4BE737175F82CA00861CD4 /* fi */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = fi; path = "fi.lproj/badgeUnread~iphone.png"; sourceTree = "<group>"; };
 		7D5DD5C617590ABF001421E3 /* About Contents.html */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.html; path = "About Contents.html"; sourceTree = "<group>"; };
 		7D5E39BF174FB95A007DAFA1 /* dropbox-black.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "dropbox-black.png"; sourceTree = "<group>"; };
 		7D5E39C1174FBA28007DAFA1 /* dropbox-black@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "dropbox-black@2x.png"; sourceTree = "<group>"; };
@@ -1224,6 +1229,7 @@
 				fr,
 				it,
 				ja,
+				fi,
 			);
 			mainGroup = 7D94FCD216DE7D1000F2623B;
 			productRefGroup = 7D94FCDC16DE7D1000F2623B /* Products */;
@@ -1452,6 +1458,7 @@
 				7DE1863A175BAEB0006C0173 /* fr */,
 				7DE1863B175BAEB0006C0173 /* it */,
 				7DE1863C175BAEB1006C0173 /* ja */,
+				7D4BE734175F82CA00861CD4 /* fi */,
 			);
 			name = "badgeUnread@2x~ipad.png";
 			sourceTree = "<group>";
@@ -1465,6 +1472,7 @@
 				7DE1863E175BAEB6006C0173 /* fr */,
 				7DE1863F175BAEB7006C0173 /* it */,
 				7DE18640175BAEB7006C0173 /* ja */,
+				7D4BE735175F82CA00861CD4 /* fi */,
 			);
 			name = "badgeUnread@2x~iphone.png";
 			sourceTree = "<group>";
@@ -1478,6 +1486,7 @@
 				7DE18646175BAEC0006C0173 /* fr */,
 				7DE18647175BAEC1006C0173 /* it */,
 				7DE18648175BAEC2006C0173 /* ja */,
+				7D4BE736175F82CA00861CD4 /* fi */,
 			);
 			name = "badgeUnread~ipad.png";
 			sourceTree = "<group>";
@@ -1491,6 +1500,7 @@
 				7DE18642175BAEBB006C0173 /* it */,
 				7DE18643175BAEBC006C0173 /* fr */,
 				7DE18644175BAEBD006C0173 /* ja */,
+				7D4BE737175F82CA00861CD4 /* fi */,
 			);
 			name = "badgeUnread~iphone.png";
 			sourceTree = "<group>";
@@ -1504,6 +1514,7 @@
 				7DC87AF017413A17009DC250 /* fr */,
 				7D6D13591758D1A00007EA9A /* it */,
 				7D49E178175A47A4002D1450 /* ja */,
+				7D4BE733175F82CA00861CD4 /* fi */,
 			);
 			name = Localizable.strings;
 			sourceTree = "<group>";
