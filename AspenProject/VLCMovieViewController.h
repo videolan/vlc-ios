@@ -10,12 +10,13 @@
 #import "VLCStatusLabel.h"
 #import "VLCHorizontalSwipeGestureRecognizer.h"
 #import "VLCVerticalSwipeGestureRecognizer.h"
+#import "OBSlider.h"
 
 @interface VLCMovieViewController : UIViewController <VLCMediaPlayerDelegate, UIActionSheetDelegate, VLCHorizontalSwipeGestureRecognizer, VLCVerticalSwipeGestureRecognizer>
 
 @property (nonatomic, strong) IBOutlet UIView *movieView;
 @property (nonatomic, strong) IBOutlet UIBarButtonItem *backButton;
-@property (nonatomic, strong) IBOutlet UISlider *positionSlider;
+@property (nonatomic, strong) IBOutlet OBSlider *positionSlider;
 @property (nonatomic, strong) IBOutlet UILabel *timeDisplay;
 @property (nonatomic, strong) IBOutlet UIButton *playPauseButton;
 @property (nonatomic, strong) IBOutlet UIButton *bwdButton;
@@ -51,11 +52,19 @@
 @property (nonatomic, strong) IBOutlet UILabel *playbackSpeedIndicator;
 @property (nonatomic, strong) IBOutlet UIButton *aspectRatioButton;
 
+@property (nonatomic, strong) IBOutlet UIView *scrubIndicatorView;
+@property (nonatomic, strong) IBOutlet UILabel *currentScrubSpeedLabel;
+@property (nonatomic, strong) IBOutlet UILabel *scrubHelpLabel;
+
 @property (nonatomic, strong) MLFile *mediaItem;
 @property (nonatomic, strong) NSURL *url;
 
 - (IBAction)closePlayback:(id)sender;
+
 - (IBAction)positionSliderAction:(id)sender;
+- (IBAction)positionSliderTouchDown:(id)sender;
+- (IBAction)positionSliderTouchUp:(id)sender;
+- (IBAction)positionSliderDrag:(id)sender;
 
 - (IBAction)playPause;
 - (IBAction)backward:(id)sender;

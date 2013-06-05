@@ -78,6 +78,8 @@
     _saturationLabel.text = NSLocalizedString(@"VFILTER_SATURATION", @"");
     _gammaLabel.text = NSLocalizedString(@"VFILTER_GAMMA", @"");
 
+    _scrubHelpLabel.text = NSLocalizedString(@"PLAYBACK_SCRUB_HELP", @"");
+
     self.playbackSpeedView.hidden = YES;
     _playbackSpeedViewHidden = YES;
 
@@ -421,6 +423,9 @@
     _idleTimer = nil;
     if (!_controlsHidden)
         [self toggleControlsVisible];
+
+    if (self.scrubIndicatorView.hidden == NO)
+        self.scrubIndicatorView.hidden = YES;
 }
 
 - (void)videoFilterIdleTimerExceeded
@@ -463,6 +468,35 @@
         _mediaPlayer.position = _positionSlider.value;
         _positionSet = YES;
     }
+}
+
+- (IBAction)positionSliderTouchDown:(id)sender
+{
+    [self _updateScrubLabel];
+    self.scrubIndicatorView.hidden = NO;
+}
+
+- (IBAction)positionSliderTouchUp:(id)sender
+{
+    self.scrubIndicatorView.hidden = YES;
+}
+
+- (void)_updateScrubLabel
+{
+    float speed = self.positionSlider.scrubbingSpeed;
+    if (speed == 1.)
+        self.currentScrubSpeedLabel.text = NSLocalizedString(@"PLAYBACK_SCRUB_HIGH", @"");
+    else if (speed == .5)
+        self.currentScrubSpeedLabel.text = NSLocalizedString(@"PLAYBACK_SCRUB_HALF", @"");
+    else if (speed == .25)
+        self.currentScrubSpeedLabel.text = NSLocalizedString(@"PLAYBACK_SCRUB_QUARTER", @"");
+    else
+        self.currentScrubSpeedLabel.text = NSLocalizedString(@"PLAYBACK_SCRUB_FINE", @"");
+}
+
+- (IBAction)positionSliderDrag:(id)sender
+{
+    [self _updateScrubLabel];
 }
 
 - (void)mediaPlayerTimeChanged:(NSNotification *)aNotification {
