@@ -23,7 +23,7 @@
 @property (nonatomic, strong) IBOutlet UIButton *fwdButton;
 @property (nonatomic, strong) IBOutlet UIButton *subtitleSwitcherButton;
 @property (nonatomic, strong) IBOutlet UIButton *audioSwitcherButton;
-@property (nonatomic, strong) IBOutlet UIToolbar *toolbar;
+@property (nonatomic, strong) IBOutlet UINavigationBar *toolbar;
 @property (nonatomic, strong) IBOutlet UIView *controllerPanel;
 @property (nonatomic, strong) IBOutlet VLCStatusLabel *statusLabel;
 
