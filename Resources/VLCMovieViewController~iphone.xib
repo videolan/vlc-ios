@@ -62,7 +62,7 @@
 					<object class="IBUILabel" id="487467547">
 						<reference key="NSNextResponder" ref="482727796"/>
 						<int key="NSvFlags">289</int>
-						<string key="NSFrame">{{203, 10}, {39, 21}}</string>
+						<string key="NSFrame">{{203, 9}, {39, 21}}</string>
 						<reference key="NSSuperview" ref="482727796"/>
 						<reference key="NSWindow"/>
 						<reference key="NSNextKeyView" ref="265611716"/>
@@ -123,7 +123,7 @@
 							<int key="type">2</int>
 							<double key="pointSize">15</double>
 						</object>
-						<object class="NSFont" key="IBUIFont" id="609909443">
+						<object class="NSFont" key="IBUIFont" id="15074631">
 							<string key="NSName">Helvetica-Bold</string>
 							<double key="NSSize">15</double>
 							<int key="NSfFlags">16</int>
@@ -179,7 +179,7 @@
 								<string key="NSReuseIdentifierKey">_NS:9</string>
 								<bool key="IBUIUserInteractionEnabled">NO</bool>
 								<string key="targetRuntimeIdentifier">IBCocoaTouchFramework</string>
-								<object class="NSCustomResource" key="IBUIImage" id="168759328">
+								<object class="NSCustomResource" key="IBUIImage" id="906792278">
 									<string key="NSClassName">NSImage</string>
 									<string key="NSResourceName">playbackControllerBg.png</string>
 								</object>
@@ -208,7 +208,7 @@
 									<string key="NSResourceName">forwardIcon.png</string>
 								</object>
 								<reference key="IBUIFontDescription" ref="838206983"/>
-								<reference key="IBUIFont" ref="609909443"/>
+								<reference key="IBUIFont" ref="15074631"/>
 							</object>
 							<object class="IBUIButton" id="722825395">
 								<reference key="NSNextResponder" ref="644225698"/>
@@ -234,7 +234,7 @@
 									<string key="NSResourceName">backIcon.png</string>
 								</object>
 								<reference key="IBUIFontDescription" ref="838206983"/>
-								<reference key="IBUIFont" ref="609909443"/>
+								<reference key="IBUIFont" ref="15074631"/>
 							</object>
 							<object class="IBUIButton" id="58725604">
 								<reference key="NSNextResponder" ref="644225698"/>
@@ -260,7 +260,7 @@
 									<string key="NSResourceName">playIcon.png</string>
 								</object>
 								<reference key="IBUIFontDescription" ref="838206983"/>
-								<reference key="IBUIFont" ref="609909443"/>
+								<reference key="IBUIFont" ref="15074631"/>
 							</object>
 							<object class="IBUIButton" id="1041366711">
 								<reference key="NSNextResponder" ref="644225698"/>
@@ -286,7 +286,7 @@
 									<string key="NSResourceName">audioTrackIcon.png</string>
 								</object>
 								<reference key="IBUIFontDescription" ref="838206983"/>
-								<reference key="IBUIFont" ref="609909443"/>
+								<reference key="IBUIFont" ref="15074631"/>
 							</object>
 							<object class="IBUIButton" id="649952457">
 								<reference key="NSNextResponder" ref="644225698"/>
@@ -312,7 +312,7 @@
 									<string key="NSResourceName">subtitleIcon.png</string>
 								</object>
 								<reference key="IBUIFontDescription" ref="838206983"/>
-								<reference key="IBUIFont" ref="609909443"/>
+								<reference key="IBUIFont" ref="15074631"/>
 							</object>
 							<object class="IBUIView" id="1065831830">
 								<reference key="NSNextResponder" ref="644225698"/>
@@ -347,7 +347,7 @@
 									<string key="NSResourceName">speedIcon.png</string>
 								</object>
 								<reference key="IBUIFontDescription" ref="838206983"/>
-								<reference key="IBUIFont" ref="609909443"/>
+								<reference key="IBUIFont" ref="15074631"/>
 							</object>
 							<object class="IBUIButton" id="407550068">
 								<reference key="NSNextResponder" ref="644225698"/>
@@ -372,7 +372,7 @@
 									<string key="NSResourceName">videoEffectsIcon.png</string>
 								</object>
 								<reference key="IBUIFontDescription" ref="838206983"/>
-								<reference key="IBUIFont" ref="609909443"/>
+								<reference key="IBUIFont" ref="15074631"/>
 							</object>
 						</array>
 						<string key="NSFrame">{{0, 440}, {320, 90}}</string>
@@ -526,7 +526,7 @@
 						<reference key="NSNextResponder" ref="191373211"/>
 						<int key="NSvFlags">269</int>
 						<array class="NSMutableArray" key="NSSubviews">
-							<object class="IBUIImageView" id="360471264">
+							<object class="IBUIImageView" id="851170399">
 								<reference key="NSNextResponder" ref="331977945"/>
 								<int key="NSvFlags">292</int>
 								<string key="NSFrameSize">{320, 46}</string>
@@ -536,7 +536,7 @@
 								<string key="NSReuseIdentifierKey">_NS:9</string>
 								<bool key="IBUIUserInteractionEnabled">NO</bool>
 								<string key="targetRuntimeIdentifier">IBCocoaTouchFramework</string>
-								<reference key="IBUIImage" ref="168759328"/>
+								<reference key="IBUIImage" ref="906792278"/>
 							</object>
 							<object class="IBUISlider" id="465346123">
 								<reference key="NSNextResponder" ref="331977945"/>
@@ -607,7 +607,7 @@
 						<string key="NSFrame">{{0, 395}, {320, 46}}</string>
 						<reference key="NSSuperview" ref="191373211"/>
 						<reference key="NSWindow"/>
-						<reference key="NSNextKeyView" ref="360471264"/>
+						<reference key="NSNextKeyView" ref="851170399"/>
 						<string key="NSReuseIdentifierKey">_NS:10</string>
 						<string key="targetRuntimeIdentifier">IBCocoaTouchFramework</string>
 					</object>
@@ -615,7 +615,7 @@
 						<reference key="NSNextResponder" ref="191373211"/>
 						<int key="NSvFlags">269</int>
 						<array class="NSMutableArray" key="NSSubviews">
-							<object class="IBUIImageView" id="798550958">
+							<object class="IBUIImageView" id="766924113">
 								<reference key="NSNextResponder" ref="202327026"/>
 								<int key="NSvFlags">292</int>
 								<string key="NSFrameSize">{320, 198}</string>
@@ -626,7 +626,7 @@
 								<bool key="IBUIUserInteractionEnabled">NO</bool>
 								<string key="IBUIContentStretch">{{0.10000000000000001, 0.10000000000000001}, {0.80000000000000004, 0.80000000000000004}}</string>
 								<string key="targetRuntimeIdentifier">IBCocoaTouchFramework</string>
-								<reference key="IBUIImage" ref="168759328"/>
+								<reference key="IBUIImage" ref="906792278"/>
 							</object>
 							<object class="IBUISlider" id="703439751">
 								<reference key="NSNextResponder" ref="202327026"/>
@@ -830,13 +830,13 @@
 									<string key="NSResourceName">reset.png</string>
 								</object>
 								<reference key="IBUIFontDescription" ref="838206983"/>
-								<reference key="IBUIFont" ref="609909443"/>
+								<reference key="IBUIFont" ref="15074631"/>
 							</object>
 						</array>
 						<string key="NSFrame">{{0, 332}, {320, 198}}</string>
 						<reference key="NSSuperview" ref="191373211"/>
 						<reference key="NSWindow"/>
-						<reference key="NSNextKeyView" ref="798550958"/>
+						<reference key="NSNextKeyView" ref="766924113"/>
 						<string key="NSReuseIdentifierKey">_NS:10</string>
 						<string key="targetRuntimeIdentifier">IBCocoaTouchFramework</string>
 					</object>
@@ -1596,7 +1596,7 @@
 							<reference ref="703439751"/>
 							<reference ref="693989578"/>
 							<reference ref="916518907"/>
-							<reference ref="798550958"/>
+							<reference ref="766924113"/>
 						</array>
 						<reference key="parent" ref="191373211"/>
 						<string key="objectName">Controls panel</string>
@@ -1663,7 +1663,7 @@
 							<reference ref="656806791"/>
 							<reference ref="465346123"/>
 							<reference ref="839911785"/>
-							<reference ref="360471264"/>
+							<reference ref="851170399"/>
 						</array>
 						<reference key="parent" ref="191373211"/>
 						<string key="objectName">Controls panel</string>
@@ -1771,12 +1771,12 @@
 					</object>
 					<object class="IBObjectRecord">
 						<int key="objectID">273</int>
-						<reference key="object" ref="360471264"/>
+						<reference key="object" ref="851170399"/>
 						<reference key="parent" ref="331977945"/>
 					</object>
 					<object class="IBObjectRecord">
 						<int key="objectID">274</int>
-						<reference key="object" ref="798550958"/>
+						<reference key="object" ref="766924113"/>
 						<reference key="parent" ref="202327026"/>
 					</object>
 					<object class="IBObjectRecord">
@@ -1797,20 +1797,26 @@
 				<string key="110.IBPluginDependency">com.apple.InterfaceBuilder.IBCocoaTouchPlugin</string>
 				<string key="111.IBPluginDependency">com.apple.InterfaceBuilder.IBCocoaTouchPlugin</string>
 				<string key="117.IBPluginDependency">com.apple.InterfaceBuilder.IBCocoaTouchPlugin</string>
+				<string key="128.CustomClassName">VLCSlider</string>
 				<string key="128.IBPluginDependency">com.apple.InterfaceBuilder.IBCocoaTouchPlugin</string>
 				<string key="130.IBPluginDependency">com.apple.InterfaceBuilder.IBCocoaTouchPlugin</string>
+				<string key="131.CustomClassName">VLCSlider</string>
 				<string key="131.IBPluginDependency">com.apple.InterfaceBuilder.IBCocoaTouchPlugin</string>
 				<string key="132.IBPluginDependency">com.apple.InterfaceBuilder.IBCocoaTouchPlugin</string>
+				<string key="133.CustomClassName">VLCSlider</string>
 				<string key="133.IBPluginDependency">com.apple.InterfaceBuilder.IBCocoaTouchPlugin</string>
 				<string key="134.IBPluginDependency">com.apple.InterfaceBuilder.IBCocoaTouchPlugin</string>
+				<string key="135.CustomClassName">VLCSlider</string>
 				<string key="135.IBPluginDependency">com.apple.InterfaceBuilder.IBCocoaTouchPlugin</string>
 				<string key="136.IBPluginDependency">com.apple.InterfaceBuilder.IBCocoaTouchPlugin</string>
+				<string key="137.CustomClassName">VLCSlider</string>
 				<string key="137.IBPluginDependency">com.apple.InterfaceBuilder.IBCocoaTouchPlugin</string>
 				<string key="138.IBPluginDependency">com.apple.InterfaceBuilder.IBCocoaTouchPlugin</string>
 				<string key="159.IBPluginDependency">com.apple.InterfaceBuilder.IBCocoaTouchPlugin</string>
 				<string key="162.IBPluginDependency">com.apple.InterfaceBuilder.IBCocoaTouchPlugin</string>
 				<string key="165.IBPluginDependency">com.apple.InterfaceBuilder.IBCocoaTouchPlugin</string>
 				<string key="167.IBPluginDependency">com.apple.InterfaceBuilder.IBCocoaTouchPlugin</string>
+				<string key="168.CustomClassName">VLCSlider</string>
 				<string key="168.IBPluginDependency">com.apple.InterfaceBuilder.IBCocoaTouchPlugin</string>
 				<string key="183.IBPluginDependency">com.apple.InterfaceBuilder.IBCocoaTouchPlugin</string>
 				<string key="185.IBPluginDependency">com.apple.InterfaceBuilder.IBCocoaTouchPlugin</string>
@@ -1827,7 +1833,7 @@
 				<string key="250.IBPluginDependency">com.apple.InterfaceBuilder.IBCocoaTouchPlugin</string>
 				<string key="260.IBPluginDependency">com.apple.InterfaceBuilder.IBCocoaTouchPlugin</string>
 				<string key="261.IBPluginDependency">com.apple.InterfaceBuilder.IBCocoaTouchPlugin</string>
-				<string key="262.CustomClassName">OBSlider</string>
+				<string key="262.CustomClassName">VLCOBSlider</string>
 				<string key="262.IBPluginDependency">com.apple.InterfaceBuilder.IBCocoaTouchPlugin</string>
 				<string key="273.IBPluginDependency">com.apple.InterfaceBuilder.IBCocoaTouchPlugin</string>
 				<string key="274.IBPluginDependency">com.apple.InterfaceBuilder.IBCocoaTouchPlugin</string>
@@ -2133,6 +2139,22 @@
 					<object class="IBClassDescriptionSource" key="sourceIdentifier">
 						<string key="majorKey">IBProjectSource</string>
 						<string key="minorKey">./Classes/VLCMovieViewController.h</string>
+					</object>
+				</object>
+				<object class="IBPartialClassDescription">
+					<string key="className">VLCOBSlider</string>
+					<string key="superclassName">OBSlider</string>
+					<object class="IBClassDescriptionSource" key="sourceIdentifier">
+						<string key="majorKey">IBProjectSource</string>
+						<string key="minorKey">./Classes/VLCOBSlider.h</string>
+					</object>
+				</object>
+				<object class="IBPartialClassDescription">
+					<string key="className">VLCSlider</string>
+					<string key="superclassName">UISlider</string>
+					<object class="IBClassDescriptionSource" key="sourceIdentifier">
+						<string key="majorKey">IBProjectSource</string>
+						<string key="minorKey">./Classes/VLCSlider.h</string>
 					</object>
 				</object>
 				<object class="IBPartialClassDescription">
