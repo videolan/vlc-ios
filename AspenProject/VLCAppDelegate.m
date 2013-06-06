@@ -52,9 +52,10 @@
     navBar.barStyle = UIBarStyleBlack;
 
     self.window.rootViewController = self.navigationController;
-
     [self.window makeKeyAndVisible];
 
+    [self validatePasscode];
+    
     _dropboxTableViewController = [[VLCDropboxTableViewController alloc] initWithNibName:@"VLCDropboxTableViewController" bundle:nil];
 
     return YES;
