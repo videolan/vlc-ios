@@ -343,37 +343,20 @@
         _videoFilterView.hidden = _videoFiltersHidden;
         _playbackSpeedView.alpha = 0.0f;
         _playbackSpeedView.hidden = _playbackSpeedViewHidden;
-        _playbackSpeedButton.alpha = 0.0f;
-        _playbackSpeedButton.hidden = NO;
-        _videoFilterButton.alpha = 0.0f;
-        _videoFilterButton.hidden = NO;
-        _aspectRatioButton.alpha = 0.0f;
-        _aspectRatioButton.hidden = NO;
     }
 
     void (^animationBlock)() = ^() {
         _controllerPanel.alpha = alpha;
         _toolbar.alpha = alpha;
         _videoFilterView.alpha = alpha;
-        _videoFilterButton.alpha = alpha;
         _playbackSpeedView.alpha = alpha;
-        _playbackSpeedButton.alpha = alpha;
-        _videoFilterButton.alpha = alpha;
-        _aspectRatioButton.alpha = alpha;
     };
 
     void (^completionBlock)(BOOL finished) = ^(BOOL finished) {
-        if (_videoFiltersHidden) {
+        if (_videoFiltersHidden)
             _controllerPanel.hidden = _controlsHidden;
-            _playbackSpeedButton.hidden = _controlsHidden;
-            _videoFilterButton.hidden = _controlsHidden;
-            _aspectRatioButton.hidden = _controlsHidden;
-        } else {
+        else
             _controllerPanel.hidden = NO;
-            _playbackSpeedButton.hidden = NO;
-            _videoFilterButton.hidden = NO;
-            _aspectRatioButton.hidden = NO;
-        }
         _toolbar.hidden = _controlsHidden;
         _videoFilterView.hidden = _videoFiltersHidden;
         _playbackSpeedView.hidden = _playbackSpeedViewHidden;
