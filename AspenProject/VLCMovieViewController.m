@@ -372,10 +372,7 @@
         }
         _toolbar.hidden = _controlsHidden;
         _videoFilterView.hidden = _videoFiltersHidden;
-        if (_controlsHidden)
-            _playbackSpeedView.hidden = YES;
-        else
-            _playbackSpeedView.hidden = _playbackSpeedViewHidden;
+        _playbackSpeedView.hidden = _playbackSpeedViewHidden;
     };
 
     UIStatusBarAnimation animationType = animated? UIStatusBarAnimationFade: UIStatusBarAnimationNone;
@@ -387,6 +384,9 @@
 
 - (void)toggleControlsVisible
 {
+    if (_controlsHidden && !_videoFiltersHidden)
+        _videoFiltersHidden = YES;
+
     [self setControlsHidden:!_controlsHidden animated:YES];
 }
 
@@ -521,7 +521,7 @@
     if (currentState == VLCMediaPlayerStateEnded || currentState == VLCMediaPlayerStateStopped)
         [self performSelector:@selector(closePlayback:) withObject:nil afterDelay:2.];
 
-    UIImage *playPauseImage = [_mediaPlayer isPlaying]? [UIImage imageNamed:@"pause"] : [UIImage imageNamed:@"play"];
+    UIImage *playPauseImage = [_mediaPlayer isPlaying]? [UIImage imageNamed:@"pauseIcon"] : [UIImage imageNamed:@"playIcon"];
     [_playPauseButton setImage:playPauseImage forState:UIControlStateNormal];
 
     if ([[_mediaPlayer audioTrackIndexes] count] > 2)
@@ -637,9 +637,13 @@
     if (!_playbackSpeedViewHidden)
         self.playbackSpeedView.hidden = _playbackSpeedViewHidden = YES;
 
+    if (UI_USER_INTERFACE_IDIOM() == UIUserInterfaceIdiomPhone) {
+        if (!_controlsHidden)
+            self.controllerPanel.hidden = _controlsHidden = YES;
+    }
+
     self.videoFilterView.hidden = !_videoFiltersHidden;
     _videoFiltersHidden = self.videoFilterView.hidden;
-    self.controllerPanel.hidden = !_videoFiltersHidden;
 
     [self _resetVideoFilterIdleTimer];
 }
