@@ -837,7 +837,7 @@
 							<object class="IBUISlider" id="406103196">
 								<reference key="NSNextResponder" ref="11334779"/>
 								<int key="NSvFlags">292</int>
-								<string key="NSFrame">{{6, 165}, {258, 23}}</string>
+								<string key="NSFrame">{{6, 165}, {252, 23}}</string>
 								<reference key="NSSuperview" ref="11334779"/>
 								<reference key="NSWindow"/>
 								<reference key="NSNextKeyView" ref="146856979"/>
@@ -873,7 +873,7 @@
 							<object class="IBUIButton" id="437839795">
 								<reference key="NSNextResponder" ref="11334779"/>
 								<int key="NSvFlags">292</int>
-								<string key="NSFrame">{{270, 167}, {18, 18}}</string>
+								<string key="NSFrame">{{264, 161}, {24, 30}}</string>
 								<reference key="NSSuperview" ref="11334779"/>
 								<reference key="NSWindow"/>
 								<reference key="NSNextKeyView" ref="831021170"/>
@@ -890,7 +890,7 @@
 								<reference key="IBUINormalTitleShadowColor" ref="25335422"/>
 								<object class="NSCustomResource" key="IBUINormalImage">
 									<string key="NSClassName">NSImage</string>
-									<string key="NSResourceName">reset.png</string>
+									<string key="NSResourceName">resetIcon.png</string>
 								</object>
 								<reference key="IBUIFontDescription" ref="581809469"/>
 								<reference key="IBUIFont" ref="569046616"/>
@@ -2165,7 +2165,7 @@
 			<string key="playIcon.png">{28, 27}</string>
 			<string key="playbackControllerBg.png">{352, 90}</string>
 			<string key="ratioButton.png">{50, 29}</string>
-			<string key="reset.png">{19, 19}</string>
+			<string key="resetIcon.png">{24, 30}</string>
 			<string key="speedIcon.png">{24, 25}</string>
 			<string key="subtitleIcon.png">{26, 27}</string>
 			<string key="videoEffectsIcon.png">{27, 20}</string>
