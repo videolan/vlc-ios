@@ -55,6 +55,8 @@
                                                                          action:@selector(dismiss:)];
         [dismissButton setBackgroundImage:[UIImage imageNamed:@"doneButton"] forState:UIControlStateNormal barMetrics:UIBarMetricsDefault];
         [dismissButton setBackgroundImage:[UIImage imageNamed:@"doneButtonHighlight"] forState:UIControlStateHighlighted barMetrics:UIBarMetricsDefault];
+        [dismissButton setTitleTextAttributes:@{UITextAttributeTextShadowColor : [UIColor whiteColor], UITextAttributeTextColor : [UIColor blackColor]} forState:UIControlStateNormal];
+        dismissButton.width = 80.;
 
         self.dismissToolBar.items = @[[[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemFlexibleSpace target:nil action:nil], dismissButton];
 
@@ -213,9 +215,11 @@
         [navController.navigationBar setBackgroundImage:[UIImage imageNamed:@"navBarBackgroundPhoneLandscape"] forBarMetrics:UIBarMetricsLandscapePhone];
     [self presentModalViewController:navController animated:YES];
 
-    [self.settingsViewController.navigationItem.rightBarButtonItem setBackgroundImage:[UIImage imageNamed:@"doneButton"] forState:UIControlStateNormal barMetrics:UIBarMetricsDefault];
-    [self.settingsViewController.navigationItem.rightBarButtonItem setBackgroundImage:[UIImage imageNamed:@"doneButtonHighlight"] forState:UIControlStateHighlighted barMetrics:UIBarMetricsDefault];
-    self.settingsViewController.navigationItem.rightBarButtonItem.style = UIBarButtonItemStylePlain;
+    UIBarButtonItem *doneButton = self.settingsViewController.navigationItem.rightBarButtonItem;
+    [doneButton setBackgroundImage:[UIImage imageNamed:@"doneButton"] forState:UIControlStateNormal barMetrics:UIBarMetricsDefault];
+    [doneButton setBackgroundImage:[UIImage imageNamed:@"doneButtonHighlight"] forState:UIControlStateHighlighted barMetrics:UIBarMetricsDefault];
+    doneButton.style = UIBarButtonItemStyleBordered;
+    [doneButton setTitleTextAttributes:@{UITextAttributeTextShadowColor : [UIColor whiteColor], UITextAttributeTextColor : [UIColor blackColor]} forState:UIControlStateNormal];
 }
 
 - (NSString *)_currentIPAddress

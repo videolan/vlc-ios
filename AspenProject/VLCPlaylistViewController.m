@@ -252,13 +252,15 @@
 {
     [super setEditing:editing animated:animated];
     
+    UIBarButtonItem *editButton = self.editButtonItem;
     NSString *editImage = editing? @"doneButton": @"button";
     NSString *editImageHighlight = editing? @"doneButtonHighlight": @"buttonHighlight";
-    [self.editButtonItem setBackgroundImage:[UIImage imageNamed:editImage] forState:UIControlStateNormal
+    [editButton setBackgroundImage:[UIImage imageNamed:editImage] forState:UIControlStateNormal
                                  barMetrics:UIBarMetricsDefault];
-    [self.editButtonItem setBackgroundImage:[UIImage imageNamed:editImageHighlight]
+    [editButton setBackgroundImage:[UIImage imageNamed:editImageHighlight]
                                    forState:UIControlStateHighlighted barMetrics:UIBarMetricsDefault];
-    
+    [editButton setTitleTextAttributes: editing ? @{UITextAttributeTextShadowColor : [UIColor whiteColor], UITextAttributeTextColor : [UIColor blackColor]} : @{UITextAttributeTextShadowColor : [UIColor colorWithWhite:0. alpha:.37], UITextAttributeTextColor : [UIColor whiteColor]} forState:UIControlStateNormal];
+
     if (UI_USER_INTERFACE_IDIOM() == UIUserInterfaceIdiomPad)
         [self.gridView setEditing:editing];
     else
