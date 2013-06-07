@@ -8,11 +8,6 @@
 
 #import "VLCPlaylistTableViewCell.h"
 
-@interface VLCPlaylistTableViewCell ()
-{
-}
-@end
-
 @implementation VLCPlaylistTableViewCell
 
 + (VLCPlaylistTableViewCell *)cellWithReuseIdentifier:(NSString *)ident
