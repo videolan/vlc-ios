@@ -26,9 +26,6 @@
 - (id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil
 {
     self = [super initWithNibName:nibNameOrNil bundle:nibBundleOrNil];
-    if (self)
-        self.title = @"VLC";
-
     return self;
 }
 
@@ -86,6 +83,8 @@
         _tableView.rowHeight = [VLCPlaylistTableViewCell heightOfCell];
         _tableView.separatorColor = [UIColor colorWithWhite:.122 alpha:1.];
     }
+
+    self.navigationItem.titleView = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"title"]];
 
     _emptyLibraryView.emptyLibraryLabel.text = NSLocalizedString(@"EMPTY_LIBRARY", @"");
     _emptyLibraryView.emptyLibraryLongDescriptionLabel.lineBreakMode = UILineBreakModeWordWrap;
