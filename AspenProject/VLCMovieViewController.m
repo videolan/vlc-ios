@@ -135,6 +135,8 @@
     [self.aspectRatioButton setImage:[UIImage imageNamed:@"ratioButton"] forState:UIControlStateNormal];
     [self.aspectRatioButton setImage:[UIImage imageNamed:@"ratioButtonHighlight"] forState:UIControlStateHighlighted];
     [self.toolbar setBackgroundImage:[UIImage imageNamed:@"seekbarBg"] forBarMetrics:UIBarMetricsDefault];
+    [self.backButton setBackgroundImage:[UIImage imageNamed:@"playbackDoneButton"] forState:UIControlStateNormal barMetrics:UIBarMetricsDefault];
+    [self.backButton setBackgroundImage:[UIImage imageNamed:@"playbackDoneButtonHighlight"] forState:UIControlStateHighlighted barMetrics:UIBarMetricsDefault];
 }
 
 - (void)viewWillAppear:(BOOL)animated
