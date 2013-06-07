@@ -49,6 +49,8 @@
     self.navigationController = [[UINavigationController alloc] initWithRootViewController:_playlistViewController];
     UINavigationBar *navBar = self.navigationController.navigationBar;
     [navBar setBackgroundImage:[UIImage imageNamed:@"navBarBackground"] forBarMetrics:UIBarMetricsDefault];
+    if (UI_USER_INTERFACE_IDIOM() == UIUserInterfaceIdiomPhone)
+        [navBar setBackgroundImage:[UIImage imageNamed:@"navBarBackgroundPhoneLandscape"] forBarMetrics:UIBarMetricsLandscapePhone];
     navBar.barStyle = UIBarStyleBlack;
 
     self.window.rootViewController = self.navigationController;

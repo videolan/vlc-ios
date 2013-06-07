@@ -59,6 +59,8 @@
         self.dismissToolBar.items = @[[[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemFlexibleSpace target:nil action:nil], dismissButton];
 
         [self.dismissToolBar setBackgroundImage:[UIImage imageNamed:@"navBarBackground"] forToolbarPosition:UIToolbarPositionAny barMetrics:UIBarMetricsDefault];
+        if (UI_USER_INTERFACE_IDIOM() == UIUserInterfaceIdiomPhone)
+            [self.dismissToolBar setBackgroundImage:[UIImage imageNamed:@"navBarBackgroundPhoneLandscape"] forToolbarPosition:UIToolbarPositionAny barMetrics:UIBarMetricsLandscapePhone];
 
         self.scrollView.contentSize = self.view.frame.size;
     }
@@ -118,6 +120,8 @@
     UINavigationController *navController = [[UINavigationController alloc] initWithRootViewController:aboutController];
     navController.navigationBar.barStyle = UIBarStyleBlack;
     [navController.navigationBar setBackgroundImage:[UIImage imageNamed:@"navBarBackground"] forBarMetrics:UIBarMetricsDefault];
+    if (UI_USER_INTERFACE_IDIOM() == UIUserInterfaceIdiomPhone)
+        [navController.navigationBar setBackgroundImage:[UIImage imageNamed:@"navBarBackgroundPhoneLandscape"] forBarMetrics:UIBarMetricsLandscapePhone];
 
     [self presentModalViewController:navController animated:YES];
 }
@@ -205,6 +209,8 @@
     navController.navigationBarHidden = NO;
     navController.navigationBar.barStyle = UIBarStyleBlack;
     [navController.navigationBar setBackgroundImage:[UIImage imageNamed:@"navBarBackground"] forBarMetrics:UIBarMetricsDefault];
+    if (UI_USER_INTERFACE_IDIOM() == UIUserInterfaceIdiomPhone)
+        [navController.navigationBar setBackgroundImage:[UIImage imageNamed:@"navBarBackgroundPhoneLandscape"] forBarMetrics:UIBarMetricsLandscapePhone];
     [self presentModalViewController:navController animated:YES];
 
     [self.settingsViewController.navigationItem.rightBarButtonItem setBackgroundImage:[UIImage imageNamed:@"doneButton"] forState:UIControlStateNormal barMetrics:UIBarMetricsDefault];
@@ -255,6 +261,8 @@
     navController.navigationBarHidden = NO;
     navController.navigationBar.barStyle = UIBarStyleBlack;
     [navController.navigationBar setBackgroundImage:[UIImage imageNamed:@"navBarBackground"] forBarMetrics:UIBarMetricsDefault];
+    if (UI_USER_INTERFACE_IDIOM() == UIUserInterfaceIdiomPhone)
+        [navController.navigationBar setBackgroundImage:[UIImage imageNamed:@"navBarBackgroundPhoneLandscape"] forBarMetrics:UIBarMetricsLandscapePhone];
     [self presentModalViewController:navController animated:YES];
 }
 
