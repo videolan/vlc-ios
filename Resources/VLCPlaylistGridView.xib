@@ -37,20 +37,6 @@
 				<reference key="NSNextResponder"/>
 				<int key="NSvFlags">292</int>
 				<array class="NSMutableArray" key="NSSubviews">
-					<object class="IBUIView" id="470328177">
-						<reference key="NSNextResponder" ref="93090196"/>
-						<int key="NSvFlags">292</int>
-						<string key="NSFrame">{{20, 13}, {258, 146}}</string>
-						<reference key="NSSuperview" ref="93090196"/>
-						<reference key="NSWindow"/>
-						<reference key="NSNextKeyView" ref="978623485"/>
-						<string key="NSReuseIdentifierKey">_NS:9</string>
-						<object class="NSColor" key="IBUIBackgroundColor" id="959397564">
-							<int key="NSColorSpace">3</int>
-							<bytes key="NSWhite">MC42NjY2NjY2NjY3AA</bytes>
-						</object>
-						<string key="targetRuntimeIdentifier">IBIPadFramework</string>
-					</object>
 					<object class="IBUIImageView" id="978623485">
 						<reference key="NSNextResponder" ref="93090196"/>
 						<int key="NSvFlags">274</int>
@@ -62,13 +48,13 @@
 						<bool key="IBUIUserInteractionEnabled">NO</bool>
 						<string key="targetRuntimeIdentifier">IBIPadFramework</string>
 					</object>
-					<object class="IBUIImageView" id="977889529">
+					<object class="IBUIImageView" id="816641102">
 						<reference key="NSNextResponder" ref="93090196"/>
 						<int key="NSvFlags">274</int>
 						<string key="NSFrame">{{16, 9}, {266, 154}}</string>
 						<reference key="NSSuperview" ref="93090196"/>
 						<reference key="NSWindow"/>
-						<reference key="NSNextKeyView" ref="470328177"/>
+						<reference key="NSNextKeyView"/>
 						<string key="NSReuseIdentifierKey">_NS:9</string>
 						<bool key="IBUIUserInteractionEnabled">NO</bool>
 						<string key="targetRuntimeIdentifier">IBIPadFramework</string>
@@ -91,7 +77,10 @@
 						<bool key="IBUIUserInteractionEnabled">NO</bool>
 						<string key="targetRuntimeIdentifier">IBIPadFramework</string>
 						<string key="IBUIText">Label</string>
-						<reference key="IBUITextColor" ref="959397564"/>
+						<object class="NSColor" key="IBUITextColor">
+							<int key="NSColorSpace">3</int>
+							<bytes key="NSWhite">MC42NjY2NjY2NjY3AA</bytes>
+						</object>
 						<nil key="IBUIHighlightedColor"/>
 						<object class="NSColor" key="IBUIShadowColor" id="398609642">
 							<int key="NSColorSpace">1</int>
@@ -215,7 +204,7 @@
 				<string key="NSFrameSize">{298, 220}</string>
 				<reference key="NSSuperview"/>
 				<reference key="NSWindow"/>
-				<reference key="NSNextKeyView" ref="977889529"/>
+				<reference key="NSNextKeyView" ref="816641102"/>
 				<string key="NSReuseIdentifierKey">_NS:9</string>
 				<object class="NSColor" key="IBUIBackgroundColor">
 					<int key="NSColorSpace">3</int>
@@ -311,14 +300,13 @@
 						<int key="objectID">3</int>
 						<reference key="object" ref="93090196"/>
 						<array class="NSMutableArray" key="children">
-							<reference ref="470328177"/>
 							<reference ref="978623485"/>
 							<reference ref="276503826"/>
 							<reference ref="610797449"/>
 							<reference ref="296556150"/>
 							<reference ref="863064291"/>
 							<reference ref="986363358"/>
-							<reference ref="977889529"/>
+							<reference ref="816641102"/>
 						</array>
 						<reference key="parent" ref="0"/>
 					</object>
@@ -339,11 +327,6 @@
 						<reference key="parent" ref="93090196"/>
 					</object>
 					<object class="IBObjectRecord">
-						<int key="objectID">19</int>
-						<reference key="object" ref="470328177"/>
-						<reference key="parent" ref="93090196"/>
-					</object>
-					<object class="IBObjectRecord">
 						<int key="objectID">20</int>
 						<reference key="object" ref="296556150"/>
 						<reference key="parent" ref="93090196"/>
@@ -361,7 +344,7 @@
 					</object>
 					<object class="IBObjectRecord">
 						<int key="objectID">25</int>
-						<reference key="object" ref="977889529"/>
+						<reference key="object" ref="816641102"/>
 						<reference key="parent" ref="93090196"/>
 					</object>
 				</array>
@@ -374,7 +357,6 @@
 				<string key="13.IBPluginDependency">com.apple.InterfaceBuilder.IBCocoaTouchPlugin</string>
 				<string key="17.CustomClassName">VLCLinearProgressIndicator</string>
 				<string key="17.IBPluginDependency">com.apple.InterfaceBuilder.IBCocoaTouchPlugin</string>
-				<string key="19.IBPluginDependency">com.apple.InterfaceBuilder.IBCocoaTouchPlugin</string>
 				<string key="20.IBPluginDependency">com.apple.InterfaceBuilder.IBCocoaTouchPlugin</string>
 				<string key="23.IBPluginDependency">com.apple.InterfaceBuilder.IBCocoaTouchPlugin</string>
 				<string key="25.IBPluginDependency">com.apple.InterfaceBuilder.IBCocoaTouchPlugin</string>
