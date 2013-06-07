@@ -2,9 +2,9 @@
 <archive type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="8.00">
 	<data>
 		<int key="IBDocument.SystemTarget">1296</int>
-		<string key="IBDocument.SystemVersion">12D78</string>
+		<string key="IBDocument.SystemVersion">12E55</string>
 		<string key="IBDocument.InterfaceBuilderVersion">3084</string>
-		<string key="IBDocument.AppKitVersion">1187.37</string>
+		<string key="IBDocument.AppKitVersion">1187.39</string>
 		<string key="IBDocument.HIToolboxVersion">626.00</string>
 		<object class="NSMutableDictionary" key="IBDocument.PluginVersions">
 			<string key="NS.key.0">com.apple.InterfaceBuilder.IBCocoaTouchPlugin</string>
@@ -44,7 +44,7 @@
 					<object class="IBUISlider" id="132576026">
 						<reference key="NSNextResponder" ref="482727796"/>
 						<int key="NSvFlags">290</int>
-						<string key="NSFrame">{{5, 10}, {197, 23}}</string>
+						<string key="NSFrame">{{5, 10}, {188, 23}}</string>
 						<reference key="NSSuperview" ref="482727796"/>
 						<reference key="NSWindow"/>
 						<reference key="NSNextKeyView" ref="487467547"/>
@@ -62,7 +62,7 @@
 					<object class="IBUILabel" id="487467547">
 						<reference key="NSNextResponder" ref="482727796"/>
 						<int key="NSvFlags">289</int>
-						<string key="NSFrame">{{203, 9}, {39, 21}}</string>
+						<string key="NSFrame">{{194, 9}, {50, 21}}</string>
 						<reference key="NSSuperview" ref="482727796"/>
 						<reference key="NSWindow"/>
 						<reference key="NSNextKeyView" ref="265611716"/>
