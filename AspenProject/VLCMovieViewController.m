@@ -77,6 +77,7 @@
     _brightnessLabel.text = NSLocalizedString(@"VFILTER_BRIGHTNESS", @"");
     _saturationLabel.text = NSLocalizedString(@"VFILTER_SATURATION", @"");
     _gammaLabel.text = NSLocalizedString(@"VFILTER_GAMMA", @"");
+    _playbackSpeedLabel.text = NSLocalizedString(@"PLAYBACK_SPEED", @"");
 
     _scrubHelpLabel.text = NSLocalizedString(@"PLAYBACK_SCRUB_HELP", @"");
 
