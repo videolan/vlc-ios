@@ -654,6 +654,7 @@
         _mediaPlayer.hue = self.hueSlider.value = 0.;
         _mediaPlayer.contrast = self.contrastSlider.value = 1.;
         _mediaPlayer.brightness = self.brightnessSlider.value = 1.;
+        [[UIScreen mainScreen] setBrightness:(self.brightnessSlider.value / 2.)];
         _mediaPlayer.saturation = self.saturationSlider.value = 1.;
         _mediaPlayer.gamma = self.gammaSlider.value = 1.;
     } else
