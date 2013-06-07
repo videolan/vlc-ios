@@ -17,6 +17,7 @@
 @interface VLCAppDelegate () <PAPasscodeViewControllerDelegate, DirectoryWatcherDelegate> {
     NSURL *_tempURL;
     PAPasscodeViewController *_passcodeLockController;
+    VLCDropboxTableViewController *_dropboxTableViewController;
 
     DirectoryWatcher *_directoryWatcher;
     NSTimer *_addMediaTimer;
@@ -42,8 +43,6 @@
 {
     self.window = [[UIWindow alloc] initWithFrame:[[UIScreen mainScreen] bounds]];
 
-    _directoryWatcher = [DirectoryWatcher watchFolderWithPath:[self directoryPath] delegate:self];
-
     _playlistViewController = [[VLCPlaylistViewController alloc] init];
 
     self.navigationController = [[UINavigationController alloc] initWithRootViewController:_playlistViewController];
@@ -55,10 +54,10 @@
 
     self.window.rootViewController = self.navigationController;
     [self.window makeKeyAndVisible];
+    
+    _directoryWatcher = [DirectoryWatcher watchFolderWithPath:[self directoryPath] delegate:self];
 
     [self validatePasscode];
-    
-    _dropboxTableViewController = [[VLCDropboxTableViewController alloc] initWithNibName:@"VLCDropboxTableViewController" bundle:nil];
 
     return YES;
 }
@@ -125,6 +124,17 @@
     // Called when the application is about to terminate. Save data if appropriate. See also applicationDidEnterBackground:.
 }
 
+#pragma mark - properties
+
+- (VLCDropboxTableViewController *)dropboxTableViewController
+{
+    if (_dropboxTableViewController == nil) {
+        _dropboxTableViewController = [[VLCDropboxTableViewController alloc] initWithNibName:@"VLCDropboxTableViewController" bundle:nil];
+    }
+
+    return _dropboxTableViewController;
+}
+
 #pragma mark - directory watcher delegate
 
 - (void)addFileTimerFired
@@ -138,13 +148,13 @@
         if ([prevFetchedSize compare:updatedSize] == NSOrderedSame) {
             [_addedFiles removeObjectForKey:fileURL];
             [[MLMediaLibrary sharedMediaLibrary] addFilePaths:@[fileURL]];
-            
+
             /* exclude media files from backup (QA1719) */
             NSURL *excludeURL = [NSURL fileURLWithPath:fileURL];
             [excludeURL setResourceValue:@YES forKey:NSURLIsExcludedFromBackupKey error:nil];
-            
+
             // TODO Should we update media db after adding new files?
-            [[MLMediaLibrary sharedMediaLibrary] updateMediaDatabase];             
+            [[MLMediaLibrary sharedMediaLibrary] updateMediaDatabase];
             [_playlistViewController updateViewContents];
         } else {
             [_addedFiles setObject:updatedSize forKey:fileURL];
