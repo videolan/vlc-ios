@@ -65,15 +65,6 @@
     [self setNeedsDisplay];
 }
 
-- (void)setIsEven:(BOOL)isEven
-{
-    if (isEven)
-        self.alternatingColorView.backgroundColor = [UIColor blackColor];
-    else
-        self.alternatingColorView.backgroundColor = [UIColor colorWithWhite:.122 alpha:1.];
-    [self.alternatingColorView setNeedsDisplay];
-}
-
 + (CGFloat)heightOfCell
 {
     return 80.;

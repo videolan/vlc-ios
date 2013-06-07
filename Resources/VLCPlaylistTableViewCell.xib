@@ -2,9 +2,9 @@
 <archive type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="8.00">
 	<data>
 		<int key="IBDocument.SystemTarget">1296</int>
-		<string key="IBDocument.SystemVersion">12E55</string>
+		<string key="IBDocument.SystemVersion">12D78</string>
 		<string key="IBDocument.InterfaceBuilderVersion">3084</string>
-		<string key="IBDocument.AppKitVersion">1187.39</string>
+		<string key="IBDocument.AppKitVersion">1187.37</string>
 		<string key="IBDocument.HIToolboxVersion">626.00</string>
 		<object class="NSMutableDictionary" key="IBDocument.PluginVersions">
 			<string key="NS.key.0">com.apple.InterfaceBuilder.IBCocoaTouchPlugin</string>
@@ -41,22 +41,6 @@
 						<reference key="NSNextResponder" ref="962619467"/>
 						<int key="NSvFlags">256</int>
 						<array class="NSMutableArray" key="NSSubviews">
-							<object class="IBUIView" id="889586540">
-								<reference key="NSNextResponder" ref="162418872"/>
-								<int key="NSvFlags">274</int>
-								<string key="NSFrameSize">{320, 79}</string>
-								<reference key="NSSuperview" ref="162418872"/>
-								<reference key="NSWindow"/>
-								<string key="NSReuseIdentifierKey">_NS:9</string>
-								<object class="NSColor" key="IBUIBackgroundColor">
-									<int key="NSColorSpace">3</int>
-									<bytes key="NSWhite">MQA</bytes>
-									<object class="NSColorSpace" key="NSCustomColorSpace">
-										<int key="NSID">2</int>
-									</object>
-								</object>
-								<string key="targetRuntimeIdentifier">IBCocoaTouchFramework</string>
-							</object>
 							<object class="IBUIImageView" id="784253519">
 								<reference key="NSNextResponder" ref="162418872"/>
 								<int key="NSvFlags">292</int>
@@ -247,14 +231,6 @@
 					</object>
 					<int key="connectionID">21</int>
 				</object>
-				<object class="IBConnectionRecord">
-					<object class="IBCocoaTouchOutletConnection" key="connection">
-						<string key="label">alternatingColorView</string>
-						<reference key="source" ref="962619467"/>
-						<reference key="destination" ref="889586540"/>
-					</object>
-					<int key="connectionID">24</int>
-				</object>
 			</array>
 			<object class="IBMutableOrderedSet" key="objectRecords">
 				<array key="orderedObjects">
@@ -285,7 +261,6 @@
 							<reference ref="442944742"/>
 							<reference ref="775158982"/>
 							<reference ref="172563179"/>
-							<reference ref="889586540"/>
 						</array>
 						<reference key="parent" ref="0"/>
 					</object>
@@ -319,11 +294,6 @@
 						<reference key="object" ref="172563179"/>
 						<reference key="parent" ref="962619467"/>
 					</object>
-					<object class="IBObjectRecord">
-						<int key="objectID">23</int>
-						<reference key="object" ref="889586540"/>
-						<reference key="parent" ref="962619467"/>
-					</object>
 				</array>
 			</object>
 			<dictionary class="NSMutableDictionary" key="flattenedProperties">
@@ -334,7 +304,6 @@
 				<string key="18.IBPluginDependency">com.apple.InterfaceBuilder.IBCocoaTouchPlugin</string>
 				<string key="20.IBPluginDependency">com.apple.InterfaceBuilder.IBCocoaTouchPlugin</string>
 				<string key="22.IBPluginDependency">com.apple.InterfaceBuilder.IBCocoaTouchPlugin</string>
-				<string key="23.IBPluginDependency">com.apple.InterfaceBuilder.IBCocoaTouchPlugin</string>
 				<string key="3.CustomClassName">VLCPlaylistTableViewCell</string>
 				<string key="3.IBPluginDependency">com.apple.InterfaceBuilder.IBCocoaTouchPlugin</string>
 				<string key="4.IBPluginDependency">com.apple.InterfaceBuilder.IBCocoaTouchPlugin</string>
@@ -361,7 +330,6 @@
 					<string key="className">VLCPlaylistTableViewCell</string>
 					<string key="superclassName">UITableViewCell</string>
 					<dictionary class="NSMutableDictionary" key="outlets">
-						<string key="alternatingColorView">UIView</string>
 						<string key="mediaIsUnreadView">UIImageView</string>
 						<string key="progressIndicator">VLCLinearProgressIndicator</string>
 						<string key="subtitleLabel">UILabel</string>
@@ -369,10 +337,6 @@
 						<string key="titleLabel">UILabel</string>
 					</dictionary>
 					<dictionary class="NSMutableDictionary" key="toOneOutletInfosByName">
-						<object class="IBToOneOutletInfo" key="alternatingColorView">
-							<string key="name">alternatingColorView</string>
-							<string key="candidateClassName">UIView</string>
-						</object>
 						<object class="IBToOneOutletInfo" key="mediaIsUnreadView">
 							<string key="name">mediaIsUnreadView</string>
 							<string key="candidateClassName">UIImageView</string>
