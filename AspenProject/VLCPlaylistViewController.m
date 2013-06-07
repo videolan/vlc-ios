@@ -174,7 +174,9 @@
     if (cell == nil)
         cell = [VLCPlaylistTableViewCell cellWithReuseIdentifier:CellIdentifier];
 
-    cell.mediaObject = _foundMedia[indexPath.row];
+    NSInteger row = indexPath.row;
+    cell.mediaObject = _foundMedia[row];
+    cell.isEven = (row % 2 == 0);
 
     return cell;
 }

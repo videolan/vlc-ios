@@ -41,6 +41,22 @@
 						<reference key="NSNextResponder" ref="962619467"/>
 						<int key="NSvFlags">256</int>
 						<array class="NSMutableArray" key="NSSubviews">
+							<object class="IBUIView" id="889586540">
+								<reference key="NSNextResponder" ref="162418872"/>
+								<int key="NSvFlags">292</int>
+								<string key="NSFrameSize">{320, 79}</string>
+								<reference key="NSSuperview" ref="162418872"/>
+								<reference key="NSWindow"/>
+								<string key="NSReuseIdentifierKey">_NS:9</string>
+								<object class="NSColor" key="IBUIBackgroundColor">
+									<int key="NSColorSpace">3</int>
+									<bytes key="NSWhite">MQA</bytes>
+									<object class="NSColorSpace" key="NSCustomColorSpace">
+										<int key="NSID">2</int>
+									</object>
+								</object>
+								<string key="targetRuntimeIdentifier">IBCocoaTouchFramework</string>
+							</object>
 							<object class="IBUIImageView" id="784253519">
 								<reference key="NSNextResponder" ref="162418872"/>
 								<int key="NSvFlags">292</int>
@@ -52,7 +68,7 @@
 								<bool key="IBUIUserInteractionEnabled">NO</bool>
 								<string key="targetRuntimeIdentifier">IBCocoaTouchFramework</string>
 							</object>
-							<object class="IBUIImageView" id="993470095">
+							<object class="IBUIImageView" id="172563179">
 								<reference key="NSNextResponder" ref="162418872"/>
 								<int key="NSvFlags">292</int>
 								<string key="NSFrame">{{3, 2}, {129, 75}}</string>
@@ -164,7 +180,7 @@
 						<string key="NSFrameSize">{320, 79}</string>
 						<reference key="NSSuperview" ref="962619467"/>
 						<reference key="NSWindow"/>
-						<reference key="NSNextKeyView" ref="993470095"/>
+						<reference key="NSNextKeyView" ref="172563179"/>
 						<string key="NSReuseIdentifierKey">_NS:11</string>
 						<reference key="IBUIBackgroundColor" ref="698237866"/>
 						<bool key="IBUIOpaque">NO</bool>
@@ -231,6 +247,14 @@
 					</object>
 					<int key="connectionID">21</int>
 				</object>
+				<object class="IBConnectionRecord">
+					<object class="IBCocoaTouchOutletConnection" key="connection">
+						<string key="label">alternatingColorView</string>
+						<reference key="source" ref="962619467"/>
+						<reference key="destination" ref="889586540"/>
+					</object>
+					<int key="connectionID">24</int>
+				</object>
 			</array>
 			<object class="IBMutableOrderedSet" key="objectRecords">
 				<array key="orderedObjects">
@@ -260,7 +284,8 @@
 							<reference ref="625431089"/>
 							<reference ref="442944742"/>
 							<reference ref="775158982"/>
-							<reference ref="993470095"/>
+							<reference ref="172563179"/>
+							<reference ref="889586540"/>
 						</array>
 						<reference key="parent" ref="0"/>
 					</object>
@@ -291,7 +316,12 @@
 					</object>
 					<object class="IBObjectRecord">
 						<int key="objectID">22</int>
-						<reference key="object" ref="993470095"/>
+						<reference key="object" ref="172563179"/>
+						<reference key="parent" ref="962619467"/>
+					</object>
+					<object class="IBObjectRecord">
+						<int key="objectID">23</int>
+						<reference key="object" ref="889586540"/>
 						<reference key="parent" ref="962619467"/>
 					</object>
 				</array>
@@ -304,6 +334,7 @@
 				<string key="18.IBPluginDependency">com.apple.InterfaceBuilder.IBCocoaTouchPlugin</string>
 				<string key="20.IBPluginDependency">com.apple.InterfaceBuilder.IBCocoaTouchPlugin</string>
 				<string key="22.IBPluginDependency">com.apple.InterfaceBuilder.IBCocoaTouchPlugin</string>
+				<string key="23.IBPluginDependency">com.apple.InterfaceBuilder.IBCocoaTouchPlugin</string>
 				<string key="3.CustomClassName">VLCPlaylistTableViewCell</string>
 				<string key="3.IBPluginDependency">com.apple.InterfaceBuilder.IBCocoaTouchPlugin</string>
 				<string key="4.IBPluginDependency">com.apple.InterfaceBuilder.IBCocoaTouchPlugin</string>
@@ -314,7 +345,7 @@
 			<nil key="activeLocalization"/>
 			<dictionary class="NSMutableDictionary" key="localizations"/>
 			<nil key="sourceID"/>
-			<int key="maxID">22</int>
+			<int key="maxID">24</int>
 		</object>
 		<object class="IBClassDescriber" key="IBDocument.Classes">
 			<array class="NSMutableArray" key="referencedPartialClassDescriptions">
@@ -330,6 +361,7 @@
 					<string key="className">VLCPlaylistTableViewCell</string>
 					<string key="superclassName">UITableViewCell</string>
 					<dictionary class="NSMutableDictionary" key="outlets">
+						<string key="alternatingColorView">UIView</string>
 						<string key="mediaIsUnreadView">UIImageView</string>
 						<string key="progressIndicator">VLCLinearProgressIndicator</string>
 						<string key="subtitleLabel">UILabel</string>
@@ -337,6 +369,10 @@
 						<string key="titleLabel">UILabel</string>
 					</dictionary>
 					<dictionary class="NSMutableDictionary" key="toOneOutletInfosByName">
+						<object class="IBToOneOutletInfo" key="alternatingColorView">
+							<string key="name">alternatingColorView</string>
+							<string key="candidateClassName">UIView</string>
+						</object>
 						<object class="IBToOneOutletInfo" key="mediaIsUnreadView">
 							<string key="name">mediaIsUnreadView</string>
 							<string key="candidateClassName">UIImageView</string>

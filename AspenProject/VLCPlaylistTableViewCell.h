@@ -16,8 +16,11 @@
 @property (nonatomic, strong) IBOutlet UIImageView *thumbnailView;
 @property (nonatomic, strong) IBOutlet VLCLinearProgressIndicator*progressIndicator;
 @property (nonatomic, strong) IBOutlet UIImageView *mediaIsUnreadView;
+@property (nonatomic, strong) IBOutlet UIView *alternatingColorView;
 
 @property (nonatomic, retain) MLFile *mediaObject;
+
+@property (nonatomic) BOOL isEven;
 
 + (VLCPlaylistTableViewCell *)cellWithReuseIdentifier:(NSString *)ident;
 + (CGFloat)heightOfCell;

@@ -8,6 +8,11 @@
 
 #import "VLCPlaylistTableViewCell.h"
 
+@interface VLCPlaylistTableViewCell ()
+{
+}
+@end
+
 @implementation VLCPlaylistTableViewCell
 
 + (VLCPlaylistTableViewCell *)cellWithReuseIdentifier:(NSString *)ident
@@ -63,6 +68,15 @@
     self.mediaIsUnreadView.hidden = !self.mediaObject.unread.intValue;
 
     [self setNeedsDisplay];
+}
+
+- (void)setIsEven:(BOOL)isEven
+{
+    if (isEven)
+        self.alternatingColorView.backgroundColor = [UIColor blackColor];
+    else
+        self.alternatingColorView.backgroundColor = [UIColor colorWithWhite:.122 alpha:1.];
+    [self.alternatingColorView setNeedsDisplay];
 }
 
 + (CGFloat)heightOfCell
