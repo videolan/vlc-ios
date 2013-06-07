@@ -8,7 +8,7 @@ PLATFORM=OS
 SDK=iphoneos6.1
 SDK_MIN=5.1
 VERBOSE=no
-CONFIGURATION="Debug"
+CONFIGURATION="Release"
 TESTEDHASH=26580f9e7
 
 usage()
@@ -189,9 +189,9 @@ fi
 info "Setup 'External' folders"
 
 if [ "$PLATFORM" = "Simulator" ]; then
-    xcbuilddir="build/Debug-iphonesimulator"
+    xcbuilddir="build/${CONFIGURATION}-iphonesimulator"
 else
-    xcbuilddir="build/Debug-iphoneos"
+    xcbuilddir="build/${CONFIGURATION}-iphoneos"
 fi
 framework_build="${aspen_root_dir}/ImportedSources/VLCKit/${xcbuilddir}"
 mlkit_build="${aspen_root_dir}/ImportedSources/MediaLibraryKit/${xcbuilddir}"
