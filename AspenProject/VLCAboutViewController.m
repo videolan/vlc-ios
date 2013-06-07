@@ -21,6 +21,7 @@
 {
     [super viewDidLoad];
 
+    self.webView.hidden = YES;
     [self.webView loadHTMLString:[NSString stringWithContentsOfFile:[[NSBundle mainBundle] pathForResource:@"About Contents" ofType:@"html"] encoding:NSUTF8StringEncoding error:nil] baseURL:nil];
     self.webView.delegate = self;
     self.aspenVersion.text = [[NSString stringWithFormat:NSLocalizedString(@"VERSION_FORMAT",@""), [[NSBundle mainBundle] objectForInfoDictionaryKey:@"CFBundleVersion"]] stringByAppendingFormat:@" %@", kVLCVersionCodename];
@@ -43,6 +44,11 @@
         return ![[UIApplication sharedApplication] openURL:requestURL];
     else
         return YES;
+}
+
+- (void)webViewDidFinishLoad:(UIWebView *)webView
+{
+    self.webView.hidden = NO;
 }
 
 - (void)dismiss
