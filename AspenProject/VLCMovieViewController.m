@@ -180,6 +180,9 @@
     } else
         [self _playNewMedia];
 
+    if (![self hasExternalDisplay])
+        self.brightnessSlider.value = [UIScreen mainScreen].brightness * 2.;
+
     [self setControlsHidden:NO animated:YES];
     _viewAppeared = YES;
 }
