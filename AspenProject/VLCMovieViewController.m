@@ -171,6 +171,7 @@
     [_mediaPlayer setMedia:media];
 
     self.positionSlider.value = 0.;
+    self.timeDisplay.text = @"";
 
     [super viewWillAppear:animated];
 
