@@ -640,7 +640,7 @@
 								<string key="targetRuntimeIdentifier">IBCocoaTouchFramework</string>
 								<int key="IBUIContentHorizontalAlignment">0</int>
 								<int key="IBUIContentVerticalAlignment">0</int>
-								<float key="IBUIMaxValue">360</float>
+								<float key="IBUIMaxValue">2</float>
 							</object>
 							<object class="IBUILabel" id="693989578">
 								<reference key="NSNextResponder" ref="202327026"/>
@@ -712,7 +712,7 @@
 								<int key="IBUIContentHorizontalAlignment">0</int>
 								<int key="IBUIContentVerticalAlignment">0</int>
 								<float key="IBUIValue">1</float>
-								<float key="IBUIMaxValue">2</float>
+								<float key="IBUIMaxValue">360</float>
 							</object>
 							<object class="IBUILabel" id="606522639">
 								<reference key="NSNextResponder" ref="202327026"/>
