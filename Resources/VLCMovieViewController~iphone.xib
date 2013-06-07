@@ -117,7 +117,7 @@
 						</object>
 						<object class="NSCustomResource" key="IBUINormalImage">
 							<string key="NSClassName">NSImage</string>
-							<string key="NSResourceName">ratioButton.png</string>
+							<string key="NSResourceName">ratioIcon.png</string>
 						</object>
 						<object class="IBUIFontDescription" key="IBUIFontDescription" id="838206983">
 							<int key="type">2</int>
@@ -2182,7 +2182,7 @@
 			<string key="forwardIcon.png">{32, 22}</string>
 			<string key="playIcon.png">{28, 27}</string>
 			<string key="playbackControllerBg.png">{352, 90}</string>
-			<string key="ratioButton.png">{50, 29}</string>
+			<string key="ratioIcon.png">{26, 19}</string>
 			<string key="resetIcon.png">{24, 30}</string>
 			<string key="speedIcon.png">{24, 25}</string>
 			<string key="subtitleIcon.png">{26, 27}</string>

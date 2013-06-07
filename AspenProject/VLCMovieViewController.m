@@ -133,8 +133,9 @@
 
     _aspectRatios = @[@"DEFAULT", @"4:3", @"16:9", @"16:10", @"2.21:1", @"FILL_TO_SCREEN"];
 
-    [self.aspectRatioButton setImage:[UIImage imageNamed:@"ratioButton"] forState:UIControlStateNormal];
-    [self.aspectRatioButton setImage:[UIImage imageNamed:@"ratioButtonHighlight"] forState:UIControlStateHighlighted];
+    [self.aspectRatioButton setBackgroundImage:[UIImage imageNamed:@"ratioButton"] forState:UIControlStateNormal];
+    [self.aspectRatioButton setBackgroundImage:[UIImage imageNamed:@"ratioButtonHighlight"] forState:UIControlStateHighlighted];
+    [self.aspectRatioButton setImage:[UIImage imageNamed:@"ratioIcon"] forState:UIControlStateNormal];
     [self.toolbar setBackgroundImage:[UIImage imageNamed:@"seekbarBg"] forBarMetrics:UIBarMetricsDefault];
     [self.backButton setBackgroundImage:[UIImage imageNamed:@"playbackDoneButton"] forState:UIControlStateNormal barMetrics:UIBarMetricsDefault];
     [self.backButton setBackgroundImage:[UIImage imageNamed:@"playbackDoneButtonHighlight"] forState:UIControlStateHighlighted barMetrics:UIBarMetricsDefault];
