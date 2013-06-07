@@ -55,7 +55,7 @@
 - (void)_updatedDisplayedInformation
 {
     self.titleLabel.text = self.mediaObject.title;
-    self.subtitleLabel.text = [NSString stringWithFormat:@"%@ — %.2f MB", [VLCTime timeWithNumber:[self.mediaObject duration]], [self.mediaObject fileSizeInBytes] / 1e6];
+    self.subtitleLabel.text = [NSString stringWithFormat:@"%@ — %i MB", [VLCTime timeWithNumber:[self.mediaObject duration]], (int)([self.mediaObject fileSizeInBytes] / 1e6)];
     self.thumbnailView.image = self.mediaObject.computedThumbnail;
     self.progressIndicator.progress = self.mediaObject.lastPosition.floatValue;
 
