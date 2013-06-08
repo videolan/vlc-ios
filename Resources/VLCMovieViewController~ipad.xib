@@ -2,9 +2,9 @@
 <archive type="com.apple.InterfaceBuilder3.CocoaTouch.iPad.XIB" version="8.00">
 	<data>
 		<int key="IBDocument.SystemTarget">1296</int>
-		<string key="IBDocument.SystemVersion">12E55</string>
+		<string key="IBDocument.SystemVersion">12D78</string>
 		<string key="IBDocument.InterfaceBuilderVersion">3084</string>
-		<string key="IBDocument.AppKitVersion">1187.39</string>
+		<string key="IBDocument.AppKitVersion">1187.37</string>
 		<string key="IBDocument.HIToolboxVersion">626.00</string>
 		<object class="NSMutableDictionary" key="IBDocument.PluginVersions">
 			<string key="NS.key.0">com.apple.InterfaceBuilder.IBCocoaTouchPlugin</string>
@@ -102,7 +102,6 @@
 						<string key="NSFrame">{{642, 5}, {50, 29}}</string>
 						<reference key="NSSuperview" ref="534205662"/>
 						<reference key="NSWindow"/>
-						<reference key="NSNextKeyView"/>
 						<string key="NSReuseIdentifierKey">_NS:9</string>
 						<bool key="IBUIOpaque">NO</bool>
 						<string key="targetRuntimeIdentifier">IBIPadFramework</string>
@@ -479,7 +478,7 @@
 							<object class="IBUIButton" id="338525874">
 								<reference key="NSNextResponder" ref="831021170"/>
 								<int key="NSvFlags">292</int>
-								<string key="NSFrame">{{54, 20}, {32, 32}}</string>
+								<string key="NSFrame">{{54, 16}, {32, 40}}</string>
 								<reference key="NSSuperview" ref="831021170"/>
 								<reference key="NSWindow"/>
 								<reference key="NSNextKeyView" ref="763754981"/>
@@ -489,6 +488,10 @@
 								<string key="targetRuntimeIdentifier">IBIPadFramework</string>
 								<int key="IBUIContentHorizontalAlignment">0</int>
 								<int key="IBUIContentVerticalAlignment">0</int>
+								<double key="IBUIContentEdgeInsets.top">4</double>
+								<double key="IBUIContentEdgeInsets.bottom">4</double>
+								<double key="IBUIContentEdgeInsets.left">0.0</double>
+								<double key="IBUIContentEdgeInsets.right">0.0</double>
 								<reference key="IBUIHighlightedTitleColor" ref="33107367"/>
 								<object class="NSColor" key="IBUINormalTitleColor">
 									<int key="NSColorSpace">1</int>
@@ -505,7 +508,7 @@
 							<object class="IBUIButton" id="969531965">
 								<reference key="NSNextResponder" ref="831021170"/>
 								<int key="NSvFlags">292</int>
-								<string key="NSFrame">{{231, 20}, {28, 32}}</string>
+								<string key="NSFrame">{{231, 16}, {28, 40}}</string>
 								<reference key="NSSuperview" ref="831021170"/>
 								<reference key="NSWindow"/>
 								<reference key="NSNextKeyView" ref="333039056"/>
@@ -515,6 +518,10 @@
 								<string key="targetRuntimeIdentifier">IBIPadFramework</string>
 								<int key="IBUIContentHorizontalAlignment">0</int>
 								<int key="IBUIContentVerticalAlignment">0</int>
+								<double key="IBUIContentEdgeInsets.top">4</double>
+								<double key="IBUIContentEdgeInsets.bottom">4</double>
+								<double key="IBUIContentEdgeInsets.left">0.0</double>
+								<double key="IBUIContentEdgeInsets.right">0.0</double>
 								<reference key="IBUIHighlightedTitleColor" ref="33107367"/>
 								<object class="NSColor" key="IBUINormalTitleColor">
 									<int key="NSColorSpace">1</int>
@@ -534,14 +541,13 @@
 								<string key="NSFrame">{{14, 57}, {290, 22}}</string>
 								<reference key="NSSuperview" ref="831021170"/>
 								<reference key="NSWindow"/>
-								<reference key="NSNextKeyView"/>
 								<string key="NSReuseIdentifierKey">_NS:9</string>
 								<string key="targetRuntimeIdentifier">IBIPadFramework</string>
 							</object>
 							<object class="IBUIButton" id="299229207">
 								<reference key="NSNextResponder" ref="831021170"/>
 								<int key="NSvFlags">292</int>
-								<string key="NSFrame">{{14, 18}, {32, 32}}</string>
+								<string key="NSFrame">{{14, 14}, {32, 40}}</string>
 								<reference key="NSSuperview" ref="831021170"/>
 								<reference key="NSWindow"/>
 								<reference key="NSNextKeyView" ref="338525874"/>
@@ -550,6 +556,10 @@
 								<string key="targetRuntimeIdentifier">IBIPadFramework</string>
 								<int key="IBUIContentHorizontalAlignment">0</int>
 								<int key="IBUIContentVerticalAlignment">0</int>
+								<double key="IBUIContentEdgeInsets.top">4</double>
+								<double key="IBUIContentEdgeInsets.bottom">4</double>
+								<double key="IBUIContentEdgeInsets.left">0.0</double>
+								<double key="IBUIContentEdgeInsets.right">0.0</double>
 								<reference key="IBUIHighlightedTitleColor" ref="33107367"/>
 								<object class="NSColor" key="IBUINormalTitleColor">
 									<int key="NSColorSpace">1</int>
@@ -566,7 +576,7 @@
 							<object class="IBUIButton" id="333039056">
 								<reference key="NSNextResponder" ref="831021170"/>
 								<int key="NSvFlags">289</int>
-								<string key="NSFrame">{{272, 17}, {32, 32}}</string>
+								<string key="NSFrame">{{272, 13}, {32, 40}}</string>
 								<reference key="NSSuperview" ref="831021170"/>
 								<reference key="NSWindow"/>
 								<reference key="NSNextKeyView" ref="189567790"/>
@@ -575,6 +585,10 @@
 								<string key="targetRuntimeIdentifier">IBIPadFramework</string>
 								<int key="IBUIContentHorizontalAlignment">0</int>
 								<int key="IBUIContentVerticalAlignment">0</int>
+								<double key="IBUIContentEdgeInsets.top">4</double>
+								<double key="IBUIContentEdgeInsets.bottom">4</double>
+								<double key="IBUIContentEdgeInsets.left">0.0</double>
+								<double key="IBUIContentEdgeInsets.right">0.0</double>
 								<reference key="IBUIHighlightedTitleColor" ref="33107367"/>
 								<object class="NSColor" key="IBUINormalTitleColor">
 									<int key="NSColorSpace">1</int>
@@ -591,7 +605,7 @@
 							<object class="IBUIButton" id="838176024">
 								<reference key="NSNextResponder" ref="831021170"/>
 								<int key="NSvFlags">292</int>
-								<string key="NSFrame">{{187, 17}, {32, 32}}</string>
+								<string key="NSFrame">{{187, 13}, {32, 40}}</string>
 								<reference key="NSSuperview" ref="831021170"/>
 								<reference key="NSWindow"/>
 								<reference key="NSNextKeyView" ref="969531965"/>
@@ -601,6 +615,10 @@
 								<string key="targetRuntimeIdentifier">IBIPadFramework</string>
 								<int key="IBUIContentHorizontalAlignment">0</int>
 								<int key="IBUIContentVerticalAlignment">0</int>
+								<double key="IBUIContentEdgeInsets.top">4</double>
+								<double key="IBUIContentEdgeInsets.bottom">4</double>
+								<double key="IBUIContentEdgeInsets.left">0.0</double>
+								<double key="IBUIContentEdgeInsets.right">0.0</double>
 								<reference key="IBUIHighlightedTitleColor" ref="33107367"/>
 								<object class="NSColor" key="IBUINormalTitleColor">
 									<int key="NSColorSpace">1</int>
@@ -617,7 +635,7 @@
 							<object class="IBUIButton" id="763754981">
 								<reference key="NSNextResponder" ref="831021170"/>
 								<int key="NSvFlags">292</int>
-								<string key="NSFrame">{{100, 17}, {32, 32}}</string>
+								<string key="NSFrame">{{100, 13}, {32, 40}}</string>
 								<reference key="NSSuperview" ref="831021170"/>
 								<reference key="NSWindow"/>
 								<reference key="NSNextKeyView" ref="123076766"/>
@@ -627,6 +645,10 @@
 								<string key="targetRuntimeIdentifier">IBIPadFramework</string>
 								<int key="IBUIContentHorizontalAlignment">0</int>
 								<int key="IBUIContentVerticalAlignment">0</int>
+								<double key="IBUIContentEdgeInsets.top">4</double>
+								<double key="IBUIContentEdgeInsets.bottom">4</double>
+								<double key="IBUIContentEdgeInsets.left">0.0</double>
+								<double key="IBUIContentEdgeInsets.right">0.0</double>
 								<reference key="IBUIHighlightedTitleColor" ref="33107367"/>
 								<object class="NSColor" key="IBUINormalTitleColor">
 									<int key="NSColorSpace">1</int>
@@ -643,7 +665,7 @@
 							<object class="IBUIButton" id="123076766">
 								<reference key="NSNextResponder" ref="831021170"/>
 								<int key="NSvFlags">292</int>
-								<string key="NSFrame">{{146, 18}, {28, 32}}</string>
+								<string key="NSFrame">{{146, 14}, {28, 40}}</string>
 								<reference key="NSSuperview" ref="831021170"/>
 								<reference key="NSWindow"/>
 								<reference key="NSNextKeyView" ref="838176024"/>
@@ -653,6 +675,10 @@
 								<string key="targetRuntimeIdentifier">IBIPadFramework</string>
 								<int key="IBUIContentHorizontalAlignment">0</int>
 								<int key="IBUIContentVerticalAlignment">0</int>
+								<double key="IBUIContentEdgeInsets.top">4</double>
+								<double key="IBUIContentEdgeInsets.bottom">4</double>
+								<double key="IBUIContentEdgeInsets.left">0.0</double>
+								<double key="IBUIContentEdgeInsets.right">0.0</double>
 								<reference key="IBUIHighlightedTitleColor" ref="33107367"/>
 								<object class="NSColor" key="IBUINormalTitleColor">
 									<int key="NSColorSpace">1</int>
