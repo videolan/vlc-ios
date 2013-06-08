@@ -2,9 +2,9 @@
 <archive type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="8.00">
 	<data>
 		<int key="IBDocument.SystemTarget">1296</int>
-		<string key="IBDocument.SystemVersion">12E55</string>
+		<string key="IBDocument.SystemVersion">12D78</string>
 		<string key="IBDocument.InterfaceBuilderVersion">3084</string>
-		<string key="IBDocument.AppKitVersion">1187.39</string>
+		<string key="IBDocument.AppKitVersion">1187.37</string>
 		<string key="IBDocument.HIToolboxVersion">626.00</string>
 		<object class="NSMutableDictionary" key="IBDocument.PluginVersions">
 			<string key="NS.key.0">com.apple.InterfaceBuilder.IBCocoaTouchPlugin</string>
@@ -375,7 +375,7 @@
 								<reference key="IBUIFont" ref="15074631"/>
 							</object>
 						</array>
-						<string key="NSFrame">{{0, 440}, {320, 90}}</string>
+						<string key="NSFrame">{{0, 450}, {320, 90}}</string>
 						<reference key="NSSuperview" ref="191373211"/>
 						<reference key="NSWindow"/>
 						<reference key="NSNextKeyView" ref="289363774"/>
@@ -833,7 +833,7 @@
 								<reference key="IBUIFont" ref="15074631"/>
 							</object>
 						</array>
-						<string key="NSFrame">{{0, 332}, {320, 198}}</string>
+						<string key="NSFrame">{{0, 342}, {320, 198}}</string>
 						<reference key="NSSuperview" ref="191373211"/>
 						<reference key="NSWindow"/>
 						<reference key="NSNextKeyView" ref="766924113"/>
