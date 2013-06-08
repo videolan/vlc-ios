@@ -388,14 +388,14 @@
 - (void)_resetIdleTimer
 {
     if (!_idleTimer)
-        _idleTimer = [NSTimer scheduledTimerWithTimeInterval:2.
+        _idleTimer = [NSTimer scheduledTimerWithTimeInterval:4.
                                                       target:self
                                                     selector:@selector(idleTimerExceeded)
                                                     userInfo:nil
                                                      repeats:NO];
     else {
-        if (fabs([_idleTimer.fireDate timeIntervalSinceNow]) < 2.)
-            [_idleTimer setFireDate:[NSDate dateWithTimeIntervalSinceNow:2.]];
+        if (fabs([_idleTimer.fireDate timeIntervalSinceNow]) < 4.)
+            [_idleTimer setFireDate:[NSDate dateWithTimeIntervalSinceNow:4.]];
     }
 }
 
