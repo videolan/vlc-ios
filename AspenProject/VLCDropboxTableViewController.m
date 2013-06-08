@@ -74,6 +74,8 @@
     _progressBarButtonItem = [[UIBarButtonItem alloc] initWithCustomView:_progressView];
     _downloadingBarLabel = [[UIBarButtonItem alloc] initWithTitle:NSLocalizedString(@"DOWNLOADING",@"") style:UIBarButtonItemStylePlain target:nil action:nil];
     [_downloadingBarLabel setTitleTextAttributes:@{ UITextAttributeFont : [UIFont systemFontOfSize:11.] } forState:UIControlStateNormal];
+    
+    [_loginToDropboxButton setTitle:NSLocalizedString(@"DROPBOX_LOGIN", @"") forState:UIControlStateNormal];
 
     [self _showProgressInToolbar:NO];
 
