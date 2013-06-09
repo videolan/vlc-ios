@@ -216,6 +216,7 @@
 		7DEB3B8C1764A4F40038FC70 /* blank.png in Resources */ = {isa = PBXBuildFile; fileRef = 7DEB3B831764A4F40038FC70 /* blank.png */; };
 		7DEB3B8D1764A4F40038FC70 /* blank@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 7DEB3B841764A4F40038FC70 /* blank@2x.png */; };
 		7DF65C2D174FF3F400F43330 /* VLCDropboxTableViewCell~iphone.xib in Resources */ = {isa = PBXBuildFile; fileRef = 7DF65C2C174FF3F400F43330 /* VLCDropboxTableViewCell~iphone.xib */; };
+		7DF7CA0717650C2A00C61739 /* AVFoundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 7DF7CA0617650C2A00C61739 /* AVFoundation.framework */; };
 		7DF7E791175F47DC0018858D /* MediaPlayer.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 7DF7E790175F47DC0018858D /* MediaPlayer.framework */; };
 		A7035BBE174519600057DFA7 /* iTunesArtwork in Resources */ = {isa = PBXBuildFile; fileRef = A7035BBD174519600057DFA7 /* iTunesArtwork */; };
 		A7924696170F0BA90036AAF2 /* libMediaLibraryKit.a in Frameworks */ = {isa = PBXBuildFile; fileRef = A7924695170F0BA90036AAF2 /* libMediaLibraryKit.a */; };
@@ -578,6 +579,7 @@
 		7DEB3B831764A4F40038FC70 /* blank.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = blank.png; sourceTree = "<group>"; };
 		7DEB3B841764A4F40038FC70 /* blank@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "blank@2x.png"; sourceTree = "<group>"; };
 		7DF65C2C174FF3F400F43330 /* VLCDropboxTableViewCell~iphone.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; name = "VLCDropboxTableViewCell~iphone.xib"; path = "../Resources/VLCDropboxTableViewCell~iphone.xib"; sourceTree = "<group>"; };
+		7DF7CA0617650C2A00C61739 /* AVFoundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AVFoundation.framework; path = System/Library/Frameworks/AVFoundation.framework; sourceTree = SDKROOT; };
 		7DF7E790175F47DC0018858D /* MediaPlayer.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = MediaPlayer.framework; path = System/Library/Frameworks/MediaPlayer.framework; sourceTree = SDKROOT; };
 		A7035BBD174519600057DFA7 /* iTunesArtwork */ = {isa = PBXFileReference; lastKnownFileType = file; path = iTunesArtwork; sourceTree = "<group>"; };
 		A7924695170F0BA90036AAF2 /* libMediaLibraryKit.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; name = libMediaLibraryKit.a; path = External/MediaLibraryKit/libMediaLibraryKit.a; sourceTree = "<group>"; };
@@ -629,6 +631,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				7DF7CA0717650C2A00C61739 /* AVFoundation.framework in Frameworks */,
 				7DF7E791175F47DC0018858D /* MediaPlayer.framework in Frameworks */,
 				7D6B08FA174D716200A05173 /* MessageUI.framework in Frameworks */,
 				7D3EB014174A353E002062C2 /* SystemConfiguration.framework in Frameworks */,
@@ -1127,6 +1130,7 @@
 		7D94FCDD16DE7D1000F2623B /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
+				7DF7CA0617650C2A00C61739 /* AVFoundation.framework */,
 				7DF7E790175F47DC0018858D /* MediaPlayer.framework */,
 				7D6B08F9174D716200A05173 /* MessageUI.framework */,
 				7D3EB013174A353E002062C2 /* SystemConfiguration.framework */,

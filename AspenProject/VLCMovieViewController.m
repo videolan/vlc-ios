@@ -9,10 +9,11 @@
 #import "VLCMovieViewController.h"
 #import "VLCExternalDisplayController.h"
 #import <sys/sysctl.h> // for sysctlbyname
+#import <AVFoundation/AVFoundation.h>
 
 #define INPUT_RATE_DEFAULT  1000.
 
-@interface VLCMovieViewController () <UIGestureRecognizerDelegate>
+@interface VLCMovieViewController () <UIGestureRecognizerDelegate, AVAudioSessionDelegate>
 {
     VLCMediaPlayer *_mediaPlayer;
 
@@ -139,6 +140,8 @@
     [self.toolbar setBackgroundImage:[UIImage imageNamed:@"seekbarBg"] forBarMetrics:UIBarMetricsDefault];
     [self.backButton setBackgroundImage:[UIImage imageNamed:@"playbackDoneButton"] forState:UIControlStateNormal barMetrics:UIBarMetricsDefault];
     [self.backButton setBackgroundImage:[UIImage imageNamed:@"playbackDoneButtonHighlight"] forState:UIControlStateHighlighted barMetrics:UIBarMetricsDefault];
+
+    [[AVAudioSession sharedInstance] setDelegate:self];
 }
 
 - (void)viewWillAppear:(BOOL)animated
@@ -793,6 +796,23 @@
 - (BOOL)shouldAutorotateToInterfaceOrientation:(UIInterfaceOrientation)toInterfaceOrientation {
     return UI_USER_INTERFACE_IDIOM() == UIUserInterfaceIdiomPad
            || toInterfaceOrientation != UIInterfaceOrientationPortraitUpsideDown;
+}
+
+#pragma mark - AVSession delegate
+- (void)beginInterruption
+{
+    if ([[[NSUserDefaults standardUserDefaults] objectForKey:kVLCSettingContinueAudioInBackgroundKey] boolValue])
+        _shouldResumePlaying = YES;
+
+    [_mediaPlayer pause];
+}
+
+- (void)endInterruption
+{
+    if (_shouldResumePlaying) {
+        [_mediaPlayer play];
+        _shouldResumePlaying = NO;
+    }
 }
 
 #pragma mark - External Display
