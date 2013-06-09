@@ -375,6 +375,8 @@
 
     [[UIApplication sharedApplication] setStatusBarHidden:_viewAppeared ? _controlsHidden : NO withAnimation:animationType];
     [UIView animateWithDuration:animationDuration animations:animationBlock completion:completionBlock];
+
+    _volumeView.hidden = _controllerPanel.hidden;
 }
 
 - (void)toggleControlsVisible

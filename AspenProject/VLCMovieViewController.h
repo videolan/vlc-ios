@@ -6,11 +6,11 @@
 //  Copyright (c) 2013 VideoLAN. All rights reserved.
 //
 
-#import <UIKit/UIKit.h>
 #import "VLCStatusLabel.h"
 #import "VLCHorizontalSwipeGestureRecognizer.h"
 #import "VLCVerticalSwipeGestureRecognizer.h"
 #import "OBSlider.h"
+#import <MediaPlayer/MediaPlayer.h>
 
 @interface VLCMovieViewController : UIViewController <VLCMediaPlayerDelegate, UIActionSheetDelegate, VLCHorizontalSwipeGestureRecognizer, VLCVerticalSwipeGestureRecognizer>
 
@@ -26,6 +26,7 @@
 @property (nonatomic, strong) IBOutlet UINavigationBar *toolbar;
 @property (nonatomic, strong) IBOutlet UIView *controllerPanel;
 @property (nonatomic, strong) IBOutlet VLCStatusLabel *statusLabel;
+@property (nonatomic, strong) IBOutlet MPVolumeView *volumeView;
 
 @property (nonatomic, strong) IBOutlet UIView *playingExternallyView;
 @property (nonatomic, strong) IBOutlet UILabel *playingExternallyTitle;
