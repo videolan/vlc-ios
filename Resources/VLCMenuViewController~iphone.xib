@@ -74,7 +74,7 @@
 						<object class="NSColor" key="IBUITextColor">
 							<int key="NSColorSpace">3</int>
 							<bytes key="NSWhite">MAA</bytes>
-							<object class="NSColorSpace" key="NSCustomColorSpace">
+							<object class="NSColorSpace" key="NSCustomColorSpace" id="570665346">
 								<int key="NSID">2</int>
 							</object>
 						</object>
@@ -103,7 +103,6 @@
 						<string key="NSFrame">{{229, 8}, {70, 44}}</string>
 						<reference key="NSSuperview" ref="574364168"/>
 						<reference key="NSWindow"/>
-						<reference key="NSNextKeyView"/>
 						<string key="NSReuseIdentifierKey">_NS:9</string>
 						<bool key="IBUIOpaque">NO</bool>
 						<string key="targetRuntimeIdentifier">IBCocoaTouchFramework</string>
@@ -212,7 +211,6 @@
 								<string key="NSFrame">{{0, 323}, {320, 60}}</string>
 								<reference key="NSSuperview" ref="197151749"/>
 								<reference key="NSWindow"/>
-								<reference key="NSNextKeyView"/>
 								<string key="NSReuseIdentifierKey">_NS:9</string>
 								<reference key="IBUIBackgroundColor" ref="937037271"/>
 								<bool key="IBUIOpaque">NO</bool>
@@ -303,6 +301,11 @@
 										<string key="targetRuntimeIdentifier">IBCocoaTouchFramework</string>
 										<int key="IBUIContentHorizontalAlignment">0</int>
 										<int key="IBUIContentVerticalAlignment">0</int>
+										<object class="NSColor" key="IBUIOnTintColor">
+											<int key="NSColorSpace">3</int>
+											<bytes key="NSWhite">MCAwLjYxAA</bytes>
+											<reference key="NSCustomColorSpace" ref="570665346"/>
+										</object>
 									</object>
 									<object class="IBUILabel" id="238446432">
 										<reference key="NSNextResponder" ref="485650876"/>
