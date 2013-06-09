@@ -312,7 +312,6 @@
 						<reference key="NSWindow"/>
 						<reference key="NSNextKeyView" ref="712064142"/>
 						<string key="NSReuseIdentifierKey">_NS:9</string>
-						<reference key="IBUIBackgroundColor" ref="937037271"/>
 						<bool key="IBUIOpaque">NO</bool>
 						<bool key="IBUIClipsSubviews">YES</bool>
 						<string key="targetRuntimeIdentifier">IBCocoaTouchFramework</string>
@@ -330,6 +329,10 @@
 						<float key="IBUIMinimumFontSize">17</float>
 						<object class="IBUITextInputTraits" key="IBUITextInputTraits">
 							<string key="targetRuntimeIdentifier">IBCocoaTouchFramework</string>
+						</object>
+						<object class="NSCustomResource" key="IBUIBackground">
+							<string key="NSClassName">NSImage</string>
+							<string key="NSResourceName">input.png</string>
 						</object>
 						<reference key="IBUIFontDescription" ref="586768340"/>
 						<reference key="IBUIFont" ref="877247040"/>
@@ -836,6 +839,7 @@
 		<int key="IBDocument.defaultPropertyAccessControl">3</int>
 		<dictionary class="NSMutableDictionary" key="IBDocument.LastKnownImageSizes">
 			<string key="dropboxLabel.png">{159, 43}</string>
+			<string key="input.png">{199, 29}</string>
 			<string key="menuBtnBck.png">{320, 60}</string>
 			<string key="menuBtnBckHighlight.png">{320, 60}</string>
 			<string key="menuButton.png">{63, 39}</string>

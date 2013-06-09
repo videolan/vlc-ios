@@ -208,6 +208,8 @@
 		7DEB3B7217649BEB0038FC70 /* Icon-512.png in Resources */ = {isa = PBXBuildFile; fileRef = 7DEB3B7117649BEB0038FC70 /* Icon-512.png */; };
 		7DEB3B7517649F2C0038FC70 /* menuButton.png in Resources */ = {isa = PBXBuildFile; fileRef = 7DEB3B7317649F2C0038FC70 /* menuButton.png */; };
 		7DEB3B7617649F2C0038FC70 /* menuButton@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 7DEB3B7417649F2C0038FC70 /* menuButton@2x.png */; };
+		7DEB3B791764A4040038FC70 /* input@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 7DEB3B771764A4040038FC70 /* input@2x.png */; };
+		7DEB3B7A1764A4040038FC70 /* input.png in Resources */ = {isa = PBXBuildFile; fileRef = 7DEB3B781764A4040038FC70 /* input.png */; };
 		7DF65C2D174FF3F400F43330 /* VLCDropboxTableViewCell~iphone.xib in Resources */ = {isa = PBXBuildFile; fileRef = 7DF65C2C174FF3F400F43330 /* VLCDropboxTableViewCell~iphone.xib */; };
 		7DF7E791175F47DC0018858D /* MediaPlayer.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 7DF7E790175F47DC0018858D /* MediaPlayer.framework */; };
 		A7035BBE174519600057DFA7 /* iTunesArtwork in Resources */ = {isa = PBXBuildFile; fileRef = A7035BBD174519600057DFA7 /* iTunesArtwork */; };
@@ -563,6 +565,8 @@
 		7DEB3B7117649BEB0038FC70 /* Icon-512.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "Icon-512.png"; sourceTree = "<group>"; };
 		7DEB3B7317649F2C0038FC70 /* menuButton.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = menuButton.png; sourceTree = "<group>"; };
 		7DEB3B7417649F2C0038FC70 /* menuButton@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "menuButton@2x.png"; sourceTree = "<group>"; };
+		7DEB3B771764A4040038FC70 /* input@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "input@2x.png"; sourceTree = "<group>"; };
+		7DEB3B781764A4040038FC70 /* input.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = input.png; sourceTree = "<group>"; };
 		7DF65C2C174FF3F400F43330 /* VLCDropboxTableViewCell~iphone.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; name = "VLCDropboxTableViewCell~iphone.xib"; path = "../Resources/VLCDropboxTableViewCell~iphone.xib"; sourceTree = "<group>"; };
 		7DF7E790175F47DC0018858D /* MediaPlayer.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = MediaPlayer.framework; path = System/Library/Frameworks/MediaPlayer.framework; sourceTree = SDKROOT; };
 		A7035BBD174519600057DFA7 /* iTunesArtwork */ = {isa = PBXFileReference; lastKnownFileType = file; path = iTunesArtwork; sourceTree = "<group>"; };
@@ -1212,6 +1216,17 @@
 			name = Icons;
 			sourceTree = "<group>";
 		};
+		7DEB3B7B1764A4080038FC70 /* menu */ = {
+			isa = PBXGroup;
+			children = (
+				7DEB3B771764A4040038FC70 /* input@2x.png */,
+				7DEB3B781764A4040038FC70 /* input.png */,
+				7DEB3B7317649F2C0038FC70 /* menuButton.png */,
+				7DEB3B7417649F2C0038FC70 /* menuButton@2x.png */,
+			);
+			name = menu;
+			sourceTree = "<group>";
+		};
 		A7924697170F0ED20036AAF2 /* Resources */ = {
 			isa = PBXGroup;
 			children = (
@@ -1223,8 +1238,7 @@
 				7DA8B0F9173318E80029698C /* SourceCodePro-Regular.ttf */,
 				7DA8B0FA173318E80029698C /* SourceSansPro-Regular.ttf */,
 				7D5DD5C617590ABF001421E3 /* About Contents.html */,
-				7DEB3B7317649F2C0038FC70 /* menuButton.png */,
-				7DEB3B7417649F2C0038FC70 /* menuButton@2x.png */,
+				7DEB3B7B1764A4080038FC70 /* menu */,
 				7DBC3B3C1711DD1E00DCF688 /* Icons */,
 				A79246C6170F11DF0036AAF2 /* Localizable.strings */,
 				7D10BC651743F9A100DA7059 /* External Playback */,
@@ -1481,6 +1495,8 @@
 				7DEB3B7217649BEB0038FC70 /* Icon-512.png in Resources */,
 				7DEB3B7517649F2C0038FC70 /* menuButton.png in Resources */,
 				7DEB3B7617649F2C0038FC70 /* menuButton@2x.png in Resources */,
+				7DEB3B791764A4040038FC70 /* input@2x.png in Resources */,
+				7DEB3B7A1764A4040038FC70 /* input.png in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
