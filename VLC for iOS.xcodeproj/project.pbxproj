@@ -203,6 +203,8 @@
 		7DE1862F175BA9AC006C0173 /* badgeUnread~ipad.png in Resources */ = {isa = PBXBuildFile; fileRef = 7DE18631175BA9AC006C0173 /* badgeUnread~ipad.png */; };
 		7DE18632175BA9AF006C0173 /* badgeUnread~iphone.png in Resources */ = {isa = PBXBuildFile; fileRef = 7DE18634175BA9AF006C0173 /* badgeUnread~iphone.png */; };
 		7DE480D1173FEA30003613E0 /* VLCCircularProgressIndicator.m in Sources */ = {isa = PBXBuildFile; fileRef = 7DE480D0173FEA30003613E0 /* VLCCircularProgressIndicator.m */; };
+		7DEB3B5D17647B240038FC70 /* bottomBlackBar@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 7DEB3B5B17647B240038FC70 /* bottomBlackBar@2x.png */; };
+		7DEB3B5E17647B240038FC70 /* bottomBlackBar.png in Resources */ = {isa = PBXBuildFile; fileRef = 7DEB3B5C17647B240038FC70 /* bottomBlackBar.png */; };
 		7DF65C2D174FF3F400F43330 /* VLCDropboxTableViewCell~iphone.xib in Resources */ = {isa = PBXBuildFile; fileRef = 7DF65C2C174FF3F400F43330 /* VLCDropboxTableViewCell~iphone.xib */; };
 		7DF7E791175F47DC0018858D /* MediaPlayer.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 7DF7E790175F47DC0018858D /* MediaPlayer.framework */; };
 		A7035BBE174519600057DFA7 /* iTunesArtwork in Resources */ = {isa = PBXBuildFile; fileRef = A7035BBD174519600057DFA7 /* iTunesArtwork */; };
@@ -555,6 +557,8 @@
 		7DE18648175BAEC2006C0173 /* ja */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = ja; path = "ja.lproj/badgeUnread~ipad.png"; sourceTree = "<group>"; };
 		7DE480CF173FEA30003613E0 /* VLCCircularProgressIndicator.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = VLCCircularProgressIndicator.h; sourceTree = "<group>"; };
 		7DE480D0173FEA30003613E0 /* VLCCircularProgressIndicator.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = VLCCircularProgressIndicator.m; sourceTree = "<group>"; };
+		7DEB3B5B17647B240038FC70 /* bottomBlackBar@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "bottomBlackBar@2x.png"; sourceTree = "<group>"; };
+		7DEB3B5C17647B240038FC70 /* bottomBlackBar.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = bottomBlackBar.png; sourceTree = "<group>"; };
 		7DF65C2C174FF3F400F43330 /* VLCDropboxTableViewCell~iphone.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; name = "VLCDropboxTableViewCell~iphone.xib"; path = "../Resources/VLCDropboxTableViewCell~iphone.xib"; sourceTree = "<group>"; };
 		7DF7E790175F47DC0018858D /* MediaPlayer.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = MediaPlayer.framework; path = System/Library/Frameworks/MediaPlayer.framework; sourceTree = SDKROOT; };
 		A7035BBD174519600057DFA7 /* iTunesArtwork */ = {isa = PBXFileReference; lastKnownFileType = file; path = iTunesArtwork; sourceTree = "<group>"; };
@@ -824,6 +828,8 @@
 		7D2159E4174FD31900EC00E8 /* Dropbox */ = {
 			isa = PBXGroup;
 			children = (
+				7DEB3B5B17647B240038FC70 /* bottomBlackBar@2x.png */,
+				7DEB3B5C17647B240038FC70 /* bottomBlackBar.png */,
 				7D2159F3174FEB0600EC00E8 /* package.png */,
 				7D2159ED174FD49C00EC00E8 /* folder_user.png */,
 				7D2159EE174FD49C00EC00E8 /* folder_public.png */,
@@ -1467,6 +1473,8 @@
 				7D1AC30917629AB600BD2EB5 /* ratioIcon@2x.png in Resources */,
 				7D1AC30C17629D4600BD2EB5 /* title.png in Resources */,
 				7D1AC30D17629D4600BD2EB5 /* title@2x.png in Resources */,
+				7DEB3B5D17647B240038FC70 /* bottomBlackBar@2x.png in Resources */,
+				7DEB3B5E17647B240038FC70 /* bottomBlackBar.png in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
