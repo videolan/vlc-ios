@@ -35,13 +35,6 @@
     [self _updatedDisplayedInformation];
 }
 
-- (void)setSelected:(BOOL)selected animated:(BOOL)animated
-{
-    [super setSelected:selected animated:animated];
-
-    // Configure the view for the selected state
-}
-
 - (void)_updatedDisplayedInformation
 {
     if (self.fileMetadata.isDirectory) {
@@ -54,8 +47,14 @@
         self.folderTitleLabel.text = @"";
     }
 
-    self.thumbnailView.image = [UIImage imageNamed:self.fileMetadata.icon];
-    if (!self.thumbnailView.image)
+    NSString *iconName = self.fileMetadata.icon;
+    if ([iconName isEqualToString:@"folder_user"] || [iconName isEqualToString:@"folder"] || [iconName isEqualToString:@"folder_public"] || [iconName isEqualToString:@"folder_photos"] || [iconName isEqualToString:@"package"])
+        self.thumbnailView.image = [UIImage imageNamed:@"folder"];
+    else if ([iconName isEqualToString:@"page_white"] || [iconName isEqualToString:@"page_white_text"])
+        self.thumbnailView.image = [UIImage imageNamed:@"blank"];
+    else if ([iconName isEqualToString:@"page_white_film"])
+        self.thumbnailView.image = [UIImage imageNamed:@"movie"];
+    else
         APLog(@"missing icon for type '%@'", self.fileMetadata.icon);
 
     [self setNeedsDisplay];
