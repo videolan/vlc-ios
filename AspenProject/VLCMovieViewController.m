@@ -199,7 +199,7 @@
 
     NSLocale *locale = [NSLocale currentLocale];
     NSString *countryCode = [locale objectForKey: NSLocaleCountryCode];
-    if ([countryCode isEqualToString:@"US"]){
+    if ([countryCode isEqualToString:@"US"] || [countryCode isEqualToString:@"UM"] || [countryCode isEqualToString:@"VI"] || [countryCode isEqualToString:@"AS"]) {
         NSArray *tracksInfo = media.tracksInformation;
         for (NSUInteger x = 0; x < tracksInfo.count; x++) {
             if ([[tracksInfo[x] objectForKey:VLCMediaTracksInformationType] isEqualToString:VLCMediaTracksInformationTypeAudio])
