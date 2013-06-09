@@ -65,7 +65,8 @@
     self.navigationItem.titleView.contentMode = UIViewContentModeScaleAspectFit;
 
     self.tableView.rowHeight = [VLCDropboxTableViewCell heightOfCell];
-    self.tableView.separatorColor = [UIColor colorWithWhite:.2 alpha:1.];
+    self.tableView.separatorColor = [UIColor colorWithWhite:.122 alpha:1.];
+    self.view.backgroundColor = [UIColor colorWithWhite:.122 alpha:1.];
 
     _numberOfFilesBarButtonItem = [[UIBarButtonItem alloc] initWithTitle:[NSString stringWithFormat:NSLocalizedString(@"NUM_OF_FILES", @""), 0] style:UIBarButtonItemStylePlain target:nil action:nil];
     [_numberOfFilesBarButtonItem setTitleTextAttributes:@{ UITextAttributeFont : [UIFont systemFontOfSize:11.] } forState:UIControlStateNormal];
@@ -159,6 +160,11 @@
 }
 
 #pragma mark - Table view delegate
+
+- (void)tableView:(UITableView *)tableView willDisplayCell:(UITableViewCell *)cell forRowAtIndexPath:(NSIndexPath *)indexPath
+{
+    cell.backgroundColor = (indexPath.row % 2 == 0)? [UIColor blackColor]: [UIColor colorWithWhite:.122 alpha:1.];
+}
 
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
 {

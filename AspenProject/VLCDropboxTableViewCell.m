@@ -16,13 +16,6 @@
     NSAssert([nibContentArray count] == 1, @"meh");
     NSAssert([[nibContentArray lastObject] isKindOfClass:[VLCDropboxTableViewCell class]], @"meh meh");
     VLCDropboxTableViewCell *cell = (VLCDropboxTableViewCell *)[nibContentArray lastObject];
-    CGRect frame = [cell frame];
-    UIView *background = [[UIView alloc] initWithFrame:frame];
-    background.backgroundColor = [UIColor colorWithWhite:.05 alpha:1.];
-    cell.backgroundView = background;
-    UIView *highlightedBackground = [[UIView alloc] initWithFrame:frame];
-    highlightedBackground.backgroundColor = [UIColor colorWithWhite:.2 alpha:1.];
-    cell.selectedBackgroundView = highlightedBackground;
 
     return cell;
 }
