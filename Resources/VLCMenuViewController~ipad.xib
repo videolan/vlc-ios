@@ -342,7 +342,6 @@
 						<reference key="NSWindow"/>
 						<reference key="NSNextKeyView"/>
 						<string key="NSReuseIdentifierKey">_NS:9</string>
-						<reference key="IBUIBackgroundColor" ref="937037271"/>
 						<bool key="IBUIOpaque">NO</bool>
 						<string key="targetRuntimeIdentifier">IBCocoaTouchFramework</string>
 						<int key="IBUIContentHorizontalAlignment">0</int>
@@ -355,6 +354,10 @@
 							<bytes key="NSRGB">MC4xOTYwNzg0MzQ2IDAuMzA5ODAzOTMyOSAwLjUyMTU2ODY1NgA</bytes>
 						</object>
 						<reference key="IBUINormalTitleShadowColor" ref="1025413593"/>
+						<object class="NSCustomResource" key="IBUINormalBackgroundImage">
+							<string key="NSClassName">NSImage</string>
+							<string key="NSResourceName">menuButton.png</string>
+						</object>
 						<reference key="IBUIFontDescription" ref="886215057"/>
 						<reference key="IBUIFont" ref="327024238"/>
 					</object>
@@ -835,6 +838,7 @@
 			<string key="dropboxLabel.png">{159, 43}</string>
 			<string key="menuBtnBck.png">{320, 60}</string>
 			<string key="menuBtnBckHighlight.png">{320, 60}</string>
+			<string key="menuButton.png">{63, 39}</string>
 		</dictionary>
 		<string key="IBCocoaTouchPluginVersion">2083</string>
 	</data>

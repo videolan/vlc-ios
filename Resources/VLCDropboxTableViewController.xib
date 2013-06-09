@@ -39,6 +39,7 @@
 				<string key="NSFrame">{{0, 20}, {320, 504}}</string>
 				<reference key="NSSuperview"/>
 				<reference key="NSWindow"/>
+				<reference key="NSNextKeyView"/>
 				<object class="NSColor" key="IBUIBackgroundColor" id="651013553">
 					<int key="NSColorSpace">3</int>
 					<bytes key="NSWhite">MAA</bytes>
@@ -88,6 +89,7 @@
 						<string key="NSFrame">{{71, 200}, {179, 60}}</string>
 						<reference key="NSSuperview" ref="338576143"/>
 						<reference key="NSWindow"/>
+						<reference key="NSNextKeyView" ref="94556417"/>
 						<string key="NSReuseIdentifierKey">_NS:9</string>
 						<bool key="IBUIUserInteractionEnabled">NO</bool>
 						<string key="targetRuntimeIdentifier">IBCocoaTouchFramework</string>
@@ -102,6 +104,7 @@
 						<string key="NSFrame">{{128, 303}, {65, 44}}</string>
 						<reference key="NSSuperview" ref="338576143"/>
 						<reference key="NSWindow"/>
+						<reference key="NSNextKeyView"/>
 						<string key="NSReuseIdentifierKey">_NS:9</string>
 						<bool key="IBUIOpaque">NO</bool>
 						<string key="targetRuntimeIdentifier">IBCocoaTouchFramework</string>
@@ -120,6 +123,10 @@
 						<object class="NSColor" key="IBUINormalTitleShadowColor">
 							<int key="NSColorSpace">3</int>
 							<bytes key="NSWhite">MC41AA</bytes>
+						</object>
+						<object class="NSCustomResource" key="IBUINormalBackgroundImage">
+							<string key="NSClassName">NSImage</string>
+							<string key="NSResourceName">menuButton.png</string>
 						</object>
 						<object class="IBUIFontDescription" key="IBUIFontDescription">
 							<int key="type">2</int>
@@ -261,25 +268,17 @@
 				<object class="IBPartialClassDescription">
 					<string key="className">VLCDropboxTableViewController</string>
 					<string key="superclassName">UITableViewController</string>
-					<dictionary class="NSMutableDictionary" key="actions">
-						<string key="dismiss:">id</string>
-						<string key="folderUp:">id</string>
-						<string key="loginToDropboxAction:">id</string>
-					</dictionary>
-					<dictionary class="NSMutableDictionary" key="actionInfosByName">
-						<object class="IBActionInfo" key="dismiss:">
-							<string key="name">dismiss:</string>
-							<string key="candidateClassName">id</string>
-						</object>
-						<object class="IBActionInfo" key="folderUp:">
-							<string key="name">folderUp:</string>
-							<string key="candidateClassName">id</string>
-						</object>
-						<object class="IBActionInfo" key="loginToDropboxAction:">
+					<object class="NSMutableDictionary" key="actions">
+						<string key="NS.key.0">loginToDropboxAction:</string>
+						<string key="NS.object.0">id</string>
+					</object>
+					<object class="NSMutableDictionary" key="actionInfosByName">
+						<string key="NS.key.0">loginToDropboxAction:</string>
+						<object class="IBActionInfo" key="NS.object.0">
 							<string key="name">loginToDropboxAction:</string>
 							<string key="candidateClassName">id</string>
 						</object>
-					</dictionary>
+					</object>
 					<dictionary class="NSMutableDictionary" key="outlets">
 						<string key="loginToDropboxButton">UIButton</string>
 						<string key="loginToDropboxView">UIView</string>
@@ -309,10 +308,10 @@
 		</object>
 		<bool key="IBDocument.PluginDeclaredDependenciesTrackSystemTargetVersion">YES</bool>
 		<int key="IBDocument.defaultPropertyAccessControl">3</int>
-		<object class="NSMutableDictionary" key="IBDocument.LastKnownImageSizes">
-			<string key="NS.key.0">dropbox-white.png</string>
-			<string key="NS.object.0">{125, 42}</string>
-		</object>
+		<dictionary class="NSMutableDictionary" key="IBDocument.LastKnownImageSizes">
+			<string key="dropbox-white.png">{125, 42}</string>
+			<string key="menuButton.png">{63, 39}</string>
+		</dictionary>
 		<string key="IBCocoaTouchPluginVersion">2083</string>
 	</data>
 </archive>
