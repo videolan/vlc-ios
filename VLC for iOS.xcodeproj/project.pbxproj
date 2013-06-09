@@ -77,11 +77,6 @@
 		7D2159F4174FEB0600EC00E8 /* package.png in Resources */ = {isa = PBXBuildFile; fileRef = 7D2159F3174FEB0600EC00E8 /* package.png */; };
 		7D31CF091746AF09005997E0 /* VLCStatusLabel.m in Sources */ = {isa = PBXBuildFile; fileRef = 7D31CF081746AF09005997E0 /* VLCStatusLabel.m */; };
 		7D33D41617182615008AF0E0 /* VLCMovieViewController~ipad.xib in Resources */ = {isa = PBXBuildFile; fileRef = 7D33D41517182615008AF0E0 /* VLCMovieViewController~ipad.xib */; };
-		7D3EAFF8174A2651002062C2 /* vlcetix512.png in Resources */ = {isa = PBXBuildFile; fileRef = 7D3EAFF7174A2651002062C2 /* vlcetix512.png */; };
-		7D3EAFFD174A265C002062C2 /* vlcetix57.png in Resources */ = {isa = PBXBuildFile; fileRef = 7D3EAFF9174A265C002062C2 /* vlcetix57.png */; };
-		7D3EAFFE174A265C002062C2 /* vlcetix72.png in Resources */ = {isa = PBXBuildFile; fileRef = 7D3EAFFA174A265C002062C2 /* vlcetix72.png */; };
-		7D3EAFFF174A265C002062C2 /* vlcetix114.png in Resources */ = {isa = PBXBuildFile; fileRef = 7D3EAFFB174A265C002062C2 /* vlcetix114.png */; };
-		7D3EB000174A265C002062C2 /* vlcetix144.png in Resources */ = {isa = PBXBuildFile; fileRef = 7D3EAFFC174A265C002062C2 /* vlcetix144.png */; };
 		7D3EB012174A3530002062C2 /* Reachability.m in Sources */ = {isa = PBXBuildFile; fileRef = 7D3EB011174A3530002062C2 /* Reachability.m */; };
 		7D3EB014174A353E002062C2 /* SystemConfiguration.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 7D3EB013174A353E002062C2 /* SystemConfiguration.framework */; };
 		7D3EB017174A46FB002062C2 /* VLCHTTPFileDownloader.m in Sources */ = {isa = PBXBuildFile; fileRef = 7D3EB016174A46FB002062C2 /* VLCHTTPFileDownloader.m */; };
@@ -189,10 +184,6 @@
 		7DA8B0FB173318E80029698C /* SourceCodePro-Regular.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 7DA8B0F9173318E80029698C /* SourceCodePro-Regular.ttf */; };
 		7DA8B0FC173318E80029698C /* SourceSansPro-Regular.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 7DA8B0FA173318E80029698C /* SourceSansPro-Regular.ttf */; };
 		7DADC55F1704FABF001DAC63 /* OBSlider.m in Sources */ = {isa = PBXBuildFile; fileRef = 7DADC55E1704FABF001DAC63 /* OBSlider.m */; };
-		7DBC3B351711DC1200DCF688 /* Aspen72.png in Resources */ = {isa = PBXBuildFile; fileRef = 7DBC3B341711DC1200DCF688 /* Aspen72.png */; };
-		7DBC3B371711DCAB00DCF688 /* Aspen144.png in Resources */ = {isa = PBXBuildFile; fileRef = 7DBC3B361711DCAB00DCF688 /* Aspen144.png */; };
-		7DBC3B391711DD0200DCF688 /* Aspen114.png in Resources */ = {isa = PBXBuildFile; fileRef = 7DBC3B381711DD0200DCF688 /* Aspen114.png */; };
-		7DBC3B3B1711DD0900DCF688 /* Aspen57.png in Resources */ = {isa = PBXBuildFile; fileRef = 7DBC3B3A1711DD0900DCF688 /* Aspen57.png */; };
 		7DBC3B441711FC6C00DCF688 /* VLCAboutViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 7DBC3B421711FC6C00DCF688 /* VLCAboutViewController.m */; };
 		7DBC3B451711FC6C00DCF688 /* VLCAboutViewController~iphone.xib in Resources */ = {isa = PBXBuildFile; fileRef = 7DBC3B431711FC6C00DCF688 /* VLCAboutViewController~iphone.xib */; };
 		7DC87AEE17412A1F009DC250 /* VLCLinearProgressIndicator.m in Sources */ = {isa = PBXBuildFile; fileRef = 7DC87AED17412A1F009DC250 /* VLCLinearProgressIndicator.m */; };
@@ -205,10 +196,19 @@
 		7DE480D1173FEA30003613E0 /* VLCCircularProgressIndicator.m in Sources */ = {isa = PBXBuildFile; fileRef = 7DE480D0173FEA30003613E0 /* VLCCircularProgressIndicator.m */; };
 		7DEB3B5D17647B240038FC70 /* bottomBlackBar@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 7DEB3B5B17647B240038FC70 /* bottomBlackBar@2x.png */; };
 		7DEB3B5E17647B240038FC70 /* bottomBlackBar.png in Resources */ = {isa = PBXBuildFile; fileRef = 7DEB3B5C17647B240038FC70 /* bottomBlackBar.png */; };
+		7DEB3B6017647DE30038FC70 /* iTunesArtwork@2x in Resources */ = {isa = PBXBuildFile; fileRef = 7DEB3B5F17647DE30038FC70 /* iTunesArtwork@2x */; };
+		7DEB3B6217647E230038FC70 /* Icon@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 7DEB3B6117647E230038FC70 /* Icon@2x.png */; };
+		7DEB3B6417647E370038FC70 /* Icon.png in Resources */ = {isa = PBXBuildFile; fileRef = 7DEB3B6317647E370038FC70 /* Icon.png */; };
+		7DEB3B6617647E440038FC70 /* Icon-72.png in Resources */ = {isa = PBXBuildFile; fileRef = 7DEB3B6517647E440038FC70 /* Icon-72.png */; };
+		7DEB3B6817647E480038FC70 /* Icon-72@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 7DEB3B6717647E480038FC70 /* Icon-72@2x.png */; };
+		7DEB3B6D17647EC10038FC70 /* Icon-Small-50.png in Resources */ = {isa = PBXBuildFile; fileRef = 7DEB3B6917647EC10038FC70 /* Icon-Small-50.png */; };
+		7DEB3B6E17647EC10038FC70 /* Icon-Small-50@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 7DEB3B6A17647EC10038FC70 /* Icon-Small-50@2x.png */; };
+		7DEB3B6F17647EC10038FC70 /* Icon-Small.png in Resources */ = {isa = PBXBuildFile; fileRef = 7DEB3B6B17647EC10038FC70 /* Icon-Small.png */; };
+		7DEB3B7017647EC10038FC70 /* Icon-Small@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 7DEB3B6C17647EC10038FC70 /* Icon-Small@2x.png */; };
+		7DEB3B7217649BEB0038FC70 /* Icon-512.png in Resources */ = {isa = PBXBuildFile; fileRef = 7DEB3B7117649BEB0038FC70 /* Icon-512.png */; };
 		7DF65C2D174FF3F400F43330 /* VLCDropboxTableViewCell~iphone.xib in Resources */ = {isa = PBXBuildFile; fileRef = 7DF65C2C174FF3F400F43330 /* VLCDropboxTableViewCell~iphone.xib */; };
 		7DF7E791175F47DC0018858D /* MediaPlayer.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 7DF7E790175F47DC0018858D /* MediaPlayer.framework */; };
 		A7035BBE174519600057DFA7 /* iTunesArtwork in Resources */ = {isa = PBXBuildFile; fileRef = A7035BBD174519600057DFA7 /* iTunesArtwork */; };
-		A7035BC217451D4A0057DFA7 /* Aspen.png in Resources */ = {isa = PBXBuildFile; fileRef = A7035BC117451D4A0057DFA7 /* Aspen.png */; };
 		A7924696170F0BA90036AAF2 /* libMediaLibraryKit.a in Frameworks */ = {isa = PBXBuildFile; fileRef = A7924695170F0BA90036AAF2 /* libMediaLibraryKit.a */; };
 		A79246A7170F0ED20036AAF2 /* Default-568h@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = A7924698170F0ED20036AAF2 /* Default-568h@2x.png */; };
 		A79246A8170F0ED20036AAF2 /* Default.png in Resources */ = {isa = PBXBuildFile; fileRef = A7924699170F0ED20036AAF2 /* Default.png */; };
@@ -351,12 +351,6 @@
 		7D31CF071746AF09005997E0 /* VLCStatusLabel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = VLCStatusLabel.h; sourceTree = "<group>"; };
 		7D31CF081746AF09005997E0 /* VLCStatusLabel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = VLCStatusLabel.m; sourceTree = "<group>"; };
 		7D33D41517182615008AF0E0 /* VLCMovieViewController~ipad.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; name = "VLCMovieViewController~ipad.xib"; path = "Resources/VLCMovieViewController~ipad.xib"; sourceTree = SOURCE_ROOT; };
-		7D3EAFF7174A2651002062C2 /* vlcetix512.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = vlcetix512.png; sourceTree = "<group>"; };
-		7D3EAFF9174A265C002062C2 /* vlcetix57.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = vlcetix57.png; sourceTree = "<group>"; };
-		7D3EAFFA174A265C002062C2 /* vlcetix72.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = vlcetix72.png; sourceTree = "<group>"; };
-		7D3EAFFB174A265C002062C2 /* vlcetix114.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = vlcetix114.png; sourceTree = "<group>"; };
-		7D3EAFFC174A265C002062C2 /* vlcetix144.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = vlcetix144.png; sourceTree = "<group>"; };
-		7D3EB00A174A280C002062C2 /* vlcetix1024.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = vlcetix1024.png; sourceTree = "<group>"; };
 		7D3EB010174A3530002062C2 /* Reachability.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Reachability.h; sourceTree = "<group>"; };
 		7D3EB011174A3530002062C2 /* Reachability.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Reachability.m; sourceTree = "<group>"; };
 		7D3EB013174A353E002062C2 /* SystemConfiguration.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = SystemConfiguration.framework; path = System/Library/Frameworks/SystemConfiguration.framework; sourceTree = SDKROOT; };
@@ -517,10 +511,6 @@
 		7DA8B0FA173318E80029698C /* SourceSansPro-Regular.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "SourceSansPro-Regular.ttf"; sourceTree = "<group>"; };
 		7DADC55D1704FABF001DAC63 /* OBSlider.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = OBSlider.h; path = ImportedSources/OBSlider/OBSlider/OBSlider.h; sourceTree = SOURCE_ROOT; };
 		7DADC55E1704FABF001DAC63 /* OBSlider.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = OBSlider.m; path = ImportedSources/OBSlider/OBSlider/OBSlider.m; sourceTree = SOURCE_ROOT; };
-		7DBC3B341711DC1200DCF688 /* Aspen72.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = Aspen72.png; sourceTree = "<group>"; };
-		7DBC3B361711DCAB00DCF688 /* Aspen144.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = Aspen144.png; sourceTree = "<group>"; };
-		7DBC3B381711DD0200DCF688 /* Aspen114.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = Aspen114.png; sourceTree = "<group>"; };
-		7DBC3B3A1711DD0900DCF688 /* Aspen57.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = Aspen57.png; sourceTree = "<group>"; };
 		7DBC3B411711FC6C00DCF688 /* VLCAboutViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = VLCAboutViewController.h; sourceTree = "<group>"; };
 		7DBC3B421711FC6C00DCF688 /* VLCAboutViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = VLCAboutViewController.m; sourceTree = "<group>"; };
 		7DBC3B431711FC6C00DCF688 /* VLCAboutViewController~iphone.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; name = "VLCAboutViewController~iphone.xib"; path = "../Resources/VLCAboutViewController~iphone.xib"; sourceTree = "<group>"; };
@@ -559,10 +549,19 @@
 		7DE480D0173FEA30003613E0 /* VLCCircularProgressIndicator.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = VLCCircularProgressIndicator.m; sourceTree = "<group>"; };
 		7DEB3B5B17647B240038FC70 /* bottomBlackBar@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "bottomBlackBar@2x.png"; sourceTree = "<group>"; };
 		7DEB3B5C17647B240038FC70 /* bottomBlackBar.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = bottomBlackBar.png; sourceTree = "<group>"; };
+		7DEB3B5F17647DE30038FC70 /* iTunesArtwork@2x */ = {isa = PBXFileReference; lastKnownFileType = file; path = "iTunesArtwork@2x"; sourceTree = "<group>"; };
+		7DEB3B6117647E230038FC70 /* Icon@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "Icon@2x.png"; sourceTree = "<group>"; };
+		7DEB3B6317647E370038FC70 /* Icon.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = Icon.png; sourceTree = "<group>"; };
+		7DEB3B6517647E440038FC70 /* Icon-72.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "Icon-72.png"; sourceTree = "<group>"; };
+		7DEB3B6717647E480038FC70 /* Icon-72@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "Icon-72@2x.png"; sourceTree = "<group>"; };
+		7DEB3B6917647EC10038FC70 /* Icon-Small-50.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "Icon-Small-50.png"; sourceTree = "<group>"; };
+		7DEB3B6A17647EC10038FC70 /* Icon-Small-50@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "Icon-Small-50@2x.png"; sourceTree = "<group>"; };
+		7DEB3B6B17647EC10038FC70 /* Icon-Small.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "Icon-Small.png"; sourceTree = "<group>"; };
+		7DEB3B6C17647EC10038FC70 /* Icon-Small@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "Icon-Small@2x.png"; sourceTree = "<group>"; };
+		7DEB3B7117649BEB0038FC70 /* Icon-512.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "Icon-512.png"; sourceTree = "<group>"; };
 		7DF65C2C174FF3F400F43330 /* VLCDropboxTableViewCell~iphone.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; name = "VLCDropboxTableViewCell~iphone.xib"; path = "../Resources/VLCDropboxTableViewCell~iphone.xib"; sourceTree = "<group>"; };
 		7DF7E790175F47DC0018858D /* MediaPlayer.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = MediaPlayer.framework; path = System/Library/Frameworks/MediaPlayer.framework; sourceTree = SDKROOT; };
 		A7035BBD174519600057DFA7 /* iTunesArtwork */ = {isa = PBXFileReference; lastKnownFileType = file; path = iTunesArtwork; sourceTree = "<group>"; };
-		A7035BC117451D4A0057DFA7 /* Aspen.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = Aspen.png; sourceTree = "<group>"; };
 		A7924695170F0BA90036AAF2 /* libMediaLibraryKit.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; name = libMediaLibraryKit.a; path = External/MediaLibraryKit/libMediaLibraryKit.a; sourceTree = "<group>"; };
 		A7924698170F0ED20036AAF2 /* Default-568h@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "Default-568h@2x.png"; sourceTree = "<group>"; };
 		A7924699170F0ED20036AAF2 /* Default.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = Default.png; sourceTree = "<group>"; };
@@ -1194,19 +1193,17 @@
 		7DBC3B3C1711DD1E00DCF688 /* Icons */ = {
 			isa = PBXGroup;
 			children = (
+				7DEB3B6917647EC10038FC70 /* Icon-Small-50.png */,
+				7DEB3B6A17647EC10038FC70 /* Icon-Small-50@2x.png */,
+				7DEB3B6B17647EC10038FC70 /* Icon-Small.png */,
+				7DEB3B6C17647EC10038FC70 /* Icon-Small@2x.png */,
+				7DEB3B6517647E440038FC70 /* Icon-72.png */,
+				7DEB3B6717647E480038FC70 /* Icon-72@2x.png */,
+				7DEB3B6317647E370038FC70 /* Icon.png */,
+				7DEB3B6117647E230038FC70 /* Icon@2x.png */,
 				7D6B08C0174A831900A05173 /* vlc-xmas.png */,
 				7D6B08C1174A831900A05173 /* vlc-xmas@2x.png */,
-				7D3EAFF9174A265C002062C2 /* vlcetix57.png */,
-				7D3EAFFA174A265C002062C2 /* vlcetix72.png */,
-				7D3EAFFB174A265C002062C2 /* vlcetix114.png */,
-				7D3EAFFC174A265C002062C2 /* vlcetix144.png */,
-				7D3EAFF7174A2651002062C2 /* vlcetix512.png */,
-				7D3EB00A174A280C002062C2 /* vlcetix1024.png */,
-				A7035BC117451D4A0057DFA7 /* Aspen.png */,
-				7DBC3B341711DC1200DCF688 /* Aspen72.png */,
-				7DBC3B361711DCAB00DCF688 /* Aspen144.png */,
-				7DBC3B3A1711DD0900DCF688 /* Aspen57.png */,
-				7DBC3B381711DD0200DCF688 /* Aspen114.png */,
+				7DEB3B7117649BEB0038FC70 /* Icon-512.png */,
 			);
 			name = Icons;
 			sourceTree = "<group>";
@@ -1218,6 +1215,7 @@
 				7D6B08FB174D773C00A05173 /* Settings.bundle */,
 				29125E5317492219003F03E5 /* web */,
 				A7035BBD174519600057DFA7 /* iTunesArtwork */,
+				7DEB3B5F17647DE30038FC70 /* iTunesArtwork@2x */,
 				7DA8B0F9173318E80029698C /* SourceCodePro-Regular.ttf */,
 				7DA8B0FA173318E80029698C /* SourceSansPro-Regular.ttf */,
 				7D5DD5C617590ABF001421E3 /* About Contents.html */,
@@ -1341,10 +1339,6 @@
 				A79246C3170F114E0036AAF2 /* VLCPlaylistTableViewCell.xib in Resources */,
 				A79246C5170F114E0036AAF2 /* VLCEmptyLibraryView~iphone.xib in Resources */,
 				A79246C8170F11DF0036AAF2 /* Localizable.strings in Resources */,
-				7DBC3B351711DC1200DCF688 /* Aspen72.png in Resources */,
-				7DBC3B371711DCAB00DCF688 /* Aspen144.png in Resources */,
-				7DBC3B391711DD0200DCF688 /* Aspen114.png in Resources */,
-				7DBC3B3B1711DD0900DCF688 /* Aspen57.png in Resources */,
 				7DBC3B451711FC6C00DCF688 /* VLCAboutViewController~iphone.xib in Resources */,
 				A7CB0DB11716F72600050CF3 /* PlayingExternally@2x~iphone.png in Resources */,
 				A7CB0DB21716F72600050CF3 /* PlayingExternally~iphone.png in Resources */,
@@ -1358,16 +1352,10 @@
 				A7FF9F3E17428C1900999819 /* DeleteButton.png in Resources */,
 				A7FF9F4017428C3800999819 /* DeleteButton@2x.png in Resources */,
 				A7035BBE174519600057DFA7 /* iTunesArtwork in Resources */,
-				A7035BC217451D4A0057DFA7 /* Aspen.png in Resources */,
 				7D6BA1181748EFE100C0E203 /* VLCMenuViewController~ipad.xib in Resources */,
 				7D6BA11A174911C200C0E203 /* VLCMenuViewController~iphone.xib in Resources */,
 				29125E5617492219003F03E5 /* index.html in Resources */,
 				29125E5717492219003F03E5 /* upload.html in Resources */,
-				7D3EAFF8174A2651002062C2 /* vlcetix512.png in Resources */,
-				7D3EAFFD174A265C002062C2 /* vlcetix57.png in Resources */,
-				7D3EAFFE174A265C002062C2 /* vlcetix72.png in Resources */,
-				7D3EAFFF174A265C002062C2 /* vlcetix114.png in Resources */,
-				7D3EB000174A265C002062C2 /* vlcetix144.png in Resources */,
 				7D6B08C2174A831900A05173 /* vlc-xmas.png in Resources */,
 				7D6B08C3174A831900A05173 /* vlc-xmas@2x.png in Resources */,
 				7D6B08C7174A910500A05173 /* mediaUnread@2x.png in Resources */,
@@ -1475,6 +1463,16 @@
 				7D1AC30D17629D4600BD2EB5 /* title@2x.png in Resources */,
 				7DEB3B5D17647B240038FC70 /* bottomBlackBar@2x.png in Resources */,
 				7DEB3B5E17647B240038FC70 /* bottomBlackBar.png in Resources */,
+				7DEB3B6017647DE30038FC70 /* iTunesArtwork@2x in Resources */,
+				7DEB3B6217647E230038FC70 /* Icon@2x.png in Resources */,
+				7DEB3B6417647E370038FC70 /* Icon.png in Resources */,
+				7DEB3B6617647E440038FC70 /* Icon-72.png in Resources */,
+				7DEB3B6817647E480038FC70 /* Icon-72@2x.png in Resources */,
+				7DEB3B6D17647EC10038FC70 /* Icon-Small-50.png in Resources */,
+				7DEB3B6E17647EC10038FC70 /* Icon-Small-50@2x.png in Resources */,
+				7DEB3B6F17647EC10038FC70 /* Icon-Small.png in Resources */,
+				7DEB3B7017647EC10038FC70 /* Icon-Small@2x.png in Resources */,
+				7DEB3B7217649BEB0038FC70 /* Icon-512.png in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

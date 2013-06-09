@@ -49,7 +49,7 @@
 						<string key="targetRuntimeIdentifier">IBCocoaTouchFramework</string>
 						<object class="NSCustomResource" key="IBUIImage">
 							<string key="NSClassName">NSImage</string>
-							<string key="NSResourceName">vlcetix144.png</string>
+							<string key="NSResourceName">Icon-512.png</string>
 						</object>
 					</object>
 					<object class="IBUILabel" id="347055423">
@@ -169,6 +169,7 @@ IEvDvGhuZSwgR2xlYiBQaW5pZ2luLCBhbmQgSmVhbi1CYXB0aXN0ZSBLZW1wZg</string>
 						<string key="NSFrame">{{0, 208}, {320, 340}}</string>
 						<reference key="NSSuperview" ref="191373211"/>
 						<reference key="NSWindow"/>
+						<reference key="NSNextKeyView"/>
 						<string key="NSReuseIdentifierKey">_NS:9</string>
 						<object class="NSColor" key="IBUIBackgroundColor">
 							<int key="NSColorSpace">3</int>
@@ -369,8 +370,8 @@ IEvDvGhuZSwgR2xlYiBQaW5pZ2luLCBhbmQgSmVhbi1CYXB0aXN0ZSBLZW1wZg</string>
 		<bool key="IBDocument.PluginDeclaredDependenciesTrackSystemTargetVersion">YES</bool>
 		<int key="IBDocument.defaultPropertyAccessControl">3</int>
 		<object class="NSMutableDictionary" key="IBDocument.LastKnownImageSizes">
-			<string key="NS.key.0">vlcetix144.png</string>
-			<string key="NS.object.0">{144, 144}</string>
+			<string key="NS.key.0">Icon-512.png</string>
+			<string key="NS.object.0">{512, 512}</string>
 		</object>
 		<string key="IBCocoaTouchPluginVersion">2083</string>
 	</data>

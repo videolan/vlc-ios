@@ -41,10 +41,10 @@
 		<dict>
 			<key>CFBundleIconFiles</key>
 			<array>
-				<string>vlcetix72.png</string>
-				<string>vlcetix144.png</string>
-				<string>vlcetix114.png</string>
-				<string>vlcetix57.png</string>
+				<string>Icon.png</string>
+				<string>Icon@2x.png</string>
+				<string>Icon-72.png</string>
+				<string>Icon-72@2x.png</string>
 			</array>
 			<key>UIPrerenderedIcon</key>
 			<true/>
