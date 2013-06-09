@@ -39,10 +39,11 @@
         _gridView = [[AQGridView alloc] initWithFrame:[UIScreen mainScreen].bounds];
         _gridView.delegate = self;
         _gridView.dataSource = self;
+        UIImageView *imageView = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"padLibBg"]];
+        _gridView.backgroundView = imageView;
         self.view = _gridView;
     }
 
-    self.view.backgroundColor = [UIColor colorWithWhite:.122 alpha:1.];
     self.view.autoresizingMask = UIViewAutoresizingFlexibleHeight | UIViewAutoresizingFlexibleWidth;
     self.emptyLibraryView = [[[NSBundle mainBundle] loadNibNamed:@"VLCEmptyLibraryView" owner:self options:nil] lastObject];
 }

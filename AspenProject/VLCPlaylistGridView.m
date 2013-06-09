@@ -24,7 +24,7 @@
 - (void)awakeFromNib {
     [super awakeFromNib];
     _contentView = self;
-    self.backgroundColor = [UIColor colorWithWhite:.122 alpha:1.];
+    self.backgroundColor = [UIColor clearColor];
     self.reuseIdentifier = @"AQPlaylistCell";
 }
 
