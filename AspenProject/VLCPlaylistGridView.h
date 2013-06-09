@@ -19,7 +19,7 @@
 @property (nonatomic, strong) IBOutlet UIButton *removeMediaButton;
 @property (nonatomic, strong) IBOutlet UIImageView *mediaIsUnreadView;
 
-// Temporary workaround: until better solution 
+// Temporary workaround: until better solution
 @property (nonatomic, weak) AQGridView *gridView;
 
 @property (nonatomic, retain) MLFile *mediaObject;

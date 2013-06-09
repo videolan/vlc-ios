@@ -47,7 +47,7 @@
 }
 
 - (void)settingsViewController:(IASKAppSettingsViewController*)sender buttonTappedForSpecifier:(IASKSpecifier*)specifier {
-	if ([specifier.key isEqualToString:@"UnlinkDropbox"])
+    if ([specifier.key isEqualToString:@"UnlinkDropbox"])
         [[DBSession sharedSession] unlinkAll];
 }
 

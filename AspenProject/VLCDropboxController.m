@@ -133,16 +133,16 @@
 #pragma mark - DBNetworkRequest delegate
 - (void)networkRequestStarted
 {
-	_outstandingNetworkRequests++;
-	if (_outstandingNetworkRequests == 1)
-		[[UIApplication sharedApplication] setNetworkActivityIndicatorVisible:YES];
+    _outstandingNetworkRequests++;
+    if (_outstandingNetworkRequests == 1)
+        [[UIApplication sharedApplication] setNetworkActivityIndicatorVisible:YES];
 }
 
 - (void)networkRequestStopped
 {
-	_outstandingNetworkRequests--;
-	if (_outstandingNetworkRequests == 0)
-		[[UIApplication sharedApplication] setNetworkActivityIndicatorVisible:NO];
+    _outstandingNetworkRequests--;
+    if (_outstandingNetworkRequests == 0)
+        [[UIApplication sharedApplication] setNetworkActivityIndicatorVisible:NO];
 }
 
 #pragma mark - VLC internal communication and delegate

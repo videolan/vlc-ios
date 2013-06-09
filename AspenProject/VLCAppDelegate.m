@@ -54,7 +54,7 @@
 
     self.window.rootViewController = self.navigationController;
     [self.window makeKeyAndVisible];
-    
+
     _directoryWatcher = [DirectoryWatcher watchFolderWithPath:[self directoryPath] delegate:self];
 
     [self validatePasscode];

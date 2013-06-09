@@ -123,7 +123,7 @@
     if (_foundMedia.count > 0) {
         if (self.emptyLibraryView.superview)
             [self.emptyLibraryView removeFromSuperview];
-        
+
         self.navigationItem.rightBarButtonItem = self.editButtonItem;
     } else {
         self.emptyLibraryView.frame = self.view.frame;
@@ -254,7 +254,7 @@
 - (void)setEditing:(BOOL)editing animated:(BOOL)animated
 {
     [super setEditing:editing animated:animated];
-    
+
     UIBarButtonItem *editButton = self.editButtonItem;
     NSString *editImage = editing? @"doneButton": @"button";
     NSString *editImageHighlight = editing? @"doneButtonHighlight": @"buttonHighlight";
@@ -276,7 +276,7 @@
         self.menuViewController = [[VLCMenuViewController alloc] initWithNibName:@"VLCMenuViewController" bundle:nil];
 
     if (UI_USER_INTERFACE_IDIOM() == UIUserInterfaceIdiomPad) {
-		self.menuViewController.contentSizeForViewInPopover = self.menuViewController.view.frame.size;
+        self.menuViewController.contentSizeForViewInPopover = self.menuViewController.view.frame.size;
         if (self.addMediaPopoverController == nil) {
             self.addMediaPopoverController = [[UIPopoverController alloc] initWithContentViewController:self.menuViewController];
             self.addMediaPopoverController.delegate = self;

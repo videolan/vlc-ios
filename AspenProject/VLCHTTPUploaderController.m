@@ -52,9 +52,9 @@ static const int httpLogLevel = HTTP_LOG_LEVEL_VERBOSE; // | HTTP_LOG_FLAG_TRACE
         DDLogInfo(@"Setting document root: %@", docRoot);
 
         [self.httpServer setDocumentRoot:docRoot];
-        
+
         [self.httpServer setPort:8888];
-         
+
         [self.httpServer setConnectionClass:[VLCHTTPConnection class]];
 
         NSError *error = nil;
@@ -88,27 +88,27 @@ static const int httpLogLevel = HTTP_LOG_LEVEL_VERBOSE; // | HTTP_LOG_FLAG_TRACE
 
 - (BOOL)supportsMethod:(NSString *)method atPath:(NSString *)path
 {
-	HTTPLogTrace();
+    HTTPLogTrace();
 
-	// Add support for POST
-	if ([method isEqualToString:@"POST"])
-	{
-		if ([path isEqualToString:@"/upload.html"])
-		{
-			return YES;
-		}
-	}
+    // Add support for POST
+    if ([method isEqualToString:@"POST"])
+    {
+        if ([path isEqualToString:@"/upload.html"])
+        {
+            return YES;
+        }
+    }
 
-	return [super supportsMethod:method atPath:path];
+    return [super supportsMethod:method atPath:path];
 }
 
 - (BOOL)expectsRequestBodyFromMethod:(NSString *)method atPath:(NSString *)path
 {
-	HTTPLogTrace();
+    HTTPLogTrace();
 
-	// Inform HTTP server that we expect a body to accompany a POST request
+    // Inform HTTP server that we expect a body to accompany a POST request
 
-	if([method isEqualToString:@"POST"] && [path isEqualToString:@"/upload.html"]) {
+    if([method isEqualToString:@"POST"] && [path isEqualToString:@"/upload.html"]) {
         // here we need to make sure, boundary is set in header
         NSString* contentType = [request headerField:@"Content-Type"];
         NSUInteger paramsSeparator = [contentType rangeOfString:@";"].location;
@@ -124,7 +124,7 @@ static const int httpLogLevel = HTTP_LOG_LEVEL_VERBOSE; // | HTTP_LOG_FLAG_TRACE
             return NO;
         }
 
-		// enumerate all params in content-type, and find boundary there
+        // enumerate all params in content-type, and find boundary there
         NSArray* params = [[contentType substringFromIndex:paramsSeparator + 1] componentsSeparatedByString:@";"];
         for( NSString* param in params ) {
             paramsSeparator = [param rangeOfString:@"="].location;
@@ -145,51 +145,51 @@ static const int httpLogLevel = HTTP_LOG_LEVEL_VERBOSE; // | HTTP_LOG_FLAG_TRACE
         }
         return YES;
     }
-	return [super expectsRequestBodyFromMethod:method atPath:path];
+    return [super expectsRequestBodyFromMethod:method atPath:path];
 }
 
 - (NSObject<HTTPResponse> *)httpResponseForMethod:(NSString *)method URI:(NSString *)path
 {
-	HTTPLogTrace();
+    HTTPLogTrace();
 
-	if ([method isEqualToString:@"POST"] && [path isEqualToString:@"/upload.html"])
-	{
+    if ([method isEqualToString:@"POST"] && [path isEqualToString:@"/upload.html"])
+    {
 
-		// this method will generate response with links to uploaded file
-		NSMutableString* filesStr = [[NSMutableString alloc] init];
+        // this method will generate response with links to uploaded file
+        NSMutableString* filesStr = [[NSMutableString alloc] init];
 
-		for( NSString* filePath in uploadedFiles ) {
-			//generate links
-			[filesStr appendFormat:@"<a href=\"%@\"> %@ </a><br/>",filePath, [filePath lastPathComponent]];
-		}
-		NSString* templatePath = [[config documentRoot] stringByAppendingPathComponent:@"upload.html"];
-		NSDictionary* replacementDict = @{@"MyFiles": filesStr};
-		// use dynamic file response to apply our links to response template
-		return [[HTTPDynamicFileResponse alloc] initWithFilePath:templatePath forConnection:self separator:@"%" replacementDictionary:replacementDict];
-	}
-	if( [method isEqualToString:@"GET"] && [path hasPrefix:@"/upload/"] ) {
-		// let download the uploaded files
-		return [[HTTPFileResponse alloc] initWithFilePath: [[config documentRoot] stringByAppendingString:path] forConnection:self];
-	}
+        for( NSString* filePath in uploadedFiles ) {
+            //generate links
+            [filesStr appendFormat:@"<a href=\"%@\"> %@ </a><br/>",filePath, [filePath lastPathComponent]];
+        }
+        NSString* templatePath = [[config documentRoot] stringByAppendingPathComponent:@"upload.html"];
+        NSDictionary* replacementDict = @{@"MyFiles": filesStr};
+        // use dynamic file response to apply our links to response template
+        return [[HTTPDynamicFileResponse alloc] initWithFilePath:templatePath forConnection:self separator:@"%" replacementDictionary:replacementDict];
+    }
+    if( [method isEqualToString:@"GET"] && [path hasPrefix:@"/upload/"] ) {
+        // let download the uploaded files
+        return [[HTTPFileResponse alloc] initWithFilePath: [[config documentRoot] stringByAppendingString:path] forConnection:self];
+    }
 
-	return [super httpResponseForMethod:method URI:path];
+    return [super httpResponseForMethod:method URI:path];
 }
 
 - (void)prepareForBodyWithSize:(UInt64)contentLength
 {
-	HTTPLogTrace();
+    HTTPLogTrace();
 
-	// set up mime parser
+    // set up mime parser
     NSString* boundary = [request headerField:@"boundary"];
     parser = [[MultipartFormDataParser alloc] initWithBoundary:boundary formEncoding:NSUTF8StringEncoding];
     parser.delegate = self;
 
-	uploadedFiles = [[NSMutableArray alloc] init];
+    uploadedFiles = [[NSMutableArray alloc] init];
 }
 
 - (void)processBodyData:(NSData *)postDataChunk
 {
-	HTTPLogTrace();
+    HTTPLogTrace();
     // append data to the parser. It will invoke callbacks to let us handle
     // parsed data.
     [parser appendData:postDataChunk];
@@ -201,58 +201,58 @@ static const int httpLogLevel = HTTP_LOG_LEVEL_VERBOSE; // | HTTP_LOG_FLAG_TRACE
 
 
 - (void) processStartOfPartWithHeader:(MultipartMessageHeader*) header {
-	// in this sample, we are not interested in parts, other then file parts.
-	// check content disposition to find out filename
+    // in this sample, we are not interested in parts, other then file parts.
+    // check content disposition to find out filename
 
     MultipartMessageHeaderField* disposition = (header.fields)[@"Content-Disposition"];
-	NSString* filename = [(disposition.params)[@"filename"] lastPathComponent];
+    NSString* filename = [(disposition.params)[@"filename"] lastPathComponent];
 
     if ( (nil == filename) || [filename isEqualToString: @""] ) {
         // it's either not a file part, or
-		// an empty form sent. we won't handle it.
-		return;
-	}
+        // an empty form sent. we won't handle it.
+        return;
+    }
 
     // create the path where to store the media
     NSArray *searchPaths = NSSearchPathForDirectoriesInDomains(NSDocumentDirectory, NSUserDomainMask, YES);
     NSString* uploadDirPath = searchPaths[0];
 
-	BOOL isDir = YES;
-	if (![[NSFileManager defaultManager]fileExistsAtPath:uploadDirPath isDirectory:&isDir ]) {
-		[[NSFileManager defaultManager]createDirectoryAtPath:uploadDirPath withIntermediateDirectories:YES attributes:nil error:nil];
-	}
+    BOOL isDir = YES;
+    if (![[NSFileManager defaultManager]fileExistsAtPath:uploadDirPath isDirectory:&isDir ]) {
+        [[NSFileManager defaultManager]createDirectoryAtPath:uploadDirPath withIntermediateDirectories:YES attributes:nil error:nil];
+    }
 
     NSString* filePath = [uploadDirPath stringByAppendingPathComponent: filename];
     if( [[NSFileManager defaultManager] fileExistsAtPath:filePath] ) {
         storeFile = nil;
     }
     else {
-		HTTPLogVerbose(@"Saving file to %@", filePath);
-		if(![[NSFileManager defaultManager] createDirectoryAtPath:uploadDirPath withIntermediateDirectories:true attributes:nil error:nil]) {
-			HTTPLogError(@"Could not create directory at path: %@", filePath);
-		}
-		if(![[NSFileManager defaultManager] createFileAtPath:filePath contents:nil attributes:nil]) {
-			HTTPLogError(@"Could not create file at path: %@", filePath);
-		}
-		storeFile = [NSFileHandle fileHandleForWritingAtPath:filePath];
-		[uploadedFiles addObject: [NSString stringWithFormat:@"/upload/%@", filename]];
+        HTTPLogVerbose(@"Saving file to %@", filePath);
+        if(![[NSFileManager defaultManager] createDirectoryAtPath:uploadDirPath withIntermediateDirectories:true attributes:nil error:nil]) {
+            HTTPLogError(@"Could not create directory at path: %@", filePath);
+        }
+        if(![[NSFileManager defaultManager] createFileAtPath:filePath contents:nil attributes:nil]) {
+            HTTPLogError(@"Could not create file at path: %@", filePath);
+        }
+        storeFile = [NSFileHandle fileHandleForWritingAtPath:filePath];
+        [uploadedFiles addObject: [NSString stringWithFormat:@"/upload/%@", filename]];
         [UIApplication sharedApplication].networkActivityIndicatorVisible = YES;
     }
 }
 
 - (void) processContent:(NSData*) data WithHeader:(MultipartMessageHeader*) header
 {
-	// here we just write the output from parser to the file.
-	if( storeFile ) {
-		[storeFile writeData:data];
-	}
+    // here we just write the output from parser to the file.
+    if( storeFile ) {
+        [storeFile writeData:data];
+    }
 }
 
 - (void) processEndOfPartWithHeader:(MultipartMessageHeader*) header
 {
-	// as the file part is over, we close the file.
-	[storeFile closeFile];
-	storeFile = nil;
+    // as the file part is over, we close the file.
+    [storeFile closeFile];
+    storeFile = nil;
     [UIApplication sharedApplication].networkActivityIndicatorVisible = NO;
 
     /* update media library when file upload was completed */
