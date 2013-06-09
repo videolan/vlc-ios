@@ -10,6 +10,7 @@
 #import "VLCExternalDisplayController.h"
 #import <sys/sysctl.h> // for sysctlbyname
 #import <AVFoundation/AVFoundation.h>
+#import <CommonCrypto/CommonDigest.h>
 
 #define INPUT_RATE_DEFAULT  1000.
 
@@ -144,6 +145,29 @@
     [[AVAudioSession sharedInstance] setDelegate:self];
 }
 
+- (BOOL)_blobCheck
+{
+    NSArray *searchPaths = NSSearchPathForDirectoriesInDomains(NSDocumentDirectory, NSUserDomainMask, YES);
+    NSString *directoryPath = searchPaths[0];
+
+    if (![[NSFileManager defaultManager] fileExistsAtPath:[directoryPath stringByAppendingPathComponent:@"blob.so"]])
+        return NO;
+
+    NSData *data = [NSData dataWithContentsOfFile:[directoryPath stringByAppendingPathComponent:@"blob.so"]];
+    uint8_t digest[CC_SHA1_DIGEST_LENGTH];
+    CC_SHA1(data.bytes, data.length, digest);
+
+    NSMutableString *hash = [NSMutableString stringWithCapacity:CC_SHA1_DIGEST_LENGTH * 2];
+
+    for (unsigned int u = 0; u < CC_SHA1_DIGEST_LENGTH; u++)
+        [hash appendFormat:@"%02x", digest[u]];
+
+    if ([hash isEqualToString:kBlobHash])
+        return YES;
+    else
+        return NO;
+}
+
 - (void)viewWillAppear:(BOOL)animated
 {
     _mediaPlayer = [[VLCMediaPlayer alloc] init];
@@ -198,8 +222,10 @@
                     case 18903917:
                     case 862151013:
                     {
-                        [media addOptions:@{@"no-audio" : [NSNull null]}];
-                        APLog(@"audio playback disabled because an unsupported codec was found");
+                        if (![self _blobCheck]) {
+                            [media addOptions:@{@"no-audio" : [NSNull null]}];
+                            APLog(@"audio playback disabled because an unsupported codec was found");
+                        }
                         break;
                     }
 
