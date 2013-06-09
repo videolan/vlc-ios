@@ -173,6 +173,43 @@
            [[defaults objectForKey:kVLCSettingStretchAudio] boolValue] ? kVLCSettingStretchAudioOnValue : kVLCSettingStretchAudioOffValue,
         kVLCSettingTextEncoding : [defaults objectForKey:kVLCSettingTextEncoding]}];
 
+    NSLocale *locale = [NSLocale currentLocale];
+    NSString *countryCode = [locale objectForKey: NSLocaleCountryCode];
+    if ([countryCode isEqualToString:@"US"]){
+        NSArray *tracksInfo = media.tracksInformation;
+        for (NSUInteger x = 0; x < tracksInfo.count; x++) {
+            if ([[tracksInfo[x] objectForKey:VLCMediaTracksInformationType] isEqualToString:VLCMediaTracksInformationTypeAudio])
+            {
+                NSInteger fourcc = [[tracksInfo[x] objectForKey:VLCMediaTracksInformationCodec] integerValue];
+
+                switch (fourcc) {
+                    case 540161377:
+                    case 1647457633:
+                    case 858612577:
+                    case 862151027:
+                    case 2126701:
+                    case 544437348:
+                    case 542331972:
+                    case 1651733604:
+                    case 1668510820:
+                    case 1702065252:
+                    case 1752396900:
+                    case 1819505764:
+                    case 18903917:
+                    case 862151013:
+                    {
+                        [media addOptions:@{@"no-audio" : [NSNull null]}];
+                        APLog(@"audio playback disabled because an unsupported codec was found");
+                        break;
+                    }
+
+                    default:
+                        break;
+                }
+            }
+        }
+    }
+
     [_mediaPlayer setMedia:media];
 
     self.positionSlider.value = 0.;
