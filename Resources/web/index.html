@@ -14,7 +14,6 @@
         $('#fileupload').fileupload({
           dataType: 'json',
           done: function (e, data) {
-            alert('DONE');
             $.each(data.result.files, function (index, file) {
               $('<p/>').text(file.name).appendTo(document.body);
             });
@@ -47,7 +46,7 @@
         <div class="bar" style="width: 0%;"></div>
       </div>
 
-      <input id="fileupload" type="file" name="files[]" data-url="upload.html" multiple>
+      <input id="fileupload" type="file" name="files[]" data-url="upload.json" multiple>
 
       <footer>
       <p>

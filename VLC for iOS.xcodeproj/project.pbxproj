@@ -8,7 +8,6 @@
 
 /* Begin PBXBuildFile section */
 		29125E5617492219003F03E5 /* index.html in Resources */ = {isa = PBXBuildFile; fileRef = 29125E5417492219003F03E5 /* index.html */; };
-		29125E5717492219003F03E5 /* upload.html in Resources */ = {isa = PBXBuildFile; fileRef = 29125E5517492219003F03E5 /* upload.html */; };
 		2915540117490A1E00B86CAD /* DDData.m in Sources */ = {isa = PBXBuildFile; fileRef = 291553EB17490A1E00B86CAD /* DDData.m */; };
 		2915540217490A1E00B86CAD /* DDNumber.m in Sources */ = {isa = PBXBuildFile; fileRef = 291553ED17490A1E00B86CAD /* DDNumber.m */; };
 		2915540317490A1E00B86CAD /* DDRange.m in Sources */ = {isa = PBXBuildFile; fileRef = 291553EF17490A1E00B86CAD /* DDRange.m */; };
@@ -263,7 +262,6 @@
 
 /* Begin PBXFileReference section */
 		29125E5417492219003F03E5 /* index.html */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.html; path = index.html; sourceTree = "<group>"; };
-		29125E5517492219003F03E5 /* upload.html */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.html; path = upload.html; sourceTree = "<group>"; };
 		291553EA17490A1E00B86CAD /* DDData.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DDData.h; sourceTree = "<group>"; };
 		291553EB17490A1E00B86CAD /* DDData.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DDData.m; sourceTree = "<group>"; };
 		291553EC17490A1E00B86CAD /* DDNumber.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DDNumber.h; sourceTree = "<group>"; };
@@ -681,7 +679,6 @@
 				7AC8629A1765DC560011611A /* reset.css */,
 				7AC8629B1765DC560011611A /* style.css */,
 				29125E5417492219003F03E5 /* index.html */,
-				29125E5517492219003F03E5 /* upload.html */,
 			);
 			path = web;
 			sourceTree = "<group>";
@@ -1416,7 +1413,6 @@
 				7D6BA1181748EFE100C0E203 /* VLCMenuViewController~ipad.xib in Resources */,
 				7D6BA11A174911C200C0E203 /* VLCMenuViewController~iphone.xib in Resources */,
 				29125E5617492219003F03E5 /* index.html in Resources */,
-				29125E5717492219003F03E5 /* upload.html in Resources */,
 				7D6B08C2174A831900A05173 /* vlc-xmas.png in Resources */,
 				7D6B08C3174A831900A05173 /* vlc-xmas@2x.png in Resources */,
 				7D6B08C7174A910500A05173 /* mediaUnread@2x.png in Resources */,
