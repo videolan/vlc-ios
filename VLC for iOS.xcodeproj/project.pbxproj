@@ -39,6 +39,10 @@
 		29CE2D44174912C600922D8F /* VLCHTTPUploaderController.m in Sources */ = {isa = PBXBuildFile; fileRef = 29CE2D42174912C600922D8F /* VLCHTTPUploaderController.m */; };
 		7AC8629C1765DC560011611A /* reset.css in Resources */ = {isa = PBXBuildFile; fileRef = 7AC8629A1765DC560011611A /* reset.css */; };
 		7AC8629D1765DC560011611A /* style.css in Resources */ = {isa = PBXBuildFile; fileRef = 7AC8629B1765DC560011611A /* style.css */; };
+		7AC862A61765E9510011611A /* jquery-1.10.1.min.js in Resources */ = {isa = PBXBuildFile; fileRef = 7AC8629E1765E90C0011611A /* jquery-1.10.1.min.js */; };
+		7AC862A71765E9510011611A /* jquery.fileupload.js in Resources */ = {isa = PBXBuildFile; fileRef = 7AC8629F1765E90C0011611A /* jquery.fileupload.js */; };
+		7AC862A81765E9510011611A /* jquery.iframe-transport.js in Resources */ = {isa = PBXBuildFile; fileRef = 7AC862A01765E90C0011611A /* jquery.iframe-transport.js */; };
+		7AC862A91765E9510011611A /* jquery.ui.widget.js in Resources */ = {isa = PBXBuildFile; fileRef = 7AC862A11765E90C0011611A /* jquery.ui.widget.js */; };
 		7D07A4E9174EA47800759D10 /* VLCSettingsController.m in Sources */ = {isa = PBXBuildFile; fileRef = 7D07A4E7174EA47800759D10 /* VLCSettingsController.m */; };
 		7D07A4ED174EB81200759D10 /* VLCDropboxController.m in Sources */ = {isa = PBXBuildFile; fileRef = 7D07A4EC174EB81200759D10 /* VLCDropboxController.m */; };
 		7D07F708175665ED00CDE21C /* navBarBackground@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 7D07F706175665ED00CDE21C /* navBarBackground@2x.png */; };
@@ -319,6 +323,10 @@
 		29CE2D42174912C600922D8F /* VLCHTTPUploaderController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = VLCHTTPUploaderController.m; sourceTree = "<group>"; };
 		7AC8629A1765DC560011611A /* reset.css */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.css; path = reset.css; sourceTree = "<group>"; };
 		7AC8629B1765DC560011611A /* style.css */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.css; path = style.css; sourceTree = "<group>"; };
+		7AC8629E1765E90C0011611A /* jquery-1.10.1.min.js */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.javascript; path = "jquery-1.10.1.min.js"; sourceTree = "<group>"; };
+		7AC8629F1765E90C0011611A /* jquery.fileupload.js */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.javascript; path = jquery.fileupload.js; sourceTree = "<group>"; };
+		7AC862A01765E90C0011611A /* jquery.iframe-transport.js */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.javascript; path = "jquery.iframe-transport.js"; sourceTree = "<group>"; };
+		7AC862A11765E90C0011611A /* jquery.ui.widget.js */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.javascript; path = jquery.ui.widget.js; sourceTree = "<group>"; };
 		7D05ADEA174945CE0087550C /* DropboxSDK.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = DropboxSDK.framework; path = ImportedSources/Dropbox/DropboxSDK.framework; sourceTree = "<group>"; };
 		7D07A4E6174EA47800759D10 /* VLCSettingsController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = VLCSettingsController.h; sourceTree = "<group>"; };
 		7D07A4E7174EA47800759D10 /* VLCSettingsController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = VLCSettingsController.m; sourceTree = "<group>"; };
@@ -666,6 +674,10 @@
 		29125E5317492219003F03E5 /* web */ = {
 			isa = PBXGroup;
 			children = (
+				7AC8629E1765E90C0011611A /* jquery-1.10.1.min.js */,
+				7AC8629F1765E90C0011611A /* jquery.fileupload.js */,
+				7AC862A01765E90C0011611A /* jquery.iframe-transport.js */,
+				7AC862A11765E90C0011611A /* jquery.ui.widget.js */,
 				7AC8629A1765DC560011611A /* reset.css */,
 				7AC8629B1765DC560011611A /* style.css */,
 				29125E5417492219003F03E5 /* index.html */,
@@ -1375,6 +1387,10 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				7AC862A61765E9510011611A /* jquery-1.10.1.min.js in Resources */,
+				7AC862A71765E9510011611A /* jquery.fileupload.js in Resources */,
+				7AC862A81765E9510011611A /* jquery.iframe-transport.js in Resources */,
+				7AC862A91765E9510011611A /* jquery.ui.widget.js in Resources */,
 				CC1BBC431704935E00A20CBF /* MediaLibrary.mom in Resources */,
 				A79246A7170F0ED20036AAF2 /* Default-568h@2x.png in Resources */,
 				A79246A8170F0ED20036AAF2 /* Default.png in Resources */,

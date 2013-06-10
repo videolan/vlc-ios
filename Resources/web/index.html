@@ -5,19 +5,49 @@
     <title>VLC for iOS File Uploader</title>
     <link rel="stylesheet" href="reset.css">
     <link rel="stylesheet" href="style.css">
+    <script type="text/javascript" src="jquery-1.10.1.min.js"></script>
+    <script src="jquery.ui.widget.js"></script>
+    <script src="jquery.iframe-transport.js"></script>
+    <script src="jquery.fileupload.js"></script>
+    <script>
+      $(function(){
+        $('#fileupload').fileupload({
+          dataType: 'json',
+          done: function (e, data) {
+            alert('DONE');
+            $.each(data.result.files, function (index, file) {
+              $('<p/>').text(file.name).appendTo(document.body);
+            });
+          },
+          progressall: function (e, data) {
+            var progress = parseInt(data.loaded / data.total * 100, 10);
+            $('#progress .bar').css(
+            'width',
+            progress + '%'
+            );
+          }
+        });
+      });
+    </script>
+    <style>
+      .bar {
+        height: 18px;
+        background: green;
+      }
+    </style>
   </head>
   <body>
     <div class="container">
       <header>
-      <div id="appIcon"></div>
-      <h1>VLC for iOS</h1>
+        <div id="appIcon"></div>
+        <h1>VLC for iOS</h1>
       </header>
 
-      <form action="upload.html" method="post" enctype="multipart/form-data" accept-charset="utf-8">
-        <input type="file" name="upload1"><br/>
-        <br />
-        <input type="submit" value="Submit">
-      </form>
+      <div id="progress">
+        <div class="bar" style="width: 0%;"></div>
+      </div>
+
+      <input id="fileupload" type="file" name="files[]" data-url="upload.html" multiple>
 
       <footer>
       <p>
