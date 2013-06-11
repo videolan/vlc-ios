@@ -146,7 +146,6 @@
         [self.tableView reloadData];
     else {
         [self.gridView reloadData];
-        [self.gridView setNeedsDisplay];
     }
 
     [self _displayEmptyLibraryViewIfNeeded];
