@@ -102,7 +102,7 @@
 
 - (void)viewDidAppear:(BOOL)animated
 {
-    [self performSelector:@selector(updateViewContents) withObject:nil afterDelay:.3];
+    [self performSelector:@selector(updateViewContents) withObject:nil afterDelay:.0];
     [[MLMediaLibrary sharedMediaLibrary] performSelector:@selector(libraryDidAppear) withObject:nil afterDelay:1.];
 
     [super viewDidAppear:animated];
