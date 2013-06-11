@@ -1,0 +1,44 @@
+From 5655c1d8eb63f0a505455610dd1b56f3be444deb Mon Sep 17 00:00:00 2001
+From: Gleb Pinigin <gpinigin@gmail.com>
+Date: Tue, 11 Jun 2013 22:33:42 +0700
+Subject: [PATCH 5/5] Use array for storing reusable cell
+
+---
+ Classes/AQGridView.m | 10 +++++-----
+ 1 file changed, 5 insertions(+), 5 deletions(-)
+
+diff --git a/Classes/AQGridView.m b/Classes/AQGridView.m
+index aaa0c9a..1ab0df0 100755
+--- a/Classes/AQGridView.m
++++ b/Classes/AQGridView.m
+@@ -574,8 +574,8 @@ NSString * const AQGridViewSelectionDidChangeNotification = @"AQGridViewSelectio
+ 
+ - (AQGridViewCell *) dequeueReusableCellWithIdentifier: (NSString *) reuseIdentifier
+ {
+-	NSMutableSet * cells = _reusableGridCells[reuseIdentifier];
+-	AQGridViewCell * cell = [cells anyObject];
++	NSMutableArray * cells = _reusableGridCells[reuseIdentifier];
++	AQGridViewCell * cell = [cells lastObject];
+ 	if ( cell == nil )
+ 		return ( nil );
+ 
+@@ -589,13 +589,13 @@ NSString * const AQGridViewSelectionDidChangeNotification = @"AQGridViewSelectio
+ {
+ 	for ( AQGridViewCell * cell in reusableCells )
+ 	{
+-		NSMutableSet * reuseSet = _reusableGridCells[cell.reuseIdentifier];
++		NSMutableArray * reuseSet = _reusableGridCells[cell.reuseIdentifier];
+ 		if ( reuseSet == nil )
+ 		{
+-			reuseSet = [[NSMutableSet alloc] initWithCapacity: 32];
++			reuseSet = [[NSMutableArray alloc] initWithCapacity: 32];
+ 			_reusableGridCells[cell.reuseIdentifier] = reuseSet;
+ 		}
+-		else if ( [reuseSet member: cell] == cell )
++		else if ( [reuseSet containsObject:cell] )
+ 		{
+ 			NSLog( @"Warning: tried to add duplicate gridview cell" );
+ 			continue;
+-- 
+1.7.12.4 (Apple Git-37)
+
