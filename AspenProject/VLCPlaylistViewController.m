@@ -117,6 +117,8 @@
 - (void)removeMediaObject:(MLFile *)mediaObject
 {
     [[NSFileManager defaultManager] removeItemAtPath:[[NSURL URLWithString:mediaObject.url] path] error:nil];
+    [[MLMediaLibrary sharedMediaLibrary] updateMediaDatabase];
+    [self updateViewContents];
 }
 
 - (void)_displayEmptyLibraryViewIfNeeded
