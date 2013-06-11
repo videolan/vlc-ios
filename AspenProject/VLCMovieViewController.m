@@ -197,9 +197,11 @@
            [[defaults objectForKey:kVLCSettingStretchAudio] boolValue] ? kVLCSettingStretchAudioOnValue : kVLCSettingStretchAudioOffValue,
         kVLCSettingTextEncoding : [defaults objectForKey:kVLCSettingTextEncoding]}];
 
-    NSLocale *locale = [NSLocale currentLocale];
-    NSString *countryCode = [locale objectForKey: NSLocaleCountryCode];
-    if ([countryCode isEqualToString:@"US"] || [countryCode isEqualToString:@"UM"] || [countryCode isEqualToString:@"VI"] || [countryCode isEqualToString:@"AS"]) {
+    [NSTimeZone resetSystemTimeZone];
+    NSString *tzName = [[NSTimeZone systemTimeZone] name];
+    NSArray *tzNames = @[@"America/Adak", @"America/Anchorage", @"America/Boise", @"America/Chicago", @"America/Denver", @"America/Detroit", @"America/Indiana/Indianapolis", @"America/Indiana/Knox", @"America/Indiana/Marengo", @"America/Indiana/Petersburg", @"America/Indiana/Tell_City", @"America/Indiana/Vevay", @"America/Indiana/Vincennes", @"America/Indiana/Winamac", @"America/Juneau", @"America/Kentucky/Louisville", @"America/Kentucky/Monticello", @"America/Los_Angeles", @"America/Menominee", @"America/Metlakatla", @"America/New_York", @"America/Nome", @"America/North_Dakota/Beulah", @"America/North_Dakota/Center", @"America/North_Dakota/New_Salem", @"America/Phoenix", @"America/Puerto_Rico", @"America/Shiprock", @"America/Sitka", @"America/St_Thomas", @"America/Thule", @"America/Yakutat", @"Pacific/Guam", @"Pacific/Honolulu", @"Pacific/Johnston", @"Pacific/Kwajalein", @"Pacific/Midway", @"Pacific/Pago_Pago", @"Pacific/Saipan", @"Pacific/Wake"];
+
+    if ([tzNames containsObject:tzName]) {
         NSArray *tracksInfo = media.tracksInformation;
         for (NSUInteger x = 0; x < tracksInfo.count; x++) {
             if ([[tracksInfo[x] objectForKey:VLCMediaTracksInformationType] isEqualToString:VLCMediaTracksInformationTypeAudio])
