@@ -39,6 +39,22 @@ header h1 {
   font-weight: normal;
 }
 
+#progress {
+  width: 100%;
+  background-color: red;
+  border-radius: 5px;
+  background-image: -webkit-gradient(linear, left top, left bottom, from(rgb(170, 170, 170)), to(rgb(200, 200, 200)));
+  background-image: -webkit-linear-gradient(top, rgb(170, 170, 170), rgb(200, 200, 200));
+  background-image: linear-gradient(top, rgb(170, 170, 170), rgb(200, 200, 200));
+}
+
+#progress .bar {
+  border-radius: 5px;
+  background-image: -webkit-gradient(linear, left top, left bottom, from(rgb(234, 171, 103)), to(rgb(214, 112, 0)));
+  background-image: -webkit-linear-gradient(top, rgb(234, 171, 103), rgb(214, 112, 0));
+  background-image: linear-gradient(top, rgb(234, 171, 103), rgb(214, 112, 0));
+}
+
 form {
   text-align: center;
   margin: 2em;
