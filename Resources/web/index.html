@@ -40,17 +40,20 @@
         <div id="appIcon"></div>
         <h1>VLC for iOS</h1>
       </header>
-
       <div id="progress">
         <div class="bar" style="width: 0%;"></div>
       </div>
-
-      <input id="fileupload" type="file" name="files[]" data-url="upload.json" multiple>
-
+      <form>
+        <input id="fileupload" type="file" name="files[]" data-url="upload.json" multiple>
+      </form>
+      <div class="uploads">
+        <p>So far you have uploaded:</p>
+        <ul>
+          <li>Blabla (XMB)</li>
+        </ul>
+      </div>
       <footer>
-      <p>
-      VLC for iOS is free, open-source software published by <a href="http://www.videolan.org" target="_blank">VideoLAN</a>. <br />Modification and redistribution is subject to $LICENSE and further rights reserved by the VideoLAN association.<br />You can find the sources to this application <a href="http://git.videolan.org/?p=vlc-ports/ios2.git;a=summary" target="_blank">online</a> and more information about licensing in the About dialog included within the app.
-      </p>
+        <p>VLC for iOS is free, open-source software published by <a href="http://www.videolan.org" target="_blank">VideoLAN</a>. <br />Modification and redistribution is subject to $LICENSE and further rights reserved by the VideoLAN association.<br />You can find the sources to this application <a href="http://git.videolan.org/?p=vlc-ports/ios2.git;a=summary" target="_blank">online</a> and more information about licensing in the About dialog included within the app.</p>
       </footer>
     </div>
   </body>
