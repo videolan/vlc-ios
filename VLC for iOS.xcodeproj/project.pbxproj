@@ -36,7 +36,6 @@
 		2915544317490D4A00B86CAD /* Security.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 2915544217490D4A00B86CAD /* Security.framework */; };
 		293DF2F417494F8200BB880F /* DropboxSDK.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 7D05ADEA174945CE0087550C /* DropboxSDK.framework */; };
 		29CE2D44174912C600922D8F /* VLCHTTPUploaderController.m in Sources */ = {isa = PBXBuildFile; fileRef = 29CE2D42174912C600922D8F /* VLCHTTPUploaderController.m */; };
-		7AC8629C1765DC560011611A /* reset.css in Resources */ = {isa = PBXBuildFile; fileRef = 7AC8629A1765DC560011611A /* reset.css */; };
 		7AC8629D1765DC560011611A /* style.css in Resources */ = {isa = PBXBuildFile; fileRef = 7AC8629B1765DC560011611A /* style.css */; };
 		7AC862A61765E9510011611A /* jquery-1.10.1.min.js in Resources */ = {isa = PBXBuildFile; fileRef = 7AC8629E1765E90C0011611A /* jquery-1.10.1.min.js */; };
 		7AC862A71765E9510011611A /* jquery.fileupload.js in Resources */ = {isa = PBXBuildFile; fileRef = 7AC8629F1765E90C0011611A /* jquery.fileupload.js */; };
@@ -1537,7 +1536,6 @@
 				7DEB3B8D1764A4F40038FC70 /* blank@2x.png in Resources */,
 				7D5262C41764D4EE00E0E30C /* padLibBg@2x.png in Resources */,
 				7D5262C51764D4EE00E0E30C /* padLibBg.png in Resources */,
-				7AC8629C1765DC560011611A /* reset.css in Resources */,
 				7AC8629D1765DC560011611A /* style.css in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
