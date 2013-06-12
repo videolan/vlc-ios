@@ -55,7 +55,7 @@ header h1 {
   background-image: linear-gradient(top, rgb(234, 171, 103), rgb(214, 112, 0));
 }
 
-form {
+form,#uploads {
   text-align: center;
   margin: 2em;
 }
