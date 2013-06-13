@@ -26,7 +26,7 @@
     Reachability *_reachability;
     VLCHTTPFileDownloader *_httpDownloader;
 }
-
+- (void)_presentOpenURLViewFromView:(UIView *)view forSelector:(SEL)selector;
 @end
 
 @implementation VLCMenuViewController
@@ -131,21 +131,7 @@
 - (IBAction)openNetworkStream:(id)sender
 {
     if (sender == self.openNetworkStreamButton) {
-        if ([[UIPasteboard generalPasteboard] containsPasteboardTypes:@[@"public.url", @"public.text"]]) {
-            NSURL *pasteURL = [[UIPasteboard generalPasteboard] valueForPasteboardType:@"public.url"];
-            if (!pasteURL || [[pasteURL absoluteString] isEqualToString:@""]) {
-                NSString *pasteString = [[UIPasteboard generalPasteboard] valueForPasteboardType:@"public.text"];
-                pasteURL = [NSURL URLWithString:pasteString];
-            }
-
-            if (pasteURL && ![[pasteURL scheme] isEqualToString:@""] && ![[pasteURL absoluteString] isEqualToString:@""])
-                self.openURLField.text = [pasteURL absoluteString];
-        }
-        if (self.openURLView.superview)
-            [self.openURLView removeFromSuperview];
-        [self.openURLButton removeTarget:nil action:NULL forControlEvents:UIControlEventTouchUpInside];
-        [self.openURLButton addTarget:self action:@selector(openNetworkStream:) forControlEvents:UIControlEventTouchUpInside];
-        [self.openNetworkStreamButton addSubview:self.openURLView];
+        [self _presentOpenURLViewFromView:self.openNetworkStreamButton forSelector:@selector(openNetworkStream:)];
     } else {
         VLCAppDelegate* appDelegate = [UIApplication sharedApplication].delegate;
         [appDelegate.playlistViewController openMovieFromURL:[NSURL URLWithString:self.openURLField.text]];
@@ -161,21 +147,7 @@
     }
 
     if (sender == self.downloadFromHTTPServerButton) {
-        if ([[UIPasteboard generalPasteboard] containsPasteboardTypes:@[@"public.url", @"public.text"]]) {
-            NSURL *pasteURL = [[UIPasteboard generalPasteboard] valueForPasteboardType:@"public.url"];
-            if (!pasteURL || [[pasteURL absoluteString] isEqualToString:@""]) {
-                NSString *pasteString = [[UIPasteboard generalPasteboard] valueForPasteboardType:@"public.text"];
-                pasteURL = [NSURL URLWithString:pasteString];
-            }
-
-            if (pasteURL && ![[pasteURL scheme] isEqualToString:@""] && ![[pasteURL absoluteString] isEqualToString:@""])
-                self.openURLField.text = [pasteURL absoluteString];
-        }
-        if (self.openURLView.superview)
-            [self.openURLView removeFromSuperview];
-        [self.openURLButton removeTarget:nil action:NULL forControlEvents:UIControlEventTouchUpInside];
-        [self.openURLButton addTarget:self action:@selector(downloadFromHTTPServer:) forControlEvents:UIControlEventTouchUpInside];
-        [self.downloadFromHTTPServerButton addSubview:self.openURLView];
+        [self _presentOpenURLViewFromView:self.downloadFromHTTPServerButton forSelector:@selector(downloadFromHTTPServer:)];
     } else {
         NSURL *URLtoSave = [NSURL URLWithString:self.openURLField.text];
         if (([URLtoSave.scheme isEqualToString:@"http"] || [URLtoSave.scheme isEqualToString:@"https"]) && ![URLtoSave.lastPathComponent.pathExtension isEqualToString:@""]) {
@@ -268,6 +240,27 @@
     if (UI_USER_INTERFACE_IDIOM() == UIUserInterfaceIdiomPhone)
         [navController.navigationBar setBackgroundImage:[UIImage imageNamed:@"navBarBackgroundPhoneLandscape"] forBarMetrics:UIBarMetricsLandscapePhone];
     [self presentModalViewController:navController animated:YES];
+}
+
+#pragma mark - Private methods
+
+- (void)_presentOpenURLViewFromView:(UIView *)view forSelector:(SEL)selector
+{
+    if ([[UIPasteboard generalPasteboard] containsPasteboardTypes:@[@"public.url", @"public.text"]]) {
+        NSURL *pasteURL = [[UIPasteboard generalPasteboard] valueForPasteboardType:@"public.url"];
+        if (!pasteURL || [[pasteURL absoluteString] isEqualToString:@""]) {
+            NSString *pasteString = [[UIPasteboard generalPasteboard] valueForPasteboardType:@"public.text"];
+            pasteURL = [NSURL URLWithString:pasteString];
+        }
+
+        if (pasteURL && ![[pasteURL scheme] isEqualToString:@""] && ![[pasteURL absoluteString] isEqualToString:@""])
+            self.openURLField.text = [pasteURL absoluteString];
+    }
+    if (self.openURLView.superview)
+        [self.openURLView removeFromSuperview];
+    [self.openURLButton removeTarget:nil action:NULL forControlEvents:UIControlEventTouchUpInside];
+    [self.openURLButton addTarget:self action:selector forControlEvents:UIControlEventTouchUpInside];
+    [view addSubview:self.openURLView];
 }
 
 @end
