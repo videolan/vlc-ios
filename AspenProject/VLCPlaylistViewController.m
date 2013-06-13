@@ -275,7 +275,7 @@
 - (IBAction)leftButtonAction:(id)sender
 {
     if (self.menuViewController == nil)
-        self.menuViewController = [[VLCMenuViewController alloc] initWithNibName:@"VLCMenuViewController" bundle:nil];
+        self.menuViewController = [[VLCMenuViewController alloc] initWithNibName:nil bundle:nil];
 
     if (UI_USER_INTERFACE_IDIOM() == UIUserInterfaceIdiomPad) {
         self.menuViewController.contentSizeForViewInPopover = self.menuViewController.view.frame.size;
