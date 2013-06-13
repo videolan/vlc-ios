@@ -129,7 +129,7 @@
 - (VLCDropboxTableViewController *)dropboxTableViewController
 {
     if (_dropboxTableViewController == nil) {
-        _dropboxTableViewController = [[VLCDropboxTableViewController alloc] initWithNibName:@"VLCDropboxTableViewController" bundle:nil];
+        _dropboxTableViewController = [[VLCDropboxTableViewController alloc] initWithNibName:nil bundle:nil];
     }
 
     return _dropboxTableViewController;

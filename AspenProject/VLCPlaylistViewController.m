@@ -201,7 +201,7 @@
 {
     MLFile *mediaObject = _foundMedia[indexPath.row];
     if (!self.movieViewController)
-        self.movieViewController = [[VLCMovieViewController alloc] initWithNibName:@"VLCMovieViewController" bundle:nil];
+        self.movieViewController = [[VLCMovieViewController alloc] initWithNibName:nil bundle:nil];
 
     self.movieViewController.mediaItem = mediaObject;
     [self.navigationController pushViewController:self.movieViewController animated:YES];
@@ -240,7 +240,7 @@
 
     MLFile *mediaObject = _foundMedia[index];
     if (!self.movieViewController)
-        self.movieViewController = [[VLCMovieViewController alloc] initWithNibName:@"VLCMovieViewController" bundle:nil];
+        self.movieViewController = [[VLCMovieViewController alloc] initWithNibName:nil bundle:nil];
 
     self.movieViewController.mediaItem = mediaObject;
     [self.navigationController pushViewController:self.movieViewController animated:YES];
@@ -324,7 +324,7 @@
 - (void)openMovieFromURL:(NSURL *)url
 {
     if (!self.movieViewController)
-        self.movieViewController = [[VLCMovieViewController alloc] initWithNibName:@"VLCMovieViewController" bundle:nil];
+        self.movieViewController = [[VLCMovieViewController alloc] initWithNibName:nil bundle:nil];
 
     self.movieViewController.url = url;
     [self.navigationController pushViewController:self.movieViewController animated:YES];
