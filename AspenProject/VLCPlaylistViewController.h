@@ -18,7 +18,7 @@
 @interface VLCPlaylistViewController : UIViewController <UITabBarDelegate, UIPopoverControllerDelegate>
 
 @property (nonatomic, strong) VLCMovieViewController *movieViewController;
-@property (nonatomic, strong) VLCMenuViewController *menuViewController;
+@property (nonatomic, strong) UIViewController *menuViewController;
 @property (nonatomic, strong) UIPopoverController *addMediaPopoverController;
 
 @property (nonatomic, strong) UITableView *tableView;
