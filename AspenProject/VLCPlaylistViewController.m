@@ -284,6 +284,8 @@
         [navigationController.navigationBar setBackgroundImage:[UIImage imageNamed:@"navBarBackgroundPhoneLandscape"]
                                                  forBarMetrics:UIBarMetricsLandscapePhone];
         self.menuViewController = navigationController;
+        if (UI_USER_INTERFACE_IDIOM() == UIUserInterfaceIdiomPad)
+            navigationController.navigationBarHidden = YES;
     }
 
     if (UI_USER_INTERFACE_IDIOM() == UIUserInterfaceIdiomPad) {
