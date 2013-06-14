@@ -5,6 +5,8 @@
 //  Created by Felix Paul Kühne on 01.04.13.
 //  Copyright (c) 2013 VideoLAN. All rights reserved.
 //
+//  Refer to the COPYING file of the official project for license.
+//
 
 #import <Foundation/Foundation.h>
 #import "VLCLinearProgressIndicator.h"
