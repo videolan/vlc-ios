@@ -561,6 +561,8 @@
         self.currentScrubSpeedLabel.text = NSLocalizedString(@"PLAYBACK_SCRUB_QUARTER", @"");
     else
         self.currentScrubSpeedLabel.text = NSLocalizedString(@"PLAYBACK_SCRUB_FINE", @"");
+
+    [self _resetIdleTimer];
 }
 
 - (IBAction)positionSliderDrag:(id)sender
@@ -670,6 +672,8 @@
 - (void)toggleTimeDisplay
 {
     _displayRemainingTime = !_displayRemainingTime;
+
+    [self _resetIdleTimer];
 }
 
 #pragma mark - swipe gestures
