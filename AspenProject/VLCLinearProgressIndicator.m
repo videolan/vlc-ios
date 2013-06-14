@@ -17,7 +17,7 @@
     self.backgroundColor = [UIColor clearColor];
     CGContextClearRect(UIGraphicsGetCurrentContext(), rect);
 
-    UIColor *drawingColor = [UIColor colorWithWhite:.67 alpha:.9];
+    UIColor *drawingColor = [UIColor colorWithRed:.792 green:.408 blue:.0 alpha:.9];
 
     UIBezierPath* bezierPath = [UIBezierPath bezierPath];
 

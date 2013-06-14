@@ -61,7 +61,7 @@
     self.thumbnailView.image = self.mediaObject.computedThumbnail;
     self.progressIndicator.progress = self.mediaObject.lastPosition.floatValue;
 
-    self.progressIndicator.hidden = (self.progressIndicator.progress < .1f || .95f) ? YES : NO;
+    self.progressIndicator.hidden = ((self.progressIndicator.progress < .1f) || (self.progressIndicator.progress > .95f)) ? YES : NO;
     self.mediaIsUnreadView.hidden = !self.mediaObject.unread.intValue;
 
     [self setNeedsDisplay];
