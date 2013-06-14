@@ -115,7 +115,7 @@
 
 - (IBAction)openAboutPanel:(id)sender
 {
-    UIViewController *aboutController = [[VLCAboutViewController alloc] initWithNibName:@"VLCAboutViewController" bundle:nil];
+    UIViewController *aboutController = [[VLCAboutViewController alloc] initWithNibName:nil bundle:nil];
 
     UINavigationController *navController = [[UINavigationController alloc] initWithRootViewController:aboutController];
     navController.navigationBar.barStyle = UIBarStyleBlack;
