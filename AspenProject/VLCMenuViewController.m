@@ -60,11 +60,7 @@
         [dismissButton setTitleTextAttributes:@{UITextAttributeTextShadowColor : [UIColor whiteColor], UITextAttributeTextColor : [UIColor blackColor]} forState:UIControlStateNormal];
         dismissButton.width = 80.;
 
-        self.dismissToolBar.items = @[[[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemFlexibleSpace target:nil action:nil], dismissButton];
-
-        [self.dismissToolBar setBackgroundImage:[UIImage imageNamed:@"navBarBackground"] forToolbarPosition:UIToolbarPositionAny barMetrics:UIBarMetricsDefault];
-        if (UI_USER_INTERFACE_IDIOM() == UIUserInterfaceIdiomPhone)
-            [self.dismissToolBar setBackgroundImage:[UIImage imageNamed:@"navBarBackgroundPhoneLandscape"] forToolbarPosition:UIToolbarPositionAny barMetrics:UIBarMetricsLandscapePhone];
+        self.navigationItem.rightBarButtonItem = dismissButton;
 
         self.scrollView.contentSize = self.view.frame.size;
     }

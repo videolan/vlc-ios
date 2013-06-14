@@ -276,8 +276,15 @@
 
 - (IBAction)leftButtonAction:(id)sender
 {
-    if (self.menuViewController == nil)
-        self.menuViewController = [[VLCMenuViewController alloc] initWithNibName:nil bundle:nil];
+    if (self.menuViewController == nil) {
+        VLCMenuViewController *menuViewController = [[VLCMenuViewController alloc] initWithNibName:nil bundle:nil];
+        UINavigationController *navigationController = [[UINavigationController alloc] initWithRootViewController:menuViewController];
+        [navigationController.navigationBar setBackgroundImage:[UIImage imageNamed:@"navBarBackground"]
+                                                 forBarMetrics:UIBarMetricsDefault];
+        [navigationController.navigationBar setBackgroundImage:[UIImage imageNamed:@"navBarBackgroundPhoneLandscape"]
+                                                 forBarMetrics:UIBarMetricsLandscapePhone];
+        self.menuViewController = navigationController;
+    }
 
     if (UI_USER_INTERFACE_IDIOM() == UIUserInterfaceIdiomPad) {
         self.menuViewController.contentSizeForViewInPopover = self.menuViewController.view.frame.size;
