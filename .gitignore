@@ -2,6 +2,7 @@
 *.mode*
 *.pbxuser
 xcuserdata
+xcshareddata
 .DS_Store
 build
 External
