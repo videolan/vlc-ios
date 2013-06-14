@@ -31,12 +31,6 @@ header h1 {
   font-size: 3em;
   line-height: 2em;
   color: #e08d33;
-  background-image: -webkit-gradient(linear, left top, left bottom, from(rgb(234, 171, 103)), to(rgb(214, 112, 0)));
-  background-image: -webkit-linear-gradient(top, rgb(234, 171, 103), rgb(214, 112, 0));
-  background-image: linear-gradient(top, rgb(234, 171, 103), rgb(214, 112, 0));
-  -webkit-background-clip: text;
-  -webkit-text-fill-color:transparent;
-  font-weight: normal;
 }
 
 #progress {
@@ -45,13 +39,18 @@ header h1 {
   border-radius: 5px;
   background-image: -webkit-gradient(linear, left top, left bottom, from(rgb(170, 170, 170)), to(rgb(200, 200, 200)));
   background-image: -webkit-linear-gradient(top, rgb(170, 170, 170), rgb(200, 200, 200));
+  background-image: -moz-linear-gradient(top, rgb(170, 170, 170), rgb(200, 200, 200));
+  background-image: -ms-linear-gradient(top, rgb(170, 170, 170), rgb(200, 200, 200));
+  background-image: -o-linear-gradient(top, rgb(170, 170, 170), rgb(200, 200, 200));
   background-image: linear-gradient(top, rgb(170, 170, 170), rgb(200, 200, 200));
 }
 
 #progress .bar {
   border-radius: 5px;
+  height: 18px;
   background-image: -webkit-gradient(linear, left top, left bottom, from(rgb(234, 171, 103)), to(rgb(214, 112, 0)));
   background-image: -webkit-linear-gradient(top, rgb(234, 171, 103), rgb(214, 112, 0));
+  background-image: -moz-linear-gradient(top, rgb(234, 171, 103), rgb(214, 112, 0));
   background-image: linear-gradient(top, rgb(234, 171, 103), rgb(214, 112, 0));
 }
 
