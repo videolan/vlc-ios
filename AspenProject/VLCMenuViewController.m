@@ -117,13 +117,14 @@
 {
     UIViewController *aboutController = [[VLCAboutViewController alloc] initWithNibName:nil bundle:nil];
 
-    UINavigationController *navController = [[UINavigationController alloc] initWithRootViewController:aboutController];
-    navController.navigationBar.barStyle = UIBarStyleBlack;
-    [navController.navigationBar setBackgroundImage:[UIImage imageNamed:@"navBarBackground"] forBarMetrics:UIBarMetricsDefault];
-    if (UI_USER_INTERFACE_IDIOM() == UIUserInterfaceIdiomPhone)
-        [navController.navigationBar setBackgroundImage:[UIImage imageNamed:@"navBarBackgroundPhoneLandscape"] forBarMetrics:UIBarMetricsLandscapePhone];
-
-    [self presentModalViewController:navController animated:YES];
+    if (UI_USER_INTERFACE_IDIOM() == UIUserInterfaceIdiomPad) {
+        UINavigationController *navController = [[UINavigationController alloc] initWithRootViewController:aboutController];
+        navController.navigationBar.barStyle = UIBarStyleBlack;
+        [navController.navigationBar setBackgroundImage:[UIImage imageNamed:@"navBarBackground"] forBarMetrics:UIBarMetricsDefault];
+        [self presentModalViewController:navController animated:YES];
+    } else {
+        [self.navigationController pushViewController:aboutController animated:YES];
+    }
 }
 
 - (IBAction)openNetworkStream:(id)sender
