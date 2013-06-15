@@ -10,7 +10,7 @@
 
 #import "VLCPlaylistTableViewCell.h"
 
-#define MAX_CACHE_SIZE 14 // twice the number of items shown on iPhone 5
+#define MAX_CACHE_SIZE 21 // three times the number of items shown on iPhone 5
 
 @implementation VLCPlaylistTableViewCell
 

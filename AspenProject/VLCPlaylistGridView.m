@@ -12,7 +12,7 @@
 #import "VLCAppDelegate.h"
 #import "AQGridView.h"
 
-#define MAX_CACHE_SIZE 18 // twice the number of items shown on iPad
+#define MAX_CACHE_SIZE 27 // three times the number of items shown on iPad
 
 @interface VLCPlaylistGridView (Hack)
 @property (nonatomic, retain) NSString *reuseIdentifier;
