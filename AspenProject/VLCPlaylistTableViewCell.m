@@ -24,7 +24,7 @@
 
 - (void)observeValueForKeyPath:(NSString *)keyPath ofObject:(id)object change:(NSDictionary *)change context:(void *)context
 {
-    [self _updatedDisplayedInformation];
+    [self _updatedDisplayedInformationForKeyPath:keyPath];
 }
 
 - (void)setMediaObject:(MLFile *)mediaObject
@@ -51,16 +51,16 @@
         [_mediaObject willDisplay];
     }
 
-    [self _updatedDisplayedInformation];
+    [self _updatedDisplayedInformationForKeyPath:NULL];
 }
 
 - (void)setEditing:(BOOL)editing animated:(BOOL)animated
 {
     [super setEditing:editing animated:animated];
-    [self _updatedDisplayedInformation];
+    [self _updatedDisplayedInformationForKeyPath:@"editing"];
 }
 
-- (void)_updatedDisplayedInformation
+- (void)_updatedDisplayedInformationForKeyPath:(NSString *)keyPath
 {
     self.titleLabel.text = self.mediaObject.title;
     if (self.isEditing)
@@ -70,7 +70,8 @@
         if (self.mediaObject.videoTrack)
             self.subtitleLabel.text = [self.subtitleLabel.text stringByAppendingFormat:@" — %@x%@", [[self.mediaObject videoTrack] valueForKey:@"width"], [[self.mediaObject videoTrack] valueForKey:@"height"]];
     }
-    self.thumbnailView.image = self.mediaObject.computedThumbnail;
+    if ([keyPath isEqualToString:@"computedThumbnail"] || !keyPath)
+        self.thumbnailView.image = self.mediaObject.computedThumbnail;
     self.progressIndicator.progress = self.mediaObject.lastPosition.floatValue;
 
     self.progressIndicator.hidden = ((self.progressIndicator.progress < .1f) || (self.progressIndicator.progress > .95f)) ? YES : NO;
