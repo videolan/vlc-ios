@@ -155,6 +155,9 @@
            forControlEvents:UIControlEventValueChanged];
 
     [[AVAudioSession sharedInstance] setDelegate:self];
+
+    if (UI_USER_INTERFACE_IDIOM() == UIUserInterfaceIdiomPad)
+        self.positionSlider.scrubbingSpeedChangePositions = @[@(0.), @(100.), @(200.), @(300)];
 }
 
 - (BOOL)_blobCheck
