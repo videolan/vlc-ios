@@ -13,6 +13,7 @@
 #import "VLCPlaylistTableViewCell.h"
 #import "VLCPlaylistGridView.h"
 #import "VLCMenuViewController.h"
+#import "NSString+SupportedMedia.h"
 
 @implementation EmptyLibraryView
 @end
@@ -118,7 +119,23 @@
 
 - (void)removeMediaObject:(MLFile *)mediaObject
 {
-    [[NSFileManager defaultManager] removeItemAtPath:[[NSURL URLWithString:mediaObject.url] path] error:nil];
+    NSFileManager *fileManager = [NSFileManager defaultManager];
+    NSString *folderLocation = [[[NSURL URLWithString:mediaObject.url] path] stringByDeletingLastPathComponent];
+    NSArray *allfiles = [fileManager contentsOfDirectoryAtPath:folderLocation error:nil];
+    NSString *fileName = [[[[NSURL URLWithString:mediaObject.url] path] lastPathComponent] stringByDeletingPathExtension];
+    NSIndexSet *indexSet = [allfiles indexesOfObjectsPassingTest:^BOOL(id obj, NSUInteger idx, BOOL *stop) {
+       return ([obj rangeOfString:fileName].location != NSNotFound);
+    }];
+    unsigned int count = indexSet.count;
+    NSString *additionalFilePath;
+    NSUInteger currentIndex = [indexSet firstIndex];
+    for (unsigned int x = 0; x < count; x++) {
+        additionalFilePath = allfiles[currentIndex];
+        if ([additionalFilePath isSupportedSubtitleFormat])
+            [fileManager removeItemAtPath:[folderLocation stringByAppendingPathComponent:additionalFilePath] error:nil];
+        currentIndex = [indexSet indexGreaterThanIndex:currentIndex];
+    }
+    [fileManager removeItemAtPath:[[NSURL URLWithString:mediaObject.url] path] error:nil];
     [[MLMediaLibrary sharedMediaLibrary] updateMediaDatabase];
     [self updateViewContents];
 }
