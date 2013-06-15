@@ -79,14 +79,16 @@
 
 - (void)_updatedDisplayedInformationForKeyPath:(NSString *)keyPath
 {
-    self.titleLabel.text = self.mediaObject.title;
+    MLFile *mediaObject = self.mediaObject;
+
+    self.titleLabel.text = mediaObject.title;
     if (self.isEditing)
-        self.subtitleLabel.text = [NSString stringWithFormat:@"%@ — %i MB", [VLCTime timeWithNumber:[self.mediaObject duration]], (int)([self.mediaObject fileSizeInBytes] / 1e6)];
+        self.subtitleLabel.text = [NSString stringWithFormat:@"%@ — %i MB", [VLCTime timeWithNumber:[mediaObject duration]], (int)([mediaObject fileSizeInBytes] / 1e6)];
     else {
-        self.subtitleLabel.text = [NSString stringWithFormat:@"%@", [VLCTime timeWithNumber:[self.mediaObject duration]]];
-        if (self.mediaObject.videoTrack) {
-            NSString *width = [[self.mediaObject videoTrack] valueForKey:@"width"];
-            NSString *height = [[self.mediaObject videoTrack] valueForKey:@"height"];
+        self.subtitleLabel.text = [NSString stringWithFormat:@"%@", [VLCTime timeWithNumber:[mediaObject duration]]];
+        if (mediaObject.videoTrack) {
+            NSString *width = [[mediaObject videoTrack] valueForKey:@"width"];
+            NSString *height = [[mediaObject videoTrack] valueForKey:@"height"];
             if (width.intValue > 0 && height.intValue > 0)
                 self.subtitleLabel.text = [self.subtitleLabel.text stringByAppendingFormat:@" — %@x%@", width, height];
         }
@@ -99,7 +101,7 @@
         if (!_thumbnailCacheIndex)
             _thumbnailCacheIndex = [[NSMutableArray alloc] initWithCapacity:MAX_CACHE_SIZE];
 
-        NSManagedObjectID *objID = self.mediaObject.objectID;
+        NSManagedObjectID *objID = mediaObject.objectID;
         UIImage *displayedImage;
         if ([_thumbnailCacheIndex containsObject:objID]) {
             [_thumbnailCacheIndex removeObject:objID];
@@ -110,18 +112,19 @@
                 [_thumbnailCache removeObjectForKey:[_thumbnailCacheIndex lastObject]];
                 [_thumbnailCacheIndex removeLastObject];
             }
-            displayedImage = self.mediaObject.computedThumbnail;
+            displayedImage = mediaObject.computedThumbnail;
             if (displayedImage) {
-                [_thumbnailCache setObject:self.mediaObject.computedThumbnail forKey:objID];
+                [_thumbnailCache setObject:displayedImage forKey:objID];
                 [_thumbnailCacheIndex insertObject:objID atIndex:0];
             }
         }
         self.thumbnailView.image = displayedImage;
     }
-    self.progressView.progress = self.mediaObject.lastPosition.floatValue;
+    CGFloat position = mediaObject.lastPosition.floatValue;
+    self.progressView.progress = position;
 
-    self.progressView.hidden = (self.progressView.progress < .1f || .95f) ? YES : NO;
-    self.mediaIsUnreadView.hidden = !self.mediaObject.unread.intValue;
+    self.progressView.hidden = ((position < .1f) || (position > .95f)) ? YES : NO;
+    self.mediaIsUnreadView.hidden = !mediaObject.unread.intValue;
 
     [self setNeedsDisplay];
 }
