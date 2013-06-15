@@ -622,9 +622,15 @@
 {
     _audiotrackActionSheet = [[UIActionSheet alloc] initWithTitle:NSLocalizedString(@"CHOOSE_AUDIO_TRACK", @"audio track selector") delegate:self cancelButtonTitle:nil destructiveButtonTitle:nil otherButtonTitles: nil];
     NSArray *audioTracks = [_mediaPlayer audioTrackNames];
+    NSArray *audioTrackIndexes = [_mediaPlayer audioTrackIndexes];
+
     NSUInteger count = [audioTracks count];
-    for (NSUInteger i = 0; i < count; i++)
-        [_audiotrackActionSheet addButtonWithTitle:audioTracks[i]];
+    for (NSUInteger i = 0; i < count; i++) {
+        NSString *indexIndicator = ([audioTrackIndexes[i] intValue] == [_mediaPlayer currentAudioTrackIndex])? @"\u2713": @"";
+        NSString *buttonTitle = [NSString stringWithFormat:@"%@ %@", indexIndicator, audioTracks[i]];
+        [_audiotrackActionSheet addButtonWithTitle:buttonTitle];
+    }
+    
     [_audiotrackActionSheet addButtonWithTitle:NSLocalizedString(@"BUTTON_CANCEL", @"cancel button")];
     [_audiotrackActionSheet setCancelButtonIndex:[_audiotrackActionSheet numberOfButtons] - 1];
     [_audiotrackActionSheet showInView:self.audioSwitcherButton];
@@ -645,6 +651,9 @@
 }
 
 - (void)actionSheet:(UIActionSheet *)actionSheet clickedButtonAtIndex:(NSInteger)buttonIndex {
+    if (buttonIndex == [actionSheet cancelButtonIndex])
+        return;
+    
     NSUInteger arrayIndex = 0;
     NSArray *indexArray;
     NSArray *namesArray;
@@ -656,11 +665,9 @@
             _mediaPlayer.currentVideoSubTitleIndex = [indexArray[arrayIndex] intValue];
         }
     } else if (actionSheet == _audiotrackActionSheet) {
-        namesArray = _mediaPlayer.audioTrackNames;
-        arrayIndex = [namesArray indexOfObject:[actionSheet buttonTitleAtIndex:buttonIndex]];
-        if (arrayIndex != NSNotFound) {
-            indexArray = _mediaPlayer.audioTrackIndexes;
-            _mediaPlayer.currentAudioTrackIndex = [indexArray[arrayIndex] intValue];
+        indexArray = _mediaPlayer.audioTrackIndexes;        
+        if (buttonIndex <= indexArray.count) {
+            _mediaPlayer.currentAudioTrackIndex = [indexArray[buttonIndex] intValue];
         }
     }
 }
