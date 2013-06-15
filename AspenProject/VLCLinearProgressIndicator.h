@@ -10,6 +10,7 @@
 
 #import <UIKit/UIKit.h>
 
-@interface VLCLinearProgressIndicator : UIProgressView
+@interface VLCLinearProgressIndicator : UIView
+@property (nonatomic) CGFloat progress;
 
 @end
