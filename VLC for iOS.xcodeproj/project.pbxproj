@@ -216,6 +216,8 @@
 		7DEB3B8B1764A4F40038FC70 /* movie.png in Resources */ = {isa = PBXBuildFile; fileRef = 7DEB3B821764A4F40038FC70 /* movie.png */; };
 		7DEB3B8C1764A4F40038FC70 /* blank.png in Resources */ = {isa = PBXBuildFile; fileRef = 7DEB3B831764A4F40038FC70 /* blank.png */; };
 		7DEB3B8D1764A4F40038FC70 /* blank@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 7DEB3B841764A4F40038FC70 /* blank@2x.png */; };
+		7DF1166C176CC69A009EC05C /* volumeballslider.png in Resources */ = {isa = PBXBuildFile; fileRef = 7DF1166A176CC69A009EC05C /* volumeballslider.png */; };
+		7DF1166D176CC69A009EC05C /* volumeballslider@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 7DF1166B176CC69A009EC05C /* volumeballslider@2x.png */; };
 		7DF65C2D174FF3F400F43330 /* VLCDropboxTableViewCell~iphone.xib in Resources */ = {isa = PBXBuildFile; fileRef = 7DF65C2C174FF3F400F43330 /* VLCDropboxTableViewCell~iphone.xib */; };
 		7DF7CA0717650C2A00C61739 /* AVFoundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 7DF7CA0617650C2A00C61739 /* AVFoundation.framework */; };
 		7DF7E791175F47DC0018858D /* MediaPlayer.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 7DF7E790175F47DC0018858D /* MediaPlayer.framework */; };
@@ -586,6 +588,8 @@
 		7DEB3B821764A4F40038FC70 /* movie.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = movie.png; sourceTree = "<group>"; };
 		7DEB3B831764A4F40038FC70 /* blank.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = blank.png; sourceTree = "<group>"; };
 		7DEB3B841764A4F40038FC70 /* blank@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "blank@2x.png"; sourceTree = "<group>"; };
+		7DF1166A176CC69A009EC05C /* volumeballslider.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = volumeballslider.png; sourceTree = "<group>"; };
+		7DF1166B176CC69A009EC05C /* volumeballslider@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "volumeballslider@2x.png"; sourceTree = "<group>"; };
 		7DF65C2C174FF3F400F43330 /* VLCDropboxTableViewCell~iphone.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; name = "VLCDropboxTableViewCell~iphone.xib"; path = "../Resources/VLCDropboxTableViewCell~iphone.xib"; sourceTree = "<group>"; };
 		7DF7CA0617650C2A00C61739 /* AVFoundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AVFoundation.framework; path = System/Library/Frameworks/AVFoundation.framework; sourceTree = SDKROOT; };
 		7DF7E790175F47DC0018858D /* MediaPlayer.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = MediaPlayer.framework; path = System/Library/Frameworks/MediaPlayer.framework; sourceTree = SDKROOT; };
@@ -906,6 +910,8 @@
 		7D47D6C81760CD2700E86BAD /* Movie VIew */ = {
 			isa = PBXGroup;
 			children = (
+				7DF1166A176CC69A009EC05C /* volumeballslider.png */,
+				7DF1166B176CC69A009EC05C /* volumeballslider@2x.png */,
 				7D1AC30617629AB600BD2EB5 /* ratioIcon.png */,
 				7D1AC30717629AB600BD2EB5 /* ratioIcon@2x.png */,
 				7D47D6CB1760CD8700E86BAD /* subtitleIcon.png */,
@@ -1533,6 +1539,8 @@
 				7D5262C51764D4EE00E0E30C /* padLibBg.png in Resources */,
 				7AC8629D1765DC560011611A /* style.css in Resources */,
 				7A57C1371769F0BA00807630 /* VLCMenuViewController.xib in Resources */,
+				7DF1166C176CC69A009EC05C /* volumeballslider.png in Resources */,
+				7DF1166D176CC69A009EC05C /* volumeballslider@2x.png in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

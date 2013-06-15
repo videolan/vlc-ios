@@ -139,6 +139,18 @@
     [self.backButton setBackgroundImage:[UIImage imageNamed:@"playbackDoneButton"] forState:UIControlStateNormal barMetrics:UIBarMetricsDefault];
     [self.backButton setBackgroundImage:[UIImage imageNamed:@"playbackDoneButtonHighlight"] forState:UIControlStateHighlighted barMetrics:UIBarMetricsDefault];
 
+    /* this looks a bit weird, but we need to support iOS 5 and should show the same appearance */
+    UISlider *volumeSlider = nil;
+    for (id aView in self.volumeView.subviews){
+        if ([[[aView class] description] isEqualToString:@"MPVolumeSlider"]){
+            volumeSlider = (UISlider *)aView;
+            break;
+        }
+    }
+    [volumeSlider setMinimumTrackImage:[[UIImage imageNamed:@"sliderminiValue"]resizableImageWithCapInsets:UIEdgeInsetsMake(0, 4, 0, 0)] forState:UIControlStateNormal];
+    [volumeSlider setMaximumTrackImage:[[UIImage imageNamed:@"slidermaxValue"] resizableImageWithCapInsets:UIEdgeInsetsMake(0, 0, 0, 4)] forState:UIControlStateNormal];
+    [volumeSlider setThumbImage:[UIImage imageNamed:@"ballslidernew"] forState:UIControlStateNormal];
+
     [[AVAudioSession sharedInstance] setDelegate:self];
 }
 
