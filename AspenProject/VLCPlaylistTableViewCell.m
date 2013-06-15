@@ -69,8 +69,12 @@
         self.subtitleLabel.text = [NSString stringWithFormat:@"%@ — %i MB", [VLCTime timeWithNumber:[self.mediaObject duration]], (int)([self.mediaObject fileSizeInBytes] / 1e6)];
     else {
         self.subtitleLabel.text = [NSString stringWithFormat:@"%@", [VLCTime timeWithNumber:[self.mediaObject duration]]];
-        if (self.mediaObject.videoTrack)
-            self.subtitleLabel.text = [self.subtitleLabel.text stringByAppendingFormat:@" — %@x%@", [[self.mediaObject videoTrack] valueForKey:@"width"], [[self.mediaObject videoTrack] valueForKey:@"height"]];
+        if (self.mediaObject.videoTrack) {
+            NSString *width = [[self.mediaObject videoTrack] valueForKey:@"width"];
+            NSString *height = [[self.mediaObject videoTrack] valueForKey:@"height"];
+            if (width.intValue > 0 && height.intValue > 0)
+                self.subtitleLabel.text = [self.subtitleLabel.text stringByAppendingFormat:@" — %@x%@", width, height];
+        }
     }
     if ([keyPath isEqualToString:@"computedThumbnail"] || !keyPath) {
         static NSMutableArray *_thumbnailCacheIndex;
