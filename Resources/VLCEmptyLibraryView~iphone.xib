@@ -58,7 +58,7 @@
 							<object class="IBUILabel" id="145484960">
 								<reference key="NSNextResponder" ref="887075663"/>
 								<int key="NSvFlags">290</int>
-								<string key="NSFrame">{{20, 158}, {280, 21}}</string>
+								<string key="NSFrame">{{20, 179}, {280, 21}}</string>
 								<reference key="NSSuperview" ref="887075663"/>
 								<reference key="NSWindow"/>
 								<reference key="NSNextKeyView" ref="335509625"/>
@@ -90,14 +90,13 @@
 							<object class="IBUILabel" id="335509625">
 								<reference key="NSNextResponder" ref="887075663"/>
 								<int key="NSvFlags">290</int>
-								<string key="NSFrame">{{20, 185}, {280, 175}}</string>
+								<string key="NSFrame">{{20, 206}, {280, 175}}</string>
 								<reference key="NSSuperview" ref="887075663"/>
 								<reference key="NSWindow"/>
-								<reference key="NSNextKeyView"/>
 								<string key="NSReuseIdentifierKey">_NS:9</string>
 								<bool key="IBUIOpaque">NO</bool>
 								<bool key="IBUIClipsSubviews">YES</bool>
-								<int key="IBUIContentMode">7</int>
+								<int key="IBUIContentMode">4</int>
 								<bool key="IBUIUserInteractionEnabled">NO</bool>
 								<string key="targetRuntimeIdentifier">IBCocoaTouchFramework</string>
 								<string key="IBUIText">For playback, use iTunes to synchronize files, open a network stream or ask another application to open a file in VLC for iOS.</string>
