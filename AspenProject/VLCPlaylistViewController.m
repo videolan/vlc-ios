@@ -167,6 +167,7 @@
         [self.tableView reloadData];
     else {
         [self.gridView reloadData];
+        [self.gridView setNeedsLayout];
     }
 
     [self _displayEmptyLibraryViewIfNeeded];
@@ -239,7 +240,7 @@
     VLCPlaylistGridView *cell = (VLCPlaylistGridView *)[gridView dequeueReusableCellWithIdentifier:AQCellIdentifier];
     if (cell == nil) {
         cell = [[[NSBundle mainBundle] loadNibNamed:@"VLCPlaylistGridView" owner:self options:nil] lastObject];
-        cell.selectionStyle = AQGridViewCellSelectionStyleGlow;
+        cell.selectionStyle = AQGridViewCellSelectionStyleNone;
         cell.gridView = gridView;
     }
 
