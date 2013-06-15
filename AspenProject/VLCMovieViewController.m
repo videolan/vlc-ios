@@ -639,12 +639,19 @@
 - (IBAction)switchSubtitleTrack:(id)sender
 {
     NSArray *spuTracks = [_mediaPlayer videoSubTitlesNames];
+    NSArray *spuTrackIndexes = [_mediaPlayer videoSubTitlesIndexes];
+    
     NSUInteger count = [spuTracks count];
     if (count <= 1)
         return;
     _subtitleActionSheet = [[UIActionSheet alloc] initWithTitle:NSLocalizedString(@"CHOOSE_SUBTITLE_TRACK", @"subtitle track selector") delegate:self cancelButtonTitle:nil destructiveButtonTitle:nil otherButtonTitles: nil];
-    for (NSUInteger i = 0; i < count; i++)
-        [_subtitleActionSheet addButtonWithTitle:spuTracks[i]];
+    
+    for (NSUInteger i = 0; i < count; i++) {
+        NSString *indexIndicator = ([spuTrackIndexes[i] intValue] == [_mediaPlayer currentVideoSubTitleIndex])? @"\u2713": @"";
+        NSString *buttonTitle = [NSString stringWithFormat:@"%@ %@", indexIndicator, spuTracks[i]];
+        [_subtitleActionSheet addButtonWithTitle:buttonTitle];
+    }
+
     [_subtitleActionSheet addButtonWithTitle:NSLocalizedString(@"BUTTON_CANCEL", @"cancel button")];
     [_subtitleActionSheet setCancelButtonIndex:[_subtitleActionSheet numberOfButtons] - 1];
     [_subtitleActionSheet showInView: self.subtitleSwitcherButton];
@@ -654,15 +661,11 @@
     if (buttonIndex == [actionSheet cancelButtonIndex])
         return;
     
-    NSUInteger arrayIndex = 0;
     NSArray *indexArray;
-    NSArray *namesArray;
     if (actionSheet == _subtitleActionSheet) {
-        namesArray = _mediaPlayer.videoSubTitlesNames;
-        arrayIndex = [namesArray indexOfObject:[actionSheet buttonTitleAtIndex:buttonIndex]];
-        if (arrayIndex != NSNotFound) {
-            indexArray = _mediaPlayer.videoSubTitlesIndexes;
-            _mediaPlayer.currentVideoSubTitleIndex = [indexArray[arrayIndex] intValue];
+        indexArray = _mediaPlayer.videoSubTitlesIndexes;
+        if (buttonIndex <= indexArray.count) {
+            _mediaPlayer.currentVideoSubTitleIndex = [indexArray[buttonIndex] intValue];
         }
     } else if (actionSheet == _audiotrackActionSheet) {
         indexArray = _mediaPlayer.audioTrackIndexes;        
