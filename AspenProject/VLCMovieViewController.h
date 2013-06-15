@@ -19,7 +19,7 @@
 @property (nonatomic, strong) IBOutlet UIView *movieView;
 @property (nonatomic, strong) IBOutlet UIBarButtonItem *backButton;
 @property (nonatomic, strong) IBOutlet OBSlider *positionSlider;
-@property (nonatomic, strong) IBOutlet UILabel *timeDisplay;
+@property (nonatomic, strong) IBOutlet UIButton *timeDisplay;
 @property (nonatomic, strong) IBOutlet UIButton *playPauseButton;
 @property (nonatomic, strong) IBOutlet UIButton *bwdButton;
 @property (nonatomic, strong) IBOutlet UIButton *fwdButton;
@@ -68,6 +68,7 @@
 - (IBAction)positionSliderTouchDown:(id)sender;
 - (IBAction)positionSliderTouchUp:(id)sender;
 - (IBAction)positionSliderDrag:(id)sender;
+- (IBAction)toggleTimeDisplay:(id)sender;
 
 - (IBAction)playPause;
 - (IBAction)backward:(id)sender;

@@ -110,10 +110,6 @@
     tapOnVideoRecognizer.delegate = self;
     [self.view addGestureRecognizer:tapOnVideoRecognizer];
 
-    UITapGestureRecognizer *tapOnTimeRecognizer = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(toggleTimeDisplay)];
-    self.timeDisplay.userInteractionEnabled = YES;
-    [self.timeDisplay addGestureRecognizer:tapOnTimeRecognizer];
-
     _displayRemainingTime = [[[NSUserDefaults standardUserDefaults] objectForKey:kVLCShowRemainingTime] boolValue];
 
 #if 0 // FIXME: trac #8742
@@ -243,7 +239,7 @@
     [_mediaPlayer setMedia:media];
 
     self.positionSlider.value = 0.;
-    self.timeDisplay.text = @"";
+    [self.timeDisplay setTitle:@"" forState:UIControlStateNormal];
 
     [super viewWillAppear:animated];
 
@@ -526,7 +522,7 @@
 {
     [self performSelector:@selector(_setPositionForReal) withObject:nil afterDelay:0.3];
     VLCTime *newPosition = [VLCTime timeWithInt:(int)(_positionSlider.value * self.mediaItem.duration.intValue)];
-    self.timeDisplay.text = newPosition.stringValue;
+    [self.timeDisplay setTitle:newPosition.stringValue forState:UIControlStateNormal];
     _positionSet = NO;
     [self _resetIdleTimer];
 }
@@ -573,9 +569,9 @@
 - (void)mediaPlayerTimeChanged:(NSNotification *)aNotification {
     self.positionSlider.value = [_mediaPlayer position];
     if (_displayRemainingTime)
-        self.timeDisplay.text = [[_mediaPlayer remainingTime] stringValue];
+        [self.timeDisplay setTitle:[[_mediaPlayer remainingTime] stringValue] forState:UIControlStateNormal];
     else
-        self.timeDisplay.text = [[_mediaPlayer time] stringValue];
+        [self.timeDisplay setTitle:[[_mediaPlayer time] stringValue] forState:UIControlStateNormal];
 }
 
 - (void)mediaPlayerStateChanged:(NSNotification *)aNotification
@@ -669,7 +665,7 @@
     }
 }
 
-- (void)toggleTimeDisplay
+- (IBAction)toggleTimeDisplay:(id)sender
 {
     _displayRemainingTime = !_displayRemainingTime;
 
