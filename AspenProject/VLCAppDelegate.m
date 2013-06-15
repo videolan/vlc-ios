@@ -113,6 +113,7 @@
 
 - (void)applicationDidBecomeActive:(UIApplication *)application
 {
+    [[MLMediaLibrary sharedMediaLibrary] updateMediaDatabase];
     [self updateMediaList];
 }
 
