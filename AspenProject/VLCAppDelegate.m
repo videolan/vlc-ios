@@ -106,11 +106,6 @@
     [[MLMediaLibrary sharedMediaLibrary] applicationWillExit];
 }
 
-- (void)applicationWillEnterForeground:(UIApplication *)application
-{
-    APLog(@"applicationWillEnterForeground: %i", self.passcodeValidated);
-}
-
 - (void)applicationDidBecomeActive:(UIApplication *)application
 {
     [[MLMediaLibrary sharedMediaLibrary] updateMediaDatabase];
@@ -120,11 +115,6 @@
 - (void)applicationDidEnterBackground:(UIApplication *)application
 {
     [self validatePasscode]; // Lock library when going to background
-}
-
-- (void)applicationWillTerminate:(UIApplication *)application
-{
-    // Called when the application is about to terminate. Save data if appropriate. See also applicationDidEnterBackground:.
 }
 
 #pragma mark - properties
