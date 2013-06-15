@@ -320,7 +320,6 @@
 		29CE2D41174912C600922D8F /* VLCHTTPUploaderController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = VLCHTTPUploaderController.h; sourceTree = "<group>"; };
 		29CE2D42174912C600922D8F /* VLCHTTPUploaderController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = VLCHTTPUploaderController.m; sourceTree = "<group>"; };
 		7A57C1361769F0BA00807630 /* VLCMenuViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; name = VLCMenuViewController.xib; path = Resources/VLCMenuViewController.xib; sourceTree = SOURCE_ROOT; };
-		7AC8629A1765DC560011611A /* reset.css */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.css; path = reset.css; sourceTree = "<group>"; };
 		7AC8629B1765DC560011611A /* style.css */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.css; path = style.css; sourceTree = "<group>"; };
 		7AC8629E1765E90C0011611A /* jquery-1.10.1.min.js */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.javascript; path = "jquery-1.10.1.min.js"; sourceTree = "<group>"; };
 		7AC8629F1765E90C0011611A /* jquery.fileupload.js */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.javascript; path = jquery.fileupload.js; sourceTree = "<group>"; };
@@ -677,7 +676,6 @@
 				7AC8629F1765E90C0011611A /* jquery.fileupload.js */,
 				7AC862A01765E90C0011611A /* jquery.iframe-transport.js */,
 				7AC862A11765E90C0011611A /* jquery.ui.widget.js */,
-				7AC8629A1765DC560011611A /* reset.css */,
 				7AC8629B1765DC560011611A /* style.css */,
 				29125E5417492219003F03E5 /* index.html */,
 			);
