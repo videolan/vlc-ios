@@ -96,18 +96,23 @@
             _thumbnailCacheIndex = [[NSMutableArray alloc] initWithCapacity:MAX_CACHE_SIZE];
 
         NSManagedObjectID *objID = self.mediaObject.objectID;
+        UIImage *displayedImage;
         if ([_thumbnailCacheIndex containsObject:objID]) {
             [_thumbnailCacheIndex removeObject:objID];
             [_thumbnailCacheIndex insertObject:objID atIndex:0];
+            displayedImage = [_thumbnailCache objectForKey:objID];
         } else {
             if (_thumbnailCacheIndex.count >= MAX_CACHE_SIZE) {
                 [_thumbnailCache removeObjectForKey:[_thumbnailCacheIndex lastObject]];
                 [_thumbnailCacheIndex removeLastObject];
             }
-            [_thumbnailCache setObject:self.mediaObject.computedThumbnail forKey:objID];
-            [_thumbnailCacheIndex insertObject:objID atIndex:0];
+            displayedImage = self.mediaObject.computedThumbnail;
+            if (displayedImage) {
+                [_thumbnailCache setObject:self.mediaObject.computedThumbnail forKey:objID];
+                [_thumbnailCacheIndex insertObject:objID atIndex:0];
+            }
         }
-        self.thumbnailView.image = [_thumbnailCache objectForKey:objID];
+        self.thumbnailView.image = displayedImage;
     }
     self.progressView.progress = self.mediaObject.lastPosition.floatValue;
 
