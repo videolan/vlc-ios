@@ -1,0 +1,55 @@
+From 8f5414f8e2445915d70a5c13f04d93007313d35b Mon Sep 17 00:00:00 2001
+From: =?UTF-8?q?Felix=20Paul=20K=C3=BChne?= <fkuehne@videolan.org>
+Date: Sat, 15 Jun 2013 22:03:24 +0200
+Subject: [PATCH 3/3] Respond with correct Content-Type for html, js, css, png
+ and jpg
+
+---
+ Core/HTTPConnection.m | 17 +++++++++++++++++
+ Core/HTTPResponse.h   |  2 ++
+ 2 files changed, 19 insertions(+)
+
+diff --git a/Core/HTTPConnection.m b/Core/HTTPConnection.m
+index d4ac82f..2742415 100644
+--- a/Core/HTTPConnection.m
++++ b/Core/HTTPConnection.m
+@@ -1214,6 +1214,23 @@ static NSMutableArray *recentNonces;
+ 	}
+ 	else
+ 	{
++        /* add the proper MIME type */
++        NSString *mimeType;
++        NSString *pathExtension = [[httpResponse filePath] pathExtension];
++        if ([pathExtension isEqualToString:@"html"] || [pathExtension isEqualToString:@"htm"])
++            mimeType = @"text/html";
++        else if ([pathExtension isEqualToString:@"js"])
++            mimeType = @"text/javascript";
++        else if ([pathExtension isEqualToString:@"css"])
++            mimeType = @"text/css";
++        else if ([pathExtension isEqualToString:@"png"])
++            mimeType = @"image/png";
++        else if ([pathExtension isEqualToString:@"jpg"] || [pathExtension isEqualToString:@"jpeg"])
++            mimeType = @"image/jpeg";
++        else
++            mimeType = @"text/plain";
++        [response setHeaderField:@"Content-Type" value:mimeType];
++
+ 		// Write the header response
+ 		NSData *responseData = [self preprocessResponse:response];
+ 		[asyncSocket writeData:responseData withTimeout:TIMEOUT_WRITE_HEAD tag:HTTP_PARTIAL_RESPONSE_HEADER];
+diff --git a/Core/HTTPResponse.h b/Core/HTTPResponse.h
+index f303cf3..8b4963d 100644
+--- a/Core/HTTPResponse.h
++++ b/Core/HTTPResponse.h
+@@ -83,6 +83,8 @@
+ **/
+ - (void)connectionDidClose;
+ 
++- (NSString *)filePath;
++
+ @end
+ 
+ 
+-- 
+1.8.2.1 (Apple Git-45)
+

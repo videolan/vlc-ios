@@ -1,0 +1,25 @@
+From 6b4f5a3ed99d3206e0e8872db9d981abf951a133 Mon Sep 17 00:00:00 2001
+From: =?UTF-8?q?Felix=20Paul=20K=C3=BChne?= <fkuehne@videolan.org>
+Date: Sat, 15 Jun 2013 21:59:12 +0200
+Subject: [PATCH 2/3] MultipartFormDataParser: fix future compilation warning
+
+---
+ Core/Mime/MultipartFormDataParser.m | 2 +-
+ 1 file changed, 1 insertion(+), 1 deletion(-)
+
+diff --git a/Core/Mime/MultipartFormDataParser.m b/Core/Mime/MultipartFormDataParser.m
+index 4a19aee..0676ba4 100644
+--- a/Core/Mime/MultipartFormDataParser.m
++++ b/Core/Mime/MultipartFormDataParser.m
+@@ -417,7 +417,7 @@ static const int httpLogLevel = HTTP_LOG_LEVEL_WARN;
+ }
+ 
+ 
+-- (int) numberOfBytesToLeavePendingWithData:(NSData*) data length:(int) length encoding:(int) encoding {
++- (int) numberOfBytesToLeavePendingWithData:(NSData*) data length:(NSUInteger) length encoding:(int) encoding {
+ 	// If we have BASE64 or Quoted-Printable encoded data, we have to be sure
+ 	// we don't break the format.
+ 	int sizeToLeavePending = 0;
+-- 
+1.8.2.1 (Apple Git-45)
+
