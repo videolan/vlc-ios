@@ -10,6 +10,8 @@
 
 #import "VLCPlaylistTableViewCell.h"
 
+#define MAX_CACHE_SIZE 14 // twice the number of items shown on iPhone 5
+
 @implementation VLCPlaylistTableViewCell
 
 + (VLCPlaylistTableViewCell *)cellWithReuseIdentifier:(NSString *)ident
@@ -70,8 +72,28 @@
         if (self.mediaObject.videoTrack)
             self.subtitleLabel.text = [self.subtitleLabel.text stringByAppendingFormat:@" — %@x%@", [[self.mediaObject videoTrack] valueForKey:@"width"], [[self.mediaObject videoTrack] valueForKey:@"height"]];
     }
-    if ([keyPath isEqualToString:@"computedThumbnail"] || !keyPath)
-        self.thumbnailView.image = self.mediaObject.computedThumbnail;
+    if ([keyPath isEqualToString:@"computedThumbnail"] || !keyPath) {
+        static NSMutableArray *_thumbnailCacheIndex;
+        static NSMutableDictionary *_thumbnailCache;
+        if (!_thumbnailCache)
+            _thumbnailCache = [[NSMutableDictionary alloc] initWithCapacity:MAX_CACHE_SIZE];
+        if (!_thumbnailCacheIndex)
+            _thumbnailCacheIndex = [[NSMutableArray alloc] initWithCapacity:MAX_CACHE_SIZE];
+
+        NSManagedObjectID *objID = self.mediaObject.objectID;
+        if ([_thumbnailCacheIndex containsObject:objID]) {
+            [_thumbnailCacheIndex removeObject:objID];
+            [_thumbnailCacheIndex insertObject:objID atIndex:0];
+        } else {
+            if (_thumbnailCacheIndex.count >= MAX_CACHE_SIZE) {
+                [_thumbnailCache removeObjectForKey:[_thumbnailCacheIndex lastObject]];
+                [_thumbnailCacheIndex removeLastObject];
+            }
+            [_thumbnailCache setObject:self.mediaObject.computedThumbnail forKey:objID];
+            [_thumbnailCacheIndex insertObject:objID atIndex:0];
+        }
+        self.thumbnailView.image = [_thumbnailCache objectForKey:objID];
+    }
     self.progressIndicator.progress = self.mediaObject.lastPosition.floatValue;
 
     self.progressIndicator.hidden = ((self.progressIndicator.progress < .1f) || (self.progressIndicator.progress > .95f)) ? YES : NO;
