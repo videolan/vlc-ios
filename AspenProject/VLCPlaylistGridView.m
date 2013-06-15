@@ -34,6 +34,8 @@
 {
     [super setEditing:editing animated:animated];
     self.removeMediaButton.hidden = !editing;
+    [self _updatedDisplayedInformation];
+
 }
 
 - (void)prepareForReuse
@@ -77,7 +79,13 @@
 - (void)_updatedDisplayedInformation
 {
     self.titleLabel.text = self.mediaObject.title;
-    self.subtitleLabel.text = [NSString stringWithFormat:@"%@ — %i MB", [VLCTime timeWithNumber:[self.mediaObject duration]], (int)([self.mediaObject fileSizeInBytes] / 1e6)];
+    if (self.isEditing)
+        self.subtitleLabel.text = [NSString stringWithFormat:@"%@ — %i MB", [VLCTime timeWithNumber:[self.mediaObject duration]], (int)([self.mediaObject fileSizeInBytes] / 1e6)];
+    else {
+        self.subtitleLabel.text = [NSString stringWithFormat:@"%@", [VLCTime timeWithNumber:[self.mediaObject duration]]];
+        if (self.mediaObject.videoTrack)
+            self.subtitleLabel.text = [self.subtitleLabel.text stringByAppendingFormat:@" — %@x%@", [[self.mediaObject videoTrack] valueForKey:@"width"], [[self.mediaObject videoTrack] valueForKey:@"height"]];
+    }
     self.thumbnailView.image = self.mediaObject.computedThumbnail;
     self.progressView.progress = self.mediaObject.lastPosition.floatValue;
 

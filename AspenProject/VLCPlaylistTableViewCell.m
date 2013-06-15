@@ -54,10 +54,22 @@
     [self _updatedDisplayedInformation];
 }
 
+- (void)setEditing:(BOOL)editing animated:(BOOL)animated
+{
+    [super setEditing:editing animated:animated];
+    [self _updatedDisplayedInformation];
+}
+
 - (void)_updatedDisplayedInformation
 {
     self.titleLabel.text = self.mediaObject.title;
-    self.subtitleLabel.text = [NSString stringWithFormat:@"%@ — %i MB", [VLCTime timeWithNumber:[self.mediaObject duration]], (int)([self.mediaObject fileSizeInBytes] / 1e6)];
+    if (self.isEditing)
+        self.subtitleLabel.text = [NSString stringWithFormat:@"%@ — %i MB", [VLCTime timeWithNumber:[self.mediaObject duration]], (int)([self.mediaObject fileSizeInBytes] / 1e6)];
+    else {
+        self.subtitleLabel.text = [NSString stringWithFormat:@"%@", [VLCTime timeWithNumber:[self.mediaObject duration]]];
+        if (self.mediaObject.videoTrack)
+            self.subtitleLabel.text = [self.subtitleLabel.text stringByAppendingFormat:@" — %@x%@", [[self.mediaObject videoTrack] valueForKey:@"width"], [[self.mediaObject videoTrack] valueForKey:@"height"]];
+    }
     self.thumbnailView.image = self.mediaObject.computedThumbnail;
     self.progressIndicator.progress = self.mediaObject.lastPosition.floatValue;
 
