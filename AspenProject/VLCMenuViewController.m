@@ -155,20 +155,10 @@
 
     self.settingsViewController.modalPresentationStyle = UIModalPresentationFormSheet;
     self.settingsViewController.delegate = self.settingsController;
-    self.settingsViewController.showDoneButton = YES;
+    self.settingsViewController.showDoneButton = NO;
     self.settingsViewController.showCreditsFooter = NO;
 
-    self.settingsController.viewController = self.settingsViewController;
-
-    UINavigationController *navController = [[UINavigationController alloc] initWithRootViewController:self.settingsViewController];
-    [navController loadTheme];
-    [self presentModalViewController:navController animated:YES];
-
-    UIBarButtonItem *doneButton = self.settingsViewController.navigationItem.rightBarButtonItem;
-    [doneButton setBackgroundImage:[UIImage imageNamed:@"doneButton"] forState:UIControlStateNormal barMetrics:UIBarMetricsDefault];
-    [doneButton setBackgroundImage:[UIImage imageNamed:@"doneButtonHighlight"] forState:UIControlStateHighlighted barMetrics:UIBarMetricsDefault];
-    doneButton.style = UIBarButtonItemStyleBordered;
-    [doneButton setTitleTextAttributes:@{UITextAttributeTextShadowColor : [UIColor whiteColor], UITextAttributeTextColor : [UIColor blackColor]} forState:UIControlStateNormal];
+    [self _presentViewController:self.settingsController.viewController];
 }
 
 - (NSString *)_currentIPAddress
@@ -223,6 +213,12 @@
         UINavigationController *navController = [[UINavigationController alloc] initWithRootViewController:viewController];
         [navController loadTheme];
         [self presentModalViewController:navController animated:YES];
+
+        if (viewController.navigationItem.rightBarButtonItem == nil) {
+            UIBarButtonItem *doneButton = [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemDone
+                                                                                        target:self action:@selector(dismiss:)];
+            viewController.navigationItem.rightBarButtonItem = doneButton;
+        }
     } else {
         [self.navigationController pushViewController:viewController animated:YES];
     }
