@@ -95,24 +95,19 @@
 
 -(void)connectionDidFinishLoading:(NSURLConnection *)connection {
     APLog(@"http file download complete");
-    _downloadInProgress = NO;
-    [UIApplication sharedApplication].networkActivityIndicatorVisible = NO;
-
     VLCAppDelegate * appDelegate = [UIApplication sharedApplication].delegate;
     [appDelegate updateMediaList];
 
-    [self.delegate downloadEnded];
+    [self _downloadEnded];
 }
 
 -(void)connection:(NSURLConnection *)connection didFailWithError:(NSError *)error {
     APLog(@"http file download failed (%i)", error.code);
-    _downloadInProgress = NO;
-    [UIApplication sharedApplication].networkActivityIndicatorVisible = NO;
 
     if ([self.delegate respondsToSelector:@selector(downloadFailedWithErrorDescription:)])
         [self.delegate downloadFailedWithErrorDescription:error.description];
 
-    [self.delegate downloadEnded];
+    [self _downloadEnded];
 }
 
 - (void)cancelDownload
@@ -120,6 +115,14 @@
     [_urlConnection cancel];
     if ([self.delegate respondsToSelector:@selector(downloadFailedWithErrorDescription:)])
         [self.delegate downloadFailedWithErrorDescription:@"Download canceled by user"];
+
+    [self _downloadEnded];
+}
+
+- (void)_downloadEnded
+{
+    _downloadInProgress = NO;
+    [UIApplication sharedApplication].networkActivityIndicatorVisible = NO;
 
     [self.delegate downloadEnded];
 }
