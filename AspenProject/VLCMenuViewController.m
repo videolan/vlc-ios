@@ -65,6 +65,7 @@
 
         self.scrollView.contentSize = self.view.frame.size;
     }
+
     [self.aboutButton setTitle:NSLocalizedString(@"ABOUT_APP", @"") forState:UIControlStateNormal];
     [self.openNetworkStreamButton setTitle:NSLocalizedString(@"OPEN_NETWORK", @"") forState:UIControlStateNormal];
     [self.downloadFromHTTPServerButton setTitle:NSLocalizedString(@"DOWNLOAD_FROM_HTTP", @"") forState:UIControlStateNormal];
@@ -77,6 +78,10 @@
     [self netReachabilityChanged:nil];
 
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(netReachabilityChanged:) name:kReachabilityChangedNotification object:nil];
+}
+
+- (CGSize)contentSizeForViewInPopover {
+    return [self.view sizeThatFits:CGSizeMake(320, 800)];
 }
 
 - (void)netReachabilityChanged:(NSNotification *)notification

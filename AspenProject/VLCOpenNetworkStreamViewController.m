@@ -62,6 +62,10 @@
     [super viewWillDisappear:animated];
 }
 
+- (CGSize)contentSizeForViewInPopover {
+    return [self.view sizeThatFits:CGSizeMake(320, 800)];
+}
+
 #pragma mark - UI interaction
 - (IBAction)openButtonAction:(id)sender
 {
