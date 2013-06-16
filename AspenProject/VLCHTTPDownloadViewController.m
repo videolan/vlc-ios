@@ -22,7 +22,7 @@
 
 - (void)viewDidLoad
 {
-    [self.downloadButton setTitle:@"Download" forState:UIControlStateNormal]; //FIXME l10n
+    [self.downloadButton setTitle:NSLocalizedString(@"BUTTON_DOWNLOAD",@"") forState:UIControlStateNormal];
     _currentDownloads = [[NSMutableArray alloc] init];
     [super viewDidLoad];
 }
