@@ -8,13 +8,25 @@
 //  Refer to the COPYING file of the official project for license.
 //
 
-@class VLCMenuViewController;
+@protocol VLCHTTPFileDownloader <NSObject>
+@required
+- (void)downloadStarted;
+- (void)downloadEnded;
+
+@optional
+- (void)downloadFailedWithError:(NSError *)error;
+- (void)progressUpdatedTo:(CGFloat)percentage;
+
+@end
 
 @interface VLCHTTPFileDownloader : NSObject
 
-@property (nonatomic, retain) VLCMenuViewController *mediaViewController;
-@property (nonatomic, readonly) BOOL downloadInProgress;
+@property (readonly, nonatomic) NSString *userReadableDownloadName;
 
+@property (nonatomic, readonly) BOOL downloadInProgress;
+@property (nonatomic, retain) id delegate;
+
+- (void)cancelDownload;
 - (void)downloadFileFromURL:(NSURL *)url;
 
 @end

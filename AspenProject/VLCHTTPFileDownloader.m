@@ -15,31 +15,35 @@
 
 @interface VLCHTTPFileDownloader ()
 {
-    VLCCircularProgressIndicator *_progressIndicator;
     NSString *_filePath;
     NSUInteger _expectedDownloadSize;
     NSUInteger _receivedDataSize;
+    NSString *_fileName;
+    NSURLConnection *_urlConnection;
 }
 
 @end
 
 @implementation VLCHTTPFileDownloader
 
+- (NSString *)userReadableDownloadName
+{
+    return _fileName;
+}
+
 - (void)downloadFileFromURL:(NSURL *)url
 {
-    _progressIndicator = self.mediaViewController.httpDownloadProgressIndicator;
-    _progressIndicator.progress = 0.;
     NSArray *searchPaths = NSSearchPathForDirectoriesInDomains(NSDocumentDirectory, NSUserDomainMask, YES);
-    _filePath = [searchPaths[0] stringByAppendingPathComponent:url.lastPathComponent];
+    _fileName = url.lastPathComponent;
+    _filePath = [searchPaths[0] stringByAppendingPathComponent:_fileName];
     _expectedDownloadSize = _receivedDataSize = 0;
     NSMutableURLRequest *theRequest = [NSMutableURLRequest requestWithURL:url];
-    NSURLConnection *theConnection = [[NSURLConnection alloc] initWithRequest:theRequest delegate:self];
-    if (!theConnection) {
+    _urlConnection = [[NSURLConnection alloc] initWithRequest:theRequest delegate:self];
+    if (!_urlConnection) {
         APLog(@"failed to establish connection");
         _downloadInProgress = NO;
     } else {
         _downloadInProgress = YES;
-        _progressIndicator.hidden = NO;
         [UIApplication sharedApplication].networkActivityIndicatorVisible = YES;
     }
 }
@@ -49,6 +53,7 @@
     NSUInteger statusCode = [response statusCode];
     if (statusCode == 200) {
         _expectedDownloadSize = [response expectedContentLength];
+        [self.delegate downloadStarted];
         APLog(@"expected download size: %i", _expectedDownloadSize);
     }
 }
@@ -63,6 +68,8 @@
 
         if (!fileHandle) {
             APLog(@"file creation failed, no data was saved");
+            if ([self.delegate respondsToSelector:@selector(downloadFailedWithError:)])
+                [self.delegate downloadFailedWithError:nil];
             return;
         }
     }
@@ -72,7 +79,8 @@
         [fileHandle writeData:data];
 
         _receivedDataSize = _receivedDataSize + data.length;
-        _progressIndicator.progress = (float)_receivedDataSize / (float)_expectedDownloadSize;
+        if ([self.delegate respondsToSelector:@selector(progressUpdatedTo:)])
+            [self.delegate progressUpdatedTo: (float)_receivedDataSize / (float)_expectedDownloadSize];
     }
     @catch (NSException * e) {
         APLog(@"exception when writing to file %@", _filePath);
@@ -84,22 +92,28 @@
 -(void)connectionDidFinishLoading:(NSURLConnection *)connection {
     APLog(@"http file download complete");
     _downloadInProgress = NO;
-    _progressIndicator.hidden = YES;
     [UIApplication sharedApplication].networkActivityIndicatorVisible = NO;
 
     VLCAppDelegate * appDelegate = [UIApplication sharedApplication].delegate;
     [appDelegate updateMediaList];
 
-    [_mediaViewController dismiss:nil];
+    [self.delegate downloadEnded];
 }
 
 -(void)connection:(NSURLConnection *)connection didFailWithError:(NSError *)error {
     APLog(@"http file download failed (%i)", error.code);
     _downloadInProgress = NO;
-    _progressIndicator.hidden = YES;
     [UIApplication sharedApplication].networkActivityIndicatorVisible = NO;
 
-    [_mediaViewController dismiss:nil];
+    if ([self.delegate respondsToSelector:@selector(downloadFailedWithError:)])
+        [self.delegate downloadFailedWithError:error];
+
+    [self.delegate downloadEnded];
+}
+
+- (void)cancelDownload
+{
+    [_urlConnection cancel];
 }
 
 @end
