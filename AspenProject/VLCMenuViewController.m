@@ -31,6 +31,7 @@
     VLCHTTPDownloadViewController *_downloadViewController;
     Reachability *_reachability;
 }
+- (void)_presentViewController:(UIViewController *)viewController;
 @end
 
 @implementation VLCMenuViewController
@@ -123,14 +124,7 @@
 - (IBAction)openAboutPanel:(id)sender
 {
     UIViewController *aboutController = [[VLCAboutViewController alloc] initWithNibName:nil bundle:nil];
-
-    if (UI_USER_INTERFACE_IDIOM() == UIUserInterfaceIdiomPad) {
-        UINavigationController *navController = [[UINavigationController alloc] initWithRootViewController:aboutController];
-        [navController loadTheme];
-        [self presentModalViewController:navController animated:YES];
-    } else {
-        [self.navigationController pushViewController:aboutController animated:YES];
-    }
+    [self _presentViewController:aboutController];
 }
 
 - (IBAction)openNetworkStream:(id)sender
@@ -218,4 +212,16 @@
     [self presentModalViewController:navController animated:YES];
 }
 
+#pragma mark - Private methods
+
+- (void)_presentViewController:(UIViewController *)viewController
+{
+    if (UI_USER_INTERFACE_IDIOM() == UIUserInterfaceIdiomPad) {
+        UINavigationController *navController = [[UINavigationController alloc] initWithRootViewController:viewController];
+        [navController loadTheme];
+        [self presentModalViewController:navController animated:YES];
+    } else {
+        [self.navigationController pushViewController:viewController animated:YES];
+    }
+}
 @end
