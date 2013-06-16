@@ -58,8 +58,6 @@
         UIBarButtonItem *dismissButton = [UIBarButtonItem themedDoneButtonWithTarget:self andSelector:@selector(dismiss:)];
         dismissButton.width = 80.;
         self.navigationItem.rightBarButtonItem = dismissButton;
-
-        self.scrollView.contentSize = self.view.frame.size;
     }
 
     [self.aboutButton setTitle:NSLocalizedString(@"ABOUT_APP", @"") forState:UIControlStateNormal];
