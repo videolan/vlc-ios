@@ -326,10 +326,6 @@
 
     [_mediaPlayer play];
 
-    /* fallback if an invalid duration was reported by MLKit */
-    if (self.mediaItem.duration.intValue == 0 && self.mediaItem.lastPosition && [self.mediaItem.lastPosition floatValue] < .95)
-        [_mediaPlayer setPosition:[self.mediaItem.lastPosition floatValue]];
-
     self.playbackSpeedSlider.value = [self _playbackSpeed];
     [self _updatePlaybackSpeedIndicator];
 
