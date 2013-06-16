@@ -37,8 +37,6 @@
 
 - (void)viewWillAppear:(BOOL)animated
 {
-    self.navigationController.navigationBarHidden = NO;
-
     if ([[UIPasteboard generalPasteboard] containsPasteboardTypes:@[@"public.url", @"public.text"]]) {
         NSURL *pasteURL = [[UIPasteboard generalPasteboard] valueForPasteboardType:@"public.url"];
         if (!pasteURL || [[pasteURL absoluteString] isEqualToString:@""]) {
@@ -53,13 +51,6 @@
     _recentURLs = [NSMutableArray arrayWithArray:[[NSUserDefaults standardUserDefaults] objectForKey:kVLCRecentURLs]];
 
     [super viewWillAppear:animated];
-}
-
-- (void)viewWillDisappear:(BOOL)animated
-{
-    if (UI_USER_INTERFACE_IDIOM() == UIUserInterfaceIdiomPad)
-        self.navigationController.navigationBarHidden = YES;
-    [super viewWillDisappear:animated];
 }
 
 - (CGSize)contentSizeForViewInPopover {
