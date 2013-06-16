@@ -24,7 +24,7 @@
 {
     NSUserDefaults *defaults = [NSUserDefaults standardUserDefaults];
 
-    NSDictionary *appDefaults = @{kVLCRecentURLs : @[]};
+    NSDictionary *appDefaults = @{kVLCRecentURLs : @[], kVLCPrivateWebStreaming : @(NO)};
 
     [defaults registerDefaults:appDefaults];
 }
@@ -48,9 +48,21 @@
             self.urlField.text = [pasteURL absoluteString];
     }
 
-    _recentURLs = [NSMutableArray arrayWithArray:[[NSUserDefaults standardUserDefaults] objectForKey:kVLCRecentURLs]];
+    NSUserDefaults *defaults = [NSUserDefaults standardUserDefaults];
+    _recentURLs = [NSMutableArray arrayWithArray:[defaults objectForKey:kVLCRecentURLs]];
+    self.privateToggleSwitch.on = [defaults boolForKey:kVLCPrivateWebStreaming];
 
     [super viewWillAppear:animated];
+}
+
+- (void)viewWillDisappear:(BOOL)animated
+{
+    NSUserDefaults *defaults = [NSUserDefaults standardUserDefaults];
+    [defaults setObject:[NSArray arrayWithArray:_recentURLs] forKey:kVLCRecentURLs];
+    [defaults setBool:self.privateToggleSwitch.on forKey:kVLCPrivateWebStreaming];
+    [defaults synchronize];
+
+    [super viewWillDisappear:animated];
 }
 
 - (CGSize)contentSizeForViewInPopover {
@@ -129,10 +141,6 @@
 #pragma mark - internals
 - (void)_openURLStringAndDismiss:(NSString *)url
 {
-    NSUserDefaults *defaults = [NSUserDefaults standardUserDefaults];
-    [defaults setObject:[NSArray arrayWithArray:_recentURLs] forKey:kVLCRecentURLs];
-    [defaults synchronize];
-
     VLCAppDelegate* appDelegate = [UIApplication sharedApplication].delegate;
     [appDelegate.playlistViewController openMovieFromURL:[NSURL URLWithString:url]];
 
