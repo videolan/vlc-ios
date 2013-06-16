@@ -19,6 +19,7 @@
 #import "Reachability.h"
 #import "VLCHTTPFileDownloader.h"
 #import "IASKAppSettingsViewController.h"
+#import "UINavigationController+Theme.h"
 #import "VLCOpenNetworkStreamViewController.h"
 #import "VLCHTTPDownloadViewController.h"
 
@@ -125,8 +126,7 @@
 
     if (UI_USER_INTERFACE_IDIOM() == UIUserInterfaceIdiomPad) {
         UINavigationController *navController = [[UINavigationController alloc] initWithRootViewController:aboutController];
-        navController.navigationBar.barStyle = UIBarStyleBlack;
-        [navController.navigationBar setBackgroundImage:[UIImage imageNamed:@"navBarBackground"] forBarMetrics:UIBarMetricsDefault];
+        [navController loadTheme];
         [self presentModalViewController:navController animated:YES];
     } else {
         [self.navigationController pushViewController:aboutController animated:YES];
@@ -164,11 +164,7 @@
     self.settingsController.viewController = self.settingsViewController;
 
     UINavigationController *navController = [[UINavigationController alloc] initWithRootViewController:self.settingsViewController];
-    navController.navigationBarHidden = NO;
-    navController.navigationBar.barStyle = UIBarStyleBlack;
-    [navController.navigationBar setBackgroundImage:[UIImage imageNamed:@"navBarBackground"] forBarMetrics:UIBarMetricsDefault];
-    if (UI_USER_INTERFACE_IDIOM() == UIUserInterfaceIdiomPhone)
-        [navController.navigationBar setBackgroundImage:[UIImage imageNamed:@"navBarBackgroundPhoneLandscape"] forBarMetrics:UIBarMetricsLandscapePhone];
+    [navController loadTheme];
     [self presentModalViewController:navController animated:YES];
 
     UIBarButtonItem *doneButton = self.settingsViewController.navigationItem.rightBarButtonItem;
@@ -218,11 +214,7 @@
     appDelegate.dropboxTableViewController.modalPresentationStyle = UIModalPresentationFormSheet;
 
     UINavigationController *navController = [[UINavigationController alloc] initWithRootViewController:appDelegate.dropboxTableViewController];
-    navController.navigationBarHidden = NO;
-    navController.navigationBar.barStyle = UIBarStyleBlack;
-    [navController.navigationBar setBackgroundImage:[UIImage imageNamed:@"navBarBackground"] forBarMetrics:UIBarMetricsDefault];
-    if (UI_USER_INTERFACE_IDIOM() == UIUserInterfaceIdiomPhone)
-        [navController.navigationBar setBackgroundImage:[UIImage imageNamed:@"navBarBackgroundPhoneLandscape"] forBarMetrics:UIBarMetricsLandscapePhone];
+    [navController loadTheme];
     [self presentModalViewController:navController animated:YES];
 }
 
