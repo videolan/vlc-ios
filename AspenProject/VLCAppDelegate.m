@@ -135,6 +135,9 @@
 
         NSNumber *prevFetchedSize = [_addedFiles objectForKey:fileURL];
         NSNumber *updatedSize = [attribs objectForKey:NSFileSize];
+        if (!updatedSize || updatedSize.intValue == 0)
+            continue;
+
         if ([prevFetchedSize compare:updatedSize] == NSOrderedSame) {
             [_addedFiles removeObjectForKey:fileURL];
             [[MLMediaLibrary sharedMediaLibrary] addFilePaths:@[fileURL]];
@@ -197,7 +200,6 @@
         _addMediaTimer = [NSTimer scheduledTimerWithTimeInterval:2. target:self
                                                         selector:@selector(addFileTimerFired)
                                                         userInfo:nil repeats:YES];
-
     }
 }
 
