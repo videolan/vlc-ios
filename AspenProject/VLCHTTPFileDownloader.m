@@ -113,6 +113,12 @@
 - (void)cancelDownload
 {
     [_urlConnection cancel];
+
+    /* remove partially downloaded content */
+    NSFileManager *fileManager = [NSFileManager defaultManager];
+    if ([fileManager fileExistsAtPath:_filePath])
+        [fileManager removeItemAtPath:_filePath error:nil];
+
     if ([self.delegate respondsToSelector:@selector(downloadFailedWithErrorDescription:)])
         [self.delegate downloadFailedWithErrorDescription:@"Download canceled by user"];
 
