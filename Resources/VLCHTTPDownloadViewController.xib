@@ -240,9 +240,9 @@
 								<reference key="IBUIFontDescription" ref="896947105"/>
 								<reference key="IBUIFont" ref="621582664"/>
 							</object>
-							<object class="IBUIActivityIndicatorView" id="277705480">
+							<object class="IBUIActivityIndicatorView" id="385572310">
 								<reference key="NSNextResponder" ref="1066205493"/>
-								<int key="NSvFlags">292</int>
+								<int key="NSvFlags">-2147483356</int>
 								<string key="NSFrame">{{142, 11}, {37, 37}}</string>
 								<reference key="NSSuperview" ref="1066205493"/>
 								<reference key="NSWindow"/>
@@ -366,7 +366,7 @@
 					<object class="IBCocoaTouchOutletConnection" key="connection">
 						<string key="label">activityIndicator</string>
 						<reference key="source" ref="372490531"/>
-						<reference key="destination" ref="277705480"/>
+						<reference key="destination" ref="385572310"/>
 					</object>
 					<int key="connectionID">92</int>
 				</object>
@@ -456,7 +456,7 @@
 							<reference ref="761747136"/>
 							<reference ref="802027691"/>
 							<reference ref="250280512"/>
-							<reference ref="277705480"/>
+							<reference ref="385572310"/>
 						</array>
 						<reference key="parent" ref="191373211"/>
 					</object>
@@ -482,7 +482,7 @@
 					</object>
 					<object class="IBObjectRecord">
 						<int key="objectID">91</int>
-						<reference key="object" ref="277705480"/>
+						<reference key="object" ref="385572310"/>
 						<reference key="parent" ref="1066205493"/>
 					</object>
 				</array>
