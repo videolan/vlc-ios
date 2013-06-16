@@ -207,7 +207,7 @@
         [self presentModalViewController:navController animated:YES];
 
         if (viewController.navigationItem.rightBarButtonItem == nil) {
-            UIBarButtonItem *doneButton = [UIBarButtonItem themedDoneButtonWithTarget:self andSelector:@selector(dismiss:)];
+            UIBarButtonItem *doneButton = [UIBarButtonItem themedDoneButtonWithTarget:viewController andSelector:@selector(dismiss:)];
             viewController.navigationItem.rightBarButtonItem = doneButton;
         }
     } else {
