@@ -20,6 +20,7 @@
 #import "VLCHTTPFileDownloader.h"
 #import "IASKAppSettingsViewController.h"
 #import "UINavigationController+Theme.h"
+#import "UIBarButtonItem+Theme.h"
 #import "VLCOpenNetworkStreamViewController.h"
 #import "VLCHTTPDownloadViewController.h"
 
@@ -54,15 +55,8 @@
     [super viewDidLoad];
 
     if (UI_USER_INTERFACE_IDIOM() == UIUserInterfaceIdiomPhone) {
-        UIBarButtonItem *dismissButton = [[UIBarButtonItem alloc] initWithTitle:NSLocalizedString(@"BUTTON_DONE", @"")
-                                                                          style:UIBarButtonItemStyleBordered
-                                                                         target:self
-                                                                         action:@selector(dismiss:)];
-        [dismissButton setBackgroundImage:[UIImage imageNamed:@"doneButton"] forState:UIControlStateNormal barMetrics:UIBarMetricsDefault];
-        [dismissButton setBackgroundImage:[UIImage imageNamed:@"doneButtonHighlight"] forState:UIControlStateHighlighted barMetrics:UIBarMetricsDefault];
-        [dismissButton setTitleTextAttributes:@{UITextAttributeTextShadowColor : [UIColor whiteColor], UITextAttributeTextColor : [UIColor blackColor]} forState:UIControlStateNormal];
+        UIBarButtonItem *dismissButton = [UIBarButtonItem themedDoneButtonWithTarget:self andSelector:@selector(dismiss:)];
         dismissButton.width = 80.;
-
         self.navigationItem.rightBarButtonItem = dismissButton;
 
         self.scrollView.contentSize = self.view.frame.size;
@@ -215,8 +209,7 @@
         [self presentModalViewController:navController animated:YES];
 
         if (viewController.navigationItem.rightBarButtonItem == nil) {
-            UIBarButtonItem *doneButton = [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemDone
-                                                                                        target:self action:@selector(dismiss:)];
+            UIBarButtonItem *doneButton = [UIBarButtonItem themedDoneButtonWithTarget:self andSelector:@selector(dismiss:)];
             viewController.navigationItem.rightBarButtonItem = doneButton;
         }
     } else {
