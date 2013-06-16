@@ -13,6 +13,7 @@
 #import "VLCPlaylistTableViewCell.h"
 #import "VLCPlaylistGridView.h"
 #import "VLCMenuViewController.h"
+#import "UINavigationController+Theme.h"
 #import "NSString+SupportedMedia.h"
 
 @implementation EmptyLibraryView
@@ -297,10 +298,7 @@
     if (self.menuViewController == nil) {
         VLCMenuViewController *menuViewController = [[VLCMenuViewController alloc] initWithNibName:nil bundle:nil];
         UINavigationController *navigationController = [[UINavigationController alloc] initWithRootViewController:menuViewController];
-        [navigationController.navigationBar setBackgroundImage:[UIImage imageNamed:@"navBarBackground"]
-                                                 forBarMetrics:UIBarMetricsDefault];
-        [navigationController.navigationBar setBackgroundImage:[UIImage imageNamed:@"navBarBackgroundPhoneLandscape"]
-                                                 forBarMetrics:UIBarMetricsLandscapePhone];
+        [navigationController loadTheme],
         self.menuViewController = navigationController;
         if (UI_USER_INTERFACE_IDIOM() == UIUserInterfaceIdiomPad)
             navigationController.navigationBarHidden = YES;
