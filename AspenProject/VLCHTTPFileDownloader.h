@@ -14,7 +14,7 @@
 - (void)downloadEnded;
 
 @optional
-- (void)downloadFailedWithError:(NSError *)error;
+- (void)downloadFailedWithErrorDescription:(NSString *)description;
 - (void)progressUpdatedTo:(CGFloat)percentage;
 
 @end

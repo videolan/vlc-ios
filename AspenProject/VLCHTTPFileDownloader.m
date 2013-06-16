@@ -55,6 +55,10 @@
         _expectedDownloadSize = [response expectedContentLength];
         [self.delegate downloadStarted];
         APLog(@"expected download size: %i", _expectedDownloadSize);
+    } else {
+        APLog(@"unhandled status code %i", statusCode);
+        if ([self.delegate respondsToSelector:@selector(downloadFailedWithErrorDescription:)])
+            [self.delegate downloadFailedWithErrorDescription:[NSString stringWithFormat:@"Download failed with HTTP code %i", statusCode]];
     }
 }
 
@@ -68,8 +72,8 @@
 
         if (!fileHandle) {
             APLog(@"file creation failed, no data was saved");
-            if ([self.delegate respondsToSelector:@selector(downloadFailedWithError:)])
-                [self.delegate downloadFailedWithError:nil];
+            if ([self.delegate respondsToSelector:@selector(downloadFailedWithErrorDescription:)])
+                [self.delegate downloadFailedWithErrorDescription:@"File creation failed"];
             return;
         }
     }
@@ -105,8 +109,8 @@
     _downloadInProgress = NO;
     [UIApplication sharedApplication].networkActivityIndicatorVisible = NO;
 
-    if ([self.delegate respondsToSelector:@selector(downloadFailedWithError:)])
-        [self.delegate downloadFailedWithError:error];
+    if ([self.delegate respondsToSelector:@selector(downloadFailedWithErrorDescription:)])
+        [self.delegate downloadFailedWithErrorDescription:error.description];
 
     [self.delegate downloadEnded];
 }
@@ -114,6 +118,10 @@
 - (void)cancelDownload
 {
     [_urlConnection cancel];
+    if ([self.delegate respondsToSelector:@selector(downloadFailedWithErrorDescription:)])
+        [self.delegate downloadFailedWithErrorDescription:@"Download canceled by user"];
+
+    [self.delegate downloadEnded];
 }
 
 @end
