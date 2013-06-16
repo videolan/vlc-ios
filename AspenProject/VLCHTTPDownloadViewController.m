@@ -71,11 +71,6 @@
     }
 }
 
-- (IBAction)dismiss:(id)sender
-{
-    [self.navigationController dismissModalViewControllerAnimated:YES];
-}
-
 #pragma mark - download management
 - (void)_triggerNextDownload
 {

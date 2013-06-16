@@ -17,6 +17,5 @@
 @property (strong, nonatomic) IBOutlet UITableView *historyTableView;
 
 - (IBAction)openButtonAction:(id)sender;
-- (IBAction)dismiss:(id)sender;
 
 @end

@@ -33,6 +33,7 @@
     Reachability *_reachability;
 }
 - (void)_presentViewController:(UIViewController *)viewController;
+- (void)_dismissModalViewController;
 @end
 
 @implementation VLCMenuViewController
@@ -204,11 +205,16 @@
         [self presentModalViewController:navController animated:YES];
 
         if (viewController.navigationItem.rightBarButtonItem == nil) {
-            UIBarButtonItem *doneButton = [UIBarButtonItem themedDoneButtonWithTarget:viewController andSelector:@selector(dismiss:)];
+            UIBarButtonItem *doneButton = [UIBarButtonItem themedDoneButtonWithTarget:self andSelector:@selector(_dismissModalViewController)];
             viewController.navigationItem.rightBarButtonItem = doneButton;
         }
     } else {
         [self.navigationController pushViewController:viewController animated:YES];
     }
+}
+
+- (void)_dismissModalViewController
+{
+    [self dismissModalViewControllerAnimated:YES];
 }
 @end

@@ -23,5 +23,4 @@
 
 - (IBAction)downloadAction:(id)sender;
 - (IBAction)cancelDownload:(id)sender;
-- (IBAction)dismiss:(id)sender;
 @end

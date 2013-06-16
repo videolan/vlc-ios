@@ -113,11 +113,6 @@
     [_dropboxController requestDirectoryListingAtPath:_currentPath];
 }
 
-- (IBAction)dismiss:(id)sender
-{
-    [self.navigationController dismissModalViewControllerAnimated:YES];
-}
-
 - (IBAction)folderUp:(id)sender
 {
     _currentPath = [_currentPath stringByDeletingLastPathComponent];

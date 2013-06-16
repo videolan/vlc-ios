@@ -29,9 +29,6 @@
     self.webView.delegate = self;
     self.aspenVersion.text = [[NSString stringWithFormat:NSLocalizedString(@"VERSION_FORMAT",@""), [[NSBundle mainBundle] objectForInfoDictionaryKey:@"CFBundleVersion"]] stringByAppendingFormat:@" %@", kVLCVersionCodename];
     self.vlckitVersion.text = [NSString stringWithFormat:NSLocalizedString(@"BASED_ON_FORMAT",@""),[[VLCLibrary sharedLibrary] version]];
-
-    if (UI_USER_INTERFACE_IDIOM() == UIUserInterfaceIdiomPad)
-        self.navigationItem.rightBarButtonItem = [UIBarButtonItem themedDoneButtonWithTarget:self andSelector:@selector(dismiss)];
 }
 
 - (BOOL)webView:(UIWebView *)webView shouldStartLoadWithRequest:(NSURLRequest *)request navigationType:(UIWebViewNavigationType)navigationType
@@ -57,11 +54,6 @@
     };
 
     [UIView animateWithDuration:1. animations:animationBlock completion:completionBlock];
-}
-
-- (void)dismiss
-{
-    [self dismissModalViewControllerAnimated:YES];
 }
 
 @end
