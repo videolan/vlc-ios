@@ -10,7 +10,6 @@
 
 #import "VLCHTTPFileDownloader.h"
 #import "VLCMenuViewController.h"
-#import "VLCCircularProgressIndicator.h"
 #import "VLCAppDelegate.h"
 
 @interface VLCHTTPFileDownloader ()

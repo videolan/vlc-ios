@@ -196,7 +196,6 @@
 		7DE1862C175BA9A9006C0173 /* badgeUnread@2x~iphone.png in Resources */ = {isa = PBXBuildFile; fileRef = 7DE1862E175BA9A9006C0173 /* badgeUnread@2x~iphone.png */; };
 		7DE1862F175BA9AC006C0173 /* badgeUnread~ipad.png in Resources */ = {isa = PBXBuildFile; fileRef = 7DE18631175BA9AC006C0173 /* badgeUnread~ipad.png */; };
 		7DE18632175BA9AF006C0173 /* badgeUnread~iphone.png in Resources */ = {isa = PBXBuildFile; fileRef = 7DE18634175BA9AF006C0173 /* badgeUnread~iphone.png */; };
-		7DE480D1173FEA30003613E0 /* VLCCircularProgressIndicator.m in Sources */ = {isa = PBXBuildFile; fileRef = 7DE480D0173FEA30003613E0 /* VLCCircularProgressIndicator.m */; };
 		7DEB3B5D17647B240038FC70 /* bottomBlackBar@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 7DEB3B5B17647B240038FC70 /* bottomBlackBar@2x.png */; };
 		7DEB3B5E17647B240038FC70 /* bottomBlackBar.png in Resources */ = {isa = PBXBuildFile; fileRef = 7DEB3B5C17647B240038FC70 /* bottomBlackBar.png */; };
 		7DEB3B6017647DE30038FC70 /* iTunesArtwork@2x in Resources */ = {isa = PBXBuildFile; fileRef = 7DEB3B5F17647DE30038FC70 /* iTunesArtwork@2x */; };
@@ -576,8 +575,6 @@
 		7DE18646175BAEC0006C0173 /* fr */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = fr; path = "fr.lproj/badgeUnread~ipad.png"; sourceTree = "<group>"; };
 		7DE18647175BAEC1006C0173 /* it */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = it; path = "it.lproj/badgeUnread~ipad.png"; sourceTree = "<group>"; };
 		7DE18648175BAEC2006C0173 /* ja */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = ja; path = "ja.lproj/badgeUnread~ipad.png"; sourceTree = "<group>"; };
-		7DE480CF173FEA30003613E0 /* VLCCircularProgressIndicator.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = VLCCircularProgressIndicator.h; sourceTree = "<group>"; };
-		7DE480D0173FEA30003613E0 /* VLCCircularProgressIndicator.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = VLCCircularProgressIndicator.m; sourceTree = "<group>"; };
 		7DEB3B5B17647B240038FC70 /* bottomBlackBar@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "bottomBlackBar@2x.png"; sourceTree = "<group>"; };
 		7DEB3B5C17647B240038FC70 /* bottomBlackBar.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = bottomBlackBar.png; sourceTree = "<group>"; };
 		7DEB3B5F17647DE30038FC70 /* iTunesArtwork@2x */ = {isa = PBXFileReference; lastKnownFileType = file; path = "iTunesArtwork@2x"; sourceTree = "<group>"; };
@@ -920,8 +917,6 @@
 				7D5F7AC217529430006CCCFA /* VLCHorizontalSwipeGestureRecognizer.m */,
 				7D5F7AC41752943F006CCCFA /* VLCVerticalSwipeGestureRecognizer.h */,
 				7D5F7AC51752943F006CCCFA /* VLCVerticalSwipeGestureRecognizer.m */,
-				7DE480CF173FEA30003613E0 /* VLCCircularProgressIndicator.h */,
-				7DE480D0173FEA30003613E0 /* VLCCircularProgressIndicator.m */,
 				7DC87AEC17412A1F009DC250 /* VLCLinearProgressIndicator.h */,
 				7DC87AED17412A1F009DC250 /* VLCLinearProgressIndicator.m */,
 				7D31CF071746AF09005997E0 /* VLCStatusLabel.h */,
@@ -1604,7 +1599,6 @@
 				7D6B07C41716C9B8003280C4 /* NSIndexSet+AQIsSetContiguous.m in Sources */,
 				7D6B07C51716C9B8003280C4 /* UIColor+AQGridView.m in Sources */,
 				7D6B07F71716D45C003280C4 /* VLCPlaylistGridView.m in Sources */,
-				7DE480D1173FEA30003613E0 /* VLCCircularProgressIndicator.m in Sources */,
 				7DC87AEE17412A1F009DC250 /* VLCLinearProgressIndicator.m in Sources */,
 				7D31CF091746AF09005997E0 /* VLCStatusLabel.m in Sources */,
 				2915540117490A1E00B86CAD /* DDData.m in Sources */,

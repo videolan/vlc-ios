@@ -11,7 +11,6 @@
 #import <UIKit/UIKit.h>
 
 @class VLCSettingsController;
-@class VLCCircularProgressIndicator;
 @class IASKAppSettingsViewController;
 
 @interface VLCMenuViewController : UIViewController
@@ -21,7 +20,6 @@
 
 @property (strong, nonatomic) IBOutlet UIButton *aboutButton;
 @property (strong, nonatomic) IBOutlet UIButton *openNetworkStreamButton;
-@property (strong, nonatomic) IBOutlet VLCCircularProgressIndicator *httpDownloadProgressIndicator;
 @property (strong, nonatomic) IBOutlet UIButton *downloadFromHTTPServerButton;
 @property (strong, nonatomic) IBOutlet UIButton *settingsButton;
 @property (strong, nonatomic) IBOutlet UISwitch *httpUploadServerSwitch;
