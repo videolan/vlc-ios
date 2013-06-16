@@ -58,6 +58,7 @@
     if (UI_USER_INTERFACE_IDIOM() == UIUserInterfaceIdiomPhone) {
         UIBarButtonItem *dismissButton = [UIBarButtonItem themedDoneButtonWithTarget:self andSelector:@selector(dismiss:)];
         dismissButton.width = 80.;
+        self.navigationItem.titleView = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"menuCone"]];
         self.navigationItem.rightBarButtonItem = dismissButton;
     }
 
