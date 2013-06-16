@@ -122,8 +122,7 @@
 - (IBAction)openNetworkStream:(id)sender
 {
     UIViewController *openURLController = [[VLCOpenNetworkStreamViewController alloc] initWithNibName:nil bundle:nil];
-
-    [self.navigationController pushViewController:openURLController animated:YES];
+    [self _presentViewController:openURLController];
 }
 
 - (IBAction)downloadFromHTTPServer:(id)sender
@@ -131,7 +130,7 @@
     if (!_downloadViewController)
         _downloadViewController = [[VLCHTTPDownloadViewController alloc] initWithNibName:nil bundle:nil];
 
-    [self.navigationController pushViewController:_downloadViewController animated:YES];
+    [self _presentViewController:_downloadViewController];
 }
 
 - (IBAction)showSettings:(id)sender

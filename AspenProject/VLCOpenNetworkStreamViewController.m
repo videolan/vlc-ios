@@ -80,6 +80,11 @@
     }
 }
 
+- (IBAction)dismiss:(id)sender
+{
+    [self.navigationController dismissModalViewControllerAnimated:YES];
+}
+
 #pragma mark - table view data source
 - (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView
 {
