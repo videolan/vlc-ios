@@ -20,16 +20,16 @@
 #import "VLCHTTPFileDownloader.h"
 #import "IASKAppSettingsViewController.h"
 #import "VLCOpenNetworkStreamViewController.h"
+#import "VLCHTTPDownloadViewController.h"
 
 #import <ifaddrs.h>
 #import <arpa/inet.h>
 
 @interface VLCMenuViewController () {
     VLCHTTPUploaderController *_uploadController;
+    VLCHTTPDownloadViewController *_downloadViewController;
     Reachability *_reachability;
-    VLCHTTPFileDownloader *_httpDownloader;
 }
-- (void)_presentOpenURLViewFromView:(UIView *)view forSelector:(SEL)selector;
 @end
 
 @implementation VLCMenuViewController
@@ -142,27 +142,10 @@
 
 - (IBAction)downloadFromHTTPServer:(id)sender
 {
-    if (_httpDownloader) {
-        if (_httpDownloader.downloadInProgress)
-            return;
-    }
+    if (!_downloadViewController)
+        _downloadViewController = [[VLCHTTPDownloadViewController alloc] initWithNibName:nil bundle:nil];
 
-    if (sender == self.downloadFromHTTPServerButton) {
-        [self _presentOpenURLViewFromView:self.downloadFromHTTPServerButton forSelector:@selector(downloadFromHTTPServer:)];
-    } else {
-        NSURL *URLtoSave = [NSURL URLWithString:self.openURLField.text];
-        if (([URLtoSave.scheme isEqualToString:@"http"] || [URLtoSave.scheme isEqualToString:@"https"]) && ![URLtoSave.lastPathComponent.pathExtension isEqualToString:@""]) {
-            if (!_httpDownloader) {
-                _httpDownloader = [[VLCHTTPFileDownloader alloc] init];
-                _httpDownloader.mediaViewController = self;
-            }
-            [_httpDownloader downloadFileFromURL:URLtoSave];
-            [self.openURLView removeFromSuperview];
-        } else {
-            APLog(@"URL is not a file download");
-            [self _hideAnimated:YES];
-        }
-    }
+    [self.navigationController pushViewController:_downloadViewController animated:YES];
 }
 
 - (IBAction)showSettings:(id)sender
@@ -241,27 +224,6 @@
     if (UI_USER_INTERFACE_IDIOM() == UIUserInterfaceIdiomPhone)
         [navController.navigationBar setBackgroundImage:[UIImage imageNamed:@"navBarBackgroundPhoneLandscape"] forBarMetrics:UIBarMetricsLandscapePhone];
     [self presentModalViewController:navController animated:YES];
-}
-
-#pragma mark - Private methods
-
-- (void)_presentOpenURLViewFromView:(UIView *)view forSelector:(SEL)selector
-{
-    if ([[UIPasteboard generalPasteboard] containsPasteboardTypes:@[@"public.url", @"public.text"]]) {
-        NSURL *pasteURL = [[UIPasteboard generalPasteboard] valueForPasteboardType:@"public.url"];
-        if (!pasteURL || [[pasteURL absoluteString] isEqualToString:@""]) {
-            NSString *pasteString = [[UIPasteboard generalPasteboard] valueForPasteboardType:@"public.text"];
-            pasteURL = [NSURL URLWithString:pasteString];
-        }
-
-        if (pasteURL && ![[pasteURL scheme] isEqualToString:@""] && ![[pasteURL absoluteString] isEqualToString:@""])
-            self.openURLField.text = [pasteURL absoluteString];
-    }
-    if (self.openURLView.superview)
-        [self.openURLView removeFromSuperview];
-    [self.openURLButton removeTarget:nil action:NULL forControlEvents:UIControlEventTouchUpInside];
-    [self.openURLButton addTarget:self action:selector forControlEvents:UIControlEventTouchUpInside];
-    [view addSubview:self.openURLView];
 }
 
 @end
