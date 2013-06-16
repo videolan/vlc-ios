@@ -29,10 +29,6 @@
 @property (strong, nonatomic) IBOutlet UILabel *httpUploadServerLocationLabel;
 @property (strong, nonatomic) IBOutlet UIButton *dropboxButton;
 
-@property (strong, nonatomic) IBOutlet UIView *openURLView;
-@property (strong, nonatomic) IBOutlet UITextField *openURLField;
-@property (strong, nonatomic) IBOutlet UIButton *openURLButton;
-
 - (IBAction)dismiss:(id)sender;
 - (IBAction)openAboutPanel:(id)sender;
 - (IBAction)openNetworkStream:(id)sender;

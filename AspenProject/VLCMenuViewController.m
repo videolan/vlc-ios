@@ -64,7 +64,6 @@
     [self.aboutButton setTitle:NSLocalizedString(@"ABOUT_APP", @"") forState:UIControlStateNormal];
     [self.openNetworkStreamButton setTitle:NSLocalizedString(@"OPEN_NETWORK", @"") forState:UIControlStateNormal];
     [self.downloadFromHTTPServerButton setTitle:NSLocalizedString(@"DOWNLOAD_FROM_HTTP", @"") forState:UIControlStateNormal];
-    [self.openURLButton setTitle:NSLocalizedString(@"BUTTON_OPEN", @"") forState:UIControlStateNormal];
     self.httpUploadLabel.text = NSLocalizedString(@"HTTP_UPLOAD", @"");
     [self.settingsButton setTitle:NSLocalizedString(@"Settings", @"") forState:UIControlStateNormal]; // plain text key to keep compatibility with InAppSettingsKit's upstream
     _reachability = [Reachability reachabilityForLocalWiFi];
@@ -89,15 +88,6 @@
         self.httpUploadServerSwitch.on = NO;
         self.httpUploadServerLocationLabel.text = NSLocalizedString(@"HTTP_UPLOAD_NO_CONNECTIVITY", @"");
     }
-}
-
-- (void)viewWillAppear:(BOOL)animated
-{
-    [self.openURLButton sizeToFit];
-    if (self.openURLView.superview)
-        [self.openURLView removeFromSuperview];
-
-    [super viewWillAppear:animated];
 }
 
 - (void)_hideAnimated:(BOOL)animated
