@@ -193,6 +193,7 @@
     if (UI_USER_INTERFACE_IDIOM() == UIUserInterfaceIdiomPad) {
         UINavigationController *navController = [[UINavigationController alloc] initWithRootViewController:viewController];
         [navController loadTheme];
+        navController.modalPresentationStyle = UIModalPresentationFormSheet;
         [self presentModalViewController:navController animated:YES];
 
         if (viewController.navigationItem.rightBarButtonItem == nil) {
