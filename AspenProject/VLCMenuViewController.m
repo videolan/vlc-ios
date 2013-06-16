@@ -144,11 +144,14 @@
 
 - (IBAction)showSettings:(id)sender
 {
-    if (!self.settingsViewController)
-        self.settingsViewController = [[IASKAppSettingsViewController alloc] initWithStyle:UITableViewStyleGrouped];
-
-    if (!self.settingsController)
+    if (!self.settingsController) {
         self.settingsController = [[VLCSettingsController alloc] init];
+    }
+
+    if (!self.settingsViewController) {
+        self.settingsViewController = [[IASKAppSettingsViewController alloc] initWithStyle:UITableViewStyleGrouped];
+        self.settingsController.viewController = self.settingsViewController;
+    }
 
     self.settingsViewController.modalPresentationStyle = UIModalPresentationFormSheet;
     self.settingsViewController.delegate = self.settingsController;
