@@ -72,6 +72,8 @@
 		7D1AC30917629AB600BD2EB5 /* ratioIcon@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 7D1AC30717629AB600BD2EB5 /* ratioIcon@2x.png */; };
 		7D1AC30C17629D4600BD2EB5 /* title.png in Resources */ = {isa = PBXBuildFile; fileRef = 7D1AC30A17629D4600BD2EB5 /* title.png */; };
 		7D1AC30D17629D4600BD2EB5 /* title@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 7D1AC30B17629D4600BD2EB5 /* title@2x.png */; };
+		7D2339AF176DE72E008D223C /* VLCOpenNetworkStreamViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 7D2339AD176DE72E008D223C /* VLCOpenNetworkStreamViewController.m */; };
+		7D2339B0176DE72E008D223C /* VLCOpenNetworkStreamViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 7D2339AE176DE72E008D223C /* VLCOpenNetworkStreamViewController.xib */; };
 		7D31CF091746AF09005997E0 /* VLCStatusLabel.m in Sources */ = {isa = PBXBuildFile; fileRef = 7D31CF081746AF09005997E0 /* VLCStatusLabel.m */; };
 		7D33D41617182615008AF0E0 /* VLCMovieViewController~ipad.xib in Resources */ = {isa = PBXBuildFile; fileRef = 7D33D41517182615008AF0E0 /* VLCMovieViewController~ipad.xib */; };
 		7D3EB012174A3530002062C2 /* Reachability.m in Sources */ = {isa = PBXBuildFile; fileRef = 7D3EB011174A3530002062C2 /* Reachability.m */; };
@@ -358,6 +360,9 @@
 		7D1AC30717629AB600BD2EB5 /* ratioIcon@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "ratioIcon@2x.png"; sourceTree = "<group>"; };
 		7D1AC30A17629D4600BD2EB5 /* title.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = title.png; sourceTree = "<group>"; };
 		7D1AC30B17629D4600BD2EB5 /* title@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "title@2x.png"; sourceTree = "<group>"; };
+		7D2339AC176DE72E008D223C /* VLCOpenNetworkStreamViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = VLCOpenNetworkStreamViewController.h; sourceTree = "<group>"; };
+		7D2339AD176DE72E008D223C /* VLCOpenNetworkStreamViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = VLCOpenNetworkStreamViewController.m; sourceTree = "<group>"; };
+		7D2339AE176DE72E008D223C /* VLCOpenNetworkStreamViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; name = VLCOpenNetworkStreamViewController.xib; path = ../Resources/VLCOpenNetworkStreamViewController.xib; sourceTree = "<group>"; };
 		7D31CF071746AF09005997E0 /* VLCStatusLabel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = VLCStatusLabel.h; sourceTree = "<group>"; };
 		7D31CF081746AF09005997E0 /* VLCStatusLabel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = VLCStatusLabel.m; sourceTree = "<group>"; };
 		7D33D41517182615008AF0E0 /* VLCMovieViewController~ipad.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; name = "VLCMovieViewController~ipad.xib"; path = "Resources/VLCMovieViewController~ipad.xib"; sourceTree = SOURCE_ROOT; };
@@ -886,6 +891,17 @@
 			name = Dropbox;
 			sourceTree = "<group>";
 		};
+		7D2339AB176DE70E008D223C /* Menu */ = {
+			isa = PBXGroup;
+			children = (
+				7D6BA1141748EFE100C0E203 /* VLCMenuViewController.h */,
+				7D6BA1151748EFE100C0E203 /* VLCMenuViewController.m */,
+				7D2339AC176DE72E008D223C /* VLCOpenNetworkStreamViewController.h */,
+				7D2339AD176DE72E008D223C /* VLCOpenNetworkStreamViewController.m */,
+			);
+			name = Menu;
+			sourceTree = "<group>";
+		};
 		7D31CF061746AEF2005997E0 /* UI Elements */ = {
 			isa = PBXGroup;
 			children = (
@@ -1169,10 +1185,9 @@
 				7D6B08BB174A72A900A05173 /* VLCConstants.h */,
 				7D94FCED16DE7D1000F2623B /* VLCAppDelegate.h */,
 				7D94FCEE16DE7D1000F2623B /* VLCAppDelegate.m */,
-				7D6BA1141748EFE100C0E203 /* VLCMenuViewController.h */,
-				7D6BA1151748EFE100C0E203 /* VLCMenuViewController.m */,
 				7D07A4E6174EA47800759D10 /* VLCSettingsController.h */,
 				7D07A4E7174EA47800759D10 /* VLCSettingsController.m */,
+				7D2339AB176DE70E008D223C /* Menu */,
 				7D5F7ABA175265CB006CCCFA /* HTTP Connectivity */,
 				7D5F7AB9175265B2006CCCFA /* Playback */,
 				7D5F7AB81752658E006CCCFA /* Everything Playlist */,
@@ -1201,6 +1216,7 @@
 		7DADC55C1704FAA8001DAC63 /* XIBs */ = {
 			isa = PBXGroup;
 			children = (
+				7D2339AE176DE72E008D223C /* VLCOpenNetworkStreamViewController.xib */,
 				7DBC3B431711FC6C00DCF688 /* VLCAboutViewController~iphone.xib */,
 				7D9529521732EFCA006F5B40 /* VLCAboutViewController~ipad.xib */,
 				7A57C1361769F0BA00807630 /* VLCMenuViewController.xib */,
@@ -1539,6 +1555,7 @@
 				7A57C1371769F0BA00807630 /* VLCMenuViewController.xib in Resources */,
 				7DF1166C176CC69A009EC05C /* volumeballslider.png in Resources */,
 				7DF1166D176CC69A009EC05C /* volumeballslider@2x.png in Resources */,
+				7D2339B0176DE72E008D223C /* VLCOpenNetworkStreamViewController.xib in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -1624,6 +1641,7 @@
 				A7C30259175A3C7A00AD4388 /* DirectoryWatcher.m in Sources */,
 				A7C3025E175A53D400AD4388 /* NSString+SupportedMedia.m in Sources */,
 				7D47D72F1761101700E86BAD /* VLCSlider.m in Sources */,
+				7D2339AF176DE72E008D223C /* VLCOpenNetworkStreamViewController.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

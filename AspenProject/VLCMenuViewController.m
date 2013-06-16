@@ -19,6 +19,7 @@
 #import "Reachability.h"
 #import "VLCHTTPFileDownloader.h"
 #import "IASKAppSettingsViewController.h"
+#import "VLCOpenNetworkStreamViewController.h"
 
 #import <ifaddrs.h>
 #import <arpa/inet.h>
@@ -129,13 +130,9 @@
 
 - (IBAction)openNetworkStream:(id)sender
 {
-    if (sender == self.openNetworkStreamButton) {
-        [self _presentOpenURLViewFromView:self.openNetworkStreamButton forSelector:@selector(openNetworkStream:)];
-    } else {
-        VLCAppDelegate* appDelegate = [UIApplication sharedApplication].delegate;
-        [appDelegate.playlistViewController openMovieFromURL:[NSURL URLWithString:self.openURLField.text]];
-        [self _hideAnimated:YES];
-    }
+    UIViewController *openURLController = [[VLCOpenNetworkStreamViewController alloc] initWithNibName:nil bundle:nil];
+
+    [self.navigationController pushViewController:openURLController animated:YES];
 }
 
 - (IBAction)downloadFromHTTPServer:(id)sender
