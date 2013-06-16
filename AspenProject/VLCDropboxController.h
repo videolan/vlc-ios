@@ -18,6 +18,8 @@
 - (void)operationWithProgressInformationStarted;
 - (void)currentProgressInformation:(float)progress;
 - (void)operationWithProgressInformationStopped;
+
+- (void)numberOfFilesWaitingToBeDownloadedChanged;
 @end
 
 @interface VLCDropboxController : NSObject <DBRestClientDelegate, DBSessionDelegate, DBNetworkRequestDelegate>
@@ -25,6 +27,7 @@
 @property (nonatomic, retain) id delegate;
 @property (nonatomic, readonly) NSArray *currentListFiles;
 @property (nonatomic, readonly) BOOL sessionIsLinked;
+@property (nonatomic, readonly) NSInteger numberOfFilesWaitingToBeDownloaded;
 
 - (void)startSession;
 - (void)logout;

@@ -17,6 +17,9 @@
     DBRestClient *_restClient;
     NSArray *_currentFileList;
 
+    NSMutableArray *_listOfDropboxFilesToDownload;
+    BOOL _downloadInProgress;
+
     NSInteger _outstandingNetworkRequests;
 }
 
@@ -58,14 +61,39 @@
 - (void)downloadFileToDocumentFolder:(DBMetadata *)file
 {
     if (!file.isDirectory) {
-        NSArray *searchPaths = NSSearchPathForDirectoriesInDomains(NSDocumentDirectory, NSUserDomainMask, YES);
-        NSString *filePath = [searchPaths[0] stringByAppendingFormat:@"/%@", file.filename];
+        if (!_listOfDropboxFilesToDownload)
+            _listOfDropboxFilesToDownload = [[NSMutableArray alloc] init];
+        [_listOfDropboxFilesToDownload addObject:file];
 
-        [[self restClient] loadFile:file.path intoPath:filePath];
+        if ([self.delegate respondsToSelector:@selector(numberOfFilesWaitingToBeDownloadedChanged)])
+            [self.delegate numberOfFilesWaitingToBeDownloadedChanged];
 
-        if ([self.delegate respondsToSelector:@selector(operationWithProgressInformationStarted)])
-            [self.delegate operationWithProgressInformationStarted];
+        [self _triggerNextDownload];
     }
+}
+
+- (void)_triggerNextDownload
+{
+    if (_listOfDropboxFilesToDownload.count > 0 && !_downloadInProgress) {
+        [self _reallyDownloadFileToDocumentFolder:_listOfDropboxFilesToDownload[0]];
+        [_listOfDropboxFilesToDownload removeObjectAtIndex:0];
+
+        if ([self.delegate respondsToSelector:@selector(numberOfFilesWaitingToBeDownloadedChanged)])
+            [self.delegate numberOfFilesWaitingToBeDownloadedChanged];
+    }
+}
+
+- (void)_reallyDownloadFileToDocumentFolder:(DBMetadata *)file
+{
+    NSArray *searchPaths = NSSearchPathForDirectoriesInDomains(NSDocumentDirectory, NSUserDomainMask, YES);
+    NSString *filePath = [searchPaths[0] stringByAppendingFormat:@"/%@", file.filename];
+
+    [[self restClient] loadFile:file.path intoPath:filePath];
+
+    if ([self.delegate respondsToSelector:@selector(operationWithProgressInformationStarted)])
+        [self.delegate operationWithProgressInformationStarted];
+
+    _downloadInProgress = YES;
 }
 
 #pragma mark - restClient delegate
@@ -110,6 +138,9 @@
 
     if ([self.delegate respondsToSelector:@selector(operationWithProgressInformationStopped)])
         [self.delegate operationWithProgressInformationStopped];
+    _downloadInProgress = NO;
+
+    [self _triggerNextDownload];
 }
 
 - (void)restClient:(DBRestClient*)client loadFileFailedWithError:(NSError*)error
@@ -117,6 +148,9 @@
     APLog(@"DBFile download failed with error %i", error.code);
     if ([self.delegate respondsToSelector:@selector(operationWithProgressInformationStopped)])
         [self.delegate operationWithProgressInformationStopped];
+    _downloadInProgress = NO;
+
+    [self _triggerNextDownload];
 }
 
 - (void)restClient:(DBRestClient*)client loadProgress:(CGFloat)progress forFile:(NSString*)destPath
@@ -152,6 +186,14 @@
 - (NSArray *)currentListFiles
 {
     return _currentFileList;
+}
+
+- (NSInteger)numberOfFilesWaitingToBeDownloaded
+{
+    if (_listOfDropboxFilesToDownload)
+        return _listOfDropboxFilesToDownload.count;
+
+    return 0;
 }
 
 @end
