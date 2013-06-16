@@ -81,6 +81,7 @@
 										<int key="NSID">2</int>
 									</object>
 								</object>
+								<bool key="IBUIClearsOnBeginEditing">YES</bool>
 								<bool key="IBUIAdjustsFontSizeToFit">YES</bool>
 								<float key="IBUIMinimumFontSize">17</float>
 								<object class="IBUITextInputTraits" key="IBUITextInputTraits">
@@ -90,6 +91,7 @@
 									<string key="NSClassName">NSImage</string>
 									<string key="NSResourceName">input.png</string>
 								</object>
+								<int key="IBUIClearButtonMode">2</int>
 								<object class="IBUIFontDescription" key="IBUIFontDescription">
 									<int key="type">1</int>
 									<double key="pointSize">14</double>
@@ -209,7 +211,7 @@
 								<string key="NSFrame">{{11, 38}, {299, 9}}</string>
 								<reference key="NSSuperview" ref="1066205493"/>
 								<reference key="NSWindow"/>
-								<reference key="NSNextKeyView" ref="831264216"/>
+								<reference key="NSNextKeyView" ref="385572310"/>
 								<string key="NSReuseIdentifierKey">_NS:9</string>
 								<bool key="IBUIOpaque">NO</bool>
 								<string key="targetRuntimeIdentifier">IBCocoaTouchFramework</string>
@@ -246,6 +248,7 @@
 								<string key="NSFrame">{{142, 11}, {37, 37}}</string>
 								<reference key="NSSuperview" ref="1066205493"/>
 								<reference key="NSWindow"/>
+								<reference key="NSNextKeyView" ref="831264216"/>
 								<string key="NSReuseIdentifierKey">_NS:9</string>
 								<bool key="IBUIOpaque">NO</bool>
 								<bool key="IBUIUserInteractionEnabled">NO</bool>
@@ -369,6 +372,22 @@
 						<reference key="destination" ref="385572310"/>
 					</object>
 					<int key="connectionID">92</int>
+				</object>
+				<object class="IBConnectionRecord">
+					<object class="IBCocoaTouchOutletConnection" key="connection">
+						<string key="label">dataSource</string>
+						<reference key="source" ref="831264216"/>
+						<reference key="destination" ref="372490531"/>
+					</object>
+					<int key="connectionID">93</int>
+				</object>
+				<object class="IBConnectionRecord">
+					<object class="IBCocoaTouchOutletConnection" key="connection">
+						<string key="label">delegate</string>
+						<reference key="source" ref="831264216"/>
+						<reference key="destination" ref="372490531"/>
+					</object>
+					<int key="connectionID">94</int>
 				</object>
 				<object class="IBConnectionRecord">
 					<object class="IBCocoaTouchEventConnection" key="connection">
@@ -509,7 +528,7 @@
 			<nil key="activeLocalization"/>
 			<dictionary class="NSMutableDictionary" key="localizations"/>
 			<nil key="sourceID"/>
-			<int key="maxID">92</int>
+			<int key="maxID">94</int>
 		</object>
 		<object class="IBClassDescriber" key="IBDocument.Classes">
 			<array class="NSMutableArray" key="referencedPartialClassDescriptions">

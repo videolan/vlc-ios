@@ -64,6 +64,7 @@
             }
             [_currentDownloads addObject:URLtoSave];
             self.urlField.text = @"";
+            [self.downloadsTable reloadData];
 
             [self _triggerNextDownload];
         }
