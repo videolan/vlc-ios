@@ -49,6 +49,7 @@
 								<int key="NSvFlags">292</int>
 								<string key="NSFrameSize">{320, 112}</string>
 								<reference key="NSSuperview" ref="975400831"/>
+								<reference key="NSWindow"/>
 								<reference key="NSNextKeyView" ref="554522247"/>
 								<string key="NSReuseIdentifierKey">_NS:9</string>
 								<bool key="IBUIUserInteractionEnabled">NO</bool>
@@ -63,6 +64,7 @@
 								<int key="NSvFlags">294</int>
 								<string key="NSFrame">{{20, 20}, {202, 30}}</string>
 								<reference key="NSSuperview" ref="975400831"/>
+								<reference key="NSWindow"/>
 								<reference key="NSNextKeyView" ref="504069026"/>
 								<string key="NSReuseIdentifierKey">_NS:9</string>
 								<bool key="IBUIOpaque">NO</bool>
@@ -87,6 +89,7 @@
 									<string key="NSClassName">NSImage</string>
 									<string key="NSResourceName">input.png</string>
 								</object>
+								<int key="IBUIClearButtonMode">2</int>
 								<object class="IBUIFontDescription" key="IBUIFontDescription">
 									<int key="type">1</int>
 									<double key="pointSize">14</double>
@@ -102,6 +105,7 @@
 								<int key="NSvFlags">289</int>
 								<string key="NSFrame">{{230, 13}, {70, 44}}</string>
 								<reference key="NSSuperview" ref="975400831"/>
+								<reference key="NSWindow"/>
 								<reference key="NSNextKeyView" ref="826405785"/>
 								<string key="NSReuseIdentifierKey">_NS:9</string>
 								<bool key="IBUIOpaque">NO</bool>
@@ -141,6 +145,7 @@
 								<int key="NSvFlags">292</int>
 								<string key="NSFrame">{{5, 65}, {94, 27}}</string>
 								<reference key="NSSuperview" ref="975400831"/>
+								<reference key="NSWindow"/>
 								<reference key="NSNextKeyView" ref="455902210"/>
 								<string key="NSReuseIdentifierKey">_NS:9</string>
 								<bool key="IBUIOpaque">NO</bool>
@@ -158,6 +163,7 @@
 								<int key="NSvFlags">292</int>
 								<string key="NSFrame">{{105, 68}, {195, 21}}</string>
 								<reference key="NSSuperview" ref="975400831"/>
+								<reference key="NSWindow"/>
 								<reference key="NSNextKeyView" ref="298922959"/>
 								<string key="NSReuseIdentifierKey">_NS:9</string>
 								<bool key="IBUIOpaque">NO</bool>
@@ -186,6 +192,7 @@
 						</array>
 						<string key="NSFrameSize">{320, 112}</string>
 						<reference key="NSSuperview" ref="191373211"/>
+						<reference key="NSWindow"/>
 						<reference key="NSNextKeyView" ref="602492749"/>
 						<string key="NSReuseIdentifierKey">_NS:9</string>
 						<object class="NSColor" key="IBUIBackgroundColor">
@@ -203,7 +210,7 @@
 						<int key="NSvFlags">274</int>
 						<string key="NSFrame">{{0, 111}, {320, 272}}</string>
 						<reference key="NSSuperview" ref="191373211"/>
-						<reference key="NSNextKeyView"/>
+						<reference key="NSWindow"/>
 						<string key="NSReuseIdentifierKey">_NS:9</string>
 						<object class="NSColor" key="IBUIBackgroundColor">
 							<int key="NSColorSpace">3</int>
@@ -229,6 +236,7 @@
 				</array>
 				<string key="NSFrameSize">{320, 383}</string>
 				<reference key="NSSuperview"/>
+				<reference key="NSWindow"/>
 				<reference key="NSNextKeyView" ref="975400831"/>
 				<object class="NSColor" key="IBUIBackgroundColor">
 					<int key="NSColorSpace">3</int>
@@ -406,7 +414,58 @@
 			<nil key="sourceID"/>
 			<int key="maxID">18</int>
 		</object>
-		<object class="IBClassDescriber" key="IBDocument.Classes"/>
+		<object class="IBClassDescriber" key="IBDocument.Classes">
+			<array class="NSMutableArray" key="referencedPartialClassDescriptions">
+				<object class="IBPartialClassDescription">
+					<string key="className">VLCOpenNetworkStreamViewController</string>
+					<string key="superclassName">UIViewController</string>
+					<object class="NSMutableDictionary" key="actions">
+						<string key="NS.key.0">openButtonAction:</string>
+						<string key="NS.object.0">id</string>
+					</object>
+					<object class="NSMutableDictionary" key="actionInfosByName">
+						<string key="NS.key.0">openButtonAction:</string>
+						<object class="IBActionInfo" key="NS.object.0">
+							<string key="name">openButtonAction:</string>
+							<string key="candidateClassName">id</string>
+						</object>
+					</object>
+					<dictionary class="NSMutableDictionary" key="outlets">
+						<string key="historyTableView">UITableView</string>
+						<string key="openButton">UIButton</string>
+						<string key="privateModeLabel">UILabel</string>
+						<string key="privateToggleSwitch">UISwitch</string>
+						<string key="urlField">UITextField</string>
+					</dictionary>
+					<dictionary class="NSMutableDictionary" key="toOneOutletInfosByName">
+						<object class="IBToOneOutletInfo" key="historyTableView">
+							<string key="name">historyTableView</string>
+							<string key="candidateClassName">UITableView</string>
+						</object>
+						<object class="IBToOneOutletInfo" key="openButton">
+							<string key="name">openButton</string>
+							<string key="candidateClassName">UIButton</string>
+						</object>
+						<object class="IBToOneOutletInfo" key="privateModeLabel">
+							<string key="name">privateModeLabel</string>
+							<string key="candidateClassName">UILabel</string>
+						</object>
+						<object class="IBToOneOutletInfo" key="privateToggleSwitch">
+							<string key="name">privateToggleSwitch</string>
+							<string key="candidateClassName">UISwitch</string>
+						</object>
+						<object class="IBToOneOutletInfo" key="urlField">
+							<string key="name">urlField</string>
+							<string key="candidateClassName">UITextField</string>
+						</object>
+					</dictionary>
+					<object class="IBClassDescriptionSource" key="sourceIdentifier">
+						<string key="majorKey">IBProjectSource</string>
+						<string key="minorKey">./Classes/VLCOpenNetworkStreamViewController.h</string>
+					</object>
+				</object>
+			</array>
+		</object>
 		<int key="IBDocument.localizationMode">0</int>
 		<string key="IBDocument.TargetRuntimeIdentifier">IBCocoaTouchFramework</string>
 		<object class="NSMutableDictionary" key="IBDocument.PluginDeclaredDependencies">
