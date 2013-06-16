@@ -194,9 +194,7 @@
 
     appDelegate.dropboxTableViewController.modalPresentationStyle = UIModalPresentationFormSheet;
 
-    UINavigationController *navController = [[UINavigationController alloc] initWithRootViewController:appDelegate.dropboxTableViewController];
-    [navController loadTheme];
-    [self presentModalViewController:navController animated:YES];
+    [self _presentViewController:appDelegate.dropboxTableViewController];
 }
 
 #pragma mark - Private methods

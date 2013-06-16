@@ -25,7 +25,6 @@
     UIBarButtonItem *_progressBarButtonItem;
     UIBarButtonItem *_downloadingBarLabel;
     UIProgressView *_progressView;
-    UIBarButtonItem *_backButton;
 
     UIActivityIndicatorView *_activityIndicator;
 }
@@ -51,17 +50,6 @@
     DBSession* dbSession = [[DBSession alloc] initWithAppKey:kVLCDropboxAppKey appSecret:kVLCDropboxPrivateKey root:kDBRootDropbox];
     [DBSession setSharedSession:dbSession];
     [DBRequest setNetworkRequestDelegate:_dropboxController];
-
-    UIBarButtonItem *addButton = [[UIBarButtonItem alloc] initWithTitle:NSLocalizedString(@"BUTTON_DONE", @"") style:UIBarButtonItemStyleBordered target:self action:@selector(dismiss:)];
-    [addButton setBackgroundImage:[UIImage imageNamed:@"doneButton"] forState:UIControlStateNormal barMetrics:UIBarMetricsDefault];
-    [addButton setBackgroundImage:[UIImage imageNamed:@"doneButtonHighlight"] forState:UIControlStateHighlighted barMetrics:UIBarMetricsDefault];
-    [addButton setTitleTextAttributes:@{UITextAttributeTextShadowColor : [UIColor whiteColor], UITextAttributeTextColor : [UIColor blackColor]} forState:UIControlStateNormal];
-    self.navigationItem.rightBarButtonItem = addButton;
-
-    _backButton = [[UIBarButtonItem alloc] initWithTitle:@"" style:UIBarButtonItemStyleBordered target:self action:@selector(folderUp:)];
-    [_backButton setBackgroundImage:[UIImage imageNamed:@"backButton"] forState:UIControlStateNormal barMetrics:UIBarMetricsDefault];
-    [_backButton setBackgroundImage:[UIImage imageNamed:@"backButtonHighlight"] forState:UIControlStateHighlighted barMetrics:UIBarMetricsDefault];
-    self.navigationItem.leftBarButtonItem = _backButton;
 
     self.navigationItem.titleView = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"dropbox-white"]];
     self.navigationItem.titleView.contentMode = UIViewContentModeScaleAspectFit;
@@ -207,14 +195,6 @@
         _numberOfFilesBarButtonItem.title = [NSString stringWithFormat:NSLocalizedString(@"NUM_OF_FILES", @""), count];
     else
         _numberOfFilesBarButtonItem.title = NSLocalizedString(@"ONE_FILE", @"");
-
-    NSString *backButtonTitle = _currentPath.lastPathComponent;
-    if ([backButtonTitle isEqualToString:@"/"]) {
-        backButtonTitle = @"";
-        _backButton.enabled = NO;
-    } else
-        _backButton.enabled = YES;
-    _backButton.title = backButtonTitle;
 }
 
 - (void)operationWithProgressInformationStarted
