@@ -37,6 +37,7 @@
 		293DF2F417494F8200BB880F /* DropboxSDK.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 7D05ADEA174945CE0087550C /* DropboxSDK.framework */; };
 		29CE2D44174912C600922D8F /* VLCHTTPUploaderController.m in Sources */ = {isa = PBXBuildFile; fileRef = 29CE2D42174912C600922D8F /* VLCHTTPUploaderController.m */; };
 		7A50619F176E3D410036E15D /* UINavigationController+Theme.m in Sources */ = {isa = PBXBuildFile; fileRef = 7A50619E176E3D410036E15D /* UINavigationController+Theme.m */; };
+		7A5061A2176E41160036E15D /* UIBarButtonItem+Theme.m in Sources */ = {isa = PBXBuildFile; fileRef = 7A5061A1176E41160036E15D /* UIBarButtonItem+Theme.m */; };
 		7A57C1371769F0BA00807630 /* VLCMenuViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 7A57C1361769F0BA00807630 /* VLCMenuViewController.xib */; };
 		7AC8629D1765DC560011611A /* style.css in Resources */ = {isa = PBXBuildFile; fileRef = 7AC8629B1765DC560011611A /* style.css */; };
 		7AC862A61765E9510011611A /* jquery-1.10.1.min.js in Resources */ = {isa = PBXBuildFile; fileRef = 7AC8629E1765E90C0011611A /* jquery-1.10.1.min.js */; };
@@ -326,6 +327,8 @@
 		29CE2D42174912C600922D8F /* VLCHTTPUploaderController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = VLCHTTPUploaderController.m; sourceTree = "<group>"; };
 		7A50619D176E3D410036E15D /* UINavigationController+Theme.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UINavigationController+Theme.h"; sourceTree = "<group>"; };
 		7A50619E176E3D410036E15D /* UINavigationController+Theme.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UINavigationController+Theme.m"; sourceTree = "<group>"; };
+		7A5061A0176E41160036E15D /* UIBarButtonItem+Theme.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIBarButtonItem+Theme.h"; sourceTree = "<group>"; };
+		7A5061A1176E41160036E15D /* UIBarButtonItem+Theme.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIBarButtonItem+Theme.m"; sourceTree = "<group>"; };
 		7A57C1361769F0BA00807630 /* VLCMenuViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; name = VLCMenuViewController.xib; path = Resources/VLCMenuViewController.xib; sourceTree = SOURCE_ROOT; };
 		7AC8629B1765DC560011611A /* style.css */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.css; path = style.css; sourceTree = "<group>"; };
 		7AC8629E1765E90C0011611A /* jquery-1.10.1.min.js */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.javascript; path = "jquery-1.10.1.min.js"; sourceTree = "<group>"; };
@@ -927,6 +930,8 @@
 				7D47D72E1761101700E86BAD /* VLCSlider.m */,
 				7A50619D176E3D410036E15D /* UINavigationController+Theme.h */,
 				7A50619E176E3D410036E15D /* UINavigationController+Theme.m */,
+				7A5061A0176E41160036E15D /* UIBarButtonItem+Theme.h */,
+				7A5061A1176E41160036E15D /* UIBarButtonItem+Theme.m */,
 			);
 			name = "UI Elements";
 			sourceTree = "<group>";
@@ -1658,6 +1663,7 @@
 				7D2339AF176DE72E008D223C /* VLCOpenNetworkStreamViewController.m in Sources */,
 				7DB43835176E20CC00F460EE /* VLCHTTPDownloadViewController.m in Sources */,
 				7A50619F176E3D410036E15D /* UINavigationController+Theme.m in Sources */,
+				7A5061A2176E41160036E15D /* UIBarButtonItem+Theme.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
