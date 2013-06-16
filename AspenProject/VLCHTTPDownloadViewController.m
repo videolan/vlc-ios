@@ -136,7 +136,7 @@
 
     NSInteger row = indexPath.row;
     cell.textLabel.text = [_currentDownloads[row] lastPathComponent];
-    cell.detailTextLabel.text = _currentDownloads[row];
+    cell.detailTextLabel.text = [_currentDownloads[row] absoluteString];
 
     return cell;
 }
