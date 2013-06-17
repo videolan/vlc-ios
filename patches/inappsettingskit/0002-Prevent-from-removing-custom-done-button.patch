@@ -1,0 +1,24 @@
+From bb9b84ca07e36e0778e162c3afebbf5cf1d55837 Mon Sep 17 00:00:00 2001
+From: Gleb Pinigin <gpinigin@gmail.com>
+Date: Mon, 17 Jun 2013 08:12:46 +0700
+Subject: [PATCH 2/2] Prevent from removing custom done button
+
+---
+ InAppSettingsKit/Controllers/IASKAppSettingsViewController.m | 1 -
+ 1 file changed, 1 deletion(-)
+
+diff --git a/InAppSettingsKit/Controllers/IASKAppSettingsViewController.m b/InAppSettingsKit/Controllers/IASKAppSettingsViewController.m
+index e90d91f..f393909 100644
+--- a/InAppSettingsKit/Controllers/IASKAppSettingsViewController.m
++++ b/InAppSettingsKit/Controllers/IASKAppSettingsViewController.m
+@@ -175,7 +175,6 @@ CGRect IASKCGRectSwap(CGRect rect);
+ 		[self.tableView selectRowAtIndexPath:selectedIndexPath animated:NO scrollPosition:UITableViewScrollPositionNone];
+ 	}
+ 
+-	self.navigationItem.rightBarButtonItem = nil;
+ 	if (_showDoneButton) {
+ 		UIBarButtonItem *buttonItem = [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemDone
+ 																					target:self
+-- 
+1.7.12.4 (Apple Git-37)
+
