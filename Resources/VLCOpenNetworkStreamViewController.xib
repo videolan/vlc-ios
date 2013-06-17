@@ -2,9 +2,9 @@
 <archive type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="8.00">
 	<data>
 		<int key="IBDocument.SystemTarget">1296</int>
-		<string key="IBDocument.SystemVersion">12E55</string>
+		<string key="IBDocument.SystemVersion">12D78</string>
 		<string key="IBDocument.InterfaceBuilderVersion">3084</string>
-		<string key="IBDocument.AppKitVersion">1187.39</string>
+		<string key="IBDocument.AppKitVersion">1187.37</string>
 		<string key="IBDocument.HIToolboxVersion">626.00</string>
 		<object class="NSMutableDictionary" key="IBDocument.PluginVersions">
 			<string key="NS.key.0">com.apple.InterfaceBuilder.IBCocoaTouchPlugin</string>
@@ -62,7 +62,7 @@
 							<object class="IBUITextField" id="554522247">
 								<reference key="NSNextResponder" ref="975400831"/>
 								<int key="NSvFlags">290</int>
-								<string key="NSFrame">{{10, 15}, {222, 30}}</string>
+								<string key="NSFrame">{{10, 15}, {210, 30}}</string>
 								<reference key="NSSuperview" ref="975400831"/>
 								<reference key="NSWindow"/>
 								<reference key="NSNextKeyView" ref="504069026"/>
@@ -103,7 +103,7 @@
 							<object class="IBUIButton" id="504069026">
 								<reference key="NSNextResponder" ref="975400831"/>
 								<int key="NSvFlags">289</int>
-								<string key="NSFrame">{{240, 8}, {70, 44}}</string>
+								<string key="NSFrame">{{228, 11}, {82, 39}}</string>
 								<reference key="NSSuperview" ref="975400831"/>
 								<reference key="NSWindow"/>
 								<reference key="NSNextKeyView" ref="981202834"/>
@@ -112,7 +112,6 @@
 								<string key="targetRuntimeIdentifier">IBCocoaTouchFramework</string>
 								<int key="IBUIContentHorizontalAlignment">0</int>
 								<int key="IBUIContentVerticalAlignment">0</int>
-								<int key="IBUIButtonType">1</int>
 								<string key="IBUINormalTitle">Ouvrir</string>
 								<object class="NSColor" key="IBUIHighlightedTitleColor">
 									<int key="NSColorSpace">3</int>
@@ -447,6 +446,7 @@
 				<string key="4.IBPluginDependency">com.apple.InterfaceBuilder.IBCocoaTouchPlugin</string>
 				<string key="5.IBPluginDependency">com.apple.InterfaceBuilder.IBCocoaTouchPlugin</string>
 				<string key="6.IBPluginDependency">com.apple.InterfaceBuilder.IBCocoaTouchPlugin</string>
+				<string key="7.CustomClassName">VLCMenuButton</string>
 				<string key="7.IBPluginDependency">com.apple.InterfaceBuilder.IBCocoaTouchPlugin</string>
 				<string key="8.IBPluginDependency">com.apple.InterfaceBuilder.IBCocoaTouchPlugin</string>
 				<string key="9.IBPluginDependency">com.apple.InterfaceBuilder.IBCocoaTouchPlugin</string>
@@ -459,6 +459,14 @@
 		</object>
 		<object class="IBClassDescriber" key="IBDocument.Classes">
 			<array class="NSMutableArray" key="referencedPartialClassDescriptions">
+				<object class="IBPartialClassDescription">
+					<string key="className">VLCMenuButton</string>
+					<string key="superclassName">UIButton</string>
+					<object class="IBClassDescriptionSource" key="sourceIdentifier">
+						<string key="majorKey">IBProjectSource</string>
+						<string key="minorKey">./Classes/VLCMenuButton.h</string>
+					</object>
+				</object>
 				<object class="IBPartialClassDescription">
 					<string key="className">VLCOpenNetworkStreamViewController</string>
 					<string key="superclassName">UIViewController</string>
