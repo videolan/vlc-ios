@@ -122,8 +122,6 @@
 		7D47D72B1760E3A000E86BAD /* sliderminimumTrack.png in Resources */ = {isa = PBXBuildFile; fileRef = 7D47D7291760E3A000E86BAD /* sliderminimumTrack.png */; };
 		7D47D72C1760E3A000E86BAD /* sliderminimumTrack@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 7D47D72A1760E3A000E86BAD /* sliderminimumTrack@2x.png */; };
 		7D47D72F1761101700E86BAD /* VLCSlider.m in Sources */ = {isa = PBXBuildFile; fileRef = 7D47D72E1761101700E86BAD /* VLCSlider.m */; };
-		7D5262C41764D4EE00E0E30C /* padLibBg@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 7D5262C01764D4EE00E0E30C /* padLibBg@2x.png */; };
-		7D5262C51764D4EE00E0E30C /* padLibBg.png in Resources */ = {isa = PBXBuildFile; fileRef = 7D5262C11764D4EE00E0E30C /* padLibBg.png */; };
 		7D5DD5C717590ABF001421E3 /* About Contents.html in Resources */ = {isa = PBXBuildFile; fileRef = 7D5DD5C617590ABF001421E3 /* About Contents.html */; };
 		7D5E39C0174FB95A007DAFA1 /* dropbox-black.png in Resources */ = {isa = PBXBuildFile; fileRef = 7D5E39BF174FB95A007DAFA1 /* dropbox-black.png */; };
 		7D5E39C2174FBA28007DAFA1 /* dropbox-black@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 7D5E39C1174FBA28007DAFA1 /* dropbox-black@2x.png */; };
@@ -236,6 +234,7 @@
 		A79246C3170F114E0036AAF2 /* VLCPlaylistTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = A79246BE170F114E0036AAF2 /* VLCPlaylistTableViewCell.xib */; };
 		A79246C5170F114E0036AAF2 /* VLCEmptyLibraryView~iphone.xib in Resources */ = {isa = PBXBuildFile; fileRef = A79246C0170F114E0036AAF2 /* VLCEmptyLibraryView~iphone.xib */; };
 		A79246C8170F11DF0036AAF2 /* Localizable.strings in Resources */ = {isa = PBXBuildFile; fileRef = A79246C6170F11DF0036AAF2 /* Localizable.strings */; };
+		A7990064176E9352009E8267 /* libraryBackground.png in Resources */ = {isa = PBXBuildFile; fileRef = A7990063176E9352009E8267 /* libraryBackground.png */; };
 		A7A0E9F5174BA66000162F25 /* papasscode_background.png in Resources */ = {isa = PBXBuildFile; fileRef = A7A0E9ED174BA66000162F25 /* papasscode_background.png */; };
 		A7A0E9F6174BA66000162F25 /* papasscode_background@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = A7A0E9EE174BA66000162F25 /* papasscode_background@2x.png */; };
 		A7A0E9F7174BA66000162F25 /* papasscode_failed_bg.png in Resources */ = {isa = PBXBuildFile; fileRef = A7A0E9EF174BA66000162F25 /* papasscode_failed_bg.png */; };
@@ -426,8 +425,6 @@
 		7D4BE735175F82CA00861CD4 /* fi */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = fi; path = "fi.lproj/badgeUnread@2x~iphone.png"; sourceTree = "<group>"; };
 		7D4BE736175F82CA00861CD4 /* fi */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = fi; path = "fi.lproj/badgeUnread~ipad.png"; sourceTree = "<group>"; };
 		7D4BE737175F82CA00861CD4 /* fi */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = fi; path = "fi.lproj/badgeUnread~iphone.png"; sourceTree = "<group>"; };
-		7D5262C01764D4EE00E0E30C /* padLibBg@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "padLibBg@2x.png"; sourceTree = "<group>"; };
-		7D5262C11764D4EE00E0E30C /* padLibBg.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = padLibBg.png; sourceTree = "<group>"; };
 		7D5DD5C617590ABF001421E3 /* About Contents.html */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.html; path = "About Contents.html"; sourceTree = "<group>"; };
 		7D5E39BF174FB95A007DAFA1 /* dropbox-black.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "dropbox-black.png"; sourceTree = "<group>"; };
 		7D5E39C1174FBA28007DAFA1 /* dropbox-black@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "dropbox-black@2x.png"; sourceTree = "<group>"; };
@@ -616,6 +613,7 @@
 		A79246C0170F114E0036AAF2 /* VLCEmptyLibraryView~iphone.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; name = "VLCEmptyLibraryView~iphone.xib"; path = "Resources/VLCEmptyLibraryView~iphone.xib"; sourceTree = SOURCE_ROOT; };
 		A79246C7170F11DF0036AAF2 /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/Localizable.strings; sourceTree = "<group>"; };
 		A79246C9170F11E40036AAF2 /* ru */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = ru; path = ru.lproj/Localizable.strings; sourceTree = "<group>"; };
+		A7990063176E9352009E8267 /* libraryBackground.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = libraryBackground.png; sourceTree = "<group>"; };
 		A7A0E9ED174BA66000162F25 /* papasscode_background.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = papasscode_background.png; sourceTree = "<group>"; };
 		A7A0E9EE174BA66000162F25 /* papasscode_background@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "papasscode_background@2x.png"; sourceTree = "<group>"; };
 		A7A0E9EF174BA66000162F25 /* papasscode_failed_bg.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = papasscode_failed_bg.png; sourceTree = "<group>"; };
@@ -823,8 +821,7 @@
 		7D10BC661743F9AC00DA7059 /* Library View */ = {
 			isa = PBXGroup;
 			children = (
-				7D5262C01764D4EE00E0E30C /* padLibBg@2x.png */,
-				7D5262C11764D4EE00E0E30C /* padLibBg.png */,
+				A7990063176E9352009E8267 /* libraryBackground.png */,
 				7D1AC30A17629D4600BD2EB5 /* title.png */,
 				7D1AC30B17629D4600BD2EB5 /* title@2x.png */,
 				7D6BD1801762026700AD311A /* thumbOverlayPhone@2x.png */,
@@ -1562,14 +1559,13 @@
 				7DEB3B8B1764A4F40038FC70 /* movie.png in Resources */,
 				7DEB3B8C1764A4F40038FC70 /* blank.png in Resources */,
 				7DEB3B8D1764A4F40038FC70 /* blank@2x.png in Resources */,
-				7D5262C41764D4EE00E0E30C /* padLibBg@2x.png in Resources */,
-				7D5262C51764D4EE00E0E30C /* padLibBg.png in Resources */,
 				7AC8629D1765DC560011611A /* style.css in Resources */,
 				7A57C1371769F0BA00807630 /* VLCMenuViewController.xib in Resources */,
 				7DF1166C176CC69A009EC05C /* volumeballslider.png in Resources */,
 				7DF1166D176CC69A009EC05C /* volumeballslider@2x.png in Resources */,
 				7D2339B0176DE72E008D223C /* VLCOpenNetworkStreamViewController.xib in Resources */,
 				7DB43836176E20CC00F460EE /* VLCHTTPDownloadViewController.xib in Resources */,
+				A7990064176E9352009E8267 /* libraryBackground.png in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

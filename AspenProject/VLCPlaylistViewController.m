@@ -30,6 +30,7 @@
 - (void)loadView {
     if (UI_USER_INTERFACE_IDIOM() == UIUserInterfaceIdiomPhone) {
         _tableView = [[UITableView alloc] initWithFrame:[UIScreen mainScreen].bounds style:UITableViewStylePlain];
+        _tableView.backgroundColor = [UIColor colorWithWhite:.122 alpha:1.];
         _tableView.delegate = self;
         _tableView.dataSource = self;
         self.view = _tableView;
@@ -37,8 +38,7 @@
         _gridView = [[AQGridView alloc] initWithFrame:[UIScreen mainScreen].bounds];
         _gridView.delegate = self;
         _gridView.dataSource = self;
-        UIImageView *imageView = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"padLibBg"]];
-        _gridView.backgroundView = imageView;
+        _gridView.backgroundColor = [UIColor colorWithPatternImage:[UIImage imageNamed:@"libraryBackground"]];
         self.view = _gridView;
     }
 
@@ -82,7 +82,6 @@
         _tableView.rowHeight = [VLCPlaylistTableViewCell heightOfCell];
         _tableView.separatorColor = [UIColor colorWithWhite:.122 alpha:1.];
     }
-    self.view.backgroundColor = [UIColor colorWithWhite:.122 alpha:1.];
     self.navigationItem.titleView = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"title"]];
 
     _emptyLibraryView.emptyLibraryLabel.text = NSLocalizedString(@"EMPTY_LIBRARY", @"");
