@@ -146,8 +146,6 @@
 		7D6B07F71716D45C003280C4 /* VLCPlaylistGridView.m in Sources */ = {isa = PBXBuildFile; fileRef = 7D6B07F61716D45B003280C4 /* VLCPlaylistGridView.m */; };
 		7D6B08C2174A831900A05173 /* vlc-xmas.png in Resources */ = {isa = PBXBuildFile; fileRef = 7D6B08C0174A831900A05173 /* vlc-xmas.png */; };
 		7D6B08C3174A831900A05173 /* vlc-xmas@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 7D6B08C1174A831900A05173 /* vlc-xmas@2x.png */; };
-		7D6B08C7174A910500A05173 /* mediaUnread@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 7D6B08C6174A910500A05173 /* mediaUnread@2x.png */; };
-		7D6B08C9174A927700A05173 /* mediaUnread.png in Resources */ = {isa = PBXBuildFile; fileRef = 7D6B08C8174A927700A05173 /* mediaUnread.png */; };
 		7D6B08EB174D65B500A05173 /* IASKAppSettingsViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 7D6B08CD174D65B500A05173 /* IASKAppSettingsViewController.m */; settings = {COMPILER_FLAGS = "-fno-objc-arc"; }; };
 		7D6B08EC174D65B500A05173 /* IASKAppSettingsWebViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 7D6B08CF174D65B500A05173 /* IASKAppSettingsWebViewController.m */; settings = {COMPILER_FLAGS = "-fno-objc-arc"; }; };
 		7D6B08ED174D65B500A05173 /* IASKSpecifierValuesViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 7D6B08D1174D65B500A05173 /* IASKSpecifierValuesViewController.m */; settings = {COMPILER_FLAGS = "-fno-objc-arc"; }; };
@@ -468,8 +466,6 @@
 		7D6B08BB174A72A900A05173 /* VLCConstants.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = VLCConstants.h; sourceTree = "<group>"; };
 		7D6B08C0174A831900A05173 /* vlc-xmas.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "vlc-xmas.png"; sourceTree = "<group>"; };
 		7D6B08C1174A831900A05173 /* vlc-xmas@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "vlc-xmas@2x.png"; sourceTree = "<group>"; };
-		7D6B08C6174A910500A05173 /* mediaUnread@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "mediaUnread@2x.png"; sourceTree = "<group>"; };
-		7D6B08C8174A927700A05173 /* mediaUnread.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = mediaUnread.png; sourceTree = "<group>"; };
 		7D6B08CC174D65B500A05173 /* IASKAppSettingsViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = IASKAppSettingsViewController.h; sourceTree = "<group>"; };
 		7D6B08CD174D65B500A05173 /* IASKAppSettingsViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = IASKAppSettingsViewController.m; sourceTree = "<group>"; };
 		7D6B08CE174D65B500A05173 /* IASKAppSettingsWebViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = IASKAppSettingsWebViewController.h; sourceTree = "<group>"; };
@@ -854,8 +850,6 @@
 				7D07F707175665ED00CDE21C /* navBarBackground.png */,
 				7D6BD17C176200B600AD311A /* navBarBackgroundPhoneLandscape@2x.png */,
 				7D6BD17D176200B600AD311A /* navBarBackgroundPhoneLandscape.png */,
-				7D6B08C8174A927700A05173 /* mediaUnread.png */,
-				7D6B08C6174A910500A05173 /* mediaUnread@2x.png */,
 				A7FF9F3D17428C1900999819 /* DeleteButton.png */,
 				A7FF9F3F17428C3800999819 /* DeleteButton@2x.png */,
 			);
@@ -1439,8 +1433,6 @@
 				29125E5617492219003F03E5 /* index.html in Resources */,
 				7D6B08C2174A831900A05173 /* vlc-xmas.png in Resources */,
 				7D6B08C3174A831900A05173 /* vlc-xmas@2x.png in Resources */,
-				7D6B08C7174A910500A05173 /* mediaUnread@2x.png in Resources */,
-				7D6B08C9174A927700A05173 /* mediaUnread.png in Resources */,
 				A7A0E9F5174BA66000162F25 /* papasscode_background.png in Resources */,
 				A7A0E9F6174BA66000162F25 /* papasscode_background@2x.png in Resources */,
 				A7A0E9F7174BA66000162F25 /* papasscode_failed_bg.png in Resources */,
