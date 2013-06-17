@@ -127,7 +127,7 @@ fi
 cd ..
 fi
 if ! [ -e MediaLibraryKit ]; then
-git clone -b Aspen --single-branch git://git.videolan.org/MediaLibraryKit.git
+git clone git://git.videolan.org/MediaLibraryKit.git
 fi
 if ! [ -e VLCKit ]; then
 git clone git://git.videolan.org/vlc-bindings/VLCKit.git
