@@ -517,6 +517,9 @@
 
 - (IBAction)positionSliderAction:(UISlider *)sender
 {
+    /* we need to limit the number of events sent by the slider, since otherwise, the user
+     * wouldn't see the I-frames when seeking on current mobile devices. This isn't a problem
+     * within the Simulator, but especially on older ARMv7 devices, it's clearly noticeable. */
     [self performSelector:@selector(_setPositionForReal) withObject:nil afterDelay:0.3];
     VLCTime *newPosition = [VLCTime timeWithInt:(int)(_positionSlider.value * self.mediaItem.duration.intValue)];
     [self.timeDisplay setTitle:newPosition.stringValue forState:UIControlStateNormal];
