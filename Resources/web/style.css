@@ -40,11 +40,10 @@ div.main.drop {
 header {
   text-align: center;
   height: 88px;
-  background-color: #c95a07;  
+  background-color: #c95a07;
   background-image: url(navBarBackground@2x.png);
   border-top-left-radius: 14px;
   border-top-right-radius: 14px;
-  
 }
 nav {
   height: 88px;
@@ -57,7 +56,7 @@ nav {
 .btn {
   display: inline-block;
   background-color: transparent;
-  
+
   border: 2px solid #8c4800;
   border-radius: 10px;
 
@@ -67,9 +66,9 @@ nav {
   background-image: -ms-linear-gradient(top, #d87306, #ba6100);
   background-image: -o-linear-gradient(top, #d87306, #ba6100);
   background-image: linear-gradient(top, #d87306, #ba6100);
-  
+
   box-shadow: inset 0px 3px 0px -1px #e09d54, 0px 3px 0px -1px rgba(255,255,255,0.1);
-  
+
   color: white;
   font-size: 1.3em;
   font-weight: bold;
@@ -88,7 +87,7 @@ nav {
   background-image: -ms-linear-gradient(top, #c36707, #a85600);
   background-image: -o-linear-gradient(top, #c36707, #a85600);
   background-image: linear-gradient(top, #c36707, #a85600);
-  
+
   box-shadow: inset 0px 3px 0px -1px #d39554, 0px 3px 0px -1px rgba(255,255,255,0.1);
 }
 
@@ -152,9 +151,8 @@ nav {
   border-radius: 20px;
   position: relative;
   overflow: hidden;
-  
-  box-shadow: inset 0px -3px 10px 0px rgba(255,255,255,0.1);
 
+  box-shadow: inset 0px -3px 10px 0px rgba(255,255,255,0.1);
 }
 .uploads .progress .bar {
   background-color: #c95a07;
@@ -169,7 +167,7 @@ nav {
   background-image: -ms-linear-gradient(top, #d87306, #ba6100);
   background-image: -o-linear-gradient(top, #d87306, #ba6100);
   background-image: linear-gradient(top, #d87306, #ba6100);
-  
+
   box-shadow: inset 0px 3px 0px -1px #e09d54, 0px 3px 0px -1px rgba(255,255,255,0.1);
 }
 
@@ -208,11 +206,11 @@ nav {
   height: 26px;
   border-radius: 50%;
   background-color: #bd1421;
-  
+
   position: absolute;
   top: 8px;
   right: 8px;
-  
+
   box-shadow: inset 3px 10px 4px -4px rgba(255,255,255,0.3);
   cursor: pointer;
   display: none;
