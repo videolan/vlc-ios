@@ -29,22 +29,27 @@
     </script>
   </head>
   <body>
-    <div class="container">
-      <header>
-        <div id="appIcon"></div>
-        <h1>VLC for iOS</h1>
-      </header>
+    <header>
+      <nav>
+        <a class="btn linkBtn" href="http://www.videolan.org"><div class="icon"></div></a>
+        <button class="btn uploadBtn">Upload files</button>
+      </nav>
+    </header>
+    <div class="main">
+
       <div id="progress" style="display: none;">
         <div class="bar" style="width: 50%;"></div>
       </div>
-      <form>
+      
+      <form style="display: none;">
         <input id="fileupload" type="file" name="files[]" data-url="upload.json" multiple>
       </form>
+      
       <div id="uploads" style="display: none;">
         <p>So far you have uploaded:</p>
-        <ul>
-        </ul>
+        <ul></ul>
       </div>
+
       <footer>
         <p>VLC for iOS is free, open-source software published by <a href="http://www.videolan.org" target="_blank">VideoLAN</a>. <br />Modification and redistribution is subject to both the <a href="http://opensource.org/licenses/GPL-2.0" target="_blank">GPLv2 (or later)</a> and the <a href="http://opensource.org/licenses/MPL-2.0" target="_blank">MPLv2</a> as well as further rights reserved by the VideoLAN association.<br />You can find the sources to this application <a href="http://git.videolan.org/?p=vlc-ports/ios2.git;a=summary" target="_blank">online</a> and more information about licensing in the About dialog included within the app.</p>
       </footer>
