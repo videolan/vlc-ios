@@ -20,10 +20,11 @@ body {
   color: white;
   -webkit-font-smoothing: antialiased;
   position: relative;
+  background-image: url(padLibBg@2x.png);
+  background-position: 0 88px;
 }
 
 div.main {
-  background-image: url(padLibBg@2x.png);
   border: 2px solid inherit;
   position: absolute;
   top: 88px;
@@ -76,7 +77,7 @@ nav {
 
   text-align: center;
   text-shadow: 2px 2px 0px #783704;
-  
+  padding: 0 12px;  
   height: 58px;
   cursor: pointer;  
 }
@@ -98,11 +99,10 @@ nav {
 .linkBtn .icon {
   height: 60px;
   background-image: url(menuCone@2x.png);
-  background-position: 22px 6px;
+  background-position: 8px 6px;
   background-repeat: no-repeat;
 }
 .uploadBtn {
-  width: 200px;
   float: right;
   position: relative;
   overflow: hidden;
@@ -145,12 +145,67 @@ nav {
 
 form,#uploads {}
 
+.message {
+  margin: 100px 0px;
+}
+.message h1 {
+  font-size: 30px;
+  font-weight: bold;
+  text-align: center;
+  text-shadow: 1px 1px 2px black;
+  line-height: 60px;
+}
+.message p {
+  text-align: center;
+  text-shadow: 1px 1px 2px black;
+}
+
+.uploads {
+  
+}
+.uploads li {
+  height: 80px;
+  padding: 0 20px;
+}
+.uploads li:nth-child(2n) {
+  background-color: rgba(0,0,0,0.2);
+}
+.uploads .filename {
+  font-size: 20px;
+  line-height: 50px;
+}
+.uploads .progress {
+  height: 14px;
+  background-color: rgb(40,40,40);
+  border-radius: 20px;
+  position: relative;
+  overflow: hidden;
+  
+  box-shadow: inset 0px -3px 10px 0px rgba(255,255,255,0.1);
+
+}
+.uploads .progress .bar {
+  background-color: #c95a07;
+  position: absolute;
+  top:0;
+  left:0;
+  bottom:0;
+  border-radius: 20px;
+  background-image: -webkit-gradient(linear, left top, left bottom, from(#d87306), to(#ba6100));
+  background-image: -webkit-linear-gradient(top, #d87306, #ba6100);
+  background-image: -moz-linear-gradient(top, #d87306, #ba6100);
+  background-image: -ms-linear-gradient(top, #d87306, #ba6100);
+  background-image: -o-linear-gradient(top, #d87306, #ba6100);
+  background-image: linear-gradient(top, #d87306, #ba6100);
+  
+  box-shadow: inset 0px 3px 0px -1px #e09d54, 0px 3px 0px -1px rgba(255,255,255,0.1);
+}
+
 footer {
   font-size: .9em;
   line-height: 1.3em;
+  padding-bottom: 8px; 
   text-align: center;
-  padding: 100px 0 10px 0;
-  
   color: rgb(120, 120, 120);
   text-shadow: 1px 1px 2px black;
 }
