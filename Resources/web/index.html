@@ -32,7 +32,10 @@
     <header>
       <nav>
         <a class="btn linkBtn" href="http://www.videolan.org"><div class="icon"></div></a>
-        <button class="btn uploadBtn">Upload files</button>
+        <div class="btn uploadBtn">
+            <input id="fileupload" type="file" name="files[]" data-url="upload.json" multiple>
+          Upload files
+        </div>
       </nav>
     </header>
     <div class="main">
@@ -41,9 +44,7 @@
         <div class="bar" style="width: 50%;"></div>
       </div>
       
-      <form style="display: none;">
-        <input id="fileupload" type="file" name="files[]" data-url="upload.json" multiple>
-      </form>
+      
       
       <div id="uploads" style="display: none;">
         <p>So far you have uploaded:</p>

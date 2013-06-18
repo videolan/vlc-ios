@@ -72,6 +72,7 @@ nav {
   color: white;
   font-size: 1.3em;
   font-weight: bold;
+  line-height: 52px;
 
   text-align: center;
   text-shadow: 2px 2px 0px #783704;
@@ -103,6 +104,19 @@ nav {
 .uploadBtn {
   width: 200px;
   float: right;
+  position: relative;
+  overflow: hidden;
+}
+
+#fileupload {
+  opacity: 0;
+  position: absolute;
+  top: 0;
+  left:0;
+  right: 0;
+  bottom: 0;
+  font-size: 1000px !important;
+  cursor: pointer;
 }
 
 
