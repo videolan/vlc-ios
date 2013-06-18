@@ -130,28 +130,32 @@
 - (void)addFileTimerFired
 {
     NSArray *allKeys = [_addedFiles allKeys];
+    NSFileManager *fileManager = [NSFileManager defaultManager];
+    MLMediaLibrary *sharedLibrary = [MLMediaLibrary sharedMediaLibrary];
     for (NSString *fileURL in allKeys) {
-        NSDictionary *attribs = [[NSFileManager defaultManager] attributesOfItemAtPath:fileURL error:nil];
+        if (![fileManager fileExistsAtPath:fileURL])
+            continue;
+
+        NSDictionary *attribs = [fileManager attributesOfItemAtPath:fileURL error:nil];
 
         NSNumber *prevFetchedSize = [_addedFiles objectForKey:fileURL];
         NSNumber *updatedSize = [attribs objectForKey:NSFileSize];
-        if (!updatedSize || updatedSize.intValue == 0)
+        if (!updatedSize)
             continue;
 
         if ([prevFetchedSize compare:updatedSize] == NSOrderedSame) {
             [_addedFiles removeObjectForKey:fileURL];
-            [[MLMediaLibrary sharedMediaLibrary] addFilePaths:@[fileURL]];
+            [sharedLibrary addFilePaths:@[fileURL]];
 
             /* exclude media files from backup (QA1719) */
             NSURL *excludeURL = [NSURL fileURLWithPath:fileURL];
             [excludeURL setResourceValue:@YES forKey:NSURLIsExcludedFromBackupKey error:nil];
 
             // TODO Should we update media db after adding new files?
-            [[MLMediaLibrary sharedMediaLibrary] updateMediaDatabase];
+            [sharedLibrary updateMediaDatabase];
             [_playlistViewController updateViewContents];
-        } else {
+        } else
             [_addedFiles setObject:updatedSize forKey:fileURL];
-        }
     }
 
     if (_addedFiles.count == 0) {
@@ -165,9 +169,8 @@
     NSArray *foundFiles = [[NSFileManager defaultManager] contentsOfDirectoryAtPath:[self directoryPath] error:nil];
     NSMutableArray *matchedFiles = [NSMutableArray arrayWithCapacity:foundFiles.count];
     for (NSString *fileName in foundFiles) {
-        if ([fileName isSupportedMediaFormat]) {
+        if ([fileName isSupportedMediaFormat])
             [matchedFiles addObject:[[self directoryPath] stringByAppendingPathComponent:fileName]];
-        }
     }
 
     NSArray *mediaFiles = [MLFile allFiles];
@@ -182,20 +185,17 @@
 
             BOOL found = NO;
             for (MLFile *mediaFile in mediaFiles) {
-                if ([mediaFile.url isEqualToString:fileURL.absoluteString]) {
+                if ([mediaFile.url isEqualToString:fileURL.absoluteString])
                     found = YES;
-                }
             }
 
-            if (!found) {
+            if (!found)
                 [addedFiles addObject:fileName];
-            }
         }
 
         _addedFiles = [NSMutableDictionary dictionaryWithCapacity:[addedFiles count]];
-        for (NSString *fileURL in addedFiles) {
+        for (NSString *fileURL in addedFiles)
             [_addedFiles setObject:@(0) forKey:fileURL];
-        }
 
         _addMediaTimer = [NSTimer scheduledTimerWithTimeInterval:2. target:self
                                                         selector:@selector(addFileTimerFired)
