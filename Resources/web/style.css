@@ -20,7 +20,7 @@ body {
   color: white;
   -webkit-font-smoothing: antialiased;
   position: relative;
-  background-image: url(padLibBg@2x.png);
+  background-color: rgb(31,31,31);
   background-position: 0 88px;
 }
 
@@ -111,7 +111,6 @@ nav {
   opacity: 0;
   position: absolute;
   top: 0;
-  left:0;
   right: 0;
   bottom: 0;
   font-size: 1000px !important;
