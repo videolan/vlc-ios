@@ -316,13 +316,13 @@
 
 - (void)_playNewMedia
 {
+    NSNumber *playbackPositionInTime = @(0);
     if (self.mediaItem.lastPosition && [self.mediaItem.lastPosition floatValue] < .95) {
-        if (self.mediaItem.duration.intValue != 0) {
-            NSNumber *playbackPositionInTime = @(self.mediaItem.lastPosition.floatValue * (self.mediaItem.duration.intValue / 1000.));
-            [_mediaPlayer.media addOptions:@{@"start-time": playbackPositionInTime}];
-            APLog(@"set starttime to %i", playbackPositionInTime.intValue);
-        }
+        if (self.mediaItem.duration.intValue != 0)
+            playbackPositionInTime = @(self.mediaItem.lastPosition.floatValue * (self.mediaItem.duration.intValue / 1000.));
     }
+    [_mediaPlayer.media addOptions:@{@"start-time": playbackPositionInTime}];
+    APLog(@"set starttime to %i", playbackPositionInTime.intValue);
 
     [_mediaPlayer play];
 
