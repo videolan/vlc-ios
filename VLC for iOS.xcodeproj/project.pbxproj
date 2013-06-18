@@ -44,7 +44,7 @@
 		7AC862A71765E9510011611A /* jquery.fileupload.js in Resources */ = {isa = PBXBuildFile; fileRef = 7AC8629F1765E90C0011611A /* jquery.fileupload.js */; };
 		7AC862A81765E9510011611A /* jquery.iframe-transport.js in Resources */ = {isa = PBXBuildFile; fileRef = 7AC862A01765E90C0011611A /* jquery.iframe-transport.js */; };
 		7AC862A91765E9510011611A /* jquery.ui.widget.js in Resources */ = {isa = PBXBuildFile; fileRef = 7AC862A11765E90C0011611A /* jquery.ui.widget.js */; };
-		7D00161B17704DAC00649F27 /* main.js in Sources */ = {isa = PBXBuildFile; fileRef = 7D00161A17704DAC00649F27 /* main.js */; };
+		7D00161C177056B700649F27 /* main.js in Resources */ = {isa = PBXBuildFile; fileRef = 7D00161A17704DAC00649F27 /* main.js */; };
 		7D07A4E9174EA47800759D10 /* VLCSettingsController.m in Sources */ = {isa = PBXBuildFile; fileRef = 7D07A4E7174EA47800759D10 /* VLCSettingsController.m */; };
 		7D07A4ED174EB81200759D10 /* VLCDropboxController.m in Sources */ = {isa = PBXBuildFile; fileRef = 7D07A4EC174EB81200759D10 /* VLCDropboxController.m */; };
 		7D07F708175665ED00CDE21C /* navBarBackground@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 7D07F706175665ED00CDE21C /* navBarBackground@2x.png */; };
@@ -1412,6 +1412,7 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				7D00161C177056B700649F27 /* main.js in Resources */,
 				7AC862A61765E9510011611A /* jquery-1.10.1.min.js in Resources */,
 				7AC862A71765E9510011611A /* jquery.fileupload.js in Resources */,
 				7AC862A81765E9510011611A /* jquery.iframe-transport.js in Resources */,
@@ -1655,7 +1656,6 @@
 				7A50619F176E3D410036E15D /* UINavigationController+Theme.m in Sources */,
 				7A5061A2176E41160036E15D /* UIBarButtonItem+Theme.m in Sources */,
 				A7990067176E9CF3009E8267 /* VLCMenuButton.m in Sources */,
-				7D00161B17704DAC00649F27 /* main.js in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
