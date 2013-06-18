@@ -8,25 +8,7 @@
     <script type="text/javascript" src="jquery.ui.widget.js"></script>
     <script type="text/javascript" src="jquery.iframe-transport.js"></script>
     <script type="text/javascript" src="jquery.fileupload.js"></script>
-    <script>
-      $(function(){
-        $('#fileupload').fileupload({
-          dataType: 'json',
-          done: function (e, data) {
-            $('#progress').hide();
-            $.each(data.files, function (index, file) {
-              $('<li/>').text(file.name).appendTo($('#uploads ul'));
-            });
-            $('#uploads').show();
-          },
-          progressall: function (e, data) {
-            $('#progress').show();
-            var progress = parseInt(data.loaded / data.total * 100, 10);
-            $('#progress .bar').css('width', progress + '%');
-          }
-        });
-      });
-    </script>
+    <script type="text/javascript" src="main.js"></script>
   </head>
   <body>
     <header>
@@ -39,31 +21,8 @@
       </nav>
     </header>
     <div class="main">
-
-      <div id="progress" style="display: none;">
-        <div class="bar" style="width: 50%;"></div>
-      </div>
-      
-      <div id="uploads" style="display: none;">
-        <p>So far you have uploaded:</p>
-        <ul></ul>
-      </div>
-
       <section class="uploads">
-        <ul>
-          <li>
-            <div class="filename">Game of Thrones S02E01 720p HDTV.DD5.1 x264-EbP.mkv</div>
-            <div class="progress">
-              <div class="bar" style="width: 2%"></div>
-            </div>
-          </li>
-          <li>
-            <div class="filename">Game of Thrones S02E01 720p HDTV.DD5.1 x264-EbP.mkv</div>
-            <div class="progress">
-              <div class="bar" style="width: 80%"></div>
-            </div>
-          </li>
-        </ul>
+        <ul></ul>
       </section>
 
       <section class="message">

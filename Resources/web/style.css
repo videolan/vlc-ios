@@ -25,7 +25,7 @@ body {
 }
 
 div.main {
-  border: 2px solid inherit;
+  border: 2px solid transparent;
   position: absolute;
   top: 88px;
   bottom: 0;
@@ -119,32 +119,6 @@ nav {
   cursor: pointer;
 }
 
-
-#progress {
-  width: 100%;
-  background-color: red;
-  border-radius: 5px;
-  background-image: -webkit-gradient(linear, left top, left bottom, from(rgb(170, 170, 170)), to(rgb(200, 200, 200)));
-  background-image: -webkit-linear-gradient(top, rgb(170, 170, 170), rgb(200, 200, 200));
-  background-image: -moz-linear-gradient(top, rgb(170, 170, 170), rgb(200, 200, 200));
-  background-image: -ms-linear-gradient(top, rgb(170, 170, 170), rgb(200, 200, 200));
-  background-image: -o-linear-gradient(top, rgb(170, 170, 170), rgb(200, 200, 200));
-  background-image: linear-gradient(top, rgb(170, 170, 170), rgb(200, 200, 200));
-}
-
-#progress .bar {
-  border-radius: 5px;
-  height: 18px;
-  background-image: -webkit-gradient(linear, left top, left bottom, from(rgb(234, 171, 103)), to(rgb(214, 112, 0)));
-  background-image: -webkit-linear-gradient(top, rgb(234, 171, 103), rgb(214, 112, 0));
-  background-image: -moz-linear-gradient(top, rgb(234, 171, 103), rgb(214, 112, 0));
-  background-image: -ms-linear-gradient(top, rgb(234, 171, 103), rgb(214, 112, 0));
-  background-image: -o-linear-gradient(top, rgb(234, 171, 103), rgb(214, 112, 0));
-  background-image: linear-gradient(top, rgb(234, 171, 103), rgb(214, 112, 0));
-}
-
-form,#uploads {}
-
 .message {
   margin: 100px 0px;
 }
@@ -160,12 +134,10 @@ form,#uploads {}
   text-shadow: 1px 1px 2px black;
 }
 
-.uploads {
-  
-}
 .uploads li {
   height: 80px;
   padding: 0 20px;
+  position: relative;
 }
 .uploads li:nth-child(2n) {
   background-color: rgba(0,0,0,0.2);
@@ -201,9 +173,63 @@ form,#uploads {}
   box-shadow: inset 0px 3px 0px -1px #e09d54, 0px 3px 0px -1px rgba(255,255,255,0.1);
 }
 
+.uploads li.fail .progress .bar {
+  background-image: none;
+  background-color: transparent;
+  box-shadow: none;
+}
+
+.uploads li.fail .progress:before,
+.uploads li.done .progress .bar:before {
+  line-height: 12px;
+  font-size: 13px;
+  font-weight: bold;
+  padding: 0 12px;
+  float: right;
+}
+.uploads li.fail .progress:before {
+  content: "File transfer failed";
+  color: #c95a07;
+}
+.uploads li.done .progress .bar:before {
+  content: "File transfer complete";
+  color: white;
+}
+.uploads li:hover .stop {
+  display: block;
+}
+.uploads li.done:hover .stop,
+.uploads li.fail:hover .stop {
+  display: none;
+}
+.uploads .stop {
+  border: 3px solid white;
+  width: 26px;
+  height: 26px;
+  border-radius: 50%;
+  background-color: #bd1421;
+  
+  position: absolute;
+  top: 8px;
+  right: 8px;
+  
+  box-shadow: inset 3px 10px 4px -4px rgba(255,255,255,0.3);
+  cursor: pointer;
+  display: none;
+}
+.uploads .stop:before {
+  content: "-";
+  font-size: 46px;
+  line-height: 12px;
+  text-align: center;
+  width: 100%;
+  padding: 1px;
+}
+
 footer {
   font-size: .9em;
   line-height: 1.3em;
+  margin-top: 40px;
   padding-bottom: 8px; 
   text-align: center;
   color: rgb(120, 120, 120);
