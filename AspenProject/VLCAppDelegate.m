@@ -11,6 +11,7 @@
 #import "VLCAppDelegate.h"
 #import "DirectoryWatcher.h"
 #import "NSString+SupportedMedia.h"
+#import "UIDevice+SpeedCategory.h"
 
 #import "VLCPlaylistViewController.h"
 #import "VLCMovieViewController.h"
@@ -37,7 +38,14 @@
 {
     NSUserDefaults *defaults = [NSUserDefaults standardUserDefaults];
 
-    NSDictionary *appDefaults = @{kVLCSettingPasscodeKey : @"", kVLCSettingPasscodeOnKey : @(NO), kVLCSettingContinueAudioInBackgroundKey : @(YES), kVLCSettingStretchAudio : @(NO), kVLCSettingTextEncoding : kVLCSettingTextEncodingDefaultValue, kVLCSettingSkipLoopFilter : @(3)};
+    NSNumber *skipLoopFilterDefaultValue;
+    int deviceSpeedCategory = [[UIDevice currentDevice] speedCategory];
+    if (deviceSpeedCategory < 3)
+        skipLoopFilterDefaultValue = kVLCSettingSkipLoopFilterNonKey;
+    else
+        skipLoopFilterDefaultValue = kVLCSettingSkipLoopFilterBidir;
+
+    NSDictionary *appDefaults = @{kVLCSettingPasscodeKey : @"", kVLCSettingPasscodeOnKey : @(NO), kVLCSettingContinueAudioInBackgroundKey : @(YES), kVLCSettingStretchAudio : @(NO), kVLCSettingTextEncoding : kVLCSettingTextEncodingDefaultValue, kVLCSettingSkipLoopFilter : skipLoopFilterDefaultValue};
 
     [defaults registerDefaults:appDefaults];
 }
