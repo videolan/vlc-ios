@@ -28,13 +28,35 @@ $(function(){
         $.each(data.files, function(index, file){
             file._ID = xhrCache.length;
             xhrCache[file._ID] = xhr;
+            var hasProgressbar = ('FormData' in window);
             var html = '<li data-file-id="' + file._ID + '">';
             html += '<div class="filename">' + file.name + '</div>';
-            html += '<div class="progress"><div class="bar" style="width: 0%"></div></div>';
-            html += '<div class="stop"></div>';
+            html += '<div class="progress"><div class="bar" style="width: 0%"></div>';
+            if (!hasProgressbar) { html += '<span class="dots"></span>'; }
+            html += '</div>';
+            if (hasProgressbar) { html += '<div class="stop"></div>'; }
             html += '</li>';
+
             var tmpl = $(html);
-            $('.uploads ul').append(html);
+            if (!hasProgressbar) {
+                var progress = tmpl.find('.progress');
+                var bar = progress.find('.bar');
+                var dots = progress.find('.dots');
+
+                function doting() {
+                    if (bar.css('width') != '0px') { return; }
+
+                    if (dots.text().length == 3) {
+                        dots.text('');
+                    }
+                    else {
+                        dots.text(dots.text() + '.');
+                    }
+                    setTimeout(doting, 750);
+                }
+                setTimeout(doting, 10);
+            }
+            $('.uploads ul').append(tmpl);
         });
     }
 

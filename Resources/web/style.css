@@ -176,10 +176,25 @@ nav {
   box-shadow: none;
 }
 
+.uploads .progress .dots {
+  padding: 0 8px;
+  line-height: 0px;
+  font-size: 20px;
+  font-weight: bold;
+  float: left;
+  color: #c95a07;
+}
+.uploads .progress .dots:before {
+  content: "uploading ";
+  color: white;
+  line-height: 12px;
+  font-size: 12px;
+}
+
 .uploads li.fail .progress:before,
 .uploads li.done .progress .bar:before {
   line-height: 12px;
-  font-size: 13px;
+  font-size: 12px;
   font-weight: bold;
   padding: 0 12px;
   float: right;
