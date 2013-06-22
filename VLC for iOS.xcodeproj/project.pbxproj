@@ -188,6 +188,7 @@
 		7DBC3B451711FC6C00DCF688 /* VLCAboutViewController~iphone.xib in Resources */ = {isa = PBXBuildFile; fileRef = 7DBC3B431711FC6C00DCF688 /* VLCAboutViewController~iphone.xib */; };
 		7DC87AEE17412A1F009DC250 /* VLCLinearProgressIndicator.m in Sources */ = {isa = PBXBuildFile; fileRef = 7DC87AED17412A1F009DC250 /* VLCLinearProgressIndicator.m */; };
 		7DC87AF217413EE3009DC250 /* VLCPlaylistGridView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 7DC87AF117413EE3009DC250 /* VLCPlaylistGridView.xib */; };
+		7DDABBB71775A3C7003D8937 /* UIDevice+SpeedCategory.m in Sources */ = {isa = PBXBuildFile; fileRef = 7DDABBB61775A3C7003D8937 /* UIDevice+SpeedCategory.m */; };
 		7DDD0429172D98E5005A7B10 /* CFNetwork.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 7DDD0428172D98E5005A7B10 /* CFNetwork.framework */; };
 		7DE18629175BA9A5006C0173 /* badgeUnread@2x~ipad.png in Resources */ = {isa = PBXBuildFile; fileRef = 7DE1862B175BA9A5006C0173 /* badgeUnread@2x~ipad.png */; };
 		7DE1862C175BA9A9006C0173 /* badgeUnread@2x~iphone.png in Resources */ = {isa = PBXBuildFile; fileRef = 7DE1862E175BA9A9006C0173 /* badgeUnread@2x~iphone.png */; };
@@ -551,6 +552,8 @@
 		7DC87AEF17413634009DC250 /* de */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = de; path = de.lproj/Localizable.strings; sourceTree = "<group>"; };
 		7DC87AF017413A17009DC250 /* fr */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = fr; path = fr.lproj/Localizable.strings; sourceTree = "<group>"; };
 		7DC87AF117413EE3009DC250 /* VLCPlaylistGridView.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; name = VLCPlaylistGridView.xib; path = ../Resources/VLCPlaylistGridView.xib; sourceTree = "<group>"; };
+		7DDABBB51775A3A7003D8937 /* UIDevice+SpeedCategory.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIDevice+SpeedCategory.h"; sourceTree = "<group>"; };
+		7DDABBB61775A3C7003D8937 /* UIDevice+SpeedCategory.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIDevice+SpeedCategory.m"; sourceTree = "<group>"; };
 		7DDD0428172D98E5005A7B10 /* CFNetwork.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CFNetwork.framework; path = System/Library/Frameworks/CFNetwork.framework; sourceTree = SDKROOT; };
 		7DE1862A175BA9A5006C0173 /* en */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = en; path = "en.lproj/badgeUnread@2x~ipad.png"; sourceTree = "<group>"; };
 		7DE1862D175BA9A9006C0173 /* en */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = en; path = "en.lproj/badgeUnread@2x~iphone.png"; sourceTree = "<group>"; };
@@ -1344,6 +1347,8 @@
 			children = (
 				A7C3025C175A53D400AD4388 /* NSString+SupportedMedia.h */,
 				A7C3025D175A53D400AD4388 /* NSString+SupportedMedia.m */,
+				7DDABBB51775A3A7003D8937 /* UIDevice+SpeedCategory.h */,
+				7DDABBB61775A3C7003D8937 /* UIDevice+SpeedCategory.m */,
 			);
 			name = Extensions;
 			sourceTree = "<group>";
@@ -1662,6 +1667,7 @@
 				7A50619F176E3D410036E15D /* UINavigationController+Theme.m in Sources */,
 				7A5061A2176E41160036E15D /* UIBarButtonItem+Theme.m in Sources */,
 				A7990067176E9CF3009E8267 /* VLCMenuButton.m in Sources */,
+				7DDABBB71775A3C7003D8937 /* UIDevice+SpeedCategory.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

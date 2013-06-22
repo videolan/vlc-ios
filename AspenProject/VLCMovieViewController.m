@@ -10,9 +10,9 @@
 
 #import "VLCMovieViewController.h"
 #import "VLCExternalDisplayController.h"
-#import <sys/sysctl.h> // for sysctlbyname
 #import <AVFoundation/AVFoundation.h>
 #import <CommonCrypto/CommonDigest.h>
+#import "UIDevice+SpeedCategory.h"
 
 #define INPUT_RATE_DEFAULT  1000.
 
@@ -279,26 +279,16 @@
 
     NSUInteger totalNumberOfPixels = [[[self.mediaItem videoTrack] valueForKey:@"width"] doubleValue] * [[[self.mediaItem videoTrack] valueForKey:@"height"] doubleValue];
 
-    size_t size;
-    sysctlbyname("hw.machine", NULL, &size, NULL, 0);
+    NSInteger speedCategory = [[UIDevice currentDevice] speedCategory];
 
-    char *answer = malloc(size);
-    sysctlbyname("hw.machine", answer, &size, NULL, 0);
-
-    NSString *currentMachine = @(answer);
-    free(answer);
-
-    if ([currentMachine hasPrefix:@"iPhone2"] || [currentMachine hasPrefix:@"iPhone3"] || [currentMachine hasPrefix:@"iPad1"] || [currentMachine hasPrefix:@"iPod3"] || [currentMachine hasPrefix:@"iPod4"]) {
+    if (speedCategory == 1) {
         // iPhone 3GS, iPhone 4, first gen. iPad, 3rd and 4th generation iPod touch
-        APLog(@"this is a cat one device");
         return (totalNumberOfPixels < 600000); // between 480p and 720p
-    } else if ([currentMachine hasPrefix:@"iPhone4"] || [currentMachine hasPrefix:@"iPad3,1"] || [currentMachine hasPrefix:@"iPad3,2"] || [currentMachine hasPrefix:@"iPad3,3"] || [currentMachine hasPrefix:@"iPod4"] || [currentMachine hasPrefix:@"iPad2"] || [currentMachine hasPrefix:@"iPod5"]) {
+    } else if (speedCategory == 2) {
         // iPhone 4S, iPad 2 and 3, iPod 4 and 5
-        APLog(@"this is a cat two device");
         return (totalNumberOfPixels < 922000); // 720p
-    } else {
+    } else if (speedCategory == 3) {
         // iPhone 5, iPad 4
-        APLog(@"this is a cat three device");
         return (totalNumberOfPixels < 2074000); // 1080p
     }
 
