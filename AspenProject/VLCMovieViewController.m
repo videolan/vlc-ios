@@ -209,8 +209,7 @@
     NSUserDefaults *defaults = [NSUserDefaults standardUserDefaults];
     [media addOptions:
      @{kVLCSettingStretchAudio :
-           [[defaults objectForKey:kVLCSettingStretchAudio] boolValue] ? kVLCSettingStretchAudioOnValue : kVLCSettingStretchAudioOffValue,
-        kVLCSettingTextEncoding : [defaults objectForKey:kVLCSettingTextEncoding]}];
+           [[defaults objectForKey:kVLCSettingStretchAudio] boolValue] ? kVLCSettingStretchAudioOnValue : kVLCSettingStretchAudioOffValue, kVLCSettingTextEncoding : [defaults objectForKey:kVLCSettingTextEncoding], kVLCSettingSkipLoopFilter : [defaults objectForKey:kVLCSettingSkipLoopFilter]}];
 
     [NSTimeZone resetSystemTimeZone];
     NSString *tzName = [[NSTimeZone systemTimeZone] name];

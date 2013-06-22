@@ -13,6 +13,32 @@
 		<dict>
 			<key>Type</key>
 			<string>PSMultiValueSpecifier</string>
+			<key>Title</key>
+			<string>SETTINGS_SKIP_LOOP_FILTER</string>
+			<key>Key</key>
+			<string>avcodec-skiploopfilter</string>
+			<key>DefaultValue</key>
+			<string>3</string>
+			<key>Titles</key>
+			<array>
+				<string>None</string>
+				<string>Non-ref</string>
+				<string>Bidir</string>
+				<string>Non-key</string>
+				<string>All</string>
+			</array>
+			<key>Values</key>
+			<array>
+				<integer>0</integer>
+				<integer>1</integer>
+				<integer>2</integer>
+				<integer>3</integer>
+				<integer>4</integer>
+			</array>
+		</dict>
+		<dict>
+			<key>Type</key>
+			<string>PSMultiValueSpecifier</string>
 			<key>Titles</key>
 			<array>
 				<string>Universal (UTF-8)</string>
