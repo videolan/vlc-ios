@@ -2,7 +2,7 @@
 <archive type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="8.00">
 	<data>
 		<int key="IBDocument.SystemTarget">1296</int>
-		<string key="IBDocument.SystemVersion">12E55</string>
+		<string key="IBDocument.SystemVersion">12F9</string>
 		<string key="IBDocument.InterfaceBuilderVersion">3084</string>
 		<string key="IBDocument.AppKitVersion">1187.39</string>
 		<string key="IBDocument.HIToolboxVersion">626.00</string>
@@ -43,7 +43,7 @@
 							<object class="IBUIImageView" id="438742621">
 								<reference key="NSNextResponder" ref="887075663"/>
 								<int key="NSvFlags">293</int>
-								<string key="NSFrame">{{96, 20}, {128, 128}}</string>
+								<string key="NSFrame">{{96, 28}, {128, 128}}</string>
 								<reference key="NSSuperview" ref="887075663"/>
 								<reference key="NSWindow"/>
 								<reference key="NSNextKeyView" ref="145484960"/>
@@ -58,7 +58,7 @@
 							<object class="IBUILabel" id="145484960">
 								<reference key="NSNextResponder" ref="887075663"/>
 								<int key="NSvFlags">290</int>
-								<string key="NSFrame">{{20, 179}, {280, 21}}</string>
+								<string key="NSFrame">{{20, 187}, {280, 21}}</string>
 								<reference key="NSSuperview" ref="887075663"/>
 								<reference key="NSWindow"/>
 								<reference key="NSNextKeyView" ref="335509625"/>
@@ -90,7 +90,7 @@
 							<object class="IBUILabel" id="335509625">
 								<reference key="NSNextResponder" ref="887075663"/>
 								<int key="NSvFlags">290</int>
-								<string key="NSFrame">{{20, 206}, {280, 175}}</string>
+								<string key="NSFrame">{{20, 213}, {280, 175}}</string>
 								<reference key="NSSuperview" ref="887075663"/>
 								<reference key="NSWindow"/>
 								<string key="NSReuseIdentifierKey">_NS:9</string>
@@ -99,7 +99,7 @@
 								<int key="IBUIContentMode">4</int>
 								<bool key="IBUIUserInteractionEnabled">NO</bool>
 								<string key="targetRuntimeIdentifier">IBCocoaTouchFramework</string>
-								<string key="IBUIText">For playback, use iTunes to synchronize files, open a network stream or ask another application to open a file in VLC for iOS.</string>
+								<string key="IBUIText">For playback, use iTunes to synchronize files, check the VLC menu for available options or ask another application to open a file in VLC for iOS.</string>
 								<object class="NSColor" key="IBUITextColor">
 									<int key="NSColorSpace">3</int>
 									<bytes key="NSWhite">MC43MgA</bytes>
@@ -122,7 +122,7 @@
 								<double key="preferredMaxLayoutWidth">280</double>
 							</object>
 						</array>
-						<string key="NSFrame">{{0, 8}, {320, 360}}</string>
+						<string key="NSFrameSize">{320, 525}</string>
 						<reference key="NSSuperview" ref="36174295"/>
 						<reference key="NSWindow"/>
 						<reference key="NSNextKeyView" ref="438742621"/>
