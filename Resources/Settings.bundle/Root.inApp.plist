@@ -37,9 +37,9 @@
 			<string>3</string>
 			<key>Titles</key>
 			<array>
-				<string>None</string>
-				<string>Non-ref</string>
-				<string>Non-key</string>
+				<string>SETTINGS_SKIP_LOOP_FILTER_NONE</string>
+				<string>SETTINGS_SKIP_LOOP_FILTER_NONREF</string>
+				<string>SETTINGS_SKIP_LOOP_FILTER_NONKEY</string>
 			</array>
 			<key>Values</key>
 			<array>
