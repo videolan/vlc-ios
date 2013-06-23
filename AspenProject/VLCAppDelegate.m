@@ -43,7 +43,7 @@
     if (deviceSpeedCategory < 3)
         skipLoopFilterDefaultValue = kVLCSettingSkipLoopFilterNonKey;
     else
-        skipLoopFilterDefaultValue = kVLCSettingSkipLoopFilterBidir;
+        skipLoopFilterDefaultValue = kVLCSettingSkipLoopFilterNonRef;
 
     NSDictionary *appDefaults = @{kVLCSettingPasscodeKey : @"", kVLCSettingPasscodeOnKey : @(NO), kVLCSettingContinueAudioInBackgroundKey : @(YES), kVLCSettingStretchAudio : @(NO), kVLCSettingTextEncoding : kVLCSettingTextEncodingDefaultValue, kVLCSettingSkipLoopFilter : skipLoopFilterDefaultValue};
 

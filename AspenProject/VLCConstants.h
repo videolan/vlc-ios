@@ -21,9 +21,7 @@
 #define kVLCSettingSkipLoopFilter @"avcodec-skiploopfilter"
 #define kVLCSettingSkipLoopFilterNone @(0)
 #define kVLCSettingSkipLoopFilterNonRef @(1)
-#define kVLCSettingSkipLoopFilterBidir @(2)
 #define kVLCSettingSkipLoopFilterNonKey @(3)
-#define kVLCSettingSkipLoopFilterAll @(4)
 
 #define kVLCShowRemainingTime @"show-remaining-time"
 #define kVLCRecentURLs @"recent-urls"

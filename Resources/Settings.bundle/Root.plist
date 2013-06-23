@@ -23,17 +23,13 @@
 			<array>
 				<string>None</string>
 				<string>Non-ref</string>
-				<string>Bidir</string>
 				<string>Non-key</string>
-				<string>All</string>
 			</array>
 			<key>Values</key>
 			<array>
 				<integer>0</integer>
 				<integer>1</integer>
-				<integer>2</integer>
 				<integer>3</integer>
-				<integer>4</integer>
 			</array>
 		</dict>
 		<dict>
