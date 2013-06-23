@@ -111,6 +111,10 @@
 
     _displayRemainingTime = [[[NSUserDefaults standardUserDefaults] objectForKey:kVLCShowRemainingTime] boolValue];
 
+    UIPinchGestureRecognizer *pinchRecognizer = [[UIPinchGestureRecognizer alloc] initWithTarget:self action:@selector(handlePinchGesture:)];
+    pinchRecognizer.delegate = self;
+    [self.view addGestureRecognizer:pinchRecognizer];
+
 #if 0 // FIXME: trac #8742
     UISwipeGestureRecognizer *leftSwipeRecognizer = [[VLCHorizontalSwipeGestureRecognizer alloc] initWithTarget:self action:nil];
     leftSwipeRecognizer.direction = UISwipeGestureRecognizerDirectionLeft;
@@ -401,6 +405,12 @@
 }
 
 #pragma mark - controls visibility
+
+- (void)handlePinchGesture:(UIPinchGestureRecognizer *)recognizer
+{
+    if (recognizer.velocity < 0.)
+        [self closePlayback:nil];
+}
 
 - (BOOL)gestureRecognizer:(UIGestureRecognizer *)gestureRecognizer shouldReceiveTouch:(UITouch *)touch
 {
