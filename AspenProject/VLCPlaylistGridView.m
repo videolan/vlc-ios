@@ -122,8 +122,8 @@
     }
     CGFloat position = mediaObject.lastPosition.floatValue;
     self.progressView.progress = position;
-
     self.progressView.hidden = ((position < .1f) || (position > .95f)) ? YES : NO;
+    [self.progressView setNeedsDisplay];
     self.mediaIsUnreadView.hidden = !mediaObject.unread.intValue;
 
     [self setNeedsDisplay];
