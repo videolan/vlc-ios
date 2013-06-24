@@ -215,7 +215,7 @@
 
 - (NSString *)directoryPath
 {
-#define LOCAL_PLAYBACK_HACK 1
+#define LOCAL_PLAYBACK_HACK 0
 #if LOCAL_PLAYBACK_HACK && TARGET_IPHONE_SIMULATOR
     NSString *directoryPath = @"/Users/fkuehne/Desktop/VideoLAN docs/Clips/sel/";
 #else
