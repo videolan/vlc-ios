@@ -9,7 +9,7 @@ SDK=iphoneos6.1
 SDK_MIN=5.1
 VERBOSE=no
 CONFIGURATION="Release"
-TESTEDHASH=26580f9e7
+TESTEDHASH=ac636adef
 
 usage()
 {
