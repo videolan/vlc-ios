@@ -10,6 +10,8 @@ SDK_MIN=5.1
 VERBOSE=no
 CONFIGURATION="Release"
 TESTEDHASH=ac636adef
+TESTEDVLCKITHASH=790e7e31b
+TESTEDMEDIALIBRARYKITHASH=727303baf
 
 usage()
 {
@@ -117,7 +119,7 @@ if ! [ -e vlc ]; then
 git clone git://git.videolan.org/vlc.git
 info "Applying patches to vlc.git"
 cd vlc
-git checkout -B aspen ${TESTEDHASH}
+git checkout -B localAspenBranch ${TESTEDHASH}
 git am ../../patches/*.patch
 if [ $? -ne 0 ]; then
 git am --abort
@@ -128,18 +130,11 @@ cd ..
 fi
 if ! [ -e MediaLibraryKit ]; then
 git clone git://git.videolan.org/MediaLibraryKit.git
+git checkout -B localAspenBranch ${TESTEDMEDIALIBRARYKITHASH}
 fi
 if ! [ -e VLCKit ]; then
 git clone git://git.videolan.org/vlc-bindings/VLCKit.git
-#info "Applying patches to VLCKit.git"
-#cd VLCKit
-#git am ../../patches/vlckit/*.patch
-#if [ $? -ne 0 ]; then
-#git am --abort
-#info "Applying the patches failed, aborting git-am"
-#exit 1
-#fi
-#cd ..
+git checkout -B localAspenBranch ${TESTEDVLCKITHASH}
 fi
 if ! [ -e OBSlider ]; then
 git clone git://github.com/ole/OBSlider.git
