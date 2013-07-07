@@ -60,6 +60,7 @@
         dismissButton.width = 80.;
         self.navigationItem.titleView = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"menuCone"]];
         self.navigationItem.rightBarButtonItem = dismissButton;
+        [(UIScrollView *)self.view setContentSize:self.view.bounds.size];
     }
 
     [self.aboutButton setTitle:NSLocalizedString(@"ABOUT_APP", @"") forState:UIControlStateNormal];
