@@ -27,6 +27,7 @@
     UIProgressView *_progressView;
 
     UIActivityIndicatorView *_activityIndicator;
+    DBMetadata *_selectedFile;
 }
 
 @end
@@ -146,15 +147,16 @@
 
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
 {
-    DBMetadata *selectedFile = _dropboxController.currentListFiles[indexPath.row];
-    if (!selectedFile.isDirectory) {
+    _selectedFile = _dropboxController.currentListFiles[indexPath.row];
+    if (!_selectedFile.isDirectory) {
         /* selected item is a proper file, ask the user if s/he wants to download it */
-        UIAlertView * alert = [[UIAlertView alloc] initWithTitle:NSLocalizedString(@"DROPBOX_DOWNLOAD", @"") message:[NSString stringWithFormat:NSLocalizedString(@"DROPBOX_DL_LONG", @""), selectedFile.filename, [[UIDevice currentDevice] model]] delegate:self cancelButtonTitle:NSLocalizedString(@"BUTTON_CANCEL", @"") otherButtonTitles:NSLocalizedString(@"BUTTON_DOWNLOAD", @""), nil];
+        UIAlertView * alert = [[UIAlertView alloc] initWithTitle:NSLocalizedString(@"DROPBOX_DOWNLOAD", @"") message:[NSString stringWithFormat:NSLocalizedString(@"DROPBOX_DL_LONG", @""), _selectedFile.filename, [[UIDevice currentDevice] model]] delegate:self cancelButtonTitle:NSLocalizedString(@"BUTTON_CANCEL", @"") otherButtonTitles:NSLocalizedString(@"BUTTON_DOWNLOAD", @""), nil];
         [alert show];
     } else {
         /* dive into subdirectory */
-        _currentPath = [_currentPath stringByAppendingFormat:@"/%@", selectedFile.filename];
+        _currentPath = [_currentPath stringByAppendingFormat:@"/%@", _selectedFile.filename];
         [self _requestInformationForCurrentPath];
+        _selectedFile = nil;
     }
 
     [self.tableView deselectRowAtIndexPath:indexPath animated:NO];
@@ -162,10 +164,10 @@
 
 - (void)alertView:(UIAlertView *)alertView clickedButtonAtIndex:(NSInteger)buttonIndex
 {
-    if (buttonIndex == 1) {
-        DBMetadata *selectedFile = _dropboxController.currentListFiles[self.tableView.indexPathForSelectedRow.row];
-        [_dropboxController downloadFileToDocumentFolder:selectedFile];
-    }
+    if (buttonIndex == 1)
+        [_dropboxController downloadFileToDocumentFolder:_selectedFile];
+
+    _selectedFile = nil;
 }
 
 #pragma mark - dropbox controller delegate
