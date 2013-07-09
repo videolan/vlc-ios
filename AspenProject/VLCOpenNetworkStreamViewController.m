@@ -33,6 +33,7 @@
 {
     [super viewDidLoad];
     [self.openButton setTitle:NSLocalizedString(@"BUTTON_OPEN", @"") forState:UIControlStateNormal];
+    [self.privateModeLabel setText:NSLocalizedString(@"PRIVATE_PLAYBACK_TOGGLE", @"")];
 }
 
 - (void)viewWillAppear:(BOOL)animated
