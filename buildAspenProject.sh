@@ -116,7 +116,7 @@ mkdir -p External
 spushd ImportedSources
 
 if ! [ -e vlc ]; then
-git clone git://git.videolan.org/vlc/vlc-2.1.git
+git clone git://git.videolan.org/vlc/vlc-2.1.git vlc
 info "Applying patches to vlc.git"
 cd vlc
 git checkout -B localAspenBranch ${TESTEDHASH}
