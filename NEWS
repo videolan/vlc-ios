@@ -1,5 +1,13 @@
+2.0.2:
+------
+* New Danish translation
+
+2.0.1:
+------
+* Update of Russian and Spanish translations.
+* Minor crash fix (#8739) and interface fix for iPhone 4.
+* Add option for skipping loop filtering (#8814)
+
 2.0.0:
 ------
-
 First project release.
-
