@@ -1,11 +1,14 @@
+/* @override
+	http://localhost:8000/style.css */
+
 /* YUI CSS Reset */
 body,div,dl,dt,dd,ul,ol,li,h1,h2,h3,h4,h5,h6,pre,form,fieldset,input,textarea,p,blockquote,th,td,nav,header,footer{margin:0;padding:0;} table{border-collapse:collapse;border-spacing:0;} fieldset,img{border:0;} address,caption,cite,code,dfn,em,strong,th,var{font-style:normal;font-weight:normal;} ol,ul{list-style:none;} caption,th{text-align:left;} h1,h2,h3,h4,h5,h6{font-size:100%;font-weight:normal;} q:before,q:after{content:'';} abbr,acronym{border:0;}
 
-@font-face{
-  font-family:"Raleway";
-  font-style:normal;
-  font-weight:100;
-  src:local("Raleway Thin"),local("Raleway-Thin"),url("//themes.googleusercontent.com/font?kit=RJMlAoFXXQEzZoMSUteGWKCWcynf_cDxXwCLxiixG1c") format("truetype");
+@font-face {
+  font-family: 'Raleway';
+  font-style: normal;
+  font-weight: 400;
+  src: local('Raleway'), url(http://themes.googleusercontent.com/static/fonts/raleway/v6/cIFypx4yrWPDz3zOxk7hIQLUuEpTyoUstqEm5AMlJo4.woff) format('woff');
 }
 
 * {
@@ -53,9 +56,16 @@ div.main.drop {
 .nav {
   height: 88px;
   padding: 14px;
-  background-image: url(title@2x.png);
   background-repeat: no-repeat;
   background-position: center;
+}
+
+.nav:before {
+  content: "VLC";
+  font-family: "Raleway", "Helvetica Neue";
+  font-size: 46px;
+  line-height: 60px;
+  text-shadow: 0px -2px 1px rgba(0,0,0,0.3);
 }
 
 .btn {
@@ -83,6 +93,7 @@ div.main.drop {
   text-shadow: 2px 2px 0px #783704;
   padding: 0 12px;  
   height: 58px;
+  min-width: 140px;
   cursor: pointer;  
 }
 .btn:active{
