@@ -130,11 +130,15 @@ cd ..
 fi
 if ! [ -e MediaLibraryKit ]; then
 git clone git://git.videolan.org/MediaLibraryKit.git
+cd MediaLibraryKit
 git checkout -B localAspenBranch ${TESTEDMEDIALIBRARYKITHASH}
+cd ..
 fi
 if ! [ -e VLCKit ]; then
 git clone git://git.videolan.org/vlc-bindings/VLCKit.git
+cd VLCKit
 git checkout -B localAspenBranch ${TESTEDVLCKITHASH}
+cd ..
 fi
 if ! [ -e OBSlider ]; then
 git clone git://github.com/ole/OBSlider.git
