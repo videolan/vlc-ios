@@ -155,6 +155,16 @@
 				<string>db-a60fc6qj9zdg7bw</string>
 			</array>
 		</dict>
+		<dict>
+			<key>CFBundleTypeRole</key>
+			<string>Viewer</string>
+			<key>CFBundleURLName</key>
+			<string>VLC</string>
+			<key>CFBundleURLSchemes</key>
+			<array>
+				<string>vlc</string>
+			</array>
+		</dict>
 	</array>
 	<key>CFBundleVersion</key>
 	<string>2.0.2</string>

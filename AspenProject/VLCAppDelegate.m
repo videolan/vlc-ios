@@ -83,11 +83,40 @@
             UIAlertView * alert = [[UIAlertView alloc] initWithTitle:NSLocalizedString(@"SAVE_FILE", @"") message:[NSString stringWithFormat:NSLocalizedString(@"SAVE_FILE_LONG", @""), url.lastPathComponent] delegate:self cancelButtonTitle:NSLocalizedString(@"BUTTON_CANCEL", @"") otherButtonTitles:NSLocalizedString(@"BUTTON_SAVE", @""), nil];
             _tempURL = url;
             [alert show];
-        } else
-            [_playlistViewController openMovieFromURL:url];
+        } else {
+            NSURL *parsedUrl = [self parseOpenURL:url];
+            [_playlistViewController openMovieFromURL:parsedUrl];
+        }
         return YES;
     }
     return NO;
+}
+
+- (NSURL *)parseOpenURL:(NSURL *)url
+{
+    NSString *receivedUrl = [url absoluteString];
+    if ([receivedUrl length] > 6) {
+        NSString *verifyVlcUrl = [receivedUrl substringToIndex:6];
+        if ([verifyVlcUrl isEqualToString:@"vlc://"]) {
+            NSString *parsedString = [receivedUrl substringFromIndex:6];
+
+            // "url decode" so we can parse http:// links
+            parsedString = [parsedString stringByReplacingOccurrencesOfString:@"+"withString:@" "];
+            parsedString = [parsedString stringByReplacingPercentEscapesUsingEncoding:NSUTF8StringEncoding];
+
+            // add http:// if nothing is there
+            NSDataDetector *detector = [NSDataDetector dataDetectorWithTypes:(NSTextCheckingTypes)NSTextCheckingTypeLink error:nil];
+            NSUInteger parsedStringLength = [parsedString length];
+            NSUInteger numberOfUrlMatches = [detector numberOfMatchesInString:parsedString options:0 range:NSMakeRange(0, parsedStringLength)];
+            if (numberOfUrlMatches == 0) {
+                parsedString = [@"http://" stringByAppendingString:parsedString];
+            }
+
+            NSURL *targetUrl = [NSURL URLWithString:parsedString];
+            return targetUrl;
+        }
+    }
+    return url;
 }
 
 - (void)alertView:(UIAlertView *)alertView clickedButtonAtIndex:(NSInteger)buttonIndex
