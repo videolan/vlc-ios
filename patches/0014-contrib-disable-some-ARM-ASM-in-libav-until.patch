@@ -1,0 +1,29 @@
+From 21f48a547078381a52f9254985441f10a69e957d Mon Sep 17 00:00:00 2001
+From: Gleb Pinigin <gpinigin@gmail.com>
+Date: Mon, 13 May 2013 21:09:24 +0700
+Subject: [PATCH 14/14] contrib: disable some ARM ASM in libav until
+
+---
+ contrib/src/ffmpeg/rules.mak | 6 ++++++
+ 1 file changed, 6 insertions(+)
+
+diff --git a/contrib/src/ffmpeg/rules.mak b/contrib/src/ffmpeg/rules.mak
+index 36b491c..2cabd40 100644
+--- a/contrib/src/ffmpeg/rules.mak
++++ b/contrib/src/ffmpeg/rules.mak
+@@ -56,6 +56,12 @@ ifeq ($(ARCH),arm)
+ FFMPEGCONF += --arch=arm
+ ifdef HAVE_NEON
+ FFMPEGCONF += --enable-neon
++ifdef HAVE_IOS
++FFMPEGCONF += --disable-armv5te
++FFMPEGCONF += --disable-armv6
++FFMPEGCONF += --disable-armv6t2
++FFMPEGCONF += --extra-cflags='-mfpu=neon -mfloat-abi=softfp -mvectorize-with-neon-quad'
++endif
+ endif
+ ifdef HAVE_ARMV7A
+ FFMPEGCONF += --cpu=cortex-a8
+-- 
+1.7.12.4 (Apple Git-37)
+
