@@ -206,6 +206,30 @@
     }
 }
 
+#pragma mark - shake to support
+
+- (BOOL)canBecomeFirstResponder {
+    return YES;
+}
+
+- (void)motionEnded:(UIEventSubtype)motion withEvent:(UIEvent *)event {
+    if (motion == UIEventSubtypeMotionShake) {
+        UIAlertView *alert = [[UIAlertView alloc]
+                              initWithTitle:NSLocalizedString(@"BUG_REPORT_TITLE", @"")
+                              message:NSLocalizedString(@"BUG_REPORT_MESSAGE", @"") delegate:self
+                              cancelButtonTitle:NSLocalizedString(@"BUTTON_CANCEL", @"")
+                              otherButtonTitles:NSLocalizedString(@"BUG_REPORT_BUTTON", @""), nil];;
+        [alert show];
+    }
+}
+
+- (void)alertView:(UIAlertView *)alertView clickedButtonAtIndex:(NSInteger)buttonIndex
+{
+    if (buttonIndex == 1) {
+        NSURL *url = [NSURL URLWithString:@"https://trac.videolan.org/vlc/newticket"];
+        [[UIApplication sharedApplication] openURL:url];
+    }
+}
 - (void)_dismissModalViewController
 {
     [self dismissModalViewControllerAnimated:YES];
