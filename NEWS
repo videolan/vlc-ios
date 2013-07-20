@@ -1,8 +1,10 @@
 2.0.2:
 ------
+* Fix MP2 and MP3 decoding (#8986)
 * Add vlc:// protocol handler (#8988)
   - vlc://anyprotocol:// allows you to force any URL to open in VLC
   - vlc://server/path will assume http://
+* Fix CSS rendering issue in the WiFi Uploader's web interface
 * New Danish translation
 
 2.0.1:
