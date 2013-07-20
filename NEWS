@@ -1,5 +1,8 @@
 2.0.2:
 ------
+* Add vlc:// protocol handler (#8988)
+  - vlc://anyprotocol:// allows you to force any URL to open in VLC
+  - vlc://server/path will assume http://
 * New Danish translation
 
 2.0.1:
