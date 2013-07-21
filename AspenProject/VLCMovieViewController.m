@@ -14,6 +14,7 @@
 #import <CommonCrypto/CommonDigest.h>
 #import "UIDevice+SpeedCategory.h"
 #import "VLCBugreporter.h"
+#import <MediaPlayer/MediaPlayer.h>
 
 #define INPUT_RATE_DEFAULT  1000.
 
@@ -327,6 +328,8 @@
 
     self.playbackSpeedSlider.value = [self _playbackSpeed];
     [self _updatePlaybackSpeedIndicator];
+
+    [self performSelectorInBackground:@selector(_updateExportedPlaybackInformation) withObject:nil];
 
     _currentAspectRatioMask = 0;
     _mediaPlayer.videoAspectRatio =  NULL;
@@ -784,6 +787,9 @@
     float f_value = self.playbackSpeedSlider.value;
     double speed =  pow(2, f_value / 17.);
     self.playbackSpeedIndicator.text = [NSString stringWithFormat:@"%.2fx", speed];
+
+    /* rate changed, so update the exported info */
+    [self performSelectorInBackground:@selector(_updateExportedPlaybackInformation) withObject:nil];
 }
 
 - (float)_playbackSpeed
@@ -878,6 +884,24 @@
         [_mediaPlayer play];
     } else
         _mediaPlayer.currentVideoTrackIndex = 1;
+}
+
+- (void)_updateExportedPlaybackInformation
+{
+    if (!_mediaItem) {
+        [MPNowPlayingInfoCenter defaultCenter].nowPlayingInfo = nil;
+        return;
+    }
+    MLFile * currentFile = _mediaItem;
+
+    /* we omit artwork for now since we had to read it from storage as we can't access
+     * the artwork cache at the moment - FIXME? */
+    NSDictionary *currentlyPlayingTrackInfo = @{ MPMediaItemPropertyTitle : currentFile.title,
+                                                 MPMediaItemPropertyPlaybackDuration : @(currentFile.duration.intValue / 1000.),
+                                                 MPNowPlayingInfoPropertyElapsedPlaybackTime : @(_mediaPlayer.time.intValue / 1000.),
+                                                 MPNowPlayingInfoPropertyPlaybackRate : @(_mediaPlayer.rate) };
+
+    [MPNowPlayingInfoCenter defaultCenter].nowPlayingInfo = currentlyPlayingTrackInfo;
 }
 
 #pragma mark - autorotation
