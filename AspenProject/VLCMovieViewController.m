@@ -39,6 +39,7 @@
     BOOL _viewAppeared;
     BOOL _displayRemainingTime;
     BOOL _positionSet;
+    BOOL _playerIsSetup;
 }
 
 @property (nonatomic, strong) UIPopoverController *masterPopoverController;
@@ -63,11 +64,25 @@
 
 - (void)setMediaItem:(id)newMediaItem
 {
-    if (_mediaItem != newMediaItem)
+    if (_mediaItem != newMediaItem) {
+        [self _stopPlayback];
         _mediaItem = newMediaItem;
+        if (_viewAppeared)
+            [self _startPlayback];
+    }
 
     if (self.masterPopoverController != nil)
         [self.masterPopoverController dismissPopoverAnimated:YES];
+}
+
+- (void)setUrl:(NSURL *)url
+{
+    if (_url != url) {
+        [self _stopPlayback];
+        _url = url;
+        if (_viewAppeared)
+            [self _startPlayback];
+    }
 }
 
 - (void)viewDidLoad
@@ -164,6 +179,8 @@
 
     if (UI_USER_INTERFACE_IDIOM() == UIUserInterfaceIdiomPad)
         self.positionSlider.scrubbingSpeedChangePositions = @[@(0.), @(100.), @(200.), @(300)];
+
+    _playerIsSetup = NO;
 }
 
 - (BOOL)_blobCheck
@@ -191,16 +208,32 @@
 
 - (void)viewWillAppear:(BOOL)animated
 {
+    [super viewWillAppear:animated];
+
+    [self.navigationController setNavigationBarHidden:YES animated:YES];
+
+    if (UI_USER_INTERFACE_IDIOM() == UIUserInterfaceIdiomPhone)
+        [UIApplication sharedApplication].statusBarStyle = UIStatusBarStyleBlackTranslucent;
+
+    [self _startPlayback];
+
+    [self setControlsHidden:NO animated:YES];
+    _viewAppeared = YES;
+}
+
+- (void)_startPlayback
+{
+    if (_playerIsSetup)
+        return;
+
     _mediaPlayer = [[VLCMediaPlayer alloc] init];
     [_mediaPlayer setDelegate:self];
     [_mediaPlayer setDrawable:self.movieView];
 
-    [self.navigationController setNavigationBarHidden:YES animated:YES];
-    if (UI_USER_INTERFACE_IDIOM() == UIUserInterfaceIdiomPhone)
-        [UIApplication sharedApplication].statusBarStyle = UIStatusBarStyleBlackTranslucent;
-
-    if (!self.mediaItem && !self.url)
+    if (!self.mediaItem && !self.url) {
+        [self _stopPlayback];
         return;
+    }
 
     VLCMedia *media;
     if (self.mediaItem) {
@@ -215,7 +248,7 @@
     NSUserDefaults *defaults = [NSUserDefaults standardUserDefaults];
     [media addOptions:
      @{kVLCSettingStretchAudio :
-           [[defaults objectForKey:kVLCSettingStretchAudio] boolValue] ? kVLCSettingStretchAudioOnValue : kVLCSettingStretchAudioOffValue, kVLCSettingTextEncoding : [defaults objectForKey:kVLCSettingTextEncoding], kVLCSettingSkipLoopFilter : [defaults objectForKey:kVLCSettingSkipLoopFilter]}];
+     [[defaults objectForKey:kVLCSettingStretchAudio] boolValue] ? kVLCSettingStretchAudioOnValue : kVLCSettingStretchAudioOffValue, kVLCSettingTextEncoding : [defaults objectForKey:kVLCSettingTextEncoding], kVLCSettingSkipLoopFilter : [defaults objectForKey:kVLCSettingSkipLoopFilter]}];
 
     [NSTimeZone resetSystemTimeZone];
     NSString *tzName = [[NSTimeZone systemTimeZone] name];
@@ -263,8 +296,6 @@
     self.positionSlider.value = 0.;
     [self.timeDisplay setTitle:@"" forState:UIControlStateNormal];
 
-    [super viewWillAppear:animated];
-
     if (![self _isMediaSuitableForDevice]) {
         UIAlertView * alert = [[UIAlertView alloc] initWithTitle:NSLocalizedString(@"DEVICE_TOOSLOW_TITLE", @"") message:[NSString stringWithFormat:NSLocalizedString(@"DEVICE_TOOSLOW", @""), [[UIDevice currentDevice] model], self.mediaItem.title] delegate:self cancelButtonTitle:NSLocalizedString(@"BUTTON_CANCEL", @"") otherButtonTitles:NSLocalizedString(@"BUTTON_OPEN", @""), nil];
         [alert show];
@@ -273,9 +304,6 @@
 
     if (![self hasExternalDisplay])
         self.brightnessSlider.value = [UIScreen mainScreen].brightness * 2.;
-
-    [self setControlsHidden:NO animated:YES];
-    _viewAppeared = YES;
 }
 
 - (BOOL)_isMediaSuitableForDevice
@@ -305,8 +333,10 @@
 {
     if (buttonIndex == 1)
         [self _playNewMedia];
-    else
+    else {
+        [self _stopPlayback];
         [self closePlayback:nil];
+    }
 }
 
 - (void)_playNewMedia
@@ -321,10 +351,12 @@
 
     [_mediaPlayer play];
 
-    if (self.mediaItem.lastAudioTrack.intValue > 0)
-        _mediaPlayer.currentAudioTrackIndex = self.mediaItem.lastAudioTrack.intValue;
-    if (self.mediaItem.lastSubtitleTrack.intValue > 0)
-        _mediaPlayer.currentVideoSubTitleIndex = self.mediaItem.lastSubtitleTrack.intValue;
+    if (self.mediaItem) {
+        if (self.mediaItem.lastAudioTrack.intValue > 0)
+            _mediaPlayer.currentAudioTrackIndex = self.mediaItem.lastAudioTrack.intValue;
+        if (self.mediaItem.lastSubtitleTrack.intValue > 0)
+            _mediaPlayer.currentVideoSubTitleIndex = self.mediaItem.lastSubtitleTrack.intValue;
+    }
 
     self.playbackSpeedSlider.value = [self _playbackSpeed];
     [self _updatePlaybackSpeedIndicator];
@@ -335,10 +367,12 @@
     _mediaPlayer.videoAspectRatio =  NULL;
 
     [self _resetIdleTimer];
+    _playerIsSetup = YES;
 }
 
 - (void)viewWillDisappear:(BOOL)animated
 {
+    [self _stopPlayback];
     _viewAppeared = NO;
     if (_idleTimer) {
         [_idleTimer invalidate];
@@ -347,11 +381,7 @@
     [self.navigationController setNavigationBarHidden:NO animated:YES];
     [UIApplication sharedApplication].statusBarStyle = UIStatusBarStyleBlackOpaque;
     [[UIApplication sharedApplication] setStatusBarHidden:NO withAnimation:UIStatusBarAnimationFade];
-    [_mediaPlayer pause];
     [super viewWillDisappear:animated];
-    [self _saveCurrentState];
-    [_mediaPlayer stop];
-    _mediaPlayer = nil; // save memory and some CPU time
 
     // hide filter UI for next run
     if (!_videoFiltersHidden)
@@ -359,6 +389,20 @@
 
     if (!_playbackSpeedViewHidden)
         _playbackSpeedViewHidden = YES;
+}
+
+- (void)_stopPlayback
+{
+    if (_mediaPlayer) {
+        [_mediaPlayer pause];
+        [self _saveCurrentState];
+        [_mediaPlayer stop];
+        _mediaPlayer = nil; // save memory and some CPU time
+    }
+    if (_mediaItem)
+        _mediaItem = nil;
+
+    _playerIsSetup = NO;
 }
 
 - (void)_saveCurrentState

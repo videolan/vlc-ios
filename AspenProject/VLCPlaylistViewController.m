@@ -358,9 +358,10 @@
     if (!self.movieViewController)
         self.movieViewController = [[VLCMovieViewController alloc] initWithNibName:nil bundle:nil];
 
-    self.movieViewController.url = url;
-    [self.navigationController pushViewController:self.movieViewController animated:YES];
-}
+    if (self.navigationController.topViewController != self.movieViewController)
+        [self.navigationController pushViewController:self.movieViewController animated:YES];
 
+    self.movieViewController.url = url;
+}
 
 @end
