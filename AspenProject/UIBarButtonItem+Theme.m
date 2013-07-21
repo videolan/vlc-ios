@@ -40,8 +40,7 @@
     [backButton setBackgroundImage:[UIImage imageNamed:@"backButtonHighlight"]
                           forState:UIControlStateHighlighted
                         barMetrics:UIBarMetricsDefault];
-    [backButton setTitleTextAttributes:@{UITextAttributeTextShadowColor : [UIColor whiteColor], UITextAttributeTextColor : [UIColor blackColor]}
-                              forState:UIControlStateNormal];
+    [backButton setTitleTextAttributes:@{UITextAttributeTextShadowColor : [UIColor colorWithWhite:0. alpha:.37], UITextAttributeTextColor : [UIColor whiteColor]} forState:UIControlStateNormal];
     return backButton;
 }
 
