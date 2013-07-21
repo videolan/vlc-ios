@@ -15,7 +15,8 @@
 * Fix crash when opening network streams from within third party apps while
   playing content local to VLC (#9013)
 * Fix dialog rotation on iOS 5 (#8992)
-* New Danish translation
+* New translations to Chinese, Danish, Dutch, Hebrew, Slovak, Turkish,
+  Ukrainian, Vietnamese
 
 2.0.1:
 ------
