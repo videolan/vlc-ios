@@ -1016,6 +1016,10 @@
 		7D5F7AB717526573006CCCFA /* Accessory dialogs */ = {
 			isa = PBXGroup;
 			children = (
+				7D07A4E6174EA47800759D10 /* VLCSettingsController.h */,
+				7D07A4E7174EA47800759D10 /* VLCSettingsController.m */,
+				7DD2A3A5179BFAFE003EB537 /* VLCBugreporter.h */,
+				7DD2A3A6179BFAFE003EB537 /* VLCBugreporter.m */,
 				7DBC3B411711FC6C00DCF688 /* VLCAboutViewController.h */,
 				7DBC3B421711FC6C00DCF688 /* VLCAboutViewController.m */,
 			);
@@ -1212,10 +1216,6 @@
 				7D6B08BB174A72A900A05173 /* VLCConstants.h */,
 				7D94FCED16DE7D1000F2623B /* VLCAppDelegate.h */,
 				7D94FCEE16DE7D1000F2623B /* VLCAppDelegate.m */,
-				7D07A4E6174EA47800759D10 /* VLCSettingsController.h */,
-				7D07A4E7174EA47800759D10 /* VLCSettingsController.m */,
-				7DD2A3A5179BFAFE003EB537 /* VLCBugreporter.h */,
-				7DD2A3A6179BFAFE003EB537 /* VLCBugreporter.m */,
 				7D2339AB176DE70E008D223C /* Menu */,
 				7D5F7ABA175265CB006CCCFA /* HTTP Connectivity */,
 				7D5F7AB9175265B2006CCCFA /* Playback */,
