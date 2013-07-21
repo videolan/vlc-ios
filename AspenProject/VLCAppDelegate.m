@@ -14,6 +14,7 @@
 #import "UIDevice+SpeedCategory.h"
 
 #import "VLCPlaylistViewController.h"
+#import "VLCMenuViewController.h"
 #import "VLCMovieViewController.h"
 #import "PAPasscodeViewController.h"
 #import "UINavigationController+Theme.h"

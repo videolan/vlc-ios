@@ -13,6 +13,7 @@
 #import <AVFoundation/AVFoundation.h>
 #import <CommonCrypto/CommonDigest.h>
 #import "UIDevice+SpeedCategory.h"
+#import "VLCBugreporter.h"
 
 #define INPUT_RATE_DEFAULT  1000.
 
@@ -382,6 +383,13 @@
 - (BOOL)canBecomeFirstResponder
 {
     return YES;
+}
+
+
+- (void)motionEnded:(UIEventSubtype)motion withEvent:(UIEvent *)event
+{
+    if (motion == UIEventSubtypeMotionShake)
+        [[VLCBugreporter sharedInstance] handleBugreportRequest];
 }
 
 - (void)remoteControlReceivedWithEvent:(UIEvent *)event

@@ -15,6 +15,7 @@
 #import "VLCMenuViewController.h"
 #import "UINavigationController+Theme.h"
 #import "NSString+SupportedMedia.h"
+#import "VLCBugreporter.h"
 
 @implementation EmptyLibraryView
 @end
@@ -109,6 +110,17 @@
 {
     [super viewDidDisappear:animated];
     [[MLMediaLibrary sharedMediaLibrary] libraryDidDisappear];
+}
+
+- (BOOL)canBecomeFirstResponder
+{
+    return YES;
+}
+
+- (void)motionEnded:(UIEventSubtype)motion withEvent:(UIEvent *)event
+{
+    if (motion == UIEventSubtypeMotionShake)
+        [[VLCBugreporter sharedInstance] handleBugreportRequest];
 }
 
 - (void)removeMediaObject:(MLFile *)mediaObject
