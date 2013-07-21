@@ -320,6 +320,11 @@
 
     [_mediaPlayer play];
 
+    if (self.mediaItem.lastAudioTrack.intValue > 0)
+        _mediaPlayer.currentAudioTrackIndex = self.mediaItem.lastAudioTrack.intValue;
+    if (self.mediaItem.lastSubtitleTrack.intValue > 0)
+        _mediaPlayer.currentVideoSubTitleIndex = self.mediaItem.lastSubtitleTrack.intValue;
+
     self.playbackSpeedSlider.value = [self _playbackSpeed];
     [self _updatePlaybackSpeedIndicator];
 
@@ -341,8 +346,7 @@
     [[UIApplication sharedApplication] setStatusBarHidden:NO withAnimation:UIStatusBarAnimationFade];
     [_mediaPlayer pause];
     [super viewWillDisappear:animated];
-    if (self.mediaItem)
-        self.mediaItem.lastPosition = @([_mediaPlayer position]);
+    [self _saveCurrentState];
     [_mediaPlayer stop];
     _mediaPlayer = nil; // save memory and some CPU time
 
@@ -360,6 +364,15 @@
     if (self)
         self.title = @"Video Playback";
     return self;
+}
+
+- (void)_saveCurrentState
+{
+    if (self.mediaItem) {
+        self.mediaItem.lastPosition = @([_mediaPlayer position]);
+        self.mediaItem.lastAudioTrack = @(_mediaPlayer.currentAudioTrackIndex);
+        self.mediaItem.lastSubtitleTrack = @(_mediaPlayer.currentVideoSubTitleIndex);
+    }
 }
 
 #pragma mark - remote events
@@ -852,8 +865,7 @@
 
 - (void)applicationWillResignActive:(NSNotification *)aNotification
 {
-    if (self.mediaItem)
-        self.mediaItem.lastPosition = @([_mediaPlayer position]);
+    [self _saveCurrentState];
 
     if (![[[NSUserDefaults standardUserDefaults] objectForKey:kVLCSettingContinueAudioInBackgroundKey] boolValue]) {
         [_mediaPlayer pause];
