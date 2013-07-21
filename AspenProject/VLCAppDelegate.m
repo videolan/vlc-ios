@@ -20,7 +20,6 @@
 #import "UINavigationController+Theme.h"
 
 @interface VLCAppDelegate () <PAPasscodeViewControllerDelegate, DirectoryWatcherDelegate> {
-    NSURL *_tempURL;
     PAPasscodeViewController *_passcodeLockController;
     VLCDropboxTableViewController *_dropboxTableViewController;
 
@@ -81,9 +80,15 @@
         APLog(@"%@ requested %@ to be opened", sourceApplication, url);
 
         if (url.isFileURL) {
-            UIAlertView * alert = [[UIAlertView alloc] initWithTitle:NSLocalizedString(@"SAVE_FILE", @"") message:[NSString stringWithFormat:NSLocalizedString(@"SAVE_FILE_LONG", @""), url.lastPathComponent] delegate:self cancelButtonTitle:NSLocalizedString(@"BUTTON_CANCEL", @"") otherButtonTitles:NSLocalizedString(@"BUTTON_SAVE", @""), nil];
-            _tempURL = url;
-            [alert show];
+            NSArray *searchPaths = NSSearchPathForDirectoriesInDomains(NSDocumentDirectory, NSUserDomainMask, YES);
+            NSString *directoryPath = searchPaths[0];
+            NSURL *destinationURL = [NSURL fileURLWithPath:[NSString stringWithFormat:@"%@/%@", directoryPath, url.lastPathComponent]];
+            NSError *theError;
+            [[NSFileManager defaultManager] moveItemAtURL:url toURL:destinationURL error:&theError];
+            if (theError.code != noErr)
+                APLog(@"saving the file failed (%i): %@", theError.code, theError.localizedDescription);
+
+            [self updateMediaList];
         } else {
             NSURL *parsedUrl = [self parseOpenURL:url];
             [_playlistViewController openMovieFromURL:parsedUrl];
@@ -118,22 +123,6 @@
         }
     }
     return url;
-}
-
-- (void)alertView:(UIAlertView *)alertView clickedButtonAtIndex:(NSInteger)buttonIndex
-{
-    if (buttonIndex == 1) {
-        NSArray *searchPaths = NSSearchPathForDirectoriesInDomains(NSDocumentDirectory, NSUserDomainMask, YES);
-        NSString *directoryPath = searchPaths[0];
-        NSURL *destinationURL = [NSURL fileURLWithPath:[NSString stringWithFormat:@"%@/%@", directoryPath, _tempURL.lastPathComponent]];
-        NSError *theError;
-        [[NSFileManager defaultManager] copyItemAtURL:_tempURL toURL:destinationURL error:&theError];
-        if (theError.code != noErr)
-            APLog(@"saving the file failed (%i): %@", theError.code, theError.localizedDescription);
-
-        [self updateMediaList];
-    } else
-        [_playlistViewController openMovieFromURL:_tempURL];
 }
 
 - (void)applicationWillResignActive:(UIApplication *)application
