@@ -5,11 +5,16 @@
   - vlc://anyprotocol:// allows you to force any URL to open in VLC
   - vlc://server/path will assume http://
 * Fix Dropbox hierarchy navigation (#8993)
+* Fix major leak of data when opening files in VLC from other apps (#9011)
 * Retain last audio and subtitles tracks when for played media (#8987)
 * Fix CSS rendering issue in the WiFi Uploader's web interface
 * Switch Default Subtitles Font from SourceSans-Pro to Open Sans
   to support Greek, Cyrillic and Vietnamese (#8991)
 * Shake device to create a bug report (#7788)
+* Export meta data about current playback item to multitasking view (#8883)
+* Fix crash when opening network streams from within third party apps while
+  playing content local to VLC (#9013)
+* Fix dialog rotation on iOS 5 (#8992)
 * New Danish translation
 
 2.0.1:
