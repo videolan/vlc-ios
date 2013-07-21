@@ -19,7 +19,7 @@
 
     self.navigationItem.titleView = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"title"]];
 
-    UIBarButtonItem *contributeButton = [[UIBarButtonItem alloc] initWithTitle:@"Contribute" style:UIBarButtonItemStyleBordered target:self action:@selector(openContributePage:)];
+    UIBarButtonItem *contributeButton = [[UIBarButtonItem alloc] initWithTitle:NSLocalizedString(@"BUTTON_CONTRIBUTE",@"") style:UIBarButtonItemStyleBordered target:self action:@selector(openContributePage:)];
     [contributeButton setBackgroundImage:[UIImage imageNamed:@"button"] forState:UIControlStateNormal barMetrics:UIBarMetricsDefault];
     [contributeButton setBackgroundImage:[UIImage imageNamed:@"buttonHighlight"] forState:UIControlStateHighlighted barMetrics:UIBarMetricsDefault];
 
