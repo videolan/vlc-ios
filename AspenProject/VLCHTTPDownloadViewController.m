@@ -27,6 +27,7 @@
     _currentDownloads = [[NSMutableArray alloc] init];
     if (UI_USER_INTERFACE_IDIOM() == UIUserInterfaceIdiomPhone)
         self.navigationItem.leftBarButtonItem = [UIBarButtonItem themedBackButtonWithTarget:self andSelector:@selector(goBack:)];
+    self.title = NSLocalizedString(@"DOWNLOAD_FROM_HTTP", @"");
     [super viewDidLoad];
 }
 
