@@ -75,6 +75,13 @@
 }
 
 #pragma mark - UI interaction
+- (BOOL)shouldAutorotateToInterfaceOrientation:(UIInterfaceOrientation)toInterfaceOrientation
+{
+    if (UI_USER_INTERFACE_IDIOM() == UIUserInterfaceIdiomPhone && toInterfaceOrientation == UIInterfaceOrientationPortraitUpsideDown)
+        return NO;
+    return YES;
+}
+
 - (IBAction)goBack:(id)sender
 {
     [self.navigationController popViewControllerAnimated:YES];

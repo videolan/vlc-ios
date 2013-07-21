@@ -116,6 +116,15 @@
         _backButton.enabled = ![_currentPath isEqualToString:@"/"];
 }
 
+#pragma mark - interface interaction
+
+- (BOOL)shouldAutorotateToInterfaceOrientation:(UIInterfaceOrientation)toInterfaceOrientation
+{
+    if (UI_USER_INTERFACE_IDIOM() == UIUserInterfaceIdiomPhone && toInterfaceOrientation == UIInterfaceOrientationPortraitUpsideDown)
+        return NO;
+    return YES;
+}
+
 - (IBAction)goBack:(id)sender
 {
     if (![_currentPath isEqualToString:@"/"]) {
