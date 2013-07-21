@@ -45,7 +45,10 @@
 
 - (void)settingsViewControllerDidEnd:(IASKAppSettingsViewController*)sender
 {
-    [self.viewController.navigationController dismissModalViewControllerAnimated:YES];
+    if (UI_USER_INTERFACE_IDIOM() == UIUserInterfaceIdiomPhone)
+        [self.viewController.navigationController popViewControllerAnimated:YES];
+    else
+        [self.viewController.navigationController dismissModalViewControllerAnimated:YES];
 }
 
 - (void)settingsViewController:(IASKAppSettingsViewController*)sender buttonTappedForSpecifier:(IASKSpecifier*)specifier {

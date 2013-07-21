@@ -10,6 +10,7 @@
 
 #import "VLCHTTPDownloadViewController.h"
 #import "VLCHTTPFileDownloader.h"
+#import "UIBarButtonItem+Theme.h"
 
 @interface VLCHTTPDownloadViewController ()
 {
@@ -24,6 +25,8 @@
 {
     [self.downloadButton setTitle:NSLocalizedString(@"BUTTON_DOWNLOAD",@"") forState:UIControlStateNormal];
     _currentDownloads = [[NSMutableArray alloc] init];
+    if (UI_USER_INTERFACE_IDIOM() == UIUserInterfaceIdiomPhone)
+        self.navigationItem.leftBarButtonItem = [UIBarButtonItem themedBackButtonWithTarget:self andSelector:@selector(goBack:)];
     [super viewDidLoad];
 }
 
@@ -44,6 +47,11 @@
 }
 
 #pragma mark - UI interaction
+- (IBAction)goBack:(id)sender
+{
+    [self.navigationController popViewControllerAnimated:YES];
+}
+
 - (IBAction)downloadAction:(id)sender
 {
     if ([self.urlField.text length] > 0) {

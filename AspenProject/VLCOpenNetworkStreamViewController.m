@@ -11,6 +11,7 @@
 #import "VLCOpenNetworkStreamViewController.h"
 #import "VLCAppDelegate.h"
 #import "VLCPlaylistViewController.h"
+#import "UIBarButtonItem+Theme.h"
 
 @interface VLCOpenNetworkStreamViewController ()
 {
@@ -34,6 +35,9 @@
     [super viewDidLoad];
     [self.openButton setTitle:NSLocalizedString(@"BUTTON_OPEN", @"") forState:UIControlStateNormal];
     [self.privateModeLabel setText:NSLocalizedString(@"PRIVATE_PLAYBACK_TOGGLE", @"")];
+
+    if (UI_USER_INTERFACE_IDIOM() == UIUserInterfaceIdiomPhone)
+        self.navigationItem.leftBarButtonItem = [UIBarButtonItem themedBackButtonWithTarget:self andSelector:@selector(goBack:)];
 }
 
 - (void)viewWillAppear:(BOOL)animated
@@ -71,6 +75,11 @@
 }
 
 #pragma mark - UI interaction
+- (IBAction)goBack:(id)sender
+{
+    [self.navigationController popViewControllerAnimated:YES];
+}
+
 - (IBAction)openButtonAction:(id)sender
 {
     if ([self.urlField.text length] > 0) {

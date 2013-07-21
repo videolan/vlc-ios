@@ -136,6 +136,8 @@
     if (!self.settingsViewController) {
         self.settingsViewController = [[IASKAppSettingsViewController alloc] initWithStyle:UITableViewStyleGrouped];
         self.settingsController.viewController = self.settingsViewController;
+        if (UI_USER_INTERFACE_IDIOM() == UIUserInterfaceIdiomPhone)
+            self.settingsViewController.navigationItem.leftBarButtonItem = [UIBarButtonItem themedBackButtonWithTarget:self.settingsViewController andSelector:@selector(dismiss:)];
     }
 
     self.settingsViewController.modalPresentationStyle = UIModalPresentationFormSheet;
