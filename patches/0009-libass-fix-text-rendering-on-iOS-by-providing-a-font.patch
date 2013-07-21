@@ -36,7 +36,7 @@ index b32791c..b3fee5f 100644
 +    const char *psz_family = "Arial"; /* Use Arial if we can't find anything more suitable */
 +#else
 +    CFURLRef fileURL;
-+    fileURL = CFBundleCopyResourceURL(CFBundleGetMainBundle(), CFSTR("SourceSansPro-Regular.ttf"),
++    fileURL = CFBundleCopyResourceURL(CFBundleGetMainBundle(), CFSTR("OpenSans-Regular.ttf"),
 +                                      NULL,
 +                                      NULL);
 +    CFStringRef urlString = CFURLCopyFileSystemPath(fileURL, kCFURLPOSIXPathStyle);
@@ -56,7 +56,7 @@ index b32791c..b3fee5f 100644
 +
 +    const char *psz_font = (const char *)strdup(psz_path);
 +    free(psz_path);
-+    const char *psz_family = "Source Sans Pro";
++    const char *psz_family = "Open Sans";
 +#endif
  #else
      const char *psz_font = NULL; /* We don't ship a default font with VLC */

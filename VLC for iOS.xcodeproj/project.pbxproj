@@ -180,7 +180,6 @@
 		7D9529531732EFCA006F5B40 /* VLCAboutViewController~ipad.xib in Resources */ = {isa = PBXBuildFile; fileRef = 7D9529521732EFCA006F5B40 /* VLCAboutViewController~ipad.xib */; };
 		7DA6209B170A0CE500643D11 /* VLCPlaylistTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 7DA6209A170A0CE500643D11 /* VLCPlaylistTableViewCell.m */; };
 		7DA8B0FB173318E80029698C /* SourceCodePro-Regular.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 7DA8B0F9173318E80029698C /* SourceCodePro-Regular.ttf */; };
-		7DA8B0FC173318E80029698C /* SourceSansPro-Regular.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 7DA8B0FA173318E80029698C /* SourceSansPro-Regular.ttf */; };
 		7DADC55F1704FABF001DAC63 /* OBSlider.m in Sources */ = {isa = PBXBuildFile; fileRef = 7DADC55E1704FABF001DAC63 /* OBSlider.m */; };
 		7DB43835176E20CC00F460EE /* VLCHTTPDownloadViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 7DB43833176E20CC00F460EE /* VLCHTTPDownloadViewController.m */; };
 		7DB43836176E20CC00F460EE /* VLCHTTPDownloadViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 7DB43834176E20CC00F460EE /* VLCHTTPDownloadViewController.xib */; };
@@ -189,6 +188,7 @@
 		7DC87AEE17412A1F009DC250 /* VLCLinearProgressIndicator.m in Sources */ = {isa = PBXBuildFile; fileRef = 7DC87AED17412A1F009DC250 /* VLCLinearProgressIndicator.m */; };
 		7DC87AF217413EE3009DC250 /* VLCPlaylistGridView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 7DC87AF117413EE3009DC250 /* VLCPlaylistGridView.xib */; };
 		7DD2A3A7179BFAFE003EB537 /* VLCBugreporter.m in Sources */ = {isa = PBXBuildFile; fileRef = 7DD2A3A6179BFAFE003EB537 /* VLCBugreporter.m */; };
+		7DD2A3A9179C04A7003EB537 /* OpenSans-Regular.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 7DD2A3A8179C04A6003EB537 /* OpenSans-Regular.ttf */; };
 		7DDABBB71775A3C7003D8937 /* UIDevice+SpeedCategory.m in Sources */ = {isa = PBXBuildFile; fileRef = 7DDABBB61775A3C7003D8937 /* UIDevice+SpeedCategory.m */; };
 		7DDD0429172D98E5005A7B10 /* CFNetwork.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 7DDD0428172D98E5005A7B10 /* CFNetwork.framework */; };
 		7DE18629175BA9A5006C0173 /* badgeUnread@2x~ipad.png in Resources */ = {isa = PBXBuildFile; fileRef = 7DE1862B175BA9A5006C0173 /* badgeUnread@2x~ipad.png */; };
@@ -538,7 +538,6 @@
 		7DA62099170A0CE500643D11 /* VLCPlaylistTableViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = VLCPlaylistTableViewCell.h; sourceTree = "<group>"; };
 		7DA6209A170A0CE500643D11 /* VLCPlaylistTableViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = VLCPlaylistTableViewCell.m; sourceTree = "<group>"; };
 		7DA8B0F9173318E80029698C /* SourceCodePro-Regular.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "SourceCodePro-Regular.ttf"; sourceTree = "<group>"; };
-		7DA8B0FA173318E80029698C /* SourceSansPro-Regular.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "SourceSansPro-Regular.ttf"; sourceTree = "<group>"; };
 		7DADC55D1704FABF001DAC63 /* OBSlider.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = OBSlider.h; path = ImportedSources/OBSlider/OBSlider/OBSlider.h; sourceTree = SOURCE_ROOT; };
 		7DADC55E1704FABF001DAC63 /* OBSlider.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = OBSlider.m; path = ImportedSources/OBSlider/OBSlider/OBSlider.m; sourceTree = SOURCE_ROOT; };
 		7DB43832176E20CC00F460EE /* VLCHTTPDownloadViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = VLCHTTPDownloadViewController.h; sourceTree = "<group>"; };
@@ -560,6 +559,7 @@
 		7DC87AF117413EE3009DC250 /* VLCPlaylistGridView.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; name = VLCPlaylistGridView.xib; path = ../Resources/VLCPlaylistGridView.xib; sourceTree = "<group>"; };
 		7DD2A3A5179BFAFE003EB537 /* VLCBugreporter.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = VLCBugreporter.h; sourceTree = "<group>"; };
 		7DD2A3A6179BFAFE003EB537 /* VLCBugreporter.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = VLCBugreporter.m; sourceTree = "<group>"; };
+		7DD2A3A8179C04A6003EB537 /* OpenSans-Regular.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "OpenSans-Regular.ttf"; sourceTree = "<group>"; };
 		7DDABBB51775A3A7003D8937 /* UIDevice+SpeedCategory.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIDevice+SpeedCategory.h"; sourceTree = "<group>"; };
 		7DDABBB61775A3C7003D8937 /* UIDevice+SpeedCategory.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIDevice+SpeedCategory.m"; sourceTree = "<group>"; };
 		7DDD0428172D98E5005A7B10 /* CFNetwork.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CFNetwork.framework; path = System/Library/Frameworks/CFNetwork.framework; sourceTree = SDKROOT; };
@@ -1315,7 +1315,7 @@
 				A7035BBD174519600057DFA7 /* iTunesArtwork */,
 				7DEB3B5F17647DE30038FC70 /* iTunesArtwork@2x */,
 				7DA8B0F9173318E80029698C /* SourceCodePro-Regular.ttf */,
-				7DA8B0FA173318E80029698C /* SourceSansPro-Regular.ttf */,
+				7DD2A3A8179C04A6003EB537 /* OpenSans-Regular.ttf */,
 				7D5DD5C617590ABF001421E3 /* About Contents.html */,
 				7DEB3B7B1764A4080038FC70 /* menu */,
 				7DBC3B3C1711DD1E00DCF688 /* Icons */,
@@ -1456,7 +1456,6 @@
 				7D33D41617182615008AF0E0 /* VLCMovieViewController~ipad.xib in Resources */,
 				7D9529531732EFCA006F5B40 /* VLCAboutViewController~ipad.xib in Resources */,
 				7DA8B0FB173318E80029698C /* SourceCodePro-Regular.ttf in Resources */,
-				7DA8B0FC173318E80029698C /* SourceSansPro-Regular.ttf in Resources */,
 				7DC87AF217413EE3009DC250 /* VLCPlaylistGridView.xib in Resources */,
 				A7FF9F3E17428C1900999819 /* DeleteButton.png in Resources */,
 				A7FF9F4017428C3800999819 /* DeleteButton@2x.png in Resources */,
@@ -1589,6 +1588,7 @@
 				7D2339B0176DE72E008D223C /* VLCOpenNetworkStreamViewController.xib in Resources */,
 				7DB43836176E20CC00F460EE /* VLCHTTPDownloadViewController.xib in Resources */,
 				A7990064176E9352009E8267 /* libraryBackground.png in Resources */,
+				7DD2A3A9179C04A7003EB537 /* OpenSans-Regular.ttf in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

@@ -5,6 +5,9 @@
   - vlc://anyprotocol:// allows you to force any URL to open in VLC
   - vlc://server/path will assume http://
 * Fix CSS rendering issue in the WiFi Uploader's web interface
+* Switch Default Subtitles Font from SourceSans-Pro to Open Sans
+  to support Greek, Cyrillic and Vietnamese (#8991)
+* Shake device to create a bug report (#7788)
 * New Danish translation
 
 2.0.1:

@@ -38,7 +38,7 @@ index cdc9243..bc0a535 100644
 +
 +    CFURLRef fileURL;
 +    fileURL = CFBundleCopyResourceURL(CFBundleGetMainBundle(), b_monospace ?
-+                                      CFSTR("SourceSansPro-Regular.ttf") : CFSTR("SourceCodePro-Regular.ttf"),
++                                      CFSTR("OpenSans-Regular.ttf") : CFSTR("SourceCodePro-Regular.ttf"),
 +                                      NULL,
 +                                      NULL);
 +    CFStringRef urlString = CFURLCopyFileSystemPath(fileURL, kCFURLPOSIXPathStyle);
