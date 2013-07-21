@@ -127,7 +127,7 @@
 
 - (IBAction)goBack:(id)sender
 {
-    if (![_currentPath isEqualToString:@"/"]) {
+    if (![_currentPath isEqualToString:@"/"] && [_currentPath length] > 0) {
         _currentPath = [_currentPath stringByDeletingLastPathComponent];
         [self _requestInformationForCurrentPath];
     } else
