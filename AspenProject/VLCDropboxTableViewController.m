@@ -21,6 +21,8 @@
     VLCDropboxController *_dropboxController;
     NSString *_currentPath;
 
+    UIBarButtonItem *_backButton;
+
     UIBarButtonItem *_numberOfFilesBarButtonItem;
     UIBarButtonItem *_progressBarButtonItem;
     UIBarButtonItem *_downloadingBarLabel;
@@ -47,6 +49,11 @@
 
     self.navigationItem.titleView = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"dropbox-white"]];
     self.navigationItem.titleView.contentMode = UIViewContentModeScaleAspectFit;
+
+    _backButton = [[UIBarButtonItem alloc] initWithTitle:@"Back" style:UIBarButtonItemStyleBordered target:self action:@selector(goBack:)];
+    [_backButton setBackgroundImage:[UIImage imageNamed:@"backButton"] forState:UIControlStateNormal barMetrics:UIBarMetricsDefault];
+    [_backButton setBackgroundImage:[UIImage imageNamed:@"backButtonHighlight"] forState:UIControlStateHighlighted barMetrics:UIBarMetricsDefault];
+    self.navigationItem.leftBarButtonItem = _backButton;
 
     self.tableView.rowHeight = [VLCDropboxTableViewCell heightOfCell];
     self.tableView.separatorColor = [UIColor colorWithWhite:.122 alpha:1.];
@@ -105,12 +112,18 @@
 {
     [_activityIndicator startAnimating];
     [_dropboxController requestDirectoryListingAtPath:_currentPath];
+
+    if (UI_USER_INTERFACE_IDIOM() == UIUserInterfaceIdiomPad)
+        _backButton.enabled = ![_currentPath isEqualToString:@"/"];
 }
 
-- (IBAction)folderUp:(id)sender
+- (IBAction)goBack:(id)sender
 {
-    _currentPath = [_currentPath stringByDeletingLastPathComponent];
-    [self _requestInformationForCurrentPath];
+    if (![_currentPath isEqualToString:@"/"]) {
+        _currentPath = [_currentPath stringByDeletingLastPathComponent];
+        [self _requestInformationForCurrentPath];
+    } else
+        [self.navigationController popViewControllerAnimated:YES];
 }
 
 #pragma mark - Table view data source
