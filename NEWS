@@ -4,6 +4,8 @@
 * Add vlc:// protocol handler (#8988)
   - vlc://anyprotocol:// allows you to force any URL to open in VLC
   - vlc://server/path will assume http://
+* Fix Dropbox hierarchy navigation (#8993)
+* Retain last audio and subtitles tracks when for played media (#8987)
 * Fix CSS rendering issue in the WiFi Uploader's web interface
 * Switch Default Subtitles Font from SourceSans-Pro to Open Sans
   to support Greek, Cyrillic and Vietnamese (#8991)
