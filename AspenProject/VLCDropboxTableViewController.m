@@ -14,6 +14,7 @@
 #import "VLCAppDelegate.h"
 #import "VLCPlaylistViewController.h"
 #import "VLCDropboxConstants.h"
+#import "UIBarButtonItem+Theme.h"
 #import <DropboxSDK/DropboxSDK.h>
 
 @interface VLCDropboxTableViewController ()
@@ -50,9 +51,7 @@
     self.navigationItem.titleView = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"dropbox-white"]];
     self.navigationItem.titleView.contentMode = UIViewContentModeScaleAspectFit;
 
-    _backButton = [[UIBarButtonItem alloc] initWithTitle:@"Back" style:UIBarButtonItemStyleBordered target:self action:@selector(goBack:)];
-    [_backButton setBackgroundImage:[UIImage imageNamed:@"backButton"] forState:UIControlStateNormal barMetrics:UIBarMetricsDefault];
-    [_backButton setBackgroundImage:[UIImage imageNamed:@"backButtonHighlight"] forState:UIControlStateHighlighted barMetrics:UIBarMetricsDefault];
+    _backButton = [UIBarButtonItem themedBackButtonWithTarget:self andSelector:@selector(goBack:)];
     self.navigationItem.leftBarButtonItem = _backButton;
 
     self.tableView.rowHeight = [VLCDropboxTableViewCell heightOfCell];

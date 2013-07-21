@@ -27,4 +27,22 @@
                               forState:UIControlStateNormal];
     return doneButton;
 }
+
++ (UIBarButtonItem *)themedBackButtonWithTarget:(id)target andSelector:(SEL)selector
+{
+    UIBarButtonItem *backButton = [[UIBarButtonItem alloc] initWithTitle:NSLocalizedString(@"BUTTON_BACK", @"")
+                                                                   style:UIBarButtonItemStyleBordered
+                                                                  target:target
+                                                                  action:selector];
+    [backButton setBackgroundImage:[UIImage imageNamed:@"backButton"]
+                          forState:UIControlStateNormal
+                        barMetrics:UIBarMetricsDefault];
+    [backButton setBackgroundImage:[UIImage imageNamed:@"backButtonHighlight"]
+                          forState:UIControlStateHighlighted
+                        barMetrics:UIBarMetricsDefault];
+    [backButton setTitleTextAttributes:@{UITextAttributeTextShadowColor : [UIColor whiteColor], UITextAttributeTextColor : [UIColor blackColor]}
+                              forState:UIControlStateNormal];
+    return backButton;
+}
+
 @end

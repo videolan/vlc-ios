@@ -12,4 +12,5 @@
 
 @interface UIBarButtonItem (Theme)
 + (UIBarButtonItem *)themedDoneButtonWithTarget:(id)target andSelector:(SEL)selector;
++ (UIBarButtonItem *)themedBackButtonWithTarget:(id)target andSelector:(SEL)selector;
 @end
