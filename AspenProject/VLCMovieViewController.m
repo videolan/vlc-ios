@@ -358,14 +358,6 @@
         _playbackSpeedViewHidden = YES;
 }
 
-- (id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil
-{
-    self = [super initWithNibName:nibNameOrNil bundle:nibBundleOrNil];
-    if (self)
-        self.title = @"Video Playback";
-    return self;
-}
-
 - (void)_saveCurrentState
 {
     if (self.mediaItem) {
