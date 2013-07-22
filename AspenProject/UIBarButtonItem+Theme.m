@@ -34,13 +34,14 @@
                                                                    style:UIBarButtonItemStyleBordered
                                                                   target:target
                                                                   action:selector];
-    [backButton setBackgroundImage:[UIImage imageNamed:@"backButton"]
+    [backButton setBackgroundImage:[[UIImage imageNamed:@"backButton"] resizableImageWithCapInsets:UIEdgeInsetsMake(0, 12, 0, 6)]
                           forState:UIControlStateNormal
                         barMetrics:UIBarMetricsDefault];
-    [backButton setBackgroundImage:[UIImage imageNamed:@"backButtonHighlight"]
+    [backButton setBackgroundImage:[[UIImage imageNamed:@"backButtonHighlight"] resizableImageWithCapInsets:UIEdgeInsetsMake(0, 12, 0, 6)]
                           forState:UIControlStateHighlighted
                         barMetrics:UIBarMetricsDefault];
     [backButton setTitleTextAttributes:@{UITextAttributeTextShadowColor : [UIColor colorWithWhite:0. alpha:.37], UITextAttributeTextColor : [UIColor whiteColor]} forState:UIControlStateNormal];
+    [backButton setTitlePositionAdjustment:UIOffsetMake(3, 0) forBarMetrics:UIBarMetricsDefault];
     return backButton;
 }
 
