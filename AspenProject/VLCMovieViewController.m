@@ -181,6 +181,9 @@
         self.positionSlider.scrubbingSpeedChangePositions = @[@(0.), @(100.), @(200.), @(300)];
 
     _playerIsSetup = NO;
+
+    [self.movieView setAccessibilityLabel:NSLocalizedString(@"VO_VIDEOPLAYER_TITLE", @"")];
+    [self.movieView setAccessibilityHint:NSLocalizedString(@"VO_VIDEOPLAYER_DOUBLETAP", @"")];
 }
 
 - (BOOL)_blobCheck
