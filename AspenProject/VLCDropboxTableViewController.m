@@ -242,7 +242,7 @@
 - (void)_showLoginPanel
 {
     self.loginToDropboxView.frame = self.tableView.frame;
-    [self.tableView addSubview:self.loginToDropboxView];
+    [self.view addSubview:self.loginToDropboxView];
 }
 
 - (IBAction)loginToDropboxAction:(id)sender

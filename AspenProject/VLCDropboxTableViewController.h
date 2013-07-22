@@ -10,8 +10,9 @@
 
 #import "VLCDropboxController.h"
 
-@interface VLCDropboxTableViewController : UITableViewController <VLCDropboxController>
+@interface VLCDropboxTableViewController : UIViewController <VLCDropboxController>
 
+@property (nonatomic, strong) IBOutlet UITableView *tableView;
 @property (nonatomic, strong) IBOutlet UIView *loginToDropboxView;
 @property (nonatomic, strong) IBOutlet UIButton *loginToDropboxButton;
 
