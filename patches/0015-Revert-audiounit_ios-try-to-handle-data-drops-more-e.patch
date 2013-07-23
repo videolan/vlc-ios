@@ -1,0 +1,35 @@
+From 50d11f576c5ef6bda8cad157f737fe571da4bcb7 Mon Sep 17 00:00:00 2001
+From: =?UTF-8?q?Martin=20Storsj=C3=B6?= <martin@martin.st>
+Date: Tue, 23 Jul 2013 16:39:30 +0300
+Subject: [PATCH 15/16] Revert "audiounit_ios: try to handle data drops more
+ efficiently"
+
+This (more or less) reverts commit
+2b7e016807507b632b8e0a7c874030bdffb2f604.
+
+Stopping the aout from within the callback like this could
+lead to deadlocks, where AudioOutputUnitStop in the callback thread
+and AudioOutputUnitStart in the audio decoder thread blocked each
+other (noticed at startup of playback on a 3GS with iOS 6.0).
+---
+ modules/audio_output/audiounit_ios.c |    4 ++--
+ 1 file changed, 2 insertions(+), 2 deletions(-)
+
+diff --git a/modules/audio_output/audiounit_ios.c b/modules/audio_output/audiounit_ios.c
+index 1faaf58..974d172 100644
+--- a/modules/audio_output/audiounit_ios.c
++++ b/modules/audio_output/audiounit_ios.c
+@@ -383,8 +383,8 @@ static OSStatus RenderCallback(vlc_object_t *p_obj,
+ 
+     /* check if we have enough data */
+     if (!availableBytes) {
+-        /* bail out and restart unit the next time we receive some data */
+-        Flush(p_aout, false);
++        /* return an empty buffer so silence is played until we have data */
++        memset(targetBuffer, 0, bytesToCopy);
+     } else {
+         memcpy(targetBuffer, buffer, __MIN(bytesToCopy, availableBytes));
+         TPCircularBufferConsume(&p_sys->circular_buffer, __MIN(bytesToCopy, availableBytes));
+-- 
+1.7.9.4
+
