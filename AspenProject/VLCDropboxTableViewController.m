@@ -41,6 +41,8 @@
 {
     [super viewDidLoad];
 
+    self.modalPresentationStyle = UIModalPresentationFormSheet;
+
     _dropboxController = [[VLCDropboxController alloc] init];
     _dropboxController.delegate = self;
 

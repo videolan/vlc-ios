@@ -184,9 +184,6 @@
 - (IBAction)showDropbox:(id)sender
 {
     VLCAppDelegate *appDelegate = [UIApplication sharedApplication].delegate;
-
-    appDelegate.dropboxTableViewController.modalPresentationStyle = UIModalPresentationFormSheet;
-
     [self _presentViewController:appDelegate.dropboxTableViewController];
 }
 
