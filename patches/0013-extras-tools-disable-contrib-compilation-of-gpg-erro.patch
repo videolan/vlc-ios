@@ -1,0 +1,28 @@
+From e3ddf7f33188ecabe648080b41b0962d6ac7be7c Mon Sep 17 00:00:00 2001
+From: =?UTF-8?q?Felix=20Paul=20Ku=CC=88hne?= <fkuehne@videolan.org>
+Date: Sat, 27 Jul 2013 19:38:44 +0200
+Subject: [PATCH 13/13] extras/tools: disable contrib compilation of
+ gpg-error, gcrypt and lua since we don't use it for
+ now
+
+---
+ extras/package/ios/build.sh | 3 +++
+ 1 file changed, 3 insertions(+)
+
+diff --git a/extras/package/ios/build.sh b/extras/package/ios/build.sh
+index 5919682..f6317c2 100755
+--- a/extras/package/ios/build.sh
++++ b/extras/package/ios/build.sh
+@@ -214,6 +214,9 @@ fi
+     --enable-freetype2 \
+     --enable-ass \
+     --disable-fontconfig \
++    --disable-gpg-error \
++    --disable-gcrypt \
++    --disable-lua \
+     --disable-taglib > ${out}
+ 
+ echo "EXTRA_CFLAGS += ${EXTRA_CFLAGS}" >> config.mak
+-- 
+1.7.12.4 (Apple Git-37)
+
