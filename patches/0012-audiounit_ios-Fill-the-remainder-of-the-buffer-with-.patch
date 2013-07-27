@@ -1,14 +1,14 @@
-From ce1447cd2334fa3af8f770a3041c5ad1b9aeac1a Mon Sep 17 00:00:00 2001
+From 9b81c559d754f5e75b61fbc43e1c467d89bb9f10 Mon Sep 17 00:00:00 2001
 From: =?UTF-8?q?Martin=20Storsj=C3=B6?= <martin@martin.st>
 Date: Tue, 23 Jul 2013 16:58:36 +0300
-Subject: [PATCH 16/16] audiounit_ios: Fill the remainder of the buffer with
+Subject: [PATCH 12/13] audiounit_ios: Fill the remainder of the buffer with
  zeros
 
 If we didn't have enough data to fill the buffer, fill the rest
 of it with zeros. This is better than playing back whatever happened
 to be there from before.
 ---
- modules/audio_output/audiounit_ios.c |    2 ++
+ modules/audio_output/audiounit_ios.c | 2 ++
  1 file changed, 2 insertions(+)
 
 diff --git a/modules/audio_output/audiounit_ios.c b/modules/audio_output/audiounit_ios.c
@@ -25,5 +25,5 @@ index 974d172..b780fd0 100644
  
      return noErr;
 -- 
-1.7.9.4
+1.7.12.4 (Apple Git-37)
 
