@@ -11,9 +11,11 @@
 @protocol VLCMediaFileDiscovererDelegate <NSObject>
 
 @optional
-- (void)mediaFileAdded:(NSString *)fileName loading:(BOOL)isLoading;
-- (void)mediaFileChanged:(NSString *)fileName size:(unsigned long long)size;
-- (void)mediaFileDeleted:(NSString *)name;
+// loading is equal to YES first time when file is discovered
+- (void)mediaFileAdded:(NSString *)filePath loading:(BOOL)isLoading;
+
+- (void)mediaFileChanged:(NSString *)filePath size:(unsigned long long)size;
+- (void)mediaFileDeleted:(NSString *)filePath;
 
 @end
 
