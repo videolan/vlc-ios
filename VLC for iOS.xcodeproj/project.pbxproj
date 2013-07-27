@@ -250,6 +250,7 @@
 		A7CB0DB21716F72600050CF3 /* PlayingExternally~iphone.png in Resources */ = {isa = PBXBuildFile; fileRef = A7CB0DAE1716F72600050CF3 /* PlayingExternally~iphone.png */; };
 		A7CB0DB31716F72600050CF3 /* PlayingExternally~ipad.png in Resources */ = {isa = PBXBuildFile; fileRef = A7CB0DAF1716F72600050CF3 /* PlayingExternally~ipad.png */; };
 		A7CB0DB41716F72600050CF3 /* PlayingExternally@2x~ipad.png in Resources */ = {isa = PBXBuildFile; fileRef = A7CB0DB01716F72600050CF3 /* PlayingExternally@2x~ipad.png */; };
+		A7D03A4717A41AD30022C16F /* VLCMediaFileDiscoverer.m in Sources */ = {isa = PBXBuildFile; fileRef = A7D03A4617A41AD30022C16F /* VLCMediaFileDiscoverer.m */; };
 		A7DA16D1171083DF00D6FED9 /* VLCExternalDisplayController.m in Sources */ = {isa = PBXBuildFile; fileRef = A7DA16D0171083DF00D6FED9 /* VLCExternalDisplayController.m */; };
 		A7FF9F3E17428C1900999819 /* DeleteButton.png in Resources */ = {isa = PBXBuildFile; fileRef = A7FF9F3D17428C1900999819 /* DeleteButton.png */; };
 		A7FF9F4017428C3800999819 /* DeleteButton@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = A7FF9F3F17428C3800999819 /* DeleteButton@2x.png */; };
@@ -682,6 +683,8 @@
 		A7CB0DAE1716F72600050CF3 /* PlayingExternally~iphone.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "PlayingExternally~iphone.png"; sourceTree = "<group>"; };
 		A7CB0DAF1716F72600050CF3 /* PlayingExternally~ipad.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "PlayingExternally~ipad.png"; sourceTree = "<group>"; };
 		A7CB0DB01716F72600050CF3 /* PlayingExternally@2x~ipad.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "PlayingExternally@2x~ipad.png"; sourceTree = "<group>"; };
+		A7D03A4517A41AD30022C16F /* VLCMediaFileDiscoverer.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = VLCMediaFileDiscoverer.h; sourceTree = "<group>"; };
+		A7D03A4617A41AD30022C16F /* VLCMediaFileDiscoverer.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = VLCMediaFileDiscoverer.m; sourceTree = "<group>"; };
 		A7DA16CF171083DF00D6FED9 /* VLCExternalDisplayController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = VLCExternalDisplayController.h; sourceTree = "<group>"; };
 		A7DA16D0171083DF00D6FED9 /* VLCExternalDisplayController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = VLCExternalDisplayController.m; sourceTree = "<group>"; };
 		A7FF9F3D17428C1900999819 /* DeleteButton.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = DeleteButton.png; sourceTree = "<group>"; };
@@ -1246,11 +1249,10 @@
 		7D94FCE416DE7D1000F2623B /* AspenProject */ = {
 			isa = PBXGroup;
 			children = (
-				A7C30257175A3C7A00AD4388 /* DirectoryWatcher.h */,
-				A7C30258175A3C7A00AD4388 /* DirectoryWatcher.m */,
 				7D6B08BB174A72A900A05173 /* VLCConstants.h */,
 				7D94FCED16DE7D1000F2623B /* VLCAppDelegate.h */,
 				7D94FCEE16DE7D1000F2623B /* VLCAppDelegate.m */,
+				A7D03A4817A4249F0022C16F /* MediaDiscovering */,
 				7D2339AB176DE70E008D223C /* Menu */,
 				7D5F7ABA175265CB006CCCFA /* HTTP Connectivity */,
 				7D5F7AB9175265B2006CCCFA /* Playback */,
@@ -1396,6 +1398,17 @@
 				7DDABBB61775A3C7003D8937 /* UIDevice+SpeedCategory.m */,
 			);
 			name = Extensions;
+			sourceTree = "<group>";
+		};
+		A7D03A4817A4249F0022C16F /* MediaDiscovering */ = {
+			isa = PBXGroup;
+			children = (
+				A7C30257175A3C7A00AD4388 /* DirectoryWatcher.h */,
+				A7C30258175A3C7A00AD4388 /* DirectoryWatcher.m */,
+				A7D03A4517A41AD30022C16F /* VLCMediaFileDiscoverer.h */,
+				A7D03A4617A41AD30022C16F /* VLCMediaFileDiscoverer.m */,
+			);
+			name = MediaDiscovering;
 			sourceTree = "<group>";
 		};
 		CC1BBC441704936500A20CBF /* External VLC Libraries */ = {
@@ -1723,6 +1736,7 @@
 				A7990067176E9CF3009E8267 /* VLCMenuButton.m in Sources */,
 				7DDABBB71775A3C7003D8937 /* UIDevice+SpeedCategory.m in Sources */,
 				7DD2A3A7179BFAFE003EB537 /* VLCBugreporter.m in Sources */,
+				A7D03A4717A41AD30022C16F /* VLCMediaFileDiscoverer.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

@@ -9,7 +9,7 @@
 //
 
 #import "VLCAppDelegate.h"
-#import "DirectoryWatcher.h"
+#import "VLCMediaFileDiscoverer.h"
 #import "NSString+SupportedMedia.h"
 #import "UIDevice+SpeedCategory.h"
 
@@ -19,13 +19,9 @@
 #import "PAPasscodeViewController.h"
 #import "UINavigationController+Theme.h"
 
-@interface VLCAppDelegate () <PAPasscodeViewControllerDelegate, DirectoryWatcherDelegate> {
+@interface VLCAppDelegate () <PAPasscodeViewControllerDelegate, VLCMediaFileDiscovererDelegate> {
     PAPasscodeViewController *_passcodeLockController;
     VLCDropboxTableViewController *_dropboxTableViewController;
-
-    DirectoryWatcher *_directoryWatcher;
-    NSTimer *_addMediaTimer;
-    NSMutableDictionary *_addedFiles;
 }
 
 @property (nonatomic) BOOL passcodeValidated;
@@ -62,7 +58,9 @@
     self.window.rootViewController = self.navigationController;
     [self.window makeKeyAndVisible];
 
-    _directoryWatcher = [DirectoryWatcher watchFolderWithPath:[self directoryPath] delegate:self];
+    VLCMediaFileDiscoverer *discoverer = [VLCMediaFileDiscoverer sharedInstance];
+    [discoverer addObserver:self];
+    [discoverer startDiscovering:[self directoryPath]];
 
     [self validatePasscode];
 
@@ -152,82 +150,26 @@
     return _dropboxTableViewController;
 }
 
-#pragma mark - directory watcher delegate
+#pragma mark - media discovering
 
-- (void)addFileTimerFired
-{
-    NSArray *allKeys = [_addedFiles allKeys];
-    NSFileManager *fileManager = [NSFileManager defaultManager];
-    MLMediaLibrary *sharedLibrary = [MLMediaLibrary sharedMediaLibrary];
-    for (NSString *fileURL in allKeys) {
-        if (![fileManager fileExistsAtPath:fileURL])
-            continue;
+- (void)mediaFileAdded:(NSString *)fileName loading:(BOOL)isLoading {
+    if (!isLoading) {
+        MLMediaLibrary *sharedLibrary = [MLMediaLibrary sharedMediaLibrary];
+        [sharedLibrary addFilePaths:@[fileName]];
 
-        NSDictionary *attribs = [fileManager attributesOfItemAtPath:fileURL error:nil];
+        /* exclude media files from backup (QA1719) */
+        NSURL *excludeURL = [NSURL fileURLWithPath:fileName];
+        [excludeURL setResourceValue:@YES forKey:NSURLIsExcludedFromBackupKey error:nil];
 
-        NSNumber *prevFetchedSize = [_addedFiles objectForKey:fileURL];
-        NSNumber *updatedSize = [attribs objectForKey:NSFileSize];
-        if (!updatedSize)
-            continue;
-
-        if ([prevFetchedSize compare:updatedSize] == NSOrderedSame) {
-            [_addedFiles removeObjectForKey:fileURL];
-            [sharedLibrary addFilePaths:@[fileURL]];
-
-            /* exclude media files from backup (QA1719) */
-            NSURL *excludeURL = [NSURL fileURLWithPath:fileURL];
-            [excludeURL setResourceValue:@YES forKey:NSURLIsExcludedFromBackupKey error:nil];
-
-            // TODO Should we update media db after adding new files?
-            [sharedLibrary updateMediaDatabase];
-            [_playlistViewController updateViewContents];
-        } else
-            [_addedFiles setObject:updatedSize forKey:fileURL];
-    }
-
-    if (_addedFiles.count == 0) {
-        [_addMediaTimer invalidate];
-        _addMediaTimer = nil;
+        // TODO Should we update media db after adding new files?
+        [sharedLibrary updateMediaDatabase];
+        [_playlistViewController updateViewContents];
     }
 }
 
-- (void)directoryDidChange:(DirectoryWatcher *)folderWatcher
-{
-    NSArray *foundFiles = [[NSFileManager defaultManager] contentsOfDirectoryAtPath:[self directoryPath] error:nil];
-    NSMutableArray *matchedFiles = [NSMutableArray arrayWithCapacity:foundFiles.count];
-    for (NSString *fileName in foundFiles) {
-        if ([fileName isSupportedMediaFormat])
-            [matchedFiles addObject:[[self directoryPath] stringByAppendingPathComponent:fileName]];
-    }
-
-    NSArray *mediaFiles = [MLFile allFiles];
-    if (mediaFiles.count > matchedFiles.count) { // File was deleted
-        [[MLMediaLibrary sharedMediaLibrary] updateMediaDatabase];
-        [_playlistViewController updateViewContents];
-
-    } else if (mediaFiles.count < matchedFiles.count) { // File was added
-        NSMutableArray *addedFiles = [NSMutableArray array];
-        for (NSString *fileName in matchedFiles) {
-            NSURL *fileURL = [NSURL fileURLWithPath:fileName];
-
-            BOOL found = NO;
-            for (MLFile *mediaFile in mediaFiles) {
-                if ([mediaFile.url isEqualToString:fileURL.absoluteString])
-                    found = YES;
-            }
-
-            if (!found)
-                [addedFiles addObject:fileName];
-        }
-
-        _addedFiles = [NSMutableDictionary dictionaryWithCapacity:[addedFiles count]];
-        for (NSString *fileURL in addedFiles)
-            [_addedFiles setObject:@(0) forKey:fileURL];
-
-        _addMediaTimer = [NSTimer scheduledTimerWithTimeInterval:2. target:self
-                                                        selector:@selector(addFileTimerFired)
-                                                        userInfo:nil repeats:YES];
-    }
+- (void)mediaFileDeleted:(NSString *)name {
+    [[MLMediaLibrary sharedMediaLibrary] updateMediaDatabase];
+    [_playlistViewController updateViewContents];
 }
 
 #pragma mark - media list methods
