@@ -1,0 +1,25 @@
+From 594d49bc20592652a1905b158491e8b728ce9ec0 Mon Sep 17 00:00:00 2001
+From: =?UTF-8?q?Felix=20Paul=20Ku=CC=88hne?= <fkuehne@videolan.org>
+Date: Sun, 28 Jul 2013 19:24:30 +0200
+Subject: [PATCH 14/14] extras/package: compile quartztext module for iOS
+
+---
+ extras/package/ios/build.sh | 2 +-
+ 1 file changed, 1 insertion(+), 1 deletion(-)
+
+diff --git a/extras/package/ios/build.sh b/extras/package/ios/build.sh
+index f6317c2..c3c0497 100755
+--- a/extras/package/ios/build.sh
++++ b/extras/package/ios/build.sh
+@@ -267,7 +267,7 @@ ${VLCROOT}/configure \
+     --enable-ios-vout \
+     --enable-ios-vout2 \
+     --disable-shared \
+-    --disable-macosx-quartztext \
++    --enable-macosx-quartztext \
+     --enable-avcodec \
+     --enable-mkv \
+     --enable-opus \
+-- 
+1.7.12.4 (Apple Git-37)
+
