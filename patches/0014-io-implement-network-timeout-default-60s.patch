@@ -1,0 +1,69 @@
+From c447793b7e9340841e178536ccefcb7dfddcd941 Mon Sep 17 00:00:00 2001
+From: Gleb Pinigin <gpinigin@gmail.com>
+Date: Sun, 28 Jul 2013 18:32:51 +0700
+Subject: [PATCH 14/14] io: implement network timeout(default 60s)
+
+---
+ src/network/io.c | 15 ++++++++++++++-
+ 1 file changed, 14 insertions(+), 1 deletion(-)
+
+diff --git a/src/network/io.c b/src/network/io.c
+index 9b13b2a..f625dd4 100644
+--- a/src/network/io.c
++++ b/src/network/io.c
+@@ -33,6 +33,7 @@
+ #endif
+ 
+ #include <vlc_common.h>
++#include <vlc_access.h>
+ 
+ #include <stdlib.h>
+ #include <stdio.h>
+@@ -69,6 +70,9 @@
+ # define SOL_DCCP 269
+ #endif
+ 
++#define MAX_TIMEOUT 60000
++#define POLL_TIMEOUT 10000
++
+ #include "libvlc.h" /* vlc_object_waitpipe */
+ 
+ extern int rootwrap_bind (int family, int socktype, int protocol,
+@@ -263,6 +267,7 @@ net_Read (vlc_object_t *restrict p_this, int fd, const v_socket_t *vs,
+     ufd[1].fd = vlc_object_waitpipe (p_this);
+     ufd[1].events = POLLIN;
+ 
++    int i_timepassed = 0;
+     size_t i_total = 0;
+     do
+     {
+@@ -291,6 +296,12 @@ net_Read (vlc_object_t *restrict p_this, int fd, const v_socket_t *vs,
+                 case EWOULDBLOCK:
+ #endif
+                 case EINTR:  /* asynchronous signal */
++                    if (i_timepassed >= MAX_TIMEOUT && i_total == 0)
++                    {
++                        access_t *p_access = (access_t *)p_this;
++                        p_access->info.b_eof = true;
++                        goto error;
++                    }
+                     break;
+ #ifdef _WIN32
+                 case WSAEMSGSIZE: /* datagram too big */
+@@ -320,10 +331,12 @@ net_Read (vlc_object_t *restrict p_this, int fd, const v_socket_t *vs,
+             errno = EINTR;
+             return -1;
+         }
+-        while (poll (ufd, sizeof (ufd) / sizeof (ufd[0]), -1) < 0)
++        while (poll (ufd, sizeof (ufd) / sizeof (ufd[0]), POLL_TIMEOUT) < 0)
+             if (errno != EINTR)
+                 goto error;
+ 
++        i_timepassed += POLL_TIMEOUT;
++
+         if (ufd[1].revents)
+         {
+             msg_Dbg (p_this, "socket %d polling interrupted", fd);
+-- 
+1.7.12.4 (Apple Git-37)
+
