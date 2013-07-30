@@ -9,6 +9,7 @@
 //
 
 #import "VLCDropboxTableViewController.h"
+#import "VLCHTTPUploaderController.h"
 
 @class VLCPlaylistViewController;
 @class PAPasscodeViewController;
@@ -24,5 +25,7 @@
 @property (nonatomic, strong) UINavigationController *navigationController;
 
 @property (nonatomic, retain) NSDate *nextPasscodeCheckDate;
+
+@property (nonatomic) VLCHTTPUploaderController *uploadController;
 
 @end

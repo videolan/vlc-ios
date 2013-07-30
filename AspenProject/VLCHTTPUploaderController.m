@@ -35,6 +35,35 @@ static const int httpLogLevel = HTTP_LOG_LEVEL_VERBOSE; // | HTTP_LOG_FLAG_TRACE
 
 @implementation VLCHTTPUploaderController
 
+- (id)init
+{
+    if ( self = [super init] ) {
+        [[NSNotificationCenter defaultCenter]
+            addObserver:self
+            selector:@selector(applicationDidBecomeActive:)
+            name:UIApplicationDidBecomeActiveNotification object:nil];
+        [[NSNotificationCenter defaultCenter]
+            addObserver:self
+            selector:@selector(applicationDidEnterBackground:)
+            name:UIApplicationDidEnterBackgroundNotification object:nil];
+
+        return self;
+    }
+    else
+        return nil;
+}
+
+- (void)applicationDidBecomeActive: (NSNotification *)notification
+{
+    BOOL isHTTPServerOn = [[NSUserDefaults standardUserDefaults] boolForKey:kVLCSettingSaveHTTPUploadServerStatus];
+    [self changeHTTPServerState:isHTTPServerOn];
+}
+
+- (void)applicationDidEnterBackground: (NSNotification *)notification
+{
+    [self changeHTTPServerState:NO];
+}
+
 -(BOOL)changeHTTPServerState:(BOOL)state
 {
     if(state) {

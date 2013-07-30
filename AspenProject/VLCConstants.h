@@ -22,6 +22,7 @@
 #define kVLCSettingSkipLoopFilterNone @(0)
 #define kVLCSettingSkipLoopFilterNonRef @(1)
 #define kVLCSettingSkipLoopFilterNonKey @(3)
+#define kVLCSettingSaveHTTPUploadServerStatus @"isHTTPServerOn"
 
 #define kVLCShowRemainingTime @"show-remaining-time"
 #define kVLCRecentURLs @"recent-urls"

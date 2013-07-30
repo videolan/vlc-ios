@@ -298,15 +298,20 @@
         [self.tableView setEditing:editing animated:YES];
 }
 
+- (void)initMenuViewController
+{
+    VLCMenuViewController *menuViewController = [[VLCMenuViewController alloc] initWithNibName:nil bundle:nil];
+    UINavigationController *navigationController = [[UINavigationController alloc] initWithRootViewController:menuViewController];
+    [navigationController loadTheme];
+    self.menuViewController = navigationController;
+    if (UI_USER_INTERFACE_IDIOM() == UIUserInterfaceIdiomPad)
+        navigationController.navigationBarHidden = YES;
+}
+
 - (IBAction)leftButtonAction:(id)sender
 {
     if (self.menuViewController == nil) {
-        VLCMenuViewController *menuViewController = [[VLCMenuViewController alloc] initWithNibName:nil bundle:nil];
-        UINavigationController *navigationController = [[UINavigationController alloc] initWithRootViewController:menuViewController];
-        [navigationController loadTheme];
-        self.menuViewController = navigationController;
-        if (UI_USER_INTERFACE_IDIOM() == UIUserInterfaceIdiomPad)
-            navigationController.navigationBarHidden = YES;
+        [self initMenuViewController];
     }
 
     if (UI_USER_INTERFACE_IDIOM() == UIUserInterfaceIdiomPad) {

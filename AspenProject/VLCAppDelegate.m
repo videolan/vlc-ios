@@ -18,6 +18,7 @@
 #import "VLCMovieViewController.h"
 #import "PAPasscodeViewController.h"
 #import "UINavigationController+Theme.h"
+#import "VLCHTTPUploaderController.h"
 
 @interface VLCAppDelegate () <PAPasscodeViewControllerDelegate, VLCMediaFileDiscovererDelegate> {
     PAPasscodeViewController *_passcodeLockController;
@@ -48,6 +49,9 @@
 
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions
 {
+    // Init the HTTP Server
+    self.uploadController = [[VLCHTTPUploaderController alloc] init];
+
     self.window = [[UIWindow alloc] initWithFrame:[[UIScreen mainScreen] bounds]];
 
     _playlistViewController = [[VLCPlaylistViewController alloc] init];
@@ -137,6 +141,11 @@
 - (void)applicationDidEnterBackground:(UIApplication *)application
 {
     [self validatePasscode]; // Lock library when going to background
+}
+
+- (void)applicationWillTerminate:(UIApplication *)application
+{
+    [[NSUserDefaults standardUserDefaults] synchronize];
 }
 
 #pragma mark - properties

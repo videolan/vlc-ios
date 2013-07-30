@@ -29,12 +29,15 @@
 #import <arpa/inet.h>
 
 @interface VLCMenuViewController () {
-    VLCHTTPUploaderController *_uploadController;
     VLCHTTPDownloadViewController *_downloadViewController;
     Reachability *_reachability;
 }
 - (void)_presentViewController:(UIViewController *)viewController;
 - (void)_dismissModalViewController;
+
+@property(nonatomic) VLCHTTPUploaderController *uploadController;
+@property(nonatomic) VLCAppDelegate *appDelegate;;
+
 @end
 
 @implementation VLCMenuViewController
@@ -73,6 +76,13 @@
     [_reachability startNotifier];
 
     [self netReachabilityChanged:nil];
+
+    self.appDelegate = [[UIApplication sharedApplication] delegate];
+    self.uploadController = self.appDelegate.uploadController;
+
+    BOOL isHTTPServerOn = [[NSUserDefaults standardUserDefaults] boolForKey:kVLCSettingSaveHTTPUploadServerStatus];
+    [self.httpUploadServerSwitch setOn:isHTTPServerOn];
+    [self updateHTTPServerAddress];
 
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(netReachabilityChanged:) name:kReachabilityChangedNotification object:nil];
 }
@@ -169,22 +179,27 @@
     return address;
 }
 
-- (IBAction)toggleHTTPServer:(UISwitch *)sender
+- (void)updateHTTPServerAddress
 {
-    _uploadController = [[VLCHTTPUploaderController alloc] init];
-    [_uploadController changeHTTPServerState: sender.on];
-
-    HTTPServer *server = _uploadController.httpServer;
+    HTTPServer *server = self.uploadController.httpServer;
     if (server.isRunning)
         self.httpUploadServerLocationLabel.text = [NSString stringWithFormat:@"http://%@:%i", [self _currentIPAddress], server.listeningPort];
     else
         self.httpUploadServerLocationLabel.text = NSLocalizedString(@"HTTP_UPLOAD_SERVER_OFF", @"");
 }
 
+- (IBAction)toggleHTTPServer:(UISwitch *)sender
+{
+    [[NSUserDefaults standardUserDefaults] setBool:sender.on forKey:kVLCSettingSaveHTTPUploadServerStatus];
+    [self.uploadController changeHTTPServerState:sender.on];
+    [self updateHTTPServerAddress];
+    [[NSUserDefaults standardUserDefaults] synchronize];
+}
+
 - (IBAction)showDropbox:(id)sender
 {
-    VLCAppDelegate *appDelegate = [UIApplication sharedApplication].delegate;
-    [self _presentViewController:appDelegate.dropboxTableViewController];
+    self.appDelegate.dropboxTableViewController.modalPresentationStyle = UIModalPresentationFormSheet;
+    [self _presentViewController:self.appDelegate.dropboxTableViewController];
 }
 
 #pragma mark - Private methods
