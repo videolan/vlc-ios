@@ -17,7 +17,8 @@
 
 @property (nonatomic, readonly) HTTPServer *httpServer;
 
--(BOOL)changeHTTPServerState:(BOOL)state;
+- (BOOL)changeHTTPServerState:(BOOL)state;
+- (NSString *)currentIPAddress;
 
 @end
 

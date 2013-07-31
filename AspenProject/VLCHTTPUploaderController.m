@@ -25,6 +25,14 @@
 #import "MultipartFormDataParser.h"
 #import "MultipartMessageHeaderField.h"
 
+#import <ifaddrs.h>
+#import <arpa/inet.h>
+
+#if TARGET_IPHONE_SIMULATOR
+NSString *const WifiInterfaceName = @"en1";
+#else
+NSString *const WifiInterfaceName = @"en0";
+#endif
 
 static const int ddLogLevel = LOG_LEVEL_VERBOSE;
 static const int httpLogLevel = HTTP_LOG_LEVEL_VERBOSE; // | HTTP_LOG_FLAG_TRACE;
@@ -38,13 +46,13 @@ static const int httpLogLevel = HTTP_LOG_LEVEL_VERBOSE; // | HTTP_LOG_FLAG_TRACE
 - (id)init
 {
     if ( self = [super init] ) {
-        [[NSNotificationCenter defaultCenter]
-            addObserver:self
-            selector:@selector(applicationDidBecomeActive:)
+        // Just log to the Xcode console.
+        [DDLog addLogger:[DDTTYLogger sharedInstance]];
+
+        NSNotificationCenter *center = [NSNotificationCenter defaultCenter];
+        [center addObserver:self selector:@selector(applicationDidBecomeActive:)
             name:UIApplicationDidBecomeActiveNotification object:nil];
-        [[NSNotificationCenter defaultCenter]
-            addObserver:self
-            selector:@selector(applicationDidEnterBackground:)
+        [center addObserver:self selector:@selector(applicationDidEnterBackground:)
             name:UIApplicationDidEnterBackgroundNotification object:nil];
 
         return self;
@@ -67,11 +75,10 @@ static const int httpLogLevel = HTTP_LOG_LEVEL_VERBOSE; // | HTTP_LOG_FLAG_TRACE
 -(BOOL)changeHTTPServerState:(BOOL)state
 {
     if(state) {
-        // Just log to the Xcode console.
-        [DDLog addLogger:[DDTTYLogger sharedInstance]];
-
         // Initalize our http server
         _httpServer = [[HTTPServer alloc] init];
+
+        [_httpServer setInterface:WifiInterfaceName];
 
         // Tell the server to broadcast its presence via Bonjour.
         // This allows browsers such as Safari to automatically discover our service.
@@ -106,6 +113,27 @@ static const int httpLogLevel = HTTP_LOG_LEVEL_VERBOSE; // | HTTP_LOG_FLAG_TRACE
         [self.httpServer stop];
         return true;
     }
+}
+
+- (NSString *)currentIPAddress
+{
+    NSString *address = @"";
+    struct ifaddrs *interfaces = NULL;
+    struct ifaddrs *temp_addr = NULL;
+    int success = getifaddrs(&interfaces);
+    if (success == 0) {
+        temp_addr = interfaces;
+        while(temp_addr != NULL) {
+            if(temp_addr->ifa_addr->sa_family == AF_INET) {
+                if([@(temp_addr->ifa_name) isEqualToString:WifiInterfaceName])
+                    address = @(inet_ntoa(((struct sockaddr_in *)temp_addr->ifa_addr)->sin_addr));
+            }
+            temp_addr = temp_addr->ifa_next;
+        }
+    }
+    // Free memory
+    freeifaddrs(interfaces);
+    return address;
 }
 
 @end

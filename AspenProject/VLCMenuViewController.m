@@ -25,9 +25,6 @@
 #import "VLCHTTPDownloadViewController.h"
 #import "VLCBugreporter.h"
 
-#import <ifaddrs.h>
-#import <arpa/inet.h>
-
 @interface VLCMenuViewController () {
     VLCHTTPDownloadViewController *_downloadViewController;
     Reachability *_reachability;
@@ -158,32 +155,13 @@
     [self _presentViewController:self.settingsController.viewController];
 }
 
-- (NSString *)_currentIPAddress
-{
-    NSString *address = @"";
-    struct ifaddrs *interfaces = NULL;
-    struct ifaddrs *temp_addr = NULL;
-    int success = getifaddrs(&interfaces);
-    if (success == 0) {
-        temp_addr = interfaces;
-        while(temp_addr != NULL) {
-            if(temp_addr->ifa_addr->sa_family == AF_INET) {
-                if([@(temp_addr->ifa_name) isEqualToString:@"en0"])
-                    address = @(inet_ntoa(((struct sockaddr_in *)temp_addr->ifa_addr)->sin_addr));
-            }
-            temp_addr = temp_addr->ifa_next;
-        }
-    }
-    // Free memory
-    freeifaddrs(interfaces);
-    return address;
-}
+
 
 - (void)updateHTTPServerAddress
 {
     HTTPServer *server = self.uploadController.httpServer;
     if (server.isRunning)
-        self.httpUploadServerLocationLabel.text = [NSString stringWithFormat:@"http://%@:%i", [self _currentIPAddress], server.listeningPort];
+        self.httpUploadServerLocationLabel.text = [NSString stringWithFormat:@"http://%@:%i", [self.uploadController currentIPAddress], server.listeningPort];
     else
         self.httpUploadServerLocationLabel.text = NSLocalizedString(@"HTTP_UPLOAD_SERVER_OFF", @"");
 }
