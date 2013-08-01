@@ -1,7 +1,7 @@
-From 6b4f5a3ed99d3206e0e8872db9d981abf951a133 Mon Sep 17 00:00:00 2001
+From ed78f177bf9772643f44cea1a7a1b6ba4ed77d46 Mon Sep 17 00:00:00 2001
 From: =?UTF-8?q?Felix=20Paul=20K=C3=BChne?= <fkuehne@videolan.org>
 Date: Sat, 15 Jun 2013 21:59:12 +0200
-Subject: [PATCH 2/3] MultipartFormDataParser: fix future compilation warning
+Subject: [PATCH 1/4] MultipartFormDataParser: fix future compilation warning
 
 ---
  Core/Mime/MultipartFormDataParser.m | 2 +-
@@ -21,5 +21,5 @@ index 4a19aee..0676ba4 100644
  	// we don't break the format.
  	int sizeToLeavePending = 0;
 -- 
-1.8.2.1 (Apple Git-45)
+1.7.12.4 (Apple Git-37)
 

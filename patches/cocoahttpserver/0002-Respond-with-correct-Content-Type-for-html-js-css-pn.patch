@@ -1,7 +1,7 @@
-From 8f5414f8e2445915d70a5c13f04d93007313d35b Mon Sep 17 00:00:00 2001
+From 945cd4165cb841fa120324fa633dc4e1f3ee4634 Mon Sep 17 00:00:00 2001
 From: =?UTF-8?q?Felix=20Paul=20K=C3=BChne?= <fkuehne@videolan.org>
 Date: Sat, 15 Jun 2013 22:03:24 +0200
-Subject: [PATCH 3/3] Respond with correct Content-Type for html, js, css, png
+Subject: [PATCH 2/4] Respond with correct Content-Type for html, js, css, png
  and jpg
 
 ---
@@ -51,5 +51,5 @@ index f303cf3..8b4963d 100644
  
  
 -- 
-1.8.2.1 (Apple Git-45)
+1.7.12.4 (Apple Git-37)
 

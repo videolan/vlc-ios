@@ -1,0 +1,48 @@
+From 2e71373c6d8f390376c679dfe4676c5068612b60 Mon Sep 17 00:00:00 2001
+From: Gleb Pinigin <gpinigin@gmail.com>
+Date: Thu, 1 Aug 2013 19:22:27 +0700
+Subject: [PATCH 4/4] bonjour: nullify delegate before removing service from
+ current runloop
+
+---
+ Core/HTTPServer.m | 7 +++----
+ 1 file changed, 3 insertions(+), 4 deletions(-)
+
+diff --git a/Core/HTTPServer.m b/Core/HTTPServer.m
+index 57384f7..5983121 100644
+--- a/Core/HTTPServer.m
++++ b/Core/HTTPServer.m
+@@ -568,7 +568,7 @@ static const int httpLogLevel = HTTP_LOG_LEVEL_INFO; // | HTTP_LOG_FLAG_TRACE;
+ 	if (type)
+ 	{
+ 		netService = [[NSNetService alloc] initWithDomain:domain type:type name:name port:[asyncSocket localPort]];
+-		[netService setDelegate:self];
++		netService.delegate = self;
+ 		
+ 		NSNetService *theNetService = netService;
+ 		NSData *txtRecordData = nil;
+@@ -576,8 +576,6 @@ static const int httpLogLevel = HTTP_LOG_LEVEL_INFO; // | HTTP_LOG_FLAG_TRACE;
+ 			txtRecordData = [NSNetService dataFromTXTRecordDictionary:txtRecordDictionary];
+ 		
+ 		dispatch_block_t bonjourBlock = ^{
+-			
+-			[theNetService removeFromRunLoop:[NSRunLoop mainRunLoop] forMode:NSRunLoopCommonModes];
+ 			[theNetService scheduleInRunLoop:[NSRunLoop currentRunLoop] forMode:NSRunLoopCommonModes];
+ 			[theNetService publish];
+ 			
+@@ -603,10 +601,11 @@ static const int httpLogLevel = HTTP_LOG_LEVEL_INFO; // | HTTP_LOG_FLAG_TRACE;
+ 	if (netService)
+ 	{
+ 		NSNetService *theNetService = netService;
++        netService.delegate = nil;
+ 		
+ 		dispatch_block_t bonjourBlock = ^{
+-			
+ 			[theNetService stop];
++            [theNetService removeFromRunLoop:[NSRunLoop currentRunLoop] forMode:NSRunLoopCommonModes];
+ 		};
+ 		
+ 		[[self class] performBonjourBlock:bonjourBlock];
+-- 
+1.7.12.4 (Apple Git-37)
+
