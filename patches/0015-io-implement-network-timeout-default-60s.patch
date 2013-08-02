@@ -1,7 +1,7 @@
-From c447793b7e9340841e178536ccefcb7dfddcd941 Mon Sep 17 00:00:00 2001
+From baf0d1cd5a92aae1e22e11abcb38777b688ea993 Mon Sep 17 00:00:00 2001
 From: Gleb Pinigin <gpinigin@gmail.com>
 Date: Sun, 28 Jul 2013 18:32:51 +0700
-Subject: [PATCH 14/14] io: implement network timeout(default 60s)
+Subject: [PATCH 15/16] io: implement network timeout(default 60s)
 
 ---
  src/network/io.c | 15 ++++++++++++++-
