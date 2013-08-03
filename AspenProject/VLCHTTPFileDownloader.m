@@ -44,6 +44,7 @@
     } else {
         _downloadInProgress = YES;
         [UIApplication sharedApplication].networkActivityIndicatorVisible = YES;
+        [UIApplication sharedApplication].idleTimerDisabled = YES;
     }
 }
 
@@ -128,6 +129,7 @@
 {
     _downloadInProgress = NO;
     [UIApplication sharedApplication].networkActivityIndicatorVisible = NO;
+    [UIApplication sharedApplication].idleTimerDisabled = NO;
 
     [self.delegate downloadEnded];
 }

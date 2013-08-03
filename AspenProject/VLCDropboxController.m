@@ -170,15 +170,19 @@
 - (void)networkRequestStarted
 {
     _outstandingNetworkRequests++;
-    if (_outstandingNetworkRequests == 1)
+    if (_outstandingNetworkRequests == 1) {
         [[UIApplication sharedApplication] setNetworkActivityIndicatorVisible:YES];
+        [UIApplication sharedApplication].idleTimerDisabled = YES;
+    }
 }
 
 - (void)networkRequestStopped
 {
     _outstandingNetworkRequests--;
-    if (_outstandingNetworkRequests == 0)
+    if (_outstandingNetworkRequests == 0) {
         [[UIApplication sharedApplication] setNetworkActivityIndicatorVisible:NO];
+        [UIApplication sharedApplication].idleTimerDisabled = NO;
+    }
 }
 
 #pragma mark - VLC internal communication and delegate
