@@ -44,7 +44,7 @@
     } else {
         _downloadInProgress = YES;
         [UIApplication sharedApplication].networkActivityIndicatorVisible = YES;
-        [UIApplication sharedApplication].idleTimerDisabled = YES;
+        [(VLCAppDelegate*)[UIApplication sharedApplication].delegate disableIdleTimer];
     }
 }
 
@@ -129,7 +129,7 @@
 {
     _downloadInProgress = NO;
     [UIApplication sharedApplication].networkActivityIndicatorVisible = NO;
-    [UIApplication sharedApplication].idleTimerDisabled = NO;
+    [(VLCAppDelegate*)[UIApplication sharedApplication].delegate activateIdleTimer];
 
     [self.delegate downloadEnded];
 }

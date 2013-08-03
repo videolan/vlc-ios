@@ -23,6 +23,7 @@
 @interface VLCAppDelegate () <PAPasscodeViewControllerDelegate, VLCMediaFileDiscovererDelegate> {
     PAPasscodeViewController *_passcodeLockController;
     VLCDropboxTableViewController *_dropboxTableViewController;
+    int _idleCounter;
 }
 
 @property (nonatomic) BOOL passcodeValidated;
@@ -247,6 +248,21 @@
 - (void)PAPasscodeViewController:(PAPasscodeViewController *)controller didFailToEnterPasscode:(NSInteger)attempts
 {
     // TODO handle error attempts
+}
+
+#pragma mark - idle timer preventer
+- (void)disableIdleTimer
+{
+    _idleCounter++;
+    if ([UIApplication sharedApplication].idleTimerDisabled == NO)
+        [UIApplication sharedApplication].idleTimerDisabled = YES;
+}
+
+- (void)activateIdleTimer
+{
+    _idleCounter--;
+    if (_idleCounter < 1)
+        [UIApplication sharedApplication].idleTimerDisabled = NO;
 }
 
 @end

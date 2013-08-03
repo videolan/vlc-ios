@@ -16,6 +16,8 @@
 @interface VLCAppDelegate : UIResponder <UIApplicationDelegate>
 
 - (void)updateMediaList;
+- (void)disableIdleTimer;
+- (void)activateIdleTimer;
 
 @property (nonatomic, readonly) VLCPlaylistViewController *playlistViewController;
 @property (nonatomic, readonly) VLCDropboxTableViewController *dropboxTableViewController;
