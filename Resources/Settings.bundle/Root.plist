@@ -32,6 +32,38 @@
 				<integer>3</integer>
 			</array>
 		</dict>
+				<dict>
+			<key>Type</key>
+			<string>PSGroupSpecifier</string>
+			<key>Title</key>
+			<string>SETTINGS_SUBTITLES_TITLE</string>
+		</dict>
+		<dict>
+			<key>Type</key>
+			<string>PSMultiValueSpecifier</string>
+			<key>Title</key>
+			<string>SETTINGS_SUBTITLES_FONTSIZE</string>
+			<key>Key</key>
+			<string>quartztext-rel-fontsize</string>
+			<key>DefaultValue</key>
+			<string>16</string>
+			<key>Titles</key>
+			<array>
+				<string>SETTINGS_SUBTITLES_FONTSIZE_SMALLEST</string>
+				<string>SETTINGS_SUBTITLES_FONTSIZE_SMALL</string>
+				<string>SETTINGS_SUBTITLES_FONTSIZE_NORMAL</string>
+				<string>SETTINGS_SUBTITLES_FONTSIZE_LARGE</string>
+				<string>SETTINGS_SUBTITLES_FONTSIZE_LARGEST</string>
+			</array>
+			<key>Values</key>
+			<array>
+				<string>20</string>
+				<string>18</string>
+				<string>16</string>
+				<string>12</string>
+				<string>6</string>
+			</array>
+		</dict>
 		<dict>
 			<key>Type</key>
 			<string>PSMultiValueSpecifier</string>
@@ -124,7 +156,7 @@
 				<string>Windows-1258</string>
 			</array>
 			<key>Title</key>
-			<string>SETTINGS_SUBTITLE_TEXT_ENCODING</string>
+			<string>SETTINGS_SUBTITLES_TEXT_ENCODING</string>
 			<key>Key</key>
 			<string>subsdec-encoding</string>
 			<key>DefaultValue</key>

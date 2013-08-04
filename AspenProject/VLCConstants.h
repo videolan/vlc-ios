@@ -23,6 +23,7 @@
 #define kVLCSettingSkipLoopFilterNonRef @(1)
 #define kVLCSettingSkipLoopFilterNonKey @(3)
 #define kVLCSettingSaveHTTPUploadServerStatus @"isHTTPServerOn"
+#define kVLCSettingSubtitlesFontSize @"quartztext-rel-fontsize"
 
 #define kVLCShowRemainingTime @"show-remaining-time"
 #define kVLCRecentURLs @"recent-urls"
