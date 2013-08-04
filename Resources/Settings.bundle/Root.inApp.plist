@@ -83,6 +83,40 @@
 		<dict>
 			<key>Type</key>
 			<string>PSMultiValueSpecifier</string>
+			<key>Title</key>
+			<string>SETTINGS_SUBTITLES_FONTCOLOR</string>
+			<key>Key</key>
+			<string>quartztext-color</string>
+			<key>DefaultValue</key>
+			<string>16777215</string>
+			<key>Titles</key>
+			<array>
+				<string>SETTINGS_SUBTITLES_FONTCOLOR_WHITE</string>
+				<string>SETTINGS_SUBTITLES_FONTCOLOR_BLACK</string>
+				<string>SETTINGS_SUBTITLES_FONTCOLOR_GRAY</string>
+				<string>SETTINGS_SUBTITLES_FONTCOLOR_SILVER</string>
+				<string>SETTINGS_SUBTITLES_FONTCOLOR_RED</string>
+				<string>SETTINGS_SUBTITLES_FONTCOLOR_FUCHSIA</string>
+				<string>SETTINGS_SUBTITLES_FONTCOLOR_YELLOW</string>
+				<string>SETTINGS_SUBTITLES_FONTCOLOR_GREEN</string>
+				<string>SETTINGS_SUBTITLES_FONTCOLOR_NAVY</string>
+			</array>
+			<key>Values</key>
+			<array>
+				<string>16777215</string>
+				<string>0</string>
+				<string>8421504</string>
+				<string>12632256</string>
+				<string>16711680</string>
+				<string>16711935</string>
+				<string>16776960</string>
+				<string>32768</string>
+				<string>128</string>
+			</array>
+		</dict>
+		<dict>
+			<key>Type</key>
+			<string>PSMultiValueSpecifier</string>
 			<key>Titles</key>
 			<array>
 				<string>Universal (UTF-8)</string>
