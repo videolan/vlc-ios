@@ -58,6 +58,70 @@
 			<key>Type</key>
 			<string>PSMultiValueSpecifier</string>
 			<key>Title</key>
+			<string>SETTINGS_SUBTITLES_FONT</string>
+			<key>Key</key>
+			<string>quartztext-font</string>
+			<key>DefaultValue</key>
+			<string>Helvetica Neue</string>
+			<key>Titles</key>
+			<array>
+				<string>American Typewriter</string>
+				<string>Arial</string>
+				<string>Arial Hebrew</string>
+				<string>Chalkboard SE</string>
+				<string>Courier New</string>
+				<string>Georgia</string>
+				<string>Gill Sans</string>
+				<string>Gujarati Sangam MN</string>
+				<string>Heiti SC</string>
+				<string>Heiti TC</string>
+				<string>Helvetica Neue</string>
+				<string>Hiragino Kaku Gothic ProN</string>
+				<string>Hiragino Mincho ProN</string>
+				<string>Hoefler Text</string>
+				<string>Kailasa</string>
+				<string>Kannada Sangam MN</string>
+				<string>Malayalam Sangam MN</string>
+				<string>Oriya Sangam MN</string>
+				<string>Sinhala Sangam MN</string>
+				<string>Snell Roundhand</string>
+				<string>Tamil Sangam MN</string>
+				<string>Telugu Sangam MN</string>
+				<string>Times New Roman</string>
+				<string>Zapfino</string>
+			</array>
+			<key>Values</key>
+			<array>
+				<string>American Typewriter</string>
+				<string>Arial</string>
+				<string>Arial Hebrew</string>
+				<string>Chalkboard SE</string>
+				<string>Courier New</string>
+				<string>Georgia</string>
+				<string>Gill Sans</string>
+				<string>Gujarati Sangam MN</string>
+				<string>Heiti SC</string>
+				<string>Heiti TC</string>
+				<string>Helvetica Neue</string>
+				<string>Hiragino Kaku Gothic ProN</string>
+				<string>Hiragino Mincho ProN</string>
+				<string>Hoefler Text</string>
+				<string>Kailasa</string>
+				<string>Kannada Sangam MN</string>
+				<string>Malayalam Sangam MN</string>
+				<string>Oriya Sangam MN</string>
+				<string>Sinhala Sangam MN</string>
+				<string>Snell Roundhand</string>
+				<string>Tamil Sangam MN</string>
+				<string>Telugu Sangam MN</string>
+				<string>Times New Roman</string>
+				<string>Zapfino</string>
+			</array>
+		</dict>
+		<dict>
+			<key>Type</key>
+			<string>PSMultiValueSpecifier</string>
+			<key>Title</key>
 			<string>SETTINGS_SUBTITLES_FONTSIZE</string>
 			<key>Key</key>
 			<string>quartztext-rel-fontsize</string>
