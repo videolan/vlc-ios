@@ -229,7 +229,9 @@
     if (_playerIsSetup)
         return;
 
-    _mediaPlayer = [[VLCMediaPlayer alloc] init];
+    NSUserDefaults *defaults = [NSUserDefaults standardUserDefaults];
+
+    _mediaPlayer = [[VLCMediaPlayer alloc] initWithOptions:@[[NSString stringWithFormat:@"--%@=%@", kVLCSettingSubtitlesFont, [defaults objectForKey:kVLCSettingSubtitlesFont]], [NSString stringWithFormat:@"--%@=%@", kVLCSettingSubtitlesFontColor, [defaults objectForKey:kVLCSettingSubtitlesFontColor]], [NSString stringWithFormat:@"--%@=%@", kVLCSettingSubtitlesFontSize, [defaults objectForKey:kVLCSettingSubtitlesFontSize]]]];
     [_mediaPlayer setDelegate:self];
     [_mediaPlayer setDrawable:self.movieView];
 
@@ -248,10 +250,10 @@
         self.title = @"Network Stream";
     }
 
-    NSUserDefaults *defaults = [NSUserDefaults standardUserDefaults];
+
     [media addOptions:
      @{kVLCSettingStretchAudio :
-     [[defaults objectForKey:kVLCSettingStretchAudio] boolValue] ? kVLCSettingStretchAudioOnValue : kVLCSettingStretchAudioOffValue, kVLCSettingTextEncoding : [defaults objectForKey:kVLCSettingTextEncoding], kVLCSettingSkipLoopFilter : [defaults objectForKey:kVLCSettingSkipLoopFilter], kVLCSettingSubtitlesFont : [defaults objectForKey:kVLCSettingSubtitlesFont], kVLCSettingSubtitlesFontColor : [defaults objectForKey:kVLCSettingSubtitlesFontColor], kVLCSettingSubtitlesFontSize : [defaults objectForKey:kVLCSettingSubtitlesFontSize]}];
+     [[defaults objectForKey:kVLCSettingStretchAudio] boolValue] ? kVLCSettingStretchAudioOnValue : kVLCSettingStretchAudioOffValue, kVLCSettingTextEncoding : [defaults objectForKey:kVLCSettingTextEncoding], kVLCSettingSkipLoopFilter : [defaults objectForKey:kVLCSettingSkipLoopFilter]}];
 
     [NSTimeZone resetSystemTimeZone];
     NSString *tzName = [[NSTimeZone systemTimeZone] name];
