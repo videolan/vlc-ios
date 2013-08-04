@@ -212,7 +212,7 @@
     NSMutableArray *filePaths = [NSMutableArray arrayWithCapacity:[foundFiles count]];
     NSURL *fileURL;
     for (NSString *fileName in foundFiles) {
-        if ([fileName isSupportedMediaFormat]) {
+        if ([fileName isSupportedMediaFormat] || [fileName isSupportedAudioMediaFormat]) {
             [filePaths addObject:[directoryPath stringByAppendingPathComponent:fileName]];
 
             /* exclude media files from backup (QA1719) */

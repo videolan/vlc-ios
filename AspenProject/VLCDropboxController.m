@@ -99,7 +99,7 @@
 #pragma mark - restClient delegate
 - (BOOL)_supportedFileExtension:(NSString *)filename
 {
-    if ([filename isSupportedMediaFormat] || [filename isSupportedSubtitleFormat])
+    if ([filename isSupportedMediaFormat] || [filename isSupportedAudioMediaFormat] || [filename isSupportedSubtitleFormat])
         return YES;
 
     return NO;

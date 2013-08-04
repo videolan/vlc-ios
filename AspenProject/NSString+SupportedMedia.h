@@ -13,6 +13,7 @@
 @interface NSString (SupportedMedia)
 
 - (BOOL)isSupportedMediaFormat;
+- (BOOL)isSupportedAudioMediaFormat;
 - (BOOL)isSupportedSubtitleFormat;
 
 @end

@@ -18,6 +18,12 @@
     return ([self rangeOfString:kSupportedFileExtensions options:options].location != NSNotFound);
 }
 
+- (BOOL)isSupportedAudioMediaFormat
+{
+    NSUInteger options = NSRegularExpressionSearch | NSCaseInsensitiveSearch;
+    return ([self rangeOfString:kSupportedAudioFileExtensions options:options].location != NSNotFound);
+}
+
 - (BOOL)isSupportedSubtitleFormat
 {
     NSUInteger options = NSRegularExpressionSearch | NSCaseInsensitiveSearch;

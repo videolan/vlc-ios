@@ -64,7 +64,7 @@ const float MediaTimerInterval = 2.f;
 
 - (void)notifyFileDeleted:(NSString *)fileName
 {
-    if (![fileName isSupportedMediaFormat])
+    if (![fileName isSupportedMediaFormat] && ![fileName isSupportedAudioMediaFormat])
         return;
 
     for (id<VLCMediaFileDiscovererDelegate> delegate in _observers) {
@@ -143,7 +143,7 @@ const float MediaTimerInterval = 2.f;
         NSArray *addedFiles = [foundFiles filteredArrayUsingPredicate:filterPredicate];
 
         for (NSString *fileName in addedFiles) {
-            if ([fileName isSupportedMediaFormat]) {
+            if ([fileName isSupportedMediaFormat] || [fileName isSupportedAudioMediaFormat]) {
                 [_addedFilesMapping setObject:@(0) forKey:fileName];
                 [self notifyFileAdded:fileName loading:YES];
             }
