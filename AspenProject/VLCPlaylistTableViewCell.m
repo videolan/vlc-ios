@@ -98,10 +98,9 @@
                 [_thumbnailCacheIndex removeLastObject];
             }
             displayedImage = mediaObject.computedThumbnail;
-            if (displayedImage) {
+            if (displayedImage)
                 [_thumbnailCache setObject:displayedImage forKey:objID];
-                [_thumbnailCacheIndex insertObject:objID atIndex:0];
-            }
+            [_thumbnailCacheIndex insertObject:objID atIndex:0];
         }
         self.thumbnailView.image = displayedImage;
     }
