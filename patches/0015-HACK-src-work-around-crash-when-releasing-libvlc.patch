@@ -1,0 +1,28 @@
+From 52ac6635fdb8231c49ce02dd7a3faff821220960 Mon Sep 17 00:00:00 2001
+From: =?UTF-8?q?Felix=20Paul=20K=C3=BChne?= <fkuehne@videolan.org>
+Date: Sun, 4 Aug 2013 19:50:42 +0200
+Subject: [PATCH 15/15] HACK: src: work-around crash when releasing libvlc
+
+---
+ src/config/keys.c | 3 ++-
+ 1 file changed, 2 insertions(+), 1 deletion(-)
+
+diff --git a/src/config/keys.c b/src/config/keys.c
+index 7fcbc37..53f25a6 100644
+--- a/src/config/keys.c
++++ b/src/config/keys.c
+@@ -540,9 +540,10 @@ void vlc_DeinitActions (libvlc_int_t *libvlc, struct vlc_actions *as)
+ {
+     if (unlikely(as == NULL))
+         return;
+-
++/*
+     var_DelCallback (libvlc, "global-key-pressed", vlc_key_to_action,
+                      &as->global_map);
++ */
+     var_DelCallback (libvlc, "key-pressed", vlc_key_to_action, &as->map);
+ 
+     tdestroy (as->global_map, free);
+-- 
+1.8.3.1 (Apple Git-46)
+
