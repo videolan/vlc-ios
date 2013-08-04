@@ -53,6 +53,9 @@
     // Init the HTTP Server
     self.uploadController = [[VLCHTTPUploaderController alloc] init];
 
+    // enable crash preventer
+    [[MLMediaLibrary sharedMediaLibrary] applicationWillStart];
+
     self.window = [[UIWindow alloc] initWithFrame:[[UIScreen mainScreen] bounds]];
 
     _playlistViewController = [[VLCPlaylistViewController alloc] init];
@@ -126,6 +129,11 @@
         }
     }
     return url;
+}
+
+- (void)applicationWillEnterForeground:(UIApplication *)application
+{
+    [[MLMediaLibrary sharedMediaLibrary] applicationWillStart];
 }
 
 - (void)applicationWillResignActive:(UIApplication *)application
