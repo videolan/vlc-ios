@@ -1,7 +1,7 @@
-From 75b5e301e3299effb53724d6426463f29273ef9d Mon Sep 17 00:00:00 2001
+From 5fcd0e59a12452800b2e2ca892a4266b90798355 Mon Sep 17 00:00:00 2001
 From: =?UTF-8?q?Felix=20Paul=20K=C3=BChne?= <fkuehne@videolan.org>
 Date: Sat, 20 Jul 2013 23:35:05 +0200
-Subject: [PATCH 09/13] contrib/png: fix ARM assembly for iOS
+Subject: [PATCH 1/2] contrib/png: fix ARM assembly for iOS
 
 ---
  contrib/src/png/ios.patch | 66 +++++++++++++++++++++++++++++++++++++++++++++++
@@ -82,13 +82,13 @@ index 0000000..f4b8bc1
 +         ldr             r12, [r0, #4]           @ rowbytes
 +         vmov.i8         d3,  #0
 diff --git a/contrib/src/png/rules.mak b/contrib/src/png/rules.mak
-index 89bb4e0..d380ce1 100644
+index 45c8107..f328924 100644
 --- a/contrib/src/png/rules.mak
 +++ b/contrib/src/png/rules.mak
-@@ -16,6 +16,9 @@ png: libpng-$(PNG_VERSION).tar.bz2 .sum-png
+@@ -15,6 +15,9 @@ $(TARBALLS)/libpng-$(PNG_VERSION).tar.xz:
+ png: libpng-$(PNG_VERSION).tar.xz .sum-png
  	$(UNPACK)
  	$(APPLY) $(SRC)/png/winrt.patch
- 	$(APPLY) $(SRC)/png/automake.patch
 +ifdef HAVE_IOS
 +	$(APPLY) $(SRC)/png/ios.patch
 +endif
@@ -96,5 +96,5 @@ index 89bb4e0..d380ce1 100644
  
  DEPS_png = zlib $(DEPS_zlib)
 -- 
-1.7.12.4 (Apple Git-37)
+1.8.3.1 (Apple Git-46)
 
