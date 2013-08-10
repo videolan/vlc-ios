@@ -146,6 +146,12 @@ fi
 if ! [ -e GHSidebarNav ]; then
 git clone git://github.com/gresrun/GHSidebarNav.git
 fi
+if ! [ -e upnpx ]; then
+UPNPXVERSION=1.2.4
+curl -O http://upnpx.googlecode.com/files/upnpx-${UPNPXVERSION}.tar.gz
+tar xf upnpx-${UPNPXVERSION}.tar.gz
+mv upnpx-${UPNPXVERSION} upnpx
+fi
 if ! [ -e AQGridView ]; then
 git clone git://github.com/AlanQuatermain/AQGridView.git
 cd AQGridView
@@ -197,6 +203,7 @@ else
 fi
 framework_build="${aspen_root_dir}/ImportedSources/VLCKit/${xcbuilddir}"
 mlkit_build="${aspen_root_dir}/ImportedSources/MediaLibraryKit/${xcbuilddir}"
+upnpx_build="${aspen_root_dir}/ImportedSources/upnpx/projects/xcode4/upnpx/${xcbuilddir}"
 
 spushd MediaLibraryKit
 rm -f External/MobileVLCKit
@@ -207,6 +214,7 @@ spopd #ImportedSources
 
 ln -sf ${framework_build} External/MobileVLCKit
 ln -sf ${mlkit_build} External/MediaLibraryKit
+ln -sf ${upnpx_build} External/upnpx
 
 #
 # Build time
@@ -238,6 +246,10 @@ spopd
 
 spushd MediaLibraryKit
 buildxcodeproj MediaLibraryKit
+spopd
+
+spushd upnpx/projects/xcode4/upnpx
+buildxcodeproj upnpx
 spopd
 
 spopd # ImportedSources
