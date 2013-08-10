@@ -31,10 +31,9 @@
     Reachability *_reachability;
 }
 - (void)_presentViewController:(UIViewController *)viewController;
-- (void)_dismissModalViewController;
 
 @property(nonatomic) VLCHTTPUploaderController *uploadController;
-@property(nonatomic) VLCAppDelegate *appDelegate;;
+@property(nonatomic) VLCAppDelegate *appDelegate;
 
 @end
 
@@ -187,8 +186,4 @@
         [[VLCBugreporter sharedInstance] handleBugreportRequest];
 }
 
-- (void)_dismissModalViewController
-{
-    [self dismissModalViewControllerAnimated:YES];
-}
 @end
