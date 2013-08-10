@@ -17,6 +17,7 @@
 #import "NSString+SupportedMedia.h"
 #import "VLCBugreporter.h"
 #import "VLCAppDelegate.h"
+#import "UIBarButtonItem+Theme.h"
 
 @implementation EmptyLibraryView
 @end
@@ -54,9 +55,7 @@
 {
     [super viewDidLoad];
 
-    UIBarButtonItem *addButton = [[UIBarButtonItem alloc] initWithImage:[UIImage imageNamed:@"menuCone"] style:UIBarButtonItemStyleBordered target:self action:@selector(leftButtonAction:)];
-    [addButton setBackgroundImage:[UIImage imageNamed:@"button"] forState:UIControlStateNormal barMetrics:UIBarMetricsDefault];
-    [addButton setBackgroundImage:[UIImage imageNamed:@"buttonHighlight"] forState:UIControlStateHighlighted barMetrics:UIBarMetricsDefault];
+    UIBarButtonItem *addButton = [UIBarButtonItem themedRevealMenuButtonWithTarget:self andSelector:@selector(leftButtonAction:)];
 
     /* After day 354 of the year, the usual VLC cone is replaced by another cone
      * wearing a Father Xmas hat.

@@ -23,6 +23,7 @@
     NSString *_currentPath;
 
     UIBarButtonItem *_backButton;
+    UIBarButtonItem *_backToMenuButton;
 
     UIBarButtonItem *_numberOfFilesBarButtonItem;
     UIBarButtonItem *_progressBarButtonItem;
@@ -54,8 +55,9 @@
     self.navigationItem.titleView.contentMode = UIViewContentModeScaleAspectFit;
 
     _backButton = [UIBarButtonItem themedBackButtonWithTarget:self andSelector:@selector(goBack:)];
+    _backToMenuButton = [UIBarButtonItem themedRevealMenuButtonWithTarget:self andSelector:@selector(goBack:)];
     if (UI_USER_INTERFACE_IDIOM() == UIUserInterfaceIdiomPhone)
-        self.navigationItem.leftBarButtonItem = _backButton;
+        self.navigationItem.leftBarButtonItem = _backToMenuButton;
 
     self.tableView.rowHeight = [VLCDropboxTableViewCell heightOfCell];
     self.tableView.separatorColor = [UIColor colorWithWhite:.122 alpha:1.];
@@ -116,7 +118,9 @@
     [_dropboxController requestDirectoryListingAtPath:_currentPath];
 
     if (UI_USER_INTERFACE_IDIOM() == UIUserInterfaceIdiomPad)
-        self.navigationItem.leftBarButtonItem = ![_currentPath isEqualToString:@"/"]? _backButton: nil;
+        self.navigationItem.leftBarButtonItem = ![_currentPath isEqualToString:@"/"] ? _backButton : nil;
+    else
+        self.navigationItem.leftBarButtonItem = ![_currentPath isEqualToString:@"/"] ? _backButton : _backToMenuButton;
 }
 
 #pragma mark - interface interaction

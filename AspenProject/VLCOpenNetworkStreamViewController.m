@@ -38,7 +38,7 @@
     self.title = NSLocalizedString(@"OPEN_NETWORK", @"");
 
     if (UI_USER_INTERFACE_IDIOM() == UIUserInterfaceIdiomPhone)
-        self.navigationItem.leftBarButtonItem = [UIBarButtonItem themedBackButtonWithTarget:self andSelector:@selector(goBack:)];
+        self.navigationItem.leftBarButtonItem = [UIBarButtonItem themedRevealMenuButtonWithTarget:self andSelector:@selector(goBack:)];
 }
 
 - (void)viewWillAppear:(BOOL)animated

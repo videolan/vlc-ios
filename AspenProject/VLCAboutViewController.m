@@ -26,7 +26,7 @@
 
     if (UI_USER_INTERFACE_IDIOM() == UIUserInterfaceIdiomPhone) {
         self.navigationItem.rightBarButtonItem = contributeButton;
-        self.navigationItem.leftBarButtonItem = [UIBarButtonItem themedBackButtonWithTarget:self andSelector:@selector(goBack:)];
+        self.navigationItem.leftBarButtonItem = [UIBarButtonItem themedRevealMenuButtonWithTarget:self andSelector:@selector(goBack:)];
     } else
         self.navigationItem.leftBarButtonItem = contributeButton;
 
