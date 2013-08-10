@@ -281,7 +281,7 @@
 								<int key="IBUIStyle">0</int>
 							</object>
 						</array>
-						<string key="NSFrame">{{0, 122}, {320, 60}}</string>
+						<string key="NSFrame">{{0, 105}, {320, 60}}</string>
 						<reference key="NSSuperview" ref="191373211"/>
 						<reference key="NSWindow"/>
 						<reference key="NSNextKeyView" ref="1005679980"/>
@@ -293,7 +293,7 @@
 					<object class="IBUITableView" id="831264216">
 						<reference key="NSNextResponder" ref="191373211"/>
 						<int key="NSvFlags">274</int>
-						<string key="NSFrame">{{0, 193}, {320, 190}}</string>
+						<string key="NSFrame">{{0, 168}, {320, 215}}</string>
 						<reference key="NSSuperview" ref="191373211"/>
 						<reference key="NSWindow"/>
 						<string key="NSReuseIdentifierKey">_NS:9</string>
@@ -396,6 +396,14 @@
 						<reference key="destination" ref="385572310"/>
 					</object>
 					<int key="connectionID">92</int>
+				</object>
+				<object class="IBConnectionRecord">
+					<object class="IBCocoaTouchOutletConnection" key="connection">
+						<string key="label">whatToDownloadHelpLabel</string>
+						<reference key="source" ref="372490531"/>
+						<reference key="destination" ref="325478617"/>
+					</object>
+					<int key="connectionID">96</int>
 				</object>
 				<object class="IBConnectionRecord">
 					<object class="IBCocoaTouchOutletConnection" key="connection">
@@ -560,7 +568,7 @@
 			<nil key="activeLocalization"/>
 			<dictionary class="NSMutableDictionary" key="localizations"/>
 			<nil key="sourceID"/>
-			<int key="maxID">95</int>
+			<int key="maxID">96</int>
 		</object>
 		<object class="IBClassDescriber" key="IBDocument.Classes">
 			<array class="NSMutableArray" key="referencedPartialClassDescriptions">
@@ -570,7 +578,6 @@
 					<dictionary class="NSMutableDictionary" key="actions">
 						<string key="cancelDownload:">id</string>
 						<string key="downloadAction:">id</string>
-						<string key="goBack:">id</string>
 					</dictionary>
 					<dictionary class="NSMutableDictionary" key="actionInfosByName">
 						<object class="IBActionInfo" key="cancelDownload:">
@@ -579,10 +586,6 @@
 						</object>
 						<object class="IBActionInfo" key="downloadAction:">
 							<string key="name">downloadAction:</string>
-							<string key="candidateClassName">id</string>
-						</object>
-						<object class="IBActionInfo" key="goBack:">
-							<string key="name">goBack:</string>
 							<string key="candidateClassName">id</string>
 						</object>
 					</dictionary>
