@@ -12,7 +12,6 @@
 #import "VLCMovieViewController.h"
 #import "VLCPlaylistTableViewCell.h"
 #import "VLCPlaylistGridView.h"
-#import "VLCMenuViewController.h"
 #import "UINavigationController+Theme.h"
 #import "NSString+SupportedMedia.h"
 #import "VLCBugreporter.h"
@@ -296,17 +295,6 @@
         [self.gridView setEditing:editing];
     else
         [self.tableView setEditing:editing animated:YES];
-}
-
-- (void)initMenuViewController
-{
-    return;
-    VLCMenuViewController *menuViewController = [[VLCMenuViewController alloc] initWithNibName:nil bundle:nil];
-    UINavigationController *navigationController = [[UINavigationController alloc] initWithRootViewController:menuViewController];
-    [navigationController loadTheme];
-    self.menuViewController = navigationController;
-    if (UI_USER_INTERFACE_IDIOM() == UIUserInterfaceIdiomPad)
-        navigationController.navigationBarHidden = YES;
 }
 
 - (IBAction)leftButtonAction:(id)sender

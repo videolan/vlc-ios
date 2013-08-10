@@ -12,7 +12,6 @@
 #import "AQGridView.h"
 
 @class VLCMovieViewController;
-@class VLCMenuViewController;
 @class EmptyLibraryView;
 
 @interface VLCPlaylistViewController : UIViewController <UITabBarDelegate, UIPopoverControllerDelegate>

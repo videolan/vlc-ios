@@ -38,7 +38,6 @@
 		29CE2D44174912C600922D8F /* VLCHTTPUploaderController.m in Sources */ = {isa = PBXBuildFile; fileRef = 29CE2D42174912C600922D8F /* VLCHTTPUploaderController.m */; };
 		7A50619F176E3D410036E15D /* UINavigationController+Theme.m in Sources */ = {isa = PBXBuildFile; fileRef = 7A50619E176E3D410036E15D /* UINavigationController+Theme.m */; };
 		7A5061A2176E41160036E15D /* UIBarButtonItem+Theme.m in Sources */ = {isa = PBXBuildFile; fileRef = 7A5061A1176E41160036E15D /* UIBarButtonItem+Theme.m */; };
-		7A57C1371769F0BA00807630 /* VLCMenuViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 7A57C1361769F0BA00807630 /* VLCMenuViewController.xib */; };
 		7AC8629D1765DC560011611A /* style.css in Resources */ = {isa = PBXBuildFile; fileRef = 7AC8629B1765DC560011611A /* style.css */; };
 		7AC862A61765E9510011611A /* jquery-1.10.1.min.js in Resources */ = {isa = PBXBuildFile; fileRef = 7AC8629E1765E90C0011611A /* jquery-1.10.1.min.js */; };
 		7AC862A71765E9510011611A /* jquery.fileupload.js in Resources */ = {isa = PBXBuildFile; fileRef = 7AC8629F1765E90C0011611A /* jquery.fileupload.js */; };
@@ -165,7 +164,6 @@
 		7D6B08F8174D65B500A05173 /* IASKTextField.m in Sources */ = {isa = PBXBuildFile; fileRef = 7D6B08EA174D65B500A05173 /* IASKTextField.m */; settings = {COMPILER_FLAGS = "-fno-objc-arc"; }; };
 		7D6B08FA174D716200A05173 /* MessageUI.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 7D6B08F9174D716200A05173 /* MessageUI.framework */; };
 		7D6B08FC174D773C00A05173 /* Settings.bundle in Resources */ = {isa = PBXBuildFile; fileRef = 7D6B08FB174D773C00A05173 /* Settings.bundle */; };
-		7D6BA1171748EFE100C0E203 /* VLCMenuViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 7D6BA1151748EFE100C0E203 /* VLCMenuViewController.m */; };
 		7D6BD17E176200B600AD311A /* navBarBackgroundPhoneLandscape@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 7D6BD17C176200B600AD311A /* navBarBackgroundPhoneLandscape@2x.png */; };
 		7D6BD17F176200B600AD311A /* navBarBackgroundPhoneLandscape.png in Resources */ = {isa = PBXBuildFile; fileRef = 7D6BD17D176200B600AD311A /* navBarBackgroundPhoneLandscape.png */; };
 		7D6BD1841762026700AD311A /* thumbOverlayPhone@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 7D6BD1801762026700AD311A /* thumbOverlayPhone@2x.png */; };
@@ -341,7 +339,6 @@
 		7A50619E176E3D410036E15D /* UINavigationController+Theme.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UINavigationController+Theme.m"; sourceTree = "<group>"; };
 		7A5061A0176E41160036E15D /* UIBarButtonItem+Theme.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIBarButtonItem+Theme.h"; sourceTree = "<group>"; };
 		7A5061A1176E41160036E15D /* UIBarButtonItem+Theme.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIBarButtonItem+Theme.m"; sourceTree = "<group>"; };
-		7A57C1361769F0BA00807630 /* VLCMenuViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; name = VLCMenuViewController.xib; path = Resources/VLCMenuViewController.xib; sourceTree = SOURCE_ROOT; };
 		7AC8629B1765DC560011611A /* style.css */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.css; path = style.css; sourceTree = "<group>"; };
 		7AC8629E1765E90C0011611A /* jquery-1.10.1.min.js */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.javascript; path = "jquery-1.10.1.min.js"; sourceTree = "<group>"; };
 		7AC8629F1765E90C0011611A /* jquery.fileupload.js */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.javascript; path = jquery.fileupload.js; sourceTree = "<group>"; };
@@ -557,8 +554,6 @@
 		7D6B08EA174D65B500A05173 /* IASKTextField.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = IASKTextField.m; sourceTree = "<group>"; };
 		7D6B08F9174D716200A05173 /* MessageUI.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = MessageUI.framework; path = System/Library/Frameworks/MessageUI.framework; sourceTree = SDKROOT; };
 		7D6B08FB174D773C00A05173 /* Settings.bundle */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.plug-in"; name = Settings.bundle; path = Resources/Settings.bundle; sourceTree = SOURCE_ROOT; };
-		7D6BA1141748EFE100C0E203 /* VLCMenuViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = VLCMenuViewController.h; sourceTree = "<group>"; };
-		7D6BA1151748EFE100C0E203 /* VLCMenuViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = VLCMenuViewController.m; sourceTree = "<group>"; };
 		7D6BD17C176200B600AD311A /* navBarBackgroundPhoneLandscape@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "navBarBackgroundPhoneLandscape@2x.png"; sourceTree = "<group>"; };
 		7D6BD17D176200B600AD311A /* navBarBackgroundPhoneLandscape.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = navBarBackgroundPhoneLandscape.png; sourceTree = "<group>"; };
 		7D6BD1801762026700AD311A /* thumbOverlayPhone@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "thumbOverlayPhone@2x.png"; sourceTree = "<group>"; };
@@ -1003,8 +998,6 @@
 		7D2339AB176DE70E008D223C /* Menu */ = {
 			isa = PBXGroup;
 			children = (
-				7D6BA1141748EFE100C0E203 /* VLCMenuViewController.h */,
-				7D6BA1151748EFE100C0E203 /* VLCMenuViewController.m */,
 				7D93045117B6A0DF0054EAC6 /* VLCMenuTableViewController.h */,
 				7D93045217B6A0DF0054EAC6 /* VLCMenuTableViewController.m */,
 				7D2339AC176DE72E008D223C /* VLCOpenNetworkStreamViewController.h */,
@@ -1368,7 +1361,6 @@
 				7D2339AE176DE72E008D223C /* VLCOpenNetworkStreamViewController.xib */,
 				7DBC3B431711FC6C00DCF688 /* VLCAboutViewController~iphone.xib */,
 				7D9529521732EFCA006F5B40 /* VLCAboutViewController~ipad.xib */,
-				7A57C1361769F0BA00807630 /* VLCMenuViewController.xib */,
 				A79246BD170F114E0036AAF2 /* VLCMovieViewController~iphone.xib */,
 				7D33D41517182615008AF0E0 /* VLCMovieViewController~ipad.xib */,
 				A79246C0170F114E0036AAF2 /* VLCEmptyLibraryView~iphone.xib */,
@@ -1726,7 +1718,6 @@
 				7DEB3B8C1764A4F40038FC70 /* blank.png in Resources */,
 				7DEB3B8D1764A4F40038FC70 /* blank@2x.png in Resources */,
 				7AC8629D1765DC560011611A /* style.css in Resources */,
-				7A57C1371769F0BA00807630 /* VLCMenuViewController.xib in Resources */,
 				7DF1166C176CC69A009EC05C /* volumeballslider.png in Resources */,
 				7DF1166D176CC69A009EC05C /* volumeballslider@2x.png in Resources */,
 				7D2339B0176DE72E008D223C /* VLCOpenNetworkStreamViewController.xib in Resources */,
@@ -1792,7 +1783,6 @@
 				2915543F17490B9C00B86CAD /* HTTPFileResponse.m in Sources */,
 				2915544017490B9C00B86CAD /* HTTPRedirectResponse.m in Sources */,
 				2915544117490B9C00B86CAD /* WebSocket.m in Sources */,
-				7D6BA1171748EFE100C0E203 /* VLCMenuViewController.m in Sources */,
 				29CE2D44174912C600922D8F /* VLCHTTPUploaderController.m in Sources */,
 				7D3EB012174A3530002062C2 /* Reachability.m in Sources */,
 				7D3EB017174A46FB002062C2 /* VLCHTTPFileDownloader.m in Sources */,
