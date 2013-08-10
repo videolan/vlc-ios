@@ -37,6 +37,7 @@
     [self.privateModeLabel setText:NSLocalizedString(@"PRIVATE_PLAYBACK_TOGGLE", @"")];
     self.title = NSLocalizedString(@"OPEN_NETWORK", @"");
     self.navigationItem.leftBarButtonItem = [UIBarButtonItem themedRevealMenuButtonWithTarget:self andSelector:@selector(goBack:)];
+    [self.whatToOpenHelpLabel setText:NSLocalizedString(@"OPEN_NETWORK_HELP", @"")];
 }
 
 - (void)viewWillAppear:(BOOL)animated

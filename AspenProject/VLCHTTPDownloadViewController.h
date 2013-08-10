@@ -14,6 +14,7 @@
 
 @property (nonatomic, strong) IBOutlet UIButton *downloadButton;
 @property (nonatomic, strong) IBOutlet UITextField *urlField;
+@property (nonatomic, strong) IBOutlet UILabel *whatToDownloadHelpLabel;
 @property (nonatomic, strong) IBOutlet UITableView *downloadsTable;
 
 @property (nonatomic, strong) IBOutlet UIProgressView *progressView;

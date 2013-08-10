@@ -2,7 +2,7 @@
 <archive type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="8.00">
 	<data>
 		<int key="IBDocument.SystemTarget">1296</int>
-		<string key="IBDocument.SystemVersion">12F17</string>
+		<string key="IBDocument.SystemVersion">12F33</string>
 		<string key="IBDocument.InterfaceBuilderVersion">3084</string>
 		<string key="IBDocument.AppKitVersion">1187.39</string>
 		<string key="IBDocument.HIToolboxVersion">626.00</string>
@@ -48,7 +48,7 @@
 							<object class="IBUIImageView" id="433654949">
 								<reference key="NSNextResponder" ref="234033301"/>
 								<int key="NSvFlags">290</int>
-								<string key="NSFrameSize">{320, 60}</string>
+								<string key="NSFrameSize">{320, 101}</string>
 								<reference key="NSSuperview" ref="234033301"/>
 								<reference key="NSWindow"/>
 								<reference key="NSNextKeyView" ref="205664075"/>
@@ -92,11 +92,11 @@
 									<string key="NSResourceName">input.png</string>
 								</object>
 								<int key="IBUIClearButtonMode">2</int>
-								<object class="IBUIFontDescription" key="IBUIFontDescription">
+								<object class="IBUIFontDescription" key="IBUIFontDescription" id="328285726">
 									<int key="type">1</int>
 									<double key="pointSize">14</double>
 								</object>
-								<object class="NSFont" key="IBUIFont">
+								<object class="NSFont" key="IBUIFont" id="825639518">
 									<string key="NSName">Helvetica</string>
 									<double key="NSSize">14</double>
 									<int key="NSfFlags">16</int>
@@ -141,8 +141,34 @@
 									<int key="NSfFlags">16</int>
 								</object>
 							</object>
+							<object class="IBUILabel" id="325478617">
+								<reference key="NSNextResponder" ref="234033301"/>
+								<int key="NSvFlags">274</int>
+								<string key="NSFrame">{{10, 49}, {300, 50}}</string>
+								<reference key="NSSuperview" ref="234033301"/>
+								<reference key="NSWindow"/>
+								<string key="NSReuseIdentifierKey">_NS:9</string>
+								<bool key="IBUIOpaque">NO</bool>
+								<bool key="IBUIClipsSubviews">YES</bool>
+								<int key="IBUIContentMode">7</int>
+								<bool key="IBUIUserInteractionEnabled">NO</bool>
+								<string key="targetRuntimeIdentifier">IBCocoaTouchFramework</string>
+								<string key="IBUIText">Enter any HTTP address to download the file to your $DEVICE.</string>
+								<object class="NSColor" key="IBUITextColor">
+									<int key="NSColorSpace">1</int>
+									<bytes key="NSRGB">MC43NDY1OTE5OTYyIDAuNzQ2NTkxOTk2MiAwLjc0NjU5MTk5NjIAA</bytes>
+								</object>
+								<nil key="IBUIHighlightedColor"/>
+								<int key="IBUIBaselineAdjustment">0</int>
+								<float key="IBUIMinimumFontSize">9</float>
+								<int key="IBUINumberOfLines">0</int>
+								<int key="IBUITextAlignment">1</int>
+								<reference key="IBUIFontDescription" ref="328285726"/>
+								<reference key="IBUIFont" ref="825639518"/>
+								<double key="preferredMaxLayoutWidth">300</double>
+							</object>
 						</array>
-						<string key="NSFrameSize">{320, 60}</string>
+						<string key="NSFrameSize">{320, 101}</string>
 						<reference key="NSSuperview" ref="191373211"/>
 						<reference key="NSWindow"/>
 						<reference key="NSNextKeyView" ref="433654949"/>
@@ -255,7 +281,7 @@
 								<int key="IBUIStyle">0</int>
 							</object>
 						</array>
-						<string key="NSFrame">{{0, 63}, {320, 60}}</string>
+						<string key="NSFrame">{{0, 122}, {320, 60}}</string>
 						<reference key="NSSuperview" ref="191373211"/>
 						<reference key="NSWindow"/>
 						<reference key="NSNextKeyView" ref="1005679980"/>
@@ -267,7 +293,7 @@
 					<object class="IBUITableView" id="831264216">
 						<reference key="NSNextResponder" ref="191373211"/>
 						<int key="NSvFlags">274</int>
-						<string key="NSFrame">{{0, 127}, {320, 256}}</string>
+						<string key="NSFrame">{{0, 193}, {320, 190}}</string>
 						<reference key="NSSuperview" ref="191373211"/>
 						<reference key="NSWindow"/>
 						<string key="NSReuseIdentifierKey">_NS:9</string>
@@ -418,9 +444,9 @@
 						<int key="objectID">1</int>
 						<reference key="object" ref="191373211"/>
 						<array class="NSMutableArray" key="children">
-							<reference ref="234033301"/>
 							<reference ref="831264216"/>
 							<reference ref="1066205493"/>
+							<reference ref="234033301"/>
 						</array>
 						<reference key="parent" ref="0"/>
 					</object>
@@ -442,6 +468,7 @@
 							<reference ref="205664075"/>
 							<reference ref="433654949"/>
 							<reference ref="209774297"/>
+							<reference ref="325478617"/>
 						</array>
 						<reference key="parent" ref="191373211"/>
 					</object>
@@ -502,6 +529,11 @@
 						<reference key="object" ref="385572310"/>
 						<reference key="parent" ref="1066205493"/>
 					</object>
+					<object class="IBObjectRecord">
+						<int key="objectID">95</int>
+						<reference key="object" ref="325478617"/>
+						<reference key="parent" ref="234033301"/>
+					</object>
 				</array>
 			</object>
 			<dictionary class="NSMutableDictionary" key="flattenedProperties">
@@ -522,12 +554,13 @@
 				<string key="85.IBPluginDependency">com.apple.InterfaceBuilder.IBCocoaTouchPlugin</string>
 				<string key="86.IBPluginDependency">com.apple.InterfaceBuilder.IBCocoaTouchPlugin</string>
 				<string key="91.IBPluginDependency">com.apple.InterfaceBuilder.IBCocoaTouchPlugin</string>
+				<string key="95.IBPluginDependency">com.apple.InterfaceBuilder.IBCocoaTouchPlugin</string>
 			</dictionary>
 			<dictionary class="NSMutableDictionary" key="unlocalizedProperties"/>
 			<nil key="activeLocalization"/>
 			<dictionary class="NSMutableDictionary" key="localizations"/>
 			<nil key="sourceID"/>
-			<int key="maxID">94</int>
+			<int key="maxID">95</int>
 		</object>
 		<object class="IBClassDescriber" key="IBDocument.Classes">
 			<array class="NSMutableArray" key="referencedPartialClassDescriptions">
@@ -537,6 +570,7 @@
 					<dictionary class="NSMutableDictionary" key="actions">
 						<string key="cancelDownload:">id</string>
 						<string key="downloadAction:">id</string>
+						<string key="goBack:">id</string>
 					</dictionary>
 					<dictionary class="NSMutableDictionary" key="actionInfosByName">
 						<object class="IBActionInfo" key="cancelDownload:">
@@ -545,6 +579,10 @@
 						</object>
 						<object class="IBActionInfo" key="downloadAction:">
 							<string key="name">downloadAction:</string>
+							<string key="candidateClassName">id</string>
+						</object>
+						<object class="IBActionInfo" key="goBack:">
+							<string key="name">goBack:</string>
 							<string key="candidateClassName">id</string>
 						</object>
 					</dictionary>
@@ -556,6 +594,7 @@
 						<string key="downloadsTable">UITableView</string>
 						<string key="progressView">UIProgressView</string>
 						<string key="urlField">UITextField</string>
+						<string key="whatToDownloadHelpLabel">UILabel</string>
 					</dictionary>
 					<dictionary class="NSMutableDictionary" key="toOneOutletInfosByName">
 						<object class="IBToOneOutletInfo" key="activityIndicator">
@@ -585,6 +624,10 @@
 						<object class="IBToOneOutletInfo" key="urlField">
 							<string key="name">urlField</string>
 							<string key="candidateClassName">UITextField</string>
+						</object>
+						<object class="IBToOneOutletInfo" key="whatToDownloadHelpLabel">
+							<string key="name">whatToDownloadHelpLabel</string>
+							<string key="candidateClassName">UILabel</string>
 						</object>
 					</dictionary>
 					<object class="IBClassDescriptionSource" key="sourceIdentifier">

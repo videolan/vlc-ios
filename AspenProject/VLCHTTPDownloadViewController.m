@@ -28,6 +28,7 @@
     _currentDownloads = [[NSMutableArray alloc] init];
     self.navigationItem.leftBarButtonItem = [UIBarButtonItem themedRevealMenuButtonWithTarget:self andSelector:@selector(goBack:)];
     self.title = NSLocalizedString(@"DOWNLOAD_FROM_HTTP", @"");
+    self.whatToDownloadHelpLabel.text = [NSString stringWithFormat:NSLocalizedString(@"DOWNLOAD_FROM_HTTP_HELP", @""), [[UIDevice currentDevice] model]];
     [super viewDidLoad];
 }
 
