@@ -143,6 +143,9 @@ fi
 if ! [ -e OBSlider ]; then
 git clone git://github.com/ole/OBSlider.git
 fi
+if ! [ -e GHSidebarNav ]; then
+git clone git://github.com/gresrun/GHSidebarNav.git
+fi
 if ! [ -e AQGridView ]; then
 git clone git://github.com/AlanQuatermain/AQGridView.git
 cd AQGridView
