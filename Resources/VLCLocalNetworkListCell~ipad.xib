@@ -65,14 +65,11 @@
 								<bool key="IBUIUserInteractionEnabled">NO</bool>
 								<string key="targetRuntimeIdentifier">IBCocoaTouchFramework</string>
 								<string key="IBUIText">File Title</string>
-								<object class="NSColor" key="IBUITextColor" id="176165725">
-									<int key="NSColorSpace">3</int>
-									<bytes key="NSWhite">MC42NjY2NjY2NjY3AA</bytes>
-								</object>
-								<object class="NSColor" key="IBUIHighlightedColor" id="654385816">
+								<object class="NSColor" key="IBUITextColor" id="654385816">
 									<int key="NSColorSpace">3</int>
 									<bytes key="NSWhite">MQA</bytes>
 								</object>
+								<reference key="IBUIHighlightedColor" ref="654385816"/>
 								<int key="IBUILineBreakMode">0</int>
 								<object class="IBUIFontDescription" key="IBUIFontDescription" id="123705061">
 									<int key="type">1</int>
@@ -99,7 +96,7 @@
 								<bool key="IBUIUserInteractionEnabled">NO</bool>
 								<string key="targetRuntimeIdentifier">IBCocoaTouchFramework</string>
 								<string key="IBUIText">Folder Title</string>
-								<reference key="IBUITextColor" ref="176165725"/>
+								<reference key="IBUITextColor" ref="654385816"/>
 								<reference key="IBUIHighlightedColor" ref="654385816"/>
 								<int key="IBUILineBreakMode">0</int>
 								<reference key="IBUIFontDescription" ref="123705061"/>
@@ -112,7 +109,6 @@
 								<string key="NSFrame">{{83, 44}, {232, 15}}</string>
 								<reference key="NSSuperview" ref="162418872"/>
 								<reference key="NSWindow"/>
-								<reference key="NSNextKeyView"/>
 								<string key="NSReuseIdentifierKey">_NS:9</string>
 								<bool key="IBUIOpaque">NO</bool>
 								<bool key="IBUIClipsSubviews">YES</bool>
@@ -122,13 +118,15 @@
 								<string key="IBUIText">Subtitle — Subtitle</string>
 								<object class="NSColor" key="IBUITextColor">
 									<int key="NSColorSpace">3</int>
-									<bytes key="NSWhite">MC4zMzMzMzMzMzMzAA</bytes>
+									<bytes key="NSWhite">MC43MgA</bytes>
 								</object>
 								<reference key="IBUIHighlightedColor" ref="654385816"/>
 								<int key="IBUIBaselineAdjustment">0</int>
 								<int key="IBUILineBreakMode">0</int>
 								<object class="IBUIFontDescription" key="IBUIFontDescription">
-									<int key="type">1</int>
+									<string key="name">Helvetica</string>
+									<string key="family">Helvetica</string>
+									<int key="traits">0</int>
 									<double key="pointSize">12</double>
 								</object>
 								<object class="NSFont" key="IBUIFont">

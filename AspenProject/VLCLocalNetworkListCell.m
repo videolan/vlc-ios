@@ -22,6 +22,12 @@
     return cell;
 }
 
+- (void)awakeFromNib
+{
+    self.titleLabel.text = @"";
+    self.subtitleLabel.text = @"";
+}
+
 - (void)setTitle:(NSString *)title
 {
     BOOL isDir = self.isDirectory;
