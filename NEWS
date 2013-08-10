@@ -4,6 +4,7 @@
 * Add support for subtitles in non-western languages (#8991)
 * Improved Subtitles support with options to choose font, size, and color
 * Add Bonjour announcement for the WiFi Uploader's website (#8741)
+* Add Deinterlace option (off by default, #8813)
 * Device no longer goes to sleep during media downloads (#9062)
 * Improved video output on external screens (#9079)
 * New translations to Bosnian, Catalan, Galician, Marathi, Portuguese
