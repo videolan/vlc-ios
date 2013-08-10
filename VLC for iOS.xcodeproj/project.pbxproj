@@ -44,6 +44,7 @@
 		7AC862A81765E9510011611A /* jquery.iframe-transport.js in Resources */ = {isa = PBXBuildFile; fileRef = 7AC862A01765E90C0011611A /* jquery.iframe-transport.js */; };
 		7AC862A91765E9510011611A /* jquery.ui.widget.js in Resources */ = {isa = PBXBuildFile; fileRef = 7AC862A11765E90C0011611A /* jquery.ui.widget.js */; };
 		7D00161C177056B700649F27 /* main.js in Resources */ = {isa = PBXBuildFile; fileRef = 7D00161A17704DAC00649F27 /* main.js */; };
+		7D02B0D217B6BE850099030D /* VLCLocalServerFolderListViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 7D02B0D117B6BE850099030D /* VLCLocalServerFolderListViewController.m */; };
 		7D07A4E9174EA47800759D10 /* VLCSettingsController.m in Sources */ = {isa = PBXBuildFile; fileRef = 7D07A4E7174EA47800759D10 /* VLCSettingsController.m */; };
 		7D07A4ED174EB81200759D10 /* VLCDropboxController.m in Sources */ = {isa = PBXBuildFile; fileRef = 7D07A4EC174EB81200759D10 /* VLCDropboxController.m */; };
 		7D07F708175665ED00CDE21C /* navBarBackground@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 7D07F706175665ED00CDE21C /* navBarBackground@2x.png */; };
@@ -345,6 +346,8 @@
 		7AC862A01765E90C0011611A /* jquery.iframe-transport.js */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.javascript; path = "jquery.iframe-transport.js"; sourceTree = "<group>"; };
 		7AC862A11765E90C0011611A /* jquery.ui.widget.js */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.javascript; path = jquery.ui.widget.js; sourceTree = "<group>"; };
 		7D00161A17704DAC00649F27 /* main.js */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.javascript; path = main.js; sourceTree = "<group>"; };
+		7D02B0D017B6BE850099030D /* VLCLocalServerFolderListViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = VLCLocalServerFolderListViewController.h; sourceTree = "<group>"; };
+		7D02B0D117B6BE850099030D /* VLCLocalServerFolderListViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = VLCLocalServerFolderListViewController.m; sourceTree = "<group>"; };
 		7D05ADEA174945CE0087550C /* DropboxSDK.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = DropboxSDK.framework; path = ImportedSources/Dropbox/DropboxSDK.framework; sourceTree = "<group>"; };
 		7D07A4E6174EA47800759D10 /* VLCSettingsController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = VLCSettingsController.h; sourceTree = "<group>"; };
 		7D07A4E7174EA47800759D10 /* VLCSettingsController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = VLCSettingsController.m; sourceTree = "<group>"; };
@@ -1024,6 +1027,8 @@
 			children = (
 				7D93043E17B67C4F0054EAC6 /* VLCLocalServerListViewController.h */,
 				7D93043F17B67C4F0054EAC6 /* VLCLocalServerListViewController.m */,
+				7D02B0D017B6BE850099030D /* VLCLocalServerFolderListViewController.h */,
+				7D02B0D117B6BE850099030D /* VLCLocalServerFolderListViewController.m */,
 				7D93044317B684CE0054EAC6 /* VLCLocalNetworkListCell.h */,
 				7D93044417B684CF0054EAC6 /* VLCLocalNetworkListCell.m */,
 			);
@@ -1824,6 +1829,7 @@
 				7D93045317B6A0DF0054EAC6 /* VLCMenuTableViewController.m in Sources */,
 				7D93045617B6A5C00054EAC6 /* GHMenuCell.m in Sources */,
 				7D93045917B6ACA10054EAC6 /* VLCWiFiUploadTableViewCell.m in Sources */,
+				7D02B0D217B6BE850099030D /* VLCLocalServerFolderListViewController.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

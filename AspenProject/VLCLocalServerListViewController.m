@@ -13,12 +13,11 @@
 #import "VLCAppDelegate.h"
 #import "UPnPManager.h"
 #import "VLCLocalNetworkListCell.h"
+#import "VLCLocalServerFolderListViewController.h"
 
 @interface VLCLocalServerListViewController () <UITableViewDataSource, UITableViewDelegate>
 {
-    UIBarButtonItem *_backButton;
     UIBarButtonItem *_backToMenuButton;
-    UILabel *_titleLabel;
     NSArray *_devices;
 }
 
@@ -51,7 +50,6 @@
     //Search for UPnP Devices
     [[[UPnPManager GetInstance] SSDP] searchSSDP];
 
-    _backButton = [UIBarButtonItem themedBackButtonWithTarget:self andSelector:@selector(goBack:)];
     _backToMenuButton = [UIBarButtonItem themedRevealMenuButtonWithTarget:self andSelector:@selector(goBack:)];
     self.navigationItem.leftBarButtonItem = _backToMenuButton;
 
@@ -59,8 +57,6 @@
     self.view.backgroundColor = [UIColor colorWithWhite:.122 alpha:1.];
 
     self.title = @"Local Servers";
-
-    self.navigationItem.titleView = _titleLabel;
 }
 
 - (IBAction)goBack:(id)sender
@@ -101,7 +97,7 @@
     BasicUPnPDevice *device = _devices[indexPath.row];
     [cell setTitle:[device friendlyName]];
 
-    if([[device urn] isEqualToString:@"urn:schemas-upnp-org:device:MediaServer:1"])
+    if ([[device urn] isEqualToString:@"urn:schemas-upnp-org:device:MediaServer:1"])
         [cell setIsDirectory:YES];
 
     return cell;
@@ -109,18 +105,14 @@
 
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
 {
-    /*
     BasicUPnPDevice *device = _devices[indexPath.row];
-    if([[device urn] isEqualToString:@"urn:schemas-upnp-org:device:MediaServer:1"]){
+    if ([[device urn] isEqualToString:@"urn:schemas-upnp-org:device:MediaServer:1"]) {
         MediaServer1Device *server = (MediaServer1Device*)device;
-        FolderViewController *targetViewController = [[FolderViewController alloc] initWithMediaDevice:server andHeader:@"root" andRootId:@"0"];
+        VLCLocalServerFolderListViewController *targetViewController = [[VLCLocalServerFolderListViewController alloc] initWithDevice:server header:@"root" andRootID:@"0"];
         [[self navigationController] pushViewController:targetViewController animated:YES];
-        [[PlayBack GetInstance] setServer:server];
-    }else if([[device urn] isEqualToString:@"urn:schemas-upnp-org:device:MediaRenderer:1"]){
-        [self.titleLabel setText:[device friendlyName]];
-        MediaRenderer1Device *render = (MediaRenderer1Device*)device;
-        [[PlayBack GetInstance] setRenderer:render];
-    }*/
+    } else if ([[device urn] isEqualToString:@"urn:schemas-upnp-org:device:MediaRenderer:1"]) {
+        //FIXME: euh, we don't do rendering atm, at least not here.
+    }
 }
 
 //protocol UPnPDBObserver
