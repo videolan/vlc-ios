@@ -82,7 +82,7 @@
         _tableView.rowHeight = [VLCPlaylistTableViewCell heightOfCell];
         _tableView.separatorColor = [UIColor colorWithWhite:.122 alpha:1.];
     }
-    self.navigationItem.titleView = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"title"]];
+    self.title = NSLocalizedString(@"LIBRARY_ALL_FILES", @"");
 
     _emptyLibraryView.emptyLibraryLabel.text = NSLocalizedString(@"EMPTY_LIBRARY", @"");
     _emptyLibraryView.emptyLibraryLongDescriptionLabel.lineBreakMode = UILineBreakModeWordWrap;

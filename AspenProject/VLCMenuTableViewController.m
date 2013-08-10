@@ -76,8 +76,19 @@
 	_tableView.separatorStyle = UITableViewCellSeparatorStyleNone;
     _tableView.rowHeight = [VLCWiFiUploadTableViewCell heightOfCell];
 
-    self.view = _tableView;
-	[self.tableView selectRowAtIndexPath:[NSIndexPath indexPathForRow:0 inSection:0] animated:NO scrollPosition:UITableViewScrollPositionTop];
+    self.view = [[UIView alloc] initWithFrame:CGRectMake(0.0f, 0.0f, kGHRevealSidebarWidth, CGRectGetHeight(self.view.bounds))];
+    [self.view addSubview:_tableView];
+
+    UIImageView *brandingBackgroundImageView = [[UIImageView alloc] initWithFrame:CGRectMake(0.0f, 0.0f, kGHRevealSidebarWidth, 44.0f)];
+    brandingBackgroundImageView.contentMode = UIViewContentModeScaleToFill;
+    brandingBackgroundImageView.image = [UIImage imageNamed:@"searchBarBG"];
+    [self.view addSubview:brandingBackgroundImageView];
+    UIImageView *brandingImageView = [[UIImageView alloc] initWithFrame:CGRectMake(0.0f, 0.0f, kGHRevealSidebarWidth, 44.0f)];
+    brandingImageView.contentMode = UIViewContentModeCenter;
+    brandingImageView.image = [UIImage imageNamed:@"title"];
+    [self.view addSubview:brandingImageView];
+
+    [self.tableView selectRowAtIndexPath:[NSIndexPath indexPathForRow:0 inSection:0] animated:NO scrollPosition:UITableViewScrollPositionTop];
 
     _reachability = [Reachability reachabilityForLocalWiFi];
     [_reachability startNotifier];
