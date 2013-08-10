@@ -62,9 +62,9 @@
     self.view.frame = CGRectMake(0.0f, 0.0f, kGHRevealSidebarWidth, CGRectGetHeight(self.view.bounds));
 	self.view.autoresizingMask = UIViewAutoresizingFlexibleHeight;
 
-    _sectionHeaderTexts = @[@"Media Library", @"Network", @"Settings"];
-    _menuItemsSectionOne = @[@"All Files"];
-    _menuItemsSectionTwo = @[@"Local Network", @"OPEN_NETWORK", @"DOWNLOAD_FROM_HTTP", @"WiFi Upload", @"Dropbox"];
+    _sectionHeaderTexts = @[@"SECTION_HEADER_LIBRARY", @"SECTION_HEADER_NETWORK", @"Settings"];
+    _menuItemsSectionOne = @[@"LIBRARY_ALL_FILES"];
+    _menuItemsSectionTwo = @[@"LOCAL_NETWORK", @"OPEN_NETWORK", @"DOWNLOAD_FROM_HTTP", @"WiFi Upload", @"Dropbox"];
     _menuItemsSectionThree = @[@"Settings", @"ABOUT_APP"];
 
 	_tableView = [[UITableView alloc] initWithFrame:CGRectMake(0.0f, 44.0f, kGHRevealSidebarWidth, CGRectGetHeight(self.view.bounds) - 44.0f)

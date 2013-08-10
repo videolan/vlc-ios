@@ -56,7 +56,7 @@
     self.tableView.separatorColor = [UIColor colorWithWhite:.122 alpha:1.];
     self.view.backgroundColor = [UIColor colorWithWhite:.122 alpha:1.];
 
-    self.title = @"Local Servers";
+    self.title = NSLocalizedString(@"LOCAL_NETWORK", @"");
 }
 
 - (IBAction)goBack:(id)sender
@@ -108,7 +108,7 @@
     BasicUPnPDevice *device = _devices[indexPath.row];
     if ([[device urn] isEqualToString:@"urn:schemas-upnp-org:device:MediaServer:1"]) {
         MediaServer1Device *server = (MediaServer1Device*)device;
-        VLCLocalServerFolderListViewController *targetViewController = [[VLCLocalServerFolderListViewController alloc] initWithDevice:server header:@"root" andRootID:@"0"];
+        VLCLocalServerFolderListViewController *targetViewController = [[VLCLocalServerFolderListViewController alloc] initWithDevice:server header:[device friendlyName] andRootID:@"0"];
         [[self navigationController] pushViewController:targetViewController animated:YES];
     } else if ([[device urn] isEqualToString:@"urn:schemas-upnp-org:device:MediaRenderer:1"]) {
         //FIXME: euh, we don't do rendering atm, at least not here.
