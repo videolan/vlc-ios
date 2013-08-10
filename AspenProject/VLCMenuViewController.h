@@ -19,6 +19,7 @@
 @property (strong, nonatomic) VLCSettingsController *settingsController;
 
 @property (strong, nonatomic) IBOutlet UIButton *allFilesButton;
+@property (strong, nonatomic) IBOutlet UIButton *localNetworkButton;
 @property (strong, nonatomic) IBOutlet UIButton *aboutButton;
 @property (strong, nonatomic) IBOutlet UIButton *openNetworkStreamButton;
 @property (strong, nonatomic) IBOutlet UIButton *downloadFromHTTPServerButton;
@@ -29,6 +30,7 @@
 @property (strong, nonatomic) IBOutlet UIButton *dropboxButton;
 
 - (IBAction)showAllFiles:(id)sender;
+- (IBAction)showLocalNetwork:(id)sender;
 - (IBAction)openAboutPanel:(id)sender;
 - (IBAction)openNetworkStream:(id)sender;
 - (IBAction)downloadFromHTTPServer:(id)sender;

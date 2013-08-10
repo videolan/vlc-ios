@@ -42,7 +42,7 @@
 					<object class="IBUIButton" id="233942944">
 						<reference key="NSNextResponder" ref="322809953"/>
 						<int key="NSvFlags">290</int>
-						<string key="NSFrame">{{0, 64}, {260, 60}}</string>
+						<string key="NSFrame">{{0, 128}, {260, 60}}</string>
 						<reference key="NSSuperview" ref="322809953"/>
 						<reference key="NSWindow"/>
 						<reference key="NSNextKeyView" ref="306241553"/>
@@ -79,10 +79,31 @@
 							<int key="NSfFlags">16</int>
 						</object>
 					</object>
+					<object class="IBUIButton" id="270820867">
+						<reference key="NSNextResponder" ref="322809953"/>
+						<int key="NSvFlags">290</int>
+						<string key="NSFrame">{{-30, 64}, {320, 60}}</string>
+						<reference key="NSSuperview" ref="322809953"/>
+						<reference key="NSWindow"/>
+						<reference key="NSNextKeyView" ref="233942944"/>
+						<string key="NSReuseIdentifierKey">_NS:9</string>
+						<reference key="IBUIBackgroundColor" ref="937037271"/>
+						<bool key="IBUIOpaque">NO</bool>
+						<string key="targetRuntimeIdentifier">IBCocoaTouchFramework</string>
+						<int key="IBUIContentHorizontalAlignment">0</int>
+						<int key="IBUIContentVerticalAlignment">0</int>
+						<string key="IBUINormalTitle">Local Network</string>
+						<reference key="IBUIHighlightedTitleColor" ref="878206399"/>
+						<reference key="IBUINormalTitleColor" ref="937037271"/>
+						<reference key="IBUINormalTitleShadowColor" ref="1025413593"/>
+						<reference key="IBUINormalBackgroundImage" ref="181125913"/>
+						<reference key="IBUIFontDescription" ref="886215057"/>
+						<reference key="IBUIFont" ref="388488631"/>
+					</object>
 					<object class="IBUIButton" id="306241553">
 						<reference key="NSNextResponder" ref="322809953"/>
 						<int key="NSvFlags">290</int>
-						<string key="NSFrame">{{0, 128}, {260, 60}}</string>
+						<string key="NSFrame">{{0, 192}, {260, 60}}</string>
 						<reference key="NSSuperview" ref="322809953"/>
 						<reference key="NSWindow"/>
 						<reference key="NSNextKeyView" ref="136452396"/>
@@ -103,7 +124,7 @@
 					<object class="IBUIButton" id="665933893">
 						<reference key="NSNextResponder" ref="322809953"/>
 						<int key="NSvFlags">290</int>
-						<string key="NSFrame">{{0, 323}, {260, 60}}</string>
+						<string key="NSFrame">{{0, 387}, {260, 60}}</string>
 						<reference key="NSSuperview" ref="322809953"/>
 						<reference key="NSWindow"/>
 						<reference key="NSNextKeyView" ref="1021636329"/>
@@ -124,7 +145,7 @@
 					<object class="IBUIButton" id="1021636329">
 						<reference key="NSNextResponder" ref="322809953"/>
 						<int key="NSvFlags">290</int>
-						<string key="NSFrame">{{0, 387}, {260, 60}}</string>
+						<string key="NSFrame">{{0, 451}, {260, 60}}</string>
 						<reference key="NSSuperview" ref="322809953"/>
 						<reference key="NSWindow"/>
 						<string key="NSReuseIdentifierKey">_NS:9</string>
@@ -144,7 +165,7 @@
 					<object class="IBUIButton" id="502729697">
 						<reference key="NSNextResponder" ref="322809953"/>
 						<int key="NSvFlags">290</int>
-						<string key="NSFrame">{{0, 259}, {260, 60}}</string>
+						<string key="NSFrame">{{0, 323}, {260, 60}}</string>
 						<reference key="NSSuperview" ref="322809953"/>
 						<reference key="NSWindow"/>
 						<reference key="NSNextKeyView" ref="665933893"/>
@@ -253,7 +274,7 @@
 								<bool key="IBUIAdjustsFontSizeToFit">NO</bool>
 							</object>
 						</array>
-						<string key="NSFrame">{{0, 192}, {260, 63}}</string>
+						<string key="NSFrame">{{0, 256}, {260, 63}}</string>
 						<reference key="NSSuperview" ref="322809953"/>
 						<reference key="NSWindow"/>
 						<reference key="NSNextKeyView" ref="643865985"/>
@@ -267,7 +288,7 @@
 						<string key="NSFrameSize">{260, 60}</string>
 						<reference key="NSSuperview" ref="322809953"/>
 						<reference key="NSWindow"/>
-						<reference key="NSNextKeyView" ref="233942944"/>
+						<reference key="NSNextKeyView" ref="270820867"/>
 						<string key="NSReuseIdentifierKey">_NS:9</string>
 						<reference key="IBUIBackgroundColor" ref="937037271"/>
 						<bool key="IBUIOpaque">NO</bool>
@@ -283,7 +304,7 @@
 						<reference key="IBUIFont" ref="388488631"/>
 					</object>
 				</array>
-				<string key="NSFrameSize">{260, 447}</string>
+				<string key="NSFrameSize">{260, 511}</string>
 				<reference key="NSSuperview"/>
 				<reference key="NSWindow"/>
 				<reference key="NSNextKeyView" ref="197466448"/>
@@ -439,6 +460,15 @@
 					</object>
 					<int key="connectionID">86</int>
 				</object>
+				<object class="IBConnectionRecord">
+					<object class="IBCocoaTouchEventConnection" key="connection">
+						<string key="label">showLocalNetwork:</string>
+						<reference key="source" ref="270820867"/>
+						<reference key="destination" ref="372490531"/>
+						<int key="IBEventType">7</int>
+					</object>
+					<int key="connectionID">89</int>
+				</object>
 			</array>
 			<object class="IBMutableOrderedSet" key="objectRecords">
 				<array key="orderedObjects">
@@ -463,13 +493,14 @@
 						<int key="objectID">79</int>
 						<reference key="object" ref="322809953"/>
 						<array class="NSMutableArray" key="children">
+							<reference ref="197466448"/>
+							<reference ref="270820867"/>
 							<reference ref="233942944"/>
 							<reference ref="306241553"/>
 							<reference ref="665933893"/>
 							<reference ref="1021636329"/>
 							<reference ref="502729697"/>
 							<reference ref="136452396"/>
-							<reference ref="197466448"/>
 						</array>
 						<reference key="parent" ref="0"/>
 					</object>
@@ -534,6 +565,11 @@
 						<reference key="object" ref="197466448"/>
 						<reference key="parent" ref="322809953"/>
 					</object>
+					<object class="IBObjectRecord">
+						<int key="objectID">87</int>
+						<reference key="object" ref="270820867"/>
+						<reference key="parent" ref="322809953"/>
+					</object>
 				</array>
 			</object>
 			<dictionary class="NSMutableDictionary" key="flattenedProperties">
@@ -553,12 +589,13 @@
 				<string key="77.IBPluginDependency">com.apple.InterfaceBuilder.IBCocoaTouchPlugin</string>
 				<string key="79.IBPluginDependency">com.apple.InterfaceBuilder.IBCocoaTouchPlugin</string>
 				<string key="84.IBPluginDependency">com.apple.InterfaceBuilder.IBCocoaTouchPlugin</string>
+				<string key="87.IBPluginDependency">com.apple.InterfaceBuilder.IBCocoaTouchPlugin</string>
 			</dictionary>
 			<dictionary class="NSMutableDictionary" key="unlocalizedProperties"/>
 			<nil key="activeLocalization"/>
 			<dictionary class="NSMutableDictionary" key="localizations"/>
 			<nil key="sourceID"/>
-			<int key="maxID">86</int>
+			<int key="maxID">89</int>
 		</object>
 		<object class="IBClassDescriber" key="IBDocument.Classes">
 			<array class="NSMutableArray" key="referencedPartialClassDescriptions">
@@ -571,6 +608,7 @@
 						<string key="openNetworkStream:">id</string>
 						<string key="showAllFiles:">id</string>
 						<string key="showDropbox:">id</string>
+						<string key="showLocalNetwork:">id</string>
 						<string key="showSettings:">id</string>
 						<string key="toggleHTTPServer:">id</string>
 					</dictionary>
@@ -595,6 +633,10 @@
 							<string key="name">showDropbox:</string>
 							<string key="candidateClassName">id</string>
 						</object>
+						<object class="IBActionInfo" key="showLocalNetwork:">
+							<string key="name">showLocalNetwork:</string>
+							<string key="candidateClassName">id</string>
+						</object>
 						<object class="IBActionInfo" key="showSettings:">
 							<string key="name">showSettings:</string>
 							<string key="candidateClassName">id</string>
@@ -612,6 +654,7 @@
 						<string key="httpUploadLabel">UILabel</string>
 						<string key="httpUploadServerLocationLabel">UILabel</string>
 						<string key="httpUploadServerSwitch">UISwitch</string>
+						<string key="localNetworkButton">UIButton</string>
 						<string key="openNetworkStreamButton">UIButton</string>
 						<string key="settingsButton">UIButton</string>
 					</dictionary>
@@ -643,6 +686,10 @@
 						<object class="IBToOneOutletInfo" key="httpUploadServerSwitch">
 							<string key="name">httpUploadServerSwitch</string>
 							<string key="candidateClassName">UISwitch</string>
+						</object>
+						<object class="IBToOneOutletInfo" key="localNetworkButton">
+							<string key="name">localNetworkButton</string>
+							<string key="candidateClassName">UIButton</string>
 						</object>
 						<object class="IBToOneOutletInfo" key="openNetworkStreamButton">
 							<string key="name">openNetworkStreamButton</string>

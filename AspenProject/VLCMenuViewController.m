@@ -24,6 +24,7 @@
 #import "VLCOpenNetworkStreamViewController.h"
 #import "VLCHTTPDownloadViewController.h"
 #import "VLCBugreporter.h"
+#import "VLCLocalServerListViewController.h"
 
 @interface VLCMenuViewController () {
     VLCHTTPDownloadViewController *_downloadViewController;
@@ -92,6 +93,12 @@
 - (IBAction)showAllFiles:(id)sender
 {
     [self _presentViewController:[(VLCAppDelegate*)[UIApplication sharedApplication].delegate playlistViewController]];
+}
+
+- (IBAction)showLocalNetwork:(id)sender
+{
+    UIViewController *localNetworkController = [[VLCLocalServerListViewController alloc] init];
+    [self _presentViewController:localNetworkController];
 }
 
 - (IBAction)openAboutPanel:(id)sender
