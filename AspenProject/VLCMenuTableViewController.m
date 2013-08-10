@@ -248,7 +248,7 @@
             if (!self.settingsViewController) {
                 self.settingsViewController = [[IASKAppSettingsViewController alloc] initWithStyle:UITableViewStyleGrouped];
                 self.settingsController.viewController = self.settingsViewController;
-                self.settingsViewController.navigationItem.leftBarButtonItem = [UIBarButtonItem themedRevealMenuButtonWithTarget:self.settingsController andSelector:@selector(dismiss:)];
+                self.settingsViewController.navigationItem.leftBarButtonItem = [UIBarButtonItem themedRevealMenuButtonWithTarget:self.settingsController.viewController andSelector:@selector(dismiss:)];
             }
 
             self.settingsViewController.modalPresentationStyle = UIModalPresentationFormSheet;
