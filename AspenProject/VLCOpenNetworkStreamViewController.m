@@ -85,7 +85,7 @@
 
 - (IBAction)goBack:(id)sender
 {
-    [self.navigationController popViewControllerAnimated:YES];
+    [[(VLCAppDelegate*)[UIApplication sharedApplication].delegate revealController] toggleSidebar:![(VLCAppDelegate*)[UIApplication sharedApplication].delegate revealController].sidebarShowing duration:kGHRevealSidebarDefaultAnimationDuration];
 }
 
 - (IBAction)openButtonAction:(id)sender

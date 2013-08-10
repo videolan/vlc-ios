@@ -39,13 +39,6 @@
 
 @implementation VLCMenuViewController
 
-- (id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil
-{
-    self = [super initWithNibName:nibNameOrNil bundle:nibBundleOrNil];
-
-    return self;
-}
-
 - (void)dealloc
 {
     [_reachability stopNotifier];
@@ -56,13 +49,8 @@
 {
     [super viewDidLoad];
 
-    if (UI_USER_INTERFACE_IDIOM() == UIUserInterfaceIdiomPhone) {
-        UIBarButtonItem *dismissButton = [UIBarButtonItem themedDoneButtonWithTarget:self andSelector:@selector(dismiss:)];
-        dismissButton.width = 80.;
-        self.navigationItem.titleView = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"menuCone"]];
-        self.navigationItem.rightBarButtonItem = dismissButton;
-        [(UIScrollView *)self.view setContentSize:self.view.bounds.size];
-    }
+	self.view.frame = CGRectMake(0.0f, 0.0f, kGHRevealSidebarWidth, CGRectGetHeight(self.view.bounds));
+	self.view.autoresizingMask = UIViewAutoresizingFlexibleHeight;
 
     [self.aboutButton setTitle:NSLocalizedString(@"ABOUT_APP", @"") forState:UIControlStateNormal];
     [self.openNetworkStreamButton setTitle:NSLocalizedString(@"OPEN_NETWORK", @"") forState:UIControlStateNormal];
@@ -84,8 +72,9 @@
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(netReachabilityChanged:) name:kReachabilityChangedNotification object:nil];
 }
 
-- (CGSize)contentSizeForViewInPopover {
-    return [self.view sizeThatFits:CGSizeMake(320, 800)];
+- (void)viewWillAppear:(BOOL)animated
+{
+    self.view.frame = CGRectMake(0.0f, 0.0f,kGHRevealSidebarWidth, CGRectGetHeight(self.view.bounds));
 }
 
 - (void)netReachabilityChanged:(NSNotification *)notification
@@ -100,18 +89,9 @@
     }
 }
 
-- (void)_hideAnimated:(BOOL)animated
+- (IBAction)showAllFiles:(id)sender
 {
-    if (UI_USER_INTERFACE_IDIOM() == UIUserInterfaceIdiomPad) {
-        VLCAppDelegate* appDelegate = [UIApplication sharedApplication].delegate;
-        [appDelegate.playlistViewController.addMediaPopoverController dismissPopoverAnimated:YES];
-    } else
-        [self dismissViewControllerAnimated:animated completion:NULL];
-}
-
-- (IBAction)dismiss:(id)sender
-{
-    [self _hideAnimated:YES];
+    [self _presentViewController:[(VLCAppDelegate*)[UIApplication sharedApplication].delegate playlistViewController]];
 }
 
 - (IBAction)openAboutPanel:(id)sender
@@ -195,7 +175,12 @@
             viewController.navigationItem.rightBarButtonItem = doneButton;
         }
     } else {
-        [self.navigationController pushViewController:viewController animated:YES];
+        UINavigationController *navController = [[UINavigationController alloc] initWithRootViewController:viewController];
+        [navController loadTheme];
+
+        GHRevealViewController *ghVC = [(VLCAppDelegate*)[UIApplication sharedApplication].delegate revealController];
+        ghVC.contentViewController = navController;
+        [ghVC toggleSidebar:NO duration:kGHRevealSidebarDefaultAnimationDuration];
     }
 }
 

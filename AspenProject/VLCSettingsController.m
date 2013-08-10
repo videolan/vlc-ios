@@ -46,7 +46,7 @@
 - (void)settingsViewControllerDidEnd:(IASKAppSettingsViewController*)sender
 {
     if (UI_USER_INTERFACE_IDIOM() == UIUserInterfaceIdiomPhone)
-        [self.viewController.navigationController popViewControllerAnimated:YES];
+        [[(VLCAppDelegate*)[UIApplication sharedApplication].delegate revealController] toggleSidebar:![(VLCAppDelegate*)[UIApplication sharedApplication].delegate revealController].sidebarShowing duration:kGHRevealSidebarDefaultAnimationDuration];
     else
         [self.viewController.navigationController dismissModalViewControllerAnimated:YES];
 }

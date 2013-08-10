@@ -18,6 +18,7 @@
 @property (strong, nonatomic) IASKAppSettingsViewController *settingsViewController;
 @property (strong, nonatomic) VLCSettingsController *settingsController;
 
+@property (strong, nonatomic) IBOutlet UIButton *allFilesButton;
 @property (strong, nonatomic) IBOutlet UIButton *aboutButton;
 @property (strong, nonatomic) IBOutlet UIButton *openNetworkStreamButton;
 @property (strong, nonatomic) IBOutlet UIButton *downloadFromHTTPServerButton;
@@ -27,7 +28,7 @@
 @property (strong, nonatomic) IBOutlet UILabel *httpUploadServerLocationLabel;
 @property (strong, nonatomic) IBOutlet UIButton *dropboxButton;
 
-- (IBAction)dismiss:(id)sender;
+- (IBAction)showAllFiles:(id)sender;
 - (IBAction)openAboutPanel:(id)sender;
 - (IBAction)openNetworkStream:(id)sender;
 - (IBAction)downloadFromHTTPServer:(id)sender;

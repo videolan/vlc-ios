@@ -10,6 +10,7 @@
 
 #import "VLCHTTPDownloadViewController.h"
 #import "VLCHTTPFileDownloader.h"
+#import "VLCAppDelegate.h"
 #import "UIBarButtonItem+Theme.h"
 
 @interface VLCHTTPDownloadViewController ()
@@ -57,7 +58,7 @@
 
 - (IBAction)goBack:(id)sender
 {
-    [self.navigationController popViewControllerAnimated:YES];
+    [[(VLCAppDelegate*)[UIApplication sharedApplication].delegate revealController] toggleSidebar:![(VLCAppDelegate*)[UIApplication sharedApplication].delegate revealController].sidebarShowing duration:kGHRevealSidebarDefaultAnimationDuration];
 }
 
 - (IBAction)downloadAction:(id)sender

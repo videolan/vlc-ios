@@ -16,6 +16,7 @@
 #import "UINavigationController+Theme.h"
 #import "NSString+SupportedMedia.h"
 #import "VLCBugreporter.h"
+#import "VLCAppDelegate.h"
 
 @implementation EmptyLibraryView
 @end
@@ -300,6 +301,7 @@
 
 - (void)initMenuViewController
 {
+    return;
     VLCMenuViewController *menuViewController = [[VLCMenuViewController alloc] initWithNibName:nil bundle:nil];
     UINavigationController *navigationController = [[UINavigationController alloc] initWithRootViewController:menuViewController];
     [navigationController loadTheme];
@@ -310,25 +312,7 @@
 
 - (IBAction)leftButtonAction:(id)sender
 {
-    if (self.menuViewController == nil) {
-        [self initMenuViewController];
-    }
-
-    if (UI_USER_INTERFACE_IDIOM() == UIUserInterfaceIdiomPad) {
-        self.menuViewController.contentSizeForViewInPopover = self.menuViewController.view.frame.size;
-        if (self.addMediaPopoverController == nil) {
-            self.addMediaPopoverController = [[UIPopoverController alloc] initWithContentViewController:self.menuViewController];
-            self.addMediaPopoverController.delegate = self;
-        }
-
-        if (self.addMediaPopoverController.popoverVisible)
-            [self.addMediaPopoverController dismissPopoverAnimated:YES];
-        else
-            [self.addMediaPopoverController presentPopoverFromBarButtonItem:self.navigationItem.leftBarButtonItem
-                                                   permittedArrowDirections:UIPopoverArrowDirectionUp
-                                                                   animated:YES];
-    } else
-        [self.navigationController presentViewController:self.menuViewController animated:YES completion:NULL];
+    [[(VLCAppDelegate*)[UIApplication sharedApplication].delegate revealController] toggleSidebar:![(VLCAppDelegate*)[UIApplication sharedApplication].delegate revealController].sidebarShowing duration:kGHRevealSidebarDefaultAnimationDuration];
 }
 
 /* deprecated in iOS 6 */

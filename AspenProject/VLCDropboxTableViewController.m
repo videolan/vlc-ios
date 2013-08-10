@@ -134,7 +134,7 @@
         _currentPath = [_currentPath stringByDeletingLastPathComponent];
         [self _requestInformationForCurrentPath];
     } else
-        [self.navigationController popViewControllerAnimated:YES];
+        [[(VLCAppDelegate*)[UIApplication sharedApplication].delegate revealController] toggleSidebar:![(VLCAppDelegate*)[UIApplication sharedApplication].delegate revealController].sidebarShowing duration:kGHRevealSidebarDefaultAnimationDuration];
 }
 
 #pragma mark - Table view data source

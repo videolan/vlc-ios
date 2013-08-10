@@ -10,6 +10,7 @@
 
 #import "VLCDropboxTableViewController.h"
 #import "VLCHTTPUploaderController.h"
+#import "GHRevealViewController.h"
 
 @class VLCPlaylistViewController;
 @class PAPasscodeViewController;
@@ -24,7 +25,7 @@
 
 @property (nonatomic, strong) UIWindow *window;
 
-@property (nonatomic, strong) UINavigationController *navigationController;
+@property (nonatomic, strong) GHRevealViewController *revealController;
 
 @property (nonatomic, retain) NSDate *nextPasscodeCheckDate;
 

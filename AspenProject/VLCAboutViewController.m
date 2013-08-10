@@ -9,6 +9,7 @@
 //
 
 #import "VLCAboutViewController.h"
+#import "VLCAppDelegate.h"
 #import "UIBarButtonItem+Theme.h"
 
 @implementation VLCAboutViewController
@@ -46,7 +47,7 @@
 
 - (IBAction)goBack:(id)sender
 {
-    [self.navigationController popViewControllerAnimated:YES];
+    [[(VLCAppDelegate*)[UIApplication sharedApplication].delegate revealController] toggleSidebar:![(VLCAppDelegate*)[UIApplication sharedApplication].delegate revealController].sidebarShowing duration:kGHRevealSidebarDefaultAnimationDuration];
 }
 
 - (BOOL)webView:(UIWebView *)webView shouldStartLoadWithRequest:(NSURLRequest *)request navigationType:(UIWebViewNavigationType)navigationType

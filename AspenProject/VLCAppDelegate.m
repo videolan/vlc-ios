@@ -59,11 +59,14 @@
     self.window = [[UIWindow alloc] initWithFrame:[[UIScreen mainScreen] bounds]];
 
     _playlistViewController = [[VLCPlaylistViewController alloc] init];
+    UINavigationController *navCon = [[UINavigationController alloc] initWithRootViewController:_playlistViewController];
+    [navCon loadTheme];
 
-    self.navigationController = [[UINavigationController alloc] initWithRootViewController:_playlistViewController];
-    [self.navigationController loadTheme];
+    _revealController = [[GHRevealViewController alloc] initWithNibName:nil bundle:nil];
+    _revealController.sidebarViewController = [[VLCMenuViewController alloc] initWithNibName:nil bundle:nil];
+    _revealController.contentViewController = navCon;
 
-    self.window.rootViewController = self.navigationController;
+    self.window.rootViewController = self.revealController;
     [self.window makeKeyAndVisible];
 
     VLCMediaFileDiscoverer *discoverer = [VLCMediaFileDiscoverer sharedInstance];
@@ -250,7 +253,7 @@
 {
     // TODO add transition animation, i.e. fade
     self.nextPasscodeCheckDate = [NSDate dateWithTimeIntervalSinceNow:300];
-    self.window.rootViewController = self.navigationController;
+    self.window.rootViewController = self.revealController;
 }
 
 - (void)PAPasscodeViewController:(PAPasscodeViewController *)controller didFailToEnterPasscode:(NSInteger)attempts
