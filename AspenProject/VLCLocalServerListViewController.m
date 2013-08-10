@@ -58,12 +58,7 @@
     self.tableView.separatorColor = [UIColor colorWithWhite:.122 alpha:1.];
     self.view.backgroundColor = [UIColor colorWithWhite:.122 alpha:1.];
 
-    _titleLabel = [[UILabel alloc] initWithFrame:CGRectMake(0.0 , 11.0f, self.navigationController.view.frame.size.width, 21.0f)];
-    [_titleLabel setFont:[UIFont fontWithName:@"Helvetica-Bold" size:18]];
-    [_titleLabel setBackgroundColor:[UIColor clearColor]];
-    [_titleLabel setTextColor:[UIColor colorWithRed:255.0 green:255.0 blue:255.0 alpha:1.0]];
-    [_titleLabel setText:@"Local Servers"];
-    [_titleLabel setTextAlignment:UITextAlignmentCenter];
+    self.title = @"Local Servers";
 
     self.navigationItem.titleView = _titleLabel;
 }
