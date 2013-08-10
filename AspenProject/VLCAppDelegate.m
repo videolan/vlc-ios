@@ -100,7 +100,13 @@
             [self updateMediaList];
         } else {
             NSURL *parsedUrl = [self parseOpenURL:url];
-            [_playlistViewController openMovieFromURL:parsedUrl];
+
+            UINavigationController *navController = [[UINavigationController alloc] initWithRootViewController:self.playlistViewController];
+            [navController loadTheme];
+
+            self.revealController.contentViewController = navController;
+            [self.revealController toggleSidebar:NO duration:kGHRevealSidebarDefaultAnimationDuration];
+            [self.playlistViewController performSelector:@selector(openMovieFromURL:) withObject:parsedUrl afterDelay:kGHRevealSidebarDefaultAnimationDuration];
         }
         return YES;
     }
