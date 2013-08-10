@@ -225,9 +225,12 @@
 - (void)updateHTTPServerAddress
 {
     HTTPServer *server = self.uploadController.httpServer;
-    if (server.isRunning)
-        _uploadLocationLabel.text = [NSString stringWithFormat:@"http://%@:%i", [self.uploadController currentIPAddress], server.listeningPort];
-    else
+    if (server.isRunning) {
+        if (server.listeningPort != 80)
+            _uploadLocationLabel.text = [NSString stringWithFormat:@"http://%@:%i", [self.uploadController currentIPAddress], server.listeningPort];
+        else
+            _uploadLocationLabel.text = [NSString stringWithFormat:@"http://%@", [self.uploadController currentIPAddress]];
+    } else
         _uploadLocationLabel.text = NSLocalizedString(@"HTTP_UPLOAD_SERVER_OFF", @"");
 }
 
