@@ -134,8 +134,6 @@
     [self _presentViewController:self.settingsController.viewController];
 }
 
-
-
 - (void)updateHTTPServerAddress
 {
     HTTPServer *server = self.uploadController.httpServer;
