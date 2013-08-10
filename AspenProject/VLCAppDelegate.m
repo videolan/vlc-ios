@@ -19,6 +19,7 @@
 #import "PAPasscodeViewController.h"
 #import "UINavigationController+Theme.h"
 #import "VLCHTTPUploaderController.h"
+#import "VLCMenuTableViewController.h"
 
 @interface VLCAppDelegate () <PAPasscodeViewControllerDelegate, VLCMediaFileDiscovererDelegate> {
     PAPasscodeViewController *_passcodeLockController;
@@ -63,7 +64,7 @@
     [navCon loadTheme];
 
     _revealController = [[GHRevealViewController alloc] initWithNibName:nil bundle:nil];
-    _revealController.sidebarViewController = [[VLCMenuViewController alloc] initWithNibName:nil bundle:nil];
+    _revealController.sidebarViewController = [[VLCMenuTableViewController alloc] initWithNibName:nil bundle:nil];
     _revealController.contentViewController = navCon;
 
     self.window.rootViewController = self.revealController;

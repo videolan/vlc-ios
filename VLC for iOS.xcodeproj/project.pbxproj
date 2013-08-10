@@ -176,6 +176,10 @@
 		7D93044517B684CF0054EAC6 /* VLCLocalNetworkListCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 7D93044417B684CF0054EAC6 /* VLCLocalNetworkListCell.m */; };
 		7D93044817B687C90054EAC6 /* VLCLocalNetworkListCell~ipad.xib in Resources */ = {isa = PBXBuildFile; fileRef = 7D93044617B687C90054EAC6 /* VLCLocalNetworkListCell~ipad.xib */; };
 		7D93044917B687C90054EAC6 /* VLCLocalNetworkListCell~iphone.xib in Resources */ = {isa = PBXBuildFile; fileRef = 7D93044717B687C90054EAC6 /* VLCLocalNetworkListCell~iphone.xib */; };
+		7D93045317B6A0DF0054EAC6 /* VLCMenuTableViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 7D93045217B6A0DF0054EAC6 /* VLCMenuTableViewController.m */; };
+		7D93045617B6A5C00054EAC6 /* GHMenuCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 7D93045517B6A5C00054EAC6 /* GHMenuCell.m */; };
+		7D93045917B6ACA10054EAC6 /* VLCWiFiUploadTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 7D93045817B6ACA10054EAC6 /* VLCWiFiUploadTableViewCell.m */; };
+		7D93045B17B6ACCF0054EAC6 /* VLCWiFiUploadTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 7D93045A17B6ACCF0054EAC6 /* VLCWiFiUploadTableViewCell.xib */; };
 		7D94FCDF16DE7D1000F2623B /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 7D94FCDE16DE7D1000F2623B /* UIKit.framework */; };
 		7D94FCE116DE7D1000F2623B /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 7D94FCE016DE7D1000F2623B /* Foundation.framework */; };
 		7D94FCE316DE7D1000F2623B /* CoreGraphics.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 7D94FCE216DE7D1000F2623B /* CoreGraphics.framework */; };
@@ -573,6 +577,13 @@
 		7D93044417B684CF0054EAC6 /* VLCLocalNetworkListCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = VLCLocalNetworkListCell.m; sourceTree = "<group>"; };
 		7D93044617B687C90054EAC6 /* VLCLocalNetworkListCell~ipad.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; name = "VLCLocalNetworkListCell~ipad.xib"; path = "../Resources/VLCLocalNetworkListCell~ipad.xib"; sourceTree = "<group>"; };
 		7D93044717B687C90054EAC6 /* VLCLocalNetworkListCell~iphone.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; name = "VLCLocalNetworkListCell~iphone.xib"; path = "../Resources/VLCLocalNetworkListCell~iphone.xib"; sourceTree = "<group>"; };
+		7D93045117B6A0DF0054EAC6 /* VLCMenuTableViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = VLCMenuTableViewController.h; sourceTree = "<group>"; };
+		7D93045217B6A0DF0054EAC6 /* VLCMenuTableViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = VLCMenuTableViewController.m; sourceTree = "<group>"; };
+		7D93045417B6A5C00054EAC6 /* GHMenuCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = GHMenuCell.h; path = ImportedSources/GHSidebarNav/Demo/GHMenuCell.h; sourceTree = SOURCE_ROOT; };
+		7D93045517B6A5C00054EAC6 /* GHMenuCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = GHMenuCell.m; path = ImportedSources/GHSidebarNav/Demo/GHMenuCell.m; sourceTree = SOURCE_ROOT; };
+		7D93045717B6ACA10054EAC6 /* VLCWiFiUploadTableViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = VLCWiFiUploadTableViewCell.h; sourceTree = "<group>"; };
+		7D93045817B6ACA10054EAC6 /* VLCWiFiUploadTableViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = VLCWiFiUploadTableViewCell.m; sourceTree = "<group>"; };
+		7D93045A17B6ACCF0054EAC6 /* VLCWiFiUploadTableViewCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; name = VLCWiFiUploadTableViewCell.xib; path = Resources/VLCWiFiUploadTableViewCell.xib; sourceTree = SOURCE_ROOT; };
 		7D94FCDB16DE7D1000F2623B /* VLC for iOS.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "VLC for iOS.app"; sourceTree = BUILT_PRODUCTS_DIR; };
 		7D94FCDE16DE7D1000F2623B /* UIKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = UIKit.framework; path = System/Library/Frameworks/UIKit.framework; sourceTree = SDKROOT; };
 		7D94FCE016DE7D1000F2623B /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = System/Library/Frameworks/Foundation.framework; sourceTree = SDKROOT; };
@@ -994,8 +1005,12 @@
 			children = (
 				7D6BA1141748EFE100C0E203 /* VLCMenuViewController.h */,
 				7D6BA1151748EFE100C0E203 /* VLCMenuViewController.m */,
+				7D93045117B6A0DF0054EAC6 /* VLCMenuTableViewController.h */,
+				7D93045217B6A0DF0054EAC6 /* VLCMenuTableViewController.m */,
 				7D2339AC176DE72E008D223C /* VLCOpenNetworkStreamViewController.h */,
 				7D2339AD176DE72E008D223C /* VLCOpenNetworkStreamViewController.m */,
+				7D93045717B6ACA10054EAC6 /* VLCWiFiUploadTableViewCell.h */,
+				7D93045817B6ACA10054EAC6 /* VLCWiFiUploadTableViewCell.m */,
 			);
 			name = Menu;
 			sourceTree = "<group>";
@@ -1005,6 +1020,8 @@
 			children = (
 				7D31001B17B64AE100E6516D /* GHRevealViewController.h */,
 				7D31001C17B64AE100E6516D /* GHRevealViewController.m */,
+				7D93045417B6A5C00054EAC6 /* GHMenuCell.h */,
+				7D93045517B6A5C00054EAC6 /* GHMenuCell.m */,
 			);
 			name = GHSidebarNav;
 			sourceTree = "<group>";
@@ -1344,6 +1361,7 @@
 		7DADC55C1704FAA8001DAC63 /* XIBs */ = {
 			isa = PBXGroup;
 			children = (
+				7D93045A17B6ACCF0054EAC6 /* VLCWiFiUploadTableViewCell.xib */,
 				7D93044617B687C90054EAC6 /* VLCLocalNetworkListCell~ipad.xib */,
 				7D93044717B687C90054EAC6 /* VLCLocalNetworkListCell~iphone.xib */,
 				7DB43834176E20CC00F460EE /* VLCHTTPDownloadViewController.xib */,
@@ -1717,6 +1735,7 @@
 				7DD2A3A9179C04A7003EB537 /* OpenSans-Regular.ttf in Resources */,
 				7D93044817B687C90054EAC6 /* VLCLocalNetworkListCell~ipad.xib in Resources */,
 				7D93044917B687C90054EAC6 /* VLCLocalNetworkListCell~iphone.xib in Resources */,
+				7D93045B17B6ACCF0054EAC6 /* VLCWiFiUploadTableViewCell.xib in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -1812,6 +1831,9 @@
 				7D31001D17B64AE100E6516D /* GHRevealViewController.m in Sources */,
 				7D93044117B67C4F0054EAC6 /* VLCLocalServerListViewController.m in Sources */,
 				7D93044517B684CF0054EAC6 /* VLCLocalNetworkListCell.m in Sources */,
+				7D93045317B6A0DF0054EAC6 /* VLCMenuTableViewController.m in Sources */,
+				7D93045617B6A5C00054EAC6 /* GHMenuCell.m in Sources */,
+				7D93045917B6ACA10054EAC6 /* VLCWiFiUploadTableViewCell.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

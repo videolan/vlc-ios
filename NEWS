@@ -5,7 +5,7 @@
 * Improved Subtitles support with options to choose font, size, and color
 * Add UPNP discovery and streaming (#8880)
 * Add Bonjour announcement for the WiFi Uploader's website (#8741)
-* Redesigned menu and application flow (#9045)
+* Newly implemented menu and application flow (#9045)
 * Add Deinterlace option (off by default, #8813)
 * Device no longer goes to sleep during media downloads (#9062)
 * Improved video output on external screens (#9079)
