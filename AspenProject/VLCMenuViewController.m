@@ -123,8 +123,7 @@
     if (!self.settingsViewController) {
         self.settingsViewController = [[IASKAppSettingsViewController alloc] initWithStyle:UITableViewStyleGrouped];
         self.settingsController.viewController = self.settingsViewController;
-        if (UI_USER_INTERFACE_IDIOM() == UIUserInterfaceIdiomPhone)
-            self.settingsViewController.navigationItem.leftBarButtonItem = [UIBarButtonItem themedBackButtonWithTarget:self.settingsViewController andSelector:@selector(dismiss:)];
+        self.settingsViewController.navigationItem.leftBarButtonItem = [UIBarButtonItem themedBackButtonWithTarget:self.settingsViewController andSelector:@selector(dismiss:)];
     }
 
     self.settingsViewController.modalPresentationStyle = UIModalPresentationFormSheet;
@@ -164,24 +163,12 @@
 
 - (void)_presentViewController:(UIViewController *)viewController
 {
-    if (UI_USER_INTERFACE_IDIOM() == UIUserInterfaceIdiomPad) {
-        UINavigationController *navController = [[UINavigationController alloc] initWithRootViewController:viewController];
-        [navController loadTheme];
-        navController.modalPresentationStyle = UIModalPresentationFormSheet;
-        [self presentModalViewController:navController animated:YES];
+    UINavigationController *navController = [[UINavigationController alloc] initWithRootViewController:viewController];
+    [navController loadTheme];
 
-        if (viewController.navigationItem.rightBarButtonItem == nil) {
-            UIBarButtonItem *doneButton = [UIBarButtonItem themedDoneButtonWithTarget:self andSelector:@selector(_dismissModalViewController)];
-            viewController.navigationItem.rightBarButtonItem = doneButton;
-        }
-    } else {
-        UINavigationController *navController = [[UINavigationController alloc] initWithRootViewController:viewController];
-        [navController loadTheme];
-
-        GHRevealViewController *ghVC = [(VLCAppDelegate*)[UIApplication sharedApplication].delegate revealController];
-        ghVC.contentViewController = navController;
-        [ghVC toggleSidebar:NO duration:kGHRevealSidebarDefaultAnimationDuration];
-    }
+    GHRevealViewController *ghVC = [(VLCAppDelegate*)[UIApplication sharedApplication].delegate revealController];
+    ghVC.contentViewController = navController;
+    [ghVC toggleSidebar:NO duration:kGHRevealSidebarDefaultAnimationDuration];
 }
 
 #pragma mark - shake to support

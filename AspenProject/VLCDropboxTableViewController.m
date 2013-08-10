@@ -56,8 +56,7 @@
 
     _backButton = [UIBarButtonItem themedBackButtonWithTarget:self andSelector:@selector(goBack:)];
     _backToMenuButton = [UIBarButtonItem themedRevealMenuButtonWithTarget:self andSelector:@selector(goBack:)];
-    if (UI_USER_INTERFACE_IDIOM() == UIUserInterfaceIdiomPhone)
-        self.navigationItem.leftBarButtonItem = _backToMenuButton;
+    self.navigationItem.leftBarButtonItem = _backToMenuButton;
 
     self.tableView.rowHeight = [VLCDropboxTableViewCell heightOfCell];
     self.tableView.separatorColor = [UIColor colorWithWhite:.122 alpha:1.];
@@ -117,10 +116,7 @@
     [_activityIndicator startAnimating];
     [_dropboxController requestDirectoryListingAtPath:_currentPath];
 
-    if (UI_USER_INTERFACE_IDIOM() == UIUserInterfaceIdiomPad)
-        self.navigationItem.leftBarButtonItem = ![_currentPath isEqualToString:@"/"] ? _backButton : nil;
-    else
-        self.navigationItem.leftBarButtonItem = ![_currentPath isEqualToString:@"/"] ? _backButton : _backToMenuButton;
+    self.navigationItem.leftBarButtonItem = ![_currentPath isEqualToString:@"/"] ? _backButton : _backToMenuButton;
 }
 
 #pragma mark - interface interaction
