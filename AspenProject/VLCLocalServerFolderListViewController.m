@@ -107,7 +107,7 @@
 
     if (![item isContainer]) {
         MediaServer1ItemObject *mediaItem = _objectList[indexPath.row];
-        [cell setSubtitle:[NSString stringWithFormat:@"%@ - %@", mediaItem.size, mediaItem.duration]];
+        [cell setSubtitle:[NSString stringWithFormat:@"%@", mediaItem.size]];
         [cell setIsDirectory:NO];
     } else
         [cell setIsDirectory:YES];
@@ -118,6 +118,11 @@
 }
 
 #pragma mark - Table view delegate
+
+- (void)tableView:(UITableView *)tableView willDisplayCell:(UITableViewCell *)cell forRowAtIndexPath:(NSIndexPath *)indexPath
+{
+    cell.backgroundColor = (indexPath.row % 2 == 0)? [UIColor blackColor]: [UIColor colorWithWhite:.122 alpha:1.];
+}
 
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
 {
