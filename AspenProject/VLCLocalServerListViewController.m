@@ -18,6 +18,7 @@
 @interface VLCLocalServerListViewController () <UITableViewDataSource, UITableViewDelegate>
 {
     UIBarButtonItem *_backToMenuButton;
+    NSArray *_filteredDevices;
     NSArray *_devices;
 }
 
@@ -78,7 +79,7 @@
 
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section
 {
-    return _devices.count;
+    return _filteredDevices.count;
 }
 
 - (void)tableView:(UITableView *)tableView willDisplayCell:(UITableViewCell *)cell forRowAtIndexPath:(NSIndexPath *)indexPath
@@ -94,21 +95,18 @@
     if (cell == nil)
         cell = [VLCLocalNetworkListCell cellWithReuseIdentifier:CellIdentifier];
 
-    BasicUPnPDevice *device = _devices[indexPath.row];
+    BasicUPnPDevice *device = _filteredDevices[indexPath.row];
     [cell setTitle:[device friendlyName]];
     UIImage *icon = [device smallIcon];
-    if (icon)
-        [cell setIcon:icon];
-
-    if ([[device urn] isEqualToString:@"urn:schemas-upnp-org:device:MediaServer:1"])
-        [cell setIsDirectory:YES];
+    [cell setIcon:icon];
+    [cell setIsDirectory:YES];
 
     return cell;
 }
 
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
 {
-    BasicUPnPDevice *device = _devices[indexPath.row];
+    BasicUPnPDevice *device = _filteredDevices[indexPath.row];
     if ([[device urn] isEqualToString:@"urn:schemas-upnp-org:device:MediaServer:1"]) {
         MediaServer1Device *server = (MediaServer1Device*)device;
         VLCLocalServerFolderListViewController *targetViewController = [[VLCLocalServerFolderListViewController alloc] initWithDevice:server header:[device friendlyName] andRootID:@"0"];
@@ -125,6 +123,18 @@
 
 -(void)UPnPDBUpdated:(UPnPDB*)sender{
     APLog(@"UPnPDBUpdated %d", _devices.count);
+
+    NSUInteger count = _devices.count;
+    BasicUPnPDevice *device;
+    NSMutableArray *mutArray = [[NSMutableArray alloc] init];
+    for (NSUInteger x = 0; x < count; x++) {
+        device = _devices[x];
+        if ([[device urn] isEqualToString:@"urn:schemas-upnp-org:device:MediaServer:1"])
+            [mutArray addObject:device];
+    }
+    _filteredDevices = nil;
+    _filteredDevices = [NSArray arrayWithArray:mutArray];
+
     [self.tableView performSelectorOnMainThread : @ selector(reloadData) withObject:nil waitUntilDone:YES];
 }
 
