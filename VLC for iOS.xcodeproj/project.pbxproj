@@ -199,6 +199,8 @@
 		7DC72D5F17B7E7C7008A26D0 /* download.png in Resources */ = {isa = PBXBuildFile; fileRef = 7DC72D5C17B7E7C7008A26D0 /* download.png */; };
 		7DC72D6017B7E7C7008A26D0 /* download@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 7DC72D5D17B7E7C7008A26D0 /* download@2x.png */; };
 		7DC72D6317B7ED24008A26D0 /* WhiteRaccoon.m in Sources */ = {isa = PBXBuildFile; fileRef = 7DC72D6217B7ED24008A26D0 /* WhiteRaccoon.m */; };
+		7DC72D6917B820C9008A26D0 /* VLCNetworkLoginViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 7DC72D6717B820C8008A26D0 /* VLCNetworkLoginViewController.m */; };
+		7DC72D6A17B820C9008A26D0 /* VLCNetworkLoginViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 7DC72D6817B820C8008A26D0 /* VLCNetworkLoginViewController.xib */; };
 		7DC87AEE17412A1F009DC250 /* VLCLinearProgressIndicator.m in Sources */ = {isa = PBXBuildFile; fileRef = 7DC87AED17412A1F009DC250 /* VLCLinearProgressIndicator.m */; };
 		7DC87AF217413EE3009DC250 /* VLCPlaylistGridView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 7DC87AF117413EE3009DC250 /* VLCPlaylistGridView.xib */; };
 		7DD2A3A7179BFAFE003EB537 /* VLCBugreporter.m in Sources */ = {isa = PBXBuildFile; fileRef = 7DD2A3A6179BFAFE003EB537 /* VLCBugreporter.m */; };
@@ -624,6 +626,9 @@
 		7DC72D5D17B7E7C7008A26D0 /* download@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "download@2x.png"; sourceTree = "<group>"; };
 		7DC72D6117B7ED24008A26D0 /* WhiteRaccoon.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = WhiteRaccoon.h; path = ImportedSources/WhiteRaccoon/WhiteRaccoon.h; sourceTree = SOURCE_ROOT; };
 		7DC72D6217B7ED24008A26D0 /* WhiteRaccoon.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = WhiteRaccoon.m; path = ImportedSources/WhiteRaccoon/WhiteRaccoon.m; sourceTree = SOURCE_ROOT; };
+		7DC72D6617B820C8008A26D0 /* VLCNetworkLoginViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = VLCNetworkLoginViewController.h; sourceTree = "<group>"; };
+		7DC72D6717B820C8008A26D0 /* VLCNetworkLoginViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = VLCNetworkLoginViewController.m; sourceTree = "<group>"; };
+		7DC72D6817B820C8008A26D0 /* VLCNetworkLoginViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; name = VLCNetworkLoginViewController.xib; path = ../Resources/VLCNetworkLoginViewController.xib; sourceTree = "<group>"; };
 		7DC87AEC17412A1F009DC250 /* VLCLinearProgressIndicator.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = VLCLinearProgressIndicator.h; sourceTree = "<group>"; };
 		7DC87AED17412A1F009DC250 /* VLCLinearProgressIndicator.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = VLCLinearProgressIndicator.m; sourceTree = "<group>"; };
 		7DC87AEF17413634009DC250 /* de */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = de; path = de.lproj/Localizable.strings; sourceTree = "<group>"; };
@@ -1042,6 +1047,8 @@
 				7D02B0D117B6BE850099030D /* VLCLocalServerFolderListViewController.m */,
 				7D93044317B684CE0054EAC6 /* VLCLocalNetworkListCell.h */,
 				7D93044417B684CF0054EAC6 /* VLCLocalNetworkListCell.m */,
+				7DC72D6617B820C8008A26D0 /* VLCNetworkLoginViewController.h */,
+				7DC72D6717B820C8008A26D0 /* VLCNetworkLoginViewController.m */,
 			);
 			name = "Local Network Connectivity";
 			sourceTree = "<group>";
@@ -1370,6 +1377,7 @@
 		7DADC55C1704FAA8001DAC63 /* XIBs */ = {
 			isa = PBXGroup;
 			children = (
+				7DC72D6817B820C8008A26D0 /* VLCNetworkLoginViewController.xib */,
 				7D93045A17B6ACCF0054EAC6 /* VLCWiFiUploadTableViewCell.xib */,
 				7D93044617B687C90054EAC6 /* VLCLocalNetworkListCell~ipad.xib */,
 				7D93044717B687C90054EAC6 /* VLCLocalNetworkListCell~iphone.xib */,
@@ -1769,6 +1777,7 @@
 				7DC72D5E17B7E7C7008A26D0 /* download@4x.png in Resources */,
 				7DC72D5F17B7E7C7008A26D0 /* download.png in Resources */,
 				7DC72D6017B7E7C7008A26D0 /* download@2x.png in Resources */,
+				7DC72D6A17B820C9008A26D0 /* VLCNetworkLoginViewController.xib in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -1868,6 +1877,7 @@
 				7D93045917B6ACA10054EAC6 /* VLCWiFiUploadTableViewCell.m in Sources */,
 				7D02B0D217B6BE850099030D /* VLCLocalServerFolderListViewController.m in Sources */,
 				7DC72D6317B7ED24008A26D0 /* WhiteRaccoon.m in Sources */,
+				7DC72D6917B820C9008A26D0 /* VLCNetworkLoginViewController.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
