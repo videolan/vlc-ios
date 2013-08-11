@@ -20,4 +20,6 @@
 
 @property (nonatomic, strong) UITableView *tableView;
 
+- (void)selectRowAtIndexPath:(NSIndexPath *)indexPath animated:(BOOL)animated scrollPosition:(UITableViewScrollPosition)scrollPosition;
+
 @end

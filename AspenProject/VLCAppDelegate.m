@@ -63,7 +63,8 @@
     [navCon loadTheme];
 
     _revealController = [[GHRevealViewController alloc] initWithNibName:nil bundle:nil];
-    _revealController.sidebarViewController = [[VLCMenuTableViewController alloc] initWithNibName:nil bundle:nil];
+    _menuViewController = [[VLCMenuTableViewController alloc] initWithNibName:nil bundle:nil];
+    _revealController.sidebarViewController = _menuViewController;
     _revealController.contentViewController = navCon;
 
     self.window.rootViewController = self.revealController;
@@ -100,12 +101,7 @@
             [self updateMediaList];
         } else {
             NSURL *parsedUrl = [self parseOpenURL:url];
-
-            UINavigationController *navController = [[UINavigationController alloc] initWithRootViewController:self.playlistViewController];
-            [navController loadTheme];
-
-            self.revealController.contentViewController = navController;
-            [self.revealController toggleSidebar:NO duration:kGHRevealSidebarDefaultAnimationDuration];
+            [self.menuViewController selectRowAtIndexPath:[NSIndexPath indexPathForRow:0 inSection:0] animated:NO scrollPosition:UITableViewScrollPositionNone];
             [self.playlistViewController performSelector:@selector(openMovieFromURL:) withObject:parsedUrl afterDelay:kGHRevealSidebarDefaultAnimationDuration];
         }
         return YES;

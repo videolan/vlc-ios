@@ -13,6 +13,7 @@
 #import "VLCPlaylistViewController.h"
 #import "UIBarButtonItem+Theme.h"
 #import "UINavigationController+Theme.h"
+#import "VLCMenuTableViewController.h"
 
 @interface VLCOpenNetworkStreamViewController ()
 {
@@ -160,13 +161,7 @@
 - (void)_openURLStringAndDismiss:(NSString *)url
 {
     VLCAppDelegate* appDelegate = [UIApplication sharedApplication].delegate;
-
-    UINavigationController *navController = [[UINavigationController alloc] initWithRootViewController:appDelegate.playlistViewController];
-    [navController loadTheme];
-
-    appDelegate.revealController.contentViewController = navController;
-    [appDelegate.revealController toggleSidebar:NO duration:kGHRevealSidebarDefaultAnimationDuration];
-
+    [appDelegate.menuViewController selectRowAtIndexPath:[NSIndexPath indexPathForRow:0 inSection:0] animated:NO scrollPosition:UITableViewScrollPositionNone];
     [appDelegate.playlistViewController performSelector:@selector(openMovieFromURL:) withObject:[NSURL URLWithString:url] afterDelay:kGHRevealSidebarDefaultAnimationDuration];
 }
 
