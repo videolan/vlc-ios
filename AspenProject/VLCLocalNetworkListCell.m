@@ -27,6 +27,7 @@
     self.titleLabel.text = @"";
     self.subtitleLabel.text = @"";
     self.thumbnailView.contentMode = UIViewContentModeScaleAspectFit;
+    self.downloadButton.hidden = YES;
 }
 
 - (void)setTitle:(NSString *)title
@@ -39,6 +40,8 @@
 
     self.titleLabel.hidden = self.subtitleLabel.hidden = isDir;
     self.folderTitleLabel.hidden = !isDir;
+
+    _title = title;
 }
 
 - (void)setSubtitle:(NSString *)subtitle
@@ -49,6 +52,16 @@
 - (void)setIcon:(UIImage *)icon
 {
     self.thumbnailView.image = icon;
+}
+
+- (void)setIsDownloadable:(BOOL)isDownloadable
+{
+    self.downloadButton.hidden = !isDownloadable;
+}
+
+- (void)triggerDownload:(id)sender
+{
+    NSLog(@"Download requires adaptation of VLCHTTPDownloadViewController");
 }
 
 + (CGFloat)heightOfCell

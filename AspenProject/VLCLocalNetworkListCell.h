@@ -16,13 +16,18 @@
 @property (nonatomic, strong) IBOutlet UILabel *folderTitleLabel;
 @property (nonatomic, strong) IBOutlet UILabel *subtitleLabel;
 @property (nonatomic, strong) IBOutlet UIImageView *thumbnailView;
+@property (nonatomic, strong) IBOutlet UIButton *downloadButton;
 
 @property (nonatomic, readwrite) BOOL isDirectory;
 @property (nonatomic, retain) NSString *title;
 @property (nonatomic, retain) NSString *subtitle;
 @property (nonatomic, retain) UIImage *icon;
+@property (nonatomic, readwrite) BOOL isDownloadable;
+@property (nonatomic, retain) NSURL *downloadURL;
 
 + (VLCLocalNetworkListCell *)cellWithReuseIdentifier:(NSString *)ident;
 + (CGFloat)heightOfCell;
+
+- (IBAction)triggerDownload:(id)sender;
 
 @end

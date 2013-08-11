@@ -195,6 +195,9 @@
 		7DB43836176E20CC00F460EE /* VLCHTTPDownloadViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 7DB43834176E20CC00F460EE /* VLCHTTPDownloadViewController.xib */; };
 		7DBC3B441711FC6C00DCF688 /* VLCAboutViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 7DBC3B421711FC6C00DCF688 /* VLCAboutViewController.m */; };
 		7DBC3B451711FC6C00DCF688 /* VLCAboutViewController~iphone.xib in Resources */ = {isa = PBXBuildFile; fileRef = 7DBC3B431711FC6C00DCF688 /* VLCAboutViewController~iphone.xib */; };
+		7DC72D5E17B7E7C7008A26D0 /* download@4x.png in Resources */ = {isa = PBXBuildFile; fileRef = 7DC72D5B17B7E7C7008A26D0 /* download@4x.png */; };
+		7DC72D5F17B7E7C7008A26D0 /* download.png in Resources */ = {isa = PBXBuildFile; fileRef = 7DC72D5C17B7E7C7008A26D0 /* download.png */; };
+		7DC72D6017B7E7C7008A26D0 /* download@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 7DC72D5D17B7E7C7008A26D0 /* download@2x.png */; };
 		7DC87AEE17412A1F009DC250 /* VLCLinearProgressIndicator.m in Sources */ = {isa = PBXBuildFile; fileRef = 7DC87AED17412A1F009DC250 /* VLCLinearProgressIndicator.m */; };
 		7DC87AF217413EE3009DC250 /* VLCPlaylistGridView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 7DC87AF117413EE3009DC250 /* VLCPlaylistGridView.xib */; };
 		7DD2A3A7179BFAFE003EB537 /* VLCBugreporter.m in Sources */ = {isa = PBXBuildFile; fileRef = 7DD2A3A6179BFAFE003EB537 /* VLCBugreporter.m */; };
@@ -615,6 +618,9 @@
 		7DC222791773AB0900371B5C /* es */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = es; path = "es.lproj/badgeUnread@2x~iphone.png"; sourceTree = "<group>"; };
 		7DC2227A1773AB0900371B5C /* es */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = es; path = "es.lproj/badgeUnread~ipad.png"; sourceTree = "<group>"; };
 		7DC2227B1773AB0900371B5C /* es */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = es; path = "es.lproj/badgeUnread~iphone.png"; sourceTree = "<group>"; };
+		7DC72D5B17B7E7C7008A26D0 /* download@4x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "download@4x.png"; sourceTree = "<group>"; };
+		7DC72D5C17B7E7C7008A26D0 /* download.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = download.png; sourceTree = "<group>"; };
+		7DC72D5D17B7E7C7008A26D0 /* download@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "download@2x.png"; sourceTree = "<group>"; };
 		7DC87AEC17412A1F009DC250 /* VLCLinearProgressIndicator.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = VLCLinearProgressIndicator.h; sourceTree = "<group>"; };
 		7DC87AED17412A1F009DC250 /* VLCLinearProgressIndicator.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = VLCLinearProgressIndicator.m; sourceTree = "<group>"; };
 		7DC87AEF17413634009DC250 /* de */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = de; path = de.lproj/Localizable.strings; sourceTree = "<group>"; };
@@ -1417,6 +1423,9 @@
 		7DEB3B7B1764A4080038FC70 /* menu */ = {
 			isa = PBXGroup;
 			children = (
+				7DC72D5B17B7E7C7008A26D0 /* download@4x.png */,
+				7DC72D5C17B7E7C7008A26D0 /* download.png */,
+				7DC72D5D17B7E7C7008A26D0 /* download@2x.png */,
 				7D031C3517B6EF82002A82F9 /* searchBarBG.png */,
 				7DEB3B771764A4040038FC70 /* input@2x.png */,
 				7DEB3B781764A4040038FC70 /* input.png */,
@@ -1736,6 +1745,9 @@
 				7D93044917B687C90054EAC6 /* VLCLocalNetworkListCell~iphone.xib in Resources */,
 				7D93045B17B6ACCF0054EAC6 /* VLCWiFiUploadTableViewCell.xib in Resources */,
 				7D031C3617B6EF82002A82F9 /* searchBarBG.png in Resources */,
+				7DC72D5E17B7E7C7008A26D0 /* download@4x.png in Resources */,
+				7DC72D5F17B7E7C7008A26D0 /* download.png in Resources */,
+				7DC72D6017B7E7C7008A26D0 /* download@2x.png in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
