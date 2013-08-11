@@ -198,6 +198,7 @@
 		7DC72D5E17B7E7C7008A26D0 /* download@4x.png in Resources */ = {isa = PBXBuildFile; fileRef = 7DC72D5B17B7E7C7008A26D0 /* download@4x.png */; };
 		7DC72D5F17B7E7C7008A26D0 /* download.png in Resources */ = {isa = PBXBuildFile; fileRef = 7DC72D5C17B7E7C7008A26D0 /* download.png */; };
 		7DC72D6017B7E7C7008A26D0 /* download@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 7DC72D5D17B7E7C7008A26D0 /* download@2x.png */; };
+		7DC72D6317B7ED24008A26D0 /* WhiteRaccoon.m in Sources */ = {isa = PBXBuildFile; fileRef = 7DC72D6217B7ED24008A26D0 /* WhiteRaccoon.m */; };
 		7DC87AEE17412A1F009DC250 /* VLCLinearProgressIndicator.m in Sources */ = {isa = PBXBuildFile; fileRef = 7DC87AED17412A1F009DC250 /* VLCLinearProgressIndicator.m */; };
 		7DC87AF217413EE3009DC250 /* VLCPlaylistGridView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 7DC87AF117413EE3009DC250 /* VLCPlaylistGridView.xib */; };
 		7DD2A3A7179BFAFE003EB537 /* VLCBugreporter.m in Sources */ = {isa = PBXBuildFile; fileRef = 7DD2A3A6179BFAFE003EB537 /* VLCBugreporter.m */; };
@@ -621,6 +622,8 @@
 		7DC72D5B17B7E7C7008A26D0 /* download@4x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "download@4x.png"; sourceTree = "<group>"; };
 		7DC72D5C17B7E7C7008A26D0 /* download.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = download.png; sourceTree = "<group>"; };
 		7DC72D5D17B7E7C7008A26D0 /* download@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "download@2x.png"; sourceTree = "<group>"; };
+		7DC72D6117B7ED24008A26D0 /* WhiteRaccoon.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = WhiteRaccoon.h; path = ImportedSources/WhiteRaccoon/WhiteRaccoon.h; sourceTree = SOURCE_ROOT; };
+		7DC72D6217B7ED24008A26D0 /* WhiteRaccoon.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = WhiteRaccoon.m; path = ImportedSources/WhiteRaccoon/WhiteRaccoon.m; sourceTree = SOURCE_ROOT; };
 		7DC87AEC17412A1F009DC250 /* VLCLinearProgressIndicator.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = VLCLinearProgressIndicator.h; sourceTree = "<group>"; };
 		7DC87AED17412A1F009DC250 /* VLCLinearProgressIndicator.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = VLCLinearProgressIndicator.m; sourceTree = "<group>"; };
 		7DC87AEF17413634009DC250 /* de */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = de; path = de.lproj/Localizable.strings; sourceTree = "<group>"; };
@@ -1392,8 +1395,8 @@
 			children = (
 				7D6B08CA174D65B400A05173 /* InAppSettingsKit */,
 				A7A0E9EB174BA66000162F25 /* PAPasscode */,
-				7D3EB010174A3530002062C2 /* Reachability.h */,
-				7D3EB011174A3530002062C2 /* Reachability.m */,
+				7DC72D6517B7ED36008A26D0 /* Reachability */,
+				7DC72D6417B7ED2A008A26D0 /* WhiteRaccoon */,
 				7D31001E17B64AE600E6516D /* GHSidebarNav */,
 				291553E817490A0400B86CAD /* CocoaHTTPServer */,
 				7D6B07A41716C9AD003280C4 /* AQGridView */,
@@ -1418,6 +1421,24 @@
 				7DEB3B7117649BEB0038FC70 /* Icon-512.png */,
 			);
 			name = Icons;
+			sourceTree = "<group>";
+		};
+		7DC72D6417B7ED2A008A26D0 /* WhiteRaccoon */ = {
+			isa = PBXGroup;
+			children = (
+				7DC72D6117B7ED24008A26D0 /* WhiteRaccoon.h */,
+				7DC72D6217B7ED24008A26D0 /* WhiteRaccoon.m */,
+			);
+			name = WhiteRaccoon;
+			sourceTree = "<group>";
+		};
+		7DC72D6517B7ED36008A26D0 /* Reachability */ = {
+			isa = PBXGroup;
+			children = (
+				7D3EB010174A3530002062C2 /* Reachability.h */,
+				7D3EB011174A3530002062C2 /* Reachability.m */,
+			);
+			name = Reachability;
 			sourceTree = "<group>";
 		};
 		7DEB3B7B1764A4080038FC70 /* menu */ = {
@@ -1846,6 +1867,7 @@
 				7D93045617B6A5C00054EAC6 /* GHMenuCell.m in Sources */,
 				7D93045917B6ACA10054EAC6 /* VLCWiFiUploadTableViewCell.m in Sources */,
 				7D02B0D217B6BE850099030D /* VLCLocalServerFolderListViewController.m in Sources */,
+				7DC72D6317B7ED24008A26D0 /* WhiteRaccoon.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
