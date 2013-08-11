@@ -159,6 +159,8 @@ UPNPXVERSION=1.2.4
 curl -O http://upnpx.googlecode.com/files/upnpx-${UPNPXVERSION}.tar.gz
 tar xf upnpx-${UPNPXVERSION}.tar.gz
 mv upnpx-${UPNPXVERSION} upnpx
+cd upnpx && patch -p1 < ${aspen_root_dir}/patches/upnpx/duration-selector-failure.patch
+cd ..
 fi
 if ! [ -e AQGridView ]; then
 git clone git://github.com/AlanQuatermain/AQGridView.git

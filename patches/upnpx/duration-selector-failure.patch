@@ -1,0 +1,30 @@
+diff -ru upnpx-1.2.4/src/upnp/MediaServerBasicObjectParser.m upnpx/src/upnp/MediaServerBasicObjectParser.m
+--- upnpx-1.2.4/src/upnp/MediaServerBasicObjectParser.m	2012-03-07 20:53:57.000000000 +0100
++++ upnpx/src/upnp/MediaServerBasicObjectParser.m	2013-08-11 14:30:52.000000000 +0200
+@@ -238,7 +238,10 @@
+ 		[media setAudioChannels:audioChannels];	
+ 		[media setSize:size];
+ 		[media setDuration:duration];
+-        [media setDurationInSeconds:[duration HMS2Seconds]];
++        if ([duration respondsToSelector:@selector(HMS2Seconds)])
++            [media setDurationInSeconds:[duration HMS2Seconds]];
++        else
++            [media setDurationInSeconds:@""];
+ 		[media setBitrate:bitrate];
+ 		[media setIcon:icon]; //REMOVE THIS ?
+ 		[media setAlbumArt:albumArt];
+@@ -279,9 +282,11 @@
+         [r setNrAudioChannels: [audioChannels intValue]];
+         [r setProtocolInfo: protocolInfo];
+         [r setSize: [size intValue]];
+-        [r setDurationInSeconds:[duration HMS2Seconds]];
+-        
+-        [resources addObject:r];      
++        if ([duration respondsToSelector:@selector(HMS2Seconds)])
++            [r setDurationInSeconds:[duration HMS2Seconds]];
++        else
++            [r setDurationInSeconds:@""];
++        [resources addObject:r];
+         [r release];
+         
+ 	}else{
