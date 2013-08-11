@@ -107,10 +107,13 @@
 
     if (![item isContainer]) {
         MediaServer1ItemObject *mediaItem = _objectList[indexPath.row];
-        [cell setSubtitle:[NSString stringWithFormat:@"%@", mediaItem.size]];
+        [cell setSubtitle: [NSString stringWithFormat:@"%0.2f MB", (float)([mediaItem.size intValue] / 1e6)]];
         [cell setIsDirectory:NO];
-    } else
+        [cell setIcon:[UIImage imageNamed:@"blank"]];
+    } else {
         [cell setIsDirectory:YES];
+        [cell setIcon:[UIImage imageNamed:@"folder"]];
+    }
 
     [cell setTitle:[item title]];
 
