@@ -1033,7 +1033,7 @@
 			name = GHSidebarNav;
 			sourceTree = "<group>";
 		};
-		7D31002117B676D500E6516D /* UPNP */ = {
+		7D31002117B676D500E6516D /* Local Network Connectivity */ = {
 			isa = PBXGroup;
 			children = (
 				7D93043E17B67C4F0054EAC6 /* VLCLocalServerListViewController.h */,
@@ -1043,7 +1043,7 @@
 				7D93044317B684CE0054EAC6 /* VLCLocalNetworkListCell.h */,
 				7D93044417B684CF0054EAC6 /* VLCLocalNetworkListCell.m */,
 			);
-			name = UPNP;
+			name = "Local Network Connectivity";
 			sourceTree = "<group>";
 		};
 		7D31CF061746AEF2005997E0 /* UI Elements */ = {
@@ -1342,7 +1342,7 @@
 				A7D03A4817A4249F0022C16F /* MediaDiscovering */,
 				7D2339AB176DE70E008D223C /* Menu */,
 				7D5F7ABA175265CB006CCCFA /* HTTP Connectivity */,
-				7D31002117B676D500E6516D /* UPNP */,
+				7D31002117B676D500E6516D /* Local Network Connectivity */,
 				7D5F7AB9175265B2006CCCFA /* Playback */,
 				7D5F7AB81752658E006CCCFA /* Everything Playlist */,
 				7D5F7AB717526573006CCCFA /* Accessory dialogs */,

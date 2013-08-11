@@ -17,10 +17,14 @@
 #import <QuartzCore/QuartzCore.h>
 #import "GHRevealViewController.h"
 
-@interface VLCLocalServerListViewController () <UITableViewDataSource, UITableViewDelegate>
+@interface VLCLocalServerListViewController () <UITableViewDataSource, UITableViewDelegate, NSNetServiceBrowserDelegate>
 {
     UIBarButtonItem *_backToMenuButton;
     NSArray *_sectionHeaderTexts;
+
+    NSNetServiceBrowser *_netServiceBrowser;
+
+    NSMutableArray *_ftpServices;
 
     NSArray *_filteredUPNPDevices;
     NSArray *_UPNPdevices;
@@ -29,6 +33,11 @@
 @end
 
 @implementation VLCLocalServerListViewController
+
+- (void)dealloc
+{
+    [_netServiceBrowser stop];
+}
 
 - (void)loadView
 {
@@ -54,13 +63,36 @@
     self.title = NSLocalizedString(@"LOCAL_NETWORK", @"");
 
     [self performSelectorInBackground:@selector(_startUPNPDiscovery) withObject:nil];
+
+    _ftpServices = [[NSMutableArray alloc] init];
+    [_ftpServices addObject:@"Connect to Server"];
+
+    _netServiceBrowser = [[NSNetServiceBrowser alloc] init];
+    _netServiceBrowser.delegate = self;
+    [self _triggerNetServiceBrowser];
+}
+
+- (void)viewWillDisappear:(BOOL)animated
+{
+    [super viewWillDisappear:animated];
+    [_netServiceBrowser stop];
+}
+
+- (void)viewWillAppear:(BOOL)animated
+{
+    [super viewWillAppear:animated];
+    [self _triggerNetServiceBrowser];
+}
+
+- (void)_triggerNetServiceBrowser
+{
+    [_netServiceBrowser searchForServicesOfType:@"_ftp._tcp." inDomain:@""];
 }
 
 - (void)_startUPNPDiscovery
 {
     UPnPDB* db = [[UPnPManager GetInstance] DB];
-
-    _UPNPdevices = [db rootDevices]; //BasicUPnPDevice
+    _UPNPdevices = [db rootDevices];
 
     [db addObserver:(UPnPDBObserver*)self];
 
@@ -83,6 +115,8 @@
     return YES;
 }
 
+#pragma mark - table view handling
+
 - (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView
 {
     return _sectionHeaderTexts.count;
@@ -92,6 +126,8 @@
 {
     if (section == 0)
         return _filteredUPNPDevices.count;
+    else if (section == 1)
+        return _ftpServices.count;
 
     return 0;
 }
@@ -109,11 +145,20 @@
     if (cell == nil)
         cell = [VLCLocalNetworkListCell cellWithReuseIdentifier:CellIdentifier];
 
-    if (indexPath.section == 0) {
-        BasicUPnPDevice *device = _filteredUPNPDevices[indexPath.row];
+    NSUInteger row = indexPath.row;
+    NSUInteger section = indexPath.section;
+
+    [cell setIsDirectory:YES];
+
+    if (section == 0) {
+        BasicUPnPDevice *device = _filteredUPNPDevices[row];
         [cell setTitle:[device friendlyName]];
         [cell setIcon:[device smallIcon]];
-        [cell setIsDirectory:YES];
+    } else if (section == 1) {
+        if (row == 0)
+            [cell setTitle:_ftpServices[row]];
+        else
+            [cell setTitle:[_ftpServices[row] name]];
     }
 
     return cell;
@@ -128,6 +173,13 @@
             VLCLocalServerFolderListViewController *targetViewController = [[VLCLocalServerFolderListViewController alloc] initWithDevice:server header:[device friendlyName] andRootID:@"0"];
             [[self navigationController] pushViewController:targetViewController animated:YES];
         }
+    } else if (indexPath.section == 1) {
+        if (indexPath.row == 0) {
+            // FIXME LOTS OF CUSTOM CONNECTION CODE
+            NSLog(@"should show login form");
+        } else
+            // CONNECT TO "KNOWN" HOST
+            NSLog(@"connect to host");
     }
 }
 
@@ -170,13 +222,28 @@
 	return headerView;
 }
 
+#pragma mark - bonjour discovery
+- (void)netServiceBrowser:(NSNetServiceBrowser *)aNetServiceBrowser didFindService:(NSNetService *)aNetService moreComing:(BOOL)moreComing
+{
+    [_ftpServices addObject:aNetService];
+    if (!moreComing)
+        [self.tableView reloadData];
+}
+
+- (void)netServiceBrowser:(NSNetServiceBrowser *)aNetServiceBrowser didRemoveService:(NSNetService *)aNetService moreComing:(BOOL)moreComing
+{
+    [_ftpServices removeObject:aNetService];
+    if (!moreComing)
+        [self.tableView reloadData];
+}
+
 #pragma mark - UPNP details
 //protocol UPnPDBObserver
--(void)UPnPDBWillUpdate:(UPnPDB*)sender{
+- (void)UPnPDBWillUpdate:(UPnPDB*)sender{
     APLog(@"UPnPDBWillUpdate %d", _UPNPdevices.count);
 }
 
--(void)UPnPDBUpdated:(UPnPDB*)sender{
+- (void)UPnPDBUpdated:(UPnPDB*)sender{
     APLog(@"UPnPDBUpdated %d", _UPNPdevices.count);
 
     NSUInteger count = _UPNPdevices.count;
