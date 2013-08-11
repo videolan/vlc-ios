@@ -96,6 +96,9 @@
 
     BasicUPnPDevice *device = _devices[indexPath.row];
     [cell setTitle:[device friendlyName]];
+    UIImage *icon = [device smallIcon];
+    if (icon)
+        [cell setIcon:icon];
 
     if ([[device urn] isEqualToString:@"urn:schemas-upnp-org:device:MediaServer:1"])
         [cell setIsDirectory:YES];

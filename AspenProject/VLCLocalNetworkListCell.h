@@ -20,6 +20,7 @@
 @property (nonatomic, readwrite) BOOL isDirectory;
 @property (nonatomic, retain) NSString *title;
 @property (nonatomic, retain) NSString *subtitle;
+@property (nonatomic, retain) UIImage *icon;
 
 + (VLCLocalNetworkListCell *)cellWithReuseIdentifier:(NSString *)ident;
 + (CGFloat)heightOfCell;

@@ -26,6 +26,7 @@
 {
     self.titleLabel.text = @"";
     self.subtitleLabel.text = @"";
+    self.thumbnailView.contentMode = UIViewContentModeScaleAspectFit;
 }
 
 - (void)setTitle:(NSString *)title
@@ -43,6 +44,11 @@
 - (void)setSubtitle:(NSString *)subtitle
 {
     self.subtitleLabel.text = subtitle;
+}
+
+- (void)setIcon:(UIImage *)icon
+{
+    self.thumbnailView.image = icon;
 }
 
 + (CGFloat)heightOfCell
