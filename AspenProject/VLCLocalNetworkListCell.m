@@ -30,13 +30,18 @@
     self.downloadButton.hidden = YES;
 }
 
+- (void)setIsDirectory:(BOOL)isDirectory
+{
+    self.titleLabel.hidden = self.subtitleLabel.hidden = isDirectory;
+    self.folderTitleLabel.hidden = !isDirectory;
+
+    _isDirectory = isDirectory;
+}
+
 - (void)setTitle:(NSString *)title
 {
     BOOL isDir = self.isDirectory;
-    if (isDir)
-        self.folderTitleLabel.text = title;
-    else
-        self.titleLabel.text = title;
+    self.folderTitleLabel.text = self.titleLabel.text = title;
 
     self.titleLabel.hidden = self.subtitleLabel.hidden = isDir;
     self.folderTitleLabel.hidden = !isDir;
