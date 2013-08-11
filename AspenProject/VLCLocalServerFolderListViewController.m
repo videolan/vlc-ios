@@ -14,6 +14,9 @@
 #import "MediaServer1ContainerObject.h"
 #import "MediaServer1Device.h"
 #import "VLCLocalNetworkListCell.h"
+#import "VLCAppDelegate.h"
+#import "VLCPlaylistViewController.h"
+#import "UINavigationController+Theme.h"
 
 @interface VLCLocalServerFolderListViewController () <UITableViewDataSource, UITableViewDelegate>
 {
@@ -139,12 +142,23 @@
 
         MediaServer1ItemRes *resource = nil;
         NSEnumerator *e = [[item resources] objectEnumerator];
+        NSURL *itemURL;
         while((resource = (MediaServer1ItemRes*)[e nextObject])){
-            NSLog(@"%@ - %d, %@, %d, %d, %d, %@", [item title], [resource bitrate], [resource duration], [resource nrAudioChannels], [resource size],  [resource durationInSeconds],  [resource protocolInfo] );
-            NSLog(@"URI is %@", [item uri]);
+            APLog(@"%@ - %d, %@, %d, %d, %d, %@ (%@)", [item title], [resource bitrate], [resource duration], [resource nrAudioChannels], [resource size],  [resource durationInSeconds],  [resource protocolInfo], [item uri]);
+            itemURL = [NSURL URLWithString:[item uri]];
         }
 
-        //TODO DO SOMETHING USEFUL!
+        if (itemURL && ([itemURL.scheme isEqualToString:@"http"] || [itemURL.scheme isEqualToString:@"rtsp"] || [itemURL.scheme isEqualToString:@"rtp"] || [itemURL.scheme isEqualToString:@"mms"] || [itemURL.scheme isEqualToString:@"mmsh"])) {
+            VLCAppDelegate* appDelegate = [UIApplication sharedApplication].delegate;
+
+            UINavigationController *navController = [[UINavigationController alloc] initWithRootViewController:appDelegate.playlistViewController];
+            [navController loadTheme];
+
+            appDelegate.revealController.contentViewController = navController;
+            [appDelegate.revealController toggleSidebar:NO duration:kGHRevealSidebarDefaultAnimationDuration];
+
+            [appDelegate.playlistViewController performSelector:@selector(openMovieFromURL:) withObject:itemURL afterDelay:kGHRevealSidebarDefaultAnimationDuration];
+        }
     }
 }
 
