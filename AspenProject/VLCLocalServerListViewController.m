@@ -16,8 +16,10 @@
 #import "VLCLocalServerFolderListViewController.h"
 #import <QuartzCore/QuartzCore.h>
 #import "GHRevealViewController.h"
+#import "VLCNetworkLoginViewController.h"
+#import "UINavigationController+Theme.h"
 
-@interface VLCLocalServerListViewController () <UITableViewDataSource, UITableViewDelegate, NSNetServiceBrowserDelegate>
+@interface VLCLocalServerListViewController () <UITableViewDataSource, UITableViewDelegate, NSNetServiceBrowserDelegate, VLCNetworkLoginViewController>
 {
     UIBarButtonItem *_backToMenuButton;
     NSArray *_sectionHeaderTexts;
@@ -28,6 +30,8 @@
 
     NSArray *_filteredUPNPDevices;
     NSArray *_UPNPdevices;
+
+    VLCNetworkLoginViewController *_loginViewController;
 }
 
 @end
@@ -57,6 +61,7 @@
     _backToMenuButton = [UIBarButtonItem themedRevealMenuButtonWithTarget:self andSelector:@selector(goBack:)];
     self.navigationItem.leftBarButtonItem = _backToMenuButton;
 
+    self.tableView.rowHeight = [VLCLocalNetworkListCell heightOfCell];
     self.tableView.separatorColor = [UIColor colorWithWhite:.122 alpha:1.];
     self.view.backgroundColor = [UIColor colorWithWhite:.122 alpha:1.];
 
@@ -171,16 +176,43 @@
         if ([[device urn] isEqualToString:@"urn:schemas-upnp-org:device:MediaServer:1"]) {
             MediaServer1Device *server = (MediaServer1Device*)device;
             VLCLocalServerFolderListViewController *targetViewController = [[VLCLocalServerFolderListViewController alloc] initWithDevice:server header:[device friendlyName] andRootID:@"0"];
-            [[self navigationController] pushViewController:targetViewController animated:YES];
+            [self.navigationController pushViewController:targetViewController animated:YES];
         }
     } else if (indexPath.section == 1) {
-        if (indexPath.row == 0) {
-            // FIXME LOTS OF CUSTOM CONNECTION CODE
-            NSLog(@"should show login form");
+        if (_loginViewController == nil) {
+            _loginViewController = [[VLCNetworkLoginViewController alloc] initWithNibName:nil bundle:nil];
+            _loginViewController.delegate = self;
+        }
+
+        UINavigationController *navCon = [[UINavigationController alloc] initWithRootViewController:_loginViewController];
+        [navCon loadTheme];
+        navCon.navigationBarHidden = NO;
+
+        if (indexPath.row != 0) { // FTP Connect To Server Special Item
+            if ([_ftpServices[indexPath.row] hostName].length > 0)
+                _loginViewController.serverAddressField.text = [NSString stringWithFormat:@"ftp://%@", [_ftpServices[indexPath.row] hostName]];
+        }
+
+        if (UI_USER_INTERFACE_IDIOM() == UIUserInterfaceIdiomPad) {
+            navCon.modalPresentationStyle = UIModalPresentationFormSheet;
+            [self presentModalViewController:navCon animated:YES];
+
+            if (_loginViewController.navigationItem.leftBarButtonItem == nil) {
+                UIBarButtonItem *doneButton = [UIBarButtonItem themedDoneButtonWithTarget:_loginViewController andSelector:@selector(dismiss:)];
+
+                _loginViewController.navigationItem.leftBarButtonItem = doneButton;
+            }
         } else
-            // CONNECT TO "KNOWN" HOST
-            NSLog(@"connect to host");
+            [self.navigationController pushViewController:_loginViewController animated:YES];
     }
+}
+
+#pragma mark - login panel protocol
+
+- (void)loginToServer:(NSString *)server confirmedWithUsername:(NSString *)username andPassword:(NSString *)password
+{
+    _loginViewController = nil;
+    NSLog(@"user wants to connect to %@ with %@/%@", server, username, password);
 }
 
 #pragma mark - custom table view appearance
@@ -225,7 +257,9 @@
 #pragma mark - bonjour discovery
 - (void)netServiceBrowser:(NSNetServiceBrowser *)aNetServiceBrowser didFindService:(NSNetService *)aNetService moreComing:(BOOL)moreComing
 {
-    [_ftpServices addObject:aNetService];
+    [aNetService resolveWithTimeout:1.];
+    if (![_ftpServices containsObject:aNetService])
+        [_ftpServices addObject:aNetService];
     if (!moreComing)
         [self.tableView reloadData];
 }

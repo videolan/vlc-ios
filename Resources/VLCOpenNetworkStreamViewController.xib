@@ -511,20 +511,17 @@
 				<object class="IBPartialClassDescription">
 					<string key="className">VLCOpenNetworkStreamViewController</string>
 					<string key="superclassName">UIViewController</string>
-					<dictionary class="NSMutableDictionary" key="actions">
-						<string key="goBack:">id</string>
-						<string key="openButtonAction:">id</string>
-					</dictionary>
-					<dictionary class="NSMutableDictionary" key="actionInfosByName">
-						<object class="IBActionInfo" key="goBack:">
-							<string key="name">goBack:</string>
-							<string key="candidateClassName">id</string>
-						</object>
-						<object class="IBActionInfo" key="openButtonAction:">
+					<object class="NSMutableDictionary" key="actions">
+						<string key="NS.key.0">openButtonAction:</string>
+						<string key="NS.object.0">id</string>
+					</object>
+					<object class="NSMutableDictionary" key="actionInfosByName">
+						<string key="NS.key.0">openButtonAction:</string>
+						<object class="IBActionInfo" key="NS.object.0">
 							<string key="name">openButtonAction:</string>
 							<string key="candidateClassName">id</string>
 						</object>
-					</dictionary>
+					</object>
 					<dictionary class="NSMutableDictionary" key="outlets">
 						<string key="historyTableView">UITableView</string>
 						<string key="openButton">UIButton</string>
