@@ -19,13 +19,13 @@
 #import "VLCNetworkLoginViewController.h"
 #import "UINavigationController+Theme.h"
 
-@interface VLCLocalServerListViewController () <UITableViewDataSource, UITableViewDelegate, NSNetServiceBrowserDelegate, VLCNetworkLoginViewController>
+@interface VLCLocalServerListViewController () <UITableViewDataSource, UITableViewDelegate, NSNetServiceBrowserDelegate, VLCNetworkLoginViewController, NSNetServiceDelegate>
 {
     UIBarButtonItem *_backToMenuButton;
     NSArray *_sectionHeaderTexts;
 
     NSNetServiceBrowser *_netServiceBrowser;
-
+    NSMutableArray *_rawServices;
     NSMutableArray *_ftpServices;
 
     NSArray *_filteredUPNPDevices;
@@ -72,9 +72,10 @@
     _ftpServices = [[NSMutableArray alloc] init];
     [_ftpServices addObject:@"Connect to Server"];
 
+    _rawServices = [[NSMutableArray alloc] init];
+
     _netServiceBrowser = [[NSNetServiceBrowser alloc] init];
     _netServiceBrowser.delegate = self;
-    [self _triggerNetServiceBrowser];
 }
 
 - (void)viewWillDisappear:(BOOL)animated
@@ -191,7 +192,8 @@
         if (indexPath.row != 0) { // FTP Connect To Server Special Item
             if ([_ftpServices[indexPath.row] hostName].length > 0)
                 _loginViewController.serverAddressField.text = [NSString stringWithFormat:@"ftp://%@", [_ftpServices[indexPath.row] hostName]];
-        }
+        } else
+            _loginViewController.serverAddressField.text = @"";
 
         if (UI_USER_INTERFACE_IDIOM() == UIUserInterfaceIdiomPad) {
             navCon.modalPresentationStyle = UIModalPresentationFormSheet;
@@ -257,18 +259,37 @@
 #pragma mark - bonjour discovery
 - (void)netServiceBrowser:(NSNetServiceBrowser *)aNetServiceBrowser didFindService:(NSNetService *)aNetService moreComing:(BOOL)moreComing
 {
-    [aNetService resolveWithTimeout:1.];
-    if (![_ftpServices containsObject:aNetService])
-        [_ftpServices addObject:aNetService];
-    if (!moreComing)
-        [self.tableView reloadData];
+    APLog(@"found bonjour service: %@ (%@)", aNetService.name, aNetService.type);
+    [_rawServices addObject:aNetService];
+    aNetService.delegate = self;
+    [aNetService resolveWithTimeout:3.];
 }
 
 - (void)netServiceBrowser:(NSNetServiceBrowser *)aNetServiceBrowser didRemoveService:(NSNetService *)aNetService moreComing:(BOOL)moreComing
 {
-    [_ftpServices removeObject:aNetService];
+    APLog(@"bonjour service disappeared: %@ (%i)", aNetService.name, moreComing);
+    if ([_rawServices containsObject:aNetService])
+        [_rawServices removeObject:aNetService];
+    if ([aNetService.type isEqualToString:@"_ftp._tcp."])
+        [_ftpServices removeObject:aNetService];
     if (!moreComing)
         [self.tableView reloadData];
+}
+
+- (void)netServiceDidResolveAddress:(NSNetService *)aNetService
+{
+    if ([aNetService.type isEqualToString:@"_ftp._tcp."]) {
+        if (![_ftpServices containsObject:aNetService])
+            [_ftpServices addObject:aNetService];
+    }
+    [_rawServices removeObject:aNetService];
+    [self.tableView reloadData];
+}
+
+- (void)netService:(NSNetService *)aNetService didNotResolve:(NSDictionary *)errorDict
+{
+    APLog(@"failed to resolve: %@", aNetService.name);
+    [_rawServices removeObject:aNetService];
 }
 
 #pragma mark - UPNP details
