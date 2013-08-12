@@ -163,7 +163,7 @@ cd upnpx && patch -p1 < ${aspen_root_dir}/patches/upnpx/duration-selector-failur
 cd ..
 fi
 if ! [ -e WhiteRaccoon ]; then
-git clone git://github.com/valentinradu/WhiteRaccoon.git
+git clone git://github.com/fkuehne/WhiteRaccoon.git
 fi
 if ! [ -e AQGridView ]; then
 git clone git://github.com/AlanQuatermain/AQGridView.git
