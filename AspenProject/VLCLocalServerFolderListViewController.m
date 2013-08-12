@@ -18,15 +18,19 @@
 #import "VLCPlaylistViewController.h"
 #import "UINavigationController+Theme.h"
 
+#define kVLCUPNPFileServer 0
+#define kVLCFTPServer 1
+
 @interface VLCLocalServerFolderListViewController () <UITableViewDataSource, UITableViewDelegate>
 {
     UIBarButtonItem *_backButton;
 
-    MediaServer1Device *_device;
-    NSString *_header;
-    NSString *_rootID;
-
+    NSString *_listTitle;
     NSMutableArray *_objectList;
+    NSUInteger _serverType;
+
+    MediaServer1Device *_UPNPdevice;
+    NSString *_UPNProotID;
 }
 
 @end
@@ -42,14 +46,15 @@
     self.view = _tableView;
 }
 
-- (id)initWithDevice:(MediaServer1Device*)device header:(NSString*)header andRootID:(NSString*)rootID
+- (id)initWithUPNPDevice:(MediaServer1Device*)device header:(NSString*)header andRootID:(NSString*)rootID
 {
     self = [super init];
 
     if (self) {
-        _device = device;
-        _header = header;
-        _rootID = rootID;
+        _UPNPdevice = device;
+        _listTitle = header;
+        _UPNProotID = rootID;
+        _serverType = kVLCUPNPFileServer;
 
         _objectList = [[NSMutableArray alloc] init];
     }
@@ -61,22 +66,23 @@
 {
     [super viewDidLoad];
 
-    NSMutableString *outResult = [[NSMutableString alloc] init];
-    NSMutableString *outNumberReturned = [[NSMutableString alloc] init];
-    NSMutableString *outTotalMatches = [[NSMutableString alloc] init];
-    NSMutableString *outUpdateID = [[NSMutableString alloc] init];
+    if (_serverType == kVLCUPNPFileServer) {
+        NSMutableString *outResult = [[NSMutableString alloc] init];
+        NSMutableString *outNumberReturned = [[NSMutableString alloc] init];
+        NSMutableString *outTotalMatches = [[NSMutableString alloc] init];
+        NSMutableString *outUpdateID = [[NSMutableString alloc] init];
 
-    [[_device contentDirectory] BrowseWithObjectID:_rootID BrowseFlag:@"BrowseDirectChildren" Filter:@"*" StartingIndex:@"0" RequestedCount:@"0" SortCriteria:@"+dc:title" OutResult:outResult OutNumberReturned:outNumberReturned OutTotalMatches:outTotalMatches OutUpdateID:outUpdateID];
+        [[_UPNPdevice contentDirectory] BrowseWithObjectID:_UPNProotID BrowseFlag:@"BrowseDirectChildren" Filter:@"*" StartingIndex:@"0" RequestedCount:@"0" SortCriteria:@"+dc:title" OutResult:outResult OutNumberReturned:outNumberReturned OutTotalMatches:outTotalMatches OutUpdateID:outUpdateID];
 
-    [_objectList removeAllObjects];
-    NSData *didl = [outResult dataUsingEncoding:NSUTF8StringEncoding];
-    MediaServerBasicObjectParser *parser = [[MediaServerBasicObjectParser alloc] initWithMediaObjectArray:_objectList itemsOnly:NO];
-    [parser parseFromData:didl];
+        NSData *didl = [outResult dataUsingEncoding:NSUTF8StringEncoding];
+        MediaServerBasicObjectParser *parser = [[MediaServerBasicObjectParser alloc] initWithMediaObjectArray:_objectList itemsOnly:NO];
+        [parser parseFromData:didl];
+    }
 
     self.tableView.separatorColor = [UIColor colorWithWhite:.122 alpha:1.];
     self.view.backgroundColor = [UIColor colorWithWhite:.122 alpha:1.];
 
-    self.title = _header;
+    self.title = _listTitle;
 }
 
 - (BOOL)shouldAutorotateToInterfaceOrientation:(UIInterfaceOrientation)toInterfaceOrientation
@@ -106,19 +112,19 @@
     if (cell == nil)
         cell = [VLCLocalNetworkListCell cellWithReuseIdentifier:CellIdentifier];
 
-    MediaServer1BasicObject *item = _objectList[indexPath.row];
-
-    if (![item isContainer]) {
-        MediaServer1ItemObject *mediaItem = _objectList[indexPath.row];
-        [cell setSubtitle: [NSString stringWithFormat:@"%0.2f MB", (float)([mediaItem.size intValue] / 1e6)]];
-        [cell setIsDirectory:NO];
-        [cell setIcon:[UIImage imageNamed:@"blank"]];
-    } else {
-        [cell setIsDirectory:YES];
-        [cell setIcon:[UIImage imageNamed:@"folder"]];
+    if (_serverType == kVLCUPNPFileServer) {
+        MediaServer1BasicObject *item = _objectList[indexPath.row];
+        if (![item isContainer]) {
+            MediaServer1ItemObject *mediaItem = _objectList[indexPath.row];
+            [cell setSubtitle: [NSString stringWithFormat:@"%0.2f MB", (float)([mediaItem.size intValue] / 1e6)]];
+            [cell setIsDirectory:NO];
+            [cell setIcon:[UIImage imageNamed:@"blank"]];
+        } else {
+            [cell setIsDirectory:YES];
+            [cell setIcon:[UIImage imageNamed:@"folder"]];
+        }
+        [cell setTitle:[item title]];
     }
-
-    [cell setTitle:[item title]];
 
     return cell;
 }
@@ -132,32 +138,34 @@
 
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
 {
-    MediaServer1BasicObject *item = _objectList[indexPath.row];
-    if ([item isContainer]) {
-        MediaServer1ContainerObject *container = _objectList[indexPath.row];
-        VLCLocalServerFolderListViewController *targetViewController = [[VLCLocalServerFolderListViewController alloc] initWithDevice:_device header:[container title] andRootID:[container objectID]];
-        [[self navigationController] pushViewController:targetViewController animated:YES];
-    } else {
-        MediaServer1ItemObject *item = _objectList[indexPath.row];
+    if (_serverType == kVLCUPNPFileServer) {
+        MediaServer1BasicObject *item = _objectList[indexPath.row];
+        if ([item isContainer]) {
+            MediaServer1ContainerObject *container = _objectList[indexPath.row];
+            VLCLocalServerFolderListViewController *targetViewController = [[VLCLocalServerFolderListViewController alloc] initWithUPNPDevice:_UPNPdevice header:[container title] andRootID:[container objectID]];
+            [[self navigationController] pushViewController:targetViewController animated:YES];
+        } else {
+            MediaServer1ItemObject *item = _objectList[indexPath.row];
 
-        MediaServer1ItemRes *resource = nil;
-        NSEnumerator *e = [[item resources] objectEnumerator];
-        NSURL *itemURL;
-        while((resource = (MediaServer1ItemRes*)[e nextObject])){
-            APLog(@"%@ - %d, %@, %d, %d, %d, %@ (%@)", [item title], [resource bitrate], [resource duration], [resource nrAudioChannels], [resource size],  [resource durationInSeconds],  [resource protocolInfo], [item uri]);
-            itemURL = [NSURL URLWithString:[item uri]];
-        }
+            MediaServer1ItemRes *resource = nil;
+            NSEnumerator *e = [[item resources] objectEnumerator];
+            NSURL *itemURL;
+            while((resource = (MediaServer1ItemRes*)[e nextObject])){
+                APLog(@"%@ - %d, %@, %d, %d, %d, %@ (%@)", [item title], [resource bitrate], [resource duration], [resource nrAudioChannels], [resource size],  [resource durationInSeconds],  [resource protocolInfo], [item uri]);
+                itemURL = [NSURL URLWithString:[item uri]];
+            }
 
-        if (itemURL && ([itemURL.scheme isEqualToString:@"http"] || [itemURL.scheme isEqualToString:@"rtsp"] || [itemURL.scheme isEqualToString:@"rtp"] || [itemURL.scheme isEqualToString:@"mms"] || [itemURL.scheme isEqualToString:@"mmsh"])) {
-            VLCAppDelegate* appDelegate = [UIApplication sharedApplication].delegate;
+            if (itemURL && ([itemURL.scheme isEqualToString:@"http"] || [itemURL.scheme isEqualToString:@"rtsp"] || [itemURL.scheme isEqualToString:@"rtp"] || [itemURL.scheme isEqualToString:@"mms"] || [itemURL.scheme isEqualToString:@"mmsh"])) {
+                VLCAppDelegate* appDelegate = [UIApplication sharedApplication].delegate;
 
-            UINavigationController *navController = [[UINavigationController alloc] initWithRootViewController:appDelegate.playlistViewController];
-            [navController loadTheme];
+                UINavigationController *navController = [[UINavigationController alloc] initWithRootViewController:appDelegate.playlistViewController];
+                [navController loadTheme];
 
-            appDelegate.revealController.contentViewController = navController;
-            [appDelegate.revealController toggleSidebar:NO duration:kGHRevealSidebarDefaultAnimationDuration];
+                appDelegate.revealController.contentViewController = navController;
+                [appDelegate.revealController toggleSidebar:NO duration:kGHRevealSidebarDefaultAnimationDuration];
 
-            [appDelegate.playlistViewController performSelector:@selector(openMovieFromURL:) withObject:itemURL afterDelay:kGHRevealSidebarDefaultAnimationDuration];
+                [appDelegate.playlistViewController performSelector:@selector(openMovieFromURL:) withObject:itemURL afterDelay:kGHRevealSidebarDefaultAnimationDuration];
+            }
         }
     }
 }

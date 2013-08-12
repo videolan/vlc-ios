@@ -176,7 +176,7 @@
         BasicUPnPDevice *device = _filteredUPNPDevices[indexPath.row];
         if ([[device urn] isEqualToString:@"urn:schemas-upnp-org:device:MediaServer:1"]) {
             MediaServer1Device *server = (MediaServer1Device*)device;
-            VLCLocalServerFolderListViewController *targetViewController = [[VLCLocalServerFolderListViewController alloc] initWithDevice:server header:[device friendlyName] andRootID:@"0"];
+            VLCLocalServerFolderListViewController *targetViewController = [[VLCLocalServerFolderListViewController alloc] initWithUPNPDevice:server header:[device friendlyName] andRootID:@"0"];
             [self.navigationController pushViewController:targetViewController animated:YES];
         }
     } else if (indexPath.section == 1) {

@@ -16,6 +16,6 @@
 
 @property (nonatomic, strong) UITableView *tableView;
 
-- (id)initWithDevice:(MediaServer1Device*)device header:(NSString*)header andRootID:(NSString*)rootID;
+- (id)initWithUPNPDevice:(MediaServer1Device*)device header:(NSString*)header andRootID:(NSString*)rootID;
 
 @end
