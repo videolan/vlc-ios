@@ -200,7 +200,7 @@
             [self presentModalViewController:navCon animated:YES];
 
             if (_loginViewController.navigationItem.leftBarButtonItem == nil) {
-                UIBarButtonItem *doneButton = [UIBarButtonItem themedDoneButtonWithTarget:_loginViewController andSelector:@selector(dismiss:)];
+                UIBarButtonItem *doneButton = [UIBarButtonItem themedDoneButtonWithTarget:_loginViewController andSelector:@selector(dismissWithAnimation:)];
 
                 _loginViewController.navigationItem.leftBarButtonItem = doneButton;
             }
@@ -211,10 +211,16 @@
 
 #pragma mark - login panel protocol
 
-- (void)loginToServer:(NSString *)server confirmedWithUsername:(NSString *)username andPassword:(NSString *)password
+- (void)loginToURL:(NSURL *)url confirmedWithUsername:(NSString *)username andPassword:(NSString *)password
 {
     _loginViewController = nil;
-    NSLog(@"user wants to connect to %@ with %@/%@", server, username, password);
+    if ([url.scheme isEqualToString:@"ftp"]) {
+        if (url.host.length > 0) {
+            VLCLocalServerFolderListViewController *targetViewController = [[VLCLocalServerFolderListViewController alloc] initWithFTPServer:url.host userName:username andPassword:password atPath:@"/"];
+            [self.navigationController pushViewController:targetViewController animated:YES];
+        }
+    } else
+        APLog(@"Unsupported URL Scheme requested %@", url.scheme);
 }
 
 #pragma mark - custom table view appearance
@@ -262,7 +268,7 @@
     APLog(@"found bonjour service: %@ (%@)", aNetService.name, aNetService.type);
     [_rawServices addObject:aNetService];
     aNetService.delegate = self;
-    [aNetService resolveWithTimeout:3.];
+    [aNetService resolveWithTimeout:5.];
 }
 
 - (void)netServiceBrowser:(NSNetServiceBrowser *)aNetServiceBrowser didRemoveService:(NSNetService *)aNetService moreComing:(BOOL)moreComing
