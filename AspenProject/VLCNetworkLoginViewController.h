@@ -12,7 +12,7 @@
 
 @protocol VLCNetworkLoginViewController <NSObject>
 @required
-- (void)loginToServer:(NSString *)server confirmedWithUsername:(NSString *)username andPassword:(NSString *)password;
+- (void)loginToURL:(NSURL *)url confirmedWithUsername:(NSString *)username andPassword:(NSString *)password;
 @end
 
 @interface VLCNetworkLoginViewController : UIViewController
@@ -29,6 +29,7 @@
 @property (nonatomic, retain) id delegate;
 
 - (IBAction)dismiss:(id)sender;
+- (IBAction)dismissWithAnimation:(id)sender;
 - (IBAction)connectToServer:(id)sender;
 
 @end

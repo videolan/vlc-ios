@@ -24,13 +24,13 @@
     self.modalPresentationStyle = UIModalPresentationFormSheet;
 
     if (UI_USER_INTERFACE_IDIOM() == UIUserInterfaceIdiomPhone) {
-        UIBarButtonItem *dismissButton = [UIBarButtonItem themedBackButtonWithTarget:self andSelector:@selector(dismiss:)];
+        UIBarButtonItem *dismissButton = [UIBarButtonItem themedBackButtonWithTarget:self andSelector:@selector(dismissWithAnimation:)];
         self.title = @"Connect to Server";
         self.navigationItem.leftBarButtonItem = dismissButton;
     }
 }
 
-- (IBAction)dismiss:(id)sender
+- (IBAction)dismissWithAnimation:(id)sender
 {
     if (UI_USER_INTERFACE_IDIOM() == UIUserInterfaceIdiomPhone)
         [self.navigationController popViewControllerAnimated:YES];
@@ -38,14 +38,26 @@
         [self dismissViewControllerAnimated:YES completion:nil];
 }
 
+- (IBAction)dismiss:(id)sender
+{
+    if (UI_USER_INTERFACE_IDIOM() == UIUserInterfaceIdiomPhone)
+        [self.navigationController popViewControllerAnimated:NO];
+    else
+        [self dismissViewControllerAnimated:NO completion:nil];
+}
+
 - (IBAction)connectToServer:(id)sender
 {
-    if (self.delegate) {
-        if ([self.delegate respondsToSelector:@selector(loginToServer:confirmedWithUsername:andPassword:)])
-            [self.delegate loginToServer:self.serverAddressField.text confirmedWithUsername:self.usernameField.text andPassword:self.passwordField.text];
-    }
-
     [self dismiss:nil];
+
+    if (self.delegate) {
+        if ([self.delegate respondsToSelector:@selector(loginToURL:confirmedWithUsername:andPassword:)]) {
+            NSString *string = self.serverAddressField.text;
+            if (![string hasPrefix:@"ftp://"])
+                string = [NSString stringWithFormat:@"ftp://%@", string];
+            [self.delegate loginToURL:[NSURL URLWithString:string] confirmedWithUsername:self.usernameField.text andPassword:self.passwordField.text];
+        }
+    }
 }
 
 @end
