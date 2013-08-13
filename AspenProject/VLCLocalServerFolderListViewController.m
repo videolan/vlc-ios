@@ -18,6 +18,7 @@
 #import "VLCPlaylistViewController.h"
 #import "UINavigationController+Theme.h"
 #import "WhiteRaccoon.h"
+#import "NSString+SupportedMedia.h"
 
 #define kVLCUPNPFileServer 0
 #define kVLCFTPServer 1
@@ -41,7 +42,8 @@
     NSString *_ftpServerUserName;
     NSString *_ftpServerPassword;
     NSString *_ftpServerPath;
-    WRRequestListDirectory *_listDirRequest;
+    WRRequestListDirectory *_FTPListDirRequest;
+    WRRequestDownload *_FTPDownloadRequest;
 }
 
 @end
@@ -164,7 +166,7 @@
         } else {
             cell.isDirectory = NO;
             cell.icon = [UIImage imageNamed:@"blank"];
-            cell.subtitle = [NSString stringWithFormat:@"%0.2f MB", [[_objectList[indexPath.row] objectForKey:(id)kCFFTPResourceType] intValue], (float)([[_objectList[indexPath.row] objectForKey:(id)kCFFTPResourceSize] intValue] / 1e6)];
+            cell.subtitle = [NSString stringWithFormat:@"%0.2f MB", (float)([[_objectList[indexPath.row] objectForKey:(id)kCFFTPResourceSize] intValue] / 1e6)];
         }
     }
 
@@ -216,7 +218,13 @@
             VLCLocalServerFolderListViewController *targetViewController = [[VLCLocalServerFolderListViewController alloc] initWithFTPServer:_ftpServerAddress userName:_ftpServerUserName andPassword:_ftpServerPassword atPath:newPath];
             [self.navigationController pushViewController:targetViewController animated:YES];
         } else {
-            NSLog(@"user would like to fetch %@", [_objectList[indexPath.row] objectForKey:(id)kCFFTPResourceName]);
+            NSString *objectName = [_objectList[indexPath.row] objectForKey:(id)kCFFTPResourceName];
+            NSLog(@"user would like to fetch %@", objectName);
+            if (![objectName isSupportedFormat]) {
+                UIAlertView * alert = [[UIAlertView alloc] initWithTitle:NSLocalizedString(@"FILE_NOT_SUPPORTED", @"") message:[NSString stringWithFormat:NSLocalizedString(@"FILE_NOT_SUPPORTED", @""), objectName] delegate:self cancelButtonTitle:NSLocalizedString(@"BUTTON_CANCEL", @"") otherButtonTitles:nil];
+                [alert show];
+            } else
+                [self _downloadFTPFile:objectName];
         }
     }
 }
@@ -224,23 +232,44 @@
 #pragma mark - FTP specifics
 - (void)_listFTPDirectory
 {
-    if (_listDirRequest)
+    if (_FTPListDirRequest)
         return;
 
-    _listDirRequest = [[WRRequestListDirectory alloc] init];
-    _listDirRequest.delegate = self;
-    _listDirRequest.hostname = _ftpServerAddress;
-    _listDirRequest.username = _ftpServerUserName;
-    _listDirRequest.password = _ftpServerPassword;
-    _listDirRequest.path = _ftpServerPath;
-    _listDirRequest.passive = YES;
+    _FTPListDirRequest = [[WRRequestListDirectory alloc] init];
+    _FTPListDirRequest.delegate = self;
+    _FTPListDirRequest.hostname = _ftpServerAddress;
+    _FTPListDirRequest.username = _ftpServerUserName;
+    _FTPListDirRequest.password = _ftpServerPassword;
+    _FTPListDirRequest.path = _ftpServerPath;
+    _FTPListDirRequest.passive = YES;
 
-    [_listDirRequest start];
+    [_FTPListDirRequest start];
+}
+
+- (void)_downloadFTPFile:(NSString *)fileName
+{
+    if (_FTPDownloadRequest)
+        return;
+
+    _FTPDownloadRequest = [[WRRequestDownload alloc] init];
+    _FTPDownloadRequest.delegate = self;
+    _FTPDownloadRequest.hostname = _ftpServerAddress;
+    _FTPDownloadRequest.username = _ftpServerUserName;
+    _FTPDownloadRequest.password = _ftpServerPassword;
+    _FTPDownloadRequest.path = [NSString stringWithFormat:@"%@/%@", _ftpServerPath, fileName];
+    _FTPDownloadRequest.passive = YES;
+
+    NSArray *searchPaths = NSSearchPathForDirectoriesInDomains(NSDocumentDirectory, NSUserDomainMask, YES);
+    NSString *directoryPath = searchPaths[0];
+    NSURL *destinationURL = [NSURL fileURLWithPath:[NSString stringWithFormat:@"%@/%@", directoryPath, fileName]];
+    _FTPDownloadRequest.downloadLocation = destinationURL;
+
+    [_FTPDownloadRequest start];
 }
 
 - (void)requestCompleted:(WRRequest *)request
 {
-    if (request == _listDirRequest) {
+    if (request == _FTPListDirRequest) {
         NSMutableArray *filteredList = [[NSMutableArray alloc] init];
         NSArray *rawList = [(WRRequestListDirectory*)request filesInfo];
         NSUInteger count = rawList.count;
@@ -252,7 +281,15 @@
 
         _objectList = [NSArray arrayWithArray:filteredList];
         [self.tableView reloadData];
-    }
+    } else if (request == _FTPDownloadRequest) {
+        APLog(@"download complete!");
+    } else
+        APLog(@"unknown request %@ completed", request);
+}
+
+- (void)progressUpdatedTo:(NSUInteger)rawProgressData
+{
+    NSLog(@"progress update: %i", rawProgressData);
 }
 
 - (void)requestFailed:(WRRequest *)request
