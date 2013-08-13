@@ -16,4 +16,6 @@
 - (BOOL)isSupportedAudioMediaFormat;
 - (BOOL)isSupportedSubtitleFormat;
 
+- (BOOL)isSupportedFormat;
+
 @end

@@ -30,4 +30,10 @@
     return ([self rangeOfString:kSupportedSubtitleFileExtensions options:options].location != NSNotFound);
 }
 
+- (BOOL)isSupportedFormat
+{
+    NSUInteger options = NSRegularExpressionSearch | NSCaseInsensitiveSearch;
+    return ([self rangeOfString:kSupportedSubtitleFileExtensions options:options].location != NSNotFound) || ([self rangeOfString:kSupportedAudioFileExtensions options:options].location != NSNotFound) || ([self rangeOfString:kSupportedFileExtensions options:options].location != NSNotFound);
+}
+
 @end
