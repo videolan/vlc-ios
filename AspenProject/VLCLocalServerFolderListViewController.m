@@ -211,11 +211,7 @@
         }
     } else if (_serverType == kVLCFTPServer) {
         if ([[_objectList[indexPath.row] objectForKey:(id)kCFFTPResourceType] intValue] == 4) {
-            NSString *newPath;
-            if ([_ftpServerPath hasSuffix:@"/"])
-                newPath = [NSString stringWithFormat:@"%@%@", _ftpServerPath, [_objectList[indexPath.row] objectForKey:(id)kCFFTPResourceName]];
-            else
-                newPath = [NSString stringWithFormat:@"%@/%@", _ftpServerPath, [_objectList[indexPath.row] objectForKey:(id)kCFFTPResourceName]];
+            NSString *newPath = [NSString stringWithFormat:@"%@/%@", _ftpServerPath, [_objectList[indexPath.row] objectForKey:(id)kCFFTPResourceName]];
 
             VLCLocalServerFolderListViewController *targetViewController = [[VLCLocalServerFolderListViewController alloc] initWithFTPServer:_ftpServerAddress userName:_ftpServerUserName andPassword:_ftpServerPassword atPath:newPath];
             [self.navigationController pushViewController:targetViewController animated:YES];
@@ -237,6 +233,7 @@
     _listDirRequest.username = _ftpServerUserName;
     _listDirRequest.password = _ftpServerPassword;
     _listDirRequest.path = _ftpServerPath;
+    _listDirRequest.passive = YES;
 
     [_listDirRequest start];
 }
