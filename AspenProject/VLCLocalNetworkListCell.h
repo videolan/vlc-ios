@@ -12,6 +12,8 @@
 
 @interface VLCLocalNetworkListCell : UITableViewCell
 
+@property (nonatomic, weak) id delegate;
+
 @property (nonatomic, strong) IBOutlet UILabel *titleLabel;
 @property (nonatomic, strong) IBOutlet UILabel *folderTitleLabel;
 @property (nonatomic, strong) IBOutlet UILabel *subtitleLabel;
@@ -29,5 +31,11 @@
 + (CGFloat)heightOfCell;
 
 - (IBAction)triggerDownload:(id)sender;
+
+@end
+
+@protocol VLCLocalNetworkListCell <NSObject>
+
+- (void)triggerDownloadForCell:(VLCLocalNetworkListCell *)cell;
 
 @end

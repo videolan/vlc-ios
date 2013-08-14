@@ -66,7 +66,8 @@
 
 - (void)triggerDownload:(id)sender
 {
-    NSLog(@"Download requires adaptation of VLCHTTPDownloadViewController");
+    if ([self.delegate respondsToSelector:@selector(triggerDownloadForCell:)])
+        [self.delegate triggerDownloadForCell:self];
 }
 
 + (CGFloat)heightOfCell
