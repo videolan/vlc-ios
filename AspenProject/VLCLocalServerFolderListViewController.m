@@ -284,6 +284,7 @@
         [self.tableView reloadData];
     } else if (request == _FTPDownloadRequest) {
         APLog(@"download complete!");
+        _FTPDownloadRequest = nil;
     } else
         APLog(@"unknown request %@ completed", request);
 }
@@ -295,6 +296,7 @@
 
 - (void)requestFailed:(WRRequest *)request
 {
+    _FTPDownloadRequest = nil;
     APLog(@"request %@ failed with error %i message '%@'", request, request.error.errorCode, request.error.message);
 }
 

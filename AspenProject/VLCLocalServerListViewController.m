@@ -189,12 +189,6 @@
         [navCon loadTheme];
         navCon.navigationBarHidden = NO;
 
-        if (indexPath.row != 0) { // FTP Connect To Server Special Item
-            if ([_ftpServices[indexPath.row] hostName].length > 0)
-                _loginViewController.serverAddressField.text = [NSString stringWithFormat:@"ftp://%@", [_ftpServices[indexPath.row] hostName]];
-        } else
-            _loginViewController.serverAddressField.text = @"";
-
         if (UI_USER_INTERFACE_IDIOM() == UIUserInterfaceIdiomPad) {
             navCon.modalPresentationStyle = UIModalPresentationFormSheet;
             [self presentModalViewController:navCon animated:YES];
@@ -206,6 +200,13 @@
             }
         } else
             [self.navigationController pushViewController:_loginViewController animated:YES];
+
+        if (indexPath.row != 0) { // FTP Connect To Server Special Item
+            if ([_ftpServices[indexPath.row] hostName].length > 0)
+                _loginViewController.serverAddressField.text = [NSString stringWithFormat:@"ftp://%@", [_ftpServices[indexPath.row] hostName]];
+        } else
+            _loginViewController.serverAddressField.text = @"";
+
     }
 }
 
