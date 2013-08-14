@@ -23,7 +23,7 @@
 #define kVLCUPNPFileServer 0
 #define kVLCFTPServer 1
 
-@interface VLCLocalServerFolderListViewController () <UITableViewDataSource, UITableViewDelegate, WRRequestDelegate>
+@interface VLCLocalServerFolderListViewController () <UITableViewDataSource, UITableViewDelegate, WRRequestDelegate, VLCLocalNetworkListCell>
 {
     /* UI */
     UIBarButtonItem *_backButton;
@@ -167,6 +167,8 @@
             cell.isDirectory = NO;
             cell.icon = [UIImage imageNamed:@"blank"];
             cell.subtitle = [NSString stringWithFormat:@"%0.2f MB", (float)([[_objectList[indexPath.row] objectForKey:(id)kCFFTPResourceSize] intValue] / 1e6)];
+            cell.isDownloadable = YES;
+            cell.delegate = self;
         }
     }
 
@@ -219,13 +221,12 @@
             [self.navigationController pushViewController:targetViewController animated:YES];
         } else {
             NSString *objectName = [_objectList[indexPath.row] objectForKey:(id)kCFFTPResourceName];
-            NSLog(@"user would like to fetch %@", objectName);
             if (![objectName isSupportedFormat]) {
                 UIAlertView * alert = [[UIAlertView alloc] initWithTitle:NSLocalizedString(@"FILE_NOT_SUPPORTED", @"") message:[NSString stringWithFormat:NSLocalizedString(@"FILE_NOT_SUPPORTED", @""), objectName] delegate:self cancelButtonTitle:NSLocalizedString(@"BUTTON_CANCEL", @"") otherButtonTitles:nil];
                 [alert show];
             } else
-                [self _downloadFTPFile:objectName];
-        }
+                [self _openURLStringAndDismiss:[_FTPListDirRequest.fullURLString stringByAppendingString:objectName]];
+      }
     }
 }
 
@@ -295,6 +296,27 @@
 - (void)requestFailed:(WRRequest *)request
 {
     APLog(@"request %@ failed with error %i message '%@'", request, request.error.errorCode, request.error.message);
+}
+
+#pragma mark - VLCLocalNetworkListCell delegation
+- (void)triggerDownloadForCell:(VLCLocalNetworkListCell *)cell
+{
+    if (_serverType == kVLCFTPServer) {
+        NSString *objectName = [_objectList[[self.tableView indexPathForCell:cell].row] objectForKey:(id)kCFFTPResourceName];
+        if (![objectName isSupportedFormat]) {
+            UIAlertView * alert = [[UIAlertView alloc] initWithTitle:NSLocalizedString(@"FILE_NOT_SUPPORTED", @"") message:[NSString stringWithFormat:NSLocalizedString(@"FILE_NOT_SUPPORTED", @""), objectName] delegate:self cancelButtonTitle:NSLocalizedString(@"BUTTON_CANCEL", @"") otherButtonTitles:nil];
+            [alert show];
+        } else
+            [self _downloadFTPFile:objectName];
+    }
+}
+
+#pragma mark - communication with playback engine
+- (void)_openURLStringAndDismiss:(NSString *)url
+{
+    VLCAppDelegate* appDelegate = [UIApplication sharedApplication].delegate;
+    [appDelegate.menuViewController selectRowAtIndexPath:[NSIndexPath indexPathForRow:0 inSection:0] animated:NO scrollPosition:UITableViewScrollPositionNone];
+    [appDelegate.playlistViewController performSelector:@selector(openMovieFromURL:) withObject:[NSURL URLWithString:url] afterDelay:kGHRevealSidebarDefaultAnimationDuration];
 }
 
 @end
