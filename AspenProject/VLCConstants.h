@@ -24,7 +24,7 @@
 #define kVLCSettingSkipLoopFilterNonKey @(3)
 #define kVLCSettingSaveHTTPUploadServerStatus @"isHTTPServerOn"
 #define kVLCSettingSubtitlesFont @"quartztext-font"
-#define kVLCSettingSubtitlesFontDefaultValue @"Helvetica Neue"
+#define kVLCSettingSubtitlesFontDefaultValue @"HelveticaNeue"
 #define kVLCSettingSubtitlesFontSize @"quartztext-rel-fontsize"
 #define kVLCSettingSubtitlesFontSizeDefaultValue @"16"
 #define kVLCSettingSubtitlesFontColor @"quartztext-color"

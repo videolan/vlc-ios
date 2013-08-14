@@ -114,29 +114,29 @@
 			</array>
 			<key>Values</key>
 			<array>
-				<string>American Typewriter</string>
-				<string>Arial</string>
-				<string>Arial Hebrew</string>
-				<string>Chalkboard SE</string>
-				<string>Courier New</string>
+				<string>AmericanTypewriter</string>
+				<string>ArialMT</string>
+				<string>ArialHebrew</string>
+				<string>ChalkboardSE-Regular</string>
+				<string>CourierNewPSMT</string>
 				<string>Georgia</string>
-				<string>Gill Sans</string>
-				<string>Gujarati Sangam MN</string>
-				<string>Heiti SC</string>
-				<string>Heiti TC</string>
-				<string>Helvetica Neue</string>
-				<string>Hiragino Kaku Gothic ProN</string>
-				<string>Hiragino Mincho ProN</string>
-				<string>Hoefler Text</string>
+				<string>GillSans</string>
+				<string>GujaratiSangamMN</string>
+				<string>STHeitiSC-Light</string>
+				<string>STHeitiTC-Light</string>
+				<string>HelveticaNeue</string>
+				<string>HiraKakuProN-W3</string>
+				<string>HiraMinProN-W3</string>
+				<string>HoeflerText-Regular</string>
 				<string>Kailasa</string>
-				<string>Kannada Sangam MN</string>
-				<string>Malayalam Sangam MN</string>
-				<string>Oriya Sangam MN</string>
-				<string>Sinhala Sangam MN</string>
-				<string>Snell Roundhand</string>
-				<string>Tamil Sangam MN</string>
-				<string>Telugu Sangam MN</string>
-				<string>Times New Roman</string>
+				<string>KannadaSangamMN</string>
+				<string>MalayalamSangamMN</string>
+				<string>OriyaSangamMN</string>
+				<string>SinhalaSangamMN</string>
+				<string>SnellRoundhand</string>
+				<string>TamilSangamMN</string>
+				<string>TeluguSangamMN</string>
+				<string>TimesNewRomanPSMT</string>
 				<string>Zapfino</string>
 			</array>
 		</dict>
