@@ -292,7 +292,7 @@
     UIAlertView * alert = [[UIAlertView alloc] initWithTitle:[NSString stringWithFormat:NSLocalizedString(@"ERROR_NUMBER", @""), request.error.errorCode] message:request.error.message delegate:self cancelButtonTitle:NSLocalizedString(@"BUTTON_CANCEL", @"") otherButtonTitles:nil];
     [alert show];
 
-    APLog(@"request %@ failed with error %i message '%@'", request, request.error.errorCode, );
+    APLog(@"request %@ failed with error %i", request, request.error.errorCode);
 }
 
 #pragma mark - VLCLocalNetworkListCell delegation
