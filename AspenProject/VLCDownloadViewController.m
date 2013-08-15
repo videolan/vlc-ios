@@ -241,4 +241,11 @@
     }
 }
 
+#pragma mark - communication with other VLC objects
+- (void)addURLToDownloadList:(NSURL *)aURL
+{
+    [_currentDownloads addObject:aURL];
+    [self _triggerNextDownload];
+}
+
 @end

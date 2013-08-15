@@ -24,4 +24,6 @@
 
 - (IBAction)downloadAction:(id)sender;
 - (IBAction)cancelDownload:(id)sender;
+
+- (void)addURLToDownloadList:(NSURL *)aURL;
 @end
