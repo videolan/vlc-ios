@@ -265,7 +265,7 @@
 
 - (void)_downloadFTPFile:(NSString *)fileName
 {
-    NSURL *URLToQueue = [NSURL URLWithString:[[@"ftp" stringByAppendingFormat:@"://%@%@/%@", [self _credentials], _ftpServerAddress, _ftpServerPath] stringByAddingPercentEscapesUsingEncoding:NSUTF8StringEncoding]];
+    NSURL *URLToQueue = [NSURL URLWithString:[[@"ftp" stringByAppendingFormat:@"://%@%@/%@/%@", [self _credentials], _ftpServerAddress, _ftpServerPath, fileName] stringByAddingPercentEscapesUsingEncoding:NSUTF8StringEncoding]];
 
     [[(VLCAppDelegate*)[UIApplication sharedApplication].delegate downloadViewController] addURLToDownloadList:URLToQueue];
 }
