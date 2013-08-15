@@ -25,9 +25,13 @@
 
     if (UI_USER_INTERFACE_IDIOM() == UIUserInterfaceIdiomPhone) {
         UIBarButtonItem *dismissButton = [UIBarButtonItem themedBackButtonWithTarget:self andSelector:@selector(dismissWithAnimation:)];
-        self.title = @"Connect to Server";
         self.navigationItem.leftBarButtonItem = dismissButton;
     }
+
+    self.title = NSLocalizedString(@"CONNECT_TO_SERVER", nil);
+    [self.connectButton setTitle:NSLocalizedString(@"BUTTON_CONNECT",@"") forState:UIControlStateNormal];
+    self.serverAddressHelpLabel.text = NSLocalizedString(@"ENTER_SERVER_ADDRESS_HELP",@"");
+    self.loginHelpLabel.text = NSLocalizedString(@"ENTER_SERVER_CREDS_HELP",@"");
 }
 
 - (IBAction)dismissWithAnimation:(id)sender

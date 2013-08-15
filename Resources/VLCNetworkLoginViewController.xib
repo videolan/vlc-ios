@@ -151,7 +151,7 @@
 								<int key="IBUIContentMode">7</int>
 								<bool key="IBUIUserInteractionEnabled">NO</bool>
 								<string key="targetRuntimeIdentifier">IBCocoaTouchFramework</string>
-								<string key="IBUIText">Enter the IP or the name of the server you want to connect to including the protocol.</string>
+								<string key="IBUIText">Enter the IP or the name of the server you want to connect to.</string>
 								<object class="NSColor" key="IBUITextColor">
 									<int key="NSColorSpace">1</int>
 									<bytes key="NSRGB">MC43NDY1OTE5OTYyIDAuNzQ2NTkxOTk2MiAwLjc0NjU5MTk5NjIAA</bytes>
@@ -230,17 +230,16 @@
 							<object class="IBUILabel" id="921255285">
 								<reference key="NSNextResponder" ref="108354734"/>
 								<int key="NSvFlags">274</int>
-								<string key="NSFrame">{{10, 85}, {300, 83}}</string>
+								<string key="NSFrame">{{16, 85}, {289, 36}}</string>
 								<reference key="NSSuperview" ref="108354734"/>
 								<reference key="NSWindow"/>
-								<reference key="NSNextKeyView"/>
 								<string key="NSReuseIdentifierKey">_NS:9</string>
 								<bool key="IBUIOpaque">NO</bool>
 								<bool key="IBUIClipsSubviews">YES</bool>
 								<int key="IBUIContentMode">7</int>
 								<bool key="IBUIUserInteractionEnabled">NO</bool>
 								<string key="targetRuntimeIdentifier">IBCocoaTouchFramework</string>
-								<string key="IBUIText">If required by the server, enter user name and password. For anonymous access, leave the fields empty.</string>
+								<string key="IBUIText">If required by the server, enter user name and password.</string>
 								<object class="NSColor" key="IBUITextColor">
 									<int key="NSColorSpace">1</int>
 									<bytes key="NSRGB">MC43NDY1OTE5OTYyIDAuNzQ2NTkxOTk2MiAwLjc0NjU5MTk5NjIAA</bytes>
@@ -252,7 +251,7 @@
 								<int key="IBUITextAlignment">1</int>
 								<reference key="IBUIFontDescription" ref="468143243"/>
 								<reference key="IBUIFont" ref="898246364"/>
-								<double key="preferredMaxLayoutWidth">300</double>
+								<double key="preferredMaxLayoutWidth">289</double>
 							</object>
 							<object class="IBUILabel" id="957907215">
 								<reference key="NSNextResponder" ref="108354734"/>
@@ -345,7 +344,7 @@
 						<string key="targetRuntimeIdentifier">IBCocoaTouchFramework</string>
 					</object>
 				</array>
-				<string key="NSFrameSize">{320, 271}</string>
+				<string key="NSFrameSize">{320, 237}</string>
 				<reference key="NSSuperview"/>
 				<reference key="NSWindow"/>
 				<reference key="NSNextKeyView" ref="944170964"/>

@@ -70,7 +70,7 @@
     [self performSelectorInBackground:@selector(_startUPNPDiscovery) withObject:nil];
 
     _ftpServices = [[NSMutableArray alloc] init];
-    [_ftpServices addObject:@"Connect to Server"];
+    [_ftpServices addObject:NSLocalizedString(@"CONNECT_TO_SERVER", nil)];
 
     _rawServices = [[NSMutableArray alloc] init];
 
