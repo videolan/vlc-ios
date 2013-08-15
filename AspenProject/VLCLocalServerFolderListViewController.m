@@ -222,7 +222,7 @@
         } else {
             NSString *objectName = [_objectList[indexPath.row] objectForKey:(id)kCFFTPResourceName];
             if (![objectName isSupportedFormat]) {
-                UIAlertView * alert = [[UIAlertView alloc] initWithTitle:NSLocalizedString(@"FILE_NOT_SUPPORTED", @"") message:[NSString stringWithFormat:NSLocalizedString(@"FILE_NOT_SUPPORTED", @""), objectName] delegate:self cancelButtonTitle:NSLocalizedString(@"BUTTON_CANCEL", @"") otherButtonTitles:nil];
+                UIAlertView * alert = [[UIAlertView alloc] initWithTitle:NSLocalizedString(@"FILE_NOT_SUPPORTED", @"") message:[NSString stringWithFormat:NSLocalizedString(@"FILE_NOT_SUPPORTED_LONG", @""), objectName] delegate:self cancelButtonTitle:NSLocalizedString(@"BUTTON_CANCEL", @"") otherButtonTitles:nil];
                 [alert show];
             } else
                 [self _openURLStringAndDismiss:[_FTPListDirRequest.fullURLString stringByAppendingString:objectName]];
@@ -301,7 +301,7 @@
     if (_serverType == kVLCFTPServer) {
         NSString *objectName = [_objectList[[self.tableView indexPathForCell:cell].row] objectForKey:(id)kCFFTPResourceName];
         if (![objectName isSupportedFormat]) {
-            UIAlertView * alert = [[UIAlertView alloc] initWithTitle:NSLocalizedString(@"FILE_NOT_SUPPORTED", @"") message:[NSString stringWithFormat:NSLocalizedString(@"FILE_NOT_SUPPORTED", @""), objectName] delegate:self cancelButtonTitle:NSLocalizedString(@"BUTTON_CANCEL", @"") otherButtonTitles:nil];
+            UIAlertView * alert = [[UIAlertView alloc] initWithTitle:NSLocalizedString(@"FILE_NOT_SUPPORTED", @"") message:[NSString stringWithFormat:NSLocalizedString(@"FILE_NOT_SUPPORTED_LONG", @""), objectName] delegate:self cancelButtonTitle:NSLocalizedString(@"BUTTON_CANCEL", @"") otherButtonTitles:nil];
             [alert show];
         } else
             [self _downloadFTPFile:objectName];
