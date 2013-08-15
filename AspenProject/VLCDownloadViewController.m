@@ -1,5 +1,5 @@
 //
-//  VLCHTTPDownloadViewController.m
+//  VLCDownloadViewController.m
 //  VLC for iOS
 //
 //  Created by Felix Paul Kühne on 16.06.13.
@@ -8,7 +8,7 @@
 //  Refer to the COPYING file of the official project for license.
 //
 
-#import "VLCHTTPDownloadViewController.h"
+#import "VLCDownloadViewController.h"
 #import "VLCHTTPFileDownloader.h"
 #import "VLCAppDelegate.h"
 #import "UIBarButtonItem+Theme.h"
@@ -16,7 +16,7 @@
 #define kVLCDownloadViaHTTP 1
 #define kVLCDownloadViaFTP 2
 
-@interface VLCHTTPDownloadViewController ()
+@interface VLCDownloadViewController ()
 {
     VLCHTTPFileDownloader *_httpDownloader;
     NSMutableArray *_currentDownloads;
@@ -24,7 +24,7 @@
 }
 @end
 
-@implementation VLCHTTPDownloadViewController
+@implementation VLCDownloadViewController
 
 - (void)viewDidLoad
 {

@@ -1,5 +1,5 @@
 //
-//  VLCHTTPDownloadViewController.h
+//  VLCDownloadViewController.h
 //  VLC for iOS
 //
 //  Created by Felix Paul Kühne on 16.06.13.
@@ -10,7 +10,7 @@
 
 #import "VLCHTTPFileDownloader.h"
 
-@interface VLCHTTPDownloadViewController : UIViewController <UITableViewDataSource, UITableViewDelegate, VLCHTTPFileDownloader>
+@interface VLCDownloadViewController : UIViewController <UITableViewDataSource, UITableViewDelegate, VLCHTTPFileDownloader>
 
 @property (nonatomic, strong) IBOutlet UIButton *downloadButton;
 @property (nonatomic, strong) IBOutlet UITextField *urlField;
