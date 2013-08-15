@@ -56,6 +56,7 @@
     _tableView.backgroundColor = [UIColor colorWithWhite:.122 alpha:1.];
     _tableView.delegate = self;
     _tableView.dataSource = self;
+    _tableView.rowHeight = [VLCLocalNetworkListCell heightOfCell];
     self.view = _tableView;
 }
 

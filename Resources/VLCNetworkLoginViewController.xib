@@ -191,7 +191,7 @@
 								<string key="NSFrame">{{0, -6}, {320, 168}}</string>
 								<reference key="NSSuperview" ref="108354734"/>
 								<reference key="NSWindow"/>
-								<reference key="NSNextKeyView" ref="921255285"/>
+								<reference key="NSNextKeyView" ref="957907215"/>
 								<string key="NSReuseIdentifierKey">_NS:9</string>
 								<bool key="IBUIUserInteractionEnabled">NO</bool>
 								<string key="targetRuntimeIdentifier">IBCocoaTouchFramework</string>
@@ -233,7 +233,7 @@
 								<string key="NSFrame">{{10, 85}, {300, 83}}</string>
 								<reference key="NSSuperview" ref="108354734"/>
 								<reference key="NSWindow"/>
-								<reference key="NSNextKeyView" ref="957907215"/>
+								<reference key="NSNextKeyView"/>
 								<string key="NSReuseIdentifierKey">_NS:9</string>
 								<bool key="IBUIOpaque">NO</bool>
 								<bool key="IBUIClipsSubviews">YES</bool>
@@ -256,7 +256,7 @@
 							</object>
 							<object class="IBUILabel" id="957907215">
 								<reference key="NSNextResponder" ref="108354734"/>
-								<int key="NSvFlags">274</int>
+								<int key="NSvFlags">300</int>
 								<string key="NSFrame">{{10, 15}, {82, 18}}</string>
 								<reference key="NSSuperview" ref="108354734"/>
 								<reference key="NSWindow"/>
@@ -285,6 +285,7 @@
 								<string key="NSFrame">{{100, 47}, {210, 30}}</string>
 								<reference key="NSSuperview" ref="108354734"/>
 								<reference key="NSWindow"/>
+								<reference key="NSNextKeyView" ref="921255285"/>
 								<string key="NSReuseIdentifierKey">_NS:9</string>
 								<bool key="IBUIOpaque">NO</bool>
 								<bool key="IBUIClipsSubviews">YES</bool>
@@ -310,7 +311,7 @@
 							</object>
 							<object class="IBUILabel" id="716472064">
 								<reference key="NSNextResponder" ref="108354734"/>
-								<int key="NSvFlags">274</int>
+								<int key="NSvFlags">300</int>
 								<string key="NSFrame">{{10, 53}, {82, 18}}</string>
 								<reference key="NSSuperview" ref="108354734"/>
 								<reference key="NSWindow"/>
@@ -592,6 +593,7 @@
 					<dictionary class="NSMutableDictionary" key="actions">
 						<string key="connectToServer:">id</string>
 						<string key="dismiss:">id</string>
+						<string key="dismissWithAnimation:">id</string>
 					</dictionary>
 					<dictionary class="NSMutableDictionary" key="actionInfosByName">
 						<object class="IBActionInfo" key="connectToServer:">
@@ -600,6 +602,10 @@
 						</object>
 						<object class="IBActionInfo" key="dismiss:">
 							<string key="name">dismiss:</string>
+							<string key="candidateClassName">id</string>
+						</object>
+						<object class="IBActionInfo" key="dismissWithAnimation:">
+							<string key="name">dismissWithAnimation:</string>
 							<string key="candidateClassName">id</string>
 						</object>
 					</dictionary>
