@@ -153,7 +153,8 @@
 
 - (void)downloadFailedWithErrorDescription:(NSString *)description
 {
-    APLog(@"download failed: %@", description);
+    UIAlertView * alert = [[UIAlertView alloc] initWithTitle:NSLocalizedString(@"DOWNLOAD_FAILED", @"") message:description delegate:self cancelButtonTitle:NSLocalizedString(@"BUTTON_CANCEL", @"") otherButtonTitles:nil];
+    [alert show];
 }
 
 - (void)progressUpdatedTo:(CGFloat)percentage
@@ -194,8 +195,10 @@
 - (void)requestFailed:(WRRequest *)request
 {
     _FTPDownloadRequest = nil;
-    APLog(@"request %@ failed with error %i message '%@'", request, request.error.errorCode, request.error.message);
     [self downloadEnded];
+
+    UIAlertView * alert = [[UIAlertView alloc] initWithTitle:[NSString stringWithFormat:NSLocalizedString(@"ERROR_NUMBER", @""), request.error.errorCode] message:request.error.message delegate:self cancelButtonTitle:NSLocalizedString(@"BUTTON_CANCEL", @"") otherButtonTitles:nil];
+    [alert show];
 }
 
 #pragma mark - table view data source
