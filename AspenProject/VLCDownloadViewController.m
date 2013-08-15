@@ -12,15 +12,20 @@
 #import "VLCHTTPFileDownloader.h"
 #import "VLCAppDelegate.h"
 #import "UIBarButtonItem+Theme.h"
+#import "WhiteRaccoon.h"
 
 #define kVLCDownloadViaHTTP 1
 #define kVLCDownloadViaFTP 2
 
-@interface VLCDownloadViewController ()
+@interface VLCDownloadViewController () <WRRequestDelegate>
 {
-    VLCHTTPFileDownloader *_httpDownloader;
     NSMutableArray *_currentDownloads;
     NSUInteger _currentDownloadType;
+    NSString *_humanReadableFilename;
+
+    VLCHTTPFileDownloader *_httpDownloader;
+
+    WRRequestDownload *_FTPDownloadRequest;
 }
 @end
 
@@ -93,14 +98,18 @@
             if (!_httpDownloader.downloadInProgress) {
                 _currentDownloadType = kVLCDownloadViaHTTP;
                 [_httpDownloader downloadFileFromURL:_currentDownloads[0]];
-                [self.activityIndicator startAnimating];
-                [_currentDownloads removeObjectAtIndex:0];
-                [self.downloadsTable reloadData];
+                _humanReadableFilename = _httpDownloader.userReadableDownloadName;
             }
         } else if ([downloadScheme isEqualToString:@"ftp"]) {
             _currentDownloadType = kVLCDownloadViaFTP;
+            [self _downloadFTPFile:_currentDownloads[0]];
+            _humanReadableFilename = [_currentDownloads[0] lastPathComponent];
         } else
             APLog(@"Unknown download scheme '%@'", downloadScheme);
+
+        [self.activityIndicator startAnimating];
+        [_currentDownloads removeObjectAtIndex:0];
+        [self.downloadsTable reloadData];
     } else
         _currentDownloadType = 0;
 }
@@ -118,7 +127,7 @@
 - (void)downloadStarted
 {
     [self.activityIndicator stopAnimating];
-    self.currentDownloadLabel.text = _httpDownloader.userReadableDownloadName;
+    self.currentDownloadLabel.text = _humanReadableFilename;
     self.progressView.progress = 0.;
     self.currentDownloadLabel.hidden = NO;
     self.progressView.hidden = NO;
@@ -144,6 +153,43 @@
 - (void)progressUpdatedTo:(CGFloat)percentage
 {
     [self.progressView setProgress:percentage animated:YES];
+}
+
+#pragma mark - ftp networking
+
+- (void)_downloadFTPFile:(NSURL *)URLToFile
+{
+    if (_FTPDownloadRequest)
+        return;
+
+    _FTPDownloadRequest = [[WRRequestDownload alloc] init];
+    _FTPDownloadRequest.delegate = self;
+    _FTPDownloadRequest.passive = YES;
+
+    NSArray *searchPaths = NSSearchPathForDirectoriesInDomains(NSDocumentDirectory, NSUserDomainMask, YES);
+    NSString *directoryPath = searchPaths[0];
+    NSURL *destinationURL = [NSURL fileURLWithPath:[NSString stringWithFormat:@"%@/%@", directoryPath, URLToFile.lastPathComponent]];
+    _FTPDownloadRequest.downloadLocation = destinationURL;
+
+    [_FTPDownloadRequest startWithFullURL:URLToFile];
+}
+
+- (void)requestStarted:(WRRequest *)request
+{
+    [self downloadStarted];
+}
+
+- (void)requestCompleted:(WRRequest *)request
+{
+    _FTPDownloadRequest = nil;
+    [self downloadEnded];
+}
+
+- (void)requestFailed:(WRRequest *)request
+{
+    _FTPDownloadRequest = nil;
+    APLog(@"request %@ failed with error %i message '%@'", request, request.error.errorCode, request.error.message);
+    [self downloadEnded];
 }
 
 #pragma mark - table view data source
