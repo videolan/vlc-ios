@@ -21,7 +21,6 @@
 #import "GHRevealViewController.h"
 #import "VLCLocalServerListViewController.h"
 #import "VLCOpenNetworkStreamViewController.h"
-#import "VLCDownloadViewController.h"
 #import "VLCSettingsController.h"
 #import "UINavigationController+Theme.h"
 #import "UIBarButtonItem+Theme.h"
@@ -251,7 +250,7 @@
         else if (itemIndex == 1)
             viewController = [[VLCOpenNetworkStreamViewController alloc] init];
         else if (itemIndex == 2)
-            viewController = [[VLCDownloadViewController alloc] init];
+            viewController = self.appDelegate.downloadViewController;
         else if (itemIndex == 4)
             viewController = self.appDelegate.dropboxTableViewController;
     } else if (sectionNumber == 2) {

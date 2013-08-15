@@ -12,6 +12,7 @@
 #import "VLCHTTPUploaderController.h"
 #import "GHRevealViewController.h"
 #import "VLCMenuTableViewController.h"
+#import "VLCDownloadViewController.h"
 
 @class VLCPlaylistViewController;
 @class PAPasscodeViewController;
@@ -23,6 +24,7 @@
 
 @property (nonatomic, readonly) VLCPlaylistViewController *playlistViewController;
 @property (nonatomic, readonly) VLCDropboxTableViewController *dropboxTableViewController;
+@property (nonatomic, readonly) VLCDownloadViewController *downloadViewController;
 
 @property (nonatomic, strong) UIWindow *window;
 

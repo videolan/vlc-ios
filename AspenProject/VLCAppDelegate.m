@@ -23,6 +23,7 @@
 @interface VLCAppDelegate () <PAPasscodeViewControllerDelegate, VLCMediaFileDiscovererDelegate> {
     PAPasscodeViewController *_passcodeLockController;
     VLCDropboxTableViewController *_dropboxTableViewController;
+    VLCDownloadViewController *_downloadViewController;
     int _idleCounter;
 }
 
@@ -171,6 +172,15 @@
     }
 
     return _dropboxTableViewController;
+}
+
+- (VLCDownloadViewController *)downloadViewController
+{
+    if (_downloadViewController == nil) {
+        _downloadViewController = [[VLCDownloadViewController alloc] init];
+    }
+
+    return _downloadViewController;
 }
 
 #pragma mark - media discovering

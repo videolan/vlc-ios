@@ -192,7 +192,7 @@
 		7DA8B0FB173318E80029698C /* SourceCodePro-Regular.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 7DA8B0F9173318E80029698C /* SourceCodePro-Regular.ttf */; };
 		7DADC55F1704FABF001DAC63 /* OBSlider.m in Sources */ = {isa = PBXBuildFile; fileRef = 7DADC55E1704FABF001DAC63 /* OBSlider.m */; };
 		7DB43835176E20CC00F460EE /* VLCDownloadViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 7DB43833176E20CC00F460EE /* VLCDownloadViewController.m */; };
-		7DB43836176E20CC00F460EE /* VLCHTTPDownloadViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 7DB43834176E20CC00F460EE /* VLCHTTPDownloadViewController.xib */; };
+		7DB43836176E20CC00F460EE /* VLCDownloadViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 7DB43834176E20CC00F460EE /* VLCDownloadViewController.xib */; };
 		7DBC3B441711FC6C00DCF688 /* VLCAboutViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 7DBC3B421711FC6C00DCF688 /* VLCAboutViewController.m */; };
 		7DBC3B451711FC6C00DCF688 /* VLCAboutViewController~iphone.xib in Resources */ = {isa = PBXBuildFile; fileRef = 7DBC3B431711FC6C00DCF688 /* VLCAboutViewController~iphone.xib */; };
 		7DC72D5E17B7E7C7008A26D0 /* download@4x.png in Resources */ = {isa = PBXBuildFile; fileRef = 7DC72D5B17B7E7C7008A26D0 /* download@4x.png */; };
@@ -611,7 +611,7 @@
 		7DADC55E1704FABF001DAC63 /* OBSlider.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = OBSlider.m; path = ImportedSources/OBSlider/OBSlider/OBSlider.m; sourceTree = SOURCE_ROOT; };
 		7DB43832176E20CC00F460EE /* VLCDownloadViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = VLCDownloadViewController.h; sourceTree = "<group>"; };
 		7DB43833176E20CC00F460EE /* VLCDownloadViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = VLCDownloadViewController.m; sourceTree = "<group>"; };
-		7DB43834176E20CC00F460EE /* VLCHTTPDownloadViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; name = VLCHTTPDownloadViewController.xib; path = ../Resources/VLCHTTPDownloadViewController.xib; sourceTree = "<group>"; };
+		7DB43834176E20CC00F460EE /* VLCDownloadViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; name = VLCDownloadViewController.xib; path = ../Resources/VLCDownloadViewController.xib; sourceTree = "<group>"; };
 		7DBC3B411711FC6C00DCF688 /* VLCAboutViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = VLCAboutViewController.h; sourceTree = "<group>"; };
 		7DBC3B421711FC6C00DCF688 /* VLCAboutViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = VLCAboutViewController.m; sourceTree = "<group>"; };
 		7DBC3B431711FC6C00DCF688 /* VLCAboutViewController~iphone.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; name = "VLCAboutViewController~iphone.xib"; path = "../Resources/VLCAboutViewController~iphone.xib"; sourceTree = "<group>"; };
@@ -1381,7 +1381,7 @@
 				7D93045A17B6ACCF0054EAC6 /* VLCWiFiUploadTableViewCell.xib */,
 				7D93044617B687C90054EAC6 /* VLCLocalNetworkListCell~ipad.xib */,
 				7D93044717B687C90054EAC6 /* VLCLocalNetworkListCell~iphone.xib */,
-				7DB43834176E20CC00F460EE /* VLCHTTPDownloadViewController.xib */,
+				7DB43834176E20CC00F460EE /* VLCDownloadViewController.xib */,
 				7D2339AE176DE72E008D223C /* VLCOpenNetworkStreamViewController.xib */,
 				7DBC3B431711FC6C00DCF688 /* VLCAboutViewController~iphone.xib */,
 				7D9529521732EFCA006F5B40 /* VLCAboutViewController~ipad.xib */,
@@ -1767,7 +1767,7 @@
 				7DF1166C176CC69A009EC05C /* volumeballslider.png in Resources */,
 				7DF1166D176CC69A009EC05C /* volumeballslider@2x.png in Resources */,
 				7D2339B0176DE72E008D223C /* VLCOpenNetworkStreamViewController.xib in Resources */,
-				7DB43836176E20CC00F460EE /* VLCHTTPDownloadViewController.xib in Resources */,
+				7DB43836176E20CC00F460EE /* VLCDownloadViewController.xib in Resources */,
 				A7990064176E9352009E8267 /* libraryBackground.png in Resources */,
 				7DD2A3A9179C04A7003EB537 /* OpenSans-Regular.ttf in Resources */,
 				7D93044817B687C90054EAC6 /* VLCLocalNetworkListCell~ipad.xib in Resources */,
