@@ -13,6 +13,7 @@
 #import "VLCAppDelegate.h"
 #import "UIBarButtonItem+Theme.h"
 #import "WhiteRaccoon.h"
+#import "NSString+SupportedMedia.h"
 
 #define kVLCDownloadViaHTTP 1
 #define kVLCDownloadViaFTP 2
@@ -75,11 +76,16 @@
     if ([self.urlField.text length] > 0) {
         NSURL *URLtoSave = [NSURL URLWithString:self.urlField.text];
         if (([URLtoSave.scheme isEqualToString:@"http"] || [URLtoSave.scheme isEqualToString:@"https"] || [URLtoSave.scheme isEqualToString:@"ftp"]) && ![URLtoSave.lastPathComponent.pathExtension isEqualToString:@""]) {
-            [_currentDownloads addObject:URLtoSave];
-            self.urlField.text = @"";
-            [self.downloadsTable reloadData];
+            if ([URLtoSave.lastPathComponent isSupportedFormat]) {
+                [_currentDownloads addObject:URLtoSave];
+                self.urlField.text = @"";
+                [self.downloadsTable reloadData];
 
-            [self _triggerNextDownload];
+                [self _triggerNextDownload];
+            } else {
+                UIAlertView * alert = [[UIAlertView alloc] initWithTitle:NSLocalizedString(@"FILE_NOT_SUPPORTED", @"") message:[NSString stringWithFormat:NSLocalizedString(@"FILE_NOT_SUPPORTED", @""), URLtoSave.lastPathComponent] delegate:self cancelButtonTitle:NSLocalizedString(@"BUTTON_CANCEL", @"") otherButtonTitles:nil];
+                [alert show];
+            }
         }
     }
 }
