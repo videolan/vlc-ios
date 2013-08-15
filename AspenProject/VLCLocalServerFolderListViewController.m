@@ -17,6 +17,7 @@
 #import "VLCAppDelegate.h"
 #import "VLCPlaylistViewController.h"
 #import "UINavigationController+Theme.h"
+#import "VLCDownloadViewController.h"
 #import "WhiteRaccoon.h"
 #import "NSString+SupportedMedia.h"
 
@@ -43,7 +44,6 @@
     NSString *_ftpServerPassword;
     NSString *_ftpServerPath;
     WRRequestListDirectory *_FTPListDirRequest;
-    WRRequestDownload *_FTPDownloadRequest;
 }
 
 @end
@@ -247,25 +247,26 @@
     [_FTPListDirRequest start];
 }
 
+- (NSString *)_credentials
+{
+    NSString * cred;
+
+    if (_ftpServerUserName.length > 0) {
+        if (_ftpServerPassword.length > 0)
+            cred = [NSString stringWithFormat:@"%@:%@@", _ftpServerUserName, _ftpServerPassword];
+        else
+            cred = [NSString stringWithFormat:@"%@@", _ftpServerPassword];
+    } else
+        cred = @"";
+
+    return [cred stringByStandardizingPath];
+}
+
 - (void)_downloadFTPFile:(NSString *)fileName
 {
-    if (_FTPDownloadRequest)
-        return;
+    NSURL *URLToQueue = [NSURL URLWithString:[[@"ftp" stringByAppendingFormat:@"://%@%@/%@", [self _credentials], _ftpServerAddress, _ftpServerPath] stringByAddingPercentEscapesUsingEncoding:NSUTF8StringEncoding]];
 
-    _FTPDownloadRequest = [[WRRequestDownload alloc] init];
-    _FTPDownloadRequest.delegate = self;
-    _FTPDownloadRequest.hostname = _ftpServerAddress;
-    _FTPDownloadRequest.username = _ftpServerUserName;
-    _FTPDownloadRequest.password = _ftpServerPassword;
-    _FTPDownloadRequest.path = [NSString stringWithFormat:@"%@/%@", _ftpServerPath, fileName];
-    _FTPDownloadRequest.passive = YES;
-
-    NSArray *searchPaths = NSSearchPathForDirectoriesInDomains(NSDocumentDirectory, NSUserDomainMask, YES);
-    NSString *directoryPath = searchPaths[0];
-    NSURL *destinationURL = [NSURL fileURLWithPath:[NSString stringWithFormat:@"%@/%@", directoryPath, fileName]];
-    _FTPDownloadRequest.downloadLocation = destinationURL;
-
-    [_FTPDownloadRequest start];
+    [[(VLCAppDelegate*)[UIApplication sharedApplication].delegate downloadViewController] addURLToDownloadList:URLToQueue];
 }
 
 - (void)requestCompleted:(WRRequest *)request
@@ -282,21 +283,12 @@
 
         _objectList = [NSArray arrayWithArray:filteredList];
         [self.tableView reloadData];
-    } else if (request == _FTPDownloadRequest) {
-        APLog(@"download complete!");
-        _FTPDownloadRequest = nil;
     } else
         APLog(@"unknown request %@ completed", request);
 }
 
-- (void)progressUpdatedTo:(NSUInteger)rawProgressData
-{
-    NSLog(@"progress update: %i", rawProgressData);
-}
-
 - (void)requestFailed:(WRRequest *)request
 {
-    _FTPDownloadRequest = nil;
     APLog(@"request %@ failed with error %i message '%@'", request, request.error.errorCode, request.error.message);
 }
 
