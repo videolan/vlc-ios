@@ -32,10 +32,18 @@
 
 @implementation VLCDownloadViewController
 
+- (id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil
+{
+    self = [super initWithNibName:nibNameOrNil bundle:nibBundleOrNil];
+    if (self)
+        _currentDownloads = [[NSMutableArray alloc] init];
+
+    return self;
+}
+
 - (void)viewDidLoad
 {
     [self.downloadButton setTitle:NSLocalizedString(@"BUTTON_DOWNLOAD",@"") forState:UIControlStateNormal];
-    _currentDownloads = [[NSMutableArray alloc] init];
     self.navigationItem.leftBarButtonItem = [UIBarButtonItem themedRevealMenuButtonWithTarget:self andSelector:@selector(goBack:)];
     self.title = NSLocalizedString(@"DOWNLOAD_FROM_HTTP", @"");
     self.whatToDownloadHelpLabel.text = [NSString stringWithFormat:NSLocalizedString(@"DOWNLOAD_FROM_HTTP_HELP", @""), [[UIDevice currentDevice] model]];
@@ -265,6 +273,7 @@
 - (void)addURLToDownloadList:(NSURL *)aURL
 {
     [_currentDownloads addObject:aURL];
+    [self.downloadsTable reloadData];
     [self _triggerNextDownload];
 }
 
