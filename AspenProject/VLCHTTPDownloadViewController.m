@@ -13,10 +13,14 @@
 #import "VLCAppDelegate.h"
 #import "UIBarButtonItem+Theme.h"
 
+#define kVLCDownloadViaHTTP 1
+#define kVLCDownloadViaFTP 2
+
 @interface VLCHTTPDownloadViewController ()
 {
     VLCHTTPFileDownloader *_httpDownloader;
     NSMutableArray *_currentDownloads;
+    NSUInteger _currentDownloadType;
 }
 @end
 
@@ -65,11 +69,7 @@
 {
     if ([self.urlField.text length] > 0) {
         NSURL *URLtoSave = [NSURL URLWithString:self.urlField.text];
-        if (([URLtoSave.scheme isEqualToString:@"http"] || [URLtoSave.scheme isEqualToString:@"https"]) && ![URLtoSave.lastPathComponent.pathExtension isEqualToString:@""]) {
-            if (!_httpDownloader) {
-                _httpDownloader = [[VLCHTTPFileDownloader alloc] init];
-                _httpDownloader.delegate = self;
-            }
+        if (([URLtoSave.scheme isEqualToString:@"http"] || [URLtoSave.scheme isEqualToString:@"https"] || [URLtoSave.scheme isEqualToString:@"ftp"]) && ![URLtoSave.lastPathComponent.pathExtension isEqualToString:@""]) {
             [_currentDownloads addObject:URLtoSave];
             self.urlField.text = @"";
             [self.downloadsTable reloadData];
@@ -82,18 +82,35 @@
 #pragma mark - download management
 - (void)_triggerNextDownload
 {
-    if (!_httpDownloader.downloadInProgress && _currentDownloads.count > 0) {
-        [_httpDownloader downloadFileFromURL:_currentDownloads[0]];
-        [self.activityIndicator startAnimating];
-        [_currentDownloads removeObjectAtIndex:0];
-        [self.downloadsTable reloadData];
-    }
+    if (_currentDownloads.count > 0) {
+        NSString *downloadScheme = [_currentDownloads[0] scheme];
+        if ([downloadScheme isEqualToString:@"http"] || [downloadScheme isEqualToString:@"https"]) {
+            if (!_httpDownloader) {
+                _httpDownloader = [[VLCHTTPFileDownloader alloc] init];
+                _httpDownloader.delegate = self;
+            }
+
+            if (!_httpDownloader.downloadInProgress) {
+                _currentDownloadType = kVLCDownloadViaHTTP;
+                [_httpDownloader downloadFileFromURL:_currentDownloads[0]];
+                [self.activityIndicator startAnimating];
+                [_currentDownloads removeObjectAtIndex:0];
+                [self.downloadsTable reloadData];
+            }
+        } else if ([downloadScheme isEqualToString:@"ftp"]) {
+            _currentDownloadType = kVLCDownloadViaFTP;
+        } else
+            APLog(@"Unknown download scheme '%@'", downloadScheme);
+    } else
+        _currentDownloadType = 0;
 }
 
 - (IBAction)cancelDownload:(id)sender
 {
-    if (_httpDownloader.downloadInProgress)
-        [_httpDownloader cancelDownload];
+    if (_currentDownloadType == kVLCDownloadViaHTTP) {
+        if (_httpDownloader.downloadInProgress)
+            [_httpDownloader cancelDownload];
+    }
 }
 
 #pragma mark - VLC HTTP Downloader delegate
