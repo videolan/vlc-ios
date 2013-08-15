@@ -93,9 +93,13 @@
 {
     if ([self.urlField.text length] > 0) {
         if (!self.privateToggleSwitch.on) {
+            if ([_recentURLs indexOfObject:self.urlField.text] != NSNotFound)
+                [_recentURLs removeObject:self.urlField.text];
+
             if (_recentURLs.count >= 15)
                 [_recentURLs removeLastObject];
             [_recentURLs addObject:self.urlField.text];
+
             [self.historyTableView reloadData];
         }
         [self _openURLStringAndDismiss:self.urlField.text];
