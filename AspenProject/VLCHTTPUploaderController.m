@@ -112,7 +112,9 @@ static const int httpLogLevel = HTTP_LOG_LEVEL_VERBOSE; // | HTTP_LOG_FLAG_TRACE
                 if(![self.httpServer start:&error])
                     return true;
             }
-            DDLogError(@"Error starting HTTP Server: %@", error);
+
+            if (error.code != 0)
+                DDLogError(@"Error starting HTTP Server: %@", error.localizedDescription);
             return false;
         }
         return true;
