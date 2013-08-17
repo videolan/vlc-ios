@@ -1,5 +1,5 @@
-2-next:
--------
+2.1:
+----
 * Improved overall stability (#8989, #9031, #9089, #9092)
 * Add support for subtitles in non-western languages (#8991)
 * Improved Subtitles support with options to choose font, size, and color
