@@ -16,8 +16,6 @@
     UINavigationBar *navBar = self.navigationBar;
     [navBar setBackgroundImage:[UIImage imageNamed:@"navBarBackground"]
                  forBarMetrics:UIBarMetricsDefault];
-    [navBar setBackgroundImage:[UIImage imageNamed:@"navBarBackgroundPhoneLandscape"]
-                 forBarMetrics:UIBarMetricsLandscapePhone];
     navBar.barStyle = UIBarStyleBlack;
 }
 @end

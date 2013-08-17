@@ -80,7 +80,7 @@
 
     UIImageView *brandingBackgroundImageView = [[UIImageView alloc] initWithFrame:CGRectMake(0.0f, 0.0f, kGHRevealSidebarWidth, 44.0f)];
     brandingBackgroundImageView.contentMode = UIViewContentModeScaleToFill;
-    brandingBackgroundImageView.image = [UIImage imageNamed:@"searchBarBG"];
+    brandingBackgroundImageView.image = [UIImage imageNamed:@"headerSidebar"];
     [self.view addSubview:brandingBackgroundImageView];
     UIImageView *brandingImageView = [[UIImageView alloc] initWithFrame:CGRectMake(0.0f, 0.0f, kGHRevealSidebarWidth, 44.0f)];
     brandingImageView.contentMode = UIViewContentModeCenter;

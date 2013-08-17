@@ -45,7 +45,6 @@
 		7AC862A91765E9510011611A /* jquery.ui.widget.js in Resources */ = {isa = PBXBuildFile; fileRef = 7AC862A11765E90C0011611A /* jquery.ui.widget.js */; };
 		7D00161C177056B700649F27 /* main.js in Resources */ = {isa = PBXBuildFile; fileRef = 7D00161A17704DAC00649F27 /* main.js */; };
 		7D02B0D217B6BE850099030D /* VLCLocalServerFolderListViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 7D02B0D117B6BE850099030D /* VLCLocalServerFolderListViewController.m */; };
-		7D031C3617B6EF82002A82F9 /* searchBarBG.png in Resources */ = {isa = PBXBuildFile; fileRef = 7D031C3517B6EF82002A82F9 /* searchBarBG.png */; };
 		7D07A4E9174EA47800759D10 /* VLCSettingsController.m in Sources */ = {isa = PBXBuildFile; fileRef = 7D07A4E7174EA47800759D10 /* VLCSettingsController.m */; };
 		7D07A4ED174EB81200759D10 /* VLCDropboxController.m in Sources */ = {isa = PBXBuildFile; fileRef = 7D07A4EC174EB81200759D10 /* VLCDropboxController.m */; };
 		7D07F708175665ED00CDE21C /* navBarBackground@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 7D07F706175665ED00CDE21C /* navBarBackground@2x.png */; };
@@ -70,6 +69,10 @@
 		7D07F72F175691CC00CDE21C /* backButton@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 7D07F72B175691CC00CDE21C /* backButton@2x.png */; };
 		7D07F730175691CC00CDE21C /* backButtonHighlight.png in Resources */ = {isa = PBXBuildFile; fileRef = 7D07F72C175691CC00CDE21C /* backButtonHighlight.png */; };
 		7D07F731175691CC00CDE21C /* backButtonHighlight@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 7D07F72D175691CC00CDE21C /* backButtonHighlight@2x.png */; };
+		7D16035D17BF9FE600F29B34 /* sudHeaderBg.png in Resources */ = {isa = PBXBuildFile; fileRef = 7D16035917BF9FE600F29B34 /* sudHeaderBg.png */; };
+		7D16035E17BF9FE600F29B34 /* sudHeaderBg@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 7D16035A17BF9FE600F29B34 /* sudHeaderBg@2x.png */; };
+		7D16035F17BF9FE600F29B34 /* headerSidebar@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 7D16035B17BF9FE600F29B34 /* headerSidebar@2x.png */; };
+		7D16036017BF9FE600F29B34 /* headerSidebar.png in Resources */ = {isa = PBXBuildFile; fileRef = 7D16035C17BF9FE600F29B34 /* headerSidebar.png */; };
 		7D1AC3041762996100BD2EB5 /* resetIcon.png in Resources */ = {isa = PBXBuildFile; fileRef = 7D1AC3021762996100BD2EB5 /* resetIcon.png */; };
 		7D1AC3051762996100BD2EB5 /* resetIcon@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 7D1AC3031762996100BD2EB5 /* resetIcon@2x.png */; };
 		7D1AC30817629AB600BD2EB5 /* ratioIcon.png in Resources */ = {isa = PBXBuildFile; fileRef = 7D1AC30617629AB600BD2EB5 /* ratioIcon.png */; };
@@ -166,8 +169,6 @@
 		7D6B08F8174D65B500A05173 /* IASKTextField.m in Sources */ = {isa = PBXBuildFile; fileRef = 7D6B08EA174D65B500A05173 /* IASKTextField.m */; settings = {COMPILER_FLAGS = "-fno-objc-arc"; }; };
 		7D6B08FA174D716200A05173 /* MessageUI.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 7D6B08F9174D716200A05173 /* MessageUI.framework */; };
 		7D6B08FC174D773C00A05173 /* Settings.bundle in Resources */ = {isa = PBXBuildFile; fileRef = 7D6B08FB174D773C00A05173 /* Settings.bundle */; };
-		7D6BD17E176200B600AD311A /* navBarBackgroundPhoneLandscape@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 7D6BD17C176200B600AD311A /* navBarBackgroundPhoneLandscape@2x.png */; };
-		7D6BD17F176200B600AD311A /* navBarBackgroundPhoneLandscape.png in Resources */ = {isa = PBXBuildFile; fileRef = 7D6BD17D176200B600AD311A /* navBarBackgroundPhoneLandscape.png */; };
 		7D6BD1841762026700AD311A /* thumbOverlayPhone@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 7D6BD1801762026700AD311A /* thumbOverlayPhone@2x.png */; };
 		7D6BD1851762026700AD311A /* thumbOverlay@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 7D6BD1811762026700AD311A /* thumbOverlay@2x.png */; };
 		7D6BD1861762026700AD311A /* thumbOverlayPhone.png in Resources */ = {isa = PBXBuildFile; fileRef = 7D6BD1821762026700AD311A /* thumbOverlayPhone.png */; };
@@ -355,7 +356,6 @@
 		7D00161A17704DAC00649F27 /* main.js */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.javascript; path = main.js; sourceTree = "<group>"; };
 		7D02B0D017B6BE850099030D /* VLCLocalServerFolderListViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = VLCLocalServerFolderListViewController.h; sourceTree = "<group>"; };
 		7D02B0D117B6BE850099030D /* VLCLocalServerFolderListViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = VLCLocalServerFolderListViewController.m; sourceTree = "<group>"; };
-		7D031C3517B6EF82002A82F9 /* searchBarBG.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = searchBarBG.png; sourceTree = "<group>"; };
 		7D05ADEA174945CE0087550C /* DropboxSDK.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = DropboxSDK.framework; path = ImportedSources/Dropbox/DropboxSDK.framework; sourceTree = "<group>"; };
 		7D07A4E6174EA47800759D10 /* VLCSettingsController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = VLCSettingsController.h; sourceTree = "<group>"; };
 		7D07A4E7174EA47800759D10 /* VLCSettingsController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = VLCSettingsController.m; sourceTree = "<group>"; };
@@ -383,6 +383,10 @@
 		7D07F72B175691CC00CDE21C /* backButton@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "backButton@2x.png"; sourceTree = "<group>"; };
 		7D07F72C175691CC00CDE21C /* backButtonHighlight.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = backButtonHighlight.png; sourceTree = "<group>"; };
 		7D07F72D175691CC00CDE21C /* backButtonHighlight@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "backButtonHighlight@2x.png"; sourceTree = "<group>"; };
+		7D16035917BF9FE600F29B34 /* sudHeaderBg.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = sudHeaderBg.png; sourceTree = "<group>"; };
+		7D16035A17BF9FE600F29B34 /* sudHeaderBg@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "sudHeaderBg@2x.png"; sourceTree = "<group>"; };
+		7D16035B17BF9FE600F29B34 /* headerSidebar@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "headerSidebar@2x.png"; sourceTree = "<group>"; };
+		7D16035C17BF9FE600F29B34 /* headerSidebar.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = headerSidebar.png; sourceTree = "<group>"; };
 		7D1AB27C179C98BF004CC271 /* he */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = he; path = he.lproj/Localizable.strings; sourceTree = "<group>"; };
 		7D1AB27D179C98BF004CC271 /* he */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = he; path = "he.lproj/badgeUnread@2x~ipad.png"; sourceTree = "<group>"; };
 		7D1AB27E179C98BF004CC271 /* he */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = he; path = "he.lproj/badgeUnread@2x~iphone.png"; sourceTree = "<group>"; };
@@ -565,8 +569,6 @@
 		7D6B08EA174D65B500A05173 /* IASKTextField.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = IASKTextField.m; sourceTree = "<group>"; };
 		7D6B08F9174D716200A05173 /* MessageUI.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = MessageUI.framework; path = System/Library/Frameworks/MessageUI.framework; sourceTree = SDKROOT; };
 		7D6B08FB174D773C00A05173 /* Settings.bundle */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.plug-in"; name = Settings.bundle; path = Resources/Settings.bundle; sourceTree = SOURCE_ROOT; };
-		7D6BD17C176200B600AD311A /* navBarBackgroundPhoneLandscape@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "navBarBackgroundPhoneLandscape@2x.png"; sourceTree = "<group>"; };
-		7D6BD17D176200B600AD311A /* navBarBackgroundPhoneLandscape.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = navBarBackgroundPhoneLandscape.png; sourceTree = "<group>"; };
 		7D6BD1801762026700AD311A /* thumbOverlayPhone@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "thumbOverlayPhone@2x.png"; sourceTree = "<group>"; };
 		7D6BD1811762026700AD311A /* thumbOverlay@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "thumbOverlay@2x.png"; sourceTree = "<group>"; };
 		7D6BD1821762026700AD311A /* thumbOverlayPhone.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = thumbOverlayPhone.png; sourceTree = "<group>"; };
@@ -972,10 +974,12 @@
 				7D07F70F175669D800CDE21C /* buttonHighlight@2x.png */,
 				7D07F706175665ED00CDE21C /* navBarBackground@2x.png */,
 				7D07F707175665ED00CDE21C /* navBarBackground.png */,
-				7D6BD17C176200B600AD311A /* navBarBackgroundPhoneLandscape@2x.png */,
-				7D6BD17D176200B600AD311A /* navBarBackgroundPhoneLandscape.png */,
 				A7FF9F3D17428C1900999819 /* DeleteButton.png */,
 				A7FF9F3F17428C3800999819 /* DeleteButton@2x.png */,
+				7D16035917BF9FE600F29B34 /* sudHeaderBg.png */,
+				7D16035A17BF9FE600F29B34 /* sudHeaderBg@2x.png */,
+				7D16035B17BF9FE600F29B34 /* headerSidebar@2x.png */,
+				7D16035C17BF9FE600F29B34 /* headerSidebar.png */,
 			);
 			name = "Library View";
 			sourceTree = "<group>";
@@ -1455,7 +1459,6 @@
 				7DC72D5B17B7E7C7008A26D0 /* download@4x.png */,
 				7DC72D5C17B7E7C7008A26D0 /* download.png */,
 				7DC72D5D17B7E7C7008A26D0 /* download@2x.png */,
-				7D031C3517B6EF82002A82F9 /* searchBarBG.png */,
 				7DEB3B771764A4040038FC70 /* input@2x.png */,
 				7DEB3B781764A4040038FC70 /* input.png */,
 				7DEB3B7317649F2C0038FC70 /* menuButton.png */,
@@ -1726,8 +1729,6 @@
 				7D47D7281760D77C00E86BAD /* pauseIcon@2x.png in Resources */,
 				7D47D72B1760E3A000E86BAD /* sliderminimumTrack.png in Resources */,
 				7D47D72C1760E3A000E86BAD /* sliderminimumTrack@2x.png in Resources */,
-				7D6BD17E176200B600AD311A /* navBarBackgroundPhoneLandscape@2x.png in Resources */,
-				7D6BD17F176200B600AD311A /* navBarBackgroundPhoneLandscape.png in Resources */,
 				7D6BD1841762026700AD311A /* thumbOverlayPhone@2x.png in Resources */,
 				7D6BD1851762026700AD311A /* thumbOverlay@2x.png in Resources */,
 				7D6BD1861762026700AD311A /* thumbOverlayPhone.png in Resources */,
@@ -1773,11 +1774,14 @@
 				7D93044817B687C90054EAC6 /* VLCLocalNetworkListCell~ipad.xib in Resources */,
 				7D93044917B687C90054EAC6 /* VLCLocalNetworkListCell~iphone.xib in Resources */,
 				7D93045B17B6ACCF0054EAC6 /* VLCWiFiUploadTableViewCell.xib in Resources */,
-				7D031C3617B6EF82002A82F9 /* searchBarBG.png in Resources */,
 				7DC72D5E17B7E7C7008A26D0 /* download@4x.png in Resources */,
 				7DC72D5F17B7E7C7008A26D0 /* download.png in Resources */,
 				7DC72D6017B7E7C7008A26D0 /* download@2x.png in Resources */,
 				7DC72D6A17B820C9008A26D0 /* VLCNetworkLoginViewController.xib in Resources */,
+				7D16035D17BF9FE600F29B34 /* sudHeaderBg.png in Resources */,
+				7D16035E17BF9FE600F29B34 /* sudHeaderBg@2x.png in Resources */,
+				7D16035F17BF9FE600F29B34 /* headerSidebar@2x.png in Resources */,
+				7D16036017BF9FE600F29B34 /* headerSidebar.png in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
