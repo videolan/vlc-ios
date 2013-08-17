@@ -163,8 +163,8 @@
     }
 
     if ([title isEqualToString:@"Dropbox"]) {
-        [[(GHMenuCell*)cell titleImageView] setImage: [UIImage imageNamed:@"dropboxLabel"]];
-        cell.textLabel.text = @"";
+        cell.imageView.image = [UIImage imageNamed:@"dropboxLabel"];
+        cell.textLabel.text = title;
     } else if ([title isEqualToString:@"WiFi Upload"]) {
         _uploadLocationLabel = [(VLCWiFiUploadTableViewCell*)cell uploadAddressLabel];
         _uploadSwitch = [(VLCWiFiUploadTableViewCell*)cell serverOnSwitch];
