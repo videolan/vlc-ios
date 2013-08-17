@@ -14,7 +14,7 @@
 
 @property (nonatomic, strong) IBOutlet UILabel *titleLabel;
 @property (nonatomic, strong) IBOutlet UILabel *uploadAddressLabel;
-@property (nonatomic, strong) IBOutlet UISwitch *serverOnSwitch;
+@property (nonatomic, strong) IBOutlet UIButton *serverOnButton;
 
 + (VLCWiFiUploadTableViewCell *)cellWithReuseIdentifier:(NSString *)ident;
 + (CGFloat)heightOfCell;

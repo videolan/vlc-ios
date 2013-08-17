@@ -73,6 +73,10 @@
 		7D16035E17BF9FE600F29B34 /* sudHeaderBg@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 7D16035A17BF9FE600F29B34 /* sudHeaderBg@2x.png */; };
 		7D16035F17BF9FE600F29B34 /* headerSidebar@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 7D16035B17BF9FE600F29B34 /* headerSidebar@2x.png */; };
 		7D16036017BF9FE600F29B34 /* headerSidebar.png in Resources */ = {isa = PBXBuildFile; fileRef = 7D16035C17BF9FE600F29B34 /* headerSidebar.png */; };
+		7D16036317BFB7F400F29B34 /* WiFi-off.png in Resources */ = {isa = PBXBuildFile; fileRef = 7D16036117BFB7F400F29B34 /* WiFi-off.png */; };
+		7D16036417BFB7F400F29B34 /* WiFi-on.png in Resources */ = {isa = PBXBuildFile; fileRef = 7D16036217BFB7F400F29B34 /* WiFi-on.png */; };
+		7D16036717BFBB5D00F29B34 /* WiFi-off@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 7D16036517BFBB5D00F29B34 /* WiFi-off@2x.png */; };
+		7D16036817BFBB5D00F29B34 /* WiFi-on@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 7D16036617BFBB5D00F29B34 /* WiFi-on@2x.png */; };
 		7D1AC3041762996100BD2EB5 /* resetIcon.png in Resources */ = {isa = PBXBuildFile; fileRef = 7D1AC3021762996100BD2EB5 /* resetIcon.png */; };
 		7D1AC3051762996100BD2EB5 /* resetIcon@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 7D1AC3031762996100BD2EB5 /* resetIcon@2x.png */; };
 		7D1AC30817629AB600BD2EB5 /* ratioIcon.png in Resources */ = {isa = PBXBuildFile; fileRef = 7D1AC30617629AB600BD2EB5 /* ratioIcon.png */; };
@@ -387,6 +391,10 @@
 		7D16035A17BF9FE600F29B34 /* sudHeaderBg@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "sudHeaderBg@2x.png"; sourceTree = "<group>"; };
 		7D16035B17BF9FE600F29B34 /* headerSidebar@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "headerSidebar@2x.png"; sourceTree = "<group>"; };
 		7D16035C17BF9FE600F29B34 /* headerSidebar.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = headerSidebar.png; sourceTree = "<group>"; };
+		7D16036117BFB7F400F29B34 /* WiFi-off.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "WiFi-off.png"; sourceTree = "<group>"; };
+		7D16036217BFB7F400F29B34 /* WiFi-on.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "WiFi-on.png"; sourceTree = "<group>"; };
+		7D16036517BFBB5D00F29B34 /* WiFi-off@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "WiFi-off@2x.png"; sourceTree = "<group>"; };
+		7D16036617BFBB5D00F29B34 /* WiFi-on@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "WiFi-on@2x.png"; sourceTree = "<group>"; };
 		7D1AB27C179C98BF004CC271 /* he */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = he; path = he.lproj/Localizable.strings; sourceTree = "<group>"; };
 		7D1AB27D179C98BF004CC271 /* he */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = he; path = "he.lproj/badgeUnread@2x~ipad.png"; sourceTree = "<group>"; };
 		7D1AB27E179C98BF004CC271 /* he */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = he; path = "he.lproj/badgeUnread@2x~iphone.png"; sourceTree = "<group>"; };
@@ -1456,6 +1464,10 @@
 		7DEB3B7B1764A4080038FC70 /* menu */ = {
 			isa = PBXGroup;
 			children = (
+				7D16036117BFB7F400F29B34 /* WiFi-off.png */,
+				7D16036217BFB7F400F29B34 /* WiFi-on.png */,
+				7D16036517BFBB5D00F29B34 /* WiFi-off@2x.png */,
+				7D16036617BFBB5D00F29B34 /* WiFi-on@2x.png */,
 				7DC72D5B17B7E7C7008A26D0 /* download@4x.png */,
 				7DC72D5C17B7E7C7008A26D0 /* download.png */,
 				7DC72D5D17B7E7C7008A26D0 /* download@2x.png */,
@@ -1782,6 +1794,10 @@
 				7D16035E17BF9FE600F29B34 /* sudHeaderBg@2x.png in Resources */,
 				7D16035F17BF9FE600F29B34 /* headerSidebar@2x.png in Resources */,
 				7D16036017BF9FE600F29B34 /* headerSidebar.png in Resources */,
+				7D16036317BFB7F400F29B34 /* WiFi-off.png in Resources */,
+				7D16036417BFB7F400F29B34 /* WiFi-on.png in Resources */,
+				7D16036717BFBB5D00F29B34 /* WiFi-off@2x.png in Resources */,
+				7D16036817BFBB5D00F29B34 /* WiFi-on@2x.png in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

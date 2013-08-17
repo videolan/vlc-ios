@@ -36,7 +36,7 @@
     NSArray *_menuItemsSectionThree;
 
     UILabel *_uploadLocationLabel;
-    UISwitch *_uploadSwitch;
+    UIButton *_uploadButton;
     Reachability *_reachability;
 }
 
@@ -99,6 +99,10 @@
     self.revealController = self.appDelegate.revealController;
 
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(netReachabilityChanged:) name:kReachabilityChangedNotification object:nil];
+
+    BOOL isHTTPServerOn = [[NSUserDefaults standardUserDefaults] boolForKey:kVLCSettingSaveHTTPUploadServerStatus];
+    [self.uploadController changeHTTPServerState:isHTTPServerOn];
+    [self updateHTTPServerAddress];
 }
 
 - (void)viewWillAppear:(BOOL)animated {
@@ -108,12 +112,13 @@
 - (void)netReachabilityChanged:(NSNotification *)notification
 {
     if (_reachability.currentReachabilityStatus == ReachableViaWiFi) {
-        _uploadSwitch.enabled = YES;
+        _uploadButton.enabled = YES;
         _uploadLocationLabel.text = NSLocalizedString(@"HTTP_UPLOAD_SERVER_OFF", @"");
     } else {
-        _uploadSwitch.enabled = NO;
-        _uploadSwitch.on = NO;
+        _uploadButton.enabled = NO;
+        [_uploadButton setImage:[UIImage imageNamed:@"WiFi-off"] forState:UIControlStateNormal];
         _uploadLocationLabel.text = NSLocalizedString(@"HTTP_UPLOAD_NO_CONNECTIVITY", @"");
+        [self.uploadController changeHTTPServerState:NO];
     }
 }
 
@@ -167,12 +172,8 @@
         cell.textLabel.text = title;
     } else if ([title isEqualToString:@"WiFi Upload"]) {
         _uploadLocationLabel = [(VLCWiFiUploadTableViewCell*)cell uploadAddressLabel];
-        _uploadSwitch = [(VLCWiFiUploadTableViewCell*)cell serverOnSwitch];
-        [_uploadSwitch addTarget:self action:@selector(toggleHTTPServer:) forControlEvents:UIControlEventTouchUpInside];
-
-        BOOL isHTTPServerOn = [[NSUserDefaults standardUserDefaults] boolForKey:kVLCSettingSaveHTTPUploadServerStatus];
-        [_uploadSwitch setOn:isHTTPServerOn];
-        [self updateHTTPServerAddress];
+        _uploadButton = [(VLCWiFiUploadTableViewCell*)cell serverOnButton];
+        [_uploadButton addTarget:self action:@selector(toggleHTTPServer:) forControlEvents:UIControlEventTouchUpInside];
     } else
         cell.textLabel.text = title;
 
@@ -229,14 +230,19 @@
             _uploadLocationLabel.text = [NSString stringWithFormat:@"http://%@:%i", [self.uploadController currentIPAddress], server.listeningPort];
         else
             _uploadLocationLabel.text = [NSString stringWithFormat:@"http://%@", [self.uploadController currentIPAddress]];
-    } else
+        [_uploadButton setImage:[UIImage imageNamed:@"WiFi-on"] forState:UIControlStateNormal];
+    } else {
         _uploadLocationLabel.text = NSLocalizedString(@"HTTP_UPLOAD_SERVER_OFF", @"");
+        [_uploadButton setImage:[UIImage imageNamed:@"WiFi-off"] forState:UIControlStateNormal];
+    }
 }
 
-- (IBAction)toggleHTTPServer:(UISwitch *)sender
+- (IBAction)toggleHTTPServer:(UIButton *)sender
 {
-    [[NSUserDefaults standardUserDefaults] setBool:sender.on forKey:kVLCSettingSaveHTTPUploadServerStatus];
-    [self.uploadController changeHTTPServerState:sender.on];
+    BOOL futureHTTPServerState = ![[NSUserDefaults standardUserDefaults] boolForKey:kVLCSettingSaveHTTPUploadServerStatus];
+
+    [[NSUserDefaults standardUserDefaults] setBool:futureHTTPServerState forKey:kVLCSettingSaveHTTPUploadServerStatus];
+    [self.uploadController changeHTTPServerState:futureHTTPServerState];
     [self updateHTTPServerAddress];
     [[NSUserDefaults standardUserDefaults] synchronize];
 }
@@ -251,6 +257,8 @@
             viewController = [[VLCOpenNetworkStreamViewController alloc] init];
         else if (itemIndex == 2)
             viewController = self.appDelegate.downloadViewController;
+        else if (itemIndex == 3)
+            [self toggleHTTPServer:nil];
         else if (itemIndex == 4)
             viewController = self.appDelegate.dropboxTableViewController;
     } else if (sectionNumber == 2) {
