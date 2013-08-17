@@ -45,7 +45,8 @@
 								<int key="NSvFlags">290</int>
 								<string key="NSFrame">{{50, 5}, {174, 21}}</string>
 								<reference key="NSSuperview" ref="162418872"/>
-								<reference key="NSNextKeyView"/>
+								<reference key="NSWindow"/>
+								<reference key="NSNextKeyView" ref="782250670"/>
 								<string key="NSReuseIdentifierKey">_NS:9</string>
 								<bool key="IBUIOpaque">NO</bool>
 								<bool key="IBUIClipsSubviews">YES</bool>
@@ -75,7 +76,8 @@
 								<int key="NSvFlags">290</int>
 								<string key="NSFrame">{{50, 24}, {203, 21}}</string>
 								<reference key="NSSuperview" ref="162418872"/>
-								<reference key="NSNextKeyView" ref="76807315"/>
+								<reference key="NSWindow"/>
+								<reference key="NSNextKeyView"/>
 								<string key="NSReuseIdentifierKey">_NS:9</string>
 								<bool key="IBUIOpaque">NO</bool>
 								<bool key="IBUIClipsSubviews">YES</bool>
@@ -100,14 +102,16 @@
 								</object>
 								<bool key="IBUIAdjustsFontSizeToFit">NO</bool>
 							</object>
-							<object class="IBUIButton" id="418690459">
+							<object class="IBUIButton" id="218831822">
 								<reference key="NSNextResponder" ref="162418872"/>
 								<int key="NSvFlags">292</int>
-								<string key="NSFrame">{{10, 14}, {23, 23}}</string>
+								<string key="NSFrameSize">{50, 50}</string>
 								<reference key="NSSuperview" ref="162418872"/>
-								<reference key="NSNextKeyView" ref="782250670"/>
+								<reference key="NSWindow"/>
+								<reference key="NSNextKeyView" ref="76807315"/>
 								<string key="NSReuseIdentifierKey">_NS:9</string>
 								<bool key="IBUIOpaque">NO</bool>
+								<int key="IBUIContentMode">4</int>
 								<string key="targetRuntimeIdentifier">IBCocoaTouchFramework</string>
 								<int key="IBUIContentHorizontalAlignment">0</int>
 								<int key="IBUIContentVerticalAlignment">0</int>
@@ -140,7 +144,8 @@
 						</array>
 						<string key="NSFrameSize">{260, 49}</string>
 						<reference key="NSSuperview" ref="962619467"/>
-						<reference key="NSNextKeyView" ref="418690459"/>
+						<reference key="NSWindow"/>
+						<reference key="NSNextKeyView" ref="218831822"/>
 						<string key="NSReuseIdentifierKey">_NS:11</string>
 						<object class="NSColor" key="IBUIBackgroundColor">
 							<int key="NSColorSpace">3</int>
@@ -155,6 +160,7 @@
 				</array>
 				<string key="NSFrameSize">{260, 50}</string>
 				<reference key="NSSuperview"/>
+				<reference key="NSWindow"/>
 				<reference key="NSNextKeyView" ref="162418872"/>
 				<string key="NSReuseIdentifierKey">_NS:9</string>
 				<object class="NSColor" key="IBUIBackgroundColor">
@@ -190,7 +196,7 @@
 					<object class="IBCocoaTouchOutletConnection" key="connection">
 						<string key="label">serverOnButton</string>
 						<reference key="source" ref="962619467"/>
-						<reference key="destination" ref="418690459"/>
+						<reference key="destination" ref="218831822"/>
 					</object>
 					<int key="connectionID">36</int>
 				</object>
@@ -220,7 +226,7 @@
 						<array class="NSMutableArray" key="children">
 							<reference ref="76807315"/>
 							<reference ref="782250670"/>
-							<reference ref="418690459"/>
+							<reference ref="218831822"/>
 						</array>
 						<reference key="parent" ref="0"/>
 					</object>
@@ -236,7 +242,7 @@
 					</object>
 					<object class="IBObjectRecord">
 						<int key="objectID">34</int>
-						<reference key="object" ref="418690459"/>
+						<reference key="object" ref="218831822"/>
 						<reference key="parent" ref="962619467"/>
 					</object>
 				</array>
@@ -257,7 +263,37 @@
 			<nil key="sourceID"/>
 			<int key="maxID">36</int>
 		</object>
-		<object class="IBClassDescriber" key="IBDocument.Classes"/>
+		<object class="IBClassDescriber" key="IBDocument.Classes">
+			<array class="NSMutableArray" key="referencedPartialClassDescriptions">
+				<object class="IBPartialClassDescription">
+					<string key="className">VLCWiFiUploadTableViewCell</string>
+					<string key="superclassName">UITableViewCell</string>
+					<dictionary class="NSMutableDictionary" key="outlets">
+						<string key="serverOnButton">UIButton</string>
+						<string key="titleLabel">UILabel</string>
+						<string key="uploadAddressLabel">UILabel</string>
+					</dictionary>
+					<dictionary class="NSMutableDictionary" key="toOneOutletInfosByName">
+						<object class="IBToOneOutletInfo" key="serverOnButton">
+							<string key="name">serverOnButton</string>
+							<string key="candidateClassName">UIButton</string>
+						</object>
+						<object class="IBToOneOutletInfo" key="titleLabel">
+							<string key="name">titleLabel</string>
+							<string key="candidateClassName">UILabel</string>
+						</object>
+						<object class="IBToOneOutletInfo" key="uploadAddressLabel">
+							<string key="name">uploadAddressLabel</string>
+							<string key="candidateClassName">UILabel</string>
+						</object>
+					</dictionary>
+					<object class="IBClassDescriptionSource" key="sourceIdentifier">
+						<string key="majorKey">IBProjectSource</string>
+						<string key="minorKey">./Classes/VLCWiFiUploadTableViewCell.h</string>
+					</object>
+				</object>
+			</array>
+		</object>
 		<int key="IBDocument.localizationMode">0</int>
 		<string key="IBDocument.TargetRuntimeIdentifier">IBCocoaTouchFramework</string>
 		<object class="NSMutableDictionary" key="IBDocument.PluginDeclaredDependencies">
