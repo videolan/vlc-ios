@@ -2,7 +2,7 @@
 <archive type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="8.00">
 	<data>
 		<int key="IBDocument.SystemTarget">1296</int>
-		<string key="IBDocument.SystemVersion">12E55</string>
+		<string key="IBDocument.SystemVersion">12F33</string>
 		<string key="IBDocument.InterfaceBuilderVersion">3084</string>
 		<string key="IBDocument.AppKitVersion">1187.39</string>
 		<string key="IBDocument.HIToolboxVersion">626.00</string>
@@ -86,6 +86,8 @@
 									<bytes key="NSWhite">MQA</bytes>
 								</object>
 								<reference key="IBUIHighlightedColor" ref="654385816"/>
+								<float key="IBUIMinimumFontSize">9</float>
+								<bool key="IBUIAdjustsLetterSpacingToFitWidth">YES</bool>
 								<int key="IBUINumberOfLines">2</int>
 								<int key="IBUILineBreakMode">0</int>
 								<object class="IBUIFontDescription" key="IBUIFontDescription">
@@ -97,7 +99,6 @@
 									<double key="NSSize">17</double>
 									<int key="NSfFlags">16</int>
 								</object>
-								<bool key="IBUIAdjustsFontSizeToFit">NO</bool>
 								<double key="preferredMaxLayoutWidth">178</double>
 							</object>
 							<object class="IBUILabel" id="625431089">
@@ -153,7 +154,6 @@
 								<string key="NSFrame">{{6, 64}, {122, 10}}</string>
 								<reference key="NSSuperview" ref="162418872"/>
 								<reference key="NSWindow"/>
-								<reference key="NSNextKeyView"/>
 								<string key="NSReuseIdentifierKey">_NS:9</string>
 								<object class="NSColor" key="IBUIBackgroundColor" id="698237866">
 									<int key="NSColorSpace">3</int>
