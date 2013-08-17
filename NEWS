@@ -8,6 +8,7 @@
 * Add Bonjour announcement for the WiFi Uploader's website (#8741)
 * Add playback of audio-only media (#9044)
 * Newly implemented menu and application flow (#9045)
+* Improved VoiceOver and accessibility support (#9017)
 * Add Deinterlace option (off by default, #8813)
 * Device no longer goes to sleep during media downloads (#9062)
 * Improved video output on external screens (#9055, #9079)

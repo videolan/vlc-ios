@@ -50,6 +50,9 @@
     UIBarButtonItem *menuButton = [[UIBarButtonItem alloc] initWithImage:[UIImage imageNamed:@"menuCone"] style:UIBarButtonItemStyleBordered target:target action:selector];
     [menuButton setBackgroundImage:[UIImage imageNamed:@"button"] forState:UIControlStateNormal barMetrics:UIBarMetricsDefault];
     [menuButton setBackgroundImage:[UIImage imageNamed:@"buttonHighlight"] forState:UIControlStateHighlighted barMetrics:UIBarMetricsDefault];
+    menuButton.accessibilityLabel = NSLocalizedString(@"OPEN_VLC_MENU", @"");
+    menuButton.isAccessibilityElement = YES;
+
     return menuButton;
 }
 

@@ -93,11 +93,46 @@
     self.videoFilterView.hidden = YES;
     _videoFiltersHidden = YES;
     _hueLabel.text = NSLocalizedString(@"VFILTER_HUE", @"");
+    _hueSlider.accessibilityLabel = _hueLabel.text;
+    _hueSlider.isAccessibilityElement = YES;
     _contrastLabel.text = NSLocalizedString(@"VFILTER_CONTRAST", @"");
+    _contrastSlider.accessibilityLabel = _contrastLabel.text;
+    _contrastSlider.isAccessibilityElement = YES;
     _brightnessLabel.text = NSLocalizedString(@"VFILTER_BRIGHTNESS", @"");
+    _brightnessSlider.accessibilityLabel = _brightnessLabel.text;
+    _brightnessSlider.isAccessibilityElement = YES;
     _saturationLabel.text = NSLocalizedString(@"VFILTER_SATURATION", @"");
+    _saturationSlider.accessibilityLabel = _saturationLabel.text;
+    _saturationSlider.isAccessibilityElement = YES;
     _gammaLabel.text = NSLocalizedString(@"VFILTER_GAMMA", @"");
+    _gammaSlider.accessibilityLabel = _gammaLabel.text;
+    _gammaSlider.isAccessibilityElement = YES;
     _playbackSpeedLabel.text = NSLocalizedString(@"PLAYBACK_SPEED", @"");
+    _playbackSpeedSlider.accessibilityLabel = _playbackSpeedLabel.text;
+    _playbackSpeedSlider.isAccessibilityElement = YES;
+
+    _positionSlider.accessibilityLabel = NSLocalizedString(@"PLAYBACK_POSITION", @"");
+    _positionSlider.isAccessibilityElement = YES;
+    _timeDisplay.isAccessibilityElement = YES;
+
+    _audioSwitcherButton.accessibilityLabel = NSLocalizedString(@"CHOOSE_AUDIO_TRACK", @"");
+    _audioSwitcherButton.isAccessibilityElement = YES;
+    _subtitleSwitcherButton.accessibilityLabel = NSLocalizedString(@"CHOOSE_SUBTITLE_TRACK", @"");
+    _subtitleSwitcherButton.isAccessibilityElement = YES;
+    _playbackSpeedButton.accessibilityLabel = _playbackSpeedLabel.text;
+    _playbackSpeedButton.isAccessibilityElement = YES;
+    _videoFilterButton.accessibilityLabel = NSLocalizedString(@"VIDEO_FILTER", @"");
+    _videoFilterButton.isAccessibilityElement = YES;
+    _resetVideoFilterButton.accessibilityLabel = NSLocalizedString(@"VIDEO_FILTER_RESET_BUTTON", @"");
+    _resetVideoFilterButton.isAccessibilityElement = YES;
+    _aspectRatioButton.accessibilityLabel = NSLocalizedString(@"VIDEO_ASPECT_RATIO_BUTTON", @"");
+    _aspectRatioButton.isAccessibilityElement = YES;
+    _playPauseButton.accessibilityLabel = NSLocalizedString(@"PLAY_PAUSE_BUTTON", @"");
+    _playPauseButton.isAccessibilityElement = YES;
+    _bwdButton.accessibilityLabel = NSLocalizedString(@"BWD_BUTTON", @"");
+    _bwdButton.isAccessibilityElement = YES;
+    _fwdButton.accessibilityLabel = NSLocalizedString(@"FWD_BUTTON", @"");
+    _fwdButton.isAccessibilityElement = YES;
 
     _scrubHelpLabel.text = NSLocalizedString(@"PLAYBACK_SCRUB_HELP", @"");
 
@@ -300,6 +335,7 @@
 
     self.positionSlider.value = 0.;
     [self.timeDisplay setTitle:@"" forState:UIControlStateNormal];
+    self.timeDisplay.accessibilityLabel = @"";
 
     if (![self _isMediaSuitableForDevice]) {
         UIAlertView * alert = [[UIAlertView alloc] initWithTitle:NSLocalizedString(@"DEVICE_TOOSLOW_TITLE", @"") message:[NSString stringWithFormat:NSLocalizedString(@"DEVICE_TOOSLOW", @""), [[UIDevice currentDevice] model], self.mediaItem.title] delegate:self cancelButtonTitle:NSLocalizedString(@"BUTTON_CANCEL", @"") otherButtonTitles:NSLocalizedString(@"BUTTON_OPEN", @""), nil];
@@ -587,6 +623,7 @@
     [self performSelector:@selector(_setPositionForReal) withObject:nil afterDelay:0.3];
     VLCTime *newPosition = [VLCTime timeWithInt:(int)(_positionSlider.value * self.mediaItem.duration.intValue)];
     [self.timeDisplay setTitle:newPosition.stringValue forState:UIControlStateNormal];
+    self.timeDisplay.accessibilityLabel = [NSString stringWithFormat:@"%@: %@", NSLocalizedString(@"PLAYBACK_POSITION", @""), newPosition.stringValue];
     _positionSet = NO;
     [self _resetIdleTimer];
 }
