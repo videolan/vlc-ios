@@ -205,7 +205,7 @@
 		textLabel.font = [UIFont fontWithName:@"Helvetica-Bold" size:([UIFont systemFontSize] * 0.8f)];
 		textLabel.shadowOffset = CGSizeMake(0.0f, 1.0f);
 		textLabel.shadowColor = [UIColor colorWithWhite:0.0f alpha:0.25f];
-		textLabel.textColor = [UIColor colorWithRed:(125.0f/255.0f) green:(129.0f/255.0f) blue:(146.0f/255.0f) alpha:1.0f];
+		textLabel.textColor = [UIColor colorWithRed:(98.0f/255.0f) green:(98.0f/255.0f) blue:(98.0f/255.0f) alpha:1.0f];
 		textLabel.backgroundColor = [UIColor clearColor];
 		[headerView addSubview:textLabel];
 
