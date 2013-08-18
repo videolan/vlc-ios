@@ -280,11 +280,17 @@
         self.title = [self.mediaItem title];
         media = [VLCMedia mediaWithURL:[NSURL URLWithString:self.mediaItem.url]];
         self.mediaItem.unread = @(NO);
+
+        if (self.mediaItem.isAlbumTrack) {
+            self.trackNameLabel.text = self.mediaItem.albumTrack.title;
+            self.artistNameLabel.text = self.mediaItem.albumTrack.artist;
+            self.albumNameLabel.text = self.mediaItem.albumTrack.album.name;
+        } else
+            self.trackNameLabel.text = self.artistNameLabel.text = self.albumNameLabel.text = @"";
     } else {
         media = [VLCMedia mediaWithURL:self.url];
         self.title = @"Network Stream";
     }
-
 
     [media addOptions:
      @{kVLCSettingStretchAudio :

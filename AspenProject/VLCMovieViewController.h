@@ -59,6 +59,10 @@
 @property (nonatomic, strong) IBOutlet UILabel *currentScrubSpeedLabel;
 @property (nonatomic, strong) IBOutlet UILabel *scrubHelpLabel;
 
+@property (nonatomic, strong) IBOutlet UILabel *artistNameLabel;
+@property (nonatomic, strong) IBOutlet UILabel *albumNameLabel;
+@property (nonatomic, strong) IBOutlet UILabel *trackNameLabel;
+
 @property (nonatomic, strong) MLFile *mediaItem;
 @property (nonatomic, strong) NSURL *url;
 
