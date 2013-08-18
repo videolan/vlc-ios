@@ -40,6 +40,7 @@
     BOOL _displayRemainingTime;
     BOOL _positionSet;
     BOOL _playerIsSetup;
+    BOOL _isScrubbing;
 }
 
 @property (nonatomic, strong) UIPopoverController *masterPopoverController;
@@ -648,11 +649,13 @@
 {
     [self _updateScrubLabel];
     self.scrubIndicatorView.hidden = NO;
+    _isScrubbing = YES;
 }
 
 - (IBAction)positionSliderTouchUp:(id)sender
 {
     self.scrubIndicatorView.hidden = YES;
+    _isScrubbing = NO;
 }
 
 - (void)_updateScrubLabel
@@ -681,7 +684,10 @@
 }
 
 - (void)mediaPlayerTimeChanged:(NSNotification *)aNotification {
-    self.positionSlider.value = [_mediaPlayer position];
+    if (!_isScrubbing) {
+        self.positionSlider.value = [_mediaPlayer position];
+    }
+
     if (_displayRemainingTime)
         [self.timeDisplay setTitle:[[_mediaPlayer remainingTime] stringValue] forState:UIControlStateNormal];
     else
