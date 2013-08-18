@@ -172,6 +172,8 @@
 
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
 {
+    [tableView deselectRowAtIndexPath:indexPath animated:YES];
+
     if (indexPath.section == 0) {
         BasicUPnPDevice *device = _filteredUPNPDevices[indexPath.row];
         if ([[device urn] isEqualToString:@"urn:schemas-upnp-org:device:MediaServer:1"]) {
