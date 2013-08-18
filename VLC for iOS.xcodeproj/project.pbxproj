@@ -419,6 +419,11 @@
 		7D1AB292179C98E4004CC271 /* uk */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = uk; path = "uk.lproj/badgeUnread@2x~iphone.png"; sourceTree = "<group>"; };
 		7D1AB293179C98E4004CC271 /* uk */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = uk; path = "uk.lproj/badgeUnread~ipad.png"; sourceTree = "<group>"; };
 		7D1AB294179C98E4004CC271 /* uk */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = uk; path = "uk.lproj/badgeUnread~iphone.png"; sourceTree = "<group>"; };
+		7D1AB295179C98F4004CC271 /* vi */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = vi; path = vi.lproj/Localizable.strings; sourceTree = "<group>"; };
+		7D1AB296179C98F4004CC271 /* vi */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = vi; path = "vi.lproj/badgeUnread@2x~ipad.png"; sourceTree = "<group>"; };
+		7D1AB297179C98F4004CC271 /* vi */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = vi; path = "vi.lproj/badgeUnread@2x~iphone.png"; sourceTree = "<group>"; };
+		7D1AB298179C98F4004CC271 /* vi */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = vi; path = "vi.lproj/badgeUnread~ipad.png"; sourceTree = "<group>"; };
+		7D1AB299179C98F4004CC271 /* vi */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = vi; path = "vi.lproj/badgeUnread~iphone.png"; sourceTree = "<group>"; };
 		7D1AB2A4179C99AE004CC271 /* zh-Hans */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = "zh-Hans"; path = "zh-Hans.lproj/Localizable.strings"; sourceTree = "<group>"; };
 		7D1AB2A5179C99AE004CC271 /* zh-Hans */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "zh-Hans"; path = "zh-Hans.lproj/badgeUnread@2x~ipad.png"; sourceTree = "<group>"; };
 		7D1AB2A6179C99AE004CC271 /* zh-Hans */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "zh-Hans"; path = "zh-Hans.lproj/badgeUnread@2x~iphone.png"; sourceTree = "<group>"; };
@@ -1916,6 +1921,7 @@
 				7D1AB287179C98D4004CC271 /* sk */,
 				7D1AB28C179C98DC004CC271 /* tr */,
 				7D1AB291179C98E4004CC271 /* uk */,
+				7D1AB296179C98F4004CC271 /* vi */,
 				7D1AB2A5179C99AE004CC271 /* zh-Hans */,
 				CC87147A17A56C05003C7383 /* mr */,
 				CC87147F17A56C61003C7383 /* gl */,
@@ -1944,6 +1950,7 @@
 				7D1AB288179C98D4004CC271 /* sk */,
 				7D1AB28D179C98DC004CC271 /* tr */,
 				7D1AB292179C98E4004CC271 /* uk */,
+				7D1AB297179C98F4004CC271 /* vi */,
 				7D1AB2A6179C99AE004CC271 /* zh-Hans */,
 				CC87147B17A56C05003C7383 /* mr */,
 				CC87148017A56C61003C7383 /* gl */,
@@ -1972,6 +1979,7 @@
 				7D1AB289179C98D4004CC271 /* sk */,
 				7D1AB28E179C98DC004CC271 /* tr */,
 				7D1AB293179C98E4004CC271 /* uk */,
+				7D1AB298179C98F4004CC271 /* vi */,
 				7D1AB2A7179C99AE004CC271 /* zh-Hans */,
 				CC87147C17A56C05003C7383 /* mr */,
 				CC87148117A56C61003C7383 /* gl */,
@@ -2000,6 +2008,7 @@
 				7D1AB28A179C98D4004CC271 /* sk */,
 				7D1AB28F179C98DC004CC271 /* tr */,
 				7D1AB294179C98E4004CC271 /* uk */,
+				7D1AB299179C98F4004CC271 /* vi */,
 				7D1AB2A8179C99AE004CC271 /* zh-Hans */,
 				CC87147D17A56C05003C7383 /* mr */,
 				CC87148217A56C61003C7383 /* gl */,
@@ -2028,6 +2037,7 @@
 				7D1AB286179C98D4004CC271 /* sk */,
 				7D1AB28B179C98DC004CC271 /* tr */,
 				7D1AB290179C98E3004CC271 /* uk */,
+				7D1AB295179C98F4004CC271 /* vi */,
 				7D1AB2A4179C99AE004CC271 /* zh-Hans */,
 				CC87147917A56C05003C7383 /* mr */,
 				CC87147E17A56C61003C7383 /* gl */,
