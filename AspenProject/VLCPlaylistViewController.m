@@ -316,12 +316,32 @@
 {
     [self.gridView deselectItemAtIndex:index animated:YES];
 
-    MLFile *mediaObject = _foundMedia[index];
-    if (!self.movieViewController)
-        self.movieViewController = [[VLCMovieViewController alloc] initWithNibName:nil bundle:nil];
+    NSManagedObject *currentObject = _foundMedia[index];
+    if ([currentObject isKindOfClass:[MLAlbum class]]) {
+        _foundMedia = [NSMutableArray arrayWithArray:[[(MLAlbum *)currentObject tracks] allObjects]];
+        self.navigationItem.leftBarButtonItem = [UIBarButtonItem themedBackButtonWithTarget:self andSelector:@selector(backToAllItems:)];
+        [self.navigationItem.leftBarButtonItem setTitle:NSLocalizedString(@"LIBRARY_MUSIC", @"")];
+        self.title = [(MLAlbum*)currentObject name];
+        [self updateViewContents];
+    } else if ([currentObject isKindOfClass:[MLShow class]]) {
+        _foundMedia = [NSMutableArray arrayWithArray:[[(MLShow *)currentObject episodes] allObjects]];
+        self.navigationItem.leftBarButtonItem = [UIBarButtonItem themedBackButtonWithTarget:self andSelector:@selector(backToAllItems:)];
+        [self.navigationItem.leftBarButtonItem setTitle:NSLocalizedString(@"LIBRARY_SERIES", @"")];
+        self.title = [(MLShow*)currentObject name];
+        [self updateViewContents];
+    } else {
+        if (!self.movieViewController)
+            self.movieViewController = [[VLCMovieViewController alloc] initWithNibName:nil bundle:nil];
 
-    self.movieViewController.mediaItem = mediaObject;
-    [self.navigationController pushViewController:self.movieViewController animated:YES];
+        if ([currentObject isKindOfClass:[MLFile class]])
+            self.movieViewController.mediaItem = (MLFile *)currentObject;
+        else if ([currentObject isKindOfClass:[MLAlbumTrack class]])
+            self.movieViewController.mediaItem = [(MLAlbumTrack*)currentObject files].anyObject;
+        else if ([currentObject isKindOfClass:[MLShowEpisode class]])
+            self.movieViewController.mediaItem = [(MLShowEpisode*)currentObject files].anyObject;
+
+        [self.navigationController pushViewController:self.movieViewController animated:YES];
+    }
 }
 
 - (void)gridView:(AQGridView *)aGridView commitEditingStyle:(UITableViewCellEditingStyle)editingStyle forRowAtIndex:(NSUInteger)index
