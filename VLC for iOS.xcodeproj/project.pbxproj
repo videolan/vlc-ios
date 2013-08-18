@@ -265,7 +265,6 @@
 		A7A0E9F9174BA66000162F25 /* papasscode_marker.png in Resources */ = {isa = PBXBuildFile; fileRef = A7A0E9F1174BA66000162F25 /* papasscode_marker.png */; };
 		A7A0E9FA174BA66000162F25 /* papasscode_marker@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = A7A0E9F2174BA66000162F25 /* papasscode_marker@2x.png */; };
 		A7A0E9FB174BA66000162F25 /* PAPasscodeViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = A7A0E9F4174BA66000162F25 /* PAPasscodeViewController.m */; };
-		A7C30259175A3C7A00AD4388 /* DirectoryWatcher.m in Sources */ = {isa = PBXBuildFile; fileRef = A7C30258175A3C7A00AD4388 /* DirectoryWatcher.m */; };
 		A7C3025E175A53D400AD4388 /* NSString+SupportedMedia.m in Sources */ = {isa = PBXBuildFile; fileRef = A7C3025D175A53D400AD4388 /* NSString+SupportedMedia.m */; };
 		A7CB0DB11716F72600050CF3 /* PlayingExternally@2x~iphone.png in Resources */ = {isa = PBXBuildFile; fileRef = A7CB0DAD1716F72600050CF3 /* PlayingExternally@2x~iphone.png */; };
 		A7CB0DB21716F72600050CF3 /* PlayingExternally~iphone.png in Resources */ = {isa = PBXBuildFile; fileRef = A7CB0DAE1716F72600050CF3 /* PlayingExternally~iphone.png */; };
@@ -726,8 +725,6 @@
 		A7A0E9F2174BA66000162F25 /* papasscode_marker@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "papasscode_marker@2x.png"; sourceTree = "<group>"; };
 		A7A0E9F3174BA66000162F25 /* PAPasscodeViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PAPasscodeViewController.h; sourceTree = "<group>"; };
 		A7A0E9F4174BA66000162F25 /* PAPasscodeViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PAPasscodeViewController.m; sourceTree = "<group>"; };
-		A7C30257175A3C7A00AD4388 /* DirectoryWatcher.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DirectoryWatcher.h; sourceTree = "<group>"; };
-		A7C30258175A3C7A00AD4388 /* DirectoryWatcher.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DirectoryWatcher.m; sourceTree = "<group>"; };
 		A7C3025C175A53D400AD4388 /* NSString+SupportedMedia.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSString+SupportedMedia.h"; sourceTree = "<group>"; };
 		A7C3025D175A53D400AD4388 /* NSString+SupportedMedia.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSString+SupportedMedia.m"; sourceTree = "<group>"; };
 		A7CB0DAD1716F72600050CF3 /* PlayingExternally@2x~iphone.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "PlayingExternally@2x~iphone.png"; sourceTree = "<group>"; };
@@ -1539,8 +1536,6 @@
 		A7D03A4817A4249F0022C16F /* MediaDiscovering */ = {
 			isa = PBXGroup;
 			children = (
-				A7C30257175A3C7A00AD4388 /* DirectoryWatcher.h */,
-				A7C30258175A3C7A00AD4388 /* DirectoryWatcher.m */,
 				A7D03A4517A41AD30022C16F /* VLCMediaFileDiscoverer.h */,
 				A7D03A4617A41AD30022C16F /* VLCMediaFileDiscoverer.m */,
 			);
@@ -1878,7 +1873,6 @@
 				7D5E39CF174FCE04007DAFA1 /* VLCDropboxTableViewCell.m in Sources */,
 				7D5F7AC317529430006CCCFA /* VLCHorizontalSwipeGestureRecognizer.m in Sources */,
 				7D5F7AC61752943F006CCCFA /* VLCVerticalSwipeGestureRecognizer.m in Sources */,
-				A7C30259175A3C7A00AD4388 /* DirectoryWatcher.m in Sources */,
 				A7C3025E175A53D400AD4388 /* NSString+SupportedMedia.m in Sources */,
 				7D47D72F1761101700E86BAD /* VLCSlider.m in Sources */,
 				7D2339AF176DE72E008D223C /* VLCOpenNetworkStreamViewController.m in Sources */,

@@ -9,14 +9,13 @@
 //
 
 #import "VLCMediaFileDiscoverer.h"
-#import "DirectoryWatcher.h"
 #import "NSString+SupportedMedia.h"
 
 const float MediaTimerInterval = 2.f;
 
-@interface VLCMediaFileDiscoverer () <DirectoryWatcherDelegate> {
+@interface VLCMediaFileDiscoverer () {
     NSMutableArray *_observers;
-    DirectoryWatcher *_directoryWatcher;
+    dispatch_source_t _directorySource;
 
     NSString *_directoryPath;
     NSArray *_directoryFiles;
@@ -99,13 +98,31 @@ const float MediaTimerInterval = 2.f;
     _directoryPath = directoryPath;
      _directoryFiles = [self directoryFiles];
 
-    _directoryWatcher = [DirectoryWatcher watchFolderWithPath:directoryPath delegate:self];
+    int const folderDescriptor = open([directoryPath fileSystemRepresentation], O_EVTONLY);
+    _directorySource = dispatch_source_create(DISPATCH_SOURCE_TYPE_VNODE, folderDescriptor,
+                                              DISPATCH_VNODE_WRITE, DISPATCH_TARGET_QUEUE_DEFAULT);
+
+    dispatch_source_set_event_handler(_directorySource, ^(){
+        unsigned long const data = dispatch_source_get_data(_directorySource);
+        if (data & DISPATCH_VNODE_WRITE) {
+            // Do all the work on the main thread,
+            // including timer scheduling, notifications delivering
+            dispatch_async(dispatch_get_main_queue(), ^{
+                [self directoryDidChange];
+            });
+        }
+    });
+
+    dispatch_source_set_cancel_handler(_directorySource, ^(){
+        close(folderDescriptor);
+    });
+
+    dispatch_resume(_directorySource);
 }
 
 - (void)stopDiscovering
 {
-    [_directoryWatcher invalidate];
-    _directoryWatcher.delegate = nil;
+    dispatch_source_cancel(_directorySource);
 
     [self invalidateTimer];
 }
@@ -114,8 +131,8 @@ const float MediaTimerInterval = 2.f;
 
 - (NSArray *)directoryFiles
 {
-    NSArray *foundFiles = [[NSFileManager defaultManager] contentsOfDirectoryAtPath:_directoryPath error:nil];
-
+    NSArray *foundFiles = [[NSFileManager defaultManager] contentsOfDirectoryAtPath:_directoryPath
+                                                                              error:nil];
     return foundFiles;
 }
 
@@ -126,7 +143,7 @@ const float MediaTimerInterval = 2.f;
 
 #pragma mark - directory watcher delegate
 
-- (void)directoryDidChange:(DirectoryWatcher *)folderWatcher
+- (void)directoryDidChange
 {
     NSArray *foundFiles = [self directoryFiles];
 
