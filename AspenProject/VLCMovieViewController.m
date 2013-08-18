@@ -156,6 +156,8 @@
     if ([self hasExternalDisplay])
         [self showOnExternalDisplay];
 
+    self.trackNameLabel.text = self.artistNameLabel.text = self.albumNameLabel.text = @"";
+
     _movieView.userInteractionEnabled = NO;
     UITapGestureRecognizer *tapOnVideoRecognizer = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(toggleControlsVisible)];
     tapOnVideoRecognizer.delegate = self;
