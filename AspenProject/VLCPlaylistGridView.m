@@ -30,6 +30,7 @@
     _contentView = self;
     self.backgroundColor = [UIColor clearColor];
     self.reuseIdentifier = @"AQPlaylistCell";
+    self.albumNameLabel.text = self.artistNameLabel.text = self.seriesNameLabel.text = @"";
 }
 
 - (void)setEditing:(BOOL)editing animated:(BOOL)animated
@@ -81,7 +82,18 @@
 {
     MLFile *mediaObject = self.mediaObject;
 
-    self.titleLabel.text = mediaObject.title;
+    self.albumNameLabel.text = self.artistNameLabel.text = self.seriesNameLabel.text = @"";
+
+    if ([mediaObject isAlbumTrack]) {
+        self.artistNameLabel.text = mediaObject.albumTrack.artist;
+        self.albumNameLabel.text = mediaObject.albumTrack.album.name;
+        self.titleLabel.text = (mediaObject.albumTrack.title.length > 0) ? mediaObject.albumTrack.title : mediaObject.title;
+    } else if ([mediaObject isShowEpisode]) {
+        self.seriesNameLabel.text = mediaObject.showEpisode.show.name;
+        self.titleLabel.text = (mediaObject.showEpisode.name.length > 0) ? mediaObject.showEpisode.name : mediaObject.title;
+    } else
+        self.titleLabel.text = mediaObject.title;
+
     if (self.isEditing)
         self.subtitleLabel.text = [NSString stringWithFormat:@"%@ — %i MB", [VLCTime timeWithNumber:[mediaObject duration]], (int)([mediaObject fileSizeInBytes] / 1e6)];
     else {
