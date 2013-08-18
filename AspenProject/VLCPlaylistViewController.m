@@ -24,6 +24,7 @@
 @interface VLCPlaylistViewController () <AQGridViewDataSource, AQGridViewDelegate, UITableViewDataSource, UITableViewDelegate> {
     NSMutableArray *_foundMedia;
     NSUInteger _libraryMode;
+    UIBarButtonItem *_menuButton;
 }
 @end
 
@@ -56,7 +57,7 @@
 {
     [super viewDidLoad];
 
-    UIBarButtonItem *addButton = [UIBarButtonItem themedRevealMenuButtonWithTarget:self andSelector:@selector(leftButtonAction:)];
+    _menuButton = [UIBarButtonItem themedRevealMenuButtonWithTarget:self andSelector:@selector(leftButtonAction:)];
 
     /* After day 354 of the year, the usual VLC cone is replaced by another cone
      * wearing a Father Xmas hat.
@@ -67,9 +68,9 @@
     [[NSCalendar alloc] initWithCalendarIdentifier:NSGregorianCalendar];
     NSUInteger dayOfYear = [gregorian ordinalityOfUnit:NSDayCalendarUnit inUnit:NSYearCalendarUnit forDate:[NSDate date]];
     if (dayOfYear >= 354)
-        addButton.image = [UIImage imageNamed:@"vlc-xmas"];
+        _menuButton.image = [UIImage imageNamed:@"vlc-xmas"];
 
-    self.navigationItem.leftBarButtonItem = addButton;
+    self.navigationItem.leftBarButtonItem = _menuButton;
 
     [self.editButtonItem setBackgroundImage:[UIImage imageNamed:@"button"]
                                    forState:UIControlStateNormal barMetrics:UIBarMetricsDefault];
@@ -259,9 +260,15 @@
     NSManagedObject *currentObject = _foundMedia[indexPath.row];
     if ([currentObject isKindOfClass:[MLAlbum class]]) {
         _foundMedia = [NSMutableArray arrayWithArray:[[(MLAlbum *)currentObject tracks] allObjects]];
+        self.navigationItem.leftBarButtonItem = [UIBarButtonItem themedBackButtonWithTarget:self andSelector:@selector(backToAllItems:)];
+        [self.navigationItem.leftBarButtonItem setTitle:NSLocalizedString(@"LIBRARY_MUSIC", @"")];
+        self.title = [(MLAlbum*)currentObject name];
         [self updateViewContents];
     } else if ([currentObject isKindOfClass:[MLShow class]]) {
         _foundMedia = [NSMutableArray arrayWithArray:[[(MLShow *)currentObject episodes] allObjects]];
+        self.navigationItem.leftBarButtonItem = [UIBarButtonItem themedBackButtonWithTarget:self andSelector:@selector(backToAllItems:)];
+        [self.navigationItem.leftBarButtonItem setTitle:NSLocalizedString(@"LIBRARY_SERIES", @"")];
+        self.title = [(MLShow*)currentObject name];
         [self updateViewContents];
     } else {
         if (!self.movieViewController)
@@ -349,6 +356,12 @@
 - (IBAction)leftButtonAction:(id)sender
 {
     [[(VLCAppDelegate*)[UIApplication sharedApplication].delegate revealController] toggleSidebar:![(VLCAppDelegate*)[UIApplication sharedApplication].delegate revealController].sidebarShowing duration:kGHRevealSidebarDefaultAnimationDuration];
+}
+
+- (IBAction)backToAllItems:(id)sender
+{
+    self.navigationItem.leftBarButtonItem = _menuButton;
+    [self setLibraryMode:_libraryMode];
 }
 
 /* deprecated in iOS 6 */
