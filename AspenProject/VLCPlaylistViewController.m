@@ -180,6 +180,18 @@
                 [_foundMedia addObject:album];
         }
         rawAlbums = nil;
+    } else if (_libraryMode == kVLCLibraryModeAllSeries) {
+        NSArray *rawShows = [MLShow allShows];
+        _foundMedia = [[NSMutableArray alloc] init];
+        NSUInteger count = rawShows.count;
+        MLShow *show;
+
+        for (NSUInteger x = 0; x < count; x++) {
+            show = rawShows[x];
+            if (show.name.length > 0 && show.episodes.count > 0)
+                [_foundMedia addObject:show];
+        }
+        rawShows = nil;
     } else
         _foundMedia = [NSMutableArray arrayWithArray:[MLFile allFiles]];
 
@@ -246,7 +258,9 @@
     NSManagedObject *currentObject = _foundMedia[indexPath.row];
     if ([currentObject isKindOfClass:[MLAlbum class]]) {
         _foundMedia = [NSMutableArray arrayWithArray:[[(MLAlbum *)currentObject tracks] allObjects]];
-        NSLog(@"current item is an album with %i kids", _foundMedia.count);
+        [self updateViewContents];
+    } else if ([currentObject isKindOfClass:[MLShow class]]) {
+        _foundMedia = [NSMutableArray arrayWithArray:[[(MLShow *)currentObject episodes] allObjects]];
         [self updateViewContents];
     } else {
         if (!self.movieViewController)
@@ -254,8 +268,10 @@
 
         if ([currentObject isKindOfClass:[MLFile class]])
             self.movieViewController.mediaItem = (MLFile *)currentObject;
-        else
+        else if ([currentObject isKindOfClass:[MLAlbumTrack class]])
             self.movieViewController.mediaItem = [(MLAlbumTrack*)currentObject files].anyObject;
+        else if ([currentObject isKindOfClass:[MLShowEpisode class]])
+            self.movieViewController.mediaItem = [(MLShowEpisode*)currentObject files].anyObject;
 
         [self.navigationController pushViewController:self.movieViewController animated:YES];
     }

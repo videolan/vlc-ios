@@ -76,10 +76,17 @@
 
 - (void)_updatedDisplayedInformationForKeyPath:(NSString *)keyPath
 {
+    static NSMutableArray *_thumbnailCacheIndex;
+    static NSMutableDictionary *_thumbnailCache;
+    if (!_thumbnailCache)
+        _thumbnailCache = [[NSMutableDictionary alloc] initWithCapacity:MAX_CACHE_SIZE];
+    if (!_thumbnailCacheIndex)
+        _thumbnailCacheIndex = [[NSMutableArray alloc] initWithCapacity:MAX_CACHE_SIZE];
+
+    self.albumNameLabel.text = self.artistNameLabel.text = @"";
+
     if ([self.mediaObject isKindOfClass:[MLFile class]]) {
         MLFile *mediaObject = (MLFile*)self.mediaObject;
-
-        self.albumNameLabel.text = self.artistNameLabel.text = @"";
 
         if (mediaObject.isAlbumTrack) {
             self.artistNameLabel.text = mediaObject.albumTrack.artist;
@@ -100,13 +107,6 @@
             }
         }
         if ([keyPath isEqualToString:@"computedThumbnail"] || !keyPath) {
-            static NSMutableArray *_thumbnailCacheIndex;
-            static NSMutableDictionary *_thumbnailCache;
-            if (!_thumbnailCache)
-                _thumbnailCache = [[NSMutableDictionary alloc] initWithCapacity:MAX_CACHE_SIZE];
-            if (!_thumbnailCacheIndex)
-                _thumbnailCacheIndex = [[NSMutableArray alloc] initWithCapacity:MAX_CACHE_SIZE];
-
             NSManagedObjectID *objID = mediaObject.objectID;
             UIImage *displayedImage;
             if ([_thumbnailCacheIndex containsObject:objID]) {
@@ -159,6 +159,49 @@
         self.progressIndicator.hidden = ((position < .1f) || (position > .95f)) ? YES : NO;
         [self.progressIndicator setNeedsDisplay];
         self.mediaIsUnreadView.hidden = !anyFileFromTrack.unread.intValue;
+    } else if ([self.mediaObject isKindOfClass:[MLShow class]]) {
+        MLShow *mediaObject = (MLShow *)self.mediaObject;
+        self.titleLabel.text = mediaObject.name;
+        self.artistNameLabel.text = @"";
+        self.albumNameLabel.text = mediaObject.releaseYear;
+        self.thumbnailView.image = nil;
+        NSUInteger count = mediaObject.episodes.count;
+        self.subtitleLabel.text = [NSString stringWithFormat:(count > 1) ? @"%i Tracks, %i unread" : @"%i Track, %i unread", count, mediaObject.unreadEpisodes.count];
+        self.mediaIsUnreadView.hidden = YES;
+        self.progressIndicator.hidden = YES;
+    } else if ([self.mediaObject isKindOfClass:[MLShowEpisode class]]) {
+        MLShowEpisode *mediaObject = (MLShowEpisode *)self.mediaObject;
+        self.artistNameLabel.text = mediaObject.show.name;
+        self.titleLabel.text = mediaObject.name;
+
+        MLFile *anyFileFromEpisode = mediaObject.files.anyObject;
+
+        if ([keyPath isEqualToString:@"computedThumbnail"] || !keyPath) {
+            NSManagedObjectID *objID = anyFileFromEpisode.objectID;
+            UIImage *displayedImage;
+            if ([_thumbnailCacheIndex containsObject:objID]) {
+                [_thumbnailCacheIndex removeObject:objID];
+                [_thumbnailCacheIndex insertObject:objID atIndex:0];
+                displayedImage = [_thumbnailCache objectForKey:objID];
+            } else {
+                if (_thumbnailCacheIndex.count >= MAX_CACHE_SIZE) {
+                    [_thumbnailCache removeObjectForKey:[_thumbnailCacheIndex lastObject]];
+                    [_thumbnailCacheIndex removeLastObject];
+                }
+                displayedImage = anyFileFromEpisode.computedThumbnail;
+                if (displayedImage)
+                    [_thumbnailCache setObject:displayedImage forKey:objID];
+                [_thumbnailCacheIndex insertObject:objID atIndex:0];
+            }
+            self.thumbnailView.image = displayedImage;
+        }
+        self.subtitleLabel.text = [NSString stringWithFormat:@"%i/%i — %@", mediaObject.episodeNumber.intValue, mediaObject.seasonNumber.intValue, [VLCTime timeWithNumber:[anyFileFromEpisode duration]]];
+
+        CGFloat position = anyFileFromEpisode.lastPosition.floatValue;
+        self.progressIndicator.progress = position;
+        self.progressIndicator.hidden = ((position < .1f) || (position > .95f)) ? YES : NO;
+        [self.progressIndicator setNeedsDisplay];
+        self.mediaIsUnreadView.hidden = !mediaObject.unread.intValue;
     }
 
     [self setNeedsDisplay];
