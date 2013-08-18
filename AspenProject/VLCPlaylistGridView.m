@@ -158,13 +158,13 @@
         self.albumNameLabel.text = mediaObject.releaseYear;
         self.thumbnailView.image = nil;
         NSUInteger count = mediaObject.tracks.count;
-        self.subtitleLabel.text = [NSString stringWithFormat:(count > 1) ? @"%i Tracks" : @"%i Track", count];
+        self.subtitleLabel.text = [NSString stringWithFormat:(count > 1) ? NSLocalizedString(@"LIBRARY_TRACKS", @"") : NSLocalizedString(@"LIBRARY_SINGLE_TRACK", @""), count];
         self.mediaIsUnreadView.hidden = YES;
         self.progressView.hidden = YES;
     } else if ([self.mediaObject isKindOfClass:[MLAlbumTrack class]]) {
         MLAlbumTrack *mediaObject = (MLAlbumTrack *)self.mediaObject;
         self.artistNameLabel.text = mediaObject.artist;
-        self.albumNameLabel.text = [NSString stringWithFormat:@"Track %i", mediaObject.trackNumber.intValue];
+        self.albumNameLabel.text = [NSString stringWithFormat:NSLocalizedString(@"LIBRARY_SINGLE_TRACK", @""), mediaObject.trackNumber.intValue];
         self.titleLabel.text = mediaObject.title;
         self.thumbnailView.image = nil;
 
@@ -182,7 +182,7 @@
         self.artistNameLabel.text = @"";
         self.albumNameLabel.text = mediaObject.releaseYear;
         NSUInteger count = mediaObject.episodes.count;
-        self.subtitleLabel.text = [NSString stringWithFormat:(count > 1) ? @"%i Tracks, %i unread" : @"%i Track, %i unread", count, mediaObject.unreadEpisodes.count];
+        self.subtitleLabel.text = [NSString stringWithFormat:(count > 1) ? NSLocalizedString(@"LIBRARY_EPISODES", @"") : NSLocalizedString(@"LIBRARY_SINGLE_EPISODE", @""), count, mediaObject.unreadEpisodes.count];
         self.mediaIsUnreadView.hidden = YES;
         self.progressView.hidden = YES;
 
