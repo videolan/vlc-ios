@@ -393,6 +393,13 @@
 {
     _libraryMode = mode;
 
+    if (_libraryMode == kVLCLibraryModeAllAlbums)
+        self.title = NSLocalizedString(@"LIBRARY_MUSIC", @"");
+    else if( _libraryMode == kVLCLibraryModeAllSeries)
+        self.title = NSLocalizedString(@"LIBRARY_SERIES", @"");
+    else
+        self.title = NSLocalizedString(@"LIBRARY_ALL_FILES", @"");
+
     [self reloadContents];
 }
 
