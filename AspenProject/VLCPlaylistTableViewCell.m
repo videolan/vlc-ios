@@ -147,7 +147,7 @@
     } else if ([self.mediaObject isKindOfClass:[MLAlbumTrack class]]) {
         MLAlbumTrack *mediaObject = (MLAlbumTrack *)self.mediaObject;
         self.artistNameLabel.text = mediaObject.artist;
-        self.albumNameLabel.text = mediaObject.album.name;
+        self.albumNameLabel.text = [NSString stringWithFormat:@"Track %i", mediaObject.trackNumber.intValue];
         self.titleLabel.text = mediaObject.title;
         self.thumbnailView.image = nil;
 
