@@ -32,6 +32,8 @@
     [self.connectButton setTitle:NSLocalizedString(@"BUTTON_CONNECT",@"") forState:UIControlStateNormal];
     self.serverAddressHelpLabel.text = NSLocalizedString(@"ENTER_SERVER_ADDRESS_HELP",@"");
     self.loginHelpLabel.text = NSLocalizedString(@"ENTER_SERVER_CREDS_HELP",@"");
+    self.usernameLabel.text = NSLocalizedString(@"USER_LABEL", @"");
+    self.passwordLabel.text = NSLocalizedString(@"PASSWORD_LABEL", @"");
 }
 
 - (IBAction)dismissWithAnimation:(id)sender
