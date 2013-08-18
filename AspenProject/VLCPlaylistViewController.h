@@ -11,6 +11,12 @@
 #import <UIKit/UIKit.h>
 #import "AQGridView.h"
 
+#define EXPERIMENTAL_LIBRARY 1
+
+#define kVLCLibraryModeAllFiles 0
+#define kVLCLibraryModeAllAlbums 1
+#define kVLCLibraryModeAllSeries 2
+
 @class VLCMovieViewController;
 @class EmptyLibraryView;
 
@@ -25,12 +31,13 @@
 
 @property (nonatomic, strong) EmptyLibraryView *emptyLibraryView;
 
-
 - (IBAction)leftButtonAction:(id)sender;
 
 - (void)updateViewContents;
 - (void)openMovieFromURL:(NSURL *)url;
 - (void)removeMediaObject:(MLFile *)mediaObject;
+
+- (void)setLibraryMode:(NSUInteger)mode;
 
 @end
 

@@ -21,9 +21,9 @@
 @implementation EmptyLibraryView
 @end
 
-@interface VLCPlaylistViewController () <AQGridViewDataSource, AQGridViewDelegate,
-                                         UITableViewDataSource, UITableViewDelegate> {
+@interface VLCPlaylistViewController () <AQGridViewDataSource, AQGridViewDelegate, UITableViewDataSource, UITableViewDelegate> {
     NSMutableArray *_foundMedia;
+    NSUInteger _libraryMode;
 }
 @end
 
@@ -43,6 +43,8 @@
         _gridView.backgroundColor = [UIColor colorWithPatternImage:[UIImage imageNamed:@"libraryBackground"]];
         self.view = _gridView;
     }
+
+    _libraryMode = kVLCLibraryModeAllFiles;
 
     self.view.autoresizingMask = UIViewAutoresizingFlexibleHeight | UIViewAutoresizingFlexibleWidth;
     self.emptyLibraryView = [[[NSBundle mainBundle] loadNibNamed:@"VLCEmptyLibraryView" owner:self options:nil] lastObject];
@@ -99,7 +101,7 @@
 
 - (void)viewDidAppear:(BOOL)animated
 {
-    [self performSelector:@selector(updateViewContents) withObject:nil afterDelay:.0];
+    [self performSelector:@selector(reloadContents) withObject:nil afterDelay:.0];
     [[MLMediaLibrary sharedMediaLibrary] performSelector:@selector(libraryDidAppear) withObject:nil afterDelay:1.];
 
     [super viewDidAppear:animated];
@@ -142,7 +144,7 @@
     }
     [fileManager removeItemAtPath:[[NSURL URLWithString:mediaObject.url] path] error:nil];
     [[MLMediaLibrary sharedMediaLibrary] updateMediaDatabase];
-    [self updateViewContents];
+    [self reloadContents];
 }
 
 - (void)_displayEmptyLibraryViewIfNeeded
@@ -164,10 +166,28 @@
     }
 }
 
+- (void)reloadContents
+{
+    if (_libraryMode == kVLCLibraryModeAllAlbums) {
+        NSArray *rawAlbums = [MLAlbum allAlbums];
+        _foundMedia = [[NSMutableArray alloc] init];
+        NSUInteger count = rawAlbums.count;
+        MLAlbum *album;
+
+        for (NSUInteger x = 0; x < count; x++) {
+            album = rawAlbums[x];
+            if (album.name.length > 0 && album.tracks.count > 0)
+                [_foundMedia addObject:album];
+        }
+        rawAlbums = nil;
+    } else
+        _foundMedia = [NSMutableArray arrayWithArray:[MLFile allFiles]];
+
+    [self updateViewContents];
+}
+
 - (void)updateViewContents
 {
-    _foundMedia = [NSMutableArray arrayWithArray:[MLFile allFiles]];
-
     if (UI_USER_INTERFACE_IDIOM() == UIUserInterfaceIdiomPhone)
         [self.tableView reloadData];
     else {
@@ -177,7 +197,6 @@
 
     [self _displayEmptyLibraryViewIfNeeded];
 }
-
 
 #pragma mark - Table View
 
@@ -224,12 +243,22 @@
 
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
 {
-    MLFile *mediaObject = _foundMedia[indexPath.row];
-    if (!self.movieViewController)
-        self.movieViewController = [[VLCMovieViewController alloc] initWithNibName:nil bundle:nil];
+    NSManagedObject *currentObject = _foundMedia[indexPath.row];
+    if ([currentObject isKindOfClass:[MLAlbum class]]) {
+        _foundMedia = [NSMutableArray arrayWithArray:[[(MLAlbum *)currentObject tracks] allObjects]];
+        NSLog(@"current item is an album with %i kids", _foundMedia.count);
+        [self updateViewContents];
+    } else {
+        if (!self.movieViewController)
+            self.movieViewController = [[VLCMovieViewController alloc] initWithNibName:nil bundle:nil];
 
-    self.movieViewController.mediaItem = mediaObject;
-    [self.navigationController pushViewController:self.movieViewController animated:YES];
+        if ([currentObject isKindOfClass:[MLFile class]])
+            self.movieViewController.mediaItem = (MLFile *)currentObject;
+        else
+            self.movieViewController.mediaItem = [(MLAlbumTrack*)currentObject files].anyObject;
+
+        [self.navigationController pushViewController:self.movieViewController animated:YES];
+    }
 }
 
 #pragma mark - AQGridView
@@ -338,6 +367,12 @@
         [self.navigationController pushViewController:self.movieViewController animated:YES];
 
     self.movieViewController.url = url;
+}
+
+- (void)setLibraryMode:(NSUInteger)mode
+{
+    _libraryMode = mode;
+    [self reloadContents];
 }
 
 @end

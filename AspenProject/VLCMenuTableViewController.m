@@ -62,7 +62,10 @@
 	self.view.autoresizingMask = UIViewAutoresizingFlexibleHeight;
 
     _sectionHeaderTexts = @[@"SECTION_HEADER_LIBRARY", @"SECTION_HEADER_NETWORK", @"Settings"];
-    _menuItemsSectionOne = @[@"LIBRARY_ALL_FILES"];
+    if (UI_USER_INTERFACE_IDIOM() == UIUserInterfaceIdiomPhone)
+        _menuItemsSectionOne = @[@"LIBRARY_ALL_FILES", @"LIBRARY_MUSIC"];
+    else
+        _menuItemsSectionOne = @[@"LIBRARY_ALL_FILES"];
     _menuItemsSectionTwo = @[@"LOCAL_NETWORK", @"OPEN_NETWORK", @"DOWNLOAD_FROM_HTTP", @"WiFi Upload", @"Dropbox"];
     _menuItemsSectionThree = @[@"Settings", @"ABOUT_APP"];
 
@@ -134,11 +137,11 @@
 
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section {
     if (section == 0) // media
-        return 1;
+        return _menuItemsSectionOne.count;
     else if (section == 1) // network
-        return 5;
+        return _menuItemsSectionTwo.count;
     else if (section == 2) // settings & co
-        return 2;
+        return _menuItemsSectionThree.count;
     else
         return 0;
 }
@@ -280,8 +283,10 @@
             viewController = self.settingsController.viewController;
         } else if (itemIndex == 1)
             viewController = [[VLCAboutViewController alloc] init];
-    } else
+    } else {
         viewController = self.appDelegate.playlistViewController;
+        [self.appDelegate.playlistViewController setLibraryMode:itemIndex];
+    }
 
     if (!viewController)
         return;
