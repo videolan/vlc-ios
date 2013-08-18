@@ -181,11 +181,31 @@
         self.titleLabel.text = mediaObject.name;
         self.artistNameLabel.text = @"";
         self.albumNameLabel.text = mediaObject.releaseYear;
-        self.thumbnailView.image = nil;
         NSUInteger count = mediaObject.episodes.count;
         self.subtitleLabel.text = [NSString stringWithFormat:(count > 1) ? @"%i Tracks, %i unread" : @"%i Track, %i unread", count, mediaObject.unreadEpisodes.count];
         self.mediaIsUnreadView.hidden = YES;
         self.progressView.hidden = YES;
+
+        MLFile *anyFileFromAnyEpisode = [mediaObject.episodes.anyObject files].anyObject;
+        if ([keyPath isEqualToString:@"computedThumbnail"] || !keyPath) {
+            NSManagedObjectID *objID = anyFileFromAnyEpisode.objectID;
+            UIImage *displayedImage;
+            if ([_thumbnailCacheIndex containsObject:objID]) {
+                [_thumbnailCacheIndex removeObject:objID];
+                [_thumbnailCacheIndex insertObject:objID atIndex:0];
+                displayedImage = [_thumbnailCache objectForKey:objID];
+            } else {
+                if (_thumbnailCacheIndex.count >= MAX_CACHE_SIZE) {
+                    [_thumbnailCache removeObjectForKey:[_thumbnailCacheIndex lastObject]];
+                    [_thumbnailCacheIndex removeLastObject];
+                }
+                displayedImage = anyFileFromAnyEpisode.computedThumbnail;
+                if (displayedImage)
+                    [_thumbnailCache setObject:displayedImage forKey:objID];
+                [_thumbnailCacheIndex insertObject:objID atIndex:0];
+            }
+            self.thumbnailView.image = displayedImage;
+        }
     } else if ([self.mediaObject isKindOfClass:[MLShowEpisode class]]) {
         MLShowEpisode *mediaObject = (MLShowEpisode *)self.mediaObject;
         self.titleLabel.text = mediaObject.name;
