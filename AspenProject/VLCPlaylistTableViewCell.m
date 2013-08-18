@@ -171,7 +171,6 @@
         self.progressIndicator.hidden = YES;
     } else if ([self.mediaObject isKindOfClass:[MLShowEpisode class]]) {
         MLShowEpisode *mediaObject = (MLShowEpisode *)self.mediaObject;
-        self.artistNameLabel.text = mediaObject.show.name;
         self.titleLabel.text = mediaObject.name;
 
         MLFile *anyFileFromEpisode = mediaObject.files.anyObject;
