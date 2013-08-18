@@ -152,13 +152,14 @@
     if (_foundMedia.count > 0) {
         if (self.emptyLibraryView.superview)
             [self.emptyLibraryView removeFromSuperview];
-
-        self.navigationItem.rightBarButtonItem = self.editButtonItem;
     } else {
         self.emptyLibraryView.frame = self.view.frame;
         [self.view addSubview:self.emptyLibraryView];
-        self.navigationItem.rightBarButtonItem = nil;
     }
+    if (_libraryMode == kVLCLibraryModeAllFiles && _foundMedia.count > 0)
+        self.navigationItem.rightBarButtonItem = self.editButtonItem;
+    else
+        self.navigationItem.rightBarButtonItem = nil;
 
     if (UI_USER_INTERFACE_IDIOM() == UIUserInterfaceIdiomPhone) {
         _tableView.separatorStyle = (_foundMedia.count > 0)? UITableViewCellSeparatorStyleSingleLine:
@@ -325,6 +326,9 @@
 #pragma mark - UI implementation
 - (void)setEditing:(BOOL)editing animated:(BOOL)animated
 {
+    if (_libraryMode != kVLCLibraryModeAllFiles)
+        return;
+
     [super setEditing:editing animated:animated];
 
     UIBarButtonItem *editButton = self.editButtonItem;
@@ -388,6 +392,7 @@
 - (void)setLibraryMode:(NSUInteger)mode
 {
     _libraryMode = mode;
+
     [self reloadContents];
 }
 
