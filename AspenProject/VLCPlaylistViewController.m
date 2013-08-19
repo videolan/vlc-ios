@@ -102,7 +102,8 @@
 
 - (void)viewDidAppear:(BOOL)animated
 {
-    [self performSelector:@selector(reloadContents) withObject:nil afterDelay:.0];
+    if (_foundMedia.count < 1)
+        [self performSelector:@selector(reloadContents) withObject:nil afterDelay:.0];
     [[MLMediaLibrary sharedMediaLibrary] performSelector:@selector(libraryDidAppear) withObject:nil afterDelay:1.];
 
     [super viewDidAppear:animated];
@@ -257,6 +258,8 @@
 
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
 {
+    [tableView deselectRowAtIndexPath:indexPath animated:YES];
+
     NSManagedObject *currentObject = _foundMedia[indexPath.row];
     if ([currentObject isKindOfClass:[MLAlbum class]]) {
         _foundMedia = [NSMutableArray arrayWithArray:[[(MLAlbum *)currentObject tracks] allObjects]];
