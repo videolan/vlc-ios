@@ -102,11 +102,12 @@
 
 - (void)viewDidAppear:(BOOL)animated
 {
+    [super viewDidAppear:animated];
+
     if (_foundMedia.count < 1)
         [self performSelector:@selector(reloadContents) withObject:nil afterDelay:.0];
     [[MLMediaLibrary sharedMediaLibrary] performSelector:@selector(libraryDidAppear) withObject:nil afterDelay:1.];
 
-    [super viewDidAppear:animated];
 }
 
 - (void)viewDidDisappear:(BOOL)animated

@@ -54,7 +54,7 @@
 							</object>
 							<object class="IBUILabel" id="426150815">
 								<reference key="NSNextResponder" ref="162418872"/>
-								<int key="NSvFlags">290</int>
+								<int key="NSvFlags">300</int>
 								<string key="NSFrame">{{6, 7}, {122, 42}}</string>
 								<reference key="NSSuperview" ref="162418872"/>
 								<reference key="NSWindow"/>
@@ -87,7 +87,7 @@
 							</object>
 							<object class="IBUILabel" id="807133893">
 								<reference key="NSNextResponder" ref="162418872"/>
-								<int key="NSvFlags">290</int>
+								<int key="NSvFlags">300</int>
 								<string key="NSFrame">{{6, 44}, {122, 15}}</string>
 								<reference key="NSSuperview" ref="162418872"/>
 								<reference key="NSWindow"/>
@@ -164,6 +164,7 @@
 								<string key="NSFrame">{{137, 55}, {178, 15}}</string>
 								<reference key="NSSuperview" ref="162418872"/>
 								<reference key="NSWindow"/>
+								<reference key="NSNextKeyView"/>
 								<string key="NSReuseIdentifierKey">_NS:9</string>
 								<bool key="IBUIOpaque">NO</bool>
 								<bool key="IBUIClipsSubviews">YES</bool>
