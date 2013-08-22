@@ -965,11 +965,14 @@
 {
     [self _saveCurrentState];
 
+    _mediaPlayer.currentVideoTrackIndex = 0;
+
     if (![[[NSUserDefaults standardUserDefaults] objectForKey:kVLCSettingContinueAudioInBackgroundKey] boolValue]) {
         [_mediaPlayer pause];
         _shouldResumePlaying = YES;
-    } else
-        _mediaPlayer.currentVideoTrackIndex = 0;
+    }
+
+    glFinish();
 }
 
 - (void)applicationDidEnterBackground:(NSNotification *)notification
@@ -979,11 +982,12 @@
 
 - (void)applicationDidBecomeActive:(NSNotification *)notification
 {
+    _mediaPlayer.currentVideoTrackIndex = 1;
+
     if (_shouldResumePlaying) {
         _shouldResumePlaying = NO;
         [_mediaPlayer play];
-    } else
-        _mediaPlayer.currentVideoTrackIndex = 1;
+    }
 }
 
 - (void)_updateExportedPlaybackInformation
