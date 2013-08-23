@@ -21,7 +21,7 @@
 @implementation EmptyLibraryView
 @end
 
-@interface VLCPlaylistViewController () <AQGridViewDataSource, AQGridViewDelegate, UITableViewDataSource, UITableViewDelegate> {
+@interface VLCPlaylistViewController () <AQGridViewDataSource, AQGridViewDelegate, UITableViewDataSource, UITableViewDelegate, MLMediaLibrary> {
     NSMutableArray *_foundMedia;
     NSUInteger _libraryMode;
     UIBarButtonItem *_menuButton;
@@ -104,10 +104,24 @@
 {
     [super viewDidAppear:animated];
 
+    if ([[MLMediaLibrary sharedMediaLibrary] libraryNeedsUpgrade]) {
+        self.navigationItem.rightBarButtonItem = nil;
+        self.navigationItem.leftBarButtonItem = nil;
+        self.emptyLibraryView.emptyLibraryLabel.text = NSLocalizedString(@"UPGRADING_LIBRARY", @"");
+        self.emptyLibraryView.emptyLibraryLongDescriptionLabel.hidden = YES;
+        [self.emptyLibraryView.activityIndicator startAnimating];
+        self.emptyLibraryView.frame = self.view.frame;
+        self.title = @"";
+        [self.view addSubview:self.emptyLibraryView];
+
+        [[MLMediaLibrary sharedMediaLibrary] setDelegate: self];
+        [[MLMediaLibrary sharedMediaLibrary] performSelectorInBackground:@selector(upgradeLibrary) withObject:nil];
+        return;
+    }
+
     if (_foundMedia.count < 1)
         [self performSelector:@selector(reloadContents) withObject:nil afterDelay:.0];
     [[MLMediaLibrary sharedMediaLibrary] performSelector:@selector(libraryDidAppear) withObject:nil afterDelay:1.];
-
 }
 
 - (void)viewDidDisappear:(BOOL)animated
@@ -168,6 +182,18 @@
         _tableView.separatorStyle = (_foundMedia.count > 0)? UITableViewCellSeparatorStyleSingleLine:
                                                              UITableViewCellSeparatorStyleNone;
     }
+}
+
+- (void)libraryUpgradeComplete
+{
+    self.emptyLibraryView.emptyLibraryLongDescriptionLabel.hidden = NO;
+    self.emptyLibraryView.emptyLibraryLabel.text = NSLocalizedString(@"EMPTY_LIBRARY", @"");
+    [self.emptyLibraryView.activityIndicator stopAnimating];
+    self.title = NSLocalizedString(@"LIBRARY_ALL_FILES", @"");
+    self.navigationItem.leftBarButtonItem = _menuButton;
+    [self.emptyLibraryView removeFromSuperview];
+
+    [self reloadContents];
 }
 
 - (void)reloadContents
