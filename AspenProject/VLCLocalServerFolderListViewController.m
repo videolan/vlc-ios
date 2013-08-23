@@ -31,7 +31,7 @@
 
     /* generic data storage */
     NSString *_listTitle;
-    NSMutableArray *_objectList;
+    NSArray *_objectList;
     NSUInteger _serverType;
 
     /* UPNP specifics */
@@ -93,8 +93,6 @@
 {
     [super viewDidLoad];
 
-    _objectList = [[NSMutableArray alloc] init];
-
     if (_serverType == kVLCUPNPFileServer) {
         NSMutableString *outResult = [[NSMutableString alloc] init];
         NSMutableString *outNumberReturned = [[NSMutableString alloc] init];
@@ -104,8 +102,10 @@
         [[_UPNPdevice contentDirectory] BrowseWithObjectID:_UPNProotID BrowseFlag:@"BrowseDirectChildren" Filter:@"*" StartingIndex:@"0" RequestedCount:@"0" SortCriteria:@"+dc:title" OutResult:outResult OutNumberReturned:outNumberReturned OutTotalMatches:outTotalMatches OutUpdateID:outUpdateID];
 
         NSData *didl = [outResult dataUsingEncoding:NSUTF8StringEncoding];
-        MediaServerBasicObjectParser *parser = [[MediaServerBasicObjectParser alloc] initWithMediaObjectArray:_objectList itemsOnly:NO];
+        NSMutableArray *array;
+        MediaServerBasicObjectParser *parser = [[MediaServerBasicObjectParser alloc] initWithMediaObjectArray:array itemsOnly:NO];
         [parser parseFromData:didl];
+        _objectList = [NSArray arrayWithArray:array];
     } else if (_serverType == kVLCFTPServer) {
         if ([_ftpServerPath isEqualToString:@"/"])
             _listTitle = _ftpServerAddress;
