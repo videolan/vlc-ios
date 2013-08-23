@@ -135,6 +135,18 @@
     _fwdButton.accessibilityLabel = NSLocalizedString(@"FWD_BUTTON", @"");
     _fwdButton.isAccessibilityElement = YES;
 
+    if (SYSTEM_RUNS_IN_THE_FUTURE) {
+        CGRect rect = self.toolbar.frame;
+        rect.origin.y = rect.origin.y + 20.;
+        self.toolbar.frame = rect;
+        rect = self.positionSlider.frame;
+        rect.origin.y = rect.origin.y - 5.;
+        self.positionSlider.frame = rect;
+        rect = self.resetVideoFilterButton.frame;
+        rect.origin.y = rect.origin.y + 5.;
+        self.resetVideoFilterButton.frame = rect;
+    }
+
     _scrubHelpLabel.text = NSLocalizedString(@"PLAYBACK_SCRUB_HELP", @"");
 
     self.playbackSpeedView.hidden = YES;
