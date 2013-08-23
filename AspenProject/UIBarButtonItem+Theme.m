@@ -17,12 +17,16 @@
                                                                       style:UIBarButtonItemStyleBordered
                                                                      target:target
                                                                      action:selector];
-    [doneButton setBackgroundImage:[UIImage imageNamed:@"doneButton"]
-                          forState:UIControlStateNormal
-                        barMetrics:UIBarMetricsDefault];
-    [doneButton setBackgroundImage:[UIImage imageNamed:@"doneButtonHighlight"]
-                          forState:UIControlStateHighlighted
-                        barMetrics:UIBarMetricsDefault];
+    if (SYSTEM_RUNS_IN_THE_FUTURE)
+        doneButton.tintColor = [UIColor whiteColor];
+    else {
+        [doneButton setBackgroundImage:[UIImage imageNamed:@"doneButton"]
+                              forState:UIControlStateNormal
+                            barMetrics:UIBarMetricsDefault];
+        [doneButton setBackgroundImage:[UIImage imageNamed:@"doneButtonHighlight"]
+                              forState:UIControlStateHighlighted
+                            barMetrics:UIBarMetricsDefault];
+    }
     [doneButton setTitleTextAttributes:@{UITextAttributeTextShadowColor : [UIColor whiteColor], UITextAttributeTextColor : [UIColor blackColor]}
                               forState:UIControlStateNormal];
     return doneButton;
@@ -34,12 +38,16 @@
                                                                    style:UIBarButtonItemStyleBordered
                                                                   target:target
                                                                   action:selector];
-    [backButton setBackgroundImage:[[UIImage imageNamed:@"backButton"] resizableImageWithCapInsets:UIEdgeInsetsMake(0, 12, 0, 6)]
-                          forState:UIControlStateNormal
-                        barMetrics:UIBarMetricsDefault];
-    [backButton setBackgroundImage:[[UIImage imageNamed:@"backButtonHighlight"] resizableImageWithCapInsets:UIEdgeInsetsMake(0, 12, 0, 6)]
-                          forState:UIControlStateHighlighted
-                        barMetrics:UIBarMetricsDefault];
+    if (SYSTEM_RUNS_IN_THE_FUTURE)
+        backButton.tintColor = [UIColor whiteColor];
+    else {
+        [backButton setBackgroundImage:[[UIImage imageNamed:@"backButton"] resizableImageWithCapInsets:UIEdgeInsetsMake(0, 12, 0, 6)]
+                              forState:UIControlStateNormal
+                            barMetrics:UIBarMetricsDefault];
+        [backButton setBackgroundImage:[[UIImage imageNamed:@"backButtonHighlight"] resizableImageWithCapInsets:UIEdgeInsetsMake(0, 12, 0, 6)]
+                              forState:UIControlStateHighlighted
+                            barMetrics:UIBarMetricsDefault];
+    }
     [backButton setTitleTextAttributes:@{UITextAttributeTextShadowColor : [UIColor colorWithWhite:0. alpha:.37], UITextAttributeTextColor : [UIColor whiteColor]} forState:UIControlStateNormal];
     [backButton setTitlePositionAdjustment:UIOffsetMake(3, 0) forBarMetrics:UIBarMetricsDefault];
     return backButton;
@@ -48,8 +56,12 @@
 + (UIBarButtonItem *)themedRevealMenuButtonWithTarget:(id)target andSelector:(SEL)selector
 {
     UIBarButtonItem *menuButton = [[UIBarButtonItem alloc] initWithImage:[UIImage imageNamed:@"menuCone"] style:UIBarButtonItemStyleBordered target:target action:selector];
-    [menuButton setBackgroundImage:[UIImage imageNamed:@"button"] forState:UIControlStateNormal barMetrics:UIBarMetricsDefault];
-    [menuButton setBackgroundImage:[UIImage imageNamed:@"buttonHighlight"] forState:UIControlStateHighlighted barMetrics:UIBarMetricsDefault];
+    if (SYSTEM_RUNS_IN_THE_FUTURE)
+        menuButton.tintColor = [UIColor whiteColor];
+    else {
+        [menuButton setBackgroundImage:[UIImage imageNamed:@"button"] forState:UIControlStateNormal barMetrics:UIBarMetricsDefault];
+        [menuButton setBackgroundImage:[UIImage imageNamed:@"buttonHighlight"] forState:UIControlStateHighlighted barMetrics:UIBarMetricsDefault];
+    }
     menuButton.accessibilityLabel = NSLocalizedString(@"OPEN_VLC_MENU", @"");
     menuButton.isAccessibilityElement = YES;
 

@@ -72,10 +72,14 @@
 
     self.navigationItem.leftBarButtonItem = _menuButton;
 
-    [self.editButtonItem setBackgroundImage:[UIImage imageNamed:@"button"]
-                                   forState:UIControlStateNormal barMetrics:UIBarMetricsDefault];
-    [self.editButtonItem setBackgroundImage:[UIImage imageNamed:@"buttonHighlight"]
-                                   forState:UIControlStateHighlighted barMetrics:UIBarMetricsDefault];
+    if (SYSTEM_RUNS_IN_THE_FUTURE)
+        self.editButtonItem.tintColor = [UIColor whiteColor];
+    else {
+        [self.editButtonItem setBackgroundImage:[UIImage imageNamed:@"button"]
+                                       forState:UIControlStateNormal barMetrics:UIBarMetricsDefault];
+        [self.editButtonItem setBackgroundImage:[UIImage imageNamed:@"buttonHighlight"]
+                                       forState:UIControlStateHighlighted barMetrics:UIBarMetricsDefault];
+    }
 
     if (UI_USER_INTERFACE_IDIOM() == UIUserInterfaceIdiomPad) {
         _gridView.separatorStyle = AQGridViewCellSeparatorStyleEmptySpace;
@@ -391,11 +395,15 @@
     UIBarButtonItem *editButton = self.editButtonItem;
     NSString *editImage = editing? @"doneButton": @"button";
     NSString *editImageHighlight = editing? @"doneButtonHighlight": @"buttonHighlight";
-    [editButton setBackgroundImage:[UIImage imageNamed:editImage] forState:UIControlStateNormal
-                                 barMetrics:UIBarMetricsDefault];
-    [editButton setBackgroundImage:[UIImage imageNamed:editImageHighlight]
-                                   forState:UIControlStateHighlighted barMetrics:UIBarMetricsDefault];
-    [editButton setTitleTextAttributes: editing ? @{UITextAttributeTextShadowColor : [UIColor whiteColor], UITextAttributeTextColor : [UIColor blackColor]} : @{UITextAttributeTextShadowColor : [UIColor colorWithWhite:0. alpha:.37], UITextAttributeTextColor : [UIColor whiteColor]} forState:UIControlStateNormal];
+    if (SYSTEM_RUNS_IN_THE_FUTURE)
+        editButton.tintColor = [UIColor whiteColor];
+    else {
+        [editButton setBackgroundImage:[UIImage imageNamed:editImage] forState:UIControlStateNormal
+                                     barMetrics:UIBarMetricsDefault];
+        [editButton setBackgroundImage:[UIImage imageNamed:editImageHighlight]
+                                       forState:UIControlStateHighlighted barMetrics:UIBarMetricsDefault];
+        [editButton setTitleTextAttributes: editing ? @{UITextAttributeTextShadowColor : [UIColor whiteColor], UITextAttributeTextColor : [UIColor blackColor]} : @{UITextAttributeTextShadowColor : [UIColor colorWithWhite:0. alpha:.37], UITextAttributeTextColor : [UIColor whiteColor]} forState:UIControlStateNormal];
+    }
 
     if (UI_USER_INTERFACE_IDIOM() == UIUserInterfaceIdiomPad)
         [self.gridView setEditing:editing];
