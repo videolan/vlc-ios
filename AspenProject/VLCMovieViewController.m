@@ -135,18 +135,6 @@
     _fwdButton.accessibilityLabel = NSLocalizedString(@"FWD_BUTTON", @"");
     _fwdButton.isAccessibilityElement = YES;
 
-    if (SYSTEM_RUNS_IN_THE_FUTURE) {
-        CGRect rect = self.toolbar.frame;
-        rect.origin.y = rect.origin.y + 20.;
-        self.toolbar.frame = rect;
-        rect = self.positionSlider.frame;
-        rect.origin.y = rect.origin.y - 5.;
-        self.positionSlider.frame = rect;
-        rect = self.resetVideoFilterButton.frame;
-        rect.origin.y = rect.origin.y + 5.;
-        self.resetVideoFilterButton.frame = rect;
-    }
-
     _scrubHelpLabel.text = NSLocalizedString(@"PLAYBACK_SCRUB_HELP", @"");
 
     self.playbackSpeedView.hidden = YES;
@@ -206,10 +194,26 @@
     [self.aspectRatioButton setBackgroundImage:[UIImage imageNamed:@"ratioButton"] forState:UIControlStateNormal];
     [self.aspectRatioButton setBackgroundImage:[UIImage imageNamed:@"ratioButtonHighlight"] forState:UIControlStateHighlighted];
     [self.aspectRatioButton setImage:[UIImage imageNamed:@"ratioIcon"] forState:UIControlStateNormal];
-    [self.toolbar setBackgroundImage:[UIImage imageNamed:@"seekbarBg"] forBarMetrics:UIBarMetricsDefault];
-    if (SYSTEM_RUNS_IN_THE_FUTURE)
+    if (SYSTEM_RUNS_IN_THE_FUTURE) {
         self.backButton.tintColor = [UIColor colorWithRed:(190.0f/255.0f) green:(190.0f/255.0f) blue:(190.0f/255.0f) alpha:1.];
-    else {
+        self.toolbar.tintColor = [UIColor whiteColor];
+        self.toolbar.barTintColor = [UIColor colorWithWhite:0.f alpha:1.f];
+
+        CGRect rect = self.toolbar.frame;
+        rect.origin.y = 0.0f;
+        rect.size.height = rect.size.height + 20.0f;
+        self.toolbar.frame = rect;
+        rect = self.positionSlider.frame;
+        rect.origin.y = rect.origin.y - 5.;
+        self.positionSlider.frame = rect;
+        rect = self.resetVideoFilterButton.frame;
+        rect.origin.y = rect.origin.y + 5.;
+        self.resetVideoFilterButton.frame = rect;
+        rect = self.scrubIndicatorView.frame;
+        rect.origin.y = rect.origin.y + 20.;
+        self.scrubIndicatorView.frame = rect;
+    } else {
+        [self.toolbar setBackgroundImage:[UIImage imageNamed:@"seekbarBg"] forBarMetrics:UIBarMetricsDefault];
         [self.backButton setBackgroundImage:[UIImage imageNamed:@"playbackDoneButton"] forState:UIControlStateNormal barMetrics:UIBarMetricsDefault];
         [self.backButton setBackgroundImage:[UIImage imageNamed:@"playbackDoneButtonHighlight"] forState:UIControlStateHighlighted barMetrics:UIBarMetricsDefault];
     }
