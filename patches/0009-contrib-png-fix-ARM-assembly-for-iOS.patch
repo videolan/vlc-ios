@@ -82,13 +82,13 @@ index 0000000..f4b8bc1
 +         ldr             r12, [r0, #4]           @ rowbytes
 +         vmov.i8         d3,  #0
 diff --git a/contrib/src/png/rules.mak b/contrib/src/png/rules.mak
-index 45c8107..f328924 100644
+index ae6ae5b..f42780f 100644
 --- a/contrib/src/png/rules.mak
 +++ b/contrib/src/png/rules.mak
-@@ -15,6 +15,9 @@ $(TARBALLS)/libpng-$(PNG_VERSION).tar.xz:
- png: libpng-$(PNG_VERSION).tar.xz .sum-png
+@@ -16,6 +16,9 @@ png: libpng-$(PNG_VERSION).tar.xz .sum-png
  	$(UNPACK)
  	$(APPLY) $(SRC)/png/winrt.patch
+ 	$(APPLY) $(SRC)/png/bins.patch
 +ifdef HAVE_IOS
 +	$(APPLY) $(SRC)/png/ios.patch
 +endif
@@ -96,5 +96,5 @@ index 45c8107..f328924 100644
  
  DEPS_png = zlib $(DEPS_zlib)
 -- 
-1.8.3.1 (Apple Git-46)
+1.8.3.4 (Apple Git-47)
 
