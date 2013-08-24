@@ -36,8 +36,17 @@
     self.passwordLabel.text = NSLocalizedString(@"PASSWORD_LABEL", @"");
 }
 
+- (void)viewWillAppear:(BOOL)animated
+{
+    self.navigationController.navigationBar.translucent = NO;
+    [super viewWillAppear:animated];
+}
+
 - (IBAction)dismissWithAnimation:(id)sender
 {
+    if (SYSTEM_RUNS_IN_THE_FUTURE)
+        self.navigationController.navigationBar.translucent = YES;
+
     if (UI_USER_INTERFACE_IDIOM() == UIUserInterfaceIdiomPhone)
         [self.navigationController popViewControllerAnimated:YES];
     else
@@ -46,6 +55,9 @@
 
 - (IBAction)dismiss:(id)sender
 {
+    if (SYSTEM_RUNS_IN_THE_FUTURE)
+        self.navigationController.navigationBar.translucent = YES;
+
     if (UI_USER_INTERFACE_IDIOM() == UIUserInterfaceIdiomPhone)
         [self.navigationController popViewControllerAnimated:NO];
     else

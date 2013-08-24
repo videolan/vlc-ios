@@ -44,6 +44,8 @@
 
 - (void)viewWillAppear:(BOOL)animated
 {
+    self.navigationController.navigationBar.translucent = NO;
+
     if ([[UIPasteboard generalPasteboard] containsPasteboardTypes:@[@"public.url", @"public.text"]]) {
         NSURL *pasteURL = [[UIPasteboard generalPasteboard] valueForPasteboardType:@"public.url"];
         if (!pasteURL || [[pasteURL absoluteString] isEqualToString:@""]) {
@@ -64,6 +66,9 @@
 
 - (void)viewWillDisappear:(BOOL)animated
 {
+    if (SYSTEM_RUNS_IN_THE_FUTURE)
+        self.navigationController.navigationBar.translucent = YES;
+
     NSUserDefaults *defaults = [NSUserDefaults standardUserDefaults];
     [defaults setObject:[NSArray arrayWithArray:_recentURLs] forKey:kVLCRecentURLs];
     [defaults setBool:self.privateToggleSwitch.on forKey:kVLCPrivateWebStreaming];
