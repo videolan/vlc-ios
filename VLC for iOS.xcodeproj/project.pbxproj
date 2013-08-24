@@ -656,6 +656,7 @@
 		7DD2A3A5179BFAFE003EB537 /* VLCBugreporter.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = VLCBugreporter.h; sourceTree = "<group>"; };
 		7DD2A3A6179BFAFE003EB537 /* VLCBugreporter.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = VLCBugreporter.m; sourceTree = "<group>"; };
 		7DD2A3A8179C04A6003EB537 /* OpenSans-Regular.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "OpenSans-Regular.ttf"; sourceTree = "<group>"; };
+		7DD8DDAF17C915F400E7AE4B /* VLCFixups.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = VLCFixups.h; sourceTree = "<group>"; };
 		7DDABBB51775A3A7003D8937 /* UIDevice+SpeedCategory.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIDevice+SpeedCategory.h"; sourceTree = "<group>"; };
 		7DDABBB61775A3C7003D8937 /* UIDevice+SpeedCategory.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIDevice+SpeedCategory.m"; sourceTree = "<group>"; };
 		7DDD0428172D98E5005A7B10 /* CFNetwork.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CFNetwork.framework; path = System/Library/Frameworks/CFNetwork.framework; sourceTree = SDKROOT; };
@@ -1363,6 +1364,7 @@
 			isa = PBXGroup;
 			children = (
 				7D6B08BB174A72A900A05173 /* VLCConstants.h */,
+				7DD8DDAF17C915F400E7AE4B /* VLCFixups.h */,
 				7D94FCED16DE7D1000F2623B /* VLCAppDelegate.h */,
 				7D94FCEE16DE7D1000F2623B /* VLCAppDelegate.m */,
 				A7D03A4817A4249F0022C16F /* MediaDiscovering */,
