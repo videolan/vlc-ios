@@ -106,6 +106,7 @@
             self.artistNameLabel.text = mediaObject.albumTrack.artist;
             self.albumNameLabel.text = mediaObject.albumTrack.album.name;
             self.titleLabel.text = (mediaObject.albumTrack.title.length > 0) ? mediaObject.albumTrack.title : mediaObject.title;
+            self.thumbnailView.image = nil;
         } else if ([mediaObject isShowEpisode]) {
             self.seriesNameLabel.text = mediaObject.showEpisode.show.name;
             self.titleLabel.text = (mediaObject.showEpisode.name.length > 0) ? mediaObject.showEpisode.name : mediaObject.title;
@@ -123,7 +124,7 @@
                     self.subtitleLabel.text = [self.subtitleLabel.text stringByAppendingFormat:@" — %@x%@", width, height];
             }
         }
-        if ([keyPath isEqualToString:@"computedThumbnail"] || !keyPath) {
+        if (([keyPath isEqualToString:@"computedThumbnail"] || !keyPath) && !mediaObject.isAlbumTrack) {
             NSManagedObjectID *objID = mediaObject.objectID;
             UIImage *displayedImage;
             if ([_thumbnailCacheIndex containsObject:objID]) {
