@@ -1023,7 +1023,7 @@
 
     /* we omit artwork for now since we had to read it from storage as we can't access
      * the artwork cache at the moment - FIXME? */
-    NSMutableDictionary *currentlyPlayingTrackInfo = [NSMutableDictionary dictionaryWithObjectsAndKeys: MPMediaItemPropertyTitle, currentFile.title, MPMediaItemPropertyPlaybackDuration, @(currentFile.duration.intValue / 1000.), MPNowPlayingInfoPropertyElapsedPlaybackTime, @(_mediaPlayer.time.intValue / 1000.), MPNowPlayingInfoPropertyPlaybackRate, @(_mediaPlayer.rate), nil];
+    NSMutableDictionary *currentlyPlayingTrackInfo = [NSMutableDictionary dictionaryWithObjectsAndKeys: currentFile.title, MPMediaItemPropertyTitle, @(currentFile.duration.intValue / 1000.), MPMediaItemPropertyPlaybackDuration, @(_mediaPlayer.time.intValue / 1000.), MPNowPlayingInfoPropertyElapsedPlaybackTime, @(_mediaPlayer.rate), MPNowPlayingInfoPropertyPlaybackRate, nil];
     if ([currentFile isAlbumTrack]) {
         MLAlbumTrack *track = currentFile.albumTrack;
         if (track.artist.length > 0)
