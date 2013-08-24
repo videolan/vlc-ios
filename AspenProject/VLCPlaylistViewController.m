@@ -419,6 +419,14 @@
         [self.tableView setEditing:editing animated:YES];
 }
 
+- (UITableViewCellEditingStyle)tableView:(UITableView *)aTableView editingStyleForRowAtIndexPath:(NSIndexPath *)indexPath
+{
+    if (_libraryMode != kVLCLibraryModeAllFiles)
+        return UITableViewCellEditingStyleNone;
+
+    return UITableViewCellEditingStyleDelete;
+}
+
 - (IBAction)leftButtonAction:(id)sender
 {
     [[(VLCAppDelegate*)[UIApplication sharedApplication].delegate revealController] toggleSidebar:![(VLCAppDelegate*)[UIApplication sharedApplication].delegate revealController].sidebarShowing duration:kGHRevealSidebarDefaultAnimationDuration];
