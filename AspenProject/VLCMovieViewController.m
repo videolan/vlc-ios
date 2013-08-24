@@ -269,8 +269,10 @@
 
     [self.navigationController setNavigationBarHidden:YES animated:YES];
 
-    if (UI_USER_INTERFACE_IDIOM() == UIUserInterfaceIdiomPhone)
-        [UIApplication sharedApplication].statusBarStyle = UIStatusBarStyleBlackTranslucent;
+    if (!SYSTEM_RUNS_IN_THE_FUTURE) {
+        if (UI_USER_INTERFACE_IDIOM() == UIUserInterfaceIdiomPhone)
+            [UIApplication sharedApplication].statusBarStyle = UIStatusBarStyleBlackTranslucent;
+    }
 
     [self _startPlayback];
 
@@ -445,7 +447,8 @@
         _idleTimer = nil;
     }
     [self.navigationController setNavigationBarHidden:NO animated:YES];
-    [UIApplication sharedApplication].statusBarStyle = UIStatusBarStyleBlackOpaque;
+    if (!SYSTEM_RUNS_IN_THE_FUTURE)
+        [UIApplication sharedApplication].statusBarStyle = UIStatusBarStyleBlackOpaque;
     [[UIApplication sharedApplication] setStatusBarHidden:NO withAnimation:UIStatusBarAnimationFade];
     [super viewWillDisappear:animated];
 

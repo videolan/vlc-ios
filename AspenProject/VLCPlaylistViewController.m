@@ -18,6 +18,11 @@
 #import "VLCAppDelegate.h"
 #import "UIBarButtonItem+Theme.h"
 
+
+#ifndef UIStatusBarStyleLightContent
+#define UIStatusBarStyleLightContent 1
+#endif
+
 @implementation EmptyLibraryView
 @end
 
@@ -126,6 +131,9 @@
     if (_foundMedia.count < 1)
         [self performSelector:@selector(reloadContents) withObject:nil afterDelay:.0];
     [[MLMediaLibrary sharedMediaLibrary] performSelector:@selector(libraryDidAppear) withObject:nil afterDelay:1.];
+
+    if (SYSTEM_RUNS_IN_THE_FUTURE)
+        [UIApplication sharedApplication].statusBarStyle = UIStatusBarStyleLightContent;
 }
 
 - (void)viewDidDisappear:(BOOL)animated
