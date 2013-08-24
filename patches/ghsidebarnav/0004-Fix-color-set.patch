@@ -1,0 +1,34 @@
+From e27bb10fa7d223381dcdb13cba9824cbb4cce2b5 Mon Sep 17 00:00:00 2001
+From: =?UTF-8?q?Felix=20Paul=20K=C3=BChne?= <fkuehne@videolan.org>
+Date: Sat, 24 Aug 2013 22:44:29 +0200
+Subject: [PATCH 4/4] Fix color set
+
+---
+ Demo/GHMenuCell.m | 4 ++--
+ 1 file changed, 2 insertions(+), 2 deletions(-)
+
+diff --git a/Demo/GHMenuCell.m b/Demo/GHMenuCell.m
+index 3111271..0269b64 100644
+--- a/Demo/GHMenuCell.m
++++ b/Demo/GHMenuCell.m
+@@ -24,7 +24,7 @@ NSString const *kSidebarCellImageKey = @"CellImage";
+         self.backgroundColor = [UIColor colorWithRed:(43.0f/255.0f) green:(43.0f/255.0f) blue:(43.0f/255.0f) alpha:1.0f];
+ 
+ 		UIView *bgView = [[UIView alloc] init];
+-		bgView.backgroundColor = [UIColor colorWithRed:(65.0f/255.0f) green:(65.0f/255.0f) blue:(65.0f/255.0f) alpha:1.0f];
++		bgView.backgroundColor = [UIColor colorWithRed:0.1137 green:0.1137 blue:0.1137 alpha:1.0f];
+ 		self.selectedBackgroundView = bgView;
+ 
+ 		self.imageView.contentMode = UIViewContentModeCenter;
+@@ -35,7 +35,7 @@ NSString const *kSidebarCellImageKey = @"CellImage";
+ 		self.textLabel.font = [UIFont fontWithName:@"Helvetica" size:([UIFont systemFontSize] * 1.2f)];
+ 		self.textLabel.shadowOffset = CGSizeMake(0.0f, 1.0f);
+ 		self.textLabel.shadowColor = [UIColor colorWithWhite:0.0f alpha:0.25f];
+-		self.textLabel.textColor = [UIColor colorWithRed:(196.0f/255.0f) green:(204.0f/255.0f) blue:(218.0f/255.0f) alpha:1.0f];
++		self.textLabel.textColor = [UIColor whiteColor];
+         self.textLabel.adjustsFontSizeToFitWidth = YES;
+         if ([self.textLabel respondsToSelector:@selector(setAdjustsLetterSpacingToFitWidth:)])
+             self.textLabel.adjustsLetterSpacingToFitWidth = YES;
+-- 
+1.8.3.4 (Apple Git-47)
+
