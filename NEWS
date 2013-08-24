@@ -12,7 +12,8 @@
 * Add Deinterlace option (off by default, #8813)
 * Device no longer goes to sleep during media downloads (#9062)
 * Improved video output on external screens (#9055, #9079)
-* New translations to Bosnian, Catalan, Galician, Greek, Marathi, Portuguese
+* New translations to Bosnian, Catalan, Galician, Greek, Marathi, Portuguese,
+  Slovenian
 
 2.0.2:
 ------
