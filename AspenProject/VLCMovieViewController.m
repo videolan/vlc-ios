@@ -1023,10 +1023,17 @@
 
     /* we omit artwork for now since we had to read it from storage as we can't access
      * the artwork cache at the moment - FIXME? */
-    NSDictionary *currentlyPlayingTrackInfo = @{ MPMediaItemPropertyTitle : currentFile.title,
-                                                 MPMediaItemPropertyPlaybackDuration : @(currentFile.duration.intValue / 1000.),
-                                                 MPNowPlayingInfoPropertyElapsedPlaybackTime : @(_mediaPlayer.time.intValue / 1000.),
-                                                 MPNowPlayingInfoPropertyPlaybackRate : @(_mediaPlayer.rate) };
+    NSMutableDictionary *currentlyPlayingTrackInfo = [NSMutableDictionary dictionaryWithObjectsAndKeys: MPMediaItemPropertyTitle, currentFile.title, MPMediaItemPropertyPlaybackDuration, @(currentFile.duration.intValue / 1000.), MPNowPlayingInfoPropertyElapsedPlaybackTime, @(_mediaPlayer.time.intValue / 1000.), MPNowPlayingInfoPropertyPlaybackRate, @(_mediaPlayer.rate), nil];
+    if ([currentFile isAlbumTrack]) {
+        MLAlbumTrack *track = currentFile.albumTrack;
+        if (track.artist.length > 0)
+            [currentlyPlayingTrackInfo setObject:track.artist forKey:MPMediaItemPropertyArtist];
+        if (track.title.length > 0)
+            [currentlyPlayingTrackInfo setObject:track.title forKey:MPMediaItemPropertyTitle];
+        if (track.album.name.length > 0)
+            [currentlyPlayingTrackInfo setObject:track.album.name forKey:MPMediaItemPropertyAlbumTitle];
+        [currentlyPlayingTrackInfo setObject:[NSNumber numberWithInt:[track.trackNumber intValue]] forKey:MPMediaItemPropertyAlbumTrackNumber];
+    }
 
     [MPNowPlayingInfoCenter defaultCenter].nowPlayingInfo = currentlyPlayingTrackInfo;
 }
