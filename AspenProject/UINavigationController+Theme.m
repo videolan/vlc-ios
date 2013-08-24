@@ -14,8 +14,14 @@
 - (void)loadTheme
 {
     UINavigationBar *navBar = self.navigationBar;
-    [navBar setBackgroundImage:[UIImage imageNamed:@"navBarBackground"]
-                 forBarMetrics:UIBarMetricsDefault];
-    navBar.barStyle = UIBarStyleBlack;
+    if (!SYSTEM_RUNS_IN_THE_FUTURE) {
+        [navBar setBackgroundImage:[UIImage imageNamed:@"navBarBackground"]
+                     forBarMetrics:UIBarMetricsDefault];
+        navBar.barStyle = UIBarStyleBlack;
+    } else {
+        navBar.barTintColor = [UIColor colorWithRed:1.0f green:(132.0f/255.0f) blue:0.0f alpha:1.f];
+        navBar.tintColor = [UIColor whiteColor];
+        navBar.titleTextAttributes = @{ UITextAttributeTextColor : [UIColor whiteColor] };
+    }
 }
 @end
