@@ -80,15 +80,17 @@
     self.view = [[UIView alloc] initWithFrame:CGRectMake(0.0f, 0.0f, kGHRevealSidebarWidth, CGRectGetHeight(self.view.bounds))];
     [self.view addSubview:_tableView];
 
-    UIImageView *brandingBackgroundImageView;
-    if (SYSTEM_RUNS_IN_THE_FUTURE)
-        brandingBackgroundImageView = [[UIImageView alloc] initWithFrame:CGRectMake(0.0f, 0.0f, kGHRevealSidebarWidth, 44.0f + 20.0f)];
-    else
+    if (SYSTEM_RUNS_IN_THE_FUTURE) {
+        UIView *brandingBackgroundView = [[UIView alloc] initWithFrame:CGRectMake(0.0f, 0.0f, kGHRevealSidebarWidth, 64.0f)];
+        brandingBackgroundView.backgroundColor = [UIColor colorWithRed:0.1608 green:0.1608 blue:0.1608 alpha:1.0000];
+        [self.view addSubview:brandingBackgroundView];
+    } else {
+        UIImageView *brandingBackgroundImageView;
         brandingBackgroundImageView = [[UIImageView alloc] initWithFrame:CGRectMake(0.0f, 0.0f, kGHRevealSidebarWidth, 44.0f)];
-
-    brandingBackgroundImageView.contentMode = UIViewContentModeScaleToFill;
-    brandingBackgroundImageView.image = [UIImage imageNamed:@"headerSidebar"];
-    [self.view addSubview:brandingBackgroundImageView];
+        brandingBackgroundImageView.contentMode = UIViewContentModeScaleToFill;
+        brandingBackgroundImageView.image = [UIImage imageNamed:@"headerSidebar"];
+        [self.view addSubview:brandingBackgroundImageView];
+    }
     UIImageView *brandingImageView;
     if (SYSTEM_RUNS_IN_THE_FUTURE)
         brandingImageView = [[UIImageView alloc] initWithFrame:CGRectMake(0.0f, 0.0f, kGHRevealSidebarWidth, 44.0f + 40.0f)];
