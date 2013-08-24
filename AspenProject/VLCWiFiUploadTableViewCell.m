@@ -27,13 +27,13 @@
     self.titleLabel.text = NSLocalizedString(@"HTTP_UPLOAD", @"");
     self.titleLabel.shadowOffset = CGSizeMake(0.0f, 1.0f);
     self.titleLabel.shadowColor = [UIColor colorWithWhite:0.0f alpha:0.25f];
-    self.titleLabel.textColor = [UIColor colorWithRed:(196.0f/255.0f) green:(204.0f/255.0f) blue:(218.0f/255.0f) alpha:1.0f];
+    self.titleLabel.textColor = [UIColor whiteColor];
 
     self.backgroundColor = [UIColor colorWithRed:(43.0f/255.0f) green:(43.0f/255.0f) blue:(43.0f/255.0f) alpha:1.0f];
 
     self.uploadAddressLabel.shadowOffset = CGSizeMake(0.0f, 1.0f);
     self.uploadAddressLabel.shadowColor = [UIColor colorWithWhite:0.0f alpha:0.25f];
-    self.uploadAddressLabel.textColor = [UIColor colorWithRed:(196.0f/255.0f) green:(204.0f/255.0f) blue:(218.0f/255.0f) alpha:1.0f];
+    self.uploadAddressLabel.textColor = [UIColor whiteColor];
 
     UIView *topLine = [[UIView alloc] initWithFrame:CGRectMake(0.0f, 0.0f, [UIScreen mainScreen].bounds.size.height, 1.0f)];
     topLine.backgroundColor = [UIColor colorWithRed:(16.0f/255.0f) green:(16.0f/255.0f) blue:(16.0f/255.0f) alpha:1.0f];
