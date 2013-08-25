@@ -1,17 +1,19 @@
 2.1:
 ----
-* Improved overall stability (#8989, #9031, #9089, #9092)
+* Improved overall stability (#8989, #9031, #9048, #9089, #9092)
 * Add support for subtitles in non-western languages (#8991)
 * Improved Subtitles support with options to choose font, size, and color
 * Add UPNP discovery and streaming (#8880)
 * Add FTP server discovery, streaming and downloading (#9064)
-* Add Bonjour announcement for the WiFi Uploader's website (#8741)
+* Add Bonjour announcements for the WiFi Uploader's website (#8741)
 * Add playback of audio-only media (#9044)
 * Newly implemented menu and application flow (#9045)
 * Improved VoiceOver and accessibility support (#9017)
 * Add Deinterlace option (off by default, #8813)
 * Device no longer goes to sleep during media downloads (#9062)
 * Improved video output on external screens (#9055, #9079)
+* Improved Passcode Lock behavior (#9252)
+* Minor usability improvements (#9122, #9125, #9225)
 * New translations to Bosnian, Catalan, Galician, Greek, Marathi, Portuguese,
   Slovenian
 
