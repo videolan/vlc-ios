@@ -20,6 +20,8 @@
 #import "VLCHTTPUploaderController.h"
 #import "VLCMenuTableViewController.h"
 
+#define PASSCODE_CHECK_INTERVAL 300
+
 @interface VLCAppDelegate () <PAPasscodeViewControllerDelegate, VLCMediaFileDiscovererDelegate> {
     PAPasscodeViewController *_passcodeLockController;
     VLCDropboxTableViewController *_dropboxTableViewController;
@@ -140,10 +142,12 @@
 - (void)applicationWillEnterForeground:(UIApplication *)application
 {
     [[MLMediaLibrary sharedMediaLibrary] applicationWillStart];
+    [self validatePasscode];
 }
 
 - (void)applicationWillResignActive:(UIApplication *)application
 {
+    self.nextPasscodeCheckDate = [NSDate dateWithTimeIntervalSinceNow:PASSCODE_CHECK_INTERVAL];
     [[MLMediaLibrary sharedMediaLibrary] applicationWillExit];
 }
 
@@ -151,11 +155,6 @@
 {
     [[MLMediaLibrary sharedMediaLibrary] updateMediaDatabase];
     [self updateMediaList];
-}
-
-- (void)applicationDidEnterBackground:(UIApplication *)application
-{
-    [self validatePasscode]; // Lock library when going to background
 }
 
 - (void)applicationWillTerminate:(UIApplication *)application
@@ -264,7 +263,7 @@
 - (void)PAPasscodeViewControllerDidEnterPasscode:(PAPasscodeViewController *)controller
 {
     // TODO add transition animation, i.e. fade
-    self.nextPasscodeCheckDate = [NSDate dateWithTimeIntervalSinceNow:300];
+    self.nextPasscodeCheckDate = [NSDate dateWithTimeIntervalSinceNow:PASSCODE_CHECK_INTERVAL];
     self.window.rootViewController = self.revealController;
 }
 
