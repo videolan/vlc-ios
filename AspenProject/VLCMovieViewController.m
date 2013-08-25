@@ -977,8 +977,10 @@
     _mediaPlayer.currentVideoTrackIndex = 0;
 
     if (![[[NSUserDefaults standardUserDefaults] objectForKey:kVLCSettingContinueAudioInBackgroundKey] boolValue]) {
-        [_mediaPlayer pause];
-        _shouldResumePlaying = YES;
+        if ([_mediaPlayer isPlaying]) {
+            [_mediaPlayer pause];
+            _shouldResumePlaying = YES;
+        }
     }
 
     glFinish();
