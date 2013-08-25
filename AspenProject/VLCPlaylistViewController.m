@@ -129,7 +129,7 @@
     }
 
     if (_foundMedia.count < 1)
-        [self performSelector:@selector(reloadContents) withObject:nil afterDelay:.0];
+        [self updateViewContents];
     [[MLMediaLibrary sharedMediaLibrary] performSelector:@selector(libraryDidAppear) withObject:nil afterDelay:1.];
 
     if (SYSTEM_RUNS_IN_THE_FUTURE)
@@ -173,15 +173,15 @@
     }
     [fileManager removeItemAtPath:[[NSURL URLWithString:mediaObject.url] path] error:nil];
     [[MLMediaLibrary sharedMediaLibrary] updateMediaDatabase];
-    [self reloadContents];
+    [self updateViewContents];
 }
 
 - (void)_displayEmptyLibraryViewIfNeeded
 {
-    if (_foundMedia.count > 0) {
-        if (self.emptyLibraryView.superview)
-            [self.emptyLibraryView removeFromSuperview];
-    } else {
+    if (self.emptyLibraryView.superview)
+        [self.emptyLibraryView removeFromSuperview];
+
+    if (_foundMedia.count <= 0) {
         self.emptyLibraryView.frame = self.view.frame;
         [self.view addSubview:self.emptyLibraryView];
     }
@@ -205,11 +205,18 @@
     self.navigationItem.leftBarButtonItem = _menuButton;
     [self.emptyLibraryView removeFromSuperview];
 
-    [self reloadContents];
+    [self updateViewContents];
 }
 
-- (void)reloadContents
+- (void)libraryWasUpdated
 {
+    NSLog(@"libraryWasUpdated");
+    [self updateViewContents];
+}
+
+- (void)updateViewContents
+{
+    NSLog(@"old count %i", _foundMedia.count);
     if (_libraryMode == kVLCLibraryModeAllAlbums) {
         NSArray *rawAlbums = [MLAlbum allAlbums];
         _foundMedia = [[NSMutableArray alloc] init];
@@ -237,16 +244,18 @@
     } else
         _foundMedia = [NSMutableArray arrayWithArray:[MLFile allFiles]];
 
-    [self updateViewContents];
+    NSLog(@"old count %i", _foundMedia.count);
+
+    [self reloadViews];
 }
 
-- (void)updateViewContents
+- (void)reloadViews
 {
     if (UI_USER_INTERFACE_IDIOM() == UIUserInterfaceIdiomPhone)
         [self.tableView reloadData];
     else {
         [self.gridView reloadData];
-        [self.gridView setNeedsLayout];
+        [self.gridView performSelector:@selector(reloadData) withObject:nil afterDelay:2.];
     }
 
     [self _displayEmptyLibraryViewIfNeeded];
@@ -305,13 +314,13 @@
         self.navigationItem.leftBarButtonItem = [UIBarButtonItem themedBackButtonWithTarget:self andSelector:@selector(backToAllItems:)];
         [self.navigationItem.leftBarButtonItem setTitle:NSLocalizedString(@"LIBRARY_MUSIC", @"")];
         self.title = [(MLAlbum*)currentObject name];
-        [self updateViewContents];
+        [self reloadViews];
     } else if ([currentObject isKindOfClass:[MLShow class]]) {
         _foundMedia = [NSMutableArray arrayWithArray:[[(MLShow *)currentObject episodes] allObjects]];
         self.navigationItem.leftBarButtonItem = [UIBarButtonItem themedBackButtonWithTarget:self andSelector:@selector(backToAllItems:)];
         [self.navigationItem.leftBarButtonItem setTitle:NSLocalizedString(@"LIBRARY_SERIES", @"")];
         self.title = [(MLShow*)currentObject name];
-        [self updateViewContents];
+        [self reloadViews];
     } else {
         if (!self.movieViewController)
             self.movieViewController = [[VLCMovieViewController alloc] initWithNibName:nil bundle:nil];
@@ -364,13 +373,13 @@
         self.navigationItem.leftBarButtonItem = [UIBarButtonItem themedBackButtonWithTarget:self andSelector:@selector(backToAllItems:)];
         [self.navigationItem.leftBarButtonItem setTitle:NSLocalizedString(@"LIBRARY_MUSIC", @"")];
         self.title = [(MLAlbum*)currentObject name];
-        [self updateViewContents];
+        [self reloadViews];
     } else if ([currentObject isKindOfClass:[MLShow class]]) {
         _foundMedia = [NSMutableArray arrayWithArray:[[(MLShow *)currentObject episodes] allObjects]];
         self.navigationItem.leftBarButtonItem = [UIBarButtonItem themedBackButtonWithTarget:self andSelector:@selector(backToAllItems:)];
         [self.navigationItem.leftBarButtonItem setTitle:NSLocalizedString(@"LIBRARY_SERIES", @"")];
         self.title = [(MLShow*)currentObject name];
-        [self updateViewContents];
+        [self reloadViews];
     } else {
         if (!self.movieViewController)
             self.movieViewController = [[VLCMovieViewController alloc] initWithNibName:nil bundle:nil];
@@ -487,7 +496,7 @@
     else
         self.title = NSLocalizedString(@"LIBRARY_ALL_FILES", @"");
 
-    [self reloadContents];
+    [self updateViewContents];
 }
 
 @end
