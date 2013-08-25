@@ -30,6 +30,25 @@
 				<string>com.real.realmedia</string>
 				<string>com.apple.quicktime-movie</string>
 				<string>org.matroska.video</string>
+				<string>public.mpeg4</string>
+			</array>
+		</dict>
+		<dict>
+			<key>CFBundleTypeIconFiles</key>
+			<array/>
+			<key>CFBundleTypeName</key>
+			<string>Audio Files</string>
+			<key>LSItemContentTypes</key>
+			<array>
+				<string>public.audio</string>
+				<string>public.mp3</string>
+				<string>public.mpeg-4-audio</string>
+				<string>public.ulaw-audio</string>
+				<string>public.aifc-audio</string>
+				<string>public.aiff-audio</string>
+				<string>com.microsoft.waveform-​audio</string>
+				<string>com.microsoft.windows-​media-wma</string>
+				<string>com.real.realaudio</string>
 			</array>
 		</dict>
 	</array>
@@ -249,6 +268,56 @@
 			<string>Matroska</string>
 			<key>UTTypeIdentifier</key>
 			<string>org.matroska.mkv</string>
+		</dict>
+		<dict>
+			<key>UTTypeConformsTo</key>
+			<array>
+				<string>public.audio</string>
+			</array>
+			<key>UTTypeDescription</key>
+			<string>Flac</string>
+			<key>UTTypeIdentifier</key>
+			<string>org.videolan.flac</string>
+		</dict>
+		<dict>
+			<key>UTTypeConformsTo</key>
+			<array>
+				<string>public.audio</string>
+			</array>
+			<key>UTTypeDescription</key>
+			<string>OPUS</string>
+			<key>UTTypeIdentifier</key>
+			<string>org.videolan.opus</string>
+		</dict>
+		<dict>
+			<key>UTTypeConformsTo</key>
+			<array>
+				<string>public.audio</string>
+			</array>
+			<key>UTTypeDescription</key>
+			<string>Ogg Audio</string>
+			<key>UTTypeIdentifier</key>
+			<string>org.xiph.oga</string>
+		</dict>
+		<dict>
+			<key>UTTypeConformsTo</key>
+			<array>
+				<string>public.video</string>
+			</array>
+			<key>UTTypeDescription</key>
+			<string>MXF</string>
+			<key>UTTypeIdentifier</key>
+			<string>org.videolan.mxf</string>
+		</dict>
+		<dict>
+			<key>UTTypeConformsTo</key>
+			<array>
+				<string>public.video</string>
+			</array>
+			<key>UTTypeDescription</key>
+			<string>WebM</string>
+			<key>UTTypeIdentifier</key>
+			<string>org.videolan.webm</string>
 		</dict>
 	</array>
 </dict>
