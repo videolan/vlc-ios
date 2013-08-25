@@ -70,6 +70,7 @@
 						<string key="NSFrame">{{642, 5}, {50, 29}}</string>
 						<reference key="NSSuperview" ref="534205662"/>
 						<reference key="NSWindow"/>
+						<reference key="NSNextKeyView"/>
 						<string key="NSReuseIdentifierKey">_NS:9</string>
 						<bool key="IBUIOpaque">NO</bool>
 						<string key="targetRuntimeIdentifier">IBIPadFramework</string>
@@ -187,6 +188,7 @@
 						<string key="NSFrame">{{255, 465}, {257, 28}}</string>
 						<reference key="NSSuperview" ref="647120888"/>
 						<reference key="NSWindow"/>
+						<reference key="NSNextKeyView" ref="567155588"/>
 						<string key="NSReuseIdentifierKey">_NS:9</string>
 						<bool key="IBUIOpaque">NO</bool>
 						<bool key="IBUIClipsSubviews">YES</bool>
@@ -255,7 +257,7 @@
 					<object class="IBUINavigationBar" id="908925826">
 						<reference key="NSNextResponder" ref="647120888"/>
 						<int key="NSvFlags">290</int>
-						<string key="NSFrame">{{0, -2}, {768, 44}}</string>
+						<string key="NSFrame">{{0, 18}, {768, 44}}</string>
 						<reference key="NSSuperview" ref="647120888"/>
 						<reference key="NSWindow"/>
 						<reference key="NSNextKeyView" ref="322093773"/>
@@ -330,7 +332,7 @@
 								<bool key="IBUIAdjustsFontSizeToFit">NO</bool>
 							</object>
 						</array>
-						<string key="NSFrame">{{0, 43}, {768, 46}}</string>
+						<string key="NSFrame">{{0, 63}, {768, 46}}</string>
 						<reference key="NSSuperview" ref="647120888"/>
 						<reference key="NSWindow"/>
 						<reference key="NSNextKeyView" ref="589625766"/>
@@ -403,7 +405,7 @@
 								<string key="NSFrame">{{51, 303}, {298, 53}}</string>
 								<reference key="NSSuperview" ref="753155309"/>
 								<reference key="NSWindow"/>
-								<reference key="NSNextKeyView" ref="567155588"/>
+								<reference key="NSNextKeyView" ref="776283891"/>
 								<string key="NSReuseIdentifierKey">_NS:9</string>
 								<reference key="IBUIBackgroundColor" ref="8046438"/>
 								<bool key="IBUIOpaque">NO</bool>
@@ -647,6 +649,7 @@
 								<string key="NSFrame">{{14, 57}, {342, 22}}</string>
 								<reference key="NSSuperview" ref="831021170"/>
 								<reference key="NSWindow"/>
+								<reference key="NSNextKeyView"/>
 								<string key="NSReuseIdentifierKey">_NS:9</string>
 								<string key="targetRuntimeIdentifier">IBIPadFramework</string>
 							</object>

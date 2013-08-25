@@ -199,19 +199,12 @@
         self.toolbar.tintColor = [UIColor whiteColor];
         self.toolbar.barTintColor = [UIColor colorWithWhite:0.f alpha:1.f];
 
-        CGRect rect = self.toolbar.frame;
-        rect.origin.y = 0.0f;
-        rect.size.height = rect.size.height + 20.0f;
-        self.toolbar.frame = rect;
-        rect = self.positionSlider.frame;
+        CGRect rect = self.positionSlider.frame;
         rect.origin.y = rect.origin.y - 5.;
         self.positionSlider.frame = rect;
         rect = self.resetVideoFilterButton.frame;
         rect.origin.y = rect.origin.y + 5.;
         self.resetVideoFilterButton.frame = rect;
-        rect = self.scrubIndicatorView.frame;
-        rect.origin.y = rect.origin.y + 20.;
-        self.scrubIndicatorView.frame = rect;
     } else {
         [self.toolbar setBackgroundImage:[UIImage imageNamed:@"seekbarBg"] forBarMetrics:UIBarMetricsDefault];
         [self.backButton setBackgroundImage:[UIImage imageNamed:@"playbackDoneButton"] forState:UIControlStateNormal barMetrics:UIBarMetricsDefault];

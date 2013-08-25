@@ -66,11 +66,8 @@
     _menuItemsSectionTwo = @[@"LOCAL_NETWORK", @"OPEN_NETWORK", @"DOWNLOAD_FROM_HTTP", @"WiFi Upload", @"Dropbox"];
     _menuItemsSectionThree = @[@"Settings", @"ABOUT_APP"];
 
-    if (SYSTEM_RUNS_IN_THE_FUTURE)
-        _tableView = [[UITableView alloc] initWithFrame:CGRectMake(0.0f, 44.0f + 20.0f, kGHRevealSidebarWidth, CGRectGetHeight(self.view.bounds) - (44.0f + 20.0f)) style:UITableViewStylePlain];
-    else
-        _tableView = [[UITableView alloc] initWithFrame:CGRectMake(0.0f, 44.0f, kGHRevealSidebarWidth, CGRectGetHeight(self.view.bounds) - 44.0f) style:UITableViewStylePlain];
-	_tableView.delegate = self;
+    _tableView = [[UITableView alloc] initWithFrame:CGRectMake(0.0f, 44.0f + 20.0f, kGHRevealSidebarWidth, CGRectGetHeight(self.view.bounds) - (44.0f + 20.0f)) style:UITableViewStylePlain];
+    _tableView.delegate = self;
 	_tableView.dataSource = self;
 	_tableView.autoresizingMask = UIViewAutoresizingFlexibleHeight;
 	_tableView.backgroundColor = [UIColor colorWithRed:(43.0f/255.0f) green:(43.0f/255.0f) blue:(43.0f/255.0f) alpha:1.0f];
@@ -86,16 +83,13 @@
         [self.view addSubview:brandingBackgroundView];
     } else {
         UIImageView *brandingBackgroundImageView;
-        brandingBackgroundImageView = [[UIImageView alloc] initWithFrame:CGRectMake(0.0f, 0.0f, kGHRevealSidebarWidth, 44.0f)];
+        brandingBackgroundImageView = [[UIImageView alloc] initWithFrame:CGRectMake(0.0f, 20.0f, kGHRevealSidebarWidth, 44.0f)];
         brandingBackgroundImageView.contentMode = UIViewContentModeScaleToFill;
         brandingBackgroundImageView.image = [UIImage imageNamed:@"headerSidebar"];
         [self.view addSubview:brandingBackgroundImageView];
     }
     UIImageView *brandingImageView;
-    if (SYSTEM_RUNS_IN_THE_FUTURE)
-        brandingImageView = [[UIImageView alloc] initWithFrame:CGRectMake(0.0f, 0.0f, kGHRevealSidebarWidth, 44.0f + 40.0f)];
-    else
-        brandingImageView = [[UIImageView alloc] initWithFrame:CGRectMake(0.0f, 0.0f, kGHRevealSidebarWidth, 44.0f)];
+    brandingImageView = [[UIImageView alloc] initWithFrame:CGRectMake(0.0f, 0.0f, kGHRevealSidebarWidth, 44.0f + 40.0f)];
     brandingImageView.contentMode = UIViewContentModeCenter;
     brandingImageView.image = [UIImage imageNamed:@"title"];
     [self.view addSubview:brandingImageView];
