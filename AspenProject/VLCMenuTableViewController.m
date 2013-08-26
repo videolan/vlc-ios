@@ -114,6 +114,7 @@
 
 - (void)viewWillAppear:(BOOL)animated {
 	self.view.frame = CGRectMake(0.0f, 0.0f,kGHRevealSidebarWidth, CGRectGetHeight(self.view.bounds));
+    [self netReachabilityChanged:nil];
 }
 
 - (void)netReachabilityChanged:(NSNotification *)notification
@@ -123,7 +124,7 @@
         _uploadLocationLabel.text = NSLocalizedString(@"HTTP_UPLOAD_SERVER_OFF", @"");
     } else {
         _uploadButton.enabled = NO;
-        [_uploadButton setImage:[UIImage imageNamed:@"WiFi-off"] forState:UIControlStateNormal];
+        [_uploadButton setImage:[UIImage imageNamed:@"WiFiUp"] forState:UIControlStateNormal];
         _uploadLocationLabel.text = NSLocalizedString(@"HTTP_UPLOAD_NO_CONNECTIVITY", @"");
         [self.uploadController changeHTTPServerState:NO];
     }
@@ -269,12 +270,14 @@
 
 - (IBAction)toggleHTTPServer:(UIButton *)sender
 {
-    BOOL futureHTTPServerState = ![[NSUserDefaults standardUserDefaults] boolForKey:kVLCSettingSaveHTTPUploadServerStatus];
+    if (_uploadButton.enabled) {
+        BOOL futureHTTPServerState = ![[NSUserDefaults standardUserDefaults] boolForKey:kVLCSettingSaveHTTPUploadServerStatus];
 
-    [[NSUserDefaults standardUserDefaults] setBool:futureHTTPServerState forKey:kVLCSettingSaveHTTPUploadServerStatus];
-    [self.uploadController changeHTTPServerState:futureHTTPServerState];
-    [self updateHTTPServerAddress];
-    [[NSUserDefaults standardUserDefaults] synchronize];
+        [[NSUserDefaults standardUserDefaults] setBool:futureHTTPServerState forKey:kVLCSettingSaveHTTPUploadServerStatus];
+        [self.uploadController changeHTTPServerState:futureHTTPServerState];
+        [self updateHTTPServerAddress];
+        [[NSUserDefaults standardUserDefaults] synchronize];
+    }
 }
 
 - (void)_revealItem:(NSUInteger)itemIndex inSection:(NSUInteger)sectionNumber
