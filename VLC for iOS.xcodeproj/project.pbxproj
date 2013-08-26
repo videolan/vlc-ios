@@ -55,8 +55,6 @@
 		7D07F711175669D800CDE21C /* buttonHighlight@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 7D07F70F175669D800CDE21C /* buttonHighlight@2x.png */; };
 		7D07F71417566C4A00CDE21C /* menuCone.png in Resources */ = {isa = PBXBuildFile; fileRef = 7D07F71217566C4A00CDE21C /* menuCone.png */; };
 		7D07F71517566C4A00CDE21C /* menuCone@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 7D07F71317566C4A00CDE21C /* menuCone@2x.png */; };
-		7D07F7181756738400CDE21C /* dropboxLabel@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 7D07F7161756738400CDE21C /* dropboxLabel@2x.png */; };
-		7D07F7191756738400CDE21C /* dropboxLabel.png in Resources */ = {isa = PBXBuildFile; fileRef = 7D07F7171756738400CDE21C /* dropboxLabel.png */; };
 		7D07F71E175673D100CDE21C /* menuBtnBckHighlight@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 7D07F71A175673D100CDE21C /* menuBtnBckHighlight@2x.png */; };
 		7D07F71F175673D100CDE21C /* menuBtnBck@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 7D07F71B175673D100CDE21C /* menuBtnBck@2x.png */; };
 		7D07F720175673D100CDE21C /* menuBtnBckHighlight.png in Resources */ = {isa = PBXBuildFile; fileRef = 7D07F71C175673D100CDE21C /* menuBtnBckHighlight.png */; };
@@ -134,8 +132,6 @@
 		7D47D72C1760E3A000E86BAD /* sliderminimumTrack@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 7D47D72A1760E3A000E86BAD /* sliderminimumTrack@2x.png */; };
 		7D47D72F1761101700E86BAD /* VLCSlider.m in Sources */ = {isa = PBXBuildFile; fileRef = 7D47D72E1761101700E86BAD /* VLCSlider.m */; };
 		7D5DD5C717590ABF001421E3 /* About Contents.html in Resources */ = {isa = PBXBuildFile; fileRef = 7D5DD5C617590ABF001421E3 /* About Contents.html */; };
-		7D5E39C0174FB95A007DAFA1 /* dropbox-black.png in Resources */ = {isa = PBXBuildFile; fileRef = 7D5E39BF174FB95A007DAFA1 /* dropbox-black.png */; };
-		7D5E39C2174FBA28007DAFA1 /* dropbox-black@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 7D5E39C1174FBA28007DAFA1 /* dropbox-black@2x.png */; };
 		7D5E39C6174FBAF3007DAFA1 /* VLCDropboxTableViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 7D5E39C4174FBAF3007DAFA1 /* VLCDropboxTableViewController.m */; };
 		7D5E39C7174FBAF3007DAFA1 /* VLCDropboxTableViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 7D5E39C5174FBAF3007DAFA1 /* VLCDropboxTableViewController.xib */; };
 		7D5E39CA174FC2F3007DAFA1 /* dropbox-white.png in Resources */ = {isa = PBXBuildFile; fileRef = 7D5E39C8174FC2F3007DAFA1 /* dropbox-white.png */; };
@@ -372,8 +368,6 @@
 		7D07F70F175669D800CDE21C /* buttonHighlight@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "buttonHighlight@2x.png"; sourceTree = "<group>"; };
 		7D07F71217566C4A00CDE21C /* menuCone.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = menuCone.png; sourceTree = "<group>"; };
 		7D07F71317566C4A00CDE21C /* menuCone@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "menuCone@2x.png"; sourceTree = "<group>"; };
-		7D07F7161756738400CDE21C /* dropboxLabel@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "dropboxLabel@2x.png"; sourceTree = "<group>"; };
-		7D07F7171756738400CDE21C /* dropboxLabel.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = dropboxLabel.png; sourceTree = "<group>"; };
 		7D07F71A175673D100CDE21C /* menuBtnBckHighlight@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "menuBtnBckHighlight@2x.png"; sourceTree = "<group>"; };
 		7D07F71B175673D100CDE21C /* menuBtnBck@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "menuBtnBck@2x.png"; sourceTree = "<group>"; };
 		7D07F71C175673D100CDE21C /* menuBtnBckHighlight.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = menuBtnBckHighlight.png; sourceTree = "<group>"; };
@@ -513,8 +507,6 @@
 		7D5C204C17999A64004F9443 /* da */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = da; path = "da.lproj/badgeUnread~iphone.png"; sourceTree = "<group>"; };
 		7D5C204D17999A74004F9443 /* da */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = da; path = da.lproj/Localizable.strings; sourceTree = "<group>"; };
 		7D5DD5C617590ABF001421E3 /* About Contents.html */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.html; path = "About Contents.html"; sourceTree = "<group>"; };
-		7D5E39BF174FB95A007DAFA1 /* dropbox-black.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "dropbox-black.png"; sourceTree = "<group>"; };
-		7D5E39C1174FBA28007DAFA1 /* dropbox-black@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "dropbox-black@2x.png"; sourceTree = "<group>"; };
 		7D5E39C3174FBAF3007DAFA1 /* VLCDropboxTableViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = VLCDropboxTableViewController.h; sourceTree = "<group>"; };
 		7D5E39C4174FBAF3007DAFA1 /* VLCDropboxTableViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = VLCDropboxTableViewController.m; sourceTree = "<group>"; };
 		7D5E39C5174FBAF3007DAFA1 /* VLCDropboxTableViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; name = VLCDropboxTableViewController.xib; path = ../Resources/VLCDropboxTableViewController.xib; sourceTree = "<group>"; };
@@ -1029,12 +1021,8 @@
 				7DEB3B841764A4F40038FC70 /* blank@2x.png */,
 				7DEB3B5B17647B240038FC70 /* bottomBlackBar@2x.png */,
 				7DEB3B5C17647B240038FC70 /* bottomBlackBar.png */,
-				7D5E39BF174FB95A007DAFA1 /* dropbox-black.png */,
-				7D5E39C1174FBA28007DAFA1 /* dropbox-black@2x.png */,
 				7D5E39C8174FC2F3007DAFA1 /* dropbox-white.png */,
 				7D5E39C9174FC2F3007DAFA1 /* dropbox-white@2x.png */,
-				7D07F7161756738400CDE21C /* dropboxLabel@2x.png */,
-				7D07F7171756738400CDE21C /* dropboxLabel.png */,
 			);
 			name = Dropbox;
 			sourceTree = "<group>";
@@ -1681,8 +1669,6 @@
 				A7A0E9F9174BA66000162F25 /* papasscode_marker.png in Resources */,
 				A7A0E9FA174BA66000162F25 /* papasscode_marker@2x.png in Resources */,
 				7D6B08FC174D773C00A05173 /* Settings.bundle in Resources */,
-				7D5E39C0174FB95A007DAFA1 /* dropbox-black.png in Resources */,
-				7D5E39C2174FBA28007DAFA1 /* dropbox-black@2x.png in Resources */,
 				7D5E39C7174FBAF3007DAFA1 /* VLCDropboxTableViewController.xib in Resources */,
 				7D5E39CA174FC2F3007DAFA1 /* dropbox-white.png in Resources */,
 				7D5E39CB174FC2F3007DAFA1 /* dropbox-white@2x.png in Resources */,
@@ -1696,8 +1682,6 @@
 				7D07F711175669D800CDE21C /* buttonHighlight@2x.png in Resources */,
 				7D07F71417566C4A00CDE21C /* menuCone.png in Resources */,
 				7D07F71517566C4A00CDE21C /* menuCone@2x.png in Resources */,
-				7D07F7181756738400CDE21C /* dropboxLabel@2x.png in Resources */,
-				7D07F7191756738400CDE21C /* dropboxLabel.png in Resources */,
 				7D07F71E175673D100CDE21C /* menuBtnBckHighlight@2x.png in Resources */,
 				7D07F71F175673D100CDE21C /* menuBtnBck@2x.png in Resources */,
 				7D07F720175673D100CDE21C /* menuBtnBckHighlight.png in Resources */,
