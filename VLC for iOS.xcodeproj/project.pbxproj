@@ -45,6 +45,28 @@
 		7AC862A91765E9510011611A /* jquery.ui.widget.js in Resources */ = {isa = PBXBuildFile; fileRef = 7AC862A11765E90C0011611A /* jquery.ui.widget.js */; };
 		7D00161C177056B700649F27 /* main.js in Resources */ = {isa = PBXBuildFile; fileRef = 7D00161A17704DAC00649F27 /* main.js */; };
 		7D02B0D217B6BE850099030D /* VLCLocalServerFolderListViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 7D02B0D117B6BE850099030D /* VLCLocalServerFolderListViewController.m */; };
+		7D0699D617CB1FAE00713BEB /* Settings@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 7D0699C017CB1FAE00713BEB /* Settings@2x.png */; };
+		7D0699D717CB1FAE00713BEB /* TVShows.png in Resources */ = {isa = PBXBuildFile; fileRef = 7D0699C117CB1FAE00713BEB /* TVShows.png */; };
+		7D0699D817CB1FAE00713BEB /* TVShows@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 7D0699C217CB1FAE00713BEB /* TVShows@2x.png */; };
+		7D0699D917CB1FAE00713BEB /* WifiUp.png in Resources */ = {isa = PBXBuildFile; fileRef = 7D0699C317CB1FAE00713BEB /* WifiUp.png */; };
+		7D0699DA17CB1FAE00713BEB /* WifiUp@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 7D0699C417CB1FAE00713BEB /* WifiUp@2x.png */; };
+		7D0699DB17CB1FAE00713BEB /* WifiUpOn.png in Resources */ = {isa = PBXBuildFile; fileRef = 7D0699C517CB1FAE00713BEB /* WifiUpOn.png */; };
+		7D0699DC17CB1FAE00713BEB /* WifiUpOn@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 7D0699C617CB1FAE00713BEB /* WifiUpOn@2x.png */; };
+		7D0699DD17CB1FAE00713BEB /* Dropbox@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 7D0699C717CB1FAE00713BEB /* Dropbox@2x.png */; };
+		7D0699DE17CB1FAE00713BEB /* Local.png in Resources */ = {isa = PBXBuildFile; fileRef = 7D0699C817CB1FAE00713BEB /* Local.png */; };
+		7D0699DF17CB1FAE00713BEB /* Local@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 7D0699C917CB1FAE00713BEB /* Local@2x.png */; };
+		7D0699E017CB1FAE00713BEB /* MusicAlbums.png in Resources */ = {isa = PBXBuildFile; fileRef = 7D0699CA17CB1FAE00713BEB /* MusicAlbums.png */; };
+		7D0699E117CB1FAE00713BEB /* MusicAlbums@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 7D0699CB17CB1FAE00713BEB /* MusicAlbums@2x.png */; };
+		7D0699E217CB1FAE00713BEB /* OpenNetStream.png in Resources */ = {isa = PBXBuildFile; fileRef = 7D0699CC17CB1FAE00713BEB /* OpenNetStream.png */; };
+		7D0699E317CB1FAE00713BEB /* OpenNetStream@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 7D0699CD17CB1FAE00713BEB /* OpenNetStream@2x.png */; };
+		7D0699E417CB1FAE00713BEB /* Settings.png in Resources */ = {isa = PBXBuildFile; fileRef = 7D0699CE17CB1FAE00713BEB /* Settings.png */; };
+		7D0699E517CB1FAE00713BEB /* About.png in Resources */ = {isa = PBXBuildFile; fileRef = 7D0699CF17CB1FAE00713BEB /* About.png */; };
+		7D0699E617CB1FAE00713BEB /* About@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 7D0699D017CB1FAE00713BEB /* About@2x.png */; };
+		7D0699E717CB1FAE00713BEB /* AllFiles.png in Resources */ = {isa = PBXBuildFile; fileRef = 7D0699D117CB1FAE00713BEB /* AllFiles.png */; };
+		7D0699E817CB1FAE00713BEB /* AllFiles@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 7D0699D217CB1FAE00713BEB /* AllFiles@2x.png */; };
+		7D0699E917CB1FAE00713BEB /* Downloads.png in Resources */ = {isa = PBXBuildFile; fileRef = 7D0699D317CB1FAE00713BEB /* Downloads.png */; };
+		7D0699EA17CB1FAE00713BEB /* Downloads@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 7D0699D417CB1FAE00713BEB /* Downloads@2x.png */; };
+		7D0699EB17CB1FAE00713BEB /* Dropbox.png in Resources */ = {isa = PBXBuildFile; fileRef = 7D0699D517CB1FAE00713BEB /* Dropbox.png */; };
 		7D07A4E9174EA47800759D10 /* VLCSettingsController.m in Sources */ = {isa = PBXBuildFile; fileRef = 7D07A4E7174EA47800759D10 /* VLCSettingsController.m */; };
 		7D07A4ED174EB81200759D10 /* VLCDropboxController.m in Sources */ = {isa = PBXBuildFile; fileRef = 7D07A4EC174EB81200759D10 /* VLCDropboxController.m */; };
 		7D07F708175665ED00CDE21C /* navBarBackground@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 7D07F706175665ED00CDE21C /* navBarBackground@2x.png */; };
@@ -352,6 +374,28 @@
 		7D02B0D017B6BE850099030D /* VLCLocalServerFolderListViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = VLCLocalServerFolderListViewController.h; sourceTree = "<group>"; };
 		7D02B0D117B6BE850099030D /* VLCLocalServerFolderListViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = VLCLocalServerFolderListViewController.m; sourceTree = "<group>"; };
 		7D05ADEA174945CE0087550C /* DropboxSDK.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = DropboxSDK.framework; path = ImportedSources/Dropbox/DropboxSDK.framework; sourceTree = "<group>"; };
+		7D0699C017CB1FAE00713BEB /* Settings@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "Settings@2x.png"; sourceTree = "<group>"; };
+		7D0699C117CB1FAE00713BEB /* TVShows.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = TVShows.png; sourceTree = "<group>"; };
+		7D0699C217CB1FAE00713BEB /* TVShows@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "TVShows@2x.png"; sourceTree = "<group>"; };
+		7D0699C317CB1FAE00713BEB /* WifiUp.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = WifiUp.png; sourceTree = "<group>"; };
+		7D0699C417CB1FAE00713BEB /* WifiUp@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "WifiUp@2x.png"; sourceTree = "<group>"; };
+		7D0699C517CB1FAE00713BEB /* WifiUpOn.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = WifiUpOn.png; sourceTree = "<group>"; };
+		7D0699C617CB1FAE00713BEB /* WifiUpOn@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "WifiUpOn@2x.png"; sourceTree = "<group>"; };
+		7D0699C717CB1FAE00713BEB /* Dropbox@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "Dropbox@2x.png"; sourceTree = "<group>"; };
+		7D0699C817CB1FAE00713BEB /* Local.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = Local.png; sourceTree = "<group>"; };
+		7D0699C917CB1FAE00713BEB /* Local@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "Local@2x.png"; sourceTree = "<group>"; };
+		7D0699CA17CB1FAE00713BEB /* MusicAlbums.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = MusicAlbums.png; sourceTree = "<group>"; };
+		7D0699CB17CB1FAE00713BEB /* MusicAlbums@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "MusicAlbums@2x.png"; sourceTree = "<group>"; };
+		7D0699CC17CB1FAE00713BEB /* OpenNetStream.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = OpenNetStream.png; sourceTree = "<group>"; };
+		7D0699CD17CB1FAE00713BEB /* OpenNetStream@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "OpenNetStream@2x.png"; sourceTree = "<group>"; };
+		7D0699CE17CB1FAE00713BEB /* Settings.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = Settings.png; sourceTree = "<group>"; };
+		7D0699CF17CB1FAE00713BEB /* About.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = About.png; sourceTree = "<group>"; };
+		7D0699D017CB1FAE00713BEB /* About@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "About@2x.png"; sourceTree = "<group>"; };
+		7D0699D117CB1FAE00713BEB /* AllFiles.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = AllFiles.png; sourceTree = "<group>"; };
+		7D0699D217CB1FAE00713BEB /* AllFiles@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "AllFiles@2x.png"; sourceTree = "<group>"; };
+		7D0699D317CB1FAE00713BEB /* Downloads.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = Downloads.png; sourceTree = "<group>"; };
+		7D0699D417CB1FAE00713BEB /* Downloads@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "Downloads@2x.png"; sourceTree = "<group>"; };
+		7D0699D517CB1FAE00713BEB /* Dropbox.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = Dropbox.png; sourceTree = "<group>"; };
 		7D07A4E6174EA47800759D10 /* VLCSettingsController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = VLCSettingsController.h; sourceTree = "<group>"; };
 		7D07A4E7174EA47800759D10 /* VLCSettingsController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = VLCSettingsController.m; sourceTree = "<group>"; };
 		7D07A4EB174EB81200759D10 /* VLCDropboxController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = VLCDropboxController.h; sourceTree = "<group>"; };
@@ -1458,6 +1502,28 @@
 		7DEB3B7B1764A4080038FC70 /* menu */ = {
 			isa = PBXGroup;
 			children = (
+				7D0699C017CB1FAE00713BEB /* Settings@2x.png */,
+				7D0699C117CB1FAE00713BEB /* TVShows.png */,
+				7D0699C217CB1FAE00713BEB /* TVShows@2x.png */,
+				7D0699C317CB1FAE00713BEB /* WifiUp.png */,
+				7D0699C417CB1FAE00713BEB /* WifiUp@2x.png */,
+				7D0699C517CB1FAE00713BEB /* WifiUpOn.png */,
+				7D0699C617CB1FAE00713BEB /* WifiUpOn@2x.png */,
+				7D0699C717CB1FAE00713BEB /* Dropbox@2x.png */,
+				7D0699C817CB1FAE00713BEB /* Local.png */,
+				7D0699C917CB1FAE00713BEB /* Local@2x.png */,
+				7D0699CA17CB1FAE00713BEB /* MusicAlbums.png */,
+				7D0699CB17CB1FAE00713BEB /* MusicAlbums@2x.png */,
+				7D0699CC17CB1FAE00713BEB /* OpenNetStream.png */,
+				7D0699CD17CB1FAE00713BEB /* OpenNetStream@2x.png */,
+				7D0699CE17CB1FAE00713BEB /* Settings.png */,
+				7D0699CF17CB1FAE00713BEB /* About.png */,
+				7D0699D017CB1FAE00713BEB /* About@2x.png */,
+				7D0699D117CB1FAE00713BEB /* AllFiles.png */,
+				7D0699D217CB1FAE00713BEB /* AllFiles@2x.png */,
+				7D0699D317CB1FAE00713BEB /* Downloads.png */,
+				7D0699D417CB1FAE00713BEB /* Downloads@2x.png */,
+				7D0699D517CB1FAE00713BEB /* Dropbox.png */,
 				7DC72D5B17B7E7C7008A26D0 /* download@4x.png */,
 				7DC72D5C17B7E7C7008A26D0 /* download.png */,
 				7DC72D5D17B7E7C7008A26D0 /* download@2x.png */,
@@ -1780,6 +1846,28 @@
 				7D16035E17BF9FE600F29B34 /* sudHeaderBg@2x.png in Resources */,
 				7D16035F17BF9FE600F29B34 /* headerSidebar@2x.png in Resources */,
 				7D16036017BF9FE600F29B34 /* headerSidebar.png in Resources */,
+				7D0699D617CB1FAE00713BEB /* Settings@2x.png in Resources */,
+				7D0699D717CB1FAE00713BEB /* TVShows.png in Resources */,
+				7D0699D817CB1FAE00713BEB /* TVShows@2x.png in Resources */,
+				7D0699D917CB1FAE00713BEB /* WifiUp.png in Resources */,
+				7D0699DA17CB1FAE00713BEB /* WifiUp@2x.png in Resources */,
+				7D0699DB17CB1FAE00713BEB /* WifiUpOn.png in Resources */,
+				7D0699DC17CB1FAE00713BEB /* WifiUpOn@2x.png in Resources */,
+				7D0699DD17CB1FAE00713BEB /* Dropbox@2x.png in Resources */,
+				7D0699DE17CB1FAE00713BEB /* Local.png in Resources */,
+				7D0699DF17CB1FAE00713BEB /* Local@2x.png in Resources */,
+				7D0699E017CB1FAE00713BEB /* MusicAlbums.png in Resources */,
+				7D0699E117CB1FAE00713BEB /* MusicAlbums@2x.png in Resources */,
+				7D0699E217CB1FAE00713BEB /* OpenNetStream.png in Resources */,
+				7D0699E317CB1FAE00713BEB /* OpenNetStream@2x.png in Resources */,
+				7D0699E417CB1FAE00713BEB /* Settings.png in Resources */,
+				7D0699E517CB1FAE00713BEB /* About.png in Resources */,
+				7D0699E617CB1FAE00713BEB /* About@2x.png in Resources */,
+				7D0699E717CB1FAE00713BEB /* AllFiles.png in Resources */,
+				7D0699E817CB1FAE00713BEB /* AllFiles@2x.png in Resources */,
+				7D0699E917CB1FAE00713BEB /* Downloads.png in Resources */,
+				7D0699EA17CB1FAE00713BEB /* Downloads@2x.png in Resources */,
+				7D0699EB17CB1FAE00713BEB /* Dropbox.png in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

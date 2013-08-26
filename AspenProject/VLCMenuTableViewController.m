@@ -154,17 +154,18 @@
     static NSString *CellIdentifier = @"VLCMenuCell";
     static NSString *WiFiCellIdentifier = @"VLCMenuWiFiCell";
 
-    NSString *title;
-    if (indexPath.section == 0)
-        title = NSLocalizedString(_menuItemsSectionOne[indexPath.row], @"");
-    else if(indexPath.section == 1)
-        title = NSLocalizedString(_menuItemsSectionTwo[indexPath.row], @"");
-    else if(indexPath.section == 2)
-        title = NSLocalizedString(_menuItemsSectionThree[indexPath.row], @"");
+    NSString *rawTitle;
+    NSUInteger section = indexPath.section;
+    if (section == 0)
+        rawTitle = _menuItemsSectionOne[indexPath.row];
+    else if(section == 1)
+        rawTitle = _menuItemsSectionTwo[indexPath.row];
+    else if(section == 2)
+        rawTitle = _menuItemsSectionThree[indexPath.row];
 
     UITableViewCell *cell;
 
-    if ([title isEqualToString:@"WiFi Upload"]) {
+    if ([rawTitle isEqualToString:@"WiFi Upload"]) {
         cell = (VLCWiFiUploadTableViewCell *)[tableView dequeueReusableCellWithIdentifier:WiFiCellIdentifier];
         if (cell == nil)
             cell = [VLCWiFiUploadTableViewCell cellWithReuseIdentifier:WiFiCellIdentifier];
@@ -174,15 +175,37 @@
             cell = [[GHMenuCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:CellIdentifier];
     }
 
-    if ([title isEqualToString:@"Dropbox"]) {
-        cell.imageView.image = [UIImage imageNamed:@"dropboxLabel"];
-        cell.textLabel.text = title;
-    } else if ([title isEqualToString:@"WiFi Upload"]) {
-        _uploadLocationLabel = [(VLCWiFiUploadTableViewCell*)cell uploadAddressLabel];
-        _uploadButton = [(VLCWiFiUploadTableViewCell*)cell serverOnButton];
-        [_uploadButton addTarget:self action:@selector(toggleHTTPServer:) forControlEvents:UIControlEventTouchUpInside];
-    } else
-        cell.textLabel.text = title;
+    if (section == 0) {
+        if ([rawTitle isEqualToString:@"LIBRARY_ALL_FILES"])
+            cell.imageView.image = [UIImage imageNamed:@"AllFiles"];
+        else if ([rawTitle isEqualToString:@"LIBRARY_MUSIC"])
+            cell.imageView.image = [UIImage imageNamed:@"MusicAlbums"];
+        else if ([rawTitle isEqualToString:@"LIBRARY_SERIES"])
+            cell.imageView.image = [UIImage imageNamed:@"TVShows"];
+    } else if (section == 1) {
+        if ([rawTitle isEqualToString:@"LOCAL_NETWORK"])
+            cell.imageView.image = [UIImage imageNamed:@"Local"];
+        else if ([rawTitle isEqualToString:@"OPEN_NETWORK"])
+            cell.imageView.image = [UIImage imageNamed:@"OpenNetStream"];
+        else if ([rawTitle isEqualToString:@"DOWNLOAD_FROM_HTTP"])
+            cell.imageView.image = [UIImage imageNamed:@"Downloads"];
+        else if ([rawTitle isEqualToString:@"Dropbox"]) {
+            cell.textLabel.text = rawTitle;
+            cell.imageView.image = [UIImage imageNamed:@"Dropbox"];
+        } else if ([rawTitle isEqualToString:@"WiFi Upload"]) {
+            _uploadLocationLabel = [(VLCWiFiUploadTableViewCell*)cell uploadAddressLabel];
+            _uploadButton = [(VLCWiFiUploadTableViewCell*)cell serverOnButton];
+            [_uploadButton addTarget:self action:@selector(toggleHTTPServer:) forControlEvents:UIControlEventTouchUpInside];
+        }
+    } else if (section == 2) {
+        if ([rawTitle isEqualToString:@"Settings"])
+            cell.imageView.image = [UIImage imageNamed:@"Settings"];
+        else
+            cell.imageView.image = [UIImage imageNamed:@"About"];
+    }
+
+    if (!([rawTitle isEqualToString:@"Dropbox"] || [rawTitle isEqualToString:@"WiFi Upload"]))
+        cell.textLabel.text = NSLocalizedString(rawTitle, @"");
 
     return cell;
 }
@@ -237,10 +260,10 @@
             _uploadLocationLabel.text = [NSString stringWithFormat:@"http://%@:%i", [self.uploadController currentIPAddress], server.listeningPort];
         else
             _uploadLocationLabel.text = [NSString stringWithFormat:@"http://%@", [self.uploadController currentIPAddress]];
-        [_uploadButton setImage:[UIImage imageNamed:@"WiFi-on"] forState:UIControlStateNormal];
+        [_uploadButton setImage:[UIImage imageNamed:@"WifiUpOn"] forState:UIControlStateNormal];
     } else {
         _uploadLocationLabel.text = NSLocalizedString(@"HTTP_UPLOAD_SERVER_OFF", @"");
-        [_uploadButton setImage:[UIImage imageNamed:@"WiFi-off"] forState:UIControlStateNormal];
+        [_uploadButton setImage:[UIImage imageNamed:@"WifiUp"] forState:UIControlStateNormal];
     }
 }
 
