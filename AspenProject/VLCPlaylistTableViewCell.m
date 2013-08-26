@@ -114,6 +114,11 @@
                 [_thumbnailCacheIndex removeObject:objID];
                 [_thumbnailCacheIndex insertObject:objID atIndex:0];
                 displayedImage = [_thumbnailCache objectForKey:objID];
+                if (!displayedImage) {
+                    displayedImage = mediaObject.computedThumbnail;
+                    if (displayedImage)
+                        [_thumbnailCache setObject:displayedImage forKey:objID];
+                }
             } else {
                 if (_thumbnailCacheIndex.count >= MAX_CACHE_SIZE) {
                     [_thumbnailCache removeObjectForKey:[_thumbnailCacheIndex lastObject]];
