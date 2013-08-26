@@ -216,7 +216,6 @@
 
 - (void)updateViewContents
 {
-    NSLog(@"old count %i", _foundMedia.count);
     if (_libraryMode == kVLCLibraryModeAllAlbums) {
         NSArray *rawAlbums = [MLAlbum allAlbums];
         _foundMedia = [[NSMutableArray alloc] init];
@@ -243,8 +242,6 @@
         rawShows = nil;
     } else
         _foundMedia = [NSMutableArray arrayWithArray:[MLFile allFiles]];
-
-    NSLog(@"old count %i", _foundMedia.count);
 
     [self reloadViews];
 }
