@@ -108,8 +108,9 @@
             self.titleLabel.text = (mediaObject.albumTrack.title.length > 0) ? mediaObject.albumTrack.title : mediaObject.title;
             self.thumbnailView.image = nil;
         } else if ([mediaObject isShowEpisode]) {
-            self.seriesNameLabel.text = mediaObject.showEpisode.show.name;
-            self.titleLabel.text = (mediaObject.showEpisode.name.length > 0) ? mediaObject.showEpisode.name : mediaObject.title;
+            MLShowEpisode *episode = mediaObject.showEpisode;
+            self.seriesNameLabel.text = episode.show.name;
+            self.titleLabel.text = (episode.name.length > 0) ? [NSString stringWithFormat:@"%@ - S%02dE%02d", episode.name, mediaObject.showEpisode.seasonNumber.intValue, episode.episodeNumber.intValue] : [NSString stringWithFormat:@"S%02dE%02d", episode.seasonNumber.intValue, episode.episodeNumber.intValue];
         } else
             self.titleLabel.text = mediaObject.title;
 
@@ -200,6 +201,11 @@
                 [_thumbnailCacheIndex removeObject:objID];
                 [_thumbnailCacheIndex insertObject:objID atIndex:0];
                 displayedImage = [_thumbnailCache objectForKey:objID];
+                if (!displayedImage) {
+                    displayedImage = anyFileFromAnyEpisode.computedThumbnail;
+                    if (displayedImage)
+                        [_thumbnailCache setObject:displayedImage forKey:objID];
+                }
             } else {
                 if (_thumbnailCacheIndex.count >= MAX_CACHE_SIZE) {
                     [_thumbnailCache removeObjectForKey:[_thumbnailCacheIndex lastObject]];
@@ -225,6 +231,11 @@
                 [_thumbnailCacheIndex removeObject:objID];
                 [_thumbnailCacheIndex insertObject:objID atIndex:0];
                 displayedImage = [_thumbnailCache objectForKey:objID];
+                if (!displayedImage) {
+                    displayedImage = anyFileFromEpisode.computedThumbnail;
+                    if (displayedImage)
+                        [_thumbnailCache setObject:displayedImage forKey:objID];
+                }
             } else {
                 if (_thumbnailCacheIndex.count >= MAX_CACHE_SIZE) {
                     [_thumbnailCache removeObjectForKey:[_thumbnailCacheIndex lastObject]];
@@ -237,7 +248,11 @@
             }
             self.thumbnailView.image = displayedImage;
         }
-        self.subtitleLabel.text = [NSString stringWithFormat:@"%i/%i — %@", mediaObject.episodeNumber.intValue, mediaObject.seasonNumber.intValue, [VLCTime timeWithNumber:[anyFileFromEpisode duration]]];
+        if (self.titleLabel.text.length < 1) {
+            self.titleLabel.text = [NSString stringWithFormat:@"S%02dE%02d", mediaObject.episodeNumber.intValue, mediaObject.seasonNumber.intValue];
+            self.subtitleLabel.text = [NSString stringWithFormat:@"%@", [VLCTime timeWithNumber:[anyFileFromEpisode duration]]];
+        } else
+            self.subtitleLabel.text = [NSString stringWithFormat:@"S%02dE%02d — %@", mediaObject.episodeNumber.intValue, mediaObject.seasonNumber.intValue, [VLCTime timeWithNumber:[anyFileFromEpisode duration]]];
 
         CGFloat position = anyFileFromEpisode.lastPosition.floatValue;
         self.progressView.progress = position;

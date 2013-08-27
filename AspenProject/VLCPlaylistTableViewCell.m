@@ -187,6 +187,11 @@
                 [_thumbnailCacheIndex removeObject:objID];
                 [_thumbnailCacheIndex insertObject:objID atIndex:0];
                 displayedImage = [_thumbnailCache objectForKey:objID];
+                if (!displayedImage) {
+                    displayedImage = anyFileFromAnyEpisode.computedThumbnail;
+                    if (displayedImage)
+                        [_thumbnailCache setObject:displayedImage forKey:objID];
+                }
             } else {
                 if (_thumbnailCacheIndex.count >= MAX_CACHE_SIZE) {
                     [_thumbnailCache removeObjectForKey:[_thumbnailCacheIndex lastObject]];
@@ -224,7 +229,11 @@
             }
             self.thumbnailView.image = displayedImage;
         }
-        self.subtitleLabel.text = [NSString stringWithFormat:@"%i/%i — %@", mediaObject.episodeNumber.intValue, mediaObject.seasonNumber.intValue, [VLCTime timeWithNumber:[anyFileFromEpisode duration]]];
+        if (self.titleLabel.text.length < 1) {
+            self.titleLabel.text = [NSString stringWithFormat:@"S%02dE%02d", mediaObject.episodeNumber.intValue, mediaObject.seasonNumber.intValue];
+            self.subtitleLabel.text = [NSString stringWithFormat:@"%@", [VLCTime timeWithNumber:[anyFileFromEpisode duration]]];
+        } else
+            self.subtitleLabel.text = [NSString stringWithFormat:@"S%02dE%02d — %@", mediaObject.episodeNumber.intValue, mediaObject.seasonNumber.intValue, [VLCTime timeWithNumber:[anyFileFromEpisode duration]]];
 
         CGFloat position = anyFileFromEpisode.lastPosition.floatValue;
         self.progressIndicator.progress = position;
