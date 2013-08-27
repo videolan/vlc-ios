@@ -17,7 +17,11 @@
 
 + (VLCPlaylistTableViewCell *)cellWithReuseIdentifier:(NSString *)ident
 {
-    NSArray *nibContentArray = [[NSBundle mainBundle] loadNibNamed:@"VLCPlaylistTableViewCell" owner:nil options:nil];
+    NSArray *nibContentArray;
+    if (SYSTEM_RUNS_IN_THE_FUTURE)
+        nibContentArray = [[NSBundle mainBundle] loadNibNamed:@"VLCFuturePlaylistTableViewCell" owner:nil options:nil];
+    else
+        nibContentArray = [[NSBundle mainBundle] loadNibNamed:@"VLCPlaylistTableViewCell" owner:nil options:nil];
     NSAssert([nibContentArray count] == 1, @"meh");
     NSAssert([[nibContentArray lastObject] isKindOfClass:[VLCPlaylistTableViewCell class]], @"meh meh");
     VLCPlaylistTableViewCell *cell = (VLCPlaylistTableViewCell *)[nibContentArray lastObject];
@@ -234,6 +238,9 @@
 
 + (CGFloat)heightOfCell
 {
+    if (SYSTEM_RUNS_IN_THE_FUTURE)
+        return 185.;
+
     return 80.;
 }
 

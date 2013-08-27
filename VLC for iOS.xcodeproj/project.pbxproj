@@ -104,6 +104,7 @@
 		7D31001D17B64AE100E6516D /* GHRevealViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 7D31001C17B64AE100E6516D /* GHRevealViewController.m */; };
 		7D31002017B6768B00E6516D /* libupnpx.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 7D31001F17B6768B00E6516D /* libupnpx.a */; };
 		7D31CF091746AF09005997E0 /* VLCStatusLabel.m in Sources */ = {isa = PBXBuildFile; fileRef = 7D31CF081746AF09005997E0 /* VLCStatusLabel.m */; };
+		7D3319A917CC88AE00CBEAD7 /* VLCFuturePlaylistTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 7D3319A817CC88AE00CBEAD7 /* VLCFuturePlaylistTableViewCell.xib */; };
 		7D33D41617182615008AF0E0 /* VLCMovieViewController~ipad.xib in Resources */ = {isa = PBXBuildFile; fileRef = 7D33D41517182615008AF0E0 /* VLCMovieViewController~ipad.xib */; };
 		7D3EB012174A3530002062C2 /* Reachability.m in Sources */ = {isa = PBXBuildFile; fileRef = 7D3EB011174A3530002062C2 /* Reachability.m */; };
 		7D3EB014174A353E002062C2 /* SystemConfiguration.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 7D3EB013174A353E002062C2 /* SystemConfiguration.framework */; };
@@ -478,6 +479,7 @@
 		7D31001F17B6768B00E6516D /* libupnpx.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; name = libupnpx.a; path = External/upnpx/libupnpx.a; sourceTree = "<group>"; };
 		7D31CF071746AF09005997E0 /* VLCStatusLabel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = VLCStatusLabel.h; sourceTree = "<group>"; };
 		7D31CF081746AF09005997E0 /* VLCStatusLabel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = VLCStatusLabel.m; sourceTree = "<group>"; };
+		7D3319A817CC88AE00CBEAD7 /* VLCFuturePlaylistTableViewCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; name = VLCFuturePlaylistTableViewCell.xib; path = Resources/VLCFuturePlaylistTableViewCell.xib; sourceTree = SOURCE_ROOT; };
 		7D33D41517182615008AF0E0 /* VLCMovieViewController~ipad.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; name = "VLCMovieViewController~ipad.xib"; path = "Resources/VLCMovieViewController~ipad.xib"; sourceTree = SOURCE_ROOT; };
 		7D3EB010174A3530002062C2 /* Reachability.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Reachability.h; sourceTree = "<group>"; };
 		7D3EB011174A3530002062C2 /* Reachability.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Reachability.m; sourceTree = "<group>"; };
@@ -1441,6 +1443,7 @@
 				A79246BC170F114E0036AAF2 /* VLCEmptyLibraryView~ipad.xib */,
 				7DC87AF117413EE3009DC250 /* VLCPlaylistGridView.xib */,
 				A79246BE170F114E0036AAF2 /* VLCPlaylistTableViewCell.xib */,
+				7D3319A817CC88AE00CBEAD7 /* VLCFuturePlaylistTableViewCell.xib */,
 				7D5E39C5174FBAF3007DAFA1 /* VLCDropboxTableViewController.xib */,
 				7D5E39D0174FCF43007DAFA1 /* VLCDropboxTableViewCell~ipad.xib */,
 				7DF65C2C174FF3F400F43330 /* VLCDropboxTableViewCell~iphone.xib */,
@@ -1853,6 +1856,7 @@
 				7D0699DA17CB1FAE00713BEB /* WifiUp@2x.png in Resources */,
 				7D0699DB17CB1FAE00713BEB /* WifiUpOn.png in Resources */,
 				7D0699DC17CB1FAE00713BEB /* WifiUpOn@2x.png in Resources */,
+				7D3319A917CC88AE00CBEAD7 /* VLCFuturePlaylistTableViewCell.xib in Resources */,
 				7D0699DD17CB1FAE00713BEB /* Dropbox@2x.png in Resources */,
 				7D0699DE17CB1FAE00713BEB /* Local.png in Resources */,
 				7D0699DF17CB1FAE00713BEB /* Local@2x.png in Resources */,
