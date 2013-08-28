@@ -29,7 +29,6 @@
 				<string>com.microsoft.windows-media-wmv</string>
 				<string>com.real.realmedia</string>
 				<string>com.apple.quicktime-movie</string>
-				<string>org.matroska.video</string>
 				<string>public.mpeg4</string>
 			</array>
 		</dict>
@@ -227,19 +226,9 @@
 	</array>
 	<key>UIViewControllerBasedStatusBarAppearance</key>
 	<false/>
-	<key>UTImportedTypeDeclarations</key>
+	<key>UTExportedTypeDeclarations</key>
 	<array>
-		<dict>
-			<key>UTTypeConformsTo</key>
-			<array>
-				<string>public.movie</string>
-			</array>
-			<key>UTTypeDescription</key>
-			<string>Flash VIdeo</string>
-			<key>UTTypeIdentifier</key>
-			<string>com.adobe.flash-video</string>
-		</dict>
-		<dict>
+        <dict>
 			<key>UTTypeConformsTo</key>
 			<array>
 				<string>public.movie</string>
@@ -247,49 +236,16 @@
 			<key>UTTypeDescription</key>
 			<string>Ogg Video</string>
 			<key>UTTypeIdentifier</key>
-			<string>org.xiph.ogg</string>
+			<string>org.xiph.ogv</string>
+            <key>UTTypeTagSpecification</key>
+            <dict>
+                <key>public.filename-extension</key>
+                <string>ogv</string>
+                <key>public.mime-type</key>
+                <string>video/ogg</string>
+            </dict>
 		</dict>
-		<dict>
-			<key>UTTypeConformsTo</key>
-			<array>
-				<string>public.avi</string>
-			</array>
-			<key>UTTypeDescription</key>
-			<string>DivX</string>
-			<key>UTTypeIdentifier</key>
-			<string>com.divx.divx</string>
-		</dict>
-		<dict>
-			<key>UTTypeConformsTo</key>
-			<array>
-				<string>public.movie</string>
-			</array>
-			<key>UTTypeDescription</key>
-			<string>Matroska</string>
-			<key>UTTypeIdentifier</key>
-			<string>org.matroska.mkv</string>
-		</dict>
-		<dict>
-			<key>UTTypeConformsTo</key>
-			<array>
-				<string>public.audio</string>
-			</array>
-			<key>UTTypeDescription</key>
-			<string>Flac</string>
-			<key>UTTypeIdentifier</key>
-			<string>org.videolan.flac</string>
-		</dict>
-		<dict>
-			<key>UTTypeConformsTo</key>
-			<array>
-				<string>public.audio</string>
-			</array>
-			<key>UTTypeDescription</key>
-			<string>OPUS</string>
-			<key>UTTypeIdentifier</key>
-			<string>org.videolan.opus</string>
-		</dict>
-		<dict>
+        <dict>
 			<key>UTTypeConformsTo</key>
 			<array>
 				<string>public.audio</string>
@@ -298,8 +254,84 @@
 			<string>Ogg Audio</string>
 			<key>UTTypeIdentifier</key>
 			<string>org.xiph.oga</string>
+            <key>UTTypeTagSpecification</key>
+            <dict>
+                <key>public.filename-extension</key>
+                <array>
+                    <string>ogg</string>
+                    <string>oga</string>
+                </array>
+                <key>public.mime-type</key>
+                <string>audio/ogg</string>
+            </dict>
 		</dict>
-		<dict>
+        <dict>
+			<key>UTTypeConformsTo</key>
+			<array>
+				<string>public.avi</string>
+			</array>
+			<key>UTTypeDescription</key>
+			<string>DivX</string>
+			<key>UTTypeIdentifier</key>
+			<string>com.divx.divx</string>
+            <key>UTTypeTagSpecification</key>
+            <dict>
+                <key>public.filename-extension</key>
+                <string>divx</string>
+            </dict>
+		</dict>
+        <dict>
+			<key>UTTypeConformsTo</key>
+			<array>
+				<string>public.movie</string>
+			</array>
+			<key>UTTypeDescription</key>
+			<string>Matroska</string>
+			<key>UTTypeIdentifier</key>
+			<string>org.matroska.mkv</string>
+            <key>UTTypeTagSpecification</key>
+            <dict>
+                <key>public.filename-extension</key>
+                <string>mkv</string>
+                <key>public.mime-type</key>
+                <string>video/x-matroska</string>
+            </dict>
+		</dict>
+        <dict>
+			<key>UTTypeConformsTo</key>
+			<array>
+				<string>public.audio</string>
+			</array>
+			<key>UTTypeDescription</key>
+			<string>Flac</string>
+			<key>UTTypeIdentifier</key>
+			<string>org.videolan.flac</string>
+            <key>UTTypeTagSpecification</key>
+            <dict>
+                <key>public.filename-extension</key>
+                <string>flac</string>
+                <key>public.mime-type</key>
+                <string>audio/x-flac</string>
+            </dict>
+		</dict>
+        <dict>
+			<key>UTTypeConformsTo</key>
+			<array>
+				<string>public.audio</string>
+			</array>
+			<key>UTTypeDescription</key>
+			<string>OPUS</string>
+			<key>UTTypeIdentifier</key>
+			<string>org.videolan.opus</string>
+            <key>UTTypeTagSpecification</key>
+            <dict>
+                <key>public.filename-extension</key>
+                <string>opus</string>
+                <key>public.mime-type</key>
+                <string>audio/opus</string>
+            </dict>
+		</dict>
+        <dict>
 			<key>UTTypeConformsTo</key>
 			<array>
 				<string>public.video</string>
@@ -308,8 +340,15 @@
 			<string>MXF</string>
 			<key>UTTypeIdentifier</key>
 			<string>org.videolan.mxf</string>
+            <key>UTTypeTagSpecification</key>
+            <dict>
+                <key>public.filename-extension</key>
+                <string>mxf</string>
+                <key>public.mime-type</key>
+                <string>application/mxf</string>
+            </dict>
 		</dict>
-		<dict>
+        <dict>
 			<key>UTTypeConformsTo</key>
 			<array>
 				<string>public.video</string>
@@ -318,6 +357,13 @@
 			<string>WebM</string>
 			<key>UTTypeIdentifier</key>
 			<string>org.videolan.webm</string>
+            <key>UTTypeTagSpecification</key>
+            <dict>
+                <key>public.filename-extension</key>
+                <string>webm</string>
+                <key>public.mime-type</key>
+                <string>video/webm</string>
+            </dict>
 		</dict>
 	</array>
 </dict>
