@@ -12,9 +12,11 @@
 
 #define EXPERIMENTAL_LIBRARY 1
 
-#define kVLCLibraryModeAllFiles 0
-#define kVLCLibraryModeAllAlbums 1
-#define kVLCLibraryModeAllSeries 2
+typedef enum {
+    VLCLibraryModeAllFiles  = 0,
+    VLCLibraryModeAllAlbums = 1,
+    VLCLibraryModeAllSeries = 2
+} VLCLibraryMode;
 
 @class VLCMovieViewController;
 @class EmptyLibraryView;
@@ -37,7 +39,7 @@
 - (void)openMovieFromURL:(NSURL *)url;
 - (void)removeMediaObject:(MLFile *)mediaObject;
 
-- (void)setLibraryMode:(NSUInteger)mode;
+- (void)setLibraryMode:(VLCLibraryMode)mode;
 
 @end
 

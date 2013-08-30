@@ -29,7 +29,7 @@
 
 @interface VLCPlaylistViewController () <AQGridViewDataSource, AQGridViewDelegate, UITableViewDataSource, UITableViewDelegate, MLMediaLibrary> {
     NSMutableArray *_foundMedia;
-    NSUInteger _libraryMode;
+    VLCLibraryMode _libraryMode;
     UIBarButtonItem *_menuButton;
 }
 @end
@@ -51,7 +51,7 @@
         self.view = _gridView;
     }
 
-    _libraryMode = kVLCLibraryModeAllFiles;
+    _libraryMode = VLCLibraryModeAllFiles;
 
     self.view.autoresizingMask = UIViewAutoresizingFlexibleHeight | UIViewAutoresizingFlexibleWidth;
     self.emptyLibraryView = [[[NSBundle mainBundle] loadNibNamed:@"VLCEmptyLibraryView" owner:self options:nil] lastObject];
@@ -186,7 +186,7 @@
         self.emptyLibraryView.frame = self.view.frame;
         [self.view addSubview:self.emptyLibraryView];
     }
-    if (_libraryMode == kVLCLibraryModeAllFiles && _foundMedia.count > 0)
+    if (_libraryMode == VLCLibraryModeAllFiles && _foundMedia.count > 0)
         self.navigationItem.rightBarButtonItem = self.editButtonItem;
     else
         self.navigationItem.rightBarButtonItem = nil;
@@ -217,7 +217,7 @@
 
 - (void)updateViewContents
 {
-    if (_libraryMode == kVLCLibraryModeAllAlbums) {
+    if (_libraryMode == VLCLibraryModeAllAlbums) {
         NSArray *rawAlbums = [MLAlbum allAlbums];
         _foundMedia = [[NSMutableArray alloc] init];
         NSUInteger count = rawAlbums.count;
@@ -229,7 +229,7 @@
                 [_foundMedia addObject:album];
         }
         rawAlbums = nil;
-    } else if (_libraryMode == kVLCLibraryModeAllSeries) {
+    } else if (_libraryMode == VLCLibraryModeAllSeries) {
         NSArray *rawShows = [MLShow allShows];
         _foundMedia = [[NSMutableArray alloc] init];
         NSUInteger count = rawShows.count;
@@ -402,7 +402,7 @@
 #pragma mark - UI implementation
 - (void)setEditing:(BOOL)editing animated:(BOOL)animated
 {
-    if (_libraryMode != kVLCLibraryModeAllFiles)
+    if (_libraryMode != VLCLibraryModeAllFiles)
         return;
 
     [super setEditing:editing animated:animated];
@@ -428,7 +428,7 @@
 
 - (UITableViewCellEditingStyle)tableView:(UITableView *)aTableView editingStyleForRowAtIndexPath:(NSIndexPath *)indexPath
 {
-    if (_libraryMode != kVLCLibraryModeAllFiles)
+    if (_libraryMode != VLCLibraryModeAllFiles)
         return UITableViewCellEditingStyleNone;
 
     return UITableViewCellEditingStyleDelete;
@@ -483,13 +483,13 @@
     self.movieViewController.url = url;
 }
 
-- (void)setLibraryMode:(NSUInteger)mode
+- (void)setLibraryMode:(VLCLibraryMode)mode
 {
     _libraryMode = mode;
 
-    if (_libraryMode == kVLCLibraryModeAllAlbums)
+    if (_libraryMode == VLCLibraryModeAllAlbums)
         self.title = NSLocalizedString(@"LIBRARY_MUSIC", @"");
-    else if( _libraryMode == kVLCLibraryModeAllSeries)
+    else if( _libraryMode == VLCLibraryModeAllSeries)
         self.title = NSLocalizedString(@"LIBRARY_SERIES", @"");
     else
         self.title = NSLocalizedString(@"LIBRARY_ALL_FILES", @"");
