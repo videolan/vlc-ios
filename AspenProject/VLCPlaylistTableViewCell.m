@@ -131,7 +131,8 @@
                 displayedImage = mediaObject.computedThumbnail;
                 if (displayedImage)
                     [_thumbnailCache setObject:displayedImage forKey:objID];
-                [_thumbnailCacheIndex insertObject:objID atIndex:0];
+                if (objID)
+                    [_thumbnailCacheIndex insertObject:objID atIndex:0];
             }
             self.thumbnailView.image = displayedImage;
         }
@@ -200,7 +201,8 @@
                 displayedImage = anyFileFromAnyEpisode.computedThumbnail;
                 if (displayedImage)
                     [_thumbnailCache setObject:displayedImage forKey:objID];
-                [_thumbnailCacheIndex insertObject:objID atIndex:0];
+                if (objID)
+                    [_thumbnailCacheIndex insertObject:objID atIndex:0];
             }
             self.thumbnailView.image = displayedImage;
         }
@@ -225,7 +227,8 @@
                 displayedImage = anyFileFromEpisode.computedThumbnail;
                 if (displayedImage)
                     [_thumbnailCache setObject:displayedImage forKey:objID];
-                [_thumbnailCacheIndex insertObject:objID atIndex:0];
+                if (objID)
+                    [_thumbnailCacheIndex insertObject:objID atIndex:0];
             }
             self.thumbnailView.image = displayedImage;
         }
