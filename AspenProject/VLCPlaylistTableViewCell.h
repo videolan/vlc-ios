@@ -21,7 +21,7 @@
 @property (nonatomic, strong) IBOutlet UILabel *artistNameLabel;
 @property (nonatomic, strong) IBOutlet UILabel *albumNameLabel;
 
-@property (nonatomic, retain) NSManagedObject *mediaObject;
+@property (nonatomic, strong) NSManagedObject *mediaObject;
 
 + (VLCPlaylistTableViewCell *)cellWithReuseIdentifier:(NSString *)ident;
 + (CGFloat)heightOfCell;
