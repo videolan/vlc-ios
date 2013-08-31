@@ -112,11 +112,11 @@
     if ([[MLMediaLibrary sharedMediaLibrary] libraryNeedsUpgrade]) {
         self.navigationItem.rightBarButtonItem = nil;
         self.navigationItem.leftBarButtonItem = nil;
+        self.title = @"";
         self.emptyLibraryView.emptyLibraryLabel.text = NSLocalizedString(@"UPGRADING_LIBRARY", @"");
         self.emptyLibraryView.emptyLibraryLongDescriptionLabel.hidden = YES;
         [self.emptyLibraryView.activityIndicator startAnimating];
-        self.emptyLibraryView.frame = self.view.frame;
-        self.title = @"";
+        self.emptyLibraryView.frame = self.view.bounds;
         [self.view addSubview:self.emptyLibraryView];
 
         [[MLMediaLibrary sharedMediaLibrary] setDelegate: self];
@@ -177,8 +177,8 @@
     if (self.emptyLibraryView.superview)
         [self.emptyLibraryView removeFromSuperview];
 
-    if (_foundMedia.count <= 0) {
-        self.emptyLibraryView.frame = self.view.frame;
+    if (_foundMedia.count == 0) {
+        self.emptyLibraryView.frame = self.view.bounds;
         [self.view addSubview:self.emptyLibraryView];
     }
     if (_libraryMode == VLCLibraryModeAllFiles && _foundMedia.count > 0)
@@ -194,11 +194,11 @@
 
 - (void)libraryUpgradeComplete
 {
+    self.title = NSLocalizedString(@"LIBRARY_ALL_FILES", @"");
+    self.navigationItem.leftBarButtonItem = _menuButton;
     self.emptyLibraryView.emptyLibraryLongDescriptionLabel.hidden = NO;
     self.emptyLibraryView.emptyLibraryLabel.text = NSLocalizedString(@"EMPTY_LIBRARY", @"");
     [self.emptyLibraryView.activityIndicator stopAnimating];
-    self.title = NSLocalizedString(@"LIBRARY_ALL_FILES", @"");
-    self.navigationItem.leftBarButtonItem = _menuButton;
     [self.emptyLibraryView removeFromSuperview];
 
     [self updateViewContents];
@@ -431,31 +431,6 @@
     [self setLibraryMode:_libraryMode];
 }
 
-/* deprecated in iOS 6 */
-- (BOOL)shouldAutorotateToInterfaceOrientation:(UIInterfaceOrientation)toInterfaceOrientation
-{
-    if (UI_USER_INTERFACE_IDIOM() == UIUserInterfaceIdiomPad)
-        return YES;
-
-    return (_foundMedia.count > 0) || toInterfaceOrientation == UIInterfaceOrientationPortrait;
-}
-
-// RootController is responsible for supporting interface orientation(iOS6.0+), i.e. navigation controller
-// so this will not work as intended without "voodoo magic"(UINavigationController category, subclassing, etc)
-/* introduced in iOS 6 */
-- (NSUInteger)supportedInterfaceOrientations {
-    if (UI_USER_INTERFACE_IDIOM() == UIUserInterfaceIdiomPad)
-        return UIInterfaceOrientationMaskAll;
-
-    return (_foundMedia.count > 0)? UIInterfaceOrientationMaskAllButUpsideDown:
-                                    UIInterfaceOrientationMaskPortrait;
-}
-
-/* introduced in iOS 6 */
-- (BOOL)shouldAutorotate {
-    return (UI_USER_INTERFACE_IDIOM() == UIUserInterfaceIdiomPad) || (_foundMedia.count > 0);
-}
-
 #pragma mark - coin coin
 
 - (void)openMovieFromURL:(NSURL *)url
@@ -481,6 +456,32 @@
         self.title = NSLocalizedString(@"LIBRARY_ALL_FILES", @"");
 
     [self updateViewContents];
+}
+
+#pragma mark - autorotation
+/* deprecated in iOS 6 */
+- (BOOL)shouldAutorotateToInterfaceOrientation:(UIInterfaceOrientation)toInterfaceOrientation
+{
+    if (UI_USER_INTERFACE_IDIOM() == UIUserInterfaceIdiomPad)
+        return YES;
+
+    return (_foundMedia.count > 0) || toInterfaceOrientation == UIInterfaceOrientationPortrait;
+}
+
+// RootController is responsible for supporting interface orientation(iOS6.0+), i.e. navigation controller
+// so this will not work as intended without "voodoo magic"(UINavigationController category, subclassing, etc)
+/* introduced in iOS 6 */
+- (NSUInteger)supportedInterfaceOrientations {
+    if (UI_USER_INTERFACE_IDIOM() == UIUserInterfaceIdiomPad)
+        return UIInterfaceOrientationMaskAll;
+
+    return (_foundMedia.count > 0)? UIInterfaceOrientationMaskAllButUpsideDown:
+    UIInterfaceOrientationMaskPortrait;
+}
+
+/* introduced in iOS 6 */
+- (BOOL)shouldAutorotate {
+    return (UI_USER_INTERFACE_IDIOM() == UIUserInterfaceIdiomPad) || (_foundMedia.count > 0);
 }
 
 @end
