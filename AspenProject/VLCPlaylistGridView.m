@@ -87,18 +87,11 @@
             [(MLFile*)_mediaObject willDisplay];
     }
 
-    [self _updatedDisplayedInformationForKeyPath:NULL];
+    [self _updatedDisplayedInformationForKeyPath:nil];
 }
 
 - (void)_updatedDisplayedInformationForKeyPath:(NSString *)keyPath
 {
-    static NSMutableArray *_thumbnailCacheIndex;
-    static NSMutableDictionary *_thumbnailCache;
-    if (!_thumbnailCache)
-        _thumbnailCache = [[NSMutableDictionary alloc] initWithCapacity:MAX_CACHE_SIZE];
-    if (!_thumbnailCacheIndex)
-        _thumbnailCacheIndex = [[NSMutableArray alloc] initWithCapacity:MAX_CACHE_SIZE];
-
     self.albumNameLabel.text = self.artistNameLabel.text = self.seriesNameLabel.text = @"";
 
     if ([self.mediaObject isKindOfClass:[MLFile class]]) {
@@ -106,29 +99,7 @@
         [self configureForMLFile:mediaObject];
 
         if (([keyPath isEqualToString:@"computedThumbnail"] || !keyPath) && !mediaObject.isAlbumTrack) {
-            NSManagedObjectID *objID = mediaObject.objectID;
-            UIImage *displayedImage;
-            if ([_thumbnailCacheIndex containsObject:objID]) {
-                [_thumbnailCacheIndex removeObject:objID];
-                [_thumbnailCacheIndex insertObject:objID atIndex:0];
-                displayedImage = [_thumbnailCache objectForKey:objID];
-                if (!displayedImage) {
-                    displayedImage = mediaObject.computedThumbnail;
-                    if (displayedImage)
-                        [_thumbnailCache setObject:displayedImage forKey:objID];
-                }
-            } else {
-                if (_thumbnailCacheIndex.count >= MAX_CACHE_SIZE) {
-                    [_thumbnailCache removeObjectForKey:[_thumbnailCacheIndex lastObject]];
-                    [_thumbnailCacheIndex removeLastObject];
-                }
-                displayedImage = mediaObject.computedThumbnail;
-                if (displayedImage)
-                    [_thumbnailCache setObject:displayedImage forKey:objID];
-                if (objID)
-                    [_thumbnailCacheIndex insertObject:objID atIndex:0];
-            }
-            self.thumbnailView.image = displayedImage;
+            self.thumbnailView.image = [self thumbnailForMediaFile:mediaObject];
         }
 
     } else if ([self.mediaObject isKindOfClass:[MLAlbum class]]) {
@@ -143,61 +114,17 @@
         MLShow *mediaObject = (MLShow *)self.mediaObject;
         [self configureForShow:mediaObject];
 
-        MLFile *anyFileFromAnyEpisode = [mediaObject.episodes.anyObject files].anyObject;
         if ([keyPath isEqualToString:@"computedThumbnail"] || !keyPath) {
-            NSManagedObjectID *objID = anyFileFromAnyEpisode.objectID;
-            UIImage *displayedImage;
-            if ([_thumbnailCacheIndex containsObject:objID]) {
-                [_thumbnailCacheIndex removeObject:objID];
-                [_thumbnailCacheIndex insertObject:objID atIndex:0];
-                displayedImage = [_thumbnailCache objectForKey:objID];
-                if (!displayedImage) {
-                    displayedImage = anyFileFromAnyEpisode.computedThumbnail;
-                    if (displayedImage)
-                        [_thumbnailCache setObject:displayedImage forKey:objID];
-                }
-            } else {
-                if (_thumbnailCacheIndex.count >= MAX_CACHE_SIZE) {
-                    [_thumbnailCache removeObjectForKey:[_thumbnailCacheIndex lastObject]];
-                    [_thumbnailCacheIndex removeLastObject];
-                }
-                displayedImage = anyFileFromAnyEpisode.computedThumbnail;
-                if (displayedImage)
-                    [_thumbnailCache setObject:displayedImage forKey:objID];
-                if (objID)
-                    [_thumbnailCacheIndex insertObject:objID atIndex:0];
-            }
-            self.thumbnailView.image = displayedImage;
+            MLFile *anyFileFromAnyEpisode = [mediaObject.episodes.anyObject files].anyObject;
+            self.thumbnailView.image = [self thumbnailForMediaFile:anyFileFromAnyEpisode];
         }
     } else if ([self.mediaObject isKindOfClass:[MLShowEpisode class]]) {
         MLShowEpisode *mediaObject = (MLShowEpisode *)self.mediaObject;
         [self configureForShowEpisode:mediaObject];
 
-        MLFile *anyFileFromEpisode = mediaObject.files.anyObject;
         if ([keyPath isEqualToString:@"computedThumbnail"] || !keyPath) {
-            NSManagedObjectID *objID = anyFileFromEpisode.objectID;
-            UIImage *displayedImage;
-            if ([_thumbnailCacheIndex containsObject:objID]) {
-                [_thumbnailCacheIndex removeObject:objID];
-                [_thumbnailCacheIndex insertObject:objID atIndex:0];
-                displayedImage = [_thumbnailCache objectForKey:objID];
-                if (!displayedImage) {
-                    displayedImage = anyFileFromEpisode.computedThumbnail;
-                    if (displayedImage)
-                        [_thumbnailCache setObject:displayedImage forKey:objID];
-                }
-            } else {
-                if (_thumbnailCacheIndex.count >= MAX_CACHE_SIZE) {
-                    [_thumbnailCache removeObjectForKey:[_thumbnailCacheIndex lastObject]];
-                    [_thumbnailCacheIndex removeLastObject];
-                }
-                displayedImage = anyFileFromEpisode.computedThumbnail;
-                if (displayedImage)
-                    [_thumbnailCache setObject:displayedImage forKey:objID];
-                if (objID)
-                    [_thumbnailCacheIndex insertObject:objID atIndex:0];
-            }
-            self.thumbnailView.image = displayedImage;
+            MLFile *anyFileFromEpisode = mediaObject.files.anyObject;
+            self.thumbnailView.image = [self thumbnailForMediaFile:anyFileFromEpisode];
         }
     }
 
@@ -311,6 +238,44 @@
     self.progressView.hidden = ((position < .1f) || (position > .95f)) ? YES : NO;
     [self.progressView setNeedsDisplay];
     self.mediaIsUnreadView.hidden = !mediaFile.unread.intValue;
+}
+
+// Can be extracted outside of VLCPlaylistGridView
+- (UIImage *)thumbnailForMediaFile:(MLFile *)mediaFile {
+    if (mediaFile == nil || mediaFile.objectID == nil)
+        return nil;
+
+    static NSMutableArray *_thumbnailCacheIndex;
+    static NSMutableDictionary *_thumbnailCache;
+    if (!_thumbnailCache)
+        _thumbnailCache = [[NSMutableDictionary alloc] initWithCapacity:MAX_CACHE_SIZE];
+    if (!_thumbnailCacheIndex)
+        _thumbnailCacheIndex = [[NSMutableArray alloc] initWithCapacity:MAX_CACHE_SIZE];
+
+    NSManagedObjectID *objID = mediaFile.objectID;
+    UIImage *displayedImage = nil;
+    if ([_thumbnailCacheIndex containsObject:objID]) {
+        [_thumbnailCacheIndex removeObject:objID];
+        [_thumbnailCacheIndex insertObject:objID atIndex:0];
+        displayedImage = [_thumbnailCache objectForKey:objID];
+        if (!displayedImage && mediaFile.computedThumbnail) {
+            displayedImage = mediaFile.computedThumbnail;
+            [_thumbnailCache setObject:displayedImage forKey:objID];
+        }
+    } else {
+        if (_thumbnailCacheIndex.count >= MAX_CACHE_SIZE) {
+            [_thumbnailCache removeObjectForKey:[_thumbnailCacheIndex lastObject]];
+            [_thumbnailCacheIndex removeLastObject];
+        }
+        displayedImage = mediaFile.computedThumbnail;
+
+        if (displayedImage) {
+            [_thumbnailCache setObject:displayedImage forKey:objID];
+            [_thumbnailCacheIndex insertObject:objID atIndex:0];
+        }
+    }
+
+    return displayedImage;
 }
 
 @end

@@ -70,7 +70,7 @@
             [(MLFile*)_mediaObject willDisplay];
     }
 
-    [self _updatedDisplayedInformationForKeyPath:NULL];
+    [self _updatedDisplayedInformationForKeyPath:nil];
 }
 
 - (void)setEditing:(BOOL)editing animated:(BOOL)animated
