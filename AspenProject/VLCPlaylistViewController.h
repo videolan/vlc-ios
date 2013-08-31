@@ -26,12 +26,6 @@ typedef enum {
 
 @property (nonatomic, strong) VLCMovieViewController *movieViewController;
 @property (nonatomic, strong) UIViewController *menuViewController;
-@property (nonatomic, strong) UIPopoverController *addMediaPopoverController;
-
-@property (nonatomic, strong) UITableView *tableView;
-@property (nonatomic, strong) AQGridView *gridView;
-
-@property (nonatomic, strong) EmptyLibraryView *emptyLibraryView;
 
 - (IBAction)leftButtonAction:(id)sender;
 

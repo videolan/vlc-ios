@@ -32,6 +32,11 @@
     VLCLibraryMode _libraryMode;
     UIBarButtonItem *_menuButton;
 }
+
+@property (nonatomic, strong) UITableView *tableView;
+@property (nonatomic, strong) AQGridView *gridView;
+@property (nonatomic, strong) EmptyLibraryView *emptyLibraryView;
+
 @end
 
 @implementation VLCPlaylistViewController
