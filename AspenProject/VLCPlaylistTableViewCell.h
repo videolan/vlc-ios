@@ -9,8 +9,8 @@
 //
 
 #import <Foundation/Foundation.h>
-#import "VLCLinearProgressIndicator.h"
 
+@class VLCLinearProgressIndicator;
 @interface VLCPlaylistTableViewCell : UITableViewCell
 
 @property (nonatomic, strong) IBOutlet UILabel *titleLabel;

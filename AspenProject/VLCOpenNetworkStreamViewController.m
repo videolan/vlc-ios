@@ -15,7 +15,7 @@
 #import "UINavigationController+Theme.h"
 #import "VLCMenuTableViewController.h"
 
-@interface VLCOpenNetworkStreamViewController ()
+@interface VLCOpenNetworkStreamViewController () <UITableViewDataSource, UITableViewDelegate>
 {
     NSMutableArray *_recentURLs;
 }

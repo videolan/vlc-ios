@@ -12,7 +12,12 @@
 #import "VLCAppDelegate.h"
 #import "VLCPlaylistViewController.h"
 #import "IASKSettingsReader.h"
+#import "IASKAppSettingsViewController.h"
+#import "PAPasscodeViewController.h"
 #import <DropboxSDK/DropboxSDK.h>
+
+@interface VLCSettingsController ()<PAPasscodeViewControllerDelegate, IASKSettingsDelegate>
+@end
 
 @implementation VLCSettingsController
 

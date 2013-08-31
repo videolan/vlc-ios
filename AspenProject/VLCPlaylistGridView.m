@@ -9,6 +9,7 @@
 //
 
 #import "VLCPlaylistGridView.h"
+#import "VLCLinearProgressIndicator.h"
 #import "VLCAppDelegate.h"
 #import "AQGridView.h"
 

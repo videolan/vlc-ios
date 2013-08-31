@@ -14,11 +14,16 @@
 #import <CommonCrypto/CommonDigest.h>
 #import "UIDevice+SpeedCategory.h"
 #import "VLCBugreporter.h"
-#import <MediaPlayer/MediaPlayer.h>
+
+#import "OBSlider.h"
+#import "VLCStatusLabel.h"
+#import "VLCHorizontalSwipeGestureRecognizer.h"
+#import "VLCVerticalSwipeGestureRecognizer.h"
 
 #define INPUT_RATE_DEFAULT  1000.
 
-@interface VLCMovieViewController () <UIGestureRecognizerDelegate, AVAudioSessionDelegate>
+@interface VLCMovieViewController () <UIGestureRecognizerDelegate, AVAudioSessionDelegate,
+                                    VLCHorizontalSwipeGestureRecognizer, VLCVerticalSwipeGestureRecognizer>
 {
     VLCMediaPlayer *_mediaPlayer;
 

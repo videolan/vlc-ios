@@ -8,13 +8,14 @@
 //  Refer to the COPYING file of the official project for license.
 //
 
-#import "VLCStatusLabel.h"
-#import "VLCHorizontalSwipeGestureRecognizer.h"
-#import "VLCVerticalSwipeGestureRecognizer.h"
-#import "OBSlider.h"
 #import <MediaPlayer/MediaPlayer.h>
 
-@interface VLCMovieViewController : UIViewController <VLCMediaPlayerDelegate, UIActionSheetDelegate, VLCHorizontalSwipeGestureRecognizer, VLCVerticalSwipeGestureRecognizer>
+@class OBSlider;
+@class VLCStatusLabel;
+@class VLCHorizontalSwipeGestureRecognizer;
+@class VLCVerticalSwipeGestureRecognizer;
+
+@interface VLCMovieViewController : UIViewController <VLCMediaPlayerDelegate, UIActionSheetDelegate>
 
 @property (nonatomic, strong) IBOutlet UIView *movieView;
 @property (nonatomic, strong) IBOutlet UIBarButtonItem *backButton;

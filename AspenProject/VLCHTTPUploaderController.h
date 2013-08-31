@@ -23,7 +23,6 @@
 @end
 
 @class MultipartFormDataParser;
-
 @interface VLCHTTPConnection : HTTPConnection  {
     MultipartFormDataParser*        parser;
     NSFileHandle*                   storeFile;

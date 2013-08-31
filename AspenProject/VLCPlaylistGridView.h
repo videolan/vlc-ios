@@ -8,10 +8,10 @@
 //  Refer to the COPYING file of the official project for license.
 //
 
-#import "VLCLinearProgressIndicator.h"
 #import "AQGridViewCell.h"
 
 @class AQGridView;
+@class VLCLinearProgressIndicator;
 @interface VLCPlaylistGridView : AQGridViewCell
 
 @property (nonatomic, strong) IBOutlet UILabel *titleLabel;

@@ -14,11 +14,13 @@
 #import "UIBarButtonItem+Theme.h"
 #import "WhiteRaccoon.h"
 #import "NSString+SupportedMedia.h"
+#import "VLCHTTPFileDownloader.h"
 
 #define kVLCDownloadViaHTTP 1
 #define kVLCDownloadViaFTP 2
 
-@interface VLCDownloadViewController () <WRRequestDelegate>
+@interface VLCDownloadViewController () <WRRequestDelegate, UITableViewDataSource, UITableViewDelegate,
+                                        VLCHTTPFileDownloader>
 {
     NSMutableArray *_currentDownloads;
     NSUInteger _currentDownloadType;

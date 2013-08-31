@@ -9,7 +9,6 @@
 //
 
 #import <UIKit/UIKit.h>
-#import "AQGridView.h"
 
 #define EXPERIMENTAL_LIBRARY 1
 
@@ -19,6 +18,7 @@
 
 @class VLCMovieViewController;
 @class EmptyLibraryView;
+@class AQGridView;
 
 @interface VLCPlaylistViewController : UIViewController <UITabBarDelegate, UIPopoverControllerDelegate>
 

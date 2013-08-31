@@ -9,6 +9,7 @@
 //
 
 #import "VLCPlaylistTableViewCell.h"
+#import "VLCLinearProgressIndicator.h"
 #import <MediaLibraryKit/MLAlbum.h>
 
 #define MAX_CACHE_SIZE 21 // three times the number of items shown on iPhone 5

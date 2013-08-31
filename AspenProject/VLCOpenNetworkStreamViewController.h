@@ -8,7 +8,7 @@
 //  Refer to the COPYING file of the official project for license.
 //
 
-@interface VLCOpenNetworkStreamViewController : UIViewController <UITableViewDataSource, UITableViewDelegate>
+@interface VLCOpenNetworkStreamViewController : UIViewController
 
 @property (strong, nonatomic) IBOutlet UITextField *urlField;
 @property (strong, nonatomic) IBOutlet UIButton *openButton;

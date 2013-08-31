@@ -8,9 +8,7 @@
 //  Refer to the COPYING file of the official project for license.
 //
 
-#import "VLCHTTPFileDownloader.h"
-
-@interface VLCDownloadViewController : UIViewController <UITableViewDataSource, UITableViewDelegate, VLCHTTPFileDownloader>
+@interface VLCDownloadViewController : UIViewController
 
 @property (nonatomic, strong) IBOutlet UIButton *downloadButton;
 @property (nonatomic, strong) IBOutlet UITextField *urlField;

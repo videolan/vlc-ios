@@ -8,10 +8,8 @@
 //  Refer to the COPYING file of the official project for license.
 //
 
-#import "IASKAppSettingsViewController.h"
-#import "PAPasscodeViewController.h"
-
-@interface VLCSettingsController : NSObject <PAPasscodeViewControllerDelegate, IASKSettingsDelegate>
+@class IASKAppSettingsViewController;
+@interface VLCSettingsController : NSObject
 
 @property (nonatomic, retain) IASKAppSettingsViewController *viewController;
 

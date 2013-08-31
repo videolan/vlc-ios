@@ -17,6 +17,7 @@
 #import "VLCBugreporter.h"
 #import "VLCAppDelegate.h"
 #import "UIBarButtonItem+Theme.h"
+#import "AQGridView.h"
 
 
 #ifndef UIStatusBarStyleLightContent
