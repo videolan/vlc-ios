@@ -40,11 +40,16 @@
     if (UI_USER_INTERFACE_IDIOM() == UIUserInterfaceIdiomPhone) {
         _tableView = [[UITableView alloc] initWithFrame:[UIScreen mainScreen].bounds style:UITableViewStylePlain];
         _tableView.backgroundColor = [UIColor colorWithWhite:.122 alpha:1.];
+        _tableView.rowHeight = [VLCPlaylistTableViewCell heightOfCell];
+        _tableView.separatorColor = [UIColor colorWithWhite:.122 alpha:1.];
         _tableView.delegate = self;
         _tableView.dataSource = self;
         self.view = _tableView;
     } else {
         _gridView = [[AQGridView alloc] initWithFrame:[UIScreen mainScreen].bounds];
+        _gridView.separatorStyle = AQGridViewCellSeparatorStyleEmptySpace;
+        _gridView.alwaysBounceVertical = YES;
+        _gridView.indicatorStyle = UIScrollViewIndicatorStyleWhite;
         _gridView.delegate = self;
         _gridView.dataSource = self;
         _gridView.backgroundColor = [UIColor colorWithPatternImage:[UIImage imageNamed:@"libraryBackground"]];
@@ -55,6 +60,8 @@
 
     self.view.autoresizingMask = UIViewAutoresizingFlexibleHeight | UIViewAutoresizingFlexibleWidth;
     self.emptyLibraryView = [[[NSBundle mainBundle] loadNibNamed:@"VLCEmptyLibraryView" owner:self options:nil] lastObject];
+    _emptyLibraryView.emptyLibraryLongDescriptionLabel.lineBreakMode = UILineBreakModeWordWrap;
+    _emptyLibraryView.emptyLibraryLongDescriptionLabel.numberOfLines = 0;
 }
 
 #pragma mark -
@@ -62,7 +69,7 @@
 - (void)viewDidLoad
 {
     [super viewDidLoad];
-
+    self.title = NSLocalizedString(@"LIBRARY_ALL_FILES", @"");
     _menuButton = [UIBarButtonItem themedRevealMenuButtonWithTarget:self andSelector:@selector(leftButtonAction:)];
 
     /* After day 354 of the year, the usual VLC cone is replaced by another cone
@@ -87,19 +94,7 @@
                                        forState:UIControlStateHighlighted barMetrics:UIBarMetricsDefault];
     }
 
-    if (UI_USER_INTERFACE_IDIOM() == UIUserInterfaceIdiomPad) {
-        _gridView.separatorStyle = AQGridViewCellSeparatorStyleEmptySpace;
-        _gridView.alwaysBounceVertical = YES;
-        _gridView.indicatorStyle = UIScrollViewIndicatorStyleWhite;
-    } else {
-        _tableView.rowHeight = [VLCPlaylistTableViewCell heightOfCell];
-        _tableView.separatorColor = [UIColor colorWithWhite:.122 alpha:1.];
-    }
-    self.title = NSLocalizedString(@"LIBRARY_ALL_FILES", @"");
-
     _emptyLibraryView.emptyLibraryLabel.text = NSLocalizedString(@"EMPTY_LIBRARY", @"");
-    _emptyLibraryView.emptyLibraryLongDescriptionLabel.lineBreakMode = UILineBreakModeWordWrap;
-    _emptyLibraryView.emptyLibraryLongDescriptionLabel.numberOfLines = 0;
     _emptyLibraryView.emptyLibraryLongDescriptionLabel.text = NSLocalizedString(@"EMPTY_LIBRARY_LONG", @"");
     [_emptyLibraryView.emptyLibraryLongDescriptionLabel sizeToFit];
 }
