@@ -220,27 +220,18 @@
     if (_libraryMode == VLCLibraryModeAllAlbums) {
         NSArray *rawAlbums = [MLAlbum allAlbums];
         _foundMedia = [[NSMutableArray alloc] init];
-        NSUInteger count = rawAlbums.count;
-        MLAlbum *album;
-
-        for (NSUInteger x = 0; x < count; x++) {
-            album = rawAlbums[x];
+        for (MLAlbum *album in rawAlbums) {
             if (album.name.length > 0 && album.tracks.count > 0)
                 [_foundMedia addObject:album];
         }
-        rawAlbums = nil;
+
     } else if (_libraryMode == VLCLibraryModeAllSeries) {
         NSArray *rawShows = [MLShow allShows];
         _foundMedia = [[NSMutableArray alloc] init];
-        NSUInteger count = rawShows.count;
-        MLShow *show;
-
-        for (NSUInteger x = 0; x < count; x++) {
-            show = rawShows[x];
+        for (MLShow *show in rawShows) {
             if (show.name.length > 0 && show.episodes.count > 0)
                 [_foundMedia addObject:show];
         }
-        rawShows = nil;
     } else
         _foundMedia = [NSMutableArray arrayWithArray:[MLFile allFiles]];
 
