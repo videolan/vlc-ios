@@ -154,6 +154,35 @@
         [[VLCBugreporter sharedInstance] handleBugreportRequest];
 }
 
+- (void)openMediaObject:(NSManagedObject *)mediaObject
+{
+    if ([mediaObject isKindOfClass:[MLAlbum class]]) {
+        _foundMedia = [NSMutableArray arrayWithArray:[[(MLAlbum *)mediaObject tracks] allObjects]];
+        self.navigationItem.leftBarButtonItem = [UIBarButtonItem themedBackButtonWithTarget:self andSelector:@selector(backToAllItems:)];
+        [self.navigationItem.leftBarButtonItem setTitle:NSLocalizedString(@"LIBRARY_MUSIC", @"")];
+        self.title = [(MLAlbum*)mediaObject name];
+        [self reloadViews];
+    } else if ([mediaObject isKindOfClass:[MLShow class]]) {
+        _foundMedia = [NSMutableArray arrayWithArray:[[(MLShow *)mediaObject episodes] allObjects]];
+        self.navigationItem.leftBarButtonItem = [UIBarButtonItem themedBackButtonWithTarget:self andSelector:@selector(backToAllItems:)];
+        [self.navigationItem.leftBarButtonItem setTitle:NSLocalizedString(@"LIBRARY_SERIES", @"")];
+        self.title = [(MLShow*)mediaObject name];
+        [self reloadViews];
+    } else {
+        if (!self.movieViewController)
+            self.movieViewController = [[VLCMovieViewController alloc] initWithNibName:nil bundle:nil];
+
+        if ([mediaObject isKindOfClass:[MLFile class]])
+            self.movieViewController.mediaItem = (MLFile *)mediaObject;
+        else if ([mediaObject isKindOfClass:[MLAlbumTrack class]])
+            self.movieViewController.mediaItem = [(MLAlbumTrack*)mediaObject files].anyObject;
+        else if ([mediaObject isKindOfClass:[MLShowEpisode class]])
+            self.movieViewController.mediaItem = [(MLShowEpisode*)mediaObject files].anyObject;
+
+        [self.navigationController pushViewController:self.movieViewController animated:YES];
+    }
+}
+
 - (void)removeMediaObject:(MLFile *)mediaObject
 {
     NSFileManager *fileManager = [NSFileManager defaultManager];
@@ -296,33 +325,8 @@
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
 {
     [tableView deselectRowAtIndexPath:indexPath animated:YES];
-
-    NSManagedObject *currentObject = _foundMedia[indexPath.row];
-    if ([currentObject isKindOfClass:[MLAlbum class]]) {
-        _foundMedia = [NSMutableArray arrayWithArray:[[(MLAlbum *)currentObject tracks] allObjects]];
-        self.navigationItem.leftBarButtonItem = [UIBarButtonItem themedBackButtonWithTarget:self andSelector:@selector(backToAllItems:)];
-        [self.navigationItem.leftBarButtonItem setTitle:NSLocalizedString(@"LIBRARY_MUSIC", @"")];
-        self.title = [(MLAlbum*)currentObject name];
-        [self reloadViews];
-    } else if ([currentObject isKindOfClass:[MLShow class]]) {
-        _foundMedia = [NSMutableArray arrayWithArray:[[(MLShow *)currentObject episodes] allObjects]];
-        self.navigationItem.leftBarButtonItem = [UIBarButtonItem themedBackButtonWithTarget:self andSelector:@selector(backToAllItems:)];
-        [self.navigationItem.leftBarButtonItem setTitle:NSLocalizedString(@"LIBRARY_SERIES", @"")];
-        self.title = [(MLShow*)currentObject name];
-        [self reloadViews];
-    } else {
-        if (!self.movieViewController)
-            self.movieViewController = [[VLCMovieViewController alloc] initWithNibName:nil bundle:nil];
-
-        if ([currentObject isKindOfClass:[MLFile class]])
-            self.movieViewController.mediaItem = (MLFile *)currentObject;
-        else if ([currentObject isKindOfClass:[MLAlbumTrack class]])
-            self.movieViewController.mediaItem = [(MLAlbumTrack*)currentObject files].anyObject;
-        else if ([currentObject isKindOfClass:[MLShowEpisode class]])
-            self.movieViewController.mediaItem = [(MLShowEpisode*)currentObject files].anyObject;
-
-        [self.navigationController pushViewController:self.movieViewController animated:YES];
-    }
+    NSManagedObject *selectedObject = _foundMedia[indexPath.row];
+    [self openMediaObject:selectedObject];
 }
 
 #pragma mark - AQGridView
@@ -355,33 +359,8 @@
 - (void)gridView:(AQGridView *)gridView didSelectItemAtIndex:(NSUInteger)index
 {
     [self.gridView deselectItemAtIndex:index animated:YES];
-
-    NSManagedObject *currentObject = _foundMedia[index];
-    if ([currentObject isKindOfClass:[MLAlbum class]]) {
-        _foundMedia = [NSMutableArray arrayWithArray:[[(MLAlbum *)currentObject tracks] allObjects]];
-        self.navigationItem.leftBarButtonItem = [UIBarButtonItem themedBackButtonWithTarget:self andSelector:@selector(backToAllItems:)];
-        [self.navigationItem.leftBarButtonItem setTitle:NSLocalizedString(@"LIBRARY_MUSIC", @"")];
-        self.title = [(MLAlbum*)currentObject name];
-        [self reloadViews];
-    } else if ([currentObject isKindOfClass:[MLShow class]]) {
-        _foundMedia = [NSMutableArray arrayWithArray:[[(MLShow *)currentObject episodes] allObjects]];
-        self.navigationItem.leftBarButtonItem = [UIBarButtonItem themedBackButtonWithTarget:self andSelector:@selector(backToAllItems:)];
-        [self.navigationItem.leftBarButtonItem setTitle:NSLocalizedString(@"LIBRARY_SERIES", @"")];
-        self.title = [(MLShow*)currentObject name];
-        [self reloadViews];
-    } else {
-        if (!self.movieViewController)
-            self.movieViewController = [[VLCMovieViewController alloc] initWithNibName:nil bundle:nil];
-
-        if ([currentObject isKindOfClass:[MLFile class]])
-            self.movieViewController.mediaItem = (MLFile *)currentObject;
-        else if ([currentObject isKindOfClass:[MLAlbumTrack class]])
-            self.movieViewController.mediaItem = [(MLAlbumTrack*)currentObject files].anyObject;
-        else if ([currentObject isKindOfClass:[MLShowEpisode class]])
-            self.movieViewController.mediaItem = [(MLShowEpisode*)currentObject files].anyObject;
-
-        [self.navigationController pushViewController:self.movieViewController animated:YES];
-    }
+    NSManagedObject *selectedObject = _foundMedia[index];
+    [self openMediaObject:selectedObject];
 }
 
 - (void)gridView:(AQGridView *)aGridView commitEditingStyle:(UITableViewCellEditingStyle)editingStyle forRowAtIndex:(NSUInteger)index
