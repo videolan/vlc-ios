@@ -271,10 +271,8 @@
 {
     if (UI_USER_INTERFACE_IDIOM() == UIUserInterfaceIdiomPhone)
         [self.tableView reloadData];
-    else {
+    else
         [self.gridView reloadData];
-        [self.gridView performSelector:@selector(reloadData) withObject:nil afterDelay:2.];
-    }
 
     [self _displayEmptyLibraryViewIfNeeded];
 }

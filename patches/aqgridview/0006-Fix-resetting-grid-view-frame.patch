@@ -1,0 +1,41 @@
+From 36e96717af0d398510ec6376bd4148473967e0ed Mon Sep 17 00:00:00 2001
+From: Gleb Pinigin <gpinigin@gmail.com>
+Date: Sun, 1 Sep 2013 12:24:03 +0700
+Subject: [PATCH 6/6] Fix resetting grid view frame
+
+---
+ Classes/AQGridView.m     | 4 ++--
+ Classes/AQGridViewCell.m | 2 +-
+ 2 files changed, 3 insertions(+), 3 deletions(-)
+
+diff --git a/Classes/AQGridView.m b/Classes/AQGridView.m
+index 1ab0df0..c000a5a 100755
+--- a/Classes/AQGridView.m
++++ b/Classes/AQGridView.m
+@@ -642,8 +642,8 @@ NSString * const AQGridViewSelectionDidChangeNotification = @"AQGridViewSelectio
+ 	// -layoutSubviews will update the visible cell list
+ 
+ 	// layout -- no animation
+-	[self setNeedsLayout];
+-	_flags.allCellsNeedLayout = 1;
++    _flags.allCellsNeedLayout = 1;
++	[self setNeedsLayout];	
+ }
+ 
+ #define MAX_BOUNCE_DISTANCE (500.0f)
+diff --git a/Classes/AQGridViewCell.m b/Classes/AQGridViewCell.m
+index 1eb72ba..aedd73e 100644
+--- a/Classes/AQGridViewCell.m
++++ b/Classes/AQGridViewCell.m
+@@ -539,7 +539,7 @@
+     
+     _cellFlags.setShadowPath = 0;
+ 	
+-	CGRect cFrame = self.bounds;
++	CGRect cFrame = self.frame;
+ 	if ( _cellFlags.separatorStyle == AQGridViewCellSeparatorStyleSingleLine )
+ 	{
+ 		if ( _cellFlags.separatorEdge & AQGridViewCellSeparatorEdgeBottom )
+-- 
+1.7.12.4 (Apple Git-37)
+
