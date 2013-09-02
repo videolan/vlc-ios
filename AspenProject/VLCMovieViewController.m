@@ -46,6 +46,19 @@
     BOOL _positionSet;
     BOOL _playerIsSetup;
     BOOL _isScrubbing;
+
+    BOOL _swipeGesturesEnabled;
+    CGFloat _panDirectionX;
+    CGFloat _panDirectionY;
+    int _forwardDuration;
+    int _backwardDuration;
+    NSString * panType;
+    UIView *_rootView;
+    UIView *_splashView;
+    UIPanGestureRecognizer *_panRecognizer;
+    UISwipeGestureRecognizer *_swipeRecognizerLeft;
+    UISwipeGestureRecognizer *_swipeRecognizerRight;
+    UITapGestureRecognizer *_tapRecognizer;
 }
 
 @property (nonatomic, strong) UIPopoverController *masterPopoverController;
@@ -63,6 +76,17 @@
 
 - (void)dealloc
 {
+    if (_splashView)
+        [_splashView removeFromSuperview];
+    if (_tapRecognizer)
+        [_rootView removeGestureRecognizer:_tapRecognizer];
+    if (_swipeRecognizerLeft)
+        [_rootView removeGestureRecognizer:_swipeRecognizerLeft];
+    if (_swipeRecognizerRight)
+        [_rootView removeGestureRecognizer:_swipeRecognizerRight];
+    if (_panRecognizer)
+        [_rootView removeGestureRecognizer:_panRecognizer];
+
     [[NSNotificationCenter defaultCenter] removeObserver:self];
 }
 
@@ -175,24 +199,36 @@
     pinchRecognizer.delegate = self;
     [self.view addGestureRecognizer:pinchRecognizer];
 
-#if 0 // FIXME: trac #8742
-    UISwipeGestureRecognizer *leftSwipeRecognizer = [[VLCHorizontalSwipeGestureRecognizer alloc] initWithTarget:self action:nil];
-    leftSwipeRecognizer.direction = UISwipeGestureRecognizerDirectionLeft;
-    leftSwipeRecognizer.delegate = self;
-    [self.view addGestureRecognizer:leftSwipeRecognizer];
-    UISwipeGestureRecognizer *rightSwipeRecognizer = [[VLCHorizontalSwipeGestureRecognizer alloc] initWithTarget:self action:nil];
-    rightSwipeRecognizer.direction = UISwipeGestureRecognizerDirectionRight;
-    rightSwipeRecognizer.delegate = self;
-    [self.view addGestureRecognizer:rightSwipeRecognizer];
-    UISwipeGestureRecognizer *upSwipeRecognizer = [[VLCVerticalSwipeGestureRecognizer alloc] initWithTarget:self action:nil];
-    upSwipeRecognizer.direction = UISwipeGestureRecognizerDirectionUp;
-    upSwipeRecognizer.delegate = self;
-    [self.view addGestureRecognizer:upSwipeRecognizer];
-    UISwipeGestureRecognizer *downSwipeRecognizer = [[VLCVerticalSwipeGestureRecognizer alloc] initWithTarget:self action:nil];
-    downSwipeRecognizer.direction = UISwipeGestureRecognizerDirectionDown;
-    downSwipeRecognizer.delegate = self;
-    [self.view addGestureRecognizer:downSwipeRecognizer];
-#endif
+    _swipeGesturesEnabled = YES;
+    if (_swipeGesturesEnabled) {
+        _forwardDuration = 30;
+        _backwardDuration = 10;
+
+        _tapRecognizer = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(tapRecognized)];
+        [_tapRecognizer setNumberOfTouchesRequired:2];
+        _panRecognizer = [[UIPanGestureRecognizer alloc] initWithTarget:self action:@selector(panRecognized:)];
+        [_panRecognizer setMinimumNumberOfTouches:1];
+        [_panRecognizer setMaximumNumberOfTouches:1];
+
+        _swipeRecognizerLeft = [[UISwipeGestureRecognizer alloc] initWithTarget:self action:@selector(swipeRecognized:)];
+        _swipeRecognizerLeft.direction = UISwipeGestureRecognizerDirectionLeft;
+        _swipeRecognizerRight = [[UISwipeGestureRecognizer alloc] initWithTarget:self action:@selector(swipeRecognized:)];
+        _swipeRecognizerRight.direction = UISwipeGestureRecognizerDirectionRight;
+
+        UIWindow * window = [[[UIApplication sharedApplication] delegate] window];
+        _rootView = window.rootViewController.view;
+        [_rootView addGestureRecognizer:_swipeRecognizerLeft];
+        [_rootView addGestureRecognizer:_swipeRecognizerRight];
+        [_rootView addGestureRecognizer:_panRecognizer];
+        [_rootView addGestureRecognizer:_tapRecognizer];
+        [_panRecognizer requireGestureRecognizerToFail:_swipeRecognizerLeft];
+        [_panRecognizer requireGestureRecognizerToFail:_swipeRecognizerRight];
+
+        _panRecognizer.delegate = self;
+        _swipeRecognizerRight.delegate = self;
+        _swipeRecognizerLeft.delegate = self;
+        _tapRecognizer.delegate = self;
+    }
 
     _aspectRatios = @[@"DEFAULT", @"FILL_TO_SCREEN", @"4:3", @"16:9", @"16:10", @"2.21:1"];
 
@@ -560,6 +596,11 @@
     return YES;
 }
 
+- (BOOL)gestureRecognizer:(UIGestureRecognizer *)gestureRecognizer shouldRecognizeSimultaneouslyWithGestureRecognizer:(UIGestureRecognizer *)otherGestureRecognizer
+{
+    return YES;
+}
+
 - (void)setControlsHidden:(BOOL)hidden animated:(BOOL)animated
 {
     _controlsHidden = hidden;
@@ -833,28 +874,234 @@
     [self _resetIdleTimer];
 }
 
-#pragma mark - swipe gestures
-
-- (void)horizontalSwipePercentage:(CGFloat)percentage inView:(UIView *)view
+#pragma mark - multi-touch gestures
+-(CGSize)_screenSize
 {
-    if (percentage != 0.) {
-        _mediaPlayer.position = _mediaPlayer.position + percentage;
+    UIInterfaceOrientation orientation = [[UIApplication sharedApplication] statusBarOrientation];
+    CGRect screenRect = [[UIScreen mainScreen] bounds];
+
+    CGFloat screenHeight, screenWidth = .0;
+
+    if (orientation == UIDeviceOrientationPortrait)
+    {
+        screenHeight = screenRect.size.height;
+        screenWidth = screenRect.size.width;
+    }
+    else
+    {
+        screenHeight = screenRect.size.width;
+        screenWidth = screenRect.size.height;
+    }
+
+    return CGSizeMake(screenWidth, screenHeight);
+}
+
+-(void)changePlaybackStatus
+{
+    if ([_mediaPlayer isPlaying]) {
+        [_mediaPlayer pause];
+        [self displayHUDwithText:@"  ▌▌"];
+    } else {
+        [_mediaPlayer play];
+        [self displayHUDwithText:@"  ►"];
+    }
+    [_rootView addSubview:_splashView];
+    [UIView animateWithDuration:1
+                     animations:^{ _splashView.alpha = 0.0f;}
+                     completion:^(BOOL finished){ [_splashView removeFromSuperview]; }];
+}
+
+-(void)tapRecognized
+{
+    [self changePlaybackStatus];
+}
+
+-(NSString*)detectPanTypeForPan:(UIPanGestureRecognizer*)panRecognizer
+{
+    NSString * type;
+    NSString * deviceType = [[UIDevice currentDevice] model];
+    type = @"Volume"; // default in case of error
+    CGPoint location = [panRecognizer locationInView:_rootView];
+    CGFloat position = location.x;
+    CGSize screenSize = [self _screenSize];
+
+    if ( position < screenSize.width /2 )
+        type = @"Brightness";
+
+    if (position > screenSize.width /2 )
+        type = @"Volume";
+
+    // only check for seeking gesture if on iPad , will overwrite last statements if true
+    if ([deviceType isEqualToString:@"iPad"]) {
+        if (location.y < 110)
+            type = @"Seek";
+    }
+
+    return type;
+}
+
+-(CGFloat)getHorizontalDirectionForPan:(UIPanGestureRecognizer*)panRecognizer
+{
+    CGPoint velocity = [panRecognizer velocityInView:_rootView];
+    CGFloat direction = velocity.x;
+    return direction;
+}
+
+-(CGFloat)getVerticalDirectionForPan:(UIPanGestureRecognizer*)panRecognizer
+{
+    CGPoint velocity = [panRecognizer velocityInView:_rootView];
+    CGFloat Direction = velocity.y;
+    return Direction;
+}
+
+-(void)displayHUDwithText:(NSString*)text
+{
+    CGSize screenSize = [self _screenSize];
+    UILabel * label = [[UILabel alloc] initWithFrame:CGRectMake( (screenSize.width/2 - text.length*8.5/2), 72, (text.length * 8.5), 20)];
+    [label setText:text];
+    [label setAdjustsFontSizeToFitWidth:YES];
+    [label setBackgroundColor:[UIColor blackColor]];
+    [label setTextColor:[UIColor whiteColor]];
+    [label setAlpha:0.55];
+    [_rootView addSubview:label];
+
+    [UIView animateWithDuration:1 animations:^{ label.alpha = 0.0f;} completion:^(BOOL finished){ [label removeFromSuperview]; }];
+}
+
+-(void)adjustVolume
+{
+    MPMusicPlayerController *musicPlayer = [MPMusicPlayerController applicationMusicPlayer];
+    if (_panDirectionY >0)
+    {
+        musicPlayer.volume -= 0.01;
+    }
+    else
+    {
+        musicPlayer.volume += 0.01;
+    }
+    NSString *volume =[NSString stringWithFormat:@" Volume : %@ %%", [[[NSString stringWithFormat:@"%f",(musicPlayer.volume*100)] componentsSeparatedByString:@"."] objectAtIndex:0]];
+    [self displayHUDwithText:volume];
+}
+
+-(void)adjustBrightness
+{
+    CGFloat brightness = [UIScreen mainScreen].brightness;
+    if (_panDirectionY >0)
+    {
+        [[UIScreen mainScreen]setBrightness:(brightness-0.01)];
+    }
+    else
+    {
+        [[UIScreen mainScreen]setBrightness:(brightness+0.01)];
+    }
+
+    NSString *brightnessHUD =[NSString stringWithFormat:@" Brightness : %@ %%", [[[NSString stringWithFormat:@"%f",(brightness*100)] componentsSeparatedByString:@"."] objectAtIndex:0]];
+    [self displayHUDwithText:brightnessHUD];
+
+}
+
+-(void)adjustSeek
+{
+    double timeRemainingDouble = (-_mediaPlayer.remainingTime.intValue*0.001);
+    int timeRemaining = timeRemainingDouble;
+
+    if (_panDirectionX >0) {
+        if (timeRemaining > 2 ) // to not go outside duration , video will stop
+        {
+            [_mediaPlayer jumpForward:1];
+        }
+    }
+    else
+    {
+        [_mediaPlayer jumpBackward:1];
+    }
+
+}
+
+-(void)setOrientationSettingsForPan:(UIPanGestureRecognizer*)panRecognizer
+{
+    _panDirectionX = [self getHorizontalDirectionForPan:panRecognizer];
+    _panDirectionY = [self getVerticalDirectionForPan:panRecognizer];
+}
+
+-(void)panRecognized:(UIPanGestureRecognizer*)panRecognizer
+{
+    [self setOrientationSettingsForPan:panRecognizer];
+
+    if (panRecognizer.state == UIGestureRecognizerStateBegan) // Only Detect pantype when began to allow more freedom
+    {
+        panType = [self detectPanTypeForPan:panRecognizer];
+    }
+
+    if ([panType isEqual:@"Seek"])
+    {
+        [self adjustSeek];
+    }
+    if ([panType isEqual:@"Volume"])
+    {
+        [self adjustVolume];
+    }
+    if ([panType isEqual:@"Brightness"])
+    {
+        [self adjustBrightness];
+    }
+
+    if (panRecognizer.state == UIGestureRecognizerStateEnded)
+    {
+        if ([_mediaPlayer isPlaying])
+        {
+            [_mediaPlayer play];
+        }
     }
 }
 
-- (void)verticalSwipePercentage:(CGFloat)percentage inView:(UIView *)view half:(NSUInteger)half
+-(void)swipeRecognized:(UISwipeGestureRecognizer*)swipeRecognizer
 {
-    if (percentage != 0.) {
-        if (half > 0) {
-            CGFloat currentValue = self.brightnessSlider.value;
-            currentValue = currentValue + percentage;
-            self.brightnessSlider.value = currentValue;
-            if ([self hasExternalDisplay])
-                _mediaPlayer.brightness = currentValue;
-            else
-                [[UIScreen mainScreen] setBrightness:currentValue / 2];
-        } else
-            NSLog(@"volume setting through swipe not implemented");//_mediaPlayer.audio.volume = percentage * 200;
+    NSString * hudString = @" ";
+
+    if (swipeRecognizer.direction == UISwipeGestureRecognizerDirectionRight)
+    {
+
+        double timeRemainingDouble = (-_mediaPlayer.remainingTime.intValue*0.001);
+
+        int timeRemaining = timeRemainingDouble;
+
+        if (_forwardDuration < timeRemaining)
+        {
+            [_mediaPlayer jumpForward:_forwardDuration];
+            hudString = [NSString stringWithFormat:@" >> %is ",_forwardDuration];
+
+            if (_forwardDuration == 60)
+            {
+                hudString = @"  >>1min  ";
+            }
+        }
+        else {
+            [_mediaPlayer jumpForward:(timeRemaining - 5)];
+            hudString = [NSString stringWithFormat:@" >> %is ",(timeRemaining - 5)];
+        }
+    }
+
+    if (swipeRecognizer.direction == UISwipeGestureRecognizerDirectionLeft)
+    {
+        [_mediaPlayer jumpBackward:_backwardDuration];
+        hudString = [NSString stringWithFormat:@" << %is ",_backwardDuration];
+
+        if (_backwardDuration == 60)
+        {
+            hudString = @"  <<1min  ";
+        }
+
+    }
+
+    if (swipeRecognizer.state == UIGestureRecognizerStateEnded)
+    {
+        [_rootView addSubview:_splashView];
+        if ([_mediaPlayer isPlaying])
+        {
+            [_mediaPlayer play];
+        }
+        [self displayHUDwithText:hudString];
     }
 }
 
