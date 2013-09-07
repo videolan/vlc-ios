@@ -1,8 +1,8 @@
-From 11ed0e98d218dc5c6d5193748c8ee234f0e7dd3a Mon Sep 17 00:00:00 2001
+From 33c2399e4bd491d06f3440268e33f48cc8181f58 Mon Sep 17 00:00:00 2001
 From: =?UTF-8?q?Felix=20Paul=20K=C3=BChne?= <fkuehne@videolan.org>
 Date: Thu, 8 Aug 2013 21:47:46 +0200
-Subject: [PATCH] contribs/zvbi: don't reconf after decompressing the source
- code so we don't need to compile gettext just for this
+Subject: [PATCH 17/17] contribs/zvbi: don't reconf after decompressing the
+ source code so we don't need to compile gettext just for this
 
 ---
  contrib/src/zvbi/rules.mak | 2 ++
@@ -23,5 +23,5 @@ index 7584eed..627ae7c 100644
  	cd $</src && $(MAKE) install
  	cd $< && $(MAKE) SUBDIRS=. install
 -- 
-1.8.3.1 (Apple Git-46)
+1.8.3.4 (Apple Git-47)
 

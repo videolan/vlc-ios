@@ -1,7 +1,7 @@
-From fe9790bd9cafdcb2f36c9c78eeb0275fb29d947d Mon Sep 17 00:00:00 2001
+From c6c78862cdef49cd550abff2b1d29eb40bc8a830 Mon Sep 17 00:00:00 2001
 From: =?UTF-8?q?Felix=20Paul=20K=C3=BChne?= <fkuehne@videolan.org>
 Date: Sun, 21 Jul 2013 18:18:33 +0200
-Subject: [PATCH 10/13] freetype: fix corner-case crash
+Subject: [PATCH 11/17] freetype: fix corner-case crash
 
 ---
  modules/text_renderer/freetype.c | 2 ++
@@ -21,5 +21,5 @@ index e1dfea2..098c67b 100644
      CFRelease(fileURL);
  
 -- 
-1.7.12.4 (Apple Git-37)
+1.8.3.4 (Apple Git-47)
 

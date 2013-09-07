@@ -1,0 +1,100 @@
+From 33519fb95407c83962d2d84062de65a7ba9452c8 Mon Sep 17 00:00:00 2001
+From: =?UTF-8?q?Felix=20Paul=20K=C3=BChne?= <fkuehne@videolan.org>
+Date: Sat, 24 Aug 2013 19:28:20 +0200
+Subject: [PATCH] fixed png patch
+
+---
+ contrib/src/png/ios.patch | 66 +++++++++++++++++++++++++++++++++++++++++++++++
+ contrib/src/png/rules.mak |  3 +++
+ 2 files changed, 69 insertions(+)
+ create mode 100644 contrib/src/png/ios.patch
+
+diff --git a/contrib/src/png/ios.patch b/contrib/src/png/ios.patch
+new file mode 100644
+index 0000000..f4b8bc1
+--- /dev/null
++++ b/contrib/src/png/ios.patch
+@@ -0,0 +1,66 @@
++diff -ru png/arm/filter_neon.S png-fixed/arm/filter_neon.S
++--- png/arm/filter_neon.S	2013-06-27 05:25:41.000000000 +0200
+++++ png-fixed/arm/filter_neon.S	2013-07-20 23:33:23.000000000 +0200
++@@ -46,7 +46,7 @@
++ \name:
++ .endm
++ 
++-func    png_read_filter_row_sub4_neon, export=1
+++func    _png_read_filter_row_sub4_neon, export=1
++         ldr             r3,  [r0, #4]           @ rowbytes
++         vmov.i8         d3,  #0
++ 1:
++@@ -62,7 +62,7 @@
++         bx              lr
++ endfunc
++ 
++-func    png_read_filter_row_sub3_neon, export=1
+++func    _png_read_filter_row_sub3_neon, export=1
++         ldr             r3,  [r0, #4]           @ rowbytes
++         vmov.i8         d3,  #0
++         mov             r0,  r1
++@@ -88,7 +88,7 @@
++         bx              lr
++ endfunc
++ 
++-func    png_read_filter_row_up_neon, export=1
+++func    _png_read_filter_row_up_neon, export=1
++         ldr             r3,  [r0, #4]           @ rowbytes
++ 1:
++         vld1.8          {q0}, [r1,:128]
++@@ -101,7 +101,7 @@
++         bx              lr
++ endfunc
++ 
++-func    png_read_filter_row_avg4_neon, export=1
+++func    _png_read_filter_row_avg4_neon, export=1
++         ldr             r12, [r0, #4]           @ rowbytes
++         vmov.i8         d3,  #0
++ 1:
++@@ -122,7 +122,7 @@
++         bx              lr
++ endfunc
++ 
++-func    png_read_filter_row_avg3_neon, export=1
+++func    _png_read_filter_row_avg3_neon, export=1
++         push            {r4,lr}
++         ldr             r12, [r0, #4]           @ rowbytes
++         vmov.i8         d3,  #0
++@@ -173,7 +173,7 @@
++         vbsl            \rx, \ra, d28
++ .endm
++ 
++-func    png_read_filter_row_paeth4_neon, export=1
+++func    _png_read_filter_row_paeth4_neon, export=1
++         ldr             r12, [r0, #4]           @ rowbytes
++         vmov.i8         d3,  #0
++         vmov.i8         d20, #0
++@@ -196,7 +196,7 @@
++         bx              lr
++ endfunc
++ 
++-func    png_read_filter_row_paeth3_neon, export=1
+++func    _png_read_filter_row_paeth3_neon, export=1
++         push            {r4,lr}
++         ldr             r12, [r0, #4]           @ rowbytes
++         vmov.i8         d3,  #0
+diff --git a/contrib/src/png/rules.mak b/contrib/src/png/rules.mak
+index ae6ae5b..f42780f 100644
+--- a/contrib/src/png/rules.mak
++++ b/contrib/src/png/rules.mak
+@@ -16,6 +16,9 @@ png: libpng-$(PNG_VERSION).tar.xz .sum-png
+ 	$(UNPACK)
+ 	$(APPLY) $(SRC)/png/winrt.patch
+ 	$(APPLY) $(SRC)/png/bins.patch
++ifdef HAVE_IOS
++	$(APPLY) $(SRC)/png/ios.patch
++endif
+ 	$(MOVE)
+ 
+ DEPS_png = zlib $(DEPS_zlib)
+-- 
+1.8.3.4 (Apple Git-47)
+
