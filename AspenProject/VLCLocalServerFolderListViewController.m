@@ -105,7 +105,6 @@
 
         [_mutableObjectList removeAllObjects];
         NSData *didl = [outResult dataUsingEncoding:NSUTF8StringEncoding];
-        NSMutableArray *array;
         MediaServerBasicObjectParser *parser = [[MediaServerBasicObjectParser alloc] initWithMediaObjectArray:_mutableObjectList itemsOnly:NO];
         [parser parseFromData:didl];
     } else if (_serverType == kVLCFTPServer) {

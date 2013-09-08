@@ -67,8 +67,6 @@
 
     self.title = NSLocalizedString(@"LOCAL_NETWORK", @"");
 
-    [self performSelectorInBackground:@selector(_startUPNPDiscovery) withObject:nil];
-
     _ftpServices = [[NSMutableArray alloc] init];
     [_ftpServices addObject:NSLocalizedString(@"CONNECT_TO_SERVER", nil)];
 
@@ -88,6 +86,7 @@
 {
     [super viewWillAppear:animated];
     [self _triggerNetServiceBrowser];
+    [self performSelectorInBackground:@selector(_startUPNPDiscovery) withObject:nil];
 }
 
 - (void)_triggerNetServiceBrowser
@@ -97,20 +96,28 @@
 
 - (void)_startUPNPDiscovery
 {
-    UPnPDB* db = [[UPnPManager GetInstance] DB];
-    _UPNPdevices = [db rootDevices];
+    NSLog(@"_startUPNPDiscovery");
+    UPnPManager *managerInstance = [UPnPManager GetInstance];
 
-    [db addObserver:(UPnPDBObserver*)self];
+    _UPNPdevices = [[managerInstance DB] rootDevices];
+
+    [[managerInstance DB] addObserver:(UPnPDBObserver*)self];
 
     //Optional; set User Agent
-    [[[UPnPManager GetInstance] SSDP] setUserAgentProduct:[NSString stringWithFormat:@"VLC for iOS/%@", [[NSBundle mainBundle] objectForInfoDictionaryKey:@"CFBundleVersion"]] andOS:@"iOS"];
+    [[managerInstance SSDP] setUserAgentProduct:[NSString stringWithFormat:@"VLC for iOS/%@", [[NSBundle mainBundle] objectForInfoDictionaryKey:@"CFBundleVersion"]] andOS:@"iOS"];
 
     //Search for UPnP Devices
-    [[[UPnPManager GetInstance] SSDP] searchSSDP];
+    [[managerInstance SSDP] startSSDP];
+    [[managerInstance SSDP] searchSSDP];
+    [[managerInstance SSDP] SSDPDBUpdate];
 }
 
 - (IBAction)goBack:(id)sender
 {
+    UPnPManager *managerInstance = [UPnPManager GetInstance];
+    [[managerInstance DB] removeObserver:(UPnPDBObserver*)self];
+    [[managerInstance SSDP] stopSSDP];
+
     [[(VLCAppDelegate*)[UIApplication sharedApplication].delegate revealController] toggleSidebar:![(VLCAppDelegate*)[UIApplication sharedApplication].delegate revealController].sidebarShowing duration:kGHRevealSidebarDefaultAnimationDuration];
 }
 
@@ -155,6 +162,7 @@
     NSUInteger section = indexPath.section;
 
     [cell setIsDirectory:YES];
+    [cell setIcon:nil];
 
     if (section == 0) {
         BasicUPnPDevice *device = _filteredUPNPDevices[row];
