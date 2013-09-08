@@ -32,6 +32,7 @@
     /* generic data storage */
     NSString *_listTitle;
     NSArray *_objectList;
+    NSMutableArray *_mutableObjectList;
     NSUInteger _serverType;
 
     /* UPNP specifics */
@@ -69,6 +70,7 @@
         _listTitle = header;
         _UPNProotID = rootID;
         _serverType = kVLCUPNPFileServer;
+        _mutableObjectList = [[NSMutableArray alloc] init];
     }
 
     return self;
@@ -101,11 +103,11 @@
 
         [[_UPNPdevice contentDirectory] BrowseWithObjectID:_UPNProotID BrowseFlag:@"BrowseDirectChildren" Filter:@"*" StartingIndex:@"0" RequestedCount:@"0" SortCriteria:@"+dc:title" OutResult:outResult OutNumberReturned:outNumberReturned OutTotalMatches:outTotalMatches OutUpdateID:outUpdateID];
 
+        [_mutableObjectList removeAllObjects];
         NSData *didl = [outResult dataUsingEncoding:NSUTF8StringEncoding];
         NSMutableArray *array;
-        MediaServerBasicObjectParser *parser = [[MediaServerBasicObjectParser alloc] initWithMediaObjectArray:array itemsOnly:NO];
+        MediaServerBasicObjectParser *parser = [[MediaServerBasicObjectParser alloc] initWithMediaObjectArray:_mutableObjectList itemsOnly:NO];
         [parser parseFromData:didl];
-        _objectList = [NSArray arrayWithArray:array];
     } else if (_serverType == kVLCFTPServer) {
         if ([_ftpServerPath isEqualToString:@"/"])
             _listTitle = _ftpServerAddress;
@@ -136,6 +138,9 @@
 
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section
 {
+    if (_serverType == kVLCUPNPFileServer)
+        return _mutableObjectList.count;
+
     return _objectList.count;
 }
 
@@ -148,9 +153,9 @@
         cell = [VLCLocalNetworkListCell cellWithReuseIdentifier:CellIdentifier];
 
     if (_serverType == kVLCUPNPFileServer) {
-        MediaServer1BasicObject *item = _objectList[indexPath.row];
+        MediaServer1BasicObject *item = _mutableObjectList[indexPath.row];
         if (![item isContainer]) {
-            MediaServer1ItemObject *mediaItem = _objectList[indexPath.row];
+            MediaServer1ItemObject *mediaItem = _mutableObjectList[indexPath.row];
             [cell setSubtitle: [NSString stringWithFormat:@"%0.2f MB", (float)([mediaItem.size intValue] / 1e6)]];
             [cell setIsDirectory:NO];
             [cell setIcon:[UIImage imageNamed:@"blank"]];
@@ -186,13 +191,13 @@
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
 {
     if (_serverType == kVLCUPNPFileServer) {
-        MediaServer1BasicObject *item = _objectList[indexPath.row];
+        MediaServer1BasicObject *item = _mutableObjectList[indexPath.row];
         if ([item isContainer]) {
-            MediaServer1ContainerObject *container = _objectList[indexPath.row];
+            MediaServer1ContainerObject *container = _mutableObjectList[indexPath.row];
             VLCLocalServerFolderListViewController *targetViewController = [[VLCLocalServerFolderListViewController alloc] initWithUPNPDevice:_UPNPdevice header:[container title] andRootID:[container objectID]];
             [[self navigationController] pushViewController:targetViewController animated:YES];
         } else {
-            MediaServer1ItemObject *item = _objectList[indexPath.row];
+            MediaServer1ItemObject *item = _mutableObjectList[indexPath.row];
 
             MediaServer1ItemRes *resource = nil;
             NSEnumerator *e = [[item resources] objectEnumerator];
