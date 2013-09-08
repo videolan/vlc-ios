@@ -1,9 +1,17 @@
+2.1.1:
+------
+* Stability improvements
+* Improved UPnP handling
+* Improved interaction with third party apps
+* Improved visual appearance on iPad
+* Added support for Teletext-based DVB subtitles
+
 2.1:
 ----
 * Improved overall stability (#8989, #9031, #9048, #9089, #9092)
 * Add support for subtitles in non-western languages (#8991)
 * Improved Subtitles support with options to choose font, size, and color
-* Add UPNP discovery and streaming (#8880)
+* Add UPnP discovery and streaming (#8880)
 * Add FTP server discovery, streaming and downloading (#9064)
 * Add Bonjour announcements for the WiFi Uploader's website (#8741)
 * Add playback of audio-only media (#9044)

@@ -77,7 +77,7 @@
 	<key>CFBundlePackageType</key>
 	<string>APPL</string>
 	<key>CFBundleShortVersionString</key>
-	<string>2.1</string>
+	<string>2.1.1</string>
 	<key>CFBundleSignature</key>
 	<string>????</string>
 	<key>CFBundleURLTypes</key>
@@ -185,7 +185,7 @@
 		</dict>
 	</array>
 	<key>CFBundleVersion</key>
-	<string>2.1</string>
+	<string>2.1.1</string>
 	<key>LSRequiresIPhoneOS</key>
 	<true/>
 	<key>UIBackgroundModes</key>
@@ -228,7 +228,7 @@
 	<false/>
 	<key>UTExportedTypeDeclarations</key>
 	<array>
-        <dict>
+		<dict>
 			<key>UTTypeConformsTo</key>
 			<array>
 				<string>public.movie</string>
@@ -237,15 +237,15 @@
 			<string>Ogg Video</string>
 			<key>UTTypeIdentifier</key>
 			<string>org.xiph.ogv</string>
-            <key>UTTypeTagSpecification</key>
-            <dict>
-                <key>public.filename-extension</key>
-                <string>ogv</string>
-                <key>public.mime-type</key>
-                <string>video/ogg</string>
-            </dict>
+			<key>UTTypeTagSpecification</key>
+			<dict>
+				<key>public.filename-extension</key>
+				<string>ogv</string>
+				<key>public.mime-type</key>
+				<string>video/ogg</string>
+			</dict>
 		</dict>
-        <dict>
+		<dict>
 			<key>UTTypeConformsTo</key>
 			<array>
 				<string>public.audio</string>
@@ -254,18 +254,18 @@
 			<string>Ogg Audio</string>
 			<key>UTTypeIdentifier</key>
 			<string>org.xiph.oga</string>
-            <key>UTTypeTagSpecification</key>
-            <dict>
-                <key>public.filename-extension</key>
-                <array>
-                    <string>ogg</string>
-                    <string>oga</string>
-                </array>
-                <key>public.mime-type</key>
-                <string>audio/ogg</string>
-            </dict>
+			<key>UTTypeTagSpecification</key>
+			<dict>
+				<key>public.filename-extension</key>
+				<array>
+					<string>ogg</string>
+					<string>oga</string>
+				</array>
+				<key>public.mime-type</key>
+				<string>audio/ogg</string>
+			</dict>
 		</dict>
-        <dict>
+		<dict>
 			<key>UTTypeConformsTo</key>
 			<array>
 				<string>public.avi</string>
@@ -274,13 +274,13 @@
 			<string>DivX</string>
 			<key>UTTypeIdentifier</key>
 			<string>com.divx.divx</string>
-            <key>UTTypeTagSpecification</key>
-            <dict>
-                <key>public.filename-extension</key>
-                <string>divx</string>
-            </dict>
+			<key>UTTypeTagSpecification</key>
+			<dict>
+				<key>public.filename-extension</key>
+				<string>divx</string>
+			</dict>
 		</dict>
-        <dict>
+		<dict>
 			<key>UTTypeConformsTo</key>
 			<array>
 				<string>public.movie</string>
@@ -289,15 +289,15 @@
 			<string>Matroska</string>
 			<key>UTTypeIdentifier</key>
 			<string>org.matroska.mkv</string>
-            <key>UTTypeTagSpecification</key>
-            <dict>
-                <key>public.filename-extension</key>
-                <string>mkv</string>
-                <key>public.mime-type</key>
-                <string>video/x-matroska</string>
-            </dict>
+			<key>UTTypeTagSpecification</key>
+			<dict>
+				<key>public.filename-extension</key>
+				<string>mkv</string>
+				<key>public.mime-type</key>
+				<string>video/x-matroska</string>
+			</dict>
 		</dict>
-        <dict>
+		<dict>
 			<key>UTTypeConformsTo</key>
 			<array>
 				<string>public.audio</string>
@@ -306,15 +306,15 @@
 			<string>Flac</string>
 			<key>UTTypeIdentifier</key>
 			<string>org.videolan.flac</string>
-            <key>UTTypeTagSpecification</key>
-            <dict>
-                <key>public.filename-extension</key>
-                <string>flac</string>
-                <key>public.mime-type</key>
-                <string>audio/x-flac</string>
-            </dict>
+			<key>UTTypeTagSpecification</key>
+			<dict>
+				<key>public.filename-extension</key>
+				<string>flac</string>
+				<key>public.mime-type</key>
+				<string>audio/x-flac</string>
+			</dict>
 		</dict>
-        <dict>
+		<dict>
 			<key>UTTypeConformsTo</key>
 			<array>
 				<string>public.audio</string>
@@ -323,15 +323,15 @@
 			<string>OPUS</string>
 			<key>UTTypeIdentifier</key>
 			<string>org.videolan.opus</string>
-            <key>UTTypeTagSpecification</key>
-            <dict>
-                <key>public.filename-extension</key>
-                <string>opus</string>
-                <key>public.mime-type</key>
-                <string>audio/opus</string>
-            </dict>
+			<key>UTTypeTagSpecification</key>
+			<dict>
+				<key>public.filename-extension</key>
+				<string>opus</string>
+				<key>public.mime-type</key>
+				<string>audio/opus</string>
+			</dict>
 		</dict>
-        <dict>
+		<dict>
 			<key>UTTypeConformsTo</key>
 			<array>
 				<string>public.video</string>
@@ -340,15 +340,15 @@
 			<string>MXF</string>
 			<key>UTTypeIdentifier</key>
 			<string>org.videolan.mxf</string>
-            <key>UTTypeTagSpecification</key>
-            <dict>
-                <key>public.filename-extension</key>
-                <string>mxf</string>
-                <key>public.mime-type</key>
-                <string>application/mxf</string>
-            </dict>
+			<key>UTTypeTagSpecification</key>
+			<dict>
+				<key>public.filename-extension</key>
+				<string>mxf</string>
+				<key>public.mime-type</key>
+				<string>application/mxf</string>
+			</dict>
 		</dict>
-        <dict>
+		<dict>
 			<key>UTTypeConformsTo</key>
 			<array>
 				<string>public.video</string>
@@ -357,13 +357,13 @@
 			<string>WebM</string>
 			<key>UTTypeIdentifier</key>
 			<string>org.videolan.webm</string>
-            <key>UTTypeTagSpecification</key>
-            <dict>
-                <key>public.filename-extension</key>
-                <string>webm</string>
-                <key>public.mime-type</key>
-                <string>video/webm</string>
-            </dict>
+			<key>UTTypeTagSpecification</key>
+			<dict>
+				<key>public.filename-extension</key>
+				<string>webm</string>
+				<key>public.mime-type</key>
+				<string>video/webm</string>
+			</dict>
 		</dict>
 	</array>
 </dict>
