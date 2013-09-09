@@ -1,7 +1,7 @@
-From 031dc9818598c87fa7bc0970e6b9b5e79d6e34a9 Mon Sep 17 00:00:00 2001
+From 2e19907ceb0dd6cb5ab86bb755fefe352689963c Mon Sep 17 00:00:00 2001
 From: =?UTF-8?q?Felix=20Paul=20Ku=CC=88hne?= <fkuehne@videolan.org>
 Date: Sun, 28 Jul 2013 19:24:30 +0200
-Subject: [PATCH 13/17] extras/package: compile quartztext module for iOS
+Subject: [PATCH 11/17] extras/package: compile quartztext module for iOS
 
 ---
  extras/package/ios/build.sh | 2 +-
@@ -21,5 +21,5 @@ index fa99c2d..0181585 100755
      --enable-mkv \
      --enable-opus \
 -- 
-1.8.3.4 (Apple Git-47)
+1.7.12.4 (Apple Git-37)
 

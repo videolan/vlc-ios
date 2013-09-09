@@ -1,7 +1,7 @@
-From 0c8633b1b61274c527c25cd8ab71d6034a3ea2be Mon Sep 17 00:00:00 2001
+From d3a307653b0406f9c10bb24e879adf08cdcdd19d Mon Sep 17 00:00:00 2001
 From: =?UTF-8?q?Felix=20Paul=20K=C3=BChne?= <fkuehne@videolan.org>
 Date: Sun, 4 Aug 2013 19:50:19 +0200
-Subject: [PATCH 14/17] quartztext: fix relative font size handling
+Subject: [PATCH 12/17] quartztext: fix relative font size handling
 
 ---
  modules/text_renderer/quartztext.c | 17 ++++++++++++++---
@@ -50,5 +50,5 @@ index 4b25caa..eb5da4a 100644
  
  static int RenderYUVA(filter_t *p_filter, subpicture_region_t *p_region,
 -- 
-1.8.3.4 (Apple Git-47)
+1.7.12.4 (Apple Git-37)
 

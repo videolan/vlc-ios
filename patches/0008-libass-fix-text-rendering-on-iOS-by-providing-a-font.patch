@@ -1,7 +1,7 @@
-From ee6637a68ac08ec0190464f6004cf42588c6e140 Mon Sep 17 00:00:00 2001
+From 077b66236c75d6a1c8f201cd5b31681c52e2deef Mon Sep 17 00:00:00 2001
 From: =?UTF-8?q?Felix=20Paul=20K=C3=BChne?= <fkuehne@videolan.org>
 Date: Wed, 29 May 2013 13:25:54 +0200
-Subject: [PATCH 09/17] libass: fix text rendering on iOS by providing a font
+Subject: [PATCH 08/17] libass: fix text rendering on iOS by providing a font
  lookup mechanism for the font shipped with Aspen
 
 ---
@@ -62,5 +62,5 @@ index aa38f1b..38961bc 100644
      const char *psz_font = NULL; /* We don't ship a default font with VLC */
      const char *psz_family = "Arial"; /* Use Arial if we can't find anything more suitable */
 -- 
-1.8.3.4 (Apple Git-47)
+1.7.12.4 (Apple Git-37)
 

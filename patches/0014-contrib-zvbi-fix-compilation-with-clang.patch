@@ -1,7 +1,7 @@
-From e43b98d5af891c4a5df3e21e947753077ebd34a2 Mon Sep 17 00:00:00 2001
+From d0181a5b81f7312b91c971da85e38455e475be77 Mon Sep 17 00:00:00 2001
 From: =?UTF-8?q?Felix=20Paul=20K=C3=BChne?= <fkuehne@videolan.org>
 Date: Thu, 8 Aug 2013 21:41:46 +0200
-Subject: [PATCH 16/17] contrib/zvbi: fix compilation with clang
+Subject: [PATCH 14/17] contrib/zvbi: fix compilation with clang
 
 ---
  contrib/src/zvbi/rules.mak                    |   3 +
@@ -485,5 +485,5 @@ index 0000000..5226a3c
 + 				goto swedish;
 + 			}
 -- 
-1.8.3.4 (Apple Git-47)
+1.7.12.4 (Apple Git-37)
 
