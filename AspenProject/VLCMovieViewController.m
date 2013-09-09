@@ -419,6 +419,9 @@
     [_mediaPlayer.media addOptions:@{@"start-time": playbackPositionInTime}];
     APLog(@"set starttime to %i", playbackPositionInTime.intValue);
 
+    [_mediaPlayer addObserver:self forKeyPath:@"time" options:0 context:nil];
+    [_mediaPlayer addObserver:self forKeyPath:@"remainingTime" options:0 context:nil];
+
     [_mediaPlayer play];
 
     if (self.mediaItem) {
@@ -465,6 +468,8 @@
 - (void)_stopPlayback
 {
     if (_mediaPlayer) {
+        [_mediaPlayer removeObserver:self forKeyPath:@"time"];
+        [_mediaPlayer removeObserver:self forKeyPath:@"remainingTime"];
         [_mediaPlayer pause];
         [self _saveCurrentState];
         [_mediaPlayer stop];
@@ -697,7 +702,8 @@
     [self _resetIdleTimer];
 }
 
-- (void)mediaPlayerTimeChanged:(NSNotification *)aNotification {
+- (void)observeValueForKeyPath:(NSString *)keyPath ofObject:(id)object change:(NSDictionary *)change context:(void *)context
+{
     if (!_isScrubbing) {
         self.positionSlider.value = [_mediaPlayer position];
     }
