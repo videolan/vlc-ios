@@ -10,6 +10,8 @@
 
 #import <UIKit/UIKit.h>
 
+@class VLCStatusLabel;
+
 @interface VLCLocalNetworkListCell : UITableViewCell
 
 @property (nonatomic, weak) id delegate;
@@ -19,6 +21,7 @@
 @property (nonatomic, strong) IBOutlet UILabel *subtitleLabel;
 @property (nonatomic, strong) IBOutlet UIImageView *thumbnailView;
 @property (nonatomic, strong) IBOutlet UIButton *downloadButton;
+@property (nonatomic, strong) IBOutlet VLCStatusLabel *statusLabel;
 
 @property (nonatomic, readwrite) BOOL isDirectory;
 @property (nonatomic, retain) NSString *title;

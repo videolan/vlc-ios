@@ -20,6 +20,7 @@
 #import "VLCDownloadViewController.h"
 #import "WhiteRaccoon.h"
 #import "NSString+SupportedMedia.h"
+#import "VLCStatusLabel.h"
 
 #define kVLCUPNPFileServer 0
 #define kVLCFTPServer 1
@@ -308,8 +309,10 @@
         if (![objectName isSupportedFormat]) {
             UIAlertView * alert = [[UIAlertView alloc] initWithTitle:NSLocalizedString(@"FILE_NOT_SUPPORTED", @"") message:[NSString stringWithFormat:NSLocalizedString(@"FILE_NOT_SUPPORTED_LONG", @""), objectName] delegate:self cancelButtonTitle:NSLocalizedString(@"BUTTON_CANCEL", @"") otherButtonTitles:nil];
             [alert show];
-        } else
+        } else {
             [self _downloadFTPFile:objectName];
+            [cell.statusLabel showStatusMessage:NSLocalizedString(@"DOWNLOADING", @"")];
+        }
     }
 }
 
