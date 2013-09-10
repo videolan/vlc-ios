@@ -101,6 +101,9 @@
 
     _UPNPdevices = [[managerInstance DB] rootDevices];
 
+    if (_UPNPdevices.count > 0)
+        [self UPnPDBUpdated:nil];
+
     [[managerInstance DB] addObserver:(UPnPDBObserver*)self];
 
     //Optional; set User Agent
