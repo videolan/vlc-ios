@@ -289,6 +289,7 @@
 
     NSUserDefaults *defaults = [NSUserDefaults standardUserDefaults];
 
+    _mediaPlayer = nil;
     _mediaPlayer = [[VLCMediaPlayer alloc] initWithOptions:@[[NSString stringWithFormat:@"--%@=%@", kVLCSettingSubtitlesFont, [defaults objectForKey:kVLCSettingSubtitlesFont]], [NSString stringWithFormat:@"--%@=%@", kVLCSettingSubtitlesFontColor, [defaults objectForKey:kVLCSettingSubtitlesFontColor]], [NSString stringWithFormat:@"--%@=%@", kVLCSettingSubtitlesFontSize, [defaults objectForKey:kVLCSettingSubtitlesFontSize]], [NSString stringWithFormat:@"--%@=%@", kVLCSettingDeinterlace, [defaults objectForKey:kVLCSettingDeinterlace]]]];
     [_mediaPlayer setDelegate:self];
     [_mediaPlayer setDrawable:self.movieView];
@@ -481,7 +482,6 @@
         [_mediaPlayer pause];
         [self _saveCurrentState];
         [_mediaPlayer stop];
-        _mediaPlayer = nil; // save memory and some CPU time
     }
     if (_mediaItem)
         _mediaItem = nil;
