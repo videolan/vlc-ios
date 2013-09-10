@@ -468,8 +468,14 @@
 - (void)_stopPlayback
 {
     if (_mediaPlayer) {
-        [_mediaPlayer removeObserver:self forKeyPath:@"time"];
-        [_mediaPlayer removeObserver:self forKeyPath:@"remainingTime"];
+        @try {
+            [_mediaPlayer removeObserver:self forKeyPath:@"time"];
+            [_mediaPlayer removeObserver:self forKeyPath:@"remainingTime"];
+        }
+        @catch (NSException *exception) {
+            APLog(@"we weren't an observer yet");
+        }
+
         [_mediaPlayer pause];
         [self _saveCurrentState];
         [_mediaPlayer stop];
