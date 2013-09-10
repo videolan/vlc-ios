@@ -66,6 +66,7 @@
         if (pasteURL && ![[pasteURL scheme] isEqualToString:@""] && ![[pasteURL absoluteString] isEqualToString:@""])
             self.urlField.text = [pasteURL absoluteString];
     }
+    [self _updateUI];
 
     [super viewWillAppear:animated];
 }
@@ -109,6 +110,16 @@
     }
 }
 
+- (void)_updateUI
+{
+    if (_currentDownloadType != 0)
+        [self downloadStarted];
+    else
+        [self downloadEnded];
+
+    [self.downloadsTable reloadData];
+}
+
 #pragma mark - download management
 - (void)_triggerNextDownload
 {
@@ -132,9 +143,8 @@
         } else
             APLog(@"Unknown download scheme '%@'", downloadScheme);
 
-        [self.activityIndicator startAnimating];
         [_currentDownloads removeObjectAtIndex:0];
-        [self.downloadsTable reloadData];
+        [self _updateUI];
     } else
         _currentDownloadType = 0;
 }
@@ -176,6 +186,7 @@
     self.currentDownloadLabel.hidden = YES;
     self.progressView.hidden = YES;
     self.cancelButton.hidden = YES;
+    _currentDownloadType = 0;
     APLog(@"download ended");
 
     [self _triggerNextDownload];
