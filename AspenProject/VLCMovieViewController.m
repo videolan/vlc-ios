@@ -416,8 +416,10 @@
         if (self.mediaItem.duration.intValue != 0)
             playbackPositionInTime = @(self.mediaItem.lastPosition.floatValue * (self.mediaItem.duration.intValue / 1000.));
     }
-    [_mediaPlayer.media addOptions:@{@"start-time": playbackPositionInTime}];
-    APLog(@"set starttime to %i", playbackPositionInTime.intValue);
+    if (playbackPositionInTime.intValue > 0) {
+        [_mediaPlayer.media addOptions:@{@"start-time": playbackPositionInTime}];
+        APLog(@"set starttime to %i", playbackPositionInTime.intValue);
+    }
 
     [_mediaPlayer addObserver:self forKeyPath:@"time" options:0 context:nil];
     [_mediaPlayer addObserver:self forKeyPath:@"remainingTime" options:0 context:nil];
