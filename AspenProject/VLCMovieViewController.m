@@ -194,7 +194,7 @@
     [self.view addGestureRecognizer:downSwipeRecognizer];
 #endif
 
-    _aspectRatios = @[@"DEFAULT", @"4:3", @"16:9", @"16:10", @"2.21:1", @"FILL_TO_SCREEN"];
+    _aspectRatios = @[@"DEFAULT", @"FILL_TO_SCREEN", @"4:3", @"16:9", @"16:10", @"2.21:1"];
 
     [self.aspectRatioButton setBackgroundImage:[UIImage imageNamed:@"ratioButton"] forState:UIControlStateNormal];
     [self.aspectRatioButton setBackgroundImage:[UIImage imageNamed:@"ratioButtonHighlight"] forState:UIControlStateHighlighted];
