@@ -93,6 +93,8 @@
 		7D16035E17BF9FE600F29B34 /* sudHeaderBg@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 7D16035A17BF9FE600F29B34 /* sudHeaderBg@2x.png */; };
 		7D16035F17BF9FE600F29B34 /* headerSidebar@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 7D16035B17BF9FE600F29B34 /* headerSidebar@2x.png */; };
 		7D16036017BF9FE600F29B34 /* headerSidebar.png in Resources */ = {isa = PBXBuildFile; fileRef = 7D16035C17BF9FE600F29B34 /* headerSidebar.png */; };
+		7D1AA4DE17FDA47C00D6D9F9 /* VLCPlaylistCollectionViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 7D1AA4DC17FDA47C00D6D9F9 /* VLCPlaylistCollectionViewCell.m */; };
+		7D1AA4DF17FDA47C00D6D9F9 /* VLCPlaylistCollectionViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 7D1AA4DD17FDA47C00D6D9F9 /* VLCPlaylistCollectionViewCell.xib */; };
 		7D1AC3041762996100BD2EB5 /* resetIcon.png in Resources */ = {isa = PBXBuildFile; fileRef = 7D1AC3021762996100BD2EB5 /* resetIcon.png */; };
 		7D1AC3051762996100BD2EB5 /* resetIcon@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 7D1AC3031762996100BD2EB5 /* resetIcon@2x.png */; };
 		7D1AC30817629AB600BD2EB5 /* ratioIcon.png in Resources */ = {isa = PBXBuildFile; fileRef = 7D1AC30617629AB600BD2EB5 /* ratioIcon.png */; };
@@ -435,6 +437,9 @@
 		7D19492D17C661A300959800 /* el */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = el; path = "el.lproj/badgeUnread@2x~iphone.png"; sourceTree = "<group>"; };
 		7D19492E17C661A300959800 /* el */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = el; path = "el.lproj/badgeUnread~ipad.png"; sourceTree = "<group>"; };
 		7D19492F17C661A300959800 /* el */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = el; path = "el.lproj/badgeUnread~iphone.png"; sourceTree = "<group>"; };
+		7D1AA4DB17FDA47C00D6D9F9 /* VLCPlaylistCollectionViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = VLCPlaylistCollectionViewCell.h; sourceTree = "<group>"; };
+		7D1AA4DC17FDA47C00D6D9F9 /* VLCPlaylistCollectionViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = VLCPlaylistCollectionViewCell.m; sourceTree = "<group>"; };
+		7D1AA4DD17FDA47C00D6D9F9 /* VLCPlaylistCollectionViewCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = VLCPlaylistCollectionViewCell.xib; sourceTree = "<group>"; };
 		7D1AB27C179C98BF004CC271 /* he */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = he; path = he.lproj/Localizable.strings; sourceTree = "<group>"; };
 		7D1AB27D179C98BF004CC271 /* he */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = he; path = "he.lproj/badgeUnread@2x~ipad.png"; sourceTree = "<group>"; };
 		7D1AB27E179C98BF004CC271 /* he */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = he; path = "he.lproj/badgeUnread@2x~iphone.png"; sourceTree = "<group>"; };
@@ -1314,6 +1319,8 @@
 			children = (
 				7D94FCF616DE7D1100F2623B /* VLCPlaylistViewController.h */,
 				7D94FCF716DE7D1100F2623B /* VLCPlaylistViewController.m */,
+				7D1AA4DB17FDA47C00D6D9F9 /* VLCPlaylistCollectionViewCell.h */,
+				7D1AA4DC17FDA47C00D6D9F9 /* VLCPlaylistCollectionViewCell.m */,
 				7DA62099170A0CE500643D11 /* VLCPlaylistTableViewCell.h */,
 				7DA6209A170A0CE500643D11 /* VLCPlaylistTableViewCell.m */,
 				7D6B07F51716D45B003280C4 /* VLCPlaylistGridView.h */,
@@ -1547,6 +1554,7 @@
 				A79246BC170F114E0036AAF2 /* VLCEmptyLibraryView~ipad.xib */,
 				7DC87AF117413EE3009DC250 /* VLCPlaylistGridView.xib */,
 				A79246BE170F114E0036AAF2 /* VLCPlaylistTableViewCell.xib */,
+				7D1AA4DD17FDA47C00D6D9F9 /* VLCPlaylistCollectionViewCell.xib */,
 				7D3319A817CC88AE00CBEAD7 /* VLCFuturePlaylistTableViewCell.xib */,
 				7D5E39C5174FBAF3007DAFA1 /* VLCDropboxTableViewController.xib */,
 				7D5E39D0174FCF43007DAFA1 /* VLCDropboxTableViewCell~ipad.xib */,
@@ -2064,6 +2072,7 @@
 				7D514D4217F779C6007B960C /* DriveWhite.png in Resources */,
 				7D514D4317F779C6007B960C /* DriveWhite@2x.png in Resources */,
 				7D514D4417F779C6007B960C /* Drive.png in Resources */,
+				7D1AA4DF17FDA47C00D6D9F9 /* VLCPlaylistCollectionViewCell.xib in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -2164,6 +2173,7 @@
 				7DC72D6917B820C9008A26D0 /* VLCNetworkLoginViewController.m in Sources */,
 				A7B5315F17E35B6E00EAE4B3 /* VLCThumbnailsCache.m in Sources */,
 				7D9F7FB117F969B0000A6500 /* VLCSidebarViewCell.m in Sources */,
+				7D1AA4DE17FDA47C00D6D9F9 /* VLCPlaylistCollectionViewCell.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

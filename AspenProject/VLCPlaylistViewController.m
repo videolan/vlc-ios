@@ -11,6 +11,7 @@
 #import "VLCPlaylistViewController.h"
 #import "VLCMovieViewController.h"
 #import "VLCPlaylistTableViewCell.h"
+#import "VLCPlaylistCollectionViewCell.h"
 #import "VLCPlaylistGridView.h"
 #import "UINavigationController+Theme.h"
 #import "NSString+SupportedMedia.h"
@@ -27,13 +28,14 @@
 @implementation EmptyLibraryView
 @end
 
-@interface VLCPlaylistViewController () <AQGridViewDataSource, AQGridViewDelegate, UITableViewDataSource, UITableViewDelegate, MLMediaLibrary> {
+@interface VLCPlaylistViewController () <UICollectionViewDataSource, UICollectionViewDelegateFlowLayout, AQGridViewDataSource, AQGridViewDelegate, UITableViewDataSource, UITableViewDelegate, MLMediaLibrary> {
     NSMutableArray *_foundMedia;
     VLCLibraryMode _libraryMode;
     UIBarButtonItem *_menuButton;
 }
 
 @property (nonatomic, strong) UITableView *tableView;
+@property (nonatomic, strong) UICollectionView *collectionView;
 @property (nonatomic, strong) AQGridView *gridView;
 @property (nonatomic, strong) EmptyLibraryView *emptyLibraryView;
 
@@ -51,14 +53,28 @@
         _tableView.dataSource = self;
         self.view = _tableView;
     } else {
-        _gridView = [[AQGridView alloc] initWithFrame:[UIScreen mainScreen].bounds];
-        _gridView.separatorStyle = AQGridViewCellSeparatorStyleEmptySpace;
-        _gridView.alwaysBounceVertical = YES;
-        _gridView.indicatorStyle = UIScrollViewIndicatorStyleWhite;
-        _gridView.delegate = self;
-        _gridView.dataSource = self;
-        _gridView.backgroundColor = [UIColor colorWithPatternImage:[UIImage imageNamed:@"libraryBackground"]];
-        self.view = _gridView;
+        if ([UICollectionView class]) {
+            UICollectionViewFlowLayout *flowLayout = [[UICollectionViewFlowLayout alloc] init];
+
+            _collectionView = [[UICollectionView alloc] initWithFrame:[UIScreen mainScreen].bounds collectionViewLayout:flowLayout];
+            _collectionView.alwaysBounceVertical = YES;
+            _collectionView.indicatorStyle = UIScrollViewIndicatorStyleWhite;
+            _collectionView.delegate = self;
+            _collectionView.dataSource = self;
+            self.view = _collectionView;
+
+            [_collectionView registerNib:[UINib nibWithNibName:@"VLCPlaylistCollectionViewCell" bundle:nil] forCellWithReuseIdentifier:@"PlaylistCell"];
+        } else {
+            _gridView = [[AQGridView alloc] initWithFrame:[UIScreen mainScreen].bounds];
+            _gridView.separatorStyle = AQGridViewCellSeparatorStyleEmptySpace;
+            _gridView.alwaysBounceVertical = YES;
+            _gridView.indicatorStyle = UIScrollViewIndicatorStyleWhite;
+            _gridView.delegate = self;
+            _gridView.dataSource = self;
+            self.view = _gridView;
+        }
+
+        self.view.backgroundColor = [UIColor colorWithPatternImage:[UIImage imageNamed:@"libraryBackground"]];
     }
 
     _libraryMode = VLCLibraryModeAllFiles;
@@ -271,8 +287,12 @@
 {
     if (UI_USER_INTERFACE_IDIOM() == UIUserInterfaceIdiomPhone)
         [self.tableView reloadData];
-    else
-        [self.gridView reloadData];
+    else {
+        if ([UICollectionView class])
+            [self.collectionView reloadData];
+        else
+            [self.gridView reloadData];
+    }
 
     [self _displayEmptyLibraryViewIfNeeded];
 }
@@ -323,6 +343,39 @@
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
 {
     [tableView deselectRowAtIndexPath:indexPath animated:YES];
+    NSManagedObject *selectedObject = _foundMedia[indexPath.row];
+    [self openMediaObject:selectedObject];
+}
+
+#pragma mark - Collection View
+- (NSInteger)collectionView:(UICollectionView *)collectionView numberOfItemsInSection:(NSInteger)section
+{
+    return _foundMedia.count;
+}
+
+- (UICollectionViewCell*)collectionView:(UICollectionView *)collectionView cellForItemAtIndexPath:(NSIndexPath *)indexPath
+{
+    VLCPlaylistCollectionViewCell *cell = [collectionView dequeueReusableCellWithReuseIdentifier:@"PlaylistCell" forIndexPath:indexPath];
+    cell.mediaObject = _foundMedia[indexPath.row];
+    cell.collectionView = _collectionView;
+
+    [cell setEditing:self.editing animated:NO];
+
+    return cell;
+}
+
+- (CGSize)collectionView:(UICollectionView *)collectionView layout:(UICollectionViewLayout *)collectionViewLayout sizeForItemAtIndexPath:(NSIndexPath *)indexPath
+{
+    return CGSizeMake(298.0, 220.0);
+}
+
+- (UIEdgeInsets)collectionView:(UICollectionView *)collectionView layout:(UICollectionViewLayout *)collectionViewLayout insetForSectionAtIndex:(NSInteger)section
+{
+    return UIEdgeInsetsMake(0.0, 34.0, 0.0, 34.0);
+}
+
+- (void)collectionView:(UICollectionView *)collectionView didSelectItemAtIndexPath:(NSIndexPath *)indexPath
+{
     NSManagedObject *selectedObject = _foundMedia[indexPath.row];
     [self openMediaObject:selectedObject];
 }
@@ -388,9 +441,20 @@
         [editButton setTitleTextAttributes: editing ? @{UITextAttributeTextShadowColor : [UIColor whiteColor], UITextAttributeTextColor : [UIColor blackColor]} : @{UITextAttributeTextShadowColor : [UIColor colorWithWhite:0. alpha:.37], UITextAttributeTextColor : [UIColor whiteColor]} forState:UIControlStateNormal];
     }
 
-    if (UI_USER_INTERFACE_IDIOM() == UIUserInterfaceIdiomPad)
-        [self.gridView setEditing:editing];
-    else
+    if (UI_USER_INTERFACE_IDIOM() == UIUserInterfaceIdiomPad) {
+        if ([UICollectionView class]) {
+            NSArray *visibleCells = self.collectionView.visibleCells;
+
+            [visibleCells enumerateObjectsUsingBlock:^(id obj, NSUInteger idx, BOOL *stop) {
+                VLCPlaylistCollectionViewCell *aCell = (VLCPlaylistCollectionViewCell*)obj;
+
+                [aCell setEditing:editing animated:animated];
+            }];
+        }
+        else {
+            [self.gridView setEditing:editing];
+        }
+    } else
         [self.tableView setEditing:editing animated:YES];
 }
 
