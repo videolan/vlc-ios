@@ -1,0 +1,21 @@
+HOWTO release
+-------------
+Before releasing
+ * Pull the latest code
+ * Delete the imported libraries to reapply the right patches
+ * Build with the buildAspenProject.sh -s and then buildAspenProject.sh
+ * Launch from Xcode on a iDevice
+
+Release
+ * Commit everything but the Dropbox key
+ * Tag the last commit
+ * Build the tarball using git archive --format=tar.gz <tag> -o vlc-iOS-<tag>.tar.gz
+ * Do the same for VLCKit and MediaLibraryKit
+
+Build the official build
+ * Check the Dropbox key
+ * Recompile in XCode, test and Archive
+ * Export for the AppStore, for local .ipa and for the XCodeArchive
+ * Upload the tarballs, the .ipa on ganesh
+ * ...
+ * Profit
