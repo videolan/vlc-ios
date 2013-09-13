@@ -8,7 +8,7 @@
 //  Refer to the COPYING file of the official project for license.
 //
 
-#define kVLCVersionCodename @"The Mojo Wire"
+#define kVLCVersionCodename @"The Great Shark Hunt"
 
 #define kVLCSettingPasscodeKey @"Passcode"
 #define kVLCSettingPasscodeOnKey @"PasscodeProtection"
