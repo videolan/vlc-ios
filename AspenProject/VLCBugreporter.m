@@ -12,26 +12,20 @@
 
 @implementation VLCBugreporter
 
-static VLCBugreporter *_sharedInstance = nil;
+#pragma mark - Initialization
 
 + (VLCBugreporter *)sharedInstance
 {
-    return _sharedInstance ? _sharedInstance : [[self alloc] init];
-}
-
-#pragma mark -
-#pragma mark Initialization
-
-- (id)init
-{
-    if (_sharedInstance) {
-        self = nil;
-        return _sharedInstance;
-    } else
-        _sharedInstance = [super init];
+    static dispatch_once_t onceToken;
+    static VLCBugreporter *_sharedInstance = nil;
+    dispatch_once(&onceToken, ^{
+        _sharedInstance = [VLCBugreporter new];
+    });
 
     return _sharedInstance;
 }
+
+#pragma mark -
 
 - (void)handleBugreportRequest
 {
