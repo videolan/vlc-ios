@@ -280,6 +280,7 @@
 		A7A0E9F9174BA66000162F25 /* papasscode_marker.png in Resources */ = {isa = PBXBuildFile; fileRef = A7A0E9F1174BA66000162F25 /* papasscode_marker.png */; };
 		A7A0E9FA174BA66000162F25 /* papasscode_marker@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = A7A0E9F2174BA66000162F25 /* papasscode_marker@2x.png */; };
 		A7A0E9FB174BA66000162F25 /* PAPasscodeViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = A7A0E9F4174BA66000162F25 /* PAPasscodeViewController.m */; };
+		A7B5315F17E35B6E00EAE4B3 /* VLCThumbnailsCache.m in Sources */ = {isa = PBXBuildFile; fileRef = A7B5315E17E35B6E00EAE4B3 /* VLCThumbnailsCache.m */; };
 		A7C3025E175A53D400AD4388 /* NSString+SupportedMedia.m in Sources */ = {isa = PBXBuildFile; fileRef = A7C3025D175A53D400AD4388 /* NSString+SupportedMedia.m */; };
 		A7CB0DB11716F72600050CF3 /* PlayingExternally@2x~iphone.png in Resources */ = {isa = PBXBuildFile; fileRef = A7CB0DAD1716F72600050CF3 /* PlayingExternally@2x~iphone.png */; };
 		A7CB0DB21716F72600050CF3 /* PlayingExternally~iphone.png in Resources */ = {isa = PBXBuildFile; fileRef = A7CB0DAE1716F72600050CF3 /* PlayingExternally~iphone.png */; };
@@ -771,6 +772,8 @@
 		A7A0E9F2174BA66000162F25 /* papasscode_marker@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "papasscode_marker@2x.png"; sourceTree = "<group>"; };
 		A7A0E9F3174BA66000162F25 /* PAPasscodeViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PAPasscodeViewController.h; sourceTree = "<group>"; };
 		A7A0E9F4174BA66000162F25 /* PAPasscodeViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PAPasscodeViewController.m; sourceTree = "<group>"; };
+		A7B5315D17E35B6E00EAE4B3 /* VLCThumbnailsCache.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = VLCThumbnailsCache.h; sourceTree = "<group>"; };
+		A7B5315E17E35B6E00EAE4B3 /* VLCThumbnailsCache.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = VLCThumbnailsCache.m; sourceTree = "<group>"; };
 		A7C3025C175A53D400AD4388 /* NSString+SupportedMedia.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSString+SupportedMedia.h"; sourceTree = "<group>"; };
 		A7C3025D175A53D400AD4388 /* NSString+SupportedMedia.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSString+SupportedMedia.m"; sourceTree = "<group>"; };
 		A7CB0DAD1716F72600050CF3 /* PlayingExternally@2x~iphone.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "PlayingExternally@2x~iphone.png"; sourceTree = "<group>"; };
@@ -1231,6 +1234,8 @@
 				7DA6209A170A0CE500643D11 /* VLCPlaylistTableViewCell.m */,
 				7D6B07F51716D45B003280C4 /* VLCPlaylistGridView.h */,
 				7D6B07F61716D45B003280C4 /* VLCPlaylistGridView.m */,
+				A7B5315D17E35B6E00EAE4B3 /* VLCThumbnailsCache.h */,
+				A7B5315E17E35B6E00EAE4B3 /* VLCThumbnailsCache.m */,
 			);
 			name = "Everything Playlist";
 			sourceTree = "<group>";
@@ -1989,6 +1994,7 @@
 				7D02B0D217B6BE850099030D /* VLCLocalServerFolderListViewController.m in Sources */,
 				7DC72D6317B7ED24008A26D0 /* WhiteRaccoon.m in Sources */,
 				7DC72D6917B820C9008A26D0 /* VLCNetworkLoginViewController.m in Sources */,
+				A7B5315F17E35B6E00EAE4B3 /* VLCThumbnailsCache.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
