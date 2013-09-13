@@ -143,6 +143,9 @@ fi
 if ! [ -e OBSlider ]; then
 git clone git://github.com/ole/OBSlider.git
 fi
+if ! [ -e DAVKit ]; then
+git clone git://github.com/mattrajca/DAVKit.git
+fi
 if ! [ -e GHSidebarNav ]; then
 git clone git://github.com/gresrun/GHSidebarNav.git
 cd GHSidebarNav
