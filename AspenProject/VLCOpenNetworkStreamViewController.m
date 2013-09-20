@@ -15,7 +15,7 @@
 #import "UINavigationController+Theme.h"
 #import "VLCMenuTableViewController.h"
 
-@interface VLCOpenNetworkStreamViewController () <UITableViewDataSource, UITableViewDelegate>
+@interface VLCOpenNetworkStreamViewController () <UITableViewDataSource, UITableViewDelegate, UITextFieldDelegate>
 {
     NSMutableArray *_recentURLs;
 }
@@ -40,6 +40,7 @@
     self.title = NSLocalizedString(@"OPEN_NETWORK", @"");
     self.navigationItem.leftBarButtonItem = [UIBarButtonItem themedRevealMenuButtonWithTarget:self andSelector:@selector(goBack:)];
     [self.whatToOpenHelpLabel setText:NSLocalizedString(@"OPEN_NETWORK_HELP", @"")];
+    self.urlField.delegate = self;
 }
 
 - (void)viewWillAppear:(BOOL)animated
@@ -173,5 +174,12 @@
     [appDelegate.menuViewController selectRowAtIndexPath:[NSIndexPath indexPathForRow:0 inSection:0] animated:NO scrollPosition:UITableViewScrollPositionNone];
     [appDelegate.playlistViewController performSelector:@selector(openMovieFromURL:) withObject:[NSURL URLWithString:url] afterDelay:kGHRevealSidebarDefaultAnimationDuration];
 }
+
+#pragma mark - text view delegate
+- (BOOL)textFieldShouldReturn:(UITextField *)textField {
+    [self.urlField resignFirstResponder];
+    return NO;
+}
+
 
 @end

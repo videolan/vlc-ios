@@ -20,7 +20,7 @@
 #define kVLCDownloadViaFTP 2
 
 @interface VLCDownloadViewController () <WRRequestDelegate, UITableViewDataSource, UITableViewDelegate,
-                                        VLCHTTPFileDownloader>
+                                        VLCHTTPFileDownloader, UITextFieldDelegate>
 {
     NSMutableArray *_currentDownloads;
     NSUInteger _currentDownloadType;
@@ -49,6 +49,7 @@
     self.navigationItem.leftBarButtonItem = [UIBarButtonItem themedRevealMenuButtonWithTarget:self andSelector:@selector(goBack:)];
     self.title = NSLocalizedString(@"DOWNLOAD_FROM_HTTP", @"");
     self.whatToDownloadHelpLabel.text = [NSString stringWithFormat:NSLocalizedString(@"DOWNLOAD_FROM_HTTP_HELP", @""), [[UIDevice currentDevice] model]];
+    self.urlField.delegate = self;
     [super viewDidLoad];
 }
 
@@ -297,6 +298,12 @@
     [_currentDownloads addObject:aURL];
     [self.downloadsTable reloadData];
     [self _triggerNextDownload];
+}
+
+#pragma mark - text view delegate
+- (BOOL)textFieldShouldReturn:(UITextField *)textField {
+    [self.urlField resignFirstResponder];
+    return NO;
 }
 
 @end
