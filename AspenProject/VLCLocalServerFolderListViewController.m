@@ -156,9 +156,16 @@
         MediaServer1BasicObject *item = _mutableObjectList[indexPath.row];
         if (![item isContainer]) {
             MediaServer1ItemObject *mediaItem = _mutableObjectList[indexPath.row];
-            [cell setSubtitle: [NSString stringWithFormat:@"%0.2f MB", (float)([mediaItem.size longLongValue] / 1e6)]];
+            [cell setSubtitle: [NSString stringWithFormat:@"%0.2f MB  (%@)", (float)([mediaItem.size intValue] / 1e6), mediaItem.duration]];
             [cell setIsDirectory:NO];
-            [cell setIcon:[UIImage imageNamed:@"blank"]];
+            if (![mediaItem.albumArt isEqualToString:NULL]) {
+                NSData* imageData = [[NSData alloc]initWithContentsOfURL:[NSURL URLWithString:mediaItem.albumArt]];
+                UIImage* image = [[UIImage alloc] initWithData:imageData];
+                [cell setIcon:image];
+                cell.delegate = self;
+            }
+            else
+                [cell setIcon:[UIImage imageNamed:@"blank"]];
         } else {
             [cell setIsDirectory:YES];
             [cell setIcon:[UIImage imageNamed:@"folder"]];
@@ -177,7 +184,6 @@
             cell.delegate = self;
         }
     }
-
     return cell;
 }
 
