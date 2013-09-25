@@ -25,6 +25,7 @@
     NSMutableArray *_currentDownloads;
     NSUInteger _currentDownloadType;
     NSString *_humanReadableFilename;
+    NSString *_MediaFilename;
 
     VLCHTTPFileDownloader *_httpDownloader;
 
@@ -134,8 +135,13 @@
 
             if (!_httpDownloader.downloadInProgress) {
                 _currentDownloadType = kVLCDownloadViaHTTP;
+                if (_MediaFilename) {
+                    [_httpDownloader downloadFileFromURLwithFileName:_currentDownloads[0] fileNameOfMedia:_MediaFilename];
+                    _humanReadableFilename = _MediaFilename;
+                } else {
                 [_httpDownloader downloadFileFromURL:_currentDownloads[0]];
                 _humanReadableFilename = _httpDownloader.userReadableDownloadName;
+                }
             }
         } else if ([downloadScheme isEqualToString:@"ftp"]) {
             _currentDownloadType = kVLCDownloadViaFTP;
@@ -174,6 +180,7 @@
 - (void)downloadStarted
 {
     [self.activityIndicator stopAnimating];
+    [UIApplication sharedApplication].networkActivityIndicatorVisible = YES;
     self.currentDownloadLabel.text = _humanReadableFilename;
     self.progressView.progress = 0.;
     self.currentDownloadLabel.hidden = NO;
@@ -184,6 +191,7 @@
 
 - (void)downloadEnded
 {
+    [UIApplication sharedApplication].networkActivityIndicatorVisible = NO;
     self.currentDownloadLabel.hidden = YES;
     self.progressView.hidden = YES;
     self.cancelButton.hidden = YES;
@@ -293,9 +301,10 @@
 }
 
 #pragma mark - communication with other VLC objects
-- (void)addURLToDownloadList:(NSURL *)aURL
+- (void)addURLToDownloadList:(NSURL *)aURL fileNameOfMedia:(NSString*) fileName
 {
     [_currentDownloads addObject:aURL];
+    _MediaFilename = fileName;
     [self.downloadsTable reloadData];
     [self _triggerNextDownload];
 }

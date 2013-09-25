@@ -158,14 +158,15 @@
             MediaServer1ItemObject *mediaItem = _mutableObjectList[indexPath.row];
             [cell setSubtitle: [NSString stringWithFormat:@"%0.2f MB  (%@)", (float)([mediaItem.size intValue] / 1e6), mediaItem.duration]];
             [cell setIsDirectory:NO];
+            cell.isDownloadable = YES;
             if (![mediaItem.albumArt isEqualToString:NULL]) {
                 NSData* imageData = [[NSData alloc]initWithContentsOfURL:[NSURL URLWithString:mediaItem.albumArt]];
                 UIImage* image = [[UIImage alloc] initWithData:imageData];
                 [cell setIcon:image];
-                cell.delegate = self;
             }
             else
                 [cell setIcon:[UIImage imageNamed:@"blank"]];
+            cell.delegate = self;
         } else {
             [cell setIsDirectory:YES];
             [cell setIcon:[UIImage imageNamed:@"folder"]];
@@ -278,7 +279,13 @@
 {
     NSURL *URLToQueue = [NSURL URLWithString:[[@"ftp" stringByAppendingFormat:@"://%@%@/%@/%@", [self _credentials], _ftpServerAddress, _ftpServerPath, fileName] stringByAddingPercentEscapesUsingEncoding:NSUTF8StringEncoding]];
 
-    [[(VLCAppDelegate*)[UIApplication sharedApplication].delegate downloadViewController] addURLToDownloadList:URLToQueue];
+    [[(VLCAppDelegate*)[UIApplication sharedApplication].delegate downloadViewController] addURLToDownloadList:URLToQueue fileNameOfMedia:nil];
+}
+
+- (void)_downloadUPNPFile:(NSURL *)url fileNameOfMedia:(NSString*) fileName;
+{
+    fileName = [[fileName stringByAppendingString:@"."] stringByAppendingString:[[url absoluteString] pathExtension]];
+    [[(VLCAppDelegate*)[UIApplication sharedApplication].delegate downloadViewController] addURLToDownloadList:url fileNameOfMedia:fileName];
 }
 
 - (void)requestCompleted:(WRRequest *)request
@@ -310,7 +317,22 @@
 #pragma mark - VLCLocalNetworkListCell delegation
 - (void)triggerDownloadForCell:(VLCLocalNetworkListCell *)cell
 {
-    if (_serverType == kVLCFTPServer) {
+    if (_serverType == kVLCUPNPFileServer) {
+        MediaServer1ItemObject *item = _mutableObjectList[[self.tableView indexPathForCell:cell].row];
+        MediaServer1ItemRes *resource = nil;
+        NSEnumerator *e = [[item resources] objectEnumerator];
+        NSURL *itemURL;
+        while((resource = (MediaServer1ItemRes*)[e nextObject])){
+            itemURL = [NSURL URLWithString:[[item uri] stringByAddingPercentEscapesUsingEncoding:NSUTF8StringEncoding]];
+        }
+        if (![[item uri] isSupportedFormat]) {
+            UIAlertView * alert = [[UIAlertView alloc] initWithTitle:NSLocalizedString(@"FILE_NOT_SUPPORTED", @"") message:[NSString stringWithFormat:NSLocalizedString(@"FILE_NOT_SUPPORTED_LONG", @""), [item uri]] delegate:self cancelButtonTitle:NSLocalizedString(@"BUTTON_CANCEL", @"") otherButtonTitles:nil];
+            [alert show];
+        } else {
+            [self _downloadUPNPFile:itemURL fileNameOfMedia:[item title]];
+            [cell.statusLabel showStatusMessage:NSLocalizedString(@"DOWNLOADING", @"")];
+        }
+    }else if (_serverType == kVLCFTPServer) {
         NSString *objectName = [_objectList[[self.tableView indexPathForCell:cell].row] objectForKey:(id)kCFFTPResourceName];
         if (![objectName isSupportedFormat]) {
             UIAlertView * alert = [[UIAlertView alloc] initWithTitle:NSLocalizedString(@"FILE_NOT_SUPPORTED", @"") message:[NSString stringWithFormat:NSLocalizedString(@"FILE_NOT_SUPPORTED_LONG", @""), objectName] delegate:self cancelButtonTitle:NSLocalizedString(@"BUTTON_CANCEL", @"") otherButtonTitles:nil];

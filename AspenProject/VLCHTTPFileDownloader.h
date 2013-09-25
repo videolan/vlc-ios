@@ -28,5 +28,6 @@
 
 - (void)cancelDownload;
 - (void)downloadFileFromURL:(NSURL *)url;
+- (void)downloadFileFromURLwithFileName:(NSURL *)url fileNameOfMedia:(NSString*) fileName;
 
 @end

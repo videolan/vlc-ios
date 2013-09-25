@@ -47,6 +47,24 @@
     }
 }
 
+- (void)downloadFileFromURLwithFileName:(NSURL *)url fileNameOfMedia:(NSString*) fileName
+{
+    NSArray *searchPaths = NSSearchPathForDirectoriesInDomains(NSDocumentDirectory, NSUserDomainMask, YES);
+    _fileName = fileName;
+    _filePath = [searchPaths[0] stringByAppendingPathComponent:_fileName];
+    _expectedDownloadSize = _receivedDataSize = 0;
+    NSMutableURLRequest *theRequest = [NSMutableURLRequest requestWithURL:url];
+    _urlConnection = [[NSURLConnection alloc] initWithRequest:theRequest delegate:self];
+    if (!_urlConnection) {
+        APLog(@"failed to establish connection");
+        _downloadInProgress = NO;
+    } else {
+        _downloadInProgress = YES;
+        [UIApplication sharedApplication].networkActivityIndicatorVisible = YES;
+        [(VLCAppDelegate*)[UIApplication sharedApplication].delegate disableIdleTimer];
+    }
+}
+
 -(void)connection:(NSURLConnection *)connection didReceiveResponse:(NSHTTPURLResponse *)response
 {
     NSUInteger statusCode = [response statusCode];
