@@ -1048,7 +1048,9 @@
 
 #pragma mark - autorotation
 
-- (BOOL)shouldAutorotateToInterfaceOrientation:(UIInterfaceOrientation)toInterfaceOrientation {
+- (BOOL)shouldAutorotate
+{
+    UIInterfaceOrientation toInterfaceOrientation = [[UIApplication sharedApplication] statusBarOrientation];
     return UI_USER_INTERFACE_IDIOM() == UIUserInterfaceIdiomPad
            || toInterfaceOrientation != UIInterfaceOrientationPortraitUpsideDown;
 }

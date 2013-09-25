@@ -495,14 +495,6 @@
 }
 
 #pragma mark - autorotation
-/* deprecated in iOS 6 */
-- (BOOL)shouldAutorotateToInterfaceOrientation:(UIInterfaceOrientation)toInterfaceOrientation
-{
-    if (UI_USER_INTERFACE_IDIOM() == UIUserInterfaceIdiomPad)
-        return YES;
-
-    return (_foundMedia.count > 0) || toInterfaceOrientation == UIInterfaceOrientationPortrait;
-}
 
 // RootController is responsible for supporting interface orientation(iOS6.0+), i.e. navigation controller
 // so this will not work as intended without "voodoo magic"(UINavigationController category, subclassing, etc)

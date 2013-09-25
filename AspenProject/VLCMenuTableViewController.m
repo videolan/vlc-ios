@@ -130,7 +130,9 @@
     }
 }
 
-- (BOOL)shouldAutorotateToInterfaceOrientation:(UIInterfaceOrientation)orientation {
+- (BOOL)shouldAutorotate
+{
+    UIInterfaceOrientation orientation = [[UIApplication sharedApplication] statusBarOrientation];
 	return (orientation == UIInterfaceOrientationPortraitUpsideDown)
     ? (UI_USER_INTERFACE_IDIOM() == UIUserInterfaceIdiomPad)
     : YES;

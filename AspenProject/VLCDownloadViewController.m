@@ -51,6 +51,7 @@
     self.title = NSLocalizedString(@"DOWNLOAD_FROM_HTTP", @"");
     self.whatToDownloadHelpLabel.text = [NSString stringWithFormat:NSLocalizedString(@"DOWNLOAD_FROM_HTTP_HELP", @""), [[UIDevice currentDevice] model]];
     self.urlField.delegate = self;
+    self.urlField.keyboardType = UIKeyboardTypeURL;
     [super viewDidLoad];
 }
 
@@ -81,8 +82,10 @@
 }
 
 #pragma mark - UI interaction
-- (BOOL)shouldAutorotateToInterfaceOrientation:(UIInterfaceOrientation)toInterfaceOrientation
+
+- (BOOL)shouldAutorotate
 {
+    UIInterfaceOrientation toInterfaceOrientation = [[UIApplication sharedApplication] statusBarOrientation];
     if (UI_USER_INTERFACE_IDIOM() == UIUserInterfaceIdiomPhone && toInterfaceOrientation == UIInterfaceOrientationPortraitUpsideDown)
         return NO;
     return YES;

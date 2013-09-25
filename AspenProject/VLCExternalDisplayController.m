@@ -16,11 +16,6 @@
 
 @implementation VLCExternalDisplayController
 
-- (BOOL)shouldAutorotateToInterfaceOrientation:(UIInterfaceOrientation)toInterfaceOrientation
-{
-    return NO;
-}
-
 - (BOOL)shouldAutorotate
 {
     return NO;
