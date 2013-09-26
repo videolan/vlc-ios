@@ -32,6 +32,8 @@
     NSArray *_UPNPdevices;
 
     VLCNetworkLoginViewController *_loginViewController;
+
+    UIRefreshControl *refreshControl;
 }
 
 @end
@@ -74,6 +76,14 @@
 
     _netServiceBrowser = [[NSNetServiceBrowser alloc] init];
     _netServiceBrowser.delegate = self;
+
+    // Active le Pull down to refresh
+    refreshControl = [[UIRefreshControl alloc] init];
+
+    // call the refresh function
+    [refreshControl addTarget:self action:@selector(handleRefresh) forControlEvents:UIControlEventValueChanged];
+    [self.tableView addSubview:refreshControl];
+
 }
 
 - (void)viewWillDisappear:(BOOL)animated
@@ -222,6 +232,25 @@
             _loginViewController.serverAddressField.text = @"";
 
     }
+}
+
+#pragma mark - Refresh
+
+-(void)handleRefresh
+{
+    //set the title while refreshing
+    refreshControl.attributedTitle = [[NSAttributedString alloc]initWithString:@"Refresh"];
+    //set the date and time of refreshing
+    NSDateFormatter *formattedDate = [[NSDateFormatter alloc]init];
+    [formattedDate setDateFormat:@"MMM d, h:mm a"];
+    NSString *lastupdated = [NSString stringWithFormat:@"Last Updated on %@",[formattedDate stringFromDate:[NSDate date]]];
+    refreshControl.attributedTitle = [[NSAttributedString alloc]initWithString:lastupdated];
+    //end the refreshing
+    [refreshControl endRefreshing];
+
+    [self.tableView reloadData];
+
+    [self performSelectorInBackground:@selector(_startUPNPDiscovery) withObject:nil];
 }
 
 #pragma mark - login panel protocol
