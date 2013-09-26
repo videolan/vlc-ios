@@ -1001,8 +1001,6 @@
             _shouldResumePlaying = YES;
         }
     }
-
-    glFinish();
 }
 
 - (void)applicationDidEnterBackground:(NSNotification *)notification
