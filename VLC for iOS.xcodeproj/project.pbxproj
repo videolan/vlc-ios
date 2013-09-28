@@ -150,6 +150,10 @@
 		7D47D72B1760E3A000E86BAD /* sliderminimumTrack.png in Resources */ = {isa = PBXBuildFile; fileRef = 7D47D7291760E3A000E86BAD /* sliderminimumTrack.png */; };
 		7D47D72C1760E3A000E86BAD /* sliderminimumTrack@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 7D47D72A1760E3A000E86BAD /* sliderminimumTrack@2x.png */; };
 		7D47D72F1761101700E86BAD /* VLCSlider.m in Sources */ = {isa = PBXBuildFile; fileRef = 7D47D72E1761101700E86BAD /* VLCSlider.m */; };
+		7D514D4117F779C6007B960C /* Drive@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 7D514D3D17F779C6007B960C /* Drive@2x.png */; };
+		7D514D4217F779C6007B960C /* DriveWhite.png in Resources */ = {isa = PBXBuildFile; fileRef = 7D514D3E17F779C6007B960C /* DriveWhite.png */; };
+		7D514D4317F779C6007B960C /* DriveWhite@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 7D514D3F17F779C6007B960C /* DriveWhite@2x.png */; };
+		7D514D4417F779C6007B960C /* Drive.png in Resources */ = {isa = PBXBuildFile; fileRef = 7D514D4017F779C6007B960C /* Drive.png */; };
 		7D5DD5C717590ABF001421E3 /* About Contents.html in Resources */ = {isa = PBXBuildFile; fileRef = 7D5DD5C617590ABF001421E3 /* About Contents.html */; };
 		7D5E39C6174FBAF3007DAFA1 /* VLCDropboxTableViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 7D5E39C4174FBAF3007DAFA1 /* VLCDropboxTableViewController.m */; };
 		7D5E39C7174FBAF3007DAFA1 /* VLCDropboxTableViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 7D5E39C5174FBAF3007DAFA1 /* VLCDropboxTableViewController.xib */; };
@@ -540,6 +544,10 @@
 		7D4C484617ACF982008D228B /* bs */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = bs; path = "bs.lproj/badgeUnread@2x~iphone.png"; sourceTree = "<group>"; };
 		7D4C484717ACF982008D228B /* bs */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = bs; path = "bs.lproj/badgeUnread~ipad.png"; sourceTree = "<group>"; };
 		7D4C484817ACF982008D228B /* bs */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = bs; path = "bs.lproj/badgeUnread~iphone.png"; sourceTree = "<group>"; };
+		7D514D3D17F779C6007B960C /* Drive@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "Drive@2x.png"; sourceTree = "<group>"; };
+		7D514D3E17F779C6007B960C /* DriveWhite.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = DriveWhite.png; sourceTree = "<group>"; };
+		7D514D3F17F779C6007B960C /* DriveWhite@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "DriveWhite@2x.png"; sourceTree = "<group>"; };
+		7D514D4017F779C6007B960C /* Drive.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = Drive.png; sourceTree = "<group>"; };
 		7D5C204917999A64004F9443 /* da */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = da; path = "da.lproj/badgeUnread@2x~ipad.png"; sourceTree = "<group>"; };
 		7D5C204A17999A64004F9443 /* da */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = da; path = "da.lproj/badgeUnread@2x~iphone.png"; sourceTree = "<group>"; };
 		7D5C204B17999A64004F9443 /* da */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = da; path = "da.lproj/badgeUnread~ipad.png"; sourceTree = "<group>"; };
@@ -1621,6 +1629,10 @@
 				7DEB3B781764A4040038FC70 /* input.png */,
 				7DEB3B7317649F2C0038FC70 /* menuButton.png */,
 				7DEB3B7417649F2C0038FC70 /* menuButton@2x.png */,
+				7D514D3D17F779C6007B960C /* Drive@2x.png */,
+				7D514D3E17F779C6007B960C /* DriveWhite.png */,
+				7D514D3F17F779C6007B960C /* DriveWhite@2x.png */,
+				7D514D4017F779C6007B960C /* Drive.png */,
 			);
 			name = menu;
 			sourceTree = "<group>";
@@ -2036,6 +2048,10 @@
 				7D0699E917CB1FAE00713BEB /* Downloads.png in Resources */,
 				7D0699EA17CB1FAE00713BEB /* Downloads@2x.png in Resources */,
 				7D0699EB17CB1FAE00713BEB /* Dropbox.png in Resources */,
+				7D514D4117F779C6007B960C /* Drive@2x.png in Resources */,
+				7D514D4217F779C6007B960C /* DriveWhite.png in Resources */,
+				7D514D4317F779C6007B960C /* DriveWhite@2x.png in Resources */,
+				7D514D4417F779C6007B960C /* Drive.png in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
