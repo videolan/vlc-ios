@@ -336,16 +336,9 @@
                     case 1647457633:
                     case 858612577:
                     case 862151027:
-                    case 2126701:
-                    case 544437348:
-                    case 542331972:
-                    case 1651733604:
-                    case 1668510820:
-                    case 1702065252:
-                    case 1752396900:
-                    case 1819505764:
-                    case 18903917:
                     case 862151013:
+                    case 1684566644:
+                    case 2126701:
                     {
                         if (![self _blobCheck]) {
                             [media addOptions:@{@"no-audio" : [NSNull null]}];
