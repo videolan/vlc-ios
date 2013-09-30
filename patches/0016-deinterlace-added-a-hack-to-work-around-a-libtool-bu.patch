@@ -1,23 +1,24 @@
-From 730dfad637f7906f90c3ac2f0f824f8f4dccad63 Mon Sep 17 00:00:00 2001
-From: =?UTF-8?q?Felix=20Paul=20Ku=CC=88hne?= <fkuehne@videolan.org>
+From d87e1fd3e59249ab7ae6b04b1d463278fa4dfcee Mon Sep 17 00:00:00 2001
+From: =?UTF-8?q?Felix=20Paul=20K=C3=BChne?= <fkuehne@videolan.org>
 Date: Fri, 10 Aug 2012 16:02:33 +0200
 Subject: [PATCH 16/17] deinterlace: added a hack to work-around a libtool bug
 
 ---
- modules/video_filter/Modules.am | 3 +++
- 1 file changed, 3 insertions(+)
+ modules/video_filter/Modules.am | 4 ++++
+ 1 file changed, 4 insertions(+)
 
 diff --git a/modules/video_filter/Modules.am b/modules/video_filter/Modules.am
-index 9fbe1bd..d62d3de 100644
+index 6bb5eac..acfe695 100644
 --- a/modules/video_filter/Modules.am
 +++ b/modules/video_filter/Modules.am
-@@ -1,3 +1,6 @@
+@@ -1,3 +1,7 @@
 +# When using a specific AS tool instead of gcc libtool goes mad
 +# without this. (This is the case with iOS).
 +LIBTOOL=@LIBTOOL@ --tag=CC
- AUTOMAKE_OPTIONS = subdir-objects
- 
++
  SOURCES_mosaic = mosaic.c mosaic.h
+ SOURCES_transform = transform.c
+ SOURCES_invert = invert.c
 -- 
-1.7.12.4 (Apple Git-37)
+1.8.3.4 (Apple Git-47)
 
