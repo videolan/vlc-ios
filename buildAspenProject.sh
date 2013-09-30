@@ -5,7 +5,7 @@
 set -e
 
 PLATFORM=OS
-SDK=iphoneos6.1
+SDK=6.1
 SDK_MIN=5.1
 VERBOSE=no
 CONFIGURATION="Release"
@@ -76,7 +76,6 @@ do
              ;;
          s)
              PLATFORM=Simulator
-             SDK=iphonesimulator6.1
              ;;
          d)  CONFIGURATION="Debug"
              ;;
