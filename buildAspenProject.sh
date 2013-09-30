@@ -4,7 +4,7 @@
 
 set -e
 
-PLATFORM=OS
+PLATFORM=iphoneos
 SDK=6.1
 SDK_MIN=5.1
 VERBOSE=no
@@ -59,7 +59,7 @@ buildxcodeproj()
 
     xcodebuild -project "$1.xcodeproj" \
                -target "$target" \
-               -sdk $SDK \
+               -sdk $PLATFORM$SDK \
                -configuration ${CONFIGURATION} ${extra} \
                IPHONEOS_DEPLOYMENT_TARGET=${SDK_MIN} > ${out}
 }
@@ -75,7 +75,7 @@ do
              VERBOSE=yes
              ;;
          s)
-             PLATFORM=Simulator
+             PLATFORM=iphonesimulator
              ;;
          d)  CONFIGURATION="Debug"
              ;;
@@ -195,7 +195,7 @@ fi
 
 info "Setup 'External' folders"
 
-if [ "$PLATFORM" = "Simulator" ]; then
+if [ "$PLATFORM" = "iphonesimulator" ]; then
     xcbuilddir="build/${CONFIGURATION}-iphonesimulator"
 else
     xcbuilddir="build/${CONFIGURATION}-iphoneos"
@@ -229,7 +229,7 @@ args=""
 if [ "$VERBOSE" = "yes" ]; then
     args="${args} -v"
 fi
-if [ "$PLATFORM" = "Simulator" ]; then
+if [ "$PLATFORM" = "iphonesimulator" ]; then
     args="${args} -s"
     ./build.sh ${args} -k "${SDK}"
 else
