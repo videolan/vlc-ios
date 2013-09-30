@@ -148,14 +148,6 @@ git clone git://github.com/mattrajca/DAVKit.git
 fi
 if ! [ -e GHSidebarNav ]; then
 git clone git://github.com/gresrun/GHSidebarNav.git
-cd GHSidebarNav
-git am ../../patches/ghsidebarnav/*.patch
-if [ $? -ne 0 ]; then
-git am --abort
-info "Applying the patches failed, aborting git-am"
-exit 1
-fi
-cd ..
 fi
 if ! [ -e upnpx ]; then
 UPNPXVERSION=1.2.4
