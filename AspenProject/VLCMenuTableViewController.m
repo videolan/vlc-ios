@@ -10,7 +10,7 @@
 
 #import "VLCMenuTableViewController.h"
 #import "GHRevealViewController.h"
-#import "GHMenuCell.h"
+#import "VLCSidebarViewCell.h"
 #import "Reachability.h"
 #import <QuartzCore/QuartzCore.h>
 #import "VLCWiFiUploadTableViewCell.h"
@@ -171,9 +171,9 @@
         if (cell == nil)
             cell = [VLCWiFiUploadTableViewCell cellWithReuseIdentifier:WiFiCellIdentifier];
     } else {
-        cell = (GHMenuCell *)[tableView dequeueReusableCellWithIdentifier:CellIdentifier];
+        cell = (VLCSidebarViewCell *)[tableView dequeueReusableCellWithIdentifier:CellIdentifier];
         if (cell == nil)
-            cell = [[GHMenuCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:CellIdentifier];
+            cell = [[VLCSidebarViewCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:CellIdentifier];
     }
 
     if (section == 0) {
