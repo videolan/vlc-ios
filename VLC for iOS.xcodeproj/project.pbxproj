@@ -479,6 +479,16 @@
 		7D2339AC176DE72E008D223C /* VLCOpenNetworkStreamViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = VLCOpenNetworkStreamViewController.h; sourceTree = "<group>"; };
 		7D2339AD176DE72E008D223C /* VLCOpenNetworkStreamViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = VLCOpenNetworkStreamViewController.m; sourceTree = "<group>"; };
 		7D2339AE176DE72E008D223C /* VLCOpenNetworkStreamViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; name = VLCOpenNetworkStreamViewController.xib; path = ../Resources/VLCOpenNetworkStreamViewController.xib; sourceTree = "<group>"; };
+		7D2AEDE017FB775900B5281E /* sv */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = sv; path = sv.lproj/Localizable.strings; sourceTree = "<group>"; };
+		7D2AEDE117FB775900B5281E /* sv */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = sv; path = "sv.lproj/badgeUnread@2x~ipad.png"; sourceTree = "<group>"; };
+		7D2AEDE217FB775900B5281E /* sv */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = sv; path = "sv.lproj/badgeUnread@2x~iphone.png"; sourceTree = "<group>"; };
+		7D2AEDE317FB775900B5281E /* sv */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = sv; path = "sv.lproj/badgeUnread~ipad.png"; sourceTree = "<group>"; };
+		7D2AEDE417FB775900B5281E /* sv */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = sv; path = "sv.lproj/badgeUnread~iphone.png"; sourceTree = "<group>"; };
+		7D2AEDE517FB785100B5281E /* hu */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = hu; path = hu.lproj/Localizable.strings; sourceTree = "<group>"; };
+		7D2AEDE617FB785200B5281E /* hu */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = hu; path = "hu.lproj/badgeUnread@2x~ipad.png"; sourceTree = "<group>"; };
+		7D2AEDE717FB785200B5281E /* hu */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = hu; path = "hu.lproj/badgeUnread@2x~iphone.png"; sourceTree = "<group>"; };
+		7D2AEDE817FB785200B5281E /* hu */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = hu; path = "hu.lproj/badgeUnread~ipad.png"; sourceTree = "<group>"; };
+		7D2AEDE917FB785200B5281E /* hu */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = hu; path = "hu.lproj/badgeUnread~iphone.png"; sourceTree = "<group>"; };
 		7D31001B17B64AE100E6516D /* GHRevealViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = GHRevealViewController.h; path = ImportedSources/GHSidebarNav/GHSidebarNav/GHRevealViewController.h; sourceTree = SOURCE_ROOT; };
 		7D31001C17B64AE100E6516D /* GHRevealViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = GHRevealViewController.m; path = ImportedSources/GHSidebarNav/GHSidebarNav/GHRevealViewController.m; sourceTree = SOURCE_ROOT; };
 		7D31001F17B6768B00E6516D /* libupnpx.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; name = libupnpx.a; path = External/upnpx/libupnpx.a; sourceTree = "<group>"; };
@@ -1850,6 +1860,8 @@
 				pl,
 				ar,
 				ko,
+				sv,
+				hu,
 			);
 			mainGroup = 7D94FCD216DE7D1000F2623B;
 			productRefGroup = 7D94FCDC16DE7D1000F2623B /* Products */;
@@ -2188,6 +2200,8 @@
 				CCAF837F17DE46D800E3578F /* pl */,
 				CC75BE3B17DF4BBD00FAC19D /* ar */,
 				CC75BE4017DF744400FAC19D /* ko */,
+				7D2AEDE117FB775900B5281E /* sv */,
+				7D2AEDE617FB785200B5281E /* hu */,
 			);
 			name = "badgeUnread@2x~ipad.png";
 			sourceTree = "<group>";
@@ -2222,6 +2236,8 @@
 				CCAF838017DE46D800E3578F /* pl */,
 				CC75BE3C17DF4BBD00FAC19D /* ar */,
 				CC75BE4117DF744500FAC19D /* ko */,
+				7D2AEDE217FB775900B5281E /* sv */,
+				7D2AEDE717FB785200B5281E /* hu */,
 			);
 			name = "badgeUnread@2x~iphone.png";
 			sourceTree = "<group>";
@@ -2256,6 +2272,8 @@
 				CCAF838117DE46D800E3578F /* pl */,
 				CC75BE3D17DF4BBD00FAC19D /* ar */,
 				CC75BE4217DF744500FAC19D /* ko */,
+				7D2AEDE317FB775900B5281E /* sv */,
+				7D2AEDE817FB785200B5281E /* hu */,
 			);
 			name = "badgeUnread~ipad.png";
 			sourceTree = "<group>";
@@ -2290,6 +2308,8 @@
 				CCAF838217DE46D800E3578F /* pl */,
 				CC75BE3E17DF4BBD00FAC19D /* ar */,
 				CC75BE4317DF744500FAC19D /* ko */,
+				7D2AEDE417FB775900B5281E /* sv */,
+				7D2AEDE917FB785200B5281E /* hu */,
 			);
 			name = "badgeUnread~iphone.png";
 			sourceTree = "<group>";
@@ -2324,6 +2344,8 @@
 				CCAF837E17DE46D800E3578F /* pl */,
 				CC75BE3A17DF4BBD00FAC19D /* ar */,
 				CC75BE3F17DF744400FAC19D /* ko */,
+				7D2AEDE017FB775900B5281E /* sv */,
+				7D2AEDE517FB785100B5281E /* hu */,
 			);
 			name = Localizable.strings;
 			sourceTree = "<group>";
