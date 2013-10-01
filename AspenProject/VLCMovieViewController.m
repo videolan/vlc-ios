@@ -294,7 +294,6 @@
         return;
     }
 
-    _mediaPlayer = nil;
     _mediaPlayer = [[VLCMediaPlayer alloc] initWithOptions:@[[NSString stringWithFormat:@"--%@=%@", kVLCSettingSubtitlesFont, [defaults objectForKey:kVLCSettingSubtitlesFont]], [NSString stringWithFormat:@"--%@=%@", kVLCSettingSubtitlesFontColor, [defaults objectForKey:kVLCSettingSubtitlesFontColor]], [NSString stringWithFormat:@"--%@=%@", kVLCSettingSubtitlesFontSize, [defaults objectForKey:kVLCSettingSubtitlesFontSize]], [NSString stringWithFormat:@"--%@=%@", kVLCSettingDeinterlace, [defaults objectForKey:kVLCSettingDeinterlace]]]];
     [_mediaPlayer setDelegate:self];
     [_mediaPlayer setDrawable:self.movieView];
@@ -478,6 +477,8 @@
             [self _saveCurrentState];
             [_mediaPlayer stop];
         }
+        if (_mediaPlayer)
+            _mediaPlayer = nil;
     }
     if (_mediaItem)
         _mediaItem = nil;
@@ -488,9 +489,15 @@
 - (void)_saveCurrentState
 {
     if (self.mediaItem) {
-        self.mediaItem.lastPosition = @([_mediaPlayer position]);
-        self.mediaItem.lastAudioTrack = @(_mediaPlayer.currentAudioTrackIndex);
-        self.mediaItem.lastSubtitleTrack = @(_mediaPlayer.currentVideoSubTitleIndex);
+        @try {
+            MLFile *item = self.mediaItem;
+            item.lastPosition = @([_mediaPlayer position]);
+            item.lastAudioTrack = @(_mediaPlayer.currentAudioTrackIndex);
+            item.lastSubtitleTrack = @(_mediaPlayer.currentVideoSubTitleIndex);
+        }
+        @catch (NSException *exception) {
+            APLog(@"failed to save current media state - file removed?");
+        }
     }
 }
 
