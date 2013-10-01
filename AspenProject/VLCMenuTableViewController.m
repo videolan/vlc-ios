@@ -124,7 +124,7 @@
         _uploadLocationLabel.text = NSLocalizedString(@"HTTP_UPLOAD_SERVER_OFF", @"");
     } else {
         _uploadButton.enabled = NO;
-        [_uploadButton setImage:[UIImage imageNamed:@"WiFiUp"] forState:UIControlStateNormal];
+        [_uploadButton setImage:[UIImage imageNamed:@"WiFiUp"] forState:UIControlStateDisabled];
         _uploadLocationLabel.text = NSLocalizedString(@"HTTP_UPLOAD_NO_CONNECTIVITY", @"");
         [self.uploadController changeHTTPServerState:NO];
     }
