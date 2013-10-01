@@ -289,26 +289,27 @@
 
     NSUserDefaults *defaults = [NSUserDefaults standardUserDefaults];
 
-    _mediaPlayer = nil;
-    _mediaPlayer = [[VLCMediaPlayer alloc] initWithOptions:@[[NSString stringWithFormat:@"--%@=%@", kVLCSettingSubtitlesFont, [defaults objectForKey:kVLCSettingSubtitlesFont]], [NSString stringWithFormat:@"--%@=%@", kVLCSettingSubtitlesFontColor, [defaults objectForKey:kVLCSettingSubtitlesFontColor]], [NSString stringWithFormat:@"--%@=%@", kVLCSettingSubtitlesFontSize, [defaults objectForKey:kVLCSettingSubtitlesFontSize]], [NSString stringWithFormat:@"--%@=%@", kVLCSettingDeinterlace, [defaults objectForKey:kVLCSettingDeinterlace]]]];
-    [_mediaPlayer setDelegate:self];
-    [_mediaPlayer setDrawable:self.movieView];
-
     if (!self.mediaItem && !self.url) {
         [self _stopPlayback];
         return;
     }
 
+    _mediaPlayer = nil;
+    _mediaPlayer = [[VLCMediaPlayer alloc] initWithOptions:@[[NSString stringWithFormat:@"--%@=%@", kVLCSettingSubtitlesFont, [defaults objectForKey:kVLCSettingSubtitlesFont]], [NSString stringWithFormat:@"--%@=%@", kVLCSettingSubtitlesFontColor, [defaults objectForKey:kVLCSettingSubtitlesFontColor]], [NSString stringWithFormat:@"--%@=%@", kVLCSettingSubtitlesFontSize, [defaults objectForKey:kVLCSettingSubtitlesFontSize]], [NSString stringWithFormat:@"--%@=%@", kVLCSettingDeinterlace, [defaults objectForKey:kVLCSettingDeinterlace]]]];
+    [_mediaPlayer setDelegate:self];
+    [_mediaPlayer setDrawable:self.movieView];
+
     VLCMedia *media;
     if (self.mediaItem) {
         self.title = [self.mediaItem title];
-        media = [VLCMedia mediaWithURL:[NSURL URLWithString:self.mediaItem.url]];
-        self.mediaItem.unread = @(NO);
+        MLFile *item = self.mediaItem;
+        media = [VLCMedia mediaWithURL:[NSURL URLWithString:item.url]];
+        item.unread = @(NO);
 
-        if (self.mediaItem.isAlbumTrack) {
-            self.trackNameLabel.text = self.mediaItem.albumTrack.title;
-            self.artistNameLabel.text = self.mediaItem.albumTrack.artist;
-            self.albumNameLabel.text = self.mediaItem.albumTrack.album.name;
+        if (item.isAlbumTrack) {
+            self.trackNameLabel.text = item.albumTrack.title;
+            self.artistNameLabel.text = item.albumTrack.artist;
+            self.albumNameLabel.text = item.albumTrack.album.name;
         } else
             self.trackNameLabel.text = self.artistNameLabel.text = self.albumNameLabel.text = @"";
     } else {
@@ -473,12 +474,9 @@
         }
 
         if (_mediaPlayer.media) {
-            NSInteger state = _mediaPlayer.state;
-            if (state != VLCMediaPlayerStateStopped && state != VLCMediaPlayerStateEnded && state != VLCMediaPlayerStateError) {
-                [_mediaPlayer pause];
-                [self _saveCurrentState];
-                [_mediaPlayer stop];
-            }
+            [_mediaPlayer pause];
+            [self _saveCurrentState];
+            [_mediaPlayer stop];
         }
     }
     if (_mediaItem)
