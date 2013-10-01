@@ -472,9 +472,14 @@
             APLog(@"we weren't an observer yet");
         }
 
-        [_mediaPlayer pause];
-        [self _saveCurrentState];
-        [_mediaPlayer stop];
+        if (_mediaPlayer.media) {
+            NSInteger state = _mediaPlayer.state;
+            if (state != VLCMediaPlayerStateStopped && state != VLCMediaPlayerStateEnded && state != VLCMediaPlayerStateError) {
+                [_mediaPlayer pause];
+                [self _saveCurrentState];
+                [_mediaPlayer stop];
+            }
+        }
     }
     if (_mediaItem)
         _mediaItem = nil;
