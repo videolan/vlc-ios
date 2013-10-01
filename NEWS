@@ -4,8 +4,9 @@ TBA
 
 2.1.2:
 ------
-* Stability improvements
-* Minor UI fixes
+* Stability improvements (#9431, #9432, #9434, #9435, #9556)
+* Improved Closed Caption rendering (#9369)
+* Minor UI fixes (#9454)
 
 2.1.1:
 ------
