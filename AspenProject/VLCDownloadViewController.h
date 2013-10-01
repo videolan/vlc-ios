@@ -19,6 +19,9 @@
 @property (nonatomic, strong) IBOutlet UIButton *cancelButton;
 @property (nonatomic, strong) IBOutlet UILabel *currentDownloadLabel;
 @property (nonatomic, strong) IBOutlet UIActivityIndicatorView *activityIndicator;
+@property (weak, nonatomic) IBOutlet UILabel *progressPourcent;
+@property (weak, nonatomic) IBOutlet UILabel *speedRate;
+@property (weak, nonatomic) IBOutlet UILabel *timeDL;
 
 - (IBAction)downloadAction:(id)sender;
 - (IBAction)cancelDownload:(id)sender;

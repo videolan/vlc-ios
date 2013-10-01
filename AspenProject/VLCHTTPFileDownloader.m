@@ -99,9 +99,9 @@
         [fileHandle seekToEndOfFile];
         [fileHandle writeData:data];
 
-        _receivedDataSize = _receivedDataSize + data.length;
-        if ([self.delegate respondsToSelector:@selector(progressUpdatedTo:)])
-            [self.delegate progressUpdatedTo: (float)_receivedDataSize / (float)_expectedDownloadSize];
+        _receivedDataSize = _receivedDataSize + [data length];
+        if ([self.delegate respondsToSelector:@selector(progressUpdatedTo:receivedDataSize:expectedDownloadSize:)])
+            [self.delegate progressUpdatedTo: (float)_receivedDataSize / (float)_expectedDownloadSize receivedDataSize:_receivedDataSize expectedDownloadSize:_expectedDownloadSize];
     }
     @catch (NSException * e) {
         APLog(@"exception when writing to file %@", _filePath);

@@ -77,6 +77,8 @@
     _netServiceBrowser = [[NSNetServiceBrowser alloc] init];
     _netServiceBrowser.delegate = self;
 
+    [self performSelectorInBackground:@selector(_startUPNPDiscovery) withObject:nil];
+
     // Active le Pull down to refresh
     refreshControl = [[UIRefreshControl alloc] init];
 
@@ -96,7 +98,7 @@
 {
     [super viewWillAppear:animated];
     [self _triggerNetServiceBrowser];
-    [self performSelectorInBackground:@selector(_startUPNPDiscovery) withObject:nil];
+    //[self performSelectorInBackground:@selector(_startUPNPDiscovery) withObject:nil];
 }
 
 - (void)_triggerNetServiceBrowser

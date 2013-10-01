@@ -15,7 +15,7 @@
 
 @optional
 - (void)downloadFailedWithErrorDescription:(NSString *)description;
-- (void)progressUpdatedTo:(CGFloat)percentage;
+- (void)progressUpdatedTo:(CGFloat)percentage receivedDataSize:(CGFloat)receivedDataSize  expectedDownloadSize:(CGFloat)expectedDownloadSize;
 
 @end
 

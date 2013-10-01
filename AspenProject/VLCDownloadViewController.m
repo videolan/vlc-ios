@@ -26,6 +26,8 @@
     NSUInteger _currentDownloadType;
     NSString *_humanReadableFilename;
     NSString *_MediaFilename;
+    NSTimeInterval _startDL;
+
 
     VLCHTTPFileDownloader *_httpDownloader;
 
@@ -186,9 +188,17 @@
     [UIApplication sharedApplication].networkActivityIndicatorVisible = YES;
     self.currentDownloadLabel.text = _humanReadableFilename;
     self.progressView.progress = 0.;
+    [self.progressPourcent setText:@"0%%"];
+    [self.speedRate setText:@"0 Kb/s"];
+    [self.timeDL setText:@"00:00:00"];
     self.currentDownloadLabel.hidden = NO;
     self.progressView.hidden = NO;
     self.cancelButton.hidden = NO;
+    [self.progressPourcent setHidden:NO];
+    [self.speedRate setHidden:NO];
+    [self.timeDL setHidden:NO];
+    _startDL = [NSDate timeIntervalSinceReferenceDate];
+
     APLog(@"download started");
 }
 
@@ -198,6 +208,9 @@
     self.currentDownloadLabel.hidden = YES;
     self.progressView.hidden = YES;
     self.cancelButton.hidden = YES;
+    [self.progressPourcent setHidden:YES];
+    [self.speedRate setHidden:YES];
+    [self.timeDL setHidden:YES];
     _currentDownloadType = 0;
     APLog(@"download ended");
 
@@ -210,9 +223,36 @@
     [alert show];
 }
 
-- (void)progressUpdatedTo:(CGFloat)percentage
+- (void)progressUpdatedTo:(CGFloat)percentage receivedDataSize:(CGFloat)receivedDataSize  expectedDownloadSize:(CGFloat)expectedDownloadSize
 {
+    [self.progressPourcent setText:[NSString stringWithFormat:@"%.1f%%", percentage*100]];
+    [self.timeDL setText:[self calculateRemainingTime:receivedDataSize expectedDownloadSize:expectedDownloadSize]];
+    [self.speedRate setText:[self calculateSpeedString:receivedDataSize]];
+
     [self.progressView setProgress:percentage animated:YES];
+}
+
+- (NSString*)calculateRemainingTime:(CGFloat)receivedDataSize  expectedDownloadSize:(CGFloat)expectedDownloadSize
+{
+    CGFloat speed = receivedDataSize / ([NSDate timeIntervalSinceReferenceDate] - _startDL);
+
+    CGFloat RemainingInSeconds = (expectedDownloadSize - receivedDataSize)/speed;
+
+    NSDate *date = [NSDate dateWithTimeIntervalSince1970:RemainingInSeconds];
+    NSDateFormatter *formatter = [[NSDateFormatter alloc] init];
+    [formatter setDateFormat:@"HH:mm:ss"];
+    [formatter setTimeZone:[NSTimeZone timeZoneForSecondsFromGMT:0]];
+
+    NSString  *remaingTime = [formatter stringFromDate:date];
+    return remaingTime;
+}
+
+- (NSString*)calculateSpeedString:(CGFloat)receivedDataSize
+{
+    CGFloat speed = receivedDataSize / ([NSDate timeIntervalSinceReferenceDate] - _startDL);
+    NSString *string = [NSByteCountFormatter stringFromByteCount:speed countStyle:NSByteCountFormatterCountStyleDecimal];
+    string = [string stringByAppendingString:@"/s"];
+    return string;
 }
 
 #pragma mark - ftp networking
