@@ -1,0 +1,19 @@
+diff -ru upnpx-1.2.4/src/upnp/UPnPDB.m upnpx/src/upnp/UPnPDB.m
+--- upnpx-1.2.4/src/upnp/UPnPDB.m	2012-03-07 20:53:57.000000000 +0100
++++ upnpx/src/upnp/UPnPDB.m	2013-10-01 19:01:29.000000000 +0200
+@@ -98,10 +98,11 @@
+ 
+ -(int)removeObserver:(UPnPDBObserver*)obs{
+ 	int ret = 0;
+-	[self lock];
+-	[mObservers removeObject:obs];
+-	ret = [mObservers count];
+-	[self unlock];
++    if ([mMutex tryLock]) {
++        [mObservers removeObject:obs];
++        ret = [mObservers count];
++        [self unlock];
++    }
+ 	return ret;
+ }
+ 
