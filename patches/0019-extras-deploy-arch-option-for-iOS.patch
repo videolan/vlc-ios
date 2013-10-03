@@ -1,0 +1,25 @@
+From 7eb28b095ccbb1c0f4a096f4f1d3cbe4f0f80c1e Mon Sep 17 00:00:00 2001
+From: =?UTF-8?q?Felix=20Paul=20K=C3=BChne?= <fkuehne@videolan.org>
+Date: Thu, 3 Oct 2013 18:28:26 +0200
+Subject: [PATCH 3/3] extras: deploy arch option for iOS
+
+---
+ extras/package/ios/build.sh | 2 +-
+ 1 file changed, 1 insertion(+), 1 deletion(-)
+
+diff --git a/extras/package/ios/build.sh b/extras/package/ios/build.sh
+index 0e060bb..529a15c 100755
+--- a/extras/package/ios/build.sh
++++ b/extras/package/ios/build.sh
+@@ -188,7 +188,7 @@ else
+   export ASCPP="xcrun as"
+ fi
+ 
+-../bootstrap --host=${TARGET} --build="i686-apple-darwin10" --prefix=${VLCROOT}/contrib/${TARGET}-${ARCH} --disable-gpl \
++../bootstrap --host=${TARGET} --build="i686-apple-darwin10" --prefix=${VLCROOT}/contrib/${TARGET}-${ARCH} --arch=${ARCH} --disable-gpl \
+     --disable-disc --disable-sout \
+     --disable-sdl \
+     --disable-SDL_image \
+-- 
+1.8.3.4 (Apple Git-47)
+

@@ -1,0 +1,78 @@
+From 4ea994835ec0f0bfcf3ad1852b8c03129697c1de Mon Sep 17 00:00:00 2001
+From: =?UTF-8?q?Felix=20Paul=20K=C3=BChne?= <fkuehne@videolan.org>
+Date: Thu, 3 Oct 2013 18:27:43 +0200
+Subject: [PATCH 2/3] contrib: add arch option for platforms where the arch
+ triplet would be ambigous
+
+---
+ contrib/bootstrap    | 11 ++++++++++-
+ contrib/src/main.mak |  2 ++
+ 2 files changed, 12 insertions(+), 1 deletion(-)
+
+diff --git a/contrib/bootstrap b/contrib/bootstrap
+index 6bf7bd5..8bbb167 100755
+--- a/contrib/bootstrap
++++ b/contrib/bootstrap
+@@ -30,6 +30,7 @@ usage()
+ 	echo "  --disable-sout   configure to not build stream output packages"
+ 	echo "  --enable-small   optimize libraries for size with slight speed decrease [DANGEROUS]"
+ 	echo "  --disable-gpl    configure to not build viral GPL code"
++	echo "  --arch=ARCH      configure to set the target architecture if host triple is ambigous"
+ }
+ 
+ BUILD=
+@@ -40,6 +41,7 @@ PKGS_DISABLE=
+ BUILD_ENCODERS="1"
+ BUILD_DISCS="1"
+ GPL="1"
++ARCH=
+ 
+ if test ! -f "../../contrib/src/main.mak"
+ then
+@@ -81,6 +83,9 @@ do
+ 		--enable-*)
+ 			PKGS_ENABLE="${PKGS_ENABLE} ${1#--enable-}"
+ 			;;
++		--arch=*)
++			ARCH="${1#--arch=}"
++			;;
+ 		*)
+ 			echo "Unrecognized options $1"
+ 			usage
+@@ -206,6 +211,7 @@ test -z "$BUILD_DISCS" || add_make_enabled "BUILD_DISCS"
+ test -z "$BUILD_ENCODERS" || add_make_enabled "BUILD_ENCODERS"
+ test -z "$ENABLE_SMALL" || add_make_enabled "ENABLE_SMALL"
+ test -z "$GPL" || add_make_enabled "GPL"
++test -z "$ARCH" || add_make "ARCH := $ARCH"
+ 
+ #
+ # Checks
+@@ -219,7 +225,10 @@ case "${OS}" in
+ 			add_make_enabled "HAVE_MACOSX" "HAVE_DARWIN_OS" "HAVE_BSD"
+ 		else
+ 			check_ios_sdk
+-			add_make_enabled "HAVE_IOS" "HAVE_DARWIN_OS" "HAVE_BSD" "HAVE_NEON" "HAVE_ARMV7A"
++			add_make_enabled "HAVE_IOS" "HAVE_DARWIN_OS" "HAVE_BSD" "HAVE_NEON"
++			if [ "$ARCH" != "arm64" ]; then
++				add_make_enabled "HAVE_ARMV7A"
++			fi
+ 		fi
+ 		;;
+ 	*bsd*)
+diff --git a/contrib/src/main.mak b/contrib/src/main.mak
+index 3022b1d..ec615f3 100644
+--- a/contrib/src/main.mak
++++ b/contrib/src/main.mak
+@@ -35,7 +35,9 @@ PREFIX := $(abspath $(PREFIX))
+ ifneq ($(HOST),$(BUILD))
+ HAVE_CROSS_COMPILE = 1
+ endif
++ifeq ($(ARCH),)
+ ARCH := $(shell $(SRC)/get-arch.sh $(HOST))
++endif
+ 
+ ifeq ($(ARCH)-$(HAVE_WIN32),x86_64-1)
+ HAVE_WIN64 := 1
+-- 
+1.8.3.4 (Apple Git-47)
+
