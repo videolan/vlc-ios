@@ -1,0 +1,28 @@
+From 44fdb4bf7908d73ff641ec2c062f08a9f513db78 Mon Sep 17 00:00:00 2001
+From: =?UTF-8?q?Felix=20Paul=20K=C3=BChne?= <fkuehne@videolan.org>
+Date: Thu, 3 Oct 2013 19:30:01 +0200
+Subject: [PATCH 2/2] contrib/speex: fix compilation for arm64
+
+---
+ contrib/src/speex/rules.mak | 5 +++++
+ 1 file changed, 5 insertions(+)
+
+diff --git a/contrib/src/speex/rules.mak b/contrib/src/speex/rules.mak
+index fb96a6b..3418b13 100644
+--- a/contrib/src/speex/rules.mak
++++ b/contrib/src/speex/rules.mak
+@@ -35,6 +35,11 @@ ifeq ($(ARCH),arm)
+ SPEEX_CONF += --enable-arm5e-asm
+ endif
+ endif
++ifdef HAVE_IOS
++ifeq ($(ARCH),arm64)
++SPEEX_CONF += --disable-neon
++endif
++endif
+ 
+ .speex: speex
+ 	$(RECONF)
+-- 
+1.8.3.4 (Apple Git-47)
+
