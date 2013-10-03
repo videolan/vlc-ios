@@ -1,7 +1,7 @@
-From d87e1fd3e59249ab7ae6b04b1d463278fa4dfcee Mon Sep 17 00:00:00 2001
+From 82297ff8f0a69efec4af8d905aea72554bebe9e8 Mon Sep 17 00:00:00 2001
 From: =?UTF-8?q?Felix=20Paul=20K=C3=BChne?= <fkuehne@videolan.org>
 Date: Fri, 10 Aug 2012 16:02:33 +0200
-Subject: [PATCH 16/17] deinterlace: added a hack to work-around a libtool bug
+Subject: [PATCH 10/15] deinterlace: added a hack to work-around a libtool bug
 
 ---
  modules/video_filter/Modules.am | 4 ++++

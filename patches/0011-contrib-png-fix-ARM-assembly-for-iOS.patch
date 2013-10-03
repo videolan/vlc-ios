@@ -1,7 +1,7 @@
-From af20b65405e206dbba61952e99f03f7aca9d2653 Mon Sep 17 00:00:00 2001
+From aac20542b6b752a32bf61cd4c2dda56cf081f4cc Mon Sep 17 00:00:00 2001
 From: =?UTF-8?q?Felix=20Paul=20Ku=CC=88hne?= <fkuehne@videolan.org>
 Date: Sat, 20 Jul 2013 23:35:05 +0200
-Subject: [PATCH 17/17] contrib/png: fix ARM assembly for iOS
+Subject: [PATCH 11/15] contrib/png: fix ARM assembly for iOS
 
 ---
  contrib/src/png/ios.patch | 66 +++++++++++++++++++++++++++++++++++++++++++++++
@@ -96,5 +96,5 @@ index d1adc34..701e3a8 100644
  
  DEPS_png = zlib $(DEPS_zlib)
 -- 
-1.7.12.4 (Apple Git-37)
+1.8.3.4 (Apple Git-47)
 

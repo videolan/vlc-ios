@@ -1,7 +1,7 @@
-From 4ea994835ec0f0bfcf3ad1852b8c03129697c1de Mon Sep 17 00:00:00 2001
+From 428ecc9c3c98c37501d9bf79fb4025f51e67f0d8 Mon Sep 17 00:00:00 2001
 From: =?UTF-8?q?Felix=20Paul=20K=C3=BChne?= <fkuehne@videolan.org>
 Date: Thu, 3 Oct 2013 18:27:43 +0200
-Subject: [PATCH 2/3] contrib: add arch option for platforms where the arch
+Subject: [PATCH 12/15] contrib: add arch option for platforms where the arch
  triplet would be ambigous
 
 ---
@@ -60,7 +60,7 @@ index 6bf7bd5..8bbb167 100755
  		;;
  	*bsd*)
 diff --git a/contrib/src/main.mak b/contrib/src/main.mak
-index 3022b1d..ec615f3 100644
+index 66cc31e..9026819 100644
 --- a/contrib/src/main.mak
 +++ b/contrib/src/main.mak
 @@ -35,7 +35,9 @@ PREFIX := $(abspath $(PREFIX))

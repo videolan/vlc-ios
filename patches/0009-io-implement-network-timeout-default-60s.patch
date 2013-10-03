@@ -1,14 +1,14 @@
-From 8627251257ded66c6dd8c7fd4b5dcd33927b80d4 Mon Sep 17 00:00:00 2001
+From 9cc3ad4781392ff526b4ba5e25c6fd287a219303 Mon Sep 17 00:00:00 2001
 From: Gleb Pinigin <gpinigin@gmail.com>
 Date: Sun, 28 Jul 2013 18:32:51 +0700
-Subject: [PATCH 13/17] io: implement network timeout(default 60s)
+Subject: [PATCH 09/15] io: implement network timeout(default 60s)
 
 ---
  src/network/io.c | 15 ++++++++++++++-
  1 file changed, 14 insertions(+), 1 deletion(-)
 
 diff --git a/src/network/io.c b/src/network/io.c
-index a8ea870..6df06e1 100644
+index dc5ef12..effaf15 100644
 --- a/src/network/io.c
 +++ b/src/network/io.c
 @@ -33,6 +33,7 @@
@@ -63,5 +63,5 @@ index a8ea870..6df06e1 100644
              if (errno == EINTR)
                  continue;
 -- 
-1.7.12.4 (Apple Git-37)
+1.8.3.4 (Apple Git-47)
 
