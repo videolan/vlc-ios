@@ -11,11 +11,24 @@
 #import "VLCNetworkLoginViewController.h"
 #import "UIBarButtonItem+Theme.h"
 
-@interface VLCNetworkLoginViewController () <UITextFieldDelegate>
-
+@interface VLCNetworkLoginViewController () <UITableViewDataSource, UITableViewDelegate, UITextFieldDelegate>
+{
+    NSMutableArray *_saveServeur;
+    NSMutableArray *_saveLogin;
+    NSMutableArray *_savePass;
+}
 @end
 
 @implementation VLCNetworkLoginViewController
+
++ (void)initialize
+{
+    NSUserDefaults *defaults = [NSUserDefaults standardUserDefaults];
+
+    NSDictionary *loginDefaults = @{kVLCServeurFTP : @[], kVLCLoginFTP : @[],kVLCServeurFTP : @[]};
+
+    [defaults registerDefaults:loginDefaults];
+}
 
 - (void)viewDidLoad
 {
@@ -49,7 +62,14 @@
 - (void)viewWillAppear:(BOOL)animated
 {
     self.navigationController.navigationBar.translucent = NO;
+
+    NSUserDefaults *defaults = [NSUserDefaults standardUserDefaults];
+    _saveServeur = [NSMutableArray arrayWithArray:[defaults objectForKey:kVLCServeurFTP]];
+    _saveLogin = [NSMutableArray arrayWithArray:[defaults objectForKey:kVLCLoginFTP]];
+    _savePass = [NSMutableArray arrayWithArray:[defaults objectForKey:kVLCPasswordFTP]];
+
     [super viewWillAppear:animated];
+
 }
 
 - (IBAction)dismissWithAnimation:(id)sender
@@ -88,6 +108,18 @@
     }
 }
 
+- (IBAction)saveFTP:(id)sender {
+    [_saveServeur addObject:self.serverAddressField.text];
+    [_saveLogin addObject:self.usernameField.text];
+    [_savePass  addObject:self.passwordField.text];
+    NSUserDefaults *defaults = [NSUserDefaults standardUserDefaults];
+    [defaults setObject:[NSArray arrayWithArray:_saveServeur] forKey:kVLCServeurFTP];
+    [defaults setObject:[NSArray arrayWithArray:_saveLogin] forKey:kVLCLoginFTP];
+    [defaults setObject:[NSArray arrayWithArray:_savePass] forKey:kVLCPasswordFTP];
+    [defaults synchronize];
+    [self.historyLogin reloadData];
+}
+
 #pragma mark - text view delegate
 - (BOOL)textFieldShouldReturn:(UITextField *)textField {
 
@@ -108,6 +140,71 @@
     }
 
     return NO;
+}
+
+#pragma mark - table view data source
+- (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView
+{
+    return 1;
+}
+
+- (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section
+{
+    return _saveServeur.count;
+}
+
+- (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
+{
+    static NSString *CellIdentifier = @"FTPHistoryCell";
+
+    UITableViewCell *cell = (UITableViewCell *)[tableView dequeueReusableCellWithIdentifier:CellIdentifier];
+    if (cell == nil) {
+        cell = [[UITableViewCell alloc] initWithStyle:UITableViewCellStyleSubtitle reuseIdentifier:CellIdentifier];
+        cell.textLabel.textColor = [UIColor whiteColor];
+        cell.detailTextLabel.textColor = [UIColor colorWithWhite:.72 alpha:1.];
+    }
+
+    NSInteger row = indexPath.row;
+    cell.textLabel.text = [_saveServeur[row] lastPathComponent];
+    cell.detailTextLabel.text = _saveLogin[row];
+
+    return cell;
+}
+
+#pragma mark - table view delegate
+
+- (void)tableView:(UITableView *)tableView willDisplayCell:(UITableViewCell *)cell forRowAtIndexPath:(NSIndexPath *)indexPath
+{
+    cell.backgroundColor = (indexPath.row % 2 == 0)? [UIColor blackColor]: [UIColor colorWithWhite:.122 alpha:1.];
+}
+
+- (BOOL)tableView:(UITableView *)tableView canEditRowAtIndexPath:(NSIndexPath *)indexPath
+{
+    return YES;
+}
+
+- (void)tableView:(UITableView *)tableView commitEditingStyle:(UITableViewCellEditingStyle)editingStyle forRowAtIndexPath:(NSIndexPath *)indexPath
+{
+    if (editingStyle == UITableViewCellEditingStyleDelete) {
+        [_saveServeur removeObjectAtIndex:indexPath.row];
+        [_saveLogin removeObjectAtIndex:indexPath.row];
+        [_savePass removeObjectAtIndex:indexPath.row];
+        [tableView reloadData];
+        NSUserDefaults *defaults = [NSUserDefaults standardUserDefaults];
+        [defaults setObject:[NSArray arrayWithArray:_saveServeur] forKey:kVLCServeurFTP];
+        [defaults setObject:[NSArray arrayWithArray:_saveLogin] forKey:kVLCLoginFTP];
+        [defaults setObject:[NSArray arrayWithArray:_savePass] forKey:kVLCPasswordFTP];
+        [defaults synchronize];
+    }
+}
+
+- (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
+{
+    [self.serverAddressField setText:_saveServeur[indexPath.row]];
+    [self.usernameField setText:_saveLogin[indexPath.row]];
+    [self.passwordField setText:_savePass[indexPath.row]];
+
+    [self.historyLogin deselectRowAtIndexPath:indexPath animated:NO];
 }
 
 @end

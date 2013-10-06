@@ -25,11 +25,14 @@
 @property (nonatomic, strong) IBOutlet UILabel *passwordLabel;
 @property (nonatomic, strong) IBOutlet UILabel *serverAddressHelpLabel;
 @property (nonatomic, strong) IBOutlet UILabel *loginHelpLabel;
+@property (weak, nonatomic) IBOutlet UITableView *historyLogin;
 
 @property (nonatomic, retain) id delegate;
 
 - (IBAction)dismiss:(id)sender;
 - (IBAction)dismissWithAnimation:(id)sender;
 - (IBAction)connectToServer:(id)sender;
+- (IBAction)saveFTP:(id)sender;
+
 
 @end
