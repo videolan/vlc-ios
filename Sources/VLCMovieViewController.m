@@ -1557,10 +1557,10 @@
 #pragma mark - AVSession delegate
 - (void)beginInterruption
 {
-    if ([[[NSUserDefaults standardUserDefaults] objectForKey:kVLCSettingContinueAudioInBackgroundKey] boolValue])
+    if ([_mediaPlayer isPlaying]) {
+        [_mediaPlayer pause];
         _shouldResumePlaying = YES;
-
-    [_mediaPlayer pause];
+    }
 }
 
 - (void)endInterruption
