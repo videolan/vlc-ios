@@ -43,7 +43,7 @@
         if (passcodeOn) {
             PAPasscodeViewController *passcodeLockController = [[PAPasscodeViewController alloc] initForAction:PasscodeActionSet];
             passcodeLockController.delegate = self;
-            [self.viewController presentModalViewController:passcodeLockController animated:YES];
+            [self.viewController presentViewController:passcodeLockController animated:YES completion:nil];
         }
     }
 }
@@ -65,7 +65,7 @@
     NSUserDefaults *defaults = [NSUserDefaults standardUserDefaults];
     [defaults setObject:@(NO) forKey:kVLCSettingPasscodeOnKey];
     [defaults synchronize];
-    [controller dismissModalViewControllerAnimated:YES];
+    [controller dismissViewControllerAnimated:YES completion:nil];
 }
 
 - (void)PAPasscodeViewControllerDidSetPasscode:(PAPasscodeViewController *)controller
@@ -77,7 +77,7 @@
     VLCAppDelegate* appDelegate = [UIApplication sharedApplication].delegate;
     appDelegate.nextPasscodeCheckDate = [NSDate dateWithTimeIntervalSinceNow:300];
 
-    [controller dismissModalViewControllerAnimated:YES];
+    [controller dismissViewControllerAnimated:YES completion:nil];
 }
 
 @end

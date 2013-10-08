@@ -204,7 +204,7 @@
 
         if (UI_USER_INTERFACE_IDIOM() == UIUserInterfaceIdiomPad) {
             navCon.modalPresentationStyle = UIModalPresentationFormSheet;
-            [self presentModalViewController:navCon animated:YES];
+            [self presentViewController:navCon animated:YES completion:nil];
 
             if (_loginViewController.navigationItem.leftBarButtonItem == nil) {
                 UIBarButtonItem *doneButton = [UIBarButtonItem themedDoneButtonWithTarget:_loginViewController andSelector:@selector(dismissWithAnimation:)];

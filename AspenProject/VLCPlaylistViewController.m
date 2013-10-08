@@ -67,7 +67,7 @@
 
     self.view.autoresizingMask = UIViewAutoresizingFlexibleHeight | UIViewAutoresizingFlexibleWidth;
     self.emptyLibraryView = [[[NSBundle mainBundle] loadNibNamed:@"VLCEmptyLibraryView" owner:self options:nil] lastObject];
-    _emptyLibraryView.emptyLibraryLongDescriptionLabel.lineBreakMode = UILineBreakModeWordWrap;
+    _emptyLibraryView.emptyLibraryLongDescriptionLabel.lineBreakMode = NSLineBreakByWordWrapping;
     _emptyLibraryView.emptyLibraryLongDescriptionLabel.numberOfLines = 0;
 }
 

@@ -33,8 +33,8 @@
         self.textLabel.adjustsFontSizeToFitWidth = YES;
         if ([self.textLabel respondsToSelector:@selector(setAdjustsLetterSpacingToFitWidth:)])
             self.textLabel.adjustsLetterSpacingToFitWidth = YES;
-        self.textLabel.minimumFontSize = 9.0f;
-        self.textLabel.lineBreakMode = UILineBreakModeTailTruncation;
+        self.textLabel.minimumScaleFactor = 0.5f;
+        self.textLabel.lineBreakMode = NSLineBreakByTruncatingTail;
 
         UIView *topLine = [[UIView alloc] initWithFrame:CGRectMake(0.0f, 0.0f, [UIScreen mainScreen].bounds.size.height, 1.0f)];
         topLine.backgroundColor = [UIColor colorWithRed:(16.0f/255.0f) green:(16.0f/255.0f) blue:(16.0f/255.0f) alpha:1.0f];
