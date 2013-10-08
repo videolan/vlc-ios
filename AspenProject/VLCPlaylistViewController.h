@@ -20,7 +20,6 @@ typedef enum {
 
 @class VLCMovieViewController;
 @class EmptyLibraryView;
-@class AQGridView;
 
 @interface VLCPlaylistViewController : UIViewController <UITabBarDelegate, UIPopoverControllerDelegate>
 

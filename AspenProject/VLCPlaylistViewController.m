@@ -12,14 +12,11 @@
 #import "VLCMovieViewController.h"
 #import "VLCPlaylistTableViewCell.h"
 #import "VLCPlaylistCollectionViewCell.h"
-#import "VLCPlaylistGridView.h"
 #import "UINavigationController+Theme.h"
 #import "NSString+SupportedMedia.h"
 #import "VLCBugreporter.h"
 #import "VLCAppDelegate.h"
 #import "UIBarButtonItem+Theme.h"
-#import "AQGridView.h"
-
 
 #ifndef UIStatusBarStyleLightContent
 #define UIStatusBarStyleLightContent 1
@@ -28,7 +25,7 @@
 @implementation EmptyLibraryView
 @end
 
-@interface VLCPlaylistViewController () <UICollectionViewDataSource, UICollectionViewDelegateFlowLayout, AQGridViewDataSource, AQGridViewDelegate, UITableViewDataSource, UITableViewDelegate, MLMediaLibrary> {
+@interface VLCPlaylistViewController () <UICollectionViewDataSource, UICollectionViewDelegateFlowLayout, UITableViewDataSource, UITableViewDelegate, MLMediaLibrary> {
     NSMutableArray *_foundMedia;
     VLCLibraryMode _libraryMode;
     UIBarButtonItem *_menuButton;
@@ -36,7 +33,6 @@
 
 @property (nonatomic, strong) UITableView *tableView;
 @property (nonatomic, strong) UICollectionView *collectionView;
-@property (nonatomic, strong) AQGridView *gridView;
 @property (nonatomic, strong) EmptyLibraryView *emptyLibraryView;
 
 @end
@@ -53,26 +49,16 @@
         _tableView.dataSource = self;
         self.view = _tableView;
     } else {
-        if ([UICollectionView class]) {
-            UICollectionViewFlowLayout *flowLayout = [[UICollectionViewFlowLayout alloc] init];
+        UICollectionViewFlowLayout *flowLayout = [[UICollectionViewFlowLayout alloc] init];
 
-            _collectionView = [[UICollectionView alloc] initWithFrame:[UIScreen mainScreen].bounds collectionViewLayout:flowLayout];
-            _collectionView.alwaysBounceVertical = YES;
-            _collectionView.indicatorStyle = UIScrollViewIndicatorStyleWhite;
-            _collectionView.delegate = self;
-            _collectionView.dataSource = self;
-            self.view = _collectionView;
+        _collectionView = [[UICollectionView alloc] initWithFrame:[UIScreen mainScreen].bounds collectionViewLayout:flowLayout];
+        _collectionView.alwaysBounceVertical = YES;
+        _collectionView.indicatorStyle = UIScrollViewIndicatorStyleWhite;
+        _collectionView.delegate = self;
+        _collectionView.dataSource = self;
+        self.view = _collectionView;
 
-            [_collectionView registerNib:[UINib nibWithNibName:@"VLCPlaylistCollectionViewCell" bundle:nil] forCellWithReuseIdentifier:@"PlaylistCell"];
-        } else {
-            _gridView = [[AQGridView alloc] initWithFrame:[UIScreen mainScreen].bounds];
-            _gridView.separatorStyle = AQGridViewCellSeparatorStyleEmptySpace;
-            _gridView.alwaysBounceVertical = YES;
-            _gridView.indicatorStyle = UIScrollViewIndicatorStyleWhite;
-            _gridView.delegate = self;
-            _gridView.dataSource = self;
-            self.view = _gridView;
-        }
+        [_collectionView registerNib:[UINib nibWithNibName:@"VLCPlaylistCollectionViewCell" bundle:nil] forCellWithReuseIdentifier:@"PlaylistCell"];
 
         self.view.backgroundColor = [UIColor colorWithPatternImage:[UIImage imageNamed:@"libraryBackground"]];
     }
@@ -287,12 +273,8 @@
 {
     if (UI_USER_INTERFACE_IDIOM() == UIUserInterfaceIdiomPhone)
         [self.tableView reloadData];
-    else {
-        if ([UICollectionView class])
-            [self.collectionView reloadData];
-        else
-            [self.gridView reloadData];
-    }
+    else
+        [self.collectionView reloadData];
 
     [self _displayEmptyLibraryViewIfNeeded];
 }
@@ -380,46 +362,6 @@
     [self openMediaObject:selectedObject];
 }
 
-#pragma mark - AQGridView
-- (NSUInteger)numberOfItemsInGridView:(AQGridView *)gridView
-{
-    return _foundMedia.count;
-}
-
-- (AQGridViewCell *)gridView:(AQGridView *)gridView cellForItemAtIndex:(NSUInteger)index
-{
-    static NSString *AQCellIdentifier = @"AQPlaylistCell";
-
-    VLCPlaylistGridView *cell = (VLCPlaylistGridView *)[gridView dequeueReusableCellWithIdentifier:AQCellIdentifier];
-    if (cell == nil) {
-        cell = [[[NSBundle mainBundle] loadNibNamed:@"VLCPlaylistGridView" owner:self options:nil] lastObject];
-        cell.selectionStyle = AQGridViewCellSelectionStyleNone;
-        cell.gridView = gridView;
-    }
-
-    cell.mediaObject = _foundMedia[index];
-
-    return cell;
-}
-
-- (CGSize)portraitGridCellSizeForGridView:(AQGridView *)gridView
-{
-    return [VLCPlaylistGridView preferredSize];
-}
-
-- (void)gridView:(AQGridView *)gridView didSelectItemAtIndex:(NSUInteger)index
-{
-    [self.gridView deselectItemAtIndex:index animated:YES];
-    NSManagedObject *selectedObject = _foundMedia[index];
-    [self openMediaObject:selectedObject];
-}
-
-- (void)gridView:(AQGridView *)aGridView commitEditingStyle:(UITableViewCellEditingStyle)editingStyle forRowAtIndex:(NSUInteger)index
-{
-    if (editingStyle == UITableViewCellEditingStyleDelete)
-        [self removeMediaObject: _foundMedia[index]];
-}
-
 #pragma mark - UI implementation
 - (void)setEditing:(BOOL)editing animated:(BOOL)animated
 {
@@ -442,18 +384,13 @@
     }
 
     if (UI_USER_INTERFACE_IDIOM() == UIUserInterfaceIdiomPad) {
-        if ([UICollectionView class]) {
-            NSArray *visibleCells = self.collectionView.visibleCells;
+        NSArray *visibleCells = self.collectionView.visibleCells;
 
-            [visibleCells enumerateObjectsUsingBlock:^(id obj, NSUInteger idx, BOOL *stop) {
-                VLCPlaylistCollectionViewCell *aCell = (VLCPlaylistCollectionViewCell*)obj;
+        [visibleCells enumerateObjectsUsingBlock:^(id obj, NSUInteger idx, BOOL *stop) {
+            VLCPlaylistCollectionViewCell *aCell = (VLCPlaylistCollectionViewCell*)obj;
 
-                [aCell setEditing:editing animated:animated];
-            }];
-        }
-        else {
-            [self.gridView setEditing:editing];
-        }
+            [aCell setEditing:editing animated:animated];
+        }];
     } else
         [self.tableView setEditing:editing animated:YES];
 }

@@ -35,7 +35,7 @@
 				<string key="targetRuntimeIdentifier">IBIPadFramework</string>
 			</object>
 			<object class="IBUICollectionViewCell" id="541525164">
-				<reference key="NSNextResponder"/>
+				<nil key="NSNextResponder"/>
 				<int key="NSvFlags">268</int>
 				<array class="NSMutableArray" key="NSSubviews">
 					<object class="IBUIView" id="343928585">
@@ -47,7 +47,6 @@
 								<int key="NSvFlags">264</int>
 								<string key="NSFrame">{{19, 76}, {257, 20}}</string>
 								<reference key="NSSuperview" ref="343928585"/>
-								<reference key="NSWindow"/>
 								<reference key="NSNextKeyView" ref="405891686"/>
 								<string key="NSReuseIdentifierKey">_NS:9</string>
 								<bool key="IBUIOpaque">NO</bool>
@@ -74,7 +73,7 @@
 									<int key="type">1</int>
 									<double key="pointSize">18</double>
 								</object>
-								<object class="NSFont" key="IBUIFont" id="483977020">
+								<object class="NSFont" key="IBUIFont" id="670371248">
 									<string key="NSName">HelveticaNeue</string>
 									<double key="NSSize">18</double>
 									<int key="NSfFlags">16</int>
@@ -85,7 +84,6 @@
 								<int key="NSvFlags">264</int>
 								<string key="NSFrame">{{20, 96}, {258, 28}}</string>
 								<reference key="NSSuperview" ref="343928585"/>
-								<reference key="NSWindow"/>
 								<reference key="NSNextKeyView" ref="99927648"/>
 								<string key="NSReuseIdentifierKey">_NS:9</string>
 								<bool key="IBUIOpaque">NO</bool>
@@ -108,7 +106,7 @@
 									<int key="type">1</int>
 									<double key="pointSize">14</double>
 								</object>
-								<object class="NSFont" key="IBUIFont" id="1017855913">
+								<object class="NSFont" key="IBUIFont" id="1007861149">
 									<string key="NSName">HelveticaNeue</string>
 									<double key="NSSize">14</double>
 									<int key="NSfFlags">16</int>
@@ -119,7 +117,6 @@
 								<int key="NSvFlags">274</int>
 								<string key="NSFrame">{{21, 14}, {256, 144}}</string>
 								<reference key="NSSuperview" ref="343928585"/>
-								<reference key="NSWindow"/>
 								<reference key="NSNextKeyView" ref="501792178"/>
 								<string key="NSReuseIdentifierKey">_NS:9</string>
 								<bool key="IBUIUserInteractionEnabled">NO</bool>
@@ -130,7 +127,6 @@
 								<int key="NSvFlags">264</int>
 								<string key="NSFrame">{{20, 167}, {258, 21}}</string>
 								<reference key="NSSuperview" ref="343928585"/>
-								<reference key="NSWindow"/>
 								<reference key="NSNextKeyView" ref="288639132"/>
 								<string key="NSReuseIdentifierKey">_NS:9</string>
 								<bool key="IBUIOpaque">NO</bool>
@@ -147,14 +143,13 @@
 								<bool key="IBUIAdjustsLetterSpacingToFitWidth">YES</bool>
 								<int key="IBUITextAlignment">1</int>
 								<reference key="IBUIFontDescription" ref="290339558"/>
-								<reference key="IBUIFont" ref="483977020"/>
+								<reference key="IBUIFont" ref="670371248"/>
 							</object>
 							<object class="IBUILabel" id="288639132">
 								<reference key="NSNextResponder" ref="343928585"/>
 								<int key="NSvFlags">264</int>
 								<string key="NSFrame">{{20, 190}, {258, 28}}</string>
 								<reference key="NSSuperview" ref="343928585"/>
-								<reference key="NSWindow"/>
 								<string key="NSReuseIdentifierKey">_NS:9</string>
 								<bool key="IBUIOpaque">NO</bool>
 								<bool key="IBUIClipsSubviews">YES</bool>
@@ -171,7 +166,7 @@
 								<int key="IBUIBaselineAdjustment">0</int>
 								<int key="IBUITextAlignment">1</int>
 								<reference key="IBUIFontDescription" ref="106500751"/>
-								<reference key="IBUIFont" ref="1017855913"/>
+								<reference key="IBUIFont" ref="1007861149"/>
 								<bool key="IBUIAdjustsFontSizeToFit">NO</bool>
 							</object>
 							<object class="IBUILabel" id="22663525">
@@ -179,7 +174,6 @@
 								<int key="NSvFlags">264</int>
 								<string key="NSFrame">{{27, 12}, {230, 28}}</string>
 								<reference key="NSSuperview" ref="343928585"/>
-								<reference key="NSWindow"/>
 								<reference key="NSNextKeyView" ref="699596644"/>
 								<string key="NSReuseIdentifierKey">_NS:9</string>
 								<bool key="IBUIOpaque">NO</bool>
@@ -199,14 +193,13 @@
 								<float key="IBUIMinimumFontSize">9</float>
 								<bool key="IBUIAdjustsLetterSpacingToFitWidth">YES</bool>
 								<reference key="IBUIFontDescription" ref="106500751"/>
-								<reference key="IBUIFont" ref="1017855913"/>
+								<reference key="IBUIFont" ref="1007861149"/>
 							</object>
 							<object class="IBUIView" id="501792178">
 								<reference key="NSNextResponder" ref="343928585"/>
 								<int key="NSvFlags">292</int>
 								<string key="NSFrame">{{21, 146}, {256, 12}}</string>
 								<reference key="NSSuperview" ref="343928585"/>
-								<reference key="NSWindow"/>
 								<reference key="NSNextKeyView" ref="634412904"/>
 								<string key="NSReuseIdentifierKey">_NS:9</string>
 								<object class="NSColor" key="IBUIBackgroundColor" id="476951524">
@@ -220,7 +213,6 @@
 								<int key="NSvFlags">274</int>
 								<string key="NSFrame">{{16, 9}, {266, 154}}</string>
 								<reference key="NSSuperview" ref="343928585"/>
-								<reference key="NSWindow"/>
 								<reference key="NSNextKeyView" ref="22663525"/>
 								<string key="NSReuseIdentifierKey">_NS:9</string>
 								<bool key="IBUIUserInteractionEnabled">NO</bool>
@@ -235,7 +227,6 @@
 								<int key="NSvFlags">-2147483356</int>
 								<string key="NSFrame">{{260, 2}, {33, 29}}</string>
 								<reference key="NSSuperview" ref="343928585"/>
-								<reference key="NSWindow"/>
 								<reference key="NSNextKeyView" ref="457142782"/>
 								<string key="NSReuseIdentifierKey">_NS:9</string>
 								<bool key="IBUIOpaque">NO</bool>
@@ -270,7 +261,6 @@
 								<int key="NSvFlags">297</int>
 								<string key="NSFrame">{{235, 12}, {44, 44}}</string>
 								<reference key="NSSuperview" ref="343928585"/>
-								<reference key="NSWindow"/>
 								<reference key="NSNextKeyView" ref="657061410"/>
 								<string key="NSReuseIdentifierKey">_NS:9</string>
 								<bool key="IBUIUserInteractionEnabled">NO</bool>
@@ -283,7 +273,6 @@
 						</array>
 						<string key="NSFrameSize">{298, 220}</string>
 						<reference key="NSSuperview" ref="541525164"/>
-						<reference key="NSWindow"/>
 						<reference key="NSNextKeyView" ref="130196590"/>
 						<reference key="IBUIBackgroundColor" ref="476951524"/>
 						<bool key="IBUIOpaque">NO</bool>
@@ -294,8 +283,6 @@
 					</object>
 				</array>
 				<string key="NSFrameSize">{298, 220}</string>
-				<reference key="NSSuperview"/>
-				<reference key="NSWindow"/>
 				<reference key="NSNextKeyView" ref="343928585"/>
 				<string key="NSReuseIdentifierKey">_NS:9</string>
 				<bool key="IBUIOpaque">NO</bool>
@@ -504,102 +491,7 @@
 			<dictionary class="NSMutableDictionary" key="localizations"/>
 			<nil key="sourceID"/>
 		</object>
-		<object class="IBClassDescriber" key="IBDocument.Classes">
-			<array class="NSMutableArray" key="referencedPartialClassDescriptions">
-				<object class="IBPartialClassDescription">
-					<string key="className">UICollectionReusableView</string>
-					<string key="superclassName">UIView</string>
-					<object class="IBClassDescriptionSource" key="sourceIdentifier">
-						<string key="majorKey">IBProjectSource</string>
-						<string key="minorKey">./Classes/UICollectionReusableView.h</string>
-					</object>
-				</object>
-				<object class="IBPartialClassDescription">
-					<string key="className">UICollectionViewCell</string>
-					<string key="superclassName">UICollectionReusableView</string>
-					<object class="IBClassDescriptionSource" key="sourceIdentifier">
-						<string key="majorKey">IBProjectSource</string>
-						<string key="minorKey">./Classes/UICollectionViewCell.h</string>
-					</object>
-				</object>
-				<object class="IBPartialClassDescription">
-					<string key="className">VLCLinearProgressIndicator</string>
-					<string key="superclassName">UIView</string>
-					<object class="IBClassDescriptionSource" key="sourceIdentifier">
-						<string key="majorKey">IBProjectSource</string>
-						<string key="minorKey">./Classes/VLCLinearProgressIndicator.h</string>
-					</object>
-				</object>
-				<object class="IBPartialClassDescription">
-					<string key="className">VLCPlaylistCollectionViewCell</string>
-					<string key="superclassName">UICollectionViewCell</string>
-					<object class="NSMutableDictionary" key="actions">
-						<string key="NS.key.0">removeMedia:</string>
-						<string key="NS.object.0">id</string>
-					</object>
-					<object class="NSMutableDictionary" key="actionInfosByName">
-						<string key="NS.key.0">removeMedia:</string>
-						<object class="IBActionInfo" key="NS.object.0">
-							<string key="name">removeMedia:</string>
-							<string key="candidateClassName">id</string>
-						</object>
-					</object>
-					<dictionary class="NSMutableDictionary" key="outlets">
-						<string key="albumNameLabel">UILabel</string>
-						<string key="artistNameLabel">UILabel</string>
-						<string key="mediaIsUnreadView">UIImageView</string>
-						<string key="progressView">VLCLinearProgressIndicator</string>
-						<string key="removeMediaButton">UIButton</string>
-						<string key="seriesNameLabel">UILabel</string>
-						<string key="subtitleLabel">UILabel</string>
-						<string key="thumbnailView">UIImageView</string>
-						<string key="titleLabel">UILabel</string>
-					</dictionary>
-					<dictionary class="NSMutableDictionary" key="toOneOutletInfosByName">
-						<object class="IBToOneOutletInfo" key="albumNameLabel">
-							<string key="name">albumNameLabel</string>
-							<string key="candidateClassName">UILabel</string>
-						</object>
-						<object class="IBToOneOutletInfo" key="artistNameLabel">
-							<string key="name">artistNameLabel</string>
-							<string key="candidateClassName">UILabel</string>
-						</object>
-						<object class="IBToOneOutletInfo" key="mediaIsUnreadView">
-							<string key="name">mediaIsUnreadView</string>
-							<string key="candidateClassName">UIImageView</string>
-						</object>
-						<object class="IBToOneOutletInfo" key="progressView">
-							<string key="name">progressView</string>
-							<string key="candidateClassName">VLCLinearProgressIndicator</string>
-						</object>
-						<object class="IBToOneOutletInfo" key="removeMediaButton">
-							<string key="name">removeMediaButton</string>
-							<string key="candidateClassName">UIButton</string>
-						</object>
-						<object class="IBToOneOutletInfo" key="seriesNameLabel">
-							<string key="name">seriesNameLabel</string>
-							<string key="candidateClassName">UILabel</string>
-						</object>
-						<object class="IBToOneOutletInfo" key="subtitleLabel">
-							<string key="name">subtitleLabel</string>
-							<string key="candidateClassName">UILabel</string>
-						</object>
-						<object class="IBToOneOutletInfo" key="thumbnailView">
-							<string key="name">thumbnailView</string>
-							<string key="candidateClassName">UIImageView</string>
-						</object>
-						<object class="IBToOneOutletInfo" key="titleLabel">
-							<string key="name">titleLabel</string>
-							<string key="candidateClassName">UILabel</string>
-						</object>
-					</dictionary>
-					<object class="IBClassDescriptionSource" key="sourceIdentifier">
-						<string key="majorKey">IBProjectSource</string>
-						<string key="minorKey">./Classes/VLCPlaylistCollectionViewCell.h</string>
-					</object>
-				</object>
-			</array>
-		</object>
+		<object class="IBClassDescriber" key="IBDocument.Classes"/>
 		<int key="IBDocument.localizationMode">0</int>
 		<string key="IBDocument.TargetRuntimeIdentifier">IBIPadFramework</string>
 		<bool key="IBDocument.previouslyAttemptedUpgradeToXcode5">YES</bool>
