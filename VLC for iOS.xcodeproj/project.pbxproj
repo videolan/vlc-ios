@@ -187,6 +187,7 @@
 		7D6BD1851762026700AD311A /* thumbOverlay@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 7D6BD1811762026700AD311A /* thumbOverlay@2x.png */; };
 		7D6BD1861762026700AD311A /* thumbOverlayPhone.png in Resources */ = {isa = PBXBuildFile; fileRef = 7D6BD1821762026700AD311A /* thumbOverlayPhone.png */; };
 		7D6BD1871762026700AD311A /* thumbOverlay.png in Resources */ = {isa = PBXBuildFile; fileRef = 7D6BD1831762026700AD311A /* thumbOverlay.png */; };
+		7D8EEC181804217800A6F16E /* VLCFuturePlaylistCollectionViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 7D8EEC171804217800A6F16E /* VLCFuturePlaylistCollectionViewCell.xib */; };
 		7D93044117B67C4F0054EAC6 /* VLCLocalServerListViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 7D93043F17B67C4F0054EAC6 /* VLCLocalServerListViewController.m */; };
 		7D93044517B684CF0054EAC6 /* VLCLocalNetworkListCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 7D93044417B684CF0054EAC6 /* VLCLocalNetworkListCell.m */; };
 		7D93044817B687C90054EAC6 /* VLCLocalNetworkListCell~ipad.xib in Resources */ = {isa = PBXBuildFile; fileRef = 7D93044617B687C90054EAC6 /* VLCLocalNetworkListCell~ipad.xib */; };
@@ -614,6 +615,7 @@
 		7D7DA5311768A53200C7E95D /* id */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = id; path = "id.lproj/badgeUnread@2x~iphone.png"; sourceTree = "<group>"; };
 		7D7DA5321768A53200C7E95D /* id */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = id; path = "id.lproj/badgeUnread~ipad.png"; sourceTree = "<group>"; };
 		7D7DA5331768A53200C7E95D /* id */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = id; path = "id.lproj/badgeUnread~iphone.png"; sourceTree = "<group>"; };
+		7D8EEC171804217800A6F16E /* VLCFuturePlaylistCollectionViewCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = VLCFuturePlaylistCollectionViewCell.xib; sourceTree = "<group>"; };
 		7D93043E17B67C4F0054EAC6 /* VLCLocalServerListViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = VLCLocalServerListViewController.h; sourceTree = "<group>"; };
 		7D93043F17B67C4F0054EAC6 /* VLCLocalServerListViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = VLCLocalServerListViewController.m; sourceTree = "<group>"; };
 		7D93044317B684CE0054EAC6 /* VLCLocalNetworkListCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = VLCLocalNetworkListCell.h; sourceTree = "<group>"; };
@@ -1488,6 +1490,7 @@
 				A79246BE170F114E0036AAF2 /* VLCPlaylistTableViewCell.xib */,
 				7D1AA4DD17FDA47C00D6D9F9 /* VLCPlaylistCollectionViewCell.xib */,
 				7D3319A817CC88AE00CBEAD7 /* VLCFuturePlaylistTableViewCell.xib */,
+				7D8EEC171804217800A6F16E /* VLCFuturePlaylistCollectionViewCell.xib */,
 				7D5E39C5174FBAF3007DAFA1 /* VLCDropboxTableViewController.xib */,
 				7D5E39D0174FCF43007DAFA1 /* VLCDropboxTableViewCell~ipad.xib */,
 				7DF65C2C174FF3F400F43330 /* VLCDropboxTableViewCell~iphone.xib */,
@@ -1930,6 +1933,7 @@
 				7D1AC3041762996100BD2EB5 /* resetIcon.png in Resources */,
 				7D1AC3051762996100BD2EB5 /* resetIcon@2x.png in Resources */,
 				7D1AC30817629AB600BD2EB5 /* ratioIcon.png in Resources */,
+				7D8EEC181804217800A6F16E /* VLCFuturePlaylistCollectionViewCell.xib in Resources */,
 				7D1AC30917629AB600BD2EB5 /* ratioIcon@2x.png in Resources */,
 				7D1AC30C17629D4600BD2EB5 /* title.png in Resources */,
 				7D1AC30D17629D4600BD2EB5 /* title@2x.png in Resources */,

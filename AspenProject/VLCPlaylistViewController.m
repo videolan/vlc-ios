@@ -58,7 +58,11 @@
         _collectionView.dataSource = self;
         self.view = _collectionView;
 
-        [_collectionView registerNib:[UINib nibWithNibName:@"VLCPlaylistCollectionViewCell" bundle:nil] forCellWithReuseIdentifier:@"PlaylistCell"];
+        if (SYSTEM_RUNS_IN_THE_FUTURE)
+            [_collectionView registerNib:[UINib nibWithNibName:@"VLCFuturePlaylistCollectionViewCell" bundle:nil] forCellWithReuseIdentifier:@"PlaylistCell"];
+        else
+            [_collectionView registerNib:[UINib nibWithNibName:@"VLCPlaylistCollectionViewCell" bundle:nil] forCellWithReuseIdentifier:@"PlaylistCell"];
+
 
         self.view.backgroundColor = [UIColor colorWithPatternImage:[UIImage imageNamed:@"libraryBackground"]];
     }
@@ -348,12 +352,31 @@
 
 - (CGSize)collectionView:(UICollectionView *)collectionView layout:(UICollectionViewLayout *)collectionViewLayout sizeForItemAtIndexPath:(NSIndexPath *)indexPath
 {
+    if (SYSTEM_RUNS_IN_THE_FUTURE)
+        return CGSizeMake(334.0, 191.0);
+
     return CGSizeMake(298.0, 220.0);
 }
 
 - (UIEdgeInsets)collectionView:(UICollectionView *)collectionView layout:(UICollectionViewLayout *)collectionViewLayout insetForSectionAtIndex:(NSInteger)section
 {
+    if (SYSTEM_RUNS_IN_THE_FUTURE)
+        return UIEdgeInsetsMake(0.0, 0.0, 0.0, 0.0);
     return UIEdgeInsetsMake(0.0, 34.0, 0.0, 34.0);
+}
+
+- (CGFloat)collectionView:(UICollectionView *)collectionView layout:(UICollectionViewLayout*)collectionViewLayout minimumLineSpacingForSectionAtIndex:(NSInteger)section
+{
+    if (SYSTEM_RUNS_IN_THE_FUTURE)
+        return 0.0;
+    return 10.0;
+}
+
+- (CGFloat)collectionView:(UICollectionView *)collectionView layout:(UICollectionViewLayout*)collectionViewLayout minimumInteritemSpacingForSectionAtIndex:(NSInteger)section
+{
+    if (SYSTEM_RUNS_IN_THE_FUTURE)
+        return 0.0;
+    return 10.0;
 }
 
 - (void)collectionView:(UICollectionView *)collectionView didSelectItemAtIndexPath:(NSIndexPath *)indexPath
