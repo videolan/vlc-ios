@@ -116,16 +116,16 @@ spushd ImportedSources
 
 if ! [ -e vlc ]; then
 git clone git://git.videolan.org/vlc/vlc-2.1.git vlc
-info "Applying patches to vlc.git"
-cd vlc
-git checkout -B localAspenBranch ${TESTEDHASH}
-git am ../../patches/*.patch
-if [ $? -ne 0 ]; then
-git am --abort
-info "Applying the patches failed, aborting git-am"
-exit 1
-fi
-cd ..
+#info "Applying patches to vlc.git"
+#cd vlc
+#git checkout -B localAspenBranch ${TESTEDHASH}
+#git am ../../patches/*.patch
+#if [ $? -ne 0 ]; then
+#git am --abort
+#info "Applying the patches failed, aborting git-am"
+#exit 1
+#fi
+#cd ..
 fi
 if ! [ -e MediaLibraryKit ]; then
 git clone git://git.videolan.org/MediaLibraryKit.git
