@@ -240,6 +240,10 @@
 
 -(void)handleRefresh
 {
+    UPnPManager *managerInstance = [UPnPManager GetInstance];
+    [[managerInstance DB] removeObserver:(UPnPDBObserver*)self];
+    [[managerInstance SSDP] stopSSDP];
+
     //set the title while refreshing
     refreshControl.attributedTitle = [[NSAttributedString alloc]initWithString:@"Refresh"];
     //set the date and time of refreshing
