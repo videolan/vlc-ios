@@ -14,12 +14,12 @@
                 <rect key="frame" x="0.0" y="0.0" width="320" height="89"/>
                 <autoresizingMask key="autoresizingMask"/>
                 <subviews>
-                    <imageView userInteractionEnabled="NO" contentMode="center" image="thumbOverlayPhone.png" id="22">
-                        <rect key="frame" x="0.0" y="0.0" width="330" height="90"/>
+                    <imageView userInteractionEnabled="NO" contentMode="center" id="4">
+                        <rect key="frame" x="0.0" y="0.0" width="320" height="90"/>
                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                     </imageView>
-                    <imageView userInteractionEnabled="NO" contentMode="scaleToFill" image="gradient-cell-ios7.png" id="4">
-                        <rect key="frame" x="0.0" y="0.0" width="320" height="90"/>
+                    <imageView userInteractionEnabled="NO" contentMode="scaleToFill" image="gradient-cell-ios7.png" id="22">
+                        <rect key="frame" x="0.0" y="0.0" width="330" height="90"/>
                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                     </imageView>
                     <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" text="Title" lineBreakMode="wordWrap" baselineAdjustment="none" minimumFontSize="9" adjustsLetterSpacingToFitWidth="YES" id="6">
@@ -62,6 +62,5 @@
     </objects>
     <resources>
         <image name="gradient-cell-ios7.png" width="1" height="90"/>
-        <image name="thumbOverlayPhone.png" width="129" height="75"/>
     </resources>
 </document>

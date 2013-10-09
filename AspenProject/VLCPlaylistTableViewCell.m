@@ -123,7 +123,7 @@
 + (CGFloat)heightOfCell
 {
     if (SYSTEM_RUNS_IN_THE_FUTURE)
-        return 185.;
+        return 90.;
 
     return 80.;
 }
