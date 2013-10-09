@@ -103,6 +103,8 @@
 		7D1AC30D17629D4600BD2EB5 /* title@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 7D1AC30B17629D4600BD2EB5 /* title@2x.png */; };
 		7D2339AF176DE72E008D223C /* VLCOpenNetworkStreamViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 7D2339AD176DE72E008D223C /* VLCOpenNetworkStreamViewController.m */; };
 		7D2339B0176DE72E008D223C /* VLCOpenNetworkStreamViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 7D2339AE176DE72E008D223C /* VLCOpenNetworkStreamViewController.xib */; };
+		7D2A34A41805CDBA004078AA /* gradient-cell-ios7.png in Resources */ = {isa = PBXBuildFile; fileRef = 7D2A34A21805CDBA004078AA /* gradient-cell-ios7.png */; };
+		7D2A34A51805CDBA004078AA /* gradient-cell-ios7@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 7D2A34A31805CDBA004078AA /* gradient-cell-ios7@2x.png */; };
 		7D31001D17B64AE100E6516D /* GHRevealViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 7D31001C17B64AE100E6516D /* GHRevealViewController.m */; };
 		7D31002017B6768B00E6516D /* libupnpx.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 7D31001F17B6768B00E6516D /* libupnpx.a */; };
 		7D31CF091746AF09005997E0 /* VLCStatusLabel.m in Sources */ = {isa = PBXBuildFile; fileRef = 7D31CF081746AF09005997E0 /* VLCStatusLabel.m */; };
@@ -474,6 +476,8 @@
 		7D2339AC176DE72E008D223C /* VLCOpenNetworkStreamViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = VLCOpenNetworkStreamViewController.h; sourceTree = "<group>"; };
 		7D2339AD176DE72E008D223C /* VLCOpenNetworkStreamViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = VLCOpenNetworkStreamViewController.m; sourceTree = "<group>"; };
 		7D2339AE176DE72E008D223C /* VLCOpenNetworkStreamViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; name = VLCOpenNetworkStreamViewController.xib; path = ../Resources/VLCOpenNetworkStreamViewController.xib; sourceTree = "<group>"; };
+		7D2A34A21805CDBA004078AA /* gradient-cell-ios7.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "gradient-cell-ios7.png"; sourceTree = "<group>"; };
+		7D2A34A31805CDBA004078AA /* gradient-cell-ios7@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "gradient-cell-ios7@2x.png"; sourceTree = "<group>"; };
 		7D2AEDE017FB775900B5281E /* sv */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = sv; path = sv.lproj/Localizable.strings; sourceTree = "<group>"; };
 		7D2AEDE117FB775900B5281E /* sv */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = sv; path = "sv.lproj/badgeUnread@2x~ipad.png"; sourceTree = "<group>"; };
 		7D2AEDE217FB775900B5281E /* sv */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = sv; path = "sv.lproj/badgeUnread@2x~iphone.png"; sourceTree = "<group>"; };
@@ -1067,6 +1071,8 @@
 		7D10BC661743F9AC00DA7059 /* Library View */ = {
 			isa = PBXGroup;
 			children = (
+				7D2A34A21805CDBA004078AA /* gradient-cell-ios7.png */,
+				7D2A34A31805CDBA004078AA /* gradient-cell-ios7@2x.png */,
 				A7990063176E9352009E8267 /* libraryBackground.png */,
 				7D1AC30A17629D4600BD2EB5 /* title.png */,
 				7D1AC30B17629D4600BD2EB5 /* title@2x.png */,
@@ -1830,6 +1836,7 @@
 				A79246A8170F0ED20036AAF2 /* Default.png in Resources */,
 				A79246A9170F0ED20036AAF2 /* Default@2x.png in Resources */,
 				A79246C1170F114E0036AAF2 /* VLCEmptyLibraryView~ipad.xib in Resources */,
+				7D2A34A51805CDBA004078AA /* gradient-cell-ios7@2x.png in Resources */,
 				A79246C2170F114E0036AAF2 /* VLCMovieViewController~iphone.xib in Resources */,
 				A79246C3170F114E0036AAF2 /* VLCPlaylistTableViewCell.xib in Resources */,
 				A79246C5170F114E0036AAF2 /* VLCEmptyLibraryView~iphone.xib in Resources */,
@@ -1969,6 +1976,7 @@
 				7DB43836176E20CC00F460EE /* VLCDownloadViewController.xib in Resources */,
 				A7990064176E9352009E8267 /* libraryBackground.png in Resources */,
 				7DD2A3A9179C04A7003EB537 /* OpenSans-Regular.ttf in Resources */,
+				7D2A34A41805CDBA004078AA /* gradient-cell-ios7.png in Resources */,
 				7D93044817B687C90054EAC6 /* VLCLocalNetworkListCell~ipad.xib in Resources */,
 				7D93044917B687C90054EAC6 /* VLCLocalNetworkListCell~iphone.xib in Resources */,
 				7D93045B17B6ACCF0054EAC6 /* VLCWiFiUploadTableViewCell.xib in Resources */,
