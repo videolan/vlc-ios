@@ -11,8 +11,7 @@
 #import "VLCThumbnailsCache.h"
 
 static NSInteger MaxCacheSize;
-static NSMutableArray *_thumbnailCacheIndex = nil;
-static NSMutableDictionary *_thumbnailCache = nil;
+static NSCache *_thumbnailCache;
 
 @implementation VLCThumbnailsCache
 
@@ -24,9 +23,8 @@ static NSMutableDictionary *_thumbnailCache = nil;
     MaxCacheSize = (UI_USER_INTERFACE_IDIOM() == UIUserInterfaceIdiomPad)?
                                 MAX_CACHE_SIZE_IPAD: MAX_CACHE_SIZE_IPHONE;
 
-    // TODO Consider to use NSCache
-    _thumbnailCache = [[NSMutableDictionary alloc] initWithCapacity:MaxCacheSize];
-    _thumbnailCacheIndex = [[NSMutableArray alloc] initWithCapacity:MaxCacheSize];
+    _thumbnailCache = [[NSCache alloc] init];
+    [_thumbnailCache setCountLimit: MaxCacheSize];
 }
 
 + (UIImage *)thumbnailForMediaFile:(MLFile *)mediaFile
@@ -35,27 +33,13 @@ static NSMutableDictionary *_thumbnailCache = nil;
         return nil;
 
     NSManagedObjectID *objID = mediaFile.objectID;
-    UIImage *displayedImage = nil;
-    if ([_thumbnailCacheIndex containsObject:objID]) {
-        [_thumbnailCacheIndex removeObject:objID];
-        [_thumbnailCacheIndex insertObject:objID atIndex:0];
-        displayedImage = [_thumbnailCache objectForKey:objID];
-        if (!displayedImage && mediaFile.computedThumbnail) {
-            displayedImage = mediaFile.computedThumbnail;
-            [_thumbnailCache setObject:displayedImage forKey:objID];
-        }
-    } else {
-        if (_thumbnailCacheIndex.count >= MaxCacheSize) {
-            [_thumbnailCache removeObjectForKey:[_thumbnailCacheIndex lastObject]];
-            [_thumbnailCacheIndex removeLastObject];
-        }
-        displayedImage = mediaFile.computedThumbnail;
+    UIImage *displayedImage = [_thumbnailCache objectForKey:objID];
 
-        if (displayedImage) {
-            [_thumbnailCache setObject:displayedImage forKey:objID];
-            [_thumbnailCacheIndex insertObject:objID atIndex:0];
-        }
-    }
+    if (displayedImage)
+        return displayedImage;
+
+    displayedImage = mediaFile.computedThumbnail;
+    [_thumbnailCache setObject:displayedImage forKey:objID];
 
     return displayedImage;
 }
