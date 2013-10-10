@@ -141,11 +141,7 @@
     MLFile *anyFileFromTrack = albumTrack.files.anyObject;
     self.subtitleLabel.text = [NSString stringWithFormat:@"%@", [VLCTime timeWithNumber:[anyFileFromTrack duration]]];
 
-    CGFloat position = anyFileFromTrack.lastPosition.floatValue;
-    self.progressView.progress = position;
-    self.progressView.hidden = ((position < .1f) || (position > .95f)) ? YES : NO;
-    [self.progressView setNeedsDisplay];
-    self.mediaIsUnreadView.hidden = !anyFileFromTrack.unread.intValue;
+    [self _showPositionOfItem:anyFileFromTrack];
 }
 
 - (void)_configureForAlbum:(MLAlbum *)album
@@ -172,11 +168,7 @@
     } else
         self.subtitleLabel.text = [NSString stringWithFormat:@"S%02dE%02d — %@", showEpisode.episodeNumber.intValue, showEpisode.seasonNumber.intValue, [VLCTime timeWithNumber:[anyFileFromEpisode duration]]];
 
-    CGFloat position = anyFileFromEpisode.lastPosition.floatValue;
-    self.progressView.progress = position;
-    self.progressView.hidden = ((position < .1f) || (position > .95f)) ? YES : NO;
-    [self.progressView setNeedsDisplay];
-    self.mediaIsUnreadView.hidden = !showEpisode.unread.intValue;
+    [self _showPositionOfItem:anyFileFromEpisode];
 }
 
 - (void)_configureForMLFile:(MLFile *)mediaFile
@@ -207,11 +199,16 @@
         }
     }
 
-    CGFloat position = mediaFile.lastPosition.floatValue;
+    [self _showPositionOfItem:mediaFile];
+}
+
+- (void)_showPositionOfItem:(MLFile *)mediaItem
+{
+    CGFloat position = mediaItem.lastPosition.floatValue;
     self.progressView.progress = position;
     self.progressView.hidden = ((position < .1f) || (position > .95f)) ? YES : NO;
     [self.progressView setNeedsDisplay];
-    self.mediaIsUnreadView.hidden = !mediaFile.unread.intValue;
+    self.mediaIsUnreadView.hidden = !mediaItem.unread.intValue;
 }
 
 @end
