@@ -237,7 +237,7 @@
 
     if (SYSTEM_RUNS_IN_THE_FUTURE) {
         if (position > .1f && position < .95f) {
-            [(UITextView*)self.mediaIsUnreadView setText:[NSString stringWithFormat:NSLocalizedString(@"LIBRARY_MINUTES_LEFT", @""), [[VLCTime timeWithInt:(mediaFile.duration.floatValue * position)] minuteStringValue]]];
+            [(UITextView*)self.mediaIsUnreadView setText:[NSString stringWithFormat:NSLocalizedString(@"LIBRARY_MINUTES_LEFT", @""), [[VLCTime timeWithInt:(mediaFile.duration.floatValue * position - mediaFile.duration.floatValue)] minuteStringValue]]];
             self.mediaIsUnreadView.hidden = NO;
         } else if (mediaFile.unread.intValue) {
             [(UILabel *)self.mediaIsUnreadView setText:[NSLocalizedString(@"NEW", @"") capitalizedStringWithLocale:[NSLocale currentLocale]]];
