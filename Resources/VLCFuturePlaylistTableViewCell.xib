@@ -28,8 +28,7 @@
                         <fontDescription key="fontDescription" type="system" pointSize="15"/>
                         <color key="textColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                         <color key="highlightedColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
-                        <color key="shadowColor" white="0.0" alpha="0.5" colorSpace="calibratedWhite"/>
-                        <size key="shadowOffset" width="7" height="1"/>
+                        <size key="shadowOffset" width="0.0" height="0.0"/>
                     </label>
                     <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" text="New" textAlignment="right" lineBreakMode="wordWrap" baselineAdjustment="none" minimumFontSize="9" adjustsLetterSpacingToFitWidth="YES" id="sYw-l2-Tmv">
                         <rect key="frame" x="265" y="61" width="50" height="26"/>
@@ -37,8 +36,7 @@
                         <fontDescription key="fontDescription" type="system" pointSize="12"/>
                         <color key="textColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                         <color key="highlightedColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
-                        <color key="shadowColor" white="0.0" alpha="0.5" colorSpace="calibratedWhite"/>
-                        <size key="shadowOffset" width="7" height="1"/>
+                        <size key="shadowOffset" width="0.0" height="0.0"/>
                     </label>
                     <view userInteractionEnabled="NO" contentMode="scaleToFill" id="27" customClass="VLCLinearProgressIndicator">
                         <rect key="frame" x="-1" y="48" width="320" height="10"/>
@@ -51,6 +49,7 @@
                         <fontDescription key="fontDescription" name="HelveticaNeue-Light" family="Helvetica Neue" pointSize="12"/>
                         <color key="textColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                         <color key="highlightedColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                        <size key="shadowOffset" width="0.0" height="0.0"/>
                     </label>
                 </subviews>
             </tableViewCellContentView>
