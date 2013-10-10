@@ -156,7 +156,7 @@
         MediaServer1BasicObject *item = _mutableObjectList[indexPath.row];
         if (![item isContainer]) {
             MediaServer1ItemObject *mediaItem = _mutableObjectList[indexPath.row];
-            [cell setSubtitle: [NSString stringWithFormat:@"%0.2f MB", (float)([mediaItem.size intValue] / 1e6)]];
+            [cell setSubtitle: [NSString stringWithFormat:@"%0.2f MB", (float)([mediaItem.size longLongValue] / 1e6)]];
             [cell setIsDirectory:NO];
             [cell setIcon:[UIImage imageNamed:@"blank"]];
         } else {
@@ -203,7 +203,7 @@
             NSEnumerator *e = [[item resources] objectEnumerator];
             NSURL *itemURL;
             while((resource = (MediaServer1ItemRes*)[e nextObject])){
-                APLog(@"%@ - %d, %@, %d, %d, %d, %@ (%@)", [item title], [resource bitrate], [resource duration], [resource nrAudioChannels], [resource size],  [resource durationInSeconds],  [resource protocolInfo], [item uri]);
+                APLog(@"%@ - %d, %@, %d, %lld, %d, %@ (%@)", [item title], [resource bitrate], [resource duration], [resource nrAudioChannels], [resource size],  [resource durationInSeconds],  [resource protocolInfo], [item uri]);
                 itemURL = [NSURL URLWithString:[item uri]];
             }
 
