@@ -84,7 +84,7 @@
 
     if ([self.mediaObject isKindOfClass:[MLFile class]]) {
         MLFile *mediaObject = (MLFile*)self.mediaObject;
-        [self configureForMLFile:mediaObject];
+        [self _configureForMLFile:mediaObject];
 
         if (([keyPath isEqualToString:@"computedThumbnail"] || !keyPath) && !mediaObject.isAlbumTrack) {
             self.thumbnailView.image = [VLCThumbnailsCache thumbnailForMediaFile:mediaObject];
@@ -92,15 +92,15 @@
 
     } else if ([self.mediaObject isKindOfClass:[MLAlbum class]]) {
         MLAlbum *mediaObject = (MLAlbum *)self.mediaObject;
-        [self configureForAlbum:mediaObject];
+        [self _configureForAlbum:mediaObject];
 
     } else if ([self.mediaObject isKindOfClass:[MLAlbumTrack class]]) {
         MLAlbumTrack *mediaObject = (MLAlbumTrack *)self.mediaObject;
-        [self configureForAlbumTrack:mediaObject];
+        [self _configureForAlbumTrack:mediaObject];
 
     } else if ([self.mediaObject isKindOfClass:[MLShow class]]) {
         MLShow *mediaObject = (MLShow *)self.mediaObject;
-        [self configureForShow:mediaObject];
+        [self _configureForShow:mediaObject];
 
         if ([keyPath isEqualToString:@"computedThumbnail"] || !keyPath) {
             MLFile *anyFileFromAnyEpisode = [mediaObject.episodes.anyObject files].anyObject;
@@ -109,7 +109,7 @@
 
     } else if ([self.mediaObject isKindOfClass:[MLShowEpisode class]]) {
         MLShowEpisode *mediaObject = (MLShowEpisode *)self.mediaObject;
-        [self configureForShowEpisode:mediaObject];
+        [self _configureForShowEpisode:mediaObject];
 
         if ([keyPath isEqualToString:@"computedThumbnail"] || !keyPath) {
             MLFile *anyFileFromEpisode = mediaObject.files.anyObject;
@@ -130,7 +130,7 @@
 
 #pragma mark - presentation
 
-- (void)configureForShow:(MLShow *)show
+- (void)_configureForShow:(MLShow *)show
 {
     self.titleLabel.text = show.name;
     NSUInteger count = show.episodes.count;
@@ -148,7 +148,7 @@
     self.progressIndicator.hidden = YES;
 }
 
-- (void)configureForAlbumTrack:(MLAlbumTrack *)albumTrack
+- (void)_configureForAlbumTrack:(MLAlbumTrack *)albumTrack
 {
     MLFile *anyFileFromTrack = albumTrack.files.anyObject;
 
@@ -165,7 +165,7 @@
     [self _showPositionOfItem:anyFileFromTrack];
 }
 
-- (void)configureForShowEpisode:(MLShowEpisode *)showEpisode
+- (void)_configureForShowEpisode:(MLShowEpisode *)showEpisode
 {
     self.titleLabel.text = showEpisode.name;
 
@@ -179,7 +179,7 @@
     [self _showPositionOfItem:anyFileFromEpisode];
 }
 
-- (void)configureForAlbum:(MLAlbum *)album
+- (void)_configureForAlbum:(MLAlbum *)album
 {
     self.titleLabel.text = album.name;
     MLAlbumTrack *anyTrack = [album.tracks anyObject];
@@ -202,7 +202,7 @@
     self.progressIndicator.hidden = YES;
 }
 
-- (void)configureForMLFile:(MLFile *)mediaFile
+- (void)_configureForMLFile:(MLFile *)mediaFile
 {
     if (mediaFile.isAlbumTrack) {
         if (SYSTEM_RUNS_IN_THE_FUTURE) {
