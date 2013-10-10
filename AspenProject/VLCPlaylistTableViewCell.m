@@ -29,6 +29,13 @@
     return cell;
 }
 
+- (void)awakeFromNib
+{
+    if (SYSTEM_RUNS_IN_THE_FUTURE) {
+        [(UILabel *)self.mediaIsUnreadView setText:[NSLocalizedString(@"NEW", @"") capitalizedStringWithLocale:[NSLocale currentLocale]]];
+    }
+}
+
 - (void)observeValueForKeyPath:(NSString *)keyPath ofObject:(id)object change:(NSDictionary *)change context:(void *)context
 {
     [self _updatedDisplayedInformationForKeyPath:keyPath];
