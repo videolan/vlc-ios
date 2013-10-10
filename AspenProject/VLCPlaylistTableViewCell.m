@@ -29,13 +29,6 @@
     return cell;
 }
 
-- (void)awakeFromNib
-{
-    if (SYSTEM_RUNS_IN_THE_FUTURE) {
-        [(UILabel *)self.mediaIsUnreadView setText:[NSLocalizedString(@"NEW", @"") capitalizedStringWithLocale:[NSLocale currentLocale]]];
-    }
-}
-
 - (void)observeValueForKeyPath:(NSString *)keyPath ofObject:(id)object change:(NSDictionary *)change context:(void *)context
 {
     [self _updatedDisplayedInformationForKeyPath:keyPath];
@@ -241,10 +234,22 @@
     }
 
     CGFloat position = mediaFile.lastPosition.floatValue;
-    self.progressIndicator.progress = position;
-    self.progressIndicator.hidden = ((position < .1f) || (position > .95f)) ? YES : NO;
-    [self.progressIndicator setNeedsDisplay];
-    self.mediaIsUnreadView.hidden = !mediaFile.unread.intValue;
+
+    if (SYSTEM_RUNS_IN_THE_FUTURE) {
+        if (position > .1f && position < .95f) {
+            [(UITextView*)self.mediaIsUnreadView setText:[NSString stringWithFormat:NSLocalizedString(@"LIBRARY_MINUTES_LEFT", @""), [[VLCTime timeWithInt:(mediaFile.duration.floatValue * position)] minuteStringValue]]];
+            self.mediaIsUnreadView.hidden = NO;
+        } else if (mediaFile.unread.intValue) {
+            [(UILabel *)self.mediaIsUnreadView setText:[NSLocalizedString(@"NEW", @"") capitalizedStringWithLocale:[NSLocale currentLocale]]];
+            self.mediaIsUnreadView.hidden = NO;
+        } else
+            self.mediaIsUnreadView.hidden = YES;
+    } else {
+        self.progressIndicator.progress = position;
+        self.progressIndicator.hidden = ((position < .1f) || (position > .95f)) ? YES : NO;
+        [self.progressIndicator setNeedsDisplay];
+        self.mediaIsUnreadView.hidden = !mediaFile.unread.intValue;
+    }
 }
 
 @end
