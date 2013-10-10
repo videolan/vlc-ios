@@ -1,0 +1,57 @@
+diff -ru upnpx-1.2.4/src/api/MediaServer1ItemRes.h upnpx/src/api/MediaServer1ItemRes.h
+--- upnpx-1.2.4/src/api/MediaServer1ItemRes.h	2012-03-07 20:53:57.000000000 +0100
++++ upnpx/src/api/MediaServer1ItemRes.h	2013-10-10 19:12:10.000000000 +0200
+@@ -50,7 +50,7 @@
+     NSString *duration;
+     int nrAudioChannels;
+     NSString *protocolInfo;
+-    int size;
++    long long int size;
+     int durationInSeconds;
+ }
+ 
+@@ -60,7 +60,7 @@
+ @property(retain, nonatomic) NSString *duration;
+ @property(readwrite) int nrAudioChannels;
+ @property(retain, nonatomic) NSString *protocolInfo;
+-@property(readwrite) int size;
++@property(readwrite) long long int size;
+ @property(readwrite) int durationInSeconds;
+ 
+ 
+diff -ru upnpx-1.2.4/src/upnp/BasicParser.m upnpx/src/upnp/BasicParser.m
+--- upnpx-1.2.4/src/upnp/BasicParser.m	2012-03-07 20:53:57.000000000 +0100
++++ upnpx/src/upnp/BasicParser.m	2013-10-10 19:16:16.000000000 +0200
+@@ -295,7 +295,7 @@
+ }
+ 
+ - (void)parser:(NSXMLParser *)parser parseErrorOccurred:(NSError *)parseError {
+-    NSLog(@"%@", [NSString stringWithFormat:@"Parser Error %i, Description: %@, Line: %i, Column: %i", [parseError code], [[parser parserError] localizedDescription], [parser lineNumber], [parser columnNumber]]);
++    NSLog(@"%@", [NSString stringWithFormat:@"Parser Error %li, Description: %@, Line: %li, Column: %li", (long)[parseError code], [[parser parserError] localizedDescription], (long)[parser lineNumber], (long)[parser columnNumber]]);
+ }
+ 
+ 
+diff -ru upnpx-1.2.4/src/upnp/MediaServer1Device.m upnpx/src/upnp/MediaServer1Device.m
+--- upnpx-1.2.4/src/upnp/MediaServer1Device.m	2012-03-07 20:53:57.000000000 +0100
++++ upnpx/src/upnp/MediaServer1Device.m	2013-10-10 19:16:16.000000000 +0200
+@@ -55,7 +55,7 @@
+ -(void)dealloc{
+ 	
+     if(mContentDirectory)
+-        NSLog(@"[mContentDirectory retainCount]=%d", [mContentDirectory retainCount] );
++        NSLog(@"[mContentDirectory retainCount]=%lu", (unsigned long)[mContentDirectory retainCount] );
+     
+     
+ 	[mAvTransport release];
+diff -ru upnpx-1.2.4/src/upnp/MediaServerBasicObjectParser.m upnpx/src/upnp/MediaServerBasicObjectParser.m
+--- upnpx-1.2.4/src/upnp/MediaServerBasicObjectParser.m	2013-10-10 19:20:19.000000000 +0200
++++ upnpx/src/upnp/MediaServerBasicObjectParser.m	2013-10-10 19:12:56.000000000 +0200
+@@ -281,7 +281,7 @@
+         [r setDuration: duration];
+         [r setNrAudioChannels: [audioChannels intValue]];
+         [r setProtocolInfo: protocolInfo];
+-        [r setSize: [size intValue]];
++        [r setSize: [size longLongValue]];
+         if ([duration respondsToSelector:@selector(HMS2Seconds)])
+             [r setDurationInSeconds:[duration HMS2Seconds]];
+         else
