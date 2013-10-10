@@ -619,7 +619,7 @@
 		7D7DA5311768A53200C7E95D /* id */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = id; path = "id.lproj/badgeUnread@2x~iphone.png"; sourceTree = "<group>"; };
 		7D7DA5321768A53200C7E95D /* id */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = id; path = "id.lproj/badgeUnread~ipad.png"; sourceTree = "<group>"; };
 		7D7DA5331768A53200C7E95D /* id */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = id; path = "id.lproj/badgeUnread~iphone.png"; sourceTree = "<group>"; };
-		7D8EEC171804217800A6F16E /* VLCFuturePlaylistCollectionViewCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = VLCFuturePlaylistCollectionViewCell.xib; sourceTree = "<group>"; };
+		7D8EEC171804217800A6F16E /* VLCFuturePlaylistCollectionViewCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; name = VLCFuturePlaylistCollectionViewCell.xib; path = ../Resources/VLCFuturePlaylistCollectionViewCell.xib; sourceTree = "<group>"; };
 		7D93043E17B67C4F0054EAC6 /* VLCLocalServerListViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = VLCLocalServerListViewController.h; sourceTree = "<group>"; };
 		7D93043F17B67C4F0054EAC6 /* VLCLocalServerListViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = VLCLocalServerListViewController.m; sourceTree = "<group>"; };
 		7D93044317B684CE0054EAC6 /* VLCLocalNetworkListCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = VLCLocalNetworkListCell.h; sourceTree = "<group>"; };
