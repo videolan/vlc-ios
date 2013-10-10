@@ -153,7 +153,10 @@ UPNPXVERSION=1.2.4
 curl -O http://upnpx.googlecode.com/files/upnpx-${UPNPXVERSION}.tar.gz
 tar xf upnpx-${UPNPXVERSION}.tar.gz
 mv upnpx-${UPNPXVERSION} upnpx
-cd upnpx && patch -p1 < ${aspen_root_dir}/patches/upnpx/duration-selector-failure.patch
+cd upnpx
+for file in ../../patches/upnpx/*; do
+patch -p1 < ../../patches/upnpx/"$file"
+done
 cd ..
 fi
 if ! [ -e WhiteRaccoon ]; then
