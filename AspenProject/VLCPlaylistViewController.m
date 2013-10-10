@@ -48,6 +48,11 @@
         _tableView.delegate = self;
         _tableView.dataSource = self;
         self.view = _tableView;
+
+        if (SYSTEM_RUNS_IN_THE_FUTURE) {
+            UILongPressGestureRecognizer *gestureRecognizer = [[UILongPressGestureRecognizer alloc] initWithTarget:self action:@selector(tableViewLongTouchGestureAction:)];
+            [self.view addGestureRecognizer:gestureRecognizer];
+        }
     } else {
         UICollectionViewFlowLayout *flowLayout = [[UICollectionViewFlowLayout alloc] init];
 
@@ -332,6 +337,30 @@
     NSManagedObject *selectedObject = _foundMedia[indexPath.row];
     [self openMediaObject:selectedObject];
 }
+
+#pragma mark - table view gestures
+- (void)tableViewLongTouchGestureAction:(UIGestureRecognizer *)recognizer
+{
+    NSIndexPath *path = [(UITableView *)self.view indexPathForRowAtPoint:[recognizer locationInView:self.view]];
+    UITableViewCell *cell = [(UITableView *)self.view cellForRowAtIndexPath:path];
+
+    CGRect frame = cell.frame;
+    if (frame.size.height > 90.)
+        frame.size.height = 90.;
+    else
+        frame.size.height = 180;
+
+    void (^animationBlock)() = ^() {
+        cell.frame = frame;
+    };
+
+    void (^completionBlock)(BOOL finished) = ^(BOOL finished) {
+        cell.frame = frame;
+    };
+
+    NSTimeInterval animationDuration = .2;
+    [UIView animateWithDuration:animationDuration animations:animationBlock completion:completionBlock];
+ }
 
 #pragma mark - Collection View
 - (NSInteger)collectionView:(UICollectionView *)collectionView numberOfItemsInSection:(NSInteger)section
