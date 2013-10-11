@@ -347,7 +347,7 @@
     CGRect frame = cell.frame;
     if (frame.size.height > 90.)
         frame.size.height = 90.;
-    else
+    else if (recognizer.state == UIGestureRecognizerStateBegan)
         frame.size.height = 180;
 
     void (^animationBlock)() = ^() {
@@ -356,6 +356,7 @@
 
     void (^completionBlock)(BOOL finished) = ^(BOOL finished) {
         cell.frame = frame;
+        [self.tableView scrollToRowAtIndexPath:path atScrollPosition:UITableViewScrollPositionNone animated:YES];
     };
 
     NSTimeInterval animationDuration = .2;
