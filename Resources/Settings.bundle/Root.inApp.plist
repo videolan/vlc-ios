@@ -56,7 +56,7 @@
 			<key>Key</key>
 			<string>deinterlace</string>
 			<key>DefaultValue</key>
-			<string>0</string>
+			<integer>0</integer>
 			<key>Titles</key>
 			<array>
 				<string>SETTINGS_DEINTERLACE_ON</string>
