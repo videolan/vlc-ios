@@ -39,7 +39,8 @@ static NSCache *_thumbnailCache;
         return displayedImage;
 
     displayedImage = mediaFile.computedThumbnail;
-    [_thumbnailCache setObject:displayedImage forKey:objID];
+    if (displayedImage)
+        [_thumbnailCache setObject:displayedImage forKey:objID];
 
     return displayedImage;
 }
