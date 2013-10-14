@@ -144,19 +144,21 @@
                     [_httpDownloader downloadFileFromURLwithFileName:[_currentDownloads objectAtIndex:0] fileNameOfMedia:[_currentDownloadFilename objectAtIndex:0]];
                     _humanReadableFilename = [_currentDownloadFilename objectAtIndex:0];
                 } else {
-                [_httpDownloader downloadFileFromURL:_currentDownloads[0]];
-                _humanReadableFilename = _httpDownloader.userReadableDownloadName;
+                    [_httpDownloader downloadFileFromURL:_currentDownloads[0]];
+                    _humanReadableFilename = _httpDownloader.userReadableDownloadName;
+                    [_currentDownloads removeObjectAtIndex:0];
+                    [_currentDownloadFilename removeObjectAtIndex:0];
                 }
             }
         } else if ([downloadScheme isEqualToString:@"ftp"]) {
             _currentDownloadType = kVLCDownloadViaFTP;
             [self _downloadFTPFile:_currentDownloads[0]];
             _humanReadableFilename = [_currentDownloads[0] lastPathComponent];
+            [_currentDownloads removeObjectAtIndex:0];
+            [_currentDownloadFilename removeObjectAtIndex:0];
         } else
             APLog(@"Unknown download scheme '%@'", downloadScheme);
 
-        [_currentDownloads removeObjectAtIndex:0];
-        [_currentDownloadFilename removeObjectAtIndex:0];
         [self _updateUI];
     } else
         _currentDownloadType = 0;
@@ -318,7 +320,11 @@
     }
 
     NSInteger row = indexPath.row;
-    cell.textLabel.text = [_currentDownloads[row] lastPathComponent];
+    if ([_currentDownloadFilename[row] isEqualToString:@""])
+        cell.textLabel.text = [_currentDownloads[row] lastPathComponent];
+    else
+        cell.textLabel.text = [_currentDownloadFilename[row] lastPathComponent];
+
     cell.detailTextLabel.text = [_currentDownloads[row] absoluteString];
 
     return cell;
