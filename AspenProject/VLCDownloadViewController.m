@@ -19,15 +19,13 @@
 #define kVLCDownloadViaHTTP 1
 #define kVLCDownloadViaFTP 2
 
-@interface VLCDownloadViewController () <WRRequestDelegate, UITableViewDataSource, UITableViewDelegate,
-                                        VLCHTTPFileDownloader, UITextFieldDelegate>
+@interface VLCDownloadViewController () <WRRequestDelegate, UITableViewDataSource, UITableViewDelegate, VLCHTTPFileDownloader, UITextFieldDelegate>
 {
     NSMutableArray *_currentDownloads;
     NSUInteger _currentDownloadType;
     NSString *_humanReadableFilename;
-    NSString *_MediaFilename;
+    NSMutableArray *_currentDownloadFilename;
     NSTimeInterval _startDL;
-
 
     VLCHTTPFileDownloader *_httpDownloader;
 
@@ -40,9 +38,10 @@
 - (id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil
 {
     self = [super initWithNibName:nibNameOrNil bundle:nibBundleOrNil];
-    if (self)
+    if (self){
         _currentDownloads = [[NSMutableArray alloc] init];
-
+        _currentDownloadFilename = [[NSMutableArray alloc] init];
+    }
     return self;
 }
 
@@ -105,6 +104,7 @@
         if (([URLtoSave.scheme isEqualToString:@"http"] || [URLtoSave.scheme isEqualToString:@"https"] || [URLtoSave.scheme isEqualToString:@"ftp"]) && ![URLtoSave.lastPathComponent.pathExtension isEqualToString:@""]) {
             if ([URLtoSave.lastPathComponent isSupportedFormat]) {
                 [_currentDownloads addObject:URLtoSave];
+                [_currentDownloadFilename addObject:@""];
                 self.urlField.text = @"";
                 [self.downloadsTable reloadData];
 
@@ -130,7 +130,7 @@
 #pragma mark - download management
 - (void)_triggerNextDownload
 {
-    if (_currentDownloads.count > 0) {
+    if ([_currentDownloads count] > 0) {
         NSString *downloadScheme = [_currentDownloads[0] scheme];
         if ([downloadScheme isEqualToString:@"http"] || [downloadScheme isEqualToString:@"https"]) {
             if (!_httpDownloader) {
@@ -140,9 +140,9 @@
 
             if (!_httpDownloader.downloadInProgress) {
                 _currentDownloadType = kVLCDownloadViaHTTP;
-                if (_MediaFilename) {
-                    [_httpDownloader downloadFileFromURLwithFileName:_currentDownloads[0] fileNameOfMedia:_MediaFilename];
-                    _humanReadableFilename = _MediaFilename;
+                if (![[_currentDownloadFilename objectAtIndex:0] isEqualToString:@""]) {
+                    [_httpDownloader downloadFileFromURLwithFileName:[_currentDownloads objectAtIndex:0] fileNameOfMedia:[_currentDownloadFilename objectAtIndex:0]];
+                    _humanReadableFilename = [_currentDownloadFilename objectAtIndex:0];
                 } else {
                 [_httpDownloader downloadFileFromURL:_currentDownloads[0]];
                 _humanReadableFilename = _httpDownloader.userReadableDownloadName;
@@ -156,6 +156,7 @@
             APLog(@"Unknown download scheme '%@'", downloadScheme);
 
         [_currentDownloads removeObjectAtIndex:0];
+        [_currentDownloadFilename removeObjectAtIndex:0];
         [self _updateUI];
     } else
         _currentDownloadType = 0;
@@ -339,6 +340,7 @@
 {
     if (editingStyle == UITableViewCellEditingStyleDelete) {
         [_currentDownloads removeObjectAtIndex:indexPath.row];
+        [_currentDownloadFilename removeObjectAtIndex:indexPath.row];
         [tableView reloadData];
     }
 }
@@ -347,7 +349,9 @@
 - (void)addURLToDownloadList:(NSURL *)aURL fileNameOfMedia:(NSString*) fileName
 {
     [_currentDownloads addObject:aURL];
-    _MediaFilename = fileName;
+    if (!fileName)
+        fileName = @"";
+    [_currentDownloadFilename addObject:fileName];
     [self.downloadsTable reloadData];
     [self _triggerNextDownload];
 }
