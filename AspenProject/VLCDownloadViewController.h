@@ -8,6 +8,8 @@
 //  Refer to the COPYING file of the official project for license.
 //
 
+#import <UIKit/UIKit.h>
+
 @interface VLCDownloadViewController : UIViewController
 
 @property (nonatomic, strong) IBOutlet UIButton *downloadButton;
