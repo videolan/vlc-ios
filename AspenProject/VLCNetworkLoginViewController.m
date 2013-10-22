@@ -13,7 +13,7 @@
 
 @interface VLCNetworkLoginViewController () <UITableViewDataSource, UITableViewDelegate, UITextFieldDelegate>
 {
-    NSMutableArray *_saveServeur;
+    NSMutableArray *_saveServer;
     NSMutableArray *_saveLogin;
     NSMutableArray *_savePass;
 }
@@ -25,7 +25,7 @@
 {
     NSUserDefaults *defaults = [NSUserDefaults standardUserDefaults];
 
-    NSDictionary *loginDefaults = @{kVLCServeurFTP : @[], kVLCLoginFTP : @[],kVLCServeurFTP : @[]};
+    NSDictionary *loginDefaults = @{kVLCFTPServer : @[], kVLCFTPLogin : @[],kVLCFTPServer : @[]};
 
     [defaults registerDefaults:loginDefaults];
 }
@@ -64,9 +64,9 @@
     self.navigationController.navigationBar.translucent = NO;
 
     NSUserDefaults *defaults = [NSUserDefaults standardUserDefaults];
-    _saveServeur = [NSMutableArray arrayWithArray:[defaults objectForKey:kVLCServeurFTP]];
-    _saveLogin = [NSMutableArray arrayWithArray:[defaults objectForKey:kVLCLoginFTP]];
-    _savePass = [NSMutableArray arrayWithArray:[defaults objectForKey:kVLCPasswordFTP]];
+    _saveServer = [NSMutableArray arrayWithArray:[defaults objectForKey:kVLCFTPServer]];
+    _saveLogin = [NSMutableArray arrayWithArray:[defaults objectForKey:kVLCFTPLogin]];
+    _savePass = [NSMutableArray arrayWithArray:[defaults objectForKey:kVLCFTPPassword]];
 
     [super viewWillAppear:animated];
 
@@ -109,13 +109,13 @@
 }
 
 - (IBAction)saveFTP:(id)sender {
-    [_saveServeur addObject:self.serverAddressField.text];
+    [_saveServer addObject:self.serverAddressField.text];
     [_saveLogin addObject:self.usernameField.text];
     [_savePass  addObject:self.passwordField.text];
     NSUserDefaults *defaults = [NSUserDefaults standardUserDefaults];
-    [defaults setObject:[NSArray arrayWithArray:_saveServeur] forKey:kVLCServeurFTP];
-    [defaults setObject:[NSArray arrayWithArray:_saveLogin] forKey:kVLCLoginFTP];
-    [defaults setObject:[NSArray arrayWithArray:_savePass] forKey:kVLCPasswordFTP];
+    [defaults setObject:[NSArray arrayWithArray:_saveServer] forKey:kVLCFTPServer];
+    [defaults setObject:[NSArray arrayWithArray:_saveLogin] forKey:kVLCFTPLogin];
+    [defaults setObject:[NSArray arrayWithArray:_savePass] forKey:kVLCFTPPassword];
     [defaults synchronize];
     [self.historyLogin reloadData];
 }
@@ -150,7 +150,7 @@
 
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section
 {
-    return _saveServeur.count;
+    return _saveServer.count;
 }
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
@@ -165,7 +165,7 @@
     }
 
     NSInteger row = indexPath.row;
-    cell.textLabel.text = [_saveServeur[row] lastPathComponent];
+    cell.textLabel.text = [_saveServer[row] lastPathComponent];
     cell.detailTextLabel.text = _saveLogin[row];
 
     return cell;
@@ -186,21 +186,21 @@
 - (void)tableView:(UITableView *)tableView commitEditingStyle:(UITableViewCellEditingStyle)editingStyle forRowAtIndexPath:(NSIndexPath *)indexPath
 {
     if (editingStyle == UITableViewCellEditingStyleDelete) {
-        [_saveServeur removeObjectAtIndex:indexPath.row];
+        [_saveServer removeObjectAtIndex:indexPath.row];
         [_saveLogin removeObjectAtIndex:indexPath.row];
         [_savePass removeObjectAtIndex:indexPath.row];
         [tableView reloadData];
         NSUserDefaults *defaults = [NSUserDefaults standardUserDefaults];
-        [defaults setObject:[NSArray arrayWithArray:_saveServeur] forKey:kVLCServeurFTP];
-        [defaults setObject:[NSArray arrayWithArray:_saveLogin] forKey:kVLCLoginFTP];
-        [defaults setObject:[NSArray arrayWithArray:_savePass] forKey:kVLCPasswordFTP];
+        [defaults setObject:[NSArray arrayWithArray:_saveServer] forKey:kVLCFTPServer];
+        [defaults setObject:[NSArray arrayWithArray:_saveLogin] forKey:kVLCFTPLogin];
+        [defaults setObject:[NSArray arrayWithArray:_savePass] forKey:kVLCFTPPassword];
         [defaults synchronize];
     }
 }
 
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
 {
-    [self.serverAddressField setText:_saveServeur[indexPath.row]];
+    [self.serverAddressField setText:_saveServer[indexPath.row]];
     [self.usernameField setText:_saveLogin[indexPath.row]];
     [self.passwordField setText:_savePass[indexPath.row]];
 

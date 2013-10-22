@@ -191,13 +191,13 @@
     [UIApplication sharedApplication].networkActivityIndicatorVisible = YES;
     self.currentDownloadLabel.text = _humanReadableFilename;
     self.progressView.progress = 0.;
-    [self.progressPourcent setText:@"0%%"];
+    [self.progressPercent setText:@"0%%"];
     [self.speedRate setText:@"0 Kb/s"];
     [self.timeDL setText:@"00:00:00"];
     self.currentDownloadLabel.hidden = NO;
     self.progressView.hidden = NO;
     self.cancelButton.hidden = NO;
-    [self.progressPourcent setHidden:NO];
+    [self.progressPercent setHidden:NO];
     [self.speedRate setHidden:NO];
     [self.timeDL setHidden:NO];
     _startDL = [NSDate timeIntervalSinceReferenceDate];
@@ -211,7 +211,7 @@
     self.currentDownloadLabel.hidden = YES;
     self.progressView.hidden = YES;
     self.cancelButton.hidden = YES;
-    [self.progressPourcent setHidden:YES];
+    [self.progressPercent setHidden:YES];
     [self.speedRate setHidden:YES];
     [self.timeDL setHidden:YES];
     _currentDownloadType = 0;
@@ -228,7 +228,7 @@
 
 - (void)progressUpdatedTo:(CGFloat)percentage receivedDataSize:(CGFloat)receivedDataSize  expectedDownloadSize:(CGFloat)expectedDownloadSize
 {
-    [self.progressPourcent setText:[NSString stringWithFormat:@"%.1f%%", percentage*100]];
+    [self.progressPercent setText:[NSString stringWithFormat:@"%.1f%%", percentage*100]];
     [self.timeDL setText:[self calculateRemainingTime:receivedDataSize expectedDownloadSize:expectedDownloadSize]];
     [self.speedRate setText:[self calculateSpeedString:receivedDataSize]];
 

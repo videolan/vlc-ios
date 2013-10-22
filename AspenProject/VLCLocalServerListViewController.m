@@ -79,13 +79,9 @@
 
     [self performSelectorInBackground:@selector(_startUPNPDiscovery) withObject:nil];
 
-    // Active le Pull down to refresh
     refreshControl = [[UIRefreshControl alloc] init];
-
-    // call the refresh function
     [refreshControl addTarget:self action:@selector(handleRefresh) forControlEvents:UIControlEventValueChanged];
     [self.tableView addSubview:refreshControl];
-
 }
 
 - (void)viewWillDisappear:(BOOL)animated
