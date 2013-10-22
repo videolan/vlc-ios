@@ -30,6 +30,7 @@
     VLCHTTPFileDownloader *_httpDownloader;
 
     WRRequestDownload *_FTPDownloadRequest;
+    NSTimeInterval _lastStatsUpdate;
 }
 @end
 
@@ -228,9 +229,12 @@
 
 - (void)progressUpdatedTo:(CGFloat)percentage receivedDataSize:(CGFloat)receivedDataSize  expectedDownloadSize:(CGFloat)expectedDownloadSize
 {
-    [self.progressPercent setText:[NSString stringWithFormat:@"%.1f%%", percentage*100]];
-    [self.timeDL setText:[self calculateRemainingTime:receivedDataSize expectedDownloadSize:expectedDownloadSize]];
-    [self.speedRate setText:[self calculateSpeedString:receivedDataSize]];
+    if ((_lastStatsUpdate > 0 && ([NSDate timeIntervalSinceReferenceDate] - _lastStatsUpdate > .5)) || _lastStatsUpdate <= 0) {
+        [self.progressPercent setText:[NSString stringWithFormat:@"%.1f%%", percentage*100]];
+        [self.timeDL setText:[self calculateRemainingTime:receivedDataSize expectedDownloadSize:expectedDownloadSize]];
+        [self.speedRate setText:[self calculateSpeedString:receivedDataSize]];
+            _lastStatsUpdate = [NSDate timeIntervalSinceReferenceDate];
+    }
 
     [self.progressView setProgress:percentage animated:YES];
 }
