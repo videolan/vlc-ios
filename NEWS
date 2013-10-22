@@ -1,6 +1,12 @@
 2.2:
 ----
 * New Interface for iOS 7
+* Improved feedback for media download progress including data bitrate,
+  procentual progress and estimated remaining download time
+* Added bookmarks for FTP servers
+* Added support for downloading from UPnP multimedia servers
+* Added cover-art and duration to UPnP server item lists
+* UPnP stability improvements
 * Removed support for iOS 5
 
 2.1.2:
