@@ -147,9 +147,9 @@
                 } else {
                     [_httpDownloader downloadFileFromURL:_currentDownloads[0]];
                     _humanReadableFilename = _httpDownloader.userReadableDownloadName;
+                }
                     [_currentDownloads removeObjectAtIndex:0];
                     [_currentDownloadFilename removeObjectAtIndex:0];
-                }
             }
         } else if ([downloadScheme isEqualToString:@"ftp"]) {
             _currentDownloadType = kVLCDownloadViaFTP;
