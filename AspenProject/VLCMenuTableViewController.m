@@ -77,7 +77,7 @@
     self.view = [[UIView alloc] initWithFrame:CGRectMake(0.0f, 0.0f, kGHRevealSidebarWidth, CGRectGetHeight(self.view.bounds))];
     [self.view addSubview:_tableView];
 
-    if (SYSTEM_RUNS_IN_THE_FUTURE) {
+    if (SYSTEM_RUNS_IOS7_OR_LATER) {
         UIView *brandingBackgroundView = [[UIView alloc] initWithFrame:CGRectMake(0.0f, 0.0f, kGHRevealSidebarWidth, 64.0f)];
         brandingBackgroundView.backgroundColor = [UIColor colorWithRed:0.1608 green:0.1608 blue:0.1608 alpha:1.0000];
         [self.view addSubview:brandingBackgroundView];

@@ -68,7 +68,7 @@
 
 - (void)viewWillDisappear:(BOOL)animated
 {
-    if (SYSTEM_RUNS_IN_THE_FUTURE)
+    if (SYSTEM_RUNS_IOS7_OR_LATER)
         self.navigationController.navigationBar.translucent = YES;
 
     NSUserDefaults *defaults = [NSUserDefaults standardUserDefaults];

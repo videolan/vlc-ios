@@ -199,7 +199,7 @@
     [self.aspectRatioButton setBackgroundImage:[UIImage imageNamed:@"ratioButton"] forState:UIControlStateNormal];
     [self.aspectRatioButton setBackgroundImage:[UIImage imageNamed:@"ratioButtonHighlight"] forState:UIControlStateHighlighted];
     [self.aspectRatioButton setImage:[UIImage imageNamed:@"ratioIcon"] forState:UIControlStateNormal];
-    if (SYSTEM_RUNS_IN_THE_FUTURE) {
+    if (SYSTEM_RUNS_IOS7_OR_LATER) {
         self.backButton.tintColor = [UIColor colorWithRed:(190.0f/255.0f) green:(190.0f/255.0f) blue:(190.0f/255.0f) alpha:1.];
         self.toolbar.tintColor = [UIColor whiteColor];
         self.toolbar.barTintColor = [UIColor colorWithWhite:0.f alpha:1.f];
@@ -271,7 +271,7 @@
 
     [self.navigationController setNavigationBarHidden:YES animated:YES];
 
-    if (!SYSTEM_RUNS_IN_THE_FUTURE) {
+    if (!SYSTEM_RUNS_IOS7_OR_LATER) {
         if (UI_USER_INTERFACE_IDIOM() == UIUserInterfaceIdiomPhone)
             [UIApplication sharedApplication].statusBarStyle = UIStatusBarStyleBlackTranslucent;
     }
@@ -448,7 +448,7 @@
         _idleTimer = nil;
     }
     [self.navigationController setNavigationBarHidden:NO animated:YES];
-    if (!SYSTEM_RUNS_IN_THE_FUTURE)
+    if (!SYSTEM_RUNS_IOS7_OR_LATER)
         [UIApplication sharedApplication].statusBarStyle = UIStatusBarStyleBlackOpaque;
     [[UIApplication sharedApplication] setStatusBarHidden:NO withAnimation:UIStatusBarAnimationFade];
     [super viewWillDisappear:animated];

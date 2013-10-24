@@ -26,7 +26,7 @@
 {
     CGRect returnValue = [super trackRectForBounds:bounds];
     returnValue.origin.x = 5.;
-    if (!SYSTEM_RUNS_IN_THE_FUTURE)
+    if (!SYSTEM_RUNS_IOS7_OR_LATER)
         returnValue.origin.y = 7.;
     returnValue.size.width = bounds.size.width - 10.;
     return returnValue;
@@ -50,7 +50,7 @@
 {
     CGRect returnValue = [super trackRectForBounds:bounds];
     returnValue.origin.x = 5.;
-    if (!SYSTEM_RUNS_IN_THE_FUTURE)
+    if (!SYSTEM_RUNS_IOS7_OR_LATER)
         returnValue.origin.y = 7.;
     returnValue.size.width = bounds.size.width - 10.;
     return returnValue;

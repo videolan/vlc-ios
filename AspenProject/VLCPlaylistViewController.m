@@ -49,7 +49,7 @@
         _tableView.dataSource = self;
         self.view = _tableView;
 
-        if (SYSTEM_RUNS_IN_THE_FUTURE) {
+        if (SYSTEM_RUNS_IOS7_OR_LATER) {
             UILongPressGestureRecognizer *gestureRecognizer = [[UILongPressGestureRecognizer alloc] initWithTarget:self action:@selector(tableViewLongTouchGestureAction:)];
             [self.view addGestureRecognizer:gestureRecognizer];
         }
@@ -63,7 +63,7 @@
         _collectionView.dataSource = self;
         self.view = _collectionView;
 
-        if (SYSTEM_RUNS_IN_THE_FUTURE)
+        if (SYSTEM_RUNS_IOS7_OR_LATER)
             [_collectionView registerNib:[UINib nibWithNibName:@"VLCFuturePlaylistCollectionViewCell" bundle:nil] forCellWithReuseIdentifier:@"PlaylistCell"];
         else
             [_collectionView registerNib:[UINib nibWithNibName:@"VLCPlaylistCollectionViewCell" bundle:nil] forCellWithReuseIdentifier:@"PlaylistCell"];
@@ -101,7 +101,7 @@
 
     self.navigationItem.leftBarButtonItem = _menuButton;
 
-    if (SYSTEM_RUNS_IN_THE_FUTURE)
+    if (SYSTEM_RUNS_IOS7_OR_LATER)
         self.editButtonItem.tintColor = [UIColor whiteColor];
     else {
         [self.editButtonItem setBackgroundImage:[UIImage imageNamed:@"button"]
@@ -144,7 +144,7 @@
         [self updateViewContents];
     [[MLMediaLibrary sharedMediaLibrary] performSelector:@selector(libraryDidAppear) withObject:nil afterDelay:1.];
 
-    if (SYSTEM_RUNS_IN_THE_FUTURE)
+    if (SYSTEM_RUNS_IOS7_OR_LATER)
         [UIApplication sharedApplication].statusBarStyle = UIStatusBarStyleLightContent;
 }
 
@@ -382,7 +382,7 @@
 
 - (CGSize)collectionView:(UICollectionView *)collectionView layout:(UICollectionViewLayout *)collectionViewLayout sizeForItemAtIndexPath:(NSIndexPath *)indexPath
 {
-    if (SYSTEM_RUNS_IN_THE_FUTURE)
+    if (SYSTEM_RUNS_IOS7_OR_LATER)
         return CGSizeMake(334.0, 191.0);
 
     return CGSizeMake(298.0, 220.0);
@@ -390,21 +390,21 @@
 
 - (UIEdgeInsets)collectionView:(UICollectionView *)collectionView layout:(UICollectionViewLayout *)collectionViewLayout insetForSectionAtIndex:(NSInteger)section
 {
-    if (SYSTEM_RUNS_IN_THE_FUTURE)
+    if (SYSTEM_RUNS_IOS7_OR_LATER)
         return UIEdgeInsetsMake(0.0, 0.0, 0.0, 0.0);
     return UIEdgeInsetsMake(0.0, 34.0, 0.0, 34.0);
 }
 
 - (CGFloat)collectionView:(UICollectionView *)collectionView layout:(UICollectionViewLayout*)collectionViewLayout minimumLineSpacingForSectionAtIndex:(NSInteger)section
 {
-    if (SYSTEM_RUNS_IN_THE_FUTURE)
+    if (SYSTEM_RUNS_IOS7_OR_LATER)
         return 0.0;
     return 10.0;
 }
 
 - (CGFloat)collectionView:(UICollectionView *)collectionView layout:(UICollectionViewLayout*)collectionViewLayout minimumInteritemSpacingForSectionAtIndex:(NSInteger)section
 {
-    if (SYSTEM_RUNS_IN_THE_FUTURE)
+    if (SYSTEM_RUNS_IOS7_OR_LATER)
         return 0.0;
     return 10.0;
 }
@@ -426,7 +426,7 @@
     UIBarButtonItem *editButton = self.editButtonItem;
     NSString *editImage = editing? @"doneButton": @"button";
     NSString *editImageHighlight = editing? @"doneButtonHighlight": @"buttonHighlight";
-    if (SYSTEM_RUNS_IN_THE_FUTURE)
+    if (SYSTEM_RUNS_IOS7_OR_LATER)
         editButton.tintColor = [UIColor whiteColor];
     else {
         [editButton setBackgroundImage:[UIImage imageNamed:editImage] forState:UIControlStateNormal

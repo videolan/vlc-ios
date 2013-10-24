@@ -18,7 +18,7 @@
 + (VLCPlaylistTableViewCell *)cellWithReuseIdentifier:(NSString *)ident
 {
     NSArray *nibContentArray;
-    if (SYSTEM_RUNS_IN_THE_FUTURE)
+    if (SYSTEM_RUNS_IOS7_OR_LATER)
         nibContentArray = [[NSBundle mainBundle] loadNibNamed:@"VLCFuturePlaylistTableViewCell" owner:nil options:nil];
     else
         nibContentArray = [[NSBundle mainBundle] loadNibNamed:@"VLCPlaylistTableViewCell" owner:nil options:nil];
@@ -122,7 +122,7 @@
 
 + (CGFloat)heightOfCell
 {
-    if (SYSTEM_RUNS_IN_THE_FUTURE)
+    if (SYSTEM_RUNS_IOS7_OR_LATER)
         return 90.;
 
     return 80.;
@@ -134,7 +134,7 @@
 {
     self.titleLabel.text = show.name;
     NSUInteger count = show.episodes.count;
-    if (SYSTEM_RUNS_IN_THE_FUTURE) {
+    if (SYSTEM_RUNS_IOS7_OR_LATER) {
         NSString *string = @"";
         if (show.releaseYear)
             string = [NSString stringWithFormat:@"%@ — ", show.releaseYear];
@@ -152,7 +152,7 @@
 {
     MLFile *anyFileFromTrack = albumTrack.files.anyObject;
 
-    if (SYSTEM_RUNS_IN_THE_FUTURE)
+    if (SYSTEM_RUNS_IOS7_OR_LATER)
         self.subtitleLabel.text = [NSString stringWithFormat:@"%@ — %@ — %@", albumTrack.artist, [NSString stringWithFormat:NSLocalizedString(@"LIBRARY_TRACK_N", @""), albumTrack.trackNumber.intValue], [VLCTime timeWithNumber:[anyFileFromTrack duration]]];
     else {
         self.artistNameLabel.text = albumTrack.artist;
@@ -184,7 +184,7 @@
     self.titleLabel.text = album.name;
     MLAlbumTrack *anyTrack = [album.tracks anyObject];
     NSUInteger count = album.tracks.count;
-    if (SYSTEM_RUNS_IN_THE_FUTURE) {
+    if (SYSTEM_RUNS_IOS7_OR_LATER) {
         NSMutableString *string = [[NSMutableString alloc] init];
         if (anyTrack) {
             [string appendString:anyTrack.artist];
@@ -205,7 +205,7 @@
 - (void)_configureForMLFile:(MLFile *)mediaFile
 {
     if (mediaFile.isAlbumTrack) {
-        if (SYSTEM_RUNS_IN_THE_FUTURE) {
+        if (SYSTEM_RUNS_IOS7_OR_LATER) {
             NSString *string = @"";
             if (mediaFile.albumTrack.artist)
                 string = [NSString stringWithFormat:@"%@ — ", mediaFile.albumTrack.artist];
@@ -240,7 +240,7 @@
 {
     CGFloat position = mediaItem.lastPosition.floatValue;
 
-    if (SYSTEM_RUNS_IN_THE_FUTURE) {
+    if (SYSTEM_RUNS_IOS7_OR_LATER) {
         CGFloat duration = mediaItem.duration.floatValue;
         if (position > .1f && position < .95f) {
             [(UITextView*)self.mediaIsUnreadView setText:[NSString stringWithFormat:NSLocalizedString(@"LIBRARY_MINUTES_LEFT", @""), [[VLCTime timeWithInt:(duration * position - duration)] minuteStringValue]]];

@@ -14,7 +14,7 @@
 - (void)loadTheme
 {
     UINavigationBar *navBar = self.navigationBar;
-    if (!SYSTEM_RUNS_IN_THE_FUTURE) {
+    if (!SYSTEM_RUNS_IOS7_OR_LATER) {
         [navBar setBackgroundImage:[UIImage imageNamed:@"navBarBackground"]
                      forBarMetrics:UIBarMetricsDefault];
         navBar.barStyle = UIBarStyleBlack;

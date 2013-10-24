@@ -22,9 +22,9 @@
 #define SYSTEM_VERSION_GREATER_THAN_OR_EQUAL_TO(v)  ([[[UIDevice currentDevice] systemVersion] compare:v options:NSNumericSearch] != NSOrderedAscending)
 
 #ifdef __IPHONE_7_0
-#define SYSTEM_RUNS_IN_THE_FUTURE SYSTEM_VERSION_GREATER_THAN_OR_EQUAL_TO(@"7.0")
+#define SYSTEM_RUNS_IOS7_OR_LATER SYSTEM_VERSION_GREATER_THAN_OR_EQUAL_TO(@"7.0")
 #else
-#define SYSTEM_RUNS_IN_THE_FUTURE NO
+#define SYSTEM_RUNS_IOS7_OR_LATER NO
 #endif
 
 #ifndef NDEBUG

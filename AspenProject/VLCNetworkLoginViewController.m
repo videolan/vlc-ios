@@ -74,7 +74,7 @@
 
 - (IBAction)dismissWithAnimation:(id)sender
 {
-    if (SYSTEM_RUNS_IN_THE_FUTURE)
+    if (SYSTEM_RUNS_IOS7_OR_LATER)
         self.navigationController.navigationBar.translucent = YES;
 
     if (UI_USER_INTERFACE_IDIOM() == UIUserInterfaceIdiomPhone)
@@ -85,7 +85,7 @@
 
 - (IBAction)dismiss:(id)sender
 {
-    if (SYSTEM_RUNS_IN_THE_FUTURE)
+    if (SYSTEM_RUNS_IOS7_OR_LATER)
         self.navigationController.navigationBar.translucent = YES;
 
     if (UI_USER_INTERFACE_IDIOM() == UIUserInterfaceIdiomPhone)
