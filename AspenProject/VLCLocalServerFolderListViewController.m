@@ -22,8 +22,8 @@
 #import "NSString+SupportedMedia.h"
 #import "VLCStatusLabel.h"
 
-#define kVLCUPNPFileServer 0
-#define kVLCFTPServer 1
+#define kVLCServerTypeUPNP 0
+#define kVLCServerTypeFTP 1
 
 @interface VLCLocalServerFolderListViewController () <UITableViewDataSource, UITableViewDelegate, WRRequestDelegate, VLCLocalNetworkListCell>
 {
@@ -70,7 +70,7 @@
         _UPNPdevice = device;
         _listTitle = header;
         _UPNProotID = rootID;
-        _serverType = kVLCUPNPFileServer;
+        _serverType = kVLCServerTypeUPNP;
         _mutableObjectList = [[NSMutableArray alloc] init];
     }
 
@@ -86,7 +86,7 @@
         _ftpServerUserName = username;
         _ftpServerPassword = password;
         _ftpServerPath = path;
-        _serverType = kVLCFTPServer;
+        _serverType = kVLCServerTypeFTP;
     }
 
     return self;
@@ -96,7 +96,7 @@
 {
     [super viewDidLoad];
 
-    if (_serverType == kVLCUPNPFileServer) {
+    if (_serverType == kVLCServerTypeUPNP) {
         NSMutableString *outResult = [[NSMutableString alloc] init];
         NSMutableString *outNumberReturned = [[NSMutableString alloc] init];
         NSMutableString *outTotalMatches = [[NSMutableString alloc] init];
@@ -108,7 +108,7 @@
         NSData *didl = [outResult dataUsingEncoding:NSUTF8StringEncoding];
         MediaServerBasicObjectParser *parser = [[MediaServerBasicObjectParser alloc] initWithMediaObjectArray:_mutableObjectList itemsOnly:NO];
         [parser parseFromData:didl];
-    } else if (_serverType == kVLCFTPServer) {
+    } else if (_serverType == kVLCServerTypeFTP) {
         if ([_ftpServerPath isEqualToString:@"/"])
             _listTitle = _ftpServerAddress;
         else
@@ -139,7 +139,7 @@
 
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section
 {
-    if (_serverType == kVLCUPNPFileServer)
+    if (_serverType == kVLCServerTypeUPNP)
         return _mutableObjectList.count;
 
     return _objectList.count;
@@ -153,7 +153,7 @@
     if (cell == nil)
         cell = [VLCLocalNetworkListCell cellWithReuseIdentifier:CellIdentifier];
 
-    if (_serverType == kVLCUPNPFileServer) {
+    if (_serverType == kVLCServerTypeUPNP) {
         MediaServer1BasicObject *item = _mutableObjectList[indexPath.row];
         if (![item isContainer]) {
             MediaServer1ItemObject *mediaItem = _mutableObjectList[indexPath.row];
@@ -173,7 +173,7 @@
             [cell setIcon:[UIImage imageNamed:@"folder"]];
         }
         [cell setTitle:[item title]];
-    } else if (_serverType == kVLCFTPServer) {
+    } else if (_serverType == kVLCServerTypeFTP) {
         cell.title = [_objectList[indexPath.row] objectForKey:(id)kCFFTPResourceName];
         if ([[_objectList[indexPath.row] objectForKey:(id)kCFFTPResourceType] intValue] == 4) {
             cell.isDirectory = YES;
@@ -198,7 +198,7 @@
 
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
 {
-    if (_serverType == kVLCUPNPFileServer) {
+    if (_serverType == kVLCServerTypeUPNP) {
         MediaServer1BasicObject *item = _mutableObjectList[indexPath.row];
         if ([item isContainer]) {
             MediaServer1ContainerObject *container = _mutableObjectList[indexPath.row];
@@ -227,7 +227,7 @@
                 [appDelegate.playlistViewController performSelector:@selector(openMovieFromURL:) withObject:itemURL afterDelay:kGHRevealSidebarDefaultAnimationDuration];
             }
         }
-    } else if (_serverType == kVLCFTPServer) {
+    } else if (_serverType == kVLCServerTypeFTP) {
         if ([[_objectList[indexPath.row] objectForKey:(id)kCFFTPResourceType] intValue] == 4) {
             NSString *newPath = [NSString stringWithFormat:@"%@/%@", _ftpServerPath, [_objectList[indexPath.row] objectForKey:(id)kCFFTPResourceName]];
 
@@ -319,7 +319,7 @@
 #pragma mark - VLCLocalNetworkListCell delegation
 - (void)triggerDownloadForCell:(VLCLocalNetworkListCell *)cell
 {
-    if (_serverType == kVLCUPNPFileServer) {
+    if (_serverType == kVLCServerTypeUPNP) {
         MediaServer1ItemObject *item = _mutableObjectList[[self.tableView indexPathForCell:cell].row];
         MediaServer1ItemRes *resource = nil;
         NSEnumerator *e = [[item resources] objectEnumerator];
@@ -334,7 +334,7 @@
             [self _downloadUPNPFile:itemURL fileNameOfMedia:[item title]];
             [cell.statusLabel showStatusMessage:NSLocalizedString(@"DOWNLOADING", @"")];
         }
-    }else if (_serverType == kVLCFTPServer) {
+    }else if (_serverType == kVLCServerTypeFTP) {
         NSString *objectName = [_objectList[[self.tableView indexPathForCell:cell].row] objectForKey:(id)kCFFTPResourceName];
         if (![objectName isSupportedFormat]) {
             UIAlertView * alert = [[UIAlertView alloc] initWithTitle:NSLocalizedString(@"FILE_NOT_SUPPORTED", @"") message:[NSString stringWithFormat:NSLocalizedString(@"FILE_NOT_SUPPORTED_LONG", @""), objectName] delegate:self cancelButtonTitle:NSLocalizedString(@"BUTTON_CANCEL", @"") otherButtonTitles:nil];
