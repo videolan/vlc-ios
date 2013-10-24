@@ -75,7 +75,7 @@
     if ([[UIDevice currentDevice] userInterfaceIdiom] == UIUserInterfaceIdiomPad)
         return 80.;
 
-    return 48.;
+    return 68.;
 }
 
 @end
