@@ -8,6 +8,13 @@
 * Added cover-art and duration to UPnP server item lists
 * UPnP stability improvements
 * Removed support for iOS 5
+* Previously removed episodes and tracks no longer show up in the respective
+  group listings (#9705)
+
+2.1.3:
+------
+* Fixed crashes with files whose names are less than 6 characters long after
+  removing the file extension
 
 2.1.2:
 ------
