@@ -459,6 +459,9 @@
 - (IBAction)leftButtonAction:(id)sender
 {
     [[(VLCAppDelegate*)[UIApplication sharedApplication].delegate revealController] toggleSidebar:![(VLCAppDelegate*)[UIApplication sharedApplication].delegate revealController].sidebarShowing duration:kGHRevealSidebarDefaultAnimationDuration];
+
+    if (self.isEditing)
+        [self setEditing:NO animated:YES];
 }
 
 - (IBAction)backToAllItems:(id)sender
