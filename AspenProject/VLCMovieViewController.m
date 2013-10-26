@@ -17,13 +17,10 @@
 
 #import "OBSlider.h"
 #import "VLCStatusLabel.h"
-#import "VLCHorizontalSwipeGestureRecognizer.h"
-#import "VLCVerticalSwipeGestureRecognizer.h"
 
 #define INPUT_RATE_DEFAULT  1000.
 
-@interface VLCMovieViewController () <UIGestureRecognizerDelegate, AVAudioSessionDelegate,
-                                    VLCHorizontalSwipeGestureRecognizer, VLCVerticalSwipeGestureRecognizer>
+@interface VLCMovieViewController () <UIGestureRecognizerDelegate, AVAudioSessionDelegate>
 {
     VLCMediaPlayer *_mediaPlayer;
 

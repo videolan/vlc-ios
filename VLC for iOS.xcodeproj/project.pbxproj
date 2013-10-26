@@ -165,8 +165,6 @@
 		7D5E39CB174FC2F3007DAFA1 /* dropbox-white@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 7D5E39C9174FC2F3007DAFA1 /* dropbox-white@2x.png */; };
 		7D5E39CF174FCE04007DAFA1 /* VLCDropboxTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 7D5E39CE174FCE04007DAFA1 /* VLCDropboxTableViewCell.m */; };
 		7D5E39D1174FCF43007DAFA1 /* VLCDropboxTableViewCell~ipad.xib in Resources */ = {isa = PBXBuildFile; fileRef = 7D5E39D0174FCF43007DAFA1 /* VLCDropboxTableViewCell~ipad.xib */; };
-		7D5F7AC317529430006CCCFA /* VLCHorizontalSwipeGestureRecognizer.m in Sources */ = {isa = PBXBuildFile; fileRef = 7D5F7AC217529430006CCCFA /* VLCHorizontalSwipeGestureRecognizer.m */; };
-		7D5F7AC61752943F006CCCFA /* VLCVerticalSwipeGestureRecognizer.m in Sources */ = {isa = PBXBuildFile; fileRef = 7D5F7AC51752943F006CCCFA /* VLCVerticalSwipeGestureRecognizer.m */; };
 		7D6B08C2174A831900A05173 /* vlc-xmas.png in Resources */ = {isa = PBXBuildFile; fileRef = 7D6B08C0174A831900A05173 /* vlc-xmas.png */; };
 		7D6B08C3174A831900A05173 /* vlc-xmas@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 7D6B08C1174A831900A05173 /* vlc-xmas@2x.png */; };
 		7D6B08EB174D65B500A05173 /* IASKAppSettingsViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 7D6B08CD174D65B500A05173 /* IASKAppSettingsViewController.m */; };
@@ -571,10 +569,6 @@
 		7D5E39CD174FCE04007DAFA1 /* VLCDropboxTableViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = VLCDropboxTableViewCell.h; sourceTree = "<group>"; };
 		7D5E39CE174FCE04007DAFA1 /* VLCDropboxTableViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = VLCDropboxTableViewCell.m; sourceTree = "<group>"; };
 		7D5E39D0174FCF43007DAFA1 /* VLCDropboxTableViewCell~ipad.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; name = "VLCDropboxTableViewCell~ipad.xib"; path = "../Resources/VLCDropboxTableViewCell~ipad.xib"; sourceTree = "<group>"; };
-		7D5F7AC117529430006CCCFA /* VLCHorizontalSwipeGestureRecognizer.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = VLCHorizontalSwipeGestureRecognizer.h; sourceTree = "<group>"; };
-		7D5F7AC217529430006CCCFA /* VLCHorizontalSwipeGestureRecognizer.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = VLCHorizontalSwipeGestureRecognizer.m; sourceTree = "<group>"; };
-		7D5F7AC41752943F006CCCFA /* VLCVerticalSwipeGestureRecognizer.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = VLCVerticalSwipeGestureRecognizer.h; sourceTree = "<group>"; };
-		7D5F7AC51752943F006CCCFA /* VLCVerticalSwipeGestureRecognizer.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = VLCVerticalSwipeGestureRecognizer.m; sourceTree = "<group>"; };
 		7D6B08BB174A72A900A05173 /* VLCConstants.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = VLCConstants.h; sourceTree = "<group>"; };
 		7D6B08C0174A831900A05173 /* vlc-xmas.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "vlc-xmas.png"; sourceTree = "<group>"; };
 		7D6B08C1174A831900A05173 /* vlc-xmas@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "vlc-xmas@2x.png"; sourceTree = "<group>"; };
@@ -1186,10 +1180,6 @@
 		7D31CF061746AEF2005997E0 /* UI Elements */ = {
 			isa = PBXGroup;
 			children = (
-				7D5F7AC117529430006CCCFA /* VLCHorizontalSwipeGestureRecognizer.h */,
-				7D5F7AC217529430006CCCFA /* VLCHorizontalSwipeGestureRecognizer.m */,
-				7D5F7AC41752943F006CCCFA /* VLCVerticalSwipeGestureRecognizer.h */,
-				7D5F7AC51752943F006CCCFA /* VLCVerticalSwipeGestureRecognizer.m */,
 				7DC87AEC17412A1F009DC250 /* VLCLinearProgressIndicator.h */,
 				7DC87AED17412A1F009DC250 /* VLCLinearProgressIndicator.m */,
 				7D31CF071746AF09005997E0 /* VLCStatusLabel.h */,
@@ -2083,8 +2073,6 @@
 				7D07A4ED174EB81200759D10 /* VLCDropboxController.m in Sources */,
 				7D5E39C6174FBAF3007DAFA1 /* VLCDropboxTableViewController.m in Sources */,
 				7D5E39CF174FCE04007DAFA1 /* VLCDropboxTableViewCell.m in Sources */,
-				7D5F7AC317529430006CCCFA /* VLCHorizontalSwipeGestureRecognizer.m in Sources */,
-				7D5F7AC61752943F006CCCFA /* VLCVerticalSwipeGestureRecognizer.m in Sources */,
 				A7C3025E175A53D400AD4388 /* NSString+SupportedMedia.m in Sources */,
 				7D47D72F1761101700E86BAD /* VLCSlider.m in Sources */,
 				7D2339AF176DE72E008D223C /* VLCOpenNetworkStreamViewController.m in Sources */,
