@@ -19,6 +19,8 @@
 #import "VLCStatusLabel.h"
 
 #define INPUT_RATE_DEFAULT  1000.
+#define FORWARD_SWIPE_DURATION 30
+#define BACKWARD_SWIPE_DURATION 10
 
 @interface VLCMovieViewController () <UIGestureRecognizerDelegate, AVAudioSessionDelegate>
 {
@@ -45,8 +47,6 @@
     BOOL _isScrubbing;
 
     BOOL _swipeGesturesEnabled;
-    int _forwardDuration;
-    int _backwardDuration;
     NSString * panType;
     UIView *_rootView;
     UIView *_splashView;
@@ -196,9 +196,6 @@
 
     _swipeGesturesEnabled = YES;
     if (_swipeGesturesEnabled) {
-        _forwardDuration = 30;
-        _backwardDuration = 10;
-
         _tapRecognizer = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(tapRecognized)];
         [_tapRecognizer setNumberOfTouchesRequired:2];
         _panRecognizer = [[UIPanGestureRecognizer alloc] initWithTarget:self action:@selector(panRecognized:)];
@@ -992,23 +989,17 @@
         double timeRemainingDouble = (-_mediaPlayer.remainingTime.intValue*0.001);
         int timeRemaining = timeRemainingDouble;
 
-        if (_forwardDuration < timeRemaining) {
-            [_mediaPlayer jumpForward:_forwardDuration];
-            hudString = [NSString stringWithFormat:@" >> %is ",_forwardDuration];
-
-            if (_forwardDuration == 60)
-                hudString = @"  >>1min  ";
+        if (FORWARD_SWIPE_DURATION < timeRemaining) {
+            [_mediaPlayer jumpForward:FORWARD_SWIPE_DURATION];
+            hudString = [NSString stringWithFormat:@" >> %is ", FORWARD_SWIPE_DURATION];
         } else {
             [_mediaPlayer jumpForward:(timeRemaining - 5)];
             hudString = [NSString stringWithFormat:@" >> %is ",(timeRemaining - 5)];
         }
     }
     else if (swipeRecognizer.direction == UISwipeGestureRecognizerDirectionLeft) {
-        [_mediaPlayer jumpBackward:_backwardDuration];
-        hudString = [NSString stringWithFormat:@" << %is ",_backwardDuration];
-
-        if (_backwardDuration == 60)
-            hudString = @"  <<1min  ";
+        [_mediaPlayer jumpBackward:BACKWARD_SWIPE_DURATION];
+        hudString = [NSString stringWithFormat:@" << %is ",BACKWARD_SWIPE_DURATION];
     }
 
     if (swipeRecognizer.state == UIGestureRecognizerStateEnded) {
