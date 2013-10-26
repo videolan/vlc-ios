@@ -27,6 +27,7 @@
     VLCDropboxTableViewController *_dropboxTableViewController;
     VLCDownloadViewController *_downloadViewController;
     int _idleCounter;
+    VLCMovieViewController *_movieViewController;
 }
 
 @property (nonatomic) BOOL passcodeValidated;
@@ -286,6 +287,37 @@
     _idleCounter--;
     if (_idleCounter < 1)
         [UIApplication sharedApplication].idleTimerDisabled = NO;
+}
+
+#pragma mark - playback view handling
+
+- (void)openMediaFromManagedObject:(NSManagedObject *)mediaObject
+{
+    if (!_movieViewController)
+        _movieViewController = [[VLCMovieViewController alloc] initWithNibName:nil bundle:nil];
+
+    if ([mediaObject isKindOfClass:[MLFile class]])
+        _movieViewController.mediaItem = (MLFile *)mediaObject;
+    else if ([mediaObject isKindOfClass:[MLAlbumTrack class]])
+        _movieViewController.mediaItem = [(MLAlbumTrack*)mediaObject files].anyObject;
+    else if ([mediaObject isKindOfClass:[MLShowEpisode class]])
+        _movieViewController.mediaItem = [(MLShowEpisode*)mediaObject files].anyObject;
+
+    UINavigationController *navCon = [[UINavigationController alloc] initWithRootViewController:_movieViewController];
+    navCon.modalPresentationStyle = UIModalPresentationFullScreen;
+    [self.window.rootViewController presentViewController:navCon animated:YES completion:nil];
+}
+
+- (void)openMovieFromURL:(NSURL *)url
+{
+    if (!_movieViewController)
+        _movieViewController = [[VLCMovieViewController alloc] initWithNibName:nil bundle:nil];
+
+    _movieViewController.url = url;
+
+    UINavigationController *navCon = [[UINavigationController alloc] initWithRootViewController:_movieViewController];
+    navCon.modalPresentationStyle = UIModalPresentationFullScreen;
+    [self.window.rootViewController presentViewController:navCon animated:YES completion:nil];
 }
 
 @end

@@ -241,14 +241,7 @@
             _loginViewController.serverAddressField.text = @"";
     } else if (section == 2) {
         VLCAppDelegate* appDelegate = [UIApplication sharedApplication].delegate;
-
-        UINavigationController *navController = [[UINavigationController alloc] initWithRootViewController:appDelegate.playlistViewController];
-        [navController loadTheme];
-
-        appDelegate.revealController.contentViewController = navController;
-        [appDelegate.revealController toggleSidebar:NO duration:kGHRevealSidebarDefaultAnimationDuration];
-
-        [appDelegate.playlistViewController performSelector:@selector(openMovieFromURL:) withObject:[[_sapDiscoverer.discoveredMedia mediaAtIndex:row] url] afterDelay:kGHRevealSidebarDefaultAnimationDuration];
+        [appDelegate openMovieFromURL:[[_sapDiscoverer.discoveredMedia mediaAtIndex:row] url]];
     }
 }
 

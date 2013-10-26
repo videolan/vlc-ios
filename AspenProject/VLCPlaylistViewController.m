@@ -179,19 +179,8 @@
         [self.navigationItem.leftBarButtonItem setTitle:NSLocalizedString(@"LIBRARY_SERIES", @"")];
         self.title = [(MLShow*)mediaObject name];
         [self reloadViews];
-    } else {
-        if (!self.movieViewController)
-            self.movieViewController = [[VLCMovieViewController alloc] initWithNibName:nil bundle:nil];
-
-        if ([mediaObject isKindOfClass:[MLFile class]])
-            self.movieViewController.mediaItem = (MLFile *)mediaObject;
-        else if ([mediaObject isKindOfClass:[MLAlbumTrack class]])
-            self.movieViewController.mediaItem = [(MLAlbumTrack*)mediaObject files].anyObject;
-        else if ([mediaObject isKindOfClass:[MLShowEpisode class]])
-            self.movieViewController.mediaItem = [(MLShowEpisode*)mediaObject files].anyObject;
-
-        [self.navigationController pushViewController:self.movieViewController animated:YES];
-    }
+    } else
+        [(VLCAppDelegate*)[UIApplication sharedApplication].delegate openMediaFromManagedObject:mediaObject];
 }
 
 - (void)removeMediaObject:(MLFile *)mediaObject
@@ -471,17 +460,6 @@
 }
 
 #pragma mark - coin coin
-
-- (void)openMovieFromURL:(NSURL *)url
-{
-    if (!self.movieViewController)
-        self.movieViewController = [[VLCMovieViewController alloc] initWithNibName:nil bundle:nil];
-
-    if (self.navigationController.topViewController != self.movieViewController)
-        [self.navigationController pushViewController:self.movieViewController animated:YES];
-
-    self.movieViewController.url = url;
-}
 
 - (void)setLibraryMode:(VLCLibraryMode)mode
 {

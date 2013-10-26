@@ -174,7 +174,7 @@
 {
     VLCAppDelegate* appDelegate = [UIApplication sharedApplication].delegate;
     [appDelegate.menuViewController selectRowAtIndexPath:[NSIndexPath indexPathForRow:0 inSection:0] animated:NO scrollPosition:UITableViewScrollPositionNone];
-    [appDelegate.playlistViewController performSelector:@selector(openMovieFromURL:) withObject:[NSURL URLWithString:url] afterDelay:kGHRevealSidebarDefaultAnimationDuration];
+    [appDelegate openMovieFromURL:[NSURL URLWithString:url]];
 }
 
 #pragma mark - text view delegate

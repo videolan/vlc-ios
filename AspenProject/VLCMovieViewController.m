@@ -674,7 +674,7 @@
 - (IBAction)closePlayback:(id)sender
 {
     [self setControlsHidden:NO animated:NO];
-    [self.navigationController popViewControllerAnimated:YES];
+    [self.navigationController dismissViewControllerAnimated:YES completion:nil];
 }
 
 - (IBAction)positionSliderAction:(UISlider *)sender

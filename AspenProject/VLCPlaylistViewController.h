@@ -18,18 +18,15 @@ typedef enum {
     VLCLibraryModeAllSeries = 2
 } VLCLibraryMode;
 
-@class VLCMovieViewController;
 @class EmptyLibraryView;
 
 @interface VLCPlaylistViewController : UIViewController <UITabBarDelegate, UIPopoverControllerDelegate>
 
-@property (nonatomic, strong) VLCMovieViewController *movieViewController;
 @property (nonatomic, strong) UIViewController *menuViewController;
 
 - (IBAction)leftButtonAction:(id)sender;
 
 - (void)updateViewContents;
-- (void)openMovieFromURL:(NSURL *)url;
 - (void)removeMediaObject:(MLFile *)mediaObject;
 
 - (void)setLibraryMode:(VLCLibraryMode)mode;

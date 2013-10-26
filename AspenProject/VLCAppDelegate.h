@@ -22,6 +22,9 @@
 - (void)disableIdleTimer;
 - (void)activateIdleTimer;
 
+- (void)openMediaFromManagedObject:(NSManagedObject *)file;
+- (void)openMovieFromURL:(NSURL *)url;
+
 @property (nonatomic, readonly) VLCPlaylistViewController *playlistViewController;
 @property (nonatomic, readonly) VLCDropboxTableViewController *dropboxTableViewController;
 @property (nonatomic, readonly) VLCDownloadViewController *downloadViewController;

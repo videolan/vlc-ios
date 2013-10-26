@@ -217,14 +217,7 @@
 
             if (itemURL && ([itemURL.scheme isEqualToString:@"http"] || [itemURL.scheme isEqualToString:@"rtsp"] || [itemURL.scheme isEqualToString:@"rtp"] || [itemURL.scheme isEqualToString:@"mms"] || [itemURL.scheme isEqualToString:@"mmsh"])) {
                 VLCAppDelegate* appDelegate = [UIApplication sharedApplication].delegate;
-
-                UINavigationController *navController = [[UINavigationController alloc] initWithRootViewController:appDelegate.playlistViewController];
-                [navController loadTheme];
-
-                appDelegate.revealController.contentViewController = navController;
-                [appDelegate.revealController toggleSidebar:NO duration:kGHRevealSidebarDefaultAnimationDuration];
-
-                [appDelegate.playlistViewController performSelector:@selector(openMovieFromURL:) withObject:itemURL afterDelay:kGHRevealSidebarDefaultAnimationDuration];
+                [appDelegate openMovieFromURL:itemURL];
             }
         }
     } else if (_serverType == kVLCServerTypeFTP) {
@@ -350,8 +343,7 @@
 - (void)_openURLStringAndDismiss:(NSString *)url
 {
     VLCAppDelegate* appDelegate = [UIApplication sharedApplication].delegate;
-    [appDelegate.menuViewController selectRowAtIndexPath:[NSIndexPath indexPathForRow:0 inSection:0] animated:NO scrollPosition:UITableViewScrollPositionNone];
-    [appDelegate.playlistViewController performSelector:@selector(openMovieFromURL:) withObject:[NSURL URLWithString:url] afterDelay:kGHRevealSidebarDefaultAnimationDuration];
+    [appDelegate openMovieFromURL:[NSURL URLWithString:url]];
 }
 
 @end
