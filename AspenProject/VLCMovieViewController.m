@@ -943,7 +943,7 @@
         else
             [[UIScreen mainScreen]setBrightness:(brightness + 0.01)];
 
-        NSString *brightnessHUD =[NSString stringWithFormat:@" Brightness : %@ %%", [[[NSString stringWithFormat:@"%f",(brightness*100)] componentsSeparatedByString:@"."] objectAtIndex:0]];
+        NSString *brightnessHUD =[NSString stringWithFormat:@"%@: %@ %%", NSLocalizedString(@"VFILTER_BRIGHTNESS", @""), [[[NSString stringWithFormat:@"%f",(brightness*100)] componentsSeparatedByString:@"."] objectAtIndex:0]];
         [self _displayHUDwithText:brightnessHUD];
     }
 
@@ -963,15 +963,15 @@
 
         if (FORWARD_SWIPE_DURATION < timeRemaining) {
             [_mediaPlayer jumpForward:FORWARD_SWIPE_DURATION];
-            hudString = [NSString stringWithFormat:@" >> %is ", FORWARD_SWIPE_DURATION];
+            hudString = [NSString stringWithFormat:@"⇒ %is", FORWARD_SWIPE_DURATION];
         } else {
             [_mediaPlayer jumpForward:(timeRemaining - 5)];
-            hudString = [NSString stringWithFormat:@" >> %is ",(timeRemaining - 5)];
+            hudString = [NSString stringWithFormat:@"⇒ %is",(timeRemaining - 5)];
         }
     }
     else if (swipeRecognizer.direction == UISwipeGestureRecognizerDirectionLeft) {
         [_mediaPlayer jumpBackward:BACKWARD_SWIPE_DURATION];
-        hudString = [NSString stringWithFormat:@" << %is ",BACKWARD_SWIPE_DURATION];
+        hudString = [NSString stringWithFormat:@"⇐ %is",BACKWARD_SWIPE_DURATION];
     }
 
     if (swipeRecognizer.state == UIGestureRecognizerStateEnded) {
