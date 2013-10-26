@@ -857,23 +857,6 @@
 }
 
 #pragma mark - multi-touch gestures
-- (CGSize)_screenSize
-{
-    UIInterfaceOrientation orientation = [[UIApplication sharedApplication] statusBarOrientation];
-    CGRect screenRect = [[UIScreen mainScreen] bounds];
-
-    CGFloat screenHeight, screenWidth = .0;
-
-    if (orientation == UIDeviceOrientationPortrait) {
-        screenHeight = screenRect.size.height;
-        screenWidth = screenRect.size.width;
-    } else {
-        screenHeight = screenRect.size.width;
-        screenWidth = screenRect.size.height;
-    }
-
-    return CGSizeMake(screenWidth, screenHeight);
-}
 
 - (NSString*)detectPanTypeForPan:(UIPanGestureRecognizer*)panRecognizer
 {
@@ -882,12 +865,18 @@
     type = @"Volume"; // default in case of error
     CGPoint location = [panRecognizer locationInView:_rootView];
     CGFloat position = location.x;
-    CGSize screenSize = [self _screenSize];
 
-    if (position < screenSize.width / 2)
+    UIInterfaceOrientation orientation = [[UIApplication sharedApplication] statusBarOrientation];
+    CGRect screenRect = [[UIScreen mainScreen] bounds];
+    CGFloat screenWidth = .0;
+    if (orientation == UIDeviceOrientationPortrait)
+        screenWidth = screenRect.size.width;
+    else
+        screenWidth = screenRect.size.height;
+
+    if (position < screenWidth / 2)
         type = @"Brightness";
-
-    if (position > screenSize.width / 2)
+    if (position > screenWidth / 2)
         type = @"Volume";
 
     // only check for seeking gesture if on iPad , will overwrite last statements if true
