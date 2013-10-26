@@ -48,8 +48,6 @@
     BOOL _isScrubbing;
 
     BOOL _swipeGesturesEnabled;
-    CGFloat _panDirectionX;
-    CGFloat _panDirectionY;
     int _forwardDuration;
     int _backwardDuration;
     NSString * panType;
@@ -875,20 +873,17 @@
 }
 
 #pragma mark - multi-touch gestures
--(CGSize)_screenSize
+- (CGSize)_screenSize
 {
     UIInterfaceOrientation orientation = [[UIApplication sharedApplication] statusBarOrientation];
     CGRect screenRect = [[UIScreen mainScreen] bounds];
 
     CGFloat screenHeight, screenWidth = .0;
 
-    if (orientation == UIDeviceOrientationPortrait)
-    {
+    if (orientation == UIDeviceOrientationPortrait) {
         screenHeight = screenRect.size.height;
         screenWidth = screenRect.size.width;
-    }
-    else
-    {
+    } else {
         screenHeight = screenRect.size.width;
         screenWidth = screenRect.size.height;
     }
@@ -896,14 +891,14 @@
     return CGSizeMake(screenWidth, screenHeight);
 }
 
--(void)changePlaybackStatus
+- (void)tapRecognized
 {
     if ([_mediaPlayer isPlaying]) {
         [_mediaPlayer pause];
-        [self displayHUDwithText:@"  ▌▌"];
+        [self _displayHUDwithText:@"  ▌▌"];
     } else {
         [_mediaPlayer play];
-        [self displayHUDwithText:@"  ►"];
+        [self _displayHUDwithText:@"  ►"];
     }
     [_rootView addSubview:_splashView];
     [UIView animateWithDuration:1
@@ -911,12 +906,7 @@
                      completion:^(BOOL finished){ [_splashView removeFromSuperview]; }];
 }
 
--(void)tapRecognized
-{
-    [self changePlaybackStatus];
-}
-
--(NSString*)detectPanTypeForPan:(UIPanGestureRecognizer*)panRecognizer
+- (NSString*)detectPanTypeForPan:(UIPanGestureRecognizer*)panRecognizer
 {
     NSString * type;
     NSString * deviceType = [[UIDevice currentDevice] model];
@@ -925,10 +915,10 @@
     CGFloat position = location.x;
     CGSize screenSize = [self _screenSize];
 
-    if ( position < screenSize.width /2 )
+    if (position < screenSize.width / 2)
         type = @"Brightness";
 
-    if (position > screenSize.width /2 )
+    if (position > screenSize.width / 2)
         type = @"Volume";
 
     // only check for seeking gesture if on iPad , will overwrite last statements if true
@@ -940,21 +930,7 @@
     return type;
 }
 
--(CGFloat)getHorizontalDirectionForPan:(UIPanGestureRecognizer*)panRecognizer
-{
-    CGPoint velocity = [panRecognizer velocityInView:_rootView];
-    CGFloat direction = velocity.x;
-    return direction;
-}
-
--(CGFloat)getVerticalDirectionForPan:(UIPanGestureRecognizer*)panRecognizer
-{
-    CGPoint velocity = [panRecognizer velocityInView:_rootView];
-    CGFloat Direction = velocity.y;
-    return Direction;
-}
-
--(void)displayHUDwithText:(NSString*)text
+- (void)_displayHUDwithText:(NSString*)text
 {
     CGSize screenSize = [self _screenSize];
     UILabel * label = [[UILabel alloc] initWithFrame:CGRectMake( (screenSize.width/2 - text.length*8.5/2), 72, (text.length * 8.5), 20)];
@@ -968,140 +944,82 @@
     [UIView animateWithDuration:1 animations:^{ label.alpha = 0.0f;} completion:^(BOOL finished){ [label removeFromSuperview]; }];
 }
 
--(void)adjustVolume
+- (void)panRecognized:(UIPanGestureRecognizer*)panRecognizer
 {
-    MPMusicPlayerController *musicPlayer = [MPMusicPlayerController applicationMusicPlayer];
-    if (_panDirectionY >0)
-    {
-        musicPlayer.volume -= 0.01;
-    }
-    else
-    {
-        musicPlayer.volume += 0.01;
-    }
-    NSString *volume =[NSString stringWithFormat:@" Volume : %@ %%", [[[NSString stringWithFormat:@"%f",(musicPlayer.volume*100)] componentsSeparatedByString:@"."] objectAtIndex:0]];
-    [self displayHUDwithText:volume];
-}
-
--(void)adjustBrightness
-{
-    CGFloat brightness = [UIScreen mainScreen].brightness;
-    if (_panDirectionY >0)
-    {
-        [[UIScreen mainScreen]setBrightness:(brightness-0.01)];
-    }
-    else
-    {
-        [[UIScreen mainScreen]setBrightness:(brightness+0.01)];
-    }
-
-    NSString *brightnessHUD =[NSString stringWithFormat:@" Brightness : %@ %%", [[[NSString stringWithFormat:@"%f",(brightness*100)] componentsSeparatedByString:@"."] objectAtIndex:0]];
-    [self displayHUDwithText:brightnessHUD];
-
-}
-
--(void)adjustSeek
-{
-    double timeRemainingDouble = (-_mediaPlayer.remainingTime.intValue*0.001);
-    int timeRemaining = timeRemainingDouble;
-
-    if (_panDirectionX >0) {
-        if (timeRemaining > 2 ) // to not go outside duration , video will stop
-        {
-            [_mediaPlayer jumpForward:1];
-        }
-    }
-    else
-    {
-        [_mediaPlayer jumpBackward:1];
-    }
-
-}
-
--(void)setOrientationSettingsForPan:(UIPanGestureRecognizer*)panRecognizer
-{
-    _panDirectionX = [self getHorizontalDirectionForPan:panRecognizer];
-    _panDirectionY = [self getVerticalDirectionForPan:panRecognizer];
-}
-
--(void)panRecognized:(UIPanGestureRecognizer*)panRecognizer
-{
-    [self setOrientationSettingsForPan:panRecognizer];
+    CGFloat panDirectionX = [panRecognizer velocityInView:_rootView].x;
+    CGFloat panDirectionY = [panRecognizer velocityInView:_rootView].y;
 
     if (panRecognizer.state == UIGestureRecognizerStateBegan) // Only Detect pantype when began to allow more freedom
-    {
         panType = [self detectPanTypeForPan:panRecognizer];
+
+    if ([panType isEqual:@"Seek"]) {
+        double timeRemainingDouble = (-_mediaPlayer.remainingTime.intValue*0.001);
+        int timeRemaining = timeRemainingDouble;
+
+        if (panDirectionX > 0) {
+            if (timeRemaining > 2 ) // to not go outside duration , video will stop
+                [_mediaPlayer jumpForward:1];
+        } else
+            [_mediaPlayer jumpBackward:1];
+    } else if ([panType isEqual:@"Volume"]) {
+        MPMusicPlayerController *musicPlayer = [MPMusicPlayerController applicationMusicPlayer];
+        if (panDirectionY > 0)
+            musicPlayer.volume -= 0.01;
+        else
+            musicPlayer.volume += 0.01;
+
+        NSString *volume =[NSString stringWithFormat:@" Volume : %@ %%", [[[NSString stringWithFormat:@"%f",(musicPlayer.volume*100)] componentsSeparatedByString:@"."] objectAtIndex:0]];
+        [self _displayHUDwithText:volume];
+    } else if ([panType isEqual:@"Brightness"]) {
+        CGFloat brightness = [UIScreen mainScreen].brightness;
+        if (panDirectionY > 0)
+            [[UIScreen mainScreen]setBrightness:(brightness - 0.01)];
+        else
+            [[UIScreen mainScreen]setBrightness:(brightness + 0.01)];
+
+        NSString *brightnessHUD =[NSString stringWithFormat:@" Brightness : %@ %%", [[[NSString stringWithFormat:@"%f",(brightness*100)] componentsSeparatedByString:@"."] objectAtIndex:0]];
+        [self _displayHUDwithText:brightnessHUD];
     }
 
-    if ([panType isEqual:@"Seek"])
-    {
-        [self adjustSeek];
-    }
-    if ([panType isEqual:@"Volume"])
-    {
-        [self adjustVolume];
-    }
-    if ([panType isEqual:@"Brightness"])
-    {
-        [self adjustBrightness];
-    }
-
-    if (panRecognizer.state == UIGestureRecognizerStateEnded)
-    {
+    if (panRecognizer.state == UIGestureRecognizerStateEnded) {
         if ([_mediaPlayer isPlaying])
-        {
             [_mediaPlayer play];
-        }
     }
 }
 
--(void)swipeRecognized:(UISwipeGestureRecognizer*)swipeRecognizer
+- (void)swipeRecognized:(UISwipeGestureRecognizer*)swipeRecognizer
 {
     NSString * hudString = @" ";
 
-    if (swipeRecognizer.direction == UISwipeGestureRecognizerDirectionRight)
-    {
-
+    if (swipeRecognizer.direction == UISwipeGestureRecognizerDirectionRight) {
         double timeRemainingDouble = (-_mediaPlayer.remainingTime.intValue*0.001);
-
         int timeRemaining = timeRemainingDouble;
 
-        if (_forwardDuration < timeRemaining)
-        {
+        if (_forwardDuration < timeRemaining) {
             [_mediaPlayer jumpForward:_forwardDuration];
             hudString = [NSString stringWithFormat:@" >> %is ",_forwardDuration];
 
             if (_forwardDuration == 60)
-            {
                 hudString = @"  >>1min  ";
-            }
-        }
-        else {
+        } else {
             [_mediaPlayer jumpForward:(timeRemaining - 5)];
             hudString = [NSString stringWithFormat:@" >> %is ",(timeRemaining - 5)];
         }
     }
-
-    if (swipeRecognizer.direction == UISwipeGestureRecognizerDirectionLeft)
-    {
+    else if (swipeRecognizer.direction == UISwipeGestureRecognizerDirectionLeft) {
         [_mediaPlayer jumpBackward:_backwardDuration];
         hudString = [NSString stringWithFormat:@" << %is ",_backwardDuration];
 
         if (_backwardDuration == 60)
-        {
             hudString = @"  <<1min  ";
-        }
-
     }
 
-    if (swipeRecognizer.state == UIGestureRecognizerStateEnded)
-    {
+    if (swipeRecognizer.state == UIGestureRecognizerStateEnded) {
         [_rootView addSubview:_splashView];
         if ([_mediaPlayer isPlaying])
-        {
             [_mediaPlayer play];
-        }
-        [self displayHUDwithText:hudString];
+
+        [self _displayHUDwithText:hudString];
     }
 }
 
