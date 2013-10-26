@@ -899,20 +899,6 @@
     return type;
 }
 
-- (void)_displayHUDwithText:(NSString*)text
-{
-    CGSize screenSize = [self _screenSize];
-    UILabel * label = [[UILabel alloc] initWithFrame:CGRectMake( (screenSize.width/2 - text.length*8.5/2), 72, (text.length * 8.5), 20)];
-    [label setText:text];
-    [label setAdjustsFontSizeToFitWidth:YES];
-    [label setBackgroundColor:[UIColor blackColor]];
-    [label setTextColor:[UIColor whiteColor]];
-    [label setAlpha:0.55];
-    [_rootView addSubview:label];
-
-    [UIView animateWithDuration:1 animations:^{ label.alpha = 0.0f;} completion:^(BOOL finished){ [label removeFromSuperview]; }];
-}
-
 - (void)panRecognized:(UIPanGestureRecognizer*)panRecognizer
 {
     CGFloat panDirectionX = [panRecognizer velocityInView:_rootView].x;
@@ -944,7 +930,7 @@
             [[UIScreen mainScreen]setBrightness:(brightness + 0.01)];
 
         NSString *brightnessHUD =[NSString stringWithFormat:@"%@: %@ %%", NSLocalizedString(@"VFILTER_BRIGHTNESS", @""), [[[NSString stringWithFormat:@"%f",(brightness*100)] componentsSeparatedByString:@"."] objectAtIndex:0]];
-        [self _displayHUDwithText:brightnessHUD];
+        [self.statusLabel showStatusMessage:brightnessHUD];
     }
 
     if (panRecognizer.state == UIGestureRecognizerStateEnded) {
@@ -978,7 +964,7 @@
         if ([_mediaPlayer isPlaying])
             [_mediaPlayer play];
 
-        [self _displayHUDwithText:hudString];
+        [self.statusLabel showStatusMessage:hudString];
     }
 }
 
