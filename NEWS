@@ -8,6 +8,8 @@
 * Added cover-art and duration to UPnP server item lists
 * Added support for system-wide HTTP proxy settings
 * Added support for multi-touch gestures
+* Added support for media broadcasted with the Session Announcement Protocol
+  (SAP) information on the local network (#9429)
 * UPnP stability improvements
 * Removed support for iOS 5
 * Previously removed episodes and tracks no longer show up in the respective

@@ -18,8 +18,9 @@
 #import "GHRevealViewController.h"
 #import "VLCNetworkLoginViewController.h"
 #import "UINavigationController+Theme.h"
+#import "VLCPlaylistViewController.h"
 
-@interface VLCLocalServerListViewController () <UITableViewDataSource, UITableViewDelegate, NSNetServiceBrowserDelegate, VLCNetworkLoginViewController, NSNetServiceDelegate>
+@interface VLCLocalServerListViewController () <UITableViewDataSource, UITableViewDelegate, NSNetServiceBrowserDelegate, VLCNetworkLoginViewController, NSNetServiceDelegate, VLCMediaListDelegate>
 {
     UIBarButtonItem *_backToMenuButton;
     NSArray *_sectionHeaderTexts;
@@ -30,6 +31,8 @@
 
     NSArray *_filteredUPNPDevices;
     NSArray *_UPNPdevices;
+
+    VLCMediaDiscoverer * _sapDiscoverer;
 
     VLCNetworkLoginViewController *_loginViewController;
 
@@ -58,7 +61,7 @@
 {
     [super viewDidLoad];
 
-    _sectionHeaderTexts = @[@"Universal Plug'n'Play (UPNP)", @"File Transfer Protocol (FTP)"];
+    _sectionHeaderTexts = @[@"Universal Plug'n'Play (UPNP)", @"File Transfer Protocol (FTP)", @"Network Streams (SAP)"];
 
     _backToMenuButton = [UIBarButtonItem themedRevealMenuButtonWithTarget:self andSelector:@selector(goBack:)];
     self.navigationItem.leftBarButtonItem = _backToMenuButton;
@@ -78,6 +81,7 @@
     _netServiceBrowser.delegate = self;
 
     [self performSelectorInBackground:@selector(_startUPNPDiscovery) withObject:nil];
+    [self performSelectorInBackground:@selector(_startSAPDiscovery) withObject:nil];
 
     refreshControl = [[UIRefreshControl alloc] init];
     [refreshControl addTarget:self action:@selector(handleRefresh) forControlEvents:UIControlEventValueChanged];
@@ -95,6 +99,7 @@
     [super viewWillAppear:animated];
     [self _triggerNetServiceBrowser];
     [self performSelectorInBackground:@selector(_startUPNPDiscovery) withObject:nil];
+    [self performSelectorInBackground:@selector(_startSAPDiscovery) withObject:nil];
 }
 
 - (void)_triggerNetServiceBrowser
@@ -104,7 +109,6 @@
 
 - (void)_startUPNPDiscovery
 {
-    NSLog(@"_startUPNPDiscovery");
     UPnPManager *managerInstance = [UPnPManager GetInstance];
 
     _UPNPdevices = [[managerInstance DB] rootDevices];
@@ -128,6 +132,7 @@
     UPnPManager *managerInstance = [UPnPManager GetInstance];
     [[managerInstance DB] removeObserver:(UPnPDBObserver*)self];
     [[managerInstance SSDP] stopSSDP];
+    [self _stopSAPDiscovery];
 
     [[(VLCAppDelegate*)[UIApplication sharedApplication].delegate revealController] toggleSidebar:![(VLCAppDelegate*)[UIApplication sharedApplication].delegate revealController].sidebarShowing duration:kGHRevealSidebarDefaultAnimationDuration];
 }
@@ -153,6 +158,8 @@
         return _filteredUPNPDevices.count;
     else if (section == 1)
         return _ftpServices.count;
+    else if (section == 2)
+        return _sapDiscoverer.discoveredMedia.count;
 
     return 0;
 }
@@ -185,7 +192,8 @@
             [cell setTitle:_ftpServices[row]];
         else
             [cell setTitle:[_ftpServices[row] name]];
-    }
+    } else if (section == 2)
+        [cell setTitle:[[_sapDiscoverer.discoveredMedia mediaAtIndex:row] metadataForKey: VLCMetaInformationTitle]];
 
     return cell;
 }
@@ -194,14 +202,17 @@
 {
     [tableView deselectRowAtIndexPath:indexPath animated:YES];
 
-    if (indexPath.section == 0) {
-        BasicUPnPDevice *device = _filteredUPNPDevices[indexPath.row];
+    NSUInteger row = indexPath.row;
+    NSUInteger section = indexPath.section;
+
+    if (section == 0) {
+        BasicUPnPDevice *device = _filteredUPNPDevices[row];
         if ([[device urn] isEqualToString:@"urn:schemas-upnp-org:device:MediaServer:1"]) {
             MediaServer1Device *server = (MediaServer1Device*)device;
             VLCLocalServerFolderListViewController *targetViewController = [[VLCLocalServerFolderListViewController alloc] initWithUPNPDevice:server header:[device friendlyName] andRootID:@"0"];
             [self.navigationController pushViewController:targetViewController animated:YES];
         }
-    } else if (indexPath.section == 1) {
+    } else if (section == 1) {
         if (_loginViewController == nil) {
             _loginViewController = [[VLCNetworkLoginViewController alloc] initWithNibName:nil bundle:nil];
             _loginViewController.delegate = self;
@@ -223,12 +234,21 @@
         } else
             [self.navigationController pushViewController:_loginViewController animated:YES];
 
-        if (indexPath.row != 0) { // FTP Connect To Server Special Item
-            if ([_ftpServices[indexPath.row] hostName].length > 0)
-                _loginViewController.serverAddressField.text = [NSString stringWithFormat:@"ftp://%@", [_ftpServices[indexPath.row] hostName]];
+        if (row != 0) { // FTP Connect To Server Special Item
+            if ([_ftpServices[row] hostName].length > 0)
+                _loginViewController.serverAddressField.text = [NSString stringWithFormat:@"ftp://%@", [_ftpServices[row] hostName]];
         } else
             _loginViewController.serverAddressField.text = @"";
+    } else if (section == 2) {
+        VLCAppDelegate* appDelegate = [UIApplication sharedApplication].delegate;
 
+        UINavigationController *navController = [[UINavigationController alloc] initWithRootViewController:appDelegate.playlistViewController];
+        [navController loadTheme];
+
+        appDelegate.revealController.contentViewController = navController;
+        [appDelegate.revealController toggleSidebar:NO duration:kGHRevealSidebarDefaultAnimationDuration];
+
+        [appDelegate.playlistViewController performSelector:@selector(openMovieFromURL:) withObject:[[_sapDiscoverer.discoveredMedia mediaAtIndex:row] url] afterDelay:kGHRevealSidebarDefaultAnimationDuration];
     }
 }
 
@@ -253,6 +273,7 @@
     [self.tableView reloadData];
 
     [self performSelectorInBackground:@selector(_startUPNPDiscovery) withObject:nil];
+    [self performSelectorInBackground:@selector(_startSAPDiscovery) withObject:nil];
 }
 
 #pragma mark - login panel protocol
@@ -347,12 +368,9 @@
 #pragma mark - UPNP details
 //protocol UPnPDBObserver
 - (void)UPnPDBWillUpdate:(UPnPDB*)sender{
-    APLog(@"UPnPDBWillUpdate %d", _UPNPdevices.count);
 }
 
 - (void)UPnPDBUpdated:(UPnPDB*)sender{
-    APLog(@"UPnPDBUpdated %d", _UPNPdevices.count);
-
     NSUInteger count = _UPNPdevices.count;
     BasicUPnPDevice *device;
     NSMutableArray *mutArray = [[NSMutableArray alloc] init];
@@ -364,7 +382,30 @@
     _filteredUPNPDevices = nil;
     _filteredUPNPDevices = [NSArray arrayWithArray:mutArray];
 
-    [self.tableView performSelectorOnMainThread : @ selector(reloadData) withObject:nil waitUntilDone:YES];
+    [self.tableView performSelectorOnMainThread:@selector(reloadData) withObject:nil waitUntilDone:YES];
+}
+
+#pragma mark SAP discovery
+
+- (void)_startSAPDiscovery
+{
+    _sapDiscoverer = [[VLCMediaDiscoverer alloc] initWithName:@"sap"];
+    _sapDiscoverer.discoveredMedia.delegate = self;
+}
+
+- (void)_stopSAPDiscovery
+{
+    _sapDiscoverer = nil;
+}
+
+- (void)mediaList:(VLCMediaList *)aMediaList mediaAdded:(VLCMedia *)media atIndex:(NSInteger)index
+{
+    [self.tableView performSelectorOnMainThread:@selector(reloadData) withObject:nil waitUntilDone:NO];
+}
+
+- (void)mediaList:(VLCMediaList *)aMediaList mediaRemovedAtIndex:(NSInteger)index
+{
+    [self.tableView performSelectorOnMainThread:@selector(reloadData) withObject:nil waitUntilDone:NO];
 }
 
 @end
