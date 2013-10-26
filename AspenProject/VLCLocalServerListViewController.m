@@ -94,7 +94,7 @@
 {
     [super viewWillAppear:animated];
     [self _triggerNetServiceBrowser];
-    //[self performSelectorInBackground:@selector(_startUPNPDiscovery) withObject:nil];
+    [self performSelectorInBackground:@selector(_startUPNPDiscovery) withObject:nil];
 }
 
 - (void)_triggerNetServiceBrowser
