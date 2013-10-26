@@ -936,9 +936,6 @@
             musicPlayer.volume -= 0.01;
         else
             musicPlayer.volume += 0.01;
-
-        NSString *volume =[NSString stringWithFormat:@" Volume : %@ %%", [[[NSString stringWithFormat:@"%f",(musicPlayer.volume*100)] componentsSeparatedByString:@"."] objectAtIndex:0]];
-        [self _displayHUDwithText:volume];
     } else if ([panType isEqual:@"Brightness"]) {
         CGFloat brightness = [UIScreen mainScreen].brightness;
         if (panDirectionY > 0)
