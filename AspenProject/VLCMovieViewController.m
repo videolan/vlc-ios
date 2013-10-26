@@ -315,6 +315,7 @@
     _mediaPlayer = [[VLCMediaPlayer alloc] initWithOptions:@[[NSString stringWithFormat:@"--%@=%@", kVLCSettingSubtitlesFont, [defaults objectForKey:kVLCSettingSubtitlesFont]], [NSString stringWithFormat:@"--%@=%@", kVLCSettingSubtitlesFontColor, [defaults objectForKey:kVLCSettingSubtitlesFontColor]], [NSString stringWithFormat:@"--%@=%@", kVLCSettingSubtitlesFontSize, [defaults objectForKey:kVLCSettingSubtitlesFontSize]], [NSString stringWithFormat:@"--%@=%@", kVLCSettingDeinterlace, [defaults objectForKey:kVLCSettingDeinterlace]]]];
     [_mediaPlayer setDelegate:self];
     [_mediaPlayer setDrawable:self.movieView];
+    self.trackNameLabel.text = self.artistNameLabel.text = self.albumNameLabel.text = @"";
 
     VLCMedia *media;
     if (self.mediaItem) {
@@ -327,8 +328,7 @@
             self.trackNameLabel.text = item.albumTrack.title;
             self.artistNameLabel.text = item.albumTrack.artist;
             self.albumNameLabel.text = item.albumTrack.album.name;
-        } else
-            self.trackNameLabel.text = self.artistNameLabel.text = self.albumNameLabel.text = @"";
+        }
     } else {
         media = [VLCMedia mediaWithURL:self.url];
         self.title = @"Network Stream";
