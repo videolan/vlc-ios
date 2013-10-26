@@ -113,6 +113,9 @@
     _emptyLibraryView.emptyLibraryLabel.text = NSLocalizedString(@"EMPTY_LIBRARY", @"");
     _emptyLibraryView.emptyLibraryLongDescriptionLabel.text = NSLocalizedString(@"EMPTY_LIBRARY_LONG", @"");
     [_emptyLibraryView.emptyLibraryLongDescriptionLabel sizeToFit];
+
+    if (SYSTEM_RUNS_IOS7_OR_LATER)
+        [UIApplication sharedApplication].statusBarStyle = UIStatusBarStyleLightContent;
 }
 
 - (void)viewWillAppear:(BOOL)animated
@@ -143,9 +146,6 @@
     if (_foundMedia.count < 1)
         [self updateViewContents];
     [[MLMediaLibrary sharedMediaLibrary] performSelector:@selector(libraryDidAppear) withObject:nil afterDelay:1.];
-
-    if (SYSTEM_RUNS_IOS7_OR_LATER)
-        [UIApplication sharedApplication].statusBarStyle = UIStatusBarStyleLightContent;
 }
 
 - (void)viewDidDisappear:(BOOL)animated
