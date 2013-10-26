@@ -49,11 +49,9 @@
     BOOL _swipeGesturesEnabled;
     NSString * panType;
     UIView *_rootView;
-    UIView *_splashView;
     UIPanGestureRecognizer *_panRecognizer;
     UISwipeGestureRecognizer *_swipeRecognizerLeft;
     UISwipeGestureRecognizer *_swipeRecognizerRight;
-    UITapGestureRecognizer *_tapRecognizer;
 }
 
 @property (nonatomic, strong) UIPopoverController *masterPopoverController;
@@ -71,10 +69,6 @@
 
 - (void)dealloc
 {
-    if (_splashView)
-        [_splashView removeFromSuperview];
-    if (_tapRecognizer)
-        [_rootView removeGestureRecognizer:_tapRecognizer];
     if (_swipeRecognizerLeft)
         [_rootView removeGestureRecognizer:_swipeRecognizerLeft];
     if (_swipeRecognizerRight)
@@ -196,8 +190,6 @@
 
     _swipeGesturesEnabled = YES;
     if (_swipeGesturesEnabled) {
-        _tapRecognizer = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(tapRecognized)];
-        [_tapRecognizer setNumberOfTouchesRequired:2];
         _panRecognizer = [[UIPanGestureRecognizer alloc] initWithTarget:self action:@selector(panRecognized:)];
         [_panRecognizer setMinimumNumberOfTouches:1];
         [_panRecognizer setMaximumNumberOfTouches:1];
@@ -212,14 +204,12 @@
         [_rootView addGestureRecognizer:_swipeRecognizerLeft];
         [_rootView addGestureRecognizer:_swipeRecognizerRight];
         [_rootView addGestureRecognizer:_panRecognizer];
-        [_rootView addGestureRecognizer:_tapRecognizer];
         [_panRecognizer requireGestureRecognizerToFail:_swipeRecognizerLeft];
         [_panRecognizer requireGestureRecognizerToFail:_swipeRecognizerRight];
 
         _panRecognizer.delegate = self;
         _swipeRecognizerRight.delegate = self;
         _swipeRecognizerLeft.delegate = self;
-        _tapRecognizer.delegate = self;
     }
 
     _aspectRatios = @[@"DEFAULT", @"FILL_TO_SCREEN", @"4:3", @"16:9", @"16:10", @"2.21:1"];
@@ -885,21 +875,6 @@
     return CGSizeMake(screenWidth, screenHeight);
 }
 
-- (void)tapRecognized
-{
-    if ([_mediaPlayer isPlaying]) {
-        [_mediaPlayer pause];
-        [self _displayHUDwithText:@"  ▌▌"];
-    } else {
-        [_mediaPlayer play];
-        [self _displayHUDwithText:@"  ►"];
-    }
-    [_rootView addSubview:_splashView];
-    [UIView animateWithDuration:1
-                     animations:^{ _splashView.alpha = 0.0f;}
-                     completion:^(BOOL finished){ [_splashView removeFromSuperview]; }];
-}
-
 - (NSString*)detectPanTypeForPan:(UIPanGestureRecognizer*)panRecognizer
 {
     NSString * type;
@@ -1003,7 +978,6 @@
     }
 
     if (swipeRecognizer.state == UIGestureRecognizerStateEnded) {
-        [_rootView addSubview:_splashView];
         if ([_mediaPlayer isPlaying])
             [_mediaPlayer play];
 
