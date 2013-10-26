@@ -914,11 +914,11 @@
     } else if ([panType isEqual:@"Brightness"]) {
         CGFloat brightness = [UIScreen mainScreen].brightness;
         if (panDirectionY > 0)
-            [[UIScreen mainScreen]setBrightness:(brightness - 0.01)];
+            [[UIScreen mainScreen] setBrightness:(brightness - 0.01)];
         else
-            [[UIScreen mainScreen]setBrightness:(brightness + 0.01)];
+            [[UIScreen mainScreen] setBrightness:(brightness + 0.01)];
 
-        NSString *brightnessHUD =[NSString stringWithFormat:@"%@: %@ %%", NSLocalizedString(@"VFILTER_BRIGHTNESS", @""), [[[NSString stringWithFormat:@"%f",(brightness*100)] componentsSeparatedByString:@"."] objectAtIndex:0]];
+        NSString *brightnessHUD = [NSString stringWithFormat:@"%@: %@ %%", NSLocalizedString(@"VFILTER_BRIGHTNESS", @""), [[[NSString stringWithFormat:@"%f",(brightness*100)] componentsSeparatedByString:@"."] objectAtIndex:0]];
         [self.statusLabel showStatusMessage:brightnessHUD];
     }
 
