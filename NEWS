@@ -6,6 +6,7 @@
 * Added bookmarks for FTP servers
 * Added support for downloading from UPnP multimedia servers
 * Added cover-art and duration to UPnP server item lists
+* Added support for system-wide HTTP proxy settings
 * UPnP stability improvements
 * Removed support for iOS 5
 * Previously removed episodes and tracks no longer show up in the respective
