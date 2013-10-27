@@ -246,6 +246,10 @@ spushd upnpx/projects/xcode4/upnpx
 buildxcodeproj upnpx
 spopd
 
+spushd GDrive
+buildxcodeproj GTL "GTLTouchStaticLib"
+spopd
+
 spopd # ImportedSources
 
 
