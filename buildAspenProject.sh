@@ -145,6 +145,9 @@ fi
 if ! [ -e DAVKit ]; then
 git clone git://github.com/mattrajca/DAVKit.git
 fi
+if ! [ -e GDrive ]; then
+svn checkout http://google-api-objectivec-client.googlecode.com/svn/trunk/Source GDrive
+fi
 if ! [ -e GHSidebarNav ]; then
 git clone git://github.com/gresrun/GHSidebarNav.git
 fi
