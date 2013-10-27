@@ -7,9 +7,11 @@
 * Added support for downloading from UPnP multimedia servers
 * Added cover-art and duration to UPnP server item lists
 * Added support for system-wide HTTP proxy settings
-* Added support for multi-touch gestures
+* Added support for multi-touch gestures based upon the VLC Gestures haxie
 * Added support for media broadcasted with the Session Announcement Protocol
   (SAP) information on the local network (#9429)
+* Opening network streams no longer leads to a collapsed file system hierachy
+  on the remote system. After playback, you can continue where you left off.
 * UPnP stability improvements
 * Removed support for iOS 5
 * Previously removed episodes and tracks no longer show up in the respective
