@@ -123,65 +123,91 @@
 - (void)_configureForShow:(MLShow *)show
 {
     self.titleLabel.text = show.name;
-    self.artistNameLabel.text = @"";
-    self.albumNameLabel.text = show.releaseYear;
     NSUInteger count = show.episodes.count;
-    self.subtitleLabel.text = [NSString stringWithFormat:(count > 1) ? NSLocalizedString(@"LIBRARY_EPISODES", @"") : NSLocalizedString(@"LIBRARY_SINGLE_EPISODE", @""), count, show.unreadEpisodes.count];
+    if (SYSTEM_RUNS_IOS7_OR_LATER) {
+        NSString *string = @"";
+        if (show.releaseYear)
+            string = [NSString stringWithFormat:@"%@ — ", show.releaseYear];
+        self.subtitleLabel.text = [string stringByAppendingString:[NSString stringWithFormat:(count > 1) ? NSLocalizedString(@"LIBRARY_EPISODES", @"") : NSLocalizedString(@"LIBRARY_SINGLE_EPISODE", @""), count, show.unreadEpisodes.count]];
+    } else {
+        self.artistNameLabel.text = @"";
+        self.albumNameLabel.text = show.releaseYear;
+        self.subtitleLabel.text = [NSString stringWithFormat:(count > 1) ? NSLocalizedString(@"LIBRARY_EPISODES", @"") : NSLocalizedString(@"LIBRARY_SINGLE_EPISODE", @""), count, show.unreadEpisodes.count];
+    }
     self.mediaIsUnreadView.hidden = YES;
     self.progressView.hidden = YES;
 }
 
 - (void)_configureForAlbumTrack:(MLAlbumTrack *)albumTrack
 {
-    self.artistNameLabel.text = albumTrack.artist;
-    self.albumNameLabel.text = [NSString stringWithFormat:NSLocalizedString(@"LIBRARY_SINGLE_TRACK", @""), albumTrack.trackNumber.intValue];
+    MLFile *anyFileFromTrack = albumTrack.files.anyObject;
+
+    if (SYSTEM_RUNS_IOS7_OR_LATER)
+        self.subtitleLabel.text = [NSString stringWithFormat:@"%@ — %@ — %@", albumTrack.artist, [NSString stringWithFormat:NSLocalizedString(@"LIBRARY_TRACK_N", @""), albumTrack.trackNumber.intValue], [VLCTime timeWithNumber:[anyFileFromTrack duration]]];
+    else {
+        self.artistNameLabel.text = albumTrack.artist;
+        self.albumNameLabel.text = [NSString stringWithFormat:NSLocalizedString(@"LIBRARY_TRACK_N", @""), albumTrack.trackNumber.intValue];
+        self.subtitleLabel.text = [NSString stringWithFormat:@"%@", [VLCTime timeWithNumber:[anyFileFromTrack duration]]];
+    }
     self.titleLabel.text = albumTrack.title;
     self.thumbnailView.image = nil;
 
-    MLFile *anyFileFromTrack = albumTrack.files.anyObject;
-    self.subtitleLabel.text = [NSString stringWithFormat:@"%@", [VLCTime timeWithNumber:[anyFileFromTrack duration]]];
-
     [self _showPositionOfItem:anyFileFromTrack];
+}
+
+- (void)_configureForShowEpisode:(MLShowEpisode *)showEpisode
+{
+    self.titleLabel.text = showEpisode.name;
+
+    MLFile *anyFileFromEpisode = showEpisode.files.anyObject;
+    if (self.titleLabel.text.length < 1) {
+        self.titleLabel.text = [NSString stringWithFormat:@"S%02dE%02d", showEpisode.seasonNumber.intValue, showEpisode.episodeNumber.intValue];
+        self.subtitleLabel.text = [NSString stringWithFormat:@"%@", [VLCTime timeWithNumber:[anyFileFromEpisode duration]]];
+    } else
+        self.subtitleLabel.text = [NSString stringWithFormat:@"S%02dE%02d — %@", showEpisode.seasonNumber.intValue, showEpisode.episodeNumber.intValue, [VLCTime timeWithNumber:[anyFileFromEpisode duration]]];
+
+    [self _showPositionOfItem:anyFileFromEpisode];
 }
 
 - (void)_configureForAlbum:(MLAlbum *)album
 {
     self.titleLabel.text = album.name;
     MLAlbumTrack *anyTrack = [album.tracks anyObject];
-    self.artistNameLabel.text = anyTrack? anyTrack.artist: @"";
-    self.albumNameLabel.text = album.releaseYear;
-    self.thumbnailView.image = nil;
-
     NSUInteger count = album.tracks.count;
-    self.subtitleLabel.text = [NSString stringWithFormat:(count > 1) ? NSLocalizedString(@"LIBRARY_TRACKS", @"") : NSLocalizedString(@"LIBRARY_SINGLE_TRACK", @""), count];
+    if (SYSTEM_RUNS_IOS7_OR_LATER) {
+        NSMutableString *string = [[NSMutableString alloc] init];
+        if (anyTrack) {
+            [string appendString:anyTrack.artist];
+            [string appendString:@" — "];
+        }
+        [string appendFormat:@"%@ — %@", [NSString stringWithFormat:(count > 1) ? NSLocalizedString(@"LIBRARY_TRACKS", @"") : NSLocalizedString(@"LIBRARY_SINGLE_TRACK", @""), count], album.releaseYear];
+        self.subtitleLabel.text = string;
+    } else {
+        self.artistNameLabel.text = anyTrack? anyTrack.artist: @"";
+        self.albumNameLabel.text = album.releaseYear;
+        self.subtitleLabel.text = [NSString stringWithFormat:(count > 1) ? NSLocalizedString(@"LIBRARY_TRACKS", @"") : NSLocalizedString(@"LIBRARY_SINGLE_TRACK", @""), count];
+    }
+    self.thumbnailView.image = nil;
     self.mediaIsUnreadView.hidden = YES;
     self.progressView.hidden = YES;
 }
 
-- (void)_configureForShowEpisode:(MLShowEpisode *)showEpisode
-{
-    MLFile *anyFileFromEpisode = showEpisode.files.anyObject;
-    self.titleLabel.text = showEpisode.name;
-    if (self.titleLabel.text.length < 1) {
-        self.titleLabel.text = [NSString stringWithFormat:@"S%02dE%02d", showEpisode.episodeNumber.intValue, showEpisode.seasonNumber.intValue];
-        self.subtitleLabel.text = [NSString stringWithFormat:@"%@", [VLCTime timeWithNumber:[anyFileFromEpisode duration]]];
-    } else
-        self.subtitleLabel.text = [NSString stringWithFormat:@"S%02dE%02d — %@", showEpisode.episodeNumber.intValue, showEpisode.seasonNumber.intValue, [VLCTime timeWithNumber:[anyFileFromEpisode duration]]];
-
-    [self _showPositionOfItem:anyFileFromEpisode];
-}
-
 - (void)_configureForMLFile:(MLFile *)mediaFile
 {
-    if ([mediaFile isAlbumTrack]) {
-        self.artistNameLabel.text = mediaFile.albumTrack.artist;
-        self.albumNameLabel.text = mediaFile.albumTrack.album.name;
-        self.titleLabel.text = (mediaFile.albumTrack.title.length > 0) ? mediaFile.albumTrack.title : mediaFile.title;
+    if (mediaFile.isAlbumTrack) {
+        if (SYSTEM_RUNS_IOS7_OR_LATER) {
+            NSString *string = @"";
+            if (mediaFile.albumTrack.artist)
+                string = [NSString stringWithFormat:@"%@ — ", mediaFile.albumTrack.artist];
+            else if (mediaFile.albumTrack.album.name)
+                string = [NSString stringWithFormat:@"%@ — ", mediaFile.albumTrack.artist];
+            self.titleLabel.text = [string stringByAppendingString:(mediaFile.albumTrack.title.length > 1) ? mediaFile.albumTrack.title : mediaFile.title];
+        } else {
+            self.artistNameLabel.text = mediaFile.albumTrack.artist;
+            self.albumNameLabel.text = mediaFile.albumTrack.album.name;
+            self.titleLabel.text = (mediaFile.albumTrack.title.length > 1) ? mediaFile.albumTrack.title : mediaFile.title;
+        }
         self.thumbnailView.image = nil;
-    } else if ([mediaFile isShowEpisode]) {
-        MLShowEpisode *episode = mediaFile.showEpisode;
-        self.seriesNameLabel.text = episode.show.name;
-        self.titleLabel.text = (episode.name.length > 0) ? [NSString stringWithFormat:@"%@ - S%02dE%02d", episode.name, mediaFile.showEpisode.seasonNumber.intValue, episode.episodeNumber.intValue] : [NSString stringWithFormat:@"S%02dE%02d", episode.seasonNumber.intValue, episode.episodeNumber.intValue];
     } else
         self.titleLabel.text = mediaFile.title;
 
@@ -205,10 +231,23 @@
 - (void)_showPositionOfItem:(MLFile *)mediaItem
 {
     CGFloat position = mediaItem.lastPosition.floatValue;
-    self.progressView.progress = position;
-    self.progressView.hidden = ((position < .1f) || (position > .95f)) ? YES : NO;
-    [self.progressView setNeedsDisplay];
-    self.mediaIsUnreadView.hidden = !mediaItem.unread.intValue;
+
+    if (SYSTEM_RUNS_IOS7_OR_LATER) {
+        CGFloat duration = mediaItem.duration.floatValue;
+        if (position > .1f && position < .95f) {
+            [(UITextView*)self.mediaIsUnreadView setText:[NSString stringWithFormat:NSLocalizedString(@"LIBRARY_MINUTES_LEFT", @""), [[VLCTime timeWithInt:(duration * position - duration)] minuteStringValue]]];
+            self.mediaIsUnreadView.hidden = NO;
+        } else if (mediaItem.unread.intValue) {
+            [(UILabel *)self.mediaIsUnreadView setText:[NSLocalizedString(@"NEW", @"") capitalizedStringWithLocale:[NSLocale currentLocale]]];
+            self.mediaIsUnreadView.hidden = NO;
+        } else
+            self.mediaIsUnreadView.hidden = YES;
+    } else {
+        self.progressView.progress = position;
+        self.progressView.hidden = ((position < .1f) || (position > .95f)) ? YES : NO;
+        [self.progressView setNeedsDisplay];
+        self.mediaIsUnreadView.hidden = !mediaItem.unread.intValue;
+    }
 }
 
 @end

@@ -63,13 +63,13 @@
         _collectionView.dataSource = self;
         self.view = _collectionView;
 
-        if (SYSTEM_RUNS_IOS7_OR_LATER)
+        if (SYSTEM_RUNS_IOS7_OR_LATER) {
             [_collectionView registerNib:[UINib nibWithNibName:@"VLCFuturePlaylistCollectionViewCell" bundle:nil] forCellWithReuseIdentifier:@"PlaylistCell"];
-        else
+            self.view.backgroundColor = [UIColor colorWithWhite:.125 alpha:1.];
+        } else {
             [_collectionView registerNib:[UINib nibWithNibName:@"VLCPlaylistCollectionViewCell" bundle:nil] forCellWithReuseIdentifier:@"PlaylistCell"];
-
-
-        self.view.backgroundColor = [UIColor colorWithPatternImage:[UIImage imageNamed:@"libraryBackground"]];
+            self.view.backgroundColor = [UIColor colorWithPatternImage:[UIImage imageNamed:@"libraryBackground"]];
+        }
     }
 
     _libraryMode = VLCLibraryModeAllFiles;
@@ -372,29 +372,23 @@
 - (CGSize)collectionView:(UICollectionView *)collectionView layout:(UICollectionViewLayout *)collectionViewLayout sizeForItemAtIndexPath:(NSIndexPath *)indexPath
 {
     if (SYSTEM_RUNS_IOS7_OR_LATER)
-        return CGSizeMake(334.0, 191.0);
+        return CGSizeMake(308.0, 174.0);
 
     return CGSizeMake(298.0, 220.0);
 }
 
 - (UIEdgeInsets)collectionView:(UICollectionView *)collectionView layout:(UICollectionViewLayout *)collectionViewLayout insetForSectionAtIndex:(NSInteger)section
 {
-    if (SYSTEM_RUNS_IOS7_OR_LATER)
-        return UIEdgeInsetsMake(0.0, 0.0, 0.0, 0.0);
     return UIEdgeInsetsMake(0.0, 34.0, 0.0, 34.0);
 }
 
 - (CGFloat)collectionView:(UICollectionView *)collectionView layout:(UICollectionViewLayout*)collectionViewLayout minimumLineSpacingForSectionAtIndex:(NSInteger)section
 {
-    if (SYSTEM_RUNS_IOS7_OR_LATER)
-        return 0.0;
     return 10.0;
 }
 
 - (CGFloat)collectionView:(UICollectionView *)collectionView layout:(UICollectionViewLayout*)collectionViewLayout minimumInteritemSpacingForSectionAtIndex:(NSInteger)section
 {
-    if (SYSTEM_RUNS_IOS7_OR_LATER)
-        return 0.0;
     return 10.0;
 }
 

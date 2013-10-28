@@ -86,9 +86,8 @@
         MLFile *mediaObject = (MLFile*)self.mediaObject;
         [self _configureForMLFile:mediaObject];
 
-        if (([keyPath isEqualToString:@"computedThumbnail"] || !keyPath) && !mediaObject.isAlbumTrack) {
+        if (([keyPath isEqualToString:@"computedThumbnail"] || !keyPath) && !mediaObject.isAlbumTrack)
             self.thumbnailView.image = [VLCThumbnailsCache thumbnailForMediaFile:mediaObject];
-        }
 
     } else if ([self.mediaObject isKindOfClass:[MLAlbum class]]) {
         MLAlbum *mediaObject = (MLAlbum *)self.mediaObject;

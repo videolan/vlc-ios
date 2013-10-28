@@ -101,6 +101,8 @@
 		7D1AC30917629AB600BD2EB5 /* ratioIcon@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 7D1AC30717629AB600BD2EB5 /* ratioIcon@2x.png */; };
 		7D1AC30C17629D4600BD2EB5 /* title.png in Resources */ = {isa = PBXBuildFile; fileRef = 7D1AC30A17629D4600BD2EB5 /* title.png */; };
 		7D1AC30D17629D4600BD2EB5 /* title@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 7D1AC30B17629D4600BD2EB5 /* title@2x.png */; };
+		7D223E1A181EC56E00B36798 /* gradient-cell-ios7-ipad.png in Resources */ = {isa = PBXBuildFile; fileRef = 7D223E18181EC56E00B36798 /* gradient-cell-ios7-ipad.png */; };
+		7D223E1B181EC56E00B36798 /* gradient-cell-ios7-ipad@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 7D223E19181EC56E00B36798 /* gradient-cell-ios7-ipad@2x.png */; };
 		7D2339AF176DE72E008D223C /* VLCOpenNetworkStreamViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 7D2339AD176DE72E008D223C /* VLCOpenNetworkStreamViewController.m */; };
 		7D2339B0176DE72E008D223C /* VLCOpenNetworkStreamViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 7D2339AE176DE72E008D223C /* VLCOpenNetworkStreamViewController.xib */; };
 		7D2A34A41805CDBA004078AA /* gradient-cell-ios7.png in Resources */ = {isa = PBXBuildFile; fileRef = 7D2A34A21805CDBA004078AA /* gradient-cell-ios7.png */; };
@@ -471,6 +473,8 @@
 		7D1AC30717629AB600BD2EB5 /* ratioIcon@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "ratioIcon@2x.png"; sourceTree = "<group>"; };
 		7D1AC30A17629D4600BD2EB5 /* title.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = title.png; sourceTree = "<group>"; };
 		7D1AC30B17629D4600BD2EB5 /* title@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "title@2x.png"; sourceTree = "<group>"; };
+		7D223E18181EC56E00B36798 /* gradient-cell-ios7-ipad.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "gradient-cell-ios7-ipad.png"; sourceTree = "<group>"; };
+		7D223E19181EC56E00B36798 /* gradient-cell-ios7-ipad@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "gradient-cell-ios7-ipad@2x.png"; sourceTree = "<group>"; };
 		7D2339AC176DE72E008D223C /* VLCOpenNetworkStreamViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = VLCOpenNetworkStreamViewController.h; sourceTree = "<group>"; };
 		7D2339AD176DE72E008D223C /* VLCOpenNetworkStreamViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = VLCOpenNetworkStreamViewController.m; sourceTree = "<group>"; };
 		7D2339AE176DE72E008D223C /* VLCOpenNetworkStreamViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; name = VLCOpenNetworkStreamViewController.xib; path = ../Resources/VLCOpenNetworkStreamViewController.xib; sourceTree = "<group>"; };
@@ -1065,6 +1069,8 @@
 		7D10BC661743F9AC00DA7059 /* Library View */ = {
 			isa = PBXGroup;
 			children = (
+				7D223E18181EC56E00B36798 /* gradient-cell-ios7-ipad.png */,
+				7D223E19181EC56E00B36798 /* gradient-cell-ios7-ipad@2x.png */,
 				7D2A34A21805CDBA004078AA /* gradient-cell-ios7.png */,
 				7D2A34A31805CDBA004078AA /* gradient-cell-ios7@2x.png */,
 				A7990063176E9352009E8267 /* libraryBackground.png */,
@@ -1918,6 +1924,7 @@
 				7D47D71E1760CD8700E86BAD /* backIcon.png in Resources */,
 				7D47D71F1760CD8700E86BAD /* backIcon@2x.png in Resources */,
 				7D47D7201760CD8700E86BAD /* ballSlider.png in Resources */,
+				7D223E1A181EC56E00B36798 /* gradient-cell-ios7-ipad.png in Resources */,
 				7D47D7211760CD8700E86BAD /* ballSlider@2x.png in Resources */,
 				7D47D7271760D77C00E86BAD /* pauseIcon.png in Resources */,
 				7D47D7281760D77C00E86BAD /* pauseIcon@2x.png in Resources */,
@@ -1959,6 +1966,7 @@
 				7DEB3B8B1764A4F40038FC70 /* movie.png in Resources */,
 				7DEB3B8C1764A4F40038FC70 /* blank.png in Resources */,
 				7DEB3B8D1764A4F40038FC70 /* blank@2x.png in Resources */,
+				7D223E1B181EC56E00B36798 /* gradient-cell-ios7-ipad@2x.png in Resources */,
 				7AC8629D1765DC560011611A /* style.css in Resources */,
 				7DF1166C176CC69A009EC05C /* volumeballslider.png in Resources */,
 				7DF1166D176CC69A009EC05C /* volumeballslider@2x.png in Resources */,
