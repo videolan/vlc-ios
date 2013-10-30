@@ -198,6 +198,7 @@ fi
 framework_build="${aspen_root_dir}/ImportedSources/VLCKit/${xcbuilddir}"
 mlkit_build="${aspen_root_dir}/ImportedSources/MediaLibraryKit/${xcbuilddir}"
 upnpx_build="${aspen_root_dir}/ImportedSources/upnpx/projects/xcode4/upnpx/${xcbuilddir}"
+gtl_build="${aspen_root_dir}/ImportedSources/GDrive/${xcbuilddir}"
 
 spushd MediaLibraryKit
 rm -f External/MobileVLCKit
@@ -209,6 +210,7 @@ spopd #ImportedSources
 ln -sf ${framework_build} External/MobileVLCKit
 ln -sf ${mlkit_build} External/MediaLibraryKit
 ln -sf ${upnpx_build} External/upnpx
+ln -sf ${gtl_build} External/gtl
 
 #
 # Build time

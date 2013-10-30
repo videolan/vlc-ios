@@ -5,6 +5,9 @@
       location = "group:VLC for iOS.xcodeproj">
    </FileRef>
    <FileRef
+      location = "group:ImportedSources/GDrive/GTL.xcodeproj">
+   </FileRef>
+   <FileRef
       location = "group:ImportedSources/MediaLibraryKit/MediaLibraryKit.xcodeproj">
    </FileRef>
    <FileRef

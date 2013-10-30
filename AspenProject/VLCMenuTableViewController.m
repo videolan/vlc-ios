@@ -63,7 +63,7 @@
 
     _sectionHeaderTexts = @[@"SECTION_HEADER_LIBRARY", @"SECTION_HEADER_NETWORK", @"Settings"];
     _menuItemsSectionOne = @[@"LIBRARY_ALL_FILES", @"LIBRARY_MUSIC", @"LIBRARY_SERIES"];
-    _menuItemsSectionTwo = @[@"LOCAL_NETWORK", @"OPEN_NETWORK", @"DOWNLOAD_FROM_HTTP", @"WiFi Upload", @"Dropbox"];
+    _menuItemsSectionTwo = @[@"LOCAL_NETWORK", @"OPEN_NETWORK", @"DOWNLOAD_FROM_HTTP", @"WiFi Upload", @"Dropbox", @"Google Drive"];
     _menuItemsSectionThree = @[@"Settings", @"ABOUT_APP"];
 
     _tableView = [[UITableView alloc] initWithFrame:CGRectMake(0.0f, 44.0f + 20.0f, kGHRevealSidebarWidth, CGRectGetHeight(self.view.bounds) - (44.0f + 20.0f)) style:UITableViewStylePlain];
@@ -195,6 +195,9 @@
         else if ([rawTitle isEqualToString:@"Dropbox"]) {
             cell.textLabel.text = rawTitle;
             cell.imageView.image = [UIImage imageNamed:@"Dropbox"];
+        } else if ([rawTitle isEqualToString:@"Google Drive"]) {
+            cell.textLabel.text = rawTitle;
+            cell.imageView.image = [UIImage imageNamed:@"Drive"];
         } else if ([rawTitle isEqualToString:@"WiFi Upload"]) {
             _uploadLocationLabel = [(VLCWiFiUploadTableViewCell*)cell uploadAddressLabel];
             _uploadButton = [(VLCWiFiUploadTableViewCell*)cell serverOnButton];
@@ -296,6 +299,8 @@
             [self toggleHTTPServer:nil];
         else if (itemIndex == 4)
             viewController = self.appDelegate.dropboxTableViewController;
+        else if (itemIndex == 5)
+            viewController = self.appDelegate.googleDriveTableViewController;
     } else if (sectionNumber == 2) {
         if (itemIndex == 0) {
             if (!self.settingsController)

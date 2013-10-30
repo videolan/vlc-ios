@@ -5,10 +5,10 @@
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="3742"/>
     </dependencies>
     <objects>
-        <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner" customClass="VLCDropboxTableViewController">
+        <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner" customClass="VLCGoogleDriveTableViewController">
             <connections>
-                <outlet property="loginToDropboxButton" destination="20" id="27"/>
-                <outlet property="loginToDropboxView" destination="8" id="26"/>
+                <outlet property="loginToGoogleDriveButton" destination="20" id="TtB-EO-dc5"/>
+                <outlet property="loginToGoogleDriveView" destination="8" id="6R4-FE-vqb"/>
                 <outlet property="tableView" destination="29" id="30"/>
                 <outlet property="view" destination="28" id="31"/>
             </connections>
@@ -37,8 +37,8 @@
             <rect key="frame" x="0.0" y="0.0" width="320" height="568"/>
             <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
             <subviews>
-                <imageView userInteractionEnabled="NO" contentMode="scaleToFill" image="dropbox-white.png" id="9">
-                    <rect key="frame" x="71" y="192" width="179" height="60"/>
+                <imageView userInteractionEnabled="NO" contentMode="scaleToFill" image="DriveWhite.png" id="9">
+                    <rect key="frame" x="77" y="202" width="162" height="48"/>
                     <autoresizingMask key="autoresizingMask" flexibleMinX="YES" flexibleMaxX="YES" flexibleMinY="YES" flexibleMaxY="YES"/>
                 </imageView>
                 <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" id="20" customClass="VLCMenuButton">
@@ -53,7 +53,7 @@
                         <color key="titleColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                     </state>
                     <connections>
-                        <action selector="loginToDropboxAction:" destination="-1" eventType="touchUpInside" id="25"/>
+                        <action selector="loginToGoogleDriveAction:" destination="-1" eventType="touchUpInside" id="JPk-kM-vDi"/>
                     </connections>
                 </button>
             </subviews>
@@ -62,7 +62,7 @@
         </view>
     </objects>
     <resources>
-        <image name="dropbox-white.png" width="125" height="42"/>
+        <image name="DriveWhite.png" width="81" height="24"/>
         <image name="menuButton.png" width="63" height="39"/>
     </resources>
 </document>

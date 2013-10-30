@@ -25,6 +25,7 @@
 @interface VLCAppDelegate () <PAPasscodeViewControllerDelegate, VLCMediaFileDiscovererDelegate> {
     PAPasscodeViewController *_passcodeLockController;
     VLCDropboxTableViewController *_dropboxTableViewController;
+    VLCGoogleDriveTableViewController *_googleDriveTableViewController;
     VLCDownloadViewController *_downloadViewController;
     int _idleCounter;
     VLCMovieViewController *_movieViewController;
@@ -174,6 +175,16 @@
 
     return _dropboxTableViewController;
 }
+
+- (VLCGoogleDriveTableViewController *)googleDriveTableViewController
+{
+    if (_googleDriveTableViewController == nil) {
+        _googleDriveTableViewController = [[VLCGoogleDriveTableViewController alloc] initWithNibName:nil bundle:nil];
+    }
+
+    return _googleDriveTableViewController;
+}
+
 
 - (VLCDownloadViewController *)downloadViewController
 {
