@@ -246,23 +246,38 @@
 
 - (void)updateViewContents
 {
-    if (_libraryMode == VLCLibraryModeAllAlbums) {
+    _foundMedia = [[NSMutableArray alloc] init];
+
+    /* add all albums */
+    if (_libraryMode != VLCLibraryModeAllSeries) {
         NSArray *rawAlbums = [MLAlbum allAlbums];
-        _foundMedia = [[NSMutableArray alloc] init];
         for (MLAlbum *album in rawAlbums) {
             if (album.name.length > 0 && album.tracks.count > 0)
                 [_foundMedia addObject:album];
         }
+    }
+    if (_libraryMode == VLCLibraryModeAllAlbums) {
+        [self reloadViews];
+        return;
+    }
 
-    } else if (_libraryMode == VLCLibraryModeAllSeries) {
-        NSArray *rawShows = [MLShow allShows];
-        _foundMedia = [[NSMutableArray alloc] init];
-        for (MLShow *show in rawShows) {
-            if (show.name.length > 0 && show.episodes.count > 0)
-                [_foundMedia addObject:show];
-        }
-    } else
-        _foundMedia = [NSMutableArray arrayWithArray:[MLFile allFiles]];
+    /* add all shows */
+    NSArray *rawShows = [MLShow allShows];
+    for (MLShow *show in rawShows) {
+        if (show.name.length > 0 && show.episodes.count > 0)
+            [_foundMedia addObject:show];
+    }
+    if (_libraryMode == VLCLibraryModeAllSeries) {
+        [self reloadViews];
+        return;
+    }
+
+    /* add all remaining files */
+    NSArray *allFiles = [MLFile allFiles];
+    for (MLFile *file in allFiles) {
+        if (!file.isShowEpisode && !file.isAlbumTrack)
+            [_foundMedia addObject:file];
+    }
 
     [self reloadViews];
 }
