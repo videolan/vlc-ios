@@ -10,6 +10,7 @@
 * Added support for multi-touch gestures based upon the VLC Gestures haxie
 * Added support for media broadcasted with the Session Announcement Protocol
   (SAP) information on the local network (#9429)
+* Added support for HTTP Live Streaming (HLS) (#9174)
 * Opening network streams no longer leads to a collapsed file system hierachy
   on the remote system. After playback, you can continue where you left off.
 * UPnP stability improvements
