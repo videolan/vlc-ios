@@ -15,8 +15,6 @@
 #import "HTTPConnection.h"
 #import "HTTPMessage.h"
 #import "HTTPDataResponse.h"
-#import "HTTPLogging.h"
-#import "HTTPDynamicFileResponse.h"
 #import "HTTPFileResponse.h"
 
 #import "MultipartFormDataParser.h"
@@ -26,18 +24,16 @@
 #import <arpa/inet.h>
 
 #if TARGET_IPHONE_SIMULATOR
-NSString *const WifiInterfaceName = @"en1";
+    NSString *const WifiInterfaceName = @"en1";
 #else
-NSString *const WifiInterfaceName = @"en0";
+    NSString *const WifiInterfaceName = @"en0";
 #endif
 
-@interface VLCHTTPConnection : HTTPConnection  {
+@interface VLCHTTPConnection : HTTPConnection {
     MultipartFormDataParser* _parser;
     NSFileHandle* _storeFile;
-
     NSMutableArray* _uploadedFiles;
 }
-
 @end
 
 
@@ -188,7 +184,7 @@ NSString *const WifiInterfaceName = @"en0";
             NSString* paramName = [param substringWithRange:NSMakeRange(1, paramsSeparator-1)];
             NSString* paramValue = [param substringFromIndex:paramsSeparator+1];
 
-            if( [paramName isEqualToString: @"boundary"] )
+            if ([paramName isEqualToString: @"boundary"])
                 // let's separate the boundary from content-type, to make it more handy to handle
                 [request setHeaderField:@"boundary" value:paramValue];
         }
@@ -226,8 +222,8 @@ NSString *const WifiInterfaceName = @"en0";
 
 - (void)processBodyData:(NSData *)postDataChunk
 {
-    // append data to the parser. It will invoke callbacks to let us handle
-    // parsed data.
+    /* append data to the parser. It will invoke callbacks to let us handle
+    /* parsed data. */
     [_parser appendData:postDataChunk];
 }
 
@@ -238,8 +234,8 @@ NSString *const WifiInterfaceName = @"en0";
 
 - (void)processStartOfPartWithHeader:(MultipartMessageHeader*) header
 {
-    // in this sample, we are not interested in parts, other then file parts.
-    // check content disposition to find out filename
+    /* in this sample, we are not interested in parts, other then file parts.
+    /* check content disposition to find out filename */
 
     MultipartMessageHeaderField* disposition = (header.fields)[@"Content-Disposition"];
     NSString* filename = [(disposition.params)[@"filename"] lastPathComponent];
