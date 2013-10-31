@@ -61,7 +61,7 @@ index 0000000..e63224e
 +1.8.3.4 (Apple Git-47)
 +
 diff --git a/contrib/src/gcrypt/rules.mak b/contrib/src/gcrypt/rules.mak
-index 20ad367..332d2ad 100644
+index 38c96b5..332d2ad 100644
 --- a/contrib/src/gcrypt/rules.mak
 +++ b/contrib/src/gcrypt/rules.mak
 @@ -1,6 +1,7 @@
@@ -93,19 +93,21 @@ index 20ad367..332d2ad 100644
  
  DEPS_gcrypt = gpg-error
  
-@@ -22,10 +34,7 @@ GCRYPT_CONF = \
+@@ -22,12 +34,7 @@ GCRYPT_CONF = \
  ifdef HAVE_WIN64
  GCRYPT_CONF += --disable-asm
  endif
 -ifdef HAVE_IOS
--GCRYPT_EXTRA_CFLAGS += -fheinous-gnu-extensions
+-GCRYPT_EXTRA_CFLAGS = -fheinous-gnu-extensions
+-else
+-GCRYPT_EXTRA_CFLAGS =
 -endif
 -ifdef HAVE_MACOSX
 +ifdef HAVE_DARWIN_OS
  GCRYPT_CONF += --disable-aesni-support
  else
  ifdef HAVE_BSD
-@@ -39,7 +48,7 @@ endif
+@@ -41,7 +48,7 @@ endif
  endif
  
  .gcrypt: libgcrypt
