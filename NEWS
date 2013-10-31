@@ -4,6 +4,7 @@
 * Improved feedback for media download progress including data bitrate,
   procentual progress and estimated remaining download time
 * Added bookmarks for FTP servers
+* Added support for Google Drive (#8690)
 * Added support for downloading from UPnP multimedia servers
 * Added cover-art and duration to UPnP server item lists
 * Added support for system-wide HTTP proxy settings
