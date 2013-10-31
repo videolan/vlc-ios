@@ -9,7 +9,6 @@
 //
 
 #import <UIKit/UIKit.h>
-#import "HTTPConnection.h"
 
 @class HTTPServer;
 
@@ -19,15 +18,5 @@
 
 - (BOOL)changeHTTPServerState:(BOOL)state;
 - (NSString *)currentIPAddress;
-
-@end
-
-@class MultipartFormDataParser;
-@interface VLCHTTPConnection : HTTPConnection  {
-    MultipartFormDataParser*        parser;
-    NSFileHandle*                   storeFile;
-
-    NSMutableArray*                 uploadedFiles;
-}
 
 @end
