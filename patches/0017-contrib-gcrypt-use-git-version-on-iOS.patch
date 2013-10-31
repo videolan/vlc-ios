@@ -1,0 +1,151 @@
+From 5a56d6eaea17a250035aa7ec46b6a93b7c22a06d Mon Sep 17 00:00:00 2001
+From: =?UTF-8?q?Felix=20Paul=20K=C3=BChne?= <fkuehne@videolan.org>
+Date: Thu, 31 Oct 2013 20:42:59 +0100
+Subject: [PATCH] contrib/gcrypt: use git version on iOS
+
+---
+ contrib/src/gcrypt/disable-doc-compilation.patch   | 43 ++++++++++++++++++++++
+ contrib/src/gcrypt/rules.mak                       | 21 ++++++++---
+ .../gcrypt/work-around-libtool-limitation.patch    | 25 +++++++++++++
+ 3 files changed, 83 insertions(+), 6 deletions(-)
+ create mode 100644 contrib/src/gcrypt/disable-doc-compilation.patch
+ create mode 100644 contrib/src/gcrypt/work-around-libtool-limitation.patch
+
+diff --git a/contrib/src/gcrypt/disable-doc-compilation.patch b/contrib/src/gcrypt/disable-doc-compilation.patch
+new file mode 100644
+index 0000000..e63224e
+--- /dev/null
++++ b/contrib/src/gcrypt/disable-doc-compilation.patch
+@@ -0,0 +1,43 @@
++From 18ac3f6a6e0ab9fe353ee8b5ab2b34ef5ce500d7 Mon Sep 17 00:00:00 2001
++From: =?UTF-8?q?Felix=20Paul=20K=C3=BChne?= <fkuehne@videolan.org>
++Date: Thu, 31 Oct 2013 20:34:15 +0100
++Subject: [PATCH] disable doc compilation
++
++---
++ Makefile.am  | 6 +++---
++ configure.ac | 1 -
++ 2 files changed, 3 insertions(+), 4 deletions(-)
++
++diff --git a/Makefile.am b/Makefile.am
++index f1dbd09..9e0abd6 100644
++--- a/Makefile.am
+++++ b/Makefile.am
++@@ -25,10 +25,10 @@ DISTCHECK_CONFIGURE_FLAGS = --disable-random-daemon \
++ # (A suitable gitlog-to-changelog script can be found in GnuPG master.)
++ GITLOG_TO_CHANGELOG=gitlog-to-changelog
++ 
++-DIST_SUBDIRS = m4 compat mpi cipher random src doc tests
++-SUBDIRS =         compat mpi cipher random src doc tests
+++DIST_SUBDIRS = m4 compat mpi cipher random src tests
+++SUBDIRS =         compat mpi cipher random src tests
++ EXTRA_DIST = autogen.sh README.GIT 					\
++-             ChangeLog-2011 scripts/ChangeLog-2011 doc/ChangeLog-2011 	\
+++             ChangeLog-2011 scripts/ChangeLog-2011 	\
++              m4/ChangeLog-2011 cipher/ChangeLog-2011 src/ChangeLog-2011 \
++              random/ChangeLog-2011 tests/ChangeLog-2011 mpi/ChangeLog-2011 \
++              scripts/git-log-footer scripts/git-log-fix
++diff --git a/configure.ac b/configure.ac
++index e3471d0..6fa4ad6 100644
++--- a/configure.ac
+++++ b/configure.ac
++@@ -1799,7 +1799,6 @@ compat/Makefile
++ mpi/Makefile
++ cipher/Makefile
++ random/Makefile
++-doc/Makefile
++ src/Makefile
++ src/gcrypt.h
++ src/libgcrypt-config
++-- 
++1.8.3.4 (Apple Git-47)
++
+diff --git a/contrib/src/gcrypt/rules.mak b/contrib/src/gcrypt/rules.mak
+index 20ad367..332d2ad 100644
+--- a/contrib/src/gcrypt/rules.mak
++++ b/contrib/src/gcrypt/rules.mak
+@@ -1,6 +1,7 @@
+ # GCRYPT
+ GCRYPT_VERSION := 1.5.3
+ GCRYPT_URL := ftp://ftp.gnupg.org/gcrypt/libgcrypt/libgcrypt-$(GCRYPT_VERSION).tar.bz2
++GCRYPT_GITURL := git://git.gnupg.org/libgcrypt.git
+ 
+ PKGS += gcrypt
+ 
+@@ -9,9 +10,20 @@ $(TARBALLS)/libgcrypt-$(GCRYPT_VERSION).tar.bz2:
+ 
+ .sum-gcrypt: libgcrypt-$(GCRYPT_VERSION).tar.bz2
+ 
++$(TARBALLS)/libgcrypt-git.tar.xz:
++	$(call download_git,$(GCRYPT_GITURL),,d1cadd145)
++
++ifndef HAVE_IOS
+ libgcrypt: libgcrypt-$(GCRYPT_VERSION).tar.bz2 .sum-gcrypt
+ 	$(UNPACK)
+ 	$(MOVE)
++else
++libgcrypt: libgcrypt-git.tar.xz .sum-gcrypt
++	$(UNPACK)
++	$(APPLY) $(SRC)/gcrypt/disable-doc-compilation.patch
++	$(APPLY) $(SRC)/gcrypt/work-around-libtool-limitation.patch
++	$(MOVE)
++endif
+ 
+ DEPS_gcrypt = gpg-error
+ 
+@@ -22,10 +34,7 @@ GCRYPT_CONF = \
+ ifdef HAVE_WIN64
+ GCRYPT_CONF += --disable-asm
+ endif
+-ifdef HAVE_IOS
+-GCRYPT_EXTRA_CFLAGS += -fheinous-gnu-extensions
+-endif
+-ifdef HAVE_MACOSX
++ifdef HAVE_DARWIN_OS
+ GCRYPT_CONF += --disable-aesni-support
+ else
+ ifdef HAVE_BSD
+@@ -39,7 +48,7 @@ endif
+ endif
+ 
+ .gcrypt: libgcrypt
+-	#$(RECONF)
+-	cd $< && $(HOSTVARS) CFLAGS="$(CFLAGS) $(GCRYPT_EXTRA_CFLAGS)" ./configure $(HOSTCONF) $(GCRYPT_CONF)
++	$(RECONF)
++	cd $< && $(HOSTVARS) ./configure $(HOSTCONF) $(GCRYPT_CONF)
+ 	cd $< && $(MAKE) install
+ 	touch $@
+diff --git a/contrib/src/gcrypt/work-around-libtool-limitation.patch b/contrib/src/gcrypt/work-around-libtool-limitation.patch
+new file mode 100644
+index 0000000..3664365
+--- /dev/null
++++ b/contrib/src/gcrypt/work-around-libtool-limitation.patch
+@@ -0,0 +1,25 @@
++From ac8721c26616bc09cc83d7371fcdf3f3cad399f5 Mon Sep 17 00:00:00 2001
++From: =?UTF-8?q?Felix=20Paul=20K=C3=BChne?= <fkuehne@videolan.org>
++Date: Thu, 31 Oct 2013 20:45:50 +0100
++Subject: [PATCH] Added hack to work-around libtool limitation
++
++---
++ cipher/Makefile.am | 2 ++
++ 1 file changed, 2 insertions(+)
++
++diff --git a/cipher/Makefile.am b/cipher/Makefile.am
++index 95d484e..db2a359 100644
++--- a/cipher/Makefile.am
+++++ b/cipher/Makefile.am
++@@ -19,6 +19,8 @@
++ 
++ # Process this file with automake to produce Makefile.in
++ 
+++LIBTOOL=@LIBTOOL@ --tag=CC
+++
++ EXTRA_DIST = Manifest
++ 
++ # Need to include ../src in addition to top_srcdir because gcrypt.h is
++-- 
++1.8.3.4 (Apple Git-47)
++
+-- 
+1.8.3.4 (Apple Git-47)
+
