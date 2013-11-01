@@ -26,9 +26,9 @@
         [doneButton setBackgroundImage:[UIImage imageNamed:@"doneButtonHighlight"]
                               forState:UIControlStateHighlighted
                             barMetrics:UIBarMetricsDefault];
+        [doneButton setTitleTextAttributes:@{UITextAttributeTextShadowColor : [UIColor whiteColor], UITextAttributeTextColor : [UIColor blackColor]}
+                                  forState:UIControlStateNormal];
     }
-    [doneButton setTitleTextAttributes:@{UITextAttributeTextShadowColor : [UIColor whiteColor], UITextAttributeTextColor : [UIColor blackColor]}
-                              forState:UIControlStateNormal];
     return doneButton;
 }
 
