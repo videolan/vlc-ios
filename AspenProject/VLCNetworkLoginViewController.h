@@ -12,7 +12,7 @@
 
 @protocol VLCNetworkLoginViewController <NSObject>
 @required
-- (void)loginToURL:(NSURL *)url confirmedWithUsername:(NSString *)username andPassword:(NSString *)password;
+- (void)loginToURL:(NSURL *)url confirmedWithUsername:(NSString *)username andPassword:(NSString *)thePassword;
 @end
 
 @interface VLCNetworkLoginViewController : UIViewController
@@ -26,6 +26,9 @@
 @property (nonatomic, strong) IBOutlet UILabel *serverAddressHelpLabel;
 @property (nonatomic, strong) IBOutlet UILabel *loginHelpLabel;
 @property (weak, nonatomic) IBOutlet UITableView *historyLogin;
+@property (nonatomic, retain) NSString *hostname;
+@property (nonatomic, retain) NSString *username;
+@property (nonatomic, retain) NSString *password;
 
 @property (nonatomic, retain) id delegate;
 

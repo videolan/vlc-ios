@@ -16,6 +16,9 @@
     NSMutableArray *_saveServer;
     NSMutableArray *_saveLogin;
     NSMutableArray *_savePass;
+    NSString *_hostname;
+    NSString *_username;
+    NSString *_password;
 }
 @end
 
@@ -69,7 +72,12 @@
     _savePass = [NSMutableArray arrayWithArray:[defaults objectForKey:kVLCFTPPassword]];
 
     [super viewWillAppear:animated];
-
+    if (_hostname.length > 0)
+        self.serverAddressField.text = _hostname;
+    if (_username.length > 0)
+        self.usernameField.text = _username;
+    if (_password.length > 0)
+        self.passwordField.text = _password;
 }
 
 - (IBAction)dismissWithAnimation:(id)sender
@@ -205,6 +213,39 @@
     [self.passwordField setText:_savePass[indexPath.row]];
 
     [self.historyLogin deselectRowAtIndexPath:indexPath animated:NO];
+}
+
+- (void)setHostname:(NSString *)theHostname
+{
+    _hostname = theHostname;
+    self.serverAddressField.text = theHostname;
+}
+
+- (NSString *)hostname
+{
+    return self.serverAddressField.text;
+}
+
+- (void)setUsername:(NSString *)theUsername
+{
+    _username = theUsername;
+    self.usernameField.text = theUsername;
+}
+
+- (NSString *)username
+{
+    return self.usernameField.text;
+}
+
+- (void)setPassword:(NSString *)thePassword
+{
+    _password = thePassword;
+    self.passwordField.text = thePassword;
+}
+
+- (NSString *)password
+{
+    return self.passwordField.text;
 }
 
 @end

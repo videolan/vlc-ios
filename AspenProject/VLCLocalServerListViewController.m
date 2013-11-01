@@ -92,6 +92,9 @@
     refreshControl = [[UIRefreshControl alloc] init];
     [refreshControl addTarget:self action:@selector(handleRefresh) forControlEvents:UIControlEventValueChanged];
     [self.tableView addSubview:refreshControl];
+
+    _loginViewController = [[VLCNetworkLoginViewController alloc] initWithNibName:nil bundle:nil];
+    _loginViewController.delegate = self;
 }
 
 - (void)viewWillDisappear:(BOOL)animated
@@ -208,13 +211,13 @@
 
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
 {
-    [_activityIndicator startAnimating];
     [tableView deselectRowAtIndexPath:indexPath animated:YES];
 
     NSUInteger row = indexPath.row;
     NSUInteger section = indexPath.section;
 
     if (section == 0) {
+        [_activityIndicator startAnimating];
         BasicUPnPDevice *device = _filteredUPNPDevices[row];
         if ([[device urn] isEqualToString:@"urn:schemas-upnp-org:device:MediaServer:1"]) {
             MediaServer1Device *server = (MediaServer1Device*)device;
@@ -222,11 +225,6 @@
             [self.navigationController pushViewController:targetViewController animated:YES];
         }
     } else if (section == 1) {
-        if (_loginViewController == nil) {
-            _loginViewController = [[VLCNetworkLoginViewController alloc] initWithNibName:nil bundle:nil];
-            _loginViewController.delegate = self;
-        }
-
         UINavigationController *navCon = [[UINavigationController alloc] initWithRootViewController:_loginViewController];
         [navCon loadTheme];
         navCon.navigationBarHidden = NO;
@@ -243,11 +241,10 @@
         } else
             [self.navigationController pushViewController:_loginViewController animated:YES];
 
-        if (row != 0) { // FTP Connect To Server Special Item
-            if ([_ftpServices[row] hostName].length > 0)
-                _loginViewController.serverAddressField.text = [NSString stringWithFormat:@"ftp://%@", [_ftpServices[row] hostName]];
+        if (row != 0 && [_ftpServices[row] hostName].length > 0) { // FTP Connect To Server Special Item and hostname is long enough
+            _loginViewController.hostname = [_ftpServices[row] hostName];
         } else
-            _loginViewController.serverAddressField.text = @"";
+            _loginViewController.hostname = @"";
     } else if (section == 2) {
         VLCAppDelegate* appDelegate = [UIApplication sharedApplication].delegate;
         [appDelegate openMovieFromURL:[[_sapDiscoverer.discoveredMedia mediaAtIndex:row] url]];
