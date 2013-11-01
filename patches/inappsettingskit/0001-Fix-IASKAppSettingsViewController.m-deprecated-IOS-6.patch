@@ -1,0 +1,27 @@
+From 421ec2a6f0aad9254b76150884d725635276e912 Mon Sep 17 00:00:00 2001
+From: "Pierre SAGASPE pierre.sagaspe@me.com" <pierre.sagaspe@me.com>
+Date: Fri, 1 Nov 2013 12:45:34 +0100
+Subject: [PATCH] Fix IASKAppSettingsViewController.m deprecated IOS 6
+
+---
+ InAppSettingsKit/Controllers/IASKAppSettingsViewController.m | 4 ++--
+ 1 file changed, 2 insertions(+), 2 deletions(-)
+
+diff --git a/InAppSettingsKit/Controllers/IASKAppSettingsViewController.m b/InAppSettingsKit/Controllers/IASKAppSettingsViewController.m
+index 1a5a9bf..425fe93 100644
+--- a/InAppSettingsKit/Controllers/IASKAppSettingsViewController.m
++++ b/InAppSettingsKit/Controllers/IASKAppSettingsViewController.m
+@@ -462,8 +462,8 @@ CGRect IASKCGRectSwap(CGRect rect);
+ 	} else {
+ 		cell = [[UITableViewCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:identifier];
+ 	}
+-	cell.textLabel.minimumFontSize = kIASKMinimumFontSize;
+-	cell.detailTextLabel.minimumFontSize = kIASKMinimumFontSize;
++	cell.textLabel.minimumScaleFactor = kIASKMinimumFontSize;
++	cell.detailTextLabel.minimumScaleFactor = kIASKMinimumFontSize;
+ 	return cell;
+ }
+ 
+-- 
+1.8.3.4 (Apple Git-47)
+
