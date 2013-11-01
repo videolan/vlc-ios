@@ -377,6 +377,8 @@
         device = _UPNPdevices[x];
         if ([[device urn] isEqualToString:@"urn:schemas-upnp-org:device:MediaServer:1"])
             [mutArray addObject:device];
+        else
+            APLog(@"found device '%@' with unsupported urn '%@'", [device friendlyName], [device urn]);
     }
     _filteredUPNPDevices = nil;
     _filteredUPNPDevices = [NSArray arrayWithArray:mutArray];
