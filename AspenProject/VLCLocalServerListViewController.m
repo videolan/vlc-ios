@@ -37,6 +37,7 @@
     VLCNetworkLoginViewController *_loginViewController;
 
     UIRefreshControl *refreshControl;
+    UIActivityIndicatorView *_activityIndicator;
 }
 
 @end
@@ -55,6 +56,11 @@
     _tableView.delegate = self;
     _tableView.dataSource = self;
     self.view = _tableView;
+    _activityIndicator = [[UIActivityIndicatorView alloc] initWithActivityIndicatorStyle:UIActivityIndicatorViewStyleWhiteLarge];
+    _activityIndicator.center = _tableView.center;
+    _activityIndicator.autoresizingMask = UIViewAutoresizingFlexibleBottomMargin | UIViewAutoresizingFlexibleLeftMargin | UIViewAutoresizingFlexibleRightMargin | UIViewAutoresizingFlexibleTopMargin;
+    _activityIndicator.hidesWhenStopped = YES;
+    [self.view addSubview:_activityIndicator];
 }
 
 - (void)viewDidLoad
@@ -91,11 +97,13 @@
 - (void)viewWillDisappear:(BOOL)animated
 {
     [super viewWillDisappear:animated];
+    [_activityIndicator stopAnimating];
     [_netServiceBrowser stop];
 }
 
 - (void)viewWillAppear:(BOOL)animated
 {
+    [_activityIndicator stopAnimating];
     [super viewWillAppear:animated];
     [self _triggerNetServiceBrowser];
     [self performSelectorInBackground:@selector(_startUPNPDiscovery) withObject:nil];
@@ -200,6 +208,7 @@
 
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
 {
+    [_activityIndicator startAnimating];
     [tableView deselectRowAtIndexPath:indexPath animated:YES];
 
     NSUInteger row = indexPath.row;
