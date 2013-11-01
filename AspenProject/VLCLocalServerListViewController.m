@@ -36,7 +36,7 @@
 
     VLCNetworkLoginViewController *_loginViewController;
 
-    UIRefreshControl *refreshControl;
+    UIRefreshControl *_refreshControl;
     UIActivityIndicatorView *_activityIndicator;
 }
 
@@ -89,9 +89,9 @@
     [self performSelectorInBackground:@selector(_startUPNPDiscovery) withObject:nil];
     [self performSelectorInBackground:@selector(_startSAPDiscovery) withObject:nil];
 
-    refreshControl = [[UIRefreshControl alloc] init];
-    [refreshControl addTarget:self action:@selector(handleRefresh) forControlEvents:UIControlEventValueChanged];
-    [self.tableView addSubview:refreshControl];
+    _refreshControl = [[UIRefreshControl alloc] init];
+    [_refreshControl addTarget:self action:@selector(handleRefresh) forControlEvents:UIControlEventValueChanged];
+    [self.tableView addSubview:_refreshControl];
 
     _loginViewController = [[VLCNetworkLoginViewController alloc] initWithNibName:nil bundle:nil];
     _loginViewController.delegate = self;
@@ -260,14 +260,14 @@
     [[managerInstance SSDP] stopSSDP];
 
     //set the title while refreshing
-    refreshControl.attributedTitle = [[NSAttributedString alloc]initWithString:@"Refresh"];
+    _refreshControl.attributedTitle = [[NSAttributedString alloc]initWithString:@"Refresh"];
     //set the date and time of refreshing
     NSDateFormatter *formattedDate = [[NSDateFormatter alloc]init];
     [formattedDate setDateFormat:@"MMM d, h:mm a"];
     NSString *lastupdated = [NSString stringWithFormat:@"Last Updated on %@",[formattedDate stringFromDate:[NSDate date]]];
-    refreshControl.attributedTitle = [[NSAttributedString alloc]initWithString:lastupdated];
+    _refreshControl.attributedTitle = [[NSAttributedString alloc]initWithString:lastupdated];
     //end the refreshing
-    [refreshControl endRefreshing];
+    [_refreshControl endRefreshing];
 
     [self.tableView reloadData];
 
