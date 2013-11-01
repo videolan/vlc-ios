@@ -223,7 +223,7 @@
 - (void)processBodyData:(NSData *)postDataChunk
 {
     /* append data to the parser. It will invoke callbacks to let us handle
-    /* parsed data. */
+     * parsed data. */
     [_parser appendData:postDataChunk];
 }
 
@@ -235,7 +235,7 @@
 - (void)processStartOfPartWithHeader:(MultipartMessageHeader*) header
 {
     /* in this sample, we are not interested in parts, other then file parts.
-    /* check content disposition to find out filename */
+     * check content disposition to find out filename */
 
     MultipartMessageHeaderField* disposition = (header.fields)[@"Content-Disposition"];
     NSString* filename = [(disposition.params)[@"filename"] lastPathComponent];
