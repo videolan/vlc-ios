@@ -134,6 +134,7 @@
 - (void)restClient:(DBRestClient *)client loadMetadataFailedWithError:(NSError *)error
 {
     APLog(@"DBMetadata download failed with error %i", error.code);
+    [self _handleError:error];
 }
 
 - (void)restClient:(DBRestClient*)client loadedFile:(NSString*)localPath
@@ -152,6 +153,7 @@
 - (void)restClient:(DBRestClient*)client loadFileFailedWithError:(NSError*)error
 {
     APLog(@"DBFile download failed with error %i", error.code);
+    [self _handleError:error];
     if ([self.delegate respondsToSelector:@selector(operationWithProgressInformationStopped)])
         [self.delegate operationWithProgressInformationStopped];
     _downloadInProgress = NO;
@@ -175,6 +177,7 @@
 - (void)restClient:(DBRestClient*)restClient loadStreamableURLFailedWithError:(NSError*)error
 {
     APLog(@"loadStreamableURL failed with error %i", error.code);
+    [self _handleError:error];
 }
 
 #pragma mark - DBSession delegate
@@ -216,6 +219,13 @@
         return _listOfDropboxFilesToDownload.count;
 
     return 0;
+}
+
+#pragma mark - user feedback
+- (void)_handleError:(NSError *)error
+{
+    UIAlertView * alert = [[UIAlertView alloc] initWithTitle:[NSString stringWithFormat:NSLocalizedString(@"ERROR_NUMBER", @""), error.code] message:error.localizedDescription delegate:self cancelButtonTitle:NSLocalizedString(@"BUTTON_CANCEL", @"") otherButtonTitles:nil];
+    [alert show];
 }
 
 @end
