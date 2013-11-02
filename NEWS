@@ -20,6 +20,8 @@
 * Removed support for iOS 5
 * Previously removed episodes and tracks no longer show up in the respective
   group listings (#9705)
+* Fix incorrect displayed size for files stored on UPnP multimedia servers
+  larger than 2147.48 MB (#9641)
 
 2.1.3:
 ------
