@@ -34,5 +34,6 @@
 
 - (void)requestDirectoryListingAtPath:(NSString *)path;
 - (void)downloadFileToDocumentFolder:(DBMetadata *)file;
+- (void)streamFile:(DBMetadata *)file;
 
 @end
