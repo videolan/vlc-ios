@@ -8,6 +8,8 @@
 //  Refer to the COPYING file of the official project for license.
 //
 #import "GTLDrive.h"
+#import "GTMOAuth2ViewControllerTouch.h"
+#import "VLCGoogleDriveConstants.h"
 
 @protocol VLCGoogleDriveController
 @required
@@ -31,6 +33,6 @@
 - (void)startSession;
 - (void)logout;
 - (void)requestDirectoryListingAtPath:(NSString *)path;
-//- (void)downloadFileToDocumentFolder:(DBMetadata *)file;
+- (void)downloadFileToDocumentFolder:(GTLDriveFile *)file;
 
 @end

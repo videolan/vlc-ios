@@ -17,12 +17,11 @@
 #import "VLCGoogleDriveConstants.h"
 #import "GTMOAuth2ViewControllerTouch.h"
 
-static NSString *const kKeychainItemName = @"Google Drive Quickstart #3";
-
 @interface VLCGoogleDriveTableViewController ()
 {
-    VLCGoogleDriveController *_googleDriveController;
+    GTLDriveFile *_selectedFile;
     GTMOAuth2ViewControllerTouch *_authController;
+
     NSString *_currentPath;
 
     UIBarButtonItem *_backButton;
@@ -34,6 +33,8 @@ static NSString *const kKeychainItemName = @"Google Drive Quickstart #3";
     UIProgressView *_progressView;
 
     UIActivityIndicatorView *_activityIndicator;
+
+    VLCGoogleDriveController *_googleDriveController;
 }
 
 @end
@@ -82,7 +83,7 @@ static NSString *const kKeychainItemName = @"Google Drive Quickstart #3";
 
 - (GTMOAuth2ViewControllerTouch *)createAuthController
 {
-    _authController = [[GTMOAuth2ViewControllerTouch alloc] initWithScope:kGTLAuthScopeDriveFile
+    _authController = [[GTMOAuth2ViewControllerTouch alloc] initWithScope:kGTLAuthScopeDrive
                                                                 clientID:kVLCGoogleDriveClientID
                                                             clientSecret:kVLCGoogleDriveClientSecret
                                                         keychainItemName:kKeychainItemName
@@ -91,17 +92,12 @@ static NSString *const kKeychainItemName = @"Google Drive Quickstart #3";
     return _authController;
 }
 
-- (void)viewController:(GTMOAuth2ViewControllerTouch *)viewController
-      finishedWithAuth:(GTMOAuth2Authentication *)authResult
-                 error:(NSError *)error
+- (void)viewController:(GTMOAuth2ViewControllerTouch *)viewController finishedWithAuth:(GTMOAuth2Authentication *)authResult error:(NSError *)error
 {
-    if (error != nil)
-    {
+    if (error != nil) {
         [self showAlert:@"Authentication Error" message:error.localizedDescription];
         _googleDriveController.driveService.authorizer = nil;
-    }
-    else
-    {
+    } else {
         _googleDriveController.driveService.authorizer = authResult;
     }
     [self updateViewAfterSessionChange];
@@ -195,7 +191,7 @@ static NSString *const kKeychainItemName = @"Google Drive Quickstart #3";
     if (cell == nil)
         cell = [VLCGoogleDriveTableViewCell cellWithReuseIdentifier:CellIdentifier];
 
-   // cell.fileMetadata = _googleDriveController.currentListFiles[indexPath.row];
+    cell.driveFile = _googleDriveController.currentListFiles[indexPath.row];
 
     return cell;
 }
@@ -209,27 +205,27 @@ static NSString *const kKeychainItemName = @"Google Drive Quickstart #3";
 
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
 {
-//    _selectedFile = _googleDriveController.currentListFiles[indexPath.row];
-//    if (!_selectedFile.isDirectory) {
-//        /* selected item is a proper file, ask the user if s/he wants to download it */
-//        UIAlertView * alert = [[UIAlertView alloc] initWithTitle:NSLocalizedString(@"GOOGLE_DRIVE_DOWNLOAD", @"") message:[NSString stringWithFormat:NSLocalizedString(@"GOOGLE_DRIVE_DL_LONG", @""), _selectedFile.filename, [[UIDevice currentDevice] model]] delegate:self cancelButtonTitle:NSLocalizedString(@"BUTTON_CANCEL", @"") otherButtonTitles:NSLocalizedString(@"BUTTON_DOWNLOAD", @""), nil];
-//        [alert show];
-//    } else {
-//        /* dive into subdirectory */
-//        _currentPath = [_currentPath stringByAppendingFormat:@"/%@", _selectedFile.filename];
-//        [self _requestInformationForCurrentPath];
-//        _selectedFile = nil;
-//    }
+    _selectedFile = _googleDriveController.currentListFiles[indexPath.row];
+    if (![_selectedFile.mimeType isEqualToString:@"application/vnd.google-apps.folder"]) {
+        /* selected item is a proper file, ask the user if s/he wants to download it */
+        UIAlertView * alert = [[UIAlertView alloc] initWithTitle:NSLocalizedString(@"GOOGLE_DRIVE_DOWNLOAD", @"") message:[NSString stringWithFormat:NSLocalizedString(@"GOOGLE_DRIVE_DL_LONG", @""), _selectedFile.title, [[UIDevice currentDevice] model]] delegate:self cancelButtonTitle:NSLocalizedString(@"BUTTON_CANCEL", @"") otherButtonTitles:NSLocalizedString(@"BUTTON_DOWNLOAD", @""), nil];
+        [alert show];
+    } else {
+        /* dive into subdirectory */
+           _currentPath = [_currentPath stringByAppendingFormat:@"/%@", _selectedFile.title];
+        [self _requestInformationForCurrentPath];
+        _selectedFile = nil;
+    }
 
     [self.tableView deselectRowAtIndexPath:indexPath animated:NO];
 }
 
 - (void)alertView:(UIAlertView *)alertView clickedButtonAtIndex:(NSInteger)buttonIndex
 {
-   // if (buttonIndex == 1)
-      //  [_googleDriveController downloadFileToDocumentFolder:_selectedFile];
+    if (buttonIndex == 1)
+        [_googleDriveController downloadFileToDocumentFolder:_selectedFile];
 
-   // _selectedFile = nil;
+    _selectedFile = nil;
 }
 
 #pragma mark - dropbox controller delegate
@@ -288,10 +284,8 @@ static NSString *const kKeychainItemName = @"Google Drive Quickstart #3";
 - (IBAction)loginToGoogleDriveAction:(id)sender
 {
     if (![_googleDriveController isAuthorized]) {
-        _googleDriveController.isAuthorized = NO;
         [self.navigationController pushViewController:[self createAuthController] animated:YES];
     } else {
-        _googleDriveController.isAuthorized = YES;
         [_googleDriveController logout];
     }
 }

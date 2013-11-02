@@ -12,15 +12,13 @@
 #import "NSString+SupportedMedia.h"
 #import "VLCAppDelegate.h"
 #import "HTTPMessage.h"
-#import "VLCGoogleDriveConstants.h"
-
-static NSString *const kKeychainItemName = @"Google Drive Quickstart #2";
 
 @interface VLCGoogleDriveController ()
 {
     GTLDriveFileList *_fileList;
-    NSError *_fileListFetchError;
     GTLServiceTicket *_fileListTicket;
+    NSError *_fileListFetchError;
+
     NSArray *_currentFileList;
 
     NSMutableArray *_listOfGoogleDriveFilesToDownload;
@@ -43,6 +41,8 @@ static NSString *const kKeychainItemName = @"Google Drive Quickstart #2";
 
 - (void)logout
 {
+    [GTMOAuth2ViewControllerTouch removeAuthFromKeychainForName:kKeychainItemName];
+    self.driveService.authorizer = nil;
 }
 
 - (BOOL)isAuthorized
@@ -68,9 +68,9 @@ static NSString *const kKeychainItemName = @"Google Drive Quickstart #2";
         [self listFiles];
 }
 
-- (void)downloadFileToDocumentFolder:(DBMetadata *)file
+- (void)downloadFileToDocumentFolder:(GTLDriveFile *)file
 {
-    if (!file.isDirectory) {
+    if (![file.mimeType isEqualToString:@"application/vnd.google-apps.folder"]) {
         if (!_listOfGoogleDriveFilesToDownload)
             _listOfGoogleDriveFilesToDownload = [[NSMutableArray alloc] init];
         [_listOfGoogleDriveFilesToDownload addObject:file];
@@ -90,23 +90,10 @@ static NSString *const kKeychainItemName = @"Google Drive Quickstart #2";
     GTLServiceDrive *service = self.driveService;
 
     GTLQueryDrive *query = [GTLQueryDrive queryForFilesList];
-
-    // maxResults specifies the number of results per page.  Since we earlier
-    // specified shouldFetchNextPages=YES, all results should be fetched,
-    // though specifying a larger maxResults will reduce the number of fetches
-    // needed to retrieve all pages.
     query.maxResults = 150;
 
-    // The Drive API's file entries are chock full of data that the app may not
-    // care about. Specifying the fields we want here reduces the network
-    // bandwidth and memory needed for the collection.
-    //
-    // For example, leave query.fields as nil during development.
-    // When ready to test and optimize your app, specify just the fields needed.
-    // For example, this sample app might use
-    //
-    // query.fields = @"kind,etag,items(id,downloadUrl,editable,etag,exportLinks,kind,labels,originalFilename,title)";
-    //TODO:specify query.fields 
+    query.fields = @"items(originalFilename,title,mimeType,fileExtension,fileSize,iconLink)";
+    //+ (id)queryForChildrenListWithFolderId:(NSString *)folderId;
 
     _fileListTicket = [service executeQuery:query
                           completionHandler:^(GTLServiceTicket *ticket,
@@ -117,10 +104,8 @@ static NSString *const kKeychainItemName = @"Google Drive Quickstart #2";
                               
                               _fileListFetchError = error;
                               _fileListTicket = nil;
-                              [self listOfGoodFiles];
+                              [self listOfGoodFilesAndFolders];
                           }];
-
-  //  [self updateUI];
 }
 
 - (void)_triggerNextDownload
@@ -134,12 +119,12 @@ static NSString *const kKeychainItemName = @"Google Drive Quickstart #2";
     }
 }
 
-- (void)_reallyDownloadFileToDocumentFolder:(DBMetadata *)file
+- (void)_reallyDownloadFileToDocumentFolder:(GTLDriveFile *)file
 {
     NSArray *searchPaths = NSSearchPathForDirectoriesInDomains(NSDocumentDirectory, NSUserDomainMask, YES);
-    NSString *filePath = [searchPaths[0] stringByAppendingFormat:@"/%@", file.filename];
+    NSString *filePath = [searchPaths[0] stringByAppendingFormat:@"/%@", file.originalFilename];
 
-    //[[self restClient] loadFile:file.path intoPath:filePath];
+    [self loadFile:file intoPath:filePath];
 
     if ([self.delegate respondsToSelector:@selector(operationWithProgressInformationStarted)])
         [self.delegate operationWithProgressInformationStarted];
@@ -147,7 +132,6 @@ static NSString *const kKeychainItemName = @"Google Drive Quickstart #2";
     _downloadInProgress = YES;
 }
 
-#pragma mark - restClient delegate
 - (BOOL)_supportedFileExtension:(NSString *)filename
 {
     if ([filename isSupportedMediaFormat] || [filename isSupportedAudioMediaFormat] || [filename isSupportedSubtitleFormat])
@@ -156,15 +140,15 @@ static NSString *const kKeychainItemName = @"Google Drive Quickstart #2";
     return NO;
 }
 
-- (void)listOfGoodFiles
+- (void)listOfGoodFilesAndFolders
 {
     NSMutableArray *listOfGoodFilesAndFolders = [[NSMutableArray alloc] init];
     
     for (GTLDriveFile *driveFile in _fileList.items)
     {
         BOOL isDirectory = [driveFile.mimeType isEqualToString:@"application/vnd.google-apps.folder"];
-        if (isDirectory || [self _supportedFileExtension:driveFile.fileExtension]) {
-             [listOfGoodFilesAndFolders addObject:driveFile];
+        if (isDirectory || [self _supportedFileExtension:[NSString stringWithFormat:@".%@",driveFile.fileExtension ]]) {
+            [listOfGoodFilesAndFolders addObject:driveFile];
         }
     }
 
@@ -175,64 +159,87 @@ static NSString *const kKeychainItemName = @"Google Drive Quickstart #2";
         [self.delegate mediaListUpdated];
 }
 
-//- (void)restClient:(DBRestClient *)client loadMetadataFailedWithError:(NSError *)error
-//{
-//    APLog(@"DBMetadata download failed with error %i", error.code);
-//}
-//
-//- (void)restClient:(DBRestClient*)client loadedFile:(NSString*)localPath
-//{
-//    /* update library now that we got a file */
-//    VLCAppDelegate *appDelegate = [UIApplication sharedApplication].delegate;
-//    [appDelegate updateMediaList];
-//
-//    if ([self.delegate respondsToSelector:@selector(operationWithProgressInformationStopped)])
-//        [self.delegate operationWithProgressInformationStopped];
-//    _downloadInProgress = NO;
-//
-//    [self _triggerNextDownload];
-//}
-//
-//- (void)restClient:(DBRestClient*)client loadFileFailedWithError:(NSError*)error
-//{
-//    APLog(@"DBFile download failed with error %i", error.code);
-//    if ([self.delegate respondsToSelector:@selector(operationWithProgressInformationStopped)])
-//        [self.delegate operationWithProgressInformationStopped];
-//    _downloadInProgress = NO;
-//
-//    [self _triggerNextDownload];
-//}
-//
-//- (void)restClient:(DBRestClient*)client loadProgress:(CGFloat)progress forFile:(NSString*)destPath
-//{
-//    if ([self.delegate respondsToSelector:@selector(currentProgressInformation:)])
-//        [self.delegate currentProgressInformation:progress];
-//}
-//
-//#pragma mark - DBSession delegate
-//
-//- (void)sessionDidReceiveAuthorizationFailure:(DBSession *)session userId:(NSString *)userId
-//{
-//    APLog(@"DriveSession received authorization failure with user ID %@", userId);
-//}
-//
-//#pragma mark - DBNetworkRequest delegate
-//- (void)networkRequestStarted
-//{
-//    _outstandingNetworkRequests++;
-//    if (_outstandingNetworkRequests == 1) {
-//        [[UIApplication sharedApplication] setNetworkActivityIndicatorVisible:YES];
-//        [(VLCAppDelegate*)[UIApplication sharedApplication].delegate disableIdleTimer];
-//    }
-//}
-
-- (void)networkRequestStopped
+- (void)loadFile:(GTLDriveFile*)file intoPath:(NSString*)destinationPath
 {
-    _outstandingNetworkRequests--;
-    if (_outstandingNetworkRequests == 0) {
-        [[UIApplication sharedApplication] setNetworkActivityIndicatorVisible:NO];
-        [(VLCAppDelegate*)[UIApplication sharedApplication].delegate activateIdleTimer];
+
+    NSString *exportURLStr = file.downloadUrl;
+
+    if ([exportURLStr length] > 0) {
+        NSString *suggestedName = file.originalFilename;
+        if ([suggestedName length] == 0) {
+            suggestedName = file.title;
+        }
+
+        NSURL *url = [NSURL URLWithString:exportURLStr];
+        NSURLRequest *request = [NSURLRequest requestWithURL:url];
+        GTMHTTPFetcher *fetcher = [GTMHTTPFetcher fetcherWithRequest:request];
+
+        // Requests of user data from Google services must be authorized.
+        fetcher.authorizer = self.driveService.authorizer;
+
+        // The fetcher can save data directly to a file.
+        fetcher.downloadPath = destinationPath;
+
+        // Fetcher logging can include comments.
+        [fetcher setCommentWithFormat:@"Downloading \"%@\"", file.title];
+
+        __weak GTMHTTPFetcher *weakFetcher = fetcher;
+
+        fetcher.receivedDataBlock = ^(NSData *receivedData) {
+            float progress = (float)weakFetcher.downloadedLength / (float)[file.fileSize longLongValue];
+
+            if ([self.delegate respondsToSelector:@selector(currentProgressInformation:)])
+                [self.delegate currentProgressInformation:progress];
+        };
+
+        [fetcher beginFetchWithCompletionHandler:^(NSData *data, NSError *error) {
+            // Callback
+            //TODO:localize Strings
+            if (error == nil) {
+                UIAlertView *alert;
+                alert = [[UIAlertView alloc] initWithTitle: @"Downloaded"
+                                                   message: @"your file has been sucessfully downloaded"
+                                                  delegate: nil
+                                         cancelButtonTitle: @"OK"
+                                         otherButtonTitles: nil];
+                [alert show];
+                [self downloadSucessfull];
+            } else {
+                UIAlertView *alert;
+                alert = [[UIAlertView alloc] initWithTitle: @"Error"
+                                                   message: @"AN Error occured while downloading"
+                                                  delegate: nil
+                                         cancelButtonTitle: @"OK"
+                                         otherButtonTitles: nil];
+                [alert show];
+                [self downloadFailedWithError:error];
+            }
+        }];
     }
+}
+
+- (void)downloadSucessfull
+{
+    /* update library now that we got a file */
+    APLog(@"DriveFile download was sucessful");
+    VLCAppDelegate *appDelegate = [UIApplication sharedApplication].delegate;
+    [appDelegate updateMediaList];
+
+    if ([self.delegate respondsToSelector:@selector(operationWithProgressInformationStopped)])
+        [self.delegate operationWithProgressInformationStopped];
+    _downloadInProgress = NO;
+
+    [self _triggerNextDownload];
+}
+
+- (void)downloadFailedWithError:(NSError*)error
+{
+    APLog(@"DriveFile download failed with error %i", error.code);
+    if ([self.delegate respondsToSelector:@selector(operationWithProgressInformationStopped)])
+        [self.delegate operationWithProgressInformationStopped];
+    _downloadInProgress = NO;
+
+    [self _triggerNextDownload];
 }
 
 #pragma mark - VLC internal communication and delegate

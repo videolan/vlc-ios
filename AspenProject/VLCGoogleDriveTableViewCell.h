@@ -7,8 +7,7 @@
 //
 //  Refer to the COPYING file of the official project for license.
 //
-
-//#import <DropboxSDK/DropboxSDK.h>
+#import "GTLDrive.h"
 
 @interface VLCGoogleDriveTableViewCell : UITableViewCell
 
@@ -17,7 +16,7 @@
 @property (nonatomic, strong) IBOutlet UILabel *subtitleLabel;
 @property (nonatomic, strong) IBOutlet UIImageView *thumbnailView;
 
-//@property (nonatomic, retain) DBMetadata *fileMetadata;
+@property (nonatomic) GTLDriveFile *driveFile;
 
 + (VLCGoogleDriveTableViewCell *)cellWithReuseIdentifier:(NSString *)ident;
 + (CGFloat)heightOfCell;

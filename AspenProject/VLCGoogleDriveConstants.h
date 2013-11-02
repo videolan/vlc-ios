@@ -8,6 +8,7 @@
 //  Refer to the COPYING file of the official project for license.
 //
 #define kVLCGoogleDriveClientID @"775640710334.apps.googleusercontent.com"
+#define kKeychainItemName @"vlc-ios"
 #warning Google Drive app secret missing, login will fail
 #define kVLCGoogleDriveClientSecret @""
 //#define kVLCGoogleDriveAppKey @"a60fc6qj9zdg7bw"

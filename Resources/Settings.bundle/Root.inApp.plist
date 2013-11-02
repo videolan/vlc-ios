@@ -338,6 +338,14 @@
 			<key>Type</key>
 			<string>IASKButtonSpecifier</string>
 		</dict>
+		<dict>
+			<key>Key</key>
+			<string>UnlinkGoogleDrive</string>
+			<key>Title</key>
+			<string>SETTINGS_UNLINK_GOOGLEDRIVE</string>
+			<key>Type</key>
+			<string>IASKButtonSpecifier</string>
+		</dict>
 	</array>
 	<key>StringsTable</key>
 	<string>Root</string>

@@ -15,6 +15,7 @@
 #import "IASKAppSettingsViewController.h"
 #import "PAPasscodeViewController.h"
 #import <DropboxSDK/DropboxSDK.h>
+#import "VLCGoogleDriveController.h"
 
 @interface VLCSettingsController ()<PAPasscodeViewControllerDelegate, IASKSettingsDelegate>
 @end
@@ -54,8 +55,11 @@
 }
 
 - (void)settingsViewController:(IASKAppSettingsViewController*)sender buttonTappedForSpecifier:(IASKSpecifier*)specifier {
-    if ([specifier.key isEqualToString:@"UnlinkDropbox"])
+    if ([specifier.key isEqualToString:@"UnlinkDropbox"]) {
         [[DBSession sharedSession] unlinkAll];
+    } else if ([specifier.key isEqualToString:@"UnlinkGoogleDrive"]) {
+        [GTMOAuth2ViewControllerTouch removeAuthFromKeychainForName:kKeychainItemName];
+    }
 }
 
 #pragma mark - PAPasscode delegate
