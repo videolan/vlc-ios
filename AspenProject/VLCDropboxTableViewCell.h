@@ -12,14 +12,25 @@
 
 @interface VLCDropboxTableViewCell : UITableViewCell
 
+@property (nonatomic, weak) id delegate;
+
 @property (nonatomic, strong) IBOutlet UILabel *titleLabel;
 @property (nonatomic, strong) IBOutlet UILabel *folderTitleLabel;
 @property (nonatomic, strong) IBOutlet UILabel *subtitleLabel;
 @property (nonatomic, strong) IBOutlet UIImageView *thumbnailView;
+@property (nonatomic, strong) IBOutlet UIButton *downloadButton;
 
 @property (nonatomic, retain) DBMetadata *fileMetadata;
 
 + (VLCDropboxTableViewCell *)cellWithReuseIdentifier:(NSString *)ident;
 + (CGFloat)heightOfCell;
+
+- (IBAction)triggerDownload:(id)sender;
+
+@end
+
+@protocol VLCDropboxTableViewCell <NSObject>
+
+- (void)triggerDownloadForCell:(VLCDropboxTableViewCell *)cell;
 
 @end

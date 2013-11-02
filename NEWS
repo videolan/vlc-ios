@@ -7,6 +7,8 @@
 * Added support for Google Drive (#8690)
 * Added support for downloading from UPnP multimedia servers
 * Added cover-art and duration to UPnP server item lists
+* Added support for streaming files from Dropbox in addition to download
+  on device (#9784)
 * Added support for system-wide HTTP proxy settings
 * Added support for multi-touch gestures based upon the VLC Gestures haxie
 * Added support for media broadcasted with the Session Announcement Protocol

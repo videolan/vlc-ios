@@ -17,7 +17,7 @@
 #import "UIBarButtonItem+Theme.h"
 #import <DropboxSDK/DropboxSDK.h>
 
-@interface VLCDropboxTableViewController ()
+@interface VLCDropboxTableViewController () <VLCDropboxTableViewCell>
 {
     VLCDropboxController *_dropboxController;
     NSString *_currentPath;
@@ -161,6 +161,7 @@
         cell = [VLCDropboxTableViewCell cellWithReuseIdentifier:CellIdentifier];
 
     cell.fileMetadata = _dropboxController.currentListFiles[indexPath.row];
+    cell.delegate = self;
 
     return cell;
 }
@@ -175,16 +176,14 @@
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
 {
     _selectedFile = _dropboxController.currentListFiles[indexPath.row];
-    if (!_selectedFile.isDirectory) {
-        /* selected item is a proper file, ask the user if s/he wants to download it */
-        UIAlertView * alert = [[UIAlertView alloc] initWithTitle:NSLocalizedString(@"DROPBOX_DOWNLOAD", @"") message:[NSString stringWithFormat:NSLocalizedString(@"DROPBOX_DL_LONG", @""), _selectedFile.filename, [[UIDevice currentDevice] model]] delegate:self cancelButtonTitle:NSLocalizedString(@"BUTTON_CANCEL", @"") otherButtonTitles:NSLocalizedString(@"BUTTON_DOWNLOAD", @""), nil];
-        [alert show];
-    } else {
+    if (!_selectedFile.isDirectory)
+        [_dropboxController streamFile:_selectedFile];
+    else {
         /* dive into subdirectory */
         _currentPath = [_currentPath stringByAppendingFormat:@"/%@", _selectedFile.filename];
         [self _requestInformationForCurrentPath];
-        _selectedFile = nil;
     }
+    _selectedFile = nil;
 
     [self.tableView deselectRowAtIndexPath:indexPath animated:NO];
 }
@@ -257,6 +256,19 @@
         [[DBSession sharedSession] linkFromController:self];
     else
         [_dropboxController logout];
+}
+
+#pragma mark - table view cell delegation
+
+
+#pragma mark - VLCLocalNetworkListCell delegation
+- (void)triggerDownloadForCell:(VLCDropboxTableViewCell *)cell
+{
+    _selectedFile = _dropboxController.currentListFiles[[self.tableView indexPathForCell:cell].row];
+
+    /* selected item is a proper file, ask the user if s/he wants to download it */
+    UIAlertView * alert = [[UIAlertView alloc] initWithTitle:NSLocalizedString(@"DROPBOX_DOWNLOAD", @"") message:[NSString stringWithFormat:NSLocalizedString(@"DROPBOX_DL_LONG", @""), _selectedFile.filename, [[UIDevice currentDevice] model]] delegate:self cancelButtonTitle:NSLocalizedString(@"BUTTON_CANCEL", @"") otherButtonTitles:NSLocalizedString(@"BUTTON_DOWNLOAD", @""), nil];
+    [alert show];
 }
 
 @end

@@ -41,11 +41,13 @@
         self.subtitleLabel.text = (self.fileMetadata.totalBytes > 0) ? self.fileMetadata.humanReadableSize : @"";
         self.folderTitleLabel.text = @"";
     }
+    self.downloadButton.hidden = NO;
 
     NSString *iconName = self.fileMetadata.icon;
-    if ([iconName isEqualToString:@"folder_user"] || [iconName isEqualToString:@"folder"] || [iconName isEqualToString:@"folder_public"] || [iconName isEqualToString:@"folder_photos"] || [iconName isEqualToString:@"package"])
+    if ([iconName isEqualToString:@"folder_user"] || [iconName isEqualToString:@"folder"] || [iconName isEqualToString:@"folder_public"] || [iconName isEqualToString:@"folder_photos"] || [iconName isEqualToString:@"package"]) {
         self.thumbnailView.image = [UIImage imageNamed:@"folder"];
-    else if ([iconName isEqualToString:@"page_white"] || [iconName isEqualToString:@"page_white_text"])
+        self.downloadButton.hidden = YES;
+    } else if ([iconName isEqualToString:@"page_white"] || [iconName isEqualToString:@"page_white_text"])
         self.thumbnailView.image = [UIImage imageNamed:@"blank"];
     else if ([iconName isEqualToString:@"page_white_film"])
         self.thumbnailView.image = [UIImage imageNamed:@"movie"];
@@ -53,6 +55,12 @@
         APLog(@"missing icon for type '%@'", self.fileMetadata.icon);
 
     [self setNeedsDisplay];
+}
+
+- (IBAction)triggerDownload:(id)sender
+{
+    if ([self.delegate respondsToSelector:@selector(triggerDownloadForCell:)])
+        [self.delegate triggerDownloadForCell:self];
 }
 
 + (CGFloat)heightOfCell
