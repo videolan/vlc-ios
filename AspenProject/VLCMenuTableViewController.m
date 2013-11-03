@@ -328,10 +328,17 @@
     if (!viewController)
         return;
 
-    UINavigationController *navCon = [[UINavigationController alloc] initWithRootViewController:viewController];
-    [navCon loadTheme];
+    UINavigationController *navCon = nil;
+    if ([_revealController.contentViewController isKindOfClass:[UINavigationController class]]) {
+        navCon = (UINavigationController*)_revealController.contentViewController;
+        navCon.viewControllers = @[viewController];
+    } else {
+        navCon = [[UINavigationController alloc] initWithRootViewController:viewController];
+        [navCon loadTheme];
 
-    _revealController.contentViewController = navCon;
+        _revealController.contentViewController = navCon;
+    }
+
 	[_revealController toggleSidebar:NO duration:kGHRevealSidebarDefaultAnimationDuration];
 }
 

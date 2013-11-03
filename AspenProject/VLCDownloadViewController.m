@@ -48,19 +48,21 @@
 
 - (void)viewDidLoad
 {
+    [super viewDidLoad];
+
     [self.downloadButton setTitle:NSLocalizedString(@"BUTTON_DOWNLOAD",@"") forState:UIControlStateNormal];
     self.navigationItem.leftBarButtonItem = [UIBarButtonItem themedRevealMenuButtonWithTarget:self andSelector:@selector(goBack:)];
     self.title = NSLocalizedString(@"DOWNLOAD_FROM_HTTP", @"");
     self.whatToDownloadHelpLabel.text = [NSString stringWithFormat:NSLocalizedString(@"DOWNLOAD_FROM_HTTP_HELP", @""), [[UIDevice currentDevice] model]];
     self.urlField.delegate = self;
     self.urlField.keyboardType = UIKeyboardTypeURL;
-    [super viewDidLoad];
+
+    if (SYSTEM_RUNS_IOS7_OR_LATER)
+        self.edgesForExtendedLayout = UIRectEdgeNone;
 }
 
 - (void)viewWillAppear:(BOOL)animated
 {
-    self.navigationController.navigationBar.translucent = NO;
-
     if ([[UIPasteboard generalPasteboard] containsPasteboardTypes:@[@"public.url", @"public.text"]]) {
         NSURL *pasteURL = [[UIPasteboard generalPasteboard] valueForPasteboardType:@"public.url"];
         if (!pasteURL || [[pasteURL absoluteString] isEqualToString:@""]) {
@@ -74,13 +76,6 @@
     [self _updateUI];
 
     [super viewWillAppear:animated];
-}
-
-- (void)viewWillDisappear:(BOOL)animated
-{
-    if (SYSTEM_RUNS_IOS7_OR_LATER)
-        self.navigationController.navigationBar.translucent = YES;
-    [super viewWillDisappear:animated];
 }
 
 #pragma mark - UI interaction

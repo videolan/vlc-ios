@@ -35,6 +35,7 @@
 - (void)viewDidLoad
 {
     [super viewDidLoad];
+
     [self.openButton setTitle:NSLocalizedString(@"BUTTON_OPEN", @"") forState:UIControlStateNormal];
     [self.privateModeLabel setText:NSLocalizedString(@"PRIVATE_PLAYBACK_TOGGLE", @"")];
     self.title = NSLocalizedString(@"OPEN_NETWORK", @"");
@@ -42,12 +43,13 @@
     [self.whatToOpenHelpLabel setText:NSLocalizedString(@"OPEN_NETWORK_HELP", @"")];
     self.urlField.delegate = self;
     self.urlField.keyboardType = UIKeyboardTypeURL;
+
+    if (SYSTEM_RUNS_IOS7_OR_LATER)
+        self.edgesForExtendedLayout = UIRectEdgeNone;
 }
 
 - (void)viewWillAppear:(BOOL)animated
 {
-    self.navigationController.navigationBar.translucent = NO;
-
     if ([[UIPasteboard generalPasteboard] containsPasteboardTypes:@[@"public.url", @"public.text"]]) {
         NSURL *pasteURL = [[UIPasteboard generalPasteboard] valueForPasteboardType:@"public.url"];
         if (!pasteURL || [[pasteURL absoluteString] isEqualToString:@""]) {
@@ -68,9 +70,6 @@
 
 - (void)viewWillDisappear:(BOOL)animated
 {
-    if (SYSTEM_RUNS_IOS7_OR_LATER)
-        self.navigationController.navigationBar.translucent = YES;
-
     NSUserDefaults *defaults = [NSUserDefaults standardUserDefaults];
     [defaults setObject:[NSArray arrayWithArray:_recentURLs] forKey:kVLCRecentURLs];
     [defaults setBool:self.privateToggleSwitch.on forKey:kVLCPrivateWebStreaming];

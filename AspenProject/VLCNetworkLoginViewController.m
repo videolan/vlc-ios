@@ -60,12 +60,13 @@
     self.passwordField.delegate = self;
     self.passwordField.returnKeyType = UIReturnKeyDone;
     self.passwordField.clearButtonMode = UITextFieldViewModeWhileEditing;
+
+    if (SYSTEM_RUNS_IOS7_OR_LATER)
+        self.edgesForExtendedLayout = UIRectEdgeNone;
 }
 
 - (void)viewWillAppear:(BOOL)animated
 {
-    self.navigationController.navigationBar.translucent = NO;
-
     NSUserDefaults *defaults = [NSUserDefaults standardUserDefaults];
     _saveServer = [NSMutableArray arrayWithArray:[defaults objectForKey:kVLCFTPServer]];
     _saveLogin = [NSMutableArray arrayWithArray:[defaults objectForKey:kVLCFTPLogin]];
