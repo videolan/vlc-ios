@@ -101,6 +101,8 @@
     _parser.delegate = self;
 
     _uploadedFiles = [[NSMutableArray alloc] init];
+
+    APLog(@"expecting file with size %lli", contentLength);
 }
 
 - (void)processBodyData:(NSData *)postDataChunk
@@ -108,6 +110,13 @@
     /* append data to the parser. It will invoke callbacks to let us handle
      * parsed data. */
     [_parser appendData:postDataChunk];
+
+    APLog(@"received %u bytes", postDataChunk.length);
+}
+
+- (void)processEpilogueData:(NSData*)data
+{
+    APLog(@"%u bytes of epilogue", data.length);
 }
 
 
@@ -166,6 +175,7 @@
 - (void)processEndOfPartWithHeader:(MultipartMessageHeader*)header
 {
     // as the file part is over, we close the file.
+    APLog(@"closing file");
     [_storeFile closeFile];
     _storeFile = nil;
     [UIApplication sharedApplication].networkActivityIndicatorVisible = NO;
@@ -174,6 +184,11 @@
     /* update media library when file upload was completed */
     VLCAppDelegate* appDelegate = [UIApplication sharedApplication].delegate;
     [appDelegate updateMediaList];
+}
+
+- (void)finishBody
+{
+    APLog(@"upload considered as complete");
 }
 
 @end
