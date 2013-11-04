@@ -206,6 +206,7 @@
 		7D94FCF816DE7D1100F2623B /* VLCPlaylistViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 7D94FCF716DE7D1100F2623B /* VLCPlaylistViewController.m */; };
 		7D94FCFB16DE7D1100F2623B /* VLCMovieViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 7D94FCFA16DE7D1100F2623B /* VLCMovieViewController.m */; };
 		7D9529531732EFCA006F5B40 /* VLCAboutViewController~ipad.xib in Resources */ = {isa = PBXBuildFile; fileRef = 7D9529521732EFCA006F5B40 /* VLCAboutViewController~ipad.xib */; };
+		7D9B6847182864CC00798BFF /* VLCHTTPConnection.m in Sources */ = {isa = PBXBuildFile; fileRef = 7D9B6846182864CC00798BFF /* VLCHTTPConnection.m */; };
 		7D9F7FB117F969B0000A6500 /* VLCSidebarViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 7D9F7FB017F969B0000A6500 /* VLCSidebarViewCell.m */; };
 		7DA6209B170A0CE500643D11 /* VLCPlaylistTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 7DA6209A170A0CE500643D11 /* VLCPlaylistTableViewCell.m */; };
 		7DA8B0FB173318E80029698C /* SourceCodePro-Regular.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 7DA8B0F9173318E80029698C /* SourceCodePro-Regular.ttf */; };
@@ -653,6 +654,8 @@
 		7D94FCF916DE7D1100F2623B /* VLCMovieViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = VLCMovieViewController.h; sourceTree = "<group>"; };
 		7D94FCFA16DE7D1100F2623B /* VLCMovieViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = VLCMovieViewController.m; sourceTree = "<group>"; };
 		7D9529521732EFCA006F5B40 /* VLCAboutViewController~ipad.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; name = "VLCAboutViewController~ipad.xib"; path = "Resources/VLCAboutViewController~ipad.xib"; sourceTree = SOURCE_ROOT; };
+		7D9B6845182864CC00798BFF /* VLCHTTPConnection.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = VLCHTTPConnection.h; sourceTree = "<group>"; };
+		7D9B6846182864CC00798BFF /* VLCHTTPConnection.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = VLCHTTPConnection.m; sourceTree = "<group>"; };
 		7D9B6B0817C9625F00F9425D /* sl */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = sl; path = sl.lproj/Localizable.strings; sourceTree = "<group>"; };
 		7D9B6B0917C9625F00F9425D /* sl */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = sl; path = "sl.lproj/badgeUnread@2x~ipad.png"; sourceTree = "<group>"; };
 		7D9B6B0A17C9626000F9425D /* sl */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = sl; path = "sl.lproj/badgeUnread@2x~iphone.png"; sourceTree = "<group>"; };
@@ -1335,6 +1338,8 @@
 		7D5F7ABA175265CB006CCCFA /* HTTP Connectivity */ = {
 			isa = PBXGroup;
 			children = (
+				7D9B6845182864CC00798BFF /* VLCHTTPConnection.h */,
+				7D9B6846182864CC00798BFF /* VLCHTTPConnection.m */,
 				29CE2D41174912C600922D8F /* VLCHTTPUploaderController.h */,
 				29CE2D42174912C600922D8F /* VLCHTTPUploaderController.m */,
 				7D3EB015174A46FB002062C2 /* VLCHTTPFileDownloader.h */,
@@ -2157,6 +2162,7 @@
 				7D93045917B6ACA10054EAC6 /* VLCWiFiUploadTableViewCell.m in Sources */,
 				7D02B0D217B6BE850099030D /* VLCLocalServerFolderListViewController.m in Sources */,
 				7DC72D6317B7ED24008A26D0 /* WhiteRaccoon.m in Sources */,
+				7D9B6847182864CC00798BFF /* VLCHTTPConnection.m in Sources */,
 				7DC72D6917B820C9008A26D0 /* VLCNetworkLoginViewController.m in Sources */,
 				A7B5315F17E35B6E00EAE4B3 /* VLCThumbnailsCache.m in Sources */,
 				7D9F7FB117F969B0000A6500 /* VLCSidebarViewCell.m in Sources */,
