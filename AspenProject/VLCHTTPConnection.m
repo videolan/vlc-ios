@@ -21,7 +21,6 @@
 {
     MultipartFormDataParser* _parser;
     NSFileHandle* _storeFile;
-    NSMutableArray* _uploadedFiles;
 }
 @end
 
@@ -100,8 +99,6 @@
     _parser = [[MultipartFormDataParser alloc] initWithBoundary:boundary formEncoding:NSUTF8StringEncoding];
     _parser.delegate = self;
 
-    _uploadedFiles = [[NSMutableArray alloc] init];
-
     APLog(@"expecting file with size %lli", contentLength);
 }
 
@@ -159,7 +156,6 @@
             APLog(@"Could not create file at path: %@", filePath);
 
         _storeFile = [NSFileHandle fileHandleForWritingAtPath:filePath];
-        [_uploadedFiles addObject: [NSString stringWithFormat:@"/upload/%@", filename]];
         [UIApplication sharedApplication].networkActivityIndicatorVisible = YES;
         [(VLCAppDelegate*)[UIApplication sharedApplication].delegate disableIdleTimer];
     }
