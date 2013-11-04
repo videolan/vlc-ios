@@ -145,20 +145,29 @@
     }
 
     NSString* filePath = [uploadDirPath stringByAppendingPathComponent: filename];
-    if ([[NSFileManager defaultManager] fileExistsAtPath:filePath])
-        _storeFile = nil;
-    else {
-        APLog(@"Saving file to %@", filePath);
-        if (![[NSFileManager defaultManager] createDirectoryAtPath:uploadDirPath withIntermediateDirectories:true attributes:nil error:nil])
-            APLog(@"Could not create directory at path: %@", filePath);
-
-        if (![[NSFileManager defaultManager] createFileAtPath:filePath contents:nil attributes:nil])
-            APLog(@"Could not create file at path: %@", filePath);
-
-        _storeFile = [NSFileHandle fileHandleForWritingAtPath:filePath];
-        [UIApplication sharedApplication].networkActivityIndicatorVisible = YES;
-        [(VLCAppDelegate*)[UIApplication sharedApplication].delegate disableIdleTimer];
+    if ([[NSFileManager defaultManager] fileExistsAtPath:filePath]) {
+        /* we don't want to over-write existing files, so add an integer to the file name */
+        NSString *potentialFilename;
+        NSString *fileExtension = [filename pathExtension];
+        NSString *rawFileName = [filename stringByDeletingPathExtension];
+        for (NSUInteger x = 1; x < 100; x++) {
+            potentialFilename = [NSString stringWithFormat:@"%@ %i.%@", rawFileName, x, fileExtension];
+            if (![[NSFileManager defaultManager] fileExistsAtPath:[uploadDirPath stringByAppendingPathComponent:potentialFilename]])
+                break;
+        }
+        filePath = [uploadDirPath stringByAppendingPathComponent:potentialFilename];
     }
+
+    APLog(@"Saving file to %@", filePath);
+    if (![[NSFileManager defaultManager] createDirectoryAtPath:uploadDirPath withIntermediateDirectories:true attributes:nil error:nil])
+        APLog(@"Could not create directory at path: %@", filePath);
+
+    if (![[NSFileManager defaultManager] createFileAtPath:filePath contents:nil attributes:nil])
+        APLog(@"Could not create file at path: %@", filePath);
+
+    _storeFile = [NSFileHandle fileHandleForWritingAtPath:filePath];
+    [UIApplication sharedApplication].networkActivityIndicatorVisible = YES;
+    [(VLCAppDelegate*)[UIApplication sharedApplication].delegate disableIdleTimer];
 }
 
 - (void)processContent:(NSData*)data WithHeader:(MultipartMessageHeader*) header
