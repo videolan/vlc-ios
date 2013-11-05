@@ -19,8 +19,10 @@
 
 @interface VLCHTTPConnection()
 {
-    MultipartFormDataParser* _parser;
-    NSFileHandle* _storeFile;
+    MultipartFormDataParser *_parser;
+    NSFileHandle *_storeFile;
+    NSString *_filepath;
+    NSString *_filename;
 }
 @end
 
@@ -134,9 +136,10 @@
         // an empty form sent. we won't handle it.
         return;
     }
+    _filename = filename;
 
-    // create the path where to store the media
-    NSArray *searchPaths = NSSearchPathForDirectoriesInDomains(NSDocumentDirectory, NSUserDomainMask, YES);
+    // create the path where to store the media temporarily
+    NSArray *searchPaths = NSSearchPathForDirectoriesInDomains(NSDownloadsDirectory, NSUserDomainMask, YES);
     NSString* uploadDirPath = searchPaths[0];
 
     BOOL isDir = YES;
@@ -144,28 +147,16 @@
         [[NSFileManager defaultManager]createDirectoryAtPath:uploadDirPath withIntermediateDirectories:YES attributes:nil error:nil];
     }
 
-    NSString* filePath = [uploadDirPath stringByAppendingPathComponent: filename];
-    if ([[NSFileManager defaultManager] fileExistsAtPath:filePath]) {
-        /* we don't want to over-write existing files, so add an integer to the file name */
-        NSString *potentialFilename;
-        NSString *fileExtension = [filename pathExtension];
-        NSString *rawFileName = [filename stringByDeletingPathExtension];
-        for (NSUInteger x = 1; x < 100; x++) {
-            potentialFilename = [NSString stringWithFormat:@"%@ %i.%@", rawFileName, x, fileExtension];
-            if (![[NSFileManager defaultManager] fileExistsAtPath:[uploadDirPath stringByAppendingPathComponent:potentialFilename]])
-                break;
-        }
-        filePath = [uploadDirPath stringByAppendingPathComponent:potentialFilename];
-    }
+    _filepath = [uploadDirPath stringByAppendingPathComponent: filename];
 
-    APLog(@"Saving file to %@", filePath);
+    APLog(@"Saving file to %@", _filepath);
     if (![[NSFileManager defaultManager] createDirectoryAtPath:uploadDirPath withIntermediateDirectories:true attributes:nil error:nil])
-        APLog(@"Could not create directory at path: %@", filePath);
+        APLog(@"Could not create directory at path: %@", _filepath);
 
-    if (![[NSFileManager defaultManager] createFileAtPath:filePath contents:nil attributes:nil])
-        APLog(@"Could not create file at path: %@", filePath);
+    if (![[NSFileManager defaultManager] createFileAtPath:_filepath contents:nil attributes:nil])
+        APLog(@"Could not create file at path: %@", _filepath);
 
-    _storeFile = [NSFileHandle fileHandleForWritingAtPath:filePath];
+    _storeFile = [NSFileHandle fileHandleForWritingAtPath:_filepath];
     [UIApplication sharedApplication].networkActivityIndicatorVisible = YES;
     [(VLCAppDelegate*)[UIApplication sharedApplication].delegate disableIdleTimer];
 }
@@ -183,6 +174,31 @@
     APLog(@"closing file");
     [_storeFile closeFile];
     _storeFile = nil;
+
+    NSArray *searchPaths = NSSearchPathForDirectoriesInDomains(NSDocumentDirectory, NSUserDomainMask, YES);
+    NSString *libraryPath = searchPaths[0];
+    NSString *finalFilePath = [libraryPath stringByAppendingPathComponent:_filename];
+
+    if ([[NSFileManager defaultManager] fileExistsAtPath:finalFilePath]) {
+        /* we don't want to over-write existing files, so add an integer to the file name */
+        NSString *potentialFilename;
+        NSString *fileExtension = [_filename pathExtension];
+        NSString *rawFileName = [_filename stringByDeletingPathExtension];
+        for (NSUInteger x = 1; x < 100; x++) {
+            potentialFilename = [NSString stringWithFormat:@"%@ %i.%@", rawFileName, x, fileExtension];
+            if (![[NSFileManager defaultManager] fileExistsAtPath:[libraryPath stringByAppendingPathComponent:potentialFilename]])
+                break;
+        }
+        finalFilePath = [libraryPath stringByAppendingPathComponent:potentialFilename];
+    }
+
+    NSError *error;
+    [[NSFileManager defaultManager] moveItemAtPath:_filepath toPath:finalFilePath error:&error];
+    if (error) {
+        APLog(@"Moving received media %@ to library folder failed (%i), deleting", _filename, error.code);
+        [[NSFileManager defaultManager] removeItemAtPath:_filepath error:nil];
+    }
+
     [UIApplication sharedApplication].networkActivityIndicatorVisible = NO;
     [(VLCAppDelegate*)[UIApplication sharedApplication].delegate activateIdleTimer];
 
