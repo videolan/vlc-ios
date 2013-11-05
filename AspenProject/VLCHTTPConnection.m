@@ -23,6 +23,8 @@
     NSFileHandle *_storeFile;
     NSString *_filepath;
     NSString *_filename;
+    UInt64 _contentLength;
+    UInt64 _receivedContent;
 }
 @end
 
@@ -101,7 +103,8 @@
     _parser = [[MultipartFormDataParser alloc] initWithBoundary:boundary formEncoding:NSUTF8StringEncoding];
     _parser.delegate = self;
 
-    APLog(@"expecting file with size %lli", contentLength);
+    APLog(@"expecting file of size %lli kB", contentLength / 1024);
+    _contentLength = contentLength;
 }
 
 - (void)processBodyData:(NSData *)postDataChunk
@@ -110,14 +113,10 @@
      * parsed data. */
     [_parser appendData:postDataChunk];
 
-    APLog(@"received %u bytes", postDataChunk.length);
-}
+    _receivedContent += postDataChunk.length;
 
-- (void)processEpilogueData:(NSData*)data
-{
-    APLog(@"%u bytes of epilogue", data.length);
+    APLog(@"received %lli kB (%lli %%)", _receivedContent / 1024, ((_receivedContent * 100) / _contentLength));
 }
-
 
 //-----------------------------------------------------------------
 #pragma mark multipart form data parser delegate
@@ -209,9 +208,9 @@
     [appDelegate updateMediaList];
 }
 
-- (void)finishBody
+- (void)die
 {
-    APLog(@"upload considered as complete");
+    APLog(@"we will die");
 }
 
 @end
