@@ -210,7 +210,14 @@
 
 - (void)die
 {
-    APLog(@"we will die");
+    if (_storeFile) {
+        _storeFile = nil;
+        [[NSFileManager defaultManager] removeItemAtPath:_filepath error:nil];
+        [UIApplication sharedApplication].networkActivityIndicatorVisible = NO;
+        [(VLCAppDelegate*)[UIApplication sharedApplication].delegate activateIdleTimer];
+    }
+
+    [super die];
 }
 
 @end
