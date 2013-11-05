@@ -141,19 +141,20 @@
     // create the path where to store the media temporarily
     NSArray *searchPaths = NSSearchPathForDirectoriesInDomains(NSDownloadsDirectory, NSUserDomainMask, YES);
     NSString* uploadDirPath = searchPaths[0];
+    NSFileManager *fileManager = [NSFileManager defaultManager];
 
     BOOL isDir = YES;
-    if (![[NSFileManager defaultManager]fileExistsAtPath:uploadDirPath isDirectory:&isDir ]) {
-        [[NSFileManager defaultManager]createDirectoryAtPath:uploadDirPath withIntermediateDirectories:YES attributes:nil error:nil];
+    if (![fileManager fileExistsAtPath:uploadDirPath isDirectory:&isDir ]) {
+        [fileManager createDirectoryAtPath:uploadDirPath withIntermediateDirectories:YES attributes:nil error:nil];
     }
 
     _filepath = [uploadDirPath stringByAppendingPathComponent: filename];
 
     APLog(@"Saving file to %@", _filepath);
-    if (![[NSFileManager defaultManager] createDirectoryAtPath:uploadDirPath withIntermediateDirectories:true attributes:nil error:nil])
+    if (![fileManager createDirectoryAtPath:uploadDirPath withIntermediateDirectories:true attributes:nil error:nil])
         APLog(@"Could not create directory at path: %@", _filepath);
 
-    if (![[NSFileManager defaultManager] createFileAtPath:_filepath contents:nil attributes:nil])
+    if (![fileManager createFileAtPath:_filepath contents:nil attributes:nil])
         APLog(@"Could not create file at path: %@", _filepath);
 
     _storeFile = [NSFileHandle fileHandleForWritingAtPath:_filepath];
@@ -178,8 +179,9 @@
     NSArray *searchPaths = NSSearchPathForDirectoriesInDomains(NSDocumentDirectory, NSUserDomainMask, YES);
     NSString *libraryPath = searchPaths[0];
     NSString *finalFilePath = [libraryPath stringByAppendingPathComponent:_filename];
+    NSFileManager *fileManager = [NSFileManager defaultManager];
 
-    if ([[NSFileManager defaultManager] fileExistsAtPath:finalFilePath]) {
+    if ([fileManager fileExistsAtPath:finalFilePath]) {
         /* we don't want to over-write existing files, so add an integer to the file name */
         NSString *potentialFilename;
         NSString *fileExtension = [_filename pathExtension];
@@ -193,10 +195,10 @@
     }
 
     NSError *error;
-    [[NSFileManager defaultManager] moveItemAtPath:_filepath toPath:finalFilePath error:&error];
+    [fileManager moveItemAtPath:_filepath toPath:finalFilePath error:&error];
     if (error) {
         APLog(@"Moving received media %@ to library folder failed (%i), deleting", _filename, error.code);
-        [[NSFileManager defaultManager] removeItemAtPath:_filepath error:nil];
+        [fileManager removeItemAtPath:_filepath error:nil];
     }
 
     [UIApplication sharedApplication].networkActivityIndicatorVisible = NO;
