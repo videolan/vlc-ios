@@ -1,13 +1,13 @@
-From 5a56d6eaea17a250035aa7ec46b6a93b7c22a06d Mon Sep 17 00:00:00 2001
+From d6bc95b1b16b7dcee0465de6a8a03c8676e299de Mon Sep 17 00:00:00 2001
 From: =?UTF-8?q?Felix=20Paul=20K=C3=BChne?= <fkuehne@videolan.org>
 Date: Thu, 31 Oct 2013 20:42:59 +0100
 Subject: [PATCH] contrib/gcrypt: use git version on iOS
 
 ---
  contrib/src/gcrypt/disable-doc-compilation.patch   | 43 ++++++++++++++++++++++
- contrib/src/gcrypt/rules.mak                       | 21 ++++++++---
+ contrib/src/gcrypt/rules.mak                       | 23 ++++++++----
  .../gcrypt/work-around-libtool-limitation.patch    | 25 +++++++++++++
- 3 files changed, 83 insertions(+), 6 deletions(-)
+ 3 files changed, 83 insertions(+), 8 deletions(-)
  create mode 100644 contrib/src/gcrypt/disable-doc-compilation.patch
  create mode 100644 contrib/src/gcrypt/work-around-libtool-limitation.patch
 
@@ -119,23 +119,13 @@ index 38c96b5..332d2ad 100644
  	touch $@
 diff --git a/contrib/src/gcrypt/work-around-libtool-limitation.patch b/contrib/src/gcrypt/work-around-libtool-limitation.patch
 new file mode 100644
-index 0000000..3664365
+index 0000000..df97ffb
 --- /dev/null
 +++ b/contrib/src/gcrypt/work-around-libtool-limitation.patch
 @@ -0,0 +1,25 @@
-+From ac8721c26616bc09cc83d7371fcdf3f3cad399f5 Mon Sep 17 00:00:00 2001
-+From: =?UTF-8?q?Felix=20Paul=20K=C3=BChne?= <fkuehne@videolan.org>
-+Date: Thu, 31 Oct 2013 20:45:50 +0100
-+Subject: [PATCH] Added hack to work-around libtool limitation
-+
-+---
-+ cipher/Makefile.am | 2 ++
-+ 1 file changed, 2 insertions(+)
-+
-+diff --git a/cipher/Makefile.am b/cipher/Makefile.am
-+index 95d484e..db2a359 100644
-+--- a/cipher/Makefile.am
-++++ b/cipher/Makefile.am
++diff -ru libgcrypt-broken/cipher/Makefile.am libgcrypt/cipher/Makefile.am
++--- libgcrypt-broken/cipher/Makefile.am	2013-11-06 23:05:24.000000000 +0100
+++++ libgcrypt/cipher/Makefile.am	2013-11-06 23:21:25.000000000 +0100
 +@@ -19,6 +19,8 @@
 + 
 + # Process this file with automake to produce Makefile.in
@@ -145,9 +135,19 @@ index 0000000..3664365
 + EXTRA_DIST = Manifest
 + 
 + # Need to include ../src in addition to top_srcdir because gcrypt.h is
-+-- 
-+1.8.3.4 (Apple Git-47)
-+
++diff -ru libgcrypt-broken/mpi/Makefile.am libgcrypt/mpi/Makefile.am
++--- libgcrypt-broken/mpi/Makefile.am	2013-11-06 23:05:24.000000000 +0100
+++++ libgcrypt/mpi/Makefile.am	2013-11-06 23:22:04.000000000 +0100
++@@ -23,6 +23,9 @@
++ 
++ # Need to include ../src in addition to top_srcdir because gcrypt.h is
++ # a built header.
+++
+++LIBTOOL=@LIBTOOL@ --tag=CC
+++
++ AM_CPPFLAGS = -I../src -I$(top_srcdir)/src
++ AM_CFLAGS = $(GPG_ERROR_CFLAGS)
++ 
 -- 
 1.8.3.4 (Apple Git-47)
 
