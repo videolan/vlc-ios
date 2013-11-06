@@ -10,6 +10,7 @@ SDK_MIN=6.1
 VERBOSE=no
 CONFIGURATION="Release"
 NONETWORK=no
+SKIPLIBVLCCOMPILATION=no
 
 TESTEDHASH=2791a97f2
 TESTEDVLCKITHASH=b343a201d
@@ -26,6 +27,7 @@ OPTIONS
    -s       Build for simulator
    -d       Enable Debug
    -n       Skip script steps requiring network interaction
+   -l       Skip libvlc compilation
 EOF
 }
 
@@ -67,7 +69,7 @@ buildxcodeproj()
                IPHONEOS_DEPLOYMENT_TARGET=${SDK_MIN} > ${out}
 }
 
-while getopts "hvsdnk:" OPTION
+while getopts "hvsdnlk:" OPTION
 do
      case $OPTION in
          h)
@@ -84,6 +86,9 @@ do
              ;;
          n)
              NONETWORK=yes
+             ;;
+         l)
+             SKIPLIBVLCCOMPILATION=yes
              ;;
          k)
              SDK=$OPTARG
@@ -266,6 +271,7 @@ info "Building"
 
 spushd ImportedSources
 
+if [ "$SKIPLIBVLCCOMPILATION" != "yes" ]; then
 spushd vlc/extras/package/ios
 info "Building vlc"
 args=""
@@ -280,6 +286,7 @@ else
 fi
 
 spopd
+fi
 
 spushd VLCKit
 buildxcodeproj MobileVLCKit "Aggregate static plugins"
