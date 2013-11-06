@@ -9,6 +9,8 @@ SDK=7.0
 SDK_MIN=6.1
 VERBOSE=no
 CONFIGURATION="Release"
+NONETWORK=no
+
 TESTEDHASH=2791a97f2
 TESTEDVLCKITHASH=b343a201d
 TESTEDMEDIALIBRARYKITHASH=973a5eb38
@@ -23,6 +25,7 @@ OPTIONS
    -v       Be more verbose
    -s       Build for simulator
    -d       Enable Debug
+   -n       Skip script steps requiring network interaction
 EOF
 }
 
@@ -64,7 +67,7 @@ buildxcodeproj()
                IPHONEOS_DEPLOYMENT_TARGET=${SDK_MIN} > ${out}
 }
 
-while getopts "hvsdk:" OPTION
+while getopts "hvsdnk:" OPTION
 do
      case $OPTION in
          h)
@@ -78,6 +81,9 @@ do
              PLATFORM=iphonesimulator
              ;;
          d)  CONFIGURATION="Debug"
+             ;;
+         n)
+             NONETWORK=yes
              ;;
          k)
              SDK=$OPTARG
@@ -114,6 +120,7 @@ mkdir -p External
 
 spushd ImportedSources
 
+if [ "$NONETWORK" != "yes" ]; then
 if ! [ -e vlc ]; then
 git clone git://git.videolan.org/vlc/vlc-2.1.git vlc
 info "Applying patches to vlc.git"
@@ -224,6 +231,7 @@ fi
 cd ..
 else
 cd InAppSettingsKit && git pull --rebase && cd ..
+fi
 fi
 
 info "Setup 'External' folders"
