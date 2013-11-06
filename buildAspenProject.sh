@@ -11,7 +11,7 @@ VERBOSE=no
 CONFIGURATION="Release"
 TESTEDHASH=2791a97f2
 TESTEDVLCKITHASH=b343a201d
-TESTEDMEDIALIBRARYKITHASH=82a2f20c8
+TESTEDMEDIALIBRARYKITHASH=973a5eb38
 
 usage()
 {
@@ -126,30 +126,54 @@ info "Applying the patches failed, aborting git-am"
 exit 1
 fi
 cd ..
+else
+cd vlc
+git pull --rebase
+cd ..
 fi
 if ! [ -e MediaLibraryKit ]; then
 git clone git://git.videolan.org/MediaLibraryKit.git
 cd MediaLibraryKit
 git checkout -B localAspenBranch ${TESTEDMEDIALIBRARYKITHASH}
+git branch --set-upstream-to=origin/master localAspenBranch
+cd ..
+else
+cd MediaLibraryKit
+git pull --rebase
+git reset --hard ${TESTEDMEDIALIBRARYKITHASH}
 cd ..
 fi
 if ! [ -e VLCKit ]; then
 git clone git://git.videolan.org/vlc-bindings/VLCKit.git
 cd VLCKit
 git checkout -B localAspenBranch ${TESTEDVLCKITHASH}
+git branch --set-upstream-to=origin/master localAspenBranch
+cd ..
+else
+cd VLCKit
+git pull --rebase
+git reset --hard ${TESTEDVLCKITHASH}
 cd ..
 fi
 if ! [ -e OBSlider ]; then
 git clone git://github.com/ole/OBSlider.git
+else
+cd OBSlider && git pull --rebase && cd ..
 fi
 if ! [ -e DAVKit ]; then
 git clone git://github.com/mattrajca/DAVKit.git
+else
+cd DAVKit && git pull --rebase && cd ..
 fi
 if ! [ -e GDrive ]; then
 svn checkout http://google-api-objectivec-client.googlecode.com/svn/trunk/Source GDrive
+else
+cd GDrive && svn up && cd ..
 fi
 if ! [ -e GHSidebarNav ]; then
 git clone git://github.com/gresrun/GHSidebarNav.git
+else
+cd GHSidebarNav && git pull --rebase && cd ..
 fi
 if ! [ -e upnpx ]; then
 UPNPXVERSION=1.2.4
@@ -164,6 +188,8 @@ cd ..
 fi
 if ! [ -e WhiteRaccoon ]; then
 git clone git://github.com/fkuehne/WhiteRaccoon.git
+else
+cd WhiteRaccoon && git pull --rebase && cd ..
 fi
 if ! [ -e CocoaHTTPServer ]; then
 git clone git://github.com/robbiehanson/CocoaHTTPServer.git
@@ -175,6 +201,8 @@ info "Applying the patches failed, aborting git-am"
 exit 1
 fi
 cd ..
+else
+cd CocoaHTTPServer && git pull --rebase && cd ..
 fi
 if ! [ -e Dropbox ]; then
 DROPBOXSDKVERSION=1.3.9
@@ -194,6 +222,8 @@ info "Applying the patches failed, aborting git-am"
 exit 1
 fi
 cd ..
+else
+cd InAppSettingsKit && git pull --rebase && cd ..
 fi
 
 info "Setup 'External' folders"
