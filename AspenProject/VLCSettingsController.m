@@ -58,7 +58,7 @@
     if ([specifier.key isEqualToString:@"UnlinkDropbox"]) {
         [[DBSession sharedSession] unlinkAll];
     } else if ([specifier.key isEqualToString:@"UnlinkGoogleDrive"]) {
-        [GTMOAuth2ViewControllerTouch removeAuthFromKeychainForName:kKeychainItemName];
+        [[VLCGoogleDriveController sharedInstance] logout];
     }
 }
 

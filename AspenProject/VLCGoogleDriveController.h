@@ -30,9 +30,11 @@
 @property (nonatomic, readonly) NSInteger numberOfFilesWaitingToBeDownloaded;
 @property (nonatomic, retain) GTLServiceDrive *driveService;
 
++ (VLCGoogleDriveController *)sharedInstance;
 - (void)startSession;
 - (void)logout;
 - (void)requestDirectoryListingAtPath:(NSString *)path;
 - (void)downloadFileToDocumentFolder:(GTLDriveFile *)file;
+- (void)streamFile:(GTLDriveFile *)file;
 
 @end

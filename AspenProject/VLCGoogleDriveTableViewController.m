@@ -9,7 +9,7 @@
 //
 
 #import "VLCGoogleDriveTableViewController.h"
-#import "VLCGoogleDriveTableViewCell.h"
+#import "VLCCloudStorageTableViewCell.h"
 #import "VLCGoogleDriveController.h"
 #import "VLCAppDelegate.h"
 #import "VLCPlaylistViewController.h"
@@ -17,7 +17,7 @@
 #import "VLCGoogleDriveConstants.h"
 #import "GTMOAuth2ViewControllerTouch.h"
 
-@interface VLCGoogleDriveTableViewController ()
+@interface VLCGoogleDriveTableViewController () <VLCCloudStorageTableViewCell>
 {
     GTLDriveFile *_selectedFile;
     GTMOAuth2ViewControllerTouch *_authController;
@@ -34,6 +34,7 @@
 
     UIActivityIndicatorView *_activityIndicator;
 
+    BOOL _authorizationInProgress;
     VLCGoogleDriveController *_googleDriveController;
 }
 
@@ -47,9 +48,12 @@
 
     self.modalPresentationStyle = UIModalPresentationFormSheet;
 
-    _googleDriveController = [[VLCGoogleDriveController alloc] init];
+    _googleDriveController = [VLCGoogleDriveController sharedInstance];
     _googleDriveController.delegate = self;
     [_googleDriveController startSession];
+
+    _authorizationInProgress = NO;
+
     self.navigationItem.titleView = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"DriveWhite"]];
     self.navigationItem.titleView.contentMode = UIViewContentModeScaleAspectFit;
 
@@ -57,7 +61,7 @@
     _backToMenuButton = [UIBarButtonItem themedRevealMenuButtonWithTarget:self andSelector:@selector(goBack:)];
     self.navigationItem.leftBarButtonItem = _backToMenuButton;
 
-    self.tableView.rowHeight = [VLCGoogleDriveTableViewCell heightOfCell];
+    self.tableView.rowHeight = [VLCCloudStorageTableViewCell heightOfCell];
     self.tableView.separatorColor = [UIColor colorWithWhite:.122 alpha:1.];
     self.view.backgroundColor = [UIColor colorWithWhite:.122 alpha:1.];
 
@@ -95,7 +99,9 @@
 
 - (void)viewController:(GTMOAuth2ViewControllerTouch *)viewController finishedWithAuth:(GTMOAuth2Authentication *)authResult error:(NSError *)error
 {
+    _authorizationInProgress = NO;
     if (error != nil) {
+        //TODO:Localize
         [self showAlert:@"Authentication Error" message:error.localizedDescription];
         _googleDriveController.driveService.authorizer = nil;
     } else {
@@ -188,11 +194,12 @@
 {
     static NSString *CellIdentifier = @"GoogleDriveCell";
 
-    VLCGoogleDriveTableViewCell *cell = (VLCGoogleDriveTableViewCell *)[tableView dequeueReusableCellWithIdentifier:CellIdentifier];
+    VLCCloudStorageTableViewCell *cell = (VLCCloudStorageTableViewCell *)[tableView dequeueReusableCellWithIdentifier:CellIdentifier];
     if (cell == nil)
-        cell = [VLCGoogleDriveTableViewCell cellWithReuseIdentifier:CellIdentifier];
+        cell = [VLCCloudStorageTableViewCell cellWithReuseIdentifier:CellIdentifier];
 
     cell.driveFile = _googleDriveController.currentListFiles[indexPath.row];
+    cell.delegate = self;
 
     return cell;
 }
@@ -208,16 +215,13 @@
 {
     _selectedFile = _googleDriveController.currentListFiles[indexPath.row];
     if (![_selectedFile.mimeType isEqualToString:@"application/vnd.google-apps.folder"]) {
-        /* selected item is a proper file, ask the user if s/he wants to download it */
-        UIAlertView * alert = [[UIAlertView alloc] initWithTitle:NSLocalizedString(@"GOOGLE_DRIVE_DOWNLOAD", @"") message:[NSString stringWithFormat:NSLocalizedString(@"GOOGLE_DRIVE_DL_LONG", @""), _selectedFile.title, [[UIDevice currentDevice] model]] delegate:self cancelButtonTitle:NSLocalizedString(@"BUTTON_CANCEL", @"") otherButtonTitles:NSLocalizedString(@"BUTTON_DOWNLOAD", @""), nil];
-        [alert show];
+        [_googleDriveController streamFile:_selectedFile];
     } else {
         /* dive into subdirectory */
            _currentPath = [_currentPath stringByAppendingFormat:@"/%@", _selectedFile.title];
         [self _requestInformationForCurrentPath];
-        _selectedFile = nil;
     }
-
+    _selectedFile = nil;
     [self.tableView deselectRowAtIndexPath:indexPath animated:NO];
 }
 
@@ -229,7 +233,20 @@
     _selectedFile = nil;
 }
 
-#pragma mark - dropbox controller delegate
+#pragma mark - table view cell delegation
+
+
+#pragma mark - VLCLocalNetworkListCell delegation
+- (void)triggerDownloadForCell:(VLCCloudStorageTableViewCell *)cell
+{
+    _selectedFile = _googleDriveController.currentListFiles[[self.tableView indexPathForCell:cell].row];
+
+    /* selected item is a proper file, ask the user if s/he wants to download it */
+    UIAlertView * alert = [[UIAlertView alloc] initWithTitle:NSLocalizedString(@"GOOGLEDRIVE_DOWNLOAD", @"") message:[NSString stringWithFormat:NSLocalizedString(@"GOOGLEDRIVE_DL_LONG", @""), _selectedFile.title, [[UIDevice currentDevice] model]] delegate:self cancelButtonTitle:NSLocalizedString(@"BUTTON_CANCEL", @"") otherButtonTitles:NSLocalizedString(@"BUTTON_DOWNLOAD", @""), nil];
+    [alert show];
+}
+
+#pragma mark - google drive controller delegate
 
 - (void)mediaListUpdated
 {
@@ -265,12 +282,18 @@
 
 - (void)updateViewAfterSessionChange
 {
+    if(_authorizationInProgress) {
+        if (self.loginToGoogleDriveView.superview)
+            [self.loginToGoogleDriveView removeFromSuperview];
+        return;
+    }
     if (![_googleDriveController isAuthorized]) {
         [self _showLoginPanel];
         return;
     } else if (self.loginToGoogleDriveView.superview)
         [self.loginToGoogleDriveView removeFromSuperview];
-        _currentPath = @"/";
+
+    _currentPath = @"/";
     [self _requestInformationForCurrentPath];
 }
 
@@ -285,6 +308,7 @@
 - (IBAction)loginToGoogleDriveAction:(id)sender
 {
     if (![_googleDriveController isAuthorized]) {
+        _authorizationInProgress = YES;
         [self.navigationController pushViewController:[self createAuthController] animated:YES];
     } else {
         [_googleDriveController logout];

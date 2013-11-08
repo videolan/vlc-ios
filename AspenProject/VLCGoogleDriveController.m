@@ -33,6 +33,18 @@
 
 #pragma mark - session handling
 
++ (VLCGoogleDriveController *)sharedInstance
+{
+        static VLCGoogleDriveController *sharedInstance = nil;
+        static dispatch_once_t pred;
+
+        dispatch_once(&pred, ^{
+            sharedInstance = [[self alloc] init];
+        });
+
+        return sharedInstance;
+}
+
 - (void)startSession
 {
     self.driveService = [[GTLServiceDrive alloc] init];
@@ -43,6 +55,9 @@
 {
     [GTMOAuth2ViewControllerTouch removeAuthFromKeychainForName:kKeychainItemName];
     self.driveService.authorizer = nil;
+    _currentFileList = 0;
+    if ([self.delegate respondsToSelector:@selector(mediaListUpdated)])
+    [self.delegate mediaListUpdated];
 }
 
 - (BOOL)isAuthorized
@@ -92,20 +107,31 @@
     GTLQueryDrive *query = [GTLQueryDrive queryForFilesList];
     query.maxResults = 150;
 
-    query.fields = @"items(originalFilename,title,mimeType,fileExtension,fileSize,iconLink)";
-    //+ (id)queryForChildrenListWithFolderId:(NSString *)folderId;
+    query.fields = @"items(originalFilename,title,mimeType,fileExtension,fileSize,iconLink,downloadUrl)";
 
     _fileListTicket = [service executeQuery:query
                           completionHandler:^(GTLServiceTicket *ticket,
                                               GTLDriveFileList *fileList,
                                               NSError *error) {
-                              // Callback
-                              _fileList = fileList;
-                              
-                              _fileListFetchError = error;
-                              _fileListTicket = nil;
-                              [self listOfGoodFilesAndFolders];
+                              if (error == nil) {
+                                  _fileList = fileList;
+
+                                  _fileListFetchError = error;
+                                  _fileListTicket = nil;
+                                  [self listOfGoodFilesAndFolders];
+                              } else {
+                                  //TODO: localize
+                                  [self showAlert:@"Fetching Files Error" message:error.localizedDescription];
+                              }
                           }];
+}
+
+- (void)streamFile:(GTLDriveFile *)file
+{
+     BOOL isDirectory = [file.mimeType isEqualToString:@"application/vnd.google-apps.folder"];
+    if (!isDirectory) {
+    //    [[self restClient] loadStreamableURLForFile:file.path];
+    }
 }
 
 - (void)_triggerNextDownload
@@ -174,10 +200,7 @@
         NSURLRequest *request = [NSURLRequest requestWithURL:url];
         GTMHTTPFetcher *fetcher = [GTMHTTPFetcher fetcherWithRequest:request];
 
-        // Requests of user data from Google services must be authorized.
         fetcher.authorizer = self.driveService.authorizer;
-
-        // The fetcher can save data directly to a file.
         fetcher.downloadPath = destinationPath;
 
         // Fetcher logging can include comments.
@@ -193,25 +216,12 @@
         };
 
         [fetcher beginFetchWithCompletionHandler:^(NSData *data, NSError *error) {
-            // Callback
             //TODO:localize Strings
             if (error == nil) {
-                UIAlertView *alert;
-                alert = [[UIAlertView alloc] initWithTitle: @"Downloaded"
-                                                   message: @"your file has been sucessfully downloaded"
-                                                  delegate: nil
-                                         cancelButtonTitle: @"OK"
-                                         otherButtonTitles: nil];
-                [alert show];
+                [self showAlert:@"Downloaded" message:@"Your file has been sucessfully downloaded"];
                 [self downloadSucessfull];
             } else {
-                UIAlertView *alert;
-                alert = [[UIAlertView alloc] initWithTitle: @"Error"
-                                                   message: @"AN Error occured while downloading"
-                                                  delegate: nil
-                                         cancelButtonTitle: @"OK"
-                                         otherButtonTitles: nil];
-                [alert show];
+                [self showAlert:@"Error" message:@"An Error occured while downloading"];
                 [self downloadFailedWithError:error];
             }
         }];

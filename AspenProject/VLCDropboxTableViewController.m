@@ -9,7 +9,7 @@
 //
 
 #import "VLCDropboxTableViewController.h"
-#import "VLCDropboxTableViewCell.h"
+#import "VLCCloudStorageTableViewCell.h"
 #import "VLCDropboxController.h"
 #import "VLCAppDelegate.h"
 #import "VLCPlaylistViewController.h"
@@ -17,7 +17,7 @@
 #import "UIBarButtonItem+Theme.h"
 #import <DropboxSDK/DropboxSDK.h>
 
-@interface VLCDropboxTableViewController () <VLCDropboxTableViewCell>
+@interface VLCDropboxTableViewController () <VLCCloudStorageTableViewCell>
 {
     VLCDropboxController *_dropboxController;
     NSString *_currentPath;
@@ -58,7 +58,7 @@
     _backToMenuButton = [UIBarButtonItem themedRevealMenuButtonWithTarget:self andSelector:@selector(goBack:)];
     self.navigationItem.leftBarButtonItem = _backToMenuButton;
 
-    self.tableView.rowHeight = [VLCDropboxTableViewCell heightOfCell];
+    self.tableView.rowHeight = [VLCCloudStorageTableViewCell heightOfCell];
     self.tableView.separatorColor = [UIColor colorWithWhite:.122 alpha:1.];
     self.view.backgroundColor = [UIColor colorWithWhite:.122 alpha:1.];
 
@@ -157,9 +157,9 @@
 {
     static NSString *CellIdentifier = @"DropboxCell";
 
-    VLCDropboxTableViewCell *cell = (VLCDropboxTableViewCell *)[tableView dequeueReusableCellWithIdentifier:CellIdentifier];
+    VLCCloudStorageTableViewCell *cell = (VLCCloudStorageTableViewCell *)[tableView dequeueReusableCellWithIdentifier:CellIdentifier];
     if (cell == nil)
-        cell = [VLCDropboxTableViewCell cellWithReuseIdentifier:CellIdentifier];
+        cell = [VLCCloudStorageTableViewCell cellWithReuseIdentifier:CellIdentifier];
 
     cell.fileMetadata = _dropboxController.currentListFiles[indexPath.row];
     cell.delegate = self;
@@ -263,7 +263,7 @@
 
 
 #pragma mark - VLCLocalNetworkListCell delegation
-- (void)triggerDownloadForCell:(VLCDropboxTableViewCell *)cell
+- (void)triggerDownloadForCell:(VLCCloudStorageTableViewCell *)cell
 {
     _selectedFile = _dropboxController.currentListFiles[[self.tableView indexPathForCell:cell].row];
 
