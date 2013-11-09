@@ -22,14 +22,14 @@ $(function(){
     fileupload.bind('fileuploadprogress', progress);
 
     $(window).bind('beforeunload', function (e) {
-        var confirmationMessage = "";
+        var confirmationMessage = null;
 
-        if ($('.progress').not('.done').not('.fail').length > 0) {
+        if ($('.uploads > ul > li').not('.done').not('.fail').length > 0) {
             confirmationMessage = 'There are transfers in progress, navigating away will abort them.';
         }
         (e || window.event).returnValue = confirmationMessage;     // Gecko + IE
         return confirmationMessage;                                // Webkit, Safari, Chrome etc.
-    }
+    });
 
     var xhrCache = [];
     function add (e, data) {
