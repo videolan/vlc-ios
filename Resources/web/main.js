@@ -21,6 +21,16 @@ $(function(){
     fileupload.bind('fileuploadfail', fail);
     fileupload.bind('fileuploadprogress', progress);
 
+    $(window).bind('beforeunload', function (e) {
+        var confirmationMessage = "";
+
+        if ($('.progress').not('.done').not('.fail').length > 0) {
+            confirmationMessage = 'There are transfers in progress, navigating away will abort them.';
+        }
+        (e || window.event).returnValue = confirmationMessage;     // Gecko + IE
+        return confirmationMessage;                                // Webkit, Safari, Chrome etc.
+    }
+
     var xhrCache = [];
     function add (e, data) {
         $('.message').hide();
