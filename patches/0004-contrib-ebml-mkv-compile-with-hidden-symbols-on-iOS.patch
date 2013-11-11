@@ -31,7 +31,7 @@ index 57d7f15..5e63db6 100644
 --- a/contrib/src/matroska/rules.mak
 +++ b/contrib/src/matroska/rules.mak
 @@ -18,11 +18,15 @@ libmatroska: libmatroska-$(MATROSKA_VERSION).tar.bz2 .sum-matroska
- 	$(APPLY) $(SRC)/matroska/no-ansi.patch
+ 	$(APPLY) $(SRC)/matroska/matroska-pic.patch
  	$(MOVE)
  
 +ifdef HAVE_IOS
