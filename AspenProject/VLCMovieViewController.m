@@ -48,7 +48,6 @@
 
     BOOL _swipeGesturesEnabled;
     NSString * panType;
-    UIView *_rootView;
     UIPanGestureRecognizer *_panRecognizer;
     UISwipeGestureRecognizer *_swipeRecognizerLeft;
     UISwipeGestureRecognizer *_swipeRecognizerRight;
@@ -71,13 +70,13 @@
 - (void)dealloc
 {
     if (_tapRecognizer)
-        [_rootView removeGestureRecognizer:_tapRecognizer];
+        [self.view removeGestureRecognizer:_tapRecognizer];
     if (_swipeRecognizerLeft)
-        [_rootView removeGestureRecognizer:_swipeRecognizerLeft];
+        [self.view removeGestureRecognizer:_swipeRecognizerLeft];
     if (_swipeRecognizerRight)
-        [_rootView removeGestureRecognizer:_swipeRecognizerRight];
+        [self.view removeGestureRecognizer:_swipeRecognizerRight];
     if (_panRecognizer)
-        [_rootView removeGestureRecognizer:_panRecognizer];
+        [self.view removeGestureRecognizer:_panRecognizer];
 
     [[NSNotificationCenter defaultCenter] removeObserver:self];
 }
@@ -204,12 +203,10 @@
         _swipeRecognizerRight = [[UISwipeGestureRecognizer alloc] initWithTarget:self action:@selector(swipeRecognized:)];
         _swipeRecognizerRight.direction = UISwipeGestureRecognizerDirectionRight;
 
-        UIWindow * window = [[[UIApplication sharedApplication] delegate] window];
-        _rootView = window.rootViewController.view;
-        [_rootView addGestureRecognizer:_swipeRecognizerLeft];
-        [_rootView addGestureRecognizer:_swipeRecognizerRight];
-        [_rootView addGestureRecognizer:_panRecognizer];
-        [_rootView addGestureRecognizer:_tapRecognizer];
+        [self.view addGestureRecognizer:_swipeRecognizerLeft];
+        [self.view addGestureRecognizer:_swipeRecognizerRight];
+        [self.view addGestureRecognizer:_panRecognizer];
+        [self.view addGestureRecognizer:_tapRecognizer];
         [_panRecognizer requireGestureRecognizerToFail:_swipeRecognizerLeft];
         [_panRecognizer requireGestureRecognizerToFail:_swipeRecognizerRight];
 
@@ -872,7 +869,7 @@
         [self.statusLabel showStatusMessage:@"  ▌▌"];
     } else {
         [_mediaPlayer play];
-        [self.statusLabel showStatusMessage:@"  ►"];
+        [self.statusLabel showStatusMessage:@" ►"];
     }
 }
 
@@ -881,7 +878,7 @@
     NSString * type;
     NSString * deviceType = [[UIDevice currentDevice] model];
     type = @"Volume"; // default in case of error
-    CGPoint location = [panRecognizer locationInView:_rootView];
+    CGPoint location = [panRecognizer locationInView:self.view];
     CGFloat position = location.x;
 
     UIInterfaceOrientation orientation = [[UIApplication sharedApplication] statusBarOrientation];
@@ -908,8 +905,8 @@
 
 - (void)panRecognized:(UIPanGestureRecognizer*)panRecognizer
 {
-    CGFloat panDirectionX = [panRecognizer velocityInView:_rootView].x;
-    CGFloat panDirectionY = [panRecognizer velocityInView:_rootView].y;
+    CGFloat panDirectionX = [panRecognizer velocityInView:self.view].x;
+    CGFloat panDirectionY = [panRecognizer velocityInView:self.view].y;
 
     if (panRecognizer.state == UIGestureRecognizerStateBegan) // Only Detect pantype when began to allow more freedom
         panType = [self detectPanTypeForPan:panRecognizer];
