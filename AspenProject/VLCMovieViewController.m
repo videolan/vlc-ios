@@ -49,7 +49,6 @@
     BOOL _swipeGesturesEnabled;
     NSString * panType;
     UIView *_rootView;
-    UIView *_splashView;
     UIPanGestureRecognizer *_panRecognizer;
     UISwipeGestureRecognizer *_swipeRecognizerLeft;
     UISwipeGestureRecognizer *_swipeRecognizerRight;
@@ -71,8 +70,6 @@
 
 - (void)dealloc
 {
-    if (_splashView)
-        [_splashView removeFromSuperview];
     if (_tapRecognizer)
         [_rootView removeGestureRecognizer:_tapRecognizer];
     if (_swipeRecognizerLeft)
@@ -877,10 +874,6 @@
         [_mediaPlayer play];
         [self.statusLabel showStatusMessage:@"  ►"];
     }
-    [_rootView addSubview:_splashView];
-    [UIView animateWithDuration:1
-                     animations:^{ _splashView.alpha = 0.0f;}
-                     completion:^(BOOL finished){ [_splashView removeFromSuperview]; }];
 }
 
 - (NSString*)detectPanTypeForPan:(UIPanGestureRecognizer*)panRecognizer
@@ -975,7 +968,6 @@
     }
 
     if (swipeRecognizer.state == UIGestureRecognizerStateEnded) {
-        [_rootView addSubview:_splashView];
         if ([_mediaPlayer isPlaying])
             [_mediaPlayer play];
 
