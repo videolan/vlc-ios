@@ -11,6 +11,12 @@
   on device (#9784)
 * Added support for system-wide HTTP proxy settings
 * Added support for multi-touch gestures based upon the VLC Gestures haxie
+  - horizontal swipe for playback position
+  - tap with 2 fingers to play/pause
+  - vertical swipe in the right half of the video to adapt volume
+  - vertical swipe in the left half of the video to adapt screen brightness
+  - horizontal pan in the upper 20% of the screen to set playback position
+    more precisely (iPad only)
 * Added support for media broadcasted with the Session Announcement Protocol
   (SAP) information on the local network (#9429)
 * Added support for HTTP Live Streaming (HLS) (#9174)
