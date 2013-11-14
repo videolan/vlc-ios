@@ -28,6 +28,7 @@
     BOOL _downloadInProgress;
 
     NSInteger _outstandingNetworkRequests;
+    NSString *_nextPageToken;
 }
 
 @end
@@ -38,14 +39,14 @@
 
 + (VLCGoogleDriveController *)sharedInstance
 {
-        static VLCGoogleDriveController *sharedInstance = nil;
-        static dispatch_once_t pred;
+    static VLCGoogleDriveController *sharedInstance = nil;
+    static dispatch_once_t pred;
 
-        dispatch_once(&pred, ^{
-            sharedInstance = [[self alloc] init];
-        });
+    dispatch_once(&pred, ^{
+        sharedInstance = [[self alloc] init];
+    });
 
-        return sharedInstance;
+    return sharedInstance;
 }
 
 - (void)startSession
@@ -86,6 +87,11 @@
         [self listFiles];
 }
 
+- (BOOL)hasMoreFiles
+{
+    return _nextPageToken != nil;
+}
+
 - (void)downloadFileToDocumentFolder:(GTLDriveFile *)file
 {
     if (![file.mimeType isEqualToString:@"application/vnd.google-apps.folder"]) {
@@ -107,18 +113,21 @@
 
     GTLServiceDrive *service = self.driveService;
 
-    GTLQueryDrive *query = [GTLQueryDrive queryForFilesList];
-    query.maxResults = 150;
+    GTLQueryDrive *query;
 
-    query.fields = @"items(originalFilename,title,mimeType,fileExtension,fileSize,iconLink,downloadUrl)";
+    query = [GTLQueryDrive queryForFilesList];
+    query.fields = @"items(originalFilename,title,mimeType,fileExtension,fileSize,iconLink,downloadUrl,webContentLink),nextPageToken";
+    query.pageToken = _nextPageToken;
+    query.maxResults = 100;
 
+    APLog(@"fetching files with following queryfields:%@", query.fields);
     _fileListTicket = [service executeQuery:query
                           completionHandler:^(GTLServiceTicket *ticket,
                                               GTLDriveFileList *fileList,
                                               NSError *error) {
                               if (error == nil) {
                                   _fileList = fileList;
-
+                                  _nextPageToken = fileList.nextPageToken;
                                   _fileListFetchError = error;
                                   _fileListTicket = nil;
                                   [self listOfGoodFilesAndFolders];
@@ -131,9 +140,10 @@
 
 - (void)streamFile:(GTLDriveFile *)file
 {
-     BOOL isDirectory = [file.mimeType isEqualToString:@"application/vnd.google-apps.folder"];
+    BOOL isDirectory = [file.mimeType isEqualToString:@"application/vnd.google-apps.folder"];
     if (!isDirectory) {
-    //    [[self restClient] loadStreamableURLForFile:file.path];
+        VLCAppDelegate *appDelegate = (VLCAppDelegate *)[UIApplication sharedApplication].delegate;
+        [appDelegate openMovieFromURL:[NSURL URLWithString:file.webContentLink]];
     }
 }
 
@@ -172,7 +182,7 @@
 - (void)listOfGoodFilesAndFolders
 {
     NSMutableArray *listOfGoodFilesAndFolders = [[NSMutableArray alloc] init];
-    
+
     for (GTLDriveFile *driveFile in _fileList.items)
     {
         BOOL isDirectory = [driveFile.mimeType isEqualToString:@"application/vnd.google-apps.folder"];
@@ -180,8 +190,14 @@
             [listOfGoodFilesAndFolders addObject:driveFile];
         }
     }
+    NSMutableSet *mergedSet = [NSMutableSet setWithArray:_currentFileList];
+    [mergedSet unionSet:[NSSet setWithArray:listOfGoodFilesAndFolders]];
+    _currentFileList = [mergedSet allObjects];
 
-    _currentFileList = [NSArray arrayWithArray:listOfGoodFilesAndFolders];
+    if ([_currentFileList count] <= 10 && [self hasMoreFiles]) {
+        [self requestDirectoryListingAtPath:@""];
+        return;
+    }
 
     APLog(@"found filtered metadata for %i files", _currentFileList.count);
     if ([self.delegate respondsToSelector:@selector(mediaListUpdated)])

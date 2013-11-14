@@ -38,6 +38,7 @@
 - (void)startSession;
 - (void)logout;
 - (void)requestDirectoryListingAtPath:(NSString *)path;
+- (BOOL)hasMoreFiles;
 - (void)downloadFileToDocumentFolder:(GTLDriveFile *)file;
 - (void)streamFile:(GTLDriveFile *)file;
 

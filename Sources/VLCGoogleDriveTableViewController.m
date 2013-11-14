@@ -228,6 +228,18 @@
     [self.tableView deselectRowAtIndexPath:indexPath animated:NO];
 }
 
+- (void)scrollViewDidScroll:(UIScrollView *)scrollView
+{
+    NSInteger currentOffset = scrollView.contentOffset.y;
+    NSInteger maximumOffset = scrollView.contentSize.height - scrollView.frame.size.height;
+
+    if (maximumOffset - currentOffset <= - self.tableView.rowHeight) {
+        if (_googleDriveController.hasMoreFiles && !_activityIndicator.isAnimating) {
+            [self _requestInformationForCurrentPath];
+        }
+    }
+}
+
 - (void)alertView:(UIAlertView *)alertView clickedButtonAtIndex:(NSInteger)buttonIndex
 {
     if (buttonIndex == 1)
