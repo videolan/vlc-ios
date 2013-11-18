@@ -1,12 +1,16 @@
-//
-//  VLCAboutViewController.m
-//  VLC for iOS
-//
-//  Created by Felix Paul Kühne on 07.04.13.
-//  Copyright (c) 2013 VideoLAN. All rights reserved.
-//
-//  Refer to the COPYING file of the official project for license.
-//
+/*****************************************************************************
+ * VLCAboutViewController.m
+ * VLC for iOS
+ *****************************************************************************
+ * Copyright (c) 2013 VideoLAN. All rights reserved.
+ * $Id$
+ *
+ * Authors: Felix Paul Kühne <fkuehne # videolan.org>
+ *          Pierre Sagaspe <pierre.sagaspe # me.com>
+ *          Tamas Timar <ttimar.vlc # gmail.com>
+ *
+ * Refer to the COPYING file of the official project for license.
+ *****************************************************************************/
 
 #import "VLCAboutViewController.h"
 #import "VLCAppDelegate.h"

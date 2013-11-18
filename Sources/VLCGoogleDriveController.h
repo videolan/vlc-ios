@@ -1,12 +1,16 @@
-//
-//  VLCGoogleDriveController.h
-//  VLC for iOS
-//
-//  Created by Carola Nitz on 21.09.13.
-//  Copyright (c) 2013 VideoLAN. All rights reserved.
-//
-//  Refer to the COPYING file of the official project for license.
-//
+/*****************************************************************************
+ * VLCGoogleDriveController.h
+ * VLC for iOS
+ *****************************************************************************
+ * Copyright (c) 2013 VideoLAN. All rights reserved.
+ * $Id$
+ *
+ * Authors: Carola Nitz <nitz.carola # googlemail.com>
+ *          Felix Paul Kühne <fkuehne # videolan.org>
+ *
+ * Refer to the COPYING file of the official project for license.
+ *****************************************************************************/
+
 #import "GTLDrive.h"
 #import "GTMOAuth2ViewControllerTouch.h"
 #import "VLCGoogleDriveConstants.h"

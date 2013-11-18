@@ -1,12 +1,16 @@
-//
-//  VLCPlaylistCollectionViewCell.h
-//  VLC for iOS
-//
-//  Created by Tamas Timar on 8/30/13.
-//  Copyright (c) 2013 VideoLAN. All rights reserved.
-//
-//  Refer to the COPYING file of the official project for license.
-//
+/*****************************************************************************
+ * VLCPlaylistCollectionViewCell.h
+ * VLC for iOS
+ *****************************************************************************
+ * Copyright (c) 2013 VideoLAN. All rights reserved.
+ * $Id$
+ *
+ * Authors: Felix Paul Kühne <fkuehne # videolan.org>
+ *          Tamas Timar <ttimar.vlc # gmail.com>
+ *          Gleb Pinigin <gpinigin # gmail.com>
+ *
+ * Refer to the COPYING file of the official project for license.
+ *****************************************************************************/
 
 #import <UIKit/UIKit.h>
 #import "VLCLinearProgressIndicator.h"

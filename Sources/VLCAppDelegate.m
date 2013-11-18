@@ -1,12 +1,18 @@
-//
-//  VLCAppDelegate.m
-//  VLC for iOS
-//
-//  Created by Felix Paul Kühne on 27.02.13.
-//  Copyright (c) 2013 VideoLAN. All rights reserved.
-//
-//  Refer to the COPYING file of the official project for license.
-//
+/*****************************************************************************
+ * VLCAppDelegate.m
+ * VLC for iOS
+ *****************************************************************************
+ * Copyright (c) 2013 VideoLAN. All rights reserved.
+ * $Id$
+ *
+ * Authors: Felix Paul Kühne <fkuehne # videolan.org>
+ *          Gleb Pinigin <gpinigin # gmail.com>
+ *          Jean-Romain Prévost <jr # 3on.fr>
+ *          Luis Fernandes <zipleen # gmail.com>
+ *          Carola Nitz <nitz.carola # googlemail.com>
+ *
+ * Refer to the COPYING file of the official project for license.
+ *****************************************************************************/
 
 #import "VLCAppDelegate.h"
 #import "VLCMediaFileDiscoverer.h"

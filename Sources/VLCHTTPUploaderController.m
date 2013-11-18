@@ -1,12 +1,17 @@
-//
-//  VLCHTTPUploaderViewController.m
-//  VLC for iOS
-//
-//  Created by Jean-Baptiste Kempf on 19/05/13.
-//  Copyright (c) 2013 VideoLAN. All rights reserved.
-//
-//  Refer to the COPYING file of the official project for license.
-//
+/*****************************************************************************
+ * VLCHTTPUploaderViewController.m
+ * VLC for iOS
+ *****************************************************************************
+ * Copyright (c) 2013 VideoLAN. All rights reserved.
+ * $Id$
+ *
+ * Authors: Jean-Baptiste Kempf <jb # videolan.org>
+ *          Gleb Pinigin <gpinigin # gmail.com>
+ *          Felix Paul Kühne <fkuehne # videolan.org>
+ *          Jean-Romain Prévost <jr # 3on.fr>
+ *
+ * Refer to the COPYING file of the official project for license.
+ *****************************************************************************/
 
 #import "VLCAppDelegate.h"
 #import "VLCHTTPUploaderController.h"

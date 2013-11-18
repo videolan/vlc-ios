@@ -1,12 +1,14 @@
-//
-//  UIDevice+SpeedCategory.m
-//  VLC for iOS
-//
-//  Created by Felix Paul Kühne on 22.06.13.
-//  Copyright (c) 2013 VideoLAN. All rights reserved.
-//
-//  Refer to the COPYING file of the official project for license.
-//
+/*****************************************************************************
+ * UIDevice+SpeedCategory.m
+ * VLC for iOS
+ *****************************************************************************
+ * Copyright (c) 2013 VideoLAN. All rights reserved.
+ * $Id$
+ *
+ * Authors: Felix Paul Kühne <fkuehne # videolan.org>
+ *
+ * Refer to the COPYING file of the official project for license.
+ *****************************************************************************/
 
 #import "UIDevice+SpeedCategory.h"
 #import <sys/sysctl.h> // for sysctlbyname

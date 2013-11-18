@@ -1,12 +1,19 @@
-//
-//  VLCMovieViewController.m
-//  VLC for iOS
-//
-//  Created by Felix Paul Kühne on 27.02.13.
-//  Copyright (c) 2013 VideoLAN. All rights reserved.
-//
-//  Refer to the COPYING file of the official project for license.
-//
+/*****************************************************************************
+ * VLCMovieViewController.m
+ * VLC for iOS
+ *****************************************************************************
+ * Copyright (c) 2013 VideoLAN. All rights reserved.
+ * $Id$
+ *
+ * Authors: Felix Paul Kühne <fkuehne # videolan.org>
+ *          Gleb Pinigin <gpinigin # gmail.com>
+ *          Ahmad Harb <harb.dev.leb # gmail.com>
+ *          Fabio Ritrovato <sephiroth87 # videolan.org>
+ *          Pierre SAGASPE <pierre.sagaspe # me.com>
+ *          Jean-Baptiste Kempf <jb # videolan.org>
+ *
+ * Refer to the COPYING file of the official project for license.
+ *****************************************************************************/
 
 #import "VLCMovieViewController.h"
 #import "VLCExternalDisplayController.h"

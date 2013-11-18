@@ -1,12 +1,19 @@
-//
-//  VLCMenuTableViewController.m
-//  VLC for iOS
-//
-//  Created by Felix Paul Kühne on 10.08.13.
-//  Copyright (c) 2013 VideoLAN. All rights reserved.
-//
-//  Refer to the COPYING file of the official project for license.
-//
+/*****************************************************************************
+ * VLCMenuTableViewController.m
+ * VLC for iOS
+ *****************************************************************************
+ * Copyright (c) 2013 VideoLAN. All rights reserved.
+ * $Id$
+ *
+ * Authors: Felix Paul Kühne <fkuehne # videolan.org>
+ *          Gleb Pinigin <gpinigin # gmail.com>
+ *          Jean-Romain Prévost <jr # 3on.fr>
+ *          Carola Nitz <nitz.carola # googlemail.com>
+ *          Tamas Timar <ttimar.vlc # gmail.com>
+ *          Pierre Sagaspe <pierre.sagaspe # me.com>
+ *
+ * Refer to the COPYING file of the official project for license.
+ *****************************************************************************/
 
 #import "VLCMenuTableViewController.h"
 #import "GHRevealViewController.h"

@@ -1,12 +1,18 @@
-//
-//  VLCDropboxTableViewController.m
-//  VLC for iOS
-//
-//  Created by Felix Paul Kühne on 24.05.13.
-//  Copyright (c) 2013 VideoLAN. All rights reserved.
-//
-//  Refer to the COPYING file of the official project for license.
-//
+/*****************************************************************************
+ * VLCDropboxTableViewController.m
+ * VLC for iOS
+ *****************************************************************************
+ * Copyright (c) 2013 VideoLAN. All rights reserved.
+ * $Id$
+ *
+ * Authors: Felix Paul Kühne <fkuehne # videolan.org>
+ *          Gleb Pinigin <gpinigin # gmail.com>
+ *          Carola Nitz <nitz.carola # googlemail.com>
+ *          Fabio Ritrovato <sephiroth87 # videolan.org>
+ *          Tamas Timar <ttimar.vlc # gmail.com>
+ *
+ * Refer to the COPYING file of the official project for license.
+ *****************************************************************************/
 
 #import "VLCDropboxTableViewController.h"
 #import "VLCCloudStorageTableViewCell.h"

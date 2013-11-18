@@ -1,12 +1,16 @@
-//
-//  VLCPlaylistViewController.m
-//  VLC for iOS
-//
-//  Created by Felix Paul Kühne on 27.02.13.
-//  Copyright (c) 2013 VideoLAN. All rights reserved.
-//
-//  Refer to the COPYING file of the official project for license.
-//
+/*****************************************************************************
+ * VLCPlaylistViewController.m
+ * VLC for iOS
+ *****************************************************************************
+ * Copyright (c) 2013 VideoLAN. All rights reserved.
+ * $Id$
+ *
+ * Authors: Felix Paul Kühne <fkuehne # videolan.org>
+ *          Gleb Pinigin <gpinigin # gmail.com>
+ *          Tamas Timar <ttimar.vlc # gmail.com>
+ *
+ * Refer to the COPYING file of the official project for license.
+ *****************************************************************************/
 
 #import "VLCPlaylistViewController.h"
 #import "VLCMovieViewController.h"
