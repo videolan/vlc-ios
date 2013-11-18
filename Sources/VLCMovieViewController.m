@@ -105,12 +105,11 @@
 
 - (void)setUrl:(NSURL *)url
 {
-    if (_url != url) {
-        [self _stopPlayback];
-        _url = url;
-        if (_viewAppeared)
-            [self _startPlayback];
-    }
+    [self _stopPlayback];
+    _url = url;
+    _playerIsSetup = NO;
+    if (_viewAppeared)
+        [self _startPlayback];
 }
 
 - (void)viewDidLoad
