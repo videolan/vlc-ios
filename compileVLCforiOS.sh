@@ -170,6 +170,7 @@ else
 cd GHSidebarNav && git pull --rebase && cd ..
 fi
 if ! [ -e upnpx ]; then
+rm -f tar xf upnpx-*
 UPNPXVERSION=1.2.4
 curl -O http://upnpx.googlecode.com/files/upnpx-${UPNPXVERSION}.tar.gz
 tar xf upnpx-${UPNPXVERSION}.tar.gz
