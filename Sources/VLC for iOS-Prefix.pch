@@ -1,5 +1,5 @@
 //
-// Prefix header for all source files of the 'AspenProject' target in the 'AspenProject' project
+// Prefix header for all source files of the 'vlc-ios' target in the 'VLC for iOS' project
 //
 
 #import <Availability.h>
