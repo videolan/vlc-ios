@@ -12,8 +12,7 @@ CONFIGURATION="Release"
 NONETWORK=no
 SKIPLIBVLCCOMPILATION=no
 
-TESTEDHASH=2791a97f2
-TESTEDVLCKITHASH=b343a201d
+TESTEDVLCKITHASH=eb9b82880
 TESTEDMEDIALIBRARYKITHASH=973a5eb38
 
 usage()
@@ -126,23 +125,6 @@ mkdir -p External
 spushd ImportedSources
 
 if [ "$NONETWORK" != "yes" ]; then
-if ! [ -e vlc ]; then
-git clone git://git.videolan.org/vlc/vlc-2.1.git vlc
-info "Applying patches to vlc.git"
-cd vlc
-#git checkout -B localAspenBranch ${TESTEDHASH}
-git am ../../patches/*.patch
-if [ $? -ne 0 ]; then
-git am --abort
-info "Applying the patches failed, aborting git-am"
-exit 1
-fi
-cd ..
-else
-cd vlc
-git pull --rebase
-cd ..
-fi
 if ! [ -e MediaLibraryKit ]; then
 git clone git://git.videolan.org/MediaLibraryKit.git
 cd MediaLibraryKit
@@ -271,24 +253,22 @@ info "Building"
 
 spushd ImportedSources
 
-if [ "$SKIPLIBVLCCOMPILATION" != "yes" ]; then
-spushd vlc/extras/package/ios
-info "Building vlc"
+spushd VLCKit
+echo `pwd`
 args=""
 if [ "$VERBOSE" = "yes" ]; then
     args="${args} -v"
 fi
 if [ "$PLATFORM" = "iphonesimulator" ]; then
     args="${args} -s"
-    ./build.sh ${args} -k "${SDK}"
-else
-    ./build.sh -a armv7 ${args} -k "${SDK}" && ./build.sh -a armv7s ${args} -k "${SDK}"
 fi
-
-spopd
+if [ "$NONETWORK" = "yes" ]; then
+    args="${args} -n"
 fi
-
-spushd VLCKit
+if [ "$SKIPLIBVLCCOMPILATION" = "yes" ]; then
+    args="${args} -l"
+fi
+./buildMobileVLCKit.sh ${args} -k "${SDK}"
 buildxcodeproj MobileVLCKit "Aggregate static plugins"
 buildxcodeproj MobileVLCKit "MobileVLCKit"
 spopd
