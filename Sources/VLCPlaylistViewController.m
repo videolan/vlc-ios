@@ -286,6 +286,13 @@
     for (MLFile *file in allFiles) {
         if (!file.isShowEpisode && !file.isAlbumTrack)
             [_foundMedia addObject:file];
+        else if (file.isShowEpisode) {
+            if (file.showEpisode.show.episodes.count < 2)
+                [_foundMedia addObject:file];
+        } else if (file.isAlbumTrack) {
+            if (file.albumTrack.album.tracks.count < 2)
+                [_foundMedia addObject:file];
+        }
     }
 
     [self reloadViews];
