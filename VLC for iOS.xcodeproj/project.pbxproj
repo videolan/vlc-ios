@@ -111,7 +111,6 @@
 		7D30F3DF183AB31E00FFC021 /* VLCWiFiUploadTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 7D30F3DE183AB31E00FFC021 /* VLCWiFiUploadTableViewCell.m */; };
 		7D30F3E2183AB33200FFC021 /* VLCSidebarViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 7D30F3E1183AB33200FFC021 /* VLCSidebarViewCell.m */; };
 		7D30F3EA183AB34200FFC021 /* VLCGoogleDriveController.m in Sources */ = {isa = PBXBuildFile; fileRef = 7D30F3E5183AB34200FFC021 /* VLCGoogleDriveController.m */; };
-		7D30F3EB183AB34200FFC021 /* VLCGoogleDriveTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 7D30F3E7183AB34200FFC021 /* VLCGoogleDriveTableViewCell.m */; };
 		7D30F3EC183AB34200FFC021 /* VLCGoogleDriveTableViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 7D30F3E9183AB34200FFC021 /* VLCGoogleDriveTableViewController.m */; };
 		7D31001D17B64AE100E6516D /* GHRevealViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 7D31001C17B64AE100E6516D /* GHRevealViewController.m */; };
 		7D31002017B6768B00E6516D /* libupnpx.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 7D31001F17B6768B00E6516D /* libupnpx.a */; };
@@ -510,8 +509,6 @@
 		7D30F3E3183AB34200FFC021 /* VLCGoogleDriveConstants.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = VLCGoogleDriveConstants.h; path = Sources/VLCGoogleDriveConstants.h; sourceTree = SOURCE_ROOT; };
 		7D30F3E4183AB34200FFC021 /* VLCGoogleDriveController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = VLCGoogleDriveController.h; path = Sources/VLCGoogleDriveController.h; sourceTree = SOURCE_ROOT; };
 		7D30F3E5183AB34200FFC021 /* VLCGoogleDriveController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = VLCGoogleDriveController.m; path = Sources/VLCGoogleDriveController.m; sourceTree = SOURCE_ROOT; };
-		7D30F3E6183AB34200FFC021 /* VLCGoogleDriveTableViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = VLCGoogleDriveTableViewCell.h; path = Sources/VLCGoogleDriveTableViewCell.h; sourceTree = SOURCE_ROOT; };
-		7D30F3E7183AB34200FFC021 /* VLCGoogleDriveTableViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = VLCGoogleDriveTableViewCell.m; path = Sources/VLCGoogleDriveTableViewCell.m; sourceTree = SOURCE_ROOT; };
 		7D30F3E8183AB34200FFC021 /* VLCGoogleDriveTableViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = VLCGoogleDriveTableViewController.h; path = Sources/VLCGoogleDriveTableViewController.h; sourceTree = SOURCE_ROOT; };
 		7D30F3E9183AB34200FFC021 /* VLCGoogleDriveTableViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = VLCGoogleDriveTableViewController.m; path = Sources/VLCGoogleDriveTableViewController.m; sourceTree = SOURCE_ROOT; };
 		7D31001B17B64AE100E6516D /* GHRevealViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = GHRevealViewController.h; path = ImportedSources/GHSidebarNav/GHSidebarNav/GHRevealViewController.h; sourceTree = SOURCE_ROOT; };
@@ -1638,8 +1635,6 @@
 				7D30F3E3183AB34200FFC021 /* VLCGoogleDriveConstants.h */,
 				7D30F3E4183AB34200FFC021 /* VLCGoogleDriveController.h */,
 				7D30F3E5183AB34200FFC021 /* VLCGoogleDriveController.m */,
-				7D30F3E6183AB34200FFC021 /* VLCGoogleDriveTableViewCell.h */,
-				7D30F3E7183AB34200FFC021 /* VLCGoogleDriveTableViewCell.m */,
 				7D30F3E8183AB34200FFC021 /* VLCGoogleDriveTableViewController.h */,
 				7D30F3E9183AB34200FFC021 /* VLCGoogleDriveTableViewController.m */,
 			);
@@ -2163,7 +2158,6 @@
 				7D30F3DF183AB31E00FFC021 /* VLCWiFiUploadTableViewCell.m in Sources */,
 				7D30F3E2183AB33200FFC021 /* VLCSidebarViewCell.m in Sources */,
 				7D30F3EA183AB34200FFC021 /* VLCGoogleDriveController.m in Sources */,
-				7D30F3EB183AB34200FFC021 /* VLCGoogleDriveTableViewCell.m in Sources */,
 				7D30F3EC183AB34200FFC021 /* VLCGoogleDriveTableViewController.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
