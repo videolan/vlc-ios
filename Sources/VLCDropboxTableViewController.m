@@ -47,7 +47,7 @@
 - (void)viewDidLoad
 {
     [super viewDidLoad];
-
+    [[NSBundle mainBundle] loadNibNamed:@"VLCCloudStorageTableViewController" owner:self options:nil];
     self.modalPresentationStyle = UIModalPresentationFormSheet;
 
     _dropboxController = [[VLCDropboxController alloc] init];
@@ -76,8 +76,9 @@
     _downloadingBarLabel = [[UIBarButtonItem alloc] initWithTitle:NSLocalizedString(@"DOWNLOADING",@"") style:UIBarButtonItemStylePlain target:nil action:nil];
     [_downloadingBarLabel setTitleTextAttributes:@{ UITextAttributeFont : [UIFont systemFontOfSize:11.] } forState:UIControlStateNormal];
 
-    _loginToDropboxView.backgroundColor = [UIColor colorWithWhite:.122 alpha:1.];
-    [_loginToDropboxButton setTitle:NSLocalizedString(@"DROPBOX_LOGIN", @"") forState:UIControlStateNormal];
+    self.loginToCloudStorageView.backgroundColor = [UIColor colorWithWhite:.122 alpha:1.];
+    [self.cloudStorageLogo setImage:[UIImage imageNamed:@"dropbox-white.png"]];
+    [self.loginButton setTitle:NSLocalizedString(@"DROPBOX_LOGIN", @"") forState:UIControlStateNormal];
 
     [self.navigationController.toolbar setBackgroundImage:[UIImage imageNamed:@"sudHeaderBg"] forToolbarPosition:UIToolbarPositionAny barMetrics:UIBarMetricsDefault];
 
@@ -242,8 +243,8 @@
     if (![[DBSession sharedSession] isLinked]) {
         [self _showLoginPanel];
         return;
-    } else if (self.loginToDropboxView.superview)
-        [self.loginToDropboxView removeFromSuperview];
+    } else if (self.loginToCloudStorageView.superview)
+        [self.loginToCloudStorageView removeFromSuperview];
 
     _currentPath = @"/";
     [self _requestInformationForCurrentPath];
@@ -253,11 +254,11 @@
 
 - (void)_showLoginPanel
 {
-    self.loginToDropboxView.frame = self.tableView.frame;
-    [self.view addSubview:self.loginToDropboxView];
+    self.loginToCloudStorageView.frame = self.tableView.frame;
+    [self.view addSubview:self.loginToCloudStorageView];
 }
 
-- (IBAction)loginToDropboxAction:(id)sender
+- (IBAction)loginAction:(id)sender
 {
     if (!_dropboxController.sessionIsLinked)
         [[DBSession sharedSession] linkFromController:self];

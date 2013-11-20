@@ -19,6 +19,7 @@
 #import "UIBarButtonItem+Theme.h"
 #import "VLCGoogleDriveConstants.h"
 #import "GTMOAuth2ViewControllerTouch.h"
+#import "VLCGoogleDriveController.h"
 
 @interface VLCGoogleDriveTableViewController () <VLCCloudStorageTableViewCell>
 {
@@ -46,7 +47,7 @@
 - (void)viewDidLoad
 {
     [super viewDidLoad];
-
+    [[NSBundle mainBundle] loadNibNamed:@"VLCCloudStorageTableViewController" owner:self options:nil];
     self.modalPresentationStyle = UIModalPresentationFormSheet;
 
     _googleDriveController = [VLCGoogleDriveController sharedInstance];
@@ -74,8 +75,10 @@
     _downloadingBarLabel = [[UIBarButtonItem alloc] initWithTitle:NSLocalizedString(@"DOWNLOADING",@"") style:UIBarButtonItemStylePlain target:nil action:nil];
     [_downloadingBarLabel setTitleTextAttributes:@{ UITextAttributeFont : [UIFont systemFontOfSize:11.] } forState:UIControlStateNormal];
 
-    _loginToGoogleDriveView.backgroundColor = [UIColor colorWithWhite:.122 alpha:1.];
-    [_loginToGoogleDriveButton setTitle:NSLocalizedString(@"DROPBOX_LOGIN", @"") forState:UIControlStateNormal];
+    self.loginToCloudStorageView.backgroundColor = [UIColor colorWithWhite:.122 alpha:1.];
+    [self _setupLogo];
+
+    [self.loginButton setTitle:NSLocalizedString(@"DROPBOX_LOGIN", @"") forState:UIControlStateNormal];
 
     [self.navigationController.toolbar setBackgroundImage:[UIImage imageNamed:@"sudHeaderBg"] forToolbarPosition:UIToolbarPositionAny barMetrics:UIBarMetricsDefault];
 
@@ -85,6 +88,18 @@
     _activityIndicator.hidesWhenStopped = YES;
 
     [self.view addSubview:_activityIndicator];
+}
+
+- (void)_setupLogo
+{
+    [self.cloudStorageLogo setImage:[UIImage imageNamed:@"driveWhite"]];
+
+    CGRect rect;
+    rect.size = [UIImage imageNamed:@"driveWhite"].size;
+    rect.origin.x = (self.loginToCloudStorageView.frame.size.width - rect.size.width) / 2;
+    rect.origin.y = self.loginButton.frame.origin.y - rect.size.height - 50;
+
+    [self.cloudStorageLogo setFrame:CGRectIntegral(rect)];
 }
 
 - (GTMOAuth2ViewControllerTouch *)createAuthController
@@ -290,15 +305,15 @@
 - (void)updateViewAfterSessionChange
 {
     if(_authorizationInProgress) {
-        if (self.loginToGoogleDriveView.superview)
-            [self.loginToGoogleDriveView removeFromSuperview];
+        if (self.loginToCloudStorageView.superview)
+            [self.loginToCloudStorageView removeFromSuperview];
         return;
     }
     if (![_googleDriveController isAuthorized]) {
         [self _showLoginPanel];
         return;
-    } else if (self.loginToGoogleDriveView.superview)
-        [self.loginToGoogleDriveView removeFromSuperview];
+    } else if (self.loginToCloudStorageView.superview)
+        [self.loginToCloudStorageView removeFromSuperview];
 
     //reload if we didn't come back from streaming
     if([_googleDriveController.currentListFiles count] == 0)
@@ -309,11 +324,11 @@
 
 - (void)_showLoginPanel
 {
-    self.loginToGoogleDriveView.frame = self.tableView.frame;
-    [self.view addSubview:self.loginToGoogleDriveView];
+    self.loginToCloudStorageView.frame = self.tableView.frame;
+    [self.view addSubview:self.loginToCloudStorageView];
 }
 
-- (IBAction)loginToGoogleDriveAction:(id)sender
+- (IBAction)loginAction:(id)sender
 {
     if (![_googleDriveController isAuthorized]) {
         _authorizationInProgress = YES;

@@ -125,7 +125,6 @@
 		7D3784A7183A98F5009EE944 /* VLCSettingsController.m in Sources */ = {isa = PBXBuildFile; fileRef = 7D3784A5183A98F5009EE944 /* VLCSettingsController.m */; };
 		7D3784AD183A9906009EE944 /* VLCDropboxController.m in Sources */ = {isa = PBXBuildFile; fileRef = 7D3784AA183A9906009EE944 /* VLCDropboxController.m */; };
 		7D3784AE183A9906009EE944 /* VLCDropboxTableViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 7D3784AC183A9906009EE944 /* VLCDropboxTableViewController.m */; };
-		7D3784B1183A990F009EE944 /* VLCCloudStorageTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 7D3784B0183A990F009EE944 /* VLCCloudStorageTableViewCell.m */; };
 		7D3784BE183A9938009EE944 /* UIBarButtonItem+Theme.m in Sources */ = {isa = PBXBuildFile; fileRef = 7D3784B3183A9938009EE944 /* UIBarButtonItem+Theme.m */; };
 		7D3784BF183A9938009EE944 /* UINavigationController+Theme.m in Sources */ = {isa = PBXBuildFile; fileRef = 7D3784B5183A9938009EE944 /* UINavigationController+Theme.m */; };
 		7D3784C0183A9938009EE944 /* VLCLinearProgressIndicator.m in Sources */ = {isa = PBXBuildFile; fileRef = 7D3784B7183A9938009EE944 /* VLCLinearProgressIndicator.m */; };
@@ -226,12 +225,11 @@
 		7DBBF19A183AB4300009A339 /* VLCCloudStorageTableViewCell~ipad.xib in Resources */ = {isa = PBXBuildFile; fileRef = 7DBBF185183AB4300009A339 /* VLCCloudStorageTableViewCell~ipad.xib */; };
 		7DBBF19B183AB4300009A339 /* VLCCloudStorageTableViewCell~iphone.xib in Resources */ = {isa = PBXBuildFile; fileRef = 7DBBF186183AB4300009A339 /* VLCCloudStorageTableViewCell~iphone.xib */; };
 		7DBBF19C183AB4300009A339 /* VLCDownloadViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 7DBBF187183AB4300009A339 /* VLCDownloadViewController.xib */; };
-		7DBBF19D183AB4300009A339 /* VLCDropboxTableViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 7DBBF188183AB4300009A339 /* VLCDropboxTableViewController.xib */; };
+		7DBBF19D183AB4300009A339 /* VLCCloudStorageTableViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 7DBBF188183AB4300009A339 /* VLCCloudStorageTableViewController.xib */; };
 		7DBBF19E183AB4300009A339 /* VLCEmptyLibraryView~ipad.xib in Resources */ = {isa = PBXBuildFile; fileRef = 7DBBF189183AB4300009A339 /* VLCEmptyLibraryView~ipad.xib */; };
 		7DBBF19F183AB4300009A339 /* VLCEmptyLibraryView~iphone.xib in Resources */ = {isa = PBXBuildFile; fileRef = 7DBBF18A183AB4300009A339 /* VLCEmptyLibraryView~iphone.xib */; };
 		7DBBF1A0183AB4300009A339 /* VLCFuturePlaylistCollectionViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 7DBBF18B183AB4300009A339 /* VLCFuturePlaylistCollectionViewCell.xib */; };
 		7DBBF1A1183AB4300009A339 /* VLCFuturePlaylistTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 7DBBF18C183AB4300009A339 /* VLCFuturePlaylistTableViewCell.xib */; };
-		7DBBF1A2183AB4300009A339 /* VLCGoogleDriveTableViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 7DBBF18D183AB4300009A339 /* VLCGoogleDriveTableViewController.xib */; };
 		7DBBF1A3183AB4300009A339 /* VLCLocalNetworkListCell~ipad.xib in Resources */ = {isa = PBXBuildFile; fileRef = 7DBBF18E183AB4300009A339 /* VLCLocalNetworkListCell~ipad.xib */; };
 		7DBBF1A4183AB4300009A339 /* VLCLocalNetworkListCell~iphone.xib in Resources */ = {isa = PBXBuildFile; fileRef = 7DBBF18F183AB4300009A339 /* VLCLocalNetworkListCell~iphone.xib */; };
 		7DBBF1A5183AB4300009A339 /* VLCMovieViewController~ipad.xib in Resources */ = {isa = PBXBuildFile; fileRef = 7DBBF190183AB4300009A339 /* VLCMovieViewController~ipad.xib */; };
@@ -281,8 +279,10 @@
 		7DF1166D176CC69A009EC05C /* volumeballslider@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 7DF1166B176CC69A009EC05C /* volumeballslider@2x.png */; };
 		7DF7CA0717650C2A00C61739 /* AVFoundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 7DF7CA0617650C2A00C61739 /* AVFoundation.framework */; };
 		7DF7E791175F47DC0018858D /* MediaPlayer.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 7DF7E790175F47DC0018858D /* MediaPlayer.framework */; };
+		9B088308183D7BEC004B5C2A /* VLCCloudStorageTableViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 9B088307183D7BEC004B5C2A /* VLCCloudStorageTableViewController.m */; };
 		9B2E0CF417FB71E90098E3DF /* libGTLTouchStaticLib.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 9B2E0CF317FB71E80098E3DF /* libGTLTouchStaticLib.a */; };
 		9B5BEF2917FBAEA50016F9CB /* GTLDrive_Sources.m in Sources */ = {isa = PBXBuildFile; fileRef = 9B5BEF2717FBAEA50016F9CB /* GTLDrive_Sources.m */; };
+		9BE4D1CE183D76950006346C /* VLCCloudStorageTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 7D3784B0183A990F009EE944 /* VLCCloudStorageTableViewCell.m */; };
 		A7035BBE174519600057DFA7 /* iTunesArtwork in Resources */ = {isa = PBXBuildFile; fileRef = A7035BBD174519600057DFA7 /* iTunesArtwork */; };
 		A7924696170F0BA90036AAF2 /* libMediaLibraryKit.a in Frameworks */ = {isa = PBXBuildFile; fileRef = A7924695170F0BA90036AAF2 /* libMediaLibraryKit.a */; };
 		A79246A7170F0ED20036AAF2 /* Default-568h@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = A7924698170F0ED20036AAF2 /* Default-568h@2x.png */; };
@@ -696,12 +696,11 @@
 		7DBBF185183AB4300009A339 /* VLCCloudStorageTableViewCell~ipad.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; name = "VLCCloudStorageTableViewCell~ipad.xib"; path = "Resources/VLCCloudStorageTableViewCell~ipad.xib"; sourceTree = SOURCE_ROOT; };
 		7DBBF186183AB4300009A339 /* VLCCloudStorageTableViewCell~iphone.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; name = "VLCCloudStorageTableViewCell~iphone.xib"; path = "Resources/VLCCloudStorageTableViewCell~iphone.xib"; sourceTree = SOURCE_ROOT; };
 		7DBBF187183AB4300009A339 /* VLCDownloadViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; name = VLCDownloadViewController.xib; path = Resources/VLCDownloadViewController.xib; sourceTree = SOURCE_ROOT; };
-		7DBBF188183AB4300009A339 /* VLCDropboxTableViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; name = VLCDropboxTableViewController.xib; path = Resources/VLCDropboxTableViewController.xib; sourceTree = SOURCE_ROOT; };
+		7DBBF188183AB4300009A339 /* VLCCloudStorageTableViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; name = VLCCloudStorageTableViewController.xib; path = Resources/VLCCloudStorageTableViewController.xib; sourceTree = SOURCE_ROOT; };
 		7DBBF189183AB4300009A339 /* VLCEmptyLibraryView~ipad.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; name = "VLCEmptyLibraryView~ipad.xib"; path = "Resources/VLCEmptyLibraryView~ipad.xib"; sourceTree = SOURCE_ROOT; };
 		7DBBF18A183AB4300009A339 /* VLCEmptyLibraryView~iphone.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; name = "VLCEmptyLibraryView~iphone.xib"; path = "Resources/VLCEmptyLibraryView~iphone.xib"; sourceTree = SOURCE_ROOT; };
 		7DBBF18B183AB4300009A339 /* VLCFuturePlaylistCollectionViewCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; name = VLCFuturePlaylistCollectionViewCell.xib; path = Resources/VLCFuturePlaylistCollectionViewCell.xib; sourceTree = SOURCE_ROOT; };
 		7DBBF18C183AB4300009A339 /* VLCFuturePlaylistTableViewCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; name = VLCFuturePlaylistTableViewCell.xib; path = Resources/VLCFuturePlaylistTableViewCell.xib; sourceTree = SOURCE_ROOT; };
-		7DBBF18D183AB4300009A339 /* VLCGoogleDriveTableViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; name = VLCGoogleDriveTableViewController.xib; path = Resources/VLCGoogleDriveTableViewController.xib; sourceTree = SOURCE_ROOT; };
 		7DBBF18E183AB4300009A339 /* VLCLocalNetworkListCell~ipad.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; name = "VLCLocalNetworkListCell~ipad.xib"; path = "Resources/VLCLocalNetworkListCell~ipad.xib"; sourceTree = SOURCE_ROOT; };
 		7DBBF18F183AB4300009A339 /* VLCLocalNetworkListCell~iphone.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; name = "VLCLocalNetworkListCell~iphone.xib"; path = "Resources/VLCLocalNetworkListCell~iphone.xib"; sourceTree = SOURCE_ROOT; };
 		7DBBF190183AB4300009A339 /* VLCMovieViewController~ipad.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; name = "VLCMovieViewController~ipad.xib"; path = "Resources/VLCMovieViewController~ipad.xib"; sourceTree = SOURCE_ROOT; };
@@ -780,6 +779,8 @@
 		7DF1166B176CC69A009EC05C /* volumeballslider@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "volumeballslider@2x.png"; sourceTree = "<group>"; };
 		7DF7CA0617650C2A00C61739 /* AVFoundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AVFoundation.framework; path = System/Library/Frameworks/AVFoundation.framework; sourceTree = SDKROOT; };
 		7DF7E790175F47DC0018858D /* MediaPlayer.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = MediaPlayer.framework; path = System/Library/Frameworks/MediaPlayer.framework; sourceTree = SDKROOT; };
+		9B088306183D7BEC004B5C2A /* VLCCloudStorageTableViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = VLCCloudStorageTableViewController.h; path = Sources/VLCCloudStorageTableViewController.h; sourceTree = SOURCE_ROOT; };
+		9B088307183D7BEC004B5C2A /* VLCCloudStorageTableViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = VLCCloudStorageTableViewController.m; path = Sources/VLCCloudStorageTableViewController.m; sourceTree = SOURCE_ROOT; };
 		9B2E0CF317FB71E80098E3DF /* libGTLTouchStaticLib.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; name = libGTLTouchStaticLib.a; path = "../google-api/Source/build/Debug-iphoneos/libGTLTouchStaticLib.a"; sourceTree = "<group>"; };
 		9B5BEF2717FBAEA50016F9CB /* GTLDrive_Sources.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = GTLDrive_Sources.m; path = ImportedSources/GDrive/Services/Drive/Generated/GTLDrive_Sources.m; sourceTree = SOURCE_ROOT; };
 		9B5BEF2817FBAEA50016F9CB /* GTLDrive.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = GTLDrive.h; path = ImportedSources/GDrive/Services/Drive/Generated/GTLDrive.h; sourceTree = SOURCE_ROOT; };
@@ -1286,6 +1287,8 @@
 				7D3784AC183A9906009EE944 /* VLCDropboxTableViewController.m */,
 				7D3784AF183A990F009EE944 /* VLCCloudStorageTableViewCell.h */,
 				7D3784B0183A990F009EE944 /* VLCCloudStorageTableViewCell.m */,
+				9B088306183D7BEC004B5C2A /* VLCCloudStorageTableViewController.h */,
+				9B088307183D7BEC004B5C2A /* VLCCloudStorageTableViewController.m */,
 			);
 			name = "Dropbox Integration";
 			sourceTree = "<group>";
@@ -1507,12 +1510,11 @@
 				7DBBF185183AB4300009A339 /* VLCCloudStorageTableViewCell~ipad.xib */,
 				7DBBF186183AB4300009A339 /* VLCCloudStorageTableViewCell~iphone.xib */,
 				7DBBF187183AB4300009A339 /* VLCDownloadViewController.xib */,
-				7DBBF188183AB4300009A339 /* VLCDropboxTableViewController.xib */,
+				7DBBF188183AB4300009A339 /* VLCCloudStorageTableViewController.xib */,
 				7DBBF189183AB4300009A339 /* VLCEmptyLibraryView~ipad.xib */,
 				7DBBF18A183AB4300009A339 /* VLCEmptyLibraryView~iphone.xib */,
 				7DBBF18B183AB4300009A339 /* VLCFuturePlaylistCollectionViewCell.xib */,
 				7DBBF18C183AB4300009A339 /* VLCFuturePlaylistTableViewCell.xib */,
-				7DBBF18D183AB4300009A339 /* VLCGoogleDriveTableViewController.xib */,
 				7DBBF18E183AB4300009A339 /* VLCLocalNetworkListCell~ipad.xib */,
 				7DBBF18F183AB4300009A339 /* VLCLocalNetworkListCell~iphone.xib */,
 				7DBBF190183AB4300009A339 /* VLCMovieViewController~ipad.xib */,
@@ -1923,7 +1925,6 @@
 				7D07F731175691CC00CDE21C /* backButtonHighlight@2x.png in Resources */,
 				7D5DD5C717590ABF001421E3 /* About Contents.html in Resources */,
 				7DE18629175BA9A5006C0173 /* badgeUnread@2x~ipad.png in Resources */,
-				7DBBF1A2183AB4300009A339 /* VLCGoogleDriveTableViewController.xib in Resources */,
 				7DE1862C175BA9A9006C0173 /* badgeUnread@2x~iphone.png in Resources */,
 				7DE1862F175BA9AC006C0173 /* badgeUnread~ipad.png in Resources */,
 				7DBBF19B183AB4300009A339 /* VLCCloudStorageTableViewCell~iphone.xib in Resources */,
@@ -1966,7 +1967,7 @@
 				7D47D7201760CD8700E86BAD /* ballSlider.png in Resources */,
 				7D223E1A181EC56E00B36798 /* gradient-cell-ios7-ipad.png in Resources */,
 				7D47D7211760CD8700E86BAD /* ballSlider@2x.png in Resources */,
-				7DBBF19D183AB4300009A339 /* VLCDropboxTableViewController.xib in Resources */,
+				7DBBF19D183AB4300009A339 /* VLCCloudStorageTableViewController.xib in Resources */,
 				7D47D7271760D77C00E86BAD /* pauseIcon.png in Resources */,
 				7D47D7281760D77C00E86BAD /* pauseIcon@2x.png in Resources */,
 				7D47D72B1760E3A000E86BAD /* sliderminimumTrack.png in Resources */,
@@ -2077,6 +2078,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				9BE4D1CE183D76950006346C /* VLCCloudStorageTableViewCell.m in Sources */,
 				7DADC55F1704FABF001DAC63 /* OBSlider.m in Sources */,
 				2915540117490A1E00B86CAD /* DDData.m in Sources */,
 				2915540217490A1E00B86CAD /* DDNumber.m in Sources */,
@@ -2131,7 +2133,6 @@
 				7D3784A7183A98F5009EE944 /* VLCSettingsController.m in Sources */,
 				7D3784AD183A9906009EE944 /* VLCDropboxController.m in Sources */,
 				7D3784AE183A9906009EE944 /* VLCDropboxTableViewController.m in Sources */,
-				7D3784B1183A990F009EE944 /* VLCCloudStorageTableViewCell.m in Sources */,
 				7D3784BE183A9938009EE944 /* UIBarButtonItem+Theme.m in Sources */,
 				7D3784BF183A9938009EE944 /* UINavigationController+Theme.m in Sources */,
 				7DBBF182183AB3B80009A339 /* VLCAppDelegate.m in Sources */,
@@ -2158,6 +2159,7 @@
 				7D30F3DF183AB31E00FFC021 /* VLCWiFiUploadTableViewCell.m in Sources */,
 				7D30F3E2183AB33200FFC021 /* VLCSidebarViewCell.m in Sources */,
 				7D30F3EA183AB34200FFC021 /* VLCGoogleDriveController.m in Sources */,
+				9B088308183D7BEC004B5C2A /* VLCCloudStorageTableViewController.m in Sources */,
 				7D30F3EC183AB34200FFC021 /* VLCGoogleDriveTableViewController.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
