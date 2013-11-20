@@ -25,8 +25,6 @@
     GTLDriveFile *_selectedFile;
     GTMOAuth2ViewControllerTouch *_authController;
 
-    NSString *_currentPath;
-
     UIBarButtonItem *_backButton;
     UIBarButtonItem *_backToMenuButton;
 
@@ -142,6 +140,10 @@
 - (void)viewWillDisappear:(BOOL)animated
 {
     self.navigationController.toolbarHidden = YES;
+    if ((VLCAppDelegate*)[UIApplication sharedApplication].delegate.window.rootViewController.presentedViewController == nil) {
+        [_googleDriveController stopSession];
+        [self.tableView reloadData];
+    }
     [super viewWillDisappear:animated];
 }
 
@@ -155,12 +157,12 @@
     }
 }
 
-- (void)_requestInformationForCurrentPath
+- (void)_requestInformationForFiles
 {
     [_activityIndicator startAnimating];
-    [_googleDriveController requestDirectoryListingAtPath:_currentPath];
+    [_googleDriveController requestFileListing];
 
-    self.navigationItem.leftBarButtonItem = ![_currentPath isEqualToString:@"/"] ? _backButton : _backToMenuButton;
+    self.navigationItem.leftBarButtonItem = _backToMenuButton;
 }
 
 #pragma mark - interface interaction
@@ -174,11 +176,7 @@
 
 - (IBAction)goBack:(id)sender
 {
-    if (![_currentPath isEqualToString:@"/"] && [_currentPath length] > 0) {
-        _currentPath = [_currentPath stringByDeletingLastPathComponent];
-        [self _requestInformationForCurrentPath];
-    } else
-        [[(VLCAppDelegate*)[UIApplication sharedApplication].delegate revealController] toggleSidebar:![(VLCAppDelegate*)[UIApplication sharedApplication].delegate revealController].sidebarShowing duration:kGHRevealSidebarDefaultAnimationDuration];
+    [[(VLCAppDelegate*)[UIApplication sharedApplication].delegate revealController] toggleSidebar:![(VLCAppDelegate*)[UIApplication sharedApplication].delegate revealController].sidebarShowing duration:kGHRevealSidebarDefaultAnimationDuration];
 }
 
 #pragma mark - Table view data source
@@ -217,13 +215,7 @@
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
 {
     _selectedFile = _googleDriveController.currentListFiles[indexPath.row];
-    if (![_selectedFile.mimeType isEqualToString:@"application/vnd.google-apps.folder"]) {
-        [_googleDriveController streamFile:_selectedFile];
-    } else {
-        /* dive into subdirectory */
-           _currentPath = [_currentPath stringByAppendingFormat:@"/%@", _selectedFile.title];
-        [self _requestInformationForCurrentPath];
-    }
+    [_googleDriveController streamFile:_selectedFile];
     _selectedFile = nil;
     [self.tableView deselectRowAtIndexPath:indexPath animated:NO];
 }
@@ -235,7 +227,7 @@
 
     if (maximumOffset - currentOffset <= - self.tableView.rowHeight) {
         if (_googleDriveController.hasMoreFiles && !_activityIndicator.isAnimating) {
-            [self _requestInformationForCurrentPath];
+            [self _requestInformationForFiles];
         }
     }
 }
@@ -308,8 +300,9 @@
     } else if (self.loginToGoogleDriveView.superview)
         [self.loginToGoogleDriveView removeFromSuperview];
 
-    _currentPath = @"/";
-    [self _requestInformationForCurrentPath];
+    //reload if we didn't come back from streaming
+    if([_googleDriveController.currentListFiles count] == 0)
+        [self _requestInformationForFiles];
 }
 
 #pragma mark - login dialog

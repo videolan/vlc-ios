@@ -36,8 +36,9 @@
 
 + (VLCGoogleDriveController *)sharedInstance;
 - (void)startSession;
+- (void)stopSession;
 - (void)logout;
-- (void)requestDirectoryListingAtPath:(NSString *)path;
+- (void)requestFileListing;
 - (BOOL)hasMoreFiles;
 - (void)downloadFileToDocumentFolder:(GTLDriveFile *)file;
 - (void)streamFile:(GTLDriveFile *)file;
