@@ -8,7 +8,7 @@ body,div,dl,dt,dd,ul,ol,li,h1,h2,h3,h4,h5,h6,pre,form,fieldset,input,textarea,p,
   font-family: 'Raleway';
   font-style: normal;
   font-weight: 400;
-  src: local('Raleway'), url(http://themes.googleusercontent.com/static/fonts/raleway/v6/cIFypx4yrWPDz3zOxk7hIQLUuEpTyoUstqEm5AMlJo4.woff) format('woff');
+  src: local('Raleway'), url("Raleway.woff") format('woff');
 }
 
 * {
@@ -68,7 +68,7 @@ div.main.drop {
 
 .nav:before {
   content: "VLC";
-  font-family: "Raleway", "Helvetica Neue";
+  font-family: "Raleway", "Helvetica Neue", "Helvetica", Arial, sans-serif;
   font-size: 46px;
   line-height: 60px;
   text-shadow: 0px -2px 1px rgba(0,0,0,0.3);
