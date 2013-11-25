@@ -132,8 +132,7 @@
                                   _fileListTicket = nil;
                                   [self _listOfGoodFiles];
                               } else {
-                                  //TODO: localize
-                                  [self showAlert:@"Fetching Files Error" message:error.localizedDescription];
+                                  [self showAlert:NSLocalizedString(@"GDRIVE_ERROR_FETCHING_FILES",nil) message:error.localizedDescription];
                               }
                           }];
 }
@@ -229,12 +228,11 @@
         };
 
         [fetcher beginFetchWithCompletionHandler:^(NSData *data, NSError *error) {
-            //TODO:localize Strings
             if (error == nil) {
-                [self showAlert:@"Downloaded" message:@"Your file has been sucessfully downloaded"];
+                [self showAlert:NSLocalizedString(@"GDRIVE_DOWNLOAD_SUCCESSFUL_TITLE",nil) message:NSLocalizedString(@"GDRIVE_DOWNLOAD_SUCCESSFUL",nil)];
                 [self downloadSucessfull];
             } else {
-                [self showAlert:@"Error" message:@"An Error occured while downloading"];
+                [self showAlert:NSLocalizedString(@"GDRIVE_ERROR_DOWNLOADING_FILE_TITLE",nil) message:NSLocalizedString(@"GDRIVE_ERROR_DOWNLOADING_FILE",nil)];
                 [self downloadFailedWithError:error];
             }
         }];
@@ -244,7 +242,7 @@
 - (void)downloadSucessfull
 {
     /* update library now that we got a file */
-    APLog(@"DriveFile download was sucessful");
+    APLog(@"DriveFile download was successful");
     VLCAppDelegate *appDelegate = [UIApplication sharedApplication].delegate;
     [appDelegate updateMediaList];
 

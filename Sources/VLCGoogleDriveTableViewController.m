@@ -117,8 +117,7 @@
 {
     _authorizationInProgress = NO;
     if (error != nil) {
-        //TODO:Localize
-        [self showAlert:@"Authentication Error" message:error.localizedDescription];
+        [self showAlert:NSLocalizedString(@"GDRIVE_AUTHENTICATION_ERROR",nil) message:error.localizedDescription];
         _googleDriveController.driveService.authorizer = nil;
     } else {
         _googleDriveController.driveService.authorizer = authResult;
@@ -264,7 +263,7 @@
     _selectedFile = _googleDriveController.currentListFiles[[self.tableView indexPathForCell:cell].row];
 
     /* selected item is a proper file, ask the user if s/he wants to download it */
-    UIAlertView * alert = [[UIAlertView alloc] initWithTitle:NSLocalizedString(@"GOOGLEDRIVE_DOWNLOAD", @"") message:[NSString stringWithFormat:NSLocalizedString(@"GOOGLEDRIVE_DL_LONG", @""), _selectedFile.title, [[UIDevice currentDevice] model]] delegate:self cancelButtonTitle:NSLocalizedString(@"BUTTON_CANCEL", @"") otherButtonTitles:NSLocalizedString(@"BUTTON_DOWNLOAD", @""), nil];
+    UIAlertView * alert = [[UIAlertView alloc] initWithTitle:NSLocalizedString(@"DROPBOX_DOWNLOAD", @"") message:[NSString stringWithFormat:NSLocalizedString(@"DROPBOX_DL_LONG", @""), _selectedFile.title, [[UIDevice currentDevice] model]] delegate:self cancelButtonTitle:NSLocalizedString(@"BUTTON_CANCEL", @"") otherButtonTitles:NSLocalizedString(@"BUTTON_DOWNLOAD", @""), nil];
     [alert show];
 }
 

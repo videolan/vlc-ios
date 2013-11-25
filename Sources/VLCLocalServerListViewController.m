@@ -264,11 +264,11 @@
     [[managerInstance SSDP] stopSSDP];
 
     //set the title while refreshing
-    _refreshControl.attributedTitle = [[NSAttributedString alloc]initWithString:@"Refresh"];
+    _refreshControl.attributedTitle = [[NSAttributedString alloc]initWithString:NSLocalizedString(@"LOCAL_SERVER_REFRESH",nil)];
     //set the date and time of refreshing
     NSDateFormatter *formattedDate = [[NSDateFormatter alloc]init];
     [formattedDate setDateFormat:@"MMM d, h:mm a"];
-    NSString *lastupdated = [NSString stringWithFormat:@"Last Updated on %@",[formattedDate stringFromDate:[NSDate date]]];
+    NSString *lastupdated = [NSString stringWithFormat:NSLocalizedString(@"LOCAL_SERVER_LAST_UPDATE",nil),[formattedDate stringFromDate:[NSDate date]]];
     _refreshControl.attributedTitle = [[NSAttributedString alloc]initWithString:lastupdated];
     //end the refreshing
     [_refreshControl endRefreshing];

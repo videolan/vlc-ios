@@ -341,7 +341,7 @@
         }
     } else {
         media = [VLCMedia mediaWithURL:self.url];
-        self.title = @"Network Stream";
+        self.title = NSLocalizedString(@"NETWORK_TITLE",nil);
     }
 
     [media addOptions:

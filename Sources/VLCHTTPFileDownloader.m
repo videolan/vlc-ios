@@ -78,7 +78,7 @@
     } else {
         APLog(@"unhandled status code %i", statusCode);
         if ([self.delegate respondsToSelector:@selector(downloadFailedWithErrorDescription:)])
-            [self.delegate downloadFailedWithErrorDescription:[NSString stringWithFormat:@"Download failed with HTTP code %i", statusCode]];
+            [self.delegate downloadFailedWithErrorDescription:[NSString stringWithFormat:NSLocalizedString(@"HTTP_DOWNLOAD_FAILED",nil), statusCode]];
     }
 }
 
@@ -93,7 +93,7 @@
         if (!fileHandle) {
             APLog(@"file creation failed, no data was saved");
             if ([self.delegate respondsToSelector:@selector(downloadFailedWithErrorDescription:)])
-                [self.delegate downloadFailedWithErrorDescription:@"File creation failed"];
+                [self.delegate downloadFailedWithErrorDescription:NSLocalizedString(@"HTTP_FILE_CREATION_FAILED",nil)];
             return;
         }
     }
@@ -140,7 +140,7 @@
         [fileManager removeItemAtPath:_filePath error:nil];
 
     if ([self.delegate respondsToSelector:@selector(downloadFailedWithErrorDescription:)])
-        [self.delegate downloadFailedWithErrorDescription:@"Download canceled by user"];
+        [self.delegate downloadFailedWithErrorDescription:NSLocalizedString(@"HTTP_DOWNLOAD_CANCELLED",nil)];
 
     [self _downloadEnded];
 }
