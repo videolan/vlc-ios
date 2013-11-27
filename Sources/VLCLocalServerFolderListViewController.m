@@ -28,7 +28,7 @@
 #define kVLCServerTypeUPNP 0
 #define kVLCServerTypeFTP 1
 
-@interface VLCLocalServerFolderListViewController () <UITableViewDataSource, UITableViewDelegate, WRRequestDelegate, VLCLocalNetworkListCell>
+@interface VLCLocalServerFolderListViewController () <UITableViewDataSource, UITableViewDelegate, WRRequestDelegate, VLCLocalNetworkListCell, UISearchBarDelegate, UISearchDisplayDelegate>
 {
     /* UI */
     UIBarButtonItem *_backButton;
@@ -49,6 +49,10 @@
     NSString *_ftpServerPassword;
     NSString *_ftpServerPath;
     WRRequestListDirectory *_FTPListDirRequest;
+
+    NSMutableArray *_searchData;
+    UISearchBar *_searchBar;
+    UISearchDisplayController *_searchDisplayController;
 }
 
 @end
@@ -123,6 +127,18 @@
     self.view.backgroundColor = [UIColor colorWithWhite:.122 alpha:1.];
 
     self.title = _listTitle;
+
+    _searchBar = [[UISearchBar alloc] initWithFrame:CGRectMake(0, 0, 320, 44)];
+    _searchDisplayController = [[UISearchDisplayController alloc] initWithSearchBar:_searchBar contentsController:self];
+    _searchDisplayController.delegate = self;
+    _searchDisplayController.searchResultsDataSource = self;
+    _searchDisplayController.searchResultsDelegate = self;
+    _searchBar.delegate = self;
+    self.tableView.tableHeaderView = _searchBar; //this line add the searchBar on the top of tableView.
+
+    _searchData = [[NSMutableArray alloc] init];
+    [_searchData removeAllObjects];
+
 }
 
 - (BOOL)shouldAutorotate
@@ -142,10 +158,14 @@
 
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section
 {
-    if (_serverType == kVLCServerTypeUPNP)
-        return _mutableObjectList.count;
+    if (tableView == self.searchDisplayController.searchResultsTableView)
+        return _searchData.count;
+	else {
+        if (_serverType == kVLCServerTypeUPNP)
+            return _mutableObjectList.count;
 
-    return _objectList.count;
+        return _objectList.count;
+    }
 }
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
@@ -157,9 +177,19 @@
         cell = [VLCLocalNetworkListCell cellWithReuseIdentifier:CellIdentifier];
 
     if (_serverType == kVLCServerTypeUPNP) {
-        MediaServer1BasicObject *item = _mutableObjectList[indexPath.row];
+        MediaServer1BasicObject *item;
+        if (tableView == self.searchDisplayController.searchResultsTableView)
+            item = _searchData[indexPath.row];
+        else
+            item = _mutableObjectList[indexPath.row];
+
         if (![item isContainer]) {
-            MediaServer1ItemObject *mediaItem = _mutableObjectList[indexPath.row];
+            MediaServer1ItemObject *mediaItem;
+            if (tableView == self.searchDisplayController.searchResultsTableView)
+                mediaItem = _searchData[indexPath.row];
+            else
+                mediaItem = _mutableObjectList[indexPath.row];
+
             [cell setSubtitle: [NSString stringWithFormat:@"%0.2f MB  (%@)", (float)([mediaItem.size intValue] / 1e6), mediaItem.duration]];
             [cell setIsDirectory:NO];
             cell.isDownloadable = YES;
@@ -177,14 +207,23 @@
         }
         [cell setTitle:[item title]];
     } else if (_serverType == kVLCServerTypeFTP) {
-        cell.title = [_objectList[indexPath.row] objectForKey:(id)kCFFTPResourceName];
-        if ([[_objectList[indexPath.row] objectForKey:(id)kCFFTPResourceType] intValue] == 4) {
+        NSMutableArray *ObjList = [[NSMutableArray alloc] init];
+        [ObjList removeAllObjects];
+
+        if (tableView == self.searchDisplayController.searchResultsTableView)
+            [ObjList addObjectsFromArray:_searchData];
+        else
+            [ObjList addObjectsFromArray:_objectList];
+
+        cell.title = [ObjList[indexPath.row] objectForKey:(id)kCFFTPResourceName];
+
+        if ([[ObjList[indexPath.row] objectForKey:(id)kCFFTPResourceType] intValue] == 4) {
             cell.isDirectory = YES;
             cell.icon = [UIImage imageNamed:@"folder"];
         } else {
             cell.isDirectory = NO;
             cell.icon = [UIImage imageNamed:@"blank"];
-            cell.subtitle = [NSString stringWithFormat:@"%0.2f MB", (float)([[_objectList[indexPath.row] objectForKey:(id)kCFFTPResourceSize] intValue] / 1e6)];
+            cell.subtitle = [NSString stringWithFormat:@"%0.2f MB", (float)([[ObjList[indexPath.row] objectForKey:(id)kCFFTPResourceSize] intValue] / 1e6)];
             cell.isDownloadable = YES;
             cell.delegate = self;
         }
@@ -202,13 +241,27 @@
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
 {
     if (_serverType == kVLCServerTypeUPNP) {
-        MediaServer1BasicObject *item = _mutableObjectList[indexPath.row];
+        MediaServer1BasicObject *item;
+        if (tableView == self.searchDisplayController.searchResultsTableView)
+            item = _searchData[indexPath.row];
+        else
+            item = _mutableObjectList[indexPath.row];
+
         if ([item isContainer]) {
-            MediaServer1ContainerObject *container = _mutableObjectList[indexPath.row];
+            MediaServer1ContainerObject *container;
+            if (tableView == self.searchDisplayController.searchResultsTableView)
+                container = _searchData[indexPath.row];
+            else
+                container = _mutableObjectList[indexPath.row];
+
             VLCLocalServerFolderListViewController *targetViewController = [[VLCLocalServerFolderListViewController alloc] initWithUPNPDevice:_UPNPdevice header:[container title] andRootID:[container objectID]];
             [[self navigationController] pushViewController:targetViewController animated:YES];
         } else {
-            MediaServer1ItemObject *item = _mutableObjectList[indexPath.row];
+            MediaServer1ItemObject *item;
+            if (tableView == self.searchDisplayController.searchResultsTableView)
+                item = _searchData[indexPath.row];
+            else
+                item = _mutableObjectList[indexPath.row];
 
             MediaServer1ItemRes *resource = nil;
             NSEnumerator *e = [[item resources] objectEnumerator];
@@ -224,13 +277,21 @@
             }
         }
     } else if (_serverType == kVLCServerTypeFTP) {
-        if ([[_objectList[indexPath.row] objectForKey:(id)kCFFTPResourceType] intValue] == 4) {
-            NSString *newPath = [NSString stringWithFormat:@"%@/%@", _ftpServerPath, [_objectList[indexPath.row] objectForKey:(id)kCFFTPResourceName]];
+        NSMutableArray *ObjList = [[NSMutableArray alloc] init];
+        [ObjList removeAllObjects];
+
+        if (tableView == self.searchDisplayController.searchResultsTableView)
+            [ObjList addObjectsFromArray:_searchData];
+        else
+            [ObjList addObjectsFromArray:_objectList];
+
+        if ([[ObjList[indexPath.row] objectForKey:(id)kCFFTPResourceType] intValue] == 4) {
+            NSString *newPath = [NSString stringWithFormat:@"%@/%@", _ftpServerPath, [ObjList[indexPath.row] objectForKey:(id)kCFFTPResourceName]];
 
             VLCLocalServerFolderListViewController *targetViewController = [[VLCLocalServerFolderListViewController alloc] initWithFTPServer:_ftpServerAddress userName:_ftpServerUserName andPassword:_ftpServerPassword atPath:newPath];
             [self.navigationController pushViewController:targetViewController animated:YES];
         } else {
-            NSString *objectName = [_objectList[indexPath.row] objectForKey:(id)kCFFTPResourceName];
+            NSString *objectName = [ObjList[indexPath.row] objectForKey:(id)kCFFTPResourceName];
             if (![objectName isSupportedFormat]) {
                 UIAlertView * alert = [[UIAlertView alloc] initWithTitle:NSLocalizedString(@"FILE_NOT_SUPPORTED", @"") message:[NSString stringWithFormat:NSLocalizedString(@"FILE_NOT_SUPPORTED_LONG", @""), objectName] delegate:self cancelButtonTitle:NSLocalizedString(@"BUTTON_CANCEL", @"") otherButtonTitles:nil];
                 [alert show];
@@ -238,7 +299,7 @@
                 [self _openURLStringAndDismiss:[_FTPListDirRequest.fullURLString stringByAppendingString:objectName]];
       }
     }
-    [self.tableView deselectRowAtIndexPath:indexPath animated:NO];
+    [tableView deselectRowAtIndexPath:indexPath animated:NO];
 }
 
 #pragma mark - FTP specifics
@@ -316,7 +377,12 @@
 - (void)triggerDownloadForCell:(VLCLocalNetworkListCell *)cell
 {
     if (_serverType == kVLCServerTypeUPNP) {
-        MediaServer1ItemObject *item = _mutableObjectList[[self.tableView indexPathForCell:cell].row];
+        MediaServer1ItemObject *item;
+        if ([self.searchDisplayController isActive])
+            item = _searchData[[self.searchDisplayController.searchResultsTableView indexPathForCell:cell].row];
+        else
+            item = _mutableObjectList[[self.tableView indexPathForCell:cell].row];
+
         MediaServer1ItemRes *resource = nil;
         NSEnumerator *e = [[item resources] objectEnumerator];
         NSURL *itemURL;
@@ -331,7 +397,18 @@
             [cell.statusLabel showStatusMessage:NSLocalizedString(@"DOWNLOADING", @"")];
         }
     }else if (_serverType == kVLCServerTypeFTP) {
-        NSString *objectName = [_objectList[[self.tableView indexPathForCell:cell].row] objectForKey:(id)kCFFTPResourceName];
+        NSString *objectName;
+        NSMutableArray *ObjList = [[NSMutableArray alloc] init];
+        [ObjList removeAllObjects];
+
+        if ([self.searchDisplayController isActive]) {
+            [ObjList addObjectsFromArray:_searchData];
+            objectName = [ObjList[[self.searchDisplayController.searchResultsTableView indexPathForCell:cell].row] objectForKey:(id)kCFFTPResourceName];
+        } else {
+            [ObjList addObjectsFromArray:_objectList];
+            objectName = [ObjList[[self.tableView indexPathForCell:cell].row] objectForKey:(id)kCFFTPResourceName];
+        }
+
         if (![objectName isSupportedFormat]) {
             UIAlertView * alert = [[UIAlertView alloc] initWithTitle:NSLocalizedString(@"FILE_NOT_SUPPORTED", @"") message:[NSString stringWithFormat:NSLocalizedString(@"FILE_NOT_SUPPORTED_LONG", @""), objectName] delegate:self cancelButtonTitle:NSLocalizedString(@"BUTTON_CANCEL", @"") otherButtonTitles:nil];
             [alert show];
@@ -347,6 +424,48 @@
 {
     VLCAppDelegate* appDelegate = [UIApplication sharedApplication].delegate;
     [appDelegate openMovieFromURL:[NSURL URLWithString:url]];
+}
+
+#pragma mark - Search Display Controller Delegate
+
+- (BOOL)searchDisplayController:(UISearchDisplayController *)controller shouldReloadTableForSearchString:(NSString *)searchString
+{
+    MediaServer1BasicObject *item;
+    NSInteger listCount = 0;
+    [_searchData removeAllObjects];
+
+    if (_serverType == kVLCServerTypeUPNP)
+        listCount = _mutableObjectList.count;
+    else if (_serverType == kVLCServerTypeFTP)
+        listCount = _objectList.count;
+
+    for (int i = 0; i < listCount; i++) {
+        NSRange nameRange;
+        if (_serverType == kVLCServerTypeUPNP) {
+            item = _mutableObjectList[i];
+            nameRange = [[item title] rangeOfString:searchString options:NSCaseInsensitiveSearch];
+        } else if (_serverType == kVLCServerTypeFTP)
+            nameRange = [[_objectList[i] objectForKey:(id)kCFFTPResourceName] rangeOfString:searchString options:NSCaseInsensitiveSearch];
+
+        if (nameRange.location != NSNotFound) {
+            if (_serverType == kVLCServerTypeUPNP)
+                [_searchData addObject:_mutableObjectList[i]];
+            else
+                [_searchData addObject:_objectList[i]];
+        }
+    }
+
+    return YES;
+}
+
+- (void)searchDisplayController:(UISearchDisplayController *)controller didLoadSearchResultsTableView:(UITableView *)tableView
+{
+    if ([[UIDevice currentDevice] userInterfaceIdiom] == UIUserInterfaceIdiomPad)
+        tableView.rowHeight = 80.0f;
+    else
+        tableView.rowHeight = 68.0f;
+
+    tableView.backgroundColor = [UIColor blackColor];
 }
 
 @end
