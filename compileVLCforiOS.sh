@@ -170,16 +170,9 @@ else
 cd GHSidebarNav && git pull --rebase && cd ..
 fi
 if ! [ -e upnpx ]; then
-rm -f tar xf upnpx-*
-UPNPXVERSION=1.2.4
-curl -O http://upnpx.googlecode.com/files/upnpx-${UPNPXVERSION}.tar.gz
-tar xf upnpx-${UPNPXVERSION}.tar.gz
-mv upnpx-${UPNPXVERSION} upnpx
-cd upnpx
-for file in ../../patches/upnpx/*; do
-patch -p1 < ../../patches/upnpx/"$file"
-done
-cd ..
+git clone git://github.com/fkuehne/upnpx.git
+else
+cd upnpx && git pull --rebase && cd ..
 fi
 if ! [ -e WhiteRaccoon ]; then
 git clone git://github.com/fkuehne/WhiteRaccoon.git
