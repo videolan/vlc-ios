@@ -20,6 +20,9 @@
 * Added support for media broadcasted with the Session Announcement Protocol
   (SAP) information on the local network (#9429)
 * Added support for HTTP Live Streaming (HLS) (#9174)
+* Added support for https playback
+* Improved audio playback performance and reliability
+* Improved metadata detection
 * Opening network streams no longer leads to a collapsed file system hierachy
   on the remote system. After playback, you can continue where you left off.
 * UPnP stability improvements
