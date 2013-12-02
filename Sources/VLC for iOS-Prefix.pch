@@ -1,11 +1,19 @@
-//
-// Prefix header for all source files of the 'vlc-ios' target in the 'VLC for iOS' project
-//
+/*****************************************************************************
+ * Prefix header for all source files of the 'vlc-ios' target
+ * VLC for iOS
+ *****************************************************************************
+ * Copyright (c) 2013 VideoLAN. All rights reserved.
+ * $Id$
+ *
+ * Authors: Felix Paul Kühne <fkuehne # videolan.org>
+ *
+ * Refer to the COPYING file of the official project for license.
+ *****************************************************************************/
 
 #import <Availability.h>
 
-#ifndef __IPHONE_4_0
-#warning "This project uses features only available in iOS SDK 4.0 and later."
+#ifndef __IPHONE_7_0
+#error "This project uses features only available in iOS SDK 7.0 and later."
 #endif
 
 #ifdef __OBJC__
@@ -20,11 +28,7 @@
 
 #define SYSTEM_VERSION_GREATER_THAN_OR_EQUAL_TO(v)  ([[[UIDevice currentDevice] systemVersion] compare:v options:NSNumericSearch] != NSOrderedAscending)
 
-#ifdef __IPHONE_7_0
 #define SYSTEM_RUNS_IOS7_OR_LATER SYSTEM_VERSION_GREATER_THAN_OR_EQUAL_TO(@"7.0")
-#else
-#define SYSTEM_RUNS_IOS7_OR_LATER NO
-#endif
 
 #ifndef NDEBUG
 #define APLog(format, ...) NSLog(format, ## __VA_ARGS__)
