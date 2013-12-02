@@ -1,15 +1,15 @@
 2.2:
 ----
+NB: This release removes support for iOS 5 and therefore the first generation
+iPad. iOS 6 and the iPhone 3GS remain supported.
+
+Interface:
 * New Interface for iOS 7
 * Improved feedback for media download progress including data bitrate,
   procentual progress and estimated remaining download time
+* Opening network streams no longer leads to a collapsed file system hierachy
+  on the remote system. After playback, you can continue where you left off.
 * Added bookmarks for FTP servers
-* Added support for Google Drive (#8690)
-* Added support for downloading from UPnP multimedia servers
-* Added cover-art and duration to UPnP server item lists
-* Added support for streaming files from Dropbox in addition to download
-  on device (#9784)
-* Added support for system-wide HTTP proxy settings
 * Added support for multi-touch gestures based upon the VLC Gestures haxie
   - horizontal swipe for playback position
   - tap with 2 fingers to play/pause
@@ -17,20 +17,31 @@
   - vertical swipe in the left half of the video to adapt screen brightness
   - horizontal pan in the upper 20% of the screen to set playback position
     more precisely (iPad only)
-* Added support for media broadcasted with the Session Announcement Protocol
-  (SAP) information on the local network (#9429)
-* Added support for HTTP Live Streaming (HLS) (#9174)
-* Added support for https playback
-* Improved audio playback performance and reliability
-* Improved metadata detection
-* Opening network streams no longer leads to a collapsed file system hierachy
-  on the remote system. After playback, you can continue where you left off.
-* UPnP stability improvements
-* Removed support for iOS 5
 * Previously removed episodes and tracks no longer show up in the respective
   group listings (#9705)
+
+Cloud interaction:
+* Added support for downloads from Google Drive (#8690)
+* Added support for streaming files from Dropbox in addition to download
+  to device (#9784)
+
+Local network:
+* Added support for downloading from UPnP multimedia servers
+* Added cover-art and duration to UPnP server item lists
+* UPnP stability improvements
+* Added support for media broadcasted with the Session Announcement Protocol
+  (SAP) information on the local network (#9429)
 * Fix incorrect displayed size for files stored on UPnP multimedia servers
   larger than 2147.48 MB (#9641)
+
+Global networks:
+* Added support for HTTP Live Streaming (HLS) (#9174)
+* Added support for https playback
+* Added support for system-wide HTTP proxy settings
+
+Misc:
+* Improved audio playback performance and reliability
+* Improved metadata detection
 
 2.1.3:
 ------
