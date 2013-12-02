@@ -156,6 +156,7 @@
 - (void)applicationWillResignActive:(UIApplication *)application
 {
     self.passcodeValidated = NO;
+    [self validatePasscode];
     [[MLMediaLibrary sharedMediaLibrary] applicationWillExit];
 }
 
