@@ -108,7 +108,7 @@
     struct ifaddrs *temp_addr = NULL;
     int success = getifaddrs(&interfaces);
 
-    if (!success) {
+    if (success != 0) {
         freeifaddrs(interfaces);
         return address;
     }
