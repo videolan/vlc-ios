@@ -112,39 +112,28 @@
 
             [self updateMediaList];
         } else {
-            NSURL *parsedUrl = [self parseOpenURL:url];
+            NSString *receivedUrl = [url absoluteString];
+            if ([receivedUrl length] > 6) {
+                NSString *verifyVlcUrl = [receivedUrl substringToIndex:6];
+                if ([verifyVlcUrl isEqualToString:@"vlc://"]) {
+                    NSString *parsedString = [receivedUrl substringFromIndex:6];
+                    NSUInteger location = [parsedString rangeOfString:@"//"].location;
+
+                    /* Safari & al mangle vlc://http:// so fix this */
+                    if (location != NSNotFound && [parsedString characterAtIndex:location - 1] != 0x3a) { // :
+                            parsedString = [NSString stringWithFormat:@"%@://%@", [parsedString substringToIndex:location], [parsedString substringFromIndex:location+2]];
+                    } else
+                        parsedString = [@"http://" stringByAppendingString:[receivedUrl substringFromIndex:6]];
+
+                    url = [NSURL URLWithString:parsedString];
+                }
+            }
             [self.menuViewController selectRowAtIndexPath:[NSIndexPath indexPathForRow:0 inSection:0] animated:NO scrollPosition:UITableViewScrollPositionNone];
-            [self.playlistViewController performSelector:@selector(openMovieFromURL:) withObject:parsedUrl afterDelay:kGHRevealSidebarDefaultAnimationDuration];
+            [self openMovieFromURL:url];
         }
         return YES;
     }
     return NO;
-}
-
-- (NSURL *)parseOpenURL:(NSURL *)url
-{
-    NSString *receivedUrl = [url absoluteString];
-    if ([receivedUrl length] > 6) {
-        NSString *verifyVlcUrl = [receivedUrl substringToIndex:6];
-        if ([verifyVlcUrl isEqualToString:@"vlc://"]) {
-            NSString *parsedString = [receivedUrl substringFromIndex:6];
-
-            // "url decode" so we can parse http:// links
-            parsedString = [parsedString stringByReplacingOccurrencesOfString:@"+"withString:@" "];
-            parsedString = [parsedString stringByReplacingPercentEscapesUsingEncoding:NSUTF8StringEncoding];
-
-            // add http:// if nothing is there
-            NSDataDetector *detector = [NSDataDetector dataDetectorWithTypes:(NSTextCheckingTypes)NSTextCheckingTypeLink error:nil];
-            NSUInteger parsedStringLength = [parsedString length];
-            NSUInteger numberOfUrlMatches = [detector numberOfMatchesInString:parsedString options:0 range:NSMakeRange(0, parsedStringLength)];
-            if (numberOfUrlMatches == 0)
-                parsedString = [@"http://" stringByAppendingString:parsedString];
-
-            NSURL *targetUrl = [NSURL URLWithString:parsedString];
-            return targetUrl;
-        }
-    }
-    return url;
 }
 
 - (void)applicationWillEnterForeground:(UIApplication *)application
