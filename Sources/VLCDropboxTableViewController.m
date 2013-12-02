@@ -77,6 +77,8 @@
 
     self.loginToCloudStorageView.backgroundColor = [UIColor colorWithWhite:.122 alpha:1.];
     [self.cloudStorageLogo setImage:[UIImage imageNamed:@"dropbox-white.png"]];
+    [self.cloudStorageLogo sizeToFit];
+    self.cloudStorageLogo.center = self.view.center;
     [self.loginButton setTitle:NSLocalizedString(@"DROPBOX_LOGIN", @"") forState:UIControlStateNormal];
 
     [self.navigationController.toolbar setBackgroundImage:[UIImage imageNamed:@"sudHeaderBg"] forToolbarPosition:UIToolbarPositionAny barMetrics:UIBarMetricsDefault];

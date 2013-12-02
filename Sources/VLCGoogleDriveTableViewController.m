@@ -91,14 +91,9 @@
 
 - (void)_setupLogo
 {
-    [self.cloudStorageLogo setImage:[UIImage imageNamed:@"driveWhite"]];
-
-    CGRect rect;
-    rect.size = [UIImage imageNamed:@"driveWhite"].size;
-    rect.origin.x = (self.loginToCloudStorageView.frame.size.width - rect.size.width) / 2;
-    rect.origin.y = self.loginButton.frame.origin.y - rect.size.height - 50;
-
-    [self.cloudStorageLogo setFrame:CGRectIntegral(rect)];
+    [self.cloudStorageLogo setImage:[UIImage imageNamed:@"DriveWhite"]];
+    [self.cloudStorageLogo sizeToFit];
+    self.cloudStorageLogo.center = self.view.center;
 }
 
 - (GTMOAuth2ViewControllerTouch *)createAuthController
