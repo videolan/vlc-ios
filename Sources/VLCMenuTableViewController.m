@@ -128,8 +128,9 @@
 {
     if (_reachability.currentReachabilityStatus == ReachableViaWiFi) {
         _uploadButton.enabled = YES;
-        _uploadLocationLabel.text = NSLocalizedString(@"HTTP_UPLOAD_SERVER_OFF", @"");
+        [self updateHTTPServerAddress];
     } else {
+        [_uploadButton setImage:[UIImage imageNamed:@"WifiUp"] forState:UIControlStateNormal];
         _uploadButton.enabled = NO;
         [_uploadButton setImage:[UIImage imageNamed:@"WiFiUp"] forState:UIControlStateDisabled];
         _uploadLocationLabel.text = NSLocalizedString(@"HTTP_UPLOAD_NO_CONNECTIVITY", @"");
