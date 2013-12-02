@@ -19,6 +19,8 @@ Interface:
     more precisely (iPad only)
 * Previously removed episodes and tracks no longer show up in the respective
   group listings (#9705)
+* Improved privacy by requesting the passcode 2 minutes after leaving the app
+  and by obfuscating playback metadata if passcode lock is enabled
 
 Cloud interaction:
 * Added support for downloads from Google Drive (#8690)

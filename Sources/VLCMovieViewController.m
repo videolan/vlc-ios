@@ -1149,10 +1149,17 @@
     }
     MLFile * currentFile = _mediaItem;
 
+    /* don't leak sensitive information to the OS, if passcode lock is enabled */
+    BOOL passcodeLockEnabled = [[[NSUserDefaults standardUserDefaults] objectForKey:kVLCSettingPasscodeOnKey] boolValue];
+
     /* we omit artwork for now since we had to read it from storage as we can't access
      * the artwork cache at the moment - FIXME? */
-    NSMutableDictionary *currentlyPlayingTrackInfo = [NSMutableDictionary dictionaryWithObjectsAndKeys: currentFile.title, MPMediaItemPropertyTitle, @(currentFile.duration.intValue / 1000.), MPMediaItemPropertyPlaybackDuration, @(_mediaPlayer.time.intValue / 1000.), MPNowPlayingInfoPropertyElapsedPlaybackTime, @(_mediaPlayer.rate), MPNowPlayingInfoPropertyPlaybackRate, nil];
-    if ([currentFile isAlbumTrack]) {
+    NSMutableDictionary *currentlyPlayingTrackInfo;
+    if (passcodeLockEnabled)
+        currentlyPlayingTrackInfo = [NSMutableDictionary dictionaryWithObjectsAndKeys:@(currentFile.duration.intValue / 1000.), MPMediaItemPropertyPlaybackDuration, @(_mediaPlayer.time.intValue / 1000.), MPNowPlayingInfoPropertyElapsedPlaybackTime, @(_mediaPlayer.rate), MPNowPlayingInfoPropertyPlaybackRate, nil];
+    else
+        currentlyPlayingTrackInfo = [NSMutableDictionary dictionaryWithObjectsAndKeys: currentFile.title, MPMediaItemPropertyTitle, @(currentFile.duration.intValue / 1000.), MPMediaItemPropertyPlaybackDuration, @(_mediaPlayer.time.intValue / 1000.), MPNowPlayingInfoPropertyElapsedPlaybackTime, @(_mediaPlayer.rate), MPNowPlayingInfoPropertyPlaybackRate, nil];
+    if ([currentFile isAlbumTrack] && !passcodeLockEnabled) {
         MLAlbumTrack *track = currentFile.albumTrack;
         if (track.artist.length > 0)
             [currentlyPlayingTrackInfo setObject:track.artist forKey:MPMediaItemPropertyArtist];
