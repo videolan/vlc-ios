@@ -178,7 +178,7 @@
 - (VLCDropboxTableViewController *)dropboxTableViewController
 {
     if (_dropboxTableViewController == nil)
-        _dropboxTableViewController = [[VLCDropboxTableViewController alloc] initWithNibName:nil bundle:nil];
+        _dropboxTableViewController = [[VLCDropboxTableViewController alloc] initWithNibName:@"VLCCloudStorageTableViewController" bundle:nil];
 
     return _dropboxTableViewController;
 }
@@ -186,7 +186,7 @@
 - (VLCGoogleDriveTableViewController *)googleDriveTableViewController
 {
     if (_googleDriveTableViewController == nil)
-        _googleDriveTableViewController = [[VLCGoogleDriveTableViewController alloc] initWithNibName:nil bundle:nil];
+        _googleDriveTableViewController = [[VLCGoogleDriveTableViewController alloc] initWithNibName:@"VLCCloudStorageTableViewController" bundle:nil];
 
     return _googleDriveTableViewController;
 }

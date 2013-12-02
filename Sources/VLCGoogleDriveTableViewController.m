@@ -47,7 +47,6 @@
 - (void)viewDidLoad
 {
     [super viewDidLoad];
-    [[NSBundle mainBundle] loadNibNamed:@"VLCCloudStorageTableViewController" owner:self options:nil];
     self.modalPresentationStyle = UIModalPresentationFormSheet;
 
     _googleDriveController = [VLCGoogleDriveController sharedInstance];
