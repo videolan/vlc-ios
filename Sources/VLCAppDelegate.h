@@ -41,8 +41,6 @@
 @property (nonatomic, strong) GHRevealViewController *revealController;
 @property (nonatomic, strong) VLCMenuTableViewController *menuViewController;
 
-@property (nonatomic, retain) NSDate *nextPasscodeCheckDate;
-
 @property (nonatomic) VLCHTTPUploaderController *uploadController;
 
 @end

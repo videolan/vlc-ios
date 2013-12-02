@@ -82,8 +82,6 @@
     [defaults setObject:@(YES) forKey:kVLCSettingPasscodeOnKey];
     [defaults setObject:controller.passcode forKey:kVLCSettingPasscodeKey];
     [defaults synchronize];
-    VLCAppDelegate* appDelegate = [UIApplication sharedApplication].delegate;
-    appDelegate.nextPasscodeCheckDate = [NSDate dateWithTimeIntervalSinceNow:300];
 
     [controller dismissViewControllerAnimated:YES completion:nil];
 }
