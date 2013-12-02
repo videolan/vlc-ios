@@ -137,9 +137,8 @@
             NSDataDetector *detector = [NSDataDetector dataDetectorWithTypes:(NSTextCheckingTypes)NSTextCheckingTypeLink error:nil];
             NSUInteger parsedStringLength = [parsedString length];
             NSUInteger numberOfUrlMatches = [detector numberOfMatchesInString:parsedString options:0 range:NSMakeRange(0, parsedStringLength)];
-            if (numberOfUrlMatches == 0) {
+            if (numberOfUrlMatches == 0)
                 parsedString = [@"http://" stringByAppendingString:parsedString];
-            }
 
             NSURL *targetUrl = [NSURL URLWithString:parsedString];
             return targetUrl;
@@ -175,18 +174,16 @@
 
 - (VLCDropboxTableViewController *)dropboxTableViewController
 {
-    if (_dropboxTableViewController == nil) {
+    if (_dropboxTableViewController == nil)
         _dropboxTableViewController = [[VLCDropboxTableViewController alloc] initWithNibName:nil bundle:nil];
-    }
 
     return _dropboxTableViewController;
 }
 
 - (VLCGoogleDriveTableViewController *)googleDriveTableViewController
 {
-    if (_googleDriveTableViewController == nil) {
+    if (_googleDriveTableViewController == nil)
         _googleDriveTableViewController = [[VLCGoogleDriveTableViewController alloc] initWithNibName:nil bundle:nil];
-    }
 
     return _googleDriveTableViewController;
 }
@@ -194,9 +191,8 @@
 
 - (VLCDownloadViewController *)downloadViewController
 {
-    if (_downloadViewController == nil) {
+    if (_downloadViewController == nil)
         _downloadViewController = [[VLCDownloadViewController alloc] init];
-    }
 
     return _downloadViewController;
 }
