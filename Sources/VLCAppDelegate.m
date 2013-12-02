@@ -155,6 +155,7 @@
 
 - (void)applicationWillResignActive:(UIApplication *)application
 {
+    self.passcodeValidated = NO;
     [[MLMediaLibrary sharedMediaLibrary] applicationWillExit];
 }
 
@@ -167,6 +168,7 @@
 
 - (void)applicationWillTerminate:(UIApplication *)application
 {
+    self.passcodeValidated = NO;
     [[NSUserDefaults standardUserDefaults] synchronize];
 }
 
