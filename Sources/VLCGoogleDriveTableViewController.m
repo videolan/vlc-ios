@@ -74,8 +74,9 @@
     _downloadingBarLabel = [[UIBarButtonItem alloc] initWithTitle:NSLocalizedString(@"DOWNLOADING",@"") style:UIBarButtonItemStylePlain target:nil action:nil];
     [_downloadingBarLabel setTitleTextAttributes:@{ UITextAttributeFont : [UIFont systemFontOfSize:11.] } forState:UIControlStateNormal];
 
-    self.loginToCloudStorageView.backgroundColor = [UIColor colorWithWhite:.122 alpha:1.];
-    [self _setupLogo];
+    [self.cloudStorageLogo setImage:[UIImage imageNamed:@"DriveWhite"]];
+    [self.cloudStorageLogo sizeToFit];
+    self.cloudStorageLogo.center = self.view.center;
 
     [self.loginButton setTitle:NSLocalizedString(@"DROPBOX_LOGIN", @"") forState:UIControlStateNormal];
 
@@ -87,13 +88,6 @@
     _activityIndicator.hidesWhenStopped = YES;
 
     [self.view addSubview:_activityIndicator];
-}
-
-- (void)_setupLogo
-{
-    [self.cloudStorageLogo setImage:[UIImage imageNamed:@"DriveWhite"]];
-    [self.cloudStorageLogo sizeToFit];
-    self.cloudStorageLogo.center = self.view.center;
 }
 
 - (GTMOAuth2ViewControllerTouch *)createAuthController

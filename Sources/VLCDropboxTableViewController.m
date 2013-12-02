@@ -75,7 +75,6 @@
     _downloadingBarLabel = [[UIBarButtonItem alloc] initWithTitle:NSLocalizedString(@"DOWNLOADING",@"") style:UIBarButtonItemStylePlain target:nil action:nil];
     [_downloadingBarLabel setTitleTextAttributes:@{ UITextAttributeFont : [UIFont systemFontOfSize:11.] } forState:UIControlStateNormal];
 
-    self.loginToCloudStorageView.backgroundColor = [UIColor colorWithWhite:.122 alpha:1.];
     [self.cloudStorageLogo setImage:[UIImage imageNamed:@"dropbox-white.png"]];
     [self.cloudStorageLogo sizeToFit];
     self.cloudStorageLogo.center = self.view.center;
