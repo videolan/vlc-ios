@@ -141,9 +141,7 @@
 - (BOOL)shouldAutorotate
 {
     UIInterfaceOrientation orientation = [[UIApplication sharedApplication] statusBarOrientation];
-	return (orientation == UIInterfaceOrientationPortraitUpsideDown)
-    ? (UI_USER_INTERFACE_IDIOM() == UIUserInterfaceIdiomPad)
-    : YES;
+	return (orientation == UIInterfaceOrientationPortraitUpsideDown) ? (UI_USER_INTERFACE_IDIOM() == UIUserInterfaceIdiomPad) : YES;
 }
 
 - (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView {

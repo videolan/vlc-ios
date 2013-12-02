@@ -724,7 +724,6 @@
 		7DC87AEF17413634009DC250 /* de */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = de; path = de.lproj/Localizable.strings; sourceTree = "<group>"; };
 		7DC87AF017413A17009DC250 /* fr */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = fr; path = fr.lproj/Localizable.strings; sourceTree = "<group>"; };
 		7DD2A3A8179C04A6003EB537 /* OpenSans-Regular.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "OpenSans-Regular.ttf"; sourceTree = "<group>"; };
-		7DD8DDAF17C915F400E7AE4B /* VLCFixups.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = VLCFixups.h; path = Sources/VLCFixups.h; sourceTree = "<group>"; };
 		7DDD0428172D98E5005A7B10 /* CFNetwork.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CFNetwork.framework; path = System/Library/Frameworks/CFNetwork.framework; sourceTree = SDKROOT; };
 		7DE1862A175BA9A5006C0173 /* en */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = en; path = "en.lproj/badgeUnread@2x~ipad.png"; sourceTree = "<group>"; };
 		7DE1862D175BA9A9006C0173 /* en */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = en; path = "en.lproj/badgeUnread@2x~iphone.png"; sourceTree = "<group>"; };
@@ -1469,7 +1468,6 @@
 			isa = PBXGroup;
 			children = (
 				7D6B08BB174A72A900A05173 /* VLCConstants.h */,
-				7DD8DDAF17C915F400E7AE4B /* VLCFixups.h */,
 				7DBBF180183AB3B80009A339 /* VLCAppDelegate.h */,
 				7DBBF181183AB3B80009A339 /* VLCAppDelegate.m */,
 				9B51719A17EDEC8900F8FBA7 /* GoogleDrive Integration */,
