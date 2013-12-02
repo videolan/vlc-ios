@@ -185,12 +185,28 @@
 
         if (![item isContainer]) {
             MediaServer1ItemObject *mediaItem;
+            NSInteger mediaSize = 0;
+
             if (tableView == self.searchDisplayController.searchResultsTableView)
                 mediaItem = _searchData[indexPath.row];
             else
                 mediaItem = _mutableObjectList[indexPath.row];
 
-            [cell setSubtitle: [NSString stringWithFormat:@"%0.2f MB  (%@)", (float)([mediaItem.size intValue] / 1e6), mediaItem.duration]];
+            if (![mediaItem size]) {
+                NSRange end = [mediaItem.duration rangeOfString:@"."];
+                NSString *timeString =[mediaItem.duration substringWithRange:NSMakeRange(0, end.location)];
+
+                NSArray *arrayTime = [timeString componentsSeparatedByString:@":"];
+                NSInteger hours   = [[arrayTime objectAtIndex:0] integerValue];
+                NSInteger minutes = [[arrayTime objectAtIndex:1] integerValue];
+                NSInteger seconds = [[arrayTime objectAtIndex:2] integerValue];
+
+                mediaSize = [mediaItem.bitrate integerValue] * ((hours * 60 * 60) + (minutes * 60) + seconds);
+            }
+            else
+                mediaSize = [mediaItem.size integerValue];
+
+            [cell setSubtitle: [NSString stringWithFormat:@"%0.2f MB  (%@)", (float)(mediaSize / 1e6), mediaItem.duration]];
             [cell setIsDirectory:NO];
             cell.isDownloadable = YES;
             if (![mediaItem.albumArt isEqualToString:NULL]) {
