@@ -17,7 +17,7 @@
 - (id)initWithStyle:(UITableViewCellStyle)style reuseIdentifier:(NSString *)reuseIdentifier {
     if ((self = [super initWithStyle:style reuseIdentifier:reuseIdentifier])) {
         self.clipsToBounds = YES;
-        self.backgroundColor = [UIColor colorWithRed:(43.0f/255.0f) green:(43.0f/255.0f) blue:(43.0f/255.0f) alpha:1.0f];
+        self.backgroundColor = [UIColor clearColor];
 
         UIView *bgView = [[UIView alloc] init];
         bgView.backgroundColor = [UIColor colorWithRed:0.1137 green:0.1137 blue:0.1137 alpha:1.0f];

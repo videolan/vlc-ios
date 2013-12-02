@@ -31,7 +31,9 @@
     self.titleLabel.shadowColor = [UIColor colorWithWhite:0.0f alpha:0.25f];
     self.titleLabel.textColor = [UIColor whiteColor];
 
-    self.backgroundColor = [UIColor colorWithRed:(43.0f/255.0f) green:(43.0f/255.0f) blue:(43.0f/255.0f) alpha:1.0f];
+    self.clipsToBounds = YES;
+    self.backgroundColor = [UIColor clearColor];
+    self.titleLabel.superview.backgroundColor = [UIColor colorWithRed:(43.0f/255.0f) green:(43.0f/255.0f) blue:(43.0f/255.0f) alpha:1.0f];
 
     self.uploadAddressLabel.shadowOffset = CGSizeMake(0.0f, 1.0f);
     self.uploadAddressLabel.shadowColor = [UIColor colorWithWhite:0.0f alpha:0.25f];
