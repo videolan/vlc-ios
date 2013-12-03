@@ -261,7 +261,7 @@
     if (_libraryMode != VLCLibraryModeAllSeries) {
         NSArray *rawAlbums = [MLAlbum allAlbums];
         for (MLAlbum *album in rawAlbums) {
-            if (album.name.length > 0 && album.tracks.count > 0)
+            if (album.name.length > 0 && album.tracks.count > 1)
                 [_foundMedia addObject:album];
         }
     }
@@ -273,7 +273,7 @@
     /* add all shows */
     NSArray *rawShows = [MLShow allShows];
     for (MLShow *show in rawShows) {
-        if (show.name.length > 0 && show.episodes.count > 0)
+        if (show.name.length > 0 && show.episodes.count > 1)
             [_foundMedia addObject:show];
     }
     if (_libraryMode == VLCLibraryModeAllSeries) {
