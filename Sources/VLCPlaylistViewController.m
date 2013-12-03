@@ -347,8 +347,36 @@
 
 - (void)tableView:(UITableView *)tableView commitEditingStyle:(UITableViewCellEditingStyle)editingStyle forRowAtIndexPath:(NSIndexPath *)indexPath
 {
-    if (editingStyle == UITableViewCellEditingStyleDelete)
-        [self removeMediaObject: _foundMedia[indexPath.row]];
+    if (editingStyle == UITableViewCellEditingStyleDelete) {
+        //Delete all tracks from an album
+        if ([_foundMedia[indexPath.row] isKindOfClass:[MLAlbum class]]) {
+            MLAlbum *album = _foundMedia[indexPath.row];
+            NSSet *iterAlbumTrack = [NSSet setWithSet:album.tracks];
+
+            for (MLAlbumTrack *track in iterAlbumTrack) {
+                NSSet *iterFiles = [NSSet setWithSet:track.files];
+
+                for (MLFile *file in iterFiles) {
+                    [self removeMediaObject:file];
+                }
+            }
+        //Delete all episodes from a show
+        } else if ([_foundMedia[indexPath.row] isKindOfClass:[MLShow class]]) {
+            MLShow *show = _foundMedia[indexPath.row];
+            NSSet *iterShowEpisodes = [NSSet setWithSet:show.episodes];
+
+            for (MLShowEpisode *episode in iterShowEpisodes) {
+                NSSet *iterFiles = [NSSet setWithSet:episode.files];
+
+                for (MLFile *file in iterFiles) {
+                    [self removeMediaObject:file];
+                }
+            }
+        //everything else
+        } else {
+            [self removeMediaObject: _foundMedia[indexPath.row]];
+        }
+    }
 }
 
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
