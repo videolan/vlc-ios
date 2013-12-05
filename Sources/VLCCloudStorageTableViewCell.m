@@ -62,6 +62,8 @@
             self.thumbnailView.image = [UIImage imageNamed:@"blank"];
         else if ([iconName isEqualToString:@"page_white_film"])
             self.thumbnailView.image = [UIImage imageNamed:@"movie"];
+        else if ([iconName isEqualToString:@"page_white_sound"])
+            self.thumbnailView.image = [UIImage imageNamed:@"audio"];
         else
             APLog(@"missing icon for type '%@'", self.fileMetadata.icon);
 
@@ -81,7 +83,7 @@
         if ([iconName isEqualToString:@"https://ssl.gstatic.com/docs/doclist/images/icon_11_shared_collection_list.png"] || [iconName isEqualToString:@"https://ssl.gstatic.com/docs/doclist/images/icon_11_collection_list.png"]) {
             self.thumbnailView.image = [UIImage imageNamed:@"folder"];
         } else if ([iconName isEqualToString:@"https://ssl.gstatic.com/docs/doclist/images/icon_10_audio_list.png"]) {
-            self.thumbnailView.image = [UIImage imageNamed:@"blank"];
+            self.thumbnailView.image = [UIImage imageNamed:@"audio"];
         } else if ([iconName isEqualToString:@"https://ssl.gstatic.com/docs/doclist/images/icon_11_video_list.png"]) {
             self.thumbnailView.image = [UIImage imageNamed:@"movie"];
         } else {

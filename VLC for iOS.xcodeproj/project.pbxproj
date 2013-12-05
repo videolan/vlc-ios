@@ -283,6 +283,9 @@
 		9B2E0CF417FB71E90098E3DF /* libGTLTouchStaticLib.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 9B2E0CF317FB71E80098E3DF /* libGTLTouchStaticLib.a */; };
 		9B5BEF2917FBAEA50016F9CB /* GTLDrive_Sources.m in Sources */ = {isa = PBXBuildFile; fileRef = 9B5BEF2717FBAEA50016F9CB /* GTLDrive_Sources.m */; };
 		9BE4D1CE183D76950006346C /* VLCCloudStorageTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 7D3784B0183A990F009EE944 /* VLCCloudStorageTableViewCell.m */; };
+		9BF0708E185122AA009B23DD /* audio.png in Resources */ = {isa = PBXBuildFile; fileRef = 9BF0708B185122AA009B23DD /* audio.png */; };
+		9BF0708F185122AA009B23DD /* audio@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 9BF0708C185122AA009B23DD /* audio@2x.png */; };
+		9BF07090185122AA009B23DD /* audio@4x.png in Resources */ = {isa = PBXBuildFile; fileRef = 9BF0708D185122AA009B23DD /* audio@4x.png */; };
 		A7035BBE174519600057DFA7 /* iTunesArtwork in Resources */ = {isa = PBXBuildFile; fileRef = A7035BBD174519600057DFA7 /* iTunesArtwork */; };
 		A7924696170F0BA90036AAF2 /* libMediaLibraryKit.a in Frameworks */ = {isa = PBXBuildFile; fileRef = A7924695170F0BA90036AAF2 /* libMediaLibraryKit.a */; };
 		A79246A7170F0ED20036AAF2 /* Default-568h@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = A7924698170F0ED20036AAF2 /* Default-568h@2x.png */; };
@@ -783,6 +786,9 @@
 		9B2E0CF317FB71E80098E3DF /* libGTLTouchStaticLib.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; name = libGTLTouchStaticLib.a; path = "../google-api/Source/build/Debug-iphoneos/libGTLTouchStaticLib.a"; sourceTree = "<group>"; };
 		9B5BEF2717FBAEA50016F9CB /* GTLDrive_Sources.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = GTLDrive_Sources.m; path = ImportedSources/GDrive/Services/Drive/Generated/GTLDrive_Sources.m; sourceTree = SOURCE_ROOT; };
 		9B5BEF2817FBAEA50016F9CB /* GTLDrive.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = GTLDrive.h; path = ImportedSources/GDrive/Services/Drive/Generated/GTLDrive.h; sourceTree = SOURCE_ROOT; };
+		9BF0708B185122AA009B23DD /* audio.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = audio.png; sourceTree = "<group>"; };
+		9BF0708C185122AA009B23DD /* audio@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "audio@2x.png"; sourceTree = "<group>"; };
+		9BF0708D185122AA009B23DD /* audio@4x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "audio@4x.png"; sourceTree = "<group>"; };
 		A7035BBD174519600057DFA7 /* iTunesArtwork */ = {isa = PBXFileReference; lastKnownFileType = file; path = iTunesArtwork; sourceTree = "<group>"; };
 		A7924695170F0BA90036AAF2 /* libMediaLibraryKit.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; name = libMediaLibraryKit.a; path = External/MediaLibraryKit/libMediaLibraryKit.a; sourceTree = "<group>"; };
 		A7924698170F0ED20036AAF2 /* Default-568h@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "Default-568h@2x.png"; sourceTree = "<group>"; };
@@ -1148,6 +1154,9 @@
 		7D2159E4174FD31900EC00E8 /* Dropbox */ = {
 			isa = PBXGroup;
 			children = (
+				9BF0708B185122AA009B23DD /* audio.png */,
+				9BF0708C185122AA009B23DD /* audio@2x.png */,
+				9BF0708D185122AA009B23DD /* audio@4x.png */,
 				7DEB3B7C1764A4F40038FC70 /* movie@2x.png */,
 				7DEB3B7D1764A4F40038FC70 /* movie@4x.png */,
 				7DEB3B7E1764A4F40038FC70 /* blank@4x.png */,
@@ -1918,8 +1927,10 @@
 				7D07F728175688D300CDE21C /* doneButtonHighlight.png in Resources */,
 				7D07F729175688D300CDE21C /* doneButtonHighlight@2x.png in Resources */,
 				7D07F72E175691CC00CDE21C /* backButton.png in Resources */,
+				9BF07090185122AA009B23DD /* audio@4x.png in Resources */,
 				7D07F72F175691CC00CDE21C /* backButton@2x.png in Resources */,
 				7D07F730175691CC00CDE21C /* backButtonHighlight.png in Resources */,
+				9BF0708E185122AA009B23DD /* audio.png in Resources */,
 				7D07F731175691CC00CDE21C /* backButtonHighlight@2x.png in Resources */,
 				7D5DD5C717590ABF001421E3 /* About Contents.html in Resources */,
 				7DE18629175BA9A5006C0173 /* badgeUnread@2x~ipad.png in Resources */,
@@ -2040,6 +2051,7 @@
 				7D0699DC17CB1FAE00713BEB /* WifiUpOn@2x.png in Resources */,
 				7D0699DD17CB1FAE00713BEB /* Dropbox@2x.png in Resources */,
 				7DBBF19A183AB4300009A339 /* VLCCloudStorageTableViewCell~ipad.xib in Resources */,
+				9BF0708F185122AA009B23DD /* audio@2x.png in Resources */,
 				7D0699DE17CB1FAE00713BEB /* Local.png in Resources */,
 				7D0699DF17CB1FAE00713BEB /* Local@2x.png in Resources */,
 				7D0699E017CB1FAE00713BEB /* MusicAlbums.png in Resources */,
