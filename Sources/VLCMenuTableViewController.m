@@ -337,6 +337,11 @@
     UINavigationController *navCon = nil;
     if ([_revealController.contentViewController isKindOfClass:[UINavigationController class]]) {
         navCon = (UINavigationController*)_revealController.contentViewController;
+        for (UIViewController *vc in navCon.viewControllers) {
+            //send viewWillDisappear while vc still has a navigationcontroller
+            if ([vc isKindOfClass:[VLCCloudStorageTableViewController class]])
+                [vc viewWillDisappear:NO];
+        }
         navCon.viewControllers = @[viewController];
     } else {
         navCon = [[UINavigationController alloc] initWithRootViewController:viewController];
