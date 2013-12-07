@@ -137,12 +137,6 @@
                           }];
 }
 
-- (void)streamFile:(GTLDriveFile *)file
-{
-    VLCAppDelegate *appDelegate = (VLCAppDelegate *)[UIApplication sharedApplication].delegate;
-    [appDelegate openMovieFromURL:[NSURL URLWithString:file.webContentLink]];
-}
-
 - (void)_triggerNextDownload
 {
     if (_listOfGoogleDriveFilesToDownload.count > 0 && !_downloadInProgress) {

@@ -41,6 +41,5 @@
 - (void)requestFileListing;
 - (BOOL)hasMoreFiles;
 - (void)downloadFileToDocumentFolder:(GTLDriveFile *)file;
-- (void)streamFile:(GTLDriveFile *)file;
 
 @end

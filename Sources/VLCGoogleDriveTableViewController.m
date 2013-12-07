@@ -202,6 +202,7 @@
         cell = [VLCCloudStorageTableViewCell cellWithReuseIdentifier:CellIdentifier];
 
     cell.driveFile = _googleDriveController.currentListFiles[indexPath.row];
+    cell.downloadButton.hidden = YES;
     cell.delegate = self;
 
     return cell;
@@ -217,8 +218,8 @@
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
 {
     _selectedFile = _googleDriveController.currentListFiles[indexPath.row];
-    [_googleDriveController streamFile:_selectedFile];
-    _selectedFile = nil;
+    UIAlertView * alert = [[UIAlertView alloc] initWithTitle:NSLocalizedString(@"DROPBOX_DOWNLOAD", @"") message:[NSString stringWithFormat:NSLocalizedString(@"DROPBOX_DL_LONG", @""), _selectedFile.title, [[UIDevice currentDevice] model]] delegate:self cancelButtonTitle:NSLocalizedString(@"BUTTON_CANCEL", @"") otherButtonTitles:NSLocalizedString(@"BUTTON_DOWNLOAD", @""), nil];
+    [alert show];
     [self.tableView deselectRowAtIndexPath:indexPath animated:NO];
 }
 
@@ -240,19 +241,6 @@
         [_googleDriveController downloadFileToDocumentFolder:_selectedFile];
 
     _selectedFile = nil;
-}
-
-#pragma mark - table view cell delegation
-
-
-#pragma mark - VLCLocalNetworkListCell delegation
-- (void)triggerDownloadForCell:(VLCCloudStorageTableViewCell *)cell
-{
-    _selectedFile = _googleDriveController.currentListFiles[[self.tableView indexPathForCell:cell].row];
-
-    /* selected item is a proper file, ask the user if s/he wants to download it */
-    UIAlertView * alert = [[UIAlertView alloc] initWithTitle:NSLocalizedString(@"DROPBOX_DOWNLOAD", @"") message:[NSString stringWithFormat:NSLocalizedString(@"DROPBOX_DL_LONG", @""), _selectedFile.title, [[UIDevice currentDevice] model]] delegate:self cancelButtonTitle:NSLocalizedString(@"BUTTON_CANCEL", @"") otherButtonTitles:NSLocalizedString(@"BUTTON_DOWNLOAD", @""), nil];
-    [alert show];
 }
 
 #pragma mark - google drive controller delegate
