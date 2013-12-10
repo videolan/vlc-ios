@@ -44,6 +44,7 @@ Global networks:
 Misc:
 * Improved audio playback performance and reliability
 * Improved metadata detection
+* Improved vlc:// handling (#9542)
 
 2.1.3:
 ------
