@@ -45,6 +45,7 @@ Misc:
 * Improved audio playback performance and reliability
 * Improved metadata detection
 * Improved vlc:// handling (#9542)
+* Improved TV show handling for shows with more than 100 episodes
 
 2.1.3:
 ------
