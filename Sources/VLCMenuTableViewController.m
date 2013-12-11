@@ -213,7 +213,7 @@
         if ([rawTitle isEqualToString:@"Settings"])
             cell.imageView.image = [UIImage imageNamed:@"Settings"];
         else
-            cell.imageView.image = [UIImage imageNamed:@"About"];
+            cell.imageView.image = [UIImage imageNamed:@"menuCone"];
     }
 
     if (!([rawTitle isEqualToString:@"Dropbox"] || [rawTitle isEqualToString:@"WiFi Upload"]))
