@@ -233,7 +233,8 @@
     if (UI_USER_INTERFACE_IDIOM() == UIUserInterfaceIdiomPhone) {
         _tableView.separatorStyle = (_foundMedia.count > 0)? UITableViewCellSeparatorStyleSingleLine:
                                                              UITableViewCellSeparatorStyleNone;
-    }
+    } else
+        [self.collectionView.collectionViewLayout invalidateLayout];
 }
 
 - (void)libraryUpgradeComplete
