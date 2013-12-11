@@ -75,8 +75,6 @@
     [_downloadingBarLabel setTitleTextAttributes:@{ UITextAttributeFont : [UIFont systemFontOfSize:11.] } forState:UIControlStateNormal];
 
     [self.cloudStorageLogo setImage:[UIImage imageNamed:@"DriveWhite"]];
-    [self.cloudStorageLogo sizeToFit];
-    self.cloudStorageLogo.center = self.view.center;
 
     [self.loginButton setTitle:NSLocalizedString(@"DROPBOX_LOGIN", @"") forState:UIControlStateNormal];
 
@@ -137,6 +135,9 @@
     aiFrame.origin.x = (tvSize.width - aiFrame.size.width) / 2.;
     aiFrame.origin.y = (tvSize.height - aiFrame.size.height) / 2.;
     _activityIndicator.frame = aiFrame;
+
+    [self.cloudStorageLogo sizeToFit];
+    self.cloudStorageLogo.center = self.view.center;
 }
 
 - (void)viewWillDisappear:(BOOL)animated
