@@ -206,7 +206,7 @@
             else
                 mediaSize = [mediaItem.size longLongValue];
 
-            [cell setSubtitle: [NSString stringWithFormat:@"%0.2f MB  (%@)", (float)(mediaSize / 1e6), mediaItem.duration]];
+            [cell setSubtitle: [NSString stringWithFormat:@"%@ (%@)", [NSByteCountFormatter stringFromByteCount:mediaSize countStyle:NSByteCountFormatterCountStyleFile], mediaItem.duration]];
             [cell setIsDirectory:NO];
             cell.isDownloadable = YES;
             if (![mediaItem.albumArt isEqualToString:NULL]) {
