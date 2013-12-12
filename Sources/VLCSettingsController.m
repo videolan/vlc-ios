@@ -22,6 +22,11 @@
 #import "VLCGoogleDriveController.h"
 
 @interface VLCSettingsController ()<PAPasscodeViewControllerDelegate, IASKSettingsDelegate>
+{
+    NSString *_currentUnlinkSpecifier;
+    NSString *_currentUnlinkDialogTitle;
+    NSString *_currentCloudName;
+}
 @end
 
 @implementation VLCSettingsController
@@ -58,11 +63,45 @@
     [[(VLCAppDelegate*)[UIApplication sharedApplication].delegate revealController] toggleSidebar:![(VLCAppDelegate*)[UIApplication sharedApplication].delegate revealController].sidebarShowing duration:kGHRevealSidebarDefaultAnimationDuration];
 }
 
-- (void)settingsViewController:(IASKAppSettingsViewController*)sender buttonTappedForSpecifier:(IASKSpecifier*)specifier {
-    if ([specifier.key isEqualToString:@"UnlinkDropbox"]) {
-        [[DBSession sharedSession] unlinkAll];
-    } else if ([specifier.key isEqualToString:@"UnlinkGoogleDrive"]) {
-        [[VLCGoogleDriveController sharedInstance] logout];
+- (void)settingsViewController:(IASKAppSettingsViewController*)sender buttonTappedForSpecifier:(IASKSpecifier*)specifier
+{
+    _currentUnlinkSpecifier = specifier.key;
+
+    if ([_currentUnlinkSpecifier isEqualToString:@"UnlinkDropbox"]) {
+        _currentCloudName = @"Dropbox";
+        _currentUnlinkDialogTitle = NSLocalizedString(@"SETTINGS_UNLINK_DROPBOX", @"");
+    } else if ([_currentUnlinkSpecifier isEqualToString:@"UnlinkGoogleDrive"]) {
+        _currentCloudName = @"Google Drive";
+        _currentUnlinkDialogTitle = NSLocalizedString(@"SETTINGS_UNLINK_GOOGLEDRIVE", @"");
+    }
+
+    UIAlertView *alert = [[UIAlertView alloc]
+                          initWithTitle:_currentUnlinkDialogTitle
+                          message:[NSString stringWithFormat:NSLocalizedString(@"CLOUDUNLINKING", @""), _currentCloudName]
+                          delegate:self
+                          cancelButtonTitle:NSLocalizedString(@"BUTTON_CANCEL", @"")
+                          otherButtonTitles:NSLocalizedString(@"BUTTON_CLOUDUNLINKING", @""), nil];
+    [alert show];
+}
+
+- (void)alertView:(UIAlertView *)alertView clickedButtonAtIndex:(NSInteger)buttonIndex
+{
+    if (buttonIndex == 1) {
+        if ([_currentUnlinkSpecifier isEqualToString:@"UnlinkDropbox"])
+            [[DBSession sharedSession] unlinkAll];
+        else if ([_currentUnlinkSpecifier isEqualToString:@"UnlinkGoogleDrive"])
+            [[VLCGoogleDriveController sharedInstance] logout];
+        _currentUnlinkSpecifier = nil;
+
+        UIAlertView *alert = [[UIAlertView alloc]
+                              initWithTitle:_currentUnlinkDialogTitle
+                              message:[NSString stringWithFormat:NSLocalizedString(@"CLOUDUNLINKING_DONE", @""), _currentCloudName]
+                              delegate:self
+                              cancelButtonTitle:NSLocalizedString(@"BUTTON_DONE", @"")
+                              otherButtonTitles:nil];
+        [alert show];
+        _currentUnlinkDialogTitle = nil;
+        _currentCloudName = nil;
     }
 }
 
