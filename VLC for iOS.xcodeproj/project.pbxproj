@@ -262,7 +262,6 @@
 		7DBBF1A7183AB4300009A339 /* VLCNetworkLoginViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 7DBBF192183AB4300009A339 /* VLCNetworkLoginViewController.xib */; };
 		7DBBF1A8183AB4300009A339 /* VLCOpenNetworkStreamViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 7DBBF193183AB4300009A339 /* VLCOpenNetworkStreamViewController.xib */; };
 		7DBBF1A9183AB4300009A339 /* VLCPlaylistCollectionViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 7DBBF194183AB4300009A339 /* VLCPlaylistCollectionViewCell.xib */; };
-		7DBBF1AA183AB4300009A339 /* VLCPlaylistGridView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 7DBBF195183AB4300009A339 /* VLCPlaylistGridView.xib */; };
 		7DBBF1AB183AB4300009A339 /* VLCPlaylistTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 7DBBF196183AB4300009A339 /* VLCPlaylistTableViewCell.xib */; };
 		7DBBF1AC183AB4300009A339 /* VLCWiFiUploadTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 7DBBF197183AB4300009A339 /* VLCWiFiUploadTableViewCell.xib */; };
 		7DC72D5E17B7E7C7008A26D0 /* download@4x.png in Resources */ = {isa = PBXBuildFile; fileRef = 7DC72D5B17B7E7C7008A26D0 /* download@4x.png */; };
@@ -752,7 +751,6 @@
 		7DBBF192183AB4300009A339 /* VLCNetworkLoginViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; name = VLCNetworkLoginViewController.xib; path = Resources/VLCNetworkLoginViewController.xib; sourceTree = SOURCE_ROOT; };
 		7DBBF193183AB4300009A339 /* VLCOpenNetworkStreamViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; name = VLCOpenNetworkStreamViewController.xib; path = Resources/VLCOpenNetworkStreamViewController.xib; sourceTree = SOURCE_ROOT; };
 		7DBBF194183AB4300009A339 /* VLCPlaylistCollectionViewCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; name = VLCPlaylistCollectionViewCell.xib; path = Resources/VLCPlaylistCollectionViewCell.xib; sourceTree = SOURCE_ROOT; };
-		7DBBF195183AB4300009A339 /* VLCPlaylistGridView.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; name = VLCPlaylistGridView.xib; path = Resources/VLCPlaylistGridView.xib; sourceTree = SOURCE_ROOT; };
 		7DBBF196183AB4300009A339 /* VLCPlaylistTableViewCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; name = VLCPlaylistTableViewCell.xib; path = Resources/VLCPlaylistTableViewCell.xib; sourceTree = SOURCE_ROOT; };
 		7DBBF197183AB4300009A339 /* VLCWiFiUploadTableViewCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; name = VLCWiFiUploadTableViewCell.xib; path = Resources/VLCWiFiUploadTableViewCell.xib; sourceTree = SOURCE_ROOT; };
 		7DC222771773AB0900371B5C /* es */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = es; path = es.lproj/Localizable.strings; sourceTree = "<group>"; };
@@ -1572,7 +1570,6 @@
 				7DBBF192183AB4300009A339 /* VLCNetworkLoginViewController.xib */,
 				7DBBF193183AB4300009A339 /* VLCOpenNetworkStreamViewController.xib */,
 				7DBBF194183AB4300009A339 /* VLCPlaylistCollectionViewCell.xib */,
-				7DBBF195183AB4300009A339 /* VLCPlaylistGridView.xib */,
 				7DBBF196183AB4300009A339 /* VLCPlaylistTableViewCell.xib */,
 				7DBBF197183AB4300009A339 /* VLCWiFiUploadTableViewCell.xib */,
 				7D711AD918227A490094E4F0 /* GTMOAuth2ViewTouch.xib */,
@@ -2138,7 +2135,6 @@
 				7D3784E1183A99D2009EE944 /* papasscode_failed_bg.png in Resources */,
 				7D3784E2183A99D2009EE944 /* papasscode_failed_bg@2x.png in Resources */,
 				7D3784E3183A99D2009EE944 /* papasscode_marker.png in Resources */,
-				7DBBF1AA183AB4300009A339 /* VLCPlaylistGridView.xib in Resources */,
 				7D3784E4183A99D2009EE944 /* papasscode_marker@2x.png in Resources */,
 				7D3784EC183A9A1E009EE944 /* VLC for iOS-Info.plist in Resources */,
 				7D3E6CDC18589DE700D584E7 /* AppIcon72x72.png in Resources */,
