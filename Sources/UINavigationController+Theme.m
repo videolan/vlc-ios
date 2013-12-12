@@ -18,8 +18,9 @@
 {
     UINavigationBar *navBar = self.navigationBar;
     if (!SYSTEM_RUNS_IOS7_OR_LATER) {
-        [navBar setBackgroundImage:[UIImage imageNamed:@"navBarBackground"]
-                     forBarMetrics:UIBarMetricsDefault];
+//        [navBar setBackgroundImage:[UIImage imageNamed:@"navBarBackground"]
+                     //forBarMetrics:UIBarMetricsDefault];
+        navBar.tintColor = [UIColor colorWithRed:1.0f green:(132.0f/255.0f) blue:0.0f alpha:1.f];
         navBar.barStyle = UIBarStyleBlack;
     } else {
         navBar.barTintColor = [UIColor colorWithRed:1.0f green:(132.0f/255.0f) blue:0.0f alpha:1.f];

@@ -51,6 +51,7 @@
         _tableView.separatorColor = [UIColor colorWithWhite:.122 alpha:1.];
         _tableView.delegate = self;
         _tableView.dataSource = self;
+        _tableView.opaque = YES;
         self.view = _tableView;
 
         if (SYSTEM_RUNS_IOS7_OR_LATER) {
@@ -65,15 +66,15 @@
         _collectionView.indicatorStyle = UIScrollViewIndicatorStyleWhite;
         _collectionView.delegate = self;
         _collectionView.dataSource = self;
+        _collectionView.opaque = YES;
+        _collectionView.backgroundColor = [UIColor colorWithWhite:.122 alpha:1.];
         self.view = _collectionView;
 
-        if (SYSTEM_RUNS_IOS7_OR_LATER) {
+        if (SYSTEM_RUNS_IOS7_OR_LATER)
             [_collectionView registerNib:[UINib nibWithNibName:@"VLCFuturePlaylistCollectionViewCell" bundle:nil] forCellWithReuseIdentifier:@"PlaylistCell"];
-            self.view.backgroundColor = [UIColor colorWithWhite:.125 alpha:1.];
-        } else {
+        else
             [_collectionView registerNib:[UINib nibWithNibName:@"VLCPlaylistCollectionViewCell" bundle:nil] forCellWithReuseIdentifier:@"PlaylistCell"];
-            self.view.backgroundColor = [UIColor colorWithPatternImage:[UIImage imageNamed:@"libraryBackground"]];
-        }
+        self.view.backgroundColor = [UIColor colorWithWhite:.122 alpha:1.];
     }
 
     _libraryMode = VLCLibraryModeAllFiles;
