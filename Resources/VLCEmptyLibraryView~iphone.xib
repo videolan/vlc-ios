@@ -16,7 +16,7 @@
                     <rect key="frame" x="0.0" y="0.0" width="320" height="525"/>
                     <autoresizingMask key="autoresizingMask" widthSizable="YES" flexibleMinY="YES" flexibleMaxY="YES"/>
                     <subviews>
-                        <imageView userInteractionEnabled="NO" contentMode="scaleToFill" image="Icon-512.png" id="21">
+                        <imageView userInteractionEnabled="NO" contentMode="scaleToFill" image="AppIcon512x512.png" id="21">
                             <rect key="frame" x="96" y="83" width="128" height="128"/>
                             <autoresizingMask key="autoresizingMask" flexibleMinX="YES" flexibleMaxX="YES" flexibleMaxY="YES"/>
                         </imageView>
@@ -53,6 +53,6 @@
         </view>
     </objects>
     <resources>
-        <image name="Icon-512.png" width="512" height="512"/>
+        <image name="AppIcon512x512.png" width="512" height="512"/>
     </resources>
 </document>
