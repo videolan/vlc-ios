@@ -185,7 +185,7 @@
 
         if (![item isContainer]) {
             MediaServer1ItemObject *mediaItem;
-            NSInteger mediaSize = 0;
+            long long mediaSize = 0;
 
             if (tableView == self.searchDisplayController.searchResultsTableView)
                 mediaItem = _searchData[indexPath.row];
@@ -204,7 +204,7 @@
                 mediaSize = [mediaItem.bitrate integerValue] * ((hours * 60 * 60) + (minutes * 60) + seconds);
             }
             else
-                mediaSize = [mediaItem.size integerValue];
+                mediaSize = [mediaItem.size longLongValue];
 
             [cell setSubtitle: [NSString stringWithFormat:@"%0.2f MB  (%@)", (float)(mediaSize / 1e6), mediaItem.duration]];
             [cell setIsDirectory:NO];
