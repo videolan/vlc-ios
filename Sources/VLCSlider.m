@@ -16,20 +16,25 @@
 
 - (void)awakeFromNib
 {
-    self.minimumValueImage = [UIImage imageNamed:@"sliderminiValue"];
-    self.maximumValueImage = [UIImage imageNamed:@"slidermaxValue"];
-    [self setMinimumTrackImage:[UIImage imageNamed:@"sliderminimumTrack"] forState:UIControlStateNormal];
-    [self setMaximumTrackImage:[UIImage imageNamed:@"slidermaximumTrack"] forState:UIControlStateNormal];
-    [self setThumbImage:[UIImage imageNamed:@"ballSlider"] forState:UIControlStateNormal];
-    [self setThumbImage:[UIImage imageNamed:@"knobSlider"] forState:UIControlStateHighlighted];
+    if (SYSTEM_RUNS_IOS7_OR_LATER)
+        return;
+
+        self.minimumValueImage = [UIImage imageNamed:@"sliderminiValue"];
+        self.maximumValueImage = [UIImage imageNamed:@"slidermaxValue"];
+        [self setMinimumTrackImage:[UIImage imageNamed:@"sliderminimumTrack"] forState:UIControlStateNormal];
+        [self setMaximumTrackImage:[UIImage imageNamed:@"slidermaximumTrack"] forState:UIControlStateNormal];
+        [self setThumbImage:[UIImage imageNamed:@"ballSlider"] forState:UIControlStateNormal];
+        [self setThumbImage:[UIImage imageNamed:@"knobSlider"] forState:UIControlStateHighlighted];
 }
 
 - (CGRect)trackRectForBounds:(CGRect)bounds
 {
     CGRect returnValue = [super trackRectForBounds:bounds];
+    if (SYSTEM_RUNS_IOS7_OR_LATER)
+        return returnValue;
+
     returnValue.origin.x = 5.;
-    if (!SYSTEM_RUNS_IOS7_OR_LATER)
-        returnValue.origin.y = 7.;
+    returnValue.origin.y = 7.;
     returnValue.size.width = bounds.size.width - 10.;
     return returnValue;
 }
@@ -41,6 +46,9 @@
 
 - (void)awakeFromNib
 {
+    if (SYSTEM_RUNS_IOS7_OR_LATER)
+        return;
+
     self.minimumValueImage = [UIImage imageNamed:@"sliderminiValue"];
     self.maximumValueImage = [UIImage imageNamed:@"slidermaxValue"];
     [self setMinimumTrackImage:[UIImage imageNamed:@"sliderminimumTrack"] forState:UIControlStateNormal];
@@ -51,6 +59,9 @@
 - (CGRect)trackRectForBounds:(CGRect)bounds
 {
     CGRect returnValue = [super trackRectForBounds:bounds];
+    if (SYSTEM_RUNS_IOS7_OR_LATER)
+        return returnValue;
+
     returnValue.origin.x = 5.;
     if (!SYSTEM_RUNS_IOS7_OR_LATER)
         returnValue.origin.y = 7.;
