@@ -97,7 +97,11 @@
     [_refreshControl addTarget:self action:@selector(handleRefresh) forControlEvents:UIControlEventValueChanged];
     [self.tableView addSubview:_refreshControl];
 
-    _loginViewController = [[VLCNetworkLoginViewController alloc] initWithNibName:nil bundle:nil];
+    if (SYSTEM_RUNS_IOS7_OR_LATER)
+        _loginViewController = [[VLCNetworkLoginViewController alloc] initWithNibName:@"VLCFutureNetworkLoginViewController" bundle:nil];
+    else
+        _loginViewController = [[VLCNetworkLoginViewController alloc] initWithNibName:@"VLCNetworkLoginViewController" bundle:nil];
+
     _loginViewController.delegate = self;
 }
 

@@ -297,6 +297,7 @@
 		9B088308183D7BEC004B5C2A /* VLCCloudStorageTableViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 9B088307183D7BEC004B5C2A /* VLCCloudStorageTableViewController.m */; };
 		9B2E0CF417FB71E90098E3DF /* libGTLTouchStaticLib.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 9B2E0CF317FB71E80098E3DF /* libGTLTouchStaticLib.a */; };
 		9B5BEF2917FBAEA50016F9CB /* GTLDrive_Sources.m in Sources */ = {isa = PBXBuildFile; fileRef = 9B5BEF2717FBAEA50016F9CB /* GTLDrive_Sources.m */; };
+		9B9231C4185A703700F89498 /* VLCFutureNetworkLoginViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 9B9231C3185A703700F89498 /* VLCFutureNetworkLoginViewController.xib */; };
 		9BE4D1CE183D76950006346C /* VLCCloudStorageTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 7D3784B0183A990F009EE944 /* VLCCloudStorageTableViewCell.m */; };
 		9BF0708E185122AA009B23DD /* audio.png in Resources */ = {isa = PBXBuildFile; fileRef = 9BF0708B185122AA009B23DD /* audio.png */; };
 		9BF0708F185122AA009B23DD /* audio@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 9BF0708C185122AA009B23DD /* audio@2x.png */; };
@@ -815,6 +816,7 @@
 		9B2E0CF317FB71E80098E3DF /* libGTLTouchStaticLib.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; name = libGTLTouchStaticLib.a; path = "../google-api/Source/build/Debug-iphoneos/libGTLTouchStaticLib.a"; sourceTree = "<group>"; };
 		9B5BEF2717FBAEA50016F9CB /* GTLDrive_Sources.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = GTLDrive_Sources.m; path = ImportedSources/GDrive/Services/Drive/Generated/GTLDrive_Sources.m; sourceTree = SOURCE_ROOT; };
 		9B5BEF2817FBAEA50016F9CB /* GTLDrive.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = GTLDrive.h; path = ImportedSources/GDrive/Services/Drive/Generated/GTLDrive.h; sourceTree = SOURCE_ROOT; };
+		9B9231C3185A703700F89498 /* VLCFutureNetworkLoginViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; name = VLCFutureNetworkLoginViewController.xib; path = Resources/VLCFutureNetworkLoginViewController.xib; sourceTree = SOURCE_ROOT; };
 		9BF0708B185122AA009B23DD /* audio.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = audio.png; sourceTree = "<group>"; };
 		9BF0708C185122AA009B23DD /* audio@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "audio@2x.png"; sourceTree = "<group>"; };
 		9BF0708D185122AA009B23DD /* audio@4x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "audio@4x.png"; sourceTree = "<group>"; };
@@ -1552,6 +1554,7 @@
 		7DADC55C1704FAA8001DAC63 /* XIBs */ = {
 			isa = PBXGroup;
 			children = (
+				9B9231C3185A703700F89498 /* VLCFutureNetworkLoginViewController.xib */,
 				7DBBF183183AB4300009A339 /* VLCAboutViewController~ipad.xib */,
 				7DBBF184183AB4300009A339 /* VLCAboutViewController~iphone.xib */,
 				7DBBF185183AB4300009A339 /* VLCCloudStorageTableViewCell~ipad.xib */,
@@ -1939,6 +1942,7 @@
 				A79246C8170F11DF0036AAF2 /* Localizable.strings in Resources */,
 				A7CB0DB11716F72600050CF3 /* PlayingExternally@2x~iphone.png in Resources */,
 				A7CB0DB21716F72600050CF3 /* PlayingExternally~iphone.png in Resources */,
+				9B9231C4185A703700F89498 /* VLCFutureNetworkLoginViewController.xib in Resources */,
 				7DBBF1A8183AB4300009A339 /* VLCOpenNetworkStreamViewController.xib in Resources */,
 				A7CB0DB31716F72600050CF3 /* PlayingExternally~ipad.png in Resources */,
 				A7CB0DB41716F72600050CF3 /* PlayingExternally@2x~ipad.png in Resources */,

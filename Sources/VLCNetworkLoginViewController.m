@@ -64,8 +64,13 @@
     self.passwordField.returnKeyType = UIReturnKeyDone;
     self.passwordField.clearButtonMode = UITextFieldViewModeWhileEditing;
 
-    if (SYSTEM_RUNS_IOS7_OR_LATER)
+    if (SYSTEM_RUNS_IOS7_OR_LATER) {
+        UIColor *color = [UIColor colorWithWhite:0.47 alpha:1.0];
+        self.serverAddressField.attributedPlaceholder = [[NSAttributedString alloc] initWithString:@"ftp://yourserver.local" attributes:@{NSForegroundColorAttributeName: color}];
+        self.usernameField.attributedPlaceholder = [[NSAttributedString alloc] initWithString:NSLocalizedString(@"USER_LABEL", @"") attributes:@{NSForegroundColorAttributeName: color}];
+        self.passwordField.attributedPlaceholder = [[NSAttributedString alloc] initWithString:NSLocalizedString(@"PASSWORD_LABEL", @"") attributes:@{NSForegroundColorAttributeName: color}];
         self.edgesForExtendedLayout = UIRectEdgeNone;
+    }
 }
 
 - (void)viewWillAppear:(BOOL)animated
