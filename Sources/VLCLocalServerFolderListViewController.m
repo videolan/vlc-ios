@@ -133,12 +133,12 @@
     _searchDisplayController.delegate = self;
     _searchDisplayController.searchResultsDataSource = self;
     _searchDisplayController.searchResultsDelegate = self;
+    _searchDisplayController.searchBar.searchBarStyle = UIBarStyleBlack;
     _searchBar.delegate = self;
     self.tableView.tableHeaderView = _searchBar; //this line add the searchBar on the top of tableView.
 
     _searchData = [[NSMutableArray alloc] init];
     [_searchData removeAllObjects];
-
 }
 
 - (BOOL)shouldAutorotate
@@ -186,27 +186,35 @@
         if (![item isContainer]) {
             MediaServer1ItemObject *mediaItem;
             long long mediaSize = 0;
+            unsigned int durationInSeconds = 0;
+            unsigned int bitrate = 0;
 
             if (tableView == self.searchDisplayController.searchResultsTableView)
                 mediaItem = _searchData[indexPath.row];
             else
                 mediaItem = _mutableObjectList[indexPath.row];
 
-            if (![mediaItem size]) {
-                NSRange end = [mediaItem.duration rangeOfString:@"."];
-                NSString *timeString =[mediaItem.duration substringWithRange:NSMakeRange(0, end.location)];
-
-                NSArray *arrayTime = [timeString componentsSeparatedByString:@":"];
-                NSInteger hours   = [[arrayTime objectAtIndex:0] integerValue];
-                NSInteger minutes = [[arrayTime objectAtIndex:1] integerValue];
-                NSInteger seconds = [[arrayTime objectAtIndex:2] integerValue];
-
-                mediaSize = [mediaItem.bitrate integerValue] * ((hours * 60 * 60) + (minutes * 60) + seconds);
+            MediaServer1ItemRes *resource = nil;
+            NSEnumerator *e = [[mediaItem resources] objectEnumerator];
+            NSURL *itemURL;
+            while((resource = (MediaServer1ItemRes*)[e nextObject])){
+                if (resource.bitrate > 0 && resource.durationInSeconds > 0) {
+                    mediaSize = resource.size;
+                    durationInSeconds = resource.durationInSeconds;
+                    bitrate = resource.bitrate;
+                }
             }
-            else
+            NSArray *uriCollectionObjects = [[mediaItem uriCollection] allValues];
+            itemURL = [NSURL URLWithString:uriCollectionObjects[0]];
+            cell.downloadURL = itemURL;
+
+            if (mediaSize < 1)
                 mediaSize = [mediaItem.size longLongValue];
 
-            [cell setSubtitle: [NSString stringWithFormat:@"%@ (%@)", [NSByteCountFormatter stringFromByteCount:mediaSize countStyle:NSByteCountFormatterCountStyleFile], mediaItem.duration]];
+            if (mediaSize < 1)
+                mediaSize = (bitrate * durationInSeconds) / 8;
+
+            [cell setSubtitle: [NSString stringWithFormat:@"%@ (%@)", [NSByteCountFormatter stringFromByteCount:mediaSize countStyle:NSByteCountFormatterCountStyleFile], [VLCTime timeWithInt:durationInSeconds * 1000].stringValue]];
             [cell setIsDirectory:NO];
             cell.isDownloadable = YES;
             if (![mediaItem.albumArt isEqualToString:NULL]) {
@@ -217,6 +225,9 @@
             else
                 [cell setIcon:[UIImage imageNamed:@"blank"]];
             cell.delegate = self;
+
+
+
         } else {
             [cell setIsDirectory:YES];
             [cell setIcon:[UIImage imageNamed:@"folder"]];
@@ -274,19 +285,19 @@
             VLCLocalServerFolderListViewController *targetViewController = [[VLCLocalServerFolderListViewController alloc] initWithUPNPDevice:_UPNPdevice header:[container title] andRootID:[container objectID]];
             [[self navigationController] pushViewController:targetViewController animated:YES];
         } else {
-            MediaServer1ItemObject *item;
-            if (tableView == self.searchDisplayController.searchResultsTableView)
-                item = _searchData[indexPath.row];
-            else
-                item = _mutableObjectList[indexPath.row];
+            MediaServer1ItemObject *mediaItem;
 
-            MediaServer1ItemRes *resource = nil;
-            NSEnumerator *e = [[item resources] objectEnumerator];
+            if (tableView == self.searchDisplayController.searchResultsTableView)
+                mediaItem = _searchData[indexPath.row];
+            else
+                mediaItem = _mutableObjectList[indexPath.row];
+
             NSURL *itemURL;
-            while((resource = (MediaServer1ItemRes*)[e nextObject])){
-                APLog(@"%@ - %d, %@, %d, %lld, %d, %@ (%@)", [item title], [resource bitrate], [resource duration], [resource nrAudioChannels], [resource size],  [resource durationInSeconds],  [resource protocolInfo], [item uri]);
-                itemURL = [NSURL URLWithString:[item uri]];
-            }
+            NSArray *uriCollectionObjects = [[mediaItem uriCollection] allValues];
+            if (uriCollectionObjects.count == 1)
+                itemURL = [NSURL URLWithString:mediaItem.uri];
+            else
+                itemURL = [NSURL URLWithString:uriCollectionObjects[0]];
 
             if (itemURL) {
                 VLCAppDelegate* appDelegate = [UIApplication sharedApplication].delegate;
