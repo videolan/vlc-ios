@@ -22,10 +22,6 @@
 #import "VLCAppDelegate.h"
 #import "UIBarButtonItem+Theme.h"
 
-#ifndef UIStatusBarStyleLightContent
-#define UIStatusBarStyleLightContent 1
-#endif
-
 @implementation EmptyLibraryView
 @end
 
