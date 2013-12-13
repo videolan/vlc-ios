@@ -31,6 +31,7 @@
 
 @interface VLCMovieViewController () <UIGestureRecognizerDelegate, AVAudioSessionDelegate>
 {
+    VLCMediaListPlayer *_listPlayer;
     VLCMediaPlayer *_mediaPlayer;
 
     BOOL _controlsHidden;
@@ -326,7 +327,8 @@
         return;
     }
 
-    _mediaPlayer = [[VLCMediaPlayer alloc] initWithOptions:@[[NSString stringWithFormat:@"--%@=%@", kVLCSettingSubtitlesFont, [defaults objectForKey:kVLCSettingSubtitlesFont]], [NSString stringWithFormat:@"--%@=%@", kVLCSettingSubtitlesFontColor, [defaults objectForKey:kVLCSettingSubtitlesFontColor]], [NSString stringWithFormat:@"--%@=%@", kVLCSettingSubtitlesFontSize, [defaults objectForKey:kVLCSettingSubtitlesFontSize]], [NSString stringWithFormat:@"--%@=%@", kVLCSettingDeinterlace, [defaults objectForKey:kVLCSettingDeinterlace]]]];
+    _listPlayer = [[VLCMediaListPlayer alloc] initWithOptions:@[[NSString stringWithFormat:@"--%@=%@", kVLCSettingSubtitlesFont, [defaults objectForKey:kVLCSettingSubtitlesFont]], [NSString stringWithFormat:@"--%@=%@", kVLCSettingSubtitlesFontColor, [defaults objectForKey:kVLCSettingSubtitlesFontColor]], [NSString stringWithFormat:@"--%@=%@", kVLCSettingSubtitlesFontSize, [defaults objectForKey:kVLCSettingSubtitlesFontSize]], [NSString stringWithFormat:@"--%@=%@", kVLCSettingDeinterlace, [defaults objectForKey:kVLCSettingDeinterlace]], @"-vvvv", @"--no-audio"]];
+    _mediaPlayer = _listPlayer.mediaPlayer;
     [_mediaPlayer setDelegate:self];
     [_mediaPlayer setDrawable:self.movieView];
     self.trackNameLabel.text = self.artistNameLabel.text = self.albumNameLabel.text = @"";
@@ -386,7 +388,8 @@
         }
     }
 
-    [_mediaPlayer setMedia:media];
+    [_listPlayer setRootMedia:media];
+    [_listPlayer setRepeatMode:VLCDoNotRepeat];
 
     self.positionSlider.value = 0.;
     [self.timeDisplay setTitle:@"" forState:UIControlStateNormal];
@@ -450,7 +453,7 @@
     [_mediaPlayer addObserver:self forKeyPath:@"time" options:0 context:nil];
     [_mediaPlayer addObserver:self forKeyPath:@"remainingTime" options:0 context:nil];
 
-    [_mediaPlayer play];
+    [_listPlayer playMedia:_listPlayer.rootMedia];
 
     if (self.mediaItem) {
         if (self.mediaItem.lastAudioTrack.intValue > 0)
@@ -511,6 +514,8 @@
         }
         if (_mediaPlayer)
             _mediaPlayer = nil;
+        if (_listPlayer)
+            _listPlayer = nil;
     }
     if (_mediaItem)
         _mediaItem = nil;
@@ -560,11 +565,11 @@
 {
     switch (event.subtype) {
         case UIEventSubtypeRemoteControlPlay:
-            [_mediaPlayer play];
+            [_listPlayer play];
             break;
 
         case UIEventSubtypeRemoteControlPause:
-            [_mediaPlayer pause];
+            [_listPlayer pause];
             break;
 
         case UIEventSubtypeRemoteControlTogglePlayPause:
@@ -791,9 +796,9 @@
 - (IBAction)playPause
 {
     if ([_mediaPlayer isPlaying])
-        [_mediaPlayer pause];
+        [_listPlayer pause];
     else
-        [_mediaPlayer play];
+        [_listPlayer play];
 }
 
 - (IBAction)forward:(id)sender
@@ -875,10 +880,10 @@
 - (void)tapRecognized
 {
     if ([_mediaPlayer isPlaying]) {
-        [_mediaPlayer pause];
+        [_listPlayer pause];
         [self.statusLabel showStatusMessage:@"  ▌▌"];
     } else {
-        [_mediaPlayer play];
+        [_listPlayer play];
         [self.statusLabel showStatusMessage:@" ►"];
     }
 }
@@ -949,7 +954,7 @@
 
     if (panRecognizer.state == UIGestureRecognizerStateEnded) {
         if ([_mediaPlayer isPlaying])
-            [_mediaPlayer play];
+            [_listPlayer play];
     }
 }
 
@@ -976,7 +981,7 @@
 
     if (swipeRecognizer.state == UIGestureRecognizerStateEnded) {
         if ([_mediaPlayer isPlaying])
-            [_mediaPlayer play];
+            [_listPlayer play];
 
         [self.statusLabel showStatusMessage:hudString];
     }
@@ -1141,7 +1146,7 @@
 
     if (_shouldResumePlaying) {
         _shouldResumePlaying = NO;
-        [_mediaPlayer play];
+        [_listPlayer play];
     }
 }
 
@@ -1198,7 +1203,7 @@
 - (void)endInterruption
 {
     if (_shouldResumePlaying) {
-        [_mediaPlayer play];
+        [_listPlayer play];
         _shouldResumePlaying = NO;
     }
 }
