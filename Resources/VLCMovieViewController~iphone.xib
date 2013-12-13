@@ -36,6 +36,7 @@
                 <outlet property="playingExternallyTitle" destination="110" id="114"/>
                 <outlet property="playingExternallyView" destination="108" id="112"/>
                 <outlet property="positionSlider" destination="262" id="269"/>
+                <outlet property="repeatButton" destination="3Pu-h2-L0m" id="1LA-O2-2ry"/>
                 <outlet property="resetVideoFilterButton" destination="162" id="163"/>
                 <outlet property="saturationLabel" destination="136" id="155"/>
                 <outlet property="saturationSlider" destination="135" id="152"/>
@@ -145,41 +146,8 @@
                         <bool key="isElement" value="YES"/>
                     </accessibility>
                 </view>
-                <navigationBar contentMode="scaleToFill" barStyle="blackTranslucent" id="250">
-                    <rect key="frame" x="0.0" y="18" width="320" height="44"/>
-                    <autoresizingMask key="autoresizingMask" widthSizable="YES" flexibleMaxY="YES"/>
-                    <items>
-                        <navigationItem title="Title" id="261">
-                            <connections>
-                                <outlet property="leftBarButtonItem" destination="85" id="270"/>
-                                <outlet property="titleView" destination="260" id="271"/>
-                            </connections>
-                        </navigationItem>
-                    </items>
-                </navigationBar>
-                <view hidden="YES" contentMode="scaleToFill" id="241" userLabel="Controls panel">
-                    <rect key="frame" x="0.0" y="63" width="320" height="46"/>
-                    <autoresizingMask key="autoresizingMask" widthSizable="YES" flexibleMaxY="YES"/>
-                    <subviews>
-                        <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" text="High-Speed Scrubbing" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="244">
-                            <rect key="frame" x="20" y="3" width="280" height="21"/>
-                            <autoresizingMask key="autoresizingMask" widthSizable="YES" flexibleMaxY="YES"/>
-                            <fontDescription key="fontDescription" type="system" pointSize="13"/>
-                            <color key="textColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
-                            <nil key="highlightedColor"/>
-                        </label>
-                        <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" text="Slide your finger down to adjust the scrubbing rate." textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsLetterSpacingToFitWidth="YES" adjustsFontSizeToFit="NO" id="246">
-                            <rect key="frame" x="0.0" y="21" width="320" height="21"/>
-                            <autoresizingMask key="autoresizingMask" widthSizable="YES" flexibleMaxY="YES"/>
-                            <fontDescription key="fontDescription" type="system" pointSize="13"/>
-                            <color key="textColor" white="0.66666666666666663" alpha="1" colorSpace="calibratedWhite"/>
-                            <nil key="highlightedColor"/>
-                        </label>
-                    </subviews>
-                    <color key="backgroundColor" white="0.0" alpha="0.60999999999999999" colorSpace="custom" customColorSpace="calibratedWhite"/>
-                </view>
                 <view contentMode="scaleToFill" id="92" userLabel="Controls panel">
-                    <rect key="frame" x="0.0" y="450" width="320" height="90"/>
+                    <rect key="frame" x="0.0" y="430" width="320" height="90"/>
                     <autoresizingMask key="autoresizingMask" flexibleMinX="YES" flexibleMaxX="YES" flexibleMinY="YES"/>
                     <subviews>
                         <imageView userInteractionEnabled="NO" contentMode="scaleToFill" image="playbackControllerBg.png" id="231">
@@ -272,7 +240,7 @@
                             </connections>
                         </button>
                         <view contentMode="scaleToFill" id="230" customClass="MPVolumeView">
-                            <rect key="frame" x="20" y="57" width="284" height="22"/>
+                            <rect key="frame" x="60" y="57" width="244" height="22"/>
                             <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                         </view>
                         <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" id="183">
@@ -307,7 +275,50 @@
                                 <action selector="videoFilterToggle:" destination="-1" eventType="touchUpInside" id="161"/>
                             </connections>
                         </button>
+                        <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" id="3Pu-h2-L0m">
+                            <rect key="frame" x="14" y="53" width="30" height="30"/>
+                            <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                            <state key="normal" title="RP">
+                                <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
+                            </state>
+                            <connections>
+                                <action selector="toggleRepeatMode:" destination="-1" eventType="touchUpInside" id="Xza-fk-7Go"/>
+                            </connections>
+                        </button>
                     </subviews>
+                </view>
+                <navigationBar contentMode="scaleToFill" barStyle="blackTranslucent" id="250">
+                    <rect key="frame" x="0.0" y="18" width="320" height="44"/>
+                    <autoresizingMask key="autoresizingMask" widthSizable="YES" flexibleMaxY="YES"/>
+                    <items>
+                        <navigationItem title="Title" id="261">
+                            <connections>
+                                <outlet property="leftBarButtonItem" destination="85" id="270"/>
+                                <outlet property="titleView" destination="260" id="271"/>
+                            </connections>
+                        </navigationItem>
+                    </items>
+                </navigationBar>
+                <view hidden="YES" contentMode="scaleToFill" id="241" userLabel="Controls panel">
+                    <rect key="frame" x="0.0" y="63" width="320" height="46"/>
+                    <autoresizingMask key="autoresizingMask" widthSizable="YES" flexibleMaxY="YES"/>
+                    <subviews>
+                        <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" text="High-Speed Scrubbing" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="244">
+                            <rect key="frame" x="20" y="3" width="280" height="21"/>
+                            <autoresizingMask key="autoresizingMask" widthSizable="YES" flexibleMaxY="YES"/>
+                            <fontDescription key="fontDescription" type="system" pointSize="13"/>
+                            <color key="textColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                            <nil key="highlightedColor"/>
+                        </label>
+                        <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" text="Slide your finger down to adjust the scrubbing rate." textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsLetterSpacingToFitWidth="YES" adjustsFontSizeToFit="NO" id="246">
+                            <rect key="frame" x="0.0" y="21" width="320" height="21"/>
+                            <autoresizingMask key="autoresizingMask" widthSizable="YES" flexibleMaxY="YES"/>
+                            <fontDescription key="fontDescription" type="system" pointSize="13"/>
+                            <color key="textColor" white="0.66666666666666663" alpha="1" colorSpace="calibratedWhite"/>
+                            <nil key="highlightedColor"/>
+                        </label>
+                    </subviews>
+                    <color key="backgroundColor" white="0.0" alpha="0.60999999999999999" colorSpace="custom" customColorSpace="calibratedWhite"/>
                 </view>
                 <view hidden="YES" userInteractionEnabled="NO" contentMode="scaleToFill" id="108" userLabel="Playing Externally View">
                     <rect key="frame" x="0.0" y="135" width="320" height="257"/>

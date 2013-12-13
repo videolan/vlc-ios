@@ -776,7 +776,7 @@
         [self performSelector:@selector(closePlayback:) withObject:nil afterDelay:2.];
     }
 
-    if (currentState == VLCMediaPlayerStateEnded || currentState == VLCMediaPlayerStateStopped)
+    if ((currentState == VLCMediaPlayerStateEnded || currentState == VLCMediaPlayerStateStopped) && _listPlayer.repeatMode == VLCDoNotRepeat)
         [self performSelector:@selector(closePlayback:) withObject:nil afterDelay:2.];
 
     UIImage *playPauseImage = [_mediaPlayer isPlaying]? [UIImage imageNamed:@"pauseIcon"] : [UIImage imageNamed:@"playIcon"];
@@ -809,6 +809,14 @@
 - (IBAction)backward:(id)sender
 {
     [_mediaPlayer mediumJumpBackward];
+}
+
+- (void)toggleRepeatMode:(id)sender
+{
+    if (_listPlayer.repeatMode == VLCDoNotRepeat)
+        _listPlayer.repeatMode = VLCRepeatCurrentItem;
+    else
+        _listPlayer.repeatMode = VLCDoNotRepeat;
 }
 
 - (IBAction)switchAudioTrack:(id)sender

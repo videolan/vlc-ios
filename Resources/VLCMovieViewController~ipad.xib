@@ -36,6 +36,7 @@
                 <outlet property="playingExternallyTitle" destination="125" id="133"/>
                 <outlet property="playingExternallyView" destination="123" id="131"/>
                 <outlet property="positionSlider" destination="249" id="261"/>
+                <outlet property="repeatButton" destination="96c-QK-bZI" id="SPv-gB-C2a"/>
                 <outlet property="resetVideoFilterButton" destination="142" id="175"/>
                 <outlet property="saturationLabel" destination="150" id="166"/>
                 <outlet property="saturationSlider" destination="149" id="168"/>
@@ -286,7 +287,7 @@
                             </connections>
                         </button>
                         <view contentMode="scaleToFill" id="281" customClass="MPVolumeView">
-                            <rect key="frame" x="14" y="57" width="342" height="22"/>
+                            <rect key="frame" x="66" y="57" width="290" height="22"/>
                             <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                         </view>
                         <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" id="278">
@@ -370,6 +371,16 @@
                             </state>
                             <connections>
                                 <action selector="playPause" destination="-1" eventType="touchUpInside" id="283"/>
+                            </connections>
+                        </button>
+                        <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" id="96c-QK-bZI">
+                            <rect key="frame" x="13" y="53" width="30" height="30"/>
+                            <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                            <state key="normal" title="RP">
+                                <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
+                            </state>
+                            <connections>
+                                <action selector="toggleRepeatMode:" destination="-1" eventType="touchUpInside" id="UWl-MQ-MX7"/>
                             </connections>
                         </button>
                     </subviews>
