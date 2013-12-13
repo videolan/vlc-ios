@@ -236,6 +236,10 @@
         rect = self.resetVideoFilterButton.frame;
         rect.origin.y = rect.origin.y + 5.;
         self.resetVideoFilterButton.frame = rect;
+        rect = self.toolbar.frame;
+        rect.size.height = rect.size.height + rect.origin.y;
+        rect.origin.y = 0;
+        self.toolbar.frame = rect;
     } else {
         [self.aspectRatioButton setBackgroundImage:[UIImage imageNamed:@"ratioButton"] forState:UIControlStateNormal];
         [self.aspectRatioButton setBackgroundImage:[UIImage imageNamed:@"ratioButtonHighlight"] forState:UIControlStateHighlighted];
