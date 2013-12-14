@@ -238,7 +238,7 @@
     /* update library now that we got a file */
     APLog(@"DriveFile download was successful");
     VLCAppDelegate *appDelegate = [UIApplication sharedApplication].delegate;
-    [appDelegate updateMediaList];
+    [appDelegate performSelectorOnMainThread:@selector(updateMediaList) withObject:nil waitUntilDone:NO];
 
     if ([self.delegate respondsToSelector:@selector(operationWithProgressInformationStopped)])
         [self.delegate operationWithProgressInformationStopped];

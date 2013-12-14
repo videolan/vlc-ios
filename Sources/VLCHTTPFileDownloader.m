@@ -116,7 +116,7 @@
 -(void)connectionDidFinishLoading:(NSURLConnection *)connection {
     APLog(@"http file download complete");
     VLCAppDelegate * appDelegate = [UIApplication sharedApplication].delegate;
-    [appDelegate updateMediaList];
+    [appDelegate performSelectorOnMainThread:@selector(updateMediaList) withObject:nil waitUntilDone:NO];
 
     [self _downloadEnded];
 }

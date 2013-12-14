@@ -159,7 +159,7 @@
 
     /* update media library when file upload was completed */
     VLCAppDelegate* appDelegate = [UIApplication sharedApplication].delegate;
-    [appDelegate updateMediaList];
+    [appDelegate performSelectorOnMainThread:@selector(updateMediaList) withObject:nil waitUntilDone:NO];
 }
 
 @end
