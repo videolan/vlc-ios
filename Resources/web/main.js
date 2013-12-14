@@ -4,10 +4,10 @@ $(function(){
     });
     $(document).bind('dragover', function () {
         $('.main').addClass('drop');
-    })
+    });
     $(document).bind('dragexit dragleave dragend drop', function () {
         $('.main').removeClass('drop');
-    })
+    });
 
     var fileupload = $('#fileupload').fileupload({
         dataType: 'json',
@@ -22,13 +22,11 @@ $(function(){
     fileupload.bind('fileuploadprogress', progress);
 
     $(window).bind('beforeunload', function (e) {
-        var confirmationMessage = null;
-
-        if ($('.uploads > ul > li').not('.done').not('.fail').length > 0) {
-            confirmationMessage = 'There are transfers in progress, navigating away will abort them.';
+        if (xhrCache.length) {
+            var confirmationMessage = 'There are transfers in progress, navigating away will abort them.';
+            (e || window.event).returnValue = confirmationMessage;     // Gecko + IE
+            return confirmationMessage;                                // Webkit, Safari, Chrome etc.
         }
-        (e || window.event).returnValue = confirmationMessage;     // Gecko + IE
-        return confirmationMessage;                                // Webkit, Safari, Chrome etc.
     });
 
     var xhrCache = [];
@@ -72,6 +70,7 @@ $(function(){
 
     function done (e, data) {
         $.each(data.files, function (index, file) {
+            xhrCache.splice(file._ID, 1);
             $('li[data-file-id=' + file._ID + ']').addClass('done');
         });
     }
@@ -86,6 +85,7 @@ $(function(){
     function fail (e, data) {
         console.log('File transfer failed', data.errorThrown, data.textStatus);
         $.each(data.files, function (index, file) {
+            xhrCache.splice(file._ID, 1);
             $('li[data-file-id=' + file._ID + ']').addClass('fail');
         });
     }
@@ -96,6 +96,7 @@ $(function(){
         var li = $(e.currentTarget).parent('li');
         var id = li.data('file-id');
         xhrCache[id].abort();
+        xhrCache.splice(id, 1);
         li.addClass('fail');
     }
 });
