@@ -46,12 +46,13 @@
     if (_fileMetadata != nil) {
         if (self.fileMetadata.isDirectory) {
             self.folderTitleLabel.text = self.fileMetadata.filename;
-            self.titleLabel.text = @"";
-            self.subtitleLabel.text = @"";
+            self.titleLabel.hidden = self.subtitleLabel.hidden = YES;
+            self.folderTitleLabel.hidden = NO;
         } else {
             self.titleLabel.text = self.fileMetadata.filename;
             self.subtitleLabel.text = (self.fileMetadata.totalBytes > 0) ? self.fileMetadata.humanReadableSize : @"";
-            self.folderTitleLabel.text = @"";
+            self.titleLabel.hidden = self.subtitleLabel.hidden = NO;
+            self.folderTitleLabel.hidden = YES;
         }
 
         NSString *iconName = self.fileMetadata.icon;
@@ -71,12 +72,13 @@
         BOOL isDirectory = [self.driveFile.mimeType isEqualToString:@"application/vnd.google-apps.folder"];
         if (isDirectory) {
             self.folderTitleLabel.text = self.driveFile.title;
-            self.titleLabel.text = @"";
-            self.subtitleLabel.text = @"";
+            self.titleLabel.hidden = self.subtitleLabel.hidden = YES;
+            self.folderTitleLabel.hidden = NO;
         } else {
             self.titleLabel.text = self.driveFile.title;
             self.subtitleLabel.text = (self.driveFile.fileSize > 0) ? [NSByteCountFormatter stringFromByteCount:[self.driveFile.fileSize longLongValue] countStyle:NSByteCountFormatterCountStyleFile]: @"";
-            self.folderTitleLabel.text = @"";
+            self.titleLabel.hidden = self.subtitleLabel.hidden = NO;
+            self.folderTitleLabel.hidden = YES;
         }
 
         NSString *iconName = self.driveFile.iconLink;
