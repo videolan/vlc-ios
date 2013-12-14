@@ -59,6 +59,13 @@
 
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions
 {
+    /* clean caches on launch (since those are used for wifi upload only) */
+    NSArray *searchPaths = NSSearchPathForDirectoriesInDomains(NSCachesDirectory, NSUserDomainMask, YES);
+    NSString* uploadDirPath = searchPaths[0];
+    NSFileManager *fileManager = [NSFileManager defaultManager];
+    if ([fileManager fileExistsAtPath:uploadDirPath])
+        [fileManager removeItemAtPath:uploadDirPath error:nil];
+
     // Init the HTTP Server
     self.uploadController = [[VLCHTTPUploaderController alloc] init];
 
