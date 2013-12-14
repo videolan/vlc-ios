@@ -219,11 +219,6 @@ mlkit_build="${aspen_root_dir}/ImportedSources/MediaLibraryKit/${xcbuilddir}"
 upnpx_build="${aspen_root_dir}/ImportedSources/upnpx/projects/xcode4/upnpx/${xcbuilddir}"
 gtl_build="${aspen_root_dir}/ImportedSources/GDrive/${xcbuilddir}"
 
-spushd MediaLibraryKit
-rm -f External/MobileVLCKit
-ln -sf ${framework_build} External/MobileVLCKit
-spopd
-
 spopd #ImportedSources
 
 ln -sf ${framework_build} External/MobileVLCKit
@@ -260,6 +255,8 @@ buildxcodeproj MobileVLCKit "MobileVLCKit"
 spopd
 
 spushd MediaLibraryKit
+rm -f External/MobileVLCKit
+ln -sf ${framework_build} External/MobileVLCKit
 buildxcodeproj MediaLibraryKit
 spopd
 
