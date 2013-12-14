@@ -19,13 +19,13 @@
 #import "HTTPDataResponse.h"
 #import "HTTPFileResponse.h"
 #import "MultipartMessageHeaderField.h"
+#import "VLCHTTPUploaderController.h"
 
 @interface VLCHTTPConnection()
 {
     MultipartFormDataParser *_parser;
     NSFileHandle *_storeFile;
     NSString *_filepath;
-    NSString *_filename;
     UInt64 _contentLength;
     UInt64 _receivedContent;
 }
@@ -138,7 +138,6 @@
         // an empty form sent. we won't handle it.
         return;
     }
-    _filename = filename;
 
     // create the path where to store the media temporarily
     NSArray *searchPaths = NSSearchPathForDirectoriesInDomains(NSCachesDirectory, NSUserDomainMask, YES);
@@ -177,50 +176,15 @@
     APLog(@"closing file");
     [_storeFile closeFile];
     _storeFile = nil;
-
-    NSArray *searchPaths = NSSearchPathForDirectoriesInDomains(NSDocumentDirectory, NSUserDomainMask, YES);
-    NSString *libraryPath = searchPaths[0];
-    NSString *finalFilePath = [libraryPath stringByAppendingPathComponent:_filename];
-    NSFileManager *fileManager = [NSFileManager defaultManager];
-
-    if ([fileManager fileExistsAtPath:finalFilePath]) {
-        /* we don't want to over-write existing files, so add an integer to the file name */
-        NSString *potentialFilename;
-        NSString *fileExtension = [_filename pathExtension];
-        NSString *rawFileName = [_filename stringByDeletingPathExtension];
-        for (NSUInteger x = 1; x < 100; x++) {
-            potentialFilename = [NSString stringWithFormat:@"%@ %i.%@", rawFileName, x, fileExtension];
-            if (![[NSFileManager defaultManager] fileExistsAtPath:[libraryPath stringByAppendingPathComponent:potentialFilename]])
-                break;
-        }
-        finalFilePath = [libraryPath stringByAppendingPathComponent:potentialFilename];
-    }
-
-    NSError *error;
-    [fileManager moveItemAtPath:_filepath toPath:finalFilePath error:&error];
-    if (error) {
-        APLog(@"Moving received media %@ to library folder failed (%i), deleting", _filename, error.code);
-        [fileManager removeItemAtPath:_filepath error:nil];
-    }
-
-    [UIApplication sharedApplication].networkActivityIndicatorVisible = NO;
-    [(VLCAppDelegate*)[UIApplication sharedApplication].delegate activateIdleTimer];
-
-    /* update media library when file upload was completed */
-    VLCAppDelegate* appDelegate = [UIApplication sharedApplication].delegate;
-    [appDelegate updateMediaList];
 }
 
-- (void)die
+- (BOOL)shouldDie
 {
-    if (_storeFile) {
-        _storeFile = nil;
-        [[NSFileManager defaultManager] removeItemAtPath:_filepath error:nil];
-        [UIApplication sharedApplication].networkActivityIndicatorVisible = NO;
-        [(VLCAppDelegate*)[UIApplication sharedApplication].delegate activateIdleTimer];
+    if (_filepath) {
+        if (_filepath.length > 0)
+            [[(VLCAppDelegate*)[UIApplication sharedApplication].delegate uploadController] moveFileFrom:_filepath];
     }
-
-    [super die];
+    return [super shouldDie];
 }
 
 @end

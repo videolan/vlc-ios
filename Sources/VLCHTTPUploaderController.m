@@ -126,4 +126,40 @@
     return address;
 }
 
+- (void)moveFileFrom:(NSString *)filepath
+{
+    NSString *fileName = [filepath lastPathComponent];
+    NSArray *searchPaths = NSSearchPathForDirectoriesInDomains(NSDocumentDirectory, NSUserDomainMask, YES);
+    NSString *libraryPath = searchPaths[0];
+    NSString *finalFilePath = [libraryPath stringByAppendingPathComponent:fileName];
+    NSFileManager *fileManager = [NSFileManager defaultManager];
+
+    if ([fileManager fileExistsAtPath:finalFilePath]) {
+        /* we don't want to over-write existing files, so add an integer to the file name */
+        NSString *potentialFilename;
+        NSString *fileExtension = [fileName pathExtension];
+        NSString *rawFileName = [fileName stringByDeletingPathExtension];
+        for (NSUInteger x = 1; x < 100; x++) {
+            potentialFilename = [NSString stringWithFormat:@"%@ %i.%@", rawFileName, x, fileExtension];
+            if (![[NSFileManager defaultManager] fileExistsAtPath:[libraryPath stringByAppendingPathComponent:potentialFilename]])
+                break;
+        }
+        finalFilePath = [libraryPath stringByAppendingPathComponent:potentialFilename];
+    }
+
+    NSError *error;
+    [fileManager moveItemAtPath:filepath toPath:finalFilePath error:&error];
+    if (error) {
+        APLog(@"Moving received media %@ to library folder failed (%i), deleting", fileName, error.code);
+        [fileManager removeItemAtPath:filepath error:nil];
+    }
+
+    [UIApplication sharedApplication].networkActivityIndicatorVisible = NO;
+    [(VLCAppDelegate*)[UIApplication sharedApplication].delegate activateIdleTimer];
+
+    /* update media library when file upload was completed */
+    VLCAppDelegate* appDelegate = [UIApplication sharedApplication].delegate;
+    [appDelegate updateMediaList];
+}
+
 @end
