@@ -288,7 +288,6 @@
 
 - (void)loginToURL:(NSURL *)url confirmedWithUsername:(NSString *)username andPassword:(NSString *)password
 {
-    _loginViewController = nil;
     if ([url.scheme isEqualToString:@"ftp"]) {
         if (url.host.length > 0) {
             VLCLocalServerFolderListViewController *targetViewController = [[VLCLocalServerFolderListViewController alloc] initWithFTPServer:url.host userName:username andPassword:password atPath:@"/"];

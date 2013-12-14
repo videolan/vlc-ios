@@ -81,12 +81,30 @@
     _savePass = [NSMutableArray arrayWithArray:[defaults objectForKey:kVLCFTPPassword]];
 
     [super viewWillAppear:animated];
+
+    if ([defaults stringForKey:kVLCLastFTPServer])
+        self.serverAddressField.text = [defaults stringForKey:kVLCLastFTPServer];
+    if ([defaults stringForKey:kVLCLastFTPLogin])
+        self.usernameField.text = [defaults stringForKey:kVLCLastFTPLogin];
+    if ([defaults stringForKey:kVLCLastFTPPassword])
+        self.passwordField.text = [defaults stringForKey:kVLCLastFTPPassword];
+
     if (_hostname.length > 0)
         self.serverAddressField.text = _hostname;
     if (_username.length > 0)
         self.usernameField.text = _username;
     if (_password.length > 0)
         self.passwordField.text = _password;
+}
+
+- (void)viewWillDisappear:(BOOL)animated
+{
+    NSUserDefaults *defaults = [NSUserDefaults standardUserDefaults];
+    [defaults setObject:self.serverAddressField.text forKey:kVLCLastFTPServer];
+    [defaults setObject:self.usernameField.text forKey:kVLCLastFTPLogin];
+    [defaults setObject:self.passwordField.text forKey:kVLCLastFTPPassword];
+
+    [super viewWillDisappear:animated];
 }
 
 - (IBAction)dismissWithAnimation:(id)sender
