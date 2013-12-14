@@ -1289,20 +1289,17 @@
 			name = "Movie VIew";
 			sourceTree = "<group>";
 		};
-		7D5E39CC174FCDBE007DAFA1 /* Dropbox Integration */ = {
+		7D5E39CC174FCDBE007DAFA1 /* Cloud Integration */ = {
 			isa = PBXGroup;
 			children = (
-				7D3784A8183A9906009EE944 /* VLCDropboxConstants.h */,
-				7D3784A9183A9906009EE944 /* VLCDropboxController.h */,
-				7D3784AA183A9906009EE944 /* VLCDropboxController.m */,
-				7D3784AB183A9906009EE944 /* VLCDropboxTableViewController.h */,
-				7D3784AC183A9906009EE944 /* VLCDropboxTableViewController.m */,
+				9B51719A17EDEC8900F8FBA7 /* GoogleDrive */,
+				7DFB1567185CC38A008D49BB /* Dropbox */,
 				7D3784AF183A990F009EE944 /* VLCCloudStorageTableViewCell.h */,
 				7D3784B0183A990F009EE944 /* VLCCloudStorageTableViewCell.m */,
 				9B088306183D7BEC004B5C2A /* VLCCloudStorageTableViewController.h */,
 				9B088307183D7BEC004B5C2A /* VLCCloudStorageTableViewController.m */,
 			);
-			name = "Dropbox Integration";
+			name = "Cloud Integration";
 			sourceTree = "<group>";
 		};
 		7D5F7AB717526573006CCCFA /* Accessory dialogs */ = {
@@ -1484,7 +1481,6 @@
 				7D6B08BB174A72A900A05173 /* VLCConstants.h */,
 				7DBBF180183AB3B80009A339 /* VLCAppDelegate.h */,
 				7DBBF181183AB3B80009A339 /* VLCAppDelegate.m */,
-				9B51719A17EDEC8900F8FBA7 /* GoogleDrive Integration */,
 				A7D03A4817A4249F0022C16F /* MediaDiscovering */,
 				7D2339AB176DE70E008D223C /* Menu */,
 				7D5F7ABA175265CB006CCCFA /* HTTP Connectivity */,
@@ -1492,7 +1488,7 @@
 				7D5F7AB9175265B2006CCCFA /* Playback */,
 				7D5F7AB81752658E006CCCFA /* Everything Playlist */,
 				7D5F7AB717526573006CCCFA /* Accessory dialogs */,
-				7D5E39CC174FCDBE007DAFA1 /* Dropbox Integration */,
+				7D5E39CC174FCDBE007DAFA1 /* Cloud Integration */,
 				7D31CF061746AEF2005997E0 /* UI Elements */,
 				A7C3025A175A538700AD4388 /* Extensions */,
 				7DADC5601704FACC001DAC63 /* Imported */,
@@ -1626,6 +1622,18 @@
 			name = menu;
 			sourceTree = "<group>";
 		};
+		7DFB1567185CC38A008D49BB /* Dropbox */ = {
+			isa = PBXGroup;
+			children = (
+				7D3784A8183A9906009EE944 /* VLCDropboxConstants.h */,
+				7D3784A9183A9906009EE944 /* VLCDropboxController.h */,
+				7D3784AA183A9906009EE944 /* VLCDropboxController.m */,
+				7D3784AB183A9906009EE944 /* VLCDropboxTableViewController.h */,
+				7D3784AC183A9906009EE944 /* VLCDropboxTableViewController.m */,
+			);
+			name = Dropbox;
+			sourceTree = "<group>";
+		};
 		9B2E0CED17FB5B3F0098E3DF /* GoogleDrive */ = {
 			isa = PBXGroup;
 			children = (
@@ -1635,7 +1643,7 @@
 			name = GoogleDrive;
 			sourceTree = "<group>";
 		};
-		9B51719A17EDEC8900F8FBA7 /* GoogleDrive Integration */ = {
+		9B51719A17EDEC8900F8FBA7 /* GoogleDrive */ = {
 			isa = PBXGroup;
 			children = (
 				7D30F3E3183AB34200FFC021 /* VLCGoogleDriveConstants.h */,
@@ -1644,7 +1652,7 @@
 				7D30F3E8183AB34200FFC021 /* VLCGoogleDriveTableViewController.h */,
 				7D30F3E9183AB34200FFC021 /* VLCGoogleDriveTableViewController.m */,
 			);
-			name = "GoogleDrive Integration";
+			name = GoogleDrive;
 			sourceTree = "<group>";
 		};
 		A7924697170F0ED20036AAF2 /* Resources */ = {
