@@ -249,6 +249,7 @@
         [self.backButton setBackgroundImage:[UIImage imageNamed:@"playbackDoneButtonHighlight"] forState:UIControlStateHighlighted barMetrics:UIBarMetricsDefault];
     }
 
+    /* FIXME: there is a saner iOS 6+ API for this! */
     /* this looks a bit weird, but we need to support iOS 5 and should show the same appearance */
     UISlider *volumeSlider = nil;
     for (id aView in self.volumeView.subviews){
@@ -257,9 +258,11 @@
             break;
         }
     }
-    [volumeSlider setMinimumTrackImage:[[UIImage imageNamed:@"sliderminiValue"]resizableImageWithCapInsets:UIEdgeInsetsMake(0, 4, 0, 0)] forState:UIControlStateNormal];
-    [volumeSlider setMaximumTrackImage:[[UIImage imageNamed:@"slidermaxValue"] resizableImageWithCapInsets:UIEdgeInsetsMake(0, 0, 0, 4)] forState:UIControlStateNormal];
-    [volumeSlider setThumbImage:[UIImage imageNamed:@"volumeballslider"] forState:UIControlStateNormal];
+    if (!SYSTEM_RUNS_IOS7_OR_LATER) {
+        [volumeSlider setMinimumTrackImage:[[UIImage imageNamed:@"sliderminiValue"]resizableImageWithCapInsets:UIEdgeInsetsMake(0, 4, 0, 0)] forState:UIControlStateNormal];
+        [volumeSlider setMaximumTrackImage:[[UIImage imageNamed:@"slidermaxValue"] resizableImageWithCapInsets:UIEdgeInsetsMake(0, 0, 0, 4)] forState:UIControlStateNormal];
+        [volumeSlider setThumbImage:[UIImage imageNamed:@"volumeballslider"] forState:UIControlStateNormal];
+    }
     [volumeSlider addTarget:self
                      action:@selector(volumeSliderAction:)
            forControlEvents:UIControlEventValueChanged];
