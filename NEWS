@@ -36,6 +36,8 @@ Local network:
   (SAP) information on the local network (#9429)
 * Fix incorrect displayed size for files stored on UPnP multimedia servers
   larger than 2147.48 MB (#9641)
+* Improved WiFi Upload reliability, especially when uploading multiple
+  items at the same time
 
 Global networks:
 * Added support for HTTP Live Streaming (HLS) (#9174)
