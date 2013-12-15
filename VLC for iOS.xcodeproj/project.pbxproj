@@ -169,8 +169,6 @@
 		7D47D70F1760CD8700E86BAD /* ratioButtonHighlight.png in Resources */ = {isa = PBXBuildFile; fileRef = 7D47D6E11760CD8700E86BAD /* ratioButtonHighlight.png */; };
 		7D47D7101760CD8700E86BAD /* ratioButtonHighlight@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 7D47D6E21760CD8700E86BAD /* ratioButtonHighlight@2x.png */; };
 		7D47D7111760CD8700E86BAD /* seekbarBg.png in Resources */ = {isa = PBXBuildFile; fileRef = 7D47D6E31760CD8700E86BAD /* seekbarBg.png */; };
-		7D47D7131760CD8700E86BAD /* forwardIcon.png in Resources */ = {isa = PBXBuildFile; fileRef = 7D47D6E51760CD8700E86BAD /* forwardIcon.png */; };
-		7D47D7141760CD8700E86BAD /* forwardIcon@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 7D47D6E61760CD8700E86BAD /* forwardIcon@2x.png */; };
 		7D47D7151760CD8700E86BAD /* knobSlider.png in Resources */ = {isa = PBXBuildFile; fileRef = 7D47D6E71760CD8700E86BAD /* knobSlider.png */; };
 		7D47D7161760CD8700E86BAD /* knobSlider@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 7D47D6E81760CD8700E86BAD /* knobSlider@2x.png */; };
 		7D47D7191760CD8700E86BAD /* playbackControllerBg.png in Resources */ = {isa = PBXBuildFile; fileRef = 7D47D6EB1760CD8700E86BAD /* playbackControllerBg.png */; };
@@ -178,8 +176,6 @@
 		7D47D71B1760CD8700E86BAD /* playIcon@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 7D47D6ED1760CD8700E86BAD /* playIcon@2x.png */; };
 		7D47D71C1760CD8700E86BAD /* audioTrackIcon.png in Resources */ = {isa = PBXBuildFile; fileRef = 7D47D6EE1760CD8700E86BAD /* audioTrackIcon.png */; };
 		7D47D71D1760CD8700E86BAD /* audioTrackIcon@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 7D47D6EF1760CD8700E86BAD /* audioTrackIcon@2x.png */; };
-		7D47D71E1760CD8700E86BAD /* backIcon.png in Resources */ = {isa = PBXBuildFile; fileRef = 7D47D6F01760CD8700E86BAD /* backIcon.png */; };
-		7D47D71F1760CD8700E86BAD /* backIcon@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 7D47D6F11760CD8700E86BAD /* backIcon@2x.png */; };
 		7D47D7201760CD8700E86BAD /* ballSlider.png in Resources */ = {isa = PBXBuildFile; fileRef = 7D47D6F21760CD8700E86BAD /* ballSlider.png */; };
 		7D47D7211760CD8700E86BAD /* ballSlider@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 7D47D6F31760CD8700E86BAD /* ballSlider@2x.png */; };
 		7D47D7271760D77C00E86BAD /* pauseIcon.png in Resources */ = {isa = PBXBuildFile; fileRef = 7D47D7251760D77C00E86BAD /* pauseIcon.png */; };
@@ -290,8 +286,14 @@
 		7DF7CA0717650C2A00C61739 /* AVFoundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 7DF7CA0617650C2A00C61739 /* AVFoundation.framework */; };
 		7DF7E791175F47DC0018858D /* MediaPlayer.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 7DF7E790175F47DC0018858D /* MediaPlayer.framework */; };
 		9B088308183D7BEC004B5C2A /* VLCCloudStorageTableViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 9B088307183D7BEC004B5C2A /* VLCCloudStorageTableViewController.m */; };
+		9B1A164E185E0821001A99D9 /* backIcon.png in Resources */ = {isa = PBXBuildFile; fileRef = 9B1A164C185E0821001A99D9 /* backIcon.png */; };
+		9B1A164F185E0821001A99D9 /* backIcon@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 9B1A164D185E0821001A99D9 /* backIcon@2x.png */; };
+		9B1A1652185E08B4001A99D9 /* forwardIcon.png in Resources */ = {isa = PBXBuildFile; fileRef = 9B1A1650185E08B4001A99D9 /* forwardIcon.png */; };
+		9B1A1653185E08B4001A99D9 /* forwardIcon@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 9B1A1651185E08B4001A99D9 /* forwardIcon@2x.png */; };
 		9B5BEF2917FBAEA50016F9CB /* GTLDrive_Sources.m in Sources */ = {isa = PBXBuildFile; fileRef = 9B5BEF2717FBAEA50016F9CB /* GTLDrive_Sources.m */; };
 		9B9231C4185A703700F89498 /* VLCFutureNetworkLoginViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 9B9231C3185A703700F89498 /* VLCFutureNetworkLoginViewController.xib */; };
+		9BD3F367185DEC0A00569ADC /* arrows.png in Resources */ = {isa = PBXBuildFile; fileRef = 9BD3F365185DEC0900569ADC /* arrows.png */; };
+		9BD3F368185DEC0A00569ADC /* arrows@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 9BD3F366185DEC0A00569ADC /* arrows@2x.png */; };
 		9BE4D1CE183D76950006346C /* VLCCloudStorageTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 7D3784B0183A990F009EE944 /* VLCCloudStorageTableViewCell.m */; };
 		9BF0708E185122AA009B23DD /* audio.png in Resources */ = {isa = PBXBuildFile; fileRef = 9BF0708B185122AA009B23DD /* audio.png */; };
 		9BF0708F185122AA009B23DD /* audio@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 9BF0708C185122AA009B23DD /* audio@2x.png */; };
@@ -603,8 +605,6 @@
 		7D47D6E11760CD8700E86BAD /* ratioButtonHighlight.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = ratioButtonHighlight.png; sourceTree = "<group>"; };
 		7D47D6E21760CD8700E86BAD /* ratioButtonHighlight@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "ratioButtonHighlight@2x.png"; sourceTree = "<group>"; };
 		7D47D6E31760CD8700E86BAD /* seekbarBg.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = seekbarBg.png; sourceTree = "<group>"; };
-		7D47D6E51760CD8700E86BAD /* forwardIcon.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = forwardIcon.png; sourceTree = "<group>"; };
-		7D47D6E61760CD8700E86BAD /* forwardIcon@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "forwardIcon@2x.png"; sourceTree = "<group>"; };
 		7D47D6E71760CD8700E86BAD /* knobSlider.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = knobSlider.png; sourceTree = "<group>"; };
 		7D47D6E81760CD8700E86BAD /* knobSlider@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "knobSlider@2x.png"; sourceTree = "<group>"; };
 		7D47D6EB1760CD8700E86BAD /* playbackControllerBg.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = playbackControllerBg.png; sourceTree = "<group>"; };
@@ -612,8 +612,6 @@
 		7D47D6ED1760CD8700E86BAD /* playIcon@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "playIcon@2x.png"; sourceTree = "<group>"; };
 		7D47D6EE1760CD8700E86BAD /* audioTrackIcon.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = audioTrackIcon.png; sourceTree = "<group>"; };
 		7D47D6EF1760CD8700E86BAD /* audioTrackIcon@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "audioTrackIcon@2x.png"; sourceTree = "<group>"; };
-		7D47D6F01760CD8700E86BAD /* backIcon.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = backIcon.png; sourceTree = "<group>"; };
-		7D47D6F11760CD8700E86BAD /* backIcon@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "backIcon@2x.png"; sourceTree = "<group>"; };
 		7D47D6F21760CD8700E86BAD /* ballSlider.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = ballSlider.png; sourceTree = "<group>"; };
 		7D47D6F31760CD8700E86BAD /* ballSlider@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "ballSlider@2x.png"; sourceTree = "<group>"; };
 		7D47D7251760D77C00E86BAD /* pauseIcon.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = pauseIcon.png; sourceTree = "<group>"; };
@@ -813,9 +811,15 @@
 		7DF7E790175F47DC0018858D /* MediaPlayer.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = MediaPlayer.framework; path = System/Library/Frameworks/MediaPlayer.framework; sourceTree = SDKROOT; };
 		9B088306183D7BEC004B5C2A /* VLCCloudStorageTableViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = VLCCloudStorageTableViewController.h; path = Sources/VLCCloudStorageTableViewController.h; sourceTree = SOURCE_ROOT; };
 		9B088307183D7BEC004B5C2A /* VLCCloudStorageTableViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = VLCCloudStorageTableViewController.m; path = Sources/VLCCloudStorageTableViewController.m; sourceTree = SOURCE_ROOT; };
+		9B1A164C185E0821001A99D9 /* backIcon.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = backIcon.png; sourceTree = "<group>"; };
+		9B1A164D185E0821001A99D9 /* backIcon@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "backIcon@2x.png"; sourceTree = "<group>"; };
+		9B1A1650185E08B4001A99D9 /* forwardIcon.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = forwardIcon.png; sourceTree = "<group>"; };
+		9B1A1651185E08B4001A99D9 /* forwardIcon@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "forwardIcon@2x.png"; sourceTree = "<group>"; };
 		9B5BEF2717FBAEA50016F9CB /* GTLDrive_Sources.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = GTLDrive_Sources.m; path = ImportedSources/GDrive/Services/Drive/Generated/GTLDrive_Sources.m; sourceTree = SOURCE_ROOT; };
 		9B5BEF2817FBAEA50016F9CB /* GTLDrive.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = GTLDrive.h; path = ImportedSources/GDrive/Services/Drive/Generated/GTLDrive.h; sourceTree = SOURCE_ROOT; };
 		9B9231C3185A703700F89498 /* VLCFutureNetworkLoginViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; name = VLCFutureNetworkLoginViewController.xib; path = Resources/VLCFutureNetworkLoginViewController.xib; sourceTree = SOURCE_ROOT; };
+		9BD3F365185DEC0900569ADC /* arrows.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = arrows.png; sourceTree = "<group>"; };
+		9BD3F366185DEC0A00569ADC /* arrows@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "arrows@2x.png"; sourceTree = "<group>"; };
 		9BF0708B185122AA009B23DD /* audio.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = audio.png; sourceTree = "<group>"; };
 		9BF0708C185122AA009B23DD /* audio@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "audio@2x.png"; sourceTree = "<group>"; };
 		9BF0708D185122AA009B23DD /* audio@4x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "audio@4x.png"; sourceTree = "<group>"; };
@@ -1281,6 +1285,12 @@
 		7D47D6C81760CD2700E86BAD /* Movie VIew */ = {
 			isa = PBXGroup;
 			children = (
+				9B1A1650185E08B4001A99D9 /* forwardIcon.png */,
+				9B1A1651185E08B4001A99D9 /* forwardIcon@2x.png */,
+				9B1A164C185E0821001A99D9 /* backIcon.png */,
+				9B1A164D185E0821001A99D9 /* backIcon@2x.png */,
+				9BD3F365185DEC0900569ADC /* arrows.png */,
+				9BD3F366185DEC0A00569ADC /* arrows@2x.png */,
 				7DF1166A176CC69A009EC05C /* volumeballslider.png */,
 				7DF1166B176CC69A009EC05C /* volumeballslider@2x.png */,
 				7D897870185DEF79009BAB5D /* repeat.png */,
@@ -1316,8 +1326,6 @@
 				7D47D6E11760CD8700E86BAD /* ratioButtonHighlight.png */,
 				7D47D6E21760CD8700E86BAD /* ratioButtonHighlight@2x.png */,
 				7D47D6E31760CD8700E86BAD /* seekbarBg.png */,
-				7D47D6E51760CD8700E86BAD /* forwardIcon.png */,
-				7D47D6E61760CD8700E86BAD /* forwardIcon@2x.png */,
 				7D47D6E71760CD8700E86BAD /* knobSlider.png */,
 				7D47D6E81760CD8700E86BAD /* knobSlider@2x.png */,
 				7D47D6EB1760CD8700E86BAD /* playbackControllerBg.png */,
@@ -1325,8 +1333,6 @@
 				7D47D6ED1760CD8700E86BAD /* playIcon@2x.png */,
 				7D47D6EE1760CD8700E86BAD /* audioTrackIcon.png */,
 				7D47D6EF1760CD8700E86BAD /* audioTrackIcon@2x.png */,
-				7D47D6F01760CD8700E86BAD /* backIcon.png */,
-				7D47D6F11760CD8700E86BAD /* backIcon@2x.png */,
 				7D47D6F21760CD8700E86BAD /* ballSlider.png */,
 				7D47D6F31760CD8700E86BAD /* ballSlider@2x.png */,
 				7D1AC3021762996100BD2EB5 /* resetIcon.png */,
@@ -2002,6 +2008,7 @@
 				7D07F72F175691CC00CDE21C /* backButton@2x.png in Resources */,
 				7D32B384185E293D006CA474 /* Raleway.woff in Resources */,
 				7D07F730175691CC00CDE21C /* backButtonHighlight.png in Resources */,
+				9BD3F368185DEC0A00569ADC /* arrows@2x.png in Resources */,
 				9BF0708E185122AA009B23DD /* audio.png in Resources */,
 				7D07F731175691CC00CDE21C /* backButtonHighlight@2x.png in Resources */,
 				7D5DD5C717590ABF001421E3 /* About Contents.html in Resources */,
@@ -2036,8 +2043,6 @@
 				7D47D70F1760CD8700E86BAD /* ratioButtonHighlight.png in Resources */,
 				7D47D7101760CD8700E86BAD /* ratioButtonHighlight@2x.png in Resources */,
 				7D47D7111760CD8700E86BAD /* seekbarBg.png in Resources */,
-				7D47D7131760CD8700E86BAD /* forwardIcon.png in Resources */,
-				7D47D7141760CD8700E86BAD /* forwardIcon@2x.png in Resources */,
 				7D47D7151760CD8700E86BAD /* knobSlider.png in Resources */,
 				7D47D7161760CD8700E86BAD /* knobSlider@2x.png in Resources */,
 				7D47D7191760CD8700E86BAD /* playbackControllerBg.png in Resources */,
@@ -2045,8 +2050,6 @@
 				7D47D71B1760CD8700E86BAD /* playIcon@2x.png in Resources */,
 				7D47D71C1760CD8700E86BAD /* audioTrackIcon.png in Resources */,
 				7D47D71D1760CD8700E86BAD /* audioTrackIcon@2x.png in Resources */,
-				7D47D71E1760CD8700E86BAD /* backIcon.png in Resources */,
-				7D47D71F1760CD8700E86BAD /* backIcon@2x.png in Resources */,
 				7D47D7201760CD8700E86BAD /* ballSlider.png in Resources */,
 				7D223E1A181EC56E00B36798 /* gradient-cell-ios7-ipad.png in Resources */,
 				7D47D7211760CD8700E86BAD /* ballSlider@2x.png in Resources */,
@@ -2058,6 +2061,7 @@
 				7D47D72C1760E3A000E86BAD /* sliderminimumTrack@2x.png in Resources */,
 				7DBBF1AB183AB4300009A339 /* VLCPlaylistTableViewCell.xib in Resources */,
 				7D6BD1841762026700AD311A /* thumbOverlayPhone@2x.png in Resources */,
+				9BD3F367185DEC0A00569ADC /* arrows.png in Resources */,
 				7D6BD1851762026700AD311A /* thumbOverlay@2x.png in Resources */,
 				7DBBF19E183AB4300009A339 /* VLCEmptyLibraryView~ipad.xib in Resources */,
 				7D6BD1861762026700AD311A /* thumbOverlayPhone.png in Resources */,
@@ -2089,6 +2093,7 @@
 				7DEB3B871764A4F40038FC70 /* blank@4x.png in Resources */,
 				7DEB3B881764A4F40038FC70 /* folder.png in Resources */,
 				7DEB3B891764A4F40038FC70 /* folder@2x.png in Resources */,
+				9B1A164F185E0821001A99D9 /* backIcon@2x.png in Resources */,
 				7DEB3B8A1764A4F40038FC70 /* folder@4x.png in Resources */,
 				7DEB3B8B1764A4F40038FC70 /* movie.png in Resources */,
 				7DEB3B8C1764A4F40038FC70 /* blank.png in Resources */,
@@ -2127,10 +2132,12 @@
 				7D0699DE17CB1FAE00713BEB /* Local.png in Resources */,
 				7D0699DF17CB1FAE00713BEB /* Local@2x.png in Resources */,
 				7D0699E017CB1FAE00713BEB /* MusicAlbums.png in Resources */,
+				9B1A1653185E08B4001A99D9 /* forwardIcon@2x.png in Resources */,
 				7D0699E117CB1FAE00713BEB /* MusicAlbums@2x.png in Resources */,
 				7D0699E217CB1FAE00713BEB /* OpenNetStream.png in Resources */,
 				7D0699E317CB1FAE00713BEB /* OpenNetStream@2x.png in Resources */,
 				7D0699E417CB1FAE00713BEB /* Settings.png in Resources */,
+				9B1A164E185E0821001A99D9 /* backIcon.png in Resources */,
 				7D0699E517CB1FAE00713BEB /* About.png in Resources */,
 				7D0699E617CB1FAE00713BEB /* About@2x.png in Resources */,
 				7D0699E717CB1FAE00713BEB /* AllFiles.png in Resources */,
@@ -2139,6 +2146,7 @@
 				7D0699EA17CB1FAE00713BEB /* Downloads@2x.png in Resources */,
 				7D0699EB17CB1FAE00713BEB /* Dropbox.png in Resources */,
 				7D514D4117F779C6007B960C /* Drive@2x.png in Resources */,
+				9B1A1652185E08B4001A99D9 /* forwardIcon.png in Resources */,
 				7D514D4217F779C6007B960C /* DriveWhite.png in Resources */,
 				7D514D4317F779C6007B960C /* DriveWhite@2x.png in Resources */,
 				7D897882185E00C3009BAB5D /* checkbox.png in Resources */,
