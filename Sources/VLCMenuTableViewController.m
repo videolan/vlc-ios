@@ -297,9 +297,12 @@
     if (sectionNumber == 1) {
         if (itemIndex == 0)
             viewController = [[VLCLocalServerListViewController alloc] init];
-        else if (itemIndex == 1)
-            viewController = [[VLCOpenNetworkStreamViewController alloc] init];
-        else if (itemIndex == 2)
+        else if (itemIndex == 1) {
+            if (SYSTEM_RUNS_IOS7_OR_LATER)
+                viewController = [[VLCOpenNetworkStreamViewController alloc] initWithNibName:@"VLCFutureOpenNetworkStreamViewController" bundle:nil];
+            else
+                viewController = [[VLCOpenNetworkStreamViewController alloc] initWithNibName:@"VLCOpenNetworkStreamViewController" bundle:nil];
+        } else if (itemIndex == 2)
             viewController = self.appDelegate.downloadViewController;
         else if (itemIndex == 3)
             [self toggleHTTPServer:nil];

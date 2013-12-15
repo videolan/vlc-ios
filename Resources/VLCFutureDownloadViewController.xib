@@ -94,7 +94,7 @@
                                 <action selector="cancelDownload:" destination="-1" eventType="touchUpInside" id="90"/>
                             </connections>
                         </button>
-                        <activityIndicatorView userInteractionEnabled="NO" contentMode="scaleToFill" hidesWhenStopped="YES" style="whiteLarge" id="91">
+                        <activityIndicatorView hidden="YES" userInteractionEnabled="NO" contentMode="scaleToFill" hidesWhenStopped="YES" style="whiteLarge" id="91">
                             <rect key="frame" x="142" y="26" width="37" height="37"/>
                             <autoresizingMask key="autoresizingMask" flexibleMinX="YES" flexibleMaxX="YES" flexibleMaxY="YES"/>
                             <color key="backgroundColor" red="0.1052877679" green="0.1052846164" blue="0.1052864045" alpha="1" colorSpace="calibratedRGB"/>
