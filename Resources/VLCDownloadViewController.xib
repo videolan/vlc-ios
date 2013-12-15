@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="5023" systemVersion="12F45" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="5037" systemVersion="12F45" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none">
     <dependencies>
         <deployment defaultVersion="1552" identifier="iOS"/>
         <development version="5000" identifier="xcode"/>
@@ -65,7 +65,7 @@
                     <freeformSimulatedSizeMetrics key="simulatedDestinationMetrics"/>
                 </view>
                 <view contentMode="scaleToFill" id="79">
-                    <rect key="frame" x="0.0" y="105" width="320" height="90"/>
+                    <rect key="frame" x="0.0" y="104" width="320" height="90"/>
                     <autoresizingMask key="autoresizingMask" widthSizable="YES" flexibleMaxY="YES"/>
                     <subviews>
                         <label hidden="YES" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" text="Current Download.mpg" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="84">
@@ -130,7 +130,7 @@
                     <freeformSimulatedSizeMetrics key="simulatedDestinationMetrics"/>
                 </view>
                 <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" showsVerticalScrollIndicator="NO" style="plain" separatorStyle="default" rowHeight="44" sectionHeaderHeight="22" sectionFooterHeight="22" id="69">
-                    <rect key="frame" x="0.0" y="203" width="320" height="180"/>
+                    <rect key="frame" x="0.0" y="197" width="320" height="186"/>
                     <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                     <color key="backgroundColor" red="0.1052877679" green="0.1052846164" blue="0.1052864045" alpha="1" colorSpace="calibratedRGB"/>
                     <color key="separatorColor" white="0.0" alpha="0.60999999999999999" colorSpace="custom" customColorSpace="calibratedWhite"/>
