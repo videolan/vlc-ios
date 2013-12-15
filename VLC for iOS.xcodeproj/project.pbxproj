@@ -114,6 +114,7 @@
 		7D30F3EC183AB34200FFC021 /* VLCGoogleDriveTableViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 7D30F3E9183AB34200FFC021 /* VLCGoogleDriveTableViewController.m */; };
 		7D31001D17B64AE100E6516D /* GHRevealViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 7D31001C17B64AE100E6516D /* GHRevealViewController.m */; };
 		7D31002017B6768B00E6516D /* libupnpx.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 7D31001F17B6768B00E6516D /* libupnpx.a */; };
+		7D32B384185E293D006CA474 /* Raleway.woff in Resources */ = {isa = PBXBuildFile; fileRef = 7D32B383185E293D006CA474 /* Raleway.woff */; };
 		7D37848F183A98B6009EE944 /* VLCMovieViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 7D37848E183A98B6009EE944 /* VLCMovieViewController.m */; };
 		7D378492183A98BF009EE944 /* VLCExternalDisplayController.m in Sources */ = {isa = PBXBuildFile; fileRef = 7D378491183A98BF009EE944 /* VLCExternalDisplayController.m */; };
 		7D378499183A98D1009EE944 /* VLCPlaylistCollectionViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 7D378494183A98D1009EE944 /* VLCPlaylistCollectionViewCell.m */; };
@@ -522,6 +523,7 @@
 		7D31001B17B64AE100E6516D /* GHRevealViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = GHRevealViewController.h; path = ImportedSources/GHSidebarNav/GHSidebarNav/GHRevealViewController.h; sourceTree = SOURCE_ROOT; };
 		7D31001C17B64AE100E6516D /* GHRevealViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = GHRevealViewController.m; path = ImportedSources/GHSidebarNav/GHSidebarNav/GHRevealViewController.m; sourceTree = SOURCE_ROOT; };
 		7D31001F17B6768B00E6516D /* libupnpx.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; name = libupnpx.a; path = External/upnpx/libupnpx.a; sourceTree = "<group>"; };
+		7D32B383185E293D006CA474 /* Raleway.woff */ = {isa = PBXFileReference; lastKnownFileType = file; path = Raleway.woff; sourceTree = "<group>"; };
 		7D37848D183A98B6009EE944 /* VLCMovieViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = VLCMovieViewController.h; path = Sources/VLCMovieViewController.h; sourceTree = SOURCE_ROOT; };
 		7D37848E183A98B6009EE944 /* VLCMovieViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = VLCMovieViewController.m; path = Sources/VLCMovieViewController.m; sourceTree = SOURCE_ROOT; };
 		7D378490183A98BF009EE944 /* VLCExternalDisplayController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = VLCExternalDisplayController.h; path = Sources/VLCExternalDisplayController.h; sourceTree = SOURCE_ROOT; };
@@ -986,6 +988,7 @@
 		29125E5317492219003F03E5 /* web */ = {
 			isa = PBXGroup;
 			children = (
+				7D32B383185E293D006CA474 /* Raleway.woff */,
 				7AC8629E1765E90C0011611A /* jquery-1.10.1.min.js */,
 				7AC8629F1765E90C0011611A /* jquery.fileupload.js */,
 				7AC862A01765E90C0011611A /* jquery.iframe-transport.js */,
@@ -1997,6 +2000,7 @@
 				7D07F72E175691CC00CDE21C /* backButton.png in Resources */,
 				9BF07090185122AA009B23DD /* audio@4x.png in Resources */,
 				7D07F72F175691CC00CDE21C /* backButton@2x.png in Resources */,
+				7D32B384185E293D006CA474 /* Raleway.woff in Resources */,
 				7D07F730175691CC00CDE21C /* backButtonHighlight.png in Resources */,
 				9BF0708E185122AA009B23DD /* audio.png in Resources */,
 				7D07F731175691CC00CDE21C /* backButtonHighlight@2x.png in Resources */,
