@@ -122,6 +122,7 @@
 - (void)viewWillAppear:(BOOL)animated
 {
     [super viewWillAppear:animated];
+    [self.collectionView.collectionViewLayout invalidateLayout];
     [self _displayEmptyLibraryViewIfNeeded];
 }
 
@@ -429,7 +430,7 @@
 - (CGSize)collectionView:(UICollectionView *)collectionView layout:(UICollectionViewLayout *)collectionViewLayout sizeForItemAtIndexPath:(NSIndexPath *)indexPath
 {
     if (SYSTEM_RUNS_IOS7_OR_LATER) {
-        if (UIDeviceOrientationIsLandscape([UIDevice currentDevice].orientation))
+        if (UIDeviceOrientationIsLandscape([UIApplication sharedApplication].statusBarOrientation))
             return CGSizeMake(341., 190.);
         else
             return CGSizeMake(384., 216.);
