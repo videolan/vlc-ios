@@ -800,9 +800,9 @@
         self.audioSwitcherButton.hidden = YES;
 
     if ([[_mediaPlayer videoSubTitlesIndexes] count] > 1)
-        self.subtitleSwitcherButton.hidden = NO;
+        self.subtitleContainer.hidden = NO;
     else
-        self.subtitleSwitcherButton.hidden = YES;
+        self.subtitleContainer.hidden = YES;
 }
 
 - (IBAction)playPause

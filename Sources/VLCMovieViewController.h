@@ -27,6 +27,9 @@
 @property (nonatomic, strong) IBOutlet UIButton *playPauseButton;
 @property (nonatomic, strong) IBOutlet UIButton *bwdButton;
 @property (nonatomic, strong) IBOutlet UIButton *fwdButton;
+@property (nonatomic, strong) IBOutlet UIView *subtitleContainer;
+@property (nonatomic, strong) IBOutlet UIView *audioSwitcherContainer;
+@property (nonatomic, strong) IBOutlet UIView *videoeffectsContainer;
 @property (nonatomic, strong) IBOutlet UIButton *subtitleSwitcherButton;
 @property (nonatomic, strong) IBOutlet UIButton *audioSwitcherButton;
 @property (nonatomic, strong) IBOutlet UIButton *repeatButton;
