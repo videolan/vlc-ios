@@ -444,9 +444,14 @@
 - (void)_playNewMedia
 {
     NSNumber *playbackPositionInTime = @(0);
-    if (self.mediaItem.lastPosition && [self.mediaItem.lastPosition floatValue] < .95) {
-        if (self.mediaItem.duration.intValue != 0)
-            playbackPositionInTime = @(self.mediaItem.lastPosition.floatValue * (self.mediaItem.duration.intValue / 1000.));
+    CGFloat lastPosition = .0;
+    NSInteger duration = self.mediaItem.duration.intValue;
+
+    if (self.mediaItem.lastPosition)
+        lastPosition = self.mediaItem.lastPosition.floatValue;
+    if (lastPosition < .95) {
+        if (duration != 0)
+            playbackPositionInTime = @(lastPosition * (duration / 1000.));
     }
     if (playbackPositionInTime.intValue > 0) {
         [_mediaPlayer.media addOptions:@{@"start-time": playbackPositionInTime}];
@@ -471,7 +476,11 @@
     [self performSelectorInBackground:@selector(_updateExportedPlaybackInformation) withObject:nil];
 
     _currentAspectRatioMask = 0;
-    _mediaPlayer.videoAspectRatio =  NULL;
+    _mediaPlayer.videoAspectRatio = NULL;
+
+    /* some demuxers don't respect :start-time, so re-try here */
+    if (lastPosition < .95 && _mediaPlayer.position < lastPosition)
+        _mediaPlayer.position = lastPosition;
 
     [self _resetIdleTimer];
     _playerIsSetup = YES;
