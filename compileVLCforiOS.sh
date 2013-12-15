@@ -306,8 +306,6 @@ spushd QuincyKit/client/iOS/QuincyLib
 buildxcodeproj QuincyLib
 spopd
 
-exit
-
 spopd # ImportedSources
 
 
