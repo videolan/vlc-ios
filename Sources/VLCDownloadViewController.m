@@ -61,6 +61,8 @@
     self.whatToDownloadHelpLabel.text = [NSString stringWithFormat:NSLocalizedString(@"DOWNLOAD_FROM_HTTP_HELP", @""), [[UIDevice currentDevice] model]];
     self.urlField.delegate = self;
     self.urlField.keyboardType = UIKeyboardTypeURL;
+    self.progressContainer.hidden = YES;
+    self.downloadsTable.hidden = YES;
 
     if (SYSTEM_RUNS_IOS7_OR_LATER)
         self.edgesForExtendedLayout = UIRectEdgeNone;
@@ -132,6 +134,7 @@
 - (void)_triggerNextDownload
 {
     if ([_currentDownloads count] > 0) {
+        [self.activityIndicator startAnimating];
         NSString *downloadScheme = [_currentDownloads[0] scheme];
         if ([downloadScheme isEqualToString:@"http"] || [downloadScheme isEqualToString:@"https"]) {
             if (!_httpDownloader) {
@@ -195,13 +198,8 @@
     [self.progressPercent setText:@"0%%"];
     [self.speedRate setText:@"0 Kb/s"];
     [self.timeDL setText:@"00:00:00"];
-    self.currentDownloadLabel.hidden = NO;
-    self.progressView.hidden = NO;
-    self.cancelButton.hidden = NO;
-    [self.progressPercent setHidden:NO];
-    [self.speedRate setHidden:NO];
-    [self.timeDL setHidden:NO];
     _startDL = [NSDate timeIntervalSinceReferenceDate];
+    self.progressContainer.hidden = NO;
 
     APLog(@"download started");
 }
@@ -209,14 +207,9 @@
 - (void)downloadEnded
 {
     [UIApplication sharedApplication].networkActivityIndicatorVisible = NO;
-    self.currentDownloadLabel.hidden = YES;
-    self.progressView.hidden = YES;
-    self.cancelButton.hidden = YES;
-    [self.progressPercent setHidden:YES];
-    [self.speedRate setHidden:YES];
-    [self.timeDL setHidden:YES];
     _currentDownloadType = 0;
     APLog(@"download ended");
+    self.progressContainer.hidden = YES;
 
     [self _triggerNextDownload];
 }
@@ -309,6 +302,8 @@
 
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section
 {
+    NSUInteger count = _currentDownloads.count;
+    self.downloadsTable.hidden = count > 0 ? NO : YES;
     return _currentDownloads.count;
 }
 

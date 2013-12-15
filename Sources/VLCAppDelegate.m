@@ -190,8 +190,12 @@
 
 - (VLCDownloadViewController *)downloadViewController
 {
-    if (_downloadViewController == nil)
-        _downloadViewController = [[VLCDownloadViewController alloc] init];
+    if (_downloadViewController == nil) {
+        if (SYSTEM_RUNS_IOS7_OR_LATER)
+            _downloadViewController = [[VLCDownloadViewController alloc] initWithNibName:@"VLCFutureDownloadViewController" bundle:nil];
+        else
+            _downloadViewController = [[VLCDownloadViewController alloc] initWithNibName:@"VLCDownloadViewController" bundle:nil];
+    }
 
     return _downloadViewController;
 }

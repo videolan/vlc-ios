@@ -215,6 +215,13 @@
 		7D6BD1861762026700AD311A /* thumbOverlayPhone.png in Resources */ = {isa = PBXBuildFile; fileRef = 7D6BD1821762026700AD311A /* thumbOverlayPhone.png */; };
 		7D6BD1871762026700AD311A /* thumbOverlay.png in Resources */ = {isa = PBXBuildFile; fileRef = 7D6BD1831762026700AD311A /* thumbOverlay.png */; };
 		7D711ADA18227A490094E4F0 /* GTMOAuth2ViewTouch.xib in Resources */ = {isa = PBXBuildFile; fileRef = 7D711AD918227A490094E4F0 /* GTMOAuth2ViewTouch.xib */; };
+		7D89786F185DED88009BAB5D /* VLCFutureDownloadViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 7D89786E185DED88009BAB5D /* VLCFutureDownloadViewController.xib */; };
+		7D897874185DEF79009BAB5D /* repeat.png in Resources */ = {isa = PBXBuildFile; fileRef = 7D897870185DEF79009BAB5D /* repeat.png */; };
+		7D897875185DEF79009BAB5D /* repeat@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 7D897871185DEF79009BAB5D /* repeat@2x.png */; };
+		7D897876185DEF79009BAB5D /* repeatOne.png in Resources */ = {isa = PBXBuildFile; fileRef = 7D897872185DEF79009BAB5D /* repeatOne.png */; };
+		7D897877185DEF79009BAB5D /* repeatOne@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 7D897873185DEF79009BAB5D /* repeatOne@2x.png */; };
+		7D89787A185DEFB5009BAB5D /* flatDeleteButton.png in Resources */ = {isa = PBXBuildFile; fileRef = 7D897878185DEFB5009BAB5D /* flatDeleteButton.png */; };
+		7D89787B185DEFB5009BAB5D /* flatDeleteButton@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 7D897879185DEFB5009BAB5D /* flatDeleteButton@2x.png */; };
 		7D94FCDF16DE7D1000F2623B /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 7D94FCDE16DE7D1000F2623B /* UIKit.framework */; };
 		7D94FCE116DE7D1000F2623B /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 7D94FCE016DE7D1000F2623B /* Foundation.framework */; };
 		7D94FCE316DE7D1000F2623B /* CoreGraphics.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 7D94FCE216DE7D1000F2623B /* CoreGraphics.framework */; };
@@ -681,6 +688,13 @@
 		7D88224C185733D500D87252 /* Default-Portrait@2x~ipad.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "Default-Portrait@2x~ipad.png"; sourceTree = "<group>"; };
 		7D88224D185733D500D87252 /* Default~iphone.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "Default~iphone.png"; sourceTree = "<group>"; };
 		7D88224E185733D500D87252 /* Default@2x~iphone.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "Default@2x~iphone.png"; sourceTree = "<group>"; };
+		7D89786E185DED88009BAB5D /* VLCFutureDownloadViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; name = VLCFutureDownloadViewController.xib; path = Resources/VLCFutureDownloadViewController.xib; sourceTree = SOURCE_ROOT; };
+		7D897870185DEF79009BAB5D /* repeat.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = repeat.png; sourceTree = "<group>"; };
+		7D897871185DEF79009BAB5D /* repeat@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "repeat@2x.png"; sourceTree = "<group>"; };
+		7D897872185DEF79009BAB5D /* repeatOne.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = repeatOne.png; sourceTree = "<group>"; };
+		7D897873185DEF79009BAB5D /* repeatOne@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "repeatOne@2x.png"; sourceTree = "<group>"; };
+		7D897878185DEFB5009BAB5D /* flatDeleteButton.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = flatDeleteButton.png; sourceTree = "<group>"; };
+		7D897879185DEFB5009BAB5D /* flatDeleteButton@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "flatDeleteButton@2x.png"; sourceTree = "<group>"; };
 		7D94FCDB16DE7D1000F2623B /* VLC for iOS.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "VLC for iOS.app"; sourceTree = BUILT_PRODUCTS_DIR; };
 		7D94FCDE16DE7D1000F2623B /* UIKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = UIKit.framework; path = System/Library/Frameworks/UIKit.framework; sourceTree = SDKROOT; };
 		7D94FCE016DE7D1000F2623B /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = System/Library/Frameworks/Foundation.framework; sourceTree = SDKROOT; };
@@ -1241,6 +1255,10 @@
 			children = (
 				7DF1166A176CC69A009EC05C /* volumeballslider.png */,
 				7DF1166B176CC69A009EC05C /* volumeballslider@2x.png */,
+				7D897870185DEF79009BAB5D /* repeat.png */,
+				7D897871185DEF79009BAB5D /* repeat@2x.png */,
+				7D897872185DEF79009BAB5D /* repeatOne.png */,
+				7D897873185DEF79009BAB5D /* repeatOne@2x.png */,
 				7D1AC30617629AB600BD2EB5 /* ratioIcon.png */,
 				7D1AC30717629AB600BD2EB5 /* ratioIcon@2x.png */,
 				7D47D6CB1760CD8700E86BAD /* subtitleIcon.png */,
@@ -1519,6 +1537,7 @@
 				7DBBF185183AB4300009A339 /* VLCCloudStorageTableViewCell~ipad.xib */,
 				7DBBF186183AB4300009A339 /* VLCCloudStorageTableViewCell~iphone.xib */,
 				7DBBF187183AB4300009A339 /* VLCDownloadViewController.xib */,
+				7D89786E185DED88009BAB5D /* VLCFutureDownloadViewController.xib */,
 				7DBBF188183AB4300009A339 /* VLCCloudStorageTableViewController.xib */,
 				7DBBF189183AB4300009A339 /* VLCEmptyLibraryView~ipad.xib */,
 				7DBBF18A183AB4300009A339 /* VLCEmptyLibraryView~iphone.xib */,
@@ -1585,6 +1604,8 @@
 		7DEB3B7B1764A4080038FC70 /* menu */ = {
 			isa = PBXGroup;
 			children = (
+				7D897878185DEFB5009BAB5D /* flatDeleteButton.png */,
+				7D897879185DEFB5009BAB5D /* flatDeleteButton@2x.png */,
 				7D0699C017CB1FAE00713BEB /* Settings@2x.png */,
 				7D0699C117CB1FAE00713BEB /* TVShows.png */,
 				7D0699C217CB1FAE00713BEB /* TVShows@2x.png */,
@@ -1947,6 +1968,7 @@
 				7D47D6FB1760CD8700E86BAD /* videoEffectsIcon.png in Resources */,
 				7D47D6FC1760CD8700E86BAD /* videoEffectsIcon@2x.png in Resources */,
 				7D47D6FD1760CD8700E86BAD /* seekbarBg@2x.png in Resources */,
+				7D89787A185DEFB5009BAB5D /* flatDeleteButton.png in Resources */,
 				7D47D6FE1760CD8700E86BAD /* slidermaximumTrack.png in Resources */,
 				7D47D6FF1760CD8700E86BAD /* slidermaximumTrack@2x.png in Resources */,
 				7D47D7001760CD8700E86BAD /* slidermaxValue.png in Resources */,
@@ -1960,6 +1982,7 @@
 				7D47D7091760CD8700E86BAD /* playbackDoneButton.png in Resources */,
 				7D47D70A1760CD8700E86BAD /* playbackDoneButton@2x.png in Resources */,
 				7D47D70B1760CD8700E86BAD /* playbackDoneButtonHighlight.png in Resources */,
+				7D897874185DEF79009BAB5D /* repeat.png in Resources */,
 				7D47D70C1760CD8700E86BAD /* playbackDoneButtonHighlight@2x.png in Resources */,
 				7D47D70D1760CD8700E86BAD /* ratioButton.png in Resources */,
 				7D47D70E1760CD8700E86BAD /* ratioButton@2x.png in Resources */,
@@ -1998,6 +2021,7 @@
 				7D1AC30C17629D4600BD2EB5 /* title.png in Resources */,
 				7DBBF1A1183AB4300009A339 /* VLCFuturePlaylistTableViewCell.xib in Resources */,
 				7D1AC30D17629D4600BD2EB5 /* title@2x.png in Resources */,
+				7D897876185DEF79009BAB5D /* repeatOne.png in Resources */,
 				7DEB3B5D17647B240038FC70 /* bottomBlackBar@2x.png in Resources */,
 				7DBBF1AC183AB4300009A339 /* VLCWiFiUploadTableViewCell.xib in Resources */,
 				7DEB3B5E17647B240038FC70 /* bottomBlackBar.png in Resources */,
@@ -2030,6 +2054,8 @@
 				7DBBF199183AB4300009A339 /* VLCAboutViewController~iphone.xib in Resources */,
 				7DC72D5E17B7E7C7008A26D0 /* download@4x.png in Resources */,
 				7DC72D5F17B7E7C7008A26D0 /* download.png in Resources */,
+				7D897877185DEF79009BAB5D /* repeatOne@2x.png in Resources */,
+				7D89787B185DEFB5009BAB5D /* flatDeleteButton@2x.png in Resources */,
 				7DC72D6017B7E7C7008A26D0 /* download@2x.png in Resources */,
 				7D16035D17BF9FE600F29B34 /* sudHeaderBg.png in Resources */,
 				7D16035E17BF9FE600F29B34 /* sudHeaderBg@2x.png in Resources */,
@@ -2041,6 +2067,7 @@
 				7D0699D717CB1FAE00713BEB /* TVShows.png in Resources */,
 				7D0699D817CB1FAE00713BEB /* TVShows@2x.png in Resources */,
 				7D0699D917CB1FAE00713BEB /* WifiUp.png in Resources */,
+				7D897875185DEF79009BAB5D /* repeat@2x.png in Resources */,
 				7D0699DA17CB1FAE00713BEB /* WifiUp@2x.png in Resources */,
 				7D0699DB17CB1FAE00713BEB /* WifiUpOn.png in Resources */,
 				7D0699DC17CB1FAE00713BEB /* WifiUpOn@2x.png in Resources */,
@@ -2072,6 +2099,7 @@
 				7D3784E3183A99D2009EE944 /* papasscode_marker.png in Resources */,
 				7D3784E4183A99D2009EE944 /* papasscode_marker@2x.png in Resources */,
 				7D3784EC183A9A1E009EE944 /* VLC for iOS-Info.plist in Resources */,
+				7D89786F185DED88009BAB5D /* VLCFutureDownloadViewController.xib in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
