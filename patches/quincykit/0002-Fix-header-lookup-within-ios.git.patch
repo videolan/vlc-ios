@@ -1,0 +1,80 @@
+From 8e254a6f0677d868b27f14241c29cad9b88e89cc Mon Sep 17 00:00:00 2001
+From: =?UTF-8?q?Felix=20Paul=20K=C3=BChne?= <fkuehne@videolan.org>
+Date: Sun, 15 Dec 2013 17:27:12 +0100
+Subject: [PATCH 2/3] Fix header lookup within ios.git
+
+---
+ client/iOS/BWCrashReportTextFormatter.h                  | 2 +-
+ client/iOS/BWCrashReportTextFormatter.m                  | 2 +-
+ client/iOS/BWQuincyManager.m                             | 2 +-
+ client/iOS/QuincyLib/QuincyLib.xcodeproj/project.pbxproj | 8 ++++++++
+ 4 files changed, 11 insertions(+), 3 deletions(-)
+
+diff --git a/client/iOS/BWCrashReportTextFormatter.h b/client/iOS/BWCrashReportTextFormatter.h
+index 4088994..4319a85 100644
+--- a/client/iOS/BWCrashReportTextFormatter.h
++++ b/client/iOS/BWCrashReportTextFormatter.h
+@@ -34,7 +34,7 @@
+ 
+ #import <Foundation/Foundation.h>
+ 
+-#import <CrashReporter/PLCrashReport.h>
++#import "PLCrashReport.h"
+ 
+ 
+ @interface BWCrashReportTextFormatter : NSObject {
+diff --git a/client/iOS/BWCrashReportTextFormatter.m b/client/iOS/BWCrashReportTextFormatter.m
+index cb89a63..79e4569 100644
+--- a/client/iOS/BWCrashReportTextFormatter.m
++++ b/client/iOS/BWCrashReportTextFormatter.m
+@@ -31,7 +31,7 @@
+  * OTHER DEALINGS IN THE SOFTWARE.
+  */
+ 
+-#import <CrashReporter/CrashReporter.h>
++#import "CrashReporter.h"
+ 
+ #import "BWCrashReportTextFormatter.h"
+ 
+diff --git a/client/iOS/BWQuincyManager.m b/client/iOS/BWQuincyManager.m
+index 04b56ff..e025f35 100644
+--- a/client/iOS/BWQuincyManager.m
++++ b/client/iOS/BWQuincyManager.m
+@@ -27,7 +27,7 @@
+  * OTHER DEALINGS IN THE SOFTWARE.
+  */
+ 
+-#import <CrashReporter/CrashReporter.h>
++#import "CrashReporter.h"
+ #import <SystemConfiguration/SystemConfiguration.h>
+ #import <UIKit/UIKit.h>
+ #import "BWQuincyManager.h"
+diff --git a/client/iOS/QuincyLib/QuincyLib.xcodeproj/project.pbxproj b/client/iOS/QuincyLib/QuincyLib.xcodeproj/project.pbxproj
+index 11fb230..df75985 100644
+--- a/client/iOS/QuincyLib/QuincyLib.xcodeproj/project.pbxproj
++++ b/client/iOS/QuincyLib/QuincyLib.xcodeproj/project.pbxproj
+@@ -197,6 +197,10 @@
+ 				);
+ 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
+ 				GCC_PREFIX_HEADER = "";
++				HEADER_SEARCH_PATHS = (
++					"$(inherited)",
++					"\"$(SRCROOT)/../../../../PLCrashReporter/Source\"",
++				);
+ 				OTHER_LDFLAGS = "-ObjC";
+ 				PRODUCT_NAME = "$(TARGET_NAME)";
+ 				SKIP_INSTALL = YES;
+@@ -214,6 +218,10 @@
+ 				);
+ 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
+ 				GCC_PREFIX_HEADER = "";
++				HEADER_SEARCH_PATHS = (
++					"$(inherited)",
++					"\"$(SRCROOT)/../../../../PLCrashReporter/Source\"",
++				);
+ 				OTHER_LDFLAGS = "-ObjC";
+ 				PRODUCT_NAME = "$(TARGET_NAME)";
+ 				SKIP_INSTALL = YES;
+-- 
+1.8.3.4 (Apple Git-47)
+

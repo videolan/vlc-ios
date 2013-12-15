@@ -1,0 +1,32 @@
+From 1688bbeee3a602033e85e7ea9ae87c367d666e31 Mon Sep 17 00:00:00 2001
+From: =?UTF-8?q?Felix=20Paul=20K=C3=BChne?= <fkuehne@videolan.org>
+Date: Sun, 15 Dec 2013 17:04:08 +0100
+Subject: [PATCH 1/2] Don't use -werror
+
+---
+ CrashReporter.xcodeproj/project.pbxproj | 2 --
+ 1 file changed, 2 deletions(-)
+
+diff --git a/CrashReporter.xcodeproj/project.pbxproj b/CrashReporter.xcodeproj/project.pbxproj
+index 868de19..a7db131 100644
+--- a/CrashReporter.xcodeproj/project.pbxproj
++++ b/CrashReporter.xcodeproj/project.pbxproj
+@@ -4360,7 +4360,6 @@
+ 				VALID_ARCHS = "i386 ppc armv7 armv7s armv6 x86_64 arm64";
+ 				WARNING_CFLAGS = (
+ 					"-Wall",
+-					"-Werror",
+ 					"-Wno-shorten-64-to-32",
+ 				);
+ 			};
+@@ -4391,7 +4390,6 @@
+ 				VALID_ARCHS = "i386 ppc armv7 armv7s armv6 x86_64 arm64";
+ 				WARNING_CFLAGS = (
+ 					"-Wall",
+-					"-Werror",
+ 					"-Wno-shorten-64-to-32",
+ 				);
+ 			};
+-- 
+1.8.3.4 (Apple Git-47)
+

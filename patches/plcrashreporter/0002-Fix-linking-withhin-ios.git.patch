@@ -1,0 +1,158 @@
+From 374bdf801f450cce67ac729baecadbf73af880f7 Mon Sep 17 00:00:00 2001
+From: =?UTF-8?q?Felix=20Paul=20K=C3=BChne?= <fkuehne@videolan.org>
+Date: Sun, 15 Dec 2013 17:38:24 +0100
+Subject: [PATCH 2/2] Fix linking withhin ios.git
+
+---
+ CrashReporter.xcodeproj/project.pbxproj | 36 ++++++++++++++++-----------------
+ 1 file changed, 18 insertions(+), 18 deletions(-)
+
+diff --git a/CrashReporter.xcodeproj/project.pbxproj b/CrashReporter.xcodeproj/project.pbxproj
+index a7db131..b371cbf 100644
+--- a/CrashReporter.xcodeproj/project.pbxproj
++++ b/CrashReporter.xcodeproj/project.pbxproj
+@@ -108,9 +108,9 @@
+ 		052951F01696A461006EDA8A /* PLCrashLogWriterEncodingTests.proto in Sources */ = {isa = PBXBuildFile; fileRef = 052951EE1696A461006EDA8A /* PLCrashLogWriterEncodingTests.proto */; };
+ 		052951F11696A461006EDA8A /* PLCrashLogWriterEncodingTests.proto in Sources */ = {isa = PBXBuildFile; fileRef = 052951EE1696A461006EDA8A /* PLCrashLogWriterEncodingTests.proto */; };
+ 		052A45DA1363542800987004 /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 05F40CF10EF7AC0E008050CF /* main.m */; };
+-		052A46271363553A00987004 /* libCrashReporter-iphoneos.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 05CD31520EE936A9000FDE88 /* libCrashReporter-iphoneos.a */; };
++		052A46271363553A00987004 /* libCrashReporter.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 05CD31520EE936A9000FDE88 /* libCrashReporter.a */; };
+ 		052A4649136355FD00987004 /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 05F40CF10EF7AC0E008050CF /* main.m */; };
+-		052A46561363561B00987004 /* libCrashReporter-iphonesimulator.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 05CD31630EE93905000FDE88 /* libCrashReporter-iphonesimulator.a */; };
++		052A46561363561B00987004 /* libCrashReporter.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 05CD31630EE93905000FDE88 /* libCrashReporter.a */; };
+ 		052A46BE1363650100987004 /* PLCrashAsyncImageList.h in Headers */ = {isa = PBXBuildFile; fileRef = 052A46BC1363650100987004 /* PLCrashAsyncImageList.h */; };
+ 		052A46BF1363650100987004 /* PLCrashAsyncImageList.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 052A46BD1363650100987004 /* PLCrashAsyncImageList.cpp */; };
+ 		052A46C01363650100987004 /* PLCrashAsyncImageList.h in Headers */ = {isa = PBXBuildFile; fileRef = 052A46BC1363650100987004 /* PLCrashAsyncImageList.h */; };
+@@ -166,7 +166,7 @@
+ 		05507A531784DEE4009D5168 /* unwind_test_x86_frame.S in Sources */ = {isa = PBXBuildFile; fileRef = 05507A521784DEE4009D5168 /* unwind_test_x86_frame.S */; settings = {COMPILER_FLAGS = "-fexceptions"; }; };
+ 		05507A541784DEE4009D5168 /* unwind_test_x86_frame.S in Sources */ = {isa = PBXBuildFile; fileRef = 05507A521784DEE4009D5168 /* unwind_test_x86_frame.S */; };
+ 		05507A551784DEE4009D5168 /* unwind_test_x86_frame.S in Sources */ = {isa = PBXBuildFile; fileRef = 05507A521784DEE4009D5168 /* unwind_test_x86_frame.S */; };
+-		0550A1100EECFEDC0037F7C3 /* libCrashReporter-iphonesimulator.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 05CD31630EE93905000FDE88 /* libCrashReporter-iphonesimulator.a */; };
++		0550A1100EECFEDC0037F7C3 /* libCrashReporter.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 05CD31630EE93905000FDE88 /* libCrashReporter.a */; };
+ 		05654F770EFA5B54004283F5 /* CoreServices.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 05654F760EFA5B54004283F5 /* CoreServices.framework */; };
+ 		05654F780EFA5B54004283F5 /* CoreServices.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 05654F760EFA5B54004283F5 /* CoreServices.framework */; };
+ 		05654F790EFA5B54004283F5 /* CoreServices.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 05654F760EFA5B54004283F5 /* CoreServices.framework */; };
+@@ -187,7 +187,7 @@
+ 		0573B4311681098E00395F2A /* PLCrashMachExceptionServer.m in Sources */ = {isa = PBXBuildFile; fileRef = 0573B42B1681098E00395F2A /* PLCrashMachExceptionServer.m */; };
+ 		0573B4321681098E00395F2A /* PLCrashMachExceptionServer.m in Sources */ = {isa = PBXBuildFile; fileRef = 0573B42B1681098E00395F2A /* PLCrashMachExceptionServer.m */; };
+ 		0573B4331681098E00395F2A /* PLCrashMachExceptionServer.m in Sources */ = {isa = PBXBuildFile; fileRef = 0573B42B1681098E00395F2A /* PLCrashMachExceptionServer.m */; };
+-		0573B43416810AB400395F2A /* libCrashReporter-iphoneos.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 05CD31520EE936A9000FDE88 /* libCrashReporter-iphoneos.a */; };
++		0573B43416810AB400395F2A /* libCrashReporter.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 05CD31520EE936A9000FDE88 /* libCrashReporter.a */; };
+ 		0573B4481681107F00395F2A /* PLCrashReportRegisterInfo.h in Headers */ = {isa = PBXBuildFile; fileRef = 05D9E54E16765A0200B39833 /* PLCrashReportRegisterInfo.h */; settings = {ATTRIBUTES = (Public, ); }; };
+ 		0573B4491681108200395F2A /* PLCrashReportStackFrameInfo.h in Headers */ = {isa = PBXBuildFile; fileRef = 05D9E5431676598200B39833 /* PLCrashReportStackFrameInfo.h */; settings = {ATTRIBUTES = (Public, ); }; };
+ 		0573B44A1681108500395F2A /* PLCrashReportSymbolInfo.h in Headers */ = {isa = PBXBuildFile; fileRef = 05D9E55916765D0200B39833 /* PLCrashReportSymbolInfo.h */; settings = {ATTRIBUTES = (Public, ); }; };
+@@ -1230,8 +1230,8 @@
+ 		05C76DC6176FBAF300E9B10D /* PLCrashAsyncDwarfCFAState.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = PLCrashAsyncDwarfCFAState.cpp; sourceTree = "<group>"; };
+ 		05C76DC7176FBAF300E9B10D /* PLCrashAsyncDwarfCFAState.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = PLCrashAsyncDwarfCFAState.hpp; sourceTree = "<group>"; };
+ 		05C76DD3176FBC1E00E9B10D /* PLCrashAsyncDwarfCFAStateTests.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; path = PLCrashAsyncDwarfCFAStateTests.mm; sourceTree = "<group>"; };
+-		05CD31520EE936A9000FDE88 /* libCrashReporter-iphoneos.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libCrashReporter-iphoneos.a"; sourceTree = BUILT_PRODUCTS_DIR; };
+-		05CD31630EE93905000FDE88 /* libCrashReporter-iphonesimulator.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libCrashReporter-iphonesimulator.a"; sourceTree = BUILT_PRODUCTS_DIR; };
++		05CD31520EE936A9000FDE88 /* libCrashReporter.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = libCrashReporter.a; sourceTree = BUILT_PRODUCTS_DIR; };
++		05CD31630EE93905000FDE88 /* libCrashReporter.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = libCrashReporter.a; sourceTree = BUILT_PRODUCTS_DIR; };
+ 		05CD31890EE93A90000FDE88 /* CrashReporter.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CrashReporter.h; sourceTree = "<group>"; };
+ 		05CD318A0EE93A90000FDE88 /* CrashReporter.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CrashReporter.m; sourceTree = "<group>"; };
+ 		05CD32690EE93DC3000FDE88 /* Tests-MacOSX.octest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = "Tests-MacOSX.octest"; sourceTree = BUILT_PRODUCTS_DIR; };
+@@ -1361,7 +1361,7 @@
+ 			isa = PBXFrameworksBuildPhase;
+ 			buildActionMask = 2147483647;
+ 			files = (
+-				052A46271363553A00987004 /* libCrashReporter-iphoneos.a in Frameworks */,
++				052A46271363553A00987004 /* libCrashReporter.a in Frameworks */,
+ 			);
+ 			runOnlyForDeploymentPostprocessing = 0;
+ 		};
+@@ -1369,7 +1369,7 @@
+ 			isa = PBXFrameworksBuildPhase;
+ 			buildActionMask = 2147483647;
+ 			files = (
+-				052A46561363561B00987004 /* libCrashReporter-iphonesimulator.a in Frameworks */,
++				052A46561363561B00987004 /* libCrashReporter.a in Frameworks */,
+ 			);
+ 			runOnlyForDeploymentPostprocessing = 0;
+ 		};
+@@ -1407,7 +1407,7 @@
+ 			isa = PBXFrameworksBuildPhase;
+ 			buildActionMask = 2147483647;
+ 			files = (
+-				0550A1100EECFEDC0037F7C3 /* libCrashReporter-iphonesimulator.a in Frameworks */,
++				0550A1100EECFEDC0037F7C3 /* libCrashReporter.a in Frameworks */,
+ 			);
+ 			runOnlyForDeploymentPostprocessing = 0;
+ 		};
+@@ -1415,7 +1415,7 @@
+ 			isa = PBXFrameworksBuildPhase;
+ 			buildActionMask = 2147483647;
+ 			files = (
+-				0573B43416810AB400395F2A /* libCrashReporter-iphoneos.a in Frameworks */,
++				0573B43416810AB400395F2A /* libCrashReporter.a in Frameworks */,
+ 			);
+ 			runOnlyForDeploymentPostprocessing = 0;
+ 		};
+@@ -1459,8 +1459,8 @@
+ 			isa = PBXGroup;
+ 			children = (
+ 				8DC2EF5B0486A6940098B216 /* CrashReporter.framework */,
+-				05CD31520EE936A9000FDE88 /* libCrashReporter-iphoneos.a */,
+-				05CD31630EE93905000FDE88 /* libCrashReporter-iphonesimulator.a */,
++				05CD31520EE936A9000FDE88 /* libCrashReporter.a */,
++				05CD31630EE93905000FDE88 /* libCrashReporter.a */,
+ 				05CD32690EE93DC3000FDE88 /* Tests-MacOSX.octest */,
+ 				05CD32A90EE94062000FDE88 /* Tests-iOS-Simulator.app */,
+ 				05CD33240EE94439000FDE88 /* Tests-iOS-Device.app */,
+@@ -2509,7 +2509,7 @@
+ 			);
+ 			name = "CrashReporter-iOS-Device";
+ 			productName = "CrashReporter-iPhoneOS";
+-			productReference = 05CD31520EE936A9000FDE88 /* libCrashReporter-iphoneos.a */;
++			productReference = 05CD31520EE936A9000FDE88 /* libCrashReporter.a */;
+ 			productType = "com.apple.product-type.library.static";
+ 		};
+ 		05CD31620EE93905000FDE88 /* CrashReporter-iOS-Simulator */ = {
+@@ -2527,7 +2527,7 @@
+ 			);
+ 			name = "CrashReporter-iOS-Simulator";
+ 			productName = "CrashReporter-iPhoneSimulator";
+-			productReference = 05CD31630EE93905000FDE88 /* libCrashReporter-iphonesimulator.a */;
++			productReference = 05CD31630EE93905000FDE88 /* libCrashReporter.a */;
+ 			productType = "com.apple.product-type.library.static";
+ 		};
+ 		05CD32680EE93DC3000FDE88 /* Tests-MacOSX */ = {
+@@ -3853,7 +3853,7 @@
+ 				"IPHONEOS_DEPLOYMENT_TARGET[arch=arm64]" = 7.0;
+ 				MACH_O_TYPE = staticlib;
+ 				ONLY_ACTIVE_ARCH = NO;
+-				PRODUCT_NAME = "CrashReporter${EFFECTIVE_PLATFORM_NAME}";
++				PRODUCT_NAME = CrashReporter;
+ 				SDKROOT = iphoneos;
+ 				SKIP_INSTALL = NO;
+ 				TARGETED_DEVICE_FAMILY = "1,2";
+@@ -3874,7 +3874,7 @@
+ 				"IPHONEOS_DEPLOYMENT_TARGET[arch=arm64]" = 7.0;
+ 				MACH_O_TYPE = staticlib;
+ 				ONLY_ACTIVE_ARCH = NO;
+-				PRODUCT_NAME = "CrashReporter${EFFECTIVE_PLATFORM_NAME}";
++				PRODUCT_NAME = CrashReporter;
+ 				SDKROOT = iphoneos;
+ 				SKIP_INSTALL = NO;
+ 				TARGETED_DEVICE_FAMILY = "1,2";
+@@ -3896,7 +3896,7 @@
+ 				IPHONEOS_DEPLOYMENT_TARGET = 4.3;
+ 				MACH_O_TYPE = staticlib;
+ 				ONLY_ACTIVE_ARCH = NO;
+-				PRODUCT_NAME = "CrashReporter${EFFECTIVE_PLATFORM_NAME}";
++				PRODUCT_NAME = CrashReporter;
+ 				SDKROOT = iphonesimulator;
+ 				SKIP_INSTALL = NO;
+ 			};
+@@ -3914,7 +3914,7 @@
+ 				IPHONEOS_DEPLOYMENT_TARGET = 4.3;
+ 				MACH_O_TYPE = staticlib;
+ 				ONLY_ACTIVE_ARCH = NO;
+-				PRODUCT_NAME = "CrashReporter${EFFECTIVE_PLATFORM_NAME}";
++				PRODUCT_NAME = CrashReporter;
+ 				SDKROOT = iphonesimulator;
+ 				SKIP_INSTALL = NO;
+ 				ZERO_LINK = NO;
+-- 
+1.8.3.4 (Apple Git-47)
+

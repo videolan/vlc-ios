@@ -159,6 +159,28 @@ git clone git://github.com/mattrajca/DAVKit.git
 else
 cd DAVKit && git pull --rebase && cd ..
 fi
+if ! [ -e PLCrashReporter ]; then
+git clone https://opensource.plausible.coop/stash/scm/plcr/plcrashreporter.git PLCrashReporter
+cd PLCrashReporter
+git am ../../patches/plcrashreporter/*.patch
+if [ $? -ne 0 ]; then
+git am --abort
+info "Applying the patches failed, aborting git-am"
+exit 1
+fi
+cd ..
+fi
+if ! [ -e QuincyKit ]; then
+git clone git://github.com/TheRealKerni/QuincyKit.git
+cd QuincyKit
+git am ../../patches/quincykit/*.patch
+if [ $? -ne 0 ]; then
+git am --abort
+info "Applying the patches failed, aborting git-am"
+exit 1
+fi
+cd ..
+fi
 if ! [ -e GDrive ]; then
 svn checkout http://google-api-objectivec-client.googlecode.com/svn/trunk/Source GDrive
 else
@@ -218,6 +240,8 @@ framework_build="${aspen_root_dir}/ImportedSources/VLCKit/${xcbuilddir}"
 mlkit_build="${aspen_root_dir}/ImportedSources/MediaLibraryKit/${xcbuilddir}"
 upnpx_build="${aspen_root_dir}/ImportedSources/upnpx/projects/xcode4/upnpx/${xcbuilddir}"
 gtl_build="${aspen_root_dir}/ImportedSources/GDrive/${xcbuilddir}"
+plcrashreporter_build="${aspen_root_dir}/ImportedSources/PLCrashReporter/${xcbuilddir}"
+quincykit_build="${aspen_root_dir}/ImportedSources/QuincyKit/client/iOS/QuincyLib/${xcbuilddir}"
 
 spopd #ImportedSources
 
@@ -225,6 +249,8 @@ ln -sf ${framework_build} External/MobileVLCKit
 ln -sf ${mlkit_build} External/MediaLibraryKit
 ln -sf ${upnpx_build} External/upnpx
 ln -sf ${gtl_build} External/gtl
+ln -sf ${plcrashreporter_build} External/PLCrashReporter
+ln -sf ${quincykit_build} External/QuincyKit
 
 #
 # Build time
@@ -267,6 +293,20 @@ spopd
 spushd GDrive
 buildxcodeproj GTL "GTLTouchStaticLib"
 spopd
+
+spushd PLCrashReporter
+if [ "$PLATFORM" = "iphonesimulator" ]; then
+    buildxcodeproj CrashReporter "CrashReporter-iOS-Simulator"
+else
+    buildxcodeproj CrashReporter "CrashReporter-iOS-Device"
+fi
+spopd
+
+spushd QuincyKit/client/iOS/QuincyLib
+buildxcodeproj QuincyLib
+spopd
+
+exit
 
 spopd # ImportedSources
 
