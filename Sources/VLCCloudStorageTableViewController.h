@@ -17,6 +17,7 @@
 @property (nonatomic, strong) IBOutlet UITableView *tableView;
 @property (nonatomic, strong) IBOutlet UIView *loginToCloudStorageView;
 @property (nonatomic, strong) IBOutlet UIButton *loginButton;
+@property (nonatomic, strong) IBOutlet UIButton *flatLoginButton;
 @property (nonatomic, strong) IBOutlet UIImageView *cloudStorageLogo;
 
 - (IBAction)loginAction:(id)sender;

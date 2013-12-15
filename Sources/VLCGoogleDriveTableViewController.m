@@ -76,7 +76,13 @@
 
     [self.cloudStorageLogo setImage:[UIImage imageNamed:@"DriveWhite"]];
 
-    [self.loginButton setTitle:NSLocalizedString(@"DROPBOX_LOGIN", @"") forState:UIControlStateNormal];
+    if (!SYSTEM_RUNS_IOS7_OR_LATER) {
+        self.flatLoginButton.hidden = YES;
+        [self.loginButton setTitle:NSLocalizedString(@"DROPBOX_LOGIN", @"") forState:UIControlStateNormal];
+    } else {
+        self.loginButton.hidden = YES;
+        [self.flatLoginButton setTitle:NSLocalizedString(@"DROPBOX_LOGIN", @"") forState:UIControlStateNormal];
+    }
 
     [self.navigationController.toolbar setBackgroundImage:[UIImage imageNamed:@"sudHeaderBg"] forToolbarPosition:UIToolbarPositionAny barMetrics:UIBarMetricsDefault];
 

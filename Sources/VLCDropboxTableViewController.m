@@ -76,7 +76,13 @@
     [_downloadingBarLabel setTitleTextAttributes:@{ UITextAttributeFont : [UIFont systemFontOfSize:11.] } forState:UIControlStateNormal];
 
     [self.cloudStorageLogo setImage:[UIImage imageNamed:@"dropbox-white.png"]];
-    [self.loginButton setTitle:NSLocalizedString(@"DROPBOX_LOGIN", @"") forState:UIControlStateNormal];
+    if (!SYSTEM_RUNS_IOS7_OR_LATER) {
+        self.flatLoginButton.hidden = YES;
+        [self.loginButton setTitle:NSLocalizedString(@"DROPBOX_LOGIN", @"") forState:UIControlStateNormal];
+    } else {
+        self.loginButton.hidden = YES;
+        [self.flatLoginButton setTitle:NSLocalizedString(@"DROPBOX_LOGIN", @"") forState:UIControlStateNormal];
+    }
 
     [self.navigationController.toolbar setBackgroundImage:[UIImage imageNamed:@"sudHeaderBg"] forToolbarPosition:UIToolbarPositionAny barMetrics:UIBarMetricsDefault];
 
