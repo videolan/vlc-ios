@@ -223,6 +223,10 @@
 		7D89787A185DEFB5009BAB5D /* flatDeleteButton.png in Resources */ = {isa = PBXBuildFile; fileRef = 7D897878185DEFB5009BAB5D /* flatDeleteButton.png */; };
 		7D89787B185DEFB5009BAB5D /* flatDeleteButton@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 7D897879185DEFB5009BAB5D /* flatDeleteButton@2x.png */; };
 		7D89787D185DF794009BAB5D /* VLCFutureOpenNetworkStreamViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 7D89787C185DF794009BAB5D /* VLCFutureOpenNetworkStreamViewController.xib */; };
+		7D897882185E00C3009BAB5D /* checkbox.png in Resources */ = {isa = PBXBuildFile; fileRef = 7D89787E185E00C3009BAB5D /* checkbox.png */; };
+		7D897883185E00C3009BAB5D /* checkbox@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 7D89787F185E00C3009BAB5D /* checkbox@2x.png */; };
+		7D897884185E00C3009BAB5D /* checkboxEmpty.png in Resources */ = {isa = PBXBuildFile; fileRef = 7D897880185E00C3009BAB5D /* checkboxEmpty.png */; };
+		7D897885185E00C3009BAB5D /* checkboxEmpty@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 7D897881185E00C3009BAB5D /* checkboxEmpty@2x.png */; };
 		7D94FCDF16DE7D1000F2623B /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 7D94FCDE16DE7D1000F2623B /* UIKit.framework */; };
 		7D94FCE116DE7D1000F2623B /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 7D94FCE016DE7D1000F2623B /* Foundation.framework */; };
 		7D94FCE316DE7D1000F2623B /* CoreGraphics.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 7D94FCE216DE7D1000F2623B /* CoreGraphics.framework */; };
@@ -697,6 +701,10 @@
 		7D897878185DEFB5009BAB5D /* flatDeleteButton.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = flatDeleteButton.png; sourceTree = "<group>"; };
 		7D897879185DEFB5009BAB5D /* flatDeleteButton@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "flatDeleteButton@2x.png"; sourceTree = "<group>"; };
 		7D89787C185DF794009BAB5D /* VLCFutureOpenNetworkStreamViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; name = VLCFutureOpenNetworkStreamViewController.xib; path = Resources/VLCFutureOpenNetworkStreamViewController.xib; sourceTree = SOURCE_ROOT; };
+		7D89787E185E00C3009BAB5D /* checkbox.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = checkbox.png; sourceTree = "<group>"; };
+		7D89787F185E00C3009BAB5D /* checkbox@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "checkbox@2x.png"; sourceTree = "<group>"; };
+		7D897880185E00C3009BAB5D /* checkboxEmpty.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = checkboxEmpty.png; sourceTree = "<group>"; };
+		7D897881185E00C3009BAB5D /* checkboxEmpty@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "checkboxEmpty@2x.png"; sourceTree = "<group>"; };
 		7D94FCDB16DE7D1000F2623B /* VLC for iOS.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "VLC for iOS.app"; sourceTree = BUILT_PRODUCTS_DIR; };
 		7D94FCDE16DE7D1000F2623B /* UIKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = UIKit.framework; path = System/Library/Frameworks/UIKit.framework; sourceTree = SDKROOT; };
 		7D94FCE016DE7D1000F2623B /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = System/Library/Frameworks/Foundation.framework; sourceTree = SDKROOT; };
@@ -805,7 +813,6 @@
 		A792469A170F0ED20036AAF2 /* Default@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "Default@2x.png"; sourceTree = "<group>"; };
 		A79246C7170F11DF0036AAF2 /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/Localizable.strings; sourceTree = "<group>"; };
 		A79246C9170F11E40036AAF2 /* ru */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = ru; path = ru.lproj/Localizable.strings; sourceTree = "<group>"; };
-		A7990063176E9352009E8267 /* libraryBackground.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = libraryBackground.png; sourceTree = "<group>"; };
 		A7B5316117E3728D00EAE4B3 /* BasicDeviceParser.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BasicDeviceParser.h; sourceTree = "<group>"; };
 		A7B5316217E3728D00EAE4B3 /* BasicHTTPServer_ObjC.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BasicHTTPServer_ObjC.h; sourceTree = "<group>"; };
 		A7B5316317E3728D00EAE4B3 /* BasicParser.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BasicParser.h; sourceTree = "<group>"; };
@@ -1109,7 +1116,6 @@
 				7D223E19181EC56E00B36798 /* gradient-cell-ios7-ipad@2x.png */,
 				7D2A34A21805CDBA004078AA /* gradient-cell-ios7.png */,
 				7D2A34A31805CDBA004078AA /* gradient-cell-ios7@2x.png */,
-				A7990063176E9352009E8267 /* libraryBackground.png */,
 				7D1AC30A17629D4600BD2EB5 /* title.png */,
 				7D1AC30B17629D4600BD2EB5 /* title@2x.png */,
 				7D6BD1801762026700AD311A /* thumbOverlayPhone@2x.png */,
@@ -1146,6 +1152,10 @@
 				7D16035A17BF9FE600F29B34 /* sudHeaderBg@2x.png */,
 				7D16035B17BF9FE600F29B34 /* headerSidebar@2x.png */,
 				7D16035C17BF9FE600F29B34 /* headerSidebar.png */,
+				7D89787E185E00C3009BAB5D /* checkbox.png */,
+				7D89787F185E00C3009BAB5D /* checkbox@2x.png */,
+				7D897880185E00C3009BAB5D /* checkboxEmpty.png */,
+				7D897881185E00C3009BAB5D /* checkboxEmpty@2x.png */,
 			);
 			name = "Library View";
 			sourceTree = "<group>";
@@ -1917,6 +1927,7 @@
 				7AC862A91765E9510011611A /* jquery.ui.widget.js in Resources */,
 				CC1BBC431704935E00A20CBF /* MediaLibrary.mom in Resources */,
 				7D2A34A51805CDBA004078AA /* gradient-cell-ios7@2x.png in Resources */,
+				7D897884185E00C3009BAB5D /* checkboxEmpty.png in Resources */,
 				A79246C8170F11DF0036AAF2 /* Localizable.strings in Resources */,
 				A7CB0DB11716F72600050CF3 /* PlayingExternally@2x~iphone.png in Resources */,
 				A7CB0DB21716F72600050CF3 /* PlayingExternally~iphone.png in Resources */,
@@ -2006,6 +2017,7 @@
 				7D47D7201760CD8700E86BAD /* ballSlider.png in Resources */,
 				7D223E1A181EC56E00B36798 /* gradient-cell-ios7-ipad.png in Resources */,
 				7D47D7211760CD8700E86BAD /* ballSlider@2x.png in Resources */,
+				7D897885185E00C3009BAB5D /* checkboxEmpty@2x.png in Resources */,
 				7DBBF19D183AB4300009A339 /* VLCCloudStorageTableViewController.xib in Resources */,
 				7D47D7271760D77C00E86BAD /* pauseIcon.png in Resources */,
 				7D47D7281760D77C00E86BAD /* pauseIcon@2x.png in Resources */,
@@ -2077,6 +2089,7 @@
 				7D0699DC17CB1FAE00713BEB /* WifiUpOn@2x.png in Resources */,
 				7D0699DD17CB1FAE00713BEB /* Dropbox@2x.png in Resources */,
 				7DBBF19A183AB4300009A339 /* VLCCloudStorageTableViewCell~ipad.xib in Resources */,
+				7D897883185E00C3009BAB5D /* checkbox@2x.png in Resources */,
 				9BF0708F185122AA009B23DD /* audio@2x.png in Resources */,
 				7D0699DE17CB1FAE00713BEB /* Local.png in Resources */,
 				7D0699DF17CB1FAE00713BEB /* Local@2x.png in Resources */,
@@ -2095,6 +2108,7 @@
 				7D514D4117F779C6007B960C /* Drive@2x.png in Resources */,
 				7D514D4217F779C6007B960C /* DriveWhite.png in Resources */,
 				7D514D4317F779C6007B960C /* DriveWhite@2x.png in Resources */,
+				7D897882185E00C3009BAB5D /* checkbox.png in Resources */,
 				7D514D4417F779C6007B960C /* Drive.png in Resources */,
 				7D3784DF183A99D2009EE944 /* papasscode_background.png in Resources */,
 				7D3784E0183A99D2009EE944 /* papasscode_background@2x.png in Resources */,
