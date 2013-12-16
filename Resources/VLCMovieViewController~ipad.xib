@@ -143,11 +143,11 @@
                     <color key="shadowColor" cocoaTouchSystemColor="darkTextColor"/>
                 </label>
                 <view contentMode="scaleToFill" id="121" userLabel="Movie view">
-                    <rect key="frame" x="0.0" y="-20" width="768" height="1044"/>
+                    <rect key="frame" x="0.0" y="0.0" width="768" height="1024"/>
                     <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                     <subviews>
                         <view contentMode="scaleToFill" id="176" userLabel="Controls panel">
-                            <rect key="frame" x="-83" y="684" width="320" height="46"/>
+                            <rect key="frame" x="-83" y="664" width="320" height="46"/>
                             <autoresizingMask key="autoresizingMask" flexibleMinX="YES" flexibleMaxX="YES" flexibleMinY="YES"/>
                             <subviews>
                                 <imageView userInteractionEnabled="NO" contentMode="scaleToFill" image="playbackControllerBg.png" id="296">
@@ -250,7 +250,7 @@
                     <nil key="highlightedColor"/>
                 </label>
                 <view contentMode="scaleToFill" id="272" userLabel="Controls panel">
-                    <rect key="frame" x="0.0" y="838" width="768" height="80"/>
+                    <rect key="frame" x="0.0" y="944" width="768" height="80"/>
                     <autoresizingMask key="autoresizingMask" widthSizable="YES" flexibleMinY="YES"/>
                     <subviews>
                         <imageView userInteractionEnabled="NO" contentMode="scaleToFill" image="playbackControllerBg.png" id="280">

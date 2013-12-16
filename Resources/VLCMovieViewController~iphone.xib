@@ -277,7 +277,7 @@
                     </subviews>
                 </view>
                 <view contentMode="scaleToFill" id="92" userLabel="Controls panel">
-                    <rect key="frame" x="0.0" y="430" width="320" height="90"/>
+                    <rect key="frame" x="0.0" y="478" width="320" height="90"/>
                     <autoresizingMask key="autoresizingMask" flexibleMinX="YES" widthSizable="YES" flexibleMaxX="YES" flexibleMinY="YES"/>
                     <subviews>
                         <imageView userInteractionEnabled="NO" contentMode="scaleToFill" image="playbackControllerBg.png" id="231">
@@ -435,11 +435,11 @@
                             </connections>
                         </button>
                         <view contentMode="scaleToFill" id="230" customClass="MPVolumeView">
-                            <rect key="frame" x="60" y="57" width="244" height="22"/>
+                            <rect key="frame" x="60" y="61" width="244" height="22"/>
                             <autoresizingMask key="autoresizingMask" flexibleMinX="YES" flexibleMaxX="YES" flexibleMaxY="YES"/>
                         </view>
                         <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" id="3Pu-h2-L0m">
-                            <rect key="frame" x="18" y="57" width="32" height="40"/>
+                            <rect key="frame" x="18" y="54" width="32" height="35"/>
                             <autoresizingMask key="autoresizingMask" flexibleMinX="YES" flexibleMaxX="YES" flexibleMaxY="YES"/>
                             <fontDescription key="fontDescription" type="system" pointSize="18"/>
                             <state key="normal" image="repeat.png">
