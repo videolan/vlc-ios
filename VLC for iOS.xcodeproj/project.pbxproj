@@ -1495,6 +1495,9 @@
 			children = (
 				7DB638AA185BC0890003887C /* Images.xcassets */,
 				7D94FCE416DE7D1000F2623B /* Classes */,
+				7DADC55C1704FAA8001DAC63 /* XIBs */,
+				A7924697170F0ED20036AAF2 /* Resources */,
+				7D94FCE516DE7D1000F2623B /* Supporting Files */,
 				CC1BBC441704936500A20CBF /* External VLC Libraries */,
 				7D94FCDD16DE7D1000F2623B /* Frameworks */,
 				7D94FCDC16DE7D1000F2623B /* Products */,
@@ -1558,9 +1561,6 @@
 				7D31CF061746AEF2005997E0 /* UI Elements */,
 				A7C3025A175A538700AD4388 /* Extensions */,
 				7DADC5601704FACC001DAC63 /* Imported */,
-				7DADC55C1704FAA8001DAC63 /* XIBs */,
-				A7924697170F0ED20036AAF2 /* Resources */,
-				7D94FCE516DE7D1000F2623B /* Supporting Files */,
 			);
 			name = Classes;
 			path = AspenProject;
@@ -1574,6 +1574,7 @@
 				7D3784EB183A9A1E009EE944 /* VLC for iOS-Prefix.pch */,
 			);
 			name = "Supporting Files";
+			path = AspenProject;
 			sourceTree = "<group>";
 		};
 		7DADC55C1704FAA8001DAC63 /* XIBs */ = {
@@ -1604,6 +1605,7 @@
 				7D711AD918227A490094E4F0 /* GTMOAuth2ViewTouch.xib */,
 			);
 			name = XIBs;
+			path = AspenProject;
 			sourceTree = "<group>";
 		};
 		7DADC5601704FACC001DAC63 /* Imported */ = {
