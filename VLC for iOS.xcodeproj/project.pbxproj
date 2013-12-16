@@ -159,7 +159,6 @@
 		7D47D7031760CD8700E86BAD /* sliderminiValue@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 7D47D6D51760CD8700E86BAD /* sliderminiValue@2x.png */; };
 		7D47D7061760CD8700E86BAD /* speedIcon.png in Resources */ = {isa = PBXBuildFile; fileRef = 7D47D6D81760CD8700E86BAD /* speedIcon.png */; };
 		7D47D7071760CD8700E86BAD /* speedIcon@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 7D47D6D91760CD8700E86BAD /* speedIcon@2x.png */; };
-		7D47D7081760CD8700E86BAD /* playbackControllerBg@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 7D47D6DA1760CD8700E86BAD /* playbackControllerBg@2x.png */; };
 		7D47D7091760CD8700E86BAD /* playbackDoneButton.png in Resources */ = {isa = PBXBuildFile; fileRef = 7D47D6DB1760CD8700E86BAD /* playbackDoneButton.png */; };
 		7D47D70A1760CD8700E86BAD /* playbackDoneButton@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 7D47D6DC1760CD8700E86BAD /* playbackDoneButton@2x.png */; };
 		7D47D70B1760CD8700E86BAD /* playbackDoneButtonHighlight.png in Resources */ = {isa = PBXBuildFile; fileRef = 7D47D6DD1760CD8700E86BAD /* playbackDoneButtonHighlight.png */; };
@@ -171,7 +170,6 @@
 		7D47D7111760CD8700E86BAD /* seekbarBg.png in Resources */ = {isa = PBXBuildFile; fileRef = 7D47D6E31760CD8700E86BAD /* seekbarBg.png */; };
 		7D47D7151760CD8700E86BAD /* knobSlider.png in Resources */ = {isa = PBXBuildFile; fileRef = 7D47D6E71760CD8700E86BAD /* knobSlider.png */; };
 		7D47D7161760CD8700E86BAD /* knobSlider@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 7D47D6E81760CD8700E86BAD /* knobSlider@2x.png */; };
-		7D47D7191760CD8700E86BAD /* playbackControllerBg.png in Resources */ = {isa = PBXBuildFile; fileRef = 7D47D6EB1760CD8700E86BAD /* playbackControllerBg.png */; };
 		7D47D71A1760CD8700E86BAD /* playIcon.png in Resources */ = {isa = PBXBuildFile; fileRef = 7D47D6EC1760CD8700E86BAD /* playIcon.png */; };
 		7D47D71B1760CD8700E86BAD /* playIcon@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 7D47D6ED1760CD8700E86BAD /* playIcon@2x.png */; };
 		7D47D71C1760CD8700E86BAD /* audioTrackIcon.png in Resources */ = {isa = PBXBuildFile; fileRef = 7D47D6EE1760CD8700E86BAD /* audioTrackIcon.png */; };
@@ -292,6 +290,7 @@
 		9B1A1653185E08B4001A99D9 /* forwardIcon@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 9B1A1651185E08B4001A99D9 /* forwardIcon@2x.png */; };
 		9B5BEF2917FBAEA50016F9CB /* GTLDrive_Sources.m in Sources */ = {isa = PBXBuildFile; fileRef = 9B5BEF2717FBAEA50016F9CB /* GTLDrive_Sources.m */; };
 		9B9231C4185A703700F89498 /* VLCFutureNetworkLoginViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 9B9231C3185A703700F89498 /* VLCFutureNetworkLoginViewController.xib */; };
+		9BADAF45185FBD9D00108BD8 /* VLCFrostedGlasView.m in Sources */ = {isa = PBXBuildFile; fileRef = 9BADAF44185FBD9D00108BD8 /* VLCFrostedGlasView.m */; };
 		9BD3F367185DEC0A00569ADC /* arrows.png in Resources */ = {isa = PBXBuildFile; fileRef = 9BD3F365185DEC0900569ADC /* arrows.png */; };
 		9BD3F368185DEC0A00569ADC /* arrows@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 9BD3F366185DEC0A00569ADC /* arrows@2x.png */; };
 		9BE4D1CE183D76950006346C /* VLCCloudStorageTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 7D3784B0183A990F009EE944 /* VLCCloudStorageTableViewCell.m */; };
@@ -595,7 +594,6 @@
 		7D47D6D51760CD8700E86BAD /* sliderminiValue@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "sliderminiValue@2x.png"; sourceTree = "<group>"; };
 		7D47D6D81760CD8700E86BAD /* speedIcon.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = speedIcon.png; sourceTree = "<group>"; };
 		7D47D6D91760CD8700E86BAD /* speedIcon@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "speedIcon@2x.png"; sourceTree = "<group>"; };
-		7D47D6DA1760CD8700E86BAD /* playbackControllerBg@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "playbackControllerBg@2x.png"; sourceTree = "<group>"; };
 		7D47D6DB1760CD8700E86BAD /* playbackDoneButton.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = playbackDoneButton.png; sourceTree = "<group>"; };
 		7D47D6DC1760CD8700E86BAD /* playbackDoneButton@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "playbackDoneButton@2x.png"; sourceTree = "<group>"; };
 		7D47D6DD1760CD8700E86BAD /* playbackDoneButtonHighlight.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = playbackDoneButtonHighlight.png; sourceTree = "<group>"; };
@@ -607,7 +605,6 @@
 		7D47D6E31760CD8700E86BAD /* seekbarBg.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = seekbarBg.png; sourceTree = "<group>"; };
 		7D47D6E71760CD8700E86BAD /* knobSlider.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = knobSlider.png; sourceTree = "<group>"; };
 		7D47D6E81760CD8700E86BAD /* knobSlider@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "knobSlider@2x.png"; sourceTree = "<group>"; };
-		7D47D6EB1760CD8700E86BAD /* playbackControllerBg.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = playbackControllerBg.png; sourceTree = "<group>"; };
 		7D47D6EC1760CD8700E86BAD /* playIcon.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = playIcon.png; sourceTree = "<group>"; };
 		7D47D6ED1760CD8700E86BAD /* playIcon@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "playIcon@2x.png"; sourceTree = "<group>"; };
 		7D47D6EE1760CD8700E86BAD /* audioTrackIcon.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = audioTrackIcon.png; sourceTree = "<group>"; };
@@ -818,6 +815,8 @@
 		9B5BEF2717FBAEA50016F9CB /* GTLDrive_Sources.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = GTLDrive_Sources.m; path = ImportedSources/GDrive/Services/Drive/Generated/GTLDrive_Sources.m; sourceTree = SOURCE_ROOT; };
 		9B5BEF2817FBAEA50016F9CB /* GTLDrive.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = GTLDrive.h; path = ImportedSources/GDrive/Services/Drive/Generated/GTLDrive.h; sourceTree = SOURCE_ROOT; };
 		9B9231C3185A703700F89498 /* VLCFutureNetworkLoginViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; name = VLCFutureNetworkLoginViewController.xib; path = Resources/VLCFutureNetworkLoginViewController.xib; sourceTree = SOURCE_ROOT; };
+		9BADAF43185FBD9D00108BD8 /* VLCFrostedGlasView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = VLCFrostedGlasView.h; path = Sources/VLCFrostedGlasView.h; sourceTree = SOURCE_ROOT; };
+		9BADAF44185FBD9D00108BD8 /* VLCFrostedGlasView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = VLCFrostedGlasView.m; path = Sources/VLCFrostedGlasView.m; sourceTree = SOURCE_ROOT; };
 		9BD3F365185DEC0900569ADC /* arrows.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = arrows.png; sourceTree = "<group>"; };
 		9BD3F366185DEC0A00569ADC /* arrows@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "arrows@2x.png"; sourceTree = "<group>"; };
 		9BF0708B185122AA009B23DD /* audio.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = audio.png; sourceTree = "<group>"; };
@@ -1266,6 +1265,8 @@
 		7D31CF061746AEF2005997E0 /* UI Elements */ = {
 			isa = PBXGroup;
 			children = (
+				9BADAF43185FBD9D00108BD8 /* VLCFrostedGlasView.h */,
+				9BADAF44185FBD9D00108BD8 /* VLCFrostedGlasView.m */,
 				7D3784B2183A9938009EE944 /* UIBarButtonItem+Theme.h */,
 				7D3784B3183A9938009EE944 /* UIBarButtonItem+Theme.m */,
 				7D3784B4183A9938009EE944 /* UINavigationController+Theme.h */,
@@ -1316,7 +1317,6 @@
 				7D47D6D91760CD8700E86BAD /* speedIcon@2x.png */,
 				7D47D7251760D77C00E86BAD /* pauseIcon.png */,
 				7D47D7261760D77C00E86BAD /* pauseIcon@2x.png */,
-				7D47D6DA1760CD8700E86BAD /* playbackControllerBg@2x.png */,
 				7D47D6DB1760CD8700E86BAD /* playbackDoneButton.png */,
 				7D47D6DC1760CD8700E86BAD /* playbackDoneButton@2x.png */,
 				7D47D6DD1760CD8700E86BAD /* playbackDoneButtonHighlight.png */,
@@ -1328,7 +1328,6 @@
 				7D47D6E31760CD8700E86BAD /* seekbarBg.png */,
 				7D47D6E71760CD8700E86BAD /* knobSlider.png */,
 				7D47D6E81760CD8700E86BAD /* knobSlider@2x.png */,
-				7D47D6EB1760CD8700E86BAD /* playbackControllerBg.png */,
 				7D47D6EC1760CD8700E86BAD /* playIcon.png */,
 				7D47D6ED1760CD8700E86BAD /* playIcon@2x.png */,
 				7D47D6EE1760CD8700E86BAD /* audioTrackIcon.png */,
@@ -2034,7 +2033,6 @@
 				7D47D7031760CD8700E86BAD /* sliderminiValue@2x.png in Resources */,
 				7D47D7061760CD8700E86BAD /* speedIcon.png in Resources */,
 				7D47D7071760CD8700E86BAD /* speedIcon@2x.png in Resources */,
-				7D47D7081760CD8700E86BAD /* playbackControllerBg@2x.png in Resources */,
 				7D47D7091760CD8700E86BAD /* playbackDoneButton.png in Resources */,
 				7D47D70A1760CD8700E86BAD /* playbackDoneButton@2x.png in Resources */,
 				7D47D70B1760CD8700E86BAD /* playbackDoneButtonHighlight.png in Resources */,
@@ -2047,7 +2045,6 @@
 				7D47D7111760CD8700E86BAD /* seekbarBg.png in Resources */,
 				7D47D7151760CD8700E86BAD /* knobSlider.png in Resources */,
 				7D47D7161760CD8700E86BAD /* knobSlider@2x.png in Resources */,
-				7D47D7191760CD8700E86BAD /* playbackControllerBg.png in Resources */,
 				7D47D71A1760CD8700E86BAD /* playIcon.png in Resources */,
 				7D47D71B1760CD8700E86BAD /* playIcon@2x.png in Resources */,
 				7D47D71C1760CD8700E86BAD /* audioTrackIcon.png in Resources */,
@@ -2194,6 +2191,7 @@
 				2915543B17490B9C00B86CAD /* HTTPAsyncFileResponse.m in Sources */,
 				2915543C17490B9C00B86CAD /* HTTPDataResponse.m in Sources */,
 				2915543D17490B9C00B86CAD /* HTTPDynamicFileResponse.m in Sources */,
+				9BADAF45185FBD9D00108BD8 /* VLCFrostedGlasView.m in Sources */,
 				2915543E17490B9C00B86CAD /* HTTPErrorResponse.m in Sources */,
 				2915543F17490B9C00B86CAD /* HTTPFileResponse.m in Sources */,
 				2915544017490B9C00B86CAD /* HTTPRedirectResponse.m in Sources */,

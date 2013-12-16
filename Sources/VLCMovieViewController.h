@@ -12,6 +12,7 @@
  *****************************************************************************/
 
 #import <MediaPlayer/MediaPlayer.h>
+#import "VLCFrostedGlasView.h"
 
 @class OBSlider;
 @class VLCStatusLabel;
@@ -34,7 +35,7 @@
 @property (nonatomic, strong) IBOutlet UIButton *audioSwitcherButton;
 @property (nonatomic, strong) IBOutlet UIButton *repeatButton;
 @property (nonatomic, strong) IBOutlet UINavigationBar *toolbar;
-@property (nonatomic, strong) IBOutlet UIView *controllerPanel;
+@property (nonatomic, strong) IBOutlet VLCFrostedGlasView *controllerPanel;
 @property (nonatomic, strong) IBOutlet VLCStatusLabel *statusLabel;
 @property (nonatomic, strong) IBOutlet MPVolumeView *volumeView;
 
@@ -42,7 +43,7 @@
 @property (nonatomic, strong) IBOutlet UILabel *playingExternallyTitle;
 @property (nonatomic, strong) IBOutlet UILabel *playingExternallyDescription;
 
-@property (nonatomic, strong) IBOutlet UIView *videoFilterView;
+@property (nonatomic, strong) IBOutlet VLCFrostedGlasView *videoFilterView;
 @property (nonatomic, strong) IBOutlet UIButton *videoFilterButton;
 @property (nonatomic, strong) IBOutlet UILabel *hueLabel;
 @property (nonatomic, strong) IBOutlet UISlider *hueSlider;
@@ -56,14 +57,14 @@
 @property (nonatomic, strong) IBOutlet UISlider *gammaSlider;
 @property (nonatomic, strong) IBOutlet UIButton *resetVideoFilterButton;
 
-@property (nonatomic, strong) IBOutlet UIView *playbackSpeedView;
+@property (nonatomic, strong) IBOutlet VLCFrostedGlasView *playbackSpeedView;
 @property (nonatomic, strong) IBOutlet UIButton *playbackSpeedButton;
 @property (nonatomic, strong) IBOutlet UISlider *playbackSpeedSlider;
 @property (nonatomic, strong) IBOutlet UILabel *playbackSpeedLabel;
 @property (nonatomic, strong) IBOutlet UILabel *playbackSpeedIndicator;
 @property (nonatomic, strong) IBOutlet UIButton *aspectRatioButton;
 
-@property (nonatomic, strong) IBOutlet UIView *scrubIndicatorView;
+@property (nonatomic, strong) IBOutlet VLCFrostedGlasView *scrubIndicatorView;
 @property (nonatomic, strong) IBOutlet UILabel *currentScrubSpeedLabel;
 @property (nonatomic, strong) IBOutlet UILabel *scrubHelpLabel;
 
