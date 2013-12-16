@@ -62,7 +62,7 @@
             <autoresizingMask key="autoresizingMask" widthSizable="YES" flexibleMaxY="YES"/>
             <subviews>
                 <slider opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" value="0.5" minValue="0.0" maxValue="1" id="262" userLabel="Position Slider" customClass="VLCOBSlider">
-                    <rect key="frame" x="5" y="6" width="188" height="29"/>
+                    <rect key="frame" x="2" y="7" width="192" height="29"/>
                     <autoresizingMask key="autoresizingMask" widthSizable="YES" flexibleMaxY="YES"/>
                     <accessibility key="accessibilityConfiguration">
                         <accessibilityTraits key="traits" none="YES" updatesFrequently="YES"/>

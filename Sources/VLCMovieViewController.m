@@ -231,17 +231,27 @@
         self.toolbar.tintColor = [UIColor whiteColor];
         self.toolbar.barTintColor = [UIColor colorWithWhite:0.f alpha:1.f];
 
-        CGRect rect = self.positionSlider.frame;
-        rect.origin.y = rect.origin.y - 5.;
-        self.positionSlider.frame = rect;
-        rect = self.resetVideoFilterButton.frame;
+        CGRect rect = self.resetVideoFilterButton.frame;
         rect.origin.y = rect.origin.y + 5.;
         self.resetVideoFilterButton.frame = rect;
         rect = self.toolbar.frame;
         rect.size.height = rect.size.height + rect.origin.y;
         rect.origin.y = 0;
         self.toolbar.frame = rect;
+        rect = self.aspectRatioButton.frame;
+        rect.size.width -= 19.;
+        rect.origin.x += 19.;
+        self.aspectRatioButton.frame = rect;
+        rect = self.timeDisplay.frame;
+        rect.origin.x += 19.;
+        self.timeDisplay.frame = rect;
+        rect = self.positionSlider.frame;
+        rect.size.width += 19.;
+        self.positionSlider.frame = rect;
     } else {
+        CGRect rect = self.positionSlider.frame;
+        rect.origin.y = rect.origin.y + 3.;
+        self.positionSlider.frame = rect;
         [self.aspectRatioButton setBackgroundImage:[UIImage imageNamed:@"ratioButton"] forState:UIControlStateNormal];
         [self.aspectRatioButton setBackgroundImage:[UIImage imageNamed:@"ratioButtonHighlight"] forState:UIControlStateHighlighted];
         [self.toolbar setBackgroundImage:[UIImage imageNamed:@"seekbarBg"] forBarMetrics:UIBarMetricsDefault];
