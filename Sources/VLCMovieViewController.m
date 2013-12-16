@@ -407,6 +407,7 @@
     self.positionSlider.value = 0.;
     [self.timeDisplay setTitle:@"" forState:UIControlStateNormal];
     self.timeDisplay.accessibilityLabel = @"";
+    [self.repeatButton setImage:[UIImage imageNamed:@"repeat"] forState:UIControlStateNormal];
 
     if (![self _isMediaSuitableForDevice]) {
         UIAlertView * alert = [[UIAlertView alloc] initWithTitle:NSLocalizedString(@"DEVICE_TOOSLOW_TITLE", @"") message:[NSString stringWithFormat:NSLocalizedString(@"DEVICE_TOOSLOW", @""), [[UIDevice currentDevice] model], self.mediaItem.title] delegate:self cancelButtonTitle:NSLocalizedString(@"BUTTON_CANCEL", @"") otherButtonTitles:NSLocalizedString(@"BUTTON_OPEN", @""), nil];
@@ -835,10 +836,13 @@
 
 - (void)toggleRepeatMode:(id)sender
 {
-    if (_listPlayer.repeatMode == VLCDoNotRepeat)
+    if (_listPlayer.repeatMode == VLCDoNotRepeat) {
         _listPlayer.repeatMode = VLCRepeatCurrentItem;
-    else
+        [self.repeatButton setImage:[UIImage imageNamed:@"repeatOne"] forState:UIControlStateNormal];
+    } else {
         _listPlayer.repeatMode = VLCDoNotRepeat;
+        [self.repeatButton setImage:[UIImage imageNamed:@"repeat"] forState:UIControlStateNormal];
+    }
 }
 
 - (IBAction)switchAudioTrack:(id)sender
