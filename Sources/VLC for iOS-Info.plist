@@ -196,7 +196,7 @@
 		<key>UINavigationBar</key>
 		<dict>
 			<key>Style</key>
-			<string>UIBarStyleDefault</string>
+			<string>UIBarStyleBlack</string>
 			<key>TintColor</key>
 			<dict>
 				<key>Blue</key>
