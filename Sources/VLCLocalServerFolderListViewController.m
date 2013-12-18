@@ -242,7 +242,9 @@
         else
             [ObjList addObjectsFromArray:_objectList];
 
-        cell.title = [ObjList[indexPath.row] objectForKey:(id)kCFFTPResourceName];
+        NSString *rawFileName = [ObjList[indexPath.row] objectForKey:(id)kCFFTPResourceName];
+        NSData *flippedData = [rawFileName dataUsingEncoding:NSMacOSRomanStringEncoding];
+        cell.title = [[NSString alloc] initWithData:flippedData encoding:NSUTF8StringEncoding];
 
         if ([[ObjList[indexPath.row] objectForKey:(id)kCFFTPResourceType] intValue] == 4) {
             cell.isDirectory = YES;
@@ -319,12 +321,14 @@
             VLCLocalServerFolderListViewController *targetViewController = [[VLCLocalServerFolderListViewController alloc] initWithFTPServer:_ftpServerAddress userName:_ftpServerUserName andPassword:_ftpServerPassword atPath:newPath];
             [self.navigationController pushViewController:targetViewController animated:YES];
         } else {
-            NSString *objectName = [ObjList[indexPath.row] objectForKey:(id)kCFFTPResourceName];
-            if (![objectName isSupportedFormat]) {
-                UIAlertView * alert = [[UIAlertView alloc] initWithTitle:NSLocalizedString(@"FILE_NOT_SUPPORTED", @"") message:[NSString stringWithFormat:NSLocalizedString(@"FILE_NOT_SUPPORTED_LONG", @""), objectName] delegate:self cancelButtonTitle:NSLocalizedString(@"BUTTON_CANCEL", @"") otherButtonTitles:nil];
+            NSString *rawObjectName = [ObjList[indexPath.row] objectForKey:(id)kCFFTPResourceName];
+            NSData *flippedData = [rawObjectName dataUsingEncoding:NSMacOSRomanStringEncoding];
+            NSString *properObjectName = [[NSString alloc] initWithData:flippedData encoding:NSUTF8StringEncoding];
+            if (![properObjectName isSupportedFormat]) {
+                UIAlertView * alert = [[UIAlertView alloc] initWithTitle:NSLocalizedString(@"FILE_NOT_SUPPORTED", @"") message:[NSString stringWithFormat:NSLocalizedString(@"FILE_NOT_SUPPORTED_LONG", @""), properObjectName] delegate:self cancelButtonTitle:NSLocalizedString(@"BUTTON_CANCEL", @"") otherButtonTitles:nil];
                 [alert show];
             } else
-                [self _openURLStringAndDismiss:[_FTPListDirRequest.fullURLString stringByAppendingString:objectName]];
+                [self _openURLStringAndDismiss:[_FTPListDirRequest.fullURLString stringByAppendingString:properObjectName]];
       }
     }
     [tableView deselectRowAtIndexPath:indexPath animated:NO];
@@ -425,23 +429,25 @@
             [cell.statusLabel showStatusMessage:NSLocalizedString(@"DOWNLOADING", @"")];
         }
     }else if (_serverType == kVLCServerTypeFTP) {
-        NSString *objectName;
+        NSString *rawObjectName;
         NSMutableArray *ObjList = [[NSMutableArray alloc] init];
         [ObjList removeAllObjects];
 
         if ([self.searchDisplayController isActive]) {
             [ObjList addObjectsFromArray:_searchData];
-            objectName = [ObjList[[self.searchDisplayController.searchResultsTableView indexPathForCell:cell].row] objectForKey:(id)kCFFTPResourceName];
+            rawObjectName = [ObjList[[self.searchDisplayController.searchResultsTableView indexPathForCell:cell].row] objectForKey:(id)kCFFTPResourceName];
         } else {
             [ObjList addObjectsFromArray:_objectList];
-            objectName = [ObjList[[self.tableView indexPathForCell:cell].row] objectForKey:(id)kCFFTPResourceName];
+            rawObjectName = [ObjList[[self.tableView indexPathForCell:cell].row] objectForKey:(id)kCFFTPResourceName];
         }
 
-        if (![objectName isSupportedFormat]) {
-            UIAlertView * alert = [[UIAlertView alloc] initWithTitle:NSLocalizedString(@"FILE_NOT_SUPPORTED", @"") message:[NSString stringWithFormat:NSLocalizedString(@"FILE_NOT_SUPPORTED_LONG", @""), objectName] delegate:self cancelButtonTitle:NSLocalizedString(@"BUTTON_CANCEL", @"") otherButtonTitles:nil];
+        NSData *flippedData = [rawObjectName dataUsingEncoding:NSMacOSRomanStringEncoding];
+        NSString *properObjectName = [[NSString alloc] initWithData:flippedData encoding:NSUTF8StringEncoding];
+        if (![properObjectName isSupportedFormat]) {
+            UIAlertView * alert = [[UIAlertView alloc] initWithTitle:NSLocalizedString(@"FILE_NOT_SUPPORTED", @"") message:[NSString stringWithFormat:NSLocalizedString(@"FILE_NOT_SUPPORTED_LONG", @""), properObjectName] delegate:self cancelButtonTitle:NSLocalizedString(@"BUTTON_CANCEL", @"") otherButtonTitles:nil];
             [alert show];
         } else {
-            [self _downloadFTPFile:objectName];
+            [self _downloadFTPFile:properObjectName];
             [cell.statusLabel showStatusMessage:NSLocalizedString(@"DOWNLOADING", @"")];
         }
     }
@@ -472,8 +478,12 @@
         if (_serverType == kVLCServerTypeUPNP) {
             item = _mutableObjectList[i];
             nameRange = [[item title] rangeOfString:searchString options:NSCaseInsensitiveSearch];
-        } else if (_serverType == kVLCServerTypeFTP)
-            nameRange = [[_objectList[i] objectForKey:(id)kCFFTPResourceName] rangeOfString:searchString options:NSCaseInsensitiveSearch];
+        } else if (_serverType == kVLCServerTypeFTP) {
+            NSString *rawObjectName = [_objectList[i] objectForKey:(id)kCFFTPResourceName];
+            NSData *flippedData = [rawObjectName dataUsingEncoding:NSMacOSRomanStringEncoding];
+            NSString *properObjectName = [[NSString alloc] initWithData:flippedData encoding:NSUTF8StringEncoding];
+            nameRange = [properObjectName rangeOfString:searchString options:NSCaseInsensitiveSearch];
+        }
 
         if (nameRange.location != NSNotFound) {
             if (_serverType == kVLCServerTypeUPNP)
