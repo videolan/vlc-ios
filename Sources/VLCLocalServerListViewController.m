@@ -29,8 +29,8 @@
     UIBarButtonItem *_backToMenuButton;
     NSArray *_sectionHeaderTexts;
 
-    NSNetServiceBrowser *_netServiceBrowser;
-    NSMutableArray *_rawServices;
+    NSNetServiceBrowser *_ftpNetServiceBrowser;
+    NSMutableArray *_rawNetServices;
     NSMutableArray *_ftpServices;
 
     NSArray *_filteredUPNPDevices;
@@ -50,7 +50,7 @@
 
 - (void)dealloc
 {
-    [_netServiceBrowser stop];
+    [_ftpNetServiceBrowser stop];
 }
 
 - (void)loadView
@@ -85,10 +85,10 @@
     _ftpServices = [[NSMutableArray alloc] init];
     [_ftpServices addObject:NSLocalizedString(@"CONNECT_TO_SERVER", nil)];
 
-    _rawServices = [[NSMutableArray alloc] init];
+    _rawNetServices = [[NSMutableArray alloc] init];
 
-    _netServiceBrowser = [[NSNetServiceBrowser alloc] init];
-    _netServiceBrowser.delegate = self;
+    _ftpNetServiceBrowser = [[NSNetServiceBrowser alloc] init];
+    _ftpNetServiceBrowser.delegate = self;
 
     [self performSelectorInBackground:@selector(_startUPNPDiscovery) withObject:nil];
     [self performSelectorInBackground:@selector(_startSAPDiscovery) withObject:nil];
@@ -109,7 +109,7 @@
 {
     [super viewWillDisappear:animated];
     [_activityIndicator stopAnimating];
-    [_netServiceBrowser stop];
+    [_ftpNetServiceBrowser stop];
 }
 
 - (void)viewWillAppear:(BOOL)animated
@@ -123,7 +123,7 @@
 
 - (void)_triggerNetServiceBrowser
 {
-    [_netServiceBrowser searchForServicesOfType:@"_ftp._tcp." inDomain:@""];
+    [_ftpNetServiceBrowser searchForServicesOfType:@"_ftp._tcp." inDomain:@""];
 }
 
 - (void)_startUPNPDiscovery
@@ -343,7 +343,7 @@
 - (void)netServiceBrowser:(NSNetServiceBrowser *)aNetServiceBrowser didFindService:(NSNetService *)aNetService moreComing:(BOOL)moreComing
 {
     APLog(@"found bonjour service: %@ (%@)", aNetService.name, aNetService.type);
-    [_rawServices addObject:aNetService];
+    [_rawNetServices addObject:aNetService];
     aNetService.delegate = self;
     [aNetService resolveWithTimeout:5.];
 }
@@ -351,8 +351,8 @@
 - (void)netServiceBrowser:(NSNetServiceBrowser *)aNetServiceBrowser didRemoveService:(NSNetService *)aNetService moreComing:(BOOL)moreComing
 {
     APLog(@"bonjour service disappeared: %@ (%i)", aNetService.name, moreComing);
-    if ([_rawServices containsObject:aNetService])
-        [_rawServices removeObject:aNetService];
+    if ([_rawNetServices containsObject:aNetService])
+        [_rawNetServices removeObject:aNetService];
     if ([aNetService.type isEqualToString:@"_ftp._tcp."])
         [_ftpServices removeObject:aNetService];
     if (!moreComing)
@@ -365,14 +365,14 @@
         if (![_ftpServices containsObject:aNetService])
             [_ftpServices addObject:aNetService];
     }
-    [_rawServices removeObject:aNetService];
+    [_rawNetServices removeObject:aNetService];
     [self.tableView reloadData];
 }
 
 - (void)netService:(NSNetService *)aNetService didNotResolve:(NSDictionary *)errorDict
 {
     APLog(@"failed to resolve: %@", aNetService.name);
-    [_rawServices removeObject:aNetService];
+    [_rawNetServices removeObject:aNetService];
 }
 
 #pragma mark - UPNP details
