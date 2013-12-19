@@ -225,9 +225,6 @@
             else
                 [cell setIcon:[UIImage imageNamed:@"blank"]];
             cell.delegate = self;
-
-
-
         } else {
             [cell setIsDirectory:YES];
             [cell setIcon:[UIImage imageNamed:@"folder"]];

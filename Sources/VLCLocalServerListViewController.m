@@ -206,12 +206,15 @@
     if (section == 0) {
         BasicUPnPDevice *device = _filteredUPNPDevices[row];
         [cell setTitle:[device friendlyName]];
-        [cell setIcon:[device smallIcon]];
+        UIImage *icon = [device smallIcon];
+        [cell setIcon:icon != nil ? icon : [UIImage imageNamed:@"serverIcon"]];
     } else if (section == 1) {
         if (row == 0)
             [cell setTitle:_ftpServices[row]];
-        else
+        else {
             [cell setTitle:[_ftpServices[row] name]];
+            [cell setIcon:[UIImage imageNamed:@"serverIcon"]];
+        }
     } else if (section == 2)
         [cell setTitle:[[_sapDiscoverer.discoveredMedia mediaAtIndex:row] metadataForKey: VLCMetaInformationTitle]];
 
@@ -250,9 +253,9 @@
         } else
             [self.navigationController pushViewController:_loginViewController animated:YES];
 
-        if (row != 0 && [_ftpServices[row] hostName].length > 0) { // FTP Connect To Server Special Item and hostname is long enough
+        if (row != 0 && [_ftpServices[row] hostName].length > 0) // FTP Connect To Server Special Item and hostname is long enough
             _loginViewController.hostname = [_ftpServices[row] hostName];
-        } else
+        else
             _loginViewController.hostname = @"";
     } else if (section == 2) {
         VLCAppDelegate* appDelegate = [UIApplication sharedApplication].delegate;

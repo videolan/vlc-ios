@@ -230,6 +230,9 @@
 		7D94FCDF16DE7D1000F2623B /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 7D94FCDE16DE7D1000F2623B /* UIKit.framework */; };
 		7D94FCE116DE7D1000F2623B /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 7D94FCE016DE7D1000F2623B /* Foundation.framework */; };
 		7D94FCE316DE7D1000F2623B /* CoreGraphics.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 7D94FCE216DE7D1000F2623B /* CoreGraphics.framework */; };
+		7DA7C905186324FA00B56120 /* serverIcon@1x.png in Resources */ = {isa = PBXBuildFile; fileRef = 7DA7C902186324FA00B56120 /* serverIcon@1x.png */; };
+		7DA7C906186324FA00B56120 /* serverIcon@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 7DA7C903186324FA00B56120 /* serverIcon@2x.png */; };
+		7DA7C907186324FA00B56120 /* serverIcon@4x.png in Resources */ = {isa = PBXBuildFile; fileRef = 7DA7C904186324FA00B56120 /* serverIcon@4x.png */; };
 		7DA8B0FB173318E80029698C /* SourceCodePro-Regular.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 7DA8B0F9173318E80029698C /* SourceCodePro-Regular.ttf */; };
 		7DADC55F1704FABF001DAC63 /* OBSlider.m in Sources */ = {isa = PBXBuildFile; fileRef = 7DADC55E1704FABF001DAC63 /* OBSlider.m */; };
 		7DB638AB185BC0890003887C /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 7DB638AA185BC0890003887C /* Images.xcassets */; };
@@ -725,6 +728,9 @@
 		7D9B6B0A17C9626000F9425D /* sl */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = sl; path = "sl.lproj/badgeUnread@2x~iphone.png"; sourceTree = "<group>"; };
 		7D9B6B0B17C9626000F9425D /* sl */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = sl; path = "sl.lproj/badgeUnread~ipad.png"; sourceTree = "<group>"; };
 		7D9B6B0C17C9626000F9425D /* sl */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = sl; path = "sl.lproj/badgeUnread~iphone.png"; sourceTree = "<group>"; };
+		7DA7C902186324FA00B56120 /* serverIcon@1x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "serverIcon@1x.png"; sourceTree = "<group>"; };
+		7DA7C903186324FA00B56120 /* serverIcon@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "serverIcon@2x.png"; sourceTree = "<group>"; };
+		7DA7C904186324FA00B56120 /* serverIcon@4x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "serverIcon@4x.png"; sourceTree = "<group>"; };
 		7DA8B0F9173318E80029698C /* SourceCodePro-Regular.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "SourceCodePro-Regular.ttf"; sourceTree = "<group>"; };
 		7DADC55D1704FABF001DAC63 /* OBSlider.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = OBSlider.h; path = ImportedSources/OBSlider/OBSlider/OBSlider.h; sourceTree = SOURCE_ROOT; };
 		7DADC55E1704FABF001DAC63 /* OBSlider.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = OBSlider.m; path = ImportedSources/OBSlider/OBSlider/OBSlider.m; sourceTree = SOURCE_ROOT; };
@@ -1661,6 +1667,9 @@
 		7DEB3B7B1764A4080038FC70 /* menu */ = {
 			isa = PBXGroup;
 			children = (
+				7DA7C902186324FA00B56120 /* serverIcon@1x.png */,
+				7DA7C903186324FA00B56120 /* serverIcon@2x.png */,
+				7DA7C904186324FA00B56120 /* serverIcon@4x.png */,
 				7D897878185DEFB5009BAB5D /* flatDeleteButton.png */,
 				7D897879185DEFB5009BAB5D /* flatDeleteButton@2x.png */,
 				7D0699C017CB1FAE00713BEB /* Settings@2x.png */,
@@ -2046,6 +2055,7 @@
 				7D897874185DEF79009BAB5D /* repeat.png in Resources */,
 				7D47D70C1760CD8700E86BAD /* playbackDoneButtonHighlight@2x.png in Resources */,
 				7D47D70D1760CD8700E86BAD /* ratioButton.png in Resources */,
+				7DA7C906186324FA00B56120 /* serverIcon@2x.png in Resources */,
 				7D47D70E1760CD8700E86BAD /* ratioButton@2x.png in Resources */,
 				7D47D70F1760CD8700E86BAD /* ratioButtonHighlight.png in Resources */,
 				7D47D7101760CD8700E86BAD /* ratioButtonHighlight@2x.png in Resources */,
@@ -2110,6 +2120,7 @@
 				7DF1166C176CC69A009EC05C /* volumeballslider.png in Resources */,
 				7DF1166D176CC69A009EC05C /* volumeballslider@2x.png in Resources */,
 				7DD2A3A9179C04A7003EB537 /* OpenSans-Regular.ttf in Resources */,
+				7DA7C907186324FA00B56120 /* serverIcon@4x.png in Resources */,
 				7D3E6CE518589EE000D584E7 /* AppIcon512x512.png in Resources */,
 				7D2A34A41805CDBA004078AA /* gradient-cell-ios7.png in Resources */,
 				7DBBF199183AB4300009A339 /* VLCAboutViewController~iphone.xib in Resources */,
@@ -2142,6 +2153,7 @@
 				9B1A1653185E08B4001A99D9 /* forwardIcon@2x.png in Resources */,
 				7D0699E117CB1FAE00713BEB /* MusicAlbums@2x.png in Resources */,
 				7D0699E217CB1FAE00713BEB /* OpenNetStream.png in Resources */,
+				7DA7C905186324FA00B56120 /* serverIcon@1x.png in Resources */,
 				7D0699E317CB1FAE00713BEB /* OpenNetStream@2x.png in Resources */,
 				7D0699E417CB1FAE00713BEB /* Settings.png in Resources */,
 				9B1A164E185E0821001A99D9 /* backIcon.png in Resources */,
