@@ -12,6 +12,7 @@
  *****************************************************************************/
 
 #import "VLCThumbnailsCache.h"
+#import <CommonCrypto/CommonDigest.h>
 
 static NSInteger MaxCacheSize;
 static NSCache *_thumbnailCache;
@@ -30,6 +31,43 @@ static NSCache *_thumbnailCache;
     [_thumbnailCache setCountLimit: MaxCacheSize];
 }
 
++ (NSString *)_md5FromString:(NSString *)string
+{
+    const char *ptr = [string UTF8String];
+    unsigned char md5Buffer[CC_MD5_DIGEST_LENGTH];
+    CC_MD5(ptr, strlen(ptr), md5Buffer);
+    NSMutableString *output = [NSMutableString stringWithCapacity:CC_MD5_DIGEST_LENGTH * 2];
+    for(int i = 0; i < CC_MD5_DIGEST_LENGTH; i++)
+        [output appendFormat:@"%02x",md5Buffer[i]];
+
+    return [NSString stringWithString:output];
+}
+
++ (NSString *)_getArtworkPathFromMedia:(MLFile *)file
+{
+    NSString *artworkURL, *artist, *album, *title;
+
+    if (file.isAlbumTrack) {
+        artist = file.albumTrack.artist;
+        album = file.albumTrack.album.name;
+    }
+    title = file.title;
+
+    NSArray *searchPaths = NSSearchPathForDirectoriesInDomains(NSCachesDirectory, NSUserDomainMask, YES);
+    NSString *cacheDir = searchPaths[0];
+    cacheDir = [cacheDir stringByAppendingFormat:@"/%@", [[NSBundle mainBundle] bundleIdentifier]];
+
+    if (artist.length == 0 || album.length == 0) {
+        /* Use generated hash to find art */
+        artworkURL = [cacheDir stringByAppendingFormat:@"/art/arturl/%@/art.jpg", [self _md5FromString:title]];
+    } else {
+        /* Otherwise, it was cached by artist and album */
+        artworkURL = [cacheDir stringByAppendingFormat:@"/art/artistalbum/%@/%@/art.jpg", artist, album];
+    }
+
+    return artworkURL;
+}
+
 + (UIImage *)thumbnailForMediaFile:(MLFile *)mediaFile
 {
     if (mediaFile == nil || mediaFile.objectID == nil)
@@ -41,7 +79,12 @@ static NSCache *_thumbnailCache;
     if (displayedImage)
         return displayedImage;
 
-    displayedImage = mediaFile.computedThumbnail;
+    if (mediaFile.isAlbumTrack || mediaFile.isShowEpisode)
+        displayedImage = [UIImage imageWithContentsOfFile:[self _getArtworkPathFromMedia:mediaFile]];
+
+    if (!displayedImage)
+        displayedImage = mediaFile.computedThumbnail;
+
     if (displayedImage)
         [_thumbnailCache setObject:displayedImage forKey:objID];
 
