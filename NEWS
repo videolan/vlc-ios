@@ -23,6 +23,8 @@ Interface:
   app and by obfuscating playback metadata if passcode lock is enabled
 * Added support to endlessly repeat the currently playing item (#9793)
 * Added option to disable file name display optimizations (#10050)
+* TV Shows are sorted by Season number / Episode number and Music Albums
+  respectively by track number
 
 Cloud interaction:
 * Added support for downloads from Google Drive (#8690)

@@ -170,7 +170,7 @@
 - (void)openMediaObject:(NSManagedObject *)mediaObject
 {
     if ([mediaObject isKindOfClass:[MLAlbum class]]) {
-        _foundMedia = [NSMutableArray arrayWithArray:[[(MLAlbum *)mediaObject tracks] allObjects]];
+        _foundMedia = [NSMutableArray arrayWithArray:[(MLAlbum *)mediaObject sortedTracks]];
         self.navigationItem.leftBarButtonItem = [UIBarButtonItem themedBackButtonWithTarget:self andSelector:@selector(backToAllItems:)];
         if (_libraryMode == VLCLibraryModeAllFiles)
             self.navigationItem.leftBarButtonItem.title = NSLocalizedString(@"BUTTON_BACK", @"");
@@ -179,7 +179,7 @@
         self.title = [(MLAlbum*)mediaObject name];
         [self reloadViews];
     } else if ([mediaObject isKindOfClass:[MLShow class]]) {
-        _foundMedia = [NSMutableArray arrayWithArray:[[(MLShow *)mediaObject episodes] allObjects]];
+        _foundMedia = [NSMutableArray arrayWithArray:[(MLShow *)mediaObject sortedEpisodes]];
         self.navigationItem.leftBarButtonItem = [UIBarButtonItem themedBackButtonWithTarget:self andSelector:@selector(backToAllItems:)];
         if (_libraryMode == VLCLibraryModeAllFiles)
             self.navigationItem.leftBarButtonItem.title = NSLocalizedString(@"BUTTON_BACK", @"");
