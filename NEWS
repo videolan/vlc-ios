@@ -22,6 +22,7 @@ Interface:
 * Improved privacy by requesting the passcode immediately after leaving the
   app and by obfuscating playback metadata if passcode lock is enabled
 * Added support to endlessly repeat the currently playing item (#9793)
+* Added option to disable file name display optimizations (#10050)
 
 Cloud interaction:
 * Added support for downloads from Google Drive (#8690)
