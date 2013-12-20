@@ -21,6 +21,7 @@
 #import <CommonCrypto/CommonDigest.h>
 #import "UIDevice+SpeedCategory.h"
 #import "VLCBugreporter.h"
+#import "VLCThumbnailsCache.h"
 
 #import "OBSlider.h"
 #import "VLCStatusLabel.h"
@@ -354,9 +355,13 @@
         item.unread = @(NO);
 
         if (item.isAlbumTrack) {
-            self.trackNameLabel.text = item.albumTrack.title;
-            self.artistNameLabel.text = item.albumTrack.artist;
-            self.albumNameLabel.text = item.albumTrack.album.name;
+            self.artworkImageView.image = [VLCThumbnailsCache thumbnailForMediaFile:item];
+            if (!self.artworkImageView.image) {
+                self.trackNameLabel.text = item.albumTrack.title;
+                self.artistNameLabel.text = item.albumTrack.artist;
+                self.albumNameLabel.text = item.albumTrack.album.name;
+            } else
+                self.trackNameLabel.text = self.artistNameLabel.text = self.albumNameLabel.text = @"";
         }
     } else {
         media = [VLCMedia mediaWithURL:self.url];
