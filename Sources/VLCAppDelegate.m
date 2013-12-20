@@ -63,7 +63,7 @@
 
     /* clean caches on launch (since those are used for wifi upload only) */
     NSArray *searchPaths = NSSearchPathForDirectoriesInDomains(NSCachesDirectory, NSUserDomainMask, YES);
-    NSString* uploadDirPath = searchPaths[0];
+    NSString* uploadDirPath = [searchPaths[0] stringByAppendingPathComponent:@"Upload"];
     NSFileManager *fileManager = [NSFileManager defaultManager];
     if ([fileManager fileExistsAtPath:uploadDirPath])
         [fileManager removeItemAtPath:uploadDirPath error:nil];
