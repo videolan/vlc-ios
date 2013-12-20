@@ -33,7 +33,7 @@ Local network:
 * Added cover-art and duration to UPnP server item lists
 * UPnP stability improvements
 * Added support for media broadcasted with the Session Announcement Protocol
-  (SAP) information on the local network (#9429)
+  (SAP) information on the local network. Requires iOS 7 or later. (#9429)
 * Fix incorrect displayed size for files stored on UPnP multimedia servers
   larger than 2147.48 MB (#9641)
 * Improved WiFi Upload reliability, especially when uploading multiple

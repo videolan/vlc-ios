@@ -71,7 +71,10 @@
 {
     [super viewDidLoad];
 
-    _sectionHeaderTexts = @[@"Universal Plug'n'Play (UPNP)", @"File Transfer Protocol (FTP)", @"Network Streams (SAP)"];
+    if (SYSTEM_RUNS_IOS7_OR_LATER)
+        _sectionHeaderTexts = @[@"Universal Plug'n'Play (UPNP)", @"File Transfer Protocol (FTP)", @"Network Streams (SAP)"];
+    else
+        _sectionHeaderTexts = @[@"Universal Plug'n'Play (UPNP)", @"File Transfer Protocol (FTP)"];
 
     _backToMenuButton = [UIBarButtonItem themedRevealMenuButtonWithTarget:self andSelector:@selector(goBack:)];
     self.navigationItem.leftBarButtonItem = _backToMenuButton;
@@ -401,12 +404,18 @@
 
 - (void)_startSAPDiscovery
 {
+    if (!SYSTEM_RUNS_IOS7_OR_LATER)
+        return;
+
     _sapDiscoverer = [[VLCMediaDiscoverer alloc] initWithName:@"sap"];
     _sapDiscoverer.discoveredMedia.delegate = self;
 }
 
 - (void)_stopSAPDiscovery
 {
+    if (!SYSTEM_RUNS_IOS7_OR_LATER)
+        return;
+
     _sapDiscoverer = nil;
 }
 
