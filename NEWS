@@ -25,6 +25,7 @@ Interface:
 * Added option to disable file name display optimizations (#10050)
 * TV Shows are sorted by Season number / Episode number and Music Albums
   respectively by track number
+* New translations to Czech, Malay, Persian, Spanish (Mexico)
 
 Cloud interaction:
 * Added support for downloads from Google Drive (#8690)
