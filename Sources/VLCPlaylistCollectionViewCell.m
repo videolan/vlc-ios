@@ -69,15 +69,12 @@
 
 - (void)_updatedDisplayedInformationForKeyPath:(NSString *)keyPath
 {
-    self.albumNameLabel.text = self.artistNameLabel.text = self.seriesNameLabel.text = @"";
-
     if ([self.mediaObject isKindOfClass:[MLFile class]]) {
         MLFile *mediaObject = self.mediaObject;
         [self _configureForMLFile:mediaObject];
 
-        if (([keyPath isEqualToString:@"computedThumbnail"] || !keyPath) || (!self.thumbnailView.image && [keyPath isEqualToString:@"editing"])) {
+        if (([keyPath isEqualToString:@"computedThumbnail"] || !keyPath) || (!self.thumbnailView.image && [keyPath isEqualToString:@"editing"]))
             self.thumbnailView.image = [VLCThumbnailsCache thumbnailForMediaFile:mediaObject];
-        }
     } else if ([self.mediaObject isKindOfClass:[MLAlbum class]]) {
         MLAlbum *mediaObject = (MLAlbum *)self.mediaObject;
         [self _configureForAlbum:mediaObject];
@@ -136,16 +133,10 @@
 {
     self.titleLabel.text = show.name;
     NSUInteger count = show.episodes.count;
-    if (SYSTEM_RUNS_IOS7_OR_LATER) {
-        NSString *string = @"";
-        if (show.releaseYear)
-            string = [NSString stringWithFormat:@"%@ — ", show.releaseYear];
-        self.subtitleLabel.text = [string stringByAppendingString:[NSString stringWithFormat:(count > 1) ? NSLocalizedString(@"LIBRARY_EPISODES", @"") : NSLocalizedString(@"LIBRARY_SINGLE_EPISODE", @""), count, show.unreadEpisodes.count]];
-    } else {
-        self.artistNameLabel.text = @"";
-        self.albumNameLabel.text = show.releaseYear;
-        self.subtitleLabel.text = [NSString stringWithFormat:(count > 1) ? NSLocalizedString(@"LIBRARY_EPISODES", @"") : NSLocalizedString(@"LIBRARY_SINGLE_EPISODE", @""), count, show.unreadEpisodes.count];
-    }
+    NSString *string = @"";
+    if (show.releaseYear)
+        string = [NSString stringWithFormat:@"%@ — ", show.releaseYear];
+    self.subtitleLabel.text = [string stringByAppendingString:[NSString stringWithFormat:(count > 1) ? NSLocalizedString(@"LIBRARY_EPISODES", @"") : NSLocalizedString(@"LIBRARY_SINGLE_EPISODE", @""), count, show.unreadEpisodes.count]];
     self.mediaIsUnreadView.hidden = YES;
     self.progressView.hidden = YES;
 }
@@ -154,15 +145,8 @@
 {
     MLFile *anyFileFromTrack = albumTrack.files.anyObject;
 
-    if (SYSTEM_RUNS_IOS7_OR_LATER)
-        self.subtitleLabel.text = [NSString stringWithFormat:@"%@ — %@ — %@", albumTrack.artist, [NSString stringWithFormat:NSLocalizedString(@"LIBRARY_TRACK_N", @""), albumTrack.trackNumber.intValue], [VLCTime timeWithNumber:[anyFileFromTrack duration]]];
-    else {
-        self.artistNameLabel.text = albumTrack.artist;
-        self.albumNameLabel.text = [NSString stringWithFormat:NSLocalizedString(@"LIBRARY_TRACK_N", @""), albumTrack.trackNumber.intValue];
-        self.subtitleLabel.text = [NSString stringWithFormat:@"%@", [VLCTime timeWithNumber:[anyFileFromTrack duration]]];
-    }
+    self.subtitleLabel.text = [NSString stringWithFormat:@"%@ — %@ — %@", albumTrack.artist, [NSString stringWithFormat:NSLocalizedString(@"LIBRARY_TRACK_N", @""), albumTrack.trackNumber.intValue], [VLCTime timeWithNumber:[anyFileFromTrack duration]]];
     self.titleLabel.text = albumTrack.title;
-    self.thumbnailView.image = nil;
 
     [self _showPositionOfItem:anyFileFromTrack];
 }
@@ -186,20 +170,13 @@
     self.titleLabel.text = album.name;
     MLAlbumTrack *anyTrack = [album.tracks anyObject];
     NSUInteger count = album.tracks.count;
-    if (SYSTEM_RUNS_IOS7_OR_LATER) {
-        NSMutableString *string = [[NSMutableString alloc] init];
-        if (anyTrack) {
-            [string appendString:anyTrack.artist];
-            [string appendString:@" — "];
-        }
-        [string appendFormat:@"%@ — %@", [NSString stringWithFormat:(count > 1) ? NSLocalizedString(@"LIBRARY_TRACKS", @"") : NSLocalizedString(@"LIBRARY_SINGLE_TRACK", @""), count], album.releaseYear];
-        self.subtitleLabel.text = string;
-    } else {
-        self.artistNameLabel.text = anyTrack? anyTrack.artist: @"";
-        self.albumNameLabel.text = album.releaseYear;
-        self.subtitleLabel.text = [NSString stringWithFormat:(count > 1) ? NSLocalizedString(@"LIBRARY_TRACKS", @"") : NSLocalizedString(@"LIBRARY_SINGLE_TRACK", @""), count];
+    NSMutableString *string = [[NSMutableString alloc] init];
+    if (anyTrack) {
+        [string appendString:anyTrack.artist];
+        [string appendString:@" — "];
     }
-    self.thumbnailView.image = nil;
+    [string appendFormat:@"%@ — %@", [NSString stringWithFormat:(count > 1) ? NSLocalizedString(@"LIBRARY_TRACKS", @"") : NSLocalizedString(@"LIBRARY_SINGLE_TRACK", @""), count], album.releaseYear];
+    self.subtitleLabel.text = string;
     self.mediaIsUnreadView.hidden = YES;
     self.progressView.hidden = YES;
 }
@@ -207,19 +184,12 @@
 - (void)_configureForMLFile:(MLFile *)mediaFile
 {
     if (mediaFile.isAlbumTrack) {
-        if (SYSTEM_RUNS_IOS7_OR_LATER) {
-            NSString *string = @"";
-            if (mediaFile.albumTrack.artist)
-                string = [NSString stringWithFormat:@"%@ — ", mediaFile.albumTrack.artist];
-            else if (mediaFile.albumTrack.album.name)
-                string = [NSString stringWithFormat:@"%@ — ", mediaFile.albumTrack.artist];
-            self.titleLabel.text = [string stringByAppendingString:(mediaFile.albumTrack.title.length > 1) ? mediaFile.albumTrack.title : mediaFile.title];
-        } else {
-            self.artistNameLabel.text = mediaFile.albumTrack.artist;
-            self.albumNameLabel.text = mediaFile.albumTrack.album.name;
-            self.titleLabel.text = (mediaFile.albumTrack.title.length > 1) ? mediaFile.albumTrack.title : mediaFile.title;
-        }
-        self.thumbnailView.image = nil;
+        NSString *string = @"";
+        if (mediaFile.albumTrack.artist)
+            string = [NSString stringWithFormat:@"%@ — ", mediaFile.albumTrack.artist];
+        else if (mediaFile.albumTrack.album.name)
+            string = [NSString stringWithFormat:@"%@ — ", mediaFile.albumTrack.artist];
+        self.titleLabel.text = [string stringByAppendingString:(mediaFile.albumTrack.title.length > 1) ? mediaFile.albumTrack.title : mediaFile.title];
     } else
         self.titleLabel.text = mediaFile.title;
 

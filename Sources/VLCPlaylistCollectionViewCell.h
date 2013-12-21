@@ -24,8 +24,6 @@
 @property (nonatomic, strong) IBOutlet UIButton *removeMediaButton;
 @property (nonatomic, strong) IBOutlet UIView *mediaIsUnreadView;
 @property (nonatomic, strong) IBOutlet UILabel *seriesNameLabel;
-@property (nonatomic, strong) IBOutlet UILabel *artistNameLabel;
-@property (nonatomic, strong) IBOutlet UILabel *albumNameLabel;
 
 @property (nonatomic, retain) MLFile *mediaObject;
 

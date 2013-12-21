@@ -21,8 +21,6 @@
 @property (nonatomic, strong) IBOutlet UIImageView *thumbnailView;
 @property (nonatomic, strong) IBOutlet VLCLinearProgressIndicator *progressIndicator;
 @property (nonatomic, strong) IBOutlet UIView *mediaIsUnreadView;
-@property (nonatomic, strong) IBOutlet UILabel *artistNameLabel;
-@property (nonatomic, strong) IBOutlet UILabel *albumNameLabel;
 
 @property (nonatomic, strong) NSManagedObject *mediaObject;
 

@@ -15,24 +15,6 @@
                 <rect key="frame" x="0.0" y="0.0" width="298" height="220"/>
                 <autoresizingMask key="autoresizingMask"/>
                 <subviews>
-                    <label clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" text="Artist Name" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" minimumFontSize="12" adjustsLetterSpacingToFitWidth="YES" id="29">
-                        <rect key="frame" x="19" y="76" width="257" height="20"/>
-                        <autoresizingMask key="autoresizingMask" flexibleMinY="YES"/>
-                        <color key="backgroundColor" red="0.1215686275" green="0.1215686275" blue="0.1215686275" alpha="1" colorSpace="calibratedRGB"/>
-                        <fontDescription key="fontDescription" type="system" pointSize="18"/>
-                        <color key="textColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
-                        <nil key="highlightedColor"/>
-                        <color key="shadowColor" cocoaTouchSystemColor="darkTextColor"/>
-                    </label>
-                    <label clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" text="Album Name" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" minimumFontSize="10" adjustsLetterSpacingToFitWidth="YES" id="30">
-                        <rect key="frame" x="20" y="96" width="258" height="28"/>
-                        <autoresizingMask key="autoresizingMask" flexibleMinY="YES"/>
-                        <color key="backgroundColor" red="0.1215686275" green="0.1215686275" blue="0.1215686275" alpha="1" colorSpace="calibratedRGB"/>
-                        <fontDescription key="fontDescription" type="system" pointSize="14"/>
-                        <color key="textColor" white="0.71999999999999997" alpha="1" colorSpace="calibratedWhite"/>
-                        <nil key="highlightedColor"/>
-                        <color key="shadowColor" cocoaTouchSystemColor="darkTextColor"/>
-                    </label>
                     <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFill" id="31">
                         <rect key="frame" x="21" y="14" width="256" height="144"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
@@ -97,8 +79,6 @@
                 <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
             </view>
             <connections>
-                <outlet property="albumNameLabel" destination="30" id="39"/>
-                <outlet property="artistNameLabel" destination="29" id="40"/>
                 <outlet property="mediaIsUnreadView" destination="38" id="41"/>
                 <outlet property="progressView" destination="35" id="42"/>
                 <outlet property="removeMediaButton" destination="37" id="43"/>
