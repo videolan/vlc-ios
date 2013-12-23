@@ -21,8 +21,19 @@
 #import "VLCBugreporter.h"
 #import "VLCAppDelegate.h"
 #import "UIBarButtonItem+Theme.h"
+#import "VLCFirstStepsViewController.h"
 
 @implementation EmptyLibraryView
+
+- (IBAction)learnMore:(id)sender
+{
+    UIViewController *firstStepsVC = [[VLCFirstStepsViewController alloc] initWithNibName:nil bundle:nil];
+    UINavigationController *navCon = [[UINavigationController alloc] initWithRootViewController:firstStepsVC];
+    navCon.modalPresentationStyle = UIModalPresentationFormSheet;
+    [navCon loadTheme];
+    [self.window.rootViewController presentViewController:navCon animated:YES completion:nil];
+}
+
 @end
 
 @interface VLCPlaylistViewController () <UICollectionViewDataSource, UICollectionViewDelegateFlowLayout, UITableViewDataSource, UITableViewDelegate, MLMediaLibrary> {

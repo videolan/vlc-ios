@@ -41,5 +41,8 @@ typedef enum {
 @property (nonatomic, strong) IBOutlet UILabel *emptyLibraryLabel;
 @property (nonatomic, strong) IBOutlet UILabel *emptyLibraryLongDescriptionLabel;
 @property (nonatomic, strong) IBOutlet UIActivityIndicatorView *activityIndicator;
+@property (nonatomic, strong) IBOutlet UIButton *learnMoreButton;
+
+- (IBAction)learnMore:(id)sender;
 
 @end
