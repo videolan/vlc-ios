@@ -31,6 +31,5 @@
 
 - (void)setEditing:(BOOL)editing animated:(BOOL)animated;
 - (void)selectionUpdate;
-- (IBAction)removeMedia:(id)sender;
 
 @end

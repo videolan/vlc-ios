@@ -21,6 +21,7 @@
 - (void)setEditing:(BOOL)editing animated:(BOOL)animated
 {
     self.isSelectedView.hidden = !editing;
+    [self selectionUpdate];
     [self _updatedDisplayedInformationForKeyPath:@"editing"];
 }
 
