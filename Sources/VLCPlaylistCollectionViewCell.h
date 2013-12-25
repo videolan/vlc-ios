@@ -21,15 +21,16 @@
 @property (nonatomic, strong) IBOutlet UILabel *subtitleLabel;
 @property (nonatomic, strong) IBOutlet UIImageView *thumbnailView;
 @property (nonatomic, strong) IBOutlet VLCLinearProgressIndicator *progressView;
-@property (nonatomic, strong) IBOutlet UIButton *removeMediaButton;
 @property (nonatomic, strong) IBOutlet UIView *mediaIsUnreadView;
 @property (nonatomic, strong) IBOutlet UILabel *seriesNameLabel;
+@property (nonatomic, strong) IBOutlet UIImageView *isSelectedView;
 
 @property (nonatomic, retain) MLFile *mediaObject;
 
 @property (nonatomic, weak) UICollectionView *collectionView;
 
 - (void)setEditing:(BOOL)editing animated:(BOOL)animated;
+- (void)selectionUpdate;
 - (IBAction)removeMedia:(id)sender;
 
 @end

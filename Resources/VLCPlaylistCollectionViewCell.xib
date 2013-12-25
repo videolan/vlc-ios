@@ -56,21 +56,10 @@
                         <rect key="frame" x="16" y="9" width="266" height="154"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                     </imageView>
-                    <button hidden="YES" opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" id="37" userLabel="Delete button">
-                        <rect key="frame" x="260" y="2" width="33" height="29"/>
+                    <imageView hidden="YES" userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="checkboxEmpty.png" id="0Jc-2h-HQ9">
+                        <rect key="frame" x="8" y="1" width="25" height="25"/>
                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                        <fontDescription key="fontDescription" type="boldSystem" size="button"/>
-                        <state key="normal" image="DeleteButton.png">
-                            <color key="titleColor" red="0.1960784314" green="0.30980392159999998" blue="0.52156862749999999" alpha="1" colorSpace="calibratedRGB"/>
-                            <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
-                        </state>
-                        <state key="highlighted">
-                            <color key="titleColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
-                        </state>
-                        <connections>
-                            <action selector="removeMedia:" destination="2" eventType="touchUpInside" id="48"/>
-                        </connections>
-                    </button>
+                    </imageView>
                     <imageView userInteractionEnabled="NO" contentMode="scaleToFill" image="badgeUnread.png" id="38">
                         <rect key="frame" x="235" y="12" width="44" height="44"/>
                         <autoresizingMask key="autoresizingMask" flexibleMinX="YES" flexibleMinY="YES" flexibleMaxY="YES"/>
@@ -79,9 +68,9 @@
                 <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
             </view>
             <connections>
+                <outlet property="isSelectedView" destination="0Jc-2h-HQ9" id="I7k-1Q-y1G"/>
                 <outlet property="mediaIsUnreadView" destination="38" id="41"/>
                 <outlet property="progressView" destination="35" id="42"/>
-                <outlet property="removeMediaButton" destination="37" id="43"/>
                 <outlet property="seriesNameLabel" destination="34" id="44"/>
                 <outlet property="subtitleLabel" destination="33" id="45"/>
                 <outlet property="thumbnailView" destination="31" id="46"/>
@@ -90,8 +79,8 @@
         </collectionViewCell>
     </objects>
     <resources>
-        <image name="DeleteButton.png" width="29" height="29"/>
         <image name="badgeUnread.png" width="44" height="44"/>
+        <image name="checkboxEmpty.png" width="25" height="25"/>
         <image name="thumbOverlay.png" width="266" height="154"/>
     </resources>
 </document>

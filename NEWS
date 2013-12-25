@@ -25,6 +25,8 @@ Interface:
 * Added option to disable file name display optimizations (#10050)
 * TV Shows are sorted by Season number / Episode number and Music Albums
   respectively by track number
+* Added ability to rename any media item in the library view
+* Added deletion of multiple media items in one step
 * New translations to Czech, Malay, Persian, Spanish (Mexico)
 
 Cloud interaction:

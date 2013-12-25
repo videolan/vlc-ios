@@ -496,8 +496,18 @@
 
 - (void)collectionView:(UICollectionView *)collectionView didSelectItemAtIndexPath:(NSIndexPath *)indexPath
 {
+    if (self.editing) {
+        [(VLCPlaylistCollectionViewCell *)[collectionView cellForItemAtIndexPath:indexPath] selectionUpdate];
+        return;
+    }
+
     NSManagedObject *selectedObject = _foundMedia[indexPath.row];
     [self openMediaObject:selectedObject];
+}
+
+- (void)collectionView:(UICollectionView *)collectionView didDeselectItemAtIndexPath:(NSIndexPath *)indexPath
+{
+    [(VLCPlaylistCollectionViewCell *)[collectionView cellForItemAtIndexPath:indexPath] selectionUpdate];
 }
 
 #pragma mark - UI implementation
@@ -526,12 +536,23 @@
 
             [aCell setEditing:editing animated:animated];
         }];
+        self.collectionView.allowsMultipleSelection = editing;
+
+        /* UIKit doesn't clear the selection automagically if we leave the editing mode
+         * so we need to do so manually */
+        if (!editing) {
+            NSArray *selectedItems = [self.collectionView indexPathsForSelectedItems];
+            NSUInteger count = selectedItems.count;
+
+            for (NSUInteger x = 0; x < count; x++)
+                [self.collectionView deselectItemAtIndexPath:selectedItems[x] animated:NO];
+        }
     } else {
-        self.navigationController.toolbarHidden = !editing;
         self.tableView.allowsMultipleSelectionDuringEditing = editing;
         [self.tableView setEditing:editing animated:YES];
         [self.editButtonItem setTitle:editing ? NSLocalizedString(@"BUTTON_CANCEL",@"") : NSLocalizedString(@"BUTTON_EDIT", @"")];
     }
+    self.navigationController.toolbarHidden = !editing;
 }
 
 - (UITableViewCellEditingStyle)tableView:(UITableView *)aTableView editingStyleForRowAtIndexPath:(NSIndexPath *)indexPath
@@ -563,7 +584,11 @@
 
 - (void)deleteSelection
 {
-    NSArray *indexPaths = [self.tableView indexPathsForSelectedRows];
+    NSArray *indexPaths;
+    if (UI_USER_INTERFACE_IDIOM() == UIUserInterfaceIdiomPad)
+        indexPaths = [self.collectionView indexPathsForSelectedItems];
+    else
+        indexPaths = [self.tableView indexPathsForSelectedRows];
     NSUInteger count = indexPaths.count;
     NSMutableArray *objects = [[NSMutableArray alloc] initWithCapacity:count];
 
@@ -578,14 +603,22 @@
 
 - (void)renameSelection
 {
-    NSArray *indexPaths = [self.tableView indexPathsForSelectedRows];
+    NSArray *indexPaths;
+    if (UI_USER_INTERFACE_IDIOM() == UIUserInterfaceIdiomPad)
+        indexPaths = [self.collectionView indexPathsForSelectedItems];
+    else
+        indexPaths = [self.tableView indexPathsForSelectedRows];
 
     if (indexPaths.count < 1) {
         [self _endEditing];
         return;
     }
 
-    NSString *itemName = [(VLCPlaylistTableViewCell *)[self.tableView cellForRowAtIndexPath:indexPaths[0]] titleLabel].text;
+    NSString *itemName;
+    if (UI_USER_INTERFACE_IDIOM() == UIUserInterfaceIdiomPad)
+        itemName = [(VLCPlaylistCollectionViewCell *)[self.collectionView cellForItemAtIndexPath:indexPaths[0]] titleLabel].text;
+    else
+        itemName = [(VLCPlaylistTableViewCell *)[self.tableView cellForRowAtIndexPath:indexPaths[0]] titleLabel].text;
     UIAlertView *alert = [[UIAlertView alloc] initWithTitle:[NSString stringWithFormat:NSLocalizedString(@"RENAME_MEDIA_TO", @""), itemName] message:nil delegate:self cancelButtonTitle:NSLocalizedString(@"BUTTON_CANCEL", @"") otherButtonTitles:NSLocalizedString(@"BUTTON_RENAME", @""), nil];
     [alert setAlertViewStyle:UIAlertViewStylePlainTextInput];
     [[alert textFieldAtIndex:0] setText:itemName];
@@ -594,7 +627,11 @@
 
 - (void)renameMediaObjectTo:(NSString*)newName
 {
-    NSArray *indexPaths = [self.tableView indexPathsForSelectedRows];
+    NSArray *indexPaths;
+    if (UI_USER_INTERFACE_IDIOM() == UIUserInterfaceIdiomPad)
+        indexPaths = [self.collectionView indexPathsForSelectedItems];
+    else
+        indexPaths = [self.tableView indexPathsForSelectedRows];
     id mediaObject = _foundMedia[[indexPaths[0] row]];
 
     if ([mediaObject isKindOfClass:[MLAlbum class]] || [mediaObject isKindOfClass:[MLShowEpisode class]] || [mediaObject isKindOfClass:[MLShow class]])
@@ -602,7 +639,10 @@
     else
         [mediaObject setTitle:newName];
 
-    [self.tableView deselectRowAtIndexPath:indexPaths[0] animated:YES];
+    if (UI_USER_INTERFACE_IDIOM() == UIUserInterfaceIdiomPad)
+        [self.collectionView deselectItemAtIndexPath:indexPaths[0] animated:YES];
+    else
+        [self.tableView deselectRowAtIndexPath:indexPaths[0] animated:YES];
 
     if (indexPaths.count > 1)
         [self renameSelection];

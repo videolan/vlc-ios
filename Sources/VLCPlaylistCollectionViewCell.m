@@ -20,8 +20,16 @@
 
 - (void)setEditing:(BOOL)editing animated:(BOOL)animated
 {
-    self.removeMediaButton.hidden = !editing;
+    self.isSelectedView.hidden = !editing;
     [self _updatedDisplayedInformationForKeyPath:@"editing"];
+}
+
+- (void)selectionUpdate
+{
+    if (self.selected)
+        self.isSelectedView.image = [UIImage imageNamed:@"checkbox"];
+    else
+        self.isSelectedView.image = [UIImage imageNamed:@"checkboxEmpty"];
 }
 
 - (void)observeValueForKeyPath:(NSString *)keyPath ofObject:(id)object change:(NSDictionary *)change context:(void *)context
@@ -110,28 +118,6 @@
     }
 
     [self setNeedsDisplay];
-}
-
-- (IBAction)removeMedia:(id)sender
-{
-    NSString *title;
-    id mediaObject = self.mediaObject;
-    if ([mediaObject isKindOfClass:[MLAlbum class]] || [mediaObject isKindOfClass:[MLShowEpisode class]] || [mediaObject isKindOfClass:[MLShow class]])
-        title = [mediaObject name];
-    else
-        title = [mediaObject title];
-
-    /* ask user if s/he really wants to delete the media file */
-    UIAlertView * alert = [[UIAlertView alloc] initWithTitle:NSLocalizedString(@"DELETE_FILE", @"") message:[NSString stringWithFormat:NSLocalizedString(@"DELETE_FILE_LONG", @""), title] delegate:self cancelButtonTitle:NSLocalizedString(@"BUTTON_CANCEL", @"") otherButtonTitles:NSLocalizedString(@"BUTTON_DELETE", @""), nil];
-    [alert show];
-}
-
-- (void)alertView:(UIAlertView *)alertView clickedButtonAtIndex:(NSInteger)buttonIndex
-{
-    if (buttonIndex == 1) {
-        VLCPlaylistViewController *delegate = (VLCPlaylistViewController*)self.collectionView.delegate;
-        [delegate removeMediaObject:self.mediaObject updateDatabase:YES];
-    }
 }
 
 #pragma mark - presentation
