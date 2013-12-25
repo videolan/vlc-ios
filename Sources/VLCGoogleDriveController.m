@@ -27,6 +27,10 @@
     BOOL _downloadInProgress;
 
     NSString *_nextPageToken;
+
+    CGFloat _averageSpeed;
+    NSTimeInterval _startDL;
+    NSTimeInterval _lastStatsUpdate;
 }
 
 @end
@@ -211,12 +215,15 @@
 
         // Fetcher logging can include comments.
         [fetcher setCommentWithFormat:@"Downloading \"%@\"", file.title];
-
         __weak GTMHTTPFetcher *weakFetcher = fetcher;
-
+        _startDL = [NSDate timeIntervalSinceReferenceDate];
         fetcher.receivedDataBlock = ^(NSData *receivedData) {
-            float progress = (float)weakFetcher.downloadedLength / (float)[file.fileSize longLongValue];
+            if ((_lastStatsUpdate > 0 && ([NSDate timeIntervalSinceReferenceDate] - _lastStatsUpdate > .5)) || _lastStatsUpdate <= 0) {
+                [self calculateRemainingTime:weakFetcher.downloadedLength expectedDownloadSize:[file.fileSize floatValue]];
+                _lastStatsUpdate = [NSDate timeIntervalSinceReferenceDate];
+            }
 
+            CGFloat progress = (CGFloat)weakFetcher.downloadedLength / (CGFloat)[file.fileSize unsignedLongValue];
             if ([self.delegate respondsToSelector:@selector(currentProgressInformation:)])
                 [self.delegate currentProgressInformation:progress];
         };
@@ -231,6 +238,24 @@
             }
         }];
     }
+}
+
+- (void)calculateRemainingTime:(CGFloat)receivedDataSize expectedDownloadSize:(CGFloat)expectedDownloadSize
+{
+    CGFloat lastSpeed = receivedDataSize / ([NSDate timeIntervalSinceReferenceDate] - _startDL);
+    CGFloat smoothingFactor = 0.005;
+    _averageSpeed = isnan(_averageSpeed) ? lastSpeed : smoothingFactor * lastSpeed + (1 - smoothingFactor) * _averageSpeed;
+
+    CGFloat RemainingInSeconds = (expectedDownloadSize - receivedDataSize) / _averageSpeed;
+
+    NSDate *date = [NSDate dateWithTimeIntervalSince1970:RemainingInSeconds];
+    NSDateFormatter *formatter = [[NSDateFormatter alloc] init];
+    [formatter setDateFormat:@"HH:mm:ss"];
+    [formatter setTimeZone:[NSTimeZone timeZoneForSecondsFromGMT:0]];
+
+    NSString  *remaingTime = [formatter stringFromDate:date];
+    if ([self.delegate respondsToSelector:@selector(updateRemainingTime:)])
+        [self.delegate updateRemainingTime:remaingTime];
 }
 
 - (void)downloadSucessfull

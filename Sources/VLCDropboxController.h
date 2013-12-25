@@ -19,6 +19,7 @@
 @optional
 - (void)operationWithProgressInformationStarted;
 - (void)currentProgressInformation:(float)progress;
+- (void)updateRemainingTime:(NSString *)time;
 - (void)operationWithProgressInformationStopped;
 
 - (void)numberOfFilesWaitingToBeDownloadedChanged;

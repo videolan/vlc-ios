@@ -24,6 +24,11 @@
     BOOL _downloadInProgress;
 
     NSInteger _outstandingNetworkRequests;
+
+    CGFloat _averageSpeed;
+    CGFloat _fileSize;
+    NSTimeInterval _startDL;
+    NSTimeInterval _lastStatsUpdate;
 }
 
 @end
@@ -96,7 +101,8 @@
 {
     NSArray *searchPaths = NSSearchPathForDirectoriesInDomains(NSDocumentDirectory, NSUserDomainMask, YES);
     NSString *filePath = [searchPaths[0] stringByAppendingFormat:@"/%@", file.filename];
-
+    _startDL = [NSDate timeIntervalSinceReferenceDate];
+    _fileSize = file.totalBytes;
     [[self restClient] loadFile:file.path intoPath:filePath];
 
     if ([self.delegate respondsToSelector:@selector(operationWithProgressInformationStarted)])
@@ -160,12 +166,16 @@
     if ([self.delegate respondsToSelector:@selector(operationWithProgressInformationStopped)])
         [self.delegate operationWithProgressInformationStopped];
     _downloadInProgress = NO;
-
     [self _triggerNextDownload];
 }
 
 - (void)restClient:(DBRestClient*)client loadProgress:(CGFloat)progress forFile:(NSString*)destPath
 {
+    if ((_lastStatsUpdate > 0 && ([NSDate timeIntervalSinceReferenceDate] - _lastStatsUpdate > .5)) || _lastStatsUpdate <= 0) {
+        [self calculateRemainingTime:progress*_fileSize expectedDownloadSize:_fileSize];
+        _lastStatsUpdate = [NSDate timeIntervalSinceReferenceDate];
+    }
+
     if ([self.delegate respondsToSelector:@selector(currentProgressInformation:)])
         [self.delegate currentProgressInformation:progress];
 }
@@ -210,6 +220,24 @@
 }
 
 #pragma mark - VLC internal communication and delegate
+
+- (void)calculateRemainingTime:(CGFloat)receivedDataSize expectedDownloadSize:(CGFloat)expectedDownloadSize
+{
+    CGFloat lastSpeed = receivedDataSize / ([NSDate timeIntervalSinceReferenceDate] - _startDL);
+    CGFloat smoothingFactor = 0.005;
+    _averageSpeed = isnan(_averageSpeed) ? lastSpeed : smoothingFactor * lastSpeed + (1 - smoothingFactor) * _averageSpeed;
+
+    CGFloat RemainingInSeconds = (expectedDownloadSize - receivedDataSize)/_averageSpeed;
+
+    NSDate *date = [NSDate dateWithTimeIntervalSince1970:RemainingInSeconds];
+    NSDateFormatter *formatter = [[NSDateFormatter alloc] init];
+    [formatter setDateFormat:@"HH:mm:ss"];
+    [formatter setTimeZone:[NSTimeZone timeZoneForSecondsFromGMT:0]];
+
+    NSString  *remaingTime = [formatter stringFromDate:date];
+    if ([self.delegate respondsToSelector:@selector(updateRemainingTime:)])
+        [self.delegate updateRemainingTime:remaingTime];
+}
 
 - (NSArray *)currentListFiles
 {

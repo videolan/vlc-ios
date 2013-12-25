@@ -34,7 +34,8 @@
     UIBarButtonItem *_numberOfFilesBarButtonItem;
     UIBarButtonItem *_progressBarButtonItem;
     UIBarButtonItem *_downloadingBarLabel;
-    UIProgressView *_progressView;
+    UIProgressView *_progressBar;
+    UILabel *_progressLabel;
 
     UIActivityIndicatorView *_activityIndicator;
     DBMetadata *_selectedFile;
@@ -69,11 +70,18 @@
 
     _numberOfFilesBarButtonItem = [[UIBarButtonItem alloc] initWithTitle:[NSString stringWithFormat:NSLocalizedString(@"NUM_OF_FILES", @""), 0] style:UIBarButtonItemStylePlain target:nil action:nil];
     [_numberOfFilesBarButtonItem setTitleTextAttributes:@{ UITextAttributeFont : [UIFont systemFontOfSize:11.] } forState:UIControlStateNormal];
+    _progressBar = [[UIProgressView alloc] initWithProgressViewStyle:UIProgressViewStyleBar];
+    _progressLabel = [[UILabel alloc] init];
+    _progressLabel.textColor = [UIColor whiteColor];
+    _progressLabel.font = [UIFont systemFontOfSize:11.];
 
-    _progressView = [[UIProgressView alloc] initWithProgressViewStyle:UIProgressViewStyleBar];
-    _progressBarButtonItem = [[UIBarButtonItem alloc] initWithCustomView:_progressView];
-    _downloadingBarLabel = [[UIBarButtonItem alloc] initWithTitle:NSLocalizedString(@"DOWNLOADING",@"") style:UIBarButtonItemStylePlain target:nil action:nil];
-    [_downloadingBarLabel setTitleTextAttributes:@{ UITextAttributeFont : [UIFont systemFontOfSize:11.] } forState:UIControlStateNormal];
+    UIView *progressView = [[UIView alloc] init];
+    [progressView addSubview:_progressBar];
+    [progressView addSubview:_progressLabel];
+    [progressView addConstraint:[NSLayoutConstraint constraintWithItem:progressView attribute:NSLayoutAttributeWidth relatedBy:NSLayoutRelationEqual toItem:_progressLabel attribute:NSLayoutAttributeWidth multiplier:1.0f constant:0.0f]];
+    progressView.translatesAutoresizingMaskIntoConstraints = NO;
+
+    _progressBarButtonItem = [[UIBarButtonItem alloc] initWithCustomView:progressView];
 
     [self.cloudStorageLogo setImage:[UIImage imageNamed:@"dropbox-white.png"]];
     if (!SYSTEM_RUNS_IOS7_OR_LATER) {
@@ -123,8 +131,8 @@
     if (!value)
         [self setToolbarItems:@[[[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemFlexibleSpace target:nil action:nil], _numberOfFilesBarButtonItem, [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemFlexibleSpace target:nil action:nil]] animated:YES];
     else {
-        _progressView.progress = 0.;
-        [self setToolbarItems:@[[[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemFlexibleSpace target:nil action:nil], _downloadingBarLabel, _progressBarButtonItem, [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemFlexibleSpace target:nil action:nil]] animated:YES];
+        _progressBar.progress = 0.;
+        [self setToolbarItems:@[[[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemFlexibleSpace target:nil action:nil], _progressBarButtonItem, [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemFlexibleSpace target:nil action:nil]] animated:YES];
     }
 }
 
@@ -233,9 +241,15 @@
     [self _showProgressInToolbar:YES];
 }
 
-- (void)currentProgressInformation:(float)progress
+- (void)updateRemainingTime:(NSString *)time
 {
-    [_progressView setProgress: progress animated:YES];
+    [_progressLabel setText:[NSString stringWithFormat:NSLocalizedString(@"REMAINING_TIME", nil), time]];
+    CGSize size = [_progressLabel.text sizeWithFont:_progressLabel.font];
+    [_progressLabel setFrame:CGRectMake(0, 2, size.width, size.height)];
+}
+
+- (void)currentProgressInformation:(float)progress {
+    [_progressBar setProgress:progress animated:YES];
 }
 
 - (void)operationWithProgressInformationStopped
