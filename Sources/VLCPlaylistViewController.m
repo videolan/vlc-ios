@@ -202,7 +202,51 @@
         [(VLCAppDelegate*)[UIApplication sharedApplication].delegate openMediaFromManagedObject:mediaObject];
 }
 
-- (void)removeMediaObject:(MLFile *)mediaObject
+- (void)removeMediaObject:(id)managedObject
+{
+        // delete all tracks from an album
+    if ([managedObject isKindOfClass:[MLAlbum class]]) {
+        MLAlbum *album = managedObject;
+        NSSet *iterAlbumTrack = [NSSet setWithSet:album.tracks];
+
+        for (MLAlbumTrack *track in iterAlbumTrack) {
+            NSSet *iterFiles = [NSSet setWithSet:track.files];
+
+            for (MLFile *file in iterFiles)
+                [self _deleteMediaObject:file];
+        }
+        // delete all episodes from a show
+    } else if ([managedObject isKindOfClass:[MLShow class]]) {
+        MLShow *show = managedObject;
+        NSSet *iterShowEpisodes = [NSSet setWithSet:show.episodes];
+
+        for (MLShowEpisode *episode in iterShowEpisodes) {
+            NSSet *iterFiles = [NSSet setWithSet:episode.files];
+
+            for (MLFile *file in iterFiles)
+                [self _deleteMediaObject:file];
+        }
+        // delete all files from an episode
+    } else if ([managedObject isKindOfClass:[MLShowEpisode class]]) {
+        MLShowEpisode *episode = managedObject;
+        NSSet *iterFiles = [NSSet setWithSet:episode.files];
+
+        for (MLFile *file in iterFiles)
+            [self _deleteMediaObject:file];
+        // delete all files from a track
+    } else if ([managedObject isKindOfClass:[MLAlbumTrack class]]) {
+        MLAlbumTrack *track = managedObject;
+        NSSet *iterFiles = [NSSet setWithSet:track.files];
+
+        for (MLFile *file in iterFiles)
+            [self _deleteMediaObject:file];
+    }
+
+    [[MLMediaLibrary sharedMediaLibrary] updateMediaDatabase];
+    [self updateViewContents];
+}
+
+- (void)_deleteMediaObject:(MLFile *)mediaObject
 {
     NSFileManager *fileManager = [NSFileManager defaultManager];
     NSString *folderLocation = [[[NSURL URLWithString:mediaObject.url] path] stringByDeletingLastPathComponent];
@@ -221,8 +265,6 @@
         currentIndex = [indexSet indexGreaterThanIndex:currentIndex];
     }
     [fileManager removeItemAtPath:[[NSURL URLWithString:mediaObject.url] path] error:nil];
-    [[MLMediaLibrary sharedMediaLibrary] updateMediaDatabase];
-    [self updateViewContents];
 }
 
 - (void)_displayEmptyLibraryViewIfNeeded
@@ -355,47 +397,8 @@
 
 - (void)tableView:(UITableView *)tableView commitEditingStyle:(UITableViewCellEditingStyle)editingStyle forRowAtIndexPath:(NSIndexPath *)indexPath
 {
-    if (editingStyle == UITableViewCellEditingStyleDelete) {
-        // delete all tracks from an album
-        id managedObject = _foundMedia[indexPath.row];
-        if ([managedObject isKindOfClass:[MLAlbum class]]) {
-            MLAlbum *album = managedObject;
-            NSSet *iterAlbumTrack = [NSSet setWithSet:album.tracks];
-
-            for (MLAlbumTrack *track in iterAlbumTrack) {
-                NSSet *iterFiles = [NSSet setWithSet:track.files];
-
-                for (MLFile *file in iterFiles)
-                    [self removeMediaObject:file];
-            }
-        // delete all episodes from a show
-        } else if ([managedObject isKindOfClass:[MLShow class]]) {
-            MLShow *show = managedObject;
-            NSSet *iterShowEpisodes = [NSSet setWithSet:show.episodes];
-
-            for (MLShowEpisode *episode in iterShowEpisodes) {
-                NSSet *iterFiles = [NSSet setWithSet:episode.files];
-
-                for (MLFile *file in iterFiles)
-                    [self removeMediaObject:file];
-            }
-        // delete all files from an episode
-        } else if ([managedObject isKindOfClass:[MLShowEpisode class]]) {
-            MLShowEpisode *episode = managedObject;
-            NSSet *iterFiles = [NSSet setWithSet:episode.files];
-
-            for (MLFile *file in iterFiles)
-                [self removeMediaObject:file];
-        // delete all files from a track
-        } else if ([managedObject isKindOfClass:[MLAlbumTrack class]]) {
-            MLAlbumTrack *track = managedObject;
-            NSSet *iterFiles = [NSSet setWithSet:track.files];
-
-            for (MLFile *file in iterFiles)
-                [self removeMediaObject:file];
-        } else
-            [self removeMediaObject: managedObject]; // this must be a plain file
-    }
+    if (editingStyle == UITableViewCellEditingStyleDelete)
+        [self removeMediaObject: _foundMedia[indexPath.row]];
 }
 
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath

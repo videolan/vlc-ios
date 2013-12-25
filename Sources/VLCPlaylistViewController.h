@@ -30,7 +30,7 @@ typedef enum {
 - (IBAction)leftButtonAction:(id)sender;
 
 - (void)updateViewContents;
-- (void)removeMediaObject:(MLFile *)mediaObject;
+- (void)removeMediaObject:(id)mediaObject;
 
 - (void)setLibraryMode:(VLCLibraryMode)mode;
 
