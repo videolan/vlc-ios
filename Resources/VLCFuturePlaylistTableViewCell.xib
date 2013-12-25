@@ -21,7 +21,7 @@
                         <color key="backgroundColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
                     </imageView>
                     <imageView userInteractionEnabled="NO" contentMode="scaleToFill" image="gradient-cell-ios7.png" id="22">
-                        <rect key="frame" x="0.0" y="0.0" width="330" height="90"/>
+                        <rect key="frame" x="0.0" y="0.0" width="320" height="90"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                     </imageView>
                     <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" text="Title" lineBreakMode="wordWrap" baselineAdjustment="none" minimumFontSize="9" adjustsLetterSpacingToFitWidth="YES" id="6">
