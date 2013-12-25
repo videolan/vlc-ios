@@ -126,6 +126,8 @@
     _emptyLibraryView.emptyLibraryLongDescriptionLabel.text = NSLocalizedString(@"EMPTY_LIBRARY_LONG", @"");
     [_emptyLibraryView.emptyLibraryLongDescriptionLabel sizeToFit];
 
+    [self setToolbarItems:@[[[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemFlexibleSpace target:nil action:nil], [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemTrash target:self action:@selector(deleteMultipleFiles)]]];
+
     if (SYSTEM_RUNS_IOS7_OR_LATER)
         [UIApplication sharedApplication].statusBarStyle = UIStatusBarStyleLightContent;
 }
@@ -202,7 +204,7 @@
         [(VLCAppDelegate*)[UIApplication sharedApplication].delegate openMediaFromManagedObject:mediaObject];
 }
 
-- (void)removeMediaObject:(id)managedObject
+- (void)removeMediaObject:(id)managedObject updateDatabase:(BOOL)updateDB
 {
         // delete all tracks from an album
     if ([managedObject isKindOfClass:[MLAlbum class]]) {
@@ -240,10 +242,13 @@
 
         for (MLFile *file in iterFiles)
             [self _deleteMediaObject:file];
-    }
+    } else
+        [self _deleteMediaObject:managedObject];
 
-    [[MLMediaLibrary sharedMediaLibrary] updateMediaDatabase];
-    [self updateViewContents];
+    if (updateDB) {
+        [[MLMediaLibrary sharedMediaLibrary] updateMediaDatabase];
+        [self updateViewContents];
+    }
 }
 
 - (void)_deleteMediaObject:(MLFile *)mediaObject
@@ -388,6 +393,7 @@
 - (void)tableView:(UITableView *)tableView willDisplayCell:(UITableViewCell *)cell forRowAtIndexPath:(NSIndexPath *)indexPath
 {
     cell.backgroundColor = (indexPath.row % 2 == 0)? [UIColor blackColor]: [UIColor colorWithWhite:.122 alpha:1.];
+    cell.multipleSelectionBackgroundView.backgroundColor = cell.backgroundColor;
 }
 
 - (BOOL)tableView:(UITableView *)tableView canEditRowAtIndexPath:(NSIndexPath *)indexPath
@@ -398,11 +404,14 @@
 - (void)tableView:(UITableView *)tableView commitEditingStyle:(UITableViewCellEditingStyle)editingStyle forRowAtIndexPath:(NSIndexPath *)indexPath
 {
     if (editingStyle == UITableViewCellEditingStyleDelete)
-        [self removeMediaObject: _foundMedia[indexPath.row]];
+        [self removeMediaObject: _foundMedia[indexPath.row] updateDatabase:YES];
 }
 
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
 {
+    if (tableView.isEditing)
+        return;
+
     [tableView deselectRowAtIndexPath:indexPath animated:YES];
     NSManagedObject *selectedObject = _foundMedia[indexPath.row];
     [self openMediaObject:selectedObject];
@@ -515,8 +524,12 @@
 
             [aCell setEditing:editing animated:animated];
         }];
-    } else
+    } else {
+        self.navigationController.toolbarHidden = !editing;
+        self.tableView.allowsMultipleSelectionDuringEditing = editing;
         [self.tableView setEditing:editing animated:YES];
+        [self.editButtonItem setTitle:editing ? NSLocalizedString(@"BUTTON_CANCEL",@"") : NSLocalizedString(@"BUTTON_EDIT", @"")];
+    }
 }
 
 - (UITableViewCellEditingStyle)tableView:(UITableView *)aTableView editingStyleForRowAtIndexPath:(NSIndexPath *)indexPath
@@ -536,6 +549,28 @@
 {
     self.navigationItem.leftBarButtonItem = _menuButton;
     [self setLibraryMode:_libraryMode];
+}
+
+- (void)deleteMultipleFiles
+{
+    [self.tableView beginUpdates];
+
+    NSArray *indexPaths = [self.tableView indexPathsForSelectedRows];
+    NSUInteger count = indexPaths.count;
+    NSMutableArray *objects = [[NSMutableArray alloc] initWithCapacity:count];
+
+    for (NSUInteger x = 0; x < count; x++)
+        [objects addObject:_foundMedia[[indexPaths[x] row]]];
+
+    for (NSUInteger x = 0; x < count; x++)
+        [self removeMediaObject:objects[x] updateDatabase:NO];
+
+    [self.tableView endUpdates];
+
+    [[MLMediaLibrary sharedMediaLibrary] updateMediaDatabase];
+    [self updateViewContents];
+
+    [self setEditing:NO animated:YES];
 }
 
 #pragma mark - coin coin

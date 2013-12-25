@@ -28,6 +28,7 @@
     NSAssert([nibContentArray count] == 1, @"meh");
     NSAssert([[nibContentArray lastObject] isKindOfClass:[VLCPlaylistTableViewCell class]], @"meh meh");
     VLCPlaylistTableViewCell *cell = (VLCPlaylistTableViewCell *)[nibContentArray lastObject];
+    cell.multipleSelectionBackgroundView = [[UIView alloc] initWithFrame:cell.frame];
 
     return cell;
 }

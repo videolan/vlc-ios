@@ -130,7 +130,7 @@
 {
     if (buttonIndex == 1) {
         VLCPlaylistViewController *delegate = (VLCPlaylistViewController*)self.collectionView.delegate;
-        [delegate removeMediaObject:self.mediaObject];
+        [delegate removeMediaObject:self.mediaObject updateDatabase:YES];
     }
 }
 
