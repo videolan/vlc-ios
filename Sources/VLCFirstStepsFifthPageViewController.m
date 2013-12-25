@@ -27,7 +27,7 @@
 
 - (NSString *)pageTitle
 {
-    return @"Playback";
+    return NSLocalizedString(@"FIRST_STEPS_PLAYBACK", @"");
 }
 
 - (NSUInteger)page

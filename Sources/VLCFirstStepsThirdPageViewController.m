@@ -22,12 +22,13 @@
 {
     [super viewDidLoad];
 
-    /* FIXME: l10n */
+    self.connectDescriptionLabel.text = [NSString stringWithFormat:NSLocalizedString(@"FIRST_STEPS_WIFI_CONNECT_DETAILS",@""), [[UIDevice currentDevice] model]];
+    self.uploadDescriptionLabel.text = NSLocalizedString(@"FIRST_STEPS_WIFI_UPLOAD_DETAILS", @"");
 }
 
 - (NSString *)pageTitle
 {
-    return @"WiFi Upload";
+    return NSLocalizedString(@"HTTP_UPLOAD", @"");
 }
 
 - (NSUInteger)page

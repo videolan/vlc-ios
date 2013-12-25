@@ -22,12 +22,13 @@
 {
     [super viewDidLoad];
 
-    /* FIXME: l10n */
+    self.uploadDescriptionLabel.text = NSLocalizedString(@"FIRST_STEPS_CLOUD_UPLOAD_DETAILS", @"");
+    self.accessDescriptionLabel.text = NSLocalizedString(@"FIRST_STEPS_CLOUD_ACCESS_DETAILS", @"");
 }
 
 - (NSString *)pageTitle
 {
-    return @"Clouds";
+    return NSLocalizedString(@"FIRST_STEPS_CLOUDS", @"");
 }
 
 - (NSUInteger)page

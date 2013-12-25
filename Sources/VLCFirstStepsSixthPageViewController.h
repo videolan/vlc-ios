@@ -17,6 +17,9 @@
 @property (readonly) NSString *pageTitle;
 @property (readonly) NSUInteger page;
 
+@property (nonatomic, strong) IBOutlet UILabel *flossDescriptionLabel;
+@property (nonatomic, strong) IBOutlet UIButton *learnMoreButton;
+
 - (IBAction)learnMore:(id)sender;
 
 @end

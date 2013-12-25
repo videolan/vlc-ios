@@ -22,12 +22,13 @@
 {
     [super viewDidLoad];
 
-    /* FIXME: l10n */
+    NSString *model = [[UIDevice currentDevice] model];
+    self.descriptionLabel.text = [NSString stringWithFormat:NSLocalizedString(@"FIRST_STEPS_ITUNES_DETAILS", @""), model, model];
 }
 
 - (NSString *)pageTitle
 {
-    return @"iTunes File Sync";
+    return NSLocalizedString(@"FIRST_STEPS_ITUNES", @"");
 }
 
 - (NSUInteger)page

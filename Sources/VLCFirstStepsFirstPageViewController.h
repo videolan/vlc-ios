@@ -17,7 +17,6 @@
 @property (readonly) NSString *pageTitle;
 @property (readonly) NSUInteger page;
 
-@property (nonatomic, strong) IBOutlet UIButton *letsGoButton;
 @property (nonatomic, strong) IBOutlet UILabel *titleLabel;
 @property (nonatomic, strong) IBOutlet UILabel *subtitleLabel;
 

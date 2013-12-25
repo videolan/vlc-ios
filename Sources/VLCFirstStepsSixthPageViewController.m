@@ -22,7 +22,8 @@
 {
     [super viewDidLoad];
 
-    /* FIXME: l10n */
+    self.flossDescriptionLabel.text = NSLocalizedString(@"FIRST_STEPS_FLOSS", @"");
+    [self.learnMoreButton setTitle:NSLocalizedString(@"BUTTON_LEARN_MORE", @"") forState:UIControlStateNormal];
 }
 
 - (NSString *)pageTitle

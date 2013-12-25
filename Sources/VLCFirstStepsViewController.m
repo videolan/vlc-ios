@@ -42,7 +42,7 @@
 
     UIBarButtonItem *dismissButton = [UIBarButtonItem themedDoneButtonWithTarget:self andSelector:@selector(dismissFirstSteps)];
     self.navigationItem.rightBarButtonItem = dismissButton;
-    self.title = @"Welcome";
+    self.title = NSLocalizedString(@"FIRST_STEPS_WELCOME", @"");
 
     [self addChildViewController:pageVC];
     [self.view addSubview:[pageVC view]];

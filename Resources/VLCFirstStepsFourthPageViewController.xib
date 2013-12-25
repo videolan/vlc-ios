@@ -7,6 +7,8 @@
     <objects>
         <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner" customClass="VLCFirstStepsFourthPageViewController">
             <connections>
+                <outlet property="accessDescriptionLabel" destination="cEb-8k-t4u" id="JBU-nj-whN"/>
+                <outlet property="uploadDescriptionLabel" destination="kne-kQ-uVu" id="OXe-Ss-YDA"/>
                 <outlet property="view" destination="i5M-Pr-FkT" id="sfx-zR-JGt"/>
             </connections>
         </placeholder>

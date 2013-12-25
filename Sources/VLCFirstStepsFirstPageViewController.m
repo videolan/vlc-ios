@@ -21,12 +21,14 @@
 - (void)viewDidLoad
 {
     [super viewDidLoad];
-    /* FIXME: l10n */
+
+    self.titleLabel.text = NSLocalizedString(@"FIRST_STEPS_WELCOME", @"");
+    self.subtitleLabel.text = NSLocalizedString(@"FIRST_STEPS_WELCOME_DETAIL", @"");
 }
 
 - (NSString *)pageTitle
 {
-    return @"Welcome";
+    return NSLocalizedString(@"FIRST_STEPS_WELCOME", @"");;
 }
 
 - (NSUInteger)page

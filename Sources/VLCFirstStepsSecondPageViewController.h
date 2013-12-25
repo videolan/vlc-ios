@@ -17,4 +17,6 @@
 @property (readonly) NSString *pageTitle;
 @property (readonly) NSUInteger page;
 
+@property (nonatomic, strong) IBOutlet UILabel *descriptionLabel;
+
 @end
