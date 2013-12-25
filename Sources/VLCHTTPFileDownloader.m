@@ -21,6 +21,7 @@
     NSUInteger _receivedDataSize;
     NSString *_fileName;
     NSURLConnection *_urlConnection;
+    NSUInteger _statusCode;
 }
 
 @end
@@ -70,22 +71,22 @@
 
 -(void)connection:(NSURLConnection *)connection didReceiveResponse:(NSHTTPURLResponse *)response
 {
-    NSUInteger statusCode = [response statusCode];
-    if (statusCode == 200) {
+    _statusCode = [response statusCode];
+    if (_statusCode == 200) {
         _expectedDownloadSize = [response expectedContentLength];
         [self.delegate downloadStarted];
         APLog(@"expected download size: %i", _expectedDownloadSize);
     } else {
-        APLog(@"unhandled status code %i", statusCode);
+        APLog(@"unhandled status code %i", _statusCode);
         if ([self.delegate respondsToSelector:@selector(downloadFailedWithErrorDescription:)])
-            [self.delegate downloadFailedWithErrorDescription:[NSString stringWithFormat:NSLocalizedString(@"HTTP_DOWNLOAD_FAILED",nil), statusCode]];
+            [self.delegate downloadFailedWithErrorDescription:[NSString stringWithFormat:NSLocalizedString(@"HTTP_DOWNLOAD_FAILED",nil), _statusCode]];
     }
 }
 
 -(void)connection:(NSURLConnection *)connection didReceiveData:(NSData *)data
 {
     NSFileHandle *fileHandle = [NSFileHandle fileHandleForWritingAtPath:_filePath];
-    if (!fileHandle) {
+    if (!fileHandle && _statusCode != 404) {
         // create file
         [[NSFileManager defaultManager] createFileAtPath:_filePath contents:nil attributes:nil];
         fileHandle = [NSFileHandle fileHandleForWritingAtPath:_filePath];
