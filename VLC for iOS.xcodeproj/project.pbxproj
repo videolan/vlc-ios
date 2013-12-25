@@ -216,6 +216,10 @@
 		7D6BD1861762026700AD311A /* thumbOverlayPhone.png in Resources */ = {isa = PBXBuildFile; fileRef = 7D6BD1821762026700AD311A /* thumbOverlayPhone.png */; };
 		7D6BD1871762026700AD311A /* thumbOverlay.png in Resources */ = {isa = PBXBuildFile; fileRef = 7D6BD1831762026700AD311A /* thumbOverlay.png */; };
 		7D711ADA18227A490094E4F0 /* GTMOAuth2ViewTouch.xib in Resources */ = {isa = PBXBuildFile; fileRef = 7D711AD918227A490094E4F0 /* GTMOAuth2ViewTouch.xib */; };
+		7D713959186B197800D54EDA /* darkButton.png in Resources */ = {isa = PBXBuildFile; fileRef = 7D713955186B197800D54EDA /* darkButton.png */; };
+		7D71395A186B197800D54EDA /* darkButton@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 7D713956186B197800D54EDA /* darkButton@2x.png */; };
+		7D71395B186B197800D54EDA /* darkButtonHighlight.png in Resources */ = {isa = PBXBuildFile; fileRef = 7D713957186B197800D54EDA /* darkButtonHighlight.png */; };
+		7D71395C186B197800D54EDA /* darkButtonHighlight@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 7D713958186B197800D54EDA /* darkButtonHighlight@2x.png */; };
 		7D89786F185DED88009BAB5D /* VLCFutureDownloadViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 7D89786E185DED88009BAB5D /* VLCFutureDownloadViewController.xib */; };
 		7D897874185DEF79009BAB5D /* repeat.png in Resources */ = {isa = PBXBuildFile; fileRef = 7D897870185DEF79009BAB5D /* repeat.png */; };
 		7D897875185DEF79009BAB5D /* repeat@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 7D897871185DEF79009BAB5D /* repeat@2x.png */; };
@@ -708,6 +712,10 @@
 		7D6BD1831762026700AD311A /* thumbOverlay.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = thumbOverlay.png; sourceTree = "<group>"; };
 		7D6D13591758D1A00007EA9A /* it */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = it; path = it.lproj/Localizable.strings; sourceTree = "<group>"; };
 		7D711AD918227A490094E4F0 /* GTMOAuth2ViewTouch.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; name = GTMOAuth2ViewTouch.xib; path = ImportedSources/GDrive/OAuth2/Touch/GTMOAuth2ViewTouch.xib; sourceTree = SOURCE_ROOT; };
+		7D713955186B197800D54EDA /* darkButton.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = darkButton.png; sourceTree = "<group>"; };
+		7D713956186B197800D54EDA /* darkButton@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "darkButton@2x.png"; sourceTree = "<group>"; };
+		7D713957186B197800D54EDA /* darkButtonHighlight.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = darkButtonHighlight.png; sourceTree = "<group>"; };
+		7D713958186B197800D54EDA /* darkButtonHighlight@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "darkButtonHighlight@2x.png"; sourceTree = "<group>"; };
 		7D7DA52F1768A53200C7E95D /* id */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = id; path = id.lproj/Localizable.strings; sourceTree = "<group>"; };
 		7D7DA5301768A53200C7E95D /* id */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = id; path = "id.lproj/badgeUnread@2x~ipad.png"; sourceTree = "<group>"; };
 		7D7DA5311768A53200C7E95D /* id */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = id; path = "id.lproj/badgeUnread@2x~iphone.png"; sourceTree = "<group>"; };
@@ -1819,6 +1827,10 @@
 				7D514D3E17F779C6007B960C /* DriveWhite.png */,
 				7D514D3F17F779C6007B960C /* DriveWhite@2x.png */,
 				7D514D4017F779C6007B960C /* Drive.png */,
+				7D713955186B197800D54EDA /* darkButton.png */,
+				7D713956186B197800D54EDA /* darkButton@2x.png */,
+				7D713957186B197800D54EDA /* darkButtonHighlight.png */,
+				7D713958186B197800D54EDA /* darkButtonHighlight@2x.png */,
 			);
 			name = menu;
 			sourceTree = "<group>";
@@ -2102,6 +2114,7 @@
 				7D897884185E00C3009BAB5D /* checkboxEmpty.png in Resources */,
 				A79246C8170F11DF0036AAF2 /* Localizable.strings in Resources */,
 				A7CB0DB11716F72600050CF3 /* PlayingExternally@2x~iphone.png in Resources */,
+				7D71395C186B197800D54EDA /* darkButtonHighlight@2x.png in Resources */,
 				A7CB0DB21716F72600050CF3 /* PlayingExternally~iphone.png in Resources */,
 				7DC19AEE1868CCD400810BF7 /* ideviceConnectedToPC.png in Resources */,
 				9B9231C4185A703700F89498 /* VLCFutureNetworkLoginViewController.xib in Resources */,
@@ -2172,6 +2185,7 @@
 				7D47D7021760CD8700E86BAD /* sliderminiValue.png in Resources */,
 				7D47D7031760CD8700E86BAD /* sliderminiValue@2x.png in Resources */,
 				7D47D7061760CD8700E86BAD /* speedIcon.png in Resources */,
+				7D71395B186B197800D54EDA /* darkButtonHighlight.png in Resources */,
 				7D47D7071760CD8700E86BAD /* speedIcon@2x.png in Resources */,
 				7D47D7091760CD8700E86BAD /* playbackDoneButton.png in Resources */,
 				7D47D70A1760CD8700E86BAD /* playbackDoneButton@2x.png in Resources */,
@@ -2271,6 +2285,7 @@
 				7D0699D917CB1FAE00713BEB /* WifiUp.png in Resources */,
 				7D897875185DEF79009BAB5D /* repeat@2x.png in Resources */,
 				7D0699DA17CB1FAE00713BEB /* WifiUp@2x.png in Resources */,
+				7D713959186B197800D54EDA /* darkButton.png in Resources */,
 				7D0699DB17CB1FAE00713BEB /* WifiUpOn.png in Resources */,
 				7D0699DC17CB1FAE00713BEB /* WifiUpOn@2x.png in Resources */,
 				7D0699DD17CB1FAE00713BEB /* Dropbox@2x.png in Resources */,
@@ -2284,6 +2299,7 @@
 				9B1A1653185E08B4001A99D9 /* forwardIcon@2x.png in Resources */,
 				7D0699E117CB1FAE00713BEB /* MusicAlbums@2x.png in Resources */,
 				7D0699E217CB1FAE00713BEB /* OpenNetStream.png in Resources */,
+				7D71395A186B197800D54EDA /* darkButton@2x.png in Resources */,
 				7DA7C905186324FA00B56120 /* serverIcon@1x.png in Resources */,
 				7D0699E317CB1FAE00713BEB /* OpenNetStream@2x.png in Resources */,
 				7D0699E417CB1FAE00713BEB /* Settings.png in Resources */,

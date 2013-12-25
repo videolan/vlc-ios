@@ -86,4 +86,16 @@
     return menuButton;
 }
 
++ (UIBarButtonItem *)themedDarkToolbarButtonWithTitle:(NSString*)title target:(id)target andSelector:(SEL)selector
+{
+    UIBarButtonItem *button = [[UIBarButtonItem alloc] initWithTitle:title style:UIBarButtonItemStyleBordered target:target action:selector];
+    if (SYSTEM_RUNS_IOS7_OR_LATER)
+        button.tintColor = [UIColor whiteColor];
+    else {
+        [button setBackgroundImage:[[UIImage imageNamed:@"darkButton"] resizableImageWithCapInsets:UIEdgeInsetsMake(5, 5, 5, 5)] forState:UIControlStateNormal barMetrics:UIBarMetricsDefault];
+        [button setBackgroundImage:[[UIImage imageNamed:@"darkButtonHighlight"] resizableImageWithCapInsets:UIEdgeInsetsMake(5, 5, 5, 5)] forState:UIControlStateNormal barMetrics:UIBarMetricsDefault];
+    }
+
+    return button;
+}
 @end
