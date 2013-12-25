@@ -233,11 +233,9 @@
     if (_foundMedia.count == 0) {
         self.emptyLibraryView.frame = self.view.bounds;
         [self.view addSubview:self.emptyLibraryView];
-    }
-    if (_libraryMode == VLCLibraryModeAllFiles && _foundMedia.count > 0)
-        self.navigationItem.rightBarButtonItem = self.editButtonItem;
-    else
         self.navigationItem.rightBarButtonItem = nil;
+    } else
+        self.navigationItem.rightBarButtonItem = self.editButtonItem;
 
     if (UI_USER_INTERFACE_IDIOM() == UIUserInterfaceIdiomPhone) {
         _tableView.separatorStyle = (_foundMedia.count > 0)? UITableViewCellSeparatorStyleSingleLine:
@@ -358,34 +356,45 @@
 - (void)tableView:(UITableView *)tableView commitEditingStyle:(UITableViewCellEditingStyle)editingStyle forRowAtIndexPath:(NSIndexPath *)indexPath
 {
     if (editingStyle == UITableViewCellEditingStyleDelete) {
-        //Delete all tracks from an album
-        if ([_foundMedia[indexPath.row] isKindOfClass:[MLAlbum class]]) {
-            MLAlbum *album = _foundMedia[indexPath.row];
+        // delete all tracks from an album
+        id managedObject = _foundMedia[indexPath.row];
+        if ([managedObject isKindOfClass:[MLAlbum class]]) {
+            MLAlbum *album = managedObject;
             NSSet *iterAlbumTrack = [NSSet setWithSet:album.tracks];
 
             for (MLAlbumTrack *track in iterAlbumTrack) {
                 NSSet *iterFiles = [NSSet setWithSet:track.files];
 
-                for (MLFile *file in iterFiles) {
+                for (MLFile *file in iterFiles)
                     [self removeMediaObject:file];
-                }
             }
-        //Delete all episodes from a show
-        } else if ([_foundMedia[indexPath.row] isKindOfClass:[MLShow class]]) {
-            MLShow *show = _foundMedia[indexPath.row];
+        // delete all episodes from a show
+        } else if ([managedObject isKindOfClass:[MLShow class]]) {
+            MLShow *show = managedObject;
             NSSet *iterShowEpisodes = [NSSet setWithSet:show.episodes];
 
             for (MLShowEpisode *episode in iterShowEpisodes) {
                 NSSet *iterFiles = [NSSet setWithSet:episode.files];
 
-                for (MLFile *file in iterFiles) {
+                for (MLFile *file in iterFiles)
                     [self removeMediaObject:file];
-                }
             }
-        //everything else
-        } else {
-            [self removeMediaObject: _foundMedia[indexPath.row]];
-        }
+        // delete all files from an episode
+        } else if ([managedObject isKindOfClass:[MLShowEpisode class]]) {
+            MLShowEpisode *episode = managedObject;
+            NSSet *iterFiles = [NSSet setWithSet:episode.files];
+
+            for (MLFile *file in iterFiles)
+                [self removeMediaObject:file];
+        // delete all files from a track
+        } else if ([managedObject isKindOfClass:[MLAlbumTrack class]]) {
+            MLAlbumTrack *track = managedObject;
+            NSSet *iterFiles = [NSSet setWithSet:track.files];
+
+            for (MLFile *file in iterFiles)
+                [self removeMediaObject:file];
+        } else
+            [self removeMediaObject: managedObject]; // this must be a plain file
     }
 }
 
@@ -480,9 +489,6 @@
 #pragma mark - UI implementation
 - (void)setEditing:(BOOL)editing animated:(BOOL)animated
 {
-    if (_libraryMode != VLCLibraryModeAllFiles)
-        return;
-
     [super setEditing:editing animated:animated];
 
     UIBarButtonItem *editButton = self.editButtonItem;
@@ -512,9 +518,6 @@
 
 - (UITableViewCellEditingStyle)tableView:(UITableView *)aTableView editingStyleForRowAtIndexPath:(NSIndexPath *)indexPath
 {
-    if (_libraryMode != VLCLibraryModeAllFiles)
-        return UITableViewCellEditingStyleNone;
-
     return UITableViewCellEditingStyleDelete;
 }
 
