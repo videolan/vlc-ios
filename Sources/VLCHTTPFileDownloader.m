@@ -35,9 +35,9 @@
 
 - (void)downloadFileFromURL:(NSURL *)url
 {
-    NSArray *searchPaths = NSSearchPathForDirectoriesInDomains(NSDocumentDirectory, NSUserDomainMask, YES);
+    NSArray *searchPaths = NSSearchPathForDirectoriesInDomains(NSCachesDirectory, NSUserDomainMask, YES);
     _fileName = url.lastPathComponent;
-    _filePath = [searchPaths[0] stringByAppendingPathComponent:_fileName];
+    _filePath = [[searchPaths[0] stringByAppendingPathComponent:@"Upload"] stringByAppendingPathComponent:_fileName];
     _expectedDownloadSize = _receivedDataSize = 0;
     NSMutableURLRequest *theRequest = [NSMutableURLRequest requestWithURL:url];
     _urlConnection = [[NSURLConnection alloc] initWithRequest:theRequest delegate:self];
@@ -53,9 +53,9 @@
 
 - (void)downloadFileFromURLwithFileName:(NSURL *)url fileNameOfMedia:(NSString*) fileName
 {
-    NSArray *searchPaths = NSSearchPathForDirectoriesInDomains(NSDocumentDirectory, NSUserDomainMask, YES);
+    NSArray *searchPaths = NSSearchPathForDirectoriesInDomains(NSCachesDirectory, NSUserDomainMask, YES);
     _fileName = fileName;
-    _filePath = [searchPaths[0] stringByAppendingPathComponent:_fileName];
+    _filePath = [[searchPaths[0] stringByAppendingPathComponent:@"Upload"] stringByAppendingPathComponent:_fileName];
     _expectedDownloadSize = _receivedDataSize = 0;
     NSMutableURLRequest *theRequest = [NSMutableURLRequest requestWithURL:url];
     _urlConnection = [[NSURLConnection alloc] initWithRequest:theRequest delegate:self];
@@ -116,8 +116,6 @@
 
 -(void)connectionDidFinishLoading:(NSURLConnection *)connection {
     APLog(@"http file download complete");
-    VLCAppDelegate * appDelegate = [UIApplication sharedApplication].delegate;
-    [appDelegate performSelectorOnMainThread:@selector(updateMediaList) withObject:nil waitUntilDone:NO];
 
     [self _downloadEnded];
 }
@@ -151,6 +149,18 @@
     _downloadInProgress = NO;
     [UIApplication sharedApplication].networkActivityIndicatorVisible = NO;
     [(VLCAppDelegate*)[UIApplication sharedApplication].delegate activateIdleTimer];
+
+    NSArray *searchPaths = NSSearchPathForDirectoriesInDomains(NSDocumentDirectory, NSUserDomainMask, YES);
+    NSString *libraryPath = searchPaths[0];
+
+    NSFileManager *fileManager = [NSFileManager defaultManager];
+    NSString *finalFilePath = [libraryPath stringByAppendingPathComponent:_fileName];
+
+    if ([fileManager fileExistsAtPath:_filePath]) {
+        [fileManager moveItemAtPath:_filePath toPath:finalFilePath error:nil];
+        VLCAppDelegate * appDelegate = [UIApplication sharedApplication].delegate;
+        [appDelegate performSelectorOnMainThread:@selector(updateMediaList) withObject:nil waitUntilDone:NO];
+    }
 
     [self.delegate downloadEnded];
 }
