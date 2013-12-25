@@ -126,7 +126,7 @@
     _emptyLibraryView.emptyLibraryLongDescriptionLabel.text = NSLocalizedString(@"EMPTY_LIBRARY_LONG", @"");
     [_emptyLibraryView.emptyLibraryLongDescriptionLabel sizeToFit];
 
-    [self setToolbarItems:@[[[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemFlexibleSpace target:nil action:nil], [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemTrash target:self action:@selector(deleteMultipleFiles)]]];
+    [self setToolbarItems:@[[[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemFlexibleSpace target:nil action:nil], [[UIBarButtonItem alloc] initWithTitle:NSLocalizedString(@"BUTTON_RENAME", @"") style:UIBarButtonItemStyleBordered target:self action:@selector(renameSelection)], [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemFlexibleSpace target:nil action:nil], [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemTrash target:self action:@selector(deleteSelection)]]];
     self.navigationController.toolbar.barStyle = UIBarStyleBlack;
     self.navigationController.toolbar.tintColor = [UIColor whiteColor];
 
@@ -553,10 +553,16 @@
     [self setLibraryMode:_libraryMode];
 }
 
-- (void)deleteMultipleFiles
+- (void)_endEditing
 {
-    [self.tableView beginUpdates];
+    [[MLMediaLibrary sharedMediaLibrary] updateMediaDatabase];
+    [self updateViewContents];
 
+    [self setEditing:NO animated:YES];
+}
+
+- (void)deleteSelection
+{
     NSArray *indexPaths = [self.tableView indexPathsForSelectedRows];
     NSUInteger count = indexPaths.count;
     NSMutableArray *objects = [[NSMutableArray alloc] initWithCapacity:count];
@@ -567,12 +573,49 @@
     for (NSUInteger x = 0; x < count; x++)
         [self removeMediaObject:objects[x] updateDatabase:NO];
 
-    [self.tableView endUpdates];
+    [self _endEditing];
+}
 
-    [[MLMediaLibrary sharedMediaLibrary] updateMediaDatabase];
-    [self updateViewContents];
+- (void)renameSelection
+{
+    NSArray *indexPaths = [self.tableView indexPathsForSelectedRows];
 
-    [self setEditing:NO animated:YES];
+    if (indexPaths.count < 1) {
+        [self _endEditing];
+        return;
+    }
+
+    NSString *itemName = [(VLCPlaylistTableViewCell *)[self.tableView cellForRowAtIndexPath:indexPaths[0]] titleLabel].text;
+    UIAlertView *alert = [[UIAlertView alloc] initWithTitle:[NSString stringWithFormat:NSLocalizedString(@"RENAME_MEDIA_TO", @""), itemName] message:nil delegate:self cancelButtonTitle:NSLocalizedString(@"BUTTON_CANCEL", @"") otherButtonTitles:NSLocalizedString(@"BUTTON_RENAME", @""), nil];
+    [alert setAlertViewStyle:UIAlertViewStylePlainTextInput];
+    [[alert textFieldAtIndex:0] setText:itemName];
+    [alert show];
+}
+
+- (void)renameMediaObjectTo:(NSString*)newName
+{
+    NSArray *indexPaths = [self.tableView indexPathsForSelectedRows];
+    id mediaObject = _foundMedia[[indexPaths[0] row]];
+
+    if ([mediaObject isKindOfClass:[MLAlbum class]] || [mediaObject isKindOfClass:[MLShowEpisode class]] || [mediaObject isKindOfClass:[MLShow class]])
+        [mediaObject setName:newName];
+    else
+        [mediaObject setTitle:newName];
+
+    [self.tableView deselectRowAtIndexPath:indexPaths[0] animated:YES];
+
+    if (indexPaths.count > 1)
+        [self renameSelection];
+    else
+        [self _endEditing];
+}
+
+- (void)alertView:(UIAlertView *)alertView clickedButtonAtIndex:(NSInteger)buttonIndex
+{
+    if (buttonIndex == 1)
+        [self renameMediaObjectTo:[alertView textFieldAtIndex:0].text];
+    else
+        [self _endEditing];
 }
 
 #pragma mark - coin coin
