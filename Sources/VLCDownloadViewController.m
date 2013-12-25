@@ -36,6 +36,7 @@
 
     WRRequestDownload *_FTPDownloadRequest;
     NSTimeInterval _lastStatsUpdate;
+    CGFloat _averageSpeed;
 }
 @end
 
@@ -116,6 +117,9 @@
                 UIAlertView * alert = [[UIAlertView alloc] initWithTitle:NSLocalizedString(@"FILE_NOT_SUPPORTED", @"") message:[NSString stringWithFormat:NSLocalizedString(@"FILE_NOT_SUPPORTED_LONG", @""), URLtoSave.lastPathComponent] delegate:self cancelButtonTitle:NSLocalizedString(@"BUTTON_CANCEL", @"") otherButtonTitles:nil];
                 [alert show];
             }
+        } else {
+            UIAlertView * alert = [[UIAlertView alloc] initWithTitle:NSLocalizedString(@"SCHEME_NOT_SUPPORTED", @"") message:[NSString stringWithFormat:NSLocalizedString(@"SCHEME_NOT_SUPPORTED_LONG", @""), URLtoSave.scheme] delegate:self cancelButtonTitle:NSLocalizedString(@"BUTTON_CANCEL", @"") otherButtonTitles:nil];
+            [alert show];
         }
     }
 }
@@ -232,11 +236,12 @@
     [self.progressView setProgress:percentage animated:YES];
 }
 
-- (NSString*)calculateRemainingTime:(CGFloat)receivedDataSize  expectedDownloadSize:(CGFloat)expectedDownloadSize
+- (NSString*)calculateRemainingTime:(CGFloat)receivedDataSize expectedDownloadSize:(CGFloat)expectedDownloadSize
 {
-    CGFloat speed = receivedDataSize / ([NSDate timeIntervalSinceReferenceDate] - _startDL);
-
-    CGFloat RemainingInSeconds = (expectedDownloadSize - receivedDataSize)/speed;
+    CGFloat lastSpeed = receivedDataSize / ([NSDate timeIntervalSinceReferenceDate] - _startDL);
+    CGFloat smoothingFactor = 0.005;
+    _averageSpeed = isnan(_averageSpeed) ? lastSpeed : smoothingFactor * lastSpeed + (1 - smoothingFactor) * _averageSpeed;
+    CGFloat RemainingInSeconds = (expectedDownloadSize - receivedDataSize)/_averageSpeed;
 
     NSDate *date = [NSDate dateWithTimeIntervalSince1970:RemainingInSeconds];
     NSDateFormatter *formatter = [[NSDateFormatter alloc] init];
