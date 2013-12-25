@@ -59,7 +59,21 @@
 
 + (UIBarButtonItem *)themedRevealMenuButtonWithTarget:(id)target andSelector:(SEL)selector
 {
-    UIBarButtonItem *menuButton = [[UIBarButtonItem alloc] initWithImage:[UIImage imageNamed:@"menuCone"] style:UIBarButtonItemStyleBordered target:target action:selector];
+    /* After day 354 of the year, the usual VLC cone is replaced by another cone
+     * wearing a Father Xmas hat.
+     * Note: this icon doesn't represent an endorsement of The Coca-Cola Company
+     * and should not be confused with the idea of religious statements or propagation there off
+     */
+    NSCalendar *gregorian =
+    [[NSCalendar alloc] initWithCalendarIdentifier:NSGregorianCalendar];
+    NSUInteger dayOfYear = [gregorian ordinalityOfUnit:NSDayCalendarUnit inUnit:NSYearCalendarUnit forDate:[NSDate date]];
+    UIImage *icon;
+    if (dayOfYear >= 354)
+        icon = [UIImage imageNamed:@"vlc-xmas"];
+    else
+        icon = [UIImage imageNamed:@"menuCone"];
+
+    UIBarButtonItem *menuButton = [[UIBarButtonItem alloc] initWithImage:icon style:UIBarButtonItemStyleBordered target:target action:selector];
     if (SYSTEM_RUNS_IOS7_OR_LATER)
         menuButton.tintColor = [UIColor whiteColor];
     else {

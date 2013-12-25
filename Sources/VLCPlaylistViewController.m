@@ -99,18 +99,6 @@
     [super viewDidLoad];
     self.title = NSLocalizedString(@"LIBRARY_ALL_FILES", @"");
     _menuButton = [UIBarButtonItem themedRevealMenuButtonWithTarget:self andSelector:@selector(leftButtonAction:)];
-
-    /* After day 354 of the year, the usual VLC cone is replaced by another cone
-     * wearing a Father Xmas hat.
-     * Note: this icon doesn't represent an endorsement of The Coca-Cola Company
-     * and should not be confused with the idea of religious statements or propagation there off
-     */
-    NSCalendar *gregorian =
-    [[NSCalendar alloc] initWithCalendarIdentifier:NSGregorianCalendar];
-    NSUInteger dayOfYear = [gregorian ordinalityOfUnit:NSDayCalendarUnit inUnit:NSYearCalendarUnit forDate:[NSDate date]];
-    if (dayOfYear >= 354)
-        _menuButton.image = [UIImage imageNamed:@"vlc-xmas"];
-
     self.navigationItem.leftBarButtonItem = _menuButton;
 
     if (SYSTEM_RUNS_IOS7_OR_LATER)
