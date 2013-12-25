@@ -127,6 +127,8 @@
     [_emptyLibraryView.emptyLibraryLongDescriptionLabel sizeToFit];
 
     [self setToolbarItems:@[[[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemFlexibleSpace target:nil action:nil], [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemTrash target:self action:@selector(deleteMultipleFiles)]]];
+    self.navigationController.toolbar.barStyle = UIBarStyleBlack;
+    self.navigationController.toolbar.tintColor = [UIColor whiteColor];
 
     if (SYSTEM_RUNS_IOS7_OR_LATER)
         [UIApplication sharedApplication].statusBarStyle = UIStatusBarStyleLightContent;
