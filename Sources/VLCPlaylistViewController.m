@@ -314,6 +314,14 @@
 {
     _foundMedia = [[NSMutableArray alloc] init];
 
+    self.navigationItem.leftBarButtonItem = _menuButton;
+    if (_libraryMode == VLCLibraryModeAllAlbums)
+        self.title = NSLocalizedString(@"LIBRARY_MUSIC", @"");
+    else if( _libraryMode == VLCLibraryModeAllSeries)
+        self.title = NSLocalizedString(@"LIBRARY_SERIES", @"");
+    else
+        self.title = NSLocalizedString(@"LIBRARY_ALL_FILES", @"");
+
     /* add all albums */
     if (_libraryMode != VLCLibraryModeAllSeries) {
         NSArray *rawAlbums = [MLAlbum allAlbums];
@@ -570,14 +578,17 @@
 
 - (IBAction)backToAllItems:(id)sender
 {
-    self.navigationItem.leftBarButtonItem = _menuButton;
     [self setLibraryMode:_libraryMode];
+    [self updateViewContents];
 }
 
-- (void)_endEditing
+- (void)_endEditingWithHardReset:(BOOL)hardReset
 {
     [[MLMediaLibrary sharedMediaLibrary] updateMediaDatabase];
-    [self updateViewContents];
+    if (hardReset)
+        [self updateViewContents];
+    else
+        [self reloadViews];
 
     [self setEditing:NO animated:YES];
 }
@@ -598,7 +609,7 @@
     for (NSUInteger x = 0; x < count; x++)
         [self removeMediaObject:objects[x] updateDatabase:NO];
 
-    [self _endEditing];
+    [self _endEditingWithHardReset:YES];
 }
 
 - (void)renameSelection
@@ -610,7 +621,7 @@
         indexPaths = [self.tableView indexPathsForSelectedRows];
 
     if (indexPaths.count < 1) {
-        [self _endEditing];
+        [self _endEditingWithHardReset:NO];
         return;
     }
 
@@ -647,7 +658,7 @@
     if (indexPaths.count > 1)
         [self renameSelection];
     else
-        [self _endEditing];
+        [self _endEditingWithHardReset:NO];
 }
 
 - (void)alertView:(UIAlertView *)alertView clickedButtonAtIndex:(NSInteger)buttonIndex
@@ -655,7 +666,7 @@
     if (buttonIndex == 1)
         [self renameMediaObjectTo:[alertView textFieldAtIndex:0].text];
     else
-        [self _endEditing];
+        [self _endEditingWithHardReset:NO];
 }
 
 #pragma mark - coin coin
@@ -663,14 +674,6 @@
 - (void)setLibraryMode:(VLCLibraryMode)mode
 {
     _libraryMode = mode;
-
-    if (_libraryMode == VLCLibraryModeAllAlbums)
-        self.title = NSLocalizedString(@"LIBRARY_MUSIC", @"");
-    else if( _libraryMode == VLCLibraryModeAllSeries)
-        self.title = NSLocalizedString(@"LIBRARY_SERIES", @"");
-    else
-        self.title = NSLocalizedString(@"LIBRARY_ALL_FILES", @"");
-
     [self updateViewContents];
 }
 
