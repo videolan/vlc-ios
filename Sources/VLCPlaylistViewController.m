@@ -128,10 +128,12 @@
 
     [self setToolbarItems:@[[[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemFlexibleSpace target:nil action:nil], [[UIBarButtonItem alloc] initWithTitle:NSLocalizedString(@"BUTTON_RENAME", @"") style:UIBarButtonItemStyleBordered target:self action:@selector(renameSelection)], [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemFlexibleSpace target:nil action:nil], [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemTrash target:self action:@selector(deleteSelection)]]];
     self.navigationController.toolbar.barStyle = UIBarStyleBlack;
-    self.navigationController.toolbar.tintColor = [UIColor whiteColor];
 
-    if (SYSTEM_RUNS_IOS7_OR_LATER)
+    if (SYSTEM_RUNS_IOS7_OR_LATER) {
+        self.navigationController.toolbar.tintColor = [UIColor whiteColor];
         [UIApplication sharedApplication].statusBarStyle = UIStatusBarStyleLightContent;
+    } else
+        [self.navigationController.toolbar setBackgroundImage:[UIImage imageNamed:@"bottomBlackBar"] forToolbarPosition:UIToolbarPositionAny barMetrics:UIBarMetricsDefault];
 }
 
 - (void)viewWillAppear:(BOOL)animated
