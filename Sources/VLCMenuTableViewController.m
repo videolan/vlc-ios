@@ -80,6 +80,7 @@
 	_tableView.backgroundColor = [UIColor colorWithRed:(43.0f/255.0f) green:(43.0f/255.0f) blue:(43.0f/255.0f) alpha:1.0f];
 	_tableView.separatorStyle = UITableViewCellSeparatorStyleNone;
     _tableView.rowHeight = [VLCWiFiUploadTableViewCell heightOfCell];
+    _tableView.scrollsToTop = NO;
 
     self.view = [[UIView alloc] initWithFrame:CGRectMake(0.0f, 0.0f, kGHRevealSidebarWidth, CGRectGetHeight(self.view.bounds))];
     [self.view addSubview:_tableView];
