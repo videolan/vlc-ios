@@ -28,8 +28,6 @@
 
 - (void)awakeFromNib
 {
-    NSLog(@"awake form nib");
-
     if (SYSTEM_RUNS_IOS7_OR_LATER) {
         _checkboxEmptyImage = [UIImage imageNamed:@"checkboxEmpty"];
         _checkboxImage = [UIImage imageNamed:@"checkbox"];

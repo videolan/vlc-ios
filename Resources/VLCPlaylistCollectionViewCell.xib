@@ -38,15 +38,6 @@
                         <nil key="highlightedColor"/>
                         <color key="shadowColor" cocoaTouchSystemColor="darkTextColor"/>
                     </label>
-                    <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" text="Series Name" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" minimumFontSize="9" adjustsLetterSpacingToFitWidth="YES" id="34">
-                        <rect key="frame" x="27" y="12" width="230" height="28"/>
-                        <autoresizingMask key="autoresizingMask" flexibleMinY="YES"/>
-                        <fontDescription key="fontDescription" type="system" pointSize="14"/>
-                        <color key="textColor" white="0.71999999999999997" alpha="1" colorSpace="calibratedWhite"/>
-                        <nil key="highlightedColor"/>
-                        <color key="shadowColor" cocoaTouchSystemColor="darkTextColor"/>
-                        <size key="shadowOffset" width="0.0" height="1"/>
-                    </label>
                     <view contentMode="scaleToFill" id="35" customClass="VLCLinearProgressIndicator">
                         <rect key="frame" x="21" y="146" width="256" height="12"/>
                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
@@ -71,7 +62,6 @@
                 <outlet property="isSelectedView" destination="0Jc-2h-HQ9" id="I7k-1Q-y1G"/>
                 <outlet property="mediaIsUnreadView" destination="38" id="41"/>
                 <outlet property="progressView" destination="35" id="42"/>
-                <outlet property="seriesNameLabel" destination="34" id="44"/>
                 <outlet property="subtitleLabel" destination="33" id="45"/>
                 <outlet property="thumbnailView" destination="31" id="46"/>
                 <outlet property="titleLabel" destination="32" id="47"/>
