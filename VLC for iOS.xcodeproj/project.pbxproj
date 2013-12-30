@@ -188,6 +188,10 @@
 		7D5DD5C717590ABF001421E3 /* About Contents.html in Resources */ = {isa = PBXBuildFile; fileRef = 7D5DD5C617590ABF001421E3 /* About Contents.html */; };
 		7D5E39CA174FC2F3007DAFA1 /* dropbox-white.png in Resources */ = {isa = PBXBuildFile; fileRef = 7D5E39C8174FC2F3007DAFA1 /* dropbox-white.png */; };
 		7D5E39CB174FC2F3007DAFA1 /* dropbox-white@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 7D5E39C9174FC2F3007DAFA1 /* dropbox-white@2x.png */; };
+		7D66225E1871F29000CA9496 /* checkbox-legacy.png in Resources */ = {isa = PBXBuildFile; fileRef = 7D66225A1871F29000CA9496 /* checkbox-legacy.png */; };
+		7D66225F1871F29000CA9496 /* checkbox-legacy@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 7D66225B1871F29000CA9496 /* checkbox-legacy@2x.png */; };
+		7D6622601871F29000CA9496 /* checkbox-legacy-empty.png in Resources */ = {isa = PBXBuildFile; fileRef = 7D66225C1871F29000CA9496 /* checkbox-legacy-empty.png */; };
+		7D6622611871F29000CA9496 /* checkbox-legacy-empty@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 7D66225D1871F29000CA9496 /* checkbox-legacy-empty@2x.png */; };
 		7D6B08C2174A831900A05173 /* vlc-xmas.png in Resources */ = {isa = PBXBuildFile; fileRef = 7D6B08C0174A831900A05173 /* vlc-xmas.png */; };
 		7D6B08C3174A831900A05173 /* vlc-xmas@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 7D6B08C1174A831900A05173 /* vlc-xmas@2x.png */; };
 		7D6B08EB174D65B500A05173 /* IASKAppSettingsViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 7D6B08CD174D65B500A05173 /* IASKAppSettingsViewController.m */; };
@@ -435,10 +439,6 @@
 		7D07F70F175669D800CDE21C /* buttonHighlight@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "buttonHighlight@2x.png"; sourceTree = "<group>"; };
 		7D07F71217566C4A00CDE21C /* menuCone.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = menuCone.png; sourceTree = "<group>"; };
 		7D07F71317566C4A00CDE21C /* menuCone@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "menuCone@2x.png"; sourceTree = "<group>"; };
-		7D07F71A175673D100CDE21C /* menuBtnBckHighlight@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "menuBtnBckHighlight@2x.png"; sourceTree = "<group>"; };
-		7D07F71B175673D100CDE21C /* menuBtnBck@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "menuBtnBck@2x.png"; sourceTree = "<group>"; };
-		7D07F71C175673D100CDE21C /* menuBtnBckHighlight.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = menuBtnBckHighlight.png; sourceTree = "<group>"; };
-		7D07F71D175673D100CDE21C /* menuBtnBck.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = menuBtnBck.png; sourceTree = "<group>"; };
 		7D07F722175688D300CDE21C /* doneButton.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = doneButton.png; sourceTree = "<group>"; };
 		7D07F723175688D300CDE21C /* doneButton@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "doneButton@2x.png"; sourceTree = "<group>"; };
 		7D07F724175688D300CDE21C /* doneButtonHighlight.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = doneButtonHighlight.png; sourceTree = "<group>"; };
@@ -663,6 +663,10 @@
 		7D5DD5C617590ABF001421E3 /* About Contents.html */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.html; path = "About Contents.html"; sourceTree = "<group>"; };
 		7D5E39C8174FC2F3007DAFA1 /* dropbox-white.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "dropbox-white.png"; sourceTree = "<group>"; };
 		7D5E39C9174FC2F3007DAFA1 /* dropbox-white@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "dropbox-white@2x.png"; sourceTree = "<group>"; };
+		7D66225A1871F29000CA9496 /* checkbox-legacy.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "checkbox-legacy.png"; sourceTree = "<group>"; };
+		7D66225B1871F29000CA9496 /* checkbox-legacy@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "checkbox-legacy@2x.png"; sourceTree = "<group>"; };
+		7D66225C1871F29000CA9496 /* checkbox-legacy-empty.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "checkbox-legacy-empty.png"; sourceTree = "<group>"; };
+		7D66225D1871F29000CA9496 /* checkbox-legacy-empty@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "checkbox-legacy-empty@2x.png"; sourceTree = "<group>"; };
 		7D6B08BB174A72A900A05173 /* VLCConstants.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = VLCConstants.h; path = Sources/VLCConstants.h; sourceTree = "<group>"; };
 		7D6B08C0174A831900A05173 /* vlc-xmas.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "vlc-xmas.png"; sourceTree = "<group>"; };
 		7D6B08C1174A831900A05173 /* vlc-xmas@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "vlc-xmas@2x.png"; sourceTree = "<group>"; };
@@ -1229,10 +1233,10 @@
 				7D07F725175688D300CDE21C /* doneButtonHighlight@2x.png */,
 				7D07F71217566C4A00CDE21C /* menuCone.png */,
 				7D07F71317566C4A00CDE21C /* menuCone@2x.png */,
-				7D07F71A175673D100CDE21C /* menuBtnBckHighlight@2x.png */,
-				7D07F71B175673D100CDE21C /* menuBtnBck@2x.png */,
-				7D07F71C175673D100CDE21C /* menuBtnBckHighlight.png */,
-				7D07F71D175673D100CDE21C /* menuBtnBck.png */,
+				7D66225A1871F29000CA9496 /* checkbox-legacy.png */,
+				7D66225B1871F29000CA9496 /* checkbox-legacy@2x.png */,
+				7D66225C1871F29000CA9496 /* checkbox-legacy-empty.png */,
+				7D66225D1871F29000CA9496 /* checkbox-legacy-empty@2x.png */,
 				7D07F70A175669A800CDE21C /* button.png */,
 				7D07F70B175669A800CDE21C /* button@2x.png */,
 				7D07F70E175669D800CDE21C /* buttonHighlight.png */,
@@ -2100,6 +2104,7 @@
 				7AC862A91765E9510011611A /* jquery.ui.widget.js in Resources */,
 				CC1BBC431704935E00A20CBF /* MediaLibrary.mom in Resources */,
 				7D2A34A51805CDBA004078AA /* gradient-cell-ios7@2x.png in Resources */,
+				7D66225F1871F29000CA9496 /* checkbox-legacy@2x.png in Resources */,
 				7D897884185E00C3009BAB5D /* checkboxEmpty.png in Resources */,
 				A79246C8170F11DF0036AAF2 /* Localizable.strings in Resources */,
 				A7CB0DB11716F72600050CF3 /* PlayingExternally@2x~iphone.png in Resources */,
@@ -2140,6 +2145,7 @@
 				7D07F726175688D300CDE21C /* doneButton.png in Resources */,
 				7D07F727175688D300CDE21C /* doneButton@2x.png in Resources */,
 				7D07F728175688D300CDE21C /* doneButtonHighlight.png in Resources */,
+				7D66225E1871F29000CA9496 /* checkbox-legacy.png in Resources */,
 				7D07F729175688D300CDE21C /* doneButtonHighlight@2x.png in Resources */,
 				7D07F72E175691CC00CDE21C /* backButton.png in Resources */,
 				9BF07090185122AA009B23DD /* audio@4x.png in Resources */,
@@ -2253,6 +2259,7 @@
 				7DC72D5E17B7E7C7008A26D0 /* download@4x.png in Resources */,
 				7DC72D5F17B7E7C7008A26D0 /* download.png in Resources */,
 				7D897877185DEF79009BAB5D /* repeatOne@2x.png in Resources */,
+				7D6622611871F29000CA9496 /* checkbox-legacy-empty@2x.png in Resources */,
 				7D89787B185DEFB5009BAB5D /* flatDeleteButton@2x.png in Resources */,
 				7DC72D6017B7E7C7008A26D0 /* download@2x.png in Resources */,
 				7D16035D17BF9FE600F29B34 /* sudHeaderBg.png in Resources */,
@@ -2304,6 +2311,7 @@
 				7D3784E0183A99D2009EE944 /* papasscode_background@2x.png in Resources */,
 				7D3784E1183A99D2009EE944 /* papasscode_failed_bg.png in Resources */,
 				7D3784E2183A99D2009EE944 /* papasscode_failed_bg@2x.png in Resources */,
+				7D6622601871F29000CA9496 /* checkbox-legacy-empty.png in Resources */,
 				7D3784E3183A99D2009EE944 /* papasscode_marker.png in Resources */,
 				7D3784E4183A99D2009EE944 /* papasscode_marker@2x.png in Resources */,
 				7D3784EC183A9A1E009EE944 /* VLC for iOS-Info.plist in Resources */,

@@ -16,7 +16,28 @@
 #import "VLCPlaylistViewController.h"
 #import "VLCThumbnailsCache.h"
 
+@interface VLCPlaylistCollectionViewCell ()
+{
+    UIImage *_checkboxEmptyImage;
+    UIImage *_checkboxImage;
+}
+
+@end
+
 @implementation VLCPlaylistCollectionViewCell
+
+- (void)awakeFromNib
+{
+    NSLog(@"awake form nib");
+
+    if (SYSTEM_RUNS_IOS7_OR_LATER) {
+        _checkboxEmptyImage = [UIImage imageNamed:@"checkboxEmpty"];
+        _checkboxImage = [UIImage imageNamed:@"checkbox"];
+    } else {
+        _checkboxEmptyImage = [UIImage imageNamed:@"checkbox-legacy-empty"];
+        _checkboxImage = [UIImage imageNamed:@"checkbox-legacy"];
+    }
+}
 
 - (void)setEditing:(BOOL)editing animated:(BOOL)animated
 {
@@ -28,9 +49,9 @@
 - (void)selectionUpdate
 {
     if (self.selected)
-        self.isSelectedView.image = [UIImage imageNamed:@"checkbox"];
+        self.isSelectedView.image = _checkboxImage;
     else
-        self.isSelectedView.image = [UIImage imageNamed:@"checkboxEmpty"];
+        self.isSelectedView.image = _checkboxEmptyImage;
 }
 
 - (void)observeValueForKeyPath:(NSString *)keyPath ofObject:(id)object change:(NSDictionary *)change context:(void *)context

@@ -56,8 +56,8 @@
                         <rect key="frame" x="16" y="9" width="266" height="154"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                     </imageView>
-                    <imageView hidden="YES" userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="checkboxEmpty.png" id="0Jc-2h-HQ9">
-                        <rect key="frame" x="8" y="1" width="25" height="25"/>
+                    <imageView hidden="YES" userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="checkbox-legacy-empty.png" id="0Jc-2h-HQ9">
+                        <rect key="frame" x="10" y="3" width="23" height="23"/>
                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                     </imageView>
                     <imageView userInteractionEnabled="NO" contentMode="scaleToFill" image="badgeUnread.png" id="38">
@@ -80,7 +80,7 @@
     </objects>
     <resources>
         <image name="badgeUnread.png" width="44" height="44"/>
-        <image name="checkboxEmpty.png" width="25" height="25"/>
+        <image name="checkbox-legacy-empty.png" width="23" height="23"/>
         <image name="thumbOverlay.png" width="266" height="154"/>
     </resources>
 </document>
