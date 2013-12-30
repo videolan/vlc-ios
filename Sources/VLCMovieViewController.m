@@ -329,6 +329,22 @@
     _viewAppeared = YES;
 }
 
+- (void)viewWillLayoutSubviews
+{
+    if (UI_USER_INTERFACE_IDIOM() == UIUserInterfaceIdiomPhone) {
+        CGSize viewSize = self.view.frame.size;
+        if (UIDeviceOrientationIsLandscape([UIDevice currentDevice].orientation)) {
+            [_controllerPanel setFrame:CGRectMake(0, viewSize.height - 55, viewSize.width, 55)];
+            [_repeatButton setFrame:CGRectMake(8, 16, 32, 35)];
+            [_audioSwitcherContainer setFrame:CGRectMake(48, 12, 40, 40)];
+        } else {
+            [_controllerPanel setFrame:CGRectMake(0, viewSize.height - 90, viewSize.width, 90)];
+            [_repeatButton setFrame:CGRectMake(18, 54, 32, 35)];
+            [_audioSwitcherContainer setFrame:CGRectMake(20, 14, 40, 40)];
+        }
+    }
+}
+
 - (void)_startPlayback
 {
     if (_playerIsSetup)
