@@ -23,6 +23,9 @@
 #import "UIBarButtonItem+Theme.h"
 #import "VLCFirstStepsViewController.h"
 
+/* prefs keys */
+static NSString *kDisplayedFirstSteps = @"Did we display the first steps tutorial?";
+
 @implementation EmptyLibraryView
 
 - (IBAction)learnMore:(id)sender
@@ -49,6 +52,12 @@
 @end
 
 @implementation VLCPlaylistViewController
+
++ (void)initialize
+{
+    NSUserDefaults *defaults = [NSUserDefaults standardUserDefaults];
+    [defaults registerDefaults:@{kDisplayedFirstSteps : [NSNumber numberWithBool:NO]}];
+}
 
 - (void)loadView {
     if (UI_USER_INTERFACE_IDIOM() == UIUserInterfaceIdiomPhone) {
@@ -134,6 +143,13 @@
 - (void)viewDidAppear:(BOOL)animated
 {
     [super viewDidAppear:animated];
+
+    NSUserDefaults *defaults = [NSUserDefaults standardUserDefaults];
+    if (![[defaults objectForKey:kDisplayedFirstSteps] boolValue]) {
+        [self.emptyLibraryView performSelector:@selector(learnMore:) withObject:nil afterDelay:1.];
+        [defaults setObject:[NSNumber numberWithBool:YES] forKey:kDisplayedFirstSteps];
+        [defaults synchronize];
+    }
 
     if ([[MLMediaLibrary sharedMediaLibrary] libraryNeedsUpgrade]) {
         self.navigationItem.rightBarButtonItem = nil;
