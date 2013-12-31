@@ -374,7 +374,6 @@
 
     VLCMedia *media;
     if (self.mediaItem) {
-        self.title = [self.mediaItem title];
         MLFile *item = self.mediaItem;
         media = [VLCMedia mediaWithURL:[NSURL URLWithString:item.url]];
         item.unread = @(NO);
@@ -388,10 +387,8 @@
             } else
                 self.trackNameLabel.text = self.artistNameLabel.text = self.albumNameLabel.text = @"";
         }
-    } else if (!self.mediaList) {
+    } else if (!self.mediaList)
         media = [VLCMedia mediaWithURL:self.url];
-        self.title = NSLocalizedString(@"NETWORK_TITLE",nil);
-    }
 
     NSMutableDictionary *mediaDictionary = [[NSMutableDictionary alloc] init];
 
@@ -436,12 +433,10 @@
     if (self.mediaList) {
         VLCMediaList *list = self.mediaList;
         NSUInteger count = list.count;
-        NSLog(@"we have a media list with %i items", count);
         for (NSUInteger x = 0; x < count; x++)
             [[list mediaAtIndex:x] addOptions:mediaDictionary];
         [_listPlayer setMediaList:self.mediaList];
     } else {
-        NSLog(@"no media list");
         [media addOptions:mediaDictionary];
         [_listPlayer setRootMedia:media];
     }
@@ -516,11 +511,9 @@
     [_mediaPlayer addObserver:self forKeyPath:@"time" options:0 context:nil];
     [_mediaPlayer addObserver:self forKeyPath:@"remainingTime" options:0 context:nil];
 
-    if (self.mediaList) {
-        NSLog(@"asking list player to play item at %i", self.itemInMediaListToBePlayedFirst);
-
+    if (self.mediaList)
         [_listPlayer playItemAtIndex:self.itemInMediaListToBePlayedFirst];
-    } else
+    else
         [_listPlayer playMedia:_listPlayer.rootMedia];
 
     if (self.mediaItem) {
