@@ -114,6 +114,15 @@
         [self _startPlayback];
 }
 
+- (void)setMediaList:(VLCMediaList *)mediaList
+{
+    [self _stopPlayback];
+    _mediaList = mediaList;
+    _playerIsSetup = NO;
+    if (_viewAppeared)
+        [self _startPlayback];
+}
+
 - (void)viewDidLoad
 {
     [super viewDidLoad];
@@ -352,7 +361,7 @@
 
     NSUserDefaults *defaults = [NSUserDefaults standardUserDefaults];
 
-    if (!self.mediaItem && !self.url) {
+    if (!self.mediaItem && !self.url && !self.mediaList) {
         [self _stopPlayback];
         return;
     }
@@ -379,14 +388,16 @@
             } else
                 self.trackNameLabel.text = self.artistNameLabel.text = self.albumNameLabel.text = @"";
         }
-    } else {
+    } else if (!self.mediaList) {
         media = [VLCMedia mediaWithURL:self.url];
         self.title = NSLocalizedString(@"NETWORK_TITLE",nil);
     }
 
-    [media addOptions:
-     @{kVLCSettingStretchAudio :
-     [[defaults objectForKey:kVLCSettingStretchAudio] boolValue] ? kVLCSettingStretchAudioOnValue : kVLCSettingStretchAudioOffValue, kVLCSettingTextEncoding : [defaults objectForKey:kVLCSettingTextEncoding], kVLCSettingSkipLoopFilter : [defaults objectForKey:kVLCSettingSkipLoopFilter]}];
+    NSMutableDictionary *mediaDictionary = [[NSMutableDictionary alloc] init];
+
+    [mediaDictionary setObject:[[defaults objectForKey:kVLCSettingStretchAudio] boolValue] ? kVLCSettingStretchAudioOnValue : kVLCSettingStretchAudioOffValue forKey:kVLCSettingStretchAudio];
+    [mediaDictionary setObject:[defaults objectForKey:kVLCSettingTextEncoding] forKey:kVLCSettingTextEncoding];
+    [mediaDictionary setObject:[defaults objectForKey:kVLCSettingSkipLoopFilter] forKey:kVLCSettingSkipLoopFilter];
 
     [NSTimeZone resetSystemTimeZone];
     NSString *tzName = [[NSTimeZone systemTimeZone] name];
@@ -409,7 +420,7 @@
                     case 2126701:
                     {
                         if (![self _blobCheck]) {
-                            [media addOptions:@{@"no-audio" : [NSNull null]}];
+                            [mediaDictionary setObject:[NSNull null] forKey:@"no-audio"];
                             APLog(@"audio playback disabled because an unsupported codec was found");
                         }
                         break;
@@ -422,7 +433,18 @@
         }
     }
 
-    [_listPlayer setRootMedia:media];
+    if (self.mediaList) {
+        VLCMediaList *list = self.mediaList;
+        NSUInteger count = list.count;
+        NSLog(@"we have a media list with %i items", count);
+        for (NSUInteger x = 0; x < count; x++)
+            [[list mediaAtIndex:x] addOptions:mediaDictionary];
+        [_listPlayer setMediaList:self.mediaList];
+    } else {
+        NSLog(@"no media list");
+        [media addOptions:mediaDictionary];
+        [_listPlayer setRootMedia:media];
+    }
     [_listPlayer setRepeatMode:VLCDoNotRepeat];
 
     self.positionSlider.value = 0.;
@@ -486,6 +508,7 @@
             playbackPositionInTime = @(lastPosition * (duration / 1000.));
     }
     if (playbackPositionInTime.intValue > 0) {
+        /* start time is not supported for media lists */
         [_mediaPlayer.media addOptions:@{@"start-time": playbackPositionInTime}];
         APLog(@"set starttime to %i", playbackPositionInTime.intValue);
     }
@@ -493,7 +516,12 @@
     [_mediaPlayer addObserver:self forKeyPath:@"time" options:0 context:nil];
     [_mediaPlayer addObserver:self forKeyPath:@"remainingTime" options:0 context:nil];
 
-    [_listPlayer playMedia:_listPlayer.rootMedia];
+    if (self.mediaList) {
+        NSLog(@"asking list player to play item at %i", self.itemInMediaListToBePlayedFirst);
+
+        [_listPlayer playItemAtIndex:self.itemInMediaListToBePlayedFirst];
+    } else
+        [_listPlayer playMedia:_listPlayer.rootMedia];
 
     if (self.mediaItem) {
         if (self.mediaItem.lastAudioTrack.intValue > 0)
@@ -847,12 +875,18 @@
 
 - (IBAction)forward:(id)sender
 {
-    [_mediaPlayer mediumJumpForward];
+    if (self.mediaList)
+        [_listPlayer next];
+    else
+        [_mediaPlayer mediumJumpForward];
 }
 
 - (IBAction)backward:(id)sender
 {
-    [_mediaPlayer mediumJumpBackward];
+    if (self.mediaList)
+        [_listPlayer previous];
+    else
+        [_mediaPlayer mediumJumpBackward];
 }
 
 - (void)toggleRepeatMode:(id)sender

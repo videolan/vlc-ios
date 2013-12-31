@@ -75,6 +75,8 @@
 
 @property (nonatomic, strong) MLFile *mediaItem;
 @property (nonatomic, strong) NSURL *url;
+@property (nonatomic, retain) VLCMediaList *mediaList;
+@property (nonatomic, readwrite) NSUInteger itemInMediaListToBePlayedFirst;
 
 - (IBAction)closePlayback:(id)sender;
 
