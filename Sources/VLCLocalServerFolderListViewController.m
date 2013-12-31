@@ -212,7 +212,7 @@
                 mediaSize = [mediaItem.size longLongValue];
 
             if (mediaSize < 1)
-                mediaSize = (bitrate * durationInSeconds) / 8;
+                mediaSize = (bitrate * durationInSeconds);
 
             [cell setSubtitle: [NSString stringWithFormat:@"%@ (%@)", [NSByteCountFormatter stringFromByteCount:mediaSize countStyle:NSByteCountFormatterCountStyleFile], [VLCTime timeWithInt:durationInSeconds * 1000].stringValue]];
             [cell setIsDirectory:NO];
