@@ -334,4 +334,18 @@
     [self.window.rootViewController presentViewController:navCon animated:YES completion:nil];
 }
 
+- (void)openMediaList:(VLCMediaList*)list atIndex:(NSUInteger)index
+{
+    if (!_movieViewController)
+        _movieViewController = [[VLCMovieViewController alloc] initWithNibName:nil bundle:nil];
+
+    _movieViewController.mediaList = list;
+    _movieViewController.itemInMediaListToBePlayedFirst = index;
+
+    UINavigationController *navCon = [[UINavigationController alloc] initWithRootViewController:_movieViewController];
+    navCon.modalPresentationStyle = UIModalPresentationFullScreen;
+    [self.window.rootViewController presentViewController:navCon animated:YES completion:nil];
+}
+
+
 @end

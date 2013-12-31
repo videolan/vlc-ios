@@ -430,7 +430,21 @@ static NSString *kDisplayedFirstSteps = @"Did we display the first steps tutoria
 
     [tableView deselectRowAtIndexPath:indexPath animated:YES];
     NSManagedObject *selectedObject = _foundMedia[indexPath.row];
-    [self openMediaObject:selectedObject];
+
+    if ([selectedObject isKindOfClass:[MLAlbumTrack class]]) {
+        VLCMediaList *list;
+        NSArray *tracks = [[(MLAlbumTrack*)selectedObject album] sortedTracks];
+        NSUInteger count = tracks.count;
+        list = [[VLCMediaList alloc] init];
+
+        MLFile *file;
+        for (NSUInteger x = 0; x < count; x++) {
+            file = [(MLAlbumTrack*)tracks[x] files].anyObject;
+            [list addMedia:[VLCMedia mediaWithURL: [NSURL URLWithString:file.url]]];
+        }
+        [(VLCAppDelegate*)[UIApplication sharedApplication].delegate openMediaList:list atIndex:[tracks indexOfObject:selectedObject]];
+    } else
+        [self openMediaObject:selectedObject];
 }
 
 #pragma mark - table view gestures

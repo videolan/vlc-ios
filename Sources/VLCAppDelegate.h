@@ -31,6 +31,7 @@
 
 - (void)openMediaFromManagedObject:(NSManagedObject *)file;
 - (void)openMovieFromURL:(NSURL *)url;
+- (void)openMediaList:(VLCMediaList*)list atIndex:(NSUInteger)index;
 
 @property (nonatomic, readonly) VLCPlaylistViewController *playlistViewController;
 @property (nonatomic, readonly) VLCDropboxTableViewController *dropboxTableViewController;
