@@ -400,6 +400,10 @@ static NSString *kDisplayedFirstSteps = @"Did we display the first steps tutoria
     if (cell == nil)
         cell = [VLCPlaylistTableViewCell cellWithReuseIdentifier:CellIdentifier];
 
+    UISwipeGestureRecognizer *swipeRight = [[UISwipeGestureRecognizer alloc] initWithTarget:self action:@selector(swipeRightGestureAction:)];
+    [swipeRight setDirection:(UISwipeGestureRecognizerDirectionRight)];
+    [cell addGestureRecognizer:swipeRight];
+
     NSInteger row = indexPath.row;
     cell.mediaObject = _foundMedia[row];
 
@@ -470,6 +474,20 @@ static NSString *kDisplayedFirstSteps = @"Did we display the first steps tutoria
     NSTimeInterval animationDuration = .2;
     [UIView animateWithDuration:animationDuration animations:animationBlock completion:completionBlock];
  }
+
+- (void)swipeRightGestureAction:(UIGestureRecognizer *)recognizer
+{
+    if ([[self.editButtonItem title] isEqualToString:NSLocalizedString(@"BUTTON_CANCEL",@"")])
+        [self setEditing:NO animated:YES];
+    else {
+        [self setEditing:YES animated:YES];
+
+        NSIndexPath *path = [(UITableView *)self.view indexPathForRowAtPoint:[recognizer locationInView:self.view]];
+        [self.tableView selectRowAtIndexPath:[NSIndexPath indexPathForRow:path.row inSection:path.section]
+                                    animated:YES
+                              scrollPosition:UITableViewScrollPositionNone];
+    }
+}
 
 #pragma mark - Collection View
 - (NSInteger)collectionView:(UICollectionView *)collectionView numberOfItemsInSection:(NSInteger)section
