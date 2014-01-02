@@ -636,10 +636,10 @@
             break;
 
         case UIEventSubtypeRemoteControlNextTrack:
-            [_listPlayer next];
+            [self forward:nil];
 
         case UIEventSubtypeRemoteControlPreviousTrack:
-            [_listPlayer previous];
+            [self backward:nil];
 
         default:
             break;
