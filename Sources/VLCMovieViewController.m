@@ -635,6 +635,12 @@
             [self playPause];
             break;
 
+        case UIEventSubtypeRemoteControlNextTrack:
+            [_listPlayer next];
+
+        case UIEventSubtypeRemoteControlPreviousTrack:
+            [_listPlayer previous];
+
         default:
             break;
     }
@@ -1132,7 +1138,7 @@
     self.playbackSpeedIndicator.text = [NSString stringWithFormat:@"%.2fx", speed];
 
     /* rate changed, so update the exported info */
-    [self performSelectorInBackground:@selector(_updateExportedPlaybackInformation) withObject:nil];
+    [self performSelectorInBackground:@selector(_updateDisplayedMetadata) withObject:nil];
 }
 
 - (float)_playbackSpeed
@@ -1249,6 +1255,7 @@
     NSString *title;
     NSString *artist;
     NSString *albumName;
+    NSString *trackNumber;
 
     if (item) {
         if (item.isAlbumTrack) {
@@ -1260,9 +1267,10 @@
     } else {
         NSDictionary * metaDict = _mediaPlayer.media.metaDictionary;
         if (metaDict) {
-            title = metaDict[VLCMetaInformationTitle];
+            title = metaDict[VLCMetaInformationNowPlaying] ? metaDict[VLCMetaInformationNowPlaying] : metaDict[VLCMetaInformationTitle];
             artist = metaDict[VLCMetaInformationArtist];
             albumName = metaDict[VLCMetaInformationAlbum];
+            trackNumber = metaDict[VLCMetaInformationTrackNumber];
             self.artworkImageView.image = [VLCThumbnailsCache thumbnailForMediaItemWithTitle:title Artist:artist andAlbumName:albumName];
         }
     }
@@ -1276,36 +1284,24 @@
 
     if (self.trackNameLabel.text.length < 1 || [self.trackNameLabel.text isEqualToString:@" —  — "])
         self.trackNameLabel.text = [[_mediaPlayer.media url] lastPathComponent];
-    [self performSelectorInBackground:@selector(_updateExportedPlaybackInformation) withObject:nil];
-}
-
-- (void)_updateExportedPlaybackInformation
-{
-    if (!_mediaItem) {
-        [MPNowPlayingInfoCenter defaultCenter].nowPlayingInfo = nil;
-        return;
-    }
-    MLFile * currentFile = _mediaItem;
 
     /* don't leak sensitive information to the OS, if passcode lock is enabled */
     BOOL passcodeLockEnabled = [[[NSUserDefaults standardUserDefaults] objectForKey:kVLCSettingPasscodeOnKey] boolValue];
 
-    /* we omit artwork for now since we had to read it from storage as we can't access
-     * the artwork cache at the moment - FIXME? */
     NSMutableDictionary *currentlyPlayingTrackInfo;
     if (passcodeLockEnabled)
-        currentlyPlayingTrackInfo = [NSMutableDictionary dictionaryWithObjectsAndKeys:@(currentFile.duration.intValue / 1000.), MPMediaItemPropertyPlaybackDuration, @(_mediaPlayer.time.intValue / 1000.), MPNowPlayingInfoPropertyElapsedPlaybackTime, @(_mediaPlayer.rate), MPNowPlayingInfoPropertyPlaybackRate, nil];
-    else
-        currentlyPlayingTrackInfo = [NSMutableDictionary dictionaryWithObjectsAndKeys: currentFile.title, MPMediaItemPropertyTitle, @(currentFile.duration.intValue / 1000.), MPMediaItemPropertyPlaybackDuration, @(_mediaPlayer.time.intValue / 1000.), MPNowPlayingInfoPropertyElapsedPlaybackTime, @(_mediaPlayer.rate), MPNowPlayingInfoPropertyPlaybackRate, nil];
-    if ([currentFile isAlbumTrack] && !passcodeLockEnabled) {
-        MLAlbumTrack *track = currentFile.albumTrack;
-        if (track.artist.length > 0)
-            [currentlyPlayingTrackInfo setObject:track.artist forKey:MPMediaItemPropertyArtist];
-        if (track.title.length > 0)
-            [currentlyPlayingTrackInfo setObject:track.title forKey:MPMediaItemPropertyTitle];
-        if (track.album.name.length > 0)
-            [currentlyPlayingTrackInfo setObject:track.album.name forKey:MPMediaItemPropertyAlbumTitle];
-        [currentlyPlayingTrackInfo setObject:[NSNumber numberWithInt:[track.trackNumber intValue]] forKey:MPMediaItemPropertyAlbumTrackNumber];
+        currentlyPlayingTrackInfo = [NSMutableDictionary dictionaryWithObjectsAndKeys:@(_mediaPlayer.media.length.intValue / 1000.), MPMediaItemPropertyPlaybackDuration, @(_mediaPlayer.time.intValue / 1000.), MPNowPlayingInfoPropertyElapsedPlaybackTime, @(_mediaPlayer.rate), MPNowPlayingInfoPropertyPlaybackRate, nil];
+    else {
+        currentlyPlayingTrackInfo = [NSMutableDictionary dictionaryWithObjectsAndKeys: title, MPMediaItemPropertyTitle, @(_mediaPlayer.media.length.intValue / 1000.), MPMediaItemPropertyPlaybackDuration, @(_mediaPlayer.time.intValue / 1000.), MPNowPlayingInfoPropertyElapsedPlaybackTime, @(_mediaPlayer.rate), MPNowPlayingInfoPropertyPlaybackRate, nil];
+        if (artist.length > 0)
+            [currentlyPlayingTrackInfo setObject:artist forKey:MPMediaItemPropertyArtist];
+        if (albumName.length > 0)
+            [currentlyPlayingTrackInfo setObject:albumName forKey:MPMediaItemPropertyAlbumTitle];
+        [currentlyPlayingTrackInfo setObject:[NSNumber numberWithInt:[trackNumber intValue]] forKey:MPMediaItemPropertyAlbumTrackNumber];
+        if (self.artworkImageView.image) {
+            MPMediaItemArtwork *mpartwork = [[MPMediaItemArtwork alloc] initWithImage:self.artworkImageView.image];
+            [currentlyPlayingTrackInfo setObject:mpartwork forKey:MPMediaItemPropertyArtwork];
+        }
     }
 
     [MPNowPlayingInfoCenter defaultCenter].nowPlayingInfo = currentlyPlayingTrackInfo;
