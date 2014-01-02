@@ -385,10 +385,11 @@
                 self.artistNameLabel.text = item.albumTrack.artist;
                 self.albumNameLabel.text = item.albumTrack.album.name;
             } else
-                self.trackNameLabel.text = self.artistNameLabel.text = self.albumNameLabel.text = @"";
+                self.artistNameLabel.text = self.albumNameLabel.text = @"";
         }
     } else if (!self.mediaList)
         media = [VLCMedia mediaWithURL:self.url];
+    self.trackNameLabel.text = [[media url] lastPathComponent];
 
     NSMutableDictionary *mediaDictionary = [[NSMutableDictionary alloc] init];
 
@@ -584,6 +585,10 @@
     }
     if (_mediaItem)
         _mediaItem = nil;
+    if (_mediaList)
+        _mediaList = nil;
+    if (_url)
+        _url = nil;
 
     _playerIsSetup = NO;
 }
