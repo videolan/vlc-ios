@@ -36,8 +36,12 @@
 - (void)downloadFileFromURL:(NSURL *)url
 {
     NSArray *searchPaths = NSSearchPathForDirectoriesInDomains(NSCachesDirectory, NSUserDomainMask, YES);
+    NSString *basePath = [searchPaths[0] stringByAppendingPathComponent:@"Upload"];
     _fileName = url.lastPathComponent;
-    _filePath = [[searchPaths[0] stringByAppendingPathComponent:@"Upload"] stringByAppendingPathComponent:_fileName];
+    _filePath = [basePath stringByAppendingPathComponent:_fileName];
+    NSFileManager *fileManager = [NSFileManager defaultManager];
+    if (![fileManager fileExistsAtPath:basePath])
+        [fileManager createDirectoryAtPath:basePath withIntermediateDirectories:YES attributes:nil error:nil];
     _expectedDownloadSize = _receivedDataSize = 0;
     NSMutableURLRequest *theRequest = [NSMutableURLRequest requestWithURL:url];
     _urlConnection = [[NSURLConnection alloc] initWithRequest:theRequest delegate:self];
@@ -54,8 +58,12 @@
 - (void)downloadFileFromURLwithFileName:(NSURL *)url fileNameOfMedia:(NSString*) fileName
 {
     NSArray *searchPaths = NSSearchPathForDirectoriesInDomains(NSCachesDirectory, NSUserDomainMask, YES);
+    NSString *basePath = [searchPaths[0] stringByAppendingPathComponent:@"Upload"];
     _fileName = fileName;
-    _filePath = [[searchPaths[0] stringByAppendingPathComponent:@"Upload"] stringByAppendingPathComponent:_fileName];
+    _filePath = [basePath stringByAppendingPathComponent:_fileName];
+    NSFileManager *fileManager = [NSFileManager defaultManager];
+    if (![fileManager fileExistsAtPath:basePath])
+        [fileManager createDirectoryAtPath:basePath withIntermediateDirectories:YES attributes:nil error:nil];
     _expectedDownloadSize = _receivedDataSize = 0;
     NSMutableURLRequest *theRequest = [NSMutableURLRequest requestWithURL:url];
     _urlConnection = [[NSURLConnection alloc] initWithRequest:theRequest delegate:self];
