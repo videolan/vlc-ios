@@ -430,7 +430,6 @@ static NSString *kDisplayedFirstSteps = @"Did we display the first steps tutoria
 
     [tableView deselectRowAtIndexPath:indexPath animated:YES];
     NSManagedObject *selectedObject = _foundMedia[indexPath.row];
-
     if ([selectedObject isKindOfClass:[MLAlbumTrack class]]) {
         VLCMediaList *list;
         NSArray *tracks = [[(MLAlbumTrack*)selectedObject album] sortedTracks];
@@ -438,7 +437,7 @@ static NSString *kDisplayedFirstSteps = @"Did we display the first steps tutoria
         list = [[VLCMediaList alloc] init];
 
         MLFile *file;
-        for (NSUInteger x = 0; x < count; x++) {
+        for (NSInteger x = count - 1; x > -1; x--) {
             file = [(MLAlbumTrack*)tracks[x] files].anyObject;
             [list addMedia:[VLCMedia mediaWithURL: [NSURL URLWithString:file.url]]];
         }
@@ -530,7 +529,6 @@ static NSString *kDisplayedFirstSteps = @"Did we display the first steps tutoria
     }
 
     NSManagedObject *selectedObject = _foundMedia[indexPath.row];
-
     if ([selectedObject isKindOfClass:[MLAlbumTrack class]]) {
         VLCMediaList *list;
         NSArray *tracks = [[(MLAlbumTrack*)selectedObject album] sortedTracks];
@@ -538,7 +536,7 @@ static NSString *kDisplayedFirstSteps = @"Did we display the first steps tutoria
         list = [[VLCMediaList alloc] init];
 
         MLFile *file;
-        for (NSUInteger x = 0; x < count; x++) {
+        for (NSInteger x = count - 1; x > -1; x--) {
             file = [(MLAlbumTrack*)tracks[x] files].anyObject;
             [list addMedia:[VLCMedia mediaWithURL: [NSURL URLWithString:file.url]]];
         }
