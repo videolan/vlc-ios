@@ -178,9 +178,7 @@
 #pragma mark - internals
 - (void)_openURLStringAndDismiss:(NSString *)url
 {
-    VLCAppDelegate* appDelegate = [UIApplication sharedApplication].delegate;
-    [appDelegate.menuViewController selectRowAtIndexPath:[NSIndexPath indexPathForRow:0 inSection:0] animated:NO scrollPosition:UITableViewScrollPositionNone];
-    [appDelegate openMovieFromURL:[NSURL URLWithString:url]];
+    [(VLCAppDelegate*)[UIApplication sharedApplication].delegate openMovieFromURL:[NSURL URLWithString:url]];
 }
 
 #pragma mark - text view delegate
