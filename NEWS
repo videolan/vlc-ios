@@ -27,6 +27,8 @@ Interface:
   respectively by track number
 * Added ability to rename any media item in the library view
 * Added deletion of multiple media items in one step
+* If your media was recognized as part of a music album, the next track
+  will automatically start playing afterwards
 * New translations to Czech, Malay, Persian, Spanish (Mexico)
 
 Cloud interaction:
