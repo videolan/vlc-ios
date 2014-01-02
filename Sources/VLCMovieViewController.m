@@ -830,19 +830,35 @@
     if (currentState == VLCMediaPlayerStateBuffering) {
         /* let's update meta data */
         MLFile *item = self.mediaItem;
+        NSString *title;
+        NSString *artist;
+        NSString *albumName;
+
         if (item) {
             if (item.isAlbumTrack) {
+                title = item.albumTrack.title;
+                artist = item.albumTrack.artist;
+                albumName = item.albumTrack.album.name;
                 self.artworkImageView.image = [VLCThumbnailsCache thumbnailForMediaFile:item];
-                if (!self.artworkImageView.image) {
-                    self.trackNameLabel.text = item.albumTrack.title;
-                    self.artistNameLabel.text = item.albumTrack.artist;
-                    self.albumNameLabel.text = item.albumTrack.album.name;
-                } else
-                    self.artistNameLabel.text = self.albumNameLabel.text = @"";
+            }
+        } else {
+            NSDictionary * metaDict = _mediaPlayer.media.metaDictionary;
+            if (metaDict) {
+                title = metaDict[VLCMetaInformationTitle];
+                artist = metaDict[VLCMetaInformationArtist];
+                albumName = metaDict[VLCMetaInformationAlbum];
+                self.artworkImageView.image = [VLCThumbnailsCache thumbnailForMediaItemWithTitle:title Artist:artist andAlbumName:albumName];
             }
         }
+        if (!self.artworkImageView.image) {
+            self.trackNameLabel.text = title;
+            self.artistNameLabel.text = artist;
+            self.albumNameLabel.text = albumName;
+        } else
+            self.trackNameLabel.text = [NSString stringWithFormat:@"%@ – %@ — %@", title, artist, albumName];
 
-        self.trackNameLabel.text = [[_mediaPlayer.media url] lastPathComponent];
+        if (self.trackNameLabel.text.length < 1)
+            self.trackNameLabel.text = [[_mediaPlayer.media url] lastPathComponent];
         [self performSelectorInBackground:@selector(_updateExportedPlaybackInformation) withObject:nil];
     }
 
