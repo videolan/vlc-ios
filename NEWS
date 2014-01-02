@@ -5,6 +5,7 @@ iPad. iOS 6 and the iPhone 3GS remain supported.
 
 Interface:
 * New Interface for iOS 7
+* Add tutorial to introduce the user to the app
 * Improved feedback for media download progress including data bitrate,
   procentual progress and estimated remaining download time
 * Opening network streams no longer leads to a collapsed file system hierachy
@@ -51,6 +52,7 @@ Global networks:
 * Added support for HTTP Live Streaming (HLS) (#9174)
 * Added support for https playback
 * Added support for system-wide HTTP proxy settings
+* Added support for m3u streams
 
 Misc:
 * Improved audio playback performance and reliability
