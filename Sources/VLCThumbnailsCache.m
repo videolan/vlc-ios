@@ -43,9 +43,32 @@ static NSCache *_thumbnailCache;
     return [NSString stringWithString:output];
 }
 
++ (UIImage *)thumbnailForMediaItemWithTitle:(NSString *)title Artist:(NSString*)artist andAlbumName:(NSString*)albumname
+{
+    return [UIImage imageWithContentsOfFile:[self artworkPathForMediaItemWithTitle:title Artist:artist andAlbumName:albumname]];
+}
+
++ (NSString *)artworkPathForMediaItemWithTitle:(NSString *)title Artist:(NSString*)artist andAlbumName:(NSString*)albumname
+{
+    NSString *artworkURL;
+    NSArray *searchPaths = NSSearchPathForDirectoriesInDomains(NSCachesDirectory, NSUserDomainMask, YES);
+    NSString *cacheDir = searchPaths[0];
+    cacheDir = [cacheDir stringByAppendingFormat:@"/%@", [[NSBundle mainBundle] bundleIdentifier]];
+
+    if (artist.length == 0 || albumname.length == 0) {
+        /* Use generated hash to find art */
+        artworkURL = [cacheDir stringByAppendingFormat:@"/art/arturl/%@/art.jpg", [self _md5FromString:title]];
+    } else {
+        /* Otherwise, it was cached by artist and album */
+        artworkURL = [cacheDir stringByAppendingFormat:@"/art/artistalbum/%@/%@/art.jpg", artist, albumname];
+    }
+
+    return artworkURL;
+}
+
 + (NSString *)_getArtworkPathFromMedia:(MLFile *)file
 {
-    NSString *artworkURL, *artist, *album, *title;
+    NSString *artist, *album, *title;
 
     if (file.isAlbumTrack) {
         artist = file.albumTrack.artist;
@@ -53,19 +76,7 @@ static NSCache *_thumbnailCache;
     }
     title = file.title;
 
-    NSArray *searchPaths = NSSearchPathForDirectoriesInDomains(NSCachesDirectory, NSUserDomainMask, YES);
-    NSString *cacheDir = searchPaths[0];
-    cacheDir = [cacheDir stringByAppendingFormat:@"/%@", [[NSBundle mainBundle] bundleIdentifier]];
-
-    if (artist.length == 0 || album.length == 0) {
-        /* Use generated hash to find art */
-        artworkURL = [cacheDir stringByAppendingFormat:@"/art/arturl/%@/art.jpg", [self _md5FromString:title]];
-    } else {
-        /* Otherwise, it was cached by artist and album */
-        artworkURL = [cacheDir stringByAppendingFormat:@"/art/artistalbum/%@/%@/art.jpg", artist, album];
-    }
-
-    return artworkURL;
+    return [self artworkPathForMediaItemWithTitle:title Artist:artist andAlbumName:album];
 }
 
 + (UIImage *)thumbnailForMediaFile:(MLFile *)mediaFile

@@ -17,4 +17,6 @@
 
 + (UIImage *)thumbnailForMediaFile:(MLFile *)mediaFile;
 
++ (UIImage *)thumbnailForMediaItemWithTitle:(NSString *)title Artist:(NSString*)artist andAlbumName:(NSString*)albumname;
+
 @end
