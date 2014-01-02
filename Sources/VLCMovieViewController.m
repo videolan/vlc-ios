@@ -1257,13 +1257,16 @@
     NSString *albumName;
     NSString *trackNumber;
 
+    self.artworkImageView.hidden = self.trackNameLabel.hidden = self.artistNameLabel.hidden = self.albumNameLabel.hidden = !_mediaPlayer.hasVideoOut;
+
     if (item) {
         if (item.isAlbumTrack) {
             title = item.albumTrack.title;
             artist = item.albumTrack.artist;
             albumName = item.albumTrack.album.name;
-            self.artworkImageView.image = [VLCThumbnailsCache thumbnailForMediaFile:item];
-        }
+        } else
+            title = item.title;
+        self.artworkImageView.image = [VLCThumbnailsCache thumbnailForMediaFile:item];
     } else {
         NSDictionary * metaDict = _mediaPlayer.media.metaDictionary;
         if (metaDict) {
