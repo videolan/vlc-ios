@@ -2,7 +2,7 @@
  * VLCThumbnailsCache.m
  * VLC for iOS
  *****************************************************************************
- * Copyright (c) 2013 VideoLAN. All rights reserved.
+ * Copyright (c) 2013-2014 VideoLAN. All rights reserved.
  * $Id$
  *
  * Authors: Gleb Pinigin <gpinigin # gmail.com>

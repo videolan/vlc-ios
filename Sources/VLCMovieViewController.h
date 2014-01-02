@@ -2,7 +2,7 @@
  * VLCMovieViewController.h
  * VLC for iOS
  *****************************************************************************
- * Copyright (c) 2013 VideoLAN. All rights reserved.
+ * Copyright (c) 2013-2014 VideoLAN. All rights reserved.
  * $Id$
  *
  * Authors: Felix Paul Kühne <fkuehne # videolan.org>
@@ -76,7 +76,6 @@
 @property (nonatomic, strong) MLFile *mediaItem;
 @property (nonatomic, strong) NSURL *url;
 @property (nonatomic, retain) VLCMediaList *mediaList;
-@property (nonatomic, retain) NSArray *filesForMediaList;
 @property (nonatomic, readwrite) NSUInteger itemInMediaListToBePlayedFirst;
 
 - (IBAction)closePlayback:(id)sender;
