@@ -441,9 +441,12 @@ static NSString *kDisplayedFirstSteps = @"Did we display the first steps tutoria
         list = [[VLCMediaList alloc] init];
 
         MLFile *file;
+        VLCMedia *media;
         for (NSInteger x = count - 1; x > -1; x--) {
             file = [(MLAlbumTrack*)tracks[x] files].anyObject;
-            [list addMedia:[VLCMedia mediaWithURL: [NSURL URLWithString:file.url]]];
+            media = [VLCMedia mediaWithURL: [NSURL URLWithString:file.url]];
+            [media parse];
+            [list addMedia:media];
         }
         [(VLCAppDelegate*)[UIApplication sharedApplication].delegate openMediaList:list atIndex:[tracks indexOfObject:selectedObject]];
     } else

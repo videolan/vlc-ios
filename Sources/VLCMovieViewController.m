@@ -30,7 +30,7 @@
 #define FORWARD_SWIPE_DURATION 30
 #define BACKWARD_SWIPE_DURATION 10
 
-@interface VLCMovieViewController () <UIGestureRecognizerDelegate, AVAudioSessionDelegate>
+@interface VLCMovieViewController () <UIGestureRecognizerDelegate, AVAudioSessionDelegate, VLCMediaDelegate>
 {
     VLCMediaListPlayer *_listPlayer;
     VLCMediaPlayer *_mediaPlayer;
@@ -377,8 +377,10 @@
         MLFile *item = self.mediaItem;
         media = [VLCMedia mediaWithURL:[NSURL URLWithString:item.url]];
         item.unread = @(NO);
-    } else if (!self.mediaList)
+    } else if (!self.mediaList) {
         media = [VLCMedia mediaWithURL:self.url];
+        [media parse];
+    }
 
     NSMutableDictionary *mediaDictionary = [[NSMutableDictionary alloc] init];
 
@@ -828,38 +830,10 @@
 {
     VLCMediaPlayerState currentState = _mediaPlayer.state;
     if (currentState == VLCMediaPlayerStateBuffering) {
+        /* attach delegate */
+        _mediaPlayer.media.delegate = self;
         /* let's update meta data */
-        MLFile *item = self.mediaItem;
-        NSString *title;
-        NSString *artist;
-        NSString *albumName;
-
-        if (item) {
-            if (item.isAlbumTrack) {
-                title = item.albumTrack.title;
-                artist = item.albumTrack.artist;
-                albumName = item.albumTrack.album.name;
-                self.artworkImageView.image = [VLCThumbnailsCache thumbnailForMediaFile:item];
-            }
-        } else {
-            NSDictionary * metaDict = _mediaPlayer.media.metaDictionary;
-            if (metaDict) {
-                title = metaDict[VLCMetaInformationTitle];
-                artist = metaDict[VLCMetaInformationArtist];
-                albumName = metaDict[VLCMetaInformationAlbum];
-                self.artworkImageView.image = [VLCThumbnailsCache thumbnailForMediaItemWithTitle:title Artist:artist andAlbumName:albumName];
-            }
-        }
-        if (!self.artworkImageView.image) {
-            self.trackNameLabel.text = title;
-            self.artistNameLabel.text = artist;
-            self.albumNameLabel.text = albumName;
-        } else
-            self.trackNameLabel.text = [NSString stringWithFormat:@"%@ – %@ — %@", title, artist, albumName];
-
-        if (self.trackNameLabel.text.length < 1)
-            self.trackNameLabel.text = [[_mediaPlayer.media url] lastPathComponent];
-        [self performSelectorInBackground:@selector(_updateExportedPlaybackInformation) withObject:nil];
+        [self _updateDisplayedMetadata];
     }
 
     if (currentState == VLCMediaPlayerStateError) {
@@ -867,8 +841,9 @@
         [self performSelector:@selector(closePlayback:) withObject:nil afterDelay:2.];
     }
 
-    if ((currentState == VLCMediaPlayerStateEnded || currentState == VLCMediaPlayerStateStopped) && _listPlayer.repeatMode == VLCDoNotRepeat)
-        [self performSelector:@selector(closePlayback:) withObject:nil afterDelay:2.];
+    if ((currentState == VLCMediaPlayerStateEnded || currentState == VLCMediaPlayerStateStopped) && _listPlayer.repeatMode == VLCDoNotRepeat) {
+        if ([_listPlayer.mediaList indexOfMedia:_mediaPlayer.media] == _listPlayer.mediaList.count - 1)[self performSelector:@selector(closePlayback:) withObject:nil afterDelay:2.];
+    }
 
     UIImage *playPauseImage = [_mediaPlayer isPlaying]? [UIImage imageNamed:@"pauseIcon"] : [UIImage imageNamed:@"playIcon"];
     [_playPauseButton setImage:playPauseImage forState:UIControlStateNormal];
@@ -1256,6 +1231,52 @@
         _shouldResumePlaying = NO;
         [_listPlayer play];
     }
+}
+
+- (void)mediaDidFinishParsing:(VLCMedia *)aMedia
+{
+    [self _updateDisplayedMetadata];
+}
+
+- (void)mediaMetaDataDidChange:(VLCMedia*)aMedia
+{
+    [self _updateDisplayedMetadata];
+}
+
+- (void)_updateDisplayedMetadata
+{
+    MLFile *item = self.mediaItem;
+    NSString *title;
+    NSString *artist;
+    NSString *albumName;
+
+    if (item) {
+        if (item.isAlbumTrack) {
+            title = item.albumTrack.title;
+            artist = item.albumTrack.artist;
+            albumName = item.albumTrack.album.name;
+            self.artworkImageView.image = [VLCThumbnailsCache thumbnailForMediaFile:item];
+        }
+    } else {
+        NSDictionary * metaDict = _mediaPlayer.media.metaDictionary;
+        if (metaDict) {
+            title = metaDict[VLCMetaInformationTitle];
+            artist = metaDict[VLCMetaInformationArtist];
+            albumName = metaDict[VLCMetaInformationAlbum];
+            self.artworkImageView.image = [VLCThumbnailsCache thumbnailForMediaItemWithTitle:title Artist:artist andAlbumName:albumName];
+        }
+    }
+    if (!self.artworkImageView.image) {
+        self.trackNameLabel.text = title;
+        self.artistNameLabel.text = artist;
+        self.albumNameLabel.text = albumName;
+    } else {
+        self.trackNameLabel.text = [NSString stringWithFormat:@"%@ – %@ — %@", title, artist, albumName];
+    }
+
+    if (self.trackNameLabel.text.length < 1 || [self.trackNameLabel.text isEqualToString:@" —  — "])
+        self.trackNameLabel.text = [[_mediaPlayer.media url] lastPathComponent];
+    [self performSelectorInBackground:@selector(_updateExportedPlaybackInformation) withObject:nil];
 }
 
 - (void)_updateExportedPlaybackInformation
