@@ -377,19 +377,8 @@
         MLFile *item = self.mediaItem;
         media = [VLCMedia mediaWithURL:[NSURL URLWithString:item.url]];
         item.unread = @(NO);
-
-        if (item.isAlbumTrack) {
-            self.artworkImageView.image = [VLCThumbnailsCache thumbnailForMediaFile:item];
-            if (!self.artworkImageView.image) {
-                self.trackNameLabel.text = item.albumTrack.title;
-                self.artistNameLabel.text = item.albumTrack.artist;
-                self.albumNameLabel.text = item.albumTrack.album.name;
-            } else
-                self.artistNameLabel.text = self.albumNameLabel.text = @"";
-        }
     } else if (!self.mediaList)
         media = [VLCMedia mediaWithURL:self.url];
-    self.trackNameLabel.text = [[media url] lastPathComponent];
 
     NSMutableDictionary *mediaDictionary = [[NSMutableDictionary alloc] init];
 
@@ -526,8 +515,6 @@
 
     self.playbackSpeedSlider.value = [self _playbackSpeed];
     [self _updatePlaybackSpeedIndicator];
-
-    [self performSelectorInBackground:@selector(_updateExportedPlaybackInformation) withObject:nil];
 
     _currentAspectRatioMask = 0;
     _mediaPlayer.videoAspectRatio = NULL;
@@ -840,6 +827,24 @@
 - (void)mediaPlayerStateChanged:(NSNotification *)aNotification
 {
     VLCMediaPlayerState currentState = _mediaPlayer.state;
+    if (currentState == VLCMediaPlayerStateBuffering) {
+        /* let's update meta data */
+        MLFile *item = self.mediaItem;
+        if (item) {
+            if (item.isAlbumTrack) {
+                self.artworkImageView.image = [VLCThumbnailsCache thumbnailForMediaFile:item];
+                if (!self.artworkImageView.image) {
+                    self.trackNameLabel.text = item.albumTrack.title;
+                    self.artistNameLabel.text = item.albumTrack.artist;
+                    self.albumNameLabel.text = item.albumTrack.album.name;
+                } else
+                    self.artistNameLabel.text = self.albumNameLabel.text = @"";
+            }
+        }
+
+        self.trackNameLabel.text = [[_mediaPlayer.media url] lastPathComponent];
+        [self performSelectorInBackground:@selector(_updateExportedPlaybackInformation) withObject:nil];
+    }
 
     if (currentState == VLCMediaPlayerStateError) {
         [self.statusLabel showStatusMessage:NSLocalizedString(@"PLAYBACK_FAILED", @"")];
