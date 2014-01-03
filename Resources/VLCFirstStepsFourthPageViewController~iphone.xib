@@ -8,6 +8,7 @@
         <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner" customClass="VLCFirstStepsFourthPageViewController">
             <connections>
                 <outlet property="accessDescriptionLabel" destination="cEb-8k-t4u" id="JBU-nj-whN"/>
+                <outlet property="deviceImageView" destination="3XD-c7-1E3" id="fpF-dn-HlV"/>
                 <outlet property="uploadDescriptionLabel" destination="kne-kQ-uVu" id="OXe-Ss-YDA"/>
                 <outlet property="view" destination="i5M-Pr-FkT" id="sfx-zR-JGt"/>
             </connections>
@@ -46,7 +47,7 @@
                     <autoresizingMask key="autoresizingMask" flexibleMinX="YES" flexibleMaxX="YES" flexibleMinY="YES" flexibleMaxY="YES"/>
                 </imageView>
                 <imageView userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="cloud.png" id="W8J-Df-ktU">
-                    <rect key="frame" x="115" y="101" width="78" height="41"/>
+                    <rect key="frame" x="113" y="101" width="78" height="41"/>
                     <autoresizingMask key="autoresizingMask" flexibleMinX="YES" flexibleMaxX="YES" flexibleMinY="YES" flexibleMaxY="YES"/>
                 </imageView>
             </subviews>

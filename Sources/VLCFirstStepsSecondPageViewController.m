@@ -23,7 +23,11 @@
     [super viewDidLoad];
 
     NSString *model = [[UIDevice currentDevice] model];
-    self.descriptionLabel.text = [NSString stringWithFormat:NSLocalizedString(@"FIRST_STEPS_ITUNES_DETAILS", @""), model, model];
+
+    if (UI_USER_INTERFACE_IDIOM() == UIUserInterfaceIdiomPhone)
+        self.descriptionLabel.text = [NSString stringWithFormat:NSLocalizedString(@"FIRST_STEPS_ITUNES_DETAILS", @""), model, model];
+    else
+        self.descriptionLabel.text = [[NSString stringWithFormat:NSLocalizedString(@"FIRST_STEPS_ITUNES_DETAILS", @""), model, model] stringByReplacingOccurrencesOfString:@"\n" withString:@"\n\n"];
 }
 
 - (NSString *)pageTitle

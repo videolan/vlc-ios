@@ -8,6 +8,7 @@
         <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner" customClass="VLCFirstStepsThirdPageViewController">
             <connections>
                 <outlet property="connectDescriptionLabel" destination="93K-R3-pGV" id="Zzt-EM-pNh"/>
+                <outlet property="deviceImageView" destination="1aL-zM-lp8" id="Kft-xk-BOm"/>
                 <outlet property="uploadDescriptionLabel" destination="0Qh-Pn-NAG" id="ERN-lP-zCi"/>
                 <outlet property="view" destination="i5M-Pr-FkT" id="sfx-zR-JGt"/>
             </connections>
@@ -18,7 +19,7 @@
             <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
             <subviews>
                 <view contentMode="scaleToFill" id="SLp-TE-5XX">
-                    <rect key="frame" x="6" y="235" width="324" height="145"/>
+                    <rect key="frame" x="-2" y="235" width="324" height="145"/>
                     <autoresizingMask key="autoresizingMask" flexibleMinX="YES" flexibleMaxX="YES" flexibleMinY="YES" flexibleMaxY="YES"/>
                     <subviews>
                         <imageView userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="sidebar.png" id="VQG-8B-Wah">
@@ -78,7 +79,7 @@
         <image name="browser.png" width="123" height="89"/>
         <image name="laptop.png" width="114" height="105"/>
         <image name="pad.png" width="72" height="105"/>
-        <image name="sidebar-cutout.png" width="148" height="71"/>
+        <image name="sidebar-cutout.png" width="148" height="90"/>
         <image name="sidebar.png" width="79" height="108"/>
         <image name="uploadarrow.png" width="61" height="49"/>
         <image name="wifi.png" width="78" height="55"/>
