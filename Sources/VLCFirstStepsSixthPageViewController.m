@@ -22,7 +22,11 @@
 {
     [super viewDidLoad];
 
-    self.flossDescriptionLabel.text = NSLocalizedString(@"FIRST_STEPS_FLOSS", @"");
+    if (UI_USER_INTERFACE_IDIOM() == UIUserInterfaceIdiomPhone)
+        self.flossDescriptionLabel.text = NSLocalizedString(@"FIRST_STEPS_FLOSS", @"");
+    else
+        self.flossDescriptionLabel.text = [NSLocalizedString(@"FIRST_STEPS_FLOSS", @"") stringByReplacingOccurrencesOfString:@"\n" withString:@"\n\n"];
+
     [self.learnMoreButton setTitle:NSLocalizedString(@"BUTTON_LEARN_MORE", @"") forState:UIControlStateNormal];
 }
 

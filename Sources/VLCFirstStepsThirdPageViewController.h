@@ -1,8 +1,8 @@
 /*****************************************************************************
- * VLCFirstStepsThirdPageViewController.h
+ * VLCFirstStepsThirdPageViewController
  * VLC for iOS
  *****************************************************************************
- * Copyright (c) 2013 VideoLAN. All rights reserved.
+ * Copyright (c) 2013-2014 VideoLAN. All rights reserved.
  * $Id$
  *
  * Authors: Felix Paul Kühne <fkuehne # videolan.org>
@@ -14,10 +14,10 @@
 
 @interface VLCFirstStepsThirdPageViewController : UIViewController
 
-@property (readonly) NSString *pageTitle;
-@property (readonly) NSUInteger page;
-
 @property (nonatomic, strong) IBOutlet UILabel *connectDescriptionLabel;
 @property (nonatomic, strong) IBOutlet UILabel *uploadDescriptionLabel;
+
+@property (readonly) NSString *pageTitle;
+@property (readonly) NSUInteger page;
 
 @end

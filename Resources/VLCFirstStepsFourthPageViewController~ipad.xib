@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="5037" systemVersion="12F45" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="5037" systemVersion="12F45" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES">
     <dependencies>
         <deployment defaultVersion="1552" identifier="iOS"/>
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="3733"/>
@@ -7,8 +7,8 @@
     <objects>
         <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner" customClass="VLCFirstStepsFourthPageViewController">
             <connections>
-                <outlet property="accessDescriptionLabel" destination="cEb-8k-t4u" id="JBU-nj-whN"/>
-                <outlet property="uploadDescriptionLabel" destination="kne-kQ-uVu" id="OXe-Ss-YDA"/>
+                <outlet property="accessDescriptionLabel" destination="JUN-oP-TvH" id="Xss-rY-9hs"/>
+                <outlet property="uploadDescriptionLabel" destination="Gsu-FY-c77" id="OOO-oX-Cqi"/>
                 <outlet property="view" destination="i5M-Pr-FkT" id="sfx-zR-JGt"/>
             </connections>
         </placeholder>
@@ -17,52 +17,52 @@
             <rect key="frame" x="0.0" y="0.0" width="540" height="620"/>
             <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
             <subviews>
-                <label clipsSubviews="YES" userInteractionEnabled="NO" contentMode="top" text="Upload Your media to Google Drive or Dropbox." textAlignment="center" lineBreakMode="wordWrap" numberOfLines="0" baselineAdjustment="alignBaselines" minimumFontSize="9" adjustsLetterSpacingToFitWidth="YES" id="kne-kQ-uVu">
-                    <rect key="frame" x="110" y="276" width="320" height="67"/>
+                <label clipsSubviews="YES" userInteractionEnabled="NO" contentMode="top" fixedFrame="YES" text="Upload Your media to Google Drive or Dropbox." textAlignment="center" lineBreakMode="wordWrap" numberOfLines="0" baselineAdjustment="alignBaselines" minimumFontSize="9" adjustsLetterSpacingToFitWidth="YES" preferredMaxLayoutWidth="381" translatesAutoresizingMaskIntoConstraints="NO" id="Gsu-FY-c77">
+                    <rect key="frame" x="80" y="225" width="381" height="67"/>
                     <autoresizingMask key="autoresizingMask" widthSizable="YES" flexibleMinY="YES" flexibleMaxY="YES"/>
                     <color key="backgroundColor" red="0.1215686275" green="0.1215686275" blue="0.1215686275" alpha="1" colorSpace="calibratedRGB"/>
                     <fontDescription key="fontDescription" type="system" pointSize="19"/>
                     <color key="textColor" white="0.71999999999999997" alpha="1" colorSpace="calibratedWhite"/>
                     <nil key="highlightedColor"/>
                 </label>
-                <imageView userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="sidebar.png" id="9ku-om-rLn">
-                    <rect key="frame" x="50" y="416" width="79" height="125"/>
+                <imageView userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" image="sidebar.png" translatesAutoresizingMaskIntoConstraints="NO" id="CUV-JT-ySO">
+                    <rect key="frame" x="51" y="346" width="79" height="125"/>
                     <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES" flexibleMaxY="YES"/>
                 </imageView>
-                <label clipsSubviews="YES" userInteractionEnabled="NO" contentMode="top" text="Open the sidebar to select Your Cloud provider and access Your media for downloading or streaming." textAlignment="center" lineBreakMode="wordWrap" numberOfLines="0" baselineAdjustment="alignBaselines" minimumFontSize="9" adjustsLetterSpacingToFitWidth="YES" id="cEb-8k-t4u">
-                    <rect key="frame" x="155" y="388" width="336" height="182"/>
+                <label clipsSubviews="YES" userInteractionEnabled="NO" contentMode="top" fixedFrame="YES" text="Open the sidebar to select Your Cloud provider and access Your media for downloading or streaming." textAlignment="center" lineBreakMode="wordWrap" numberOfLines="0" baselineAdjustment="alignBaselines" minimumFontSize="9" adjustsLetterSpacingToFitWidth="YES" preferredMaxLayoutWidth="284" translatesAutoresizingMaskIntoConstraints="NO" id="JUN-oP-TvH">
+                    <rect key="frame" x="177" y="317" width="284" height="182"/>
                     <autoresizingMask key="autoresizingMask" widthSizable="YES" flexibleMinY="YES" flexibleMaxY="YES"/>
                     <color key="backgroundColor" red="0.1215686275" green="0.1215686275" blue="0.1215686275" alpha="1" colorSpace="calibratedRGB"/>
                     <fontDescription key="fontDescription" type="system" pointSize="18"/>
                     <color key="textColor" white="0.71999999999999997" alpha="1" colorSpace="calibratedWhite"/>
                     <nil key="highlightedColor"/>
                 </label>
-                <imageView userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="pad.png" id="JRQ-Dz-i6d">
-                    <rect key="frame" x="94" y="147" width="72" height="105"/>
+                <imageView userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" image="pad.png" translatesAutoresizingMaskIntoConstraints="NO" id="kBr-bI-uRM">
+                    <rect key="frame" x="80" y="97" width="72" height="105"/>
                     <autoresizingMask key="autoresizingMask" flexibleMinX="YES" flexibleMaxX="YES" flexibleMinY="YES" flexibleMaxY="YES"/>
                 </imageView>
-                <imageView userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="laptop.png" id="dla-bl-UM8">
-                    <rect key="frame" x="332" y="142" width="114" height="105"/>
+                <imageView userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" image="laptop.png" translatesAutoresizingMaskIntoConstraints="NO" id="jqv-4k-4XY">
+                    <rect key="frame" x="347" y="97" width="114" height="105"/>
                     <autoresizingMask key="autoresizingMask" flexibleMinX="YES" flexibleMaxX="YES" flexibleMinY="YES" flexibleMaxY="YES"/>
                 </imageView>
-                <imageView userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="cloud.png" id="ryU-8v-czd">
-                    <rect key="frame" x="215" y="179" width="78" height="41"/>
+                <imageView userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" image="cloud.png" translatesAutoresizingMaskIntoConstraints="NO" id="E1R-IM-2yb">
+                    <rect key="frame" x="231" y="129" width="78" height="41"/>
                     <autoresizingMask key="autoresizingMask" flexibleMinX="YES" flexibleMaxX="YES" flexibleMinY="YES" flexibleMaxY="YES"/>
                 </imageView>
-                <imageView userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="filledcloud.png" id="FmG-h4-an6">
-                    <rect key="frame" x="88" y="478" width="85" height="45"/>
+                <imageView userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" image="filledcloud.png" translatesAutoresizingMaskIntoConstraints="NO" id="wJh-b0-w2G">
+                    <rect key="frame" x="84" y="426" width="85" height="45"/>
                     <autoresizingMask key="autoresizingMask" flexibleMinX="YES" flexibleMaxX="YES" flexibleMinY="YES" flexibleMaxY="YES"/>
                 </imageView>
-                <imageView userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="Drive.png" id="qGb-Gw-dA4">
-                    <rect key="frame" x="131" y="493" width="24" height="22"/>
+                <imageView userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" image="Drive.png" translatesAutoresizingMaskIntoConstraints="NO" id="gdI-Lw-xVt">
+                    <rect key="frame" x="129" y="443" width="24" height="22"/>
                     <autoresizingMask key="autoresizingMask" flexibleMinX="YES" flexibleMaxX="YES" flexibleMinY="YES" flexibleMaxY="YES"/>
                 </imageView>
-                <imageView userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="Dropbox.png" id="iwl-Co-FAv">
-                    <rect key="frame" x="107" y="493" width="24" height="22"/>
+                <imageView userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" image="Dropbox.png" translatesAutoresizingMaskIntoConstraints="NO" id="frX-b4-iG2">
+                    <rect key="frame" x="101" y="442" width="24" height="22"/>
                     <autoresizingMask key="autoresizingMask" flexibleMinX="YES" flexibleMaxX="YES" flexibleMinY="YES" flexibleMaxY="YES"/>
                 </imageView>
             </subviews>
-            <color key="backgroundColor" white="0.12" alpha="1" colorSpace="calibratedWhite"/>
+            <color key="backgroundColor" red="0.1215686275" green="0.1215686275" blue="0.1215686275" alpha="1" colorSpace="calibratedRGB"/>
             <simulatedStatusBarMetrics key="simulatedStatusBarMetrics"/>
             <freeformSimulatedSizeMetrics key="simulatedDestinationMetrics"/>
         </view>
