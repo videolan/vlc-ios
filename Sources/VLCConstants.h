@@ -57,5 +57,5 @@
 #if TARGET_IPHONE_SIMULATOR
 #define WifiInterfaceName @"en1"
 #else
-#define WifiInterfaceName@"en0"
+#define WifiInterfaceName @"en0"
 #endif

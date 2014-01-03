@@ -641,6 +641,9 @@
         case UIEventSubtypeRemoteControlPreviousTrack:
             [self backward:nil];
 
+        case UIEventSubtypeRemoteControlStop:
+            [self closePlayback:nil];
+
         default:
             break;
     }
@@ -1256,8 +1259,6 @@
     NSString *artist;
     NSString *albumName;
     NSString *trackNumber;
-
-    self.artworkImageView.hidden = self.trackNameLabel.hidden = self.artistNameLabel.hidden = self.albumNameLabel.hidden = !_mediaPlayer.hasVideoOut;
 
     if (item) {
         if (item.isAlbumTrack) {
