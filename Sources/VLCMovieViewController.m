@@ -1283,10 +1283,15 @@
         self.artistNameLabel.text = artist;
         self.albumNameLabel.text = albumName;
     } else {
-        self.trackNameLabel.text = [NSString stringWithFormat:@"%@ – %@ — %@", title, artist, albumName];
+        NSString *trackName = title;
+        if (artist)
+            trackName = [trackName stringByAppendingFormat:@" — %@", artist];
+        if (albumName)
+            trackName = [trackName stringByAppendingFormat:@" — %@", albumName];
+        self.trackNameLabel.text = trackName;
     }
 
-    if (self.trackNameLabel.text.length < 1 || [self.trackNameLabel.text isEqualToString:@" —  — "])
+    if (self.trackNameLabel.text.length < 1)
         self.trackNameLabel.text = [[_mediaPlayer.media url] lastPathComponent];
 
     /* don't leak sensitive information to the OS, if passcode lock is enabled */
