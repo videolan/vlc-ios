@@ -18,7 +18,7 @@
             <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
             <subviews>
                 <label clipsSubviews="YES" userInteractionEnabled="NO" contentMode="top" fixedFrame="YES" text="Upload Your media to Google Drive or Dropbox." textAlignment="center" lineBreakMode="wordWrap" numberOfLines="0" baselineAdjustment="alignBaselines" minimumFontSize="9" adjustsLetterSpacingToFitWidth="YES" preferredMaxLayoutWidth="280" translatesAutoresizingMaskIntoConstraints="NO" id="Gsu-FY-c77">
-                    <rect key="frame" x="20" y="226" width="280" height="67"/>
+                    <rect key="frame" x="20" y="211" width="280" height="67"/>
                     <autoresizingMask key="autoresizingMask" widthSizable="YES" flexibleMinY="YES" flexibleMaxY="YES"/>
                     <color key="backgroundColor" red="0.1215686275" green="0.1215686275" blue="0.1215686275" alpha="1" colorSpace="calibratedRGB"/>
                     <fontDescription key="fontDescription" type="system" pointSize="19"/>
@@ -26,11 +26,11 @@
                     <nil key="highlightedColor"/>
                 </label>
                 <imageView userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" image="sidebar.png" translatesAutoresizingMaskIntoConstraints="NO" id="CUV-JT-ySO">
-                    <rect key="frame" x="21" y="329" width="79" height="125"/>
+                    <rect key="frame" x="21" y="300" width="79" height="125"/>
                     <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES" flexibleMaxY="YES"/>
                 </imageView>
                 <label clipsSubviews="YES" userInteractionEnabled="NO" contentMode="top" fixedFrame="YES" text="Open the sidebar to select Your Cloud provider and access Your media for downloading or streaming." textAlignment="center" lineBreakMode="wordWrap" numberOfLines="0" baselineAdjustment="alignBaselines" minimumFontSize="9" adjustsLetterSpacingToFitWidth="YES" preferredMaxLayoutWidth="184" translatesAutoresizingMaskIntoConstraints="NO" id="JUN-oP-TvH">
-                    <rect key="frame" x="116" y="301" width="184" height="182"/>
+                    <rect key="frame" x="116" y="272" width="184" height="182"/>
                     <autoresizingMask key="autoresizingMask" widthSizable="YES" flexibleMinY="YES" flexibleMaxY="YES"/>
                     <color key="backgroundColor" red="0.1215686275" green="0.1215686275" blue="0.1215686275" alpha="1" colorSpace="calibratedRGB"/>
                     <fontDescription key="fontDescription" type="system" pointSize="18"/>
@@ -38,27 +38,27 @@
                     <nil key="highlightedColor"/>
                 </label>
                 <imageView userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" image="phone.png" translatesAutoresizingMaskIntoConstraints="NO" id="kBr-bI-uRM">
-                    <rect key="frame" x="30" y="107" width="72" height="105"/>
+                    <rect key="frame" x="30" y="92" width="72" height="105"/>
                     <autoresizingMask key="autoresizingMask" flexibleMinX="YES" flexibleMaxX="YES" flexibleMinY="YES" flexibleMaxY="YES"/>
                 </imageView>
                 <imageView userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" image="laptop.png" translatesAutoresizingMaskIntoConstraints="NO" id="jqv-4k-4XY">
-                    <rect key="frame" x="184" y="107" width="114" height="105"/>
+                    <rect key="frame" x="184" y="92" width="114" height="105"/>
                     <autoresizingMask key="autoresizingMask" flexibleMinX="YES" flexibleMaxX="YES" flexibleMinY="YES" flexibleMaxY="YES"/>
                 </imageView>
                 <imageView userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" image="cloud.png" translatesAutoresizingMaskIntoConstraints="NO" id="E1R-IM-2yb">
-                    <rect key="frame" x="113" y="139" width="78" height="41"/>
+                    <rect key="frame" x="113" y="124" width="78" height="41"/>
                     <autoresizingMask key="autoresizingMask" flexibleMinX="YES" flexibleMaxX="YES" flexibleMinY="YES" flexibleMaxY="YES"/>
                 </imageView>
                 <imageView userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" image="filledcloud.png" translatesAutoresizingMaskIntoConstraints="NO" id="wJh-b0-w2G">
-                    <rect key="frame" x="50" y="416" width="85" height="45"/>
+                    <rect key="frame" x="50" y="387" width="85" height="45"/>
                     <autoresizingMask key="autoresizingMask" flexibleMinX="YES" flexibleMaxX="YES" flexibleMinY="YES" flexibleMaxY="YES"/>
                 </imageView>
                 <imageView userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" image="Drive.png" translatesAutoresizingMaskIntoConstraints="NO" id="gdI-Lw-xVt">
-                    <rect key="frame" x="96" y="432" width="24" height="22"/>
+                    <rect key="frame" x="96" y="403" width="24" height="22"/>
                     <autoresizingMask key="autoresizingMask" flexibleMinX="YES" flexibleMaxX="YES" flexibleMinY="YES" flexibleMaxY="YES"/>
                 </imageView>
                 <imageView userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" image="Dropbox.png" translatesAutoresizingMaskIntoConstraints="NO" id="frX-b4-iG2">
-                    <rect key="frame" x="70" y="432" width="24" height="22"/>
+                    <rect key="frame" x="70" y="403" width="24" height="22"/>
                     <autoresizingMask key="autoresizingMask" flexibleMinX="YES" flexibleMaxX="YES" flexibleMinY="YES" flexibleMaxY="YES"/>
                 </imageView>
             </subviews>
