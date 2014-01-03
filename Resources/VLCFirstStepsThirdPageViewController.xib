@@ -17,6 +17,29 @@
             <rect key="frame" x="0.0" y="0.0" width="320" height="442"/>
             <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
             <subviews>
+                <view contentMode="scaleToFill" id="SLp-TE-5XX">
+                    <rect key="frame" x="6" y="235" width="324" height="145"/>
+                    <autoresizingMask key="autoresizingMask" flexibleMinX="YES" flexibleMaxX="YES" flexibleMinY="YES" flexibleMaxY="YES"/>
+                    <subviews>
+                        <imageView userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="sidebar.png" id="VQG-8B-Wah">
+                            <rect key="frame" x="20" y="20" width="72" height="105"/>
+                            <autoresizingMask key="autoresizingMask" flexibleMinX="YES" flexibleMaxX="YES" flexibleMinY="YES" flexibleMaxY="YES"/>
+                        </imageView>
+                        <imageView userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="sidebar-cutout.png" id="Rhh-JM-ujB">
+                            <rect key="frame" x="35" y="46" width="148" height="71"/>
+                            <autoresizingMask key="autoresizingMask" flexibleMinX="YES" flexibleMaxX="YES" flexibleMinY="YES" flexibleMaxY="YES"/>
+                        </imageView>
+                        <imageView userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="browser.png" id="PKS-Mi-UbT">
+                            <rect key="frame" x="181" y="20" width="123" height="89"/>
+                            <autoresizingMask key="autoresizingMask" flexibleMinX="YES" flexibleMaxX="YES" flexibleMinY="YES" flexibleMaxY="YES"/>
+                        </imageView>
+                        <imageView userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="uploadarrow.png" id="IN8-U7-2lp">
+                            <rect key="frame" x="170" y="34" width="61" height="49"/>
+                            <autoresizingMask key="autoresizingMask" flexibleMinX="YES" flexibleMaxX="YES" flexibleMinY="YES" flexibleMaxY="YES"/>
+                        </imageView>
+                    </subviews>
+                    <color key="backgroundColor" white="0.12" alpha="1" colorSpace="calibratedWhite"/>
+                </view>
                 <label clipsSubviews="YES" userInteractionEnabled="NO" contentMode="top" text="Connect Your device to the same network as your Mac or PC." textAlignment="center" lineBreakMode="wordWrap" numberOfLines="0" baselineAdjustment="alignBaselines" minimumFontSize="9" adjustsLetterSpacingToFitWidth="YES" id="93K-R3-pGV">
                     <rect key="frame" x="21" y="189" width="280" height="67"/>
                     <autoresizingMask key="autoresizingMask" widthSizable="YES" flexibleMinY="YES" flexibleMaxY="YES"/>
@@ -25,12 +48,16 @@
                     <color key="textColor" white="0.71999999999999997" alpha="1" colorSpace="calibratedWhite"/>
                     <nil key="highlightedColor"/>
                 </label>
-                <imageView userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="iDeviceWiFiPC.png" id="wcH-ns-f7f">
-                    <rect key="frame" x="20" y="68" width="280" height="123"/>
+                <imageView userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="pad.png" id="1aL-zM-lp8">
+                    <rect key="frame" x="26" y="76" width="72" height="105"/>
                     <autoresizingMask key="autoresizingMask" flexibleMinX="YES" flexibleMaxX="YES" flexibleMinY="YES" flexibleMaxY="YES"/>
                 </imageView>
-                <imageView userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="wifiuploadsetup.png" id="Pen-ba-YPF">
-                    <rect key="frame" x="20" y="261" width="280" height="90"/>
+                <imageView userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="laptop.png" id="eEd-6d-L1K">
+                    <rect key="frame" x="180" y="76" width="114" height="105"/>
+                    <autoresizingMask key="autoresizingMask" flexibleMinX="YES" flexibleMaxX="YES" flexibleMinY="YES" flexibleMaxY="YES"/>
+                </imageView>
+                <imageView userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="wifi.png" id="xfi-La-dWa">
+                    <rect key="frame" x="111" y="101" width="78" height="55"/>
                     <autoresizingMask key="autoresizingMask" flexibleMinX="YES" flexibleMaxX="YES" flexibleMinY="YES" flexibleMaxY="YES"/>
                 </imageView>
                 <label clipsSubviews="YES" userInteractionEnabled="NO" contentMode="top" text="Switch the toggle in the sidebar, enter the URL to the web browser and upload your files." textAlignment="center" lineBreakMode="wordWrap" numberOfLines="0" baselineAdjustment="alignBaselines" minimumFontSize="9" adjustsLetterSpacingToFitWidth="YES" id="0Qh-Pn-NAG">
@@ -48,7 +75,12 @@
         </view>
     </objects>
     <resources>
-        <image name="iDeviceWiFiPC.png" width="506" height="223"/>
-        <image name="wifiuploadsetup.png" width="547" height="182"/>
+        <image name="browser.png" width="123" height="89"/>
+        <image name="laptop.png" width="114" height="105"/>
+        <image name="pad.png" width="72" height="105"/>
+        <image name="sidebar-cutout.png" width="148" height="71"/>
+        <image name="sidebar.png" width="79" height="108"/>
+        <image name="uploadarrow.png" width="61" height="49"/>
+        <image name="wifi.png" width="78" height="55"/>
     </resources>
 </document>
