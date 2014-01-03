@@ -21,8 +21,20 @@
 - (void)viewDidLoad
 {
     [super viewDidLoad];
+    self.repeatLabel.text = NSLocalizedString(@"BUTTON_POSITION", @"");
+    self.timeLabel.text = NSLocalizedString(@"FIRST_STEPS_TIME", @"");
+    self.aspectLabel.text = NSLocalizedString(@"FIRST_STEPS_ASPECT", @"");
+    self.speedLabel.text = NSLocalizedString(@"FIRST_STEPS_SPEED", @"");
+    self.repeatLabel.text = NSLocalizedString(@"FIRST_STEPS_REPEAT", @"");
+    self.subtitlesLabel.text = NSLocalizedString(@"FIRST_STEPS_SUBTITLES", @"");
+    self.audioLabel.text = NSLocalizedString(@"FIRST_STEPS_AUDIO", @"");
+    self.volumeLabel.text = NSLocalizedString(@"FIRST_STEPS_VOLUME", @"");
+}
 
-    /* FIXME: l10n */
+- (void)viewWillAppear:(BOOL)animated
+{
+    if (UI_USER_INTERFACE_IDIOM() == UIUserInterfaceIdiomPad)
+        self.actualContentView.center = self.view.center;
 }
 
 - (NSString *)pageTitle

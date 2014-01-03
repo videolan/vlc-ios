@@ -14,6 +14,17 @@
 
 @interface VLCFirstStepsFifthPageViewController : UIViewController
 
+@property (nonatomic, strong) IBOutlet UIView *actualContentView;
+@property (nonatomic, strong) IBOutlet UILabel *positionLabel;
+@property (nonatomic, strong) IBOutlet UILabel *timeLabel;
+@property (nonatomic, strong) IBOutlet UILabel *aspectLabel;
+@property (nonatomic, strong) IBOutlet UILabel *speedLabel;
+@property (nonatomic, strong) IBOutlet UILabel *effectsLabel;
+@property (nonatomic, strong) IBOutlet UILabel *repeatLabel;
+@property (nonatomic, strong) IBOutlet UILabel *audioLabel;
+@property (nonatomic, strong) IBOutlet UILabel *subtitlesLabel;
+@property (nonatomic, strong) IBOutlet UILabel *volumeLabel;
+
 @property (readonly) NSString *pageTitle;
 @property (readonly) NSUInteger page;
 
