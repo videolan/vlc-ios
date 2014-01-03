@@ -53,3 +53,9 @@
 #define kSupportedAudioFileExtensions @"\\.(aac|aiff|aif|amr|aob|ape|axa|flac|it|m2a|m4a|mka|mlp|mod|mp1|mp2|mp3|mpa|mpc|oga|oma|opus|rmi|s3m|spx|tta|voc|vqf|wav|wma|wv|xa|xm)$"
 
 #define kBlobHash @"521923d214b9ae628da7987cf621e94c4afdd726"
+
+#if TARGET_IPHONE_SIMULATOR
+#define WifiInterfaceName @"en1"
+#else
+#define WifiInterfaceName@"en0"
+#endif

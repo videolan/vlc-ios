@@ -22,12 +22,6 @@
 #import <ifaddrs.h>
 #import <arpa/inet.h>
 
-#if TARGET_IPHONE_SIMULATOR
-    NSString *const WifiInterfaceName = @"en1";
-#else
-    NSString *const WifiInterfaceName = @"en0";
-#endif
-
 @implementation VLCHTTPUploaderController
 
 - (id)init

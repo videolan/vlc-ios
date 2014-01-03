@@ -11,6 +11,8 @@
  *****************************************************************************/
 
 #import "VLCFirstStepsThirdPageViewController.h"
+#import <ifaddrs.h>
+#import <arpa/inet.h>
 
 @interface VLCFirstStepsThirdPageViewController ()
 
@@ -24,6 +26,25 @@
 
     self.connectDescriptionLabel.text = [NSString stringWithFormat:NSLocalizedString(@"FIRST_STEPS_WIFI_CONNECT_DETAILS",@""), [[UIDevice currentDevice] model]];
     self.uploadDescriptionLabel.text = NSLocalizedString(@"FIRST_STEPS_WIFI_UPLOAD_DETAILS", @"");
+
+    NSString *address = @"192.168.1.2"; // something generic
+    struct ifaddrs *interfaces = NULL;
+    struct ifaddrs *temp_addr = NULL;
+    int success = getifaddrs(&interfaces);
+
+    if (success == 0) {
+        temp_addr = interfaces;
+        while (temp_addr != NULL) {
+            if (temp_addr->ifa_addr->sa_family == AF_INET) {
+                if([@(temp_addr->ifa_name) isEqualToString:WifiInterfaceName])
+                    address = @(inet_ntoa(((struct sockaddr_in *)temp_addr->ifa_addr)->sin_addr));
+            }
+            temp_addr = temp_addr->ifa_next;
+        }
+    }
+
+    freeifaddrs(interfaces);
+    self.currentAddressLabel.text = [NSString stringWithFormat:@"http://%@", address];
 }
 
 - (NSString *)pageTitle
