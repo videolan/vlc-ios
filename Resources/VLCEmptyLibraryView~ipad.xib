@@ -42,7 +42,7 @@
                             <nil key="highlightedColor"/>
                         </label>
                         <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" id="A78-83-MhQ">
-                            <rect key="frame" x="143" y="398" width="126" height="42"/>
+                            <rect key="frame" x="66" y="398" width="280" height="42"/>
                             <autoresizingMask key="autoresizingMask" widthSizable="YES" flexibleMaxY="YES"/>
                             <fontDescription key="fontDescription" type="system" pointSize="25"/>
                             <state key="normal" title="Learn More">
@@ -62,6 +62,7 @@
                 <outlet property="activityIndicator" destination="122" id="123"/>
                 <outlet property="emptyLibraryLabel" destination="114" id="119"/>
                 <outlet property="emptyLibraryLongDescriptionLabel" destination="vqV-xO-9Ez" id="Grj-83-sAj"/>
+                <outlet property="learnMoreButton" destination="A78-83-MhQ" id="z6i-rn-FZx"/>
             </connections>
         </view>
     </objects>
