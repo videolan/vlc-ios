@@ -25,7 +25,7 @@
                     <color key="textColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                     <nil key="highlightedColor"/>
                 </label>
-                <label clipsSubviews="YES" userInteractionEnabled="NO" contentMode="center" text="First steps to Sync and Play your Media." textAlignment="center" lineBreakMode="wordWrap" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="qwa-E6-Xqt">
+                <label clipsSubviews="YES" userInteractionEnabled="NO" contentMode="center" text="First steps to Sync and Play your Media." textAlignment="center" lineBreakMode="wordWrap" numberOfLines="0" baselineAdjustment="alignBaselines" minimumScaleFactor="0.5" adjustsLetterSpacingToFitWidth="YES" id="qwa-E6-Xqt">
                     <rect key="frame" x="20" y="304" width="280" height="118"/>
                     <autoresizingMask key="autoresizingMask" flexibleMinX="YES" flexibleMaxX="YES" flexibleMinY="YES" flexibleMaxY="YES"/>
                     <color key="backgroundColor" red="0.1215686275" green="0.1215686275" blue="0.1215686275" alpha="1" colorSpace="calibratedRGB"/>

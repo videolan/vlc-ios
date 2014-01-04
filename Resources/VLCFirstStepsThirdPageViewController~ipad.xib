@@ -49,7 +49,7 @@
                     </subviews>
                     <color key="backgroundColor" white="0.12" alpha="1" colorSpace="calibratedWhite"/>
                 </view>
-                <label clipsSubviews="YES" userInteractionEnabled="NO" contentMode="top" fixedFrame="YES" text="Connect Your device to the same network as your Mac or PC." textAlignment="center" lineBreakMode="wordWrap" numberOfLines="0" baselineAdjustment="alignBaselines" minimumFontSize="9" adjustsLetterSpacingToFitWidth="YES" preferredMaxLayoutWidth="381" translatesAutoresizingMaskIntoConstraints="NO" id="nDQ-H5-FRU">
+                <label clipsSubviews="YES" userInteractionEnabled="NO" contentMode="top" fixedFrame="YES" text="Connect Your device to the same network as your Mac or PC." textAlignment="center" lineBreakMode="wordWrap" numberOfLines="0" baselineAdjustment="alignBaselines" minimumScaleFactor="0.5" adjustsLetterSpacingToFitWidth="YES" preferredMaxLayoutWidth="381" translatesAutoresizingMaskIntoConstraints="NO" id="nDQ-H5-FRU">
                     <rect key="frame" x="80" y="221" width="381" height="67"/>
                     <autoresizingMask key="autoresizingMask" widthSizable="YES" flexibleMinY="YES" flexibleMaxY="YES"/>
                     <color key="backgroundColor" red="0.1215686275" green="0.1215686275" blue="0.1215686275" alpha="1" colorSpace="calibratedRGB"/>
@@ -69,7 +69,7 @@
                     <rect key="frame" x="231" y="123" width="78" height="55"/>
                     <autoresizingMask key="autoresizingMask" flexibleMinX="YES" flexibleMaxX="YES" flexibleMinY="YES" flexibleMaxY="YES"/>
                 </imageView>
-                <label clipsSubviews="YES" userInteractionEnabled="NO" contentMode="top" fixedFrame="YES" text="Switch the toggle in the sidebar, enter the URL to the web browser and upload your files." textAlignment="center" lineBreakMode="wordWrap" numberOfLines="0" baselineAdjustment="alignBaselines" minimumFontSize="9" adjustsLetterSpacingToFitWidth="YES" preferredMaxLayoutWidth="381" translatesAutoresizingMaskIntoConstraints="NO" id="3RO-Ph-Lzw">
+                <label clipsSubviews="YES" userInteractionEnabled="NO" contentMode="top" fixedFrame="YES" text="Switch the toggle in the sidebar, enter the URL to the web browser and upload your files." textAlignment="center" lineBreakMode="wordWrap" numberOfLines="0" baselineAdjustment="alignBaselines" minimumScaleFactor="0.5" adjustsLetterSpacingToFitWidth="YES" preferredMaxLayoutWidth="381" translatesAutoresizingMaskIntoConstraints="NO" id="3RO-Ph-Lzw">
                     <rect key="frame" x="80" y="431" width="381" height="114"/>
                     <autoresizingMask key="autoresizingMask" widthSizable="YES" flexibleMinY="YES" flexibleMaxY="YES"/>
                     <color key="backgroundColor" red="0.1215686275" green="0.1215686275" blue="0.1215686275" alpha="1" colorSpace="calibratedRGB"/>

@@ -29,6 +29,7 @@
     self.audioLabel.text = NSLocalizedString(@"FIRST_STEPS_AUDIO", @"");
     self.volumeLabel.text = NSLocalizedString(@"FIRST_STEPS_VOLUME", @"");
     self.positionLabel.text = NSLocalizedString(@"FIRST_STEPS_POSITION", @"");
+    self.effectsLabel.text = NSLocalizedString(@"VIDEO_FILTER", @"");
 }
 
 - (void)viewWillAppear:(BOOL)animated
