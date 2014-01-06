@@ -343,11 +343,15 @@
     if (UI_USER_INTERFACE_IDIOM() == UIUserInterfaceIdiomPhone) {
         CGSize viewSize = self.view.frame.size;
         if (UIDeviceOrientationIsLandscape([UIDevice currentDevice].orientation)) {
+            CGFloat rightSpace = _videoeffectsContainer.frame.origin.x - CGRectGetMaxX(_fwdButton.frame);
+            CGFloat gapSize = (rightSpace - _repeatButton.frame.size.width - _audioSwitcherContainer.frame.size.width) / 3.0;
             [_controllerPanel setFrame:CGRectMake(0, viewSize.height - 55, viewSize.width, 55)];
-            [_repeatButton setFrame:CGRectMake(8, 16, 32, 35)];
-            [_audioSwitcherContainer setFrame:CGRectMake(48, 12, 40, 40)];
+            [_volumeView setFrame:CGRectMake(gapSize, 22, _bwdButton.frame.origin.x - 2 * gapSize, 22)];
+            [_audioSwitcherContainer setFrame:CGRectMake(CGRectGetMaxX(_fwdButton.frame) + gapSize, 14, 40, 40)];
+            [_repeatButton setFrame:CGRectMake(CGRectGetMaxX(_audioSwitcherContainer.frame) + gapSize, 16, 32, 35)];
         } else {
             [_controllerPanel setFrame:CGRectMake(0, viewSize.height - 90, viewSize.width, 90)];
+            [_volumeView setFrame:CGRectMake(60, 61, 244, 22)];
             [_repeatButton setFrame:CGRectMake(18, 54, 32, 35)];
             [_audioSwitcherContainer setFrame:CGRectMake(20, 14, 40, 40)];
         }
