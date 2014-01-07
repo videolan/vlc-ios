@@ -78,8 +78,14 @@
     UIView *progressView = [[UIView alloc] init];
     [progressView addSubview:_progressBar];
     [progressView addSubview:_progressLabel];
+
+    [progressView addConstraint:[NSLayoutConstraint constraintWithItem:_progressBar attribute:NSLayoutAttributeWidth relatedBy:NSLayoutRelationEqual toItem:_progressLabel attribute:NSLayoutAttributeWidth multiplier:1.0f constant:0.0f]];
     [progressView addConstraint:[NSLayoutConstraint constraintWithItem:progressView attribute:NSLayoutAttributeWidth relatedBy:NSLayoutRelationEqual toItem:_progressLabel attribute:NSLayoutAttributeWidth multiplier:1.0f constant:0.0f]];
+    [progressView addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"V:|-[_progressBar]-[_progressLabel]-|" options:NSLayoutFormatAlignAllCenterX metrics:nil views:NSDictionaryOfVariableBindings(_progressBar, _progressLabel)]];
+
     progressView.translatesAutoresizingMaskIntoConstraints = NO;
+    _progressLabel.translatesAutoresizingMaskIntoConstraints = NO;
+    _progressBar.translatesAutoresizingMaskIntoConstraints = NO;
 
     _progressBarButtonItem = [[UIBarButtonItem alloc] initWithCustomView:progressView];
 
@@ -245,7 +251,7 @@
 {
     [_progressLabel setText:[NSString stringWithFormat:NSLocalizedString(@"REMAINING_TIME", nil), time]];
     CGSize size = [_progressLabel.text sizeWithFont:_progressLabel.font];
-    [_progressLabel setFrame:CGRectMake(0, 2, size.width, size.height)];
+    [_progressLabel setFrame:CGRectMake(_progressLabel.frame.origin.x, _progressLabel.frame.origin.y, size.width, size.height)];
 }
 
 - (void)currentProgressInformation:(float)progress {
