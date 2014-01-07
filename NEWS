@@ -1,5 +1,5 @@
-2.2:
-----
+2.2.0:
+------
 NB: This release removes support for iOS 5 and therefore the first generation
 iPad. iOS 6 and the iPhone 3GS remain supported.
 
