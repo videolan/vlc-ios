@@ -1,0 +1,35 @@
+From 61f5d64f29605b26b7a1c2fde9341b6164bbf646 Mon Sep 17 00:00:00 2001
+From: =?UTF-8?q?Felix=20Paul=20K=C3=BChne?= <fkuehne@videolan.org>
+Date: Wed, 8 Jan 2014 16:45:54 +0100
+Subject: [PATCH 4/4] Fix russian l10n issue
+
+---
+ client/iOS/Quincy.bundle/ru.lproj/Quincy.strings      | Bin 3672 -> 3750 bytes
+ .../Quincy.bundle/ru.lproj/QuincyAlternate.strings    | Bin 3672 -> 3750 bytes
+ 2 files changed, 0 insertions(+), 0 deletions(-)
+
+diff --git a/client/iOS/Quincy.bundle/ru.lproj/Quincy.strings b/client/iOS/Quincy.bundle/ru.lproj/Quincy.strings
+index 139aa9ce1ed24a9fa84e05aff7675f8ff04b87ab..e135dc38d71a09f12966b051d69194ac0c3ca825 100755
+GIT binary patch
+delta 108
+zcmca1vrKkF7TaVUPA=hKhE#?;h7^V%AYH(a&rrlrGC7lNI!KNkDmR&vy&uGvb^*%g
+dF_bW1)ANu~e)1{yO+a;g>`-$yS99ED1pvf58{Gf^
+
+delta 58
+zcmZ1`dqZYJ7Te?wwrQNf45<ux3@Ho>ll9sAg<Tl(fjo7F5(WhZsLbStjPjG2I5urQ
+I#c_uf0N@S~TmS$7
+
+diff --git a/client/iOS/Quincy.bundle/ru.lproj/QuincyAlternate.strings b/client/iOS/Quincy.bundle/ru.lproj/QuincyAlternate.strings
+index 139aa9ce1ed24a9fa84e05aff7675f8ff04b87ab..e135dc38d71a09f12966b051d69194ac0c3ca825 100755
+GIT binary patch
+delta 108
+zcmca1vrKkF7TaVUPA=hKhE#?;h7^V%AYH(a&rrlrGC7lNI!KNkDmR&vy&uGvb^*%g
+dF_bW1)ANu~e)1{yO+a;g>`-$yS99ED1pvf58{Gf^
+
+delta 58
+zcmZ1`dqZYJ7Te?wwrQNf45<ux3@Ho>ll9sAg<Tl(fjo7F5(WhZsLbStjPjG2I5urQ
+I#c_uf0N@S~TmS$7
+
+-- 
+1.8.3.4 (Apple Git-47)
+
