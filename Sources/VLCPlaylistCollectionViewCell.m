@@ -188,7 +188,9 @@
         [string appendString:anyTrack.artist];
         [string appendString:@" — "];
     }
-    [string appendFormat:@"%@ — %@", [NSString stringWithFormat:(count > 1) ? NSLocalizedString(@"LIBRARY_TRACKS", @"") : NSLocalizedString(@"LIBRARY_SINGLE_TRACK", @""), count], album.releaseYear];
+    [string appendString:[NSString stringWithFormat:(count > 1) ? NSLocalizedString(@"LIBRARY_TRACKS", @"") : NSLocalizedString(@"LIBRARY_SINGLE_TRACK", @""), count]];
+    if (album.releaseYear)
+        [string appendFormat:@" — %@", album.releaseYear];
     self.subtitleLabel.text = string;
     self.mediaIsUnreadView.hidden = YES;
     self.progressView.hidden = YES;
