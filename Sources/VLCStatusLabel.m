@@ -30,6 +30,9 @@
     [self setNeedsDisplay];
     [self _toggleVisibility:NO];
 
+    if (_displayTimer)
+        [_displayTimer invalidate];
+
     _displayTimer = [NSTimer scheduledTimerWithTimeInterval:1.5
                                                      target:self
                                                    selector:@selector(_hideAgain)
