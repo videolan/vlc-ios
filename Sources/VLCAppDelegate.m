@@ -25,8 +25,9 @@
 #import "UINavigationController+Theme.h"
 #import "VLCHTTPUploaderController.h"
 #import "VLCMenuTableViewController.h"
+#import "BWQuincyManager.h"
 
-@interface VLCAppDelegate () <PAPasscodeViewControllerDelegate, VLCMediaFileDiscovererDelegate> {
+@interface VLCAppDelegate () <PAPasscodeViewControllerDelegate, VLCMediaFileDiscovererDelegate, BWQuincyManagerDelegate> {
     PAPasscodeViewController *_passcodeLockController;
     VLCDropboxTableViewController *_dropboxTableViewController;
     VLCGoogleDriveTableViewController *_googleDriveTableViewController;
@@ -59,7 +60,9 @@
 
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions
 {
-    [[BWQuincyManager sharedQuincyManager] setSubmissionURL:@"http://yourserver.com/crash_v200.php"];
+    [[BWQuincyManager sharedQuincyManager] setSubmissionURL:@"http://crash.videolan.org/crash_v200.php"];
+    [[BWQuincyManager sharedQuincyManager] setDelegate:self];
+    [[BWQuincyManager sharedQuincyManager] setFeedbackActivated:YES];
 
     /* clean caches on launch (since those are used for wifi upload only) */
     NSArray *searchPaths = NSSearchPathForDirectoriesInDomains(NSCachesDirectory, NSUserDomainMask, YES);
