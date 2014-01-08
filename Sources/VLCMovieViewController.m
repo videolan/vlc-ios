@@ -155,22 +155,36 @@
 
     _audioSwitcherButton.accessibilityLabel = NSLocalizedString(@"CHOOSE_AUDIO_TRACK", @"");
     _audioSwitcherButton.isAccessibilityElement = YES;
+    _audioSwitcherButtonLandscape.accessibilityLabel = NSLocalizedString(@"CHOOSE_AUDIO_TRACK", @"");
+    _audioSwitcherButtonLandscape.isAccessibilityElement = YES;
     _subtitleSwitcherButton.accessibilityLabel = NSLocalizedString(@"CHOOSE_SUBTITLE_TRACK", @"");
     _subtitleSwitcherButton.isAccessibilityElement = YES;
+    _subtitleSwitcherButtonLandscape.accessibilityLabel = NSLocalizedString(@"CHOOSE_SUBTITLE_TRACK", @"");
+    _subtitleSwitcherButtonLandscape.isAccessibilityElement = YES;
     _playbackSpeedButton.accessibilityLabel = _playbackSpeedLabel.text;
     _playbackSpeedButton.isAccessibilityElement = YES;
+    _playbackSpeedButtonLandscape.accessibilityLabel = _playbackSpeedLabel.text;
+    _playbackSpeedButtonLandscape.isAccessibilityElement = YES;
     _videoFilterButton.accessibilityLabel = NSLocalizedString(@"VIDEO_FILTER", @"");
     _videoFilterButton.isAccessibilityElement = YES;
+    _videoFilterButtonLandscape.accessibilityLabel = NSLocalizedString(@"VIDEO_FILTER", @"");
+    _videoFilterButtonLandscape.isAccessibilityElement = YES;
     _resetVideoFilterButton.accessibilityLabel = NSLocalizedString(@"VIDEO_FILTER_RESET_BUTTON", @"");
     _resetVideoFilterButton.isAccessibilityElement = YES;
     _aspectRatioButton.accessibilityLabel = NSLocalizedString(@"VIDEO_ASPECT_RATIO_BUTTON", @"");
     _aspectRatioButton.isAccessibilityElement = YES;
     _playPauseButton.accessibilityLabel = NSLocalizedString(@"PLAY_PAUSE_BUTTON", @"");
     _playPauseButton.isAccessibilityElement = YES;
+    _playPauseButtonLandscape.accessibilityLabel = NSLocalizedString(@"PLAY_PAUSE_BUTTON", @"");
+    _playPauseButtonLandscape.isAccessibilityElement = YES;
     _bwdButton.accessibilityLabel = NSLocalizedString(@"BWD_BUTTON", @"");
     _bwdButton.isAccessibilityElement = YES;
+    _bwdButtonLandscape.accessibilityLabel = NSLocalizedString(@"BWD_BUTTON", @"");
+    _bwdButtonLandscape.isAccessibilityElement = YES;
     _fwdButton.accessibilityLabel = NSLocalizedString(@"FWD_BUTTON", @"");
     _fwdButton.isAccessibilityElement = YES;
+    _fwdButtonLandscape.accessibilityLabel = NSLocalizedString(@"FWD_BUTTON", @"");
+    _fwdButtonLandscape.isAccessibilityElement = YES;
 
     _scrubHelpLabel.text = NSLocalizedString(@"PLAYBACK_SCRUB_HELP", @"");
 
@@ -271,22 +285,27 @@
 
     /* FIXME: there is a saner iOS 6+ API for this! */
     /* this looks a bit weird, but we need to support iOS 5 and should show the same appearance */
-    UISlider *volumeSlider = nil;
-    for (id aView in self.volumeView.subviews){
-        if ([[[aView class] description] isEqualToString:@"MPVolumeSlider"]){
-            volumeSlider = (UISlider *)aView;
-            break;
+    void (^initVolumeSlider)(MPVolumeView *) = ^(MPVolumeView *volumeView){
+        UISlider *volumeSlider = nil;
+        for (id aView in volumeView.subviews){
+            if ([[[aView class] description] isEqualToString:@"MPVolumeSlider"]){
+                volumeSlider = (UISlider *)aView;
+                break;
+            }
         }
-    }
-    if (!SYSTEM_RUNS_IOS7_OR_LATER) {
-        [volumeSlider setMinimumTrackImage:[[UIImage imageNamed:@"sliderminiValue"]resizableImageWithCapInsets:UIEdgeInsetsMake(0, 4, 0, 0)] forState:UIControlStateNormal];
-        [volumeSlider setMaximumTrackImage:[[UIImage imageNamed:@"slidermaxValue"] resizableImageWithCapInsets:UIEdgeInsetsMake(0, 0, 0, 4)] forState:UIControlStateNormal];
-        [volumeSlider setThumbImage:[UIImage imageNamed:@"volumeballslider"] forState:UIControlStateNormal];
-    } else
-        [self.volumeView setVolumeThumbImage:[UIImage imageNamed:@"modernSliderKnob"] forState:UIControlStateNormal];
-    [volumeSlider addTarget:self
-                     action:@selector(volumeSliderAction:)
-           forControlEvents:UIControlEventValueChanged];
+        if (!SYSTEM_RUNS_IOS7_OR_LATER) {
+            [volumeSlider setMinimumTrackImage:[[UIImage imageNamed:@"sliderminiValue"]resizableImageWithCapInsets:UIEdgeInsetsMake(0, 4, 0, 0)] forState:UIControlStateNormal];
+            [volumeSlider setMaximumTrackImage:[[UIImage imageNamed:@"slidermaxValue"] resizableImageWithCapInsets:UIEdgeInsetsMake(0, 0, 0, 4)] forState:UIControlStateNormal];
+            [volumeSlider setThumbImage:[UIImage imageNamed:@"volumeballslider"] forState:UIControlStateNormal];
+        } else
+            [volumeView setVolumeThumbImage:[UIImage imageNamed:@"modernSliderKnob"] forState:UIControlStateNormal];
+        [volumeSlider addTarget:self
+                         action:@selector(volumeSliderAction:)
+               forControlEvents:UIControlEventValueChanged];
+    };
+
+    initVolumeSlider(self.volumeView);
+    initVolumeSlider(self.volumeViewLandscape);
 
     [[AVAudioSession sharedInstance] setDelegate:self];
 
@@ -344,17 +363,13 @@
     if (UI_USER_INTERFACE_IDIOM() == UIUserInterfaceIdiomPhone) {
         CGSize viewSize = self.view.frame.size;
         if (UIDeviceOrientationIsLandscape([UIDevice currentDevice].orientation)) {
-            CGFloat rightSpace = _videoeffectsContainer.frame.origin.x - CGRectGetMaxX(_fwdButton.frame);
-            CGFloat gapSize = (rightSpace - _repeatButton.frame.size.width - _audioSwitcherContainer.frame.size.width) / 3.0;
-            [_controllerPanel setFrame:CGRectMake(0, viewSize.height - 55, viewSize.width, 55)];
-            [_volumeView setFrame:CGRectMake(gapSize, 22, _bwdButton.frame.origin.x - 2 * gapSize, 22)];
-            [_audioSwitcherContainer setFrame:CGRectMake(CGRectGetMaxX(_fwdButton.frame) + gapSize, 14, 40, 40)];
-            [_repeatButton setFrame:CGRectMake(CGRectGetMaxX(_audioSwitcherContainer.frame) + gapSize, 16, 32, 35)];
+            [_controllerPanel removeFromSuperview];
+            _controllerPanelLandscape.frame = (CGRect){CGPointMake(0, viewSize.height - _controllerPanelLandscape.frame.size.height), CGSizeMake(viewSize.width, _controllerPanelLandscape.frame.size.height)};
+            [self.view addSubview:_controllerPanelLandscape];
         } else {
-            [_controllerPanel setFrame:CGRectMake(0, viewSize.height - 90, viewSize.width, 90)];
-            [_volumeView setFrame:CGRectMake(60, 61, 244, 22)];
-            [_repeatButton setFrame:CGRectMake(18, 54, 32, 35)];
-            [_audioSwitcherContainer setFrame:CGRectMake(20, 14, 40, 40)];
+            [_controllerPanelLandscape removeFromSuperview];
+            _controllerPanel.frame = (CGRect){CGPointMake(0, viewSize.height - _controllerPanel.frame.size.height), CGSizeMake(viewSize.width, _controllerPanel.frame.size.height)};
+            [self.view addSubview:_controllerPanel];
         }
     }
 }
@@ -443,6 +458,7 @@
     [self.timeDisplay setTitle:@"" forState:UIControlStateNormal];
     self.timeDisplay.accessibilityLabel = @"";
     [self.repeatButton setImage:[UIImage imageNamed:@"repeat"] forState:UIControlStateNormal];
+    [self.repeatButtonLandscape setImage:[UIImage imageNamed:@"repeat"] forState:UIControlStateNormal];
 
     if (![self _isMediaSuitableForDevice]) {
         UIAlertView * alert = [[UIAlertView alloc] initWithTitle:NSLocalizedString(@"DEVICE_TOOSLOW_TITLE", @"") message:[NSString stringWithFormat:NSLocalizedString(@"DEVICE_TOOSLOW", @""), [[UIDevice currentDevice] model], self.mediaItem.title] delegate:self cancelButtonTitle:NSLocalizedString(@"BUTTON_CANCEL", @"") otherButtonTitles:NSLocalizedString(@"BUTTON_OPEN", @""), nil];
@@ -683,6 +699,8 @@
     if (!_controlsHidden) {
         _controllerPanel.alpha = 0.0f;
         _controllerPanel.hidden = !_videoFiltersHidden;
+        _controllerPanelLandscape.alpha = 0.0f;
+        _controllerPanelLandscape.hidden = !_videoFiltersHidden;
         _toolbar.alpha = 0.0f;
         _toolbar.hidden = NO;
         _videoFilterView.alpha = 0.0f;
@@ -693,16 +711,15 @@
 
     void (^animationBlock)() = ^() {
         _controllerPanel.alpha = alpha;
+        _controllerPanelLandscape.alpha = alpha;
         _toolbar.alpha = alpha;
         _videoFilterView.alpha = alpha;
         _playbackSpeedView.alpha = alpha;
     };
 
     void (^completionBlock)(BOOL finished) = ^(BOOL finished) {
-        if (_videoFiltersHidden)
-            _controllerPanel.hidden = _controlsHidden;
-        else
-            _controllerPanel.hidden = NO;
+        _controllerPanel.hidden = _videoFiltersHidden ? _controlsHidden : NO;
+        _controllerPanelLandscape.hidden = _videoFiltersHidden ? _controlsHidden : NO;
         _toolbar.hidden = _controlsHidden;
         _videoFilterView.hidden = _videoFiltersHidden;
         _playbackSpeedView.hidden = _playbackSpeedViewHidden;
@@ -714,7 +731,7 @@
     [[UIApplication sharedApplication] setStatusBarHidden:_viewAppeared ? _controlsHidden : NO withAnimation:animationType];
     [UIView animateWithDuration:animationDuration animations:animationBlock completion:completionBlock];
 
-    _volumeView.hidden = _controllerPanel.hidden;
+    _volumeView.hidden = _volumeViewLandscape.hidden = _controllerPanel.hidden;
 }
 
 - (void)toggleControlsVisible
@@ -861,16 +878,23 @@
 
     UIImage *playPauseImage = [_mediaPlayer isPlaying]? [UIImage imageNamed:@"pauseIcon"] : [UIImage imageNamed:@"playIcon"];
     [_playPauseButton setImage:playPauseImage forState:UIControlStateNormal];
+    [_playPauseButtonLandscape setImage:playPauseImage forState:UIControlStateNormal];
 
-    if ([[_mediaPlayer audioTrackIndexes] count] > 2)
+    if ([[_mediaPlayer audioTrackIndexes] count] > 2) {
         self.audioSwitcherButton.hidden = NO;
-    else
+        self.audioSwitcherButtonLandscape.hidden = NO;
+    } else {
         self.audioSwitcherButton.hidden = YES;
+        self.audioSwitcherButtonLandscape.hidden = YES;
+    }
 
-    if ([[_mediaPlayer videoSubTitlesIndexes] count] > 1)
+    if ([[_mediaPlayer videoSubTitlesIndexes] count] > 1) {
         self.subtitleContainer.hidden = NO;
-    else
+        self.subtitleContainerLandscape.hidden = NO;
+    } else {
         self.subtitleContainer.hidden = YES;
+        self.subtitleContainerLandscape.hidden = YES;
+    }
 }
 
 - (IBAction)playPause
@@ -902,9 +926,11 @@
     if (_listPlayer.repeatMode == VLCDoNotRepeat) {
         _listPlayer.repeatMode = VLCRepeatCurrentItem;
         [self.repeatButton setImage:[UIImage imageNamed:@"repeatOne"] forState:UIControlStateNormal];
+        [self.repeatButtonLandscape setImage:[UIImage imageNamed:@"repeatOne"] forState:UIControlStateNormal];
     } else {
         _listPlayer.repeatMode = VLCDoNotRepeat;
         [self.repeatButton setImage:[UIImage imageNamed:@"repeat"] forState:UIControlStateNormal];
+        [self.repeatButtonLandscape setImage:[UIImage imageNamed:@"repeat"] forState:UIControlStateNormal];
     }
 }
 
@@ -923,7 +949,7 @@
 
     [_audiotrackActionSheet addButtonWithTitle:NSLocalizedString(@"BUTTON_CANCEL", @"cancel button")];
     [_audiotrackActionSheet setCancelButtonIndex:[_audiotrackActionSheet numberOfButtons] - 1];
-    [_audiotrackActionSheet showInView:self.audioSwitcherButton];
+    [_audiotrackActionSheet showInView:(UIButton *)sender];
 }
 
 - (IBAction)switchSubtitleTrack:(id)sender
@@ -944,7 +970,7 @@
 
     [_subtitleActionSheet addButtonWithTitle:NSLocalizedString(@"BUTTON_CANCEL", @"cancel button")];
     [_subtitleActionSheet setCancelButtonIndex:[_subtitleActionSheet numberOfButtons] - 1];
-    [_subtitleActionSheet showInView: self.subtitleSwitcherButton];
+    [_subtitleActionSheet showInView:(UIButton *)sender];
 }
 
 - (void)actionSheet:(UIActionSheet *)actionSheet clickedButtonAtIndex:(NSInteger)buttonIndex {
@@ -1092,8 +1118,10 @@
         self.playbackSpeedView.hidden = _playbackSpeedViewHidden = YES;
 
     if (UI_USER_INTERFACE_IDIOM() == UIUserInterfaceIdiomPhone) {
-        if (!_controlsHidden)
+        if (!_controlsHidden) {
             self.controllerPanel.hidden = _controlsHidden = YES;
+            self.controllerPanelLandscape.hidden = YES;
+        }
     }
 
     self.videoFilterView.hidden = !_videoFiltersHidden;
@@ -1167,7 +1195,7 @@
 
 - (IBAction)videoDimensionAction:(id)sender
 {
-    if (sender == self.playbackSpeedButton) {
+    if (sender == self.playbackSpeedButton || sender == self.playbackSpeedButtonLandscape) {
         if (!_videoFiltersHidden)
             self.videoFilterView.hidden = _videoFiltersHidden = YES;
 

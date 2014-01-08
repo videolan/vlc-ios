@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="5037" systemVersion="12F45" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="5037.2" systemVersion="12F45" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none">
     <dependencies>
         <deployment defaultVersion="1552" identifier="iOS"/>
         <development version="5000" identifier="xcode"/>
@@ -13,23 +13,28 @@
                 <outlet property="artworkImageView" destination="yK6-Ph-SVE" id="Cm9-7F-iYZ"/>
                 <outlet property="aspectRatioButton" destination="202" id="222"/>
                 <outlet property="audioSwitcherButton" destination="78" id="98"/>
-                <outlet property="audioSwitcherContainer" destination="mKM-iB-gtC" id="jf3-eu-m9Z"/>
+                <outlet property="audioSwitcherButtonLandscape" destination="awR-Dt-S0B" id="SSl-4q-pof"/>
                 <outlet property="backButton" destination="85" id="96"/>
                 <outlet property="brightnessLabel" destination="130" id="233"/>
                 <outlet property="brightnessSlider" destination="128" id="232"/>
                 <outlet property="bwdButton" destination="77" id="100"/>
+                <outlet property="bwdButtonLandscape" destination="pQj-0t-OnU" id="U8k-IC-a6H"/>
                 <outlet property="contrastLabel" destination="132" id="141"/>
                 <outlet property="contrastSlider" destination="131" id="142"/>
                 <outlet property="controllerPanel" destination="92" id="104"/>
+                <outlet property="controllerPanelLandscape" destination="e7l-vK-ape" id="uR7-Ks-KKV"/>
                 <outlet property="currentScrubSpeedLabel" destination="244" id="248"/>
                 <outlet property="fwdButton" destination="75" id="102"/>
+                <outlet property="fwdButtonLandscape" destination="jl2-cB-KOM" id="D5T-2S-hbf"/>
                 <outlet property="gammaLabel" destination="138" id="156"/>
                 <outlet property="gammaSlider" destination="137" id="144"/>
                 <outlet property="hueLabel" destination="134" id="234"/>
                 <outlet property="hueSlider" destination="133" id="235"/>
                 <outlet property="movieView" destination="91" id="93"/>
                 <outlet property="playPauseButton" destination="76" id="101"/>
-                <outlet property="playbackSpeedButton" destination="183" id="209"/>
+                <outlet property="playPauseButtonLandscape" destination="nxS-aA-O6g" id="x1z-P6-yif"/>
+                <outlet property="playbackSpeedButton" destination="183" id="348-qM-uYE"/>
+                <outlet property="playbackSpeedButtonLandscape" destination="WXm-go-jev" id="TbP-eA-CzG"/>
                 <outlet property="playbackSpeedIndicator" destination="185" id="197"/>
                 <outlet property="playbackSpeedLabel" destination="167" id="198"/>
                 <outlet property="playbackSpeedSlider" destination="168" id="196"/>
@@ -39,6 +44,7 @@
                 <outlet property="playingExternallyView" destination="108" id="112"/>
                 <outlet property="positionSlider" destination="262" id="269"/>
                 <outlet property="repeatButton" destination="3Pu-h2-L0m" id="1LA-O2-2ry"/>
+                <outlet property="repeatButtonLandscape" destination="lib-Hc-4qn" id="LIo-2m-jdb"/>
                 <outlet property="resetVideoFilterButton" destination="162" id="163"/>
                 <outlet property="saturationLabel" destination="136" id="155"/>
                 <outlet property="saturationSlider" destination="135" id="152"/>
@@ -46,19 +52,22 @@
                 <outlet property="scrubIndicatorView" destination="241" id="247"/>
                 <outlet property="statusLabel" destination="210" id="211"/>
                 <outlet property="subtitleContainer" destination="umS-fw-84Z" id="cbT-b6-hSn"/>
+                <outlet property="subtitleContainerLandscape" destination="cvq-YB-u9T" id="Qgb-5z-1Ij"/>
                 <outlet property="subtitleSwitcherButton" destination="74" id="103"/>
+                <outlet property="subtitleSwitcherButtonLandscape" destination="R1Z-5y-cee" id="4TF-nd-xx3"/>
                 <outlet property="timeDisplay" destination="276" id="277"/>
                 <outlet property="toolbar" destination="250" id="272"/>
                 <outlet property="trackNameLabel" destination="282" id="284"/>
                 <outlet property="videoFilterButton" destination="159" id="160"/>
+                <outlet property="videoFilterButtonLandscape" destination="v7P-Wn-QnX" id="fMG-Mv-Poa"/>
                 <outlet property="videoFilterView" destination="117" id="147"/>
-                <outlet property="videoeffectsContainer" destination="iBJ-hE-7St" id="UXV-rn-I8w"/>
                 <outlet property="view" destination="1" id="105"/>
                 <outlet property="volumeView" destination="230" id="275"/>
+                <outlet property="volumeViewLandscape" destination="SX3-Kb-W8g" id="aoW-X9-hE3"/>
             </connections>
         </placeholder>
         <placeholder placeholderIdentifier="IBFirstResponder" id="-2" customClass="UIResponder"/>
-        <view contentMode="scaleToFill" id="260" userLabel="Time view" customClass="VLCFrostedGlasView">
+        <view contentMode="scaleToFill" id="260" userLabel="Time view">
             <rect key="frame" x="0.0" y="0.0" width="300" height="40"/>
             <autoresizingMask key="autoresizingMask" widthSizable="YES" flexibleMaxY="YES"/>
             <subviews>
@@ -431,7 +440,7 @@
                             </connections>
                         </button>
                         <view contentMode="scaleToFill" id="230" customClass="MPVolumeView">
-                            <rect key="frame" x="60" y="61" width="244" height="22"/>
+                            <rect key="frame" x="78" y="63" width="226" height="22"/>
                             <autoresizingMask key="autoresizingMask" flexibleMinX="YES" flexibleMaxX="YES" flexibleMaxY="YES"/>
                         </view>
                         <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" id="3Pu-h2-L0m">
@@ -523,6 +532,177 @@
             <rect key="frame" x="0.0" y="0.0" width="240" height="128"/>
             <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
         </imageView>
+        <view tag="1" contentMode="scaleToFill" id="e7l-vK-ape" userLabel="Controls panel" customClass="VLCFrostedGlasView">
+            <rect key="frame" x="0.0" y="0.0" width="480" height="50"/>
+            <autoresizingMask key="autoresizingMask" flexibleMinX="YES" widthSizable="YES" flexibleMaxX="YES" flexibleMinY="YES"/>
+            <subviews>
+                <view contentMode="scaleToFill" id="beR-yq-gJK">
+                    <rect key="frame" x="343" y="5" width="40" height="40"/>
+                    <autoresizingMask key="autoresizingMask" flexibleMinX="YES" flexibleMinY="YES"/>
+                    <subviews>
+                        <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="arrows.png" id="F9h-Mh-EMv" userLabel="arrows">
+                            <rect key="frame" x="0.0" y="15" width="5" height="9"/>
+                            <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                        </imageView>
+                        <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" id="WXm-go-jev">
+                            <rect key="frame" x="7" y="0.0" width="32" height="40"/>
+                            <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                            <fontDescription key="fontDescription" type="boldSystem" pointSize="15"/>
+                            <inset key="contentEdgeInsets" minX="0.0" minY="4" maxX="0.0" maxY="4"/>
+                            <state key="normal" image="speedIcon.png">
+                                <color key="titleColor" red="0.19607843459999999" green="0.30980393290000002" blue="0.52156865600000002" alpha="1" colorSpace="calibratedRGB"/>
+                                <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
+                            </state>
+                            <state key="highlighted">
+                                <color key="titleColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                            </state>
+                            <connections>
+                                <action selector="videoDimensionAction:" destination="-1" eventType="touchUpInside" id="3KP-jS-fEF"/>
+                            </connections>
+                        </button>
+                    </subviews>
+                    <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
+                </view>
+                <view contentMode="scaleToFill" id="hwg-8s-Ztc">
+                    <rect key="frame" x="433" y="5" width="40" height="40"/>
+                    <autoresizingMask key="autoresizingMask" flexibleMinX="YES" flexibleMinY="YES"/>
+                    <subviews>
+                        <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="arrows.png" id="qin-4J-8lD" userLabel="arrows">
+                            <rect key="frame" x="0.0" y="15" width="5" height="9"/>
+                            <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                        </imageView>
+                        <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" id="v7P-Wn-QnX">
+                            <rect key="frame" x="7" y="0.0" width="32" height="40"/>
+                            <autoresizingMask key="autoresizingMask" flexibleMinX="YES" flexibleMaxY="YES"/>
+                            <fontDescription key="fontDescription" type="boldSystem" pointSize="15"/>
+                            <inset key="contentEdgeInsets" minX="0.0" minY="4" maxX="0.0" maxY="4"/>
+                            <state key="normal" image="videoEffectsIcon.png">
+                                <color key="titleColor" red="0.19607843459999999" green="0.30980393290000002" blue="0.52156865600000002" alpha="1" colorSpace="calibratedRGB"/>
+                                <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
+                            </state>
+                            <state key="highlighted">
+                                <color key="titleColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                            </state>
+                            <connections>
+                                <action selector="videoFilterToggle:" destination="-1" eventType="touchUpInside" id="Hsi-PA-QI7"/>
+                            </connections>
+                        </button>
+                    </subviews>
+                    <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
+                </view>
+                <view contentMode="scaleToFill" id="cvq-YB-u9T">
+                    <rect key="frame" x="388" y="5" width="40" height="40"/>
+                    <autoresizingMask key="autoresizingMask" flexibleMinX="YES" flexibleMinY="YES"/>
+                    <subviews>
+                        <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="arrows.png" id="ftV-xL-h7f" userLabel="arrows">
+                            <rect key="frame" x="0.0" y="15" width="5" height="9"/>
+                            <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                        </imageView>
+                        <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" id="R1Z-5y-cee">
+                            <rect key="frame" x="7" y="0.0" width="28" height="40"/>
+                            <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                            <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
+                            <fontDescription key="fontDescription" type="boldSystem" pointSize="15"/>
+                            <inset key="contentEdgeInsets" minX="0.0" minY="4" maxX="0.0" maxY="4"/>
+                            <state key="normal" image="subtitleIcon.png">
+                                <color key="titleColor" red="0.19607843459999999" green="0.30980393290000002" blue="0.52156865600000002" alpha="1" colorSpace="calibratedRGB"/>
+                                <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
+                            </state>
+                            <state key="highlighted">
+                                <color key="titleColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                            </state>
+                            <connections>
+                                <action selector="switchSubtitleTrack:" destination="-1" eventType="touchUpInside" id="BsU-q4-2dQ"/>
+                            </connections>
+                        </button>
+                    </subviews>
+                    <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
+                </view>
+                <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" id="jl2-cB-KOM">
+                    <rect key="frame" x="269" y="5" width="32" height="40"/>
+                    <autoresizingMask key="autoresizingMask" flexibleMinX="YES" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                    <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
+                    <fontDescription key="fontDescription" type="boldSystem" pointSize="15"/>
+                    <inset key="contentEdgeInsets" minX="0.0" minY="4" maxX="0.0" maxY="4"/>
+                    <state key="normal" image="forwardIcon.png">
+                        <color key="titleColor" red="0.19607843459999999" green="0.30980393290000002" blue="0.52156865600000002" alpha="1" colorSpace="calibratedRGB"/>
+                        <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
+                    </state>
+                    <state key="highlighted">
+                        <color key="titleColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                    </state>
+                    <connections>
+                        <action selector="forward:" destination="-1" eventType="touchUpInside" id="h5v-TT-Axc"/>
+                    </connections>
+                </button>
+                <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" id="pQj-0t-OnU">
+                    <rect key="frame" x="179" y="5" width="32" height="40"/>
+                    <autoresizingMask key="autoresizingMask" flexibleMinX="YES" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                    <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
+                    <fontDescription key="fontDescription" type="boldSystem" pointSize="15"/>
+                    <inset key="contentEdgeInsets" minX="0.0" minY="4" maxX="0.0" maxY="4"/>
+                    <state key="normal" image="backIcon.png">
+                        <color key="titleColor" red="0.19607843459999999" green="0.30980393290000002" blue="0.52156865600000002" alpha="1" colorSpace="calibratedRGB"/>
+                        <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
+                    </state>
+                    <state key="highlighted">
+                        <color key="titleColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                    </state>
+                    <connections>
+                        <action selector="backward:" destination="-1" eventType="touchUpInside" id="ngu-7R-uHn"/>
+                    </connections>
+                </button>
+                <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" id="nxS-aA-O6g">
+                    <rect key="frame" x="226" y="5" width="28" height="40"/>
+                    <autoresizingMask key="autoresizingMask" flexibleMinX="YES" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                    <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
+                    <fontDescription key="fontDescription" type="boldSystem" pointSize="15"/>
+                    <inset key="contentEdgeInsets" minX="0.0" minY="4" maxX="0.0" maxY="4"/>
+                    <state key="normal" image="playIcon.png">
+                        <color key="titleColor" red="0.19607843459999999" green="0.30980393290000002" blue="0.52156865600000002" alpha="1" colorSpace="calibratedRGB"/>
+                        <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
+                    </state>
+                    <state key="highlighted">
+                        <color key="titleColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                    </state>
+                    <connections>
+                        <action selector="playPause" destination="-2" eventType="touchUpInside" id="ajc-gW-8UA"/>
+                    </connections>
+                </button>
+                <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" id="awR-Dt-S0B">
+                    <rect key="frame" x="142" y="5" width="32" height="40"/>
+                    <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
+                    <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
+                    <fontDescription key="fontDescription" type="boldSystem" pointSize="15"/>
+                    <inset key="contentEdgeInsets" minX="0.0" minY="4" maxX="0.0" maxY="4"/>
+                    <state key="normal" image="audioTrackIcon.png">
+                        <color key="titleColor" red="0.19607843459999999" green="0.30980393290000002" blue="0.52156865600000002" alpha="1" colorSpace="calibratedRGB"/>
+                        <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
+                    </state>
+                    <state key="highlighted">
+                        <color key="titleColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                    </state>
+                    <connections>
+                        <action selector="switchAudioTrack:" destination="-1" eventType="touchUpInside" id="EYA-AC-aby"/>
+                    </connections>
+                </button>
+                <view contentMode="scaleToFill" id="SX3-Kb-W8g" customClass="MPVolumeView">
+                    <rect key="frame" x="20" y="16" width="117" height="22"/>
+                    <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
+                </view>
+                <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" id="lib-Hc-4qn">
+                    <rect key="frame" x="306" y="5" width="32" height="40"/>
+                    <autoresizingMask key="autoresizingMask" flexibleMinX="YES" flexibleMinY="YES"/>
+                    <fontDescription key="fontDescription" type="system" pointSize="18"/>
+                    <state key="normal" image="repeat.png">
+                        <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
+                    </state>
+                    <connections>
+                        <action selector="toggleRepeatMode:" destination="-1" eventType="touchUpInside" id="1XB-hZ-pNx"/>
+                    </connections>
+                </button>
+            </subviews>
+        </view>
     </objects>
     <resources>
         <image name="PlayingExternally.png" width="122" height="91"/>
@@ -531,7 +711,7 @@
         <image name="backIcon.png" width="32" height="16"/>
         <image name="forwardIcon.png" width="32" height="16"/>
         <image name="playIcon.png" width="19" height="17"/>
-        <image name="playbackControllerBg.png" width="352" height="90"/>
+        <image name="playbackControllerBg.png" width="3" height="90"/>
         <image name="ratioIcon.png" width="23" height="18"/>
         <image name="repeat.png" width="23" height="18"/>
         <image name="resetIcon.png" width="24" height="30"/>
