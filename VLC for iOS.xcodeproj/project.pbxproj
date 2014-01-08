@@ -71,6 +71,10 @@
 		7D07F711175669D800CDE21C /* buttonHighlight@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 7D07F70F175669D800CDE21C /* buttonHighlight@2x.png */; };
 		7D07F71417566C4A00CDE21C /* menuCone.png in Resources */ = {isa = PBXBuildFile; fileRef = 7D07F71217566C4A00CDE21C /* menuCone.png */; };
 		7D07F71517566C4A00CDE21C /* menuCone@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 7D07F71317566C4A00CDE21C /* menuCone@2x.png */; };
+		7D07F71E175673D100CDE21C /* menuBtnBckHighlight@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 7D07F71A175673D100CDE21C /* menuBtnBckHighlight@2x.png */; };
+		7D07F71F175673D100CDE21C /* menuBtnBck@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 7D07F71B175673D100CDE21C /* menuBtnBck@2x.png */; };
+		7D07F720175673D100CDE21C /* menuBtnBckHighlight.png in Resources */ = {isa = PBXBuildFile; fileRef = 7D07F71C175673D100CDE21C /* menuBtnBckHighlight.png */; };
+		7D07F721175673D100CDE21C /* menuBtnBck.png in Resources */ = {isa = PBXBuildFile; fileRef = 7D07F71D175673D100CDE21C /* menuBtnBck.png */; };
 		7D07F726175688D300CDE21C /* doneButton.png in Resources */ = {isa = PBXBuildFile; fileRef = 7D07F722175688D300CDE21C /* doneButton.png */; };
 		7D07F727175688D300CDE21C /* doneButton@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 7D07F723175688D300CDE21C /* doneButton@2x.png */; };
 		7D07F728175688D300CDE21C /* doneButtonHighlight.png in Resources */ = {isa = PBXBuildFile; fileRef = 7D07F724175688D300CDE21C /* doneButtonHighlight.png */; };
@@ -130,6 +134,7 @@
 		7D3784BE183A9938009EE944 /* UIBarButtonItem+Theme.m in Sources */ = {isa = PBXBuildFile; fileRef = 7D3784B3183A9938009EE944 /* UIBarButtonItem+Theme.m */; };
 		7D3784BF183A9938009EE944 /* UINavigationController+Theme.m in Sources */ = {isa = PBXBuildFile; fileRef = 7D3784B5183A9938009EE944 /* UINavigationController+Theme.m */; };
 		7D3784C0183A9938009EE944 /* VLCLinearProgressIndicator.m in Sources */ = {isa = PBXBuildFile; fileRef = 7D3784B7183A9938009EE944 /* VLCLinearProgressIndicator.m */; };
+		7D3784C1183A9938009EE944 /* VLCMenuButton.m in Sources */ = {isa = PBXBuildFile; fileRef = 7D3784B9183A9938009EE944 /* VLCMenuButton.m */; };
 		7D3784C2183A9938009EE944 /* VLCSlider.m in Sources */ = {isa = PBXBuildFile; fileRef = 7D3784BB183A9938009EE944 /* VLCSlider.m */; };
 		7D3784C3183A9938009EE944 /* VLCStatusLabel.m in Sources */ = {isa = PBXBuildFile; fileRef = 7D3784BD183A9938009EE944 /* VLCStatusLabel.m */; };
 		7D3784C8183A9972009EE944 /* NSString+SupportedMedia.m in Sources */ = {isa = PBXBuildFile; fileRef = 7D3784C5183A9972009EE944 /* NSString+SupportedMedia.m */; };
@@ -331,6 +336,8 @@
 		7DEB3B5D17647B240038FC70 /* bottomBlackBar@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 7DEB3B5B17647B240038FC70 /* bottomBlackBar@2x.png */; };
 		7DEB3B5E17647B240038FC70 /* bottomBlackBar.png in Resources */ = {isa = PBXBuildFile; fileRef = 7DEB3B5C17647B240038FC70 /* bottomBlackBar.png */; };
 		7DEB3B6017647DE30038FC70 /* iTunesArtwork@2x in Resources */ = {isa = PBXBuildFile; fileRef = 7DEB3B5F17647DE30038FC70 /* iTunesArtwork@2x */; };
+		7DEB3B7517649F2C0038FC70 /* menuButton.png in Resources */ = {isa = PBXBuildFile; fileRef = 7DEB3B7317649F2C0038FC70 /* menuButton.png */; };
+		7DEB3B7617649F2C0038FC70 /* menuButton@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 7DEB3B7417649F2C0038FC70 /* menuButton@2x.png */; };
 		7DEB3B791764A4040038FC70 /* input@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 7DEB3B771764A4040038FC70 /* input@2x.png */; };
 		7DEB3B7A1764A4040038FC70 /* input.png in Resources */ = {isa = PBXBuildFile; fileRef = 7DEB3B781764A4040038FC70 /* input.png */; };
 		7DEB3B851764A4F40038FC70 /* movie@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 7DEB3B7C1764A4F40038FC70 /* movie@2x.png */; };
@@ -622,6 +629,8 @@
 		7D3784B5183A9938009EE944 /* UINavigationController+Theme.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = "UINavigationController+Theme.m"; path = "Sources/UINavigationController+Theme.m"; sourceTree = SOURCE_ROOT; };
 		7D3784B6183A9938009EE944 /* VLCLinearProgressIndicator.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = VLCLinearProgressIndicator.h; path = Sources/VLCLinearProgressIndicator.h; sourceTree = SOURCE_ROOT; };
 		7D3784B7183A9938009EE944 /* VLCLinearProgressIndicator.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = VLCLinearProgressIndicator.m; path = Sources/VLCLinearProgressIndicator.m; sourceTree = SOURCE_ROOT; };
+		7D3784B8183A9938009EE944 /* VLCMenuButton.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = VLCMenuButton.h; path = Sources/VLCMenuButton.h; sourceTree = SOURCE_ROOT; };
+		7D3784B9183A9938009EE944 /* VLCMenuButton.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = VLCMenuButton.m; path = Sources/VLCMenuButton.m; sourceTree = SOURCE_ROOT; };
 		7D3784BA183A9938009EE944 /* VLCSlider.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = VLCSlider.h; path = Sources/VLCSlider.h; sourceTree = SOURCE_ROOT; };
 		7D3784BB183A9938009EE944 /* VLCSlider.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = VLCSlider.m; path = Sources/VLCSlider.m; sourceTree = SOURCE_ROOT; };
 		7D3784BC183A9938009EE944 /* VLCStatusLabel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = VLCStatusLabel.h; path = Sources/VLCStatusLabel.h; sourceTree = SOURCE_ROOT; };
@@ -1431,6 +1440,8 @@
 				7D3784B5183A9938009EE944 /* UINavigationController+Theme.m */,
 				7D3784B6183A9938009EE944 /* VLCLinearProgressIndicator.h */,
 				7D3784B7183A9938009EE944 /* VLCLinearProgressIndicator.m */,
+				7D3784B8183A9938009EE944 /* VLCMenuButton.h */,
+				7D3784B9183A9938009EE944 /* VLCMenuButton.m */,
 				7D3784BA183A9938009EE944 /* VLCSlider.h */,
 				7D3784BB183A9938009EE944 /* VLCSlider.m */,
 				7D3784BC183A9938009EE944 /* VLCStatusLabel.h */,
@@ -2276,7 +2287,12 @@
 				7D53D527187729EC00A1BA97 /* connector-cable.png in Resources */,
 				7D07F71417566C4A00CDE21C /* menuCone.png in Resources */,
 				7D07F71517566C4A00CDE21C /* menuCone@2x.png in Resources */,
+				7D07F71E175673D100CDE21C /* menuBtnBckHighlight@2x.png in Resources */,
 				7DBBF1A7183AB4300009A339 /* VLCNetworkLoginViewController.xib in Resources */,
+				7D1516451868D7E0004B18F3 /* VLCFirstStepsSecondPageViewController.xib in Resources */,
+				7D07F71F175673D100CDE21C /* menuBtnBck@2x.png in Resources */,
+				7D07F720175673D100CDE21C /* menuBtnBckHighlight.png in Resources */,
+				7D07F721175673D100CDE21C /* menuBtnBck.png in Resources */,
 				7D07F726175688D300CDE21C /* doneButton.png in Resources */,
 				7D07F727175688D300CDE21C /* doneButton@2x.png in Resources */,
 				7D63C1C7187767AF00BD5256 /* fsarrow-position.png in Resources */,
@@ -2382,6 +2398,8 @@
 				7DEB3B6017647DE30038FC70 /* iTunesArtwork@2x in Resources */,
 				7DBBF1A3183AB4300009A339 /* VLCLocalNetworkListCell~ipad.xib in Resources */,
 				7DBBF1A5183AB4300009A339 /* VLCMovieViewController~ipad.xib in Resources */,
+				7DEB3B7517649F2C0038FC70 /* menuButton.png in Resources */,
+				7DEB3B7617649F2C0038FC70 /* menuButton@2x.png in Resources */,
 				7DEB3B791764A4040038FC70 /* input@2x.png in Resources */,
 				7DEB3B7A1764A4040038FC70 /* input.png in Resources */,
 				7DBBF198183AB4300009A339 /* VLCAboutViewController~ipad.xib in Resources */,
@@ -2561,6 +2579,7 @@
 				7D3784BF183A9938009EE944 /* UINavigationController+Theme.m in Sources */,
 				7DBBF182183AB3B80009A339 /* VLCAppDelegate.m in Sources */,
 				7D3784C0183A9938009EE944 /* VLCLinearProgressIndicator.m in Sources */,
+				7D3784C1183A9938009EE944 /* VLCMenuButton.m in Sources */,
 				7D3784C2183A9938009EE944 /* VLCSlider.m in Sources */,
 				7D3784C3183A9938009EE944 /* VLCStatusLabel.m in Sources */,
 				7D3784C8183A9972009EE944 /* NSString+SupportedMedia.m in Sources */,
