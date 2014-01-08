@@ -1330,6 +1330,15 @@
            || toInterfaceOrientation != UIInterfaceOrientationPortraitUpsideDown;
 }
 
+- (void)willRotateToInterfaceOrientation:(UIInterfaceOrientation)toInterfaceOrientation duration:(NSTimeInterval)duration {
+    [super willRotateToInterfaceOrientation:toInterfaceOrientation duration:duration];
+
+    if (UI_USER_INTERFACE_IDIOM() == UIUserInterfaceIdiomPhone) {
+        if (self.artworkImageView.image)
+            self.trackNameLabel.hidden = UIInterfaceOrientationIsLandscape(toInterfaceOrientation);
+    }
+}
+
 #pragma mark - AVSession delegate
 - (void)beginInterruption
 {
