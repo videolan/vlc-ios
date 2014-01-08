@@ -29,7 +29,7 @@
                     <rect key="frame" x="-2" y="68" width="325" height="354"/>
                     <autoresizingMask key="autoresizingMask" flexibleMinX="YES" flexibleMaxX="YES" flexibleMinY="YES" flexibleMaxY="YES"/>
                     <subviews>
-                        <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="vlcsnap.png" id="bfA-AA-aOm">
+                        <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="vlcsnap.jpg" id="bfA-AA-aOm">
                             <rect key="frame" x="0.0" y="49" width="325" height="225"/>
                             <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                         </imageView>
@@ -225,6 +225,6 @@
         <image name="speedIcon.png" width="19" height="19"/>
         <image name="subtitleIcon.png" width="19" height="19"/>
         <image name="videoEffectsIcon.png" width="21" height="21"/>
-        <image name="vlcsnap.png" width="325" height="183"/>
+        <image name="vlcsnap.jpg" width="325" height="183"/>
     </resources>
 </document>
