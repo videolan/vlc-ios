@@ -23,6 +23,7 @@
 #import "VLCNetworkLoginViewController.h"
 #import "UINavigationController+Theme.h"
 #import "VLCPlaylistViewController.h"
+#import "Reachability.h"
 
 @interface VLCLocalServerListViewController () <UITableViewDataSource, UITableViewDelegate, NSNetServiceBrowserDelegate, VLCNetworkLoginViewController, NSNetServiceDelegate, VLCMediaListDelegate>
 {
@@ -42,6 +43,9 @@
 
     UIRefreshControl *_refreshControl;
     UIActivityIndicatorView *_activityIndicator;
+    Reachability *_reachability;
+
+    BOOL _udnpDiscoveryRunning;
 }
 
 @end
@@ -50,6 +54,7 @@
 
 - (void)dealloc
 {
+    [_reachability stopNotifier];
     [_ftpNetServiceBrowser stop];
 }
 
@@ -93,8 +98,7 @@
     _ftpNetServiceBrowser = [[NSNetServiceBrowser alloc] init];
     _ftpNetServiceBrowser.delegate = self;
 
-    [self performSelectorInBackground:@selector(_startUPNPDiscovery) withObject:nil];
-    [self performSelectorInBackground:@selector(_startSAPDiscovery) withObject:nil];
+    [self _triggerNetServiceBrowser];
 
     _refreshControl = [[UIRefreshControl alloc] init];
     [_refreshControl addTarget:self action:@selector(handleRefresh) forControlEvents:UIControlEventValueChanged];
@@ -106,6 +110,13 @@
         _loginViewController = [[VLCNetworkLoginViewController alloc] initWithNibName:@"VLCNetworkLoginViewController" bundle:nil];
 
     _loginViewController.delegate = self;
+
+    _reachability = [Reachability reachabilityForLocalWiFi];
+    [_reachability startNotifier];
+
+    [self netReachabilityChanged:nil];
+
+    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(netReachabilityChanged:) name:kReachabilityChangedNotification object:nil];
 }
 
 - (void)viewWillDisappear:(BOOL)animated
@@ -119,9 +130,21 @@
 {
     [_activityIndicator stopAnimating];
     [super viewWillAppear:animated];
-    [self _triggerNetServiceBrowser];
-    [self performSelectorInBackground:@selector(_startUPNPDiscovery) withObject:nil];
-    [self performSelectorInBackground:@selector(_startSAPDiscovery) withObject:nil];
+
+    [self netReachabilityChanged:nil];
+}
+
+- (void)netReachabilityChanged:(NSNotification *)notification
+{
+    if (_reachability.currentReachabilityStatus == ReachableViaWiFi) {
+        [self _triggerNetServiceBrowser];
+        [self performSelectorInBackground:@selector(_startUPNPDiscovery) withObject:nil];
+        [self performSelectorInBackground:@selector(_startSAPDiscovery) withObject:nil];
+    } else {
+        [_ftpNetServiceBrowser stop];
+        [self _stopUPNPDiscovery];
+        [self _stopSAPDiscovery];
+    }
 }
 
 - (void)_triggerNetServiceBrowser
@@ -131,6 +154,9 @@
 
 - (void)_startUPNPDiscovery
 {
+    if (_reachability.currentReachabilityStatus != ReachableViaWiFi)
+        return;
+
     UPnPManager *managerInstance = [UPnPManager GetInstance];
 
     _UPNPdevices = [[managerInstance DB] rootDevices];
@@ -147,13 +173,22 @@
     [[managerInstance SSDP] startSSDP];
     [[managerInstance SSDP] searchSSDP];
     [[managerInstance SSDP] SSDPDBUpdate];
+    _udnpDiscoveryRunning = YES;
+}
+
+- (void)_stopUPNPDiscovery
+{
+    if (_udnpDiscoveryRunning) {
+        UPnPManager *managerInstance = [UPnPManager GetInstance];
+        [[managerInstance DB] removeObserver:(UPnPDBObserver*)self];
+        [[managerInstance SSDP] stopSSDP];
+        _udnpDiscoveryRunning = NO;
+    }
 }
 
 - (IBAction)goBack:(id)sender
 {
-    UPnPManager *managerInstance = [UPnPManager GetInstance];
-    [[managerInstance DB] removeObserver:(UPnPDBObserver*)self];
-    [[managerInstance SSDP] stopSSDP];
+    [self _stopUPNPDiscovery];
     [self _stopSAPDiscovery];
 
     [[(VLCAppDelegate*)[UIApplication sharedApplication].delegate revealController] toggleSidebar:![(VLCAppDelegate*)[UIApplication sharedApplication].delegate revealController].sidebarShowing duration:kGHRevealSidebarDefaultAnimationDuration];
@@ -405,6 +440,9 @@
 - (void)_startSAPDiscovery
 {
     if (!SYSTEM_RUNS_IOS7_OR_LATER)
+        return;
+
+    if (_reachability.currentReachabilityStatus != ReachableViaWiFi)
         return;
 
     _sapDiscoverer = [[VLCMediaDiscoverer alloc] initWithName:@"sap"];
