@@ -18,5 +18,6 @@
 @property (readonly) NSUInteger page;
 
 @property (nonatomic, strong) IBOutlet UILabel *descriptionLabel;
+@property (nonatomic, strong) IBOutlet UIView *actualContentView;
 
 @end

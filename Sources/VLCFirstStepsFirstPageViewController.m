@@ -26,6 +26,16 @@
     self.subtitleLabel.text = NSLocalizedString(@"FIRST_STEPS_WELCOME_DETAIL", @"");
 }
 
+- (void)viewWillAppear:(BOOL)animated
+{
+    self.actualContentView.center = self.view.center;
+}
+
+- (void)viewDidAppear:(BOOL)animated
+{
+    self.actualContentView.center = self.view.center;
+}
+
 - (NSString *)pageTitle
 {
     return NSLocalizedString(@"FIRST_STEPS_WELCOME", @"");;

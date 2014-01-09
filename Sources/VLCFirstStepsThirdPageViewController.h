@@ -17,6 +17,7 @@
 @property (nonatomic, strong) IBOutlet UILabel *connectDescriptionLabel;
 @property (nonatomic, strong) IBOutlet UILabel *uploadDescriptionLabel;
 @property (nonatomic, strong) IBOutlet UILabel *currentAddressLabel;
+@property (nonatomic, strong) IBOutlet UIView *actualContentView;
 
 @property (readonly) NSString *pageTitle;
 @property (readonly) NSUInteger page;

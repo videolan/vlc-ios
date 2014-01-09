@@ -30,6 +30,16 @@
         self.descriptionLabel.text = [[NSString stringWithFormat:NSLocalizedString(@"FIRST_STEPS_ITUNES_DETAILS", @""), model, model] stringByReplacingOccurrencesOfString:@"\n" withString:@"\n\n"];
 }
 
+- (void)viewWillAppear:(BOOL)animated
+{
+    self.actualContentView.center = self.view.center;
+}
+
+- (void)viewDidAppear:(BOOL)animated
+{
+    self.actualContentView.center = self.view.center;
+}
+
 - (NSString *)pageTitle
 {
     return NSLocalizedString(@"FIRST_STEPS_ITUNES", @"");

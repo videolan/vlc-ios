@@ -41,6 +41,7 @@
 		7AC862A81765E9510011611A /* jquery.iframe-transport.js in Resources */ = {isa = PBXBuildFile; fileRef = 7AC862A01765E90C0011611A /* jquery.iframe-transport.js */; };
 		7AC862A91765E9510011611A /* jquery.ui.widget.js in Resources */ = {isa = PBXBuildFile; fileRef = 7AC862A11765E90C0011611A /* jquery.ui.widget.js */; };
 		7D00161C177056B700649F27 /* main.js in Resources */ = {isa = PBXBuildFile; fileRef = 7D00161A17704DAC00649F27 /* main.js */; };
+		7D0117F1187F4BA400C5671C /* VLCFirstStepsFirstPageViewController~ipad.xib in Resources */ = {isa = PBXBuildFile; fileRef = 7D0117F0187F4BA400C5671C /* VLCFirstStepsFirstPageViewController~ipad.xib */; };
 		7D0699D617CB1FAE00713BEB /* Settings@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 7D0699C017CB1FAE00713BEB /* Settings@2x.png */; };
 		7D0699D717CB1FAE00713BEB /* TVShows.png in Resources */ = {isa = PBXBuildFile; fileRef = 7D0699C117CB1FAE00713BEB /* TVShows.png */; };
 		7D0699D817CB1FAE00713BEB /* TVShows@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 7D0699C217CB1FAE00713BEB /* TVShows@2x.png */; };
@@ -84,7 +85,7 @@
 		7D07F730175691CC00CDE21C /* backButtonHighlight.png in Resources */ = {isa = PBXBuildFile; fileRef = 7D07F72C175691CC00CDE21C /* backButtonHighlight.png */; };
 		7D07F731175691CC00CDE21C /* backButtonHighlight@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 7D07F72D175691CC00CDE21C /* backButtonHighlight@2x.png */; };
 		7D1516421868D7E0004B18F3 /* VLCFirstStepsFifthPageViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 7D15163B1868D7E0004B18F3 /* VLCFirstStepsFifthPageViewController.xib */; };
-		7D1516431868D7E0004B18F3 /* VLCFirstStepsFirstPageViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 7D15163C1868D7E0004B18F3 /* VLCFirstStepsFirstPageViewController.xib */; };
+		7D1516431868D7E0004B18F3 /* VLCFirstStepsFirstPageViewController~iphone.xib in Resources */ = {isa = PBXBuildFile; fileRef = 7D15163C1868D7E0004B18F3 /* VLCFirstStepsFirstPageViewController~iphone.xib */; };
 		7D1516461868D7E0004B18F3 /* VLCFirstStepsSixthPageViewController~iphone.xib in Resources */ = {isa = PBXBuildFile; fileRef = 7D15163F1868D7E0004B18F3 /* VLCFirstStepsSixthPageViewController~iphone.xib */; };
 		7D16035D17BF9FE600F29B34 /* sudHeaderBg.png in Resources */ = {isa = PBXBuildFile; fileRef = 7D16035917BF9FE600F29B34 /* sudHeaderBg.png */; };
 		7D16035E17BF9FE600F29B34 /* sudHeaderBg@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 7D16035A17BF9FE600F29B34 /* sudHeaderBg@2x.png */; };
@@ -457,6 +458,7 @@
 		7AC862A01765E90C0011611A /* jquery.iframe-transport.js */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.javascript; path = "jquery.iframe-transport.js"; sourceTree = "<group>"; };
 		7AC862A11765E90C0011611A /* jquery.ui.widget.js */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.javascript; path = jquery.ui.widget.js; sourceTree = "<group>"; };
 		7D00161A17704DAC00649F27 /* main.js */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.javascript; path = main.js; sourceTree = "<group>"; };
+		7D0117F0187F4BA400C5671C /* VLCFirstStepsFirstPageViewController~ipad.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; name = "VLCFirstStepsFirstPageViewController~ipad.xib"; path = "Resources/VLCFirstStepsFirstPageViewController~ipad.xib"; sourceTree = SOURCE_ROOT; };
 		7D05ADEA174945CE0087550C /* DropboxSDK.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = DropboxSDK.framework; path = ImportedSources/Dropbox/DropboxSDK.framework; sourceTree = "<group>"; };
 		7D0699C017CB1FAE00713BEB /* Settings@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "Settings@2x.png"; sourceTree = "<group>"; };
 		7D0699C117CB1FAE00713BEB /* TVShows.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = TVShows.png; sourceTree = "<group>"; };
@@ -497,7 +499,7 @@
 		7D07F72C175691CC00CDE21C /* backButtonHighlight.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = backButtonHighlight.png; sourceTree = "<group>"; };
 		7D07F72D175691CC00CDE21C /* backButtonHighlight@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "backButtonHighlight@2x.png"; sourceTree = "<group>"; };
 		7D15163B1868D7E0004B18F3 /* VLCFirstStepsFifthPageViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; name = VLCFirstStepsFifthPageViewController.xib; path = Resources/VLCFirstStepsFifthPageViewController.xib; sourceTree = SOURCE_ROOT; };
-		7D15163C1868D7E0004B18F3 /* VLCFirstStepsFirstPageViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; name = VLCFirstStepsFirstPageViewController.xib; path = Resources/VLCFirstStepsFirstPageViewController.xib; sourceTree = SOURCE_ROOT; };
+		7D15163C1868D7E0004B18F3 /* VLCFirstStepsFirstPageViewController~iphone.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; name = "VLCFirstStepsFirstPageViewController~iphone.xib"; path = "Resources/VLCFirstStepsFirstPageViewController~iphone.xib"; sourceTree = SOURCE_ROOT; };
 		7D15163F1868D7E0004B18F3 /* VLCFirstStepsSixthPageViewController~iphone.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; name = "VLCFirstStepsSixthPageViewController~iphone.xib"; path = "Resources/VLCFirstStepsSixthPageViewController~iphone.xib"; sourceTree = SOURCE_ROOT; };
 		7D16035917BF9FE600F29B34 /* sudHeaderBg.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = sudHeaderBg.png; sourceTree = "<group>"; };
 		7D16035A17BF9FE600F29B34 /* sudHeaderBg@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "sudHeaderBg@2x.png"; sourceTree = "<group>"; };
@@ -1892,7 +1894,8 @@
 		7DC19AF41868CDB800810BF7 /* First Steps */ = {
 			isa = PBXGroup;
 			children = (
-				7D15163C1868D7E0004B18F3 /* VLCFirstStepsFirstPageViewController.xib */,
+				7D15163C1868D7E0004B18F3 /* VLCFirstStepsFirstPageViewController~iphone.xib */,
+				7D0117F0187F4BA400C5671C /* VLCFirstStepsFirstPageViewController~ipad.xib */,
 				7D63C18F18774B1700BD5256 /* VLCFirstStepsSecondPageViewController~iphone.xib */,
 				7D63C19218774BFB00BD5256 /* VLCFirstStepsSecondPageViewController~ipad.xib */,
 				7D9289741877459B009108FD /* VLCFirstStepsThirdPageViewController~iphone.xib */,
@@ -2261,7 +2264,7 @@
 				7D71395C186B197800D54EDA /* darkButtonHighlight@2x.png in Resources */,
 				A7CB0DB21716F72600050CF3 /* PlayingExternally~iphone.png in Resources */,
 				9B9231C4185A703700F89498 /* VLCFutureNetworkLoginViewController.xib in Resources */,
-				7D1516431868D7E0004B18F3 /* VLCFirstStepsFirstPageViewController.xib in Resources */,
+				7D1516431868D7E0004B18F3 /* VLCFirstStepsFirstPageViewController~iphone.xib in Resources */,
 				7D63C19318774BFB00BD5256 /* VLCFirstStepsSecondPageViewController~ipad.xib in Resources */,
 				7DBBF1A8183AB4300009A339 /* VLCOpenNetworkStreamViewController.xib in Resources */,
 				A7CB0DB31716F72600050CF3 /* PlayingExternally~ipad.png in Resources */,
@@ -2488,6 +2491,7 @@
 				7D0699E717CB1FAE00713BEB /* AllFiles.png in Resources */,
 				7D0699E817CB1FAE00713BEB /* AllFiles@2x.png in Resources */,
 				7D0699E917CB1FAE00713BEB /* Downloads.png in Resources */,
+				7D0117F1187F4BA400C5671C /* VLCFirstStepsFirstPageViewController~ipad.xib in Resources */,
 				7D0699EA17CB1FAE00713BEB /* Downloads@2x.png in Resources */,
 				7D0699EB17CB1FAE00713BEB /* Dropbox.png in Resources */,
 				7D514D4117F779C6007B960C /* Drive@2x.png in Resources */,

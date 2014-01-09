@@ -47,6 +47,11 @@
     self.currentAddressLabel.text = [NSString stringWithFormat:@"http://%@", address];
 }
 
+- (void)viewWillAppear:(BOOL)animated
+{
+    self.actualContentView.center = self.view.center;
+}
+
 - (NSString *)pageTitle
 {
     return NSLocalizedString(@"HTTP_UPLOAD", @"");

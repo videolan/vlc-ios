@@ -19,5 +19,6 @@
 
 @property (nonatomic, strong) IBOutlet UILabel *uploadDescriptionLabel;
 @property (nonatomic, strong) IBOutlet UILabel *accessDescriptionLabel;
+@property (nonatomic, strong) IBOutlet UIView *actualContentView;
 
 @end
