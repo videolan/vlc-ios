@@ -185,6 +185,8 @@
     _fwdButton.isAccessibilityElement = YES;
     _fwdButtonLandscape.accessibilityLabel = NSLocalizedString(@"FWD_BUTTON", @"");
     _fwdButtonLandscape.isAccessibilityElement = YES;
+    _repeatButton.accessibilityLabel = NSLocalizedString(@"BUTTON_REPEAT", @"");
+    _repeatButton.isAccessibilityElement = YES;
 
     _scrubHelpLabel.text = NSLocalizedString(@"PLAYBACK_SCRUB_HELP", @"");
 
