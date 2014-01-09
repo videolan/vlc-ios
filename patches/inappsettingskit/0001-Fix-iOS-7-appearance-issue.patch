@@ -1,0 +1,27 @@
+From d9a4ab2bea0bbc0d9fb81b4986107cdd0688f200 Mon Sep 17 00:00:00 2001
+From: =?UTF-8?q?Felix=20Paul=20K=C3=BChne?= <fkuehne@videolan.org>
+Date: Thu, 9 Jan 2014 22:36:44 +0100
+Subject: [PATCH] Fix iOS 7 appearance issue
+
+---
+ InAppSettingsKit/Controllers/IASKAppSettingsViewController.m | 4 ++--
+ 1 file changed, 2 insertions(+), 2 deletions(-)
+
+diff --git a/InAppSettingsKit/Controllers/IASKAppSettingsViewController.m b/InAppSettingsKit/Controllers/IASKAppSettingsViewController.m
+index e2156f9..648fc30 100644
+--- a/InAppSettingsKit/Controllers/IASKAppSettingsViewController.m
++++ b/InAppSettingsKit/Controllers/IASKAppSettingsViewController.m
+@@ -458,8 +458,8 @@ CGRect IASKCGRectSwap(CGRect rect);
+ 	} else {
+ 		cell = [[UITableViewCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:identifier];
+ 	}
+-	cell.textLabel.minimumFontSize = kIASKMinimumFontSize;
+-	cell.detailTextLabel.minimumFontSize = kIASKMinimumFontSize;
++	cell.textLabel.minimumScaleFactor = 0.5f;
++	cell.detailTextLabel.minimumScaleFactor = 0.5f;
+ 	return cell;
+ }
+ 
+-- 
+1.8.3.4 (Apple Git-47)
+
