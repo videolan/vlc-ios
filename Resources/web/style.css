@@ -1,8 +1,3 @@
-/* @override http://localhost:8000/style.css */
-
-/* @override
-	http://localhost:8000/style.css */
-
 /* YUI CSS Reset */
 body,div,dl,dt,dd,ul,ol,li,h1,h2,h3,h4,h5,h6,pre,form,fieldset,input,textarea,p,blockquote,th,td,nav,header,footer{margin:0;padding:0;} table{border-collapse:collapse;border-spacing:0;} fieldset,img{border:0;} address,caption,cite,code,dfn,em,strong,th,var{font-style:normal;font-weight:normal;} ol,ul{list-style:none;} caption,th{text-align:left;} h1,h2,h3,h4,h5,h6{font-size:100%;font-weight:normal;} q:before,q:after{content:'';} abbr,acronym{border:0;}
 
@@ -50,7 +45,14 @@ div.main.drop {
 #header {
   text-align: center;
   height: 88px;
-  background-color: #cd8333;
+  background-color: rgb(255, 132, 0);
+  background-image: -webkit-gradient(linear, left top, left bottom, from(rgb(255, 132, 0)), to(rgb(255, 100, 0)));
+  background-image: -webkit-linear-gradient(top, rgb(255, 132, 0), rgb(255, 100, 0));
+  background-image: -moz-linear-gradient(top, rgb(255, 132, 0), rgb(255, 100, 0));
+  background-image: -ms-linear-gradient(top, rgb(255, 132, 0), rgb(255, 100, 0));
+  background-image: -o-linear-gradient(top, rgb(255, 132, 0), rgb(255, 100, 0));
+  background-image: linear-gradient(top, rgb(255, 132, 0), rgb(255, 100, 0));
+
 }
 
 .nav {
@@ -187,7 +189,6 @@ div.main.drop {
   background-color: rgb(42,42,42);
 }
 .uploads .progress .bar {
-  background-color: #cd8333;
   background-color: white;
   position: absolute;
   top:0px;
@@ -209,7 +210,7 @@ div.main.drop {
   font-size: 20px;
   font-weight: bold;
   float: left;
-  color: #cd8333;
+  color: rgb(255, 132, 0);
 }
 .uploads .progress .dots:before {
   content: "uploading ";
@@ -228,7 +229,7 @@ div.main.drop {
 }
 .uploads li.fail .progress:before {
   content: "File transfer failed";
-  color: #cd8333;
+  color: rgb(255, 132, 0);
 }
 .uploads li.done .progress .bar:before {
   content: "File transfer complete";
@@ -272,6 +273,6 @@ div.main.drop {
   text-shadow: 1px 1px 2px black;
 }
 #footer a{
-  color: #cd8333;
+  color: rgb(255, 132, 0);
 }
 
