@@ -8,10 +8,12 @@
     A:link {text-decoration: underline; color: #aaaaaa}
     A:visited {text-decoration: none; color: #aaaaaa}
     A:active {text-decoration: none; color: #aaaaaa}
+    body { font-family: "HelveticaNeue-Light", "Helvetica Neue Light", "Helvetica Neue", Helvetica, Arial, "Lucida Grande", sans-serif;
+           font-weight: 300; }
 </style>
 <div style="text-align:left; border:solid transparent 1px; padding:0.5em 1em 0.5em 1em; overflow:auto; font-size:10pt; font-family:Helvetica; color:#aaaaaa"; A:link {text-decoration: underline; color:#aaaaaa}>
 <p align="center">
-<table cellspacing=0 cellpadding=0>
+<table cellspacing="0" cellpadding="0">
 <tr>
 <td width=160 valign=top>
 <p><img src="AppIcon512x512.png" width=120pt height=120pt align="center"></p>
@@ -24,13 +26,14 @@
 </table>
 </p>
 <p align="center">Copyright &copy; 2013-2014 VideoLAN and authors<br /><br />Written by <a href="http://feepk.net">Felix Paul Kühne</a>, <a href="http://twitter.com/gpinigin">Gleb Pinigin</a>, <a href="http://www.tamastimar.com">Tam&aacute;s T&iacute;m&aacute;r</a>, <a href="http://jbkempf.com">Jean-Baptiste Kempf</a>, <a href="http://applidium.com">Applidium</a>, <a href="http://about.me/carolanitz">Carola Nitz</a>, <a href="http://twitter.com/iTarax">Pierre Sagaspe</a><br />with additions by Fabio Ritrovato, Riccardo Angius, Diego Fernando Nieto, Martin Storsjö, Luis Fernandes and Ahmad M. Harb.<br /><br />Web Interface by <a href="http://ailleurs.me">Jean-Romain Pr&eacute;vost</a>.</p>
-<p align="center">Application Design by <a href="http://erambert.me">Damien Erambert</a>.</p>
+<p align="center">Application Design by <a href="http://erambert.me">Damien Erambert</a>. Tutorial graphics by Freya Lindhorst.</p>
 <p align="center">We would like to thank the following people for tests, ideas and translations:<br />
 Phan Anh, Helena Arndt, Luca Barbato, Ana Coronel, Keiji Costantini, Ludovic Fauvet, Roberto Ferraro, Christian Kosim, Freya Lindhorst, Adrien Maglo, Ilkka Ollakka, Alexandre Perraud, Transifex VLC project team<br />
 <br />
 ... as well as <a href="https://twitter.com/pdherbemont">Pierre d'Herbemont</a>.</p>
 <p align="center">This application is fully open-source. You can get its sources <a href="http://git.videolan.org/?p=vlc-ports/ios.git;a=summary">online</a> and modify or redistribute them under the conditions of its licenses.<br />
-This software is bi-licensed under the <a href="http://opensource.org/licenses/GPL-2.0">GPLv2 (or later)</a> and the <a href="http://opensource.org/licenses/MPL-2.0">MPLv2</a>.</p>
+This software is bi-licensed under the <a href="http://opensource.org/licenses/GPL-2.0">GPLv2 (or later)</a> and the <a href="http://opensource.org/licenses/MPL-2.0">MPLv2</a>.<br/>
+VLC media player and VideoLAN are registered trademarks of the VideoLAN association.</p>
 <p align="center">VLC for iOS makes use of the following libraries, fonts and frameworks:</p>
 <br />
 &nbsp;&nbsp;&nbsp;&nbsp;<a href="http://git.videolan.org/?p=vlc-bindings/VLCKit.git;a=summary">MobileVLCKit</a><br />
@@ -49,16 +52,16 @@ Copyright &copy; 2011, Deusty, LLC - <a href="#bsd2clause">2-clause BSD License<
 Copyright &copy; 2010-2012 Matt Rajca - <a href="#mit">MIT License</a><br />
 <br />
 &nbsp;&nbsp;&nbsp;&nbsp;<a href="https://www.dropbox.com/developers">Dropbox SDK</a><br />
-Copyright &copy; 2010 Dropbox (Evenflow, Inc.) - <a href="#mit">MIT License</a><br />
+Copyright &copy; 2010-2013 Dropbox (Evenflow, Inc.) - <a href="#mit">MIT License</a><br />
 <br />
 &nbsp;&nbsp;&nbsp;&nbsp;<a href="https://github.com/gresrun/GHSidebarNav">GHSidebarNav</a><br />
-Copyright &copy; 2011 Greg Haines - <a href="#apache2">Apache 2 License</a><br />
+Copyright &copy; 2011-2013 Greg Haines - <a href="#apache2">Apache 2 License</a><br />
 <br />
 &nbsp;&nbsp;&nbsp;&nbsp;<a href="http://code.google.com/p/google-api-objectivec-client/">Google APIs Client Library for Objective-C</a><br />
 Copyright &copy; 2011-2013 Google Inc. - <a href="#apache2">Apache 2 License</a><br />
 <br />
 &nbsp;&nbsp;&nbsp;&nbsp;<a href="http://www.inappsettingskit.com">InAppSettingsKit</a><br />
-Copyright &copy; 2009, 2010 Luc Vandal, Edovia Inc., Ortwin Gentz, FutureTap GmbH - <a href="#bsd2clause">2-clause BSD License</a><br />
+Copyright &copy; 2009-2013 Luc Vandal, Edovia Inc., Ortwin Gentz, FutureTap GmbH - <a href="#bsd2clause">2-clause BSD License</a><br />
 <br />
 &nbsp;&nbsp;&nbsp;&nbsp;<a href="https://github.com/ole/OBSlider">OBSlider</a><br />
 Copyright &copy; 2011 Ole Begemann and contributors - <a href="#mit">MIT License</a><br />
@@ -67,16 +70,16 @@ Copyright &copy; 2011 Ole Begemann and contributors - <a href="#mit">MIT License
 Copyright &copy; 2010-2011 Steve Matteson / Ascender Corporation - <a href="#apache2">Apache 2 License</a><br />
 <br />
 &nbsp;&nbsp;&nbsp;&nbsp;<a href="https://github.com/dhennessy/PAPasscode">PAPasscodeViewController</a><br />
-Copyright &copy; 2012, Denis Hennessy (Peer Assembly) - <a href="#bsd3clause">3-clause BSD License</a><br />
+Copyright &copy; 2012 Denis Hennessy (Peer Assembly) - <a href="#bsd3clause">3-clause BSD License</a><br />
 <br />
 &nbsp;&nbsp;&nbsp;&nbsp;<a href="http://code.google.com/p/protobuf-c/">protobuf-c</a><br />
-Copyright &copy; 2008, Dave Benson - <a href="#apache2">Apache 2 License</a><br />
+Copyright &copy; 2008 Dave Benson - <a href="#apache2">Apache 2 License</a><br />
 <br />
 &nbsp;&nbsp;&nbsp;&nbsp;<a href="https://www.plcrashreporter.org">PLCrashReporter</a><br />
-Copyright &copy; 2008 - 2013 Plausible Labs Cooperative, Inc., &copy; 2010 MOSO Corporation, Pty Ltd., &copy; 2012 HockeyApp, Bit Stadium GmbH. - <a href="#mit">MIT License</a><br />
+Copyright &copy; 2008-2013 Plausible Labs Cooperative, Inc., &copy; 2010 MOSO Corporation, Pty Ltd., &copy; 2012 HockeyApp, Bit Stadium GmbH. - <a href="#mit">MIT License</a><br />
 <br />
 &nbsp;&nbsp;&nbsp;&nbsp;<a href="https://github.com/TheRealKerni/QuincyKit/">QuincyKit</a><br />
-Copyright &copy; 2009-2013 Andreas Linde. - <a href="#mit">MIT License</a><br />
+Copyright &copy; 2009-2013 Andreas Linde - <a href="#mit">MIT License</a><br />
 <br />
 &nbsp;&nbsp;&nbsp;&nbsp;<a href="https://github.com/adobe/source-code-pro">Raleway</a><br />
 Copyright &copy; 2012-2013 The League of Moveable Type, Matt McInerney, Pablo Impallari, Rodrigo Fuenzalida, Igino Marini. - <a href="#silopenfont">SIL Open Font License, Version 1.1</a>.<br />
@@ -87,17 +90,17 @@ Copyright &copy; 2013 Apple Inc. All Rights Reserved. - <a href="#applesampledis
 &nbsp;&nbsp;&nbsp;&nbsp;<a href="https://github.com/adobe/source-code-pro">Source Code Pro</a><br />
 Copyright 2010, 2012 Adobe Systems Incorporated, with Reserved Font Name 'Source'. All Rights Reserved. Source is a trademark of Adobe Systems Incorporated in the United States and/or other countries. - <a href="#silopenfont">SIL Open Font License, Version 1.1</a>.<br />
 <br />
-&nbsp;&nbsp;&nbsp;&nbsp;<a href="http://code.google.com/p/upnpx/">upnpx</a><br />
-Copyright &copy; 2011-2012 Bruno Keymolen, Jonathan Guan, Mujtaba Hassanpur - <a href="#bsd3clause">3-clause BSD License</a><br />
+&nbsp;&nbsp;&nbsp;&nbsp;<a href="https://github.com/fkuehne/upnpx">upnpx</a><br />
+Copyright &copy; 2011-2012 Bruno Keymolen, Jonathan Guan, Mujtaba Hassanpur, &copy; 2013 Felix Paul K&uuml;hne - <a href="#bsd3clause">3-clause BSD License</a><br />
 <br />
-&nbsp;&nbsp;&nbsp;&nbsp;<a href="https://github.com/valentinradu/WhiteRaccoon">WhiteRaccoon</a><br />
+&nbsp;&nbsp;&nbsp;&nbsp;<a href="https://github.com/fkuehne/WhiteRaccoon">WhiteRaccoon</a><br />
 Copyright &copy; 2011 Valentin Radu, &copy; 2013 Felix Paul K&uuml;hne - <a href="#mit">MIT License</a><br />
 <br />
 &nbsp;&nbsp;&nbsp;&nbsp;<a href="http://code.google.com/p/libass/">libass</a><br />
 Copyright &copy; 2006-2013 Grigori Goronzy and contributors - <a href="#isc">ISC License</a><br />
 <br />
 &nbsp;&nbsp;&nbsp;&nbsp;<a href="http://libav.org">libav</a><br />
-Copyright &copy; 2000-2013 the libav developers - <a href="#lgpl2">LGPLv2.1 or later</a><br />
+Copyright &copy; 2000-2014 the libav developers - <a href="#lgpl2">LGPLv2.1 or later</a><br />
 <br />
 &nbsp;&nbsp;&nbsp;&nbsp;<a href="http://www.videolan.org/developers/libdvbpsi.html">libdvbpsi</a><br />
 Copyright &copy; 2001-2013 VideoLAN and authors - <a href="#lgpl2">LGPLv2.1 or later</a><br />
