@@ -1,3 +1,5 @@
+/* @override http://localhost:8000/style.css */
+
 /* @override
 	http://localhost:8000/style.css */
 
@@ -48,17 +50,7 @@ div.main.drop {
 #header {
   text-align: center;
   height: 88px;
-  background-color: #c95a07;
-  border-top-left-radius: 14px;
-  border-top-right-radius: 14px;
-
-  background-image: -webkit-gradient(linear, left top, left bottom, from(#d87306), to(#ba6100));
-  background-image: -webkit-linear-gradient(top, #d87306, #ba6100);
-  background-image: -moz-linear-gradient(top, #d87306, #ba6100);
-  background-image: -ms-linear-gradient(top, #d87306, #ba6100);
-  background-image: -o-linear-gradient(top, #d87306, #ba6100);
-  background-image: linear-gradient(top, #d87306, #ba6100);
-  box-shadow: inset 0px 3px 0px -1px #e09d54, 0px 2px 0px 0px #8a4413;
+  background-color: #cd8333;
 }
 
 .nav {
@@ -71,24 +63,11 @@ div.main.drop {
   font-family: "Raleway", "Helvetica Neue", "Helvetica", Arial, sans-serif;
   font-size: 46px;
   line-height: 60px;
-  text-shadow: 0px -2px 1px rgba(0,0,0,0.3);
 }
 
 .btn {
   display: inline-block;
   background-color: transparent;
-
-  border: 2px solid #8c4800;
-  border-radius: 10px;
-
-  background-image: -webkit-gradient(linear, left top, left bottom, from(#d87306), to(#ba6100));
-  background-image: -webkit-linear-gradient(top, #d87306, #ba6100);
-  background-image: -moz-linear-gradient(top, #d87306, #ba6100);
-  background-image: -ms-linear-gradient(top, #d87306, #ba6100);
-  background-image: -o-linear-gradient(top, #d87306, #ba6100);
-  background-image: linear-gradient(top, #d87306, #ba6100);
-
-  box-shadow: inset 0px 3px 0px -1px #e09d54, 0px 3px 0px -1px rgba(255,255,255,0.1);
 
   color: white;
   font-size: 1.3em;
@@ -96,21 +75,16 @@ div.main.drop {
   line-height: 52px;
 
   text-align: center;
-  text-shadow: 2px 2px 0px #783704;
   padding: 0 12px;  
   height: 58px;
   min-width: 140px;
   cursor: pointer;  
 }
+.btn:hover{
+  opacity: 0.5;
+}
 .btn:active{
-  background-image: -webkit-gradient(linear, left top, left bottom, from(#c36707), to(#a85600));
-  background-image: -webkit-linear-gradient(top, #c36707, #a85600);
-  background-image: -moz-linear-gradient(top, #c36707, #a85600);
-  background-image: -ms-linear-gradient(top, #c36707, #a85600);
-  background-image: -o-linear-gradient(top, #c36707, #a85600);
-  background-image: linear-gradient(top, #c36707, #a85600);
-
-  box-shadow: inset 0px 3px 0px -1px #d39554, 0px 3px 0px -1px rgba(255,255,255,0.1);
+  opacity: 0.25;
 }
 
 .linkBtn {
@@ -197,29 +171,30 @@ div.main.drop {
   text-align: left;
 }
 .uploads .progress {
-  height: 14px;
-  background-color: rgb(40,40,40);
+  height: 20px;
+  border: 0px solid white;
   border-radius: 20px;
   position: relative;
   overflow: hidden;
-
-  box-shadow: inset 0px -3px 10px 0px rgba(255,255,255,0.1);
+  padding: 2px;
+}
+.uploads .progress .barWrapper {
+  position: absolute;
+  top:0px;
+  left:0px;
+  right:0px;
+  bottom:0px;
+  background-color: rgb(42,42,42);
 }
 .uploads .progress .bar {
-  background-color: #c95a07;
+  background-color: #cd8333;
+  background-color: white;
   position: absolute;
-  top:0;
-  left:0;
-  bottom:0;
+  top:0px;
+  left:0px;
+  right:0px;
+  bottom:0px;
   border-radius: 20px;
-  background-image: -webkit-gradient(linear, left top, left bottom, from(#d87306), to(#ba6100));
-  background-image: -webkit-linear-gradient(top, #d87306, #ba6100);
-  background-image: -moz-linear-gradient(top, #d87306, #ba6100);
-  background-image: -ms-linear-gradient(top, #d87306, #ba6100);
-  background-image: -o-linear-gradient(top, #d87306, #ba6100);
-  background-image: linear-gradient(top, #d87306, #ba6100);
-
-  box-shadow: inset 0px 3px 0px -1px #e09d54, 0px 3px 0px -1px rgba(255,255,255,0.1);
 }
 
 .uploads li.fail .progress .bar {
@@ -234,7 +209,7 @@ div.main.drop {
   font-size: 20px;
   font-weight: bold;
   float: left;
-  color: #c95a07;
+  color: #cd8333;
 }
 .uploads .progress .dots:before {
   content: "uploading ";
@@ -245,7 +220,7 @@ div.main.drop {
 
 .uploads li.fail .progress:before,
 .uploads li.done .progress .bar:before {
-  line-height: 12px;
+  line-height: 20px;
   font-size: 12px;
   font-weight: bold;
   padding: 0 12px;
@@ -253,7 +228,7 @@ div.main.drop {
 }
 .uploads li.fail .progress:before {
   content: "File transfer failed";
-  color: #c95a07;
+  color: #cd8333;
 }
 .uploads li.done .progress .bar:before {
   content: "File transfer complete";
@@ -267,27 +242,24 @@ div.main.drop {
   display: none;
 }
 .uploads .stop {
-  border: 3px solid white;
   width: 26px;
   height: 26px;
   border-radius: 50%;
-  background-color: #bd1421;
+  background-color: #ff3b30;
 
   position: absolute;
   top: 8px;
   right: 8px;
-
-  box-shadow: inset 3px 10px 4px -4px rgba(255,255,255,0.3);
   cursor: pointer;
   display: none;
 }
 .uploads .stop:before {
   content: "-";
-  font-size: 46px;
-  line-height: 12px;
+  font-size: 44px;
   text-align: center;
+  line-height: 18px;
   width: 100%;
-  padding: 1px;
+  padding-left: 4px;
 }
 
 #footer {
@@ -300,6 +272,6 @@ div.main.drop {
   text-shadow: 1px 1px 2px black;
 }
 #footer a{
-  color: #c95a07;
+  color: #cd8333;
 }
 
