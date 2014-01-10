@@ -30,11 +30,12 @@ $(function(){
     });
 
     var xhrCache = [];
+    var xhrNb = 0;
     function add (e, data) {
         $('.message').hide();
         var xhr = data.submit();
         $.each(data.files, function(index, file){
-            file._ID = xhrCache.length;
+            file._ID = xhrNb++;
             xhrCache[file._ID] = xhr;
             var hasProgressbar = ('FormData' in window);
             var html = '<li data-file-id="' + file._ID + '">';
