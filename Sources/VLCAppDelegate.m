@@ -60,9 +60,11 @@
 
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions
 {
-    [[BWQuincyManager sharedQuincyManager] setSubmissionURL:@"http://crash.videolan.org/crash_v200.php"];
-    [[BWQuincyManager sharedQuincyManager] setDelegate:self];
-    [[BWQuincyManager sharedQuincyManager] setFeedbackActivated:YES];
+    BWQuincyManager *quincyManager = [BWQuincyManager sharedQuincyManager];
+    [quincyManager setSubmissionURL:@"http://crash.videolan.org/crash_v200.php"];
+    [quincyManager setDelegate:self];
+    [quincyManager setShowAlwaysButton:YES];
+    [quincyManager setFeedbackActivated:YES];
 
     /* clean caches on launch (since those are used for wifi upload only) */
     NSArray *searchPaths = NSSearchPathForDirectoriesInDomains(NSCachesDirectory, NSUserDomainMask, YES);
