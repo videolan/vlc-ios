@@ -61,9 +61,9 @@ div.main.drop {
 }
 
 .nav:before {
-  content: "VLC";
-  font-family: "Raleway", "Helvetica Neue", "Helvetica", Arial, sans-serif;
-  font-size: 46px;
+  content: "WiFi Upload";
+  font-family: "Raleway", "Helvetica Neue";
+  font-size: 36px;
   line-height: 60px;
 }
 
@@ -128,6 +128,9 @@ div.main.drop {
   float: right;
   position: relative;
   overflow: hidden;
+  font-family: "Helvetica Neue";
+  font-weight: lighter;
+  font-size: 54px;
 }
 
 #fileupload {
