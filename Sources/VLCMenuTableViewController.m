@@ -243,7 +243,8 @@
                           (id)[UIColor colorWithRed:(56.0f/255.0f) green:(56.0f/255.0f) blue:(56.0f/255.0f) alpha:1.0f].CGColor,
                           ];
             [headerView.layer insertSublayer:gradient atIndex:0];
-        }
+        } else
+            headerView.backgroundColor = [UIColor colorWithWhite:.122 alpha:1.];
 
 		UILabel *textLabel = [[UILabel alloc] initWithFrame:CGRectInset(headerView.bounds, 12.0f, 5.0f)];
 		textLabel.text = (NSString *) headerText;
