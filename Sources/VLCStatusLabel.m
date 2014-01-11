@@ -28,10 +28,11 @@
     [self setFrame:selfFrame];
 
     [self setNeedsDisplay];
-    [self _toggleVisibility:NO];
 
     if (_displayTimer)
         [_displayTimer invalidate];
+    else
+        [self _toggleVisibility:NO];
 
     _displayTimer = [NSTimer scheduledTimerWithTimeInterval:1.5
                                                      target:self
