@@ -66,7 +66,7 @@
             <autoresizingMask key="autoresizingMask" widthSizable="YES" flexibleMaxY="YES"/>
             <subviews>
                 <slider opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" value="0.5" minValue="0.0" maxValue="1" id="249" userLabel="Position Slider" customClass="VLCOBSlider">
-                    <rect key="frame" x="7" y="6" width="576" height="29"/>
+                    <rect key="frame" x="7" y="6" width="573" height="29"/>
                     <autoresizingMask key="autoresizingMask" widthSizable="YES" flexibleMaxY="YES"/>
                     <accessibility key="accessibilityConfiguration">
                         <accessibilityTraits key="traits" none="YES" updatesFrequently="YES"/>
@@ -81,7 +81,7 @@
                     </connections>
                 </slider>
                 <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" id="198">
-                    <rect key="frame" x="642" y="5" width="50" height="29"/>
+                    <rect key="frame" x="642" y="6" width="50" height="29"/>
                     <autoresizingMask key="autoresizingMask" flexibleMinX="YES" flexibleMinY="YES" flexibleMaxY="YES"/>
                     <fontDescription key="fontDescription" type="boldSystem" pointSize="15"/>
                     <state key="normal" image="ratioIcon.png">
@@ -96,9 +96,9 @@
                     </connections>
                 </button>
                 <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" id="300">
-                    <rect key="frame" x="589" y="10" width="50" height="20"/>
+                    <rect key="frame" x="582" y="5" width="52" height="30"/>
                     <autoresizingMask key="autoresizingMask" flexibleMinX="YES" flexibleMaxY="YES"/>
-                    <fontDescription key="fontDescription" type="boldSystem" pointSize="13"/>
+                    <fontDescription key="fontDescription" type="boldSystem" pointSize="15"/>
                     <state key="normal" title="--:--">
                         <color key="titleColor" red="0.74659199620000005" green="0.74659199620000005" blue="0.74659199620000005" alpha="1" colorSpace="calibratedRGB"/>
                         <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
