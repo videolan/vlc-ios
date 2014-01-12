@@ -255,7 +255,7 @@
     if (SYSTEM_RUNS_IOS7_OR_LATER) {
         self.backButton.tintColor = [UIColor colorWithRed:(190.0f/255.0f) green:(190.0f/255.0f) blue:(190.0f/255.0f) alpha:1.];
         self.toolbar.tintColor = [UIColor whiteColor];
-        self.toolbar.barTintColor = [UIColor colorWithWhite:0.f alpha:1.f];
+        self.toolbar.barStyle = UIBarStyleBlack;
 
         CGRect rect = self.resetVideoFilterButton.frame;
         rect.origin.y = rect.origin.y + 5.;
