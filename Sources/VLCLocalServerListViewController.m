@@ -76,9 +76,9 @@
 {
     [super viewDidLoad];
 
-    if (SYSTEM_RUNS_IOS7_OR_LATER)
+/*    if (SYSTEM_RUNS_IOS7_OR_LATER)
         _sectionHeaderTexts = @[@"Universal Plug'n'Play (UPNP)", @"File Transfer Protocol (FTP)", @"Network Streams (SAP)"];
-    else
+    else*/
         _sectionHeaderTexts = @[@"Universal Plug'n'Play (UPNP)", @"File Transfer Protocol (FTP)"];
 
     _backToMenuButton = [UIBarButtonItem themedRevealMenuButtonWithTarget:self andSelector:@selector(goBack:)];
@@ -442,8 +442,7 @@
 
 - (void)_startSAPDiscovery
 {
-    if (!SYSTEM_RUNS_IOS7_OR_LATER)
-        return;
+    return;
 
     if (_reachability.currentReachabilityStatus != ReachableViaWiFi)
         return;
@@ -454,8 +453,7 @@
 
 - (void)_stopSAPDiscovery
 {
-    if (!SYSTEM_RUNS_IOS7_OR_LATER)
-        return;
+    return;
 
     _sapDiscoverer = nil;
 }
