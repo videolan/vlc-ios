@@ -223,7 +223,7 @@
 
     if (SYSTEM_RUNS_IOS7_OR_LATER) {
         CGFloat duration = mediaItem.duration.floatValue;
-        if (position > .1f && position < .95f) {
+        if (position > .1f && position < .95f && (duration * position - duration) > 0) {
             [(UITextView*)self.mediaIsUnreadView setText:[NSString stringWithFormat:NSLocalizedString(@"LIBRARY_MINUTES_LEFT", @""), [[VLCTime timeWithInt:(duration * position - duration)] minuteStringValue]]];
             self.mediaIsUnreadView.hidden = NO;
         } else if (mediaItem.unread.intValue) {
