@@ -517,7 +517,7 @@
         if (duration != 0)
             playbackPositionInTime = @(lastPosition * (duration / 1000.));
     }
-    if (playbackPositionInTime.intValue > 0 && (duration * lastPosition - duration) > 0) {
+    if (playbackPositionInTime.intValue > 0 && (duration * lastPosition - duration) < -60000) {
         /* start time is not supported for media lists */
         [_mediaPlayer.media addOptions:@{@"start-time": playbackPositionInTime}];
         APLog(@"set starttime to %i", playbackPositionInTime.intValue);
@@ -545,7 +545,7 @@
     _mediaPlayer.videoAspectRatio = NULL;
 
     /* some demuxers don't respect :start-time, so re-try here */
-    if (lastPosition < .95 && _mediaPlayer.position < lastPosition && (duration * lastPosition - duration) > 0)
+    if (lastPosition < .95 && _mediaPlayer.position < lastPosition && (duration * lastPosition - duration) < -60000)
         _mediaPlayer.position = lastPosition;
 
     [self _resetIdleTimer];
