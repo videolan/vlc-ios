@@ -125,7 +125,6 @@
 {
     _authorizationInProgress = NO;
     if (error != nil) {
-        [self showAlert:NSLocalizedString(@"GDRIVE_AUTHENTICATION_ERROR",nil) message:error.localizedDescription];
         _googleDriveController.driveService.authorizer = nil;
     } else {
         _googleDriveController.driveService.authorizer = authResult;
