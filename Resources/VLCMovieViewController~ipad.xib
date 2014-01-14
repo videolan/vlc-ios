@@ -270,10 +270,6 @@
                                         <action selector="videoDimensionAction:" destination="-1" eventType="touchUpInside" id="294"/>
                                     </connections>
                                 </button>
-                                <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="arrows.png" id="5jO-0X-hZa" userLabel="arrows">
-                                    <rect key="frame" x="8" y="14" width="5" height="12"/>
-                                    <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
-                                </imageView>
                             </subviews>
                             <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
                         </view>
@@ -281,10 +277,6 @@
                             <rect key="frame" x="599" y="5" width="50" height="40"/>
                             <autoresizingMask key="autoresizingMask" flexibleMinX="YES" flexibleMaxX="YES" flexibleMaxY="YES"/>
                             <subviews>
-                                <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="arrows.png" id="51b-Ay-pNe" userLabel="arrows">
-                                    <rect key="frame" x="8" y="16" width="5" height="9"/>
-                                    <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
-                                </imageView>
                                 <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" id="279">
                                     <rect key="frame" x="17" y="0.0" width="32" height="40"/>
                                     <autoresizingMask key="autoresizingMask" flexibleMinX="YES" flexibleMaxY="YES"/>
@@ -308,10 +300,6 @@
                             <rect key="frame" x="542" y="5" width="50" height="40"/>
                             <autoresizingMask key="autoresizingMask" flexibleMinX="YES" flexibleMaxX="YES" flexibleMaxY="YES"/>
                             <subviews>
-                                <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="arrows.png" id="r7Q-7s-Vxj" userLabel="arrows">
-                                    <rect key="frame" x="8" y="16" width="5" height="9"/>
-                                    <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
-                                </imageView>
                                 <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" id="273">
                                     <rect key="frame" x="17" y="0.0" width="28" height="40"/>
                                     <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
@@ -515,7 +503,6 @@
     </objects>
     <resources>
         <image name="PlayingExternally.png" width="261" height="195"/>
-        <image name="arrows.png" width="5" height="9"/>
         <image name="audioTrackIcon.png" width="19" height="19"/>
         <image name="backIcon.png" width="32" height="16"/>
         <image name="forwardIcon.png" width="32" height="16"/>
