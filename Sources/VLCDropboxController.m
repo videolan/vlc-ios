@@ -135,14 +135,14 @@
 
     _currentFileList = [NSArray arrayWithArray:listOfGoodFilesAndFolders];
 
-    APLog(@"found filtered metadata for %i files", _currentFileList.count);
+    APLog(@"found filtered metadata for %lu files", _currentFileList.count);
     if ([self.delegate respondsToSelector:@selector(mediaListUpdated)])
         [self.delegate mediaListUpdated];
 }
 
 - (void)restClient:(DBRestClient *)client loadMetadataFailedWithError:(NSError *)error
 {
-    APLog(@"DBMetadata download failed with error %i", error.code);
+    APLog(@"DBMetadata download failed with error %li", (long)error.code);
     [self _handleError:error];
 }
 
@@ -161,7 +161,7 @@
 
 - (void)restClient:(DBRestClient*)client loadFileFailedWithError:(NSError*)error
 {
-    APLog(@"DBFile download failed with error %i", error.code);
+    APLog(@"DBFile download failed with error %li", (long)error.code);
     [self _handleError:error];
     if ([self.delegate respondsToSelector:@selector(operationWithProgressInformationStopped)])
         [self.delegate operationWithProgressInformationStopped];
@@ -189,7 +189,7 @@
 
 - (void)restClient:(DBRestClient*)restClient loadStreamableURLFailedWithError:(NSError*)error
 {
-    APLog(@"loadStreamableURL failed with error %i", error.code);
+    APLog(@"loadStreamableURL failed with error %li", (long)error.code);
     [self _handleError:error];
 }
 

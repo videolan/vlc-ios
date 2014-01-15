@@ -335,7 +335,7 @@
             viewController = [[VLCAboutViewController alloc] init];
     } else {
         viewController = self.appDelegate.playlistViewController;
-        [self.appDelegate.playlistViewController setLibraryMode:itemIndex];
+        [self.appDelegate.playlistViewController setLibraryMode:(int)itemIndex];
     }
 
     if (!viewController)

@@ -191,7 +191,7 @@
         return;
     }
 
-    APLog(@"found filtered metadata for %i files", _currentFileList.count);
+    APLog(@"found filtered metadata for %lu files", _currentFileList.count);
     if ([self.delegate respondsToSelector:@selector(mediaListUpdated)])
         [self.delegate mediaListUpdated];
 }
@@ -274,7 +274,7 @@
 
 - (void)downloadFailedWithError:(NSError*)error
 {
-    APLog(@"DriveFile download failed with error %i", error.code);
+    APLog(@"DriveFile download failed with error %li", (long)error.code);
     if ([self.delegate respondsToSelector:@selector(operationWithProgressInformationStopped)])
         [self.delegate operationWithProgressInformationStopped];
     _downloadInProgress = NO;

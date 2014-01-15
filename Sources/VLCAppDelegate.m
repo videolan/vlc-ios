@@ -122,7 +122,7 @@
             NSError *theError;
             [[NSFileManager defaultManager] moveItemAtURL:url toURL:destinationURL error:&theError];
             if (theError.code != noErr)
-                APLog(@"saving the file failed (%i): %@", theError.code, theError.localizedDescription);
+                APLog(@"saving the file failed (%li): %@", theError.code, theError.localizedDescription);
 
             [self updateMediaList];
         } else {
@@ -339,7 +339,7 @@
     [self.window.rootViewController presentViewController:navCon animated:YES completion:nil];
 }
 
-- (void)openMediaList:(VLCMediaList*)list atIndex:(NSUInteger)index
+- (void)openMediaList:(VLCMediaList*)list atIndex:(int)index
 {
     if (!_movieViewController)
         _movieViewController = [[VLCMovieViewController alloc] initWithNibName:nil bundle:nil];

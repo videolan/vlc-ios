@@ -134,7 +134,7 @@
         NSString *fileExtension = [fileName pathExtension];
         NSString *rawFileName = [fileName stringByDeletingPathExtension];
         for (NSUInteger x = 1; x < 100; x++) {
-            potentialFilename = [NSString stringWithFormat:@"%@ %i.%@", rawFileName, x, fileExtension];
+            potentialFilename = [NSString stringWithFormat:@"%@ %lu.%@", rawFileName, (unsigned long)x, fileExtension];
             if (![[NSFileManager defaultManager] fileExistsAtPath:[libraryPath stringByAppendingPathComponent:potentialFilename]])
                 break;
         }
@@ -144,7 +144,7 @@
     NSError *error;
     [fileManager moveItemAtPath:filepath toPath:finalFilePath error:&error];
     if (error) {
-        APLog(@"Moving received media %@ to library folder failed (%i), deleting", fileName, error.code);
+        APLog(@"Moving received media %@ to library folder failed (%li), deleting", fileName, (long)error.code);
         [fileManager removeItemAtPath:filepath error:nil];
     }
 

@@ -83,9 +83,9 @@
     if (_statusCode == 200) {
         _expectedDownloadSize = [response expectedContentLength];
         [self.delegate downloadStarted];
-        APLog(@"expected download size: %i", _expectedDownloadSize);
+        APLog(@"expected download size: %lu", _expectedDownloadSize);
     } else {
-        APLog(@"unhandled status code %i", _statusCode);
+        APLog(@"unhandled status code %lu", (unsigned long)_statusCode);
         if ([self.delegate respondsToSelector:@selector(downloadFailedWithErrorDescription:)])
             [self.delegate downloadFailedWithErrorDescription:[NSString stringWithFormat:NSLocalizedString(@"HTTP_DOWNLOAD_FAILED",nil), _statusCode]];
     }
@@ -129,7 +129,7 @@
 }
 
 -(void)connection:(NSURLConnection *)connection didFailWithError:(NSError *)error {
-    APLog(@"http file download failed (%i)", error.code);
+    APLog(@"http file download failed (%li)", (long)error.code);
 
     if ([self.delegate respondsToSelector:@selector(downloadFailedWithErrorDescription:)])
         [self.delegate downloadFailedWithErrorDescription:error.description];

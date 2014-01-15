@@ -269,7 +269,7 @@ static NSString *kDisplayedFirstSteps = @"Did we display the first steps tutoria
     NSIndexSet *indexSet = [allfiles indexesOfObjectsPassingTest:^BOOL(id obj, NSUInteger idx, BOOL *stop) {
        return ([obj rangeOfString:fileName].location != NSNotFound);
     }];
-    unsigned int count = indexSet.count;
+    NSUInteger count = indexSet.count;
     NSString *additionalFilePath;
     NSUInteger currentIndex = [indexSet firstIndex];
     for (unsigned int x = 0; x < count; x++) {
@@ -449,7 +449,7 @@ static NSString *kDisplayedFirstSteps = @"Did we display the first steps tutoria
             [media parse];
             [list addMedia:media];
         }
-        [(VLCAppDelegate*)[UIApplication sharedApplication].delegate openMediaList:list atIndex:[tracks indexOfObject:selectedObject]];
+        [(VLCAppDelegate*)[UIApplication sharedApplication].delegate openMediaList:list atIndex:(int)[tracks indexOfObject:selectedObject]];
     } else
         [self openMediaObject:selectedObject];
 }
@@ -562,7 +562,7 @@ static NSString *kDisplayedFirstSteps = @"Did we display the first steps tutoria
             file = [(MLAlbumTrack*)tracks[x] files].anyObject;
             [list addMedia:[VLCMedia mediaWithURL: [NSURL URLWithString:file.url]]];
         }
-        [(VLCAppDelegate*)[UIApplication sharedApplication].delegate openMediaList:list atIndex:[tracks indexOfObject:selectedObject]];
+        [(VLCAppDelegate*)[UIApplication sharedApplication].delegate openMediaList:list atIndex:(int)[tracks indexOfObject:selectedObject]];
     } else
         [self openMediaObject:selectedObject];
 }
