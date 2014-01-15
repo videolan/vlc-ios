@@ -1,0 +1,48 @@
+From 2995fa6f6e1dbe75f81c2303216c3091aed20ac4 Mon Sep 17 00:00:00 2001
+From: =?UTF-8?q?Felix=20Paul=20K=C3=BChne?= <fkuehne@videolan.org>
+Date: Wed, 15 Jan 2014 15:56:43 +0100
+Subject: [PATCH 5/5] Upgrade default target
+
+---
+ client/iOS/QuincyLib/QuincyLib.xcodeproj/project.pbxproj | 4 ++++
+ 1 file changed, 4 insertions(+)
+
+diff --git a/client/iOS/QuincyLib/QuincyLib.xcodeproj/project.pbxproj b/client/iOS/QuincyLib/QuincyLib.xcodeproj/project.pbxproj
+index df75985..6daa627 100644
+--- a/client/iOS/QuincyLib/QuincyLib.xcodeproj/project.pbxproj
++++ b/client/iOS/QuincyLib/QuincyLib.xcodeproj/project.pbxproj
+@@ -189,6 +189,7 @@
+ 		36892BFA145EC96B0036932D /* Debug */ = {
+ 			isa = XCBuildConfiguration;
+ 			buildSettings = {
++				ARCHS = "$(ARCHS_STANDARD_INCLUDING_64_BIT)";
+ 				DSTROOT = /tmp/QuincyLib.dst;
+ 				FRAMEWORK_SEARCH_PATHS = (
+ 					"$(inherited)",
+@@ -201,6 +202,7 @@
+ 					"$(inherited)",
+ 					"\"$(SRCROOT)/../../../../PLCrashReporter/Source\"",
+ 				);
++				IPHONEOS_DEPLOYMENT_TARGET = 5.1.1;
+ 				OTHER_LDFLAGS = "-ObjC";
+ 				PRODUCT_NAME = "$(TARGET_NAME)";
+ 				SKIP_INSTALL = YES;
+@@ -210,6 +212,7 @@
+ 		36892BFB145EC96B0036932D /* Release */ = {
+ 			isa = XCBuildConfiguration;
+ 			buildSettings = {
++				ARCHS = "$(ARCHS_STANDARD_INCLUDING_64_BIT)";
+ 				DSTROOT = /tmp/QuincyLib.dst;
+ 				FRAMEWORK_SEARCH_PATHS = (
+ 					"$(inherited)",
+@@ -222,6 +225,7 @@
+ 					"$(inherited)",
+ 					"\"$(SRCROOT)/../../../../PLCrashReporter/Source\"",
+ 				);
++				IPHONEOS_DEPLOYMENT_TARGET = 5.1.1;
+ 				OTHER_LDFLAGS = "-ObjC";
+ 				PRODUCT_NAME = "$(TARGET_NAME)";
+ 				SKIP_INSTALL = YES;
+-- 
+1.8.3.4 (Apple Git-47)
+
