@@ -183,7 +183,7 @@ cd ..
 fi
 if ! [ -e GDrive ]; then
 svn checkout http://google-api-objectivec-client.googlecode.com/svn/trunk/Source GDrive
-cd GDrive && patch -p1 < ../../patches/gdrive/upgrade-default-target.patch && cd ..
+cd GDrive && patch -p0 < ../../patches/gdrive/upgrade-default-target.patch && cd ..
 else
 cd GDrive && svn up && cd ..
 fi
