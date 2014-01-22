@@ -1,3 +1,7 @@
+2.2.1:
+------
+* Added initial support for ARM64 aka AArch64 aka ARMv8
+
 2.2.0:
 ------
 NB: This release removes support for iOS 5 and therefore the first generation
