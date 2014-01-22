@@ -140,8 +140,8 @@ fi
 if ! [ -e VLCKit ]; then
 git clone git://git.videolan.org/vlc-bindings/VLCKit.git
 cd VLCKit
-git checkout -B localAspenBranch ${TESTEDVLCKITHASH}
-git branch --set-upstream-to=origin/master localAspenBranch
+git checkout 2.1-stable
+git reset --hard ${TESTEDVLCKITHASH}
 cd ..
 else
 cd VLCKit
