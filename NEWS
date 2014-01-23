@@ -1,6 +1,7 @@
 2.2.1:
 ------
 * Added initial support for ARM64 aka AArch64 aka ARMv8
+* Improved reliability for Dropbox streaming
 
 2.2.0:
 ------

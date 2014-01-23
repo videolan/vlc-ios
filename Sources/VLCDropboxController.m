@@ -183,8 +183,7 @@
 - (void)restClient:(DBRestClient*)restClient loadedStreamableURL:(NSURL*)url forFile:(NSString*)path
 {
     VLCAppDelegate *appDelegate = (VLCAppDelegate *)[UIApplication sharedApplication].delegate;
-    /* DBX returns a https URL which we don't support yet. in turn, we fall back on http */
-    [appDelegate openMovieFromURL:[NSURL URLWithString:[NSString stringWithFormat:@"http://%@%@", url.host, url.path]]];
+    [appDelegate openMovieFromURL:url];
 }
 
 - (void)restClient:(DBRestClient*)restClient loadStreamableURLFailedWithError:(NSError*)error
