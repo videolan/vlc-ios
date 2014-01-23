@@ -83,7 +83,7 @@
     if (_statusCode == 200) {
         _expectedDownloadSize = [response expectedContentLength];
         [self.delegate downloadStarted];
-        APLog(@"expected download size: %lu", _expectedDownloadSize);
+        APLog(@"expected download size: %lu", (unsigned long)_expectedDownloadSize);
     } else {
         APLog(@"unhandled status code %lu", (unsigned long)_statusCode);
         if ([self.delegate respondsToSelector:@selector(downloadFailedWithErrorDescription:)])

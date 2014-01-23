@@ -287,7 +287,7 @@
 		7D897888185E130E009BAB5D /* Quincy.bundle in Resources */ = {isa = PBXBuildFile; fileRef = 7D897887185E130E009BAB5D /* Quincy.bundle */; };
 		7D89788A185E1344009BAB5D /* libCrashReporter.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 7D897889185E1344009BAB5D /* libCrashReporter.a */; };
 		7D89788C185E1353009BAB5D /* libQuincyLib.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 7D89788B185E1353009BAB5D /* libQuincyLib.a */; };
-		7D89788F185E137B009BAB5D /* BWQuincyManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 7D89788E185E137B009BAB5D /* BWQuincyManager.m */; settings = {COMPILER_FLAGS = "-fno-objc-arc"; }; };
+		7D89788F185E137B009BAB5D /* BWQuincyManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 7D89788E185E137B009BAB5D /* BWQuincyManager.m */; };
 		7D897895185E14A7009BAB5D /* libGTLTouchStaticLib.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 7D897894185E14A7009BAB5D /* libGTLTouchStaticLib.a */; };
 		7D9289751877459B009108FD /* VLCFirstStepsThirdPageViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 7D9289731877459B009108FD /* VLCFirstStepsThirdPageViewController.m */; };
 		7D9289761877459B009108FD /* VLCFirstStepsThirdPageViewController~iphone.xib in Resources */ = {isa = PBXBuildFile; fileRef = 7D9289741877459B009108FD /* VLCFirstStepsThirdPageViewController~iphone.xib */; };
