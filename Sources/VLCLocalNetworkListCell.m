@@ -62,6 +62,19 @@
     self.thumbnailView.image = icon;
 }
 
+- (void)setIconURL:(NSURL *)iconURL
+{
+    _iconURL = iconURL;
+    [self performSelectorInBackground:@selector(_updateIconFromURL) withObject:@""];
+}
+
+- (void)_updateIconFromURL
+{
+    NSData* imageData = [[NSData alloc]initWithContentsOfURL:self.iconURL];
+    UIImage* image = [[UIImage alloc] initWithData:imageData];
+    [self setIcon:image];
+}
+
 - (void)setIsDownloadable:(BOOL)isDownloadable
 {
     self.downloadButton.hidden = !isDownloadable;

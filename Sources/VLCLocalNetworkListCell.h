@@ -29,6 +29,7 @@
 @property (nonatomic, retain) NSString *title;
 @property (nonatomic, retain) NSString *subtitle;
 @property (nonatomic, retain) UIImage *icon;
+@property (nonatomic, retain) NSURL *iconURL;
 @property (nonatomic, readwrite) BOOL isDownloadable;
 @property (nonatomic, retain) NSURL *downloadURL;
 

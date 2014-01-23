@@ -217,13 +217,9 @@
             [cell setSubtitle: [NSString stringWithFormat:@"%@ (%@)", [NSByteCountFormatter stringFromByteCount:mediaSize countStyle:NSByteCountFormatterCountStyleFile], [VLCTime timeWithInt:durationInSeconds * 1000].stringValue]];
             [cell setIsDirectory:NO];
             cell.isDownloadable = YES;
-            if (![mediaItem.albumArt isEqualToString:NULL]) {
-                NSData* imageData = [[NSData alloc]initWithContentsOfURL:[NSURL URLWithString:mediaItem.albumArt]];
-                UIImage* image = [[UIImage alloc] initWithData:imageData];
-                [cell setIcon:image];
-            }
-            else
-                [cell setIcon:[UIImage imageNamed:@"blank"]];
+            if (![mediaItem.albumArt isEqualToString:NULL])
+                [cell setIconURL:[NSURL URLWithString:mediaItem.albumArt]];
+            [cell setIcon:[UIImage imageNamed:@"blank"]];
             cell.delegate = self;
         } else {
             [cell setIsDirectory:YES];
