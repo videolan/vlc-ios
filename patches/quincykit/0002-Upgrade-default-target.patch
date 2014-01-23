@@ -1,0 +1,88 @@
+From 9d3b2a10d5f6a723d49edaf019c62ad97e8a5763 Mon Sep 17 00:00:00 2001
+From: =?UTF-8?q?Felix=20Paul=20K=C3=BChne?= <fkuehne@videolan.org>
+Date: Thu, 23 Jan 2014 16:30:38 +0100
+Subject: [PATCH 2/3] Upgrade default target
+
+---
+ client/iOS/QuincyLib/QuincyLib.xcodeproj/project.pbxproj | 16 ++++++++++++----
+ 1 file changed, 12 insertions(+), 4 deletions(-)
+
+diff --git a/client/iOS/QuincyLib/QuincyLib.xcodeproj/project.pbxproj b/client/iOS/QuincyLib/QuincyLib.xcodeproj/project.pbxproj
+index 29e2914..7a8adfe 100644
+--- a/client/iOS/QuincyLib/QuincyLib.xcodeproj/project.pbxproj
++++ b/client/iOS/QuincyLib/QuincyLib.xcodeproj/project.pbxproj
+@@ -9,7 +9,6 @@
+ /* Begin PBXBuildFile section */
+ 		1E584C1B1883306000C4D800 /* BWQuincyManagerDelegate.h in Headers */ = {isa = PBXBuildFile; fileRef = 1E584C1A1883306000C4D800 /* BWQuincyManagerDelegate.h */; };
+ 		36892BF0145EC96A0036932D /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 36892BEF145EC96A0036932D /* Foundation.framework */; };
+-		36908F20145ECB090070379E /* CrashReporter.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 36908F1F145ECB090070379E /* CrashReporter.framework */; };
+ 		36908F23145ECB2E0070379E /* BWQuincyManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 36908F22145ECB2E0070379E /* BWQuincyManager.m */; };
+ 		36908F25145ECB370070379E /* BWQuincyManager.h in Headers */ = {isa = PBXBuildFile; fileRef = 36908F24145ECB370070379E /* BWQuincyManager.h */; settings = {ATTRIBUTES = (); }; };
+ 		A04977691602AF6600DDF6BF /* BWCrashReportTextFormatter.h in Headers */ = {isa = PBXBuildFile; fileRef = A04977671602AF6600DDF6BF /* BWCrashReportTextFormatter.h */; };
+@@ -20,7 +19,6 @@
+ 		1E584C1A1883306000C4D800 /* BWQuincyManagerDelegate.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = BWQuincyManagerDelegate.h; path = ../BWQuincyManagerDelegate.h; sourceTree = "<group>"; };
+ 		36892BEC145EC96A0036932D /* libQuincyLib.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = libQuincyLib.a; sourceTree = BUILT_PRODUCTS_DIR; };
+ 		36892BEF145EC96A0036932D /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = System/Library/Frameworks/Foundation.framework; sourceTree = SDKROOT; };
+-		36908F1F145ECB090070379E /* CrashReporter.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CrashReporter.framework; path = ../CrashReporter.framework; sourceTree = "<group>"; };
+ 		36908F22145ECB2E0070379E /* BWQuincyManager.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = BWQuincyManager.m; path = ../BWQuincyManager.m; sourceTree = "<group>"; };
+ 		36908F24145ECB370070379E /* BWQuincyManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = BWQuincyManager.h; path = ../BWQuincyManager.h; sourceTree = "<group>"; };
+ 		A04977671602AF6600DDF6BF /* BWCrashReportTextFormatter.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = BWCrashReportTextFormatter.h; path = ../BWCrashReportTextFormatter.h; sourceTree = "<group>"; };
+@@ -32,7 +30,6 @@
+ 			isa = PBXFrameworksBuildPhase;
+ 			buildActionMask = 2147483647;
+ 			files = (
+-				36908F20145ECB090070379E /* CrashReporter.framework in Frameworks */,
+ 				36892BF0145EC96A0036932D /* Foundation.framework in Frameworks */,
+ 			);
+ 			runOnlyForDeploymentPostprocessing = 0;
+@@ -60,7 +57,6 @@
+ 		36892BEE145EC96A0036932D /* Frameworks */ = {
+ 			isa = PBXGroup;
+ 			children = (
+-				36908F1F145ECB090070379E /* CrashReporter.framework */,
+ 				36892BEF145EC96A0036932D /* Foundation.framework */,
+ 			);
+ 			name = Frameworks;
+@@ -195,6 +191,7 @@
+ 		36892BFA145EC96B0036932D /* Debug */ = {
+ 			isa = XCBuildConfiguration;
+ 			buildSettings = {
++				ARCHS = "$(ARCHS_STANDARD_INCLUDING_64_BIT)";
+ 				DSTROOT = /tmp/QuincyLib.dst;
+ 				FRAMEWORK_SEARCH_PATHS = (
+ 					"$(inherited)",
+@@ -203,6 +200,11 @@
+ 				);
+ 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
+ 				GCC_PREFIX_HEADER = "";
++				HEADER_SEARCH_PATHS = (
++					"$(inherited)",
++					"/Applications/Xcode51-Beta4.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/include",
++					"\"$(SRCROOT)/../../../../PLCrashReporter/Source\"",
++				);
+ 				PRODUCT_NAME = "$(TARGET_NAME)";
+ 				SKIP_INSTALL = YES;
+ 			};
+@@ -211,6 +213,7 @@
+ 		36892BFB145EC96B0036932D /* Release */ = {
+ 			isa = XCBuildConfiguration;
+ 			buildSettings = {
++				ARCHS = "$(ARCHS_STANDARD_INCLUDING_64_BIT)";
+ 				DSTROOT = /tmp/QuincyLib.dst;
+ 				FRAMEWORK_SEARCH_PATHS = (
+ 					"$(inherited)",
+@@ -219,6 +222,11 @@
+ 				);
+ 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
+ 				GCC_PREFIX_HEADER = "";
++				HEADER_SEARCH_PATHS = (
++					"$(inherited)",
++					"/Applications/Xcode51-Beta4.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/include",
++					"\"$(SRCROOT)/../../../../PLCrashReporter/Source\"",
++				);
+ 				PRODUCT_NAME = "$(TARGET_NAME)";
+ 				SKIP_INSTALL = YES;
+ 			};
+-- 
+1.8.3.4 (Apple Git-47)
+

@@ -14,6 +14,7 @@ SKIPLIBVLCCOMPILATION=no
 
 TESTEDVLCKITHASH=39e59da28
 TESTEDMEDIALIBRARYKITHASH=b4a835ee7
+TESTEDQUINCYKITHASH=f1d93b96b
 
 usage()
 {
@@ -173,6 +174,8 @@ fi
 if ! [ -e QuincyKit ]; then
 git clone git://github.com/TheRealKerni/QuincyKit.git
 cd QuincyKit
+git checkout -B localAspenBranch ${TESTEDQUINCYKITHASH}
+git branch --set-upstream-to=origin/master localAspenBranch
 git am ../../patches/quincykit/*.patch
 if [ $? -ne 0 ]; then
 git am --abort
