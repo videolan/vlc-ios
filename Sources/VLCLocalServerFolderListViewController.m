@@ -196,7 +196,6 @@
 
             MediaServer1ItemRes *resource = nil;
             NSEnumerator *e = [[mediaItem resources] objectEnumerator];
-            NSURL *itemURL;
             while((resource = (MediaServer1ItemRes*)[e nextObject])){
                 if (resource.bitrate > 0 && resource.durationInSeconds > 0) {
                     mediaSize = resource.size;
@@ -204,8 +203,19 @@
                     bitrate = resource.bitrate;
                 }
             }
+            NSURL *itemURL;
+            NSArray *uriCollectionKeys = [[mediaItem uriCollection] allKeys];
+            NSUInteger count = uriCollectionKeys.count;
+            NSRange position;
+            NSUInteger correctIndex = 0;
+            for (NSUInteger i = 0; i < count; i++) {
+                position = [uriCollectionKeys[i] rangeOfString:@"http-get:*:video/"];
+                if (position.location != NSNotFound)
+                    correctIndex = i;
+            }
             NSArray *uriCollectionObjects = [[mediaItem uriCollection] allValues];
-            itemURL = [NSURL URLWithString:uriCollectionObjects[0]];
+
+            itemURL = [NSURL URLWithString:uriCollectionObjects[correctIndex]];
             cell.downloadURL = itemURL;
 
             if (mediaSize < 1)
@@ -288,12 +298,18 @@
                 mediaItem = _mutableObjectList[indexPath.row];
 
             NSURL *itemURL;
+            NSArray *uriCollectionKeys = [[mediaItem uriCollection] allKeys];
+            NSUInteger count = uriCollectionKeys.count;
+            NSRange position;
+            NSUInteger correctIndex = 0;
+            for (NSUInteger i = 0; i < count; i++) {
+                position = [uriCollectionKeys[i] rangeOfString:@"http-get:*:video/"];
+                if (position.location != NSNotFound)
+                    correctIndex = i;
+            }
             NSArray *uriCollectionObjects = [[mediaItem uriCollection] allValues];
-            if (uriCollectionObjects.count == 1)
-                itemURL = [NSURL URLWithString:mediaItem.uri];
-            else
-                itemURL = [NSURL URLWithString:uriCollectionObjects[0]];
 
+            itemURL = [NSURL URLWithString:uriCollectionObjects[correctIndex]];
             if (itemURL) {
                 VLCAppDelegate* appDelegate = [UIApplication sharedApplication].delegate;
                 [appDelegate openMovieFromURL:itemURL];
