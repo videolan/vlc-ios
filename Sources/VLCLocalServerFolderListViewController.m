@@ -337,8 +337,8 @@
                 UIAlertView * alert = [[UIAlertView alloc] initWithTitle:NSLocalizedString(@"FILE_NOT_SUPPORTED", @"") message:[NSString stringWithFormat:NSLocalizedString(@"FILE_NOT_SUPPORTED_LONG", @""), properObjectName] delegate:self cancelButtonTitle:NSLocalizedString(@"BUTTON_CANCEL", @"") otherButtonTitles:nil];
                 [alert show];
             } else
-                [self _openURLStringAndDismiss:[_FTPListDirRequest.fullURLString stringByAppendingString:properObjectName]];
-      }
+                [self _streamFTPFile:properObjectName];
+        }
     }
     [tableView deselectRowAtIndexPath:indexPath animated:NO];
 }
@@ -463,10 +463,12 @@
 }
 
 #pragma mark - communication with playback engine
-- (void)_openURLStringAndDismiss:(NSString *)url
+- (void)_streamFTPFile:(NSString *)fileName
 {
+    NSURL *URLToPlay = [NSURL URLWithString:[[@"ftp" stringByAppendingFormat:@"://%@%@/%@/%@", [self _credentials], _ftpServerAddress, _ftpServerPath, fileName] stringByAddingPercentEscapesUsingEncoding:NSUTF8StringEncoding]];
+
     VLCAppDelegate* appDelegate = [UIApplication sharedApplication].delegate;
-    [appDelegate openMovieFromURL:[NSURL URLWithString:url]];
+    [appDelegate openMovieFromURL:URLToPlay];
 }
 
 #pragma mark - Search Display Controller Delegate
