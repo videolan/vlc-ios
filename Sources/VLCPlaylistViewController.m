@@ -361,6 +361,15 @@ static NSString *kDisplayedFirstSteps = @"Did we display the first steps tutoria
         else if (file.isShowEpisode) {
             if (file.showEpisode.show.episodes.count < 2)
                 [_foundMedia addObject:file];
+
+            /* older MediaLibraryKit versions don't send a show name in a popular
+             * corner case. hence, we need to work-around here and force a reload
+             * afterwards as this could lead to the 'all my shows are gone' 
+             * syndrome (see #10435, #10464, #10432 et al) */
+            if (file.showEpisode.show.name.length == 0) {
+                file.showEpisode.show.name = NSLocalizedString(@"UNTITLED_SHOW", @"");
+                [self performSelector:@selector(updateViewContents) withObject:nil afterDelay:0.1];
+            }
         } else if (file.isAlbumTrack) {
             if (file.albumTrack.album.tracks.count < 2)
                 [_foundMedia addObject:file];
