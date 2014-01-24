@@ -34,6 +34,8 @@
 #define kVLCSettingSubtitlesFontColorDefaultValue @"16777215"
 #define kVLCSettingDeinterlace @"deinterlace"
 #define kVLCSettingDeinterlaceDefaultValue @(0)
+#define kVLCSettingNetworkCaching @"network-caching"
+#define kVLCSettingNetworkCachingDefaultValue @(999)
 #define kVLCSettingsDecrapifyTitles = @"MLDecrapifyTitles";
 
 #define kVLCShowRemainingTime @"show-remaining-time"
