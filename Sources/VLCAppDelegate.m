@@ -64,6 +64,7 @@
     [quincyManager setSubmissionURL:@"http://crash.videolan.org/crash_v200.php"];
     [quincyManager setDelegate:self];
     [quincyManager setShowAlwaysButton:YES];
+    [quincyManager startManager];
 
     /* clean caches on launch (since those are used for wifi upload only) */
     NSArray *searchPaths = NSSearchPathForDirectoriesInDomains(NSCachesDirectory, NSUserDomainMask, YES);
