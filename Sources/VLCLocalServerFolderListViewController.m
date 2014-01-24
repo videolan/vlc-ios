@@ -133,7 +133,8 @@
     _searchDisplayController.delegate = self;
     _searchDisplayController.searchResultsDataSource = self;
     _searchDisplayController.searchResultsDelegate = self;
-    _searchDisplayController.searchBar.searchBarStyle = UIBarStyleBlack;
+    if (SYSTEM_RUNS_IOS7_OR_LATER)
+        _searchDisplayController.searchBar.searchBarStyle = UIBarStyleBlack;
     _searchBar.delegate = self;
     self.tableView.tableHeaderView = _searchBar; //this line add the searchBar on the top of tableView.
 
