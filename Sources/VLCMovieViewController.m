@@ -1381,7 +1381,7 @@
 - (void)endInterruption
 {
     if (_shouldResumePlaying) {
-        [_listPlayer play];
+        [_mediaPlayer play];
         _shouldResumePlaying = NO;
     }
 }
