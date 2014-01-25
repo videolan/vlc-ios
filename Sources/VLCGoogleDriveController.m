@@ -121,7 +121,7 @@
     GTLQueryDrive *query;
 
     query = [GTLQueryDrive queryForFilesList];
-    query.fields = @"items(originalFilename,title,mimeType,fileExtension,fileSize,iconLink,downloadUrl,webContentLink),nextPageToken";
+    query.fields = @"items(originalFilename,title,mimeType,fileExtension,fileSize,iconLink,downloadUrl,webContentLink,thumbnailLink),nextPageToken";
     query.pageToken = _nextPageToken;
     query.maxResults = 100;
 

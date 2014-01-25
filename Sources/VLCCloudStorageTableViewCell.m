@@ -12,6 +12,11 @@
  *****************************************************************************/
 
 #import "VLCCloudStorageTableViewCell.h"
+@interface VLCCloudStorageTableViewCell ()
+{
+    NSURL *_iconURL;
+}
+@end
 
 @implementation VLCCloudStorageTableViewCell
 
@@ -80,7 +85,10 @@
             self.titleLabel.hidden = self.subtitleLabel.hidden = NO;
             self.folderTitleLabel.hidden = YES;
         }
-
+        if (_driveFile.thumbnailLink != nil) {
+            _iconURL = [NSURL URLWithString:_driveFile.thumbnailLink];
+            [self performSelectorInBackground:@selector(_updateIconFromURL) withObject:@""];
+        }
         NSString *iconName = self.driveFile.iconLink;
         if ([iconName isEqualToString:@"https://ssl.gstatic.com/docs/doclist/images/icon_11_shared_collection_list.png"] || [iconName isEqualToString:@"https://ssl.gstatic.com/docs/doclist/images/icon_11_collection_list.png"]) {
             self.thumbnailView.image = [UIImage imageNamed:@"folder"];
@@ -95,6 +103,13 @@
     }
     self.downloadButton.hidden = NO;
     [self setNeedsDisplay];
+}
+
+- (void)_updateIconFromURL
+{
+    NSData* imageData = [[NSData alloc]initWithContentsOfURL:_iconURL];
+    UIImage* image = [[UIImage alloc] initWithData:imageData];
+    self.thumbnailView.image = image;
 }
 
 - (IBAction)triggerDownload:(id)sender
