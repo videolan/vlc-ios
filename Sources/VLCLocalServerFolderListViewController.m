@@ -234,6 +234,8 @@
             cell.delegate = self;
         } else {
             [cell setIsDirectory:YES];
+            if (item.albumArt != nil)
+                [cell setIconURL:[NSURL URLWithString:item.albumArt]];
             [cell setIcon:[UIImage imageNamed:@"folder"]];
         }
         [cell setTitle:[item title]];
