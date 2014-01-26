@@ -166,8 +166,21 @@
 - (void)processContent:(NSData*)data WithHeader:(MultipartMessageHeader*) header
 {
     // here we just write the output from parser to the file.
-    if (_storeFile)
-        [_storeFile writeData:data];
+    if (_storeFile) {
+        @try {
+            [_storeFile writeData:data];
+        }
+        @catch (NSException *exception) {
+            APLog(@"File to write further data because storage is full.");
+        }
+        @finally {
+            [_storeFile closeFile];
+            _storeFile = nil;
+            /* don't block */
+            [self performSelector:@selector(stop) withObject:nil afterDelay:0.1];
+        }
+    }
+
 }
 
 - (void)processEndOfPartWithHeader:(MultipartMessageHeader*)header
