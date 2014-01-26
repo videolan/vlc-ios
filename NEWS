@@ -1,7 +1,7 @@
 2.2.1:
 ------
 * Added initial support for ARM64 aka AArch64 aka ARMv8
-* Improved reliability for Dropbox streaming
+* Improved reliability for Dropbox streaming (#10489)
 * Added option to adapt network caching (#10388)
 * Compatibility fixes for multiple UPnP servers (notably Twonky 7, Serviio 1.4,
   XBMC 12)
@@ -10,6 +10,8 @@
   non-ASCII characters or the path contains spaces (#10469)
 * Improved meta data readability within the iPad library view (#10471)
 * Improved stability on iOS 6
+* Improved Thumbnails
+* Misc stability improvements (#10490)
 
 2.2.0:
 ------
