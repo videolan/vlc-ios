@@ -172,8 +172,6 @@
         }
         @catch (NSException *exception) {
             APLog(@"File to write further data because storage is full.");
-        }
-        @finally {
             [_storeFile closeFile];
             _storeFile = nil;
             /* don't block */
