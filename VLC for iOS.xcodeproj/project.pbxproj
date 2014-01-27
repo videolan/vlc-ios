@@ -658,6 +658,11 @@
 		7D3784EB183A9A1E009EE944 /* VLC for iOS-Prefix.pch */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = "VLC for iOS-Prefix.pch"; path = "Sources/VLC for iOS-Prefix.pch"; sourceTree = SOURCE_ROOT; };
 		7D3E6CE418589EE000D584E7 /* AppIcon512x512.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = AppIcon512x512.png; sourceTree = "<group>"; };
 		7D3EB013174A353E002062C2 /* SystemConfiguration.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = SystemConfiguration.framework; path = System/Library/Frameworks/SystemConfiguration.framework; sourceTree = SDKROOT; };
+		7D4136621896710500D7B4B2 /* si */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = si; path = si.lproj/Localizable.strings; sourceTree = "<group>"; };
+		7D4136631896710500D7B4B2 /* si */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = si; path = "si.lproj/badgeUnread@2x~ipad.png"; sourceTree = "<group>"; };
+		7D4136641896710500D7B4B2 /* si */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = si; path = "si.lproj/badgeUnread@2x~iphone.png"; sourceTree = "<group>"; };
+		7D4136651896710500D7B4B2 /* si */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = si; path = "si.lproj/badgeUnread~ipad.png"; sourceTree = "<group>"; };
+		7D4136661896710500D7B4B2 /* si */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = si; path = "si.lproj/badgeUnread~iphone.png"; sourceTree = "<group>"; };
 		7D47D6CB1760CD8700E86BAD /* subtitleIcon.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = subtitleIcon.png; sourceTree = "<group>"; };
 		7D47D6CC1760CD8700E86BAD /* subtitleIcon@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "subtitleIcon@2x.png"; sourceTree = "<group>"; };
 		7D47D6CD1760CD8700E86BAD /* videoEffectsIcon.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = videoEffectsIcon.png; sourceTree = "<group>"; };
@@ -2189,6 +2194,11 @@
 				CLASSPREFIX = VLC;
 				LastUpgradeCheck = 0460;
 				ORGANIZATIONNAME = VideoLAN;
+				TargetAttributes = {
+					7D94FCDA16DE7D1000F2623B = {
+						DevelopmentTeam = 75GAHG3SZQ;
+					};
+				};
 			};
 			buildConfigurationList = 7D94FCD616DE7D1000F2623B /* Build configuration list for PBXProject "VLC for iOS" */;
 			compatibilityVersion = "Xcode 3.2";
@@ -2229,6 +2239,7 @@
 				fa,
 				"es-MX",
 				ms,
+				si,
 			);
 			mainGroup = 7D94FCD216DE7D1000F2623B;
 			productRefGroup = 7D94FCDC16DE7D1000F2623B /* Products */;
@@ -2657,6 +2668,7 @@
 				7D8139C41865206300D65504 /* fa */,
 				7D8139C9186520A800D65504 /* es-MX */,
 				7D8139CE1865211900D65504 /* ms */,
+				7D4136631896710500D7B4B2 /* si */,
 			);
 			name = "badgeUnread@2x~ipad.png";
 			sourceTree = "<group>";
@@ -2697,6 +2709,7 @@
 				7D8139C51865206300D65504 /* fa */,
 				7D8139CA186520A800D65504 /* es-MX */,
 				7D8139CF1865211900D65504 /* ms */,
+				7D4136641896710500D7B4B2 /* si */,
 			);
 			name = "badgeUnread@2x~iphone.png";
 			sourceTree = "<group>";
@@ -2737,6 +2750,7 @@
 				7D8139C61865206300D65504 /* fa */,
 				7D8139CB186520A800D65504 /* es-MX */,
 				7D8139D01865211900D65504 /* ms */,
+				7D4136651896710500D7B4B2 /* si */,
 			);
 			name = "badgeUnread~ipad.png";
 			sourceTree = "<group>";
@@ -2777,6 +2791,7 @@
 				7D8139C71865206300D65504 /* fa */,
 				7D8139CC186520A800D65504 /* es-MX */,
 				7D8139D11865211900D65504 /* ms */,
+				7D4136661896710500D7B4B2 /* si */,
 			);
 			name = "badgeUnread~iphone.png";
 			sourceTree = "<group>";
@@ -2817,6 +2832,7 @@
 				7D8139C31865206200D65504 /* fa */,
 				7D8139C8186520A800D65504 /* es-MX */,
 				7D8139CD1865211900D65504 /* ms */,
+				7D4136621896710500D7B4B2 /* si */,
 			);
 			name = Localizable.strings;
 			sourceTree = "<group>";
@@ -2887,6 +2903,8 @@
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_LAUNCHIMAGE_NAME = LaunchImage;
 				CLANG_ENABLE_OBJC_ARC = YES;
+				CODE_SIGN_IDENTITY = "iPhone Developer";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				COPY_PHASE_STRIP = NO;
 				DEAD_CODE_STRIPPING = NO;
 				ENABLE_NS_ASSERTIONS = YES;
@@ -2921,6 +2939,7 @@
 				ONLY_ACTIVE_ARCH = YES;
 				OTHER_LDFLAGS = "-Wl,-no_pie";
 				PRODUCT_NAME = "VLC for iOS";
+				PROVISIONING_PROFILE = "";
 			};
 			name = Debug;
 		};
@@ -2931,8 +2950,8 @@
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_LAUNCHIMAGE_NAME = LaunchImage;
 				CLANG_ENABLE_OBJC_ARC = YES;
-				CODE_SIGN_IDENTITY = "iPhone Distribution";
-				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Distribution";
+				CODE_SIGN_IDENTITY = "iPhone Developer";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				COPY_PHASE_STRIP = YES;
 				DEAD_CODE_STRIPPING = NO;
 				ENABLE_NS_ASSERTIONS = NO;
@@ -3004,8 +3023,8 @@
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_LAUNCHIMAGE_NAME = LaunchImage;
 				CLANG_ENABLE_OBJC_ARC = YES;
-				CODE_SIGN_IDENTITY = "iPhone Distribution";
-				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Distribution";
+				CODE_SIGN_IDENTITY = "iPhone Developer";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				COPY_PHASE_STRIP = YES;
 				DEAD_CODE_STRIPPING = NO;
 				ENABLE_NS_ASSERTIONS = NO;
