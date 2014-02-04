@@ -1,14 +1,14 @@
-From 374bdf801f450cce67ac729baecadbf73af880f7 Mon Sep 17 00:00:00 2001
+From 27b906783eaba79bd5ae71f5bfb61a3038c8dd06 Mon Sep 17 00:00:00 2001
 From: =?UTF-8?q?Felix=20Paul=20K=C3=BChne?= <fkuehne@videolan.org>
-Date: Sun, 15 Dec 2013 17:38:24 +0100
-Subject: [PATCH 2/2] Fix linking withhin ios.git
+Date: Tue, 4 Feb 2014 14:53:50 +0100
+Subject: [PATCH 2/2] Fix linking within the iOS context
 
 ---
- CrashReporter.xcodeproj/project.pbxproj | 36 ++++++++++++++++-----------------
- 1 file changed, 18 insertions(+), 18 deletions(-)
+ CrashReporter.xcodeproj/project.pbxproj | 38 ++++++++++++++++-----------------
+ 1 file changed, 18 insertions(+), 20 deletions(-)
 
 diff --git a/CrashReporter.xcodeproj/project.pbxproj b/CrashReporter.xcodeproj/project.pbxproj
-index a7db131..b371cbf 100644
+index ebcab5d..1467b3c 100644
 --- a/CrashReporter.xcodeproj/project.pbxproj
 +++ b/CrashReporter.xcodeproj/project.pbxproj
 @@ -108,9 +108,9 @@
@@ -117,41 +117,57 @@ index a7db131..b371cbf 100644
  			productType = "com.apple.product-type.library.static";
  		};
  		05CD32680EE93DC3000FDE88 /* Tests-MacOSX */ = {
-@@ -3853,7 +3853,7 @@
+@@ -3775,7 +3775,6 @@
+ 				COPY_PHASE_STRIP = NO;
+ 				DYLIB_COMPATIBILITY_VERSION = 1;
+ 				DYLIB_CURRENT_VERSION = 1;
+-				EFFECTIVE_PLATFORM_NAME = "-iphone";
+ 				FRAMEWORK_VERSION = A;
+ 				GCC_DYNAMIC_NO_PIC = NO;
+ 				GCC_MODEL_TUNING = G5;
+@@ -3801,7 +3800,6 @@
+ 				COPY_PHASE_STRIP = YES;
+ 				DYLIB_COMPATIBILITY_VERSION = 1;
+ 				DYLIB_CURRENT_VERSION = 1;
+-				EFFECTIVE_PLATFORM_NAME = "-iphone";
+ 				FRAMEWORK_VERSION = A;
+ 				GCC_MODEL_TUNING = G5;
+ 				INFOPLIST_FILE = Resources/Info.plist;
+@@ -3855,7 +3853,7 @@
  				"IPHONEOS_DEPLOYMENT_TARGET[arch=arm64]" = 7.0;
  				MACH_O_TYPE = staticlib;
  				ONLY_ACTIVE_ARCH = NO;
 -				PRODUCT_NAME = "CrashReporter${EFFECTIVE_PLATFORM_NAME}";
 +				PRODUCT_NAME = CrashReporter;
  				SDKROOT = iphoneos;
- 				SKIP_INSTALL = NO;
+ 				SKIP_INSTALL = YES;
  				TARGETED_DEVICE_FAMILY = "1,2";
-@@ -3874,7 +3874,7 @@
+@@ -3876,7 +3874,7 @@
  				"IPHONEOS_DEPLOYMENT_TARGET[arch=arm64]" = 7.0;
  				MACH_O_TYPE = staticlib;
  				ONLY_ACTIVE_ARCH = NO;
 -				PRODUCT_NAME = "CrashReporter${EFFECTIVE_PLATFORM_NAME}";
 +				PRODUCT_NAME = CrashReporter;
  				SDKROOT = iphoneos;
- 				SKIP_INSTALL = NO;
+ 				SKIP_INSTALL = YES;
  				TARGETED_DEVICE_FAMILY = "1,2";
-@@ -3896,7 +3896,7 @@
+@@ -3898,7 +3896,7 @@
  				IPHONEOS_DEPLOYMENT_TARGET = 4.3;
  				MACH_O_TYPE = staticlib;
  				ONLY_ACTIVE_ARCH = NO;
 -				PRODUCT_NAME = "CrashReporter${EFFECTIVE_PLATFORM_NAME}";
 +				PRODUCT_NAME = CrashReporter;
  				SDKROOT = iphonesimulator;
- 				SKIP_INSTALL = NO;
+ 				SKIP_INSTALL = YES;
  			};
-@@ -3914,7 +3914,7 @@
+@@ -3916,7 +3914,7 @@
  				IPHONEOS_DEPLOYMENT_TARGET = 4.3;
  				MACH_O_TYPE = staticlib;
  				ONLY_ACTIVE_ARCH = NO;
 -				PRODUCT_NAME = "CrashReporter${EFFECTIVE_PLATFORM_NAME}";
 +				PRODUCT_NAME = CrashReporter;
  				SDKROOT = iphonesimulator;
- 				SKIP_INSTALL = NO;
+ 				SKIP_INSTALL = YES;
  				ZERO_LINK = NO;
 -- 
 1.8.3.4 (Apple Git-47)
