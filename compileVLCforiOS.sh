@@ -11,6 +11,7 @@ VERBOSE=no
 CONFIGURATION="Release"
 NONETWORK=no
 SKIPLIBVLCCOMPILATION=no
+UNSTABLEVLCKIT=no
 
 TESTEDVLCKITHASH=766c3b7fa
 TESTEDMEDIALIBRARYKITHASH=225ab43aa
@@ -19,7 +20,7 @@ TESTEDQUINCYKITHASH=f1d93b96b
 usage()
 {
 cat << EOF
-usage: $0 [-s] [-v] [-k sdk]
+usage: $0 [-s] [-v] [-k sdk] [-d] [-n] [-l] [-u]
 
 OPTIONS
    -k       Specify which sdk to use (see 'xcodebuild -showsdks', current: ${SDK})
@@ -28,6 +29,7 @@ OPTIONS
    -d       Enable Debug
    -n       Skip script steps requiring network interaction
    -l       Skip libvlc compilation
+   -u       Compile unstable version of MobileVLCKit
 EOF
 }
 
@@ -69,7 +71,7 @@ buildxcodeproj()
                IPHONEOS_DEPLOYMENT_TARGET=${SDK_MIN} > ${out}
 }
 
-while getopts "hvsdnlk:" OPTION
+while getopts "hvsdnluk:" OPTION
 do
      case $OPTION in
          h)
@@ -92,6 +94,9 @@ do
              ;;
          k)
              SDK=$OPTARG
+             ;;
+         u)
+             UNSTABLEVLCKIT=yes
              ;;
          ?)
              usage
@@ -138,6 +143,7 @@ git pull --rebase
 git reset --hard ${TESTEDMEDIALIBRARYKITHASH}
 cd ..
 fi
+if [ "$UNSTABLEVLCKIT" = "no" ]; then
 if ! [ -e VLCKit ]; then
 git clone git://git.videolan.org/vlc-bindings/VLCKit.git
 cd VLCKit
@@ -149,6 +155,13 @@ cd VLCKit
 git pull --rebase
 git reset --hard ${TESTEDVLCKITHASH}
 cd ..
+fi
+else
+if ! [ -e VLCKit ]; then
+git clone git://git.videolan.org/vlc-bindings/VLCKit.git
+else
+git pull --rebase
+fi
 fi
 if ! [ -e OBSlider ]; then
 git clone git://github.com/ole/OBSlider.git
