@@ -1,6 +1,8 @@
 2.2.2:
 ------
 * Fixed audio playback regression introduced in previous update
+* Updated translations to Arabic, Chinese (Hans), Dutch, Galician, Hungarian,
+  Portuguese
 
 2.2.1:
 ------
