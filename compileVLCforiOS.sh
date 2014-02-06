@@ -139,7 +139,6 @@ git branch --set-upstream-to=origin/master localAspenBranch
 cd ..
 else
 cd MediaLibraryKit
-git pull --rebase
 git reset --hard ${TESTEDMEDIALIBRARYKITHASH}
 cd ..
 fi
@@ -152,7 +151,6 @@ git reset --hard ${TESTEDVLCKITHASH}
 cd ..
 else
 cd VLCKit
-git pull --rebase
 git reset --hard ${TESTEDVLCKITHASH}
 cd ..
 fi
