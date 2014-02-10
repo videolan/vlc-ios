@@ -2,7 +2,7 @@
  * VLCLocalServerListViewController.m
  * VLC for iOS
  *****************************************************************************
- * Copyright (c) 2013 VideoLAN. All rights reserved.
+ * Copyright (c) 2013-2014 VideoLAN. All rights reserved.
  * $Id$
  *
  * Authors: Felix Paul Kühne <fkuehne # videolan.org>
@@ -242,9 +242,12 @@
     [cell setIcon:nil];
 
     if (section == 0) {
-        BasicUPnPDevice *device = _filteredUPNPDevices[row];
-        [cell setTitle:[device friendlyName]];
-        UIImage *icon = [device smallIcon];
+        UIImage *icon;
+        if (_filteredUPNPDevices.count > row) {
+            BasicUPnPDevice *device = _filteredUPNPDevices[row];
+            [cell setTitle:[device friendlyName]];
+            icon = [device smallIcon];
+        }
         [cell setIcon:icon != nil ? icon : [UIImage imageNamed:@"serverIcon"]];
     } else if (section == 1) {
         if (row == 0)
@@ -267,6 +270,9 @@
     NSUInteger section = indexPath.section;
 
     if (section == 0) {
+        if (_filteredUPNPDevices.count < row || _filteredUPNPDevices.count == 0)
+            return;
+
         [_activityIndicator startAnimating];
         BasicUPnPDevice *device = _filteredUPNPDevices[row];
         if ([[device urn] isEqualToString:@"urn:schemas-upnp-org:device:MediaServer:1"]) {
