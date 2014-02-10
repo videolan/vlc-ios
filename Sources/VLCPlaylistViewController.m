@@ -706,6 +706,10 @@ static NSString *kDisplayedFirstSteps = @"Did we display the first steps tutoria
         indexPaths = [self.collectionView indexPathsForSelectedItems];
     else
         indexPaths = [self.tableView indexPathsForSelectedRows];
+
+    if (indexPaths.count < 1)
+        return;
+
     id mediaObject = _foundMedia[[indexPaths[0] row]];
 
     if ([mediaObject isKindOfClass:[MLAlbum class]] || [mediaObject isKindOfClass:[MLShowEpisode class]] || [mediaObject isKindOfClass:[MLShow class]])
