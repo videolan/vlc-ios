@@ -216,8 +216,10 @@
             }
             NSArray *uriCollectionObjects = [[mediaItem uriCollection] allValues];
 
-            itemURL = [NSURL URLWithString:uriCollectionObjects[correctIndex]];
-            cell.downloadURL = itemURL;
+            if (uriCollectionObjects.count > 0) {
+                itemURL = [NSURL URLWithString:uriCollectionObjects[correctIndex]];
+                cell.downloadURL = itemURL;
+            }
 
             if (mediaSize < 1)
                 mediaSize = [mediaItem.size longLongValue];
@@ -312,7 +314,8 @@
             }
             NSArray *uriCollectionObjects = [[mediaItem uriCollection] allValues];
 
-            itemURL = [NSURL URLWithString:uriCollectionObjects[correctIndex]];
+            if (uriCollectionObjects.count > 0)
+                itemURL = [NSURL URLWithString:uriCollectionObjects[correctIndex]];
             if (itemURL) {
                 VLCAppDelegate* appDelegate = [UIApplication sharedApplication].delegate;
                 [appDelegate openMovieFromURL:itemURL];
