@@ -346,15 +346,17 @@
 
 #pragma mark - custom table view appearance
 
-- (CGFloat)tableView:(UITableView *)tableView heightForHeaderInSection:(NSInteger)section {
+- (CGFloat)tableView:(UITableView *)tableView heightForHeaderInSection:(NSInteger)section
+{
     return 21.f;
 }
 
-- (UIView *)tableView:(UITableView *)tableView viewForHeaderInSection:(NSInteger)section {
-	NSObject *headerText = NSLocalizedString(_sectionHeaderTexts[section], @"");
-	UIView *headerView = nil;
-	if (headerText != [NSNull null]) {
-		headerView = [[UIView alloc] initWithFrame:CGRectMake(0.0f, 0.0f, [UIScreen mainScreen].bounds.size.height, 21.0f)];
+- (UIView *)tableView:(UITableView *)tableView viewForHeaderInSection:(NSInteger)section
+{
+    NSObject *headerText = NSLocalizedString(_sectionHeaderTexts[section], @"");
+    UIView *headerView = nil;
+    if (headerText != [NSNull null]) {
+        headerView = [[UIView alloc] initWithFrame:CGRectMake(0.0f, 0.0f, [UIScreen mainScreen].bounds.size.height, 21.0f)];
         if (!SYSTEM_RUNS_IOS7_OR_LATER) {
             CAGradientLayer *gradient = [CAGradientLayer layer];
             gradient.frame = headerView.bounds;
@@ -366,24 +368,24 @@
         } else
             headerView.backgroundColor = [UIColor colorWithWhite:.122 alpha:1.];
 
-		UILabel *textLabel = [[UILabel alloc] initWithFrame:CGRectInset(headerView.bounds, 12.0f, 5.0f)];
-		textLabel.text = (NSString *) headerText;
-		textLabel.font = [UIFont fontWithName:@"Helvetica-Bold" size:([UIFont systemFontSize] * 0.8f)];
-		textLabel.shadowOffset = CGSizeMake(0.0f, 1.0f);
-		textLabel.shadowColor = [UIColor colorWithWhite:0.0f alpha:0.25f];
-		textLabel.textColor = [UIColor colorWithRed:(118.0f/255.0f) green:(118.0f/255.0f) blue:(118.0f/255.0f) alpha:1.0f];
-		textLabel.backgroundColor = [UIColor clearColor];
-		[headerView addSubview:textLabel];
+        UILabel *textLabel = [[UILabel alloc] initWithFrame:CGRectInset(headerView.bounds, 12.0f, 5.0f)];
+        textLabel.text = (NSString *) headerText;
+        textLabel.font = [UIFont fontWithName:@"Helvetica-Bold" size:([UIFont systemFontSize] * 0.8f)];
+        textLabel.shadowOffset = CGSizeMake(0.0f, 1.0f);
+        textLabel.shadowColor = [UIColor colorWithWhite:0.0f alpha:0.25f];
+        textLabel.textColor = [UIColor colorWithRed:(118.0f/255.0f) green:(118.0f/255.0f) blue:(118.0f/255.0f) alpha:1.0f];
+        textLabel.backgroundColor = [UIColor clearColor];
+        [headerView addSubview:textLabel];
 
-		UIView *topLine = [[UIView alloc] initWithFrame:CGRectMake(0.0f, 0.0f, [UIScreen mainScreen].bounds.size.height, 1.0f)];
-		topLine.backgroundColor = [UIColor colorWithRed:(95.0f/255.0f) green:(95.0f/255.0f) blue:(95.0f/255.0f) alpha:1.0f];
-		[headerView addSubview:topLine];
+        UIView *topLine = [[UIView alloc] initWithFrame:CGRectMake(0.0f, 0.0f, [UIScreen mainScreen].bounds.size.height, 1.0f)];
+        topLine.backgroundColor = [UIColor colorWithRed:(95.0f/255.0f) green:(95.0f/255.0f) blue:(95.0f/255.0f) alpha:1.0f];
+        [headerView addSubview:topLine];
 
-		UIView *bottomLine = [[UIView alloc] initWithFrame:CGRectMake(0.0f, 21.0f, [UIScreen mainScreen].bounds.size.height, 1.0f)];
-		bottomLine.backgroundColor = [UIColor colorWithRed:(16.0f/255.0f) green:(16.0f/255.0f) blue:(16.0f/255.0f) alpha:1.0f];
-		[headerView addSubview:bottomLine];
-	}
-	return headerView;
+        UIView *bottomLine = [[UIView alloc] initWithFrame:CGRectMake(0.0f, 21.0f, [UIScreen mainScreen].bounds.size.height, 1.0f)];
+        bottomLine.backgroundColor = [UIColor colorWithRed:(16.0f/255.0f) green:(16.0f/255.0f) blue:(16.0f/255.0f) alpha:1.0f];
+        [headerView addSubview:bottomLine];
+    }
+    return headerView;
 }
 
 #pragma mark - bonjour discovery
@@ -424,10 +426,12 @@
 
 #pragma mark - UPNP details
 //protocol UPnPDBObserver
-- (void)UPnPDBWillUpdate:(UPnPDB*)sender{
+- (void)UPnPDBWillUpdate:(UPnPDB*)sender
+{
 }
 
-- (void)UPnPDBUpdated:(UPnPDB*)sender{
+- (void)UPnPDBUpdated:(UPnPDB*)sender
+{
     NSUInteger count = _UPNPdevices.count;
     BasicUPnPDevice *device;
     NSMutableArray *mutArray = [[NSMutableArray alloc] init];

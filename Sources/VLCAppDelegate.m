@@ -209,7 +209,8 @@
 
 #pragma mark - media discovering
 
-- (void)mediaFileAdded:(NSString *)fileName loading:(BOOL)isLoading {
+- (void)mediaFileAdded:(NSString *)fileName loading:(BOOL)isLoading
+{
     if (!isLoading) {
         MLMediaLibrary *sharedLibrary = [MLMediaLibrary sharedMediaLibrary];
         [sharedLibrary addFilePaths:@[fileName]];
@@ -224,7 +225,8 @@
     }
 }
 
-- (void)mediaFileDeleted:(NSString *)name {
+- (void)mediaFileDeleted:(NSString *)name
+{
     [[MLMediaLibrary sharedMediaLibrary] updateMediaDatabase];
     [_playlistViewController updateViewContents];
 }
@@ -351,6 +353,5 @@
     navCon.modalPresentationStyle = UIModalPresentationFullScreen;
     [self.window.rootViewController presentViewController:navCon animated:YES completion:nil];
 }
-
 
 @end

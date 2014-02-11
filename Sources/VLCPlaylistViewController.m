@@ -59,7 +59,8 @@ static NSString *kDisplayedFirstSteps = @"Did we display the first steps tutoria
     [defaults registerDefaults:@{kDisplayedFirstSteps : [NSNumber numberWithBool:NO]}];
 }
 
-- (void)loadView {
+- (void)loadView
+{
     if (UI_USER_INTERFACE_IDIOM() == UIUserInterfaceIdiomPhone) {
         _tableView = [[UITableView alloc] initWithFrame:[UIScreen mainScreen].bounds style:UITableViewStylePlain];
         _tableView.backgroundColor = [UIColor colorWithWhite:.122 alpha:1.];
@@ -749,7 +750,8 @@ static NSString *kDisplayedFirstSteps = @"Did we display the first steps tutoria
 // RootController is responsible for supporting interface orientation(iOS6.0+), i.e. navigation controller
 // so this will not work as intended without "voodoo magic"(UINavigationController category, subclassing, etc)
 /* introduced in iOS 6 */
-- (NSUInteger)supportedInterfaceOrientations {
+- (NSUInteger)supportedInterfaceOrientations
+{
     if (UI_USER_INTERFACE_IDIOM() == UIUserInterfaceIdiomPad)
         return UIInterfaceOrientationMaskAll;
 
@@ -758,11 +760,13 @@ static NSString *kDisplayedFirstSteps = @"Did we display the first steps tutoria
 }
 
 /* introduced in iOS 6 */
-- (BOOL)shouldAutorotate {
+- (BOOL)shouldAutorotate
+{
     return (UI_USER_INTERFACE_IDIOM() == UIUserInterfaceIdiomPad) || (_foundMedia.count > 0);
 }
 
-- (void)willRotateToInterfaceOrientation:(UIInterfaceOrientation)toInterfaceOrientation duration:(NSTimeInterval)duration {
+- (void)willRotateToInterfaceOrientation:(UIInterfaceOrientation)toInterfaceOrientation duration:(NSTimeInterval)duration
+{
     [super willRotateToInterfaceOrientation:toInterfaceOrientation duration:duration];
 
     if (UI_USER_INTERFACE_IDIOM() == UIUserInterfaceIdiomPad)

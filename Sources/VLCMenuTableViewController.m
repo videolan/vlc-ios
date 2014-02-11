@@ -66,7 +66,7 @@
     [super viewDidLoad];
 
     self.view.frame = CGRectMake(0.0f, 0.0f, kGHRevealSidebarWidth, CGRectGetHeight(self.view.bounds));
-	self.view.autoresizingMask = UIViewAutoresizingFlexibleHeight;
+    self.view.autoresizingMask = UIViewAutoresizingFlexibleHeight;
 
     _sectionHeaderTexts = @[@"SECTION_HEADER_LIBRARY", @"SECTION_HEADER_NETWORK", @"Settings"];
     _menuItemsSectionOne = @[@"LIBRARY_ALL_FILES", @"LIBRARY_MUSIC", @"LIBRARY_SERIES"];
@@ -75,10 +75,10 @@
 
     _tableView = [[UITableView alloc] initWithFrame:CGRectMake(0.0f, 44.0f + 20.0f, kGHRevealSidebarWidth, CGRectGetHeight(self.view.bounds) - (44.0f + 20.0f)) style:UITableViewStylePlain];
     _tableView.delegate = self;
-	_tableView.dataSource = self;
-	_tableView.autoresizingMask = UIViewAutoresizingFlexibleHeight;
-	_tableView.backgroundColor = [UIColor colorWithRed:(43.0f/255.0f) green:(43.0f/255.0f) blue:(43.0f/255.0f) alpha:1.0f];
-	_tableView.separatorStyle = UITableViewCellSeparatorStyleNone;
+    _tableView.dataSource = self;
+    _tableView.autoresizingMask = UIViewAutoresizingFlexibleHeight;
+    _tableView.backgroundColor = [UIColor colorWithRed:(43.0f/255.0f) green:(43.0f/255.0f) blue:(43.0f/255.0f) alpha:1.0f];
+    _tableView.separatorStyle = UITableViewCellSeparatorStyleNone;
     _tableView.rowHeight = [VLCWiFiUploadTableViewCell heightOfCell];
     _tableView.scrollsToTop = NO;
 
@@ -120,8 +120,9 @@
     [self updateHTTPServerAddress];
 }
 
-- (void)viewWillAppear:(BOOL)animated {
-	self.view.frame = CGRectMake(0.0f, 0.0f,kGHRevealSidebarWidth, CGRectGetHeight(self.view.bounds));
+- (void)viewWillAppear:(BOOL)animated
+{
+    self.view.frame = CGRectMake(0.0f, 0.0f,kGHRevealSidebarWidth, CGRectGetHeight(self.view.bounds));
     [self netReachabilityChanged:nil];
 }
 
@@ -142,14 +143,16 @@
 - (BOOL)shouldAutorotate
 {
     UIInterfaceOrientation orientation = [[UIApplication sharedApplication] statusBarOrientation];
-	return (orientation == UIInterfaceOrientationPortraitUpsideDown) ? (UI_USER_INTERFACE_IDIOM() == UIUserInterfaceIdiomPad) : YES;
+    return (orientation == UIInterfaceOrientationPortraitUpsideDown) ? (UI_USER_INTERFACE_IDIOM() == UIUserInterfaceIdiomPad) : YES;
 }
 
-- (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView {
+- (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView
+{
     return 3;
 }
 
-- (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section {
+- (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section
+{
     if (section == 0) // media
         return _menuItemsSectionOne.count;
     else if (section == 1) // network
@@ -160,7 +163,8 @@
         return 0;
 }
 
-- (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
+- (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
+{
     static NSString *CellIdentifier = @"VLCMenuCell";
     static NSString *WiFiCellIdentifier = @"VLCMenuWiFiCell";
 
@@ -224,17 +228,19 @@
 }
 
 #pragma mark - tv delegate
-- (CGFloat)tableView:(UITableView *)tableView heightForHeaderInSection:(NSInteger)section {
+- (CGFloat)tableView:(UITableView *)tableView heightForHeaderInSection:(NSInteger)section
+{
     if (section < 3)
         return 21.f;
     return 0.;
 }
 
-- (UIView *)tableView:(UITableView *)tableView viewForHeaderInSection:(NSInteger)section {
-	NSObject *headerText = NSLocalizedString(_sectionHeaderTexts[section], @"");
-	UIView *headerView = nil;
-	if (headerText != [NSNull null]) {
-		headerView = [[UIView alloc] initWithFrame:CGRectMake(0.0f, 0.0f, [UIScreen mainScreen].bounds.size.height, 21.0f)];
+- (UIView *)tableView:(UITableView *)tableView viewForHeaderInSection:(NSInteger)section
+{
+    NSObject *headerText = NSLocalizedString(_sectionHeaderTexts[section], @"");
+    UIView *headerView = nil;
+    if (headerText != [NSNull null]) {
+        headerView = [[UIView alloc] initWithFrame:CGRectMake(0.0f, 0.0f, [UIScreen mainScreen].bounds.size.height, 21.0f)];
         if (!SYSTEM_RUNS_IOS7_OR_LATER) {
             CAGradientLayer *gradient = [CAGradientLayer layer];
             gradient.frame = headerView.bounds;
@@ -246,24 +252,24 @@
         } else
             headerView.backgroundColor = [UIColor colorWithWhite:.122 alpha:1.];
 
-		UILabel *textLabel = [[UILabel alloc] initWithFrame:CGRectInset(headerView.bounds, 12.0f, 5.0f)];
-		textLabel.text = (NSString *) headerText;
-		textLabel.font = [UIFont fontWithName:@"Helvetica-Bold" size:([UIFont systemFontSize] * 0.8f)];
-		textLabel.shadowOffset = CGSizeMake(0.0f, 1.0f);
-		textLabel.shadowColor = [UIColor colorWithWhite:0.0f alpha:0.25f];
-		textLabel.textColor = [UIColor colorWithRed:(118.0f/255.0f) green:(118.0f/255.0f) blue:(118.0f/255.0f) alpha:1.0f];
-		textLabel.backgroundColor = [UIColor clearColor];
-		[headerView addSubview:textLabel];
+        UILabel *textLabel = [[UILabel alloc] initWithFrame:CGRectInset(headerView.bounds, 12.0f, 5.0f)];
+        textLabel.text = (NSString *) headerText;
+        textLabel.font = [UIFont fontWithName:@"Helvetica-Bold" size:([UIFont systemFontSize] * 0.8f)];
+        textLabel.shadowOffset = CGSizeMake(0.0f, 1.0f);
+        textLabel.shadowColor = [UIColor colorWithWhite:0.0f alpha:0.25f];
+        textLabel.textColor = [UIColor colorWithRed:(118.0f/255.0f) green:(118.0f/255.0f) blue:(118.0f/255.0f) alpha:1.0f];
+        textLabel.backgroundColor = [UIColor clearColor];
+        [headerView addSubview:textLabel];
 
-		UIView *topLine = [[UIView alloc] initWithFrame:CGRectMake(0.0f, 0.0f, [UIScreen mainScreen].bounds.size.height, 1.0f)];
-		topLine.backgroundColor = [UIColor colorWithRed:(95.0f/255.0f) green:(95.0f/255.0f) blue:(95.0f/255.0f) alpha:1.0f];
-		[headerView addSubview:topLine];
+        UIView *topLine = [[UIView alloc] initWithFrame:CGRectMake(0.0f, 0.0f, [UIScreen mainScreen].bounds.size.height, 1.0f)];
+        topLine.backgroundColor = [UIColor colorWithRed:(95.0f/255.0f) green:(95.0f/255.0f) blue:(95.0f/255.0f) alpha:1.0f];
+        [headerView addSubview:topLine];
 
-		UIView *bottomLine = [[UIView alloc] initWithFrame:CGRectMake(0.0f, 21.0f, [UIScreen mainScreen].bounds.size.height, 1.0f)];
-		bottomLine.backgroundColor = [UIColor colorWithRed:(16.0f/255.0f) green:(16.0f/255.0f) blue:(16.0f/255.0f) alpha:1.0f];
-		[headerView addSubview:bottomLine];
-	}
-	return headerView;
+        UIView *bottomLine = [[UIView alloc] initWithFrame:CGRectMake(0.0f, 21.0f, [UIScreen mainScreen].bounds.size.height, 1.0f)];
+        bottomLine.backgroundColor = [UIColor colorWithRed:(16.0f/255.0f) green:(16.0f/255.0f) blue:(16.0f/255.0f) alpha:1.0f];
+        [headerView addSubview:bottomLine];
+    }
+    return headerView;
 }
 
 #pragma mark - menu implementation
@@ -357,29 +363,33 @@
         _revealController.contentViewController = navCon;
     }
 
-	[_revealController toggleSidebar:NO duration:kGHRevealSidebarDefaultAnimationDuration];
+    [_revealController toggleSidebar:NO duration:kGHRevealSidebarDefaultAnimationDuration];
 }
 
-- (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
-	[self _revealItem:indexPath.row inSection:indexPath.section];
+- (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
+{
+    [self _revealItem:indexPath.row inSection:indexPath.section];
 }
 
 #pragma mark Public Methods
-- (void)selectRowAtIndexPath:(NSIndexPath *)indexPath animated:(BOOL)animated scrollPosition:(UITableViewScrollPosition)scrollPosition {
-	[self.tableView selectRowAtIndexPath:indexPath animated:animated scrollPosition:scrollPosition];
-	if (scrollPosition == UITableViewScrollPositionNone)
-		[self.tableView scrollToRowAtIndexPath:indexPath atScrollPosition:scrollPosition animated:animated];
+- (void)selectRowAtIndexPath:(NSIndexPath *)indexPath animated:(BOOL)animated scrollPosition:(UITableViewScrollPosition)scrollPosition
+{
+    [self.tableView selectRowAtIndexPath:indexPath animated:animated scrollPosition:scrollPosition];
+    if (scrollPosition == UITableViewScrollPositionNone)
+        [self.tableView scrollToRowAtIndexPath:indexPath atScrollPosition:scrollPosition animated:animated];
 
     [self _revealItem:indexPath.row inSection:indexPath.section];
 }
 
 #pragma mark - shake to support
 
-- (BOOL)canBecomeFirstResponder {
+- (BOOL)canBecomeFirstResponder
+{
     return YES;
 }
 
-- (void)motionEnded:(UIEventSubtype)motion withEvent:(UIEvent *)event {
+- (void)motionEnded:(UIEventSubtype)motion withEvent:(UIEvent *)event
+{
     if (motion == UIEventSubtypeMotionShake)
         [[VLCBugreporter sharedInstance] handleBugreportRequest];
 }

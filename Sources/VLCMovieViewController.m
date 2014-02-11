@@ -975,7 +975,8 @@
     [_subtitleActionSheet showInView:(UIButton *)sender];
 }
 
-- (void)actionSheet:(UIActionSheet *)actionSheet clickedButtonAtIndex:(NSInteger)buttonIndex {
+- (void)actionSheet:(UIActionSheet *)actionSheet clickedButtonAtIndex:(NSInteger)buttonIndex
+{
     if (buttonIndex == [actionSheet cancelButtonIndex])
         return;
 
@@ -1360,7 +1361,8 @@
            || toInterfaceOrientation != UIInterfaceOrientationPortraitUpsideDown;
 }
 
-- (void)willRotateToInterfaceOrientation:(UIInterfaceOrientation)toInterfaceOrientation duration:(NSTimeInterval)duration {
+- (void)willRotateToInterfaceOrientation:(UIInterfaceOrientation)toInterfaceOrientation duration:(NSTimeInterval)duration
+{
     [super willRotateToInterfaceOrientation:toInterfaceOrientation duration:duration];
 
     if (UI_USER_INTERFACE_IDIOM() == UIUserInterfaceIdiomPhone) {

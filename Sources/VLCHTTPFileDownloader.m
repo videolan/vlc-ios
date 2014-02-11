@@ -122,13 +122,15 @@
     [fileHandle closeFile];
 }
 
--(void)connectionDidFinishLoading:(NSURLConnection *)connection {
+-(void)connectionDidFinishLoading:(NSURLConnection *)connection
+{
     APLog(@"http file download complete");
 
     [self _downloadEnded];
 }
 
--(void)connection:(NSURLConnection *)connection didFailWithError:(NSError *)error {
+-(void)connection:(NSURLConnection *)connection didFailWithError:(NSError *)error
+{
     APLog(@"http file download failed (%li)", (long)error.code);
 
     if ([self.delegate respondsToSelector:@selector(downloadFailedWithErrorDescription:)])

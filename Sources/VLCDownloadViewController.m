@@ -394,7 +394,8 @@
 }
 
 #pragma mark - text view delegate
-- (BOOL)textFieldShouldReturn:(UITextField *)textField {
+- (BOOL)textFieldShouldReturn:(UITextField *)textField
+{
     [self.urlField resignFirstResponder];
     return NO;
 }

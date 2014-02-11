@@ -156,24 +156,18 @@
 }
 
 #pragma mark - text view delegate
-- (BOOL)textFieldShouldReturn:(UITextField *)textField {
-
-    if ([self.serverAddressField isFirstResponder])
-    {
+- (BOOL)textFieldShouldReturn:(UITextField *)textField
+{
+    if ([self.serverAddressField isFirstResponder]) {
         [self.serverAddressField resignFirstResponder];
         [self.usernameField becomeFirstResponder];
-    }
-    else if ([self.usernameField isFirstResponder])
-    {
+    } else if ([self.usernameField isFirstResponder]) {
         [self.usernameField resignFirstResponder];
         [self.passwordField becomeFirstResponder];
-    }
-    else if ([self.passwordField isFirstResponder])
-    {
+    } else if ([self.passwordField isFirstResponder]) {
         [self.passwordField resignFirstResponder];
         //[self connectToServer:nil];
     }
-
     return NO;
 }
 

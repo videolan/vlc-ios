@@ -161,7 +161,7 @@
 {
     if (tableView == self.searchDisplayController.searchResultsTableView)
         return _searchData.count;
-	else {
+    else {
         if (_serverType == kVLCServerTypeUPNP)
             return _mutableObjectList.count;
 
