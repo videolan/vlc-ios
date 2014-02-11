@@ -286,7 +286,7 @@
 - (IBAction)toggleHTTPServer:(UIButton *)sender
 {
     if (_uploadButton.enabled) {
-        BOOL futureHTTPServerState = ![[NSUserDefaults standardUserDefaults] boolForKey:kVLCSettingSaveHTTPUploadServerStatus];
+        BOOL futureHTTPServerState = !self.uploadController.httpServer.isRunning;
 
         [[NSUserDefaults standardUserDefaults] setBool:futureHTTPServerState forKey:kVLCSettingSaveHTTPUploadServerStatus];
         [self.uploadController changeHTTPServerState:futureHTTPServerState];
