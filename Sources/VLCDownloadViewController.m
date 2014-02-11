@@ -166,11 +166,13 @@
                 downloadWasStarted = YES;
             }
         } else if ([downloadScheme isEqualToString:@"ftp"]) {
-            _currentDownloadType = kVLCDownloadViaFTP;
-            [self _downloadFTPFile:_currentDownloads[0]];
-            _humanReadableFilename = [_currentDownloads[0] lastPathComponent];
-            [_currentDownloads removeObjectAtIndex:0];
-            [_currentDownloadFilename removeObjectAtIndex:0];
+            if (!_FTPDownloadRequest) {
+                _currentDownloadType = kVLCDownloadViaFTP;
+                [self _downloadFTPFile:_currentDownloads[0]];
+                _humanReadableFilename = [_currentDownloads[0] lastPathComponent];
+                [_currentDownloads removeObjectAtIndex:0];
+                [_currentDownloadFilename removeObjectAtIndex:0];
+            }
             downloadWasStarted = YES;
         } else
             APLog(@"Unknown download scheme '%@'", downloadScheme);
