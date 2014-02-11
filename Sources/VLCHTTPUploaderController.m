@@ -23,6 +23,9 @@
 #import <arpa/inet.h>
 
 @implementation VLCHTTPUploaderController
+{
+    UIBackgroundTaskIdentifier _backgroundTaskIdentifier;
+}
 
 - (id)init
 {
@@ -39,12 +42,26 @@
 
 - (void)applicationDidBecomeActive: (NSNotification *)notification
 {
-    [self changeHTTPServerState:[[NSUserDefaults standardUserDefaults] boolForKey:kVLCSettingSaveHTTPUploadServerStatus]];
+    if (!self.httpServer.isRunning)
+        [self changeHTTPServerState:[[NSUserDefaults standardUserDefaults] boolForKey:kVLCSettingSaveHTTPUploadServerStatus]];
+
+    if (_backgroundTaskIdentifier && _backgroundTaskIdentifier != UIBackgroundTaskInvalid) {
+        [[UIApplication sharedApplication] endBackgroundTask:_backgroundTaskIdentifier];
+        _backgroundTaskIdentifier = 0;
+    }
 }
 
 - (void)applicationDidEnterBackground: (NSNotification *)notification
 {
-    [self changeHTTPServerState:NO];
+    if (self.httpServer.isRunning) {
+        if (!_backgroundTaskIdentifier || _backgroundTaskIdentifier == UIBackgroundTaskInvalid) {
+            _backgroundTaskIdentifier = [[UIApplication sharedApplication] beginBackgroundTaskWithName:@"VLCUploader" expirationHandler:^{
+                [self changeHTTPServerState:NO];
+                [[UIApplication sharedApplication] endBackgroundTask:_backgroundTaskIdentifier];
+                _backgroundTaskIdentifier = 0;
+            }];
+        }
+    }
 }
 
 - (BOOL)changeHTTPServerState:(BOOL)state
@@ -88,8 +105,10 @@
                 return true;
         }
 
-        if (error.code != 0)
+        if (error.code != 0) {
             APLog(@"Error starting HTTP Server: %@", error.localizedDescription);
+            [self.httpServer stop];
+        }
         return false;
     }
     return true;
