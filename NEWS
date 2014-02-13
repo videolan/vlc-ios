@@ -5,7 +5,7 @@
 * Added option to disable playback control gestures (#10592)
 * Fixed serial ftp downloads
 * Added support for m4b, caf, oma, w64 audio files
-* Stability improvements and UX tweaks (amongst others #10601)
+* Stability improvements and UX tweaks (amongst others #10601, #10518)
 
 2.2.2:
 ------
