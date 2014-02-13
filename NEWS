@@ -1,6 +1,10 @@
 2.2.3:
 ------
-tba.
+* WiFi uploads and HTTP downloads continue in the background
+  (2 min on iOS 7, 10 min on iOS 6)
+* Fixed serial ftp downloads
+* Added support for m4b, caf, oma, w64 audio files
+* Stability improvements
 
 2.2.2:
 ------
