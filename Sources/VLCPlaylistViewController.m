@@ -697,6 +697,7 @@ static NSString *kDisplayedFirstSteps = @"Did we display the first steps tutoria
     UIAlertView *alert = [[UIAlertView alloc] initWithTitle:[NSString stringWithFormat:NSLocalizedString(@"RENAME_MEDIA_TO", @""), itemName] message:nil delegate:self cancelButtonTitle:NSLocalizedString(@"BUTTON_CANCEL", @"") otherButtonTitles:NSLocalizedString(@"BUTTON_RENAME", @""), nil];
     [alert setAlertViewStyle:UIAlertViewStylePlainTextInput];
     [[alert textFieldAtIndex:0] setText:itemName];
+    [[alert textFieldAtIndex:0] setClearButtonMode:UITextFieldViewModeAlways];
     [alert show];
 }
 
