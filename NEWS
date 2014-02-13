@@ -2,13 +2,14 @@
 ------
 * WiFi uploads and HTTP downloads continue in the background
   (2 min on iOS 7, 10 min on iOS 6)
+* Added option to disable playback control gestures (#10592)
 * Fixed serial ftp downloads
 * Added support for m4b, caf, oma, w64 audio files
-* Stability improvements
+* Stability improvements and UX tweaks (amongst others #10601)
 
 2.2.2:
 ------
-* Fixed audio playback regression introduced in previous update
+* Fixed audio playback regression introduced in previous update (#10597)
 * Updated translations to Arabic, Chinese (Hans), Dutch, Galician, Hungarian,
   Portuguese
 

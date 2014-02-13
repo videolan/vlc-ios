@@ -2,7 +2,7 @@
  * VLCConstants.h
  * VLC for iOS
  *****************************************************************************
- * Copyright (c) 2013 VideoLAN. All rights reserved.
+ * Copyright (c) 2013-2014 VideoLAN. All rights reserved.
  * $Id$
  *
  * Authors: Felix Paul Kühne <fkuehne # videolan.org>
@@ -36,7 +36,8 @@
 #define kVLCSettingDeinterlaceDefaultValue @(0)
 #define kVLCSettingNetworkCaching @"network-caching"
 #define kVLCSettingNetworkCachingDefaultValue @(999)
-#define kVLCSettingsDecrapifyTitles = @"MLDecrapifyTitles";
+#define kVLCSettingsDecrapifyTitles @"MLDecrapifyTitles"
+#define kVLCSettingPlaybackGestures @"EnableGesturesToControlPlayback"
 
 #define kVLCShowRemainingTime @"show-remaining-time"
 #define kVLCRecentURLs @"recent-urls"

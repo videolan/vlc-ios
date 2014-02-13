@@ -57,10 +57,12 @@
 
     BOOL _swipeGesturesEnabled;
     NSString * panType;
+    UIPinchGestureRecognizer *_pinchRecognizer;
     UIPanGestureRecognizer *_panRecognizer;
     UISwipeGestureRecognizer *_swipeRecognizerLeft;
     UISwipeGestureRecognizer *_swipeRecognizerRight;
     UITapGestureRecognizer *_tapRecognizer;
+    UITapGestureRecognizer *_tapOnVideoRecognizer;
 }
 
 @property (nonatomic, strong) UIPopoverController *masterPopoverController;
@@ -88,10 +90,18 @@
         [self.view removeGestureRecognizer:_swipeRecognizerRight];
     if (_panRecognizer)
         [self.view removeGestureRecognizer:_panRecognizer];
+    if (_pinchRecognizer)
+        [self.view removeGestureRecognizer:_pinchRecognizer];
+    [self.view removeGestureRecognizer:_tapOnVideoRecognizer];
+
     _tapRecognizer = nil;
     _swipeRecognizerLeft = nil;
     _swipeRecognizerRight = nil;
     _panRecognizer = nil;
+    _pinchRecognizer = nil;
+    _tapOnVideoRecognizer = nil;
+
+    [[NSNotificationCenter defaultCenter] removeObserver:self];
 }
 
 #pragma mark - Managing the media item
@@ -217,18 +227,19 @@
     self.trackNameLabel.text = self.artistNameLabel.text = self.albumNameLabel.text = @"";
 
     _movieView.userInteractionEnabled = NO;
-    UITapGestureRecognizer *tapOnVideoRecognizer = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(toggleControlsVisible)];
-    tapOnVideoRecognizer.delegate = self;
-    [self.view addGestureRecognizer:tapOnVideoRecognizer];
+    _tapOnVideoRecognizer = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(toggleControlsVisible)];
+    _tapOnVideoRecognizer.delegate = self;
+    [self.view addGestureRecognizer:_tapOnVideoRecognizer];
 
-    _displayRemainingTime = [[[NSUserDefaults standardUserDefaults] objectForKey:kVLCShowRemainingTime] boolValue];
+    NSUserDefaults *defaults = [NSUserDefaults standardUserDefaults];
+    _displayRemainingTime = [[defaults objectForKey:kVLCShowRemainingTime] boolValue];
+    _swipeGesturesEnabled = [[defaults objectForKey:kVLCSettingPlaybackGestures] boolValue];
 
-    UIPinchGestureRecognizer *pinchRecognizer = [[UIPinchGestureRecognizer alloc] initWithTarget:self action:@selector(handlePinchGesture:)];
-    pinchRecognizer.delegate = self;
-    [self.view addGestureRecognizer:pinchRecognizer];
-
-    _swipeGesturesEnabled = YES;
     if (_swipeGesturesEnabled) {
+        _pinchRecognizer = [[UIPinchGestureRecognizer alloc] initWithTarget:self action:@selector(handlePinchGesture:)];
+        _pinchRecognizer.delegate = self;
+        [self.view addGestureRecognizer:_pinchRecognizer];
+
         _tapRecognizer = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(tapRecognized)];
         [_tapRecognizer setNumberOfTouchesRequired:2];
         _panRecognizer = [[UIPanGestureRecognizer alloc] initWithTarget:self action:@selector(panRecognized:)];
@@ -350,6 +361,8 @@
 - (void)viewWillAppear:(BOOL)animated
 {
     [super viewWillAppear:animated];
+
+    _swipeGesturesEnabled = [[[NSUserDefaults standardUserDefaults] objectForKey:kVLCSettingPlaybackGestures] boolValue];
 
     [self.navigationController setNavigationBarHidden:YES animated:YES];
 
@@ -680,12 +693,18 @@
 
 - (void)handlePinchGesture:(UIPinchGestureRecognizer *)recognizer
 {
+    if (!_swipeGesturesEnabled)
+        return;
+
     if (recognizer.velocity < 0.)
         [self closePlayback:nil];
 }
 
 - (BOOL)gestureRecognizer:(UIGestureRecognizer *)gestureRecognizer shouldReceiveTouch:(UITouch *)touch
 {
+    if (!_swipeGesturesEnabled)
+        return NO;
+
     if (touch.view != self.view)
         return NO;
 
@@ -694,6 +713,9 @@
 
 - (BOOL)gestureRecognizer:(UIGestureRecognizer *)gestureRecognizer shouldRecognizeSimultaneouslyWithGestureRecognizer:(UIGestureRecognizer *)otherGestureRecognizer
 {
+    if (!_swipeGesturesEnabled)
+        return NO;
+
     return YES;
 }
 
