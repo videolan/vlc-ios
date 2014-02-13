@@ -78,6 +78,8 @@
 
 - (void)dealloc
 {
+    [[NSNotificationCenter defaultCenter] removeObserver:self];
+
     if (_tapRecognizer)
         [self.view removeGestureRecognizer:_tapRecognizer];
     if (_swipeRecognizerLeft)
@@ -86,8 +88,10 @@
         [self.view removeGestureRecognizer:_swipeRecognizerRight];
     if (_panRecognizer)
         [self.view removeGestureRecognizer:_panRecognizer];
-
-    [[NSNotificationCenter defaultCenter] removeObserver:self];
+    _tapRecognizer = nil;
+    _swipeRecognizerLeft = nil;
+    _swipeRecognizerRight = nil;
+    _panRecognizer = nil;
 }
 
 #pragma mark - Managing the media item
