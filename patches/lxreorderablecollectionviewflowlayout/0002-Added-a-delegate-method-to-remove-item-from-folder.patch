@@ -1,0 +1,58 @@
+From c31e49b00d1934045e3ff6613ce2a39467304879 Mon Sep 17 00:00:00 2001
+From: Carola Nitz <nitz.carola@googlemail.com>
+Date: Sat, 8 Feb 2014 21:09:43 +0100
+Subject: [PATCH] Added a delegate method to remove item from folder
+
+---
+ .../LXReorderableCollectionViewFlowLayout.h                       | 1 +
+ .../LXReorderableCollectionViewFlowLayout.m                       | 8 +++++++-
+ 2 files changed, 8 insertions(+), 1 deletion(-)
+
+diff --git a/LXReorderableCollectionViewFlowLayout/LXReorderableCollectionViewFlowLayout.h b/LXReorderableCollectionViewFlowLayout/LXReorderableCollectionViewFlowLayout.h
+index 76617f4..45c3843 100755
+--- a/LXReorderableCollectionViewFlowLayout/LXReorderableCollectionViewFlowLayout.h
++++ b/LXReorderableCollectionViewFlowLayout/LXReorderableCollectionViewFlowLayout.h
+@@ -24,6 +24,7 @@
+ 
+ - (void)collectionView:(UICollectionView *)collectionView itemAtIndexPath:(NSIndexPath *)fromIndexPath willMoveToIndexPath:(NSIndexPath *)toIndexPath;
+ - (void)collectionView:(UICollectionView *)collectionView itemAtIndexPath:(NSIndexPath *)fromIndexPath didMoveToIndexPath:(NSIndexPath *)toIndexPath;
++- (void)collectionView:(UICollectionView *)collectionView removeItemFromFolderAtIndexPathIfNeeded:(NSIndexPath *)indexPath;
+ 
+ - (BOOL)collectionView:(UICollectionView *)collectionView canMoveItemAtIndexPath:(NSIndexPath *)indexPath;
+ - (BOOL)collectionView:(UICollectionView *)collectionView itemAtIndexPath:(NSIndexPath *)fromIndexPath canMoveToIndexPath:(NSIndexPath *)toIndexPath;
+diff --git a/LXReorderableCollectionViewFlowLayout/LXReorderableCollectionViewFlowLayout.m b/LXReorderableCollectionViewFlowLayout/LXReorderableCollectionViewFlowLayout.m
+index 5e7008f..86f4f4f 100755
+--- a/LXReorderableCollectionViewFlowLayout/LXReorderableCollectionViewFlowLayout.m
++++ b/LXReorderableCollectionViewFlowLayout/LXReorderableCollectionViewFlowLayout.m
+@@ -239,6 +239,7 @@ static NSString * const kLXCollectionViewKeyPath = @"collectionView";
+             translation = CGPointMake(0.0f, distance);
+         } break;
+         case LXScrollingDirectionLeft: {
++            [self.dataSource collectionView:self.collectionView removeItemFromFolderAtIndexPathIfNeeded:_selectedItemIndexPath];
+             distance = -distance;
+             CGFloat minX = 0.0f;
+             
+@@ -249,6 +250,7 @@ static NSString * const kLXCollectionViewKeyPath = @"collectionView";
+             translation = CGPointMake(distance, 0.0f);
+         } break;
+         case LXScrollingDirectionRight: {
++            [self.dataSource collectionView:self.collectionView removeItemFromFolderAtIndexPathIfNeeded:_selectedItemIndexPath];
+             CGFloat maxX = MAX(contentSize.width, frameSize.width) - frameSize.width;
+             
+             if ((contentOffset.x + distance) >= maxX) {
+@@ -383,7 +385,11 @@ static NSString * const kLXCollectionViewKeyPath = @"collectionView";
+             CGPoint viewCenter = self.currentView.center = LXS_CGPointAdd(self.currentViewCenter, self.panTranslationInCollectionView);
+             
+             [self invalidateLayoutIfNecessary];
+-            
++
++            //TODO: start a timer to not immediately trigger the remove from folder
++            if (self.currentView.center.x < 0 || self.currentView.center.x > self.collectionView.frame.size.width) {
++                [self.dataSource collectionView:self.collectionView removeItemFromFolderAtIndexPathIfNeeded:_selectedItemIndexPath];
++            }
+             switch (self.scrollDirection) {
+                 case UICollectionViewScrollDirectionVertical: {
+                     if (viewCenter.y < (CGRectGetMinY(self.collectionView.bounds) + self.scrollingTriggerEdgeInsets.top)) {
+-- 
+1.8.3.4 (Apple Git-47)
+

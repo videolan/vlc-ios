@@ -1,0 +1,84 @@
+From 16a7249fe7149b471a5c1eb7d70a83aa3b6625e3 Mon Sep 17 00:00:00 2001
+From: Carola Nitz <nitz.carola@googlemail.com>
+Date: Fri, 7 Feb 2014 21:54:18 +0100
+Subject: [PATCH] conform to c99 to compile
+
+---
+ .../LXReorderableCollectionViewFlowLayout.m            | 18 +++++++++---------
+ 1 file changed, 9 insertions(+), 9 deletions(-)
+
+diff --git a/LXReorderableCollectionViewFlowLayout/LXReorderableCollectionViewFlowLayout.m b/LXReorderableCollectionViewFlowLayout/LXReorderableCollectionViewFlowLayout.m
+index 744cc30..5e7008f 100755
+--- a/LXReorderableCollectionViewFlowLayout/LXReorderableCollectionViewFlowLayout.m
++++ b/LXReorderableCollectionViewFlowLayout/LXReorderableCollectionViewFlowLayout.m
+@@ -162,15 +162,15 @@ static NSString * const kLXCollectionViewKeyPath = @"collectionView";
+         [self.dataSource collectionView:self.collectionView itemAtIndexPath:previousIndexPath willMoveToIndexPath:newIndexPath];
+     }
+ 
+-    __weak typeof(self) weakSelf = self;
++    __weak __typeof(self) weakSelf = self;
+     [self.collectionView performBatchUpdates:^{
+-        __strong typeof(self) strongSelf = weakSelf;
++        __strong __typeof(self) strongSelf = weakSelf;
+         if (strongSelf) {
+             [strongSelf.collectionView deleteItemsAtIndexPaths:@[ previousIndexPath ]];
+             [strongSelf.collectionView insertItemsAtIndexPaths:@[ newIndexPath ]];
+         }
+     } completion:^(BOOL finished) {
+-        __strong typeof(self) strongSelf = weakSelf;
++        __strong __typeof(self) strongSelf = weakSelf;
+         if ([strongSelf.dataSource respondsToSelector:@selector(collectionView:itemAtIndexPath:didMoveToIndexPath:)]) {
+             [strongSelf.dataSource collectionView:strongSelf.collectionView itemAtIndexPath:previousIndexPath didMoveToIndexPath:newIndexPath];
+         }
+@@ -304,13 +304,13 @@ static NSString * const kLXCollectionViewKeyPath = @"collectionView";
+             
+             self.currentViewCenter = self.currentView.center;
+             
+-            __weak typeof(self) weakSelf = self;
++            __weak __typeof(self) weakSelf = self;
+             [UIView
+              animateWithDuration:0.3
+              delay:0.0
+              options:UIViewAnimationOptionBeginFromCurrentState
+              animations:^{
+-                 __strong typeof(self) strongSelf = weakSelf;
++                 __strong __typeof(self) strongSelf = weakSelf;
+                  if (strongSelf) {
+                      strongSelf.currentView.transform = CGAffineTransformMakeScale(1.1f, 1.1f);
+                      highlightedImageView.alpha = 0.0f;
+@@ -318,7 +318,7 @@ static NSString * const kLXCollectionViewKeyPath = @"collectionView";
+                  }
+              }
+              completion:^(BOOL finished) {
+-                 __strong typeof(self) strongSelf = weakSelf;
++                 __strong __typeof(self) strongSelf = weakSelf;
+                  if (strongSelf) {
+                      [highlightedImageView removeFromSuperview];
+                      
+@@ -344,20 +344,20 @@ static NSString * const kLXCollectionViewKeyPath = @"collectionView";
+                 
+                 UICollectionViewLayoutAttributes *layoutAttributes = [self layoutAttributesForItemAtIndexPath:currentIndexPath];
+                 
+-                __weak typeof(self) weakSelf = self;
++                __weak __typeof(self) weakSelf = self;
+                 [UIView
+                  animateWithDuration:0.3
+                  delay:0.0
+                  options:UIViewAnimationOptionBeginFromCurrentState
+                  animations:^{
+-                     __strong typeof(self) strongSelf = weakSelf;
++                     __strong __typeof(self) strongSelf = weakSelf;
+                      if (strongSelf) {
+                          strongSelf.currentView.transform = CGAffineTransformMakeScale(1.0f, 1.0f);
+                          strongSelf.currentView.center = layoutAttributes.center;
+                      }
+                  }
+                  completion:^(BOOL finished) {
+-                     __strong typeof(self) strongSelf = weakSelf;
++                     __strong __typeof(self) strongSelf = weakSelf;
+                      if (strongSelf) {
+                          [strongSelf.currentView removeFromSuperview];
+                          strongSelf.currentView = nil;
+-- 
+1.8.3.4 (Apple Git-47)
+

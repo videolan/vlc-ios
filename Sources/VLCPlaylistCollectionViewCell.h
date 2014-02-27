@@ -30,5 +30,6 @@
 
 - (void)setEditing:(BOOL)editing animated:(BOOL)animated;
 - (void)selectionUpdate;
+- (void)shake:(BOOL)shake;
 
 @end

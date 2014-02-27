@@ -18,7 +18,8 @@
 typedef enum {
     VLCLibraryModeAllFiles  = 0,
     VLCLibraryModeAllAlbums = 1,
-    VLCLibraryModeAllSeries = 2
+    VLCLibraryModeAllSeries = 2,
+    VLCLibraryModeCreateFolder = 3
 } VLCLibraryMode;
 
 @class EmptyLibraryView;

@@ -8,6 +8,7 @@
  * Authors: Felix Paul Kühne <fkuehne # videolan.org>
  *          Tamas Timar <ttimar.vlc # gmail.com>
  *          Gleb Pinigin <gpinigin # gmail.com>
+ *          Carola Nitz <nitz.carola # googlemail.com>
  *
  * Refer to the COPYING file of the official project for license.
  *****************************************************************************/
@@ -40,6 +41,8 @@
 - (void)setEditing:(BOOL)editing animated:(BOOL)animated
 {
     self.isSelectedView.hidden = !editing;
+    if ([_mediaObject isKindOfClass:[MLLabel class]] || [_mediaObject.labels count] == 0)
+        [self shake:editing];
     [self selectionUpdate];
     [self _updatedDisplayedInformationForKeyPath:@"editing"];
 }
@@ -50,6 +53,32 @@
         self.isSelectedView.image = _checkboxImage;
     else
         self.isSelectedView.image = _checkboxEmptyImage;
+}
+
+- (void)shake:(BOOL)shake
+{
+    if (shake) {
+        [UIView animateWithDuration:0.3 animations:^{
+            self.contentView.transform = CGAffineTransformMakeScale(0.9f, 0.9f);
+        }];
+        CAKeyframeAnimation* animation = [CAKeyframeAnimation animationWithKeyPath:@"transform.rotation.z"];
+        CGFloat shakeAngle = 0.02f;
+        animation.values = @[@(-shakeAngle), @(shakeAngle)];
+        animation.autoreverses = YES;
+        animation.duration = 0.125;
+        animation.repeatCount = HUGE_VALF;
+
+        [[self layer] addAnimation:animation forKey:@"shakeAnimation"];
+        self.contentView.layer.cornerRadius = 10.0;
+        self.contentView.clipsToBounds = YES;
+    } else {
+        [UIView animateWithDuration:0.3 animations:^{
+            self.contentView.transform = CGAffineTransformMakeScale(1.0f, 1.0f);
+            self.contentView.layer.cornerRadius = 0.0;
+            self.contentView.clipsToBounds = NO;
+        }];
+        [[self layer] removeAnimationForKey:@"shakeAnimation"];
+    }
 }
 
 - (void)observeValueForKeyPath:(NSString *)keyPath ofObject:(id)object change:(NSDictionary *)change context:(void *)context
@@ -97,12 +126,50 @@
 
 - (void)_updatedDisplayedInformationForKeyPath:(NSString *)keyPath
 {
+    BOOL isFolder = [self.mediaObject isKindOfClass:[MLLabel class]];
+    self.thumbnailView.contentMode = isFolder ? UIViewContentModeScaleAspectFit : UIViewContentModeScaleAspectFill;
     if ([self.mediaObject isKindOfClass:[MLFile class]]) {
         MLFile *mediaObject = self.mediaObject;
         [self _configureForMLFile:mediaObject];
 
         if (([keyPath isEqualToString:@"computedThumbnail"] || !keyPath) || (!self.thumbnailView.image && [keyPath isEqualToString:@"editing"]))
             self.thumbnailView.image = [VLCThumbnailsCache thumbnailForMediaFile:mediaObject];
+    } else if ([self.mediaObject isKindOfClass:[MLLabel class]]) {
+        MLLabel *mediaObject = (MLLabel *)self.mediaObject;
+        [self _configureForFolder:mediaObject];
+
+        if (([keyPath isEqualToString:@"computedThumbnail"] || !keyPath) || (!self.thumbnailView.image && [keyPath isEqualToString:@"editing"])) {
+
+            NSUInteger fileNumber = [mediaObject.files count] > 3 ? 3 : [mediaObject.files count];
+            if (fileNumber == 0) {
+                self.thumbnailView.image = [UIImage imageNamed:@"folderIcon"];
+            } else {
+                NSArray *files = [mediaObject.files allObjects];
+                CGSize frameSize = self.thumbnailView.frame.size;
+                UIImage *displayedImage;
+                UIGraphicsBeginImageContext(frameSize);
+                for (NSUInteger i = 0; i < fileNumber; i++) {
+                    MLFile *file =  [files objectAtIndex:i];
+                    displayedImage = [VLCThumbnailsCache thumbnailForMediaFile:file];
+                    CGContextRef context = UIGraphicsGetCurrentContext();
+                    CGFloat imagePartWidth = (frameSize.width / fileNumber);
+                    //the rect in which the image should be drawn
+                    CGRect clippingRect = CGRectMake(imagePartWidth * i, 0, imagePartWidth, frameSize.height);
+                    CGContextSaveGState(context);
+                    CGContextClipToRect(context, clippingRect);
+                    //take the center of the clippingRect and calculate the offset from the original center
+                    CGFloat centerOffset = (imagePartWidth * i + imagePartWidth / 2) - frameSize.width / 2;
+                    //shift the rect to draw the middle of the image in the clippingrect
+                    CGRect drawingRect = CGRectMake(centerOffset, 0, frameSize.width, frameSize.height);
+                    [displayedImage drawInRect:drawingRect];
+                    //get rid of the old clippingRect
+                    CGContextRestoreGState(context);
+                }
+                displayedImage = UIGraphicsGetImageFromCurrentImageContext();
+                UIGraphicsEndImageContext();
+                self.thumbnailView.image = displayedImage;
+            }
+        }
     } else if ([self.mediaObject isKindOfClass:[MLAlbum class]]) {
         MLAlbum *mediaObject = (MLAlbum *)self.mediaObject;
         [self _configureForAlbum:mediaObject];
@@ -174,7 +241,6 @@
         self.subtitleLabel.text = [NSString stringWithFormat:@"%@", [VLCTime timeWithNumber:[anyFileFromEpisode duration]]];
     } else
         self.subtitleLabel.text = [NSString stringWithFormat:@"S%02dE%02d — %@", showEpisode.seasonNumber.intValue, showEpisode.episodeNumber.intValue, [VLCTime timeWithNumber:[anyFileFromEpisode duration]]];
-
     [self _showPositionOfItem:anyFileFromEpisode];
 }
 
@@ -192,6 +258,15 @@
     if (album.releaseYear)
         [string appendFormat:@" — %@", album.releaseYear];
     self.subtitleLabel.text = string;
+    self.mediaIsUnreadView.hidden = YES;
+    self.progressView.hidden = YES;
+}
+
+- (void)_configureForFolder:(MLLabel *)label
+{
+    self.titleLabel.text = label.name;
+    NSUInteger count = label.files.count;
+    self.subtitleLabel.text = [NSString stringWithFormat:(count == 1) ? NSLocalizedString(@"LIBRARY_TRACKS", @"") : NSLocalizedString(@"LIBRARY_SINGLE_TRACK", @""), count];
     self.mediaIsUnreadView.hidden = YES;
     self.progressView.hidden = YES;
 }
@@ -221,7 +296,6 @@
                 self.subtitleLabel.text = [self.subtitleLabel.text stringByAppendingFormat:@" — %@x%@", width, height];
         }
     }
-
     [self _showPositionOfItem:mediaFile];
 }
 

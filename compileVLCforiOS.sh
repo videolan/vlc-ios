@@ -14,7 +14,7 @@ SKIPLIBVLCCOMPILATION=no
 UNSTABLEVLCKIT=no
 
 TESTEDVLCKITHASH=766c3b7fa
-TESTEDMEDIALIBRARYKITHASH=225ab43aa
+TESTEDMEDIALIBRARYKITHASH=60c71ff30
 TESTEDQUINCYKITHASH=f1d93b96b
 
 usage()
@@ -205,6 +205,19 @@ if ! [ -e GHSidebarNav ]; then
 git clone git://github.com/gresrun/GHSidebarNav.git
 else
 cd GHSidebarNav && git pull --rebase && cd ..
+fi
+if ! [ -e LXReorderableCollectionViewFlowLayout ]; then
+git clone git@github.com:lxcid/LXReorderableCollectionViewFlowLayout.git
+cd LXReorderableCollectionViewFlowLayout
+git am ../../patches/lxreorderablecollectionviewflowlayout/*.patch
+if [ $? -ne 0 ]; then
+git am --abort
+info "Applying the patches failed, aborting git-am"
+exit 1
+fi
+cd ..
+else
+cd LXReorderableCollectionViewFlowLayout && git pull --rebase && cd ..
 fi
 if ! [ -e upnpx ]; then
 git clone git://github.com/fkuehne/upnpx.git

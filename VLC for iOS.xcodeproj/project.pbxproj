@@ -35,6 +35,9 @@
 		2915544117490B9C00B86CAD /* WebSocket.m in Sources */ = {isa = PBXBuildFile; fileRef = 2915543A17490B9C00B86CAD /* WebSocket.m */; };
 		2915544317490D4A00B86CAD /* Security.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 2915544217490D4A00B86CAD /* Security.framework */; };
 		293DF2F417494F8200BB880F /* DropboxSDK.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 7D05ADEA174945CE0087550C /* DropboxSDK.framework */; };
+		4143D00B18B550660077D889 /* VLCAlertView.m in Sources */ = {isa = PBXBuildFile; fileRef = 4143D00A18B550660077D889 /* VLCAlertView.m */; };
+		4171D35018A2C19000A16EF9 /* VLCFolderCollectionViewFlowLayout.m in Sources */ = {isa = PBXBuildFile; fileRef = 4171D34F18A2C19000A16EF9 /* VLCFolderCollectionViewFlowLayout.m */; };
+		4171D35818A2D90200A16EF9 /* LXReorderableCollectionViewFlowLayout.m in Sources */ = {isa = PBXBuildFile; fileRef = 4171D35718A2D90200A16EF9 /* LXReorderableCollectionViewFlowLayout.m */; };
 		41F475D21899A438001B919F /* folderIcon.png in Resources */ = {isa = PBXBuildFile; fileRef = 41F475CE1899A438001B919F /* folderIcon.png */; };
 		41F475D31899A438001B919F /* folderIcon@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 41F475CF1899A438001B919F /* folderIcon@2x.png */; };
 		41F475D41899A438001B919F /* folderIcon@2x~ipad.png in Resources */ = {isa = PBXBuildFile; fileRef = 41F475D01899A438001B919F /* folderIcon@2x~ipad.png */; };
@@ -76,10 +79,6 @@
 		7D07F711175669D800CDE21C /* buttonHighlight@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 7D07F70F175669D800CDE21C /* buttonHighlight@2x.png */; };
 		7D07F71417566C4A00CDE21C /* menuCone.png in Resources */ = {isa = PBXBuildFile; fileRef = 7D07F71217566C4A00CDE21C /* menuCone.png */; };
 		7D07F71517566C4A00CDE21C /* menuCone@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 7D07F71317566C4A00CDE21C /* menuCone@2x.png */; };
-		7D07F71E175673D100CDE21C /* (null) in Resources */ = {isa = PBXBuildFile; };
-		7D07F71F175673D100CDE21C /* (null) in Resources */ = {isa = PBXBuildFile; };
-		7D07F720175673D100CDE21C /* (null) in Resources */ = {isa = PBXBuildFile; };
-		7D07F721175673D100CDE21C /* (null) in Resources */ = {isa = PBXBuildFile; };
 		7D07F726175688D300CDE21C /* doneButton.png in Resources */ = {isa = PBXBuildFile; fileRef = 7D07F722175688D300CDE21C /* doneButton.png */; };
 		7D07F727175688D300CDE21C /* doneButton@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 7D07F723175688D300CDE21C /* doneButton@2x.png */; };
 		7D07F728175688D300CDE21C /* doneButtonHighlight.png in Resources */ = {isa = PBXBuildFile; fileRef = 7D07F724175688D300CDE21C /* doneButtonHighlight.png */; };
@@ -456,6 +455,12 @@
 		2915543917490B9C00B86CAD /* WebSocket.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = WebSocket.h; path = ImportedSources/CocoaHTTPServer/Core/WebSocket.h; sourceTree = SOURCE_ROOT; };
 		2915543A17490B9C00B86CAD /* WebSocket.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = WebSocket.m; path = ImportedSources/CocoaHTTPServer/Core/WebSocket.m; sourceTree = SOURCE_ROOT; };
 		2915544217490D4A00B86CAD /* Security.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Security.framework; path = System/Library/Frameworks/Security.framework; sourceTree = SDKROOT; };
+		4143D00918B550660077D889 /* VLCAlertView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = VLCAlertView.h; sourceTree = SOURCE_ROOT; };
+		4143D00A18B550660077D889 /* VLCAlertView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = VLCAlertView.m; sourceTree = SOURCE_ROOT; };
+		4171D34E18A2C19000A16EF9 /* VLCFolderCollectionViewFlowLayout.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = VLCFolderCollectionViewFlowLayout.h; path = Sources/VLCFolderCollectionViewFlowLayout.h; sourceTree = SOURCE_ROOT; };
+		4171D34F18A2C19000A16EF9 /* VLCFolderCollectionViewFlowLayout.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = VLCFolderCollectionViewFlowLayout.m; path = Sources/VLCFolderCollectionViewFlowLayout.m; sourceTree = SOURCE_ROOT; };
+		4171D35618A2D90200A16EF9 /* LXReorderableCollectionViewFlowLayout.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LXReorderableCollectionViewFlowLayout.h; sourceTree = "<group>"; };
+		4171D35718A2D90200A16EF9 /* LXReorderableCollectionViewFlowLayout.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LXReorderableCollectionViewFlowLayout.m; sourceTree = "<group>"; };
 		41F475CE1899A438001B919F /* folderIcon.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = folderIcon.png; sourceTree = "<group>"; };
 		41F475CF1899A438001B919F /* folderIcon@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "folderIcon@2x.png"; sourceTree = "<group>"; };
 		41F475D01899A438001B919F /* folderIcon@2x~ipad.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "folderIcon@2x~ipad.png"; sourceTree = "<group>"; };
@@ -1303,6 +1308,16 @@
 			path = ImportedSources/CocoaHTTPServer/Core/Responses;
 			sourceTree = SOURCE_ROOT;
 		};
+		4171D35518A2D90200A16EF9 /* LXReorderableCollectionViewFlowLayout */ = {
+			isa = PBXGroup;
+			children = (
+				4171D35618A2D90200A16EF9 /* LXReorderableCollectionViewFlowLayout.h */,
+				4171D35718A2D90200A16EF9 /* LXReorderableCollectionViewFlowLayout.m */,
+			);
+			name = LXReorderableCollectionViewFlowLayout;
+			path = ImportedSources/LXReorderableCollectionViewFlowLayout/LXReorderableCollectionViewFlowLayout;
+			sourceTree = SOURCE_ROOT;
+		};
 		7D10BC651743F9A100DA7059 /* External Playback */ = {
 			isa = PBXGroup;
 			children = (
@@ -1469,6 +1484,8 @@
 				7D3784BB183A9938009EE944 /* VLCSlider.m */,
 				7D3784BC183A9938009EE944 /* VLCStatusLabel.h */,
 				7D3784BD183A9938009EE944 /* VLCStatusLabel.m */,
+				4143D00918B550660077D889 /* VLCAlertView.h */,
+				4143D00A18B550660077D889 /* VLCAlertView.m */,
 			);
 			name = "UI Elements";
 			sourceTree = "<group>";
@@ -1564,6 +1581,8 @@
 		7D5F7AB81752658E006CCCFA /* Everything Playlist */ = {
 			isa = PBXGroup;
 			children = (
+				4171D34E18A2C19000A16EF9 /* VLCFolderCollectionViewFlowLayout.h */,
+				4171D34F18A2C19000A16EF9 /* VLCFolderCollectionViewFlowLayout.m */,
 				7D378493183A98D1009EE944 /* VLCPlaylistCollectionViewCell.h */,
 				7D378494183A98D1009EE944 /* VLCPlaylistCollectionViewCell.m */,
 				7D378495183A98D1009EE944 /* VLCPlaylistTableViewCell.h */,
@@ -1833,6 +1852,7 @@
 		7DADC5601704FACC001DAC63 /* Imported */ = {
 			isa = PBXGroup;
 			children = (
+				4171D35518A2D90200A16EF9 /* LXReorderableCollectionViewFlowLayout */,
 				7D897886185E1303009BAB5D /* QuincyKit */,
 				9B2E0CED17FB5B3F0098E3DF /* GoogleDrive */,
 				A7B5316017E3728D00EAE4B3 /* upnpx */,
@@ -2314,12 +2334,8 @@
 				7D53D527187729EC00A1BA97 /* connector-cable.png in Resources */,
 				7D07F71417566C4A00CDE21C /* menuCone.png in Resources */,
 				7D07F71517566C4A00CDE21C /* menuCone@2x.png in Resources */,
-				7D07F71E175673D100CDE21C /* (null) in Resources */,
 				7D588D64187DD9B700469FCF /* modernSliderKnob@2x.png in Resources */,
 				7DBBF1A7183AB4300009A339 /* VLCNetworkLoginViewController.xib in Resources */,
-				7D07F71F175673D100CDE21C /* (null) in Resources */,
-				7D07F720175673D100CDE21C /* (null) in Resources */,
-				7D07F721175673D100CDE21C /* (null) in Resources */,
 				7D07F726175688D300CDE21C /* doneButton.png in Resources */,
 				7D588D65187DD9B700469FCF /* modernSliderKnob.png in Resources */,
 				7D07F727175688D300CDE21C /* doneButton@2x.png in Resources */,
@@ -2551,6 +2567,7 @@
 				2915540217490A1E00B86CAD /* DDNumber.m in Sources */,
 				7D92897A1877467E009108FD /* VLCFirstStepsFourthPageViewController.m in Sources */,
 				2915540317490A1E00B86CAD /* DDRange.m in Sources */,
+				4171D35818A2D90200A16EF9 /* LXReorderableCollectionViewFlowLayout.m in Sources */,
 				2915540417490A1E00B86CAD /* HTTPAuthenticationRequest.m in Sources */,
 				2915540517490A1E00B86CAD /* HTTPConnection.m in Sources */,
 				2915540617490A1E00B86CAD /* HTTPMessage.m in Sources */,
@@ -2625,6 +2642,7 @@
 				7D30F3C3183AB24C00FFC021 /* VLCHTTPFileDownloader.m in Sources */,
 				7D30F3C4183AB24C00FFC021 /* VLCHTTPUploaderController.m in Sources */,
 				7D30F3C7183AB26F00FFC021 /* VLCOpenNetworkStreamViewController.m in Sources */,
+				4171D35018A2C19000A16EF9 /* VLCFolderCollectionViewFlowLayout.m in Sources */,
 				7D30F3CA183AB27A00FFC021 /* VLCDownloadViewController.m in Sources */,
 				7D30F3CD183AB29300FFC021 /* VLCMenuTableViewController.m in Sources */,
 				7D30F3D0183AB2AC00FFC021 /* VLCMediaFileDiscoverer.m in Sources */,
@@ -2636,6 +2654,7 @@
 				7D30F3E2183AB33200FFC021 /* VLCSidebarViewCell.m in Sources */,
 				7D30F3EA183AB34200FFC021 /* VLCGoogleDriveController.m in Sources */,
 				9B088308183D7BEC004B5C2A /* VLCCloudStorageTableViewController.m in Sources */,
+				4143D00B18B550660077D889 /* VLCAlertView.m in Sources */,
 				7D30F3EC183AB34200FFC021 /* VLCGoogleDriveTableViewController.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
