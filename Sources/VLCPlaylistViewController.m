@@ -233,7 +233,7 @@ static NSString *kDisplayedFirstSteps = @"Did we display the first steps tutoria
             [self.collectionView setCollectionViewLayout:_reorderLayout animated:NO];
             _folderLayout = nil;
         }
-        _foundMedia = [[folder.files allObjects] mutableCopy];
+        _foundMedia = [NSMutableArray arrayWithArray:[folder sortedFolderItems]];
         self.navigationItem.leftBarButtonItem = [UIBarButtonItem themedBackButtonWithTarget:self andSelector:@selector(backToAllItems:)];
         self.navigationItem.leftBarButtonItem.title = NSLocalizedString(@"BUTTON_BACK", @"");
         self.title = [folder name];
@@ -613,14 +613,6 @@ static NSString *kDisplayedFirstSteps = @"Did we display the first steps tutoria
     return 10.0;
 }
 
-- (void)collectionView:(UICollectionView *)collectionView itemAtIndexPath:(NSIndexPath *)fromIndexPath willMoveToIndexPath:(NSIndexPath *)toIndexPath
-{
-    MLFile* object = [_foundMedia objectAtIndex:fromIndexPath.item];
-    [_foundMedia removeObjectAtIndex:fromIndexPath.item];
-    [_foundMedia insertObject:object atIndex:toIndexPath.item];
-    object = [_foundMedia objectAtIndex:fromIndexPath.item];
-}
-
 - (void)collectionView:(UICollectionView *)collectionView didSelectItemAtIndexPath:(NSIndexPath *)indexPath
 {
     if (self.editing) {
@@ -673,8 +665,19 @@ static NSString *kDisplayedFirstSteps = @"Did we display the first steps tutoria
 {
     MLFile *mediaObject = (MLFile *)_foundMedia[indexPath.item];
     mediaObject.labels = nil;
+    mediaObject.folderTrackNumber = nil;
 
     [self backToAllItems:nil];
+}
+
+- (void)collectionView:(UICollectionView *)collectionView itemAtIndexPath:(NSIndexPath *)fromIndexPath willMoveToIndexPath:(NSIndexPath *)toIndexPath
+{
+    MLFile* object = [_foundMedia objectAtIndex:fromIndexPath.item];
+    [_foundMedia removeObjectAtIndex:fromIndexPath.item];
+    [_foundMedia insertObject:object atIndex:toIndexPath.item];
+    object.folderTrackNumber = @(toIndexPath.item - 1);
+    object = [_foundMedia objectAtIndex:fromIndexPath.item];
+    object.folderTrackNumber = @(fromIndexPath.item - 1);
 }
 
 - (void)collectionView:(UICollectionView *)collectionView requestToMoveItemAtIndexPath:(NSIndexPath *)itemPath intoFolderAtIndexPath:(NSIndexPath *)folderPath
@@ -697,6 +700,7 @@ static NSString *kDisplayedFirstSteps = @"Did we display the first steps tutoria
         MLLabel *folder = _foundMedia[folderPath.item];
         MLFile *file = _foundMedia[itemPath.item];
         [file setLabels:[[NSSet alloc] initWithObjects:folder, nil]];
+        file.folderTrackNumber = @([folder.files count] - 1);
         [_foundMedia removeObjectAtIndex:itemPath.item];
         [self updateViewContents];
     } else {
@@ -780,6 +784,7 @@ static NSString *kDisplayedFirstSteps = @"Did we display the first steps tutoria
 
         MLLabel *folder = [file.labels anyObject];
         file.labels = nil;
+        file.folderTrackNumber = nil;
         [_foundMedia removeObject:file];
 
         if ([folder.files count] == 0) {
@@ -815,18 +820,15 @@ static NSString *kDisplayedFirstSteps = @"Did we display the first steps tutoria
             MLLabel *label = [[MLMediaLibrary sharedMediaLibrary] createObjectForEntity:@"Label"];
             label.name = folderName;
             file.labels = [NSSet setWithObjects:label,nil];
+            NSNumber *folderTrackNumber = [NSNumber numberWithInt:[label files].count - 1];
+            file.folderTrackNumber = folderTrackNumber;
 
             [_foundMedia removeObjectAtIndex:folderIndex];
             [_foundMedia insertObject:label atIndex:folderIndex];
-            if (UI_USER_INTERFACE_IDIOM() == UIUserInterfaceIdiomPad) {
                 MLFile *itemFile = _foundMedia[((NSIndexPath *)_indexPaths[0]).item];
                 itemFile.labels = file.labels;
                 [_foundMedia removeObjectAtIndex:((NSIndexPath *)_indexPaths[0]).item];
-            } else {
-                MLFile *itemFile = _foundMedia[((NSIndexPath *)_indexPaths[0]).row];
-                itemFile.labels = file.labels;
-                [_foundMedia removeObjectAtIndex:((NSIndexPath *)_indexPaths[0]).row];
-            }
+            itemFile.folderTrackNumber = @([label files].count - 1);
         } else {
             //item got dragged onto folder or items should be added to folder
             MLLabel *label = _foundMedia[folderIndex];
@@ -834,15 +836,10 @@ static NSString *kDisplayedFirstSteps = @"Did we display the first steps tutoria
 
             for (int i = [_indexPaths count] - 1; i >= 0; i--) {
                 NSIndexPath *path = _indexPaths[i];
-                if (UI_USER_INTERFACE_IDIOM() == UIUserInterfaceIdiomPad) {
-                    MLFile *file = _foundMedia[path.item];
-                    file.labels = [NSSet setWithObjects:label, nil];
-                    [_foundMedia removeObjectAtIndex:path.item];
-                } else {
                     MLFile *file = _foundMedia[path.row];
                     file.labels = [NSSet setWithObjects:label, nil];
                     [_foundMedia removeObjectAtIndex:path.row];
-                }
+                file.folderTrackNumber = @([label files].count - 1);
             }
         }
         _folderObject = nil;
@@ -860,10 +857,12 @@ static NSString *kDisplayedFirstSteps = @"Did we display the first steps tutoria
                 if (UI_USER_INTERFACE_IDIOM() == UIUserInterfaceIdiomPad) {
                     MLFile *file = _foundMedia[path.item];
                     file.labels = [NSSet setWithObjects:label, nil];
+                    file.folderTrackNumber = @([label files].count - 1);
                     [_foundMedia removeObjectAtIndex:path.item];
                 } else {
                     MLFile *file = _foundMedia[path.row];
                     file.labels = [NSSet setWithObjects:label, nil];
+                    file.folderTrackNumber = @([label files].count - 1);
                     [_foundMedia removeObjectAtIndex:path.row];
                 }
             }
