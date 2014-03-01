@@ -207,7 +207,7 @@ else
 cd GHSidebarNav && git pull --rebase && cd ..
 fi
 if ! [ -e LXReorderableCollectionViewFlowLayout ]; then
-git clone git@github.com:lxcid/LXReorderableCollectionViewFlowLayout.git
+git clone git://github.com/lxcid/LXReorderableCollectionViewFlowLayout.git
 cd LXReorderableCollectionViewFlowLayout
 git am ../../patches/lxreorderablecollectionviewflowlayout/*.patch
 if [ $? -ne 0 ]; then
