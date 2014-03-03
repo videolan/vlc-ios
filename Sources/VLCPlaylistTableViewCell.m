@@ -239,7 +239,7 @@
 {
     self.titleLabel.text = label.name;
     NSUInteger count = label.files.count;
-    self.subtitleLabel.text = [NSString stringWithFormat:(count == 1) ? NSLocalizedString(@"LIBRARY_TRACKS", @"") : NSLocalizedString(@"LIBRARY_SINGLE_TRACK", @""), count];
+    self.subtitleLabel.text = [NSString stringWithFormat:(count == 1) ? NSLocalizedString(@"LIBRARY_TRACK", @"") : NSLocalizedString(@"LIBRARY_SINGLE_TRACKS", @""), count];
     self.mediaIsUnreadView.hidden = YES;
     self.progressIndicator.hidden = YES;
 }

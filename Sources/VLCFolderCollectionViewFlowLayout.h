@@ -10,11 +10,12 @@
  * Refer to the COPYING file of the official project for license.
  *****************************************************************************/
 
-@interface VLCFolderCollectionViewFlowLayout : UICollectionViewFlowLayout
+@interface VLCFolderCollectionViewFlowLayout : UICollectionViewFlowLayout <UIGestureRecognizerDelegate>
 
 @property (assign, nonatomic) CGFloat scrollingSpeed;
 @property (assign, nonatomic) UIEdgeInsets scrollingTriggerEdgeInsets;
-@property (strong, nonatomic, readonly) UIPanGestureRecognizer *panGestureRecognizer;
+@property (nonatomic, readonly) UILongPressGestureRecognizer *longPressGestureRecognizer;
+@property (nonatomic, readonly) UIPanGestureRecognizer *panGestureRecognizer;
 
 @end
 

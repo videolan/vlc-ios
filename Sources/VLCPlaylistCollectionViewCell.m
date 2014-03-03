@@ -41,7 +41,8 @@
 - (void)setEditing:(BOOL)editing animated:(BOOL)animated
 {
     self.isSelectedView.hidden = !editing;
-    if ([_mediaObject isKindOfClass:[MLLabel class]] || [_mediaObject.labels count] == 0)
+
+    if (!([_mediaObject isKindOfClass:[MLFile class]] && [_mediaObject.labels count] > 0))
         [self shake:editing];
     [self selectionUpdate];
     [self _updatedDisplayedInformationForKeyPath:@"editing"];
@@ -266,7 +267,7 @@
 {
     self.titleLabel.text = label.name;
     NSUInteger count = label.files.count;
-    self.subtitleLabel.text = [NSString stringWithFormat:(count == 1) ? NSLocalizedString(@"LIBRARY_TRACKS", @"") : NSLocalizedString(@"LIBRARY_SINGLE_TRACK", @""), count];
+    self.subtitleLabel.text = [NSString stringWithFormat:(count == 1) ? NSLocalizedString(@"LIBRARY_SINGLE_TRACK", @"") : NSLocalizedString(@"LIBRARY_TRACKS", @""), count];
     self.mediaIsUnreadView.hidden = YES;
     self.progressView.hidden = YES;
 }

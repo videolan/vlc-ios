@@ -75,6 +75,7 @@ static NSString * const kLXCollectionViewKeyPath = @"collectionView";
     CGPoint _panTranslationInCollectionView;
     CADisplayLink *_displayLink;
     UIView *_folderView;
+    BOOL _didPan;
 }
 
 @end
@@ -87,14 +88,23 @@ static NSString * const kLXCollectionViewKeyPath = @"collectionView";
 }
 
 - (void)setupCollectionView {
+    _longPressGestureRecognizer = [[UILongPressGestureRecognizer alloc] initWithTarget:self
+                                                                                action:@selector(handleLongPressGesture:)];
+    _longPressGestureRecognizer.delegate = self;
+
+    // Links the default long press gesture recognizer to the custom long press gesture recognizer we are creating now
+    // by enforcing failure dependency so that they doesn't clash.
+    for (UIGestureRecognizer *gestureRecognizer in self.collectionView.gestureRecognizers) {
+        if ([gestureRecognizer isKindOfClass:[UILongPressGestureRecognizer class]]) {
+            [gestureRecognizer requireGestureRecognizerToFail:_longPressGestureRecognizer];
+        }
+    }
+
+    [self.collectionView addGestureRecognizer:_longPressGestureRecognizer];
 
     _panGestureRecognizer = [[UIPanGestureRecognizer alloc] initWithTarget:self
                                                                     action:@selector(handlePanGesture:)];
-    for (UIGestureRecognizer *gestureRecognizer in self.collectionView.gestureRecognizers) {
-        if ([gestureRecognizer isKindOfClass:[UIPanGestureRecognizer class]])
-            [gestureRecognizer requireGestureRecognizerToFail:_panGestureRecognizer];
-    }
-
+    _panGestureRecognizer.delegate = self;
     [self.collectionView addGestureRecognizer:_panGestureRecognizer];
 
     // Useful in multiple scenarios: one common scenario being when the Notification Center drawer is pulled down
@@ -137,7 +147,7 @@ static NSString * const kLXCollectionViewKeyPath = @"collectionView";
 - (void)invalidateLayoutIfNecessary {
     NSIndexPath *newIndexPath = [self.collectionView indexPathForItemAtPoint:_currentView.center];
     NSIndexPath *previousIndexPath = _selectedItemIndexPath;
-    
+
     if ((newIndexPath == nil) || [newIndexPath isEqual:previousIndexPath]) {
         _currentView.transform = CGAffineTransformMakeScale(1.1f, 1.1f);
         [_folderView removeFromSuperview];
@@ -152,7 +162,7 @@ static NSString * const kLXCollectionViewKeyPath = @"collectionView";
     }
     [self.collectionView insertSubview:_folderView atIndex:0];
 
-    if (!CGPointEqualToPoint(_folderView.center,cell.center)) 
+    if (!CGPointEqualToPoint(_folderView.center,cell.center))
         _folderView.frame = cell.frame;
 
     [UIView
@@ -178,7 +188,7 @@ static NSString * const kLXCollectionViewKeyPath = @"collectionView";
         if (direction == oldDirection)
             return;
     }
-    
+
     [self invalidatesScrollTimer];
 
     _displayLink = [CADisplayLink displayLinkWithTarget:self selector:@selector(handleScroll:)];
@@ -193,7 +203,7 @@ static NSString * const kLXCollectionViewKeyPath = @"collectionView";
     LXScrollingDirection direction = (LXScrollingDirection)[displayLink.LX_userInfo[kLXScrollingDirectionKey] integerValue];
     if (direction == LXScrollingDirectionUnknown)
         return;
-    
+
     CGSize frameSize = self.collectionView.bounds.size;
     CGSize contentSize = self.collectionView.contentSize;
     CGPoint contentOffset = self.collectionView.contentOffset;
@@ -201,33 +211,33 @@ static NSString * const kLXCollectionViewKeyPath = @"collectionView";
     // and it would diverge from the view's center resulting in a "cell is slipping away under finger"-bug.
     CGFloat distance = rint(self.scrollingSpeed / LX_FRAMES_PER_SECOND);
     CGPoint translation = CGPointZero;
-    
+
     switch(direction) {
         case LXScrollingDirectionUp: {
             distance = -distance;
             CGFloat minY = 0.0f;
-            
+
             if ((contentOffset.y + distance) <= minY)
                 distance = -contentOffset.y;
-            
+
             translation = CGPointMake(0.0f, distance);
         } break;
         case LXScrollingDirectionDown: {
             CGFloat maxY = MAX(contentSize.height, frameSize.height) - frameSize.height;
-            
+
             if ((contentOffset.y + distance) >= maxY)
                 distance = maxY - contentOffset.y;
-            
+
             translation = CGPointMake(0.0f, distance);
         } break;
         case LXScrollingDirectionLeft: {
 
             distance = -distance;
             CGFloat minX = 0.0f;
-            
+
             if ((contentOffset.x + distance) <= minX)
                 distance = -contentOffset.x;
-            
+
             translation = CGPointMake(distance, 0.0f);
         } break;
         case LXScrollingDirectionRight: {
@@ -242,21 +252,18 @@ static NSString * const kLXCollectionViewKeyPath = @"collectionView";
             // Do nothing...
         } break;
     }
-    
     _currentViewCenter = LXS_CGPointAdd(_currentViewCenter, translation);
     _currentView.center = LXS_CGPointAdd(_currentViewCenter, _panTranslationInCollectionView);
     self.collectionView.contentOffset = LXS_CGPointAdd(contentOffset, translation);
 }
 
-- (void)handlePanGesture:(UIPanGestureRecognizer *)gestureRecognizer {
+- (void)handleLongPressGesture:(UILongPressGestureRecognizer *)gestureRecognizer {
     //keeps the controller from dragging while not in editmode
-
     if (!((VLCPlaylistViewController *)self.delegate).isEditing) return;
 
-    switch (gestureRecognizer.state) {
+    switch(gestureRecognizer.state) {
         case UIGestureRecognizerStateBegan: {
             NSIndexPath *currentIndexPath = [self.collectionView indexPathForItemAtPoint:[gestureRecognizer locationInView:self.collectionView]];
-
             _selectedItemIndexPath = currentIndexPath;
 
             UICollectionViewCell *collectionViewCell = [self.collectionView cellForItemAtIndexPath:_selectedItemIndexPath];
@@ -284,21 +291,58 @@ static NSString * const kLXCollectionViewKeyPath = @"collectionView";
              delay:0.0
              options:UIViewAnimationOptionBeginFromCurrentState
              animations:^{
-                     _currentView.transform = CGAffineTransformMakeScale(1.1f, 1.1f);
-                     highlightedImageView.alpha = 0.0f;
-                     imageView.alpha = 1.0f;
+                 _currentView.transform = CGAffineTransformMakeScale(1.1f, 1.1f);
+                 highlightedImageView.alpha = 0.0f;
+                 imageView.alpha = 1.0f;
              }
              completion:^(BOOL finished) {
-                 [highlightedImageView removeFromSuperview];
+                [highlightedImageView removeFromSuperview];
              }];
 
             [self invalidateLayout];
-            break;
-        }
+        } break;
+        case UIGestureRecognizerStateCancelled:
+        case UIGestureRecognizerStateEnded: {
+            if (_didPan) return;
+
+            NSIndexPath *currentIndexPath = _selectedItemIndexPath;
+
+            if (currentIndexPath) {
+                _selectedItemIndexPath = nil;
+                _currentViewCenter = CGPointZero;
+
+                UICollectionViewLayoutAttributes *layoutAttributes = [self layoutAttributesForItemAtIndexPath:currentIndexPath];
+
+                [UIView
+                 animateWithDuration:0.3
+                 delay:0.0
+                 options:UIViewAnimationOptionBeginFromCurrentState
+                 animations:^{
+                     _currentView.transform = CGAffineTransformMakeScale(1.0f, 1.0f);
+                     _currentView.center = layoutAttributes.center;
+                 }
+                 completion:^(BOOL finished) {
+
+                     [_currentView removeFromSuperview];
+                     _currentView = nil;
+                     [self invalidateLayout];
+
+                 }];
+            }
+        } break;
+
+        default: break;
+    }
+}
+
+- (void)handlePanGesture:(UIPanGestureRecognizer *)gestureRecognizer {
+
+    switch (gestureRecognizer.state) {
+        case UIGestureRecognizerStateBegan:
+            _didPan = YES;
         case UIGestureRecognizerStateChanged: {
             _panTranslationInCollectionView = [gestureRecognizer translationInView:self.collectionView];
             CGPoint viewCenter = _currentView.center = LXS_CGPointAdd(_currentViewCenter, _panTranslationInCollectionView);
-            
             [self invalidateLayoutIfNecessary];
 
             switch (self.scrollDirection) {
@@ -325,16 +369,16 @@ static NSString * const kLXCollectionViewKeyPath = @"collectionView";
                     }
                 } break;
             }
-
         } break;
         case UIGestureRecognizerStateCancelled:
         case UIGestureRecognizerStateEnded: {
+            _didPan = NO;
             [_folderView removeFromSuperview];
             _folderView = nil;
             NSIndexPath *newIndexPath = [self.collectionView indexPathForItemAtPoint:_currentView.center];
             NSIndexPath *currentIndexPath = _selectedItemIndexPath;
 
-            if (newIndexPath != nil && ![currentIndexPath isEqual:newIndexPath]) {
+            if (newIndexPath != nil && ![currentIndexPath isEqual:newIndexPath] && ((VLCPlaylistViewController *)self.delegate).isEditing) {
                 [UIView animateWithDuration:0.3 delay:0.0 options:UIViewAnimationOptionBeginFromCurrentState animations:^{
                     _currentView.transform = CGAffineTransformMakeScale(0.1f, 0.1f);
                     _currentView.center = [self layoutAttributesForItemAtIndexPath:newIndexPath].center;
@@ -368,7 +412,7 @@ static NSString * const kLXCollectionViewKeyPath = @"collectionView";
 
 - (NSArray *)layoutAttributesForElementsInRect:(CGRect)rect {
     NSArray *layoutAttributesForElementsInRect = [super layoutAttributesForElementsInRect:rect];
-    
+
     for (UICollectionViewLayoutAttributes *layoutAttributes in layoutAttributesForElementsInRect) {
         switch (layoutAttributes.representedElementCategory) {
             case UICollectionElementCategoryCell: {
@@ -379,13 +423,12 @@ static NSString * const kLXCollectionViewKeyPath = @"collectionView";
             } break;
         }
     }
-    
     return layoutAttributesForElementsInRect;
 }
 
 - (UICollectionViewLayoutAttributes *)layoutAttributesForItemAtIndexPath:(NSIndexPath *)indexPath {
     UICollectionViewLayoutAttributes *layoutAttributes = [super layoutAttributesForItemAtIndexPath:indexPath];
-    
+
     switch (layoutAttributes.representedElementCategory) {
         case UICollectionElementCategoryCell: {
             [self applyLayoutAttributes:layoutAttributes];
@@ -394,8 +437,27 @@ static NSString * const kLXCollectionViewKeyPath = @"collectionView";
             // Do nothing...
         } break;
     }
-    
+
     return layoutAttributes;
+}
+#pragma mark - UIGestureRecognizerDelegate methods
+
+- (BOOL)gestureRecognizerShouldBegin:(UIGestureRecognizer *)gestureRecognizer {
+    if ([self.panGestureRecognizer isEqual:gestureRecognizer]) {
+        return (_selectedItemIndexPath != nil);
+    }
+    return YES;
+}
+
+- (BOOL)gestureRecognizer:(UIGestureRecognizer *)gestureRecognizer shouldRecognizeSimultaneouslyWithGestureRecognizer:(UIGestureRecognizer *)otherGestureRecognizer {
+    if ([self.longPressGestureRecognizer isEqual:gestureRecognizer]) {
+        return [self.panGestureRecognizer isEqual:otherGestureRecognizer];
+    }
+
+    if ([self.panGestureRecognizer isEqual:gestureRecognizer]) {
+        return [self.longPressGestureRecognizer isEqual:otherGestureRecognizer];
+    }
+    return NO;
 }
 
 #pragma mark - Key-Value Observing methods

@@ -53,6 +53,7 @@ static NSString *kDisplayedFirstSteps = @"Did we display the first steps tutoria
     VLCFolderCollectionViewFlowLayout *_folderLayout;
     LXReorderableCollectionViewFlowLayout *_reorderLayout;
     BOOL inFolder;
+    UILongPressGestureRecognizer *_longPressGestureRecognizer;
 }
 
 @property (nonatomic, strong) UITableView *tableView;
@@ -95,8 +96,8 @@ static NSString *kDisplayedFirstSteps = @"Did we display the first steps tutoria
         _collectionView.opaque = YES;
         _collectionView.backgroundColor = [UIColor colorWithWhite:.122 alpha:1.];
         self.view = _collectionView;
-        UILongPressGestureRecognizer *longPressGestureRecognizer = [[UILongPressGestureRecognizer alloc] initWithTarget:self action:@selector(_collectionViewHandleLongPressGesture:)];
-        [_collectionView addGestureRecognizer:longPressGestureRecognizer];
+        _longPressGestureRecognizer = [[UILongPressGestureRecognizer alloc] initWithTarget:self action:@selector(_collectionViewHandleLongPressGesture:)];
+        [_collectionView addGestureRecognizer:_longPressGestureRecognizer];
         if (SYSTEM_RUNS_IOS7_OR_LATER)
             [_collectionView registerNib:[UINib nibWithNibName:@"VLCFuturePlaylistCollectionViewCell" bundle:nil] forCellWithReuseIdentifier:@"PlaylistCell"];
         else
@@ -224,9 +225,13 @@ static NSString *kDisplayedFirstSteps = @"Did we display the first steps tutoria
         MLLabel *folder = (MLLabel*) mediaObject;
         inFolder = YES;
         if (UI_USER_INTERFACE_IDIOM() == UIUserInterfaceIdiomPad) {
-            if (_reorderLayout == nil)
-                _reorderLayout = [[LXReorderableCollectionViewFlowLayout alloc] init];
+            for (UIGestureRecognizer *recognizer in self.view.gestureRecognizers) {
+                if (recognizer == _folderLayout.panGestureRecognizer || recognizer == _folderLayout.longPressGestureRecognizer || recognizer == _longPressGestureRecognizer)
+                    [self.collectionView removeGestureRecognizer:recognizer];
+            }
+            _reorderLayout = [[LXReorderableCollectionViewFlowLayout alloc] init];
             [self.collectionView setCollectionViewLayout:_reorderLayout animated:NO];
+            _folderLayout = nil;
         }
         _foundMedia = [[folder.files allObjects] mutableCopy];
         self.navigationItem.leftBarButtonItem = [UIBarButtonItem themedBackButtonWithTarget:self andSelector:@selector(backToAllItems:)];
@@ -905,12 +910,15 @@ static NSString *kDisplayedFirstSteps = @"Did we display the first steps tutoria
         /* UIKit doesn't clear the selection automagically if we leave the editing mode
          * so we need to do so manually */
         if (!editing) {
+            [self.collectionView addGestureRecognizer:_longPressGestureRecognizer];
             NSArray *selectedItems = [self.collectionView indexPathsForSelectedItems];
             NSUInteger count = selectedItems.count;
 
             for (NSUInteger x = 0; x < count; x++)
                 [self.collectionView deselectItemAtIndexPath:selectedItems[x] animated:NO];
-        }
+        } else
+            [self.collectionView removeGestureRecognizer:_longPressGestureRecognizer];
+
     } else {
         self.tableView.allowsMultipleSelectionDuringEditing = editing;
         [self.tableView setEditing:editing animated:YES];
@@ -942,10 +950,15 @@ static NSString *kDisplayedFirstSteps = @"Did we display the first steps tutoria
 - (IBAction)backToAllItems:(id)sender
 {
     if (UI_USER_INTERFACE_IDIOM() == UIUserInterfaceIdiomPad) {
-        [self.collectionView setCollectionViewLayout:_folderLayout];
-        //TODO: find better way than creating a new recognizer
-        UILongPressGestureRecognizer *longPressGestureRecognizer = [[UILongPressGestureRecognizer alloc] initWithTarget:self action:@selector(_collectionViewHandleLongPressGesture:)];
-        [_collectionView addGestureRecognizer:longPressGestureRecognizer];
+        //for some reason the Gesturerecognizer block themselves if not removed manually
+        for (UIGestureRecognizer *recognizer in self.view.gestureRecognizers) {
+            if (recognizer == _reorderLayout.panGestureRecognizer || recognizer == _reorderLayout.longPressGestureRecognizer)
+                [self.collectionView removeGestureRecognizer:recognizer];
+        }
+        _folderLayout = [[VLCFolderCollectionViewFlowLayout alloc] init];
+        [self.collectionView setCollectionViewLayout:_folderLayout animated:NO];
+        _reorderLayout = nil;
+        [_collectionView addGestureRecognizer:_longPressGestureRecognizer];
     }
     inFolder = NO;
     UIBarButtonItem *createFolderItem = [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemOrganize target:self action:@selector(createFolder)];
