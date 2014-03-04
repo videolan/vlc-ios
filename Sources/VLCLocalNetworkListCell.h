@@ -31,7 +31,6 @@
 @property (nonatomic, retain) UIImage *icon;
 @property (nonatomic, retain) NSURL *iconURL;
 @property (nonatomic, readwrite) BOOL isDownloadable;
-@property (nonatomic, retain) NSURL *downloadURL;
 
 + (VLCLocalNetworkListCell *)cellWithReuseIdentifier:(NSString *)ident;
 + (CGFloat)heightOfCell;

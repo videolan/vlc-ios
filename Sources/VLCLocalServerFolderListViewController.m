@@ -204,23 +204,6 @@
                     bitrate = resource.bitrate;
                 }
             }
-            NSURL *itemURL;
-            NSArray *uriCollectionKeys = [[mediaItem uriCollection] allKeys];
-            NSUInteger count = uriCollectionKeys.count;
-            NSRange position;
-            NSUInteger correctIndex = 0;
-            for (NSUInteger i = 0; i < count; i++) {
-                position = [uriCollectionKeys[i] rangeOfString:@"http-get:*:video/"];
-                if (position.location != NSNotFound)
-                    correctIndex = i;
-            }
-            NSArray *uriCollectionObjects = [[mediaItem uriCollection] allValues];
-
-            if (uriCollectionObjects.count > 0) {
-                itemURL = [NSURL URLWithString:uriCollectionObjects[correctIndex]];
-                cell.downloadURL = itemURL;
-            }
-
             if (mediaSize < 1)
                 mediaSize = [mediaItem.size longLongValue];
 
@@ -388,10 +371,30 @@
     [[(VLCAppDelegate*)[UIApplication sharedApplication].delegate downloadViewController] addURLToDownloadList:URLToQueue fileNameOfMedia:nil];
 }
 
-- (void)_downloadUPNPFile:(NSURL *)url fileNameOfMedia:(NSString*) fileName;
+- (void)_downloadUPNPFileFromMediaItem:(MediaServer1ItemObject *)mediaItem
 {
-    fileName = [[fileName stringByAppendingString:@"."] stringByAppendingString:[[url absoluteString] pathExtension]];
-    [[(VLCAppDelegate*)[UIApplication sharedApplication].delegate downloadViewController] addURLToDownloadList:url fileNameOfMedia:fileName];
+    NSURL *itemURL;
+    NSArray *uriCollectionKeys = [[mediaItem uriCollection] allKeys];
+    NSUInteger count = uriCollectionKeys.count;
+    NSRange position;
+    NSUInteger correctIndex = 0;
+    for (NSUInteger i = 0; i < count; i++) {
+        position = [uriCollectionKeys[i] rangeOfString:@"http-get:*:video/"];
+        if (position.location != NSNotFound)
+            correctIndex = i;
+    }
+    NSArray *uriCollectionObjects = [[mediaItem uriCollection] allValues];
+
+    if (uriCollectionObjects.count > 0)
+        itemURL = [NSURL URLWithString:uriCollectionObjects[correctIndex]];
+
+    if (![itemURL.absoluteString isSupportedFormat]) {
+        UIAlertView * alert = [[UIAlertView alloc] initWithTitle:NSLocalizedString(@"FILE_NOT_SUPPORTED", @"") message:[NSString stringWithFormat:NSLocalizedString(@"FILE_NOT_SUPPORTED_LONG", @""), [mediaItem uri]] delegate:self cancelButtonTitle:NSLocalizedString(@"BUTTON_CANCEL", @"") otherButtonTitles:nil];
+        [alert show];
+    } else if (itemURL) {
+        NSString *fileName = [[mediaItem.title stringByAppendingString:@"."] stringByAppendingString:[[itemURL absoluteString] pathExtension]];
+        [[(VLCAppDelegate*)[UIApplication sharedApplication].delegate downloadViewController] addURLToDownloadList:itemURL fileNameOfMedia:fileName];
+    }
 }
 
 - (void)requestCompleted:(WRRequest *)request
@@ -430,19 +433,8 @@
         else
             item = _mutableObjectList[[self.tableView indexPathForCell:cell].row];
 
-        MediaServer1ItemRes *resource = nil;
-        NSEnumerator *e = [[item resources] objectEnumerator];
-        NSURL *itemURL;
-        while((resource = (MediaServer1ItemRes*)[e nextObject])){
-            itemURL = [NSURL URLWithString:[[item uri] stringByAddingPercentEscapesUsingEncoding:NSUTF8StringEncoding]];
-        }
-        if (![[item uri] isSupportedFormat]) {
-            UIAlertView * alert = [[UIAlertView alloc] initWithTitle:NSLocalizedString(@"FILE_NOT_SUPPORTED", @"") message:[NSString stringWithFormat:NSLocalizedString(@"FILE_NOT_SUPPORTED_LONG", @""), [item uri]] delegate:self cancelButtonTitle:NSLocalizedString(@"BUTTON_CANCEL", @"") otherButtonTitles:nil];
-            [alert show];
-        } else {
-            [self _downloadUPNPFile:itemURL fileNameOfMedia:[item title]];
-            [cell.statusLabel showStatusMessage:NSLocalizedString(@"DOWNLOADING", @"")];
-        }
+        [self _downloadUPNPFileFromMediaItem:item];
+        [cell.statusLabel showStatusMessage:NSLocalizedString(@"DOWNLOADING", @"")];
     }else if (_serverType == kVLCServerTypeFTP) {
         NSString *rawObjectName;
         NSMutableArray *ObjList = [[NSMutableArray alloc] init];
