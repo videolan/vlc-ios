@@ -140,36 +140,10 @@
         [self _configureForFolder:mediaObject];
 
         if (([keyPath isEqualToString:@"computedThumbnail"] || !keyPath) || (!self.thumbnailView.image && [keyPath isEqualToString:@"editing"])) {
-
-            NSUInteger fileNumber = [mediaObject.files count] > 3 ? 3 : [mediaObject.files count];
-            if (fileNumber == 0) {
+            if (mediaObject.files.count == 0)
                 self.thumbnailView.image = [UIImage imageNamed:@"folderIcon"];
-            } else {
-                NSArray *files = [mediaObject.files allObjects];
-                CGSize frameSize = self.thumbnailView.frame.size;
-                UIImage *displayedImage;
-                UIGraphicsBeginImageContext(frameSize);
-                for (NSUInteger i = 0; i < fileNumber; i++) {
-                    MLFile *file =  [files objectAtIndex:i];
-                    displayedImage = [VLCThumbnailsCache thumbnailForMediaFile:file];
-                    CGContextRef context = UIGraphicsGetCurrentContext();
-                    CGFloat imagePartWidth = (frameSize.width / fileNumber);
-                    //the rect in which the image should be drawn
-                    CGRect clippingRect = CGRectMake(imagePartWidth * i, 0, imagePartWidth, frameSize.height);
-                    CGContextSaveGState(context);
-                    CGContextClipToRect(context, clippingRect);
-                    //take the center of the clippingRect and calculate the offset from the original center
-                    CGFloat centerOffset = (imagePartWidth * i + imagePartWidth / 2) - frameSize.width / 2;
-                    //shift the rect to draw the middle of the image in the clippingrect
-                    CGRect drawingRect = CGRectMake(centerOffset, 0, frameSize.width, frameSize.height);
-                    [displayedImage drawInRect:drawingRect];
-                    //get rid of the old clippingRect
-                    CGContextRestoreGState(context);
-                }
-                displayedImage = UIGraphicsGetImageFromCurrentImageContext();
-                UIGraphicsEndImageContext();
-                self.thumbnailView.image = displayedImage;
-            }
+            else
+                self.thumbnailView.image = [VLCThumbnailsCache thumbnailForLabel:mediaObject ofSize:self.thumbnailView.frame.size];
         }
     } else if ([self.mediaObject isKindOfClass:[MLAlbum class]]) {
         MLAlbum *mediaObject = (MLAlbum *)self.mediaObject;

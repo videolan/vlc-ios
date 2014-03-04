@@ -102,4 +102,45 @@ static NSCache *_thumbnailCache;
     return displayedImage;
 }
 
++ (UIImage *)thumbnailForLabel:(MLLabel *)mediaLabel ofSize:(CGSize)imageSize
+{
+    NSManagedObjectID *objID = mediaLabel.objectID;
+    UIImage *displayedImage = [_thumbnailCache objectForKey:objID];
+
+    if (displayedImage)
+        return displayedImage;
+
+    NSUInteger fileNumber = [mediaLabel.files count] > 3 ? 3 : [mediaLabel.files count];
+    NSArray *files = [mediaLabel.files allObjects];
+
+    /* for retina displays, our image size needs to be twice as big */
+    if ([UIScreen mainScreen].scale == 2.)
+        imageSize = CGSizeMake(imageSize.width * 2., imageSize.height * 2.);
+
+    UIGraphicsBeginImageContext(imageSize);
+    for (NSUInteger i = 0; i < fileNumber; i++) {
+        MLFile *file =  [files objectAtIndex:i];
+        displayedImage = [VLCThumbnailsCache thumbnailForMediaFile:file];
+        CGContextRef context = UIGraphicsGetCurrentContext();
+        CGFloat imagePartWidth = (imageSize.width / fileNumber);
+        //the rect in which the image should be drawn
+        CGRect clippingRect = CGRectMake(imagePartWidth * i, 0, imagePartWidth, imageSize.height);
+        CGContextSaveGState(context);
+        CGContextClipToRect(context, clippingRect);
+        //take the center of the clippingRect and calculate the offset from the original center
+        CGFloat centerOffset = (imagePartWidth * i + imagePartWidth / 2) - imageSize.width / 2;
+        //shift the rect to draw the middle of the image in the clippingrect
+        CGRect drawingRect = CGRectMake(centerOffset, 0, imageSize.width, imageSize.height);
+        [displayedImage drawInRect:drawingRect];
+        //get rid of the old clippingRect
+        CGContextRestoreGState(context);
+    }
+    displayedImage = UIGraphicsGetImageFromCurrentImageContext();
+    UIGraphicsEndImageContext();
+
+    [_thumbnailCache setObject:displayedImage forKey:objID];
+
+    return displayedImage;
+}
+
 @end
