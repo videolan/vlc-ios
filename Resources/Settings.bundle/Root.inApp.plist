@@ -214,6 +214,16 @@
 		</dict>
 		<dict>
 			<key>Type</key>
+			<string>PSToggleSwitchSpecifier</string>
+			<key>Title</key>
+			<string>SETTINGS_SUBTITLES_BOLDFONT</string>
+			<key>Key</key>
+			<string>quartztext-bold</string>
+			<key>DefaultValue</key>
+			<false/>
+		</dict>
+		<dict>
+			<key>Type</key>
 			<string>PSMultiValueSpecifier</string>
 			<key>Title</key>
 			<string>SETTINGS_SUBTITLES_FONTCOLOR</string>

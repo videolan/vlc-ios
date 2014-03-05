@@ -30,6 +30,8 @@
 #define kVLCSettingSubtitlesFontDefaultValue @"HelveticaNeue"
 #define kVLCSettingSubtitlesFontSize @"quartztext-rel-fontsize"
 #define kVLCSettingSubtitlesFontSizeDefaultValue @"16"
+#define kVLCSettingSubtitlesBoldFont @"quartztext-bold"
+#define kVLCSettingSubtitlesBoldFontDefaulValue @NO
 #define kVLCSettingSubtitlesFontColor @"quartztext-color"
 #define kVLCSettingSubtitlesFontColorDefaultValue @"16777215"
 #define kVLCSettingDeinterlace @"deinterlace"

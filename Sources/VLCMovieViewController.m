@@ -405,7 +405,8 @@
         return;
     }
 
-    _listPlayer = [[VLCMediaListPlayer alloc] initWithOptions:@[[NSString stringWithFormat:@"--%@=%@", kVLCSettingSubtitlesFont, [defaults objectForKey:kVLCSettingSubtitlesFont]], [NSString stringWithFormat:@"--%@=%@", kVLCSettingSubtitlesFontColor, [defaults objectForKey:kVLCSettingSubtitlesFontColor]], [NSString stringWithFormat:@"--%@=%@", kVLCSettingSubtitlesFontSize, [defaults objectForKey:kVLCSettingSubtitlesFontSize]], [NSString stringWithFormat:@"--%@=%@", kVLCSettingDeinterlace, [defaults objectForKey:kVLCSettingDeinterlace]], [NSString stringWithFormat:@"--%@=%@", kVLCSettingNetworkCaching, [defaults objectForKey:kVLCSettingNetworkCaching]]]];
+    _listPlayer = [[VLCMediaListPlayer alloc]
+                   initWithOptions:@[[NSString stringWithFormat:@"--%@=%@", kVLCSettingSubtitlesFont, [self _resolveFontName]], [NSString stringWithFormat:@"--%@=%@", kVLCSettingSubtitlesFontColor, [defaults objectForKey:kVLCSettingSubtitlesFontColor]], [NSString stringWithFormat:@"--%@=%@", kVLCSettingSubtitlesFontSize, [defaults objectForKey:kVLCSettingSubtitlesFontSize]], [NSString stringWithFormat:@"--%@=%@", kVLCSettingDeinterlace, [defaults objectForKey:kVLCSettingDeinterlace]], [NSString stringWithFormat:@"--%@=%@", kVLCSettingNetworkCaching, [defaults objectForKey:kVLCSettingNetworkCaching]]]];
     _mediaPlayer = _listPlayer.mediaPlayer;
     [_mediaPlayer setDelegate:self];
     [_mediaPlayer setDrawable:self.movieView];
@@ -634,6 +635,45 @@
         @catch (NSException *exception) {
             APLog(@"failed to save current media state - file removed?");
         }
+    }
+}
+
+- (NSString *)_resolveFontName
+{
+    NSUserDefaults *defaults = [NSUserDefaults standardUserDefaults];
+    BOOL bold = [[defaults objectForKey:kVLCSettingSubtitlesBoldFont] boolValue];
+    NSString *font = [defaults objectForKey:kVLCSettingSubtitlesFont];
+    NSDictionary *fontMap = @{
+                              @"AmericanTypewriter":   @"AmericanTypewriter-Bold",
+                              @"ArialMT":              @"Arial-BoldMT",
+                              @"ArialHebrew":          @"ArialHebrew-Bold",
+                              @"ChalkboardSE-Regular": @"ChalkboardSE-Bold",
+                              @"CourierNewPSMT":       @"CourierNewPS-BoldMT",
+                              @"Georgia":              @"Georgia-Bold",
+                              @"GillSans":             @"GillSans-Bold",
+                              @"GujaratiSangamMN":     @"GujaratiSangamMN-Bold",
+                              @"STHeitiSC-Light":      @"STHeitiSC-Medium",
+                              @"STHeitiTC-Light":      @"STHeitiTC-Medium",
+                              @"HelveticaNeue":        @"HelveticaNeue-Bold",
+                              @"HiraKakuProN-W3":      @"HiraKakuProN-W6",
+                              @"HiraMinProN-W3":       @"HiraMinProN-W6",
+                              @"HoeflerText-Regular":  @"HoeflerText-Black",
+                              @"Kailasa":              @"Kailasa-Bold",
+                              @"KannadaSangamMN":      @"KannadaSangamMN-Bold",
+                              @"MalayalamSangamMN":    @"MalayalamSangamMN-Bold",
+                              @"OriyaSangamMN":        @"OriyaSangamMN-Bold",
+                              @"SinhalaSangamMN":      @"SinhalaSangamMN-Bold",
+                              @"SnellRoundhand":       @"SnellRoundhand-Bold",
+                              @"TamilSangamMN":        @"TamilSangamMN-Bold",
+                              @"TeluguSangamMN":       @"TeluguSangamMN-Bold",
+                              @"TimesNewRomanPSMT":    @"TimesNewRomanPS-BoldMT",
+                              @"Zapfino":              @"Zapfino"
+                              };
+
+    if (!bold) {
+        return font;
+    } else {
+        return fontMap[font];
     }
 }
 
