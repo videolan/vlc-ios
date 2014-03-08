@@ -101,8 +101,10 @@
         if (([keyPath isEqualToString:@"computedThumbnail"] || !keyPath) || (!self.thumbnailView.image && [keyPath isEqualToString:@"editing"])) {
             if (mediaObject.files.count == 0)
                 self.thumbnailView.image = [UIImage imageNamed:@"folderIcon"];
-            else
-                self.thumbnailView.image = [VLCThumbnailsCache thumbnailForLabel:mediaObject ofSize:self.thumbnailView.frame.size];
+            else {
+                CGSize currentSize = self.thumbnailView.frame.size;
+                self.thumbnailView.image = [VLCThumbnailsCache thumbnailForLabel:mediaObject ofSize:CGSizeMake(currentSize.width, currentSize.height * 2.)];
+            }
         }
     } else if ([self.mediaObject isKindOfClass:[MLAlbum class]]) {
         MLAlbum *mediaObject = (MLAlbum *)self.mediaObject;
