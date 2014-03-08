@@ -143,7 +143,7 @@
             if (mediaObject.files.count == 0)
                 self.thumbnailView.image = [UIImage imageNamed:@"folderIcon"];
             else
-                self.thumbnailView.image = [VLCThumbnailsCache thumbnailForLabel:mediaObject ofSize:self.thumbnailView.frame.size];
+                self.thumbnailView.image = [VLCThumbnailsCache thumbnailForLabel:mediaObject];
         }
     } else if ([self.mediaObject isKindOfClass:[MLAlbum class]]) {
         MLAlbum *mediaObject = (MLAlbum *)self.mediaObject;

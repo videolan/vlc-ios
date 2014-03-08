@@ -102,7 +102,7 @@ static NSCache *_thumbnailCache;
     return displayedImage;
 }
 
-+ (UIImage *)thumbnailForLabel:(MLLabel *)mediaLabel ofSize:(CGSize)imageSize
++ (UIImage *)thumbnailForLabel:(MLLabel *)mediaLabel
 {
     NSManagedObjectID *objID = mediaLabel.objectID;
     UIImage *displayedImage = [_thumbnailCache objectForKey:objID];
@@ -113,9 +113,22 @@ static NSCache *_thumbnailCache;
     NSUInteger fileNumber = [mediaLabel.files count] > 3 ? 3 : [mediaLabel.files count];
     NSArray *files = [mediaLabel.files allObjects];
 
-    /* for retina displays, our image size needs to be twice as big */
-    if ([UIScreen mainScreen].scale == 2.)
-        imageSize = CGSizeMake(imageSize.width * 2., imageSize.height * 2.);
+    CGSize imageSize;
+    if (UI_USER_INTERFACE_IDIOM() == UIUserInterfaceIdiomPad) {
+        if ([UIScreen mainScreen].scale==2.0)
+            imageSize = CGSizeMake(540., 405.);
+        else
+            imageSize = CGSizeMake(272, 204.);
+    } else {
+        if (SYSTEM_RUNS_IOS7_OR_LATER)
+            imageSize = CGSizeMake(480., 270.);
+        else {
+            if ([UIScreen mainScreen].scale==2.0)
+                imageSize = CGSizeMake(480., 270.);
+            else
+                imageSize = CGSizeMake(540., 405.);
+        }
+    }
 
     UIGraphicsBeginImageContext(imageSize);
     for (NSUInteger i = 0; i < fileNumber; i++) {

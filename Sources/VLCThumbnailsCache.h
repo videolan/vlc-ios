@@ -19,6 +19,6 @@
 
 + (UIImage *)thumbnailForMediaItemWithTitle:(NSString *)title Artist:(NSString*)artist andAlbumName:(NSString*)albumname;
 
-+ (UIImage *)thumbnailForLabel:(MLLabel *)mediaLabel ofSize:(CGSize)size;
++ (UIImage *)thumbnailForLabel:(MLLabel *)mediaLabel;
 
 @end
