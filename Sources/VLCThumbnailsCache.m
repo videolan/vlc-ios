@@ -102,6 +102,28 @@ static NSCache *_thumbnailCache;
     return displayedImage;
 }
 
++ (UIImage *)thumbnailForShow:(MLShow *)mediaShow
+{
+    NSManagedObjectID *objID = mediaShow.objectID;
+    UIImage *displayedImage = [_thumbnailCache objectForKey:objID];
+
+    if (displayedImage)
+        return displayedImage;
+
+    NSUInteger count = [mediaShow.episodes count];
+    NSUInteger fileNumber = count > 3 ? 3 : count;
+    NSArray *episodes = [mediaShow.episodes allObjects];
+    NSMutableArray *files = [[NSMutableArray alloc] init];
+    for (NSUInteger x = 0; x < count; x++)
+        [files addObject:[episodes[x] files].anyObject];
+
+    displayedImage = [self clusterThumbFromFiles:files andNumber:fileNumber];
+    if (displayedImage)
+        [_thumbnailCache setObject:displayedImage forKey:objID];
+
+    return displayedImage;
+}
+
 + (UIImage *)thumbnailForLabel:(MLLabel *)mediaLabel
 {
     NSManagedObjectID *objID = mediaLabel.objectID;
@@ -110,9 +132,19 @@ static NSCache *_thumbnailCache;
     if (displayedImage)
         return displayedImage;
 
-    NSUInteger fileNumber = [mediaLabel.files count] > 3 ? 3 : [mediaLabel.files count];
+    NSUInteger count = [mediaLabel.files count];
+    NSUInteger fileNumber = count > 3 ? 3 : count;
     NSArray *files = [mediaLabel.files allObjects];
+    displayedImage = [self clusterThumbFromFiles:files andNumber:fileNumber];
+    if (displayedImage)
+        [_thumbnailCache setObject:displayedImage forKey:objID];
 
+    return displayedImage;
+}
+
++ (UIImage *)clusterThumbFromFiles:(NSArray *)files andNumber:(NSUInteger)fileNumber
+{
+    UIImage *clusterThumb;
     CGSize imageSize;
     if (UI_USER_INTERFACE_IDIOM() == UIUserInterfaceIdiomPad) {
         if ([UIScreen mainScreen].scale==2.0)
@@ -133,7 +165,7 @@ static NSCache *_thumbnailCache;
     UIGraphicsBeginImageContext(imageSize);
     for (NSUInteger i = 0; i < fileNumber; i++) {
         MLFile *file =  [files objectAtIndex:i];
-        displayedImage = [VLCThumbnailsCache thumbnailForMediaFile:file];
+        clusterThumb = [VLCThumbnailsCache thumbnailForMediaFile:file];
         CGContextRef context = UIGraphicsGetCurrentContext();
         CGFloat imagePartWidth = (imageSize.width / fileNumber);
         //the rect in which the image should be drawn
@@ -144,16 +176,14 @@ static NSCache *_thumbnailCache;
         CGFloat centerOffset = (imagePartWidth * i + imagePartWidth / 2) - imageSize.width / 2;
         //shift the rect to draw the middle of the image in the clippingrect
         CGRect drawingRect = CGRectMake(centerOffset, 0, imageSize.width, imageSize.height);
-        [displayedImage drawInRect:drawingRect];
+        [clusterThumb drawInRect:drawingRect];
         //get rid of the old clippingRect
         CGContextRestoreGState(context);
     }
-    displayedImage = UIGraphicsGetImageFromCurrentImageContext();
+    clusterThumb = UIGraphicsGetImageFromCurrentImageContext();
     UIGraphicsEndImageContext();
 
-    [_thumbnailCache setObject:displayedImage forKey:objID];
-
-    return displayedImage;
+    return clusterThumb;
 }
 
 @end

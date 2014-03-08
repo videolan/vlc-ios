@@ -166,8 +166,7 @@
         [self _configureForShow:mediaObject];
 
         if ([keyPath isEqualToString:@"computedThumbnail"] || !keyPath || (!self.thumbnailView.image && [keyPath isEqualToString:@"editing"])) {
-            MLFile *anyFileFromAnyEpisode = [mediaObject.episodes.anyObject files].anyObject;
-            self.thumbnailView.image = [VLCThumbnailsCache thumbnailForMediaFile:anyFileFromAnyEpisode];
+            self.thumbnailView.image = [VLCThumbnailsCache thumbnailForShow:mediaObject];
         }
     } else if ([self.mediaObject isKindOfClass:[MLShowEpisode class]]) {
         MLShowEpisode *mediaObject = (MLShowEpisode *)self.mediaObject;

@@ -19,6 +19,7 @@
 
 + (UIImage *)thumbnailForMediaItemWithTitle:(NSString *)title Artist:(NSString*)artist andAlbumName:(NSString*)albumname;
 
++ (UIImage *)thumbnailForShow:(MLShow *)mediaShow;
 + (UIImage *)thumbnailForLabel:(MLLabel *)mediaLabel;
 
 @end
