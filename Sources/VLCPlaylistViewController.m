@@ -474,6 +474,21 @@ static NSString *kDisplayedFirstSteps = @"Did we display the first steps tutoria
     return cell;
 }
 
+- (void)tableView:(UITableView *)tableView moveRowAtIndexPath:(NSIndexPath *)fromIndexPath toIndexPath:(NSIndexPath *)toIndexPath
+{
+    MLFile* object = [_foundMedia objectAtIndex:fromIndexPath.item];
+    [_foundMedia removeObjectAtIndex:fromIndexPath.item];
+    [_foundMedia insertObject:object atIndex:toIndexPath.item];
+    object.folderTrackNumber = @(toIndexPath.item - 1);
+    object = [_foundMedia objectAtIndex:fromIndexPath.item];
+    object.folderTrackNumber = @(fromIndexPath.item - 1);
+}
+
+- (BOOL)tableView:(UITableView *)tableView canMoveRowAtIndexPath:(NSIndexPath *)indexPath
+{
+    return inFolder;
+}
+
 - (void)tableView:(UITableView *)tableView willDisplayCell:(UITableViewCell *)cell forRowAtIndexPath:(NSIndexPath *)indexPath
 {
     cell.backgroundColor = (indexPath.row % 2 == 0)? [UIColor blackColor]: [UIColor colorWithWhite:.122 alpha:1.];
@@ -749,7 +764,7 @@ static NSString *kDisplayedFirstSteps = @"Did we display the first steps tutoria
         else
             mediaObject = _foundMedia[path.row];
         if ([mediaObject isKindOfClass:[MLLabel class]])
-            [_indexPaths removeObject:mediaObject];
+            [_indexPaths removeObject:path];
     }
 
     if ([_indexPaths count] != 0) {
