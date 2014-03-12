@@ -34,9 +34,8 @@
     VLCDownloadViewController *_downloadViewController;
     int _idleCounter;
     VLCMovieViewController *_movieViewController;
+    BOOL _passcodeValidated;
 }
-
-@property (nonatomic) BOOL passcodeValidated;
 
 @end
 
@@ -153,26 +152,24 @@
 - (void)applicationWillEnterForeground:(UIApplication *)application
 {
     [[MLMediaLibrary sharedMediaLibrary] applicationWillStart];
-    [self validatePasscode];
 }
 
 - (void)applicationWillResignActive:(UIApplication *)application
 {
-    self.passcodeValidated = NO;
+    _passcodeValidated = NO;
     [self validatePasscode];
     [[MLMediaLibrary sharedMediaLibrary] applicationWillExit];
 }
 
 - (void)applicationDidBecomeActive:(UIApplication *)application
 {
-    [self validatePasscode];
     [[MLMediaLibrary sharedMediaLibrary] updateMediaDatabase];
     [self updateMediaList];
 }
 
 - (void)applicationWillTerminate:(UIApplication *)application
 {
-    self.passcodeValidated = NO;
+    _passcodeValidated = NO;
     [[NSUserDefaults standardUserDefaults] synchronize];
 }
 
@@ -272,27 +269,32 @@
     NSUserDefaults *defaults = [NSUserDefaults standardUserDefaults];
     NSString *passcode = [defaults objectForKey:kVLCSettingPasscodeKey];
     if ([passcode isEqualToString:@""] || ![[defaults objectForKey:kVLCSettingPasscodeOnKey] boolValue]) {
-        self.passcodeValidated = YES;
+        _passcodeValidated = YES;
         return;
     }
 
-    if (!self.passcodeValidated) {
+    if (!_passcodeValidated) {
         _passcodeLockController = [[PAPasscodeViewController alloc] initForAction:PasscodeActionEnter];
         _passcodeLockController.delegate = self;
         _passcodeLockController.passcode = passcode;
-        self.window.rootViewController = _passcodeLockController;
+
+        if (self.window.rootViewController.presentedViewController)
+            [self.window.rootViewController dismissViewControllerAnimated:NO completion:nil];
+
+        UINavigationController *navCon = [[UINavigationController alloc] initWithRootViewController:_passcodeLockController];
+        navCon.modalPresentationStyle = UIModalPresentationFullScreen;
+        [self.window.rootViewController presentViewController:navCon animated:NO completion:nil];
     }
 }
 
 - (void)PAPasscodeViewControllerDidEnterPasscode:(PAPasscodeViewController *)controller
 {
-    // TODO add transition animation, i.e. fade
-    self.window.rootViewController = self.revealController;
+    [self.window.rootViewController dismissViewControllerAnimated:YES completion:nil];
 }
 
 - (void)PAPasscodeViewController:(PAPasscodeViewController *)controller didFailToEnterPasscode:(NSInteger)attempts
 {
-    // TODO handle error attempts
+    // FIXME: handle countless failed passcode attempts
 }
 
 #pragma mark - idle timer preventer
