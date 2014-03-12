@@ -252,14 +252,8 @@ rm -rf __MACOSX
 fi
 if ! [ -e InAppSettingsKit ]; then
 git clone git://github.com/futuretap/InAppSettingsKit.git
-cd InAppSettingsKit
-git am ../../patches/inappsettingskit/*.patch
-if [ $? -ne 0 ]; then
-git am --abort
-info "Applying the patches failed, aborting git-am"
-exit 1
-fi
-cd ..
+else
+cd WhiteRaccoon && git pull --rebase && cd ..
 fi
 fi
 
