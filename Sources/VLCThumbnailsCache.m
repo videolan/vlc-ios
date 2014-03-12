@@ -102,13 +102,16 @@ static NSCache *_thumbnailCache;
     return displayedImage;
 }
 
-+ (UIImage *)thumbnailForShow:(MLShow *)mediaShow
++ (UIImage *)thumbnailForShow:(MLShow *)mediaShow forceRefresh:(BOOL)forceRefresh
 {
     NSManagedObjectID *objID = mediaShow.objectID;
-    UIImage *displayedImage = [_thumbnailCache objectForKey:objID];
+    UIImage *displayedImage;
 
-    if (displayedImage)
-        return displayedImage;
+    if (!forceRefresh) {
+        displayedImage = [_thumbnailCache objectForKey:objID];
+        if (displayedImage)
+            return displayedImage;
+    }
 
     NSUInteger count = [mediaShow.episodes count];
     NSUInteger fileNumber = count > 3 ? 3 : count;
@@ -124,13 +127,16 @@ static NSCache *_thumbnailCache;
     return displayedImage;
 }
 
-+ (UIImage *)thumbnailForLabel:(MLLabel *)mediaLabel
++ (UIImage *)thumbnailForLabel:(MLLabel *)mediaLabel forceRefresh:(BOOL)forceRefresh
 {
     NSManagedObjectID *objID = mediaLabel.objectID;
-    UIImage *displayedImage = [_thumbnailCache objectForKey:objID];
+    UIImage *displayedImage;
 
-    if (displayedImage)
-        return displayedImage;
+    if (!forceRefresh) {
+        displayedImage = [_thumbnailCache objectForKey:objID];
+        if (displayedImage)
+            return displayedImage;
+    }
 
     NSUInteger count = [mediaLabel.files count];
     NSUInteger fileNumber = count > 3 ? 3 : count;

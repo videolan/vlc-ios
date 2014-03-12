@@ -103,6 +103,12 @@
         [_mediaObject removeObserver:self forKeyPath:@"genre"];
         if ([_mediaObject respondsToSelector:@selector(didHide)])
             [(MLFile*)_mediaObject didHide];
+        if ([_mediaObject isKindOfClass:[MLLabel class]]) {
+            [_mediaObject removeObserver:self forKeyPath:@"files"];
+            [_mediaObject removeObserver:self forKeyPath:@"name"];
+        }
+        if ([_mediaObject isKindOfClass:[MLShow class]])
+            [_mediaObject removeObserver:self forKeyPath:@"episodes"];
 
         _mediaObject = mediaObject;
 
@@ -120,6 +126,12 @@
 
         if ([_mediaObject respondsToSelector:@selector(willDisplay)])
             [(MLFile*)_mediaObject willDisplay];
+        if ([_mediaObject isKindOfClass:[MLLabel class]]) {
+            [_mediaObject addObserver:self forKeyPath:@"files" options:0 context:nil];
+            [_mediaObject addObserver:self forKeyPath:@"name" options:0 context:nil];
+        }
+        if ([_mediaObject isKindOfClass:[MLShow class]])
+            [_mediaObject addObserver:self forKeyPath:@"episodes" options:0 context:nil];
     }
 
     [self _updatedDisplayedInformationForKeyPath:nil];
@@ -138,12 +150,15 @@
     } else if ([self.mediaObject isKindOfClass:[MLLabel class]]) {
         MLLabel *mediaObject = (MLLabel *)self.mediaObject;
         [self _configureForFolder:mediaObject];
+        BOOL forceRefresh = NO;
+        if ([keyPath isEqualToString:@"files"] || [keyPath isEqualToString:@"labels"] || !keyPath)
+            forceRefresh = YES;
 
-        if (([keyPath isEqualToString:@"computedThumbnail"] || !keyPath) || (!self.thumbnailView.image && [keyPath isEqualToString:@"editing"])) {
+        if (forceRefresh || (!self.thumbnailView.image && [keyPath isEqualToString:@"editing"])) {
             if (mediaObject.files.count == 0)
                 self.thumbnailView.image = [UIImage imageNamed:@"folderIcon"];
             else
-                self.thumbnailView.image = [VLCThumbnailsCache thumbnailForLabel:mediaObject];
+                self.thumbnailView.image = [VLCThumbnailsCache thumbnailForLabel:mediaObject forceRefresh:forceRefresh];
         }
     } else if ([self.mediaObject isKindOfClass:[MLAlbum class]]) {
         MLAlbum *mediaObject = (MLAlbum *)self.mediaObject;
@@ -164,9 +179,12 @@
     } else if ([self.mediaObject isKindOfClass:[MLShow class]]) {
         MLShow *mediaObject = (MLShow *)self.mediaObject;
         [self _configureForShow:mediaObject];
+        BOOL forceRefresh = NO;
+        if ([keyPath isEqualToString:@"episodes"])
+            forceRefresh = YES;
 
-        if ([keyPath isEqualToString:@"computedThumbnail"] || !keyPath || (!self.thumbnailView.image && [keyPath isEqualToString:@"editing"])) {
-            self.thumbnailView.image = [VLCThumbnailsCache thumbnailForShow:mediaObject];
+        if ([keyPath isEqualToString:@"computedThumbnail"] || forceRefresh || !keyPath || (!self.thumbnailView.image && [keyPath isEqualToString:@"editing"])) {
+            self.thumbnailView.image = [VLCThumbnailsCache thumbnailForShow:mediaObject forceRefresh:forceRefresh];
         }
     } else if ([self.mediaObject isKindOfClass:[MLShowEpisode class]]) {
         MLShowEpisode *mediaObject = (MLShowEpisode *)self.mediaObject;
