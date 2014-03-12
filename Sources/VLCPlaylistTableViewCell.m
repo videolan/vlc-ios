@@ -102,13 +102,15 @@
     [super setEditing:editing animated:animated];
     [self _updatedDisplayedInformationForKeyPath:@"editing"];
 
-    if (editing) {
-        if (_longPress)
-            [self removeGestureRecognizer:_longPress];
-    } else {
-        if (!_longPress)
-            _longPress = [[UILongPressGestureRecognizer alloc] initWithTarget:self action:@selector(longTouchGestureAction:)];
-        [self addGestureRecognizer:_longPress];
+    if (SYSTEM_RUNS_IOS7_OR_LATER) {
+        if (editing) {
+            if (_longPress)
+                [self removeGestureRecognizer:_longPress];
+        } else {
+            if (!_longPress)
+                _longPress = [[UILongPressGestureRecognizer alloc] initWithTarget:self action:@selector(longTouchGestureAction:)];
+            [self addGestureRecognizer:_longPress];
+        }
     }
 }
 
