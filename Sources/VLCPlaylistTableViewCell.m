@@ -17,6 +17,13 @@
 #import "VLCThumbnailsCache.h"
 #import <MediaLibraryKit/MLAlbum.h>
 
+@interface VLCPlaylistTableViewCell ()
+{
+    UILongPressGestureRecognizer *_longPress;
+}
+
+@end
+
 @implementation VLCPlaylistTableViewCell
 
 + (VLCPlaylistTableViewCell *)cellWithReuseIdentifier:(NSString *)ident
@@ -94,6 +101,15 @@
 {
     [super setEditing:editing animated:animated];
     [self _updatedDisplayedInformationForKeyPath:@"editing"];
+
+    if (editing) {
+        if (_longPress)
+            [self removeGestureRecognizer:_longPress];
+    } else {
+        if (!_longPress)
+            _longPress = [[UILongPressGestureRecognizer alloc] initWithTarget:self action:@selector(longTouchGestureAction:)];
+        [self addGestureRecognizer:_longPress];
+    }
 }
 
 - (void)_updatedDisplayedInformationForKeyPath:(NSString *)keyPath
@@ -276,6 +292,26 @@
         [self.progressIndicator setNeedsDisplay];
         self.mediaIsUnreadView.hidden = !mediaItem.unread.intValue;
     }
+}
+
+- (void)longTouchGestureAction:(UIGestureRecognizer *)recognizer
+{
+    CGRect frame = self.frame;
+    if (frame.size.height > 90.)
+        frame.size.height = 90.;
+    else if (recognizer.state == UIGestureRecognizerStateBegan)
+        frame.size.height = 180;
+
+    void (^animationBlock)() = ^() {
+        self.frame = frame;
+    };
+
+    void (^completionBlock)(BOOL finished) = ^(BOOL finished) {
+        self.frame = frame;
+    };
+
+    NSTimeInterval animationDuration = .2;
+    [UIView animateWithDuration:animationDuration animations:animationBlock completion:completionBlock];
 }
 
 @end

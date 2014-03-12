@@ -81,11 +81,6 @@ static NSString *kDisplayedFirstSteps = @"Did we display the first steps tutoria
         _tableView.dataSource = self;
         _tableView.opaque = YES;
         self.view = _tableView;
-
-        if (SYSTEM_RUNS_IOS7_OR_LATER) {
-            UILongPressGestureRecognizer *gestureRecognizer = [[UILongPressGestureRecognizer alloc] initWithTarget:self action:@selector(tableViewLongTouchGestureAction:)];
-            [self.view addGestureRecognizer:gestureRecognizer];
-        }
     } else {
         _folderLayout = [[VLCFolderCollectionViewFlowLayout alloc] init];
         _collectionView = [[UICollectionView alloc] initWithFrame:[UIScreen mainScreen].bounds collectionViewLayout:_folderLayout];
@@ -540,30 +535,6 @@ static NSString *kDisplayedFirstSteps = @"Did we display the first steps tutoria
 }
 
 #pragma mark - table view gestures
-- (void)tableViewLongTouchGestureAction:(UIGestureRecognizer *)recognizer
-{
-    NSIndexPath *path = [(UITableView *)self.view indexPathForRowAtPoint:[recognizer locationInView:self.view]];
-    UITableViewCell *cell = [(UITableView *)self.view cellForRowAtIndexPath:path];
-
-    CGRect frame = cell.frame;
-    if (frame.size.height > 90.)
-        frame.size.height = 90.;
-    else if (recognizer.state == UIGestureRecognizerStateBegan)
-        frame.size.height = 180;
-
-    void (^animationBlock)() = ^() {
-        cell.frame = frame;
-    };
-
-    void (^completionBlock)(BOOL finished) = ^(BOOL finished) {
-        cell.frame = frame;
-        [self.tableView scrollToRowAtIndexPath:path atScrollPosition:UITableViewScrollPositionNone animated:YES];
-    };
-
-    NSTimeInterval animationDuration = .2;
-    [UIView animateWithDuration:animationDuration animations:animationBlock completion:completionBlock];
- }
-
 - (void)swipeRightGestureAction:(UIGestureRecognizer *)recognizer
 {
     if ([[self.editButtonItem title] isEqualToString:NSLocalizedString(@"BUTTON_CANCEL",@"")])
