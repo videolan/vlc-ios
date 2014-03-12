@@ -173,17 +173,17 @@ static NSCache *_thumbnailCacheMetadata;
     CGSize imageSize;
     if (UI_USER_INTERFACE_IDIOM() == UIUserInterfaceIdiomPad) {
         if ([UIScreen mainScreen].scale==2.0)
-            imageSize = CGSizeMake(540., 405.);
+            imageSize = CGSizeMake(682., 384.);
         else
-            imageSize = CGSizeMake(272, 204.);
+            imageSize = CGSizeMake(341., 192.);
     } else {
         if (SYSTEM_RUNS_IOS7_OR_LATER)
             imageSize = CGSizeMake(480., 270.);
         else {
             if ([UIScreen mainScreen].scale==2.0)
-                imageSize = CGSizeMake(480., 270.);
+                imageSize = CGSizeMake(258., 145.);
             else
-                imageSize = CGSizeMake(540., 405.);
+                imageSize = CGSizeMake(129., 73.);
         }
     }
 
