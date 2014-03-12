@@ -128,15 +128,12 @@
     } else if (isFolder) {
         MLLabel *mediaObject = (MLLabel *)self.mediaObject;
         [self _configureForFolder:mediaObject];
-        BOOL forceRefresh = NO;
-        if ([keyPath isEqualToString:@"files"] || [keyPath isEqualToString:@"labels"] || !keyPath)
-            forceRefresh = YES;
 
-        if (forceRefresh || (!self.thumbnailView.image && [keyPath isEqualToString:@"editing"])) {
+        if ([keyPath isEqualToString:@"files"] || [keyPath isEqualToString:@"labels"] || !keyPath || (!self.thumbnailView.image && [keyPath isEqualToString:@"editing"])) {
             if (mediaObject.files.count == 0)
                 self.thumbnailView.image = [UIImage imageNamed:@"folderIcon"];
             else
-                self.thumbnailView.image = [VLCThumbnailsCache thumbnailForLabel:mediaObject forceRefresh:forceRefresh];
+                self.thumbnailView.image = [VLCThumbnailsCache thumbnailForLabel:mediaObject];
         }
     } else if ([self.mediaObject isKindOfClass:[MLAlbum class]]) {
         MLAlbum *mediaObject = (MLAlbum *)self.mediaObject;
@@ -157,12 +154,9 @@
     } else if ([self.mediaObject isKindOfClass:[MLShow class]]) {
         MLShow *mediaObject = (MLShow *)self.mediaObject;
         [self _configureForShow:mediaObject];
-        BOOL forceRefresh = NO;
-        if ([keyPath isEqualToString:@"episodes"])
-            forceRefresh = YES;
 
-        if ([keyPath isEqualToString:@"computedThumbnail"] || forceRefresh || !keyPath || (!self.thumbnailView.image && [keyPath isEqualToString:@"editing"])) {
-            self.thumbnailView.image = [VLCThumbnailsCache thumbnailForShow:mediaObject forceRefresh:forceRefresh];
+        if ([keyPath isEqualToString:@"computedThumbnail"] || [keyPath isEqualToString:@"episodes"] || !keyPath || (!self.thumbnailView.image && [keyPath isEqualToString:@"editing"])) {
+            self.thumbnailView.image = [VLCThumbnailsCache thumbnailForShow:mediaObject];
         }
     } else if ([self.mediaObject isKindOfClass:[MLShowEpisode class]]) {
         MLShowEpisode *mediaObject = (MLShowEpisode *)self.mediaObject;

@@ -16,6 +16,7 @@
 
 static NSInteger MaxCacheSize;
 static NSCache *_thumbnailCache;
+static NSCache *_thumbnailCacheMetadata;
 
 @implementation VLCThumbnailsCache
 
@@ -28,7 +29,9 @@ static NSCache *_thumbnailCache;
                                 MAX_CACHE_SIZE_IPAD: MAX_CACHE_SIZE_IPHONE;
 
     _thumbnailCache = [[NSCache alloc] init];
+    _thumbnailCacheMetadata = [[NSCache alloc] init];
     [_thumbnailCache setCountLimit: MaxCacheSize];
+    [_thumbnailCacheMetadata setCountLimit: MaxCacheSize];
 }
 
 + (NSString *)_md5FromString:(NSString *)string
@@ -102,10 +105,17 @@ static NSCache *_thumbnailCache;
     return displayedImage;
 }
 
-+ (UIImage *)thumbnailForShow:(MLShow *)mediaShow forceRefresh:(BOOL)forceRefresh
++ (UIImage *)thumbnailForShow:(MLShow *)mediaShow
 {
     NSManagedObjectID *objID = mediaShow.objectID;
     UIImage *displayedImage;
+    BOOL forceRefresh = NO;
+
+    NSUInteger count = [mediaShow.episodes count];
+    NSNumber *previousCount = [_thumbnailCacheMetadata objectForKey:objID];
+
+    if (previousCount.unsignedIntegerValue != count)
+        forceRefresh = YES;
 
     if (!forceRefresh) {
         displayedImage = [_thumbnailCache objectForKey:objID];
@@ -113,7 +123,6 @@ static NSCache *_thumbnailCache;
             return displayedImage;
     }
 
-    NSUInteger count = [mediaShow.episodes count];
     NSUInteger fileNumber = count > 3 ? 3 : count;
     NSArray *episodes = [mediaShow.episodes allObjects];
     NSMutableArray *files = [[NSMutableArray alloc] init];
@@ -121,16 +130,25 @@ static NSCache *_thumbnailCache;
         [files addObject:[episodes[x] files].anyObject];
 
     displayedImage = [self clusterThumbFromFiles:files andNumber:fileNumber];
-    if (displayedImage)
+    if (displayedImage) {
         [_thumbnailCache setObject:displayedImage forKey:objID];
+        [_thumbnailCacheMetadata setObject:@(count) forKey:objID];
+    }
 
     return displayedImage;
 }
 
-+ (UIImage *)thumbnailForLabel:(MLLabel *)mediaLabel forceRefresh:(BOOL)forceRefresh
++ (UIImage *)thumbnailForLabel:(MLLabel *)mediaLabel
 {
     NSManagedObjectID *objID = mediaLabel.objectID;
     UIImage *displayedImage;
+    BOOL forceRefresh = NO;
+
+    NSUInteger count = [mediaLabel.files count];
+    NSNumber *previousCount = [_thumbnailCacheMetadata objectForKey:objID];
+
+    if (previousCount.unsignedIntegerValue != count)
+        forceRefresh = YES;
 
     if (!forceRefresh) {
         displayedImage = [_thumbnailCache objectForKey:objID];
@@ -138,12 +156,13 @@ static NSCache *_thumbnailCache;
             return displayedImage;
     }
 
-    NSUInteger count = [mediaLabel.files count];
     NSUInteger fileNumber = count > 3 ? 3 : count;
     NSArray *files = [mediaLabel.files allObjects];
     displayedImage = [self clusterThumbFromFiles:files andNumber:fileNumber];
-    if (displayedImage)
+    if (displayedImage) {
         [_thumbnailCache setObject:displayedImage forKey:objID];
+        [_thumbnailCacheMetadata setObject:@(count) forKey:objID];
+    }
 
     return displayedImage;
 }
