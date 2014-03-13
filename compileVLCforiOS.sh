@@ -5,7 +5,7 @@
 set -e
 
 PLATFORM=iphoneos
-SDK=7.0
+SDK=7.1
 SDK_MIN=6.1
 VERBOSE=no
 CONFIGURATION="Release"
