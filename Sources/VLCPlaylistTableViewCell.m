@@ -54,7 +54,15 @@
             [_mediaObject removeObserver:self forKeyPath:@"name"];
         } else if ([_mediaObject isKindOfClass:[MLShow class]])
             [_mediaObject removeObserver:self forKeyPath:@"episodes"];
-        else if ([mediaObject isKindOfClass:[MLFile class]]) {
+        else if ([_mediaObject isKindOfClass:[MLShowEpisode class]]) {
+            [_mediaObject removeObserver:self forKeyPath:@"name"];
+            [_mediaObject removeObserver:self forKeyPath:@"files"];
+            [_mediaObject removeObserver:self forKeyPath:@"artworkURL"];
+            [_mediaObject removeObserver:self forKeyPath:@"unread"];
+        } else if ([_mediaObject isKindOfClass:[MLAlbum class]]) {
+            [_mediaObject removeObserver:self forKeyPath:@"name"];
+            [_mediaObject removeObserver:self forKeyPath:@"tracks"];
+        } else if ([_mediaObject isKindOfClass:[MLFile class]]) {
             [_mediaObject removeObserver:self forKeyPath:@"computedThumbnail"];
             [_mediaObject removeObserver:self forKeyPath:@"lastPosition"];
             [_mediaObject removeObserver:self forKeyPath:@"duration"];
@@ -71,13 +79,23 @@
         }
 
         _mediaObject = mediaObject;
+        // prevent the cell from recycling the current snap for random contents
+        self.thumbnailView.image = nil;
 
         if ([_mediaObject isKindOfClass:[MLLabel class]]) {
             [_mediaObject addObserver:self forKeyPath:@"files" options:0 context:nil];
             [_mediaObject addObserver:self forKeyPath:@"name" options:0 context:nil];
         } else if ([_mediaObject isKindOfClass:[MLShow class]])
             [_mediaObject addObserver:self forKeyPath:@"episodes" options:0 context:nil];
-        else if ([_mediaObject isKindOfClass:[MLFile class]]) {
+        else if ([_mediaObject isKindOfClass:[MLShowEpisode class]]) {
+            [_mediaObject addObserver:self forKeyPath:@"name" options:0 context:nil];
+            [_mediaObject addObserver:self forKeyPath:@"files" options:0 context:nil];
+            [_mediaObject addObserver:self forKeyPath:@"artworkURL" options:0 context:nil];
+            [_mediaObject addObserver:self forKeyPath:@"unread" options:0 context:nil];
+        } else if ([_mediaObject isKindOfClass:[MLAlbum class]]) {
+            [_mediaObject addObserver:self forKeyPath:@"name" options:0 context:nil];
+            [_mediaObject addObserver:self forKeyPath:@"tracks" options:0 context:nil];
+        } else if ([_mediaObject isKindOfClass:[MLFile class]]) {
             [_mediaObject addObserver:self forKeyPath:@"computedThumbnail" options:0 context:nil];
             [_mediaObject addObserver:self forKeyPath:@"lastPosition" options:0 context:nil];
             [_mediaObject addObserver:self forKeyPath:@"duration" options:0 context:nil];
@@ -147,7 +165,7 @@
         MLAlbumTrack *mediaObject = (MLAlbumTrack *)self.mediaObject;
         [self _configureForAlbumTrack:mediaObject];
 
-        if ([keyPath isEqualToString:@"computedThumbnail"] || !keyPath || (!self.thumbnailView.image && [keyPath isEqualToString:@"editing"])) {
+        if ([keyPath isEqualToString:@"computedThumbnail"] || !keyPath || !self.thumbnailView.image) {
             MLFile *anyFileFromTrack = mediaObject.files.anyObject;
             self.thumbnailView.image = [VLCThumbnailsCache thumbnailForMediaFile:anyFileFromTrack];
         }
@@ -155,14 +173,14 @@
         MLShow *mediaObject = (MLShow *)self.mediaObject;
         [self _configureForShow:mediaObject];
 
-        if ([keyPath isEqualToString:@"computedThumbnail"] || [keyPath isEqualToString:@"episodes"] || !keyPath || (!self.thumbnailView.image && [keyPath isEqualToString:@"editing"])) {
+        if ([keyPath isEqualToString:@"computedThumbnail"] || [keyPath isEqualToString:@"episodes"] || !keyPath || !self.thumbnailView.image) {
             self.thumbnailView.image = [VLCThumbnailsCache thumbnailForShow:mediaObject];
         }
     } else if ([self.mediaObject isKindOfClass:[MLShowEpisode class]]) {
         MLShowEpisode *mediaObject = (MLShowEpisode *)self.mediaObject;
         [self _configureForShowEpisode:mediaObject];
 
-        if ([keyPath isEqualToString:@"computedThumbnail"] || !keyPath || (!self.thumbnailView.image && [keyPath isEqualToString:@"editing"])) {
+        if ([keyPath isEqualToString:@"computedThumbnail"] || !keyPath || !self.thumbnailView.image) {
             MLFile *anyFileFromEpisode = mediaObject.files.anyObject;
             self.thumbnailView.image = [VLCThumbnailsCache thumbnailForMediaFile:anyFileFromEpisode];
         }

@@ -416,7 +416,6 @@
     if (self.mediaItem) {
         MLFile *item = self.mediaItem;
         media = [VLCMedia mediaWithURL:[NSURL URLWithString:item.url]];
-        item.unread = @(NO);
     } else if (!self.mediaList) {
         media = [VLCMedia mediaWithURL:self.url];
         [media parse];

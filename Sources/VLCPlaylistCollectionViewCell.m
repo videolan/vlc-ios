@@ -90,48 +90,67 @@
 - (void)setMediaObject:(MLFile *)mediaObject
 {
     if (_mediaObject != mediaObject) {
-        [_mediaObject removeObserver:self forKeyPath:@"computedThumbnail"];
-        [_mediaObject removeObserver:self forKeyPath:@"lastPosition"];
-        [_mediaObject removeObserver:self forKeyPath:@"duration"];
-        [_mediaObject removeObserver:self forKeyPath:@"fileSizeInBytes"];
-        [_mediaObject removeObserver:self forKeyPath:@"title"];
-        [_mediaObject removeObserver:self forKeyPath:@"thumbnailTimeouted"];
-        [_mediaObject removeObserver:self forKeyPath:@"unread"];
-        [_mediaObject removeObserver:self forKeyPath:@"albumTrackNumber"];
-        [_mediaObject removeObserver:self forKeyPath:@"album"];
-        [_mediaObject removeObserver:self forKeyPath:@"artist"];
-        [_mediaObject removeObserver:self forKeyPath:@"genre"];
-        if ([_mediaObject respondsToSelector:@selector(didHide)])
-            [(MLFile*)_mediaObject didHide];
         if ([_mediaObject isKindOfClass:[MLLabel class]]) {
             [_mediaObject removeObserver:self forKeyPath:@"files"];
             [_mediaObject removeObserver:self forKeyPath:@"name"];
-        }
-        if ([_mediaObject isKindOfClass:[MLShow class]])
+        } else if ([_mediaObject isKindOfClass:[MLShow class]])
             [_mediaObject removeObserver:self forKeyPath:@"episodes"];
+        else if ([_mediaObject isKindOfClass:[MLShowEpisode class]]) {
+            [_mediaObject removeObserver:self forKeyPath:@"name"];
+            [_mediaObject removeObserver:self forKeyPath:@"files"];
+            [_mediaObject removeObserver:self forKeyPath:@"artworkURL"];
+            [_mediaObject removeObserver:self forKeyPath:@"unread"];
+        } else if ([_mediaObject isKindOfClass:[MLAlbum class]]) {
+            [_mediaObject removeObserver:self forKeyPath:@"name"];
+            [_mediaObject removeObserver:self forKeyPath:@"tracks"];
+        } else if ([_mediaObject isKindOfClass:[MLFile class]]) {
+            [_mediaObject removeObserver:self forKeyPath:@"computedThumbnail"];
+            [_mediaObject removeObserver:self forKeyPath:@"lastPosition"];
+            [_mediaObject removeObserver:self forKeyPath:@"duration"];
+            [_mediaObject removeObserver:self forKeyPath:@"fileSizeInBytes"];
+            [_mediaObject removeObserver:self forKeyPath:@"title"];
+            [_mediaObject removeObserver:self forKeyPath:@"thumbnailTimeouted"];
+            [_mediaObject removeObserver:self forKeyPath:@"unread"];
+            [_mediaObject removeObserver:self forKeyPath:@"albumTrackNumber"];
+            [_mediaObject removeObserver:self forKeyPath:@"album"];
+            [_mediaObject removeObserver:self forKeyPath:@"artist"];
+            [_mediaObject removeObserver:self forKeyPath:@"genre"];
+            [_mediaObject removeObserver:self forKeyPath:@"labels"];
+            [(MLFile*)_mediaObject didHide];
+        }
 
         _mediaObject = mediaObject;
+        // prevent the cell from recycling the current snap for random contents
+        self.thumbnailView.image = nil;
 
-        [_mediaObject addObserver:self forKeyPath:@"computedThumbnail" options:0 context:nil];
-        [_mediaObject addObserver:self forKeyPath:@"lastPosition" options:0 context:nil];
-        [_mediaObject addObserver:self forKeyPath:@"duration" options:0 context:nil];
-        [_mediaObject addObserver:self forKeyPath:@"fileSizeInBytes" options:0 context:nil];
-        [_mediaObject addObserver:self forKeyPath:@"title" options:0 context:nil];
-        [_mediaObject addObserver:self forKeyPath:@"thumbnailTimeouted" options:0 context:nil];
-        [_mediaObject addObserver:self forKeyPath:@"unread" options:0 context:nil];
-        [_mediaObject addObserver:self forKeyPath:@"albumTrackNumber" options:0 context:nil];
-        [_mediaObject addObserver:self forKeyPath:@"album" options:0 context:nil];
-        [_mediaObject addObserver:self forKeyPath:@"artist" options:0 context:nil];
-        [_mediaObject addObserver:self forKeyPath:@"genre" options:0 context:nil];
-
-        if ([_mediaObject respondsToSelector:@selector(willDisplay)])
-            [(MLFile*)_mediaObject willDisplay];
         if ([_mediaObject isKindOfClass:[MLLabel class]]) {
             [_mediaObject addObserver:self forKeyPath:@"files" options:0 context:nil];
             [_mediaObject addObserver:self forKeyPath:@"name" options:0 context:nil];
-        }
-        if ([_mediaObject isKindOfClass:[MLShow class]])
+        } else if ([_mediaObject isKindOfClass:[MLShow class]])
             [_mediaObject addObserver:self forKeyPath:@"episodes" options:0 context:nil];
+        else if ([_mediaObject isKindOfClass:[MLShowEpisode class]]) {
+            [_mediaObject addObserver:self forKeyPath:@"name" options:0 context:nil];
+            [_mediaObject addObserver:self forKeyPath:@"files" options:0 context:nil];
+            [_mediaObject addObserver:self forKeyPath:@"artworkURL" options:0 context:nil];
+            [_mediaObject addObserver:self forKeyPath:@"unread" options:0 context:nil];
+        } else if ([_mediaObject isKindOfClass:[MLAlbum class]]) {
+            [_mediaObject addObserver:self forKeyPath:@"name" options:0 context:nil];
+            [_mediaObject addObserver:self forKeyPath:@"tracks" options:0 context:nil];
+        } else if ([_mediaObject isKindOfClass:[MLFile class]]) {
+            [_mediaObject addObserver:self forKeyPath:@"computedThumbnail" options:0 context:nil];
+            [_mediaObject addObserver:self forKeyPath:@"lastPosition" options:0 context:nil];
+            [_mediaObject addObserver:self forKeyPath:@"duration" options:0 context:nil];
+            [_mediaObject addObserver:self forKeyPath:@"fileSizeInBytes" options:0 context:nil];
+            [_mediaObject addObserver:self forKeyPath:@"title" options:0 context:nil];
+            [_mediaObject addObserver:self forKeyPath:@"thumbnailTimeouted" options:0 context:nil];
+            [_mediaObject addObserver:self forKeyPath:@"unread" options:0 context:nil];
+            [_mediaObject addObserver:self forKeyPath:@"albumTrackNumber" options:0 context:nil];
+            [_mediaObject addObserver:self forKeyPath:@"album" options:0 context:nil];
+            [_mediaObject addObserver:self forKeyPath:@"artist" options:0 context:nil];
+            [_mediaObject addObserver:self forKeyPath:@"genre" options:0 context:nil];
+            [_mediaObject addObserver:self forKeyPath:@"labels" options:0 context:nil];
+            [(MLFile*)_mediaObject willDisplay];
+        }
     }
 
     [self _updatedDisplayedInformationForKeyPath:nil];
@@ -169,7 +188,7 @@
         MLAlbumTrack *mediaObject = (MLAlbumTrack *)self.mediaObject;
         [self _configureForAlbumTrack:mediaObject];
 
-        if ([keyPath isEqualToString:@"computedThumbnail"] || !keyPath || (!self.thumbnailView.image && [keyPath isEqualToString:@"editing"])) {
+        if ([keyPath isEqualToString:@"computedThumbnail"] || !keyPath || !self.thumbnailView.image) {
             MLFile *anyFileFromTrack = mediaObject.files.anyObject;
             self.thumbnailView.image = [VLCThumbnailsCache thumbnailForMediaFile:anyFileFromTrack];
         }
@@ -184,7 +203,7 @@
         MLShowEpisode *mediaObject = (MLShowEpisode *)self.mediaObject;
         [self _configureForShowEpisode:mediaObject];
 
-        if ([keyPath isEqualToString:@"computedThumbnail"] || !keyPath || (!self.thumbnailView.image && [keyPath isEqualToString:@"editing"])) {
+        if ([keyPath isEqualToString:@"computedThumbnail"] || !keyPath || !self.thumbnailView.image) {
             MLFile *anyFileFromEpisode = mediaObject.files.anyObject;
             self.thumbnailView.image = [VLCThumbnailsCache thumbnailForMediaFile:anyFileFromEpisode];
         }

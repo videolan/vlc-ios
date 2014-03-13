@@ -325,6 +325,7 @@
         _movieViewController.mediaItem = [(MLAlbumTrack*)mediaObject files].anyObject;
     else if ([mediaObject isKindOfClass:[MLShowEpisode class]])
         _movieViewController.mediaItem = [(MLShowEpisode*)mediaObject files].anyObject;
+    [(MLFile *)_movieViewController.mediaItem setUnread:@(NO)];
 
     UINavigationController *navCon = [[UINavigationController alloc] initWithRootViewController:_movieViewController];
     navCon.modalPresentationStyle = UIModalPresentationFullScreen;
