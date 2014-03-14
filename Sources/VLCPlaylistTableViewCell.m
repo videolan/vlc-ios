@@ -134,8 +134,7 @@
 
 - (void)_updatedDisplayedInformationForKeyPath:(NSString *)keyPath
 {
-    BOOL isFolder = [self.mediaObject isKindOfClass:[MLLabel class]];
-    self.thumbnailView.contentMode = isFolder ? UIViewContentModeScaleAspectFit : UIViewContentModeScaleAspectFill;
+    self.thumbnailView.contentMode = UIViewContentModeScaleAspectFill;
 
     if ([self.mediaObject isKindOfClass:[MLFile class]]) {
         MLFile *mediaObject = (MLFile*)self.mediaObject;
@@ -143,14 +142,15 @@
 
         if (([keyPath isEqualToString:@"computedThumbnail"] || !keyPath || (!self.thumbnailView.image && [keyPath isEqualToString:@"editing"])))
             self.thumbnailView.image = [VLCThumbnailsCache thumbnailForMediaFile:mediaObject];
-    } else if (isFolder) {
+    } else if ([self.mediaObject isKindOfClass:[MLLabel class]]) {
         MLLabel *mediaObject = (MLLabel *)self.mediaObject;
         [self _configureForFolder:mediaObject];
 
         if ([keyPath isEqualToString:@"files"] || [keyPath isEqualToString:@"labels"] || !keyPath || (!self.thumbnailView.image && [keyPath isEqualToString:@"editing"])) {
-            if (mediaObject.files.count == 0)
+            if (mediaObject.files.count == 0) {
+                self.thumbnailView.contentMode = UIViewContentModeScaleAspectFit;
                 self.thumbnailView.image = [UIImage imageNamed:@"folderIcon"];
-            else
+            } else
                 self.thumbnailView.image = [VLCThumbnailsCache thumbnailForLabel:mediaObject];
         }
     } else if ([self.mediaObject isKindOfClass:[MLAlbum class]]) {

@@ -158,8 +158,7 @@
 
 - (void)_updatedDisplayedInformationForKeyPath:(NSString *)keyPath
 {
-    BOOL isFolder = [self.mediaObject isKindOfClass:[MLLabel class]];
-    self.thumbnailView.contentMode = isFolder ? UIViewContentModeScaleAspectFit : UIViewContentModeScaleAspectFill;
+    self.thumbnailView.contentMode = UIViewContentModeScaleAspectFill;
     if ([self.mediaObject isKindOfClass:[MLFile class]]) {
         MLFile *mediaObject = self.mediaObject;
         [self _configureForMLFile:mediaObject];
@@ -171,9 +170,10 @@
         [self _configureForFolder:mediaObject];
 
         if ([keyPath isEqualToString:@"files"] || [keyPath isEqualToString:@"labels"] || !keyPath || (!self.thumbnailView.image && [keyPath isEqualToString:@"editing"])) {
-            if (mediaObject.files.count == 0)
+            if (mediaObject.files.count == 0) {
+                self.thumbnailView.contentMode = UIViewContentModeScaleAspectFit;
                 self.thumbnailView.image = [UIImage imageNamed:@"folderIcon"];
-            else
+            } else
                 self.thumbnailView.image = [VLCThumbnailsCache thumbnailForLabel:mediaObject];
         }
     } else if ([self.mediaObject isKindOfClass:[MLAlbum class]]) {
