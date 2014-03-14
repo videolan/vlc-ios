@@ -605,7 +605,6 @@ static NSString *kDisplayedFirstSteps = @"Did we display the first steps tutoria
         if (_libraryMode == VLCLibraryModeCreateFolder) {
             _folderObject = _foundMedia[indexPath.item];
             _libraryMode = _previousLibraryMode;
-            [self updateViewContents];
             [self createFolderWithName:nil];
         }
         [(VLCPlaylistCollectionViewCell *)[collectionView cellForItemAtIndexPath:indexPath] selectionUpdate];
@@ -668,9 +667,9 @@ static NSString *kDisplayedFirstSteps = @"Did we display the first steps tutoria
 
 - (void)collectionView:(UICollectionView *)collectionView requestToMoveItemAtIndexPath:(NSIndexPath *)itemPath intoFolderAtIndexPath:(NSIndexPath *)folderPath
 {
-    BOOL validFileTypeAtFolderPath = [_foundMedia[folderPath.item] isKindOfClass:[MLFile class]] || [_foundMedia[folderPath.item] isKindOfClass:[MLLabel class]];
+    BOOL validFileTypeAtFolderPath = ([_foundMedia[folderPath.item] isKindOfClass:[MLFile class]] || [_foundMedia[folderPath.item] isKindOfClass:[MLLabel class]]) && [_foundMedia[itemPath.item] isKindOfClass:[MLFile class]];
 
-    if (!(validFileTypeAtFolderPath && [_foundMedia[itemPath.item] isKindOfClass:[MLFile class]])) {
+    if (!validFileTypeAtFolderPath) {
         VLCAlertView *alert = [[VLCAlertView alloc] initWithTitle:NSLocalizedString(@"FOLDER_INVALID_TYPE_TITLE", @"") message:NSLocalizedString(@"FOLDER_INVALID_TYPE_MESSAGE", @"") cancelButtonTitle:nil otherButtonTitles:@[NSLocalizedString(@"BUTTON_OK", @"")]];
 
         alert.completion = ^(BOOL cancelled, NSInteger buttonIndex) {
@@ -764,7 +763,7 @@ static NSString *kDisplayedFirstSteps = @"Did we display the first steps tutoria
 
     [_indexPaths sortUsingSelector:@selector(compare:)];
 
-    for (int i = [_indexPaths count] - 1; i >= 0; i--) {
+    for (NSInteger i = [_indexPaths count] - 1; i >= 0; i--) {
         NSIndexPath *path = _indexPaths[i];
         MLFile *file = (MLFile *)_foundMedia[isPad ? path.item : path.row];
 
@@ -799,32 +798,35 @@ static NSString *kDisplayedFirstSteps = @"Did we display the first steps tutoria
     }
 
     if (_folderObject != nil) {
-        int folderIndex = [_foundMedia indexOfObject:_folderObject];
+        NSUInteger folderIndex = [_foundMedia indexOfObject:_folderObject];
         //item got dragged onto item
         if ([_foundMedia[folderIndex] isKindOfClass:[MLFile class]]) {
             MLFile *file = _foundMedia[folderIndex];
             MLLabel *label = [[MLMediaLibrary sharedMediaLibrary] createObjectForEntity:@"Label"];
             label.name = folderName;
+
             file.labels = [NSSet setWithObjects:label,nil];
-            NSNumber *folderTrackNumber = [NSNumber numberWithInt:[label files].count - 1];
+            NSNumber *folderTrackNumber = [NSNumber numberWithInt:(int)[label files].count - 1];
             file.folderTrackNumber = folderTrackNumber;
 
             [_foundMedia removeObjectAtIndex:folderIndex];
             [_foundMedia insertObject:label atIndex:folderIndex];
-                MLFile *itemFile = _foundMedia[((NSIndexPath *)_indexPaths[0]).item];
-                itemFile.labels = file.labels;
-                [_foundMedia removeObjectAtIndex:((NSIndexPath *)_indexPaths[0]).item];
+            MLFile *itemFile = _foundMedia[((NSIndexPath *)_indexPaths[0]).item];
+            itemFile.labels = file.labels;
+            [_foundMedia removeObjectAtIndex:((NSIndexPath *)_indexPaths[0]).item];
             itemFile.folderTrackNumber = @([label files].count - 1);
         } else {
             //item got dragged onto folder or items should be added to folder
             MLLabel *label = _foundMedia[folderIndex];
             [_indexPaths sortUsingSelector:@selector(compare:)];
 
-            for (int i = [_indexPaths count] - 1; i >= 0; i--) {
+            for (NSInteger i = [_indexPaths count] - 1; i >= 0; i--) {
                 NSIndexPath *path = _indexPaths[i];
-                    MLFile *file = _foundMedia[path.row];
-                    file.labels = [NSSet setWithObjects:label, nil];
-                    [_foundMedia removeObjectAtIndex:path.row];
+                if (![_foundMedia[path.row] isKindOfClass:[MLFile class]])
+                    continue;
+                MLFile *file = _foundMedia[path.row];
+                file.labels = [NSSet setWithObjects:label, nil];
+                [_foundMedia removeObjectAtIndex:path.row];
                 file.folderTrackNumber = @([label files].count - 1);
             }
         }
@@ -838,7 +840,7 @@ static NSString *kDisplayedFirstSteps = @"Did we display the first steps tutoria
         if ([_indexPaths count] != 0) {
             [_indexPaths sortUsingSelector:@selector(compare:)];
 
-            for (int i = [_indexPaths count] - 1; i >= 0; i--) {
+            for (NSInteger i = [_indexPaths count] - 1; i >= 0; i--) {
                 NSIndexPath *path = _indexPaths[i];
                 if (UI_USER_INTERFACE_IDIOM() == UIUserInterfaceIdiomPad) {
                     MLFile *file = _foundMedia[path.item];
