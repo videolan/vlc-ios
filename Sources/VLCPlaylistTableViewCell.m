@@ -74,7 +74,6 @@
             [_mediaObject removeObserver:self forKeyPath:@"album"];
             [_mediaObject removeObserver:self forKeyPath:@"artist"];
             [_mediaObject removeObserver:self forKeyPath:@"genre"];
-            [_mediaObject removeObserver:self forKeyPath:@"labels"];
             [(MLFile*)_mediaObject didHide];
         }
 
@@ -107,7 +106,6 @@
             [_mediaObject addObserver:self forKeyPath:@"album" options:0 context:nil];
             [_mediaObject addObserver:self forKeyPath:@"artist" options:0 context:nil];
             [_mediaObject addObserver:self forKeyPath:@"genre" options:0 context:nil];
-            [_mediaObject addObserver:self forKeyPath:@"labels" options:0 context:nil];
             [(MLFile*)_mediaObject willDisplay];
         }
     }
@@ -146,7 +144,7 @@
         MLLabel *mediaObject = (MLLabel *)self.mediaObject;
         [self _configureForFolder:mediaObject];
 
-        if ([keyPath isEqualToString:@"files"] || [keyPath isEqualToString:@"labels"] || !keyPath || (!self.thumbnailView.image && [keyPath isEqualToString:@"editing"])) {
+        if ([keyPath isEqualToString:@"files"] || !keyPath || (!self.thumbnailView.image && [keyPath isEqualToString:@"editing"])) {
             if (mediaObject.files.count == 0) {
                 self.thumbnailView.contentMode = UIViewContentModeScaleAspectFit;
                 self.thumbnailView.image = [UIImage imageNamed:@"folderIcon"];
