@@ -12,6 +12,7 @@
 * Fixed downloads from Twonky UPnP servers (#10631)
 * Added support for m4b, caf, oma, w64 audio files
 * Stability improvements and UX tweaks (amongst others #10601, #10518)
+* New translation to Latvian
 
 2.2.2:
 ------
