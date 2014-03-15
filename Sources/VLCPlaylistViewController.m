@@ -220,13 +220,15 @@ static NSString *kDisplayedFirstSteps = @"Did we display the first steps tutoria
         MLLabel *folder = (MLLabel*) mediaObject;
         inFolder = YES;
         if (UI_USER_INTERFACE_IDIOM() == UIUserInterfaceIdiomPad) {
-            for (UIGestureRecognizer *recognizer in self.view.gestureRecognizers) {
-                if (recognizer == _folderLayout.panGestureRecognizer || recognizer == _folderLayout.longPressGestureRecognizer || recognizer == _longPressGestureRecognizer)
-                    [self.collectionView removeGestureRecognizer:recognizer];
+            if (![self.collectionView.collectionViewLayout isEqual:_reorderLayout]) {
+                for (UIGestureRecognizer *recognizer in self.view.gestureRecognizers) {
+                    if (recognizer == _folderLayout.panGestureRecognizer || recognizer == _folderLayout.longPressGestureRecognizer || recognizer == _longPressGestureRecognizer)
+                        [self.collectionView removeGestureRecognizer:recognizer];
+                }
+                _reorderLayout = [[LXReorderableCollectionViewFlowLayout alloc] init];
+                [self.collectionView setCollectionViewLayout:_reorderLayout animated:NO];
+                _folderLayout = nil;
             }
-            _reorderLayout = [[LXReorderableCollectionViewFlowLayout alloc] init];
-            [self.collectionView setCollectionViewLayout:_reorderLayout animated:NO];
-            _folderLayout = nil;
         }
         _foundMedia = [NSMutableArray arrayWithArray:[folder sortedFolderItems]];
         self.navigationItem.leftBarButtonItem = [UIBarButtonItem themedBackButtonWithTarget:self andSelector:@selector(backToAllItems:)];
@@ -937,15 +939,17 @@ static NSString *kDisplayedFirstSteps = @"Did we display the first steps tutoria
 - (IBAction)backToAllItems:(id)sender
 {
     if (UI_USER_INTERFACE_IDIOM() == UIUserInterfaceIdiomPad) {
-        //for some reason the Gesturerecognizer block themselves if not removed manually
-        for (UIGestureRecognizer *recognizer in self.view.gestureRecognizers) {
-            if (recognizer == _reorderLayout.panGestureRecognizer || recognizer == _reorderLayout.longPressGestureRecognizer)
-                [self.collectionView removeGestureRecognizer:recognizer];
+        if (![self.collectionView.collectionViewLayout isEqual:_folderLayout]) {
+            //for some reason the Gesturerecognizer block themselves if not removed manually
+            for (UIGestureRecognizer *recognizer in self.view.gestureRecognizers) {
+                if (recognizer == _reorderLayout.panGestureRecognizer || recognizer == _reorderLayout.longPressGestureRecognizer)
+                    [self.collectionView removeGestureRecognizer:recognizer];
+            }
+            _folderLayout = [[VLCFolderCollectionViewFlowLayout alloc] init];
+            [self.collectionView setCollectionViewLayout:_folderLayout animated:NO];
+            _reorderLayout = nil;
+            [_collectionView addGestureRecognizer:_longPressGestureRecognizer];
         }
-        _folderLayout = [[VLCFolderCollectionViewFlowLayout alloc] init];
-        [self.collectionView setCollectionViewLayout:_folderLayout animated:NO];
-        _reorderLayout = nil;
-        [_collectionView addGestureRecognizer:_longPressGestureRecognizer];
     }
     inFolder = NO;
     UIBarButtonItem *createFolderItem = [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemOrganize target:self action:@selector(createFolder)];
