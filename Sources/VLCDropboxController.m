@@ -204,7 +204,7 @@
 {
     _outstandingNetworkRequests++;
     if (_outstandingNetworkRequests == 1) {
-        [[UIApplication sharedApplication] setNetworkActivityIndicatorVisible:YES];
+        [(VLCAppDelegate*)[UIApplication sharedApplication].delegate networkActivityStarted];
         [(VLCAppDelegate*)[UIApplication sharedApplication].delegate disableIdleTimer];
     }
 }
@@ -213,7 +213,7 @@
 {
     _outstandingNetworkRequests--;
     if (_outstandingNetworkRequests == 0) {
-        [[UIApplication sharedApplication] setNetworkActivityIndicatorVisible:NO];
+        [(VLCAppDelegate*)[UIApplication sharedApplication].delegate networkActivityStopped];
         [(VLCAppDelegate*)[UIApplication sharedApplication].delegate activateIdleTimer];
     }
 }

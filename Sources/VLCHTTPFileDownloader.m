@@ -50,7 +50,7 @@
         _downloadInProgress = NO;
     } else {
         _downloadInProgress = YES;
-        [UIApplication sharedApplication].networkActivityIndicatorVisible = YES;
+        [(VLCAppDelegate*)[UIApplication sharedApplication].delegate networkActivityStarted];
         [(VLCAppDelegate*)[UIApplication sharedApplication].delegate disableIdleTimer];
     }
 }
@@ -72,7 +72,7 @@
         _downloadInProgress = NO;
     } else {
         _downloadInProgress = YES;
-        [UIApplication sharedApplication].networkActivityIndicatorVisible = YES;
+        [(VLCAppDelegate*)[UIApplication sharedApplication].delegate networkActivityStarted];
         [(VLCAppDelegate*)[UIApplication sharedApplication].delegate disableIdleTimer];
     }
 }
@@ -157,7 +157,7 @@
 - (void)_downloadEnded
 {
     _downloadInProgress = NO;
-    [UIApplication sharedApplication].networkActivityIndicatorVisible = NO;
+    [(VLCAppDelegate*)[UIApplication sharedApplication].delegate networkActivityStopped];
     [(VLCAppDelegate*)[UIApplication sharedApplication].delegate activateIdleTimer];
 
     NSArray *searchPaths = NSSearchPathForDirectoriesInDomains(NSDocumentDirectory, NSUserDomainMask, YES);

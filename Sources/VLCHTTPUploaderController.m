@@ -170,7 +170,7 @@
         [fileManager removeItemAtPath:filepath error:nil];
     }
 
-    [UIApplication sharedApplication].networkActivityIndicatorVisible = NO;
+    [(VLCAppDelegate*)[UIApplication sharedApplication].delegate networkActivityStopped];
     [(VLCAppDelegate*)[UIApplication sharedApplication].delegate activateIdleTimer];
 
     /* update media library when file upload was completed */

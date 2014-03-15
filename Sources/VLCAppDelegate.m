@@ -33,6 +33,7 @@
     VLCGoogleDriveTableViewController *_googleDriveTableViewController;
     VLCDownloadViewController *_downloadViewController;
     int _idleCounter;
+    int _networkActivityCounter;
     VLCMovieViewController *_movieViewController;
     BOOL _passcodeValidated;
 }
@@ -226,6 +227,9 @@
 
 - (void)cleanCache
 {
+    if ([self haveNetworkActivity])
+        return;
+
     NSArray *searchPaths = NSSearchPathForDirectoriesInDomains(NSCachesDirectory, NSUserDomainMask, YES);
     NSString* uploadDirPath = [searchPaths[0] stringByAppendingPathComponent:@"Upload"];
     NSFileManager *fileManager = [NSFileManager defaultManager];
@@ -315,6 +319,25 @@
     _idleCounter--;
     if (_idleCounter < 1)
         [UIApplication sharedApplication].idleTimerDisabled = NO;
+}
+
+- (void)networkActivityStarted
+{
+    _networkActivityCounter++;
+    if ([UIApplication sharedApplication].networkActivityIndicatorVisible == NO)
+        [UIApplication sharedApplication].networkActivityIndicatorVisible = YES;
+}
+
+- (BOOL)haveNetworkActivity
+{
+    return _networkActivityCounter >= 1;
+}
+
+- (void)networkActivityStopped
+{
+    _networkActivityCounter--;
+    if (_networkActivityCounter < 1)
+        [UIApplication sharedApplication].networkActivityIndicatorVisible = NO;
 }
 
 #pragma mark - playback view handling

@@ -159,7 +159,7 @@
         APLog(@"Could not create file at path: %@", _filepath);
 
     _storeFile = [NSFileHandle fileHandleForWritingAtPath:_filepath];
-    [UIApplication sharedApplication].networkActivityIndicatorVisible = YES;
+    [(VLCAppDelegate*)[UIApplication sharedApplication].delegate networkActivityStarted];
     [(VLCAppDelegate*)[UIApplication sharedApplication].delegate disableIdleTimer];
 }
 
