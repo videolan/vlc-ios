@@ -244,11 +244,13 @@
     NSUInteger count = album.tracks.count;
     NSMutableString *string = [[NSMutableString alloc] init];
     if (anyTrack) {
-        [string appendString:anyTrack.artist];
-        [string appendString:@" — "];
+        if (anyTrack.artist.length > 0) {
+            [string appendString:anyTrack.artist];
+            [string appendString:@" — "];
+        }
     }
     [string appendString:[NSString stringWithFormat:(count > 1) ? NSLocalizedString(@"LIBRARY_TRACKS", @"") : NSLocalizedString(@"LIBRARY_SINGLE_TRACK", @""), count]];
-    if (album.releaseYear)
+    if (album.releaseYear.length > 0)
         [string appendFormat:@" — %@", album.releaseYear];
     self.subtitleLabel.text = string;
     self.mediaIsUnreadView.hidden = YES;
