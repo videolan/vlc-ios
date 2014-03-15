@@ -159,7 +159,10 @@ static NSCache *_thumbnailCacheMetadata;
 
     NSUInteger fileNumber = count > 3 ? 3 : count;
     NSArray *files = [mediaLabel.files allObjects];
-    displayedImage = [self clusterThumbFromFiles:files andNumber:fileNumber blur:YES];
+    BOOL blur = NO;
+    if (SYSTEM_RUNS_IOS7_OR_LATER)
+        blur = YES;
+    displayedImage = [self clusterThumbFromFiles:files andNumber:fileNumber blur:blur];
     if (displayedImage) {
         [_thumbnailCache setObject:displayedImage forKey:objID];
         [_thumbnailCacheMetadata setObject:@(count) forKey:objID];
