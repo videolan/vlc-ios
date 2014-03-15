@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="5037" systemVersion="12F45" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="5053" systemVersion="12F45" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none">
     <dependencies>
         <deployment defaultVersion="1552" identifier="iOS"/>
         <development version="5000" identifier="xcode"/>
@@ -19,6 +19,10 @@
                         <rect key="frame" x="5" y="5" width="124" height="70"/>
                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                         <color key="backgroundColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
+                    </imageView>
+                    <imageView hidden="YES" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="top" image="folderIcon.png" id="z0C-dq-MSo">
+                        <rect key="frame" x="5" y="30" width="124" height="42"/>
+                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                     </imageView>
                     <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" lineBreakMode="wordWrap" numberOfLines="2" baselineAdjustment="none" minimumFontSize="9" adjustsLetterSpacingToFitWidth="YES" id="6">
                         <rect key="frame" x="137" y="5" width="178" height="42"/>
@@ -53,6 +57,7 @@ Title 2</string>
             </tableViewCellContentView>
             <color key="backgroundColor" white="0.12" alpha="1" colorSpace="calibratedWhite"/>
             <connections>
+                <outlet property="folderIconView" destination="z0C-dq-MSo" id="agj-oW-Pwz"/>
                 <outlet property="mediaIsUnreadView" destination="20" id="21"/>
                 <outlet property="progressIndicator" destination="27" id="28"/>
                 <outlet property="subtitleLabel" destination="7" id="8"/>
@@ -63,6 +68,7 @@ Title 2</string>
     </objects>
     <resources>
         <image name="badgeUnread.png" width="35" height="35"/>
+        <image name="folderIcon.png" width="120" height="112"/>
         <image name="thumbOverlayPhone.png" width="129" height="75"/>
     </resources>
 </document>
