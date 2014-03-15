@@ -23,6 +23,7 @@
 @property (nonatomic, strong) IBOutlet VLCLinearProgressIndicator *progressView;
 @property (nonatomic, strong) IBOutlet UIView *mediaIsUnreadView;
 @property (nonatomic, strong) IBOutlet UIImageView *isSelectedView;
+@property (nonatomic, strong) IBOutlet UIImageView *folderIconView;
 
 @property (nonatomic, retain) MLFile *mediaObject;
 

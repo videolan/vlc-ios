@@ -21,6 +21,7 @@
 @property (nonatomic, strong) IBOutlet UIImageView *thumbnailView;
 @property (nonatomic, strong) IBOutlet VLCLinearProgressIndicator *progressIndicator;
 @property (nonatomic, strong) IBOutlet UIView *mediaIsUnreadView;
+@property (nonatomic, strong) IBOutlet UIImageView *folderIconView;
 
 @property (nonatomic, strong) NSManagedObject *mediaObject;
 

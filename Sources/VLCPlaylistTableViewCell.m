@@ -209,6 +209,8 @@
     self.subtitleLabel.text = [string stringByAppendingString:[NSString stringWithFormat:(count > 1) ? NSLocalizedString(@"LIBRARY_EPISODES", @"") : NSLocalizedString(@"LIBRARY_SINGLE_EPISODE", @""), count, show.unreadEpisodes.count]];
     self.mediaIsUnreadView.hidden = YES;
     self.progressIndicator.hidden = YES;
+    self.folderIconView.image = [UIImage imageNamed:@"PlayingExternally"];
+    self.folderIconView.hidden = NO;
 }
 
 - (void)_configureForAlbumTrack:(MLAlbumTrack *)albumTrack
@@ -217,6 +219,7 @@
     self.subtitleLabel.text = [NSString stringWithFormat:@"%@ — %@ — %@", albumTrack.artist, [NSString stringWithFormat:NSLocalizedString(@"LIBRARY_TRACK_N", @""), albumTrack.trackNumber.intValue], [VLCTime timeWithNumber:[anyFileFromTrack duration]]];
     self.titleLabel.text = albumTrack.title;
     [self _showPositionOfItem:anyFileFromTrack];
+    self.folderIconView.hidden = YES;
 }
 
 - (void)_configureForShowEpisode:(MLShowEpisode *)showEpisode
@@ -231,6 +234,7 @@
         self.subtitleLabel.text = [NSString stringWithFormat:@"S%02dE%02d — %@", showEpisode.seasonNumber.intValue, showEpisode.episodeNumber.intValue, [VLCTime timeWithNumber:[anyFileFromEpisode duration]]];
 
     [self _showPositionOfItem:anyFileFromEpisode];
+    self.folderIconView.hidden = YES;
 }
 
 - (void)_configureForAlbum:(MLAlbum *)album
@@ -249,6 +253,7 @@
     self.subtitleLabel.text = string;
     self.mediaIsUnreadView.hidden = YES;
     self.progressIndicator.hidden = YES;
+    self.folderIconView.hidden = YES;
 }
 
 - (void)_configureForFolder:(MLLabel *)label
@@ -258,6 +263,8 @@
     self.subtitleLabel.text = [NSString stringWithFormat:(count == 1) ? NSLocalizedString(@"LIBRARY_SINGLE_TRACK", @"") : NSLocalizedString(@"LIBRARY_TRACKS", @""), count];
     self.mediaIsUnreadView.hidden = YES;
     self.progressIndicator.hidden = YES;
+    self.folderIconView.image = [UIImage imageNamed:@"folderIcon"];
+    self.folderIconView.hidden = NO;
 }
 
 - (void)_configureForMLFile:(MLFile *)mediaFile
@@ -284,6 +291,7 @@
         }
     }
     [self _showPositionOfItem:mediaFile];
+    self.folderIconView.hidden = YES;
 }
 
 - (void)_showPositionOfItem:(MLFile *)mediaItem
