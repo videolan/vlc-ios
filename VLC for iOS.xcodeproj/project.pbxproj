@@ -94,6 +94,8 @@
 		7D16035E17BF9FE600F29B34 /* sudHeaderBg@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 7D16035A17BF9FE600F29B34 /* sudHeaderBg@2x.png */; };
 		7D16035F17BF9FE600F29B34 /* headerSidebar@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 7D16035B17BF9FE600F29B34 /* headerSidebar@2x.png */; };
 		7D16036017BF9FE600F29B34 /* headerSidebar.png in Resources */ = {isa = PBXBuildFile; fileRef = 7D16035C17BF9FE600F29B34 /* headerSidebar.png */; };
+		7D168F7118D4A21B003FAF59 /* Accelerate.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 7D168F7018D4A21B003FAF59 /* Accelerate.framework */; };
+		7D168F7418D4A33F003FAF59 /* UIImage+Blur.m in Sources */ = {isa = PBXBuildFile; fileRef = 7D168F7318D4A33F003FAF59 /* UIImage+Blur.m */; };
 		7D1AC3041762996100BD2EB5 /* resetIcon.png in Resources */ = {isa = PBXBuildFile; fileRef = 7D1AC3021762996100BD2EB5 /* resetIcon.png */; };
 		7D1AC3051762996100BD2EB5 /* resetIcon@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 7D1AC3031762996100BD2EB5 /* resetIcon@2x.png */; };
 		7D1AC30817629AB600BD2EB5 /* ratioIcon.png in Resources */ = {isa = PBXBuildFile; fileRef = 7D1AC30617629AB600BD2EB5 /* ratioIcon.png */; };
@@ -523,6 +525,9 @@
 		7D168F6D18D49E74003FAF59 /* lv */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = lv; path = "lv.lproj/badgeUnread@2x~iphone.png"; sourceTree = "<group>"; };
 		7D168F6E18D49E74003FAF59 /* lv */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = lv; path = "lv.lproj/badgeUnread~ipad.png"; sourceTree = "<group>"; };
 		7D168F6F18D49E74003FAF59 /* lv */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = lv; path = "lv.lproj/badgeUnread~iphone.png"; sourceTree = "<group>"; };
+		7D168F7018D4A21B003FAF59 /* Accelerate.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Accelerate.framework; path = System/Library/Frameworks/Accelerate.framework; sourceTree = SDKROOT; };
+		7D168F7218D4A317003FAF59 /* UIImage+Blur.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = "UIImage+Blur.h"; path = "Sources/UIImage+Blur.h"; sourceTree = SOURCE_ROOT; };
+		7D168F7318D4A33F003FAF59 /* UIImage+Blur.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = "UIImage+Blur.m"; path = "Sources/UIImage+Blur.m"; sourceTree = SOURCE_ROOT; };
 		7D19492B17C661A300959800 /* el */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = el; path = el.lproj/Localizable.strings; sourceTree = "<group>"; };
 		7D19492C17C661A300959800 /* el */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = el; path = "el.lproj/badgeUnread@2x~ipad.png"; sourceTree = "<group>"; };
 		7D19492D17C661A300959800 /* el */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = el; path = "el.lproj/badgeUnread@2x~iphone.png"; sourceTree = "<group>"; };
@@ -1152,6 +1157,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				7D168F7118D4A21B003FAF59 /* Accelerate.framework in Frameworks */,
 				CCE2A22E17A5859E00D9EAAD /* CoreText.framework in Frameworks */,
 				7D89788A185E1344009BAB5D /* libCrashReporter.a in Frameworks */,
 				7DF7CA0717650C2A00C61739 /* AVFoundation.framework in Frameworks */,
@@ -1760,6 +1766,7 @@
 		7D94FCDD16DE7D1000F2623B /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
+				7D168F7018D4A21B003FAF59 /* Accelerate.framework */,
 				7D897889185E1344009BAB5D /* libCrashReporter.a */,
 				7D89788B185E1353009BAB5D /* libQuincyLib.a */,
 				7D897894185E14A7009BAB5D /* libGTLTouchStaticLib.a */,
@@ -2179,6 +2186,8 @@
 				7D3784C5183A9972009EE944 /* NSString+SupportedMedia.m */,
 				7D3784C6183A9972009EE944 /* UIDevice+SpeedCategory.h */,
 				7D3784C7183A9972009EE944 /* UIDevice+SpeedCategory.m */,
+				7D168F7218D4A317003FAF59 /* UIImage+Blur.h */,
+				7D168F7318D4A33F003FAF59 /* UIImage+Blur.m */,
 			);
 			name = Extensions;
 			sourceTree = "<group>";
@@ -2609,6 +2618,7 @@
 				7D6B08F1174D65B500A05173 /* IASKSettingsStoreUserDefaults.m in Sources */,
 				7D6B08F2174D65B500A05173 /* IASKSpecifier.m in Sources */,
 				7D6B08F3174D65B500A05173 /* IASKPSSliderSpecifierViewCell.m in Sources */,
+				7D168F7418D4A33F003FAF59 /* UIImage+Blur.m in Sources */,
 				7D6B08F4174D65B500A05173 /* IASKPSTextFieldSpecifierViewCell.m in Sources */,
 				7D6B08F5174D65B500A05173 /* IASKPSTitleValueSpecifierViewCell.m in Sources */,
 				9B5BEF2917FBAEA50016F9CB /* GTLDrive_Sources.m in Sources */,
