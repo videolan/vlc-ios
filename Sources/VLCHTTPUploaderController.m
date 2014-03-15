@@ -70,6 +70,9 @@
         [self.httpServer stop];
         return true;
     }
+    // clean cache before accepting new stuff
+    [(VLCAppDelegate *)[UIApplication sharedApplication].delegate cleanCache];
+
     // Initialize our http server
     _httpServer = [[HTTPServer alloc] init];
     [_httpServer setInterface:WifiInterfaceName];

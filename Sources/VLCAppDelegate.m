@@ -66,11 +66,7 @@
     [quincyManager startManager];
 
     /* clean caches on launch (since those are used for wifi upload only) */
-    NSArray *searchPaths = NSSearchPathForDirectoriesInDomains(NSCachesDirectory, NSUserDomainMask, YES);
-    NSString* uploadDirPath = [searchPaths[0] stringByAppendingPathComponent:@"Upload"];
-    NSFileManager *fileManager = [NSFileManager defaultManager];
-    if ([fileManager fileExistsAtPath:uploadDirPath])
-        [fileManager removeItemAtPath:uploadDirPath error:nil];
+    [self cleanCache];
 
     // Init the HTTP Server
     self.uploadController = [[VLCHTTPUploaderController alloc] init];
@@ -226,6 +222,15 @@
 {
     [[MLMediaLibrary sharedMediaLibrary] updateMediaDatabase];
     [_playlistViewController updateViewContents];
+}
+
+- (void)cleanCache
+{
+    NSArray *searchPaths = NSSearchPathForDirectoriesInDomains(NSCachesDirectory, NSUserDomainMask, YES);
+    NSString* uploadDirPath = [searchPaths[0] stringByAppendingPathComponent:@"Upload"];
+    NSFileManager *fileManager = [NSFileManager defaultManager];
+    if ([fileManager fileExistsAtPath:uploadDirPath])
+        [fileManager removeItemAtPath:uploadDirPath error:nil];
 }
 
 #pragma mark - media list methods
