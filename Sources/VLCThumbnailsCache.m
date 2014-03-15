@@ -13,6 +13,7 @@
 
 #import "VLCThumbnailsCache.h"
 #import <CommonCrypto/CommonDigest.h>
+#import "UIImage+Blur.h"
 
 static NSInteger MaxCacheSize;
 static NSCache *_thumbnailCache;
@@ -129,7 +130,7 @@ static NSCache *_thumbnailCacheMetadata;
     for (NSUInteger x = 0; x < count; x++)
         [files addObject:[episodes[x] files].anyObject];
 
-    displayedImage = [self clusterThumbFromFiles:files andNumber:fileNumber];
+    displayedImage = [self clusterThumbFromFiles:files andNumber:fileNumber blur:NO];
     if (displayedImage) {
         [_thumbnailCache setObject:displayedImage forKey:objID];
         [_thumbnailCacheMetadata setObject:@(count) forKey:objID];
@@ -158,7 +159,7 @@ static NSCache *_thumbnailCacheMetadata;
 
     NSUInteger fileNumber = count > 3 ? 3 : count;
     NSArray *files = [mediaLabel.files allObjects];
-    displayedImage = [self clusterThumbFromFiles:files andNumber:fileNumber];
+    displayedImage = [self clusterThumbFromFiles:files andNumber:fileNumber blur:YES];
     if (displayedImage) {
         [_thumbnailCache setObject:displayedImage forKey:objID];
         [_thumbnailCacheMetadata setObject:@(count) forKey:objID];
@@ -167,7 +168,7 @@ static NSCache *_thumbnailCacheMetadata;
     return displayedImage;
 }
 
-+ (UIImage *)clusterThumbFromFiles:(NSArray *)files andNumber:(NSUInteger)fileNumber
++ (UIImage *)clusterThumbFromFiles:(NSArray *)files andNumber:(NSUInteger)fileNumber blur:(BOOL)blurImage
 {
     UIImage *clusterThumb;
     CGSize imageSize;
@@ -208,7 +209,10 @@ static NSCache *_thumbnailCacheMetadata;
     clusterThumb = UIGraphicsGetImageFromCurrentImageContext();
     UIGraphicsEndImageContext();
 
-    return clusterThumb;
+    if (!blurImage)
+        return clusterThumb;
+
+    return [UIImage applyBlurOnImage:clusterThumb withRadius:0.1];
 }
 
 @end
