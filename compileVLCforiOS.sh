@@ -11,9 +11,10 @@ VERBOSE=no
 CONFIGURATION="Release"
 NONETWORK=no
 SKIPLIBVLCCOMPILATION=no
-UNSTABLEVLCKIT=no
+UNSTABLEVLCKIT=yes
 
 TESTEDVLCKITHASH=766c3b7fa
+TESTEDUNSTABLEVLCKITHASH=5c8c17632
 TESTEDMEDIALIBRARYKITHASH=ece852f18
 TESTEDQUINCYKITHASH=f1d93b96b
 
@@ -96,7 +97,7 @@ do
              SDK=$OPTARG
              ;;
          u)
-             UNSTABLEVLCKIT=yes
+             UNSTABLEVLCKIT=no
              ;;
          ?)
              usage
@@ -157,8 +158,13 @@ fi
 else
 if ! [ -e VLCKit ]; then
 git clone git://git.videolan.org/vlc-bindings/VLCKit.git
+cd VLCKit
+git reset --hard ${TESTEDUNSTABLEVLCKITHASH}
+cd ..
 else
-git pull --rebase
+cd VLCKit
+git reset --hard ${TESTEDUNSTABLEVLCKITHASH}
+cd ..
 fi
 fi
 if ! [ -e OBSlider ]; then
