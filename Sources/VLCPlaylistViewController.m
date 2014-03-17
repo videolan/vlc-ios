@@ -303,6 +303,9 @@ static NSString *kDisplayedFirstSteps = @"Did we display the first steps tutoria
 
 - (void)_deleteMediaObject:(MLFile *)mediaObject
 {
+    if (inFolder)
+        [self rearrangeFolderTrackNumbersForRemovedItem:mediaObject];
+
     NSFileManager *fileManager = [NSFileManager defaultManager];
     NSString *folderLocation = [[[NSURL URLWithString:mediaObject.url] path] stringByDeletingLastPathComponent];
     NSArray *allfiles = [fileManager contentsOfDirectoryAtPath:folderLocation error:nil];
@@ -651,6 +654,7 @@ static NSString *kDisplayedFirstSteps = @"Did we display the first steps tutoria
 - (void)collectionView:(UICollectionView *)collectionView removeItemFromFolderAtIndexPathIfNeeded:(NSIndexPath *)indexPath
 {
     MLFile *mediaObject = (MLFile *)_foundMedia[indexPath.item];
+    [self rearrangeFolderTrackNumbersForRemovedItem:mediaObject];
     mediaObject.labels = nil;
     mediaObject.folderTrackNumber = nil;
 
@@ -698,6 +702,18 @@ static NSString *kDisplayedFirstSteps = @"Did we display the first steps tutoria
 }
 
 #pragma mark - Folder implementation
+
+- (void)rearrangeFolderTrackNumbersForRemovedItem:(MLFile *) mediaObject
+{
+    MLLabel *label = [mediaObject.labels anyObject];
+    NSSet *allFiles = label.files;
+    for (MLFile *file in allFiles) {
+        if (file.folderTrackNumber > mediaObject.folderTrackNumber) {
+            int value = [file.folderTrackNumber intValue];
+            file.folderTrackNumber = [NSNumber numberWithInt:value - 1];
+        }
+    }
+}
 
 - (void)showCreateFolderAlert
 {
@@ -770,6 +786,7 @@ static NSString *kDisplayedFirstSteps = @"Did we display the first steps tutoria
         MLFile *file = (MLFile *)_foundMedia[isPad ? path.item : path.row];
 
         MLLabel *folder = [file.labels anyObject];
+        [self rearrangeFolderTrackNumbersForRemovedItem:file];
         file.labels = nil;
         file.folderTrackNumber = nil;
         [_foundMedia removeObject:file];
