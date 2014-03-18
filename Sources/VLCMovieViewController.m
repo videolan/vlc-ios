@@ -716,12 +716,15 @@
 
         case UIEventSubtypeRemoteControlNextTrack:
             [self forward:nil];
+            break;
 
         case UIEventSubtypeRemoteControlPreviousTrack:
             [self backward:nil];
+            break;
 
         case UIEventSubtypeRemoteControlStop:
             [self closePlayback:nil];
+            break;
 
         default:
             break;
