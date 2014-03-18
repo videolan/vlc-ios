@@ -235,7 +235,7 @@ static NSString *kDisplayedFirstSteps = @"Did we display the first steps tutoria
         self.navigationItem.leftBarButtonItem.title = NSLocalizedString(@"BUTTON_BACK", @"");
         self.title = [folder name];
 
-        UIBarButtonItem *removeFromFolder = [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemStop target:self action:@selector(removeFromFolder)];
+        UIBarButtonItem *removeFromFolder = [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemReply target:self action:@selector(removeFromFolder)];
         NSMutableArray *toolbarItems = [self.toolbarItems mutableCopy];
         toolbarItems[0] = removeFromFolder;
         self.toolbarItems = toolbarItems;
