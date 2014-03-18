@@ -535,6 +535,19 @@ static NSString *kDisplayedFirstSteps = @"Did we display the first steps tutoria
             [list addMedia:media];
         }
         [(VLCAppDelegate*)[UIApplication sharedApplication].delegate openMediaList:list atIndex:(int)[tracks indexOfObject:selectedObject]];
+    } else if ([selectedObject isKindOfClass:[MLFile class]] && [((MLFile *)selectedObject).labels count] > 0) {
+        VLCMediaList *list;
+        MLLabel *folder = [((MLFile *)selectedObject).labels anyObject];
+        NSArray *folderTracks = [folder sortedFolderItems];
+        NSUInteger count = folderTracks.count;
+        list = [[VLCMediaList alloc] init];
+
+        MLFile *file;
+        for (NSInteger x = count - 1; x > -1; x--) {
+            file = (MLFile *)folderTracks[x];
+            [list addMedia:[VLCMedia mediaWithURL:[NSURL URLWithString:file.url]]];
+        }
+        [(VLCAppDelegate *)[UIApplication sharedApplication].delegate openMediaList:list atIndex:(int)[folderTracks indexOfObject:selectedObject]];
     } else
         [self openMediaObject:selectedObject];
 }
@@ -632,7 +645,7 @@ static NSString *kDisplayedFirstSteps = @"Did we display the first steps tutoria
     } else if ([selectedObject isKindOfClass:[MLFile class]] && [((MLFile *)selectedObject).labels count] > 0) {
         VLCMediaList *list;
         MLLabel *folder = [((MLFile *)selectedObject).labels anyObject];
-        NSArray *folderTracks = [folder.files allObjects];
+        NSArray *folderTracks = [folder sortedFolderItems];
         NSUInteger count = folderTracks.count;
         list = [[VLCMediaList alloc] init];
 
