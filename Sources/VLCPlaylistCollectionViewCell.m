@@ -91,7 +91,6 @@
 {
     if (_mediaObject != mediaObject) {
         if ([_mediaObject isKindOfClass:[MLLabel class]]) {
-            [_mediaObject removeObserver:self forKeyPath:@"files"];
             [_mediaObject removeObserver:self forKeyPath:@"name"];
         } else if ([_mediaObject isKindOfClass:[MLShow class]])
             [_mediaObject removeObserver:self forKeyPath:@"episodes"];
@@ -123,7 +122,6 @@
         self.thumbnailView.image = nil;
 
         if ([_mediaObject isKindOfClass:[MLLabel class]]) {
-            [_mediaObject addObserver:self forKeyPath:@"files" options:0 context:nil];
             [_mediaObject addObserver:self forKeyPath:@"name" options:0 context:nil];
         } else if ([_mediaObject isKindOfClass:[MLShow class]])
             [_mediaObject addObserver:self forKeyPath:@"episodes" options:0 context:nil];
