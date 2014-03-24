@@ -1,12 +1,12 @@
-From 047b5156fa009bc8e45a9f5de8bb9c54d24188cb Mon Sep 17 00:00:00 2001
+From fa0aabe932016b67a37b82b04dd21e2b4bdfad12 Mon Sep 17 00:00:00 2001
 From: Carola Nitz <nitz.carola@googlemail.com>
-Date: Sat, 15 Mar 2014 22:08:32 +0100
+Date: Mon, 24 Mar 2014 22:12:53 +0100
 Subject: [PATCH] Added a delegate method to remove item from folder
 
 ---
- .../LXReorderableCollectionViewFlowLayout.h                        | 1 +
- .../LXReorderableCollectionViewFlowLayout.m                        | 7 ++++++-
- 2 files changed, 7 insertions(+), 1 deletion(-)
+ .../LXReorderableCollectionViewFlowLayout.h                       | 1 +
+ .../LXReorderableCollectionViewFlowLayout.m                       | 8 +++++++-
+ 2 files changed, 8 insertions(+), 1 deletion(-)
 
 diff --git a/LXReorderableCollectionViewFlowLayout/LXReorderableCollectionViewFlowLayout.h b/LXReorderableCollectionViewFlowLayout/LXReorderableCollectionViewFlowLayout.h
 index 76617f4..45c3843 100755
@@ -21,7 +21,7 @@ index 76617f4..45c3843 100755
  - (BOOL)collectionView:(UICollectionView *)collectionView canMoveItemAtIndexPath:(NSIndexPath *)indexPath;
  - (BOOL)collectionView:(UICollectionView *)collectionView itemAtIndexPath:(NSIndexPath *)fromIndexPath canMoveToIndexPath:(NSIndexPath *)toIndexPath;
 diff --git a/LXReorderableCollectionViewFlowLayout/LXReorderableCollectionViewFlowLayout.m b/LXReorderableCollectionViewFlowLayout/LXReorderableCollectionViewFlowLayout.m
-index e1289b2..5a6d3e7 100755
+index e1289b2..abf5a98 100755
 --- a/LXReorderableCollectionViewFlowLayout/LXReorderableCollectionViewFlowLayout.m
 +++ b/LXReorderableCollectionViewFlowLayout/LXReorderableCollectionViewFlowLayout.m
 @@ -240,6 +240,7 @@ static NSString * const kLXCollectionViewKeyPath = @"collectionView";
@@ -40,7 +40,7 @@ index e1289b2..5a6d3e7 100755
              CGFloat maxX = MAX(contentSize.width, frameSize.width) - frameSize.width + contentInset.right;
              
              if ((contentOffset.x + distance) >= maxX) {
-@@ -384,7 +386,10 @@ static NSString * const kLXCollectionViewKeyPath = @"collectionView";
+@@ -384,7 +386,11 @@ static NSString * const kLXCollectionViewKeyPath = @"collectionView";
              CGPoint viewCenter = self.currentView.center = LXS_CGPointAdd(self.currentViewCenter, self.panTranslationInCollectionView);
              
              [self invalidateLayoutIfNecessary];
@@ -48,6 +48,7 @@ index e1289b2..5a6d3e7 100755
 +            //TODO: start a timer to not immediately trigger the remove from folder
 +            if (self.currentView.center.x < 0 || self.currentView.center.x > self.collectionView.frame.size.width) {
 +                [self.dataSource collectionView:self.collectionView removeItemFromFolderAtIndexPathIfNeeded:_selectedItemIndexPath];
++                [self.currentView removeFromSuperview];
 +            }
              switch (self.scrollDirection) {
                  case UICollectionViewScrollDirectionVertical: {
