@@ -1384,11 +1384,18 @@
 
 - (void)_updateDisplayedMetadata
 {
-    MLFile *item = self.fileFromMediaLibrary;
+    MLFile *item;
     NSString *title;
     NSString *artist;
     NSString *albumName;
     NSString *trackNumber;
+    if (self.fileFromMediaLibrary)
+        item = self.fileFromMediaLibrary;
+    else if (self.mediaList) {
+        NSArray *matches = [MLFile fileForURL:[_mediaPlayer.media.url absoluteString]];
+        if (matches.count > 0)
+            item = matches[0];
+    }
 
     if (item) {
         if (item.isAlbumTrack) {
