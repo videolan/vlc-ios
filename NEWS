@@ -10,7 +10,11 @@
   when VLC enters the background state (#10630, #10747)
 * Fixed serial ftp downloads
 * Fixed downloads from Twonky UPnP servers (#10631)
+* Fixed playback control through lock screen, headphones or multi-tasking view
+  (#10932)
 * Added support for m4b, caf, oma, w64 audio files
+* Caches for WiFi upload and HTTP downloads are emptied more often to
+  keep storage impact reasonable
 * Stability improvements and UX tweaks (amongst others #10601, #10518)
 * New translation to Latvian
 
