@@ -227,7 +227,6 @@ static NSString *kDisplayedFirstSteps = @"Did we display the first steps tutoria
                 }
                 _reorderLayout = [[LXReorderableCollectionViewFlowLayout alloc] init];
                 [self.collectionView setCollectionViewLayout:_reorderLayout animated:NO];
-                _folderLayout = nil;
             }
         }
         _foundMedia = [NSMutableArray arrayWithArray:[folder sortedFolderItems]];
@@ -977,7 +976,6 @@ static NSString *kDisplayedFirstSteps = @"Did we display the first steps tutoria
             }
             _folderLayout = [[VLCFolderCollectionViewFlowLayout alloc] init];
             [self.collectionView setCollectionViewLayout:_folderLayout animated:NO];
-            _reorderLayout = nil;
             [_collectionView addGestureRecognizer:_longPressGestureRecognizer];
         }
     }
