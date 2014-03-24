@@ -348,12 +348,12 @@
         _movieViewController = [[VLCMovieViewController alloc] initWithNibName:nil bundle:nil];
 
     if ([mediaObject isKindOfClass:[MLFile class]])
-        _movieViewController.mediaItem = (MLFile *)mediaObject;
+        _movieViewController.fileFromMediaLibrary = (MLFile *)mediaObject;
     else if ([mediaObject isKindOfClass:[MLAlbumTrack class]])
-        _movieViewController.mediaItem = [(MLAlbumTrack*)mediaObject files].anyObject;
+        _movieViewController.fileFromMediaLibrary = [(MLAlbumTrack*)mediaObject files].anyObject;
     else if ([mediaObject isKindOfClass:[MLShowEpisode class]])
-        _movieViewController.mediaItem = [(MLShowEpisode*)mediaObject files].anyObject;
-    [(MLFile *)_movieViewController.mediaItem setUnread:@(NO)];
+        _movieViewController.fileFromMediaLibrary = [(MLShowEpisode*)mediaObject files].anyObject;
+    [(MLFile *)_movieViewController.fileFromMediaLibrary setUnread:@(NO)];
 
     UINavigationController *navCon = [[UINavigationController alloc] initWithRootViewController:_movieViewController];
     navCon.modalPresentationStyle = UIModalPresentationFullScreen;

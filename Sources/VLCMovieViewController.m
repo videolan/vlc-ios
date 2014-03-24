@@ -106,11 +106,11 @@
 
 #pragma mark - Managing the media item
 
-- (void)setMediaItem:(id)newMediaItem
+- (void)setFileFromMediaLibrary:(id)newFile
 {
-    if (_mediaItem != newMediaItem) {
+    if (_fileFromMediaLibrary != newFile) {
         [self _stopPlayback];
-        _mediaItem = newMediaItem;
+        _fileFromMediaLibrary = newFile;
         if (_viewAppeared)
             [self _startPlayback];
     }
@@ -400,7 +400,7 @@
 
     NSUserDefaults *defaults = [NSUserDefaults standardUserDefaults];
 
-    if (!self.mediaItem && !self.url && !self.mediaList) {
+    if (!self.fileFromMediaLibrary && !self.url && !self.mediaList) {
         [self _stopPlayback];
         return;
     }
@@ -413,8 +413,8 @@
     self.trackNameLabel.text = self.artistNameLabel.text = self.albumNameLabel.text = @"";
 
     VLCMedia *media;
-    if (self.mediaItem) {
-        MLFile *item = self.mediaItem;
+    if (self.fileFromMediaLibrary) {
+        MLFile *item = self.fileFromMediaLibrary;
         media = [VLCMedia mediaWithURL:[NSURL URLWithString:item.url]];
     } else if (!self.mediaList) {
         media = [VLCMedia mediaWithURL:self.url];
@@ -480,7 +480,7 @@
     [self.repeatButtonLandscape setImage:[UIImage imageNamed:@"repeat"] forState:UIControlStateNormal];
 
     if (![self _isMediaSuitableForDevice]) {
-        UIAlertView * alert = [[UIAlertView alloc] initWithTitle:NSLocalizedString(@"DEVICE_TOOSLOW_TITLE", @"") message:[NSString stringWithFormat:NSLocalizedString(@"DEVICE_TOOSLOW", @""), [[UIDevice currentDevice] model], self.mediaItem.title] delegate:self cancelButtonTitle:NSLocalizedString(@"BUTTON_CANCEL", @"") otherButtonTitles:NSLocalizedString(@"BUTTON_OPEN", @""), nil];
+        UIAlertView * alert = [[UIAlertView alloc] initWithTitle:NSLocalizedString(@"DEVICE_TOOSLOW_TITLE", @"") message:[NSString stringWithFormat:NSLocalizedString(@"DEVICE_TOOSLOW", @""), [[UIDevice currentDevice] model], self.fileFromMediaLibrary.title] delegate:self cancelButtonTitle:NSLocalizedString(@"BUTTON_CANCEL", @"") otherButtonTitles:NSLocalizedString(@"BUTTON_OPEN", @""), nil];
         [alert show];
     } else
         [self _playNewMedia];
@@ -491,10 +491,10 @@
 
 - (BOOL)_isMediaSuitableForDevice
 {
-    if (!self.mediaItem)
+    if (!self.fileFromMediaLibrary)
         return YES;
 
-    NSUInteger totalNumberOfPixels = [[[self.mediaItem videoTrack] valueForKey:@"width"] doubleValue] * [[[self.mediaItem videoTrack] valueForKey:@"height"] doubleValue];
+    NSUInteger totalNumberOfPixels = [[[self.fileFromMediaLibrary videoTrack] valueForKey:@"width"] doubleValue] * [[[self.fileFromMediaLibrary videoTrack] valueForKey:@"height"] doubleValue];
 
     NSInteger speedCategory = [[UIDevice currentDevice] speedCategory];
 
@@ -526,10 +526,10 @@
 {
     NSNumber *playbackPositionInTime = @(0);
     CGFloat lastPosition = .0;
-    NSInteger duration = self.mediaItem.duration.intValue;
+    NSInteger duration = self.fileFromMediaLibrary.duration.intValue;
 
-    if (self.mediaItem.lastPosition)
-        lastPosition = self.mediaItem.lastPosition.floatValue;
+    if (self.fileFromMediaLibrary.lastPosition)
+        lastPosition = self.fileFromMediaLibrary.lastPosition.floatValue;
     if (lastPosition < .95) {
         if (duration != 0)
             playbackPositionInTime = @(lastPosition * (duration / 1000.));
@@ -548,11 +548,11 @@
     else
         [_listPlayer playMedia:_listPlayer.rootMedia];
 
-    if (self.mediaItem) {
-        if (self.mediaItem.lastAudioTrack.intValue > 0)
-            _mediaPlayer.currentAudioTrackIndex = self.mediaItem.lastAudioTrack.intValue;
-        if (self.mediaItem.lastSubtitleTrack.intValue > 0)
-            _mediaPlayer.currentVideoSubTitleIndex = self.mediaItem.lastSubtitleTrack.intValue;
+    if (self.fileFromMediaLibrary) {
+        if (self.fileFromMediaLibrary.lastAudioTrack.intValue > 0)
+            _mediaPlayer.currentAudioTrackIndex = self.fileFromMediaLibrary.lastAudioTrack.intValue;
+        if (self.fileFromMediaLibrary.lastSubtitleTrack.intValue > 0)
+            _mediaPlayer.currentVideoSubTitleIndex = self.fileFromMediaLibrary.lastSubtitleTrack.intValue;
     }
 
     self.playbackSpeedSlider.value = [self _playbackSpeed];
@@ -612,8 +612,8 @@
         if (_listPlayer)
             _listPlayer = nil;
     }
-    if (_mediaItem)
-        _mediaItem = nil;
+    if (_fileFromMediaLibrary)
+        _fileFromMediaLibrary = nil;
     if (_mediaList)
         _mediaList = nil;
     if (_url)
@@ -624,9 +624,9 @@
 
 - (void)_saveCurrentState
 {
-    if (self.mediaItem) {
+    if (self.fileFromMediaLibrary) {
         @try {
-            MLFile *item = self.mediaItem;
+            MLFile *item = self.fileFromMediaLibrary;
             item.lastPosition = @([_mediaPlayer position]);
             item.lastAudioTrack = @(_mediaPlayer.currentAudioTrackIndex);
             item.lastSubtitleTrack = @(_mediaPlayer.currentVideoSubTitleIndex);
@@ -862,7 +862,7 @@
      * wouldn't see the I-frames when seeking on current mobile devices. This isn't a problem
      * within the Simulator, but especially on older ARMv7 devices, it's clearly noticeable. */
     [self performSelector:@selector(_setPositionForReal) withObject:nil afterDelay:0.3];
-    VLCTime *newPosition = [VLCTime timeWithInt:(int)(_positionSlider.value * self.mediaItem.duration.intValue)];
+    VLCTime *newPosition = [VLCTime timeWithInt:(int)(_positionSlider.value * self.fileFromMediaLibrary.duration.intValue)];
     [self.timeDisplay setTitle:newPosition.stringValue forState:UIControlStateNormal];
     self.timeDisplay.accessibilityLabel = [NSString stringWithFormat:@"%@: %@", NSLocalizedString(@"PLAYBACK_POSITION", @""), newPosition.stringValue];
     _positionSet = NO;
@@ -1362,7 +1362,7 @@
 
 - (void)_updateDisplayedMetadata
 {
-    MLFile *item = self.mediaItem;
+    MLFile *item = self.fileFromMediaLibrary;
     NSString *title;
     NSString *artist;
     NSString *albumName;

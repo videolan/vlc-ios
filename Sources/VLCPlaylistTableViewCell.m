@@ -309,16 +309,16 @@
     self.folderIconView.hidden = YES;
 }
 
-- (void)_showPositionOfItem:(MLFile *)mediaItem
+- (void)_showPositionOfItem:(MLFile *)mediaLibraryFile
 {
-    CGFloat position = mediaItem.lastPosition.floatValue;
+    CGFloat position = mediaLibraryFile.lastPosition.floatValue;
 
     if (SYSTEM_RUNS_IOS7_OR_LATER) {
-        CGFloat duration = mediaItem.duration.floatValue;
+        CGFloat duration = mediaLibraryFile.duration.floatValue;
         if (position > .05f && position < .95f && (duration * position - duration) < -60000) {
             [(UITextView*)self.mediaIsUnreadView setText:[NSString stringWithFormat:NSLocalizedString(@"LIBRARY_MINUTES_LEFT", @""), [[VLCTime timeWithInt:(duration * position - duration)] minuteStringValue]]];
             self.mediaIsUnreadView.hidden = NO;
-        } else if (mediaItem.unread.intValue) {
+        } else if (mediaLibraryFile.unread.intValue) {
             [(UILabel *)self.mediaIsUnreadView setText:[NSLocalizedString(@"NEW", @"") capitalizedStringWithLocale:[NSLocale currentLocale]]];
             self.mediaIsUnreadView.hidden = NO;
         } else
@@ -327,7 +327,7 @@
         self.progressIndicator.progress = position;
         self.progressIndicator.hidden = ((position < .1f) || (position > .95f)) ? YES : NO;
         [self.progressIndicator setNeedsDisplay];
-        self.mediaIsUnreadView.hidden = !mediaItem.unread.intValue;
+        self.mediaIsUnreadView.hidden = !mediaLibraryFile.unread.intValue;
     }
 }
 

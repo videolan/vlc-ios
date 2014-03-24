@@ -82,7 +82,7 @@
 @property (nonatomic, strong) IBOutlet UILabel *trackNameLabel;
 @property (nonatomic, strong) IBOutlet UIImageView *artworkImageView;
 
-@property (nonatomic, strong) MLFile *mediaItem;
+@property (nonatomic, strong) MLFile *fileFromMediaLibrary;
 @property (nonatomic, strong) NSURL *url;
 @property (nonatomic, retain) VLCMediaList *mediaList;
 @property (nonatomic, readwrite) int itemInMediaListToBePlayedFirst;
