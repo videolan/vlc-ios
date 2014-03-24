@@ -106,13 +106,11 @@
 			<key>Titles</key>
 			<array>
 				<string>SETTINGS_DEINTERLACE_ON</string>
-				<string>SETTINGS_DEINTERLACE_AUTO</string>
 				<string>SETTINGS_DEINTERLACE_OFF</string>
 			</array>
 			<key>Values</key>
 			<array>
 				<integer>1</integer>
-				<integer>-1</integer>
 				<integer>0</integer>
 			</array>
 		</dict>
