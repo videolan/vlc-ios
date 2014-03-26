@@ -218,6 +218,8 @@
                    name:UIApplicationDidBecomeActiveNotification object:nil];
     [center addObserver:self selector:@selector(applicationDidEnterBackground:)
                    name:UIApplicationDidEnterBackgroundNotification object:nil];
+    [center addObserver:self selector:@selector(audioSessionRouteChange:)
+                   name:AVAudioSessionRouteChangeNotification object:nil];
 
     _playingExternallyTitle.text = NSLocalizedString(@"PLAYING_EXTERNALLY_TITLE", @"");
     _playingExternallyDescription.text = NSLocalizedString(@"PLAYING_EXTERNALLY_DESC", @"");
@@ -1375,6 +1377,15 @@
         _shouldResumePlaying = NO;
         [_listPlayer play];
     }
+}
+
+- (void)audioSessionRouteChange:(NSNotification *)notification
+{
+    NSArray *outputs = [[AVAudioSession sharedInstance] currentRoute].outputs;
+    NSString *portName = [[outputs objectAtIndex:0] portName];
+
+    if (![portName isEqualToString:@"Headphones"])
+        [_listPlayer pause];
 }
 
 - (void)mediaDidFinishParsing:(VLCMedia *)aMedia
