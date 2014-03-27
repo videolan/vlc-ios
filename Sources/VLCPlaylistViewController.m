@@ -757,7 +757,8 @@ static NSString *kDisplayedFirstSteps = @"Did we display the first steps tutoria
     else
         _indexPaths = [NSMutableArray arrayWithArray:[self.tableView indexPathsForSelectedRows]];
 
-    for (NSIndexPath *path in _indexPaths) {
+    for (NSInteger i = _indexPaths.count - 1; i >=0; i--) {
+        NSIndexPath *path = _indexPaths[i];
         id mediaObject;
         if (UI_USER_INTERFACE_IDIOM() == UIUserInterfaceIdiomPad)
             mediaObject = _foundMedia[path.item];
