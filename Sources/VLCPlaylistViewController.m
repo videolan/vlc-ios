@@ -621,8 +621,8 @@ static NSString *kDisplayedFirstSteps = @"Did we display the first steps tutoria
     if (self.editing) {
         if (_libraryMode == VLCLibraryModeCreateFolder) {
             _folderObject = _foundMedia[indexPath.item];
-            _libraryMode = _previousLibraryMode;
             [self createFolderWithName:nil];
+             _libraryMode = _previousLibraryMode;
         }
         [(VLCPlaylistCollectionViewCell *)[collectionView cellForItemAtIndexPath:indexPath] selectionUpdate];
         return;
@@ -806,6 +806,7 @@ static NSString *kDisplayedFirstSteps = @"Did we display the first steps tutoria
 
         if ([folder.files count] == 0) {
             [self removeMediaObject:folder updateDatabase:YES];
+            [self setEditing:NO];
             [self backToAllItems:nil];
         }
     }
@@ -854,8 +855,11 @@ static NSString *kDisplayedFirstSteps = @"Did we display the first steps tutoria
 
             for (NSInteger i = [_indexPaths count] - 1; i >= 0; i--) {
                 NSIndexPath *path = _indexPaths[i];
-                if (![_foundMedia[path.row] isKindOfClass:[MLFile class]])
+                if (_libraryMode != VLCLibraryModeCreateFolder && ![_foundMedia[path.row] isKindOfClass:[MLFile class]])
                     continue;
+                if (_libraryMode == VLCLibraryModeCreateFolder)
+                    [self updateViewContents];
+
                 MLFile *file = _foundMedia[path.row];
                 file.labels = [NSSet setWithObjects:label, nil];
                 [_foundMedia removeObjectAtIndex:path.row];
