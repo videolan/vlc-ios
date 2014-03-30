@@ -236,15 +236,7 @@ else
 cd WhiteRaccoon && git pull --rebase && cd ..
 fi
 if ! [ -e CocoaHTTPServer ]; then
-git clone git://github.com/robbiehanson/CocoaHTTPServer.git
-cd CocoaHTTPServer
-git am ../../patches/cocoahttpserver/*.patch
-if [ $? -ne 0 ]; then
-git am --abort
-info "Applying the patches failed, aborting git-am"
-exit 1
-fi
-cd ..
+git clone git://github.com/fkuehne/CocoaHTTPServer.git
 else
 cd CocoaHTTPServer && git pull --rebase && cd ..
 fi
