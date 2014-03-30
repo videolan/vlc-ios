@@ -213,15 +213,7 @@ else
 cd GHSidebarNav && git pull --rebase && cd ..
 fi
 if ! [ -e LXReorderableCollectionViewFlowLayout ]; then
-git clone git://github.com/lxcid/LXReorderableCollectionViewFlowLayout.git
-cd LXReorderableCollectionViewFlowLayout
-git am ../../patches/lxreorderablecollectionviewflowlayout/*.patch
-if [ $? -ne 0 ]; then
-git am --abort
-info "Applying the patches failed, aborting git-am"
-exit 1
-fi
-cd ..
+git clone git://github.com/fkuehne/LXReorderableCollectionViewFlowLayout.git
 else
 cd LXReorderableCollectionViewFlowLayout && git pull --rebase && cd ..
 fi
