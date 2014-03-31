@@ -106,6 +106,10 @@
 		7D1B0683187DAF6A00F8BCD8 /* vlcsnap.jpg in Resources */ = {isa = PBXBuildFile; fileRef = 7D1B0681187DAF6A00F8BCD8 /* vlcsnap.jpg */; };
 		7D223E1A181EC56E00B36798 /* gradient-cell-ios7-ipad.png in Resources */ = {isa = PBXBuildFile; fileRef = 7D223E18181EC56E00B36798 /* gradient-cell-ios7-ipad.png */; };
 		7D223E1B181EC56E00B36798 /* gradient-cell-ios7-ipad@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 7D223E19181EC56E00B36798 /* gradient-cell-ios7-ipad@2x.png */; };
+		7D278D6B18E9D5EF0063E109 /* tvShow.png in Resources */ = {isa = PBXBuildFile; fileRef = 7D278D6718E9D5EF0063E109 /* tvShow.png */; };
+		7D278D6C18E9D5EF0063E109 /* tvShow@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 7D278D6818E9D5EF0063E109 /* tvShow@2x.png */; };
+		7D278D6F18E9D6750063E109 /* tvShow@2x~ipad.png in Resources */ = {isa = PBXBuildFile; fileRef = 7D278D6D18E9D6750063E109 /* tvShow@2x~ipad.png */; };
+		7D278D7018E9D6750063E109 /* tvShow~iPad.png in Resources */ = {isa = PBXBuildFile; fileRef = 7D278D6E18E9D6750063E109 /* tvShow~iPad.png */; };
 		7D2A34A41805CDBA004078AA /* gradient-cell-ios7.png in Resources */ = {isa = PBXBuildFile; fileRef = 7D2A34A21805CDBA004078AA /* gradient-cell-ios7.png */; };
 		7D2A34A51805CDBA004078AA /* gradient-cell-ios7@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 7D2A34A31805CDBA004078AA /* gradient-cell-ios7@2x.png */; };
 		7D30F3C2183AB24C00FFC021 /* VLCHTTPConnection.m in Sources */ = {isa = PBXBuildFile; fileRef = 7D30F3BD183AB24C00FFC021 /* VLCHTTPConnection.m */; };
@@ -578,6 +582,10 @@
 		7D1B0681187DAF6A00F8BCD8 /* vlcsnap.jpg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; path = vlcsnap.jpg; sourceTree = "<group>"; };
 		7D223E18181EC56E00B36798 /* gradient-cell-ios7-ipad.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "gradient-cell-ios7-ipad.png"; sourceTree = "<group>"; };
 		7D223E19181EC56E00B36798 /* gradient-cell-ios7-ipad@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "gradient-cell-ios7-ipad@2x.png"; sourceTree = "<group>"; };
+		7D278D6718E9D5EF0063E109 /* tvShow.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = tvShow.png; sourceTree = "<group>"; };
+		7D278D6818E9D5EF0063E109 /* tvShow@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "tvShow@2x.png"; sourceTree = "<group>"; };
+		7D278D6D18E9D6750063E109 /* tvShow@2x~ipad.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "tvShow@2x~ipad.png"; sourceTree = "<group>"; };
+		7D278D6E18E9D6750063E109 /* tvShow~iPad.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "tvShow~iPad.png"; sourceTree = "<group>"; };
 		7D2A34A21805CDBA004078AA /* gradient-cell-ios7.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "gradient-cell-ios7.png"; sourceTree = "<group>"; };
 		7D2A34A31805CDBA004078AA /* gradient-cell-ios7@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "gradient-cell-ios7@2x.png"; sourceTree = "<group>"; };
 		7D2AEDE017FB775900B5281E /* sv */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = sv; path = sv.lproj/Localizable.strings; sourceTree = "<group>"; };
@@ -1370,6 +1378,10 @@
 				7D07F72B175691CC00CDE21C /* backButton@2x.png */,
 				7D07F72C175691CC00CDE21C /* backButtonHighlight.png */,
 				7D07F72D175691CC00CDE21C /* backButtonHighlight@2x.png */,
+				7D278D6718E9D5EF0063E109 /* tvShow.png */,
+				7D278D6818E9D5EF0063E109 /* tvShow@2x.png */,
+				7D278D6D18E9D6750063E109 /* tvShow@2x~ipad.png */,
+				7D278D6E18E9D6750063E109 /* tvShow~iPad.png */,
 				7D07F722175688D300CDE21C /* doneButton.png */,
 				7D07F723175688D300CDE21C /* doneButton@2x.png */,
 				7D07F724175688D300CDE21C /* doneButtonHighlight.png */,
@@ -2356,6 +2368,7 @@
 				7D07F71417566C4A00CDE21C /* menuCone.png in Resources */,
 				7D07F71517566C4A00CDE21C /* menuCone@2x.png in Resources */,
 				7D588D64187DD9B700469FCF /* modernSliderKnob@2x.png in Resources */,
+				7D278D6F18E9D6750063E109 /* tvShow@2x~ipad.png in Resources */,
 				7DBBF1A7183AB4300009A339 /* VLCNetworkLoginViewController.xib in Resources */,
 				7D07F726175688D300CDE21C /* doneButton.png in Resources */,
 				7D588D65187DD9B700469FCF /* modernSliderKnob.png in Resources */,
@@ -2408,6 +2421,7 @@
 				7D897874185DEF79009BAB5D /* repeat.png in Resources */,
 				7D1B0683187DAF6A00F8BCD8 /* vlcsnap.jpg in Resources */,
 				7D47D70C1760CD8700E86BAD /* playbackDoneButtonHighlight@2x.png in Resources */,
+				7D278D7018E9D6750063E109 /* tvShow~iPad.png in Resources */,
 				7D47D70D1760CD8700E86BAD /* ratioButton.png in Resources */,
 				7D63C1CF187767AF00BD5256 /* fsarrow-time.png in Resources */,
 				7D92897B1877467E009108FD /* VLCFirstStepsFourthPageViewController~iphone.xib in Resources */,
@@ -2432,6 +2446,7 @@
 				7D897885185E00C3009BAB5D /* checkboxEmpty@2x.png in Resources */,
 				9BADAF48185FC66700108BD8 /* playbackControllerBg.png in Resources */,
 				7DBBF19D183AB4300009A339 /* VLCCloudStorageTableViewController.xib in Resources */,
+				7D278D6B18E9D5EF0063E109 /* tvShow.png in Resources */,
 				7D47D7271760D77C00E86BAD /* pauseIcon.png in Resources */,
 				7D47D7281760D77C00E86BAD /* pauseIcon@2x.png in Resources */,
 				7D47D72B1760E3A000E86BAD /* sliderminimumTrack.png in Resources */,
@@ -2562,6 +2577,7 @@
 				7D897882185E00C3009BAB5D /* checkbox.png in Resources */,
 				7D514D4417F779C6007B960C /* Drive.png in Resources */,
 				7D3784DF183A99D2009EE944 /* papasscode_background.png in Resources */,
+				7D278D6C18E9D5EF0063E109 /* tvShow@2x.png in Resources */,
 				7D3784E0183A99D2009EE944 /* papasscode_background@2x.png in Resources */,
 				7D3784E1183A99D2009EE944 /* papasscode_failed_bg.png in Resources */,
 				7D53D52A187729EC00A1BA97 /* browser.png in Resources */,

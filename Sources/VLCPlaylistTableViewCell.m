@@ -219,7 +219,7 @@
     self.subtitleLabel.text = [string stringByAppendingString:[NSString stringWithFormat:(count > 1) ? NSLocalizedString(@"LIBRARY_EPISODES", @"") : NSLocalizedString(@"LIBRARY_SINGLE_EPISODE", @""), count, show.unreadEpisodes.count]];
     self.mediaIsUnreadView.hidden = YES;
     self.progressIndicator.hidden = YES;
-    self.folderIconView.image = [UIImage imageNamed:@"PlayingExternally"];
+    self.folderIconView.image = [UIImage imageNamed:@"tvShow"];
     self.folderIconView.hidden = NO;
 }
 
