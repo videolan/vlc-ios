@@ -407,9 +407,7 @@
         return;
     }
 
-    NSMutableDictionary *mediaDictionary = [[NSMutableDictionary alloc] init];
-
-    _listPlayer = [[VLCMediaListPlayer alloc] initWithOptions:@[[NSString stringWithFormat:@"--%@=%@", kVLCSettingSubtitlesFont, [self _resolveFontName]], [NSString stringWithFormat:@"--%@=%@", kVLCSettingSubtitlesFontColor, [defaults objectForKey:kVLCSettingSubtitlesFontColor]], [NSString stringWithFormat:@"--%@=%@", kVLCSettingSubtitlesFontSize, [defaults objectForKey:kVLCSettingSubtitlesFontSize]], [NSString stringWithFormat:@"--%@=%@", kVLCSettingNetworkCaching, [defaults objectForKey:kVLCSettingNetworkCaching]]]];
+    _listPlayer = [[VLCMediaListPlayer alloc] init];
     _mediaPlayer = _listPlayer.mediaPlayer;
     [_mediaPlayer setDelegate:self];
     [_mediaPlayer setDrawable:self.movieView];
@@ -431,8 +429,8 @@
         [media parse];
     }
 
-
-
+    NSMutableDictionary *mediaDictionary = [[NSMutableDictionary alloc] init];
+    [mediaDictionary setObject:[defaults objectForKey:kVLCSettingNetworkCaching] forKey:kVLCSettingNetworkCaching];
     [mediaDictionary setObject:[[defaults objectForKey:kVLCSettingStretchAudio] boolValue] ? kVLCSettingStretchAudioOnValue : kVLCSettingStretchAudioOffValue forKey:kVLCSettingStretchAudio];
     [mediaDictionary setObject:[defaults objectForKey:kVLCSettingTextEncoding] forKey:kVLCSettingTextEncoding];
     [mediaDictionary setObject:[defaults objectForKey:kVLCSettingSkipLoopFilter] forKey:kVLCSettingSkipLoopFilter];
@@ -963,6 +961,11 @@
         _mediaPlayer.media.delegate = self;
         /* let's update meta data */
         [self _updateDisplayedMetadata];
+
+        /* on-the-fly values through private API */
+        [_mediaPlayer performSelector:@selector(setTextRendererFont:) withObject:[self _resolveFontName]];
+        [_mediaPlayer performSelector:@selector(setTextRendererFontSize:) withObject:[[NSUserDefaults standardUserDefaults] objectForKey:kVLCSettingSubtitlesFontSize]];
+        [_mediaPlayer performSelector:@selector(setTextRendererFontColor:) withObject:[[NSUserDefaults standardUserDefaults] objectForKey:kVLCSettingSubtitlesFontColor]];
     }
 
     if (currentState == VLCMediaPlayerStateError) {
