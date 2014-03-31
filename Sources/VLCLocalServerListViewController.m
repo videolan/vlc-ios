@@ -46,6 +46,7 @@
     Reachability *_reachability;
 
     BOOL _udnpDiscoveryRunning;
+    NSTimer *_searchTimer;
 }
 
 @end
@@ -164,23 +165,36 @@
     if (_UPNPdevices.count > 0)
         [self UPnPDBUpdated:nil];
 
-    [[managerInstance DB] addObserver:(UPnPDBObserver*)self];
+    [[managerInstance DB] addObserver:self];
 
     //Optional; set User Agent
-    [[managerInstance SSDP] setUserAgentProduct:[NSString stringWithFormat:@"VLC for iOS/%@", [[NSBundle mainBundle] objectForInfoDictionaryKey:@"CFBundleVersion"]] andOS:@"iOS"];
+    [[managerInstance SSDP] setUserAgentProduct:[NSString stringWithFormat:@"VLCforiOS/%@", [[NSBundle mainBundle] objectForInfoDictionaryKey:@"CFBundleVersion"]] andOS:[NSString stringWithFormat:@"iOS/%@", [[UIDevice currentDevice] systemVersion]]];
 
     //Search for UPnP Devices
     [[managerInstance SSDP] startSSDP];
-    [[managerInstance SSDP] searchSSDP];
-    [[managerInstance SSDP] SSDPDBUpdate];
+    [[managerInstance SSDP] notifySSDPAlive];
+    _searchTimer = [NSTimer timerWithTimeInterval:10.0 target:self selector:@selector(_performSSDPSearch) userInfo:nil repeats:YES];
+    [_searchTimer setFireDate:[NSDate dateWithTimeIntervalSinceNow:1.0]];
+    [[NSRunLoop mainRunLoop] addTimer:_searchTimer forMode:NSRunLoopCommonModes];
     _udnpDiscoveryRunning = YES;
+}
+
+- (void)_performSSDPSearch
+{
+    UPnPManager *managerInstance = [UPnPManager GetInstance];
+    [[managerInstance SSDP] searchSSDP];
+    [[managerInstance SSDP] searchForMediaServer];
+    [[managerInstance SSDP] SSDPDBUpdate];
 }
 
 - (void)_stopUPNPDiscovery
 {
     if (_udnpDiscoveryRunning) {
         UPnPManager *managerInstance = [UPnPManager GetInstance];
-        [[managerInstance DB] removeObserver:(UPnPDBObserver*)self];
+        [[managerInstance SSDP] notifySSDPByeBye];
+        [_searchTimer invalidate];
+        _searchTimer = nil;
+        [[managerInstance DB] removeObserver:self];
         [[managerInstance SSDP] stopSSDP];
         _udnpDiscoveryRunning = NO;
     }
@@ -312,7 +326,7 @@
 -(void)handleRefresh
 {
     UPnPManager *managerInstance = [UPnPManager GetInstance];
-    [[managerInstance DB] removeObserver:(UPnPDBObserver*)self];
+    [[managerInstance DB] removeObserver:self];
     [[managerInstance SSDP] stopSSDP];
 
     //set the title while refreshing
