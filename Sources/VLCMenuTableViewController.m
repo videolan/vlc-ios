@@ -195,7 +195,7 @@
         else if ([rawTitle isEqualToString:@"LIBRARY_MUSIC"])
             cell.imageView.image = [UIImage imageNamed:@"MusicAlbums"];
         else if ([rawTitle isEqualToString:@"LIBRARY_SERIES"])
-            cell.imageView.image = [UIImage imageNamed:@"TVShows"];
+            cell.imageView.image = [UIImage imageNamed:@"TVShowsIcon"];
     } else if (section == 1) {
         if ([rawTitle isEqualToString:@"LOCAL_NETWORK"])
             cell.imageView.image = [UIImage imageNamed:@"Local"];
