@@ -19,7 +19,7 @@
 * Caches for WiFi upload and HTTP downloads are emptied more often to
   keep storage impact reasonable
 * Stability improvements and UX tweaks (amongst others #10601, #10518)
-* New translations to Latvian and British English
+* New translations to Latvian, Romanian and British English
 
 2.2.2:
 ------
