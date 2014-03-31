@@ -160,10 +160,7 @@
         [self _configureForFolder:mediaObject];
 
         if ([keyPath isEqualToString:@"files"] || !keyPath || (!self.thumbnailView.image && [keyPath isEqualToString:@"editing"])) {
-            if (mediaObject.files.count == 0) {
-                self.thumbnailView.contentMode = UIViewContentModeScaleAspectFit;
-                self.thumbnailView.image = [UIImage imageNamed:@"folderIcon"];
-            } else
+            if (mediaObject.files.count != 0)
                 self.thumbnailView.image = [VLCThumbnailsCache thumbnailForLabel:mediaObject];
         }
     } else if ([self.mediaObject isKindOfClass:[MLAlbum class]]) {
