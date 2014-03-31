@@ -44,6 +44,7 @@
         [fileManager createDirectoryAtPath:basePath withIntermediateDirectories:YES attributes:nil error:nil];
     _expectedDownloadSize = _receivedDataSize = 0;
     NSMutableURLRequest *theRequest = [NSMutableURLRequest requestWithURL:url];
+    [theRequest addValue:[NSString stringWithFormat:@"Mozilla/5.0 (%@; CPU OS 7_0 like Mac OS X) AppleWebKit/537.51.1 (KHTML, like Gecko) Version/%@ Mobile/11A465 Safari/9537.53 VLC for iOS/%@", UI_USER_INTERFACE_IDIOM() == UIUserInterfaceIdiomPad ? @"iPad" : @"iPhone", [[UIDevice currentDevice] systemVersion], [[NSBundle mainBundle] objectForInfoDictionaryKey:@"CFBundleVersion"]] forHTTPHeaderField:@"User-Agent"];
     _urlConnection = [[NSURLConnection alloc] initWithRequest:theRequest delegate:self];
     if (!_urlConnection) {
         APLog(@"failed to establish connection");
@@ -66,6 +67,7 @@
         [fileManager createDirectoryAtPath:basePath withIntermediateDirectories:YES attributes:nil error:nil];
     _expectedDownloadSize = _receivedDataSize = 0;
     NSMutableURLRequest *theRequest = [NSMutableURLRequest requestWithURL:url];
+    [theRequest addValue:[NSString stringWithFormat:@"Mozilla/5.0 (%@; CPU OS 7_0 like Mac OS X) AppleWebKit/537.51.1 (KHTML, like Gecko) Version/%@ Mobile/11A465 Safari/9537.53 VLC for iOS/%@", UI_USER_INTERFACE_IDIOM() == UIUserInterfaceIdiomPad ? @"iPad" : @"iPhone", [[UIDevice currentDevice] systemVersion], [[NSBundle mainBundle] objectForInfoDictionaryKey:@"CFBundleVersion"]] forHTTPHeaderField:@"User-Agent"];
     _urlConnection = [[NSURLConnection alloc] initWithRequest:theRequest delegate:self];
     if (!_urlConnection) {
         APLog(@"failed to establish connection");
