@@ -365,6 +365,16 @@
 				<string>video/webm</string>
 			</dict>
 		</dict>
+		<dict>
+			<key>UTTypeConformsTo</key>
+			<array>
+				<string>public.video</string>
+			</array>
+			<key>UTTypeDescription</key>
+			<string>MXG</string>
+			<key>UTTypeIdentifier</key>
+			<string>org.videolan.mxg</string>
+		</dict>
 	</array>
 </dict>
 </plist>

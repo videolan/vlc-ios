@@ -15,7 +15,7 @@
 * Playback is paused when headphones are unplugged (#11041)
 * Improved UPnP discovery speed with some servers (#10811)
 * Improved memory consumption (#9505)
-* Added support for m4b, caf, oma, w64 audio files
+* Added support for m4b, caf, oma, w64 audio and mxg video files
 * Caches for WiFi upload and HTTP downloads are emptied more often to
   keep storage impact reasonable
 * Stability improvements and UX tweaks (amongst others #10601, #10518)
