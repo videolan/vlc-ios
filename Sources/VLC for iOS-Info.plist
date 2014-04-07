@@ -375,6 +375,36 @@
 			<key>UTTypeIdentifier</key>
 			<string>org.videolan.mxg</string>
 		</dict>
+		<dict>
+			<key>UTTypeConformsTo</key>
+			<array>
+				<string>public.audio</string>
+			</array>
+			<key>UTTypeDescription</key>
+			<string>CAF</string>
+			<key>UTTypeIdentifier</key>
+			<string>org.videolan.caf</string>
+		</dict>
+		<dict>
+			<key>UTTypeConformsTo</key>
+			<array>
+				<string>public.audio</string>
+			</array>
+			<key>UTTypeDescription</key>
+			<string>OMA</string>
+			<key>UTTypeIdentifier</key>
+			<string>org.videolan.oma</string>
+		</dict>
+		<dict>
+			<key>UTTypeConformsTo</key>
+			<array>
+				<string>public.audio</string>
+			</array>
+			<key>UTTypeDescription</key>
+			<string>w64</string>
+			<key>UTTypeIdentifier</key>
+			<string>org.videolan.x64</string>
+		</dict>
 	</array>
 </dict>
 </plist>
