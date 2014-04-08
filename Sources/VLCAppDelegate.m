@@ -372,13 +372,27 @@
     [self.window.rootViewController presentViewController:navCon animated:YES completion:nil];
 }
 
-- (void)openMediaList:(VLCMediaList*)list atIndex:(int)index
+- (void)openMediaList:(VLCMediaList *)list atIndex:(int)index
 {
     if (!_movieViewController)
         _movieViewController = [[VLCMovieViewController alloc] initWithNibName:nil bundle:nil];
 
     _movieViewController.mediaList = list;
     _movieViewController.itemInMediaListToBePlayedFirst = index;
+    _movieViewController.urlExternalSrt = nil;
+
+    UINavigationController *navCon = [[UINavigationController alloc] initWithRootViewController:_movieViewController];
+    navCon.modalPresentationStyle = UIModalPresentationFullScreen;
+    [self.window.rootViewController presentViewController:navCon animated:YES completion:nil];
+}
+
+- (void)openMovieWithExternalSubtitleFromURL:(NSURL *)url externalSubURL:(NSString *)SubtitlePath
+{
+    if (!_movieViewController)
+        _movieViewController = [[VLCMovieViewController alloc] initWithNibName:nil bundle:nil];
+
+    _movieViewController.url = url;
+    _movieViewController.urlExternalSrt = SubtitlePath;
 
     UINavigationController *navCon = [[UINavigationController alloc] initWithRootViewController:_movieViewController];
     navCon.modalPresentationStyle = UIModalPresentationFullScreen;

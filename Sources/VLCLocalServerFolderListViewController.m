@@ -463,10 +463,58 @@
 #pragma mark - communication with playback engine
 - (void)_streamFTPFile:(NSString *)fileName
 {
+    NSString *URLofSubtitle = nil;
+    NSMutableArray *SubtitlesList = [[NSMutableArray alloc] init];
+    [SubtitlesList removeAllObjects];
+    SubtitlesList = [self _searchSubtitle:fileName];
+
+    if(SubtitlesList.count > 0)
+       URLofSubtitle = [self _getFileSubtitleFromFtpServer:SubtitlesList[0]];
+
     NSURL *URLToPlay = [NSURL URLWithString:[[@"ftp" stringByAppendingFormat:@"://%@%@/%@/%@", [self _credentials], _ftpServerAddress, _ftpServerPath, fileName] stringByAddingPercentEscapesUsingEncoding:NSUTF8StringEncoding]];
 
     VLCAppDelegate* appDelegate = [UIApplication sharedApplication].delegate;
-    [appDelegate openMovieFromURL:URLToPlay];
+    [appDelegate openMovieWithExternalSubtitleFromURL:URLToPlay externalSubURL:URLofSubtitle];
+}
+
+- (NSMutableArray *)_searchSubtitle:(NSString *)url
+{
+    NSString *urlTemp = [[url lastPathComponent] stringByDeletingPathExtension];
+    NSMutableArray *ObjList = [[NSMutableArray alloc] init];
+    [ObjList removeAllObjects];
+    for (int loop = 0; loop < _objectList.count; loop++)
+        [ObjList addObject:[_objectList[loop] objectForKey:(id)kCFFTPResourceName]];
+
+    NSPredicate *predicate = [NSPredicate predicateWithFormat:@"SELF contains[c] %@", urlTemp];
+    NSArray *results = [ObjList filteredArrayUsingPredicate:predicate];
+
+    [ObjList removeAllObjects];
+
+    for (int cnt = 0; cnt < results.count; cnt++) {
+        if ([results[cnt] isSupportedSubtitleFormat])
+            [ObjList addObject:results[cnt]];
+    }
+    return ObjList;
+}
+
+- (NSString *)_getFileSubtitleFromFtpServer:(NSString *)fileName
+{
+    NSURL *url = [NSURL URLWithString:[[@"ftp" stringByAppendingFormat:@"://%@%@/%@/%@", [self _credentials], _ftpServerAddress, _ftpServerPath, fileName] stringByAddingPercentEscapesUsingEncoding:NSUTF8StringEncoding]];
+
+    NSString *receivedSub = [NSString stringWithContentsOfURL:url encoding:NSASCIIStringEncoding error:nil];
+    NSArray *searchPaths = NSSearchPathForDirectoriesInDomains(NSCachesDirectory, NSUserDomainMask, YES);
+    NSString *directoryPath = searchPaths[0];
+    NSString *FileSubtitlePath = [directoryPath stringByAppendingPathComponent:[fileName lastPathComponent]];
+
+    NSFileManager *fileManager = [NSFileManager defaultManager];
+    if (![fileManager fileExistsAtPath:FileSubtitlePath]) {
+        //create local subtitle file
+        [fileManager createFileAtPath:FileSubtitlePath contents:nil attributes:nil];
+        if (![fileManager fileExistsAtPath:FileSubtitlePath])
+            APLog(@"file creation failed, no data was saved");
+    }
+    [receivedSub writeToFile:FileSubtitlePath atomically:YES encoding:NSUTF8StringEncoding error:nil];
+    return FileSubtitlePath;
 }
 
 #pragma mark - Search Display Controller Delegate
