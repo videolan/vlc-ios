@@ -178,7 +178,50 @@
 #pragma mark - internals
 - (void)_openURLStringAndDismiss:(NSString *)url
 {
-    [(VLCAppDelegate*)[UIApplication sharedApplication].delegate openMovieFromURL:[NSURL URLWithString:url]];
+    NSURL *URLscheme = [NSURL URLWithString:url];
+    NSString *URLofSubtitle = nil;
+
+    if ([URLscheme.scheme isEqualToString:@"http"])
+        URLofSubtitle = [self _checkURLofSubtitle:url];
+
+    [(VLCAppDelegate*)[UIApplication sharedApplication].delegate openMovieWithExternalSubtitleFromURL:[NSURL URLWithString:url] externalSubURL:URLofSubtitle];
+}
+
+- (NSString *)_checkURLofSubtitle:(NSString *)url
+{
+    NSString *SubtitleFileExtensions = kSupportedSubtitleFileExtensions;
+    NSCharacterSet *characterFilter = [NSCharacterSet characterSetWithCharactersInString:@"\\.():$"];
+    SubtitleFileExtensions = [[SubtitleFileExtensions componentsSeparatedByCharactersInSet:characterFilter] componentsJoinedByString:@""];
+    NSArray *arraySubtitleFileExtensions = [SubtitleFileExtensions componentsSeparatedByString:@"|"];
+    NSString *urlTemp = [[url stringByDeletingPathExtension] stringByAppendingString:@"."];
+
+    for (int cnt = 0; cnt < arraySubtitleFileExtensions.count; cnt++) {
+        NSString *CheckURL = [urlTemp stringByAppendingString:arraySubtitleFileExtensions[cnt]];
+        NSURLRequest *request = [NSURLRequest requestWithURL:[NSURL URLWithString:CheckURL]];
+        NSURLResponse *response = nil;
+        NSError *error = nil;
+        NSData *receivedData = [[NSData alloc] initWithData:[NSURLConnection sendSynchronousRequest:request returningResponse:&response error:&error]];
+        NSInteger httpStatus = [(NSHTTPURLResponse *)response statusCode];
+
+        if (httpStatus == 200) {
+            NSString *receivedSub = [NSString stringWithContentsOfURL:[NSURL URLWithString:CheckURL] encoding:NSASCIIStringEncoding error:nil];
+
+            NSArray *searchPaths = NSSearchPathForDirectoriesInDomains(NSCachesDirectory, NSUserDomainMask, YES);
+            NSString *directoryPath = searchPaths[0];
+            NSString *FileSubtitlePath = [directoryPath stringByAppendingPathComponent:[CheckURL lastPathComponent]];
+
+            NSFileManager *fileManager = [NSFileManager defaultManager];
+            if (![fileManager fileExistsAtPath:FileSubtitlePath]) {
+                //create local subtitle file
+                [fileManager createFileAtPath:FileSubtitlePath contents:nil attributes:nil];
+                if (![fileManager fileExistsAtPath:FileSubtitlePath])
+                    APLog(@"file creation failed, no data was saved");
+            }
+            [receivedSub writeToFile:FileSubtitlePath atomically:YES encoding:NSUTF8StringEncoding error:nil];
+            return FileSubtitlePath;
+        }
+    }
+    return nil;
 }
 
 #pragma mark - text view delegate
@@ -187,6 +230,5 @@
     [self.urlField resignFirstResponder];
     return NO;
 }
-
 
 @end
