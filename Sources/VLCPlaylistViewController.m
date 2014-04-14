@@ -43,7 +43,7 @@ static NSString *kDisplayedFirstSteps = @"Did we display the first steps tutoria
 
 @end
 
-@interface VLCPlaylistViewController () <VLCFolderCollectionViewDelegateFlowLayout, LXReorderableCollectionViewDataSource, LXReorderableCollectionViewDelegateFlowLayout, UITableViewDataSource, UITableViewDelegate, MLMediaLibrary> {
+@interface VLCPlaylistViewController () <VLCFolderCollectionViewDelegateFlowLayout, LXReorderableCollectionViewDataSource, LXReorderableCollectionViewDelegateFlowLayout, UITableViewDataSource, UITableViewDelegate, MLMediaLibrary, VLCMediaListDelegate> {
     NSMutableArray *_foundMedia;
     VLCLibraryMode _libraryMode;
     VLCLibraryMode _previousLibraryMode;
@@ -54,6 +54,9 @@ static NSString *kDisplayedFirstSteps = @"Did we display the first steps tutoria
     LXReorderableCollectionViewFlowLayout *_reorderLayout;
     BOOL inFolder;
     UILongPressGestureRecognizer *_longPressGestureRecognizer;
+    NSInteger _mediaToPlayIndex;
+    VLCMediaList *_list;
+    NSArray *_tracks;
 }
 
 @property (nonatomic, strong) UITableView *tableView;
@@ -520,35 +523,42 @@ static NSString *kDisplayedFirstSteps = @"Did we display the first steps tutoria
     [tableView deselectRowAtIndexPath:indexPath animated:YES];
     NSManagedObject *selectedObject = _foundMedia[indexPath.row];
     if ([selectedObject isKindOfClass:[MLAlbumTrack class]]) {
-        VLCMediaList *list;
-        NSArray *tracks = [[(MLAlbumTrack*)selectedObject album] sortedTracks];
-        NSUInteger count = tracks.count;
-        list = [[VLCMediaList alloc] init];
-
+        _tracks = [[(MLAlbumTrack*)selectedObject album] sortedTracks];
+        NSUInteger count = _tracks.count;
+        _list = [[VLCMediaList alloc] init];
+        _list.delegate = self;
         MLFile *file;
         VLCMedia *media;
         for (NSInteger x = count - 1; x > -1; x--) {
-            file = [(MLAlbumTrack*)tracks[x] files].anyObject;
+            file = [(MLAlbumTrack*)_tracks[x] files].anyObject;
             media = [VLCMedia mediaWithURL: [NSURL URLWithString:file.url]];
             [media parse];
-            [list addMedia:media];
+            [_list addMedia:media];
         }
-        [(VLCAppDelegate*)[UIApplication sharedApplication].delegate openMediaList:list atIndex:(int)[tracks indexOfObject:selectedObject]];
+        _mediaToPlayIndex = indexPath.row;
     } else if ([selectedObject isKindOfClass:[MLFile class]] && [((MLFile *)selectedObject).labels count] > 0) {
-        VLCMediaList *list;
         MLLabel *folder = [((MLFile *)selectedObject).labels anyObject];
-        NSArray *folderTracks = [folder sortedFolderItems];
-        NSUInteger count = folderTracks.count;
-        list = [[VLCMediaList alloc] init];
-
+        _tracks = [folder sortedFolderItems];
+        NSUInteger count = _tracks.count;
+        _list = [[VLCMediaList alloc] init];
+        _list.delegate = self;
         MLFile *file;
         for (NSInteger x = count - 1; x > -1; x--) {
-            file = (MLFile *)folderTracks[x];
-            [list addMedia:[VLCMedia mediaWithURL:[NSURL URLWithString:file.url]]];
+            file = (MLFile *)_tracks[x];
+            [_list addMedia:[VLCMedia mediaWithURL:[NSURL URLWithString:file.url]]];
         }
-        [(VLCAppDelegate *)[UIApplication sharedApplication].delegate openMediaList:list atIndex:(int)[folderTracks indexOfObject:selectedObject]];
+        _mediaToPlayIndex = indexPath.row;
     } else
         [self openMediaObject:selectedObject];
+}
+
+#pragma mark - VLCMedialistDelegate
+- (void)mediaList:(VLCMediaList *)aMediaList mediaAdded:(VLCMedia *)media atIndex:(NSInteger)index
+{
+    if (index == _tracks.count - 1) {
+        NSManagedObject *selectedObject = _foundMedia[_mediaToPlayIndex];
+        [(VLCAppDelegate *)[UIApplication sharedApplication].delegate openMediaList:_list atIndex:(int)[_tracks indexOfObject:selectedObject]];
+    }
 }
 
 #pragma mark - table view gestures
