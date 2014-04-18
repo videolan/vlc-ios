@@ -40,6 +40,8 @@
 #define kVLCSettingNetworkCachingDefaultValue @(999)
 #define kVLCSettingsDecrapifyTitles @"MLDecrapifyTitles"
 #define kVLCSettingPlaybackGestures @"EnableGesturesToControlPlayback"
+#define kVLCSettingFTPTextEncoding @"ftp-text-encoding"
+#define kVLCSettingFTPTextEncodingDefaultValue @(5) // ISO Latin 1
 
 #define kVLCShowRemainingTime @"show-remaining-time"
 #define kVLCRecentURLs @"recent-urls"
@@ -48,7 +50,6 @@
 #define kVLCFTPServer @"ftp-server"
 #define kVLCFTPLogin @"ftp-login"
 #define kVLCFTPPassword @"ftp-pass"
-
 #define kVLCLastFTPServer @"last-ftp-server"
 #define kVLCLastFTPLogin @"last-ftp-login"
 #define kVLCLastFTPPassword @"last-ftp-pass"
