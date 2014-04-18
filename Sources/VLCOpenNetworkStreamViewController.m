@@ -202,6 +202,7 @@
         NSError *error = nil;
         NSData *receivedData = [[NSData alloc] initWithData:[NSURLConnection sendSynchronousRequest:request returningResponse:&response error:&error]];
         NSInteger httpStatus = [(NSHTTPURLResponse *)response statusCode];
+        receivedData = nil;
 
         if (httpStatus == 200) {
             NSString *receivedSub = [NSString stringWithContentsOfURL:[NSURL URLWithString:CheckURL] encoding:NSASCIIStringEncoding error:nil];

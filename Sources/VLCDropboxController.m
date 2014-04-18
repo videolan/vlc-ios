@@ -135,7 +135,7 @@
 
     _currentFileList = [NSArray arrayWithArray:listOfGoodFilesAndFolders];
 
-    APLog(@"found filtered metadata for %lu files", _currentFileList.count);
+    APLog(@"found filtered metadata for %lu files", (unsigned long)_currentFileList.count);
     if ([self.delegate respondsToSelector:@selector(mediaListUpdated)])
         [self.delegate mediaListUpdated];
 }
