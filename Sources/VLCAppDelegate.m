@@ -26,6 +26,7 @@
 #import "VLCHTTPUploaderController.h"
 #import "VLCMenuTableViewController.h"
 #import "BWQuincyManager.h"
+#import "VLCAlertView.h"
 
 @interface VLCAppDelegate () <PAPasscodeViewControllerDelegate, VLCMediaFileDiscovererDelegate, BWQuincyManagerDelegate> {
     PAPasscodeViewController *_passcodeLockController;
@@ -118,7 +119,7 @@
             NSError *theError;
             [[NSFileManager defaultManager] moveItemAtURL:url toURL:destinationURL error:&theError];
             if (theError.code != noErr)
-                APLog(@"saving the file failed (%li): %@", theError.code, theError.localizedDescription);
+                APLog(@"saving the file failed (%li): %@", (long)theError.code, theError.localizedDescription);
 
             [self updateMediaList];
         } else {
@@ -139,7 +140,19 @@
                 }
             }
             [self.menuViewController selectRowAtIndexPath:[NSIndexPath indexPathForRow:0 inSection:0] animated:NO scrollPosition:UITableViewScrollPositionNone];
-            [self openMovieFromURL:url];
+
+            NSString *scheme = url.scheme;
+            if ([scheme isEqualToString:@"http"] || [scheme isEqualToString:@"https"] || [scheme isEqualToString:@"ftp"]) {
+                VLCAlertView *alert = [[VLCAlertView alloc] initWithTitle:NSLocalizedString(@"OPEN_STREAM_OR_DOWNLOAD", @"") message:url.absoluteString cancelButtonTitle:NSLocalizedString(@"BUTTON_DOWNLOAD", @"") otherButtonTitles:@[NSLocalizedString(@"BUTTON_PLAY", @"")]];
+                alert.completion = ^(BOOL cancelled, NSInteger buttonIndex) {
+                    if (cancelled)
+                        [[self downloadViewController] addURLToDownloadList:url fileNameOfMedia:nil];
+                    else
+                        [self openMovieFromURL:url];
+                };
+                [alert show];
+            } else
+                [self openMovieFromURL:url];
         }
         return YES;
     }
