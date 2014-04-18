@@ -454,7 +454,7 @@
 			<key>Key</key>
 			<string>ftp-text-encoding</string>
 			<key>DefaultValue</key>
-			<string>5</string>
+			<integer>5</integer>
 		</dict>
 	</array>
 	<key>StringsTable</key>
