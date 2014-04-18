@@ -1,5 +1,8 @@
 2.4 (not yet released):
 -----------------------
+* Detection of external subtitles when streaming media via http or ftp (#10668)
+* Option to download media from http/ftp/https instead of direct playback when
+  requested through third-party app (#11147)
 
 2.3:
 ----

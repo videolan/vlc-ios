@@ -392,7 +392,7 @@
 
     _movieViewController.mediaList = list;
     _movieViewController.itemInMediaListToBePlayedFirst = index;
-    _movieViewController.urlExternalSrt = nil;
+    _movieViewController.pathToExternalSubtitlesFile = nil;
 
     UINavigationController *navCon = [[UINavigationController alloc] initWithRootViewController:_movieViewController];
     navCon.modalPresentationStyle = UIModalPresentationFullScreen;
@@ -405,7 +405,7 @@
         _movieViewController = [[VLCMovieViewController alloc] initWithNibName:nil bundle:nil];
 
     _movieViewController.url = url;
-    _movieViewController.urlExternalSrt = SubtitlePath;
+    _movieViewController.pathToExternalSubtitlesFile = SubtitlePath;
 
     UINavigationController *navCon = [[UINavigationController alloc] initWithRootViewController:_movieViewController];
     navCon.modalPresentationStyle = UIModalPresentationFullScreen;

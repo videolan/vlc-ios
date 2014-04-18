@@ -407,10 +407,7 @@
         return;
     }
 
-    if (self.urlExternalSrt)
-        _listPlayer = [[VLCMediaListPlayer alloc] initWithOptions:@[[NSString stringWithFormat:@"--%@=%@", kVLCSettingSubtitlesFilePath, [self urlExternalSrt]]]];
-    else
-        _listPlayer = [[VLCMediaListPlayer alloc] init];
+    _listPlayer = [[VLCMediaListPlayer alloc] init];
 
     _mediaPlayer = _listPlayer.mediaPlayer;
     [_mediaPlayer setDelegate:self];
@@ -419,6 +416,9 @@
         [_mediaPlayer setDeinterlaceFilter:@"blend"];
     else
         [_mediaPlayer setDeinterlaceFilter:nil];
+    if (self.pathToExternalSubtitlesFile)
+        [_mediaPlayer openVideoSubTitlesFromFile:self.pathToExternalSubtitlesFile];
+
     self.trackNameLabel.text = self.artistNameLabel.text = self.albumNameLabel.text = @"";
 
     VLCMedia *media;
@@ -640,11 +640,11 @@
         _mediaList = nil;
     if (_url)
         _url = nil;
-    if (_urlExternalSrt) {
+    if (_pathToExternalSubtitlesFile) {
             NSFileManager *fileManager = [NSFileManager defaultManager];
-            if ([fileManager fileExistsAtPath:_urlExternalSrt])
-                [fileManager removeItemAtPath:_urlExternalSrt error:nil];
-            _urlExternalSrt = nil;
+            if ([fileManager fileExistsAtPath:_pathToExternalSubtitlesFile])
+                [fileManager removeItemAtPath:_pathToExternalSubtitlesFile error:nil];
+            _pathToExternalSubtitlesFile = nil;
     }
     _playerIsSetup = NO;
 }
