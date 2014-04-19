@@ -779,9 +779,6 @@
 
 - (BOOL)gestureRecognizer:(UIGestureRecognizer *)gestureRecognizer shouldReceiveTouch:(UITouch *)touch
 {
-    if (!_swipeGesturesEnabled)
-        return NO;
-
     if (touch.view != self.view)
         return NO;
 
@@ -790,9 +787,6 @@
 
 - (BOOL)gestureRecognizer:(UIGestureRecognizer *)gestureRecognizer shouldRecognizeSimultaneouslyWithGestureRecognizer:(UIGestureRecognizer *)otherGestureRecognizer
 {
-    if (!_swipeGesturesEnabled)
-        return NO;
-
     return YES;
 }
 
@@ -1114,6 +1108,9 @@
 
 - (void)tapRecognized
 {
+    if (!_swipeGesturesEnabled)
+        return;
+
     if ([_mediaPlayer isPlaying]) {
         [_listPlayer pause];
         [self.statusLabel showStatusMessage:@"  ▌▌"];
@@ -1155,6 +1152,9 @@
 
 - (void)panRecognized:(UIPanGestureRecognizer*)panRecognizer
 {
+    if (!_swipeGesturesEnabled)
+        return;
+
     CGFloat panDirectionX = [panRecognizer velocityInView:self.view].x;
     CGFloat panDirectionY = [panRecognizer velocityInView:self.view].y;
 
@@ -1199,6 +1199,9 @@
 
 - (void)swipeRecognized:(UISwipeGestureRecognizer*)swipeRecognizer
 {
+    if (!_swipeGesturesEnabled)
+        return;
+
     NSString * hudString = @" ";
 
     if (swipeRecognizer.direction == UISwipeGestureRecognizerDirectionRight) {
