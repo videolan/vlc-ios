@@ -364,6 +364,12 @@
 {
     [super viewWillAppear:animated];
 
+    /* reset audio meta data views */
+    self.artworkImageView.image = nil;
+    self.trackNameLabel.text = nil;
+    self.artistNameLabel.text = nil;
+    self.albumNameLabel.text = nil;
+
     _swipeGesturesEnabled = [[[NSUserDefaults standardUserDefaults] objectForKey:kVLCSettingPlaybackGestures] boolValue];
 
     [self.navigationController setNavigationBarHidden:YES animated:YES];
@@ -1420,6 +1426,7 @@
     NSString *artist;
     NSString *albumName;
     NSString *trackNumber;
+    BOOL mediaIsAudioOnly = YES;
     if (self.fileFromMediaLibrary)
         item = self.fileFromMediaLibrary;
     else if (self.mediaList) {
@@ -1435,32 +1442,53 @@
             albumName = item.albumTrack.album.name;
         } else
             title = item.title;
-        self.artworkImageView.image = [VLCThumbnailsCache thumbnailForMediaFile:item];
+
+        /* MLKit knows better than us if this thing is audio only or not */
+        mediaIsAudioOnly = [item isSupportedAudioFile];
+
+        if (mediaIsAudioOnly)
+            self.artworkImageView.image = [VLCThumbnailsCache thumbnailForMediaFile:item];
     } else {
         NSDictionary * metaDict = _mediaPlayer.media.metaDictionary;
+
+        /* this is a non file media, so we need to actually check if there is there is
+         * a video track included or not */
+        NSArray *tracks = _mediaPlayer.media.tracksInformation;
+        NSUInteger trackCount = tracks.count;
+        for (NSUInteger x = 0 ; x < trackCount; x++) {
+            if ([[tracks[x] objectForKey:VLCMediaTracksInformationType] isEqualToString:VLCMediaTracksInformationTypeVideo]) {
+                mediaIsAudioOnly = NO;
+                break;
+            }
+        }
+
         if (metaDict) {
             title = metaDict[VLCMetaInformationNowPlaying] ? metaDict[VLCMetaInformationNowPlaying] : metaDict[VLCMetaInformationTitle];
             artist = metaDict[VLCMetaInformationArtist];
             albumName = metaDict[VLCMetaInformationAlbum];
             trackNumber = metaDict[VLCMetaInformationTrackNumber];
-            self.artworkImageView.image = [VLCThumbnailsCache thumbnailForMediaItemWithTitle:title Artist:artist andAlbumName:albumName];
+            if (mediaIsAudioOnly)
+                self.artworkImageView.image = [VLCThumbnailsCache thumbnailForMediaItemWithTitle:title Artist:artist andAlbumName:albumName];
         }
     }
-    if (!self.artworkImageView.image) {
-        self.trackNameLabel.text = title;
-        self.artistNameLabel.text = artist;
-        self.albumNameLabel.text = albumName;
-    } else {
-        NSString *trackName = title;
-        if (artist)
-            trackName = [trackName stringByAppendingFormat:@" — %@", artist];
-        if (albumName)
-            trackName = [trackName stringByAppendingFormat:@" — %@", albumName];
-        self.trackNameLabel.text = trackName;
-    }
 
-    if (self.trackNameLabel.text.length < 1)
-        self.trackNameLabel.text = [[_mediaPlayer.media url] lastPathComponent];
+    if (mediaIsAudioOnly) {
+        if (!self.artworkImageView.image) {
+            self.trackNameLabel.text = title;
+            self.artistNameLabel.text = artist;
+            self.albumNameLabel.text = albumName;
+        } else {
+            NSString *trackName = title;
+            if (artist)
+                trackName = [trackName stringByAppendingFormat:@" — %@", artist];
+            if (albumName)
+                trackName = [trackName stringByAppendingFormat:@" — %@", albumName];
+            self.trackNameLabel.text = trackName;
+        }
+
+        if (self.trackNameLabel.text.length < 1)
+            self.trackNameLabel.text = [[_mediaPlayer.media url] lastPathComponent];
+    }
 
     /* don't leak sensitive information to the OS, if passcode lock is enabled */
     BOOL passcodeLockEnabled = [[[NSUserDefaults standardUserDefaults] objectForKey:kVLCSettingPasscodeOnKey] boolValue];
