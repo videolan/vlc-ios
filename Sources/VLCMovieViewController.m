@@ -1488,7 +1488,28 @@
 
         if (self.trackNameLabel.text.length < 1)
             self.trackNameLabel.text = [[_mediaPlayer.media url] lastPathComponent];
+
+        if (!self.aspectRatioButton.hidden) {
+            CGRect rect = self.timeDisplay.frame;
+            rect.origin.x += self.aspectRatioButton.frame.size.width;
+            self.timeDisplay.frame = rect;
+            rect = self.positionSlider.frame;
+            rect.size.width += self.aspectRatioButton.frame.size.width;
+            self.positionSlider.frame = rect;
+            self.aspectRatioButton.hidden = YES;
+        }
+    } else {
+        if (self.aspectRatioButton.hidden) {
+            CGRect rect = self.timeDisplay.frame;
+            rect.origin.x -= self.aspectRatioButton.frame.size.width;
+            self.timeDisplay.frame = rect;
+            rect = self.positionSlider.frame;
+            rect.size.width -= self.aspectRatioButton.frame.size.width;
+            self.positionSlider.frame = rect;
+            self.aspectRatioButton.hidden = NO;
+        }
     }
+    self.videoFilterButton.hidden = mediaIsAudioOnly;
 
     /* don't leak sensitive information to the OS, if passcode lock is enabled */
     BOOL passcodeLockEnabled = [[[NSUserDefaults standardUserDefaults] objectForKey:kVLCSettingPasscodeOnKey] boolValue];
