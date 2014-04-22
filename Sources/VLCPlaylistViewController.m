@@ -61,6 +61,8 @@ static NSString *kDisplayedFirstSteps = @"Did we display the first steps tutoria
     NSMutableArray *_searchData;
     UISearchBar *_searchBar;
     UISearchDisplayController *_searchDisplayController;
+
+    BOOL _usingTableViewToShowData;
 }
 
 @property (nonatomic, strong) UITableView *tableView;
@@ -79,7 +81,9 @@ static NSString *kDisplayedFirstSteps = @"Did we display the first steps tutoria
 
 - (void)loadView
 {
-    if (UI_USER_INTERFACE_IDIOM() == UIUserInterfaceIdiomPhone) {
+    _usingTableViewToShowData = UI_USER_INTERFACE_IDIOM() == UIUserInterfaceIdiomPhone;
+
+    if (_usingTableViewToShowData) {
         _tableView = [[UITableView alloc] initWithFrame:[UIScreen mainScreen].bounds style:UITableViewStylePlain];
         _tableView.backgroundColor = [UIColor colorWithWhite:.122 alpha:1.];
         _tableView.rowHeight = [VLCPlaylistTableViewCell heightOfCell];
@@ -147,7 +151,7 @@ static NSString *kDisplayedFirstSteps = @"Did we display the first steps tutoria
     } else
         [self.navigationController.toolbar setBackgroundImage:[UIImage imageNamed:@"bottomBlackBar"] forToolbarPosition:UIToolbarPositionAny barMetrics:UIBarMetricsDefault];
 
-    if (UI_USER_INTERFACE_IDIOM() == UIUserInterfaceIdiomPhone) {
+    if (_usingTableViewToShowData) {
         _searchBar = [[UISearchBar alloc] initWithFrame:CGRectMake(0, 0, 320, 44)];
         UINavigationBar *navBar = self.navigationController.navigationBar;
         _searchBar.barTintColor = navBar.barTintColor;
@@ -243,7 +247,7 @@ static NSString *kDisplayedFirstSteps = @"Did we display the first steps tutoria
     } else if ([mediaObject isKindOfClass:[MLLabel class]]) {
         MLLabel *folder = (MLLabel*) mediaObject;
         inFolder = YES;
-        if (UI_USER_INTERFACE_IDIOM() == UIUserInterfaceIdiomPad) {
+        if (!_usingTableViewToShowData) {
             if (![self.collectionView.collectionViewLayout isEqual:_reorderLayout]) {
                 for (UIGestureRecognizer *recognizer in self.view.gestureRecognizers) {
                     if (recognizer == _folderLayout.panGestureRecognizer || recognizer == _folderLayout.longPressGestureRecognizer || recognizer == _longPressGestureRecognizer)
@@ -363,10 +367,10 @@ static NSString *kDisplayedFirstSteps = @"Did we display the first steps tutoria
     } else
         self.navigationItem.rightBarButtonItem = self.editButtonItem;
 
-    if (UI_USER_INTERFACE_IDIOM() == UIUserInterfaceIdiomPhone) {
+    if (_usingTableViewToShowData)
         _tableView.separatorStyle = (_foundMedia.count > 0)? UITableViewCellSeparatorStyleSingleLine:
                                                              UITableViewCellSeparatorStyleNone;
-    } else
+    else
         [self.collectionView.collectionViewLayout invalidateLayout];
 }
 
@@ -458,7 +462,7 @@ static NSString *kDisplayedFirstSteps = @"Did we display the first steps tutoria
 
 - (void)reloadViews
 {
-    if (UI_USER_INTERFACE_IDIOM() == UIUserInterfaceIdiomPhone)
+    if (_usingTableViewToShowData)
         [self.tableView reloadData];
     else
         [self.collectionView reloadData];
@@ -798,7 +802,7 @@ static NSString *kDisplayedFirstSteps = @"Did we display the first steps tutoria
         [self showCreateFolderAlert];
         return;
     }
-    if (UI_USER_INTERFACE_IDIOM() == UIUserInterfaceIdiomPad)
+    if (!_usingTableViewToShowData)
         _indexPaths = [NSMutableArray arrayWithArray:[self.collectionView indexPathsForSelectedItems]];
     else
         _indexPaths = [NSMutableArray arrayWithArray:[self.tableView indexPathsForSelectedRows]];
@@ -806,7 +810,7 @@ static NSString *kDisplayedFirstSteps = @"Did we display the first steps tutoria
     for (NSInteger i = _indexPaths.count - 1; i >=0; i--) {
         NSIndexPath *path = _indexPaths[i];
         id mediaObject;
-        if (UI_USER_INTERFACE_IDIOM() == UIUserInterfaceIdiomPad)
+        if (!_usingTableViewToShowData)
             mediaObject = _foundMedia[path.item];
         else
             mediaObject = _foundMedia[path.row];
@@ -832,8 +836,7 @@ static NSString *kDisplayedFirstSteps = @"Did we display the first steps tutoria
 
 - (void)removeFromFolder
 {
-    BOOL isPad = UI_USER_INTERFACE_IDIOM() == UIUserInterfaceIdiomPad;
-    if (isPad)
+    if (!_usingTableViewToShowData)
         _indexPaths = [NSMutableArray arrayWithArray:[self.collectionView indexPathsForSelectedItems]];
     else
         _indexPaths = [NSMutableArray arrayWithArray:[self.tableView indexPathsForSelectedRows]];
@@ -842,7 +845,7 @@ static NSString *kDisplayedFirstSteps = @"Did we display the first steps tutoria
 
     for (NSInteger i = [_indexPaths count] - 1; i >= 0; i--) {
         NSIndexPath *path = _indexPaths[i];
-        MLFile *file = (MLFile *)_foundMedia[isPad ? path.item : path.row];
+        MLFile *file = (MLFile *)_foundMedia[_usingTableViewToShowData ? path.row : path.item];
 
         MLLabel *folder = [file.labels anyObject];
         [self rearrangeFolderTrackNumbersForRemovedItem:file];
@@ -924,7 +927,7 @@ static NSString *kDisplayedFirstSteps = @"Did we display the first steps tutoria
 
             for (NSInteger i = [_indexPaths count] - 1; i >= 0; i--) {
                 NSIndexPath *path = _indexPaths[i];
-                if (UI_USER_INTERFACE_IDIOM() == UIUserInterfaceIdiomPad) {
+                if (!_usingTableViewToShowData) {
                     MLFile *file = _foundMedia[path.item];
                     file.labels = [NSSet setWithObjects:label, nil];
                     file.folderTrackNumber = @([label files].count - 1);
@@ -966,7 +969,7 @@ static NSString *kDisplayedFirstSteps = @"Did we display the first steps tutoria
         [editButton setTitleTextAttributes: editing ? @{UITextAttributeTextShadowColor : [UIColor whiteColor], UITextAttributeTextColor : [UIColor blackColor]} : @{UITextAttributeTextShadowColor : [UIColor colorWithWhite:0. alpha:.37], UITextAttributeTextColor : [UIColor whiteColor]} forState:UIControlStateNormal];
     }
 
-    if (UI_USER_INTERFACE_IDIOM() == UIUserInterfaceIdiomPad) {
+    if (!_usingTableViewToShowData) {
         NSArray *visibleCells = self.collectionView.visibleCells;
 
         [visibleCells enumerateObjectsUsingBlock:^(id obj, NSUInteger idx, BOOL *stop) {
@@ -987,7 +990,6 @@ static NSString *kDisplayedFirstSteps = @"Did we display the first steps tutoria
                 [self.collectionView deselectItemAtIndexPath:selectedItems[x] animated:NO];
         } else
             [self.collectionView removeGestureRecognizer:_longPressGestureRecognizer];
-
     } else {
         self.tableView.allowsMultipleSelectionDuringEditing = editing;
         [self.tableView setEditing:editing animated:YES];
@@ -1018,7 +1020,7 @@ static NSString *kDisplayedFirstSteps = @"Did we display the first steps tutoria
 
 - (IBAction)backToAllItems:(id)sender
 {
-    if (UI_USER_INTERFACE_IDIOM() == UIUserInterfaceIdiomPad) {
+    if (!_usingTableViewToShowData) {
         if (![self.collectionView.collectionViewLayout isEqual:_folderLayout]) {
             //for some reason the Gesturerecognizer block themselves if not removed manually
             for (UIGestureRecognizer *recognizer in self.view.gestureRecognizers) {
@@ -1053,7 +1055,7 @@ static NSString *kDisplayedFirstSteps = @"Did we display the first steps tutoria
 - (void)deleteSelection
 {
     NSArray *indexPaths;
-    if (UI_USER_INTERFACE_IDIOM() == UIUserInterfaceIdiomPad)
+    if (!_usingTableViewToShowData)
         indexPaths = [self.collectionView indexPathsForSelectedItems];
     else
         indexPaths = [self.tableView indexPathsForSelectedRows];
@@ -1072,7 +1074,7 @@ static NSString *kDisplayedFirstSteps = @"Did we display the first steps tutoria
 - (void)renameSelection
 {
     NSArray *indexPaths;
-    if (UI_USER_INTERFACE_IDIOM() == UIUserInterfaceIdiomPad)
+    if (!_usingTableViewToShowData)
         indexPaths = [self.collectionView indexPathsForSelectedItems];
     else
         indexPaths = [self.tableView indexPathsForSelectedRows];
@@ -1083,7 +1085,7 @@ static NSString *kDisplayedFirstSteps = @"Did we display the first steps tutoria
     }
 
     NSString *itemName;
-    if (UI_USER_INTERFACE_IDIOM() == UIUserInterfaceIdiomPad)
+    if (_usingTableViewToShowData)
         itemName = [(VLCPlaylistCollectionViewCell *)[self.collectionView cellForItemAtIndexPath:indexPaths[0]] titleLabel].text;
     else
         itemName = [(VLCPlaylistTableViewCell *)[self.tableView cellForRowAtIndexPath:indexPaths[0]] titleLabel].text;
@@ -1107,7 +1109,7 @@ static NSString *kDisplayedFirstSteps = @"Did we display the first steps tutoria
 - (void)renameMediaObjectTo:(NSString*)newName
 {
     NSArray *indexPaths;
-    if (UI_USER_INTERFACE_IDIOM() == UIUserInterfaceIdiomPad)
+    if (!_usingTableViewToShowData)
         indexPaths = [self.collectionView indexPathsForSelectedItems];
     else
         indexPaths = [self.tableView indexPathsForSelectedRows];
@@ -1122,7 +1124,7 @@ static NSString *kDisplayedFirstSteps = @"Did we display the first steps tutoria
     else
         [mediaObject setTitle:newName];
 
-    if (UI_USER_INTERFACE_IDIOM() == UIUserInterfaceIdiomPad)
+    if (!_usingTableViewToShowData)
         [self.collectionView deselectItemAtIndexPath:indexPaths[0] animated:YES];
     else
         [self.tableView deselectRowAtIndexPath:indexPaths[0] animated:YES];
@@ -1165,7 +1167,7 @@ static NSString *kDisplayedFirstSteps = @"Did we display the first steps tutoria
 {
     [super willRotateToInterfaceOrientation:toInterfaceOrientation duration:duration];
 
-    if (UI_USER_INTERFACE_IDIOM() == UIUserInterfaceIdiomPad)
+    if (!_usingTableViewToShowData)
         [self.collectionView.collectionViewLayout invalidateLayout];
 }
 
