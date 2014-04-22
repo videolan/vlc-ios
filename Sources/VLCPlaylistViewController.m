@@ -43,7 +43,7 @@ static NSString *kDisplayedFirstSteps = @"Did we display the first steps tutoria
 
 @end
 
-@interface VLCPlaylistViewController () <VLCFolderCollectionViewDelegateFlowLayout, LXReorderableCollectionViewDataSource, LXReorderableCollectionViewDelegateFlowLayout, UITableViewDataSource, UITableViewDelegate, MLMediaLibrary, VLCMediaListDelegate> {
+@interface VLCPlaylistViewController () <VLCFolderCollectionViewDelegateFlowLayout, LXReorderableCollectionViewDataSource, LXReorderableCollectionViewDelegateFlowLayout, UITableViewDataSource, UITableViewDelegate, MLMediaLibrary, VLCMediaListDelegate, UISearchBarDelegate, UISearchDisplayDelegate> {
     NSMutableArray *_foundMedia;
     VLCLibraryMode _libraryMode;
     VLCLibraryMode _previousLibraryMode;
@@ -57,6 +57,10 @@ static NSString *kDisplayedFirstSteps = @"Did we display the first steps tutoria
     NSInteger _mediaToPlayIndex;
     VLCMediaList *_list;
     NSArray *_tracks;
+
+    NSMutableArray *_searchData;
+    UISearchBar *_searchBar;
+    UISearchDisplayController *_searchDisplayController;
 }
 
 @property (nonatomic, strong) UITableView *tableView;
@@ -142,6 +146,23 @@ static NSString *kDisplayedFirstSteps = @"Did we display the first steps tutoria
         [UIApplication sharedApplication].statusBarStyle = UIStatusBarStyleLightContent;
     } else
         [self.navigationController.toolbar setBackgroundImage:[UIImage imageNamed:@"bottomBlackBar"] forToolbarPosition:UIToolbarPositionAny barMetrics:UIBarMetricsDefault];
+
+    if (UI_USER_INTERFACE_IDIOM() == UIUserInterfaceIdiomPhone) {
+        _searchBar = [[UISearchBar alloc] initWithFrame:CGRectMake(0, 0, 320, 44)];
+        UINavigationBar *navBar = self.navigationController.navigationBar;
+        _searchBar.barTintColor = navBar.barTintColor;
+        _searchBar.tintColor = navBar.tintColor;
+        _searchBar.translucent = navBar.translucent;
+        _searchBar.opaque = navBar.opaque;
+        _searchDisplayController = [[UISearchDisplayController alloc] initWithSearchBar:_searchBar contentsController:self];
+        _searchDisplayController.delegate = self;
+        _searchDisplayController.searchResultsDataSource = self;
+        _searchDisplayController.searchResultsDelegate = self;
+        _searchBar.delegate = self;
+        self.tableView.tableHeaderView = _searchBar;
+    }
+
+    _searchData = [[NSMutableArray alloc] init];
 }
 
 - (void)viewWillAppear:(BOOL)animated
@@ -454,6 +475,9 @@ static NSString *kDisplayedFirstSteps = @"Did we display the first steps tutoria
 
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section
 {
+    if (tableView == self.searchDisplayController.searchResultsTableView)
+        return _searchData.count;
+
     return _foundMedia.count;
 }
 
@@ -471,7 +495,11 @@ static NSString *kDisplayedFirstSteps = @"Did we display the first steps tutoria
     [cell addGestureRecognizer:swipeRight];
 
     NSInteger row = indexPath.row;
-    cell.mediaObject = _foundMedia[row];
+
+    if (tableView == self.searchDisplayController.searchResultsTableView)
+        cell.mediaObject = _searchData[row];
+    else
+        cell.mediaObject = _foundMedia[row];
 
     return cell;
 }
@@ -521,7 +549,12 @@ static NSString *kDisplayedFirstSteps = @"Did we display the first steps tutoria
     }
 
     [tableView deselectRowAtIndexPath:indexPath animated:YES];
-    NSManagedObject *selectedObject = _foundMedia[indexPath.row];
+    NSManagedObject *selectedObject;
+    if (tableView == self.searchDisplayController.searchResultsTableView)
+        selectedObject = _searchData[indexPath.row];
+    else
+        selectedObject = _foundMedia[indexPath.row];
+
     if ([selectedObject isKindOfClass:[MLAlbumTrack class]]) {
         _tracks = [[(MLAlbumTrack*)selectedObject album] sortedTracks];
         NSUInteger count = _tracks.count;
@@ -548,8 +581,11 @@ static NSString *kDisplayedFirstSteps = @"Did we display the first steps tutoria
             [_list addMedia:[VLCMedia mediaWithURL:[NSURL URLWithString:file.url]]];
         }
         _mediaToPlayIndex = indexPath.row;
-    } else
-        [self openMediaObject:selectedObject];
+    }
+
+    if (_searchDisplayController.active == YES)
+        [_searchDisplayController setActive:NO animated:YES];
+    [self openMediaObject:selectedObject];
 }
 
 #pragma mark - VLCMedialistDelegate
@@ -1131,6 +1167,101 @@ static NSString *kDisplayedFirstSteps = @"Did we display the first steps tutoria
 
     if (UI_USER_INTERFACE_IDIOM() == UIUserInterfaceIdiomPad)
         [self.collectionView.collectionViewLayout invalidateLayout];
+}
+
+#pragma mark - Search Display Controller Delegate
+
+- (BOOL)searchDisplayController:(UISearchDisplayController *)controller shouldReloadTableForSearchString:(NSString *)searchString
+{
+    NSInteger listCount = _foundMedia.count;
+    [_searchData removeAllObjects];
+    NSManagedObject *item;
+    NSRange nameRange;
+
+    for (int i = 0; i < listCount; i++) {
+        item = _foundMedia[i];
+
+        if ([item isKindOfClass:[MLAlbum class]]) {
+            nameRange = [[(MLAlbum*)item name] rangeOfString:searchString options:NSCaseInsensitiveSearch];
+
+            if (nameRange.location == NSNotFound) {
+                NSString *releaseYear = [(MLAlbum *)item releaseYear];
+                if (releaseYear)
+                    nameRange = [releaseYear rangeOfString:searchString options:NSCaseInsensitiveSearch];
+
+                /* user didn't search for our album name or year, let's do a deeper search */
+                if (nameRange.location == NSNotFound) {
+                    NSArray *tracks = [(MLAlbum*)item sortedTracks];
+                    NSUInteger trackCount = tracks.count;
+                    for (NSUInteger x = 0; x < trackCount; x++) {
+                        nameRange = [self _processItem:tracks[x] withString:searchString];
+                        if (nameRange.location != NSNotFound)
+                            break;
+                    }
+                }
+            }
+        } else if ([item isKindOfClass:[MLShow class]]) {
+            nameRange = [[(MLShow*)item name] rangeOfString:searchString options:NSCaseInsensitiveSearch];
+
+            /* user didn't search for our show name, let's do a deeper search */
+            if (nameRange.location == NSNotFound) {
+                NSArray *episodes = [(MLShow*)item sortedEpisodes];
+                NSUInteger episodeCount = episodes.count;
+                NSString *name;
+                for (NSUInteger x = 0; x < episodeCount; x++) {
+                    name = [(MLShowEpisode*)episodes[x] name];
+                    if (name)
+                        nameRange = [name rangeOfString:searchString options:NSCaseInsensitiveSearch];
+                    if (nameRange.location != NSNotFound) {
+                        break;
+                    }
+                }
+            }
+        } else if ([item isKindOfClass:[MLLabel class]]) {
+            nameRange = [[(MLLabel*)item name] rangeOfString:searchString options:NSCaseInsensitiveSearch];
+
+            /* user didn't search for our label name, let's do a deeper search */
+            if (nameRange.location == NSNotFound) {
+                NSArray *files = [(MLLabel*)item sortedFolderItems];
+                NSUInteger fileCount = files.count;
+                for (NSUInteger x = 0; x < fileCount; x++) {
+                    nameRange = [self _processItem:files[x] withString:searchString];
+                    if (nameRange.location != NSNotFound)
+                        break;
+                }
+            }
+        } else // simple file
+            nameRange = [self _processItem:(MLFile*)item withString:searchString];
+
+        if (nameRange.location != NSNotFound)
+            [_searchData addObject:item];
+    }
+
+    return YES;
+}
+
+- (NSRange)_processItem:(NSManagedObject *)file withString:(NSString *)searchString
+{
+    NSRange nameRange;
+    nameRange = [[(MLFile *)file title] rangeOfString:searchString options:NSCaseInsensitiveSearch];
+    if (nameRange.location == NSNotFound) {
+        NSString *artist = [(MLFile *)file artist];
+        if (artist)
+            nameRange = [artist rangeOfString:searchString options:NSCaseInsensitiveSearch];
+        if (nameRange.location == NSNotFound && ![file isKindOfClass:[MLAlbumTrack class]]) {
+            NSString *releaseYear = [(MLFile *)file releaseYear];
+            if (releaseYear)
+                nameRange = [releaseYear rangeOfString:searchString options:NSCaseInsensitiveSearch];
+        }
+    }
+
+    return nameRange;
+}
+
+- (void)searchDisplayController:(UISearchDisplayController *)controller didLoadSearchResultsTableView:(UITableView *)tableView
+{
+    tableView.rowHeight = 90.;
+    tableView.backgroundColor = [UIColor blackColor];
 }
 
 @end

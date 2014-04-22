@@ -4,6 +4,7 @@
 * Option to download media from http/ftp/https instead of direct playback when
   requested through third-party app (#11147)
 * Option to set text encoding used for FTP connections (#10611)
+* Media library search (#11303)
 
 2.3:
 ----
