@@ -418,6 +418,8 @@
     _mediaPlayer = _listPlayer.mediaPlayer;
     [_mediaPlayer setDelegate:self];
     [_mediaPlayer setDrawable:self.movieView];
+    if ([[defaults objectForKey:kVLCSettingPlaybackSpeedDefaultValue] floatValue] != 0)
+        [_mediaPlayer setRate: [[defaults objectForKey:kVLCSettingPlaybackSpeedDefaultValue] floatValue]];
     if ([[defaults objectForKey:kVLCSettingDeinterlace] intValue] != 0)
         [_mediaPlayer setDeinterlaceFilter:@"blend"];
     else
