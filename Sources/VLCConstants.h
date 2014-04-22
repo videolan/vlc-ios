@@ -34,6 +34,7 @@
 #define kVLCSettingSubtitlesBoldFontDefaulValue @NO
 #define kVLCSettingSubtitlesFontColor @"quartztext-color"
 #define kVLCSettingSubtitlesFontColorDefaultValue @"16777215"
+#define kVLCSettingSubtitlesFilePath @"sub-file"
 #define kVLCSettingDeinterlace @"deinterlace"
 #define kVLCSettingDeinterlaceDefaultValue @(0)
 #define kVLCSettingNetworkCaching @"network-caching"
@@ -47,6 +48,7 @@
 #define kVLCShowRemainingTime @"show-remaining-time"
 #define kVLCRecentURLs @"recent-urls"
 #define kVLCPrivateWebStreaming @"private-streaming"
+#define kVLChttpScanSubtitle @"http-scan-subtitle"
 
 #define kVLCFTPServer @"ftp-server"
 #define kVLCFTPLogin @"ftp-login"

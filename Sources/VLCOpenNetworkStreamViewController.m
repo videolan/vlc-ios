@@ -45,6 +45,9 @@
     else
         [self.openButton setTitle:NSLocalizedString(@"BUTTON_OPEN", @"") forState:UIControlStateNormal];
     [self.privateModeLabel setText:NSLocalizedString(@"PRIVATE_PLAYBACK_TOGGLE", @"")];
+    [self.ScanSubModeLabel setText:NSLocalizedString(@"SCAN_SUBTITLE_TOGGLE", @"")];
+    [self.ScanSubModeLabel setAdjustsFontSizeToFitWidth:YES];
+    [self.ScanSubModeLabel setNumberOfLines:0];
     self.title = NSLocalizedString(@"OPEN_NETWORK", @"");
     self.navigationItem.leftBarButtonItem = [UIBarButtonItem themedRevealMenuButtonWithTarget:self andSelector:@selector(goBack:)];
     [self.whatToOpenHelpLabel setText:NSLocalizedString(@"OPEN_NETWORK_HELP", @"")];
@@ -71,6 +74,7 @@
     NSUserDefaults *defaults = [NSUserDefaults standardUserDefaults];
     _recentURLs = [NSMutableArray arrayWithArray:[defaults objectForKey:kVLCRecentURLs]];
     self.privateToggleSwitch.on = [defaults boolForKey:kVLCPrivateWebStreaming];
+    self.ScanSubToggleSwitch.on = [defaults boolForKey:kVLChttpScanSubtitle];
 
     [super viewWillAppear:animated];
 }
@@ -80,6 +84,7 @@
     NSUserDefaults *defaults = [NSUserDefaults standardUserDefaults];
     [defaults setObject:[NSArray arrayWithArray:_recentURLs] forKey:kVLCRecentURLs];
     [defaults setBool:self.privateToggleSwitch.on forKey:kVLCPrivateWebStreaming];
+    [defaults setBool:self.ScanSubToggleSwitch.on forKey:kVLChttpScanSubtitle];
     [defaults synchronize];
 
     [super viewWillDisappear:animated];
@@ -182,7 +187,8 @@
     NSString *URLofSubtitle = nil;
 
     if ([URLscheme.scheme isEqualToString:@"http"])
-        URLofSubtitle = [self _checkURLofSubtitle:url];
+        if (self.ScanSubToggleSwitch.on)
+            URLofSubtitle = [self _checkURLofSubtitle:url];
 
     [(VLCAppDelegate*)[UIApplication sharedApplication].delegate openMovieWithExternalSubtitleFromURL:[NSURL URLWithString:url] externalSubURL:URLofSubtitle];
 }

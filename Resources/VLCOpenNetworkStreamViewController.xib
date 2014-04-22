@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="5037" systemVersion="12F45" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="5056" systemVersion="13C64" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none">
     <dependencies>
         <deployment defaultVersion="1552" identifier="iOS"/>
         <development version="5000" identifier="xcode"/>
@@ -8,6 +8,8 @@
     <objects>
         <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner" customClass="VLCOpenNetworkStreamViewController">
             <connections>
+                <outlet property="ScanSubModeLabel" destination="4US-Eh-YJy" id="KE8-LR-RYj"/>
+                <outlet property="ScanSubToggleSwitch" destination="uJe-rZ-Pcw" id="oh9-sW-jn8"/>
                 <outlet property="historyTableView" destination="10" id="15"/>
                 <outlet property="openButton" destination="7" id="14"/>
                 <outlet property="privateModeLabel" destination="9" id="13"/>
@@ -80,8 +82,29 @@
                     <color key="backgroundColor" red="0.1215686275" green="0.1215686275" blue="0.1215686275" alpha="1" colorSpace="calibratedRGB"/>
                     <freeformSimulatedSizeMetrics key="simulatedDestinationMetrics"/>
                 </view>
+                <view contentMode="scaleToFill" id="fFR-hG-wOE">
+                    <rect key="frame" x="0.0" y="162" width="320" height="60"/>
+                    <autoresizingMask key="autoresizingMask" widthSizable="YES" flexibleMaxY="YES"/>
+                    <subviews>
+                        <switch opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" id="uJe-rZ-Pcw">
+                            <rect key="frame" x="10" y="16" width="51" height="31"/>
+                            <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                            <color key="onTintColor" white="0.0" alpha="0.60999999999999999" colorSpace="custom" customColorSpace="calibratedWhite"/>
+                        </switch>
+                        <label clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" text="Scan Sub" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="4US-Eh-YJy">
+                            <rect key="frame" x="99" y="16" width="205" height="31"/>
+                            <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                            <color key="backgroundColor" red="0.1215686275" green="0.1215686275" blue="0.1215686275" alpha="1" colorSpace="calibratedRGB"/>
+                            <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                            <color key="textColor" red="0.74659199620000005" green="0.74659199620000005" blue="0.74659199620000005" alpha="1" colorSpace="calibratedRGB"/>
+                            <nil key="highlightedColor"/>
+                        </label>
+                    </subviews>
+                    <color key="backgroundColor" red="0.1215686275" green="0.1215686275" blue="0.1215686275" alpha="1" colorSpace="calibratedRGB"/>
+                    <freeformSimulatedSizeMetrics key="simulatedDestinationMetrics"/>
+                </view>
                 <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" showsVerticalScrollIndicator="NO" style="plain" separatorStyle="default" rowHeight="44" sectionHeaderHeight="22" sectionFooterHeight="22" id="10">
-                    <rect key="frame" x="0.0" y="165" width="320" height="218"/>
+                    <rect key="frame" x="0.0" y="230" width="320" height="153"/>
                     <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                     <color key="backgroundColor" red="0.1215686275" green="0.1215686275" blue="0.1215686275" alpha="1" colorSpace="calibratedRGB"/>
                     <color key="separatorColor" white="0.0" alpha="0.60999999999999999" colorSpace="custom" customColorSpace="calibratedWhite"/>

@@ -16,7 +16,9 @@
 @property (strong, nonatomic) IBOutlet UITextField *urlField;
 @property (strong, nonatomic) IBOutlet UIButton *openButton;
 @property (strong, nonatomic) IBOutlet UISwitch *privateToggleSwitch;
+@property (strong, nonatomic) IBOutlet UISwitch *ScanSubToggleSwitch;
 @property (strong, nonatomic) IBOutlet UILabel *privateModeLabel;
+@property (strong, nonatomic) IBOutlet UILabel *ScanSubModeLabel;
 @property (strong, nonatomic) IBOutlet UITableView *historyTableView;
 @property (strong, nonatomic) IBOutlet UILabel *whatToOpenHelpLabel;
 

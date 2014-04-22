@@ -412,8 +412,10 @@
         [self _stopPlayback];
         return;
     }
-
-    _listPlayer = [[VLCMediaListPlayer alloc] init];
+    if (self.pathToExternalSubtitlesFile)
+        _listPlayer = [[VLCMediaListPlayer alloc] initWithOptions:@[[NSString stringWithFormat:@"--%@=%@", kVLCSettingSubtitlesFilePath, self.pathToExternalSubtitlesFile]]];
+    else
+        _listPlayer = [[VLCMediaListPlayer alloc] init];
 
     _mediaPlayer = _listPlayer.mediaPlayer;
     [_mediaPlayer setDelegate:self];
