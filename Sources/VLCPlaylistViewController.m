@@ -163,7 +163,10 @@ static NSString *kDisplayedFirstSteps = @"Did we display the first steps tutoria
         _searchDisplayController.searchResultsDataSource = self;
         _searchDisplayController.searchResultsDelegate = self;
         _searchBar.delegate = self;
-        self.tableView.tableHeaderView = _searchBar;
+
+        UITapGestureRecognizer *tapTwiceGesture = [[UITapGestureRecognizer alloc] initWithTarget:self  action:@selector(tapTwiceGestureAction:)];
+        [tapTwiceGesture setNumberOfTapsRequired:2];
+        [self.navigationController.navigationBar addGestureRecognizer:tapTwiceGesture];
     }
 
     _searchData = [[NSMutableArray alloc] init];
@@ -601,7 +604,7 @@ static NSString *kDisplayedFirstSteps = @"Did we display the first steps tutoria
     }
 }
 
-#pragma mark - table view gestures
+#pragma mark - Gesture Action
 - (void)swipeRightGestureAction:(UIGestureRecognizer *)recognizer
 {
     if ([[self.editButtonItem title] isEqualToString:NSLocalizedString(@"BUTTON_CANCEL",@"")])
@@ -614,6 +617,15 @@ static NSString *kDisplayedFirstSteps = @"Did we display the first steps tutoria
                                     animated:YES
                               scrollPosition:UITableViewScrollPositionNone];
     }
+}
+
+- (void)tapTwiceGestureAction:(UIGestureRecognizer *)recognizer
+{
+    _searchBar.hidden = !_searchBar.hidden;
+    if (_searchBar.hidden)
+        self.tableView.tableHeaderView = nil;
+    else
+        self.tableView.tableHeaderView = _searchBar;
 }
 
 #pragma mark - Collection View
