@@ -257,6 +257,10 @@
 {
     UIColor *color = (indexPath.row % 2 == 0)? [UIColor blackColor]: [UIColor colorWithWhite:.122 alpha:1.];
     cell.contentView.backgroundColor = cell.titleLabel.backgroundColor = cell.folderTitleLabel.backgroundColor = cell.subtitleLabel.backgroundColor =  color;
+
+    if (_serverType == kVLCServerTypeFTP)
+        if([indexPath row] == ((NSIndexPath*)[[tableView indexPathsForVisibleRows] lastObject]).row)
+            [(VLCAppDelegate*)[UIApplication sharedApplication].delegate networkActivityStopped];
 }
 
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
@@ -346,6 +350,7 @@
     _FTPListDirRequest.path = _ftpServerPath;
     _FTPListDirRequest.passive = YES;
 
+    [(VLCAppDelegate*)[UIApplication sharedApplication].delegate networkActivityStarted];
     [_FTPListDirRequest start];
 }
 
