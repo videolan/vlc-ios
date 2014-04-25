@@ -129,6 +129,7 @@
 
 - (void)viewWillAppear:(BOOL)animated
 {
+    [_ftpNetServiceBrowser searchForServicesOfType:@"_ftp._tcp." inDomain:@""];
     [_activityIndicator stopAnimating];
     [super viewWillAppear:animated];
 
@@ -138,19 +139,12 @@
 - (void)netReachabilityChanged:(NSNotification *)notification
 {
     if (_reachability.currentReachabilityStatus == ReachableViaWiFi) {
-        [self _triggerNetServiceBrowser];
         [self performSelectorInBackground:@selector(_startUPNPDiscovery) withObject:nil];
         [self performSelectorInBackground:@selector(_startSAPDiscovery) withObject:nil];
     } else {
-        [_ftpNetServiceBrowser stop];
         [self _stopUPNPDiscovery];
         [self _stopSAPDiscovery];
     }
-}
-
-- (void)_triggerNetServiceBrowser
-{
-    [_ftpNetServiceBrowser searchForServicesOfType:@"_ftp._tcp." inDomain:@""];
 }
 
 - (void)_startUPNPDiscovery
