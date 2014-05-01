@@ -27,6 +27,7 @@
     BOOL _downloadInProgress;
 
     NSString *_nextPageToken;
+    NSString *_folderId;
 
     CGFloat _averageSpeed;
     NSTimeInterval _startDL;
@@ -90,10 +91,14 @@
 }
 
 #pragma mark - file management
-- (void)requestFileListing
+- (void)requestDirectoryListingWithFolderId:(NSString *)folderId
 {
-    if (self.isAuthorized)
-        [self listFiles];
+    if (self.isAuthorized) {
+        //we entered a different folder so discard all current files
+        if (![folderId isEqualToString:_folderId])
+            _currentFileList = nil;
+        [self listFilesWithID:folderId];
+    }
 }
 
 - (BOOL)hasMoreFiles
@@ -103,6 +108,8 @@
 
 - (void)downloadFileToDocumentFolder:(GTLDriveFile *)file
 {
+    if ([file.mimeType isEqualToString:@"application/vnd.google-apps.folder"]) return;
+
     if (!_listOfGoogleDriveFilesToDownload)
         _listOfGoogleDriveFilesToDownload = [[NSMutableArray alloc] init];
 
@@ -114,18 +121,18 @@
     [self _triggerNextDownload];
 }
 
-- (void)listFiles
+- (void)listFilesWithID:(NSString *)folderId
 {
     _fileList = nil;
-
+    _folderId = folderId;
     GTLQueryDrive *query;
 
     query = [GTLQueryDrive queryForFilesList];
-    query.fields = @"items(originalFilename,title,mimeType,fileExtension,fileSize,iconLink,downloadUrl,webContentLink,thumbnailLink),nextPageToken";
     query.pageToken = _nextPageToken;
     query.maxResults = 100;
-
-    APLog(@"fetching files with following queryfields:%@", query.fields);
+    if (![_folderId isEqualToString:@""]) {
+        query.q = [NSString stringWithFormat:@"'%@' in parents", [_folderId lastPathComponent]];
+    }
     _fileListTicket = [self.driveService executeQuery:query
                           completionHandler:^(GTLServiceTicket *ticket,
                                               GTLDriveFileList *fileList,
@@ -134,7 +141,7 @@
                                   _fileList = fileList;
                                   _nextPageToken = fileList.nextPageToken;
                                   _fileListTicket = nil;
-                                  [self _listOfGoodFiles];
+                                  [self _listOfGoodFilesAndFolders];
                               } else {
                                   [self showAlert:NSLocalizedString(@"GDRIVE_ERROR_FETCHING_FILES",nil) message:error.localizedDescription];
                               }
@@ -173,25 +180,42 @@
     return NO;
 }
 
-- (void)_listOfGoodFiles
+- (void)_listOfGoodFilesAndFolders
 {
     NSMutableArray *listOfGoodFilesAndFolders = [[NSMutableArray alloc] init];
 
     for (GTLDriveFile *driveFile in _fileList.items)
     {
         BOOL isDirectory = [driveFile.mimeType isEqualToString:@"application/vnd.google-apps.folder"];
-        if (!isDirectory && [self _supportedFileExtension:[NSString stringWithFormat:@".%@",driveFile.fileExtension ]]) {
-            [listOfGoodFilesAndFolders addObject:driveFile];
+        BOOL inDirectory = NO;
+        if (driveFile.parents.count > 0) {
+            GTLDriveParentReference *parent = (GTLDriveParentReference *)driveFile.parents[0];
+            //since there is no rootfolder display the files right away
+            if (![parent.isRoot boolValue])
+                inDirectory = ![parent.identifier isEqualToString:[_folderId lastPathComponent]];
         }
+        BOOL supportedFile = [self _supportedFileExtension:[NSString stringWithFormat:@".%@",driveFile.fileExtension]];
+
+        if ((isDirectory || supportedFile) && !inDirectory)
+            [listOfGoodFilesAndFolders addObject:driveFile];
     }
     _currentFileList = [_currentFileList count] ? [_currentFileList arrayByAddingObjectsFromArray:listOfGoodFilesAndFolders] : [NSArray arrayWithArray:listOfGoodFilesAndFolders];
 
     if ([_currentFileList count] <= 10 && [self hasMoreFiles]) {
-        [self requestFileListing];
+        [self listFilesWithID:_folderId];
         return;
     }
 
     APLog(@"found filtered metadata for %lu files", (unsigned long)_currentFileList.count);
+
+    //the files come in a chaotic order so we order alphabetically
+     NSArray *sortedArray = [_currentFileList sortedArrayUsingComparator:^NSComparisonResult(id a, id b) {
+        NSString *first = [(GTLDriveFile *)a title];
+        NSString *second = [(GTLDriveFile *)b title];
+        return [first compare:second];
+    }];
+    _currentFileList = sortedArray;
+
     if ([self.delegate respondsToSelector:@selector(mediaListUpdated)])
         [self.delegate mediaListUpdated];
 }

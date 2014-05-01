@@ -26,6 +26,8 @@
     GTLDriveFile *_selectedFile;
     GTMOAuth2ViewControllerTouch *_authController;
 
+    NSString *_currentFolderId;
+
     UIBarButtonItem *_backButton;
     UIBarButtonItem *_backToMenuButton;
 
@@ -181,12 +183,12 @@
     }
 }
 
-- (void)_requestInformationForFiles
+- (void)_requestInformationForCurrentFolderId
 {
     [_activityIndicator startAnimating];
-    [_googleDriveController requestFileListing];
+    [_googleDriveController requestDirectoryListingWithFolderId:_currentFolderId];
 
-    self.navigationItem.leftBarButtonItem = _backToMenuButton;
+    self.navigationItem.leftBarButtonItem = ![_currentFolderId isEqualToString:@""] ? _backButton : _backToMenuButton;
 }
 
 #pragma mark - interface interaction
@@ -200,7 +202,11 @@
 
 - (IBAction)goBack:(id)sender
 {
-    [[(VLCAppDelegate*)[UIApplication sharedApplication].delegate revealController] toggleSidebar:![(VLCAppDelegate*)[UIApplication sharedApplication].delegate revealController].sidebarShowing duration:kGHRevealSidebarDefaultAnimationDuration];
+    if (![_currentFolderId isEqualToString:@""] && [_currentFolderId length] > 0) {
+        _currentFolderId = [_currentFolderId stringByDeletingLastPathComponent];
+        [self _requestInformationForCurrentFolderId];
+    } else
+        [[(VLCAppDelegate*)[UIApplication sharedApplication].delegate revealController] toggleSidebar:![(VLCAppDelegate*)[UIApplication sharedApplication].delegate revealController].sidebarShowing duration:kGHRevealSidebarDefaultAnimationDuration];
 }
 
 #pragma mark - Table view data source
@@ -240,8 +246,17 @@
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
 {
     _selectedFile = _googleDriveController.currentListFiles[indexPath.row];
-    UIAlertView * alert = [[UIAlertView alloc] initWithTitle:NSLocalizedString(@"DROPBOX_DOWNLOAD", @"") message:[NSString stringWithFormat:NSLocalizedString(@"DROPBOX_DL_LONG", @""), _selectedFile.title, [[UIDevice currentDevice] model]] delegate:self cancelButtonTitle:NSLocalizedString(@"BUTTON_CANCEL", @"") otherButtonTitles:NSLocalizedString(@"BUTTON_DOWNLOAD", @""), nil];
-    [alert show];
+    if (![_selectedFile.mimeType isEqualToString:@"application/vnd.google-apps.folder"]) {
+        UIAlertView * alert = [[UIAlertView alloc] initWithTitle:NSLocalizedString(@"DROPBOX_DOWNLOAD", @"") message:[NSString stringWithFormat:NSLocalizedString(@"DROPBOX_DL_LONG", @""), _selectedFile.title, [[UIDevice currentDevice] model]] delegate:self cancelButtonTitle:NSLocalizedString(@"BUTTON_CANCEL", @"") otherButtonTitles:NSLocalizedString(@"BUTTON_DOWNLOAD", @""), nil];
+        [alert show];
+    } else {
+        /* dive into subdirectory */
+        if (![_currentFolderId isEqualToString:@""])
+            _currentFolderId = [_currentFolderId stringByAppendingString:@"/"];
+        _currentFolderId = [_currentFolderId stringByAppendingString:_selectedFile.identifier];
+        [self _requestInformationForCurrentFolderId];
+    }
+    _selectedFile = nil;
     [self.tableView deselectRowAtIndexPath:indexPath animated:NO];
 }
 
@@ -252,7 +267,7 @@
 
     if (maximumOffset - currentOffset <= - self.tableView.rowHeight) {
         if (_googleDriveController.hasMoreFiles && !_activityIndicator.isAnimating) {
-            [self _requestInformationForFiles];
+            [self _requestInformationForCurrentFolderId];
         }
     }
 }
@@ -319,8 +334,9 @@
         [self.loginToCloudStorageView removeFromSuperview];
 
     //reload if we didn't come back from streaming
+    _currentFolderId = @"";
     if([_googleDriveController.currentListFiles count] == 0)
-        [self _requestInformationForFiles];
+        [self _requestInformationForCurrentFolderId];
 }
 
 #pragma mark - login dialog

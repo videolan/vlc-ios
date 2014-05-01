@@ -39,7 +39,7 @@
 - (void)startSession;
 - (void)stopSession;
 - (void)logout;
-- (void)requestFileListing;
+- (void)requestDirectoryListingWithFolderId:(NSString *)folderId;
 - (BOOL)hasMoreFiles;
 - (void)downloadFileToDocumentFolder:(GTLDriveFile *)file;
 
