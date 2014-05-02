@@ -32,7 +32,6 @@
 @property (nonatomic, retain) id delegate;
 @property (nonatomic, readonly) NSArray *currentListFiles;
 @property (nonatomic, readwrite) BOOL isAuthorized;
-@property (nonatomic, readonly) NSInteger numberOfFilesWaitingToBeDownloaded;
 @property (nonatomic, retain) GTLServiceDrive *driveService;
 
 + (VLCGoogleDriveController *)sharedInstance;

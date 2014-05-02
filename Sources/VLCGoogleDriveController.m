@@ -14,7 +14,6 @@
 #import "VLCGoogleDriveController.h"
 #import "NSString+SupportedMedia.h"
 #import "VLCAppDelegate.h"
-#import "HTTPMessage.h"
 
 @interface VLCGoogleDriveController ()
 {
@@ -225,11 +224,6 @@
     NSString *exportURLStr = file.downloadUrl;
 
     if ([exportURLStr length] > 0) {
-        NSString *suggestedName = file.originalFilename;
-        if ([suggestedName length] == 0) {
-            suggestedName = file.title;
-        }
-
         NSURL *url = [NSURL URLWithString:exportURLStr];
         NSURLRequest *request = [NSURLRequest requestWithURL:url];
         GTMHTTPFetcher *fetcher = [GTMHTTPFetcher fetcherWithRequest:request];
@@ -255,7 +249,7 @@
         [fetcher beginFetchWithCompletionHandler:^(NSData *data, NSError *error) {
             if (error == nil) {
                 [self showAlert:NSLocalizedString(@"GDRIVE_DOWNLOAD_SUCCESSFUL_TITLE",nil) message:NSLocalizedString(@"GDRIVE_DOWNLOAD_SUCCESSFUL",nil)];
-                [self downloadSucessfull];
+                [self downloadSuccessful];
             } else {
                 [self showAlert:NSLocalizedString(@"GDRIVE_ERROR_DOWNLOADING_FILE_TITLE",nil) message:NSLocalizedString(@"GDRIVE_ERROR_DOWNLOADING_FILE",nil)];
                 [self downloadFailedWithError:error];
@@ -277,16 +271,16 @@
     [formatter setDateFormat:@"HH:mm:ss"];
     [formatter setTimeZone:[NSTimeZone timeZoneForSecondsFromGMT:0]];
 
-    NSString  *remaingTime = [formatter stringFromDate:date];
+    NSString  *remainingTime = [formatter stringFromDate:date];
     if ([self.delegate respondsToSelector:@selector(updateRemainingTime:)])
-        [self.delegate updateRemainingTime:remaingTime];
+        [self.delegate updateRemainingTime:remainingTime];
 }
 
-- (void)downloadSucessfull
+- (void)downloadSuccessful
 {
     /* update library now that we got a file */
     APLog(@"DriveFile download was successful");
-    VLCAppDelegate *appDelegate = [UIApplication sharedApplication].delegate;
+    VLCAppDelegate *appDelegate = (VLCAppDelegate *) [UIApplication sharedApplication].delegate;
     [appDelegate performSelectorOnMainThread:@selector(updateMediaList) withObject:nil waitUntilDone:NO];
 
     if ([self.delegate respondsToSelector:@selector(operationWithProgressInformationStopped)])

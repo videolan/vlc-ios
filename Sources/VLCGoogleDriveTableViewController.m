@@ -15,11 +15,7 @@
 #import "VLCCloudStorageTableViewCell.h"
 #import "VLCGoogleDriveController.h"
 #import "VLCAppDelegate.h"
-#import "VLCPlaylistViewController.h"
 #import "UIBarButtonItem+Theme.h"
-#import "VLCGoogleDriveConstants.h"
-#import "GTMOAuth2ViewControllerTouch.h"
-#import "VLCGoogleDriveController.h"
 
 @interface VLCGoogleDriveTableViewController () <VLCCloudStorageTableViewCell>
 {
@@ -33,7 +29,6 @@
 
     UIBarButtonItem *_numberOfFilesBarButtonItem;
     UIBarButtonItem *_progressBarButtonItem;
-    UIBarButtonItem *_downloadingBarLabel;
     UIProgressView *_progressBar;
     UILabel *_progressLabel;
 
@@ -132,17 +127,6 @@
         _googleDriveController.driveService.authorizer = authResult;
     }
     [self updateViewAfterSessionChange];
-}
-
-- (void)showAlert:(NSString *)title message:(NSString *)message
-{
-    UIAlertView *alert;
-    alert = [[UIAlertView alloc] initWithTitle: title
-                                       message: message
-                                      delegate: nil
-                             cancelButtonTitle: @"OK"
-                             otherButtonTitles: nil];
-    [alert show];
 }
 
 - (void)viewWillAppear:(BOOL)animated
@@ -256,7 +240,6 @@
         _currentFolderId = [_currentFolderId stringByAppendingString:_selectedFile.identifier];
         [self _requestInformationForCurrentFolderId];
     }
-    _selectedFile = nil;
     [self.tableView deselectRowAtIndexPath:indexPath animated:NO];
 }
 
@@ -276,7 +259,6 @@
 {
     if (buttonIndex == 1)
         [_googleDriveController downloadFileToDocumentFolder:_selectedFile];
-
     _selectedFile = nil;
 }
 
