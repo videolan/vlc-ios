@@ -25,7 +25,7 @@
 #import "VLCPlaylistViewController.h"
 #import "Reachability.h"
 
-@interface VLCLocalServerListViewController () <UITableViewDataSource, UITableViewDelegate, NSNetServiceBrowserDelegate, VLCNetworkLoginViewController, NSNetServiceDelegate, VLCMediaListDelegate>
+@interface VLCLocalServerListViewController () <UITableViewDataSource, UITableViewDelegate, NSNetServiceBrowserDelegate, VLCNetworkLoginViewController, NSNetServiceDelegate, VLCMediaListDelegate, UPnPDBObserver>
 {
     UIBarButtonItem *_backToMenuButton;
     NSArray *_sectionHeaderTexts;
@@ -98,8 +98,6 @@
 
     _ftpNetServiceBrowser = [[NSNetServiceBrowser alloc] init];
     _ftpNetServiceBrowser.delegate = self;
-
-    [self _triggerNetServiceBrowser];
 
     _refreshControl = [[UIRefreshControl alloc] init];
     [_refreshControl addTarget:self action:@selector(handleRefresh) forControlEvents:UIControlEventValueChanged];
