@@ -25,7 +25,7 @@
 #import "VLCPlaylistViewController.h"
 #import "Reachability.h"
 
-@interface VLCLocalServerListViewController () <UITableViewDataSource, UITableViewDelegate, NSNetServiceBrowserDelegate, VLCNetworkLoginViewController, NSNetServiceDelegate, VLCMediaListDelegate, UPnPDBObserver>
+@interface VLCLocalServerListViewController () <UITableViewDataSource, UITableViewDelegate, NSNetServiceBrowserDelegate, VLCNetworkLoginViewController, NSNetServiceDelegate, VLCMediaListDelegate>
 {
     UIBarButtonItem *_backToMenuButton;
     NSArray *_sectionHeaderTexts;
@@ -33,8 +33,6 @@
     NSNetServiceBrowser *_ftpNetServiceBrowser;
     NSMutableArray *_rawNetServices;
     NSMutableArray *_ftpServices;
-    NSNetServiceBrowser *_smbNetServiceBrowser;
-    NSMutableArray *_smbServices;
 
     NSArray *_filteredUPNPDevices;
     NSArray *_UPNPdevices;
@@ -82,7 +80,7 @@
 /*    if (SYSTEM_RUNS_IOS7_OR_LATER)
         _sectionHeaderTexts = @[@"Universal Plug'n'Play (UPNP)", @"File Transfer Protocol (FTP)", @"Network Streams (SAP)"];
     else*/
-        _sectionHeaderTexts = @[@"Universal Plug'n'Play (UPNP)", @"SMB/CIFS", @"File Transfer Protocol (FTP)"];
+        _sectionHeaderTexts = @[@"Universal Plug'n'Play (UPNP)", @"File Transfer Protocol (FTP)"];
 
     _backToMenuButton = [UIBarButtonItem themedRevealMenuButtonWithTarget:self andSelector:@selector(goBack:)];
     self.navigationItem.leftBarButtonItem = _backToMenuButton;
@@ -101,9 +99,7 @@
     _ftpNetServiceBrowser = [[NSNetServiceBrowser alloc] init];
     _ftpNetServiceBrowser.delegate = self;
 
-    _smbServices = [[NSMutableArray alloc] init];
-    _smbNetServiceBrowser = [[NSNetServiceBrowser alloc] init];
-    _smbNetServiceBrowser.delegate = self;
+    [self _triggerNetServiceBrowser];
 
     _refreshControl = [[UIRefreshControl alloc] init];
     [_refreshControl addTarget:self action:@selector(handleRefresh) forControlEvents:UIControlEventValueChanged];
@@ -129,13 +125,11 @@
     [super viewWillDisappear:animated];
     [_activityIndicator stopAnimating];
     [_ftpNetServiceBrowser stop];
-    [_smbNetServiceBrowser stop];
 }
 
 - (void)viewWillAppear:(BOOL)animated
 {
     [_ftpNetServiceBrowser searchForServicesOfType:@"_ftp._tcp." inDomain:@""];
-    [_smbNetServiceBrowser searchForServicesOfType:@"_smb._tcp." inDomain:@""];
     [_activityIndicator stopAnimating];
     [super viewWillAppear:animated];
 
@@ -228,10 +222,8 @@
     if (section == 0)
         return _filteredUPNPDevices.count;
     else if (section == 1)
-        return _smbServices.count;
-    else if (section == 2)
         return _ftpServices.count;
-    else if (section == 3)
+    else if (section == 2)
         return _sapDiscoverer.discoveredMedia.count;
 
     return 0;
@@ -266,16 +258,13 @@
         }
         [cell setIcon:icon != nil ? icon : [UIImage imageNamed:@"serverIcon"]];
     } else if (section == 1) {
-        [cell setTitle:[_smbServices[row] name]];
-        [cell setIcon:[UIImage imageNamed:@"serverIcon"]];
-    } else if (section == 2) {
         if (row == 0)
             [cell setTitle:_ftpServices[row]];
         else {
             [cell setTitle:[_ftpServices[row] name]];
             [cell setIcon:[UIImage imageNamed:@"serverIcon"]];
         }
-    } else if (section == 3)
+    } else if (section == 2)
         [cell setTitle:[[_sapDiscoverer.discoveredMedia mediaAtIndex:row] metadataForKey: VLCMetaInformationTitle]];
 
     return cell;
@@ -300,9 +289,6 @@
             [self.navigationController pushViewController:targetViewController animated:YES];
         }
     } else if (section == 1) {
-        //FIXME: connect to SMB servers here
-        APLog(@"SMB connectivity not implemented");
-    } else if (section == 2) {
         UINavigationController *navCon = [[UINavigationController alloc] initWithRootViewController:_loginViewController];
         [navCon loadTheme];
         navCon.navigationBarHidden = NO;
@@ -323,7 +309,7 @@
             _loginViewController.hostname = [_ftpServices[row] hostName];
         else
             _loginViewController.hostname = @"";
-    } else if (section == 3) {
+    } else if (section == 2) {
         VLCAppDelegate* appDelegate = [UIApplication sharedApplication].delegate;
         [appDelegate openMovieFromURL:[[_sapDiscoverer.discoveredMedia mediaAtIndex:row] url]];
     }
@@ -426,8 +412,6 @@
         [_rawNetServices removeObject:aNetService];
     if ([aNetService.type isEqualToString:@"_ftp._tcp."])
         [_ftpServices removeObject:aNetService];
-    if ([aNetService.type isEqualToString:@"_smb._tcp."])
-        [_smbServices removeObject:aNetService];
     if (!moreComing)
         [self.tableView reloadData];
 }
@@ -437,11 +421,7 @@
     if ([aNetService.type isEqualToString:@"_ftp._tcp."]) {
         if (![_ftpServices containsObject:aNetService])
             [_ftpServices addObject:aNetService];
-    } else if ([aNetService.type isEqualToString:@"_smb._tcp."]) {
-        if (![_smbServices containsObject:aNetService])
-            [_smbServices addObject:aNetService];
     }
-
     [_rawNetServices removeObject:aNetService];
     [self.tableView reloadData];
 }
