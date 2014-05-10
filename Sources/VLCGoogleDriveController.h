@@ -40,6 +40,7 @@
 - (void)logout;
 - (void)requestDirectoryListingWithFolderId:(NSString *)folderId;
 - (BOOL)hasMoreFiles;
+- (void)streamFile:(GTLDriveFile *)file;
 - (void)downloadFileToDocumentFolder:(GTLDriveFile *)file;
 
 @end

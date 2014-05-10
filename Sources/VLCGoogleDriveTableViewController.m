@@ -214,7 +214,6 @@
         cell = [VLCCloudStorageTableViewCell cellWithReuseIdentifier:CellIdentifier];
 
     cell.driveFile = _googleDriveController.currentListFiles[indexPath.row];
-    cell.downloadButton.hidden = YES;
     cell.delegate = self;
 
     return cell;
@@ -231,8 +230,7 @@
 {
     _selectedFile = _googleDriveController.currentListFiles[indexPath.row];
     if (![_selectedFile.mimeType isEqualToString:@"application/vnd.google-apps.folder"]) {
-        UIAlertView * alert = [[UIAlertView alloc] initWithTitle:NSLocalizedString(@"DROPBOX_DOWNLOAD", @"") message:[NSString stringWithFormat:NSLocalizedString(@"DROPBOX_DL_LONG", @""), _selectedFile.title, [[UIDevice currentDevice] model]] delegate:self cancelButtonTitle:NSLocalizedString(@"BUTTON_CANCEL", @"") otherButtonTitles:NSLocalizedString(@"BUTTON_DOWNLOAD", @""), nil];
-        [alert show];
+        [_googleDriveController streamFile:_selectedFile];
     } else {
         /* dive into subdirectory */
         if (![_currentFolderId isEqualToString:@""])
@@ -241,6 +239,15 @@
         [self _requestInformationForCurrentFolderId];
     }
     [self.tableView deselectRowAtIndexPath:indexPath animated:NO];
+}
+
+- (void)triggerDownloadForCell:(VLCCloudStorageTableViewCell *)cell
+{
+    _selectedFile = _googleDriveController.currentListFiles[[self.tableView indexPathForCell:cell].row];
+
+    /* selected item is a proper file, ask the user if s/he wants to download it */
+    UIAlertView * alert = [[UIAlertView alloc] initWithTitle:NSLocalizedString(@"DROPBOX_DOWNLOAD", @"") message:[NSString stringWithFormat:NSLocalizedString(@"DROPBOX_DL_LONG", @""), _selectedFile.title, [[UIDevice currentDevice] model]] delegate:self cancelButtonTitle:NSLocalizedString(@"BUTTON_CANCEL", @"") otherButtonTitles:NSLocalizedString(@"BUTTON_DOWNLOAD", @""), nil];
+    [alert show];
 }
 
 - (void)scrollViewDidScroll:(UIScrollView *)scrollView

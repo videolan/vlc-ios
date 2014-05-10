@@ -147,6 +147,14 @@
                           }];
 }
 
+- (void)streamFile:(GTLDriveFile *)file
+{
+    VLCAppDelegate *appDelegate = (VLCAppDelegate *)[UIApplication sharedApplication].delegate;
+    NSString *token = ((GTMOAuth2Authentication *)self.driveService.authorizer).accessToken;
+    NSString *downloadString = [file.downloadUrl stringByAppendingString:[NSString stringWithFormat:@"&access_token=%@",token]];
+    [appDelegate openMovieFromURL:[NSURL URLWithString:downloadString]];
+}
+
 - (void)_triggerNextDownload
 {
     if (_listOfGoogleDriveFilesToDownload.count > 0 && !_downloadInProgress) {
