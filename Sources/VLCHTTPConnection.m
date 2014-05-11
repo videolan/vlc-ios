@@ -20,6 +20,7 @@
 #import "HTTPFileResponse.h"
 #import "MultipartMessageHeaderField.h"
 #import "VLCHTTPUploaderController.h"
+#import "HTTPDynamicFileResponse.h"
 
 @interface VLCHTTPConnection()
 {
@@ -95,7 +96,30 @@
         // let download the uploaded files
         return [[HTTPFileResponse alloc] initWithFilePath: [[config documentRoot] stringByAppendingString:path] forConnection:self];
     }
+    if ([path hasPrefix:@"/download/"]) {
+        NSString *filePath = [[path stringByReplacingOccurrencesOfString:@"/download/" withString:@""]stringByReplacingPercentEscapesUsingEncoding:NSUTF8StringEncoding];
+        return [[HTTPFileResponse alloc] initWithFilePath:filePath forConnection:self];
+    }
+    NSString *filePath = [self filePathForURI:path];
+    NSString *documentRoot = [config documentRoot];
+    NSString *relativePath = [filePath substringFromIndex:[documentRoot length]];
 
+    if ([relativePath isEqualToString:@"/index.html"])
+    {
+        NSArray *allFiles = [MLFile allFiles];
+        NSString *fileList = @"";
+        for (MLFile *file in allFiles) {
+            NSString *fileHTML = [NSString stringWithFormat:@"<li><a href=\"download/%@\" download>%@</a></li>",[file.url stringByReplacingOccurrencesOfString:@"file://"withString:@""], file.title];
+            fileList = [fileList stringByAppendingString:fileHTML];
+        }
+
+        NSMutableDictionary *replacementDict = [NSMutableDictionary new];
+        [replacementDict setObject:fileList forKey:@"FILES"];
+        return [[HTTPDynamicFileResponse alloc] initWithFilePath:[self filePathForURI:path]
+                                                   forConnection:self
+                                                       separator:@"%%"
+                                           replacementDictionary:replacementDict];
+    }
     return [super httpResponseForMethod:method URI:path];
 }
 

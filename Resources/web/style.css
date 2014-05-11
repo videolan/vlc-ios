@@ -147,19 +147,41 @@ div.main.drop {
   cursor: pointer;
 }
 
-.message {
+.messageUpload {
   margin: 100px 0px;
 }
-.message h1 {
+.messageUpload h1 {
   font-size: 30px;
   font-weight: bold;
   text-align: center;
   text-shadow: 1px 1px 2px black;
   line-height: 60px;
 }
-.message p {
+.messageUpload p {
   text-align: center;
   text-shadow: 1px 1px 2px black;
+}
+
+.messageDownload {
+  margin: 50px 0px;
+}
+.messageDownload h1 {
+  font-size: 30px;
+  font-weight: bold;
+  text-align: center;
+  text-shadow: 1px 1px 2px black;
+  line-height: 60px;
+}
+.messageDownload p {
+  text-align: center;
+  text-shadow: 1px 1px 2px black;
+}
+
+.files {
+  text-align: left;
+  margin-left: 20px;
+  text-shadow: 1px 1px 2px black;
+  line-height: 30px;
 }
 
 .uploads li {
@@ -167,14 +189,28 @@ div.main.drop {
   padding: 0 20px;
   position: relative;
 }
-.uploads li:nth-child(2n) {
+.uploads li:nth-child(2n),
+.downloads li:nth-child(2n) {
   background-color: rgba(0,0,0,0.2);
 }
-.uploads .filename {
+.uploads .filename,
+.downloads li {
   font-size: 20px;
   line-height: 50px;
   text-align: left;
 }
+.downloads a {
+    line-height: 25px;
+    height: 18px;
+    color: white;
+}
+
+.downloads li {
+    height: 40px;
+    padding: 0 20px;
+    position: relative;
+}
+
 .uploads .progress {
   height: 20px;
   border: 0px solid white;
