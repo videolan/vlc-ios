@@ -207,7 +207,7 @@
 				<integer>1</integer>
 			</dict>
 			<key>Translucent</key>
-			<false/>
+			<true/>
 		</dict>
 	</dict>
 	<key>UISupportedInterfaceOrientations</key>

@@ -660,7 +660,7 @@ static NSString *kDisplayedFirstSteps = @"Did we display the first steps tutoria
 - (UIEdgeInsets)collectionView:(UICollectionView *)collectionView layout:(UICollectionViewLayout *)collectionViewLayout insetForSectionAtIndex:(NSInteger)section
 {
     if (SYSTEM_RUNS_IOS7_OR_LATER)
-        return UIEdgeInsetsMake(0., 0., 0., 0.);
+        return UIEdgeInsetsZero;
     return UIEdgeInsetsMake(0.0, 34.0, 0.0, 34.0);
 }
 
