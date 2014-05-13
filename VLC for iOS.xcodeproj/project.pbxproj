@@ -7,6 +7,8 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		265D511C1922746C00E38383 /* VLCLocalPlexFolderListViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 265D51191922746C00E38383 /* VLCLocalPlexFolderListViewController.m */; };
+		265D511D1922746C00E38383 /* VLCPlexParser.m in Sources */ = {isa = PBXBuildFile; fileRef = 265D511B1922746C00E38383 /* VLCPlexParser.m */; };
 		29125E5617492219003F03E5 /* index.html in Resources */ = {isa = PBXBuildFile; fileRef = 29125E5417492219003F03E5 /* index.html */; };
 		2915540117490A1E00B86CAD /* DDData.m in Sources */ = {isa = PBXBuildFile; fileRef = 291553EB17490A1E00B86CAD /* DDData.m */; };
 		2915540217490A1E00B86CAD /* DDNumber.m in Sources */ = {isa = PBXBuildFile; fileRef = 291553ED17490A1E00B86CAD /* DDNumber.m */; };
@@ -405,6 +407,10 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		265D51181922746C00E38383 /* VLCLocalPlexFolderListViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = VLCLocalPlexFolderListViewController.h; path = Sources/VLCLocalPlexFolderListViewController.h; sourceTree = SOURCE_ROOT; };
+		265D51191922746C00E38383 /* VLCLocalPlexFolderListViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = VLCLocalPlexFolderListViewController.m; path = Sources/VLCLocalPlexFolderListViewController.m; sourceTree = SOURCE_ROOT; };
+		265D511A1922746C00E38383 /* VLCPlexParser.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = VLCPlexParser.h; path = Sources/VLCPlexParser.h; sourceTree = SOURCE_ROOT; };
+		265D511B1922746C00E38383 /* VLCPlexParser.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = VLCPlexParser.m; path = Sources/VLCPlexParser.m; sourceTree = SOURCE_ROOT; };
 		29125E5417492219003F03E5 /* index.html */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.html; path = index.html; sourceTree = "<group>"; };
 		291553EA17490A1E00B86CAD /* DDData.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DDData.h; sourceTree = "<group>"; };
 		291553EB17490A1E00B86CAD /* DDData.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DDData.m; sourceTree = "<group>"; };
@@ -1488,10 +1494,14 @@
 		7D31002117B676D500E6516D /* Local Network Connectivity */ = {
 			isa = PBXGroup;
 			children = (
+				265D511A1922746C00E38383 /* VLCPlexParser.h */,
+				265D511B1922746C00E38383 /* VLCPlexParser.m */,
 				7D30F3D1183AB2F100FFC021 /* VLCLocalNetworkListCell.h */,
 				7D30F3D2183AB2F100FFC021 /* VLCLocalNetworkListCell.m */,
 				7D30F3D3183AB2F100FFC021 /* VLCLocalServerFolderListViewController.h */,
 				7D30F3D4183AB2F100FFC021 /* VLCLocalServerFolderListViewController.m */,
+				265D51181922746C00E38383 /* VLCLocalPlexFolderListViewController.h */,
+				265D51191922746C00E38383 /* VLCLocalPlexFolderListViewController.m */,
 				7D30F3D5183AB2F100FFC021 /* VLCLocalServerListViewController.h */,
 				7D30F3D6183AB2F100FFC021 /* VLCLocalServerListViewController.m */,
 				7D30F3DA183AB2F900FFC021 /* VLCNetworkLoginViewController.h */,
@@ -2691,7 +2701,9 @@
 				7D30F3CA183AB27A00FFC021 /* VLCDownloadViewController.m in Sources */,
 				7D30F3CD183AB29300FFC021 /* VLCMenuTableViewController.m in Sources */,
 				7D30F3D0183AB2AC00FFC021 /* VLCMediaFileDiscoverer.m in Sources */,
+				265D511D1922746C00E38383 /* VLCPlexParser.m in Sources */,
 				7D30F3D7183AB2F100FFC021 /* VLCLocalNetworkListCell.m in Sources */,
+				265D511C1922746C00E38383 /* VLCLocalPlexFolderListViewController.m in Sources */,
 				7D30F3D8183AB2F100FFC021 /* VLCLocalServerFolderListViewController.m in Sources */,
 				7D30F3D9183AB2F100FFC021 /* VLCLocalServerListViewController.m in Sources */,
 				7D30F3DC183AB2F900FFC021 /* VLCNetworkLoginViewController.m in Sources */,

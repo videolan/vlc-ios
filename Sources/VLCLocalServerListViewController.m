@@ -18,6 +18,7 @@
 #import "UPnPManager.h"
 #import "VLCLocalNetworkListCell.h"
 #import "VLCLocalServerFolderListViewController.h"
+#import "VLCLocalPlexFolderListViewController.h"
 #import <QuartzCore/QuartzCore.h>
 #import "GHRevealViewController.h"
 #import "VLCNetworkLoginViewController.h"
@@ -304,9 +305,12 @@
             [self.navigationController pushViewController:targetViewController animated:YES];
         }
     } else if (section == 1) {
-        //target Plex servers here
-        APLog(@"Hello I'm a Plex Media Server, my name is %@ my adress is %@%@", [_PlexServicesInfo[row] objectForKey:@"name"], [_PlexServicesInfo[row] objectForKey:@"hostName"], [_PlexServicesInfo[row] objectForKey:@"port"]);
-   } else if (section == 2) {
+        NSString *name = [_PlexServicesInfo[row] objectForKey:@"name"];
+        NSString *hostName = [_PlexServicesInfo[row] objectForKey:@"hostName"];
+        NSString *portNum = [_PlexServicesInfo[row] objectForKey:@"port"];
+        VLCLocalPlexFolderListViewController *targetViewController = [[VLCLocalPlexFolderListViewController alloc] initWithPlexServer:name serverAddress:hostName portNumber:portNum atPath:@""];
+        [[self navigationController] pushViewController:targetViewController animated:YES];
+    } else if (section == 2) {
         UINavigationController *navCon = [[UINavigationController alloc] initWithRootViewController:_loginViewController];
         [navCon loadTheme];
         navCon.navigationBarHidden = NO;
@@ -328,7 +332,7 @@
         else
             _loginViewController.hostname = @"";
     } else if (section == 3) {
-        VLCAppDelegate* appDelegate = [UIApplication sharedApplication].delegate;
+        VLCAppDelegate *appDelegate = [UIApplication sharedApplication].delegate;
         [appDelegate openMovieFromURL:[[_sapDiscoverer.discoveredMedia mediaAtIndex:row] url]];
     }
 }
