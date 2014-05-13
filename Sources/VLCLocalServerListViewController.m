@@ -25,12 +25,17 @@
 #import "VLCPlaylistViewController.h"
 #import "Reachability.h"
 
+#define kPlexServiceType @"_plexmediasvr._tcp."
+
 @interface VLCLocalServerListViewController () <UITableViewDataSource, UITableViewDelegate, NSNetServiceBrowserDelegate, VLCNetworkLoginViewController, NSNetServiceDelegate, VLCMediaListDelegate, UPnPDBObserver>
 {
     UIBarButtonItem *_backToMenuButton;
     NSArray *_sectionHeaderTexts;
 
     NSNetServiceBrowser *_ftpNetServiceBrowser;
+    NSNetServiceBrowser *_PlexNetServiceBrowser;
+    NSMutableArray *_PlexServices;
+    NSMutableArray *_PlexServicesInfo;
     NSMutableArray *_rawNetServices;
     NSMutableArray *_ftpServices;
 
@@ -80,7 +85,7 @@
 /*    if (SYSTEM_RUNS_IOS7_OR_LATER)
         _sectionHeaderTexts = @[@"Universal Plug'n'Play (UPNP)", @"File Transfer Protocol (FTP)", @"Network Streams (SAP)"];
     else*/
-        _sectionHeaderTexts = @[@"Universal Plug'n'Play (UPNP)", @"File Transfer Protocol (FTP)"];
+        _sectionHeaderTexts = @[@"Universal Plug'n'Play (UPNP)", @"Plex Media Server (via Bonjour)", @"File Transfer Protocol (FTP)"];
 
     _backToMenuButton = [UIBarButtonItem themedRevealMenuButtonWithTarget:self andSelector:@selector(goBack:)];
     self.navigationItem.leftBarButtonItem = _backToMenuButton;
@@ -98,6 +103,11 @@
 
     _ftpNetServiceBrowser = [[NSNetServiceBrowser alloc] init];
     _ftpNetServiceBrowser.delegate = self;
+
+    _PlexServices = [[NSMutableArray alloc] init];
+    _PlexServicesInfo = [[NSMutableArray alloc] init];
+    _PlexNetServiceBrowser = [[NSNetServiceBrowser alloc] init];
+    _PlexNetServiceBrowser.delegate = self;
 
     _refreshControl = [[UIRefreshControl alloc] init];
     [_refreshControl addTarget:self action:@selector(handleRefresh) forControlEvents:UIControlEventValueChanged];
@@ -123,11 +133,13 @@
     [super viewWillDisappear:animated];
     [_activityIndicator stopAnimating];
     [_ftpNetServiceBrowser stop];
+    [_PlexNetServiceBrowser stop];
 }
 
 - (void)viewWillAppear:(BOOL)animated
 {
     [_ftpNetServiceBrowser searchForServicesOfType:@"_ftp._tcp." inDomain:@""];
+    [_PlexNetServiceBrowser searchForServicesOfType:kPlexServiceType inDomain:@""];
     [_activityIndicator stopAnimating];
     [super viewWillAppear:animated];
 
@@ -220,8 +232,10 @@
     if (section == 0)
         return _filteredUPNPDevices.count;
     else if (section == 1)
-        return _ftpServices.count;
+        return _PlexServices.count;
     else if (section == 2)
+        return _ftpServices.count;
+    else if (section == 3)
         return _sapDiscoverer.discoveredMedia.count;
 
     return 0;
@@ -256,13 +270,16 @@
         }
         [cell setIcon:icon != nil ? icon : [UIImage imageNamed:@"serverIcon"]];
     } else if (section == 1) {
+        [cell setTitle:[_PlexServices[row] name]];
+        [cell setIcon:[UIImage imageNamed:@"serverIcon"]];
+    } else if (section == 2) {
         if (row == 0)
             [cell setTitle:_ftpServices[row]];
         else {
             [cell setTitle:[_ftpServices[row] name]];
             [cell setIcon:[UIImage imageNamed:@"serverIcon"]];
         }
-    } else if (section == 2)
+    } else if (section == 3)
         [cell setTitle:[[_sapDiscoverer.discoveredMedia mediaAtIndex:row] metadataForKey: VLCMetaInformationTitle]];
 
     return cell;
@@ -287,6 +304,9 @@
             [self.navigationController pushViewController:targetViewController animated:YES];
         }
     } else if (section == 1) {
+        //target Plex servers here
+        APLog(@"Hello I'm a Plex Media Server, my name is %@ my adress is %@%@", [_PlexServicesInfo[row] objectForKey:@"name"], [_PlexServicesInfo[row] objectForKey:@"hostName"], [_PlexServicesInfo[row] objectForKey:@"port"]);
+   } else if (section == 2) {
         UINavigationController *navCon = [[UINavigationController alloc] initWithRootViewController:_loginViewController];
         [navCon loadTheme];
         navCon.navigationBarHidden = NO;
@@ -307,7 +327,7 @@
             _loginViewController.hostname = [_ftpServices[row] hostName];
         else
             _loginViewController.hostname = @"";
-    } else if (section == 2) {
+    } else if (section == 3) {
         VLCAppDelegate* appDelegate = [UIApplication sharedApplication].delegate;
         [appDelegate openMovieFromURL:[[_sapDiscoverer.discoveredMedia mediaAtIndex:row] url]];
     }
@@ -410,6 +430,10 @@
         [_rawNetServices removeObject:aNetService];
     if ([aNetService.type isEqualToString:@"_ftp._tcp."])
         [_ftpServices removeObject:aNetService];
+    if ([aNetService.type isEqualToString:kPlexServiceType]) {
+        [_PlexServices removeObject:aNetService];
+        [_PlexServicesInfo removeAllObjects];
+    }
     if (!moreComing)
         [self.tableView reloadData];
 }
@@ -419,6 +443,16 @@
     if ([aNetService.type isEqualToString:@"_ftp._tcp."]) {
         if (![_ftpServices containsObject:aNetService])
             [_ftpServices addObject:aNetService];
+    } else if ([aNetService.type isEqualToString:kPlexServiceType]) {
+        if (![_PlexServices containsObject:aNetService]) {
+            [_PlexServices addObject:aNetService];
+            NSMutableDictionary *_dictService = [[NSMutableDictionary alloc] init];
+            [_dictService setObject:[aNetService name] forKey:@"name"];
+            [_dictService setObject:[aNetService hostName] forKey:@"hostName"];
+            NSString *portStr = [[NSString alloc] initWithFormat:@":%ld", (long)[aNetService port]];
+            [_dictService setObject:portStr forKey:@"port"];
+            [_PlexServicesInfo addObject:_dictService];
+        }
     }
     [_rawNetServices removeObject:aNetService];
     [self.tableView reloadData];
