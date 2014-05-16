@@ -9,6 +9,9 @@
 /* Begin PBXBuildFile section */
 		265D511C1922746C00E38383 /* VLCLocalPlexFolderListViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 265D51191922746C00E38383 /* VLCLocalPlexFolderListViewController.m */; };
 		265D511D1922746C00E38383 /* VLCPlexParser.m in Sources */ = {isa = PBXBuildFile; fileRef = 265D511B1922746C00E38383 /* VLCPlexParser.m */; };
+		26FAE63919240C2E00A43737 /* PlexServerIcon@1x.png in Resources */ = {isa = PBXBuildFile; fileRef = 26FAE63619240C2E00A43737 /* PlexServerIcon@1x.png */; };
+		26FAE63A19240C2E00A43737 /* PlexServerIcon@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 26FAE63719240C2E00A43737 /* PlexServerIcon@2x.png */; };
+		26FAE63B19240C2E00A43737 /* PlexServerIcon@4x.png in Resources */ = {isa = PBXBuildFile; fileRef = 26FAE63819240C2E00A43737 /* PlexServerIcon@4x.png */; };
 		29125E5617492219003F03E5 /* index.html in Resources */ = {isa = PBXBuildFile; fileRef = 29125E5417492219003F03E5 /* index.html */; };
 		2915540117490A1E00B86CAD /* DDData.m in Sources */ = {isa = PBXBuildFile; fileRef = 291553EB17490A1E00B86CAD /* DDData.m */; };
 		2915540217490A1E00B86CAD /* DDNumber.m in Sources */ = {isa = PBXBuildFile; fileRef = 291553ED17490A1E00B86CAD /* DDNumber.m */; };
@@ -411,6 +414,9 @@
 		265D51191922746C00E38383 /* VLCLocalPlexFolderListViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = VLCLocalPlexFolderListViewController.m; path = Sources/VLCLocalPlexFolderListViewController.m; sourceTree = SOURCE_ROOT; };
 		265D511A1922746C00E38383 /* VLCPlexParser.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = VLCPlexParser.h; path = Sources/VLCPlexParser.h; sourceTree = SOURCE_ROOT; };
 		265D511B1922746C00E38383 /* VLCPlexParser.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = VLCPlexParser.m; path = Sources/VLCPlexParser.m; sourceTree = SOURCE_ROOT; };
+		26FAE63619240C2E00A43737 /* PlexServerIcon@1x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "PlexServerIcon@1x.png"; sourceTree = "<group>"; };
+		26FAE63719240C2E00A43737 /* PlexServerIcon@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "PlexServerIcon@2x.png"; sourceTree = "<group>"; };
+		26FAE63819240C2E00A43737 /* PlexServerIcon@4x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "PlexServerIcon@4x.png"; sourceTree = "<group>"; };
 		29125E5417492219003F03E5 /* index.html */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.html; path = index.html; sourceTree = "<group>"; };
 		291553EA17490A1E00B86CAD /* DDData.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DDData.h; sourceTree = "<group>"; };
 		291553EB17490A1E00B86CAD /* DDData.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DDData.m; sourceTree = "<group>"; };
@@ -2014,6 +2020,9 @@
 				7DA7C902186324FA00B56120 /* serverIcon@1x.png */,
 				7DA7C903186324FA00B56120 /* serverIcon@2x.png */,
 				7DA7C904186324FA00B56120 /* serverIcon@4x.png */,
+				26FAE63619240C2E00A43737 /* PlexServerIcon@1x.png */,
+				26FAE63719240C2E00A43737 /* PlexServerIcon@2x.png */,
+				26FAE63819240C2E00A43737 /* PlexServerIcon@4x.png */,
 				7D897878185DEFB5009BAB5D /* flatDeleteButton.png */,
 				7D897879185DEFB5009BAB5D /* flatDeleteButton@2x.png */,
 				7D0699C017CB1FAE00713BEB /* Settings@2x.png */,
@@ -2342,6 +2351,7 @@
 				7AC862A81765E9510011611A /* jquery.iframe-transport.js in Resources */,
 				7AC862A91765E9510011611A /* jquery.ui.widget.js in Resources */,
 				CC1BBC431704935E00A20CBF /* MediaLibrary.mom in Resources */,
+				26FAE63B19240C2E00A43737 /* PlexServerIcon@4x.png in Resources */,
 				7D2A34A51805CDBA004078AA /* gradient-cell-ios7@2x.png in Resources */,
 				7D66225F1871F29000CA9496 /* checkbox-legacy@2x.png in Resources */,
 				7D897884185E00C3009BAB5D /* checkboxEmpty.png in Resources */,
@@ -2407,6 +2417,7 @@
 				7DE18629175BA9A5006C0173 /* badgeUnread@2x~ipad.png in Resources */,
 				7DE1862C175BA9A9006C0173 /* badgeUnread@2x~iphone.png in Resources */,
 				7DE1862F175BA9AC006C0173 /* badgeUnread~ipad.png in Resources */,
+				26FAE63919240C2E00A43737 /* PlexServerIcon@1x.png in Resources */,
 				7DBBF19B183AB4300009A339 /* VLCCloudStorageTableViewCell~iphone.xib in Resources */,
 				7DE18632175BA9AF006C0173 /* badgeUnread~iphone.png in Resources */,
 				7D47D6F91760CD8700E86BAD /* subtitleIcon.png in Resources */,
@@ -2480,6 +2491,7 @@
 				7D1AC3041762996100BD2EB5 /* resetIcon.png in Resources */,
 				7D63C1CD187767AF00BD5256 /* fsarrow-subtitles.png in Resources */,
 				7D1AC3051762996100BD2EB5 /* resetIcon@2x.png in Resources */,
+				26FAE63A19240C2E00A43737 /* PlexServerIcon@2x.png in Resources */,
 				7D53D526187729EC00A1BA97 /* cloud@2x.png in Resources */,
 				7D1AC30817629AB600BD2EB5 /* ratioIcon.png in Resources */,
 				7D63C1CC187767AF00BD5256 /* fsarrow-speed@2x.png in Resources */,

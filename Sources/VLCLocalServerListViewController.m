@@ -272,7 +272,7 @@
         [cell setIcon:icon != nil ? icon : [UIImage imageNamed:@"serverIcon"]];
     } else if (section == 1) {
         [cell setTitle:[_PlexServices[row] name]];
-        [cell setIcon:[UIImage imageNamed:@"serverIcon"]];
+        [cell setIcon:[UIImage imageNamed:@"PlexServerIcon"]];
     } else if (section == 2) {
         if (row == 0)
             [cell setTitle:_ftpServices[row]];
