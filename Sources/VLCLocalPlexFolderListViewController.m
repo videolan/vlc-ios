@@ -25,6 +25,7 @@
     UIBarButtonItem *_backButton;
 
     NSMutableArray *_mutableObjectList;
+    NSMutableDictionary *_imageCache;
 
     NSString *_PlexServerName;
     NSString *_PlexServerAddress;
@@ -61,6 +62,7 @@
         _PlexServerPath = path;
 
         _mutableObjectList = [[NSMutableArray alloc] init];
+        _imageCache = [[NSMutableDictionary alloc] init];
 
         _PlexParser = [[VLCPlexParser alloc] init];
     }
@@ -132,7 +134,7 @@
 {
     static NSString *CellIdentifier = @"PlexCellDetail";
 
-    VLCLocalNetworkListCell *cell = (VLCLocalNetworkListCell *)[[self tableView] dequeueReusableCellWithIdentifier:CellIdentifier];
+    VLCLocalNetworkListCell *cell = (VLCLocalNetworkListCell *)[tableView dequeueReusableCellWithIdentifier:CellIdentifier];
 
     if (cell == nil)
         cell = [VLCLocalNetworkListCell cellWithReuseIdentifier:CellIdentifier];
@@ -146,10 +148,18 @@
         [ObjList addObjectsFromArray:_mutableObjectList];
 
     [cell setTitle:[[ObjList objectAtIndex:indexPath.row] objectForKey:@"title"]];
+    [cell setIcon:[UIImage imageNamed:@"blank"]];
 
     NSString *thumbPath = [[ObjList objectAtIndex:indexPath.row] objectForKey:@"thumb"];
-    if (thumbPath)
-        [cell setIconURL:[NSURL URLWithString:thumbPath]];
+    if (thumbPath) {
+        dispatch_queue_t queue = dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_HIGH, 0ul);
+        dispatch_async(queue, ^{
+            UIImage *img = [self getCachedImage:thumbPath];
+            dispatch_async(dispatch_get_main_queue(), ^{
+                [cell setIcon:img];
+            });
+        });
+    }
 
     if ([[[ObjList objectAtIndex:indexPath.row] objectForKey:@"container"] isEqualToString:@"item"]) {
         UISwipeGestureRecognizer *swipeRight = [[UISwipeGestureRecognizer alloc] initWithTarget:self action:@selector(swipeRightGestureAction:)];
@@ -159,15 +169,31 @@
         NSString *mediaSize = [NSByteCountFormatter stringFromByteCount:size countStyle:NSByteCountFormatterCountStyleFile];
         NSString *durationInSeconds = [[ObjList objectAtIndex:indexPath.row] objectForKey:@"duration"];
         [cell setIsDirectory:NO];
-        [cell setIcon:[UIImage imageNamed:@"blank"]];
         [cell setSubtitle:[NSString stringWithFormat:@"%@ (%@)", mediaSize, durationInSeconds]];
         [cell setIsDownloadable:YES];
         [cell setDelegate:self];
     } else {
         [cell setIsDirectory:YES];
+        if (!thumbPath)
         [cell setIcon:[UIImage imageNamed:@"folder"]];
     }
     return cell;
+}
+
+- (UIImage *)getCachedImage:(NSString*)url
+{
+    if (_imageCache.count > 50)
+        [_imageCache removeAllObjects];
+
+    UIImage *image = [_imageCache objectForKey:url];
+    if ((image != nil) && [image isKindOfClass:[UIImage class]]) {
+        return image;
+    } else {
+        NSData *imageData = [[NSData alloc] initWithContentsOfURL:[NSURL URLWithString:url]];
+        image = [[UIImage alloc] initWithData:imageData];
+        [_imageCache setObject:image forKey:url];
+        return image;
+    }
 }
 
 #pragma mark - Table view delegate
