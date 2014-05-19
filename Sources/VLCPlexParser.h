@@ -13,5 +13,6 @@
 @interface VLCPlexParser : NSObject
 
 - (NSMutableArray *)PlexMediaServerParser:(NSString *)adress port:(NSString *)port navigationPath:(NSString *)navPath;
+- (NSInteger)MarkWatchedUnwatchedMedia:(NSString *)adress port:(NSString *)port videoRatingKey:(NSString *)ratingKey state:(NSString *)state;
 
 @end

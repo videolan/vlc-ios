@@ -65,6 +65,12 @@
         [_dicoInfo setObject:@"item" forKey:@"container"];
         [_dicoInfo setObject:[attributeDict objectForKey:@"key"] forKey:@"key"];
         [_dicoInfo setObject:[attributeDict objectForKey:@"title"] forKey:@"title"];
+        [_dicoInfo setObject:[attributeDict objectForKey:@"ratingKey"] forKey:@"ratingKey"];
+        if([attributeDict objectForKey:@"viewCount"])
+            [_dicoInfo setObject:@"watched" forKey:@"state"];
+        else
+            [_dicoInfo setObject:@"unwatched" forKey:@"state"];
+
     } else if([elementName isEqualToString:@"Part"]) {
         [_dicoInfo setObject:[NSString stringWithFormat:@"%@%@",_PlexMediaServerUrl, [attributeDict objectForKey:@"key"]] forKey:@"keyMedia"];
         if([attributeDict objectForKey:@"file"])
@@ -92,6 +98,28 @@
         [_containerInfo addObject:_dicoInfo];
         _dicoInfo = [[NSMutableDictionary alloc] init];
     }
+}
+
+- (NSInteger)MarkWatchedUnwatchedMedia:(NSString *)adress port:(NSString *)port videoRatingKey:(NSString *)ratingKey state:(NSString *)state
+{
+    NSString *url = nil;
+
+    if ([state isEqualToString:@"watched"])
+        url = [NSString stringWithFormat:@"http://%@%@/:/unscrobble?identifier=com.plexapp.plugins.library&key=%@", adress, port, ratingKey];
+    else
+        url = [NSString stringWithFormat:@"http://%@%@/:/scrobble?identifier=com.plexapp.plugins.library&key=%@", adress, port, ratingKey];
+
+    NSURLRequest *request = [[NSURLRequest alloc] initWithURL:[NSURL URLWithString:url] cachePolicy:NSURLRequestReloadIgnoringLocalAndRemoteCacheData timeoutInterval:20];
+    NSURLResponse *response = nil;
+    NSError *error = nil;
+    [NSURLConnection sendSynchronousRequest:request returningResponse:&response error:&error];
+
+    NSInteger httpStatus = [(NSHTTPURLResponse *)response statusCode];
+
+    if (httpStatus != 200)
+        APLog(@"Mark Watched Unwatched Media Error status: %ld at URL : %@", (long)httpStatus, url);
+
+    return httpStatus;
 }
 
 - (NSString *)timeFormatted:(int)mSeconds

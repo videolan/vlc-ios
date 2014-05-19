@@ -145,6 +145,9 @@
         [cell setIconURL:[NSURL URLWithString:thumbPath]];
 
     if ([[[ObjList objectAtIndex:indexPath.row] objectForKey:@"container"] isEqualToString:@"item"]) {
+        UISwipeGestureRecognizer *swipeRight = [[UISwipeGestureRecognizer alloc] initWithTarget:self action:@selector(swipeRightGestureAction:)];
+        [swipeRight setDirection:(UISwipeGestureRecognizerDirectionRight)];
+        [cell addGestureRecognizer:swipeRight];
         NSInteger size = [[[ObjList objectAtIndex:indexPath.row] objectForKey:@"size"] integerValue];
         NSString *mediaSize = [NSByteCountFormatter stringFromByteCount:size countStyle:NSByteCountFormatterCountStyleFile];
         NSString *durationInSeconds = [[ObjList objectAtIndex:indexPath.row] objectForKey:@"duration"];
@@ -240,6 +243,40 @@
     }
     [receivedSub writeToFile:FileSubtitlePath atomically:YES encoding:NSUTF8StringEncoding error:nil];
     return FileSubtitlePath;
+}
+
+- (void)swipeRightGestureAction:(UIGestureRecognizer *)recognizer
+{
+    NSIndexPath *swipedIndexPath = [self.tableView indexPathForRowAtPoint:[recognizer locationInView:self.tableView]];
+    UITableViewCell *swipedCell = [self.tableView cellForRowAtIndexPath:swipedIndexPath];
+
+    VLCLocalNetworkListCell *cell = (VLCLocalNetworkListCell *)[[self tableView] cellForRowAtIndexPath:swipedIndexPath];
+
+    NSMutableArray *ObjList = [[NSMutableArray alloc] init];
+    [ObjList removeAllObjects];
+
+    [ObjList addObject:_mutableObjectList[[self.tableView indexPathForCell:swipedCell].row]];
+
+    NSString *ratingKey = [[ObjList objectAtIndex:0] objectForKey:@"ratingKey"];
+    NSString *tag = [[ObjList objectAtIndex:0] objectForKey:@"state"];
+    NSString *cellStatusLbl = nil;
+
+    NSInteger status = [_PlexParser MarkWatchedUnwatchedMedia:_PlexServerAddress port:_PlexServerPort videoRatingKey:ratingKey state:tag];
+
+    if (status == 200) {
+        if ([tag isEqualToString:@"watched"]) {
+            tag = @"unwatched";
+            cellStatusLbl = NSLocalizedString(@"PLEX_UNWATCHED", @"");
+        } else if ([tag isEqualToString:@"unwatched"]) {
+            tag = @"watched";
+            cellStatusLbl = NSLocalizedString(@"PLEX_WATCHED", @"");
+        }
+    } else
+        cellStatusLbl = NSLocalizedString(@"PLEX_ERROR_MARK", @"");
+
+    [cell.statusLabel showStatusMessage:cellStatusLbl];
+
+    [[_mutableObjectList objectAtIndex:[self.tableView indexPathForCell:swipedCell].row] setObject:tag forKey:@"state"];
 }
 
 #pragma mark - VLCLocalNetworkListCell delegation
