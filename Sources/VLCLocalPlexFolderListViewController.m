@@ -35,6 +35,7 @@
     NSMutableArray *_searchData;
     UISearchBar *_searchBar;
     UISearchDisplayController *_searchDisplayController;
+    UIRefreshControl *refreshControl;
 }
 @end
 
@@ -93,6 +94,12 @@
         _searchDisplayController.searchBar.searchBarStyle = UIBarStyleBlack;
     _searchBar.delegate = self;
     self.tableView.tableHeaderView = _searchBar;
+
+    // Active le Pull down to refresh
+    refreshControl = [[UIRefreshControl alloc] init];
+    // Call the refresh function
+    [refreshControl addTarget:self action:@selector(handleRefresh) forControlEvents:UIControlEventValueChanged];
+    [self.tableView addSubview:refreshControl];
 
     _searchData = [[NSMutableArray alloc] init];
     [_searchData removeAllObjects];
@@ -279,6 +286,13 @@
     [[_mutableObjectList objectAtIndex:[self.tableView indexPathForCell:swipedCell].row] setObject:tag forKey:@"state"];
 }
 
+- (void)reloadTableViewPlex
+{
+    [_mutableObjectList removeAllObjects];
+    _mutableObjectList = [_PlexParser PlexMediaServerParser:_PlexServerAddress port:_PlexServerPort navigationPath:_PlexServerPath];
+    [self.tableView reloadData];
+}
+
 #pragma mark - VLCLocalNetworkListCell delegation
 
 - (void)triggerDownloadForCell:(VLCLocalNetworkListCell *)cell
@@ -325,6 +339,22 @@
         tableView.rowHeight = 68.0f;
 
     tableView.backgroundColor = [UIColor blackColor];
+}
+
+#pragma mark - Refresh
+
+-(void)handleRefresh
+{
+    //set the title while refreshing
+    refreshControl.attributedTitle = [[NSAttributedString alloc] initWithString:@"Refresh"];
+    //set the date and time of refreshing
+    NSDateFormatter *formattedDate = [[NSDateFormatter alloc] init];
+    [formattedDate setDateFormat:@"MMM d, h:mm a"];
+    NSString *lastupdated = [NSString stringWithFormat:@"Last Updated on %@", [formattedDate stringFromDate:[NSDate date]]];
+    refreshControl.attributedTitle = [[NSAttributedString alloc] initWithString:lastupdated];
+    //end the refreshing
+    [refreshControl endRefreshing];
+    [self performSelector:@selector(reloadTableViewPlex) withObject:nil];
 }
 
 @end
