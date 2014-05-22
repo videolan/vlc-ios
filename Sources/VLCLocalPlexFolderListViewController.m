@@ -25,7 +25,7 @@
     UIBarButtonItem *_backButton;
 
     NSMutableArray *_mutableObjectList;
-    NSMutableDictionary *_imageCache;
+    NSCache *_imageCache;
 
     NSString *_PlexServerName;
     NSString *_PlexServerAddress;
@@ -62,7 +62,8 @@
         _PlexServerPath = path;
 
         _mutableObjectList = [[NSMutableArray alloc] init];
-        _imageCache = [[NSMutableDictionary alloc] init];
+        _imageCache = [[NSCache alloc] init];
+        [_imageCache setCountLimit:50];
 
         _PlexParser = [[VLCPlexParser alloc] init];
     }
@@ -152,11 +153,14 @@
 
     NSString *thumbPath = [[ObjList objectAtIndex:indexPath.row] objectForKey:@"thumb"];
     if (thumbPath) {
-        dispatch_queue_t queue = dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_HIGH, 0ul);
+        dispatch_queue_t queue = dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_LOW, 0);
         dispatch_async(queue, ^{
             UIImage *img = [self getCachedImage:thumbPath];
             dispatch_async(dispatch_get_main_queue(), ^{
-                [cell setIcon:img];
+                if (!img)
+                    [cell setIcon:[UIImage imageNamed:@"blank"]];
+                else
+                    [cell setIcon:img];
             });
         });
     }
@@ -175,23 +179,22 @@
     } else {
         [cell setIsDirectory:YES];
         if (!thumbPath)
-        [cell setIcon:[UIImage imageNamed:@"folder"]];
+            [cell setIcon:[UIImage imageNamed:@"folder"]];
     }
     return cell;
 }
 
-- (UIImage *)getCachedImage:(NSString*)url
+- (UIImage *)getCachedImage:(NSString *)url
 {
-    if (_imageCache.count > 50)
-        [_imageCache removeAllObjects];
-
     UIImage *image = [_imageCache objectForKey:url];
     if ((image != nil) && [image isKindOfClass:[UIImage class]]) {
         return image;
     } else {
         NSData *imageData = [[NSData alloc] initWithContentsOfURL:[NSURL URLWithString:url]];
-        image = [[UIImage alloc] initWithData:imageData];
-        [_imageCache setObject:image forKey:url];
+        if (imageData) {
+            image = [[UIImage alloc] initWithData:imageData];
+            [_imageCache setObject:image forKey:url];
+        }
         return image;
     }
 }
