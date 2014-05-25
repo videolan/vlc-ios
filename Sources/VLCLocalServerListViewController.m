@@ -63,6 +63,7 @@
 {
     [_reachability stopNotifier];
     [_ftpNetServiceBrowser stop];
+    [_PlexNetServiceBrowser stop];
 }
 
 - (void)loadView
@@ -341,6 +342,10 @@
 
 -(void)handleRefresh
 {
+    if (_reachability.currentReachabilityStatus != ReachableViaWiFi) {
+        [_refreshControl endRefreshing];
+        return;
+    }
     UPnPManager *managerInstance = [UPnPManager GetInstance];
     [[managerInstance DB] removeObserver:self];
     [[managerInstance SSDP] stopSSDP];
