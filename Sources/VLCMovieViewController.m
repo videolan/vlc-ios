@@ -237,34 +237,32 @@
     _displayRemainingTime = [[defaults objectForKey:kVLCShowRemainingTime] boolValue];
     _swipeGesturesEnabled = [[defaults objectForKey:kVLCSettingPlaybackGestures] boolValue];
 
-    if (_swipeGesturesEnabled) {
-        _pinchRecognizer = [[UIPinchGestureRecognizer alloc] initWithTarget:self action:@selector(handlePinchGesture:)];
-        _pinchRecognizer.delegate = self;
-        [self.view addGestureRecognizer:_pinchRecognizer];
+    _pinchRecognizer = [[UIPinchGestureRecognizer alloc] initWithTarget:self action:@selector(handlePinchGesture:)];
+    _pinchRecognizer.delegate = self;
+    [self.view addGestureRecognizer:_pinchRecognizer];
 
-        _tapRecognizer = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(tapRecognized)];
-        [_tapRecognizer setNumberOfTouchesRequired:2];
-        _panRecognizer = [[UIPanGestureRecognizer alloc] initWithTarget:self action:@selector(panRecognized:)];
-        [_panRecognizer setMinimumNumberOfTouches:1];
-        [_panRecognizer setMaximumNumberOfTouches:1];
+    _tapRecognizer = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(tapRecognized)];
+    [_tapRecognizer setNumberOfTouchesRequired:2];
+    _panRecognizer = [[UIPanGestureRecognizer alloc] initWithTarget:self action:@selector(panRecognized:)];
+    [_panRecognizer setMinimumNumberOfTouches:1];
+    [_panRecognizer setMaximumNumberOfTouches:1];
 
-        _swipeRecognizerLeft = [[UISwipeGestureRecognizer alloc] initWithTarget:self action:@selector(swipeRecognized:)];
-        _swipeRecognizerLeft.direction = UISwipeGestureRecognizerDirectionLeft;
-        _swipeRecognizerRight = [[UISwipeGestureRecognizer alloc] initWithTarget:self action:@selector(swipeRecognized:)];
-        _swipeRecognizerRight.direction = UISwipeGestureRecognizerDirectionRight;
+    _swipeRecognizerLeft = [[UISwipeGestureRecognizer alloc] initWithTarget:self action:@selector(swipeRecognized:)];
+    _swipeRecognizerLeft.direction = UISwipeGestureRecognizerDirectionLeft;
+    _swipeRecognizerRight = [[UISwipeGestureRecognizer alloc] initWithTarget:self action:@selector(swipeRecognized:)];
+    _swipeRecognizerRight.direction = UISwipeGestureRecognizerDirectionRight;
 
-        [self.view addGestureRecognizer:_swipeRecognizerLeft];
-        [self.view addGestureRecognizer:_swipeRecognizerRight];
-        [self.view addGestureRecognizer:_panRecognizer];
-        [self.view addGestureRecognizer:_tapRecognizer];
-        [_panRecognizer requireGestureRecognizerToFail:_swipeRecognizerLeft];
-        [_panRecognizer requireGestureRecognizerToFail:_swipeRecognizerRight];
+    [self.view addGestureRecognizer:_swipeRecognizerLeft];
+    [self.view addGestureRecognizer:_swipeRecognizerRight];
+    [self.view addGestureRecognizer:_panRecognizer];
+    [self.view addGestureRecognizer:_tapRecognizer];
+    [_panRecognizer requireGestureRecognizerToFail:_swipeRecognizerLeft];
+    [_panRecognizer requireGestureRecognizerToFail:_swipeRecognizerRight];
 
-        _panRecognizer.delegate = self;
-        _swipeRecognizerRight.delegate = self;
-        _swipeRecognizerLeft.delegate = self;
-        _tapRecognizer.delegate = self;
-    }
+    _panRecognizer.delegate = self;
+    _swipeRecognizerRight.delegate = self;
+    _swipeRecognizerLeft.delegate = self;
+    _tapRecognizer.delegate = self;
 
     _aspectRatios = @[@"DEFAULT", @"FILL_TO_SCREEN", @"4:3", @"16:9", @"16:10", @"2.21:1"];
 
