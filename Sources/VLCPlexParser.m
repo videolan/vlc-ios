@@ -61,7 +61,7 @@
         [_dicoInfo setObject:@"directory" forKey:@"container"];
         [_dicoInfo setObject:[attributeDict objectForKey:@"key"] forKey:@"key"];
         [_dicoInfo setObject:[attributeDict objectForKey:@"title"] forKey:@"title"];
-    } else if([elementName isEqualToString:@"Video"]) {
+    } else if([elementName isEqualToString:@"Video"] || [elementName isEqualToString:@"Track"]) {
         [_dicoInfo setObject:@"item" forKey:@"container"];
         [_dicoInfo setObject:[attributeDict objectForKey:@"key"] forKey:@"key"];
         [_dicoInfo setObject:[attributeDict objectForKey:@"title"] forKey:@"title"];
@@ -87,14 +87,14 @@
         }
     }
 
-    if ([attributeDict objectForKey:@"thumb"] && ([elementName isEqualToString:@"Video"] || [elementName isEqualToString:@"Directory"] || [elementName isEqualToString:@"Part"]))
+    if ([attributeDict objectForKey:@"thumb"] && ([elementName isEqualToString:@"Video"] || [elementName isEqualToString:@"Directory"] || [elementName isEqualToString:@"Part"] || [elementName isEqualToString:@"Track"]))
         [_dicoInfo setObject:[NSString stringWithFormat:@"%@%@", _PlexMediaServerUrl, [attributeDict objectForKey:@"thumb"]] forKey:@"thumb"];
 
 }
 
 - (void)parser:(NSXMLParser *)parser didEndElement:(NSString *)elementName namespaceURI:(NSString *)namespaceURI qualifiedName:(NSString *)qName
 {
-    if(([elementName isEqualToString:@"Video"] || [elementName isEqualToString:@"Directory"] || [elementName isEqualToString:@"MediaContainer"]) && [_dicoInfo count] > 0) {
+    if(([elementName isEqualToString:@"Video"] || [elementName isEqualToString:@"Track"] || [elementName isEqualToString:@"Directory"] || [elementName isEqualToString:@"MediaContainer"]) && [_dicoInfo count] > 0) {
         [_containerInfo addObject:_dicoInfo];
         _dicoInfo = [[NSMutableDictionary alloc] init];
     }
