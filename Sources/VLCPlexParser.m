@@ -57,6 +57,8 @@
             [_dicoInfo setObject:[attributeDict objectForKey:@"friendlyName"] forKey:@"libTitle"];
         else if ([attributeDict objectForKey:@"title1"])
             [_dicoInfo setObject:[attributeDict objectForKey:@"title1"] forKey:@"libTitle"];
+        if ([attributeDict objectForKey:@"title2"])
+            [_dicoInfo setObject:[attributeDict objectForKey:@"title2"] forKey:@"libTitle"];
     } else if([elementName isEqualToString:@"Directory"]) {
         [_dicoInfo setObject:@"directory" forKey:@"container"];
         [_dicoInfo setObject:[attributeDict objectForKey:@"key"] forKey:@"key"];

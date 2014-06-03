@@ -84,7 +84,7 @@
     if ([_PlexServerPath isEqualToString:@""])
         titleValue = _PlexServerName;
     else
-        titleValue = [_PlexServerPath lastPathComponent];
+        titleValue = [_mutableObjectList[0] objectForKey:@"libTitle"];
 
     self.title = titleValue;
 
