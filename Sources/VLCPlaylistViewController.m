@@ -1097,7 +1097,7 @@ static NSString *kDisplayedFirstSteps = @"Did we display the first steps tutoria
     }
 
     NSString *itemName;
-    if (_usingTableViewToShowData)
+    if (!_usingTableViewToShowData)
         itemName = [(VLCPlaylistCollectionViewCell *)[self.collectionView cellForItemAtIndexPath:indexPaths[0]] titleLabel].text;
     else
         itemName = [(VLCPlaylistTableViewCell *)[self.tableView cellForRowAtIndexPath:indexPaths[0]] titleLabel].text;
