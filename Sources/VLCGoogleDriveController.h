@@ -15,7 +15,7 @@
 #import "GTMOAuth2ViewControllerTouch.h"
 #import "VLCGoogleDriveConstants.h"
 
-@protocol VLCGoogleDriveController
+@protocol VLCGoogleDriveController <NSObject>
 @required
 - (void)mediaListUpdated;
 
@@ -29,7 +29,7 @@
 
 @interface VLCGoogleDriveController : NSObject
 
-@property (nonatomic, retain) id delegate;
+@property (nonatomic, weak) id<VLCGoogleDriveController> delegate;
 @property (nonatomic, readonly) NSArray *currentListFiles;
 @property (nonatomic, readwrite) BOOL isAuthorized;
 @property (nonatomic, retain) GTLServiceDrive *driveService;

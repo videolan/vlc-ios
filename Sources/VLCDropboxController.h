@@ -12,7 +12,7 @@
 
 #import <DropboxSDK/DropboxSDK.h>
 
-@protocol VLCDropboxController
+@protocol VLCDropboxController <NSObject>
 @required
 - (void)mediaListUpdated;
 
@@ -27,7 +27,7 @@
 
 @interface VLCDropboxController : NSObject <DBRestClientDelegate, DBSessionDelegate, DBNetworkRequestDelegate>
 
-@property (nonatomic, retain) id delegate;
+@property (nonatomic, weak) id<VLCDropboxController> delegate;
 @property (nonatomic, readonly) NSArray *currentListFiles;
 @property (nonatomic, readonly) BOOL sessionIsLinked;
 @property (nonatomic, readonly) NSInteger numberOfFilesWaitingToBeDownloaded;
