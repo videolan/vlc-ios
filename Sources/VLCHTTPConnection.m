@@ -115,6 +115,10 @@
 
         NSMutableDictionary *replacementDict = [NSMutableDictionary new];
         [replacementDict setObject:fileList forKey:@"FILES"];
+        [replacementDict setObject:NSLocalizedString(@"WEBINTF_DROPFILES", nil) forKey:@"WEBINTF_DROPFILES"];
+        [replacementDict setObject:NSLocalizedString(@"WEBINTF_DROPFILES_LONG", nil) forKey:@"WEBINTF_DROPFILES_LONG"];
+        [replacementDict setObject:NSLocalizedString(@"WEBINTF_DOWNLOADFILES", nil) forKey:@"WEBINTF_DOWNLOADFILES"];
+        [replacementDict setObject:NSLocalizedString(@"WEBINTF_DOWNLOADFILES_LONG", nil) forKey:@"WEBINTF_DOWNLOADFILES_LONG"];
         return [[HTTPDynamicFileResponse alloc] initWithFilePath:[self filePathForURI:path]
                                                    forConnection:self
                                                        separator:@"%%"
