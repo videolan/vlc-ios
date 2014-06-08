@@ -17,7 +17,7 @@
 #import "VLCAppDelegate.h"
 #import "UIBarButtonItem+Theme.h"
 
-@interface VLCGoogleDriveTableViewController () <VLCCloudStorageTableViewCell>
+@interface VLCGoogleDriveTableViewController () <VLCCloudStorageTableViewCell, VLCGoogleDriveController>
 {
     GTLDriveFile *_selectedFile;
     GTMOAuth2ViewControllerTouch *_authController;

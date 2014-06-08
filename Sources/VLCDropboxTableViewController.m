@@ -23,7 +23,7 @@
 #import "UIBarButtonItem+Theme.h"
 #import <DropboxSDK/DropboxSDK.h>
 
-@interface VLCDropboxTableViewController () <VLCCloudStorageTableViewCell>
+@interface VLCDropboxTableViewController () <VLCCloudStorageTableViewCell, VLCDropboxController>
 {
     VLCDropboxController *_dropboxController;
     NSString *_currentPath;
