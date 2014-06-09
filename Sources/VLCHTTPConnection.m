@@ -113,6 +113,7 @@
         }
 
         NSDictionary *replacementDict = @{@"FILES" : fileList,
+                                          @"WEBINTF_TITLE" : NSLocalizedString(@"WEBINTF_TITLE", nil),
                                           @"WEBINTF_DROPFILES" : NSLocalizedString(@"WEBINTF_DROPFILES", nil),
                                           @"WEBINTF_DROPFILES_LONG" : NSLocalizedString(@"WEBINTF_DROPFILES_LONG", nil),
                                           @"WEBINTF_DOWNLOADFILES" : NSLocalizedString(@"WEBINTF_DOWNLOADFILES", nil),
@@ -123,7 +124,7 @@
                                                        separator:@"%%"
                                            replacementDictionary:replacementDict];
     } else if ([relativePath isEqualToString:@"/style.css"]) {
-        NSDictionary *replacementDict = @{@"HTTP_UPLOAD" : NSLocalizedString(@"HTTP_UPLOAD", nil)};
+        NSDictionary *replacementDict = @{@"WEBINTF_TITLE" : NSLocalizedString(@"WEBINTF_TITLE", nil)};
         return [[HTTPDynamicFileResponse alloc] initWithFilePath:[self filePathForURI:path]
                                                    forConnection:self
                                                        separator:@"%%"

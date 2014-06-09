@@ -61,7 +61,7 @@ div.main.drop {
 }
 
 .nav:before {
-  content: "%%HTTP_UPLOAD%%";
+  content: "%%WEBINTF_TITLE%%";
   font-family: "Raleway", "Helvetica Neue";
   font-size: 36px;
   line-height: 60px;
