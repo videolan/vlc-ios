@@ -21,6 +21,7 @@
 #import "MultipartMessageHeaderField.h"
 #import "VLCHTTPUploaderController.h"
 #import "HTTPDynamicFileResponse.h"
+#import "VLCThumbnailsCache.h"
 
 @interface VLCHTTPConnection()
 {
@@ -92,13 +93,30 @@
     if ([method isEqualToString:@"POST"] && [path isEqualToString:@"/upload.json"]) {
         return [[HTTPDataResponse alloc] initWithData:[@"\"OK\"" dataUsingEncoding:NSUTF8StringEncoding]];
     }
-    if ([method isEqualToString:@"GET"] && [path hasPrefix:@"/upload/"]) {
-        // let download the uploaded files
-        return [[HTTPFileResponse alloc] initWithFilePath: [[config documentRoot] stringByAppendingString:path] forConnection:self];
-    }
     if ([path hasPrefix:@"/download/"]) {
         NSString *filePath = [[path stringByReplacingOccurrencesOfString:@"/download/" withString:@""]stringByReplacingPercentEscapesUsingEncoding:NSUTF8StringEncoding];
         return [[HTTPFileResponse alloc] initWithFilePath:filePath forConnection:self];
+    }
+    if ([path hasPrefix:@"/thumbnail"]) {
+        NSString *filePath = [[path stringByReplacingOccurrencesOfString:@"/thumbnail/" withString:@""]stringByReplacingPercentEscapesUsingEncoding:NSUTF8StringEncoding];
+        filePath = [filePath stringByReplacingOccurrencesOfString:@".png" withString:@""];
+
+        NSManagedObjectContext *moc = [[MLMediaLibrary sharedMediaLibrary] managedObjectContext];
+        NSPersistentStoreCoordinator *psc = [moc persistentStoreCoordinator];
+        NSManagedObject *mo = [moc existingObjectWithID:[psc managedObjectIDForURIRepresentation:[NSURL URLWithString:filePath]] error:nil];
+
+        NSData *theData;
+        if ([mo isKindOfClass:[MLFile class]])
+            theData = UIImagePNGRepresentation([VLCThumbnailsCache thumbnailForMediaFile:(MLFile *)mo]);
+        else if ([mo isKindOfClass:[MLShow class]])
+            theData = UIImagePNGRepresentation([VLCThumbnailsCache thumbnailForShow:(MLShow *)mo]);
+        else if ([mo isKindOfClass:[MLLabel class]])
+            theData = UIImagePNGRepresentation([VLCThumbnailsCache thumbnailForLabel:(MLLabel *)mo]);
+        else if ([mo isKindOfClass:[MLAlbum class]])
+            theData = UIImagePNGRepresentation([VLCThumbnailsCache thumbnailForMediaFile:[[(MLAlbum *)mo tracks].anyObject files].anyObject]);
+
+        if (theData)
+            return [[HTTPDataResponse alloc] initWithData:theData];
     }
     NSString *filePath = [self filePathForURI:path];
     NSString *documentRoot = [config documentRoot];
@@ -108,7 +126,23 @@
         NSArray *allFiles = [MLFile allFiles];
         NSString *fileList = @"";
         for (MLFile *file in allFiles) {
-            NSString *fileHTML = [NSString stringWithFormat:@"<li><a href=\"download/%@\" download>%@</a></li>",[file.url stringByReplacingOccurrencesOfString:@"file://"withString:@""], file.title];
+            NSString *adaptedFileURL = [file.url stringByReplacingOccurrencesOfString:@"file://"withString:@""];
+            NSString *fileHTML = [NSString stringWithFormat:@"<li><a href=\"download/%@\" download>%@</a> — <a href=\"thumbnail/%@.png\">preview</a></li>", adaptedFileURL, file.title, file.objectID.URIRepresentation];
+            fileList = [fileList stringByAppendingString:fileHTML];
+        }
+        NSArray *allAlbums = [MLAlbum allAlbums];
+        for (MLAlbum *album in allAlbums) {
+            NSString *fileHTML = [NSString stringWithFormat:@"<li>%@ — <a href=\"thumbnail/%@.png\">preview</a></li>", album.name, album.objectID.URIRepresentation];
+            fileList = [fileList stringByAppendingString:fileHTML];
+        }
+        NSArray *allShows = [MLShow allShows];
+        for (MLShow *show in allShows) {
+            NSString *fileHTML = [NSString stringWithFormat:@"<li>%@ — <a href=\"thumbnail/%@.png\">preview</a></li>", show.name, show.objectID.URIRepresentation];
+            fileList = [fileList stringByAppendingString:fileHTML];
+        }
+        NSArray *allLabels = [MLLabel allLabels];
+        for (MLLabel *label in allLabels) {
+            NSString *fileHTML = [NSString stringWithFormat:@"<li>%@ — <a href=\"thumbnail/%@.png\">preview</a></li>", label.name, label.objectID.URIRepresentation];
             fileList = [fileList stringByAppendingString:fileHTML];
         }
 
