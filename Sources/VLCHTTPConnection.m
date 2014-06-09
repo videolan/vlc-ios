@@ -104,8 +104,7 @@
     NSString *documentRoot = [config documentRoot];
     NSString *relativePath = [filePath substringFromIndex:[documentRoot length]];
 
-    if ([relativePath isEqualToString:@"/index.html"])
-    {
+    if ([relativePath isEqualToString:@"/index.html"]) {
         NSArray *allFiles = [MLFile allFiles];
         NSString *fileList = @"";
         for (MLFile *file in allFiles) {
@@ -113,17 +112,24 @@
             fileList = [fileList stringByAppendingString:fileHTML];
         }
 
-        NSMutableDictionary *replacementDict = [NSMutableDictionary new];
-        [replacementDict setObject:fileList forKey:@"FILES"];
-        [replacementDict setObject:NSLocalizedString(@"WEBINTF_DROPFILES", nil) forKey:@"WEBINTF_DROPFILES"];
-        [replacementDict setObject:NSLocalizedString(@"WEBINTF_DROPFILES_LONG", nil) forKey:@"WEBINTF_DROPFILES_LONG"];
-        [replacementDict setObject:NSLocalizedString(@"WEBINTF_DOWNLOADFILES", nil) forKey:@"WEBINTF_DOWNLOADFILES"];
-        [replacementDict setObject:NSLocalizedString(@"WEBINTF_DOWNLOADFILES_LONG", nil) forKey:@"WEBINTF_DOWNLOADFILES_LONG"];
+        NSDictionary *replacementDict = @{@"FILES" : fileList,
+                                          @"WEBINTF_DROPFILES" : NSLocalizedString(@"WEBINTF_DROPFILES", nil),
+                                          @"WEBINTF_DROPFILES_LONG" : NSLocalizedString(@"WEBINTF_DROPFILES_LONG", nil),
+                                          @"WEBINTF_DOWNLOADFILES" : NSLocalizedString(@"WEBINTF_DOWNLOADFILES", nil),
+                                          @"WEBINTF_DOWNLOADFILES_LONG" : NSLocalizedString(@"WEBINTF_DOWNLOADFILES_LONG", nil)};
+
+        return [[HTTPDynamicFileResponse alloc] initWithFilePath:[self filePathForURI:path]
+                                                   forConnection:self
+                                                       separator:@"%%"
+                                           replacementDictionary:replacementDict];
+    } else if ([relativePath isEqualToString:@"/style.css"]) {
+        NSDictionary *replacementDict = @{@"HTTP_UPLOAD" : NSLocalizedString(@"HTTP_UPLOAD", nil)};
         return [[HTTPDynamicFileResponse alloc] initWithFilePath:[self filePathForURI:path]
                                                    forConnection:self
                                                        separator:@"%%"
                                            replacementDictionary:replacementDict];
     }
+
     return [super httpResponseForMethod:method URI:path];
 }
 
