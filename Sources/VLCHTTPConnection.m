@@ -95,7 +95,9 @@
     }
     if ([path hasPrefix:@"/download/"]) {
         NSString *filePath = [[path stringByReplacingOccurrencesOfString:@"/download/" withString:@""]stringByReplacingPercentEscapesUsingEncoding:NSUTF8StringEncoding];
-        return [[HTTPFileResponse alloc] initWithFilePath:filePath forConnection:self];
+        HTTPFileResponse *fileResponse = [[HTTPFileResponse alloc] initWithFilePath:filePath forConnection:self];
+        fileResponse.contentType = @"application/octet-stream";
+        return fileResponse;
     }
     if ([path hasPrefix:@"/thumbnail"]) {
         NSString *filePath = [[path stringByReplacingOccurrencesOfString:@"/thumbnail/" withString:@""]stringByReplacingPercentEscapesUsingEncoding:NSUTF8StringEncoding];
@@ -119,8 +121,11 @@
         else if ([mo isKindOfClass:[MLShowEpisode class]])
             theData = UIImagePNGRepresentation([VLCThumbnailsCache thumbnailForMediaFile:[(MLShowEpisode *)mo files].anyObject]);
 
-        if (theData)
-            return [[HTTPDataResponse alloc] initWithData:theData];
+        if (theData) {
+            HTTPDataResponse *dataResponse = [[HTTPDataResponse alloc] initWithData:theData];
+            dataResponse.contentType = @"image/png";
+            return dataResponse;
+        }
     }
     NSString *filePath = [self filePathForURI:path];
     NSString *documentRoot = [config documentRoot];
