@@ -114,6 +114,10 @@
             theData = UIImagePNGRepresentation([VLCThumbnailsCache thumbnailForLabel:(MLLabel *)mo]);
         else if ([mo isKindOfClass:[MLAlbum class]])
             theData = UIImagePNGRepresentation([VLCThumbnailsCache thumbnailForMediaFile:[[(MLAlbum *)mo tracks].anyObject files].anyObject]);
+        else if ([mo isKindOfClass:[MLAlbumTrack class]])
+            theData = UIImagePNGRepresentation([VLCThumbnailsCache thumbnailForMediaFile:[(MLAlbumTrack *)mo files].anyObject]);
+        else if ([mo isKindOfClass:[MLShowEpisode class]])
+            theData = UIImagePNGRepresentation([VLCThumbnailsCache thumbnailForMediaFile:[(MLShowEpisode *)mo files].anyObject]);
 
         if (theData)
             return [[HTTPDataResponse alloc] initWithData:theData];
@@ -123,30 +127,67 @@
     NSString *relativePath = [filePath substringFromIndex:[documentRoot length]];
 
     if ([relativePath isEqualToString:@"/index.html"]) {
-        NSArray *allFiles = [MLFile allFiles];
-        NSString *fileList = @"";
-        for (MLFile *file in allFiles) {
-            NSString *adaptedFileURL = [file.url stringByReplacingOccurrencesOfString:@"file://"withString:@""];
-            NSString *fileHTML = [NSString stringWithFormat:@"<li><a href=\"download/%@\" download>%@</a> — <a href=\"thumbnail/%@.png\">preview</a></li>", adaptedFileURL, file.title, file.objectID.URIRepresentation];
-            fileList = [fileList stringByAppendingString:fileHTML];
-        }
+        NSMutableArray *allMedia = [[NSMutableArray alloc] init];
+
+        /* add all albums */
         NSArray *allAlbums = [MLAlbum allAlbums];
         for (MLAlbum *album in allAlbums) {
-            NSString *fileHTML = [NSString stringWithFormat:@"<li>%@ — <a href=\"thumbnail/%@.png\">preview</a></li>", album.name, album.objectID.URIRepresentation];
-            fileList = [fileList stringByAppendingString:fileHTML];
-        }
-        NSArray *allShows = [MLShow allShows];
-        for (MLShow *show in allShows) {
-            NSString *fileHTML = [NSString stringWithFormat:@"<li>%@ — <a href=\"thumbnail/%@.png\">preview</a></li>", show.name, show.objectID.URIRepresentation];
-            fileList = [fileList stringByAppendingString:fileHTML];
-        }
-        NSArray *allLabels = [MLLabel allLabels];
-        for (MLLabel *label in allLabels) {
-            NSString *fileHTML = [NSString stringWithFormat:@"<li>%@ — <a href=\"thumbnail/%@.png\">preview</a></li>", label.name, label.objectID.URIRepresentation];
-            fileList = [fileList stringByAppendingString:fileHTML];
+            if (album.name.length > 0 && album.tracks.count > 1)
+                [allMedia addObject:album];
         }
 
-        NSDictionary *replacementDict = @{@"FILES" : fileList,
+        /* add all shows */
+        NSArray *allShows = [MLShow allShows];
+        for (MLShow *show in allShows) {
+            if (show.name.length > 0 && show.episodes.count > 1)
+                [allMedia addObject:show];
+        }
+
+        /* add all folders*/
+        NSArray *allFolders = [MLLabel allLabels];
+        for (MLLabel *folder in allFolders)
+            [allMedia addObject:folder];
+
+        /* add all remaining files */
+        NSArray *allFiles = [MLFile allFiles];
+        for (MLFile *file in allFiles) {
+            if (file.labels.count > 0) continue;
+
+            if (!file.isShowEpisode && !file.isAlbumTrack)
+                [allMedia addObject:file];
+            else if (file.isShowEpisode) {
+                if (file.showEpisode.show.episodes.count < 2)
+                    [allMedia addObject:file];
+            } else if (file.isAlbumTrack) {
+                if (file.albumTrack.album.tracks.count < 2)
+                    [allMedia addObject:file];
+            }
+        }
+
+        NSMutableArray *mediaInHtml = [[NSMutableArray alloc] initWithCapacity:allMedia.count];
+
+        for (NSManagedObject *mo in allMedia) {
+            if ([mo isKindOfClass:[MLFile class]])
+                [mediaInHtml addObject:[NSString stringWithFormat:@"<li><a href=\"download/%@\" download>%@</a> — <a href=\"thumbnail/%@.png\">preview</a></li>", [[(MLFile *)mo url] stringByReplacingOccurrencesOfString:@"file://"withString:@""], [(MLFile *)mo title], mo.objectID.URIRepresentation]];
+            else if ([mo isKindOfClass:[MLShow class]]) {
+                NSArray *episodes = [(MLShow *)mo sortedEpisodes];
+                [mediaInHtml addObject:[NSString stringWithFormat:@"<li>%@ — <a href=\"thumbnail/%@.png\">preview</a></li>", [(MLShow *)mo name], mo.objectID.URIRepresentation]];
+                for (MLShowEpisode *showEp in episodes)
+                    [mediaInHtml addObject:[NSString stringWithFormat:@"<lu><a href=\"download/%@\" download>%@</a> — <a href=\"thumbnail/%@.png\">preview</a></lu><br />", [[(MLFile *)[[showEp files] anyObject] url] stringByReplacingOccurrencesOfString:@"file://"withString:@""], showEp.name, showEp.objectID.URIRepresentation]];
+            } else if ([mo isKindOfClass:[MLLabel class]]) {
+                NSArray *folderItems = [(MLLabel *)mo sortedFolderItems];
+                [mediaInHtml addObject:[NSString stringWithFormat:@"<li>%@ — <a href=\"thumbnail/%@.png\">preview</a></li>", [(MLLabel *)mo name], mo.objectID.URIRepresentation]];
+                for (MLFile *file in folderItems)
+                    [mediaInHtml addObject:[NSString stringWithFormat:@"<lu><a href=\"download/%@\" download>%@</a> — <a href=\"thumbnail/%@.png\">preview</a></lu><br />", [[file url] stringByReplacingOccurrencesOfString:@"file://"withString:@""], file.title, file.objectID.URIRepresentation]];
+            } else if ([mo isKindOfClass:[MLAlbum class]]) {
+                NSArray *albumTracks = [(MLAlbum *)mo sortedTracks];
+                [mediaInHtml addObject:[NSString stringWithFormat:@"<li>%@ — <a href=\"thumbnail/%@.png\">preview</a></li>", [(MLAlbum *)mo name], mo.objectID.URIRepresentation]];
+                for (MLAlbumTrack *track in albumTracks)
+                    [mediaInHtml addObject:[NSString stringWithFormat:@"<lu><a href=\"download/%@\" download>%@</a> — <a href=\"thumbnail/%@.png\">preview</a></lu><br />", [[(MLFile *)[[track files] anyObject] url] stringByReplacingOccurrencesOfString:@"file://"withString:@""], track.title, track.objectID.URIRepresentation]];
+            }
+        }
+
+        NSDictionary *replacementDict = @{@"FILES" : [mediaInHtml componentsJoinedByString:@" "],
                                           @"WEBINTF_TITLE" : NSLocalizedString(@"WEBINTF_TITLE", nil),
                                           @"WEBINTF_DROPFILES" : NSLocalizedString(@"WEBINTF_DROPFILES", nil),
                                           @"WEBINTF_DROPFILES_LONG" : NSLocalizedString(@"WEBINTF_DROPFILES_LONG", nil),

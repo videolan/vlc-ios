@@ -198,6 +198,9 @@ div.main.drop {
   font-size: 20px;
   line-height: 50px;
   text-align: left;
+  height: 40px;
+  padding: 0 20px;
+  position: relative;
 }
 .downloads a {
     line-height: 25px;
@@ -205,10 +208,13 @@ div.main.drop {
     color: white;
 }
 
-.downloads li {
-    height: 40px;
-    padding: 0 20px;
-    position: relative;
+.downloads lu {
+  font-size: 16px;
+  line-height: 50px;
+  text-align: left;
+  height: 40px;
+  padding: 0 40px;
+  position: relative;
 }
 
 .uploads .progress {
