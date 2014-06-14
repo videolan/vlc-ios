@@ -45,6 +45,11 @@
     [[NSNotificationCenter defaultCenter] removeObserver:self];
 }
 
+- (void)willShow
+{
+    [self filterCloudStorageCellsWithAnimation:NO];
+}
+
 - (void)settingDidChange:(NSNotification*)notification
 {
     if ([notification.object isEqual:kVLCSettingPasscodeOnKey]) {
@@ -56,6 +61,18 @@
             [self.viewController presentViewController:passcodeLockController animated:YES completion:nil];
         }
     }
+}
+
+- (void) filterCloudStorageCellsWithAnimation:(BOOL)shouldAnimate
+{
+    NSMutableSet * hideKeys = [[NSMutableSet alloc] init];
+    if (![[DBSession sharedSession] isLinked]) {
+        [hideKeys addObject:@"UnlinkDropbox"];
+    }
+    if (![[VLCGoogleDriveController sharedInstance] isAuthorized]) {
+        [hideKeys addObject:@"UnlinkGoogleDrive"];
+    }
+    [self.viewController setHiddenKeys:hideKeys animated:shouldAnimate];
 }
 
 - (void)settingsViewControllerDidEnd:(IASKAppSettingsViewController*)sender
@@ -100,6 +117,7 @@
                               cancelButtonTitle:NSLocalizedString(@"BUTTON_DONE", @"")
                               otherButtonTitles:nil];
         [alert show];
+        [self filterCloudStorageCellsWithAnimation:YES];
         _currentUnlinkDialogTitle = nil;
         _currentCloudName = nil;
     }

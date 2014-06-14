@@ -16,4 +16,7 @@
 
 @property (nonatomic, retain) IASKAppSettingsViewController *viewController;
 
+// this should be called when the this view controller is about to become in focus
+- (void)willShow;
+
 @end

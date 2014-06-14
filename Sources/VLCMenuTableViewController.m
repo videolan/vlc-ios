@@ -337,6 +337,7 @@
             self.settingsViewController.showCreditsFooter = NO;
 
             viewController = self.settingsController.viewController;
+            [self.settingsController willShow];
         } else if (itemIndex == 1)
             viewController = [[VLCAboutViewController alloc] init];
     } else {
