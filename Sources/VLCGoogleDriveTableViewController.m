@@ -175,15 +175,6 @@
     self.navigationItem.leftBarButtonItem = ![_currentFolderId isEqualToString:@""] ? _backButton : _backToMenuButton;
 }
 
-#pragma mark - interface interaction
-
-- (BOOL)shouldAutorotateToInterfaceOrientation:(UIInterfaceOrientation)toInterfaceOrientation
-{
-    if (UI_USER_INTERFACE_IDIOM() == UIUserInterfaceIdiomPhone && toInterfaceOrientation == UIInterfaceOrientationPortraitUpsideDown)
-        return NO;
-    return YES;
-}
-
 - (IBAction)goBack:(id)sender
 {
     if (![_currentFolderId isEqualToString:@""] && [_currentFolderId length] > 0) {
