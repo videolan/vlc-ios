@@ -38,7 +38,7 @@
 			<key>Key</key>
 			<string>network-caching</string>
 			<key>DefaultValue</key>
-			<string>999</string>
+			<integer>999</integer>
 			<key>Titles</key>
 			<array>
 				<string>SETTINGS_NETWORK_CACHING_LEVEL_LOWEST</string>
