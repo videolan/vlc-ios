@@ -992,6 +992,11 @@
 		7DC87AEF17413634009DC250 /* de */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = de; path = de.lproj/Localizable.strings; sourceTree = "<group>"; };
 		7DC87AF017413A17009DC250 /* fr */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = fr; path = fr.lproj/Localizable.strings; sourceTree = "<group>"; };
 		7DD2A3A8179C04A6003EB537 /* OpenSans-Regular.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "OpenSans-Regular.ttf"; sourceTree = "<group>"; };
+		7DD32D22194F1946002510A9 /* zh-Hant */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = "zh-Hant"; path = "zh-Hant.lproj/Localizable.strings"; sourceTree = "<group>"; };
+		7DD32D23194F1946002510A9 /* zh-Hant */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "zh-Hant"; path = "zh-Hant.lproj/badgeUnread@2x~ipad.png"; sourceTree = "<group>"; };
+		7DD32D24194F1946002510A9 /* zh-Hant */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "zh-Hant"; path = "zh-Hant.lproj/badgeUnread@2x~iphone.png"; sourceTree = "<group>"; };
+		7DD32D25194F1946002510A9 /* zh-Hant */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "zh-Hant"; path = "zh-Hant.lproj/badgeUnread~ipad.png"; sourceTree = "<group>"; };
+		7DD32D26194F1946002510A9 /* zh-Hant */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "zh-Hant"; path = "zh-Hant.lproj/badgeUnread~iphone.png"; sourceTree = "<group>"; };
 		7DDD0428172D98E5005A7B10 /* CFNetwork.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CFNetwork.framework; path = System/Library/Frameworks/CFNetwork.framework; sourceTree = SDKROOT; };
 		7DE1862A175BA9A5006C0173 /* en */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = en; path = "en.lproj/badgeUnread@2x~ipad.png"; sourceTree = "<group>"; };
 		7DE1862D175BA9A9006C0173 /* en */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = en; path = "en.lproj/badgeUnread@2x~iphone.png"; sourceTree = "<group>"; };
@@ -2774,6 +2779,7 @@
 				7D168F6C18D49E74003FAF59 /* lv */,
 				7D3323FC18E61DD5000ABEA5 /* en-GB */,
 				7DB2486F18EA1D6D0097ADD2 /* ro */,
+				7DD32D23194F1946002510A9 /* zh-Hant */,
 			);
 			name = "badgeUnread@2x~ipad.png";
 			sourceTree = "<group>";
@@ -2818,6 +2824,7 @@
 				7D168F6D18D49E74003FAF59 /* lv */,
 				7D3323FD18E61DD5000ABEA5 /* en-GB */,
 				7DB2487018EA1D6D0097ADD2 /* ro */,
+				7DD32D24194F1946002510A9 /* zh-Hant */,
 			);
 			name = "badgeUnread@2x~iphone.png";
 			sourceTree = "<group>";
@@ -2862,6 +2869,7 @@
 				7D168F6E18D49E74003FAF59 /* lv */,
 				7D3323FE18E61DD5000ABEA5 /* en-GB */,
 				7DB2487118EA1D6E0097ADD2 /* ro */,
+				7DD32D25194F1946002510A9 /* zh-Hant */,
 			);
 			name = "badgeUnread~ipad.png";
 			sourceTree = "<group>";
@@ -2906,6 +2914,7 @@
 				7D168F6F18D49E74003FAF59 /* lv */,
 				7D3323FF18E61DD5000ABEA5 /* en-GB */,
 				7DB2487218EA1D6E0097ADD2 /* ro */,
+				7DD32D26194F1946002510A9 /* zh-Hant */,
 			);
 			name = "badgeUnread~iphone.png";
 			sourceTree = "<group>";
@@ -2950,6 +2959,7 @@
 				7D168F6B18D49E74003FAF59 /* lv */,
 				7D3323FB18E61DD5000ABEA5 /* en-GB */,
 				7DB2486E18EA1D6D0097ADD2 /* ro */,
+				7DD32D22194F1946002510A9 /* zh-Hant */,
 			);
 			name = Localizable.strings;
 			sourceTree = "<group>";
