@@ -93,7 +93,7 @@
 
     NSError *error = nil;
     if (![self.httpServer start:&error]) {
-        if (error.code == 13) {
+        if (error.code == EACCES) {
             APLog(@"Port forbidden by OS, trying another one");
             [self.httpServer setPort:8888];
             if(![self.httpServer start:&error])
@@ -101,14 +101,14 @@
         }
 
         /* Address already in Use, take a random one */
-        if (error.code == 48) {
+        if (error.code == EADDRINUSE) {
             APLog(@"Port already in use, trying another one");
             [self.httpServer setPort:0];
             if(![self.httpServer start:&error])
                 return true;
         }
 
-        if (error.code != 0) {
+        if (error) {
             APLog(@"Error starting HTTP Server: %@", error.localizedDescription);
             [self.httpServer stop];
         }
