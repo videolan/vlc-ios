@@ -12,6 +12,7 @@
  *****************************************************************************/
 
 #import "VLCHTTPFileDownloader.h"
+#import "NSString+SupportedMedia.h"
 #import "VLCAppDelegate.h"
 
 @interface VLCHTTPFileDownloader ()
@@ -21,6 +22,7 @@
     NSUInteger _receivedDataSize;
     NSString *_fileName;
     NSURLConnection *_urlConnection;
+    NSMutableURLRequest *_originalRequest;
     NSUInteger _statusCode;
 }
 
@@ -45,6 +47,7 @@
     _expectedDownloadSize = _receivedDataSize = 0;
     NSMutableURLRequest *theRequest = [NSMutableURLRequest requestWithURL:url];
     [theRequest addValue:[NSString stringWithFormat:@"Mozilla/5.0 (%@; CPU OS 7_0 like Mac OS X) AppleWebKit/537.51.1 (KHTML, like Gecko) Version/%@ Mobile/11A465 Safari/9537.53 VLC for iOS/%@", UI_USER_INTERFACE_IDIOM() == UIUserInterfaceIdiomPad ? @"iPad" : @"iPhone", [[UIDevice currentDevice] systemVersion], [[NSBundle mainBundle] objectForInfoDictionaryKey:@"CFBundleVersion"]] forHTTPHeaderField:@"User-Agent"];
+    _originalRequest = [theRequest mutableCopy];
     _urlConnection = [[NSURLConnection alloc] initWithRequest:theRequest delegate:self];
     if (!_urlConnection) {
         APLog(@"failed to establish connection");
@@ -56,7 +59,7 @@
     }
 }
 
-- (void)downloadFileFromURLwithFileName:(NSURL *)url fileNameOfMedia:(NSString*) fileName
+- (void)downloadFileFromURLwithFileName:(NSURL *)url fileNameOfMedia:(NSString*)fileName
 {
     NSArray *searchPaths = NSSearchPathForDirectoriesInDomains(NSCachesDirectory, NSUserDomainMask, YES);
     NSString *basePath = [searchPaths[0] stringByAppendingPathComponent:@"Upload"];
@@ -68,6 +71,7 @@
     _expectedDownloadSize = _receivedDataSize = 0;
     NSMutableURLRequest *theRequest = [NSMutableURLRequest requestWithURL:url];
     [theRequest addValue:[NSString stringWithFormat:@"Mozilla/5.0 (%@; CPU OS 7_0 like Mac OS X) AppleWebKit/537.51.1 (KHTML, like Gecko) Version/%@ Mobile/11A465 Safari/9537.53 VLC for iOS/%@", UI_USER_INTERFACE_IDIOM() == UIUserInterfaceIdiomPad ? @"iPad" : @"iPhone", [[UIDevice currentDevice] systemVersion], [[NSBundle mainBundle] objectForInfoDictionaryKey:@"CFBundleVersion"]] forHTTPHeaderField:@"User-Agent"];
+    _originalRequest = [theRequest mutableCopy];
     _urlConnection = [[NSURLConnection alloc] initWithRequest:theRequest delegate:self];
     if (!_urlConnection) {
         APLog(@"failed to establish connection");
@@ -79,13 +83,48 @@
     }
 }
 
--(void)connection:(NSURLConnection *)connection didReceiveResponse:(NSHTTPURLResponse *)response
+- (NSURLRequest *)connection:(NSURLConnection *)connection willSendRequest:(NSURLRequest *)request redirectResponse:(NSURLResponse *)redirectResponse
+{
+    if (redirectResponse) {
+        NSURL *URL = [request URL];
+
+        NSFileManager *fileManager = [NSFileManager defaultManager];
+
+        if ([fileManager fileExistsAtPath:_filePath])
+            [fileManager removeItemAtPath:_filePath error:nil];
+
+        NSArray *searchPaths = NSSearchPathForDirectoriesInDomains(NSCachesDirectory, NSUserDomainMask, YES);
+        NSString *basePath = [searchPaths[0] stringByAppendingPathComponent:@"Upload"];
+        _fileName = [URL lastPathComponent];
+        _filePath = [basePath stringByAppendingPathComponent:_fileName];
+        if (![fileManager fileExistsAtPath:basePath])
+            [fileManager createDirectoryAtPath:basePath withIntermediateDirectories:YES attributes:nil error:nil];
+
+        NSMutableURLRequest *newRequest = [_originalRequest mutableCopy];
+        [newRequest setURL:URL];
+        return newRequest;
+    } else
+        return request;
+}
+
+- (void)connection:(NSURLConnection *)connection didReceiveResponse:(NSHTTPURLResponse *)response
 {
     _statusCode = [response statusCode];
     if (_statusCode == 200) {
-        _expectedDownloadSize = [response expectedContentLength];
-        [self.delegate downloadStarted];
-        APLog(@"expected download size: %lu", (unsigned long)_expectedDownloadSize);
+        if (![[response suggestedFilename] isSupportedFormat]) {
+            UIAlertView *alert = [[UIAlertView alloc] initWithTitle:NSLocalizedString(@"FILE_NOT_SUPPORTED", @"") message:[NSString stringWithFormat:NSLocalizedString(@"FILE_NOT_SUPPORTED_LONG", @""), [response suggestedFilename]] delegate:self cancelButtonTitle:NSLocalizedString(@"BUTTON_CANCEL", @"") otherButtonTitles:nil];
+            [alert show];
+
+            [_urlConnection cancel];
+            NSFileManager *fileManager = [NSFileManager defaultManager];
+            if ([fileManager fileExistsAtPath:_filePath])
+                [fileManager removeItemAtPath:_filePath error:nil];
+            [self _downloadEnded];
+        } else {
+            _expectedDownloadSize = [response expectedContentLength];
+            [self.delegate downloadStarted];
+            APLog(@"expected download size: %lu", (unsigned long)_expectedDownloadSize);
+        }
     } else {
         APLog(@"unhandled status code %lu", (unsigned long)_statusCode);
         if ([self.delegate respondsToSelector:@selector(downloadFailedWithErrorDescription:)])
@@ -124,14 +163,14 @@
     [fileHandle closeFile];
 }
 
--(void)connectionDidFinishLoading:(NSURLConnection *)connection
+- (void)connectionDidFinishLoading:(NSURLConnection *)connection
 {
     APLog(@"http file download complete");
 
     [self _downloadEnded];
 }
 
--(void)connection:(NSURLConnection *)connection didFailWithError:(NSError *)error
+- (void)connection:(NSURLConnection *)connection didFailWithError:(NSError *)error
 {
     APLog(@"http file download failed (%li)", (long)error.code);
 
