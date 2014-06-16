@@ -54,7 +54,7 @@
 
 - (NSString *)pageTitle
 {
-    return NSLocalizedString(@"HTTP_UPLOAD", @"");
+    return NSLocalizedString(@"WEBINTF_TITLE", @"");
 }
 
 - (NSUInteger)page

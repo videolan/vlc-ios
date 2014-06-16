@@ -70,7 +70,7 @@
 
     _sectionHeaderTexts = @[@"SECTION_HEADER_LIBRARY", @"SECTION_HEADER_NETWORK", @"Settings"];
     _menuItemsSectionOne = @[@"LIBRARY_ALL_FILES", @"LIBRARY_MUSIC", @"LIBRARY_SERIES"];
-    _menuItemsSectionTwo = @[@"LOCAL_NETWORK", @"OPEN_NETWORK", @"DOWNLOAD_FROM_HTTP", @"WiFi Upload", @"Dropbox", @"Google Drive"];
+    _menuItemsSectionTwo = @[@"LOCAL_NETWORK", @"OPEN_NETWORK", @"DOWNLOAD_FROM_HTTP", @"WEBINTF_TITLE", @"Dropbox", @"Google Drive"];
     _menuItemsSectionThree = @[@"Settings", @"ABOUT_APP"];
 
     _tableView = [[UITableView alloc] initWithFrame:CGRectMake(0.0f, 44.0f + 20.0f, kGHRevealSidebarWidth, CGRectGetHeight(self.view.bounds) - (44.0f + 20.0f)) style:UITableViewStylePlain];
@@ -179,7 +179,7 @@
 
     UITableViewCell *cell;
 
-    if ([rawTitle isEqualToString:@"WiFi Upload"]) {
+    if ([rawTitle isEqualToString:@"WEBINTF_TITLE"]) {
         cell = (VLCWiFiUploadTableViewCell *)[tableView dequeueReusableCellWithIdentifier:WiFiCellIdentifier];
         if (cell == nil)
             cell = [VLCWiFiUploadTableViewCell cellWithReuseIdentifier:WiFiCellIdentifier];
@@ -209,7 +209,7 @@
         } else if ([rawTitle isEqualToString:@"Google Drive"]) {
             cell.textLabel.text = rawTitle;
             cell.imageView.image = [UIImage imageNamed:@"Drive"];
-        } else if ([rawTitle isEqualToString:@"WiFi Upload"]) {
+        } else if ([rawTitle isEqualToString:@"WEBINTF_TITLE"]) {
             _uploadLocationLabel = [(VLCWiFiUploadTableViewCell*)cell uploadAddressLabel];
             _uploadButton = [(VLCWiFiUploadTableViewCell*)cell serverOnButton];
             [_uploadButton addTarget:self action:@selector(toggleHTTPServer:) forControlEvents:UIControlEventTouchUpInside];
@@ -221,7 +221,7 @@
             cell.imageView.image = [UIImage imageNamed:@"menuCone"];
     }
 
-    if (!([rawTitle isEqualToString:@"Dropbox"] || [rawTitle isEqualToString:@"WiFi Upload"]))
+    if (!([rawTitle isEqualToString:@"Dropbox"] || [rawTitle isEqualToString:@"WEBINTF_TITLE"]))
         cell.textLabel.text = NSLocalizedString(rawTitle, @"");
 
     return cell;
