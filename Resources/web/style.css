@@ -201,11 +201,21 @@ div.main.drop {
   height: 40px;
   padding: 0 20px;
   position: relative;
+  margin: 10px auto;
 }
 .downloads a {
     line-height: 25px;
     height: 18px;
     color: white;
+}
+
+.downloads img {
+    width: 80px;
+    height: 45px;
+    -webkit-border-radius: 5px;
+    -moz-border-radius: 5px;
+    border-radius: 5px;
+    vertical-align:middle;
 }
 
 .downloads lu {
