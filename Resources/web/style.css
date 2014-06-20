@@ -190,11 +190,11 @@ div.main.drop {
   position: relative;
 }
 .uploads li:nth-child(2n),
-.downloads li:nth-child(2n) {
+.downloads li:nth-child(odd) {
   background-color: rgba(0,0,0,0.2);
 }
-.uploads .filename,
-.downloads li {
+
+.uploads .filename {
   font-size: 20px;
   line-height: 50px;
   text-align: left;
@@ -203,8 +203,30 @@ div.main.drop {
   position: relative;
   margin: 10px auto;
 }
+
+.downloads li {
+  font-size: 20px;
+  line-height: 50px;
+  text-align: left;
+  height: 100%;
+  width: 100%;
+  padding: 0 20px;
+  margin: 5px;
+}
+
+.downloads li:hover,
+.downloads lu:hover {
+  background-color: rgb(255, 132, 0);
+  background-image: -webkit-gradient(linear, left top, left bottom, from(rgb(255, 132, 0)), to(rgb(255, 100, 0)));
+  background-image: -webkit-linear-gradient(top, rgb(255, 132, 0), rgb(255, 100, 0));
+  background-image: -moz-linear-gradient(top, rgb(255, 132, 0), rgb(255, 100, 0));
+  background-image: -ms-linear-gradient(top, rgb(255, 132, 0), rgb(255, 100, 0));
+  background-image: -o-linear-gradient(top, rgb(255, 132, 0), rgb(255, 100, 0));
+  background-image: linear-gradient(top, rgb(255, 132, 0), rgb(255, 100, 0));
+}
+
 .downloads a {
-    line-height: 25px;
+    line-height: 50px;
     height: 18px;
     color: white;
 }
@@ -215,16 +237,27 @@ div.main.drop {
     -webkit-border-radius: 5px;
     -moz-border-radius: 5px;
     border-radius: 5px;
-    vertical-align:middle;
+    vertical-align: middle;
 }
 
 .downloads lu {
   font-size: 16px;
   line-height: 50px;
   text-align: left;
-  height: 40px;
+  height: 50px;
   padding: 0 40px;
   position: relative;
+  width: 100%;
+  float: left;
+}
+
+#menu ul li ul {
+ display:none;
+}
+
+#menu ul li:hover ul {
+ display:block;
+ background-color: rgb(42,42,42);
 }
 
 .uploads .progress {
