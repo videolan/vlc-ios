@@ -31,6 +31,7 @@
     _webView.clipsToBounds = YES;
     _webView.delegate = self;
     _webView.backgroundColor = [UIColor VLCDarkBackgroundColor];
+    _webView.scrollView.indicatorStyle = UIScrollViewIndicatorStyleWhite;
     self.view = _webView;
 }
 
