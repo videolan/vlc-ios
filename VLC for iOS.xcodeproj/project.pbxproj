@@ -318,8 +318,6 @@
 		7DADC55F1704FABF001DAC63 /* OBSlider.m in Sources */ = {isa = PBXBuildFile; fileRef = 7DADC55E1704FABF001DAC63 /* OBSlider.m */; };
 		7DB638AB185BC0890003887C /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 7DB638AA185BC0890003887C /* Images.xcassets */; };
 		7DBBF182183AB3B80009A339 /* VLCAppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 7DBBF181183AB3B80009A339 /* VLCAppDelegate.m */; };
-		7DBBF198183AB4300009A339 /* VLCAboutViewController~ipad.xib in Resources */ = {isa = PBXBuildFile; fileRef = 7DBBF183183AB4300009A339 /* VLCAboutViewController~ipad.xib */; };
-		7DBBF199183AB4300009A339 /* VLCAboutViewController~iphone.xib in Resources */ = {isa = PBXBuildFile; fileRef = 7DBBF184183AB4300009A339 /* VLCAboutViewController~iphone.xib */; };
 		7DBBF19A183AB4300009A339 /* VLCCloudStorageTableViewCell~ipad.xib in Resources */ = {isa = PBXBuildFile; fileRef = 7DBBF185183AB4300009A339 /* VLCCloudStorageTableViewCell~ipad.xib */; };
 		7DBBF19B183AB4300009A339 /* VLCCloudStorageTableViewCell~iphone.xib in Resources */ = {isa = PBXBuildFile; fileRef = 7DBBF186183AB4300009A339 /* VLCCloudStorageTableViewCell~iphone.xib */; };
 		7DBBF19C183AB4300009A339 /* VLCDownloadViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 7DBBF187183AB4300009A339 /* VLCDownloadViewController.xib */; };
@@ -952,8 +950,6 @@
 		7DB638AA185BC0890003887C /* Images.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; name = Images.xcassets; path = "vlc-ios/Images.xcassets"; sourceTree = "<group>"; };
 		7DBBF180183AB3B80009A339 /* VLCAppDelegate.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = VLCAppDelegate.h; path = Sources/VLCAppDelegate.h; sourceTree = SOURCE_ROOT; };
 		7DBBF181183AB3B80009A339 /* VLCAppDelegate.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = VLCAppDelegate.m; path = Sources/VLCAppDelegate.m; sourceTree = SOURCE_ROOT; };
-		7DBBF183183AB4300009A339 /* VLCAboutViewController~ipad.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; name = "VLCAboutViewController~ipad.xib"; path = "Resources/VLCAboutViewController~ipad.xib"; sourceTree = SOURCE_ROOT; };
-		7DBBF184183AB4300009A339 /* VLCAboutViewController~iphone.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; name = "VLCAboutViewController~iphone.xib"; path = "Resources/VLCAboutViewController~iphone.xib"; sourceTree = SOURCE_ROOT; };
 		7DBBF185183AB4300009A339 /* VLCCloudStorageTableViewCell~ipad.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; name = "VLCCloudStorageTableViewCell~ipad.xib"; path = "Resources/VLCCloudStorageTableViewCell~ipad.xib"; sourceTree = SOURCE_ROOT; };
 		7DBBF186183AB4300009A339 /* VLCCloudStorageTableViewCell~iphone.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; name = "VLCCloudStorageTableViewCell~iphone.xib"; path = "Resources/VLCCloudStorageTableViewCell~iphone.xib"; sourceTree = SOURCE_ROOT; };
 		7DBBF187183AB4300009A339 /* VLCDownloadViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; name = VLCDownloadViewController.xib; path = Resources/VLCDownloadViewController.xib; sourceTree = SOURCE_ROOT; };
@@ -1880,8 +1876,6 @@
 			isa = PBXGroup;
 			children = (
 				7DC19AF41868CDB800810BF7 /* First Steps */,
-				7DBBF183183AB4300009A339 /* VLCAboutViewController~ipad.xib */,
-				7DBBF184183AB4300009A339 /* VLCAboutViewController~iphone.xib */,
 				7DBBF185183AB4300009A339 /* VLCCloudStorageTableViewCell~ipad.xib */,
 				7DBBF186183AB4300009A339 /* VLCCloudStorageTableViewCell~iphone.xib */,
 				7DBBF187183AB4300009A339 /* VLCDownloadViewController.xib */,
@@ -2522,7 +2516,6 @@
 				7DEB3B7617649F2C0038FC70 /* menuButton@2x.png in Resources */,
 				7DEB3B791764A4040038FC70 /* input@2x.png in Resources */,
 				7DEB3B7A1764A4040038FC70 /* input.png in Resources */,
-				7DBBF198183AB4300009A339 /* VLCAboutViewController~ipad.xib in Resources */,
 				7DBBF1A6183AB4300009A339 /* VLCMovieViewController~iphone.xib in Resources */,
 				7D53D51D187729EC00A1BA97 /* sidebar.png in Resources */,
 				7D89787D185DF794009BAB5D /* VLCFutureOpenNetworkStreamViewController.xib in Resources */,
@@ -2550,7 +2543,6 @@
 				7D3E6CE518589EE000D584E7 /* AppIcon512x512.png in Resources */,
 				7D2A34A41805CDBA004078AA /* gradient-cell-ios7.png in Resources */,
 				7D63C1C9187767AF00BD5256 /* fsarrow-repeat.png in Resources */,
-				7DBBF199183AB4300009A339 /* VLCAboutViewController~iphone.xib in Resources */,
 				7DC72D5E17B7E7C7008A26D0 /* download@4x.png in Resources */,
 				7DC72D5F17B7E7C7008A26D0 /* download.png in Resources */,
 				7D897877185DEF79009BAB5D /* repeatOne@2x.png in Resources */,
