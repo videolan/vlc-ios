@@ -254,14 +254,8 @@
 
 - (NSString *)directoryPath
 {
-#define LOCAL_PLAYBACK_HACK 0
-#if LOCAL_PLAYBACK_HACK && TARGET_IPHONE_SIMULATOR
-    NSString *directoryPath = @"/Users/fkuehne/Desktop/VideoLAN docs/Clips/sel/";
-#else
     NSArray *searchPaths = NSSearchPathForDirectoriesInDomains(NSDocumentDirectory, NSUserDomainMask, YES);
     NSString *directoryPath = searchPaths[0];
-#endif
-
     return directoryPath;
 }
 
