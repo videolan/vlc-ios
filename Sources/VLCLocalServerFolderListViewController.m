@@ -62,7 +62,7 @@
 - (void)loadView
 {
     _tableView = [[UITableView alloc] initWithFrame:[UIScreen mainScreen].bounds style:UITableViewStylePlain];
-    _tableView.backgroundColor = [UIColor colorWithWhite:.122 alpha:1.];
+    _tableView.backgroundColor = [UIColor VLCDarkBackgroundColor];
     _tableView.delegate = self;
     _tableView.dataSource = self;
     _tableView.rowHeight = [VLCLocalNetworkListCell heightOfCell];
@@ -123,8 +123,8 @@
         [self _listFTPDirectory];
     }
 
-    self.tableView.separatorColor = [UIColor colorWithWhite:.122 alpha:1.];
-    self.view.backgroundColor = [UIColor colorWithWhite:.122 alpha:1.];
+    self.tableView.separatorColor = [UIColor VLCDarkBackgroundColor];
+    self.view.backgroundColor = [UIColor VLCDarkBackgroundColor];
 
     self.title = _listTitle;
 
@@ -255,7 +255,7 @@
 
 - (void)tableView:(UITableView *)tableView willDisplayCell:(VLCLocalNetworkListCell *)cell forRowAtIndexPath:(NSIndexPath *)indexPath
 {
-    UIColor *color = (indexPath.row % 2 == 0)? [UIColor blackColor]: [UIColor colorWithWhite:.122 alpha:1.];
+    UIColor *color = (indexPath.row % 2 == 0)? [UIColor blackColor]: [UIColor VLCDarkBackgroundColor];
     cell.contentView.backgroundColor = cell.titleLabel.backgroundColor = cell.folderTitleLabel.backgroundColor = cell.subtitleLabel.backgroundColor =  color;
 
     if (_serverType == kVLCServerTypeFTP)

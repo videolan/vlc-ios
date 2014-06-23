@@ -250,13 +250,13 @@
                           ];
             [headerView.layer insertSublayer:gradient atIndex:0];
         } else
-            headerView.backgroundColor = [UIColor colorWithWhite:.122 alpha:1.];
+            headerView.backgroundColor = [UIColor VLCDarkBackgroundColor];
 
         UILabel *textLabel = [[UILabel alloc] initWithFrame:CGRectInset(headerView.bounds, 12.0f, 5.0f)];
         textLabel.text = (NSString *) headerText;
         textLabel.font = [UIFont fontWithName:@"Helvetica-Bold" size:([UIFont systemFontSize] * 0.8f)];
         textLabel.shadowOffset = CGSizeMake(0.0f, 1.0f);
-        textLabel.shadowColor = [UIColor colorWithWhite:0.0f alpha:0.25f];
+        textLabel.shadowColor = [UIColor VLCDarkTextShadowColor];
         textLabel.textColor = [UIColor colorWithRed:(118.0f/255.0f) green:(118.0f/255.0f) blue:(118.0f/255.0f) alpha:1.0f];
         textLabel.backgroundColor = [UIColor clearColor];
         [headerView addSubview:textLabel];

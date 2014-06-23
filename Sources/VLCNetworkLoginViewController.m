@@ -65,7 +65,7 @@
     self.passwordField.clearButtonMode = UITextFieldViewModeWhileEditing;
 
     if (SYSTEM_RUNS_IOS7_OR_LATER) {
-        UIColor *color = [UIColor colorWithWhite:0.47 alpha:1.0];
+        UIColor *color = [UIColor VLCLightTextColor];
         self.serverAddressField.attributedPlaceholder = [[NSAttributedString alloc] initWithString:@"ftp://yourserver.local" attributes:@{NSForegroundColorAttributeName: color}];
         self.usernameField.attributedPlaceholder = [[NSAttributedString alloc] initWithString:NSLocalizedString(@"USER_LABEL", @"") attributes:@{NSForegroundColorAttributeName: color}];
         self.passwordField.attributedPlaceholder = [[NSAttributedString alloc] initWithString:NSLocalizedString(@"PASSWORD_LABEL", @"") attributes:@{NSForegroundColorAttributeName: color}];
@@ -190,7 +190,7 @@
     if (cell == nil) {
         cell = [[UITableViewCell alloc] initWithStyle:UITableViewCellStyleSubtitle reuseIdentifier:CellIdentifier];
         cell.textLabel.textColor = [UIColor whiteColor];
-        cell.detailTextLabel.textColor = [UIColor colorWithWhite:.72 alpha:1.];
+        cell.detailTextLabel.textColor = [UIColor VLCLightTextColor];
     }
 
     NSInteger row = indexPath.row;
@@ -204,7 +204,7 @@
 
 - (void)tableView:(UITableView *)tableView willDisplayCell:(UITableViewCell *)cell forRowAtIndexPath:(NSIndexPath *)indexPath
 {
-    cell.backgroundColor = (indexPath.row % 2 == 0)? [UIColor blackColor]: [UIColor colorWithWhite:.122 alpha:1.];
+    cell.backgroundColor = (indexPath.row % 2 == 0)? [UIColor blackColor]: [UIColor VLCDarkBackgroundColor];
 }
 
 - (BOOL)tableView:(UITableView *)tableView canEditRowAtIndexPath:(NSIndexPath *)indexPath

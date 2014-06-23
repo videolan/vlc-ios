@@ -72,7 +72,7 @@
     self.backgroundColor = [UIColor clearColor];
     CGContextClearRect(UIGraphicsGetCurrentContext(), rect);
 
-    UIColor *drawingColor = [UIColor colorWithWhite:.20 alpha:.7];
+    UIColor *drawingColor = [UIColor VLCDarkBackgroundColor];
     [drawingColor setFill];
 
     UIBezierPath* bezierPath = [UIBezierPath bezierPathWithRoundedRect:rect cornerRadius:rect.size.height / 2];

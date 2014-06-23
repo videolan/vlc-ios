@@ -30,7 +30,7 @@
 
         self.textLabel.font = [UIFont fontWithName:@"Helvetica" size:([UIFont systemFontSize] * 1.2f)];
         self.textLabel.shadowOffset = CGSizeMake(0.0f, 1.0f);
-        self.textLabel.shadowColor = [UIColor colorWithWhite:0.0f alpha:0.25f];
+        self.textLabel.shadowColor = [UIColor VLCDarkTextShadowColor];
         self.textLabel.textColor = [UIColor whiteColor];
         self.textLabel.adjustsFontSizeToFitWidth = YES;
         if ([self.textLabel respondsToSelector:@selector(setAdjustsLetterSpacingToFitWidth:)])

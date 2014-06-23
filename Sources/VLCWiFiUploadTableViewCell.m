@@ -28,7 +28,7 @@
 {
     self.titleLabel.text = NSLocalizedString(@"WEBINTF_TITLE", @"");
     self.titleLabel.shadowOffset = CGSizeMake(0.0f, 1.0f);
-    self.titleLabel.shadowColor = [UIColor colorWithWhite:0.0f alpha:0.25f];
+    self.titleLabel.shadowColor = [UIColor VLCDarkTextShadowColor];
     self.titleLabel.textColor = [UIColor whiteColor];
 
     self.clipsToBounds = YES;
@@ -36,7 +36,7 @@
     self.titleLabel.superview.backgroundColor = [UIColor colorWithRed:(43.0f/255.0f) green:(43.0f/255.0f) blue:(43.0f/255.0f) alpha:1.0f];
 
     self.uploadAddressLabel.shadowOffset = CGSizeMake(0.0f, 1.0f);
-    self.uploadAddressLabel.shadowColor = [UIColor colorWithWhite:0.0f alpha:0.25f];
+    self.uploadAddressLabel.shadowColor = [UIColor VLCDarkTextShadowColor];
     self.uploadAddressLabel.textColor = [UIColor whiteColor];
 
     UIView *topLine = [[UIView alloc] initWithFrame:CGRectMake(0.0f, 0.0f, [UIScreen mainScreen].bounds.size.height, 1.0f)];

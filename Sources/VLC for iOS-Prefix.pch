@@ -2,7 +2,7 @@
  * Prefix header for all source files of the 'vlc-ios' target
  * VLC for iOS
  *****************************************************************************
- * Copyright (c) 2013 VideoLAN. All rights reserved.
+ * Copyright (c) 2013-2014 VideoLAN. All rights reserved.
  * $Id$
  *
  * Authors: Felix Paul Kühne <fkuehne # videolan.org>
@@ -25,6 +25,7 @@
 #import <MediaLibraryKit/MediaLibraryKit.h>
 
 #import "VLCConstants.h"
+#import "UIColor+Presets.h"
 
 #define SYSTEM_VERSION_GREATER_THAN_OR_EQUAL_TO(v)  ([[[UIDevice currentDevice] systemVersion] compare:v options:NSNumericSearch] != NSOrderedAscending)
 

@@ -90,7 +90,7 @@
 
     self.window.rootViewController = self.revealController;
     // necessary to avoid navbar blinking in VLCOpenNetworkStreamViewController & VLCDownloadViewController
-    _revealController.contentViewController.view.backgroundColor = [UIColor colorWithWhite:.122 alpha:1.];
+    _revealController.contentViewController.view.backgroundColor = [UIColor VLCDarkBackgroundColor];
     [self.window makeKeyAndVisible];
 
     VLCMediaFileDiscoverer *discoverer = [VLCMediaFileDiscoverer sharedInstance];

@@ -85,9 +85,9 @@ static NSString *kDisplayedFirstSteps = @"Did we display the first steps tutoria
 
     if (_usingTableViewToShowData) {
         _tableView = [[UITableView alloc] initWithFrame:[UIScreen mainScreen].bounds style:UITableViewStylePlain];
-        _tableView.backgroundColor = [UIColor colorWithWhite:.122 alpha:1.];
+        _tableView.backgroundColor = [UIColor VLCDarkBackgroundColor];
         _tableView.rowHeight = [VLCPlaylistTableViewCell heightOfCell];
-        _tableView.separatorColor = [UIColor colorWithWhite:.122 alpha:1.];
+        _tableView.separatorColor = [UIColor VLCDarkBackgroundColor];
         _tableView.delegate = self;
         _tableView.dataSource = self;
         _tableView.opaque = YES;
@@ -100,7 +100,7 @@ static NSString *kDisplayedFirstSteps = @"Did we display the first steps tutoria
         _collectionView.delegate = self;
         _collectionView.dataSource = self;
         _collectionView.opaque = YES;
-        _collectionView.backgroundColor = [UIColor colorWithWhite:.122 alpha:1.];
+        _collectionView.backgroundColor = [UIColor VLCDarkBackgroundColor];
         self.view = _collectionView;
         _longPressGestureRecognizer = [[UILongPressGestureRecognizer alloc] initWithTarget:self action:@selector(_collectionViewHandleLongPressGesture:)];
         [_collectionView addGestureRecognizer:_longPressGestureRecognizer];
@@ -108,7 +108,7 @@ static NSString *kDisplayedFirstSteps = @"Did we display the first steps tutoria
             [_collectionView registerNib:[UINib nibWithNibName:@"VLCFuturePlaylistCollectionViewCell" bundle:nil] forCellWithReuseIdentifier:@"PlaylistCell"];
         else
             [_collectionView registerNib:[UINib nibWithNibName:@"VLCPlaylistCollectionViewCell" bundle:nil] forCellWithReuseIdentifier:@"PlaylistCell"];
-        self.view.backgroundColor = [UIColor colorWithWhite:.122 alpha:1.];
+        self.view.backgroundColor = [UIColor VLCDarkBackgroundColor];
     }
 
     _libraryMode = VLCLibraryModeAllFiles;
@@ -528,7 +528,7 @@ static NSString *kDisplayedFirstSteps = @"Did we display the first steps tutoria
 
 - (void)tableView:(UITableView *)tableView willDisplayCell:(UITableViewCell *)cell forRowAtIndexPath:(NSIndexPath *)indexPath
 {
-    cell.backgroundColor = (indexPath.row % 2 == 0)? [UIColor blackColor]: [UIColor colorWithWhite:.122 alpha:1.];
+    cell.backgroundColor = (indexPath.row % 2 == 0)? [UIColor blackColor]: [UIColor VLCDarkBackgroundColor];
     cell.multipleSelectionBackgroundView.backgroundColor = cell.backgroundColor;
 }
 
@@ -978,7 +978,7 @@ static NSString *kDisplayedFirstSteps = @"Did we display the first steps tutoria
                                      barMetrics:UIBarMetricsDefault];
         [editButton setBackgroundImage:[UIImage imageNamed:editImageHighlight]
                                        forState:UIControlStateHighlighted barMetrics:UIBarMetricsDefault];
-        [editButton setTitleTextAttributes: editing ? @{UITextAttributeTextShadowColor : [UIColor whiteColor], UITextAttributeTextColor : [UIColor blackColor]} : @{UITextAttributeTextShadowColor : [UIColor colorWithWhite:0. alpha:.37], UITextAttributeTextColor : [UIColor whiteColor]} forState:UIControlStateNormal];
+        [editButton setTitleTextAttributes: editing ? @{UITextAttributeTextShadowColor : [UIColor whiteColor], UITextAttributeTextColor : [UIColor blackColor]} : @{UITextAttributeTextShadowColor : [UIColor VLCDarkTextShadowColor], UITextAttributeTextColor : [UIColor whiteColor]} forState:UIControlStateNormal];
     }
 
     if (!_usingTableViewToShowData) {

@@ -69,7 +69,7 @@
 - (void)loadView
 {
     _tableView = [[UITableView alloc] initWithFrame:[UIScreen mainScreen].bounds style:UITableViewStylePlain];
-    _tableView.backgroundColor = [UIColor colorWithWhite:.122 alpha:1.];
+    _tableView.backgroundColor = [UIColor VLCDarkBackgroundColor];
     _tableView.delegate = self;
     _tableView.dataSource = self;
     self.view = _tableView;
@@ -93,8 +93,8 @@
     self.navigationItem.leftBarButtonItem = _backToMenuButton;
 
     self.tableView.rowHeight = [VLCLocalNetworkListCell heightOfCell];
-    self.tableView.separatorColor = [UIColor colorWithWhite:.122 alpha:1.];
-    self.view.backgroundColor = [UIColor colorWithWhite:.122 alpha:1.];
+    self.tableView.separatorColor = [UIColor VLCDarkBackgroundColor];
+    self.view.backgroundColor = [UIColor VLCDarkBackgroundColor];
 
     self.title = NSLocalizedString(@"LOCAL_NETWORK", @"");
 
@@ -245,7 +245,7 @@
 
 - (void)tableView:(UITableView *)tableView willDisplayCell:(VLCLocalNetworkListCell *)cell forRowAtIndexPath:(NSIndexPath *)indexPath
 {
-    UIColor *color = (indexPath.row % 2 == 0)? [UIColor blackColor]: [UIColor colorWithWhite:.122 alpha:1.];
+    UIColor *color = (indexPath.row % 2 == 0)? [UIColor blackColor]: [UIColor VLCDarkBackgroundColor];
     cell.contentView.backgroundColor = cell.titleLabel.backgroundColor = cell.folderTitleLabel.backgroundColor = cell.subtitleLabel.backgroundColor = color;
 }
 
@@ -401,13 +401,13 @@
                           ];
             [headerView.layer insertSublayer:gradient atIndex:0];
         } else
-            headerView.backgroundColor = [UIColor colorWithWhite:.122 alpha:1.];
+            headerView.backgroundColor = [UIColor VLCDarkBackgroundColor];
 
         UILabel *textLabel = [[UILabel alloc] initWithFrame:CGRectInset(headerView.bounds, 12.0f, 5.0f)];
         textLabel.text = (NSString *) headerText;
         textLabel.font = [UIFont fontWithName:@"Helvetica-Bold" size:([UIFont systemFontSize] * 0.8f)];
         textLabel.shadowOffset = CGSizeMake(0.0f, 1.0f);
-        textLabel.shadowColor = [UIColor colorWithWhite:0.0f alpha:0.25f];
+        textLabel.shadowColor = [UIColor VLCDarkTextShadowColor];
         textLabel.textColor = [UIColor colorWithRed:(118.0f/255.0f) green:(118.0f/255.0f) blue:(118.0f/255.0f) alpha:1.0f];
         textLabel.backgroundColor = [UIColor clearColor];
         [headerView addSubview:textLabel];

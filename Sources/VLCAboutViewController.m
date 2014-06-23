@@ -30,7 +30,7 @@
     _webView = [[UIWebView alloc] initWithFrame:[UIScreen mainScreen].bounds];
     _webView.clipsToBounds = YES;
     _webView.delegate = self;
-    _webView.backgroundColor = [UIColor colorWithWhite:.122 alpha:1.];
+    _webView.backgroundColor = [UIColor VLCDarkBackgroundColor];
     self.view = _webView;
 }
 
