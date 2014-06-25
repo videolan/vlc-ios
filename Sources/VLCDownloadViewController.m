@@ -58,6 +58,11 @@
 {
     [super viewDidLoad];
 
+    if (SYSTEM_RUNS_IOS7_OR_LATER) {
+        NSAttributedString *coloredAttributedPlaceholder = [[NSAttributedString alloc] initWithString:@"http://myserver.com/file.mkv" attributes:@{NSForegroundColorAttributeName: [UIColor VLCLightTextColor]}];
+        self.urlField.attributedPlaceholder = coloredAttributedPlaceholder;
+    }
+
     [self.downloadButton setTitle:NSLocalizedString(@"BUTTON_DOWNLOAD",@"") forState:UIControlStateNormal];
     self.navigationItem.leftBarButtonItem = [UIBarButtonItem themedRevealMenuButtonWithTarget:self andSelector:@selector(goBack:)];
     self.title = NSLocalizedString(@"DOWNLOAD_FROM_HTTP", @"");

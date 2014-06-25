@@ -54,8 +54,11 @@
     self.urlField.delegate = self;
     self.urlField.keyboardType = UIKeyboardTypeURL;
 
-    if (SYSTEM_RUNS_IOS7_OR_LATER)
+    if (SYSTEM_RUNS_IOS7_OR_LATER) {
+        NSAttributedString *coloredAttributedPlaceholder = [[NSAttributedString alloc] initWithString:@"http://myserver.com/file.mkv" attributes:@{NSForegroundColorAttributeName: [UIColor VLCLightTextColor]}];
+        self.urlField.attributedPlaceholder = coloredAttributedPlaceholder;
         self.edgesForExtendedLayout = UIRectEdgeNone;
+    }
 }
 
 - (void)viewWillAppear:(BOOL)animated
