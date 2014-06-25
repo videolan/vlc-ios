@@ -144,7 +144,9 @@
     if (cell == nil) {
         cell = [[UITableViewCell alloc] initWithStyle:UITableViewCellStyleSubtitle reuseIdentifier:CellIdentifier];
         cell.textLabel.textColor = [UIColor whiteColor];
+        cell.textLabel.highlightedTextColor = [UIColor blackColor];
         cell.detailTextLabel.textColor = [UIColor VLCLightTextColor];
+        cell.detailTextLabel.highlightedTextColor = [UIColor blackColor];
     }
 
     NSInteger row = indexPath.row;
