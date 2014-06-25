@@ -13,6 +13,8 @@
 
 #import "VLCLocalNetworkListCell.h"
 
+#import "VLCStatusLabel.h"
+
 @implementation VLCLocalNetworkListCell
 
 + (VLCLocalNetworkListCell *)cellWithReuseIdentifier:(NSString *)ident
@@ -31,6 +33,13 @@
     self.subtitleLabel.text = @"";
     self.thumbnailView.contentMode = UIViewContentModeScaleAspectFit;
     self.downloadButton.hidden = YES;
+
+    if (SYSTEM_RUNS_IOS7_OR_LATER) {
+        self.titleLabel.highlightedTextColor = [UIColor blackColor];
+        self.folderTitleLabel.highlightedTextColor = [UIColor blackColor];
+        self.subtitleLabel.highlightedTextColor = [UIColor blackColor];
+        self.statusLabel.highlightedTextColor = [UIColor blackColor];
+    }
 }
 
 - (void)setIsDirectory:(BOOL)isDirectory
