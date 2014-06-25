@@ -182,6 +182,39 @@
     [self.historyTableView deselectRowAtIndexPath:indexPath animated:NO];
 }
 
+- (void)tableView:(UITableView *)tableView
+    performAction:(SEL)action
+forRowAtIndexPath:(NSIndexPath *)indexPath
+       withSender:(id)sender
+{
+    NSString *actionText = NSStringFromSelector(action);
+
+    if ([actionText isEqualToString:@"copy:"])
+    {
+        [UIPasteboard generalPasteboard].string = _recentURLs[indexPath.row];
+    }
+}
+
+- (BOOL)tableView:(UITableView *)tableView
+ canPerformAction:(SEL)action
+forRowAtIndexPath:(NSIndexPath *)indexPath
+       withSender:(id)sender
+{
+    NSString *actionText = NSStringFromSelector(action);
+
+    if ([actionText isEqualToString:@"copy:"])
+    {
+        return YES;
+    }
+
+    return NO;
+}
+
+- (BOOL)tableView:(UITableView *)tableView shouldShowMenuForRowAtIndexPath:(NSIndexPath *)indexPath
+{
+    return YES;
+}
+
 #pragma mark - internals
 - (void)_openURLStringAndDismiss:(NSString *)url
 {
