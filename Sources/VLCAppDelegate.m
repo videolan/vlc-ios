@@ -61,6 +61,11 @@
 
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions
 {
+    // For UISearchBar as well
+    if (SYSTEM_RUNS_IOS7_OR_LATER) {
+        [[UITextField appearance] setKeyboardAppearance:UIKeyboardAppearanceDark];
+    }
+
     BWQuincyManager *quincyManager = [BWQuincyManager sharedQuincyManager];
     [quincyManager setSubmissionURL:@"http://crash.videolan.org/crash_v200.php"];
     [quincyManager setDelegate:self];
