@@ -36,10 +36,32 @@
     [defaults registerDefaults:appDefaults];
 }
 
+- (void)applicationDidBecomeActive:(NSNotification *)notification
+{
+    [self updatePasteboardTextInURLField];
+}
+
+- (void)dealloc
+{
+    [[NSNotificationCenter defaultCenter] removeObserver:self
+                                                    name:UIApplicationDidBecomeActiveNotification
+                                                  object:[UIApplication sharedApplication]];
+}
+
 - (void)viewDidLoad
 {
     [super viewDidLoad];
 
+    /*
+     * Observe changes to the pasteboard so we can automatically paste it into the URL field.
+     * Do not use UIPasteboardChangedNotification because we have copy actions that will trigger it on this screen.
+     * Instead when the user comes back to the application from the background (or the inactive state by pulling down notification center), update the URL field.
+     * Using the 'active' rather than 'foreground' notification for future proofing if iOS ever allows running multiple apps on the same screen (which would allow the pasteboard to be changed without truly backgrounding the app).
+     */
+    [[NSNotificationCenter defaultCenter] addObserver:self
+                                             selector:@selector(applicationDidBecomeActive:)
+                                                 name:UIApplicationDidBecomeActiveNotification
+                                               object:[UIApplication sharedApplication]];
     if (SYSTEM_RUNS_IOS7_OR_LATER)
         [self.openButton setTitle:NSLocalizedString(@"OPEN_NETWORK", @"") forState:UIControlStateNormal];
     else
@@ -59,9 +81,12 @@
         self.urlField.attributedPlaceholder = coloredAttributedPlaceholder;
         self.edgesForExtendedLayout = UIRectEdgeNone;
     }
+
+    // This will be called every time this VC is opened by the side menu controller
+    [self updatePasteboardTextInURLField];
 }
 
-- (void)viewWillAppear:(BOOL)animated
+- (void)updatePasteboardTextInURLField
 {
     if ([[UIPasteboard generalPasteboard] containsPasteboardTypes:@[@"public.url", @"public.text"]]) {
         NSURL *pasteURL = [[UIPasteboard generalPasteboard] valueForPasteboardType:@"public.url"];
@@ -73,7 +98,10 @@
         if (pasteURL && ![[pasteURL scheme] isEqualToString:@""] && ![[pasteURL absoluteString] isEqualToString:@""])
             self.urlField.text = [pasteURL absoluteString];
     }
+}
 
+- (void)viewWillAppear:(BOOL)animated
+{
     NSUserDefaults *defaults = [NSUserDefaults standardUserDefaults];
     _recentURLs = [NSMutableArray arrayWithArray:[defaults objectForKey:kVLCRecentURLs]];
     self.privateToggleSwitch.on = [defaults boolForKey:kVLCPrivateWebStreaming];
@@ -84,6 +112,10 @@
 
 - (void)viewWillDisappear:(BOOL)animated
 {
+    [[NSNotificationCenter defaultCenter] removeObserver:self
+                                                    name:UIApplicationDidBecomeActiveNotification
+                                                  object:[UIApplication sharedApplication]];
+
     NSUserDefaults *defaults = [NSUserDefaults standardUserDefaults];
     [defaults setObject:[NSArray arrayWithArray:_recentURLs] forKey:kVLCRecentURLs];
     [defaults setBool:self.privateToggleSwitch.on forKey:kVLCPrivateWebStreaming];
