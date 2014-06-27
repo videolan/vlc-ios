@@ -163,7 +163,6 @@
 		7D3784E4183A99D2009EE944 /* papasscode_marker@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 7D3784DE183A99D2009EE944 /* papasscode_marker@2x.png */; };
 		7D3784E7183A99E1009EE944 /* Reachability.m in Sources */ = {isa = PBXBuildFile; fileRef = 7D3784E6183A99E1009EE944 /* Reachability.m */; };
 		7D3784E9183A9A15009EE944 /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 7D3784E8183A9A15009EE944 /* main.m */; };
-		7D3784EC183A9A1E009EE944 /* VLC for iOS-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = 7D3784EA183A9A1E009EE944 /* VLC for iOS-Info.plist */; };
 		7D3E6CE518589EE000D584E7 /* AppIcon512x512.png in Resources */ = {isa = PBXBuildFile; fileRef = 7D3E6CE418589EE000D584E7 /* AppIcon512x512.png */; };
 		7D3EB014174A353E002062C2 /* SystemConfiguration.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 7D3EB013174A353E002062C2 /* SystemConfiguration.framework */; };
 		7D47D6F91760CD8700E86BAD /* subtitleIcon.png in Resources */ = {isa = PBXBuildFile; fileRef = 7D47D6CB1760CD8700E86BAD /* subtitleIcon.png */; };
@@ -2620,7 +2619,6 @@
 				7D53D517187729EC00A1BA97 /* wifi@2x.png in Resources */,
 				7D3784E3183A99D2009EE944 /* papasscode_marker.png in Resources */,
 				7D3784E4183A99D2009EE944 /* papasscode_marker@2x.png in Resources */,
-				7D3784EC183A9A1E009EE944 /* VLC for iOS-Info.plist in Resources */,
 				7D89786F185DED88009BAB5D /* VLCFutureDownloadViewController.xib in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
