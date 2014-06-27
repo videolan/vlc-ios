@@ -184,11 +184,17 @@
 
         if (downloadWasStarted) {
             if (!_backgroundTaskIdentifier || _backgroundTaskIdentifier == UIBackgroundTaskInvalid) {
-                _backgroundTaskIdentifier = [[UIApplication sharedApplication] beginBackgroundTaskWithName:@"VLCDownloader" expirationHandler:^{
+                dispatch_block_t expirationHandler = ^{
                     APLog(@"Downloads were interrupted after being in background too long, time remaining: %f", [[UIApplication sharedApplication] backgroundTimeRemaining]);
                     [[UIApplication sharedApplication] endBackgroundTask:_backgroundTaskIdentifier];
                     _backgroundTaskIdentifier = 0;
-                }];
+                };
+
+                if ([[UIApplication sharedApplication] respondsToSelector:@selector(beginBackgroundTaskWithName:expirationHandler:)]) {
+                    _backgroundTaskIdentifier = [[UIApplication sharedApplication] beginBackgroundTaskWithName:@"VLCDownloader" expirationHandler:expirationHandler];
+                } else {
+                    _backgroundTaskIdentifier = [[UIApplication sharedApplication] beginBackgroundTaskWithExpirationHandler:expirationHandler];
+                }
             }
         }
 
