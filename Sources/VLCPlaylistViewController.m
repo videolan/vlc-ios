@@ -26,6 +26,9 @@
 #import "VLCFolderCollectionViewFlowLayout.h"
 #import "LXReorderableCollectionViewFlowLayout.h"
 #import "VLCAlertView.h"
+#import "VLCOpenInActivity.h"
+
+#import <AssetsLibrary/AssetsLibrary.h>
 
 /* prefs keys */
 static NSString *kDisplayedFirstSteps = @"Did we display the first steps tutorial?";
@@ -63,6 +66,9 @@ static NSString *kDisplayedFirstSteps = @"Did we display the first steps tutoria
     UISearchDisplayController *_searchDisplayController;
 
     BOOL _usingTableViewToShowData;
+
+    UIBarButtonItem *_actionBarButtonItem;
+    VLCOpenInActivity *_openInActivity;
 }
 
 @property (nonatomic, strong) UITableView *tableView;
@@ -142,7 +148,26 @@ static NSString *kDisplayedFirstSteps = @"Did we display the first steps tutoria
     [_emptyLibraryView.emptyLibraryLongDescriptionLabel sizeToFit];
     [_emptyLibraryView.learnMoreButton setTitle:NSLocalizedString(@"BUTTON_LEARN_MORE", @"") forState:UIControlStateNormal];
     UIBarButtonItem *createFolderItem = [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemOrganize target:self action:@selector(createFolder)];
-    [self setToolbarItems:@[createFolderItem, [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemFlexibleSpace target:nil action:nil], [UIBarButtonItem themedDarkToolbarButtonWithTitle:NSLocalizedString(@"BUTTON_RENAME", @"") target:self andSelector:@selector(renameSelection)], [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemFlexibleSpace target:nil action:nil], [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemTrash target:self action:@selector(deleteSelection)]]];
+
+    // Better visual alignment with the action button
+    UIEdgeInsets insets = UIEdgeInsetsMake(4, 0, 0, 0);
+    if (UI_USER_INTERFACE_IDIOM() == UIUserInterfaceIdiomPhone) {
+        insets.top += 1;
+    }
+    createFolderItem.imageInsets = insets;
+
+    _actionBarButtonItem = [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemAction target:self action:@selector(actOnSelection:)];
+    _actionBarButtonItem.enabled = NO;
+
+    // If you find strange issues with multiple Edit/Cancel actions causing UIToolbar spacing corruption, use a flexible space instead of a fixed space.
+    UIBarButtonItem *fixedSpace = [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemFixedSpace target:nil action:nil];
+    fixedSpace.width = 20;
+
+    if (UI_USER_INTERFACE_IDIOM() == UIUserInterfaceIdiomPad) {
+        fixedSpace.width *= 2;
+    }
+
+    [self setToolbarItems:@[_actionBarButtonItem, fixedSpace, createFolderItem, [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemFlexibleSpace target:nil action:nil], [UIBarButtonItem themedDarkToolbarButtonWithTitle:NSLocalizedString(@"BUTTON_RENAME", @"") target:self andSelector:@selector(renameSelection)], [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemFlexibleSpace target:nil action:nil], [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemTrash target:self action:@selector(deleteSelection)]]];
     self.navigationController.toolbar.barStyle = UIBarStyleBlack;
 
     if (SYSTEM_RUNS_IOS7_OR_LATER) {
@@ -269,7 +294,7 @@ static NSString *kDisplayedFirstSteps = @"Did we display the first steps tutoria
 
         UIBarButtonItem *removeFromFolder = [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemReply target:self action:@selector(removeFromFolder)];
         NSMutableArray *toolbarItems = [self.toolbarItems mutableCopy];
-        toolbarItems[0] = removeFromFolder;
+        toolbarItems[2] = removeFromFolder;
         self.toolbarItems = toolbarItems;
 
         [self reloadViews];
@@ -467,10 +492,14 @@ static NSString *kDisplayedFirstSteps = @"Did we display the first steps tutoria
 
 - (void)reloadViews
 {
-    if (_usingTableViewToShowData)
+    // Since this gets can get called at any point and wipe away the selections, we update the actionBarButtonItem here because this can happen if you tap "Save Video" in the UIActivityController and a media access alert view takes away focus (the corresponding 'became active' notification of UIApplication will call this). Or simply try bringing down the notification center to trigger this. Any existing UIActivityViewController session should be safe as it would have copies of the selected file references.
+    if (_usingTableViewToShowData) {
         [self.tableView reloadData];
-    else
+        [self updateActionBarButtonItemStateWithSelectedIndexPaths:[self.tableView indexPathsForSelectedRows]];
+    } else {
         [self.collectionView reloadData];
+        [self updateActionBarButtonItemStateWithSelectedIndexPaths:[self.collectionView indexPathsForSelectedItems]];
+    }
 
     [self _displayEmptyLibraryViewIfNeeded];
 }
@@ -545,6 +574,13 @@ static NSString *kDisplayedFirstSteps = @"Did we display the first steps tutoria
         [self removeMediaObject: _foundMedia[indexPath.row] updateDatabase:YES];
 }
 
+- (void)tableView:(UITableView *)tableView didDeselectRowAtIndexPath:(NSIndexPath *)indexPath
+{
+    if (tableView.isEditing) {
+        [self updateActionBarButtonItemStateWithSelectedIndexPaths:[tableView indexPathsForSelectedRows]];
+    }
+}
+
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
 {
     if (tableView.isEditing) {
@@ -553,6 +589,8 @@ static NSString *kDisplayedFirstSteps = @"Did we display the first steps tutoria
             _libraryMode = _previousLibraryMode;
             [self updateViewContents];
             [self createFolderWithName:nil];
+        } else {
+            [self updateActionBarButtonItemStateWithSelectedIndexPaths:[tableView indexPathsForSelectedRows]];
         }
         return;
     }
@@ -687,6 +725,8 @@ static NSString *kDisplayedFirstSteps = @"Did we display the first steps tutoria
             _folderObject = _foundMedia[indexPath.item];
             [self createFolderWithName:nil];
              _libraryMode = _previousLibraryMode;
+        } else {
+            [self updateActionBarButtonItemStateWithSelectedIndexPaths:[collectionView indexPathsForSelectedItems]];
         }
         [(VLCPlaylistCollectionViewCell *)[collectionView cellForItemAtIndexPath:indexPath] selectionUpdate];
         return;
@@ -724,6 +764,10 @@ static NSString *kDisplayedFirstSteps = @"Did we display the first steps tutoria
 
 - (void)collectionView:(UICollectionView *)collectionView didDeselectItemAtIndexPath:(NSIndexPath *)indexPath
 {
+    if (self.editing) {
+        [self updateActionBarButtonItemStateWithSelectedIndexPaths:[collectionView indexPathsForSelectedItems]];
+    }
+
     [(VLCPlaylistCollectionViewCell *)[collectionView cellForItemAtIndexPath:indexPath] selectionUpdate];
 }
 
@@ -1049,7 +1093,7 @@ static NSString *kDisplayedFirstSteps = @"Did we display the first steps tutoria
     inFolder = NO;
     UIBarButtonItem *createFolderItem = [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemOrganize target:self action:@selector(createFolder)];
     NSMutableArray *toolbarItems = [self.toolbarItems mutableCopy];
-    toolbarItems[0] = createFolderItem;
+    toolbarItems[2] = createFolderItem;
     self.toolbarItems = toolbarItems;
     [self setLibraryMode:_libraryMode];
     [self updateViewContents];
@@ -1147,6 +1191,126 @@ static NSString *kDisplayedFirstSteps = @"Did we display the first steps tutoria
         [self renameSelection];
     else
         [self _endEditingWithHardReset:NO];
+}
+
+#pragma mark - Sharing
+
+// We take the array of index paths (instead of a count) to actually examine if the content is shareable. Selecting a single folder should not enable the share button.
+- (void)updateActionBarButtonItemStateWithSelectedIndexPaths:(NSArray *)indexPaths
+{
+    NSUInteger count = [indexPaths count];
+    if (!indexPaths || count == 0) {
+        _actionBarButtonItem.enabled = NO;
+    } else {
+        // Look for at least one MLFile
+        for (NSUInteger x = 0; x < count; x++) {
+            MLFile *file = _foundMedia[[indexPaths[x] row]];
+
+            if ([file isKindOfClass:[MLFile class]]) {
+                _actionBarButtonItem.enabled = YES;
+                return;
+            }
+        }
+    }
+}
+
+- (void)actOnSelection:(UIBarButtonItem *)barButtonItem
+{
+    NSParameterAssert(barButtonItem);
+    if (!barButtonItem) {
+        APLog(@"Missing a UIBarButtonItem to present from");
+        return;
+    }
+
+    NSArray *indexPaths;
+    if (!_usingTableViewToShowData)
+        indexPaths = [self.collectionView indexPathsForSelectedItems];
+    else
+        indexPaths = [self.tableView indexPathsForSelectedRows];
+
+
+    NSUInteger count = indexPaths.count;
+    if (count) {
+        NSMutableArray /* NSURL */ *fileURLobjects = [[NSMutableArray alloc] initWithCapacity:count];
+
+        for (NSUInteger x = 0; x < count; x++) {
+            MLFile *file = _foundMedia[[indexPaths[x] row]];
+
+            if ([file isKindOfClass:[MLFile class]]) {
+                NSURL *fileURL = [NSURL URLWithString:[file url]];
+                if ([fileURL isFileURL]) {
+                    [fileURLobjects addObject:fileURL];
+                }
+            }
+        }
+
+        if ([fileURLobjects count]) {
+            // Provide some basic user feedback as UIActivityController lags in presentation sometimes (blocking the main thread).
+            // iOS 6 has trouble re-enabling all the icons, so only disable the sharing one. Usage of the toolbar will be disabled by UIApplication in this case anyhow.
+            if (SYSTEM_RUNS_IOS7_OR_LATER) {
+                [self.navigationController.toolbar.items makeObjectsPerformSelector:@selector(setEnabled:) withObject:@(NO)];
+            } else {
+                _actionBarButtonItem.enabled = YES;
+            }
+
+            // Just in case, since we are facing a possible delay from code we do not control (UIActivityViewController), disable any possible changes to selection (or exit from this screen)
+            [[UIApplication sharedApplication] beginIgnoringInteractionEvents];
+
+            // The reason we do a dispatch_async to the main queue here even though we are already on the main queue is because UIActivityViewController blocks the main thread at some point (either during creation or presentation), which won't let UIKit draw our call to disable the toolbar items in time. On an actual device (where the lag can be seen when UIActivityViewController is presented for the first time during an applications lifetime) this makes for a much better user experience. If you have more items to share the lag may be greater.
+            dispatch_async(dispatch_get_main_queue(), ^{
+                _openInActivity = [[VLCOpenInActivity alloc] init];
+                _openInActivity.presentingViewController = self;
+                _openInActivity.presentingBarButtonItem = barButtonItem;
+
+                dispatch_block_t enableInteractionBlock = ^{
+                    if (SYSTEM_RUNS_IOS7_OR_LATER) {
+                        // Strangely makeObjectsPerformSelector:withObject has trouble here (when called from presentViewController:animated:completion:)
+                        // [self.navigationController.toolbar.items makeObjectsPerformSelector:@selector(setEnabled:) withObject:@(YES)];
+                        for (UIBarButtonItem *item in self.navigationController.toolbar.items) {
+                            item.enabled = YES;
+                        }
+                    } else {
+                        _actionBarButtonItem.enabled = YES;
+                    }
+
+                    if ([[UIApplication sharedApplication] isIgnoringInteractionEvents]) {
+                        [[UIApplication sharedApplication] endIgnoringInteractionEvents];
+                    }
+                };
+
+                UIActivityViewController *controller = [[UIActivityViewController alloc] initWithActivityItems:fileURLobjects applicationActivities:@[_openInActivity]];
+                controller.completionHandler = ^(NSString *activityType, BOOL completed) {
+                    APLog(@"UIActivityViewController finished with activity type: %@, completed: %i", activityType, completed);
+
+                    // Provide some feedback if saving media to the Camera Roll. Note that this could caus a false positive if the user chooses "Don't Allow" in the permissions dialog, and UIActivityViewController does not inform us of that, so check the authorization status.
+
+                    // By the time this is called, the user has not had time to choose whether to allow access to the Photos library, so only display the message if we are truly sure we got authorization. The first time the user saves to the camera roll he won't see the confirmation because of this timing issue. This is better than showing a success message when the user had denied access. A timing workaround could be developed if needed through UIApplicationDidBecomeActiveNotification (to know when the security alert view was dismissed) or through other ALAssets APIs.
+                    if (completed && [activityType isEqualToString:UIActivityTypeSaveToCameraRoll] && [ALAssetsLibrary authorizationStatus] == ALAuthorizationStatusAuthorized) {
+                        UIAlertView *alertView = [[UIAlertView alloc] initWithTitle:NSLocalizedString(@"SHARING_SUCCESS_CAMERA_ROLL", nil)
+                                                                            message:nil
+                                                                           delegate:nil
+                                                                  cancelButtonTitle:NSLocalizedString(@"BUTTON_OK", nil)
+                                                                  otherButtonTitles:nil];
+                        [alertView show];
+                    }
+                    _openInActivity = nil;
+
+                    // Just in case, we could call enableInteractionBlock here. Since we are disabling touch interaction for the entire UI, to be safe that we return to the proper state: re-enable everything (if presentViewController:animated:completion: failed for some reason). But UIApplication gives us a warning even if we check isIgnoringInteractionEvents, so do not call it for now.
+                    // enableInteractionBlock();
+                };
+
+                [self.navigationController presentViewController:controller animated:YES completion:enableInteractionBlock];
+            });
+            return;
+        }
+    }
+
+    UIAlertView *alertView = [[UIAlertView alloc] initWithTitle:NSLocalizedString(@"SHARING_ERROR_NO_FILES", nil)
+                                                        message:nil
+                                                       delegate:nil
+                                              cancelButtonTitle:NSLocalizedString(@"BUTTON_OK", nil)
+                                              otherButtonTitles:nil];
+    [alertView show];
 }
 
 #pragma mark - coin coin
