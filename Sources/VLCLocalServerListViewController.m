@@ -73,6 +73,7 @@
     _tableView.delegate = self;
     _tableView.dataSource = self;
     _tableView.indicatorStyle = UIScrollViewIndicatorStyleWhite;
+    _tableView.separatorStyle = UITableViewCellSeparatorStyleNone;
     self.view = _tableView;
     _activityIndicator = [[UIActivityIndicatorView alloc] initWithActivityIndicatorStyle:UIActivityIndicatorViewStyleWhiteLarge];
     _activityIndicator.center = _tableView.center;
