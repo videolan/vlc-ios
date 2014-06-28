@@ -24,8 +24,8 @@
 {
     [super viewDidLoad];
 
-    self.connectDescriptionLabel.text = [NSString stringWithFormat:NSLocalizedString(@"FIRST_STEPS_WIFI_CONNECT_DETAILS",@""), [[UIDevice currentDevice] model]];
-    self.uploadDescriptionLabel.text = NSLocalizedString(@"FIRST_STEPS_WIFI_UPLOAD_DETAILS", @"");
+    self.connectDescriptionLabel.text = [NSString stringWithFormat:NSLocalizedString(@"FIRST_STEPS_WIFI_CONNECT_DETAILS", nil), [[UIDevice currentDevice] model]];
+    self.uploadDescriptionLabel.text = NSLocalizedString(@"FIRST_STEPS_WIFI_UPLOAD_DETAILS", nil);
 
     NSString *address = @"192.168.1.2"; // something generic
     struct ifaddrs *interfaces = NULL;
@@ -55,7 +55,7 @@
 
 - (NSString *)pageTitle
 {
-    return NSLocalizedString(@"WEBINTF_TITLE", @"");
+    return NSLocalizedString(@"WEBINTF_TITLE", nil);
 }
 
 - (NSUInteger)page

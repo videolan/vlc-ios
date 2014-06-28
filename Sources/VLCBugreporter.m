@@ -34,10 +34,10 @@
 - (void)handleBugreportRequest
 {
     UIAlertView *alert = [[UIAlertView alloc]
-                          initWithTitle:NSLocalizedString(@"BUG_REPORT_TITLE", @"")
-                          message:NSLocalizedString(@"BUG_REPORT_MESSAGE", @"") delegate:self
-                          cancelButtonTitle:NSLocalizedString(@"BUTTON_CANCEL", @"")
-                          otherButtonTitles:NSLocalizedString(@"BUG_REPORT_BUTTON", @""), nil];;
+                          initWithTitle:NSLocalizedString(@"BUG_REPORT_TITLE", nil)
+                          message:NSLocalizedString(@"BUG_REPORT_MESSAGE", nil) delegate:self
+                          cancelButtonTitle:NSLocalizedString(@"BUTTON_CANCEL", nil)
+                          otherButtonTitles:NSLocalizedString(@"BUG_REPORT_BUTTON", nil), nil];;
     [alert show];
 }
 

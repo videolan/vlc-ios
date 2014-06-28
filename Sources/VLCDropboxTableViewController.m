@@ -68,7 +68,7 @@
     self.tableView.separatorColor = [UIColor VLCDarkBackgroundColor];
     self.view.backgroundColor = [UIColor VLCDarkBackgroundColor];
 
-    _numberOfFilesBarButtonItem = [[UIBarButtonItem alloc] initWithTitle:[NSString stringWithFormat:NSLocalizedString(@"NUM_OF_FILES", @""), 0] style:UIBarButtonItemStylePlain target:nil action:nil];
+    _numberOfFilesBarButtonItem = [[UIBarButtonItem alloc] initWithTitle:[NSString stringWithFormat:NSLocalizedString(@"NUM_OF_FILES", nil), 0] style:UIBarButtonItemStylePlain target:nil action:nil];
     [_numberOfFilesBarButtonItem setTitleTextAttributes:@{ UITextAttributeFont : [UIFont systemFontOfSize:11.] } forState:UIControlStateNormal];
     _progressBar = [[UIProgressView alloc] initWithProgressViewStyle:UIProgressViewStyleBar];
     _progressLabel = [[UILabel alloc] init];
@@ -92,10 +92,10 @@
     [self.cloudStorageLogo setImage:[UIImage imageNamed:@"dropbox-white.png"]];
     if (!SYSTEM_RUNS_IOS7_OR_LATER) {
         self.flatLoginButton.hidden = YES;
-        [self.loginButton setTitle:NSLocalizedString(@"DROPBOX_LOGIN", @"") forState:UIControlStateNormal];
+        [self.loginButton setTitle:NSLocalizedString(@"DROPBOX_LOGIN", nil) forState:UIControlStateNormal];
     } else {
         self.loginButton.hidden = YES;
-        [self.flatLoginButton setTitle:NSLocalizedString(@"DROPBOX_LOGIN", @"") forState:UIControlStateNormal];
+        [self.flatLoginButton setTitle:NSLocalizedString(@"DROPBOX_LOGIN", nil) forState:UIControlStateNormal];
     }
 
     [self.navigationController.toolbar setBackgroundImage:[UIImage imageNamed:@"sudHeaderBg"] forToolbarPosition:UIToolbarPositionAny barMetrics:UIBarMetricsDefault];
@@ -235,11 +235,11 @@
 
     NSUInteger count = _dropboxController.currentListFiles.count;
     if (count == 0)
-        _numberOfFilesBarButtonItem.title = NSLocalizedString(@"NO_FILES", @"");
+        _numberOfFilesBarButtonItem.title = NSLocalizedString(@"NO_FILES", nil);
     else if (count != 1)
-        _numberOfFilesBarButtonItem.title = [NSString stringWithFormat:NSLocalizedString(@"NUM_OF_FILES", @""), count];
+        _numberOfFilesBarButtonItem.title = [NSString stringWithFormat:NSLocalizedString(@"NUM_OF_FILES", nil), count];
     else
-        _numberOfFilesBarButtonItem.title = NSLocalizedString(@"ONE_FILE", @"");
+        _numberOfFilesBarButtonItem.title = NSLocalizedString(@"ONE_FILE", nil);
 }
 
 - (void)operationWithProgressInformationStarted
@@ -302,7 +302,7 @@
     _selectedFile = _dropboxController.currentListFiles[[self.tableView indexPathForCell:cell].row];
 
     /* selected item is a proper file, ask the user if s/he wants to download it */
-    UIAlertView * alert = [[UIAlertView alloc] initWithTitle:NSLocalizedString(@"DROPBOX_DOWNLOAD", @"") message:[NSString stringWithFormat:NSLocalizedString(@"DROPBOX_DL_LONG", @""), _selectedFile.filename, [[UIDevice currentDevice] model]] delegate:self cancelButtonTitle:NSLocalizedString(@"BUTTON_CANCEL", @"") otherButtonTitles:NSLocalizedString(@"BUTTON_DOWNLOAD", @""), nil];
+    UIAlertView * alert = [[UIAlertView alloc] initWithTitle:NSLocalizedString(@"DROPBOX_DOWNLOAD", nil) message:[NSString stringWithFormat:NSLocalizedString(@"DROPBOX_DL_LONG", nil), _selectedFile.filename, [[UIDevice currentDevice] model]] delegate:self cancelButtonTitle:NSLocalizedString(@"BUTTON_CANCEL", nil) otherButtonTitles:NSLocalizedString(@"BUTTON_DOWNLOAD", nil), nil];
     [alert show];
 }
 

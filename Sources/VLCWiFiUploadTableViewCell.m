@@ -26,7 +26,7 @@
 
 - (void)awakeFromNib
 {
-    self.titleLabel.text = NSLocalizedString(@"WEBINTF_TITLE", @"");
+    self.titleLabel.text = NSLocalizedString(@"WEBINTF_TITLE", nil);
     self.titleLabel.shadowOffset = CGSizeMake(0.0f, 1.0f);
     self.titleLabel.shadowColor = [UIColor VLCDarkTextShadowColor];
     self.titleLabel.textColor = [UIColor whiteColor];

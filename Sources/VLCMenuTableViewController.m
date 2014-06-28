@@ -136,7 +136,7 @@
         [_uploadButton setImage:[UIImage imageNamed:@"WifiUp"] forState:UIControlStateNormal];
         _uploadButton.enabled = NO;
         [_uploadButton setImage:[UIImage imageNamed:@"WiFiUp"] forState:UIControlStateDisabled];
-        _uploadLocationLabel.text = NSLocalizedString(@"HTTP_UPLOAD_NO_CONNECTIVITY", @"");
+        _uploadLocationLabel.text = NSLocalizedString(@"HTTP_UPLOAD_NO_CONNECTIVITY", nil);
         [self.uploadController changeHTTPServerState:NO];
     }
 }
@@ -223,7 +223,7 @@
     }
 
     if (!([rawTitle isEqualToString:@"Dropbox"] || [rawTitle isEqualToString:@"WEBINTF_TITLE"]))
-        cell.textLabel.text = NSLocalizedString(rawTitle, @"");
+        cell.textLabel.text = NSLocalizedString(rawTitle, nil);
 
     return cell;
 }
@@ -238,7 +238,7 @@
 
 - (UIView *)tableView:(UITableView *)tableView viewForHeaderInSection:(NSInteger)section
 {
-    NSObject *headerText = NSLocalizedString(_sectionHeaderTexts[section], @"");
+    NSObject *headerText = NSLocalizedString(_sectionHeaderTexts[section], nil);
     UIView *headerView = nil;
     if (headerText != [NSNull null]) {
         headerView = [[UIView alloc] initWithFrame:CGRectMake(0.0f, 0.0f, [UIScreen mainScreen].bounds.size.height, 21.0f)];
@@ -285,7 +285,7 @@
             _uploadLocationLabel.text = [NSString stringWithFormat:@"http://%@", [self.uploadController currentIPAddress]];
         [_uploadButton setImage:[UIImage imageNamed:@"WifiUpOn"] forState:UIControlStateNormal];
     } else {
-        _uploadLocationLabel.text = NSLocalizedString(@"HTTP_UPLOAD_SERVER_OFF", @"");
+        _uploadLocationLabel.text = NSLocalizedString(@"HTTP_UPLOAD_SERVER_OFF", nil);
         [_uploadButton setImage:[UIImage imageNamed:@"WifiUp"] forState:UIControlStateNormal];
     }
 }

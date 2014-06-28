@@ -130,7 +130,7 @@ static NSString *kDisplayedFirstSteps = @"Did we display the first steps tutoria
 - (void)viewDidLoad
 {
     [super viewDidLoad];
-    self.title = NSLocalizedString(@"LIBRARY_ALL_FILES", @"");
+    self.title = NSLocalizedString(@"LIBRARY_ALL_FILES", nil);
     _menuButton = [UIBarButtonItem themedRevealMenuButtonWithTarget:self andSelector:@selector(leftButtonAction:)];
     self.navigationItem.leftBarButtonItem = _menuButton;
 
@@ -143,10 +143,10 @@ static NSString *kDisplayedFirstSteps = @"Did we display the first steps tutoria
                                        forState:UIControlStateHighlighted barMetrics:UIBarMetricsDefault];
     }
 
-    _emptyLibraryView.emptyLibraryLabel.text = NSLocalizedString(@"EMPTY_LIBRARY", @"");
-    _emptyLibraryView.emptyLibraryLongDescriptionLabel.text = NSLocalizedString(@"EMPTY_LIBRARY_LONG", @"");
+    _emptyLibraryView.emptyLibraryLabel.text = NSLocalizedString(@"EMPTY_LIBRARY", nil);
+    _emptyLibraryView.emptyLibraryLongDescriptionLabel.text = NSLocalizedString(@"EMPTY_LIBRARY_LONG", nil);
     [_emptyLibraryView.emptyLibraryLongDescriptionLabel sizeToFit];
-    [_emptyLibraryView.learnMoreButton setTitle:NSLocalizedString(@"BUTTON_LEARN_MORE", @"") forState:UIControlStateNormal];
+    [_emptyLibraryView.learnMoreButton setTitle:NSLocalizedString(@"BUTTON_LEARN_MORE", nil) forState:UIControlStateNormal];
     UIBarButtonItem *createFolderItem = [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemOrganize target:self action:@selector(createFolder)];
 
     // Better visual alignment with the action button
@@ -167,7 +167,7 @@ static NSString *kDisplayedFirstSteps = @"Did we display the first steps tutoria
         fixedSpace.width *= 2;
     }
 
-    [self setToolbarItems:@[_actionBarButtonItem, fixedSpace, createFolderItem, [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemFlexibleSpace target:nil action:nil], [UIBarButtonItem themedDarkToolbarButtonWithTitle:NSLocalizedString(@"BUTTON_RENAME", @"") target:self andSelector:@selector(renameSelection)], [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemFlexibleSpace target:nil action:nil], [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemTrash target:self action:@selector(deleteSelection)]]];
+    [self setToolbarItems:@[_actionBarButtonItem, fixedSpace, createFolderItem, [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemFlexibleSpace target:nil action:nil], [UIBarButtonItem themedDarkToolbarButtonWithTitle:NSLocalizedString(@"BUTTON_RENAME", nil) target:self andSelector:@selector(renameSelection)], [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemFlexibleSpace target:nil action:nil], [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemTrash target:self action:@selector(deleteSelection)]]];
     self.navigationController.toolbar.barStyle = UIBarStyleBlack;
 
     if (SYSTEM_RUNS_IOS7_OR_LATER) {
@@ -221,7 +221,7 @@ static NSString *kDisplayedFirstSteps = @"Did we display the first steps tutoria
         self.navigationItem.rightBarButtonItem = nil;
         self.navigationItem.leftBarButtonItem = nil;
         self.title = @"";
-        self.emptyLibraryView.emptyLibraryLabel.text = NSLocalizedString(@"UPGRADING_LIBRARY", @"");
+        self.emptyLibraryView.emptyLibraryLabel.text = NSLocalizedString(@"UPGRADING_LIBRARY", nil);
         self.emptyLibraryView.emptyLibraryLongDescriptionLabel.hidden = YES;
         [self.emptyLibraryView.activityIndicator startAnimating];
         self.emptyLibraryView.frame = self.view.bounds;
@@ -260,18 +260,18 @@ static NSString *kDisplayedFirstSteps = @"Did we display the first steps tutoria
         _foundMedia = [NSMutableArray arrayWithArray:[(MLAlbum *)mediaObject sortedTracks]];
         self.navigationItem.leftBarButtonItem = [UIBarButtonItem themedBackButtonWithTarget:self andSelector:@selector(backToAllItems:)];
         if (_libraryMode == VLCLibraryModeAllFiles)
-            self.navigationItem.leftBarButtonItem.title = NSLocalizedString(@"BUTTON_BACK", @"");
+            self.navigationItem.leftBarButtonItem.title = NSLocalizedString(@"BUTTON_BACK", nil);
         else
-            [self.navigationItem.leftBarButtonItem setTitle:NSLocalizedString(@"LIBRARY_MUSIC", @"")];
+            [self.navigationItem.leftBarButtonItem setTitle:NSLocalizedString(@"LIBRARY_MUSIC", nil)];
         self.title = [(MLAlbum*)mediaObject name];
         [self reloadViews];
     } else if ([mediaObject isKindOfClass:[MLShow class]]) {
         _foundMedia = [NSMutableArray arrayWithArray:[(MLShow *)mediaObject sortedEpisodes]];
         self.navigationItem.leftBarButtonItem = [UIBarButtonItem themedBackButtonWithTarget:self andSelector:@selector(backToAllItems:)];
         if (_libraryMode == VLCLibraryModeAllFiles)
-            self.navigationItem.leftBarButtonItem.title = NSLocalizedString(@"BUTTON_BACK", @"");
+            self.navigationItem.leftBarButtonItem.title = NSLocalizedString(@"BUTTON_BACK", nil);
         else
-            [self.navigationItem.leftBarButtonItem setTitle:NSLocalizedString(@"LIBRARY_SERIES", @"")];
+            [self.navigationItem.leftBarButtonItem setTitle:NSLocalizedString(@"LIBRARY_SERIES", nil)];
         self.title = [(MLShow*)mediaObject name];
         [self reloadViews];
     } else if ([mediaObject isKindOfClass:[MLLabel class]]) {
@@ -289,7 +289,7 @@ static NSString *kDisplayedFirstSteps = @"Did we display the first steps tutoria
         }
         _foundMedia = [NSMutableArray arrayWithArray:[folder sortedFolderItems]];
         self.navigationItem.leftBarButtonItem = [UIBarButtonItem themedBackButtonWithTarget:self andSelector:@selector(backToAllItems:)];
-        self.navigationItem.leftBarButtonItem.title = NSLocalizedString(@"BUTTON_BACK", @"");
+        self.navigationItem.leftBarButtonItem.title = NSLocalizedString(@"BUTTON_BACK", nil);
         self.title = [folder name];
 
         UIBarButtonItem *removeFromFolder = [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemReply target:self action:@selector(removeFromFolder)];
@@ -388,8 +388,8 @@ static NSString *kDisplayedFirstSteps = @"Did we display the first steps tutoria
         [self.emptyLibraryView removeFromSuperview];
 
     if (_foundMedia.count == 0) {
-        self.emptyLibraryView.emptyLibraryLabel.text = inFolder ? NSLocalizedString(@"FOLDER_EMPTY", @"") : NSLocalizedString(@"EMPTY_LIBRARY", @"");
-        self.emptyLibraryView.emptyLibraryLongDescriptionLabel.text = inFolder ? NSLocalizedString(@"FOLDER_EMPTY_LONG", @"") : NSLocalizedString(@"EMPTY_LIBRARY_LONG", @"");
+        self.emptyLibraryView.emptyLibraryLabel.text = inFolder ? NSLocalizedString(@"FOLDER_EMPTY", nil) : NSLocalizedString(@"EMPTY_LIBRARY", nil);
+        self.emptyLibraryView.emptyLibraryLongDescriptionLabel.text = inFolder ? NSLocalizedString(@"FOLDER_EMPTY_LONG", nil) : NSLocalizedString(@"EMPTY_LIBRARY_LONG", nil);
         self.emptyLibraryView.learnMoreButton.hidden = inFolder;
         self.emptyLibraryView.frame = self.view.bounds;
         [self.view addSubview:self.emptyLibraryView];
@@ -406,10 +406,10 @@ static NSString *kDisplayedFirstSteps = @"Did we display the first steps tutoria
 
 - (void)libraryUpgradeComplete
 {
-    self.title = NSLocalizedString(@"LIBRARY_ALL_FILES", @"");
+    self.title = NSLocalizedString(@"LIBRARY_ALL_FILES", nil);
     self.navigationItem.leftBarButtonItem = _menuButton;
     self.emptyLibraryView.emptyLibraryLongDescriptionLabel.hidden = NO;
-    self.emptyLibraryView.emptyLibraryLabel.text = NSLocalizedString(@"EMPTY_LIBRARY", @"");
+    self.emptyLibraryView.emptyLibraryLabel.text = NSLocalizedString(@"EMPTY_LIBRARY", nil);
     [self.emptyLibraryView.activityIndicator stopAnimating];
     [self.emptyLibraryView removeFromSuperview];
 
@@ -427,11 +427,11 @@ static NSString *kDisplayedFirstSteps = @"Did we display the first steps tutoria
 
     self.navigationItem.leftBarButtonItem = _menuButton;
     if (_libraryMode == VLCLibraryModeAllAlbums)
-        self.title = NSLocalizedString(@"LIBRARY_MUSIC", @"");
+        self.title = NSLocalizedString(@"LIBRARY_MUSIC", nil);
     else if( _libraryMode == VLCLibraryModeAllSeries)
-        self.title = NSLocalizedString(@"LIBRARY_SERIES", @"");
+        self.title = NSLocalizedString(@"LIBRARY_SERIES", nil);
     else
-        self.title = NSLocalizedString(@"LIBRARY_ALL_FILES", @"");
+        self.title = NSLocalizedString(@"LIBRARY_ALL_FILES", nil);
 
     /* add all albums */
     if (_libraryMode != VLCLibraryModeAllSeries) {
@@ -478,7 +478,7 @@ static NSString *kDisplayedFirstSteps = @"Did we display the first steps tutoria
              * afterwards as this could lead to the 'all my shows are gone' 
              * syndrome (see #10435, #10464, #10432 et al) */
             if (file.showEpisode.show.name.length == 0) {
-                file.showEpisode.show.name = NSLocalizedString(@"UNTITLED_SHOW", @"");
+                file.showEpisode.show.name = NSLocalizedString(@"UNTITLED_SHOW", nil);
                 [self performSelector:@selector(updateViewContents) withObject:nil afterDelay:0.1];
             }
         } else if (file.isAlbumTrack) {
@@ -647,7 +647,7 @@ static NSString *kDisplayedFirstSteps = @"Did we display the first steps tutoria
 #pragma mark - Gesture Action
 - (void)swipeRightGestureAction:(UIGestureRecognizer *)recognizer
 {
-    if ([[self.editButtonItem title] isEqualToString:NSLocalizedString(@"BUTTON_CANCEL",@"")])
+    if ([[self.editButtonItem title] isEqualToString:NSLocalizedString(@"BUTTON_CANCEL", nil)])
         [self setEditing:NO animated:YES];
     else {
         [self setEditing:YES animated:YES];
@@ -796,7 +796,7 @@ static NSString *kDisplayedFirstSteps = @"Did we display the first steps tutoria
     BOOL validFileTypeAtFolderPath = ([_foundMedia[folderPath.item] isKindOfClass:[MLFile class]] || [_foundMedia[folderPath.item] isKindOfClass:[MLLabel class]]) && [_foundMedia[itemPath.item] isKindOfClass:[MLFile class]];
 
     if (!validFileTypeAtFolderPath) {
-        VLCAlertView *alert = [[VLCAlertView alloc] initWithTitle:NSLocalizedString(@"FOLDER_INVALID_TYPE_TITLE", @"") message:NSLocalizedString(@"FOLDER_INVALID_TYPE_MESSAGE", @"") cancelButtonTitle:nil otherButtonTitles:@[NSLocalizedString(@"BUTTON_OK", @"")]];
+        VLCAlertView *alert = [[VLCAlertView alloc] initWithTitle:NSLocalizedString(@"FOLDER_INVALID_TYPE_TITLE", nil) message:NSLocalizedString(@"FOLDER_INVALID_TYPE_MESSAGE", nil) cancelButtonTitle:nil otherButtonTitles:@[NSLocalizedString(@"BUTTON_OK", nil)]];
 
         alert.completion = ^(BOOL cancelled, NSInteger buttonIndex) {
             [self updateViewContents];
@@ -837,9 +837,9 @@ static NSString *kDisplayedFirstSteps = @"Did we display the first steps tutoria
 
 - (void)showCreateFolderAlert
 {
-    VLCAlertView *alert = [[VLCAlertView alloc] initWithTitle:NSLocalizedString(@"FOLDER_CHOOSE_NAME_TITLE", @"") message:NSLocalizedString(@"FOLDER_CHOOSE_NAME_MESSAGE", @"") cancelButtonTitle:NSLocalizedString(@"BUTTON_CANCEL", @"") otherButtonTitles:@[NSLocalizedString(@"BUTTON_SAVE", @"")]];
+    VLCAlertView *alert = [[VLCAlertView alloc] initWithTitle:NSLocalizedString(@"FOLDER_CHOOSE_NAME_TITLE", nil) message:NSLocalizedString(@"FOLDER_CHOOSE_NAME_MESSAGE", nil) cancelButtonTitle:NSLocalizedString(@"BUTTON_CANCEL", nil) otherButtonTitles:@[NSLocalizedString(@"BUTTON_SAVE", nil)]];
     [alert setAlertViewStyle:UIAlertViewStylePlainTextInput];
-    [[alert textFieldAtIndex:0] setText:NSLocalizedString(@"FOLDER_NAME_PLACEHOLDER", @"")];
+    [[alert textFieldAtIndex:0] setText:NSLocalizedString(@"FOLDER_NAME_PLACEHOLDER", nil)];
     [[alert textFieldAtIndex:0] setClearButtonMode:UITextFieldViewModeAlways];
 
     __weak VLCAlertView *weakAlert = alert;
@@ -881,7 +881,7 @@ static NSString *kDisplayedFirstSteps = @"Did we display the first steps tutoria
         //if we already have folders display them
         if ([folder count] > 0) {
             _foundMedia = [NSMutableArray arrayWithArray:folder];
-            self.title = NSLocalizedString(@"SELECT_FOLDER", @"");
+            self.title = NSLocalizedString(@"SELECT_FOLDER", nil);
             _previousLibraryMode = _libraryMode;
             _libraryMode = VLCLibraryModeCreateFolder;
             [self reloadViews];
@@ -927,7 +927,7 @@ static NSString *kDisplayedFirstSteps = @"Did we display the first steps tutoria
         if ([label.name isEqualToString:folderName]) {
             _folderObject = nil;
             _indexPaths = nil;
-            VLCAlertView *alert = [[VLCAlertView alloc] initWithTitle:NSLocalizedString(@"FOLDER_NAME_DUPLICATE_TITLE", @"") message:NSLocalizedString(@"FOLDER_NAME_DUPLICATE_MESSAGE", @"") cancelButtonTitle:nil otherButtonTitles:@[NSLocalizedString(@"BUTTON_OK", @"")]];
+            VLCAlertView *alert = [[VLCAlertView alloc] initWithTitle:NSLocalizedString(@"FOLDER_NAME_DUPLICATE_TITLE", nil) message:NSLocalizedString(@"FOLDER_NAME_DUPLICATE_MESSAGE", nil) cancelButtonTitle:nil otherButtonTitles:@[NSLocalizedString(@"BUTTON_OK", nil)]];
 
             alert.completion = ^(BOOL cancelled, NSInteger buttonIndex) {
                 [self updateViewContents];
@@ -1051,7 +1051,7 @@ static NSString *kDisplayedFirstSteps = @"Did we display the first steps tutoria
     } else {
         self.tableView.allowsMultipleSelectionDuringEditing = editing;
         [self.tableView setEditing:editing animated:YES];
-        [self.editButtonItem setTitle:editing ? NSLocalizedString(@"BUTTON_CANCEL",@"") : NSLocalizedString(@"BUTTON_EDIT", @"")];
+        [self.editButtonItem setTitle:editing ? NSLocalizedString(@"BUTTON_CANCEL", nil) : NSLocalizedString(@"BUTTON_EDIT", nil)];
     }
 
     if (_libraryMode == VLCLibraryModeCreateFolder) {
@@ -1148,7 +1148,7 @@ static NSString *kDisplayedFirstSteps = @"Did we display the first steps tutoria
     else
         itemName = [(VLCPlaylistTableViewCell *)[self.tableView cellForRowAtIndexPath:indexPaths[0]] titleLabel].text;
 
-    VLCAlertView *alert = [[VLCAlertView alloc] initWithTitle:[NSString stringWithFormat:NSLocalizedString(@"RENAME_MEDIA_TO", @""), itemName] message:nil cancelButtonTitle:NSLocalizedString(@"BUTTON_CANCEL", @"") otherButtonTitles:@[NSLocalizedString(@"BUTTON_RENAME", @"")]];
+    VLCAlertView *alert = [[VLCAlertView alloc] initWithTitle:[NSString stringWithFormat:NSLocalizedString(@"RENAME_MEDIA_TO", nil), itemName] message:nil cancelButtonTitle:NSLocalizedString(@"BUTTON_CANCEL", nil) otherButtonTitles:@[NSLocalizedString(@"BUTTON_RENAME", nil)]];
     [alert setAlertViewStyle:UIAlertViewStylePlainTextInput];
     [[alert textFieldAtIndex:0] setText:itemName];
     [[alert textFieldAtIndex:0] setClearButtonMode:UITextFieldViewModeAlways];

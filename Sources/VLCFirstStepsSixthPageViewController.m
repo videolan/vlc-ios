@@ -23,11 +23,11 @@
     [super viewDidLoad];
 
     if (UI_USER_INTERFACE_IDIOM() == UIUserInterfaceIdiomPhone)
-        self.flossDescriptionLabel.text = NSLocalizedString(@"FIRST_STEPS_FLOSS", @"");
+        self.flossDescriptionLabel.text = NSLocalizedString(@"FIRST_STEPS_FLOSS", nil);
     else
-        self.flossDescriptionLabel.text = [NSLocalizedString(@"FIRST_STEPS_FLOSS", @"") stringByReplacingOccurrencesOfString:@"\n" withString:@"\n\n"];
+        self.flossDescriptionLabel.text = [NSLocalizedString(@"FIRST_STEPS_FLOSS", nil) stringByReplacingOccurrencesOfString:@"\n" withString:@"\n\n"];
 
-    [self.learnMoreButton setTitle:NSLocalizedString(@"BUTTON_LEARN_MORE", @"") forState:UIControlStateNormal];
+    [self.learnMoreButton setTitle:NSLocalizedString(@"BUTTON_LEARN_MORE", nil) forState:UIControlStateNormal];
 }
 
 - (NSString *)pageTitle

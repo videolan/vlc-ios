@@ -96,7 +96,7 @@
     self.tableView.separatorColor = [UIColor VLCDarkBackgroundColor];
     self.view.backgroundColor = [UIColor VLCDarkBackgroundColor];
 
-    self.title = NSLocalizedString(@"LOCAL_NETWORK", @"");
+    self.title = NSLocalizedString(@"LOCAL_NETWORK", nil);
 
     _ftpServices = [[NSMutableArray alloc] init];
     [_ftpServices addObject:NSLocalizedString(@"CONNECT_TO_SERVER", nil)];
@@ -388,7 +388,7 @@
 
 - (UIView *)tableView:(UITableView *)tableView viewForHeaderInSection:(NSInteger)section
 {
-    NSObject *headerText = NSLocalizedString(_sectionHeaderTexts[section], @"");
+    NSObject *headerText = NSLocalizedString(_sectionHeaderTexts[section], nil);
     UIView *headerView = nil;
     if (headerText != [NSNull null]) {
         headerView = [[UIView alloc] initWithFrame:CGRectMake(0.0f, 0.0f, [UIScreen mainScreen].bounds.size.height, 21.0f)];

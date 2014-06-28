@@ -251,7 +251,7 @@
     NSURL *itemURL = [NSURL URLWithString:[[mutableMediaObject objectAtIndex:0] objectForKey:@"keyMedia"]];
 
     if (![[itemURL absoluteString] isSupportedFormat]) {
-        UIAlertView *alert = [[UIAlertView alloc] initWithTitle:NSLocalizedString(@"FILE_NOT_SUPPORTED", @"") message:[NSString stringWithFormat:NSLocalizedString(@"FILE_NOT_SUPPORTED_LONG", @""), [itemURL absoluteString]] delegate:self cancelButtonTitle:NSLocalizedString(@"BUTTON_CANCEL", @"") otherButtonTitles:nil];
+        UIAlertView *alert = [[UIAlertView alloc] initWithTitle:NSLocalizedString(@"FILE_NOT_SUPPORTED", nil) message:[NSString stringWithFormat:NSLocalizedString(@"FILE_NOT_SUPPORTED_LONG", nil), [itemURL absoluteString]] delegate:self cancelButtonTitle:NSLocalizedString(@"BUTTON_CANCEL", nil) otherButtonTitles:nil];
         [alert show];
     } else if (itemURL) {
         NSString *fileName = [[mutableMediaObject objectAtIndex:0] objectForKey:@"namefile"];
@@ -302,13 +302,13 @@
     if (status == 200) {
         if ([tag isEqualToString:@"watched"]) {
             tag = @"unwatched";
-            cellStatusLbl = NSLocalizedString(@"PLEX_UNWATCHED", @"");
+            cellStatusLbl = NSLocalizedString(@"PLEX_UNWATCHED", nil);
         } else if ([tag isEqualToString:@"unwatched"]) {
             tag = @"watched";
-            cellStatusLbl = NSLocalizedString(@"PLEX_WATCHED", @"");
+            cellStatusLbl = NSLocalizedString(@"PLEX_WATCHED", nil);
         }
     } else
-        cellStatusLbl = NSLocalizedString(@"PLEX_ERROR_MARK", @"");
+        cellStatusLbl = NSLocalizedString(@"PLEX_ERROR_MARK", nil);
 
     [cell.statusLabel showStatusMessage:cellStatusLbl];
 
@@ -342,7 +342,7 @@
         [self _getFileSubtitleFromPlexServer:ObjList modeStream:NO];
 
     [self _downloadFileFromMediaItem:ObjList];
-    [cell.statusLabel showStatusMessage:NSLocalizedString(@"DOWNLOADING", @"")];
+    [cell.statusLabel showStatusMessage:NSLocalizedString(@"DOWNLOADING", nil)];
 }
 
 #pragma mark - Search Display Controller Delegate

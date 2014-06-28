@@ -42,7 +42,7 @@
 
     UIBarButtonItem *dismissButton = [UIBarButtonItem themedDoneButtonWithTarget:self andSelector:@selector(dismissFirstSteps)];
     self.navigationItem.rightBarButtonItem = dismissButton;
-    self.title = NSLocalizedString(@"FIRST_STEPS_WELCOME", @"");
+    self.title = NSLocalizedString(@"FIRST_STEPS_WELCOME", nil);
     self.view.backgroundColor = [UIColor blackColor];
 
     [self addChildViewController:pageVC];

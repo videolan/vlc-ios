@@ -48,11 +48,11 @@
     }
 
     self.title = NSLocalizedString(@"CONNECT_TO_SERVER", nil);
-    [self.connectButton setTitle:NSLocalizedString(@"BUTTON_CONNECT",@"") forState:UIControlStateNormal];
-    self.serverAddressHelpLabel.text = NSLocalizedString(@"ENTER_SERVER_ADDRESS_HELP",@"");
-    self.loginHelpLabel.text = NSLocalizedString(@"ENTER_SERVER_CREDS_HELP",@"");
-    self.usernameLabel.text = NSLocalizedString(@"USER_LABEL", @"");
-    self.passwordLabel.text = NSLocalizedString(@"PASSWORD_LABEL", @"");
+    [self.connectButton setTitle:NSLocalizedString(@"BUTTON_CONNECT", nil) forState:UIControlStateNormal];
+    self.serverAddressHelpLabel.text = NSLocalizedString(@"ENTER_SERVER_ADDRESS_HELP", nil);
+    self.loginHelpLabel.text = NSLocalizedString(@"ENTER_SERVER_CREDS_HELP", nil);
+    self.usernameLabel.text = NSLocalizedString(@"USER_LABEL", nil);
+    self.passwordLabel.text = NSLocalizedString(@"PASSWORD_LABEL", nil);
 
     self.serverAddressField.delegate = self;
     self.serverAddressField.returnKeyType = UIReturnKeyNext;
@@ -67,8 +67,8 @@
     if (SYSTEM_RUNS_IOS7_OR_LATER) {
         UIColor *color = [UIColor VLCLightTextColor];
         self.serverAddressField.attributedPlaceholder = [[NSAttributedString alloc] initWithString:@"ftp://yourserver.local" attributes:@{NSForegroundColorAttributeName: color}];
-        self.usernameField.attributedPlaceholder = [[NSAttributedString alloc] initWithString:NSLocalizedString(@"USER_LABEL", @"") attributes:@{NSForegroundColorAttributeName: color}];
-        self.passwordField.attributedPlaceholder = [[NSAttributedString alloc] initWithString:NSLocalizedString(@"PASSWORD_LABEL", @"") attributes:@{NSForegroundColorAttributeName: color}];
+        self.usernameField.attributedPlaceholder = [[NSAttributedString alloc] initWithString:NSLocalizedString(@"USER_LABEL", nil) attributes:@{NSForegroundColorAttributeName: color}];
+        self.passwordField.attributedPlaceholder = [[NSAttributedString alloc] initWithString:NSLocalizedString(@"PASSWORD_LABEL", nil) attributes:@{NSForegroundColorAttributeName: color}];
         self.edgesForExtendedLayout = UIRectEdgeNone;
     }
 }

@@ -86,18 +86,18 @@
 
     if ([_currentUnlinkSpecifier isEqualToString:@"UnlinkDropbox"]) {
         _currentCloudName = @"Dropbox";
-        _currentUnlinkDialogTitle = NSLocalizedString(@"SETTINGS_UNLINK_DROPBOX", @"");
+        _currentUnlinkDialogTitle = NSLocalizedString(@"SETTINGS_UNLINK_DROPBOX", nil);
     } else if ([_currentUnlinkSpecifier isEqualToString:@"UnlinkGoogleDrive"]) {
         _currentCloudName = @"Google Drive";
-        _currentUnlinkDialogTitle = NSLocalizedString(@"SETTINGS_UNLINK_GOOGLEDRIVE", @"");
+        _currentUnlinkDialogTitle = NSLocalizedString(@"SETTINGS_UNLINK_GOOGLEDRIVE", nil);
     }
 
     UIAlertView *alert = [[UIAlertView alloc]
                           initWithTitle:_currentUnlinkDialogTitle
-                          message:[NSString stringWithFormat:NSLocalizedString(@"CLOUDUNLINKING", @""), _currentCloudName]
+                          message:[NSString stringWithFormat:NSLocalizedString(@"CLOUDUNLINKING", nil), _currentCloudName]
                           delegate:self
-                          cancelButtonTitle:NSLocalizedString(@"BUTTON_CANCEL", @"")
-                          otherButtonTitles:NSLocalizedString(@"BUTTON_CLOUDUNLINKING", @""), nil];
+                          cancelButtonTitle:NSLocalizedString(@"BUTTON_CANCEL", nil)
+                          otherButtonTitles:NSLocalizedString(@"BUTTON_CLOUDUNLINKING", nil), nil];
     [alert show];
 }
 
@@ -112,9 +112,9 @@
 
         UIAlertView *alert = [[UIAlertView alloc]
                               initWithTitle:_currentUnlinkDialogTitle
-                              message:[NSString stringWithFormat:NSLocalizedString(@"CLOUDUNLINKING_DONE", @""), _currentCloudName]
+                              message:[NSString stringWithFormat:NSLocalizedString(@"CLOUDUNLINKING_DONE", nil), _currentCloudName]
                               delegate:self
-                              cancelButtonTitle:NSLocalizedString(@"BUTTON_DONE", @"")
+                              cancelButtonTitle:NSLocalizedString(@"BUTTON_DONE", nil)
                               otherButtonTitles:nil];
         [alert show];
         [self filterCloudStorageCellsWithAnimation:YES];

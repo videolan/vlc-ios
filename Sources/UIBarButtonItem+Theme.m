@@ -17,7 +17,7 @@
 @implementation UIBarButtonItem (Theme)
 + (UIBarButtonItem *)themedDoneButtonWithTarget:(id)target andSelector:(SEL)selector
 {
-    UIBarButtonItem *doneButton = [[UIBarButtonItem alloc] initWithTitle:NSLocalizedString(@"BUTTON_DONE", @"")
+    UIBarButtonItem *doneButton = [[UIBarButtonItem alloc] initWithTitle:NSLocalizedString(@"BUTTON_DONE", nil)
                                                                       style:UIBarButtonItemStyleBordered
                                                                      target:target
                                                                      action:selector];
@@ -38,7 +38,7 @@
 
 + (UIBarButtonItem *)themedBackButtonWithTarget:(id)target andSelector:(SEL)selector
 {
-    UIBarButtonItem *backButton = [[UIBarButtonItem alloc] initWithTitle:NSLocalizedString(@"BUTTON_BACK", @"")
+    UIBarButtonItem *backButton = [[UIBarButtonItem alloc] initWithTitle:NSLocalizedString(@"BUTTON_BACK", nil)
                                                                    style:UIBarButtonItemStyleBordered
                                                                   target:target
                                                                   action:selector];
@@ -80,7 +80,7 @@
         [menuButton setBackgroundImage:[UIImage imageNamed:@"button"] forState:UIControlStateNormal barMetrics:UIBarMetricsDefault];
         [menuButton setBackgroundImage:[UIImage imageNamed:@"buttonHighlight"] forState:UIControlStateHighlighted barMetrics:UIBarMetricsDefault];
     }
-    menuButton.accessibilityLabel = NSLocalizedString(@"OPEN_VLC_MENU", @"");
+    menuButton.accessibilityLabel = NSLocalizedString(@"OPEN_VLC_MENU", nil);
     menuButton.isAccessibilityElement = YES;
 
     return menuButton;

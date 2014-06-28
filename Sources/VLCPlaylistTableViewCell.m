@@ -216,7 +216,7 @@
     NSString *string = @"";
     if (show.releaseYear)
         string = [NSString stringWithFormat:@"%@ — ", show.releaseYear];
-    self.subtitleLabel.text = [string stringByAppendingString:[NSString stringWithFormat:(count > 1) ? NSLocalizedString(@"LIBRARY_EPISODES", @"") : NSLocalizedString(@"LIBRARY_SINGLE_EPISODE", @""), count, show.unreadEpisodes.count]];
+    self.subtitleLabel.text = [string stringByAppendingString:[NSString stringWithFormat:(count > 1) ? NSLocalizedString(@"LIBRARY_EPISODES", nil) : NSLocalizedString(@"LIBRARY_SINGLE_EPISODE", nil), count, show.unreadEpisodes.count]];
     self.mediaIsUnreadView.hidden = YES;
     self.progressIndicator.hidden = YES;
     self.folderIconView.image = [UIImage imageNamed:@"tvShow"];
@@ -226,7 +226,7 @@
 - (void)_configureForAlbumTrack:(MLAlbumTrack *)albumTrack
 {
     MLFile *anyFileFromTrack = albumTrack.files.anyObject;
-    self.subtitleLabel.text = [NSString stringWithFormat:@"%@ — %@ — %@", albumTrack.artist, [NSString stringWithFormat:NSLocalizedString(@"LIBRARY_TRACK_N", @""), albumTrack.trackNumber.intValue], [VLCTime timeWithNumber:[anyFileFromTrack duration]]];
+    self.subtitleLabel.text = [NSString stringWithFormat:@"%@ — %@ — %@", albumTrack.artist, [NSString stringWithFormat:NSLocalizedString(@"LIBRARY_TRACK_N", nil), albumTrack.trackNumber.intValue], [VLCTime timeWithNumber:[anyFileFromTrack duration]]];
     self.titleLabel.text = albumTrack.title;
     [self _showPositionOfItem:anyFileFromTrack];
     self.folderIconView.hidden = YES;
@@ -259,7 +259,7 @@
             [string appendString:@" — "];
         }
     }
-    [string appendString:[NSString stringWithFormat:(count > 1) ? NSLocalizedString(@"LIBRARY_TRACKS", @"") : NSLocalizedString(@"LIBRARY_SINGLE_TRACK", @""), count]];
+    [string appendString:[NSString stringWithFormat:(count > 1) ? NSLocalizedString(@"LIBRARY_TRACKS", nil) : NSLocalizedString(@"LIBRARY_SINGLE_TRACK", nil), count]];
     if (album.releaseYear.length > 0)
         [string appendFormat:@" — %@", album.releaseYear];
     self.subtitleLabel.text = string;
@@ -272,7 +272,7 @@
 {
     self.titleLabel.text = label.name;
     NSUInteger count = label.files.count;
-    self.subtitleLabel.text = [NSString stringWithFormat:(count == 1) ? NSLocalizedString(@"LIBRARY_SINGLE_TRACK", @"") : NSLocalizedString(@"LIBRARY_TRACKS", @""), count];
+    self.subtitleLabel.text = [NSString stringWithFormat:(count == 1) ? NSLocalizedString(@"LIBRARY_SINGLE_TRACK", nil) : NSLocalizedString(@"LIBRARY_TRACKS", nil), count];
     self.mediaIsUnreadView.hidden = YES;
     self.progressIndicator.hidden = YES;
     self.folderIconView.image = [UIImage imageNamed:@"folderIcon"];
@@ -313,10 +313,10 @@
     if (SYSTEM_RUNS_IOS7_OR_LATER) {
         CGFloat duration = mediaLibraryFile.duration.floatValue;
         if (position > .05f && position < .95f && (duration * position - duration) < -60000) {
-            [(UITextView*)self.mediaIsUnreadView setText:[NSString stringWithFormat:NSLocalizedString(@"LIBRARY_MINUTES_LEFT", @""), [[VLCTime timeWithInt:(duration * position - duration)] minuteStringValue]]];
+            [(UITextView*)self.mediaIsUnreadView setText:[NSString stringWithFormat:NSLocalizedString(@"LIBRARY_MINUTES_LEFT", nil), [[VLCTime timeWithInt:(duration * position - duration)] minuteStringValue]]];
             self.mediaIsUnreadView.hidden = NO;
         } else if (mediaLibraryFile.unread.intValue) {
-            [(UILabel *)self.mediaIsUnreadView setText:[NSLocalizedString(@"NEW", @"") capitalizedStringWithLocale:[NSLocale currentLocale]]];
+            [(UILabel *)self.mediaIsUnreadView setText:[NSLocalizedString(@"NEW", nil) capitalizedStringWithLocale:[NSLocale currentLocale]]];
             self.mediaIsUnreadView.hidden = NO;
         } else
             self.mediaIsUnreadView.hidden = YES;

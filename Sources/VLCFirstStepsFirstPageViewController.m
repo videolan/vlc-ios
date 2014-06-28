@@ -22,8 +22,8 @@
 {
     [super viewDidLoad];
 
-    self.titleLabel.text = NSLocalizedString(@"FIRST_STEPS_WELCOME", @"");
-    self.subtitleLabel.text = NSLocalizedString(@"FIRST_STEPS_WELCOME_DETAIL", @"");
+    self.titleLabel.text = NSLocalizedString(@"FIRST_STEPS_WELCOME", nil);
+    self.subtitleLabel.text = NSLocalizedString(@"FIRST_STEPS_WELCOME_DETAIL", nil);
 }
 
 - (void)viewWillAppear:(BOOL)animated
@@ -40,7 +40,7 @@
 
 - (NSString *)pageTitle
 {
-    return NSLocalizedString(@"FIRST_STEPS_WELCOME", @"");;
+    return NSLocalizedString(@"FIRST_STEPS_WELCOME", nil);;
 }
 
 - (NSUInteger)page
