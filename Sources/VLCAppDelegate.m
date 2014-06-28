@@ -61,9 +61,15 @@
 
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions
 {
-    // For UISearchBar as well
     if (SYSTEM_RUNS_IOS7_OR_LATER) {
+        // Change the keyboard for UISearchBar
         [[UITextField appearance] setKeyboardAppearance:UIKeyboardAppearanceDark];
+        // For the cursor
+        [[UITextField appearance] setTintColor:[UIColor VLCOrangeTintColor]];
+        // Don't override the 'Cancel' button color in the search bar with the previous UITextField call. Use the default blue color
+        [[UIBarButtonItem appearanceWhenContainedIn:[UISearchBar class], nil] setTitleTextAttributes:@{NSForegroundColorAttributeName: [UIColor colorWithRed:0.0 green:122.0/255.0 blue:1.0 alpha:1.0]} forState:UIControlStateNormal];
+        // For the edit selection indicators
+        [[UITableView appearance] setTintColor:[UIColor VLCOrangeTintColor]];
     }
 
     [[UISwitch appearance] setOnTintColor:[UIColor VLCOrangeTintColor]];
