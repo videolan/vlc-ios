@@ -49,6 +49,7 @@
 
 - (void)viewWillAppear:(BOOL)animated
 {
+    [super viewWillAppear:animated];
     self.actualContentView.center = self.view.center;
 }
 
