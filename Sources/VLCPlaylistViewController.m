@@ -97,6 +97,7 @@ static NSString *kDisplayedFirstSteps = @"Did we display the first steps tutoria
         _tableView.delegate = self;
         _tableView.dataSource = self;
         _tableView.opaque = YES;
+        _tableView.indicatorStyle = UIScrollViewIndicatorStyleWhite;
         self.view = _tableView;
     } else {
         _folderLayout = [[VLCFolderCollectionViewFlowLayout alloc] init];

@@ -72,6 +72,7 @@
     _tableView.backgroundColor = [UIColor VLCDarkBackgroundColor];
     _tableView.delegate = self;
     _tableView.dataSource = self;
+    _tableView.indicatorStyle = UIScrollViewIndicatorStyleWhite;
     self.view = _tableView;
     _activityIndicator = [[UIActivityIndicatorView alloc] initWithActivityIndicatorStyle:UIActivityIndicatorViewStyleWhiteLarge];
     _activityIndicator.center = _tableView.center;

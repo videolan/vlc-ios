@@ -79,6 +79,7 @@
     _tableView.autoresizingMask = UIViewAutoresizingFlexibleHeight;
     _tableView.backgroundColor = [UIColor colorWithRed:(43.0f/255.0f) green:(43.0f/255.0f) blue:(43.0f/255.0f) alpha:1.0f];
     _tableView.separatorStyle = UITableViewCellSeparatorStyleNone;
+    _tableView.indicatorStyle = UIScrollViewIndicatorStyleWhite;
     _tableView.rowHeight = [VLCWiFiUploadTableViewCell heightOfCell];
     _tableView.scrollsToTop = NO;
 

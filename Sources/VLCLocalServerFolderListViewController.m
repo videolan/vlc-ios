@@ -72,6 +72,7 @@
     _tableView.dataSource = self;
     _tableView.rowHeight = [VLCLocalNetworkListCell heightOfCell];
     _tableView.separatorStyle = UITableViewCellSeparatorStyleNone;
+    _tableView.indicatorStyle = UIScrollViewIndicatorStyleWhite;
     self.view = _tableView;
 }
 
