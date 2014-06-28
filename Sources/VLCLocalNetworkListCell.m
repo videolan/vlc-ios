@@ -42,21 +42,29 @@
     }
 }
 
+- (void)setTitleLabelCentered:(BOOL)titleLabelCentered
+{
+    self.titleLabel.hidden = self.subtitleLabel.hidden = titleLabelCentered;
+    self.folderTitleLabel.hidden = !titleLabelCentered;
+
+    _titleLabelCentered = YES;
+}
+
 - (void)setIsDirectory:(BOOL)isDirectory
 {
-    self.titleLabel.hidden = self.subtitleLabel.hidden = isDirectory;
-    self.folderTitleLabel.hidden = !isDirectory;
+    self.titleLabelCentered = isDirectory;
 
     _isDirectory = isDirectory;
 }
 
 - (void)setTitle:(NSString *)title
 {
-    BOOL isDir = self.isDirectory;
+    BOOL isDirOrCentered = self.isDirectory || [self isTitleLabelCentered];
+
     self.folderTitleLabel.text = self.titleLabel.text = title;
 
-    self.titleLabel.hidden = self.subtitleLabel.hidden = isDir;
-    self.folderTitleLabel.hidden = !isDir;
+    self.titleLabel.hidden = self.subtitleLabel.hidden = isDirOrCentered;
+    self.folderTitleLabel.hidden = !isDirOrCentered;
 
     _title = title;
 }

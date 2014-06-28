@@ -26,6 +26,9 @@
 @property (nonatomic, strong) IBOutlet VLCStatusLabel *statusLabel;
 
 @property (nonatomic, readwrite) BOOL isDirectory;
+
+/// When there is no subtitle content, you might want to enable this
+@property (nonatomic, getter = isTitleLabelCentered) BOOL titleLabelCentered;
 @property (nonatomic, retain) NSString *title;
 @property (nonatomic, retain) NSString *subtitle;
 @property (nonatomic, retain) UIImage *icon;

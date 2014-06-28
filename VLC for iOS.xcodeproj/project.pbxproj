@@ -46,6 +46,11 @@
 		41F475D31899A438001B919F /* folderIcon@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 41F475CF1899A438001B919F /* folderIcon@2x.png */; };
 		41F475D41899A438001B919F /* folderIcon@2x~ipad.png in Resources */ = {isa = PBXBuildFile; fileRef = 41F475D01899A438001B919F /* folderIcon@2x~ipad.png */; };
 		41F475D51899A438001B919F /* folderIcon~ipad.png in Resources */ = {isa = PBXBuildFile; fileRef = 41F475D11899A438001B919F /* folderIcon~ipad.png */; };
+		493B1A1D195D06B1000A491A /* BasicUPnPDevice+VLC.m in Sources */ = {isa = PBXBuildFile; fileRef = 493B1A1C195D06B1000A491A /* BasicUPnPDevice+VLC.m */; };
+		493B1A21195D0EBE000A491A /* TVBroadcastIcon.png in Resources */ = {isa = PBXBuildFile; fileRef = 493B1A1E195D0EBE000A491A /* TVBroadcastIcon.png */; };
+		493B1A22195D0EBE000A491A /* TVBroadcastIcon@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 493B1A1F195D0EBE000A491A /* TVBroadcastIcon@2x.png */; };
+		493B1A23195D0EBE000A491A /* TVBroadcastIcon@2x~ipad.png in Resources */ = {isa = PBXBuildFile; fileRef = 493B1A20195D0EBE000A491A /* TVBroadcastIcon@2x~ipad.png */; };
+		49CC60B6195F4F3F00ACB586 /* TVBroadcastIcon~ipad.png in Resources */ = {isa = PBXBuildFile; fileRef = 49CC60B5195F4F3F00ACB586 /* TVBroadcastIcon~ipad.png */; };
 		7AC8629D1765DC560011611A /* style.css in Resources */ = {isa = PBXBuildFile; fileRef = 7AC8629B1765DC560011611A /* style.css */; };
 		7AC862A61765E9510011611A /* jquery-1.10.1.min.js in Resources */ = {isa = PBXBuildFile; fileRef = 7AC8629E1765E90C0011611A /* jquery-1.10.1.min.js */; };
 		7AC862A71765E9510011611A /* jquery.fileupload.js in Resources */ = {isa = PBXBuildFile; fileRef = 7AC8629F1765E90C0011611A /* jquery.fileupload.js */; };
@@ -484,6 +489,12 @@
 		41F475CF1899A438001B919F /* folderIcon@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "folderIcon@2x.png"; sourceTree = "<group>"; };
 		41F475D01899A438001B919F /* folderIcon@2x~ipad.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "folderIcon@2x~ipad.png"; sourceTree = "<group>"; };
 		41F475D11899A438001B919F /* folderIcon~ipad.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "folderIcon~ipad.png"; sourceTree = "<group>"; };
+		493B1A1B195D06B1000A491A /* BasicUPnPDevice+VLC.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = "BasicUPnPDevice+VLC.h"; path = "Sources/BasicUPnPDevice+VLC.h"; sourceTree = SOURCE_ROOT; };
+		493B1A1C195D06B1000A491A /* BasicUPnPDevice+VLC.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = "BasicUPnPDevice+VLC.m"; path = "Sources/BasicUPnPDevice+VLC.m"; sourceTree = SOURCE_ROOT; };
+		493B1A1E195D0EBE000A491A /* TVBroadcastIcon.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = TVBroadcastIcon.png; sourceTree = "<group>"; };
+		493B1A1F195D0EBE000A491A /* TVBroadcastIcon@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "TVBroadcastIcon@2x.png"; sourceTree = "<group>"; };
+		493B1A20195D0EBE000A491A /* TVBroadcastIcon@2x~ipad.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "TVBroadcastIcon@2x~ipad.png"; sourceTree = "<group>"; };
+		49CC60B5195F4F3F00ACB586 /* TVBroadcastIcon~ipad.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "TVBroadcastIcon~ipad.png"; sourceTree = "<group>"; };
 		7AC8629B1765DC560011611A /* style.css */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.css; path = style.css; sourceTree = "<group>"; };
 		7AC8629E1765E90C0011611A /* jquery-1.10.1.min.js */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.javascript; path = "jquery-1.10.1.min.js"; sourceTree = "<group>"; };
 		7AC8629F1765E90C0011611A /* jquery.fileupload.js */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.javascript; path = jquery.fileupload.js; sourceTree = "<group>"; };
@@ -1943,6 +1954,10 @@
 				7D6B08C0174A831900A05173 /* vlc-xmas.png */,
 				7D6B08C1174A831900A05173 /* vlc-xmas@2x.png */,
 				7D3E6CE418589EE000D584E7 /* AppIcon512x512.png */,
+				493B1A1E195D0EBE000A491A /* TVBroadcastIcon.png */,
+				493B1A1F195D0EBE000A491A /* TVBroadcastIcon@2x.png */,
+				49CC60B5195F4F3F00ACB586 /* TVBroadcastIcon~ipad.png */,
+				493B1A20195D0EBE000A491A /* TVBroadcastIcon@2x~ipad.png */,
 			);
 			name = Icons;
 			sourceTree = "<group>";
@@ -2243,6 +2258,8 @@
 		A7C3025A175A538700AD4388 /* Extensions */ = {
 			isa = PBXGroup;
 			children = (
+				493B1A1B195D06B1000A491A /* BasicUPnPDevice+VLC.h */,
+				493B1A1C195D06B1000A491A /* BasicUPnPDevice+VLC.m */,
 				7D3784C4183A9972009EE944 /* NSString+SupportedMedia.h */,
 				7D3784C5183A9972009EE944 /* NSString+SupportedMedia.m */,
 				7D3784C6183A9972009EE944 /* UIDevice+SpeedCategory.h */,
@@ -2406,6 +2423,7 @@
 				7D63C1C1187767AF00BD5256 /* fsarrow-aspectratio.png in Resources */,
 				7D07F708175665ED00CDE21C /* navBarBackground@2x.png in Resources */,
 				7D07F709175665ED00CDE21C /* navBarBackground.png in Resources */,
+				493B1A22195D0EBE000A491A /* TVBroadcastIcon@2x.png in Resources */,
 				7D07F70C175669A800CDE21C /* button.png in Resources */,
 				7D53D51E187729EC00A1BA97 /* sidebar-cutout.png in Resources */,
 				7D07F70D175669A800CDE21C /* button@2x.png in Resources */,
@@ -2431,6 +2449,7 @@
 				9BF07090185122AA009B23DD /* audio@2x~ipad.png in Resources */,
 				7D07F72F175691CC00CDE21C /* backButton@2x.png in Resources */,
 				7D32B384185E293D006CA474 /* Raleway.woff in Resources */,
+				49CC60B6195F4F3F00ACB586 /* TVBroadcastIcon~ipad.png in Resources */,
 				7D07F730175691CC00CDE21C /* backButtonHighlight.png in Resources */,
 				9BD3F368185DEC0A00569ADC /* arrows@2x.png in Resources */,
 				9BF0708E185122AA009B23DD /* audio.png in Resources */,
@@ -2452,6 +2471,7 @@
 				41F475D21899A438001B919F /* folderIcon.png in Resources */,
 				7D47D6FE1760CD8700E86BAD /* slidermaximumTrack.png in Resources */,
 				7D53D519187729EC00A1BA97 /* sidebar@2x.png in Resources */,
+				493B1A23195D0EBE000A491A /* TVBroadcastIcon@2x~ipad.png in Resources */,
 				7D47D6FF1760CD8700E86BAD /* slidermaximumTrack@2x.png in Resources */,
 				7D47D7001760CD8700E86BAD /* slidermaxValue.png in Resources */,
 				7D47D7011760CD8700E86BAD /* slidermaxValue@2x.png in Resources */,
@@ -2465,6 +2485,7 @@
 				7D63C1C5187767AF00BD5256 /* fsarrow-effects.png in Resources */,
 				7D47D7091760CD8700E86BAD /* playbackDoneButton.png in Resources */,
 				7D47D70A1760CD8700E86BAD /* playbackDoneButton@2x.png in Resources */,
+				493B1A21195D0EBE000A491A /* TVBroadcastIcon.png in Resources */,
 				7D47D70B1760CD8700E86BAD /* playbackDoneButtonHighlight.png in Resources */,
 				7D1B0682187DAF6A00F8BCD8 /* vlcsnap@2x.jpg in Resources */,
 				7D897874185DEF79009BAB5D /* repeat.png in Resources */,
@@ -2736,6 +2757,7 @@
 				7D30F3CA183AB27A00FFC021 /* VLCDownloadViewController.m in Sources */,
 				7D30F3CD183AB29300FFC021 /* VLCMenuTableViewController.m in Sources */,
 				7D30F3D0183AB2AC00FFC021 /* VLCMediaFileDiscoverer.m in Sources */,
+				493B1A1D195D06B1000A491A /* BasicUPnPDevice+VLC.m in Sources */,
 				265D511D1922746C00E38383 /* VLCPlexParser.m in Sources */,
 				7D30F3D7183AB2F100FFC021 /* VLCLocalNetworkListCell.m in Sources */,
 				265D511C1922746C00E38383 /* VLCLocalPlexFolderListViewController.m in Sources */,
