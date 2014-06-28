@@ -1,10 +1,14 @@
-//
-//  VLCOpenInActivity.m
-//  VLC for iOS
-//
-//  Created by Marc Etcheverry on 6/26/14.
-//  Copyright (c) 2014 VideoLAN. All rights reserved.
-//
+/*****************************************************************************
+ * VLCOpenInActivity.m
+ * VLC for iOS
+ *****************************************************************************
+ * Copyright (c) 2014 VideoLAN. All rights reserved.
+ * $Id$
+ *
+ * Authors: Marc Etcheverry <marc # taplightsoftware com>
+ *
+ * Refer to the COPYING file of the official project for license.
+ *****************************************************************************/
 
 #import "VLCOpenInActivity.h"
 
