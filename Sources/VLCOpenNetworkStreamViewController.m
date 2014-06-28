@@ -265,37 +265,39 @@ forRowAtIndexPath:(NSIndexPath *)indexPath
 
 - (NSString *)_checkURLofSubtitle:(NSString *)url
 {
-    NSString *SubtitleFileExtensions = kSupportedSubtitleFileExtensions;
+    NSString *subtitleFileExtensions = kSupportedSubtitleFileExtensions;
     NSCharacterSet *characterFilter = [NSCharacterSet characterSetWithCharactersInString:@"\\.():$"];
-    SubtitleFileExtensions = [[SubtitleFileExtensions componentsSeparatedByCharactersInSet:characterFilter] componentsJoinedByString:@""];
-    NSArray *arraySubtitleFileExtensions = [SubtitleFileExtensions componentsSeparatedByString:@"|"];
+    subtitleFileExtensions = [[subtitleFileExtensions componentsSeparatedByCharactersInSet:characterFilter] componentsJoinedByString:@""];
+    NSArray *arraySubtitleFileExtensions = [subtitleFileExtensions componentsSeparatedByString:@"|"];
     NSString *urlTemp = [[url stringByDeletingPathExtension] stringByAppendingString:@"."];
 
     for (int cnt = 0; cnt < arraySubtitleFileExtensions.count; cnt++) {
-        NSString *CheckURL = [urlTemp stringByAppendingString:arraySubtitleFileExtensions[cnt]];
-        NSURLRequest *request = [NSURLRequest requestWithURL:[NSURL URLWithString:CheckURL]];
+        NSString *checkAddress = [urlTemp stringByAppendingString:arraySubtitleFileExtensions[cnt]];
+        NSURL *checkURL = [NSURL URLWithString:checkAddress];
+        NSMutableURLRequest *request = [NSMutableURLRequest requestWithURL:checkURL];
+        request.HTTPMethod = @"HEAD";
+
         NSURLResponse *response = nil;
-        NSError *error = nil;
-        NSData *receivedData = [[NSData alloc] initWithData:[NSURLConnection sendSynchronousRequest:request returningResponse:&response error:&error]];
+        [NSURLConnection sendSynchronousRequest:request returningResponse:&response error:nil];
         NSInteger httpStatus = [(NSHTTPURLResponse *)response statusCode];
-        receivedData = nil;
 
         if (httpStatus == 200) {
-            NSString *receivedSub = [NSString stringWithContentsOfURL:[NSURL URLWithString:CheckURL] encoding:NSASCIIStringEncoding error:nil];
+            NSString *receivedSub = [NSString stringWithContentsOfURL:checkURL encoding:NSASCIIStringEncoding error:nil];
 
             NSArray *searchPaths = NSSearchPathForDirectoriesInDomains(NSCachesDirectory, NSUserDomainMask, YES);
             NSString *directoryPath = searchPaths[0];
-            NSString *FileSubtitlePath = [directoryPath stringByAppendingPathComponent:[CheckURL lastPathComponent]];
+            NSString *fileSubtitlePath = [directoryPath stringByAppendingPathComponent:[checkURL lastPathComponent]];
 
             NSFileManager *fileManager = [NSFileManager defaultManager];
-            if (![fileManager fileExistsAtPath:FileSubtitlePath]) {
+            if (![fileManager fileExistsAtPath:fileSubtitlePath]) {
                 //create local subtitle file
-                [fileManager createFileAtPath:FileSubtitlePath contents:nil attributes:nil];
-                if (![fileManager fileExistsAtPath:FileSubtitlePath])
+                [fileManager createFileAtPath:fileSubtitlePath contents:nil attributes:nil];
+                if (![fileManager fileExistsAtPath:fileSubtitlePath])
                     APLog(@"file creation failed, no data was saved");
             }
-            [receivedSub writeToFile:FileSubtitlePath atomically:YES encoding:NSUTF8StringEncoding error:nil];
-            return FileSubtitlePath;
+
+            [receivedSub writeToFile:fileSubtitlePath atomically:YES encoding:NSUTF8StringEncoding error:nil];
+            return fileSubtitlePath;
         }
     }
     return nil;
