@@ -71,6 +71,7 @@
     _tableView.delegate = self;
     _tableView.dataSource = self;
     _tableView.rowHeight = [VLCLocalNetworkListCell heightOfCell];
+    _tableView.separatorStyle = UITableViewCellSeparatorStyleNone;
     self.view = _tableView;
 }
 
