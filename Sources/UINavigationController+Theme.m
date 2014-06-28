@@ -23,7 +23,7 @@
         navBar.translucent = NO;
         navBar.opaque = YES;
     } else {
-        navBar.barTintColor = [UIColor colorWithRed:1.0f green:(132.0f/255.0f) blue:0.0f alpha:1.f];
+        navBar.barTintColor = [UIColor VLCOrangeTintColor];
         navBar.tintColor = [UIColor whiteColor];
         navBar.titleTextAttributes = @{ UITextAttributeTextColor : [UIColor whiteColor] };
     }

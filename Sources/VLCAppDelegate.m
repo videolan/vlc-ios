@@ -66,6 +66,8 @@
         [[UITextField appearance] setKeyboardAppearance:UIKeyboardAppearanceDark];
     }
 
+    [[UISwitch appearance] setOnTintColor:[UIColor VLCOrangeTintColor]];
+
     BWQuincyManager *quincyManager = [BWQuincyManager sharedQuincyManager];
     [quincyManager setSubmissionURL:@"http://crash.videolan.org/crash_v200.php"];
     [quincyManager setDelegate:self];

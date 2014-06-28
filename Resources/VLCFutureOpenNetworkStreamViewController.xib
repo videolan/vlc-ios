@@ -65,7 +65,7 @@
                         <switch opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" id="8">
                             <rect key="frame" x="20" y="10" width="51" height="31"/>
                             <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                            <color key="onTintColor" white="0.0" alpha="0.60999999999999999" colorSpace="custom" customColorSpace="calibratedWhite"/>
+                            <color key="onTintColor" red="1" green="0.51764705879999995" blue="0.0" alpha="1" colorSpace="deviceRGB"/>
                         </switch>
                         <label clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" text="Private Playback" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="9">
                             <rect key="frame" x="77" y="15" width="205" height="21"/>
@@ -86,7 +86,7 @@
                         <switch opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" id="nCb-2V-ulT">
                             <rect key="frame" x="20" y="10" width="51" height="31"/>
                             <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                            <color key="onTintColor" white="0.0" alpha="0.60999999999999999" colorSpace="custom" customColorSpace="calibratedWhite"/>
+                            <color key="onTintColor" red="1" green="0.51764705879999995" blue="0.0" alpha="1" colorSpace="deviceRGB"/>
                         </switch>
                         <label clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" text="Scan Subtitle" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="Ewx-Hn-7Lc" userLabel="Label - Scan Subtitle">
                             <rect key="frame" x="77" y="10" width="205" height="31"/>
