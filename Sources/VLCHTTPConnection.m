@@ -278,12 +278,13 @@
             }
         }
 
+        NSString *deviceModel = [[UIDevice currentDevice] model];
         NSDictionary *replacementDict = @{@"FILES" : [mediaInHtml componentsJoinedByString:@" "],
                                           @"WEBINTF_TITLE" : NSLocalizedString(@"WEBINTF_TITLE", nil),
                                           @"WEBINTF_DROPFILES" : NSLocalizedString(@"WEBINTF_DROPFILES", nil),
-                                          @"WEBINTF_DROPFILES_LONG" : NSLocalizedString(@"WEBINTF_DROPFILES_LONG", nil),
+                                          @"WEBINTF_DROPFILES_LONG" : [NSString stringWithFormat:NSLocalizedString(@"WEBINTF_DROPFILES_LONG", nil), deviceModel],
                                           @"WEBINTF_DOWNLOADFILES" : NSLocalizedString(@"WEBINTF_DOWNLOADFILES", nil),
-                                          @"WEBINTF_DOWNLOADFILES_LONG" : NSLocalizedString(@"WEBINTF_DOWNLOADFILES_LONG", nil)};
+                                          @"WEBINTF_DOWNLOADFILES_LONG" : [NSString stringWithFormat: NSLocalizedString(@"WEBINTF_DOWNLOADFILES_LONG", nil), deviceModel]};
 
         return [[HTTPDynamicFileResponse alloc] initWithFilePath:[self filePathForURI:path]
                                                    forConnection:self
