@@ -5,13 +5,24 @@
 * Folder support for GDrive (#11019)
 * Support for streaming from GDrive
 * Native support for Plex media servers
+* Support for file sharing with further apps installed on device (#11302)
 * Option to download media from http/ftp/https instead of direct playback when
   requested through third-party app (#11147)
 * Option to set text encoding used for FTP connections (#10611)
 * Option to set default playback speed (#10595)
 * Media library search (#11303)
-* Minor UI improvements (#11296)
+* Improved reliability when a call comes in during playback
 * Improved subtitles playback reliability (#11225)
+* Support for redirected downloads via HTTP (#10639)
+* Media Library is no longer reset on upgrade (#11330)
+  - no further thumbnail mismatch
+  - playback states are retained
+  - improved first launch after upgrade reliability
+* Fix browsing of a number of UPnP devices such as HDHomeRun without sorting
+  capabilities (#11667)
+* Minor UI improvements (#11296, #11637)
+* Network stream history allows copying URLs
+* Stability improvements for iOS 6.1
 * New translation to Traditional Chinese
 
 2.3:
