@@ -170,22 +170,25 @@
         }
 
         NSMutableArray *mediaInHtml = [[NSMutableArray alloc] initWithCapacity:allMedia.count];
+        NSString *duration;
 
         for (NSManagedObject *mo in allMedia) {
-            if ([mo isKindOfClass:[MLFile class]])
+            if ([mo isKindOfClass:[MLFile class]]) {
+                duration = [self timeFormatted:[[(MLFile *)mo duration] integerValue]];
                 [mediaInHtml addObject:[NSString stringWithFormat:
                                         @"<div style=\"background-image:url('thumbnail/%@.png')\"> \
                                         <a href=\"%@\" class=\"inner\"> \
                                         <div class=\"down icon\"></div> \
                                         <div class=\"infos\"> \
                                         <span class=\"first-line\">%@</span> \
-                                        <span class=\"second-line\">12:34:56 - 123MB</span> \
+                                        <span class=\"second-line\">%@ - 123MB</span> \
                                         </div> \
                                         </a> \
                                         </div>",
                                         mo.objectID.URIRepresentation,
                                         [[(MLFile *)mo url] stringByReplacingOccurrencesOfString:@"file://"withString:@""],
-                                        [(MLFile *)mo title]]];
+                                        [(MLFile *)mo title], duration]];
+            }
             else if ([mo isKindOfClass:[MLShow class]]) {
                 NSArray *episodes = [(MLShow *)mo sortedEpisodes];
                 [mediaInHtml addObject:[NSString stringWithFormat:
@@ -200,14 +203,15 @@
                                         <div class=\"content\">",
                                         mo.objectID.URIRepresentation,
                                         [(MLShow *)mo name]]];
-                for (MLShowEpisode *showEp in episodes)
+                for (MLShowEpisode *showEp in episodes) {
+                    duration = [self timeFormatted:[[(MLFile *)[[showEp files] anyObject] duration] integerValue]];
                     [mediaInHtml addObject:[NSString stringWithFormat:
                                             @"<div style=\"background-image:url('thumbnail/%@.png')\"> \
                                             <a href=\"%@\" class=\"inner\"> \
                                             <div class=\"down icon\"></div> \
                                             <div class=\"infos\"> \
                                             <span class=\"first-line\">S%@E%@ - %@</span> \
-                                            <span class=\"second-line\">12:34:56 - 123MB</span> \
+                                            <span class=\"second-line\">%@ - 123MB</span> \
                                             </div> \
                                             </a> \
                                             </div>",
@@ -215,7 +219,8 @@
                                             [[(MLFile *)[[showEp files] anyObject] url] stringByReplacingOccurrencesOfString:@"file://"withString:@""],
                                             showEp.seasonNumber,
                                             showEp.episodeNumber,
-                                            showEp.name]];
+                                            showEp.name, duration]];
+                }
                 [mediaInHtml addObject:@"</div></div>"];
             } else if ([mo isKindOfClass:[MLLabel class]]) {
                 NSArray *folderItems = [(MLLabel *)mo sortedFolderItems];
@@ -231,20 +236,22 @@
                                         <div class=\"content\">",
                                         mo.objectID.URIRepresentation,
                                         [(MLLabel *)mo name]]];
-                for (MLFile *file in folderItems)
+                for (MLFile *file in folderItems) {
+                    duration = [self timeFormatted:[[file duration] integerValue]];
                     [mediaInHtml addObject:[NSString stringWithFormat:
                                             @"<div style=\"background-image:url('thumbnail/%@.png')\"> \
                                             <a href=\"%@\" class=\"inner\"> \
                                             <div class=\"down icon\"></div> \
                                             <div class=\"infos\"> \
                                             <span class=\"first-line\">%@</span> \
-                                            <span class=\"second-line\">12:34:56 - 123MB</span> \
+                                            <span class=\"second-line\">%@ - 123MB</span> \
                                             </div> \
                                             </a> \
                                             </div>",
                                             file.objectID.URIRepresentation,
                                             [[file url] stringByReplacingOccurrencesOfString:@"file://"withString:@""],
-                                            file.title]];
+                                            file.title, duration]];
+                }
                 [mediaInHtml addObject:@"</div></div>"];
             } else if ([mo isKindOfClass:[MLAlbum class]]) {
                 NSArray *albumTracks = [(MLAlbum *)mo sortedTracks];
@@ -260,20 +267,22 @@
                                         <div class=\"content\">",
                                         mo.objectID.URIRepresentation,
                                         [(MLAlbum *)mo name]]];
-                for (MLAlbumTrack *track in albumTracks)
+                for (MLAlbumTrack *track in albumTracks) {
+                    duration = [self timeFormatted:[[(MLFile *)[[track files] anyObject] duration] integerValue]];
                     [mediaInHtml addObject:[NSString stringWithFormat:
                                             @"<div style=\"background-image:url('thumbnail/%@.png')\"> \
                                             <a href=\"%@\" class=\"inner\"> \
                                             <div class=\"down icon\"></div> \
                                             <div class=\"infos\"> \
                                             <span class=\"first-line\">%@</span> \
-                                            <span class=\"second-line\">12:34:56 - 123MB</span> \
+                                            <span class=\"second-line\">%@ - 123MB</span> \
                                             </div> \
                                             </a> \
                                             </div>",
                                             track.objectID.URIRepresentation,
                                             [[(MLFile *)[[track files] anyObject] url] stringByReplacingOccurrencesOfString:@"file://"withString:@""],
-                                            track.title]];
+                                            track.title, duration]];
+                }
                 [mediaInHtml addObject:@"</div></div>"];
             }
         }
@@ -398,6 +407,15 @@
             [[(VLCAppDelegate*)[UIApplication sharedApplication].delegate uploadController] moveFileFrom:_filepath];
     }
     return [super shouldDie];
+}
+
+- (NSString *)timeFormatted:(int)mSeconds
+{
+    mSeconds = (int)(mSeconds / 1000);
+    int seconds = (int)(mSeconds % 60);
+    int minutes = (int)((mSeconds / 60) % 60);
+    int hours = (int)(mSeconds / 3600);
+    return [NSString stringWithFormat:@"%02d:%02d:%02d",hours, minutes, seconds];
 }
 
 @end
