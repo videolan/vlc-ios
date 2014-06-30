@@ -177,7 +177,7 @@
                 duration = [self timeFormatted:[[(MLFile *)mo duration] integerValue]];
                 [mediaInHtml addObject:[NSString stringWithFormat:
                                         @"<div style=\"background-image:url('thumbnail/%@.png')\"> \
-                                        <a href=\"%@\" class=\"inner\"> \
+                                        <a href=\"download/%@\" class=\"inner\"> \
                                         <div class=\"down icon\"></div> \
                                         <div class=\"infos\"> \
                                         <span class=\"first-line\">%@</span> \
@@ -209,7 +209,7 @@
                     duration = [self timeFormatted:[[(MLFile *)[[showEp files] anyObject] duration] integerValue]];
                     [mediaInHtml addObject:[NSString stringWithFormat:
                                             @"<div style=\"background-image:url('thumbnail/%@.png')\"> \
-                                            <a href=\"%@\" class=\"inner\"> \
+                                            <a href=\"download/%@\" class=\"inner\"> \
                                             <div class=\"down icon\"></div> \
                                             <div class=\"infos\"> \
                                             <span class=\"first-line\">S%@E%@ - %@</span> \
@@ -244,7 +244,7 @@
                     duration = [self timeFormatted:[[file duration] integerValue]];
                     [mediaInHtml addObject:[NSString stringWithFormat:
                                             @"<div style=\"background-image:url('thumbnail/%@.png')\"> \
-                                            <a href=\"%@\" class=\"inner\"> \
+                                            <a href=\"download/%@\" class=\"inner\"> \
                                             <div class=\"down icon\"></div> \
                                             <div class=\"infos\"> \
                                             <span class=\"first-line\">%@</span> \
@@ -277,7 +277,7 @@
                     duration = [self timeFormatted:[[(MLFile *)[[track files] anyObject] duration] integerValue]];
                     [mediaInHtml addObject:[NSString stringWithFormat:
                                             @"<div style=\"background-image:url('thumbnail/%@.png')\"> \
-                                            <a href=\"%@\" class=\"inner\"> \
+                                            <a href=\"download/%@\" class=\"inner\"> \
                                             <div class=\"down icon\"></div> \
                                             <div class=\"infos\"> \
                                             <span class=\"first-line\">%@</span> \
