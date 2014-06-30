@@ -14,6 +14,25 @@ body,div,dl,dt,dd,ul,ol,li,h1,h2,h3,h4,h5,h6,pre,form,fieldset,input,textarea,p,
   box-sizing: border-box;
 }
 
+/* Clearfix */
+.cf:before,
+.cf:after {
+    content: " "; /* 1 */
+    display: table; /* 2 */
+}
+
+.cf:after {
+    clear: both;
+}
+
+/**
+ * For IE 6/7 only
+ * Include this rule to trigger hasLayout and contain floats.
+ */
+.cf {
+    *zoom: 1;
+}
+
 html {
   height: 100%;
 }
@@ -21,7 +40,6 @@ html {
 body {
   height: 100%;
   font: 14px/22px "Helvetica Neue","Helvetica", Arial, sans-serif;
-  background: black;
   color: white;
   -webkit-font-smoothing: antialiased;
   position: relative;
@@ -225,30 +243,190 @@ div.main.drop {
   background-image: linear-gradient(top, rgb(255, 132, 0), rgb(255, 100, 0));
 }
 
-.downloads a {
-    line-height: 50px;
-    height: 18px;
-    color: white;
-}
-
-.downloads img {
+/*.downloads img {
     width: 80px;
     height: 45px;
     -webkit-border-radius: 5px;
     -moz-border-radius: 5px;
     border-radius: 5px;
     vertical-align: middle;
+}*/
+
+.downloads {
+  width: 80%;
+  margin: 0 auto;
+  display: block;
+  position: relative;
 }
 
-.downloads lu {
-  font-size: 16px;
-  line-height: 50px;
-  text-align: left;
-  height: 50px;
-  padding: 0 40px;
+@media (max-width: 960px) {
+  .downloads {
+    width: 100%;
+  }
+}
+
+.downloads > div {
+  width: 25%;
+  /*height: 300px;*/
+  float: left;
+  display: inline-block;
+  -webkit-background-size: cover;
+  -moz-background-size: cover;
+  background-size: cover;
+}
+
+.main.downloads > div .content {
+  display: none;
+}
+
+@media (max-width: 1280px) {
+  .main.downloads > div {
+    width: 33.33333%;
+  }
+}
+
+@media (max-width: 960px) {
+  .main.downloads > div {
+    width: 50%;
+  }
+}
+
+@media (max-width: 480px) {
+  .main.downloads > div {
+    width: 100%;
+  }
+}
+
+
+.downloads .inner {
+  display: block;
+  background-image: url("img/gradient-cell-ios7-ipad.png");
+  background-position: bottom center;
+  background-repeat: repeat-x;
   position: relative;
   width: 100%;
-  float: left;
+  height: 100%;
+  z-index: 0;
+}
+
+.downloads a.inner {
+  color:white;
+}
+
+.downloads a.inner:hover .icon {
+  opacity:.7;
+}
+
+.downloads a.inner:hover .infos {
+  opacity: 0;
+}
+
+.downloads .inner .icon {
+  opacity: 0;
+  -webkit-transition: opacity .2s;
+  -o-transition: opacity .2s;
+  transition: opacity .2s;
+  background-color: black;
+  background-position: center center;
+  background-repeat: no-repeat;
+  height: 100%;
+  width: 100%;
+  z-index: 99;
+}
+
+.downloads .inner .icon.bgz {
+  -webkit-background-size: 40%;
+  background-size: 40%;
+}
+
+.downloads .inner .down.icon {
+  background-image: url(img/download-fixed.png);
+}
+
+.downloads .inner .open.icon {
+  background-image: url(img/open-fixed.png);
+}
+
+.downloads .inner .down.icon.bgz {
+  background-image: url(img/download.png);
+}
+
+.downloads .inner .open.icon.bgz {
+  background-image: url(img/open.png);
+}
+
+.downloads .inner .infos {
+  width: 100%;
+  display: inline-block;
+  position: absolute;
+  bottom: 0;
+  -webkit-transition: opacity .2s;
+  -o-transition: opacity .2s;
+  transition: opacity .2s;
+}
+
+.downloads .inner .infos span {
+  width: 100%;
+  /*background:red;*/
+  padding:3px 10px 0 13px;
+  white-space: nowrap;
+  overflow-y: hidden;
+  display: inline-block;
+  text-shadow: 0 2px 0 rgba(0,0,0,0.5);
+}
+
+.downloads .inner .infos span.first-line {
+  font-size: 1.7em;
+}
+
+.downloads .inner .infos span.second-line {
+  font-size: 1em;
+}
+
+#overlay {
+  position: absolute;
+  display: none;
+  opacity:0;
+  background:black;
+  background:rgba(0,0,0,.8);
+  left: 0;
+  top: 0;
+  bottom: 0;
+  right: 0;
+}
+
+#overlay.shown {
+  opacity: 1;
+  display: block;
+}
+
+#overlay #modal {
+  position: absolute;
+  background:rgb(31,31,31);
+  width: 50%;
+  height: 50%;
+  top: 25%;
+  left: 25%;
+}
+
+#overlay #modal .downloads {
+  width: 100%;
+}
+
+#overlay #modal .downloads > div {
+  width: 50%;
+}
+
+@media (min-width: 1280px) {
+  #overlay #modal .downloads > div {
+    width: 25%;
+  }
+}
+
+@media (max-width: 1280px) {
+  #overlay #modal .downloads > div {
+    width: 50%;
+  }
 }
 
 #menu ul li ul {
@@ -359,6 +537,7 @@ div.main.drop {
   text-align: center;
   color: rgb(120, 120, 120);
   text-shadow: 1px 1px 2px black;
+  width: 100%;
 }
 #footer a{
   color: rgb(255, 132, 0);
