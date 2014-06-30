@@ -181,13 +181,14 @@
                                         <div class=\"down icon\"></div> \
                                         <div class=\"infos\"> \
                                         <span class=\"first-line\">%@</span> \
-                                        <span class=\"second-line\">%@ - 123MB</span> \
+                                        <span class=\"second-line\">%@ - %0.2f MB</span> \
                                         </div> \
                                         </a> \
                                         </div>",
                                         mo.objectID.URIRepresentation,
                                         [[(MLFile *)mo url] stringByReplacingOccurrencesOfString:@"file://"withString:@""],
-                                        [(MLFile *)mo title], duration]];
+                                        [(MLFile *)mo title],
+                                        duration, (float)([(MLFile *)mo fileSizeInBytes] / 1e6)]];
             }
             else if ([mo isKindOfClass:[MLShow class]]) {
                 NSArray *episodes = [(MLShow *)mo sortedEpisodes];
@@ -211,7 +212,7 @@
                                             <div class=\"down icon\"></div> \
                                             <div class=\"infos\"> \
                                             <span class=\"first-line\">S%@E%@ - %@</span> \
-                                            <span class=\"second-line\">%@ - 123MB</span> \
+                                            <span class=\"second-line\">%@ - %0.2f MB</span> \
                                             </div> \
                                             </a> \
                                             </div>",
@@ -219,7 +220,8 @@
                                             [[(MLFile *)[[showEp files] anyObject] url] stringByReplacingOccurrencesOfString:@"file://"withString:@""],
                                             showEp.seasonNumber,
                                             showEp.episodeNumber,
-                                            showEp.name, duration]];
+                                            showEp.name,
+                                            duration, (float)([(MLFile *)[[showEp files] anyObject] fileSizeInBytes] / 1e6)]];
                 }
                 [mediaInHtml addObject:@"</div></div>"];
             } else if ([mo isKindOfClass:[MLLabel class]]) {
@@ -244,13 +246,14 @@
                                             <div class=\"down icon\"></div> \
                                             <div class=\"infos\"> \
                                             <span class=\"first-line\">%@</span> \
-                                            <span class=\"second-line\">%@ - 123MB</span> \
+                                            <span class=\"second-line\">%@ - %0.2f MB</span> \
                                             </div> \
                                             </a> \
                                             </div>",
                                             file.objectID.URIRepresentation,
                                             [[file url] stringByReplacingOccurrencesOfString:@"file://"withString:@""],
-                                            file.title, duration]];
+                                            file.title,
+                                            duration, (float)([file fileSizeInBytes] / 1e6)]];
                 }
                 [mediaInHtml addObject:@"</div></div>"];
             } else if ([mo isKindOfClass:[MLAlbum class]]) {
@@ -275,13 +278,14 @@
                                             <div class=\"down icon\"></div> \
                                             <div class=\"infos\"> \
                                             <span class=\"first-line\">%@</span> \
-                                            <span class=\"second-line\">%@ - 123MB</span> \
+                                            <span class=\"second-line\">%@ - %0.2f MB</span> \
                                             </div> \
                                             </a> \
                                             </div>",
                                             track.objectID.URIRepresentation,
                                             [[(MLFile *)[[track files] anyObject] url] stringByReplacingOccurrencesOfString:@"file://"withString:@""],
-                                            track.title, duration]];
+                                            track.title,
+                                            duration, (float)([(MLFile *)[[track files] anyObject] fileSizeInBytes] / 1e6)]];
                 }
                 [mediaInHtml addObject:@"</div></div>"];
             }
