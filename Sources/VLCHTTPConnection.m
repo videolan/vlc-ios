@@ -198,12 +198,13 @@
                                         <div class=\"open icon\"></div> \
                                         <div class=\"infos\"> \
                                         <span class=\"first-line\">%@</span> \
-                                        <span class=\"second-line\">42 items</span> \
+                                        <span class=\"second-line\">%d items</span> \
                                         </div> \
                                         </a> \
                                         <div class=\"content\">",
                                         mo.objectID.URIRepresentation,
-                                        [(MLShow *)mo name]]];
+                                        [(MLShow *)mo name],
+                                        [episodes count]]];
                 for (MLShowEpisode *showEp in episodes) {
                     duration = [self timeFormatted:[[(MLFile *)[[showEp files] anyObject] duration] integerValue]];
                     [mediaInHtml addObject:[NSString stringWithFormat:
@@ -232,12 +233,13 @@
                                         <div class=\"open icon\"></div> \
                                         <div class=\"infos\"> \
                                         <span class=\"first-line\">%@</span> \
-                                        <span class=\"second-line\">42 items</span> \
+                                        <span class=\"second-line\">%d items</span> \
                                         </div> \
                                         </a> \
                                         <div class=\"content\">",
                                         mo.objectID.URIRepresentation,
-                                        [(MLLabel *)mo name]]];
+                                        [(MLLabel *)mo name],
+                                        [folderItems count]]];
                 for (MLFile *file in folderItems) {
                     duration = [self timeFormatted:[[file duration] integerValue]];
                     [mediaInHtml addObject:[NSString stringWithFormat:
@@ -264,12 +266,13 @@
                                         <div class=\"open icon\"></div> \
                                         <div class=\"infos\"> \
                                         <span class=\"first-line\">%@</span> \
-                                        <span class=\"second-line\">42 items</span> \
+                                        <span class=\"second-line\">%d items</span> \
                                         </div> \
                                         </a> \
                                         <div class=\"content\">",
                                         mo.objectID.URIRepresentation,
-                                        [(MLAlbum *)mo name]]];
+                                        [(MLAlbum *)mo name],
+                                        [albumTracks count]]];
                 for (MLAlbumTrack *track in albumTracks) {
                     duration = [self timeFormatted:[[(MLFile *)[[track files] anyObject] duration] integerValue]];
                     [mediaInHtml addObject:[NSString stringWithFormat:
