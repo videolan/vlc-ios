@@ -369,6 +369,10 @@
 		7DEB3B8B1764A4F40038FC70 /* movie.png in Resources */ = {isa = PBXBuildFile; fileRef = 7DEB3B821764A4F40038FC70 /* movie.png */; };
 		7DEB3B8C1764A4F40038FC70 /* blank.png in Resources */ = {isa = PBXBuildFile; fileRef = 7DEB3B831764A4F40038FC70 /* blank.png */; };
 		7DEB3B8D1764A4F40038FC70 /* blank@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 7DEB3B841764A4F40038FC70 /* blank@2x.png */; };
+		7DF04F4D1961F2B8004A5429 /* web-download-fixed.png in Resources */ = {isa = PBXBuildFile; fileRef = 7DF04F491961F2B8004A5429 /* web-download-fixed.png */; };
+		7DF04F4E1961F2B8004A5429 /* web-download.png in Resources */ = {isa = PBXBuildFile; fileRef = 7DF04F4A1961F2B8004A5429 /* web-download.png */; };
+		7DF04F4F1961F2B8004A5429 /* web-open-fixed.png in Resources */ = {isa = PBXBuildFile; fileRef = 7DF04F4B1961F2B8004A5429 /* web-open-fixed.png */; };
+		7DF04F501961F2B8004A5429 /* web-open.png in Resources */ = {isa = PBXBuildFile; fileRef = 7DF04F4C1961F2B8004A5429 /* web-open.png */; };
 		7DF1166C176CC69A009EC05C /* volumeballslider.png in Resources */ = {isa = PBXBuildFile; fileRef = 7DF1166A176CC69A009EC05C /* volumeballslider.png */; };
 		7DF1166D176CC69A009EC05C /* volumeballslider@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 7DF1166B176CC69A009EC05C /* volumeballslider@2x.png */; };
 		7DF7CA0717650C2A00C61739 /* AVFoundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 7DF7CA0617650C2A00C61739 /* AVFoundation.framework */; };
@@ -1049,6 +1053,10 @@
 		7DEB3B821764A4F40038FC70 /* movie.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = movie.png; sourceTree = "<group>"; };
 		7DEB3B831764A4F40038FC70 /* blank.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = blank.png; sourceTree = "<group>"; };
 		7DEB3B841764A4F40038FC70 /* blank@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "blank@2x.png"; sourceTree = "<group>"; };
+		7DF04F491961F2B8004A5429 /* web-download-fixed.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "web-download-fixed.png"; path = "Resources/web-download-fixed.png"; sourceTree = SOURCE_ROOT; };
+		7DF04F4A1961F2B8004A5429 /* web-download.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "web-download.png"; path = "Resources/web-download.png"; sourceTree = SOURCE_ROOT; };
+		7DF04F4B1961F2B8004A5429 /* web-open-fixed.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "web-open-fixed.png"; path = "Resources/web-open-fixed.png"; sourceTree = SOURCE_ROOT; };
+		7DF04F4C1961F2B8004A5429 /* web-open.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "web-open.png"; path = "Resources/web-open.png"; sourceTree = SOURCE_ROOT; };
 		7DF1166A176CC69A009EC05C /* volumeballslider.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = volumeballslider.png; sourceTree = "<group>"; };
 		7DF1166B176CC69A009EC05C /* volumeballslider@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "volumeballslider@2x.png"; sourceTree = "<group>"; };
 		7DF7CA0617650C2A00C61739 /* AVFoundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AVFoundation.framework; path = System/Library/Frameworks/AVFoundation.framework; sourceTree = SDKROOT; };
@@ -1258,6 +1266,10 @@
 				7AC8629B1765DC560011611A /* style.css */,
 				7D00161A17704DAC00649F27 /* main.js */,
 				29125E5417492219003F03E5 /* index.html */,
+				7DF04F491961F2B8004A5429 /* web-download-fixed.png */,
+				7DF04F4A1961F2B8004A5429 /* web-download.png */,
+				7DF04F4B1961F2B8004A5429 /* web-open-fixed.png */,
+				7DF04F4C1961F2B8004A5429 /* web-open.png */,
 			);
 			path = web;
 			sourceTree = "<group>";
@@ -2402,6 +2414,7 @@
 				9B9231C4185A703700F89498 /* VLCFutureNetworkLoginViewController.xib in Resources */,
 				7D1516431868D7E0004B18F3 /* VLCFirstStepsFirstPageViewController~iphone.xib in Resources */,
 				7D63C19318774BFB00BD5256 /* VLCFirstStepsSecondPageViewController~ipad.xib in Resources */,
+				7DF04F4E1961F2B8004A5429 /* web-download.png in Resources */,
 				7DBBF1A8183AB4300009A339 /* VLCOpenNetworkStreamViewController.xib in Resources */,
 				A7CB0DB31716F72600050CF3 /* PlayingExternally~ipad.png in Resources */,
 				7D897888185E130E009BAB5D /* Quincy.bundle in Resources */,
@@ -2433,6 +2446,7 @@
 				7D53D527187729EC00A1BA97 /* connector-cable.png in Resources */,
 				7D07F71417566C4A00CDE21C /* menuCone.png in Resources */,
 				7D07F71517566C4A00CDE21C /* menuCone@2x.png in Resources */,
+				7DF04F501961F2B8004A5429 /* web-open.png in Resources */,
 				7D588D64187DD9B700469FCF /* modernSliderKnob@2x.png in Resources */,
 				7D278D6F18E9D6750063E109 /* tvShow@2x~ipad.png in Resources */,
 				7DBBF1A7183AB4300009A339 /* VLCNetworkLoginViewController.xib in Resources */,
@@ -2603,6 +2617,7 @@
 				41F475D51899A438001B919F /* folderIcon~ipad.png in Resources */,
 				7D897875185DEF79009BAB5D /* repeat@2x.png in Resources */,
 				7D0699DA17CB1FAE00713BEB /* WifiUp@2x.png in Resources */,
+				7DF04F4F1961F2B8004A5429 /* web-open-fixed.png in Resources */,
 				7D53D51C187729EC00A1BA97 /* sidebar-cutout@2x.png in Resources */,
 				7D713959186B197800D54EDA /* darkButton.png in Resources */,
 				7D0699DB17CB1FAE00713BEB /* WifiUpOn.png in Resources */,
@@ -2648,6 +2663,7 @@
 				7D514D4417F779C6007B960C /* Drive.png in Resources */,
 				7D3784DF183A99D2009EE944 /* papasscode_background.png in Resources */,
 				7D278D6C18E9D5EF0063E109 /* tvShow@2x.png in Resources */,
+				7DF04F4D1961F2B8004A5429 /* web-download-fixed.png in Resources */,
 				7D3784E0183A99D2009EE944 /* papasscode_background@2x.png in Resources */,
 				7D3784E1183A99D2009EE944 /* papasscode_failed_bg.png in Resources */,
 				7D53D52A187729EC00A1BA97 /* browser.png in Resources */,

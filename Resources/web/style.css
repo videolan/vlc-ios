@@ -340,19 +340,19 @@ div.main.drop {
 }
 
 .downloads .inner .down.icon {
-  background-image: url(img/download-fixed.png);
+  background-image: url(web-download-fixed.png);
 }
 
 .downloads .inner .open.icon {
-  background-image: url(img/open-fixed.png);
+  background-image: url(web-open-fixed.png);
 }
 
 .downloads .inner .down.icon.bgz {
-  background-image: url(img/download.png);
+  background-image: url(web-download.png);
 }
 
 .downloads .inner .open.icon.bgz {
-  background-image: url(img/open.png);
+  background-image: url(web-open.png);
 }
 
 .downloads .inner .infos {
