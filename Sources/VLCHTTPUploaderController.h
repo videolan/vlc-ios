@@ -22,6 +22,7 @@
 
 - (BOOL)changeHTTPServerState:(BOOL)state;
 - (NSString *)currentIPAddress;
+- (NSString *)hostname;
 
 - (void)moveFileFrom:(NSString *)filepath;
 

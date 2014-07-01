@@ -280,10 +280,11 @@
 {
     HTTPServer *server = self.uploadController.httpServer;
     if (server.isRunning) {
+        _uploadLocationLabel.numberOfLines = 0;
         if (server.listeningPort != 80)
-            _uploadLocationLabel.text = [NSString stringWithFormat:@"http://%@:%i", [self.uploadController currentIPAddress], server.listeningPort];
+            _uploadLocationLabel.text = [NSString stringWithFormat:@"http://%@:%i\nhttp://%@:%i", [self.uploadController currentIPAddress], server.listeningPort, [self.uploadController hostname], server.listeningPort];
         else
-            _uploadLocationLabel.text = [NSString stringWithFormat:@"http://%@", [self.uploadController currentIPAddress]];
+            _uploadLocationLabel.text = [NSString stringWithFormat:@"http://%@\nhttp://%@", [self.uploadController currentIPAddress], [self.uploadController hostname]];
         [_uploadButton setImage:[UIImage imageNamed:@"WifiUpOn"] forState:UIControlStateNormal];
     } else {
         _uploadLocationLabel.text = NSLocalizedString(@"HTTP_UPLOAD_SERVER_OFF", nil);
