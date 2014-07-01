@@ -77,7 +77,7 @@
         [_dicoInfo setObject:[NSString stringWithFormat:@"%@%@",_PlexMediaServerUrl, [attributeDict objectForKey:@"key"]] forKey:@"keyMedia"];
         if([attributeDict objectForKey:@"file"])
             [_dicoInfo setObject:[[attributeDict objectForKey:@"file"] lastPathComponent] forKey:@"namefile"];
-        NSString *duration = [self timeFormatted:[[attributeDict objectForKey:@"duration"] intValue]];
+        NSString *duration = [[VLCTime timeWithNumber:[attributeDict objectForKey:@"duration"]] stringValue];
         [_dicoInfo setObject:duration forKey:@"duration"];
         NSString *sizeFile = (NSString *)[attributeDict objectForKey:@"size"];
         [_dicoInfo setObject:sizeFile forKey:@"size"];
@@ -122,15 +122,6 @@
         APLog(@"Mark Watched Unwatched Media Error status: %ld at URL : %@", (long)httpStatus, url);
 
     return httpStatus;
-}
-
-- (NSString *)timeFormatted:(int)mSeconds
-{
-    mSeconds = (int)(mSeconds / 1000);
-    int seconds = (int)(mSeconds % 60);
-    int minutes = (int)((mSeconds / 60) % 60);
-    int hours = (int)(mSeconds / 3600);
-    return [NSString stringWithFormat:@"%02d:%02d:%02d",hours, minutes, seconds];
 }
 
 @end

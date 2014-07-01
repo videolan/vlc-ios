@@ -174,7 +174,7 @@
 
         for (NSManagedObject *mo in allMedia) {
             if ([mo isKindOfClass:[MLFile class]]) {
-                duration = [self timeFormatted:[[(MLFile *)mo duration] integerValue]];
+                duration = [[VLCTime timeWithNumber:[(MLFile *)mo duration]] stringValue];
                 [mediaInHtml addObject:[NSString stringWithFormat:
                                         @"<div style=\"background-image:url('thumbnail/%@.png')\"> \
                                         <a href=\"download/%@\" class=\"inner\"> \
@@ -206,7 +206,7 @@
                                         [(MLShow *)mo name],
                                         [episodes count]]];
                 for (MLShowEpisode *showEp in episodes) {
-                    duration = [self timeFormatted:[[(MLFile *)[[showEp files] anyObject] duration] integerValue]];
+                    duration = [[VLCTime timeWithNumber:[(MLFile *)[[showEp files] anyObject] duration]] stringValue];
                     [mediaInHtml addObject:[NSString stringWithFormat:
                                             @"<div style=\"background-image:url('thumbnail/%@.png')\"> \
                                             <a href=\"download/%@\" class=\"inner\"> \
@@ -241,7 +241,7 @@
                                         [(MLLabel *)mo name],
                                         [folderItems count]]];
                 for (MLFile *file in folderItems) {
-                    duration = [self timeFormatted:[[file duration] integerValue]];
+                    duration = [[VLCTime timeWithNumber:[file duration]] stringValue];
                     [mediaInHtml addObject:[NSString stringWithFormat:
                                             @"<div style=\"background-image:url('thumbnail/%@.png')\"> \
                                             <a href=\"download/%@\" class=\"inner\"> \
@@ -274,7 +274,7 @@
                                         [(MLAlbum *)mo name],
                                         [albumTracks count]]];
                 for (MLAlbumTrack *track in albumTracks) {
-                    duration = [self timeFormatted:[[(MLFile *)[[track files] anyObject] duration] integerValue]];
+                    duration = [[VLCTime timeWithNumber:[(MLFile *)[[track files] anyObject] duration]] stringValue];
                     [mediaInHtml addObject:[NSString stringWithFormat:
                                             @"<div style=\"background-image:url('thumbnail/%@.png')\"> \
                                             <a href=\"download/%@\" class=\"inner\"> \
@@ -414,15 +414,6 @@
             [[(VLCAppDelegate*)[UIApplication sharedApplication].delegate uploadController] moveFileFrom:_filepath];
     }
     return [super shouldDie];
-}
-
-- (NSString *)timeFormatted:(int)mSeconds
-{
-    mSeconds = (int)(mSeconds / 1000);
-    int seconds = (int)(mSeconds % 60);
-    int minutes = (int)((mSeconds / 60) % 60);
-    int hours = (int)(mSeconds / 3600);
-    return [NSString stringWithFormat:@"%02d:%02d:%02d",hours, minutes, seconds];
 }
 
 @end
