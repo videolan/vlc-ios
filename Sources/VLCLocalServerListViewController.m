@@ -61,6 +61,14 @@
 
 - (void)dealloc
 {
+    [[NSNotificationCenter defaultCenter] removeObserver:self
+                                                    name:UIApplicationWillResignActiveNotification
+                                                  object:[UIApplication sharedApplication]];
+
+    [[NSNotificationCenter defaultCenter] removeObserver:self
+                                                    name:UIApplicationDidBecomeActiveNotification
+                                                  object:[UIApplication sharedApplication]];
+
     [_reachability stopNotifier];
     [_ftpNetServiceBrowser stop];
     [_PlexNetServiceBrowser stop];
@@ -82,9 +90,33 @@
     [self.view addSubview:_activityIndicator];
 }
 
+- (void)applicationWillResignActive:(NSNotification *)notification
+{
+    [self _stopUPNPDiscovery];
+    [self _stopSAPDiscovery];
+}
+
+- (void)applicationDidBecomeActive:(NSNotification *)notification
+{
+    if (_reachability.currentReachabilityStatus == ReachableViaWiFi) {
+        [self performSelectorInBackground:@selector(_startUPNPDiscovery) withObject:nil];
+        [self performSelectorInBackground:@selector(_startSAPDiscovery) withObject:nil];
+    }
+}
+
 - (void)viewDidLoad
 {
     [super viewDidLoad];
+
+    [[NSNotificationCenter defaultCenter] addObserver:self
+                                             selector:@selector(applicationWillResignActive:)
+                                                 name:UIApplicationWillResignActiveNotification
+                                               object:[UIApplication sharedApplication]];
+
+    [[NSNotificationCenter defaultCenter] addObserver:self
+                                             selector:@selector(applicationDidBecomeActive:)
+                                                 name:UIApplicationDidBecomeActiveNotification
+                                               object:[UIApplication sharedApplication]];
 
 /*    if (SYSTEM_RUNS_IOS7_OR_LATER)
         _sectionHeaderTexts = @[@"Universal Plug'n'Play (UPNP)", @"File Transfer Protocol (FTP)", @"Network Streams (SAP)"];
