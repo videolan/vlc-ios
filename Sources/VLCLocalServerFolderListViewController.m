@@ -357,7 +357,6 @@
                     VLCAppDelegate* appDelegate = [UIApplication sharedApplication].delegate;
                     [appDelegate openMovieFromURL:itemURL];
                 }
-                [tableView deselectRowAtIndexPath:indexPath animated:NO];
             }
         }
     } else if (_serverType == kVLCServerTypeFTP) {
@@ -384,8 +383,8 @@
             } else
                 [self _streamFTPFile:properObjectName];
         }
-        [tableView deselectRowAtIndexPath:indexPath animated:NO];
     }
+    [tableView deselectRowAtIndexPath:indexPath animated:NO];
 }
 
 #pragma mark - UPnP Multiple Resources
