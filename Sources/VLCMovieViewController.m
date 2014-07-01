@@ -1192,6 +1192,14 @@
         else
             brightness = brightness + 0.01;
 
+        // Sanity check since -[UIScreen brightness] does not go by 0.01 steps
+        if (brightness > 1.0)
+            brightness = 1.0;
+        else if (brightness < 0.0)
+            brightness = 0.0;
+
+        NSAssert(brightness >= 0 && brightness <= 1, @"Brightness must be within 0 and 1 (it is %f)", brightness);
+
         [[UIScreen mainScreen] setBrightness:brightness];
         self.brightnessSlider.value = brightness * 2.;
 
