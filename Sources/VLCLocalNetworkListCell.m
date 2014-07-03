@@ -47,7 +47,7 @@
     self.titleLabel.hidden = self.subtitleLabel.hidden = titleLabelCentered;
     self.folderTitleLabel.hidden = !titleLabelCentered;
 
-    _titleLabelCentered = YES;
+    _titleLabelCentered = titleLabelCentered;
 }
 
 - (void)setIsDirectory:(BOOL)isDirectory
