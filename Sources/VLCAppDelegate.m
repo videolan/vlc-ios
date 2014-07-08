@@ -146,9 +146,12 @@
                     /* Safari & al mangle vlc://http:// so fix this */
                     if (location != NSNotFound && [parsedString characterAtIndex:location - 1] != 0x3a) { // :
                             parsedString = [NSString stringWithFormat:@"%@://%@", [parsedString substringToIndex:location], [parsedString substringFromIndex:location+2]];
-                    } else
-                        parsedString = [@"http://" stringByAppendingString:[receivedUrl substringFromIndex:6]];
-
+                    } else {
+                        parsedString = [receivedUrl substringFromIndex:6];
+                        if (![parsedString hasPrefix:@"http://"] && ![parsedString hasPrefix:@"https://"] && ![parsedString hasPrefix:@"ftp://"]) {
+                            parsedString = [@"http://" stringByAppendingString:[receivedUrl substringFromIndex:6]];
+                        }
+                    }
                     url = [NSURL URLWithString:parsedString];
                 }
             }
