@@ -600,6 +600,7 @@ static NSString *kDisplayedFirstSteps = @"Did we display the first steps tutoria
 
     [tableView deselectRowAtIndexPath:indexPath animated:YES];
     NSManagedObject *selectedObject;
+
     if (tableView == self.searchDisplayController.searchResultsTableView)
         selectedObject = _searchData[indexPath.row];
     else
@@ -631,11 +632,11 @@ static NSString *kDisplayedFirstSteps = @"Did we display the first steps tutoria
             [_list addMedia:[VLCMedia mediaWithURL:[NSURL URLWithString:file.url]]];
         }
         _mediaToPlayIndex = indexPath.row;
+    } else {
+        if (_searchDisplayController.active == YES)
+            [_searchDisplayController setActive:NO animated:NO];
+        [self openMediaObject:selectedObject];
     }
-
-    if (_searchDisplayController.active == YES)
-        [_searchDisplayController setActive:NO animated:YES];
-    [self openMediaObject:selectedObject];
 }
 
 #pragma mark - VLCMedialistDelegate
