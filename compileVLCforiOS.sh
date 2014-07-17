@@ -243,7 +243,7 @@ fi
 if ! [ -e InAppSettingsKit ]; then
 git clone git://github.com/futuretap/InAppSettingsKit.git
 else
-cd WhiteRaccoon && git pull --rebase && cd ..
+cd InAppSettingsKit && git pull --rebase && cd ..
 fi
 fi
 
