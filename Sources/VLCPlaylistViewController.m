@@ -88,42 +88,59 @@ static NSString *kDisplayedFirstSteps = @"Did we display the first steps tutoria
 - (void)loadView
 {
     _usingTableViewToShowData = UI_USER_INTERFACE_IDIOM() == UIUserInterfaceIdiomPhone;
-
-    if (_usingTableViewToShowData) {
-        _tableView = [[UITableView alloc] initWithFrame:[UIScreen mainScreen].bounds style:UITableViewStylePlain];
-        _tableView.backgroundColor = [UIColor VLCDarkBackgroundColor];
-        _tableView.rowHeight = [VLCPlaylistTableViewCell heightOfCell];
-        _tableView.separatorColor = [UIColor VLCDarkBackgroundColor];
-        _tableView.delegate = self;
-        _tableView.dataSource = self;
-        _tableView.opaque = YES;
-        _tableView.indicatorStyle = UIScrollViewIndicatorStyleWhite;
-        self.view = _tableView;
-    } else {
-        _folderLayout = [[VLCFolderCollectionViewFlowLayout alloc] init];
-        _collectionView = [[UICollectionView alloc] initWithFrame:[UIScreen mainScreen].bounds collectionViewLayout:_folderLayout];
-        _collectionView.alwaysBounceVertical = YES;
-        _collectionView.indicatorStyle = UIScrollViewIndicatorStyleWhite;
-        _collectionView.delegate = self;
-        _collectionView.dataSource = self;
-        _collectionView.opaque = YES;
-        _collectionView.backgroundColor = [UIColor VLCDarkBackgroundColor];
-        self.view = _collectionView;
-        _longPressGestureRecognizer = [[UILongPressGestureRecognizer alloc] initWithTarget:self action:@selector(_collectionViewHandleLongPressGesture:)];
-        [_collectionView addGestureRecognizer:_longPressGestureRecognizer];
-        if (SYSTEM_RUNS_IOS7_OR_LATER)
-            [_collectionView registerNib:[UINib nibWithNibName:@"VLCFuturePlaylistCollectionViewCell" bundle:nil] forCellWithReuseIdentifier:@"PlaylistCell"];
-        else
-            [_collectionView registerNib:[UINib nibWithNibName:@"VLCPlaylistCollectionViewCell" bundle:nil] forCellWithReuseIdentifier:@"PlaylistCell"];
-        self.view.backgroundColor = [UIColor VLCDarkBackgroundColor];
-    }
-
+    [self setupContentViewWithContentInset:NO];
     _libraryMode = VLCLibraryModeAllFiles;
 
-    self.view.autoresizingMask = UIViewAutoresizingFlexibleHeight | UIViewAutoresizingFlexibleWidth;
     self.emptyLibraryView = [[[NSBundle mainBundle] loadNibNamed:@"VLCEmptyLibraryView" owner:self options:nil] lastObject];
     _emptyLibraryView.emptyLibraryLongDescriptionLabel.lineBreakMode = NSLineBreakByWordWrapping;
     _emptyLibraryView.emptyLibraryLongDescriptionLabel.numberOfLines = 0;
+}
+
+- (void)setupContentViewWithContentInset:(BOOL)setInset
+{
+    if (_usingTableViewToShowData) {
+        if(!_tableView) {
+            _tableView = [[UITableView alloc] initWithFrame:[UIScreen mainScreen].bounds style:UITableViewStylePlain];
+            _tableView.backgroundColor = [UIColor VLCDarkBackgroundColor];
+            _tableView.rowHeight = [VLCPlaylistTableViewCell heightOfCell];
+            _tableView.separatorColor = [UIColor VLCDarkBackgroundColor];
+            _tableView.delegate = self;
+            _tableView.dataSource = self;
+            _tableView.opaque = YES;
+            _tableView.indicatorStyle = UIScrollViewIndicatorStyleWhite;
+        }
+        self.view = _tableView;
+        [_tableView reloadData];
+        if (setInset) {
+            CGFloat originY = self.navigationController.navigationBar.frame.size.height + [UIApplication sharedApplication].statusBarFrame.size.height;
+            _tableView.contentInset = UIEdgeInsetsMake(originY, 0, 0, 0);
+        }
+    } else {
+        if (!_collectionView) {
+            _folderLayout = [[VLCFolderCollectionViewFlowLayout alloc] init];
+            _collectionView = [[UICollectionView alloc] initWithFrame:[UIScreen mainScreen].bounds collectionViewLayout:_folderLayout];
+            _collectionView.alwaysBounceVertical = YES;
+            _collectionView.indicatorStyle = UIScrollViewIndicatorStyleWhite;
+            _collectionView.delegate = self;
+            _collectionView.dataSource = self;
+            _collectionView.opaque = YES;
+            _collectionView.backgroundColor = [UIColor VLCDarkBackgroundColor];
+            _longPressGestureRecognizer = [[UILongPressGestureRecognizer alloc] initWithTarget:self action:@selector(_collectionViewHandleLongPressGesture:)];
+            [_collectionView addGestureRecognizer:_longPressGestureRecognizer];
+            if (SYSTEM_RUNS_IOS7_OR_LATER)
+                [_collectionView registerNib:[UINib nibWithNibName:@"VLCFuturePlaylistCollectionViewCell" bundle:nil] forCellWithReuseIdentifier:@"PlaylistCell"];
+            else
+                [_collectionView registerNib:[UINib nibWithNibName:@"VLCPlaylistCollectionViewCell" bundle:nil] forCellWithReuseIdentifier:@"PlaylistCell"];
+            self.view.backgroundColor = [UIColor VLCDarkBackgroundColor];
+        }
+        self.view = _collectionView;
+        [_collectionView reloadData];
+        if (setInset) {
+            CGFloat originY = self.navigationController.navigationBar.frame.size.height + [UIApplication sharedApplication].statusBarFrame.size.height;
+            _collectionView.contentInset = UIEdgeInsetsMake(originY, 0, 0, 0);
+        }
+    }
+    self.view.autoresizingMask = UIViewAutoresizingFlexibleHeight | UIViewAutoresizingFlexibleWidth;
 }
 
 #pragma mark -
@@ -397,9 +414,14 @@ static NSString *kDisplayedFirstSteps = @"Did we display the first steps tutoria
         self.emptyLibraryView.frame = self.view.bounds;
         [self.view addSubview:self.emptyLibraryView];
         self.navigationItem.rightBarButtonItem = nil;
-    } else
-        self.navigationItem.rightBarButtonItem = self.editButtonItem;
-
+    } else {
+        if (UI_USER_INTERFACE_IDIOM() == UIUserInterfaceIdiomPad) {
+            UIBarButtonItem *toggleDisplayedView = [[UIBarButtonItem alloc] initWithImage:[UIImage imageNamed:@"tableViewIcon"] style:UIBarButtonItemStylePlain target:self action:@selector(toggleDisplayedView:)];
+            self.navigationItem.rightBarButtonItems = @[toggleDisplayedView, self.editButtonItem];
+        } else {
+            self.navigationItem.rightBarButtonItem = self.editButtonItem;
+        }
+    }
     if (_usingTableViewToShowData)
         _tableView.separatorStyle = (_foundMedia.count > 0)? UITableViewCellSeparatorStyleSingleLine:
                                                              UITableViewCellSeparatorStyleNone;
@@ -1065,6 +1087,14 @@ static NSString *kDisplayedFirstSteps = @"Did we display the first steps tutoria
     }
 
     self.navigationController.toolbarHidden = !editing;
+}
+
+- (void)toggleDisplayedView:(UIBarButtonItem *)button
+{
+    _usingTableViewToShowData = !_usingTableViewToShowData;
+    UIImage *newButtonImage = [UIImage imageNamed: _usingTableViewToShowData ? @"collectionViewIcon" : @"tableViewIcon"];
+    [button setImage:newButtonImage];
+    [self setupContentViewWithContentInset:YES];
 }
 
 - (UITableViewCellEditingStyle)tableView:(UITableView *)aTableView editingStyleForRowAtIndexPath:(NSIndexPath *)indexPath
