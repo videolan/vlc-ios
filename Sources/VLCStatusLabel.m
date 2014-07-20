@@ -21,6 +21,31 @@
 
 @implementation VLCStatusLabel
 
+- (instancetype)initWithFrame:(CGRect)frame
+{
+    self = [super initWithFrame:frame];
+    if (self)
+        [self initialize];
+
+    return self;
+}
+
+- (instancetype)initWithCoder:(NSCoder *)aDecoder
+{
+    self = [super initWithCoder:aDecoder];
+    if (self)
+        [self initialize];
+
+    return self;
+}
+
+- (void)initialize
+{
+    self.backgroundColor = [UIColor clearColor];
+}
+
+#pragma mark -
+
 - (void)showStatusMessage:(NSString *)message
 {
     self.text = message;
@@ -74,11 +99,10 @@
     [UIView animateWithDuration:duration animations:animationBlock completion:completionBlock];
 }
 
+#pragma mark -
+
 - (void)drawRect:(CGRect)rect
 {
-    self.backgroundColor = [UIColor clearColor];
-    CGContextClearRect(UIGraphicsGetCurrentContext(), rect);
-
     UIColor *drawingColor = [UIColor VLCDarkBackgroundColor];
     [drawingColor setFill];
 
