@@ -55,7 +55,6 @@
     [self sizeToFit];
     CGRect selfFrame = self.frame;
     CGRect parentFrame = [self superview].bounds;
-    selfFrame.size.width += 15.; // take extra width into account for our custom drawing
     selfFrame.origin.x = (parentFrame.size.width - selfFrame.size.width) / 2.;
     [self setFrame:selfFrame];
 
@@ -98,6 +97,15 @@
 
     NSTimeInterval duration = animated? 0.3: 0.0;
     [UIView animateWithDuration:duration animations:animationBlock completion:completionBlock];
+}
+
+#pragma mark - sizing
+
+- (CGSize)sizeThatFits:(CGSize)size
+{
+    CGSize textSize = [self.text sizeWithFont:self.font];
+    textSize.width += 16.f; // take extra width into account for our custom drawing
+    return textSize;
 }
 
 #pragma mark -
