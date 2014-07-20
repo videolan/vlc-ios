@@ -109,12 +109,9 @@ static NSString *kDisplayedFirstSteps = @"Did we display the first steps tutoria
             _tableView.opaque = YES;
             _tableView.indicatorStyle = UIScrollViewIndicatorStyleWhite;
         }
+
         self.view = _tableView;
         [_tableView reloadData];
-        if (setInset) {
-            CGFloat originY = self.navigationController.navigationBar.frame.size.height + [UIApplication sharedApplication].statusBarFrame.size.height;
-            _tableView.contentInset = UIEdgeInsetsMake(originY, 0, 0, 0);
-        }
     } else {
         if (!_collectionView) {
             _folderLayout = [[VLCFolderCollectionViewFlowLayout alloc] init];
@@ -135,11 +132,20 @@ static NSString *kDisplayedFirstSteps = @"Did we display the first steps tutoria
         }
         self.view = _collectionView;
         [_collectionView reloadData];
-        if (setInset) {
-            CGFloat originY = self.navigationController.navigationBar.frame.size.height + [UIApplication sharedApplication].statusBarFrame.size.height;
-            _collectionView.contentInset = UIEdgeInsetsMake(originY, 0, 0, 0);
-        }
     }
+
+    if (setInset) {
+        CGSize statusBarSize = [UIApplication sharedApplication].statusBarFrame.size;
+        // Status bar frame doesn't change correctly on rotation
+        CGFloat statusBarHeight = MIN(statusBarSize.height, statusBarSize.width);
+        CGFloat originY = self.navigationController.navigationBar.frame.size.height + statusBarHeight;
+
+        if (_usingTableViewToShowData)
+            _tableView.contentInset = UIEdgeInsetsMake(originY, 0, 0, 0);
+        else
+            _collectionView.contentInset = UIEdgeInsetsMake(originY, 0, 0, 0);
+    }
+
     self.view.autoresizingMask = UIViewAutoresizingFlexibleHeight | UIViewAutoresizingFlexibleWidth;
 }
 
