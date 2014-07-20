@@ -38,7 +38,7 @@
     if (_displayTimer)
         [_displayTimer invalidate];
     else
-        [self _toggleVisibility:NO];
+        [self setHidden:NO animated:YES];
 
     _displayTimer = [NSTimer scheduledTimerWithTimeInterval:1.5
                                                      target:self
@@ -49,11 +49,11 @@
 
 - (void)_hideAgain
 {
-    [self _toggleVisibility:YES];
+    [self setHidden:YES animated:YES];
     _displayTimer = nil;
 }
 
-- (void)_toggleVisibility:(BOOL)hidden
+- (void)setHidden:(BOOL)hidden animated:(BOOL)animated
 {
     CGFloat alpha = hidden? 0.0f: 1.0f;
 
@@ -70,7 +70,8 @@
         self.hidden = hidden;
     };
 
-    [UIView animateWithDuration:0.3f animations:animationBlock completion:completionBlock];
+    NSTimeInterval duration = animated? 0.3: 0.0;
+    [UIView animateWithDuration:duration animations:animationBlock completion:completionBlock];
 }
 
 - (void)drawRect:(CGRect)rect
