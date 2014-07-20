@@ -13,9 +13,6 @@
 #import <UIKit/UIKit.h>
 
 @interface VLCStatusLabel : UILabel
-{
-    NSTimer *_displayTimer;
-}
 
 - (void)showStatusMessage:(NSString *)message;
 

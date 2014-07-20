@@ -13,6 +13,12 @@
 
 #import "VLCStatusLabel.h"
 
+@interface VLCStatusLabel ()
+{
+    NSTimer *_displayTimer;
+}
+@end
+
 @implementation VLCStatusLabel
 
 - (void)showStatusMessage:(NSString *)message
