@@ -42,6 +42,7 @@
 - (void)initialize
 {
     self.backgroundColor = [UIColor clearColor];
+    self.textAlignment = NSTextAlignmentCenter;
 }
 
 #pragma mark -
