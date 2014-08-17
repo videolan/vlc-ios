@@ -264,6 +264,7 @@
 		7D63C1D0187767AF00BD5256 /* fsarrow-time@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 7D63C1BE187767AF00BD5256 /* fsarrow-time@2x.png */; };
 		7D63C1D1187767AF00BD5256 /* fsarrow-volume.png in Resources */ = {isa = PBXBuildFile; fileRef = 7D63C1BF187767AF00BD5256 /* fsarrow-volume.png */; };
 		7D63C1D2187767AF00BD5256 /* fsarrow-volume@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 7D63C1C0187767AF00BD5256 /* fsarrow-volume@2x.png */; };
+		7D65C7D219A15CEA00FA8819 /* VLCLibraryHeaderView.m in Sources */ = {isa = PBXBuildFile; fileRef = 7D65C7D119A15CEA00FA8819 /* VLCLibraryHeaderView.m */; };
 		7D66225E1871F29000CA9496 /* checkbox-legacy.png in Resources */ = {isa = PBXBuildFile; fileRef = 7D66225A1871F29000CA9496 /* checkbox-legacy.png */; };
 		7D66225F1871F29000CA9496 /* checkbox-legacy@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 7D66225B1871F29000CA9496 /* checkbox-legacy@2x.png */; };
 		7D6622601871F29000CA9496 /* checkbox-legacy-empty.png in Resources */ = {isa = PBXBuildFile; fileRef = 7D66225C1871F29000CA9496 /* checkbox-legacy-empty.png */; };
@@ -844,6 +845,8 @@
 		7D63C1BE187767AF00BD5256 /* fsarrow-time@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "fsarrow-time@2x.png"; path = "arrows/fsarrow-time@2x.png"; sourceTree = "<group>"; };
 		7D63C1BF187767AF00BD5256 /* fsarrow-volume.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "fsarrow-volume.png"; path = "arrows/fsarrow-volume.png"; sourceTree = "<group>"; };
 		7D63C1C0187767AF00BD5256 /* fsarrow-volume@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "fsarrow-volume@2x.png"; path = "arrows/fsarrow-volume@2x.png"; sourceTree = "<group>"; };
+		7D65C7D019A15CEA00FA8819 /* VLCLibraryHeaderView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = VLCLibraryHeaderView.h; path = Sources/VLCLibraryHeaderView.h; sourceTree = SOURCE_ROOT; };
+		7D65C7D119A15CEA00FA8819 /* VLCLibraryHeaderView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = VLCLibraryHeaderView.m; path = Sources/VLCLibraryHeaderView.m; sourceTree = SOURCE_ROOT; };
 		7D66225A1871F29000CA9496 /* checkbox-legacy.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "checkbox-legacy.png"; sourceTree = "<group>"; };
 		7D66225B1871F29000CA9496 /* checkbox-legacy@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "checkbox-legacy@2x.png"; sourceTree = "<group>"; };
 		7D66225C1871F29000CA9496 /* checkbox-legacy-empty.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "checkbox-legacy-empty.png"; sourceTree = "<group>"; };
@@ -1689,6 +1692,8 @@
 				8F91EC78195CEC7900F5BCBA /* VLCOpenInActivity.m */,
 				7D37849C183A98DD009EE944 /* VLCThumbnailsCache.h */,
 				7D37849D183A98DD009EE944 /* VLCThumbnailsCache.m */,
+				7D65C7D019A15CEA00FA8819 /* VLCLibraryHeaderView.h */,
+				7D65C7D119A15CEA00FA8819 /* VLCLibraryHeaderView.m */,
 			);
 			name = "Everything Playlist";
 			sourceTree = "<group>";
@@ -2743,6 +2748,7 @@
 				7D6B08F2174D65B500A05173 /* IASKSpecifier.m in Sources */,
 				7D6B08F3174D65B500A05173 /* IASKPSSliderSpecifierViewCell.m in Sources */,
 				7D168F7418D4A33F003FAF59 /* UIImage+Blur.m in Sources */,
+				7D65C7D219A15CEA00FA8819 /* VLCLibraryHeaderView.m in Sources */,
 				7D6B08F4174D65B500A05173 /* IASKPSTextFieldSpecifierViewCell.m in Sources */,
 				7D6B08F5174D65B500A05173 /* IASKPSTitleValueSpecifierViewCell.m in Sources */,
 				9B5BEF2917FBAEA50016F9CB /* GTLDrive_Sources.m in Sources */,

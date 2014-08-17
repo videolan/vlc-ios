@@ -27,6 +27,7 @@
 #import "LXReorderableCollectionViewFlowLayout.h"
 #import "VLCAlertView.h"
 #import "VLCOpenInActivity.h"
+#import "VLCLibraryHeaderView.h"
 
 #import <AssetsLibrary/AssetsLibrary.h>
 
@@ -115,6 +116,7 @@ static NSString *kDisplayedFirstSteps = @"Did we display the first steps tutoria
     } else {
         if (!_collectionView) {
             _folderLayout = [[VLCFolderCollectionViewFlowLayout alloc] init];
+            _folderLayout.headerReferenceSize = CGSizeMake(640., [VLCLibraryHeaderView headerHeight]);
             _collectionView = [[UICollectionView alloc] initWithFrame:[UIScreen mainScreen].bounds collectionViewLayout:_folderLayout];
             _collectionView.alwaysBounceVertical = YES;
             _collectionView.indicatorStyle = UIScrollViewIndicatorStyleWhite;
@@ -128,6 +130,7 @@ static NSString *kDisplayedFirstSteps = @"Did we display the first steps tutoria
                 [_collectionView registerNib:[UINib nibWithNibName:@"VLCFuturePlaylistCollectionViewCell" bundle:nil] forCellWithReuseIdentifier:@"PlaylistCell"];
             else
                 [_collectionView registerNib:[UINib nibWithNibName:@"VLCPlaylistCollectionViewCell" bundle:nil] forCellWithReuseIdentifier:@"PlaylistCell"];
+            [_collectionView registerClass:[VLCLibraryHeaderView class] forSupplementaryViewOfKind:UICollectionElementKindSectionHeader withReuseIdentifier:@"HeaderCell"];
             self.view.backgroundColor = [UIColor VLCDarkBackgroundColor];
         }
         self.view = _collectionView;
@@ -142,8 +145,14 @@ static NSString *kDisplayedFirstSteps = @"Did we display the first steps tutoria
 
         if (_usingTableViewToShowData)
             _tableView.contentInset = UIEdgeInsetsMake(originY, 0, 0, 0);
-        else
-            _collectionView.contentInset = UIEdgeInsetsMake(originY, 0, 0, 0);
+        else {
+            if (_searchBar.hidden)
+                _collectionView.contentInset = UIEdgeInsetsMake(originY - [VLCLibraryHeaderView headerHeight], 0, 0, 0);
+            else {
+                _collectionView.contentInset = UIEdgeInsetsMake(originY, 0, 0, 0);
+                [_collectionView scrollRectToVisible:CGRectMake(0., 0., 640., 200.) animated:NO];
+            }
+        }
     }
 
     self.view.autoresizingMask = UIViewAutoresizingFlexibleHeight | UIViewAutoresizingFlexibleWidth;
@@ -200,27 +209,25 @@ static NSString *kDisplayedFirstSteps = @"Did we display the first steps tutoria
     } else
         [self.navigationController.toolbar setBackgroundImage:[UIImage imageNamed:@"bottomBlackBar"] forToolbarPosition:UIToolbarPositionAny barMetrics:UIBarMetricsDefault];
 
-    if (_usingTableViewToShowData) {
-        _searchBar = [[UISearchBar alloc] initWithFrame:CGRectMake(0, 0, 320, 44)];
-        UINavigationBar *navBar = self.navigationController.navigationBar;
-        if (SYSTEM_RUNS_IOS7_OR_LATER) {
-            _searchBar.barTintColor = navBar.barTintColor;
-        }
-        _searchBar.tintColor = navBar.tintColor;
-        _searchBar.translucent = navBar.translucent;
-        _searchBar.opaque = navBar.opaque;
-        _searchDisplayController = [[UISearchDisplayController alloc] initWithSearchBar:_searchBar contentsController:self];
-        _searchDisplayController.delegate = self;
-        _searchDisplayController.searchResultsDataSource = self;
-        _searchDisplayController.searchResultsDelegate = self;
-        _searchDisplayController.searchResultsTableView.separatorStyle = UITableViewCellSeparatorStyleNone;
-        _searchDisplayController.searchResultsTableView.indicatorStyle = UIScrollViewIndicatorStyleWhite;
-        _searchBar.delegate = self;
-
-        UITapGestureRecognizer *tapTwiceGesture = [[UITapGestureRecognizer alloc] initWithTarget:self  action:@selector(tapTwiceGestureAction:)];
-        [tapTwiceGesture setNumberOfTapsRequired:2];
-        [self.navigationController.navigationBar addGestureRecognizer:tapTwiceGesture];
+    _searchBar = [[UISearchBar alloc] initWithFrame:CGRectMake(0, 0, 320, 44)];
+    UINavigationBar *navBar = self.navigationController.navigationBar;
+    if (SYSTEM_RUNS_IOS7_OR_LATER) {
+        _searchBar.barTintColor = navBar.barTintColor;
     }
+    _searchBar.tintColor = navBar.tintColor;
+    _searchBar.translucent = navBar.translucent;
+    _searchBar.opaque = navBar.opaque;
+    _searchDisplayController = [[UISearchDisplayController alloc] initWithSearchBar:_searchBar contentsController:self];
+    _searchDisplayController.delegate = self;
+    _searchDisplayController.searchResultsDataSource = self;
+    _searchDisplayController.searchResultsDelegate = self;
+    _searchDisplayController.searchResultsTableView.separatorStyle = UITableViewCellSeparatorStyleNone;
+    _searchDisplayController.searchResultsTableView.indicatorStyle = UIScrollViewIndicatorStyleWhite;
+    _searchBar.delegate = self;
+
+    UITapGestureRecognizer *tapTwiceGesture = [[UITapGestureRecognizer alloc] initWithTarget:self  action:@selector(tapTwiceGestureAction:)];
+    [tapTwiceGesture setNumberOfTapsRequired:2];
+    [self.navigationController.navigationBar addGestureRecognizer:tapTwiceGesture];
 
     _searchData = [[NSMutableArray alloc] init];
 }
@@ -544,10 +551,10 @@ static NSString *kDisplayedFirstSteps = @"Did we display the first steps tutoria
 
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section
 {
-    if (tableView == self.searchDisplayController.searchResultsTableView)
-        return _searchData.count;
+    if (tableView == self.tableView)
+        return _foundMedia.count;
 
-    return _foundMedia.count;
+    return _searchData.count;
 }
 
 // Customize the appearance of table view cells.
@@ -565,10 +572,10 @@ static NSString *kDisplayedFirstSteps = @"Did we display the first steps tutoria
 
     NSInteger row = indexPath.row;
 
-    if (tableView == self.searchDisplayController.searchResultsTableView)
-        cell.mediaObject = _searchData[row];
-    else
+    if (tableView == self.tableView)
         cell.mediaObject = _foundMedia[row];
+    else
+        cell.mediaObject = _searchData[row];
 
     return cell;
 }
@@ -629,10 +636,10 @@ static NSString *kDisplayedFirstSteps = @"Did we display the first steps tutoria
     [tableView deselectRowAtIndexPath:indexPath animated:YES];
     NSManagedObject *selectedObject;
 
-    if (tableView == self.searchDisplayController.searchResultsTableView)
-        selectedObject = _searchData[indexPath.row];
-    else
+    if (tableView == self.tableView)
         selectedObject = _foundMedia[indexPath.row];
+    else
+        selectedObject = _searchData[indexPath.row];
 
     if ([selectedObject isKindOfClass:[MLAlbumTrack class]]) {
         _tracks = [[(MLAlbumTrack*)selectedObject album] sortedTracks];
@@ -694,10 +701,14 @@ static NSString *kDisplayedFirstSteps = @"Did we display the first steps tutoria
 - (void)tapTwiceGestureAction:(UIGestureRecognizer *)recognizer
 {
     _searchBar.hidden = !_searchBar.hidden;
-    if (_searchBar.hidden)
-        self.tableView.tableHeaderView = nil;
-    else
-        self.tableView.tableHeaderView = _searchBar;
+
+    if (_usingTableViewToShowData) {
+        if (_searchBar.hidden)
+            self.tableView.tableHeaderView = nil;
+        else
+            self.tableView.tableHeaderView = _searchBar;
+    } else
+        [self setupContentViewWithContentInset:YES];
 }
 
 #pragma mark - Collection View
@@ -851,6 +862,19 @@ static NSString *kDisplayedFirstSteps = @"Did we display the first steps tutoria
         _indexPaths = [NSMutableArray arrayWithArray:@[itemPath]];
         [self showCreateFolderAlert];
     }
+}
+
+- (UICollectionReusableView *)collectionView:(UICollectionView *)collectionView viewForSupplementaryElementOfKind:(NSString *)kind atIndexPath:(NSIndexPath *)indexPath
+{
+    VLCLibraryHeaderView *reuseableView;
+
+    reuseableView = [collectionView dequeueReusableSupplementaryViewOfKind:UICollectionElementKindSectionHeader withReuseIdentifier:@"HeaderCell" forIndexPath:indexPath];
+
+    if (!reuseableView)
+        reuseableView = [[VLCLibraryHeaderView alloc] initWithPredefinedFrame];
+    reuseableView.searchBar = _searchBar;
+
+    return reuseableView;
 }
 
 #pragma mark - Folder implementation
@@ -1126,6 +1150,7 @@ static NSString *kDisplayedFirstSteps = @"Did we display the first steps tutoria
                     [self.collectionView removeGestureRecognizer:recognizer];
             }
             _folderLayout = [[VLCFolderCollectionViewFlowLayout alloc] init];
+            _folderLayout.headerReferenceSize = CGSizeMake(640., [VLCLibraryHeaderView headerHeight]);
             [self.collectionView setCollectionViewLayout:_folderLayout animated:NO];
             [_collectionView addGestureRecognizer:_longPressGestureRecognizer];
         }
