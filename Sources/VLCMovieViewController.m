@@ -1415,7 +1415,7 @@
     NSArray *outputs = [[AVAudioSession sharedInstance] currentRoute].outputs;
     NSString *portName = [[outputs objectAtIndex:0] portName];
 
-    if (![portName isEqualToString:@"Headphones"])
+    if (![portName isEqualToString:@"Headphones"] && [_mediaPlayer isPlaying])
         [_listPlayer pause];
 }
 
