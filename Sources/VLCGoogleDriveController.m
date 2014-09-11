@@ -128,7 +128,8 @@
 
     query = [GTLQueryDrive queryForFilesList];
     query.pageToken = _nextPageToken;
-    query.maxResults = 100;
+    //the results don't come in alphabetical order when paging. So the maxresult (default 100) is set to INT_max in order to get all files at once.
+    query.maxResults = INT_MAX;
     if (![_folderId isEqualToString:@""]) {
         query.q = [NSString stringWithFormat:@"'%@' in parents", [_folderId lastPathComponent]];
     }

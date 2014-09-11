@@ -103,8 +103,11 @@
 
     _activityIndicator = [[UIActivityIndicatorView alloc] initWithActivityIndicatorStyle:UIActivityIndicatorViewStyleWhiteLarge];
     _activityIndicator.hidesWhenStopped = YES;
-
+    _activityIndicator.translatesAutoresizingMaskIntoConstraints = NO;
     [self.view addSubview:_activityIndicator];
+
+    [self.view addConstraint:[NSLayoutConstraint constraintWithItem:_activityIndicator attribute:NSLayoutAttributeCenterX relatedBy:NSLayoutRelationEqual toItem:self.view attribute:NSLayoutAttributeCenterX multiplier:1.0 constant:0]];
+    [self.view addConstraint:[NSLayoutConstraint constraintWithItem:_activityIndicator attribute:NSLayoutAttributeCenterY relatedBy:NSLayoutRelationEqual toItem:self.view attribute:NSLayoutAttributeCenterY multiplier:1.0 constant:0]];
 }
 
 - (GTMOAuth2ViewControllerTouch *)createAuthController
@@ -136,12 +139,6 @@
     [self.navigationController.toolbar setBackgroundImage:[UIImage imageNamed:@"bottomBlackBar"] forToolbarPosition:UIToolbarPositionAny barMetrics:UIBarMetricsDefault];
     [self updateViewAfterSessionChange];
     [super viewWillAppear:animated];
-
-    CGRect aiFrame = _activityIndicator.frame;
-    CGSize tvSize = self.tableView.frame.size;
-    aiFrame.origin.x = (tvSize.width - aiFrame.size.width) / 2.;
-    aiFrame.origin.y = (tvSize.height - aiFrame.size.height) / 2.;
-    _activityIndicator.frame = aiFrame;
 
     [self.cloudStorageLogo sizeToFit];
     self.cloudStorageLogo.center = self.view.center;
