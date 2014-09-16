@@ -278,16 +278,28 @@
 - (void)updateMediaList
 {
     NSString *directoryPath = [self directoryPath];
-    NSArray *foundFiles = [[NSFileManager defaultManager] contentsOfDirectoryAtPath:directoryPath error:nil];
-    NSMutableArray *filePaths = [NSMutableArray arrayWithCapacity:[foundFiles count]];
+    NSMutableArray *foundFiles = [NSMutableArray arrayWithObject:@""];
+    NSMutableArray *filePaths = [NSMutableArray array];
     NSURL *fileURL;
-    for (NSString *fileName in foundFiles) {
+    while (foundFiles.count) {
+        NSString *fileName = foundFiles.firstObject;
+        NSString *filePath = [directoryPath stringByAppendingPathComponent:fileName];
+        [foundFiles removeObject:fileName];
+
         if ([fileName isSupportedMediaFormat] || [fileName isSupportedAudioMediaFormat]) {
-            [filePaths addObject:[directoryPath stringByAppendingPathComponent:fileName]];
+            [filePaths addObject:filePath];
 
             /* exclude media files from backup (QA1719) */
-            fileURL = [NSURL fileURLWithPath:[directoryPath stringByAppendingPathComponent:fileName]];
+            fileURL = [NSURL fileURLWithPath:filePath];
             [fileURL setResourceValue:@YES forKey:NSURLIsExcludedFromBackupKey error:nil];
+        } else {
+
+            BOOL isDirectory = NO;
+            BOOL exists = [[NSFileManager defaultManager] fileExistsAtPath:filePath isDirectory:&isDirectory];
+            // add folders
+            if (exists && isDirectory) {
+                [foundFiles addObjectsFromArray:[[NSFileManager defaultManager] contentsOfDirectoryAtPath:filePath error:nil]];
+            }
         }
     }
     [[MLMediaLibrary sharedMediaLibrary] addFilePaths:filePaths];
