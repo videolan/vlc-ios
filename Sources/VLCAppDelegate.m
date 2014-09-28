@@ -293,12 +293,26 @@
             fileURL = [NSURL fileURLWithPath:filePath];
             [fileURL setResourceValue:@YES forKey:NSURLIsExcludedFromBackupKey error:nil];
         } else {
-
             BOOL isDirectory = NO;
             BOOL exists = [[NSFileManager defaultManager] fileExistsAtPath:filePath isDirectory:&isDirectory];
+
             // add folders
             if (exists && isDirectory) {
-                [foundFiles addObjectsFromArray:[[NSFileManager defaultManager] contentsOfDirectoryAtPath:filePath error:nil]];
+                NSArray *files = [[NSFileManager defaultManager] contentsOfDirectoryAtPath:filePath error:nil];
+                for (NSString* file in files) {
+                    NSString *fullFilePath = [directoryPath stringByAppendingPathComponent:file];
+                    isDirectory = NO;
+                    exists = [[NSFileManager defaultManager] fileExistsAtPath:fullFilePath isDirectory:&isDirectory];
+                    //only add folders or files in folders
+                    if ((exists && isDirectory) || ![filePath.lastPathComponent isEqualToString:@"Documents"]) {
+                        NSString *folderpath = [filePath stringByReplacingOccurrencesOfString:directoryPath withString:@""];
+                        if (![folderpath isEqualToString:@""]) {
+                            folderpath = [folderpath stringByAppendingString:@"/"];
+                        }
+                        NSString *path = [folderpath stringByAppendingString:file];
+                        [foundFiles addObject:path];
+                    }
+                }
             }
         }
     }
