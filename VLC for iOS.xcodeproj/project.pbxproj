@@ -124,6 +124,7 @@
 		7D278D6C18E9D5EF0063E109 /* tvShow@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 7D278D6818E9D5EF0063E109 /* tvShow@2x.png */; };
 		7D278D6F18E9D6750063E109 /* tvShow@2x~ipad.png in Resources */ = {isa = PBXBuildFile; fileRef = 7D278D6D18E9D6750063E109 /* tvShow@2x~ipad.png */; };
 		7D278D7018E9D6750063E109 /* tvShow~iPad.png in Resources */ = {isa = PBXBuildFile; fileRef = 7D278D6E18E9D6750063E109 /* tvShow~iPad.png */; };
+		7D27EB9419DEE11900EF0370 /* Launch Screen.xib in Resources */ = {isa = PBXBuildFile; fileRef = 7D27EB9319DEE11900EF0370 /* Launch Screen.xib */; };
 		7D2A34A41805CDBA004078AA /* gradient-cell-ios7.png in Resources */ = {isa = PBXBuildFile; fileRef = 7D2A34A21805CDBA004078AA /* gradient-cell-ios7.png */; };
 		7D2A34A51805CDBA004078AA /* gradient-cell-ios7@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 7D2A34A31805CDBA004078AA /* gradient-cell-ios7@2x.png */; };
 		7D30F3C2183AB24C00FFC021 /* VLCHTTPConnection.m in Sources */ = {isa = PBXBuildFile; fileRef = 7D30F3BD183AB24C00FFC021 /* VLCHTTPConnection.m */; };
@@ -624,6 +625,7 @@
 		7D278D6818E9D5EF0063E109 /* tvShow@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "tvShow@2x.png"; sourceTree = "<group>"; };
 		7D278D6D18E9D6750063E109 /* tvShow@2x~ipad.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "tvShow@2x~ipad.png"; sourceTree = "<group>"; };
 		7D278D6E18E9D6750063E109 /* tvShow~iPad.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "tvShow~iPad.png"; sourceTree = "<group>"; };
+		7D27EB9319DEE11900EF0370 /* Launch Screen.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; name = "Launch Screen.xib"; path = "Resources/Launch Screen.xib"; sourceTree = SOURCE_ROOT; };
 		7D2A34A21805CDBA004078AA /* gradient-cell-ios7.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "gradient-cell-ios7.png"; sourceTree = "<group>"; };
 		7D2A34A31805CDBA004078AA /* gradient-cell-ios7@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "gradient-cell-ios7@2x.png"; sourceTree = "<group>"; };
 		7D2AEDE017FB775900B5281E /* sv */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = sv; path = sv.lproj/Localizable.strings; sourceTree = "<group>"; };
@@ -1948,6 +1950,7 @@
 				7DBBF196183AB4300009A339 /* VLCPlaylistTableViewCell.xib */,
 				7DBBF197183AB4300009A339 /* VLCWiFiUploadTableViewCell.xib */,
 				7D711AD918227A490094E4F0 /* GTMOAuth2ViewTouch.xib */,
+				7D27EB9319DEE11900EF0370 /* Launch Screen.xib */,
 			);
 			name = XIBs;
 			path = AspenProject;
@@ -2449,6 +2452,7 @@
 				7D63C1D2187767AF00BD5256 /* fsarrow-volume@2x.png in Resources */,
 				7D6B08C2174A831900A05173 /* vlc-xmas.png in Resources */,
 				7D6B08C3174A831900A05173 /* vlc-xmas@2x.png in Resources */,
+				7D27EB9419DEE11900EF0370 /* Launch Screen.xib in Resources */,
 				7D6B08FC174D773C00A05173 /* Settings.bundle in Resources */,
 				7D5E39CA174FC2F3007DAFA1 /* dropbox-white.png in Resources */,
 				7D5E39CB174FC2F3007DAFA1 /* dropbox-white@2x.png in Resources */,
