@@ -16,7 +16,7 @@
                 <view alpha="0.94999999999999996" contentMode="scaleToFill" ambiguous="YES" misplaced="YES" translatesAutoresizingMaskIntoConstraints="NO" id="08f-KG-S7V">
                     <rect key="frame" x="0.0" y="0.0" width="480" height="64"/>
                     <subviews>
-                        <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="1000" verticalHuggingPriority="1000" ambiguous="YES" misplaced="YES" image="title.png" translatesAutoresizingMaskIntoConstraints="NO" id="6ra-lX-N7Q">
+                        <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="1000" verticalHuggingPriority="1000" ambiguous="YES" image="title.png" translatesAutoresizingMaskIntoConstraints="NO" id="6ra-lX-N7Q">
                             <rect key="frame" x="221" y="30" width="39" height="19"/>
                         </imageView>
                     </subviews>
@@ -34,6 +34,7 @@
             <color key="backgroundColor" white="0.12" alpha="1" colorSpace="calibratedWhite"/>
             <constraints>
                 <constraint firstAttribute="centerX" secondItem="08f-KG-S7V" secondAttribute="centerX" id="WWJ-0N-A5h"/>
+                <constraint firstItem="08f-KG-S7V" firstAttribute="leading" secondItem="iN0-l3-epB" secondAttribute="leading" id="d6q-SX-Dea"/>
             </constraints>
             <nil key="simulatedStatusBarMetrics"/>
             <freeformSimulatedSizeMetrics key="simulatedDestinationMetrics"/>
