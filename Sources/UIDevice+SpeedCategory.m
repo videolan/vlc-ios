@@ -34,10 +34,14 @@
         // iPhone 4S, iPad 2 and 3, iPod 4 and 5
         APLog(@"this is a cat two device");
         return 2;
-    } else {
-        // iPhone 5, iPad 4
+    } else if ([currentMachine hasPrefix:@"iPhone5"] || [currentMachine hasPrefix:@"iPhone6"] || [currentMachine hasPrefix:@"iPad4"]) {
+        // iPhone 5 + 5S, iPad 4, iPad Air, iPad mini 2G
         APLog(@"this is a cat three device");
         return 3;
+    } else {
+        // iPhone 6, 2014 iPads
+        APLog(@"this is a cat four device");
+        return 4;
     }
 }
 

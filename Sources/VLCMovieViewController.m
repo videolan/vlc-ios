@@ -527,6 +527,9 @@
     } else if (speedCategory == 3) {
         // iPhone 5, iPad 4
         return (totalNumberOfPixels < 2074000); // 1080p
+    } else if (speedCategory == 4) {
+        // iPhone 6, 2014 iPads
+        return (totalNumberOfPixels < 8850000); // 4K
     }
 
     return YES;
