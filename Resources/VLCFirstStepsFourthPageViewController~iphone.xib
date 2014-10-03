@@ -1,8 +1,9 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="5037.2" systemVersion="12F45" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="6249" systemVersion="14A379a" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none">
     <dependencies>
-        <deployment defaultVersion="1552" identifier="iOS"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="3733"/>
+        <deployment identifier="iOS"/>
+        <development version="5100" identifier="xcode"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="6243"/>
     </dependencies>
     <objects>
         <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner" customClass="VLCFirstStepsFourthPageViewController">
@@ -78,10 +79,15 @@
     <resources>
         <image name="Drive.png" width="24" height="22"/>
         <image name="Dropbox.png" width="24" height="23"/>
-        <image name="cloud.png" width="78" height="41"/>
-        <image name="filledcloud.png" width="87" height="45"/>
-        <image name="laptop.png" width="114" height="105"/>
-        <image name="phone.png" width="53" height="105"/>
-        <image name="sidebar.png" width="79" height="108"/>
+        <image name="cloud.png" width="84" height="41"/>
+        <image name="filledcloud.png" width="92" height="45"/>
+        <image name="laptop.png" width="123" height="105"/>
+        <image name="phone.png" width="52" height="105"/>
+        <image name="sidebar.png" width="78" height="108"/>
     </resources>
+    <simulatedMetricsContainer key="defaultSimulatedMetrics">
+        <simulatedStatusBarMetrics key="statusBar"/>
+        <simulatedOrientationMetrics key="orientation"/>
+        <simulatedScreenMetrics key="destination" type="retina4"/>
+    </simulatedMetricsContainer>
 </document>
