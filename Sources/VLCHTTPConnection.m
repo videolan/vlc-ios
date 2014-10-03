@@ -198,13 +198,13 @@
                                         <div class=\"open icon\"></div> \
                                         <div class=\"infos\"> \
                                         <span class=\"first-line\">%@</span> \
-                                        <span class=\"second-line\">%d items</span> \
+                                        <span class=\"second-line\">%lu items</span> \
                                         </div> \
                                         </a> \
                                         <div class=\"content\">",
                                         mo.objectID.URIRepresentation,
                                         [(MLShow *)mo name],
-                                        [episodes count]]];
+                                        (unsigned long)[episodes count]]];
                 for (MLShowEpisode *showEp in episodes) {
                     duration = [[VLCTime timeWithNumber:[(MLFile *)[[showEp files] anyObject] duration]] stringValue];
                     [mediaInHtml addObject:[NSString stringWithFormat:
@@ -233,13 +233,13 @@
                                         <div class=\"open icon\"></div> \
                                         <div class=\"infos\"> \
                                         <span class=\"first-line\">%@</span> \
-                                        <span class=\"second-line\">%d items</span> \
+                                        <span class=\"second-line\">%lu items</span> \
                                         </div> \
                                         </a> \
                                         <div class=\"content\">",
                                         mo.objectID.URIRepresentation,
                                         [(MLLabel *)mo name],
-                                        [folderItems count]]];
+                                        (unsigned long)[folderItems count]]];
                 for (MLFile *file in folderItems) {
                     duration = [[VLCTime timeWithNumber:[file duration]] stringValue];
                     [mediaInHtml addObject:[NSString stringWithFormat:
@@ -266,13 +266,13 @@
                                         <div class=\"open icon\"></div> \
                                         <div class=\"infos\"> \
                                         <span class=\"first-line\">%@</span> \
-                                        <span class=\"second-line\">%d items</span> \
+                                        <span class=\"second-line\">%lu items</span> \
                                         </div> \
                                         </a> \
                                         <div class=\"content\">",
                                         mo.objectID.URIRepresentation,
                                         [(MLAlbum *)mo name],
-                                        [albumTracks count]]];
+                                        (unsigned long)[albumTracks count]]];
                 for (MLAlbumTrack *track in albumTracks) {
                     duration = [[VLCTime timeWithNumber:[(MLFile *)[[track files] anyObject] duration]] stringValue];
                     [mediaInHtml addObject:[NSString stringWithFormat:
