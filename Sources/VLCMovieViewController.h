@@ -71,6 +71,12 @@
 @property (nonatomic, strong) IBOutlet UISlider *playbackSpeedSlider;
 @property (nonatomic, strong) IBOutlet UILabel *playbackSpeedLabel;
 @property (nonatomic, strong) IBOutlet UILabel *playbackSpeedIndicator;
+@property (nonatomic, strong) IBOutlet UISlider *audioDelaySlider;
+@property (nonatomic, strong) IBOutlet UILabel *audioDelayLabel;
+@property (nonatomic, strong) IBOutlet UILabel *audioDelayIndicator;
+@property (nonatomic, strong) IBOutlet UISlider *spuDelaySlider;
+@property (nonatomic, strong) IBOutlet UILabel *spuDelayLabel;
+@property (nonatomic, strong) IBOutlet UILabel *spuDelayIndicator;
 @property (nonatomic, strong) IBOutlet UIButton *aspectRatioButton;
 
 @property (nonatomic, strong) IBOutlet VLCFrostedGlasView *scrubIndicatorView;
@@ -106,7 +112,7 @@
 - (IBAction)videoFilterToggle:(id)sender;
 - (IBAction)videoFilterSliderAction:(id)sender;
 
-- (IBAction)playbackSpeedSliderAction:(id)sender;
+- (IBAction)playbackSliderAction:(id)sender;
 - (IBAction)videoDimensionAction:(id)sender;
 
 @end

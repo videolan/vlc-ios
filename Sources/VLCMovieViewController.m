@@ -162,6 +162,12 @@
     _playbackSpeedLabel.text = NSLocalizedString(@"PLAYBACK_SPEED", nil);
     _playbackSpeedSlider.accessibilityLabel = _playbackSpeedLabel.text;
     _playbackSpeedSlider.isAccessibilityElement = YES;
+    _audioDelayLabel.text = NSLocalizedString(@"AUDIO_DELAY", nil);
+    _audioDelaySlider.accessibilityLabel = _audioDelayLabel.text;
+    _audioDelaySlider.isAccessibilityElement = YES;
+    _spuDelayLabel.text = NSLocalizedString(@"SPU_DELAY", nil);
+    _spuDelaySlider.accessibilityLabel = _spuDelayLabel.text;
+    _spuDelaySlider.isAccessibilityElement = YES;
 
     _positionSlider.accessibilityLabel = NSLocalizedString(@"PLAYBACK_POSITION", nil);
     _positionSlider.isAccessibilityElement = YES;
@@ -590,6 +596,12 @@
 
     self.playbackSpeedSlider.value = [self _playbackSpeed];
     [self _updatePlaybackSpeedIndicator];
+
+    self.audioDelaySlider.value = _mediaPlayer.currentAudioPlaybackDelay / 1000000;
+    self.audioDelayIndicator.text = [NSString stringWithFormat:@"%1.00f s", self.audioDelaySlider.value];
+
+    self.spuDelaySlider.value = _mediaPlayer.currentVideoSubTitleDelay / 1000000;
+    self.spuDelayIndicator.text = [NSString stringWithFormat:@"%1.00f s", self.spuDelaySlider.value];
 
     _currentAspectRatioMask = 0;
     _mediaPlayer.videoAspectRatio = NULL;
@@ -1294,14 +1306,23 @@
 }
 
 #pragma mark - playback view
-- (IBAction)playbackSpeedSliderAction:(UISlider *)sender
+- (IBAction)playbackSliderAction:(UISlider *)sender
 {
-    double speed = pow(2, sender.value / 17.);
-    float rate = INPUT_RATE_DEFAULT / speed;
-    if (_currentPlaybackRate != rate)
-        [_mediaPlayer setRate:INPUT_RATE_DEFAULT / rate];
-    _currentPlaybackRate = rate;
-    [self _updatePlaybackSpeedIndicator];
+    if (sender == _playbackSpeedSlider) {
+        double speed = pow(2, sender.value / 17.);
+        float rate = INPUT_RATE_DEFAULT / speed;
+        if (_currentPlaybackRate != rate)
+            [_mediaPlayer setRate:INPUT_RATE_DEFAULT / rate];
+        _currentPlaybackRate = rate;
+        [self _updatePlaybackSpeedIndicator];
+    } else if (sender == _audioDelaySlider) {
+        _mediaPlayer.currentAudioPlaybackDelay = _audioDelaySlider.value * 1000000;
+        _audioDelayIndicator.text = [NSString stringWithFormat:@"%1.2f s", _audioDelaySlider.value];
+    } else if (sender == _spuDelaySlider) {
+        _mediaPlayer.currentVideoSubTitleDelay = _spuDelaySlider.value * 1000000;
+        _spuDelayIndicator.text = [NSString stringWithFormat:@"%1.00f s", _spuDelaySlider.value];
+    }
+
     [self _resetIdleTimer];
 }
 
