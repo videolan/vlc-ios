@@ -1870,6 +1870,45 @@
 			path = Views;
 			sourceTree = "<group>";
 		};
+		7D6BEF1D19E027A100DF3972 /* Cloud */ = {
+			isa = PBXGroup;
+			children = (
+				7DBBF185183AB4300009A339 /* VLCCloudStorageTableViewCell~ipad.xib */,
+				7DBBF186183AB4300009A339 /* VLCCloudStorageTableViewCell~iphone.xib */,
+				7DBBF188183AB4300009A339 /* VLCCloudStorageTableViewController.xib */,
+				7D711AD918227A490094E4F0 /* GTMOAuth2ViewTouch.xib */,
+			);
+			name = Cloud;
+			sourceTree = "<group>";
+		};
+		7D6BEF1E19E027BE00DF3972 /* Library */ = {
+			isa = PBXGroup;
+			children = (
+				7DBBF189183AB4300009A339 /* VLCEmptyLibraryView~ipad.xib */,
+				7DBBF18A183AB4300009A339 /* VLCEmptyLibraryView~iphone.xib */,
+				7DBBF18B183AB4300009A339 /* VLCFuturePlaylistCollectionViewCell.xib */,
+				7DBBF18C183AB4300009A339 /* VLCFuturePlaylistTableViewCell.xib */,
+				7DBBF194183AB4300009A339 /* VLCPlaylistCollectionViewCell.xib */,
+				7DBBF196183AB4300009A339 /* VLCPlaylistTableViewCell.xib */,
+			);
+			name = Library;
+			sourceTree = "<group>";
+		};
+		7D6BEF1F19E027DA00DF3972 /* Download & Network */ = {
+			isa = PBXGroup;
+			children = (
+				7DBBF187183AB4300009A339 /* VLCDownloadViewController.xib */,
+				7D89786E185DED88009BAB5D /* VLCFutureDownloadViewController.xib */,
+				7DBBF18E183AB4300009A339 /* VLCLocalNetworkListCell~ipad.xib */,
+				7DBBF18F183AB4300009A339 /* VLCLocalNetworkListCell~iphone.xib */,
+				7DBBF192183AB4300009A339 /* VLCNetworkLoginViewController.xib */,
+				9B9231C3185A703700F89498 /* VLCFutureNetworkLoginViewController.xib */,
+				7DBBF193183AB4300009A339 /* VLCOpenNetworkStreamViewController.xib */,
+				7D89787C185DF794009BAB5D /* VLCFutureOpenNetworkStreamViewController.xib */,
+			);
+			name = "Download & Network";
+			sourceTree = "<group>";
+		};
 		7D897886185E1303009BAB5D /* QuincyKit */ = {
 			isa = PBXGroup;
 			children = (
@@ -1976,27 +2015,12 @@
 			isa = PBXGroup;
 			children = (
 				7DC19AF41868CDB800810BF7 /* First Steps */,
-				7DBBF185183AB4300009A339 /* VLCCloudStorageTableViewCell~ipad.xib */,
-				7DBBF186183AB4300009A339 /* VLCCloudStorageTableViewCell~iphone.xib */,
-				7DBBF187183AB4300009A339 /* VLCDownloadViewController.xib */,
-				7D89786E185DED88009BAB5D /* VLCFutureDownloadViewController.xib */,
-				7DBBF188183AB4300009A339 /* VLCCloudStorageTableViewController.xib */,
-				7DBBF189183AB4300009A339 /* VLCEmptyLibraryView~ipad.xib */,
-				7DBBF18A183AB4300009A339 /* VLCEmptyLibraryView~iphone.xib */,
-				7DBBF18B183AB4300009A339 /* VLCFuturePlaylistCollectionViewCell.xib */,
-				7DBBF18C183AB4300009A339 /* VLCFuturePlaylistTableViewCell.xib */,
-				7DBBF18E183AB4300009A339 /* VLCLocalNetworkListCell~ipad.xib */,
-				7DBBF18F183AB4300009A339 /* VLCLocalNetworkListCell~iphone.xib */,
+				7D6BEF1D19E027A100DF3972 /* Cloud */,
+				7D6BEF1F19E027DA00DF3972 /* Download & Network */,
+				7D6BEF1E19E027BE00DF3972 /* Library */,
 				7DBBF190183AB4300009A339 /* VLCMovieViewController~ipad.xib */,
 				7DBBF191183AB4300009A339 /* VLCMovieViewController~iphone.xib */,
-				7DBBF192183AB4300009A339 /* VLCNetworkLoginViewController.xib */,
-				9B9231C3185A703700F89498 /* VLCFutureNetworkLoginViewController.xib */,
-				7DBBF193183AB4300009A339 /* VLCOpenNetworkStreamViewController.xib */,
-				7D89787C185DF794009BAB5D /* VLCFutureOpenNetworkStreamViewController.xib */,
-				7DBBF194183AB4300009A339 /* VLCPlaylistCollectionViewCell.xib */,
-				7DBBF196183AB4300009A339 /* VLCPlaylistTableViewCell.xib */,
 				7DBBF197183AB4300009A339 /* VLCWiFiUploadTableViewCell.xib */,
-				7D711AD918227A490094E4F0 /* GTMOAuth2ViewTouch.xib */,
 				7D27EB9319DEE11900EF0370 /* Launch Screen.xib */,
 			);
 			name = XIBs;
