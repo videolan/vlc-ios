@@ -17,6 +17,11 @@
 * Improved subtitles playback reliability (#11225)
 * Support for redirected downloads via HTTP (#10639)
 * Support for audio playback and subtitles delay for manual sync (#11236)
+* Added improved interaction with third party apps through a x-callback-url
+  based mechanism
+  URL scheme: vlc-x-callback://x-callback-url/stream?url=...&x-success=...
+  The 'stream' path component overwrites the "Download or Stream?" dialog
+  displayed when third party URLs are being opened.
 * Media Library is no longer reset on upgrade (#11330)
   - no further thumbnail mismatch (#9158 et al)
   - playback states are retained
