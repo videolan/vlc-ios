@@ -90,6 +90,7 @@
 
 @property (nonatomic, strong) MLFile *fileFromMediaLibrary;
 @property (nonatomic, strong) NSURL *url;
+@property (nonatomic, strong) NSURL *successCallback;
 @property (nonatomic, strong) NSString *pathToExternalSubtitlesFile;
 @property (nonatomic, retain) VLCMediaList *mediaList;
 @property (nonatomic, readwrite) int itemInMediaListToBePlayedFirst;

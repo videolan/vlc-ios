@@ -135,6 +135,28 @@
                 APLog(@"saving the file failed (%li): %@", (long)theError.code, theError.localizedDescription);
 
             [self updateMediaList];
+        } else if ([url.scheme isEqualToString:@"vlc-x-callback"] || [url.host isEqualToString:@"x-callback-url"]) {
+            // URL confirmes to the x-callback-url specification
+            // vlc-x-callback://x-callback-url/action?param=value&x-success=callback
+            APLog(@"x-callback-url with host '%@' path '%@' parameters '%@'", url.host, url.path, url.query);
+            NSString *action = [url.path stringByReplacingOccurrencesOfString:@"/" withString:@""];
+            NSURL *movieURL = nil;
+            NSURL *successCallback = nil;
+            for (NSString *entry in [url.query componentsSeparatedByString:@"&"]) {
+                NSArray *keyvalue = [entry componentsSeparatedByString:@"="];
+                if (keyvalue.count < 2) continue;
+                NSString *key = keyvalue[0];
+                NSString *value = [keyvalue[1] stringByReplacingPercentEscapesUsingEncoding:NSUTF8StringEncoding];
+                if ([key isEqualToString:@"url"]) {
+                    movieURL = [NSURL URLWithString:value];
+                }
+                else if ([key isEqualToString:@"x-success"]) {
+                    successCallback = [NSURL URLWithString:value];
+                }
+            }
+            if ([action isEqualToString:@"stream"] && movieURL) {
+                [self openMovieFromURL:movieURL successCallback:successCallback];
+            }
         } else {
             NSString *receivedUrl = [url absoluteString];
             if ([receivedUrl length] > 6) {
@@ -410,15 +432,22 @@
 }
 
 - (void)openMovieFromURL:(NSURL *)url
+         successCallback:(NSURL *)successCallback
 {
     if (!_movieViewController)
         _movieViewController = [[VLCMovieViewController alloc] initWithNibName:nil bundle:nil];
 
     _movieViewController.url = url;
+    _movieViewController.successCallback = successCallback;
 
     UINavigationController *navCon = [[UINavigationController alloc] initWithRootViewController:_movieViewController];
     navCon.modalPresentationStyle = UIModalPresentationFullScreen;
     [self.window.rootViewController presentViewController:navCon animated:YES completion:nil];
+}
+
+- (void)openMovieFromURL:(NSURL *)url
+{
+    [self openMovieFromURL:url successCallback:nil];
 }
 
 - (void)openMediaList:(VLCMediaList *)list atIndex:(int)index

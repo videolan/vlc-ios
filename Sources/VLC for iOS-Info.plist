@@ -172,6 +172,16 @@
 				<string>vlc</string>
 			</array>
 		</dict>
+        <dict>
+            <key>CFBundleTypeRole</key>
+            <string>Viewer</string>
+            <key>CFBundleURLName</key>
+            <string>x-callback-url</string>
+            <key>CFBundleURLSchemes</key>
+            <array>
+                <string>vlc-x-callback</string>
+            </array>
+        </dict>
 	</array>
 	<key>CFBundleVersion</key>
 	<string>2.4.0</string>
