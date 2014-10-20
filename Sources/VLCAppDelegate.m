@@ -142,6 +142,7 @@
             NSString *action = [url.path stringByReplacingOccurrencesOfString:@"/" withString:@""];
             NSURL *movieURL = nil;
             NSURL *successCallback = nil;
+            NSString *fileName = nil;
             for (NSString *entry in [url.query componentsSeparatedByString:@"&"]) {
                 NSArray *keyvalue = [entry componentsSeparatedByString:@"="];
                 if (keyvalue.count < 2) continue;
@@ -150,12 +151,18 @@
                 if ([key isEqualToString:@"url"]) {
                     movieURL = [NSURL URLWithString:value];
                 }
+                else if ([key isEqualToString:@"filename"]) {
+                    fileName = value;
+                }
                 else if ([key isEqualToString:@"x-success"]) {
                     successCallback = [NSURL URLWithString:value];
                 }
             }
             if ([action isEqualToString:@"stream"] && movieURL) {
                 [self openMovieFromURL:movieURL successCallback:successCallback];
+            }
+            else if ([action isEqualToString:@"download"] && movieURL) {
+                [self downloadMovieFromURL:movieURL fileNameOfMedia:fileName];
             }
         } else {
             NSString *receivedUrl = [url absoluteString];
@@ -184,7 +191,7 @@
                 VLCAlertView *alert = [[VLCAlertView alloc] initWithTitle:NSLocalizedString(@"OPEN_STREAM_OR_DOWNLOAD", nil) message:url.absoluteString cancelButtonTitle:NSLocalizedString(@"BUTTON_DOWNLOAD", nil) otherButtonTitles:@[NSLocalizedString(@"BUTTON_PLAY", nil)]];
                 alert.completion = ^(BOOL cancelled, NSInteger buttonIndex) {
                     if (cancelled)
-                        [[self downloadViewController] addURLToDownloadList:url fileNameOfMedia:nil];
+                        [self downloadMovieFromURL:url fileNameOfMedia:nil];
                     else
                         [self openMovieFromURL:url];
                 };
@@ -409,6 +416,17 @@
     _networkActivityCounter--;
     if (_networkActivityCounter < 1)
         [UIApplication sharedApplication].networkActivityIndicatorVisible = NO;
+}
+
+#pragma mark - download handling
+
+- (void)downloadMovieFromURL:(NSURL *)url
+             fileNameOfMedia:(NSString *)fileName
+{
+    [self.downloadViewController addURLToDownloadList:url fileNameOfMedia:fileName];
+
+    // select Downloads menu item and reveal corresponding viewcontroller
+    [self.menuViewController selectRowAtIndexPath:[NSIndexPath indexPathForRow:2 inSection:1] animated:NO scrollPosition:UITableViewScrollPositionNone];
 }
 
 #pragma mark - playback view handling

@@ -905,12 +905,12 @@
 - (IBAction)closePlayback:(id)sender
 {
     [self setControlsHidden:NO animated:NO];
-    [self.navigationController dismissViewControllerAnimated:YES completion:nil];
-
-    // switch back to the caller when user presses "Done"
-    if (self.successCallback && [sender isKindOfClass:[UIBarButtonItem class]]) {
-        [[UIApplication sharedApplication] openURL:self.successCallback];
-    }
+    [self.navigationController dismissViewControllerAnimated:YES completion:^{
+        // switch back to the caller when user presses "Done"
+        if (self.successCallback && [sender isKindOfClass:[UIBarButtonItem class]]) {
+            [[UIApplication sharedApplication] openURL:self.successCallback];
+        }
+    }];
 }
 
 - (IBAction)positionSliderAction:(UISlider *)sender
