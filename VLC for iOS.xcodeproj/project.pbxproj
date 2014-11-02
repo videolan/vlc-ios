@@ -46,6 +46,7 @@
 		4115E60319797B660071C4B9 /* collectionViewIcon@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 4115E60119797B660071C4B9 /* collectionViewIcon@2x.png */; };
 		4171D35018A2C19000A16EF9 /* VLCFolderCollectionViewFlowLayout.m in Sources */ = {isa = PBXBuildFile; fileRef = 4171D34F18A2C19000A16EF9 /* VLCFolderCollectionViewFlowLayout.m */; };
 		4171D35818A2D90200A16EF9 /* LXReorderableCollectionViewFlowLayout.m in Sources */ = {isa = PBXBuildFile; fileRef = 4171D35718A2D90200A16EF9 /* LXReorderableCollectionViewFlowLayout.m */; };
+		41C881101A05B5020010A3C5 /* VLCProgressView.m in Sources */ = {isa = PBXBuildFile; fileRef = 41C8810F1A05B5020010A3C5 /* VLCProgressView.m */; };
 		41F475D21899A438001B919F /* folderIcon.png in Resources */ = {isa = PBXBuildFile; fileRef = 41F475CE1899A438001B919F /* folderIcon.png */; };
 		41F475D31899A438001B919F /* folderIcon@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 41F475CF1899A438001B919F /* folderIcon@2x.png */; };
 		41F475D41899A438001B919F /* folderIcon@2x~ipad.png in Resources */ = {isa = PBXBuildFile; fileRef = 41F475D01899A438001B919F /* folderIcon@2x~ipad.png */; };
@@ -518,6 +519,8 @@
 		4171D34F18A2C19000A16EF9 /* VLCFolderCollectionViewFlowLayout.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = VLCFolderCollectionViewFlowLayout.m; path = Sources/VLCFolderCollectionViewFlowLayout.m; sourceTree = SOURCE_ROOT; };
 		4171D35618A2D90200A16EF9 /* LXReorderableCollectionViewFlowLayout.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LXReorderableCollectionViewFlowLayout.h; sourceTree = "<group>"; };
 		4171D35718A2D90200A16EF9 /* LXReorderableCollectionViewFlowLayout.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LXReorderableCollectionViewFlowLayout.m; sourceTree = "<group>"; };
+		41C8810E1A05B5020010A3C5 /* VLCProgressView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = VLCProgressView.h; sourceTree = SOURCE_ROOT; };
+		41C8810F1A05B5020010A3C5 /* VLCProgressView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = VLCProgressView.m; sourceTree = SOURCE_ROOT; };
 		41F475CE1899A438001B919F /* folderIcon.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = folderIcon.png; sourceTree = "<group>"; };
 		41F475CF1899A438001B919F /* folderIcon@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "folderIcon@2x.png"; sourceTree = "<group>"; };
 		41F475D01899A438001B919F /* folderIcon@2x~ipad.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "folderIcon@2x~ipad.png"; sourceTree = "<group>"; };
@@ -1701,6 +1704,8 @@
 				7D3784B0183A990F009EE944 /* VLCCloudStorageTableViewCell.m */,
 				9B088306183D7BEC004B5C2A /* VLCCloudStorageTableViewController.h */,
 				9B088307183D7BEC004B5C2A /* VLCCloudStorageTableViewController.m */,
+				41C8810E1A05B5020010A3C5 /* VLCProgressView.h */,
+				41C8810F1A05B5020010A3C5 /* VLCProgressView.m */,
 			);
 			name = "Cloud Integration";
 			sourceTree = "<group>";
@@ -2851,6 +2856,7 @@
 				7DC19B051868D1C400810BF7 /* VLCFirstStepsFifthPageViewController.m in Sources */,
 				2915543B17490B9C00B86CAD /* HTTPAsyncFileResponse.m in Sources */,
 				2915543C17490B9C00B86CAD /* HTTPDataResponse.m in Sources */,
+				41C881101A05B5020010A3C5 /* VLCProgressView.m in Sources */,
 				2915543D17490B9C00B86CAD /* HTTPDynamicFileResponse.m in Sources */,
 				9BADAF45185FBD9D00108BD8 /* VLCFrostedGlasView.m in Sources */,
 				2915543E17490B9C00B86CAD /* HTTPErrorResponse.m in Sources */,

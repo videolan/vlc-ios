@@ -16,6 +16,7 @@
 #import "VLCGoogleDriveController.h"
 #import "VLCAppDelegate.h"
 #import "UIBarButtonItem+Theme.h"
+#import "VLCProgressView.h"
 
 @interface VLCGoogleDriveTableViewController () <VLCCloudStorageTableViewCell, VLCGoogleDriveController>
 {
@@ -29,8 +30,8 @@
 
     UIBarButtonItem *_numberOfFilesBarButtonItem;
     UIBarButtonItem *_progressBarButtonItem;
-    UIProgressView *_progressBar;
-    UILabel *_progressLabel;
+
+    VLCProgressView *_progressView;
 
     UIActivityIndicatorView *_activityIndicator;
 
@@ -67,25 +68,8 @@
     _numberOfFilesBarButtonItem = [[UIBarButtonItem alloc] initWithTitle:[NSString stringWithFormat:NSLocalizedString(@"NUM_OF_FILES", nil), 0] style:UIBarButtonItemStylePlain target:nil action:nil];
     [_numberOfFilesBarButtonItem setTitleTextAttributes:@{ UITextAttributeFont : [UIFont systemFontOfSize:11.] } forState:UIControlStateNormal];
 
-    _progressBar = [[UIProgressView alloc] initWithProgressViewStyle:UIProgressViewStyleBar];
-    _progressLabel = [[UILabel alloc] init];
-    _progressLabel.textColor = [UIColor whiteColor];
-    _progressLabel.backgroundColor = [UIColor clearColor];
-    _progressLabel.font = [UIFont systemFontOfSize:11.];
-
-    UIView *progressView = [[UIView alloc] init];
-    [progressView addSubview:_progressBar];
-    [progressView addSubview:_progressLabel];
-
-    [progressView addConstraint:[NSLayoutConstraint constraintWithItem:progressView attribute:NSLayoutAttributeWidth relatedBy:NSLayoutRelationEqual toItem:_progressLabel attribute:NSLayoutAttributeWidth multiplier:1.0f constant:0.0f]];
-    [progressView addConstraint:[NSLayoutConstraint constraintWithItem:_progressBar attribute:NSLayoutAttributeWidth relatedBy:NSLayoutRelationEqual toItem:_progressLabel attribute:NSLayoutAttributeWidth multiplier:1.0f constant:0.0f]];
-    [progressView addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"V:|-[_progressBar]-[_progressLabel]-|" options:NSLayoutFormatAlignAllCenterX metrics:nil views:NSDictionaryOfVariableBindings(_progressBar, _progressLabel)]];
-
-    progressView.translatesAutoresizingMaskIntoConstraints = NO;
-    _progressLabel.translatesAutoresizingMaskIntoConstraints = NO;
-    _progressBar.translatesAutoresizingMaskIntoConstraints = NO;
-
-    _progressBarButtonItem = [[UIBarButtonItem alloc] initWithCustomView:progressView];
+    _progressView = [VLCProgressView new];
+    _progressBarButtonItem = [[UIBarButtonItem alloc] initWithCustomView:_progressView];
 
     [self.cloudStorageLogo setImage:[UIImage imageNamed:@"DriveWhite"]];
 
@@ -159,7 +143,7 @@
     if (!value)
         [self setToolbarItems:@[[[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemFlexibleSpace target:nil action:nil], _numberOfFilesBarButtonItem, [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemFlexibleSpace target:nil action:nil]] animated:YES];
     else {
-        _progressBar.progress = 0.;
+        _progressView.progressBar.progress = 0.;
         [self setToolbarItems:@[[[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemFlexibleSpace target:nil action:nil], _progressBarButtonItem, [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemFlexibleSpace target:nil action:nil]] animated:YES];
     }
 }
@@ -281,13 +265,11 @@
 
 - (void)updateRemainingTime:(NSString *)time
 {
-    [_progressLabel setText:[NSString stringWithFormat:NSLocalizedString(@"REMAINING_TIME", nil), time]];
-    CGSize size = [_progressLabel.text sizeWithFont:_progressLabel.font];
-    [_progressLabel setFrame:CGRectMake(_progressLabel.frame.origin.x, _progressLabel.frame.origin.y, size.width, size.height)];
+    [_progressView updateTime:time];
 }
 
 - (void)currentProgressInformation:(float)progress {
-    [_progressBar setProgress:progress animated:YES];
+    [_progressView.progressBar setProgress:progress animated:YES];
 }
 
 - (void)operationWithProgressInformationStopped
