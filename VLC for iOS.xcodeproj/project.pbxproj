@@ -275,7 +275,6 @@
 		7D6B08F2174D65B500A05173 /* IASKSpecifier.m in Sources */ = {isa = PBXBuildFile; fileRef = 7D6B08DD174D65B500A05173 /* IASKSpecifier.m */; };
 		7D6B08F3174D65B500A05173 /* IASKPSSliderSpecifierViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 7D6B08E0174D65B500A05173 /* IASKPSSliderSpecifierViewCell.m */; };
 		7D6B08F4174D65B500A05173 /* IASKPSTextFieldSpecifierViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 7D6B08E2174D65B500A05173 /* IASKPSTextFieldSpecifierViewCell.m */; };
-		7D6B08F5174D65B500A05173 /* IASKPSTitleValueSpecifierViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 7D6B08E4174D65B500A05173 /* IASKPSTitleValueSpecifierViewCell.m */; };
 		7D6B08F6174D65B500A05173 /* IASKSlider.m in Sources */ = {isa = PBXBuildFile; fileRef = 7D6B08E6174D65B500A05173 /* IASKSlider.m */; };
 		7D6B08F7174D65B500A05173 /* IASKSwitch.m in Sources */ = {isa = PBXBuildFile; fileRef = 7D6B08E8174D65B500A05173 /* IASKSwitch.m */; };
 		7D6B08F8174D65B500A05173 /* IASKTextField.m in Sources */ = {isa = PBXBuildFile; fileRef = 7D6B08EA174D65B500A05173 /* IASKTextField.m */; };
@@ -2870,7 +2869,6 @@
 				7D168F7418D4A33F003FAF59 /* UIImage+Blur.m in Sources */,
 				7D65C7D219A15CEA00FA8819 /* VLCLibraryHeaderView.m in Sources */,
 				7D6B08F4174D65B500A05173 /* IASKPSTextFieldSpecifierViewCell.m in Sources */,
-				7D6B08F5174D65B500A05173 /* IASKPSTitleValueSpecifierViewCell.m in Sources */,
 				9B5BEF2917FBAEA50016F9CB /* GTLDrive_Sources.m in Sources */,
 				7D6B08F6174D65B500A05173 /* IASKSlider.m in Sources */,
 				7D6B08F7174D65B500A05173 /* IASKSwitch.m in Sources */,
