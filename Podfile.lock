@@ -1,0 +1,32 @@
+PODS:
+  - Dropbox-iOS-SDK (1.3.13)
+  - GHSidebarNav (1.0.0)
+  - InAppSettingsKit (2.2.1)
+  - OBSlider (1.1.0)
+  - PLCrashReporter (1.2-rc5)
+  - QuincyKit (3.0.0)
+  - upnpx (1.3.0)
+
+DEPENDENCIES:
+  - Dropbox-iOS-SDK (= 1.3.13)
+  - GHSidebarNav (= 1.0.0)
+  - InAppSettingsKit (= 2.2.1)
+  - OBSlider (= 1.1.0)
+  - PLCrashReporter (= 1.2-rc5)
+  - QuincyKit (from `https://github.com/carolanitz/QuincyKit.git`)
+  - upnpx (= 1.3.0)
+
+EXTERNAL SOURCES:
+  QuincyKit:
+    :git: https://github.com/carolanitz/QuincyKit.git
+
+SPEC CHECKSUMS:
+  Dropbox-iOS-SDK: 367160c05e279e7fa3205f3233d1873b7a986ee6
+  GHSidebarNav: 59f2b760cb788f8b1c50250963f5120f4525a5a1
+  InAppSettingsKit: 1d23ffbc68f628fb5d6fce0c2eed46ac6b4f3ce7
+  OBSlider: 3536461f3dd47dfcbd0972c5aafb88aa7081fb79
+  PLCrashReporter: 979cd3c5bda33655f4df58fa6219d067183d7a7e
+  QuincyKit: 31f49bf0aa0b20fd25ba3084f617a43424b7af99
+  upnpx: d113ac6dc8ead563b840e6c9c9e03c10d9f4bd4b
+
+COCOAPODS: 0.35.0.rc2

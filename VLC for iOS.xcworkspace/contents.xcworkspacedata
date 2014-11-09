@@ -10,20 +10,7 @@
    <FileRef
       location = "group:ImportedSources/VLCKit/MobileVLCKit.xcodeproj">
    </FileRef>
-   <Group
-      location = "container:"
-      name = "VLC Internals">
-      <FileRef
-         location = "group:ImportedSources/VLCKit/MobileVLCKit/ImportedSources/vlc/modules/text_renderer/quartztext.c">
-      </FileRef>
-      <FileRef
-         location = "group:ImportedSources/VLCKit/MobileVLCKit/ImportedSources/vlc/modules/video_output/ios2.m">
-      </FileRef>
-      <FileRef
-         location = "group:ImportedSources/VLCKit/MobileVLCKit/ImportedSources/vlc/modules/video_output/opengl.c">
-      </FileRef>
-      <FileRef
-         location = "group:ImportedSources/VLCKit/MobileVLCKit/ImportedSources/vlc/modules/audio_output/audiounit_ios.c">
-      </FileRef>
-   </Group>
+   <FileRef
+      location = "group:Pods/Pods.xcodeproj">
+   </FileRef>
 </Workspace>

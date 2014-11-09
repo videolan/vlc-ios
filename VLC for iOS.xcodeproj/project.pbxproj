@@ -39,13 +39,14 @@
 		2915544017490B9C00B86CAD /* HTTPRedirectResponse.m in Sources */ = {isa = PBXBuildFile; fileRef = 2915543817490B9C00B86CAD /* HTTPRedirectResponse.m */; };
 		2915544117490B9C00B86CAD /* WebSocket.m in Sources */ = {isa = PBXBuildFile; fileRef = 2915543A17490B9C00B86CAD /* WebSocket.m */; };
 		2915544317490D4A00B86CAD /* Security.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 2915544217490D4A00B86CAD /* Security.framework */; };
-		293DF2F417494F8200BB880F /* DropboxSDK.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 7D05ADEA174945CE0087550C /* DropboxSDK.framework */; };
 		4115E5FE197977850071C4B9 /* tableViewIcon.png in Resources */ = {isa = PBXBuildFile; fileRef = 4115E5FC197977850071C4B9 /* tableViewIcon.png */; };
 		4115E5FF197977850071C4B9 /* tableViewIcon@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 4115E5FD197977850071C4B9 /* tableViewIcon@2x.png */; };
 		4115E60219797B660071C4B9 /* collectionViewIcon.png in Resources */ = {isa = PBXBuildFile; fileRef = 4115E60019797B660071C4B9 /* collectionViewIcon.png */; };
 		4115E60319797B660071C4B9 /* collectionViewIcon@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 4115E60119797B660071C4B9 /* collectionViewIcon@2x.png */; };
+		4144C4661A0ED6C700918C89 /* Reachability.m in Sources */ = {isa = PBXBuildFile; fileRef = 7D3784E6183A99E1009EE944 /* Reachability.m */; };
 		4171D35018A2C19000A16EF9 /* VLCFolderCollectionViewFlowLayout.m in Sources */ = {isa = PBXBuildFile; fileRef = 4171D34F18A2C19000A16EF9 /* VLCFolderCollectionViewFlowLayout.m */; };
 		4171D35818A2D90200A16EF9 /* LXReorderableCollectionViewFlowLayout.m in Sources */ = {isa = PBXBuildFile; fileRef = 4171D35718A2D90200A16EF9 /* LXReorderableCollectionViewFlowLayout.m */; };
+		418FF4B11A0EC1D5005FE808 /* libPods-vlc-ios.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 418FF4B01A0EC1D5005FE808 /* libPods-vlc-ios.a */; };
 		41C881101A05B5020010A3C5 /* VLCProgressView.m in Sources */ = {isa = PBXBuildFile; fileRef = 41C8810F1A05B5020010A3C5 /* VLCProgressView.m */; };
 		41F475D21899A438001B919F /* folderIcon.png in Resources */ = {isa = PBXBuildFile; fileRef = 41F475CE1899A438001B919F /* folderIcon.png */; };
 		41F475D31899A438001B919F /* folderIcon@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 41F475CF1899A438001B919F /* folderIcon@2x.png */; };
@@ -178,8 +179,6 @@
 		7D30F3E2183AB33200FFC021 /* VLCSidebarViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 7D30F3E1183AB33200FFC021 /* VLCSidebarViewCell.m */; };
 		7D30F3EA183AB34200FFC021 /* VLCGoogleDriveController.m in Sources */ = {isa = PBXBuildFile; fileRef = 7D30F3E5183AB34200FFC021 /* VLCGoogleDriveController.m */; };
 		7D30F3EC183AB34200FFC021 /* VLCGoogleDriveTableViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 7D30F3E9183AB34200FFC021 /* VLCGoogleDriveTableViewController.m */; };
-		7D31001D17B64AE100E6516D /* GHRevealViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 7D31001C17B64AE100E6516D /* GHRevealViewController.m */; };
-		7D31002017B6768B00E6516D /* libupnpx.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 7D31001F17B6768B00E6516D /* libupnpx.a */; };
 		7D32B384185E293D006CA474 /* Raleway.woff in Resources */ = {isa = PBXBuildFile; fileRef = 7D32B383185E293D006CA474 /* Raleway.woff */; };
 		7D37848F183A98B6009EE944 /* VLCMovieViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 7D37848E183A98B6009EE944 /* VLCMovieViewController.m */; };
 		7D378492183A98BF009EE944 /* VLCExternalDisplayController.m in Sources */ = {isa = PBXBuildFile; fileRef = 7D378491183A98BF009EE944 /* VLCExternalDisplayController.m */; };
@@ -201,13 +200,6 @@
 		7D3784C8183A9972009EE944 /* NSString+SupportedMedia.m in Sources */ = {isa = PBXBuildFile; fileRef = 7D3784C5183A9972009EE944 /* NSString+SupportedMedia.m */; };
 		7D3784C9183A9972009EE944 /* UIDevice+SpeedCategory.m in Sources */ = {isa = PBXBuildFile; fileRef = 7D3784C7183A9972009EE944 /* UIDevice+SpeedCategory.m */; };
 		7D3784CC183A99BA009EE944 /* PAPasscodeViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 7D3784CB183A99BA009EE944 /* PAPasscodeViewController.m */; };
-		7D3784DF183A99D2009EE944 /* papasscode_background.png in Resources */ = {isa = PBXBuildFile; fileRef = 7D3784D9183A99D2009EE944 /* papasscode_background.png */; };
-		7D3784E0183A99D2009EE944 /* papasscode_background@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 7D3784DA183A99D2009EE944 /* papasscode_background@2x.png */; };
-		7D3784E1183A99D2009EE944 /* papasscode_failed_bg.png in Resources */ = {isa = PBXBuildFile; fileRef = 7D3784DB183A99D2009EE944 /* papasscode_failed_bg.png */; };
-		7D3784E2183A99D2009EE944 /* papasscode_failed_bg@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 7D3784DC183A99D2009EE944 /* papasscode_failed_bg@2x.png */; };
-		7D3784E3183A99D2009EE944 /* papasscode_marker.png in Resources */ = {isa = PBXBuildFile; fileRef = 7D3784DD183A99D2009EE944 /* papasscode_marker.png */; };
-		7D3784E4183A99D2009EE944 /* papasscode_marker@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 7D3784DE183A99D2009EE944 /* papasscode_marker@2x.png */; };
-		7D3784E7183A99E1009EE944 /* Reachability.m in Sources */ = {isa = PBXBuildFile; fileRef = 7D3784E6183A99E1009EE944 /* Reachability.m */; };
 		7D3784E9183A9A15009EE944 /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 7D3784E8183A9A15009EE944 /* main.m */; };
 		7D3E6CE518589EE000D584E7 /* AppIcon512x512.png in Resources */ = {isa = PBXBuildFile; fileRef = 7D3E6CE418589EE000D584E7 /* AppIcon512x512.png */; };
 		7D3EB014174A353E002062C2 /* SystemConfiguration.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 7D3EB013174A353E002062C2 /* SystemConfiguration.framework */; };
@@ -266,19 +258,6 @@
 		7D6622611871F29000CA9496 /* checkbox-legacy-empty@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 7D66225D1871F29000CA9496 /* checkbox-legacy-empty@2x.png */; };
 		7D6B08C2174A831900A05173 /* vlc-xmas.png in Resources */ = {isa = PBXBuildFile; fileRef = 7D6B08C0174A831900A05173 /* vlc-xmas.png */; };
 		7D6B08C3174A831900A05173 /* vlc-xmas@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 7D6B08C1174A831900A05173 /* vlc-xmas@2x.png */; };
-		7D6B08EB174D65B500A05173 /* IASKAppSettingsViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 7D6B08CD174D65B500A05173 /* IASKAppSettingsViewController.m */; };
-		7D6B08EC174D65B500A05173 /* IASKAppSettingsWebViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 7D6B08CF174D65B500A05173 /* IASKAppSettingsWebViewController.m */; };
-		7D6B08ED174D65B500A05173 /* IASKSpecifierValuesViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 7D6B08D1174D65B500A05173 /* IASKSpecifierValuesViewController.m */; };
-		7D6B08EE174D65B500A05173 /* IASKSettingsReader.m in Sources */ = {isa = PBXBuildFile; fileRef = 7D6B08D5174D65B500A05173 /* IASKSettingsReader.m */; };
-		7D6B08EF174D65B500A05173 /* IASKSettingsStore.m in Sources */ = {isa = PBXBuildFile; fileRef = 7D6B08D7174D65B500A05173 /* IASKSettingsStore.m */; };
-		7D6B08F0174D65B500A05173 /* IASKSettingsStoreFile.m in Sources */ = {isa = PBXBuildFile; fileRef = 7D6B08D9174D65B500A05173 /* IASKSettingsStoreFile.m */; };
-		7D6B08F1174D65B500A05173 /* IASKSettingsStoreUserDefaults.m in Sources */ = {isa = PBXBuildFile; fileRef = 7D6B08DB174D65B500A05173 /* IASKSettingsStoreUserDefaults.m */; };
-		7D6B08F2174D65B500A05173 /* IASKSpecifier.m in Sources */ = {isa = PBXBuildFile; fileRef = 7D6B08DD174D65B500A05173 /* IASKSpecifier.m */; };
-		7D6B08F3174D65B500A05173 /* IASKPSSliderSpecifierViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 7D6B08E0174D65B500A05173 /* IASKPSSliderSpecifierViewCell.m */; };
-		7D6B08F4174D65B500A05173 /* IASKPSTextFieldSpecifierViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 7D6B08E2174D65B500A05173 /* IASKPSTextFieldSpecifierViewCell.m */; };
-		7D6B08F6174D65B500A05173 /* IASKSlider.m in Sources */ = {isa = PBXBuildFile; fileRef = 7D6B08E6174D65B500A05173 /* IASKSlider.m */; };
-		7D6B08F7174D65B500A05173 /* IASKSwitch.m in Sources */ = {isa = PBXBuildFile; fileRef = 7D6B08E8174D65B500A05173 /* IASKSwitch.m */; };
-		7D6B08F8174D65B500A05173 /* IASKTextField.m in Sources */ = {isa = PBXBuildFile; fileRef = 7D6B08EA174D65B500A05173 /* IASKTextField.m */; };
 		7D6B08FA174D716200A05173 /* MessageUI.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 7D6B08F9174D716200A05173 /* MessageUI.framework */; };
 		7D6B08FC174D773C00A05173 /* Settings.bundle in Resources */ = {isa = PBXBuildFile; fileRef = 7D6B08FB174D773C00A05173 /* Settings.bundle */; };
 		7D6BD1841762026700AD311A /* thumbOverlayPhone@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 7D6BD1801762026700AD311A /* thumbOverlayPhone@2x.png */; };
@@ -302,10 +281,6 @@
 		7D897883185E00C3009BAB5D /* checkbox@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 7D89787F185E00C3009BAB5D /* checkbox@2x.png */; };
 		7D897884185E00C3009BAB5D /* checkboxEmpty.png in Resources */ = {isa = PBXBuildFile; fileRef = 7D897880185E00C3009BAB5D /* checkboxEmpty.png */; };
 		7D897885185E00C3009BAB5D /* checkboxEmpty@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 7D897881185E00C3009BAB5D /* checkboxEmpty@2x.png */; };
-		7D897888185E130E009BAB5D /* Quincy.bundle in Resources */ = {isa = PBXBuildFile; fileRef = 7D897887185E130E009BAB5D /* Quincy.bundle */; };
-		7D89788A185E1344009BAB5D /* libCrashReporter.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 7D897889185E1344009BAB5D /* libCrashReporter.a */; };
-		7D89788C185E1353009BAB5D /* libQuincyLib.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 7D89788B185E1353009BAB5D /* libQuincyLib.a */; };
-		7D89788F185E137B009BAB5D /* BWQuincyManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 7D89788E185E137B009BAB5D /* BWQuincyManager.m */; };
 		7D897895185E14A7009BAB5D /* libGTLTouchStaticLib.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 7D897894185E14A7009BAB5D /* libGTLTouchStaticLib.a */; };
 		7D9289751877459B009108FD /* VLCFirstStepsThirdPageViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 7D9289731877459B009108FD /* VLCFirstStepsThirdPageViewController.m */; };
 		7D9289761877459B009108FD /* VLCFirstStepsThirdPageViewController~iphone.xib in Resources */ = {isa = PBXBuildFile; fileRef = 7D9289741877459B009108FD /* VLCFirstStepsThirdPageViewController~iphone.xib */; };
@@ -318,7 +293,6 @@
 		7DA7C906186324FA00B56120 /* serverIcon@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 7DA7C903186324FA00B56120 /* serverIcon@2x.png */; };
 		7DA7C907186324FA00B56120 /* serverIcon@4x.png in Resources */ = {isa = PBXBuildFile; fileRef = 7DA7C904186324FA00B56120 /* serverIcon@4x.png */; };
 		7DA8B0FB173318E80029698C /* SourceCodePro-Regular.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 7DA8B0F9173318E80029698C /* SourceCodePro-Regular.ttf */; };
-		7DADC55F1704FABF001DAC63 /* OBSlider.m in Sources */ = {isa = PBXBuildFile; fileRef = 7DADC55E1704FABF001DAC63 /* OBSlider.m */; };
 		7DB638AB185BC0890003887C /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 7DB638AA185BC0890003887C /* Images.xcassets */; };
 		7DBBF182183AB3B80009A339 /* VLCAppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 7DBBF181183AB3B80009A339 /* VLCAppDelegate.m */; };
 		7DBBF19A183AB4300009A339 /* VLCCloudStorageTableViewCell~ipad.xib in Resources */ = {isa = PBXBuildFile; fileRef = 7DBBF185183AB4300009A339 /* VLCCloudStorageTableViewCell~ipad.xib */; };
@@ -519,6 +493,7 @@
 		4171D34F18A2C19000A16EF9 /* VLCFolderCollectionViewFlowLayout.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = VLCFolderCollectionViewFlowLayout.m; path = Sources/VLCFolderCollectionViewFlowLayout.m; sourceTree = SOURCE_ROOT; };
 		4171D35618A2D90200A16EF9 /* LXReorderableCollectionViewFlowLayout.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LXReorderableCollectionViewFlowLayout.h; sourceTree = "<group>"; };
 		4171D35718A2D90200A16EF9 /* LXReorderableCollectionViewFlowLayout.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LXReorderableCollectionViewFlowLayout.m; sourceTree = "<group>"; };
+		418FF4B01A0EC1D5005FE808 /* libPods-vlc-ios.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; name = "libPods-vlc-ios.a"; path = "Pods/build/Debug-iphoneos/libPods-vlc-ios.a"; sourceTree = "<group>"; };
 		41C8810E1A05B5020010A3C5 /* VLCProgressView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = VLCProgressView.h; sourceTree = SOURCE_ROOT; };
 		41C8810F1A05B5020010A3C5 /* VLCProgressView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = VLCProgressView.m; sourceTree = SOURCE_ROOT; };
 		41F475CE1899A438001B919F /* folderIcon.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = folderIcon.png; sourceTree = "<group>"; };
@@ -531,6 +506,8 @@
 		493B1A1F195D0EBE000A491A /* TVBroadcastIcon@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "TVBroadcastIcon@2x.png"; sourceTree = "<group>"; };
 		493B1A20195D0EBE000A491A /* TVBroadcastIcon@2x~ipad.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "TVBroadcastIcon@2x~ipad.png"; sourceTree = "<group>"; };
 		49CC60B5195F4F3F00ACB586 /* TVBroadcastIcon~ipad.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "TVBroadcastIcon~ipad.png"; sourceTree = "<group>"; };
+		521108CBC3CAA0810AF3CBA8 /* Pods-vlc-ios.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-vlc-ios.debug.xcconfig"; path = "Pods/Target Support Files/Pods-vlc-ios/Pods-vlc-ios.debug.xcconfig"; sourceTree = "<group>"; };
+		6AB5E0853B398B35369938EC /* Pods-vlc-ios.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-vlc-ios.release.xcconfig"; path = "Pods/Target Support Files/Pods-vlc-ios/Pods-vlc-ios.release.xcconfig"; sourceTree = "<group>"; };
 		7AC8629B1765DC560011611A /* style.css */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.css; path = style.css; sourceTree = "<group>"; };
 		7AC8629E1765E90C0011611A /* jquery-1.10.1.min.js */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.javascript; path = "jquery-1.10.1.min.js"; sourceTree = "<group>"; };
 		7AC8629F1765E90C0011611A /* jquery.fileupload.js */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.javascript; path = jquery.fileupload.js; sourceTree = "<group>"; };
@@ -961,13 +938,8 @@
 		7D89787F185E00C3009BAB5D /* checkbox@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "checkbox@2x.png"; sourceTree = "<group>"; };
 		7D897880185E00C3009BAB5D /* checkboxEmpty.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = checkboxEmpty.png; sourceTree = "<group>"; };
 		7D897881185E00C3009BAB5D /* checkboxEmpty@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "checkboxEmpty@2x.png"; sourceTree = "<group>"; };
-		7D897887185E130E009BAB5D /* Quincy.bundle */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.plug-in"; name = Quincy.bundle; path = ImportedSources/QuincyKit/client/iOS/Quincy.bundle; sourceTree = SOURCE_ROOT; };
 		7D897889185E1344009BAB5D /* libCrashReporter.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; name = libCrashReporter.a; path = External/PLCrashReporter/libCrashReporter.a; sourceTree = "<group>"; };
 		7D89788B185E1353009BAB5D /* libQuincyLib.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; name = libQuincyLib.a; path = External/QuincyKit/libQuincyLib.a; sourceTree = "<group>"; };
-		7D89788D185E137B009BAB5D /* BWQuincyManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = BWQuincyManager.h; path = ImportedSources/QuincyKit/client/iOS/BWQuincyManager.h; sourceTree = SOURCE_ROOT; };
-		7D89788E185E137B009BAB5D /* BWQuincyManager.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = BWQuincyManager.m; path = ImportedSources/QuincyKit/client/iOS/BWQuincyManager.m; sourceTree = SOURCE_ROOT; };
-		7D897890185E13C1009BAB5D /* CrashReporter.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = CrashReporter.h; path = ImportedSources/PLCrashReporter/Source/CrashReporter.h; sourceTree = SOURCE_ROOT; };
-		7D897891185E13D6009BAB5D /* PLCrashReport.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = PLCrashReport.h; path = ImportedSources/PLCrashReporter/Source/PLCrashReport.h; sourceTree = SOURCE_ROOT; };
 		7D897894185E14A7009BAB5D /* libGTLTouchStaticLib.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; name = libGTLTouchStaticLib.a; path = External/gtl/libGTLTouchStaticLib.a; sourceTree = "<group>"; };
 		7D9289721877459B009108FD /* VLCFirstStepsThirdPageViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = VLCFirstStepsThirdPageViewController.h; path = Sources/VLCFirstStepsThirdPageViewController.h; sourceTree = SOURCE_ROOT; };
 		7D9289731877459B009108FD /* VLCFirstStepsThirdPageViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = VLCFirstStepsThirdPageViewController.m; path = Sources/VLCFirstStepsThirdPageViewController.m; sourceTree = SOURCE_ROOT; };
@@ -988,8 +960,6 @@
 		7DA7C903186324FA00B56120 /* serverIcon@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "serverIcon@2x.png"; sourceTree = "<group>"; };
 		7DA7C904186324FA00B56120 /* serverIcon@4x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "serverIcon@4x.png"; sourceTree = "<group>"; };
 		7DA8B0F9173318E80029698C /* SourceCodePro-Regular.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "SourceCodePro-Regular.ttf"; sourceTree = "<group>"; };
-		7DADC55D1704FABF001DAC63 /* OBSlider.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = OBSlider.h; path = ImportedSources/OBSlider/OBSlider/OBSlider.h; sourceTree = SOURCE_ROOT; };
-		7DADC55E1704FABF001DAC63 /* OBSlider.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = OBSlider.m; path = ImportedSources/OBSlider/OBSlider/OBSlider.m; sourceTree = SOURCE_ROOT; };
 		7DB2486E18EA1D6D0097ADD2 /* ro */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = ro; path = ro.lproj/Localizable.strings; sourceTree = "<group>"; };
 		7DB2486F18EA1D6D0097ADD2 /* ro */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = ro; path = "ro.lproj/badgeUnread@2x~ipad.png"; sourceTree = "<group>"; };
 		7DB2487018EA1D6D0097ADD2 /* ro */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = ro; path = "ro.lproj/badgeUnread@2x~iphone.png"; sourceTree = "<group>"; };
@@ -1269,6 +1239,8 @@
 		CCBDA19317B2BEB600489D71 /* pt */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = pt; path = "pt.lproj/badgeUnread~ipad.png"; sourceTree = "<group>"; };
 		CCBDA19417B2BEB600489D71 /* pt */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = pt; path = "pt.lproj/badgeUnread~iphone.png"; sourceTree = "<group>"; };
 		CCE2A22D17A5859E00D9EAAD /* CoreText.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreText.framework; path = System/Library/Frameworks/CoreText.framework; sourceTree = SDKROOT; };
+		DAF8927B0BE9C328466C0EA7 /* libPods-vlc-ios.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-vlc-ios.a"; sourceTree = BUILT_PRODUCTS_DIR; };
+		E09EACF57CDD22ABAE66CDD0 /* Pods-vlc-ios.distribution.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-vlc-ios.distribution.xcconfig"; path = "Pods/Target Support Files/Pods-vlc-ios/Pods-vlc-ios.distribution.xcconfig"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -1276,24 +1248,22 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				418FF4B11A0EC1D5005FE808 /* libPods-vlc-ios.a in Frameworks */,
 				8F91EC7F195E1DAB00F5BCBA /* AssetsLibrary.framework in Frameworks */,
 				7D15168B194773630086FB8C /* MobileCoreServices.framework in Frameworks */,
 				7D168F7118D4A21B003FAF59 /* Accelerate.framework in Frameworks */,
 				CCE2A22E17A5859E00D9EAAD /* CoreText.framework in Frameworks */,
-				7D89788A185E1344009BAB5D /* libCrashReporter.a in Frameworks */,
 				7DF7CA0717650C2A00C61739 /* AVFoundation.framework in Frameworks */,
 				7D897895185E14A7009BAB5D /* libGTLTouchStaticLib.a in Frameworks */,
 				7DF7E791175F47DC0018858D /* MediaPlayer.framework in Frameworks */,
 				7D6B08FA174D716200A05173 /* MessageUI.framework in Frameworks */,
 				7D3EB014174A353E002062C2 /* SystemConfiguration.framework in Frameworks */,
-				293DF2F417494F8200BB880F /* DropboxSDK.framework in Frameworks */,
 				2915544317490D4A00B86CAD /* Security.framework in Frameworks */,
 				7DDD0429172D98E5005A7B10 /* CFNetwork.framework in Frameworks */,
 				CC1BBC58170493E100A20CBF /* CoreData.framework in Frameworks */,
 				CC1BBC56170493C100A20CBF /* QuartzCore.framework in Frameworks */,
 				CC1BBC54170493B800A20CBF /* AudioToolbox.framework in Frameworks */,
 				CC1BBC52170493B100A20CBF /* OpenGLES.framework in Frameworks */,
-				7D89788C185E1353009BAB5D /* libQuincyLib.a in Frameworks */,
 				CC1BBC50170493AA00A20CBF /* libxml2.dylib in Frameworks */,
 				CC1BBC4E170493A300A20CBF /* libbz2.dylib in Frameworks */,
 				CC1BBC4C1704939B00A20CBF /* libsqlite3.dylib in Frameworks */,
@@ -1304,7 +1274,6 @@
 				7D94FCE116DE7D1000F2623B /* Foundation.framework in Frameworks */,
 				7D94FCE316DE7D1000F2623B /* CoreGraphics.framework in Frameworks */,
 				A7924696170F0BA90036AAF2 /* libMediaLibraryKit.a in Frameworks */,
-				7D31002017B6768B00E6516D /* libupnpx.a in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -1453,6 +1422,16 @@
 			name = LXReorderableCollectionViewFlowLayout;
 			path = ImportedSources/LXReorderableCollectionViewFlowLayout/LXReorderableCollectionViewFlowLayout;
 			sourceTree = SOURCE_ROOT;
+		};
+		5BC7EE378D444805CA59B5BA /* Pods */ = {
+			isa = PBXGroup;
+			children = (
+				521108CBC3CAA0810AF3CBA8 /* Pods-vlc-ios.debug.xcconfig */,
+				6AB5E0853B398B35369938EC /* Pods-vlc-ios.release.xcconfig */,
+				E09EACF57CDD22ABAE66CDD0 /* Pods-vlc-ios.distribution.xcconfig */,
+			);
+			name = Pods;
+			sourceTree = "<group>";
 		};
 		7D10BC651743F9A100DA7059 /* External Playback */ = {
 			isa = PBXGroup;
@@ -1805,15 +1784,6 @@
 			name = arrows;
 			sourceTree = "<group>";
 		};
-		7D6B07A31716C9A6003280C4 /* OBSlider */ = {
-			isa = PBXGroup;
-			children = (
-				7DADC55D1704FABF001DAC63 /* OBSlider.h */,
-				7DADC55E1704FABF001DAC63 /* OBSlider.m */,
-			);
-			name = OBSlider;
-			sourceTree = "<group>";
-		};
 		7D6B08CA174D65B400A05173 /* InAppSettingsKit */ = {
 			isa = PBXGroup;
 			children = (
@@ -1914,18 +1884,6 @@
 			name = "Download & Network";
 			sourceTree = "<group>";
 		};
-		7D897886185E1303009BAB5D /* QuincyKit */ = {
-			isa = PBXGroup;
-			children = (
-				7D897890185E13C1009BAB5D /* CrashReporter.h */,
-				7D897891185E13D6009BAB5D /* PLCrashReport.h */,
-				7D89788D185E137B009BAB5D /* BWQuincyManager.h */,
-				7D89788E185E137B009BAB5D /* BWQuincyManager.m */,
-				7D897887185E130E009BAB5D /* Quincy.bundle */,
-			);
-			name = QuincyKit;
-			sourceTree = "<group>";
-		};
 		7D94FCD216DE7D1000F2623B = {
 			isa = PBXGroup;
 			children = (
@@ -1938,6 +1896,7 @@
 				CC1BBC441704936500A20CBF /* External VLC Libraries */,
 				7D94FCDD16DE7D1000F2623B /* Frameworks */,
 				7D94FCDC16DE7D1000F2623B /* Products */,
+				5BC7EE378D444805CA59B5BA /* Pods */,
 			);
 			sourceTree = "<group>";
 		};
@@ -1952,6 +1911,7 @@
 		7D94FCDD16DE7D1000F2623B /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
+				418FF4B01A0EC1D5005FE808 /* libPods-vlc-ios.a */,
 				8F91EC7E195E1DAB00F5BCBA /* AssetsLibrary.framework */,
 				7D15168A194773630086FB8C /* MobileCoreServices.framework */,
 				7D168F7018D4A21B003FAF59 /* Accelerate.framework */,
@@ -1980,6 +1940,7 @@
 				7D94FCDE16DE7D1000F2623B /* UIKit.framework */,
 				7D94FCE016DE7D1000F2623B /* Foundation.framework */,
 				7D94FCE216DE7D1000F2623B /* CoreGraphics.framework */,
+				DAF8927B0BE9C328466C0EA7 /* libPods-vlc-ios.a */,
 			);
 			name = Frameworks;
 			sourceTree = "<group>";
@@ -2037,7 +1998,6 @@
 			isa = PBXGroup;
 			children = (
 				4171D35518A2D90200A16EF9 /* LXReorderableCollectionViewFlowLayout */,
-				7D897886185E1303009BAB5D /* QuincyKit */,
 				9B2E0CED17FB5B3F0098E3DF /* GoogleDrive */,
 				A7B5316017E3728D00EAE4B3 /* upnpx */,
 				7D6B08CA174D65B400A05173 /* InAppSettingsKit */,
@@ -2046,7 +2006,6 @@
 				7DC72D6417B7ED2A008A26D0 /* WhiteRaccoon */,
 				7D31001E17B64AE600E6516D /* GHSidebarNav */,
 				291553E817490A0400B86CAD /* CocoaHTTPServer */,
-				7D6B07A31716C9A6003280C4 /* OBSlider */,
 			);
 			name = Imported;
 			sourceTree = "<group>";
@@ -2420,9 +2379,11 @@
 			isa = PBXNativeTarget;
 			buildConfigurationList = 7D94FD0A16DE7D1100F2623B /* Build configuration list for PBXNativeTarget "vlc-ios" */;
 			buildPhases = (
+				1674E6FD23580CE308961687 /* Check Pods Manifest.lock */,
 				7D94FCD716DE7D1000F2623B /* Sources */,
 				7D94FCD816DE7D1000F2623B /* Frameworks */,
 				7D94FCD916DE7D1000F2623B /* Resources */,
+				F2C5CAE560C074258A574B08 /* Copy Pods Resources */,
 			);
 			buildRules = (
 			);
@@ -2538,7 +2499,6 @@
 				7DF04F4E1961F2B8004A5429 /* web-download.png in Resources */,
 				7DBBF1A8183AB4300009A339 /* VLCOpenNetworkStreamViewController.xib in Resources */,
 				A7CB0DB31716F72600050CF3 /* PlayingExternally~ipad.png in Resources */,
-				7D897888185E130E009BAB5D /* Quincy.bundle in Resources */,
 				A7CB0DB41716F72600050CF3 /* PlayingExternally@2x~ipad.png in Resources */,
 				7DBBF1A9183AB4300009A339 /* VLCPlaylistCollectionViewCell.xib in Resources */,
 				7DA8B0FB173318E80029698C /* SourceCodePro-Regular.ttf in Resources */,
@@ -2805,32 +2765,59 @@
 				7D63C1991877504B00BD5256 /* VLCFirstStepsSixthPageViewController~ipad.xib in Resources */,
 				7D897882185E00C3009BAB5D /* checkbox.png in Resources */,
 				7D514D4417F779C6007B960C /* Drive.png in Resources */,
-				7D3784DF183A99D2009EE944 /* papasscode_background.png in Resources */,
 				7D278D6C18E9D5EF0063E109 /* tvShow@2x.png in Resources */,
 				7D27EC0A19DF30CB00EF0370 /* cloud@3x.png in Resources */,
 				7DF04F4D1961F2B8004A5429 /* web-download-fixed.png in Resources */,
 				7D27EC2119DF30CB00EF0370 /* uploadarrow@2x.png in Resources */,
 				7D27EC3119DF314F00EF0370 /* wifi@2x.png in Resources */,
-				7D3784E0183A99D2009EE944 /* papasscode_background@2x.png in Resources */,
-				7D3784E1183A99D2009EE944 /* papasscode_failed_bg.png in Resources */,
-				7D3784E2183A99D2009EE944 /* papasscode_failed_bg@2x.png in Resources */,
 				7D6622601871F29000CA9496 /* checkbox-legacy-empty.png in Resources */,
-				7D3784E3183A99D2009EE944 /* papasscode_marker.png in Resources */,
 				8F91EC7D195DF9D200F5BCBA /* OpenInActivityIcon@2x.png in Resources */,
-				7D3784E4183A99D2009EE944 /* papasscode_marker@2x.png in Resources */,
 				7D89786F185DED88009BAB5D /* VLCFutureDownloadViewController.xib in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXResourcesBuildPhase section */
 
+/* Begin PBXShellScriptBuildPhase section */
+		1674E6FD23580CE308961687 /* Check Pods Manifest.lock */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+			);
+			name = "Check Pods Manifest.lock";
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "diff \"${PODS_ROOT}/../Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [[ $? != 0 ]] ; then\n    cat << EOM\nerror: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\nEOM\n    exit 1\nfi\n";
+			showEnvVarsInLog = 0;
+		};
+		F2C5CAE560C074258A574B08 /* Copy Pods Resources */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+			);
+			name = "Copy Pods Resources";
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods-vlc-ios/Pods-vlc-ios-resources.sh\"\n";
+			showEnvVarsInLog = 0;
+		};
+/* End PBXShellScriptBuildPhase section */
+
 /* Begin PBXSourcesBuildPhase section */
 		7D94FCD716DE7D1000F2623B /* Sources */ = {
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				4144C4661A0ED6C700918C89 /* Reachability.m in Sources */,
 				9BE4D1CE183D76950006346C /* VLCCloudStorageTableViewCell.m in Sources */,
-				7DADC55F1704FABF001DAC63 /* OBSlider.m in Sources */,
 				2915540117490A1E00B86CAD /* DDData.m in Sources */,
 				2915540217490A1E00B86CAD /* DDNumber.m in Sources */,
 				7D92897A1877467E009108FD /* VLCFirstStepsFourthPageViewController.m in Sources */,
@@ -2863,24 +2850,10 @@
 				2915543F17490B9C00B86CAD /* HTTPFileResponse.m in Sources */,
 				2915544017490B9C00B86CAD /* HTTPRedirectResponse.m in Sources */,
 				2915544117490B9C00B86CAD /* WebSocket.m in Sources */,
-				7D6B08EB174D65B500A05173 /* IASKAppSettingsViewController.m in Sources */,
-				7D6B08EC174D65B500A05173 /* IASKAppSettingsWebViewController.m in Sources */,
-				7D6B08ED174D65B500A05173 /* IASKSpecifierValuesViewController.m in Sources */,
-				7D6B08EE174D65B500A05173 /* IASKSettingsReader.m in Sources */,
-				7D6B08EF174D65B500A05173 /* IASKSettingsStore.m in Sources */,
-				7D6B08F0174D65B500A05173 /* IASKSettingsStoreFile.m in Sources */,
-				7D6B08F1174D65B500A05173 /* IASKSettingsStoreUserDefaults.m in Sources */,
-				7D6B08F2174D65B500A05173 /* IASKSpecifier.m in Sources */,
-				7D6B08F3174D65B500A05173 /* IASKPSSliderSpecifierViewCell.m in Sources */,
 				7D168F7418D4A33F003FAF59 /* UIImage+Blur.m in Sources */,
 				7D65C7D219A15CEA00FA8819 /* VLCLibraryHeaderView.m in Sources */,
-				7D6B08F4174D65B500A05173 /* IASKPSTextFieldSpecifierViewCell.m in Sources */,
 				9B5BEF2917FBAEA50016F9CB /* GTLDrive_Sources.m in Sources */,
-				7D6B08F6174D65B500A05173 /* IASKSlider.m in Sources */,
-				7D6B08F7174D65B500A05173 /* IASKSwitch.m in Sources */,
-				7D6B08F8174D65B500A05173 /* IASKTextField.m in Sources */,
 				7DC19ADF1868C7BB00810BF7 /* VLCFirstStepsViewController.m in Sources */,
-				7D31001D17B64AE100E6516D /* GHRevealViewController.m in Sources */,
 				7DC72D6317B7ED24008A26D0 /* WhiteRaccoon.m in Sources */,
 				7D63C19018774B1700BD5256 /* VLCFirstStepsSecondPageViewController.m in Sources */,
 				8F91EC79195CEC7900F5BCBA /* VLCOpenInActivity.m in Sources */,
@@ -2908,8 +2881,6 @@
 				7D3784C8183A9972009EE944 /* NSString+SupportedMedia.m in Sources */,
 				7D3784C9183A9972009EE944 /* UIDevice+SpeedCategory.m in Sources */,
 				7D3784CC183A99BA009EE944 /* PAPasscodeViewController.m in Sources */,
-				7D89788F185E137B009BAB5D /* BWQuincyManager.m in Sources */,
-				7D3784E7183A99E1009EE944 /* Reachability.m in Sources */,
 				7D3784E9183A9A15009EE944 /* main.m in Sources */,
 				7D30F3C2183AB24C00FFC021 /* VLCHTTPConnection.m in Sources */,
 				7D30F3C3183AB24C00FFC021 /* VLCHTTPFileDownloader.m in Sources */,
@@ -3222,6 +3193,7 @@
 		};
 		7D94FD0B16DE7D1100F2623B /* Debug */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = 521108CBC3CAA0810AF3CBA8 /* Pods-vlc-ios.debug.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_LAUNCHIMAGE_NAME = LaunchImage;
@@ -3233,10 +3205,7 @@
 				DEAD_CODE_STRIPPING = NO;
 				ENABLE_NS_ASSERTIONS = YES;
 				EXCLUDED_SOURCE_FILE_NAMES = "";
-				FRAMEWORK_SEARCH_PATHS = (
-					"$(inherited)",
-					"\"$(SRCROOT)/ImportedSources/Dropbox\"",
-				);
+				FRAMEWORK_SEARCH_PATHS = "$(inherited)";
 				GCC_C_LANGUAGE_STANDARD = c99;
 				GCC_OPTIMIZATION_LEVEL = 0;
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
@@ -3244,9 +3213,8 @@
 				HEADER_SEARCH_PATHS = (
 					"$(SRCROOT)/External/MobileVLCKit/include",
 					"$(SRCROOT)/External/MediaLibraryKit/include",
-					"$(SRCROOT)/ImportedSources/upnpx/src/api",
-					"$(SRCROOT)/ImportedSources/upnpx/src/port/ios",
 					"$(SRCROOT)/ImportedSources/GDrive/**",
+					"$(inherited)",
 				);
 				INFOPLIST_FILE = "Sources/VLC for iOS-Info.plist";
 				IPHONEOS_DEPLOYMENT_TARGET = 6.1;
@@ -3254,14 +3222,14 @@
 					"$(inherited)",
 					"\"$(SRCROOT)/External/MediaLibraryKit\"",
 					"\"$(SRCROOT)/External/MobileVLCKit\"",
-					"\"$(SRCROOT)/External/upnpx\"",
 					"\"$(SRCROOT)/External/gtl\"",
-					"\"$(SRCROOT)/External/QuincyKit\"",
-					"\"$(SRCROOT)/External/PLCrashReporter\"",
 					"\"$(SDKROOT)/usr/lib/system\"",
 				);
 				ONLY_ACTIVE_ARCH = YES;
-				OTHER_LDFLAGS = "-Wl,-no_pie";
+				OTHER_LDFLAGS = (
+					"-Wl,-no_pie",
+					"$(inherited)",
+				);
 				PRODUCT_NAME = "VLC for iOS";
 				PROVISIONING_PROFILE = "";
 			};
@@ -3269,6 +3237,7 @@
 		};
 		7D94FD0C16DE7D1100F2623B /* Release */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = 6AB5E0853B398B35369938EC /* Pods-vlc-ios.release.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_LAUNCHIMAGE_NAME = LaunchImage;
@@ -3280,10 +3249,7 @@
 				DEAD_CODE_STRIPPING = NO;
 				ENABLE_NS_ASSERTIONS = NO;
 				EXCLUDED_SOURCE_FILE_NAMES = "";
-				FRAMEWORK_SEARCH_PATHS = (
-					"$(inherited)",
-					"\"$(SRCROOT)/ImportedSources/Dropbox\"",
-				);
+				FRAMEWORK_SEARCH_PATHS = "$(inherited)";
 				GCC_C_LANGUAGE_STANDARD = c99;
 				GCC_OPTIMIZATION_LEVEL = 3;
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
@@ -3291,9 +3257,8 @@
 				HEADER_SEARCH_PATHS = (
 					"$(SRCROOT)/External/MobileVLCKit/include",
 					"$(SRCROOT)/External/MediaLibraryKit/include",
-					"$(SRCROOT)/ImportedSources/upnpx/src/api",
-					"$(SRCROOT)/ImportedSources/upnpx/src/port/ios",
 					"$(SRCROOT)/ImportedSources/GDrive/**",
+					"$(inherited)",
 				);
 				INFOPLIST_FILE = "Sources/VLC for iOS-Info.plist";
 				IPHONEOS_DEPLOYMENT_TARGET = 6.1;
@@ -3301,14 +3266,14 @@
 					"$(inherited)",
 					"\"$(SRCROOT)/External/MediaLibraryKit\"",
 					"\"$(SRCROOT)/External/MobileVLCKit\"",
-					"\"$(SRCROOT)/External/upnpx\"",
 					"\"$(SRCROOT)/External/gtl\"",
-					"\"$(SRCROOT)/External/QuincyKit\"",
-					"\"$(SRCROOT)/External/PLCrashReporter\"",
 					"\"$(SDKROOT)/usr/lib/system\"",
 				);
 				ONLY_ACTIVE_ARCH = NO;
-				OTHER_LDFLAGS = "-Wl,-no_pie";
+				OTHER_LDFLAGS = (
+					"-Wl,-no_pie",
+					"$(inherited)",
+				);
 				PRODUCT_NAME = "VLC for iOS";
 				PROVISIONING_PROFILE = "";
 				"PROVISIONING_PROFILE[sdk=iphoneos*]" = "";
@@ -3342,6 +3307,7 @@
 		};
 		A7035BC0174519E40057DFA7 /* Distribution */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = E09EACF57CDD22ABAE66CDD0 /* Pods-vlc-ios.distribution.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_LAUNCHIMAGE_NAME = LaunchImage;
@@ -3353,10 +3319,7 @@
 				DEAD_CODE_STRIPPING = NO;
 				ENABLE_NS_ASSERTIONS = NO;
 				EXCLUDED_SOURCE_FILE_NAMES = "iTunesArtwork*";
-				FRAMEWORK_SEARCH_PATHS = (
-					"$(inherited)",
-					"\"$(SRCROOT)/ImportedSources/Dropbox\"",
-				);
+				FRAMEWORK_SEARCH_PATHS = "$(inherited)";
 				GCC_C_LANGUAGE_STANDARD = c99;
 				GCC_OPTIMIZATION_LEVEL = 3;
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
@@ -3364,9 +3327,8 @@
 				HEADER_SEARCH_PATHS = (
 					"$(SRCROOT)/External/MobileVLCKit/include",
 					"$(SRCROOT)/External/MediaLibraryKit/include",
-					"$(SRCROOT)/ImportedSources/upnpx/src/api",
-					"$(SRCROOT)/ImportedSources/upnpx/src/port/ios",
 					"$(SRCROOT)/ImportedSources/GDrive/**",
+					"$(inherited)",
 				);
 				INFOPLIST_FILE = "Sources/VLC for iOS-Info.plist";
 				IPHONEOS_DEPLOYMENT_TARGET = 6.1;
@@ -3374,14 +3336,14 @@
 					"$(inherited)",
 					"\"$(SRCROOT)/External/MediaLibraryKit\"",
 					"\"$(SRCROOT)/External/MobileVLCKit\"",
-					"\"$(SRCROOT)/External/upnpx\"",
 					"\"$(SRCROOT)/External/gtl\"",
-					"\"$(SRCROOT)/External/QuincyKit\"",
-					"\"$(SRCROOT)/External/PLCrashReporter\"",
 					"\"$(SDKROOT)/usr/lib/system\"",
 				);
 				ONLY_ACTIVE_ARCH = NO;
-				OTHER_LDFLAGS = "-Wl,-no_pie";
+				OTHER_LDFLAGS = (
+					"-Wl,-no_pie",
+					"$(inherited)",
+				);
 				PRODUCT_NAME = "VLC for iOS";
 				PROVISIONING_PROFILE = "";
 				"PROVISIONING_PROFILE[sdk=iphoneos*]" = "";

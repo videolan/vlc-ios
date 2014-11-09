@@ -16,7 +16,6 @@ UNSTABLEVLCKIT=yes
 TESTEDVLCKITHASH=4c79a817e
 TESTEDUNSTABLEVLCKITHASH=d60f94adc
 TESTEDMEDIALIBRARYKITHASH=eb2587e0c
-TESTEDQUINCYKITHASH=f1d93b96b
 
 usage()
 {
@@ -167,39 +166,10 @@ git reset --hard ${TESTEDUNSTABLEVLCKITHASH}
 cd ..
 fi
 fi
-if ! [ -e OBSlider ]; then
-git clone git://github.com/ole/OBSlider.git
-else
-cd OBSlider && git pull --rebase && cd ..
-fi
 if ! [ -e DAVKit ]; then
 git clone git://github.com/mattrajca/DAVKit.git
 else
 cd DAVKit && git pull --rebase && cd ..
-fi
-if ! [ -e PLCrashReporter ]; then
-git clone https://opensource.plausible.coop/stash/scm/plcr/plcrashreporter.git PLCrashReporter
-cd PLCrashReporter
-git am ../../patches/plcrashreporter/*.patch
-if [ $? -ne 0 ]; then
-git am --abort
-info "Applying the patches failed, aborting git-am"
-exit 1
-fi
-cd ..
-fi
-if ! [ -e QuincyKit ]; then
-git clone git://github.com/TheRealKerni/QuincyKit.git
-cd QuincyKit
-git checkout -B localAspenBranch ${TESTEDQUINCYKITHASH}
-git branch --set-upstream-to=origin/master localAspenBranch
-git am ../../patches/quincykit/*.patch
-if [ $? -ne 0 ]; then
-git am --abort
-info "Applying the patches failed, aborting git-am"
-exit 1
-fi
-cd ..
 fi
 if ! [ -e GDrive ]; then
 svn checkout http://google-api-objectivec-client.googlecode.com/svn/trunk/Source GDrive
@@ -207,20 +177,10 @@ cd GDrive && patch -p0 < ../../patches/gdrive/upgrade-default-target.patch && cd
 else
 cd GDrive && svn up && cd ..
 fi
-if ! [ -e GHSidebarNav ]; then
-git clone git://github.com/gresrun/GHSidebarNav.git
-else
-cd GHSidebarNav && git pull --rebase && cd ..
-fi
 if ! [ -e LXReorderableCollectionViewFlowLayout ]; then
 git clone git://github.com/fkuehne/LXReorderableCollectionViewFlowLayout.git
 else
 cd LXReorderableCollectionViewFlowLayout && git pull --rebase && cd ..
-fi
-if ! [ -e upnpx ]; then
-git clone git://github.com/fkuehne/upnpx.git
-else
-cd upnpx && git pull --rebase && cd ..
 fi
 if ! [ -e WhiteRaccoon ]; then
 git clone git://github.com/fkuehne/WhiteRaccoon.git
@@ -231,19 +191,6 @@ if ! [ -e CocoaHTTPServer ]; then
 git clone git://github.com/fkuehne/CocoaHTTPServer.git
 else
 cd CocoaHTTPServer && git pull --rebase && cd ..
-fi
-if ! [ -e Dropbox ]; then
-DROPBOXSDKVERSION=1.3.13
-curl -O https://www.dropbox.com/static/developers/dropbox-ios-sdk-${DROPBOXSDKVERSION}.zip
-unzip -q dropbox-ios-sdk-${DROPBOXSDKVERSION}.zip
-mv dropbox-ios-sdk-${DROPBOXSDKVERSION} Dropbox
-rm dropbox-ios-sdk-${DROPBOXSDKVERSION}.zip
-rm -rf __MACOSX
-fi
-if ! [ -e InAppSettingsKit ]; then
-git clone git://github.com/futuretap/InAppSettingsKit.git
-else
-cd InAppSettingsKit && git pull --rebase && cd ..
 fi
 fi
 
@@ -256,19 +203,13 @@ else
 fi
 framework_build="${aspen_root_dir}/ImportedSources/VLCKit/${xcbuilddir}"
 mlkit_build="${aspen_root_dir}/ImportedSources/MediaLibraryKit/${xcbuilddir}"
-upnpx_build="${aspen_root_dir}/ImportedSources/upnpx/projects/xcode4/upnpx/${xcbuilddir}"
 gtl_build="${aspen_root_dir}/ImportedSources/GDrive/${xcbuilddir}"
-plcrashreporter_build="${aspen_root_dir}/ImportedSources/PLCrashReporter/${xcbuilddir}"
-quincykit_build="${aspen_root_dir}/ImportedSources/QuincyKit/client/iOS/QuincyLib/${xcbuilddir}"
 
 spopd #ImportedSources
 
 ln -sf ${framework_build} External/MobileVLCKit
 ln -sf ${mlkit_build} External/MediaLibraryKit
-ln -sf ${upnpx_build} External/upnpx
 ln -sf ${gtl_build} External/gtl
-ln -sf ${plcrashreporter_build} External/PLCrashReporter
-ln -sf ${quincykit_build} External/QuincyKit
 
 #
 # Build time
@@ -304,28 +245,15 @@ ln -sf ${framework_build} External/MobileVLCKit
 buildxcodeproj MediaLibraryKit
 spopd
 
-spushd upnpx/projects/xcode4/upnpx
-buildxcodeproj upnpx
-spopd
-
 spushd GDrive
 buildxcodeproj GTL "GTLTouchStaticLib"
 spopd
 
-spushd PLCrashReporter
-if [ "$PLATFORM" = "iphonesimulator" ]; then
-    buildxcodeproj CrashReporter "CrashReporter-iOS-Simulator"
-else
-    buildxcodeproj CrashReporter "CrashReporter-iOS-Device"
-fi
-spopd
-
-spushd QuincyKit/client/iOS/QuincyLib
-buildxcodeproj QuincyLib
-spopd
-
 spopd # ImportedSources
 
+#install pods
+info "installing pods"
+pod install
 
 # Build the Aspen Project now
 buildxcodeproj "VLC for iOS" "vlc-ios"
