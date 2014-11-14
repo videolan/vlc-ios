@@ -71,6 +71,27 @@ buildxcodeproj()
                IPHONEOS_DEPLOYMENT_TARGET=${SDK_MIN} > ${out}
 }
 
+buildxcworkspace()
+{
+    local target="$2"
+    if [ "x$target" = "x" ]; then
+    target="$1"
+    fi
+
+    info "Building the workspace $1 ($target, ${CONFIGURATION})"
+
+    local extra=""
+    if [ "$PLATFORM" = "Simulator" ]; then
+    extra="ARCHS=i386"
+    fi
+
+    xcodebuild -workspace "$1.xcworkspace" \
+    -scheme "vlc-ios" \
+    -sdk $PLATFORM$SDK \
+    -configuration ${CONFIGURATION} ${extra} \
+    IPHONEOS_DEPLOYMENT_TARGET=${SDK_MIN} > ${out}
+}
+
 while getopts "hvsdnluk:" OPTION
 do
      case $OPTION in
@@ -256,6 +277,6 @@ info "installing pods"
 pod install
 
 # Build the Aspen Project now
-buildxcodeproj "VLC for iOS" "vlc-ios"
+buildxcworkspace "VLC for iOS" "vlc-ios"
 
 info "Build completed"
