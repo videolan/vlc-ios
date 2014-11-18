@@ -86,7 +86,7 @@ buildxcworkspace()
     fi
 
     xcodebuild -workspace "$1.xcworkspace" \
-    -scheme "vlc-ios" \
+    -scheme "Pods-vlc-ios" \
     -sdk $PLATFORM$SDK \
     -configuration ${CONFIGURATION} ${extra} \
     IPHONEOS_DEPLOYMENT_TARGET=${SDK_MIN} > ${out}
