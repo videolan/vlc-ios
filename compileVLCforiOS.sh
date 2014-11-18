@@ -277,6 +277,6 @@ info "installing pods"
 pod install
 
 # Build the Aspen Project now
-buildxcworkspace "VLC for iOS" "vlc-ios"
+buildxcworkspace "VLC for iOS" "VLC for iOS"
 
 info "Build completed"
