@@ -14,3 +14,8 @@ pod 'InAppSettingsKit', '2.2.2'
 pod 'upnpx', '1.3.0'
 
 end
+post_install do |installer_representation|
+  installer_representation.project.build_configurations.each do |config|
+            config.build_settings['SKIP_INSTALL'] = 'YES'
+  end
+end
