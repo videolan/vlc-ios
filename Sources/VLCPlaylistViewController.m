@@ -213,6 +213,8 @@ static NSString *kDisplayedFirstSteps = @"Did we display the first steps tutoria
     UINavigationBar *navBar = self.navigationController.navigationBar;
     if (SYSTEM_RUNS_IOS7_OR_LATER) {
         _searchBar.barTintColor = navBar.barTintColor;
+        // cancel button tint color of UISearchBar with white color
+        [[UIBarButtonItem appearanceWhenContainedIn:[UISearchBar class], nil] setTitleTextAttributes:[NSDictionary dictionaryWithObjectsAndKeys:[UIColor whiteColor], NSForegroundColorAttributeName, nil] forState:UIControlStateNormal];
     }
     _searchBar.tintColor = navBar.tintColor;
     _searchBar.translucent = navBar.translucent;
