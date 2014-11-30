@@ -115,7 +115,7 @@ $(function(){
         resizeThumbnails();
     });
 
-    $('a.inner').click(function(event) {
+    $('a.folder').click(function(event) {
         $('#overlay').addClass('shown');
         $('#modal ul.downloads').empty();
         $(this).parent().find('.content > div').clone().appendTo('#modal ul.downloads');

@@ -194,7 +194,7 @@
                 NSArray *episodes = [(MLShow *)mo sortedEpisodes];
                 [mediaInHtml addObject:[NSString stringWithFormat:
                                         @"<div style=\"background-image:url('thumbnail/%@.png')\"> \
-                                        <a href=\"#\" class=\"inner\"> \
+                                        <a href=\"#\" class=\"inner folder\"> \
                                         <div class=\"open icon\"></div> \
                                         <div class=\"infos\"> \
                                         <span class=\"first-line\">%@</span> \
@@ -229,7 +229,7 @@
                 NSArray *folderItems = [(MLLabel *)mo sortedFolderItems];
                 [mediaInHtml addObject:[NSString stringWithFormat:
                                         @"<div style=\"background-image:url('thumbnail/%@.png')\"> \
-                                        <a href=\"#\" class=\"inner\"> \
+                                        <a href=\"#\" class=\"inner folder\"> \
                                         <div class=\"open icon\"></div> \
                                         <div class=\"infos\"> \
                                         <span class=\"first-line\">%@</span> \
@@ -262,7 +262,7 @@
                 NSArray *albumTracks = [(MLAlbum *)mo sortedTracks];
                 [mediaInHtml addObject:[NSString stringWithFormat:
                                         @"<div style=\"background-image:url('thumbnail/%@.png')\"> \
-                                        <a href=\"#\" class=\"inner\"> \
+                                        <a href=\"#\" class=\"inner folder\"> \
                                         <div class=\"open icon\"></div> \
                                         <div class=\"infos\"> \
                                         <span class=\"first-line\">%@</span> \
