@@ -52,8 +52,9 @@
     self.navigationItem.rightBarButtonItem = contributeButton;
     self.navigationItem.leftBarButtonItem = [UIBarButtonItem themedRevealMenuButtonWithTarget:self andSelector:@selector(goBack:)];
 
+    NSBundle *mainBundle = [NSBundle mainBundle];
     NSMutableString *htmlContent = [NSMutableString stringWithContentsOfFile:[[NSBundle mainBundle] pathForResource:@"About Contents" ofType:@"html"] encoding:NSUTF8StringEncoding error:nil];
-    [htmlContent replaceOccurrencesOfString:@"VLCFORIOSVERSION" withString:[[NSString stringWithFormat:NSLocalizedString(@"VERSION_FORMAT", nil), [[NSBundle mainBundle] objectForInfoDictionaryKey:@"CFBundleVersion"]] stringByAppendingFormat:@"<br /><i>%@</i>", kVLCVersionCodename] options:NSLiteralSearch range:NSMakeRange(800, 1000)];
+    [htmlContent replaceOccurrencesOfString:@"VLCFORIOSVERSION" withString:[[NSString stringWithFormat:NSLocalizedString(@"VERSION_FORMAT", nil), [mainBundle objectForInfoDictionaryKey:@"CFBundleShortVersionString"]] stringByAppendingFormat:@" (%@)<br /><i>%@</i>", [mainBundle objectForInfoDictionaryKey:@"CFBundleVersion"], kVLCVersionCodename] options:NSLiteralSearch range:NSMakeRange(800, 1000)];
     [htmlContent replaceOccurrencesOfString:@"MOBILEVLCKITVERSION" withString:[NSString stringWithFormat:NSLocalizedString(@"BASED_ON_FORMAT", nil),[[VLCLibrary sharedLibrary] version]] options:NSLiteralSearch range:NSMakeRange(800, 1100)];
     [_webView loadHTMLString:[NSString stringWithString:htmlContent] baseURL:[NSURL fileURLWithPath:[[NSBundle mainBundle] bundlePath]]];
     htmlContent = nil;
