@@ -1,6 +1,6 @@
 #!/bin/sh
 # Copyright (C) Pierre d'Herbemont, 2010
-# Copyright (C) Felix Paul Kühne, 2012-2013
+# Copyright (C) Felix Paul Kühne, 2012-2014
 
 set -e
 
@@ -11,10 +11,8 @@ VERBOSE=no
 CONFIGURATION="Release"
 NONETWORK=no
 SKIPLIBVLCCOMPILATION=no
-UNSTABLEVLCKIT=yes
 
-TESTEDVLCKITHASH=4c79a817e
-TESTEDUNSTABLEVLCKITHASH=fbaf10813
+TESTEDVLCKITHASH=fbaf10813
 TESTEDMEDIALIBRARYKITHASH=2d98d90aa
 
 usage()
@@ -29,7 +27,6 @@ OPTIONS
    -d       Enable Debug
    -n       Skip script steps requiring network interaction
    -l       Skip libvlc compilation
-   -p       Compile stable version of MobileVLCKit (default unstable)
 EOF
 }
 
@@ -116,9 +113,6 @@ do
          k)
              SDK=$OPTARG
              ;;
-         p)
-             UNSTABLEVLCKIT=no
-             ;;
          ?)
              usage
              exit 1
@@ -163,34 +157,15 @@ cd MediaLibraryKit
 git reset --hard ${TESTEDMEDIALIBRARYKITHASH}
 cd ..
 fi
-if [ "$UNSTABLEVLCKIT" = "no" ]; then
 if ! [ -e VLCKit ]; then
 git clone git://git.videolan.org/vlc-bindings/VLCKit.git
 cd VLCKit
-git checkout 2.1-stable
 git reset --hard ${TESTEDVLCKITHASH}
 cd ..
 else
 cd VLCKit
 git reset --hard ${TESTEDVLCKITHASH}
 cd ..
-fi
-else
-if ! [ -e VLCKit ]; then
-git clone git://git.videolan.org/vlc-bindings/VLCKit.git
-cd VLCKit
-git reset --hard ${TESTEDUNSTABLEVLCKITHASH}
-cd ..
-else
-cd VLCKit
-git reset --hard ${TESTEDUNSTABLEVLCKITHASH}
-cd ..
-fi
-fi
-if ! [ -e DAVKit ]; then
-git clone git://github.com/mattrajca/DAVKit.git
-else
-cd DAVKit && git pull --rebase && cd ..
 fi
 if ! [ -e GDrive ]; then
 svn checkout http://google-api-objectivec-client.googlecode.com/svn/trunk/Source GDrive
