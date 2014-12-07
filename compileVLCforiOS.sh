@@ -12,7 +12,7 @@ CONFIGURATION="Release"
 NONETWORK=no
 SKIPLIBVLCCOMPILATION=no
 
-TESTEDVLCKITHASH=fbaf10813
+TESTEDVLCKITHASH=04ae79bb9
 TESTEDMEDIALIBRARYKITHASH=2d98d90aa
 
 usage()
@@ -160,7 +160,8 @@ fi
 if ! [ -e VLCKit ]; then
 git clone git://git.videolan.org/vlc-bindings/VLCKit.git
 cd VLCKit
-git reset --hard ${TESTEDVLCKITHASH}
+git checkout -B 2.2.x ${TESTEDVLCKITHASH}
+git branch --set-upstream-to=origin/2.2.x 2.2.x
 cd ..
 else
 cd VLCKit
