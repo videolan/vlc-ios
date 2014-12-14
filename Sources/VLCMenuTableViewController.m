@@ -71,6 +71,12 @@
     _sectionHeaderTexts = @[@"SECTION_HEADER_LIBRARY", @"SECTION_HEADER_NETWORK", @"Settings"];
     _menuItemsSectionOne = @[@"LIBRARY_ALL_FILES", @"LIBRARY_MUSIC", @"LIBRARY_SERIES"];
     _menuItemsSectionTwo = @[@"LOCAL_NETWORK", @"OPEN_NETWORK", @"DOWNLOAD_FROM_HTTP", @"WEBINTF_TITLE", @"Dropbox", @"Google Drive"];
+    if ([UIDocumentPickerViewController class]) { // on iOS 8+ add document picker option
+        NSMutableArray* expanded = [_menuItemsSectionTwo mutableCopy];
+        [expanded addObject:@"CLOUD_DRIVES"];
+        _menuItemsSectionTwo = expanded;
+    }
+
     _menuItemsSectionThree = @[@"Settings", @"ABOUT_APP"];
 
     _tableView = [[UITableView alloc] initWithFrame:CGRectMake(0.0f, 44.0f + 20.0f, kGHRevealSidebarWidth, CGRectGetHeight(self.view.bounds) - (44.0f + 20.0f)) style:UITableViewStylePlain];
@@ -211,7 +217,9 @@
         } else if ([rawTitle isEqualToString:@"Google Drive"]) {
             cell.textLabel.text = rawTitle;
             cell.imageView.image = [UIImage imageNamed:@"Drive"];
-        } else if ([rawTitle isEqualToString:@"WEBINTF_TITLE"]) {
+        } else if ([rawTitle isEqualToString:@"CLOUD_DRIVES"])
+            cell.imageView.image = [UIImage imageNamed:@"CloudDrives"];
+        else if ([rawTitle isEqualToString:@"WEBINTF_TITLE"]) {
             _uploadLocationLabel = [(VLCWiFiUploadTableViewCell*)cell uploadAddressLabel];
             _uploadButton = [(VLCWiFiUploadTableViewCell*)cell serverOnButton];
             [_uploadButton addTarget:self action:@selector(toggleHTTPServer:) forControlEvents:UIControlEventTouchUpInside];
@@ -368,6 +376,24 @@
     }
 
     [_revealController toggleSidebar:NO duration:kGHRevealSidebarDefaultAnimationDuration];
+}
+
+- (NSIndexPath *)tableView:(UITableView *)tableView willSelectRowAtIndexPath:(NSIndexPath *)indexPath
+{
+    NSUInteger idx = [_menuItemsSectionTwo indexOfObject:@"CLOUD_DRIVES"];
+
+    // don't let select CLOUD_DRIVES menu item since there is no view controller to reveal
+    if (indexPath.section == 1 && indexPath.row == idx) {
+        if (UI_USER_INTERFACE_IDIOM() == UIUserInterfaceIdiomPad) {
+            [self.appDelegate.documentPickerController showDocumentMenuViewController:[self.tableView cellForRowAtIndexPath:indexPath]];
+        } else {
+            [self.appDelegate.documentPickerController showDocumentMenuViewController:nil];
+            [self selectRowAtIndexPath:[NSIndexPath indexPathForRow:0 inSection:0] animated:YES scrollPosition:UITableViewScrollPositionNone];
+        }
+
+        return nil;
+    } else
+        return indexPath;
 }
 
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath

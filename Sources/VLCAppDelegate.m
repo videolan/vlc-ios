@@ -10,6 +10,7 @@
  *          Jean-Romain Prévost <jr # 3on.fr>
  *          Luis Fernandes <zipleen # gmail.com>
  *          Carola Nitz <nitz.carola # googlemail.com>
+ *          Tamas Timar <ttimar.vlc # gmail.com>
  *
  * Refer to the COPYING file of the official project for license.
  *****************************************************************************/
@@ -33,6 +34,7 @@
     VLCDropboxTableViewController *_dropboxTableViewController;
     VLCGoogleDriveTableViewController *_googleDriveTableViewController;
     VLCDownloadViewController *_downloadViewController;
+    VLCDocumentPickerController *_documentPickerController;
     int _idleCounter;
     int _networkActivityCounter;
     VLCMovieViewController *_movieViewController;
@@ -257,6 +259,14 @@
     }
 
     return _downloadViewController;
+}
+
+- (VLCDocumentPickerController *)documentPickerController
+{
+    if (_documentPickerController == nil)
+        _documentPickerController = [[VLCDocumentPickerController alloc] init];
+
+    return _documentPickerController;
 }
 
 #pragma mark - media discovering

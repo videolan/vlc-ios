@@ -419,6 +419,7 @@
 		CC1BBC56170493C100A20CBF /* QuartzCore.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = CC1BBC55170493C100A20CBF /* QuartzCore.framework */; };
 		CC1BBC58170493E100A20CBF /* CoreData.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = CC1BBC57170493E100A20CBF /* CoreData.framework */; };
 		CCE2A22E17A5859E00D9EAAD /* CoreText.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = CCE2A22D17A5859E00D9EAAD /* CoreText.framework */; };
+		E0C04F951A25B4410080331A /* VLCDocumentPickerController.m in Sources */ = {isa = PBXBuildFile; fileRef = E0C04F941A25B4410080331A /* VLCDocumentPickerController.m */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -1241,6 +1242,8 @@
 		CCE2A22D17A5859E00D9EAAD /* CoreText.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreText.framework; path = System/Library/Frameworks/CoreText.framework; sourceTree = SDKROOT; };
 		DAF8927B0BE9C328466C0EA7 /* libPods-vlc-ios.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-vlc-ios.a"; sourceTree = BUILT_PRODUCTS_DIR; };
 		E09EACF57CDD22ABAE66CDD0 /* Pods-vlc-ios.distribution.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-vlc-ios.distribution.xcconfig"; path = "Pods/Target Support Files/Pods-vlc-ios/Pods-vlc-ios.distribution.xcconfig"; sourceTree = "<group>"; };
+		E0C04F931A25B4410080331A /* VLCDocumentPickerController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = VLCDocumentPickerController.h; path = Sources/VLCDocumentPickerController.h; sourceTree = SOURCE_ROOT; };
+		E0C04F941A25B4410080331A /* VLCDocumentPickerController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = VLCDocumentPickerController.m; path = Sources/VLCDocumentPickerController.m; sourceTree = SOURCE_ROOT; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -1677,6 +1680,7 @@
 		7D5E39CC174FCDBE007DAFA1 /* Cloud Integration */ = {
 			isa = PBXGroup;
 			children = (
+				E0C04F921A25B41C0080331A /* Document Picker */,
 				9B51719A17EDEC8900F8FBA7 /* GoogleDrive */,
 				7DFB1567185CC38A008D49BB /* Dropbox */,
 				7D3784AF183A990F009EE944 /* VLCCloudStorageTableViewCell.h */,
@@ -2372,6 +2376,15 @@
 			name = "External VLC Libraries";
 			sourceTree = "<group>";
 		};
+		E0C04F921A25B41C0080331A /* Document Picker */ = {
+			isa = PBXGroup;
+			children = (
+				E0C04F931A25B4410080331A /* VLCDocumentPickerController.h */,
+				E0C04F941A25B4410080331A /* VLCDocumentPickerController.m */,
+			);
+			name = "Document Picker";
+			sourceTree = "<group>";
+		};
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
@@ -2847,6 +2860,7 @@
 				2915543D17490B9C00B86CAD /* HTTPDynamicFileResponse.m in Sources */,
 				9BADAF45185FBD9D00108BD8 /* VLCFrostedGlasView.m in Sources */,
 				2915543E17490B9C00B86CAD /* HTTPErrorResponse.m in Sources */,
+				E0C04F951A25B4410080331A /* VLCDocumentPickerController.m in Sources */,
 				2915543F17490B9C00B86CAD /* HTTPFileResponse.m in Sources */,
 				2915544017490B9C00B86CAD /* HTTPRedirectResponse.m in Sources */,
 				2915544117490B9C00B86CAD /* WebSocket.m in Sources */,
