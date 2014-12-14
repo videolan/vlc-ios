@@ -160,7 +160,10 @@
     if (SYSTEM_RUNS_IOS7_OR_LATER)
         _searchDisplayController.searchBar.searchBarStyle = UIBarStyleBlack;
     _searchBar.delegate = self;
-    self.tableView.tableHeaderView = _searchBar; //this line add the searchBar on the top of tableView.
+
+    UITapGestureRecognizer *tapTwiceGesture = [[UITapGestureRecognizer alloc] initWithTarget:self  action:@selector(tapTwiceGestureAction:)];
+    [tapTwiceGesture setNumberOfTapsRequired:2];
+    [self.navigationController.navigationBar addGestureRecognizer:tapTwiceGesture];
 
     _searchData = [[NSMutableArray alloc] init];
     [_searchData removeAllObjects];
@@ -775,6 +778,19 @@
         tableView.rowHeight = 68.0f;
 
     tableView.backgroundColor = [UIColor blackColor];
+}
+
+#pragma mark - Gesture Action
+
+- (void)tapTwiceGestureAction:(UIGestureRecognizer *)recognizer
+{
+    _searchBar.hidden = !_searchBar.hidden;
+    if (_searchBar.hidden)
+        self.tableView.tableHeaderView = nil;
+    else
+        self.tableView.tableHeaderView = _searchBar;
+
+    [self.tableView setContentOffset:CGPointMake(0.0f, -self.tableView.contentInset.top) animated:NO];
 }
 
 @end

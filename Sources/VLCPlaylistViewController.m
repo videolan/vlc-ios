@@ -709,6 +709,9 @@ static NSString *kDisplayedFirstSteps = @"Did we display the first steps tutoria
             self.tableView.tableHeaderView = nil;
         else
             self.tableView.tableHeaderView = _searchBar;
+
+        [self.tableView setContentOffset:CGPointMake(0.0f, -self.tableView.contentInset.top) animated:NO];
+
     } else
         [self setupContentViewWithContentInset:YES];
 }

@@ -106,7 +106,12 @@
     _searchDisplayController.searchResultsTableView.separatorStyle = UITableViewCellSeparatorStyleNone;
     _searchDisplayController.searchResultsTableView.indicatorStyle = UIScrollViewIndicatorStyleWhite;
     _searchBar.delegate = self;
-    self.tableView.tableHeaderView = _searchBar;
+    //self.tableView.tableHeaderView = _searchBar;
+    //self.tableView.contentOffset = CGPointMake(0, CGRectGetHeight(_searchBar.frame)); // -> hide search bar to load
+
+    UITapGestureRecognizer *tapTwiceGesture = [[UITapGestureRecognizer alloc] initWithTarget:self  action:@selector(tapTwiceGestureAction:)];
+    [tapTwiceGesture setNumberOfTapsRequired:2];
+    [self.navigationController.navigationBar addGestureRecognizer:tapTwiceGesture];
 
     // Active le Pull down to refresh
     _refreshControl = [[UIRefreshControl alloc] init];
@@ -397,6 +402,19 @@
     //end the refreshing
     [_refreshControl endRefreshing];
     [self performSelector:@selector(reloadTableViewPlex) withObject:nil];
+}
+
+#pragma mark - Gesture Action
+
+- (void)tapTwiceGestureAction:(UIGestureRecognizer *)recognizer
+{
+    _searchBar.hidden = !_searchBar.hidden;
+    if (_searchBar.hidden)
+        self.tableView.tableHeaderView = nil;
+    else
+        self.tableView.tableHeaderView = _searchBar;
+
+    [self.tableView setContentOffset:CGPointMake(0.0f, -self.tableView.contentInset.top) animated:NO];
 }
 
 @end
