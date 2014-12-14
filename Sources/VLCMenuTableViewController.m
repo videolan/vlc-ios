@@ -84,6 +84,7 @@
     _tableView.scrollsToTop = NO;
 
     self.view = [[UIView alloc] initWithFrame:CGRectMake(0.0f, 0.0f, kGHRevealSidebarWidth, CGRectGetHeight(self.view.bounds))];
+    self.view.autoresizingMask = UIViewAutoresizingFlexibleHeight;
     [self.view addSubview:_tableView];
 
     if (SYSTEM_RUNS_IOS7_OR_LATER) {
