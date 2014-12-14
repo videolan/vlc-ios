@@ -11,7 +11,6 @@
 		265D511D1922746C00E38383 /* VLCPlexParser.m in Sources */ = {isa = PBXBuildFile; fileRef = 265D511B1922746C00E38383 /* VLCPlexParser.m */; };
 		26FAE63919240C2E00A43737 /* PlexServerIcon@1x.png in Resources */ = {isa = PBXBuildFile; fileRef = 26FAE63619240C2E00A43737 /* PlexServerIcon@1x.png */; };
 		26FAE63A19240C2E00A43737 /* PlexServerIcon@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 26FAE63719240C2E00A43737 /* PlexServerIcon@2x.png */; };
-		26FAE63B19240C2E00A43737 /* PlexServerIcon@4x.png in Resources */ = {isa = PBXBuildFile; fileRef = 26FAE63819240C2E00A43737 /* PlexServerIcon@4x.png */; };
 		29125E5617492219003F03E5 /* index.html in Resources */ = {isa = PBXBuildFile; fileRef = 29125E5417492219003F03E5 /* index.html */; };
 		2915540117490A1E00B86CAD /* DDData.m in Sources */ = {isa = PBXBuildFile; fileRef = 291553EB17490A1E00B86CAD /* DDData.m */; };
 		2915540217490A1E00B86CAD /* DDNumber.m in Sources */ = {isa = PBXBuildFile; fileRef = 291553ED17490A1E00B86CAD /* DDNumber.m */; };
@@ -224,7 +223,6 @@
 		7D47D70E1760CD8700E86BAD /* ratioButton@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 7D47D6E01760CD8700E86BAD /* ratioButton@2x.png */; };
 		7D47D70F1760CD8700E86BAD /* ratioButtonHighlight.png in Resources */ = {isa = PBXBuildFile; fileRef = 7D47D6E11760CD8700E86BAD /* ratioButtonHighlight.png */; };
 		7D47D7101760CD8700E86BAD /* ratioButtonHighlight@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 7D47D6E21760CD8700E86BAD /* ratioButtonHighlight@2x.png */; };
-		7D47D7111760CD8700E86BAD /* seekbarBg.png in Resources */ = {isa = PBXBuildFile; fileRef = 7D47D6E31760CD8700E86BAD /* seekbarBg.png */; };
 		7D47D7151760CD8700E86BAD /* knobSlider.png in Resources */ = {isa = PBXBuildFile; fileRef = 7D47D6E71760CD8700E86BAD /* knobSlider.png */; };
 		7D47D7161760CD8700E86BAD /* knobSlider@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 7D47D6E81760CD8700E86BAD /* knobSlider@2x.png */; };
 		7D47D71A1760CD8700E86BAD /* playIcon.png in Resources */ = {isa = PBXBuildFile; fileRef = 7D47D6EC1760CD8700E86BAD /* playIcon.png */; };
@@ -289,6 +287,37 @@
 		7D94FCDF16DE7D1000F2623B /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 7D94FCDE16DE7D1000F2623B /* UIKit.framework */; };
 		7D94FCE116DE7D1000F2623B /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 7D94FCE016DE7D1000F2623B /* Foundation.framework */; };
 		7D94FCE316DE7D1000F2623B /* CoreGraphics.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 7D94FCE216DE7D1000F2623B /* CoreGraphics.framework */; };
+		7D9870201A3DEC99009CF27D /* modernSliderKnob@3x.png in Resources */ = {isa = PBXBuildFile; fileRef = 7D98701F1A3DEC99009CF27D /* modernSliderKnob@3x.png */; };
+		7D9870221A3DECA8009CF27D /* forwardIcon@3x.png in Resources */ = {isa = PBXBuildFile; fileRef = 7D9870211A3DECA8009CF27D /* forwardIcon@3x.png */; };
+		7D9870241A3DECB1009CF27D /* arrows@3x.png in Resources */ = {isa = PBXBuildFile; fileRef = 7D9870231A3DECB1009CF27D /* arrows@3x.png */; };
+		7D9870261A3DECC4009CF27D /* repeat@3x.png in Resources */ = {isa = PBXBuildFile; fileRef = 7D9870251A3DECC4009CF27D /* repeat@3x.png */; };
+		7D9870281A3DECCA009CF27D /* repeatOne@3x.png in Resources */ = {isa = PBXBuildFile; fileRef = 7D9870271A3DECCA009CF27D /* repeatOne@3x.png */; };
+		7D98702A1A3DECD1009CF27D /* ratioIcon@3x.png in Resources */ = {isa = PBXBuildFile; fileRef = 7D9870291A3DECD1009CF27D /* ratioIcon@3x.png */; };
+		7D98702C1A3DECE4009CF27D /* subtitleIcon@3x.png in Resources */ = {isa = PBXBuildFile; fileRef = 7D98702B1A3DECE4009CF27D /* subtitleIcon@3x.png */; };
+		7D98702E1A3DECEA009CF27D /* videoEffectsIcon@3x.png in Resources */ = {isa = PBXBuildFile; fileRef = 7D98702D1A3DECEA009CF27D /* videoEffectsIcon@3x.png */; };
+		7D9870301A3DECF9009CF27D /* seekbarBg.png in Resources */ = {isa = PBXBuildFile; fileRef = 7D98702F1A3DECF9009CF27D /* seekbarBg.png */; };
+		7D9870321A3DED05009CF27D /* speedIcon@3x.png in Resources */ = {isa = PBXBuildFile; fileRef = 7D9870311A3DED05009CF27D /* speedIcon@3x.png */; };
+		7D9870341A3DED26009CF27D /* pauseIcon@3x.png in Resources */ = {isa = PBXBuildFile; fileRef = 7D9870331A3DED26009CF27D /* pauseIcon@3x.png */; };
+		7D9870361A3DED40009CF27D /* playIcon@3x.png in Resources */ = {isa = PBXBuildFile; fileRef = 7D9870351A3DED40009CF27D /* playIcon@3x.png */; };
+		7D9870381A3DED48009CF27D /* audioTrackIcon@3x.png in Resources */ = {isa = PBXBuildFile; fileRef = 7D9870371A3DED48009CF27D /* audioTrackIcon@3x.png */; };
+		7D98703A1A3DED4F009CF27D /* resetIcon@3x.png in Resources */ = {isa = PBXBuildFile; fileRef = 7D9870391A3DED4F009CF27D /* resetIcon@3x.png */; };
+		7D98703C1A3DEDB2009CF27D /* serverIcon@3x.png in Resources */ = {isa = PBXBuildFile; fileRef = 7D98703B1A3DEDB2009CF27D /* serverIcon@3x.png */; };
+		7D98703E1A3DEDB9009CF27D /* PlexServerIcon@3x.png in Resources */ = {isa = PBXBuildFile; fileRef = 7D98703D1A3DEDB9009CF27D /* PlexServerIcon@3x.png */; };
+		7D9870401A3DEDC3009CF27D /* flatDeleteButton@3x.png in Resources */ = {isa = PBXBuildFile; fileRef = 7D98703F1A3DEDC3009CF27D /* flatDeleteButton@3x.png */; };
+		7D9870421A3DEDD1009CF27D /* Settings@3x.png in Resources */ = {isa = PBXBuildFile; fileRef = 7D9870411A3DEDD1009CF27D /* Settings@3x.png */; };
+		7D9870441A3DEDDE009CF27D /* TVShowsIcon@3x.png in Resources */ = {isa = PBXBuildFile; fileRef = 7D9870431A3DEDDE009CF27D /* TVShowsIcon@3x.png */; };
+		7D9870461A3DEDEC009CF27D /* WifiUp@3x.png in Resources */ = {isa = PBXBuildFile; fileRef = 7D9870451A3DEDEC009CF27D /* WifiUp@3x.png */; };
+		7D9870481A3DEDF3009CF27D /* WifiUpOn@3x.png in Resources */ = {isa = PBXBuildFile; fileRef = 7D9870471A3DEDF3009CF27D /* WifiUpOn@3x.png */; };
+		7D98704A1A3DEDFD009CF27D /* Dropbox@3x.png in Resources */ = {isa = PBXBuildFile; fileRef = 7D9870491A3DEDFD009CF27D /* Dropbox@3x.png */; };
+		7D98704C1A3DEE0B009CF27D /* Local@3x.png in Resources */ = {isa = PBXBuildFile; fileRef = 7D98704B1A3DEE0B009CF27D /* Local@3x.png */; };
+		7D98704E1A3DEE18009CF27D /* MusicAlbums@3x.png in Resources */ = {isa = PBXBuildFile; fileRef = 7D98704D1A3DEE18009CF27D /* MusicAlbums@3x.png */; };
+		7D9870501A3DEE22009CF27D /* OpenNetStream@3x.png in Resources */ = {isa = PBXBuildFile; fileRef = 7D98704F1A3DEE22009CF27D /* OpenNetStream@3x.png */; };
+		7D9870521A3DEE30009CF27D /* AllFiles@3x.png in Resources */ = {isa = PBXBuildFile; fileRef = 7D9870511A3DEE30009CF27D /* AllFiles@3x.png */; };
+		7D9870541A3DEE43009CF27D /* Downloads@3x.png in Resources */ = {isa = PBXBuildFile; fileRef = 7D9870531A3DEE43009CF27D /* Downloads@3x.png */; };
+		7D9870561A3DEE4B009CF27D /* download@3x.png in Resources */ = {isa = PBXBuildFile; fileRef = 7D9870551A3DEE4B009CF27D /* download@3x.png */; };
+		7D9870581A3DEE68009CF27D /* Drive@3x.png in Resources */ = {isa = PBXBuildFile; fileRef = 7D9870571A3DEE68009CF27D /* Drive@3x.png */; };
+		7D98705A1A3DEE88009CF27D /* TVBroadcastIcon@3x.png in Resources */ = {isa = PBXBuildFile; fileRef = 7D9870591A3DEE88009CF27D /* TVBroadcastIcon@3x.png */; };
+		7D98705C1A3DEEF6009CF27D /* vlc-xmas@3x.png in Resources */ = {isa = PBXBuildFile; fileRef = 7D98705B1A3DEEF6009CF27D /* vlc-xmas@3x.png */; };
 		7DA7C905186324FA00B56120 /* serverIcon@1x.png in Resources */ = {isa = PBXBuildFile; fileRef = 7DA7C902186324FA00B56120 /* serverIcon@1x.png */; };
 		7DA7C906186324FA00B56120 /* serverIcon@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 7DA7C903186324FA00B56120 /* serverIcon@2x.png */; };
 		7DA7C907186324FA00B56120 /* serverIcon@4x.png in Resources */ = {isa = PBXBuildFile; fileRef = 7DA7C904186324FA00B56120 /* serverIcon@4x.png */; };
@@ -316,7 +345,6 @@
 		7DC19AE41868C8EC00810BF7 /* VLCFirstStepsFirstPageViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 7DC19AE21868C8EC00810BF7 /* VLCFirstStepsFirstPageViewController.m */; };
 		7DC19B051868D1C400810BF7 /* VLCFirstStepsFifthPageViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 7DC19B031868D1C400810BF7 /* VLCFirstStepsFifthPageViewController.m */; };
 		7DC19B0C1868D21800810BF7 /* VLCFirstStepsSixthPageViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 7DC19B0A1868D21800810BF7 /* VLCFirstStepsSixthPageViewController.m */; };
-		7DC72D5E17B7E7C7008A26D0 /* download@4x.png in Resources */ = {isa = PBXBuildFile; fileRef = 7DC72D5B17B7E7C7008A26D0 /* download@4x.png */; };
 		7DC72D5F17B7E7C7008A26D0 /* download.png in Resources */ = {isa = PBXBuildFile; fileRef = 7DC72D5C17B7E7C7008A26D0 /* download.png */; };
 		7DC72D6017B7E7C7008A26D0 /* download@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 7DC72D5D17B7E7C7008A26D0 /* download@2x.png */; };
 		7DC72D6317B7ED24008A26D0 /* WhiteRaccoon.m in Sources */ = {isa = PBXBuildFile; fileRef = 7DC72D6217B7ED24008A26D0 /* WhiteRaccoon.m */; };
@@ -428,7 +456,6 @@
 		265D511B1922746C00E38383 /* VLCPlexParser.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = VLCPlexParser.m; path = Sources/VLCPlexParser.m; sourceTree = SOURCE_ROOT; };
 		26FAE63619240C2E00A43737 /* PlexServerIcon@1x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "PlexServerIcon@1x.png"; sourceTree = "<group>"; };
 		26FAE63719240C2E00A43737 /* PlexServerIcon@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "PlexServerIcon@2x.png"; sourceTree = "<group>"; };
-		26FAE63819240C2E00A43737 /* PlexServerIcon@4x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "PlexServerIcon@4x.png"; sourceTree = "<group>"; };
 		29125E5417492219003F03E5 /* index.html */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.html; path = index.html; sourceTree = "<group>"; };
 		291553EA17490A1E00B86CAD /* DDData.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DDData.h; sourceTree = "<group>"; };
 		291553EB17490A1E00B86CAD /* DDData.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DDData.m; sourceTree = "<group>"; };
@@ -795,7 +822,6 @@
 		7D47D6E01760CD8700E86BAD /* ratioButton@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "ratioButton@2x.png"; sourceTree = "<group>"; };
 		7D47D6E11760CD8700E86BAD /* ratioButtonHighlight.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = ratioButtonHighlight.png; sourceTree = "<group>"; };
 		7D47D6E21760CD8700E86BAD /* ratioButtonHighlight@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "ratioButtonHighlight@2x.png"; sourceTree = "<group>"; };
-		7D47D6E31760CD8700E86BAD /* seekbarBg.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = seekbarBg.png; sourceTree = "<group>"; };
 		7D47D6E71760CD8700E86BAD /* knobSlider.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = knobSlider.png; sourceTree = "<group>"; };
 		7D47D6E81760CD8700E86BAD /* knobSlider@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "knobSlider@2x.png"; sourceTree = "<group>"; };
 		7D47D6EC1760CD8700E86BAD /* playIcon.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = playIcon.png; sourceTree = "<group>"; };
@@ -951,6 +977,37 @@
 		7D94FCDE16DE7D1000F2623B /* UIKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = UIKit.framework; path = System/Library/Frameworks/UIKit.framework; sourceTree = SDKROOT; };
 		7D94FCE016DE7D1000F2623B /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = System/Library/Frameworks/Foundation.framework; sourceTree = SDKROOT; };
 		7D94FCE216DE7D1000F2623B /* CoreGraphics.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreGraphics.framework; path = System/Library/Frameworks/CoreGraphics.framework; sourceTree = SDKROOT; };
+		7D98701F1A3DEC99009CF27D /* modernSliderKnob@3x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "modernSliderKnob@3x.png"; sourceTree = "<group>"; };
+		7D9870211A3DECA8009CF27D /* forwardIcon@3x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "forwardIcon@3x.png"; sourceTree = "<group>"; };
+		7D9870231A3DECB1009CF27D /* arrows@3x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "arrows@3x.png"; sourceTree = "<group>"; };
+		7D9870251A3DECC4009CF27D /* repeat@3x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "repeat@3x.png"; sourceTree = "<group>"; };
+		7D9870271A3DECCA009CF27D /* repeatOne@3x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "repeatOne@3x.png"; sourceTree = "<group>"; };
+		7D9870291A3DECD1009CF27D /* ratioIcon@3x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "ratioIcon@3x.png"; sourceTree = "<group>"; };
+		7D98702B1A3DECE4009CF27D /* subtitleIcon@3x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "subtitleIcon@3x.png"; sourceTree = "<group>"; };
+		7D98702D1A3DECEA009CF27D /* videoEffectsIcon@3x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "videoEffectsIcon@3x.png"; sourceTree = "<group>"; };
+		7D98702F1A3DECF9009CF27D /* seekbarBg.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = seekbarBg.png; sourceTree = "<group>"; };
+		7D9870311A3DED05009CF27D /* speedIcon@3x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "speedIcon@3x.png"; sourceTree = "<group>"; };
+		7D9870331A3DED26009CF27D /* pauseIcon@3x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "pauseIcon@3x.png"; sourceTree = "<group>"; };
+		7D9870351A3DED40009CF27D /* playIcon@3x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "playIcon@3x.png"; sourceTree = "<group>"; };
+		7D9870371A3DED48009CF27D /* audioTrackIcon@3x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "audioTrackIcon@3x.png"; sourceTree = "<group>"; };
+		7D9870391A3DED4F009CF27D /* resetIcon@3x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "resetIcon@3x.png"; sourceTree = "<group>"; };
+		7D98703B1A3DEDB2009CF27D /* serverIcon@3x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "serverIcon@3x.png"; sourceTree = "<group>"; };
+		7D98703D1A3DEDB9009CF27D /* PlexServerIcon@3x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "PlexServerIcon@3x.png"; sourceTree = "<group>"; };
+		7D98703F1A3DEDC3009CF27D /* flatDeleteButton@3x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "flatDeleteButton@3x.png"; sourceTree = "<group>"; };
+		7D9870411A3DEDD1009CF27D /* Settings@3x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "Settings@3x.png"; sourceTree = "<group>"; };
+		7D9870431A3DEDDE009CF27D /* TVShowsIcon@3x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "TVShowsIcon@3x.png"; sourceTree = "<group>"; };
+		7D9870451A3DEDEC009CF27D /* WifiUp@3x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "WifiUp@3x.png"; sourceTree = "<group>"; };
+		7D9870471A3DEDF3009CF27D /* WifiUpOn@3x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "WifiUpOn@3x.png"; sourceTree = "<group>"; };
+		7D9870491A3DEDFD009CF27D /* Dropbox@3x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "Dropbox@3x.png"; sourceTree = "<group>"; };
+		7D98704B1A3DEE0B009CF27D /* Local@3x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "Local@3x.png"; sourceTree = "<group>"; };
+		7D98704D1A3DEE18009CF27D /* MusicAlbums@3x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "MusicAlbums@3x.png"; sourceTree = "<group>"; };
+		7D98704F1A3DEE22009CF27D /* OpenNetStream@3x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "OpenNetStream@3x.png"; sourceTree = "<group>"; };
+		7D9870511A3DEE30009CF27D /* AllFiles@3x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "AllFiles@3x.png"; sourceTree = "<group>"; };
+		7D9870531A3DEE43009CF27D /* Downloads@3x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "Downloads@3x.png"; sourceTree = "<group>"; };
+		7D9870551A3DEE4B009CF27D /* download@3x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "download@3x.png"; sourceTree = "<group>"; };
+		7D9870571A3DEE68009CF27D /* Drive@3x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "Drive@3x.png"; sourceTree = "<group>"; };
+		7D9870591A3DEE88009CF27D /* TVBroadcastIcon@3x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "TVBroadcastIcon@3x.png"; sourceTree = "<group>"; };
+		7D98705B1A3DEEF6009CF27D /* vlc-xmas@3x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "vlc-xmas@3x.png"; sourceTree = "<group>"; };
 		7D9B6B0817C9625F00F9425D /* sl */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = sl; path = sl.lproj/Localizable.strings; sourceTree = "<group>"; };
 		7D9B6B0917C9625F00F9425D /* sl */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = sl; path = "sl.lproj/badgeUnread@2x~ipad.png"; sourceTree = "<group>"; };
 		7D9B6B0A17C9626000F9425D /* sl */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = sl; path = "sl.lproj/badgeUnread@2x~iphone.png"; sourceTree = "<group>"; };
@@ -998,7 +1055,6 @@
 		7DC222791773AB0900371B5C /* es */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = es; path = "es.lproj/badgeUnread@2x~iphone.png"; sourceTree = "<group>"; };
 		7DC2227A1773AB0900371B5C /* es */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = es; path = "es.lproj/badgeUnread~ipad.png"; sourceTree = "<group>"; };
 		7DC2227B1773AB0900371B5C /* es */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = es; path = "es.lproj/badgeUnread~iphone.png"; sourceTree = "<group>"; };
-		7DC72D5B17B7E7C7008A26D0 /* download@4x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "download@4x.png"; sourceTree = "<group>"; };
 		7DC72D5C17B7E7C7008A26D0 /* download.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = download.png; sourceTree = "<group>"; };
 		7DC72D5D17B7E7C7008A26D0 /* download@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "download@2x.png"; sourceTree = "<group>"; };
 		7DC72D6117B7ED24008A26D0 /* WhiteRaccoon.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = WhiteRaccoon.h; path = ImportedSources/WhiteRaccoon/WhiteRaccoon.h; sourceTree = SOURCE_ROOT; };
@@ -1616,28 +1672,37 @@
 		7D47D6C81760CD2700E86BAD /* Movie VIew */ = {
 			isa = PBXGroup;
 			children = (
-				7D588D62187DD9B700469FCF /* modernSliderKnob@2x.png */,
 				7D588D63187DD9B700469FCF /* modernSliderKnob.png */,
+				7D588D62187DD9B700469FCF /* modernSliderKnob@2x.png */,
+				7D98701F1A3DEC99009CF27D /* modernSliderKnob@3x.png */,
 				9BADAF46185FC66700108BD8 /* playbackControllerBg.png */,
 				9BADAF47185FC66700108BD8 /* playbackControllerBg@2x.png */,
 				9B1A1650185E08B4001A99D9 /* forwardIcon.png */,
 				9B1A1651185E08B4001A99D9 /* forwardIcon@2x.png */,
+				7D9870211A3DECA8009CF27D /* forwardIcon@3x.png */,
 				9B1A164C185E0821001A99D9 /* backIcon.png */,
 				9B1A164D185E0821001A99D9 /* backIcon@2x.png */,
 				9BD3F365185DEC0900569ADC /* arrows.png */,
 				9BD3F366185DEC0A00569ADC /* arrows@2x.png */,
+				7D9870231A3DECB1009CF27D /* arrows@3x.png */,
 				7DF1166A176CC69A009EC05C /* volumeballslider.png */,
 				7DF1166B176CC69A009EC05C /* volumeballslider@2x.png */,
 				7D897870185DEF79009BAB5D /* repeat.png */,
 				7D897871185DEF79009BAB5D /* repeat@2x.png */,
+				7D9870251A3DECC4009CF27D /* repeat@3x.png */,
 				7D897872185DEF79009BAB5D /* repeatOne.png */,
 				7D897873185DEF79009BAB5D /* repeatOne@2x.png */,
+				7D9870271A3DECCA009CF27D /* repeatOne@3x.png */,
 				7D1AC30617629AB600BD2EB5 /* ratioIcon.png */,
 				7D1AC30717629AB600BD2EB5 /* ratioIcon@2x.png */,
+				7D9870291A3DECD1009CF27D /* ratioIcon@3x.png */,
 				7D47D6CB1760CD8700E86BAD /* subtitleIcon.png */,
 				7D47D6CC1760CD8700E86BAD /* subtitleIcon@2x.png */,
+				7D98702B1A3DECE4009CF27D /* subtitleIcon@3x.png */,
 				7D47D6CD1760CD8700E86BAD /* videoEffectsIcon.png */,
 				7D47D6CE1760CD8700E86BAD /* videoEffectsIcon@2x.png */,
+				7D98702D1A3DECEA009CF27D /* videoEffectsIcon@3x.png */,
+				7D98702F1A3DECF9009CF27D /* seekbarBg.png */,
 				7D47D6CF1760CD8700E86BAD /* seekbarBg@2x.png */,
 				7D47D6D01760CD8700E86BAD /* slidermaximumTrack.png */,
 				7D47D6D11760CD8700E86BAD /* slidermaximumTrack@2x.png */,
@@ -1649,8 +1714,10 @@
 				7D47D72A1760E3A000E86BAD /* sliderminimumTrack@2x.png */,
 				7D47D6D81760CD8700E86BAD /* speedIcon.png */,
 				7D47D6D91760CD8700E86BAD /* speedIcon@2x.png */,
+				7D9870311A3DED05009CF27D /* speedIcon@3x.png */,
 				7D47D7251760D77C00E86BAD /* pauseIcon.png */,
 				7D47D7261760D77C00E86BAD /* pauseIcon@2x.png */,
+				7D9870331A3DED26009CF27D /* pauseIcon@3x.png */,
 				7D47D6DB1760CD8700E86BAD /* playbackDoneButton.png */,
 				7D47D6DC1760CD8700E86BAD /* playbackDoneButton@2x.png */,
 				7D47D6DD1760CD8700E86BAD /* playbackDoneButtonHighlight.png */,
@@ -1659,17 +1726,19 @@
 				7D47D6E01760CD8700E86BAD /* ratioButton@2x.png */,
 				7D47D6E11760CD8700E86BAD /* ratioButtonHighlight.png */,
 				7D47D6E21760CD8700E86BAD /* ratioButtonHighlight@2x.png */,
-				7D47D6E31760CD8700E86BAD /* seekbarBg.png */,
 				7D47D6E71760CD8700E86BAD /* knobSlider.png */,
 				7D47D6E81760CD8700E86BAD /* knobSlider@2x.png */,
 				7D47D6EC1760CD8700E86BAD /* playIcon.png */,
 				7D47D6ED1760CD8700E86BAD /* playIcon@2x.png */,
+				7D9870351A3DED40009CF27D /* playIcon@3x.png */,
 				7D47D6EE1760CD8700E86BAD /* audioTrackIcon.png */,
 				7D47D6EF1760CD8700E86BAD /* audioTrackIcon@2x.png */,
+				7D9870371A3DED48009CF27D /* audioTrackIcon@3x.png */,
 				7D47D6F21760CD8700E86BAD /* ballSlider.png */,
 				7D47D6F31760CD8700E86BAD /* ballSlider@2x.png */,
 				7D1AC3021762996100BD2EB5 /* resetIcon.png */,
 				7D1AC3031762996100BD2EB5 /* resetIcon@2x.png */,
+				7D9870391A3DED4F009CF27D /* resetIcon@3x.png */,
 			);
 			name = "Movie VIew";
 			sourceTree = "<group>";
@@ -2017,9 +2086,11 @@
 				8F91EC7B195DF9D200F5BCBA /* OpenInActivityIcon@2x.png */,
 				7D6B08C0174A831900A05173 /* vlc-xmas.png */,
 				7D6B08C1174A831900A05173 /* vlc-xmas@2x.png */,
+				7D98705B1A3DEEF6009CF27D /* vlc-xmas@3x.png */,
 				7D3E6CE418589EE000D584E7 /* AppIcon512x512.png */,
 				493B1A1E195D0EBE000A491A /* TVBroadcastIcon.png */,
 				493B1A1F195D0EBE000A491A /* TVBroadcastIcon@2x.png */,
+				7D9870591A3DEE88009CF27D /* TVBroadcastIcon@3x.png */,
 				49CC60B5195F4F3F00ACB586 /* TVBroadcastIcon~ipad.png */,
 				493B1A20195D0EBE000A491A /* TVBroadcastIcon@2x~ipad.png */,
 			);
@@ -2135,45 +2206,58 @@
 				4115E5FD197977850071C4B9 /* tableViewIcon@2x.png */,
 				7DA7C902186324FA00B56120 /* serverIcon@1x.png */,
 				7DA7C903186324FA00B56120 /* serverIcon@2x.png */,
+				7D98703B1A3DEDB2009CF27D /* serverIcon@3x.png */,
 				7DA7C904186324FA00B56120 /* serverIcon@4x.png */,
 				26FAE63619240C2E00A43737 /* PlexServerIcon@1x.png */,
 				26FAE63719240C2E00A43737 /* PlexServerIcon@2x.png */,
-				26FAE63819240C2E00A43737 /* PlexServerIcon@4x.png */,
+				7D98703D1A3DEDB9009CF27D /* PlexServerIcon@3x.png */,
 				7D897878185DEFB5009BAB5D /* flatDeleteButton.png */,
 				7D897879185DEFB5009BAB5D /* flatDeleteButton@2x.png */,
+				7D98703F1A3DEDC3009CF27D /* flatDeleteButton@3x.png */,
+				7D0699CE17CB1FAE00713BEB /* Settings.png */,
 				7D0699C017CB1FAE00713BEB /* Settings@2x.png */,
+				7D9870411A3DEDD1009CF27D /* Settings@3x.png */,
 				7D0699C117CB1FAE00713BEB /* TVShowsIcon.png */,
 				7D0699C217CB1FAE00713BEB /* TVShowsIcon@2x.png */,
+				7D9870431A3DEDDE009CF27D /* TVShowsIcon@3x.png */,
 				7D0699C317CB1FAE00713BEB /* WifiUp.png */,
 				7D0699C417CB1FAE00713BEB /* WifiUp@2x.png */,
+				7D9870451A3DEDEC009CF27D /* WifiUp@3x.png */,
 				7D0699C517CB1FAE00713BEB /* WifiUpOn.png */,
 				7D0699C617CB1FAE00713BEB /* WifiUpOn@2x.png */,
+				7D9870471A3DEDF3009CF27D /* WifiUpOn@3x.png */,
+				7D0699D517CB1FAE00713BEB /* Dropbox.png */,
 				7D0699C717CB1FAE00713BEB /* Dropbox@2x.png */,
+				7D9870491A3DEDFD009CF27D /* Dropbox@3x.png */,
 				7D0699C817CB1FAE00713BEB /* Local.png */,
 				7D0699C917CB1FAE00713BEB /* Local@2x.png */,
+				7D98704B1A3DEE0B009CF27D /* Local@3x.png */,
 				7D0699CA17CB1FAE00713BEB /* MusicAlbums.png */,
 				7D0699CB17CB1FAE00713BEB /* MusicAlbums@2x.png */,
+				7D98704D1A3DEE18009CF27D /* MusicAlbums@3x.png */,
 				7D0699CC17CB1FAE00713BEB /* OpenNetStream.png */,
 				7D0699CD17CB1FAE00713BEB /* OpenNetStream@2x.png */,
-				7D0699CE17CB1FAE00713BEB /* Settings.png */,
+				7D98704F1A3DEE22009CF27D /* OpenNetStream@3x.png */,
 				7D0699CF17CB1FAE00713BEB /* About.png */,
 				7D0699D017CB1FAE00713BEB /* About@2x.png */,
 				7D0699D117CB1FAE00713BEB /* AllFiles.png */,
 				7D0699D217CB1FAE00713BEB /* AllFiles@2x.png */,
+				7D9870511A3DEE30009CF27D /* AllFiles@3x.png */,
 				7D0699D317CB1FAE00713BEB /* Downloads.png */,
 				7D0699D417CB1FAE00713BEB /* Downloads@2x.png */,
-				7D0699D517CB1FAE00713BEB /* Dropbox.png */,
-				7DC72D5B17B7E7C7008A26D0 /* download@4x.png */,
+				7D9870531A3DEE43009CF27D /* Downloads@3x.png */,
 				7DC72D5C17B7E7C7008A26D0 /* download.png */,
 				7DC72D5D17B7E7C7008A26D0 /* download@2x.png */,
-				7DEB3B771764A4040038FC70 /* input@2x.png */,
+				7D9870551A3DEE4B009CF27D /* download@3x.png */,
 				7DEB3B781764A4040038FC70 /* input.png */,
+				7DEB3B771764A4040038FC70 /* input@2x.png */,
 				7DEB3B7317649F2C0038FC70 /* menuButton.png */,
 				7DEB3B7417649F2C0038FC70 /* menuButton@2x.png */,
+				7D514D4017F779C6007B960C /* Drive.png */,
 				7D514D3D17F779C6007B960C /* Drive@2x.png */,
+				7D9870571A3DEE68009CF27D /* Drive@3x.png */,
 				7D514D3E17F779C6007B960C /* DriveWhite.png */,
 				7D514D3F17F779C6007B960C /* DriveWhite@2x.png */,
-				7D514D4017F779C6007B960C /* Drive.png */,
 				7D713955186B197800D54EDA /* darkButton.png */,
 				7D713956186B197800D54EDA /* darkButton@2x.png */,
 				7D713957186B197800D54EDA /* darkButtonHighlight.png */,
@@ -2482,7 +2566,7 @@
 				7AC862A91765E9510011611A /* jquery.ui.widget.js in Resources */,
 				CC1BBC431704935E00A20CBF /* MediaLibrary.mom in Resources */,
 				7D27EC1C19DF30CB00EF0370 /* sidebar-cutout@3x.png in Resources */,
-				26FAE63B19240C2E00A43737 /* PlexServerIcon@4x.png in Resources */,
+				7D98702E1A3DECEA009CF27D /* videoEffectsIcon@3x.png in Resources */,
 				7D2A34A51805CDBA004078AA /* gradient-cell-ios7@2x.png in Resources */,
 				4115E60319797B660071C4B9 /* collectionViewIcon@2x.png in Resources */,
 				7D66225F1871F29000CA9496 /* checkbox-legacy@2x.png in Resources */,
@@ -2491,6 +2575,7 @@
 				7D897884185E00C3009BAB5D /* checkboxEmpty.png in Resources */,
 				A79246C8170F11DF0036AAF2 /* Localizable.strings in Resources */,
 				A7CB0DB11716F72600050CF3 /* PlayingExternally@2x~iphone.png in Resources */,
+				7D9870381A3DED48009CF27D /* audioTrackIcon@3x.png in Resources */,
 				7D71395C186B197800D54EDA /* darkButtonHighlight@2x.png in Resources */,
 				A7CB0DB21716F72600050CF3 /* PlayingExternally~iphone.png in Resources */,
 				9B9231C4185A703700F89498 /* VLCFutureNetworkLoginViewController.xib in Resources */,
@@ -2504,6 +2589,8 @@
 				7DA8B0FB173318E80029698C /* SourceCodePro-Regular.ttf in Resources */,
 				A7FF9F3E17428C1900999819 /* DeleteButton.png in Resources */,
 				A7FF9F4017428C3800999819 /* DeleteButton@2x.png in Resources */,
+				7D9870581A3DEE68009CF27D /* Drive@3x.png in Resources */,
+				7D9870361A3DED40009CF27D /* playIcon@3x.png in Resources */,
 				7D27EC0919DF30CB00EF0370 /* cloud@2x.png in Resources */,
 				4115E60219797B660071C4B9 /* collectionViewIcon.png in Resources */,
 				A7035BBE174519600057DFA7 /* iTunesArtwork in Resources */,
@@ -2543,10 +2630,13 @@
 				7D07F729175688D300CDE21C /* doneButtonHighlight@2x.png in Resources */,
 				7D07F72E175691CC00CDE21C /* backButton.png in Resources */,
 				7D27EC3219DF314F00EF0370 /* wifi@3x.png in Resources */,
+				7D98703C1A3DEDB2009CF27D /* serverIcon@3x.png in Resources */,
 				9BF07090185122AA009B23DD /* audio@2x~ipad.png in Resources */,
 				7D07F72F175691CC00CDE21C /* backButton@2x.png in Resources */,
+				7D98705A1A3DEE88009CF27D /* TVBroadcastIcon@3x.png in Resources */,
 				7D27EC2019DF30CB00EF0370 /* uploadarrow.png in Resources */,
 				7D32B384185E293D006CA474 /* Raleway.woff in Resources */,
+				7D9870521A3DEE30009CF27D /* AllFiles@3x.png in Resources */,
 				49CC60B6195F4F3F00ACB586 /* TVBroadcastIcon~ipad.png in Resources */,
 				7D07F730175691CC00CDE21C /* backButtonHighlight.png in Resources */,
 				9BD3F368185DEC0A00569ADC /* arrows@2x.png in Resources */,
@@ -2555,8 +2645,10 @@
 				7D27EC3019DF314F00EF0370 /* wifi.png in Resources */,
 				7D27EC0B19DF30CB00EF0370 /* connector-cable.png in Resources */,
 				7D5DD5C717590ABF001421E3 /* About Contents.html in Resources */,
+				7D9870441A3DEDDE009CF27D /* TVShowsIcon@3x.png in Resources */,
 				7DE18629175BA9A5006C0173 /* badgeUnread@2x~ipad.png in Resources */,
 				7DE1862C175BA9A9006C0173 /* badgeUnread@2x~iphone.png in Resources */,
+				7D9870221A3DECA8009CF27D /* forwardIcon@3x.png in Resources */,
 				7DE1862F175BA9AC006C0173 /* badgeUnread~ipad.png in Resources */,
 				26FAE63919240C2E00A43737 /* PlexServerIcon@1x.png in Resources */,
 				7D27EC1419DF30CB00EF0370 /* pad.png in Resources */,
@@ -2576,6 +2668,7 @@
 				9BADAF49185FC66700108BD8 /* playbackControllerBg@2x.png in Resources */,
 				41F475D21899A438001B919F /* folderIcon.png in Resources */,
 				7D47D6FE1760CD8700E86BAD /* slidermaximumTrack.png in Resources */,
+				7D9870401A3DEDC3009CF27D /* flatDeleteButton@3x.png in Resources */,
 				493B1A23195D0EBE000A491A /* TVBroadcastIcon@2x~ipad.png in Resources */,
 				7D47D6FF1760CD8700E86BAD /* slidermaximumTrack@2x.png in Resources */,
 				7D47D7001760CD8700E86BAD /* slidermaxValue.png in Resources */,
@@ -2586,6 +2679,7 @@
 				7D47D7061760CD8700E86BAD /* speedIcon.png in Resources */,
 				7D71395B186B197800D54EDA /* darkButtonHighlight.png in Resources */,
 				7D47D7071760CD8700E86BAD /* speedIcon@2x.png in Resources */,
+				7D98702C1A3DECE4009CF27D /* subtitleIcon@3x.png in Resources */,
 				7D47D7091760CD8700E86BAD /* playbackDoneButton.png in Resources */,
 				7D47D70A1760CD8700E86BAD /* playbackDoneButton@2x.png in Resources */,
 				493B1A21195D0EBE000A491A /* TVBroadcastIcon.png in Resources */,
@@ -2602,16 +2696,22 @@
 				7D1516461868D7E0004B18F3 /* VLCFirstStepsSixthPageViewController~iphone.xib in Resources */,
 				7D47D70F1760CD8700E86BAD /* ratioButtonHighlight.png in Resources */,
 				7D47D7101760CD8700E86BAD /* ratioButtonHighlight@2x.png in Resources */,
+				7D9870561A3DEE4B009CF27D /* download@3x.png in Resources */,
 				7D27EC1A19DF30CB00EF0370 /* sidebar-cutout.png in Resources */,
-				7D47D7111760CD8700E86BAD /* seekbarBg.png in Resources */,
 				7D47D7151760CD8700E86BAD /* knobSlider.png in Resources */,
+				7D98704A1A3DEDFD009CF27D /* Dropbox@3x.png in Resources */,
 				7D47D7161760CD8700E86BAD /* knobSlider@2x.png in Resources */,
 				7D27EC2619DF30EA00EF0370 /* vlcsnap.png in Resources */,
+				7D9870301A3DECF9009CF27D /* seekbarBg.png in Resources */,
+				7D9870461A3DEDEC009CF27D /* WifiUp@3x.png in Resources */,
 				7D47D71A1760CD8700E86BAD /* playIcon.png in Resources */,
 				7D47D71B1760CD8700E86BAD /* playIcon@2x.png in Resources */,
 				7D47D71C1760CD8700E86BAD /* audioTrackIcon.png in Resources */,
+				7D98703E1A3DEDB9009CF27D /* PlexServerIcon@3x.png in Resources */,
 				7D47D71D1760CD8700E86BAD /* audioTrackIcon@2x.png in Resources */,
 				41F475D41899A438001B919F /* folderIcon@2x~ipad.png in Resources */,
+				7D98702A1A3DECD1009CF27D /* ratioIcon@3x.png in Resources */,
+				7D98704C1A3DEE0B009CF27D /* Local@3x.png in Resources */,
 				7D47D7201760CD8700E86BAD /* ballSlider.png in Resources */,
 				7D223E1A181EC56E00B36798 /* gradient-cell-ios7-ipad.png in Resources */,
 				7D47D7211760CD8700E86BAD /* ballSlider@2x.png in Resources */,
@@ -2622,6 +2722,7 @@
 				7D278D6B18E9D5EF0063E109 /* tvShow.png in Resources */,
 				7D47D7271760D77C00E86BAD /* pauseIcon.png in Resources */,
 				7D47D7281760D77C00E86BAD /* pauseIcon@2x.png in Resources */,
+				7D9870341A3DED26009CF27D /* pauseIcon@3x.png in Resources */,
 				7DF3B77C19DF01550041A02E /* fsarrow-position.png in Resources */,
 				7D47D72B1760E3A000E86BAD /* sliderminimumTrack.png in Resources */,
 				7D47D72C1760E3A000E86BAD /* sliderminimumTrack@2x.png in Resources */,
@@ -2656,10 +2757,12 @@
 				7DEB3B6017647DE30038FC70 /* iTunesArtwork@2x in Resources */,
 				7DBBF1A3183AB4300009A339 /* VLCLocalNetworkListCell~ipad.xib in Resources */,
 				7D27EC1919DF30CB00EF0370 /* phone@3x.png in Resources */,
+				7D98703A1A3DED4F009CF27D /* resetIcon@3x.png in Resources */,
 				7DBBF1A5183AB4300009A339 /* VLCMovieViewController~ipad.xib in Resources */,
 				7DEB3B7517649F2C0038FC70 /* menuButton.png in Resources */,
 				7DEB3B7617649F2C0038FC70 /* menuButton@2x.png in Resources */,
 				7DEB3B791764A4040038FC70 /* input@2x.png in Resources */,
+				7D9870241A3DECB1009CF27D /* arrows@3x.png in Resources */,
 				7D27EC2219DF30CB00EF0370 /* uploadarrow@3x.png in Resources */,
 				7DF3B77E19DF01550041A02E /* fsarrow-position@3x.png in Resources */,
 				7DEB3B7A1764A4040038FC70 /* input.png in Resources */,
@@ -2673,6 +2776,7 @@
 				7D27EC1519DF30CB00EF0370 /* pad@2x.png in Resources */,
 				7DEB3B881764A4F40038FC70 /* folder.png in Resources */,
 				7DF3B78019DF01550041A02E /* fsarrow-repeat@2x.png in Resources */,
+				7D9870321A3DED05009CF27D /* speedIcon@3x.png in Resources */,
 				7D27EC1719DF30CB00EF0370 /* phone.png in Resources */,
 				7DEB3B891764A4F40038FC70 /* folder@2x.png in Resources */,
 				9B1A164F185E0821001A99D9 /* backIcon@2x.png in Resources */,
@@ -2697,7 +2801,8 @@
 				7D27EC2B19DF310300EF0370 /* VLCFirstStepsSecondPageViewController~ipad.xib in Resources */,
 				7D3E6CE518589EE000D584E7 /* AppIcon512x512.png in Resources */,
 				7D2A34A41805CDBA004078AA /* gradient-cell-ios7.png in Resources */,
-				7DC72D5E17B7E7C7008A26D0 /* download@4x.png in Resources */,
+				7D9870281A3DECCA009CF27D /* repeatOne@3x.png in Resources */,
+				7D9870421A3DEDD1009CF27D /* Settings@3x.png in Resources */,
 				7DC72D5F17B7E7C7008A26D0 /* download.png in Resources */,
 				7D27EC0E19DF30CB00EF0370 /* filledcloud.png in Resources */,
 				7D897877185DEF79009BAB5D /* repeatOne@2x.png in Resources */,
@@ -2708,6 +2813,7 @@
 				7D16035D17BF9FE600F29B34 /* sudHeaderBg.png in Resources */,
 				7D16035E17BF9FE600F29B34 /* sudHeaderBg@2x.png in Resources */,
 				7DF3B78519DF01550041A02E /* fsarrow-subtitles.png in Resources */,
+				7D98705C1A3DEEF6009CF27D /* vlc-xmas@3x.png in Resources */,
 				7DBBF1A0183AB4300009A339 /* VLCFuturePlaylistCollectionViewCell.xib in Resources */,
 				7DF3B77A19DF01550041A02E /* fsarrow-effects@2x.png in Resources */,
 				7D16035F17BF9FE600F29B34 /* headerSidebar@2x.png in Resources */,
@@ -2717,6 +2823,7 @@
 				7D711ADA18227A490094E4F0 /* GTMOAuth2ViewTouch.xib in Resources */,
 				7D0699D717CB1FAE00713BEB /* TVShowsIcon.png in Resources */,
 				7D0699D817CB1FAE00713BEB /* TVShowsIcon@2x.png in Resources */,
+				7D9870541A3DEE43009CF27D /* Downloads@3x.png in Resources */,
 				7D0699D917CB1FAE00713BEB /* WifiUp.png in Resources */,
 				41F475D51899A438001B919F /* folderIcon~ipad.png in Resources */,
 				7D897875185DEF79009BAB5D /* repeat@2x.png in Resources */,
@@ -2741,6 +2848,7 @@
 				7D0699E117CB1FAE00713BEB /* MusicAlbums@2x.png in Resources */,
 				7D0699E217CB1FAE00713BEB /* OpenNetStream.png in Resources */,
 				7D71395A186B197800D54EDA /* darkButton@2x.png in Resources */,
+				7D9870201A3DEC99009CF27D /* modernSliderKnob@3x.png in Resources */,
 				7DA7C905186324FA00B56120 /* serverIcon@1x.png in Resources */,
 				7D0699E317CB1FAE00713BEB /* OpenNetStream@2x.png in Resources */,
 				7D0699E417CB1FAE00713BEB /* Settings.png in Resources */,
@@ -2752,15 +2860,19 @@
 				7D27EC2819DF30EA00EF0370 /* vlcsnap@3x.png in Resources */,
 				7D0699E817CB1FAE00713BEB /* AllFiles@2x.png in Resources */,
 				7D0699E917CB1FAE00713BEB /* Downloads.png in Resources */,
+				7D9870481A3DEDF3009CF27D /* WifiUpOn@3x.png in Resources */,
 				7D0117F1187F4BA400C5671C /* VLCFirstStepsFirstPageViewController~ipad.xib in Resources */,
 				7DF3B77419DF01550041A02E /* fsarrow-aspectratio@2x.png in Resources */,
+				7D9870261A3DECC4009CF27D /* repeat@3x.png in Resources */,
 				7D0699EA17CB1FAE00713BEB /* Downloads@2x.png in Resources */,
 				7D0699EB17CB1FAE00713BEB /* Dropbox.png in Resources */,
 				7D514D4117F779C6007B960C /* Drive@2x.png in Resources */,
+				7D9870501A3DEE22009CF27D /* OpenNetStream@3x.png in Resources */,
 				7DF3B77919DF01550041A02E /* fsarrow-effects.png in Resources */,
 				9B1A1652185E08B4001A99D9 /* forwardIcon.png in Resources */,
 				7D514D4217F779C6007B960C /* DriveWhite.png in Resources */,
 				7D514D4317F779C6007B960C /* DriveWhite@2x.png in Resources */,
+				7D98704E1A3DEE18009CF27D /* MusicAlbums@3x.png in Resources */,
 				7D27EC1219DF30CB00EF0370 /* laptop@2x.png in Resources */,
 				7D63C1991877504B00BD5256 /* VLCFirstStepsSixthPageViewController~ipad.xib in Resources */,
 				7D897882185E00C3009BAB5D /* checkbox.png in Resources */,
