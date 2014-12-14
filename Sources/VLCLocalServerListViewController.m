@@ -146,6 +146,8 @@
     _PlexNetServiceBrowser.delegate = self;
 
     _refreshControl = [[UIRefreshControl alloc] init];
+    _refreshControl.backgroundColor = [UIColor VLCDarkBackgroundColor];
+    _refreshControl.tintColor = [UIColor whiteColor];
     [_refreshControl addTarget:self action:@selector(handleRefresh) forControlEvents:UIControlEventValueChanged];
     [self.tableView addSubview:_refreshControl];
 
@@ -390,7 +392,8 @@
     NSDateFormatter *formattedDate = [[NSDateFormatter alloc]init];
     [formattedDate setDateFormat:@"MMM d, h:mm a"];
     NSString *lastupdated = [NSString stringWithFormat:NSLocalizedString(@"LOCAL_SERVER_LAST_UPDATE",nil),[formattedDate stringFromDate:[NSDate date]]];
-    _refreshControl.attributedTitle = [[NSAttributedString alloc]initWithString:lastupdated];
+    NSDictionary *attrsDictionary = [NSDictionary dictionaryWithObject:[UIColor whiteColor] forKey:NSForegroundColorAttributeName];
+    _refreshControl.attributedTitle = [[NSAttributedString alloc] initWithString:lastupdated attributes:attrsDictionary];
     //end the refreshing
     [_refreshControl endRefreshing];
 

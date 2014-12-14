@@ -36,7 +36,7 @@
     NSMutableArray *_searchData;
     UISearchBar *_searchBar;
     UISearchDisplayController *_searchDisplayController;
-    UIRefreshControl *refreshControl;
+    UIRefreshControl *_refreshControl;
 }
 @end
 
@@ -109,10 +109,12 @@
     self.tableView.tableHeaderView = _searchBar;
 
     // Active le Pull down to refresh
-    refreshControl = [[UIRefreshControl alloc] init];
+    _refreshControl = [[UIRefreshControl alloc] init];
+    _refreshControl.backgroundColor = [UIColor VLCDarkBackgroundColor];
+    _refreshControl.tintColor = [UIColor whiteColor];
     // Call the refresh function
-    [refreshControl addTarget:self action:@selector(handleRefresh) forControlEvents:UIControlEventValueChanged];
-    [self.tableView addSubview:refreshControl];
+    [_refreshControl addTarget:self action:@selector(handleRefresh) forControlEvents:UIControlEventValueChanged];
+    [self.tableView addSubview:_refreshControl];
 
     _searchData = [[NSMutableArray alloc] init];
     [_searchData removeAllObjects];
@@ -385,14 +387,15 @@
 -(void)handleRefresh
 {
     //set the title while refreshing
-    refreshControl.attributedTitle = [[NSAttributedString alloc] initWithString:@"Refresh"];
+    _refreshControl.attributedTitle = [[NSAttributedString alloc]initWithString:NSLocalizedString(@"LOCAL_SERVER_REFRESH",nil)];
     //set the date and time of refreshing
-    NSDateFormatter *formattedDate = [[NSDateFormatter alloc] init];
+    NSDateFormatter *formattedDate = [[NSDateFormatter alloc]init];
     [formattedDate setDateFormat:@"MMM d, h:mm a"];
-    NSString *lastupdated = [NSString stringWithFormat:@"Last Updated on %@", [formattedDate stringFromDate:[NSDate date]]];
-    refreshControl.attributedTitle = [[NSAttributedString alloc] initWithString:lastupdated];
+    NSString *lastupdated = [NSString stringWithFormat:NSLocalizedString(@"LOCAL_SERVER_LAST_UPDATE",nil),[formattedDate stringFromDate:[NSDate date]]];
+    NSDictionary *attrsDictionary = [NSDictionary dictionaryWithObject:[UIColor whiteColor] forKey:NSForegroundColorAttributeName];
+    _refreshControl.attributedTitle = [[NSAttributedString alloc] initWithString:lastupdated attributes:attrsDictionary];
     //end the refreshing
-    [refreshControl endRefreshing];
+    [_refreshControl endRefreshing];
     [self performSelector:@selector(reloadTableViewPlex) withObject:nil];
 }
 
