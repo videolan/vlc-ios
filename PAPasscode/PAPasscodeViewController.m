@@ -26,16 +26,16 @@
 #import <QuartzCore/QuartzCore.h>
 #import "PAPasscodeViewController.h"
 
-#define NAVBAR_HEIGHT   44
-#define PROMPT_HEIGHT   74
-#define DIGIT_SPACING   10
-#define DIGIT_WIDTH     61
-#define DIGIT_HEIGHT    53
+#define NAVBAR_HEIGHT   66
+#define PROMPT_HEIGHT   90
+#define DIGIT_SPACING   25
+#define DIGIT_WIDTH     19
+#define DIGIT_HEIGHT    1
 #define MARKER_WIDTH    16
-#define MARKER_HEIGHT   16
-#define MARKER_X        22
-#define MARKER_Y        18
-#define MESSAGE_HEIGHT  74
+#define MARKER_HEIGHT   1
+#define MARKER_X        1.5
+#define MARKER_Y        -18
+#define MESSAGE_HEIGHT  90
 #define FAILED_LCAP     19
 #define FAILED_RCAP     19
 #define FAILED_HEIGHT   26
@@ -88,9 +88,20 @@
     UIView *view = [[UIView alloc] initWithFrame:[UIScreen mainScreen].applicationFrame];
     view.autoresizingMask = UIViewAutoresizingFlexibleWidth|UIViewAutoresizingFlexibleHeight;
 
+    self.navigationController.navigationBarHidden = YES;
+
     UINavigationBar *navigationBar = [[UINavigationBar alloc] initWithFrame:CGRectMake(0, 0, view.bounds.size.width, NAVBAR_HEIGHT)];
     navigationBar.autoresizingMask = UIViewAutoresizingFlexibleWidth;
     navigationBar.items = @[self.navigationItem];
+    if (SYSTEM_RUNS_IOS7_OR_LATER) {
+        navigationBar.barTintColor = [UIColor VLCOrangeTintColor];
+        navigationBar.tintColor = [UIColor whiteColor];
+        navigationBar.titleTextAttributes = @{ UITextAttributeTextColor : [UIColor whiteColor] };
+    } else {
+        [navigationBar setBackgroundImage:[UIImage imageNamed:@"navBarBackground"] forBarMetrics:UIBarMetricsDefault];
+        navigationBar.translucent = NO;
+        navigationBar.opaque = YES;
+    }
     [view addSubview:navigationBar];
     
     contentView = [[UIView alloc] initWithFrame:CGRectMake(0, NAVBAR_HEIGHT, view.bounds.size.width, view.bounds.size.height-NAVBAR_HEIGHT)];
@@ -98,18 +109,20 @@
     if (_backgroundView) {
         [contentView addSubview:_backgroundView];
     }
-    contentView.backgroundColor = [UIColor colorWithWhite:0.9 alpha:1.0];
+    contentView.backgroundColor = [UIColor VLCDarkBackgroundColor];
     [view addSubview:contentView];
-    
+
     CGFloat panelWidth = DIGIT_WIDTH*4+DIGIT_SPACING*3;
     if (_simple) {
         UIView *digitPanel = [[UIView alloc] initWithFrame:CGRectMake(0, 0, panelWidth, DIGIT_HEIGHT)];
-        digitPanel.frame = CGRectOffset(digitPanel.frame, (contentView.bounds.size.width-digitPanel.bounds.size.width)/2, PROMPT_HEIGHT);
+        NSLog(@"cw width %f, panel width %f",contentView.bounds.size.width, panelWidth);
+        digitPanel.frame = CGRectOffset(digitPanel.frame, (contentView.bounds.size.width - panelWidth) / 2., PROMPT_HEIGHT);
         digitPanel.autoresizingMask = UIViewAutoresizingFlexibleLeftMargin|UIViewAutoresizingFlexibleRightMargin;
         [contentView addSubview:digitPanel];
         
         UIImage *backgroundImage = [UIImage imageNamed:@"papasscode_background"];
         UIImage *markerImage = [UIImage imageNamed:@"papasscode_marker"];
+
         CGFloat xLeft = 0;
         for (int i=0;i<4;i++) {
             UIImageView *backgroundImageView = [[UIImageView alloc] initWithImage:backgroundImage];
@@ -118,6 +131,7 @@
             digitImageViews[i] = [[UIImageView alloc] initWithImage:markerImage];
             digitImageViews[i].autoresizingMask = UIViewAutoresizingFlexibleLeftMargin|UIViewAutoresizingFlexibleRightMargin;
             digitImageViews[i].frame = CGRectOffset(digitImageViews[i].frame, backgroundImageView.frame.origin.x+MARKER_X, MARKER_Y);
+
             [digitPanel addSubview:digitImageViews[i]];
             xLeft += DIGIT_SPACING + backgroundImage.size.width;
         }
@@ -150,9 +164,9 @@
     promptLabel = [[UILabel alloc] initWithFrame:CGRectMake(0, 0, contentView.bounds.size.width, PROMPT_HEIGHT)];
     promptLabel.autoresizingMask = UIViewAutoresizingFlexibleWidth;
     promptLabel.backgroundColor = [UIColor clearColor];
-    promptLabel.textColor = [UIColor colorWithRed:0.30 green:0.34 blue:0.42 alpha:1.0];
+    promptLabel.textColor = [UIColor VLCLightTextColor];
     promptLabel.font = [UIFont boldSystemFontOfSize:17];
-    promptLabel.shadowColor = [UIColor whiteColor];
+    promptLabel.shadowColor = [UIColor VLCDarkTextShadowColor];
     promptLabel.shadowOffset = CGSizeMake(0, 1);
     promptLabel.textAlignment = NSTextAlignmentCenter;
     promptLabel.numberOfLines = 0;

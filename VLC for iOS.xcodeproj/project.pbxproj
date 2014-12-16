@@ -318,6 +318,12 @@
 		7D9870581A3DEE68009CF27D /* Drive@3x.png in Resources */ = {isa = PBXBuildFile; fileRef = 7D9870571A3DEE68009CF27D /* Drive@3x.png */; };
 		7D98705A1A3DEE88009CF27D /* TVBroadcastIcon@3x.png in Resources */ = {isa = PBXBuildFile; fileRef = 7D9870591A3DEE88009CF27D /* TVBroadcastIcon@3x.png */; };
 		7D98705C1A3DEEF6009CF27D /* vlc-xmas@3x.png in Resources */ = {isa = PBXBuildFile; fileRef = 7D98705B1A3DEEF6009CF27D /* vlc-xmas@3x.png */; };
+		7D9870641A3E03D5009CF27D /* papasscode_background.png in Resources */ = {isa = PBXBuildFile; fileRef = 7D98705E1A3E03D5009CF27D /* papasscode_background.png */; };
+		7D9870651A3E03D5009CF27D /* papasscode_background@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 7D98705F1A3E03D5009CF27D /* papasscode_background@2x.png */; };
+		7D9870661A3E03D5009CF27D /* papasscode_failed_bg.png in Resources */ = {isa = PBXBuildFile; fileRef = 7D9870601A3E03D5009CF27D /* papasscode_failed_bg.png */; };
+		7D9870671A3E03D5009CF27D /* papasscode_failed_bg@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 7D9870611A3E03D5009CF27D /* papasscode_failed_bg@2x.png */; };
+		7D9870681A3E03D5009CF27D /* papasscode_marker.png in Resources */ = {isa = PBXBuildFile; fileRef = 7D9870621A3E03D5009CF27D /* papasscode_marker.png */; };
+		7D9870691A3E03D5009CF27D /* papasscode_marker@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 7D9870631A3E03D5009CF27D /* papasscode_marker@2x.png */; };
 		7DA7C905186324FA00B56120 /* serverIcon@1x.png in Resources */ = {isa = PBXBuildFile; fileRef = 7DA7C902186324FA00B56120 /* serverIcon@1x.png */; };
 		7DA7C906186324FA00B56120 /* serverIcon@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 7DA7C903186324FA00B56120 /* serverIcon@2x.png */; };
 		7DA7C907186324FA00B56120 /* serverIcon@4x.png in Resources */ = {isa = PBXBuildFile; fileRef = 7DA7C904186324FA00B56120 /* serverIcon@4x.png */; };
@@ -1008,6 +1014,12 @@
 		7D9870571A3DEE68009CF27D /* Drive@3x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "Drive@3x.png"; sourceTree = "<group>"; };
 		7D9870591A3DEE88009CF27D /* TVBroadcastIcon@3x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "TVBroadcastIcon@3x.png"; sourceTree = "<group>"; };
 		7D98705B1A3DEEF6009CF27D /* vlc-xmas@3x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "vlc-xmas@3x.png"; sourceTree = "<group>"; };
+		7D98705E1A3E03D5009CF27D /* papasscode_background.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = papasscode_background.png; sourceTree = "<group>"; };
+		7D98705F1A3E03D5009CF27D /* papasscode_background@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "papasscode_background@2x.png"; sourceTree = "<group>"; };
+		7D9870601A3E03D5009CF27D /* papasscode_failed_bg.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = papasscode_failed_bg.png; sourceTree = "<group>"; };
+		7D9870611A3E03D5009CF27D /* papasscode_failed_bg@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "papasscode_failed_bg@2x.png"; sourceTree = "<group>"; };
+		7D9870621A3E03D5009CF27D /* papasscode_marker.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = papasscode_marker.png; sourceTree = "<group>"; };
+		7D9870631A3E03D5009CF27D /* papasscode_marker@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "papasscode_marker@2x.png"; sourceTree = "<group>"; };
 		7D9B6B0817C9625F00F9425D /* sl */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = sl; path = sl.lproj/Localizable.strings; sourceTree = "<group>"; };
 		7D9B6B0917C9625F00F9425D /* sl */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = sl; path = "sl.lproj/badgeUnread@2x~ipad.png"; sourceTree = "<group>"; };
 		7D9B6B0A17C9626000F9425D /* sl */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = sl; path = "sl.lproj/badgeUnread@2x~iphone.png"; sourceTree = "<group>"; };
@@ -2047,6 +2059,20 @@
 			path = AspenProject;
 			sourceTree = "<group>";
 		};
+		7D98705D1A3E03D5009CF27D /* PAPasscode */ = {
+			isa = PBXGroup;
+			children = (
+				7D98705E1A3E03D5009CF27D /* papasscode_background.png */,
+				7D98705F1A3E03D5009CF27D /* papasscode_background@2x.png */,
+				7D9870601A3E03D5009CF27D /* papasscode_failed_bg.png */,
+				7D9870611A3E03D5009CF27D /* papasscode_failed_bg@2x.png */,
+				7D9870621A3E03D5009CF27D /* papasscode_marker.png */,
+				7D9870631A3E03D5009CF27D /* papasscode_marker@2x.png */,
+			);
+			name = PAPasscode;
+			path = PAPasscode/Assets;
+			sourceTree = SOURCE_ROOT;
+		};
 		7DADC55C1704FAA8001DAC63 /* XIBs */ = {
 			isa = PBXGroup;
 			children = (
@@ -2302,6 +2328,7 @@
 		A7924697170F0ED20036AAF2 /* Resources */ = {
 			isa = PBXGroup;
 			children = (
+				7D98705D1A3E03D5009CF27D /* PAPasscode */,
 				7DC19AEC1868CC0000810BF7 /* First steps */,
 				7D47D6C81760CD2700E86BAD /* Movie VIew */,
 				7D6B08FB174D773C00A05173 /* Settings.bundle */,
@@ -2620,6 +2647,7 @@
 				7D588D64187DD9B700469FCF /* modernSliderKnob@2x.png in Resources */,
 				7D278D6F18E9D6750063E109 /* tvShow@2x~ipad.png in Resources */,
 				7DBBF1A7183AB4300009A339 /* VLCNetworkLoginViewController.xib in Resources */,
+				7D9870661A3E03D5009CF27D /* papasscode_failed_bg.png in Resources */,
 				7D27EC0C19DF30CB00EF0370 /* connector-cable@2x.png in Resources */,
 				7D07F726175688D300CDE21C /* doneButton.png in Resources */,
 				7D588D65187DD9B700469FCF /* modernSliderKnob.png in Resources */,
@@ -2630,6 +2658,7 @@
 				7D07F729175688D300CDE21C /* doneButtonHighlight@2x.png in Resources */,
 				7D07F72E175691CC00CDE21C /* backButton.png in Resources */,
 				7D27EC3219DF314F00EF0370 /* wifi@3x.png in Resources */,
+				7D9870681A3E03D5009CF27D /* papasscode_marker.png in Resources */,
 				7D98703C1A3DEDB2009CF27D /* serverIcon@3x.png in Resources */,
 				9BF07090185122AA009B23DD /* audio@2x~ipad.png in Resources */,
 				7D07F72F175691CC00CDE21C /* backButton@2x.png in Resources */,
@@ -2640,6 +2669,7 @@
 				49CC60B6195F4F3F00ACB586 /* TVBroadcastIcon~ipad.png in Resources */,
 				7D07F730175691CC00CDE21C /* backButtonHighlight.png in Resources */,
 				9BD3F368185DEC0A00569ADC /* arrows@2x.png in Resources */,
+				7D9870691A3E03D5009CF27D /* papasscode_marker@2x.png in Resources */,
 				9BF0708E185122AA009B23DD /* audio.png in Resources */,
 				7D07F731175691CC00CDE21C /* backButtonHighlight@2x.png in Resources */,
 				7D27EC3019DF314F00EF0370 /* wifi.png in Resources */,
@@ -2736,6 +2766,7 @@
 				7DBBF19E183AB4300009A339 /* VLCEmptyLibraryView~ipad.xib in Resources */,
 				7D63C19518774E0100BD5256 /* VLCFirstStepsThirdPageViewController~ipad.xib in Resources */,
 				7D6BD1861762026700AD311A /* thumbOverlayPhone.png in Resources */,
+				7D9870651A3E03D5009CF27D /* papasscode_background@2x.png in Resources */,
 				7D6BD1871762026700AD311A /* thumbOverlay.png in Resources */,
 				7D1AC3041762996100BD2EB5 /* resetIcon.png in Resources */,
 				7D1AC3051762996100BD2EB5 /* resetIcon@2x.png in Resources */,
@@ -2826,6 +2857,7 @@
 				7D9870541A3DEE43009CF27D /* Downloads@3x.png in Resources */,
 				7D0699D917CB1FAE00713BEB /* WifiUp.png in Resources */,
 				41F475D51899A438001B919F /* folderIcon~ipad.png in Resources */,
+				7D9870671A3E03D5009CF27D /* papasscode_failed_bg@2x.png in Resources */,
 				7D897875185DEF79009BAB5D /* repeat@2x.png in Resources */,
 				7DF3B78919DF01550041A02E /* fsarrow-time@2x.png in Resources */,
 				7D0699DA17CB1FAE00713BEB /* WifiUp@2x.png in Resources */,
@@ -2856,6 +2888,7 @@
 				7D0699E517CB1FAE00713BEB /* About.png in Resources */,
 				7D0699E617CB1FAE00713BEB /* About@2x.png in Resources */,
 				7D0699E717CB1FAE00713BEB /* AllFiles.png in Resources */,
+				7D9870641A3E03D5009CF27D /* papasscode_background.png in Resources */,
 				7DF3B78A19DF01550041A02E /* fsarrow-time@3x.png in Resources */,
 				7D27EC2819DF30EA00EF0370 /* vlcsnap@3x.png in Resources */,
 				7D0699E817CB1FAE00713BEB /* AllFiles@2x.png in Resources */,
