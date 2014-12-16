@@ -1274,9 +1274,9 @@ static NSString *kDisplayedFirstSteps = @"Did we display the first steps tutoria
     } else {
         // Look for at least one MLFile
         for (NSUInteger x = 0; x < count; x++) {
-            MLFile *file = _foundMedia[[indexPaths[x] row]];
+            id mediaItem = _foundMedia[[indexPaths[x] row]];
 
-            if ([file isKindOfClass:[MLFile class]]) {
+            if ([mediaItem isKindOfClass:[MLFile class]] || [mediaItem isKindOfClass:[MLAlbumTrack class]] | [mediaItem isKindOfClass:[MLShowEpisode class]]) {
                 _actionBarButtonItem.enabled = YES;
                 return;
             }
@@ -1304,14 +1304,18 @@ static NSString *kDisplayedFirstSteps = @"Did we display the first steps tutoria
         NSMutableArray /* NSURL */ *fileURLobjects = [[NSMutableArray alloc] initWithCapacity:count];
 
         for (NSUInteger x = 0; x < count; x++) {
-            MLFile *file = _foundMedia[[indexPaths[x] row]];
+            id mediaItem = _foundMedia[[indexPaths[x] row]];
+            NSURL *fileURL;
 
-            if ([file isKindOfClass:[MLFile class]]) {
-                NSURL *fileURL = [NSURL URLWithString:[file url]];
-                if ([fileURL isFileURL]) {
-                    [fileURLobjects addObject:fileURL];
-                }
-            }
+            if ([mediaItem isKindOfClass:[MLFile class]])
+                fileURL = [NSURL URLWithString:[(MLFile *)mediaItem url]];
+            else if ([mediaItem isKindOfClass:[MLAlbumTrack class]])
+                fileURL = [NSURL URLWithString:[(MLFile *)[[(MLAlbumTrack *)mediaItem files] anyObject] url]];
+            else if ([mediaItem isKindOfClass:[MLShowEpisode class]])
+                fileURL = [NSURL URLWithString:[(MLFile *)[[(MLShowEpisode *)mediaItem files] anyObject] url]];
+
+            if ([fileURL isFileURL])
+                [fileURLobjects addObject:fileURL];
         }
 
         if ([fileURLobjects count]) {
