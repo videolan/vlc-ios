@@ -140,6 +140,7 @@
 
 - (IBAction)goBack:(id)sender
 {
+    [self.view endEditing:YES];
     [[(VLCAppDelegate*)[UIApplication sharedApplication].delegate revealController] toggleSidebar:![(VLCAppDelegate*)[UIApplication sharedApplication].delegate revealController].sidebarShowing duration:kGHRevealSidebarDefaultAnimationDuration];
 }
 
