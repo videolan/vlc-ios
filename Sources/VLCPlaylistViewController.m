@@ -226,6 +226,7 @@ static NSString *kDisplayedFirstSteps = @"Did we display the first steps tutoria
     _searchDisplayController.searchResultsTableView.separatorStyle = UITableViewCellSeparatorStyleNone;
     _searchDisplayController.searchResultsTableView.indicatorStyle = UIScrollViewIndicatorStyleWhite;
     _searchBar.delegate = self;
+    _searchBar.hidden = YES;
 
     UITapGestureRecognizer *tapTwiceGesture = [[UITapGestureRecognizer alloc] initWithTarget:self  action:@selector(tapTwiceGestureAction:)];
     [tapTwiceGesture setNumberOfTapsRequired:2];

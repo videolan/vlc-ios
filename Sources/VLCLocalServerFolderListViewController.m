@@ -160,6 +160,7 @@
     if (SYSTEM_RUNS_IOS7_OR_LATER)
         _searchDisplayController.searchBar.searchBarStyle = UIBarStyleBlack;
     _searchBar.delegate = self;
+    _searchBar.hidden = YES;
 
     UITapGestureRecognizer *tapTwiceGesture = [[UITapGestureRecognizer alloc] initWithTarget:self  action:@selector(tapTwiceGestureAction:)];
     [tapTwiceGesture setNumberOfTapsRequired:2];

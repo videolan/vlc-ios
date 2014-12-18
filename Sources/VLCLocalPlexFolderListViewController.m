@@ -106,6 +106,7 @@
     _searchDisplayController.searchResultsTableView.separatorStyle = UITableViewCellSeparatorStyleNone;
     _searchDisplayController.searchResultsTableView.indicatorStyle = UIScrollViewIndicatorStyleWhite;
     _searchBar.delegate = self;
+    _searchBar.hidden = YES;
     //self.tableView.tableHeaderView = _searchBar;
     //self.tableView.contentOffset = CGPointMake(0, CGRectGetHeight(_searchBar.frame)); // -> hide search bar to load
 
