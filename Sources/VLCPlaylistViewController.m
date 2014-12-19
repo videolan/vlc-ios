@@ -228,6 +228,9 @@ static NSString *kDisplayedFirstSteps = @"Did we display the first steps tutoria
     _searchBar.delegate = self;
     _searchBar.hidden = YES;
 
+    if (!_usingTableViewToShowData)
+        _collectionView.contentInset = UIEdgeInsetsMake(-[VLCLibraryHeaderView headerHeight], 0, 0, 0);
+
     UITapGestureRecognizer *tapTwiceGesture = [[UITapGestureRecognizer alloc] initWithTarget:self  action:@selector(tapTwiceGestureAction:)];
     [tapTwiceGesture setNumberOfTapsRequired:2];
     [self.navigationController.navigationBar addGestureRecognizer:tapTwiceGesture];
