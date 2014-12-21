@@ -127,8 +127,12 @@ static NSCache *_thumbnailCacheMetadata;
     NSUInteger fileNumber = count > 3 ? 3 : count;
     NSArray *episodes = [mediaShow.episodes allObjects];
     NSMutableArray *files = [[NSMutableArray alloc] init];
-    for (NSUInteger x = 0; x < count; x++)
-        [files addObject:[episodes[x] files].anyObject];
+    for (NSUInteger x = 0; x < count; x++) {
+        /* this is a multi-threaded app, so the episode object might be there already,
+         * but without an assigned file, so we need to check for its existance (#13128) */
+        if ([episodes[x] files].anyObject != nil)
+            [files addObject:[episodes[x] files].anyObject];
+    }
 
     displayedImage = [self clusterThumbFromFiles:files andNumber:fileNumber blur:NO];
     if (displayedImage) {
