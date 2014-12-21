@@ -115,7 +115,6 @@
     CGFloat panelWidth = DIGIT_WIDTH*4+DIGIT_SPACING*3;
     if (_simple) {
         UIView *digitPanel = [[UIView alloc] initWithFrame:CGRectMake(0, 0, panelWidth, DIGIT_HEIGHT)];
-        NSLog(@"cw width %f, panel width %f",contentView.bounds.size.width, panelWidth);
         digitPanel.frame = CGRectOffset(digitPanel.frame, (contentView.bounds.size.width - panelWidth) / 2., PROMPT_HEIGHT);
         digitPanel.autoresizingMask = UIViewAutoresizingFlexibleLeftMargin|UIViewAutoresizingFlexibleRightMargin;
         [contentView addSubview:digitPanel];
