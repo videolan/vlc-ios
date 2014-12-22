@@ -196,11 +196,12 @@ static NSCache *_thumbnailCacheMetadata;
     }
 
     UIGraphicsBeginImageContext(imageSize);
-    for (NSUInteger i = 0; i < fileNumber; i++) {
+    NSUInteger iter = files.count < fileNumber ? files.count : fileNumber;
+    for (NSUInteger i = 0; i < iter; i++) {
         MLFile *file =  [files objectAtIndex:i];
         clusterThumb = [VLCThumbnailsCache thumbnailForMediaFile:file];
         CGContextRef context = UIGraphicsGetCurrentContext();
-        CGFloat imagePartWidth = (imageSize.width / fileNumber);
+        CGFloat imagePartWidth = (imageSize.width / iter);
         //the rect in which the image should be drawn
         CGRect clippingRect = CGRectMake(imagePartWidth * i, 0, imagePartWidth, imageSize.height);
         CGContextSaveGState(context);
