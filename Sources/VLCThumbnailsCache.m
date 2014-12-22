@@ -185,9 +185,12 @@ static NSCache *_thumbnailCacheMetadata;
         else
             imageSize = CGSizeMake(341., 192.);
     } else {
-        if (SYSTEM_RUNS_IOS7_OR_LATER)
-            imageSize = CGSizeMake(480., 270.);
-        else {
+        if (SYSTEM_RUNS_IOS7_OR_LATER) {
+            if ([UIScreen mainScreen].scale==2.0)
+                imageSize = CGSizeMake(480., 270.);
+            else
+                imageSize = CGSizeMake(720., 405.);
+        } else {
             if ([UIScreen mainScreen].scale==2.0)
                 imageSize = CGSizeMake(258., 145.);
             else
