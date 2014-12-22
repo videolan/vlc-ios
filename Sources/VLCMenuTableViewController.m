@@ -70,7 +70,7 @@
 
     _sectionHeaderTexts = @[@"SECTION_HEADER_LIBRARY", @"SECTION_HEADER_NETWORK", @"Settings"];
     _menuItemsSectionOne = @[@"LIBRARY_ALL_FILES", @"LIBRARY_MUSIC", @"LIBRARY_SERIES"];
-    _menuItemsSectionTwo = @[@"LOCAL_NETWORK", @"OPEN_NETWORK", @"DOWNLOAD_FROM_HTTP", @"WEBINTF_TITLE", @"Dropbox", @"Google Drive", @"OneDrive"];
+    _menuItemsSectionTwo = @[@"LOCAL_NETWORK", @"OPEN_NETWORK", @"DOWNLOAD_FROM_HTTP", @"WEBINTF_TITLE", @"Dropbox", @"Google Drive", @"Box", @"OneDrive"];
     if ([UIDocumentPickerViewController class]) { // on iOS 8+ add document picker option
         NSMutableArray* expanded = [_menuItemsSectionTwo mutableCopy];
         [expanded addObject:@"CLOUD_DRIVES"];
@@ -218,6 +218,9 @@
         } else if ([rawTitle isEqualToString:@"Google Drive"]) {
             cell.textLabel.text = rawTitle;
             cell.imageView.image = [UIImage imageNamed:@"Drive"];
+        } else if ([rawTitle isEqualToString:@"Box"]) {
+            cell.textLabel.text = rawTitle;
+            cell.imageView.image = [UIImage imageNamed:@"Box"];
         } else if ([rawTitle isEqualToString:@"CLOUD_DRIVES"])
             cell.imageView.image = [UIImage imageNamed:@"CloudDrives"];
         else if ([rawTitle isEqualToString:@"WEBINTF_TITLE"]) {
@@ -333,6 +336,8 @@
         else if (itemIndex == 5)
             viewController = self.appDelegate.googleDriveTableViewController;
         else if (itemIndex == 6)
+            viewController = self.appDelegate.boxTableViewController;
+        else if (itemIndex == 7)
             viewController = self.appDelegate.oneDriveTableViewController;
     } else if (sectionNumber == 2) {
         if (itemIndex == 0) {

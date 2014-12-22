@@ -29,12 +29,14 @@
 #import "VLCMenuTableViewController.h"
 #import "BWQuincyManager.h"
 #import "VLCAlertView.h"
+#import <BoxSDK/BoxSDK.h>
 
 @interface VLCAppDelegate () <PAPasscodeViewControllerDelegate, VLCMediaFileDiscovererDelegate, BWQuincyManagerDelegate> {
     PAPasscodeViewController *_passcodeLockController;
     VLCDropboxTableViewController *_dropboxTableViewController;
     VLCGoogleDriveTableViewController *_googleDriveTableViewController;
     VLCOneDriveTableViewController *_oneDriveTableViewController;
+    VLCBoxTableViewController *_boxTableViewController;
     VLCDownloadViewController *_downloadViewController;
     VLCDocumentPickerController *_documentPickerController;
     int _idleCounter;
@@ -125,7 +127,7 @@
         [self.dropboxTableViewController updateViewAfterSessionChange];
         return YES;
     }
-
+    [[BoxSDK sharedSDK].OAuth2Session performAuthorizationCodeGrantWithReceivedURL:url];
     if (_playlistViewController && url != nil) {
         APLog(@"%@ requested %@ to be opened", sourceApplication, url);
 
@@ -256,6 +258,14 @@
         _oneDriveTableViewController = [[VLCOneDriveTableViewController alloc] initWithNibName:@"VLCCloudStorageTableViewController" bundle:nil];
 
     return _oneDriveTableViewController;
+}
+
+- (VLCBoxTableViewController *)boxTableViewController
+{
+    if (_boxTableViewController == nil)
+        _boxTableViewController = [[VLCBoxTableViewController alloc] initWithNibName:@"VLCCloudStorageTableViewController" bundle:nil];
+
+    return _boxTableViewController;
 }
 
 - (VLCDownloadViewController *)downloadViewController

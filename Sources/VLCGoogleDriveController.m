@@ -70,7 +70,7 @@
     self.driveService.authorizer = nil;
     _currentFileList = nil;
     if ([self.delegate respondsToSelector:@selector(mediaListUpdated)])
-    [self.delegate mediaListUpdated];
+        [self.delegate mediaListUpdated];
 }
 
 - (BOOL)isAuthorized
@@ -257,7 +257,8 @@
 
         [fetcher beginFetchWithCompletionHandler:^(NSData *data, NSError *error) {
             if (error == nil) {
-                [self showAlert:NSLocalizedString(@"GDRIVE_DOWNLOAD_SUCCESSFUL_TITLE",nil) message:NSLocalizedString(@"GDRIVE_DOWNLOAD_SUCCESSFUL",nil)];
+                //TODO: show something nice than an annoying alert
+                //[self showAlert:NSLocalizedString(@"GDRIVE_DOWNLOAD_SUCCESSFUL_TITLE",nil) message:NSLocalizedString(@"GDRIVE_DOWNLOAD_SUCCESSFUL",nil)];
                 [self downloadSuccessful];
             } else {
                 [self showAlert:NSLocalizedString(@"GDRIVE_ERROR_DOWNLOADING_FILE_TITLE",nil) message:NSLocalizedString(@"GDRIVE_ERROR_DOWNLOADING_FILE",nil)];

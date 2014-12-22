@@ -13,6 +13,7 @@
 
 #import <DropboxSDK/DropboxSDK.h>
 #import "GTLDrive.h"
+#import <BoxSDK/BoxSDK.h>
 
 @interface VLCCloudStorageTableViewCell : UITableViewCell
 
@@ -26,6 +27,7 @@
 
 @property (nonatomic, retain) DBMetadata *fileMetadata;
 @property (nonatomic, retain) GTLDriveFile *driveFile;
+@property (nonatomic, retain) BoxItem *boxFile;
 
 + (VLCCloudStorageTableViewCell *)cellWithReuseIdentifier:(NSString *)ident;
 + (CGFloat)heightOfCell;

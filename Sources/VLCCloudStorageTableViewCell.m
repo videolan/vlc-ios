@@ -46,6 +46,14 @@
     [self _updatedDisplayedInformation];
 }
 
+- (void)setBoxFile:(BoxItem *)boxFile
+{
+    if (boxFile != _boxFile)
+        _boxFile = boxFile;
+
+    [self _updatedDisplayedInformation];
+}
+
 - (void)_updatedDisplayedInformation
 {
     if (_fileMetadata != nil) {
@@ -70,8 +78,10 @@
             self.thumbnailView.image = [UIImage imageNamed:@"movie"];
         else if ([iconName isEqualToString:@"page_white_sound"])
             self.thumbnailView.image = [UIImage imageNamed:@"audio"];
-        else
+        else {
+            self.thumbnailView.image = [UIImage imageNamed:@"blank"];
             APLog(@"missing icon for type '%@'", self.fileMetadata.icon);
+        }
 
     } else if(_driveFile != nil){
         BOOL isDirectory = [self.driveFile.mimeType isEqualToString:@"application/vnd.google-apps.folder"];
@@ -100,8 +110,35 @@
             self.thumbnailView.image = [UIImage imageNamed:@"blank"];
             APLog(@"missing icon for type '%@'", self.driveFile.iconLink);
         }
+    } else if(_boxFile != nil) {
+        BOOL isDirectory = [self.boxFile.type isEqualToString:@"folder"];
+        if (isDirectory) {
+            self.folderTitleLabel.text = self.boxFile.name;
+            self.titleLabel.hidden = self.subtitleLabel.hidden = YES;
+            self.folderTitleLabel.hidden = NO;
+        } else {
+            self.titleLabel.text = self.boxFile.name;
+            self.subtitleLabel.text = (self.boxFile.size > 0) ? [NSByteCountFormatter stringFromByteCount:[self.boxFile.size longLongValue] countStyle:NSByteCountFormatterCountStyleFile]: @"";
+            self.titleLabel.hidden = self.subtitleLabel.hidden = NO;
+            self.folderTitleLabel.hidden = YES;
+        }
+        //TODO: correct thumbnails
+//        if (_boxFile.modelID != nil) {
+//            //this request needs a token in the header to work
+//            NSString *thumbnailURLString = [NSString stringWithFormat:@"https://api.box.com/2.0/files/%@/thumbnail.png?min_height=32&min_width=32&max_height=64&max_width=64", _boxFile.modelID];
+//            _iconURL = [NSURL URLWithString:thumbnailURLString];
+//            [self performSelectorInBackground:@selector(_updateIconFromURL) withObject:@""];
+//        }
+        //TODO:correct icons
+        if (isDirectory) {
+            self.thumbnailView.image = [UIImage imageNamed:@"folder"];
+        } else {
+            self.thumbnailView.image = [UIImage imageNamed:@"blank"];
+            APLog(@"missing icon for type '%@'", self.boxFile);
+        }
     }
-    self.downloadButton.hidden = NO;
+    //we don't have streaming for box yet
+    self.downloadButton.hidden = _boxFile != nil;
     [self setNeedsDisplay];
 }
 
@@ -109,7 +146,9 @@
 {
     NSData* imageData = [[NSData alloc]initWithContentsOfURL:_iconURL];
     UIImage* image = [[UIImage alloc] initWithData:imageData];
-    self.thumbnailView.image = image;
+    if (image != nil) {
+        self.thumbnailView.image = image;
+    }
 }
 
 - (IBAction)triggerDownload:(id)sender

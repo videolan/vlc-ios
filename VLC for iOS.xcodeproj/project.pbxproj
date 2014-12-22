@@ -47,6 +47,8 @@
 		4171D35818A2D90200A16EF9 /* LXReorderableCollectionViewFlowLayout.m in Sources */ = {isa = PBXBuildFile; fileRef = 4171D35718A2D90200A16EF9 /* LXReorderableCollectionViewFlowLayout.m */; };
 		418FF4B11A0EC1D5005FE808 /* libPods-vlc-ios.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 418FF4B01A0EC1D5005FE808 /* libPods-vlc-ios.a */; };
 		41C881101A05B5020010A3C5 /* VLCProgressView.m in Sources */ = {isa = PBXBuildFile; fileRef = 41C8810F1A05B5020010A3C5 /* VLCProgressView.m */; };
+		41CD695C1A29D72600E60BCE /* VLCBoxController.m in Sources */ = {isa = PBXBuildFile; fileRef = 41CD69591A29D72600E60BCE /* VLCBoxController.m */; };
+		41CD695D1A29D72600E60BCE /* VLCBoxTableViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 41CD695B1A29D72600E60BCE /* VLCBoxTableViewController.m */; };
 		41F475D21899A438001B919F /* folderIcon.png in Resources */ = {isa = PBXBuildFile; fileRef = 41F475CE1899A438001B919F /* folderIcon.png */; };
 		41F475D31899A438001B919F /* folderIcon@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 41F475CF1899A438001B919F /* folderIcon@2x.png */; };
 		41F475D41899A438001B919F /* folderIcon@2x~ipad.png in Resources */ = {isa = PBXBuildFile; fileRef = 41F475D01899A438001B919F /* folderIcon@2x~ipad.png */; };
@@ -556,6 +558,11 @@
 		418FF4B01A0EC1D5005FE808 /* libPods-vlc-ios.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; name = "libPods-vlc-ios.a"; path = "Pods/build/Debug-iphoneos/libPods-vlc-ios.a"; sourceTree = "<group>"; };
 		41C8810E1A05B5020010A3C5 /* VLCProgressView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = VLCProgressView.h; sourceTree = SOURCE_ROOT; };
 		41C8810F1A05B5020010A3C5 /* VLCProgressView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = VLCProgressView.m; sourceTree = SOURCE_ROOT; };
+		41CD69571A29D72600E60BCE /* VLCBoxConstants.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = VLCBoxConstants.h; path = Sources/VLCBoxConstants.h; sourceTree = SOURCE_ROOT; };
+		41CD69581A29D72600E60BCE /* VLCBoxController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = VLCBoxController.h; path = Sources/VLCBoxController.h; sourceTree = SOURCE_ROOT; };
+		41CD69591A29D72600E60BCE /* VLCBoxController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = VLCBoxController.m; path = Sources/VLCBoxController.m; sourceTree = SOURCE_ROOT; };
+		41CD695A1A29D72600E60BCE /* VLCBoxTableViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = VLCBoxTableViewController.h; path = Sources/VLCBoxTableViewController.h; sourceTree = SOURCE_ROOT; };
+		41CD695B1A29D72600E60BCE /* VLCBoxTableViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = VLCBoxTableViewController.m; path = Sources/VLCBoxTableViewController.m; sourceTree = SOURCE_ROOT; };
 		41F475CE1899A438001B919F /* folderIcon.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = folderIcon.png; sourceTree = "<group>"; };
 		41F475CF1899A438001B919F /* folderIcon@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "folderIcon@2x.png"; sourceTree = "<group>"; };
 		41F475D01899A438001B919F /* folderIcon@2x~ipad.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "folderIcon@2x~ipad.png"; sourceTree = "<group>"; };
@@ -1553,6 +1560,18 @@
 			path = ImportedSources/LXReorderableCollectionViewFlowLayout/LXReorderableCollectionViewFlowLayout;
 			sourceTree = SOURCE_ROOT;
 		};
+		41CD69561A29D71B00E60BCE /* Box */ = {
+			isa = PBXGroup;
+			children = (
+				41CD69571A29D72600E60BCE /* VLCBoxConstants.h */,
+				41CD69581A29D72600E60BCE /* VLCBoxController.h */,
+				41CD69591A29D72600E60BCE /* VLCBoxController.m */,
+				41CD695A1A29D72600E60BCE /* VLCBoxTableViewController.h */,
+				41CD695B1A29D72600E60BCE /* VLCBoxTableViewController.m */,
+			);
+			name = Box;
+			sourceTree = "<group>";
+		};
 		5BC7EE378D444805CA59B5BA /* Pods */ = {
 			isa = PBXGroup;
 			children = (
@@ -1848,6 +1867,7 @@
 		7D5E39CC174FCDBE007DAFA1 /* Cloud Integration */ = {
 			isa = PBXGroup;
 			children = (
+				41CD69561A29D71B00E60BCE /* Box */,
 				E0C04F921A25B41C0080331A /* Document Picker */,
 				9B51719A17EDEC8900F8FBA7 /* GoogleDrive */,
 				7DFB1567185CC38A008D49BB /* Dropbox */,
@@ -3152,7 +3172,9 @@
 				7D50903218F41C7900180139 /* VLCAlertView.m in Sources */,
 				7DBBF182183AB3B80009A339 /* VLCAppDelegate.m in Sources */,
 				7D3784C0183A9938009EE944 /* VLCLinearProgressIndicator.m in Sources */,
+				41CD695D1A29D72600E60BCE /* VLCBoxTableViewController.m in Sources */,
 				7D3784C1183A9938009EE944 /* VLCMenuButton.m in Sources */,
+				41CD695C1A29D72600E60BCE /* VLCBoxController.m in Sources */,
 				7D3784C2183A9938009EE944 /* VLCSlider.m in Sources */,
 				7D3784C3183A9938009EE944 /* VLCStatusLabel.m in Sources */,
 				7D3784C8183A9972009EE944 /* NSString+SupportedMedia.m in Sources */,
@@ -3550,7 +3572,7 @@
 					"$(PROJECT_DIR)/External/OneDrive",
 				);
 				GCC_C_LANGUAGE_STANDARD = c99;
-				GCC_OPTIMIZATION_LEVEL = 3;
+				GCC_OPTIMIZATION_LEVEL = 0;
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "Sources/VLC for iOS-Prefix.pch";
 				HEADER_SEARCH_PATHS = (

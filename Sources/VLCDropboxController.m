@@ -172,7 +172,7 @@
 - (void)restClient:(DBRestClient*)client loadProgress:(CGFloat)progress forFile:(NSString*)destPath
 {
     if ((_lastStatsUpdate > 0 && ([NSDate timeIntervalSinceReferenceDate] - _lastStatsUpdate > .5)) || _lastStatsUpdate <= 0) {
-        [self calculateRemainingTime:progress*_fileSize expectedDownloadSize:_fileSize];
+        [self calculateRemainingTime:progress * _fileSize expectedDownloadSize:_fileSize];
         _lastStatsUpdate = [NSDate timeIntervalSinceReferenceDate];
     }
 

@@ -426,6 +426,14 @@
 			<key>Type</key>
 			<string>IASKButtonSpecifier</string>
 		</dict>
+        <dict>
+            <key>Key</key>
+            <string>UnlinkBox</string>
+            <key>Title</key>
+            <string>SETTINGS_UNLINK_BOX</string>
+            <key>Type</key>
+            <string>IASKButtonSpecifier</string>
+        </dict>
 		<dict>
 			<key>Key</key>
 			<string>UnlinkOneDrive</string>

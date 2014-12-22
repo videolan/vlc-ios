@@ -1,34 +1,47 @@
 PODS:
+  - box-ios-sdk-v2 (1.2.2):
+    - box-ios-sdk-v2/no-arc (= 1.2.2)
+  - box-ios-sdk-v2/no-arc (1.2.2)
   - GHSidebarNav (1.0.0)
   - InAppSettingsKit (2.2.2)
   - OBSlider (1.1.0)
   - PLCrashReporter (1.2-rc5)
   - QuincyKit (3.0.0)
+  - SSKeychain (1.2.2)
   - upnpx (1.3.0)
 
 DEPENDENCIES:
+  - box-ios-sdk-v2 (from `https://github.com/carolanitz/box-ios-sdk-v2.git`)
   - GHSidebarNav (= 1.0.0)
   - InAppSettingsKit (= 2.2.2)
   - OBSlider (= 1.1.0)
   - PLCrashReporter (= 1.2-rc5)
   - QuincyKit (from `https://github.com/carolanitz/QuincyKit.git`)
+  - SSKeychain
   - upnpx (= 1.3.0)
 
 EXTERNAL SOURCES:
+  box-ios-sdk-v2:
+    :git: https://github.com/carolanitz/box-ios-sdk-v2.git
   QuincyKit:
     :git: https://github.com/carolanitz/QuincyKit.git
 
 CHECKOUT OPTIONS:
+  box-ios-sdk-v2:
+    :commit: 5b9af5cf7ad1a19eff911b2fee6ce16dfeaeab3b
+    :git: https://github.com/carolanitz/box-ios-sdk-v2.git
   QuincyKit:
     :commit: 5e7938a2e1f3bf08c4ed9f7f1aa3c67826df3625
     :git: https://github.com/carolanitz/QuincyKit.git
 
 SPEC CHECKSUMS:
+  box-ios-sdk-v2: c06d3009266dc2c5c27bbb3882f1e5cf1f3c72cb
   GHSidebarNav: 59f2b760cb788f8b1c50250963f5120f4525a5a1
   InAppSettingsKit: cd8ffa4266fb5c4778af8bda8aa9bf08b6733fd4
   OBSlider: 3536461f3dd47dfcbd0972c5aafb88aa7081fb79
   PLCrashReporter: 979cd3c5bda33655f4df58fa6219d067183d7a7e
   QuincyKit: 31f49bf0aa0b20fd25ba3084f617a43424b7af99
+  SSKeychain: cc48bd3ad24fcd9125adb9e0d23dd50b8bbd08b9
   upnpx: d113ac6dc8ead563b840e6c9c9e03c10d9f4bd4b
 
 COCOAPODS: 0.35.0

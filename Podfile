@@ -11,6 +11,8 @@ pod 'PLCrashReporter', '1.2-rc5'
 pod 'GHSidebarNav', '1.0.0'
 pod 'InAppSettingsKit', '2.2.2'
 pod 'upnpx', '1.3.0'
+pod 'box-ios-sdk-v2', :git => 'https://github.com/carolanitz/box-ios-sdk-v2.git'
+pod 'SSKeychain'
 
 end
 post_install do |installer_representation|
