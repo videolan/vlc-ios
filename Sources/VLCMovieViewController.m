@@ -355,16 +355,18 @@
     _trackSelectorTableView.indicatorStyle = UIScrollViewIndicatorStyleWhite;
     [_trackSelectorTableView registerClass:[VLCTrackSelectorTableViewCell class] forCellReuseIdentifier:TRACK_SELECTOR_TABLEVIEW_CELL];
     [_trackSelectorTableView registerClass:[VLCTrackSelectorHeaderView class] forHeaderFooterViewReuseIdentifier:TRACK_SELECTOR_TABLEVIEW_SECTIONHEADER];
+    _trackSelectorTableView.autoresizingMask = UIViewAutoresizingFlexibleHeight | UIViewAutoresizingFlexibleWidth;
 
     _trackSelectorContainer = [[VLCFrostedGlasView alloc] initWithFrame:CGRectMake((rect.size.width - 300.) / 2., (rect.size.height - 320.) / 2., 300., 320.)];
     [_trackSelectorContainer addSubview:_trackSelectorTableView];
+    _trackSelectorContainer.autoresizingMask = UIViewAutoresizingFlexibleRightMargin | UIViewAutoresizingFlexibleLeftMargin | UIViewAutoresizingFlexibleBottomMargin | UIViewAutoresizingFlexibleHeight;
     _trackSelectorContainer.hidden = YES;
 
     if ([[UIDevice currentDevice] speedCategory] >= 3) {
         _trackSelectorTableView.opaque = NO;
         _trackSelectorTableView.backgroundColor = [UIColor clearColor];
     } else
-        _trackSelectorTableView.backgroundColor = [UIColor VLCDarkBackgroundColor];
+        _trackSelectorTableView.backgroundColor = [UIColor blackColor];
 
     [self.view addSubview:_trackSelectorContainer];
 }
