@@ -183,14 +183,10 @@
     _positionSlider.isAccessibilityElement = YES;
     _timeDisplay.isAccessibilityElement = YES;
 
-    _audioSwitcherButton.accessibilityLabel = NSLocalizedString(@"CHOOSE_AUDIO_TRACK", nil);
-    _audioSwitcherButton.isAccessibilityElement = YES;
-    _audioSwitcherButtonLandscape.accessibilityLabel = NSLocalizedString(@"CHOOSE_AUDIO_TRACK", nil);
-    _audioSwitcherButtonLandscape.isAccessibilityElement = YES;
-    _subtitleSwitcherButton.accessibilityLabel = NSLocalizedString(@"CHOOSE_SUBTITLE_TRACK", nil);
-    _subtitleSwitcherButton.isAccessibilityElement = YES;
-    _subtitleSwitcherButtonLandscape.accessibilityLabel = NSLocalizedString(@"CHOOSE_SUBTITLE_TRACK", nil);
-    _subtitleSwitcherButtonLandscape.isAccessibilityElement = YES;
+    _trackSwitcherButton.accessibilityLabel = NSLocalizedString(@"OPEN_TRACK_PANEL", nil);
+    _trackSwitcherButton.isAccessibilityElement = YES;
+    _trackSwitcherButtonLandscape.accessibilityLabel = NSLocalizedString(@"OPEN_TRACK_PANEL", nil);
+    _trackSwitcherButtonLandscape.isAccessibilityElement = YES;
     _playbackSpeedButton.accessibilityLabel = _playbackSpeedLabel.text;
     _playbackSpeedButton.isAccessibilityElement = YES;
     _playbackSpeedButtonLandscape.accessibilityLabel = _playbackSpeedLabel.text;
@@ -1049,20 +1045,12 @@
     [_playPauseButton setImage:playPauseImage forState:UIControlStateNormal];
     [_playPauseButtonLandscape setImage:playPauseImage forState:UIControlStateNormal];
 
-    if ([[_mediaPlayer audioTrackIndexes] count] > 2) {
-        self.audioSwitcherButton.hidden = NO;
-        self.audioSwitcherButtonLandscape.hidden = NO;
+    if ([[_mediaPlayer audioTrackIndexes] count] > 2 || [[_mediaPlayer videoSubTitlesIndexes] count] > 1) {
+        self.trackSwitcherButton.hidden = NO;
+        self.trackSwitcherButtonLandscape.hidden = NO;
     } else {
-        self.audioSwitcherButton.hidden = YES;
-        self.audioSwitcherButtonLandscape.hidden = YES;
-    }
-
-    if ([[_mediaPlayer videoSubTitlesIndexes] count] > 1) {
-        self.subtitleContainer.hidden = NO;
-        self.subtitleContainerLandscape.hidden = NO;
-    } else {
-        self.subtitleContainer.hidden = YES;
-        self.subtitleContainerLandscape.hidden = YES;
+        self.trackSwitcherButton.hidden = YES;
+        self.trackSwitcherButtonLandscape.hidden = YES;
     }
 }
 
@@ -1103,7 +1091,7 @@
     }
 }
 
-- (IBAction)switchAudioTrack:(id)sender
+- (IBAction)switchTrack:(id)sender
 {
     [_trackSelectorTableView reloadData];
     _trackSelectorContainer.hidden = NO;
@@ -1119,11 +1107,6 @@
     }
 
     self.videoFilterView.hidden = _videoFiltersHidden = YES;
-}
-
-- (IBAction)switchSubtitleTrack:(id)sender
-{
-    [self switchAudioTrack:sender];
 }
 
 - (IBAction)toggleTimeDisplay:(id)sender

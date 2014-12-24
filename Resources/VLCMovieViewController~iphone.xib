@@ -15,8 +15,6 @@
                 <outlet property="audioDelayIndicator" destination="SDv-JW-DMi" id="Krq-0k-T6o"/>
                 <outlet property="audioDelayLabel" destination="8cb-fw-YeF" id="KWQ-n9-3mr"/>
                 <outlet property="audioDelaySlider" destination="oQe-Uu-1HY" id="6Me-OE-Dpl"/>
-                <outlet property="audioSwitcherButton" destination="78" id="98"/>
-                <outlet property="audioSwitcherButtonLandscape" destination="awR-Dt-S0B" id="SSl-4q-pof"/>
                 <outlet property="backButton" destination="85" id="96"/>
                 <outlet property="brightnessLabel" destination="130" id="233"/>
                 <outlet property="brightnessSlider" destination="128" id="232"/>
@@ -57,13 +55,11 @@
                 <outlet property="spuDelayLabel" destination="KeW-Xp-9I6" id="LMS-pz-Ajj"/>
                 <outlet property="spuDelaySlider" destination="JRI-0m-C0M" id="f8j-Iq-sH3"/>
                 <outlet property="statusLabel" destination="210" id="211"/>
-                <outlet property="subtitleContainer" destination="umS-fw-84Z" id="cbT-b6-hSn"/>
-                <outlet property="subtitleContainerLandscape" destination="cvq-YB-u9T" id="Qgb-5z-1Ij"/>
-                <outlet property="subtitleSwitcherButton" destination="74" id="103"/>
-                <outlet property="subtitleSwitcherButtonLandscape" destination="R1Z-5y-cee" id="4TF-nd-xx3"/>
                 <outlet property="timeDisplay" destination="276" id="277"/>
                 <outlet property="toolbar" destination="250" id="272"/>
                 <outlet property="trackNameLabel" destination="282" id="284"/>
+                <outlet property="trackSwitcherButton" destination="78" id="GJo-Ha-dd9"/>
+                <outlet property="trackSwitcherButtonLandscape" destination="awR-Dt-S0B" id="U5x-pn-nVU"/>
                 <outlet property="videoFilterButton" destination="159" id="160"/>
                 <outlet property="videoFilterButtonLandscape" destination="v7P-Wn-QnX" id="fMG-Mv-Poa"/>
                 <outlet property="videoFilterView" destination="117" id="147"/>
@@ -380,30 +376,6 @@
                             </subviews>
                             <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
                         </view>
-                        <view contentMode="scaleToFill" id="umS-fw-84Z">
-                            <rect key="frame" x="232" y="14" width="40" height="40"/>
-                            <autoresizingMask key="autoresizingMask" flexibleMinX="YES" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                            <subviews>
-                                <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" id="74">
-                                    <rect key="frame" x="7" y="0.0" width="28" height="40"/>
-                                    <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                    <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
-                                    <fontDescription key="fontDescription" type="boldSystem" pointSize="15"/>
-                                    <inset key="contentEdgeInsets" minX="0.0" minY="4" maxX="0.0" maxY="4"/>
-                                    <state key="normal" image="subtitleIcon.png">
-                                        <color key="titleColor" red="0.19607843459999999" green="0.30980393290000002" blue="0.52156865600000002" alpha="1" colorSpace="calibratedRGB"/>
-                                        <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
-                                    </state>
-                                    <state key="highlighted">
-                                        <color key="titleColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
-                                    </state>
-                                    <connections>
-                                        <action selector="switchSubtitleTrack:" destination="-1" eventType="touchUpInside" id="79"/>
-                                    </connections>
-                                </button>
-                            </subviews>
-                            <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
-                        </view>
                         <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" id="75">
                             <rect key="frame" x="187" y="13" width="32" height="40"/>
                             <autoresizingMask key="autoresizingMask" flexibleMinX="YES" flexibleMaxX="YES" flexibleMaxY="YES"/>
@@ -469,7 +441,7 @@
                                 <color key="titleColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                             </state>
                             <connections>
-                                <action selector="switchAudioTrack:" destination="-1" eventType="touchUpInside" id="83"/>
+                                <action selector="switchTrack:" destination="-1" eventType="touchUpInside" id="Y2B-uB-AIc"/>
                             </connections>
                         </button>
                         <view contentMode="scaleToFill" id="230" customClass="MPVolumeView">
@@ -588,30 +560,6 @@
                     </subviews>
                     <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
                 </view>
-                <view contentMode="scaleToFill" id="cvq-YB-u9T">
-                    <rect key="frame" x="388" y="6" width="40" height="40"/>
-                    <autoresizingMask key="autoresizingMask" flexibleMinX="YES" flexibleMinY="YES"/>
-                    <subviews>
-                        <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" id="R1Z-5y-cee">
-                            <rect key="frame" x="12" y="0.0" width="28" height="40"/>
-                            <autoresizingMask key="autoresizingMask" flexibleMinX="YES" flexibleMaxY="YES"/>
-                            <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
-                            <fontDescription key="fontDescription" type="boldSystem" pointSize="15"/>
-                            <inset key="contentEdgeInsets" minX="0.0" minY="4" maxX="0.0" maxY="4"/>
-                            <state key="normal" image="subtitleIcon.png">
-                                <color key="titleColor" red="0.19607843459999999" green="0.30980393290000002" blue="0.52156865600000002" alpha="1" colorSpace="calibratedRGB"/>
-                                <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
-                            </state>
-                            <state key="highlighted">
-                                <color key="titleColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
-                            </state>
-                            <connections>
-                                <action selector="switchSubtitleTrack:" destination="-1" eventType="touchUpInside" id="BsU-q4-2dQ"/>
-                            </connections>
-                        </button>
-                    </subviews>
-                    <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
-                </view>
                 <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" id="jl2-cB-KOM">
                     <rect key="frame" x="269" y="5" width="32" height="40"/>
                     <autoresizingMask key="autoresizingMask" flexibleMinX="YES" flexibleMaxX="YES" flexibleMaxY="YES"/>
@@ -715,7 +663,7 @@
                         <color key="titleColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                     </state>
                     <connections>
-                        <action selector="switchAudioTrack:" destination="-1" eventType="touchUpInside" id="YjO-LC-Ome"/>
+                        <action selector="switchTrack:" destination="-1" eventType="touchUpInside" id="M3v-tx-1MI"/>
                     </connections>
                 </button>
             </subviews>
@@ -733,7 +681,6 @@
         <image name="repeat.png" width="23" height="18"/>
         <image name="resetIcon.png" width="24" height="30"/>
         <image name="speedIcon.png" width="19" height="19"/>
-        <image name="subtitleIcon.png" width="19" height="19"/>
         <image name="videoEffectsIcon.png" width="21" height="21"/>
     </resources>
     <simulatedMetricsContainer key="defaultSimulatedMetrics">

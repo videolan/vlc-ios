@@ -31,12 +31,8 @@
 @property (nonatomic, strong) IBOutlet UIButton *bwdButtonLandscape;
 @property (nonatomic, strong) IBOutlet UIButton *fwdButton;
 @property (nonatomic, strong) IBOutlet UIButton *fwdButtonLandscape;
-@property (nonatomic, strong) IBOutlet UIView *subtitleContainer;
-@property (nonatomic, strong) IBOutlet UIView *subtitleContainerLandscape;
-@property (nonatomic, strong) IBOutlet UIButton *subtitleSwitcherButton;
-@property (nonatomic, strong) IBOutlet UIButton *subtitleSwitcherButtonLandscape;
-@property (nonatomic, strong) IBOutlet UIButton *audioSwitcherButton;
-@property (nonatomic, strong) IBOutlet UIButton *audioSwitcherButtonLandscape;
+@property (nonatomic, strong) IBOutlet UIButton *trackSwitcherButton;
+@property (nonatomic, strong) IBOutlet UIButton *trackSwitcherButtonLandscape;
 @property (nonatomic, strong) IBOutlet UIButton *repeatButton;
 @property (nonatomic, strong) IBOutlet UIButton *repeatButtonLandscape;
 @property (nonatomic, strong) IBOutlet UINavigationBar *toolbar;
@@ -107,8 +103,7 @@
 - (IBAction)backward:(id)sender;
 - (IBAction)forward:(id)sender;
 - (IBAction)toggleRepeatMode:(id)sender;
-- (IBAction)switchAudioTrack:(id)sender;
-- (IBAction)switchSubtitleTrack:(id)sender;
+- (IBAction)switchTrack:(id)sender;
 
 - (IBAction)videoFilterToggle:(id)sender;
 - (IBAction)videoFilterSliderAction:(id)sender;
