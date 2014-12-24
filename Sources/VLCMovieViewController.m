@@ -22,6 +22,8 @@
 #import "UIDevice+SpeedCategory.h"
 #import "VLCBugreporter.h"
 #import "VLCThumbnailsCache.h"
+#import "VLCTrackSelectorTableViewCell.h"
+#import "VLCTrackSelectorHeaderView.h"
 
 #import "OBSlider.h"
 #import "VLCStatusLabel.h"
@@ -30,7 +32,10 @@
 #define FORWARD_SWIPE_DURATION 30
 #define BACKWARD_SWIPE_DURATION 10
 
-@interface VLCMovieViewController () <UIGestureRecognizerDelegate, AVAudioSessionDelegate, VLCMediaDelegate>
+#define TRACK_SELECTOR_TABLEVIEW_CELL @"track selector table view cell"
+#define TRACK_SELECTOR_TABLEVIEW_SECTIONHEADER @"track selector table view section header"
+
+@interface VLCMovieViewController () <UIGestureRecognizerDelegate, AVAudioSessionDelegate, VLCMediaDelegate, UITableViewDataSource, UITableViewDelegate>
 {
     VLCMediaListPlayer *_listPlayer;
     VLCMediaPlayer *_mediaPlayer;
@@ -63,6 +68,9 @@
     UISwipeGestureRecognizer *_swipeRecognizerRight;
     UITapGestureRecognizer *_tapRecognizer;
     UITapGestureRecognizer *_tapOnVideoRecognizer;
+
+    UIView *_trackSelectorContainer;
+    UITableView *_trackSelectorTableView;
 }
 
 @property (nonatomic, strong) UIPopoverController *masterPopoverController;
@@ -140,6 +148,8 @@
 - (void)viewDidLoad
 {
     [super viewDidLoad];
+    CGRect rect;
+
     self.wantsFullScreenLayout = YES;
 
     self.videoFilterView.hidden = YES;
@@ -278,7 +288,7 @@
         self.toolbar.tintColor = [UIColor whiteColor];
         self.toolbar.barStyle = UIBarStyleBlack;
 
-        CGRect rect = self.resetVideoFilterButton.frame;
+        rect = self.resetVideoFilterButton.frame;
         rect.origin.y = rect.origin.y + 5.;
         self.resetVideoFilterButton.frame = rect;
         rect = self.toolbar.frame;
@@ -296,7 +306,7 @@
         rect.size.width += 19.;
         self.positionSlider.frame = rect;
     } else {
-        CGRect rect = self.positionSlider.frame;
+        rect = self.positionSlider.frame;
         rect.origin.y = rect.origin.y + 3.;
         self.positionSlider.frame = rect;
         [self.aspectRatioButton setBackgroundImage:[UIImage imageNamed:@"ratioButton"] forState:UIControlStateNormal];
@@ -339,6 +349,28 @@
 
     [self.movieView setAccessibilityLabel:NSLocalizedString(@"VO_VIDEOPLAYER_TITLE", nil)];
     [self.movieView setAccessibilityHint:NSLocalizedString(@"VO_VIDEOPLAYER_DOUBLETAP", nil)];
+
+    rect = self.view.frame;
+
+    _trackSelectorTableView = [[UITableView alloc] initWithFrame:CGRectMake(0., 0., 300., 320.) style:UITableViewStylePlain];
+    _trackSelectorTableView.delegate = self;
+    _trackSelectorTableView.dataSource = self;
+    _trackSelectorTableView.separatorColor = [UIColor VLCDarkBackgroundColor];
+    _trackSelectorTableView.indicatorStyle = UIScrollViewIndicatorStyleWhite;
+    [_trackSelectorTableView registerClass:[VLCTrackSelectorTableViewCell class] forCellReuseIdentifier:TRACK_SELECTOR_TABLEVIEW_CELL];
+    [_trackSelectorTableView registerClass:[VLCTrackSelectorHeaderView class] forHeaderFooterViewReuseIdentifier:TRACK_SELECTOR_TABLEVIEW_SECTIONHEADER];
+
+    _trackSelectorContainer = [[VLCFrostedGlasView alloc] initWithFrame:CGRectMake((rect.size.width - 300.) / 2., (rect.size.height - 320.) / 2., 300., 320.)];
+    [_trackSelectorContainer addSubview:_trackSelectorTableView];
+    _trackSelectorContainer.hidden = YES;
+
+    if ([[UIDevice currentDevice] speedCategory] >= 3) {
+        _trackSelectorTableView.opaque = NO;
+        _trackSelectorTableView.backgroundColor = [UIColor clearColor];
+    } else
+        _trackSelectorTableView.backgroundColor = [UIColor VLCDarkBackgroundColor];
+
+    [self.view addSubview:_trackSelectorContainer];
 }
 
 - (BOOL)_blobCheck
@@ -829,6 +861,8 @@
         _videoFilterView.hidden = _videoFiltersHidden;
         _playbackSpeedView.alpha = 0.0f;
         _playbackSpeedView.hidden = _playbackSpeedViewHidden;
+        _trackSelectorContainer.alpha = 0.0f;
+        _trackSelectorContainer.hidden = YES;
     }
 
     void (^animationBlock)() = ^() {
@@ -837,6 +871,7 @@
         _toolbar.alpha = alpha;
         _videoFilterView.alpha = alpha;
         _playbackSpeedView.alpha = alpha;
+        _trackSelectorContainer.alpha = alpha;
     };
 
     void (^completionBlock)(BOOL finished) = ^(BOOL finished) {
@@ -845,6 +880,7 @@
         _toolbar.hidden = _controlsHidden;
         _videoFilterView.hidden = _videoFiltersHidden;
         _playbackSpeedView.hidden = _playbackSpeedViewHidden;
+        _trackSelectorContainer.hidden = YES;
     };
 
     UIStatusBarAnimation animationType = animated? UIStatusBarAnimationFade: UIStatusBarAnimationNone;
@@ -1069,60 +1105,25 @@
 
 - (IBAction)switchAudioTrack:(id)sender
 {
-    _audiotrackActionSheet = [[UIActionSheet alloc] initWithTitle:NSLocalizedString(@"CHOOSE_AUDIO_TRACK", @"audio track selector") delegate:self cancelButtonTitle:nil destructiveButtonTitle:nil otherButtonTitles: nil];
-    NSArray *audioTracks = [_mediaPlayer audioTrackNames];
-    NSArray *audioTrackIndexes = [_mediaPlayer audioTrackIndexes];
+    [_trackSelectorTableView reloadData];
+    _trackSelectorContainer.hidden = NO;
 
-    NSUInteger count = [audioTracks count];
-    for (NSUInteger i = 0; i < count; i++) {
-        NSString *indexIndicator = ([audioTrackIndexes[i] intValue] == [_mediaPlayer currentAudioTrackIndex])? @"\u2713": @"";
-        NSString *buttonTitle = [NSString stringWithFormat:@"%@ %@", indexIndicator, audioTracks[i]];
-        [_audiotrackActionSheet addButtonWithTitle:buttonTitle];
+    if (!_playbackSpeedViewHidden)
+        self.playbackSpeedView.hidden = _playbackSpeedViewHidden = YES;
+
+    if (UI_USER_INTERFACE_IDIOM() == UIUserInterfaceIdiomPhone) {
+        if (!_controlsHidden) {
+            self.controllerPanel.hidden = _controlsHidden = YES;
+            self.controllerPanelLandscape.hidden = YES;
+        }
     }
 
-    [_audiotrackActionSheet addButtonWithTitle:NSLocalizedString(@"BUTTON_CANCEL", @"cancel button")];
-    [_audiotrackActionSheet setCancelButtonIndex:[_audiotrackActionSheet numberOfButtons] - 1];
-    [_audiotrackActionSheet showInView:(UIButton *)sender];
+    self.videoFilterView.hidden = _videoFiltersHidden = YES;
 }
 
 - (IBAction)switchSubtitleTrack:(id)sender
 {
-    NSArray *spuTracks = [_mediaPlayer videoSubTitlesNames];
-    NSArray *spuTrackIndexes = [_mediaPlayer videoSubTitlesIndexes];
-
-    NSUInteger count = [spuTracks count];
-    if (count <= 1)
-        return;
-    _subtitleActionSheet = [[UIActionSheet alloc] initWithTitle:NSLocalizedString(@"CHOOSE_SUBTITLE_TRACK", @"subtitle track selector") delegate:self cancelButtonTitle:nil destructiveButtonTitle:nil otherButtonTitles: nil];
-
-    for (NSUInteger i = 0; i < count; i++) {
-        NSString *indexIndicator = ([spuTrackIndexes[i] intValue] == [_mediaPlayer currentVideoSubTitleIndex])? @"\u2713": @"";
-        NSString *buttonTitle = [NSString stringWithFormat:@"%@ %@", indexIndicator, spuTracks[i]];
-        [_subtitleActionSheet addButtonWithTitle:buttonTitle];
-    }
-
-    [_subtitleActionSheet addButtonWithTitle:NSLocalizedString(@"BUTTON_CANCEL", @"cancel button")];
-    [_subtitleActionSheet setCancelButtonIndex:[_subtitleActionSheet numberOfButtons] - 1];
-    [_subtitleActionSheet showInView:(UIButton *)sender];
-}
-
-- (void)actionSheet:(UIActionSheet *)actionSheet clickedButtonAtIndex:(NSInteger)buttonIndex
-{
-    if (buttonIndex == [actionSheet cancelButtonIndex])
-        return;
-
-    NSArray *indexArray;
-    if (actionSheet == _subtitleActionSheet) {
-        indexArray = _mediaPlayer.videoSubTitlesIndexes;
-        if (buttonIndex <= indexArray.count) {
-            _mediaPlayer.currentVideoSubTitleIndex = [indexArray[buttonIndex] intValue];
-        }
-    } else if (actionSheet == _audiotrackActionSheet) {
-        indexArray = _mediaPlayer.audioTrackIndexes;
-        if (buttonIndex <= indexArray.count) {
-            _mediaPlayer.currentAudioTrackIndex = [indexArray[buttonIndex] intValue];
-        }
-    }
+    [self switchAudioTrack:sender];
 }
 
 - (IBAction)toggleTimeDisplay:(id)sender
@@ -1130,6 +1131,109 @@
     _displayRemainingTime = !_displayRemainingTime;
 
     [self _resetIdleTimer];
+}
+
+#pragma mark - track selector table view
+- (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView
+{
+    NSInteger ret = 0;
+    if (_mediaPlayer.audioTrackIndexes.count > 2)
+        ret++;
+
+    if (_mediaPlayer.videoSubTitlesIndexes.count > 1)
+        ret++;
+
+    return ret;
+}
+
+- (UIView *)tableView:(UITableView *)tableView viewForHeaderInSection:(NSInteger)section
+{
+    UITableViewHeaderFooterView *view = [tableView dequeueReusableHeaderFooterViewWithIdentifier:TRACK_SELECTOR_TABLEVIEW_SECTIONHEADER];
+
+    if (!view)
+        view = [[VLCTrackSelectorHeaderView alloc] initWithReuseIdentifier:TRACK_SELECTOR_TABLEVIEW_SECTIONHEADER];
+
+    return view;
+}
+
+- (NSString *)tableView:(UITableView *)tableView titleForHeaderInSection:(NSInteger)section
+{
+    if (_mediaPlayer.audioTrackIndexes.count > 2 && section == 0)
+        return NSLocalizedString(@"CHOOSE_AUDIO_TRACK", nil);
+
+    if (_mediaPlayer.videoSubTitlesIndexes.count > 1)
+        return NSLocalizedString(@"CHOOSE_SUBTITLE_TRACK", nil);
+    return @"unknown track type";
+}
+
+- (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
+{
+    UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:TRACK_SELECTOR_TABLEVIEW_CELL forIndexPath:indexPath];
+
+    if (!cell)
+        cell = [[UITableViewCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:TRACK_SELECTOR_TABLEVIEW_CELL];
+
+    NSString *itemSelectionIndicator = @"";
+    NSArray *indexArray;
+    if (_mediaPlayer.audioTrackIndexes.count > 2 && indexPath.section == 0) {
+        indexArray = _mediaPlayer.audioTrackIndexes;
+
+        if ([indexArray indexOfObjectIdenticalTo:[NSNumber numberWithInt:_mediaPlayer.currentAudioTrackIndex]] == indexPath.row)
+            itemSelectionIndicator = @"\u2713";
+
+        cell.textLabel.text = [NSString stringWithFormat:@"%@%@", itemSelectionIndicator, _mediaPlayer.audioTrackNames[indexPath.row]];
+    } else {
+        indexArray = _mediaPlayer.videoSubTitlesIndexes;
+
+        if ([indexArray indexOfObjectIdenticalTo:[NSNumber numberWithInt:_mediaPlayer.currentVideoSubTitleIndex]] == indexPath.row)
+            itemSelectionIndicator = @"\u2713";
+
+        cell.textLabel.text = [NSString stringWithFormat:@"%@%@", itemSelectionIndicator, _mediaPlayer.videoSubTitlesNames[indexPath.row]];
+    }
+
+    return cell;
+}
+
+- (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section
+{
+    NSInteger audioTrackCount = _mediaPlayer.audioTrackIndexes.count;
+
+    if (audioTrackCount > 2 && section == 0)
+        return audioTrackCount;
+
+    return _mediaPlayer.videoSubTitlesIndexes.count;
+}
+
+- (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
+{
+    [tableView deselectRowAtIndexPath:indexPath animated:NO];
+    NSInteger index = indexPath.row;
+
+    NSArray *indexArray;
+    if (_mediaPlayer.audioTrackIndexes.count > 2 && indexPath.section == 0) {
+        indexArray = _mediaPlayer.audioTrackIndexes;
+        if (index <= indexArray.count)
+            _mediaPlayer.currentAudioTrackIndex = [indexArray[index] intValue];
+
+    } else {
+        indexArray = _mediaPlayer.videoSubTitlesIndexes;
+        if (index <= indexArray.count)
+            _mediaPlayer.currentVideoSubTitleIndex = [indexArray[index] intValue];
+    }
+
+    CGFloat alpha = 0.0f;
+    _trackSelectorContainer.alpha = 1.0f;
+
+    void (^animationBlock)() = ^() {
+        _trackSelectorContainer.alpha = alpha;
+    };
+
+    void (^completionBlock)(BOOL finished) = ^(BOOL finished) {
+        _trackSelectorContainer.hidden = YES;
+    };
+
+    NSTimeInterval animationDuration = .3;
+    [UIView animateWithDuration:animationDuration animations:animationBlock completion:completionBlock];
 }
 
 #pragma mark - multi-touch gestures
