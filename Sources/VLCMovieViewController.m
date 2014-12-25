@@ -61,7 +61,6 @@
     BOOL _isScrubbing;
 
     BOOL _swipeGesturesEnabled;
-    NSString * panType;
     UIPinchGestureRecognizer *_pinchRecognizer;
     UIPanGestureRecognizer *_panRecognizer;
     UISwipeGestureRecognizer *_swipeRecognizerLeft;
@@ -1239,8 +1238,8 @@
 
 - (NSString*)detectPanTypeForPan:(UIPanGestureRecognizer*)panRecognizer
 {
-    NSString * type;
-    NSString * deviceType = [[UIDevice currentDevice] model];
+    NSString *type;
+    NSString *deviceType = [[UIDevice currentDevice] model];
     type = @"Volume"; // default in case of error
     CGPoint location = [panRecognizer locationInView:self.view];
     CGFloat position = location.x;
@@ -1272,6 +1271,7 @@
     if (!_swipeGesturesEnabled)
         return;
 
+    NSString *panType;
     CGFloat panDirectionX = [panRecognizer velocityInView:self.view].x;
     CGFloat panDirectionY = [panRecognizer velocityInView:self.view].y;
 
