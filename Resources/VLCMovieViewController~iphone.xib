@@ -31,6 +31,8 @@
                 <outlet property="gammaSlider" destination="137" id="144"/>
                 <outlet property="hueLabel" destination="134" id="234"/>
                 <outlet property="hueSlider" destination="133" id="235"/>
+                <outlet property="lockButton" destination="HmC-O6-R9e" id="e99-JZ-gn6"/>
+                <outlet property="lockButtonLandscape" destination="5Ty-RA-fET" id="UGg-xw-ppA"/>
                 <outlet property="movieView" destination="91" id="93"/>
                 <outlet property="playPauseButton" destination="76" id="101"/>
                 <outlet property="playPauseButtonLandscape" destination="nxS-aA-O6g" id="x1z-P6-yif"/>
@@ -459,6 +461,17 @@
                                 <action selector="toggleRepeatMode:" destination="-1" eventType="touchUpInside" id="Xza-fk-7Go"/>
                             </connections>
                         </button>
+                        <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" id="HmC-O6-R9e">
+                            <rect key="frame" x="237" y="14" width="32" height="40"/>
+                            <autoresizingMask key="autoresizingMask" flexibleMinX="YES" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                            <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
+                            <fontDescription key="fontDescription" type="boldSystem" pointSize="22"/>
+                            <inset key="contentEdgeInsets" minX="0.0" minY="4" maxX="0.0" maxY="4"/>
+                            <state key="normal" title="L"/>
+                            <connections>
+                                <action selector="lock:" destination="-1" eventType="touchUpInside" id="yaI-PP-7Md"/>
+                            </connections>
+                        </button>
                     </subviews>
                 </view>
                 <navigationBar contentMode="scaleToFill" barStyle="blackTranslucent" id="250">
@@ -664,6 +677,17 @@
                     </state>
                     <connections>
                         <action selector="switchTrack:" destination="-1" eventType="touchUpInside" id="M3v-tx-1MI"/>
+                    </connections>
+                </button>
+                <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" id="5Ty-RA-fET">
+                    <rect key="frame" x="398" y="6" width="32" height="40"/>
+                    <autoresizingMask key="autoresizingMask" flexibleMinX="YES" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                    <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
+                    <fontDescription key="fontDescription" type="boldSystem" pointSize="22"/>
+                    <inset key="contentEdgeInsets" minX="0.0" minY="4" maxX="0.0" maxY="4"/>
+                    <state key="normal" title="L"/>
+                    <connections>
+                        <action selector="lock:" destination="-1" eventType="touchUpInside" id="58H-Ih-9tk"/>
                     </connections>
                 </button>
             </subviews>

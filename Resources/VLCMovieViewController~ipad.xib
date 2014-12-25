@@ -28,6 +28,7 @@
                 <outlet property="gammaSlider" destination="151" id="169"/>
                 <outlet property="hueLabel" destination="143" id="158"/>
                 <outlet property="hueSlider" destination="144" id="157"/>
+                <outlet property="lockButton" destination="o2q-eo-cnU" id="08s-Qv-duE"/>
                 <outlet property="movieView" destination="121" id="122"/>
                 <outlet property="playPauseButton" destination="275" id="282"/>
                 <outlet property="playbackSpeedButton" destination="278" id="295"/>
@@ -424,6 +425,17 @@
                             </state>
                             <connections>
                                 <action selector="toggleRepeatMode:" destination="-1" eventType="touchUpInside" id="UWl-MQ-MX7"/>
+                            </connections>
+                        </button>
+                        <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" id="o2q-eo-cnU">
+                            <rect key="frame" x="552" y="5" width="32" height="40"/>
+                            <autoresizingMask key="autoresizingMask" flexibleMinX="YES" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                            <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
+                            <fontDescription key="fontDescription" type="boldSystem" pointSize="22"/>
+                            <inset key="contentEdgeInsets" minX="0.0" minY="4" maxX="0.0" maxY="4"/>
+                            <state key="normal" title="L"/>
+                            <connections>
+                                <action selector="lock:" destination="-1" eventType="touchUpInside" id="QFm-Re-ySf"/>
                             </connections>
                         </button>
                     </subviews>

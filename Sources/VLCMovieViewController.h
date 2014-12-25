@@ -35,6 +35,8 @@
 @property (nonatomic, strong) IBOutlet UIButton *trackSwitcherButtonLandscape;
 @property (nonatomic, strong) IBOutlet UIButton *repeatButton;
 @property (nonatomic, strong) IBOutlet UIButton *repeatButtonLandscape;
+@property (nonatomic, strong) IBOutlet UIButton *lockButton;
+@property (nonatomic, strong) IBOutlet UIButton *lockButtonLandscape;
 @property (nonatomic, strong) IBOutlet UINavigationBar *toolbar;
 @property (nonatomic, strong) IBOutlet VLCFrostedGlasView *controllerPanel;
 @property (nonatomic, strong) IBOutlet VLCFrostedGlasView *controllerPanelLandscape;
@@ -104,11 +106,14 @@
 - (IBAction)forward:(id)sender;
 - (IBAction)toggleRepeatMode:(id)sender;
 - (IBAction)switchTrack:(id)sender;
+- (IBAction)lock:(id)sender;
 
 - (IBAction)videoFilterToggle:(id)sender;
 - (IBAction)videoFilterSliderAction:(id)sender;
 
 - (IBAction)playbackSliderAction:(id)sender;
 - (IBAction)videoDimensionAction:(id)sender;
+
+- (BOOL)rotationIsDisabled;
 
 @end

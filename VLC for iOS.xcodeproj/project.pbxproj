@@ -326,6 +326,7 @@
 		7D9870671A3E03D5009CF27D /* papasscode_failed_bg@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 7D9870611A3E03D5009CF27D /* papasscode_failed_bg@2x.png */; };
 		7D9870681A3E03D5009CF27D /* papasscode_marker.png in Resources */ = {isa = PBXBuildFile; fileRef = 7D9870621A3E03D5009CF27D /* papasscode_marker.png */; };
 		7D9870691A3E03D5009CF27D /* papasscode_marker@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 7D9870631A3E03D5009CF27D /* papasscode_marker@2x.png */; };
+		7D9CB9DC1A4C55EF00BB74B4 /* VLCPlaybackNavigationController.m in Sources */ = {isa = PBXBuildFile; fileRef = 7D9CB9DB1A4C55EF00BB74B4 /* VLCPlaybackNavigationController.m */; };
 		7DA7C905186324FA00B56120 /* serverIcon@1x.png in Resources */ = {isa = PBXBuildFile; fileRef = 7DA7C902186324FA00B56120 /* serverIcon@1x.png */; };
 		7DA7C906186324FA00B56120 /* serverIcon@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 7DA7C903186324FA00B56120 /* serverIcon@2x.png */; };
 		7DA7C907186324FA00B56120 /* serverIcon@4x.png in Resources */ = {isa = PBXBuildFile; fileRef = 7DA7C904186324FA00B56120 /* serverIcon@4x.png */; };
@@ -1049,6 +1050,8 @@
 		7D9B6B0A17C9626000F9425D /* sl */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = sl; path = "sl.lproj/badgeUnread@2x~iphone.png"; sourceTree = "<group>"; };
 		7D9B6B0B17C9626000F9425D /* sl */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = sl; path = "sl.lproj/badgeUnread~ipad.png"; sourceTree = "<group>"; };
 		7D9B6B0C17C9626000F9425D /* sl */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = sl; path = "sl.lproj/badgeUnread~iphone.png"; sourceTree = "<group>"; };
+		7D9CB9DA1A4C55EF00BB74B4 /* VLCPlaybackNavigationController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = VLCPlaybackNavigationController.h; path = Sources/VLCPlaybackNavigationController.h; sourceTree = SOURCE_ROOT; };
+		7D9CB9DB1A4C55EF00BB74B4 /* VLCPlaybackNavigationController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = VLCPlaybackNavigationController.m; path = Sources/VLCPlaybackNavigationController.m; sourceTree = SOURCE_ROOT; };
 		7DA7C902186324FA00B56120 /* serverIcon@1x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "serverIcon@1x.png"; sourceTree = "<group>"; };
 		7DA7C903186324FA00B56120 /* serverIcon@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "serverIcon@2x.png"; sourceTree = "<group>"; };
 		7DA7C904186324FA00B56120 /* serverIcon@4x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "serverIcon@4x.png"; sourceTree = "<group>"; };
@@ -1733,6 +1736,8 @@
 				7D3784BD183A9938009EE944 /* VLCStatusLabel.m */,
 				7D50903018F41C7900180139 /* VLCAlertView.h */,
 				7D50903118F41C7900180139 /* VLCAlertView.m */,
+				7D9CB9DA1A4C55EF00BB74B4 /* VLCPlaybackNavigationController.h */,
+				7D9CB9DB1A4C55EF00BB74B4 /* VLCPlaybackNavigationController.m */,
 			);
 			name = "UI Elements";
 			sourceTree = "<group>";
@@ -3128,6 +3133,7 @@
 				4171D35018A2C19000A16EF9 /* VLCFolderCollectionViewFlowLayout.m in Sources */,
 				7D30F3CA183AB27A00FFC021 /* VLCDownloadViewController.m in Sources */,
 				7D30F3CD183AB29300FFC021 /* VLCMenuTableViewController.m in Sources */,
+				7D9CB9DC1A4C55EF00BB74B4 /* VLCPlaybackNavigationController.m in Sources */,
 				7D30F3D0183AB2AC00FFC021 /* VLCMediaFileDiscoverer.m in Sources */,
 				493B1A1D195D06B1000A491A /* BasicUPnPDevice+VLC.m in Sources */,
 				265D511D1922746C00E38383 /* VLCPlexParser.m in Sources */,

@@ -22,6 +22,7 @@
 
 #import "VLCPlaylistViewController.h"
 #import "VLCMovieViewController.h"
+#import "VLCPlaybackNavigationController.h"
 #import "PAPasscodeViewController.h"
 #import "UINavigationController+Theme.h"
 #import "VLCHTTPUploaderController.h"
@@ -454,7 +455,7 @@
         _movieViewController.fileFromMediaLibrary = [(MLShowEpisode*)mediaObject files].anyObject;
     [(MLFile *)_movieViewController.fileFromMediaLibrary setUnread:@(NO)];
 
-    UINavigationController *navCon = [[UINavigationController alloc] initWithRootViewController:_movieViewController];
+    UINavigationController *navCon = [[VLCPlaybackNavigationController alloc] initWithRootViewController:_movieViewController];
     navCon.modalPresentationStyle = UIModalPresentationFullScreen;
     [self.window.rootViewController presentViewController:navCon animated:YES completion:nil];
 }
@@ -468,7 +469,7 @@
     _movieViewController.url = url;
     _movieViewController.successCallback = successCallback;
 
-    UINavigationController *navCon = [[UINavigationController alloc] initWithRootViewController:_movieViewController];
+    UINavigationController *navCon = [[VLCPlaybackNavigationController alloc] initWithRootViewController:_movieViewController];
     navCon.modalPresentationStyle = UIModalPresentationFullScreen;
     [self.window.rootViewController presentViewController:navCon animated:YES completion:nil];
 }
@@ -487,7 +488,7 @@
     _movieViewController.itemInMediaListToBePlayedFirst = index;
     _movieViewController.pathToExternalSubtitlesFile = nil;
 
-    UINavigationController *navCon = [[UINavigationController alloc] initWithRootViewController:_movieViewController];
+    UINavigationController *navCon = [[VLCPlaybackNavigationController alloc] initWithRootViewController:_movieViewController];
     navCon.modalPresentationStyle = UIModalPresentationFullScreen;
     [self.window.rootViewController presentViewController:navCon animated:YES completion:nil];
 }
@@ -500,7 +501,7 @@
     _movieViewController.url = url;
     _movieViewController.pathToExternalSubtitlesFile = SubtitlePath;
 
-    UINavigationController *navCon = [[UINavigationController alloc] initWithRootViewController:_movieViewController];
+    UINavigationController *navCon = [[VLCPlaybackNavigationController alloc] initWithRootViewController:_movieViewController];
     navCon.modalPresentationStyle = UIModalPresentationFullScreen;
     [self.window.rootViewController presentViewController:navCon animated:YES completion:nil];
 }

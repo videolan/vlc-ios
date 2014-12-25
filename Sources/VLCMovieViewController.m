@@ -35,6 +35,10 @@
 #define TRACK_SELECTOR_TABLEVIEW_CELL @"track selector table view cell"
 #define TRACK_SELECTOR_TABLEVIEW_SECTIONHEADER @"track selector table view section header"
 
+#define LOCKCHECK \
+if (_interfaceIsLocked) \
+return
+
 @interface VLCMovieViewController () <UIGestureRecognizerDelegate, AVAudioSessionDelegate, VLCMediaDelegate, UITableViewDataSource, UITableViewDelegate>
 {
     VLCMediaListPlayer *_listPlayer;
@@ -59,6 +63,7 @@
     BOOL _positionSet;
     BOOL _playerIsSetup;
     BOOL _isScrubbing;
+    BOOL _interfaceIsLocked;
 
     BOOL _swipeGesturesEnabled;
     UIPinchGestureRecognizer *_pinchRecognizer;
@@ -822,6 +827,8 @@
 
 - (void)handlePinchGesture:(UIPinchGestureRecognizer *)recognizer
 {
+    LOCKCHECK;
+
     if (!_swipeGesturesEnabled)
         return;
 
@@ -937,6 +944,8 @@
 
 - (IBAction)closePlayback:(id)sender
 {
+    LOCKCHECK;
+
     [self setControlsHidden:NO animated:NO];
     [self.navigationController dismissViewControllerAnimated:YES completion:^{
         // switch back to the caller when user presses "Done"
@@ -948,6 +957,8 @@
 
 - (IBAction)positionSliderAction:(UISlider *)sender
 {
+    LOCKCHECK;
+
     /* we need to limit the number of events sent by the slider, since otherwise, the user
      * wouldn't see the I-frames when seeking on current mobile devices. This isn't a problem
      * within the Simulator, but especially on older ARMv7 devices, it's clearly noticeable. */
@@ -969,6 +980,8 @@
 
 - (IBAction)positionSliderTouchDown:(id)sender
 {
+    LOCKCHECK;
+
     [self _updateScrubLabel];
     self.scrubIndicatorView.hidden = NO;
     _isScrubbing = YES;
@@ -976,6 +989,8 @@
 
 - (IBAction)positionSliderTouchUp:(id)sender
 {
+    LOCKCHECK;
+
     self.scrubIndicatorView.hidden = YES;
     _isScrubbing = NO;
 }
@@ -997,11 +1012,15 @@
 
 - (IBAction)positionSliderDrag:(id)sender
 {
+    LOCKCHECK;
+
     [self _updateScrubLabel];
 }
 
 - (IBAction)volumeSliderAction:(id)sender
 {
+    LOCKCHECK;
+
     [self _resetIdleTimer];
 }
 
@@ -1057,6 +1076,8 @@
 
 - (IBAction)playPause
 {
+    LOCKCHECK;
+
     if ([_mediaPlayer isPlaying])
         [_listPlayer pause];
     else
@@ -1065,6 +1086,8 @@
 
 - (IBAction)forward:(id)sender
 {
+    LOCKCHECK;
+
     if (self.mediaList)
         [_listPlayer next];
     else
@@ -1073,6 +1096,8 @@
 
 - (IBAction)backward:(id)sender
 {
+    LOCKCHECK;
+
     if (self.mediaList)
         [_listPlayer previous];
     else
@@ -1094,6 +1119,8 @@
 
 - (IBAction)switchTrack:(id)sender
 {
+    LOCKCHECK;
+
     [_trackSelectorTableView reloadData];
     _trackSelectorContainer.hidden = NO;
 
@@ -1112,9 +1139,16 @@
 
 - (IBAction)toggleTimeDisplay:(id)sender
 {
+    LOCKCHECK;
+
     _displayRemainingTime = !_displayRemainingTime;
 
     [self _resetIdleTimer];
+}
+
+- (IBAction)lock:(id)sender
+{
+    _interfaceIsLocked = !_interfaceIsLocked;
 }
 
 #pragma mark - track selector table view
@@ -1224,6 +1258,8 @@
 
 - (void)tapRecognized
 {
+    LOCKCHECK;
+
     if (!_swipeGesturesEnabled)
         return;
 
@@ -1268,6 +1304,8 @@
 
 - (void)panRecognized:(UIPanGestureRecognizer*)panRecognizer
 {
+    LOCKCHECK;
+
     if (!_swipeGesturesEnabled)
         return;
 
@@ -1324,6 +1362,8 @@
 
 - (void)swipeRecognized:(UISwipeGestureRecognizer*)swipeRecognizer
 {
+    LOCKCHECK;
+
     if (!_swipeGesturesEnabled)
         return;
 
@@ -1358,6 +1398,8 @@
 
 - (IBAction)videoFilterToggle:(id)sender
 {
+    LOCKCHECK;
+
     if (!_playbackSpeedViewHidden)
         self.playbackSpeedView.hidden = _playbackSpeedViewHidden = YES;
 
@@ -1402,6 +1444,8 @@
 #pragma mark - playback view
 - (IBAction)playbackSliderAction:(UISlider *)sender
 {
+    LOCKCHECK;
+
     if (sender == _playbackSpeedSlider) {
         double speed = pow(2, sender.value / 17.);
         float rate = INPUT_RATE_DEFAULT / speed;
@@ -1448,6 +1492,8 @@
 
 - (IBAction)videoDimensionAction:(id)sender
 {
+    LOCKCHECK;
+
     if (sender == self.playbackSpeedButton || sender == self.playbackSpeedButtonLandscape) {
         if (!_videoFiltersHidden)
             self.videoFilterView.hidden = _videoFiltersHidden = YES;
@@ -1662,6 +1708,11 @@
 }
 
 #pragma mark - autorotation
+
+- (BOOL)rotationIsDisabled
+{
+    return _interfaceIsLocked;
+}
 
 - (BOOL)shouldAutorotate
 {
