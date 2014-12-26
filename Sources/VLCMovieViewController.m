@@ -351,17 +351,26 @@ return
     [self.movieView setAccessibilityHint:NSLocalizedString(@"VO_VIDEOPLAYER_DOUBLETAP", nil)];
 
     rect = self.view.frame;
+    CGFloat width;
+    CGFloat height;
+    if (UI_USER_INTERFACE_IDIOM() == UIUserInterfaceIdiomPhone) {
+        width = 300.;
+        height = 320.;
+    } else {
+        width = 450.;
+        height = 470.;
+    }
 
-    _trackSelectorTableView = [[UITableView alloc] initWithFrame:CGRectMake(0., 0., 300., 320.) style:UITableViewStylePlain];
+    _trackSelectorTableView = [[UITableView alloc] initWithFrame:CGRectMake(0., 0., width, height) style:UITableViewStylePlain];
     _trackSelectorTableView.delegate = self;
     _trackSelectorTableView.dataSource = self;
-    _trackSelectorTableView.separatorColor = [UIColor VLCDarkBackgroundColor];
+    _trackSelectorTableView.separatorColor = [UIColor clearColor];
     _trackSelectorTableView.indicatorStyle = UIScrollViewIndicatorStyleWhite;
     [_trackSelectorTableView registerClass:[VLCTrackSelectorTableViewCell class] forCellReuseIdentifier:TRACK_SELECTOR_TABLEVIEW_CELL];
     [_trackSelectorTableView registerClass:[VLCTrackSelectorHeaderView class] forHeaderFooterViewReuseIdentifier:TRACK_SELECTOR_TABLEVIEW_SECTIONHEADER];
     _trackSelectorTableView.autoresizingMask = UIViewAutoresizingFlexibleHeight | UIViewAutoresizingFlexibleWidth;
 
-    _trackSelectorContainer = [[VLCFrostedGlasView alloc] initWithFrame:CGRectMake((rect.size.width - 300.) / 2., (rect.size.height - 320.) / 2., 300., 320.)];
+    _trackSelectorContainer = [[VLCFrostedGlasView alloc] initWithFrame:CGRectMake((rect.size.width - width) / 2., (rect.size.height - height) / 2., width, height)];
     [_trackSelectorContainer addSubview:_trackSelectorTableView];
     _trackSelectorContainer.autoresizingMask = UIViewAutoresizingFlexibleRightMargin | UIViewAutoresizingFlexibleLeftMargin | UIViewAutoresizingFlexibleBottomMargin | UIViewAutoresizingFlexibleHeight;
     _trackSelectorContainer.hidden = YES;
@@ -1121,20 +1130,25 @@ return
 {
     LOCKCHECK;
 
-    [_trackSelectorTableView reloadData];
-    _trackSelectorContainer.hidden = NO;
+    if (_trackSelectorContainer.hidden == YES) {
+        [_trackSelectorTableView reloadData];
+        _trackSelectorContainer.hidden = NO;
+        _trackSelectorContainer.alpha = 1.;
 
-    if (!_playbackSpeedViewHidden)
-        self.playbackSpeedView.hidden = _playbackSpeedViewHidden = YES;
+        if (!_playbackSpeedViewHidden)
+            self.playbackSpeedView.hidden = _playbackSpeedViewHidden = YES;
 
-    if (UI_USER_INTERFACE_IDIOM() == UIUserInterfaceIdiomPhone) {
-        if (!_controlsHidden) {
-            self.controllerPanel.hidden = _controlsHidden = YES;
-            self.controllerPanelLandscape.hidden = YES;
+        if (UI_USER_INTERFACE_IDIOM() == UIUserInterfaceIdiomPhone) {
+            if (!_controlsHidden) {
+                self.controllerPanel.hidden = _controlsHidden = YES;
+                self.controllerPanelLandscape.hidden = YES;
+            }
         }
-    }
 
-    self.videoFilterView.hidden = _videoFiltersHidden = YES;
+        self.videoFilterView.hidden = _videoFiltersHidden = YES;
+    } else {
+        _trackSelectorContainer.hidden = YES;
+    }
 }
 
 - (IBAction)toggleTimeDisplay:(id)sender
@@ -1186,10 +1200,10 @@ return
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
 {
-    UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:TRACK_SELECTOR_TABLEVIEW_CELL forIndexPath:indexPath];
+    VLCTrackSelectorTableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:TRACK_SELECTOR_TABLEVIEW_CELL forIndexPath:indexPath];
 
     if (!cell)
-        cell = [[UITableViewCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:TRACK_SELECTOR_TABLEVIEW_CELL];
+        cell = [[VLCTrackSelectorTableViewCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:TRACK_SELECTOR_TABLEVIEW_CELL];
 
     NSString *itemSelectionIndicator = @"";
     NSArray *indexArray;
@@ -1197,14 +1211,18 @@ return
         indexArray = _mediaPlayer.audioTrackIndexes;
 
         if ([indexArray indexOfObjectIdenticalTo:[NSNumber numberWithInt:_mediaPlayer.currentAudioTrackIndex]] == indexPath.row)
-            itemSelectionIndicator = @"\u2713";
+            [cell setShowsCurrentTrack:YES];
+        else
+            [cell setShowsCurrentTrack:NO];
 
         cell.textLabel.text = [NSString stringWithFormat:@"%@%@", itemSelectionIndicator, _mediaPlayer.audioTrackNames[indexPath.row]];
     } else {
         indexArray = _mediaPlayer.videoSubTitlesIndexes;
 
         if ([indexArray indexOfObjectIdenticalTo:[NSNumber numberWithInt:_mediaPlayer.currentVideoSubTitleIndex]] == indexPath.row)
-            itemSelectionIndicator = @"\u2713";
+            [cell setShowsCurrentTrack:YES];
+        else
+            [cell setShowsCurrentTrack:NO];
 
         cell.textLabel.text = [NSString stringWithFormat:@"%@%@", itemSelectionIndicator, _mediaPlayer.videoSubTitlesNames[indexPath.row]];
     }

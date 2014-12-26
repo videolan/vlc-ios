@@ -21,10 +21,18 @@
     if (!self)
         return self;
 
-    self.backgroundColor = [UIColor clearColor];
-    self.textLabel.textColor = [UIColor VLCLightTextColor];
-
     return self;
+}
+
+- (void)setShowsCurrentTrack:(BOOL)value
+{
+    if (value) {
+        self.backgroundColor = [UIColor VLCLightTextColor];
+        self.textLabel.textColor = [UIColor VLCDarkBackgroundColor];
+    } else {
+        self.backgroundColor = [UIColor clearColor];
+        self.textLabel.textColor = [UIColor VLCLightTextColor];
+    }
 }
 
 @end
