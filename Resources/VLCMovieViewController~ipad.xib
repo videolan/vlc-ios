@@ -19,6 +19,7 @@
                 <outlet property="brightnessLabel" destination="148" id="165"/>
                 <outlet property="brightnessSlider" destination="147" id="163"/>
                 <outlet property="bwdButton" destination="276" id="284"/>
+                <outlet property="chapterButton" destination="D3O-Bo-TYi" id="o5p-gI-ydF"/>
                 <outlet property="contrastLabel" destination="146" id="160"/>
                 <outlet property="contrastSlider" destination="145" id="161"/>
                 <outlet property="controllerPanel" destination="272" id="298"/>
@@ -428,7 +429,7 @@
                             </connections>
                         </button>
                         <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" id="o2q-eo-cnU">
-                            <rect key="frame" x="552" y="5" width="32" height="40"/>
+                            <rect key="frame" x="541" y="5" width="32" height="40"/>
                             <autoresizingMask key="autoresizingMask" flexibleMinX="YES" flexibleMaxX="YES" flexibleMaxY="YES"/>
                             <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
                             <fontDescription key="fontDescription" type="boldSystem" pointSize="22"/>
@@ -436,6 +437,17 @@
                             <state key="normal" title="L"/>
                             <connections>
                                 <action selector="lock:" destination="-1" eventType="touchUpInside" id="QFm-Re-ySf"/>
+                            </connections>
+                        </button>
+                        <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" id="D3O-Bo-TYi">
+                            <rect key="frame" x="577" y="6" width="32" height="40"/>
+                            <autoresizingMask key="autoresizingMask" flexibleMinX="YES" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                            <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
+                            <fontDescription key="fontDescription" type="boldSystem" pointSize="22"/>
+                            <inset key="contentEdgeInsets" minX="0.0" minY="4" maxX="0.0" maxY="4"/>
+                            <state key="normal" title="C"/>
+                            <connections>
+                                <action selector="switchChapter:" destination="-1" eventType="touchUpInside" id="NHE-kB-Qpz"/>
                             </connections>
                         </button>
                     </subviews>

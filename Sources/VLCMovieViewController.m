@@ -64,6 +64,7 @@ return
     BOOL _playerIsSetup;
     BOOL _isScrubbing;
     BOOL _interfaceIsLocked;
+    BOOL _switchingTracksNotChapters;
 
     BOOL _swipeGesturesEnabled;
     UIPinchGestureRecognizer *_pinchRecognizer;
@@ -191,6 +192,10 @@ return
     _trackSwitcherButton.isAccessibilityElement = YES;
     _trackSwitcherButtonLandscape.accessibilityLabel = NSLocalizedString(@"OPEN_TRACK_PANEL", nil);
     _trackSwitcherButtonLandscape.isAccessibilityElement = YES;
+    _chapterButton.accessibilityLabel = NSLocalizedString(@"JUMP_TO_TITLE_OR_CHAPTER", nil);
+    _chapterButton.isAccessibilityElement = YES;
+    _chapterButtonLandscape.accessibilityLabel = NSLocalizedString(@"JUMP_TO_TITLE_OR_CHAPTER", nil);
+    _chapterButtonLandscape.isAccessibilityElement = YES;
     _playbackSpeedButton.accessibilityLabel = _playbackSpeedLabel.text;
     _playbackSpeedButton.isAccessibilityElement = YES;
     _playbackSpeedButtonLandscape.accessibilityLabel = _playbackSpeedLabel.text;
@@ -1081,6 +1086,14 @@ return
         self.trackSwitcherButton.hidden = YES;
         self.trackSwitcherButtonLandscape.hidden = YES;
     }
+
+    if (_mediaPlayer.titles.count > 1 || [_mediaPlayer chaptersForTitleIndex:_mediaPlayer.currentTitleIndex].count > 1) {
+        self.chapterButton.hidden = NO;
+        self.chapterButtonLandscape.hidden = NO;
+    } else {
+        self.chapterButton.hidden = YES;
+        self.chapterButtonLandscape.hidden = YES;
+    }
 }
 
 - (IBAction)playPause
@@ -1130,7 +1143,37 @@ return
 {
     LOCKCHECK;
 
-    if (_trackSelectorContainer.hidden == YES) {
+    if (_trackSelectorContainer.hidden == YES || _switchingTracksNotChapters == NO) {
+        _switchingTracksNotChapters = YES;
+
+        [_trackSelectorTableView reloadData];
+        _trackSelectorContainer.hidden = NO;
+        _trackSelectorContainer.alpha = 1.;
+
+        if (!_playbackSpeedViewHidden)
+            self.playbackSpeedView.hidden = _playbackSpeedViewHidden = YES;
+
+        if (UI_USER_INTERFACE_IDIOM() == UIUserInterfaceIdiomPhone) {
+            if (!_controlsHidden) {
+                self.controllerPanel.hidden = _controlsHidden = YES;
+                self.controllerPanelLandscape.hidden = YES;
+            }
+        }
+
+        self.videoFilterView.hidden = _videoFiltersHidden = YES;
+    } else {
+        _trackSelectorContainer.hidden = YES;
+        _switchingTracksNotChapters = NO;
+    }
+}
+
+- (IBAction)switchChapter:(id)sender
+{
+    LOCKCHECK;
+
+    if (_trackSelectorContainer.hidden == YES || _switchingTracksNotChapters == YES) {
+        _switchingTracksNotChapters = NO;
+
         [_trackSelectorTableView reloadData];
         _trackSelectorContainer.hidden = NO;
         _trackSelectorContainer.alpha = 1.;
@@ -1169,11 +1212,20 @@ return
 - (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView
 {
     NSInteger ret = 0;
-    if (_mediaPlayer.audioTrackIndexes.count > 2)
-        ret++;
 
-    if (_mediaPlayer.videoSubTitlesIndexes.count > 1)
-        ret++;
+    if (_switchingTracksNotChapters == YES) {
+        if (_mediaPlayer.audioTrackIndexes.count > 2)
+            ret++;
+
+        if (_mediaPlayer.videoSubTitlesIndexes.count > 1)
+            ret++;
+    } else {
+        if (_mediaPlayer.titles.count > 1)
+            ret++;
+
+        if ([_mediaPlayer chaptersForTitleIndex:_mediaPlayer.currentTitleIndex].count > 1)
+            ret++;
+    }
 
     return ret;
 }
@@ -1190,11 +1242,20 @@ return
 
 - (NSString *)tableView:(UITableView *)tableView titleForHeaderInSection:(NSInteger)section
 {
-    if (_mediaPlayer.audioTrackIndexes.count > 2 && section == 0)
-        return NSLocalizedString(@"CHOOSE_AUDIO_TRACK", nil);
+    if (_switchingTracksNotChapters == YES) {
+        if (_mediaPlayer.audioTrackIndexes.count > 2 && section == 0)
+            return NSLocalizedString(@"CHOOSE_AUDIO_TRACK", nil);
 
-    if (_mediaPlayer.videoSubTitlesIndexes.count > 1)
-        return NSLocalizedString(@"CHOOSE_SUBTITLE_TRACK", nil);
+        if (_mediaPlayer.videoSubTitlesIndexes.count > 1)
+            return NSLocalizedString(@"CHOOSE_SUBTITLE_TRACK", nil);
+    } else {
+        if (_mediaPlayer.titles.count > 1 && section == 0)
+            return NSLocalizedString(@"CHOOSE_TITLE", nil);
+
+        if ([_mediaPlayer chaptersForTitleIndex:_mediaPlayer.currentTitleIndex].count > 1)
+            return NSLocalizedString(@"CHOOSE_CHAPTER", nil);
+    }
+
     return @"unknown track type";
 }
 
@@ -1205,26 +1266,45 @@ return
     if (!cell)
         cell = [[VLCTrackSelectorTableViewCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:TRACK_SELECTOR_TABLEVIEW_CELL];
 
-    NSString *itemSelectionIndicator = @"";
-    NSArray *indexArray;
-    if (_mediaPlayer.audioTrackIndexes.count > 2 && indexPath.section == 0) {
-        indexArray = _mediaPlayer.audioTrackIndexes;
+    NSInteger row = indexPath.row;
 
-        if ([indexArray indexOfObjectIdenticalTo:[NSNumber numberWithInt:_mediaPlayer.currentAudioTrackIndex]] == indexPath.row)
-            [cell setShowsCurrentTrack:YES];
-        else
-            [cell setShowsCurrentTrack:NO];
+    if (_switchingTracksNotChapters == YES) {
+        NSArray *indexArray;
+        if (_mediaPlayer.audioTrackIndexes.count > 2 && indexPath.section == 0) {
+            indexArray = _mediaPlayer.audioTrackIndexes;
 
-        cell.textLabel.text = [NSString stringWithFormat:@"%@%@", itemSelectionIndicator, _mediaPlayer.audioTrackNames[indexPath.row]];
+            if ([indexArray indexOfObjectIdenticalTo:[NSNumber numberWithInt:_mediaPlayer.currentAudioTrackIndex]] == row)
+                [cell setShowsCurrentTrack:YES];
+            else
+                [cell setShowsCurrentTrack:NO];
+
+            cell.textLabel.text = [NSString stringWithFormat:@"%@", _mediaPlayer.audioTrackNames[row]];
+        } else {
+            indexArray = _mediaPlayer.videoSubTitlesIndexes;
+
+            if ([indexArray indexOfObjectIdenticalTo:[NSNumber numberWithInt:_mediaPlayer.currentVideoSubTitleIndex]] == row)
+                [cell setShowsCurrentTrack:YES];
+            else
+                [cell setShowsCurrentTrack:NO];
+
+            cell.textLabel.text = [NSString stringWithFormat:@"%@", _mediaPlayer.videoSubTitlesNames[row]];
+        }
     } else {
-        indexArray = _mediaPlayer.videoSubTitlesIndexes;
+        if (_mediaPlayer.titles.count > 1 && indexPath.section == 0) {
+            cell.textLabel.text = _mediaPlayer.titles[row];
 
-        if ([indexArray indexOfObjectIdenticalTo:[NSNumber numberWithInt:_mediaPlayer.currentVideoSubTitleIndex]] == indexPath.row)
-            [cell setShowsCurrentTrack:YES];
-        else
-            [cell setShowsCurrentTrack:NO];
+            if (row == _mediaPlayer.currentTitleIndex)
+                [cell setShowsCurrentTrack:YES];
+            else
+                [cell setShowsCurrentTrack:NO];
+        } else {
+            cell.textLabel.text = [_mediaPlayer chaptersForTitleIndex:_mediaPlayer.currentTitleIndex][row];
 
-        cell.textLabel.text = [NSString stringWithFormat:@"%@%@", itemSelectionIndicator, _mediaPlayer.videoSubTitlesNames[indexPath.row]];
+            if (row == _mediaPlayer.currentChapterIndex)
+                [cell setShowsCurrentTrack:YES];
+            else
+                [cell setShowsCurrentTrack:NO];
+        }
     }
 
     return cell;
@@ -1245,16 +1325,23 @@ return
     [tableView deselectRowAtIndexPath:indexPath animated:NO];
     NSInteger index = indexPath.row;
 
-    NSArray *indexArray;
-    if (_mediaPlayer.audioTrackIndexes.count > 2 && indexPath.section == 0) {
-        indexArray = _mediaPlayer.audioTrackIndexes;
-        if (index <= indexArray.count)
-            _mediaPlayer.currentAudioTrackIndex = [indexArray[index] intValue];
+    if (_switchingTracksNotChapters == YES) {
+        NSArray *indexArray;
+        if (_mediaPlayer.audioTrackIndexes.count > 2 && indexPath.section == 0) {
+            indexArray = _mediaPlayer.audioTrackIndexes;
+            if (index <= indexArray.count)
+                _mediaPlayer.currentAudioTrackIndex = [indexArray[index] intValue];
 
+        } else {
+            indexArray = _mediaPlayer.videoSubTitlesIndexes;
+            if (index <= indexArray.count)
+                _mediaPlayer.currentVideoSubTitleIndex = [indexArray[index] intValue];
+        }
     } else {
-        indexArray = _mediaPlayer.videoSubTitlesIndexes;
-        if (index <= indexArray.count)
-            _mediaPlayer.currentVideoSubTitleIndex = [indexArray[index] intValue];
+        if (_mediaPlayer.titles.count > 1 && indexPath.section == 0)
+            _mediaPlayer.currentTitleIndex = index;
+        else
+            _mediaPlayer.currentChapterIndex = index;
     }
 
     CGFloat alpha = 0.0f;

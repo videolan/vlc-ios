@@ -20,6 +20,7 @@
                 <outlet property="brightnessSlider" destination="128" id="232"/>
                 <outlet property="bwdButton" destination="77" id="100"/>
                 <outlet property="bwdButtonLandscape" destination="pQj-0t-OnU" id="U8k-IC-a6H"/>
+                <outlet property="chapterButtonLandscape" destination="aJZ-AB-35L" id="d8c-zI-Ipo"/>
                 <outlet property="contrastLabel" destination="132" id="141"/>
                 <outlet property="contrastSlider" destination="131" id="142"/>
                 <outlet property="controllerPanel" destination="92" id="104"/>
@@ -629,7 +630,7 @@
                     <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
                 </view>
                 <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" id="lib-Hc-4qn">
-                    <rect key="frame" x="314" y="5" width="32" height="40"/>
+                    <rect key="frame" x="311" y="5" width="32" height="40"/>
                     <autoresizingMask key="autoresizingMask" flexibleMinX="YES" flexibleMinY="YES"/>
                     <fontDescription key="fontDescription" type="system" pointSize="18"/>
                     <state key="normal" image="repeat.png">
@@ -663,7 +664,7 @@
                     <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
                 </view>
                 <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" id="awR-Dt-S0B">
-                    <rect key="frame" x="355" y="6" width="32" height="40"/>
+                    <rect key="frame" x="345" y="6" width="32" height="40"/>
                     <autoresizingMask key="autoresizingMask" flexibleMinX="YES" flexibleMinY="YES"/>
                     <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
                     <fontDescription key="fontDescription" type="boldSystem" pointSize="15"/>
@@ -680,7 +681,7 @@
                     </connections>
                 </button>
                 <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" id="5Ty-RA-fET">
-                    <rect key="frame" x="398" y="6" width="32" height="40"/>
+                    <rect key="frame" x="378" y="6" width="32" height="40"/>
                     <autoresizingMask key="autoresizingMask" flexibleMinX="YES" flexibleMaxX="YES" flexibleMaxY="YES"/>
                     <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
                     <fontDescription key="fontDescription" type="boldSystem" pointSize="22"/>
@@ -688,6 +689,17 @@
                     <state key="normal" title="L"/>
                     <connections>
                         <action selector="lock:" destination="-1" eventType="touchUpInside" id="58H-Ih-9tk"/>
+                    </connections>
+                </button>
+                <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" id="aJZ-AB-35L">
+                    <rect key="frame" x="409" y="7" width="32" height="40"/>
+                    <autoresizingMask key="autoresizingMask" flexibleMinX="YES" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                    <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
+                    <fontDescription key="fontDescription" type="boldSystem" pointSize="22"/>
+                    <inset key="contentEdgeInsets" minX="0.0" minY="4" maxX="0.0" maxY="4"/>
+                    <state key="normal" title="C"/>
+                    <connections>
+                        <action selector="switchChapter:" destination="-1" eventType="touchUpInside" id="t1w-mV-9wH"/>
                     </connections>
                 </button>
             </subviews>
