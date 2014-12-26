@@ -101,6 +101,7 @@
 		7D07F72F175691CC00CDE21C /* backButton@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 7D07F72B175691CC00CDE21C /* backButton@2x.png */; };
 		7D07F730175691CC00CDE21C /* backButtonHighlight.png in Resources */ = {isa = PBXBuildFile; fileRef = 7D07F72C175691CC00CDE21C /* backButtonHighlight.png */; };
 		7D07F731175691CC00CDE21C /* backButtonHighlight@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 7D07F72D175691CC00CDE21C /* backButtonHighlight@2x.png */; };
+		7D1052E61A4DC5FF00295F08 /* LiveSDK.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 7D1052E51A4DC5FF00295F08 /* LiveSDK.framework */; };
 		7D1516421868D7E0004B18F3 /* VLCFirstStepsFifthPageViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 7D15163B1868D7E0004B18F3 /* VLCFirstStepsFifthPageViewController.xib */; };
 		7D1516431868D7E0004B18F3 /* VLCFirstStepsFirstPageViewController~iphone.xib in Resources */ = {isa = PBXBuildFile; fileRef = 7D15163C1868D7E0004B18F3 /* VLCFirstStepsFirstPageViewController~iphone.xib */; };
 		7D1516461868D7E0004B18F3 /* VLCFirstStepsSixthPageViewController~iphone.xib in Resources */ = {isa = PBXBuildFile; fileRef = 7D15163F1868D7E0004B18F3 /* VLCFirstStepsSixthPageViewController~iphone.xib */; };
@@ -608,6 +609,7 @@
 		7D07F72B175691CC00CDE21C /* backButton@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "backButton@2x.png"; sourceTree = "<group>"; };
 		7D07F72C175691CC00CDE21C /* backButtonHighlight.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = backButtonHighlight.png; sourceTree = "<group>"; };
 		7D07F72D175691CC00CDE21C /* backButtonHighlight@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "backButtonHighlight@2x.png"; sourceTree = "<group>"; };
+		7D1052E51A4DC5FF00295F08 /* LiveSDK.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = LiveSDK.framework; path = "External/OneDrive/LiveSDK.framework"; sourceTree = "<group>"; };
 		7D15163B1868D7E0004B18F3 /* VLCFirstStepsFifthPageViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; name = VLCFirstStepsFifthPageViewController.xib; path = Resources/VLCFirstStepsFifthPageViewController.xib; sourceTree = SOURCE_ROOT; };
 		7D15163C1868D7E0004B18F3 /* VLCFirstStepsFirstPageViewController~iphone.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; name = "VLCFirstStepsFirstPageViewController~iphone.xib"; path = "Resources/VLCFirstStepsFirstPageViewController~iphone.xib"; sourceTree = SOURCE_ROOT; };
 		7D15163F1868D7E0004B18F3 /* VLCFirstStepsSixthPageViewController~iphone.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; name = "VLCFirstStepsSixthPageViewController~iphone.xib"; path = "Resources/VLCFirstStepsSixthPageViewController~iphone.xib"; sourceTree = SOURCE_ROOT; };
@@ -1370,6 +1372,7 @@
 				7D168F7118D4A21B003FAF59 /* Accelerate.framework in Frameworks */,
 				CCE2A22E17A5859E00D9EAAD /* CoreText.framework in Frameworks */,
 				7DF7CA0717650C2A00C61739 /* AVFoundation.framework in Frameworks */,
+				7D1052E61A4DC5FF00295F08 /* LiveSDK.framework in Frameworks */,
 				7D897895185E14A7009BAB5D /* libGTLTouchStaticLib.a in Frameworks */,
 				7DF7E791175F47DC0018858D /* MediaPlayer.framework in Frameworks */,
 				7D6B08FA174D716200A05173 /* MessageUI.framework in Frameworks */,
@@ -2068,6 +2071,7 @@
 				7D897889185E1344009BAB5D /* libCrashReporter.a */,
 				7D89788B185E1353009BAB5D /* libQuincyLib.a */,
 				7D897894185E14A7009BAB5D /* libGTLTouchStaticLib.a */,
+				7D1052E51A4DC5FF00295F08 /* LiveSDK.framework */,
 				CCE2A22D17A5859E00D9EAAD /* CoreText.framework */,
 				7DF7CA0617650C2A00C61739 /* AVFoundation.framework */,
 				7DF7E790175F47DC0018858D /* MediaPlayer.framework */,
@@ -3459,6 +3463,7 @@
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
 					"$(PROJECT_DIR)/ImportedSources/Dropbox",
+					"$(PROJECT_DIR)/External/OneDrive",
 				);
 				GCC_C_LANGUAGE_STANDARD = c99;
 				GCC_OPTIMIZATION_LEVEL = 0;
@@ -3511,6 +3516,7 @@
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
 					"$(PROJECT_DIR)/ImportedSources/Dropbox",
+					"$(PROJECT_DIR)/External/OneDrive",
 				);
 				GCC_C_LANGUAGE_STANDARD = c99;
 				GCC_OPTIMIZATION_LEVEL = 3;
@@ -3589,6 +3595,7 @@
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
 					"$(PROJECT_DIR)/ImportedSources/Dropbox",
+					"$(PROJECT_DIR)/External/OneDrive",
 				);
 				GCC_C_LANGUAGE_STANDARD = c99;
 				GCC_OPTIMIZATION_LEVEL = 3;

@@ -202,6 +202,11 @@ mv dropbox-ios-sdk-${DROPBOXSDKVERSION} Dropbox
 rm dropbox-ios-sdk-${DROPBOXSDKVERSION}.zip
 rm -rf __MACOSX
 fi
+if ! [ -e OneDrive ]; then
+git clone git://github.com/liveservices/LiveSDK-for-iOS.git OneDrive
+else
+cd OneDrive && git pull --rebase && cd ..
+fi
 fi
 
 info "Setup 'External' folders"
@@ -214,12 +219,14 @@ fi
 framework_build="${aspen_root_dir}/ImportedSources/VLCKit/${xcbuilddir}"
 mlkit_build="${aspen_root_dir}/ImportedSources/MediaLibraryKit/${xcbuilddir}"
 gtl_build="${aspen_root_dir}/ImportedSources/GDrive/${xcbuilddir}"
+onedrive_build="${aspen_root_dir}/ImportedSources/OneDrive/src/${xcbuilddir}"
 
 spopd #ImportedSources
 
 ln -sf ${framework_build} External/MobileVLCKit
 ln -sf ${mlkit_build} External/MediaLibraryKit
 ln -sf ${gtl_build} External/gtl
+ln -sf ${onedrive_build} External/OneDrive
 
 #
 # Build time
@@ -257,6 +264,10 @@ spopd
 
 spushd GDrive
 buildxcodeproj GTL "GTLTouchStaticLib"
+spopd
+
+spushd OneDrive/src
+buildxcodeproj LiveSDK "LiveSDK"
 spopd
 
 spopd # ImportedSources
