@@ -347,6 +347,7 @@
 		7DBBF1A9183AB4300009A339 /* VLCPlaylistCollectionViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 7DBBF194183AB4300009A339 /* VLCPlaylistCollectionViewCell.xib */; };
 		7DBBF1AB183AB4300009A339 /* VLCPlaylistTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 7DBBF196183AB4300009A339 /* VLCPlaylistTableViewCell.xib */; };
 		7DBBF1AC183AB4300009A339 /* VLCWiFiUploadTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 7DBBF197183AB4300009A339 /* VLCWiFiUploadTableViewCell.xib */; };
+		7DC0C0551A4D78A4000EE359 /* DropboxSDK.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 7DC0C0541A4D78A4000EE359 /* DropboxSDK.framework */; };
 		7DC19ADF1868C7BB00810BF7 /* VLCFirstStepsViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 7DC19ADD1868C7BB00810BF7 /* VLCFirstStepsViewController.m */; };
 		7DC19AE41868C8EC00810BF7 /* VLCFirstStepsFirstPageViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 7DC19AE21868C8EC00810BF7 /* VLCFirstStepsFirstPageViewController.m */; };
 		7DC19B051868D1C400810BF7 /* VLCFirstStepsFifthPageViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 7DC19B031868D1C400810BF7 /* VLCFirstStepsFifthPageViewController.m */; };
@@ -565,7 +566,6 @@
 		7AC862A11765E90C0011611A /* jquery.ui.widget.js */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.javascript; path = jquery.ui.widget.js; sourceTree = "<group>"; };
 		7D00161A17704DAC00649F27 /* main.js */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.javascript; path = main.js; sourceTree = "<group>"; };
 		7D0117F0187F4BA400C5671C /* VLCFirstStepsFirstPageViewController~ipad.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; name = "VLCFirstStepsFirstPageViewController~ipad.xib"; path = "Resources/VLCFirstStepsFirstPageViewController~ipad.xib"; sourceTree = SOURCE_ROOT; };
-		7D05ADEA174945CE0087550C /* DropboxSDK.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = DropboxSDK.framework; path = ImportedSources/Dropbox/DropboxSDK.framework; sourceTree = "<group>"; };
 		7D0699C017CB1FAE00713BEB /* Settings@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "Settings@2x.png"; sourceTree = "<group>"; };
 		7D0699C117CB1FAE00713BEB /* TVShowsIcon.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = TVShowsIcon.png; sourceTree = "<group>"; };
 		7D0699C217CB1FAE00713BEB /* TVShowsIcon@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "TVShowsIcon@2x.png"; sourceTree = "<group>"; };
@@ -1071,6 +1071,7 @@
 		7DBBF194183AB4300009A339 /* VLCPlaylistCollectionViewCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; name = VLCPlaylistCollectionViewCell.xib; path = Resources/VLCPlaylistCollectionViewCell.xib; sourceTree = SOURCE_ROOT; };
 		7DBBF196183AB4300009A339 /* VLCPlaylistTableViewCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; name = VLCPlaylistTableViewCell.xib; path = Resources/VLCPlaylistTableViewCell.xib; sourceTree = SOURCE_ROOT; };
 		7DBBF197183AB4300009A339 /* VLCWiFiUploadTableViewCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; name = VLCWiFiUploadTableViewCell.xib; path = Resources/VLCWiFiUploadTableViewCell.xib; sourceTree = SOURCE_ROOT; };
+		7DC0C0541A4D78A4000EE359 /* DropboxSDK.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = DropboxSDK.framework; path = ImportedSources/Dropbox/DropboxSDK.framework; sourceTree = "<group>"; };
 		7DC19ADC1868C7BB00810BF7 /* VLCFirstStepsViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = VLCFirstStepsViewController.h; path = Sources/VLCFirstStepsViewController.h; sourceTree = SOURCE_ROOT; };
 		7DC19ADD1868C7BB00810BF7 /* VLCFirstStepsViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = VLCFirstStepsViewController.m; path = Sources/VLCFirstStepsViewController.m; sourceTree = SOURCE_ROOT; };
 		7DC19AE11868C8EC00810BF7 /* VLCFirstStepsFirstPageViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = VLCFirstStepsFirstPageViewController.h; path = Sources/VLCFirstStepsFirstPageViewController.h; sourceTree = SOURCE_ROOT; };
@@ -1353,6 +1354,7 @@
 				418FF4B11A0EC1D5005FE808 /* libPods-vlc-ios.a in Frameworks */,
 				8F91EC7F195E1DAB00F5BCBA /* AssetsLibrary.framework in Frameworks */,
 				7D15168B194773630086FB8C /* MobileCoreServices.framework in Frameworks */,
+				7DC0C0551A4D78A4000EE359 /* DropboxSDK.framework in Frameworks */,
 				7D168F7118D4A21B003FAF59 /* Accelerate.framework in Frameworks */,
 				CCE2A22E17A5859E00D9EAAD /* CoreText.framework in Frameworks */,
 				7DF7CA0717650C2A00C61739 /* AVFoundation.framework in Frameworks */,
@@ -2052,9 +2054,9 @@
 				7DF7E790175F47DC0018858D /* MediaPlayer.framework */,
 				7D6B08F9174D716200A05173 /* MessageUI.framework */,
 				7D3EB013174A353E002062C2 /* SystemConfiguration.framework */,
-				7D05ADEA174945CE0087550C /* DropboxSDK.framework */,
 				2915544217490D4A00B86CAD /* Security.framework */,
 				7DDD0428172D98E5005A7B10 /* CFNetwork.framework */,
+				7DC0C0541A4D78A4000EE359 /* DropboxSDK.framework */,
 				CC1BBC57170493E100A20CBF /* CoreData.framework */,
 				CC1BBC55170493C100A20CBF /* QuartzCore.framework */,
 				CC1BBC53170493B800A20CBF /* AudioToolbox.framework */,
@@ -3408,6 +3410,10 @@
 			isa = XCBuildConfiguration;
 			baseConfigurationReference = 521108CBC3CAA0810AF3CBA8 /* Pods-vlc-ios.debug.xcconfig */;
 			buildSettings = {
+				ARCHS = (
+					"$(ARCHS_STANDARD)",
+					armv7s,
+				);
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_LAUNCHIMAGE_NAME = LaunchImage;
 				CLANG_ENABLE_OBJC_ARC = YES;
@@ -3418,7 +3424,10 @@
 				DEAD_CODE_STRIPPING = NO;
 				ENABLE_NS_ASSERTIONS = YES;
 				EXCLUDED_SOURCE_FILE_NAMES = "";
-				FRAMEWORK_SEARCH_PATHS = "$(inherited)";
+				FRAMEWORK_SEARCH_PATHS = (
+					"$(inherited)",
+					"$(PROJECT_DIR)/ImportedSources/Dropbox",
+				);
 				GCC_C_LANGUAGE_STANDARD = c99;
 				GCC_OPTIMIZATION_LEVEL = 0;
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
@@ -3453,6 +3462,10 @@
 			isa = XCBuildConfiguration;
 			baseConfigurationReference = 6AB5E0853B398B35369938EC /* Pods-vlc-ios.release.xcconfig */;
 			buildSettings = {
+				ARCHS = (
+					"$(ARCHS_STANDARD)",
+					armv7s,
+				);
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_LAUNCHIMAGE_NAME = LaunchImage;
 				CLANG_ENABLE_OBJC_ARC = YES;
@@ -3463,7 +3476,10 @@
 				DEAD_CODE_STRIPPING = NO;
 				ENABLE_NS_ASSERTIONS = NO;
 				EXCLUDED_SOURCE_FILE_NAMES = "";
-				FRAMEWORK_SEARCH_PATHS = "$(inherited)";
+				FRAMEWORK_SEARCH_PATHS = (
+					"$(inherited)",
+					"$(PROJECT_DIR)/ImportedSources/Dropbox",
+				);
 				GCC_C_LANGUAGE_STANDARD = c99;
 				GCC_OPTIMIZATION_LEVEL = 3;
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
@@ -3524,6 +3540,10 @@
 			isa = XCBuildConfiguration;
 			baseConfigurationReference = E09EACF57CDD22ABAE66CDD0 /* Pods-vlc-ios.distribution.xcconfig */;
 			buildSettings = {
+				ARCHS = (
+					"$(ARCHS_STANDARD)",
+					armv7s,
+				);
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_LAUNCHIMAGE_NAME = LaunchImage;
 				CLANG_ENABLE_OBJC_ARC = YES;
@@ -3534,7 +3554,10 @@
 				DEAD_CODE_STRIPPING = NO;
 				ENABLE_NS_ASSERTIONS = NO;
 				EXCLUDED_SOURCE_FILE_NAMES = "iTunesArtwork*";
-				FRAMEWORK_SEARCH_PATHS = "$(inherited)";
+				FRAMEWORK_SEARCH_PATHS = (
+					"$(inherited)",
+					"$(PROJECT_DIR)/ImportedSources/Dropbox",
+				);
 				GCC_C_LANGUAGE_STANDARD = c99;
 				GCC_OPTIMIZATION_LEVEL = 3;
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;

@@ -1,5 +1,4 @@
 PODS:
-  - Dropbox-iOS-SDK (1.3.13)
   - GHSidebarNav (1.0.0)
   - InAppSettingsKit (2.2.2)
   - OBSlider (1.1.0)
@@ -8,7 +7,6 @@ PODS:
   - upnpx (1.3.0)
 
 DEPENDENCIES:
-  - Dropbox-iOS-SDK (= 1.3.13)
   - GHSidebarNav (= 1.0.0)
   - InAppSettingsKit (= 2.2.2)
   - OBSlider (= 1.1.0)
@@ -26,7 +24,6 @@ CHECKOUT OPTIONS:
     :git: https://github.com/carolanitz/QuincyKit.git
 
 SPEC CHECKSUMS:
-  Dropbox-iOS-SDK: 367160c05e279e7fa3205f3233d1873b7a986ee6
   GHSidebarNav: 59f2b760cb788f8b1c50250963f5120f4525a5a1
   InAppSettingsKit: cd8ffa4266fb5c4778af8bda8aa9bf08b6733fd4
   OBSlider: 3536461f3dd47dfcbd0972c5aafb88aa7081fb79

@@ -13,7 +13,7 @@ NONETWORK=no
 SKIPLIBVLCCOMPILATION=no
 
 TESTEDVLCKITHASH=444eaef8f
-TESTEDMEDIALIBRARYKITHASH=2d98d90aa
+TESTEDMEDIALIBRARYKITHASH=2ded200f7
 
 usage()
 {
@@ -56,15 +56,18 @@ buildxcodeproj()
 
     info "Building $1 ($target, ${CONFIGURATION})"
 
-    local extra=""
-    if [ "$PLATFORM" = "Simulator" ]; then
-        extra="ARCHS=i386"
+    local architectures=""
+    if [ "$PLATFORM" = "iphonesimulator" ]; then
+        architectures="i386 x86_64"
+    else
+        architectures="armv7 armv7s arm64"
     fi
 
     xcodebuild -project "$1.xcodeproj" \
                -target "$target" \
                -sdk $PLATFORM$SDK \
-               -configuration ${CONFIGURATION} ${extra} \
+               -configuration ${CONFIGURATION} \
+               ARCHS="${architectures}" \
                IPHONEOS_DEPLOYMENT_TARGET=${SDK_MIN} > ${out}
 }
 
@@ -77,15 +80,18 @@ buildxcworkspace()
 
     info "Building the workspace $1 ($target, ${CONFIGURATION})"
 
-    local extra=""
-    if [ "$PLATFORM" = "Simulator" ]; then
-    extra="ARCHS=i386"
+    local architectures=""
+    if [ "$PLATFORM" = "iphonesimulator" ]; then
+        architectures="i386 x86_64"
+    else
+        architectures="armv7 armv7s arm64"
     fi
 
     xcodebuild -workspace "$1.xcworkspace" \
     -scheme "Pods-vlc-ios" \
     -sdk $PLATFORM$SDK \
-    -configuration ${CONFIGURATION} ${extra} \
+    -configuration ${CONFIGURATION} \
+    ARCHS="${architectures}" \
     IPHONEOS_DEPLOYMENT_TARGET=${SDK_MIN} > ${out}
 }
 
@@ -188,6 +194,14 @@ if ! [ -e CocoaHTTPServer ]; then
 git clone git://github.com/fkuehne/CocoaHTTPServer.git
 else
 cd CocoaHTTPServer && git pull --rebase && cd ..
+fi
+if ! [ -e Dropbox ]; then
+DROPBOXSDKVERSION=1.3.13
+curl -O https://www.dropbox.com/static/developers/dropbox-ios-sdk-${DROPBOXSDKVERSION}.zip
+unzip -q dropbox-ios-sdk-${DROPBOXSDKVERSION}.zip
+mv dropbox-ios-sdk-${DROPBOXSDKVERSION} Dropbox
+rm dropbox-ios-sdk-${DROPBOXSDKVERSION}.zip
+rm -rf __MACOSX
 fi
 fi
 
