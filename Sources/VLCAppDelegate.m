@@ -34,6 +34,7 @@
     PAPasscodeViewController *_passcodeLockController;
     VLCDropboxTableViewController *_dropboxTableViewController;
     VLCGoogleDriveTableViewController *_googleDriveTableViewController;
+    VLCOneDriveTableViewController *_oneDriveTableViewController;
     VLCDownloadViewController *_downloadViewController;
     VLCDocumentPickerController *_documentPickerController;
     int _idleCounter;
@@ -249,6 +250,13 @@
     return _googleDriveTableViewController;
 }
 
+- (VLCOneDriveTableViewController *)oneDriveTableViewController
+{
+    if (_oneDriveTableViewController == nil)
+        _oneDriveTableViewController = [[VLCOneDriveTableViewController alloc] initWithNibName:@"VLCCloudStorageTableViewController" bundle:nil];
+
+    return _oneDriveTableViewController;
+}
 
 - (VLCDownloadViewController *)downloadViewController
 {

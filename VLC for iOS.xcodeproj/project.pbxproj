@@ -102,6 +102,8 @@
 		7D07F730175691CC00CDE21C /* backButtonHighlight.png in Resources */ = {isa = PBXBuildFile; fileRef = 7D07F72C175691CC00CDE21C /* backButtonHighlight.png */; };
 		7D07F731175691CC00CDE21C /* backButtonHighlight@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 7D07F72D175691CC00CDE21C /* backButtonHighlight@2x.png */; };
 		7D1052E61A4DC5FF00295F08 /* LiveSDK.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 7D1052E51A4DC5FF00295F08 /* LiveSDK.framework */; };
+		7D1052E91A4DCC1100295F08 /* VLCOneDriveTableViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 7D1052E81A4DCC1100295F08 /* VLCOneDriveTableViewController.m */; };
+		7D1052EE1A4DCD1E00295F08 /* VLCOneDriveController.m in Sources */ = {isa = PBXBuildFile; fileRef = 7D1052ED1A4DCD1E00295F08 /* VLCOneDriveController.m */; };
 		7D1516421868D7E0004B18F3 /* VLCFirstStepsFifthPageViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 7D15163B1868D7E0004B18F3 /* VLCFirstStepsFifthPageViewController.xib */; };
 		7D1516431868D7E0004B18F3 /* VLCFirstStepsFirstPageViewController~iphone.xib in Resources */ = {isa = PBXBuildFile; fileRef = 7D15163C1868D7E0004B18F3 /* VLCFirstStepsFirstPageViewController~iphone.xib */; };
 		7D1516461868D7E0004B18F3 /* VLCFirstStepsSixthPageViewController~iphone.xib in Resources */ = {isa = PBXBuildFile; fileRef = 7D15163F1868D7E0004B18F3 /* VLCFirstStepsSixthPageViewController~iphone.xib */; };
@@ -609,7 +611,12 @@
 		7D07F72B175691CC00CDE21C /* backButton@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "backButton@2x.png"; sourceTree = "<group>"; };
 		7D07F72C175691CC00CDE21C /* backButtonHighlight.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = backButtonHighlight.png; sourceTree = "<group>"; };
 		7D07F72D175691CC00CDE21C /* backButtonHighlight@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "backButtonHighlight@2x.png"; sourceTree = "<group>"; };
-		7D1052E51A4DC5FF00295F08 /* LiveSDK.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = LiveSDK.framework; path = "External/OneDrive/LiveSDK.framework"; sourceTree = "<group>"; };
+		7D1052E51A4DC5FF00295F08 /* LiveSDK.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = LiveSDK.framework; path = External/OneDrive/LiveSDK.framework; sourceTree = "<group>"; };
+		7D1052E71A4DCC1100295F08 /* VLCOneDriveTableViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = VLCOneDriveTableViewController.h; path = Sources/VLCOneDriveTableViewController.h; sourceTree = SOURCE_ROOT; };
+		7D1052E81A4DCC1100295F08 /* VLCOneDriveTableViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = VLCOneDriveTableViewController.m; path = Sources/VLCOneDriveTableViewController.m; sourceTree = SOURCE_ROOT; };
+		7D1052EB1A4DCC4B00295F08 /* VLCOneDriveConstants.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = VLCOneDriveConstants.h; path = Sources/VLCOneDriveConstants.h; sourceTree = SOURCE_ROOT; };
+		7D1052EC1A4DCD1E00295F08 /* VLCOneDriveController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = VLCOneDriveController.h; path = Sources/VLCOneDriveController.h; sourceTree = SOURCE_ROOT; };
+		7D1052ED1A4DCD1E00295F08 /* VLCOneDriveController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = VLCOneDriveController.m; path = Sources/VLCOneDriveController.m; sourceTree = SOURCE_ROOT; };
 		7D15163B1868D7E0004B18F3 /* VLCFirstStepsFifthPageViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; name = VLCFirstStepsFifthPageViewController.xib; path = Resources/VLCFirstStepsFifthPageViewController.xib; sourceTree = SOURCE_ROOT; };
 		7D15163C1868D7E0004B18F3 /* VLCFirstStepsFirstPageViewController~iphone.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; name = "VLCFirstStepsFirstPageViewController~iphone.xib"; path = "Resources/VLCFirstStepsFirstPageViewController~iphone.xib"; sourceTree = SOURCE_ROOT; };
 		7D15163F1868D7E0004B18F3 /* VLCFirstStepsSixthPageViewController~iphone.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; name = "VLCFirstStepsSixthPageViewController~iphone.xib"; path = "Resources/VLCFirstStepsSixthPageViewController~iphone.xib"; sourceTree = SOURCE_ROOT; };
@@ -1552,6 +1559,18 @@
 			name = Pods;
 			sourceTree = "<group>";
 		};
+		7D1052EA1A4DCC1700295F08 /* OneDrive */ = {
+			isa = PBXGroup;
+			children = (
+				7D1052EB1A4DCC4B00295F08 /* VLCOneDriveConstants.h */,
+				7D1052E71A4DCC1100295F08 /* VLCOneDriveTableViewController.h */,
+				7D1052E81A4DCC1100295F08 /* VLCOneDriveTableViewController.m */,
+				7D1052EC1A4DCD1E00295F08 /* VLCOneDriveController.h */,
+				7D1052ED1A4DCD1E00295F08 /* VLCOneDriveController.m */,
+			);
+			name = OneDrive;
+			sourceTree = "<group>";
+		};
 		7D10BC651743F9A100DA7059 /* External Playback */ = {
 			isa = PBXGroup;
 			children = (
@@ -1828,6 +1847,7 @@
 				E0C04F921A25B41C0080331A /* Document Picker */,
 				9B51719A17EDEC8900F8FBA7 /* GoogleDrive */,
 				7DFB1567185CC38A008D49BB /* Dropbox */,
+				7D1052EA1A4DCC1700295F08 /* OneDrive */,
 				7D3784AF183A990F009EE944 /* VLCCloudStorageTableViewCell.h */,
 				7D3784B0183A990F009EE944 /* VLCCloudStorageTableViewCell.m */,
 				9B088306183D7BEC004B5C2A /* VLCCloudStorageTableViewController.h */,
@@ -3143,8 +3163,10 @@
 				7D30F3D0183AB2AC00FFC021 /* VLCMediaFileDiscoverer.m in Sources */,
 				493B1A1D195D06B1000A491A /* BasicUPnPDevice+VLC.m in Sources */,
 				265D511D1922746C00E38383 /* VLCPlexParser.m in Sources */,
+				7D1052E91A4DCC1100295F08 /* VLCOneDriveTableViewController.m in Sources */,
 				7D30F3D7183AB2F100FFC021 /* VLCLocalNetworkListCell.m in Sources */,
 				265D511C1922746C00E38383 /* VLCLocalPlexFolderListViewController.m in Sources */,
+				7D1052EE1A4DCD1E00295F08 /* VLCOneDriveController.m in Sources */,
 				7D30F3D8183AB2F100FFC021 /* VLCLocalServerFolderListViewController.m in Sources */,
 				7D30F3D9183AB2F100FFC021 /* VLCLocalServerListViewController.m in Sources */,
 				7D30F3DC183AB2F900FFC021 /* VLCNetworkLoginViewController.m in Sources */,
@@ -3473,6 +3495,7 @@
 					"$(SRCROOT)/External/MobileVLCKit/include",
 					"$(SRCROOT)/External/MediaLibraryKit/include",
 					"$(SRCROOT)/ImportedSources/GDrive/**",
+					"\"$(SRCROOT)/ImportedSources/OneDrive/src/LiveSDK/Library\"/**",
 					"$(inherited)",
 				);
 				INFOPLIST_FILE = "Sources/VLC for iOS-Info.plist";
@@ -3526,6 +3549,7 @@
 					"$(SRCROOT)/External/MobileVLCKit/include",
 					"$(SRCROOT)/External/MediaLibraryKit/include",
 					"$(SRCROOT)/ImportedSources/GDrive/**",
+					"\"$(SRCROOT)/ImportedSources/OneDrive/src/LiveSDK/Library\"/**",
 					"$(inherited)",
 				);
 				INFOPLIST_FILE = "Sources/VLC for iOS-Info.plist";
@@ -3605,6 +3629,7 @@
 					"$(SRCROOT)/External/MobileVLCKit/include",
 					"$(SRCROOT)/External/MediaLibraryKit/include",
 					"$(SRCROOT)/ImportedSources/GDrive/**",
+					"\"$(SRCROOT)/ImportedSources/OneDrive/src/LiveSDK/Library\"/**",
 					"$(inherited)",
 				);
 				INFOPLIST_FILE = "Sources/VLC for iOS-Info.plist";

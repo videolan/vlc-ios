@@ -70,7 +70,7 @@
 
     _sectionHeaderTexts = @[@"SECTION_HEADER_LIBRARY", @"SECTION_HEADER_NETWORK", @"Settings"];
     _menuItemsSectionOne = @[@"LIBRARY_ALL_FILES", @"LIBRARY_MUSIC", @"LIBRARY_SERIES"];
-    _menuItemsSectionTwo = @[@"LOCAL_NETWORK", @"OPEN_NETWORK", @"DOWNLOAD_FROM_HTTP", @"WEBINTF_TITLE", @"Dropbox", @"Google Drive"];
+    _menuItemsSectionTwo = @[@"LOCAL_NETWORK", @"OPEN_NETWORK", @"DOWNLOAD_FROM_HTTP", @"WEBINTF_TITLE", @"Dropbox", @"Google Drive", @"OneDrive"];
     if ([UIDocumentPickerViewController class]) { // on iOS 8+ add document picker option
         NSMutableArray* expanded = [_menuItemsSectionTwo mutableCopy];
         [expanded addObject:@"CLOUD_DRIVES"];
@@ -332,6 +332,8 @@
             viewController = self.appDelegate.dropboxTableViewController;
         else if (itemIndex == 5)
             viewController = self.appDelegate.googleDriveTableViewController;
+        else if (itemIndex == 6)
+            viewController = self.appDelegate.oneDriveTableViewController;
     } else if (sectionNumber == 2) {
         if (itemIndex == 0) {
             if (!self.settingsController)
