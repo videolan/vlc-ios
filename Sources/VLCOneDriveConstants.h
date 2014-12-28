@@ -11,3 +11,4 @@
  *****************************************************************************/
 
 #define kVLCOneDriveClientID @"000000004808C307"
+#define kVLCOneDriveClientSecret @""

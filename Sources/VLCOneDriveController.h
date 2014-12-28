@@ -19,6 +19,7 @@
 @interface VLCOneDriveController : NSObject
 
 @property (nonatomic, weak) VLCOneDriveTableViewController *delegate;
+@property (readonly) BOOL activeSession;
 
 + (VLCOneDriveController *)sharedInstance;
 

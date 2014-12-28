@@ -34,6 +34,7 @@
     [super viewDidLoad];
 
     _oneDriveController = [VLCOneDriveController sharedInstance];
+    _oneDriveController.delegate = self;
 
     self.modalPresentationStyle = UIModalPresentationFormSheet;
 
@@ -70,6 +71,7 @@
     [super viewWillAppear:animated];
 
     // FIXME: we should update the listing...
+    [self _showLoginDialog];
 
     [self.cloudStorageLogo sizeToFit];
     self.cloudStorageLogo.center = self.view.center;
@@ -80,6 +82,18 @@
 - (IBAction)goBack:(id)sender
 {
     [[(VLCAppDelegate*)[UIApplication sharedApplication].delegate revealController] toggleSidebar:![(VLCAppDelegate*)[UIApplication sharedApplication].delegate revealController].sidebarShowing duration:kGHRevealSidebarDefaultAnimationDuration];
+}
+
+#pragma mark - table view data source
+
+- (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section
+{
+    return 0;
+}
+
+- (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
+{
+    return nil;
 }
 
 #pragma mark - table view delegate
@@ -104,7 +118,10 @@ forRowAtIndexPath:(NSIndexPath *)indexPath
 
 - (void)loginAction:(id)sender
 {
-    [_oneDriveController login];
+    if (![_oneDriveController activeSession])
+        [_oneDriveController login];
+    else
+        [_oneDriveController logout];
 }
 
 @end

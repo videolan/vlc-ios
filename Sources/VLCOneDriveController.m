@@ -24,6 +24,7 @@
 {
     LiveConnectClient *_liveClient;
     NSArray *_liveScopes;
+    BOOL _activeSession;
 }
 
 @end
@@ -52,7 +53,7 @@
     _liveScopes = @[@"wl.signin",@"wl.basic",@"wl.skydrive"];
 
     _liveClient = [[LiveConnectClient alloc] initWithClientId:kVLCOneDriveClientID
-                                                        scopes:_liveScopes
+                                                       scopes:_liveScopes
                                                      delegate:self
                                                     userState:@"init"];
 
@@ -61,25 +62,37 @@
 
 #pragma mark - authentication
 
+- (BOOL)activeSession
+{
+    return _activeSession;
+}
+
 - (void)login
 {
     [_liveClient login:self.delegate
-               scopes:_liveScopes
-             delegate:self
-            userState:@"login"];
+                scopes:_liveScopes
+              delegate:self
+             userState:@"login"];
 }
 
 - (void)logout
 {
     [_liveClient logoutWithDelegate:self userState:@"logout"];
+    _activeSession = NO;
 }
 
 - (void)authCompleted:(LiveConnectSessionStatus)status session:(LiveConnectSession *)session userState:(id)userState
 {
+    if (status == 1 && session != NULL)
+        _activeSession = YES;
+    else
+        _activeSession = NO;
 }
 
 - (void)authFailed:(NSError *)error userState:(id)userState
 {
+    APLog(@"OneDrive auth failed: %@, %@", error, userState);
+    _activeSession = NO;
 }
 
 #pragma mark - listing
