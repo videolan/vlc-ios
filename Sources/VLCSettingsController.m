@@ -20,6 +20,7 @@
 #import "PAPasscodeViewController.h"
 #import <DropboxSDK/DropboxSDK.h>
 #import "VLCGoogleDriveController.h"
+#import "VLCOneDriveController.h"
 
 @interface VLCSettingsController ()<PAPasscodeViewControllerDelegate, IASKSettingsDelegate>
 {
@@ -66,12 +67,14 @@
 - (void) filterCloudStorageCellsWithAnimation:(BOOL)shouldAnimate
 {
     NSMutableSet * hideKeys = [[NSMutableSet alloc] init];
-    if (![[DBSession sharedSession] isLinked]) {
+
+    if (![[DBSession sharedSession] isLinked])
         [hideKeys addObject:@"UnlinkDropbox"];
-    }
-    if (![[VLCGoogleDriveController sharedInstance] isAuthorized]) {
+    if (![[VLCGoogleDriveController sharedInstance] isAuthorized])
         [hideKeys addObject:@"UnlinkGoogleDrive"];
-    }
+    if (![[VLCOneDriveController sharedInstance] activeSession])
+        [hideKeys addObject:@"UnlinkOneDrive"];
+
     [self.viewController setHiddenKeys:hideKeys animated:shouldAnimate];
 }
 
@@ -90,6 +93,9 @@
     } else if ([_currentUnlinkSpecifier isEqualToString:@"UnlinkGoogleDrive"]) {
         _currentCloudName = @"Google Drive";
         _currentUnlinkDialogTitle = NSLocalizedString(@"SETTINGS_UNLINK_GOOGLEDRIVE", nil);
+    } else if ([_currentUnlinkSpecifier isEqualToString:@"UnlinkOneDrive"]) {
+        _currentCloudName = @"OneDrive";
+        _currentUnlinkDialogTitle = NSLocalizedString(@"SETTINGS_UNLINK_ONEDRIVE", nil);
     }
 
     UIAlertView *alert = [[UIAlertView alloc]
@@ -108,6 +114,8 @@
             [[DBSession sharedSession] unlinkAll];
         else if ([_currentUnlinkSpecifier isEqualToString:@"UnlinkGoogleDrive"])
             [[VLCGoogleDriveController sharedInstance] logout];
+        else if ([_currentUnlinkSpecifier isEqualToString:@"UnlinkOneDrive"])
+            [[VLCOneDriveController sharedInstance] logout];
         _currentUnlinkSpecifier = nil;
 
         UIAlertView *alert = [[UIAlertView alloc]

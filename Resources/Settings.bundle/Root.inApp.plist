@@ -427,6 +427,14 @@
 			<string>IASKButtonSpecifier</string>
 		</dict>
 		<dict>
+			<key>Key</key>
+			<string>UnlinkOneDrive</string>
+			<key>Title</key>
+			<string>SETTINGS_UNLINK_ONEDRIVE</string>
+			<key>Type</key>
+			<string>IASKButtonSpecifier</string>
+		</dict>
+		<dict>
 			<key>Type</key>
 			<string>PSMultiValueSpecifier</string>
 			<key>Titles</key>
