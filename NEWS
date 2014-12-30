@@ -1,5 +1,17 @@
-2.4 (not yet released):
+2.5 (not yet released):
 -----------------------
+* Added support for iCloud Drive (#8688)
+* Added support for box.com (#11301)
+* Added support for OneDrive (#13413)
+* Added a lock button to the playback view, supporting both orientation and
+  controls (#11293, #11292)
+* Added support for chapters to the playback dialog (#11560)
+* Cleaned-up playback view appearance with more features and less clutter
+  of a ton of controls
+* Added an information dialog to the playback view and library view on iPad
+
+2.4:
+----
 * Added support for iPhone 6 and 6+
 * Download of currently stored media via WiFi in addition to upload (#11289)
 * Detection of external subtitles when streaming media via http or ftp (#10668)
@@ -29,8 +41,10 @@
 * Fix browsing of a number of UPnP devices such as HDHomeRun without sorting
   capabilities (#11667)
 * Fix pseudo-random playback starts (#11993)
-* Minor UI improvements (#11296, #11637)
+* Improved passcode lock appearance (#13166)
+* Minor UI improvements (#11296, #11637, #13165, #13169)
 * Network stream history allows copying URLs
+* Improved reliability when syncing media via WiFi or iTunes (#13128)
 * Stability improvements for iOS 6.1
 * New translation to Traditional Chinese
 
