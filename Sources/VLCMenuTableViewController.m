@@ -34,6 +34,7 @@
 #import "VLCAboutViewController.h"
 #import "VLCPlaylistViewController.h"
 #import "VLCBugreporter.h"
+#import "VLCCloudServicesTableViewController.h"
 
 @interface VLCMenuTableViewController () <UITableViewDataSource, UITableViewDelegate>
 {
@@ -70,12 +71,7 @@
 
     _sectionHeaderTexts = @[@"SECTION_HEADER_LIBRARY", @"SECTION_HEADER_NETWORK", @"Settings"];
     _menuItemsSectionOne = @[@"LIBRARY_ALL_FILES", @"LIBRARY_MUSIC", @"LIBRARY_SERIES"];
-    _menuItemsSectionTwo = @[@"LOCAL_NETWORK", @"OPEN_NETWORK", @"DOWNLOAD_FROM_HTTP", @"WEBINTF_TITLE", @"Dropbox", @"Google Drive", @"Box", @"OneDrive"];
-    if ([UIDocumentPickerViewController class]) { // on iOS 8+ add document picker option
-        NSMutableArray* expanded = [_menuItemsSectionTwo mutableCopy];
-        [expanded addObject:@"CLOUD_DRIVES"];
-        _menuItemsSectionTwo = expanded;
-    }
+    _menuItemsSectionTwo = @[@"LOCAL_NETWORK", @"OPEN_NETWORK", @"DOWNLOAD_FROM_HTTP", @"WEBINTF_TITLE", @"CLOUD_SERVICES"];
 
     _menuItemsSectionThree = @[@"Settings", @"ABOUT_APP"];
 
@@ -212,21 +208,12 @@
             cell.imageView.image = [UIImage imageNamed:@"OpenNetStream"];
         else if ([rawTitle isEqualToString:@"DOWNLOAD_FROM_HTTP"])
             cell.imageView.image = [UIImage imageNamed:@"Downloads"];
-        else if ([rawTitle isEqualToString:@"Dropbox"]) {
-            cell.textLabel.text = rawTitle;
-            cell.imageView.image = [UIImage imageNamed:@"Dropbox"];
-        } else if ([rawTitle isEqualToString:@"Google Drive"]) {
-            cell.textLabel.text = rawTitle;
-            cell.imageView.image = [UIImage imageNamed:@"Drive"];
-        } else if ([rawTitle isEqualToString:@"Box"]) {
-            cell.textLabel.text = rawTitle;
-            cell.imageView.image = [UIImage imageNamed:@"Box"];
-        } else if ([rawTitle isEqualToString:@"CLOUD_DRIVES"])
-            cell.imageView.image = [UIImage imageNamed:@"CloudDrives"];
         else if ([rawTitle isEqualToString:@"WEBINTF_TITLE"]) {
             _uploadLocationLabel = [(VLCWiFiUploadTableViewCell*)cell uploadAddressLabel];
             _uploadButton = [(VLCWiFiUploadTableViewCell*)cell serverOnButton];
             [_uploadButton addTarget:self action:@selector(toggleHTTPServer:) forControlEvents:UIControlEventTouchUpInside];
+        } else if ([rawTitle isEqualToString:@"CLOUD_SERVICES"]) {
+            cell.imageView.image = [UIImage imageNamed:@"CloudServices"];
         }
     } else if (section == 2) {
         if ([rawTitle isEqualToString:@"Settings"])
@@ -235,7 +222,7 @@
             cell.imageView.image = [UIImage imageNamed:@"menuCone"];
     }
 
-    if (!([rawTitle isEqualToString:@"Dropbox"] || [rawTitle isEqualToString:@"WEBINTF_TITLE"]))
+    if (![rawTitle isEqualToString:@"WEBINTF_TITLE"])
         cell.textLabel.text = NSLocalizedString(rawTitle, nil);
 
     return cell;
@@ -332,13 +319,7 @@
         else if (itemIndex == 3)
             [self toggleHTTPServer:nil];
         else if (itemIndex == 4)
-            viewController = self.appDelegate.dropboxTableViewController;
-        else if (itemIndex == 5)
-            viewController = self.appDelegate.googleDriveTableViewController;
-        else if (itemIndex == 6)
-            viewController = self.appDelegate.boxTableViewController;
-        else if (itemIndex == 7)
-            viewController = self.appDelegate.oneDriveTableViewController;
+            viewController = [[VLCCloudServicesTableViewController alloc] initWithNibName:@"VLCCloudServicesTableViewController" bundle:nil];
     } else if (sectionNumber == 2) {
         if (itemIndex == 0) {
             if (!self.settingsController)
@@ -356,7 +337,6 @@
             self.settingsViewController.showCreditsFooter = NO;
 
             viewController = self.settingsController.viewController;
-            [self.settingsController willShow];
         } else if (itemIndex == 1)
             viewController = [[VLCAboutViewController alloc] init];
     } else {
@@ -370,11 +350,6 @@
     UINavigationController *navCon = nil;
     if ([_revealController.contentViewController isKindOfClass:[UINavigationController class]]) {
         navCon = (UINavigationController*)_revealController.contentViewController;
-        for (UIViewController *vc in navCon.viewControllers) {
-            //send viewWillDisappear while vc still has a navigationcontroller
-            if ([vc isKindOfClass:[VLCCloudStorageTableViewController class]])
-                [vc viewWillDisappear:NO];
-        }
         navCon.viewControllers = @[viewController];
     } else {
         navCon = [[UINavigationController alloc] initWithRootViewController:viewController];
@@ -384,24 +359,6 @@
     }
 
     [_revealController toggleSidebar:NO duration:kGHRevealSidebarDefaultAnimationDuration];
-}
-
-- (NSIndexPath *)tableView:(UITableView *)tableView willSelectRowAtIndexPath:(NSIndexPath *)indexPath
-{
-    NSUInteger idx = [_menuItemsSectionTwo indexOfObject:@"CLOUD_DRIVES"];
-
-    // don't let select CLOUD_DRIVES menu item since there is no view controller to reveal
-    if (indexPath.section == 1 && indexPath.row == idx) {
-        if (UI_USER_INTERFACE_IDIOM() == UIUserInterfaceIdiomPad) {
-            [self.appDelegate.documentPickerController showDocumentMenuViewController:[self.tableView cellForRowAtIndexPath:indexPath]];
-        } else {
-            [self.appDelegate.documentPickerController showDocumentMenuViewController:nil];
-            [self selectRowAtIndexPath:[NSIndexPath indexPathForRow:0 inSection:0] animated:YES scrollPosition:UITableViewScrollPositionNone];
-        }
-
-        return nil;
-    } else
-        return indexPath;
 }
 
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath

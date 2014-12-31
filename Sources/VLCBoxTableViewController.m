@@ -24,9 +24,6 @@
 
     NSString *_currentFolderId;
 
-    UIBarButtonItem *_backButton;
-    UIBarButtonItem *_backToMenuButton;
-
     UIBarButtonItem *_numberOfFilesBarButtonItem;
     UIBarButtonItem *_progressBarButtonItem;
 
@@ -56,9 +53,8 @@
     self.navigationItem.titleView = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"BoxWhite"]];
     self.navigationItem.titleView.contentMode = UIViewContentModeScaleAspectFit;
 
-    _backButton = [UIBarButtonItem themedBackButtonWithTarget:self andSelector:@selector(goBack:)];
-    _backToMenuButton = [UIBarButtonItem themedRevealMenuButtonWithTarget:self andSelector:@selector(goBack:)];
-    self.navigationItem.leftBarButtonItem = _backToMenuButton;
+    UIBarButtonItem *backButton = [UIBarButtonItem themedBackButtonWithTarget:self andSelector:@selector(goBack:)];
+    self.navigationItem.leftBarButtonItem = backButton;
 
     self.tableView.rowHeight = [VLCCloudStorageTableViewCell heightOfCell];
     self.tableView.separatorColor = [UIColor VLCDarkBackgroundColor];
@@ -92,6 +88,9 @@
     [self.view addConstraint:[NSLayoutConstraint constraintWithItem:_activityIndicator attribute:NSLayoutAttributeCenterX relatedBy:NSLayoutRelationEqual toItem:self.view attribute:NSLayoutAttributeCenterX multiplier:1.0 constant:0]];
     [self.view addConstraint:[NSLayoutConstraint constraintWithItem:_activityIndicator attribute:NSLayoutAttributeCenterY relatedBy:NSLayoutRelationEqual toItem:self.view attribute:NSLayoutAttributeCenterY multiplier:1.0 constant:0]];
 
+    [self.cloudStorageLogo sizeToFit];
+    self.cloudStorageLogo.center = self.view.center;
+    
     // Handle logged in
     [[NSNotificationCenter defaultCenter] addObserver:self
                                              selector:@selector(boxApiTokenDidRefresh)
@@ -133,17 +132,13 @@
 
 - (void)viewWillAppear:(BOOL)animated
 {
-    [super viewWillAppear:animated];
     self.navigationController.toolbarHidden = NO;
     self.navigationController.toolbar.barStyle = UIBarStyleBlack;
     [self.navigationController.toolbar setBackgroundImage:[UIImage imageNamed:@"bottomBlackBar"] forToolbarPosition:UIToolbarPositionAny barMetrics:UIBarMetricsDefault];
-    //reload if we didn't come back from streaming
     _currentFolderId = @"";
     if([_boxController.currentListFiles count] == 0)
         [self _requestInformationForCurrentFolderId];
-
-    [self.cloudStorageLogo sizeToFit];
-    self.cloudStorageLogo.center = self.view.center;
+    [super viewWillAppear:animated];
 }
 
 - (void)viewWillDisappear:(BOOL)animated
@@ -170,8 +165,6 @@
 {
     [_activityIndicator startAnimating];
     [_boxController requestDirectoryListingWithFolderId:_currentFolderId];
-
-    self.navigationItem.leftBarButtonItem = ![_currentFolderId isEqualToString:@""] ? _backButton : _backToMenuButton;
 }
 
 - (IBAction)goBack:(id)sender
@@ -180,7 +173,7 @@
         _currentFolderId = [_currentFolderId stringByDeletingLastPathComponent];
         [self _requestInformationForCurrentFolderId];
     } else
-        [[(VLCAppDelegate*)[UIApplication sharedApplication].delegate revealController] toggleSidebar:![(VLCAppDelegate*)[UIApplication sharedApplication].delegate revealController].sidebarShowing duration:kGHRevealSidebarDefaultAnimationDuration];
+        [self.navigationController popViewControllerAnimated:YES];
 }
 
 #pragma mark - Table view data source
@@ -296,7 +289,6 @@
 - (BOOL)authorizationViewController:(BoxAuthorizationViewController *)authorizationViewController shouldLoadReceivedOAuth2RedirectRequest:(NSURLRequest *)request
 {
     [[BoxSDK sharedSDK].OAuth2Session performAuthorizationCodeGrantWithReceivedURL:request.URL];
-    _authorizationInProgress = NO;
     [self.navigationController popViewControllerAnimated:YES];
     return NO;
 }
@@ -320,8 +312,9 @@
 {
     NSString *token = [BoxSDK sharedSDK].OAuth2Session.refreshToken;
     [SSKeychain setPassword:token forService:kVLCBoxService account:kVLCBoxAccount];
-    if (self.loginToCloudStorageView.superview)
-        [self.loginToCloudStorageView removeFromSuperview];
+    _authorizationInProgress = YES;
+    [self updateViewAfterSessionChange];
+    _authorizationInProgress = NO;
 }
 
 - (void)boxAPIAuthenticationDidFail
@@ -338,13 +331,32 @@
 {
     [self.navigationController popViewControllerAnimated:YES];
 }
+
+- (void)updateViewAfterSessionChange
+{
+    if(_authorizationInProgress) {
+        if (self.loginToCloudStorageView.superview) {
+            [self.loginToCloudStorageView removeFromSuperview];
+        }
+        return;
+    }
+    if (![_boxController isAuthorized]) {
+        [self _showLoginPanel];
+        return;
+    }
+
+    //reload if we didn't come back from streaming
+    _currentFolderId = @"";
+    if([_boxController.currentListFiles count] == 0)
+        [self _requestInformationForCurrentFolderId];
+}
+
 #pragma mark - login dialog
 
 - (void)_showLoginPanel
 {
     self.loginToCloudStorageView.frame = self.tableView.frame;
-    if (!self.loginToCloudStorageView.superview)
-        [self.view addSubview:self.loginToCloudStorageView];
+    [self.view addSubview:self.loginToCloudStorageView];
 }
 
 - (IBAction)loginAction:(id)sender

@@ -45,8 +45,12 @@
 		4144C4661A0ED6C700918C89 /* Reachability.m in Sources */ = {isa = PBXBuildFile; fileRef = 7D3784E6183A99E1009EE944 /* Reachability.m */; };
 		4171D35018A2C19000A16EF9 /* VLCFolderCollectionViewFlowLayout.m in Sources */ = {isa = PBXBuildFile; fileRef = 4171D34F18A2C19000A16EF9 /* VLCFolderCollectionViewFlowLayout.m */; };
 		4171D35818A2D90200A16EF9 /* LXReorderableCollectionViewFlowLayout.m in Sources */ = {isa = PBXBuildFile; fileRef = 4171D35718A2D90200A16EF9 /* LXReorderableCollectionViewFlowLayout.m */; };
+		417CDA231A48D1F300D9ACE7 /* VLCCloudServicesTableViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 417CDA211A48D1F300D9ACE7 /* VLCCloudServicesTableViewController.m */; };
+		417CDA241A48D1F300D9ACE7 /* VLCCloudServicesTableViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 417CDA221A48D1F300D9ACE7 /* VLCCloudServicesTableViewController.xib */; };
 		418FF4B11A0EC1D5005FE808 /* libPods-vlc-ios.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 418FF4B01A0EC1D5005FE808 /* libPods-vlc-ios.a */; };
-		41C881101A05B5020010A3C5 /* VLCProgressView.m in Sources */ = {isa = PBXBuildFile; fileRef = 41C8810F1A05B5020010A3C5 /* VLCProgressView.m */; };
+		41B93C011A53833B00102E8B /* VLCProgressView.m in Sources */ = {isa = PBXBuildFile; fileRef = 41B93C001A53833B00102E8B /* VLCProgressView.m */; };
+		41B93C051A53835300102E8B /* VLCCloudServiceCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 41B93C031A53835300102E8B /* VLCCloudServiceCell.m */; };
+		41B93C081A53853B00102E8B /* VLCCloudServiceCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 41B93C071A53853B00102E8B /* VLCCloudServiceCell.xib */; };
 		41CD695C1A29D72600E60BCE /* VLCBoxController.m in Sources */ = {isa = PBXBuildFile; fileRef = 41CD69591A29D72600E60BCE /* VLCBoxController.m */; };
 		41CD695D1A29D72600E60BCE /* VLCBoxTableViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 41CD695B1A29D72600E60BCE /* VLCBoxTableViewController.m */; };
 		41F475D21899A438001B919F /* folderIcon.png in Resources */ = {isa = PBXBuildFile; fileRef = 41F475CE1899A438001B919F /* folderIcon.png */; };
@@ -555,9 +559,15 @@
 		4171D34F18A2C19000A16EF9 /* VLCFolderCollectionViewFlowLayout.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = VLCFolderCollectionViewFlowLayout.m; path = Sources/VLCFolderCollectionViewFlowLayout.m; sourceTree = SOURCE_ROOT; };
 		4171D35618A2D90200A16EF9 /* LXReorderableCollectionViewFlowLayout.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LXReorderableCollectionViewFlowLayout.h; sourceTree = "<group>"; };
 		4171D35718A2D90200A16EF9 /* LXReorderableCollectionViewFlowLayout.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LXReorderableCollectionViewFlowLayout.m; sourceTree = "<group>"; };
+		417CDA201A48D1F300D9ACE7 /* VLCCloudServicesTableViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = VLCCloudServicesTableViewController.h; path = Sources/VLCCloudServicesTableViewController.h; sourceTree = SOURCE_ROOT; };
+		417CDA211A48D1F300D9ACE7 /* VLCCloudServicesTableViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = VLCCloudServicesTableViewController.m; path = Sources/VLCCloudServicesTableViewController.m; sourceTree = SOURCE_ROOT; };
+		417CDA221A48D1F300D9ACE7 /* VLCCloudServicesTableViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; name = VLCCloudServicesTableViewController.xib; path = Sources/VLCCloudServicesTableViewController.xib; sourceTree = SOURCE_ROOT; };
 		418FF4B01A0EC1D5005FE808 /* libPods-vlc-ios.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; name = "libPods-vlc-ios.a"; path = "Pods/build/Debug-iphoneos/libPods-vlc-ios.a"; sourceTree = "<group>"; };
-		41C8810E1A05B5020010A3C5 /* VLCProgressView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = VLCProgressView.h; sourceTree = SOURCE_ROOT; };
-		41C8810F1A05B5020010A3C5 /* VLCProgressView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = VLCProgressView.m; sourceTree = SOURCE_ROOT; };
+		41B93BFF1A53833B00102E8B /* VLCProgressView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = VLCProgressView.h; path = Sources/VLCProgressView.h; sourceTree = SOURCE_ROOT; };
+		41B93C001A53833B00102E8B /* VLCProgressView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = VLCProgressView.m; path = Sources/VLCProgressView.m; sourceTree = SOURCE_ROOT; };
+		41B93C021A53835300102E8B /* VLCCloudServiceCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = VLCCloudServiceCell.h; path = Sources/VLCCloudServiceCell.h; sourceTree = SOURCE_ROOT; };
+		41B93C031A53835300102E8B /* VLCCloudServiceCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = VLCCloudServiceCell.m; path = Sources/VLCCloudServiceCell.m; sourceTree = SOURCE_ROOT; };
+		41B93C071A53853B00102E8B /* VLCCloudServiceCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; name = VLCCloudServiceCell.xib; path = Sources/VLCCloudServiceCell.xib; sourceTree = SOURCE_ROOT; };
 		41CD69571A29D72600E60BCE /* VLCBoxConstants.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = VLCBoxConstants.h; path = Sources/VLCBoxConstants.h; sourceTree = SOURCE_ROOT; };
 		41CD69581A29D72600E60BCE /* VLCBoxController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = VLCBoxController.h; path = Sources/VLCBoxController.h; sourceTree = SOURCE_ROOT; };
 		41CD69591A29D72600E60BCE /* VLCBoxController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = VLCBoxController.m; path = Sources/VLCBoxController.m; sourceTree = SOURCE_ROOT; };
@@ -1867,6 +1877,10 @@
 		7D5E39CC174FCDBE007DAFA1 /* Cloud Integration */ = {
 			isa = PBXGroup;
 			children = (
+				41B93C021A53835300102E8B /* VLCCloudServiceCell.h */,
+				41B93C031A53835300102E8B /* VLCCloudServiceCell.m */,
+				41B93BFF1A53833B00102E8B /* VLCProgressView.h */,
+				41B93C001A53833B00102E8B /* VLCProgressView.m */,
 				41CD69561A29D71B00E60BCE /* Box */,
 				E0C04F921A25B41C0080331A /* Document Picker */,
 				9B51719A17EDEC8900F8FBA7 /* GoogleDrive */,
@@ -1876,8 +1890,8 @@
 				7D3784B0183A990F009EE944 /* VLCCloudStorageTableViewCell.m */,
 				9B088306183D7BEC004B5C2A /* VLCCloudStorageTableViewController.h */,
 				9B088307183D7BEC004B5C2A /* VLCCloudStorageTableViewController.m */,
-				41C8810E1A05B5020010A3C5 /* VLCProgressView.h */,
-				41C8810F1A05B5020010A3C5 /* VLCProgressView.m */,
+				417CDA201A48D1F300D9ACE7 /* VLCCloudServicesTableViewController.h */,
+				417CDA211A48D1F300D9ACE7 /* VLCCloudServicesTableViewController.m */,
 			);
 			name = "Cloud Integration";
 			sourceTree = "<group>";
@@ -2045,6 +2059,8 @@
 		7D6BEF1D19E027A100DF3972 /* Cloud */ = {
 			isa = PBXGroup;
 			children = (
+				41B93C071A53853B00102E8B /* VLCCloudServiceCell.xib */,
+				417CDA221A48D1F300D9ACE7 /* VLCCloudServicesTableViewController.xib */,
 				7DBBF185183AB4300009A339 /* VLCCloudStorageTableViewCell~ipad.xib */,
 				7DBBF186183AB4300009A339 /* VLCCloudStorageTableViewCell~iphone.xib */,
 				7DBBF188183AB4300009A339 /* VLCCloudStorageTableViewController.xib */,
@@ -2756,6 +2772,7 @@
 				7D9870361A3DED40009CF27D /* playIcon@3x.png in Resources */,
 				7D27EC0919DF30CB00EF0370 /* cloud@2x.png in Resources */,
 				4115E60219797B660071C4B9 /* collectionViewIcon.png in Resources */,
+				41B93C081A53853B00102E8B /* VLCCloudServiceCell.xib in Resources */,
 				A7035BBE174519600057DFA7 /* iTunesArtwork in Resources */,
 				7DFC38C91A45F0DD002476CB /* collectionViewIcon@3x.png in Resources */,
 				29125E5617492219003F03E5 /* index.html in Resources */,
@@ -3004,6 +3021,7 @@
 				7D0699D817CB1FAE00713BEB /* TVShowsIcon@2x.png in Resources */,
 				7D9870541A3DEE43009CF27D /* Downloads@3x.png in Resources */,
 				7D0699D917CB1FAE00713BEB /* WifiUp.png in Resources */,
+				417CDA241A48D1F300D9ACE7 /* VLCCloudServicesTableViewController.xib in Resources */,
 				41F475D51899A438001B919F /* folderIcon~ipad.png in Resources */,
 				7D9870671A3E03D5009CF27D /* papasscode_failed_bg@2x.png in Resources */,
 				7D897875185DEF79009BAB5D /* repeat@2x.png in Resources */,
@@ -3138,12 +3156,13 @@
 				7DC19B051868D1C400810BF7 /* VLCFirstStepsFifthPageViewController.m in Sources */,
 				2915543B17490B9C00B86CAD /* HTTPAsyncFileResponse.m in Sources */,
 				2915543C17490B9C00B86CAD /* HTTPDataResponse.m in Sources */,
-				41C881101A05B5020010A3C5 /* VLCProgressView.m in Sources */,
 				2915543D17490B9C00B86CAD /* HTTPDynamicFileResponse.m in Sources */,
 				9BADAF45185FBD9D00108BD8 /* VLCFrostedGlasView.m in Sources */,
 				2915543E17490B9C00B86CAD /* HTTPErrorResponse.m in Sources */,
 				E0C04F951A25B4410080331A /* VLCDocumentPickerController.m in Sources */,
 				2915543F17490B9C00B86CAD /* HTTPFileResponse.m in Sources */,
+				41B93C011A53833B00102E8B /* VLCProgressView.m in Sources */,
+				417CDA231A48D1F300D9ACE7 /* VLCCloudServicesTableViewController.m in Sources */,
 				2915544017490B9C00B86CAD /* HTTPRedirectResponse.m in Sources */,
 				2915544117490B9C00B86CAD /* WebSocket.m in Sources */,
 				7D168F7418D4A33F003FAF59 /* UIImage+Blur.m in Sources */,
@@ -3167,6 +3186,7 @@
 				7D3784AD183A9906009EE944 /* VLCDropboxController.m in Sources */,
 				7D3784AE183A9906009EE944 /* VLCDropboxTableViewController.m in Sources */,
 				7D3784BE183A9938009EE944 /* UIBarButtonItem+Theme.m in Sources */,
+				41B93C051A53835300102E8B /* VLCCloudServiceCell.m in Sources */,
 				7D3784BF183A9938009EE944 /* UINavigationController+Theme.m in Sources */,
 				7DF9352F1958AB0600E60FD4 /* UIColor+Presets.m in Sources */,
 				7D50903218F41C7900180139 /* VLCAlertView.m in Sources */,

@@ -14,10 +14,6 @@
 
 #import "VLCCloudStorageTableViewController.h"
 
-@interface VLCCloudStorageTableViewController ()
-
-@end
-
 @implementation VLCCloudStorageTableViewController
 
 - (IBAction)loginAction:(id)sender

@@ -20,7 +20,6 @@
 @interface VLCOneDriveTableViewController () <UITableViewDataSource, UITableViewDelegate>
 {
     UIBarButtonItem *_backButton;
-    UIBarButtonItem *_backToMenuButton;
 
     UIActivityIndicatorView *_activityIndicator;
 
@@ -41,8 +40,7 @@
     self.navigationItem.title = @"OneDrive";
 
     _backButton = [UIBarButtonItem themedBackButtonWithTarget:self andSelector:@selector(goBack:)];
-    _backToMenuButton = [UIBarButtonItem themedBackButtonWithTarget:self andSelector:@selector(goBack:)];
-    self.navigationItem.leftBarButtonItem = _backToMenuButton;
+    self.navigationItem.leftBarButtonItem = _backButton;
 
     self.tableView.rowHeight = [VLCCloudStorageTableViewCell heightOfCell];
     self.tableView.separatorColor = [UIColor VLCDarkBackgroundColor];
@@ -81,7 +79,8 @@
 
 - (IBAction)goBack:(id)sender
 {
-    [[(VLCAppDelegate*)[UIApplication sharedApplication].delegate revealController] toggleSidebar:![(VLCAppDelegate*)[UIApplication sharedApplication].delegate revealController].sidebarShowing duration:kGHRevealSidebarDefaultAnimationDuration];
+    //FIXME: handle case for being in a folder
+    [self.navigationController popViewControllerAnimated:YES];
 }
 
 #pragma mark - table view data source

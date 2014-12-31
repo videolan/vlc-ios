@@ -11,7 +11,7 @@ PODS:
   - upnpx (1.3.0)
 
 DEPENDENCIES:
-  - box-ios-sdk-v2 (from `https://github.com/carolanitz/box-ios-sdk-v2.git`)
+  - box-ios-sdk-v2 (from `git://github.com/carolanitz/box-ios-sdk-v2.git`, commit `d2df30aa5f76d30910e06f3ef5aff49025de3cf1`)
   - GHSidebarNav (= 1.0.0)
   - InAppSettingsKit (= 2.2.2)
   - OBSlider (= 1.1.0)
@@ -22,14 +22,15 @@ DEPENDENCIES:
 
 EXTERNAL SOURCES:
   box-ios-sdk-v2:
-    :git: https://github.com/carolanitz/box-ios-sdk-v2.git
+    :commit: d2df30aa5f76d30910e06f3ef5aff49025de3cf1
+    :git: git://github.com/carolanitz/box-ios-sdk-v2.git
   QuincyKit:
     :git: https://github.com/carolanitz/QuincyKit.git
 
 CHECKOUT OPTIONS:
   box-ios-sdk-v2:
-    :commit: 5b9af5cf7ad1a19eff911b2fee6ce16dfeaeab3b
-    :git: https://github.com/carolanitz/box-ios-sdk-v2.git
+    :commit: d2df30aa5f76d30910e06f3ef5aff49025de3cf1
+    :git: git://github.com/carolanitz/box-ios-sdk-v2.git
   QuincyKit:
     :commit: 5e7938a2e1f3bf08c4ed9f7f1aa3c67826df3625
     :git: https://github.com/carolanitz/QuincyKit.git

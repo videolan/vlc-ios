@@ -25,8 +25,8 @@
     NSMutableArray *_listOfBoxFilesToDownload;
     BOOL _downloadInProgress;
 
-    NSNumber *_maxOffset;
-    NSNumber *_offset;
+    int _maxOffset;
+    int _offset;
     NSString *_folderId;
 
     CGFloat _averageSpeed;
@@ -75,7 +75,7 @@
     [[BoxSDK sharedSDK].OAuth2Session logout];
     [self stopSession];
     if ([self.delegate respondsToSelector:@selector(mediaListUpdated)])
-    [self.delegate mediaListUpdated];
+        [self.delegate mediaListUpdated];
 }
 
 - (BOOL)isAuthorized
@@ -192,8 +192,8 @@
 - (void)_listOfGoodFilesAndFolders
 {
     NSMutableArray *listOfGoodFilesAndFolders = [NSMutableArray new];
-    _maxOffset = _fileList.totalCount;
-    _offset = [NSNumber numberWithInteger:_fileList.numberOfEntries];
+    _maxOffset = _fileList.totalCount.intValue;
+    _offset += _fileList.numberOfEntries;
     for (int i = 0; i < _fileList.numberOfEntries; i++)
     {
         BoxModel *boxFile = [_fileList modelAtIndex:i];
@@ -231,7 +231,7 @@
 
     BoxDownloadFailureBlock failureBlock = ^(NSURLRequest *request, NSHTTPURLResponse *response, NSError *error)
     {
-        [self showAlert:NSLocalizedString(@"BOX_ERROR_DOWNLOADING_FILE_TITLE",nil) message:NSLocalizedString(@"BOX_ERROR_DOWNLOADING_FILE",nil)];
+        [self showAlert:NSLocalizedString(@"GDRIVE_ERROR_DOWNLOADING_FILE_TITLE",nil) message:NSLocalizedString(@"GDRIVE_ERROR_DOWNLOADING_FILE",nil)];
         [self downloadFailedWithError:error];
     };
 

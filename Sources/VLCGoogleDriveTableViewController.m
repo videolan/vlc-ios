@@ -13,20 +13,21 @@
 
 #import "VLCGoogleDriveTableViewController.h"
 #import "VLCCloudStorageTableViewCell.h"
-#import "VLCGoogleDriveController.h"
 #import "VLCAppDelegate.h"
 #import "UIBarButtonItem+Theme.h"
 #import "VLCProgressView.h"
+#import "GTMOAuth2ViewControllerTouch.h"
+#import "VLCGoogleDriveController.h"
 
-@interface VLCGoogleDriveTableViewController () <VLCCloudStorageTableViewCell, VLCGoogleDriveController>
+@interface VLCGoogleDriveTableViewController () <VLCCloudStorageTableViewCell, VLCGoogleDriveControllerDelegate>
 {
+
+    VLCGoogleDriveController *_googleDriveController;
+
     GTLDriveFile *_selectedFile;
     GTMOAuth2ViewControllerTouch *_authController;
 
     NSString *_currentFolderId;
-
-    UIBarButtonItem *_backButton;
-    UIBarButtonItem *_backToMenuButton;
 
     UIBarButtonItem *_numberOfFilesBarButtonItem;
     UIBarButtonItem *_progressBarButtonItem;
@@ -36,7 +37,6 @@
     UIActivityIndicatorView *_activityIndicator;
 
     BOOL _authorizationInProgress;
-    VLCGoogleDriveController *_googleDriveController;
 }
 
 @end
@@ -48,18 +48,16 @@
     [super viewDidLoad];
     self.modalPresentationStyle = UIModalPresentationFormSheet;
 
+    _authorizationInProgress = NO;
+
     _googleDriveController = [VLCGoogleDriveController sharedInstance];
     _googleDriveController.delegate = self;
-    [_googleDriveController startSession];
-
-    _authorizationInProgress = NO;
 
     self.navigationItem.titleView = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"DriveWhite"]];
     self.navigationItem.titleView.contentMode = UIViewContentModeScaleAspectFit;
 
-    _backButton = [UIBarButtonItem themedBackButtonWithTarget:self andSelector:@selector(goBack:)];
-    _backToMenuButton = [UIBarButtonItem themedRevealMenuButtonWithTarget:self andSelector:@selector(goBack:)];
-    self.navigationItem.leftBarButtonItem = _backToMenuButton;
+    UIBarButtonItem *backButton = [UIBarButtonItem themedBackButtonWithTarget:self andSelector:@selector(goBack)];
+    self.navigationItem.leftBarButtonItem = backButton;
 
     self.tableView.rowHeight = [VLCCloudStorageTableViewCell heightOfCell];
     self.tableView.separatorColor = [UIColor VLCDarkBackgroundColor];
@@ -92,6 +90,9 @@
 
     [self.view addConstraint:[NSLayoutConstraint constraintWithItem:_activityIndicator attribute:NSLayoutAttributeCenterX relatedBy:NSLayoutRelationEqual toItem:self.view attribute:NSLayoutAttributeCenterX multiplier:1.0 constant:0]];
     [self.view addConstraint:[NSLayoutConstraint constraintWithItem:_activityIndicator attribute:NSLayoutAttributeCenterY relatedBy:NSLayoutRelationEqual toItem:self.view attribute:NSLayoutAttributeCenterY multiplier:1.0 constant:0]];
+
+    [self.cloudStorageLogo sizeToFit];
+    self.cloudStorageLogo.center = self.view.center;
 }
 
 - (GTMOAuth2ViewControllerTouch *)createAuthController
@@ -123,9 +124,6 @@
     [self.navigationController.toolbar setBackgroundImage:[UIImage imageNamed:@"bottomBlackBar"] forToolbarPosition:UIToolbarPositionAny barMetrics:UIBarMetricsDefault];
     [self updateViewAfterSessionChange];
     [super viewWillAppear:animated];
-
-    [self.cloudStorageLogo sizeToFit];
-    self.cloudStorageLogo.center = self.view.center;
 }
 
 - (void)viewWillDisappear:(BOOL)animated
@@ -152,17 +150,15 @@
 {
     [_activityIndicator startAnimating];
     [_googleDriveController requestDirectoryListingWithFolderId:_currentFolderId];
-
-    self.navigationItem.leftBarButtonItem = ![_currentFolderId isEqualToString:@""] ? _backButton : _backToMenuButton;
 }
 
-- (IBAction)goBack:(id)sender
+- (void)goBack
 {
     if (![_currentFolderId isEqualToString:@""] && [_currentFolderId length] > 0) {
         _currentFolderId = [_currentFolderId stringByDeletingLastPathComponent];
         [self _requestInformationForCurrentFolderId];
     } else
-        [[(VLCAppDelegate*)[UIApplication sharedApplication].delegate revealController] toggleSidebar:![(VLCAppDelegate*)[UIApplication sharedApplication].delegate revealController].sidebarShowing duration:kGHRevealSidebarDefaultAnimationDuration];
+        [self.navigationController popViewControllerAnimated:YES];
 }
 
 #pragma mark - Table view data source
@@ -171,6 +167,8 @@
 {
     return 1;
 }
+
+#pragma mark - Table view data source
 
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section
 {
@@ -282,15 +280,15 @@
 - (void)updateViewAfterSessionChange
 {
     if(_authorizationInProgress) {
-        if (self.loginToCloudStorageView.superview)
+        if (self.loginToCloudStorageView.superview) {
             [self.loginToCloudStorageView removeFromSuperview];
+        }
         return;
     }
     if (![_googleDriveController isAuthorized]) {
         [self _showLoginPanel];
         return;
-    } else if (self.loginToCloudStorageView.superview)
-        [self.loginToCloudStorageView removeFromSuperview];
+    }
 
     //reload if we didn't come back from streaming
     _currentFolderId = @"";

@@ -1,0 +1,66 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="6221" systemVersion="14B25" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES">
+    <dependencies>
+        <deployment identifier="iOS"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="6213"/>
+        <capability name="Aspect ratio constraints" minToolsVersion="5.1"/>
+        <capability name="Constraints to layout margins" minToolsVersion="6.0"/>
+    </dependencies>
+    <objects>
+        <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner"/>
+        <tableViewCell contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" rowHeight="66" id="jmV-7P-Ob0" customClass="VLCCloudServiceCell">
+            <rect key="frame" x="0.0" y="0.0" width="320" height="66"/>
+            <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+            <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="jmV-7P-Ob0" id="P7G-Z3-wQa">
+                <autoresizingMask key="autoresizingMask"/>
+                <subviews>
+                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="O6V-Qc-Q8x" userLabel="ServiceName">
+                        <rect key="frame" x="61" y="8" width="251" height="27"/>
+                        <constraints>
+                            <constraint firstAttribute="height" constant="27" id="jmY-dU-gUi"/>
+                        </constraints>
+                        <fontDescription key="fontDescription" type="system" pointSize="18"/>
+                        <color key="textColor" red="1" green="1" blue="1" alpha="1" colorSpace="calibratedRGB"/>
+                        <nil key="highlightedColor"/>
+                    </label>
+                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Login" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="NEp-19-omb" userLabel="ServiceInformation">
+                        <rect key="frame" x="61" y="40" width="251" height="17"/>
+                        <fontDescription key="fontDescription" type="system" pointSize="14"/>
+                        <color key="textColor" red="1" green="1" blue="1" alpha="1" colorSpace="calibratedRGB"/>
+                        <nil key="highlightedColor"/>
+                    </label>
+                    <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="749" verticalHuggingPriority="749" translatesAutoresizingMaskIntoConstraints="NO" id="k9V-qn-xQh">
+                        <rect key="frame" x="13" y="13" width="40" height="39.5"/>
+                        <constraints>
+                            <constraint firstAttribute="width" secondItem="k9V-qn-xQh" secondAttribute="height" multiplier="1:1" id="G4X-8T-SgW"/>
+                            <constraint firstAttribute="width" constant="40" id="b0z-Gv-5yY"/>
+                        </constraints>
+                        <variation key="default">
+                            <mask key="constraints">
+                                <exclude reference="G4X-8T-SgW"/>
+                            </mask>
+                        </variation>
+                    </imageView>
+                </subviews>
+                <constraints>
+                    <constraint firstAttribute="bottomMargin" secondItem="k9V-qn-xQh" secondAttribute="bottom" constant="5" id="9mT-Ig-oz7"/>
+                    <constraint firstAttribute="trailingMargin" secondItem="O6V-Qc-Q8x" secondAttribute="trailing" id="DGs-Ef-HwX"/>
+                    <constraint firstItem="O6V-Qc-Q8x" firstAttribute="top" secondItem="P7G-Z3-wQa" secondAttribute="topMargin" id="P7b-lX-3qH"/>
+                    <constraint firstItem="k9V-qn-xQh" firstAttribute="leading" secondItem="P7G-Z3-wQa" secondAttribute="leadingMargin" constant="5" id="bjd-BQ-kB6"/>
+                    <constraint firstItem="NEp-19-omb" firstAttribute="leading" secondItem="k9V-qn-xQh" secondAttribute="trailing" constant="8" id="bks-dW-hBU"/>
+                    <constraint firstItem="k9V-qn-xQh" firstAttribute="top" secondItem="P7G-Z3-wQa" secondAttribute="topMargin" constant="5" id="eeS-aO-JcR"/>
+                    <constraint firstItem="NEp-19-omb" firstAttribute="leading" secondItem="O6V-Qc-Q8x" secondAttribute="leading" id="fL2-8r-L4U"/>
+                    <constraint firstAttribute="trailingMargin" secondItem="NEp-19-omb" secondAttribute="trailing" id="p2Z-h2-q2X"/>
+                    <constraint firstAttribute="bottomMargin" secondItem="NEp-19-omb" secondAttribute="bottom" id="xAM-tl-LLT"/>
+                </constraints>
+            </tableViewCellContentView>
+            <connections>
+                <outlet property="cloudInformation" destination="NEp-19-omb" id="pWE-Kp-d7k"/>
+                <outlet property="cloudTitle" destination="O6V-Qc-Q8x" id="6Oe-Xb-nFb"/>
+                <outlet property="icon" destination="k9V-qn-xQh" id="5Bh-XZ-Kkl"/>
+            </connections>
+            <point key="canvasLocation" x="358" y="253"/>
+        </tableViewCell>
+        <placeholder placeholderIdentifier="IBFirstResponder" id="-2" customClass="UIResponder"/>
+    </objects>
+</document>

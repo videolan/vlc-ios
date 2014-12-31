@@ -29,12 +29,8 @@
     VLCDropboxController *_dropboxController;
     NSString *_currentPath;
 
-    UIBarButtonItem *_backButton;
-    UIBarButtonItem *_backToMenuButton;
-
     UIBarButtonItem *_numberOfFilesBarButtonItem;
     UIBarButtonItem *_progressBarButtonItem;
-    UIBarButtonItem *_downloadingBarLabel;
     VLCProgressView *_progressView;
 
     UIActivityIndicatorView *_activityIndicator;
@@ -60,9 +56,8 @@
     self.navigationItem.titleView = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"dropbox-white"]];
     self.navigationItem.titleView.contentMode = UIViewContentModeScaleAspectFit;
 
-    _backButton = [UIBarButtonItem themedBackButtonWithTarget:self andSelector:@selector(goBack:)];
-    _backToMenuButton = [UIBarButtonItem themedRevealMenuButtonWithTarget:self andSelector:@selector(goBack:)];
-    self.navigationItem.leftBarButtonItem = _backToMenuButton;
+    UIBarButtonItem *backButton = [UIBarButtonItem themedBackButtonWithTarget:self andSelector:@selector(goBack:)];
+    self.navigationItem.leftBarButtonItem = backButton;
 
     self.tableView.rowHeight = [VLCCloudStorageTableViewCell heightOfCell];
     self.tableView.separatorColor = [UIColor VLCDarkBackgroundColor];
@@ -94,6 +89,9 @@
 
     [self.view addConstraint:[NSLayoutConstraint constraintWithItem:_activityIndicator attribute:NSLayoutAttributeCenterX relatedBy:NSLayoutRelationEqual toItem:self.view attribute:NSLayoutAttributeCenterX multiplier:1.0 constant:0]];
     [self.view addConstraint:[NSLayoutConstraint constraintWithItem:_activityIndicator attribute:NSLayoutAttributeCenterY relatedBy:NSLayoutRelationEqual toItem:self.view attribute:NSLayoutAttributeCenterY multiplier:1.0 constant:0]];
+
+    [self.cloudStorageLogo sizeToFit];
+    self.cloudStorageLogo.center = self.view.center;
 }
 
 - (void)viewWillAppear:(BOOL)animated
@@ -103,9 +101,6 @@
     [self.navigationController.toolbar setBackgroundImage:[UIImage imageNamed:@"bottomBlackBar"] forToolbarPosition:UIToolbarPositionAny barMetrics:UIBarMetricsDefault];
     [self updateViewAfterSessionChange];
     [super viewWillAppear:animated];
-
-    [self.cloudStorageLogo sizeToFit];
-    self.cloudStorageLogo.center = self.view.center;
 }
 
 - (void)viewWillDisappear:(BOOL)animated
@@ -128,8 +123,6 @@
 {
     [_activityIndicator startAnimating];
     [_dropboxController requestDirectoryListingAtPath:_currentPath];
-
-    self.navigationItem.leftBarButtonItem = ![_currentPath isEqualToString:@"/"] ? _backButton : _backToMenuButton;
 }
 
 #pragma mark - interface interaction
@@ -148,15 +141,10 @@
         _currentPath = [_currentPath stringByDeletingLastPathComponent];
         [self _requestInformationForCurrentPath];
     } else
-        [[(VLCAppDelegate*)[UIApplication sharedApplication].delegate revealController] toggleSidebar:![(VLCAppDelegate*)[UIApplication sharedApplication].delegate revealController].sidebarShowing duration:kGHRevealSidebarDefaultAnimationDuration];
+        [self.navigationController popViewControllerAnimated:YES];
 }
 
 #pragma mark - Table view data source
-
-- (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView
-{
-    return 1;
-}
 
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section
 {
@@ -251,15 +239,16 @@
     if (![[DBSession sharedSession] isLinked]) {
         [self _showLoginPanel];
         return;
-    } else if (self.loginToCloudStorageView.superview)
+    } else if (self.loginToCloudStorageView.superview) {
         [self.loginToCloudStorageView removeFromSuperview];
+    }
 
     _currentPath = @"/";
-    [self _requestInformationForCurrentPath];
+    if([_dropboxController.currentListFiles count] == 0)
+        [self _requestInformationForCurrentPath];
 }
 
 #pragma mark - login dialog
-
 - (void)_showLoginPanel
 {
     self.loginToCloudStorageView.frame = self.tableView.frame;
@@ -273,8 +262,6 @@
     else
         [_dropboxController logout];
 }
-
-#pragma mark - table view cell delegation
 
 
 #pragma mark - VLCLocalNetworkListCell delegation

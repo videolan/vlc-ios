@@ -45,7 +45,7 @@
     static dispatch_once_t pred;
 
     dispatch_once(&pred, ^{
-        sharedInstance = [[self alloc] init];
+        sharedInstance = [self new];
     });
 
     return sharedInstance;
@@ -53,7 +53,7 @@
 
 - (void)startSession
 {
-    self.driveService = [[GTLServiceDrive alloc] init];
+    self.driveService = [GTLServiceDrive new];
     self.driveService.authorizer = [GTMOAuth2ViewControllerTouch authForGoogleFromKeychainForName:kKeychainItemName clientID:kVLCGoogleDriveClientID clientSecret:kVLCGoogleDriveClientSecret];
 }
 
@@ -68,14 +68,17 @@
 {
     [GTMOAuth2ViewControllerTouch removeAuthFromKeychainForName:kKeychainItemName];
     self.driveService.authorizer = nil;
-    _currentFileList = nil;
+    [self stopSession];
     if ([self.delegate respondsToSelector:@selector(mediaListUpdated)])
         [self.delegate mediaListUpdated];
 }
 
 - (BOOL)isAuthorized
 {
-    return [((GTMOAuth2Authentication *)self.driveService.authorizer) canAuthorize];;
+    if (!self.driveService) {
+        [self startSession];
+    }
+    return [((GTMOAuth2Authentication *)self.driveService.authorizer) canAuthorize];
 }
 
 - (void)showAlert:(NSString *)title message:(NSString *)message
