@@ -18,16 +18,10 @@
 #import "IASKSettingsReader.h"
 #import "IASKAppSettingsViewController.h"
 #import "PAPasscodeViewController.h"
-#import <DropboxSDK/DropboxSDK.h>
-#import "VLCGoogleDriveController.h"
-#import "VLCOneDriveController.h"
-#import "VLCBoxController.h"
 
 @interface VLCSettingsController ()<PAPasscodeViewControllerDelegate, IASKSettingsDelegate>
 {
-    NSString *_currentUnlinkSpecifier;
-    NSString *_currentUnlinkDialogTitle;
-    NSString *_currentCloudName;
+
 }
 @end
 
@@ -47,11 +41,6 @@
     [[NSNotificationCenter defaultCenter] removeObserver:self];
 }
 
-- (void)willShow
-{
-    [self filterCloudStorageCellsWithAnimation:NO];
-}
-
 - (void)settingDidChange:(NSNotification*)notification
 {
     if ([notification.object isEqual:kVLCSettingPasscodeOnKey]) {
@@ -65,77 +54,9 @@
     }
 }
 
-- (void)filterCloudStorageCellsWithAnimation:(BOOL)shouldAnimate
-{
-    NSMutableSet * hideKeys = [[NSMutableSet alloc] init];
-
-    if (![[DBSession sharedSession] isLinked])
-        [hideKeys addObject:@"UnlinkDropbox"];
-    if (![[VLCGoogleDriveController sharedInstance] isAuthorized])
-        [hideKeys addObject:@"UnlinkGoogleDrive"];
-    if (![[VLCOneDriveController sharedInstance] activeSession])
-        [hideKeys addObject:@"UnlinkOneDrive"];
-    if (![[VLCBoxController sharedInstance] isAuthorized])
-        [hideKeys addObject:@"UnlinkBox"];
-    [self.viewController setHiddenKeys:hideKeys animated:shouldAnimate];
-}
-
 - (void)settingsViewControllerDidEnd:(IASKAppSettingsViewController*)sender
 {
     [[(VLCAppDelegate*)[UIApplication sharedApplication].delegate revealController] toggleSidebar:![(VLCAppDelegate*)[UIApplication sharedApplication].delegate revealController].sidebarShowing duration:kGHRevealSidebarDefaultAnimationDuration];
-}
-
-- (void)settingsViewController:(IASKAppSettingsViewController*)sender buttonTappedForSpecifier:(IASKSpecifier*)specifier
-{
-    _currentUnlinkSpecifier = specifier.key;
-
-    if ([_currentUnlinkSpecifier isEqualToString:@"UnlinkDropbox"]) {
-        _currentCloudName = @"Dropbox";
-        _currentUnlinkDialogTitle = NSLocalizedString(@"SETTINGS_UNLINK_DROPBOX", nil);
-    } else if ([_currentUnlinkSpecifier isEqualToString:@"UnlinkGoogleDrive"]) {
-        _currentCloudName = @"Google Drive";
-        _currentUnlinkDialogTitle = NSLocalizedString(@"SETTINGS_UNLINK_GOOGLEDRIVE", nil);
-    } else if ([_currentUnlinkSpecifier isEqualToString:@"UnlinkOneDrive"]) {
-        _currentCloudName = @"OneDrive";
-        _currentUnlinkDialogTitle = NSLocalizedString(@"SETTINGS_UNLINK_ONEDRIVE", nil);
-    } else if ([_currentUnlinkSpecifier isEqualToString:@"UnlinkBox"]) {
-        _currentCloudName = @"Box";
-        _currentUnlinkDialogTitle = NSLocalizedString(@"SETTINGS_UNLINK_BOX", nil);
-    }
-
-    UIAlertView *alert = [[UIAlertView alloc]
-                          initWithTitle:_currentUnlinkDialogTitle
-                          message:[NSString stringWithFormat:NSLocalizedString(@"CLOUDUNLINKING", nil), _currentCloudName]
-                          delegate:self
-                          cancelButtonTitle:NSLocalizedString(@"BUTTON_CANCEL", nil)
-                          otherButtonTitles:NSLocalizedString(@"BUTTON_CLOUDUNLINKING", nil), nil];
-    [alert show];
-}
-
-- (void)alertView:(UIAlertView *)alertView clickedButtonAtIndex:(NSInteger)buttonIndex
-{
-    if (buttonIndex == 1) {
-        if ([_currentUnlinkSpecifier isEqualToString:@"UnlinkDropbox"])
-            [[DBSession sharedSession] unlinkAll];
-        else if ([_currentUnlinkSpecifier isEqualToString:@"UnlinkGoogleDrive"])
-            [[VLCGoogleDriveController sharedInstance] logout];
-        else if ([_currentUnlinkSpecifier isEqualToString:@"UnlinkOneDrive"])
-            [[VLCOneDriveController sharedInstance] logout];
-        else if ([_currentUnlinkSpecifier isEqualToString:@"UnlinkBox"])
-            [[VLCBoxController sharedInstance] logout];
-        _currentUnlinkSpecifier = nil;
-
-        UIAlertView *alert = [[UIAlertView alloc]
-                              initWithTitle:_currentUnlinkDialogTitle
-                              message:[NSString stringWithFormat:NSLocalizedString(@"CLOUDUNLINKING_DONE", nil), _currentCloudName]
-                              delegate:self
-                              cancelButtonTitle:NSLocalizedString(@"BUTTON_DONE", nil)
-                              otherButtonTitles:nil];
-        [alert show];
-        [self filterCloudStorageCellsWithAnimation:YES];
-        _currentUnlinkDialogTitle = nil;
-        _currentCloudName = nil;
-    }
 }
 
 #pragma mark - PAPasscode delegate

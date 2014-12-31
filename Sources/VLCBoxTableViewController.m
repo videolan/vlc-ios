@@ -25,6 +25,7 @@
     NSString *_currentFolderId;
 
     UIBarButtonItem *_numberOfFilesBarButtonItem;
+    UIBarButtonItem *_logoutButton;
     UIBarButtonItem *_progressBarButtonItem;
 
     VLCProgressView *_progressView;
@@ -55,6 +56,8 @@
 
     UIBarButtonItem *backButton = [UIBarButtonItem themedBackButtonWithTarget:self andSelector:@selector(goBack:)];
     self.navigationItem.leftBarButtonItem = backButton;
+
+    _logoutButton = [[UIBarButtonItem alloc] initWithTitle:NSLocalizedString(@"BUTTON_LOGOUT", "") style:UIBarButtonItemStyleBordered target:self action:@selector(logout)];
 
     self.tableView.rowHeight = [VLCCloudStorageTableViewCell heightOfCell];
     self.tableView.separatorColor = [UIColor VLCDarkBackgroundColor];
@@ -334,6 +337,7 @@
 
 - (void)updateViewAfterSessionChange
 {
+    self.navigationItem.rightBarButtonItem = _logoutButton;
     if(_authorizationInProgress) {
         if (self.loginToCloudStorageView.superview) {
             [self.loginToCloudStorageView removeFromSuperview];
@@ -356,6 +360,7 @@
 - (void)_showLoginPanel
 {
     self.loginToCloudStorageView.frame = self.tableView.frame;
+    self.navigationItem.rightBarButtonItem = nil;
     [self.view addSubview:self.loginToCloudStorageView];
 }
 
@@ -369,4 +374,9 @@
     }
 }
 
+- (void)logout
+{
+    [_boxController logout];
+    [self updateViewAfterSessionChange];
+}
 @end

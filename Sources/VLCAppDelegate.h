@@ -13,17 +13,12 @@
  *
  * Refer to the COPYING file of the official project for license.
  *****************************************************************************/
-
 #import "VLCDropboxTableViewController.h"
-#import "VLCGoogleDriveTableViewController.h"
-#import "VLCOneDriveTableViewController.h"
-#import "VLCBoxTableViewController.h"
 #import "VLCHTTPUploaderController.h"
 #import "GHRevealViewController.h"
 #import "VLCMenuTableViewController.h"
 #import "VLCDownloadViewController.h"
 #import "BWQuincyManager.h"
-#import "VLCDocumentPickerController.h"
 
 @class VLCPlaylistViewController;
 @class PAPasscodeViewController;
@@ -46,11 +41,7 @@
 
 @property (nonatomic, readonly) VLCPlaylistViewController *playlistViewController;
 @property (nonatomic, readonly) VLCDropboxTableViewController *dropboxTableViewController;
-@property (nonatomic, readonly) VLCGoogleDriveTableViewController *googleDriveTableViewController;
-@property (nonatomic, readonly) VLCOneDriveTableViewController *oneDriveTableViewController;
-@property (nonatomic, readonly) VLCBoxTableViewController *boxTableViewController;
 @property (nonatomic, readonly) VLCDownloadViewController *downloadViewController;
-@property (nonatomic, readonly) VLCDocumentPickerController *documentPickerController;
 
 @property (nonatomic, strong) UIWindow *window;
 

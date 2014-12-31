@@ -31,6 +31,8 @@
 
     UIBarButtonItem *_numberOfFilesBarButtonItem;
     UIBarButtonItem *_progressBarButtonItem;
+    UIBarButtonItem *_logoutButton;
+
     VLCProgressView *_progressView;
 
     UIActivityIndicatorView *_activityIndicator;
@@ -58,6 +60,8 @@
 
     UIBarButtonItem *backButton = [UIBarButtonItem themedBackButtonWithTarget:self andSelector:@selector(goBack:)];
     self.navigationItem.leftBarButtonItem = backButton;
+
+    _logoutButton = [[UIBarButtonItem alloc] initWithTitle:NSLocalizedString(@"BUTTON_LOGOUT", "") style:UIBarButtonItemStyleBordered target:self action:@selector(logout)];
 
     self.tableView.rowHeight = [VLCCloudStorageTableViewCell heightOfCell];
     self.tableView.separatorColor = [UIColor VLCDarkBackgroundColor];
@@ -236,6 +240,7 @@
 
 - (void)updateViewAfterSessionChange
 {
+    self.navigationItem.rightBarButtonItem = _logoutButton;
     if (![[DBSession sharedSession] isLinked]) {
         [self _showLoginPanel];
         return;
@@ -249,9 +254,17 @@
 }
 
 #pragma mark - login dialog
+
+- (void)logout
+{
+    [_dropboxController logout];
+    [self updateViewAfterSessionChange];
+}
+
 - (void)_showLoginPanel
 {
     self.loginToCloudStorageView.frame = self.tableView.frame;
+    self.navigationItem.rightBarButtonItem = nil;
     [self.view addSubview:self.loginToCloudStorageView];
 }
 

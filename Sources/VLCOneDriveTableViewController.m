@@ -20,6 +20,7 @@
 @interface VLCOneDriveTableViewController () <UITableViewDataSource, UITableViewDelegate>
 {
     UIBarButtonItem *_backButton;
+    UIBarButtonItem *_logoutButton;
 
     UIActivityIndicatorView *_activityIndicator;
 
@@ -41,6 +42,8 @@
 
     _backButton = [UIBarButtonItem themedBackButtonWithTarget:self andSelector:@selector(goBack:)];
     self.navigationItem.leftBarButtonItem = _backButton;
+
+    _logoutButton = [[UIBarButtonItem alloc] initWithTitle:NSLocalizedString(@"BUTTON_LOGOUT", "") style:UIBarButtonItemStyleBordered target:self action:@selector(logout)];
 
     self.tableView.rowHeight = [VLCCloudStorageTableViewCell heightOfCell];
     self.tableView.separatorColor = [UIColor VLCDarkBackgroundColor];
@@ -109,9 +112,17 @@ forRowAtIndexPath:(NSIndexPath *)indexPath
 }
 
 #pragma mark - login dialog
+
+- (void)logout
+{
+    [_oneDriveController logout];
+    [self updateViewAfterSessionChange];
+}
+
 - (void)_showLoginDialog
 {
     self.loginToCloudStorageView.frame = self.tableView.frame;
+    self.navigationItem.rightBarButtonItem = nil;
     [self.view addSubview:self.loginToCloudStorageView];
 }
 

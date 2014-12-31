@@ -411,38 +411,6 @@
 			<string>SETTINGS_FILE_SYNC</string>
 		</dict>
 		<dict>
-			<key>Key</key>
-			<string>UnlinkDropbox</string>
-			<key>Title</key>
-			<string>SETTINGS_UNLINK_DROPBOX</string>
-			<key>Type</key>
-			<string>IASKButtonSpecifier</string>
-		</dict>
-		<dict>
-			<key>Key</key>
-			<string>UnlinkGoogleDrive</string>
-			<key>Title</key>
-			<string>SETTINGS_UNLINK_GOOGLEDRIVE</string>
-			<key>Type</key>
-			<string>IASKButtonSpecifier</string>
-		</dict>
-        <dict>
-            <key>Key</key>
-            <string>UnlinkBox</string>
-            <key>Title</key>
-            <string>SETTINGS_UNLINK_BOX</string>
-            <key>Type</key>
-            <string>IASKButtonSpecifier</string>
-        </dict>
-		<dict>
-			<key>Key</key>
-			<string>UnlinkOneDrive</string>
-			<key>Title</key>
-			<string>SETTINGS_UNLINK_ONEDRIVE</string>
-			<key>Type</key>
-			<string>IASKButtonSpecifier</string>
-		</dict>
-		<dict>
 			<key>Type</key>
 			<string>PSMultiValueSpecifier</string>
 			<key>Titles</key>

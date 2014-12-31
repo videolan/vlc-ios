@@ -31,6 +31,7 @@
 
     UIBarButtonItem *_numberOfFilesBarButtonItem;
     UIBarButtonItem *_progressBarButtonItem;
+    UIBarButtonItem *_logoutButton;
 
     VLCProgressView *_progressView;
 
@@ -58,6 +59,8 @@
 
     UIBarButtonItem *backButton = [UIBarButtonItem themedBackButtonWithTarget:self andSelector:@selector(goBack)];
     self.navigationItem.leftBarButtonItem = backButton;
+
+    _logoutButton = [[UIBarButtonItem alloc] initWithTitle:NSLocalizedString(@"BUTTON_LOGOUT", "") style:UIBarButtonItemStyleBordered target:self action:@selector(logout)];
 
     self.tableView.rowHeight = [VLCCloudStorageTableViewCell heightOfCell];
     self.tableView.separatorColor = [UIColor VLCDarkBackgroundColor];
@@ -161,11 +164,10 @@
         [self.navigationController popViewControllerAnimated:YES];
 }
 
-#pragma mark - Table view data source
-
-- (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView
+- (void)logout
 {
-    return 1;
+    [_googleDriveController logout];
+    [self updateViewAfterSessionChange];
 }
 
 #pragma mark - Table view data source
@@ -279,6 +281,7 @@
 
 - (void)updateViewAfterSessionChange
 {
+    self.navigationItem.rightBarButtonItem = _logoutButton;
     if(_authorizationInProgress) {
         if (self.loginToCloudStorageView.superview) {
             [self.loginToCloudStorageView removeFromSuperview];
@@ -301,6 +304,7 @@
 - (void)_showLoginPanel
 {
     self.loginToCloudStorageView.frame = self.tableView.frame;
+    self.navigationItem.rightBarButtonItem = nil;
     [self.view addSubview:self.loginToCloudStorageView];
 }
 

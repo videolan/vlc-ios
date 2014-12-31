@@ -33,12 +33,8 @@
 
 @interface VLCAppDelegate () <PAPasscodeViewControllerDelegate, VLCMediaFileDiscovererDelegate, BWQuincyManagerDelegate> {
     PAPasscodeViewController *_passcodeLockController;
-    VLCDropboxTableViewController *_dropboxTableViewController;
-    VLCGoogleDriveTableViewController *_googleDriveTableViewController;
-    VLCOneDriveTableViewController *_oneDriveTableViewController;
-    VLCBoxTableViewController *_boxTableViewController;
     VLCDownloadViewController *_downloadViewController;
-    VLCDocumentPickerController *_documentPickerController;
+    VLCDropboxTableViewController *_dropboxTableViewController;
     int _idleCounter;
     int _networkActivityCounter;
     VLCMovieViewController *_movieViewController;
@@ -127,7 +123,9 @@
         [self.dropboxTableViewController updateViewAfterSessionChange];
         return YES;
     }
+
     [[BoxSDK sharedSDK].OAuth2Session performAuthorizationCodeGrantWithReceivedURL:url];
+
     if (_playlistViewController && url != nil) {
         APLog(@"%@ requested %@ to be opened", sourceApplication, url);
 
@@ -235,37 +233,12 @@
 }
 
 #pragma mark - properties
-
 - (VLCDropboxTableViewController *)dropboxTableViewController
 {
     if (_dropboxTableViewController == nil)
         _dropboxTableViewController = [[VLCDropboxTableViewController alloc] initWithNibName:@"VLCCloudStorageTableViewController" bundle:nil];
 
     return _dropboxTableViewController;
-}
-
-- (VLCGoogleDriveTableViewController *)googleDriveTableViewController
-{
-    if (_googleDriveTableViewController == nil)
-        _googleDriveTableViewController = [[VLCGoogleDriveTableViewController alloc] initWithNibName:@"VLCCloudStorageTableViewController" bundle:nil];
-
-    return _googleDriveTableViewController;
-}
-
-- (VLCOneDriveTableViewController *)oneDriveTableViewController
-{
-    if (_oneDriveTableViewController == nil)
-        _oneDriveTableViewController = [[VLCOneDriveTableViewController alloc] initWithNibName:@"VLCCloudStorageTableViewController" bundle:nil];
-
-    return _oneDriveTableViewController;
-}
-
-- (VLCBoxTableViewController *)boxTableViewController
-{
-    if (_boxTableViewController == nil)
-        _boxTableViewController = [[VLCBoxTableViewController alloc] initWithNibName:@"VLCCloudStorageTableViewController" bundle:nil];
-
-    return _boxTableViewController;
 }
 
 - (VLCDownloadViewController *)downloadViewController
@@ -278,14 +251,6 @@
     }
 
     return _downloadViewController;
-}
-
-- (VLCDocumentPickerController *)documentPickerController
-{
-    if (_documentPickerController == nil)
-        _documentPickerController = [[VLCDocumentPickerController alloc] init];
-
-    return _documentPickerController;
 }
 
 #pragma mark - media discovering
