@@ -1220,7 +1220,7 @@ return
         if (_mediaPlayer.videoSubTitlesIndexes.count > 1)
             ret++;
     } else {
-        if (_mediaPlayer.titles.count > 1)
+        if ([_mediaPlayer countOfTitles] > 1)
             ret++;
 
         if ([_mediaPlayer chaptersForTitleIndex:_mediaPlayer.currentTitleIndex].count > 1)
