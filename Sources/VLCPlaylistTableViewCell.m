@@ -2,7 +2,7 @@
  * VLCPlaylistTableViewCell.m
  * VLC for iOS
  *****************************************************************************
- * Copyright (c) 2013 VideoLAN. All rights reserved.
+ * Copyright (c) 2013-2015 VideoLAN. All rights reserved.
  * $Id$
  *
  * Authors: Felix Paul Kühne <fkuehne # videolan.org>
@@ -42,8 +42,15 @@
     NSAssert([[nibContentArray lastObject] isKindOfClass:[VLCPlaylistTableViewCell class]], @"meh meh");
     VLCPlaylistTableViewCell *cell = (VLCPlaylistTableViewCell *)[nibContentArray lastObject];
     cell.multipleSelectionBackgroundView = [[UIView alloc] initWithFrame:cell.frame];
+    cell.metaDataLabel.hidden = YES;
 
     return cell;
+}
+
+- (void)setNeedsDisplay
+{
+    [self collapsWithAnimation:NO];
+    [super setNeedsDisplay];
 }
 
 - (void)observeValueForKeyPath:(NSString *)keyPath ofObject:(id)object change:(NSDictionary *)change context:(void *)context
@@ -125,6 +132,7 @@
         [self _addObserver];
     }
 
+    [self collapsWithAnimation:NO];
     [self _updatedDisplayedInformationForKeyPath:nil];
 }
 
@@ -330,18 +338,174 @@
 
 - (void)longTouchGestureAction:(UIGestureRecognizer *)recognizer
 {
+    _isExpanded = YES;
     CGRect frame = self.frame;
-    if (frame.size.height > 90.)
-        frame.size.height = 90.;
-    else if (recognizer.state == UIGestureRecognizerStateBegan)
-        frame.size.height = 180;
+    frame.size.height = 180.;
+    BOOL metaHidden = NO;
+
+    MLFile *theFile;
+    if ([self.mediaObject isKindOfClass:[MLFile class]])
+        theFile = (MLFile *)self.mediaObject;
+    else if ([self.mediaObject isKindOfClass:[MLShowEpisode class]])
+        theFile = [[(MLShowEpisode *)self.mediaObject files]anyObject];
+    else if ([self.mediaObject isKindOfClass:[MLAlbumTrack class]])
+        theFile = [[(MLAlbumTrack *)self.mediaObject files]anyObject];
+
+    NSMutableString *mediaInfo = [[NSMutableString alloc] init];
+
+    if (theFile) {
+        NSMutableArray *videoTracks = [[NSMutableArray alloc] init];
+        NSMutableArray *audioTracks = [[NSMutableArray alloc] init];
+        NSMutableArray *spuTracks = [[NSMutableArray alloc] init];
+        NSArray *tracks = [[theFile tracks] allObjects];
+        NSUInteger trackCount = tracks.count;
+
+        for (NSUInteger x = 0; x < trackCount; x++) {
+            NSManagedObject *track = tracks[x];
+            NSString *trackEntityName = [[track entity] name];
+            if ([trackEntityName isEqualToString:@"VideoTrackInformation"])
+                [videoTracks addObject:track];
+            else if ([trackEntityName isEqualToString:@"AudioTrackInformation"])
+                [audioTracks addObject:track];
+            else if ([trackEntityName isEqualToString:@"SubtitlesTrackInformation"])
+                [spuTracks addObject:track];
+        }
+
+        /* print video info */
+        trackCount = videoTracks.count;
+        if (trackCount != 1)
+            [mediaInfo appendFormat:@"%lu video tracks", (unsigned long)trackCount];
+        else
+            [mediaInfo appendString:@"1 video track"];
+
+        if (trackCount > 0) {
+            [mediaInfo appendString:@" ("];
+            for (NSUInteger x = 0; x < trackCount; x++) {
+                int fourcc = [[videoTracks[x] valueForKey:@"codec"] intValue];
+                if (x != 0)
+                    [mediaInfo appendFormat:@", %4.4s", (char *)&fourcc];
+                else
+                    [mediaInfo appendFormat:@"%4.4s", (char *)&fourcc];
+            }
+            [mediaInfo appendString:@")"];
+        }
+        [mediaInfo appendString:@"\n\n"];
+
+        /* print audio info */
+        trackCount = audioTracks.count;
+        if (trackCount != 1)
+            [mediaInfo appendFormat:@"%lu audio tracks", (unsigned long)trackCount];
+        else
+            [mediaInfo appendString:@"1 audio track"];
+
+        if (trackCount > 0) {
+            [mediaInfo appendString:@":\n"];
+            for (NSUInteger x = 0; x < trackCount; x++) {
+                NSManagedObject *track = audioTracks[x];
+                int fourcc = [[track valueForKey:@"codec"] intValue];
+                if (x != 0)
+                    [mediaInfo appendFormat:@", %4.4s", (char *)&fourcc];
+                else
+                    [mediaInfo appendFormat:@"%4.4s", (char *)&fourcc];
+
+                int channelNumber = [[track valueForKey:@"channelsNumber"] intValue];
+                NSString *language = [track valueForKey:@"language"];
+                int bitrate = [[track valueForKey:@"bitrate"] intValue];
+                if (channelNumber != 0 || language != nil || bitrate > 0) {
+                    [mediaInfo appendString:@" ["];
+
+                    if (bitrate > 0)
+                        [mediaInfo appendFormat:@"%i kbit/s", bitrate / 1024];
+
+                    if (channelNumber > 0) {
+                        if (bitrate > 0)
+                            [mediaInfo appendString:@", "];
+
+                        if (channelNumber == 1)
+                            [mediaInfo appendString:@"MONO"];
+                        else if (channelNumber == 2)
+                            [mediaInfo appendString:@"STEREO"];
+                        else
+                            [mediaInfo appendString:@"MULTI-CHANNEL"];
+                    }
+
+                    if (language != nil) {
+                        if (channelNumber > 0 || bitrate > 0)
+                            [mediaInfo appendString:@", "];
+
+                        [mediaInfo appendString:[language uppercaseString]];
+                    }
+
+                    [mediaInfo appendString:@"]"];
+                }
+            }
+        }
+        [mediaInfo appendString:@"\n\n"];
+
+        /* SPU */
+        trackCount = spuTracks.count;
+        if (trackCount != 1)
+            [mediaInfo appendFormat:@"%lu subtitles tracks", (unsigned long)trackCount];
+        else
+            [mediaInfo appendString:@"1 subtitles track"];
+
+        if (trackCount > 0) {
+            [mediaInfo appendString:@" ("];
+            for (NSUInteger x = 0; x < trackCount; x++) {
+                NSString *language = [spuTracks[x] valueForKey:@"language"];
+
+                if (language) {
+                    if (x != 0)
+                        [mediaInfo appendFormat:@", %@", [language uppercaseString]];
+                    else
+                        [mediaInfo appendString:[language uppercaseString]];
+                }
+            }
+            [mediaInfo appendString:@")"];
+        }
+
+        self.metaDataLabel.text = mediaInfo;
+        videoTracks = audioTracks = spuTracks = nil;
+    } else
+        self.metaDataLabel.text = @"";
 
     void (^animationBlock)() = ^() {
         self.frame = frame;
+        self.metaDataLabel.hidden = metaHidden;
     };
 
     void (^completionBlock)(BOOL finished) = ^(BOOL finished) {
         self.frame = frame;
+        self.metaDataLabel.hidden = metaHidden;
+    };
+
+    NSTimeInterval animationDuration = .2;
+    [UIView animateWithDuration:animationDuration animations:animationBlock completion:completionBlock];
+}
+
+- (void)collapsWithAnimation:(BOOL)animate
+{
+    _isExpanded = NO;
+    if (!animate) {
+        self.metaDataLabel.hidden = YES;
+        CGRect frame = self.frame;
+        frame.size.height = 90.;
+        self.frame = frame;
+        return;
+    }
+
+    CGRect frame = self.frame;
+    frame.size.height = 90.;
+    BOOL metaHidden = YES;
+
+    void (^animationBlock)() = ^() {
+        self.frame = frame;
+        self.metaDataLabel.hidden = metaHidden;
+    };
+
+    void (^completionBlock)(BOOL finished) = ^(BOOL finished) {
+        self.frame = frame;
+        self.metaDataLabel.hidden = metaHidden;
     };
 
     NSTimeInterval animationDuration = .2;

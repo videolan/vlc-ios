@@ -2,7 +2,7 @@
  * VLCPlaylistViewController.m
  * VLC for iOS
  *****************************************************************************
- * Copyright (c) 2013-2014 VideoLAN. All rights reserved.
+ * Copyright (c) 2013-2015 VideoLAN. All rights reserved.
  * $Id$
  *
  * Authors: Felix Paul Kühne <fkuehne # videolan.org>
@@ -571,8 +571,10 @@ static NSString *kDisplayedFirstSteps = @"Did we display the first steps tutoria
     VLCPlaylistTableViewCell *cell = (VLCPlaylistTableViewCell *)[tableView dequeueReusableCellWithIdentifier:CellIdentifier];
     if (cell == nil)
         cell = [VLCPlaylistTableViewCell cellWithReuseIdentifier:CellIdentifier];
+    else
+        [cell collapsWithAnimation:NO];
 
-    UISwipeGestureRecognizer *swipeRight = [[UISwipeGestureRecognizer alloc] initWithTarget:self action:@selector(swipeRightGestureAction:)];
+    UISwipeGestureRecognizer *swipeRight = [[UISwipeGestureRecognizer alloc] initWithTarget:self action:@selector(swipeRightOnTableViewCellGestureAction:)];
     [swipeRight setDirection:(UISwipeGestureRecognizerDirectionRight)];
     [cell addGestureRecognizer:swipeRight];
 
@@ -627,6 +629,18 @@ static NSString *kDisplayedFirstSteps = @"Did we display the first steps tutoria
 
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
 {
+    if ([(VLCPlaylistTableViewCell *)[tableView cellForRowAtIndexPath:indexPath] isExpanded]) {
+        [(VLCPlaylistTableViewCell *)[tableView cellForRowAtIndexPath:indexPath] collapsWithAnimation:YES];
+        return;
+    }
+
+    NSArray *visibleCells = [tableView visibleCells];
+    NSUInteger cellCount = visibleCells.count;
+    for (NSUInteger x = 0; x < cellCount; x++) {
+        if ([visibleCells[x] isExpanded])
+            [visibleCells[x] collapsWithAnimation:NO];
+    }
+
     if (tableView.isEditing) {
         if (_libraryMode == VLCLibraryModeCreateFolder) {
             _folderObject = _foundMedia[indexPath.row];
@@ -690,7 +704,7 @@ static NSString *kDisplayedFirstSteps = @"Did we display the first steps tutoria
 }
 
 #pragma mark - Gesture Action
-- (void)swipeRightGestureAction:(UIGestureRecognizer *)recognizer
+- (void)swipeRightOnTableViewCellGestureAction:(UIGestureRecognizer *)recognizer
 {
     if ([[self.editButtonItem title] isEqualToString:NSLocalizedString(@"BUTTON_CANCEL", nil)])
         [self setEditing:NO animated:YES];
@@ -702,6 +716,14 @@ static NSString *kDisplayedFirstSteps = @"Did we display the first steps tutoria
                                     animated:YES
                               scrollPosition:UITableViewScrollPositionNone];
     }
+}
+
+- (void)swipeRightOnCollectionViewCellGestureAction:(UIGestureRecognizer *)recognizer
+{
+    NSLog(@"swipeRightOnCollectionViewCellGestureAction");
+    NSIndexPath *path = [self.collectionView indexPathForItemAtPoint:[recognizer locationInView:self.collectionView]];
+    VLCPlaylistCollectionViewCell *cell = (VLCPlaylistCollectionViewCell *)[self.collectionView cellForItemAtIndexPath:path];
+    [cell showMetadata:!cell.showsMetaData];
 }
 
 - (void)tapTwiceGestureAction:(UIGestureRecognizer *)recognizer
@@ -733,6 +755,10 @@ static NSString *kDisplayedFirstSteps = @"Did we display the first steps tutoria
     cell.collectionView = _collectionView;
 
     [cell setEditing:self.editing animated:NO];
+
+    UISwipeGestureRecognizer *swipeRight = [[UISwipeGestureRecognizer alloc] initWithTarget:self action:@selector(swipeRightOnCollectionViewCellGestureAction:)];
+    [swipeRight setDirection:(UISwipeGestureRecognizerDirectionRight)];
+    [cell addGestureRecognizer:swipeRight];
 
     return cell;
 }
@@ -772,6 +798,9 @@ static NSString *kDisplayedFirstSteps = @"Did we display the first steps tutoria
 
 - (void)collectionView:(UICollectionView *)collectionView didSelectItemAtIndexPath:(NSIndexPath *)indexPath
 {
+    NSArray *visibleCells = [collectionView visibleCells];
+    NSUInteger cellCount = visibleCells.count;
+
     if (self.editing) {
         if (_libraryMode == VLCLibraryModeCreateFolder) {
             _folderObject = _foundMedia[indexPath.item];
@@ -782,6 +811,12 @@ static NSString *kDisplayedFirstSteps = @"Did we display the first steps tutoria
         }
         [(VLCPlaylistCollectionViewCell *)[collectionView cellForItemAtIndexPath:indexPath] selectionUpdate];
         return;
+    }
+
+    for (NSUInteger x = 0; x < cellCount; x++) {
+        VLCPlaylistCollectionViewCell *cell = visibleCells[x];
+        if ([cell showsMetaData])
+            [cell showMetadata:NO];
     }
 
     NSManagedObject *selectedObject = _foundMedia[indexPath.row];
