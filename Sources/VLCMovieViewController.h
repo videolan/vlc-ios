@@ -2,7 +2,7 @@
  * VLCMovieViewController.h
  * VLC for iOS
  *****************************************************************************
- * Copyright (c) 2013-2014 VideoLAN. All rights reserved.
+ * Copyright (c) 2013-2015 VideoLAN. All rights reserved.
  * $Id$
  *
  * Authors: Felix Paul Kühne <fkuehne # videolan.org>
@@ -39,6 +39,7 @@
 @property (nonatomic, strong) IBOutlet UIButton *lockButtonLandscape;
 @property (nonatomic, strong) IBOutlet UIButton *chapterButton;
 @property (nonatomic, strong) IBOutlet UIButton *chapterButtonLandscape;
+@property (nonatomic, strong) IBOutlet UIButton *equalizerButton;
 @property (nonatomic, strong) IBOutlet UINavigationBar *toolbar;
 @property (nonatomic, strong) IBOutlet VLCFrostedGlasView *controllerPanel;
 @property (nonatomic, strong) IBOutlet VLCFrostedGlasView *controllerPanelLandscape;
@@ -110,6 +111,7 @@
 - (IBAction)switchTrack:(id)sender;
 - (IBAction)lock:(id)sender;
 - (IBAction)switchChapter:(id)sender;
+- (IBAction)equalizer:(id)sender;
 
 - (IBAction)videoFilterToggle:(id)sender;
 - (IBAction)videoFilterSliderAction:(id)sender;

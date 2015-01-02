@@ -2,7 +2,7 @@
  * VLCMovieViewController.m
  * VLC for iOS
  *****************************************************************************
- * Copyright (c) 2013-2014 VideoLAN. All rights reserved.
+ * Copyright (c) 2013-2015 VideoLAN. All rights reserved.
  * $Id$
  *
  * Authors: Felix Paul Kühne <fkuehne # videolan.org>
@@ -24,6 +24,7 @@
 #import "VLCThumbnailsCache.h"
 #import "VLCTrackSelectorTableViewCell.h"
 #import "VLCTrackSelectorHeaderView.h"
+#import "VLCEqualizerView.h"
 
 #import "OBSlider.h"
 #import "VLCStatusLabel.h"
@@ -39,7 +40,7 @@
 if (_interfaceIsLocked) \
 return
 
-@interface VLCMovieViewController () <UIGestureRecognizerDelegate, AVAudioSessionDelegate, VLCMediaDelegate, UITableViewDataSource, UITableViewDelegate>
+@interface VLCMovieViewController () <UIGestureRecognizerDelegate, AVAudioSessionDelegate, VLCMediaDelegate, UITableViewDataSource, UITableViewDelegate, VLCEqualizerViewDelegate>
 {
     VLCMediaListPlayer *_listPlayer;
     VLCMediaPlayer *_mediaPlayer;
@@ -76,6 +77,8 @@ return
 
     UIView *_trackSelectorContainer;
     UITableView *_trackSelectorTableView;
+
+    VLCEqualizerView *_equalizerView;
 }
 
 @property (nonatomic, strong) UIPopoverController *masterPopoverController;
@@ -387,6 +390,12 @@ return
         _trackSelectorTableView.backgroundColor = [UIColor blackColor];
 
     [self.view addSubview:_trackSelectorContainer];
+
+    _equalizerView = [[VLCEqualizerView alloc] initWithFrame:CGRectMake((rect.size.width - 450.) / 2., self.controllerPanel.frame.origin.y - 120., 450., 120.)];
+    _equalizerView.delegate = self;
+    _equalizerView.autoresizingMask = UIViewAutoresizingFlexibleRightMargin | UIViewAutoresizingFlexibleLeftMargin | UIViewAutoresizingFlexibleTopMargin;
+    _equalizerView.hidden = YES;
+    [self.view addSubview:_equalizerView];
 }
 
 - (BOOL)_blobCheck
@@ -467,7 +476,7 @@ return
     if (self.pathToExternalSubtitlesFile)
         _listPlayer = [[VLCMediaListPlayer alloc] initWithOptions:@[[NSString stringWithFormat:@"--%@=%@", kVLCSettingSubtitlesFilePath, self.pathToExternalSubtitlesFile]]];
     else
-        _listPlayer = [[VLCMediaListPlayer alloc] init];
+        _listPlayer = [[VLCMediaListPlayer alloc] initWithOptions:@[@"-vvvv"]];
 
     _mediaPlayer = _listPlayer.mediaPlayer;
     [_mediaPlayer setDelegate:self];
@@ -881,6 +890,8 @@ return
         _playbackSpeedView.hidden = _playbackSpeedViewHidden;
         _trackSelectorContainer.alpha = 0.0f;
         _trackSelectorContainer.hidden = YES;
+        _equalizerView.alpha = 0.0f;
+        _equalizerView.hidden = YES;
     }
 
     void (^animationBlock)() = ^() {
@@ -890,6 +901,7 @@ return
         _videoFilterView.alpha = alpha;
         _playbackSpeedView.alpha = alpha;
         _trackSelectorContainer.alpha = alpha;
+        _equalizerView.alpha = alpha;
     };
 
     void (^completionBlock)(BOOL finished) = ^(BOOL finished) {
@@ -899,6 +911,7 @@ return
         _videoFilterView.hidden = _videoFiltersHidden;
         _playbackSpeedView.hidden = _playbackSpeedViewHidden;
         _trackSelectorContainer.hidden = YES;
+        _equalizerView.hidden = YES;
     };
 
     UIStatusBarAnimation animationType = animated? UIStatusBarAnimationFade: UIStatusBarAnimationNone;
@@ -1206,6 +1219,28 @@ return
 - (IBAction)lock:(id)sender
 {
     _interfaceIsLocked = !_interfaceIsLocked;
+}
+
+- (IBAction)equalizer:(id)sender
+{
+    LOCKCHECK;
+
+    if (_equalizerView.hidden) {
+        if (!_playbackSpeedViewHidden)
+            self.playbackSpeedView.hidden = _playbackSpeedViewHidden = YES;
+
+        if (UI_USER_INTERFACE_IDIOM() == UIUserInterfaceIdiomPhone) {
+            if (!_controlsHidden) {
+                self.controllerPanel.hidden = _controlsHidden = YES;
+                self.controllerPanelLandscape.hidden = YES;
+            }
+        }
+
+        self.videoFilterView.hidden = _videoFiltersHidden = YES;
+        _equalizerView.alpha = 1.;
+        _equalizerView.hidden = NO;
+    } else
+        _equalizerView.hidden = YES;
 }
 
 #pragma mark - track selector table view
@@ -1544,6 +1579,44 @@ return
     } else
         APLog(@"unknown sender for videoFilterSliderAction");
     [self _resetIdleTimer];
+}
+
+#pragma mark - equalizer
+
+- (void)setAmplification:(CGFloat)amplification forBand:(unsigned int)index
+{
+    [self _resetIdleTimer];
+
+    if (!_mediaPlayer.equalizerEnabled)
+        [_mediaPlayer setEqualizerEnabled:YES];
+
+    [_mediaPlayer setAmplification:amplification forBand:index];
+}
+
+- (CGFloat)amplificationOfBand:(unsigned int)index
+{
+    return [_mediaPlayer amplificationOfBand:index];
+}
+
+- (NSArray *)equalizerProfiles
+{
+    return _mediaPlayer.equalizerProfiles;
+}
+
+- (void)resetEqualizerFromProfile:(unsigned int)profile
+{
+    [_mediaPlayer resetEqualizerFromProfile:profile];
+}
+
+- (void)setPreAmplification:(CGFloat)preAmplification
+{
+    [self _resetIdleTimer];
+    [_mediaPlayer setPreAmplification:preAmplification];
+}
+
+- (CGFloat)preAmplification
+{
+    return [_mediaPlayer preAmplification];
 }
 
 #pragma mark - playback view

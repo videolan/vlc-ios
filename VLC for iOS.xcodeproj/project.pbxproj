@@ -211,6 +211,7 @@
 		7D3784E9183A9A15009EE944 /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 7D3784E8183A9A15009EE944 /* main.m */; };
 		7D3E6CE518589EE000D584E7 /* AppIcon512x512.png in Resources */ = {isa = PBXBuildFile; fileRef = 7D3E6CE418589EE000D584E7 /* AppIcon512x512.png */; };
 		7D3EB014174A353E002062C2 /* SystemConfiguration.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 7D3EB013174A353E002062C2 /* SystemConfiguration.framework */; };
+		7D4625881A5614A1001A80B4 /* VLCEqualizerView.m in Sources */ = {isa = PBXBuildFile; fileRef = 7D4625871A5614A1001A80B4 /* VLCEqualizerView.m */; };
 		7D47D6F91760CD8700E86BAD /* subtitleIcon.png in Resources */ = {isa = PBXBuildFile; fileRef = 7D47D6CB1760CD8700E86BAD /* subtitleIcon.png */; };
 		7D47D6FA1760CD8700E86BAD /* subtitleIcon@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 7D47D6CC1760CD8700E86BAD /* subtitleIcon@2x.png */; };
 		7D47D6FB1760CD8700E86BAD /* videoEffectsIcon.png in Resources */ = {isa = PBXBuildFile; fileRef = 7D47D6CD1760CD8700E86BAD /* videoEffectsIcon.png */; };
@@ -856,6 +857,8 @@
 		7D4136641896710500D7B4B2 /* si */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = si; path = "si.lproj/badgeUnread@2x~iphone.png"; sourceTree = "<group>"; };
 		7D4136651896710500D7B4B2 /* si */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = si; path = "si.lproj/badgeUnread~ipad.png"; sourceTree = "<group>"; };
 		7D4136661896710500D7B4B2 /* si */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = si; path = "si.lproj/badgeUnread~iphone.png"; sourceTree = "<group>"; };
+		7D4625861A5614A1001A80B4 /* VLCEqualizerView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = VLCEqualizerView.h; path = Sources/VLCEqualizerView.h; sourceTree = SOURCE_ROOT; };
+		7D4625871A5614A1001A80B4 /* VLCEqualizerView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = VLCEqualizerView.m; path = Sources/VLCEqualizerView.m; sourceTree = SOURCE_ROOT; };
 		7D47D6CB1760CD8700E86BAD /* subtitleIcon.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = subtitleIcon.png; sourceTree = "<group>"; };
 		7D47D6CC1760CD8700E86BAD /* subtitleIcon@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "subtitleIcon@2x.png"; sourceTree = "<group>"; };
 		7D47D6CD1760CD8700E86BAD /* videoEffectsIcon.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = videoEffectsIcon.png; sourceTree = "<group>"; };
@@ -1938,6 +1941,8 @@
 				7D37848E183A98B6009EE944 /* VLCMovieViewController.m */,
 				7D378490183A98BF009EE944 /* VLCExternalDisplayController.h */,
 				7D378491183A98BF009EE944 /* VLCExternalDisplayController.m */,
+				7D4625861A5614A1001A80B4 /* VLCEqualizerView.h */,
+				7D4625871A5614A1001A80B4 /* VLCEqualizerView.m */,
 				7D5CAA871A4AD763003F2CBC /* VLCTrackSelectorTableViewCell.h */,
 				7D5CAA881A4AD763003F2CBC /* VLCTrackSelectorTableViewCell.m */,
 				7D5CAA8A1A4AD8E5003F2CBC /* VLCTrackSelectorHeaderView.h */,
@@ -3188,6 +3193,7 @@
 				7D3784BE183A9938009EE944 /* UIBarButtonItem+Theme.m in Sources */,
 				41B93C051A53835300102E8B /* VLCCloudServiceCell.m in Sources */,
 				7D3784BF183A9938009EE944 /* UINavigationController+Theme.m in Sources */,
+				7D4625881A5614A1001A80B4 /* VLCEqualizerView.m in Sources */,
 				7DF9352F1958AB0600E60FD4 /* UIColor+Presets.m in Sources */,
 				7D50903218F41C7900180139 /* VLCAlertView.m in Sources */,
 				7DBBF182183AB3B80009A339 /* VLCAppDelegate.m in Sources */,
