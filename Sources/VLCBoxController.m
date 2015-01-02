@@ -89,7 +89,7 @@
     alert = [[UIAlertView alloc] initWithTitle: title
                                        message: message
                                       delegate: nil
-                             cancelButtonTitle: @"OK"
+                             cancelButtonTitle: NSLocalizedString(@"BUTTON_OK", nil)
                              otherButtonTitles: nil];
     [alert show];
 }
@@ -186,7 +186,7 @@
     return NO;
 }
 
-//just pick out Directories and suported formats.
+//just pick out Directories and supported formats.
 //if the resulting list contains less than 10 items try to get more
 
 - (void)_listOfGoodFilesAndFolders
@@ -194,7 +194,8 @@
     NSMutableArray *listOfGoodFilesAndFolders = [NSMutableArray new];
     _maxOffset = _fileList.totalCount.intValue;
     _offset += _fileList.numberOfEntries;
-    for (int i = 0; i < _fileList.numberOfEntries; i++)
+    NSUInteger numberOfEntries = _fileList.numberOfEntries;
+    for (int i = 0; i < numberOfEntries; i++)
     {
         BoxModel *boxFile = [_fileList modelAtIndex:i];
         BOOL isDirectory = [boxFile.type isEqualToString:BoxAPIItemTypeFolder];

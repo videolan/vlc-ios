@@ -251,7 +251,7 @@
     _selectedFile = nil;
 }
 
-#pragma mark - google drive controller delegate
+#pragma mark - box controller delegate
 
 - (void)mediaListUpdated
 {
