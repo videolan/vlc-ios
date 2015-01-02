@@ -17,6 +17,7 @@
 #import "VLCGoogleDriveTableViewController.h"
 #import "VLCBoxTableViewController.h"
 #import "VLCOneDriveTableViewController.h"
+#import "VLCOneDriveController.h"
 #import "VLCDocumentPickerController.h"
 #import "VLCCloudServiceCell.h"
 
@@ -117,10 +118,9 @@
         }
         case 3: {
             //OneDrive
-            //TODO: figure out right way to check session state
-            BOOL isAuthorized = NO;//[[OneDriveSDK sharedSDK] isAuthorized];
+            BOOL isAuthorized = [[VLCOneDriveController sharedInstance] activeSession];
             cell.icon.image = [UIImage imageNamed:@"OneDrive"];
-            cell.cloudTitle.text = @"One Drive";
+            cell.cloudTitle.text = @"OneDrive";
             cell.cloudInformation.text = isAuthorized ? NSLocalizedString(@"LOGGED_IN", "") : NSLocalizedString(@"LOGIN", "");
             break;
         }
