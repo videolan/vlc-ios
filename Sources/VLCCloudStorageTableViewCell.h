@@ -14,6 +14,7 @@
 #import <DropboxSDK/DropboxSDK.h>
 #import "GTLDrive.h"
 #import <BoxSDK/BoxSDK.h>
+#import "VLCOneDriveObject.h"
 
 @interface VLCCloudStorageTableViewCell : UITableViewCell
 
@@ -28,6 +29,7 @@
 @property (nonatomic, retain) DBMetadata *fileMetadata;
 @property (nonatomic, retain) GTLDriveFile *driveFile;
 @property (nonatomic, retain) BoxItem *boxFile;
+@property (nonatomic, retain) VLCOneDriveObject *oneDriveFile;
 
 + (VLCCloudStorageTableViewCell *)cellWithReuseIdentifier:(NSString *)ident;
 + (CGFloat)heightOfCell;

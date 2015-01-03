@@ -342,6 +342,7 @@
 		7DA7C907186324FA00B56120 /* serverIcon@4x.png in Resources */ = {isa = PBXBuildFile; fileRef = 7DA7C904186324FA00B56120 /* serverIcon@4x.png */; };
 		7DA8B0FB173318E80029698C /* SourceCodePro-Regular.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 7DA8B0F9173318E80029698C /* SourceCodePro-Regular.ttf */; };
 		7DB638AB185BC0890003887C /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 7DB638AA185BC0890003887C /* Images.xcassets */; };
+		7DB847D71A5871570002DC30 /* VLCOneDriveObject.m in Sources */ = {isa = PBXBuildFile; fileRef = 7DB847D61A5871570002DC30 /* VLCOneDriveObject.m */; };
 		7DBBF182183AB3B80009A339 /* VLCAppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 7DBBF181183AB3B80009A339 /* VLCAppDelegate.m */; };
 		7DBBF19A183AB4300009A339 /* VLCCloudStorageTableViewCell~ipad.xib in Resources */ = {isa = PBXBuildFile; fileRef = 7DBBF185183AB4300009A339 /* VLCCloudStorageTableViewCell~ipad.xib */; };
 		7DBBF19B183AB4300009A339 /* VLCCloudStorageTableViewCell~iphone.xib in Resources */ = {isa = PBXBuildFile; fileRef = 7DBBF186183AB4300009A339 /* VLCCloudStorageTableViewCell~iphone.xib */; };
@@ -1093,6 +1094,8 @@
 		7DB2487118EA1D6E0097ADD2 /* ro */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = ro; path = "ro.lproj/badgeUnread~ipad.png"; sourceTree = "<group>"; };
 		7DB2487218EA1D6E0097ADD2 /* ro */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = ro; path = "ro.lproj/badgeUnread~iphone.png"; sourceTree = "<group>"; };
 		7DB638AA185BC0890003887C /* Images.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; name = Images.xcassets; path = "vlc-ios/Images.xcassets"; sourceTree = "<group>"; };
+		7DB847D51A5871570002DC30 /* VLCOneDriveObject.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = VLCOneDriveObject.h; path = Sources/VLCOneDriveObject.h; sourceTree = SOURCE_ROOT; };
+		7DB847D61A5871570002DC30 /* VLCOneDriveObject.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = VLCOneDriveObject.m; path = Sources/VLCOneDriveObject.m; sourceTree = SOURCE_ROOT; };
 		7DBBF180183AB3B80009A339 /* VLCAppDelegate.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = VLCAppDelegate.h; path = Sources/VLCAppDelegate.h; sourceTree = SOURCE_ROOT; };
 		7DBBF181183AB3B80009A339 /* VLCAppDelegate.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = VLCAppDelegate.m; path = Sources/VLCAppDelegate.m; sourceTree = SOURCE_ROOT; };
 		7DBBF185183AB4300009A339 /* VLCCloudStorageTableViewCell~ipad.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; name = "VLCCloudStorageTableViewCell~ipad.xib"; path = "Resources/VLCCloudStorageTableViewCell~ipad.xib"; sourceTree = SOURCE_ROOT; };
@@ -1603,6 +1606,8 @@
 				7D1052E81A4DCC1100295F08 /* VLCOneDriveTableViewController.m */,
 				7D1052EC1A4DCD1E00295F08 /* VLCOneDriveController.h */,
 				7D1052ED1A4DCD1E00295F08 /* VLCOneDriveController.m */,
+				7DB847D51A5871570002DC30 /* VLCOneDriveObject.h */,
+				7DB847D61A5871570002DC30 /* VLCOneDriveObject.m */,
 			);
 			name = OneDrive;
 			sourceTree = "<group>";
@@ -3219,6 +3224,7 @@
 				7D30F3D0183AB2AC00FFC021 /* VLCMediaFileDiscoverer.m in Sources */,
 				493B1A1D195D06B1000A491A /* BasicUPnPDevice+VLC.m in Sources */,
 				265D511D1922746C00E38383 /* VLCPlexParser.m in Sources */,
+				7DB847D71A5871570002DC30 /* VLCOneDriveObject.m in Sources */,
 				7D1052E91A4DCC1100295F08 /* VLCOneDriveTableViewController.m in Sources */,
 				7D30F3D7183AB2F100FFC021 /* VLCLocalNetworkListCell.m in Sources */,
 				265D511C1922746C00E38383 /* VLCLocalPlexFolderListViewController.m in Sources */,

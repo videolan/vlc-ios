@@ -2,7 +2,7 @@
  * VLCOneDriveController.m
  * VLC for iOS
  *****************************************************************************
- * Copyright (c) 2014 VideoLAN. All rights reserved.
+ * Copyright (c) 2014-2015 VideoLAN. All rights reserved.
  * $Id$
  *
  * Authors: Felix Paul Kühne <fkuehne # videolan.org>
@@ -13,6 +13,7 @@
 
 #import "VLCOneDriveController.h"
 #import "VLCOneDriveConstants.h"
+#import "VLCOneDriveObject.h"
 
 /* the Live SDK doesn't have an umbrella header so we need to import what we need */
 #import <LiveSDK/LiveConnectClient.h>
@@ -20,7 +21,7 @@
 /* include private API headers */
 #import <LiveSDK/LiveApiHelper.h>
 
-@interface VLCOneDriveController () <LiveAuthDelegate, LiveDownloadOperationDelegate, LiveOperationDelegate>
+@interface VLCOneDriveController () <LiveAuthDelegate, LiveDownloadOperationDelegate, LiveOperationDelegate, VLCOneDriveObjectDelegate>
 {
     LiveConnectClient *_liveClient;
     NSArray *_liveScopes;
@@ -50,7 +51,7 @@
     if (!self)
         return self;
 
-    _liveScopes = @[@"wl.signin",@"wl.basic",@"wl.skydrive"];
+    _liveScopes = @[@"wl.signin",@"wl.offline_access",@"wl.skydrive"];
 
     _liveClient = [[LiveConnectClient alloc] initWithClientId:kVLCOneDriveClientID
                                                        scopes:_liveScopes
@@ -79,30 +80,68 @@
 {
     [_liveClient logoutWithDelegate:self userState:@"logout"];
     _activeSession = NO;
+    _userAuthenticated = NO;
 }
 
 - (void)authCompleted:(LiveConnectSessionStatus)status session:(LiveConnectSession *)session userState:(id)userState
 {
-    if (status == 1 && session != NULL)
+    NSLog(@"authCompleted, status %i, state %@", status, userState);
+
+    if (status == 1 && session != NULL && [userState isEqualToString:@"init"])
         _activeSession = YES;
     else
         _activeSession = NO;
+
+    if (status == 1 && session != NULL && [userState isEqualToString:@"login"])
+        _userAuthenticated = YES;
+    else
+        _userAuthenticated = NO;
+
+    if (self.delegate) {
+        if ([self.delegate respondsToSelector:@selector(sessionWasUpdated)])
+            [self.delegate performSelector:@selector(sessionWasUpdated)];
+    }
 }
 
 - (void)authFailed:(NSError *)error userState:(id)userState
 {
     APLog(@"OneDrive auth failed: %@, %@", error, userState);
     _activeSession = NO;
+
+    if (self.delegate) {
+        if ([self.delegate respondsToSelector:@selector(sessionWasUpdated)])
+            [self.delegate performSelector:@selector(sessionWasUpdated)];
+    }
 }
 
 #pragma mark - listing
 
-- (void)requestDirectoryListingAtPath:(NSString *)path
+- (void)loadTopLevelFolder
 {
+    _rootFolder = [[VLCOneDriveObject alloc] init];
+    _rootFolder.objectId = @"me/skydrive";
+    _rootFolder.name = @"OneDrive";
+    _rootFolder.type = @"folder";
+    _rootFolder.liveClient = _liveClient;
+    _rootFolder.delegate = self;
+
+    _currentFolder = _rootFolder;
+    [_rootFolder loadFolderContent];
+}
+
+- (void)loadCurrentFolder
+{
+    if (_currentFolder == nil)
+        [self loadTopLevelFolder];
+    else {
+        _currentFolder.delegate = self;
+        [_currentFolder loadFolderContent];
+    }
 }
 
 - (void)liveOperationSucceeded:(LiveOperation *)operation
 {
+    NSLog(@"%@", operation);
 }
 
 - (void)liveOperationFailed:(NSError *)error operation:(LiveOperation *)operation
@@ -123,6 +162,37 @@
 
 - (void)streamFileWithPath:(NSString *)path
 {
+}
+
+#pragma mark - skydrive object delegation
+
+- (void)folderContentLoaded:(VLCOneDriveObject *)sender
+{
+    NSLog(@"odc: foldercontent loaded: %@", [sender name]);
+
+    if (self.delegate)
+        [self.delegate performSelector:@selector(mediaListUpdated)];
+}
+
+- (void)folderContentLoadingFailed:(NSError *)error sender:(VLCOneDriveObject *)sender
+{
+    NSLog(@"folder content loading failed %@", error);
+}
+
+- (void)fileContentLoaded:(VLCOneDriveObject *)sender
+{
+}
+
+- (void)fileContentLoadingFailed:(NSError *)error sender:(VLCOneDriveObject *)sender
+{
+    NSLog(@"file content loading failed %@", error);
+}
+
+- (void)fullFolderTreeLoaded:(VLCOneDriveObject *)sender
+{
+    NSLog(@"fullFolderTreeLoaded");
+    if (self.delegate)
+        [self.delegate performSelector:@selector(mediaListUpdated)];
 }
 
 @end

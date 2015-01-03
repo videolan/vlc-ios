@@ -54,6 +54,14 @@
     [self _updatedDisplayedInformation];
 }
 
+- (void)setOneDriveFile:(VLCOneDriveObject *)oneDriveFile
+{
+    if (oneDriveFile != _oneDriveFile)
+        _oneDriveFile = oneDriveFile;
+
+    [self _updatedDisplayedInformation];
+}
+
 - (void)_updatedDisplayedInformation
 {
     if (_fileMetadata != nil) {
@@ -136,9 +144,23 @@
             self.thumbnailView.image = [UIImage imageNamed:@"blank"];
             APLog(@"missing icon for type '%@'", self.boxFile);
         }
+    } else if(_oneDriveFile != nil) {
+        if (_oneDriveFile.isFolder) {
+            self.folderTitleLabel.text = self.oneDriveFile.name;
+            self.titleLabel.hidden = self.subtitleLabel.hidden = YES;
+            self.folderTitleLabel.hidden = NO;
+            self.thumbnailView.image = [UIImage imageNamed:@"folder"];
+        } else {
+            self.titleLabel.text = self.oneDriveFile.name;
+            self.subtitleLabel.text = (self.oneDriveFile.size > 0) ? [NSByteCountFormatter stringFromByteCount:[self.oneDriveFile.size longLongValue] countStyle:NSByteCountFormatterCountStyleFile]: @"";
+            self.titleLabel.hidden = self.subtitleLabel.hidden = NO;
+            self.folderTitleLabel.hidden = YES;
+            self.thumbnailView.image = [UIImage imageNamed:@"blank"];
+        }
     }
     //we don't have streaming for box yet
     self.downloadButton.hidden = _boxFile != nil;
+
     [self setNeedsDisplay];
 }
 

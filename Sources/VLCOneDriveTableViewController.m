@@ -2,7 +2,7 @@
  * VLCOneDriveTableViewController.m
  * VLC for iOS
  *****************************************************************************
- * Copyright (c) 2014 VideoLAN. All rights reserved.
+ * Copyright (c) 2014-2015 VideoLAN. All rights reserved.
  * $Id$
  *
  * Authors: Felix Paul Kühne <fkuehne # videolan.org>
@@ -17,7 +17,7 @@
 #import "VLCAppDelegate.h"
 #import "VLCOneDriveController.h"
 
-@interface VLCOneDriveTableViewController () <UITableViewDataSource, UITableViewDelegate>
+@interface VLCOneDriveTableViewController () <UITableViewDataSource, UITableViewDelegate, VLCOneDriveControllerDelegate, VLCCloudStorageTableViewCell>
 {
     UIBarButtonItem *_backButton;
     UIBarButtonItem *_logoutButton;
@@ -25,6 +25,7 @@
     UIActivityIndicatorView *_activityIndicator;
 
     VLCOneDriveController *_oneDriveController;
+    NSString *_currentPath;
 }
 @end
 
@@ -52,10 +53,10 @@
     self.cloudStorageLogo = nil;
     if (!SYSTEM_RUNS_IOS7_OR_LATER) {
         self.flatLoginButton.hidden = YES;
-        [self.loginButton setTitle:NSLocalizedString(@"ONEDRIVE_LOGIN", nil) forState:UIControlStateNormal];
+        [self.loginButton setTitle:NSLocalizedString(@"DROPBOX_LOGIN", nil) forState:UIControlStateNormal];
     } else {
         self.loginButton.hidden = YES;
-        [self.flatLoginButton setTitle:NSLocalizedString(@"ONEDRIVE_LOGIN", nil) forState:UIControlStateNormal];
+        [self.flatLoginButton setTitle:NSLocalizedString(@"DROPBOX_LOGIN", nil) forState:UIControlStateNormal];
     }
 
     _activityIndicator = [[UIActivityIndicatorView alloc] initWithActivityIndicatorStyle:UIActivityIndicatorViewStyleWhiteLarge];
@@ -71,8 +72,11 @@
 {
     [super viewWillAppear:animated];
 
-    // FIXME: we should update the listing...
-    [self _showLoginDialog];
+    if (_oneDriveController.activeSession)
+        [_oneDriveController login];
+
+    if (!_oneDriveController.userAuthenticated)
+        [self _showLoginDialog];
 
     [self.cloudStorageLogo sizeToFit];
     self.cloudStorageLogo.center = self.view.center;
@@ -82,33 +86,54 @@
 
 - (IBAction)goBack:(id)sender
 {
-    //FIXME: handle case for being in a folder
-    [self.navigationController popViewControllerAnimated:YES];
+    if (_oneDriveController.rootFolder != _oneDriveController.currentFolder) {
+        _oneDriveController.currentFolder = _oneDriveController.currentFolder.parent;
+        [_activityIndicator startAnimating];
+        [_oneDriveController loadCurrentFolder];
+    } else
+        [self.navigationController popViewControllerAnimated:YES];
 }
 
 #pragma mark - table view data source
 
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section
 {
-    return 0;
+    return _oneDriveController.currentFolder.items.count;
 }
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
 {
-    return nil;
+    static NSString *CellIdentifier = @"OneDriveCell";
+
+    VLCCloudStorageTableViewCell *cell = (VLCCloudStorageTableViewCell *)[tableView dequeueReusableCellWithIdentifier:CellIdentifier];
+    if (cell == nil)
+        cell = [VLCCloudStorageTableViewCell cellWithReuseIdentifier:CellIdentifier];
+
+    cell.oneDriveFile = _oneDriveController.currentFolder.items[indexPath.row];
+    cell.delegate = self;
+
+    return cell;
 }
 
 #pragma mark - table view delegate
 
-- (void)tableView:(UITableView *)tableView
-  willDisplayCell:(UITableViewCell *)cell
-forRowAtIndexPath:(NSIndexPath *)indexPath
+- (void)tableView:(UITableView *)tableView willDisplayCell:(UITableViewCell *)cell forRowAtIndexPath:(NSIndexPath *)indexPath
 {
     cell.backgroundColor = (indexPath.row % 2 == 0)? [UIColor blackColor]: [UIColor VLCDarkBackgroundColor];
 }
 
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
 {
+    VLCOneDriveObject *selectedObject = _oneDriveController.currentFolder.items[indexPath.row];
+
+    if (selectedObject.isFolder) {
+        /* dive into sub folder */
+        [_activityIndicator startAnimating];
+        _oneDriveController.currentFolder = selectedObject;
+        [_oneDriveController loadCurrentFolder];
+    }
+
+    [self.tableView deselectRowAtIndexPath:indexPath animated:NO];
 }
 
 #pragma mark - login dialog
@@ -128,10 +153,47 @@ forRowAtIndexPath:(NSIndexPath *)indexPath
 
 - (void)loginAction:(id)sender
 {
-    if (![_oneDriveController activeSession])
-        [_oneDriveController login];
-    else
-        [_oneDriveController logout];
+    [_oneDriveController login];
+}
+
+#pragma mark - onedrive controller delegation
+
+- (void)mediaListUpdated
+{
+    [_activityIndicator stopAnimating];
+
+    [self.tableView reloadData];
+}
+
+- (void)sessionWasUpdated
+{
+    [self updateViewAfterSessionChange];
+}
+
+#pragma mark - app delegate
+
+- (void)updateViewAfterSessionChange
+{
+    self.navigationItem.rightBarButtonItem = _logoutButton;
+    if (![_oneDriveController userAuthenticated]) {
+        [self _showLoginDialog];
+        return;
+    } else if (self.loginToCloudStorageView.superview) {
+        [self.loginToCloudStorageView removeFromSuperview];
+    }
+
+    if (_oneDriveController.currentFolder != nil)
+        [self mediaListUpdated];
+    else {
+        [_activityIndicator startAnimating];
+        [_oneDriveController loadCurrentFolder];
+    }
+}
+
+#pragma mark - cell delegationx
+
+- (void)triggerDownloadForCell:(VLCCloudStorageTableViewCell *)cell
+{
 }
 
 @end

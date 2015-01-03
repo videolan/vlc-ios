@@ -277,7 +277,7 @@
 }
 
 
-#pragma mark - VLCLocalNetworkListCell delegation
+#pragma mark - VLCCloudStorageTableViewCell delegation
 - (void)triggerDownloadForCell:(VLCCloudStorageTableViewCell *)cell
 {
     _selectedFile = _dropboxController.currentListFiles[[self.tableView indexPathForCell:cell].row];
