@@ -1337,7 +1337,6 @@ static NSString *kDisplayedFirstSteps = @"Did we display the first steps tutoria
     else
         indexPaths = [self.tableView indexPathsForSelectedRows];
 
-
     NSUInteger count = indexPaths.count;
     if (count) {
         NSMutableArray /* NSURL */ *fileURLobjects = [[NSMutableArray alloc] initWithCapacity:count];
@@ -1392,6 +1391,9 @@ static NSString *kDisplayedFirstSteps = @"Did we display the first steps tutoria
                 };
 
                 UIActivityViewController *controller = [[UIActivityViewController alloc] initWithActivityItems:fileURLobjects applicationActivities:@[_openInActivity]];
+                if (SYSTEM_RUNS_IOS8_OR_LATER)
+                    controller.popoverPresentationController.sourceView = self.navigationController.toolbar;
+
                 controller.completionHandler = ^(NSString *activityType, BOOL completed) {
                     APLog(@"UIActivityViewController finished with activity type: %@, completed: %i", activityType, completed);
 
@@ -1411,7 +1413,6 @@ static NSString *kDisplayedFirstSteps = @"Did we display the first steps tutoria
                     // Just in case, we could call enableInteractionBlock here. Since we are disabling touch interaction for the entire UI, to be safe that we return to the proper state: re-enable everything (if presentViewController:animated:completion: failed for some reason). But UIApplication gives us a warning even if we check isIgnoringInteractionEvents, so do not call it for now.
                     // enableInteractionBlock();
                 };
-
                 [self.navigationController presentViewController:controller animated:YES completion:enableInteractionBlock];
             });
             return;
