@@ -307,7 +307,7 @@
 - (void)updateMediaList
 {
     NSString *directoryPath = [self directoryPath];
-    NSMutableArray *foundFiles = [NSMutableArray arrayWithObject:@""];
+    NSMutableArray *foundFiles = [NSMutableArray arrayWithArray:[[NSFileManager defaultManager] contentsOfDirectoryAtPath:directoryPath error:nil]];
     NSMutableArray *filePaths = [NSMutableArray array];
     NSURL *fileURL;
     while (foundFiles.count) {
