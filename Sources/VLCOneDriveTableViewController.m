@@ -131,6 +131,11 @@
         [_activityIndicator startAnimating];
         _oneDriveController.currentFolder = selectedObject;
         [_oneDriveController loadCurrentFolder];
+    } else {
+        /* stream file */
+        NSURL *url = [NSURL URLWithString:selectedObject.downloadPath];
+        VLCAppDelegate *appDelegate = (VLCAppDelegate *)[UIApplication sharedApplication].delegate;
+        [appDelegate openMovieFromURL:url];
     }
 
     [self.tableView deselectRowAtIndexPath:indexPath animated:NO];

@@ -26,11 +26,6 @@
     return [self.objectId stringByAppendingString:@"/files"];
 }
 
-- (NSString *)downloadPath
-{
-    return self.objectId;
-}
-
 - (BOOL)hasFullFolderTree
 {
     BOOL hasFullTree = YES;
@@ -123,6 +118,8 @@
             } else {
                 oneDriveObject.size = rawObject[@"size"];
                 oneDriveObject.thumbnailURL = rawObject[@"picture"];
+                oneDriveObject.downloadPath = rawObject[@"source"];
+                oneDriveObject.duration = rawObject[@"duration"];
                 [folderFiles addObject:oneDriveObject];
             }
             [items addObject:oneDriveObject];

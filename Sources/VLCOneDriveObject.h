@@ -37,6 +37,7 @@
 @property (strong, nonatomic) NSString *name;
 @property (strong, nonatomic) NSString *type;
 @property (strong, nonatomic) NSNumber *size;
+@property (strong, nonatomic) NSNumber *duration;
 @property (strong, nonatomic) NSString *thumbnailURL;
 @property (readonly, nonatomic) BOOL isFolder;
 
@@ -45,7 +46,7 @@
 @property (strong, nonatomic) NSArray *items;
 
 @property (readonly, nonatomic) NSString *filesPath;
-@property (readonly, nonatomic) NSString *downloadPath;
+@property (strong, nonatomic) NSString *downloadPath;
 @property (readonly, nonatomic) BOOL hasFullFolderTree;
 
 @property (strong, nonatomic) LiveConnectClient *liveClient;
