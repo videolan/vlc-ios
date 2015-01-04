@@ -11,6 +11,14 @@
  *****************************************************************************/
 
 #import "VLCOneDriveObject.h"
+#import "VLCHTTPFileDownloader.h"
+
+@interface VLCOneDriveObject () <VLCHTTPFileDownloader>
+{
+    VLCHTTPFileDownloader *_fileDownloader;
+}
+
+@end
 
 @implementation VLCOneDriveObject
 
@@ -60,7 +68,6 @@
 
 - (void)loadFolderContent
 {
-    NSLog(@"loadFolderContent");
     if (!self.isFolder) {
         APLog(@"%@ is no folder, can't load content", self.objectId);
         return;
@@ -85,25 +92,13 @@
     }
 }
 
-- (void)loadFileContent
-{
-}
-
 #pragma mark - live operations
 
 - (void)liveOperationSucceeded:(LiveDownloadOperation *)operation
 {
     NSString *userState = operation.userState;
 
-    NSLog(@"liveOperationSucceeded: %@", userState);
-
-    if ([userState isEqualToString:@"load-file-content"]) {
-//        LiveDownloadOperation *downloadOperation = (LiveDownloadOperation *)operation;
-
-        //FIXME: handle the incoming data!
-
-        [self.delegate fileContentLoaded:self];
-    } else if ([userState isEqualToString:@"load-folder-content"]) {
+    if ([userState isEqualToString:@"load-folder-content"]) {
         NSMutableArray *subFolders = [[NSMutableArray alloc] init];
         NSMutableArray *folderFiles = [[NSMutableArray alloc] init];
         NSMutableArray *items = [[NSMutableArray alloc] init];
@@ -146,14 +141,10 @@
 {
     NSString *userState = operation.userState;
 
-    NSLog(@"liveOperationFailed %@ (%@)", userState, error);
+    APLog(@"liveOperationFailed %@ (%@)", userState, error);
 
     if ([userState isEqualToString:@"load-folder-content"])
         [self.delegate folderContentLoadingFailed:error sender:self];
-    else if ([userState isEqualToString:@"load-file-content"])
-        [self.delegate fileContentLoadingFailed:error sender:self];
-    else
-        APLog(@"failing live operation with state %@ failed with error %@", userState, error);
 }
 
 #pragma mark - delegation
@@ -173,12 +164,38 @@
     [self loadFolderContent];
 }
 
-- (void)fileContentLoaded:(VLCOneDriveObject *)sender
+#pragma mark - file downloading
+
+- (void)saveObjectToDocuments
 {
+    _fileDownloader = [[VLCHTTPFileDownloader alloc] init];
+    _fileDownloader.delegate = self;
+    [_fileDownloader downloadFileFromURLwithFileName:[NSURL URLWithString:self.downloadPath] fileNameOfMedia:self.name];
 }
 
-- (void)fileContentLoadingFailed:(NSError *)error sender:(VLCOneDriveObject *)sender
+- (void)downloadStarted
 {
+    if ([self.downloadDelegate respondsToSelector:@selector(downloadStarted:)])
+        [self.downloadDelegate downloadStarted:self];
+}
+
+- (void)downloadEnded
+{
+    if ([self.downloadDelegate respondsToSelector:@selector(downloadEnded:)])
+        [self.downloadDelegate downloadEnded:self];
+}
+
+- (void)downloadFailedWithErrorDescription:(NSString *)description
+{
+    APLog(@"download failed (%@)", description);
+}
+
+- (void)progressUpdatedTo:(CGFloat)percentage receivedDataSize:(CGFloat)receivedDataSize expectedDownloadSize:(CGFloat)expectedDownloadSize
+{
+    if ([self.downloadDelegate respondsToSelector:@selector(progressUpdated:)])
+        [self.downloadDelegate progressUpdated:percentage];
+    if ([self.downloadDelegate respondsToSelector:@selector(calculateRemainingTime:expectedDownloadSize:)])
+        [self.downloadDelegate calculateRemainingTime:receivedDataSize expectedDownloadSize:expectedDownloadSize];
 }
 
 @end

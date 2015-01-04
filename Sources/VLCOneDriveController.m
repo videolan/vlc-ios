@@ -21,11 +21,19 @@
 /* include private API headers */
 #import <LiveSDK/LiveApiHelper.h>
 
-@interface VLCOneDriveController () <LiveAuthDelegate, LiveDownloadOperationDelegate, VLCOneDriveObjectDelegate>
+@interface VLCOneDriveController () <LiveAuthDelegate, VLCOneDriveObjectDelegate, VLCOneDriveObjectDownloadDelegate>
 {
     LiveConnectClient *_liveClient;
     NSArray *_liveScopes;
     BOOL _activeSession;
+
+    NSMutableArray *_pendingDownloads;
+    BOOL _downloadInProgress;
+
+    CGFloat _averageSpeed;
+    CGFloat _fileSize;
+    NSTimeInterval _startDL;
+    NSTimeInterval _lastStatsUpdate;
 }
 
 @end
@@ -85,7 +93,7 @@
 
 - (void)authCompleted:(LiveConnectSessionStatus)status session:(LiveConnectSession *)session userState:(id)userState
 {
-    NSLog(@"authCompleted, status %i, state %@", status, userState);
+    APLog(@"OneDrive: authCompleted, status %i, state %@", status, userState);
 
     if (status == 1 && session != NULL && [userState isEqualToString:@"init"])
         _activeSession = YES;
@@ -151,21 +159,72 @@
 
 #pragma mark - file handling
 
-- (void)downloadFileWithPath:(NSString *)path
+- (void)downloadObject:(VLCOneDriveObject *)object
 {
+    if (object.isFolder)
+        return;
+
+    object.downloadDelegate = self;
+    if (!_pendingDownloads)
+        _pendingDownloads = [[NSMutableArray alloc] init];
+    [_pendingDownloads addObject:object];
+
+    [self _triggerNextDownload];
 }
 
-- (void)liveDownloadOperationProgressed:(LiveOperationProgress *)progress
-                                   data:(NSData *)receivedData
-                              operation:(LiveDownloadOperation *)operation
+- (void)_triggerNextDownload
 {
+    if (_pendingDownloads.count > 0 && !_downloadInProgress) {
+        _downloadInProgress = YES;
+        [_pendingDownloads[0] saveObjectToDocuments];
+        [_pendingDownloads removeObjectAtIndex:0];
+
+        if ([self.delegate respondsToSelector:@selector(numberOfFilesWaitingToBeDownloadedChanged)])
+            [self.delegate numberOfFilesWaitingToBeDownloadedChanged];
+    }
 }
 
-- (void)streamFileWithPath:(NSString *)path
+- (void)downloadStarted:(VLCOneDriveObject *)object
 {
+    _startDL = [NSDate timeIntervalSinceReferenceDate];
+    if ([self.delegate respondsToSelector:@selector(operationWithProgressInformationStarted)])
+        [self.delegate operationWithProgressInformationStarted];
 }
 
-#pragma mark - skydrive object delegation
+- (void)downloadEnded:(VLCOneDriveObject *)object
+{
+    if ([self.delegate respondsToSelector:@selector(operationWithProgressInformationStopped)])
+        [self.delegate operationWithProgressInformationStopped];
+
+    _downloadInProgress = NO;
+    [self _triggerNextDownload];
+}
+
+- (void)progressUpdated:(CGFloat)progress
+{
+    if ([self.delegate respondsToSelector:@selector(currentProgressInformation:)])
+        [self.delegate currentProgressInformation:progress];
+}
+
+- (void)calculateRemainingTime:(CGFloat)receivedDataSize expectedDownloadSize:(CGFloat)expectedDownloadSize
+{
+    CGFloat lastSpeed = receivedDataSize / ([NSDate timeIntervalSinceReferenceDate] - _startDL);
+    CGFloat smoothingFactor = 0.005;
+    _averageSpeed = isnan(_averageSpeed) ? lastSpeed : smoothingFactor * lastSpeed + (1 - smoothingFactor) * _averageSpeed;
+
+    CGFloat RemainingInSeconds = (expectedDownloadSize - receivedDataSize)/_averageSpeed;
+
+    NSDate *date = [NSDate dateWithTimeIntervalSince1970:RemainingInSeconds];
+    NSDateFormatter *formatter = [[NSDateFormatter alloc] init];
+    [formatter setDateFormat:@"HH:mm:ss"];
+    [formatter setTimeZone:[NSTimeZone timeZoneForSecondsFromGMT:0]];
+
+    NSString  *remaingTime = [formatter stringFromDate:date];
+    if ([self.delegate respondsToSelector:@selector(updateRemainingTime:)])
+        [self.delegate updateRemainingTime:remaingTime];
+}
+
+#pragma mark - onedrive object delegation
 
 - (void)folderContentLoaded:(VLCOneDriveObject *)sender
 {
@@ -176,15 +235,6 @@
 - (void)folderContentLoadingFailed:(NSError *)error sender:(VLCOneDriveObject *)sender
 {
     APLog(@"folder content loading failed %@", error);
-}
-
-- (void)fileContentLoaded:(VLCOneDriveObject *)sender
-{
-}
-
-- (void)fileContentLoadingFailed:(NSError *)error sender:(VLCOneDriveObject *)sender
-{
-    APLog(@"file content loading failed %@", error);
 }
 
 - (void)fullFolderTreeLoaded:(VLCOneDriveObject *)sender

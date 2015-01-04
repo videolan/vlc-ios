@@ -16,16 +16,22 @@
 #import "VLCCloudStorageTableViewCell.h"
 #import "VLCAppDelegate.h"
 #import "VLCOneDriveController.h"
+#import "VLCProgressView.h"
 
 @interface VLCOneDriveTableViewController () <UITableViewDataSource, UITableViewDelegate, VLCOneDriveControllerDelegate, VLCCloudStorageTableViewCell>
 {
     UIBarButtonItem *_backButton;
     UIBarButtonItem *_logoutButton;
+    UIBarButtonItem *_numberOfFilesBarButtonItem;
+    UIBarButtonItem *_progressBarButtonItem;
+    VLCProgressView *_progressView;
 
     UIActivityIndicatorView *_activityIndicator;
 
     VLCOneDriveController *_oneDriveController;
     NSString *_currentPath;
+
+    VLCOneDriveObject *_selectedFile;
 }
 @end
 
@@ -50,6 +56,12 @@
     self.tableView.separatorColor = [UIColor VLCDarkBackgroundColor];
     self.view.backgroundColor = [UIColor VLCDarkBackgroundColor];
 
+    _numberOfFilesBarButtonItem = [[UIBarButtonItem alloc] initWithTitle:[NSString stringWithFormat:NSLocalizedString(@"NUM_OF_FILES", nil), 0] style:UIBarButtonItemStylePlain target:nil action:nil];
+    [_numberOfFilesBarButtonItem setTitleTextAttributes:@{ UITextAttributeFont : [UIFont systemFontOfSize:11.] } forState:UIControlStateNormal];
+
+    _progressView = [VLCProgressView new];
+    _progressBarButtonItem = [[UIBarButtonItem alloc] initWithCustomView:_progressView];
+
     self.cloudStorageLogo = nil;
     if (!SYSTEM_RUNS_IOS7_OR_LATER) {
         self.flatLoginButton.hidden = YES;
@@ -58,6 +70,10 @@
         self.loginButton.hidden = YES;
         [self.flatLoginButton setTitle:NSLocalizedString(@"DROPBOX_LOGIN", nil) forState:UIControlStateNormal];
     }
+
+    [self.navigationController.toolbar setBackgroundImage:[UIImage imageNamed:@"sudHeaderBg"] forToolbarPosition:UIToolbarPositionAny barMetrics:UIBarMetricsDefault];
+
+    [self _showProgressInToolbar:NO];
 
     _activityIndicator = [[UIActivityIndicatorView alloc] initWithActivityIndicatorStyle:UIActivityIndicatorViewStyleWhiteLarge];
     _activityIndicator.hidesWhenStopped = YES;
@@ -70,6 +86,10 @@
 
 - (void)viewWillAppear:(BOOL)animated
 {
+    self.navigationController.toolbarHidden = NO;
+    self.navigationController.toolbar.barStyle = UIBarStyleBlack;
+    [self.navigationController.toolbar setBackgroundImage:[UIImage imageNamed:@"bottomBlackBar"] forToolbarPosition:UIToolbarPositionAny barMetrics:UIBarMetricsDefault];
+
     [super viewWillAppear:animated];
 
     if (_oneDriveController.activeSession)
@@ -80,6 +100,12 @@
 
     [self.cloudStorageLogo sizeToFit];
     self.cloudStorageLogo.center = self.view.center;
+}
+
+- (void)viewWillDisappear:(BOOL)animated
+{
+    self.navigationController.toolbarHidden = YES;
+    [super viewWillDisappear:animated];
 }
 
 #pragma mark - generic interface interaction
@@ -148,6 +174,14 @@
     [self.tableView deselectRowAtIndexPath:indexPath animated:NO];
 }
 
+- (void)alertView:(UIAlertView *)alertView clickedButtonAtIndex:(NSInteger)buttonIndex
+{
+    if (buttonIndex == 1)
+        [_oneDriveController downloadObject:_selectedFile];
+
+    _selectedFile = nil;
+}
+
 #pragma mark - login dialog
 
 - (void)logout
@@ -175,11 +209,52 @@
     [_activityIndicator stopAnimating];
 
     [self.tableView reloadData];
+
+    NSUInteger count = _oneDriveController.currentFolder.items.count;
+    if (count == 0)
+        _numberOfFilesBarButtonItem.title = NSLocalizedString(@"NO_FILES", nil);
+    else if (count != 1)
+        _numberOfFilesBarButtonItem.title = [NSString stringWithFormat:NSLocalizedString(@"NUM_OF_FILES", nil), count];
+    else
+        _numberOfFilesBarButtonItem.title = NSLocalizedString(@"ONE_FILE", nil);
 }
 
 - (void)sessionWasUpdated
 {
     [self updateViewAfterSessionChange];
+}
+
+#pragma mark - download visualization
+
+- (void)_showProgressInToolbar:(BOOL)value
+{
+    if (!value)
+        [self setToolbarItems:@[[[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemFlexibleSpace target:nil action:nil], _numberOfFilesBarButtonItem, [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemFlexibleSpace target:nil action:nil]] animated:YES];
+    else {
+        _progressView.progressBar.progress = 0.;
+        [self setToolbarItems:@[[[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemFlexibleSpace target:nil action:nil], _progressBarButtonItem, [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemFlexibleSpace target:nil action:nil]] animated:YES];
+    }
+}
+
+
+- (void)operationWithProgressInformationStarted
+{
+    [self _showProgressInToolbar:YES];
+}
+
+- (void)currentProgressInformation:(float)progress
+{
+    [_progressView.progressBar setProgress:progress animated:YES];
+}
+
+- (void)updateRemainingTime:(NSString *)time
+{
+    [_progressView updateTime:time];
+}
+
+- (void)operationWithProgressInformationStopped
+{
+    [self _showProgressInToolbar:NO];
 }
 
 #pragma mark - app delegate
@@ -206,6 +281,11 @@
 
 - (void)triggerDownloadForCell:(VLCCloudStorageTableViewCell *)cell
 {
+    NSIndexPath *indexPath = [self.tableView indexPathForCell:cell];
+    _selectedFile = _oneDriveController.currentFolder.items[indexPath.row];
+
+    UIAlertView * alert = [[UIAlertView alloc] initWithTitle:NSLocalizedString(@"DROPBOX_DOWNLOAD", nil) message:[NSString stringWithFormat:NSLocalizedString(@"DROPBOX_DL_LONG", nil), _selectedFile.name, [[UIDevice currentDevice] model]] delegate:self cancelButtonTitle:NSLocalizedString(@"BUTTON_CANCEL", nil) otherButtonTitles:NSLocalizedString(@"BUTTON_DOWNLOAD", nil), nil];
+    [alert show];
 }
 
 @end

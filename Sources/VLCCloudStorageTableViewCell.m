@@ -146,11 +146,13 @@
         }
     } else if(_oneDriveFile != nil) {
         if (_oneDriveFile.isFolder) {
+            self.downloadButton.hidden = YES;
             self.folderTitleLabel.text = self.oneDriveFile.name;
             self.titleLabel.hidden = self.subtitleLabel.hidden = YES;
             self.folderTitleLabel.hidden = NO;
             self.thumbnailView.image = [UIImage imageNamed:@"folder"];
         } else {
+            self.downloadButton.hidden = NO;
             self.titleLabel.text = self.oneDriveFile.name;
             NSMutableString *subtitle = [[NSMutableString alloc] init];
             if (self.oneDriveFile.size > 0) {

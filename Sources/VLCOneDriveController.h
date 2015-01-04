@@ -31,7 +31,7 @@
 
 @interface VLCOneDriveController : NSObject
 
-@property (nonatomic, weak) VLCOneDriveTableViewController *delegate;
+@property (nonatomic, weak) UIViewController <VLCOneDriveControllerDelegate>*delegate;
 @property (readonly) BOOL activeSession;
 @property (readonly) BOOL userAuthenticated;
 @property (nonatomic, readonly) VLCOneDriveObject *rootFolder;
@@ -42,8 +42,8 @@
 - (void)login;
 - (void)logout;
 
+- (void)downloadObject:(VLCOneDriveObject *)object;
+
 - (void)loadCurrentFolder;
-- (void)downloadFileWithPath:(NSString *)path;
-- (void)streamFileWithPath:(NSString *)path;
 
 @end

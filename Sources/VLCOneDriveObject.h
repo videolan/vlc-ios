@@ -22,12 +22,14 @@
 
 - (void)folderContentLoadingFailed:(NSError *)error
                             sender:(VLCOneDriveObject *) sender;
+@end
 
-- (void)fileContentLoaded:(VLCOneDriveObject *)sender;
+@protocol VLCOneDriveObjectDownloadDelegate <NSObject>
 
-- (void)fileContentLoadingFailed:(NSError *)error
-                          sender:(VLCOneDriveObject *) sender;
-
+- (void)downloadStarted:(VLCOneDriveObject *)object;
+- (void)downloadEnded:(VLCOneDriveObject *)object;
+- (void)progressUpdated:(CGFloat)progress;
+- (void)calculateRemainingTime:(CGFloat)receivedDataSize expectedDownloadSize:(CGFloat)expectedDownloadSize;
 @end
 
 @interface VLCOneDriveObject : NSObject <LiveOperationDelegate, LiveDownloadOperationDelegate, VLCOneDriveObjectDelegate>
@@ -53,8 +55,9 @@
 
 @property (strong, nonatomic) LiveConnectClient *liveClient;
 @property (strong, nonatomic) id<VLCOneDriveObjectDelegate>delegate;
+@property (strong, nonatomic) id<VLCOneDriveObjectDownloadDelegate>downloadDelegate;
 
 - (void)loadFolderContent;
-- (void)loadFileContent;
+- (void)saveObjectToDocuments;
 
 @end
