@@ -21,6 +21,16 @@
     return [self.type isEqual:@"folder"] || [self.type isEqual:@"album"];
 }
 
+- (BOOL)isVideo
+{
+    return [self.type isEqual:@"video"];
+}
+
+- (BOOL)isAudio
+{
+    return [self.type isEqual:@"audio"];
+}
+
 - (NSString *)filesPath
 {
     return [self.objectId stringByAppendingString:@"/files"];
@@ -124,10 +134,6 @@
             }
             [items addObject:oneDriveObject];
         }
-
-        NSLog(@"we found %i items", items.count);
-        for (NSUInteger x = 0; x < items.count; x++)
-            NSLog(@"%@", [items[x] name]);
 
         self.folders = subFolders;
         self.files = folderFiles;

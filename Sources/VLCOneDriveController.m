@@ -21,7 +21,7 @@
 /* include private API headers */
 #import <LiveSDK/LiveApiHelper.h>
 
-@interface VLCOneDriveController () <LiveAuthDelegate, LiveDownloadOperationDelegate, LiveOperationDelegate, VLCOneDriveObjectDelegate>
+@interface VLCOneDriveController () <LiveAuthDelegate, LiveDownloadOperationDelegate, VLCOneDriveObjectDelegate>
 {
     LiveConnectClient *_liveClient;
     NSArray *_liveScopes;
@@ -114,6 +114,16 @@
     }
 }
 
+- (void)liveOperationSucceeded:(LiveDownloadOperation *)operation
+{
+    APLog(@"ODC: liveOperationSucceeded (%@)", operation.userState);
+}
+
+- (void)liveOperationFailed:(NSError *)error operation:(LiveDownloadOperation *)operation
+{
+    APLog(@"ODC: liveOperationFailed %@ (%@)", error, operation.userState);
+}
+
 #pragma mark - listing
 
 - (void)loadTopLevelFolder
@@ -139,15 +149,6 @@
     }
 }
 
-- (void)liveOperationSucceeded:(LiveOperation *)operation
-{
-    NSLog(@"%@", operation);
-}
-
-- (void)liveOperationFailed:(NSError *)error operation:(LiveOperation *)operation
-{
-}
-
 #pragma mark - file handling
 
 - (void)downloadFileWithPath:(NSString *)path
@@ -168,15 +169,13 @@
 
 - (void)folderContentLoaded:(VLCOneDriveObject *)sender
 {
-    NSLog(@"odc: foldercontent loaded: %@", [sender name]);
-
     if (self.delegate)
         [self.delegate performSelector:@selector(mediaListUpdated)];
 }
 
 - (void)folderContentLoadingFailed:(NSError *)error sender:(VLCOneDriveObject *)sender
 {
-    NSLog(@"folder content loading failed %@", error);
+    APLog(@"folder content loading failed %@", error);
 }
 
 - (void)fileContentLoaded:(VLCOneDriveObject *)sender
@@ -185,12 +184,11 @@
 
 - (void)fileContentLoadingFailed:(NSError *)error sender:(VLCOneDriveObject *)sender
 {
-    NSLog(@"file content loading failed %@", error);
+    APLog(@"file content loading failed %@", error);
 }
 
 - (void)fullFolderTreeLoaded:(VLCOneDriveObject *)sender
 {
-    NSLog(@"fullFolderTreeLoaded");
     if (self.delegate)
         [self.delegate performSelector:@selector(mediaListUpdated)];
 }

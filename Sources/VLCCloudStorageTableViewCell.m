@@ -152,10 +152,26 @@
             self.thumbnailView.image = [UIImage imageNamed:@"folder"];
         } else {
             self.titleLabel.text = self.oneDriveFile.name;
-            self.subtitleLabel.text = (self.oneDriveFile.size > 0) ? [NSByteCountFormatter stringFromByteCount:[self.oneDriveFile.size longLongValue] countStyle:NSByteCountFormatterCountStyleFile]: @"";
+            NSMutableString *subtitle = [[NSMutableString alloc] init];
+            if (self.oneDriveFile.size > 0) {
+                [subtitle appendString:[NSByteCountFormatter stringFromByteCount:[self.oneDriveFile.size longLongValue] countStyle:NSByteCountFormatterCountStyleFile]];
+                if (self.oneDriveFile.duration > 0) {
+                    VLCTime *time = [VLCTime timeWithNumber:self.oneDriveFile.duration];
+                    [subtitle appendFormat:@" — %@", [time verboseStringValue]];
+                }
+            } else if (self.oneDriveFile.duration > 0) {
+                VLCTime *time = [VLCTime timeWithNumber:self.oneDriveFile.duration];
+                [subtitle appendString:[time verboseStringValue]];
+            }
+            self.subtitleLabel.text = subtitle;
             self.titleLabel.hidden = self.subtitleLabel.hidden = NO;
             self.folderTitleLabel.hidden = YES;
-            self.thumbnailView.image = [UIImage imageNamed:@"blank"];
+            if (self.oneDriveFile.isAudio)
+                self.thumbnailView.image = [UIImage imageNamed:@"audio"];
+            else if (self.oneDriveFile.isVideo)
+                self.thumbnailView.image = [UIImage imageNamed:@"movie"];
+            else
+                self.thumbnailView.image = [UIImage imageNamed:@"blank"];
         }
     }
     //we don't have streaming for box yet

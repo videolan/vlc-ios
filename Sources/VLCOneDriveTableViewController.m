@@ -87,10 +87,13 @@
 - (IBAction)goBack:(id)sender
 {
     if (_oneDriveController.rootFolder != _oneDriveController.currentFolder) {
-        if ([_oneDriveController.rootFolder.name isEqualToString:_oneDriveController.currentFolder.parent.name])
+        if ([_oneDriveController.rootFolder.name isEqualToString:_oneDriveController.currentFolder.parent.name]) {
             _oneDriveController.currentFolder = nil;
-        else
+            self.title = _oneDriveController.rootFolder.name;
+        } else {
             _oneDriveController.currentFolder = _oneDriveController.currentFolder.parent;
+            self.title = _oneDriveController.currentFolder.name;
+        }
         [_activityIndicator startAnimating];
         [_oneDriveController loadCurrentFolder];
     } else
@@ -134,6 +137,7 @@
         [_activityIndicator startAnimating];
         _oneDriveController.currentFolder = selectedObject;
         [_oneDriveController loadCurrentFolder];
+        self.title = selectedObject.name;
     } else {
         /* stream file */
         NSURL *url = [NSURL URLWithString:selectedObject.downloadPath];

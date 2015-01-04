@@ -40,6 +40,8 @@
 @property (strong, nonatomic) NSNumber *duration;
 @property (strong, nonatomic) NSString *thumbnailURL;
 @property (readonly, nonatomic) BOOL isFolder;
+@property (readonly, nonatomic) BOOL isVideo;
+@property (readonly, nonatomic) BOOL isAudio;
 
 @property (strong, nonatomic) NSArray *folders;
 @property (strong, nonatomic) NSArray *files;
