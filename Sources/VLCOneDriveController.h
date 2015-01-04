@@ -13,6 +13,8 @@
 #import "VLCOneDriveTableViewController.h"
 #import "VLCOneDriveObject.h"
 
+#define VLCOneDriveControllerSessionUpdated @"VLCOneDriveControllerSessionUpdated"
+
 @protocol VLCOneDriveControllerDelegate <NSObject>
 
 @required

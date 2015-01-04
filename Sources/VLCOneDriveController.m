@@ -95,20 +95,22 @@
 {
     APLog(@"OneDrive: authCompleted, status %i, state %@", status, userState);
 
-    if (status == 1 && session != NULL && [userState isEqualToString:@"init"])
+    if (session != NULL && [userState isEqualToString:@"init"] && status == 1)
         _activeSession = YES;
-    else
-        _activeSession = NO;
 
-    if (status == 1 && session != NULL && [userState isEqualToString:@"login"])
+    if (session != NULL && [userState isEqualToString:@"login"] && status == 1)
         _userAuthenticated = YES;
-    else
+
+    if (status == 0) {
+        _activeSession = NO;
         _userAuthenticated = NO;
+    }
 
     if (self.delegate) {
         if ([self.delegate respondsToSelector:@selector(sessionWasUpdated)])
             [self.delegate performSelector:@selector(sessionWasUpdated)];
     }
+    [[NSNotificationCenter defaultCenter] postNotificationName:VLCOneDriveControllerSessionUpdated object:self];
 }
 
 - (void)authFailed:(NSError *)error userState:(id)userState
@@ -120,6 +122,7 @@
         if ([self.delegate respondsToSelector:@selector(sessionWasUpdated)])
             [self.delegate performSelector:@selector(sessionWasUpdated)];
     }
+    [[NSNotificationCenter defaultCenter] postNotificationName:VLCOneDriveControllerSessionUpdated object:self];
 }
 
 - (void)liveOperationSucceeded:(LiveDownloadOperation *)operation

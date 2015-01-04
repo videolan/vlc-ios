@@ -54,14 +54,21 @@
 }
 - (void)viewWillAppear:(BOOL)animated
 {
+    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(authenticationSessionsChanged:) name:VLCOneDriveControllerSessionUpdated object:nil];
     [self.tableView reloadData];
     [super viewWillAppear:animated];
 }
 
 - (void)goBack
 {
+    [[NSNotificationCenter defaultCenter] removeObserver:self];
     VLCAppDelegate *appDelegate = [UIApplication sharedApplication].delegate;
     [[appDelegate revealController] toggleSidebar:![appDelegate revealController].sidebarShowing duration:kGHRevealSidebarDefaultAnimationDuration];
+}
+
+- (void)authenticationSessionsChanged:(NSNotification *)notification
+{
+    [self.tableView reloadData];
 }
 
 #pragma mark - Table view data source
@@ -135,8 +142,6 @@
     }
     return cell;
 }
-
-
 
 #pragma mark - Table view delegate
 
