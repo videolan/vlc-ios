@@ -254,7 +254,8 @@
     } else if (self.loginToCloudStorageView.superview)
         [self.loginToCloudStorageView removeFromSuperview];
 
-    _currentPath = @"/";
+    if (_dropboxController.currentListFiles.count == 0)
+        _currentPath = @"/";
     [self _requestInformationForCurrentPath];
 }
 
