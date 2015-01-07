@@ -83,7 +83,7 @@
     self.view.backgroundColor = [UIColor VLCDarkBackgroundColor];
 
     NSString *titleValue;
-    if ([_PlexServerPath isEqualToString:@""])
+    if ([_PlexServerPath isEqualToString:@""] || _mutableObjectList.count == 0)
         titleValue = _PlexServerName;
     else
         titleValue = [_mutableObjectList[0] objectForKey:@"libTitle"];
