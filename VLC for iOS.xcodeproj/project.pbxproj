@@ -261,7 +261,6 @@
 		7D63C19518774E0100BD5256 /* VLCFirstStepsThirdPageViewController~ipad.xib in Resources */ = {isa = PBXBuildFile; fileRef = 7D63C19418774E0100BD5256 /* VLCFirstStepsThirdPageViewController~ipad.xib */; };
 		7D63C19718774F1000BD5256 /* VLCFirstStepsFourthPageViewController~ipad.xib in Resources */ = {isa = PBXBuildFile; fileRef = 7D63C19618774F1000BD5256 /* VLCFirstStepsFourthPageViewController~ipad.xib */; };
 		7D63C1991877504B00BD5256 /* VLCFirstStepsSixthPageViewController~ipad.xib in Resources */ = {isa = PBXBuildFile; fileRef = 7D63C1981877504B00BD5256 /* VLCFirstStepsSixthPageViewController~ipad.xib */; };
-		7D65C7D219A15CEA00FA8819 /* VLCLibraryHeaderView.m in Sources */ = {isa = PBXBuildFile; fileRef = 7D65C7D119A15CEA00FA8819 /* VLCLibraryHeaderView.m */; };
 		7D66225E1871F29000CA9496 /* checkbox-legacy.png in Resources */ = {isa = PBXBuildFile; fileRef = 7D66225A1871F29000CA9496 /* checkbox-legacy.png */; };
 		7D66225F1871F29000CA9496 /* checkbox-legacy@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 7D66225B1871F29000CA9496 /* checkbox-legacy@2x.png */; };
 		7D6622601871F29000CA9496 /* checkbox-legacy-empty.png in Resources */ = {isa = PBXBuildFile; fileRef = 7D66225C1871F29000CA9496 /* checkbox-legacy-empty.png */; };
@@ -372,6 +371,7 @@
 		7DC72D6017B7E7C7008A26D0 /* download@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 7DC72D5D17B7E7C7008A26D0 /* download@2x.png */; };
 		7DC72D6317B7ED24008A26D0 /* WhiteRaccoon.m in Sources */ = {isa = PBXBuildFile; fileRef = 7DC72D6217B7ED24008A26D0 /* WhiteRaccoon.m */; };
 		7DD2A3A9179C04A7003EB537 /* OpenSans-Regular.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 7DD2A3A8179C04A6003EB537 /* OpenSans-Regular.ttf */; };
+		7DD619461A5DC6650056308A /* VLCLibraryHeaderView.m in Sources */ = {isa = PBXBuildFile; fileRef = 7DD619451A5DC6650056308A /* VLCLibraryHeaderView.m */; };
 		7DDD0429172D98E5005A7B10 /* CFNetwork.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 7DDD0428172D98E5005A7B10 /* CFNetwork.framework */; };
 		7DE18629175BA9A5006C0173 /* badgeUnread@2x~ipad.png in Resources */ = {isa = PBXBuildFile; fileRef = 7DE1862B175BA9A5006C0173 /* badgeUnread@2x~ipad.png */; };
 		7DE1862C175BA9A9006C0173 /* badgeUnread@2x~iphone.png in Resources */ = {isa = PBXBuildFile; fileRef = 7DE1862E175BA9A9006C0173 /* badgeUnread@2x~iphone.png */; };
@@ -929,8 +929,6 @@
 		7D63C19418774E0100BD5256 /* VLCFirstStepsThirdPageViewController~ipad.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; name = "VLCFirstStepsThirdPageViewController~ipad.xib"; path = "Resources/VLCFirstStepsThirdPageViewController~ipad.xib"; sourceTree = SOURCE_ROOT; };
 		7D63C19618774F1000BD5256 /* VLCFirstStepsFourthPageViewController~ipad.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; name = "VLCFirstStepsFourthPageViewController~ipad.xib"; path = "Resources/VLCFirstStepsFourthPageViewController~ipad.xib"; sourceTree = SOURCE_ROOT; };
 		7D63C1981877504B00BD5256 /* VLCFirstStepsSixthPageViewController~ipad.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; name = "VLCFirstStepsSixthPageViewController~ipad.xib"; path = "Resources/VLCFirstStepsSixthPageViewController~ipad.xib"; sourceTree = SOURCE_ROOT; };
-		7D65C7D019A15CEA00FA8819 /* VLCLibraryHeaderView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = VLCLibraryHeaderView.h; path = Sources/VLCLibraryHeaderView.h; sourceTree = SOURCE_ROOT; };
-		7D65C7D119A15CEA00FA8819 /* VLCLibraryHeaderView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = VLCLibraryHeaderView.m; path = Sources/VLCLibraryHeaderView.m; sourceTree = SOURCE_ROOT; };
 		7D66225A1871F29000CA9496 /* checkbox-legacy.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "checkbox-legacy.png"; sourceTree = "<group>"; };
 		7D66225B1871F29000CA9496 /* checkbox-legacy@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "checkbox-legacy@2x.png"; sourceTree = "<group>"; };
 		7D66225C1871F29000CA9496 /* checkbox-legacy-empty.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "checkbox-legacy-empty.png"; sourceTree = "<group>"; };
@@ -1143,6 +1141,8 @@
 		7DD32D24194F1946002510A9 /* zh-Hant */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "zh-Hant"; path = "zh-Hant.lproj/badgeUnread@2x~iphone.png"; sourceTree = "<group>"; };
 		7DD32D25194F1946002510A9 /* zh-Hant */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "zh-Hant"; path = "zh-Hant.lproj/badgeUnread~ipad.png"; sourceTree = "<group>"; };
 		7DD32D26194F1946002510A9 /* zh-Hant */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "zh-Hant"; path = "zh-Hant.lproj/badgeUnread~iphone.png"; sourceTree = "<group>"; };
+		7DD619441A5DC6650056308A /* VLCLibraryHeaderView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = VLCLibraryHeaderView.h; path = Sources/VLCLibraryHeaderView.h; sourceTree = SOURCE_ROOT; };
+		7DD619451A5DC6650056308A /* VLCLibraryHeaderView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = VLCLibraryHeaderView.m; path = Sources/VLCLibraryHeaderView.m; sourceTree = SOURCE_ROOT; };
 		7DDD0428172D98E5005A7B10 /* CFNetwork.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CFNetwork.framework; path = System/Library/Frameworks/CFNetwork.framework; sourceTree = SDKROOT; };
 		7DE1862A175BA9A5006C0173 /* en */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = en; path = "en.lproj/badgeUnread@2x~ipad.png"; sourceTree = "<group>"; };
 		7DE1862D175BA9A9006C0173 /* en */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = en; path = "en.lproj/badgeUnread@2x~iphone.png"; sourceTree = "<group>"; };
@@ -1933,8 +1933,8 @@
 				8F91EC78195CEC7900F5BCBA /* VLCOpenInActivity.m */,
 				7D37849C183A98DD009EE944 /* VLCThumbnailsCache.h */,
 				7D37849D183A98DD009EE944 /* VLCThumbnailsCache.m */,
-				7D65C7D019A15CEA00FA8819 /* VLCLibraryHeaderView.h */,
-				7D65C7D119A15CEA00FA8819 /* VLCLibraryHeaderView.m */,
+				7DD619441A5DC6650056308A /* VLCLibraryHeaderView.h */,
+				7DD619451A5DC6650056308A /* VLCLibraryHeaderView.m */,
 			);
 			name = "Everything Playlist";
 			sourceTree = "<group>";
@@ -3176,7 +3176,6 @@
 				2915544017490B9C00B86CAD /* HTTPRedirectResponse.m in Sources */,
 				2915544117490B9C00B86CAD /* WebSocket.m in Sources */,
 				7D168F7418D4A33F003FAF59 /* UIImage+Blur.m in Sources */,
-				7D65C7D219A15CEA00FA8819 /* VLCLibraryHeaderView.m in Sources */,
 				9B5BEF2917FBAEA50016F9CB /* GTLDrive_Sources.m in Sources */,
 				7DC19ADF1868C7BB00810BF7 /* VLCFirstStepsViewController.m in Sources */,
 				7DC72D6317B7ED24008A26D0 /* WhiteRaccoon.m in Sources */,
@@ -3231,6 +3230,7 @@
 				7D1052EE1A4DCD1E00295F08 /* VLCOneDriveController.m in Sources */,
 				7D30F3D8183AB2F100FFC021 /* VLCLocalServerFolderListViewController.m in Sources */,
 				7D30F3D9183AB2F100FFC021 /* VLCLocalServerListViewController.m in Sources */,
+				7DD619461A5DC6650056308A /* VLCLibraryHeaderView.m in Sources */,
 				7D30F3DC183AB2F900FFC021 /* VLCNetworkLoginViewController.m in Sources */,
 				7D30F3DF183AB31E00FFC021 /* VLCWiFiUploadTableViewCell.m in Sources */,
 				7D30F3E2183AB33200FFC021 /* VLCSidebarViewCell.m in Sources */,

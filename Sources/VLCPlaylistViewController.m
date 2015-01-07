@@ -557,10 +557,10 @@ static NSString *kDisplayedFirstSteps = @"Did we display the first steps tutoria
 
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section
 {
-    if (tableView == self.tableView)
-        return _foundMedia.count;
+    if (tableView == self.searchDisplayController.searchResultsTableView)
+        return _searchData.count;
 
-    return _searchData.count;
+    return _foundMedia.count;
 }
 
 // Customize the appearance of table view cells.
@@ -580,10 +580,10 @@ static NSString *kDisplayedFirstSteps = @"Did we display the first steps tutoria
 
     NSInteger row = indexPath.row;
 
-    if (tableView == self.tableView)
-        cell.mediaObject = _foundMedia[row];
-    else
+    if (tableView == self.searchDisplayController.searchResultsTableView)
         cell.mediaObject = _searchData[row];
+    else
+        cell.mediaObject = _foundMedia[row];
 
     return cell;
 }
@@ -656,10 +656,10 @@ static NSString *kDisplayedFirstSteps = @"Did we display the first steps tutoria
     [tableView deselectRowAtIndexPath:indexPath animated:YES];
     NSManagedObject *selectedObject;
 
-    if (tableView == self.tableView)
-        selectedObject = _foundMedia[indexPath.row];
-    else
+    if (tableView == self.searchDisplayController.searchResultsTableView)
         selectedObject = _searchData[indexPath.row];
+    else
+        selectedObject = _foundMedia[indexPath.row];
 
     if ([selectedObject isKindOfClass:[MLAlbumTrack class]]) {
         _tracks = [[(MLAlbumTrack*)selectedObject album] sortedTracks];
@@ -1187,17 +1187,8 @@ static NSString *kDisplayedFirstSteps = @"Did we display the first steps tutoria
 - (IBAction)backToAllItems:(id)sender
 {
     if (!_usingTableViewToShowData) {
-        if (![self.collectionView.collectionViewLayout isEqual:_folderLayout]) {
-            //for some reason the Gesturerecognizer block themselves if not removed manually
-            for (UIGestureRecognizer *recognizer in self.view.gestureRecognizers) {
-                if (recognizer == _reorderLayout.panGestureRecognizer || recognizer == _reorderLayout.longPressGestureRecognizer)
-                    [self.collectionView removeGestureRecognizer:recognizer];
-            }
-            _folderLayout = [[VLCFolderCollectionViewFlowLayout alloc] init];
-            _folderLayout.headerReferenceSize = CGSizeMake(640., [VLCLibraryHeaderView headerHeight]);
-            [self.collectionView setCollectionViewLayout:_folderLayout animated:NO];
-            [_collectionView addGestureRecognizer:_longPressGestureRecognizer];
-        }
+        if (self.editing)
+            [self setEditing:NO animated:NO];
     }
     inFolder = NO;
     UIBarButtonItem *createFolderItem = [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemOrganize target:self action:@selector(createFolder)];
