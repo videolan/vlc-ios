@@ -27,7 +27,6 @@
 #import "LXReorderableCollectionViewFlowLayout.h"
 #import "VLCAlertView.h"
 #import "VLCOpenInActivity.h"
-#import "VLCLibraryHeaderView.h"
 
 #import <AssetsLibrary/AssetsLibrary.h>
 
@@ -110,13 +109,11 @@ static NSString *kDisplayedFirstSteps = @"Did we display the first steps tutoria
             _tableView.opaque = YES;
             _tableView.indicatorStyle = UIScrollViewIndicatorStyleWhite;
         }
-
         self.view = _tableView;
         [_tableView reloadData];
     } else {
         if (!_collectionView) {
             _folderLayout = [[VLCFolderCollectionViewFlowLayout alloc] init];
-            _folderLayout.headerReferenceSize = CGSizeMake(640., [VLCLibraryHeaderView headerHeight]);
             _collectionView = [[UICollectionView alloc] initWithFrame:[UIScreen mainScreen].bounds collectionViewLayout:_folderLayout];
             _collectionView.alwaysBounceVertical = YES;
             _collectionView.indicatorStyle = UIScrollViewIndicatorStyleWhite;
@@ -130,7 +127,6 @@ static NSString *kDisplayedFirstSteps = @"Did we display the first steps tutoria
                 [_collectionView registerNib:[UINib nibWithNibName:@"VLCFuturePlaylistCollectionViewCell" bundle:nil] forCellWithReuseIdentifier:@"PlaylistCell"];
             else
                 [_collectionView registerNib:[UINib nibWithNibName:@"VLCPlaylistCollectionViewCell" bundle:nil] forCellWithReuseIdentifier:@"PlaylistCell"];
-            [_collectionView registerClass:[VLCLibraryHeaderView class] forSupplementaryViewOfKind:UICollectionElementKindSectionHeader withReuseIdentifier:@"HeaderCell"];
             self.view.backgroundColor = [UIColor VLCDarkBackgroundColor];
         }
         self.view = _collectionView;
@@ -145,14 +141,6 @@ static NSString *kDisplayedFirstSteps = @"Did we display the first steps tutoria
 
         if (_usingTableViewToShowData)
             _tableView.contentInset = UIEdgeInsetsMake(originY, 0, 0, 0);
-        else {
-            if (_searchBar.hidden)
-                _collectionView.contentInset = UIEdgeInsetsMake(originY - [VLCLibraryHeaderView headerHeight], 0, 0, 0);
-            else {
-                _collectionView.contentInset = UIEdgeInsetsMake(originY, 0, 0, 0);
-                [_collectionView scrollRectToVisible:CGRectMake(0., 0., 640., 200.) animated:NO];
-            }
-        }
     }
 
     self.view.autoresizingMask = UIViewAutoresizingFlexibleHeight | UIViewAutoresizingFlexibleWidth;
@@ -227,9 +215,6 @@ static NSString *kDisplayedFirstSteps = @"Did we display the first steps tutoria
     _searchDisplayController.searchResultsTableView.indicatorStyle = UIScrollViewIndicatorStyleWhite;
     _searchBar.delegate = self;
     _searchBar.hidden = YES;
-
-    if (!_usingTableViewToShowData)
-        _collectionView.contentInset = UIEdgeInsetsMake(-[VLCLibraryHeaderView headerHeight], 0, 0, 0);
 
     UITapGestureRecognizer *tapTwiceGesture = [[UITapGestureRecognizer alloc] initWithTarget:self  action:@selector(tapTwiceGestureAction:)];
     [tapTwiceGesture setNumberOfTapsRequired:2];
@@ -706,18 +691,17 @@ static NSString *kDisplayedFirstSteps = @"Did we display the first steps tutoria
 
 - (void)tapTwiceGestureAction:(UIGestureRecognizer *)recognizer
 {
+    if (!_usingTableViewToShowData)
+        return;
+
     _searchBar.hidden = !_searchBar.hidden;
 
-    if (_usingTableViewToShowData) {
-        if (_searchBar.hidden)
-            self.tableView.tableHeaderView = nil;
-        else
-            self.tableView.tableHeaderView = _searchBar;
+    if (_searchBar.hidden)
+        self.tableView.tableHeaderView = nil;
+    else
+        self.tableView.tableHeaderView = _searchBar;
 
-        [self.tableView setContentOffset:CGPointMake(0.0f, -self.tableView.contentInset.top) animated:NO];
-
-    } else
-        [self setupContentViewWithContentInset:YES];
+    [self.tableView setContentOffset:CGPointMake(0.0f, -self.tableView.contentInset.top) animated:NO];
 }
 
 #pragma mark - Collection View
@@ -871,19 +855,6 @@ static NSString *kDisplayedFirstSteps = @"Did we display the first steps tutoria
         _indexPaths = [NSMutableArray arrayWithArray:@[itemPath]];
         [self showCreateFolderAlert];
     }
-}
-
-- (UICollectionReusableView *)collectionView:(UICollectionView *)collectionView viewForSupplementaryElementOfKind:(NSString *)kind atIndexPath:(NSIndexPath *)indexPath
-{
-    VLCLibraryHeaderView *reuseableView;
-
-    reuseableView = [collectionView dequeueReusableSupplementaryViewOfKind:UICollectionElementKindSectionHeader withReuseIdentifier:@"HeaderCell" forIndexPath:indexPath];
-
-    if (!reuseableView)
-        reuseableView = [[VLCLibraryHeaderView alloc] initWithPredefinedFrame];
-    reuseableView.searchBar = _searchBar;
-
-    return reuseableView;
 }
 
 #pragma mark - Folder implementation
