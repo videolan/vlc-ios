@@ -138,7 +138,7 @@
             if (theError.code != noErr)
                 APLog(@"saving the file failed (%li): %@", (long)theError.code, theError.localizedDescription);
 
-            [self updateMediaList];
+            [self performSelectorInBackground:@selector(updateMediaList) withObject:nil];
         } else if ([url.scheme isEqualToString:@"vlc-x-callback"] || [url.host isEqualToString:@"x-callback-url"]) {
             // URL confirmes to the x-callback-url specification
             // vlc-x-callback://x-callback-url/action?param=value&x-success=callback
@@ -223,7 +223,7 @@
 - (void)applicationDidBecomeActive:(UIApplication *)application
 {
     [[MLMediaLibrary sharedMediaLibrary] updateMediaDatabase];
-    [self updateMediaList];
+    [self performSelectorInBackground:@selector(updateMediaList) withObject:nil];
 }
 
 - (void)applicationWillTerminate:(UIApplication *)application
