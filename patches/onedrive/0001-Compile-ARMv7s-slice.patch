@@ -1,0 +1,34 @@
+From d6627f3cbe220eca3f3f2bf9da61274d10da15c3 Mon Sep 17 00:00:00 2001
+From: =?UTF-8?q?Felix=20Paul=20K=C3=BChne?= <fkuehne@videolan.org>
+Date: Thu, 8 Jan 2015 00:44:58 +0100
+Subject: [PATCH] Compile ARMv7s slice
+
+---
+ src/LiveSDK.xcodeproj/project.pbxproj | 4 ++--
+ 1 file changed, 2 insertions(+), 2 deletions(-)
+
+diff --git a/src/LiveSDK.xcodeproj/project.pbxproj b/src/LiveSDK.xcodeproj/project.pbxproj
+index 40e4970..48ddcfc 100755
+--- a/src/LiveSDK.xcodeproj/project.pbxproj
++++ b/src/LiveSDK.xcodeproj/project.pbxproj
+@@ -923,7 +923,7 @@
+ 				ONLY_ACTIVE_ARCH = NO;
+ 				PRODUCT_NAME = "$(TARGET_NAME)";
+ 				SDKROOT = iphoneos;
+-				VALID_ARCHS = "$(ARCHS_STANDARD_INCLUDING_64_BIT)";
++				VALID_ARCHS = "$(ARCHS_STANDARD_INCLUDING_64_BIT) armv7s";
+ 				WRAPPER_EXTENSION = framework;
+ 			};
+ 			name = Debug;
+@@ -946,7 +946,7 @@
+ 				ONLY_ACTIVE_ARCH = NO;
+ 				PRODUCT_NAME = "$(TARGET_NAME)";
+ 				SDKROOT = iphoneos;
+-				VALID_ARCHS = "$(ARCHS_STANDARD_INCLUDING_64_BIT)";
++				VALID_ARCHS = "$(ARCHS_STANDARD_INCLUDING_64_BIT) armv7s";
+ 				WRAPPER_EXTENSION = framework;
+ 			};
+ 			name = Release;
+-- 
+1.9.3 (Apple Git-50)
+
