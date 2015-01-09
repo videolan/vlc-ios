@@ -11,31 +11,12 @@
  *****************************************************************************/
 
 #import <DropboxSDK/DropboxSDK.h>
+#import "VLCCloudStorageController.h"
 
-@protocol VLCDropboxController <NSObject>
-@required
-- (void)mediaListUpdated;
+@interface VLCDropboxController : VLCCloudStorageController <DBRestClientDelegate, DBSessionDelegate, DBNetworkRequestDelegate>
 
-@optional
-- (void)operationWithProgressInformationStarted;
-- (void)currentProgressInformation:(float)progress;
-- (void)updateRemainingTime:(NSString *)time;
-- (void)operationWithProgressInformationStopped;
-
-- (void)numberOfFilesWaitingToBeDownloadedChanged;
-@end
-
-@interface VLCDropboxController : NSObject <DBRestClientDelegate, DBSessionDelegate, DBNetworkRequestDelegate>
-
-@property (nonatomic, weak) id<VLCDropboxController> delegate;
-@property (nonatomic, readonly) NSArray *currentListFiles;
-@property (nonatomic, readonly) BOOL sessionIsLinked;
 @property (nonatomic, readonly) NSInteger numberOfFilesWaitingToBeDownloaded;
 
-- (void)startSession;
-- (void)logout;
-
-- (void)requestDirectoryListingAtPath:(NSString *)path;
 - (void)downloadFileToDocumentFolder:(DBMetadata *)file;
 - (void)streamFile:(DBMetadata *)file;
 

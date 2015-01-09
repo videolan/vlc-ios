@@ -52,6 +52,7 @@
     self.oneDriveTableViewController = [[VLCOneDriveTableViewController alloc] initWithNibName:@"VLCCloudStorageTableViewController" bundle:nil];
     self.documentPickerController = [VLCDocumentPickerController new];
 }
+
 - (void)viewWillAppear:(BOOL)animated
 {
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(authenticationSessionsChanged:) name:VLCOneDriveControllerSessionUpdated object:nil];

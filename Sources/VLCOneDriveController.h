@@ -15,34 +15,15 @@
 
 #define VLCOneDriveControllerSessionUpdated @"VLCOneDriveControllerSessionUpdated"
 
-@protocol VLCOneDriveControllerDelegate <NSObject>
+@interface VLCOneDriveController : VLCCloudStorageController
 
-@required
-- (void)sessionWasUpdated;
-- (void)mediaListUpdated;
-
-@optional
-- (void)operationWithProgressInformationStarted;
-- (void)currentProgressInformation:(float)progress;
-- (void)updateRemainingTime:(NSString *)time;
-- (void)operationWithProgressInformationStopped;
-
-- (void)numberOfFilesWaitingToBeDownloadedChanged;
-
-@end
-
-@interface VLCOneDriveController : NSObject
-
-@property (nonatomic, weak) UIViewController <VLCOneDriveControllerDelegate>*delegate;
 @property (readonly) BOOL activeSession;
-@property (readonly) BOOL userAuthenticated;
 @property (nonatomic, readonly) VLCOneDriveObject *rootFolder;
 @property (nonatomic, readwrite) VLCOneDriveObject *currentFolder;
 
 + (VLCOneDriveController *)sharedInstance;
 
 - (void)login;
-- (void)logout;
 
 - (void)downloadObject:(VLCOneDriveObject *)object;
 

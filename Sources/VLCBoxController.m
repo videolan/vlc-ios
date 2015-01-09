@@ -40,7 +40,7 @@
 
 #pragma mark - session handling
 
-+ (VLCBoxController *)sharedInstance
++ (VLCCloudStorageController *)sharedInstance
 {
     static VLCBoxController *sharedInstance = nil;
     static dispatch_once_t pred;
@@ -95,12 +95,12 @@
 }
 
 #pragma mark - file management
-- (void)requestDirectoryListingWithFolderId:(NSString *)folderId
+- (void)requestDirectoryListingAtPath:(NSString *)path
 {
     //we entered a different folder so discard all current files
-    if (![folderId isEqualToString:_folderId])
+    if (![path isEqualToString:_folderId])
         _currentFileList = nil;
-    [self listFilesWithID:folderId];
+    [self listFilesWithID:path];
 }
 
 - (BOOL)hasMoreFiles

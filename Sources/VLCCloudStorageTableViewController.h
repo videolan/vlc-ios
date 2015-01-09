@@ -12,6 +12,9 @@
  * Refer to the COPYING file of the official project for license.
  *****************************************************************************/
 
+#import "VLCCloudStorageTableViewCell.h"
+#import "VLCCloudStorageController.h"
+
 @interface VLCCloudStorageTableViewController : UIViewController
 
 @property (nonatomic, strong) IBOutlet UITableView *tableView;
@@ -20,8 +23,17 @@
 @property (nonatomic, strong) IBOutlet UIButton *flatLoginButton;
 @property (nonatomic, strong) IBOutlet UIImageView *cloudStorageLogo;
 
+@property (nonatomic, strong) UIBarButtonItem *numberOfFilesBarButtonItem;
+@property (nonatomic, strong) VLCCloudStorageController *controller;
+@property (nonatomic, strong) NSString *currentPath;
+@property (nonatomic) BOOL authorizationInProgress;
+@property (nonatomic, strong) UIActivityIndicatorView *activityIndicator;
+
 - (IBAction)loginAction:(id)sender;
 
+- (void)_requestInformationForCurrentPath;
+- (void)_showLoginPanel;
 - (void)updateViewAfterSessionChange;
+- (void)goBack;
 
 @end

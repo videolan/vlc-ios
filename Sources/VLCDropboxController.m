@@ -46,7 +46,7 @@
     [[DBSession sharedSession] unlinkAll];
 }
 
-- (BOOL)sessionIsLinked
+- (BOOL)isAuthorized
 {
     return  [[DBSession sharedSession] isLinked];
 }
@@ -62,7 +62,7 @@
 #pragma mark - file management
 - (void)requestDirectoryListingAtPath:(NSString *)path
 {
-    if (self.sessionIsLinked)
+    if (self.isAuthorized)
         [[self restClient] loadMetadata:path];
 }
 

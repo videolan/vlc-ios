@@ -13,34 +13,16 @@
 
 #import "GTLDrive.h"
 #import "GTMOAuth2ViewControllerTouch.h"
+#import "VLCCloudStorageController.h"
 #import "VLCGoogleDriveConstants.h"
 
-@protocol VLCGoogleDriveControllerDelegate <NSObject>
-@required
-- (void)mediaListUpdated;
+@interface VLCGoogleDriveController : VLCCloudStorageController
 
-@optional
-- (void)operationWithProgressInformationStarted;
-- (void)currentProgressInformation:(float)progress;
-- (void)updateRemainingTime:(NSString *)time;
-- (void)operationWithProgressInformationStopped;
-- (void)numberOfFilesWaitingToBeDownloadedChanged;
-@end
-
-@interface VLCGoogleDriveController : NSObject
-
-@property (nonatomic, weak) id<VLCGoogleDriveControllerDelegate> delegate;
-@property (nonatomic, readonly) NSArray *currentListFiles;
-@property (nonatomic, readwrite) BOOL isAuthorized;
 @property (nonatomic, retain) GTLServiceDrive *driveService;
 
-+ (VLCGoogleDriveController *)sharedInstance;
-- (void)startSession;
 - (void)stopSession;
-- (void)logout;
-- (void)requestDirectoryListingWithFolderId:(NSString *)folderId;
-- (BOOL)hasMoreFiles;
 - (void)streamFile:(GTLDriveFile *)file;
 - (void)downloadFileToDocumentFolder:(GTLDriveFile *)file;
+- (BOOL)hasMoreFiles;
 
 @end

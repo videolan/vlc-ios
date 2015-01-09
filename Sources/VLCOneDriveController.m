@@ -24,8 +24,11 @@
 @interface VLCOneDriveController () <LiveAuthDelegate, VLCOneDriveObjectDelegate, VLCOneDriveObjectDownloadDelegate>
 {
     LiveConnectClient *_liveClient;
+    //VLCOneDriveObject *_folderiD;
+    NSString *_folderId;
     NSArray *_liveScopes;
     BOOL _activeSession;
+    BOOL _userAuthenticated;
 
     NSMutableArray *_pendingDownloads;
     BOOL _downloadInProgress;
@@ -40,7 +43,7 @@
 
 @implementation VLCOneDriveController
 
-+ (VLCOneDriveController *)sharedInstance
++ (VLCCloudStorageController *)sharedInstance
 {
     static VLCOneDriveController *sharedInstance = nil;
     static dispatch_once_t pred;
@@ -91,6 +94,16 @@
     _userAuthenticated = NO;
 }
 
+- (NSArray *)currentListFiles
+{
+    return _currentFolder.items;
+}
+
+- (BOOL)isAuthorized
+{
+    return _liveClient.session != NULL;
+}
+
 - (void)authCompleted:(LiveConnectSessionStatus)status session:(LiveConnectSession *)session userState:(id)userState
 {
     APLog(@"OneDrive: authCompleted, status %i, state %@", status, userState);
@@ -136,6 +149,11 @@
 }
 
 #pragma mark - listing
+
+- (void)requestDirectoryListingAtPath:(NSString *)path
+{
+    [self loadCurrentFolder];
+}
 
 - (void)loadTopLevelFolder
 {

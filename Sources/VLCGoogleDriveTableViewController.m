@@ -12,32 +12,17 @@
  *****************************************************************************/
 
 #import "VLCGoogleDriveTableViewController.h"
-#import "VLCCloudStorageTableViewCell.h"
 #import "VLCAppDelegate.h"
-#import "UIBarButtonItem+Theme.h"
-#import "VLCProgressView.h"
 #import "GTMOAuth2ViewControllerTouch.h"
 #import "VLCGoogleDriveController.h"
 
-@interface VLCGoogleDriveTableViewController () <VLCCloudStorageTableViewCell, VLCGoogleDriveControllerDelegate>
+@interface VLCGoogleDriveTableViewController () <VLCCloudStorageTableViewCell>
 {
 
     VLCGoogleDriveController *_googleDriveController;
 
     GTLDriveFile *_selectedFile;
     GTMOAuth2ViewControllerTouch *_authController;
-
-    NSString *_currentFolderId;
-
-    UIBarButtonItem *_numberOfFilesBarButtonItem;
-    UIBarButtonItem *_progressBarButtonItem;
-    UIBarButtonItem *_logoutButton;
-
-    VLCProgressView *_progressView;
-
-    UIActivityIndicatorView *_activityIndicator;
-
-    BOOL _authorizationInProgress;
 }
 
 @end
@@ -47,55 +32,35 @@
 - (void)viewDidLoad
 {
     [super viewDidLoad];
-    self.modalPresentationStyle = UIModalPresentationFormSheet;
-
-    _authorizationInProgress = NO;
 
     _googleDriveController = [VLCGoogleDriveController sharedInstance];
     _googleDriveController.delegate = self;
+    self.controller = _googleDriveController;
 
     self.navigationItem.titleView = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"DriveWhite"]];
-    self.navigationItem.titleView.contentMode = UIViewContentModeScaleAspectFit;
-
-    UIBarButtonItem *backButton = [UIBarButtonItem themedBackButtonWithTarget:self andSelector:@selector(goBack)];
-    self.navigationItem.leftBarButtonItem = backButton;
-
-    _logoutButton = [[UIBarButtonItem alloc] initWithTitle:NSLocalizedString(@"BUTTON_LOGOUT", "") style:UIBarButtonItemStyleBordered target:self action:@selector(logout)];
-
-    self.tableView.rowHeight = [VLCCloudStorageTableViewCell heightOfCell];
-    self.tableView.separatorColor = [UIColor VLCDarkBackgroundColor];
-    self.view.backgroundColor = [UIColor VLCDarkBackgroundColor];
-
-    _numberOfFilesBarButtonItem = [[UIBarButtonItem alloc] initWithTitle:[NSString stringWithFormat:NSLocalizedString(@"NUM_OF_FILES", nil), 0] style:UIBarButtonItemStylePlain target:nil action:nil];
-    [_numberOfFilesBarButtonItem setTitleTextAttributes:@{ UITextAttributeFont : [UIFont systemFontOfSize:11.] } forState:UIControlStateNormal];
-
-    _progressView = [VLCProgressView new];
-    _progressBarButtonItem = [[UIBarButtonItem alloc] initWithCustomView:_progressView];
 
     [self.cloudStorageLogo setImage:[UIImage imageNamed:@"DriveWhite"]];
 
-    if (!SYSTEM_RUNS_IOS7_OR_LATER) {
-        self.flatLoginButton.hidden = YES;
-        [self.loginButton setTitle:NSLocalizedString(@"DROPBOX_LOGIN", nil) forState:UIControlStateNormal];
-    } else {
-        self.loginButton.hidden = YES;
-        [self.flatLoginButton setTitle:NSLocalizedString(@"DROPBOX_LOGIN", nil) forState:UIControlStateNormal];
-    }
-
-    [self.navigationController.toolbar setBackgroundImage:[UIImage imageNamed:@"sudHeaderBg"] forToolbarPosition:UIToolbarPositionAny barMetrics:UIBarMetricsDefault];
-
-    [self _showProgressInToolbar:NO];
-
-    _activityIndicator = [[UIActivityIndicatorView alloc] initWithActivityIndicatorStyle:UIActivityIndicatorViewStyleWhiteLarge];
-    _activityIndicator.hidesWhenStopped = YES;
-    _activityIndicator.translatesAutoresizingMaskIntoConstraints = NO;
-    [self.view addSubview:_activityIndicator];
-
-    [self.view addConstraint:[NSLayoutConstraint constraintWithItem:_activityIndicator attribute:NSLayoutAttributeCenterX relatedBy:NSLayoutRelationEqual toItem:self.view attribute:NSLayoutAttributeCenterX multiplier:1.0 constant:0]];
-    [self.view addConstraint:[NSLayoutConstraint constraintWithItem:_activityIndicator attribute:NSLayoutAttributeCenterY relatedBy:NSLayoutRelationEqual toItem:self.view attribute:NSLayoutAttributeCenterY multiplier:1.0 constant:0]];
-
     [self.cloudStorageLogo sizeToFit];
     self.cloudStorageLogo.center = self.view.center;
+}
+
+- (void)viewWillAppear:(BOOL)animated
+{
+    [super viewWillAppear:animated];
+    [self updateViewAfterSessionChange];
+}
+
+- (void)scrollViewDidScroll:(UIScrollView *)scrollView
+{
+    NSInteger currentOffset = scrollView.contentOffset.y;
+    NSInteger maximumOffset = scrollView.contentSize.height - scrollView.frame.size.height;
+
+    if (maximumOffset - currentOffset <= - self.tableView.rowHeight) {
+        if (_googleDriveController.hasMoreFiles && !self.activityIndicator.isAnimating) {
+            [self _requestInformationForCurrentPath];
+        }
+    }
 }
 
 - (GTMOAuth2ViewControllerTouch *)createAuthController
@@ -111,7 +76,7 @@
 
 - (void)viewController:(GTMOAuth2ViewControllerTouch *)viewController finishedWithAuth:(GTMOAuth2Authentication *)authResult error:(NSError *)error
 {
-    _authorizationInProgress = NO;
+    self.authorizationInProgress = NO;
     if (error != nil) {
         _googleDriveController.driveService.authorizer = nil;
     } else {
@@ -120,62 +85,17 @@
     [self updateViewAfterSessionChange];
 }
 
-- (void)viewWillAppear:(BOOL)animated
-{
-    self.navigationController.toolbarHidden = NO;
-    self.navigationController.toolbar.barStyle = UIBarStyleBlack;
-    [self.navigationController.toolbar setBackgroundImage:[UIImage imageNamed:@"bottomBlackBar"] forToolbarPosition:UIToolbarPositionAny barMetrics:UIBarMetricsDefault];
-    [self updateViewAfterSessionChange];
-    [super viewWillAppear:animated];
-}
-
 - (void)viewWillDisappear:(BOOL)animated
 {
-    self.navigationController.toolbarHidden = YES;
-    if ((VLCAppDelegate*)[UIApplication sharedApplication].delegate.window.rootViewController.presentedViewController == nil) {
+    [super viewWillDisappear:animated];
+    if ((VLCAppDelegate *)[UIApplication sharedApplication].delegate.window.rootViewController.presentedViewController == nil) {
         [_googleDriveController stopSession];
         [self.tableView reloadData];
     }
-    [super viewWillDisappear:animated];
-}
 
-- (void)_showProgressInToolbar:(BOOL)value
-{
-    if (!value)
-        [self setToolbarItems:@[[[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemFlexibleSpace target:nil action:nil], _numberOfFilesBarButtonItem, [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemFlexibleSpace target:nil action:nil]] animated:YES];
-    else {
-        _progressView.progressBar.progress = 0.;
-        [self setToolbarItems:@[[[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemFlexibleSpace target:nil action:nil], _progressBarButtonItem, [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemFlexibleSpace target:nil action:nil]] animated:YES];
-    }
-}
-
-- (void)_requestInformationForCurrentFolderId
-{
-    [_activityIndicator startAnimating];
-    [_googleDriveController requestDirectoryListingWithFolderId:_currentFolderId];
-}
-
-- (void)goBack
-{
-    if (![_currentFolderId isEqualToString:@""] && [_currentFolderId length] > 0) {
-        _currentFolderId = [_currentFolderId stringByDeletingLastPathComponent];
-        [self _requestInformationForCurrentFolderId];
-    } else
-        [self.navigationController popViewControllerAnimated:YES];
-}
-
-- (void)logout
-{
-    [_googleDriveController logout];
-    [self updateViewAfterSessionChange];
 }
 
 #pragma mark - Table view data source
-
-- (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section
-{
-    return _googleDriveController.currentListFiles.count;
-}
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
 {
@@ -193,11 +113,6 @@
 
 #pragma mark - Table view delegate
 
-- (void)tableView:(UITableView *)tableView willDisplayCell:(UITableViewCell *)cell forRowAtIndexPath:(NSIndexPath *)indexPath
-{
-    cell.backgroundColor = (indexPath.row % 2 == 0)? [UIColor blackColor]: [UIColor VLCDarkBackgroundColor];
-}
-
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
 {
     _selectedFile = _googleDriveController.currentListFiles[indexPath.row];
@@ -205,10 +120,10 @@
         [_googleDriveController streamFile:_selectedFile];
     } else {
         /* dive into subdirectory */
-        if (![_currentFolderId isEqualToString:@""])
-            _currentFolderId = [_currentFolderId stringByAppendingString:@"/"];
-        _currentFolderId = [_currentFolderId stringByAppendingString:_selectedFile.identifier];
-        [self _requestInformationForCurrentFolderId];
+        if (![self.currentPath isEqualToString:@""])
+            self.currentPath = [self.currentPath stringByAppendingString:@"/"];
+        self.currentPath = [self.currentPath stringByAppendingString:_selectedFile.identifier];
+        [self _requestInformationForCurrentPath];
     }
     [self.tableView deselectRowAtIndexPath:indexPath animated:NO];
 }
@@ -222,18 +137,6 @@
     [alert show];
 }
 
-- (void)scrollViewDidScroll:(UIScrollView *)scrollView
-{
-    NSInteger currentOffset = scrollView.contentOffset.y;
-    NSInteger maximumOffset = scrollView.contentSize.height - scrollView.frame.size.height;
-
-    if (maximumOffset - currentOffset <= - self.tableView.rowHeight) {
-        if (_googleDriveController.hasMoreFiles && !_activityIndicator.isAnimating) {
-            [self _requestInformationForCurrentFolderId];
-        }
-    }
-}
-
 - (void)alertView:(UIAlertView *)alertView clickedButtonAtIndex:(NSInteger)buttonIndex
 {
     if (buttonIndex == 1)
@@ -241,77 +144,12 @@
     _selectedFile = nil;
 }
 
-#pragma mark - google drive controller delegate
-
-- (void)mediaListUpdated
-{
-    [_activityIndicator stopAnimating];
-
-    [self.tableView reloadData];
-
-    NSUInteger count = _googleDriveController.currentListFiles.count;
-    if (count == 0)
-        _numberOfFilesBarButtonItem.title = NSLocalizedString(@"NO_FILES", nil);
-    else if (count != 1)
-        _numberOfFilesBarButtonItem.title = [NSString stringWithFormat:NSLocalizedString(@"NUM_OF_FILES", nil), count];
-    else
-        _numberOfFilesBarButtonItem.title = NSLocalizedString(@"ONE_FILE", nil);
-}
-
-- (void)operationWithProgressInformationStarted
-{
-    [self _showProgressInToolbar:YES];
-}
-
-- (void)updateRemainingTime:(NSString *)time
-{
-    [_progressView updateTime:time];
-}
-
-- (void)currentProgressInformation:(float)progress {
-    [_progressView.progressBar setProgress:progress animated:YES];
-}
-
-- (void)operationWithProgressInformationStopped
-{
-    [self _showProgressInToolbar:NO];
-}
-
-#pragma mark - communication with app delegate
-
-- (void)updateViewAfterSessionChange
-{
-    self.navigationItem.rightBarButtonItem = _logoutButton;
-    if(_authorizationInProgress) {
-        if (self.loginToCloudStorageView.superview) {
-            [self.loginToCloudStorageView removeFromSuperview];
-        }
-        return;
-    }
-    if (![_googleDriveController isAuthorized]) {
-        [self _showLoginPanel];
-        return;
-    }
-
-    //reload if we didn't come back from streaming
-    _currentFolderId = @"";
-    if([_googleDriveController.currentListFiles count] == 0)
-        [self _requestInformationForCurrentFolderId];
-}
-
 #pragma mark - login dialog
-
-- (void)_showLoginPanel
-{
-    self.loginToCloudStorageView.frame = self.tableView.frame;
-    self.navigationItem.rightBarButtonItem = nil;
-    [self.view addSubview:self.loginToCloudStorageView];
-}
 
 - (IBAction)loginAction:(id)sender
 {
     if (![_googleDriveController isAuthorized]) {
-        _authorizationInProgress = YES;
+        self.authorizationInProgress = YES;
         [self.navigationController pushViewController:[self createAuthController] animated:YES];
     } else {
         [_googleDriveController logout];

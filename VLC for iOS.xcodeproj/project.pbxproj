@@ -47,6 +47,7 @@
 		4171D35818A2D90200A16EF9 /* LXReorderableCollectionViewFlowLayout.m in Sources */ = {isa = PBXBuildFile; fileRef = 4171D35718A2D90200A16EF9 /* LXReorderableCollectionViewFlowLayout.m */; };
 		417CDA231A48D1F300D9ACE7 /* VLCCloudServicesTableViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 417CDA211A48D1F300D9ACE7 /* VLCCloudServicesTableViewController.m */; };
 		417CDA241A48D1F300D9ACE7 /* VLCCloudServicesTableViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 417CDA221A48D1F300D9ACE7 /* VLCCloudServicesTableViewController.xib */; };
+		4184AA151A5492070063DF5A /* VLCCloudStorageController.m in Sources */ = {isa = PBXBuildFile; fileRef = 4184AA141A5492070063DF5A /* VLCCloudStorageController.m */; };
 		418FF4B11A0EC1D5005FE808 /* libPods-vlc-ios.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 418FF4B01A0EC1D5005FE808 /* libPods-vlc-ios.a */; };
 		41B93C011A53833B00102E8B /* VLCProgressView.m in Sources */ = {isa = PBXBuildFile; fileRef = 41B93C001A53833B00102E8B /* VLCProgressView.m */; };
 		41B93C051A53835300102E8B /* VLCCloudServiceCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 41B93C031A53835300102E8B /* VLCCloudServiceCell.m */; };
@@ -563,6 +564,8 @@
 		417CDA201A48D1F300D9ACE7 /* VLCCloudServicesTableViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = VLCCloudServicesTableViewController.h; path = Sources/VLCCloudServicesTableViewController.h; sourceTree = SOURCE_ROOT; };
 		417CDA211A48D1F300D9ACE7 /* VLCCloudServicesTableViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = VLCCloudServicesTableViewController.m; path = Sources/VLCCloudServicesTableViewController.m; sourceTree = SOURCE_ROOT; };
 		417CDA221A48D1F300D9ACE7 /* VLCCloudServicesTableViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; name = VLCCloudServicesTableViewController.xib; path = Sources/VLCCloudServicesTableViewController.xib; sourceTree = SOURCE_ROOT; };
+		4184AA131A5492070063DF5A /* VLCCloudStorageController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = VLCCloudStorageController.h; path = Sources/VLCCloudStorageController.h; sourceTree = SOURCE_ROOT; };
+		4184AA141A5492070063DF5A /* VLCCloudStorageController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = VLCCloudStorageController.m; path = Sources/VLCCloudStorageController.m; sourceTree = SOURCE_ROOT; };
 		418FF4B01A0EC1D5005FE808 /* libPods-vlc-ios.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; name = "libPods-vlc-ios.a"; path = "Pods/build/Debug-iphoneos/libPods-vlc-ios.a"; sourceTree = "<group>"; };
 		41B93BFF1A53833B00102E8B /* VLCProgressView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = VLCProgressView.h; path = Sources/VLCProgressView.h; sourceTree = SOURCE_ROOT; };
 		41B93C001A53833B00102E8B /* VLCProgressView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = VLCProgressView.m; path = Sources/VLCProgressView.m; sourceTree = SOURCE_ROOT; };
@@ -1897,6 +1900,8 @@
 				9B088307183D7BEC004B5C2A /* VLCCloudStorageTableViewController.m */,
 				417CDA201A48D1F300D9ACE7 /* VLCCloudServicesTableViewController.h */,
 				417CDA211A48D1F300D9ACE7 /* VLCCloudServicesTableViewController.m */,
+				4184AA131A5492070063DF5A /* VLCCloudStorageController.h */,
+				4184AA141A5492070063DF5A /* VLCCloudStorageController.m */,
 			);
 			name = "Cloud Integration";
 			sourceTree = "<group>";
@@ -3135,6 +3140,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				4144C4661A0ED6C700918C89 /* Reachability.m in Sources */,
+				4184AA151A5492070063DF5A /* VLCCloudStorageController.m in Sources */,
 				9BE4D1CE183D76950006346C /* VLCCloudStorageTableViewCell.m in Sources */,
 				2915540117490A1E00B86CAD /* DDData.m in Sources */,
 				2915540217490A1E00B86CAD /* DDNumber.m in Sources */,

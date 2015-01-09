@@ -11,28 +11,13 @@
  *****************************************************************************/
 
 #import "VLCBoxTableViewController.h"
-#import "VLCCloudStorageTableViewCell.h"
 #import "VLCBoxController.h"
 #import "VLCAppDelegate.h"
-#import "VLCProgressView.h"
-#import "UIBarButtonItem+Theme.h"
 #import <SSKeychain/SSKeychain.h>
 
-@interface VLCBoxTableViewController () <VLCCloudStorageTableViewCell, VLCBoxController, BoxAuthorizationViewControllerDelegate>
+@interface VLCBoxTableViewController () <VLCCloudStorageTableViewCell, BoxAuthorizationViewControllerDelegate>
 {
     BoxFile *_selectedFile;
-
-    NSString *_currentFolderId;
-
-    UIBarButtonItem *_numberOfFilesBarButtonItem;
-    UIBarButtonItem *_logoutButton;
-    UIBarButtonItem *_progressBarButtonItem;
-
-    VLCProgressView *_progressView;
-
-    UIActivityIndicatorView *_activityIndicator;
-
-    BOOL _authorizationInProgress;
     VLCBoxController *_boxController;
 }
 
@@ -43,53 +28,15 @@
 - (void)viewDidLoad
 {
     [super viewDidLoad];
-    self.modalPresentationStyle = UIModalPresentationFormSheet;
 
-    _boxController = [VLCBoxController sharedInstance];
-    _boxController.delegate = self;
+    _boxController = (VLCBoxController *)[VLCBoxController sharedInstance];
     [_boxController startSession];
-
-    _authorizationInProgress = NO;
+    self.controller = _boxController;
+    self.controller.delegate = self;
 
     self.navigationItem.titleView = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"BoxWhite"]];
-    self.navigationItem.titleView.contentMode = UIViewContentModeScaleAspectFit;
-
-    UIBarButtonItem *backButton = [UIBarButtonItem themedBackButtonWithTarget:self andSelector:@selector(goBack:)];
-    self.navigationItem.leftBarButtonItem = backButton;
-
-    _logoutButton = [[UIBarButtonItem alloc] initWithTitle:NSLocalizedString(@"BUTTON_LOGOUT", "") style:UIBarButtonItemStyleBordered target:self action:@selector(logout)];
-
-    self.tableView.rowHeight = [VLCCloudStorageTableViewCell heightOfCell];
-    self.tableView.separatorColor = [UIColor VLCDarkBackgroundColor];
-    self.view.backgroundColor = [UIColor VLCDarkBackgroundColor];
-
-    _numberOfFilesBarButtonItem = [[UIBarButtonItem alloc] initWithTitle:[NSString stringWithFormat:NSLocalizedString(@"NUM_OF_FILES", nil), 0] style:UIBarButtonItemStylePlain target:nil action:nil];
-    [_numberOfFilesBarButtonItem setTitleTextAttributes:@{ UITextAttributeFont : [UIFont systemFontOfSize:11.] } forState:UIControlStateNormal];
-
-    _progressView = [VLCProgressView new];
-    _progressBarButtonItem = [[UIBarButtonItem alloc] initWithCustomView:_progressView];
 
     [self.cloudStorageLogo setImage:[UIImage imageNamed:@"BoxWhite"]];
-
-    if (!SYSTEM_RUNS_IOS7_OR_LATER) {
-        self.flatLoginButton.hidden = YES;
-        [self.loginButton setTitle:NSLocalizedString(@"DROPBOX_LOGIN", nil) forState:UIControlStateNormal];
-    } else {
-        self.loginButton.hidden = YES;
-        [self.flatLoginButton setTitle:NSLocalizedString(@"DROPBOX_LOGIN", nil) forState:UIControlStateNormal];
-    }
-
-    [self.navigationController.toolbar setBackgroundImage:[UIImage imageNamed:@"sudHeaderBg"] forToolbarPosition:UIToolbarPositionAny barMetrics:UIBarMetricsDefault];
-
-    [self _showProgressInToolbar:NO];
-
-    _activityIndicator = [[UIActivityIndicatorView alloc] initWithActivityIndicatorStyle:UIActivityIndicatorViewStyleWhiteLarge];
-    _activityIndicator.hidesWhenStopped = YES;
-    _activityIndicator.translatesAutoresizingMaskIntoConstraints = NO;
-    [self.view addSubview:_activityIndicator];
-
-    [self.view addConstraint:[NSLayoutConstraint constraintWithItem:_activityIndicator attribute:NSLayoutAttributeCenterX relatedBy:NSLayoutRelationEqual toItem:self.view attribute:NSLayoutAttributeCenterX multiplier:1.0 constant:0]];
-    [self.view addConstraint:[NSLayoutConstraint constraintWithItem:_activityIndicator attribute:NSLayoutAttributeCenterY relatedBy:NSLayoutRelationEqual toItem:self.view attribute:NSLayoutAttributeCenterY multiplier:1.0 constant:0]];
 
     [self.cloudStorageLogo sizeToFit];
     self.cloudStorageLogo.center = self.view.center;
@@ -135,58 +82,24 @@
 
 - (void)viewWillAppear:(BOOL)animated
 {
-    self.navigationController.toolbarHidden = NO;
-    self.navigationController.toolbar.barStyle = UIBarStyleBlack;
-    [self.navigationController.toolbar setBackgroundImage:[UIImage imageNamed:@"bottomBlackBar"] forToolbarPosition:UIToolbarPositionAny barMetrics:UIBarMetricsDefault];
-    _currentFolderId = @"";
-    if([_boxController.currentListFiles count] == 0)
-        [self _requestInformationForCurrentFolderId];
     [super viewWillAppear:animated];
+    self.currentPath = @"";
+    if([_boxController.currentListFiles count] == 0)
+        [self _requestInformationForCurrentPath];
 }
 
 - (void)viewWillDisappear:(BOOL)animated
 {
-    self.navigationController.toolbarHidden = YES;
+    [super viewWillDisappear:animated];
     if ((VLCAppDelegate*)[UIApplication sharedApplication].delegate.window.rootViewController.presentedViewController == nil) {
         [_boxController stopSession];
         [self.tableView reloadData];
     }
-    [super viewWillDisappear:animated];
-}
-
-- (void)_showProgressInToolbar:(BOOL)value
-{
-    if (!value)
-        [self setToolbarItems:@[[[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemFlexibleSpace target:nil action:nil], _numberOfFilesBarButtonItem, [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemFlexibleSpace target:nil action:nil]] animated:YES];
-    else {
-        _progressView.progressBar.progress = 0.;
-        [self setToolbarItems:@[[[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemFlexibleSpace target:nil action:nil], _progressBarButtonItem, [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemFlexibleSpace target:nil action:nil]] animated:YES];
-    }
-}
-
-- (void)_requestInformationForCurrentFolderId
-{
-    [_activityIndicator startAnimating];
-    [_boxController requestDirectoryListingWithFolderId:_currentFolderId];
-}
-
-- (IBAction)goBack:(id)sender
-{
-    if (![_currentFolderId isEqualToString:@""] && [_currentFolderId length] > 0) {
-        _currentFolderId = [_currentFolderId stringByDeletingLastPathComponent];
-        [self _requestInformationForCurrentFolderId];
-    } else
-        [self.navigationController popViewControllerAnimated:YES];
 }
 
 #pragma mark - Table view data source
 
-- (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section
-{
-    return _boxController.currentListFiles.count;
-}
-
-- (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
+- (VLCCloudStorageTableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
 {
     static NSString *CellIdentifier = @"BoxCell";
 
@@ -202,11 +115,6 @@
 
 #pragma mark - Table view delegate
 
-- (void)tableView:(UITableView *)tableView willDisplayCell:(UITableViewCell *)cell forRowAtIndexPath:(NSIndexPath *)indexPath
-{
-    cell.backgroundColor = (indexPath.row % 2 == 0)? [UIColor blackColor]: [UIColor VLCDarkBackgroundColor];
-}
-
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
 {
     _selectedFile = _boxController.currentListFiles[indexPath.row];
@@ -215,10 +123,10 @@
         [_boxController downloadFileToDocumentFolder:_selectedFile];
     } else {
         /* dive into subdirectory */
-        if (![_currentFolderId isEqualToString:@""])
-            _currentFolderId = [_currentFolderId stringByAppendingString:@"/"];
-            _currentFolderId = [_currentFolderId stringByAppendingString:_selectedFile.modelID];
-        [self _requestInformationForCurrentFolderId];
+        if (![self.currentPath isEqualToString:@""])
+            self.currentPath = [self.currentPath stringByAppendingString:@"/"];
+        self.currentPath = [self.currentPath stringByAppendingString:_selectedFile.modelID];
+        [self _requestInformationForCurrentPath];
     }
     [self.tableView deselectRowAtIndexPath:indexPath animated:NO];
 }
@@ -232,17 +140,6 @@
     [alert show];
 }
 
-- (void)scrollViewDidScroll:(UIScrollView *)scrollView
-{
-    NSInteger currentOffset = scrollView.contentOffset.y;
-    NSInteger maximumOffset = scrollView.contentSize.height - scrollView.frame.size.height;
-
-    if (maximumOffset - currentOffset <= - self.tableView.rowHeight) {
-        if (_boxController.hasMoreFiles && !_activityIndicator.isAnimating) {
-            [self _requestInformationForCurrentFolderId];
-        }
-    }
-}
 
 - (void)alertView:(UIAlertView *)alertView clickedButtonAtIndex:(NSInteger)buttonIndex
 {
@@ -252,40 +149,6 @@
 }
 
 #pragma mark - box controller delegate
-
-- (void)mediaListUpdated
-{
-    [_activityIndicator stopAnimating];
-
-    [self.tableView reloadData];
-
-    NSUInteger count = _boxController.currentListFiles.count;
-    if (count == 0)
-        _numberOfFilesBarButtonItem.title = NSLocalizedString(@"NO_FILES", nil);
-    else if (count != 1)
-        _numberOfFilesBarButtonItem.title = [NSString stringWithFormat:NSLocalizedString(@"NUM_OF_FILES", nil), count];
-    else
-        _numberOfFilesBarButtonItem.title = NSLocalizedString(@"ONE_FILE", nil);
-}
-
-- (void)operationWithProgressInformationStarted
-{
-    [self _showProgressInToolbar:YES];
-}
-
-- (void)updateRemainingTime:(NSString *)time
-{
-   [_progressView updateTime:time];
-}
-
-- (void)currentProgressInformation:(CGFloat)progress {
-    [_progressView.progressBar setProgress:progress animated:YES];
-}
-
-- (void)operationWithProgressInformationStopped
-{
-    [self _showProgressInToolbar:NO];
-}
 
 #pragma mark - BoxAuthorizationViewControllerDelegate
 
@@ -315,9 +178,9 @@
 {
     NSString *token = [BoxSDK sharedSDK].OAuth2Session.refreshToken;
     [SSKeychain setPassword:token forService:kVLCBoxService account:kVLCBoxAccount];
-    _authorizationInProgress = YES;
+    self.authorizationInProgress = YES;
     [self updateViewAfterSessionChange];
-    _authorizationInProgress = NO;
+    self.authorizationInProgress = NO;
 }
 
 - (void)boxAPIAuthenticationDidFail
@@ -335,48 +198,27 @@
     [self.navigationController popViewControllerAnimated:YES];
 }
 
-- (void)updateViewAfterSessionChange
+- (void)scrollViewDidScroll:(UIScrollView *)scrollView
 {
-    self.navigationItem.rightBarButtonItem = _logoutButton;
-    if(_authorizationInProgress) {
-        if (self.loginToCloudStorageView.superview) {
-            [self.loginToCloudStorageView removeFromSuperview];
+    NSInteger currentOffset = scrollView.contentOffset.y;
+    NSInteger maximumOffset = scrollView.contentSize.height - scrollView.frame.size.height;
+
+    if (maximumOffset - currentOffset <= - self.tableView.rowHeight) {
+        if (_boxController.hasMoreFiles && !self.activityIndicator.isAnimating) {
+            [self _requestInformationForCurrentPath];
         }
-        return;
     }
-    if (![_boxController isAuthorized]) {
-        [self _showLoginPanel];
-        return;
-    }
-
-    //reload if we didn't come back from streaming
-    _currentFolderId = @"";
-    if([_boxController.currentListFiles count] == 0)
-        [self _requestInformationForCurrentFolderId];
 }
-
 #pragma mark - login dialog
-
-- (void)_showLoginPanel
-{
-    self.loginToCloudStorageView.frame = self.tableView.frame;
-    self.navigationItem.rightBarButtonItem = nil;
-    [self.view addSubview:self.loginToCloudStorageView];
-}
 
 - (IBAction)loginAction:(id)sender
 {
     if (![_boxController isAuthorized]) {
-        _authorizationInProgress = YES;
+        self.authorizationInProgress = YES;
         [self.navigationController pushViewController:[self createAuthController] animated:YES];
     } else {
         [_boxController logout];
     }
 }
 
-- (void)logout
-{
-    [_boxController logout];
-    [self updateViewAfterSessionChange];
-}
 @end

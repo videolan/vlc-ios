@@ -11,33 +11,14 @@
  *****************************************************************************/
 
 #import <BoxSDK/BoxSDK.h>
+#import "VLCCloudStorageController.h"
 #import "VLCBoxConstants.h"
 
-@protocol VLCBoxController <NSObject>
-@required
-- (void)mediaListUpdated;
+@interface VLCBoxController : VLCCloudStorageController
 
-@optional
-- (void)operationWithProgressInformationStarted;
-- (void)currentProgressInformation:(CGFloat)progress;
-- (void)updateRemainingTime:(NSString *)time;
-- (void)operationWithProgressInformationStopped;
-- (void)numberOfFilesWaitingToBeDownloadedChanged;
-@end
-
-@interface VLCBoxController : NSObject
-
-@property (nonatomic, weak) id<VLCBoxController> delegate;
-@property (nonatomic, readonly) NSArray *currentListFiles;
-@property (nonatomic, readwrite) BOOL isAuthorized;
-
-+ (VLCBoxController *)sharedInstance;
-- (void)startSession;
 - (void)stopSession;
-- (void)logout;
-- (void)requestDirectoryListingWithFolderId:(NSString *)folderId;
-- (BOOL)hasMoreFiles;
 - (void)streamFile:(BoxFile *)file;
 - (void)downloadFileToDocumentFolder:(BoxFile *)file;
+- (BOOL)hasMoreFiles;
 
 @end
