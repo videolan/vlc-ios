@@ -19,6 +19,7 @@
 #import "VLCDownloadViewController.h"
 #import "NSString+SupportedMedia.h"
 #import "VLCStatusLabel.h"
+#import "VLCAlertView.h"
 
 @interface VLCLocalPlexFolderListViewController () <UITableViewDataSource, UITableViewDelegate, VLCLocalNetworkListCell, UISearchBarDelegate, UISearchDisplayDelegate>
 {
@@ -187,6 +188,10 @@
         UISwipeGestureRecognizer *swipeRight = [[UISwipeGestureRecognizer alloc] initWithTarget:self action:@selector(swipeRightGestureAction:)];
         [swipeRight setDirection:(UISwipeGestureRecognizerDirectionRight)];
         [cell addGestureRecognizer:swipeRight];
+        if (SYSTEM_RUNS_IOS7_OR_LATER) {
+            UILongPressGestureRecognizer *longPressGestureRecognizer = [[UILongPressGestureRecognizer alloc] initWithTarget:self action:@selector(longTouchGestureAction:)];
+            [cell addGestureRecognizer:longPressGestureRecognizer];
+        }
         NSInteger size = [[[ObjList objectAtIndex:indexPath.row] objectForKey:@"size"] integerValue];
         NSString *mediaSize = [NSByteCountFormatter stringFromByteCount:size countStyle:NSByteCountFormatterCountStyleFile];
         NSString *durationInSeconds = [[ObjList objectAtIndex:indexPath.row] objectForKey:@"duration"];
@@ -263,6 +268,31 @@
 }
 
 #pragma mark - Specifics
+
+- (void)_playMediaItem:(NSMutableArray *)mutableMediaObject
+{
+    NSString *newPath = nil;
+    NSString *keyValue = [[mutableMediaObject objectAtIndex:0] objectForKey:@"key"];
+
+    if ([keyValue rangeOfString:@"library"].location == NSNotFound)
+        newPath = [_PlexServerPath stringByAppendingPathComponent:keyValue];
+    else
+        newPath = keyValue;
+
+    if ([[[mutableMediaObject objectAtIndex:0] objectForKey:@"container"] isEqualToString:@"item"]) {
+        [mutableMediaObject removeAllObjects];
+        mutableMediaObject = [_PlexParser PlexMediaServerParser:_PlexServerAddress port:_PlexServerPort navigationPath:newPath];
+        NSString *URLofSubtitle = nil;
+        if ([[mutableMediaObject objectAtIndex:0] objectForKey:@"keySubtitle"])
+            URLofSubtitle = [self _getFileSubtitleFromPlexServer:mutableMediaObject modeStream:YES];
+
+        NSURL *itemURL = [NSURL URLWithString:[[mutableMediaObject objectAtIndex:0] objectForKey:@"keyMedia"]];
+        if (itemURL) {
+            VLCAppDelegate *appDelegate = [UIApplication sharedApplication].delegate;
+            [appDelegate openMovieWithExternalSubtitleFromURL:itemURL externalSubURL:URLofSubtitle];
+        }
+    }
+}
 
 - (void)_downloadFileFromMediaItem:(NSMutableArray *)mutableMediaObject
 {
@@ -393,11 +423,11 @@
 -(void)handleRefresh
 {
     //set the title while refreshing
-    _refreshControl.attributedTitle = [[NSAttributedString alloc]initWithString:NSLocalizedString(@"LOCAL_SERVER_REFRESH",nil)];
+    _refreshControl.attributedTitle = [[NSAttributedString alloc]initWithString:NSLocalizedString(@"LOCAL_SERVER_REFRESH", nil)];
     //set the date and time of refreshing
     NSDateFormatter *formattedDate = [[NSDateFormatter alloc]init];
     [formattedDate setDateFormat:@"MMM d, h:mm a"];
-    NSString *lastupdated = [NSString stringWithFormat:NSLocalizedString(@"LOCAL_SERVER_LAST_UPDATE",nil),[formattedDate stringFromDate:[NSDate date]]];
+    NSString *lastupdated = [NSString stringWithFormat:NSLocalizedString(@"LOCAL_SERVER_LAST_UPDATE", nil),[formattedDate stringFromDate:[NSDate date]]];
     NSDictionary *attrsDictionary = [NSDictionary dictionaryWithObject:[UIColor whiteColor] forKey:NSForegroundColorAttributeName];
     _refreshControl.attributedTitle = [[NSAttributedString alloc] initWithString:lastupdated attributes:attrsDictionary];
     //end the refreshing
@@ -416,6 +446,42 @@
         self.tableView.tableHeaderView = _searchBar;
 
     [self.tableView setContentOffset:CGPointMake(0.0f, -self.tableView.contentInset.top) animated:NO];
+}
+
+- (void)longTouchGestureAction:(UIGestureRecognizer *)recognizer
+{
+    if (recognizer.state == UIGestureRecognizerStateBegan) {
+        NSMutableArray *ObjList = [[NSMutableArray alloc] init];
+        [ObjList removeAllObjects];
+        NSIndexPath *swipedIndexPath = [self.tableView indexPathForRowAtPoint:[recognizer locationInView:self.tableView]];
+        UITableViewCell *swipedCell = [self.tableView cellForRowAtIndexPath:swipedIndexPath];
+        VLCLocalNetworkListCell *cell = (VLCLocalNetworkListCell *)[[self tableView] cellForRowAtIndexPath:swipedIndexPath];
+        [ObjList addObject:[_mutableObjectList objectAtIndex:[self.tableView indexPathForCell:swipedCell].row]];
+
+        NSString *title = [[ObjList objectAtIndex:0] objectForKey:@"title"];
+        NSInteger size = [[[ObjList objectAtIndex:0] objectForKey:@"size"] integerValue];
+        NSString *mediaSize = [NSByteCountFormatter stringFromByteCount:size countStyle:NSByteCountFormatterCountStyleFile];
+        NSString *durationInSeconds = [[ObjList objectAtIndex:0] objectForKey:@"duration"];
+        NSString *message = [NSString stringWithFormat:@"%@ (%@)", mediaSize, durationInSeconds];
+        NSString *summary = [NSString stringWithFormat:@"%@", [[ObjList objectAtIndex:0] objectForKey:@"summary"]];
+
+        VLCAlertView *alertView = [[VLCAlertView alloc] initWithTitle:title message:message cancelButtonTitle:NSLocalizedString(@"BUTTON_CANCEL", nil) otherButtonTitles:@[NSLocalizedString(@"BUTTON_PLAY", nil), NSLocalizedString(@"BUTTON_DOWNLOAD", nil)]];
+        if (![summary isEqualToString:@""]) {
+            UITextView *textView = [[UITextView alloc] initWithFrame:alertView.bounds];
+            textView.text = summary;
+            textView.editable = NO;
+            [alertView setValue:textView forKey:@"accessoryView"];
+        }
+        alertView.completion = ^(BOOL cancelled, NSInteger buttonIndex) {
+            if (!cancelled) {
+                if (buttonIndex == 2)
+                    [self triggerDownloadForCell:cell];
+                else
+                    [self _playMediaItem:ObjList];
+            }
+        };
+        [alertView show];
+    }
 }
 
 @end

@@ -68,6 +68,7 @@
         [_dicoInfo setObject:[attributeDict objectForKey:@"key"] forKey:@"key"];
         [_dicoInfo setObject:[attributeDict objectForKey:@"title"] forKey:@"title"];
         [_dicoInfo setObject:[attributeDict objectForKey:@"ratingKey"] forKey:@"ratingKey"];
+        [_dicoInfo setObject:[attributeDict objectForKey:@"summary"] forKey:@"summary"];
         if([attributeDict objectForKey:@"viewCount"])
             [_dicoInfo setObject:@"watched" forKey:@"state"];
         else
