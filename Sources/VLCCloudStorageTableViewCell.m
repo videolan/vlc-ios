@@ -129,6 +129,7 @@
             self.subtitleLabel.text = (self.boxFile.size > 0) ? [NSByteCountFormatter stringFromByteCount:[self.boxFile.size longLongValue] countStyle:NSByteCountFormatterCountStyleFile]: @"";
             self.titleLabel.hidden = self.subtitleLabel.hidden = NO;
             self.folderTitleLabel.hidden = YES;
+            self.downloadButton.hidden = NO;
         }
         //TODO: correct thumbnails
 //        if (_boxFile.modelID != nil) {
@@ -176,8 +177,6 @@
                 self.thumbnailView.image = [UIImage imageNamed:@"blank"];
         }
     }
-    //we don't have streaming for box yet
-    self.downloadButton.hidden = _boxFile != nil;
 
     [self setNeedsDisplay];
 }

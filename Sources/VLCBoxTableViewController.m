@@ -118,10 +118,9 @@
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
 {
     _selectedFile = _boxController.currentListFiles[indexPath.row];
-    if (![_selectedFile.type isEqualToString:@"folder"]) {
-        //[_boxController streamFile:(BoxFile *)_selectedFile];
-        [_boxController downloadFileToDocumentFolder:_selectedFile];
-    } else {
+    if (![_selectedFile.type isEqualToString:@"folder"])
+        [_boxController streamFile:(BoxFile *)_selectedFile];
+    else {
         /* dive into subdirectory */
         if (![self.currentPath isEqualToString:@""])
             self.currentPath = [self.currentPath stringByAppendingString:@"/"];

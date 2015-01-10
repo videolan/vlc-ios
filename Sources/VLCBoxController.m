@@ -15,7 +15,7 @@
 #import "VLCAppDelegate.h"
 #import <SSKeychain/SSKeychain.h>
 
-@interface VLCBoxController ()
+@interface VLCBoxController () <NSURLConnectionDataDelegate>
 {
     BoxCollection *_fileList;
     BoxAPIJSONOperation *_operation;
@@ -148,10 +148,42 @@
 
 - (void)streamFile:(BoxFile *)file
 {
-//    VLCAppDelegate *appDelegate = (VLCAppDelegate *)[UIApplication sharedApplication].delegate;
-//    NSString *token = [BoxSDK sharedSDK].OAuth2Session.accessToken;
-//    NSString *downloadString = [@"https://api.box.com/2.0/files/"stringByAppendingString:[NSString stringWithFormat:@"%@&access_token=%@",file.modelID, token]];
-//    [appDelegate openMovieFromURL:[NSURL URLWithString:downloadString]];
+    /* the Box API requires us to set an HTTP header to get the actual URL:
+     * curl -L https://api.box.com/2.0/files/FILE_ID/content -H "Authorization: Bearer ACCESS_TOKEN"
+     *
+     * ... however, libvlc does not support setting custom HTTP headers, so we are resolving the redirect ourselves with a NSURLConnection
+     * and pass the final location to libvlc, which does not require a custom HTTP header */
+
+    NSURL *baseURL = [[[BoxSDK sharedSDK] filesManager] URLWithResource:@"files"
+                                        ID:file.modelID
+                               subresource:@"content"
+                                     subID:nil];
+
+    NSMutableURLRequest *urlRequest = [NSMutableURLRequest requestWithURL:baseURL
+                                                              cachePolicy:NSURLRequestReloadIgnoringLocalCacheData
+                                                          timeoutInterval:60];
+
+    [urlRequest setValue:[NSString stringWithFormat:@"Bearer %@", [BoxSDK sharedSDK].OAuth2Session.accessToken] forHTTPHeaderField:@"Authorization"];
+
+    NSURLConnection *theTestConnection = [[NSURLConnection alloc] initWithRequest:urlRequest delegate:self];
+    [theTestConnection start];
+}
+
+- (NSURLRequest *)connection:(NSURLConnection *)connection willSendRequest:(NSURLRequest *)request redirectResponse:(NSURLResponse *)response
+{
+    if (response != nil) {
+        /* we have 1 redirect from the original URL, so as soon as we'd do that,
+         * we grab the URL and cancel the connection */
+        NSURL *theActualURL = request.URL;
+
+        [connection cancel];
+
+        /* now ask VLC to stream the URL we were just passed */
+        VLCAppDelegate *appDelegate = (VLCAppDelegate *)[UIApplication sharedApplication].delegate;
+        [appDelegate openMovieFromURL:theActualURL];
+    }
+
+    return request;
 }
 
 - (void)_triggerNextDownload
