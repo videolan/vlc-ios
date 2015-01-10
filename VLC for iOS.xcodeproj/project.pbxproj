@@ -296,6 +296,10 @@
 		7D9289761877459B009108FD /* VLCFirstStepsThirdPageViewController~iphone.xib in Resources */ = {isa = PBXBuildFile; fileRef = 7D9289741877459B009108FD /* VLCFirstStepsThirdPageViewController~iphone.xib */; };
 		7D92897A1877467E009108FD /* VLCFirstStepsFourthPageViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 7D9289781877467E009108FD /* VLCFirstStepsFourthPageViewController.m */; };
 		7D92897B1877467E009108FD /* VLCFirstStepsFourthPageViewController~iphone.xib in Resources */ = {isa = PBXBuildFile; fileRef = 7D9289791877467E009108FD /* VLCFirstStepsFourthPageViewController~iphone.xib */; };
+		7D93F0411A618A2C007FDC35 /* MediaLibrary-2.1.mom in Resources */ = {isa = PBXBuildFile; fileRef = 7D93F03D1A618A2C007FDC35 /* MediaLibrary-2.1.mom */; };
+		7D93F0421A618A2C007FDC35 /* MediaLibrary-2.5.mom in Resources */ = {isa = PBXBuildFile; fileRef = 7D93F03E1A618A2C007FDC35 /* MediaLibrary-2.5.mom */; };
+		7D93F0431A618A2C007FDC35 /* MediaLibrary-2.5.omo in Resources */ = {isa = PBXBuildFile; fileRef = 7D93F03F1A618A2C007FDC35 /* MediaLibrary-2.5.omo */; };
+		7D93F0441A618A2C007FDC35 /* VersionInfo.plist in Resources */ = {isa = PBXBuildFile; fileRef = 7D93F0401A618A2C007FDC35 /* VersionInfo.plist */; };
 		7D94FCDF16DE7D1000F2623B /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 7D94FCDE16DE7D1000F2623B /* UIKit.framework */; };
 		7D94FCE116DE7D1000F2623B /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 7D94FCE016DE7D1000F2623B /* Foundation.framework */; };
 		7D94FCE316DE7D1000F2623B /* CoreGraphics.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 7D94FCE216DE7D1000F2623B /* CoreGraphics.framework */; };
@@ -476,7 +480,6 @@
 		A7FF9F3E17428C1900999819 /* DeleteButton.png in Resources */ = {isa = PBXBuildFile; fileRef = A7FF9F3D17428C1900999819 /* DeleteButton.png */; };
 		A7FF9F4017428C3800999819 /* DeleteButton@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = A7FF9F3F17428C3800999819 /* DeleteButton@2x.png */; };
 		CC1BBC3F1704934300A20CBF /* libMobileVLCKit.a in Frameworks */ = {isa = PBXBuildFile; fileRef = CC1BBC3E1704934200A20CBF /* libMobileVLCKit.a */; };
-		CC1BBC431704935E00A20CBF /* MediaLibrary.mom in Resources */ = {isa = PBXBuildFile; fileRef = CC1BBC421704935E00A20CBF /* MediaLibrary.mom */; };
 		CC1BBC461704938300A20CBF /* libiconv.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = CC1BBC451704938300A20CBF /* libiconv.dylib */; };
 		CC1BBC481704938B00A20CBF /* libstdc++.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = CC1BBC471704938B00A20CBF /* libstdc++.dylib */; };
 		CC1BBC4C1704939B00A20CBF /* libsqlite3.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = CC1BBC4B1704939B00A20CBF /* libsqlite3.dylib */; };
@@ -1036,6 +1039,10 @@
 		7D9289771877467E009108FD /* VLCFirstStepsFourthPageViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = VLCFirstStepsFourthPageViewController.h; path = Sources/VLCFirstStepsFourthPageViewController.h; sourceTree = SOURCE_ROOT; };
 		7D9289781877467E009108FD /* VLCFirstStepsFourthPageViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = VLCFirstStepsFourthPageViewController.m; path = Sources/VLCFirstStepsFourthPageViewController.m; sourceTree = SOURCE_ROOT; };
 		7D9289791877467E009108FD /* VLCFirstStepsFourthPageViewController~iphone.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; name = "VLCFirstStepsFourthPageViewController~iphone.xib"; path = "Resources/VLCFirstStepsFourthPageViewController~iphone.xib"; sourceTree = SOURCE_ROOT; };
+		7D93F03D1A618A2C007FDC35 /* MediaLibrary-2.1.mom */ = {isa = PBXFileReference; lastKnownFileType = file.bplist; path = "MediaLibrary-2.1.mom"; sourceTree = "<group>"; };
+		7D93F03E1A618A2C007FDC35 /* MediaLibrary-2.5.mom */ = {isa = PBXFileReference; lastKnownFileType = file.bplist; path = "MediaLibrary-2.5.mom"; sourceTree = "<group>"; };
+		7D93F03F1A618A2C007FDC35 /* MediaLibrary-2.5.omo */ = {isa = PBXFileReference; lastKnownFileType = file; path = "MediaLibrary-2.5.omo"; sourceTree = "<group>"; };
+		7D93F0401A618A2C007FDC35 /* VersionInfo.plist */ = {isa = PBXFileReference; lastKnownFileType = file.bplist; path = VersionInfo.plist; sourceTree = "<group>"; };
 		7D94FCDB16DE7D1000F2623B /* VLC for iOS.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "VLC for iOS.app"; sourceTree = BUILT_PRODUCTS_DIR; };
 		7D94FCDE16DE7D1000F2623B /* UIKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = UIKit.framework; path = System/Library/Frameworks/UIKit.framework; sourceTree = SDKROOT; };
 		7D94FCE016DE7D1000F2623B /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = System/Library/Frameworks/Foundation.framework; sourceTree = SDKROOT; };
@@ -1341,7 +1348,6 @@
 		A7FF9F3D17428C1900999819 /* DeleteButton.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = DeleteButton.png; sourceTree = "<group>"; };
 		A7FF9F3F17428C3800999819 /* DeleteButton@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "DeleteButton@2x.png"; sourceTree = "<group>"; };
 		CC1BBC3E1704934200A20CBF /* libMobileVLCKit.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; name = libMobileVLCKit.a; path = External/MobileVLCKit/libMobileVLCKit.a; sourceTree = "<group>"; };
-		CC1BBC421704935E00A20CBF /* MediaLibrary.mom */ = {isa = PBXFileReference; lastKnownFileType = file.bplist; name = MediaLibrary.mom; path = External/MediaLibraryKit/MediaLibrary.mom; sourceTree = "<group>"; };
 		CC1BBC451704938300A20CBF /* libiconv.dylib */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.dylib"; name = libiconv.dylib; path = usr/lib/libiconv.dylib; sourceTree = SDKROOT; };
 		CC1BBC471704938B00A20CBF /* libstdc++.dylib */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.dylib"; name = "libstdc++.dylib"; path = "usr/lib/libstdc++.dylib"; sourceTree = SDKROOT; };
 		CC1BBC491704939300A20CBF /* libz.dylib */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.dylib"; name = libz.dylib; path = usr/lib/libz.dylib; sourceTree = SDKROOT; };
@@ -2109,9 +2115,22 @@
 			name = "Download & Network";
 			sourceTree = "<group>";
 		};
+		7D93F03C1A618A2C007FDC35 /* MediaLibrary.momd */ = {
+			isa = PBXGroup;
+			children = (
+				7D93F03D1A618A2C007FDC35 /* MediaLibrary-2.1.mom */,
+				7D93F03E1A618A2C007FDC35 /* MediaLibrary-2.5.mom */,
+				7D93F03F1A618A2C007FDC35 /* MediaLibrary-2.5.omo */,
+				7D93F0401A618A2C007FDC35 /* VersionInfo.plist */,
+			);
+			name = MediaLibrary.momd;
+			path = "External/MediaLibraryKit/MediaLibrary.momd";
+			sourceTree = "<group>";
+		};
 		7D94FCD216DE7D1000F2623B = {
 			isa = PBXGroup;
 			children = (
+				7D93F03C1A618A2C007FDC35 /* MediaLibrary.momd */,
 				7D31719C19FEC91F0019357A /* VLC for iOS.entitlements */,
 				7DB638AA185BC0890003887C /* Images.xcassets */,
 				7D94FCE416DE7D1000F2623B /* Classes */,
@@ -2625,7 +2644,6 @@
 			isa = PBXGroup;
 			children = (
 				A7924695170F0BA90036AAF2 /* libMediaLibraryKit.a */,
-				CC1BBC421704935E00A20CBF /* MediaLibrary.mom */,
 				CC1BBC3E1704934200A20CBF /* libMobileVLCKit.a */,
 			);
 			name = "External VLC Libraries";
@@ -2750,9 +2768,9 @@
 				7AC862A81765E9510011611A /* jquery.iframe-transport.js in Resources */,
 				7AC862A91765E9510011611A /* jquery.ui.widget.js in Resources */,
 				7DFC38C71A45F071002476CB /* backIcon@3x.png in Resources */,
-				CC1BBC431704935E00A20CBF /* MediaLibrary.mom in Resources */,
 				7DFC38D71A45F142002476CB /* movie@3x.png in Resources */,
 				7DFC38CF1A45F10E002476CB /* bottomBlackBar@3x.png in Resources */,
+				7D93F0411A618A2C007FDC35 /* MediaLibrary-2.1.mom in Resources */,
 				7D27EC1C19DF30CB00EF0370 /* sidebar-cutout@3x.png in Resources */,
 				7D98702E1A3DECEA009CF27D /* videoEffectsIcon@3x.png in Resources */,
 				7D2A34A51805CDBA004078AA /* gradient-cell-ios7@2x.png in Resources */,
@@ -2888,6 +2906,7 @@
 				7D47D70B1760CD8700E86BAD /* playbackDoneButtonHighlight.png in Resources */,
 				7D897874185DEF79009BAB5D /* repeat.png in Resources */,
 				7D47D70C1760CD8700E86BAD /* playbackDoneButtonHighlight@2x.png in Resources */,
+				7D93F0441A618A2C007FDC35 /* VersionInfo.plist in Resources */,
 				7D278D7018E9D6750063E109 /* tvShow~iPad.png in Resources */,
 				7D47D70D1760CD8700E86BAD /* ratioButton.png in Resources */,
 				7D27EC1D19DF30CB00EF0370 /* sidebar.png in Resources */,
@@ -3075,6 +3094,7 @@
 				7DF3B77419DF01550041A02E /* fsarrow-aspectratio@2x.png in Resources */,
 				7D9870261A3DECC4009CF27D /* repeat@3x.png in Resources */,
 				7D0699EA17CB1FAE00713BEB /* Downloads@2x.png in Resources */,
+				7D93F0431A618A2C007FDC35 /* MediaLibrary-2.5.omo in Resources */,
 				7D0699EB17CB1FAE00713BEB /* Dropbox.png in Resources */,
 				7D514D4117F779C6007B960C /* Drive@2x.png in Resources */,
 				7DFC38DF1A45F23A002476CB /* headerSidebar@3x.png in Resources */,
@@ -3087,6 +3107,7 @@
 				7D27EC1219DF30CB00EF0370 /* laptop@2x.png in Resources */,
 				7D63C1991877504B00BD5256 /* VLCFirstStepsSixthPageViewController~ipad.xib in Resources */,
 				7D897882185E00C3009BAB5D /* checkbox.png in Resources */,
+				7D93F0421A618A2C007FDC35 /* MediaLibrary-2.5.mom in Resources */,
 				7D514D4417F779C6007B960C /* Drive.png in Resources */,
 				7D278D6C18E9D5EF0063E109 /* tvShow@2x.png in Resources */,
 				7D27EC0A19DF30CB00EF0370 /* cloud@3x.png in Resources */,
