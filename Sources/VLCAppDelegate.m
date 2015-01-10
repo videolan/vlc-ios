@@ -124,8 +124,6 @@
         return YES;
     }
 
-    [[BoxSDK sharedSDK].OAuth2Session performAuthorizationCodeGrantWithReceivedURL:url];
-
     if (_playlistViewController && url != nil) {
         APLog(@"%@ requested %@ to be opened", sourceApplication, url);
 
