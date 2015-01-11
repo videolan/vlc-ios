@@ -19,11 +19,10 @@
 #import "VLCDownloadViewController.h"
 #import "NSString+SupportedMedia.h"
 #import "VLCStatusLabel.h"
+#import "UIBarButtonItem+Theme.h"
 
 @interface VLCLocalPlexFolderListViewController () <UITableViewDataSource, UITableViewDelegate, VLCLocalNetworkListCell, UISearchBarDelegate, UISearchDisplayDelegate>
 {
-    UIBarButtonItem *_backButton;
-
     NSMutableArray *_mutableObjectList;
     NSCache *_imageCache;
 
@@ -37,6 +36,7 @@
     UISearchBar *_searchBar;
     UISearchDisplayController *_searchDisplayController;
     UIRefreshControl *_refreshControl;
+    UIBarButtonItem *_menuButton;
 }
 @end
 
@@ -122,6 +122,9 @@
     [_refreshControl addTarget:self action:@selector(handleRefresh) forControlEvents:UIControlEventValueChanged];
     [self.tableView addSubview:_refreshControl];
 
+    _menuButton = [UIBarButtonItem themedRevealMenuButtonWithTarget:self andSelector:@selector(menuButtonAction:)];
+    self.navigationItem.rightBarButtonItem = _menuButton;
+
     _searchData = [[NSMutableArray alloc] init];
     [_searchData removeAllObjects];
 }
@@ -132,6 +135,14 @@
     if (UI_USER_INTERFACE_IDIOM() == UIUserInterfaceIdiomPhone && toInterfaceOrientation == UIInterfaceOrientationPortraitUpsideDown)
         return NO;
     return YES;
+}
+
+- (IBAction)menuButtonAction:(id)sender
+{
+    [[(VLCAppDelegate*)[UIApplication sharedApplication].delegate revealController] toggleSidebar:![(VLCAppDelegate*)[UIApplication sharedApplication].delegate revealController].sidebarShowing duration:kGHRevealSidebarDefaultAnimationDuration];
+
+    if (self.isEditing)
+        [self setEditing:NO animated:YES];
 }
 
 #pragma mark - Table view data source
