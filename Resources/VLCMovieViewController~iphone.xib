@@ -170,7 +170,7 @@
                     </accessibility>
                 </view>
                 <view contentMode="scaleToFill" id="165" userLabel="Controls panel" customClass="VLCFrostedGlasView">
-                    <rect key="frame" x="0.0" y="219" width="320" height="131"/>
+                    <rect key="frame" x="0.0" y="340" width="320" height="131"/>
                     <autoresizingMask key="autoresizingMask" flexibleMinX="YES" flexibleMaxX="YES" flexibleMinY="YES"/>
                     <subviews>
                         <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" text="Audio delay" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="8cb-fw-YeF">
