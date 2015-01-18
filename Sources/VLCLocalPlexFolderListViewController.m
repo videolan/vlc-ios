@@ -21,6 +21,7 @@
 #import "VLCStatusLabel.h"
 #import "VLCAlertView.h"
 #import "UIBarButtonItem+Theme.h"
+#import "UIDevice+VLC.h"
 
 @interface VLCLocalPlexFolderListViewController () <UITableViewDataSource, UITableViewDelegate, VLCLocalNetworkListCell, UISearchBarDelegate, UISearchDisplayDelegate>
 {
@@ -397,11 +398,17 @@
     [ObjList removeAllObjects];
     ObjList = [_PlexParser PlexMediaServerParser:_PlexServerAddress port:_PlexServerPort navigationPath:path];
 
-    if ([[ObjList objectAtIndex:0] objectForKey:@"keySubtitle"])
-        [self _getFileSubtitleFromPlexServer:ObjList modeStream:NO];
+    NSInteger size = [[[ObjList objectAtIndex:0] objectForKey:@"size"] integerValue];
+    if (size  < [[UIDevice currentDevice] freeDiskspace].longLongValue) {
+        if ([[ObjList objectAtIndex:0] objectForKey:@"keySubtitle"])
+            [self _getFileSubtitleFromPlexServer:ObjList modeStream:NO];
 
-    [self _downloadFileFromMediaItem:ObjList];
-    [cell.statusLabel showStatusMessage:NSLocalizedString(@"DOWNLOADING", nil)];
+        [self _downloadFileFromMediaItem:ObjList];
+        [cell.statusLabel showStatusMessage:NSLocalizedString(@"DOWNLOADING", nil)];
+    } else {
+        UIAlertView *alert = [[UIAlertView alloc] initWithTitle:NSLocalizedString(@"DISK_FULL", nil) message:[NSString stringWithFormat:NSLocalizedString(@"DISK_FULL_FORMAT", nil), [[ObjList objectAtIndex:0] objectForKey:@"title"], [[UIDevice currentDevice] model]] delegate:self cancelButtonTitle:NSLocalizedString(@"BUTTON_OK", nil) otherButtonTitles:nil];
+        [alert show];
+    }
 }
 
 #pragma mark - Search Display Controller Delegate
