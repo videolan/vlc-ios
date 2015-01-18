@@ -18,7 +18,7 @@
 #import "VLCDropboxController.h"
 #import "VLCAppDelegate.h"
 #import "VLCDropboxConstants.h"
-#import "UIDevice+SpeedCategory.h"
+#import "UIDevice+VLC.h"
 
 @interface VLCDropboxTableViewController () <VLCCloudStorageTableViewCell>
 {

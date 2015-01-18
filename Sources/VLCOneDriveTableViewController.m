@@ -17,7 +17,7 @@
 #import "VLCAppDelegate.h"
 #import "VLCOneDriveController.h"
 #import "VLCProgressView.h"
-#import "UIDevice+SpeedCategory.h"
+#import "UIDevice+VLC.h"
 
 @interface VLCOneDriveTableViewController ()
 {

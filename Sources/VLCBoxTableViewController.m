@@ -14,7 +14,7 @@
 #import "VLCBoxController.h"
 #import "VLCAppDelegate.h"
 #import <SSKeychain/SSKeychain.h>
-#import "UIDevice+SpeedCategory.h"
+#import "UIDevice+VLC.h"
 
 @interface VLCBoxTableViewController () <VLCCloudStorageTableViewCell, BoxAuthorizationViewControllerDelegate>
 {

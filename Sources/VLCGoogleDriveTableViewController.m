@@ -15,7 +15,7 @@
 #import "VLCAppDelegate.h"
 #import "GTMOAuth2ViewControllerTouch.h"
 #import "VLCGoogleDriveController.h"
-#import "UIDevice+SpeedCategory.h"
+#import "UIDevice+VLC.h"
 
 @interface VLCGoogleDriveTableViewController () <VLCCloudStorageTableViewCell>
 {

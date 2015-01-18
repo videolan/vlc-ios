@@ -19,7 +19,7 @@
 #import "VLCExternalDisplayController.h"
 #import <AVFoundation/AVFoundation.h>
 #import <CommonCrypto/CommonDigest.h>
-#import "UIDevice+SpeedCategory.h"
+#import "UIDevice+VLC.h"
 #import "VLCBugreporter.h"
 #import "VLCThumbnailsCache.h"
 #import "VLCTrackSelectorTableViewCell.h"

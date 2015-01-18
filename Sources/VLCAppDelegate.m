@@ -2,7 +2,7 @@
  * VLCAppDelegate.m
  * VLC for iOS
  *****************************************************************************
- * Copyright (c) 2013-2014 VideoLAN. All rights reserved.
+ * Copyright (c) 2013-2015 VideoLAN. All rights reserved.
  * $Id$
  *
  * Authors: Felix Paul Kühne <fkuehne # videolan.org>
@@ -18,7 +18,7 @@
 #import "VLCAppDelegate.h"
 #import "VLCMediaFileDiscoverer.h"
 #import "NSString+SupportedMedia.h"
-#import "UIDevice+SpeedCategory.h"
+#import "UIDevice+VLC.h"
 
 #import "VLCPlaylistViewController.h"
 #import "VLCMovieViewController.h"

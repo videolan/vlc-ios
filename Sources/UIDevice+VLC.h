@@ -1,5 +1,5 @@
 /*****************************************************************************
- * UIDevice+SpeedCategory.h
+ * UIDevice+VLC.h
  * VLC for iOS
  *****************************************************************************
  * Copyright (c) 2013-2015 VideoLAN. All rights reserved.
@@ -12,7 +12,7 @@
 
 #import <UIKit/UIKit.h>
 
-@interface UIDevice (SpeedCategory)
+@interface UIDevice (VLC)
 
 - (int)speedCategory;
 - (NSNumber *)freeDiskspace;

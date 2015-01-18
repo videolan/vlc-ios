@@ -1,5 +1,5 @@
 /*****************************************************************************
- * UIDevice+SpeedCategory.m
+ * UIDevice+VLC
  * VLC for iOS
  *****************************************************************************
  * Copyright (c) 2013-2015 VideoLAN. All rights reserved.
@@ -10,10 +10,10 @@
  * Refer to the COPYING file of the official project for license.
  *****************************************************************************/
 
-#import "UIDevice+SpeedCategory.h"
+#import "UIDevice+VLC.h"
 #import <sys/sysctl.h> // for sysctlbyname
 
-@implementation UIDevice (SpeedCategory)
+@implementation UIDevice (VLC)
 
 - (int)speedCategory
 {
