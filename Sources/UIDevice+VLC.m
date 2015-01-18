@@ -54,11 +54,13 @@
     NSDictionary *dictionary = [[NSFileManager defaultManager] attributesOfFileSystemForPath:[paths lastObject] error: &error];
 
     if (!error) {
-        totalSpace = [dictionary objectForKey: NSFileSystemSize];
+        totalSpace = [dictionary objectForKey:NSFileSystemSize];
         totalFreeSpace = [dictionary objectForKey:NSFileSystemFreeSize];
-        APLog(@"Memory Capacity of %llu MiB with %llu MiB Free memory available.", (([totalSpace unsignedLongLongValue]/1024ll)/1024ll), (([totalFreeSpace unsignedLongLongValue]/1024ll)/1024ll));
+        NSString *totalSize = [NSByteCountFormatter stringFromByteCount:[totalSpace integerValue] countStyle:NSByteCountFormatterCountStyleFile];
+        NSString *totalFreeSize = [NSByteCountFormatter stringFromByteCount:[totalFreeSpace integerValue] countStyle:NSByteCountFormatterCountStyleFile];
+        APLog(@"Memory Capacity of %@ MiB with %@ MiB Free memory available.", totalSize, totalFreeSize);
     } else
-        APLog(@"Error Obtaining System Memory Info: Domain = %@, Code = %i", [error domain], [error code]);
+        APLog(@"Error Obtaining System Memory Info: Domain = %@, Code = %li", [error domain], [error code]);
 
     return totalFreeSpace;
 }
