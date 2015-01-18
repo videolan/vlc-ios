@@ -14,6 +14,7 @@
 #import "VLCHTTPFileDownloader.h"
 #import "NSString+SupportedMedia.h"
 #import "VLCAppDelegate.h"
+#import "UIDevice+VLC.h"
 
 @interface VLCHTTPFileDownloader ()
 {
@@ -122,7 +123,14 @@
             [self _downloadEnded];
         } else {
             _expectedDownloadSize = [response expectedContentLength];
-            [self.delegate downloadStarted];
+            if (_expectedDownloadSize  < [[UIDevice currentDevice] freeDiskspace].longLongValue)
+                [self.delegate downloadStarted];
+            else {
+                [_urlConnection cancel];
+                [self _downloadEnded];
+                UIAlertView *alert = [[UIAlertView alloc] initWithTitle:NSLocalizedString(@"DISK_FULL", nil) message:[NSString stringWithFormat:NSLocalizedString(@"DISK_FULL_FORMAT", nil), _fileName, [[UIDevice currentDevice] model]] delegate:self cancelButtonTitle:NSLocalizedString(@"BUTTON_OK", nil) otherButtonTitles:nil];
+                [alert show];
+            }
             APLog(@"expected download size: %lu", (unsigned long)_expectedDownloadSize);
         }
     } else {
