@@ -26,6 +26,7 @@
 #import "VLCStatusLabel.h"
 #import "BasicUPnPDevice+VLC.h"
 #import "UIBarButtonItem+Theme.h"
+#import "UIDevice+VLC.h"
 
 #define kVLCServerTypeUPNP 0
 #define kVLCServerTypeFTP 1
@@ -667,15 +668,18 @@
         [cell.statusLabel showStatusMessage:NSLocalizedString(@"DOWNLOADING", nil)];
     }else if (_serverType == kVLCServerTypeFTP) {
         NSString *rawObjectName;
+        NSInteger size;
         NSMutableArray *ObjList = [[NSMutableArray alloc] init];
         [ObjList removeAllObjects];
 
         if ([self.searchDisplayController isActive]) {
             [ObjList addObjectsFromArray:_searchData];
             rawObjectName = [ObjList[[self.searchDisplayController.searchResultsTableView indexPathForCell:cell].row] objectForKey:(id)kCFFTPResourceName];
+            size = [[ObjList[[self.searchDisplayController.searchResultsTableView indexPathForCell:cell].row] objectForKey:(id)kCFFTPResourceSize] intValue];
         } else {
             [ObjList addObjectsFromArray:_objectList];
             rawObjectName = [ObjList[[self.tableView indexPathForCell:cell].row] objectForKey:(id)kCFFTPResourceName];
+            size = [[ObjList[[self.tableView indexPathForCell:cell].row] objectForKey:(id)kCFFTPResourceSize] intValue];
         }
 
         NSData *flippedData = [rawObjectName dataUsingEncoding:[[[NSUserDefaults standardUserDefaults] objectForKey:kVLCSettingFTPTextEncoding] intValue] allowLossyConversion:YES];
@@ -684,8 +688,13 @@
             UIAlertView * alert = [[UIAlertView alloc] initWithTitle:NSLocalizedString(@"FILE_NOT_SUPPORTED", nil) message:[NSString stringWithFormat:NSLocalizedString(@"FILE_NOT_SUPPORTED_LONG", nil), properObjectName] delegate:self cancelButtonTitle:NSLocalizedString(@"BUTTON_CANCEL", nil) otherButtonTitles:nil];
             [alert show];
         } else {
-            [self _downloadFTPFile:properObjectName];
-            [cell.statusLabel showStatusMessage:NSLocalizedString(@"DOWNLOADING", nil)];
+            if (size  < [[UIDevice currentDevice] freeDiskspace].longLongValue) {
+                [self _downloadFTPFile:properObjectName];
+                [cell.statusLabel showStatusMessage:NSLocalizedString(@"DOWNLOADING", nil)];
+            } else {
+                UIAlertView *alert = [[UIAlertView alloc] initWithTitle:NSLocalizedString(@"DISK_FULL", nil) message:[NSString stringWithFormat:NSLocalizedString(@"DISK_FULL_FORMAT", nil), properObjectName, [[UIDevice currentDevice] model]] delegate:self cancelButtonTitle:NSLocalizedString(@"BUTTON_OK", nil) otherButtonTitles:nil];
+                [alert show];
+            }
         }
     }
 }
