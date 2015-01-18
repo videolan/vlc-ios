@@ -2,7 +2,7 @@
  * UIDevice+SpeedCategory.h
  * VLC for iOS
  *****************************************************************************
- * Copyright (c) 2013 VideoLAN. All rights reserved.
+ * Copyright (c) 2013-2015 VideoLAN. All rights reserved.
  * $Id$
  *
  * Authors: Felix Paul Kühne <fkuehne # videolan.org>
@@ -15,5 +15,6 @@
 @interface UIDevice (SpeedCategory)
 
 - (int)speedCategory;
+- (NSNumber *)freeDiskspace;
 
 @end

@@ -2,7 +2,7 @@
  * UIDevice+SpeedCategory.m
  * VLC for iOS
  *****************************************************************************
- * Copyright (c) 2013 VideoLAN. All rights reserved.
+ * Copyright (c) 2013-2015 VideoLAN. All rights reserved.
  * $Id$
  *
  * Authors: Felix Paul Kühne <fkuehne # videolan.org>
@@ -43,6 +43,24 @@
         APLog(@"this is a cat four device");
         return 4;
     }
+}
+
+- (NSNumber *)freeDiskspace
+{
+    NSNumber *totalSpace;
+    NSNumber *totalFreeSpace;
+    NSError *error = nil;
+    NSArray *paths = NSSearchPathForDirectoriesInDomains(NSDocumentDirectory, NSUserDomainMask, YES);
+    NSDictionary *dictionary = [[NSFileManager defaultManager] attributesOfFileSystemForPath:[paths lastObject] error: &error];
+
+    if (!error) {
+        totalSpace = [dictionary objectForKey: NSFileSystemSize];
+        totalFreeSpace = [dictionary objectForKey:NSFileSystemFreeSize];
+        APLog(@"Memory Capacity of %llu MiB with %llu MiB Free memory available.", (([totalSpace unsignedLongLongValue]/1024ll)/1024ll), (([totalFreeSpace unsignedLongLongValue]/1024ll)/1024ll));
+    } else
+        APLog(@"Error Obtaining System Memory Info: Domain = %@, Code = %i", [error domain], [error code]);
+
+    return totalFreeSpace;
 }
 
 @end

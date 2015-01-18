@@ -2,7 +2,7 @@
  * VLCGoogleDriveTableViewController.m
  * VLC for iOS
  *****************************************************************************
- * Copyright (c) 2013 VideoLAN. All rights reserved.
+ * Copyright (c) 2013-2015 VideoLAN. All rights reserved.
  * $Id$
  *
  * Authors: Carola Nitz <nitz.carola # googlemail.com>
@@ -15,6 +15,7 @@
 #import "VLCAppDelegate.h"
 #import "GTMOAuth2ViewControllerTouch.h"
 #import "VLCGoogleDriveController.h"
+#import "UIDevice+SpeedCategory.h"
 
 @interface VLCGoogleDriveTableViewController () <VLCCloudStorageTableViewCell>
 {
@@ -132,9 +133,14 @@
 {
     _selectedFile = _googleDriveController.currentListFiles[[self.tableView indexPathForCell:cell].row];
 
-    /* selected item is a proper file, ask the user if s/he wants to download it */
-    UIAlertView * alert = [[UIAlertView alloc] initWithTitle:NSLocalizedString(@"DROPBOX_DOWNLOAD", nil) message:[NSString stringWithFormat:NSLocalizedString(@"DROPBOX_DL_LONG", nil), _selectedFile.title, [[UIDevice currentDevice] model]] delegate:self cancelButtonTitle:NSLocalizedString(@"BUTTON_CANCEL", nil) otherButtonTitles:NSLocalizedString(@"BUTTON_DOWNLOAD", nil), nil];
-    [alert show];
+    if (_selectedFile.fileSize.longLongValue < [[UIDevice currentDevice] freeDiskspace].longLongValue) {
+        /* selected item is a proper file, ask the user if s/he wants to download it */
+        UIAlertView * alert = [[UIAlertView alloc] initWithTitle:NSLocalizedString(@"DROPBOX_DOWNLOAD", nil) message:[NSString stringWithFormat:NSLocalizedString(@"DROPBOX_DL_LONG", nil), _selectedFile.title, [[UIDevice currentDevice] model]] delegate:self cancelButtonTitle:NSLocalizedString(@"BUTTON_CANCEL", nil) otherButtonTitles:NSLocalizedString(@"BUTTON_DOWNLOAD", nil), nil];
+        [alert show];
+    } else {
+        UIAlertView *alert = [[UIAlertView alloc] initWithTitle:NSLocalizedString(@"DISK_FULL", nil) message:[NSString stringWithFormat:NSLocalizedString(@"DISK_FULL_FORMAT", nil), _selectedFile.title, [[UIDevice currentDevice] model]] delegate:self cancelButtonTitle:NSLocalizedString(@"BUTTON_OK", nil) otherButtonTitles:nil];
+        [alert show];
+    }
 }
 
 - (void)alertView:(UIAlertView *)alertView clickedButtonAtIndex:(NSInteger)buttonIndex

@@ -17,6 +17,7 @@
 #import "VLCAppDelegate.h"
 #import "VLCOneDriveController.h"
 #import "VLCProgressView.h"
+#import "UIDevice+SpeedCategory.h"
 
 @interface VLCOneDriveTableViewController ()
 {
@@ -132,8 +133,14 @@
     NSIndexPath *indexPath = [self.tableView indexPathForCell:cell];
     _selectedFile = _oneDriveController.currentFolder.items[indexPath.row];
 
-    UIAlertView * alert = [[UIAlertView alloc] initWithTitle:NSLocalizedString(@"DROPBOX_DOWNLOAD", nil) message:[NSString stringWithFormat:NSLocalizedString(@"DROPBOX_DL_LONG", nil), _selectedFile.name, [[UIDevice currentDevice] model]] delegate:self cancelButtonTitle:NSLocalizedString(@"BUTTON_CANCEL", nil) otherButtonTitles:NSLocalizedString(@"BUTTON_DOWNLOAD", nil), nil];
-    [alert show];
+    if (_selectedFile.size.longLongValue < [[UIDevice currentDevice] freeDiskspace].longLongValue) {
+        /* selected item is a proper file, ask the user if s/he wants to download it */
+        UIAlertView * alert = [[UIAlertView alloc] initWithTitle:NSLocalizedString(@"DROPBOX_DOWNLOAD", nil) message:[NSString stringWithFormat:NSLocalizedString(@"DROPBOX_DL_LONG", nil), _selectedFile.name, [[UIDevice currentDevice] model]] delegate:self cancelButtonTitle:NSLocalizedString(@"BUTTON_CANCEL", nil) otherButtonTitles:NSLocalizedString(@"BUTTON_DOWNLOAD", nil), nil];
+        [alert show];
+    } else {
+        UIAlertView *alert = [[UIAlertView alloc] initWithTitle:NSLocalizedString(@"DISK_FULL", nil) message:[NSString stringWithFormat:NSLocalizedString(@"DISK_FULL_FORMAT", nil), _selectedFile.name, [[UIDevice currentDevice] model]] delegate:self cancelButtonTitle:NSLocalizedString(@"BUTTON_OK", nil) otherButtonTitles:nil];
+        [alert show];
+    }
 }
 
 @end
