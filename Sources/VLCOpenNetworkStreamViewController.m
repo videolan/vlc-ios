@@ -283,7 +283,7 @@ forRowAtIndexPath:(NSIndexPath *)indexPath
         NSInteger httpStatus = [(NSHTTPURLResponse *)response statusCode];
 
         if (httpStatus == 200) {
-            NSString *receivedSub = [NSString stringWithContentsOfURL:checkURL encoding:NSASCIIStringEncoding error:nil];
+            NSData *receivedSub = [NSData dataWithContentsOfURL:checkURL];
 
             NSArray *searchPaths = NSSearchPathForDirectoriesInDomains(NSCachesDirectory, NSUserDomainMask, YES);
             NSString *directoryPath = searchPaths[0];
@@ -297,7 +297,7 @@ forRowAtIndexPath:(NSIndexPath *)indexPath
                     APLog(@"file creation failed, no data was saved");
             }
 
-            [receivedSub writeToFile:fileSubtitlePath atomically:YES encoding:NSUTF8StringEncoding error:nil];
+            [receivedSub writeToFile:fileSubtitlePath atomically:YES];
             return fileSubtitlePath;
         }
     }
