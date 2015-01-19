@@ -74,6 +74,11 @@
         else
             [_dicoInfo setObject:@"unwatched" forKey:@"state"];
 
+    } else if([elementName isEqualToString:@"Media"]) {
+        if([attributeDict objectForKey:@"audioCodec"])
+            [_dicoInfo setObject:[attributeDict objectForKey:@"audioCodec"] forKey:@"audioCodec"];
+        if([attributeDict objectForKey:@"videoCodec"])
+            [_dicoInfo setObject:[attributeDict objectForKey:@"videoCodec"] forKey:@"videoCodec"];
     } else if([elementName isEqualToString:@"Part"]) {
         [_dicoInfo setObject:[NSString stringWithFormat:@"%@%@",_PlexMediaServerUrl, [attributeDict objectForKey:@"key"]] forKey:@"keyMedia"];
         if([attributeDict objectForKey:@"file"])

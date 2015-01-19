@@ -480,7 +480,15 @@
         NSInteger size = [[[ObjList objectAtIndex:0] objectForKey:@"size"] integerValue];
         NSString *mediaSize = [NSByteCountFormatter stringFromByteCount:size countStyle:NSByteCountFormatterCountStyleFile];
         NSString *durationInSeconds = [[ObjList objectAtIndex:0] objectForKey:@"duration"];
-        NSString *message = [NSString stringWithFormat:@"%@ (%@)", mediaSize, durationInSeconds];
+        NSString *audioCodec = [[ObjList objectAtIndex:0] objectForKey:@"audioCodec"];
+        if (!audioCodec)
+            audioCodec = @"no track";
+
+        NSString *videoCodec = [[ObjList objectAtIndex:0] objectForKey:@"videoCodec"];
+        if (!videoCodec)
+            videoCodec = @"no track";
+
+        NSString *message = [NSString stringWithFormat:@"%@ (%@)\naudio(%@) video(%@)", mediaSize, durationInSeconds, audioCodec, videoCodec];
         NSString *summary = [NSString stringWithFormat:@"%@", [[ObjList objectAtIndex:0] objectForKey:@"summary"]];
 
         VLCAlertView *alertView = [[VLCAlertView alloc] initWithTitle:title message:message cancelButtonTitle:NSLocalizedString(@"BUTTON_CANCEL", nil) otherButtonTitles:@[NSLocalizedString(@"BUTTON_PLAY", nil), NSLocalizedString(@"BUTTON_DOWNLOAD", nil)]];
