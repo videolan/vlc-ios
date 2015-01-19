@@ -2,7 +2,7 @@
  * VLCConstants.h
  * VLC for iOS
  *****************************************************************************
- * Copyright (c) 2013-2014 VideoLAN. All rights reserved.
+ * Copyright (c) 2013-2015 VideoLAN. All rights reserved.
  * $Id$
  *
  * Authors: Felix Paul Kühne <fkuehne # videolan.org>
@@ -44,6 +44,8 @@
 #define kVLCSettingFTPTextEncoding @"ftp-text-encoding"
 #define kVLCSettingFTPTextEncodingDefaultValue @(5) // ISO Latin 1
 #define kVLCSettingPlaybackSpeedDefaultValue @"playback-speed"
+#define kVLCSettingWiFiSharingIPv6 @"wifi-sharing-ipv6"
+#define kVLCSettingWiFiSharingIPv6DefaultValue @(NO)
 
 #define kVLCShowRemainingTime @"show-remaining-time"
 #define kVLCRecentURLs @"recent-urls"

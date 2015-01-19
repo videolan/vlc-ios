@@ -401,6 +401,16 @@
 			<string>SETTINGS_FILE_SYNC</string>
 		</dict>
 		<dict>
+			<key>DefaultValue</key>
+			<false/>
+			<key>Key</key>
+			<string>wifi-sharing-ipv6</string>
+			<key>Title</key>
+			<string>SETTINGS_WIFISHARING_IPv6</string>
+			<key>Type</key>
+			<string>PSToggleSwitchSpecifier</string>
+		</dict>
+		<dict>
 			<key>Type</key>
 			<string>PSMultiValueSpecifier</string>
 			<key>Titles</key>
