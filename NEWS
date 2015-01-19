@@ -1,3 +1,10 @@
+2.4.1:
+------
+* Fixed subtitles downloading in some corner cases
+* Appearance fixes for playback speed selector and download view on iPhone
+* Improved WiFi Sharing reliability by disabling IPv6 support by default
+* Improved UPnP reliability when using MythTV
+
 2.4:
 ----
 * Added support for iPhone 6 and 6+
