@@ -2,7 +2,7 @@
  * VLCHTTPUploaderViewController.m
  * VLC for iOS
  *****************************************************************************
- * Copyright (c) 2013 VideoLAN. All rights reserved.
+ * Copyright (c) 2013-2015 VideoLAN. All rights reserved.
  * $Id$
  *
  * Authors: Jean-Baptiste Kempf <jb # videolan.org>
@@ -81,6 +81,9 @@
     // Initialize our http server
     _httpServer = [[HTTPServer alloc] init];
     [_httpServer setInterface:WifiInterfaceName];
+
+    [_httpServer setIPv4Enabled:YES];
+    [_httpServer setIPv6Enabled:[[[NSUserDefaults standardUserDefaults] objectForKey:kVLCSettingWiFiSharingIPv6] boolValue]];
 
     // Tell the server to broadcast its presence via Bonjour.
     // This allows browsers such as Safari to automatically discover our service.
