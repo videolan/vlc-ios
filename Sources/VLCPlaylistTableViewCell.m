@@ -15,6 +15,7 @@
 #import "VLCPlaylistTableViewCell.h"
 #import "VLCLinearProgressIndicator.h"
 #import "VLCThumbnailsCache.h"
+#import "NSString+SupportedMedia.h"
 #import <MediaLibraryKit/MLAlbum.h>
 
 @interface VLCPlaylistTableViewCell ()
@@ -444,12 +445,26 @@
 
         /* SPU */
         trackCount = spuTracks.count;
+        if (trackCount == 0) {
+            NSFileManager *fileManager = [NSFileManager defaultManager];
+            NSString *folderLocation = [[[NSURL URLWithString:theFile.url] path] stringByDeletingLastPathComponent];
+            NSArray *allfiles = [fileManager contentsOfDirectoryAtPath:folderLocation error:nil];
+            NSString *fileName = [[[[NSURL URLWithString:theFile.url] path] lastPathComponent] stringByDeletingPathExtension];
+            NSUInteger count = allfiles.count;
+            NSString *additionalFilePath;
+            for (unsigned int x = 0; x < count; x++) {
+                additionalFilePath = [NSString stringWithFormat:@"%@", allfiles[x]];
+                if ([additionalFilePath isSupportedSubtitleFormat])
+                    if ([additionalFilePath rangeOfString:fileName].location != NSNotFound)
+                        trackCount ++;
+            }
+        }
         if (trackCount != 1)
             [mediaInfo appendFormat:@"%lu subtitles tracks", (unsigned long)trackCount];
         else
             [mediaInfo appendString:@"1 subtitles track"];
 
-        if (trackCount > 0) {
+        if ((trackCount > 0) && (spuTracks.count > 0)) {
             [mediaInfo appendString:@" ("];
             for (NSUInteger x = 0; x < trackCount; x++) {
                 NSString *language = [spuTracks[x] valueForKey:@"language"];
