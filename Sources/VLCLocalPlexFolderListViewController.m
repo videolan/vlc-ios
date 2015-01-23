@@ -322,7 +322,7 @@
 - (NSString *)_getFileSubtitleFromPlexServer:(NSMutableArray *)mutableMediaObject modeStream:(BOOL)modeStream
 {
     NSURL *url = [NSURL URLWithString:[[mutableMediaObject objectAtIndex:0] objectForKey:@"keySubtitle"]];
-    NSString *receivedSub = [NSString stringWithContentsOfURL:url encoding:NSUTF8StringEncoding error:nil];
+    NSData *receivedSub = [NSData dataWithContentsOfURL:url];
     NSArray *searchPaths =  nil;
     if (modeStream)
         searchPaths = NSSearchPathForDirectoriesInDomains(NSCachesDirectory, NSUserDomainMask, YES);
@@ -337,7 +337,7 @@
         if (![fileManager fileExistsAtPath:FileSubtitlePath])
             APLog(@"file creation failed, no data was saved");
     }
-    [receivedSub writeToFile:FileSubtitlePath atomically:YES encoding:NSUTF8StringEncoding error:nil];
+    [receivedSub writeToFile:FileSubtitlePath atomically:YES];
     return FileSubtitlePath;
 }
 
