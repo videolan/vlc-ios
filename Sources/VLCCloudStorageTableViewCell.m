@@ -204,4 +204,9 @@
     return 48.;
 }
 
+- (void)setIsDownloadable:(BOOL)isDownloadable
+{
+    self.downloadButton.hidden = !isDownloadable;
+}
+
 @end

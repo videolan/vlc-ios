@@ -31,6 +31,8 @@
 @property (nonatomic, retain) BoxItem *boxFile;
 @property (nonatomic, retain) VLCOneDriveObject *oneDriveFile;
 
+@property (nonatomic, readwrite) BOOL isDownloadable;
+
 + (VLCCloudStorageTableViewCell *)cellWithReuseIdentifier:(NSString *)ident;
 + (CGFloat)heightOfCell;
 
