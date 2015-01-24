@@ -186,6 +186,11 @@
         cell = [VLCCloudStorageTableViewCell cellWithReuseIdentifier:CellIdentifier];
 
     cell.driveFile = _googleDriveController.currentListFiles[indexPath.row];
+    if ([cell.driveFile.mimeType isEqualToString:@"application/vnd.google-apps.folder"])
+        [cell setIsDownloadable:NO];
+    else
+        [cell setIsDownloadable:YES];
+
     cell.delegate = self;
 
     return cell;

@@ -27,6 +27,8 @@
 @property (nonatomic, retain) DBMetadata *fileMetadata;
 @property (nonatomic, retain) GTLDriveFile *driveFile;
 
+@property (nonatomic, readwrite) BOOL isDownloadable;
+
 + (VLCCloudStorageTableViewCell *)cellWithReuseIdentifier:(NSString *)ident;
 + (CGFloat)heightOfCell;
 
