@@ -4,7 +4,7 @@ PODS:
   - OBSlider (1.1.0)
   - PLCrashReporter (1.2-rc5)
   - QuincyKit (3.0.0)
-  - upnpx (1.3.0)
+  - upnpx (1.3.1)
 
 DEPENDENCIES:
   - GHSidebarNav (= 1.0.0)
@@ -12,7 +12,7 @@ DEPENDENCIES:
   - OBSlider (= 1.1.0)
   - PLCrashReporter (= 1.2-rc5)
   - QuincyKit (from `https://github.com/carolanitz/QuincyKit.git`)
-  - upnpx (= 1.3.0)
+  - upnpx (= 1.3.1)
 
 EXTERNAL SOURCES:
   QuincyKit:
@@ -29,6 +29,6 @@ SPEC CHECKSUMS:
   OBSlider: 3536461f3dd47dfcbd0972c5aafb88aa7081fb79
   PLCrashReporter: 979cd3c5bda33655f4df58fa6219d067183d7a7e
   QuincyKit: 31f49bf0aa0b20fd25ba3084f617a43424b7af99
-  upnpx: d113ac6dc8ead563b840e6c9c9e03c10d9f4bd4b
+  upnpx: 1455cbd69183e45a53413967cc45a99f15eb9f3b
 
 COCOAPODS: 0.35.0

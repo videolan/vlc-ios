@@ -10,7 +10,7 @@ pod 'QuincyKit', :git => 'https://github.com/carolanitz/QuincyKit.git'
 pod 'PLCrashReporter', '1.2-rc5'
 pod 'GHSidebarNav', '1.0.0'
 pod 'InAppSettingsKit', '2.2.2'
-pod 'upnpx', '1.3.0'
+pod 'upnpx', '1.3.1'
 
 end
 post_install do |installer_representation|
