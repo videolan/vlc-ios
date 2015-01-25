@@ -35,9 +35,10 @@
     self.controller = _oneDriveController;
     self.controller.delegate = self;
 
-    self.navigationItem.title = @"OneDrive";
+    self.navigationItem.titleView = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"OneDriveWhite"]];
 
-    self.cloudStorageLogo = nil;
+    [self.cloudStorageLogo setImage:[UIImage imageNamed:@"OneDriveWhite"]];
+
     [self.cloudStorageLogo sizeToFit];
     self.cloudStorageLogo.center = self.view.center;
 }

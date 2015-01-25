@@ -7,6 +7,12 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		260B41DC1A75006300DA89C9 /* OneDrive.png in Resources */ = {isa = PBXBuildFile; fileRef = 260B41D61A75006300DA89C9 /* OneDrive.png */; };
+		260B41DD1A75006300DA89C9 /* OneDrive@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 260B41D71A75006300DA89C9 /* OneDrive@2x.png */; };
+		260B41DE1A75006300DA89C9 /* OneDrive@3x.png in Resources */ = {isa = PBXBuildFile; fileRef = 260B41D81A75006300DA89C9 /* OneDrive@3x.png */; };
+		260B41DF1A75006300DA89C9 /* OneDriveWhite.png in Resources */ = {isa = PBXBuildFile; fileRef = 260B41D91A75006300DA89C9 /* OneDriveWhite.png */; };
+		260B41E01A75006300DA89C9 /* OneDriveWhite@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 260B41DA1A75006300DA89C9 /* OneDriveWhite@2x.png */; };
+		260B41E11A75006300DA89C9 /* OneDriveWhite@3x.png in Resources */ = {isa = PBXBuildFile; fileRef = 260B41DB1A75006300DA89C9 /* OneDriveWhite@3x.png */; };
 		265D511C1922746C00E38383 /* VLCLocalPlexFolderListViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 265D51191922746C00E38383 /* VLCLocalPlexFolderListViewController.m */; };
 		265D511D1922746C00E38383 /* VLCPlexParser.m in Sources */ = {isa = PBXBuildFile; fileRef = 265D511B1922746C00E38383 /* VLCPlexParser.m */; };
 		26FAE63919240C2E00A43737 /* PlexServerIcon@1x.png in Resources */ = {isa = PBXBuildFile; fileRef = 26FAE63619240C2E00A43737 /* PlexServerIcon@1x.png */; };
@@ -494,6 +500,12 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		260B41D61A75006300DA89C9 /* OneDrive.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = OneDrive.png; sourceTree = "<group>"; };
+		260B41D71A75006300DA89C9 /* OneDrive@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "OneDrive@2x.png"; sourceTree = "<group>"; };
+		260B41D81A75006300DA89C9 /* OneDrive@3x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "OneDrive@3x.png"; sourceTree = "<group>"; };
+		260B41D91A75006300DA89C9 /* OneDriveWhite.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = OneDriveWhite.png; sourceTree = "<group>"; };
+		260B41DA1A75006300DA89C9 /* OneDriveWhite@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "OneDriveWhite@2x.png"; sourceTree = "<group>"; };
+		260B41DB1A75006300DA89C9 /* OneDriveWhite@3x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "OneDriveWhite@3x.png"; sourceTree = "<group>"; };
 		265D51181922746C00E38383 /* VLCLocalPlexFolderListViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = VLCLocalPlexFolderListViewController.h; path = Sources/VLCLocalPlexFolderListViewController.h; sourceTree = SOURCE_ROOT; };
 		265D51191922746C00E38383 /* VLCLocalPlexFolderListViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = VLCLocalPlexFolderListViewController.m; path = Sources/VLCLocalPlexFolderListViewController.m; sourceTree = SOURCE_ROOT; };
 		265D511A1922746C00E38383 /* VLCPlexParser.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = VLCPlexParser.h; path = Sources/VLCPlexParser.h; sourceTree = SOURCE_ROOT; };
@@ -2451,6 +2463,12 @@
 				7D514D3E17F779C6007B960C /* DriveWhite.png */,
 				7D514D3F17F779C6007B960C /* DriveWhite@2x.png */,
 				7DFC38CC1A45F0F8002476CB /* DriveWhite@3x.png */,
+				260B41D61A75006300DA89C9 /* OneDrive.png */,
+				260B41D71A75006300DA89C9 /* OneDrive@2x.png */,
+				260B41D81A75006300DA89C9 /* OneDrive@3x.png */,
+				260B41D91A75006300DA89C9 /* OneDriveWhite.png */,
+				260B41DA1A75006300DA89C9 /* OneDriveWhite@2x.png */,
+				260B41DB1A75006300DA89C9 /* OneDriveWhite@3x.png */,
 				7D713955186B197800D54EDA /* darkButton.png */,
 				7D713956186B197800D54EDA /* darkButton@2x.png */,
 				7D713957186B197800D54EDA /* darkButtonHighlight.png */,
@@ -2823,6 +2841,7 @@
 				7DBBF1A4183AB4300009A339 /* VLCLocalNetworkListCell~iphone.xib in Resources */,
 				7DFC38E11A45F243002476CB /* sudHeaderBg@3x.png in Resources */,
 				7D07F711175669D800CDE21C /* buttonHighlight@2x.png in Resources */,
+				260B41DD1A75006300DA89C9 /* OneDrive@2x.png in Resources */,
 				7D27EC1E19DF30CB00EF0370 /* sidebar@2x.png in Resources */,
 				7D07F71417566C4A00CDE21C /* menuCone.png in Resources */,
 				7D07F71517566C4A00CDE21C /* menuCone@2x.png in Resources */,
@@ -2916,6 +2935,7 @@
 				7D1516461868D7E0004B18F3 /* VLCFirstStepsSixthPageViewController~iphone.xib in Resources */,
 				7D47D70F1760CD8700E86BAD /* ratioButtonHighlight.png in Resources */,
 				7D47D7101760CD8700E86BAD /* ratioButtonHighlight@2x.png in Resources */,
+				260B41DE1A75006300DA89C9 /* OneDrive@3x.png in Resources */,
 				7D9870561A3DEE4B009CF27D /* download@3x.png in Resources */,
 				7D27EC1A19DF30CB00EF0370 /* sidebar-cutout.png in Resources */,
 				7D47D7151760CD8700E86BAD /* knobSlider.png in Resources */,
@@ -2925,6 +2945,7 @@
 				7D9870301A3DECF9009CF27D /* seekbarBg.png in Resources */,
 				7D9870461A3DEDEC009CF27D /* WifiUp@3x.png in Resources */,
 				7D47D71A1760CD8700E86BAD /* playIcon.png in Resources */,
+				260B41E01A75006300DA89C9 /* OneDriveWhite@2x.png in Resources */,
 				7D47D71B1760CD8700E86BAD /* playIcon@2x.png in Resources */,
 				7D47D71C1760CD8700E86BAD /* audioTrackIcon.png in Resources */,
 				7D98703E1A3DEDB9009CF27D /* PlexServerIcon@3x.png in Resources */,
@@ -2943,6 +2964,7 @@
 				7D278D6B18E9D5EF0063E109 /* tvShow.png in Resources */,
 				7D47D7271760D77C00E86BAD /* pauseIcon.png in Resources */,
 				7D47D7281760D77C00E86BAD /* pauseIcon@2x.png in Resources */,
+				260B41E11A75006300DA89C9 /* OneDriveWhite@3x.png in Resources */,
 				7D9870341A3DED26009CF27D /* pauseIcon@3x.png in Resources */,
 				7DF3B77C19DF01550041A02E /* fsarrow-position.png in Resources */,
 				7D47D72B1760E3A000E86BAD /* sliderminimumTrack.png in Resources */,
@@ -3057,10 +3079,12 @@
 				7DF3B78919DF01550041A02E /* fsarrow-time@2x.png in Resources */,
 				7D0699DA17CB1FAE00713BEB /* WifiUp@2x.png in Resources */,
 				7DF04F4F1961F2B8004A5429 /* web-open-fixed.png in Resources */,
+				260B41DC1A75006300DA89C9 /* OneDrive.png in Resources */,
 				7DF3B77B19DF01550041A02E /* fsarrow-effects@3x.png in Resources */,
 				7D713959186B197800D54EDA /* darkButton.png in Resources */,
 				7D0699DB17CB1FAE00713BEB /* WifiUpOn.png in Resources */,
 				7D0699DC17CB1FAE00713BEB /* WifiUpOn@2x.png in Resources */,
+				260B41DF1A75006300DA89C9 /* OneDriveWhite.png in Resources */,
 				7D0699DD17CB1FAE00713BEB /* Dropbox@2x.png in Resources */,
 				7DBBF19A183AB4300009A339 /* VLCCloudStorageTableViewCell~ipad.xib in Resources */,
 				7D27EC1819DF30CB00EF0370 /* phone@2x.png in Resources */,
