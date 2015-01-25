@@ -54,7 +54,7 @@
 
 - (void)goBack
 {
-    if (_oneDriveController.rootFolder != _oneDriveController.currentFolder) {
+    if ((_oneDriveController.rootFolder != _oneDriveController.currentFolder) && [_oneDriveController isAuthorized]) {
         if ([_oneDriveController.rootFolder.name isEqualToString:_oneDriveController.currentFolder.parent.name]) {
             _oneDriveController.currentFolder = nil;
             self.title = _oneDriveController.rootFolder.name;

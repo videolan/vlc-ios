@@ -154,7 +154,7 @@
 
 - (void)goBack
 {
-    if ((![self.currentPath isEqualToString:@""] && ![self.currentPath isEqualToString:@"/"]) && [self.currentPath length] > 0) {
+    if (((![self.currentPath isEqualToString:@""] && ![self.currentPath isEqualToString:@"/"]) && [self.currentPath length] > 0) && [self.controller isAuthorized]){
         self.currentPath = [self.currentPath stringByDeletingLastPathComponent];
         [self _requestInformationForCurrentPath];
     } else
