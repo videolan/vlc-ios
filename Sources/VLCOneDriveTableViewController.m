@@ -47,6 +47,7 @@
 {
     [super viewWillAppear:animated];
     [self updateViewAfterSessionChange];
+    self.authorizationInProgress = NO;
 }
 
 #pragma mark - generic interface interaction
@@ -117,7 +118,11 @@
 
 - (void)loginAction:(id)sender
 {
-    [_oneDriveController login];
+    if (![_oneDriveController isAuthorized]) {
+        self.authorizationInProgress = YES;
+        [_oneDriveController login];
+    } else
+        [_oneDriveController logout];
 }
 
 #pragma mark - onedrive controller delegation

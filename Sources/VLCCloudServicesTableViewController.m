@@ -126,7 +126,7 @@
         }
         case 3: {
             //OneDrive
-            BOOL isAuthorized = [[VLCOneDriveController sharedInstance] activeSession];
+            BOOL isAuthorized = [[VLCOneDriveController sharedInstance] isAuthorized];
             cell.icon.image = [UIImage imageNamed:@"OneDrive"];
             cell.cloudTitle.text = @"OneDrive";
             cell.cloudInformation.text = isAuthorized ? NSLocalizedString(@"LOGGED_IN", "") : NSLocalizedString(@"LOGIN", "");
