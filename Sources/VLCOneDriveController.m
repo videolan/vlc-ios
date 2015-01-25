@@ -92,6 +92,9 @@
     [_liveClient logoutWithDelegate:self userState:@"logout"];
     _activeSession = NO;
     _userAuthenticated = NO;
+    _currentFolder = nil;
+    if ([self.delegate respondsToSelector:@selector(mediaListUpdated)])
+        [self.delegate mediaListUpdated];
 }
 
 - (NSArray *)currentListFiles
