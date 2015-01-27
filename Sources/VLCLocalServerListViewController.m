@@ -2,7 +2,7 @@
  * VLCLocalServerListViewController.m
  * VLC for iOS
  *****************************************************************************
- * Copyright (c) 2013-2014 VideoLAN. All rights reserved.
+ * Copyright (c) 2013-2015 VideoLAN. All rights reserved.
  * $Id$
  *
  * Authors: Felix Paul Kühne <fkuehne # videolan.org>
@@ -24,6 +24,7 @@
 #import "VLCNetworkLoginViewController.h"
 #import "UINavigationController+Theme.h"
 #import "VLCPlaylistViewController.h"
+#import "VLCHTTPUploaderController.h"
 #import "Reachability.h"
 
 #define kPlexServiceType @"_plexmediasvr._tcp."
@@ -35,8 +36,11 @@
 
     NSNetServiceBrowser *_ftpNetServiceBrowser;
     NSNetServiceBrowser *_PlexNetServiceBrowser;
+    NSNetServiceBrowser *_httpNetServiceBrowser;
     NSMutableArray *_PlexServices;
     NSMutableArray *_PlexServicesInfo;
+    NSMutableArray *_httpServices;
+    NSMutableArray *_httpServicesInfo;
     NSMutableArray *_rawNetServices;
     NSMutableArray *_ftpServices;
 
@@ -51,9 +55,13 @@
     UIActivityIndicatorView *_activityIndicator;
     Reachability *_reachability;
 
+    NSString *_myHostName;
+
     BOOL _udnpDiscoveryRunning;
     NSTimer *_searchTimer;
 }
+
+@property (nonatomic) VLCHTTPUploaderController *uploadController;
 
 @end
 
@@ -72,6 +80,7 @@
     [_reachability stopNotifier];
     [_ftpNetServiceBrowser stop];
     [_PlexNetServiceBrowser stop];
+    [_httpNetServiceBrowser stop];
 }
 
 - (void)loadView
@@ -121,7 +130,7 @@
 /*    if (SYSTEM_RUNS_IOS7_OR_LATER)
         _sectionHeaderTexts = @[@"Universal Plug'n'Play (UPNP)", @"File Transfer Protocol (FTP)", @"Network Streams (SAP)"];
     else*/
-        _sectionHeaderTexts = @[@"Universal Plug'n'Play (UPnP)", @"Plex Media Server (via Bonjour)", @"File Transfer Protocol (FTP)"];
+        _sectionHeaderTexts = @[@"Universal Plug'n'Play (UPnP)", @"Plex Media Server (via Bonjour)", @"File Transfer Protocol (FTP)", @"Shared VLC for ios Library"];
 
     _backToMenuButton = [UIBarButtonItem themedRevealMenuButtonWithTarget:self andSelector:@selector(goBack:)];
     self.navigationItem.leftBarButtonItem = _backToMenuButton;
@@ -145,6 +154,11 @@
     _PlexNetServiceBrowser = [[NSNetServiceBrowser alloc] init];
     _PlexNetServiceBrowser.delegate = self;
 
+    _httpServices = [[NSMutableArray alloc] init];
+    _httpServicesInfo = [[NSMutableArray alloc] init];
+    _httpNetServiceBrowser = [[NSNetServiceBrowser alloc] init];
+    _httpNetServiceBrowser.delegate = self;
+
     _refreshControl = [[UIRefreshControl alloc] init];
     _refreshControl.backgroundColor = [UIColor VLCDarkBackgroundColor];
     _refreshControl.tintColor = [UIColor whiteColor];
@@ -163,6 +177,9 @@
 
     [self netReachabilityChanged:nil];
 
+    self.uploadController = [[VLCHTTPUploaderController alloc] init];
+    _myHostName = [self.uploadController hostname];
+
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(netReachabilityChanged:) name:kReachabilityChangedNotification object:nil];
 }
 
@@ -172,12 +189,14 @@
     [_activityIndicator stopAnimating];
     [_ftpNetServiceBrowser stop];
     [_PlexNetServiceBrowser stop];
+    [_httpNetServiceBrowser stop];
 }
 
 - (void)viewWillAppear:(BOOL)animated
 {
     [_ftpNetServiceBrowser searchForServicesOfType:@"_ftp._tcp." inDomain:@""];
     [_PlexNetServiceBrowser searchForServicesOfType:kPlexServiceType inDomain:@""];
+    [_httpNetServiceBrowser searchForServicesOfType:@"_http._tcp." inDomain:@""];
     [_activityIndicator stopAnimating];
     [super viewWillAppear:animated];
 
@@ -274,6 +293,8 @@
     else if (section == 2)
         return _ftpServices.count;
     else if (section == 3)
+        return _httpServices.count;
+    else if (section == 4)
         return _sapDiscoverer.discoveredMedia.count;
 
     return 0;
@@ -317,7 +338,10 @@
             [cell setTitle:[_ftpServices[row] name]];
             [cell setIcon:[UIImage imageNamed:@"serverIcon"]];
         }
-    } else if (section == 3)
+    } else if (section == 3) {
+        [cell setTitle:[_httpServices[row] name]];
+        [cell setIcon:[UIImage imageNamed:@"menuCone"]];
+    } else if (section == 4)
         [cell setTitle:[[_sapDiscoverer.discoveredMedia mediaAtIndex:row] metadataForKey: VLCMetaInformationTitle]];
 
     return cell;
@@ -369,6 +393,11 @@
         else
             _loginViewController.hostname = @"";
     } else if (section == 3) {
+        NSString *name = [_httpServicesInfo[row] objectForKey:@"name"];
+        NSString *hostName = [_httpServicesInfo[row] objectForKey:@"hostName"];
+        NSString *portNum = [_httpServicesInfo[row] objectForKey:@"port"];
+        APLog(@"Hello I'm a http Server, my name is %@ my adress is %@%@", name, hostName, portNum);
+    } else if (section == 4) {
         VLCAppDelegate *appDelegate = [UIApplication sharedApplication].delegate;
         [appDelegate openMovieFromURL:[[_sapDiscoverer.discoveredMedia mediaAtIndex:row] url]];
     }
@@ -480,6 +509,10 @@
         [_PlexServices removeObject:aNetService];
         [_PlexServicesInfo removeAllObjects];
     }
+    if ([aNetService.type isEqualToString:@"_http._tcp."]) {
+        [_httpServices removeObject:aNetService];
+        [_httpServicesInfo removeAllObjects];
+    }
     if (!moreComing)
         [self.tableView reloadData];
 }
@@ -498,6 +531,18 @@
             NSString *portStr = [[NSString alloc] initWithFormat:@":%ld", (long)[aNetService port]];
             [_dictService setObject:portStr forKey:@"port"];
             [_PlexServicesInfo addObject:_dictService];
+        }
+    }  else if ([aNetService.type isEqualToString:@"_http._tcp."]) {
+        if ([[aNetService hostName] rangeOfString:_myHostName].location == NSNotFound) {
+            if (![_httpServices containsObject:aNetService]) {
+                [_httpServices addObject:aNetService];
+                NSMutableDictionary *_dictService = [[NSMutableDictionary alloc] init];
+                [_dictService setObject:[aNetService name] forKey:@"name"];
+                [_dictService setObject:[aNetService hostName] forKey:@"hostName"];
+                NSString *portStr = [[NSString alloc] initWithFormat:@":%ld", (long)[aNetService port]];
+                [_dictService setObject:portStr forKey:@"port"];
+                [_httpServicesInfo addObject:_dictService];
+            }
         }
     }
     [_rawNetServices removeObject:aNetService];
