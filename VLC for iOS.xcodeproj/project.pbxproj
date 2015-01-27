@@ -15,6 +15,7 @@
 		260B41E11A75006300DA89C9 /* OneDriveWhite@3x.png in Resources */ = {isa = PBXBuildFile; fileRef = 260B41DB1A75006300DA89C9 /* OneDriveWhite@3x.png */; };
 		265D511C1922746C00E38383 /* VLCLocalPlexFolderListViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 265D51191922746C00E38383 /* VLCLocalPlexFolderListViewController.m */; };
 		265D511D1922746C00E38383 /* VLCPlexParser.m in Sources */ = {isa = PBXBuildFile; fileRef = 265D511B1922746C00E38383 /* VLCPlexParser.m */; };
+		26F1BFD01A770408001DF30C /* libMediaVLC.xml in Resources */ = {isa = PBXBuildFile; fileRef = 26F1BFCF1A770408001DF30C /* libMediaVLC.xml */; };
 		26FAE63919240C2E00A43737 /* PlexServerIcon@1x.png in Resources */ = {isa = PBXBuildFile; fileRef = 26FAE63619240C2E00A43737 /* PlexServerIcon@1x.png */; };
 		26FAE63A19240C2E00A43737 /* PlexServerIcon@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 26FAE63719240C2E00A43737 /* PlexServerIcon@2x.png */; };
 		29125E5617492219003F03E5 /* index.html in Resources */ = {isa = PBXBuildFile; fileRef = 29125E5417492219003F03E5 /* index.html */; };
@@ -510,6 +511,7 @@
 		265D51191922746C00E38383 /* VLCLocalPlexFolderListViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = VLCLocalPlexFolderListViewController.m; path = Sources/VLCLocalPlexFolderListViewController.m; sourceTree = SOURCE_ROOT; };
 		265D511A1922746C00E38383 /* VLCPlexParser.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = VLCPlexParser.h; path = Sources/VLCPlexParser.h; sourceTree = SOURCE_ROOT; };
 		265D511B1922746C00E38383 /* VLCPlexParser.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = VLCPlexParser.m; path = Sources/VLCPlexParser.m; sourceTree = SOURCE_ROOT; };
+		26F1BFCF1A770408001DF30C /* libMediaVLC.xml */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xml; path = libMediaVLC.xml; sourceTree = "<group>"; };
 		26FAE63619240C2E00A43737 /* PlexServerIcon@1x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "PlexServerIcon@1x.png"; sourceTree = "<group>"; };
 		26FAE63719240C2E00A43737 /* PlexServerIcon@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "PlexServerIcon@2x.png"; sourceTree = "<group>"; };
 		29125E5417492219003F03E5 /* index.html */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.html; path = index.html; sourceTree = "<group>"; };
@@ -1454,6 +1456,7 @@
 		29125E5317492219003F03E5 /* web */ = {
 			isa = PBXGroup;
 			children = (
+				26F1BFCF1A770408001DF30C /* libMediaVLC.xml */,
 				7D32B383185E293D006CA474 /* Raleway.woff */,
 				7AC8629E1765E90C0011611A /* jquery-1.10.1.min.js */,
 				7AC8629F1765E90C0011611A /* jquery.fileupload.js */,
@@ -3005,6 +3008,7 @@
 				7D27EC1919DF30CB00EF0370 /* phone@3x.png in Resources */,
 				7D98703A1A3DED4F009CF27D /* resetIcon@3x.png in Resources */,
 				7DBBF1A5183AB4300009A339 /* VLCMovieViewController~ipad.xib in Resources */,
+				26F1BFD01A770408001DF30C /* libMediaVLC.xml in Resources */,
 				7DEB3B7517649F2C0038FC70 /* menuButton.png in Resources */,
 				7DEB3B7617649F2C0038FC70 /* menuButton@2x.png in Resources */,
 				7DEB3B791764A4040038FC70 /* input@2x.png in Resources */,

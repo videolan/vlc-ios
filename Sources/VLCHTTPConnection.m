@@ -31,7 +31,11 @@
     UInt64 _contentLength;
     UInt64 _receivedContent;
 }
+
+@property (nonatomic) VLCHTTPUploaderController *uploadController;
+
 @end
+
 
 @implementation VLCHTTPConnection
 
@@ -131,7 +135,7 @@
     NSString *documentRoot = [config documentRoot];
     NSString *relativePath = [filePath substringFromIndex:[documentRoot length]];
 
-    if ([relativePath isEqualToString:@"/index.html"]) {
+    if (([relativePath isEqualToString:@"/index.html"]) || ([relativePath isEqualToString:@"/libMediaVLC.xml"])) {
         NSMutableArray *allMedia = [[NSMutableArray alloc] init];
 
         /* add all albums */
@@ -170,6 +174,10 @@
         }
 
         NSMutableArray *mediaInHtml = [[NSMutableArray alloc] initWithCapacity:allMedia.count];
+        NSMutableArray *mediaInXml = [[NSMutableArray alloc] initWithCapacity:allMedia.count];
+        self.uploadController = [[VLCHTTPUploaderController alloc] init];
+        NSString *hostName = [self.uploadController hostname];
+        NSString *pathLibrary =[NSSearchPathForDirectoriesInDomains(NSLibraryDirectory, NSUserDomainMask, YES) objectAtIndex:0];
         NSString *duration;
 
         for (NSManagedObject *mo in allMedia) {
@@ -189,6 +197,9 @@
                                         [[(MLFile *)mo url] stringByReplacingOccurrencesOfString:@"file://"withString:@""],
                                         [(MLFile *)mo title],
                                         duration, (float)([(MLFile *)mo fileSizeInBytes] / 1e6)]];
+                [mediaInXml addObject:[NSString stringWithFormat:@"<Media title=\"%@\" thumb=\"http://%@/download/%@/Thumbnails/File/%@.png\" duration=\"%@\" size=\"%li\" pathfile=\"http://%@/download/%@\"/>",
+                                       [(MLFile *)mo title], hostName, pathLibrary, [[NSString stringWithFormat:@"%@", mo.objectID.URIRepresentation] lastPathComponent], duration, [(MLFile *)mo fileSizeInBytes],
+                                       hostName, [[(MLFile *)mo url] stringByReplacingOccurrencesOfString:@"file://"withString:@""]]];
             }
             else if ([mo isKindOfClass:[MLShow class]]) {
                 NSArray *episodes = [(MLShow *)mo sortedEpisodes];
@@ -223,6 +234,11 @@
                                             showEp.episodeNumber,
                                             showEp.name,
                                             duration, (float)([(MLFile *)[[showEp files] anyObject] fileSizeInBytes] / 1e6)]];
+                    [mediaInXml addObject:[NSString stringWithFormat:@"<Media title=\"%@ - S%@E%@\" thumb=\"http://%@/download/%@/Thumbnails/File/%@.png\" duration=\"%@\" size=\"%li\" pathfile=\"http://%@/download/%@\"/>",
+                                           [(MLShow *)mo name], showEp.seasonNumber, showEp.episodeNumber,
+                                           hostName, pathLibrary, [[NSString stringWithFormat:@"%@", showEp.objectID.URIRepresentation] lastPathComponent], duration,
+                                           [(MLFile *)[[showEp files] anyObject] fileSizeInBytes],
+                                           hostName, [[(MLFile *)[[showEp files] anyObject] url] stringByReplacingOccurrencesOfString:@"file://"withString:@""]]];
                 }
                 [mediaInHtml addObject:@"</div></div>"];
             } else if ([mo isKindOfClass:[MLLabel class]]) {
@@ -256,6 +272,9 @@
                                             [[file url] stringByReplacingOccurrencesOfString:@"file://"withString:@""],
                                             file.title,
                                             duration, (float)([file fileSizeInBytes] / 1e6)]];
+                    [mediaInXml addObject:[NSString stringWithFormat:@"<Media title=\"%@\" thumb=\"http://%@/download/%@/Thumbnails/File/%@.png\" duration=\"%@\" size=\"%li\" pathfile=\"http://%@/download/%@\"/>",
+                                           file.title, hostName, pathLibrary, [[NSString stringWithFormat:@"%@", file.objectID.URIRepresentation] lastPathComponent], duration, [file fileSizeInBytes],
+                                           hostName, [[file url] stringByReplacingOccurrencesOfString:@"file://"withString:@""]]];
                 }
                 [mediaInHtml addObject:@"</div></div>"];
             } else if ([mo isKindOfClass:[MLAlbum class]]) {
@@ -289,18 +308,28 @@
                                             [[(MLFile *)[[track files] anyObject] url] stringByReplacingOccurrencesOfString:@"file://"withString:@""],
                                             track.title,
                                             duration, (float)([(MLFile *)[[track files] anyObject] fileSizeInBytes] / 1e6)]];
+                    [mediaInXml addObject:[NSString stringWithFormat:@"<Media title=\"%@\" thumb=\"http://%@/download/%@/Thumbnails/File/%@.png\" duration=\"%@\" size=\"%li\" pathfile=\"http://%@/download/%@\"/>",
+                                           track.title, hostName, pathLibrary, [[NSString stringWithFormat:@"%@", track.objectID.URIRepresentation] lastPathComponent], duration, [(MLFile *)[[track files] anyObject] fileSizeInBytes],
+                                           hostName, [[(MLFile *)[[track files] anyObject] url] stringByReplacingOccurrencesOfString:@"file://"withString:@""]]];
                 }
                 [mediaInHtml addObject:@"</div></div>"];
             }
         }
 
         NSString *deviceModel = [[UIDevice currentDevice] model];
-        NSDictionary *replacementDict = @{@"FILES" : [mediaInHtml componentsJoinedByString:@" "],
-                                          @"WEBINTF_TITLE" : NSLocalizedString(@"WEBINTF_TITLE", nil),
-                                          @"WEBINTF_DROPFILES" : NSLocalizedString(@"WEBINTF_DROPFILES", nil),
-                                          @"WEBINTF_DROPFILES_LONG" : [NSString stringWithFormat:NSLocalizedString(@"WEBINTF_DROPFILES_LONG", nil), deviceModel],
-                                          @"WEBINTF_DOWNLOADFILES" : NSLocalizedString(@"WEBINTF_DOWNLOADFILES", nil),
-                                          @"WEBINTF_DOWNLOADFILES_LONG" : [NSString stringWithFormat: NSLocalizedString(@"WEBINTF_DOWNLOADFILES_LONG", nil), deviceModel]};
+        NSDictionary *replacementDict;
+
+        if ([relativePath isEqualToString:@"/libMediaVLC.xml"]) {
+            replacementDict = @{@"FILES" : [mediaInXml componentsJoinedByString:@" "],
+                                @"NB_FILE" : [NSString stringWithFormat:@"%li", (unsigned long)mediaInXml.count],
+                                @"LIB_TITLE" : [[UIDevice currentDevice] name]};
+        } else
+            replacementDict = @{@"FILES" : [mediaInHtml componentsJoinedByString:@" "],
+                                @"WEBINTF_TITLE" : NSLocalizedString(@"WEBINTF_TITLE", nil),
+                                @"WEBINTF_DROPFILES" : NSLocalizedString(@"WEBINTF_DROPFILES", nil),
+                                @"WEBINTF_DROPFILES_LONG" : [NSString stringWithFormat:NSLocalizedString(@"WEBINTF_DROPFILES_LONG", nil), deviceModel],
+                                @"WEBINTF_DOWNLOADFILES" : NSLocalizedString(@"WEBINTF_DOWNLOADFILES", nil),
+                                @"WEBINTF_DOWNLOADFILES_LONG" : [NSString stringWithFormat: NSLocalizedString(@"WEBINTF_DOWNLOADFILES_LONG", nil), deviceModel]};
 
         return [[HTTPDynamicFileResponse alloc] initWithFilePath:[self filePathForURI:path]
                                                    forConnection:self
