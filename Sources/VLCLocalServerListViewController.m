@@ -19,6 +19,8 @@
 #import "VLCLocalNetworkListCell.h"
 #import "VLCLocalServerFolderListViewController.h"
 #import "VLCLocalPlexFolderListViewController.h"
+#import "VLCSharedLibraryListViewController.h"
+#import "VLCSharedLibraryParser.h"
 #import <QuartzCore/QuartzCore.h>
 #import "GHRevealViewController.h"
 #import "VLCNetworkLoginViewController.h"
@@ -50,6 +52,8 @@
     VLCMediaDiscoverer * _sapDiscoverer;
 
     VLCNetworkLoginViewController *_loginViewController;
+
+    VLCSharedLibraryParser *_httpParser;
 
     UIRefreshControl *_refreshControl;
     UIActivityIndicatorView *_activityIndicator;
@@ -179,6 +183,7 @@
 
     self.uploadController = [[VLCHTTPUploaderController alloc] init];
     _myHostName = [self.uploadController hostname];
+    _httpParser = [[VLCSharedLibraryParser alloc] init];
 
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(netReachabilityChanged:) name:kReachabilityChangedNotification object:nil];
 }
@@ -396,7 +401,8 @@
         NSString *name = [_httpServicesInfo[row] objectForKey:@"name"];
         NSString *hostName = [_httpServicesInfo[row] objectForKey:@"hostName"];
         NSString *portNum = [_httpServicesInfo[row] objectForKey:@"port"];
-        APLog(@"Hello I'm a http Server, my name is %@ my adress is %@%@", name, hostName, portNum);
+        VLCSharedLibraryListViewController *targetViewController = [[VLCSharedLibraryListViewController alloc] initWithHttpServer:name serverAddress:hostName portNumber:portNum];
+        [[self navigationController] pushViewController:targetViewController animated:YES];
     } else if (section == 4) {
         VLCAppDelegate *appDelegate = [UIApplication sharedApplication].delegate;
         [appDelegate openMovieFromURL:[[_sapDiscoverer.discoveredMedia mediaAtIndex:row] url]];
@@ -534,14 +540,16 @@
         }
     }  else if ([aNetService.type isEqualToString:@"_http._tcp."]) {
         if ([[aNetService hostName] rangeOfString:_myHostName].location == NSNotFound) {
-            if (![_httpServices containsObject:aNetService]) {
-                [_httpServices addObject:aNetService];
-                NSMutableDictionary *_dictService = [[NSMutableDictionary alloc] init];
-                [_dictService setObject:[aNetService name] forKey:@"name"];
-                [_dictService setObject:[aNetService hostName] forKey:@"hostName"];
-                NSString *portStr = [[NSString alloc] initWithFormat:@":%ld", (long)[aNetService port]];
-                [_dictService setObject:portStr forKey:@"port"];
-                [_httpServicesInfo addObject:_dictService];
+            if ([_httpParser isVLCMediaServer:[aNetService hostName] port:[NSString stringWithFormat:@":%ld", (long)[aNetService port]]]) {
+                if (![_httpServices containsObject:aNetService]) {
+                    [_httpServices addObject:aNetService];
+                    NSMutableDictionary *_dictService = [[NSMutableDictionary alloc] init];
+                    [_dictService setObject:[aNetService name] forKey:@"name"];
+                    [_dictService setObject:[aNetService hostName] forKey:@"hostName"];
+                    NSString *portStr = [[NSString alloc] initWithFormat:@":%ld", (long)[aNetService port]];
+                    [_dictService setObject:portStr forKey:@"port"];
+                    [_httpServicesInfo addObject:_dictService];
+                }
             }
         }
     }

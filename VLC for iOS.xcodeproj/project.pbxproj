@@ -15,6 +15,8 @@
 		260B41E11A75006300DA89C9 /* OneDriveWhite@3x.png in Resources */ = {isa = PBXBuildFile; fileRef = 260B41DB1A75006300DA89C9 /* OneDriveWhite@3x.png */; };
 		265D511C1922746C00E38383 /* VLCLocalPlexFolderListViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 265D51191922746C00E38383 /* VLCLocalPlexFolderListViewController.m */; };
 		265D511D1922746C00E38383 /* VLCPlexParser.m in Sources */ = {isa = PBXBuildFile; fileRef = 265D511B1922746C00E38383 /* VLCPlexParser.m */; };
+		26D4AF8D1A78379000D5EC65 /* VLCSharedLibraryListViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 26D4AF8A1A78379000D5EC65 /* VLCSharedLibraryListViewController.m */; };
+		26D4AF8E1A78379000D5EC65 /* VLCSharedLibraryParser.m in Sources */ = {isa = PBXBuildFile; fileRef = 26D4AF8C1A78379000D5EC65 /* VLCSharedLibraryParser.m */; };
 		26F1BFD01A770408001DF30C /* libMediaVLC.xml in Resources */ = {isa = PBXBuildFile; fileRef = 26F1BFCF1A770408001DF30C /* libMediaVLC.xml */; };
 		26FAE63919240C2E00A43737 /* PlexServerIcon@1x.png in Resources */ = {isa = PBXBuildFile; fileRef = 26FAE63619240C2E00A43737 /* PlexServerIcon@1x.png */; };
 		26FAE63A19240C2E00A43737 /* PlexServerIcon@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 26FAE63719240C2E00A43737 /* PlexServerIcon@2x.png */; };
@@ -511,6 +513,10 @@
 		265D51191922746C00E38383 /* VLCLocalPlexFolderListViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = VLCLocalPlexFolderListViewController.m; path = Sources/VLCLocalPlexFolderListViewController.m; sourceTree = SOURCE_ROOT; };
 		265D511A1922746C00E38383 /* VLCPlexParser.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = VLCPlexParser.h; path = Sources/VLCPlexParser.h; sourceTree = SOURCE_ROOT; };
 		265D511B1922746C00E38383 /* VLCPlexParser.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = VLCPlexParser.m; path = Sources/VLCPlexParser.m; sourceTree = SOURCE_ROOT; };
+		26D4AF891A78379000D5EC65 /* VLCSharedLibraryListViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = VLCSharedLibraryListViewController.h; path = Sources/VLCSharedLibraryListViewController.h; sourceTree = SOURCE_ROOT; };
+		26D4AF8A1A78379000D5EC65 /* VLCSharedLibraryListViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = VLCSharedLibraryListViewController.m; path = Sources/VLCSharedLibraryListViewController.m; sourceTree = SOURCE_ROOT; };
+		26D4AF8B1A78379000D5EC65 /* VLCSharedLibraryParser.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = VLCSharedLibraryParser.h; path = Sources/VLCSharedLibraryParser.h; sourceTree = SOURCE_ROOT; };
+		26D4AF8C1A78379000D5EC65 /* VLCSharedLibraryParser.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = VLCSharedLibraryParser.m; path = Sources/VLCSharedLibraryParser.m; sourceTree = SOURCE_ROOT; };
 		26F1BFCF1A770408001DF30C /* libMediaVLC.xml */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xml; path = libMediaVLC.xml; sourceTree = "<group>"; };
 		26FAE63619240C2E00A43737 /* PlexServerIcon@1x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "PlexServerIcon@1x.png"; sourceTree = "<group>"; };
 		26FAE63719240C2E00A43737 /* PlexServerIcon@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "PlexServerIcon@2x.png"; sourceTree = "<group>"; };
@@ -1789,12 +1795,16 @@
 			children = (
 				265D511A1922746C00E38383 /* VLCPlexParser.h */,
 				265D511B1922746C00E38383 /* VLCPlexParser.m */,
+				26D4AF8B1A78379000D5EC65 /* VLCSharedLibraryParser.h */,
+				26D4AF8C1A78379000D5EC65 /* VLCSharedLibraryParser.m */,
 				7D30F3D1183AB2F100FFC021 /* VLCLocalNetworkListCell.h */,
 				7D30F3D2183AB2F100FFC021 /* VLCLocalNetworkListCell.m */,
 				7D30F3D3183AB2F100FFC021 /* VLCLocalServerFolderListViewController.h */,
 				7D30F3D4183AB2F100FFC021 /* VLCLocalServerFolderListViewController.m */,
 				265D51181922746C00E38383 /* VLCLocalPlexFolderListViewController.h */,
 				265D51191922746C00E38383 /* VLCLocalPlexFolderListViewController.m */,
+				26D4AF891A78379000D5EC65 /* VLCSharedLibraryListViewController.h */,
+				26D4AF8A1A78379000D5EC65 /* VLCSharedLibraryListViewController.m */,
 				7D30F3D5183AB2F100FFC021 /* VLCLocalServerListViewController.h */,
 				7D30F3D6183AB2F100FFC021 /* VLCLocalServerListViewController.m */,
 				7D30F3DA183AB2F900FFC021 /* VLCNetworkLoginViewController.h */,
@@ -3209,6 +3219,7 @@
 				2915542417490A9C00B86CAD /* DDAbstractDatabaseLogger.m in Sources */,
 				2915542517490A9C00B86CAD /* DDASLLogger.m in Sources */,
 				2915542617490A9C00B86CAD /* DDFileLogger.m in Sources */,
+				26D4AF8D1A78379000D5EC65 /* VLCSharedLibraryListViewController.m in Sources */,
 				2915542717490A9C00B86CAD /* DDLog.m in Sources */,
 				2915542817490A9C00B86CAD /* DDTTYLogger.m in Sources */,
 				2915542917490A9C00B86CAD /* ContextFilterLogFormatter.m in Sources */,
@@ -3268,6 +3279,7 @@
 				7D5CAA8C1A4AD8E5003F2CBC /* VLCTrackSelectorHeaderView.m in Sources */,
 				4171D35018A2C19000A16EF9 /* VLCFolderCollectionViewFlowLayout.m in Sources */,
 				7D30F3CA183AB27A00FFC021 /* VLCDownloadViewController.m in Sources */,
+				26D4AF8E1A78379000D5EC65 /* VLCSharedLibraryParser.m in Sources */,
 				7D30F3CD183AB29300FFC021 /* VLCMenuTableViewController.m in Sources */,
 				7D9CB9DC1A4C55EF00BB74B4 /* VLCPlaybackNavigationController.m in Sources */,
 				7D30F3D0183AB2AC00FFC021 /* VLCMediaFileDiscoverer.m in Sources */,
