@@ -73,6 +73,8 @@
             [_dicoInfo setObject:[attributeDict objectForKey:@"size"] forKey:@"size"];
         if([attributeDict objectForKey:@"pathfile"])
             [_dicoInfo setObject:[attributeDict objectForKey:@"pathfile"] forKey:@"pathfile"];
+        if([attributeDict objectForKey:@"pathSubtitle"])
+            [_dicoInfo setObject:[attributeDict objectForKey:@"pathSubtitle"] forKey:@"pathSubtitle"];
     }
 }
 

@@ -223,10 +223,16 @@
     else
         [ObjList addObjectsFromArray:_mutableObjectList];
 
+    NSString *URLofSubtitle = nil;
+    if (![[[ObjList objectAtIndex:indexPath.row] objectForKey:@"pathSubtitle"] isEqualToString:@""]) {
+        NSURL *url = [NSURL URLWithString:[[[ObjList objectAtIndex:indexPath.row] objectForKey:@"pathSubtitle"] stringByAddingPercentEscapesUsingEncoding:NSUTF8StringEncoding]];
+        URLofSubtitle = [self _getFileSubtitleFromServer:url modeStream:YES];
+    }
+
     NSURL *itemURL = [NSURL URLWithString:[[ObjList objectAtIndex:indexPath.row] objectForKey:@"pathfile"]];
     if (itemURL) {
             VLCAppDelegate *appDelegate = [UIApplication sharedApplication].delegate;
-            [appDelegate openMovieWithExternalSubtitleFromURL:itemURL externalSubURL:nil];
+            [appDelegate openMovieWithExternalSubtitleFromURL:itemURL externalSubURL:URLofSubtitle];
     }
 
     [tableView deselectRowAtIndexPath:indexPath animated:NO];
@@ -251,6 +257,27 @@
     [self.tableView reloadData];
 }
 
+- (NSString *)_getFileSubtitleFromServer:(NSURL *)url modeStream:(BOOL)modeStream
+{
+    NSData *receivedSub = [NSData dataWithContentsOfURL:url];
+    NSArray *searchPaths =  nil;
+    if (modeStream)
+        searchPaths = NSSearchPathForDirectoriesInDomains(NSCachesDirectory, NSUserDomainMask, YES);
+    else
+        searchPaths = NSSearchPathForDirectoriesInDomains(NSDocumentDirectory, NSUserDomainMask, YES);
+
+    NSString *directoryPath = [searchPaths objectAtIndex:0];
+    NSString *FileSubtitlePath = [directoryPath stringByAppendingPathComponent:[[url path] lastPathComponent]];
+    NSFileManager *fileManager = [NSFileManager defaultManager];
+    if (![fileManager fileExistsAtPath:FileSubtitlePath]) {
+        [fileManager createFileAtPath:FileSubtitlePath contents:nil attributes:nil];
+        if (![fileManager fileExistsAtPath:FileSubtitlePath])
+            APLog(@"file creation failed, no data was saved");
+    }
+    [receivedSub writeToFile:FileSubtitlePath atomically:YES];
+    return FileSubtitlePath;
+}
+
 #pragma mark - VLCLocalNetworkListCell delegation
 
 - (void)triggerDownloadForCell:(VLCLocalNetworkListCell *)cell
@@ -267,6 +294,12 @@
 
     NSInteger size = [[[ObjList objectAtIndex:0] objectForKey:@"size"] integerValue];
     if (size  < [[UIDevice currentDevice] freeDiskspace].longLongValue) {
+        NSString *URLofSubtitle = nil;
+        if (![[[ObjList objectAtIndex:0] objectForKey:@"pathSubtitle"] isEqualToString:@""]) {
+            NSURL *url = [NSURL URLWithString:[[[ObjList objectAtIndex:0] objectForKey:@"pathSubtitle"] stringByAddingPercentEscapesUsingEncoding:NSUTF8StringEncoding]];
+            URLofSubtitle = [self _getFileSubtitleFromServer:url modeStream:NO];
+        }
+
         [self _downloadFileFromMediaItem:itemURL];
         [cell.statusLabel showStatusMessage:NSLocalizedString(@"DOWNLOADING", nil)];
     } else {

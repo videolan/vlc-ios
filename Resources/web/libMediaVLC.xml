@@ -1,5 +1,5 @@
 <?xml version = "1.0" encoding="UTF-8" standalone="yes" ?>
 <MediaContainer size="%%NB_FILE%%" identifier="org.videolan.vlc-ios" libraryTitle="%%LIB_TITLE%%">
-<!--	<Media title="" thumb="" duration="" size="" pathfile=""/>   -->
+<!--	<Media title="" thumb="" duration="" size="" pathfile="" pathSubtitle=""/>   -->
 	%%FILES%%
 </MediaContainer>

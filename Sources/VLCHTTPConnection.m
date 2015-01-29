@@ -22,6 +22,7 @@
 #import "VLCHTTPUploaderController.h"
 #import "HTTPDynamicFileResponse.h"
 #import "VLCThumbnailsCache.h"
+#import "NSString+SupportedMedia.h"
 
 @interface VLCHTTPConnection()
 {
@@ -35,7 +36,6 @@
 @property (nonatomic) VLCHTTPUploaderController *uploadController;
 
 @end
-
 
 @implementation VLCHTTPConnection
 
@@ -177,7 +177,7 @@
         NSMutableArray *mediaInXml = [[NSMutableArray alloc] initWithCapacity:allMedia.count];
         self.uploadController = [[VLCHTTPUploaderController alloc] init];
         NSString *hostName = [self.uploadController hostname];
-        NSString *pathLibrary =[NSSearchPathForDirectoriesInDomains(NSLibraryDirectory, NSUserDomainMask, YES) objectAtIndex:0];
+        NSString *pathLibrary = [NSSearchPathForDirectoriesInDomains(NSLibraryDirectory, NSUserDomainMask, YES) objectAtIndex:0];
         NSString *duration;
 
         for (NSManagedObject *mo in allMedia) {
@@ -197,9 +197,12 @@
                                         [[(MLFile *)mo url] stringByReplacingOccurrencesOfString:@"file://"withString:@""],
                                         [(MLFile *)mo title],
                                         duration, (float)([(MLFile *)mo fileSizeInBytes] / 1e6)]];
-                [mediaInXml addObject:[NSString stringWithFormat:@"<Media title=\"%@\" thumb=\"http://%@/download/%@/Thumbnails/File/%@.png\" duration=\"%@\" size=\"%li\" pathfile=\"http://%@/download/%@\"/>",
-                                       [(MLFile *)mo title], hostName, pathLibrary, [[NSString stringWithFormat:@"%@", mo.objectID.URIRepresentation] lastPathComponent], duration, [(MLFile *)mo fileSizeInBytes],
-                                       hostName, [[(MLFile *)mo url] stringByReplacingOccurrencesOfString:@"file://"withString:@""]]];
+                if ([relativePath isEqualToString:@"/libMediaVLC.xml"]) {
+                    NSString *pathSub = [self _checkSubtitleFound:[(MLFile *)mo url]];
+                    if (![pathSub isEqualToString:@""])
+                        pathSub = [NSString stringWithFormat:@"http://%@/download/%@", hostName, pathSub];
+                    [mediaInXml addObject:[NSString stringWithFormat:@"<Media title=\"%@\" thumb=\"http://%@/download/%@/Thumbnails/File/%@.png\" duration=\"%@\" size=\"%li\" pathfile=\"http://%@/download/%@\" pathSubtitle=\"%@\"/>", [(MLFile *)mo title], hostName, pathLibrary, [[NSString stringWithFormat:@"%@", mo.objectID.URIRepresentation] lastPathComponent], duration, [(MLFile *)mo fileSizeInBytes], hostName, [[(MLFile *)mo url] stringByReplacingOccurrencesOfString:@"file://"withString:@""], pathSub]];
+                }
             }
             else if ([mo isKindOfClass:[MLShow class]]) {
                 NSArray *episodes = [(MLShow *)mo sortedEpisodes];
@@ -234,11 +237,12 @@
                                             showEp.episodeNumber,
                                             showEp.name,
                                             duration, (float)([(MLFile *)[[showEp files] anyObject] fileSizeInBytes] / 1e6)]];
-                    [mediaInXml addObject:[NSString stringWithFormat:@"<Media title=\"%@ - S%@E%@\" thumb=\"http://%@/download/%@/Thumbnails/File/%@.png\" duration=\"%@\" size=\"%li\" pathfile=\"http://%@/download/%@\"/>",
-                                           [(MLShow *)mo name], showEp.seasonNumber, showEp.episodeNumber,
-                                           hostName, pathLibrary, [[NSString stringWithFormat:@"%@", showEp.objectID.URIRepresentation] lastPathComponent], duration,
-                                           [(MLFile *)[[showEp files] anyObject] fileSizeInBytes],
-                                           hostName, [[(MLFile *)[[showEp files] anyObject] url] stringByReplacingOccurrencesOfString:@"file://"withString:@""]]];
+                    if ([relativePath isEqualToString:@"/libMediaVLC.xml"]) {
+                        NSString *pathSub = [self _checkSubtitleFound:[(MLFile *)[[showEp files] anyObject] url]];
+                        if (![pathSub isEqualToString:@""])
+                            pathSub = [NSString stringWithFormat:@"http://%@/download/%@", hostName, pathSub];
+                        [mediaInXml addObject:[NSString stringWithFormat:@"<Media title=\"%@ - S%@E%@\" thumb=\"http://%@/download/%@/Thumbnails/File/%@.png\" duration=\"%@\" size=\"%li\" pathfile=\"http://%@/download/%@\" pathSubtitle=\"%@\"/>", [(MLShow *)mo name], showEp.seasonNumber, showEp.episodeNumber, hostName, pathLibrary, [[NSString stringWithFormat:@"%@", showEp.objectID.URIRepresentation] lastPathComponent], duration, [(MLFile *)[[showEp files] anyObject] fileSizeInBytes], hostName, [[(MLFile *)[[showEp files] anyObject] url] stringByReplacingOccurrencesOfString:@"file://"withString:@""], pathSub]];
+                    }
                 }
                 [mediaInHtml addObject:@"</div></div>"];
             } else if ([mo isKindOfClass:[MLLabel class]]) {
@@ -272,9 +276,12 @@
                                             [[file url] stringByReplacingOccurrencesOfString:@"file://"withString:@""],
                                             file.title,
                                             duration, (float)([file fileSizeInBytes] / 1e6)]];
-                    [mediaInXml addObject:[NSString stringWithFormat:@"<Media title=\"%@\" thumb=\"http://%@/download/%@/Thumbnails/File/%@.png\" duration=\"%@\" size=\"%li\" pathfile=\"http://%@/download/%@\"/>",
-                                           file.title, hostName, pathLibrary, [[NSString stringWithFormat:@"%@", file.objectID.URIRepresentation] lastPathComponent], duration, [file fileSizeInBytes],
-                                           hostName, [[file url] stringByReplacingOccurrencesOfString:@"file://"withString:@""]]];
+                    if ([relativePath isEqualToString:@"/libMediaVLC.xml"]) {
+                        NSString *pathSub = [self _checkSubtitleFound:[file url]];
+                        if (![pathSub isEqualToString:@""])
+                            pathSub = [NSString stringWithFormat:@"http://%@/download/%@", hostName, pathSub];
+                        [mediaInXml addObject:[NSString stringWithFormat:@"<Media title=\"%@\" thumb=\"http://%@/download/%@/Thumbnails/File/%@.png\" duration=\"%@\" size=\"%li\" pathfile=\"http://%@/download/%@\" pathSubtitle=\"%@\"/>", file.title, hostName, pathLibrary, [[NSString stringWithFormat:@"%@", file.objectID.URIRepresentation] lastPathComponent], duration, [file fileSizeInBytes], hostName, [[file url] stringByReplacingOccurrencesOfString:@"file://"withString:@""], pathSub]];
+                    }
                 }
                 [mediaInHtml addObject:@"</div></div>"];
             } else if ([mo isKindOfClass:[MLAlbum class]]) {
@@ -308,9 +315,8 @@
                                             [[(MLFile *)[[track files] anyObject] url] stringByReplacingOccurrencesOfString:@"file://"withString:@""],
                                             track.title,
                                             duration, (float)([(MLFile *)[[track files] anyObject] fileSizeInBytes] / 1e6)]];
-                    [mediaInXml addObject:[NSString stringWithFormat:@"<Media title=\"%@\" thumb=\"http://%@/download/%@/Thumbnails/File/%@.png\" duration=\"%@\" size=\"%li\" pathfile=\"http://%@/download/%@\"/>",
-                                           track.title, hostName, pathLibrary, [[NSString stringWithFormat:@"%@", track.objectID.URIRepresentation] lastPathComponent], duration, [(MLFile *)[[track files] anyObject] fileSizeInBytes],
-                                           hostName, [[(MLFile *)[[track files] anyObject] url] stringByReplacingOccurrencesOfString:@"file://"withString:@""]]];
+                    if ([relativePath isEqualToString:@"/libMediaVLC.xml"])
+                        [mediaInXml addObject:[NSString stringWithFormat:@"<Media title=\"%@\" thumb=\"http://%@/download/%@/Thumbnails/File/%@.png\" duration=\"%@\" size=\"%li\" pathfile=\"http://%@/download/%@\" pathSubtitle=\"\"/>", track.title, hostName, pathLibrary, [[NSString stringWithFormat:@"%@", track.objectID.URIRepresentation] lastPathComponent], duration, [(MLFile *)[[track files] anyObject] fileSizeInBytes], hostName, [[(MLFile *)[[track files] anyObject] url] stringByReplacingOccurrencesOfString:@"file://"withString:@""]]];
                 }
                 [mediaInHtml addObject:@"</div></div>"];
             }
@@ -443,6 +449,37 @@
             [[(VLCAppDelegate*)[UIApplication sharedApplication].delegate uploadController] moveFileFrom:_filepath];
     }
     return [super shouldDie];
+}
+
+#pragma mark subtitle
+
+- (NSMutableArray *)_listOfSubtitle
+{
+    NSMutableArray *listOfSubtitle = [[NSMutableArray alloc] init];
+    NSString *documentsDirectory = [NSSearchPathForDirectoriesInDomains(NSDocumentDirectory, NSUserDomainMask, YES) objectAtIndex:0];
+    NSArray *allfiles = [[NSFileManager defaultManager] contentsOfDirectoryAtPath:documentsDirectory error:nil];
+    NSString *filePath;
+    for (int count = 0; count < allfiles.count; count++) {
+        filePath = [[NSString stringWithFormat:@"%@/%@", documentsDirectory, allfiles[count]] stringByReplacingOccurrencesOfString:@"file://"withString:@""];
+        if ([filePath isSupportedSubtitleFormat])
+            [listOfSubtitle addObject:filePath];
+    }
+    return listOfSubtitle;
+}
+
+- (NSString *)_checkSubtitleFound:(NSString *)fileURL
+{
+    NSString *subtitlePath = @"";
+    NSString *fileName = [[fileURL lastPathComponent] stringByDeletingPathExtension];
+    NSMutableArray *listOfSubtitle = [[NSMutableArray alloc] init];
+    listOfSubtitle = [self _listOfSubtitle];
+    NSString *fileSub;
+    for (int count = 0; count < listOfSubtitle.count; count++) {
+        fileSub = [NSString stringWithFormat:@"%@", listOfSubtitle[count]];
+        if ([fileSub rangeOfString:fileName].location != NSNotFound)
+            subtitlePath = [listOfSubtitle objectAtIndex:count];
+    }
+    return subtitlePath;
 }
 
 @end
