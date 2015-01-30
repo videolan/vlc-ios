@@ -16,7 +16,7 @@
 #import <SSKeychain/SSKeychain.h>
 #import "UIDevice+VLC.h"
 
-@interface VLCBoxTableViewController () <VLCCloudStorageTableViewCell, BoxAuthorizationViewControllerDelegate>
+@interface VLCBoxTableViewController () <VLCCloudStorageTableViewCell, BoxAuthorizationViewControllerDelegate, VLCCloudStorageDelegate>
 {
     BoxFile *_selectedFile;
     VLCBoxController *_boxController;
@@ -115,6 +115,11 @@
 }
 
 #pragma mark - Table view delegate
+
+- (void)mediaListUpdated
+{
+    [self.tableView reloadData];
+}
 
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
 {

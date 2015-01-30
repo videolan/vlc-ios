@@ -19,7 +19,7 @@
 #import "VLCProgressView.h"
 #import "UIDevice+VLC.h"
 
-@interface VLCOneDriveTableViewController ()
+@interface VLCOneDriveTableViewController () <VLCCloudStorageDelegate>
 {
     VLCOneDriveController *_oneDriveController;
     VLCOneDriveObject *_selectedFile;
@@ -85,6 +85,11 @@
 }
 
 #pragma mark - table view delegate
+
+- (void)mediaListUpdated
+{
+    [self.tableView reloadData];
+}
 
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
 {
