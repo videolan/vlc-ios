@@ -3,7 +3,10 @@
 * Fixed subtitles downloading in some corner cases
 * Appearance fixes for playback speed selector and download view on iPhone
 * Improved WiFi Sharing reliability by disabling IPv6 support by default
-* Improved UPnP reliability when using MythTV
+* Improved UPnP reliability and speed
+* Various minor UI improvements
+* Fixed regression leading to incomplete library listings on iPad
+* Improved decoding reliability by deploying FFmpeg instead of libav
 
 2.4:
 ----
