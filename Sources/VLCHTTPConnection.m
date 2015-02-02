@@ -2,7 +2,7 @@
  * VLCHTTPConnection.m
  * VLC for iOS
  *****************************************************************************
- * Copyright (c) 2013 VideoLAN. All rights reserved.
+ * Copyright (c) 2013-2015 VideoLAN. All rights reserved.
  * $Id$
  *
  * Authors: Felix Paul Kühne <fkuehne # videolan.org>
@@ -23,6 +23,7 @@
 #import "HTTPDynamicFileResponse.h"
 #import "VLCThumbnailsCache.h"
 #import "NSString+SupportedMedia.h"
+#import "UIDevice+VLC.h"
 
 @interface VLCHTTPConnection()
 {
@@ -398,11 +399,19 @@
     NSFileManager *fileManager = [NSFileManager defaultManager];
 
     BOOL isDir = YES;
-    if (![fileManager fileExistsAtPath:uploadDirPath isDirectory:&isDir ]) {
+    if (![fileManager fileExistsAtPath:uploadDirPath isDirectory:&isDir ])
         [fileManager createDirectoryAtPath:uploadDirPath withIntermediateDirectories:YES attributes:nil error:nil];
-    }
 
     _filepath = [uploadDirPath stringByAppendingPathComponent: filename];
+
+    NSNumber *freeSpace = [[UIDevice currentDevice] freeDiskspace];
+    if (_contentLength >= freeSpace.longLongValue) {
+        /* avoid deadlock since we are on a background thread */
+        [self performSelectorOnMainThread:@selector(notifyUserAboutEndOfFreeStorage:) withObject:filename waitUntilDone:NO];
+        [self handleResourceNotFound];
+        [self stop];
+        return;
+    }
 
     APLog(@"Saving file to %@", _filepath);
     if (![fileManager createDirectoryAtPath:uploadDirPath withIntermediateDirectories:true attributes:nil error:nil])
@@ -414,6 +423,19 @@
     _storeFile = [NSFileHandle fileHandleForWritingAtPath:_filepath];
     [(VLCAppDelegate*)[UIApplication sharedApplication].delegate networkActivityStarted];
     [(VLCAppDelegate*)[UIApplication sharedApplication].delegate disableIdleTimer];
+}
+
+- (void)notifyUserAboutEndOfFreeStorage:(NSString *)filename
+{
+    UIAlertView *alert = [[UIAlertView alloc] initWithTitle:NSLocalizedString(@"DISK_FULL", nil)
+                                                    message:[NSString stringWithFormat:
+                                                             NSLocalizedString(@"DISK_FULL_FORMAT", nil),
+                                                             filename,
+                                                             [[UIDevice currentDevice] model]]
+                                                   delegate:self
+                                          cancelButtonTitle:NSLocalizedString(@"BUTTON_OK", nil)
+                                          otherButtonTitles:nil];
+    [alert show];
 }
 
 - (void)processContent:(NSData*)data WithHeader:(MultipartMessageHeader*) header
