@@ -56,9 +56,9 @@
     if (!error) {
         totalSpace = [dictionary objectForKey:NSFileSystemSize];
         totalFreeSpace = [dictionary objectForKey:NSFileSystemFreeSize];
-        NSString *totalSize = [NSByteCountFormatter stringFromByteCount:[totalSpace integerValue] countStyle:NSByteCountFormatterCountStyleFile];
-        NSString *totalFreeSize = [NSByteCountFormatter stringFromByteCount:[totalFreeSpace integerValue] countStyle:NSByteCountFormatterCountStyleFile];
-        APLog(@"Memory Capacity of %@ MiB with %@ MiB Free memory available.", totalSize, totalFreeSize);
+        NSString *totalSize = [NSByteCountFormatter stringFromByteCount:[totalSpace longLongValue] countStyle:NSByteCountFormatterCountStyleFile];
+        NSString *totalFreeSize = [NSByteCountFormatter stringFromByteCount:[totalFreeSpace longLongValue] countStyle:NSByteCountFormatterCountStyleFile];
+        APLog(@"Memory Capacity of %@ with %@ Free memory available.", totalSize, totalFreeSize);
     } else
         APLog(@"Error Obtaining System Memory Info: Domain = %@, Code = %li", [error domain], [error code]);
 
