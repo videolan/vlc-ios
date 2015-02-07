@@ -40,6 +40,13 @@
 if (_interfaceIsLocked) \
 return
 
+typedef NS_ENUM(NSInteger, VLCPanType) {
+  VLCPanTypeNone,
+  VLCPanTypeBrightness,
+  VLCPanTypeSeek,
+  VLCPanTypeVolume,
+};
+
 @interface VLCMovieViewController () <UIGestureRecognizerDelegate, AVAudioSessionDelegate, VLCMediaDelegate, UITableViewDataSource, UITableViewDelegate, VLCEqualizerViewDelegate>
 {
     VLCMediaListPlayer *_listPlayer;
@@ -69,6 +76,7 @@ return
 
     BOOL _swipeGesturesEnabled;
     UIPinchGestureRecognizer *_pinchRecognizer;
+    VLCPanType _currentPanType;
     UIPanGestureRecognizer *_panRecognizer;
     UISwipeGestureRecognizer *_swipeRecognizerLeft;
     UISwipeGestureRecognizer *_swipeRecognizerRight;
@@ -267,6 +275,8 @@ return
 
     _tapRecognizer = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(tapRecognized)];
     [_tapRecognizer setNumberOfTouchesRequired:2];
+
+    _currentPanType = VLCPanTypeNone;
     _panRecognizer = [[UIPanGestureRecognizer alloc] initWithTarget:self action:@selector(panRecognized:)];
     [_panRecognizer setMinimumNumberOfTouches:1];
     [_panRecognizer setMaximumNumberOfTouches:1];
@@ -1412,11 +1422,9 @@ return
     }
 }
 
-- (NSString*)detectPanTypeForPan:(UIPanGestureRecognizer*)panRecognizer
+- (VLCPanType)detectPanTypeForPan:(UIPanGestureRecognizer*)panRecognizer
 {
-    NSString *type;
     NSString *deviceType = [[UIDevice currentDevice] model];
-    type = @"Volume"; // default in case of error
     CGPoint location = [panRecognizer locationInView:self.view];
     CGFloat position = location.x;
 
@@ -1428,18 +1436,17 @@ return
     else
         screenWidth = screenRect.size.height;
 
+    VLCPanType panType = VLCPanTypeVolume; // default or right side of the screen
     if (position < screenWidth / 2)
-        type = @"Brightness";
-    if (position > screenWidth / 2)
-        type = @"Volume";
+        panType = VLCPanTypeBrightness;
 
     // only check for seeking gesture if on iPad , will overwrite last statements if true
     if ([deviceType isEqualToString:@"iPad"]) {
         if (location.y < 110)
-            type = @"Seek";
+            panType = VLCPanTypeSeek;
     }
 
-    return type;
+    return panType;
 }
 
 - (void)panRecognized:(UIPanGestureRecognizer*)panRecognizer
@@ -1449,14 +1456,13 @@ return
     if (!_swipeGesturesEnabled)
         return;
 
-    NSString *panType;
     CGFloat panDirectionX = [panRecognizer velocityInView:self.view].x;
     CGFloat panDirectionY = [panRecognizer velocityInView:self.view].y;
 
-    if (panRecognizer.state == UIGestureRecognizerStateBegan) // Only Detect pantype when began to allow more freedom
-        panType = [self detectPanTypeForPan:panRecognizer];
+    if (panRecognizer.state == UIGestureRecognizerStateBegan) // Only detect panType when began to allow more freedom
+        _currentPanType = [self detectPanTypeForPan:panRecognizer];
 
-    if ([panType isEqual:@"Seek"]) {
+    if (_currentPanType == VLCPanTypeSeek) {
         double timeRemainingDouble = (-_mediaPlayer.remainingTime.intValue*0.001);
         int timeRemaining = timeRemainingDouble;
 
@@ -1465,13 +1471,13 @@ return
                 [_mediaPlayer jumpForward:1];
         } else
             [_mediaPlayer jumpBackward:1];
-    } else if ([panType isEqual:@"Volume"]) {
+    } else if (_currentPanType == VLCPanTypeVolume) {
         MPMusicPlayerController *musicPlayer = [MPMusicPlayerController applicationMusicPlayer];
         if (panDirectionY > 0)
             musicPlayer.volume -= 0.01;
         else
             musicPlayer.volume += 0.01;
-    } else if ([panType isEqual:@"Brightness"]) {
+    } else if (_currentPanType == VLCPanTypeBrightness) {
         CGFloat brightness = [UIScreen mainScreen].brightness;
 
         if (panDirectionY > 0)
@@ -1495,6 +1501,7 @@ return
     }
 
     if (panRecognizer.state == UIGestureRecognizerStateEnded) {
+        _currentPanType = VLCPanTypeNone;
         if ([_mediaPlayer isPlaying])
             [_listPlayer play];
     }
