@@ -1,6 +1,6 @@
 #!/bin/sh
 # Copyright (C) Pierre d'Herbemont, 2010
-# Copyright (C) Felix Paul Kühne, 2012-2014
+# Copyright (C) Felix Paul Kühne, 2012-2015
 
 set -e
 
@@ -12,7 +12,7 @@ CONFIGURATION="Release"
 NONETWORK=no
 SKIPLIBVLCCOMPILATION=no
 
-TESTEDVLCKITHASH=c6d5d8c3665
+TESTEDVLCKITHASH=41bb9f84f
 TESTEDMEDIALIBRARYKITHASH=a229be5b8f
 
 usage()
@@ -166,7 +166,8 @@ fi
 if ! [ -e VLCKit ]; then
 git clone git://git.videolan.org/vlc-bindings/VLCKit.git
 cd VLCKit
-git reset --hard ${TESTEDVLCKITHASH}
+git checkout -B 2.2.x ${TESTEDVLCKITHASH}
+git branch --set-upstream-to=origin/2.2.x 2.2.x
 cd ..
 else
 cd VLCKit
