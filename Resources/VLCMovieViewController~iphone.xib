@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="6254" systemVersion="14B25" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="6254" systemVersion="14C109" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none">
     <dependencies>
         <deployment identifier="iOS"/>
         <development version="5100" identifier="xcode"/>
@@ -26,6 +26,7 @@
                 <outlet property="controllerPanel" destination="92" id="104"/>
                 <outlet property="controllerPanelLandscape" destination="e7l-vK-ape" id="uR7-Ks-KKV"/>
                 <outlet property="currentScrubSpeedLabel" destination="244" id="248"/>
+                <outlet property="equalizerButton" destination="qRr-cf-Zcx" id="wnd-pw-c4Z"/>
                 <outlet property="fwdButton" destination="75" id="102"/>
                 <outlet property="fwdButtonLandscape" destination="jl2-cB-KOM" id="D5T-2S-hbf"/>
                 <outlet property="gammaLabel" destination="138" id="156"/>
@@ -681,7 +682,7 @@
                     </connections>
                 </button>
                 <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" id="5Ty-RA-fET">
-                    <rect key="frame" x="378" y="6" width="32" height="40"/>
+                    <rect key="frame" x="378" y="6" width="19" height="40"/>
                     <autoresizingMask key="autoresizingMask" flexibleMinX="YES" flexibleMaxX="YES" flexibleMaxY="YES"/>
                     <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
                     <fontDescription key="fontDescription" type="boldSystem" pointSize="22"/>
@@ -692,7 +693,7 @@
                     </connections>
                 </button>
                 <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" id="aJZ-AB-35L">
-                    <rect key="frame" x="409" y="7" width="32" height="40"/>
+                    <rect key="frame" x="427" y="6" width="14" height="40"/>
                     <autoresizingMask key="autoresizingMask" flexibleMinX="YES" flexibleMaxX="YES" flexibleMaxY="YES"/>
                     <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
                     <fontDescription key="fontDescription" type="boldSystem" pointSize="22"/>
@@ -700,6 +701,17 @@
                     <state key="normal" title="C"/>
                     <connections>
                         <action selector="switchChapter:" destination="-1" eventType="touchUpInside" id="t1w-mV-9wH"/>
+                    </connections>
+                </button>
+                <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" showsTouchWhenHighlighted="YES" lineBreakMode="middleTruncation" id="qRr-cf-Zcx">
+                    <rect key="frame" x="400" y="6" width="19" height="40"/>
+                    <autoresizingMask key="autoresizingMask" flexibleMinX="YES" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                    <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
+                    <fontDescription key="fontDescription" type="boldSystem" pointSize="22"/>
+                    <inset key="contentEdgeInsets" minX="0.0" minY="4" maxX="0.0" maxY="4"/>
+                    <state key="normal" title="E"/>
+                    <connections>
+                        <action selector="equalizer:" destination="-2" eventType="touchUpInside" id="oG9-a0-Gxz"/>
                     </connections>
                 </button>
             </subviews>

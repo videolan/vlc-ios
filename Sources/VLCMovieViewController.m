@@ -401,7 +401,11 @@ typedef NS_ENUM(NSInteger, VLCPanType) {
 
     [self.view addSubview:_trackSelectorContainer];
 
-    _equalizerView = [[VLCEqualizerView alloc] initWithFrame:CGRectMake((rect.size.width - 450.) / 2., self.controllerPanel.frame.origin.y - 120., 450., 120.)];
+    if (UI_USER_INTERFACE_IDIOM() == UIUserInterfaceIdiomPhone) {
+        _equalizerView = [[VLCEqualizerView alloc] initWithFrame:CGRectMake((rect.size.width - 450.) / 2., self.controllerPanel.frame.origin.y - 200., 450., 240.)];
+    } else {
+        _equalizerView = [[VLCEqualizerView alloc] initWithFrame:CGRectMake((rect.size.width - 450.) / 2., self.controllerPanel.frame.origin.y - 240., 450., 240.)];
+    }
     _equalizerView.delegate = self;
     _equalizerView.autoresizingMask = UIViewAutoresizingFlexibleRightMargin | UIViewAutoresizingFlexibleLeftMargin | UIViewAutoresizingFlexibleTopMargin;
     _equalizerView.hidden = YES;
@@ -624,6 +628,12 @@ typedef NS_ENUM(NSInteger, VLCPanType) {
     CGFloat lastPosition = .0;
     NSInteger duration = 0;
     MLFile *matchedFile;
+
+    // Set last selected equalizer profile
+    unsigned int profile = (unsigned int)[[[NSUserDefaults standardUserDefaults] objectForKey:kVLCSettingEqualizerProfile] integerValue];
+    [_mediaPlayer resetEqualizerFromProfile:profile];
+    [_mediaPlayer setPreAmplification:[_mediaPlayer preAmplification]];
+    [_equalizerView reloadData];
 
     if (self.fileFromMediaLibrary)
         matchedFile = self.fileFromMediaLibrary;
@@ -1598,6 +1608,9 @@ typedef NS_ENUM(NSInteger, VLCPanType) {
         [_mediaPlayer setEqualizerEnabled:YES];
 
     [_mediaPlayer setAmplification:amplification forBand:index];
+
+    // For some reason we have to apply again preamp to apply change
+    [_mediaPlayer setPreAmplification:[_mediaPlayer preAmplification]];
 }
 
 - (CGFloat)amplificationOfBand:(unsigned int)index
@@ -1612,11 +1625,15 @@ typedef NS_ENUM(NSInteger, VLCPanType) {
 
 - (void)resetEqualizerFromProfile:(unsigned int)profile
 {
+    [[NSUserDefaults standardUserDefaults] setObject:@(profile) forKey:kVLCSettingEqualizerProfile];
     [_mediaPlayer resetEqualizerFromProfile:profile];
 }
 
 - (void)setPreAmplification:(CGFloat)preAmplification
 {
+    if (!_mediaPlayer.equalizerEnabled)
+        [_mediaPlayer setEqualizerEnabled:YES];
+
     [self _resetIdleTimer];
     [_mediaPlayer setPreAmplification:preAmplification];
 }
@@ -1913,6 +1930,9 @@ typedef NS_ENUM(NSInteger, VLCPanType) {
     if (UI_USER_INTERFACE_IDIOM() == UIUserInterfaceIdiomPhone) {
         if (self.artworkImageView.image)
             self.trackNameLabel.hidden = UIInterfaceOrientationIsLandscape(toInterfaceOrientation);
+
+        if (!_equalizerView.hidden)
+            _equalizerView.hidden = YES;
     }
 }
 

@@ -12,6 +12,7 @@
 
 #import <UIKit/UIKit.h>
 #import "VLCFrostedGlasView.h"
+#import "VLCSlider.h"
 
 @protocol VLCEqualizerViewDelegate <NSObject>
 
@@ -24,8 +25,9 @@
 
 @end
 
-@interface VLCEqualizerView : VLCFrostedGlasView
+@interface VLCEqualizerView : VLCFrostedGlasView <UITableViewDataSource,UITableViewDelegate>
 
+@property (nonatomic, strong) UITableView *tableView;
 @property (weak) id <VLCEqualizerViewDelegate>delegate;
 
 - (void)reloadData;

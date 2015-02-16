@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.iPad.XIB" version="3.0" toolsVersion="6254" systemVersion="14B25" targetRuntime="iOS.CocoaTouch.iPad" propertyAccessControl="none">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.iPad.XIB" version="3.0" toolsVersion="6254" systemVersion="14C109" targetRuntime="iOS.CocoaTouch.iPad" propertyAccessControl="none">
     <dependencies>
         <deployment identifier="iOS"/>
         <development version="5100" identifier="xcode"/>
@@ -24,6 +24,7 @@
                 <outlet property="contrastSlider" destination="145" id="161"/>
                 <outlet property="controllerPanel" destination="272" id="298"/>
                 <outlet property="currentScrubSpeedLabel" destination="244" id="246"/>
+                <outlet property="equalizerButton" destination="iAS-0C-clq" id="hu9-uh-EsK"/>
                 <outlet property="fwdButton" destination="274" id="286"/>
                 <outlet property="gammaLabel" destination="152" id="171"/>
                 <outlet property="gammaSlider" destination="151" id="169"/>

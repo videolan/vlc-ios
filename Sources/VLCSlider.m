@@ -45,6 +45,14 @@
 
 @implementation VLCSlider
 
+- (instancetype)initWithFrame:(CGRect)frame
+{
+    self = [super initWithFrame:frame];
+    if (self)
+        [self setThumbImage:[UIImage imageNamed:@"modernSliderKnob"] forState:UIControlStateNormal];
+    return self;
+}
+
 - (void)awakeFromNib
 {
     if (SYSTEM_RUNS_IOS7_OR_LATER)

@@ -46,6 +46,8 @@
 #define kVLCSettingPlaybackSpeedDefaultValue @"playback-speed"
 #define kVLCSettingWiFiSharingIPv6 @"wifi-sharing-ipv6"
 #define kVLCSettingWiFiSharingIPv6DefaultValue @(NO)
+#define kVLCSettingEqualizerProfile @"EqualizerProfile"
+#define kVLCSettingEqualizerProfileDefaultValue @(0)
 
 #define kVLCShowRemainingTime @"show-remaining-time"
 #define kVLCRecentURLs @"recent-urls"
