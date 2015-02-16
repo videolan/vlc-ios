@@ -5,9 +5,10 @@
 * Added support for OneDrive (#13413)
 * Added a lock button to the playback view, supporting both orientation and
   controls (#11293, #11292)
+* Added 10-band equalizer (#9032)
 * Added support for chapters and titles to the playback dialog (#11560)
 * Cleaned-up playback view appearance with more features and less clutter
-* Added an information dialog to the playback view and library view on iPad
+* Added enhanced media information to the library view (#13564)
 * Added notifications about missing storage space when syncing media (#11474)
 
 2.4.1:
