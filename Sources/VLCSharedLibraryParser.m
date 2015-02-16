@@ -46,10 +46,11 @@
 {
     NSMutableArray *mutableObjectList = [[NSMutableArray alloc] init];
     mutableObjectList = [self VLCLibraryServerParser:adress port:port];
-    NSString *identifier = [[mutableObjectList objectAtIndex:0] objectForKey:@"identifier"];
-    if ([identifier isEqualToString:@"org.videolan.vlc-ios"])
-        return YES;
-
+    if (mutableObjectList.count > 0) {
+        NSString *identifier = [[mutableObjectList objectAtIndex:0] objectForKey:@"identifier"];
+        if ([identifier isEqualToString:@"org.videolan.vlc-ios"])
+            return YES;
+    }
     return NO;
 }
 
