@@ -639,11 +639,36 @@ typedef NS_ENUM(NSInteger, VLCPanType) {
     if (self.fileFromMediaLibrary)
         matchedFile = self.fileFromMediaLibrary;
     else if (self.mediaList) {
-        NSArray *matches = [MLFile fileForURL:[[[self.mediaList mediaAtIndex:self.itemInMediaListToBePlayedFirst] url] absoluteString]];
-        if (matches.count > 0) {
-            matchedFile = matches[0];
-            lastPosition = matchedFile.lastPosition.floatValue;
+        /* TODO: move this code to MLKit */
+        NSString *path = [[[self.mediaList mediaAtIndex:self.itemInMediaListToBePlayedFirst] url] absoluteString];
+        NSString *componentString = @"";
+        NSArray *pathComponents = [path componentsSeparatedByString:@"/"];
+        NSUInteger componentCount = pathComponents.count;
+
+        if ([pathComponents[componentCount - 2] isEqualToString:@"Documents"])
+            componentString = [path lastPathComponent];
+        else {
+            NSUInteger firstElement = [pathComponents indexOfObject:@"Documents"] + 1;
+            for (NSUInteger x = 0; x < componentCount - firstElement; x++) {
+                if (x == 0)
+                componentString = [componentString stringByAppendingFormat:@"%@", pathComponents[firstElement + x]];
+                else
+                componentString = [componentString stringByAppendingFormat:@"/%@", pathComponents[firstElement + x]];
+            }
         }
+
+        NSFetchRequest *request = [[NSFetchRequest alloc] init];
+        NSManagedObjectContext *moc = [[MLMediaLibrary sharedMediaLibrary] managedObjectContext];
+        NSEntityDescription *entity = [NSEntityDescription entityForName:@"File" inManagedObjectContext:moc];
+        [request setEntity:entity];
+        [request setPredicate:[NSPredicate predicateWithFormat:@"url CONTAINS %@", componentString]];
+
+        NSSortDescriptor *descriptor = [[NSSortDescriptor alloc] initWithKey:@"title" ascending:YES selector:@selector(localizedCaseInsensitiveCompare:)];
+        [request setSortDescriptors:@[descriptor]];
+
+        NSArray *matches = [moc executeFetchRequest:request error:nil];
+        if (matches.count > 0)
+            matchedFile = matches[0];
     }
     if (matchedFile.lastPosition)
         lastPosition = matchedFile.lastPosition.floatValue;
