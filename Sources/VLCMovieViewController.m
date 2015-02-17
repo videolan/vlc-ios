@@ -87,6 +87,7 @@ typedef NS_ENUM(NSInteger, VLCPanType) {
     UITableView *_trackSelectorTableView;
 
     VLCEqualizerView *_equalizerView;
+    NSInteger _mediaDuration;
 }
 
 @property (nonatomic, strong) UIPopoverController *masterPopoverController;
@@ -1010,10 +1011,12 @@ typedef NS_ENUM(NSInteger, VLCPanType) {
      * wouldn't see the I-frames when seeking on current mobile devices. This isn't a problem
      * within the Simulator, but especially on older ARMv7 devices, it's clearly noticeable. */
     [self performSelector:@selector(_setPositionForReal) withObject:nil afterDelay:0.3];
-    VLCTime *newPosition = [VLCTime timeWithInt:(int)(_positionSlider.value * self.fileFromMediaLibrary.duration.intValue)];
-    [self.timeDisplay setTitle:newPosition.stringValue forState:UIControlStateNormal];
-    self.timeDisplay.accessibilityLabel = [NSString stringWithFormat:@"%@: %@", NSLocalizedString(@"PLAYBACK_POSITION", nil), newPosition.stringValue];
-    _positionSet = NO;
+    if (_mediaDuration > 0) {
+        VLCTime *newPosition = [VLCTime timeWithInt:(int)(_positionSlider.value * _mediaDuration)];
+        [self.timeDisplay setTitle:newPosition.stringValue forState:UIControlStateNormal];
+        self.timeDisplay.accessibilityLabel = [NSString stringWithFormat:@"%@: %@", NSLocalizedString(@"PLAYBACK_POSITION", nil), newPosition.stringValue];
+        _positionSet = NO;
+    }
     [self _resetIdleTimer];
 }
 
@@ -1096,6 +1099,8 @@ typedef NS_ENUM(NSInteger, VLCPanType) {
         [_mediaPlayer performSelector:@selector(setTextRendererFont:) withObject:[self _resolveFontName]];
         [_mediaPlayer performSelector:@selector(setTextRendererFontSize:) withObject:[[NSUserDefaults standardUserDefaults] objectForKey:kVLCSettingSubtitlesFontSize]];
         [_mediaPlayer performSelector:@selector(setTextRendererFontColor:) withObject:[[NSUserDefaults standardUserDefaults] objectForKey:kVLCSettingSubtitlesFontColor]];
+
+        _mediaDuration = _listPlayer.mediaPlayer.media.length.intValue;
     }
 
     if (currentState == VLCMediaPlayerStateError) {
