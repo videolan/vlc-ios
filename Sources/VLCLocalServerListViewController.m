@@ -132,9 +132,9 @@
                                                object:[UIApplication sharedApplication]];
 
 /*    if (SYSTEM_RUNS_IOS7_OR_LATER)
-        _sectionHeaderTexts = @[@"Universal Plug'n'Play (UPNP)", @"File Transfer Protocol (FTP)", @"Network Streams (SAP)"];
+        _sectionHeaderTexts = @[@"Universal Plug'n'Play (UPNP)", @"File Transfer Protocol (FTP)", NSLocalizedString(@"SAP_STREAMS", nil)];
     else*/
-        _sectionHeaderTexts = @[@"Universal Plug'n'Play (UPnP)", @"Plex Media Server (via Bonjour)", @"File Transfer Protocol (FTP)", @"Shared VLC for ios Library"];
+    _sectionHeaderTexts = @[@"Universal Plug'n'Play (UPnP)", @"Plex Media Server (via Bonjour)", @"File Transfer Protocol (FTP)", NSLocalizedString(@"SHARED_VLC_IOS_LIBRARY", nil)];
 
     _backToMenuButton = [UIBarButtonItem themedRevealMenuButtonWithTarget:self andSelector:@selector(goBack:)];
     self.navigationItem.leftBarButtonItem = _backToMenuButton;
@@ -486,10 +486,12 @@
 
         UIView *topLine = [[UIView alloc] initWithFrame:CGRectMake(0.0f, 0.0f, [UIScreen mainScreen].bounds.size.height, 1.0f)];
         topLine.backgroundColor = [UIColor colorWithRed:(95.0f/255.0f) green:(95.0f/255.0f) blue:(95.0f/255.0f) alpha:1.0f];
+        topLine.autoresizingMask = UIViewAutoresizingFlexibleWidth;
         [headerView addSubview:topLine];
 
         UIView *bottomLine = [[UIView alloc] initWithFrame:CGRectMake(0.0f, 21.0f, [UIScreen mainScreen].bounds.size.height, 1.0f)];
         bottomLine.backgroundColor = [UIColor colorWithRed:(16.0f/255.0f) green:(16.0f/255.0f) blue:(16.0f/255.0f) alpha:1.0f];
+        bottomLine.autoresizingMask = UIViewAutoresizingFlexibleWidth;
         [headerView addSubview:bottomLine];
     }
     return headerView;
