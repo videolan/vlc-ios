@@ -374,12 +374,13 @@
 
         /* print video info */
         trackCount = videoTracks.count;
-        if (trackCount != 1)
-            [mediaInfo appendFormat:@"%lu video tracks", (unsigned long)trackCount];
-        else
-            [mediaInfo appendString:@"1 video track"];
 
         if (trackCount > 0) {
+            if (trackCount != 1)
+                [mediaInfo appendFormat:@"%lu video tracks", (unsigned long)trackCount];
+            else
+                [mediaInfo appendString:@"1 video track"];
+
             [mediaInfo appendString:@" ("];
             for (NSUInteger x = 0; x < trackCount; x++) {
                 int fourcc = [[videoTracks[x] valueForKey:@"codec"] intValue];
@@ -390,16 +391,19 @@
             }
             [mediaInfo appendString:@")"];
         }
-        [mediaInfo appendString:@"\n\n"];
 
         /* print audio info */
         trackCount = audioTracks.count;
-        if (trackCount != 1)
-            [mediaInfo appendFormat:@"%lu audio tracks", (unsigned long)trackCount];
-        else
-            [mediaInfo appendString:@"1 audio track"];
 
         if (trackCount > 0) {
+            if (mediaInfo.length > 0)
+                [mediaInfo appendString:@"\n\n"];
+
+            if (trackCount != 1)
+                [mediaInfo appendFormat:@"%lu audio tracks", (unsigned long)trackCount];
+            else
+                [mediaInfo appendString:@"1 audio track"];
+
             [mediaInfo appendString:@":\n"];
             for (NSUInteger x = 0; x < trackCount; x++) {
                 NSManagedObject *track = audioTracks[x];
@@ -441,7 +445,6 @@
                 }
             }
         }
-        [mediaInfo appendString:@"\n\n"];
 
         /* SPU */
         trackCount = spuTracks.count;
@@ -459,12 +462,16 @@
                         trackCount ++;
             }
         }
-        if (trackCount != 1)
-            [mediaInfo appendFormat:@"%lu subtitles tracks", (unsigned long)trackCount];
-        else
-            [mediaInfo appendString:@"1 subtitles track"];
 
         if ((trackCount > 0) && (spuTracks.count > 0)) {
+            if (mediaInfo.length > 0)
+                [mediaInfo appendString:@"\n\n"];
+
+            if (trackCount != 1)
+                [mediaInfo appendFormat:@"%lu subtitles tracks", (unsigned long)trackCount];
+            else
+                [mediaInfo appendString:@"1 subtitles track"];
+
             [mediaInfo appendString:@" ("];
             for (NSUInteger x = 0; x < trackCount; x++) {
                 NSString *language = [spuTracks[x] valueForKey:@"language"];
