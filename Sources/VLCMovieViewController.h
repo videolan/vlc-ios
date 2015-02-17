@@ -40,6 +40,7 @@
 @property (nonatomic, strong) IBOutlet UIButton *chapterButton;
 @property (nonatomic, strong) IBOutlet UIButton *chapterButtonLandscape;
 @property (nonatomic, strong) IBOutlet UIButton *equalizerButton;
+@property (nonatomic, strong) IBOutlet UIButton *sleepTimerButton;
 @property (nonatomic, strong) IBOutlet UINavigationBar *toolbar;
 @property (nonatomic, strong) IBOutlet VLCFrostedGlasView *controllerPanel;
 @property (nonatomic, strong) IBOutlet VLCFrostedGlasView *controllerPanelLandscape;
@@ -112,6 +113,7 @@
 - (IBAction)lock:(id)sender;
 - (IBAction)switchChapter:(id)sender;
 - (IBAction)equalizer:(id)sender;
+- (IBAction)sleepTimer:(id)sender;
 
 - (IBAction)videoFilterToggle:(id)sender;
 - (IBAction)videoFilterSliderAction:(id)sender;
