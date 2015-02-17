@@ -64,6 +64,7 @@ typedef NS_ENUM(NSInteger, VLCPanType) {
     NSUInteger _currentAspectRatioMask;
 
     NSTimer *_idleTimer;
+    NSTimer *_sleepTimer;
 
     BOOL _shouldResumePlaying;
     BOOL _viewAppeared;
@@ -87,6 +88,10 @@ typedef NS_ENUM(NSInteger, VLCPanType) {
     UITableView *_trackSelectorTableView;
 
     VLCEqualizerView *_equalizerView;
+
+    UIView *_sleepTimerContainer;
+    UIDatePicker *_sleepTimeDatePicker;
+
     NSInteger _mediaDuration;
 }
 
@@ -236,6 +241,9 @@ typedef NS_ENUM(NSInteger, VLCPanType) {
     _repeatButton.isAccessibilityElement = YES;
     _equalizerButton.accessibilityLabel = NSLocalizedString(@"BUTTON_EQUALIZER", nil);
     _equalizerButton.isAccessibilityElement = YES;
+    _sleepTimerButton.accessibilityLabel = NSLocalizedString(@"BUTTON_SLEEP_TIMER", nil);
+    _sleepTimerButton.isAccessibilityElement = YES;
+    [_sleepTimerButton setTitle:NSLocalizedString(@"BUTTON_SLEEP_TIMER", nil) forState:UIControlStateNormal];
 
     _scrubHelpLabel.text = NSLocalizedString(@"PLAYBACK_SCRUB_HELP", nil);
 
@@ -940,6 +948,10 @@ typedef NS_ENUM(NSInteger, VLCPanType) {
         _trackSelectorContainer.hidden = YES;
         _equalizerView.alpha = 0.0f;
         _equalizerView.hidden = YES;
+        if (_sleepTimerContainer) {
+            _sleepTimerContainer.alpha = 0.0f;
+            _sleepTimerContainer.hidden = YES;
+        }
     }
 
     void (^animationBlock)() = ^() {
@@ -950,6 +962,8 @@ typedef NS_ENUM(NSInteger, VLCPanType) {
         _playbackSpeedView.alpha = alpha;
         _trackSelectorContainer.alpha = alpha;
         _equalizerView.alpha = alpha;
+        if (_sleepTimerContainer)
+            _sleepTimerContainer.alpha = alpha;
     };
 
     void (^completionBlock)(BOOL finished) = ^(BOOL finished) {
@@ -960,6 +974,8 @@ typedef NS_ENUM(NSInteger, VLCPanType) {
         _playbackSpeedView.hidden = _playbackSpeedViewHidden;
         _trackSelectorContainer.hidden = YES;
         _equalizerView.hidden = YES;
+        if (_sleepTimerContainer)
+            _sleepTimerContainer.hidden = YES;
     };
 
     UIStatusBarAnimation animationType = animated? UIStatusBarAnimationFade: UIStatusBarAnimationNone;
@@ -1293,6 +1309,76 @@ typedef NS_ENUM(NSInteger, VLCPanType) {
         _equalizerView.hidden = NO;
     } else
         _equalizerView.hidden = YES;
+}
+
+- (IBAction)sleepTimer:(id)sender
+{
+    if (!_sleepTimerContainer) {
+        self.playbackSpeedView.hidden = YES;
+        _sleepTimerContainer = [[VLCFrostedGlasView alloc] initWithFrame:CGRectMake(0., 0., 300., 162.)];
+        _sleepTimerContainer.center = self.view.center;
+        _sleepTimerContainer.autoresizingMask = UIViewAutoresizingFlexibleRightMargin | UIViewAutoresizingFlexibleLeftMargin | UIViewAutoresizingFlexibleBottomMargin | UIViewAutoresizingFlexibleTopMargin;
+
+        _sleepTimeDatePicker = [[UIDatePicker alloc] init];
+        if ([[UIDevice currentDevice] speedCategory] >= 3) {
+            _sleepTimeDatePicker.opaque = NO;
+            _sleepTimeDatePicker.backgroundColor = [UIColor clearColor];
+        } else
+            _sleepTimeDatePicker.backgroundColor = [UIColor blackColor];
+        _sleepTimeDatePicker.tintColor = [UIColor VLCLightTextColor];
+        [_sleepTimerContainer addSubview:_sleepTimeDatePicker];
+
+        /* adapt the date picker style to suit our needs */
+        [_sleepTimeDatePicker setValue:[UIColor whiteColor] forKeyPath:@"textColor"];
+        SEL selector = NSSelectorFromString(@"setHighlightsToday:");
+        NSInvocation *invocation = [NSInvocation invocationWithMethodSignature:[UIDatePicker instanceMethodSignatureForSelector:selector]];
+        BOOL no = NO;
+        [invocation setSelector:selector];
+        [invocation setArgument:&no atIndex:2];
+        [invocation invokeWithTarget:_sleepTimeDatePicker];
+
+        if (_sleepTimerContainer.subviews.count > 0) {
+            NSArray *subviewsOfSubview = [_sleepTimeDatePicker.subviews[0] subviews];
+            NSUInteger subviewCount = subviewsOfSubview.count;
+            for (NSUInteger x = 0; x < subviewCount; x++) {
+                if ([subviewsOfSubview[x] isKindOfClass:[UILabel class]])
+                    [subviewsOfSubview[x] setTextColor:[UIColor VLCLightTextColor]];
+            }
+        }
+        _sleepTimeDatePicker.datePickerMode = UIDatePickerModeCountDownTimer;
+        _sleepTimeDatePicker.minuteInterval = 5;
+        _sleepTimeDatePicker.minimumDate = [NSDate date];
+        _sleepTimeDatePicker.countDownDuration = 1200.;
+        [_sleepTimeDatePicker addTarget:self action:@selector(sleepTimerAction:) forControlEvents:UIControlEventValueChanged];
+
+        [self.view addSubview:_sleepTimerContainer];
+    }
+
+    if (!_playbackSpeedViewHidden)
+        self.playbackSpeedView.hidden = _playbackSpeedViewHidden = YES;
+
+    if (_equalizerView.hidden == NO)
+        _equalizerView.hidden = YES;
+
+    if (UI_USER_INTERFACE_IDIOM() == UIUserInterfaceIdiomPhone) {
+        if (!_controlsHidden) {
+            self.controllerPanel.hidden = _controlsHidden = YES;
+            self.controllerPanelLandscape.hidden = YES;
+        }
+    }
+
+    self.videoFilterView.hidden = _videoFiltersHidden = YES;
+    _sleepTimerContainer.alpha = 1.;
+    _sleepTimerContainer.hidden = NO;
+}
+
+- (IBAction)sleepTimerAction:(id)sender
+{
+    if (_sleepTimer) {
+        [_sleepTimer invalidate];
+        _sleepTimer = nil;
+    }
+    _sleepTimer = [NSTimer scheduledTimerWithTimeInterval:_sleepTimeDatePicker.countDownDuration target:self selector:@selector(closePlayback:) userInfo:nil repeats:NO];
 }
 
 #pragma mark - track selector table view

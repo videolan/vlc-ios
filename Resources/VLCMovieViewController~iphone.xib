@@ -55,6 +55,7 @@
                 <outlet property="saturationSlider" destination="135" id="152"/>
                 <outlet property="scrubHelpLabel" destination="246" id="249"/>
                 <outlet property="scrubIndicatorView" destination="241" id="247"/>
+                <outlet property="sleepTimerButton" destination="ime-8n-VJ9" id="n2P-yu-8en"/>
                 <outlet property="spuDelayIndicator" destination="IzS-81-KII" id="IXf-sX-Ier"/>
                 <outlet property="spuDelayLabel" destination="KeW-Xp-9I6" id="LMS-pz-Ajj"/>
                 <outlet property="spuDelaySlider" destination="JRI-0m-C0M" id="f8j-Iq-sH3"/>
@@ -170,8 +171,8 @@
                         <bool key="isElement" value="YES"/>
                     </accessibility>
                 </view>
-                <view contentMode="scaleToFill" id="165" userLabel="Controls panel" customClass="VLCFrostedGlasView">
-                    <rect key="frame" x="0.0" y="340" width="320" height="131"/>
+                <view hidden="YES" contentMode="scaleToFill" id="165" userLabel="Controls panel" customClass="VLCFrostedGlasView">
+                    <rect key="frame" x="0.0" y="314" width="320" height="163"/>
                     <autoresizingMask key="autoresizingMask" flexibleMinX="YES" flexibleMaxX="YES" flexibleMinY="YES"/>
                     <subviews>
                         <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" text="Audio delay" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="8cb-fw-YeF">
@@ -237,9 +238,21 @@
                                 <action selector="playbackSliderAction:" destination="-1" eventType="valueChanged" id="6n6-9i-WXd"/>
                             </connections>
                         </slider>
+                        <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" id="ime-8n-VJ9">
+                            <rect key="frame" x="20" y="133" width="280" height="30"/>
+                            <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                            <fontDescription key="fontDescription" type="system" pointSize="15"/>
+                            <state key="normal" title="Sleep Timer">
+                                <color key="titleColor" cocoaTouchSystemColor="lightTextColor"/>
+                                <color key="titleShadowColor" cocoaTouchSystemColor="scrollViewTexturedBackgroundColor"/>
+                            </state>
+                            <connections>
+                                <action selector="sleepTimer:" destination="-1" eventType="touchUpInside" id="3DL-TN-OVO"/>
+                            </connections>
+                        </button>
                     </subviews>
                 </view>
-                <view contentMode="scaleToFill" id="117" userLabel="Controls panel" customClass="VLCFrostedGlasView">
+                <view hidden="YES" contentMode="scaleToFill" id="117" userLabel="Controls panel" customClass="VLCFrostedGlasView">
                     <rect key="frame" x="0.0" y="342" width="320" height="198"/>
                     <autoresizingMask key="autoresizingMask" flexibleMinX="YES" flexibleMaxX="YES" flexibleMinY="YES"/>
                     <subviews>
@@ -330,7 +343,7 @@
                         </button>
                     </subviews>
                 </view>
-                <view contentMode="scaleToFill" id="92" userLabel="Controls panel" customClass="VLCFrostedGlasView">
+                <view hidden="YES" contentMode="scaleToFill" id="92" userLabel="Controls panel" customClass="VLCFrostedGlasView">
                     <rect key="frame" x="0.0" y="478" width="320" height="90"/>
                     <autoresizingMask key="autoresizingMask" flexibleMinX="YES" widthSizable="YES" flexibleMaxX="YES" flexibleMinY="YES"/>
                     <subviews>
@@ -488,7 +501,7 @@
                         </navigationItem>
                     </items>
                 </navigationBar>
-                <view hidden="YES" contentMode="scaleToFill" id="241" userLabel="Controls panel" customClass="VLCFrostedGlasView">
+                <view contentMode="scaleToFill" id="241" userLabel="Controls panel" customClass="VLCFrostedGlasView">
                     <rect key="frame" x="0.0" y="63" width="320" height="46"/>
                     <autoresizingMask key="autoresizingMask" widthSizable="YES" flexibleMaxY="YES"/>
                     <subviews>
