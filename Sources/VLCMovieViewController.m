@@ -234,6 +234,8 @@ typedef NS_ENUM(NSInteger, VLCPanType) {
     _fwdButtonLandscape.isAccessibilityElement = YES;
     _repeatButton.accessibilityLabel = NSLocalizedString(@"BUTTON_REPEAT", nil);
     _repeatButton.isAccessibilityElement = YES;
+    _equalizerButton.accessibilityLabel = NSLocalizedString(@"BUTTON_EQUALIZER", nil);
+    _equalizerButton.isAccessibilityElement = YES;
 
     _scrubHelpLabel.text = NSLocalizedString(@"PLAYBACK_SCRUB_HELP", nil);
 
