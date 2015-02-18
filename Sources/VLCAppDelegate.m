@@ -27,6 +27,7 @@
 #import "UINavigationController+Theme.h"
 #import "VLCHTTPUploaderController.h"
 #import "VLCMenuTableViewController.h"
+#import "VLCMigrationViewController.h"
 #import "BWQuincyManager.h"
 #import "VLCAlertView.h"
 #import <BoxSDK/BoxSDK.h>
@@ -39,6 +40,7 @@
     int _networkActivityCounter;
     VLCMovieViewController *_movieViewController;
     BOOL _passcodeValidated;
+    BOOL _isRunningMigration;
 }
 
 @end
@@ -88,33 +90,76 @@
     // Init the HTTP Server
     self.uploadController = [[VLCHTTPUploaderController alloc] init];
 
-    // enable crash preventer
-    [[MLMediaLibrary sharedMediaLibrary] applicationWillStart];
-
     self.window = [[UIWindow alloc] initWithFrame:[[UIScreen mainScreen] bounds]];
+    // enable crash preventer
+     void (^setupBlock)() = ^ {
+        [[MLMediaLibrary sharedMediaLibrary] applicationWillStart];
 
-    _playlistViewController = [[VLCPlaylistViewController alloc] init];
-    UINavigationController *navCon = [[UINavigationController alloc] initWithRootViewController:_playlistViewController];
-    [navCon loadTheme];
+        _playlistViewController = [[VLCPlaylistViewController alloc] init];
+        UINavigationController *navCon = [[UINavigationController alloc] initWithRootViewController:_playlistViewController];
+        [navCon loadTheme];
 
-    _revealController = [[GHRevealViewController alloc] initWithNibName:nil bundle:nil];
-    _revealController.wantsFullScreenLayout = YES;
-    _menuViewController = [[VLCMenuTableViewController alloc] initWithNibName:nil bundle:nil];
-    _revealController.sidebarViewController = _menuViewController;
-    _revealController.contentViewController = navCon;
+        _revealController = [[GHRevealViewController alloc] initWithNibName:nil bundle:nil];
+        _revealController.wantsFullScreenLayout = YES;
+        _menuViewController = [[VLCMenuTableViewController alloc] initWithNibName:nil bundle:nil];
+        _revealController.sidebarViewController = _menuViewController;
+        _revealController.contentViewController = navCon;
 
-    self.window.rootViewController = self.revealController;
-    // necessary to avoid navbar blinking in VLCOpenNetworkStreamViewController & VLCDownloadViewController
-    _revealController.contentViewController.view.backgroundColor = [UIColor VLCDarkBackgroundColor];
-    [self.window makeKeyAndVisible];
+        self.window.rootViewController = self.revealController;
+        // necessary to avoid navbar blinking in VLCOpenNetworkStreamViewController & VLCDownloadViewController
+        _revealController.contentViewController.view.backgroundColor = [UIColor VLCDarkBackgroundColor];
+        [self.window makeKeyAndVisible];
 
-    VLCMediaFileDiscoverer *discoverer = [VLCMediaFileDiscoverer sharedInstance];
-    [discoverer addObserver:self];
-    [discoverer startDiscovering:[self directoryPath]];
+        VLCMediaFileDiscoverer *discoverer = [VLCMediaFileDiscoverer sharedInstance];
+        [discoverer addObserver:self];
+        [discoverer startDiscovering:[self directoryPath]];
 
-    [self validatePasscode];
+        [self validatePasscode];
+    };
 
+    NSError *error = nil;
+    if ([self migrationNeeded:&error]){
+        _isRunningMigration = YES;
+
+        VLCMigrationViewController *migrationController = [[VLCMigrationViewController alloc] initWithNibName:@"VLCMigrationViewController" bundle:nil];
+        migrationController.completionHandler = ^{
+            //migrate
+            setupBlock();
+            _isRunningMigration = NO;
+            [[MLMediaLibrary sharedMediaLibrary] updateMediaDatabase];
+            [self updateMediaList];
+        };
+
+        self.window.rootViewController = migrationController;
+        [self.window makeKeyAndVisible];
+
+    } else {
+        if (error != nil) {
+            NSLog(@"removed persistentStore since it was corrupt");
+            NSURL *storeURL = ((MLMediaLibrary *)[MLMediaLibrary sharedMediaLibrary]).persistentStoreURL;
+            [[NSFileManager defaultManager] removeItemAtURL:storeURL error:&error];
+        }
+        setupBlock();
+    }
     return YES;
+}
+
+- (BOOL)migrationNeeded:(NSError **) migrationCheckError {
+
+    BOOL migrationNeeded = NO;
+
+    if ([[NSFileManager defaultManager] fileExistsAtPath:((MLMediaLibrary *)[MLMediaLibrary sharedMediaLibrary]).persistentStoreURL.path]) {
+        NSDictionary *sourceMetadata = [NSPersistentStoreCoordinator metadataForPersistentStoreOfType:NSSQLiteStoreType
+                                                                                                  URL:((MLMediaLibrary *)[MLMediaLibrary sharedMediaLibrary]).persistentStoreURL
+                                                                                                error:migrationCheckError];
+        if (*migrationCheckError) {
+            return NO;
+        }
+        NSManagedObjectModel *destinationModel = [[MLMediaLibrary sharedMediaLibrary] managedObjectModel];
+        migrationNeeded = ![destinationModel isConfiguration:nil compatibleWithStoreMetadata:sourceMetadata];
+    }
+
+    return migrationNeeded;
 }
 
 - (BOOL)application:(UIApplication *)application openURL:(NSURL *)url sourceApplication:(NSString *)sourceApplication annotation:(id)annotation
@@ -220,8 +265,10 @@
 
 - (void)applicationDidBecomeActive:(UIApplication *)application
 {
-    [[MLMediaLibrary sharedMediaLibrary] updateMediaDatabase];
-    [self updateMediaList];
+    if (!_isRunningMigration) {
+        [[MLMediaLibrary sharedMediaLibrary] updateMediaDatabase];
+        [self updateMediaList];
+    }
 }
 
 - (void)applicationWillTerminate:(UIApplication *)application
