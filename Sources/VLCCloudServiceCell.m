@@ -2,7 +2,7 @@
  * VLCCloudServiceCell.m
  * VLC for iOS
  *****************************************************************************
- * Copyright (c) 2014 VideoLAN. All rights reserved.
+ * Copyright (c) 2014-2015 VideoLAN. All rights reserved.
  * $Id$
  *
  * Authors: Carola Nitz <nitz.carola # googlemail.com>
@@ -13,13 +13,5 @@
 #import "VLCCloudServiceCell.h"
 
 @implementation VLCCloudServiceCell
-
-- (void)awakeFromNib {
-    
-}
-
-- (void)setSelected:(BOOL)selected animated:(BOOL)animated {
-    [super setSelected:selected animated:animated];
-}
 
 @end
