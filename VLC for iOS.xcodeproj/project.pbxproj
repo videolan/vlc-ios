@@ -264,6 +264,7 @@
 		7D514D4417F779C6007B960C /* Drive.png in Resources */ = {isa = PBXBuildFile; fileRef = 7D514D4017F779C6007B960C /* Drive.png */; };
 		7D588D64187DD9B700469FCF /* modernSliderKnob@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 7D588D62187DD9B700469FCF /* modernSliderKnob@2x.png */; };
 		7D588D65187DD9B700469FCF /* modernSliderKnob.png in Resources */ = {isa = PBXBuildFile; fileRef = 7D588D63187DD9B700469FCF /* modernSliderKnob.png */; };
+		7D594CBF1A969E33004BFB17 /* MediaLibrary.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = 7D594CBC1A969E33004BFB17 /* MediaLibrary.xcdatamodeld */; };
 		7D5CAA891A4AD763003F2CBC /* VLCTrackSelectorTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 7D5CAA881A4AD763003F2CBC /* VLCTrackSelectorTableViewCell.m */; };
 		7D5CAA8C1A4AD8E5003F2CBC /* VLCTrackSelectorHeaderView.m in Sources */ = {isa = PBXBuildFile; fileRef = 7D5CAA8B1A4AD8E5003F2CBC /* VLCTrackSelectorHeaderView.m */; };
 		7D5DD5C717590ABF001421E3 /* About Contents.html in Resources */ = {isa = PBXBuildFile; fileRef = 7D5DD5C617590ABF001421E3 /* About Contents.html */; };
@@ -307,10 +308,6 @@
 		7D9289761877459B009108FD /* VLCFirstStepsThirdPageViewController~iphone.xib in Resources */ = {isa = PBXBuildFile; fileRef = 7D9289741877459B009108FD /* VLCFirstStepsThirdPageViewController~iphone.xib */; };
 		7D92897A1877467E009108FD /* VLCFirstStepsFourthPageViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 7D9289781877467E009108FD /* VLCFirstStepsFourthPageViewController.m */; };
 		7D92897B1877467E009108FD /* VLCFirstStepsFourthPageViewController~iphone.xib in Resources */ = {isa = PBXBuildFile; fileRef = 7D9289791877467E009108FD /* VLCFirstStepsFourthPageViewController~iphone.xib */; };
-		7D93F0411A618A2C007FDC35 /* MediaLibrary-2.1.mom in Resources */ = {isa = PBXBuildFile; fileRef = 7D93F03D1A618A2C007FDC35 /* MediaLibrary-2.1.mom */; };
-		7D93F0421A618A2C007FDC35 /* MediaLibrary-2.5.mom in Resources */ = {isa = PBXBuildFile; fileRef = 7D93F03E1A618A2C007FDC35 /* MediaLibrary-2.5.mom */; };
-		7D93F0431A618A2C007FDC35 /* MediaLibrary-2.5.omo in Resources */ = {isa = PBXBuildFile; fileRef = 7D93F03F1A618A2C007FDC35 /* MediaLibrary-2.5.omo */; };
-		7D93F0441A618A2C007FDC35 /* VersionInfo.plist in Resources */ = {isa = PBXBuildFile; fileRef = 7D93F0401A618A2C007FDC35 /* VersionInfo.plist */; };
 		7D94FCDF16DE7D1000F2623B /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 7D94FCDE16DE7D1000F2623B /* UIKit.framework */; };
 		7D94FCE116DE7D1000F2623B /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 7D94FCE016DE7D1000F2623B /* Foundation.framework */; };
 		7D94FCE316DE7D1000F2623B /* CoreGraphics.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 7D94FCE216DE7D1000F2623B /* CoreGraphics.framework */; };
@@ -942,6 +939,8 @@
 		7D514D4017F779C6007B960C /* Drive.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = Drive.png; sourceTree = "<group>"; };
 		7D588D62187DD9B700469FCF /* modernSliderKnob@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "modernSliderKnob@2x.png"; sourceTree = "<group>"; };
 		7D588D63187DD9B700469FCF /* modernSliderKnob.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = modernSliderKnob.png; sourceTree = "<group>"; };
+		7D594CBD1A969E33004BFB17 /* MediaLibrary-2.1.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = "MediaLibrary-2.1.xcdatamodel"; sourceTree = "<group>"; };
+		7D594CBE1A969E33004BFB17 /* MediaLibrary-2.5.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = "MediaLibrary-2.5.xcdatamodel"; sourceTree = "<group>"; };
 		7D5C204917999A64004F9443 /* da */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = da; path = "da.lproj/badgeUnread@2x~ipad.png"; sourceTree = "<group>"; };
 		7D5C204A17999A64004F9443 /* da */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = da; path = "da.lproj/badgeUnread@2x~iphone.png"; sourceTree = "<group>"; };
 		7D5C204B17999A64004F9443 /* da */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = da; path = "da.lproj/badgeUnread~ipad.png"; sourceTree = "<group>"; };
@@ -1064,10 +1063,6 @@
 		7D9289771877467E009108FD /* VLCFirstStepsFourthPageViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = VLCFirstStepsFourthPageViewController.h; path = Sources/VLCFirstStepsFourthPageViewController.h; sourceTree = SOURCE_ROOT; };
 		7D9289781877467E009108FD /* VLCFirstStepsFourthPageViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = VLCFirstStepsFourthPageViewController.m; path = Sources/VLCFirstStepsFourthPageViewController.m; sourceTree = SOURCE_ROOT; };
 		7D9289791877467E009108FD /* VLCFirstStepsFourthPageViewController~iphone.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; name = "VLCFirstStepsFourthPageViewController~iphone.xib"; path = "Resources/VLCFirstStepsFourthPageViewController~iphone.xib"; sourceTree = SOURCE_ROOT; };
-		7D93F03D1A618A2C007FDC35 /* MediaLibrary-2.1.mom */ = {isa = PBXFileReference; lastKnownFileType = file.bplist; path = "MediaLibrary-2.1.mom"; sourceTree = "<group>"; };
-		7D93F03E1A618A2C007FDC35 /* MediaLibrary-2.5.mom */ = {isa = PBXFileReference; lastKnownFileType = file.bplist; path = "MediaLibrary-2.5.mom"; sourceTree = "<group>"; };
-		7D93F03F1A618A2C007FDC35 /* MediaLibrary-2.5.omo */ = {isa = PBXFileReference; lastKnownFileType = file; path = "MediaLibrary-2.5.omo"; sourceTree = "<group>"; };
-		7D93F0401A618A2C007FDC35 /* VersionInfo.plist */ = {isa = PBXFileReference; lastKnownFileType = file.bplist; path = VersionInfo.plist; sourceTree = "<group>"; };
 		7D94FCDB16DE7D1000F2623B /* VLC for iOS.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "VLC for iOS.app"; sourceTree = BUILT_PRODUCTS_DIR; };
 		7D94FCDE16DE7D1000F2623B /* UIKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = UIKit.framework; path = System/Library/Frameworks/UIKit.framework; sourceTree = SDKROOT; };
 		7D94FCE016DE7D1000F2623B /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = System/Library/Frameworks/Foundation.framework; sourceTree = SDKROOT; };
@@ -2145,22 +2140,10 @@
 			name = "Download & Network";
 			sourceTree = "<group>";
 		};
-		7D93F03C1A618A2C007FDC35 /* MediaLibrary.momd */ = {
-			isa = PBXGroup;
-			children = (
-				7D93F03D1A618A2C007FDC35 /* MediaLibrary-2.1.mom */,
-				7D93F03E1A618A2C007FDC35 /* MediaLibrary-2.5.mom */,
-				7D93F03F1A618A2C007FDC35 /* MediaLibrary-2.5.omo */,
-				7D93F0401A618A2C007FDC35 /* VersionInfo.plist */,
-			);
-			name = MediaLibrary.momd;
-			path = External/MediaLibraryKit/MediaLibrary.momd;
-			sourceTree = "<group>";
-		};
 		7D94FCD216DE7D1000F2623B = {
 			isa = PBXGroup;
 			children = (
-				7D93F03C1A618A2C007FDC35 /* MediaLibrary.momd */,
+				7D594CBC1A969E33004BFB17 /* MediaLibrary.xcdatamodeld */,
 				7D31719C19FEC91F0019357A /* VLC for iOS.entitlements */,
 				7DB638AA185BC0890003887C /* Images.xcassets */,
 				7D94FCE416DE7D1000F2623B /* Classes */,
@@ -2809,7 +2792,6 @@
 				7DFC38C71A45F071002476CB /* backIcon@3x.png in Resources */,
 				7DFC38D71A45F142002476CB /* movie@3x.png in Resources */,
 				7DFC38CF1A45F10E002476CB /* bottomBlackBar@3x.png in Resources */,
-				7D93F0411A618A2C007FDC35 /* MediaLibrary-2.1.mom in Resources */,
 				7D27EC1C19DF30CB00EF0370 /* sidebar-cutout@3x.png in Resources */,
 				7D98702E1A3DECEA009CF27D /* videoEffectsIcon@3x.png in Resources */,
 				7D2A34A51805CDBA004078AA /* gradient-cell-ios7@2x.png in Resources */,
@@ -2946,7 +2928,6 @@
 				7D47D70B1760CD8700E86BAD /* playbackDoneButtonHighlight.png in Resources */,
 				7D897874185DEF79009BAB5D /* repeat.png in Resources */,
 				7D47D70C1760CD8700E86BAD /* playbackDoneButtonHighlight@2x.png in Resources */,
-				7D93F0441A618A2C007FDC35 /* VersionInfo.plist in Resources */,
 				7D278D7018E9D6750063E109 /* tvShow~iPad.png in Resources */,
 				7D47D70D1760CD8700E86BAD /* ratioButton.png in Resources */,
 				7D27EC1D19DF30CB00EF0370 /* sidebar.png in Resources */,
@@ -3141,7 +3122,6 @@
 				7DF3B77419DF01550041A02E /* fsarrow-aspectratio@2x.png in Resources */,
 				7D9870261A3DECC4009CF27D /* repeat@3x.png in Resources */,
 				7D0699EA17CB1FAE00713BEB /* Downloads@2x.png in Resources */,
-				7D93F0431A618A2C007FDC35 /* MediaLibrary-2.5.omo in Resources */,
 				7D0699EB17CB1FAE00713BEB /* Dropbox.png in Resources */,
 				7D514D4117F779C6007B960C /* Drive@2x.png in Resources */,
 				7DFC38DF1A45F23A002476CB /* headerSidebar@3x.png in Resources */,
@@ -3154,7 +3134,6 @@
 				7D27EC1219DF30CB00EF0370 /* laptop@2x.png in Resources */,
 				7D63C1991877504B00BD5256 /* VLCFirstStepsSixthPageViewController~ipad.xib in Resources */,
 				7D897882185E00C3009BAB5D /* checkbox.png in Resources */,
-				7D93F0421A618A2C007FDC35 /* MediaLibrary-2.5.mom in Resources */,
 				7D514D4417F779C6007B960C /* Drive.png in Resources */,
 				7D278D6C18E9D5EF0063E109 /* tvShow@2x.png in Resources */,
 				7D27EC0A19DF30CB00EF0370 /* cloud@3x.png in Resources */,
@@ -3211,6 +3190,7 @@
 				4184AA151A5492070063DF5A /* VLCCloudStorageController.m in Sources */,
 				9BE4D1CE183D76950006346C /* VLCCloudStorageTableViewCell.m in Sources */,
 				2915540117490A1E00B86CAD /* DDData.m in Sources */,
+				7D594CBF1A969E33004BFB17 /* MediaLibrary.xcdatamodeld in Sources */,
 				2915540217490A1E00B86CAD /* DDNumber.m in Sources */,
 				7D92897A1877467E009108FD /* VLCFirstStepsFourthPageViewController.m in Sources */,
 				2915540317490A1E00B86CAD /* DDRange.m in Sources */,
@@ -3810,6 +3790,21 @@
 			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
+
+/* Begin XCVersionGroup section */
+		7D594CBC1A969E33004BFB17 /* MediaLibrary.xcdatamodeld */ = {
+			isa = XCVersionGroup;
+			children = (
+				7D594CBD1A969E33004BFB17 /* MediaLibrary-2.1.xcdatamodel */,
+				7D594CBE1A969E33004BFB17 /* MediaLibrary-2.5.xcdatamodel */,
+			);
+			currentVersion = 7D594CBE1A969E33004BFB17 /* MediaLibrary-2.5.xcdatamodel */;
+			name = MediaLibrary.xcdatamodeld;
+			path = ImportedSources/MediaLibraryKit/MediaLibrary.xcdatamodeld;
+			sourceTree = "<group>";
+			versionGroupType = wrapper.xcdatamodel;
+		};
+/* End XCVersionGroup section */
 	};
 	rootObject = 7D94FCD316DE7D1000F2623B /* Project object */;
 }
