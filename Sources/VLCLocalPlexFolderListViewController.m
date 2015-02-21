@@ -2,7 +2,7 @@
  * VLCLocalPlexFolderListViewController.m
  * VLC for iOS
  *****************************************************************************
- * Copyright (c) 2014 VideoLAN. All rights reserved.
+ * Copyright (c) 2014-2015 VideoLAN. All rights reserved.
  *
  * Authors: Felix Paul Kühne <fkuehne # videolan.org>
  *          Pierre SAGASPE <pierre.sagaspe # me.com>
@@ -11,6 +11,7 @@
  *****************************************************************************/
 
 #import "VLCLocalPlexFolderListViewController.h"
+#import "VLCPlexMediaInformationViewController.h"
 #import "VLCPlexParser.h"
 #import "VLCLocalNetworkListCell.h"
 #import "VLCAppDelegate.h"
@@ -265,7 +266,7 @@
         ObjList = [_PlexParser PlexMediaServerParser:_PlexServerAddress port:_PlexServerPort navigationPath:newPath];
         NSString *URLofSubtitle = nil;
         if ([[ObjList objectAtIndex:0] objectForKey:@"keySubtitle"])
-            URLofSubtitle = [self _getFileSubtitleFromPlexServer:ObjList modeStream:YES];
+            URLofSubtitle = [_PlexParser getFileSubtitleFromPlexServer:ObjList modeStream:YES];
 
         NSURL *itemURL = [NSURL URLWithString:[[ObjList objectAtIndex:0] objectForKey:@"keyMedia"]];
         if (itemURL) {
@@ -296,7 +297,7 @@
         mutableMediaObject = [_PlexParser PlexMediaServerParser:_PlexServerAddress port:_PlexServerPort navigationPath:newPath];
         NSString *URLofSubtitle = nil;
         if ([[mutableMediaObject objectAtIndex:0] objectForKey:@"keySubtitle"])
-            URLofSubtitle = [self _getFileSubtitleFromPlexServer:mutableMediaObject modeStream:YES];
+            URLofSubtitle = [_PlexParser getFileSubtitleFromPlexServer:mutableMediaObject modeStream:YES];
 
         NSURL *itemURL = [NSURL URLWithString:[[mutableMediaObject objectAtIndex:0] objectForKey:@"keyMedia"]];
         if (itemURL) {
@@ -317,28 +318,6 @@
         NSString *fileName = [[mutableMediaObject objectAtIndex:0] objectForKey:@"namefile"];
         [[(VLCAppDelegate *)[UIApplication sharedApplication].delegate downloadViewController] addURLToDownloadList:itemURL fileNameOfMedia:fileName];
     }
-}
-
-- (NSString *)_getFileSubtitleFromPlexServer:(NSMutableArray *)mutableMediaObject modeStream:(BOOL)modeStream
-{
-    NSURL *url = [NSURL URLWithString:[[mutableMediaObject objectAtIndex:0] objectForKey:@"keySubtitle"]];
-    NSData *receivedSub = [NSData dataWithContentsOfURL:url];
-    NSArray *searchPaths =  nil;
-    if (modeStream)
-        searchPaths = NSSearchPathForDirectoriesInDomains(NSCachesDirectory, NSUserDomainMask, YES);
-    else
-        searchPaths = NSSearchPathForDirectoriesInDomains(NSDocumentDirectory, NSUserDomainMask, YES);
-
-    NSString *directoryPath = [searchPaths objectAtIndex:0];
-    NSString *FileSubtitlePath = [[directoryPath stringByAppendingPathComponent:[[[mutableMediaObject objectAtIndex:0] objectForKey:@"namefile"] stringByDeletingPathExtension]] stringByAppendingPathExtension:[[mutableMediaObject objectAtIndex:0] objectForKey:@"codecSubtitle"]];
-    NSFileManager *fileManager = [NSFileManager defaultManager];
-    if (![fileManager fileExistsAtPath:FileSubtitlePath]) {
-        [fileManager createFileAtPath:FileSubtitlePath contents:nil attributes:nil];
-        if (![fileManager fileExistsAtPath:FileSubtitlePath])
-            APLog(@"file creation failed, no data was saved");
-    }
-    [receivedSub writeToFile:FileSubtitlePath atomically:YES];
-    return FileSubtitlePath;
 }
 
 - (void)swipeRightGestureAction:(UIGestureRecognizer *)recognizer
@@ -401,7 +380,7 @@
     NSInteger size = [[[ObjList objectAtIndex:0] objectForKey:@"size"] integerValue];
     if (size  < [[UIDevice currentDevice] freeDiskspace].longLongValue) {
         if ([[ObjList objectAtIndex:0] objectForKey:@"keySubtitle"])
-            [self _getFileSubtitleFromPlexServer:ObjList modeStream:NO];
+            [_PlexParser getFileSubtitleFromPlexServer:ObjList modeStream:NO];
 
         [self _downloadFileFromMediaItem:ObjList];
         [cell.statusLabel showStatusMessage:NSLocalizedString(@"DOWNLOADING", nil)];
@@ -476,37 +455,42 @@
         VLCLocalNetworkListCell *cell = (VLCLocalNetworkListCell *)[[self tableView] cellForRowAtIndexPath:swipedIndexPath];
         [ObjList addObject:[_mutableObjectList objectAtIndex:[self.tableView indexPathForCell:swipedCell].row]];
 
-        NSString *title = [[ObjList objectAtIndex:0] objectForKey:@"title"];
-        NSInteger size = [[[ObjList objectAtIndex:0] objectForKey:@"size"] integerValue];
-        NSString *mediaSize = [NSByteCountFormatter stringFromByteCount:size countStyle:NSByteCountFormatterCountStyleFile];
-        NSString *durationInSeconds = [[ObjList objectAtIndex:0] objectForKey:@"duration"];
-        NSString *audioCodec = [[ObjList objectAtIndex:0] objectForKey:@"audioCodec"];
-        if (!audioCodec)
-            audioCodec = @"no track";
+        if (SYSTEM_RUNS_IOS7_OR_LATER) {
+            VLCPlexMediaInformationViewController *targetViewController = [[VLCPlexMediaInformationViewController alloc] initPlexMediaInformation:ObjList serverAddress:_PlexServerAddress portNumber:_PlexServerPort atPath:_PlexServerPath];
+            [[self navigationController] pushViewController:targetViewController animated:YES];
+        } else {
+            NSString *title = [[ObjList objectAtIndex:0] objectForKey:@"title"];
+            NSInteger size = [[[ObjList objectAtIndex:0] objectForKey:@"size"] integerValue];
+            NSString *mediaSize = [NSByteCountFormatter stringFromByteCount:size countStyle:NSByteCountFormatterCountStyleFile];
+            NSString *durationInSeconds = [[ObjList objectAtIndex:0] objectForKey:@"duration"];
+            NSString *audioCodec = [[ObjList objectAtIndex:0] objectForKey:@"audioCodec"];
+            if (!audioCodec)
+                audioCodec = @"no track";
 
-        NSString *videoCodec = [[ObjList objectAtIndex:0] objectForKey:@"videoCodec"];
-        if (!videoCodec)
-            videoCodec = @"no track";
+            NSString *videoCodec = [[ObjList objectAtIndex:0] objectForKey:@"videoCodec"];
+            if (!videoCodec)
+                videoCodec = @"no track";
 
-        NSString *message = [NSString stringWithFormat:@"%@ (%@)\naudio(%@) video(%@)", mediaSize, durationInSeconds, audioCodec, videoCodec];
-        NSString *summary = [NSString stringWithFormat:@"%@", [[ObjList objectAtIndex:0] objectForKey:@"summary"]];
+            NSString *message = [NSString stringWithFormat:@"%@ (%@)\naudio(%@) video(%@)", mediaSize, durationInSeconds, audioCodec, videoCodec];
+            NSString *summary = [NSString stringWithFormat:@"%@", [[ObjList objectAtIndex:0] objectForKey:@"summary"]];
 
-        VLCAlertView *alertView = [[VLCAlertView alloc] initWithTitle:title message:message cancelButtonTitle:NSLocalizedString(@"BUTTON_CANCEL", nil) otherButtonTitles:@[NSLocalizedString(@"BUTTON_PLAY", nil), NSLocalizedString(@"BUTTON_DOWNLOAD", nil)]];
-        if (![summary isEqualToString:@""]) {
-            UITextView *textView = [[UITextView alloc] initWithFrame:alertView.bounds];
-            textView.text = summary;
-            textView.editable = NO;
-            [alertView setValue:textView forKey:@"accessoryView"];
-        }
-        alertView.completion = ^(BOOL cancelled, NSInteger buttonIndex) {
-            if (!cancelled) {
-                if (buttonIndex == 2)
-                    [self triggerDownloadForCell:cell];
-                else
-                    [self _playMediaItem:ObjList];
+            VLCAlertView *alertView = [[VLCAlertView alloc] initWithTitle:title message:message cancelButtonTitle:NSLocalizedString(@"BUTTON_CANCEL", nil) otherButtonTitles:@[NSLocalizedString(@"BUTTON_PLAY", nil), NSLocalizedString(@"BUTTON_DOWNLOAD", nil)]];
+            if (![summary isEqualToString:@""]) {
+                UITextView *textView = [[UITextView alloc] initWithFrame:alertView.bounds];
+                textView.text = summary;
+                textView.editable = NO;
+                [alertView setValue:textView forKey:@"accessoryView"];
             }
-        };
-        [alertView show];
+            alertView.completion = ^(BOOL cancelled, NSInteger buttonIndex) {
+                if (!cancelled) {
+                    if (buttonIndex == 2)
+                        [self triggerDownloadForCell:cell];
+                    else
+                        [self _playMediaItem:ObjList];
+                }
+            };
+            [alertView show];
+        }
     }
 }
 

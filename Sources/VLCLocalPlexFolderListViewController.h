@@ -2,7 +2,7 @@
  * VLCLocalPlexFolderListViewController.h
  * VLC for iOS
  *****************************************************************************
- * Copyright (c) 2014 VideoLAN. All rights reserved.
+ * Copyright (c) 2014-2015 VideoLAN. All rights reserved.
  *
  * Authors: Felix Paul Kühne <fkuehne # videolan.org>
  *          Pierre SAGASPE <pierre.sagaspe # me.com>
