@@ -2,7 +2,7 @@
  * VLCPlexParser.m
  * VLC for iOS
  *****************************************************************************
- * Copyright (c) 2014 VideoLAN. All rights reserved.
+ * Copyright (c) 2014-2015 VideoLAN. All rights reserved.
  *
  * Authors: Pierre Sagaspe <pierre.sagaspe # me.com>
  *
@@ -52,34 +52,36 @@
 
 - (void)parser:(NSXMLParser *)parser didStartElement:(NSString *)elementName namespaceURI:(NSString *)namespaceURI qualifiedName:(NSString *)qualifiedName attributes:(NSDictionary *)attributeDict
 {
-    if([elementName isEqualToString:@"MediaContainer"]) {
+    if ([elementName isEqualToString:@"MediaContainer"]) {
         if ([attributeDict objectForKey:@"friendlyName"])
             [_dicoInfo setObject:[attributeDict objectForKey:@"friendlyName"] forKey:@"libTitle"];
         else if ([attributeDict objectForKey:@"title1"])
             [_dicoInfo setObject:[attributeDict objectForKey:@"title1"] forKey:@"libTitle"];
         if ([attributeDict objectForKey:@"title2"])
             [_dicoInfo setObject:[attributeDict objectForKey:@"title2"] forKey:@"libTitle"];
-    } else if([elementName isEqualToString:@"Directory"]) {
+        if ([attributeDict objectForKey:@"grandparentTitle"])
+            [_dicoInfo setObject:[attributeDict objectForKey:@"grandparentTitle"] forKey:@"grandparentTitle"];
+    } else if ([elementName isEqualToString:@"Directory"]) {
         [_dicoInfo setObject:@"directory" forKey:@"container"];
         [_dicoInfo setObject:[attributeDict objectForKey:@"key"] forKey:@"key"];
         [_dicoInfo setObject:[attributeDict objectForKey:@"title"] forKey:@"title"];
-    } else if([elementName isEqualToString:@"Video"] || [elementName isEqualToString:@"Track"]) {
+    } else if ([elementName isEqualToString:@"Video"] || [elementName isEqualToString:@"Track"]) {
         [_dicoInfo setObject:@"item" forKey:@"container"];
         [_dicoInfo setObject:[attributeDict objectForKey:@"key"] forKey:@"key"];
         [_dicoInfo setObject:[attributeDict objectForKey:@"title"] forKey:@"title"];
         [_dicoInfo setObject:[attributeDict objectForKey:@"ratingKey"] forKey:@"ratingKey"];
         [_dicoInfo setObject:[attributeDict objectForKey:@"summary"] forKey:@"summary"];
-        if([attributeDict objectForKey:@"viewCount"])
+        if ([attributeDict objectForKey:@"viewCount"])
             [_dicoInfo setObject:@"watched" forKey:@"state"];
         else
             [_dicoInfo setObject:@"unwatched" forKey:@"state"];
 
-    } else if([elementName isEqualToString:@"Media"]) {
-        if([attributeDict objectForKey:@"audioCodec"])
+    } else if ([elementName isEqualToString:@"Media"]) {
+        if ([attributeDict objectForKey:@"audioCodec"])
             [_dicoInfo setObject:[attributeDict objectForKey:@"audioCodec"] forKey:@"audioCodec"];
-        if([attributeDict objectForKey:@"videoCodec"])
+        if ([attributeDict objectForKey:@"videoCodec"])
             [_dicoInfo setObject:[attributeDict objectForKey:@"videoCodec"] forKey:@"videoCodec"];
-    } else if([elementName isEqualToString:@"Part"]) {
+    } else if ([elementName isEqualToString:@"Part"]) {
         [_dicoInfo setObject:[NSString stringWithFormat:@"%@%@",_PlexMediaServerUrl, [attributeDict objectForKey:@"key"]] forKey:@"keyMedia"];
         if([attributeDict objectForKey:@"file"])
             [_dicoInfo setObject:[[attributeDict objectForKey:@"file"] lastPathComponent] forKey:@"namefile"];
@@ -87,12 +89,15 @@
         [_dicoInfo setObject:duration forKey:@"duration"];
         NSString *sizeFile = (NSString *)[attributeDict objectForKey:@"size"];
         [_dicoInfo setObject:sizeFile forKey:@"size"];
-    } else if([elementName isEqualToString:@"Stream"]) {
-        if([attributeDict objectForKey:@"key"]){
+    } else if ([elementName isEqualToString:@"Stream"]) {
+        if ([attributeDict objectForKey:@"key"])
             [_dicoInfo setObject:[NSString stringWithFormat:@"%@%@",_PlexMediaServerUrl, [attributeDict objectForKey:@"key"]] forKey:@"keySubtitle"];
+        if ([attributeDict objectForKey:@"codec"])
             [_dicoInfo setObject:[attributeDict objectForKey:@"codec"] forKey:@"codecSubtitle"];
+        if ([attributeDict objectForKey:@"language"])
             [_dicoInfo setObject:[attributeDict objectForKey:@"language"] forKey:@"languageSubtitle"];
-        }
+        if ([attributeDict objectForKey:@"languageCode"])
+            [_dicoInfo setObject:[attributeDict objectForKey:@"languageCode"] forKey:@"languageCode"];
     }
 
     if ([attributeDict objectForKey:@"thumb"] && ([elementName isEqualToString:@"Video"] || [elementName isEqualToString:@"Directory"] || [elementName isEqualToString:@"Part"] || [elementName isEqualToString:@"Track"]))
@@ -102,7 +107,7 @@
 
 - (void)parser:(NSXMLParser *)parser didEndElement:(NSString *)elementName namespaceURI:(NSString *)namespaceURI qualifiedName:(NSString *)qName
 {
-    if(([elementName isEqualToString:@"Video"] || [elementName isEqualToString:@"Track"] || [elementName isEqualToString:@"Directory"] || [elementName isEqualToString:@"MediaContainer"]) && [_dicoInfo count] > 0) {
+    if (([elementName isEqualToString:@"Video"] || [elementName isEqualToString:@"Track"] || [elementName isEqualToString:@"Directory"] || [elementName isEqualToString:@"MediaContainer"]) && [_dicoInfo count] > 0) {
         [_containerInfo addObject:_dicoInfo];
         _dicoInfo = [[NSMutableDictionary alloc] init];
     }
@@ -128,6 +133,28 @@
         APLog(@"Mark Watched Unwatched Media Error status: %ld at URL : %@", (long)httpStatus, url);
 
     return httpStatus;
+}
+
+- (NSString *)getFileSubtitleFromPlexServer:(NSMutableArray *)mutableMediaObject modeStream:(BOOL)modeStream
+{
+    NSURL *url = [NSURL URLWithString:[[mutableMediaObject objectAtIndex:0] objectForKey:@"keySubtitle"]];
+    NSData *receivedSub = [NSData dataWithContentsOfURL:url];
+    NSArray *searchPaths =  nil;
+    if (modeStream)
+        searchPaths = NSSearchPathForDirectoriesInDomains(NSCachesDirectory, NSUserDomainMask, YES);
+    else
+        searchPaths = NSSearchPathForDirectoriesInDomains(NSDocumentDirectory, NSUserDomainMask, YES);
+
+    NSString *directoryPath = [searchPaths objectAtIndex:0];
+    NSString *FileSubtitlePath = [[directoryPath stringByAppendingPathComponent:[[[mutableMediaObject objectAtIndex:0] objectForKey:@"namefile"] stringByDeletingPathExtension]] stringByAppendingPathExtension:[[mutableMediaObject objectAtIndex:0] objectForKey:@"codecSubtitle"]];
+    NSFileManager *fileManager = [NSFileManager defaultManager];
+    if (![fileManager fileExistsAtPath:FileSubtitlePath]) {
+        [fileManager createFileAtPath:FileSubtitlePath contents:nil attributes:nil];
+        if (![fileManager fileExistsAtPath:FileSubtitlePath])
+            APLog(@"file creation failed, no data was saved");
+    }
+    [receivedSub writeToFile:FileSubtitlePath atomically:YES];
+    return FileSubtitlePath;
 }
 
 @end
