@@ -60,7 +60,7 @@
         NSString *totalFreeSize = [NSByteCountFormatter stringFromByteCount:[totalFreeSpace longLongValue] countStyle:NSByteCountFormatterCountStyleFile];
         APLog(@"Memory Capacity of %@ with %@ Free memory available.", totalSize, totalFreeSize);
     } else
-        APLog(@"Error Obtaining System Memory Info: Domain = %@, Code = %li", [error domain], [error code]);
+        APLog(@"Error Obtaining System Memory Info: Domain = %@, Code = %ld", [error domain], (long)[error code]);
 
     return totalFreeSpace;
 }
