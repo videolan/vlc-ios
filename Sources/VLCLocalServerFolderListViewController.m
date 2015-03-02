@@ -582,7 +582,7 @@
 
 - (NSString *)_credentials
 {
-    NSString * cred;
+    NSString *cred;
 
     if (_ftpServerUserName.length > 0) {
         if (_ftpServerPassword.length > 0)
@@ -648,7 +648,7 @@
 
 - (void)requestFailed:(WRRequest *)request
 {
-    UIAlertView * alert = [[UIAlertView alloc] initWithTitle:NSLocalizedString(@"LOCAL_SERVER_CONNECTION_FAILED_TITLE", nil) message:NSLocalizedString(@"LOCAL_SERVER_CONNECTION_FAILED_MESSAGE", nil) delegate:self cancelButtonTitle:NSLocalizedString(@"BUTTON_CANCEL", nil) otherButtonTitles:nil];
+    UIAlertView *alert = [[UIAlertView alloc] initWithTitle:NSLocalizedString(@"LOCAL_SERVER_CONNECTION_FAILED_TITLE", nil) message:NSLocalizedString(@"LOCAL_SERVER_CONNECTION_FAILED_MESSAGE", nil) delegate:self cancelButtonTitle:NSLocalizedString(@"BUTTON_CANCEL", nil) otherButtonTitles:nil];
     [alert show];
 
     APLog(@"request %@ failed with error %i", request, request.error.errorCode);
@@ -739,20 +739,27 @@
 - (NSString *)_getFileSubtitleFromFtpServer:(NSString *)fileName
 {
     NSURL *url = [NSURL URLWithString:[[@"ftp" stringByAppendingFormat:@"://%@%@/%@/%@", [self _credentials], _ftpServerAddress, _ftpServerPath, fileName] stringByAddingPercentEscapesUsingEncoding:NSUTF8StringEncoding]];
+    NSString *FileSubtitlePath = nil;
+    NSData *receivedSub = [NSData dataWithContentsOfURL:url];
 
-    NSString *receivedSub = [NSString stringWithContentsOfURL:url encoding:NSASCIIStringEncoding error:nil];
-    NSArray *searchPaths = NSSearchPathForDirectoriesInDomains(NSCachesDirectory, NSUserDomainMask, YES);
-    NSString *directoryPath = searchPaths[0];
-    NSString *FileSubtitlePath = [directoryPath stringByAppendingPathComponent:[fileName lastPathComponent]];
+    if (receivedSub.length < [[UIDevice currentDevice] freeDiskspace].longLongValue) {
+        NSArray *searchPaths = NSSearchPathForDirectoriesInDomains(NSCachesDirectory, NSUserDomainMask, YES);
+        NSString *directoryPath = searchPaths[0];
+        FileSubtitlePath = [directoryPath stringByAppendingPathComponent:[fileName lastPathComponent]];
 
-    NSFileManager *fileManager = [NSFileManager defaultManager];
-    if (![fileManager fileExistsAtPath:FileSubtitlePath]) {
-        //create local subtitle file
-        [fileManager createFileAtPath:FileSubtitlePath contents:nil attributes:nil];
-        if (![fileManager fileExistsAtPath:FileSubtitlePath])
-            APLog(@"file creation failed, no data was saved");
+        NSFileManager *fileManager = [NSFileManager defaultManager];
+        if (![fileManager fileExistsAtPath:FileSubtitlePath]) {
+            //create local subtitle file
+            [fileManager createFileAtPath:FileSubtitlePath contents:nil attributes:nil];
+            if (![fileManager fileExistsAtPath:FileSubtitlePath])
+                APLog(@"file creation failed, no data was saved");
+        }
+        [receivedSub writeToFile:FileSubtitlePath atomically:YES];
+    } else {
+        UIAlertView *alert = [[UIAlertView alloc] initWithTitle:NSLocalizedString(@"DISK_FULL", nil) message:[NSString stringWithFormat:NSLocalizedString(@"DISK_FULL_FORMAT", nil), [fileName lastPathComponent], [[UIDevice currentDevice] model]] delegate:self cancelButtonTitle:NSLocalizedString(@"BUTTON_OK", nil) otherButtonTitles:nil];
+        [alert show];
     }
-    [receivedSub writeToFile:FileSubtitlePath atomically:YES encoding:NSUTF8StringEncoding error:nil];
+
     return FileSubtitlePath;
 }
 

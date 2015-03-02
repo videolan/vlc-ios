@@ -18,6 +18,7 @@
 #import "UIBarButtonItem+Theme.h"
 #import "UINavigationController+Theme.h"
 #import "VLCMenuTableViewController.h"
+#import "UIDevice+VLC.h"
 
 @interface VLCOpenNetworkStreamViewController () <UITableViewDataSource, UITableViewDelegate, UITextFieldDelegate>
 {
@@ -283,25 +284,36 @@ forRowAtIndexPath:(NSIndexPath *)indexPath
         NSInteger httpStatus = [(NSHTTPURLResponse *)response statusCode];
 
         if (httpStatus == 200) {
-            NSData *receivedSub = [NSData dataWithContentsOfURL:checkURL];
-
-            NSArray *searchPaths = NSSearchPathForDirectoriesInDomains(NSCachesDirectory, NSUserDomainMask, YES);
-            NSString *directoryPath = searchPaths[0];
-            NSString *fileSubtitlePath = [directoryPath stringByAppendingPathComponent:[checkURL lastPathComponent]];
-
-            NSFileManager *fileManager = [NSFileManager defaultManager];
-            if (![fileManager fileExistsAtPath:fileSubtitlePath]) {
-                //create local subtitle file
-                [fileManager createFileAtPath:fileSubtitlePath contents:nil attributes:nil];
-                if (![fileManager fileExistsAtPath:fileSubtitlePath])
-                    APLog(@"file creation failed, no data was saved");
-            }
-
-            [receivedSub writeToFile:fileSubtitlePath atomically:YES];
+            NSString *fileSubtitlePath = [self _getFileSubtitleFromServer:checkURL];
             return fileSubtitlePath;
         }
     }
     return nil;
+}
+
+- (NSString *)_getFileSubtitleFromServer:(NSURL *)url
+{
+    NSString *FileSubtitlePath = nil;
+    NSString *fileName = [[url path] lastPathComponent];
+    NSData *receivedSub = [NSData dataWithContentsOfURL:url];
+
+    if (receivedSub.length < [[UIDevice currentDevice] freeDiskspace].longLongValue) {
+        NSArray *searchPaths = NSSearchPathForDirectoriesInDomains(NSCachesDirectory, NSUserDomainMask, YES);
+        NSString *directoryPath = [searchPaths objectAtIndex:0];
+        FileSubtitlePath = [directoryPath stringByAppendingPathComponent:fileName];
+        NSFileManager *fileManager = [NSFileManager defaultManager];
+        if (![fileManager fileExistsAtPath:FileSubtitlePath]) {
+            [fileManager createFileAtPath:FileSubtitlePath contents:nil attributes:nil];
+            if (![fileManager fileExistsAtPath:FileSubtitlePath])
+                APLog(@"file creation failed, no data was saved");
+        }
+        [receivedSub writeToFile:FileSubtitlePath atomically:YES];
+    } else {
+        UIAlertView *alert = [[UIAlertView alloc] initWithTitle:NSLocalizedString(@"DISK_FULL", nil) message:[NSString stringWithFormat:NSLocalizedString(@"DISK_FULL_FORMAT", nil), fileName, [[UIDevice currentDevice] model]] delegate:self cancelButtonTitle:NSLocalizedString(@"BUTTON_OK", nil) otherButtonTitles:nil];
+        [alert show];
+    }
+
+    return FileSubtitlePath;
 }
 
 #pragma mark - text view delegate

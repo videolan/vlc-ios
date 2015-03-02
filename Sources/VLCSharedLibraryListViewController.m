@@ -259,22 +259,31 @@
 
 - (NSString *)_getFileSubtitleFromServer:(NSURL *)url modeStream:(BOOL)modeStream
 {
+    NSString *FileSubtitlePath = nil;
+    NSString *fileName = [[url path] lastPathComponent];
     NSData *receivedSub = [NSData dataWithContentsOfURL:url];
-    NSArray *searchPaths =  nil;
-    if (modeStream)
-        searchPaths = NSSearchPathForDirectoriesInDomains(NSCachesDirectory, NSUserDomainMask, YES);
-    else
-        searchPaths = NSSearchPathForDirectoriesInDomains(NSDocumentDirectory, NSUserDomainMask, YES);
 
-    NSString *directoryPath = [searchPaths objectAtIndex:0];
-    NSString *FileSubtitlePath = [directoryPath stringByAppendingPathComponent:[[url path] lastPathComponent]];
-    NSFileManager *fileManager = [NSFileManager defaultManager];
-    if (![fileManager fileExistsAtPath:FileSubtitlePath]) {
-        [fileManager createFileAtPath:FileSubtitlePath contents:nil attributes:nil];
-        if (![fileManager fileExistsAtPath:FileSubtitlePath])
-            APLog(@"file creation failed, no data was saved");
+    if (receivedSub.length < [[UIDevice currentDevice] freeDiskspace].longLongValue) {
+        NSArray *searchPaths =  nil;
+        if (modeStream)
+            searchPaths = NSSearchPathForDirectoriesInDomains(NSCachesDirectory, NSUserDomainMask, YES);
+        else
+            searchPaths = NSSearchPathForDirectoriesInDomains(NSDocumentDirectory, NSUserDomainMask, YES);
+
+        NSString *directoryPath = [searchPaths objectAtIndex:0];
+        FileSubtitlePath = [directoryPath stringByAppendingPathComponent:fileName];
+        NSFileManager *fileManager = [NSFileManager defaultManager];
+        if (![fileManager fileExistsAtPath:FileSubtitlePath]) {
+            [fileManager createFileAtPath:FileSubtitlePath contents:nil attributes:nil];
+            if (![fileManager fileExistsAtPath:FileSubtitlePath])
+                APLog(@"file creation failed, no data was saved");
+        }
+        [receivedSub writeToFile:FileSubtitlePath atomically:YES];
+    } else {
+        UIAlertView *alert = [[UIAlertView alloc] initWithTitle:NSLocalizedString(@"DISK_FULL", nil) message:[NSString stringWithFormat:NSLocalizedString(@"DISK_FULL_FORMAT", nil), fileName, [[UIDevice currentDevice] model]] delegate:self cancelButtonTitle:NSLocalizedString(@"BUTTON_OK", nil) otherButtonTitles:nil];
+        [alert show];
     }
-    [receivedSub writeToFile:FileSubtitlePath atomically:YES];
+
     return FileSubtitlePath;
 }
 
