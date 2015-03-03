@@ -13,7 +13,6 @@
 #define kVLCBoxClientID @"nrjwriavk0mf8j6bhra56tyn58d5i7ci"
 #warning Box app secret missing, login will fail
 #define kVLCBoxClientSecret @""
-#define kVLCBoxRedirectURL @"boxsdk-nrjwriavk0mf8j6bhra56tyn58d5i7ci://boxsdkoauth2redirect"
 #define kVLCBoxService @"kVLCBoxService"
 #define kVLCBoxAccount @"kVLCBoxAccount"
 
