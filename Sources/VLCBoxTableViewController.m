@@ -76,7 +76,8 @@
 - (UIViewController *)createAuthController
 {
     NSURL *authorizationURL = [[BoxSDK sharedSDK].OAuth2Session authorizeURL];
-    BoxAuthorizationViewController *authorizationController = [[BoxAuthorizationViewController alloc] initWithAuthorizationURL:authorizationURL redirectURI:kVLCBoxRedirectURL];
+    NSString *redirectURLString = [[BoxSDK sharedSDK].OAuth2Session redirectURIString];
+    BoxAuthorizationViewController *authorizationController = [[BoxAuthorizationViewController alloc] initWithAuthorizationURL:authorizationURL redirectURI:redirectURLString];
     authorizationController.delegate = self;
     return authorizationController;
 }
@@ -116,10 +117,6 @@
 
 #pragma mark - Table view delegate
 
-- (void)mediaListUpdated
-{
-    [self.tableView reloadData];
-}
 
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
 {
