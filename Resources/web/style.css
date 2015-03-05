@@ -461,7 +461,9 @@ div.main.drop {
   left:0px;
   right:0px;
   bottom:0px;
-  border-radius: 20px;
+  border-radius:20px;
+  color:#1F1F1F;
+  text-align:center;
 }
 
 .uploads li.fail .progress .bar {

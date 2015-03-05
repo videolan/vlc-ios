@@ -40,7 +40,7 @@ $(function(){
             var hasProgressbar = ('FormData' in window);
             var html = '<li data-file-id="' + file._ID + '">';
             html += '<div class="filename">' + file.name + '</div>';
-            html += '<div class="progress"><div class="bar" style="width: 0%"></div>';
+            html += '<div class="progress"><div class="bar" style="width: 0%">0%</div>';
             if (!hasProgressbar) { html += '<span class="dots"></span>'; }
             html += '</div>';
             if (hasProgressbar) { html += '<div class="stop"></div>'; }
@@ -72,14 +72,14 @@ $(function(){
     function done (e, data) {
         $.each(data.files, function (index, file) {
             xhrCache.splice(file._ID, 1);
-            $('li[data-file-id=' + file._ID + ']').addClass('done');
+            $('li[data-file-id=' + file._ID + ']').addClass('done').text('100%');
         });
     }
 
     function progress (e, data) {
         var prog = Math.ceil(data.loaded / data.total * 100) + '%';
         $.each(data.files, function (index, file) {
-            $('li[data-file-id=' + file._ID + '] .progress .bar').css('width', prog);
+            $('li[data-file-id=' + file._ID + '] .progress .bar').css('width', prog).text(prog);
         });
     }
 
@@ -87,7 +87,7 @@ $(function(){
         console.log('File transfer failed', data.errorThrown, data.textStatus);
         $.each(data.files, function (index, file) {
             xhrCache.splice(file._ID, 1);
-            $('li[data-file-id=' + file._ID + ']').addClass('fail');
+            $('li[data-file-id=' + file._ID + ']').addClass('fail').text('');
         });
     }
 
