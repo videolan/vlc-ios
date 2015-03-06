@@ -52,8 +52,8 @@
                     <nil key="highlightedColor"/>
                 </label>
                 <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" id="HlH-2P-0eo">
-                    <rect key="frame" x="16" y="65" width="120" height="175"/>
-                    <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES" heightSizable="YES" flexibleMaxY="YES"/>
+                    <rect key="frame" x="16" y="75" width="120" height="150"/>
+                    <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES" flexibleMaxY="YES"/>
                 </imageView>
                 <toolbar opaque="NO" clearsContextBeforeDrawing="NO" contentMode="scaleToFill" id="1CU-w2-CLR">
                     <rect key="frame" x="0.0" y="524" width="320" height="44"/>
@@ -85,8 +85,8 @@
                     <color key="barTintColor" white="0.0" alpha="1" colorSpace="calibratedWhite"/>
                 </toolbar>
                 <imageView userInteractionEnabled="NO" contentMode="scaleToFill" image="badgeUnread.png" id="ls6-CJ-vRi">
-                    <rect key="frame" x="94" y="63" width="44" height="44"/>
-                    <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES" heightSizable="YES" flexibleMaxY="YES"/>
+                    <rect key="frame" x="94" y="74" width="44" height="44"/>
+                    <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES" flexibleMaxY="YES"/>
                 </imageView>
             </subviews>
             <color key="backgroundColor" white="0.0" alpha="1" colorSpace="calibratedWhite"/>

@@ -73,6 +73,7 @@
     if (grandparentTitle)
         self.title = grandparentTitle;
 
+    [self.thumb setContentMode:UIViewContentModeScaleAspectFit];
     [self.thumb setImage:image];
     [self.mediaTitle setText:title];
     [self.codec setText:displayCodec];
