@@ -19,6 +19,9 @@
 		265D511D1922746C00E38383 /* VLCPlexParser.m in Sources */ = {isa = PBXBuildFile; fileRef = 265D511B1922746C00E38383 /* VLCPlexParser.m */; };
 		26D4AF8D1A78379000D5EC65 /* VLCSharedLibraryListViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 26D4AF8A1A78379000D5EC65 /* VLCSharedLibraryListViewController.m */; };
 		26D4AF8E1A78379000D5EC65 /* VLCSharedLibraryParser.m in Sources */ = {isa = PBXBuildFile; fileRef = 26D4AF8C1A78379000D5EC65 /* VLCSharedLibraryParser.m */; };
+		26E3A6FE1AAB76A100B32450 /* VLCPlexConnectServerViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 26E3A6FD1AAB76A100B32450 /* VLCPlexConnectServerViewController.m */; };
+		26E3A7011AAB76D300B32450 /* VLCFuturePlexConnectServerViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 26E3A6FF1AAB76D300B32450 /* VLCFuturePlexConnectServerViewController.xib */; };
+		26E3A7021AAB76D300B32450 /* VLCPlexConnectServerViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 26E3A7001AAB76D300B32450 /* VLCPlexConnectServerViewController.xib */; };
 		26F1BFD01A770408001DF30C /* libMediaVLC.xml in Resources */ = {isa = PBXBuildFile; fileRef = 26F1BFCF1A770408001DF30C /* libMediaVLC.xml */; };
 		26FAE63919240C2E00A43737 /* PlexServerIcon@1x.png in Resources */ = {isa = PBXBuildFile; fileRef = 26FAE63619240C2E00A43737 /* PlexServerIcon@1x.png */; };
 		26FAE63A19240C2E00A43737 /* PlexServerIcon@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 26FAE63719240C2E00A43737 /* PlexServerIcon@2x.png */; };
@@ -521,6 +524,10 @@
 		26D4AF8A1A78379000D5EC65 /* VLCSharedLibraryListViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = VLCSharedLibraryListViewController.m; path = Sources/VLCSharedLibraryListViewController.m; sourceTree = SOURCE_ROOT; };
 		26D4AF8B1A78379000D5EC65 /* VLCSharedLibraryParser.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = VLCSharedLibraryParser.h; path = Sources/VLCSharedLibraryParser.h; sourceTree = SOURCE_ROOT; };
 		26D4AF8C1A78379000D5EC65 /* VLCSharedLibraryParser.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = VLCSharedLibraryParser.m; path = Sources/VLCSharedLibraryParser.m; sourceTree = SOURCE_ROOT; };
+		26E3A6FC1AAB76A100B32450 /* VLCPlexConnectServerViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = VLCPlexConnectServerViewController.h; path = Sources/VLCPlexConnectServerViewController.h; sourceTree = SOURCE_ROOT; };
+		26E3A6FD1AAB76A100B32450 /* VLCPlexConnectServerViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = VLCPlexConnectServerViewController.m; path = Sources/VLCPlexConnectServerViewController.m; sourceTree = SOURCE_ROOT; };
+		26E3A6FF1AAB76D300B32450 /* VLCFuturePlexConnectServerViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; name = VLCFuturePlexConnectServerViewController.xib; path = Resources/VLCFuturePlexConnectServerViewController.xib; sourceTree = SOURCE_ROOT; };
+		26E3A7001AAB76D300B32450 /* VLCPlexConnectServerViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; name = VLCPlexConnectServerViewController.xib; path = Resources/VLCPlexConnectServerViewController.xib; sourceTree = SOURCE_ROOT; };
 		26F1BFCF1A770408001DF30C /* libMediaVLC.xml */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xml; path = libMediaVLC.xml; sourceTree = "<group>"; };
 		26FAE63619240C2E00A43737 /* PlexServerIcon@1x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "PlexServerIcon@1x.png"; sourceTree = "<group>"; };
 		26FAE63719240C2E00A43737 /* PlexServerIcon@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "PlexServerIcon@2x.png"; sourceTree = "<group>"; };
@@ -1810,6 +1817,8 @@
 				265D51191922746C00E38383 /* VLCLocalPlexFolderListViewController.m */,
 				262C71571A98FA9200F7ED34 /* VLCPlexMediaInformationViewController.h */,
 				262C71581A98FA9200F7ED34 /* VLCPlexMediaInformationViewController.m */,
+				26E3A6FC1AAB76A100B32450 /* VLCPlexConnectServerViewController.h */,
+				26E3A6FD1AAB76A100B32450 /* VLCPlexConnectServerViewController.m */,
 				26D4AF891A78379000D5EC65 /* VLCSharedLibraryListViewController.h */,
 				26D4AF8A1A78379000D5EC65 /* VLCSharedLibraryListViewController.m */,
 				7D30F3D5183AB2F100FFC021 /* VLCLocalServerListViewController.h */,
@@ -2144,6 +2153,8 @@
 				7DBBF193183AB4300009A339 /* VLCOpenNetworkStreamViewController.xib */,
 				7D89787C185DF794009BAB5D /* VLCFutureOpenNetworkStreamViewController.xib */,
 				262C715A1A98FDE300F7ED34 /* VLCPlexMediaInformationViewController.xib */,
+				26E3A6FF1AAB76D300B32450 /* VLCFuturePlexConnectServerViewController.xib */,
+				26E3A7001AAB76D300B32450 /* VLCPlexConnectServerViewController.xib */,
 			);
 			name = "Download & Network";
 			sourceTree = "<group>";
@@ -2906,6 +2917,7 @@
 				7DE18632175BA9AF006C0173 /* badgeUnread~iphone.png in Resources */,
 				7D47D6F91760CD8700E86BAD /* subtitleIcon.png in Resources */,
 				7D47D6FA1760CD8700E86BAD /* subtitleIcon@2x.png in Resources */,
+				26E3A7021AAB76D300B32450 /* VLCPlexConnectServerViewController.xib in Resources */,
 				7DF3B77719DF01550041A02E /* fsarrow-audio@2x.png in Resources */,
 				7D47D6FB1760CD8700E86BAD /* videoEffectsIcon.png in Resources */,
 				7DFC38D31A45F12F002476CB /* blank@3x.png in Resources */,
@@ -3063,6 +3075,7 @@
 				7D2A34A41805CDBA004078AA /* gradient-cell-ios7.png in Resources */,
 				7D9870281A3DECCA009CF27D /* repeatOne@3x.png in Resources */,
 				7D9870421A3DEDD1009CF27D /* Settings@3x.png in Resources */,
+				26E3A7011AAB76D300B32450 /* VLCFuturePlexConnectServerViewController.xib in Resources */,
 				7DC72D5F17B7E7C7008A26D0 /* download.png in Resources */,
 				7D27EC0E19DF30CB00EF0370 /* filledcloud.png in Resources */,
 				7D897877185DEF79009BAB5D /* repeatOne@2x.png in Resources */,
@@ -3272,6 +3285,7 @@
 				7D3784CC183A99BA009EE944 /* PAPasscodeViewController.m in Sources */,
 				7D3784E9183A9A15009EE944 /* main.m in Sources */,
 				7D30F3C2183AB24C00FFC021 /* VLCHTTPConnection.m in Sources */,
+				26E3A6FE1AAB76A100B32450 /* VLCPlexConnectServerViewController.m in Sources */,
 				7D30F3C3183AB24C00FFC021 /* VLCHTTPFileDownloader.m in Sources */,
 				41273A3C1A955C4100A2EF77 /* VLCMigrationViewController.m in Sources */,
 				7D30F3C4183AB24C00FFC021 /* VLCHTTPUploaderController.m in Sources */,

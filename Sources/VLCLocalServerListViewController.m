@@ -19,6 +19,7 @@
 #import "VLCLocalNetworkListCell.h"
 #import "VLCLocalServerFolderListViewController.h"
 #import "VLCLocalPlexFolderListViewController.h"
+#import "VLCPlexConnectServerViewController.h"
 #import "VLCSharedLibraryListViewController.h"
 #import "VLCSharedLibraryParser.h"
 #import <QuartzCore/QuartzCore.h>
@@ -294,7 +295,7 @@
     if (section == 0)
         return _filteredUPNPDevices.count;
     else if (section == 1)
-        return _PlexServices.count;
+        return (_PlexServices.count + 1);
     else if (section == 2)
         return _ftpServices.count;
     else if (section == 3)
@@ -334,8 +335,13 @@
         }
         [cell setIcon:icon != nil ? icon : [UIImage imageNamed:@"serverIcon"]];
     } else if (section == 1) {
-        [cell setTitle:[_PlexServices[row] name]];
-        [cell setIcon:[UIImage imageNamed:@"PlexServerIcon"]];
+        NSInteger totalRow = [tableView numberOfRowsInSection:section];
+        if (row == (totalRow - 1))
+            [cell setTitle:NSLocalizedString(@"PLEX_CONNECT_TO_SERVER", nil)];
+        else {
+            [cell setTitle:[_PlexServices[row] name]];
+            [cell setIcon:[UIImage imageNamed:@"PlexServerIcon"]];
+        }
     } else if (section == 2) {
         if (row == 0)
             [cell setTitle:_ftpServices[row]];
@@ -371,11 +377,26 @@
             [self.navigationController pushViewController:targetViewController animated:YES];
         }
     } else if (section == 1) {
-        NSString *name = [_PlexServicesInfo[row] objectForKey:@"name"];
-        NSString *hostName = [_PlexServicesInfo[row] objectForKey:@"hostName"];
-        NSString *portNum = [_PlexServicesInfo[row] objectForKey:@"port"];
-        VLCLocalPlexFolderListViewController *targetViewController = [[VLCLocalPlexFolderListViewController alloc] initWithPlexServer:name serverAddress:hostName portNumber:portNum atPath:@""];
-        [[self navigationController] pushViewController:targetViewController animated:YES];
+        NSInteger totalRow = [tableView numberOfRowsInSection:section];
+        if (row == (totalRow - 1)) {
+            VLCPlexConnectServerViewController *_connectPlexServer;
+            if (SYSTEM_RUNS_IOS7_OR_LATER)
+                _connectPlexServer = [[VLCPlexConnectServerViewController alloc] initWithNibName:@"VLCFuturePlexConnectServerViewController" bundle:nil];
+            else
+                _connectPlexServer = [[VLCPlexConnectServerViewController alloc] initWithNibName:@"VLCPlexConnectServerViewController" bundle:nil];
+
+            UINavigationController *navCon = [[UINavigationController alloc] initWithRootViewController:_connectPlexServer];
+            [navCon loadTheme];
+            navCon.navigationBarHidden = NO;
+
+            [self.navigationController pushViewController:_connectPlexServer animated:YES];
+        } else {
+            NSString *name = [_PlexServicesInfo[row] objectForKey:@"name"];
+            NSString *hostName = [_PlexServicesInfo[row] objectForKey:@"hostName"];
+            NSString *portNum = [_PlexServicesInfo[row] objectForKey:@"port"];
+            VLCLocalPlexFolderListViewController *targetViewController = [[VLCLocalPlexFolderListViewController alloc] initWithPlexServer:name serverAddress:hostName portNumber:portNum atPath:@""];
+            [[self navigationController] pushViewController:targetViewController animated:YES];
+        }
     } else if (section == 2) {
         UINavigationController *navCon = [[UINavigationController alloc] initWithRootViewController:_loginViewController];
         [navCon loadTheme];
