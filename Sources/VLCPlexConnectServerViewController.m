@@ -94,20 +94,36 @@
 - (IBAction)connectToServer:(id)sender
 {
     NSString *server = [NSString stringWithFormat:@"%@", self.serverAddressField.text];
-    NSString *port = [NSString stringWithFormat:@":%@", self.portField.text];
+    NSString *port = [NSString stringWithFormat:@"%@", self.portField.text];
 
-    if (![port isEqualToString:@":"] && ![server isEqualToString:@""]) {
-        VLCLocalPlexFolderListViewController *targetViewController = [[VLCLocalPlexFolderListViewController alloc] initWithPlexServer:server serverAddress:server portNumber:port atPath:@""];
-        [[self navigationController] pushViewController:targetViewController animated:YES];
+    if ([port isEqualToString:@""]) {
+        self.portField.text = kPlexMediaServerPortDefault;
+        port = kPlexMediaServerPortDefault;
+    }
+
+    if ([self isValidPort:port] && [self isValidAddress:server]) {
+        if ([self isValidURL:[NSURL URLWithString:[NSString stringWithFormat:@"http://%@:%@", server, port]]]) {
+            VLCLocalPlexFolderListViewController *targetViewController = [[VLCLocalPlexFolderListViewController alloc] initWithPlexServer:server serverAddress:server portNumber:[NSString stringWithFormat:@":%@", port] atPath:@""];
+            [[self navigationController] pushViewController:targetViewController animated:YES];
+        } else {
+            UIAlertView *alert = [[UIAlertView alloc] initWithTitle:nil message:NSLocalizedString(@"HTTP_UPLOAD_SERVER_OFF", nil) delegate:self cancelButtonTitle:NSLocalizedString(@"BUTTON_OK", nil) otherButtonTitles:nil];
+            [alert show];
+        }
     } else {
         UIAlertView *alert = [[UIAlertView alloc] initWithTitle:nil message:NSLocalizedString(@"INVALID_IP_PORT", nil) delegate:self cancelButtonTitle:NSLocalizedString(@"BUTTON_OK", nil) otherButtonTitles:nil];
         [alert show];
+
+        if (![self isValidPort:port])
+            self.portField.text = kPlexMediaServerPortDefault;
     }
 }
 
 - (IBAction)savePlexServer:(id)sender
 {
-    if (![self.serverAddressField.text isEqualToString:@""] && ![self.portField.text isEqualToString:@""]) {
+    NSString *server = [NSString stringWithFormat:@"%@", self.serverAddressField.text];
+    NSString *port = [NSString stringWithFormat:@"%@", self.portField.text];
+
+    if ([self isValidPort:port] && [self isValidAddress:server]) {
         [_bookmarkServer addObject:self.serverAddressField.text];
         [_bookmarkPort addObject:self.portField.text];
         NSUserDefaults *defaults = [NSUserDefaults standardUserDefaults];
@@ -122,6 +138,7 @@
 }
 
 #pragma mark - text view delegate
+
 - (BOOL)textFieldShouldReturn:(UITextField *)textField
 {
     if ([self.serverAddressField isFirstResponder]) {
@@ -134,6 +151,7 @@
 }
 
 #pragma mark - table view data source
+
 - (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView
 {
     return 1;
@@ -193,6 +211,38 @@
     [self.portField setText:_bookmarkPort[indexPath.row]];
 
     [self.serverPlexBookmark deselectRowAtIndexPath:indexPath animated:NO];
+}
+
+#pragma mark - isValid
+
+- (BOOL)isValidPort:(NSString *)port
+{
+    NSString *portRegex = @"^([0-9]{2,5})$";
+    NSPredicate *portTest = [NSPredicate predicateWithFormat:@"SELF MATCHES %@", portRegex];
+    return [portTest evaluateWithObject:port];
+}
+
+- (BOOL)isValidAddress:(NSString *)address
+{
+    NSString *addressRegex = @"^(?:(?:25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?)\\.){3}(?:25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?)$";
+    NSPredicate *addressTest = [NSPredicate predicateWithFormat:@"SELF MATCHES %@", addressRegex];
+    if ([addressTest evaluateWithObject:address] || [[address pathExtension] isEqualToString:@"local"])
+        return YES;
+    else
+        return NO;
+}
+
+- (BOOL)isValidURL:(NSURL*)url
+{
+    NSMutableURLRequest *request = [NSMutableURLRequest requestWithURL:url cachePolicy:NSURLRequestUseProtocolCachePolicy timeoutInterval:5.0];
+    [request setHTTPMethod:@"HEAD"];
+    NSHTTPURLResponse *response = nil;
+    NSError *error = nil;
+    [NSURLConnection sendSynchronousRequest:request returningResponse:&response error:&error];
+    if ([response statusCode] == 200)
+        return YES;
+    else
+        return NO;
 }
 
 @end
