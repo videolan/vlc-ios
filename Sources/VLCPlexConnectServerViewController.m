@@ -20,6 +20,8 @@
 {
     NSMutableArray *_bookmarkServer;
     NSMutableArray *_bookmarkPort;
+
+    UIActivityIndicatorView *_activityIndicator;
 }
 @end
 
@@ -61,6 +63,12 @@
 
         self.edgesForExtendedLayout = UIRectEdgeNone;
     }
+
+    _activityIndicator = [[UIActivityIndicatorView alloc] initWithActivityIndicatorStyle:UIActivityIndicatorViewStyleWhiteLarge];
+    _activityIndicator.center = self.view.center;
+    _activityIndicator.autoresizingMask = UIViewAutoresizingFlexibleBottomMargin | UIViewAutoresizingFlexibleLeftMargin | UIViewAutoresizingFlexibleRightMargin | UIViewAutoresizingFlexibleTopMargin;
+    _activityIndicator.hidesWhenStopped = YES;
+    [self.view addSubview:_activityIndicator];
 }
 
 - (void)viewWillAppear:(BOOL)animated
@@ -93,6 +101,12 @@
 
 - (IBAction)connectToServer:(id)sender
 {
+    [_activityIndicator startAnimating];
+    [self performSelector:@selector(connectToPlexMediaServer) withObject:nil afterDelay:0.1];
+}
+
+- (void)connectToPlexMediaServer
+{
     NSString *server = [NSString stringWithFormat:@"%@", self.serverAddressField.text];
     NSString *port = [NSString stringWithFormat:@"%@", self.portField.text];
 
@@ -116,6 +130,7 @@
         if (![self isValidPort:port])
             self.portField.text = kPlexMediaServerPortDefault;
     }
+    [_activityIndicator stopAnimating];
 }
 
 - (IBAction)savePlexServer:(id)sender
