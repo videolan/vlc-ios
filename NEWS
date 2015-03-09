@@ -13,6 +13,9 @@
 * Added enhanced media information to the library view (#13564)
 * Added notifications about missing storage space when syncing media (#11474)
 * Added timer to automatically stop playback (#8640)
+* Improved WiFi sharing reliability with web browsers on Linux (#14083)
+* Improved Plex support with optional direct connections if playback fails
+* x-callback-url: added support for the x-error parameter (#14092)
 * A few minor UI improvements (#13892)
 
 2.4.1:
