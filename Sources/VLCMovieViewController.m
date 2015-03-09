@@ -25,6 +25,7 @@
 #import "VLCTrackSelectorTableViewCell.h"
 #import "VLCTrackSelectorHeaderView.h"
 #import "VLCEqualizerView.h"
+#import "VLCMultiSelectionMenuView.h"
 
 #import "OBSlider.h"
 #import "VLCStatusLabel.h"
@@ -47,7 +48,7 @@ typedef NS_ENUM(NSInteger, VLCPanType) {
   VLCPanTypeVolume,
 };
 
-@interface VLCMovieViewController () <UIGestureRecognizerDelegate, AVAudioSessionDelegate, VLCMediaDelegate, UITableViewDataSource, UITableViewDelegate, VLCEqualizerViewDelegate>
+@interface VLCMovieViewController () <UIGestureRecognizerDelegate, AVAudioSessionDelegate, VLCMediaDelegate, UITableViewDataSource, UITableViewDelegate, VLCEqualizerViewDelegate, VLCMultiSelectionViewDelegate>
 {
     VLCMediaListPlayer *_listPlayer;
     VLCMediaPlayer *_mediaPlayer;
@@ -88,6 +89,7 @@ typedef NS_ENUM(NSInteger, VLCPanType) {
     UITableView *_trackSelectorTableView;
 
     VLCEqualizerView *_equalizerView;
+    VLCMultiSelectionMenuView *_multiSelectionView;
 
     UIView *_sleepTimerContainer;
     UIDatePicker *_sleepTimeDatePicker;
@@ -209,10 +211,6 @@ typedef NS_ENUM(NSInteger, VLCPanType) {
     _trackSwitcherButton.isAccessibilityElement = YES;
     _trackSwitcherButtonLandscape.accessibilityLabel = NSLocalizedString(@"OPEN_TRACK_PANEL", nil);
     _trackSwitcherButtonLandscape.isAccessibilityElement = YES;
-    _chapterButton.accessibilityLabel = NSLocalizedString(@"JUMP_TO_TITLE_OR_CHAPTER", nil);
-    _chapterButton.isAccessibilityElement = YES;
-    _chapterButtonLandscape.accessibilityLabel = NSLocalizedString(@"JUMP_TO_TITLE_OR_CHAPTER", nil);
-    _chapterButtonLandscape.isAccessibilityElement = YES;
     _playbackSpeedButton.accessibilityLabel = _playbackSpeedLabel.text;
     _playbackSpeedButton.isAccessibilityElement = YES;
     _playbackSpeedButtonLandscape.accessibilityLabel = _playbackSpeedLabel.text;
@@ -237,13 +235,15 @@ typedef NS_ENUM(NSInteger, VLCPanType) {
     _fwdButton.isAccessibilityElement = YES;
     _fwdButtonLandscape.accessibilityLabel = NSLocalizedString(@"FWD_BUTTON", nil);
     _fwdButtonLandscape.isAccessibilityElement = YES;
-    _repeatButton.accessibilityLabel = NSLocalizedString(@"BUTTON_REPEAT", nil);
-    _repeatButton.isAccessibilityElement = YES;
-    _equalizerButton.accessibilityLabel = NSLocalizedString(@"BUTTON_EQUALIZER", nil);
-    _equalizerButton.isAccessibilityElement = YES;
     _sleepTimerButton.accessibilityLabel = NSLocalizedString(@"BUTTON_SLEEP_TIMER", nil);
     _sleepTimerButton.isAccessibilityElement = YES;
     [_sleepTimerButton setTitle:NSLocalizedString(@"BUTTON_SLEEP_TIMER", nil) forState:UIControlStateNormal];
+
+    _multiSelectionView = [[VLCMultiSelectionMenuView alloc] init];
+    _multiSelectionView.delegate = self;
+    _multiSelectionView.autoresizingMask = UIViewAutoresizingFlexibleRightMargin | UIViewAutoresizingFlexibleTopMargin;
+    _multiSelectionView.hidden = YES;
+    [self.view addSubview:_multiSelectionView];
 
     _scrubHelpLabel.text = NSLocalizedString(@"PLAYBACK_SCRUB_HELP", nil);
 
@@ -473,18 +473,42 @@ typedef NS_ENUM(NSInteger, VLCPanType) {
 
 - (void)viewWillLayoutSubviews
 {
-    if (UI_USER_INTERFACE_IDIOM() == UIUserInterfaceIdiomPhone) {
-        CGSize viewSize = self.view.frame.size;
-        if (UIDeviceOrientationIsLandscape([UIDevice currentDevice].orientation)) {
-            [_controllerPanel removeFromSuperview];
-            _controllerPanelLandscape.frame = (CGRect){CGPointMake(0, viewSize.height - _controllerPanelLandscape.frame.size.height), CGSizeMake(viewSize.width, _controllerPanelLandscape.frame.size.height)};
-            [self.view addSubview:_controllerPanelLandscape];
-        } else {
-            [_controllerPanelLandscape removeFromSuperview];
-            _controllerPanel.frame = (CGRect){CGPointMake(0, viewSize.height - _controllerPanel.frame.size.height), CGSizeMake(viewSize.width, _controllerPanel.frame.size.height)};
-            [self.view addSubview:_controllerPanel];
-        }
+    CGRect multiSelectionFrame;
+    CGRect controllerPanelFrame;
+
+    if (UI_USER_INTERFACE_IDIOM() != UIUserInterfaceIdiomPhone) {
+        controllerPanelFrame = _controllerPanel.frame;
+        multiSelectionFrame = (CGRect){CGPointMake(0., 0.), [_multiSelectionView proposedDisplaySize]};
+        multiSelectionFrame.origin.x = controllerPanelFrame.size.width - multiSelectionFrame.size.width;
+        multiSelectionFrame.origin.y = controllerPanelFrame.origin.y - multiSelectionFrame.size.height;
+        _multiSelectionView.frame = multiSelectionFrame;
+        _multiSelectionView.showsEqualizer = YES;
+        return;
     }
+
+    CGSize viewSize = self.view.frame.size;
+
+    if (UIDeviceOrientationIsLandscape([UIDevice currentDevice].orientation)) {
+        [_controllerPanel removeFromSuperview];
+        controllerPanelFrame = (CGRect){CGPointMake(0, viewSize.height - _controllerPanelLandscape.frame.size.height), CGSizeMake(viewSize.width, _controllerPanelLandscape.frame.size.height)};
+        _controllerPanelLandscape.frame = controllerPanelFrame;
+        [self.view addSubview:_controllerPanelLandscape];
+        _multiSelectionView.showsEqualizer = YES;
+        multiSelectionFrame = (CGRect){CGPointMake(0., 0.), [_multiSelectionView proposedDisplaySize]};
+        multiSelectionFrame.origin.x = controllerPanelFrame.size.width - multiSelectionFrame.size.width;
+        multiSelectionFrame.origin.y = controllerPanelFrame.origin.y - multiSelectionFrame.size.height;
+    } else {
+        [_controllerPanelLandscape removeFromSuperview];
+        controllerPanelFrame = (CGRect){CGPointMake(0, viewSize.height - _controllerPanel.frame.size.height), CGSizeMake(viewSize.width, _controllerPanel.frame.size.height)};
+        _controllerPanel.frame = controllerPanelFrame;
+        [self.view addSubview:_controllerPanel];
+        _multiSelectionView.showsEqualizer = NO;
+        multiSelectionFrame = (CGRect){CGPointMake(0., 0.), [_multiSelectionView proposedDisplaySize]};
+        multiSelectionFrame.origin.x = controllerPanelFrame.size.width - multiSelectionFrame.size.width;
+        multiSelectionFrame.origin.y = controllerPanelFrame.origin.y - multiSelectionFrame.size.height;
+    }
+
+    _multiSelectionView.frame = multiSelectionFrame;
 }
 
 - (void)_startPlayback
@@ -584,8 +608,6 @@ typedef NS_ENUM(NSInteger, VLCPanType) {
     self.positionSlider.value = 0.;
     [self.timeDisplay setTitle:@"" forState:UIControlStateNormal];
     self.timeDisplay.accessibilityLabel = @"";
-    [self.repeatButton setImage:[UIImage imageNamed:@"repeat"] forState:UIControlStateNormal];
-    [self.repeatButtonLandscape setImage:[UIImage imageNamed:@"repeat"] forState:UIControlStateNormal];
 
     if (![self _isMediaSuitableForDevice]) {
         UIAlertView * alert = [[UIAlertView alloc] initWithTitle:NSLocalizedString(@"DEVICE_TOOSLOW_TITLE", nil) message:[NSString stringWithFormat:NSLocalizedString(@"DEVICE_TOOSLOW", nil), [[UIDevice currentDevice] model], self.fileFromMediaLibrary.title] delegate:self cancelButtonTitle:NSLocalizedString(@"BUTTON_CANCEL", nil) otherButtonTitles:NSLocalizedString(@"BUTTON_OPEN", nil), nil];
@@ -952,6 +974,8 @@ typedef NS_ENUM(NSInteger, VLCPanType) {
             _sleepTimerContainer.alpha = 0.0f;
             _sleepTimerContainer.hidden = YES;
         }
+        _multiSelectionView.alpha = 0.0f;
+        _multiSelectionView.hidden = YES;
     }
 
     void (^animationBlock)() = ^() {
@@ -962,6 +986,7 @@ typedef NS_ENUM(NSInteger, VLCPanType) {
         _playbackSpeedView.alpha = alpha;
         _trackSelectorContainer.alpha = alpha;
         _equalizerView.alpha = alpha;
+        _multiSelectionView.alpha = alpha;
         if (_sleepTimerContainer)
             _sleepTimerContainer.alpha = alpha;
     };
@@ -976,6 +1001,7 @@ typedef NS_ENUM(NSInteger, VLCPanType) {
         _equalizerView.hidden = YES;
         if (_sleepTimerContainer)
             _sleepTimerContainer.hidden = YES;
+        _multiSelectionView.hidden = YES;
     };
 
     UIStatusBarAnimation animationType = animated? UIStatusBarAnimationFade: UIStatusBarAnimationNone;
@@ -1168,13 +1194,10 @@ typedef NS_ENUM(NSInteger, VLCPanType) {
         self.trackSwitcherButtonLandscape.hidden = YES;
     }
 
-    if (_mediaPlayer.titles.count > 1 || [_mediaPlayer chaptersForTitleIndex:_mediaPlayer.currentTitleIndex].count > 1) {
-        self.chapterButton.hidden = NO;
-        self.chapterButtonLandscape.hidden = NO;
-    } else {
-        self.chapterButton.hidden = YES;
-        self.chapterButtonLandscape.hidden = YES;
-    }
+    if (_mediaPlayer.titles.count > 1 || [_mediaPlayer chaptersForTitleIndex:_mediaPlayer.currentTitleIndex].count > 1)
+        _multiSelectionView.mediaHasChapters = YES;
+    else
+        _multiSelectionView.mediaHasChapters = NO;
 }
 
 - (IBAction)playPause
@@ -1207,19 +1230,6 @@ typedef NS_ENUM(NSInteger, VLCPanType) {
         [_mediaPlayer mediumJumpBackward];
 }
 
-- (void)toggleRepeatMode:(id)sender
-{
-    if (_listPlayer.repeatMode == VLCDoNotRepeat) {
-        _listPlayer.repeatMode = VLCRepeatCurrentItem;
-        [self.repeatButton setImage:[UIImage imageNamed:@"repeatOne"] forState:UIControlStateNormal];
-        [self.repeatButtonLandscape setImage:[UIImage imageNamed:@"repeatOne"] forState:UIControlStateNormal];
-    } else {
-        _listPlayer.repeatMode = VLCDoNotRepeat;
-        [self.repeatButton setImage:[UIImage imageNamed:@"repeat"] forState:UIControlStateNormal];
-        [self.repeatButtonLandscape setImage:[UIImage imageNamed:@"repeat"] forState:UIControlStateNormal];
-    }
-}
-
 - (IBAction)switchTrack:(id)sender
 {
     LOCKCHECK;
@@ -1248,33 +1258,6 @@ typedef NS_ENUM(NSInteger, VLCPanType) {
     }
 }
 
-- (IBAction)switchChapter:(id)sender
-{
-    LOCKCHECK;
-
-    if (_trackSelectorContainer.hidden == YES || _switchingTracksNotChapters == YES) {
-        _switchingTracksNotChapters = NO;
-
-        [_trackSelectorTableView reloadData];
-        _trackSelectorContainer.hidden = NO;
-        _trackSelectorContainer.alpha = 1.;
-
-        if (!_playbackSpeedViewHidden)
-            self.playbackSpeedView.hidden = _playbackSpeedViewHidden = YES;
-
-        if (UI_USER_INTERFACE_IDIOM() == UIUserInterfaceIdiomPhone) {
-            if (!_controlsHidden) {
-                self.controllerPanel.hidden = _controlsHidden = YES;
-                self.controllerPanelLandscape.hidden = YES;
-            }
-        }
-
-        self.videoFilterView.hidden = _videoFiltersHidden = YES;
-    } else {
-        _trackSelectorContainer.hidden = YES;
-    }
-}
-
 - (IBAction)toggleTimeDisplay:(id)sender
 {
     LOCKCHECK;
@@ -1282,33 +1265,6 @@ typedef NS_ENUM(NSInteger, VLCPanType) {
     _displayRemainingTime = !_displayRemainingTime;
 
     [self _resetIdleTimer];
-}
-
-- (IBAction)lock:(id)sender
-{
-    _interfaceIsLocked = !_interfaceIsLocked;
-}
-
-- (IBAction)equalizer:(id)sender
-{
-    LOCKCHECK;
-
-    if (_equalizerView.hidden) {
-        if (!_playbackSpeedViewHidden)
-            self.playbackSpeedView.hidden = _playbackSpeedViewHidden = YES;
-
-        if (UI_USER_INTERFACE_IDIOM() == UIUserInterfaceIdiomPhone) {
-            if (!_controlsHidden) {
-                self.controllerPanel.hidden = _controlsHidden = YES;
-                self.controllerPanelLandscape.hidden = YES;
-            }
-        }
-
-        self.videoFilterView.hidden = _videoFiltersHidden = YES;
-        _equalizerView.alpha = 1.;
-        _equalizerView.hidden = NO;
-    } else
-        _equalizerView.hidden = YES;
 }
 
 - (IBAction)sleepTimer:(id)sender
@@ -1379,6 +1335,124 @@ typedef NS_ENUM(NSInteger, VLCPanType) {
         _sleepTimer = nil;
     }
     _sleepTimer = [NSTimer scheduledTimerWithTimeInterval:_sleepTimeDatePicker.countDownDuration target:self selector:@selector(closePlayback:) userInfo:nil repeats:NO];
+}
+
+- (void)moreActions:(id)sender
+{
+    if (_multiSelectionView.hidden == NO) {
+        [UIView animateWithDuration:.3
+                         animations:^{
+                             _multiSelectionView.hidden = YES;
+                         }
+                         completion:^(BOOL finished){
+                         }];
+        return;
+    }
+
+    if (UI_USER_INTERFACE_IDIOM() == UIUserInterfaceIdiomPhone) {
+        if (UIDeviceOrientationIsLandscape([UIDevice currentDevice].orientation))
+            _multiSelectionView.showsEqualizer = YES;
+        else
+            _multiSelectionView.showsEqualizer = NO;
+    }
+
+    CGRect workFrame = _multiSelectionView.frame;
+    workFrame.size = [_multiSelectionView proposedDisplaySize];
+    workFrame.origin.x = self.toolbar.frame.size.width - workFrame.size.width;
+
+    _multiSelectionView.alpha = 1.0f;
+
+    /* animate */
+    _multiSelectionView.frame = CGRectMake(workFrame.origin.x, workFrame.origin.y + workFrame.size.height, workFrame.size.width, 0.);
+    [UIView animateWithDuration:.3
+                     animations:^{
+                         _multiSelectionView.frame = workFrame;
+                         _multiSelectionView.hidden = NO;
+                     }
+                     completion:^(BOOL finished){
+                     }];
+    [self _resetIdleTimer];
+}
+
+#pragma mark - multi-select delegation
+
+- (void)toggleUILock
+{
+    _interfaceIsLocked = !_interfaceIsLocked;
+}
+
+- (void)toggleEqualizer
+{
+    LOCKCHECK;
+
+    if (_equalizerView.hidden) {
+        if (!_playbackSpeedViewHidden)
+            self.playbackSpeedView.hidden = _playbackSpeedViewHidden = YES;
+
+        if (UI_USER_INTERFACE_IDIOM() == UIUserInterfaceIdiomPhone) {
+            if (!_controlsHidden) {
+                self.controllerPanel.hidden = _controlsHidden = YES;
+                self.controllerPanelLandscape.hidden = YES;
+                self.toolbar.hidden = YES;
+            }
+        }
+
+        self.videoFilterView.hidden = _videoFiltersHidden = YES;
+        _equalizerView.alpha = 1.;
+        _equalizerView.hidden = NO;
+    } else
+        _equalizerView.hidden = YES;
+}
+
+- (void)toggleChapterAndTitleSelector
+{
+    LOCKCHECK;
+
+    if (_trackSelectorContainer.hidden == YES || _switchingTracksNotChapters == YES) {
+        _switchingTracksNotChapters = NO;
+
+        [_trackSelectorTableView reloadData];
+        _trackSelectorContainer.hidden = NO;
+        _trackSelectorContainer.alpha = 1.;
+
+        if (!_playbackSpeedViewHidden)
+            self.playbackSpeedView.hidden = _playbackSpeedViewHidden = YES;
+
+        if (UI_USER_INTERFACE_IDIOM() == UIUserInterfaceIdiomPhone) {
+            if (!_controlsHidden) {
+                self.controllerPanel.hidden = _controlsHidden = YES;
+                self.controllerPanelLandscape.hidden = YES;
+            }
+        }
+
+        self.videoFilterView.hidden = _videoFiltersHidden = YES;
+    } else {
+        _trackSelectorContainer.hidden = YES;
+    }
+}
+
+- (void)toggleRepeatMode
+{
+    LOCKCHECK;
+
+    if (_listPlayer.repeatMode == VLCDoNotRepeat) {
+        _listPlayer.repeatMode = VLCRepeatCurrentItem;
+        _multiSelectionView.displayRepeatOne = YES;
+    } else {
+        _listPlayer.repeatMode = VLCDoNotRepeat;
+        _multiSelectionView.displayRepeatOne = NO;
+    }
+}
+
+- (void)hideMenu
+{
+    [UIView animateWithDuration:.2
+                     animations:^{
+                         _multiSelectionView.hidden = YES;
+                     }
+                     completion:^(BOOL finished){
+                     }];
+    [self _resetIdleTimer];
 }
 
 #pragma mark - track selector table view
