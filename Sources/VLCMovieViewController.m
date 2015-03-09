@@ -31,8 +31,6 @@
 #import "VLCStatusLabel.h"
 
 #define INPUT_RATE_DEFAULT  1000.
-#define FORWARD_SWIPE_DURATION 30
-#define BACKWARD_SWIPE_DURATION 10
 
 #define TRACK_SELECTOR_TABLEVIEW_CELL @"track selector table view cell"
 #define TRACK_SELECTOR_TABLEVIEW_SECTIONHEADER @"track selector table view section header"
@@ -1720,22 +1718,25 @@ typedef NS_ENUM(NSInteger, VLCPanType) {
         return;
 
     NSString * hudString = @" ";
+    int swipeDuration = (int)(_mediaDuration*0.001*0.05);
 
     if (swipeRecognizer.direction == UISwipeGestureRecognizerDirectionRight) {
         double timeRemainingDouble = (-_mediaPlayer.remainingTime.intValue*0.001);
         int timeRemaining = timeRemainingDouble;
 
-        if (FORWARD_SWIPE_DURATION < timeRemaining) {
-            [_mediaPlayer jumpForward:FORWARD_SWIPE_DURATION];
-            hudString = [NSString stringWithFormat:@"⇒ %is", FORWARD_SWIPE_DURATION];
+        if (swipeDuration < timeRemaining) {
+            if (swipeDuration < 1)
+                swipeDuration = 1;
+            [_mediaPlayer jumpForward:swipeDuration];
+            hudString = [NSString stringWithFormat:@"⇒ %is", swipeDuration];
         } else {
             [_mediaPlayer jumpForward:(timeRemaining - 5)];
             hudString = [NSString stringWithFormat:@"⇒ %is",(timeRemaining - 5)];
         }
     }
     else if (swipeRecognizer.direction == UISwipeGestureRecognizerDirectionLeft) {
-        [_mediaPlayer jumpBackward:BACKWARD_SWIPE_DURATION];
-        hudString = [NSString stringWithFormat:@"⇐ %is",BACKWARD_SWIPE_DURATION];
+        [_mediaPlayer jumpBackward:swipeDuration];
+        hudString = [NSString stringWithFormat:@"⇐ %is",swipeDuration];
     }
 
     if (swipeRecognizer.state == UIGestureRecognizerStateEnded) {
