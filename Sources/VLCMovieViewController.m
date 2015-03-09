@@ -95,6 +95,7 @@ typedef NS_ENUM(NSInteger, VLCPanType) {
     UIDatePicker *_sleepTimeDatePicker;
 
     NSInteger _mediaDuration;
+    BOOL _playbackFailed;
 }
 
 @property (nonatomic, strong) UIPopoverController *masterPopoverController;
@@ -1065,10 +1066,11 @@ typedef NS_ENUM(NSInteger, VLCPanType) {
 
     [self setControlsHidden:NO animated:NO];
     [self.navigationController dismissViewControllerAnimated:YES completion:^{
-        // switch back to the caller when user presses "Done"
-        if (self.successCallback && [sender isKindOfClass:[UIBarButtonItem class]]) {
+        // switch back to the caller when user presses "Done" or playback fails
+        if (self.successCallback && [sender isKindOfClass:[UIBarButtonItem class]])
             [[UIApplication sharedApplication] openURL:self.successCallback];
-        }
+        else if (self.errorCallback && _playbackFailed)
+            [[UIApplication sharedApplication] openURL:self.errorCallback];
     }];
 }
 
@@ -1174,6 +1176,7 @@ typedef NS_ENUM(NSInteger, VLCPanType) {
 
     if (currentState == VLCMediaPlayerStateError) {
         [self.statusLabel showStatusMessage:NSLocalizedString(@"PLAYBACK_FAILED", nil)];
+        _playbackFailed = YES;
         [self performSelector:@selector(closePlayback:) withObject:nil afterDelay:2.];
     }
 
