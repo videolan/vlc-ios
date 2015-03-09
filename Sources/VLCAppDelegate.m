@@ -507,7 +507,7 @@
 
 - (void)openMovieFromURL:(NSURL *)url
 {
-    [self openMovieFromURL:url successCallback:nil];
+    [self openMovieFromURL:url successCallback:nil errorCallback:nil];
 }
 
 - (void)openMediaList:(VLCMediaList *)list atIndex:(int)index
