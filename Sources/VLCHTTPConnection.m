@@ -135,8 +135,9 @@
     NSString *filePath = [self filePathForURI:path];
     NSString *documentRoot = [config documentRoot];
     NSString *relativePath = [filePath substringFromIndex:[documentRoot length]];
+    BOOL shouldReturnLibVLCXML = [relativePath isEqualToString:@"/libMediaVLC.xml"];
 
-    if (([relativePath isEqualToString:@"/index.html"]) || ([relativePath isEqualToString:@"/libMediaVLC.xml"])) {
+    if ([relativePath isEqualToString:@"/index.html"] || shouldReturnLibVLCXML) {
         NSMutableArray *allMedia = [[NSMutableArray alloc] init];
 
         /* add all albums */
@@ -198,7 +199,7 @@
                                         [[(MLFile *)mo url] stringByReplacingOccurrencesOfString:@"file://"withString:@""],
                                         [(MLFile *)mo title],
                                         duration, (float)([(MLFile *)mo fileSizeInBytes] / 1e6)]];
-                if ([relativePath isEqualToString:@"/libMediaVLC.xml"]) {
+                if (shouldReturnLibVLCXML) {
                     NSString *pathSub = [self _checkSubtitleFound:[(MLFile *)mo url]];
                     if (![pathSub isEqualToString:@""])
                         pathSub = [NSString stringWithFormat:@"http://%@/download/%@", hostName, pathSub];
@@ -238,7 +239,7 @@
                                             showEp.episodeNumber,
                                             showEp.name,
                                             duration, (float)([(MLFile *)[[showEp files] anyObject] fileSizeInBytes] / 1e6)]];
-                    if ([relativePath isEqualToString:@"/libMediaVLC.xml"]) {
+                    if (shouldReturnLibVLCXML) {
                         NSString *pathSub = [self _checkSubtitleFound:[(MLFile *)[[showEp files] anyObject] url]];
                         if (![pathSub isEqualToString:@""])
                             pathSub = [NSString stringWithFormat:@"http://%@/download/%@", hostName, pathSub];
@@ -277,7 +278,7 @@
                                             [[file url] stringByReplacingOccurrencesOfString:@"file://"withString:@""],
                                             file.title,
                                             duration, (float)([file fileSizeInBytes] / 1e6)]];
-                    if ([relativePath isEqualToString:@"/libMediaVLC.xml"]) {
+                    if (shouldReturnLibVLCXML) {
                         NSString *pathSub = [self _checkSubtitleFound:[file url]];
                         if (![pathSub isEqualToString:@""])
                             pathSub = [NSString stringWithFormat:@"http://%@/download/%@", hostName, pathSub];
@@ -316,7 +317,7 @@
                                             [[(MLFile *)[[track files] anyObject] url] stringByReplacingOccurrencesOfString:@"file://"withString:@""],
                                             track.title,
                                             duration, (float)([(MLFile *)[[track files] anyObject] fileSizeInBytes] / 1e6)]];
-                    if ([relativePath isEqualToString:@"/libMediaVLC.xml"])
+                    if (shouldReturnLibVLCXML)
                         [mediaInXml addObject:[NSString stringWithFormat:@"<Media title=\"%@\" thumb=\"http://%@/download/%@/Thumbnails/File/%@.png\" duration=\"%@\" size=\"%li\" pathfile=\"http://%@/download/%@\" pathSubtitle=\"\"/>", track.title, hostName, pathLibrary, [[NSString stringWithFormat:@"%@", track.objectID.URIRepresentation] lastPathComponent], duration, [(MLFile *)[[track files] anyObject] fileSizeInBytes], hostName, [[(MLFile *)[[track files] anyObject] url] stringByReplacingOccurrencesOfString:@"file://"withString:@""]]];
                 }
                 [mediaInHtml addObject:@"</div></div>"];
@@ -327,7 +328,7 @@
         NSDictionary *replacementDict;
         HTTPDynamicFileResponse *fileResponse;
 
-        if ([relativePath isEqualToString:@"/libMediaVLC.xml"]) {
+        if (shouldReturnLibVLCXML) {
             replacementDict = @{@"FILES" : [mediaInXml componentsJoinedByString:@" "],
                                 @"NB_FILE" : [NSString stringWithFormat:@"%li", (unsigned long)mediaInXml.count],
                                 @"LIB_TITLE" : [[UIDevice currentDevice] name]};
