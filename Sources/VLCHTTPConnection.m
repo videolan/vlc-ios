@@ -325,29 +325,41 @@
 
         NSString *deviceModel = [[UIDevice currentDevice] model];
         NSDictionary *replacementDict;
+        HTTPDynamicFileResponse *fileResponse;
 
         if ([relativePath isEqualToString:@"/libMediaVLC.xml"]) {
             replacementDict = @{@"FILES" : [mediaInXml componentsJoinedByString:@" "],
                                 @"NB_FILE" : [NSString stringWithFormat:@"%li", (unsigned long)mediaInXml.count],
                                 @"LIB_TITLE" : [[UIDevice currentDevice] name]};
-        } else
+
+            fileResponse = [[HTTPDynamicFileResponse alloc] initWithFilePath:[self filePathForURI:path]
+                                                               forConnection:self
+                                                                   separator:@"%%"
+                                                       replacementDictionary:replacementDict];
+            fileResponse.contentType = @"application/xml";
+        } else {
             replacementDict = @{@"FILES" : [mediaInHtml componentsJoinedByString:@" "],
                                 @"WEBINTF_TITLE" : NSLocalizedString(@"WEBINTF_TITLE", nil),
                                 @"WEBINTF_DROPFILES" : NSLocalizedString(@"WEBINTF_DROPFILES", nil),
                                 @"WEBINTF_DROPFILES_LONG" : [NSString stringWithFormat:NSLocalizedString(@"WEBINTF_DROPFILES_LONG", nil), deviceModel],
                                 @"WEBINTF_DOWNLOADFILES" : NSLocalizedString(@"WEBINTF_DOWNLOADFILES", nil),
                                 @"WEBINTF_DOWNLOADFILES_LONG" : [NSString stringWithFormat: NSLocalizedString(@"WEBINTF_DOWNLOADFILES_LONG", nil), deviceModel]};
+            fileResponse = [[HTTPDynamicFileResponse alloc] initWithFilePath:[self filePathForURI:path]
+                                                               forConnection:self
+                                                                   separator:@"%%"
+                                                       replacementDictionary:replacementDict];
+            fileResponse.contentType = @"text/html";
+        }
 
-        return [[HTTPDynamicFileResponse alloc] initWithFilePath:[self filePathForURI:path]
-                                                   forConnection:self
-                                                       separator:@"%%"
-                                           replacementDictionary:replacementDict];
+        return fileResponse;
     } else if ([relativePath isEqualToString:@"/style.css"]) {
         NSDictionary *replacementDict = @{@"WEBINTF_TITLE" : NSLocalizedString(@"WEBINTF_TITLE", nil)};
-        return [[HTTPDynamicFileResponse alloc] initWithFilePath:[self filePathForURI:path]
-                                                   forConnection:self
-                                                       separator:@"%%"
-                                           replacementDictionary:replacementDict];
+        HTTPDynamicFileResponse *fileResponse = [[HTTPDynamicFileResponse alloc] initWithFilePath:[self filePathForURI:path]
+                                                                                    forConnection:self
+                                                                                        separator:@"%%"
+                                                                            replacementDictionary:replacementDict];
+        fileResponse.contentType = @"text/css";
+        return fileResponse;
     }
 
     return [super httpResponseForMethod:method URI:path];
