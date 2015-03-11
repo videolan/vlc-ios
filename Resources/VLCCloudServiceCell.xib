@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="6221" systemVersion="14B25" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="6254" systemVersion="14C109" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES">
     <dependencies>
         <deployment identifier="iOS"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="6213"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="6247"/>
         <capability name="Aspect ratio constraints" minToolsVersion="5.1"/>
         <capability name="Constraints to layout margins" minToolsVersion="6.0"/>
     </dependencies>
@@ -29,8 +29,8 @@
                         <color key="textColor" red="1" green="1" blue="1" alpha="1" colorSpace="calibratedRGB"/>
                         <nil key="highlightedColor"/>
                     </label>
-                    <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="749" verticalHuggingPriority="749" translatesAutoresizingMaskIntoConstraints="NO" id="k9V-qn-xQh">
-                        <rect key="frame" x="13" y="13" width="40" height="39.5"/>
+                    <imageView userInteractionEnabled="NO" contentMode="center" horizontalHuggingPriority="749" verticalHuggingPriority="749" translatesAutoresizingMaskIntoConstraints="NO" id="k9V-qn-xQh">
+                        <rect key="frame" x="13" y="13" width="40" height="40"/>
                         <constraints>
                             <constraint firstAttribute="width" secondItem="k9V-qn-xQh" secondAttribute="height" multiplier="1:1" id="G4X-8T-SgW"/>
                             <constraint firstAttribute="width" constant="40" id="b0z-Gv-5yY"/>
@@ -41,9 +41,21 @@
                             </mask>
                         </variation>
                     </imageView>
+                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="gJ0-bA-ThN" userLabel="lonesome ServiceName">
+                        <rect key="frame" x="61" y="19" width="251" height="27"/>
+                        <constraints>
+                            <constraint firstAttribute="height" constant="27" id="VkC-Mm-ohS"/>
+                        </constraints>
+                        <fontDescription key="fontDescription" type="system" pointSize="18"/>
+                        <color key="textColor" red="1" green="1" blue="1" alpha="1" colorSpace="calibratedRGB"/>
+                        <nil key="highlightedColor"/>
+                    </label>
                 </subviews>
                 <constraints>
+                    <constraint firstItem="gJ0-bA-ThN" firstAttribute="leading" secondItem="O6V-Qc-Q8x" secondAttribute="leading" id="3Mg-Bn-j8m"/>
+                    <constraint firstItem="gJ0-bA-ThN" firstAttribute="trailing" secondItem="O6V-Qc-Q8x" secondAttribute="trailing" id="6kW-bx-7Rl"/>
                     <constraint firstAttribute="bottomMargin" secondItem="k9V-qn-xQh" secondAttribute="bottom" constant="5" id="9mT-Ig-oz7"/>
+                    <constraint firstAttribute="centerY" secondItem="gJ0-bA-ThN" secondAttribute="centerY" id="Bjq-5d-DS8"/>
                     <constraint firstAttribute="trailingMargin" secondItem="O6V-Qc-Q8x" secondAttribute="trailing" id="DGs-Ef-HwX"/>
                     <constraint firstItem="O6V-Qc-Q8x" firstAttribute="top" secondItem="P7G-Z3-wQa" secondAttribute="topMargin" id="P7b-lX-3qH"/>
                     <constraint firstItem="k9V-qn-xQh" firstAttribute="leading" secondItem="P7G-Z3-wQa" secondAttribute="leadingMargin" constant="5" id="bjd-BQ-kB6"/>
@@ -58,6 +70,7 @@
                 <outlet property="cloudInformation" destination="NEp-19-omb" id="pWE-Kp-d7k"/>
                 <outlet property="cloudTitle" destination="O6V-Qc-Q8x" id="6Oe-Xb-nFb"/>
                 <outlet property="icon" destination="k9V-qn-xQh" id="5Bh-XZ-Kkl"/>
+                <outlet property="lonesomeCloudTitle" destination="gJ0-bA-ThN" id="dBN-TO-v3j"/>
             </connections>
             <point key="canvasLocation" x="358" y="253"/>
         </tableViewCell>

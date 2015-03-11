@@ -106,6 +106,7 @@
             cell.icon.image = [UIImage imageNamed:@"Dropbox"];
             cell.cloudTitle.text = @"Dropbox";
             cell.cloudInformation.text = isAuthorized ? NSLocalizedString(@"LOGGED_IN", "") : NSLocalizedString(@"LOGIN", "");
+            cell.lonesomeCloudTitle.text = @"";
             break;
         }
         case 1: {
@@ -114,6 +115,7 @@
             cell.icon.image = [UIImage imageNamed:@"Drive"];
             cell.cloudTitle.text = @"Google Drive";
             cell.cloudInformation.text = isAuthorized ? NSLocalizedString(@"LOGGED_IN", "") : NSLocalizedString(@"LOGIN", "");
+            cell.lonesomeCloudTitle.text = @"";
             break;
         }
         case 2: {
@@ -122,6 +124,7 @@
             cell.icon.image = [UIImage imageNamed:@"Box"];
             cell.cloudTitle.text = @"Box";
             cell.cloudInformation.text = isAuthorized ? NSLocalizedString(@"LOGGED_IN", "") : NSLocalizedString(@"LOGIN", "");
+            cell.lonesomeCloudTitle.text = @"";
             break;
         }
         case 3: {
@@ -130,17 +133,19 @@
             cell.icon.image = [UIImage imageNamed:@"OneDrive"];
             cell.cloudTitle.text = @"OneDrive";
             cell.cloudInformation.text = isAuthorized ? NSLocalizedString(@"LOGGED_IN", "") : NSLocalizedString(@"LOGIN", "");
+            cell.lonesomeCloudTitle.text = @"";
             break;
         }
         case 4:
             //Cloud Drives
-            cell.icon.image = [UIImage imageNamed:@"CloudDrives"];
-            cell.cloudTitle.text = @"Cloud Drives";
-            cell.cloudInformation.text = @"";
+            cell.icon.image = [UIImage imageNamed:@"iCloud"];
+            cell.lonesomeCloudTitle.text = NSLocalizedString(@"CLOUD_SERVICES", nil);
+            cell.cloudTitle.text = cell.cloudInformation.text = @"";
             break;
         default:
             break;
     }
+//    cell.icon.contentMode = UIViewContentModeScaleAspectFit;
     return cell;
 }
 

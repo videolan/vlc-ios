@@ -17,5 +17,6 @@
 @property(nonatomic) IBOutlet UIImageView *icon;
 @property(nonatomic) IBOutlet UILabel *cloudTitle;
 @property(nonatomic) IBOutlet UILabel *cloudInformation;
+@property(nonatomic) IBOutlet UILabel *lonesomeCloudTitle;
 
 @end
