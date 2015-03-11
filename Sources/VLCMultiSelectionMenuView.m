@@ -32,7 +32,7 @@
 
     if (self) {
         _equalizerButton = [UIButton buttonWithType:UIButtonTypeCustom];
-        [_equalizerButton setTitle:@"E" forState:UIControlStateNormal];
+        [_equalizerButton setImage:[UIImage imageNamed:@"equalizerIcon"] forState:UIControlStateNormal];
         _equalizerButton.titleLabel.textColor = [UIColor whiteColor];
         _equalizerButton.frame = CGRectMake(spacer, spacer, buttonWidth, buttonHeight);
         [_equalizerButton addTarget:self action:@selector(equalizerAction:) forControlEvents:UIControlEventTouchUpInside];
@@ -40,7 +40,7 @@
         [self addSubview:_equalizerButton];
 
         _chapterSelectorButton = [UIButton buttonWithType:UIButtonTypeCustom];
-        [_chapterSelectorButton setTitle:@"C" forState:UIControlStateNormal];
+        [_chapterSelectorButton setImage:[UIImage imageNamed:@"chaptersIcon"] forState:UIControlStateNormal];
         _chapterSelectorButton.titleLabel.textColor = [UIColor whiteColor];
         _chapterSelectorButton.frame = CGRectMake(spacer, spacer + buttonHeight + spacer, buttonWidth, buttonHeight);
         [_chapterSelectorButton addTarget:self action:@selector(chapterSelectorAction:) forControlEvents:UIControlEventTouchUpInside];
@@ -48,14 +48,14 @@
         [self addSubview:_chapterSelectorButton];
 
         _repeatButton = [UIButton buttonWithType:UIButtonTypeCustom];
-        [_repeatButton setImage:[UIImage imageNamed:@"repeat.png"] forState:UIControlStateNormal];
+        [_repeatButton setImage:[UIImage imageNamed:@"repeat"] forState:UIControlStateNormal];
         _repeatButton.frame = CGRectMake(spacer, spacer + buttonHeight + spacer + buttonHeight + spacer, buttonWidth, buttonHeight);
         [_repeatButton addTarget:self action:@selector(repeatAction:) forControlEvents:UIControlEventTouchUpInside];
         _repeatButton.autoresizingMask = UIViewAutoresizingFlexibleTopMargin;
         [self addSubview:_repeatButton];
 
         _lockButton = [UIButton buttonWithType:UIButtonTypeCustom];
-        [_lockButton setImage:[UIImage imageNamed:@"lock.png"] forState:UIControlStateNormal];
+        [_lockButton setImage:[UIImage imageNamed:@"lock"] forState:UIControlStateNormal];
         _lockButton.frame = CGRectMake(spacer, spacer + buttonHeight + spacer + buttonHeight + spacer + buttonHeight + spacer, buttonWidth, buttonHeight);
         [_lockButton addTarget:self action:@selector(lockAction:) forControlEvents:UIControlEventTouchUpInside];
         _lockButton.autoresizingMask = UIViewAutoresizingFlexibleTopMargin;
