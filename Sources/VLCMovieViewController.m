@@ -1178,14 +1178,16 @@ typedef NS_ENUM(NSInteger, VLCPanType) {
         [self performSelector:@selector(closePlayback:) withObject:nil afterDelay:2.];
     }
 
-    if ((currentState == VLCMediaPlayerStateEnded || currentState == VLCMediaPlayerStateStopped) && _listPlayer.repeatMode == VLCDoNotRepeat) {
-        if ([_listPlayer.mediaList indexOfMedia:_mediaPlayer.media] == _listPlayer.mediaList.count - 1)
-            [self performSelector:@selector(closePlayback:) withObject:nil afterDelay:2.];
-    }
-
     UIImage *playPauseImage = [_mediaPlayer isPlaying]? [UIImage imageNamed:@"pauseIcon"] : [UIImage imageNamed:@"playIcon"];
     [_playPauseButton setImage:playPauseImage forState:UIControlStateNormal];
     [_playPauseButtonLandscape setImage:playPauseImage forState:UIControlStateNormal];
+
+    if ((currentState == VLCMediaPlayerStateEnded || currentState == VLCMediaPlayerStateStopped) && _listPlayer.repeatMode == VLCDoNotRepeat) {
+        if ([_listPlayer.mediaList indexOfMedia:_mediaPlayer.media] == _listPlayer.mediaList.count - 1) {
+            [self performSelector:@selector(closePlayback:) withObject:nil afterDelay:2.];
+            return;
+        }
+    }
 
     if ([[_mediaPlayer audioTrackIndexes] count] > 2 || [[_mediaPlayer videoSubTitlesIndexes] count] > 1) {
         self.trackSwitcherButton.hidden = NO;
@@ -1195,7 +1197,7 @@ typedef NS_ENUM(NSInteger, VLCPanType) {
         self.trackSwitcherButtonLandscape.hidden = YES;
     }
 
-    if (_mediaPlayer.titles.count > 1 || [_mediaPlayer chaptersForTitleIndex:_mediaPlayer.currentTitleIndex].count > 1)
+    if ([_mediaPlayer countOfTitles] > 1 || [_mediaPlayer chaptersForTitleIndex:_mediaPlayer.currentTitleIndex].count > 1)
         _multiSelectionView.mediaHasChapters = YES;
     else
         _multiSelectionView.mediaHasChapters = NO;
@@ -1497,7 +1499,7 @@ typedef NS_ENUM(NSInteger, VLCPanType) {
         if (_mediaPlayer.videoSubTitlesIndexes.count > 1)
             return NSLocalizedString(@"CHOOSE_SUBTITLE_TRACK", nil);
     } else {
-        if (_mediaPlayer.titles.count > 1 && section == 0)
+        if ([_mediaPlayer countOfTitles] > 1 && section == 0)
             return NSLocalizedString(@"CHOOSE_TITLE", nil);
 
         if ([_mediaPlayer chaptersForTitleIndex:_mediaPlayer.currentTitleIndex].count > 1)
@@ -1515,10 +1517,11 @@ typedef NS_ENUM(NSInteger, VLCPanType) {
         cell = [[VLCTrackSelectorTableViewCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:TRACK_SELECTOR_TABLEVIEW_CELL];
 
     NSInteger row = indexPath.row;
+    NSInteger section = indexPath.section;
 
     if (_switchingTracksNotChapters == YES) {
         NSArray *indexArray;
-        if (_mediaPlayer.audioTrackIndexes.count > 2 && indexPath.section == 0) {
+        if (_mediaPlayer.audioTrackIndexes.count > 2 && section == 0) {
             indexArray = _mediaPlayer.audioTrackIndexes;
 
             if ([indexArray indexOfObjectIdenticalTo:[NSNumber numberWithInt:_mediaPlayer.currentAudioTrackIndex]] == row)
@@ -1538,7 +1541,7 @@ typedef NS_ENUM(NSInteger, VLCPanType) {
             cell.textLabel.text = [NSString stringWithFormat:@"%@", _mediaPlayer.videoSubTitlesNames[row]];
         }
     } else {
-        if (_mediaPlayer.titles.count > 1 && indexPath.section == 0) {
+        if ([_mediaPlayer countOfTitles] > 1 && section == 0) {
             cell.textLabel.text = _mediaPlayer.titles[row];
 
             if (row == _mediaPlayer.currentTitleIndex)
@@ -1560,12 +1563,19 @@ typedef NS_ENUM(NSInteger, VLCPanType) {
 
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section
 {
-    NSInteger audioTrackCount = _mediaPlayer.audioTrackIndexes.count;
+    if (_switchingTracksNotChapters == YES) {
+        NSInteger audioTrackCount = _mediaPlayer.audioTrackIndexes.count;
 
-    if (audioTrackCount > 2 && section == 0)
-        return audioTrackCount;
+        if (audioTrackCount > 2 && section == 0)
+            return audioTrackCount;
 
-    return _mediaPlayer.videoSubTitlesIndexes.count;
+        return _mediaPlayer.videoSubTitlesIndexes.count;
+    } else {
+        if ([_mediaPlayer countOfTitles] > 1 && section == 0)
+            return [_mediaPlayer countOfTitles];
+        else
+            return [_mediaPlayer chaptersForTitleIndex:_mediaPlayer.currentTitleIndex].count;
+    }
 }
 
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
@@ -1586,7 +1596,7 @@ typedef NS_ENUM(NSInteger, VLCPanType) {
                 _mediaPlayer.currentVideoSubTitleIndex = [indexArray[index] intValue];
         }
     } else {
-        if (_mediaPlayer.titles.count > 1 && indexPath.section == 0)
+        if ([_mediaPlayer countOfTitles] > 1 && indexPath.section == 0)
             _mediaPlayer.currentTitleIndex = index;
         else
             _mediaPlayer.currentChapterIndex = index;
