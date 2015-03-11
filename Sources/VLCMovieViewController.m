@@ -408,6 +408,7 @@ typedef NS_ENUM(NSInteger, VLCPanType) {
         _trackSelectorTableView.backgroundColor = [UIColor clearColor];
     } else
         _trackSelectorTableView.backgroundColor = [UIColor blackColor];
+    _trackSelectorTableView.allowsMultipleSelection = YES;
 
     [self.view addSubview:_trackSelectorContainer];
 
@@ -524,7 +525,7 @@ typedef NS_ENUM(NSInteger, VLCPanType) {
     if (self.pathToExternalSubtitlesFile)
         _listPlayer = [[VLCMediaListPlayer alloc] initWithOptions:@[[NSString stringWithFormat:@"--%@=%@", kVLCSettingSubtitlesFilePath, self.pathToExternalSubtitlesFile]]];
     else
-        _listPlayer = [[VLCMediaListPlayer alloc] initWithOptions:@[@"-vvvv"]];
+        _listPlayer = [[VLCMediaListPlayer alloc] init];
 
     _mediaPlayer = _listPlayer.mediaPlayer;
     [_mediaPlayer setDelegate:self];
