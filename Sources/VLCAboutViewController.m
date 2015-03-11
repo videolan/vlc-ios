@@ -2,7 +2,7 @@
  * VLCAboutViewController.m
  * VLC for iOS
  *****************************************************************************
- * Copyright (c) 2013-2014 VideoLAN. All rights reserved.
+ * Copyright (c) 2013-2015 VideoLAN. All rights reserved.
  * $Id$
  *
  * Authors: Felix Paul Kühne <fkuehne # videolan.org>
@@ -27,12 +27,16 @@
 
 - (void)loadView
 {
+    self.view = [[UIView alloc] initWithFrame:[UIScreen mainScreen].bounds];
+    self.view.backgroundColor = [UIColor VLCDarkBackgroundColor];
+
     _webView = [[UIWebView alloc] initWithFrame:[UIScreen mainScreen].bounds];
     _webView.clipsToBounds = YES;
     _webView.delegate = self;
-    _webView.backgroundColor = [UIColor VLCDarkBackgroundColor];
+    _webView.backgroundColor = [UIColor clearColor];
+    _webView.opaque = NO;
     _webView.scrollView.indicatorStyle = UIScrollViewIndicatorStyleWhite;
-    self.view = _webView;
+    [self.view addSubview:_webView];
 }
 
 - (void)viewDidLoad
@@ -84,18 +88,8 @@
 
 - (void)webViewDidFinishLoad:(UIWebView *)webView
 {
-    webView.alpha = 0.;
-    CGFloat alpha = 1.;
-
-    void (^animationBlock)() = ^() {
-        webView.alpha = alpha;
-    };
-
-    void (^completionBlock)(BOOL finished) = ^(BOOL finished) {
-        webView.hidden = NO;
-    };
-
-    [UIView animateWithDuration:.3 animations:animationBlock completion:completionBlock];
+    _webView.backgroundColor = [UIColor VLCDarkBackgroundColor];
+    _webView.opaque = YES;
 }
 
 - (IBAction)openContributePage:(id)sender
