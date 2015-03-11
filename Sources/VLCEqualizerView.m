@@ -327,13 +327,10 @@
     unsigned int profile = (unsigned int)[[[NSUserDefaults standardUserDefaults] objectForKey:kVLCSettingEqualizerProfile] integerValue];
 
     if (profile == row)
-    {
         [cell setShowsCurrentTrack:YES];
-    }
     else
-    {
         [cell setShowsCurrentTrack:NO];
-    }
+
     return cell;
 }
 
