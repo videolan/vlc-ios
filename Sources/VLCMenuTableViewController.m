@@ -212,9 +212,8 @@
             _uploadLocationLabel = [(VLCWiFiUploadTableViewCell*)cell uploadAddressLabel];
             _uploadButton = [(VLCWiFiUploadTableViewCell*)cell serverOnButton];
             [_uploadButton addTarget:self action:@selector(toggleHTTPServer:) forControlEvents:UIControlEventTouchUpInside];
-        } else if ([rawTitle isEqualToString:@"CLOUD_SERVICES"]) {
-            cell.imageView.image = [UIImage imageNamed:@"CloudServices"];
-        }
+        } else if ([rawTitle isEqualToString:@"CLOUD_SERVICES"])
+            cell.imageView.image = [UIImage imageNamed:@"iCloudIcon"];
     } else if (section == 2) {
         if ([rawTitle isEqualToString:@"Settings"])
             cell.imageView.image = [UIImage imageNamed:@"Settings"];
