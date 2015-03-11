@@ -396,6 +396,12 @@
 		7DBD8D9F1AB0B66F00860FA7 /* iCloudIcon@3x.png in Resources */ = {isa = PBXBuildFile; fileRef = 7DBD8D9C1AB0B66F00860FA7 /* iCloudIcon@3x.png */; };
 		7DBD8DA01AB0B66F00860FA7 /* iCloudIcon.png in Resources */ = {isa = PBXBuildFile; fileRef = 7DBD8D9D1AB0B66F00860FA7 /* iCloudIcon.png */; };
 		7DBD8DA11AB0B66F00860FA7 /* iCloudIcon@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 7DBD8D9E1AB0B66F00860FA7 /* iCloudIcon@2x.png */; };
+		7DBD8DA81AB0B96100860FA7 /* chaptersIcon.png in Resources */ = {isa = PBXBuildFile; fileRef = 7DBD8DA21AB0B96100860FA7 /* chaptersIcon.png */; };
+		7DBD8DA91AB0B96100860FA7 /* chaptersIcon@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 7DBD8DA31AB0B96100860FA7 /* chaptersIcon@2x.png */; };
+		7DBD8DAA1AB0B96100860FA7 /* chaptersIcon@3x.png in Resources */ = {isa = PBXBuildFile; fileRef = 7DBD8DA41AB0B96100860FA7 /* chaptersIcon@3x.png */; };
+		7DBD8DAB1AB0B96100860FA7 /* equalizerIcon.png in Resources */ = {isa = PBXBuildFile; fileRef = 7DBD8DA51AB0B96100860FA7 /* equalizerIcon.png */; };
+		7DBD8DAC1AB0B96100860FA7 /* equalizerIcon@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 7DBD8DA61AB0B96100860FA7 /* equalizerIcon@2x.png */; };
+		7DBD8DAD1AB0B96100860FA7 /* equalizerIcon@3x.png in Resources */ = {isa = PBXBuildFile; fileRef = 7DBD8DA71AB0B96100860FA7 /* equalizerIcon@3x.png */; };
 		7DC0C0551A4D78A4000EE359 /* DropboxSDK.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 7DC0C0541A4D78A4000EE359 /* DropboxSDK.framework */; };
 		7DC19ADF1868C7BB00810BF7 /* VLCFirstStepsViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 7DC19ADD1868C7BB00810BF7 /* VLCFirstStepsViewController.m */; };
 		7DC19AE41868C8EC00810BF7 /* VLCFirstStepsFirstPageViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 7DC19AE21868C8EC00810BF7 /* VLCFirstStepsFirstPageViewController.m */; };
@@ -1229,6 +1235,12 @@
 		7DBD8D9C1AB0B66F00860FA7 /* iCloudIcon@3x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "iCloudIcon@3x.png"; sourceTree = "<group>"; };
 		7DBD8D9D1AB0B66F00860FA7 /* iCloudIcon.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = iCloudIcon.png; sourceTree = "<group>"; };
 		7DBD8D9E1AB0B66F00860FA7 /* iCloudIcon@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "iCloudIcon@2x.png"; sourceTree = "<group>"; };
+		7DBD8DA21AB0B96100860FA7 /* chaptersIcon.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = chaptersIcon.png; sourceTree = "<group>"; };
+		7DBD8DA31AB0B96100860FA7 /* chaptersIcon@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "chaptersIcon@2x.png"; sourceTree = "<group>"; };
+		7DBD8DA41AB0B96100860FA7 /* chaptersIcon@3x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "chaptersIcon@3x.png"; sourceTree = "<group>"; };
+		7DBD8DA51AB0B96100860FA7 /* equalizerIcon.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = equalizerIcon.png; sourceTree = "<group>"; };
+		7DBD8DA61AB0B96100860FA7 /* equalizerIcon@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "equalizerIcon@2x.png"; sourceTree = "<group>"; };
+		7DBD8DA71AB0B96100860FA7 /* equalizerIcon@3x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "equalizerIcon@3x.png"; sourceTree = "<group>"; };
 		7DC0C0541A4D78A4000EE359 /* DropboxSDK.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = DropboxSDK.framework; path = ImportedSources/Dropbox/DropboxSDK.framework; sourceTree = "<group>"; };
 		7DC19ADC1868C7BB00810BF7 /* VLCFirstStepsViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = VLCFirstStepsViewController.h; path = Sources/VLCFirstStepsViewController.h; sourceTree = SOURCE_ROOT; };
 		7DC19ADD1868C7BB00810BF7 /* VLCFirstStepsViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = VLCFirstStepsViewController.m; path = Sources/VLCFirstStepsViewController.m; sourceTree = SOURCE_ROOT; };
@@ -1925,6 +1937,12 @@
 		7D47D6C81760CD2700E86BAD /* Movie VIew */ = {
 			isa = PBXGroup;
 			children = (
+				7DBD8DA21AB0B96100860FA7 /* chaptersIcon.png */,
+				7DBD8DA31AB0B96100860FA7 /* chaptersIcon@2x.png */,
+				7DBD8DA41AB0B96100860FA7 /* chaptersIcon@3x.png */,
+				7DBD8DA51AB0B96100860FA7 /* equalizerIcon.png */,
+				7DBD8DA61AB0B96100860FA7 /* equalizerIcon@2x.png */,
+				7DBD8DA71AB0B96100860FA7 /* equalizerIcon@3x.png */,
 				7D1276541AAD9D9A00F0260C /* lock@3x.png */,
 				7D1276551AAD9D9A00F0260C /* lock.png */,
 				7D1276561AAD9D9A00F0260C /* lock@2x.png */,
@@ -2942,6 +2960,7 @@
 				29125E5617492219003F03E5 /* index.html in Resources */,
 				7DB638AB185BC0890003887C /* Images.xcassets in Resources */,
 				7D6B08C2174A831900A05173 /* vlc-xmas.png in Resources */,
+				7DBD8DAC1AB0B96100860FA7 /* equalizerIcon@2x.png in Resources */,
 				7D6B08C3174A831900A05173 /* vlc-xmas@2x.png in Resources */,
 				7D27EC1619DF30CB00EF0370 /* pad@3x.png in Resources */,
 				7D27EB9419DEE11900EF0370 /* Launch Screen.xib in Resources */,
@@ -3011,6 +3030,7 @@
 				7D27EC1419DF30CB00EF0370 /* pad.png in Resources */,
 				7DBBF19B183AB4300009A339 /* VLCCloudStorageTableViewCell~iphone.xib in Resources */,
 				262C715B1A98FDE300F7ED34 /* VLCPlexMediaInformationViewController.xib in Resources */,
+				7DBD8DAA1AB0B96100860FA7 /* chaptersIcon@3x.png in Resources */,
 				4115E5FE197977850071C4B9 /* tableViewIcon.png in Resources */,
 				7DFC38E31A45F24D002476CB /* checkbox@3x.png in Resources */,
 				7D27EC1319DF30CB00EF0370 /* laptop@3x.png in Resources */,
@@ -3114,6 +3134,7 @@
 				7D1AC30917629AB600BD2EB5 /* ratioIcon@2x.png in Resources */,
 				7D1AC30C17629D4600BD2EB5 /* title.png in Resources */,
 				7DBBF1A1183AB4300009A339 /* VLCFuturePlaylistTableViewCell.xib in Resources */,
+				7DBD8DAB1AB0B96100860FA7 /* equalizerIcon.png in Resources */,
 				7D1AC30D17629D4600BD2EB5 /* title@2x.png in Resources */,
 				7D897876185DEF79009BAB5D /* repeatOne.png in Resources */,
 				7DEB3B5D17647B240038FC70 /* bottomBlackBar@2x.png in Resources */,
@@ -3141,6 +3162,7 @@
 				7DF3B77E19DF01550041A02E /* fsarrow-position@3x.png in Resources */,
 				7DEB3B7A1764A4040038FC70 /* input.png in Resources */,
 				7DBBF1A6183AB4300009A339 /* VLCMovieViewController~iphone.xib in Resources */,
+				7DBD8DA91AB0B96100860FA7 /* chaptersIcon@2x.png in Resources */,
 				7DF3B78119DF01550041A02E /* fsarrow-repeat@3x.png in Resources */,
 				7D27EC0D19DF30CB00EF0370 /* connector-cable@3x.png in Resources */,
 				7D89787D185DF794009BAB5D /* VLCFutureOpenNetworkStreamViewController.xib in Resources */,
@@ -3166,6 +3188,7 @@
 				7AC8629D1765DC560011611A /* style.css in Resources */,
 				7DF3B78319DF01550041A02E /* fsarrow-speed@2x.png in Resources */,
 				7DBD8D961AB0B47A00860FA7 /* iCloud@3x.png in Resources */,
+				7DBD8DA81AB0B96100860FA7 /* chaptersIcon.png in Resources */,
 				7DF1166C176CC69A009EC05C /* volumeballslider.png in Resources */,
 				7D27EC1F19DF30CB00EF0370 /* sidebar@3x.png in Resources */,
 				7D27EC1B19DF30CB00EF0370 /* sidebar-cutout@2x.png in Resources */,
@@ -3194,6 +3217,7 @@
 				7D98705C1A3DEEF6009CF27D /* vlc-xmas@3x.png in Resources */,
 				7DBBF1A0183AB4300009A339 /* VLCFuturePlaylistCollectionViewCell.xib in Resources */,
 				7DF3B77A19DF01550041A02E /* fsarrow-effects@2x.png in Resources */,
+				7DBD8DAD1AB0B96100860FA7 /* equalizerIcon@3x.png in Resources */,
 				7D16035F17BF9FE600F29B34 /* headerSidebar@2x.png in Resources */,
 				7D16036017BF9FE600F29B34 /* headerSidebar.png in Resources */,
 				7D0699D617CB1FAE00713BEB /* Settings@2x.png in Resources */,
