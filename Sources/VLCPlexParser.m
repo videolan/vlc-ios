@@ -71,7 +71,8 @@
         [_dicoInfo setObject:[attributeDict objectForKey:@"key"] forKey:@"key"];
         [_dicoInfo setObject:[attributeDict objectForKey:@"title"] forKey:@"title"];
         [_dicoInfo setObject:[attributeDict objectForKey:@"ratingKey"] forKey:@"ratingKey"];
-        [_dicoInfo setObject:[attributeDict objectForKey:@"summary"] forKey:@"summary"];
+        if ([attributeDict objectForKey:@"summary"])
+            [_dicoInfo setObject:[attributeDict objectForKey:@"summary"] forKey:@"summary"];
         if ([attributeDict objectForKey:@"viewCount"])
             [_dicoInfo setObject:@"watched" forKey:@"state"];
         else
@@ -89,7 +90,9 @@
         NSString *duration = [[VLCTime timeWithNumber:[attributeDict objectForKey:@"duration"]] stringValue];
         [_dicoInfo setObject:duration forKey:@"duration"];
         NSString *sizeFile = (NSString *)[attributeDict objectForKey:@"size"];
-        [_dicoInfo setObject:sizeFile forKey:@"size"];
+        if (sizeFile)
+            [_dicoInfo setObject:sizeFile forKey:@"size"];
+
     } else if ([elementName isEqualToString:@"Stream"]) {
         if ([attributeDict objectForKey:@"key"])
             [_dicoInfo setObject:[NSString stringWithFormat:@"%@%@",_PlexMediaServerUrl, [attributeDict objectForKey:@"key"]] forKey:@"keySubtitle"];
