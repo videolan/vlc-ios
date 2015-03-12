@@ -80,6 +80,8 @@ typedef NS_ENUM(NSInteger, VLCPanType) {
     UIPanGestureRecognizer *_panRecognizer;
     UISwipeGestureRecognizer *_swipeRecognizerLeft;
     UISwipeGestureRecognizer *_swipeRecognizerRight;
+    UISwipeGestureRecognizer *_swipeRecognizerUp;
+    UISwipeGestureRecognizer *_swipeRecognizerDown;
     UITapGestureRecognizer *_tapRecognizer;
     UITapGestureRecognizer *_tapOnVideoRecognizer;
 
@@ -119,6 +121,10 @@ typedef NS_ENUM(NSInteger, VLCPanType) {
         [self.view removeGestureRecognizer:_swipeRecognizerLeft];
     if (_swipeRecognizerRight)
         [self.view removeGestureRecognizer:_swipeRecognizerRight];
+    if (_swipeRecognizerUp)
+        [self.view removeGestureRecognizer:_swipeRecognizerUp];
+    if (_swipeRecognizerDown)
+        [self.view removeGestureRecognizer:_swipeRecognizerDown];
     if (_panRecognizer)
         [self.view removeGestureRecognizer:_panRecognizer];
     if (_pinchRecognizer)
@@ -128,6 +134,8 @@ typedef NS_ENUM(NSInteger, VLCPanType) {
     _tapRecognizer = nil;
     _swipeRecognizerLeft = nil;
     _swipeRecognizerRight = nil;
+    _swipeRecognizerUp = nil;
+    _swipeRecognizerDown = nil;
     _panRecognizer = nil;
     _pinchRecognizer = nil;
     _tapOnVideoRecognizer = nil;
@@ -295,17 +303,29 @@ typedef NS_ENUM(NSInteger, VLCPanType) {
     _swipeRecognizerLeft.direction = UISwipeGestureRecognizerDirectionLeft;
     _swipeRecognizerRight = [[UISwipeGestureRecognizer alloc] initWithTarget:self action:@selector(swipeRecognized:)];
     _swipeRecognizerRight.direction = UISwipeGestureRecognizerDirectionRight;
+    _swipeRecognizerUp = [[UISwipeGestureRecognizer alloc] initWithTarget:self action:@selector(swipeRecognized:)];
+    _swipeRecognizerUp.direction = UISwipeGestureRecognizerDirectionUp;
+    _swipeRecognizerUp.numberOfTouchesRequired = 2;
+    _swipeRecognizerDown = [[UISwipeGestureRecognizer alloc] initWithTarget:self action:@selector(swipeRecognized:)];
+    _swipeRecognizerDown.direction = UISwipeGestureRecognizerDirectionDown;
+    _swipeRecognizerDown.numberOfTouchesRequired = 2;
 
     [self.view addGestureRecognizer:_swipeRecognizerLeft];
     [self.view addGestureRecognizer:_swipeRecognizerRight];
+    [self.view addGestureRecognizer:_swipeRecognizerUp];
+    [self.view addGestureRecognizer:_swipeRecognizerDown];
     [self.view addGestureRecognizer:_panRecognizer];
     [self.view addGestureRecognizer:_tapRecognizer];
     [_panRecognizer requireGestureRecognizerToFail:_swipeRecognizerLeft];
     [_panRecognizer requireGestureRecognizerToFail:_swipeRecognizerRight];
+    [_panRecognizer requireGestureRecognizerToFail:_swipeRecognizerUp];
+    [_panRecognizer requireGestureRecognizerToFail:_swipeRecognizerDown];
 
     _panRecognizer.delegate = self;
     _swipeRecognizerRight.delegate = self;
     _swipeRecognizerLeft.delegate = self;
+    _swipeRecognizerUp.delegate = self;
+    _swipeRecognizerDown.delegate = self;
     _tapRecognizer.delegate = self;
 
     _aspectRatios = @[@"DEFAULT", @"FILL_TO_SCREEN", @"4:3", @"16:9", @"16:10", @"2.21:1"];
@@ -1747,6 +1767,11 @@ typedef NS_ENUM(NSInteger, VLCPanType) {
     else if (swipeRecognizer.direction == UISwipeGestureRecognizerDirectionLeft) {
         [_mediaPlayer jumpBackward:swipeDuration];
         hudString = [NSString stringWithFormat:@"⇐ %is",swipeDuration];
+    }else if (swipeRecognizer.direction == UISwipeGestureRecognizerDirectionUp) {
+        [self backward:self];
+    }
+    else if (swipeRecognizer.direction == UISwipeGestureRecognizerDirectionDown) {
+        [self forward:self];
     }
 
     if (swipeRecognizer.state == UIGestureRecognizerStateEnded) {
