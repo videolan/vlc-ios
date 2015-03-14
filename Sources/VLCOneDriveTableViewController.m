@@ -89,6 +89,7 @@
 - (void)mediaListUpdated
 {
     [self.tableView reloadData];
+    [self.activityIndicator stopAnimating];
 }
 
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
