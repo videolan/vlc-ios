@@ -20,9 +20,7 @@
 #import "PAPasscodeViewController.h"
 
 @interface VLCSettingsController ()<PAPasscodeViewControllerDelegate, IASKSettingsDelegate>
-{
 
-}
 @end
 
 @implementation VLCSettingsController
@@ -51,6 +49,10 @@
             passcodeLockController.delegate = self;
             [self.viewController presentViewController:passcodeLockController animated:YES completion:nil];
         }
+    }
+    if ([notification.object isEqual:kVLCSettingPlaybackGestures]) {
+        BOOL enabled = (BOOL)[[notification.userInfo objectForKey:@"EnableGesturesToControlPlayback"] intValue];
+        [self.viewController setHiddenKeys:enabled ? nil : [NSSet setWithObjects:@"EnableVariableJumpDuration", nil] animated:YES];
     }
 }
 

@@ -57,16 +57,6 @@
 			</array>
 		</dict>
 		<dict>
-			<key>DefaultValue</key>
-			<true/>
-			<key>Key</key>
-			<string>EnableGesturesToControlPlayback</string>
-			<key>Title</key>
-			<string>SETTINGS_GESTURES</string>
-			<key>Type</key>
-			<string>PSToggleSwitchSpecifier</string>
-		</dict>
-		<dict>
 			<key>Type</key>
 			<string>PSMultiValueSpecifier</string>
 			<key>Title</key>
@@ -91,6 +81,32 @@
 				<real>1.75</real>
 				<real>2</real>
 			</array>
+		</dict>
+		<dict>
+			<key>Type</key>
+			<string>PSGroupSpecifier</string>
+			<key>Title</key>
+			<string>SETTINGS_GESTURE_TITLE</string>
+		</dict>
+		<dict>
+			<key>DefaultValue</key>
+			<true/>
+			<key>Key</key>
+			<string>EnableGesturesToControlPlayback</string>
+			<key>Title</key>
+			<string>SETTINGS_GESTURES</string>
+			<key>Type</key>
+			<string>PSToggleSwitchSpecifier</string>
+		</dict>
+		<dict>
+			<key>DefaultValue</key>
+			<false/>
+			<key>Key</key>
+			<string>EnableVariableJumpDuration</string>
+			<key>Title</key>
+			<string>SETTINGS_GESTURE_JUMP_DURATION</string>
+			<key>Type</key>
+			<string>PSToggleSwitchSpecifier</string>
 		</dict>
 		<dict>
 			<key>Type</key>

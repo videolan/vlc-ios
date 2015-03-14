@@ -42,6 +42,7 @@
     NSArray *_menuItemsSectionOne;
     NSArray *_menuItemsSectionTwo;
     NSArray *_menuItemsSectionThree;
+    NSMutableSet *_hiddenSettingKeys;
 
     UILabel *_uploadLocationLabel;
     UIButton *_uploadButton;
@@ -330,12 +331,18 @@
                 self.settingsViewController.navigationItem.leftBarButtonItem = [UIBarButtonItem themedRevealMenuButtonWithTarget:self.settingsController.viewController andSelector:@selector(dismiss:)];
             }
 
+            _hiddenSettingKeys = [[NSMutableSet alloc] init];
             self.settingsViewController.modalPresentationStyle = UIModalPresentationFormSheet;
             self.settingsViewController.delegate = self.settingsController;
             self.settingsViewController.showDoneButton = NO;
             self.settingsViewController.showCreditsFooter = NO;
 
+            if (![[[NSUserDefaults standardUserDefaults] objectForKey:kVLCSettingPlaybackGestures] boolValue])
+                [_hiddenSettingKeys addObject:@"EnableVariableJumpDuration"];
+
+            [self.settingsController.viewController setHiddenKeys:_hiddenSettingKeys];
             viewController = self.settingsController.viewController;
+
         } else if (itemIndex == 1)
             viewController = [[VLCAboutViewController alloc] init];
     } else {

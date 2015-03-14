@@ -31,6 +31,8 @@
 #import "VLCStatusLabel.h"
 
 #define INPUT_RATE_DEFAULT  1000.
+#define FORWARD_SWIPE_DURATION 30
+#define BACKWARD_SWIPE_DURATION 10
 
 #define TRACK_SELECTOR_TABLEVIEW_CELL @"track selector table view cell"
 #define TRACK_SELECTOR_TABLEVIEW_SECTIONHEADER @"track selector table view section header"
@@ -75,6 +77,7 @@ typedef NS_ENUM(NSInteger, VLCPanType) {
     BOOL _switchingTracksNotChapters;
 
     BOOL _swipeGesturesEnabled;
+    BOOL _variableJumpDurationEnabled;
     UIPinchGestureRecognizer *_pinchRecognizer;
     VLCPanType _currentPanType;
     UIPanGestureRecognizer *_panRecognizer;
@@ -288,6 +291,7 @@ typedef NS_ENUM(NSInteger, VLCPanType) {
     NSUserDefaults *defaults = [NSUserDefaults standardUserDefaults];
     _displayRemainingTime = [[defaults objectForKey:kVLCShowRemainingTime] boolValue];
     _swipeGesturesEnabled = [[defaults objectForKey:kVLCSettingPlaybackGestures] boolValue];
+    _variableJumpDurationEnabled = [[defaults objectForKey:kVLCSettingVariableJumpDuration] boolValue];
 
     _pinchRecognizer = [[UIPinchGestureRecognizer alloc] initWithTarget:self action:@selector(handlePinchGesture:)];
     _pinchRecognizer.delegate = self;
@@ -521,6 +525,7 @@ typedef NS_ENUM(NSInteger, VLCPanType) {
     self.albumNameLabel.text = nil;
 
     _swipeGesturesEnabled = [[[NSUserDefaults standardUserDefaults] objectForKey:kVLCSettingPlaybackGestures] boolValue];
+    _variableJumpDurationEnabled = [[[NSUserDefaults standardUserDefaults] objectForKey:kVLCSettingVariableJumpDuration] boolValue];
 
     [self.navigationController setNavigationBarHidden:YES animated:YES];
 
@@ -1890,25 +1895,26 @@ static inline NSArray * RemoteCommandCenterCommandsToHandle(MPRemoteCommandCente
         return;
 
     NSString * hudString = @" ";
-    int swipeDuration = (int)(_mediaDuration*0.001*0.05);
+    int swipeForwardDuration = (_variableJumpDurationEnabled) ? ((int)(_mediaDuration*0.001*0.05)) : FORWARD_SWIPE_DURATION;
+    int swipeBackwardDuration = (_variableJumpDurationEnabled) ? ((int)(_mediaDuration*0.001*0.05)) : BACKWARD_SWIPE_DURATION;
 
     if (swipeRecognizer.direction == UISwipeGestureRecognizerDirectionRight) {
         double timeRemainingDouble = (-_mediaPlayer.remainingTime.intValue*0.001);
         int timeRemaining = timeRemainingDouble;
 
-        if (swipeDuration < timeRemaining) {
-            if (swipeDuration < 1)
-                swipeDuration = 1;
-            [_mediaPlayer jumpForward:swipeDuration];
-            hudString = [NSString stringWithFormat:@"⇒ %is", swipeDuration];
+        if (swipeForwardDuration < timeRemaining) {
+            if (swipeForwardDuration < 1)
+                swipeForwardDuration = 1;
+            [_mediaPlayer jumpForward:swipeForwardDuration];
+            hudString = [NSString stringWithFormat:@"⇒ %is", swipeForwardDuration];
         } else {
             [_mediaPlayer jumpForward:(timeRemaining - 5)];
             hudString = [NSString stringWithFormat:@"⇒ %is",(timeRemaining - 5)];
         }
     }
     else if (swipeRecognizer.direction == UISwipeGestureRecognizerDirectionLeft) {
-        [_mediaPlayer jumpBackward:swipeDuration];
-        hudString = [NSString stringWithFormat:@"⇐ %is",swipeDuration];
+        [_mediaPlayer jumpBackward:swipeBackwardDuration];
+        hudString = [NSString stringWithFormat:@"⇐ %is",swipeBackwardDuration];
     }else if (swipeRecognizer.direction == UISwipeGestureRecognizerDirectionUp) {
         [self backward:self];
     }
