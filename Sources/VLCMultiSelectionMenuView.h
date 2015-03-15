@@ -27,6 +27,7 @@
 @property (readwrite, assign) BOOL mediaHasChapters;
 
 - (void)setDisplayRepeatOne:(BOOL)displayRepeatOne;
+- (void)setDisplayLock:(BOOL)displayLock;
 - (CGSize)proposedDisplaySize;
 
 @end
