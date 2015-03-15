@@ -1384,6 +1384,10 @@ typedef NS_ENUM(NSInteger, VLCPanType) {
 - (void)toggleUILock
 {
     _interfaceIsLocked = !_interfaceIsLocked;
+    if (_interfaceIsLocked)
+        _multiSelectionView.displayLock = YES;
+    else
+        _multiSelectionView.displayLock = NO;
 }
 
 - (void)toggleEqualizer

@@ -141,6 +141,14 @@
         [_repeatButton setImage:[UIImage imageNamed:@"repeat"] forState:UIControlStateNormal];
 }
 
+- (void)setDisplayLock:(BOOL)displayLock
+{
+    if (displayLock)
+        [_lockButton setBackgroundColor:[UIColor VLCOrangeTintColor]];
+    else
+        [_lockButton setBackgroundColor:[UIColor clearColor]];
+}
+
 - (void)equalizerAction:(id)sender
 {
     [self.delegate toggleEqualizer];
