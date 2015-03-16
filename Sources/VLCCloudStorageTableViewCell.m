@@ -171,9 +171,13 @@
             self.folderTitleLabel.hidden = YES;
             if (self.oneDriveFile.isAudio)
                 self.thumbnailView.image = [UIImage imageNamed:@"audio"];
-            else if (self.oneDriveFile.isVideo)
+            else if (self.oneDriveFile.isVideo) {
                 self.thumbnailView.image = [UIImage imageNamed:@"movie"];
-            else
+                if (_oneDriveFile.thumbnailURL != nil) {
+                    _iconURL = [NSURL URLWithString:_oneDriveFile.thumbnailURL];
+                    [self performSelectorInBackground:@selector(_updateIconFromURL) withObject:@""];
+                }
+            } else
                 self.thumbnailView.image = [UIImage imageNamed:@"blank"];
         }
     }
@@ -183,9 +187,10 @@
 
 - (void)_updateIconFromURL
 {
-    NSData* imageData = [[NSData alloc]initWithContentsOfURL:_iconURL];
-    UIImage* image = [[UIImage alloc] initWithData:imageData];
+    NSData *imageData = [[NSData alloc] initWithContentsOfURL:_iconURL];
+    UIImage *image = [[UIImage alloc] initWithData:imageData];
     if (image != nil) {
+        self.thumbnailView.contentMode = UIViewContentModeScaleAspectFit;
         self.thumbnailView.image = image;
     }
 }
