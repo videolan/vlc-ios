@@ -1,15 +1,28 @@
-2.5 (not yet released):
+2.6 (not-yet-released):
 -----------------------
+
+2.5:
+----
 * Added support for iCloud Drive (#8688)
 * Added support for box.com (#11301)
 * Added support for OneDrive (#13413)
 * Added a lock button to the playback view, supporting both orientation and
   controls (#11293, #11292)
 * Added 10-band equalizer (#9032)
+* Added sharing of the media library between multiple iOS devices
+  on the local network
 * Added support for chapters and titles to the playback dialog (#11560)
 * Cleaned-up playback view appearance with more features and less clutter
 * Added enhanced media information to the library view (#13564)
 * Added notifications about missing storage space when syncing media (#11474)
+* Added timer to automatically stop playback (#8640)
+* Improved WiFi sharing reliability with web browsers on Linux (#14083)
+* Improved Plex support with optional direct connections if detection fails
+* x-callback-url: added support for the x-error parameter (#14092)
+* Swipe to seek gesture now adapts to the video duration
+* A few minor UI improvements (#13892)
+* New translations to Portuguese (Portugal), Portuguese (Brazil), Khmer,
+  Faroese, Belarusian, Serbian (Latin), Tamil and Afrikaans
 
 2.4.1:
 ------
