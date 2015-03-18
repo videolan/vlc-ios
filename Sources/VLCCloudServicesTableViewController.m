@@ -145,7 +145,7 @@
         default:
             break;
     }
-//    cell.icon.contentMode = UIViewContentModeScaleAspectFit;
+
     return cell;
 }
 
@@ -155,12 +155,11 @@
 {
     // don't let select CLOUD_DRIVES menu item since there is no view controller to reveal
     if (indexPath.row == 4) {
-        if (UI_USER_INTERFACE_IDIOM() == UIUserInterfaceIdiomPad) {
-            [self.documentPickerController showDocumentMenuViewController:[self.tableView cellForRowAtIndexPath:indexPath]];
-        } else {
+        [tableView deselectRowAtIndexPath:indexPath animated:YES];
+        if (UI_USER_INTERFACE_IDIOM() == UIUserInterfaceIdiomPad)
+            [self.documentPickerController showDocumentMenuViewController:[(VLCCloudServiceCell *)[self.tableView cellForRowAtIndexPath:indexPath] icon]];
+        else
             [self.documentPickerController showDocumentMenuViewController:nil];
-            [tableView deselectRowAtIndexPath:indexPath animated:YES];
-        }
 
         return nil;
     } else
