@@ -16,7 +16,6 @@
 * Improved WiFi sharing reliability with web browsers on Linux (#14083)
 * Improved Plex support with optional direct connections if detection fails
 * x-callback-url: added support for the x-error parameter (#14092)
-* Swipe to seek gesture now adapts to the video duration
 * A few minor UI improvements (#13892)
 * New translations to Portuguese (Portugal), Portuguese (Brazil), Khmer,
   Faroese, Belarusian, Serbian (Latin), Tamil and Afrikaans
