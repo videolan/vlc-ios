@@ -934,14 +934,14 @@ typedef NS_ENUM(NSInteger, VLCPanType) {
 - (void)viewDidAppear:(BOOL)animated
 {
     [super viewDidAppear:animated];
-    [[UIApplication sharedApplication] beginReceivingRemoteControlEvents];
+    [self subscribeRemoteCommands];
     [self becomeFirstResponder];
 }
 
 - (void)viewDidDisappear:(BOOL)animated
 {
     [super viewDidDisappear:animated];
-    [[UIApplication sharedApplication] endReceivingRemoteControlEvents];
+    [self unsubscribeFromRemoteCommand];
     [self resignFirstResponder];
 
     [[NSUserDefaults standardUserDefaults] setBool:_displayRemainingTime forKey:kVLCShowRemainingTime];
@@ -950,6 +950,129 @@ typedef NS_ENUM(NSInteger, VLCPanType) {
 - (BOOL)canBecomeFirstResponder
 {
     return YES;
+}
+
+static inline NSArray * RemoteCommandCenterCommandsToHandle(MPRemoteCommandCenter *cc)
+{
+/* commmented out other available commands which we don't support now but may
+ * support at some point in the future */
+    return @[
+             cc.pauseCommand, cc.playCommand, cc.stopCommand, cc.togglePlayPauseCommand,
+             cc.nextTrackCommand, cc.previousTrackCommand,
+             cc.skipForwardCommand, cc.skipBackwardCommand,
+//             cc.seekForwardCommand, cc.seekBackwardCommand,
+//             cc.ratingCommand,
+             cc.changePlaybackRateCommand,
+//             cc.likeCommand,cc.dislikeCommand,cc.bookmarkCommand,
+             ];
+}
+
+- (void)subscribeRemoteCommands
+{
+    /* pre iOS 7.1 */
+    if (![MPRemoteCommandCenter class]) {
+        [[UIApplication sharedApplication] beginReceivingRemoteControlEvents];
+        return;
+    }
+    /* for iOS 7.1 and above: */
+
+    MPRemoteCommandCenter *commandCenter = [MPRemoteCommandCenter sharedCommandCenter];
+
+    /*
+     * since the control center and lockscreen shows only either skipForward/Backward
+     * or next/previousTrack buttons but prefers skip buttons,
+     * we only enable skip buttons if we have a no medialist
+     */
+    BOOL enableSkip = self.mediaList == nil;
+    commandCenter.skipForwardCommand.enabled = enableSkip;
+    commandCenter.skipBackwardCommand.enabled = enableSkip;
+
+    NSUserDefaults *defaults = [NSUserDefaults standardUserDefaults];
+    NSNumber *forwardSkip = [defaults valueForKey:kVLCSettingPlaybackForwardSkipLength];
+    commandCenter.skipForwardCommand.preferredIntervals = @[forwardSkip];
+    NSNumber *backwardSkip = [defaults valueForKey:kVLCSettingPlaybackBackwardSkipLength];
+    commandCenter.skipBackwardCommand.preferredIntervals = @[backwardSkip];
+
+    NSArray *supportedPlaybackRates = @[@(0.5),@(0.75),@(1.0),@(1.25),@(1.5),@(1.75),@(2.0)];
+    commandCenter.changePlaybackRateCommand.supportedPlaybackRates = supportedPlaybackRates;
+
+    NSArray *commandsToSubscribe = RemoteCommandCenterCommandsToHandle(commandCenter);
+    for (MPRemoteCommand *command in commandsToSubscribe) {
+        [command addTarget:self action:@selector(remoteCommandEvent:)];
+    }
+}
+
+- (void)unsubscribeFromRemoteCommand
+{
+    /* pre iOS 7.1 */
+    if (![MPRemoteCommandCenter class]) {
+        [[UIApplication sharedApplication] endReceivingRemoteControlEvents];
+        return;
+    }
+
+    /* for iOS 7.1 and above: */
+    MPRemoteCommandCenter *cc = [MPRemoteCommandCenter sharedCommandCenter];
+    NSArray *commmandsToRemoveFrom = RemoteCommandCenterCommandsToHandle(cc);
+    for (MPRemoteCommand *command in commmandsToRemoveFrom) {
+        [command removeTarget:self];
+    }
+}
+
+- (MPRemoteCommandHandlerStatus )remoteCommandEvent:(MPRemoteCommandEvent *)event
+{
+    MPRemoteCommandCenter *cc = [MPRemoteCommandCenter sharedCommandCenter];
+    MPRemoteCommandHandlerStatus result = MPRemoteCommandHandlerStatusSuccess;
+
+    if (event.command == cc.pauseCommand) {
+        [_listPlayer pause];
+    } else if (event.command == cc.playCommand) {
+        [_listPlayer play];
+    } else if (event.command == cc.stopCommand) {
+        [_listPlayer stop];
+    } else if (event.command == cc.togglePlayPauseCommand) {
+        [self playPause];
+    } else if (event.command == cc.nextTrackCommand) {
+        result = [_listPlayer next] ? MPRemoteCommandHandlerStatusSuccess : MPRemoteCommandHandlerStatusNoSuchContent;
+    } else if (event.command == cc.previousTrackCommand) {
+        result = [_listPlayer previous] ? MPRemoteCommandHandlerStatusSuccess : MPRemoteCommandHandlerStatusNoSuchContent;
+    } else if (event.command == cc.skipForwardCommand) {
+        if ([event isKindOfClass:[MPSkipIntervalCommandEvent class]]) {
+            MPSkipIntervalCommandEvent *skipEvent = (MPSkipIntervalCommandEvent *)event;
+            [_mediaPlayer jumpForward:skipEvent.interval];
+        } else {
+            result = MPRemoteCommandHandlerStatusCommandFailed;
+        }
+    } else if (event.command == cc.skipBackwardCommand) {
+        if ([event isKindOfClass:[MPSkipIntervalCommandEvent class]]) {
+            MPSkipIntervalCommandEvent *skipEvent = (MPSkipIntervalCommandEvent *)event;
+            [_mediaPlayer jumpBackward:skipEvent.interval];
+        } else {
+            result = MPRemoteCommandHandlerStatusCommandFailed;
+        }
+    } else if (event.command == cc.changePlaybackRateCommand) {
+        if ([event isKindOfClass:[MPChangePlaybackRateCommandEvent class]]) {
+            MPChangePlaybackRateCommandEvent *rateEvent = (MPChangePlaybackRateCommandEvent *)event;
+            [_mediaPlayer setRate:rateEvent.playbackRate];
+        } else {
+            result = MPRemoteCommandHandlerStatusCommandFailed;
+        }
+    /* stubs for when we want to support the other available commands */
+//    } else if (event.command == cc.seekForwardCommand) {
+//    } else if (event.command == cc.seekBackwardCommand) {
+//    } else if (event.command == cc.ratingCommand) {
+//    } else if (event.command == cc.likeCommand) {
+//    } else if (event.command == cc.dislikeCommand) {
+//    } else if (event.command == cc.bookmarkCommand) {
+    } else {
+        NSLog(@"%s Unsupported remote comtrol event: %@",__PRETTY_FUNCTION__,event);
+        result = MPRemoteCommandHandlerStatusCommandFailed;
+    }
+
+    if (result == MPRemoteCommandHandlerStatusCommandFailed) {
+        NSLog(@"%s Wasn't able to handle remote control event: %@",__PRETTY_FUNCTION__,event);
+    }
+
+    return result;
 }
 
 - (void)remoteControlReceivedWithEvent:(UIEvent *)event
