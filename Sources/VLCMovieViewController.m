@@ -1270,20 +1270,25 @@ typedef NS_ENUM(NSInteger, VLCPanType) {
 {
     LOCKCHECK;
 
-    if (self.mediaList)
+    if (self.mediaList) {
         [_listPlayer next];
-    else
-        [_mediaPlayer mediumJumpForward];
+    } else {
+        NSNumber *skipLength = [[NSUserDefaults standardUserDefaults] valueForKey:kVLCSettingPlaybackForwardSkipLength];
+        [_mediaPlayer jumpForward:skipLength.intValue];
+    }
 }
 
 - (IBAction)backward:(id)sender
 {
     LOCKCHECK;
 
-    if (self.mediaList)
+    if (self.mediaList) {
         [_listPlayer previous];
-    else
-        [_mediaPlayer mediumJumpBackward];
+    }
+    else {
+        NSNumber *skipLength = [[NSUserDefaults standardUserDefaults] valueForKey:kVLCSettingPlaybackBackwardSkipLength];
+        [_mediaPlayer jumpBackward:skipLength.intValue];
+    }
 }
 
 - (IBAction)switchTrack:(id)sender
@@ -2004,6 +2009,7 @@ typedef NS_ENUM(NSInteger, VLCPanType) {
         [_listPlayer pause];
 }
 
+#pragma mark - metadata
 - (void)mediaDidFinishParsing:(VLCMedia *)aMedia
 {
     [self _updateDisplayedMetadata];
