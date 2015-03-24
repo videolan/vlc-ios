@@ -1173,6 +1173,11 @@ typedef NS_ENUM(NSInteger, VLCPanType) {
 
     self.scrubIndicatorView.hidden = YES;
     _isScrubbing = NO;
+
+    /* Since the media player doesn't send play notifications after scrubbing
+     * this is the best place to update the displayed metadata.
+     * We wait for a moment so the media player time is correct. */
+    [self performSelector:@selector(_updateDisplayedMetadata) withObject:nil afterDelay:0.5];
 }
 
 - (void)_updateScrubLabel
@@ -1222,8 +1227,6 @@ typedef NS_ENUM(NSInteger, VLCPanType) {
     if (currentState == VLCMediaPlayerStateBuffering) {
         /* attach delegate */
         _mediaPlayer.media.delegate = self;
-        /* let's update meta data */
-        [self _updateDisplayedMetadata];
 
         /* on-the-fly values through private API */
         [_mediaPlayer performSelector:@selector(setTextRendererFont:) withObject:[self _resolveFontName]];
@@ -1262,6 +1265,9 @@ typedef NS_ENUM(NSInteger, VLCPanType) {
         _multiSelectionView.mediaHasChapters = YES;
     else
         _multiSelectionView.mediaHasChapters = NO;
+
+    /* let's update meta data */
+    [self _updateDisplayedMetadata];
 }
 
 - (IBAction)playPause
@@ -2123,21 +2129,32 @@ typedef NS_ENUM(NSInteger, VLCPanType) {
     self.videoFilterButton.hidden = mediaIsAudioOnly;
 
     /* don't leak sensitive information to the OS, if passcode lock is enabled */
-    BOOL passcodeLockEnabled = [[[NSUserDefaults standardUserDefaults] objectForKey:kVLCSettingPasscodeOnKey] boolValue];
+    BOOL passcodeLockDisabled = ![[[NSUserDefaults standardUserDefaults] objectForKey:kVLCSettingPasscodeOnKey] boolValue];
 
-    NSMutableDictionary *currentlyPlayingTrackInfo;
-    if (passcodeLockEnabled)
-        currentlyPlayingTrackInfo = [NSMutableDictionary dictionaryWithObjectsAndKeys:@(_mediaPlayer.media.length.intValue / 1000.), MPMediaItemPropertyPlaybackDuration, @(_mediaPlayer.time.intValue / 1000.), MPNowPlayingInfoPropertyElapsedPlaybackTime, @(_mediaPlayer.rate), MPNowPlayingInfoPropertyPlaybackRate, nil];
-    else {
-        currentlyPlayingTrackInfo = [NSMutableDictionary dictionaryWithObjectsAndKeys: title, MPMediaItemPropertyTitle, @(_mediaPlayer.media.length.intValue / 1000.), MPMediaItemPropertyPlaybackDuration, @(_mediaPlayer.time.intValue / 1000.), MPNowPlayingInfoPropertyElapsedPlaybackTime, @(_mediaPlayer.rate), MPNowPlayingInfoPropertyPlaybackRate, nil];
-        if (artist.length > 0)
-            [currentlyPlayingTrackInfo setObject:artist forKey:MPMediaItemPropertyArtist];
-        if (albumName.length > 0)
-            [currentlyPlayingTrackInfo setObject:albumName forKey:MPMediaItemPropertyAlbumTitle];
-        [currentlyPlayingTrackInfo setObject:[NSNumber numberWithInt:[trackNumber intValue]] forKey:MPMediaItemPropertyAlbumTrackNumber];
+    BOOL isPlaying = _mediaPlayer.isPlaying;
+
+    NSMutableDictionary *currentlyPlayingTrackInfo = [NSMutableDictionary dictionary];
+    currentlyPlayingTrackInfo[MPMediaItemPropertyPlaybackDuration] = @(_mediaPlayer.media.length.intValue / 1000.);
+    currentlyPlayingTrackInfo[MPNowPlayingInfoPropertyElapsedPlaybackTime] =  @(_mediaPlayer.time.intValue / 1000.);
+    currentlyPlayingTrackInfo[MPNowPlayingInfoPropertyPlaybackRate] = @(isPlaying ? _mediaPlayer.rate : 0.0);
+
+    if (passcodeLockDisabled) {
+        if (title) {
+            currentlyPlayingTrackInfo[MPMediaItemPropertyTitle] = title;
+        }
+        if (artist.length > 0) {
+            currentlyPlayingTrackInfo[MPMediaItemPropertyArtist] = artist;
+        }
+        if (albumName.length > 0) {
+            currentlyPlayingTrackInfo[MPMediaItemPropertyAlbumTitle] = albumName;
+        }
+        int trackNumberInt = [trackNumber intValue];
+        if (trackNumberInt > 0) {
+            currentlyPlayingTrackInfo[MPMediaItemPropertyAlbumTrackNumber] = @(trackNumberInt);
+        }
         if (self.artworkImageView.image) {
             MPMediaItemArtwork *mpartwork = [[MPMediaItemArtwork alloc] initWithImage:self.artworkImageView.image];
-            [currentlyPlayingTrackInfo setObject:mpartwork forKey:MPMediaItemPropertyArtwork];
+            currentlyPlayingTrackInfo[MPMediaItemPropertyArtwork] = mpartwork;
         }
     }
 
