@@ -48,6 +48,10 @@
 #define kVLCSettingWiFiSharingIPv6DefaultValue @(NO)
 #define kVLCSettingEqualizerProfile @"EqualizerProfile"
 #define kVLCSettingEqualizerProfileDefaultValue @(0)
+#define kVLCSettingPlaybackForwardSkipLength @"playback-forward-skip-length"
+#define kVLCSettingPlaybackForwardSkipLengthDefaultValue @(60)
+#define kVLCSettingPlaybackBackwardSkipLength @"playback-forward-skip-length"
+#define kVLCSettingPlaybackBackwardSkipLengthDefaultValue @(60)
 
 #define kVLCShowRemainingTime @"show-remaining-time"
 #define kVLCRecentURLs @"recent-urls"
