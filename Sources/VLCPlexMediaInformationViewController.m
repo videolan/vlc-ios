@@ -48,6 +48,7 @@
     [self.view setBackgroundColor:[UIColor VLCDarkBackgroundColor]];
     [self.summary setBackgroundColor:[UIColor VLCDarkBackgroundColor]];
     self.automaticallyAdjustsScrollViewInsets = NO;
+    self.navigationController.navigationBar.translucent = NO;
 
     NSString *title = [[_mutableMediaInformation objectAtIndex:0] objectForKey:@"title"];
     NSString *thumbPath = [[_mutableMediaInformation objectAtIndex:0] objectForKey:@"thumb"];
