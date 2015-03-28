@@ -55,6 +55,8 @@
     self.portField.keyboardType = UIKeyboardTypeNumbersAndPunctuation;
 
     self.serverPlexBookmark.backgroundColor = [UIColor VLCDarkBackgroundColor];
+    self.serverPlexBookmark.showsVerticalScrollIndicator = YES;
+    self.serverPlexBookmark.indicatorStyle = UIScrollViewIndicatorStyleWhite;
 
     if (SYSTEM_RUNS_IOS7_OR_LATER) {
         UIColor *color = [UIColor VLCLightTextColor];
@@ -69,6 +71,10 @@
     _activityIndicator.autoresizingMask = UIViewAutoresizingFlexibleBottomMargin | UIViewAutoresizingFlexibleLeftMargin | UIViewAutoresizingFlexibleRightMargin | UIViewAutoresizingFlexibleTopMargin;
     _activityIndicator.hidesWhenStopped = YES;
     [self.view addSubview:_activityIndicator];
+
+    self.scrollView.contentSize = self.view.frame.size;
+    [self.scrollView setBackgroundColor:[UIColor VLCDarkBackgroundColor]];
+    [self.scrollView setAutoresizingMask:UIViewAutoresizingFlexibleWidth | UIViewAutoresizingFlexibleHeight];
 }
 
 - (void)viewWillAppear:(BOOL)animated

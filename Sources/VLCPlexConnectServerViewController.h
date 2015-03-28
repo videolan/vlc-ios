@@ -14,6 +14,7 @@
 
 @interface VLCPlexConnectServerViewController : UIViewController
 
+@property (nonatomic, strong) IBOutlet UIScrollView *scrollView;
 @property (nonatomic, strong) IBOutlet UITextField *serverAddressField;
 @property (nonatomic, strong) IBOutlet UIButton *connectButton;
 @property (nonatomic, strong) IBOutlet UITextField *portField;
