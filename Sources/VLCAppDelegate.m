@@ -118,6 +118,7 @@
     };
 
     NSError *error = nil;
+    [self pathMigrationToGroupsIfNeeded:&error];
     if ([self migrationNeeded:&error]){
         _isRunningMigration = YES;
 
@@ -142,6 +143,26 @@
         setupBlock();
     }
     return YES;
+}
+
+- (void)pathMigrationToGroupsIfNeeded:(NSError **)migrationError
+{
+    MLMediaLibrary *mediaLibrary = [MLMediaLibrary sharedMediaLibrary];
+    NSURL *groupURL = [[NSFileManager defaultManager] containerURLForSecurityApplicationGroupIdentifier:@"group.org.videolan.vlc-ios"];
+
+    NSString *oldBasePath = [mediaLibrary libraryBasePath];
+    NSString *oldPersistentStorePath = [oldBasePath stringByAppendingPathComponent: @"MediaLibrary.sqlite"];
+
+    NSError *error = nil;
+    if (![[NSFileManager defaultManager] fileExistsAtPath:oldPersistentStorePath]) {
+        mediaLibrary.libraryBasePath = groupURL.path;
+    } else if (![mediaLibrary migrateLibraryToBasePath:groupURL.path error:&error]) {
+        NSLog(@"Failed to migrate Library to new location with error: %@", error);
+    }
+
+    if (migrationError && error) {
+        *migrationError = error;
+    }
 }
 
 - (BOOL)migrationNeeded:(NSError **) migrationCheckError {
