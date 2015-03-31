@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
-<document type="com.apple.InterfaceBuilder.WatchKit.Storyboard" version="3.0" toolsVersion="6751" systemVersion="14C1510" targetRuntime="watchKit" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" initialViewController="AgC-eL-Hgc">
+<document type="com.apple.InterfaceBuilder.WatchKit.Storyboard" version="3.0" toolsVersion="6751" systemVersion="14C1514" targetRuntime="watchKit" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" initialViewController="AgC-eL-Hgc">
     <dependencies>
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="6736"/>
         <plugIn identifier="com.apple.InterfaceBuilder.IBWatchKitPlugin" version="3737"/>
@@ -12,20 +12,28 @@
                     <items>
                         <table alignment="left" id="lC4-Vd-sgP">
                             <items>
-                                <tableRow id="QhF-se-FCS">
-                                    <group key="rootItem" width="1" alignment="left" id="IQK-uE-8Jr">
+                                <tableRow identifier="mediaRow" id="QhF-se-FCS" customClass="VLCRowController">
+                                    <group key="rootItem" width="1" height="0.0" alignment="left" contentMode="scaleAspectFill" layout="vertical" id="IQK-uE-8Jr">
                                         <items>
-                                            <imageView width="40" height="40" alignment="left" id="ceP-Nx-lBC"/>
-                                            <label alignment="left" text="Label" id="bUB-PE-2P0"/>
+                                            <label alignment="left" text="title" numberOfLines="0" minimumScaleFactor="0.90000000000000002" id="bUB-PE-2P0"/>
+                                            <label alignment="left" text="duration" id="mQo-qf-FiK"/>
                                         </items>
                                     </group>
+                                    <connections>
+                                        <outlet property="durationLabel" destination="mQo-qf-FiK" id="eSs-eG-afe"/>
+                                        <outlet property="group" destination="IQK-uE-8Jr" id="AMK-in-WKm"/>
+                                        <outlet property="titleLabel" destination="bUB-PE-2P0" id="U07-pL-M8k"/>
+                                    </connections>
                                 </tableRow>
                             </items>
                         </table>
                     </items>
+                    <connections>
+                        <outlet property="table" destination="lC4-Vd-sgP" id="mxe-b7-XMx"/>
+                    </connections>
                 </controller>
             </objects>
-            <point key="canvasLocation" x="250" y="208.5"/>
+            <point key="canvasLocation" x="250" y="208"/>
         </scene>
     </scenes>
 </document>
