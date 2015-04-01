@@ -15,6 +15,7 @@
  * Refer to the COPYING file of the official project for license.
  *****************************************************************************/
 
+#import <notify.h>
 #import "VLCAppDelegate.h"
 #import "VLCMediaFileDiscoverer.h"
 #import "NSString+SupportedMedia.h"
@@ -142,6 +143,9 @@
         }
         setupBlock();
     }
+
+    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(notifiyWatchForDBUpdate) name:NSManagedObjectContextDidSaveNotification object:nil];
+
     return YES;
 }
 
@@ -556,6 +560,15 @@
     UINavigationController *navCon = [[VLCPlaybackNavigationController alloc] initWithRootViewController:_movieViewController];
     navCon.modalPresentationStyle = UIModalPresentationFullScreen;
     [self.window.rootViewController presentViewController:navCon animated:YES completion:nil];
+}
+
+#pragma mark - watch struff
+- (void)notifiyWatchForDBUpdate
+{
+    notify_post("org.videolan.ios-app.dbupdate");
+}
+- (void)application:(UIApplication *)application handleWatchKitExtensionRequest:(NSDictionary *)userInfo reply:(void (^)(NSDictionary *))reply {
+
 }
 
 @end

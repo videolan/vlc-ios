@@ -10,6 +10,7 @@
 #import <MediaLibraryKit/MediaLibraryKit.h>
 #import "VLCRowController.h"
 #import <MobileVLCKit/VLCTime.h>
+#import "VLCDBChangeNotifier.h"
 
 static NSString *const rowType = @"mediaRow";
 
@@ -28,28 +29,40 @@ static NSString *const rowType = @"mediaRow";
 
     MLMediaLibrary *mediaLibrary = [MLMediaLibrary sharedMediaLibrary];
     mediaLibrary.libraryBasePath = groupURL.path;
+    mediaLibrary.additionalPersitentStoreOptions = @{NSReadOnlyPersistentStoreOption : @YES};
 
     self.title = NSLocalizedString(@"LIBRARY_MUSIC", nil);
-
-
-    self.mediaObjects = [self mediaArray];
-
-    [self.table setNumberOfRows:self.mediaObjects.count withRowType:rowType];
-    [self configureTable:self.table withObjects:self.mediaObjects];
-
+    [[VLCDBChangeNotifier sharedNotifier] addObserver:self block:^{
+        [self updateData];
+    }];
+    [self updateData];
 }
 
 - (void)willActivate {
     // This method is called when watch view controller is about to be visible to user
     [super willActivate];
     NSLog(@"%s",__PRETTY_FUNCTION__);
-
+    [[VLCDBChangeNotifier sharedNotifier] addObserver:self block:^{
+        [self updateData];
+    }];
 }
 
 - (void)didDeactivate {
     // This method is called when watch view controller is no longer visible
     [super didDeactivate];
     NSLog(@"%s",__PRETTY_FUNCTION__);
+
+    [[VLCDBChangeNotifier sharedNotifier] removeObserver:self];
+}
+
+- (void)updateData {
+    self.mediaObjects = [self mediaArray];
+    NSUInteger newCount = self.mediaObjects.count;
+    if (newCount < self.table.numberOfRows) {
+        [self.table removeRowsAtIndexes:[[NSIndexSet alloc] initWithIndexesInRange:NSMakeRange(newCount, self.table.numberOfRows-newCount)]];
+    }
+    [self.table setNumberOfRows:self.mediaObjects.count withRowType:rowType];
+    [self configureTable:self.table withObjects:self.mediaObjects];
 }
 
 - (void)configureTable:(WKInterfaceTable *)table withObjects:(NSArray *)objects {
