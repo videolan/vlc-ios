@@ -540,6 +540,7 @@
 		DD02C3071ACAEC690026EFEE /* libbz2.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = CC1BBC4D170493A300A20CBF /* libbz2.dylib */; };
 		DD02C30B1ACAF0370026EFEE /* libstdc++.6.0.9.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = DD02C30A1ACAF0370026EFEE /* libstdc++.6.0.9.dylib */; };
 		DD02C30E1ACAF4A50026EFEE /* VLCRowController.m in Sources */ = {isa = PBXBuildFile; fileRef = DD02C30D1ACAF4A50026EFEE /* VLCRowController.m */; };
+		DDCA94791ACC12630044449A /* VLCDBChangeNotifier.m in Sources */ = {isa = PBXBuildFile; fileRef = DDCA94781ACC12630044449A /* VLCDBChangeNotifier.m */; };
 		DDF157B11ACB162700AAFBC6 /* MediaLibrary.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = 7D594CBC1A969E33004BFB17 /* MediaLibrary.xcdatamodeld */; };
 		DDF157B21ACB169600AAFBC6 /* CoreData.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = CC1BBC57170493E100A20CBF /* CoreData.framework */; };
 		DDF157B41ACB169B00AAFBC6 /* WatchKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = DDF157B31ACB169B00AAFBC6 /* WatchKit.framework */; };
@@ -1572,6 +1573,8 @@
 		DD02C30A1ACAF0370026EFEE /* libstdc++.6.0.9.dylib */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.dylib"; name = "libstdc++.6.0.9.dylib"; path = "usr/lib/libstdc++.6.0.9.dylib"; sourceTree = SDKROOT; };
 		DD02C30C1ACAF4A50026EFEE /* VLCRowController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = VLCRowController.h; sourceTree = "<group>"; };
 		DD02C30D1ACAF4A50026EFEE /* VLCRowController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = VLCRowController.m; sourceTree = "<group>"; };
+		DDCA94771ACC12630044449A /* VLCDBChangeNotifier.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = VLCDBChangeNotifier.h; sourceTree = "<group>"; };
+		DDCA94781ACC12630044449A /* VLCDBChangeNotifier.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = VLCDBChangeNotifier.m; sourceTree = "<group>"; };
 		DDF157B31ACB169B00AAFBC6 /* WatchKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = WatchKit.framework; path = System/Library/Frameworks/WatchKit.framework; sourceTree = SDKROOT; };
 		E09EACF57CDD22ABAE66CDD0 /* Pods-vlc-ios.distribution.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-vlc-ios.distribution.xcconfig"; path = "Pods/Target Support Files/Pods-vlc-ios/Pods-vlc-ios.distribution.xcconfig"; sourceTree = "<group>"; };
 		E0C04F931A25B4410080331A /* VLCDocumentPickerController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = VLCDocumentPickerController.h; path = Sources/VLCDocumentPickerController.h; sourceTree = SOURCE_ROOT; };
@@ -1783,6 +1786,8 @@
 			isa = PBXGroup;
 			children = (
 				DD02C2FC1ACACF400026EFEE /* VLC for iOS WatchKit Extension.entitlements */,
+				DDCA94771ACC12630044449A /* VLCDBChangeNotifier.h */,
+				DDCA94781ACC12630044449A /* VLCDBChangeNotifier.m */,
 				4173AEA41ABF1B850004101D /* InterfaceController.h */,
 				4173AEA51ABF1B850004101D /* InterfaceController.m */,
 				DD02C30C1ACAF4A50026EFEE /* VLCRowController.h */,
@@ -3543,6 +3548,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				DDF157B11ACB162700AAFBC6 /* MediaLibrary.xcdatamodeld in Sources */,
+				DDCA94791ACC12630044449A /* VLCDBChangeNotifier.m in Sources */,
 				DD02C30E1ACAF4A50026EFEE /* VLCRowController.m in Sources */,
 				4173AEA61ABF1B850004101D /* InterfaceController.m in Sources */,
 			);
