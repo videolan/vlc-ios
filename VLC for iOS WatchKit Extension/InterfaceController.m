@@ -56,22 +56,33 @@ static NSString *const rowType = @"mediaRow";
 }
 
 - (void)updateData {
-    self.mediaObjects = [self mediaArray];
-    NSUInteger newCount = self.mediaObjects.count;
-    if (newCount < self.table.numberOfRows) {
-        [self.table removeRowsAtIndexes:[[NSIndexSet alloc] initWithIndexesInRange:NSMakeRange(newCount, self.table.numberOfRows-newCount)]];
-    }
-    [self.table setNumberOfRows:self.mediaObjects.count withRowType:rowType];
-    [self configureTable:self.table withObjects:self.mediaObjects];
+    NSArray *oldObjects = self.mediaObjects;
+    NSSet *oldSet = [[NSSet alloc] initWithArray:oldObjects];
+    NSMutableArray *newObjects = [self mediaArray];
+    NSMutableSet *newSet = [[NSMutableSet alloc] initWithArray:newObjects];
+
+    WKInterfaceTable *table = self.table;
+
+    [oldObjects enumerateObjectsUsingBlock:^(id obj, NSUInteger idx, BOOL *stop) {
+        if (![newSet containsObject:obj]) {
+            [table removeRowsAtIndexes:[NSIndexSet indexSetWithIndex:idx]];
+        }
+    }];
+    [newObjects enumerateObjectsUsingBlock:^(id obj, NSUInteger idx, BOOL *stop) {
+        if (![oldSet containsObject:obj]) {
+            [table insertRowsAtIndexes:[NSIndexSet indexSetWithIndex:idx] withRowType:rowType];
+        }
+        [self configureTableCellAtIndex:idx withObject:obj];
+    }];
+
+    self.mediaObjects = newObjects;
 }
 
-- (void)configureTable:(WKInterfaceTable *)table withObjects:(NSArray *)objects {
-    [objects enumerateObjectsUsingBlock:^(MLFile *obj, NSUInteger idx, BOOL *stop) {
-        VLCRowController *row = [table rowControllerAtIndex:idx];
-        row.titleLabel.text = obj.title;
-        row.durationLabel.text = [VLCTime timeWithNumber:obj.duration].stringValue,
-        [row.group setBackgroundImage:obj.computedThumbnail];
-    }];
+- (void)configureTableCellAtIndex:(NSUInteger)index withObject:(MLFile *)object {
+    VLCRowController *row = [self.table rowControllerAtIndex:index];
+    row.titleLabel.text = object.title;
+    row.durationLabel.text = [VLCTime timeWithNumber:object.duration].stringValue,
+    [row.group setBackgroundImage:object.computedThumbnail];
 }
 
 
