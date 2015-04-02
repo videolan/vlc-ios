@@ -10,9 +10,12 @@
 #import <MediaLibraryKit/MediaLibraryKit.h>
 #import "VLCRowController.h"
 #import <MobileVLCKit/VLCTime.h>
-#import "VLCDBChangeNotifier.h"
+
+#import "VLCNotificationRelay.h"
 
 static NSString *const rowType = @"mediaRow";
+static NSString *const VLCDBUpdateNotification = @"VLCUpdateDataBase";
+static NSString *const VLCDBUpdateNotificationRemote = @"org.videolan.ios-app.dbupdate";
 
 @interface InterfaceController()
 @property (nonatomic, strong) NSMutableArray *mediaObjects;
@@ -32,19 +35,20 @@ static NSString *const rowType = @"mediaRow";
     mediaLibrary.additionalPersitentStoreOptions = @{NSReadOnlyPersistentStoreOption : @YES};
 
     self.title = NSLocalizedString(@"LIBRARY_MUSIC", nil);
-    [[VLCDBChangeNotifier sharedNotifier] addObserver:self block:^{
-        [self updateData];
-    }];
+    [[VLCNotificationRelay sharedRelay] addRelayRemoteName:VLCDBUpdateNotificationRemote toLocalName:VLCDBUpdateNotification];
+    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(updateData) name:VLCDBUpdateNotification object:nil];
+
     [self updateData];
+
+    [self addMenuItemWithItemIcon:WKMenuItemIconMore title:@"currently playing" action:@selector(showNowPlaying:)];
 }
 
 - (void)willActivate {
     // This method is called when watch view controller is about to be visible to user
     [super willActivate];
     NSLog(@"%s",__PRETTY_FUNCTION__);
-    [[VLCDBChangeNotifier sharedNotifier] addObserver:self block:^{
-        [self updateData];
-    }];
+
+    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(updateData) name:VLCDBUpdateNotification object:nil];
 }
 
 - (void)didDeactivate {
@@ -52,8 +56,15 @@ static NSString *const rowType = @"mediaRow";
     [super didDeactivate];
     NSLog(@"%s",__PRETTY_FUNCTION__);
 
-    [[VLCDBChangeNotifier sharedNotifier] removeObserver:self];
+    [[NSNotificationCenter defaultCenter] removeObserver:self name:VLCDBUpdateNotification object:nil];
 }
+
+
+- (void)showNowPlaying:(id)sender {
+    [self presentControllerWithName:@"nowPlaying" context:nil];
+}
+
+#pragma mark - data handling
 
 - (void)updateData {
     NSArray *oldObjects = self.mediaObjects;

@@ -15,7 +15,6 @@
  * Refer to the COPYING file of the official project for license.
  *****************************************************************************/
 
-#import <notify.h>
 #import "VLCAppDelegate.h"
 #import "VLCMediaFileDiscoverer.h"
 #import "NSString+SupportedMedia.h"
@@ -32,6 +31,7 @@
 #import "BWQuincyManager.h"
 #import "VLCAlertView.h"
 #import <BoxSDK/BoxSDK.h>
+#import "VLCNotificationRelay.h"
 
 @interface VLCAppDelegate () <PAPasscodeViewControllerDelegate, VLCMediaFileDiscovererDelegate, BWQuincyManagerDelegate> {
     PAPasscodeViewController *_passcodeLockController;
@@ -144,7 +144,9 @@
         setupBlock();
     }
 
-    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(notifiyWatchForDBUpdate) name:NSManagedObjectContextDidSaveNotification object:nil];
+    [[VLCNotificationRelay sharedRelay] addRelayLocalName:NSManagedObjectContextDidSaveNotification toRemoteName:@"org.videolan.ios-app.dbupdate"];
+
+    [[VLCNotificationRelay sharedRelay] addRelayLocalName:NSManagedObjectContextDidSaveNotification toRemoteName:@"org.videolan.ios-app.nowPlayingInfoUpdate"];
 
     return YES;
 }
@@ -563,12 +565,20 @@
 }
 
 #pragma mark - watch struff
-- (void)notifiyWatchForDBUpdate
-{
-    notify_post("org.videolan.ios-app.dbupdate");
-}
 - (void)application:(UIApplication *)application handleWatchKitExtensionRequest:(NSDictionary *)userInfo reply:(void (^)(NSDictionary *))reply {
-
+    NSDictionary *reponseDict = nil;
+    if ([userInfo[@"name"] isEqualToString:@"getNowPlayingInfo"]) {
+        reponseDict = [MPNowPlayingInfoCenter defaultCenter].nowPlayingInfo;
+    } else if ([userInfo[@"name"] isEqualToString:@"playpause"]) {
+        [_movieViewController playPause];
+    } else if ([userInfo[@"name"] isEqualToString:@"skipForward"]) {
+        [_movieViewController forward:nil];
+    } else if ([userInfo[@"name"] isEqualToString:@"skipBackward"]) {
+        [_movieViewController backward:nil];
+    }
+    else {
+        NSLog(@"Did not handle request from WatchKit Extension: %@",userInfo);
+    }
+    reply(reponseDict);
 }
-
 @end

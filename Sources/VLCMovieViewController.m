@@ -2311,6 +2311,7 @@ static inline NSArray * RemoteCommandCenterCommandsToHandle(MPRemoteCommandCente
     }
 
     [MPNowPlayingInfoCenter defaultCenter].nowPlayingInfo = currentlyPlayingTrackInfo;
+    [[NSNotificationCenter defaultCenter] postNotificationName:@"nowPlayingInfoUpdate" object:self];
 }
 
 #pragma mark - autorotation
