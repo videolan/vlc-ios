@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
-<document type="com.apple.InterfaceBuilder.WatchKit.Storyboard" version="3.0" toolsVersion="6751" systemVersion="14C1514" targetRuntime="watchKit" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" initialViewController="AgC-eL-Hgc">
+<document type="com.apple.InterfaceBuilder.WatchKit.Storyboard" version="3.0" toolsVersion="7528.3" systemVersion="14C1514" targetRuntime="watchKit" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" initialViewController="AgC-eL-Hgc">
     <dependencies>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="6736"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="7518.3"/>
         <plugIn identifier="com.apple.InterfaceBuilder.IBWatchKitPlugin" version="3737"/>
     </dependencies>
     <scenes>
@@ -33,7 +33,43 @@
                     </connections>
                 </controller>
             </objects>
-            <point key="canvasLocation" x="250" y="208"/>
+            <point key="canvasLocation" x="221" y="216"/>
+        </scene>
+        <!--nowPlaying-->
+        <scene sceneID="NHj-Mq-ifc">
+            <objects>
+                <controller identifier="nowPlaying" id="Mzo-Y8-gdK" customClass="VLCNowPlayingInterfaceController">
+                    <items>
+                        <label alignment="left" text="title" textAlignment="left" numberOfLines="0" id="H58-Y8-Tbc"/>
+                        <label alignment="left" text="duration" id="D0h-cq-wsv"/>
+                        <button width="1" alignment="left" title="playpause" id="BAZ-aC-ETt">
+                            <connections>
+                                <action selector="playPausePressed" destination="Mzo-Y8-gdK" id="6p8-JZ-0Gh"/>
+                            </connections>
+                        </button>
+                        <group width="1" alignment="left" id="uwS-0S-Ag2">
+                            <items>
+                                <button width="0.5" alignment="left" title="&lt;&lt;" id="uKa-8V-C8x">
+                                    <connections>
+                                        <action selector="skipBackward" destination="Mzo-Y8-gdK" id="aP1-vb-XwF"/>
+                                    </connections>
+                                </button>
+                                <button width="0.5" alignment="left" title="&gt;&gt;" id="w8s-Mc-7oV">
+                                    <connections>
+                                        <action selector="skipForward" destination="Mzo-Y8-gdK" id="1kf-Nh-kjr"/>
+                                    </connections>
+                                </button>
+                            </items>
+                        </group>
+                    </items>
+                    <connections>
+                        <outlet property="durationLabel" destination="D0h-cq-wsv" id="3AN-YZ-yEj"/>
+                        <outlet property="playPauseButton" destination="BAZ-aC-ETt" id="X17-bz-cFy"/>
+                        <outlet property="titleLabel" destination="H58-Y8-Tbc" id="xZs-ZW-Shj"/>
+                    </connections>
+                </controller>
+            </objects>
+            <point key="canvasLocation" x="221" y="605"/>
         </scene>
     </scenes>
 </document>
