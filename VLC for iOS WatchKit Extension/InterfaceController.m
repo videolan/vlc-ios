@@ -1,10 +1,15 @@
-//
-//  InterfaceController.m
-//  VLC for iOS WatchKit Extension
-//
-//  Created by Carola Nitz on 22/03/15.
-//  Copyright (c) 2015 VideoLAN. All rights reserved.
-//
+/*****************************************************************************
+ * InterfaceController.m
+ * VLC for iOS
+ *****************************************************************************
+ * Copyright (c) 2015 VideoLAN. All rights reserved.
+ * $Id$
+ *
+ * Authors: Tobias Conradi <videolan # tobias-conradi.de>
+ *          Carola Nitz <caro # videolan.org>
+ *
+ * Refer to the COPYING file of the official project for license.
+ *****************************************************************************/
 
 #import "InterfaceController.h"
 #import <MediaLibraryKit/MediaLibraryKit.h>
