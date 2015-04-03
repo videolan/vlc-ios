@@ -1,10 +1,14 @@
-//
-//  VLCDetailInterfaceController.m
-//  VLC for iOS
-//
-//  Created by Tobias Conradi on 03.04.15.
-//  Copyright (c) 2015 VideoLAN. All rights reserved.
-//
+/*****************************************************************************
+ * VLCDetailInterfaceController.m
+ * VLC for iOS
+ *****************************************************************************
+ * Copyright (c) 2015 VideoLAN. All rights reserved.
+ * $Id$
+ *
+ * Authors: Tobias Conradi <videolan # tobias-conradi.de>
+ *
+ * Refer to the COPYING file of the official project for license.
+ *****************************************************************************/
 
 #import "VLCDetailInterfaceController.h"
 #import <MediaLibraryKit/MediaLibraryKit.h>

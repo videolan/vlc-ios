@@ -1,10 +1,14 @@
-//
-//  VLCBaseInterfaceController.h
-//  
-//
-//  Created by Tobias Conradi on 03.04.15.
-//
-//
+/*****************************************************************************
+ * VLCBaseInterfaceController.h
+ * VLC for iOS
+ *****************************************************************************
+ * Copyright (c) 2015 VideoLAN. All rights reserved.
+ * $Id$
+ *
+ * Author: Tobias Conradi <videolan # tobias-conradi.de>
+ *
+ * Refer to the COPYING file of the official project for license.
+ *****************************************************************************/
 
 #import <WatchKit/WatchKit.h>
 
