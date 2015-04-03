@@ -9,6 +9,8 @@
 #import <WatchKit/WatchKit.h>
 #import <Foundation/Foundation.h>
 
-@interface InterfaceController : WKInterfaceController
+#import "VLCBaseInterfaceController.h"
+
+@interface InterfaceController : VLCBaseInterfaceController
 @property (nonatomic, weak) IBOutlet WKInterfaceTable *table;
 @end

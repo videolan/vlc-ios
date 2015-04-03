@@ -1,0 +1,66 @@
+//
+//  VLCDetailInterfaceController.m
+//  VLC for iOS
+//
+//  Created by Tobias Conradi on 03.04.15.
+//  Copyright (c) 2015 VideoLAN. All rights reserved.
+//
+
+#import "VLCDetailInterfaceController.h"
+#import <MediaLibraryKit/MediaLibraryKit.h>
+#import <MobileVLCKit/MobileVLCKit.h>
+
+
+@interface VLCDetailInterfaceController ()
+@property (nonatomic, weak) MLFile *file;
+@end
+
+@implementation VLCDetailInterfaceController
+
+- (void)awakeWithContext:(id)context {
+    [super awakeWithContext:context];
+
+    if ([context isKindOfClass:[MLFile class]]) {
+        [self configureWithFile:context];
+    }
+}
+
+- (void)willActivate {
+    // This method is called when watch view controller is about to be visible to user
+    [super willActivate];
+}
+
+- (void)didDeactivate {
+    // This method is called when watch view controller is no longer visible
+    [super didDeactivate];
+}
+
+- (void)configureWithFile:(MLFile *)file {
+    self.file = file;
+
+    [self.titleLabel setText:file.title];
+    self.durationLabel.text = [VLCTime timeWithNumber:file.duration].stringValue;
+    BOOL playEnabled = file != nil;
+    self.playNowButton.enabled = playEnabled;
+    UIImage *thumbnail = file.computedThumbnail;
+    self.imageView.hidden = thumbnail == nil;
+    if (thumbnail) {
+        self.imageView.image = thumbnail;
+    }
+
+}
+
+- (IBAction)playNow {
+    NSDictionary *dict = @{@"name":@"playFile",
+                           @"userInfo":@{
+                                   @"URIRepresentation": self.file.objectID.URIRepresentation.absoluteString,
+                                   }
+                           };
+    [WKInterfaceController openParentApplication:dict reply:^(NSDictionary *replyInfo, NSError *error) {
+        [self showNowPlaying:nil];
+    }];
+}
+@end
+
+
+

@@ -35,26 +35,51 @@
             </objects>
             <point key="canvasLocation" x="221" y="216"/>
         </scene>
-        <!--nowPlaying-->
+        <!--Detail-->
+        <scene sceneID="ssu-GA-ce6">
+            <objects>
+                <controller identifier="detailInfo" title="Detail" id="iqo-j9-nlr" customClass="VLCDetailInterfaceController">
+                    <items>
+                        <imageView alignment="left" contentMode="scaleAspectFit" id="TPb-N9-Qms"/>
+                        <label alignment="left" text="title" textAlignment="left" numberOfLines="0" id="0av-IS-YI5"/>
+                        <label alignment="left" text="duration" id="eqY-Zs-PAu"/>
+                        <label alignment="left" hidden="YES" text="???" id="l0f-Nd-PHT"/>
+                        <button width="1" alignment="left" title="Play Now" enabled="NO" id="4LT-2D-Zeq">
+                            <connections>
+                                <action selector="playNow" destination="iqo-j9-nlr" id="y9K-R2-er7"/>
+                            </connections>
+                        </button>
+                    </items>
+                    <connections>
+                        <outlet property="durationLabel" destination="eqY-Zs-PAu" id="ttj-gB-C2S"/>
+                        <outlet property="imageView" destination="TPb-N9-Qms" id="epU-Re-hBk"/>
+                        <outlet property="playNowButton" destination="4LT-2D-Zeq" id="d2T-jc-gAb"/>
+                        <outlet property="titleLabel" destination="0av-IS-YI5" id="vEh-KH-Vt5"/>
+                    </connections>
+                </controller>
+            </objects>
+            <point key="canvasLocation" x="497" y="222"/>
+        </scene>
+        <!--Playing-->
         <scene sceneID="NHj-Mq-ifc">
             <objects>
-                <controller identifier="nowPlaying" id="Mzo-Y8-gdK" customClass="VLCNowPlayingInterfaceController">
+                <controller identifier="nowPlaying" title="Playing" id="Mzo-Y8-gdK" customClass="VLCNowPlayingInterfaceController">
                     <items>
-                        <label alignment="left" text="title" textAlignment="left" numberOfLines="0" id="H58-Y8-Tbc"/>
-                        <label alignment="left" text="duration" id="D0h-cq-wsv"/>
-                        <button width="1" alignment="left" title="playpause" id="BAZ-aC-ETt">
+                        <label alignment="left" accessibilityLabel="title" text="title" textAlignment="left" numberOfLines="0" id="H58-Y8-Tbc"/>
+                        <label alignment="left" accessibilityLabel="playback duration" text="duration" id="D0h-cq-wsv"/>
+                        <button width="1" alignment="left" accessibilityLabel="play / pause" accessibilityHint="starts playing or pauses the current playback" title="playpause" id="BAZ-aC-ETt">
                             <connections>
                                 <action selector="playPausePressed" destination="Mzo-Y8-gdK" id="6p8-JZ-0Gh"/>
                             </connections>
                         </button>
                         <group width="1" alignment="left" id="uwS-0S-Ag2">
                             <items>
-                                <button width="0.5" alignment="left" title="&lt;&lt;" id="uKa-8V-C8x">
+                                <button width="0.5" alignment="left" accessibilityLabel="backward" title="&lt;&lt;" id="uKa-8V-C8x">
                                     <connections>
                                         <action selector="skipBackward" destination="Mzo-Y8-gdK" id="aP1-vb-XwF"/>
                                     </connections>
                                 </button>
-                                <button width="0.5" alignment="left" title="&gt;&gt;" id="w8s-Mc-7oV">
+                                <button width="0.5" alignment="left" accessibilityLabel="forward" title="&gt;&gt;" id="w8s-Mc-7oV">
                                     <connections>
                                         <action selector="skipForward" destination="Mzo-Y8-gdK" id="1kf-Nh-kjr"/>
                                     </connections>

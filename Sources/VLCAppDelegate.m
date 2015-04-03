@@ -146,7 +146,7 @@
 
     [[VLCNotificationRelay sharedRelay] addRelayLocalName:NSManagedObjectContextDidSaveNotification toRemoteName:@"org.videolan.ios-app.dbupdate"];
 
-    [[VLCNotificationRelay sharedRelay] addRelayLocalName:NSManagedObjectContextDidSaveNotification toRemoteName:@"org.videolan.ios-app.nowPlayingInfoUpdate"];
+    [[VLCNotificationRelay sharedRelay] addRelayLocalName:@"nowPlayingInfoUpdate" toRemoteName:@"org.videolan.ios-app.nowPlayingInfoUpdate"];
 
     return YES;
 }
@@ -575,10 +575,21 @@
         [_movieViewController forward:nil];
     } else if ([userInfo[@"name"] isEqualToString:@"skipBackward"]) {
         [_movieViewController backward:nil];
-    }
-    else {
+    } else if ([userInfo[@"name"] isEqualToString:@"playFile"]) {
+        [self playFileFromWatch:userInfo[@"userInfo"]];
+    } else {
         NSLog(@"Did not handle request from WatchKit Extension: %@",userInfo);
     }
     reply(reponseDict);
 }
+- (void)playFileFromWatch:(NSDictionary *)userInfo {
+    MLMediaLibrary *library = [MLMediaLibrary sharedMediaLibrary];
+    NSString *uriString = userInfo[@"URIRepresentation"];
+    NSURL *uriRepresentation = [NSURL URLWithString:uriString];
+    NSManagedObjectID *objectID = [library.persistentStoreCoordinator managedObjectIDForURIRepresentation:uriRepresentation];
+    NSManagedObjectContext *moc = [(id)library managedObjectContext];
+    NSManagedObject *managedObject = [moc objectWithID:objectID];
+    [self openMediaFromManagedObject:managedObject];
+}
+
 @end
