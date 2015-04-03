@@ -22,6 +22,15 @@
 
 @implementation VLCNowPlayingInterfaceController
 
+- (instancetype)init
+{
+    self = [super init];
+    if (self) {
+        [self setTitle:NSLocalizedString(@"PLAYING", nil)];
+    }
+    return self;
+}
+
 - (void)awakeWithContext:(id)context {
     [super awakeWithContext:context];
 
