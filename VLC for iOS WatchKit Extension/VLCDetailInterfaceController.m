@@ -21,6 +21,16 @@
 
 @implementation VLCDetailInterfaceController
 
+- (instancetype)init
+{
+    self = [super init];
+    if (self) {
+        [self.playNowButton setTitle:NSLocalizedString(@"Play now", nil)];
+        [self setTitle:NSLocalizedString(@"DETAIL", nil)];
+    }
+    return self;
+}
+
 - (void)awakeWithContext:(id)context {
     [super awakeWithContext:context];
 
@@ -53,7 +63,6 @@
     if (thumbnail) {
         self.imageView.image = thumbnail;
     }
-
 }
 
 - (IBAction)playNow {
