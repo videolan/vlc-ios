@@ -543,6 +543,8 @@
 		DD6FA7B01ACD641C006DEB2E /* VLCNowPlayingInterfaceController.m in Sources */ = {isa = PBXBuildFile; fileRef = DD6FA7AF1ACD641C006DEB2E /* VLCNowPlayingInterfaceController.m */; };
 		DDE4906C1ACDB63F00B1B5E3 /* VLCNotificationRelay.m in Sources */ = {isa = PBXBuildFile; fileRef = DDE4906B1ACDB63F00B1B5E3 /* VLCNotificationRelay.m */; };
 		DDE4906D1ACDBEA000B1B5E3 /* VLCNotificationRelay.m in Sources */ = {isa = PBXBuildFile; fileRef = DDE4906B1ACDB63F00B1B5E3 /* VLCNotificationRelay.m */; };
+		DDE490701ACE8BBC00B1B5E3 /* VLCDetailInterfaceController.m in Sources */ = {isa = PBXBuildFile; fileRef = DDE4906F1ACE8BBC00B1B5E3 /* VLCDetailInterfaceController.m */; };
+		DDE490731ACE964200B1B5E3 /* VLCBaseInterfaceController.m in Sources */ = {isa = PBXBuildFile; fileRef = DDE490721ACE964200B1B5E3 /* VLCBaseInterfaceController.m */; };
 		DDF157B11ACB162700AAFBC6 /* MediaLibrary.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = 7D594CBC1A969E33004BFB17 /* MediaLibrary.xcdatamodeld */; };
 		DDF157B21ACB169600AAFBC6 /* CoreData.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = CC1BBC57170493E100A20CBF /* CoreData.framework */; };
 		DDF157B41ACB169B00AAFBC6 /* WatchKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = DDF157B31ACB169B00AAFBC6 /* WatchKit.framework */; };
@@ -1579,6 +1581,10 @@
 		DD6FA7AF1ACD641C006DEB2E /* VLCNowPlayingInterfaceController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = VLCNowPlayingInterfaceController.m; sourceTree = "<group>"; };
 		DDE4906A1ACDB63F00B1B5E3 /* VLCNotificationRelay.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = VLCNotificationRelay.h; sourceTree = "<group>"; };
 		DDE4906B1ACDB63F00B1B5E3 /* VLCNotificationRelay.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = VLCNotificationRelay.m; sourceTree = "<group>"; };
+		DDE4906E1ACE8BBC00B1B5E3 /* VLCDetailInterfaceController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = VLCDetailInterfaceController.h; sourceTree = "<group>"; };
+		DDE4906F1ACE8BBC00B1B5E3 /* VLCDetailInterfaceController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = VLCDetailInterfaceController.m; sourceTree = "<group>"; };
+		DDE490711ACE964200B1B5E3 /* VLCBaseInterfaceController.h */ = {isa = PBXFileReference; indentWidth = 4; lastKnownFileType = sourcecode.c.h; path = VLCBaseInterfaceController.h; sourceTree = "<group>"; tabWidth = 4; usesTabs = 0; wrapsLines = 1; };
+		DDE490721ACE964200B1B5E3 /* VLCBaseInterfaceController.m */ = {isa = PBXFileReference; indentWidth = 4; lastKnownFileType = sourcecode.c.objc; path = VLCBaseInterfaceController.m; sourceTree = "<group>"; tabWidth = 4; usesTabs = 0; wrapsLines = 1; };
 		DDF157B31ACB169B00AAFBC6 /* WatchKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = WatchKit.framework; path = System/Library/Frameworks/WatchKit.framework; sourceTree = SDKROOT; };
 		E09EACF57CDD22ABAE66CDD0 /* Pods-vlc-ios.distribution.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-vlc-ios.distribution.xcconfig"; path = "Pods/Target Support Files/Pods-vlc-ios/Pods-vlc-ios.distribution.xcconfig"; sourceTree = "<group>"; };
 		E0C04F931A25B4410080331A /* VLCDocumentPickerController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = VLCDocumentPickerController.h; path = Sources/VLCDocumentPickerController.h; sourceTree = SOURCE_ROOT; };
@@ -1792,10 +1798,14 @@
 				DD02C2FC1ACACF400026EFEE /* VLC for iOS WatchKit Extension.entitlements */,
 				DDE4906A1ACDB63F00B1B5E3 /* VLCNotificationRelay.h */,
 				DDE4906B1ACDB63F00B1B5E3 /* VLCNotificationRelay.m */,
+				DDE490711ACE964200B1B5E3 /* VLCBaseInterfaceController.h */,
+				DDE490721ACE964200B1B5E3 /* VLCBaseInterfaceController.m */,
 				4173AEA41ABF1B850004101D /* InterfaceController.h */,
 				4173AEA51ABF1B850004101D /* InterfaceController.m */,
 				DD6FA7AE1ACD641C006DEB2E /* VLCNowPlayingInterfaceController.h */,
 				DD6FA7AF1ACD641C006DEB2E /* VLCNowPlayingInterfaceController.m */,
+				DDE4906E1ACE8BBC00B1B5E3 /* VLCDetailInterfaceController.h */,
+				DDE4906F1ACE8BBC00B1B5E3 /* VLCDetailInterfaceController.m */,
 				DD02C30C1ACAF4A50026EFEE /* VLCRowController.h */,
 				DD02C30D1ACAF4A50026EFEE /* VLCRowController.m */,
 				4173AEA71ABF1B850004101D /* Images.xcassets */,
@@ -3555,8 +3565,10 @@
 			files = (
 				DD6FA7B01ACD641C006DEB2E /* VLCNowPlayingInterfaceController.m in Sources */,
 				DDF157B11ACB162700AAFBC6 /* MediaLibrary.xcdatamodeld in Sources */,
+				DDE490731ACE964200B1B5E3 /* VLCBaseInterfaceController.m in Sources */,
 				DDE4906C1ACDB63F00B1B5E3 /* VLCNotificationRelay.m in Sources */,
 				DD02C30E1ACAF4A50026EFEE /* VLCRowController.m in Sources */,
+				DDE490701ACE8BBC00B1B5E3 /* VLCDetailInterfaceController.m in Sources */,
 				4173AEA61ABF1B850004101D /* InterfaceController.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

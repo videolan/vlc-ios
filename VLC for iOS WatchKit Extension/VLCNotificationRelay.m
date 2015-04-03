@@ -52,10 +52,13 @@
 - (void)addRelayRemoteName:(NSString *)remoteName toLocalName:(NSString *)localName {
     CFNotificationCenterRef center = CFNotificationCenterGetDarwinNotifyCenter();
     CFNotificationCenterAddObserver(center, (__bridge  const void *)(self), notificationCallback, (__bridge CFStringRef)remoteName, NULL, CFNotificationSuspensionBehaviorHold);
+    self.remoteToLocal[remoteName] = localName;
 }
+
 - (void)removeRelayRemoteName:(NSString *)remoteName {
     CFNotificationCenterRef center = CFNotificationCenterGetDarwinNotifyCenter();
     CFNotificationCenterRemoveObserver(center, (__bridge const void *)(self), (__bridge CFStringRef)remoteName, NULL);
+    [self.remoteToLocal removeObjectForKey:remoteName];
 }
 
 #pragma mark - notification handeling
@@ -64,7 +67,8 @@
     NSString *localName = notification.name;
     NSString *remoteName = self.localToRemote[localName];
 
-    /* in current version of iOS this is ignored for the darwin center
+    /* 
+     * in current version of iOS this is ignored for the darwin center
      * nevertheless we use it to be future proof
      */
     NSDictionary *userInfo = notification.userInfo;
@@ -78,7 +82,13 @@ static void notificationCallback(CFNotificationCenterRef center, void* observer,
     VLCNotificationRelay *relay = (__bridge VLCNotificationRelay*) observer;
     NSString *remoteName = (__bridge NSString *)name;
     NSString *localName = relay.remoteToLocal[remoteName];
-    [[NSNotificationCenter defaultCenter] postNotificationName:localName object:nil userInfo:(__bridge NSDictionary *)userInfo];
+
+    /*
+     * in current version of iOS this is ignored for the darwin center
+     * nevertheless we use it to be future proof
+     */
+    NSDictionary *dict = (__bridge NSDictionary *)userInfo;
+    [[NSNotificationCenter defaultCenter] postNotificationName:localName object:nil userInfo:dict];
 }
 
 

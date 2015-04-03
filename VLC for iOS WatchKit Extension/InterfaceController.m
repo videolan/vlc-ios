@@ -34,13 +34,11 @@ static NSString *const VLCDBUpdateNotificationRemote = @"org.videolan.ios-app.db
     mediaLibrary.libraryBasePath = groupURL.path;
     mediaLibrary.additionalPersitentStoreOptions = @{NSReadOnlyPersistentStoreOption : @YES};
 
-    self.title = NSLocalizedString(@"LIBRARY_MUSIC", nil);
+    self.title = NSLocalizedString(@"LIBRARY_ALL", nil);
     [[VLCNotificationRelay sharedRelay] addRelayRemoteName:VLCDBUpdateNotificationRemote toLocalName:VLCDBUpdateNotification];
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(updateData) name:VLCDBUpdateNotification object:nil];
 
     [self updateData];
-
-    [self addMenuItemWithItemIcon:WKMenuItemIconMore title:@"currently playing" action:@selector(showNowPlaying:)];
 }
 
 - (void)willActivate {
@@ -60,8 +58,13 @@ static NSString *const VLCDBUpdateNotificationRemote = @"org.videolan.ios-app.db
 }
 
 
-- (void)showNowPlaying:(id)sender {
-    [self presentControllerWithName:@"nowPlaying" context:nil];
+
+
+- (void)table:(WKInterfaceTable *)table didSelectRowAtIndex:(NSInteger)rowIndex {
+    id object = self.mediaObjects[rowIndex];
+    if ([object isKindOfClass:[MLFile class]]) {
+        [self pushControllerWithName:@"detailInfo" context:object];
+    }
 }
 
 #pragma mark - data handling
@@ -92,7 +95,7 @@ static NSString *const VLCDBUpdateNotificationRemote = @"org.videolan.ios-app.db
 - (void)configureTableCellAtIndex:(NSUInteger)index withObject:(MLFile *)object {
     VLCRowController *row = [self.table rowControllerAtIndex:index];
     row.titleLabel.text = object.title;
-    row.durationLabel.text = [VLCTime timeWithNumber:object.duration].stringValue,
+    row.durationLabel.text = [VLCTime timeWithNumber:object.duration].stringValue;
     [row.group setBackgroundImage:object.computedThumbnail];
 }
 

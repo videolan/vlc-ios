@@ -73,14 +73,19 @@
 - (void)setTitleString:(NSString *)titleString {
     if (![_titleString isEqualToString:titleString] || (_titleString==nil && titleString)) {
         _titleString = [titleString copy];
-        [self.titleLabel setText:titleString];
+        self.titleLabel.text = titleString;
     }
 }
 
 - (void)setPlayBackDurationNumber:(NSNumber *)playBackDurationNumber {
     if (![_playBackDurationNumber isEqualToNumber:playBackDurationNumber] || (_playBackDurationNumber==nil && playBackDurationNumber)) {
         _playBackDurationNumber = playBackDurationNumber;
-        [self.durationLabel setText:[VLCTime timeWithNumber:playBackDurationNumber].stringValue];
+        float duratioFloat = playBackDurationNumber.floatValue;
+        NSNumber *durationNumber = nil;
+        if (duratioFloat>0.0) {
+            durationNumber = @(playBackDurationNumber.floatValue*1000);
+        }
+        self.durationLabel.text = [VLCTime timeWithNumber:durationNumber].stringValue;
     }
 }
 
