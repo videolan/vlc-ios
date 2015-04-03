@@ -13,7 +13,7 @@
 - (void)awakeWithContext:(id)context {
     [super awakeWithContext:context];
 
-    [self addMenuItemWithItemIcon:WKMenuItemIconMore title:@"currently playing" action:@selector(showNowPlaying:)];
+    [self addMenuItemWithItemIcon:WKMenuItemIconMore title: NSLocalizedString(@"NOW_PLAYING", nil) action:@selector(showNowPlaying:)];
 }
 
 - (void)showNowPlaying:(id)sender {
