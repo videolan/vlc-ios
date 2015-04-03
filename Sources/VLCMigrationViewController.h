@@ -1,10 +1,14 @@
-//
-//  VLCMigrationViewController.h
-//  VLC for iOS
-//
-//  Created by Carola Nitz on 17/02/15.
-//  Copyright (c) 2015 VideoLAN. All rights reserved.
-//
+/*****************************************************************************
+ * VLCMigrationViewController.h
+ * VLC for iOS
+ *****************************************************************************
+ * Copyright (c) 2015 VideoLAN. All rights reserved.
+ * $Id$
+ *
+ * Author: Carola Nitz <caro # videolan.org>
+ *
+ * Refer to the COPYING file of the official project for license.
+ *****************************************************************************/
 
 #import <UIKit/UIKit.h>
 
