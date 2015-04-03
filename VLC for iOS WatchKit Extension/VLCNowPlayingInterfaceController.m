@@ -33,6 +33,8 @@
 - (void)willActivate {
     // This method is called when watch view controller is about to be visible to user
     [super willActivate];
+    [self setTitle:NSLocalizedString(@"PLAYING", nil)];
+
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(requestNowPlayingInfo) name:@"nowPlayingInfoUpdate" object:nil];
     [self requestNowPlayingInfo];
 
