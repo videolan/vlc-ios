@@ -39,7 +39,7 @@ static NSString *const VLCDBUpdateNotificationRemote = @"org.videolan.ios-app.db
     mediaLibrary.libraryBasePath = groupURL.path;
     mediaLibrary.additionalPersitentStoreOptions = @{NSReadOnlyPersistentStoreOption : @YES};
 
-    self.title = NSLocalizedString(@"LIBRARY_ALL", nil);
+    self.title = NSLocalizedString(@"LIBRARY_ALL_FILES", nil);
     [[VLCNotificationRelay sharedRelay] addRelayRemoteName:VLCDBUpdateNotificationRemote toLocalName:VLCDBUpdateNotification];
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(updateData) name:VLCDBUpdateNotification object:nil];
 
