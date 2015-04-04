@@ -40,7 +40,7 @@
 }
 
 - (void)willActivate {
-    [self.playNowButton setTitle:NSLocalizedString(@"Play now", nil)];
+    [self.playNowButton setTitle:NSLocalizedString(@"PLAY_NOW", nil)];
     [self setTitle:NSLocalizedString(@"DETAIL", nil)];
     // This method is called when watch view controller is about to be visible to user
     [super willActivate];
