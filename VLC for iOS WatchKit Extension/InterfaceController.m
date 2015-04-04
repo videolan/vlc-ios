@@ -17,13 +17,14 @@
 #import <MobileVLCKit/VLCTime.h>
 
 #import "VLCNotificationRelay.h"
+#import "VLCWatchTableController.h"
 
 static NSString *const rowType = @"mediaRow";
 static NSString *const VLCDBUpdateNotification = @"VLCUpdateDataBase";
 static NSString *const VLCDBUpdateNotificationRemote = @"org.videolan.ios-app.dbupdate";
 
 @interface InterfaceController()
-@property (nonatomic, strong) NSMutableArray *mediaObjects;
+@property (nonatomic, strong) VLCWatchTableController *tableController;
 @end
 
 
@@ -42,6 +43,18 @@ static NSString *const VLCDBUpdateNotificationRemote = @"org.videolan.ios-app.db
     self.title = NSLocalizedString(@"LIBRARY_ALL_FILES", nil);
     [[VLCNotificationRelay sharedRelay] addRelayRemoteName:VLCDBUpdateNotificationRemote toLocalName:VLCDBUpdateNotification];
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(updateData) name:VLCDBUpdateNotification object:nil];
+    VLCWatchTableController *tableController = [VLCWatchTableController new];
+    tableController.table = self.table;
+    tableController.previousPageButton = self.previousButton;
+    tableController.nextPageButton = self.nextButton;
+    tableController.pageSize = 5;
+    tableController.rowTypeForObjectBlock = ^(id object) {
+        return rowType;
+    };
+    tableController.configureRowControllerWithObjectBlock = ^(id controller, id object) {
+        [self configureTableRowController:context withObject:object];
+    };
+
 
     [self updateData];
 }
@@ -62,43 +75,29 @@ static NSString *const VLCDBUpdateNotificationRemote = @"org.videolan.ios-app.db
     [[NSNotificationCenter defaultCenter] removeObserver:self name:VLCDBUpdateNotification object:nil];
 }
 
-
-
-
 - (void)table:(WKInterfaceTable *)table didSelectRowAtIndex:(NSInteger)rowIndex {
-    id object = self.mediaObjects[rowIndex];
+    id object = self.tableController.displayedObjects[rowIndex];
     if ([object isKindOfClass:[MLFile class]]) {
         [self pushControllerWithName:@"detailInfo" context:object];
     }
 }
 
+- (IBAction)nextPagePressed {
+    [self.tableController nextPageButtonPressed];
+}
+
+- (IBAction)previousPagePressed {
+    [self.tableController previousPageButtonPressed];
+}
+
 #pragma mark - data handling
 
 - (void)updateData {
-    NSArray *oldObjects = self.mediaObjects;
-    NSSet *oldSet = [[NSSet alloc] initWithArray:oldObjects];
-    NSMutableArray *newObjects = [self mediaArray];
-    NSMutableSet *newSet = [[NSMutableSet alloc] initWithArray:newObjects];
-
-    WKInterfaceTable *table = self.table;
-
-    [oldObjects enumerateObjectsUsingBlock:^(id obj, NSUInteger idx, BOOL *stop) {
-        if (![newSet containsObject:obj]) {
-            [table removeRowsAtIndexes:[NSIndexSet indexSetWithIndex:idx]];
-        }
-    }];
-    [newObjects enumerateObjectsUsingBlock:^(id obj, NSUInteger idx, BOOL *stop) {
-        if (![oldSet containsObject:obj]) {
-            [table insertRowsAtIndexes:[NSIndexSet indexSetWithIndex:idx] withRowType:rowType];
-        }
-        [self configureTableCellAtIndex:idx withObject:obj];
-    }];
-
-    self.mediaObjects = newObjects;
+    self.tableController.objects = [self mediaArray];
 }
 
-- (void)configureTableCellAtIndex:(NSUInteger)index withObject:(MLFile *)object {
-    VLCRowController *row = [self.table rowControllerAtIndex:index];
+- (void)configureTableRowController:(id)rowController withObject:(MLFile *)object {
+    VLCRowController *row = rowController;
     row.titleLabel.text = object.title;
     row.durationLabel.text = [VLCTime timeWithNumber:object.duration].stringValue;
     [row.group setBackgroundImage:object.computedThumbnail];
