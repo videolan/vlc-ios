@@ -43,26 +43,25 @@ static NSString *const VLCDBUpdateNotificationRemote = @"org.videolan.ios-app.db
     self.title = NSLocalizedString(@"LIBRARY_ALL_FILES", nil);
     [[VLCNotificationRelay sharedRelay] addRelayRemoteName:VLCDBUpdateNotificationRemote toLocalName:VLCDBUpdateNotification];
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(updateData) name:VLCDBUpdateNotification object:nil];
-    VLCWatchTableController *tableController = [VLCWatchTableController new];
-    tableController.table = self.table;
-    tableController.previousPageButton = self.previousButton;
-    tableController.nextPageButton = self.nextButton;
-    tableController.pageSize = 5;
-    tableController.rowTypeForObjectBlock = ^(id object) {
+    _tableController = [[VLCWatchTableController alloc] init];
+    _tableController.table = self.table;
+    _tableController.previousPageButton = self.previousButton;
+    _tableController.nextPageButton = self.nextButton;
+    _tableController.pageSize = 5;
+    _tableController.rowTypeForObjectBlock = ^(id object) {
         return rowType;
     };
-    tableController.configureRowControllerWithObjectBlock = ^(id controller, id object) {
+    _tableController.configureRowControllerWithObjectBlock = ^(id controller, id object) {
         [self configureTableRowController:context withObject:object];
     };
-
-
-    [self updateData];
 }
 
 - (void)willActivate {
     // This method is called when watch view controller is about to be visible to user
     [super willActivate];
     NSLog(@"%s",__PRETTY_FUNCTION__);
+
+    [self updateData];
 
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(updateData) name:VLCDBUpdateNotification object:nil];
 }
