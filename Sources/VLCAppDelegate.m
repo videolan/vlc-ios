@@ -502,6 +502,8 @@
 {
     if (!_movieViewController)
         _movieViewController = [[VLCMovieViewController alloc] initWithNibName:nil bundle:nil];
+    else
+        [_movieViewController unanimatedPlaybackStop];
 
     if ([mediaObject isKindOfClass:[MLFile class]])
         _movieViewController.fileFromMediaLibrary = (MLFile *)mediaObject;
