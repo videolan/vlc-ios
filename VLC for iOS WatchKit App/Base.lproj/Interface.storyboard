@@ -10,6 +10,11 @@
             <objects>
                 <controller id="AgC-eL-Hgc" customClass="InterfaceController">
                     <items>
+                        <button width="1" alignment="left" title="previous page" id="fUJ-qB-19l">
+                            <connections>
+                                <action selector="previousPagePressed" destination="AgC-eL-Hgc" id="d5P-dB-jji"/>
+                            </connections>
+                        </button>
                         <table alignment="left" id="lC4-Vd-sgP">
                             <items>
                                 <tableRow identifier="mediaRow" id="QhF-se-FCS" customClass="VLCRowController">
@@ -27,8 +32,15 @@
                                 </tableRow>
                             </items>
                         </table>
+                        <button width="1" alignment="left" title="next page" id="3AK-kX-V9D">
+                            <connections>
+                                <action selector="nextPagePressed" destination="AgC-eL-Hgc" id="iNm-4n-TvE"/>
+                            </connections>
+                        </button>
                     </items>
                     <connections>
+                        <outlet property="nextButton" destination="3AK-kX-V9D" id="Iju-cx-571"/>
+                        <outlet property="previousButton" destination="fUJ-qB-19l" id="r36-II-aik"/>
                         <outlet property="table" destination="lC4-Vd-sgP" id="mxe-b7-XMx"/>
                     </connections>
                 </controller>
