@@ -93,6 +93,7 @@
 @property (nonatomic, readwrite) int itemInMediaListToBePlayedFirst;
 
 - (IBAction)closePlayback:(id)sender;
+- (void)unanimatedPlaybackStop;
 
 - (IBAction)positionSliderAction:(id)sender;
 - (IBAction)positionSliderTouchDown:(id)sender;

@@ -1247,6 +1247,12 @@ static inline NSArray * RemoteCommandCenterCommandsToHandle(MPRemoteCommandCente
     }];
 }
 
+- (void)unanimatedPlaybackStop
+{
+    [self _stopPlayback];
+    [self.navigationController dismissViewControllerAnimated:NO completion:nil];
+}
+
 - (IBAction)positionSliderAction:(UISlider *)sender
 {
     LOCKCHECK;
