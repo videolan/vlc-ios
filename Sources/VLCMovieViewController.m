@@ -1631,6 +1631,13 @@ static inline NSArray * RemoteCommandCenterCommandsToHandle(MPRemoteCommandCente
     }
 }
 
+- (void)toggleShuffleMode
+{
+    LOCKCHECK;
+
+    // FIXME: missing implementation
+}
+
 - (void)hideMenu
 {
     [UIView animateWithDuration:.2
