@@ -620,6 +620,7 @@
         return;
 
     _sapDiscoverer = [[VLCMediaDiscoverer alloc] initWithName:@"sap"];
+    [_sapDiscoverer startDiscoverer];
     _sapDiscoverer.discoveredMedia.delegate = self;
 }
 
@@ -627,6 +628,7 @@
 {
     return;
 
+    [_sapDiscoverer stopDiscoverer];
     _sapDiscoverer = nil;
 }
 
