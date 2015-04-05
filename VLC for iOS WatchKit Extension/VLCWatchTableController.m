@@ -17,6 +17,7 @@
 
 @property (nonatomic, copy, readwrite) NSArray *displayedObjects;
 @property (nonatomic, copy, readwrite) NSIndexSet *displayedIndexes;
+@property (nonatomic, copy, readwrite) NSArray *rowTypes;
 
 @end
 
@@ -54,33 +55,71 @@
     }
 
     /* set starte for previous and next buttons */
-    self.previousPageButton.hidden = currentPage > 0;
-    self.nextPageButton.hidden = endIndex < objectsCount;
+    self.previousPageButton.hidden = currentPage == 0;
+    self.nextPageButton.hidden = endIndex >= objectsCount;
 
     /* get new dispayed objects */
     NSRange range = NSMakeRange(startIndex, endIndex-startIndex);
     NSArray *newObjects = [self.objects subarrayWithRange:range];
-    NSMutableSet *newSet = [[NSMutableSet alloc] initWithArray:newObjects];
+    NSSet *newSet = [[NSSet alloc] initWithArray:newObjects];
 
     NSArray *oldObjects = self.displayedObjects;
     NSSet *oldSet = [[NSSet alloc] initWithArray:oldObjects];
 
     WKInterfaceTable *table = self.table;
 
-    [oldObjects enumerateObjectsUsingBlock:^(id obj, NSUInteger idx, BOOL *stop) {
-        if (![newSet containsObject:obj]) {
-            [table removeRowsAtIndexes:[NSIndexSet indexSetWithIndex:idx]];
-        }
-    }];
+    NSMutableSet *addedSet = [NSMutableSet setWithSet:newSet];
+    [addedSet minusSet:oldSet];
+    NSMutableSet *removedSet = [NSMutableSet setWithSet:oldSet];
+    [removedSet minusSet:newSet];
 
-    [newObjects enumerateObjectsUsingBlock:^(id obj, NSUInteger idx, BOOL *stop) {
-        if (![oldSet containsObject:obj]) {
-            NSString *rowType = [self rowTypeForObject:obj];
-            [table insertRowsAtIndexes:[NSIndexSet indexSetWithIndex:idx] withRowType:rowType];
-        }
-        [self configureTableCellAtIndex:idx withObject:obj];
-    }];
+    BOOL differentRowTypes = self.rowTypeForObjectBlock != nil;
+    BOOL pageChange = startIndex != self.displayedIndexes.firstIndex;
 
+    NSMutableArray *rowTypes = differentRowTypes ? [NSMutableArray arrayWithCapacity:pageSize] : nil;
+
+    // we changed the page
+    if (pageChange) {
+        if (differentRowTypes) {
+            // TODO add support different rowtypes
+            NSAssert(NO,@"TODO add support different rowtypes");
+        } else {
+            NSUInteger oldCount = oldObjects.count;
+            NSUInteger newCount = newObjects.count;
+            // remove rows if now on smaller page
+            if (oldCount > newCount) {
+                NSRange range = NSMakeRange(newCount, oldCount-newCount);
+                NSIndexSet *indexSet = [NSIndexSet indexSetWithIndexesInRange:range];
+                [table removeRowsAtIndexes:indexSet];
+            }
+            // add rows if now on bigger page
+            else if (oldCount < newCount) {
+                NSRange range = NSMakeRange(oldCount, newCount-oldCount);
+                NSIndexSet *indexSet = [NSIndexSet indexSetWithIndexesInRange:range];
+                [table insertRowsAtIndexes:indexSet withRowType:self.rowType];
+            }
+            [newObjects enumerateObjectsUsingBlock:^(id obj, NSUInteger idx, BOOL *stop) {
+                [self configureTableCellAtIndex:idx withObject:obj];
+            }];
+        }
+    }
+    // update on the same page
+    else {
+        [oldObjects enumerateObjectsUsingBlock:^(id obj, NSUInteger idx, BOOL *stop) {
+            if ([removedSet containsObject:obj]) {
+                [table removeRowsAtIndexes:[NSIndexSet indexSetWithIndex:idx]];
+            }
+        }];
+        [newObjects enumerateObjectsUsingBlock:^(id obj, NSUInteger idx, BOOL *stop) {
+            if ([addedSet containsObject:obj]) {
+                NSString *rowType = [self rowTypeForObject:obj];
+                [table insertRowsAtIndexes:[NSIndexSet indexSetWithIndex:idx] withRowType:rowType];
+            }
+            [self configureTableCellAtIndex:idx withObject:obj];
+        }];
+    }
+
+    self.rowTypes = rowTypes;
     self.displayedObjects = newObjects;
     self.displayedIndexes = [NSIndexSet indexSetWithIndexesInRange:range];
 }
@@ -93,12 +132,17 @@
     }
     self.currentPage = self.currentPage+1;
     [self updateTable];
+    [self.table scrollToRowAtIndex:0];
 }
 
 - (void)previousPageButtonPressed {
-    if (self.pageSize>0) {
-        self.pageSize = self.pageSize-1;
+    if (self.currentPage>0) {
+        self.currentPage = self.currentPage-1;
         [self updateTable];
+    }
+    NSUInteger displayedCount = self.displayedObjects.count;
+    if (displayedCount) {
+        [self.table scrollToRowAtIndex:displayedCount-1];
     }
 }
 
