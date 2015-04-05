@@ -50,7 +50,8 @@
     NSArray *_filteredUPNPDevices;
     NSArray *_UPNPdevices;
 
-    VLCMediaDiscoverer * _sapDiscoverer;
+    VLCMediaDiscoverer *_sapDiscoverer;
+    VLCMediaDiscoverer *_dsmDiscoverer;
 
     VLCNetworkLoginViewController *_loginViewController;
 
@@ -108,6 +109,7 @@
 {
     [self _stopUPNPDiscovery];
     [self _stopSAPDiscovery];
+    [self _stopDSMDiscovery];
 }
 
 - (void)applicationDidBecomeActive:(NSNotification *)notification
@@ -115,6 +117,7 @@
     if (_reachability.currentReachabilityStatus == ReachableViaWiFi) {
         [self performSelectorInBackground:@selector(_startUPNPDiscovery) withObject:nil];
         [self performSelectorInBackground:@selector(_startSAPDiscovery) withObject:nil];
+        [self performSelectorInBackground:@selector(_startDSMDiscovery) withObject:nil];
     }
 }
 
@@ -133,9 +136,9 @@
                                                object:[UIApplication sharedApplication]];
 
 /*    if (SYSTEM_RUNS_IOS7_OR_LATER)
-        _sectionHeaderTexts = @[@"Universal Plug'n'Play (UPNP)", @"File Transfer Protocol (FTP)", NSLocalizedString(@"SAP_STREAMS", nil)];
+        _sectionHeaderTexts = @[@"Universal Plug'n'Play (UPNP)", @"Plex Media Server (via Bonjour)", @"File Transfer Protocol (FTP)", NSLocalizedString(@"SHARED_VLC_IOS_LIBRARY", nil), @"libDSM", NSLocalizedString(@"SAP_STREAMS", nil)];
     else*/
-    _sectionHeaderTexts = @[@"Universal Plug'n'Play (UPnP)", @"Plex Media Server (via Bonjour)", @"File Transfer Protocol (FTP)", NSLocalizedString(@"SHARED_VLC_IOS_LIBRARY", nil)];
+    _sectionHeaderTexts = @[@"Universal Plug'n'Play (UPnP)", @"Plex Media Server (via Bonjour)", @"File Transfer Protocol (FTP)", NSLocalizedString(@"SHARED_VLC_IOS_LIBRARY", nil), @"libDSM"];
 
     _backToMenuButton = [UIBarButtonItem themedRevealMenuButtonWithTarget:self andSelector:@selector(goBack:)];
     self.navigationItem.leftBarButtonItem = _backToMenuButton;
@@ -214,9 +217,11 @@
     if (_reachability.currentReachabilityStatus == ReachableViaWiFi) {
         [self performSelectorInBackground:@selector(_startUPNPDiscovery) withObject:nil];
         [self performSelectorInBackground:@selector(_startSAPDiscovery) withObject:nil];
+        [self performSelectorInBackground:@selector(_startDSMDiscovery) withObject:nil];
     } else {
         [self _stopUPNPDiscovery];
         [self _stopSAPDiscovery];
+        [self _stopDSMDiscovery];
     }
 }
 
@@ -271,6 +276,7 @@
 {
     [self _stopUPNPDiscovery];
     [self _stopSAPDiscovery];
+    [self _stopDSMDiscovery];
 
     [[(VLCAppDelegate*)[UIApplication sharedApplication].delegate revealController] toggleSidebar:![(VLCAppDelegate*)[UIApplication sharedApplication].delegate revealController].sidebarShowing duration:kGHRevealSidebarDefaultAnimationDuration];
 }
@@ -301,6 +307,8 @@
     else if (section == 3)
         return _httpServices.count;
     else if (section == 4)
+        return _dsmDiscoverer.discoveredMedia.count;
+    else if (section == 5)
         return _sapDiscoverer.discoveredMedia.count;
 
     return 0;
@@ -353,6 +361,8 @@
         [cell setTitle:[_httpServices[row] name]];
         [cell setIcon:[UIImage imageNamed:@"menuCone"]];
     } else if (section == 4)
+        [cell setTitle:[[_dsmDiscoverer.discoveredMedia mediaAtIndex:row] metadataForKey: VLCMetaInformationTitle]];
+    else if (section == 5)
         [cell setTitle:[[_sapDiscoverer.discoveredMedia mediaAtIndex:row] metadataForKey: VLCMetaInformationTitle]];
 
     return cell;
@@ -425,6 +435,8 @@
         VLCSharedLibraryListViewController *targetViewController = [[VLCSharedLibraryListViewController alloc] initWithHttpServer:name serverAddress:hostName portNumber:portNum];
         [[self navigationController] pushViewController:targetViewController animated:YES];
     } else if (section == 4) {
+        NSLog(@"DSM entry selected");
+    } else if (section == 5) {
         VLCAppDelegate *appDelegate = [UIApplication sharedApplication].delegate;
         [appDelegate openMovieFromURL:[[_sapDiscoverer.discoveredMedia mediaAtIndex:row] url]];
     }
@@ -457,6 +469,7 @@
 
     [self performSelectorInBackground:@selector(_startUPNPDiscovery) withObject:nil];
     [self performSelectorInBackground:@selector(_startSAPDiscovery) withObject:nil];
+    [self performSelectorInBackground:@selector(_startDSMDiscovery) withObject:nil];
 }
 
 #pragma mark - login panel protocol
@@ -640,6 +653,24 @@
 - (void)mediaList:(VLCMediaList *)aMediaList mediaRemovedAtIndex:(NSInteger)index
 {
     [self.tableView performSelectorOnMainThread:@selector(reloadData) withObject:nil waitUntilDone:NO];
+}
+
+#pragma DSM discovery
+
+- (void)_startDSMDiscovery
+{
+    if (_reachability.currentReachabilityStatus != ReachableViaWiFi)
+        return;
+
+    if (!_dsmDiscoverer)
+        _dsmDiscoverer = [[VLCMediaDiscoverer alloc] initWithName:@"dsm"];
+    [_dsmDiscoverer startDiscoverer];
+    _dsmDiscoverer.discoveredMedia.delegate = self;
+}
+
+- (void)_stopDSMDiscovery
+{
+    [_dsmDiscoverer stopDiscoverer];
 }
 
 @end
