@@ -70,6 +70,8 @@
 		417CDA231A48D1F300D9ACE7 /* VLCCloudServicesTableViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 417CDA211A48D1F300D9ACE7 /* VLCCloudServicesTableViewController.m */; };
 		417CDA241A48D1F300D9ACE7 /* VLCCloudServicesTableViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 417CDA221A48D1F300D9ACE7 /* VLCCloudServicesTableViewController.xib */; };
 		4184AA151A5492070063DF5A /* VLCCloudStorageController.m in Sources */ = {isa = PBXBuildFile; fileRef = 4184AA141A5492070063DF5A /* VLCCloudStorageController.m */; };
+		418984891AD2C4D50074376D /* gradient-cell-ios7@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 7D2A34A31805CDBA004078AA /* gradient-cell-ios7@2x.png */; };
+		4189848A1AD2C4D50074376D /* gradient-cell-ios7@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 7D2A34A31805CDBA004078AA /* gradient-cell-ios7@2x.png */; };
 		418FF4B11A0EC1D5005FE808 /* libPods-vlc-ios.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 418FF4B01A0EC1D5005FE808 /* libPods-vlc-ios.a */; };
 		41B93C011A53833B00102E8B /* VLCProgressView.m in Sources */ = {isa = PBXBuildFile; fileRef = 41B93C001A53833B00102E8B /* VLCProgressView.m */; };
 		41B93C051A53835300102E8B /* VLCCloudServiceCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 41B93C031A53835300102E8B /* VLCCloudServiceCell.m */; };
@@ -3126,6 +3128,7 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				418984891AD2C4D50074376D /* gradient-cell-ios7@2x.png in Resources */,
 				4173AEAC1ABF1B850004101D /* VLC for iOS WatchKit App.app in Resources */,
 				7D2D4ECC1ACFFA42006A8DBD /* Localizable.strings in Resources */,
 				4173AEA81ABF1B850004101D /* Images.xcassets in Resources */,
@@ -3138,6 +3141,7 @@
 			files = (
 				4173AEB41ABF1B860004101D /* Interface.storyboard in Resources */,
 				4173AEB61ABF1B860004101D /* Images.xcassets in Resources */,
+				4189848A1AD2C4D50074376D /* gradient-cell-ios7@2x.png in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

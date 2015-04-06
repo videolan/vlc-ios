@@ -16,7 +16,7 @@
 
 #import "VLCBaseInterfaceController.h"
 
-@interface InterfaceController : VLCBaseInterfaceController
+@interface InterfaceController : WKInterfaceController
 @property (weak, nonatomic) IBOutlet WKInterfaceButton *previousButton;
 @property (nonatomic, weak) IBOutlet WKInterfaceTable *table;
 @property (weak, nonatomic) IBOutlet WKInterfaceButton *nextButton;
