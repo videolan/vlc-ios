@@ -34,8 +34,6 @@ typedef enum {
 @property (nonatomic) VLCLibraryMode libraryMode;
 @end
 
-
-
 @implementation InterfaceController
 
 - (void)awakeWithContext:(id)context {
@@ -137,7 +135,7 @@ typedef enum {
 
 - (void)configureTableRowController:(id)rowController withObject:(MLFile *)object {
     VLCRowController *row = rowController;
-    if ([object isKindOfClass:[MLAlbum class]] || [object isKindOfClass:[MLShowEpisode class]] ||[object isKindOfClass:[MLLabel class]] ){
+    if ([object isKindOfClass:[MLAlbum class]] || [object isKindOfClass:[MLShowEpisode class]] || [object isKindOfClass:[MLShow class]] ||[object isKindOfClass:[MLLabel class]] ){
         //no matter what class it is it has a name property
         row.titleLabel.text = ((MLAlbum *)object).name;
         //TODO: set placeholderimage
@@ -159,14 +157,14 @@ typedef enum {
 
     //TODO: make this dynamical width
     CGSize newSize = CGSizeMake(130, 60);
-    UIGraphicsBeginImageContext( newSize );
+    UIGraphicsBeginImageContext(newSize);
 
     // Use existing opacity as is
     [backgroundImage drawInRect:CGRectMake(0,0,newSize.width,newSize.height)];
     [gradient drawInRect:CGRectMake(0,40,newSize.width,20) blendMode:kCGBlendModeNormal alpha:1.0];
 
     UIImage *newImage = UIGraphicsGetImageFromCurrentImageContext();
-    
+
     UIGraphicsEndImageContext();
     return newImage;
 }
