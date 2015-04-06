@@ -1432,10 +1432,16 @@ static inline NSArray * RemoteCommandCenterCommandsToHandle(MPRemoteCommandCente
             if (!_controlsHidden) {
                 self.controllerPanel.hidden = _controlsHidden = YES;
                 self.controllerPanelLandscape.hidden = YES;
+                self.toolbar.hidden = YES;
             }
         }
 
         self.videoFilterView.hidden = _videoFiltersHidden = YES;
+
+        for (UIGestureRecognizer *recognizer in self.view.gestureRecognizers)
+            [recognizer setEnabled:NO];
+        [_tapOnVideoRecognizer setEnabled:YES];
+
     } else {
         _trackSelectorContainer.hidden = YES;
         _switchingTracksNotChapters = NO;
@@ -1741,9 +1747,9 @@ static inline NSArray * RemoteCommandCenterCommandsToHandle(MPRemoteCommandCente
         }
     } else {
         if ([_mediaPlayer countOfTitles] > 1 && indexPath.section == 0)
-            _mediaPlayer.currentTitleIndex = index;
+            _mediaPlayer.currentTitleIndex = (int)index;
         else
-            _mediaPlayer.currentChapterIndex = index;
+            _mediaPlayer.currentChapterIndex = (int)index;
     }
 
     CGFloat alpha = 0.0f;
@@ -1754,6 +1760,8 @@ static inline NSArray * RemoteCommandCenterCommandsToHandle(MPRemoteCommandCente
     };
 
     void (^completionBlock)(BOOL finished) = ^(BOOL finished) {
+        for (UIGestureRecognizer *recognizer in self.view.gestureRecognizers)
+            [recognizer setEnabled:YES];
         _trackSelectorContainer.hidden = YES;
     };
 
