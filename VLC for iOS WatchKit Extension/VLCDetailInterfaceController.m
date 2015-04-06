@@ -25,7 +25,6 @@
 {
     self = [super init];
     if (self) {
-        [self.playNowButton setTitle:NSLocalizedString(@"Play now", nil)];
         [self setTitle:NSLocalizedString(@"DETAIL", nil)];
     }
     return self;
@@ -40,7 +39,6 @@
 }
 
 - (void)willActivate {
-    [self.playNowButton setTitle:NSLocalizedString(@"PLAY_NOW", nil)];
     [self setTitle:NSLocalizedString(@"DETAIL", nil)];
     // This method is called when watch view controller is about to be visible to user
     [super willActivate];
@@ -67,9 +65,8 @@
     self.playNowButton.enabled = playEnabled;
 
     UIImage *thumbnail = [VLCThumbnailsCache thumbnailForManagedObject:file];
-    self.imageView.hidden = thumbnail == nil;
     if (thumbnail) {
-        self.imageView.image = thumbnail;
+        [self.group setBackgroundImage:thumbnail];
     }
 }
 

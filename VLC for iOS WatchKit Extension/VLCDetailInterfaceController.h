@@ -18,7 +18,7 @@
 @property (weak, nonatomic) IBOutlet WKInterfaceLabel *titleLabel;
 @property (weak, nonatomic) IBOutlet WKInterfaceLabel *durationLabel;
 @property (weak, nonatomic) IBOutlet WKInterfaceButton *playNowButton;
-@property (weak, nonatomic) IBOutlet WKInterfaceImage *imageView;
+@property (weak, nonatomic) IBOutlet WKInterfaceGroup *group;
 
 - (IBAction)playNow;
 @end
