@@ -105,11 +105,14 @@
     }
     // update on the same page
     else {
+        NSMutableIndexSet *removeRowIndexes = [NSMutableIndexSet new];
         [oldObjects enumerateObjectsUsingBlock:^(id obj, NSUInteger idx, BOOL *stop) {
             if ([removedSet containsObject:obj]) {
-                [table removeRowsAtIndexes:[NSIndexSet indexSetWithIndex:idx]];
+                [removeRowIndexes addIndex:idx];
             }
         }];
+        [table removeRowsAtIndexes:removeRowIndexes];
+
         [newObjects enumerateObjectsUsingBlock:^(id obj, NSUInteger idx, BOOL *stop) {
             if ([addedSet containsObject:obj]) {
                 NSString *rowType = [self rowTypeForObject:obj];
