@@ -13,6 +13,5 @@
 #import <WatchKit/WatchKit.h>
 @interface VLCRowController : NSObject
 @property (nonatomic, weak) IBOutlet WKInterfaceLabel *titleLabel;
-@property (nonatomic, weak) IBOutlet WKInterfaceLabel *durationLabel;
 @property (nonatomic, weak) IBOutlet WKInterfaceGroup *group;
 @end
