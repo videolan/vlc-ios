@@ -16,7 +16,7 @@
 #import "VLCThumbnailsCache.h"
 
 @interface VLCDetailInterfaceController ()
-@property (nonatomic, weak) MLFile *file;
+@property (nonatomic, weak) NSManagedObject *file;
 @end
 
 @implementation VLCDetailInterfaceController
@@ -35,10 +35,8 @@
     [super awakeWithContext:context];
 
     [self addNowPlayingMenu];
-    
-    if ([context isKindOfClass:[MLFile class]]) {
-        [self configureWithFile:context];
-    }
+    [self configureWithFile:context];
+
 }
 
 - (void)willActivate {
@@ -53,14 +51,22 @@
     [super didDeactivate];
 }
 
-- (void)configureWithFile:(MLFile *)file {
+- (void)configureWithFile:(NSManagedObject *)file {
     self.file = file;
-
-    [self.titleLabel setText:file.title];
-    self.durationLabel.text = [VLCTime timeWithNumber:file.duration].stringValue;
+    if ([file isKindOfClass:[MLShowEpisode class]]) {
+        [self.titleLabel setText:((MLShowEpisode *)file).name];
+    } else if ([file isKindOfClass:[MLFile class]]) {
+        self.durationLabel.text = [VLCTime timeWithNumber:((MLFile *)file).duration].stringValue;
+        [self.titleLabel setText:((MLFile *)file).title];
+    } else if ([file isKindOfClass:[MLAlbumTrack class]]) {
+        [self.titleLabel setText:((MLAlbumTrack *)file).title];
+    } else {
+        NSAssert(NO, @"check what filetype we try to show here and add it above");
+    }
     BOOL playEnabled = file != nil;
     self.playNowButton.enabled = playEnabled;
-    UIImage *thumbnail = [VLCThumbnailsCache thumbnailForMediaFile:file];
+
+    UIImage *thumbnail = [VLCThumbnailsCache thumbnailForManagedObject:file];
     self.imageView.hidden = thumbnail == nil;
     if (thumbnail) {
         self.imageView.image = thumbnail;
