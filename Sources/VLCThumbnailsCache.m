@@ -7,6 +7,7 @@
  *
  * Authors: Gleb Pinigin <gpinigin # gmail.com>
  *          Felix Paul Kühne <fkuehne # videolan.org>
+ *          Carola Nitz <caro # videolan.org>
  *
  * Refer to the COPYING file of the official project for license.
  *****************************************************************************/
@@ -52,7 +53,7 @@ static NSInteger _currentDeviceIdiom;
     [_thumbnailCacheMetadata setCountLimit: MaxCacheSize];
 }
 
-+ (NSString *)_md5FromString:(NSString *)string
+- (NSString *)_md5FromString:(NSString *)string
 {
     const char *ptr = [string UTF8String];
     unsigned char md5Buffer[CC_MD5_DIGEST_LENGTH];
@@ -66,10 +67,10 @@ static NSInteger _currentDeviceIdiom;
 
 + (UIImage *)thumbnailForMediaItemWithTitle:(NSString *)title Artist:(NSString*)artist andAlbumName:(NSString*)albumname
 {
-    return [UIImage imageWithContentsOfFile:[self artworkPathForMediaItemWithTitle:title Artist:artist andAlbumName:albumname]];
+    return [UIImage imageWithContentsOfFile:[[VLCThumbnailsCache new] artworkPathForMediaItemWithTitle:title Artist:artist andAlbumName:albumname]];
 }
 
-+ (NSString *)artworkPathForMediaItemWithTitle:(NSString *)title Artist:(NSString*)artist andAlbumName:(NSString*)albumname
+- (NSString *)artworkPathForMediaItemWithTitle:(NSString *)title Artist:(NSString*)artist andAlbumName:(NSString*)albumname
 {
     NSString *artworkURL;
     NSArray *searchPaths = NSSearchPathForDirectoriesInDomains(NSCachesDirectory, NSUserDomainMask, YES);
@@ -87,7 +88,7 @@ static NSInteger _currentDeviceIdiom;
     return artworkURL;
 }
 
-+ (NSString *)_getArtworkPathFromMedia:(MLFile *)file
+- (NSString *)_getArtworkPathFromMedia:(MLFile *)file
 {
     NSString *artist, *album, *title;
 
@@ -100,7 +101,30 @@ static NSInteger _currentDeviceIdiom;
     return [self artworkPathForMediaItemWithTitle:title Artist:artist andAlbumName:album];
 }
 
-+ (UIImage *)thumbnailForMediaFile:(MLFile *)mediaFile
++ (UIImage *)thumbnailForManagedObject:(NSManagedObject *)object
+{
+    UIImage *thumbnail;
+    VLCThumbnailsCache *cache = [VLCThumbnailsCache new];
+    if ([object isKindOfClass:[MLShow class]]) {
+        thumbnail = [cache thumbnailForShow:(MLShow *)object];
+    } else if ([object isKindOfClass:[MLShowEpisode class]]) {
+        MLFile *anyFileFromEpisode = [(MLShowEpisode *)object files].anyObject;
+        thumbnail = [cache thumbnailForMediaFile:anyFileFromEpisode];
+    } else if ([object isKindOfClass:[MLLabel class]]) {
+        thumbnail = [cache thumbnailForLabel:(MLLabel *)object];
+    } else if ([object isKindOfClass:[MLAlbum class]]) {
+        MLFile *anyFileFromAnyTrack = [[(MLAlbum *)object tracks].anyObject files].anyObject;
+        thumbnail = [cache thumbnailForMediaFile:anyFileFromAnyTrack];
+    } else if ([object isKindOfClass:[MLAlbumTrack class]]) {
+        MLFile *anyFileFromTrack = [(MLAlbumTrack *)object files].anyObject;
+        thumbnail = [cache thumbnailForMediaFile:anyFileFromTrack];
+    } else {
+        thumbnail = [cache thumbnailForMediaFile:(MLFile *)object];
+    }
+    return thumbnail;
+}
+
+- (UIImage *)thumbnailForMediaFile:(MLFile *)mediaFile
 {
     if (mediaFile == nil || mediaFile.objectID == nil)
         return nil;
@@ -123,7 +147,7 @@ static NSInteger _currentDeviceIdiom;
     return displayedImage;
 }
 
-+ (UIImage *)thumbnailForShow:(MLShow *)mediaShow
+- (UIImage *)thumbnailForShow:(MLShow *)mediaShow
 {
     NSManagedObjectID *objID = mediaShow.objectID;
     UIImage *displayedImage;
@@ -160,7 +184,7 @@ static NSInteger _currentDeviceIdiom;
     return displayedImage;
 }
 
-+ (UIImage *)thumbnailForLabel:(MLLabel *)mediaLabel
+- (UIImage *)thumbnailForLabel:(MLLabel *)mediaLabel
 {
     NSManagedObjectID *objID = mediaLabel.objectID;
     UIImage *displayedImage;
@@ -192,7 +216,7 @@ static NSInteger _currentDeviceIdiom;
     return displayedImage;
 }
 
-+ (UIImage *)clusterThumbFromFiles:(NSArray *)files andNumber:(NSUInteger)fileNumber blur:(BOOL)blurImage
+- (UIImage *)clusterThumbFromFiles:(NSArray *)files andNumber:(NSUInteger)fileNumber blur:(BOOL)blurImage
 {
     UIImage *clusterThumb;
     CGSize imageSize;
@@ -221,7 +245,7 @@ static NSInteger _currentDeviceIdiom;
     NSUInteger iter = files.count < fileNumber ? files.count : fileNumber;
     for (NSUInteger i = 0; i < iter; i++) {
         MLFile *file =  [files objectAtIndex:i];
-        clusterThumb = [VLCThumbnailsCache thumbnailForMediaFile:file];
+        clusterThumb = [self thumbnailForMediaFile:file];
         CGContextRef context = UIGraphicsGetCurrentContext();
         CGFloat imagePartWidth = (imageSize.width / iter);
         //the rect in which the image should be drawn

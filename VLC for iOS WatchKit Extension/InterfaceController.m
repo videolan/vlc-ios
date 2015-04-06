@@ -159,29 +159,20 @@ typedef enum {
 - (void)configureTableRowController:(id)rowController withObject:(id)storageObject {
 
     VLCRowController *row = rowController;
-    UIImage *backgroundImage;
+    UIImage *backgroundImage = [VLCThumbnailsCache thumbnailForManagedObject:storageObject];
 
     if ([storageObject isKindOfClass:[MLShow class]]) {
-        backgroundImage = [VLCThumbnailsCache thumbnailForShow:storageObject];
         row.titleLabel.text = ((MLAlbum *)storageObject).name;
     } else if ([storageObject isKindOfClass:[MLShowEpisode class]]) {
-        MLFile *anyFileFromEpisode = [(MLShowEpisode *)storageObject files].anyObject;
-        backgroundImage = [VLCThumbnailsCache thumbnailForMediaFile:anyFileFromEpisode];
         row.titleLabel.text = ((MLShowEpisode *)storageObject).name;
     } else if ([storageObject isKindOfClass:[MLLabel class]]) {
-        backgroundImage = [VLCThumbnailsCache thumbnailForLabel:storageObject];
         row.titleLabel.text = ((MLLabel *)storageObject).name;
     } else if ([storageObject isKindOfClass:[MLAlbum class]]) {
-        MLFile *anyFileFromAnyTrack = [[(MLAlbum *)storageObject tracks].anyObject files].anyObject;
-        backgroundImage = [VLCThumbnailsCache thumbnailForMediaFile:anyFileFromAnyTrack];
         row.titleLabel.text = ((MLAlbum *)storageObject).name;
     } else if ([storageObject isKindOfClass:[MLAlbumTrack class]]) {
-        MLFile *anyFileFromTrack = [(MLAlbumTrack *)storageObject files].anyObject;
-        backgroundImage = [VLCThumbnailsCache thumbnailForMediaFile:anyFileFromTrack];
         row.titleLabel.text = ((MLAlbumTrack *)storageObject).title;
     } else {
         row.titleLabel.text = [(MLFile *)storageObject title];
-        backgroundImage = [VLCThumbnailsCache thumbnailForMediaFile:(MLFile *)storageObject];
     }
 
     /* FIXME: add placeholder image once designed

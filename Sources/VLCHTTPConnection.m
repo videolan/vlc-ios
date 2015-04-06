@@ -114,20 +114,7 @@
             if (psc) {
                 NSManagedObject *mo = [moc existingObjectWithID:[psc managedObjectIDForURIRepresentation:[NSURL URLWithString:filePath]] error:nil];
 
-                NSData *theData;
-                if ([mo isKindOfClass:[MLFile class]])
-                    theData = UIImagePNGRepresentation([VLCThumbnailsCache thumbnailForMediaFile:(MLFile *)mo]);
-                else if ([mo isKindOfClass:[MLShow class]])
-                    theData = UIImagePNGRepresentation([VLCThumbnailsCache thumbnailForShow:(MLShow *)mo]);
-                else if ([mo isKindOfClass:[MLLabel class]])
-                    theData = UIImagePNGRepresentation([VLCThumbnailsCache thumbnailForLabel:(MLLabel *)mo]);
-                else if ([mo isKindOfClass:[MLAlbum class]])
-                    theData = UIImagePNGRepresentation([VLCThumbnailsCache thumbnailForMediaFile:[[(MLAlbum *)mo tracks].anyObject files].anyObject]);
-                else if ([mo isKindOfClass:[MLAlbumTrack class]])
-                    theData = UIImagePNGRepresentation([VLCThumbnailsCache thumbnailForMediaFile:[(MLAlbumTrack *)mo files].anyObject]);
-                else if ([mo isKindOfClass:[MLShowEpisode class]])
-                    theData = UIImagePNGRepresentation([VLCThumbnailsCache thumbnailForMediaFile:[(MLShowEpisode *)mo files].anyObject]);
-
+                NSData *theData =  UIImagePNGRepresentation([VLCThumbnailsCache thumbnailForManagedObject:mo]);
                 if (theData) {
                     HTTPDataResponse *dataResponse = [[HTTPDataResponse alloc] initWithData:theData];
                     dataResponse.contentType = @"image/png";

@@ -2199,7 +2199,7 @@ static inline NSArray * RemoteCommandCenterCommandsToHandle(MPRemoteCommandCente
         mediaIsAudioOnly = [item isSupportedAudioFile];
 
         if (mediaIsAudioOnly)
-            self.artworkImageView.image = [VLCThumbnailsCache thumbnailForMediaFile:item];
+            self.artworkImageView.image = [VLCThumbnailsCache thumbnailForManagedObject:item];
     } else {
         NSDictionary * metaDict = _mediaPlayer.media.metaDictionary;
 

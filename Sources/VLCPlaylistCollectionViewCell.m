@@ -174,52 +174,27 @@
 {
     self.thumbnailView.contentMode = UIViewContentModeScaleAspectFill;
     if ([self.mediaObject isKindOfClass:[MLFile class]]) {
-        MLFile *mediaObject = self.mediaObject;
-        [self _configureForMLFile:mediaObject];
-
-        if (([keyPath isEqualToString:@"computedThumbnail"] || !keyPath) || (!self.thumbnailView.image && [keyPath isEqualToString:@"editing"]))
-            self.thumbnailView.image = [VLCThumbnailsCache thumbnailForMediaFile:mediaObject];
+        [self _configureForMLFile:self.mediaObject];
     } else if ([self.mediaObject isKindOfClass:[MLLabel class]]) {
-        MLLabel *mediaObject = (MLLabel *)self.mediaObject;
-        [self _configureForFolder:mediaObject];
-
-        if ([keyPath isEqualToString:@"files"] || !keyPath || (!self.thumbnailView.image && [keyPath isEqualToString:@"editing"])) {
-            if (mediaObject.files.count != 0)
-                self.thumbnailView.image = [VLCThumbnailsCache thumbnailForLabel:mediaObject];
-        }
+        [self _configureForFolder:(MLLabel *)self.mediaObject];
     } else if ([self.mediaObject isKindOfClass:[MLAlbum class]]) {
-        MLAlbum *mediaObject = (MLAlbum *)self.mediaObject;
-        [self _configureForAlbum:mediaObject];
-
-        if ([keyPath isEqualToString:@"computedThumbnail"] || !keyPath || (!self.thumbnailView.image && [keyPath isEqualToString:@"editing"])) {
-            MLFile *anyFileFromAnyTrack = [mediaObject.tracks.anyObject files].anyObject;
-            self.thumbnailView.image = [VLCThumbnailsCache thumbnailForMediaFile:anyFileFromAnyTrack];
-        }
+        [self _configureForAlbum:(MLAlbum *)self.mediaObject];
     } else if ([self.mediaObject isKindOfClass:[MLAlbumTrack class]]) {
-        MLAlbumTrack *mediaObject = (MLAlbumTrack *)self.mediaObject;
-        [self _configureForAlbumTrack:mediaObject];
-
-        if ([keyPath isEqualToString:@"computedThumbnail"] || !keyPath || !self.thumbnailView.image) {
-            MLFile *anyFileFromTrack = mediaObject.files.anyObject;
-            self.thumbnailView.image = [VLCThumbnailsCache thumbnailForMediaFile:anyFileFromTrack];
-        }
+        [self _configureForAlbumTrack:(MLAlbumTrack *)self.mediaObject];
     } else if ([self.mediaObject isKindOfClass:[MLShow class]]) {
+
         MLShow *mediaObject = (MLShow *)self.mediaObject;
         [self _configureForShow:mediaObject];
 
         if ([keyPath isEqualToString:@"computedThumbnail"] || [keyPath isEqualToString:@"episodes"] || !keyPath || (!self.thumbnailView.image && [keyPath isEqualToString:@"editing"])) {
-            self.thumbnailView.image = [VLCThumbnailsCache thumbnailForShow:mediaObject];
+            self.thumbnailView.image = [VLCThumbnailsCache thumbnailForManagedObject:mediaObject];
         }
     } else if ([self.mediaObject isKindOfClass:[MLShowEpisode class]]) {
-        MLShowEpisode *mediaObject = (MLShowEpisode *)self.mediaObject;
-        [self _configureForShowEpisode:mediaObject];
-
-        if ([keyPath isEqualToString:@"computedThumbnail"] || !keyPath || !self.thumbnailView.image) {
-            MLFile *anyFileFromEpisode = mediaObject.files.anyObject;
-            self.thumbnailView.image = [VLCThumbnailsCache thumbnailForMediaFile:anyFileFromEpisode];
-        }
+        [self _configureForShowEpisode:(MLShowEpisode *)self.mediaObject];
     }
-
+    if (![self.mediaObject isKindOfClass:[MLShow class]] && ([keyPath isEqualToString:@"computedThumbnail"] || !keyPath || (!self.thumbnailView.image && [keyPath isEqualToString:@"editing"]))) {
+        self.thumbnailView.image = [VLCThumbnailsCache thumbnailForManagedObject:self.mediaObject];
+    }
     [self setNeedsDisplay];
 }
 
