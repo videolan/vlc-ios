@@ -48,10 +48,10 @@
             </objects>
             <point key="canvasLocation" x="221" y="216"/>
         </scene>
-        <!--Detail-->
+        <!--detailInfo-->
         <scene sceneID="ssu-GA-ce6">
             <objects>
-                <controller identifier="detailInfo" title="Detail" id="iqo-j9-nlr" customClass="VLCDetailInterfaceController">
+                <controller identifier="detailInfo" id="iqo-j9-nlr" customClass="VLCDetailInterfaceController">
                     <items>
                         <imageView alignment="left" contentMode="scaleAspectFit" id="TPb-N9-Qms"/>
                         <label alignment="left" text="title" textAlignment="left" numberOfLines="0" id="0av-IS-YI5"/>
@@ -73,10 +73,10 @@
             </objects>
             <point key="canvasLocation" x="497" y="222"/>
         </scene>
-        <!--Playing-->
+        <!--nowPlaying-->
         <scene sceneID="NHj-Mq-ifc">
             <objects>
-                <controller identifier="nowPlaying" title="Playing" id="Mzo-Y8-gdK" customClass="VLCNowPlayingInterfaceController">
+                <controller identifier="nowPlaying" id="Mzo-Y8-gdK" customClass="VLCNowPlayingInterfaceController">
                     <items>
                         <label alignment="left" accessibilityLabel="title" text="title" textAlignment="left" numberOfLines="0" id="H58-Y8-Tbc"/>
                         <label alignment="left" accessibilityLabel="playback duration" text="duration" id="D0h-cq-wsv"/>
