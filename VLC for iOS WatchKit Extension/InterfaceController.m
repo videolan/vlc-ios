@@ -159,7 +159,6 @@ typedef enum {
         row.titleLabel.text = ((MLAlbumTrack *)storageObject).title;
     } else {
         row.titleLabel.text = [(MLFile *)storageObject title];
-        row.durationLabel.text = [VLCTime timeWithNumber:[(MLFile *)storageObject duration]].stringValue;
         backgroundImage = [VLCThumbnailsCache thumbnailForMediaFile:(MLFile *)storageObject];
     }
 
