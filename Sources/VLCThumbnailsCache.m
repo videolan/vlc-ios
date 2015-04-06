@@ -28,7 +28,7 @@ static NSInteger _currentDeviceIdiom;
 #define MAX_CACHE_SIZE_IPAD   27  // three times the number of items shown on iPad
 #define MAX_CACHE_SIZE_WATCH  15  // three times the number of items shown on 42mm Watch
 
-+(void)initialize
+-(void)initialize
 {
     _currentDeviceIdiom = [[UIDevice currentDevice] userInterfaceIdiom];
 
@@ -53,6 +53,18 @@ static NSInteger _currentDeviceIdiom;
     [_thumbnailCacheMetadata setCountLimit: MaxCacheSize];
 }
 
+
++ (instancetype)sharedThumbnailCache
+{
+    static dispatch_once_t onceToken;
+    static VLCThumbnailsCache *sharedThumbnailCache;
+    dispatch_once(&onceToken, ^{
+        sharedThumbnailCache = [[VLCThumbnailsCache alloc] init];
+    });
+
+    return sharedThumbnailCache;
+}
+
 - (NSString *)_md5FromString:(NSString *)string
 {
     const char *ptr = [string UTF8String];
@@ -67,7 +79,7 @@ static NSInteger _currentDeviceIdiom;
 
 + (UIImage *)thumbnailForMediaItemWithTitle:(NSString *)title Artist:(NSString*)artist andAlbumName:(NSString*)albumname
 {
-    return [UIImage imageWithContentsOfFile:[[VLCThumbnailsCache new] artworkPathForMediaItemWithTitle:title Artist:artist andAlbumName:albumname]];
+    return [UIImage imageWithContentsOfFile:[[VLCThumbnailsCache sharedThumbnailCache] artworkPathForMediaItemWithTitle:title Artist:artist andAlbumName:albumname]];
 }
 
 - (NSString *)artworkPathForMediaItemWithTitle:(NSString *)title Artist:(NSString*)artist andAlbumName:(NSString*)albumname
@@ -104,7 +116,7 @@ static NSInteger _currentDeviceIdiom;
 + (UIImage *)thumbnailForManagedObject:(NSManagedObject *)object
 {
     UIImage *thumbnail;
-    VLCThumbnailsCache *cache = [VLCThumbnailsCache new];
+    VLCThumbnailsCache *cache = [VLCThumbnailsCache sharedThumbnailCache];
     if ([object isKindOfClass:[MLShow class]]) {
         thumbnail = [cache thumbnailForShow:(MLShow *)object];
     } else if ([object isKindOfClass:[MLShowEpisode class]]) {
