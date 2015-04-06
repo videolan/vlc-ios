@@ -7,6 +7,7 @@
  *
  * Authors: Tobias Conradi <videolan # tobias-conradi.de>
  *          Carola Nitz <caro # videolan.org>
+ *          Felix Paul Kühne <fkuehne # videolan.org>
  *
  * Refer to the COPYING file of the official project for license.
  *****************************************************************************/
@@ -18,6 +19,7 @@
 
 #import "VLCNotificationRelay.h"
 #import "VLCWatchTableController.h"
+#import "VLCThumbnailsCache.h"
 
 static NSString *const rowType = @"mediaRow";
 static NSString *const VLCDBUpdateNotification = @"VLCUpdateDataBase";
@@ -133,23 +135,40 @@ typedef enum {
     self.tableController.objects = [self mediaArray];
 }
 
-- (void)configureTableRowController:(id)rowController withObject:(MLFile *)object {
+- (void)configureTableRowController:(id)rowController withObject:(id)storageObject {
     VLCRowController *row = rowController;
-    if ([object isKindOfClass:[MLAlbum class]] || [object isKindOfClass:[MLShowEpisode class]] || [object isKindOfClass:[MLShow class]] ||[object isKindOfClass:[MLLabel class]] ){
-        //no matter what class it is it has a name property
-        row.titleLabel.text = ((MLAlbum *)object).name;
-        //TODO: set placeholderimage
-        [row.group setBackgroundImage:[self generateBackgroundiImageWithGradient:nil]];
+    UIImage *backgroundImage;
+
+    if ([storageObject isKindOfClass:[MLShow class]]) {
+        backgroundImage = [VLCThumbnailsCache thumbnailForShow:storageObject];
+        row.titleLabel.text = ((MLAlbum *)storageObject).name;
+    } else if ([storageObject isKindOfClass:[MLShowEpisode class]]) {
+        MLFile *anyFileFromEpisode = [(MLShowEpisode *)storageObject files].anyObject;
+        backgroundImage = [VLCThumbnailsCache thumbnailForMediaFile:anyFileFromEpisode];
+        row.titleLabel.text = ((MLShowEpisode *)storageObject).name;
+    } else if ([storageObject isKindOfClass:[MLLabel class]]) {
+        backgroundImage = [VLCThumbnailsCache thumbnailForLabel:storageObject];
+        row.titleLabel.text = ((MLLabel *)storageObject).name;
+    } else if ([storageObject isKindOfClass:[MLAlbum class]]) {
+        MLFile *anyFileFromAnyTrack = [[(MLAlbum *)storageObject tracks].anyObject files].anyObject;
+        backgroundImage = [VLCThumbnailsCache thumbnailForMediaFile:anyFileFromAnyTrack];
+        row.titleLabel.text = ((MLAlbum *)storageObject).name;
+    } else if ([storageObject isKindOfClass:[MLAlbumTrack class]]) {
+        MLFile *anyFileFromTrack = [(MLAlbumTrack *)storageObject files].anyObject;
+        backgroundImage = [VLCThumbnailsCache thumbnailForMediaFile:anyFileFromTrack];
+        row.titleLabel.text = ((MLAlbumTrack *)storageObject).title;
     } else {
-        row.titleLabel.text = object.title;
-        row.durationLabel.text = [VLCTime timeWithNumber:object.duration].stringValue;
-        if (object.computedThumbnail != nil) {
-            [row.group setBackgroundImage:[self generateBackgroundiImageWithGradient:object.computedThumbnail]];
-        } else {
-            //TODO: set placeholderimage
-            [row.group setBackgroundImage:[self generateBackgroundiImageWithGradient:nil]];
-        }
+        row.titleLabel.text = [(MLFile *)storageObject title];
+        row.durationLabel.text = [VLCTime timeWithNumber:[(MLFile *)storageObject duration]].stringValue;
+        backgroundImage = [VLCThumbnailsCache thumbnailForMediaFile:(MLFile *)storageObject];
     }
+
+    /* FIXME: add placeholder image once designed
+    if (backgroundImage == nil)
+        backgroundImage = nil;
+     */
+
+    [row.group setBackgroundImage:[self generateBackgroundiImageWithGradient:backgroundImage]];
 }
 - (UIImage *)generateBackgroundiImageWithGradient:(UIImage *)backgroundImage {
 
