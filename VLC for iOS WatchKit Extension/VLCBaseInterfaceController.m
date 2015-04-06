@@ -17,11 +17,24 @@
 - (void)awakeWithContext:(id)context {
     [super awakeWithContext:context];
 
+}
+
+- (void)addNowPlayingMenu {
     [self addMenuItemWithItemIcon:WKMenuItemIconMore title: NSLocalizedString(@"NOW_PLAYING", nil) action:@selector(showNowPlaying:)];
 }
 
 - (void)showNowPlaying:(id)sender {
     [self presentControllerWithName:@"nowPlaying" context:nil];
+}
+
+
+- (void)willActivate {
+    [super willActivate];
+    _activated = YES;
+}
+- (void)didDeactivate {
+    [super didDeactivate];
+    _activated = NO;
 }
 
 @end

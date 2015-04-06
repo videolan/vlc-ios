@@ -34,6 +34,7 @@ typedef enum {
 @interface InterfaceController()
 @property (nonatomic, strong) VLCWatchTableController *tableController;
 @property (nonatomic) VLCLibraryMode libraryMode;
+@property (nonatomic) BOOL needsUpdate;
 @end
 
 @implementation InterfaceController
@@ -69,20 +70,17 @@ typedef enum {
 
 }
 
+- (void) dealloc {
+    [[NSNotificationCenter defaultCenter] removeObserver:self name:VLCDBUpdateNotification object:nil];
+}
+
 - (void)willActivate {
     // This method is called when watch view controller is about to be visible to user
     [super willActivate];
     NSLog(@"%s",__PRETTY_FUNCTION__);
-
-    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(updateData) name:VLCDBUpdateNotification object:nil];
-}
-
-- (void)didDeactivate {
-    // This method is called when watch view controller is no longer visible
-    [super didDeactivate];
-    NSLog(@"%s",__PRETTY_FUNCTION__);
-
-    [[NSNotificationCenter defaultCenter] removeObserver:self name:VLCDBUpdateNotification object:nil];
+    if (self.needsUpdate) {
+        [self updateData];
+    }
 }
 
 - (void)table:(WKInterfaceTable *)table didSelectRowAtIndex:(NSInteger)rowIndex {
@@ -105,7 +103,7 @@ typedef enum {
     [self addMenuItemWithImageNamed:@"AllFiles" title: NSLocalizedString(@"LIBRARY_ALL_FILES", nil) action:@selector(switchToAllFiles)];
     [self addMenuItemWithImageNamed:@"MusicAlbums" title: NSLocalizedString(@"LIBRARY_MUSIC", nil) action:@selector(switchToMusic)];
     [self addMenuItemWithImageNamed:@"TVShowsIcon" title: NSLocalizedString(@"LIBRARY_SERIES", nil) action:@selector(switchToSeries)];
-    [self addMenuItemWithItemIcon:WKMenuItemIconMore title: NSLocalizedString(@"NOW_PLAYING", nil) action:@selector(showNowPlaying:)];
+    [self addNowPlayingMenu];
 }
 
 - (void)switchToAllFiles{
@@ -126,13 +124,16 @@ typedef enum {
     [self updateData];
 }
 
-- (void)showNowPlaying:(id)sender {
-    [self presentControllerWithName:@"nowPlaying" context:nil];
-}
 #pragma mark - data handling
 
 - (void)updateData {
-    self.tableController.objects = [self mediaArray];
+    // if not activated/visible we defer the update til activation
+    if (self.activated) {
+        self.tableController.objects = [self mediaArray];
+        self.needsUpdate = NO;
+    } else {
+        self.needsUpdate = YES;
+    }
 }
 
 - (void)configureTableRowController:(id)rowController withObject:(id)storageObject {

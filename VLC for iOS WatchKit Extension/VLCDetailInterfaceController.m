@@ -34,6 +34,8 @@
 - (void)awakeWithContext:(id)context {
     [super awakeWithContext:context];
 
+    [self addNowPlayingMenu];
+    
     if ([context isKindOfClass:[MLFile class]]) {
         [self configureWithFile:context];
     }

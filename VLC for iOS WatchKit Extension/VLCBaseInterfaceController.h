@@ -13,7 +13,9 @@
 #import <WatchKit/WatchKit.h>
 
 @interface VLCBaseInterfaceController : WKInterfaceController
+@property (nonatomic, assign, readonly, getter=isActivated) BOOL activated;
 
+- (void)addNowPlayingMenu;
 - (void)showNowPlaying:(id)sender;
 
 @end
