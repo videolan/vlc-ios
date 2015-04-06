@@ -760,16 +760,18 @@ typedef NS_ENUM(NSInteger, VLCPanType) {
 
         NSFetchRequest *request = [[NSFetchRequest alloc] init];
         NSManagedObjectContext *moc = [[MLMediaLibrary sharedMediaLibrary] managedObjectContext];
-        NSEntityDescription *entity = [NSEntityDescription entityForName:@"File" inManagedObjectContext:moc];
-        [request setEntity:entity];
-        [request setPredicate:[NSPredicate predicateWithFormat:@"url CONTAINS %@", componentString]];
+        if (moc) {
+            NSEntityDescription *entity = [NSEntityDescription entityForName:@"File" inManagedObjectContext:moc];
+            [request setEntity:entity];
+            [request setPredicate:[NSPredicate predicateWithFormat:@"url CONTAINS %@", componentString]];
 
-        NSSortDescriptor *descriptor = [[NSSortDescriptor alloc] initWithKey:@"title" ascending:YES selector:@selector(localizedCaseInsensitiveCompare:)];
-        [request setSortDescriptors:@[descriptor]];
+            NSSortDescriptor *descriptor = [[NSSortDescriptor alloc] initWithKey:@"title" ascending:YES selector:@selector(localizedCaseInsensitiveCompare:)];
+            [request setSortDescriptors:@[descriptor]];
 
-        NSArray *matches = [moc executeFetchRequest:request error:nil];
-        if (matches.count > 0)
-            matchedFile = matches[0];
+            NSArray *matches = [moc executeFetchRequest:request error:nil];
+            if (matches.count > 0)
+                matchedFile = matches[0];
+        }
     }
     if (matchedFile.lastPosition)
         lastPosition = matchedFile.lastPosition.floatValue;

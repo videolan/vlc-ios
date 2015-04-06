@@ -588,10 +588,15 @@
     MLMediaLibrary *library = [MLMediaLibrary sharedMediaLibrary];
     NSString *uriString = userInfo[@"URIRepresentation"];
     NSURL *uriRepresentation = [NSURL URLWithString:uriString];
-    NSManagedObjectID *objectID = [library.persistentStoreCoordinator managedObjectIDForURIRepresentation:uriRepresentation];
-    NSManagedObjectContext *moc = [(id)library managedObjectContext];
-    NSManagedObject *managedObject = [moc objectWithID:objectID];
-    [self openMediaFromManagedObject:managedObject];
+    NSPersistentStoreCoordinator *persistentStoreCoordinator = library.persistentStoreCoordinator;
+    if (persistentStoreCoordinator) {
+        NSManagedObjectID *objectID = [persistentStoreCoordinator managedObjectIDForURIRepresentation:uriRepresentation];
+        NSManagedObjectContext *moc = [(id)library managedObjectContext];
+        if (moc) {
+            NSManagedObject *managedObject = [moc objectWithID:objectID];
+            [self openMediaFromManagedObject:managedObject];
+        }
+    }
 }
 
 @end
