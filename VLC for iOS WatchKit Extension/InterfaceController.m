@@ -23,9 +23,17 @@ static NSString *const rowType = @"mediaRow";
 static NSString *const VLCDBUpdateNotification = @"VLCUpdateDataBase";
 static NSString *const VLCDBUpdateNotificationRemote = @"org.videolan.ios-app.dbupdate";
 
+typedef enum {
+    VLCLibraryModeAllFiles  = 0,
+    VLCLibraryModeAllAlbums = 1,
+    VLCLibraryModeAllSeries = 2
+} VLCLibraryMode;
+
 @interface InterfaceController()
 @property (nonatomic, strong) VLCWatchTableController *tableController;
+@property (nonatomic) VLCLibraryMode libraryMode;
 @end
+
 
 
 @implementation InterfaceController
@@ -35,7 +43,8 @@ static NSString *const VLCDBUpdateNotificationRemote = @"org.videolan.ios-app.db
     NSLog(@"%s",__PRETTY_FUNCTION__);
 
     NSURL *groupURL = [[NSFileManager defaultManager] containerURLForSecurityApplicationGroupIdentifier:@"group.org.videolan.vlc-ios"];
-
+    [self setupMenuButtons];
+    self.libraryMode = VLCLibraryModeAllFiles;
     MLMediaLibrary *mediaLibrary = [MLMediaLibrary sharedMediaLibrary];
     mediaLibrary.libraryBasePath = groupURL.path;
     mediaLibrary.additionalPersitentStoreOptions = @{NSReadOnlyPersistentStoreOption : @YES};
@@ -91,6 +100,35 @@ static NSString *const VLCDBUpdateNotificationRemote = @"org.videolan.ios-app.db
     [self.tableController previousPageButtonPressed];
 }
 
+- (void)setupMenuButtons {
+
+    [self addMenuItemWithImageNamed:@"AllFiles" title: NSLocalizedString(@"LIBRARY_ALL_FILES", nil) action:@selector(switchToAllFiles)];
+    [self addMenuItemWithImageNamed:@"MusicAlbums" title: NSLocalizedString(@"LIBRARY_MUSIC", nil) action:@selector(switchToMusic)];
+    [self addMenuItemWithImageNamed:@"TVShowsIcon" title: NSLocalizedString(@"LIBRARY_SERIES", nil) action:@selector(switchToSeries)];
+    [self addMenuItemWithItemIcon:WKMenuItemIconMore title: NSLocalizedString(@"NOW_PLAYING", nil) action:@selector(showNowPlaying:)];
+}
+
+- (void)switchToAllFiles{
+    self.title = NSLocalizedString(@"LIBRARY_ALL_FILES", nil);
+    self.libraryMode = VLCLibraryModeAllFiles;
+    [self updateData];
+}
+
+- (void)switchToMusic{
+    self.title = NSLocalizedString(@"LIBRARY_MUSIC", nil);
+    self.libraryMode = VLCLibraryModeAllAlbums;
+    [self updateData];
+}
+
+- (void)switchToSeries{
+    self.title = NSLocalizedString(@"LIBRARY_SERIES", nil);
+    self.libraryMode = VLCLibraryModeAllSeries;
+    [self updateData];
+}
+
+- (void)showNowPlaying:(id)sender {
+    [self presentControllerWithName:@"nowPlaying" context:nil];
+}
 #pragma mark - data handling
 
 - (void)updateData {
@@ -99,32 +137,70 @@ static NSString *const VLCDBUpdateNotificationRemote = @"org.videolan.ios-app.db
 
 - (void)configureTableRowController:(id)rowController withObject:(MLFile *)object {
     VLCRowController *row = rowController;
-    row.titleLabel.text = object.title;
-    row.durationLabel.text = [VLCTime timeWithNumber:object.duration].stringValue;
-    [row.group setBackgroundImage:object.computedThumbnail];
+    if ([object isKindOfClass:[MLAlbum class]] || [object isKindOfClass:[MLShowEpisode class]] ||[object isKindOfClass:[MLLabel class]] ){
+        //no matter what class it is it has a name property
+        row.titleLabel.text = ((MLAlbum *)object).name;
+        //TODO: set placeholderimage
+        [row.group setBackgroundImage:[self generateBackgroundiImageWithGradient:nil]];
+    } else {
+        row.titleLabel.text = object.title;
+        row.durationLabel.text = [VLCTime timeWithNumber:object.duration].stringValue;
+        if (object.computedThumbnail != nil) {
+            [row.group setBackgroundImage:[self generateBackgroundiImageWithGradient:object.computedThumbnail]];
+        } else {
+            //TODO: set placeholderimage
+            [row.group setBackgroundImage:[self generateBackgroundiImageWithGradient:nil]];
+        }
+    }
+}
+- (UIImage *)generateBackgroundiImageWithGradient:(UIImage *)backgroundImage {
+
+    UIImage *gradient = [UIImage imageNamed:@"gradient-cell-ios7"];
+
+    //TODO: make this dynamical width
+    CGSize newSize = CGSizeMake(130, 60);
+    UIGraphicsBeginImageContext( newSize );
+
+    // Use existing opacity as is
+    [backgroundImage drawInRect:CGRectMake(0,0,newSize.width,newSize.height)];
+    [gradient drawInRect:CGRectMake(0,40,newSize.width,20) blendMode:kCGBlendModeNormal alpha:1.0];
+
+    UIImage *newImage = UIGraphicsGetImageFromCurrentImageContext();
+    
+    UIGraphicsEndImageContext();
+    return newImage;
 }
 
-
+//TODO: this code could use refactoring to be more readable
 - (NSMutableArray *)mediaArray {
     NSMutableArray *objects = [NSMutableArray array];
-//    /* add all albums */
-//    NSArray *rawAlbums = [MLAlbum allAlbums];
-//    for (MLAlbum *album in rawAlbums) {
-//        if (album.name.length > 0 && album.tracks.count > 1)
-//            [objects addObject:album];
-//    }
-//
-//    /* add all shows */
-//    NSArray *rawShows = [MLShow allShows];
-//    for (MLShow *show in rawShows) {
-//        if (show.name.length > 0 && show.episodes.count > 1)
-//            [objects addObject:show];
-//    }
-//
-//    /* add all folders*/
-//    NSArray *allFolders = [MLLabel allLabels];
-//    for (MLLabel *folder in allFolders)
-//        [objects addObject:folder];
+
+    /* add all albums */
+    if (_libraryMode != VLCLibraryModeAllSeries) {
+        NSArray *rawAlbums = [MLAlbum allAlbums];
+        for (MLAlbum *album in rawAlbums) {
+            if (album.name.length > 0 && album.tracks.count > 1)
+                [objects addObject:album];
+        }
+    }
+    if (_libraryMode == VLCLibraryModeAllAlbums) {
+        return objects;
+    }
+
+    /* add all shows */
+    NSArray *rawShows = [MLShow allShows];
+    for (MLShow *show in rawShows) {
+        if (show.name.length > 0 && show.episodes.count > 1)
+            [objects addObject:show];
+    }
+    if (_libraryMode == VLCLibraryModeAllSeries) {
+        return objects;
+    }
+
+    /* add all folders*/
+    NSArray *allFolders = [MLLabel allLabels];
+    for (MLLabel *folder in allFolders)
+        [objects addObject:folder];
 
     /* add all remaining files */
     NSArray *allFiles = [MLFile allFiles];
@@ -136,6 +212,14 @@ static NSString *const VLCDBUpdateNotificationRemote = @"org.videolan.ios-app.db
         else if (file.isShowEpisode) {
             if (file.showEpisode.show.episodes.count < 2)
                 [objects addObject:file];
+
+            /* older MediaLibraryKit versions don't send a show name in a popular
+             * corner case. hence, we need to work-around here and force a reload
+             * afterwards as this could lead to the 'all my shows are gone'
+             * syndrome (see #10435, #10464, #10432 et al) */
+            if (file.showEpisode.show.name.length == 0) {
+                file.showEpisode.show.name = NSLocalizedString(@"UNTITLED_SHOW", nil);
+            }
         } else if (file.isAlbumTrack) {
             if (file.albumTrack.album.tracks.count < 2)
                 [objects addObject:file];

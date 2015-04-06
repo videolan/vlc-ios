@@ -38,6 +38,7 @@
     }
     return self;
 }
+
 - (void)dealloc {
     [[NSNotificationCenter defaultCenter] removeObserver:self];
     CFNotificationCenterRef center = CFNotificationCenterGetDarwinNotifyCenter();
@@ -48,6 +49,7 @@
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(localNotification:) name:localName object:nil];
     self.localToRemote[localName] = remoteName;
 }
+
 - (void)removeRelayLocalName:(NSString *)localName {
     [[NSNotificationCenter defaultCenter] removeObserver:self name:localName object:nil];
     [self.localToRemote removeObjectForKey:localName];
