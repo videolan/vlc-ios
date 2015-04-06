@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
-<document type="com.apple.InterfaceBuilder.WatchKit.Storyboard" version="3.0" toolsVersion="7528.3" systemVersion="14C1514" targetRuntime="watchKit" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" initialViewController="AgC-eL-Hgc">
+<document type="com.apple.InterfaceBuilder.WatchKit.Storyboard" version="3.0" toolsVersion="6751" systemVersion="14C1514" targetRuntime="watchKit" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" initialViewController="AgC-eL-Hgc">
     <dependencies>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="7518.3"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="6736"/>
         <plugIn identifier="com.apple.InterfaceBuilder.IBWatchKitPlugin" version="3737"/>
     </dependencies>
     <scenes>
@@ -19,9 +19,11 @@
                         <table alignment="left" id="lC4-Vd-sgP">
                             <items>
                                 <tableRow identifier="mediaRow" id="QhF-se-FCS" customClass="VLCRowController">
-                                    <group key="rootItem" width="1" height="60" alignment="left" contentMode="scaleAspectFill" layout="vertical" radius="5" id="IQK-uE-8Jr">
+                                    <group key="rootItem" width="1" height="60" alignment="left" contentMode="scaleAspectFill" radius="5" id="IQK-uE-8Jr">
                                         <items>
-                                            <label alignment="left" verticalAlignment="bottom" text="title" numberOfLines="0" minimumScaleFactor="0.90000000000000002" id="bUB-PE-2P0"/>
+                                            <label alignment="left" verticalAlignment="bottom" text="title" minimumScaleFactor="0.90000000000000002" id="bUB-PE-2P0">
+                                                <fontDescription key="font" style="UICTFontTextStyleCaption2"/>
+                                            </label>
                                         </items>
                                         <color key="backgroundColor" red="0.76862745099999996" green="0.74901960779999999" blue="0.75686274509999996" alpha="1" colorSpace="calibratedRGB"/>
                                     </group>
@@ -44,7 +46,9 @@
                                 <label width="1" alignment="center" textAlignment="center" numberOfLines="0" id="t8d-XX-2X2">
                                     <fontDescription key="font" style="UICTFontTextStyleHeadline"/>
                                 </label>
-                                <label alignment="left" textAlignment="left" numberOfLines="0" id="hcI-lI-ORA"/>
+                                <label alignment="left" textAlignment="center" numberOfLines="0" id="hcI-lI-ORA">
+                                    <fontDescription key="font" style="UICTFontTextStyleFootnote"/>
+                                </label>
                             </items>
                         </group>
                     </items>
@@ -65,19 +69,39 @@
             <objects>
                 <controller identifier="detailInfo" id="iqo-j9-nlr" customClass="VLCDetailInterfaceController">
                     <items>
-                        <imageView alignment="left" contentMode="scaleAspectFit" id="TPb-N9-Qms"/>
-                        <label alignment="left" text="title" textAlignment="left" numberOfLines="0" id="0av-IS-YI5"/>
-                        <label alignment="left" text="duration" id="eqY-Zs-PAu"/>
+                        <label alignment="left" verticalAlignment="bottom" text="title" textAlignment="left" numberOfLines="0" id="0av-IS-YI5">
+                            <fontDescription key="font" style="UICTFontTextStyleCaption1"/>
+                        </label>
+                        <group width="1" alignment="left" verticalAlignment="bottom" layout="vertical" id="f8s-XC-ak2">
+                            <items>
+                                <label alignment="left" verticalAlignment="bottom" text="duration" id="eqY-Zs-PAu">
+                                    <fontDescription key="font" type="italicSystem" pointSize="14"/>
+                                </label>
+                            </items>
+                        </group>
+                        <group width="1" height="100" alignment="left" layout="vertical" id="w46-UP-k21">
+                            <items>
+                                <separator alignment="left" verticalAlignment="bottom" id="sMd-Gr-vD4">
+                                    <color key="color" red="0.92549019610000005" green="0.43529411759999997" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
+                                </separator>
+                                <group alignment="center" verticalAlignment="center" radius="20" id="bEJ-d5-UhP">
+                                    <items>
+                                        <button width="40" height="40" alignment="center" verticalAlignment="center" title="▶︎" enabled="NO" id="4LT-2D-Zeq">
+                                            <color key="titleColor" red="0.92549019610000005" green="0.43529411759999997" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
+                                            <color key="backgroundColor" red="1" green="1" blue="1" alpha="0.40000000000000002" colorSpace="calibratedRGB"/>
+                                            <connections>
+                                                <action selector="playNow" destination="iqo-j9-nlr" id="y9K-R2-er7"/>
+                                            </connections>
+                                        </button>
+                                    </items>
+                                </group>
+                            </items>
+                        </group>
                         <label alignment="left" hidden="YES" text="???" id="l0f-Nd-PHT"/>
-                        <button width="1" alignment="left" title="Play Now" enabled="NO" id="4LT-2D-Zeq">
-                            <connections>
-                                <action selector="playNow" destination="iqo-j9-nlr" id="y9K-R2-er7"/>
-                            </connections>
-                        </button>
                     </items>
                     <connections>
                         <outlet property="durationLabel" destination="eqY-Zs-PAu" id="ttj-gB-C2S"/>
-                        <outlet property="imageView" destination="TPb-N9-Qms" id="epU-Re-hBk"/>
+                        <outlet property="group" destination="w46-UP-k21" id="tq6-TE-A5x"/>
                         <outlet property="playNowButton" destination="4LT-2D-Zeq" id="d2T-jc-gAb"/>
                         <outlet property="titleLabel" destination="0av-IS-YI5" id="vEh-KH-Vt5"/>
                     </connections>
