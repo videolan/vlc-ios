@@ -187,13 +187,12 @@ typedef enum {
 
     UIImage *gradient = [UIImage imageNamed:@"gradient-cell-ios7"];
 
-    //TODO: make this dynamical width
-    CGSize newSize = CGSizeMake(130, 60);
+    CGSize newSize = backgroundImage ? backgroundImage.size : CGSizeMake(260, 120);
     UIGraphicsBeginImageContext(newSize);
 
     // Use existing opacity as is
     [backgroundImage drawInRect:CGRectMake(0,0,newSize.width,newSize.height)];
-    [gradient drawInRect:CGRectMake(0,40,newSize.width,20) blendMode:kCGBlendModeNormal alpha:1.0];
+    [gradient drawInRect:CGRectMake(0,newSize.height/2,newSize.width,newSize.height/2) blendMode:kCGBlendModeNormal alpha:1.0];
 
     UIImage *newImage = UIGraphicsGetImageFromCurrentImageContext();
 
