@@ -5,10 +5,10 @@
         <plugIn identifier="com.apple.InterfaceBuilder.IBWatchKitPlugin" version="3737"/>
     </dependencies>
     <scenes>
-        <!--Interface Controller-->
+        <!--tableViewController-->
         <scene sceneID="aou-V4-d1y">
             <objects>
-                <controller id="AgC-eL-Hgc" customClass="InterfaceController">
+                <controller identifier="tableViewController" id="AgC-eL-Hgc" customClass="InterfaceController">
                     <items>
                         <button width="1" alignment="left" title="︿" id="fUJ-qB-19l">
                             <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
@@ -19,7 +19,7 @@
                         <table alignment="left" id="lC4-Vd-sgP">
                             <items>
                                 <tableRow identifier="mediaRow" id="QhF-se-FCS" customClass="VLCRowController">
-                                    <group key="rootItem" width="1" height="60" alignment="left" contentMode="scaleAspectFill" layout="vertical" radius="10" id="IQK-uE-8Jr">
+                                    <group key="rootItem" width="1" height="60" alignment="left" contentMode="scaleAspectFill" layout="vertical" radius="5" id="IQK-uE-8Jr">
                                         <items>
                                             <label alignment="left" verticalAlignment="bottom" text="title" numberOfLines="0" minimumScaleFactor="0.90000000000000002" id="bUB-PE-2P0"/>
                                         </items>

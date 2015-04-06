@@ -28,13 +28,16 @@ static NSString *const VLCDBUpdateNotificationRemote = @"org.videolan.ios-app.db
 typedef enum {
     VLCLibraryModeAllFiles  = 0,
     VLCLibraryModeAllAlbums = 1,
-    VLCLibraryModeAllSeries = 2
+    VLCLibraryModeAllSeries = 2,
+    VLCLibraryModeInGroup = 3
 } VLCLibraryMode;
 
 @interface InterfaceController()
 @property (nonatomic, strong) VLCWatchTableController *tableController;
 @property (nonatomic) VLCLibraryMode libraryMode;
 @property (nonatomic) BOOL needsUpdate;
+@property (nonatomic) id groupObject;
+
 @end
 
 @implementation InterfaceController
@@ -44,19 +47,31 @@ typedef enum {
     NSLog(@"%s",__PRETTY_FUNCTION__);
 
     NSURL *groupURL = [[NSFileManager defaultManager] containerURLForSecurityApplicationGroupIdentifier:@"group.org.videolan.vlc-ios"];
-    [self setupMenuButtons];
-    self.libraryMode = VLCLibraryModeAllFiles;
     MLMediaLibrary *mediaLibrary = [MLMediaLibrary sharedMediaLibrary];
     mediaLibrary.libraryBasePath = groupURL.path;
     mediaLibrary.additionalPersitentStoreOptions = @{NSReadOnlyPersistentStoreOption : @YES};
 
-    self.title = NSLocalizedString(@"LIBRARY_ALL_FILES", nil);
-
-    self.emptyLibraryLabel.text = NSLocalizedString(@"EMPTY_LIBRARY", nil);
-    self.emptyLibraryLabelLong.text = NSLocalizedString(@"EMPTY_LIBRARY_LONG", nil);
+    if (context == nil) {
+        self.libraryMode = VLCLibraryModeAllFiles;
+        [self setupMenuButtons];
+        self.title = NSLocalizedString(@"LIBRARY_ALL_FILES", nil);
+        self.emptyLibraryLabel.text = NSLocalizedString(@"EMPTY_LIBRARY", nil);
+        self.emptyLibraryLabelLong.text = NSLocalizedString(@"EMPTY_LIBRARY_LONG", nil);
+    } else {
+        self.groupObject = context;
+        self.title = [self.groupObject name];
+        self.libraryMode = VLCLibraryModeInGroup;
+    }
 
     [[VLCNotificationRelay sharedRelay] addRelayRemoteName:VLCDBUpdateNotificationRemote toLocalName:VLCDBUpdateNotification];
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(updateData) name:VLCDBUpdateNotification object:nil];
+
+    [self setupTableController];
+    [self updateData];
+
+}
+
+- (void)setupTableController {
 
     VLCWatchTableController *tableController = [[VLCWatchTableController alloc] init];
     tableController.table = self.table;
@@ -71,8 +86,6 @@ typedef enum {
         [weakSelf configureTableRowController:controller withObject:object];
     };
     self.tableController = tableController;
-    [self updateData];
-
 }
 
 - (void) dealloc {
@@ -90,7 +103,9 @@ typedef enum {
 
 - (void)table:(WKInterfaceTable *)table didSelectRowAtIndex:(NSInteger)rowIndex {
     id object = self.tableController.displayedObjects[rowIndex];
-    if ([object isKindOfClass:[MLFile class]]) {
+    if ([object isKindOfClass:[MLAlbum class]] || [object isKindOfClass:[MLLabel class]] || [object isKindOfClass:[MLShow class]]) {
+        [self pushControllerWithName:@"tableViewController" context:object];
+    } else {
         [self pushControllerWithName:@"detailInfo" context:object];
     }
 }
@@ -142,6 +157,7 @@ typedef enum {
 }
 
 - (void)configureTableRowController:(id)rowController withObject:(id)storageObject {
+
     VLCRowController *row = rowController;
     UIImage *backgroundImage;
 
@@ -173,9 +189,10 @@ typedef enum {
         backgroundImage = nil;
      */
 
-    [row.group setBackgroundImage:[self generateBackgroundiImageWithGradient:backgroundImage]];
+    [row.group setBackgroundImage:[self generateBackgroundImageWithGradient:backgroundImage]];
 }
-- (UIImage *)generateBackgroundiImageWithGradient:(UIImage *)backgroundImage {
+
+- (UIImage *)generateBackgroundImageWithGradient:(UIImage *)backgroundImage {
 
     UIImage *gradient = [UIImage imageNamed:@"gradient-cell-ios7"];
 
@@ -195,6 +212,21 @@ typedef enum {
 
 //TODO: this code could use refactoring to be more readable
 - (NSMutableArray *)mediaArray {
+
+    if (_libraryMode == VLCLibraryModeInGroup) {
+        id groupObject = self.groupObject;
+
+        if([groupObject isKindOfClass:[MLLabel class]]) {
+            return [NSMutableArray arrayWithArray:[(MLLabel *)groupObject sortedFolderItems]];
+        } else if ([groupObject isKindOfClass:[MLAlbum class]]) {
+            return [NSMutableArray arrayWithArray:[(MLAlbum *)groupObject sortedTracks]];
+        } else if ([groupObject isKindOfClass:[MLShow class]]){
+            return [NSMutableArray arrayWithArray:[(MLShow *)groupObject sortedEpisodes]];
+        } else {
+            NSAssert(NO, @"this shouldn't have happened check the grouObjects type");
+        }
+    }
+
     NSMutableArray *objects = [NSMutableArray array];
 
     /* add all albums */
