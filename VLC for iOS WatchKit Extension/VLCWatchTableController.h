@@ -26,6 +26,11 @@ typedef void(^VLCWatchTableControllerConfigureRowControllerWithObjectBlock)(id r
 @property (nonatomic, weak) IBOutlet WKInterfaceButton *nextPageButton;
 
 
+/*
+ * Interface object which will be shown when the objects array is empty;
+ */
+@property (nonatomic, weak) IBOutlet WKInterfaceObject *emptyLibraryInterfaceObjects;
+
 /* 
  * set eigher rowType if every row should have the same rowType or the
  * rowTypeForObjectBlock which returns the matching row type for an object

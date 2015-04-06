@@ -36,13 +36,13 @@ CHECKOUT OPTIONS:
     :git: https://github.com/carolanitz/QuincyKit.git
 
 SPEC CHECKSUMS:
-  box-ios-sdk-v2: c06d3009266dc2c5c27bbb3882f1e5cf1f3c72cb
+  box-ios-sdk-v2: e6833ca786bf93da1dbe63e3d0a945b1e1fe1f42
   GHSidebarNav: b0c7937f3fdc2889025d307036223bc0dd7c3a0d
   InAppSettingsKit: 76d5cfbaa3e3f8aa53fe3628516da7eb1aa6a5cb
   OBSlider: 490f108007bfdd5414a38650b211fe403a95b8a0
   PLCrashReporter: 655201ef69223866e230a25c973c8f39bcc4b722
-  QuincyKit: 31f49bf0aa0b20fd25ba3084f617a43424b7af99
+  QuincyKit: 5a7a96a5886e2096d347da3c738f39fe9326f800
   SSKeychain: 88767e903ee8d274ed380e364d96b7a101235286
   upnpx: e56e4f26d21c439b2383e03b5ca9082a3d5046a1
 
-COCOAPODS: 0.35.0
+COCOAPODS: 0.36.0

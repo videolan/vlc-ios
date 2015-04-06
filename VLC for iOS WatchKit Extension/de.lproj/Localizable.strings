@@ -6,3 +6,6 @@
 "LIBRARY_ALL_FILES"="Alle Dateien";
 "LIBRARY_MUSIC"="Musikalben";
 "LIBRARY_SERIES"="TV-Sendungen";
+
+"EMPTY_LIBRARY"="Leere Mediathek";
+"EMPTY_LIBRARY_LONG"="Bitte fügen Sie in der VLC iOS App Dateien zu ihrer Mediathek hinzu.";
