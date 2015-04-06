@@ -13,7 +13,7 @@
 #import "VLCDetailInterfaceController.h"
 #import <MediaLibraryKit/MediaLibraryKit.h>
 #import <MobileVLCKit/MobileVLCKit.h>
-
+#import "VLCThumbnailsCache.h"
 
 @interface VLCDetailInterfaceController ()
 @property (nonatomic, weak) MLFile *file;
@@ -58,7 +58,7 @@
     self.durationLabel.text = [VLCTime timeWithNumber:file.duration].stringValue;
     BOOL playEnabled = file != nil;
     self.playNowButton.enabled = playEnabled;
-    UIImage *thumbnail = file.computedThumbnail;
+    UIImage *thumbnail = [VLCThumbnailsCache thumbnailForMediaFile:file];
     self.imageView.hidden = thumbnail == nil;
     if (thumbnail) {
         self.imageView.image = thumbnail;
