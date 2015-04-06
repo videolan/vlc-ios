@@ -2,7 +2,7 @@
  * VLCThumbnailsCache.m
  * VLC for iOS
  *****************************************************************************
- * Copyright (c) 2013-2014 VideoLAN. All rights reserved.
+ * Copyright (c) 2013-2015 VideoLAN. All rights reserved.
  * $Id$
  *
  * Authors: Gleb Pinigin <gpinigin # gmail.com>
@@ -11,6 +11,7 @@
  * Refer to the COPYING file of the official project for license.
  *****************************************************************************/
 
+#import "VLC for iOS-Prefix.pch"
 #import "VLCThumbnailsCache.h"
 #import <CommonCrypto/CommonDigest.h>
 #import "UIImage+Blur.h"
@@ -18,16 +19,32 @@
 static NSInteger MaxCacheSize;
 static NSCache *_thumbnailCache;
 static NSCache *_thumbnailCacheMetadata;
+static NSInteger _currentDeviceIdiom;
 
 @implementation VLCThumbnailsCache
 
 #define MAX_CACHE_SIZE_IPHONE 21  // three times the number of items shown on iPhone 5
 #define MAX_CACHE_SIZE_IPAD   27  // three times the number of items shown on iPad
+#define MAX_CACHE_SIZE_WATCH  15  // three times the number of items shown on 42mm Watch
 
 +(void)initialize
 {
-    MaxCacheSize = (UI_USER_INTERFACE_IDIOM() == UIUserInterfaceIdiomPad)?
-                                MAX_CACHE_SIZE_IPAD: MAX_CACHE_SIZE_IPHONE;
+    _currentDeviceIdiom = [[UIDevice currentDevice] userInterfaceIdiom];
+
+    MaxCacheSize = 0;
+
+    switch (_currentDeviceIdiom) {
+        case UIUserInterfaceIdiomPad:
+            MaxCacheSize = MAX_CACHE_SIZE_IPAD;
+            break;
+        case UIUserInterfaceIdiomPhone:
+            MaxCacheSize = MAX_CACHE_SIZE_IPHONE;
+            break;
+
+        default:
+            MaxCacheSize = MAX_CACHE_SIZE_WATCH;
+            break;
+    }
 
     _thumbnailCache = [[NSCache alloc] init];
     _thumbnailCacheMetadata = [[NSCache alloc] init];
@@ -179,12 +196,12 @@ static NSCache *_thumbnailCacheMetadata;
 {
     UIImage *clusterThumb;
     CGSize imageSize;
-    if (UI_USER_INTERFACE_IDIOM() == UIUserInterfaceIdiomPad) {
+    if (_currentDeviceIdiom == UIUserInterfaceIdiomPad) {
         if ([UIScreen mainScreen].scale==2.0)
             imageSize = CGSizeMake(682., 384.);
         else
             imageSize = CGSizeMake(341., 192.);
-    } else {
+    } else if (_currentDeviceIdiom == UIUserInterfaceIdiomPhone) {
         if (SYSTEM_RUNS_IOS7_OR_LATER) {
             if ([UIScreen mainScreen].scale==2.0)
                 imageSize = CGSizeMake(480., 270.);
@@ -196,6 +213,8 @@ static NSCache *_thumbnailCacheMetadata;
             else
                 imageSize = CGSizeMake(129., 73.);
         }
+    } else {
+        imageSize = CGSizeMake(272., 120.);
     }
 
     UIGraphicsBeginImageContext(imageSize);
