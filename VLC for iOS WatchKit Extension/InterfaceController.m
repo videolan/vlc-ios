@@ -51,6 +51,10 @@ typedef enum {
     mediaLibrary.additionalPersitentStoreOptions = @{NSReadOnlyPersistentStoreOption : @YES};
 
     self.title = NSLocalizedString(@"LIBRARY_ALL_FILES", nil);
+
+    self.emptyLibraryLabel.text = NSLocalizedString(@"EMPTY_LIBRARY", nil);
+    self.emptyLibraryLabelLong.text = NSLocalizedString(@"EMPTY_LIBRARY_LONG", nil);
+
     [[VLCNotificationRelay sharedRelay] addRelayRemoteName:VLCDBUpdateNotificationRemote toLocalName:VLCDBUpdateNotification];
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(updateData) name:VLCDBUpdateNotification object:nil];
 
@@ -58,6 +62,7 @@ typedef enum {
     tableController.table = self.table;
     tableController.previousPageButton = self.previousButton;
     tableController.nextPageButton = self.nextButton;
+    tableController.emptyLibraryInterfaceObjects = self.emptyLibraryGroup;
     tableController.pageSize = 5;
     tableController.rowType = rowType;
 

@@ -29,7 +29,6 @@
     [self updateTable];
 }
 
-
 - (void)updateTable {
 
     NSUInteger pageSize = self.pageSize;
@@ -53,10 +52,6 @@
     if (endIndex > objectsCount) {
         endIndex = objectsCount;
     }
-
-    /* set starte for previous and next buttons */
-    self.previousPageButton.hidden = currentPage == 0;
-    self.nextPageButton.hidden = endIndex >= objectsCount;
 
     /* get new dispayed objects */
     NSRange range = NSMakeRange(startIndex, endIndex-startIndex);
@@ -99,7 +94,7 @@
                 [table insertRowsAtIndexes:indexSet withRowType:self.rowType];
             }
             [newObjects enumerateObjectsUsingBlock:^(id obj, NSUInteger idx, BOOL *stop) {
-                [self configureTableCellAtIndex:idx withObject:obj];
+                [self _configureTableCellAtIndex:idx withObject:obj];
             }];
         }
     }
@@ -115,18 +110,24 @@
 
         [newObjects enumerateObjectsUsingBlock:^(id obj, NSUInteger idx, BOOL *stop) {
             if ([addedSet containsObject:obj]) {
-                NSString *rowType = [self rowTypeForObject:obj];
+                NSString *rowType = [self _rowTypeForObject:obj];
                 [table insertRowsAtIndexes:[NSIndexSet indexSetWithIndex:idx] withRowType:rowType];
             }
-            [self configureTableCellAtIndex:idx withObject:obj];
+            [self _configureTableCellAtIndex:idx withObject:obj];
         }];
     }
 
     self.rowTypes = rowTypes;
     self.displayedObjects = newObjects;
     self.displayedIndexes = [NSIndexSet indexSetWithIndexesInRange:range];
-}
 
+
+    /* set state for previous and next buttons */
+    self.previousPageButton.hidden = currentPage == 0;
+    self.nextPageButton.hidden = endIndex >= objectsCount;
+
+    self.emptyLibraryInterfaceObjects.hidden = newObjects.count != 0;
+}
 
 - (void)nextPageButtonPressed {
     NSUInteger nextPageStartIndex = self.pageSize * (self.currentPage+1);
@@ -151,7 +152,7 @@
 
 #pragma mark - internal helper
 
-- (NSString *)rowTypeForObject:(id)object {
+- (NSString *)_rowTypeForObject:(id)object {
     if (self.rowTypeForObjectBlock) {
         return self.rowTypeForObjectBlock(object);
     }
@@ -159,7 +160,7 @@
     return self.rowType;
 }
 
-- (void)configureTableCellAtIndex:(NSUInteger)index withObject:(id)object {
+- (void)_configureTableCellAtIndex:(NSUInteger)index withObject:(id)object {
     VLCWatchTableControllerConfigureRowControllerWithObjectBlock configureBlock = self.configureRowControllerWithObjectBlock;
     NSAssert(configureBlock, @"configureRowControllerWithObjectBlock must be set");
     if (configureBlock) {

@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
-<document type="com.apple.InterfaceBuilder.WatchKit.Storyboard" version="3.0" toolsVersion="6751" systemVersion="14C1514" targetRuntime="watchKit" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" initialViewController="AgC-eL-Hgc">
+<document type="com.apple.InterfaceBuilder.WatchKit.Storyboard" version="3.0" toolsVersion="7528.3" systemVersion="14C1514" targetRuntime="watchKit" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" initialViewController="AgC-eL-Hgc">
     <dependencies>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="6736"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="7518.3"/>
         <plugIn identifier="com.apple.InterfaceBuilder.IBWatchKitPlugin" version="3737"/>
     </dependencies>
     <scenes>
@@ -38,8 +38,20 @@
                                 <action selector="nextPagePressed" destination="AgC-eL-Hgc" id="iNm-4n-TvE"/>
                             </connections>
                         </button>
+                        <group width="1" alignment="left" layout="vertical" id="Sdu-Gc-HNJ">
+                            <items>
+                                <imageView alignment="center" image="vlcCone" contentMode="scaleAspectFit" id="oPx-9e-qpC"/>
+                                <label width="1" alignment="center" textAlignment="center" numberOfLines="0" id="t8d-XX-2X2">
+                                    <fontDescription key="font" style="UICTFontTextStyleHeadline"/>
+                                </label>
+                                <label alignment="left" textAlignment="left" numberOfLines="0" id="hcI-lI-ORA"/>
+                            </items>
+                        </group>
                     </items>
                     <connections>
+                        <outlet property="emptyLibraryGroup" destination="Sdu-Gc-HNJ" id="Pj1-Oh-Is8"/>
+                        <outlet property="emptyLibraryLabel" destination="t8d-XX-2X2" id="5MF-Vt-cAr"/>
+                        <outlet property="emptyLibraryLabelLong" destination="hcI-lI-ORA" id="5g5-hU-Gae"/>
                         <outlet property="nextButton" destination="3AK-kX-V9D" id="Iju-cx-571"/>
                         <outlet property="previousButton" destination="fUJ-qB-19l" id="r36-II-aik"/>
                         <outlet property="table" destination="lC4-Vd-sgP" id="mxe-b7-XMx"/>
