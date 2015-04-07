@@ -44,8 +44,7 @@
 
 - (BOOL)isVLCMediaServer:(NSString *)adress port:(NSString *)port
 {
-    NSMutableArray *mutableObjectList = [[NSMutableArray alloc] init];
-    mutableObjectList = [self VLCLibraryServerParser:adress port:port];
+    NSMutableArray *mutableObjectList = [self VLCLibraryServerParser:adress port:port];
     if (mutableObjectList.count > 0) {
         NSString *identifier = [[mutableObjectList objectAtIndex:0] objectForKey:@"identifier"];
         if ([identifier isEqualToString:@"org.videolan.vlc-ios"])

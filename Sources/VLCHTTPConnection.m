@@ -497,8 +497,7 @@
 {
     NSString *subtitlePath = @"";
     NSString *fileName = [[fileURL lastPathComponent] stringByDeletingPathExtension];
-    NSMutableArray *listOfSubtitle = [[NSMutableArray alloc] init];
-    listOfSubtitle = [self _listOfSubtitle];
+    NSMutableArray *listOfSubtitle = [self _listOfSubtitle];
     NSString *fileSub;
     for (int count = 0; count < listOfSubtitle.count; count++) {
         fileSub = [NSString stringWithFormat:@"%@", listOfSubtitle[count]];
