@@ -92,6 +92,9 @@
 @property (nonatomic, retain) VLCMediaList *mediaList;
 @property (nonatomic, readwrite) int itemInMediaListToBePlayedFirst;
 
+/* returns nil if currenlty plaing item is not a MLFile, e.g. a url */
+@property (nonatomic, strong, readonly) MLFile *currentlyPlayingMediaFile;
+
 - (IBAction)closePlayback:(id)sender;
 - (void)unanimatedPlaybackStop;
 

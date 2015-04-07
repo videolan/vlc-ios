@@ -170,6 +170,20 @@ typedef NS_ENUM(NSInteger, VLCPanType) {
         [self _startPlayback];
 }
 
+- (MLFile *)currentlyPlayingMediaFile {
+    MLFile *mediaFile = self.fileFromMediaLibrary;
+    if (mediaFile) {
+        return mediaFile;
+    }
+
+//    VLCMediaList *mediaList = self.mediaList;
+//    if (mediaList) {
+        // TODO: get current MLFile ?
+//    }
+
+    return nil;
+}
+
 - (void)viewDidLoad
 {
     [super viewDidLoad];
@@ -2294,7 +2308,7 @@ static inline NSArray * RemoteCommandCenterCommandsToHandle(MPRemoteCommandCente
     }
 
     [MPNowPlayingInfoCenter defaultCenter].nowPlayingInfo = currentlyPlayingTrackInfo;
-    [[NSNotificationCenter defaultCenter] postNotificationName:@"nowPlayingInfoUpdate" object:self];
+    [[NSNotificationCenter defaultCenter] postNotificationName:kVLCNotificationNowPlayingInfoUpdate object:self];
 }
 
 #pragma mark - autorotation
