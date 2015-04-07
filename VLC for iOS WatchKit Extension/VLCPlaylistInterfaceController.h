@@ -1,5 +1,5 @@
 /*****************************************************************************
- * InterfaceController.h
+ * VLCPlaylistInterfaceController.h
  * VLC for iOS
  *****************************************************************************
  * Copyright (c) 2015 VideoLAN. All rights reserved.
@@ -16,7 +16,7 @@
 
 #import "VLCBaseInterfaceController.h"
 
-@interface InterfaceController : VLCBaseInterfaceController
+@interface VLCPlaylistInterfaceController : VLCBaseInterfaceController
 @property (weak, nonatomic) IBOutlet WKInterfaceButton *previousButton;
 @property (nonatomic, weak) IBOutlet WKInterfaceTable *table;
 @property (weak, nonatomic) IBOutlet WKInterfaceButton *nextButton;
