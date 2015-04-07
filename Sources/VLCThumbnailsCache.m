@@ -16,11 +16,13 @@
 #import "VLCThumbnailsCache.h"
 #import <CommonCrypto/CommonDigest.h>
 #import "UIImage+Blur.h"
-
-static NSInteger MaxCacheSize;
-static NSCache *_thumbnailCache;
-static NSCache *_thumbnailCacheMetadata;
-static NSInteger _currentDeviceIdiom;
+@interface VLCThumbnailsCache() {
+    NSInteger MaxCacheSize;
+    NSCache *_thumbnailCache;
+    NSCache *_thumbnailCacheMetadata;
+    NSInteger _currentDeviceIdiom;
+}
+@end
 
 @implementation VLCThumbnailsCache
 
@@ -28,32 +30,36 @@ static NSInteger _currentDeviceIdiom;
 #define MAX_CACHE_SIZE_IPAD   27  // three times the number of items shown on iPad
 #define MAX_CACHE_SIZE_WATCH  15  // three times the number of items shown on 42mm Watch
 
--(void)initialize
+- (instancetype)init
 {
-    _currentDeviceIdiom = [[UIDevice currentDevice] userInterfaceIdiom];
+    self = [super init];
+    if (self) {
 
-    MaxCacheSize = 0;
+        _currentDeviceIdiom = [[UIDevice currentDevice] userInterfaceIdiom];
 
-    switch (_currentDeviceIdiom) {
-        case UIUserInterfaceIdiomPad:
-            MaxCacheSize = MAX_CACHE_SIZE_IPAD;
-            break;
-        case UIUserInterfaceIdiomPhone:
-            MaxCacheSize = MAX_CACHE_SIZE_IPHONE;
-            break;
+        MaxCacheSize = 0;
 
-        default:
-            MaxCacheSize = MAX_CACHE_SIZE_WATCH;
-            break;
+        switch (_currentDeviceIdiom) {
+            case UIUserInterfaceIdiomPad:
+                MaxCacheSize = MAX_CACHE_SIZE_IPAD;
+                break;
+            case UIUserInterfaceIdiomPhone:
+                MaxCacheSize = MAX_CACHE_SIZE_IPHONE;
+                break;
+
+            default:
+                MaxCacheSize = MAX_CACHE_SIZE_WATCH;
+                break;
+        }
+
+        _thumbnailCache = [[NSCache alloc] init];
+        _thumbnailCacheMetadata = [[NSCache alloc] init];
+        [_thumbnailCache setCountLimit: MaxCacheSize];
+        [_thumbnailCacheMetadata setCountLimit: MaxCacheSize];
+        
     }
-
-    _thumbnailCache = [[NSCache alloc] init];
-    _thumbnailCacheMetadata = [[NSCache alloc] init];
-    [_thumbnailCache setCountLimit: MaxCacheSize];
-    [_thumbnailCacheMetadata setCountLimit: MaxCacheSize];
+    return self;
 }
-
-
 + (instancetype)sharedThumbnailCache
 {
     static dispatch_once_t onceToken;
