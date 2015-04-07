@@ -146,7 +146,7 @@
 
     [[VLCNotificationRelay sharedRelay] addRelayLocalName:NSManagedObjectContextDidSaveNotification toRemoteName:@"org.videolan.ios-app.dbupdate"];
 
-    [[VLCNotificationRelay sharedRelay] addRelayLocalName:@"nowPlayingInfoUpdate" toRemoteName:@"org.videolan.ios-app.nowPlayingInfoUpdate"];
+    [[VLCNotificationRelay sharedRelay] addRelayLocalName:kVLCNotificationNowPlayingInfoUpdate toRemoteName:kVLCDarwinNotificationNowPlayingInfoUpdate];
 
     return YES;
 }
@@ -570,7 +570,7 @@
 - (void)application:(UIApplication *)application handleWatchKitExtensionRequest:(NSDictionary *)userInfo reply:(void (^)(NSDictionary *))reply {
     NSDictionary *reponseDict = nil;
     if ([userInfo[@"name"] isEqualToString:@"getNowPlayingInfo"]) {
-        reponseDict = [MPNowPlayingInfoCenter defaultCenter].nowPlayingInfo;
+        reponseDict = [self nowPlayingResponseDict];
     } else if ([userInfo[@"name"] isEqualToString:@"playpause"]) {
         [_movieViewController playPause];
     } else if ([userInfo[@"name"] isEqualToString:@"skipForward"]) {
@@ -584,19 +584,32 @@
     }
     reply(reponseDict);
 }
+
 - (void)playFileFromWatch:(NSDictionary *)userInfo {
     MLMediaLibrary *library = [MLMediaLibrary sharedMediaLibrary];
+    NSManagedObject *managedObject = nil;
     NSString *uriString = userInfo[@"URIRepresentation"];
-    NSURL *uriRepresentation = [NSURL URLWithString:uriString];
-    NSPersistentStoreCoordinator *persistentStoreCoordinator = library.persistentStoreCoordinator;
-    if (persistentStoreCoordinator) {
-        NSManagedObjectID *objectID = [persistentStoreCoordinator managedObjectIDForURIRepresentation:uriRepresentation];
-        NSManagedObjectContext *moc = [(id)library managedObjectContext];
-        if (moc) {
-            NSManagedObject *managedObject = [moc objectWithID:objectID];
-            [self openMediaFromManagedObject:managedObject];
-        }
+    if (uriString) {
+        NSURL *uriRepresentation = [NSURL URLWithString:uriString];
+        managedObject = [[MLMediaLibrary sharedMediaLibrary] objectForURIRepresentation:uriRepresentation];
     }
+    if (managedObject) {
+        [self openMediaFromManagedObject:managedObject];
+    }
+}
+
+- (NSDictionary *)nowPlayingResponseDict {
+    NSMutableDictionary *response = [NSMutableDictionary new];
+    NSDictionary *nowPlayingInfo = [MPNowPlayingInfoCenter defaultCenter].nowPlayingInfo;
+    if (nowPlayingInfo) {
+        response[@"nowPlayingInfo"] = nowPlayingInfo;
+    }
+    MLFile *currentFile = _movieViewController.currentlyPlayingMediaFile;
+    NSString *URIString = currentFile.objectID.URIRepresentation.absoluteString;
+    if (URIString) {
+        response[@"URIRepresentation"] = URIString;
+    }
+    return response;
 }
 
 @end

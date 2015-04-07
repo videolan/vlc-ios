@@ -13,7 +13,9 @@
 #import "VLCNowPlayingInterfaceController.h"
 #import <MediaPlayer/MediaPlayer.h>
 #import <MobileVLCKit/VLCTime.h>
+#import <MediaLibraryKit/MediaLibraryKit.h>
 #import "VLCNotificationRelay.h"
+#import "VLCThumbnailsCache.h"
 
 @interface VLCNowPlayingInterfaceController ()
 @property (nonatomic, copy) NSString *titleString;
@@ -56,13 +58,25 @@
 
 - (void)requestNowPlayingInfo {
     [WKInterfaceController openParentApplication:@{@"name": @"getNowPlayingInfo"} reply:^(NSDictionary *replyInfo, NSError *error) {
-        [self updateWithNowPlayingInfo:replyInfo];
-        NSLog(@"nowplayingInfo: %@",replyInfo);
+        MLFile *file = nil;
+        NSString *uriString = replyInfo[@"URIRepresentation"];
+        if (uriString) {
+            NSURL *uriRepresentation = [NSURL URLWithString:uriString];
+            file = [MLFile fileForURIRepresentation:uriRepresentation];
+        }
+        [self updateWithNowPlayingInfo:replyInfo[@"nowPlayingInfo"] andFile:file];
     }];
 }
-- (void)updateWithNowPlayingInfo:(NSDictionary*)nowPlayingInfo {
-    self.titleString = nowPlayingInfo[MPMediaItemPropertyTitle];
-    self.playBackDurationNumber = nowPlayingInfo[MPMediaItemPropertyPlaybackDuration];
+- (void)updateWithNowPlayingInfo:(NSDictionary*)nowPlayingInfo andFile:(MLFile*)file {
+    self.titleString = file.title ?: nowPlayingInfo[MPMediaItemPropertyTitle];
+
+    NSNumber *duration = file.duration;
+    if (!duration) {
+        float durationFloat = duration.floatValue;
+        duration = @(durationFloat*1000);
+    }
+    self.playBackDurationNumber = duration;
+    self.image.image = [VLCThumbnailsCache thumbnailForManagedObject:file];
 }
 
 - (IBAction)playPausePressed {
@@ -95,12 +109,7 @@
 - (void)setPlayBackDurationNumber:(NSNumber *)playBackDurationNumber {
     if (![_playBackDurationNumber isEqualToNumber:playBackDurationNumber] || (_playBackDurationNumber==nil && playBackDurationNumber)) {
         _playBackDurationNumber = playBackDurationNumber;
-        float duratioFloat = playBackDurationNumber.floatValue;
-        NSNumber *durationNumber = nil;
-        if (duratioFloat>0.0) {
-            durationNumber = @(playBackDurationNumber.floatValue*1000);
-        }
-        self.durationLabel.text = [VLCTime timeWithNumber:durationNumber].stringValue;
+        self.durationLabel.text = [VLCTime timeWithNumber:playBackDurationNumber].stringValue;
     }
 }
 

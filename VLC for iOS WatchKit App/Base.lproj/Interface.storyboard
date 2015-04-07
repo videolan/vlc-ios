@@ -135,9 +135,11 @@
                                 </button>
                             </items>
                         </group>
+                        <imageView width="1" alignment="center" contentMode="scaleAspectFill" id="3JI-SS-2Wb"/>
                     </items>
                     <connections>
                         <outlet property="durationLabel" destination="D0h-cq-wsv" id="3AN-YZ-yEj"/>
+                        <outlet property="image" destination="3JI-SS-2Wb" id="rqC-Lb-tRt"/>
                         <outlet property="playPauseButton" destination="BAZ-aC-ETt" id="X17-bz-cFy"/>
                         <outlet property="titleLabel" destination="H58-Y8-Tbc" id="xZs-ZW-Shj"/>
                     </connections>
