@@ -1,5 +1,5 @@
 /*****************************************************************************
- * InterfaceController.m
+ * VLCPlaylistInterfaceController.m
  * VLC for iOS
  *****************************************************************************
  * Copyright (c) 2015 VideoLAN. All rights reserved.
@@ -12,7 +12,7 @@
  * Refer to the COPYING file of the official project for license.
  *****************************************************************************/
 
-#import "InterfaceController.h"
+#import "VLCPlaylistInterfaceController.h"
 #import <MediaLibraryKit/MediaLibraryKit.h>
 #import "VLCRowController.h"
 #import <MobileVLCKit/VLCTime.h>
@@ -32,7 +32,7 @@ typedef enum {
     VLCLibraryModeInGroup = 3
 } VLCLibraryMode;
 
-@interface InterfaceController()
+@interface VLCPlaylistInterfaceController()
 @property (nonatomic, strong) VLCWatchTableController *tableController;
 @property (nonatomic) VLCLibraryMode libraryMode;
 @property (nonatomic) BOOL needsUpdate;
@@ -40,7 +40,7 @@ typedef enum {
 
 @end
 
-@implementation InterfaceController
+@implementation VLCPlaylistInterfaceController
 
 - (void)awakeWithContext:(id)context {
     [super awakeWithContext:context];
