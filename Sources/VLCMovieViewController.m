@@ -1184,6 +1184,11 @@ static inline NSArray * RemoteCommandCenterCommandsToHandle(MPRemoteCommandCente
 
 - (void)toggleControlsVisible
 {
+    if (!_trackSelectorContainer.hidden) {
+        for (UIGestureRecognizer *recognizer in self.view.gestureRecognizers)
+            [recognizer setEnabled:YES];
+    }
+
     if (_controlsHidden && !_videoFiltersHidden)
         _videoFiltersHidden = YES;
 
