@@ -203,6 +203,7 @@
 		7D27EC3519DF315E00EF0370 /* browser.png in Resources */ = {isa = PBXBuildFile; fileRef = 7D27EC3319DF315E00EF0370 /* browser.png */; };
 		7D27EC3619DF315E00EF0370 /* browser@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 7D27EC3419DF315E00EF0370 /* browser@2x.png */; };
 		7D298F441AD5827E00A0BF68 /* WatchKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = DDF157B31ACB169B00AAFBC6 /* WatchKit.framework */; };
+		7D298F451AD58A0700A0BF68 /* UIImage+Blur.m in Sources */ = {isa = PBXBuildFile; fileRef = 7D168F7318D4A33F003FAF59 /* UIImage+Blur.m */; };
 		7D2A34A41805CDBA004078AA /* gradient-cell-ios7.png in Resources */ = {isa = PBXBuildFile; fileRef = 7D2A34A21805CDBA004078AA /* gradient-cell-ios7.png */; };
 		7D2A34A51805CDBA004078AA /* gradient-cell-ios7@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 7D2A34A31805CDBA004078AA /* gradient-cell-ios7@2x.png */; };
 		7D2D4ECC1ACFFA42006A8DBD /* Localizable.strings in Resources */ = {isa = PBXBuildFile; fileRef = 7D2D4ECE1ACFFA42006A8DBD /* Localizable.strings */; };
@@ -3583,6 +3584,7 @@
 			files = (
 				DD6FA7B01ACD641C006DEB2E /* VLCNowPlayingInterfaceController.m in Sources */,
 				7DE715ED1AD2DAE50075E716 /* VLCThumbnailsCache.m in Sources */,
+				7D298F451AD58A0700A0BF68 /* UIImage+Blur.m in Sources */,
 				DDF157B11ACB162700AAFBC6 /* MediaLibrary.xcdatamodeld in Sources */,
 				DDE490731ACE964200B1B5E3 /* VLCBaseInterfaceController.m in Sources */,
 				DDE4906C1ACDB63F00B1B5E3 /* VLCNotificationRelay.m in Sources */,
