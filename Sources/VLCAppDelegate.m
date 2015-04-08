@@ -59,7 +59,7 @@
     else
         skipLoopFilterDefaultValue = kVLCSettingSkipLoopFilterNonRef;
 
-    NSDictionary *appDefaults = @{kVLCSettingPasscodeKey : @"", kVLCSettingPasscodeOnKey : @(NO), kVLCSettingContinueAudioInBackgroundKey : @(YES), kVLCSettingStretchAudio : @(NO), kVLCSettingTextEncoding : kVLCSettingTextEncodingDefaultValue, kVLCSettingSkipLoopFilter : skipLoopFilterDefaultValue, kVLCSettingSubtitlesFont : kVLCSettingSubtitlesFontDefaultValue, kVLCSettingSubtitlesFontColor : kVLCSettingSubtitlesFontColorDefaultValue, kVLCSettingSubtitlesFontSize : kVLCSettingSubtitlesFontSizeDefaultValue, kVLCSettingSubtitlesBoldFont: kVLCSettingSubtitlesBoldFontDefaulValue, kVLCSettingDeinterlace : kVLCSettingDeinterlaceDefaultValue, kVLCSettingNetworkCaching : kVLCSettingNetworkCachingDefaultValue, kVLCSettingPlaybackGestures : [NSNumber numberWithBool:YES], kVLCSettingFTPTextEncoding : kVLCSettingFTPTextEncodingDefaultValue, kVLCSettingWiFiSharingIPv6 : kVLCSettingWiFiSharingIPv6DefaultValue, kVLCSettingEqualizerProfile : kVLCSettingEqualizerProfileDefaultValue, kVLCSettingVariableJumpDuration : [NSNumber numberWithBool:NO], kVLCSettingPlaybackForwardSkipLength: kVLCSettingPlaybackForwardSkipLengthDefaultValue, kVLCSettingPlaybackBackwardSkipLength: kVLCSettingPlaybackBackwardSkipLengthDefaultValue};
+    NSDictionary *appDefaults = @{kVLCSettingPasscodeKey : @"", kVLCSettingPasscodeOnKey : @(NO), kVLCSettingContinueAudioInBackgroundKey : @(YES), kVLCSettingStretchAudio : @(NO), kVLCSettingTextEncoding : kVLCSettingTextEncodingDefaultValue, kVLCSettingSkipLoopFilter : skipLoopFilterDefaultValue, kVLCSettingSubtitlesFont : kVLCSettingSubtitlesFontDefaultValue, kVLCSettingSubtitlesFontColor : kVLCSettingSubtitlesFontColorDefaultValue, kVLCSettingSubtitlesFontSize : kVLCSettingSubtitlesFontSizeDefaultValue, kVLCSettingSubtitlesBoldFont: kVLCSettingSubtitlesBoldFontDefaulValue, kVLCSettingDeinterlace : kVLCSettingDeinterlaceDefaultValue, kVLCSettingNetworkCaching : kVLCSettingNetworkCachingDefaultValue, kVLCSettingPlaybackGestures : [NSNumber numberWithBool:YES], kVLCSettingFTPTextEncoding : kVLCSettingFTPTextEncodingDefaultValue, kVLCSettingWiFiSharingIPv6 : kVLCSettingWiFiSharingIPv6DefaultValue, kVLCSettingEqualizerProfile : kVLCSettingEqualizerProfileDefaultValue, kVLCSettingPlaybackForwardSkipLength: kVLCSettingPlaybackForwardSkipLengthDefaultValue, kVLCSettingPlaybackBackwardSkipLength: kVLCSettingPlaybackBackwardSkipLengthDefaultValue, kVLCSettingOpenAppForPlayback : kVLCSettingOpenAppForPlaybackDefaultValue};
 
     [defaults registerDefaults:appDefaults];
 }
@@ -586,15 +586,24 @@
 }
 
 - (void)playFileFromWatch:(NSDictionary *)userInfo {
-    MLMediaLibrary *library = [MLMediaLibrary sharedMediaLibrary];
     NSManagedObject *managedObject = nil;
     NSString *uriString = userInfo[@"URIRepresentation"];
     if (uriString) {
         NSURL *uriRepresentation = [NSURL URLWithString:uriString];
         managedObject = [[MLMediaLibrary sharedMediaLibrary] objectForURIRepresentation:uriRepresentation];
     }
-    if (managedObject) {
-        [self openMediaFromManagedObject:managedObject];
+    if (managedObject == nil) {
+        NSLog(@"%s file not found: %@",__PRETTY_FUNCTION__,userInfo);
+        return;
+    }
+
+    [self openMediaFromManagedObject:managedObject];
+    UIApplication *application = [UIApplication sharedApplication];
+
+    BOOL appShouldBeOpenedForPlayback = [[NSUserDefaults standardUserDefaults] boolForKey:kVLCSettingOpenAppForPlayback];
+    BOOL appIsInBackground = [application applicationState] == UIApplicationStateBackground;
+    if (appShouldBeOpenedForPlayback && appIsInBackground) {
+        [application openURL:[NSURL URLWithString:@"vlc-x-callback://x-callback-url"]];
     }
 }
 
