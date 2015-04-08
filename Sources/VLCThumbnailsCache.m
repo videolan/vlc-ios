@@ -16,6 +16,8 @@
 #import "VLCThumbnailsCache.h"
 #import <CommonCrypto/CommonDigest.h>
 #import "UIImage+Blur.h"
+#import <WatchKit/WatchKit.h>
+
 @interface VLCThumbnailsCache() {
     NSInteger MaxCacheSize;
     NSCache *_thumbnailCache;
@@ -34,9 +36,7 @@
 {
     self = [super init];
     if (self) {
-
         _currentDeviceIdiom = [[UIDevice currentDevice] userInterfaceIdiom];
-
         MaxCacheSize = 0;
 
         switch (_currentDeviceIdiom) {
@@ -56,10 +56,10 @@
         _thumbnailCacheMetadata = [[NSCache alloc] init];
         [_thumbnailCache setCountLimit: MaxCacheSize];
         [_thumbnailCacheMetadata setCountLimit: MaxCacheSize];
-        
     }
     return self;
 }
+
 + (instancetype)sharedThumbnailCache
 {
     static dispatch_once_t onceToken;
@@ -256,7 +256,12 @@
                 imageSize = CGSizeMake(129., 73.);
         }
     } else {
-        imageSize = CGSizeMake(272., 120.);
+        if (SYSTEM_RUNS_IOS82_OR_LATER) {
+            if (WKInterfaceDevice.currentDevice != nil) {
+                CGRect screenRect = WKInterfaceDevice.currentDevice.screenBounds;
+                imageSize = CGSizeMake(screenRect.size.width * WKInterfaceDevice.currentDevice.screenScale, 120.);
+            }
+        }
     }
 
     UIGraphicsBeginImageContext(imageSize);
