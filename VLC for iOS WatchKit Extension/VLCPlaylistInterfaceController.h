@@ -24,7 +24,6 @@
 @property (weak, nonatomic) IBOutlet WKInterfaceLabel *emptyLibraryLabel;
 @property (weak, nonatomic) IBOutlet WKInterfaceLabel *emptyLibraryLabelLong;
 
-
 - (IBAction)previousPagePressed;
 - (IBAction)nextPagePressed;
 

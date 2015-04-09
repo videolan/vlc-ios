@@ -72,9 +72,22 @@
 
     NSNumber *duration = file.duration;
     if (!duration) {
+        duration = nowPlayingInfo[MPMediaItemPropertyPlaybackDuration];
         float durationFloat = duration.floatValue;
         duration = @(durationFloat*1000);
     }
+
+    NSNumber *playbackTime = nowPlayingInfo[MPNowPlayingInfoPropertyElapsedPlaybackTime];
+    float playbackProgress = 0.0;
+    float playbackTimeFloat = playbackTime.floatValue; // seconds
+    float durationFloat = duration.floatValue; // milliseconds
+    if (playbackTimeFloat > 0.0 && durationFloat > 0.0) {
+        playbackProgress = playbackTimeFloat / (durationFloat/1000);
+    }
+    BOOL noProgress = (playbackProgress == 0.0 || playbackProgress == 1.0);
+    CGFloat progressWidth = floor(playbackProgress * CGRectGetWidth([WKInterfaceDevice currentDevice].screenBounds));;
+    self.progressSeparator.width = noProgress ? 0.0 : progressWidth;
+
     self.playBackDurationNumber = duration;
     self.image.image = [VLCThumbnailsCache thumbnailForManagedObject:file];
 }

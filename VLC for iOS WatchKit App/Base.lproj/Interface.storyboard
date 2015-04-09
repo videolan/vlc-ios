@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
-<document type="com.apple.InterfaceBuilder.WatchKit.Storyboard" version="3.0" toolsVersion="7528.3" systemVersion="14C1514" targetRuntime="watchKit" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" initialViewController="AgC-eL-Hgc">
+<document type="com.apple.InterfaceBuilder.WatchKit.Storyboard" version="3.0" toolsVersion="7531" systemVersion="14D131" targetRuntime="watchKit" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" initialViewController="AgC-eL-Hgc">
     <dependencies>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="7518.3"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="7520"/>
         <plugIn identifier="com.apple.InterfaceBuilder.IBWatchKitPlugin" version="3737"/>
     </dependencies>
     <scenes>
@@ -19,16 +19,20 @@
                         <table alignment="left" id="lC4-Vd-sgP">
                             <items>
                                 <tableRow identifier="mediaRow" id="QhF-se-FCS" customClass="VLCRowController">
-                                    <group key="rootItem" width="1" height="60" alignment="left" contentMode="scaleAspectFill" radius="5" id="IQK-uE-8Jr">
+                                    <group key="rootItem" width="1" height="60" alignment="left" contentMode="scaleAspectFill" layout="vertical" radius="5" id="IQK-uE-8Jr">
                                         <items>
-                                            <label alignment="left" verticalAlignment="bottom" text="title" minimumScaleFactor="0.90000000000000002" id="bUB-PE-2P0">
+                                            <label alignment="left" text="title" minimumScaleFactor="0.90000000000000002" id="bUB-PE-2P0">
                                                 <fontDescription key="font" style="UICTFontTextStyleCaption2"/>
                                             </label>
+                                            <separator alignment="left" verticalAlignment="bottom" id="ziJ-iW-Rvc">
+                                                <color key="color" red="0.92549019610000005" green="0.43529411759999997" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
+                                            </separator>
                                         </items>
                                         <color key="backgroundColor" red="0.76862745099999996" green="0.74901960779999999" blue="0.75686274509999996" alpha="1" colorSpace="calibratedRGB"/>
                                     </group>
                                     <connections>
                                         <outlet property="group" destination="IQK-uE-8Jr" id="AMK-in-WKm"/>
+                                        <outlet property="progressSeparator" destination="ziJ-iW-Rvc" id="1Ue-rT-1D9"/>
                                         <outlet property="titleLabel" destination="bUB-PE-2P0" id="U07-pL-M8k"/>
                                     </connections>
                                 </tableRow>
@@ -103,6 +107,7 @@
                         <outlet property="durationLabel" destination="eqY-Zs-PAu" id="ttj-gB-C2S"/>
                         <outlet property="group" destination="w46-UP-k21" id="tq6-TE-A5x"/>
                         <outlet property="playNowButton" destination="4LT-2D-Zeq" id="d2T-jc-gAb"/>
+                        <outlet property="progressSeparator" destination="sMd-Gr-vD4" id="ly1-6A-yhJ"/>
                         <outlet property="titleLabel" destination="0av-IS-YI5" id="vEh-KH-Vt5"/>
                     </connections>
                 </controller>
@@ -116,6 +121,9 @@
                     <items>
                         <label alignment="left" accessibilityLabel="title" text="title" textAlignment="left" numberOfLines="0" id="H58-Y8-Tbc"/>
                         <label alignment="left" accessibilityLabel="playback duration" text="duration" id="D0h-cq-wsv"/>
+                        <separator alignment="left" id="po2-UB-p8C">
+                            <color key="color" red="0.92549019610000005" green="0.43529411759999997" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
+                        </separator>
                         <button width="1" alignment="left" accessibilityLabel="play / pause" accessibilityHint="starts playing or pauses the current playback" title="playpause" id="BAZ-aC-ETt">
                             <connections>
                                 <action selector="playPausePressed" destination="Mzo-Y8-gdK" id="6p8-JZ-0Gh"/>
@@ -141,6 +149,7 @@
                         <outlet property="durationLabel" destination="D0h-cq-wsv" id="3AN-YZ-yEj"/>
                         <outlet property="image" destination="3JI-SS-2Wb" id="rqC-Lb-tRt"/>
                         <outlet property="playPauseButton" destination="BAZ-aC-ETt" id="X17-bz-cFy"/>
+                        <outlet property="progressSeparator" destination="po2-UB-p8C" id="sq9-AH-EhQ"/>
                         <outlet property="titleLabel" destination="H58-Y8-Tbc" id="xZs-ZW-Shj"/>
                     </connections>
                 </controller>

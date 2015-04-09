@@ -161,6 +161,7 @@ typedef enum {
     VLCRowController *row = rowController;
     UIImage *backgroundImage = [VLCThumbnailsCache thumbnailForManagedObject:storageObject];
 
+    float playbackProgress = 0.0;
     if ([storageObject isKindOfClass:[MLShow class]]) {
         row.titleLabel.text = ((MLAlbum *)storageObject).name;
     } else if ([storageObject isKindOfClass:[MLShowEpisode class]]) {
@@ -171,9 +172,15 @@ typedef enum {
         row.titleLabel.text = ((MLAlbum *)storageObject).name;
     } else if ([storageObject isKindOfClass:[MLAlbumTrack class]]) {
         row.titleLabel.text = ((MLAlbumTrack *)storageObject).title;
-    } else {
-        row.titleLabel.text = [(MLFile *)storageObject title];
+    } else if ([storageObject isKindOfClass:[MLFile class]]){
+        MLFile *file = (MLFile *)storageObject;
+        row.titleLabel.text = [file title];
+        playbackProgress = file.lastPosition.floatValue;
     }
+
+    BOOL noProgress = (playbackProgress == 0.0 || playbackProgress == 1.0);
+    row.progressSeparator.hidden = noProgress;
+    row.progressSeparator.width = floor(playbackProgress * CGRectGetWidth([WKInterfaceDevice currentDevice].screenBounds));
 
     /* FIXME: add placeholder image once designed
     if (backgroundImage == nil)

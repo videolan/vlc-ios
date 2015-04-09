@@ -16,7 +16,7 @@
 #import "VLCThumbnailsCache.h"
 
 @interface VLCDetailInterfaceController ()
-@property (nonatomic, weak) NSManagedObject *file;
+@property (nonatomic, weak) NSManagedObject *managedObject;
 @end
 
 @implementation VLCDetailInterfaceController
@@ -49,31 +49,39 @@
     [super didDeactivate];
 }
 
-- (void)configureWithFile:(NSManagedObject *)file {
-    self.file = file;
-    if ([file isKindOfClass:[MLShowEpisode class]]) {
-        [self.titleLabel setText:((MLShowEpisode *)file).name];
-    } else if ([file isKindOfClass:[MLFile class]]) {
-        self.durationLabel.text = [VLCTime timeWithNumber:((MLFile *)file).duration].stringValue;
+- (void)configureWithFile:(NSManagedObject *)managedObject {
+    self.managedObject = managedObject;
+
+    float playbackProgress = 0.0;
+    if ([managedObject isKindOfClass:[MLShowEpisode class]]) {
+        [self.titleLabel setText:((MLShowEpisode *)managedObject).name];
+    } else if ([managedObject isKindOfClass:[MLFile class]]) {
+        MLFile *file = (MLFile *)managedObject;
+        self.durationLabel.text = [VLCTime timeWithNumber:file.duration].stringValue;
+        playbackProgress = file.lastPosition.floatValue;
         [self.titleLabel setText:((MLFile *)file).title];
-    } else if ([file isKindOfClass:[MLAlbumTrack class]]) {
-        [self.titleLabel setText:((MLAlbumTrack *)file).title];
+    } else if ([managedObject isKindOfClass:[MLAlbumTrack class]]) {
+        [self.titleLabel setText:((MLAlbumTrack *)managedObject).title];
     } else {
         NSAssert(NO, @"check what filetype we try to show here and add it above");
     }
-    BOOL playEnabled = file != nil;
+    BOOL playEnabled = managedObject != nil;
     self.playNowButton.enabled = playEnabled;
 
-    UIImage *thumbnail = [VLCThumbnailsCache thumbnailForManagedObject:file];
+    UIImage *thumbnail = [VLCThumbnailsCache thumbnailForManagedObject:managedObject];
     if (thumbnail) {
         [self.group setBackgroundImage:thumbnail];
     }
+
+    BOOL noProgress = (playbackProgress == 0.0 || playbackProgress == 1.0);
+    self.progressSeparator.hidden = noProgress;
+    self.progressSeparator.width = floor(playbackProgress * CGRectGetWidth([WKInterfaceDevice currentDevice].screenBounds));
 }
 
 - (IBAction)playNow {
     NSDictionary *dict = @{@"name":@"playFile",
                            @"userInfo":@{
-                                   @"URIRepresentation": self.file.objectID.URIRepresentation.absoluteString,
+                                   @"URIRepresentation": self.managedObject.objectID.URIRepresentation.absoluteString,
                                    }
                            };
     [WKInterfaceController openParentApplication:dict reply:^(NSDictionary *replyInfo, NSError *error) {
