@@ -16,6 +16,7 @@
 #import "VLCThumbnailsCache.h"
 #import <CommonCrypto/CommonDigest.h>
 #import "UIImage+Blur.h"
+#import "UIImage+Scaling.h"
 #import <WatchKit/WatchKit.h>
 
 @interface VLCThumbnailsCache() {
@@ -140,6 +141,28 @@
         thumbnail = [cache thumbnailForMediaFile:(MLFile *)object];
     }
     return thumbnail;
+}
+
++ (UIImage *)thumbnailForManagedObject:(NSManagedObject *)object toFitRect:(CGRect)rect shouldReplaceCache:(BOOL)replaceCache
+{
+    UIImage *rawThumbnail = [self thumbnailForManagedObject:object];
+    CGSize rawSize = rawThumbnail.size;
+
+    /* scaling is potentially expensive, so we should avoid re-doing it for the same size over and over again */ 
+    if (rawSize.width <= rect.size.width && rawSize.height <= rect.size.height)
+        return rawThumbnail;
+
+    UIImage *scaledImage = [UIImage scaleImage:rawThumbnail toFitRect:rect];
+
+    if (replaceCache)
+        [[VLCThumbnailsCache sharedThumbnailCache] _setThumbnail:scaledImage forObjectId:object.objectID];
+
+    return scaledImage;
+}
+
+- (void)_setThumbnail:(UIImage *)image forObjectId:(NSManagedObjectID *)objID
+{
+    [_thumbnailCache setObject:image forKey:objID];
 }
 
 - (UIImage *)thumbnailForMediaFile:(MLFile *)mediaFile

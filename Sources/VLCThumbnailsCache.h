@@ -2,7 +2,7 @@
  * VLCThumbnailsCache.h
  * VLC for iOS
  *****************************************************************************
- * Copyright (c) 2013-2014 VideoLAN. All rights reserved.
+ * Copyright (c) 2013-2015 VideoLAN. All rights reserved.
  * $Id$
  *
  * Authors: Gleb Pinigin <gpinigin # gmail.com>
@@ -17,5 +17,7 @@
 + (UIImage *)thumbnailForManagedObject:(NSManagedObject *)object;
 
 + (UIImage *)thumbnailForMediaItemWithTitle:(NSString *)title Artist:(NSString*)artist andAlbumName:(NSString*)albumname;
+
++ (UIImage *)thumbnailForManagedObject:(NSManagedObject *)object toFitRect:(CGRect)rect shouldReplaceCache:(BOOL)replaceCache;
 
 @end
