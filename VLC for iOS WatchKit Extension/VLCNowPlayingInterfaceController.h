@@ -18,6 +18,7 @@
 @property (weak, nonatomic) IBOutlet WKInterfaceLabel *titleLabel;
 @property (weak, nonatomic) IBOutlet WKInterfaceLabel *durationLabel;
 @property (weak, nonatomic) IBOutlet WKInterfaceButton *playPauseButton;
+@property (weak, nonatomic) IBOutlet WKInterfaceSeparator *progressSeparator;
 
 - (IBAction)playPausePressed;
 - (IBAction)skipForward;
