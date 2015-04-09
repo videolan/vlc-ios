@@ -56,7 +56,6 @@ typedef enum {
         [self setupMenuButtons];
         self.title = NSLocalizedString(@"LIBRARY_ALL_FILES", nil);
         self.emptyLibraryLabel.text = NSLocalizedString(@"EMPTY_LIBRARY", nil);
-        self.emptyLibraryLabelLong.text = NSLocalizedString(@"EMPTY_LIBRARY_LONG", nil);
     } else {
         self.groupObject = context;
         self.title = [self.groupObject name];

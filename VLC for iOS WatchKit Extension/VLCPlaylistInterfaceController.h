@@ -22,7 +22,6 @@
 @property (weak, nonatomic) IBOutlet WKInterfaceButton *nextButton;
 @property (weak, nonatomic) IBOutlet WKInterfaceGroup *emptyLibraryGroup;
 @property (weak, nonatomic) IBOutlet WKInterfaceLabel *emptyLibraryLabel;
-@property (weak, nonatomic) IBOutlet WKInterfaceLabel *emptyLibraryLabelLong;
 
 - (IBAction)previousPagePressed;
 - (IBAction)nextPagePressed;
