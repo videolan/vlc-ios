@@ -193,7 +193,7 @@ typedef enum {
 
 - (UIImage *)generateBackgroundImageWithGradient:(UIImage *)backgroundImage {
 
-    UIImage *gradient = [UIImage imageNamed:@"gradient-cell-ios7"];
+    UIImage *gradient = [UIImage imageNamed:@"tableview-gradient"];
 
     CGSize newSize = backgroundImage ? backgroundImage.size : CGSizeMake(260, 120);
     UIGraphicsBeginImageContext(newSize);
