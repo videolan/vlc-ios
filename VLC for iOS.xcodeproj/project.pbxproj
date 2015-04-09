@@ -314,6 +314,7 @@
 		7D71395A186B197800D54EDA /* darkButton@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 7D713956186B197800D54EDA /* darkButton@2x.png */; };
 		7D71395B186B197800D54EDA /* darkButtonHighlight.png in Resources */ = {isa = PBXBuildFile; fileRef = 7D713957186B197800D54EDA /* darkButtonHighlight.png */; };
 		7D71395C186B197800D54EDA /* darkButtonHighlight@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 7D713958186B197800D54EDA /* darkButtonHighlight@2x.png */; };
+		7D871F521AD7257100348D27 /* UIImage+Scaling.m in Sources */ = {isa = PBXBuildFile; fileRef = 7D871F501AD7257100348D27 /* UIImage+Scaling.m */; };
 		7D89786F185DED88009BAB5D /* VLCFutureDownloadViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 7D89786E185DED88009BAB5D /* VLCFutureDownloadViewController.xib */; };
 		7D897874185DEF79009BAB5D /* repeat.png in Resources */ = {isa = PBXBuildFile; fileRef = 7D897870185DEF79009BAB5D /* repeat.png */; };
 		7D897875185DEF79009BAB5D /* repeat@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 7D897871185DEF79009BAB5D /* repeat@2x.png */; };
@@ -1201,6 +1202,8 @@
 		7D8139CF1865211900D65504 /* ms */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = ms; path = "ms.lproj/badgeUnread@2x~iphone.png"; sourceTree = "<group>"; };
 		7D8139D01865211900D65504 /* ms */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = ms; path = "ms.lproj/badgeUnread~ipad.png"; sourceTree = "<group>"; };
 		7D8139D11865211900D65504 /* ms */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = ms; path = "ms.lproj/badgeUnread~iphone.png"; sourceTree = "<group>"; };
+		7D871F4F1AD7257100348D27 /* UIImage+Scaling.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = "UIImage+Scaling.h"; path = "Sources/UIImage+Scaling.h"; sourceTree = SOURCE_ROOT; };
+		7D871F501AD7257100348D27 /* UIImage+Scaling.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = "UIImage+Scaling.m"; path = "Sources/UIImage+Scaling.m"; sourceTree = SOURCE_ROOT; };
 		7D882244185733D500D87252 /* Default-ipad-Landscape.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "Default-ipad-Landscape.png"; sourceTree = "<group>"; };
 		7D882245185733D500D87252 /* Default-ipad-Landscape@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "Default-ipad-Landscape@2x.png"; sourceTree = "<group>"; };
 		7D882246185733D500D87252 /* Default-ipad-Portrait.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "Default-ipad-Portrait.png"; sourceTree = "<group>"; };
@@ -2952,6 +2955,8 @@
 				7D3784C7183A9972009EE944 /* UIDevice+VLC.m */,
 				7D168F7218D4A317003FAF59 /* UIImage+Blur.h */,
 				7D168F7318D4A33F003FAF59 /* UIImage+Blur.m */,
+				7D871F4F1AD7257100348D27 /* UIImage+Scaling.h */,
+				7D871F501AD7257100348D27 /* UIImage+Scaling.m */,
 				7DF9352D1958AB0600E60FD4 /* UIColor+Presets.h */,
 				7DF9352E1958AB0600E60FD4 /* UIColor+Presets.m */,
 			);
@@ -3600,6 +3605,7 @@
 				DD6FA7B01ACD641C006DEB2E /* VLCNowPlayingInterfaceController.m in Sources */,
 				7DE715ED1AD2DAE50075E716 /* VLCThumbnailsCache.m in Sources */,
 				7D298F451AD58A0700A0BF68 /* UIImage+Blur.m in Sources */,
+				7D871F521AD7257100348D27 /* UIImage+Scaling.m in Sources */,
 				DDF157B11ACB162700AAFBC6 /* MediaLibrary.xcdatamodeld in Sources */,
 				DDE490731ACE964200B1B5E3 /* VLCBaseInterfaceController.m in Sources */,
 				DDE4906C1ACDB63F00B1B5E3 /* VLCNotificationRelay.m in Sources */,
