@@ -160,7 +160,8 @@ typedef enum {
     VLCRowController *row = rowController;
 
     CGRect screenRect = WKInterfaceDevice.currentDevice.screenBounds;
-    UIImage *backgroundImage = [VLCThumbnailsCache thumbnailForManagedObject:storageObject toFitRect: (CGRect){CGPointZero, CGSizeMake(screenRect.size.width * WKInterfaceDevice.currentDevice.screenScale, 120.)} shouldReplaceCache:YES];
+    CGFloat screenScale = WKInterfaceDevice.currentDevice.screenScale;
+    UIImage *backgroundImage = [VLCThumbnailsCache thumbnailForManagedObject:storageObject toFitRect: (CGRect){CGPointZero, CGSizeMake(screenRect.size.width * screenScale, 120. * screenScale)} shouldReplaceCache:YES];
 
     float playbackProgress = 0.0;
     if ([storageObject isKindOfClass:[MLShow class]]) {
