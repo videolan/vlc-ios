@@ -6,5 +6,4 @@
 "LIBRARY_ALL_FILES"="Alla filer";
 "LIBRARY_MUSIC"="Musikalbum";
 "LIBRARY_SERIES"="TV-program";
-"FOLDER_EMPTY"="Tom mapp";
-"EMPTY_LIBRARY_LONG"="Please add files to your Media Library in the VLC iOS App.";
+"EMPTY_LIBRARY"="Tomt mediabibliotek";
