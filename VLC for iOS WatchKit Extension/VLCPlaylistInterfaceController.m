@@ -122,7 +122,7 @@ typedef enum {
 
     [self addMenuItemWithImageNamed:@"AllFiles" title: NSLocalizedString(@"LIBRARY_ALL_FILES", nil) action:@selector(switchToAllFiles)];
     [self addMenuItemWithImageNamed:@"MusicAlbums" title: NSLocalizedString(@"LIBRARY_MUSIC", nil) action:@selector(switchToMusic)];
-    [self addMenuItemWithImageNamed:@"TVShowsIcon" title: NSLocalizedString(@"LIBRARY_SERIES", nil) action:@selector(switchToSeries)];
+    [self addMenuItemWithImageNamed:@"TVShows" title: NSLocalizedString(@"LIBRARY_SERIES", nil) action:@selector(switchToSeries)];
     [self addNowPlayingMenu];
 }
 
