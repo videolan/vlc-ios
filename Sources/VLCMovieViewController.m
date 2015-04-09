@@ -183,12 +183,11 @@ typedef NS_ENUM(NSInteger, VLCPanType) {
     MLFile *mediaFile = self.fileFromMediaLibrary;
     if (mediaFile) {
         return mediaFile;
+    } else if (self.mediaList) {
+        NSArray *results = [MLFile fileForURL:_mediaPlayer.media.url.absoluteString];
+        if (results.count > 0)
+            return results[0];
     }
-
-//    VLCMediaList *mediaList = self.mediaList;
-//    if (mediaList) {
-        // TODO: get current MLFile ?
-//    }
 
     return nil;
 }
