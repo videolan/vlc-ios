@@ -26,6 +26,7 @@
 #import "VLCTrackSelectorHeaderView.h"
 #import "VLCEqualizerView.h"
 #import "VLCMultiSelectionMenuView.h"
+#import <WatchKit/WatchKit.h>
 
 #import "OBSlider.h"
 #import "VLCStatusLabel.h"
@@ -2300,12 +2301,22 @@ static inline NSArray * RemoteCommandCenterCommandsToHandle(MPRemoteCommandCente
         if (trackNumberInt > 0) {
             currentlyPlayingTrackInfo[MPMediaItemPropertyAlbumTrackNumber] = @(trackNumberInt);
         }
+
+        /* FIXME: UGLY HACK
+         * iOS 8.2 and 8.3 include an issue which will lead to a termination of the client app if we set artwork
+         * when the playback initialized through the watch extension
+         * radar://pending */
+        if ([WKInterfaceDevice class] != nil) {
+            if ([WKInterfaceDevice currentDevice] != nil)
+                goto setstuff;
+        }
         if (self.artworkImageView.image) {
             MPMediaItemArtwork *mpartwork = [[MPMediaItemArtwork alloc] initWithImage:self.artworkImageView.image];
             currentlyPlayingTrackInfo[MPMediaItemPropertyArtwork] = mpartwork;
         }
     }
 
+setstuff:
     [MPNowPlayingInfoCenter defaultCenter].nowPlayingInfo = currentlyPlayingTrackInfo;
     [[NSNotificationCenter defaultCenter] postNotificationName:kVLCNotificationNowPlayingInfoUpdate object:self];
 }
