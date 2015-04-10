@@ -89,6 +89,7 @@
                                    @"URIRepresentation": self.managedObject.objectID.URIRepresentation.absoluteString,
                                    }
                            };
+    [self updateUserActivity:@"org.videolan.vlc-ios.playing" userInfo:@{@"playingmedia":self.managedObject.objectID.URIRepresentation} webpageURL:nil];
     [WKInterfaceController openParentApplication:dict reply:^(NSDictionary *replyInfo, NSError *error) {
         [self showNowPlaying:nil];
     }];
