@@ -33,6 +33,11 @@ typedef enum {
 } VLCLibraryMode;
 
 @interface VLCPlaylistInterfaceController()
+{
+    CGRect _thumbnailSize;
+    CGFloat _rowWidth;
+}
+
 @property (nonatomic, strong) VLCWatchTableController *tableController;
 @property (nonatomic) VLCLibraryMode libraryMode;
 @property (nonatomic) BOOL needsUpdate;
@@ -45,6 +50,13 @@ typedef enum {
 - (void)awakeWithContext:(id)context {
     [super awakeWithContext:context];
     NSLog(@"%s",__PRETTY_FUNCTION__);
+
+    WKInterfaceDevice *currentDevice = WKInterfaceDevice.currentDevice;
+    CGRect screenRect = currentDevice.screenBounds;
+    CGFloat screenScale = currentDevice.screenScale;
+    currentDevice = nil;
+    _thumbnailSize = (CGRect){CGPointZero, CGSizeMake(screenRect.size.width * screenScale, 120. * screenScale)};
+    _rowWidth = screenRect.size.width * screenScale;
 
     NSURL *groupURL = [[NSFileManager defaultManager] containerURLForSecurityApplicationGroupIdentifier:@"group.org.videolan.vlc-ios"];
     MLMediaLibrary *mediaLibrary = [MLMediaLibrary sharedMediaLibrary];
@@ -160,10 +172,6 @@ typedef enum {
 
     VLCRowController *row = rowController;
 
-    CGRect screenRect = WKInterfaceDevice.currentDevice.screenBounds;
-    CGFloat screenScale = WKInterfaceDevice.currentDevice.screenScale;
-    UIImage *backgroundImage = [VLCThumbnailsCache thumbnailForManagedObject:storageObject toFitRect: (CGRect){CGPointZero, CGSizeMake(screenRect.size.width * screenScale, 120. * screenScale)} shouldReplaceCache:YES];
-
     float playbackProgress = 0.0;
     if ([storageObject isKindOfClass:[MLShow class]]) {
         row.titleLabel.text = ((MLAlbum *)storageObject).name;
@@ -190,14 +198,16 @@ typedef enum {
         backgroundImage = nil;
      */
 
-    [row.group setBackgroundImage:[self generateBackgroundImageWithGradient:backgroundImage width:screenRect.size.width * screenScale]];
+    NSArray *array = @[row.group, storageObject];
+    [self performSelectorInBackground:@selector(backgroundThumbnailSetter:) withObject:array];
 }
 
-- (UIImage *)generateBackgroundImageWithGradient:(UIImage *)backgroundImage width:(CGFloat)screenWidth {
-
+- (void)backgroundThumbnailSetter:(NSArray *)array
+{
+    UIImage *backgroundImage = [VLCThumbnailsCache thumbnailForManagedObject:array[1] toFitRect:_thumbnailSize shouldReplaceCache:YES];
     UIImage *gradient = [UIImage imageNamed:@"tableview-gradient"];
 
-    CGSize newSize = backgroundImage ? backgroundImage.size : CGSizeMake(screenWidth, 120.);
+    CGSize newSize = backgroundImage ? backgroundImage.size : CGSizeMake(_rowWidth, 120.);
     UIGraphicsBeginImageContext(newSize);
 
     if (backgroundImage)
@@ -212,7 +222,8 @@ typedef enum {
     UIImage *newImage = UIGraphicsGetImageFromCurrentImageContext();
 
     UIGraphicsEndImageContext();
-    return newImage;
+
+    [array[0] setBackgroundImage:newImage];
 }
 
 //TODO: this code could use refactoring to be more readable
