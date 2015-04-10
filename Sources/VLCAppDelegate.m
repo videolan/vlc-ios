@@ -28,10 +28,12 @@
 #import "VLCHTTPUploaderController.h"
 #import "VLCMenuTableViewController.h"
 #import "VLCMigrationViewController.h"
-#import "BWQuincyManager.h"
 #import "VLCAlertView.h"
 #import <BoxSDK/BoxSDK.h>
 #import "VLCNotificationRelay.h"
+
+#import <Fabric/Fabric.h>
+#import <Crashlytics/Crashlytics.h>
 
 @interface VLCAppDelegate () <PAPasscodeViewControllerDelegate, VLCMediaFileDiscovererDelegate, BWQuincyManagerDelegate> {
     PAPasscodeViewController *_passcodeLockController;
@@ -78,12 +80,6 @@
     }
 
     [[UISwitch appearance] setOnTintColor:[UIColor VLCOrangeTintColor]];
-
-    BWQuincyManager *quincyManager = [BWQuincyManager sharedQuincyManager];
-    [quincyManager setSubmissionURL:@"http://crash.videolan.org/crash_v200.php"];
-    [quincyManager setDelegate:self];
-    [quincyManager setShowAlwaysButton:YES];
-    [quincyManager startManager];
 
     /* clean caches on launch (since those are used for wifi upload only) */
     [self cleanCache];
@@ -147,6 +143,8 @@
     [[VLCNotificationRelay sharedRelay] addRelayLocalName:NSManagedObjectContextDidSaveNotification toRemoteName:@"org.videolan.ios-app.dbupdate"];
 
     [[VLCNotificationRelay sharedRelay] addRelayLocalName:kVLCNotificationNowPlayingInfoUpdate toRemoteName:kVLCDarwinNotificationNowPlayingInfoUpdate];
+
+    [Fabric with:@[CrashlyticsKit]];
 
     return YES;
 }

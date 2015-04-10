@@ -314,6 +314,10 @@
 		7D71395A186B197800D54EDA /* darkButton@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 7D713956186B197800D54EDA /* darkButton@2x.png */; };
 		7D71395B186B197800D54EDA /* darkButtonHighlight.png in Resources */ = {isa = PBXBuildFile; fileRef = 7D713957186B197800D54EDA /* darkButtonHighlight.png */; };
 		7D71395C186B197800D54EDA /* darkButtonHighlight@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 7D713958186B197800D54EDA /* darkButtonHighlight@2x.png */; };
+		7D7B17EE1AD8052B003BF3D7 /* Crashlytics.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 7D7B17EA1AD8052A003BF3D7 /* Crashlytics.framework */; };
+		7D7B17EF1AD8052B003BF3D7 /* Fabric.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 7D7B17EB1AD8052A003BF3D7 /* Fabric.framework */; };
+		7D7B17F01AD8052B003BF3D7 /* libc++.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = 7D7B17EC1AD8052A003BF3D7 /* libc++.dylib */; };
+		7D7B17F11AD8052B003BF3D7 /* libz.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = 7D7B17ED1AD8052B003BF3D7 /* libz.dylib */; };
 		7D871F521AD7257100348D27 /* UIImage+Scaling.m in Sources */ = {isa = PBXBuildFile; fileRef = 7D871F501AD7257100348D27 /* UIImage+Scaling.m */; };
 		7D89786F185DED88009BAB5D /* VLCFutureDownloadViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 7D89786E185DED88009BAB5D /* VLCFutureDownloadViewController.xib */; };
 		7D897874185DEF79009BAB5D /* repeat.png in Resources */ = {isa = PBXBuildFile; fileRef = 7D897870185DEF79009BAB5D /* repeat.png */; };
@@ -1177,6 +1181,10 @@
 		7D713956186B197800D54EDA /* darkButton@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "darkButton@2x.png"; sourceTree = "<group>"; };
 		7D713957186B197800D54EDA /* darkButtonHighlight.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = darkButtonHighlight.png; sourceTree = "<group>"; };
 		7D713958186B197800D54EDA /* darkButtonHighlight@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "darkButtonHighlight@2x.png"; sourceTree = "<group>"; };
+		7D7B17EA1AD8052A003BF3D7 /* Crashlytics.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = Crashlytics.framework; sourceTree = "<group>"; };
+		7D7B17EB1AD8052A003BF3D7 /* Fabric.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = Fabric.framework; sourceTree = "<group>"; };
+		7D7B17EC1AD8052A003BF3D7 /* libc++.dylib */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.dylib"; name = "libc++.dylib"; path = "usr/lib/libc++.dylib"; sourceTree = SDKROOT; };
+		7D7B17ED1AD8052B003BF3D7 /* libz.dylib */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.dylib"; name = libz.dylib; path = usr/lib/libz.dylib; sourceTree = SDKROOT; };
 		7D7DA52F1768A53200C7E95D /* id */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = id; path = id.lproj/Localizable.strings; sourceTree = "<group>"; };
 		7D7DA5301768A53200C7E95D /* id */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = id; path = "id.lproj/badgeUnread@2x~ipad.png"; sourceTree = "<group>"; };
 		7D7DA5311768A53200C7E95D /* id */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = id; path = "id.lproj/badgeUnread@2x~iphone.png"; sourceTree = "<group>"; };
@@ -1227,8 +1235,6 @@
 		7D89787F185E00C3009BAB5D /* checkbox@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "checkbox@2x.png"; sourceTree = "<group>"; };
 		7D897880185E00C3009BAB5D /* checkboxEmpty.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = checkboxEmpty.png; sourceTree = "<group>"; };
 		7D897881185E00C3009BAB5D /* checkboxEmpty@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "checkboxEmpty@2x.png"; sourceTree = "<group>"; };
-		7D897889185E1344009BAB5D /* libCrashReporter.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; name = libCrashReporter.a; path = External/PLCrashReporter/libCrashReporter.a; sourceTree = "<group>"; };
-		7D89788B185E1353009BAB5D /* libQuincyLib.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; name = libQuincyLib.a; path = External/QuincyKit/libQuincyLib.a; sourceTree = "<group>"; };
 		7D897894185E14A7009BAB5D /* libGTLTouchStaticLib.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; name = libGTLTouchStaticLib.a; path = External/gtl/libGTLTouchStaticLib.a; sourceTree = "<group>"; };
 		7D9289721877459B009108FD /* VLCFirstStepsThirdPageViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = VLCFirstStepsThirdPageViewController.h; path = Sources/VLCFirstStepsThirdPageViewController.h; sourceTree = SOURCE_ROOT; };
 		7D9289731877459B009108FD /* VLCFirstStepsThirdPageViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = VLCFirstStepsThirdPageViewController.m; path = Sources/VLCFirstStepsThirdPageViewController.m; sourceTree = SOURCE_ROOT; };
@@ -1654,11 +1660,13 @@
 				7D1052E61A4DC5FF00295F08 /* LiveSDK.framework in Frameworks */,
 				7D897895185E14A7009BAB5D /* libGTLTouchStaticLib.a in Frameworks */,
 				7DF7E791175F47DC0018858D /* MediaPlayer.framework in Frameworks */,
+				7D7B17F11AD8052B003BF3D7 /* libz.dylib in Frameworks */,
 				7D6B08FA174D716200A05173 /* MessageUI.framework in Frameworks */,
 				7D3EB014174A353E002062C2 /* SystemConfiguration.framework in Frameworks */,
 				2915544317490D4A00B86CAD /* Security.framework in Frameworks */,
 				7DDD0429172D98E5005A7B10 /* CFNetwork.framework in Frameworks */,
 				CC1BBC58170493E100A20CBF /* CoreData.framework in Frameworks */,
+				7D7B17EE1AD8052B003BF3D7 /* Crashlytics.framework in Frameworks */,
 				CC1BBC56170493C100A20CBF /* QuartzCore.framework in Frameworks */,
 				CC1BBC54170493B800A20CBF /* AudioToolbox.framework in Frameworks */,
 				CC1BBC52170493B100A20CBF /* OpenGLES.framework in Frameworks */,
@@ -1672,6 +1680,8 @@
 				7D94FCE116DE7D1000F2623B /* Foundation.framework in Frameworks */,
 				7D94FCE316DE7D1000F2623B /* CoreGraphics.framework in Frameworks */,
 				A7924696170F0BA90036AAF2 /* libMediaLibraryKit.a in Frameworks */,
+				7D7B17F01AD8052B003BF3D7 /* libc++.dylib in Frameworks */,
+				7D7B17EF1AD8052B003BF3D7 /* Fabric.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -2463,6 +2473,10 @@
 		7D94FCDD16DE7D1000F2623B /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
+				7D7B17EA1AD8052A003BF3D7 /* Crashlytics.framework */,
+				7D7B17EB1AD8052A003BF3D7 /* Fabric.framework */,
+				7D7B17EC1AD8052A003BF3D7 /* libc++.dylib */,
+				7D7B17ED1AD8052B003BF3D7 /* libz.dylib */,
 				DDF157B31ACB169B00AAFBC6 /* WatchKit.framework */,
 				DD02C30A1ACAF0370026EFEE /* libstdc++.6.0.9.dylib */,
 				DD02C3001ACAE9690026EFEE /* libMobileVLCKit.a */,
@@ -2471,8 +2485,6 @@
 				8F91EC7E195E1DAB00F5BCBA /* AssetsLibrary.framework */,
 				7D15168A194773630086FB8C /* MobileCoreServices.framework */,
 				7D168F7018D4A21B003FAF59 /* Accelerate.framework */,
-				7D897889185E1344009BAB5D /* libCrashReporter.a */,
-				7D89788B185E1353009BAB5D /* libQuincyLib.a */,
 				7D897894185E14A7009BAB5D /* libGTLTouchStaticLib.a */,
 				7D1052E51A4DC5FF00295F08 /* LiveSDK.framework */,
 				CCE2A22D17A5859E00D9EAAD /* CoreText.framework */,
@@ -3033,6 +3045,7 @@
 				1674E6FD23580CE308961687 /* Check Pods Manifest.lock */,
 				7D94FCD716DE7D1000F2623B /* Sources */,
 				7D94FCD816DE7D1000F2623B /* Frameworks */,
+				7D7B17E91AD804D7003BF3D7 /* Run Script */,
 				7D94FCD916DE7D1000F2623B /* Resources */,
 				F2C5CAE560C074258A574B08 /* Copy Pods Resources */,
 				4173AEC21ABF1B860004101D /* Embed App Extensions */,
@@ -3579,6 +3592,20 @@
 			shellPath = /bin/sh;
 			shellScript = "diff \"${PODS_ROOT}/../Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [[ $? != 0 ]] ; then\n    cat << EOM\nerror: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\nEOM\n    exit 1\nfi\n";
 			showEnvVarsInLog = 0;
+		};
+		7D7B17E91AD804D7003BF3D7 /* Run Script */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+			);
+			name = "Run Script";
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "./Fabric.framework/run a6804cecf8688ec18b154e4491ec42a2be492c0e c3b43736ed4101bc57d6c9251616759f61176b92342484b765b3df14293b93cd";
 		};
 		F2C5CAE560C074258A574B08 /* Copy Pods Resources */ = {
 			isa = PBXShellScriptBuildPhase;
@@ -4333,6 +4360,7 @@
 					"$(inherited)",
 					"$(PROJECT_DIR)/ImportedSources/Dropbox",
 					"$(PROJECT_DIR)/External/OneDrive",
+					"$(PROJECT_DIR)",
 				);
 				GCC_C_LANGUAGE_STANDARD = c99;
 				GCC_OPTIMIZATION_LEVEL = 0;
@@ -4387,6 +4415,7 @@
 					"$(inherited)",
 					"$(PROJECT_DIR)/ImportedSources/Dropbox",
 					"$(PROJECT_DIR)/External/OneDrive",
+					"$(PROJECT_DIR)",
 				);
 				GCC_C_LANGUAGE_STANDARD = c99;
 				GCC_OPTIMIZATION_LEVEL = 0;
@@ -4467,6 +4496,7 @@
 					"$(inherited)",
 					"$(PROJECT_DIR)/ImportedSources/Dropbox",
 					"$(PROJECT_DIR)/External/OneDrive",
+					"$(PROJECT_DIR)",
 				);
 				GCC_C_LANGUAGE_STANDARD = c99;
 				GCC_OPTIMIZATION_LEVEL = 3;
