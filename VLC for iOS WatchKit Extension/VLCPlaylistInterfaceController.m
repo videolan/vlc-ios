@@ -281,6 +281,13 @@ typedef enum {
     return objects;
 }
 
+- (void)setLibraryMode:(VLCLibraryMode)libraryMode
+{
+    //should also handle diving into a folder
+    [self updateUserActivity:@"org.videolan.vlc-ios.librarymode" userInfo:@{@"state" : @(self.libraryMode)} webpageURL:nil];
+    _libraryMode = libraryMode;
+}
+
 @end
 
 

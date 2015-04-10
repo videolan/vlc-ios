@@ -115,37 +115,57 @@
             <objects>
                 <controller identifier="nowPlaying" id="Mzo-Y8-gdK" customClass="VLCNowPlayingInterfaceController">
                     <items>
-                        <label alignment="left" accessibilityLabel="title" text="title" textAlignment="left" numberOfLines="0" id="H58-Y8-Tbc"/>
-                        <label alignment="left" accessibilityLabel="playback duration" text="duration" id="D0h-cq-wsv"/>
-                        <separator alignment="left" id="po2-UB-p8C">
-                            <color key="color" red="0.92549019610000005" green="0.43529411759999997" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
-                        </separator>
-                        <button width="1" alignment="left" accessibilityLabel="play / pause" accessibilityHint="starts playing or pauses the current playback" title="playpause" id="BAZ-aC-ETt">
-                            <connections>
-                                <action selector="playPausePressed" destination="Mzo-Y8-gdK" id="6p8-JZ-0Gh"/>
-                            </connections>
-                        </button>
-                        <group width="1" alignment="left" id="uwS-0S-Ag2">
+                        <group width="1" height="1" alignment="left" layout="vertical" id="uwS-0S-Ag2">
                             <items>
-                                <button width="0.5" alignment="left" accessibilityLabel="backward" title="&lt;&lt;" id="uKa-8V-C8x">
-                                    <connections>
-                                        <action selector="skipBackward" destination="Mzo-Y8-gdK" id="aP1-vb-XwF"/>
-                                    </connections>
-                                </button>
-                                <button width="0.5" alignment="left" accessibilityLabel="forward" title="&gt;&gt;" id="w8s-Mc-7oV">
-                                    <connections>
-                                        <action selector="skipForward" destination="Mzo-Y8-gdK" id="1kf-Nh-kjr"/>
-                                    </connections>
-                                </button>
+                                <group width="1" height="1" heightAdjustment="-20" alignment="left" id="iCs-yD-jsj">
+                                    <items>
+                                        <group width="1" widthAdjustment="-20" alignment="center" verticalAlignment="center" id="egl-IT-539">
+                                            <items>
+                                                <button alignment="left" verticalAlignment="center" accessibilityLabel="backward" backgroundImage="backward" id="uKa-8V-C8x">
+                                                    <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
+                                                    <connections>
+                                                        <action selector="skipBackward" destination="Mzo-Y8-gdK" id="aP1-vb-XwF"/>
+                                                    </connections>
+                                                </button>
+                                                <button alignment="center" accessibilityLabel="play / pause" accessibilityHint="starts playing or pauses the current playback" backgroundImage="pause" id="BAZ-aC-ETt">
+                                                    <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
+                                                    <connections>
+                                                        <action selector="playPausePressed" destination="Mzo-Y8-gdK" id="6p8-JZ-0Gh"/>
+                                                    </connections>
+                                                </button>
+                                                <button alignment="right" verticalAlignment="center" accessibilityLabel="forward" backgroundImage="forward" id="w8s-Mc-7oV">
+                                                    <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
+                                                    <connections>
+                                                        <action selector="skipForward" destination="Mzo-Y8-gdK" id="1kf-Nh-kjr"/>
+                                                    </connections>
+                                                </button>
+                                            </items>
+                                            <variation key="device=watch42mm" widthAdjustment="-40"/>
+                                        </group>
+                                    </items>
+                                </group>
+                                <group width="1" alignment="left" verticalAlignment="bottom" id="d9m-EJ-n3r">
+                                    <items>
+                                        <label width="100" alignment="left" verticalAlignment="bottom" accessibilityLabel="title" text="title" id="H58-Y8-Tbc">
+                                            <fontDescription key="font" type="system" pointSize="14"/>
+                                        </label>
+                                        <label alignment="right" verticalAlignment="bottom" accessibilityLabel="playback duration" text="duration" id="D0h-cq-wsv">
+                                            <color key="textColor" white="0.66666666666666663" alpha="1" colorSpace="calibratedWhite"/>
+                                            <fontDescription key="font" style="UICTFontTextStyleFootnote"/>
+                                        </label>
+                                    </items>
+                                </group>
+                                <separator alignment="left" verticalAlignment="bottom" id="ZMm-LO-hqi">
+                                    <color key="color" red="0.92549019610000005" green="0.43529411759999997" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
+                                </separator>
                             </items>
                         </group>
-                        <imageView width="1" alignment="center" contentMode="scaleAspectFill" id="3JI-SS-2Wb"/>
                     </items>
                     <connections>
                         <outlet property="durationLabel" destination="D0h-cq-wsv" id="3AN-YZ-yEj"/>
-                        <outlet property="image" destination="3JI-SS-2Wb" id="rqC-Lb-tRt"/>
+                        <outlet property="playElementsGroup" destination="uwS-0S-Ag2" id="ZmT-tX-Zza"/>
                         <outlet property="playPauseButton" destination="BAZ-aC-ETt" id="X17-bz-cFy"/>
-                        <outlet property="progressSeparator" destination="po2-UB-p8C" id="sq9-AH-EhQ"/>
+                        <outlet property="progressSeparator" destination="ZMm-LO-hqi" id="uHg-0Y-wlm"/>
                         <outlet property="titleLabel" destination="H58-Y8-Tbc" id="xZs-ZW-Shj"/>
                     </connections>
                 </controller>
@@ -153,5 +173,5 @@
             <point key="canvasLocation" x="221" y="605"/>
         </scene>
     </scenes>
-    <color key="tintColor" red="0.89803921568627454" green="0.38823529411764707" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
+    <color key="tintColor" red="0.92549019610000005" green="0.43529411759999997" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
 </document>

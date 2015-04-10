@@ -151,6 +151,43 @@
     return YES;
 }
 
+#pragma mark - Handoff
+
+- (BOOL)application:(UIApplication *)application willContinueUserActivityWithType:(NSString *)userActivityType {
+
+
+    if ([userActivityType isEqualToString:@"org.videolan.vlc-ios.librarymode"]) {
+            //Todo maybe show a spinner here
+        //might need to setup menu
+        return YES;
+    }
+    return NO;
+}
+
+- (BOOL)application:(UIApplication *)application continueUserActivity:(NSUserActivity *)userActivity restorationHandler:(void (^)(NSArray *))restorationHandler {
+
+    if([userActivity.activityType isEqualToString:@"org.videolan.vlc-ios.librarymode"]) {
+        NSDictionary *dict = userActivity.userInfo;
+        NSInteger row = [(NSNumber *)dict[@"state"] integerValue];
+//        0 all
+//        1 music
+//        2 tvshows
+        //might need to dismiss spinner
+        //might need to pass menu to restorationhandler
+        //then restoreUserActivitystate is called on menuviewcontroller which should in turn call it on underlying vcs
+        [self.menuViewController selectRowAtIndexPath:[NSIndexPath indexPathForRow:row inSection:0] animated:YES scrollPosition:UITableViewScrollPositionTop];
+        return YES;
+    }
+    return NO;
+}
+
+- (void)application:(UIApplication *)application didFailToContinueUserActivityWithType:(NSString *)userActivityType error:(NSError *)error
+{
+    if (error.code != NSUserCancelledError){
+        //TODO: present alert
+    }
+}
+
 - (void)pathMigrationToGroupsIfNeeded:(NSError **)migrationError
 {
     MLMediaLibrary *mediaLibrary = [MLMediaLibrary sharedMediaLibrary];
