@@ -65,13 +65,7 @@ typedef enum {
     [[VLCNotificationRelay sharedRelay] addRelayRemoteName:VLCDBUpdateNotificationRemote toLocalName:VLCDBUpdateNotification];
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(updateData) name:VLCDBUpdateNotification object:nil];
 
-    [self setupTableController];
-    [self updateData];
-
-}
-
-- (void)setupTableController {
-
+    /* setup table view controller */
     VLCWatchTableController *tableController = [[VLCWatchTableController alloc] init];
     tableController.table = self.table;
     tableController.previousPageButton = self.previousButton;
@@ -85,6 +79,8 @@ typedef enum {
         [weakSelf configureTableRowController:controller withObject:object];
     };
     self.tableController = tableController;
+
+    [self updateData];
 }
 
 - (void) dealloc {
@@ -148,11 +144,16 @@ typedef enum {
 - (void)updateData {
     // if not activated/visible we defer the update til activation
     if (self.activated) {
-        self.tableController.objects = [self mediaArray];
-        self.needsUpdate = NO;
+        [self performSelectorInBackground:@selector(backgroundUpdateData) withObject:nil];
     } else {
         self.needsUpdate = YES;
     }
+}
+
+- (void)backgroundUpdateData
+{
+    self.tableController.objects = [self mediaArray];
+    self.needsUpdate = NO;
 }
 
 - (void)configureTableRowController:(id)rowController withObject:(id)storageObject {
@@ -189,19 +190,24 @@ typedef enum {
         backgroundImage = nil;
      */
 
-    [row.group setBackgroundImage:[self generateBackgroundImageWithGradient:backgroundImage]];
+    [row.group setBackgroundImage:[self generateBackgroundImageWithGradient:backgroundImage width:screenRect.size.width * screenScale]];
 }
 
-- (UIImage *)generateBackgroundImageWithGradient:(UIImage *)backgroundImage {
+- (UIImage *)generateBackgroundImageWithGradient:(UIImage *)backgroundImage width:(CGFloat)screenWidth {
 
     UIImage *gradient = [UIImage imageNamed:@"tableview-gradient"];
 
-    CGSize newSize = backgroundImage ? backgroundImage.size : CGSizeMake(260, 120);
+    CGSize newSize = backgroundImage ? backgroundImage.size : CGSizeMake(screenWidth, 120.);
     UIGraphicsBeginImageContext(newSize);
 
-    // Use existing opacity as is
-    [backgroundImage drawInRect:CGRectMake(0,0,newSize.width,newSize.height)];
-    [gradient drawInRect:CGRectMake(0,newSize.height/2,newSize.width,newSize.height/2) blendMode:kCGBlendModeNormal alpha:1.0];
+    if (backgroundImage)
+        [backgroundImage drawInRect:CGRectMake(0,0,newSize.width,newSize.height)];
+    else {
+        [[UIColor darkGrayColor] set];
+        UIRectFill(CGRectMake(.0, .0, newSize.width, newSize.height));
+    }
+
+    [gradient drawInRect:CGRectMake(.0, newSize.height / 2., newSize.width, newSize.height / 2.) blendMode:kCGBlendModeNormal alpha:1.];
 
     UIImage *newImage = UIGraphicsGetImageFromCurrentImageContext();
 
