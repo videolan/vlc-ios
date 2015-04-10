@@ -35,7 +35,6 @@
 
     [self addNowPlayingMenu];
     [self configureWithFile:context];
-
 }
 
 - (void)willActivate {
@@ -68,14 +67,20 @@
     BOOL playEnabled = managedObject != nil;
     self.playNowButton.enabled = playEnabled;
 
+    BOOL noProgress = (playbackProgress == 0.0 || playbackProgress == 1.0);
+    self.progressSeparator.hidden = noProgress;
+    self.progressSeparator.width = floor(playbackProgress * CGRectGetWidth([WKInterfaceDevice currentDevice].screenBounds));
+
+    /* do not block the main thread */
+    [self performSelectorInBackground:@selector(loadThumbnailForManagedObject:) withObject:managedObject];
+}
+
+- (void)loadThumbnailForManagedObject:(NSManagedObject *)managedObject
+{
     UIImage *thumbnail = [VLCThumbnailsCache thumbnailForManagedObject:managedObject];
     if (thumbnail) {
         [self.group setBackgroundImage:thumbnail];
     }
-
-    BOOL noProgress = (playbackProgress == 0.0 || playbackProgress == 1.0);
-    self.progressSeparator.hidden = noProgress;
-    self.progressSeparator.width = floor(playbackProgress * CGRectGetWidth([WKInterfaceDevice currentDevice].screenBounds));
 }
 
 - (IBAction)playNow {

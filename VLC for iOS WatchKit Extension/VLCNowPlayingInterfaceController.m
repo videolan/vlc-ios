@@ -18,6 +18,10 @@
 #import "VLCThumbnailsCache.h"
 
 @interface VLCNowPlayingInterfaceController ()
+{
+    CGRect _screenBounds;
+    CGFloat _screenScale;
+}
 @property (nonatomic, copy) NSString *titleString;
 @property (nonatomic, copy) NSNumber *playBackDurationNumber;
 @property (nonatomic) BOOL isPlaying;
@@ -37,6 +41,10 @@
 
 - (void)awakeWithContext:(id)context {
     [super awakeWithContext:context];
+
+    WKInterfaceDevice *currentDevice = [WKInterfaceDevice currentDevice];
+    _screenBounds = currentDevice.screenBounds;
+    _screenScale = currentDevice.screenScale;
 
     // Configure interface objects here.
     [self requestNowPlayingInfo];
@@ -92,9 +100,14 @@
     self.progressSeparator.width = noProgress ? 0.0 : progressWidth;
 
     self.playBackDurationNumber = duration;
-    CGFloat width = CGRectGetWidth([WKInterfaceDevice currentDevice].screenBounds);
-    CGFloat height = CGRectGetHeight([WKInterfaceDevice currentDevice].screenBounds);
-    UIImage *image = [VLCThumbnailsCache thumbnailForManagedObject:file toFitRect:CGRectMake(0, 0, width*2, height*2) shouldReplaceCache:NO];
+
+    /* do not block */
+    [self performSelectorInBackground:@selector(loadThumbnailForFile:) withObject:file];
+}
+
+- (void)loadThumbnailForFile:(MLFile *)file
+{
+    UIImage *image = [VLCThumbnailsCache thumbnailForManagedObject:file toFitRect:CGRectMake(0., 0., _screenBounds.size.width * _screenScale, _screenBounds.size.height * _screenScale) shouldReplaceCache:NO];
     [self.playElementsGroup setBackgroundImage:image];
 }
 
