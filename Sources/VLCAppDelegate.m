@@ -32,8 +32,12 @@
 #import <BoxSDK/BoxSDK.h>
 #import "VLCNotificationRelay.h"
 
+#define HAVE_FABRIC 0
+
+#if HAVE_FABRIC
 #import <Fabric/Fabric.h>
 #import <Crashlytics/Crashlytics.h>
+#endif
 
 @interface VLCAppDelegate () <PAPasscodeViewControllerDelegate, VLCMediaFileDiscovererDelegate, BWQuincyManagerDelegate> {
     PAPasscodeViewController *_passcodeLockController;
@@ -145,7 +149,9 @@
 
     [[VLCNotificationRelay sharedRelay] addRelayLocalName:kVLCNotificationNowPlayingInfoUpdate toRemoteName:kVLCDarwinNotificationNowPlayingInfoUpdate];
 
+#if HAVE_FABRIC
     [Fabric with:@[CrashlyticsKit]];
+#endif
 
     return YES;
 }
