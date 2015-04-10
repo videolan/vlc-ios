@@ -61,6 +61,12 @@
 	<string>org.videolan.vlc-ios</string>
 	<key>CFBundleInfoDictionaryVersion</key>
 	<string>6.0</string>
+	<key>NSUserActivityTypes</key>
+	<array>
+		<string>org.videolan.vlc-ios.librarymode</string>
+	</array>
+	<key>LSApplicationCategoryType</key>
+	<string></string>
 	<key>CFBundleName</key>
 	<string>VLC for iOS</string>
 	<key>CFBundlePackageType</key>

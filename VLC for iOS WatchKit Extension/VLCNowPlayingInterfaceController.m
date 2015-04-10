@@ -20,6 +20,7 @@
 @interface VLCNowPlayingInterfaceController ()
 @property (nonatomic, copy) NSString *titleString;
 @property (nonatomic, copy) NSNumber *playBackDurationNumber;
+@property (nonatomic) BOOL isPlaying;
 @end
 
 @implementation VLCNowPlayingInterfaceController
@@ -29,6 +30,7 @@
     self = [super init];
     if (self) {
         [self setTitle:NSLocalizedString(@"PLAYING", nil)];
+        _isPlaying = YES;
     }
     return self;
 }
@@ -67,6 +69,7 @@
         [self updateWithNowPlayingInfo:replyInfo[@"nowPlayingInfo"] andFile:file];
     }];
 }
+
 - (void)updateWithNowPlayingInfo:(NSDictionary*)nowPlayingInfo andFile:(MLFile*)file {
     self.titleString = file.title ?: nowPlayingInfo[MPMediaItemPropertyTitle];
 
@@ -89,10 +92,14 @@
     self.progressSeparator.width = noProgress ? 0.0 : progressWidth;
 
     self.playBackDurationNumber = duration;
-    self.image.image = [VLCThumbnailsCache thumbnailForManagedObject:file];
+    CGFloat width = CGRectGetWidth([WKInterfaceDevice currentDevice].screenBounds);
+    CGFloat height = CGRectGetHeight([WKInterfaceDevice currentDevice].screenBounds);
+    UIImage *image = [VLCThumbnailsCache thumbnailForManagedObject:file toFitRect:CGRectMake(0, 0, width*2, height*2) shouldReplaceCache:NO];
+    [self.playElementsGroup setBackgroundImage:image];
 }
 
 - (IBAction)playPausePressed {
+    self.isPlaying = !self.isPlaying;
     [WKInterfaceController openParentApplication:@{@"name": @"playpause"} reply:^(NSDictionary *replyInfo, NSError *error) {
         NSLog(@"playpause %@",replyInfo);
     }];
@@ -111,18 +118,23 @@
 }
 
 
+- (void)setIsPlaying:(BOOL)isPlaying {
+
+    [self.playPauseButton setBackgroundImageNamed:isPlaying? @"pause":@"play"];
+    _isPlaying = isPlaying;
+}
 
 - (void)setTitleString:(NSString *)titleString {
     if (![_titleString isEqualToString:titleString] || (_titleString==nil && titleString)) {
         _titleString = [titleString copy];
-        self.titleLabel.text = titleString;
+        [self.titleLabel setText:titleString];
     }
 }
 
 - (void)setPlayBackDurationNumber:(NSNumber *)playBackDurationNumber {
     if (![_playBackDurationNumber isEqualToNumber:playBackDurationNumber] || (_playBackDurationNumber==nil && playBackDurationNumber)) {
         _playBackDurationNumber = playBackDurationNumber;
-        self.durationLabel.text = [VLCTime timeWithNumber:playBackDurationNumber].stringValue;
+        [self.durationLabel setText:[VLCTime timeWithNumber:playBackDurationNumber].stringValue];
     }
 }
 

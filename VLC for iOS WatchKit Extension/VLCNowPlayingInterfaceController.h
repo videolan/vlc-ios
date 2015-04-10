@@ -14,7 +14,7 @@
 #import <Foundation/Foundation.h>
 
 @interface VLCNowPlayingInterfaceController : WKInterfaceController
-@property (weak, nonatomic) IBOutlet WKInterfaceImage *image;
+@property (weak, nonatomic) IBOutlet WKInterfaceGroup *playElementsGroup;
 @property (weak, nonatomic) IBOutlet WKInterfaceLabel *titleLabel;
 @property (weak, nonatomic) IBOutlet WKInterfaceLabel *durationLabel;
 @property (weak, nonatomic) IBOutlet WKInterfaceButton *playPauseButton;
