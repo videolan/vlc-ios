@@ -39,7 +39,7 @@
 #import <Crashlytics/Crashlytics.h>
 #endif
 
-@interface VLCAppDelegate () <PAPasscodeViewControllerDelegate, VLCMediaFileDiscovererDelegate, BWQuincyManagerDelegate> {
+@interface VLCAppDelegate () <PAPasscodeViewControllerDelegate, VLCMediaFileDiscovererDelegate> {
     PAPasscodeViewController *_passcodeLockController;
     VLCDownloadViewController *_downloadViewController;
     VLCDropboxTableViewController *_dropboxTableViewController;
