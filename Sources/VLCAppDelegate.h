@@ -18,7 +18,6 @@
 #import "GHRevealViewController.h"
 #import "VLCMenuTableViewController.h"
 #import "VLCDownloadViewController.h"
-#import "BWQuincyManager.h"
 
 @class VLCPlaylistViewController;
 @class PAPasscodeViewController;
