@@ -44,6 +44,7 @@
     VLCMovieViewController *_movieViewController;
     BOOL _passcodeValidated;
     BOOL _isRunningMigration;
+    BOOL _isComingFromHandoff;
 }
 
 @end
@@ -154,9 +155,7 @@
 - (BOOL)application:(UIApplication *)application willContinueUserActivityWithType:(NSString *)userActivityType {
 
 
-    if ([userActivityType isEqualToString:@"org.videolan.vlc-ios.librarymode"]) {
-            //Todo maybe show a spinner here
-        //might need to setup menu
+    if ([userActivityType isEqualToString:@"org.videolan.vlc-ios.librarymode"] ||[userActivityType isEqualToString:@"org.videolan.vlc-ios.playing"]) {
         return YES;
     }
     return NO;
@@ -167,13 +166,10 @@
     if([userActivity.activityType isEqualToString:@"org.videolan.vlc-ios.librarymode"]) {
         NSDictionary *dict = userActivity.userInfo;
         NSInteger row = [(NSNumber *)dict[@"state"] integerValue];
-//        0 all
-//        1 music
-//        2 tvshows
-        //might need to dismiss spinner
-        //might need to pass menu to restorationhandler
-        //then restoreUserActivitystate is called on menuviewcontroller which should in turn call it on underlying vcs
-        [self.menuViewController selectRowAtIndexPath:[NSIndexPath indexPathForRow:row inSection:0] animated:YES scrollPosition:UITableViewScrollPositionTop];
+        
+        [self.menuViewController selectRowAtIndexPath:[NSIndexPath indexPathForRow:row inSection:0] animated:NO scrollPosition:UITableViewScrollPositionTop];
+        [self.playlistViewController restoreUserActivityState:userActivity];
+        _isComingFromHandoff = YES;
         return YES;
     }
     return NO;
@@ -328,9 +324,11 @@
 
 - (void)applicationDidBecomeActive:(UIApplication *)application
 {
-    if (!_isRunningMigration) {
+    if (!_isRunningMigration && !_isComingFromHandoff) {
         [[MLMediaLibrary sharedMediaLibrary] updateMediaDatabase];
         [self updateMediaList];
+    } else if(_isComingFromHandoff) {
+        _isComingFromHandoff = NO;
     }
 }
 

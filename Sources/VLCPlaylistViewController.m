@@ -1514,6 +1514,24 @@ static NSString *kDisplayedFirstSteps = @"Did we display the first steps tutoria
     return nameRange;
 }
 
+#pragma mark - handoff
+
+- (void)restoreUserActivityState:(NSUserActivity *)activity {
+
+    if([activity.activityType isEqualToString:@"org.videolan.vlc-ios.librarymode"]) {
+        NSDictionary *dict = activity.userInfo;
+        NSURL *folderURL = dict[@"folder"];
+        if (!folderURL) return;
+
+        for (int i = 0; i<_foundMedia.count; i++){
+            NSManagedObject *object = _foundMedia[i];
+            if([object.objectID.URIRepresentation isEqual:folderURL]) {
+                [self tableView:self.tableView didSelectRowAtIndexPath:[NSIndexPath indexPathForRow:i inSection:0]];
+            }
+        }
+    }
+}
+
 - (void)searchDisplayController:(UISearchDisplayController *)controller didLoadSearchResultsTableView:(UITableView *)tableView
 {
     tableView.rowHeight = 90.;

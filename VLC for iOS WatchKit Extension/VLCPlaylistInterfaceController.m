@@ -111,7 +111,9 @@ typedef enum {
 - (void)table:(WKInterfaceTable *)table didSelectRowAtIndex:(NSInteger)rowIndex {
     id object = self.tableController.displayedObjects[rowIndex];
     if ([object isKindOfClass:[MLAlbum class]] || [object isKindOfClass:[MLLabel class]] || [object isKindOfClass:[MLShow class]]) {
+
         [self pushControllerWithName:@"tableViewController" context:object];
+        [self updateUserActivity:@"org.videolan.vlc-ios.librarymode" userInfo:@{@"state" : @(self.libraryMode), @"folder":((NSManagedObject *)object).objectID.URIRepresentation} webpageURL:nil];
     } else {
         [self pushControllerWithName:@"detailInfo" context:object];
     }
@@ -301,7 +303,7 @@ typedef enum {
 - (void)setLibraryMode:(VLCLibraryMode)libraryMode
 {
     //should also handle diving into a folder
-    [self updateUserActivity:@"org.videolan.vlc-ios.librarymode" userInfo:@{@"state" : @(self.libraryMode)} webpageURL:nil];
+    [self updateUserActivity:@"org.videolan.vlc-ios.librarymode" userInfo:@{@"state" : @(libraryMode)} webpageURL:nil];
     _libraryMode = libraryMode;
 }
 
