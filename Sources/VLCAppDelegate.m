@@ -604,10 +604,18 @@
 }
 
 #pragma mark - watch struff
-- (void)application:(UIApplication *)application handleWatchKitExtensionRequest:(NSDictionary *)userInfo reply:(void (^)(NSDictionary *))reply {
-    NSDictionary *reponseDict = nil;
+- (void)application:(UIApplication *)application handleWatchKitExtensionRequest:(NSDictionary *)userInfo reply:(void (^)(NSDictionary *))reply
+{
+    /* dispatch background task */
+    __block UIBackgroundTaskIdentifier taskIdentifier = [application beginBackgroundTaskWithName:nil
+                                                                               expirationHandler:^{
+                                                                                   [application endBackgroundTask:taskIdentifier];
+                                                                                   taskIdentifier = UIBackgroundTaskInvalid;
+    }];
+
+    NSDictionary *responseDict = nil;
     if ([userInfo[@"name"] isEqualToString:@"getNowPlayingInfo"]) {
-        reponseDict = [self nowPlayingResponseDict];
+        responseDict = [self nowPlayingResponseDict];
     } else if ([userInfo[@"name"] isEqualToString:@"playpause"]) {
         [_movieViewController playPause];
     } else if ([userInfo[@"name"] isEqualToString:@"skipForward"]) {
@@ -619,10 +627,11 @@
     } else {
         NSLog(@"Did not handle request from WatchKit Extension: %@",userInfo);
     }
-    reply(reponseDict);
+    reply(responseDict);
 }
 
-- (void)playFileFromWatch:(NSDictionary *)userInfo {
+- (void)playFileFromWatch:(NSDictionary *)userInfo
+{
     NSManagedObject *managedObject = nil;
     NSString *uriString = userInfo[@"URIRepresentation"];
     if (uriString) {
