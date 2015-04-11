@@ -65,4 +65,9 @@
     return totalFreeSpace;
 }
 
+- (BOOL)hasExternalDisplay
+{
+    return ([[UIScreen screens] count] > 1);
+}
+
 @end
