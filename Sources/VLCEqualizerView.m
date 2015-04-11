@@ -268,12 +268,16 @@
 {
     if (self.delegate)
         [self.delegate setAmplification:[sender value] forBand:(unsigned)[sender tag]];
+    if ([self.UIdelegate respondsToSelector:@selector(equalizerViewReceivedUserInput)])
+        [self.UIdelegate equalizerViewReceivedUserInput];
 }
 
 - (IBAction)preampSliderChangedValue:(VLCSlider *)sender
 {
     if (self.delegate)
         [self.delegate setPreAmplification:sender.value];
+    if ([self.UIdelegate respondsToSelector:@selector(equalizerViewReceivedUserInput)])
+        [self.UIdelegate equalizerViewReceivedUserInput];
 }
 
 - (void)reloadData

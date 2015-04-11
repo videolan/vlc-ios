@@ -13,13 +13,14 @@
 
 #import <MediaPlayer/MediaPlayer.h>
 #import "VLCFrostedGlasView.h"
+#import "VLCPlaybackController.h"
 
 @class OBSlider;
 @class VLCStatusLabel;
 @class VLCHorizontalSwipeGestureRecognizer;
 @class VLCVerticalSwipeGestureRecognizer;
 
-@interface VLCMovieViewController : UIViewController <VLCMediaPlayerDelegate, UIActionSheetDelegate>
+@interface VLCMovieViewController : UIViewController <UIActionSheetDelegate, VLCPlaybackControllerDelegate>
 
 @property (nonatomic, strong) IBOutlet UIView *movieView;
 @property (nonatomic, strong) IBOutlet UIBarButtonItem *backButton;
@@ -84,20 +85,7 @@
 @property (nonatomic, strong) IBOutlet UILabel *trackNameLabel;
 @property (nonatomic, strong) IBOutlet UIImageView *artworkImageView;
 
-@property (nonatomic, strong) MLFile *fileFromMediaLibrary;
-@property (nonatomic, strong) NSURL *url;
-@property (nonatomic, strong) NSURL *successCallback;
-@property (nonatomic, strong) NSURL *errorCallback;
-@property (nonatomic, strong) NSString *pathToExternalSubtitlesFile;
-@property (nonatomic, retain) VLCMediaList *mediaList;
-@property (nonatomic, strong) VLCMediaPlayer *mediaPlayer;
-@property (nonatomic, readwrite) int itemInMediaListToBePlayedFirst;
-
-/* returns nil if currenlty plaing item is not a MLFile, e.g. a url */
-@property (nonatomic, strong, readonly) MLFile *currentlyPlayingMediaFile;
-
 - (IBAction)closePlayback:(id)sender;
-- (void)unanimatedPlaybackStop;
 
 - (IBAction)positionSliderAction:(id)sender;
 - (IBAction)positionSliderTouchDown:(id)sender;

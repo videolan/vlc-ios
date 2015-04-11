@@ -7,26 +7,27 @@
  *
  * Authors: Felix Paul Kühne <fkuehne # videolan.org>
  *          Gleb Pinigin <gpinigin # gmail.com>
+ *          Carola Nitz <caro # videolan.org>
+ *          Tobias Conradi <videolan # tobias-conradi.de>
  *          Ahmad Harb <harb.dev.leb # gmail.com>
  *          Fabio Ritrovato <sephiroth87 # videolan.org>
  *          Pierre SAGASPE <pierre.sagaspe # me.com>
- *          Jean-Baptiste Kempf <jb # videolan.org>
+ *          Filipe Cabecinhas <vlc # filcab dot net>
+ *          Marc Etcheverry <marc # taplightsoftware dot com>
+ *          Christopher Loessl <cloessl # x-berg dot de>
+ *          Sylver Bruneau <sylver.bruneau # gmail dot com>
  *
  * Refer to the COPYING file of the official project for license.
  *****************************************************************************/
 
 #import "VLCMovieViewController.h"
 #import "VLCExternalDisplayController.h"
-#import <AVFoundation/AVFoundation.h>
-#import <CommonCrypto/CommonDigest.h>
-#import "UIDevice+VLC.h"
-#import "VLCBugreporter.h"
-#import "VLCThumbnailsCache.h"
 #import "VLCTrackSelectorTableViewCell.h"
 #import "VLCTrackSelectorHeaderView.h"
 #import "VLCEqualizerView.h"
 #import "VLCMultiSelectionMenuView.h"
-#import <WatchKit/WatchKit.h>
+#import "VLCPlaybackController.h"
+#import "UIDevice+VLC.h"
 
 #import "OBSlider.h"
 #import "VLCStatusLabel.h"
@@ -49,11 +50,8 @@ typedef NS_ENUM(NSInteger, VLCPanType) {
   VLCPanTypeVolume,
 };
 
-@interface VLCMovieViewController () <UIGestureRecognizerDelegate, AVAudioSessionDelegate, VLCMediaDelegate, UITableViewDataSource, UITableViewDelegate, VLCEqualizerViewDelegate, VLCMultiSelectionViewDelegate>
+@interface VLCMovieViewController () <UIGestureRecognizerDelegate, UITableViewDataSource, UITableViewDelegate, VLCMultiSelectionViewDelegate, VLCEqualizerViewUIDelegate>
 {
-    VLCMediaListPlayer *_listPlayer;
-    VLCMediaPlayer *_mediaPlayer;
-
     BOOL _controlsHidden;
     BOOL _videoFiltersHidden;
     BOOL _playbackSpeedViewHidden;
@@ -61,14 +59,9 @@ typedef NS_ENUM(NSInteger, VLCPanType) {
     UIActionSheet *_subtitleActionSheet;
     UIActionSheet *_audiotrackActionSheet;
 
-    float _currentPlaybackRate;
-    NSArray *_aspectRatios;
-    NSUInteger _currentAspectRatioMask;
-
     NSTimer *_idleTimer;
     NSTimer *_sleepTimer;
 
-    BOOL _shouldResumePlaying;
     BOOL _viewAppeared;
     BOOL _displayRemainingTime;
     BOOL _positionSet;
@@ -99,7 +92,6 @@ typedef NS_ENUM(NSInteger, VLCPanType) {
     UIDatePicker *_sleepTimeDatePicker;
 
     NSInteger _mediaDuration;
-    BOOL _playbackFailed;
 }
 
 @property (nonatomic, strong) UIPopoverController *masterPopoverController;
@@ -143,53 +135,6 @@ typedef NS_ENUM(NSInteger, VLCPanType) {
     _panRecognizer = nil;
     _pinchRecognizer = nil;
     _tapOnVideoRecognizer = nil;
-
-    [[NSNotificationCenter defaultCenter] removeObserver:self];
-}
-
-#pragma mark - Managing the media item
-
-- (void)setFileFromMediaLibrary:(id)newFile
-{
-    if (_fileFromMediaLibrary != newFile) {
-        [self _stopPlayback];
-        _fileFromMediaLibrary = newFile;
-        if (_viewAppeared)
-            [self _startPlayback];
-    }
-
-    if (self.masterPopoverController != nil)
-        [self.masterPopoverController dismissPopoverAnimated:YES];
-}
-
-- (void)setUrl:(NSURL *)url
-{
-    [self _stopPlayback];
-    _url = url;
-    _playerIsSetup = NO;
-    if (_viewAppeared)
-        [self _startPlayback];
-}
-
-- (void)setMediaList:(VLCMediaList *)mediaList
-{
-    [self _stopPlayback];
-    _mediaList = mediaList;
-    _playerIsSetup = NO;
-    if (_viewAppeared)
-        [self _startPlayback];
-}
-
-- (MLFile *)currentlyPlayingMediaFile {
-    MLFile *mediaFile = self.fileFromMediaLibrary;
-    if (mediaFile) {
-        return mediaFile;
-    } else if (self.mediaList) {
-        NSArray *results = [MLFile fileForURL:_mediaPlayer.media.url.absoluteString];
-        return results.firstObject;
-    }
-
-    return nil;
 }
 
 - (void)viewDidLoad
@@ -280,18 +225,10 @@ typedef NS_ENUM(NSInteger, VLCPanType) {
                    name:UIScreenDidConnectNotification object:nil];
     [center addObserver:self selector:@selector(handleExternalScreenDidDisconnect:)
                    name:UIScreenDidDisconnectNotification object:nil];
-    [center addObserver:self selector:@selector(applicationWillResignActive:)
-                   name:UIApplicationWillResignActiveNotification object:nil];
-    [center addObserver:self selector:@selector(applicationDidBecomeActive:)
-                   name:UIApplicationDidBecomeActiveNotification object:nil];
-    [center addObserver:self selector:@selector(applicationDidEnterBackground:)
-                   name:UIApplicationDidEnterBackgroundNotification object:nil];
-    [center addObserver:self selector:@selector(audioSessionRouteChange:)
-                   name:AVAudioSessionRouteChangeNotification object:nil];
 
     _playingExternallyTitle.text = NSLocalizedString(@"PLAYING_EXTERNALLY_TITLE", nil);
     _playingExternallyDescription.text = NSLocalizedString(@"PLAYING_EXTERNALLY_DESC", nil);
-    if ([self hasExternalDisplay])
+    if ([[UIDevice currentDevice] hasExternalDisplay])
         [self showOnExternalDisplay];
 
     self.trackNameLabel.text = self.artistNameLabel.text = self.albumNameLabel.text = @"";
@@ -346,8 +283,6 @@ typedef NS_ENUM(NSInteger, VLCPanType) {
     _swipeRecognizerUp.delegate = self;
     _swipeRecognizerDown.delegate = self;
     _tapRecognizer.delegate = self;
-
-    _aspectRatios = @[@"DEFAULT", @"FILL_TO_SCREEN", @"4:3", @"16:9", @"16:10", @"2.21:1"];
 
     [self.aspectRatioButton setImage:[UIImage imageNamed:@"ratioIcon"] forState:UIControlStateNormal];
     if (SYSTEM_RUNS_IOS7_OR_LATER) {
@@ -407,8 +342,6 @@ typedef NS_ENUM(NSInteger, VLCPanType) {
     initVolumeSlider(self.volumeView);
     initVolumeSlider(self.volumeViewLandscape);
 
-    [[AVAudioSession sharedInstance] setDelegate:self];
-
     if (UI_USER_INTERFACE_IDIOM() == UIUserInterfaceIdiomPad)
         self.positionSlider.scrubbingSpeedChangePositions = @[@(0.), @(100.), @(200.), @(300)];
 
@@ -456,7 +389,8 @@ typedef NS_ENUM(NSInteger, VLCPanType) {
     } else {
         _equalizerView = [[VLCEqualizerView alloc] initWithFrame:CGRectMake((rect.size.width - 450.) / 2., self.controllerPanel.frame.origin.y - 240., 450., 240.)];
     }
-    _equalizerView.delegate = self;
+    _equalizerView.delegate = [VLCPlaybackController sharedInstance];
+    _equalizerView.UIdelegate = self;
     _equalizerView.autoresizingMask = UIViewAutoresizingFlexibleRightMargin | UIViewAutoresizingFlexibleLeftMargin | UIViewAutoresizingFlexibleTopMargin;
     _equalizerView.hidden = YES;
     [self.view addSubview:_equalizerView];
@@ -504,29 +438,6 @@ typedef NS_ENUM(NSInteger, VLCPanType) {
     }
 }
 
-- (BOOL)_blobCheck
-{
-    NSArray *searchPaths = NSSearchPathForDirectoriesInDomains(NSDocumentDirectory, NSUserDomainMask, YES);
-    NSString *directoryPath = searchPaths[0];
-
-    if (![[NSFileManager defaultManager] fileExistsAtPath:[directoryPath stringByAppendingPathComponent:@"blob.bin"]])
-        return NO;
-
-    NSData *data = [NSData dataWithContentsOfFile:[directoryPath stringByAppendingPathComponent:@"blob.bin"]];
-    uint8_t digest[CC_SHA1_DIGEST_LENGTH];
-    CC_SHA1(data.bytes, (unsigned int)data.length, digest);
-
-    NSMutableString *hash = [NSMutableString stringWithCapacity:CC_SHA1_DIGEST_LENGTH * 2];
-
-    for (unsigned int u = 0; u < CC_SHA1_DIGEST_LENGTH; u++)
-        [hash appendFormat:@"%02x", digest[u]];
-
-    if ([hash isEqualToString:kBlobHash])
-        return YES;
-    else
-        return NO;
-}
-
 - (void)viewWillAppear:(BOOL)animated
 {
     [super viewWillAppear:animated];
@@ -547,10 +458,16 @@ typedef NS_ENUM(NSInteger, VLCPanType) {
             [UIApplication sharedApplication].statusBarStyle = UIStatusBarStyleBlackTranslucent;
     }
 
-    [self _startPlayback];
+    [VLCPlaybackController sharedInstance].videoOutputView = self.movieView;
 
     [self setControlsHidden:NO animated:YES];
+}
+
+- (void)viewDidAppear:(BOOL)animated
+{
+    [super viewDidAppear:animated];
     _viewAppeared = YES;
+    [[VLCPlaybackController sharedInstance] recoverDisplayedMetadata];
 }
 
 - (void)viewWillLayoutSubviews
@@ -593,248 +510,10 @@ typedef NS_ENUM(NSInteger, VLCPanType) {
     _multiSelectionView.frame = multiSelectionFrame;
 }
 
-- (void)_startPlayback
-{
-    if (_playerIsSetup)
-        return;
-
-    NSUserDefaults *defaults = [NSUserDefaults standardUserDefaults];
-
-    if (!self.fileFromMediaLibrary && !self.url && !self.mediaList) {
-        [self _stopPlayback];
-        return;
-    }
-    if (self.pathToExternalSubtitlesFile)
-        _listPlayer = [[VLCMediaListPlayer alloc] initWithOptions:@[[NSString stringWithFormat:@"--%@=%@", kVLCSettingSubtitlesFilePath, self.pathToExternalSubtitlesFile]]];
-    else
-        _listPlayer = [[VLCMediaListPlayer alloc] init];
-
-    _mediaPlayer = _listPlayer.mediaPlayer;
-    [_mediaPlayer setDelegate:self];
-    [_mediaPlayer setDrawable:self.movieView];
-    if ([[defaults objectForKey:kVLCSettingPlaybackSpeedDefaultValue] floatValue] != 0)
-        [_mediaPlayer setRate: [[defaults objectForKey:kVLCSettingPlaybackSpeedDefaultValue] floatValue]];
-    if ([[defaults objectForKey:kVLCSettingDeinterlace] intValue] != 0)
-        [_mediaPlayer setDeinterlaceFilter:@"blend"];
-    else
-        [_mediaPlayer setDeinterlaceFilter:nil];
-    if (self.pathToExternalSubtitlesFile)
-        [_mediaPlayer openVideoSubTitlesFromFile:self.pathToExternalSubtitlesFile];
-
-    self.trackNameLabel.text = self.artistNameLabel.text = self.albumNameLabel.text = @"";
-
-    VLCMedia *media;
-    if (self.fileFromMediaLibrary) {
-        MLFile *item = self.fileFromMediaLibrary;
-        media = [VLCMedia mediaWithURL:[NSURL URLWithString:item.url]];
-    } else if (self.mediaList) {
-        media = [self.mediaList mediaAtIndex:self.itemInMediaListToBePlayedFirst];
-        [media parse];
-    } else {
-        media = [VLCMedia mediaWithURL:self.url];
-        [media parse];
-    }
-
-    NSMutableDictionary *mediaDictionary = [[NSMutableDictionary alloc] init];
-    [mediaDictionary setObject:[defaults objectForKey:kVLCSettingNetworkCaching] forKey:kVLCSettingNetworkCaching];
-    [mediaDictionary setObject:[[defaults objectForKey:kVLCSettingStretchAudio] boolValue] ? kVLCSettingStretchAudioOnValue : kVLCSettingStretchAudioOffValue forKey:kVLCSettingStretchAudio];
-    [mediaDictionary setObject:[defaults objectForKey:kVLCSettingTextEncoding] forKey:kVLCSettingTextEncoding];
-    [mediaDictionary setObject:[defaults objectForKey:kVLCSettingSkipLoopFilter] forKey:kVLCSettingSkipLoopFilter];
-
-    [NSTimeZone resetSystemTimeZone];
-    NSString *tzName = [[NSTimeZone systemTimeZone] name];
-    NSArray *tzNames = @[@"America/Adak", @"America/Anchorage", @"America/Boise", @"America/Chicago", @"America/Denver", @"America/Detroit", @"America/Indiana/Indianapolis", @"America/Indiana/Knox", @"America/Indiana/Marengo", @"America/Indiana/Petersburg", @"America/Indiana/Tell_City", @"America/Indiana/Vevay", @"America/Indiana/Vincennes", @"America/Indiana/Winamac", @"America/Juneau", @"America/Kentucky/Louisville", @"America/Kentucky/Monticello", @"America/Los_Angeles", @"America/Menominee", @"America/Metlakatla", @"America/New_York", @"America/Nome", @"America/North_Dakota/Beulah", @"America/North_Dakota/Center", @"America/North_Dakota/New_Salem", @"America/Phoenix", @"America/Puerto_Rico", @"America/Shiprock", @"America/Sitka", @"America/St_Thomas", @"America/Thule", @"America/Yakutat", @"Pacific/Guam", @"Pacific/Honolulu", @"Pacific/Johnston", @"Pacific/Kwajalein", @"Pacific/Midway", @"Pacific/Pago_Pago", @"Pacific/Saipan", @"Pacific/Wake"];
-
-    if ([tzNames containsObject:tzName] || [[tzName stringByDeletingLastPathComponent] isEqualToString:@"US"]) {
-        NSArray *tracksInfo = media.tracksInformation;
-        for (NSUInteger x = 0; x < tracksInfo.count; x++) {
-            if ([[tracksInfo[x] objectForKey:VLCMediaTracksInformationType] isEqualToString:VLCMediaTracksInformationTypeAudio])
-            {
-                NSInteger fourcc = [[tracksInfo[x] objectForKey:VLCMediaTracksInformationCodec] integerValue];
-
-                switch (fourcc) {
-                    case 540161377:
-                    case 1647457633:
-                    case 858612577:
-                    case 862151027:
-                    case 862151013:
-                    case 1684566644:
-                    case 2126701:
-                    {
-                        if (![self _blobCheck]) {
-                            [mediaDictionary setObject:[NSNull null] forKey:@"no-audio"];
-                            APLog(@"audio playback disabled because an unsupported codec was found");
-                        }
-                        break;
-                    }
-
-                    default:
-                        break;
-                }
-            }
-        }
-    }
-
-    if (self.mediaList) {
-        VLCMediaList *list = self.mediaList;
-        NSUInteger count = list.count;
-        for (NSUInteger x = 0; x < count; x++)
-            [[list mediaAtIndex:x] addOptions:mediaDictionary];
-        [_listPlayer setMediaList:self.mediaList];
-    } else {
-        [media addOptions:mediaDictionary];
-        [_listPlayer setRootMedia:media];
-    }
-    [_listPlayer setRepeatMode:VLCDoNotRepeat];
-
-    self.positionSlider.value = 0.;
-    [self.timeDisplay setTitle:@"" forState:UIControlStateNormal];
-    self.timeDisplay.accessibilityLabel = @"";
-
-    if (![self _isMediaSuitableForDevice]) {
-        UIAlertView * alert = [[UIAlertView alloc] initWithTitle:NSLocalizedString(@"DEVICE_TOOSLOW_TITLE", nil) message:[NSString stringWithFormat:NSLocalizedString(@"DEVICE_TOOSLOW", nil), [[UIDevice currentDevice] model], self.fileFromMediaLibrary.title] delegate:self cancelButtonTitle:NSLocalizedString(@"BUTTON_CANCEL", nil) otherButtonTitles:NSLocalizedString(@"BUTTON_OPEN", nil), nil];
-        [alert show];
-    } else
-        [self _playNewMedia];
-
-    if (![self hasExternalDisplay])
-        self.brightnessSlider.value = [UIScreen mainScreen].brightness * 2.;
-}
-
-- (BOOL)_isMediaSuitableForDevice
-{
-    if (!self.fileFromMediaLibrary)
-        return YES;
-
-    NSUInteger totalNumberOfPixels = [[[self.fileFromMediaLibrary videoTrack] valueForKey:@"width"] doubleValue] * [[[self.fileFromMediaLibrary videoTrack] valueForKey:@"height"] doubleValue];
-
-    NSInteger speedCategory = [[UIDevice currentDevice] speedCategory];
-
-    if (speedCategory == 1) {
-        // iPhone 3GS, iPhone 4, first gen. iPad, 3rd and 4th generation iPod touch
-        return (totalNumberOfPixels < 600000); // between 480p and 720p
-    } else if (speedCategory == 2) {
-        // iPhone 4S, iPad 2 and 3, iPod 4 and 5
-        return (totalNumberOfPixels < 922000); // 720p
-    } else if (speedCategory == 3) {
-        // iPhone 5, iPad 4
-        return (totalNumberOfPixels < 2074000); // 1080p
-    } else if (speedCategory == 4) {
-        // iPhone 6, 2014 iPads
-        return (totalNumberOfPixels < 8850000); // 4K
-    }
-
-    return YES;
-}
-
-- (void)alertView:(UIAlertView *)alertView clickedButtonAtIndex:(NSInteger)buttonIndex
-{
-    if (buttonIndex == 1)
-        [self _playNewMedia];
-    else {
-        [self _stopPlayback];
-        [self closePlayback:nil];
-    }
-}
-
-- (void)_playNewMedia
-{
-    NSNumber *playbackPositionInTime = @(0);
-    CGFloat lastPosition = .0;
-    NSInteger duration = 0;
-    MLFile *matchedFile;
-
-    // Set last selected equalizer profile
-    unsigned int profile = (unsigned int)[[[NSUserDefaults standardUserDefaults] objectForKey:kVLCSettingEqualizerProfile] integerValue];
-    [_mediaPlayer resetEqualizerFromProfile:profile];
-    [_mediaPlayer setPreAmplification:[_mediaPlayer preAmplification]];
-    [_equalizerView reloadData];
-
-    if (self.fileFromMediaLibrary)
-        matchedFile = self.fileFromMediaLibrary;
-    else if (self.mediaList) {
-        /* TODO: move this code to MLKit */
-        NSString *path = [[[self.mediaList mediaAtIndex:self.itemInMediaListToBePlayedFirst] url] absoluteString];
-        NSString *componentString = @"";
-        NSArray *pathComponents = [path componentsSeparatedByString:@"/"];
-        NSUInteger componentCount = pathComponents.count;
-
-        if ([pathComponents[componentCount - 2] isEqualToString:@"Documents"])
-            componentString = [path lastPathComponent];
-        else {
-            NSUInteger firstElement = [pathComponents indexOfObject:@"Documents"] + 1;
-            for (NSUInteger x = 0; x < componentCount - firstElement; x++) {
-                if (x == 0)
-                componentString = [componentString stringByAppendingFormat:@"%@", pathComponents[firstElement + x]];
-                else
-                componentString = [componentString stringByAppendingFormat:@"/%@", pathComponents[firstElement + x]];
-            }
-        }
-
-        NSFetchRequest *request = [[NSFetchRequest alloc] init];
-        NSManagedObjectContext *moc = [[MLMediaLibrary sharedMediaLibrary] managedObjectContext];
-        if (moc) {
-            NSEntityDescription *entity = [NSEntityDescription entityForName:@"File" inManagedObjectContext:moc];
-            [request setEntity:entity];
-            [request setPredicate:[NSPredicate predicateWithFormat:@"url CONTAINS %@", componentString]];
-
-            NSSortDescriptor *descriptor = [[NSSortDescriptor alloc] initWithKey:@"title" ascending:YES selector:@selector(localizedCaseInsensitiveCompare:)];
-            [request setSortDescriptors:@[descriptor]];
-
-            NSArray *matches = [moc executeFetchRequest:request error:nil];
-            matchedFile = matches.firstObject;
-        }
-    }
-    if (matchedFile.lastPosition)
-        lastPosition = matchedFile.lastPosition.floatValue;
-    duration = matchedFile.duration.intValue;
-    if (lastPosition < .95) {
-        if (duration != 0)
-            playbackPositionInTime = @(lastPosition * (duration / 1000.));
-    }
-    if (playbackPositionInTime.intValue > 0 && (duration * lastPosition - duration) < -60000) {
-        [_mediaPlayer.media addOptions:@{@"start-time": playbackPositionInTime}];
-        APLog(@"set starttime to %i", playbackPositionInTime.intValue);
-    }
-
-    [_mediaPlayer addObserver:self forKeyPath:@"time" options:0 context:nil];
-    [_mediaPlayer addObserver:self forKeyPath:@"remainingTime" options:0 context:nil];
-
-    if (self.mediaList)
-        [_listPlayer playItemAtIndex:self.itemInMediaListToBePlayedFirst];
-    else
-        [_listPlayer playMedia:_listPlayer.rootMedia];
-
-    if (matchedFile) {
-        if (matchedFile.lastAudioTrack.intValue > 0)
-            _mediaPlayer.currentAudioTrackIndex = matchedFile.lastAudioTrack.intValue;
-        if (matchedFile.lastSubtitleTrack.intValue > 0)
-            _mediaPlayer.currentVideoSubTitleIndex = matchedFile.lastSubtitleTrack.intValue;
-    }
-
-    self.playbackSpeedSlider.value = [self _playbackSpeed];
-    [self _updatePlaybackSpeedIndicator];
-
-    self.audioDelaySlider.value = _mediaPlayer.currentAudioPlaybackDelay / 1000000;
-    self.audioDelayIndicator.text = [NSString stringWithFormat:@"%1.00f s", self.audioDelaySlider.value];
-
-    self.spuDelaySlider.value = _mediaPlayer.currentVideoSubTitleDelay / 1000000;
-    self.spuDelayIndicator.text = [NSString stringWithFormat:@"%1.00f s", self.spuDelaySlider.value];
-
-    _currentAspectRatioMask = 0;
-    _mediaPlayer.videoAspectRatio = NULL;
-
-    /* some demuxers don't respect :start-time, so re-try here */
-    if (lastPosition < .95 && _mediaPlayer.position < lastPosition && (duration * lastPosition - duration) < -60000)
-        _mediaPlayer.position = lastPosition;
-
-    [self _resetIdleTimer];
-    _playerIsSetup = YES;
-}
-
 - (void)viewWillDisappear:(BOOL)animated
 {
-    [self _stopPlayback];
+    [VLCPlaybackController sharedInstance].videoOutputView = nil;
+
     _viewAppeared = NO;
     if (_idleTimer) {
         [_idleTimer invalidate];
@@ -852,120 +531,6 @@ typedef NS_ENUM(NSInteger, VLCPanType) {
 
     if (!_playbackSpeedViewHidden)
         _playbackSpeedViewHidden = YES;
-}
-
-- (void)_stopPlayback
-{
-    if (_mediaPlayer) {
-        @try {
-            [_mediaPlayer removeObserver:self forKeyPath:@"time"];
-            [_mediaPlayer removeObserver:self forKeyPath:@"remainingTime"];
-        }
-        @catch (NSException *exception) {
-            APLog(@"we weren't an observer yet");
-        }
-
-        if (_mediaPlayer.media) {
-            [_mediaPlayer pause];
-            [self _saveCurrentState];
-            [_mediaPlayer stop];
-        }
-        if (_mediaPlayer)
-            _mediaPlayer = nil;
-        if (_listPlayer)
-            _listPlayer = nil;
-    }
-    if (_fileFromMediaLibrary)
-        _fileFromMediaLibrary = nil;
-    if (_mediaList)
-        _mediaList = nil;
-    if (_url)
-        _url = nil;
-    if (_pathToExternalSubtitlesFile) {
-            NSFileManager *fileManager = [NSFileManager defaultManager];
-            if ([fileManager fileExistsAtPath:_pathToExternalSubtitlesFile])
-                [fileManager removeItemAtPath:_pathToExternalSubtitlesFile error:nil];
-            _pathToExternalSubtitlesFile = nil;
-    }
-    _playerIsSetup = NO;
-}
-
-- (void)_saveCurrentState
-{
-    if (self.fileFromMediaLibrary) {
-        @try {
-            MLFile *item = self.fileFromMediaLibrary;
-            item.lastPosition = @([_mediaPlayer position]);
-            item.lastAudioTrack = @(_mediaPlayer.currentAudioTrackIndex);
-            item.lastSubtitleTrack = @(_mediaPlayer.currentVideoSubTitleIndex);
-        }
-        @catch (NSException *exception) {
-            APLog(@"failed to save current media state - file removed?");
-        }
-    } else {
-        NSArray *files = [MLFile fileForURL:[[_mediaPlayer.media url] absoluteString]];
-        if (files.count > 0) {
-            MLFile *fileFromList = files.firstObject;
-            fileFromList.lastPosition = @([_mediaPlayer position]);
-            fileFromList.lastAudioTrack = @(_mediaPlayer.currentAudioTrackIndex);
-            fileFromList.lastSubtitleTrack = @(_mediaPlayer.currentVideoSubTitleIndex);
-        }
-    }
-}
-
-- (NSString *)_resolveFontName
-{
-    NSUserDefaults *defaults = [NSUserDefaults standardUserDefaults];
-    BOOL bold = [[defaults objectForKey:kVLCSettingSubtitlesBoldFont] boolValue];
-    NSString *font = [defaults objectForKey:kVLCSettingSubtitlesFont];
-    NSDictionary *fontMap = @{
-                              @"AmericanTypewriter":   @"AmericanTypewriter-Bold",
-                              @"ArialMT":              @"Arial-BoldMT",
-                              @"ArialHebrew":          @"ArialHebrew-Bold",
-                              @"ChalkboardSE-Regular": @"ChalkboardSE-Bold",
-                              @"CourierNewPSMT":       @"CourierNewPS-BoldMT",
-                              @"Georgia":              @"Georgia-Bold",
-                              @"GillSans":             @"GillSans-Bold",
-                              @"GujaratiSangamMN":     @"GujaratiSangamMN-Bold",
-                              @"STHeitiSC-Light":      @"STHeitiSC-Medium",
-                              @"STHeitiTC-Light":      @"STHeitiTC-Medium",
-                              @"HelveticaNeue":        @"HelveticaNeue-Bold",
-                              @"HiraKakuProN-W3":      @"HiraKakuProN-W6",
-                              @"HiraMinProN-W3":       @"HiraMinProN-W6",
-                              @"HoeflerText-Regular":  @"HoeflerText-Black",
-                              @"Kailasa":              @"Kailasa-Bold",
-                              @"KannadaSangamMN":      @"KannadaSangamMN-Bold",
-                              @"MalayalamSangamMN":    @"MalayalamSangamMN-Bold",
-                              @"OriyaSangamMN":        @"OriyaSangamMN-Bold",
-                              @"SinhalaSangamMN":      @"SinhalaSangamMN-Bold",
-                              @"SnellRoundhand":       @"SnellRoundhand-Bold",
-                              @"TamilSangamMN":        @"TamilSangamMN-Bold",
-                              @"TeluguSangamMN":       @"TeluguSangamMN-Bold",
-                              @"TimesNewRomanPSMT":    @"TimesNewRomanPS-BoldMT",
-                              @"Zapfino":              @"Zapfino"
-                              };
-
-    if (!bold) {
-        return font;
-    } else {
-        return fontMap[font];
-    }
-}
-
-#pragma mark - remote events
-
-- (void)viewDidAppear:(BOOL)animated
-{
-    [super viewDidAppear:animated];
-    [self subscribeRemoteCommands];
-    [self becomeFirstResponder];
-}
-
-- (void)viewDidDisappear:(BOOL)animated
-{
-    [super viewDidDisappear:animated];
-    [self unsubscribeFromRemoteCommand];
-    [self resignFirstResponder];
 
     [[NSUserDefaults standardUserDefaults] setBool:_displayRemainingTime forKey:kVLCShowRemainingTime];
 }
@@ -973,161 +538,6 @@ typedef NS_ENUM(NSInteger, VLCPanType) {
 - (BOOL)canBecomeFirstResponder
 {
     return YES;
-}
-
-static inline NSArray * RemoteCommandCenterCommandsToHandle(MPRemoteCommandCenter *cc)
-{
-/* commmented out other available commands which we don't support now but may
- * support at some point in the future */
-    return @[
-             cc.pauseCommand, cc.playCommand, cc.stopCommand, cc.togglePlayPauseCommand,
-             cc.nextTrackCommand, cc.previousTrackCommand,
-             cc.skipForwardCommand, cc.skipBackwardCommand,
-//             cc.seekForwardCommand, cc.seekBackwardCommand,
-//             cc.ratingCommand,
-             cc.changePlaybackRateCommand,
-//             cc.likeCommand,cc.dislikeCommand,cc.bookmarkCommand,
-             ];
-}
-
-- (void)subscribeRemoteCommands
-{
-    /* pre iOS 7.1 */
-    if (![MPRemoteCommandCenter class]) {
-        [[UIApplication sharedApplication] beginReceivingRemoteControlEvents];
-        return;
-    }
-    /* for iOS 7.1 and above: */
-
-    MPRemoteCommandCenter *commandCenter = [MPRemoteCommandCenter sharedCommandCenter];
-
-    /*
-     * since the control center and lockscreen shows only either skipForward/Backward
-     * or next/previousTrack buttons but prefers skip buttons,
-     * we only enable skip buttons if we have a no medialist
-     */
-    BOOL enableSkip = self.mediaList == nil;
-    commandCenter.skipForwardCommand.enabled = enableSkip;
-    commandCenter.skipBackwardCommand.enabled = enableSkip;
-
-    NSUserDefaults *defaults = [NSUserDefaults standardUserDefaults];
-    NSNumber *forwardSkip = [defaults valueForKey:kVLCSettingPlaybackForwardSkipLength];
-    commandCenter.skipForwardCommand.preferredIntervals = @[forwardSkip];
-    NSNumber *backwardSkip = [defaults valueForKey:kVLCSettingPlaybackBackwardSkipLength];
-    commandCenter.skipBackwardCommand.preferredIntervals = @[backwardSkip];
-
-    NSArray *supportedPlaybackRates = @[@(0.5),@(0.75),@(1.0),@(1.25),@(1.5),@(1.75),@(2.0)];
-    commandCenter.changePlaybackRateCommand.supportedPlaybackRates = supportedPlaybackRates;
-
-    NSArray *commandsToSubscribe = RemoteCommandCenterCommandsToHandle(commandCenter);
-    for (MPRemoteCommand *command in commandsToSubscribe) {
-        [command addTarget:self action:@selector(remoteCommandEvent:)];
-    }
-}
-
-- (void)unsubscribeFromRemoteCommand
-{
-    /* pre iOS 7.1 */
-    if (![MPRemoteCommandCenter class]) {
-        [[UIApplication sharedApplication] endReceivingRemoteControlEvents];
-        return;
-    }
-
-    /* for iOS 7.1 and above: */
-    MPRemoteCommandCenter *cc = [MPRemoteCommandCenter sharedCommandCenter];
-    NSArray *commmandsToRemoveFrom = RemoteCommandCenterCommandsToHandle(cc);
-    for (MPRemoteCommand *command in commmandsToRemoveFrom) {
-        [command removeTarget:self];
-    }
-}
-
-- (MPRemoteCommandHandlerStatus )remoteCommandEvent:(MPRemoteCommandEvent *)event
-{
-    MPRemoteCommandCenter *cc = [MPRemoteCommandCenter sharedCommandCenter];
-    MPRemoteCommandHandlerStatus result = MPRemoteCommandHandlerStatusSuccess;
-
-    if (event.command == cc.pauseCommand) {
-        [_listPlayer pause];
-    } else if (event.command == cc.playCommand) {
-        [_listPlayer play];
-    } else if (event.command == cc.stopCommand) {
-        [_listPlayer stop];
-    } else if (event.command == cc.togglePlayPauseCommand) {
-        [self playPause];
-    } else if (event.command == cc.nextTrackCommand) {
-        result = [_listPlayer next] ? MPRemoteCommandHandlerStatusSuccess : MPRemoteCommandHandlerStatusNoSuchContent;
-    } else if (event.command == cc.previousTrackCommand) {
-        result = [_listPlayer previous] ? MPRemoteCommandHandlerStatusSuccess : MPRemoteCommandHandlerStatusNoSuchContent;
-    } else if (event.command == cc.skipForwardCommand) {
-        if ([event isKindOfClass:[MPSkipIntervalCommandEvent class]]) {
-            MPSkipIntervalCommandEvent *skipEvent = (MPSkipIntervalCommandEvent *)event;
-            [_mediaPlayer jumpForward:skipEvent.interval];
-        } else {
-            result = MPRemoteCommandHandlerStatusCommandFailed;
-        }
-    } else if (event.command == cc.skipBackwardCommand) {
-        if ([event isKindOfClass:[MPSkipIntervalCommandEvent class]]) {
-            MPSkipIntervalCommandEvent *skipEvent = (MPSkipIntervalCommandEvent *)event;
-            [_mediaPlayer jumpBackward:skipEvent.interval];
-        } else {
-            result = MPRemoteCommandHandlerStatusCommandFailed;
-        }
-    } else if (event.command == cc.changePlaybackRateCommand) {
-        if ([event isKindOfClass:[MPChangePlaybackRateCommandEvent class]]) {
-            MPChangePlaybackRateCommandEvent *rateEvent = (MPChangePlaybackRateCommandEvent *)event;
-            [_mediaPlayer setRate:rateEvent.playbackRate];
-        } else {
-            result = MPRemoteCommandHandlerStatusCommandFailed;
-        }
-    /* stubs for when we want to support the other available commands */
-//    } else if (event.command == cc.seekForwardCommand) {
-//    } else if (event.command == cc.seekBackwardCommand) {
-//    } else if (event.command == cc.ratingCommand) {
-//    } else if (event.command == cc.likeCommand) {
-//    } else if (event.command == cc.dislikeCommand) {
-//    } else if (event.command == cc.bookmarkCommand) {
-    } else {
-        NSLog(@"%s Unsupported remote comtrol event: %@",__PRETTY_FUNCTION__,event);
-        result = MPRemoteCommandHandlerStatusCommandFailed;
-    }
-
-    if (result == MPRemoteCommandHandlerStatusCommandFailed) {
-        NSLog(@"%s Wasn't able to handle remote control event: %@",__PRETTY_FUNCTION__,event);
-    }
-
-    return result;
-}
-
-- (void)remoteControlReceivedWithEvent:(UIEvent *)event
-{
-    switch (event.subtype) {
-        case UIEventSubtypeRemoteControlPlay:
-            [_listPlayer play];
-            break;
-
-        case UIEventSubtypeRemoteControlPause:
-            [_listPlayer pause];
-            break;
-
-        case UIEventSubtypeRemoteControlTogglePlayPause:
-            [self playPause];
-            break;
-
-        case UIEventSubtypeRemoteControlNextTrack:
-            [self forward:nil];
-            break;
-
-        case UIEventSubtypeRemoteControlPreviousTrack:
-            [self backward:nil];
-            break;
-
-        case UIEventSubtypeRemoteControlStop:
-            [self closePlayback:nil];
-            break;
-
-        default:
-            break;
-    }
 }
 
 #pragma mark - controls visibility
@@ -1274,20 +684,9 @@ static inline NSArray * RemoteCommandCenterCommandsToHandle(MPRemoteCommandCente
 {
     LOCKCHECK;
 
-    [self setControlsHidden:NO animated:NO];
-    [self.navigationController dismissViewControllerAnimated:YES completion:^{
-        // switch back to the caller when user presses "Done" or playback fails
-        if (self.successCallback && [sender isKindOfClass:[UIBarButtonItem class]])
-            [[UIApplication sharedApplication] openURL:self.successCallback];
-        else if (self.errorCallback && _playbackFailed)
-            [[UIApplication sharedApplication] openURL:self.errorCallback];
-    }];
-}
+    [self presentingViewControllerShouldBeClosed:nil];
 
-- (void)unanimatedPlaybackStop
-{
-    [self _stopPlayback];
-    [self.navigationController dismissViewControllerAnimated:NO completion:nil];
+    [[VLCPlaybackController sharedInstance] stopPlayback];
 }
 
 - (IBAction)positionSliderAction:(UISlider *)sender
@@ -1310,7 +709,7 @@ static inline NSArray * RemoteCommandCenterCommandsToHandle(MPRemoteCommandCente
 - (void)_setPositionForReal
 {
     if (!_positionSet) {
-        _mediaPlayer.position = _positionSlider.value;
+        [VLCPlaybackController sharedInstance].mediaPlayer.position = _positionSlider.value;
         _positionSet = YES;
     }
 }
@@ -1330,11 +729,6 @@ static inline NSArray * RemoteCommandCenterCommandsToHandle(MPRemoteCommandCente
 
     self.scrubIndicatorView.hidden = YES;
     _isScrubbing = NO;
-
-    /* Since the media player doesn't send play notifications after scrubbing
-     * this is the best place to update the displayed metadata.
-     * We wait for a moment so the media player time is correct. */
-    [self performSelector:@selector(_updateDisplayedMetadata) withObject:nil afterDelay:0.5];
 }
 
 - (void)_updateScrubLabel
@@ -1366,51 +760,75 @@ static inline NSArray * RemoteCommandCenterCommandsToHandle(MPRemoteCommandCente
     [self _resetIdleTimer];
 }
 
-- (void)observeValueForKeyPath:(NSString *)keyPath ofObject:(id)object change:(NSDictionary *)change context:(void *)context
+#pragma mark - playback controller delegation
+
+- (void)playbackPositionUpdated:(VLCPlaybackController *)controller
 {
+    VLCMediaPlayer *mediaPlayer = controller.mediaPlayer;
     if (!_isScrubbing) {
-        self.positionSlider.value = [_mediaPlayer position];
+        self.positionSlider.value = [mediaPlayer position];
     }
 
     if (_displayRemainingTime)
-        [self.timeDisplay setTitle:[[_mediaPlayer remainingTime] stringValue] forState:UIControlStateNormal];
+        [self.timeDisplay setTitle:[[mediaPlayer remainingTime] stringValue] forState:UIControlStateNormal];
     else
-        [self.timeDisplay setTitle:[[_mediaPlayer time] stringValue] forState:UIControlStateNormal];
+        [self.timeDisplay setTitle:[[mediaPlayer time] stringValue] forState:UIControlStateNormal];
 }
 
-- (void)mediaPlayerStateChanged:(NSNotification *)aNotification
+- (void)prepareForMediaPlayback:(VLCPlaybackController *)controller
 {
-    VLCMediaPlayerState currentState = _mediaPlayer.state;
-    if (currentState == VLCMediaPlayerStateBuffering) {
-        /* attach delegate */
-        _mediaPlayer.media.delegate = self;
+    self.trackNameLabel.text = self.artistNameLabel.text = self.albumNameLabel.text = @"";
+    self.positionSlider.value = 0.;
+    [self.timeDisplay setTitle:@"" forState:UIControlStateNormal];
+    self.timeDisplay.accessibilityLabel = @"";
+    if (![[UIDevice currentDevice] hasExternalDisplay])
+        self.brightnessSlider.value = [UIScreen mainScreen].brightness * 2.;
+    [_equalizerView reloadData];
 
-        /* on-the-fly values through private API */
-        [_mediaPlayer performSelector:@selector(setTextRendererFont:) withObject:[self _resolveFontName]];
-        [_mediaPlayer performSelector:@selector(setTextRendererFontSize:) withObject:[[NSUserDefaults standardUserDefaults] objectForKey:kVLCSettingSubtitlesFontSize]];
-        [_mediaPlayer performSelector:@selector(setTextRendererFontColor:) withObject:[[NSUserDefaults standardUserDefaults] objectForKey:kVLCSettingSubtitlesFontColor]];
+    float playbackRate = controller.playbackRate;
+    self.playbackSpeedSlider.value = playbackRate;
+    double speed = pow(2, playbackRate / 17.);
+    self.playbackSpeedIndicator.text = [NSString stringWithFormat:@"%.2fx", speed];
 
-        _mediaDuration = _listPlayer.mediaPlayer.media.length.intValue;
-    }
+    VLCMediaPlayer *mediaPlayer = [VLCPlaybackController sharedInstance].mediaPlayer;
 
-    if (currentState == VLCMediaPlayerStateError) {
+    self.audioDelaySlider.value = mediaPlayer.currentAudioPlaybackDelay / 1000000;
+    self.audioDelayIndicator.text = [NSString stringWithFormat:@"%1.00f s", self.audioDelaySlider.value];
+
+    self.spuDelaySlider.value = mediaPlayer.currentVideoSubTitleDelay / 1000000;
+    self.spuDelayIndicator.text = [NSString stringWithFormat:@"%1.00f s", self.spuDelaySlider.value];
+
+    [self _resetIdleTimer];
+}
+
+- (void)presentingViewControllerShouldBeClosed:(VLCPlaybackController *)controller
+{
+    [self setControlsHidden:NO animated:NO];
+    [self.navigationController dismissViewControllerAnimated:YES completion:nil];
+}
+
+- (void)presentingViewControllerShouldBeClosedAfterADelay:(VLCPlaybackController *)controller
+{
+    [self performSelector:@selector(presentingViewControllerShouldBeClosed:) withObject:nil afterDelay:2.];
+}
+
+- (void)mediaPlayerStateChanged:(VLCMediaPlayerState)currentState
+                      isPlaying:(BOOL)isPlaying
+currentMediaHasTrackToChooseFrom:(BOOL)currentMediaHasTrackToChooseFrom
+        currentMediaHasChapters:(BOOL)currentMediaHasChapters
+          forPlaybackController:(VLCPlaybackController *)controller
+{
+    if (currentState == VLCMediaPlayerStateBuffering)
+        _mediaDuration = controller.mediaDuration;
+
+    if (currentState == VLCMediaPlayerStateError)
         [self.statusLabel showStatusMessage:NSLocalizedString(@"PLAYBACK_FAILED", nil)];
-        _playbackFailed = YES;
-        [self performSelector:@selector(closePlayback:) withObject:nil afterDelay:2.];
-    }
 
-    UIImage *playPauseImage = [_mediaPlayer isPlaying]? [UIImage imageNamed:@"pauseIcon"] : [UIImage imageNamed:@"playIcon"];
+    UIImage *playPauseImage = isPlaying ? [UIImage imageNamed:@"pauseIcon"] : [UIImage imageNamed:@"playIcon"];
     [_playPauseButton setImage:playPauseImage forState:UIControlStateNormal];
     [_playPauseButtonLandscape setImage:playPauseImage forState:UIControlStateNormal];
 
-    if ((currentState == VLCMediaPlayerStateEnded || currentState == VLCMediaPlayerStateStopped) && _listPlayer.repeatMode == VLCDoNotRepeat) {
-        if ([_listPlayer.mediaList indexOfMedia:_mediaPlayer.media] == _listPlayer.mediaList.count - 1) {
-            [self performSelector:@selector(closePlayback:) withObject:nil afterDelay:2.];
-            return;
-        }
-    }
-
-    if ([[_mediaPlayer audioTrackIndexes] count] > 2 || [[_mediaPlayer videoSubTitlesIndexes] count] > 1) {
+    if (currentMediaHasTrackToChooseFrom) {
         self.trackSwitcherButton.hidden = NO;
         self.trackSwitcherButtonLandscape.hidden = NO;
     } else {
@@ -1418,48 +836,75 @@ static inline NSArray * RemoteCommandCenterCommandsToHandle(MPRemoteCommandCente
         self.trackSwitcherButtonLandscape.hidden = YES;
     }
 
-    if ([_mediaPlayer countOfTitles] > 1 || [_mediaPlayer chaptersForTitleIndex:_mediaPlayer.currentTitleIndex].count > 1)
+    if (currentMediaHasChapters)
         _multiSelectionView.mediaHasChapters = YES;
     else
         _multiSelectionView.mediaHasChapters = NO;
+}
 
-    /* let's update meta data */
-    [self _updateDisplayedMetadata];
+- (void)showStatusMessage:(NSString *)statusMessage forPlaybackController:(VLCPlaybackController *)controller
+{
+    [self.statusLabel showStatusMessage:statusMessage];
+}
+
+- (void)displayMetadataForPlaybackController:(VLCPlaybackController *)controller
+                                       title:(NSString *)title
+                                     artwork:(UIImage *)artwork
+                                      artist:(NSString *)artist
+                                       album:(NSString *)album
+                                   audioOnly:(BOOL)audioOnly
+{
+    if (!_viewAppeared)
+        return;
+
+    self.trackNameLabel.text = title;
+    self.artworkImageView.image = artwork;
+    if (!artwork) {
+        self.artistNameLabel.text = artist;
+        self.albumNameLabel.text = album;
+    } else
+        self.artistNameLabel.text = self.albumNameLabel.text = nil;
+
+    BOOL aspectButtonHidden = self.aspectRatioButton.hidden;
+    if (audioOnly && !aspectButtonHidden) {
+        CGRect rect = self.timeDisplay.frame;
+        rect.origin.x += self.aspectRatioButton.frame.size.width;
+        self.timeDisplay.frame = rect;
+        rect = self.positionSlider.frame;
+        rect.size.width += self.aspectRatioButton.frame.size.width;
+        self.positionSlider.frame = rect;
+    } else if (aspectButtonHidden) {
+        CGRect rect = self.timeDisplay.frame;
+        rect.origin.x -= self.aspectRatioButton.frame.size.width;
+        self.timeDisplay.frame = rect;
+        rect = self.positionSlider.frame;
+        rect.size.width -= self.aspectRatioButton.frame.size.width;
+        self.positionSlider.frame = rect;
+    }
+    self.positionSlider.hidden = NO;
+    self.aspectRatioButton.hidden = audioOnly;
+    self.videoFilterButton.hidden = audioOnly;
 }
 
 - (IBAction)playPause
 {
     LOCKCHECK;
 
-    if ([_mediaPlayer isPlaying])
-        [_listPlayer pause];
-    else
-        [_listPlayer play];
+    [[VLCPlaybackController sharedInstance] playPause];
 }
 
 - (IBAction)forward:(id)sender
 {
     LOCKCHECK;
 
-    if (self.mediaList) {
-        [_listPlayer next];
-    } else {
-        NSNumber *skipLength = [[NSUserDefaults standardUserDefaults] valueForKey:kVLCSettingPlaybackForwardSkipLength];
-        [_mediaPlayer jumpForward:skipLength.intValue];
-    }
+    [[VLCPlaybackController sharedInstance] forward];
 }
 
 - (IBAction)backward:(id)sender
 {
     LOCKCHECK;
 
-    if (self.mediaList) {
-        [_listPlayer previous];
-    }
-    else {
-        NSNumber *skipLength = [[NSUserDefaults standardUserDefaults] valueForKey:kVLCSettingPlaybackBackwardSkipLength];
-        [_mediaPlayer jumpBackward:skipLength.intValue];
-    }
+    [[VLCPlaybackController sharedInstance] backward];
 }
 
 - (IBAction)switchTrack:(id)sender
@@ -1636,11 +1081,13 @@ static inline NSArray * RemoteCommandCenterCommandsToHandle(MPRemoteCommandCente
 {
     LOCKCHECK;
 
-    if (_listPlayer.repeatMode == VLCDoNotRepeat) {
-        _listPlayer.repeatMode = VLCRepeatCurrentItem;
+    VLCMediaListPlayer *listPlayer = [VLCPlaybackController sharedInstance].listPlayer;
+
+    if (listPlayer.repeatMode == VLCDoNotRepeat) {
+        listPlayer.repeatMode = VLCRepeatCurrentItem;
         _multiSelectionView.displayRepeatOne = YES;
     } else {
-        _listPlayer.repeatMode = VLCDoNotRepeat;
+        listPlayer.repeatMode = VLCDoNotRepeat;
         _multiSelectionView.displayRepeatOne = NO;
     }
 }
@@ -1667,18 +1114,19 @@ static inline NSArray * RemoteCommandCenterCommandsToHandle(MPRemoteCommandCente
 - (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView
 {
     NSInteger ret = 0;
+    VLCMediaPlayer *mediaPlayer = [VLCPlaybackController sharedInstance].mediaPlayer;
 
     if (_switchingTracksNotChapters == YES) {
-        if (_mediaPlayer.audioTrackIndexes.count > 2)
+        if (mediaPlayer.audioTrackIndexes.count > 2)
             ret++;
 
-        if (_mediaPlayer.videoSubTitlesIndexes.count > 1)
+        if (mediaPlayer.videoSubTitlesIndexes.count > 1)
             ret++;
     } else {
-        if ([_mediaPlayer countOfTitles] > 1)
+        if ([mediaPlayer countOfTitles] > 1)
             ret++;
 
-        if ([_mediaPlayer chaptersForTitleIndex:_mediaPlayer.currentTitleIndex].count > 1)
+        if ([mediaPlayer chaptersForTitleIndex:mediaPlayer.currentTitleIndex].count > 1)
             ret++;
     }
 
@@ -1697,17 +1145,19 @@ static inline NSArray * RemoteCommandCenterCommandsToHandle(MPRemoteCommandCente
 
 - (NSString *)tableView:(UITableView *)tableView titleForHeaderInSection:(NSInteger)section
 {
+    VLCMediaPlayer *mediaPlayer = [VLCPlaybackController sharedInstance].mediaPlayer;
+
     if (_switchingTracksNotChapters == YES) {
-        if (_mediaPlayer.audioTrackIndexes.count > 2 && section == 0)
+        if (mediaPlayer.audioTrackIndexes.count > 2 && section == 0)
             return NSLocalizedString(@"CHOOSE_AUDIO_TRACK", nil);
 
-        if (_mediaPlayer.videoSubTitlesIndexes.count > 1)
+        if (mediaPlayer.videoSubTitlesIndexes.count > 1)
             return NSLocalizedString(@"CHOOSE_SUBTITLE_TRACK", nil);
     } else {
-        if ([_mediaPlayer countOfTitles] > 1 && section == 0)
+        if ([mediaPlayer countOfTitles] > 1 && section == 0)
             return NSLocalizedString(@"CHOOSE_TITLE", nil);
 
-        if ([_mediaPlayer chaptersForTitleIndex:_mediaPlayer.currentTitleIndex].count > 1)
+        if ([mediaPlayer chaptersForTitleIndex:mediaPlayer.currentTitleIndex].count > 1)
             return NSLocalizedString(@"CHOOSE_CHAPTER", nil);
     }
 
@@ -1723,40 +1173,41 @@ static inline NSArray * RemoteCommandCenterCommandsToHandle(MPRemoteCommandCente
 
     NSInteger row = indexPath.row;
     NSInteger section = indexPath.section;
+    VLCMediaPlayer *mediaPlayer = [VLCPlaybackController sharedInstance].mediaPlayer;
 
     if (_switchingTracksNotChapters == YES) {
         NSArray *indexArray;
-        if (_mediaPlayer.audioTrackIndexes.count > 2 && section == 0) {
-            indexArray = _mediaPlayer.audioTrackIndexes;
+        if (mediaPlayer.audioTrackIndexes.count > 2 && section == 0) {
+            indexArray = mediaPlayer.audioTrackIndexes;
 
-            if ([indexArray indexOfObjectIdenticalTo:[NSNumber numberWithInt:_mediaPlayer.currentAudioTrackIndex]] == row)
+            if ([indexArray indexOfObjectIdenticalTo:[NSNumber numberWithInt:mediaPlayer.currentAudioTrackIndex]] == row)
                 [cell setShowsCurrentTrack:YES];
             else
                 [cell setShowsCurrentTrack:NO];
 
-            cell.textLabel.text = [NSString stringWithFormat:@"%@", _mediaPlayer.audioTrackNames[row]];
+            cell.textLabel.text = [NSString stringWithFormat:@"%@", mediaPlayer.audioTrackNames[row]];
         } else {
-            indexArray = _mediaPlayer.videoSubTitlesIndexes;
+            indexArray = mediaPlayer.videoSubTitlesIndexes;
 
-            if ([indexArray indexOfObjectIdenticalTo:[NSNumber numberWithInt:_mediaPlayer.currentVideoSubTitleIndex]] == row)
+            if ([indexArray indexOfObjectIdenticalTo:[NSNumber numberWithInt:mediaPlayer.currentVideoSubTitleIndex]] == row)
                 [cell setShowsCurrentTrack:YES];
             else
                 [cell setShowsCurrentTrack:NO];
 
-            cell.textLabel.text = [NSString stringWithFormat:@"%@", _mediaPlayer.videoSubTitlesNames[row]];
+            cell.textLabel.text = [NSString stringWithFormat:@"%@", mediaPlayer.videoSubTitlesNames[row]];
         }
     } else {
-        if ([_mediaPlayer countOfTitles] > 1 && section == 0) {
-            cell.textLabel.text = _mediaPlayer.titles[row];
+        if ([mediaPlayer countOfTitles] > 1 && section == 0) {
+            cell.textLabel.text = mediaPlayer.titles[row];
 
-            if (row == _mediaPlayer.currentTitleIndex)
+            if (row == mediaPlayer.currentTitleIndex)
                 [cell setShowsCurrentTrack:YES];
             else
                 [cell setShowsCurrentTrack:NO];
         } else {
-            cell.textLabel.text = [_mediaPlayer chaptersForTitleIndex:_mediaPlayer.currentTitleIndex][row];
+            cell.textLabel.text = [mediaPlayer chaptersForTitleIndex:mediaPlayer.currentTitleIndex][row];
 
-            if (row == _mediaPlayer.currentChapterIndex)
+            if (row == mediaPlayer.currentChapterIndex)
                 [cell setShowsCurrentTrack:YES];
             else
                 [cell setShowsCurrentTrack:NO];
@@ -1768,18 +1219,20 @@ static inline NSArray * RemoteCommandCenterCommandsToHandle(MPRemoteCommandCente
 
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section
 {
+    VLCMediaPlayer *mediaPlayer = [VLCPlaybackController sharedInstance].mediaPlayer;
+
     if (_switchingTracksNotChapters == YES) {
-        NSInteger audioTrackCount = _mediaPlayer.audioTrackIndexes.count;
+        NSInteger audioTrackCount = mediaPlayer.audioTrackIndexes.count;
 
         if (audioTrackCount > 2 && section == 0)
             return audioTrackCount;
 
-        return _mediaPlayer.videoSubTitlesIndexes.count;
+        return mediaPlayer.videoSubTitlesIndexes.count;
     } else {
-        if ([_mediaPlayer countOfTitles] > 1 && section == 0)
-            return [_mediaPlayer countOfTitles];
+        if ([mediaPlayer countOfTitles] > 1 && section == 0)
+            return [mediaPlayer countOfTitles];
         else
-            return [_mediaPlayer chaptersForTitleIndex:_mediaPlayer.currentTitleIndex].count;
+            return [mediaPlayer chaptersForTitleIndex:mediaPlayer.currentTitleIndex].count;
     }
 }
 
@@ -1787,24 +1240,25 @@ static inline NSArray * RemoteCommandCenterCommandsToHandle(MPRemoteCommandCente
 {
     [tableView deselectRowAtIndexPath:indexPath animated:NO];
     NSInteger index = indexPath.row;
+    VLCMediaPlayer *mediaPlayer = [VLCPlaybackController sharedInstance].mediaPlayer;
 
     if (_switchingTracksNotChapters == YES) {
         NSArray *indexArray;
-        if (_mediaPlayer.audioTrackIndexes.count > 2 && indexPath.section == 0) {
-            indexArray = _mediaPlayer.audioTrackIndexes;
+        if (mediaPlayer.audioTrackIndexes.count > 2 && indexPath.section == 0) {
+            indexArray = mediaPlayer.audioTrackIndexes;
             if (index <= indexArray.count)
-                _mediaPlayer.currentAudioTrackIndex = [indexArray[index] intValue];
+                mediaPlayer.currentAudioTrackIndex = [indexArray[index] intValue];
 
         } else {
-            indexArray = _mediaPlayer.videoSubTitlesIndexes;
+            indexArray = mediaPlayer.videoSubTitlesIndexes;
             if (index <= indexArray.count)
-                _mediaPlayer.currentVideoSubTitleIndex = [indexArray[index] intValue];
+                mediaPlayer.currentVideoSubTitleIndex = [indexArray[index] intValue];
         }
     } else {
-        if ([_mediaPlayer countOfTitles] > 1 && indexPath.section == 0)
-            _mediaPlayer.currentTitleIndex = (int)index;
+        if ([mediaPlayer countOfTitles] > 1 && indexPath.section == 0)
+            mediaPlayer.currentTitleIndex = (int)index;
         else
-            _mediaPlayer.currentChapterIndex = (int)index;
+            mediaPlayer.currentChapterIndex = (int)index;
     }
 
     CGFloat alpha = 0.0f;
@@ -1833,11 +1287,13 @@ static inline NSArray * RemoteCommandCenterCommandsToHandle(MPRemoteCommandCente
     if (!_swipeGesturesEnabled)
         return;
 
-    if ([_mediaPlayer isPlaying]) {
-        [_listPlayer pause];
+    VLCPlaybackController *vpc = [VLCPlaybackController sharedInstance];
+
+    if ([vpc.mediaPlayer isPlaying]) {
+        [vpc.listPlayer pause];
         [self.statusLabel showStatusMessage:@"  ▌▌"];
     } else {
-        [_listPlayer play];
+        [vpc.listPlayer play];
         [self.statusLabel showStatusMessage:@" ►"];
     }
 }
@@ -1883,14 +1339,15 @@ static inline NSArray * RemoteCommandCenterCommandsToHandle(MPRemoteCommandCente
         _currentPanType = [self detectPanTypeForPan:panRecognizer];
 
     if (_currentPanType == VLCPanTypeSeek) {
-        double timeRemainingDouble = (-_mediaPlayer.remainingTime.intValue*0.001);
+        VLCMediaPlayer *mediaPlayer = [VLCPlaybackController sharedInstance].mediaPlayer;
+        double timeRemainingDouble = (-mediaPlayer.remainingTime.intValue*0.001);
         int timeRemaining = timeRemainingDouble;
 
         if (panDirectionX > 0) {
             if (timeRemaining > 2 ) // to not go outside duration , video will stop
-                [_mediaPlayer jumpForward:1];
+                [mediaPlayer jumpForward:1];
         } else
-            [_mediaPlayer jumpBackward:1];
+            [mediaPlayer jumpBackward:1];
     } else if (_currentPanType == VLCPanTypeVolume) {
         MPMusicPlayerController *musicPlayer = [MPMusicPlayerController applicationMusicPlayer];
         if (panDirectionY > 0)
@@ -1921,9 +1378,10 @@ static inline NSArray * RemoteCommandCenterCommandsToHandle(MPRemoteCommandCente
     }
 
     if (panRecognizer.state == UIGestureRecognizerStateEnded) {
+        VLCPlaybackController *vpc = [VLCPlaybackController sharedInstance];
         _currentPanType = VLCPanTypeNone;
-        if ([_mediaPlayer isPlaying])
-            [_listPlayer play];
+        if ([vpc.mediaPlayer isPlaying])
+            [vpc.listPlayer play];
     }
 }
 
@@ -1935,25 +1393,27 @@ static inline NSArray * RemoteCommandCenterCommandsToHandle(MPRemoteCommandCente
         return;
 
     NSString * hudString = @" ";
+    VLCPlaybackController *vpc = [VLCPlaybackController sharedInstance];
+    VLCMediaPlayer *mediaPlayer = vpc.mediaPlayer;
     int swipeForwardDuration = (_variableJumpDurationEnabled) ? ((int)(_mediaDuration*0.001*0.05)) : FORWARD_SWIPE_DURATION;
     int swipeBackwardDuration = (_variableJumpDurationEnabled) ? ((int)(_mediaDuration*0.001*0.05)) : BACKWARD_SWIPE_DURATION;
 
     if (swipeRecognizer.direction == UISwipeGestureRecognizerDirectionRight) {
-        double timeRemainingDouble = (-_mediaPlayer.remainingTime.intValue*0.001);
+        double timeRemainingDouble = (-mediaPlayer.remainingTime.intValue*0.001);
         int timeRemaining = timeRemainingDouble;
 
         if (swipeForwardDuration < timeRemaining) {
             if (swipeForwardDuration < 1)
                 swipeForwardDuration = 1;
-            [_mediaPlayer jumpForward:swipeForwardDuration];
+            [mediaPlayer jumpForward:swipeForwardDuration];
             hudString = [NSString stringWithFormat:@"⇒ %is", swipeForwardDuration];
         } else {
-            [_mediaPlayer jumpForward:(timeRemaining - 5)];
+            [mediaPlayer jumpForward:(timeRemaining - 5)];
             hudString = [NSString stringWithFormat:@"⇒ %is",(timeRemaining - 5)];
         }
     }
     else if (swipeRecognizer.direction == UISwipeGestureRecognizerDirectionLeft) {
-        [_mediaPlayer jumpBackward:swipeBackwardDuration];
+        [mediaPlayer jumpBackward:swipeBackwardDuration];
         hudString = [NSString stringWithFormat:@"⇐ %is",swipeBackwardDuration];
     }else if (swipeRecognizer.direction == UISwipeGestureRecognizerDirectionUp) {
         [self backward:self];
@@ -1963,11 +1423,16 @@ static inline NSArray * RemoteCommandCenterCommandsToHandle(MPRemoteCommandCente
     }
 
     if (swipeRecognizer.state == UIGestureRecognizerStateEnded) {
-        if ([_mediaPlayer isPlaying])
-            [_listPlayer play];
+        if ([mediaPlayer isPlaying])
+            [vpc.listPlayer play];
 
         [self.statusLabel showStatusMessage:hudString];
     }
+}
+
+- (void)equalizerViewReceivedUserInput
+{
+    [self _resetIdleTimer];
 }
 
 #pragma mark - Video Filter UI
@@ -1992,123 +1457,53 @@ static inline NSArray * RemoteCommandCenterCommandsToHandle(MPRemoteCommandCente
 
 - (IBAction)videoFilterSliderAction:(id)sender
 {
+    VLCMediaPlayer *mediaPlayer = [VLCPlaybackController sharedInstance].mediaPlayer;
+
     if (sender == self.hueSlider)
-        _mediaPlayer.hue = (int)self.hueSlider.value;
+        mediaPlayer.hue = (int)self.hueSlider.value;
     else if (sender == self.contrastSlider)
-        _mediaPlayer.contrast = self.contrastSlider.value;
+        mediaPlayer.contrast = self.contrastSlider.value;
     else if (sender == self.brightnessSlider) {
-        if ([self hasExternalDisplay])
-            _mediaPlayer.brightness = self.brightnessSlider.value;
+        if ([[UIDevice currentDevice] hasExternalDisplay])
+            mediaPlayer.brightness = self.brightnessSlider.value;
         else
             [[UIScreen mainScreen] setBrightness:(self.brightnessSlider.value / 2.)];
     } else if (sender == self.saturationSlider)
-        _mediaPlayer.saturation = self.saturationSlider.value;
+        mediaPlayer.saturation = self.saturationSlider.value;
     else if (sender == self.gammaSlider)
-        _mediaPlayer.gamma = self.gammaSlider.value;
+        mediaPlayer.gamma = self.gammaSlider.value;
     else if (sender == self.resetVideoFilterButton) {
-        _mediaPlayer.hue = self.hueSlider.value = 0.;
-        _mediaPlayer.contrast = self.contrastSlider.value = 1.;
-        _mediaPlayer.brightness = self.brightnessSlider.value = 1.;
+        mediaPlayer.hue = self.hueSlider.value = 0.;
+        mediaPlayer.contrast = self.contrastSlider.value = 1.;
+        mediaPlayer.brightness = self.brightnessSlider.value = 1.;
         [[UIScreen mainScreen] setBrightness:(self.brightnessSlider.value / 2.)];
-        _mediaPlayer.saturation = self.saturationSlider.value = 1.;
-        _mediaPlayer.gamma = self.gammaSlider.value = 1.;
+        mediaPlayer.saturation = self.saturationSlider.value = 1.;
+        mediaPlayer.gamma = self.gammaSlider.value = 1.;
     } else
         APLog(@"unknown sender for videoFilterSliderAction");
     [self _resetIdleTimer];
-}
-
-#pragma mark - equalizer
-
-- (void)setAmplification:(CGFloat)amplification forBand:(unsigned int)index
-{
-    [self _resetIdleTimer];
-
-    if (!_mediaPlayer.equalizerEnabled)
-        [_mediaPlayer setEqualizerEnabled:YES];
-
-    [_mediaPlayer setAmplification:amplification forBand:index];
-
-    // For some reason we have to apply again preamp to apply change
-    [_mediaPlayer setPreAmplification:[_mediaPlayer preAmplification]];
-}
-
-- (CGFloat)amplificationOfBand:(unsigned int)index
-{
-    return [_mediaPlayer amplificationOfBand:index];
-}
-
-- (NSArray *)equalizerProfiles
-{
-    return _mediaPlayer.equalizerProfiles;
-}
-
-- (void)resetEqualizerFromProfile:(unsigned int)profile
-{
-    [[NSUserDefaults standardUserDefaults] setObject:@(profile) forKey:kVLCSettingEqualizerProfile];
-    [_mediaPlayer resetEqualizerFromProfile:profile];
-}
-
-- (void)setPreAmplification:(CGFloat)preAmplification
-{
-    if (!_mediaPlayer.equalizerEnabled)
-        [_mediaPlayer setEqualizerEnabled:YES];
-
-    [self _resetIdleTimer];
-    [_mediaPlayer setPreAmplification:preAmplification];
-}
-
-- (CGFloat)preAmplification
-{
-    return [_mediaPlayer preAmplification];
 }
 
 #pragma mark - playback view
 - (IBAction)playbackSliderAction:(UISlider *)sender
 {
     LOCKCHECK;
+    VLCPlaybackController *vpc = [VLCPlaybackController sharedInstance];
+    VLCMediaPlayer *mediaPlayer = vpc.mediaPlayer;
 
     if (sender == _playbackSpeedSlider) {
         double speed = pow(2, sender.value / 17.);
-        float rate = INPUT_RATE_DEFAULT / speed;
-        if (_currentPlaybackRate != rate)
-            [_mediaPlayer setRate:INPUT_RATE_DEFAULT / rate];
-        _currentPlaybackRate = rate;
-        [self _updatePlaybackSpeedIndicator];
+        vpc.playbackRate = INPUT_RATE_DEFAULT / speed;
+        self.playbackSpeedIndicator.text = [NSString stringWithFormat:@"%.2fx", speed];
     } else if (sender == _audioDelaySlider) {
-        _mediaPlayer.currentAudioPlaybackDelay = _audioDelaySlider.value * 1000000;
+        mediaPlayer.currentAudioPlaybackDelay = _audioDelaySlider.value * 1000000;
         _audioDelayIndicator.text = [NSString stringWithFormat:@"%1.2f s", _audioDelaySlider.value];
     } else if (sender == _spuDelaySlider) {
-        _mediaPlayer.currentVideoSubTitleDelay = _spuDelaySlider.value * 1000000;
+        mediaPlayer.currentVideoSubTitleDelay = _spuDelaySlider.value * 1000000;
         _spuDelayIndicator.text = [NSString stringWithFormat:@"%1.00f s", _spuDelaySlider.value];
     }
 
     [self _resetIdleTimer];
-}
-
-- (void)_updatePlaybackSpeedIndicator
-{
-    float f_value = self.playbackSpeedSlider.value;
-    double speed =  pow(2, f_value / 17.);
-    self.playbackSpeedIndicator.text = [NSString stringWithFormat:@"%.2fx", speed];
-
-    /* rate changed, so update the exported info */
-    [self performSelectorInBackground:@selector(_updateDisplayedMetadata) withObject:nil];
-}
-
-- (float)_playbackSpeed
-{
-    float f_rate = _mediaPlayer.rate;
-
-    double value = 17 * log(f_rate) / log(2.);
-    float returnValue = (int) ((value > 0) ? value + .5 : value - .5);
-
-    if (returnValue < -34.)
-        returnValue = -34.;
-    else if (returnValue > 34.)
-        returnValue = 34.;
-
-    _currentPlaybackRate = returnValue;
-    return returnValue;
 }
 
 - (IBAction)videoDimensionAction:(id)sender
@@ -2123,231 +1518,8 @@ static inline NSArray * RemoteCommandCenterCommandsToHandle(MPRemoteCommandCente
         _playbackSpeedViewHidden = self.playbackSpeedView.hidden;
         [self _resetIdleTimer];
     } else if (sender == self.aspectRatioButton) {
-        NSUInteger count = [_aspectRatios count];
-
-        if (_currentAspectRatioMask + 1 > count - 1) {
-            _mediaPlayer.videoAspectRatio = NULL;
-            _mediaPlayer.videoCropGeometry = NULL;
-            _currentAspectRatioMask = 0;
-            [self.statusLabel showStatusMessage:[NSString stringWithFormat:NSLocalizedString(@"AR_CHANGED", nil), NSLocalizedString(@"DEFAULT", nil)]];
-        } else {
-            _currentAspectRatioMask++;
-
-            if ([_aspectRatios[_currentAspectRatioMask] isEqualToString:@"FILL_TO_SCREEN"]) {
-                UIScreen *screen;
-                if (![self hasExternalDisplay])
-                    screen = [UIScreen mainScreen];
-                else
-                    screen = [UIScreen screens][1];
-
-                float f_ar = screen.bounds.size.width / screen.bounds.size.height;
-
-                if (f_ar == (float)(640./1136.)) // iPhone 5 aka 16:9.01
-                    _mediaPlayer.videoCropGeometry = "16:9";
-                else if (f_ar == (float)(2./3.)) // all other iPhones
-                    _mediaPlayer.videoCropGeometry = "16:10"; // libvlc doesn't support 2:3 crop
-                else if (f_ar == .75) // all iPads
-                    _mediaPlayer.videoCropGeometry = "4:3";
-                else if (f_ar == .5625) // AirPlay
-                    _mediaPlayer.videoCropGeometry = "16:9";
-                else
-                    APLog(@"unknown screen format %f, can't crop", f_ar);
-
-                [self.statusLabel showStatusMessage:NSLocalizedString(@"FILL_TO_SCREEN", nil)];
-                return;
-            }
-
-            _mediaPlayer.videoCropGeometry = NULL;
-            _mediaPlayer.videoAspectRatio = (char *)[_aspectRatios[_currentAspectRatioMask] UTF8String];
-            [self.statusLabel showStatusMessage:[NSString stringWithFormat:NSLocalizedString(@"AR_CHANGED", nil), _aspectRatios[_currentAspectRatioMask]]];
-        }
+        [[VLCPlaybackController sharedInstance] switchAspectRatio];
     }
-}
-
-#pragma mark - background interaction
-
-- (void)applicationWillResignActive:(NSNotification *)aNotification
-{
-    [self _saveCurrentState];
-
-    _mediaPlayer.currentVideoTrackIndex = 0;
-
-    if (![[[NSUserDefaults standardUserDefaults] objectForKey:kVLCSettingContinueAudioInBackgroundKey] boolValue]) {
-        if ([_mediaPlayer isPlaying]) {
-            [_mediaPlayer pause];
-            _shouldResumePlaying = YES;
-        }
-    }
-}
-
-- (void)applicationDidEnterBackground:(NSNotification *)notification
-{
-    _shouldResumePlaying = NO;
-}
-
-- (void)applicationDidBecomeActive:(NSNotification *)notification
-{
-    _mediaPlayer.currentVideoTrackIndex = 1;
-
-    if (_shouldResumePlaying) {
-        _shouldResumePlaying = NO;
-        [_listPlayer play];
-    }
-}
-
-- (void)audioSessionRouteChange:(NSNotification *)notification
-{
-    NSArray *outputs = [[AVAudioSession sharedInstance] currentRoute].outputs;
-    NSString *portName = [[outputs objectAtIndex:0] portName];
-
-    if (![portName isEqualToString:@"Headphones"] && [_mediaPlayer isPlaying])
-        [_listPlayer pause];
-}
-
-#pragma mark - metadata
-- (void)mediaDidFinishParsing:(VLCMedia *)aMedia
-{
-    [self _updateDisplayedMetadata];
-}
-
-- (void)mediaMetaDataDidChange:(VLCMedia*)aMedia
-{
-    [self _updateDisplayedMetadata];
-}
-
-- (void)_updateDisplayedMetadata
-{
-    MLFile *item;
-    NSString *title;
-    NSString *artist;
-    NSString *albumName;
-    NSString *trackNumber;
-    BOOL mediaIsAudioOnly = YES;
-    if (self.fileFromMediaLibrary)
-        item = self.fileFromMediaLibrary;
-    else if (self.mediaList) {
-        NSArray *matches = [MLFile fileForURL:[_mediaPlayer.media.url absoluteString]];
-        item = matches.firstObject;
-    }
-
-    if (item) {
-        if (item.isAlbumTrack) {
-            title = item.albumTrack.title;
-            artist = item.albumTrack.artist;
-            albumName = item.albumTrack.album.name;
-        } else
-            title = item.title;
-
-        /* MLKit knows better than us if this thing is audio only or not */
-        mediaIsAudioOnly = [item isSupportedAudioFile];
-
-        if (mediaIsAudioOnly)
-            self.artworkImageView.image = [VLCThumbnailsCache thumbnailForManagedObject:item];
-    } else {
-        NSDictionary * metaDict = _mediaPlayer.media.metaDictionary;
-
-        /* this is a non file media, so we need to actually check if there is there is
-         * a video track included or not */
-        NSArray *tracks = _mediaPlayer.media.tracksInformation;
-        NSUInteger trackCount = tracks.count;
-        for (NSUInteger x = 0 ; x < trackCount; x++) {
-            if ([[tracks[x] objectForKey:VLCMediaTracksInformationType] isEqualToString:VLCMediaTracksInformationTypeVideo]) {
-                mediaIsAudioOnly = NO;
-                break;
-            }
-        }
-
-        if (metaDict) {
-            title = metaDict[VLCMetaInformationNowPlaying] ? metaDict[VLCMetaInformationNowPlaying] : metaDict[VLCMetaInformationTitle];
-            artist = metaDict[VLCMetaInformationArtist];
-            albumName = metaDict[VLCMetaInformationAlbum];
-            trackNumber = metaDict[VLCMetaInformationTrackNumber];
-            if (mediaIsAudioOnly)
-                self.artworkImageView.image = [VLCThumbnailsCache thumbnailForMediaItemWithTitle:title Artist:artist andAlbumName:albumName];
-        }
-    }
-
-    if (mediaIsAudioOnly) {
-        if (!self.artworkImageView.image) {
-            self.trackNameLabel.text = title;
-            self.artistNameLabel.text = artist;
-            self.albumNameLabel.text = albumName;
-        } else {
-            NSString *trackName = title;
-            if (artist)
-                trackName = [trackName stringByAppendingFormat:@" — %@", artist];
-            if (albumName)
-                trackName = [trackName stringByAppendingFormat:@" — %@", albumName];
-            self.trackNameLabel.text = trackName;
-        }
-
-        if (self.trackNameLabel.text.length < 1)
-            self.trackNameLabel.text = [[_mediaPlayer.media url] lastPathComponent];
-
-        if (!self.aspectRatioButton.hidden) {
-            CGRect rect = self.timeDisplay.frame;
-            rect.origin.x += self.aspectRatioButton.frame.size.width;
-            self.timeDisplay.frame = rect;
-            rect = self.positionSlider.frame;
-            rect.size.width += self.aspectRatioButton.frame.size.width;
-            self.positionSlider.frame = rect;
-            self.aspectRatioButton.hidden = YES;
-        }
-    } else {
-        if (self.aspectRatioButton.hidden) {
-            CGRect rect = self.timeDisplay.frame;
-            rect.origin.x -= self.aspectRatioButton.frame.size.width;
-            self.timeDisplay.frame = rect;
-            rect = self.positionSlider.frame;
-            rect.size.width -= self.aspectRatioButton.frame.size.width;
-            self.positionSlider.frame = rect;
-            self.aspectRatioButton.hidden = NO;
-        }
-    }
-    self.videoFilterButton.hidden = mediaIsAudioOnly;
-
-    /* don't leak sensitive information to the OS, if passcode lock is enabled */
-    BOOL passcodeLockDisabled = ![[[NSUserDefaults standardUserDefaults] objectForKey:kVLCSettingPasscodeOnKey] boolValue];
-
-    BOOL isPlaying = _mediaPlayer.isPlaying;
-
-    NSMutableDictionary *currentlyPlayingTrackInfo = [NSMutableDictionary dictionary];
-    currentlyPlayingTrackInfo[MPMediaItemPropertyPlaybackDuration] = @(_mediaPlayer.media.length.intValue / 1000.);
-    currentlyPlayingTrackInfo[MPNowPlayingInfoPropertyElapsedPlaybackTime] =  @(_mediaPlayer.time.intValue / 1000.);
-    currentlyPlayingTrackInfo[MPNowPlayingInfoPropertyPlaybackRate] = @(isPlaying ? _mediaPlayer.rate : 0.0);
-
-    if (passcodeLockDisabled) {
-        if (title) {
-            currentlyPlayingTrackInfo[MPMediaItemPropertyTitle] = title;
-        }
-        if (artist.length > 0) {
-            currentlyPlayingTrackInfo[MPMediaItemPropertyArtist] = artist;
-        }
-        if (albumName.length > 0) {
-            currentlyPlayingTrackInfo[MPMediaItemPropertyAlbumTitle] = albumName;
-        }
-        int trackNumberInt = [trackNumber intValue];
-        if (trackNumberInt > 0) {
-            currentlyPlayingTrackInfo[MPMediaItemPropertyAlbumTrackNumber] = @(trackNumberInt);
-        }
-
-        /* FIXME: UGLY HACK
-         * iOS 8.2 and 8.3 include an issue which will lead to a termination of the client app if we set artwork
-         * when the playback initialized through the watch extension
-         * radar://pending */
-        if ([WKInterfaceDevice class] != nil) {
-            if ([WKInterfaceDevice currentDevice] != nil)
-                goto setstuff;
-        }
-        if (self.artworkImageView.image) {
-            MPMediaItemArtwork *mpartwork = [[MPMediaItemArtwork alloc] initWithImage:self.artworkImageView.image];
-            currentlyPlayingTrackInfo[MPMediaItemPropertyArtwork] = mpartwork;
-        }
-    }
-
-setstuff:
-    [MPNowPlayingInfoCenter defaultCenter].nowPlayingInfo = currentlyPlayingTrackInfo;
-    [[NSNotificationCenter defaultCenter] postNotificationName:kVLCNotificationNowPlayingInfoUpdate object:self];
 }
 
 #pragma mark - autorotation
@@ -2377,29 +1549,7 @@ setstuff:
     }
 }
 
-#pragma mark - AVSession delegate
-- (void)beginInterruption
-{
-    if ([_mediaPlayer isPlaying]) {
-        [_mediaPlayer pause];
-        _shouldResumePlaying = YES;
-    }
-}
-
-- (void)endInterruption
-{
-    if (_shouldResumePlaying) {
-        [_mediaPlayer play];
-        _shouldResumePlaying = NO;
-    }
-}
-
 #pragma mark - External Display
-
-- (BOOL)hasExternalDisplay
-{
-    return ([[UIScreen screens] count] > 1);
-}
 
 - (void)showOnExternalDisplay
 {
