@@ -186,8 +186,7 @@ typedef NS_ENUM(NSInteger, VLCPanType) {
         return mediaFile;
     } else if (self.mediaList) {
         NSArray *results = [MLFile fileForURL:_mediaPlayer.media.url.absoluteString];
-        if (results.count > 0)
-            return results[0];
+        return results.firstObject;
     }
 
     return nil;
@@ -783,8 +782,7 @@ typedef NS_ENUM(NSInteger, VLCPanType) {
             [request setSortDescriptors:@[descriptor]];
 
             NSArray *matches = [moc executeFetchRequest:request error:nil];
-            if (matches.count > 0)
-                matchedFile = matches[0];
+            matchedFile = matches.firstObject;
         }
     }
     if (matchedFile.lastPosition)
@@ -907,7 +905,7 @@ typedef NS_ENUM(NSInteger, VLCPanType) {
     } else {
         NSArray *files = [MLFile fileForURL:[[_mediaPlayer.media url] absoluteString]];
         if (files.count > 0) {
-            MLFile *fileFromList = files[0];
+            MLFile *fileFromList = files.firstObject;
             fileFromList.lastPosition = @([_mediaPlayer position]);
             fileFromList.lastAudioTrack = @(_mediaPlayer.currentAudioTrackIndex);
             fileFromList.lastSubtitleTrack = @(_mediaPlayer.currentVideoSubTitleIndex);
@@ -2229,8 +2227,7 @@ static inline NSArray * RemoteCommandCenterCommandsToHandle(MPRemoteCommandCente
         item = self.fileFromMediaLibrary;
     else if (self.mediaList) {
         NSArray *matches = [MLFile fileForURL:[_mediaPlayer.media.url absoluteString]];
-        if (matches.count > 0)
-            item = matches[0];
+        item = matches.firstObject;
     }
 
     if (item) {
