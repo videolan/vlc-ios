@@ -25,10 +25,18 @@
 
 @end
 
+@protocol VLCEqualizerViewUIDelegate <NSObject>
+
+@optional
+- (void)equalizerViewReceivedUserInput;
+
+@end
+
 @interface VLCEqualizerView : VLCFrostedGlasView <UITableViewDataSource,UITableViewDelegate>
 
 @property (nonatomic, strong) UITableView *tableView;
 @property (weak) id <VLCEqualizerViewDelegate>delegate;
+@property (weak) id <VLCEqualizerViewUIDelegate>UIdelegate;
 
 - (void)reloadData;
 

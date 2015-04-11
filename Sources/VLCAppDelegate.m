@@ -31,6 +31,7 @@
 #import "VLCAlertView.h"
 #import <BoxSDK/BoxSDK.h>
 #import "VLCNotificationRelay.h"
+#import "VLCPlaybackController.h"
 
 #define HAVE_FABRIC 0
 
@@ -541,20 +542,23 @@
 {
     if (!_movieViewController)
         _movieViewController = [[VLCMovieViewController alloc] initWithNibName:nil bundle:nil];
-    else
-        [_movieViewController unanimatedPlaybackStop];
+
+    VLCPlaybackController *vpc = [VLCPlaybackController sharedInstance];
 
     if ([mediaObject isKindOfClass:[MLFile class]])
-        _movieViewController.fileFromMediaLibrary = (MLFile *)mediaObject;
+        vpc.fileFromMediaLibrary = (MLFile *)mediaObject;
     else if ([mediaObject isKindOfClass:[MLAlbumTrack class]])
-        _movieViewController.fileFromMediaLibrary = [(MLAlbumTrack*)mediaObject files].anyObject;
+        vpc.fileFromMediaLibrary = [(MLAlbumTrack*)mediaObject files].anyObject;
     else if ([mediaObject isKindOfClass:[MLShowEpisode class]])
-        _movieViewController.fileFromMediaLibrary = [(MLShowEpisode*)mediaObject files].anyObject;
-    [(MLFile *)_movieViewController.fileFromMediaLibrary setUnread:@(NO)];
+        vpc.fileFromMediaLibrary = [(MLShowEpisode*)mediaObject files].anyObject;
+    [(MLFile *)vpc.fileFromMediaLibrary setUnread:@(NO)];
+    vpc.delegate = _movieViewController;
 
     UINavigationController *navCon = [[VLCPlaybackNavigationController alloc] initWithRootViewController:_movieViewController];
     navCon.modalPresentationStyle = UIModalPresentationFullScreen;
     [self.window.rootViewController presentViewController:navCon animated:YES completion:nil];
+
+    [vpc startPlayback];
 }
 
 - (void)openMovieFromURL:(NSURL *)url
@@ -564,13 +568,18 @@
     if (!_movieViewController)
         _movieViewController = [[VLCMovieViewController alloc] initWithNibName:nil bundle:nil];
 
-    _movieViewController.url = url;
-    _movieViewController.successCallback = successCallback;
-    _movieViewController.errorCallback = errorCallback;
+    VLCPlaybackController *vpc = [VLCPlaybackController sharedInstance];
+
+    vpc.url = url;
+    vpc.successCallback = successCallback;
+    vpc.errorCallback = errorCallback;
+    vpc.delegate = _movieViewController;
 
     UINavigationController *navCon = [[VLCPlaybackNavigationController alloc] initWithRootViewController:_movieViewController];
     navCon.modalPresentationStyle = UIModalPresentationFullScreen;
     [self.window.rootViewController presentViewController:navCon animated:YES completion:nil];
+
+    [vpc startPlayback];
 }
 
 - (void)openMovieFromURL:(NSURL *)url
@@ -583,13 +592,18 @@
     if (!_movieViewController)
         _movieViewController = [[VLCMovieViewController alloc] initWithNibName:nil bundle:nil];
 
-    _movieViewController.mediaList = list;
-    _movieViewController.itemInMediaListToBePlayedFirst = index;
-    _movieViewController.pathToExternalSubtitlesFile = nil;
+    VLCPlaybackController *vpc = [VLCPlaybackController sharedInstance];
+
+    vpc.mediaList = list;
+    vpc.itemInMediaListToBePlayedFirst = index;
+    vpc.pathToExternalSubtitlesFile = nil;
+    vpc.delegate = _movieViewController;
 
     UINavigationController *navCon = [[VLCPlaybackNavigationController alloc] initWithRootViewController:_movieViewController];
     navCon.modalPresentationStyle = UIModalPresentationFullScreen;
     [self.window.rootViewController presentViewController:navCon animated:YES completion:nil];
+
+    [vpc startPlayback];
 }
 
 - (void)openMovieWithExternalSubtitleFromURL:(NSURL *)url externalSubURL:(NSString *)SubtitlePath
@@ -597,12 +611,17 @@
     if (!_movieViewController)
         _movieViewController = [[VLCMovieViewController alloc] initWithNibName:nil bundle:nil];
 
-    _movieViewController.url = url;
-    _movieViewController.pathToExternalSubtitlesFile = SubtitlePath;
+    VLCPlaybackController *vpc = [VLCPlaybackController sharedInstance];
+
+    vpc.url = url;
+    vpc.pathToExternalSubtitlesFile = SubtitlePath;
+    vpc.delegate = _movieViewController;
 
     UINavigationController *navCon = [[VLCPlaybackNavigationController alloc] initWithRootViewController:_movieViewController];
     navCon.modalPresentationStyle = UIModalPresentationFullScreen;
     [self.window.rootViewController presentViewController:navCon animated:YES completion:nil];
+
+    [vpc startPlayback];
 }
 
 #pragma mark - watch struff
@@ -658,14 +677,14 @@
 - (NSDictionary *)nowPlayingResponseDict {
     NSMutableDictionary *response = [NSMutableDictionary new];
     NSMutableDictionary *nowPlayingInfo = [[MPNowPlayingInfoCenter defaultCenter].nowPlayingInfo mutableCopy];
-    NSNumber *playbackTime = [_movieViewController mediaPlayer].time.numberValue;
+    NSNumber *playbackTime = [VLCPlaybackController sharedInstance].mediaPlayer.time.numberValue;
     if (playbackTime) {
         nowPlayingInfo[MPNowPlayingInfoPropertyElapsedPlaybackTime] = @(playbackTime.floatValue/1000);
     }
     if (nowPlayingInfo) {
         response[@"nowPlayingInfo"] = nowPlayingInfo;
     }
-    MLFile *currentFile = _movieViewController.currentlyPlayingMediaFile;
+    MLFile *currentFile = [VLCPlaybackController sharedInstance].currentlyPlayingMediaFile;
     NSString *URIString = currentFile.objectID.URIRepresentation.absoluteString;
     if (URIString) {
         response[@"URIRepresentation"] = URIString;

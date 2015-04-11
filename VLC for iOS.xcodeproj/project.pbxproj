@@ -430,6 +430,7 @@
 		7DE1862C175BA9A9006C0173 /* badgeUnread@2x~iphone.png in Resources */ = {isa = PBXBuildFile; fileRef = 7DE1862E175BA9A9006C0173 /* badgeUnread@2x~iphone.png */; };
 		7DE1862F175BA9AC006C0173 /* badgeUnread~ipad.png in Resources */ = {isa = PBXBuildFile; fileRef = 7DE18631175BA9AC006C0173 /* badgeUnread~ipad.png */; };
 		7DE18632175BA9AF006C0173 /* badgeUnread~iphone.png in Resources */ = {isa = PBXBuildFile; fileRef = 7DE18634175BA9AF006C0173 /* badgeUnread~iphone.png */; };
+		7DE56C1A1AD93F9100E8CA00 /* VLCPlaybackController.m in Sources */ = {isa = PBXBuildFile; fileRef = 7DE56C191AD93F9100E8CA00 /* VLCPlaybackController.m */; };
 		7DE715ED1AD2DAE50075E716 /* VLCThumbnailsCache.m in Sources */ = {isa = PBXBuildFile; fileRef = 7D37849D183A98DD009EE944 /* VLCThumbnailsCache.m */; };
 		7DEB3B5D17647B240038FC70 /* bottomBlackBar@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 7DEB3B5B17647B240038FC70 /* bottomBlackBar@2x.png */; };
 		7DEB3B5E17647B240038FC70 /* bottomBlackBar.png in Resources */ = {isa = PBXBuildFile; fileRef = 7DEB3B5C17647B240038FC70 /* bottomBlackBar.png */; };
@@ -1388,6 +1389,8 @@
 		7DE18646175BAEC0006C0173 /* fr */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = fr; path = "fr.lproj/badgeUnread~ipad.png"; sourceTree = "<group>"; };
 		7DE18647175BAEC1006C0173 /* it */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = it; path = "it.lproj/badgeUnread~ipad.png"; sourceTree = "<group>"; };
 		7DE18648175BAEC2006C0173 /* ja */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = ja; path = "ja.lproj/badgeUnread~ipad.png"; sourceTree = "<group>"; };
+		7DE56C181AD93F9100E8CA00 /* VLCPlaybackController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = VLCPlaybackController.h; path = Sources/VLCPlaybackController.h; sourceTree = SOURCE_ROOT; };
+		7DE56C191AD93F9100E8CA00 /* VLCPlaybackController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = VLCPlaybackController.m; path = Sources/VLCPlaybackController.m; sourceTree = SOURCE_ROOT; };
 		7DEB3B5B17647B240038FC70 /* bottomBlackBar@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "bottomBlackBar@2x.png"; sourceTree = "<group>"; };
 		7DEB3B5C17647B240038FC70 /* bottomBlackBar.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = bottomBlackBar.png; sourceTree = "<group>"; };
 		7DEB3B5F17647DE30038FC70 /* iTunesArtwork@2x */ = {isa = PBXFileReference; lastKnownFileType = file; path = "iTunesArtwork@2x"; sourceTree = "<group>"; };
@@ -2270,6 +2273,8 @@
 		7D5F7AB9175265B2006CCCFA /* Playback */ = {
 			isa = PBXGroup;
 			children = (
+				7DE56C181AD93F9100E8CA00 /* VLCPlaybackController.h */,
+				7DE56C191AD93F9100E8CA00 /* VLCPlaybackController.m */,
 				7D37848D183A98B6009EE944 /* VLCMovieViewController.h */,
 				7D37848E183A98B6009EE944 /* VLCMovieViewController.m */,
 				7D378490183A98BF009EE944 /* VLCExternalDisplayController.h */,
@@ -3676,6 +3681,7 @@
 				7D168F7418D4A33F003FAF59 /* UIImage+Blur.m in Sources */,
 				9B5BEF2917FBAEA50016F9CB /* GTLDrive_Sources.m in Sources */,
 				7DC19ADF1868C7BB00810BF7 /* VLCFirstStepsViewController.m in Sources */,
+				7DE56C1A1AD93F9100E8CA00 /* VLCPlaybackController.m in Sources */,
 				7DC72D6317B7ED24008A26D0 /* WhiteRaccoon.m in Sources */,
 				7D5CAA891A4AD763003F2CBC /* VLCTrackSelectorTableViewCell.m in Sources */,
 				7D63C19018774B1700BD5256 /* VLCFirstStepsSecondPageViewController.m in Sources */,
