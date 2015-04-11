@@ -16,5 +16,6 @@
 
 - (int)speedCategory;
 - (NSNumber *)freeDiskspace;
+- (BOOL)hasExternalDisplay;
 
 @end
