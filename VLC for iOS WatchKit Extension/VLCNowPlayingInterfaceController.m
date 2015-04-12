@@ -25,6 +25,7 @@
 @property (nonatomic, copy) NSString *titleString;
 @property (nonatomic, copy) NSNumber *playBackDurationNumber;
 @property (nonatomic) BOOL isPlaying;
+@property (nonatomic) NSTimer *updateTimer;
 @end
 
 @implementation VLCNowPlayingInterfaceController
@@ -59,11 +60,19 @@
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(requestNowPlayingInfo) name:@"nowPlayingInfoUpdate" object:nil];
     [self requestNowPlayingInfo];
 
+    const NSTimeInterval updateInterval = 5;
+    self.updateTimer = [NSTimer scheduledTimerWithTimeInterval:updateInterval
+                                                        target:self
+                                                      selector:@selector(requestNowPlayingInfo)
+                                                      userInfo:nil
+                                                       repeats:YES];
 }
 - (void)didDeactivate {
     // This method is called when watch view controller is no longer visible
     [super didDeactivate];
     [[NSNotificationCenter defaultCenter] removeObserver:self name:@"nowPlayingInfoUpdate" object:nil];
+    [self.updateTimer invalidate];
+    self.updateTimer = nil;
 }
 
 - (void)requestNowPlayingInfo {
@@ -96,8 +105,10 @@
         playbackProgress = playbackTimeFloat / (durationFloat/1000);
     }
     BOOL noProgress = (playbackProgress == 0.0 || playbackProgress == 1.0);
-    CGFloat progressWidth = floor(playbackProgress * CGRectGetWidth([WKInterfaceDevice currentDevice].screenBounds));;
-    self.progressSeparator.width = noProgress ? 0.0 : progressWidth;
+    CGFloat progressWidth = floor(playbackProgress * CGRectGetWidth([WKInterfaceDevice currentDevice].screenBounds));
+    CGFloat newWidth = noProgress ? 0.0 : progressWidth;
+    self.progressObject.width = newWidth;
+    self.progressObject.hidden = noProgress;
 
     self.playBackDurationNumber = duration;
 
@@ -108,7 +119,8 @@
 - (void)loadThumbnailForFile:(MLFile *)file
 {
     UIImage *image = [VLCThumbnailsCache thumbnailForManagedObject:file toFitRect:CGRectMake(0., 0., _screenBounds.size.width * _screenScale, _screenBounds.size.height * _screenScale) shouldReplaceCache:NO];
-    [self.playElementsGroup setBackgroundImage:image];
+
+    [self.playElementsGroup performSelectorOnMainThread:@selector(setBackgroundImage:) withObject:image waitUntilDone:YES];
 }
 
 - (IBAction)playPausePressed {

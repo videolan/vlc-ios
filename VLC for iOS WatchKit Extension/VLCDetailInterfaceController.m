@@ -68,8 +68,8 @@
     self.playNowButton.enabled = playEnabled;
 
     BOOL noProgress = (playbackProgress == 0.0 || playbackProgress == 1.0);
-    self.progressSeparator.hidden = noProgress;
-    self.progressSeparator.width = floor(playbackProgress * CGRectGetWidth([WKInterfaceDevice currentDevice].screenBounds));
+    self.progressObject.hidden = noProgress;
+    self.progressObject.width = floor(playbackProgress * CGRectGetWidth([WKInterfaceDevice currentDevice].screenBounds));
 
     /* do not block the main thread */
     [self performSelectorInBackground:@selector(loadThumbnailForManagedObject:) withObject:managedObject];

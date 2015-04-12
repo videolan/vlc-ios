@@ -192,8 +192,8 @@ typedef enum {
     }
 
     BOOL noProgress = (playbackProgress == 0.0 || playbackProgress == 1.0);
-    row.progressSeparator.hidden = noProgress;
-    row.progressSeparator.width = floor(playbackProgress * CGRectGetWidth([WKInterfaceDevice currentDevice].screenBounds));
+    row.progressObject.hidden = noProgress;
+    row.progressObject.width = floor(playbackProgress * CGRectGetWidth([WKInterfaceDevice currentDevice].screenBounds));
 
     /* FIXME: add placeholder image once designed
     if (backgroundImage == nil)

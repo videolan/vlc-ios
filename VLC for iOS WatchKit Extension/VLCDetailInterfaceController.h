@@ -19,7 +19,7 @@
 @property (weak, nonatomic) IBOutlet WKInterfaceLabel *durationLabel;
 @property (weak, nonatomic) IBOutlet WKInterfaceButton *playNowButton;
 @property (weak, nonatomic) IBOutlet WKInterfaceGroup *group;
-@property (weak, nonatomic) IBOutlet WKInterfaceSeparator *progressSeparator;
+@property (weak, nonatomic) IBOutlet WKInterfaceObject *progressObject;
 
 - (IBAction)playNow;
 @end

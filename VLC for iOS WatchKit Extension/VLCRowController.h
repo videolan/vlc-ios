@@ -14,6 +14,6 @@
 @interface VLCRowController : NSObject
 @property (nonatomic, weak) IBOutlet WKInterfaceLabel *titleLabel;
 @property (nonatomic, weak) IBOutlet WKInterfaceGroup *group;
-@property (nonatomic, weak) IBOutlet WKInterfaceSeparator *progressSeparator;
+@property (nonatomic, weak) IBOutlet WKInterfaceObject *progressObject;
 
 @end
