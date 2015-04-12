@@ -20,6 +20,7 @@
 #import "VLCNotificationRelay.h"
 #import "VLCWatchTableController.h"
 #import "VLCThumbnailsCache.h"
+#import "WKInterfaceObject+VLCProgress.h"
 
 static NSString *const rowType = @"mediaRow";
 static NSString *const VLCDBUpdateNotification = @"VLCUpdateDataBase";
@@ -158,16 +159,11 @@ typedef enum {
 - (void)updateData {
     // if not activated/visible we defer the update til activation
     if (self.activated) {
-        [self performSelectorInBackground:@selector(backgroundUpdateData) withObject:nil];
+        self.tableController.objects = [self mediaArray];
+        self.needsUpdate = NO;
     } else {
         self.needsUpdate = YES;
     }
-}
-
-- (void)backgroundUpdateData
-{
-    self.tableController.objects = [self mediaArray];
-    self.needsUpdate = NO;
 }
 
 - (void)configureTableRowController:(id)rowController withObject:(id)storageObject {
@@ -191,14 +187,11 @@ typedef enum {
         playbackProgress = file.lastPosition.floatValue;
     }
 
-    BOOL noProgress = (playbackProgress == 0.0 || playbackProgress == 1.0);
-    row.progressObject.hidden = noProgress;
-    row.progressObject.width = floor(playbackProgress * CGRectGetWidth([WKInterfaceDevice currentDevice].screenBounds));
+    [row.progressObject vlc_setProgress:playbackProgress hideForNoProgress:YES];
 
-    /* FIXME: add placeholder image once designed
-    if (backgroundImage == nil)
-        backgroundImage = nil;
-     */
+    /* FIXME: add placeholder image once designed */
+
+    row.group.backgroundImage = [UIImage imageNamed:@"tableview-gradient"];
 
     NSArray *array = @[row.group, storageObject];
     [self performSelectorInBackground:@selector(backgroundThumbnailSetter:) withObject:array];
@@ -225,7 +218,7 @@ typedef enum {
 
     UIGraphicsEndImageContext();
 
-    [array[0] setBackgroundImage:newImage];
+    [array.firstObject performSelectorOnMainThread:@selector(setBackgroundImage:) withObject:newImage waitUntilDone:YES];
 }
 
 //TODO: this code could use refactoring to be more readable

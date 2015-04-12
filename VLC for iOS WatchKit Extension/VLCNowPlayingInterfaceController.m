@@ -16,6 +16,7 @@
 #import <MediaLibraryKit/MediaLibraryKit.h>
 #import "VLCNotificationRelay.h"
 #import "VLCThumbnailsCache.h"
+#import "WKInterfaceObject+VLCProgress.h"
 
 @interface VLCNowPlayingInterfaceController ()
 {
@@ -98,17 +99,11 @@
     }
 
     NSNumber *playbackTime = nowPlayingInfo[MPNowPlayingInfoPropertyElapsedPlaybackTime];
-    float playbackProgress = 0.0;
     float playbackTimeFloat = playbackTime.floatValue; // seconds
     float durationFloat = duration.floatValue; // milliseconds
-    if (playbackTimeFloat > 0.0 && durationFloat > 0.0) {
-        playbackProgress = playbackTimeFloat / (durationFloat/1000);
-    }
-    BOOL noProgress = (playbackProgress == 0.0 || playbackProgress == 1.0);
-    CGFloat progressWidth = floor(playbackProgress * CGRectGetWidth([WKInterfaceDevice currentDevice].screenBounds));
-    CGFloat newWidth = noProgress ? 0.0 : progressWidth;
-    self.progressObject.width = newWidth;
-    self.progressObject.hidden = noProgress;
+    durationFloat/=1000; // seconds
+
+    [self.progressObject vlc_setProgressFromPlaybackTime:playbackTimeFloat duration:durationFloat hideForNoProgess:YES];
 
     self.playBackDurationNumber = duration;
 
