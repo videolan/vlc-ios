@@ -657,7 +657,11 @@
 
 - (NSDictionary *)nowPlayingResponseDict {
     NSMutableDictionary *response = [NSMutableDictionary new];
-    NSDictionary *nowPlayingInfo = [MPNowPlayingInfoCenter defaultCenter].nowPlayingInfo;
+    NSMutableDictionary *nowPlayingInfo = [[MPNowPlayingInfoCenter defaultCenter].nowPlayingInfo mutableCopy];
+    NSNumber *playbackTime = [_movieViewController mediaPlayer].time.numberValue;
+    if (playbackTime) {
+        nowPlayingInfo[MPNowPlayingInfoPropertyElapsedPlaybackTime] = @(playbackTime.floatValue/1000);
+    }
     if (nowPlayingInfo) {
         response[@"nowPlayingInfo"] = nowPlayingInfo;
     }

@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
-<document type="com.apple.InterfaceBuilder.WatchKit.Storyboard" version="3.0" toolsVersion="6751" systemVersion="14C1514" targetRuntime="watchKit" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" initialViewController="AgC-eL-Hgc">
+<document type="com.apple.InterfaceBuilder.WatchKit.Storyboard" version="3.0" toolsVersion="7531" systemVersion="14D131" targetRuntime="watchKit" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" initialViewController="AgC-eL-Hgc">
     <dependencies>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="6736"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="7520"/>
         <plugIn identifier="com.apple.InterfaceBuilder.IBWatchKitPlugin" version="3737"/>
     </dependencies>
     <scenes>
@@ -32,7 +32,7 @@
                                     </group>
                                     <connections>
                                         <outlet property="group" destination="IQK-uE-8Jr" id="AMK-in-WKm"/>
-                                        <outlet property="progressSeparator" destination="ziJ-iW-Rvc" id="1Ue-rT-1D9"/>
+                                        <outlet property="progressObject" destination="ziJ-iW-Rvc" id="khJ-Im-SdA"/>
                                         <outlet property="titleLabel" destination="bUB-PE-2P0" id="U07-pL-M8k"/>
                                     </connections>
                                 </tableRow>
@@ -44,7 +44,7 @@
                                 <action selector="nextPagePressed" destination="AgC-eL-Hgc" id="iNm-4n-TvE"/>
                             </connections>
                         </button>
-                        <group width="1" alignment="left" layout="vertical" id="Sdu-Gc-HNJ">
+                        <group width="1" alignment="left" hidden="YES" layout="vertical" id="Sdu-Gc-HNJ">
                             <items>
                                 <imageView alignment="center" image="vlcCone" contentMode="scaleAspectFit" id="oPx-9e-qpC"/>
                                 <label width="1" alignment="center" textAlignment="center" numberOfLines="0" id="t8d-XX-2X2">
@@ -103,7 +103,7 @@
                         <outlet property="durationLabel" destination="eqY-Zs-PAu" id="ttj-gB-C2S"/>
                         <outlet property="group" destination="w46-UP-k21" id="tq6-TE-A5x"/>
                         <outlet property="playNowButton" destination="4LT-2D-Zeq" id="d2T-jc-gAb"/>
-                        <outlet property="progressSeparator" destination="sMd-Gr-vD4" id="ly1-6A-yhJ"/>
+                        <outlet property="progressObject" destination="sMd-Gr-vD4" id="IwD-KA-6K3"/>
                         <outlet property="titleLabel" destination="0av-IS-YI5" id="vEh-KH-Vt5"/>
                     </connections>
                 </controller>
@@ -115,11 +115,11 @@
             <objects>
                 <controller identifier="nowPlaying" id="Mzo-Y8-gdK" customClass="VLCNowPlayingInterfaceController">
                     <items>
-                        <group width="1" height="1" alignment="left" layout="vertical" id="uwS-0S-Ag2">
+                        <group width="1" height="1" heightAdjustment="-2" alignment="left" verticalAlignment="center" contentMode="scaleAspectFit" layout="vertical" id="uwS-0S-Ag2">
                             <items>
-                                <group width="1" height="1" heightAdjustment="-20" alignment="left" id="iCs-yD-jsj">
+                                <group width="1" height="1" heightAdjustment="-30" alignment="left" contentMode="scaleAspectFit" id="iCs-yD-jsj">
                                     <items>
-                                        <group width="1" widthAdjustment="-20" alignment="center" verticalAlignment="center" id="egl-IT-539">
+                                        <group alignment="center" verticalAlignment="center" spacing="25" id="egl-IT-539">
                                             <items>
                                                 <button alignment="left" verticalAlignment="center" accessibilityLabel="backward" backgroundImage="backward" id="uKa-8V-C8x">
                                                     <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
@@ -140,7 +140,6 @@
                                                     </connections>
                                                 </button>
                                             </items>
-                                            <variation key="device=watch42mm" widthAdjustment="-40"/>
                                         </group>
                                     </items>
                                 </group>
@@ -155,17 +154,19 @@
                                         </label>
                                     </items>
                                 </group>
-                                <separator alignment="left" verticalAlignment="bottom" id="ZMm-LO-hqi">
-                                    <color key="color" red="0.92549019610000005" green="0.43529411759999997" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
-                                </separator>
                             </items>
+                            <edgeInsets key="margins" left="1" right="1" top="0.0" bottom="0.0"/>
+                        </group>
+                        <group width="1" height="2" alignment="left" verticalAlignment="bottom" radius="0.0" spacing="0.0" id="9DQ-Bn-k5Y">
+                            <color key="backgroundColor" red="0.92549019610000005" green="0.43529411759999997" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
                         </group>
                     </items>
+                    <edgeInsets key="margins" left="0.0" right="0.0" top="0.0" bottom="0.0"/>
                     <connections>
                         <outlet property="durationLabel" destination="D0h-cq-wsv" id="3AN-YZ-yEj"/>
-                        <outlet property="playElementsGroup" destination="uwS-0S-Ag2" id="ZmT-tX-Zza"/>
+                        <outlet property="playElementsGroup" destination="uwS-0S-Ag2" id="aJc-Db-Z3L"/>
                         <outlet property="playPauseButton" destination="BAZ-aC-ETt" id="X17-bz-cFy"/>
-                        <outlet property="progressSeparator" destination="ZMm-LO-hqi" id="uHg-0Y-wlm"/>
+                        <outlet property="progressObject" destination="9DQ-Bn-k5Y" id="LK1-eS-RGv"/>
                         <outlet property="titleLabel" destination="H58-Y8-Tbc" id="xZs-ZW-Shj"/>
                     </connections>
                 </controller>
