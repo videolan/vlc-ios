@@ -14,6 +14,7 @@
 #import <MediaLibraryKit/MediaLibraryKit.h>
 #import <MobileVLCKit/MobileVLCKit.h>
 #import "VLCThumbnailsCache.h"
+#import "WKInterfaceObject+VLCProgress.h"
 
 @interface VLCDetailInterfaceController ()
 @property (nonatomic, weak) NSManagedObject *managedObject;
@@ -67,9 +68,7 @@
     BOOL playEnabled = managedObject != nil;
     self.playNowButton.enabled = playEnabled;
 
-    BOOL noProgress = (playbackProgress == 0.0 || playbackProgress == 1.0);
-    self.progressObject.hidden = noProgress;
-    self.progressObject.width = floor(playbackProgress * CGRectGetWidth([WKInterfaceDevice currentDevice].screenBounds));
+    [self.progressObject vlc_setProgress:playbackProgress hideForNoProgress:YES];
 
     /* do not block the main thread */
     [self performSelectorInBackground:@selector(loadThumbnailForManagedObject:) withObject:managedObject];
