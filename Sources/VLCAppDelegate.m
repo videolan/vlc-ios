@@ -191,6 +191,14 @@
 
 - (void)pathMigrationToGroupsIfNeeded:(NSError **)migrationError
 {
+
+    /*
+     * We can't and don't need to migrate to groups on pre-iOS 7
+     */
+    if (![[NSFileManager defaultManager] respondsToSelector:@selector(containerURLForSecurityApplicationGroupIdentifier:)]) {
+        return;
+    }
+
     MLMediaLibrary *mediaLibrary = [MLMediaLibrary sharedMediaLibrary];
     NSURL *groupURL = [[NSFileManager defaultManager] containerURLForSecurityApplicationGroupIdentifier:@"group.org.videolan.vlc-ios"];
 
