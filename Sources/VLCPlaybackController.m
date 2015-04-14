@@ -769,7 +769,7 @@
             _albumName = metaDict[VLCMetaInformationAlbum];
             trackNumber = [metaDict[VLCMetaInformationTrackNumber] numberValue];
             if (_mediaIsAudioOnly)
-                _artworkImage = [VLCThumbnailsCache thumbnailForMediaItemWithTitle:_title Artist:_artist andAlbumName:_albumName];
+                _artworkImage = [VLCThumbnailsCache thumbnailForManagedObject:item];
         }
     }
 
