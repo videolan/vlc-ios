@@ -733,7 +733,7 @@
         item = self.fileFromMediaLibrary;
     else if (self.mediaList) {
         NSArray *matches = [MLFile fileForURL:[_mediaPlayer.media.url absoluteString]];
-        item = matches.firstObject
+        item = matches.firstObject;
     }
 
     if (item) {
