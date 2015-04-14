@@ -454,6 +454,11 @@ static NSString *kDisplayedFirstSteps = @"Did we display the first steps tutoria
 {
     _foundMedia = [[NSMutableArray alloc] init];
 
+    if (![(VLCAppDelegate *)[UIApplication sharedApplication].delegate passcodeValidated]) {
+        APLog(@"library is locked, won't show contents");
+        return;
+    }
+
     self.navigationItem.leftBarButtonItem = _menuButton;
     if (_libraryMode == VLCLibraryModeAllAlbums)
         self.title = NSLocalizedString(@"LIBRARY_MUSIC", nil);
