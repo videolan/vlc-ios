@@ -16,8 +16,6 @@
 
 + (UIImage *)thumbnailForManagedObject:(NSManagedObject *)object;
 
-+ (UIImage *)thumbnailForMediaItemWithTitle:(NSString *)title Artist:(NSString*)artist andAlbumName:(NSString*)albumname;
-
 + (UIImage *)thumbnailForManagedObject:(NSManagedObject *)object toFitRect:(CGRect)rect shouldReplaceCache:(BOOL)replaceCache;
 
 @end
