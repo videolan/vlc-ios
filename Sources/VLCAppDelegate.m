@@ -95,10 +95,8 @@
 
     self.window = [[UIWindow alloc] initWithFrame:[[UIScreen mainScreen] bounds]];
     // enable crash preventer
-     void (^setupBlock)() = ^ {
-        [[MLMediaLibrary sharedMediaLibrary] applicationWillStart];
-
-        _playlistViewController = [[VLCPlaylistViewController alloc] init];
+     void (^setupBlock)() = ^{
+         _playlistViewController = [[VLCPlaylistViewController alloc] init];
         UINavigationController *navCon = [[UINavigationController alloc] initWithRootViewController:_playlistViewController];
         [navCon loadTheme];
 
@@ -113,11 +111,13 @@
         _revealController.contentViewController.view.backgroundColor = [UIColor VLCDarkBackgroundColor];
         [self.window makeKeyAndVisible];
 
+        [self validatePasscode];
+
+        [[MLMediaLibrary sharedMediaLibrary] applicationWillStart];
+
         VLCMediaFileDiscoverer *discoverer = [VLCMediaFileDiscoverer sharedInstance];
         [discoverer addObserver:self];
         [discoverer startDiscovering:[self directoryPath]];
-
-        [self validatePasscode];
     };
 
     NSError *error = nil;
@@ -466,6 +466,11 @@
 
 #pragma mark - pass code validation
 
+- (BOOL)passcodeValidated
+{
+    return _passcodeValidated;
+}
+
 - (void)validatePasscode
 {
     NSUserDefaults *defaults = [NSUserDefaults standardUserDefaults];
@@ -491,6 +496,8 @@
 
 - (void)PAPasscodeViewControllerDidEnterPasscode:(PAPasscodeViewController *)controller
 {
+    _passcodeValidated = YES;
+    [self.playlistViewController updateViewContents];
     [self.window.rootViewController dismissViewControllerAnimated:YES completion:nil];
 }
 
