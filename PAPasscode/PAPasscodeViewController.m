@@ -225,6 +225,11 @@
     [passcodeTextField becomeFirstResponder];
 }
 
+- (void)viewWillDisappear:(BOOL)animated {
+    [super viewWillDisappear:animated];
+    [passcodeTextField resignFirstResponder];
+}
+
 - (NSUInteger)supportedInterfaceOrientations {
     return UIInterfaceOrientationMaskPortrait|UIInterfaceOrientationMaskPortraitUpsideDown;
 }
