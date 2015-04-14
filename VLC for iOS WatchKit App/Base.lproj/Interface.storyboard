@@ -19,20 +19,26 @@
                         <table alignment="left" id="lC4-Vd-sgP">
                             <items>
                                 <tableRow identifier="mediaRow" id="QhF-se-FCS" customClass="VLCRowController">
-                                    <group key="rootItem" width="1" height="60" alignment="left" contentMode="scaleAspectFill" layout="vertical" radius="5" id="IQK-uE-8Jr">
+                                    <group key="rootItem" width="1" height="60" alignment="left" contentMode="scaleAspectFill" layout="vertical" radius="5" spacing="0.0" id="IQK-uE-8Jr">
                                         <items>
-                                            <label alignment="left" text="title" minimumScaleFactor="0.90000000000000002" id="bUB-PE-2P0">
-                                                <fontDescription key="font" style="UICTFontTextStyleCaption2"/>
-                                            </label>
-                                            <separator alignment="left" verticalAlignment="bottom" id="ziJ-iW-Rvc">
-                                                <color key="color" red="0.92549019610000005" green="0.43529411759999997" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
-                                            </separator>
+                                            <group width="1" height="1" heightAdjustment="-2" alignment="left" contentMode="scaleAspectFill" layout="vertical" id="n51-TH-TfQ">
+                                                <items>
+                                                    <label alignment="left" text="title" minimumScaleFactor="0.90000000000000002" id="bUB-PE-2P0">
+                                                        <fontDescription key="font" style="UICTFontTextStyleCaption2"/>
+                                                    </label>
+                                                </items>
+                                                <edgeInsets key="margins" left="5" right="5" top="5" bottom="5"/>
+                                            </group>
+                                            <group width="1" widthAdjustment="11" height="2" alignment="left" verticalAlignment="bottom" radius="0.0" spacing="0.0" id="emQ-zO-BxV" userLabel="progress Group">
+                                                <color key="backgroundColor" red="0.92549019610000005" green="0.43529411759999997" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
+                                            </group>
                                         </items>
                                         <color key="backgroundColor" red="0.76862745099999996" green="0.74901960779999999" blue="0.75686274509999996" alpha="1" colorSpace="calibratedRGB"/>
+                                        <edgeInsets key="margins" left="0.0" right="0.0" top="0.0" bottom="0.0"/>
                                     </group>
                                     <connections>
-                                        <outlet property="group" destination="IQK-uE-8Jr" id="AMK-in-WKm"/>
-                                        <outlet property="progressObject" destination="ziJ-iW-Rvc" id="khJ-Im-SdA"/>
+                                        <outlet property="group" destination="IQK-uE-8Jr" id="WBV-Cl-DBU"/>
+                                        <outlet property="progressObject" destination="emQ-zO-BxV" id="quT-o1-pWc"/>
                                         <outlet property="titleLabel" destination="bUB-PE-2P0" id="U07-pL-M8k"/>
                                     </connections>
                                 </tableRow>
@@ -69,21 +75,8 @@
             <objects>
                 <controller identifier="detailInfo" id="iqo-j9-nlr" customClass="VLCDetailInterfaceController">
                     <items>
-                        <label alignment="left" verticalAlignment="bottom" text="title" textAlignment="left" numberOfLines="0" id="0av-IS-YI5">
-                            <fontDescription key="font" style="UICTFontTextStyleCaption1"/>
-                        </label>
-                        <group width="1" alignment="left" verticalAlignment="bottom" layout="vertical" id="f8s-XC-ak2">
-                            <items>
-                                <label alignment="left" verticalAlignment="bottom" text="duration" id="eqY-Zs-PAu">
-                                    <fontDescription key="font" type="italicSystem" pointSize="14"/>
-                                </label>
-                            </items>
-                        </group>
                         <group width="1" height="100" alignment="left" layout="vertical" id="w46-UP-k21">
                             <items>
-                                <separator alignment="left" verticalAlignment="bottom" id="sMd-Gr-vD4">
-                                    <color key="color" red="0.92549019610000005" green="0.43529411759999997" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
-                                </separator>
                                 <group alignment="center" verticalAlignment="center" radius="20" id="bEJ-d5-UhP">
                                     <items>
                                         <button width="40" height="40" alignment="center" verticalAlignment="center" title="▶︎" enabled="NO" id="4LT-2D-Zeq">
@@ -97,13 +90,25 @@
                                 </group>
                             </items>
                         </group>
-                        <label alignment="left" hidden="YES" text="???" id="l0f-Nd-PHT"/>
+                        <group width="1" height="2" alignment="left" verticalAlignment="center" radius="0.0" spacing="0.0" id="JNG-N2-V7J" userLabel="progress Group">
+                            <color key="backgroundColor" red="0.92549019610000005" green="0.43529411759999997" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
+                        </group>
+                        <label alignment="left" verticalAlignment="bottom" text="title" textAlignment="left" numberOfLines="0" id="0av-IS-YI5">
+                            <fontDescription key="font" style="UICTFontTextStyleCaption1"/>
+                        </label>
+                        <group width="1" alignment="left" verticalAlignment="bottom" layout="vertical" id="f8s-XC-ak2">
+                            <items>
+                                <label alignment="left" verticalAlignment="bottom" text="duration" id="eqY-Zs-PAu">
+                                    <fontDescription key="font" type="italicSystem" pointSize="14"/>
+                                </label>
+                            </items>
+                        </group>
                     </items>
                     <connections>
                         <outlet property="durationLabel" destination="eqY-Zs-PAu" id="ttj-gB-C2S"/>
                         <outlet property="group" destination="w46-UP-k21" id="tq6-TE-A5x"/>
                         <outlet property="playNowButton" destination="4LT-2D-Zeq" id="d2T-jc-gAb"/>
-                        <outlet property="progressObject" destination="sMd-Gr-vD4" id="IwD-KA-6K3"/>
+                        <outlet property="progressObject" destination="JNG-N2-V7J" id="eqg-BR-4a3"/>
                         <outlet property="titleLabel" destination="0av-IS-YI5" id="vEh-KH-Vt5"/>
                     </connections>
                 </controller>
@@ -157,7 +162,7 @@
                             </items>
                             <edgeInsets key="margins" left="1" right="1" top="0.0" bottom="0.0"/>
                         </group>
-                        <group width="1" height="2" alignment="left" verticalAlignment="bottom" radius="0.0" spacing="0.0" id="9DQ-Bn-k5Y">
+                        <group width="1" height="2" alignment="left" verticalAlignment="bottom" radius="0.0" spacing="0.0" id="9DQ-Bn-k5Y" userLabel="progress Group">
                             <color key="backgroundColor" red="0.92549019610000005" green="0.43529411759999997" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
                         </group>
                     </items>
