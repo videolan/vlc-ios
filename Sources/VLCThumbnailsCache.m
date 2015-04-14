@@ -162,7 +162,8 @@
 
 - (void)_setThumbnail:(UIImage *)image forObjectId:(NSManagedObjectID *)objID
 {
-    [_thumbnailCache setObject:image forKey:objID];
+    if (image)
+        [_thumbnailCache setObject:image forKey:objID];
 }
 
 - (UIImage *)thumbnailForMediaFile:(MLFile *)mediaFile
