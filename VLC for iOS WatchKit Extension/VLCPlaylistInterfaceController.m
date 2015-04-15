@@ -218,7 +218,7 @@ typedef enum {
 
     UIGraphicsEndImageContext();
 
-    [array.firstObject performSelectorOnMainThread:@selector(setBackgroundImage:) withObject:newImage waitUntilDone:YES];
+    [array.firstObject performSelectorOnMainThread:@selector(setBackgroundImage:) withObject:newImage waitUntilDone:NO];
 }
 
 //TODO: this code could use refactoring to be more readable
