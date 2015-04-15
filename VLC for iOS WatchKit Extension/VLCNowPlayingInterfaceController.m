@@ -115,7 +115,7 @@
 {
     UIImage *image = [VLCThumbnailsCache thumbnailForManagedObject:file toFitRect:CGRectMake(0., 0., _screenBounds.size.width * _screenScale, _screenBounds.size.height * _screenScale) shouldReplaceCache:NO];
 
-    [self.playElementsGroup performSelectorOnMainThread:@selector(setBackgroundImage:) withObject:image waitUntilDone:YES];
+    [self.playElementsGroup performSelectorOnMainThread:@selector(setBackgroundImage:) withObject:image waitUntilDone:NO];
 }
 
 - (IBAction)playPausePressed {
