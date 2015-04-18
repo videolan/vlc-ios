@@ -2,7 +2,7 @@
  * VLCMenuTableViewController.m
  * VLC for iOS
  *****************************************************************************
- * Copyright (c) 2013 VideoLAN. All rights reserved.
+ * Copyright (c) 2013-2015 VideoLAN. All rights reserved.
  * $Id$
  *
  * Authors: Felix Paul Kühne <fkuehne # videolan.org>
@@ -50,8 +50,6 @@
 }
 
 @property (nonatomic) VLCHTTPUploaderController *uploadController;
-@property (nonatomic) VLCAppDelegate *appDelegate;
-@property (nonatomic) GHRevealViewController *revealController;
 
 @end
 
@@ -114,9 +112,8 @@
 
     [self netReachabilityChanged:nil];
 
-    self.appDelegate = [[UIApplication sharedApplication] delegate];
-    self.uploadController = self.appDelegate.uploadController;
-    self.revealController = self.appDelegate.revealController;
+    VLCAppDelegate *appDelegate = [[UIApplication sharedApplication] delegate];
+    self.uploadController = appDelegate.uploadController;
 
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(netReachabilityChanged:) name:kReachabilityChangedNotification object:nil];
 
@@ -151,6 +148,13 @@
     UIInterfaceOrientation orientation = [[UIApplication sharedApplication] statusBarOrientation];
     return (orientation == UIInterfaceOrientationPortraitUpsideDown) ? (UI_USER_INTERFACE_IDIOM() == UIUserInterfaceIdiomPad) : YES;
 }
+
+- (BOOL)canBecomeFirstResponder
+{
+    return YES;
+}
+
+#pragma mark - table view data source
 
 - (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView
 {
@@ -228,7 +232,7 @@
     return cell;
 }
 
-#pragma mark - tv delegate
+#pragma mark - table view delegation
 - (CGFloat)tableView:(UITableView *)tableView heightForHeaderInSection:(NSInteger)section
 {
     if (section < 3)
@@ -306,6 +310,7 @@
 - (void)_revealItem:(NSUInteger)itemIndex inSection:(NSUInteger)sectionNumber
 {
     UIViewController *viewController;
+    VLCAppDelegate *appDelegate = [[UIApplication sharedApplication] delegate];
     if (sectionNumber == 1) {
         if (itemIndex == 0)
             viewController = [[VLCLocalServerListViewController alloc] init];
@@ -315,7 +320,7 @@
             else
                 viewController = [[VLCOpenNetworkStreamViewController alloc] initWithNibName:@"VLCOpenNetworkStreamViewController" bundle:nil];
         } else if (itemIndex == 2)
-            viewController = self.appDelegate.downloadViewController;
+            viewController = appDelegate.downloadViewController;
         else if (itemIndex == 3)
             [self toggleHTTPServer:nil];
         else if (itemIndex == 4)
@@ -324,47 +329,49 @@
         if (itemIndex == 0) {
             if (!self.settingsController)
                 self.settingsController = [[VLCSettingsController alloc] init];
+            VLCSettingsController *settingsController = self.settingsController;
 
             if (!self.settingsViewController) {
                 self.settingsViewController = [[IASKAppSettingsViewController alloc] initWithStyle:UITableViewStyleGrouped];
-                self.settingsController.viewController = self.settingsViewController;
+                settingsController.viewController = self.settingsViewController;
                 self.settingsViewController.navigationItem.leftBarButtonItem = [UIBarButtonItem themedRevealMenuButtonWithTarget:self.settingsController.viewController andSelector:@selector(dismiss:)];
             }
 
             _hiddenSettingKeys = [[NSMutableSet alloc] init];
-            self.settingsViewController.modalPresentationStyle = UIModalPresentationFormSheet;
-            self.settingsViewController.delegate = self.settingsController;
-            self.settingsViewController.showDoneButton = NO;
-            self.settingsViewController.showCreditsFooter = NO;
+            IASKAppSettingsViewController *settingsVC = self.settingsViewController;
+            settingsVC.modalPresentationStyle = UIModalPresentationFormSheet;
+            settingsVC.delegate = self.settingsController;
+            settingsVC.showDoneButton = NO;
+            settingsVC.showCreditsFooter = NO;
 
             if (![[[NSUserDefaults standardUserDefaults] objectForKey:kVLCSettingPlaybackGestures] boolValue])
                 [_hiddenSettingKeys addObject:@"EnableVariableJumpDuration"];
 
             [self.settingsController.viewController setHiddenKeys:_hiddenSettingKeys];
-            viewController = self.settingsController.viewController;
-
+            viewController = settingsVC;
         } else if (itemIndex == 1)
             viewController = [[VLCAboutViewController alloc] init];
     } else {
-        viewController = self.appDelegate.playlistViewController;
-        [self.appDelegate.playlistViewController setLibraryMode:(int)itemIndex];
+        viewController = appDelegate.playlistViewController;
+        [(VLCPlaylistViewController *)viewController setLibraryMode:(int)itemIndex];
     }
 
     if (!viewController)
         return;
 
     UINavigationController *navCon = nil;
-    if ([_revealController.contentViewController isKindOfClass:[UINavigationController class]]) {
-        navCon = (UINavigationController*)_revealController.contentViewController;
+    GHRevealViewController *revealController = appDelegate.revealController;
+    if ([revealController.contentViewController isKindOfClass:[UINavigationController class]]) {
+        navCon = (UINavigationController*)revealController.contentViewController;
         navCon.viewControllers = @[viewController];
     } else {
         navCon = [[UINavigationController alloc] initWithRootViewController:viewController];
         [navCon loadTheme];
 
-        _revealController.contentViewController = navCon;
+        revealController.contentViewController = navCon;
     }
 
-    [_revealController toggleSidebar:NO duration:kGHRevealSidebarDefaultAnimationDuration];
+    [revealController toggleSidebar:NO duration:kGHRevealSidebarDefaultAnimationDuration];
 }
 
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
@@ -375,20 +382,14 @@
 #pragma mark Public Methods
 - (void)selectRowAtIndexPath:(NSIndexPath *)indexPath animated:(BOOL)animated scrollPosition:(UITableViewScrollPosition)scrollPosition
 {
-    [self.tableView selectRowAtIndexPath:indexPath animated:animated scrollPosition:scrollPosition];
+    UITableView *tableView = self.tableView;
+    [tableView selectRowAtIndexPath:indexPath animated:animated scrollPosition:scrollPosition];
     if (scrollPosition == UITableViewScrollPositionNone)
-        [self.tableView scrollToRowAtIndexPath:indexPath atScrollPosition:scrollPosition animated:animated];
-
+        [tableView scrollToRowAtIndexPath:indexPath atScrollPosition:scrollPosition animated:animated];
     [self _revealItem:indexPath.row inSection:indexPath.section];
 }
 
-#pragma mark - shake to support
-
-- (BOOL)canBecomeFirstResponder
-{
-    return YES;
-}
-
+#pragma mark - shake for support
 - (void)motionEnded:(UIEventSubtype)motion withEvent:(UIEvent *)event
 {
     if (motion == UIEventSubtypeMotionShake)
