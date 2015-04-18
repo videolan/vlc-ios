@@ -2,39 +2,16 @@
  * UIBarButtonItem+Theme.m
  * VLC for iOS
  *****************************************************************************
- * Copyright (c) 2013 VideoLAN. All rights reserved.
+ * Copyright (c) 2013-2015 VideoLAN. All rights reserved.
  * $Id$
  *
  * Authors: Felix Paul Kühne <fkuehne # videolan.org>
- *          Romain Goyet <romain.goyet # applidium.com>
  *          Fabio Ritrovato <sephiroth87 # videolan.org>
  *
  * Refer to the COPYING file of the official project for license.
  *****************************************************************************/
 
-#import "UIBarButtonItem+Theme.h"
-
-@implementation UIBarButtonItem (Theme)
-+ (UIBarButtonItem *)themedDoneButtonWithTarget:(id)target andSelector:(SEL)selector
-{
-    UIBarButtonItem *doneButton = [[UIBarButtonItem alloc] initWithTitle:NSLocalizedString(@"BUTTON_DONE", nil)
-                                                                      style:UIBarButtonItemStyleBordered
-                                                                     target:target
-                                                                     action:selector];
-    if (SYSTEM_RUNS_IOS7_OR_LATER)
-        doneButton.tintColor = [UIColor whiteColor];
-    else {
-        [doneButton setBackgroundImage:[UIImage imageNamed:@"doneButton"]
-                              forState:UIControlStateNormal
-                            barMetrics:UIBarMetricsDefault];
-        [doneButton setBackgroundImage:[UIImage imageNamed:@"doneButtonHighlight"]
-                              forState:UIControlStateHighlighted
-                            barMetrics:UIBarMetricsDefault];
-        [doneButton setTitleTextAttributes:@{UITextAttributeTextShadowColor : [UIColor whiteColor], UITextAttributeTextColor : [UIColor blackColor]}
-                                  forState:UIControlStateNormal];
-    }
-    return doneButton;
-}
+@implementation UIBarButtonItem (ThemedButtons)
 
 + (UIBarButtonItem *)themedBackButtonWithTarget:(id)target andSelector:(SEL)selector
 {

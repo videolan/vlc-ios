@@ -13,7 +13,6 @@
  *****************************************************************************/
 
 #import "VLCCloudStorageTableViewController.h"
-#import "UIBarButtonItem+Theme.h"
 #import "VLCProgressView.h"
 
 @interface VLCCloudStorageTableViewController() <VLCCloudStorageDelegate>

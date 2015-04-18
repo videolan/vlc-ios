@@ -20,7 +20,6 @@
 #import "NSString+SupportedMedia.h"
 #import "VLCStatusLabel.h"
 #import "VLCAlertView.h"
-#import "UIBarButtonItem+Theme.h"
 #import "UIDevice+VLC.h"
 
 @interface VLCLocalPlexFolderListViewController () <UITableViewDataSource, UITableViewDelegate, VLCLocalNetworkListCell, UISearchBarDelegate, UISearchDisplayDelegate>

@@ -13,7 +13,6 @@
  *****************************************************************************/
 
 #import "VLCLocalServerListViewController.h"
-#import "UIBarButtonItem+Theme.h"
 #import "VLCAppDelegate.h"
 #import "UPnPManager.h"
 #import "VLCLocalNetworkListCell.h"
@@ -404,11 +403,8 @@
             navCon.modalPresentationStyle = UIModalPresentationFormSheet;
             [self presentViewController:navCon animated:YES completion:nil];
 
-            if (_loginViewController.navigationItem.leftBarButtonItem == nil) {
-                UIBarButtonItem *doneButton = [UIBarButtonItem themedDoneButtonWithTarget:_loginViewController andSelector:@selector(dismissWithAnimation:)];
-
-                _loginViewController.navigationItem.leftBarButtonItem = doneButton;
-            }
+            if (_loginViewController.navigationItem.leftBarButtonItem == nil)
+                _loginViewController.navigationItem.leftBarButtonItem = [UIBarButtonItem themedDarkToolbarButtonWithTitle:NSLocalizedString(@"BUTTON_DONE", nil) target:_loginViewController andSelector:@selector(dismissWithAnimation:)];
         } else
             [self.navigationController pushViewController:_loginViewController animated:YES];
 

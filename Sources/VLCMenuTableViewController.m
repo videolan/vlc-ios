@@ -29,7 +29,6 @@
 #import "VLCLocalServerListViewController.h"
 #import "VLCOpenNetworkStreamViewController.h"
 #import "VLCSettingsController.h"
-#import "UIBarButtonItem+Theme.h"
 #import "VLCAboutViewController.h"
 #import "VLCPlaylistViewController.h"
 #import "VLCBugreporter.h"

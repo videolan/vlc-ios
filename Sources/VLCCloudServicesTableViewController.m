@@ -10,7 +10,6 @@
  * Refer to the COPYING file of the official project for license.
  *****************************************************************************/
 
-#import "UIBarButtonItem+Theme.h"
 #import "VLCCloudServicesTableViewController.h"
 #import "VLCAppDelegate.h"
 #import "VLCDropboxTableViewController.h"

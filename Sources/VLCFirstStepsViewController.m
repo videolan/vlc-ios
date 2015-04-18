@@ -17,7 +17,6 @@
 #import "VLCFirstStepsFourthPageViewController.h"
 #import "VLCFirstStepsFifthPageViewController.h"
 #import "VLCFirstStepsSixthPageViewController.h"
-#import "UIBarButtonItem+Theme.h"
 
 @interface VLCFirstStepsViewController () <UIPageViewControllerDataSource, UIPageViewControllerDelegate>
 {
@@ -40,7 +39,7 @@
 
     [pageVC setViewControllers:@[[[VLCFirstStepsFirstPageViewController alloc] initWithNibName:nil bundle:nil]] direction:UIPageViewControllerNavigationDirectionForward animated:YES completion:nil];
 
-    UIBarButtonItem *dismissButton = [UIBarButtonItem themedDoneButtonWithTarget:self andSelector:@selector(dismissFirstSteps)];
+    UIBarButtonItem *dismissButton = [UIBarButtonItem themedDarkToolbarButtonWithTitle:NSLocalizedString(@"BUTTON_DONE", nil) target:self andSelector:@selector(dismissFirstSteps)];
     self.navigationItem.rightBarButtonItem = dismissButton;
     self.title = NSLocalizedString(@"FIRST_STEPS_WELCOME", nil);
     self.view.backgroundColor = [UIColor blackColor];
