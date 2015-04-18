@@ -19,7 +19,6 @@
 #import "VLCMediaFileDiscoverer.h"
 #import "NSString+SupportedMedia.h"
 #import "UIDevice+VLC.h"
-
 #import "VLCPlaylistViewController.h"
 #import "VLCMovieViewController.h"
 #import "VLCPlaybackNavigationController.h"
@@ -67,8 +66,25 @@
     else
         skipLoopFilterDefaultValue = kVLCSettingSkipLoopFilterNonRef;
 
-    NSDictionary *appDefaults = @{kVLCSettingPasscodeKey : @"", kVLCSettingPasscodeOnKey : @(NO), kVLCSettingContinueAudioInBackgroundKey : @(YES), kVLCSettingStretchAudio : @(NO), kVLCSettingTextEncoding : kVLCSettingTextEncodingDefaultValue, kVLCSettingSkipLoopFilter : skipLoopFilterDefaultValue, kVLCSettingSubtitlesFont : kVLCSettingSubtitlesFontDefaultValue, kVLCSettingSubtitlesFontColor : kVLCSettingSubtitlesFontColorDefaultValue, kVLCSettingSubtitlesFontSize : kVLCSettingSubtitlesFontSizeDefaultValue, kVLCSettingSubtitlesBoldFont: kVLCSettingSubtitlesBoldFontDefaulValue, kVLCSettingDeinterlace : kVLCSettingDeinterlaceDefaultValue, kVLCSettingNetworkCaching : kVLCSettingNetworkCachingDefaultValue, kVLCSettingPlaybackGestures : [NSNumber numberWithBool:YES], kVLCSettingFTPTextEncoding : kVLCSettingFTPTextEncodingDefaultValue, kVLCSettingWiFiSharingIPv6 : kVLCSettingWiFiSharingIPv6DefaultValue, kVLCSettingEqualizerProfile : kVLCSettingEqualizerProfileDefaultValue, kVLCSettingPlaybackForwardSkipLength: kVLCSettingPlaybackForwardSkipLengthDefaultValue, kVLCSettingPlaybackBackwardSkipLength: kVLCSettingPlaybackBackwardSkipLengthDefaultValue, kVLCSettingOpenAppForPlayback : kVLCSettingOpenAppForPlaybackDefaultValue};
-
+    NSDictionary *appDefaults = @{kVLCSettingPasscodeKey : @"",
+                                  kVLCSettingPasscodeOnKey : @(NO),
+                                  kVLCSettingContinueAudioInBackgroundKey : @(YES),
+                                  kVLCSettingStretchAudio : @(NO),
+                                  kVLCSettingTextEncoding : kVLCSettingTextEncodingDefaultValue,
+                                  kVLCSettingSkipLoopFilter : skipLoopFilterDefaultValue,
+                                  kVLCSettingSubtitlesFont : kVLCSettingSubtitlesFontDefaultValue,
+                                  kVLCSettingSubtitlesFontColor : kVLCSettingSubtitlesFontColorDefaultValue,
+                                  kVLCSettingSubtitlesFontSize : kVLCSettingSubtitlesFontSizeDefaultValue,
+                                  kVLCSettingSubtitlesBoldFont: kVLCSettingSubtitlesBoldFontDefaultValue,
+                                  kVLCSettingDeinterlace : kVLCSettingDeinterlaceDefaultValue,
+                                  kVLCSettingNetworkCaching : kVLCSettingNetworkCachingDefaultValue,
+                                  kVLCSettingPlaybackGestures : [NSNumber numberWithBool:YES],
+                                  kVLCSettingFTPTextEncoding : kVLCSettingFTPTextEncodingDefaultValue,
+                                  kVLCSettingWiFiSharingIPv6 : kVLCSettingWiFiSharingIPv6DefaultValue,
+                                  kVLCSettingEqualizerProfile : kVLCSettingEqualizerProfileDefaultValue,
+                                  kVLCSettingPlaybackForwardSkipLength : kVLCSettingPlaybackForwardSkipLengthDefaultValue,
+                                  kVLCSettingPlaybackBackwardSkipLength : kVLCSettingPlaybackBackwardSkipLengthDefaultValue,
+                                  kVLCSettingOpenAppForPlayback : kVLCSettingOpenAppForPlaybackDefaultValue};
     [defaults registerDefaults:appDefaults];
 }
 
