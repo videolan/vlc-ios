@@ -26,8 +26,6 @@ typedef enum {
 
 @interface VLCPlaylistViewController : UIViewController <UITabBarDelegate, UIPopoverControllerDelegate>
 
-@property (nonatomic, strong) UIViewController *menuViewController;
-
 - (IBAction)leftButtonAction:(id)sender;
 
 - (void)updateViewContents;
