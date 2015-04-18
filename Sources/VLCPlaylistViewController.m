@@ -27,6 +27,7 @@
 #import "LXReorderableCollectionViewFlowLayout.h"
 #import "VLCAlertView.h"
 #import "VLCOpenInActivity.h"
+#import "VLCNavigationController.h"
 
 #import <AssetsLibrary/AssetsLibrary.h>
 
@@ -38,9 +39,8 @@ static NSString *kDisplayedFirstSteps = @"Did we display the first steps tutoria
 - (IBAction)learnMore:(id)sender
 {
     UIViewController *firstStepsVC = [[VLCFirstStepsViewController alloc] initWithNibName:nil bundle:nil];
-    UINavigationController *navCon = [[UINavigationController alloc] initWithRootViewController:firstStepsVC];
+    UINavigationController *navCon = [[VLCNavigationController alloc] initWithRootViewController:firstStepsVC];
     navCon.modalPresentationStyle = UIModalPresentationFormSheet;
-    [navCon loadTheme];
     [self.window.rootViewController presentViewController:navCon animated:YES completion:nil];
 }
 

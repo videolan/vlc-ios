@@ -15,7 +15,6 @@
 #import "VLCLocalNetworkListCell.h"
 #import "VLCAppDelegate.h"
 #import "VLCPlaylistViewController.h"
-#import "UINavigationController+Theme.h"
 #import "VLCDownloadViewController.h"
 #import "NSString+SupportedMedia.h"
 #import "VLCStatusLabel.h"
@@ -85,7 +84,7 @@
     if (_mutableObjectList.count == 0)
         titleValue = _httpServerAddress;
     else
-        titleValue = [_mutableObjectList[0] objectForKey:@"libTitle"];
+        titleValue = [_mutableObjectList.firstObject objectForKey:@"libTitle"];
 
     self.title = titleValue;
 
@@ -322,8 +321,8 @@
 - (BOOL)searchDisplayController:(UISearchDisplayController *)controller shouldReloadTableForSearchString:(NSString *)searchString
 {
     [_searchData removeAllObjects];
-
-    for (int i = 0; i < [_mutableObjectList count]; i++) {
+    NSUInteger count = _mutableObjectList.count;
+    for (NSUInteger i = 0; i < count; i++) {
         NSRange nameRange;
         nameRange = [[[_mutableObjectList objectAtIndex:i] objectForKey:@"title"] rangeOfString:searchString options:NSCaseInsensitiveSearch];
         if (nameRange.location != NSNotFound)

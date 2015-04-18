@@ -16,7 +16,6 @@
 #import "VLCAppDelegate.h"
 #import "VLCPlaylistViewController.h"
 #import "UIBarButtonItem+Theme.h"
-#import "UINavigationController+Theme.h"
 #import "VLCMenuTableViewController.h"
 #import "UIDevice+VLC.h"
 

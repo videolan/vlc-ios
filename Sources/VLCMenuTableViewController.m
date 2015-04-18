@@ -29,12 +29,12 @@
 #import "VLCLocalServerListViewController.h"
 #import "VLCOpenNetworkStreamViewController.h"
 #import "VLCSettingsController.h"
-#import "UINavigationController+Theme.h"
 #import "UIBarButtonItem+Theme.h"
 #import "VLCAboutViewController.h"
 #import "VLCPlaylistViewController.h"
 #import "VLCBugreporter.h"
 #import "VLCCloudServicesTableViewController.h"
+#import "VLCNavigationController.h"
 
 @interface VLCMenuTableViewController () <UITableViewDataSource, UITableViewDelegate>
 {
@@ -353,17 +353,13 @@
     if (!viewController)
         return;
 
-    UINavigationController *navCon = nil;
+
     GHRevealViewController *revealController = appDelegate.revealController;
     if ([revealController.contentViewController isKindOfClass:[UINavigationController class]]) {
-        navCon = (UINavigationController*)revealController.contentViewController;
+        UINavigationController *navCon = (UINavigationController*)revealController.contentViewController;
         navCon.viewControllers = @[viewController];
-    } else {
-        navCon = [[UINavigationController alloc] initWithRootViewController:viewController];
-        [navCon loadTheme];
-
-        revealController.contentViewController = navCon;
-    }
+    } else
+        revealController.contentViewController = [[VLCNavigationController alloc] initWithRootViewController:viewController];
 
     [revealController toggleSidebar:NO duration:kGHRevealSidebarDefaultAnimationDuration];
 }

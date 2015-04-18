@@ -235,7 +235,6 @@
 		7D3784AD183A9906009EE944 /* VLCDropboxController.m in Sources */ = {isa = PBXBuildFile; fileRef = 7D3784AA183A9906009EE944 /* VLCDropboxController.m */; };
 		7D3784AE183A9906009EE944 /* VLCDropboxTableViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 7D3784AC183A9906009EE944 /* VLCDropboxTableViewController.m */; };
 		7D3784BE183A9938009EE944 /* UIBarButtonItem+Theme.m in Sources */ = {isa = PBXBuildFile; fileRef = 7D3784B3183A9938009EE944 /* UIBarButtonItem+Theme.m */; };
-		7D3784BF183A9938009EE944 /* UINavigationController+Theme.m in Sources */ = {isa = PBXBuildFile; fileRef = 7D3784B5183A9938009EE944 /* UINavigationController+Theme.m */; };
 		7D3784C0183A9938009EE944 /* VLCLinearProgressIndicator.m in Sources */ = {isa = PBXBuildFile; fileRef = 7D3784B7183A9938009EE944 /* VLCLinearProgressIndicator.m */; };
 		7D3784C1183A9938009EE944 /* VLCMenuButton.m in Sources */ = {isa = PBXBuildFile; fileRef = 7D3784B9183A9938009EE944 /* VLCMenuButton.m */; };
 		7D3784C2183A9938009EE944 /* VLCSlider.m in Sources */ = {isa = PBXBuildFile; fileRef = 7D3784BB183A9938009EE944 /* VLCSlider.m */; };
@@ -314,6 +313,7 @@
 		7D71395A186B197800D54EDA /* darkButton@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 7D713956186B197800D54EDA /* darkButton@2x.png */; };
 		7D71395B186B197800D54EDA /* darkButtonHighlight.png in Resources */ = {isa = PBXBuildFile; fileRef = 7D713957186B197800D54EDA /* darkButtonHighlight.png */; };
 		7D71395C186B197800D54EDA /* darkButtonHighlight@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 7D713958186B197800D54EDA /* darkButtonHighlight@2x.png */; };
+		7D74177A1AE2D3CE001F1997 /* VLCNavigationController.m in Sources */ = {isa = PBXBuildFile; fileRef = 7D7417791AE2D3CE001F1997 /* VLCNavigationController.m */; };
 		7D7B17F01AD8052B003BF3D7 /* libc++.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = 7D7B17EC1AD8052A003BF3D7 /* libc++.dylib */; };
 		7D7B17F11AD8052B003BF3D7 /* libz.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = 7D7B17ED1AD8052B003BF3D7 /* libz.dylib */; };
 		7D871F521AD7257100348D27 /* UIImage+Scaling.m in Sources */ = {isa = PBXBuildFile; fileRef = 7D871F501AD7257100348D27 /* UIImage+Scaling.m */; };
@@ -986,8 +986,6 @@
 		7D3784B0183A990F009EE944 /* VLCCloudStorageTableViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = VLCCloudStorageTableViewCell.m; path = Sources/VLCCloudStorageTableViewCell.m; sourceTree = SOURCE_ROOT; };
 		7D3784B2183A9938009EE944 /* UIBarButtonItem+Theme.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = "UIBarButtonItem+Theme.h"; path = "Sources/UIBarButtonItem+Theme.h"; sourceTree = SOURCE_ROOT; };
 		7D3784B3183A9938009EE944 /* UIBarButtonItem+Theme.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = "UIBarButtonItem+Theme.m"; path = "Sources/UIBarButtonItem+Theme.m"; sourceTree = SOURCE_ROOT; };
-		7D3784B4183A9938009EE944 /* UINavigationController+Theme.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = "UINavigationController+Theme.h"; path = "Sources/UINavigationController+Theme.h"; sourceTree = SOURCE_ROOT; };
-		7D3784B5183A9938009EE944 /* UINavigationController+Theme.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = "UINavigationController+Theme.m"; path = "Sources/UINavigationController+Theme.m"; sourceTree = SOURCE_ROOT; };
 		7D3784B6183A9938009EE944 /* VLCLinearProgressIndicator.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = VLCLinearProgressIndicator.h; path = Sources/VLCLinearProgressIndicator.h; sourceTree = SOURCE_ROOT; };
 		7D3784B7183A9938009EE944 /* VLCLinearProgressIndicator.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = VLCLinearProgressIndicator.m; path = Sources/VLCLinearProgressIndicator.m; sourceTree = SOURCE_ROOT; };
 		7D3784B8183A9938009EE944 /* VLCMenuButton.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = VLCMenuButton.h; path = Sources/VLCMenuButton.h; sourceTree = SOURCE_ROOT; };
@@ -1181,6 +1179,8 @@
 		7D713956186B197800D54EDA /* darkButton@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "darkButton@2x.png"; sourceTree = "<group>"; };
 		7D713957186B197800D54EDA /* darkButtonHighlight.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = darkButtonHighlight.png; sourceTree = "<group>"; };
 		7D713958186B197800D54EDA /* darkButtonHighlight@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "darkButtonHighlight@2x.png"; sourceTree = "<group>"; };
+		7D7417781AE2D3CE001F1997 /* VLCNavigationController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = VLCNavigationController.h; path = Sources/VLCNavigationController.h; sourceTree = SOURCE_ROOT; };
+		7D7417791AE2D3CE001F1997 /* VLCNavigationController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = VLCNavigationController.m; path = Sources/VLCNavigationController.m; sourceTree = SOURCE_ROOT; };
 		7D7B17EA1AD8052A003BF3D7 /* Crashlytics.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = Crashlytics.framework; sourceTree = "<group>"; };
 		7D7B17EB1AD8052A003BF3D7 /* Fabric.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = Fabric.framework; sourceTree = "<group>"; };
 		7D7B17EC1AD8052A003BF3D7 /* libc++.dylib */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.dylib"; name = "libc++.dylib"; path = "usr/lib/libc++.dylib"; sourceTree = SDKROOT; };
@@ -2108,8 +2108,8 @@
 				9BADAF44185FBD9D00108BD8 /* VLCFrostedGlasView.m */,
 				7D3784B2183A9938009EE944 /* UIBarButtonItem+Theme.h */,
 				7D3784B3183A9938009EE944 /* UIBarButtonItem+Theme.m */,
-				7D3784B4183A9938009EE944 /* UINavigationController+Theme.h */,
-				7D3784B5183A9938009EE944 /* UINavigationController+Theme.m */,
+				7D7417781AE2D3CE001F1997 /* VLCNavigationController.h */,
+				7D7417791AE2D3CE001F1997 /* VLCNavigationController.m */,
 				7D3784B6183A9938009EE944 /* VLCLinearProgressIndicator.h */,
 				7D3784B7183A9938009EE944 /* VLCLinearProgressIndicator.m */,
 				7D3784B8183A9938009EE944 /* VLCMenuButton.h */,
@@ -3700,7 +3700,6 @@
 				7D3784AE183A9906009EE944 /* VLCDropboxTableViewController.m in Sources */,
 				7D3784BE183A9938009EE944 /* UIBarButtonItem+Theme.m in Sources */,
 				41B93C051A53835300102E8B /* VLCCloudServiceCell.m in Sources */,
-				7D3784BF183A9938009EE944 /* UINavigationController+Theme.m in Sources */,
 				7D4625881A5614A1001A80B4 /* VLCEqualizerView.m in Sources */,
 				7DF9352F1958AB0600E60FD4 /* UIColor+Presets.m in Sources */,
 				7D50903218F41C7900180139 /* VLCAlertView.m in Sources */,
@@ -3741,6 +3740,7 @@
 				7D30F3D9183AB2F100FFC021 /* VLCLocalServerListViewController.m in Sources */,
 				7D30F3DC183AB2F900FFC021 /* VLCNetworkLoginViewController.m in Sources */,
 				7D30F3DF183AB31E00FFC021 /* VLCWiFiUploadTableViewCell.m in Sources */,
+				7D74177A1AE2D3CE001F1997 /* VLCNavigationController.m in Sources */,
 				7D30F3E2183AB33200FFC021 /* VLCSidebarViewCell.m in Sources */,
 				7D30F3EA183AB34200FFC021 /* VLCGoogleDriveController.m in Sources */,
 				9B088308183D7BEC004B5C2A /* VLCCloudStorageTableViewController.m in Sources */,
