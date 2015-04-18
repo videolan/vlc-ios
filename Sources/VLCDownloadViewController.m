@@ -140,7 +140,7 @@
 
     if ([_currentDownloads count] > 0) {
         [self.activityIndicator startAnimating];
-        NSString *downloadScheme = [_currentDownloads[0] scheme];
+        NSString *downloadScheme = [_currentDownloads.firstObject scheme];
         if ([downloadScheme isEqualToString:@"http"] || [downloadScheme isEqualToString:@"https"]) {
             if (!_httpDownloader) {
                 _httpDownloader = [[VLCHTTPFileDownloader alloc] init];
@@ -149,11 +149,11 @@
 
             if (!_httpDownloader.downloadInProgress) {
                 _currentDownloadType = kVLCDownloadViaHTTP;
-                if (![[_currentDownloadFilename objectAtIndex:0] isEqualToString:@""]) {
-                    [_httpDownloader downloadFileFromURLwithFileName:[_currentDownloads objectAtIndex:0] fileNameOfMedia:[_currentDownloadFilename objectAtIndex:0]];
+                if (![_currentDownloadFilename.firstObject isEqualToString:@""]) {
+                    [_httpDownloader downloadFileFromURLwithFileName:_currentDownloads.firstObject fileNameOfMedia:_currentDownloadFilename.firstObject];
                     _humanReadableFilename = [_currentDownloadFilename objectAtIndex:0];
                 } else {
-                    [_httpDownloader downloadFileFromURL:_currentDownloads[0]];
+                    [_httpDownloader downloadFileFromURL:_currentDownloads.firstObject];
                     _humanReadableFilename = _httpDownloader.userReadableDownloadName;
                 }
 
@@ -165,8 +165,8 @@
         } else if ([downloadScheme isEqualToString:@"ftp"]) {
             if (!_FTPDownloadRequest) {
                 _currentDownloadType = kVLCDownloadViaFTP;
-                [self _downloadFTPFile:_currentDownloads[0]];
-                _humanReadableFilename = [_currentDownloads[0] lastPathComponent];
+                [self _downloadFTPFile:_currentDownloads.firstObject];
+                _humanReadableFilename = [_currentDownloads.firstObject lastPathComponent];
                 [_currentDownloads removeObjectAtIndex:0];
                 [_currentDownloadFilename removeObjectAtIndex:0];
             }
