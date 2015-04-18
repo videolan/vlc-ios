@@ -19,7 +19,6 @@
 #import "VLCLocalNetworkListCell.h"
 #import "VLCAppDelegate.h"
 #import "VLCPlaylistViewController.h"
-#import "UINavigationController+Theme.h"
 #import "VLCDownloadViewController.h"
 #import "WhiteRaccoon.h"
 #import "NSString+SupportedMedia.h"

@@ -1,17 +1,13 @@
 /*****************************************************************************
- * UINavigationController+Theme.h
+ * VLCNavigationController.h
  * VLC for iOS
  *****************************************************************************
- * Copyright (c) 2013 VideoLAN. All rights reserved.
+ * Copyright (c) 2013-2015 VideoLAN. All rights reserved.
  * $Id$
  *
- * Authors: Romain Goyet <romain.goyet # applidium.com>
+ * Authors: Felix Paul Kühne <fkuehne # videolan.org>
  *
  * Refer to the COPYING file of the official project for license.
  *****************************************************************************/
-
-#import <UIKit/UIKit.h>
-
-@interface UINavigationController (Theme)
-- (void)loadTheme;
+@interface VLCNavigationController : UINavigationController
 @end

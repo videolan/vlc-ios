@@ -25,10 +25,10 @@
 #import <QuartzCore/QuartzCore.h>
 #import "GHRevealViewController.h"
 #import "VLCNetworkLoginViewController.h"
-#import "UINavigationController+Theme.h"
 #import "VLCPlaylistViewController.h"
 #import "VLCHTTPUploaderController.h"
 #import "Reachability.h"
+#import "VLCNavigationController.h"
 
 #define kPlexServiceType @"_plexmediasvr._tcp."
 
@@ -395,8 +395,7 @@
             else
                 _connectPlexServer = [[VLCPlexConnectServerViewController alloc] initWithNibName:@"VLCPlexConnectServerViewController" bundle:nil];
 
-            UINavigationController *navCon = [[UINavigationController alloc] initWithRootViewController:_connectPlexServer];
-            [navCon loadTheme];
+            UINavigationController *navCon = [[VLCNavigationController alloc] initWithRootViewController:_connectPlexServer];
             navCon.navigationBarHidden = NO;
 
             [self.navigationController pushViewController:_connectPlexServer animated:YES];
@@ -408,8 +407,7 @@
             [[self navigationController] pushViewController:targetViewController animated:YES];
         }
     } else if (section == 2) {
-        UINavigationController *navCon = [[UINavigationController alloc] initWithRootViewController:_loginViewController];
-        [navCon loadTheme];
+        UINavigationController *navCon = [[VLCNavigationController alloc] initWithRootViewController:_loginViewController];
         navCon.navigationBarHidden = NO;
 
         if (UI_USER_INTERFACE_IDIOM() == UIUserInterfaceIdiomPad) {

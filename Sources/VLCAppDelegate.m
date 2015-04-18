@@ -24,7 +24,6 @@
 #import "VLCMovieViewController.h"
 #import "VLCPlaybackNavigationController.h"
 #import "PAPasscodeViewController.h"
-#import "UINavigationController+Theme.h"
 #import "VLCHTTPUploaderController.h"
 #import "VLCMenuTableViewController.h"
 #import "VLCMigrationViewController.h"
@@ -32,6 +31,7 @@
 #import <BoxSDK/BoxSDK.h>
 #import "VLCNotificationRelay.h"
 #import "VLCPlaybackController.h"
+#import "VLCNavigationController.h"
 
 #define HAVE_FABRIC 0
 
@@ -97,8 +97,7 @@
     // enable crash preventer
      void (^setupBlock)() = ^{
          _playlistViewController = [[VLCPlaylistViewController alloc] init];
-        UINavigationController *navCon = [[UINavigationController alloc] initWithRootViewController:_playlistViewController];
-        [navCon loadTheme];
+        UINavigationController *navCon = [[VLCNavigationController alloc] initWithRootViewController:_playlistViewController];
 
         _revealController = [[GHRevealViewController alloc] initWithNibName:nil bundle:nil];
         _revealController.wantsFullScreenLayout = YES;
