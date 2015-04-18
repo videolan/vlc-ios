@@ -78,18 +78,10 @@
 
 - (void)viewWillAppear:(BOOL)animated
 {
-    if ([[UIPasteboard generalPasteboard] containsPasteboardTypes:@[@"public.url", @"public.text"]]) {
-        NSURL *pasteURL = [[UIPasteboard generalPasteboard] valueForPasteboardType:@"public.url"];
-        if (!pasteURL || [[pasteURL absoluteString] isEqualToString:@""]) {
-            NSString *pasteString = [[UIPasteboard generalPasteboard] valueForPasteboardType:@"public.text"];
-            pasteURL = [NSURL URLWithString:pasteString];
-        }
-
-        if (pasteURL && ![[pasteURL scheme] isEqualToString:@""] && ![[pasteURL absoluteString] isEqualToString:@""])
-            self.urlField.text = [pasteURL absoluteString];
-    }
+    UIPasteboard *pasteboard = [UIPasteboard generalPasteboard];
+    if ([pasteboard containsPasteboardTypes:@[@"public.url"]])
+        self.urlField.text = [[pasteboard valueForPasteboardType:@"public.url"] absoluteString];
     [self _updateUI];
-
     [super viewWillAppear:animated];
 }
 
