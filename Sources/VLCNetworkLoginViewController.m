@@ -12,7 +12,6 @@
  *****************************************************************************/
 
 #import "VLCNetworkLoginViewController.h"
-#import "UIBarButtonItem+Theme.h"
 
 @interface VLCNetworkLoginViewController () <UITableViewDataSource, UITableViewDelegate, UITextFieldDelegate>
 {

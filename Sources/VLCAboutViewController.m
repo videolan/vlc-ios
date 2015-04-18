@@ -14,7 +14,6 @@
 
 #import "VLCAboutViewController.h"
 #import "VLCAppDelegate.h"
-#import "UIBarButtonItem+Theme.h"
 
 @interface VLCAboutViewController ()
 {

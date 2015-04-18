@@ -12,7 +12,6 @@
 
 #import "VLCPlexConnectServerViewController.h"
 #import "VLCLocalPlexFolderListViewController.h"
-#import "UIBarButtonItem+Theme.h"
 
 #define kPlexMediaServerPortDefault @"32400"
 

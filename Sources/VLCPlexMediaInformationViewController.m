@@ -12,7 +12,6 @@
 #import "VLCPlexMediaInformationViewController.h"
 #import "VLCPlexParser.h"
 #import "VLCAppDelegate.h"
-#import "UIBarButtonItem+Theme.h"
 #import "NSString+SupportedMedia.h"
 #import "UIDevice+VLC.h"
 

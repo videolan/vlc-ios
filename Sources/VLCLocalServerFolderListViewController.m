@@ -24,7 +24,6 @@
 #import "NSString+SupportedMedia.h"
 #import "VLCStatusLabel.h"
 #import "BasicUPnPDevice+VLC.h"
-#import "UIBarButtonItem+Theme.h"
 #import "UIDevice+VLC.h"
 
 #define kVLCServerTypeUPNP 0

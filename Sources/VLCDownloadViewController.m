@@ -2,13 +2,12 @@
  * VLCDownloadViewController.m
  * VLC for iOS
  *****************************************************************************
- * Copyright (c) 2013 VideoLAN. All rights reserved.
+ * Copyright (c) 2013-2015 VideoLAN. All rights reserved.
  * $Id$
  *
  * Authors: Felix Paul Kühne <fkuehne # videolan.org>
  *          Gleb Pinigin <gpinigin # gmail.com>
  *          Pierre Sagaspe <pierre.sagaspe # me.com>
- *          Romain Goyet <romain.goyet # applidium.com>
  *
  * Refer to the COPYING file of the official project for license.
  *****************************************************************************/
@@ -16,7 +15,6 @@
 #import "VLCDownloadViewController.h"
 #import "VLCHTTPFileDownloader.h"
 #import "VLCAppDelegate.h"
-#import "UIBarButtonItem+Theme.h"
 #import "WhiteRaccoon.h"
 #import "NSString+SupportedMedia.h"
 #import "VLCHTTPFileDownloader.h"
