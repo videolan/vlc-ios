@@ -8,6 +8,7 @@
  * Authors: Gleb Pinigin <gpinigin # gmail.com>
  *          Felix Paul Kühne <fkuehne # videolan.org>
  *          Carola Nitz <caro # videolan.org>
+ *          Tobias Conradi <videolan # tobias-conradi.de>
  *
  * Refer to the COPYING file of the official project for license.
  *****************************************************************************/
@@ -84,11 +85,9 @@
     } else if ([object isKindOfClass:[MLLabel class]]) {
         thumbnail = [cache thumbnailForLabel:(MLLabel *)object];
     } else if ([object isKindOfClass:[MLAlbum class]]) {
-        MLFile *anyFileFromAnyTrack = [[(MLAlbum *)object tracks].anyObject files].anyObject;
-        thumbnail = [cache thumbnailForMediaFile:anyFileFromAnyTrack];
+        thumbnail = [cache thumbnailForAlbum:(MLAlbum *)object];
     } else if ([object isKindOfClass:[MLAlbumTrack class]]) {
-        MLFile *anyFileFromTrack = [(MLAlbumTrack *)object files].anyObject;
-        thumbnail = [cache thumbnailForMediaFile:anyFileFromTrack];
+        thumbnail = [cache thumbnailForAlbumTrack:(MLAlbumTrack *)object];
     } else {
         thumbnail = [cache thumbnailForMediaFile:(MLFile *)object];
     }
@@ -129,8 +128,17 @@
     if (displayedImage)
         return displayedImage;
 
-    if (!displayedImage)
-        displayedImage = mediaFile.computedThumbnail;
+    if (!displayedImage) {
+        __block UIImage *computedImage = nil;
+        void (^getThumbnailBlock)(void) = ^(){
+            computedImage = mediaFile.computedThumbnail;
+        };
+        if ([NSThread isMainThread])
+            getThumbnailBlock();
+        else
+            dispatch_sync(dispatch_get_main_queue(), getThumbnailBlock);
+        displayedImage = computedImage;
+    }
 
     if (displayedImage)
         [_thumbnailCache setObject:displayedImage forKey:objID];
@@ -205,6 +213,33 @@
     }
 
     return displayedImage;
+}
+
+- (UIImage *)thumbnailForAlbum:(MLAlbum *)album
+{
+    __block MLAlbumTrack *track = nil;
+    void (^getFileBlock)(void) = ^(){
+        track = [album tracks].anyObject;
+    };
+    if ([NSThread isMainThread])
+        getFileBlock();
+    else
+        dispatch_sync(dispatch_get_main_queue(), getFileBlock);
+
+    return [self thumbnailForAlbumTrack:track];
+}
+
+- (UIImage *)thumbnailForAlbumTrack:(MLAlbumTrack *)albumTrack
+{
+    __block MLFile *anyFileFromAnyTrack = nil;
+    void (^getFileBlock)(void) = ^(){
+        anyFileFromAnyTrack = [albumTrack files].anyObject;
+    };
+    if ([NSThread isMainThread])
+        getFileBlock();
+    else
+        dispatch_sync(dispatch_get_main_queue(), getFileBlock);
+    return [self thumbnailForMediaFile:anyFileFromAnyTrack];
 }
 
 - (UIImage *)clusterThumbFromFiles:(NSArray *)files andNumber:(NSUInteger)fileNumber blur:(BOOL)blurImage
