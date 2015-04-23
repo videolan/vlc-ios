@@ -121,19 +121,22 @@
 - (IBAction)playPausePressed {
     self.isPlaying = !self.isPlaying;
     [WKInterfaceController openParentApplication:@{@"name": @"playpause"} reply:^(NSDictionary *replyInfo, NSError *error) {
-        NSLog(@"playpause %@",replyInfo);
+        if (error)
+            NSLog(@"playpause failed with reply %@ error: %@",replyInfo,error);
     }];
 }
 
 - (IBAction)skipForward {
     [WKInterfaceController openParentApplication:@{@"name": @"skipForward"} reply:^(NSDictionary *replyInfo, NSError *error) {
-        NSLog(@"skipForward %@",replyInfo);
+        if (error)
+            NSLog(@"skipForward failed with reply %@ error: %@",replyInfo,error);
     }];
 }
 
 - (IBAction)skipBackward {
     [WKInterfaceController openParentApplication:@{@"name": @"skipBackward"} reply:^(NSDictionary *replyInfo, NSError *error) {
-        NSLog(@"skipBackward %@",replyInfo);
+        if (error)
+            NSLog(@"skipBackward failed with reply %@ error: %@",replyInfo,error);
     }];
 }
 

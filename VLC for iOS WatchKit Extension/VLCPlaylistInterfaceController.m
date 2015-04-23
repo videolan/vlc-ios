@@ -50,7 +50,6 @@ typedef enum {
 
 - (void)awakeWithContext:(id)context {
     [super awakeWithContext:context];
-    NSLog(@"%s",__PRETTY_FUNCTION__);
 
     WKInterfaceDevice *currentDevice = WKInterfaceDevice.currentDevice;
     CGRect screenRect = currentDevice.screenBounds;
@@ -103,7 +102,6 @@ typedef enum {
 - (void)willActivate {
     // This method is called when watch view controller is about to be visible to user
     [super willActivate];
-    NSLog(@"%s",__PRETTY_FUNCTION__);
     if (self.needsUpdate) {
         [self updateData];
     }
