@@ -10,4 +10,20 @@
 
 @implementation VLCCloudStorageController
 
++ (VLCCloudStorageController *)sharedInstance {
+    return nil;
+}
+- (void)startSession
+{
+    // nop
+}
+- (void)logout
+{
+    // nop
+}
+- (void)requestDirectoryListingAtPath:(NSString *)path
+{
+    // nop
+}
+
 @end

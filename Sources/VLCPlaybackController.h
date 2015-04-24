@@ -17,6 +17,7 @@
 
 @protocol VLCPlaybackControllerDelegate <NSObject>
 
+@optional
 - (void)playbackPositionUpdated:(VLCPlaybackController *)controller;
 - (void)playbackRateUpdated:(float)rate forPlaybackController:(VLCPlaybackController *)controller;
 - (void)mediaPlayerStateChanged:(VLCMediaPlayerState)currentState

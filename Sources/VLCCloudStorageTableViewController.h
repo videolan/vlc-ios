@@ -15,7 +15,7 @@
 #import "VLCCloudStorageTableViewCell.h"
 #import "VLCCloudStorageController.h"
 
-@interface VLCCloudStorageTableViewController : UIViewController
+@interface VLCCloudStorageTableViewController : UIViewController <VLCCloudStorageDelegate>
 
 @property (nonatomic, strong) IBOutlet UITableView *tableView;
 @property (nonatomic, strong) IBOutlet UIView *loginToCloudStorageView;

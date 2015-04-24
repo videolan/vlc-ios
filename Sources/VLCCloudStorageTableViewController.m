@@ -15,7 +15,7 @@
 #import "VLCCloudStorageTableViewController.h"
 #import "VLCProgressView.h"
 
-@interface VLCCloudStorageTableViewController() <VLCCloudStorageDelegate>
+@interface VLCCloudStorageTableViewController()
 {
     VLCProgressView *_progressView;
     
