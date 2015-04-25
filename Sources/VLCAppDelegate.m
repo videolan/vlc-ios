@@ -11,6 +11,7 @@
  *          Luis Fernandes <zipleen # gmail.com>
  *          Carola Nitz <nitz.carola # googlemail.com>
  *          Tamas Timar <ttimar.vlc # gmail.com>
+ *          Tobias Conradi <videolan@tobias-conradi.de>
  *
  * Refer to the COPYING file of the official project for license.
  *****************************************************************************/
