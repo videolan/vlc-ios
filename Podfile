@@ -3,6 +3,8 @@
 
 source 'https://github.com/CocoaPods/Specs.git'
 
+inhibit_all_warnings!
+
 target 'vlc-ios' do
 
 pod 'OBSlider', '1.1.0'
