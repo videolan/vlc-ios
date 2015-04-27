@@ -753,7 +753,7 @@ static NSString *kDisplayedFirstSteps = @"Did we display the first steps tutoria
 - (CGSize)collectionView:(UICollectionView *)collectionView layout:(UICollectionViewLayout *)collectionViewLayout sizeForItemAtIndexPath:(NSIndexPath *)indexPath
 {
     if (SYSTEM_RUNS_IOS7_OR_LATER) {
-        if (UIDeviceOrientationIsLandscape([UIApplication sharedApplication].statusBarOrientation))
+        if (UIInterfaceOrientationIsLandscape([UIApplication sharedApplication].statusBarOrientation))
             return CGSizeMake(341., 190.);
         else
             return CGSizeMake(384., 216.);

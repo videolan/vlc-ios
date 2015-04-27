@@ -39,7 +39,7 @@
 
 #pragma mark - session handling
 
-+ (VLCCloudStorageController *)sharedInstance
++ (instancetype)sharedInstance
 {
     static VLCGoogleDriveController *sharedInstance = nil;
     static dispatch_once_t pred;
