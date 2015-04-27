@@ -384,6 +384,9 @@
 
     if ([self.delegate respondsToSelector:@selector(presentingViewControllerShouldBeClosed:)])
         [self.delegate presentingViewControllerShouldBeClosed:self];
+
+	[MPNowPlayingInfoCenter defaultCenter].nowPlayingInfo = nil;
+	[self unsubscribeFromRemoteCommand];
 }
 
 - (void)_savePlaybackState
