@@ -767,7 +767,7 @@
             _title = metaDict[VLCMetaInformationNowPlaying] ? metaDict[VLCMetaInformationNowPlaying] : metaDict[VLCMetaInformationTitle];
             _artist = metaDict[VLCMetaInformationArtist];
             _albumName = metaDict[VLCMetaInformationAlbum];
-            trackNumber = [metaDict[VLCMetaInformationTrackNumber] numberValue];
+            trackNumber = metaDict[VLCMetaInformationTrackNumber];
             if (_mediaIsAudioOnly)
                 _artworkImage = [VLCThumbnailsCache thumbnailForManagedObject:item];
         }
