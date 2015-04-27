@@ -28,8 +28,8 @@
 #import "VLCMultiSelectionMenuView.h"
 #import "VLCPlaybackController.h"
 #import "UIDevice+VLC.h"
+#import "VLCTimeNavigationTitleView.h"
 
-#import "OBSlider.h"
 #import "VLCStatusLabel.h"
 
 #define INPUT_RATE_DEFAULT  1000.
@@ -171,10 +171,6 @@ typedef NS_ENUM(NSInteger, VLCPanType) {
     _spuDelaySlider.accessibilityLabel = _spuDelayLabel.text;
     _spuDelaySlider.isAccessibilityElement = YES;
 
-    _positionSlider.accessibilityLabel = NSLocalizedString(@"PLAYBACK_POSITION", nil);
-    _positionSlider.isAccessibilityElement = YES;
-    _timeDisplay.isAccessibilityElement = YES;
-
     _trackSwitcherButton.accessibilityLabel = NSLocalizedString(@"OPEN_TRACK_PANEL", nil);
     _trackSwitcherButton.isAccessibilityElement = YES;
     _trackSwitcherButtonLandscape.accessibilityLabel = NSLocalizedString(@"OPEN_TRACK_PANEL", nil);
@@ -189,8 +185,6 @@ typedef NS_ENUM(NSInteger, VLCPanType) {
     _videoFilterButtonLandscape.isAccessibilityElement = YES;
     _resetVideoFilterButton.accessibilityLabel = NSLocalizedString(@"VIDEO_FILTER_RESET_BUTTON", nil);
     _resetVideoFilterButton.isAccessibilityElement = YES;
-    _aspectRatioButton.accessibilityLabel = NSLocalizedString(@"VIDEO_ASPECT_RATIO_BUTTON", nil);
-    _aspectRatioButton.isAccessibilityElement = YES;
     _playPauseButton.accessibilityLabel = NSLocalizedString(@"PLAY_PAUSE_BUTTON", nil);
     _playPauseButton.isAccessibilityElement = YES;
     _playPauseButtonLandscape.accessibilityLabel = NSLocalizedString(@"PLAY_PAUSE_BUTTON", nil);
@@ -284,7 +278,6 @@ typedef NS_ENUM(NSInteger, VLCPanType) {
     _swipeRecognizerDown.delegate = self;
     _tapRecognizer.delegate = self;
 
-    [self.aspectRatioButton setImage:[UIImage imageNamed:@"ratioIcon"] forState:UIControlStateNormal];
     if (SYSTEM_RUNS_IOS7_OR_LATER) {
         self.backButton.tintColor = [UIColor colorWithRed:(190.0f/255.0f) green:(190.0f/255.0f) blue:(190.0f/255.0f) alpha:1.];
         self.toolbar.tintColor = [UIColor whiteColor];
@@ -297,22 +290,7 @@ typedef NS_ENUM(NSInteger, VLCPanType) {
         rect.size.height = rect.size.height + rect.origin.y;
         rect.origin.y = 0;
         self.toolbar.frame = rect;
-        rect = self.aspectRatioButton.frame;
-        rect.size.width -= 19.;
-        rect.origin.x += 19.;
-        self.aspectRatioButton.frame = rect;
-        rect = self.timeDisplay.frame;
-        rect.origin.x += 19.;
-        self.timeDisplay.frame = rect;
-        rect = self.positionSlider.frame;
-        rect.size.width += 19.;
-        self.positionSlider.frame = rect;
     } else {
-        rect = self.positionSlider.frame;
-        rect.origin.y = rect.origin.y + 3.;
-        self.positionSlider.frame = rect;
-        [self.aspectRatioButton setBackgroundImage:[UIImage imageNamed:@"ratioButton"] forState:UIControlStateNormal];
-        [self.aspectRatioButton setBackgroundImage:[UIImage imageNamed:@"ratioButtonHighlight"] forState:UIControlStateHighlighted];
         [self.toolbar setBackgroundImage:[UIImage imageNamed:@"seekbarBg"] forBarMetrics:UIBarMetricsDefault];
         [self.backButton setBackgroundImage:[UIImage imageNamed:@"playbackDoneButton"] forState:UIControlStateNormal barMetrics:UIBarMetricsDefault];
         [self.backButton setBackgroundImage:[UIImage imageNamed:@"playbackDoneButtonHighlight"] forState:UIControlStateHighlighted barMetrics:UIBarMetricsDefault];
@@ -341,9 +319,6 @@ typedef NS_ENUM(NSInteger, VLCPanType) {
 
     initVolumeSlider(self.volumeView);
     initVolumeSlider(self.volumeViewLandscape);
-
-    if (UI_USER_INTERFACE_IDIOM() == UIUserInterfaceIdiomPad)
-        self.positionSlider.scrubbingSpeedChangePositions = @[@(0.), @(100.), @(200.), @(300)];
 
     _playerIsSetup = NO;
 
@@ -698,9 +673,9 @@ typedef NS_ENUM(NSInteger, VLCPanType) {
      * within the Simulator, but especially on older ARMv7 devices, it's clearly noticeable. */
     [self performSelector:@selector(_setPositionForReal) withObject:nil afterDelay:0.3];
     if (_mediaDuration > 0) {
-        VLCTime *newPosition = [VLCTime timeWithInt:(int)(_positionSlider.value * _mediaDuration)];
-        [self.timeDisplay setTitle:newPosition.stringValue forState:UIControlStateNormal];
-        self.timeDisplay.accessibilityLabel = [NSString stringWithFormat:@"%@: %@", NSLocalizedString(@"PLAYBACK_POSITION", nil), newPosition.stringValue];
+        VLCTime *newPosition = [VLCTime timeWithInt:(int)(sender.value * _mediaDuration)];
+        [self.timeNavigationTitleView.timeDisplayButton setTitle:newPosition.stringValue forState:UIControlStateNormal];
+        self.timeNavigationTitleView.timeDisplayButton.accessibilityLabel = [NSString stringWithFormat:@"%@: %@", NSLocalizedString(@"PLAYBACK_POSITION", nil), newPosition.stringValue];
         _positionSet = NO;
     }
     [self _resetIdleTimer];
@@ -709,7 +684,7 @@ typedef NS_ENUM(NSInteger, VLCPanType) {
 - (void)_setPositionForReal
 {
     if (!_positionSet) {
-        [VLCPlaybackController sharedInstance].mediaPlayer.position = _positionSlider.value;
+        [VLCPlaybackController sharedInstance].mediaPlayer.position = self.timeNavigationTitleView.positionSlider.value;
         _positionSet = YES;
     }
 }
@@ -733,7 +708,7 @@ typedef NS_ENUM(NSInteger, VLCPanType) {
 
 - (void)_updateScrubLabel
 {
-    float speed = self.positionSlider.scrubbingSpeed;
+    float speed = self.timeNavigationTitleView.positionSlider.scrubbingSpeed;
     if (speed == 1.)
         self.currentScrubSpeedLabel.text = NSLocalizedString(@"PLAYBACK_SCRUB_HIGH", nil);
     else if (speed == .5)
@@ -766,21 +741,21 @@ typedef NS_ENUM(NSInteger, VLCPanType) {
 {
     VLCMediaPlayer *mediaPlayer = controller.mediaPlayer;
     if (!_isScrubbing) {
-        self.positionSlider.value = [mediaPlayer position];
+        self.timeNavigationTitleView.positionSlider.value = [mediaPlayer position];
     }
 
     if (_displayRemainingTime)
-        [self.timeDisplay setTitle:[[mediaPlayer remainingTime] stringValue] forState:UIControlStateNormal];
+        [self.timeNavigationTitleView.timeDisplayButton setTitle:[[mediaPlayer remainingTime] stringValue] forState:UIControlStateNormal];
     else
-        [self.timeDisplay setTitle:[[mediaPlayer time] stringValue] forState:UIControlStateNormal];
+        [self.timeNavigationTitleView.timeDisplayButton setTitle:[[mediaPlayer time] stringValue] forState:UIControlStateNormal];
 }
 
 - (void)prepareForMediaPlayback:(VLCPlaybackController *)controller
 {
     self.trackNameLabel.text = self.artistNameLabel.text = self.albumNameLabel.text = @"";
-    self.positionSlider.value = 0.;
-    [self.timeDisplay setTitle:@"" forState:UIControlStateNormal];
-    self.timeDisplay.accessibilityLabel = @"";
+    self.timeNavigationTitleView.positionSlider.value = 0.;
+    [self.timeNavigationTitleView.timeDisplayButton setTitle:@"" forState:UIControlStateNormal];
+    self.timeNavigationTitleView.timeDisplayButton.accessibilityLabel = @"";
     if (![[UIDevice currentDevice] hasExternalDisplay])
         self.brightnessSlider.value = [UIScreen mainScreen].brightness * 2.;
     [_equalizerView reloadData];
@@ -865,24 +840,9 @@ currentMediaHasTrackToChooseFrom:(BOOL)currentMediaHasTrackToChooseFrom
     } else
         self.artistNameLabel.text = self.albumNameLabel.text = nil;
 
-    BOOL aspectButtonHidden = self.aspectRatioButton.hidden;
-    if (audioOnly && !aspectButtonHidden) {
-        CGRect rect = self.timeDisplay.frame;
-        rect.origin.x += self.aspectRatioButton.frame.size.width;
-        self.timeDisplay.frame = rect;
-        rect = self.positionSlider.frame;
-        rect.size.width += self.aspectRatioButton.frame.size.width;
-        self.positionSlider.frame = rect;
-    } else if (aspectButtonHidden) {
-        CGRect rect = self.timeDisplay.frame;
-        rect.origin.x -= self.aspectRatioButton.frame.size.width;
-        self.timeDisplay.frame = rect;
-        rect = self.positionSlider.frame;
-        rect.size.width -= self.aspectRatioButton.frame.size.width;
-        self.positionSlider.frame = rect;
-    }
-    self.positionSlider.hidden = NO;
-    self.aspectRatioButton.hidden = audioOnly;
+    self.timeNavigationTitleView.hideAspectRatio = audioOnly;
+    self.timeNavigationTitleView.positionSlider.hidden = NO;
+
     self.videoFilterButton.hidden = audioOnly;
 }
 
@@ -1517,7 +1477,7 @@ currentMediaHasTrackToChooseFrom:(BOOL)currentMediaHasTrackToChooseFrom
         self.playbackSpeedView.hidden = !_playbackSpeedViewHidden;
         _playbackSpeedViewHidden = self.playbackSpeedView.hidden;
         [self _resetIdleTimer];
-    } else if (sender == self.aspectRatioButton) {
+    } else if (sender == self.timeNavigationTitleView.aspectRatioButton) {
         [[VLCPlaybackController sharedInstance] switchAspectRatio];
     }
 }
