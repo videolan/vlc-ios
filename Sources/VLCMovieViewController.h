@@ -19,13 +19,13 @@
 @class VLCStatusLabel;
 @class VLCHorizontalSwipeGestureRecognizer;
 @class VLCVerticalSwipeGestureRecognizer;
+@class VLCTimeNavigationTitleView;
 
 @interface VLCMovieViewController : UIViewController <UIActionSheetDelegate, VLCPlaybackControllerDelegate>
 
 @property (nonatomic, strong) IBOutlet UIView *movieView;
 @property (nonatomic, strong) IBOutlet UIBarButtonItem *backButton;
-@property (nonatomic, strong) IBOutlet OBSlider *positionSlider;
-@property (nonatomic, strong) IBOutlet UIButton *timeDisplay;
+@property (nonatomic, strong) IBOutlet VLCTimeNavigationTitleView *timeNavigationTitleView;
 @property (nonatomic, strong) IBOutlet UIButton *playPauseButton;
 @property (nonatomic, strong) IBOutlet UIButton *playPauseButtonLandscape;
 @property (nonatomic, strong) IBOutlet UIButton *bwdButton;
@@ -73,7 +73,6 @@
 @property (nonatomic, strong) IBOutlet UISlider *spuDelaySlider;
 @property (nonatomic, strong) IBOutlet UILabel *spuDelayLabel;
 @property (nonatomic, strong) IBOutlet UILabel *spuDelayIndicator;
-@property (nonatomic, strong) IBOutlet UIButton *aspectRatioButton;
 @property (nonatomic, strong) IBOutlet UIButton *moreActionsButton;
 
 @property (nonatomic, strong) IBOutlet VLCFrostedGlasView *scrubIndicatorView;
