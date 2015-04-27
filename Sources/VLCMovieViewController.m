@@ -1157,7 +1157,7 @@ currentMediaHasTrackToChooseFrom:(BOOL)currentMediaHasTrackToChooseFrom
         if (mediaPlayer.audioTrackIndexes.count > 2 && section == 0) {
             indexArray = mediaPlayer.audioTrackIndexes;
 
-            if ([indexArray indexOfObjectIdenticalTo:[NSNumber numberWithInt:mediaPlayer.currentAudioTrackIndex]] == row)
+            if ([indexArray indexOfObjectIdenticalTo:[NSNumber numberWithUnsignedInteger:mediaPlayer.currentAudioTrackIndex]] == row)
                 [cell setShowsCurrentTrack:YES];
             else
                 [cell setShowsCurrentTrack:NO];
@@ -1166,7 +1166,7 @@ currentMediaHasTrackToChooseFrom:(BOOL)currentMediaHasTrackToChooseFrom
         } else {
             indexArray = mediaPlayer.videoSubTitlesIndexes;
 
-            if ([indexArray indexOfObjectIdenticalTo:[NSNumber numberWithInt:mediaPlayer.currentVideoSubTitleIndex]] == row)
+            if ([indexArray indexOfObjectIdenticalTo:[NSNumber numberWithUnsignedInteger:mediaPlayer.currentVideoSubTitleIndex]] == row)
                 [cell setShowsCurrentTrack:YES];
             else
                 [cell setShowsCurrentTrack:NO];

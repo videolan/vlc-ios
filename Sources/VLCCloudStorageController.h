@@ -28,7 +28,7 @@
 @property (nonatomic, readwrite) BOOL isAuthorized;
 @property (nonatomic, readonly) NSArray *currentListFiles;
 
-+ (VLCCloudStorageController *)sharedInstance;
++ (instancetype)sharedInstance;
 
 - (void)startSession;
 - (void)logout;
