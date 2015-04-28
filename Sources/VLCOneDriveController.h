@@ -23,7 +23,7 @@
 
 + (VLCOneDriveController *)sharedInstance;
 
-- (void)login;
+- (void)loginWithViewController:(UIViewController*)presentingViewController;
 
 - (void)downloadObject:(VLCOneDriveObject *)object;
 
