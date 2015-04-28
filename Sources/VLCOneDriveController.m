@@ -79,9 +79,9 @@
     return _activeSession;
 }
 
-- (void)login
+- (void)loginWithViewController:(UIViewController *)presentingViewController
 {
-    [_liveClient login:self.delegate
+    [_liveClient login:presentingViewController
                 scopes:_liveScopes
               delegate:self
              userState:@"login"];

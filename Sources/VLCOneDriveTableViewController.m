@@ -125,7 +125,7 @@
 {
     if (![_oneDriveController isAuthorized]) {
         self.authorizationInProgress = YES;
-        [_oneDriveController login];
+        [_oneDriveController loginWithViewController:self];
     } else
         [_oneDriveController logout];
 }
