@@ -662,6 +662,7 @@ typedef NS_ENUM(NSInteger, VLCPanType) {
 {
     if (!_positionSet) {
         [VLCPlaybackController sharedInstance].mediaPlayer.position = self.timeNavigationTitleView.positionSlider.value;
+        [[VLCPlaybackController sharedInstance] setNeedsMetadataUpdate];
         _positionSet = YES;
     }
 }

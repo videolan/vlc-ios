@@ -43,6 +43,8 @@
     NSString *_artist;
     NSString *_albumName;
     BOOL _mediaIsAudioOnly;
+
+    BOOL _needsMetadataUpdate;
 }
 
 @end
@@ -482,8 +484,6 @@
         [_mediaPlayer performSelector:@selector(setTextRendererFont:) withObject:[self _resolveFontName]];
         [_mediaPlayer performSelector:@selector(setTextRendererFontSize:) withObject:[[NSUserDefaults standardUserDefaults] objectForKey:kVLCSettingSubtitlesFontSize]];
         [_mediaPlayer performSelector:@selector(setTextRendererFontColor:) withObject:[[NSUserDefaults standardUserDefaults] objectForKey:kVLCSettingSubtitlesFontColor]];
-
-        [self _updateDisplayedMetadata];
     } else if (currentState == VLCMediaPlayerStateError) {
         _playbackFailed = YES;
         if ([self.delegate respondsToSelector:@selector(presentingViewControllerShouldBeClosedAfterADelay:)])
@@ -510,6 +510,8 @@
               currentMediaHasTrackToChooseFrom:self.currentMediaHasTrackToChooseFrom
                        currentMediaHasChapters:self.currentMediaHasChapters
                          forPlaybackController:self];
+
+    [self setNeedsMetadataUpdate];
 }
 
 #pragma mark - playback controls
@@ -718,16 +720,28 @@
 #pragma mark - metadata handling
 - (void)mediaDidFinishParsing:(VLCMedia *)aMedia
 {
-    [self _updateDisplayedMetadata];
+    [self setNeedsMetadataUpdate];
 }
 
 - (void)mediaMetaDataDidChange:(VLCMedia*)aMedia
 {
-    [self _updateDisplayedMetadata];
+    [self setNeedsMetadataUpdate];
+}
+
+- (void)setNeedsMetadataUpdate
+{
+    if (_needsMetadataUpdate == NO) {
+        _needsMetadataUpdate = YES;
+        dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(0.5 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
+            [self _updateDisplayedMetadata];
+        });
+    }
 }
 
 - (void)_updateDisplayedMetadata
 {
+    _needsMetadataUpdate = NO;
+
     MLFile *item;
     NSNumber *trackNumber;
     _mediaIsAudioOnly = YES;

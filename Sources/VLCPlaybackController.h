@@ -80,4 +80,6 @@ currentMediaHasTrackToChooseFrom:(BOOL)currentMediaHasTrackToChooseFrom
 
 - (void)recoverDisplayedMetadata;
 
+- (void)setNeedsMetadataUpdate;
+
 @end
