@@ -1,0 +1,48 @@
+From 82221b97a7f0c35b5915471d21a6d1d88eba1e2e Mon Sep 17 00:00:00 2001
+From: Tobias Conradi <videolan@tobias-conradi.de>
+Date: Wed, 29 Apr 2015 22:19:20 +0200
+Subject: [PATCH] NavigationBar UI fixes
+
+---
+ src/LiveSDK/Library/Internal/LiveAuthDialog.m | 25 ++++++-------------------
+ 1 file changed, 6 insertions(+), 19 deletions(-)
+
+diff --git a/src/LiveSDK/Library/Internal/LiveAuthDialog.m b/src/LiveSDK/Library/Internal/LiveAuthDialog.m
+index ea3eba2..162085e 100644
+--- a/src/LiveSDK/Library/Internal/LiveAuthDialog.m
++++ b/src/LiveSDK/Library/Internal/LiveAuthDialog.m
+@@ -75,25 +75,12 @@
+     [super viewDidLoad];
+     
+     self.webView.delegate = self;
+-    
+-    // Override the left button to show a back button
+-    // which is used to dismiss the modal view    
+-    UIImage *buttonImage = [LiveAuthHelper getBackButtonImage]; 
+-    //create the button and assign the image
+-    UIButton *button = [UIButton buttonWithType:UIButtonTypeCustom];
+-    [button setImage:buttonImage 
+-            forState:UIControlStateNormal];
+-    //set the frame of the button to the size of the image
+-    button.frame = CGRectMake(0, 0, buttonImage.size.width, buttonImage.size.height);
+-    
+-    [button addTarget:self 
+-               action:@selector(dismissView:) 
+-     forControlEvents:UIControlEventTouchUpInside]; 
+-    
+-    //create a UIBarButtonItem with the button as a custom view
+-    self.navigationItem.leftBarButtonItem = [[[UIBarButtonItem alloc]
+-                                              initWithCustomView:button]autorelease];  
+-    
++
++	UIBarButtonItem *dismissBarButton = [[[UIBarButtonItem alloc]
++										  initWithBarButtonSystemItem:UIBarButtonSystemItemCancel
++										  target:self action:@selector(dismissView:)]autorelease];
++	self.navigationItem.leftBarButtonItem = dismissBarButton;
++
+     //Load the Url request in the UIWebView.
+     NSURLRequest *requestObj = [NSURLRequest requestWithURL:_startUrl];
+     [webView loadRequest:requestObj];    
+-- 
+2.2.1
+

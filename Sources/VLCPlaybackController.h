@@ -16,10 +16,9 @@
 @class VLCPlaybackController;
 
 @protocol VLCPlaybackControllerDelegate <NSObject>
-
 @optional
 - (void)playbackPositionUpdated:(VLCPlaybackController *)controller;
-- (void)playbackRateUpdated:(float)rate forPlaybackController:(VLCPlaybackController *)controller;
+//- (void)playbackRateUpdated:(float)rate forPlaybackController:(VLCPlaybackController *)controller;
 - (void)mediaPlayerStateChanged:(VLCMediaPlayerState)currentState
                       isPlaying:(BOOL)isPlaying
 currentMediaHasTrackToChooseFrom:(BOOL)currentMediaHasTrackToChooseFrom
@@ -29,7 +28,7 @@ currentMediaHasTrackToChooseFrom:(BOOL)currentMediaHasTrackToChooseFrom
 - (void)presentingViewControllerShouldBeClosed:(VLCPlaybackController *)controller;
 - (void)presentingViewControllerShouldBeClosedAfterADelay:(VLCPlaybackController *)controller;
 - (void)showStatusMessage:(NSString *)statusMessage forPlaybackController:(VLCPlaybackController *)controller;
-- (void)audioOnlyPlaybackWasDetected:(BOOL)audioOnly forPlaybackController:(VLCPlaybackController *)controller;
+//- (void)audioOnlyPlaybackWasDetected:(BOOL)audioOnly forPlaybackController:(VLCPlaybackController *)controller;
 - (void)displayMetadataForPlaybackController:(VLCPlaybackController *)controller
                                        title:(NSString *)title
                                      artwork:(UIImage *)artwork
