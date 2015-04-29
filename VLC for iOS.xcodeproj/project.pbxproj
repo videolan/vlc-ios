@@ -2470,6 +2470,7 @@
 				5BC7EE378D444805CA59B5BA /* Pods */,
 			);
 			sourceTree = "<group>";
+			usesTabs = 0;
 		};
 		7D94FCDC16DE7D1000F2623B /* Products */ = {
 			isa = PBXGroup;
