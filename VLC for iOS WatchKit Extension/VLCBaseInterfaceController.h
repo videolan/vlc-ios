@@ -18,4 +18,12 @@
 - (void)addNowPlayingMenu;
 - (void)showNowPlaying:(id)sender;
 
+
+// calls updataData if interface is currenlty active
+// otherwise it sets a flag so update data when the interface is activated
+- (void)setNeedsUpdateData;
+
+// actual update logic should be overwritten by subclasses that needs an update logic
+- (void)updateData;
+
 @end
