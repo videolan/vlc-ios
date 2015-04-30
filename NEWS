@@ -1,3 +1,18 @@
+2.5.2:
+------
+* Added support for Apple Watch - control VLC from your watch!
+  - playlists
+  - media info
+  - library browsing
+* Improved remote command support
+* Fixed crash when playing media from a folder on iPad
+* Fixed crash when app goes to background while a video is playing
+* Improved thumbnail generation
+* Improved thumbnail performance on devices with A5 CPU and above
+* Removed stray popup announcing VLC's crash all the time while it actually
+  didn't crash before, but terminated by the user
+* Various small fixes and minor performance improvements
+
 2.5.1:
 ------
 * Fixed playback on iOS 6.1
