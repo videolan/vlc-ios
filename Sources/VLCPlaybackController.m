@@ -1038,7 +1038,15 @@ static inline NSArray * RemoteCommandCenterCommandsToHandle(MPRemoteCommandCente
 
 - (void)applicationDidBecomeActive:(NSNotification *)notification
 {
-    _mediaPlayer.currentVideoTrackIndex = 1;
+    if (_videoOutputViewWrapper)
+        [self setVideoOutputView:_videoOutputViewWrapper];
+
+    if (_mediaPlayer.numberOfVideoTracks > 0) {
+        /* re-enable video decoding and reset position once done */
+        float position = _mediaPlayer.position;
+        _mediaPlayer.currentVideoTrackIndex = 1;
+        _mediaPlayer.position = position;
+    }
 
     if (_shouldResumePlaying) {
         _shouldResumePlaying = NO;
