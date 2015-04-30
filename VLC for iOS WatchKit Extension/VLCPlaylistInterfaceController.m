@@ -19,8 +19,6 @@
 
 #import "VLCNotificationRelay.h"
 #import "VLCWatchTableController.h"
-#import "VLCThumbnailsCache.h"
-#import "WKInterfaceObject+VLCProgress.h"
 #import "NSManagedObjectContext+refreshAll.h"
 
 static NSString *const rowType = @"mediaRow";
@@ -51,13 +49,6 @@ typedef enum {
 - (void)awakeWithContext:(id)context {
     [super awakeWithContext:context];
 
-    WKInterfaceDevice *currentDevice = WKInterfaceDevice.currentDevice;
-    CGRect screenRect = currentDevice.screenBounds;
-    CGFloat screenScale = currentDevice.screenScale;
-    currentDevice = nil;
-    _thumbnailSize = (CGRect){CGPointZero, CGSizeMake(screenRect.size.width * screenScale, 120. * screenScale)};
-    _rowWidth = screenRect.size.width * screenScale;
-
     NSURL *groupURL = [[NSFileManager defaultManager] containerURLForSecurityApplicationGroupIdentifier:@"group.org.videolan.vlc-ios"];
     MLMediaLibrary *mediaLibrary = [MLMediaLibrary sharedMediaLibrary];
     mediaLibrary.libraryBasePath = groupURL.path;
@@ -85,9 +76,10 @@ typedef enum {
     tableController.pageSize = 5;
     tableController.rowType = rowType;
 
-    __weak typeof(self) weakSelf = self;
     tableController.configureRowControllerWithObjectBlock = ^(id controller, id object) {
-        [weakSelf configureTableRowController:controller withObject:object];
+        if ([controller respondsToSelector:@selector(configureWithMediaLibraryObject:)]) {
+            [controller configureWithMediaLibraryObject:object];
+        }
     };
     self.tableController = tableController;
 
@@ -151,61 +143,6 @@ typedef enum {
     NSManagedObjectContext *moc = [(NSManagedObject *)self.tableController.objects.firstObject managedObjectContext];
     [moc vlc_refreshAllObjectsMerge:NO];
     self.tableController.objects = [self mediaArray];
-}
-
-- (void)configureTableRowController:(id)rowController withObject:(id)storageObject {
-
-    VLCRowController *row = rowController;
-
-    float playbackProgress = 0.0;
-    if ([storageObject isKindOfClass:[MLShow class]]) {
-        row.titleLabel.text = ((MLAlbum *)storageObject).name;
-    } else if ([storageObject isKindOfClass:[MLShowEpisode class]]) {
-        row.titleLabel.text = ((MLShowEpisode *)storageObject).name;
-    } else if ([storageObject isKindOfClass:[MLLabel class]]) {
-        row.titleLabel.text = ((MLLabel *)storageObject).name;
-    } else if ([storageObject isKindOfClass:[MLAlbum class]]) {
-        row.titleLabel.text = ((MLAlbum *)storageObject).name;
-    } else if ([storageObject isKindOfClass:[MLAlbumTrack class]]) {
-        row.titleLabel.text = ((MLAlbumTrack *)storageObject).title;
-    } else if ([storageObject isKindOfClass:[MLFile class]]){
-        MLFile *file = (MLFile *)storageObject;
-        row.titleLabel.text = [file title];
-        playbackProgress = file.lastPosition.floatValue;
-    }
-
-    [row.progressObject vlc_setProgress:playbackProgress hideForNoProgress:YES];
-
-    /* FIXME: add placeholder image once designed */
-
-    row.group.backgroundImage = [UIImage imageNamed:@"tableview-gradient"];
-
-    NSArray *array = @[row.group, storageObject];
-    [self performSelectorInBackground:@selector(backgroundThumbnailSetter:) withObject:array];
-}
-
-- (void)backgroundThumbnailSetter:(NSArray *)array
-{
-    UIImage *backgroundImage = [VLCThumbnailsCache thumbnailForManagedObject:array[1] toFitRect:_thumbnailSize shouldReplaceCache:YES];
-    UIImage *gradient = [UIImage imageNamed:@"tableview-gradient"];
-
-    CGSize newSize = backgroundImage ? backgroundImage.size : CGSizeMake(_rowWidth, 120.);
-    UIGraphicsBeginImageContext(newSize);
-
-    if (backgroundImage)
-        [backgroundImage drawInRect:CGRectMake(0,0,newSize.width,newSize.height)];
-    else {
-        [[UIColor darkGrayColor] set];
-        UIRectFill(CGRectMake(.0, .0, newSize.width, newSize.height));
-    }
-
-    [gradient drawInRect:CGRectMake(.0, newSize.height / 2., newSize.width, newSize.height / 2.) blendMode:kCGBlendModeNormal alpha:1.];
-
-    UIImage *newImage = UIGraphicsGetImageFromCurrentImageContext();
-
-    UIGraphicsEndImageContext();
-
-    [array.firstObject performSelectorOnMainThread:@selector(setBackgroundImage:) withObject:newImage waitUntilDone:NO];
 }
 
 //TODO: this code could use refactoring to be more readable
