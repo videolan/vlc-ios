@@ -16,4 +16,8 @@
 @property (nonatomic, weak) IBOutlet WKInterfaceGroup *group;
 @property (nonatomic, weak) IBOutlet WKInterfaceObject *progressObject;
 
+@property (nonatomic, weak, readonly) id mediaLibraryObject;
+
+- (void) configureWithMediaLibraryObject:(id)object;
+
 @end
