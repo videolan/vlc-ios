@@ -84,8 +84,6 @@
 @property (nonatomic, strong) IBOutlet UILabel *trackNameLabel;
 @property (nonatomic, strong) IBOutlet UIImageView *artworkImageView;
 
-@property (nonatomic, readonly, getter=isPlaying) BOOL playing;
-
 - (IBAction)closePlayback:(id)sender;
 
 - (IBAction)positionSliderAction:(id)sender;
