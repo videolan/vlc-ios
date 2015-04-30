@@ -49,6 +49,13 @@
     [super didDeactivate];
 }
 
+- (void)updateData {
+    [super updateData];
+    NSManagedObject *managedObject = self.managedObject;
+    [managedObject.managedObjectContext refreshObject:managedObject mergeChanges:NO];
+    [self configureWithFile:managedObject];
+}
+
 - (void)configureWithFile:(NSManagedObject *)managedObject {
     self.managedObject = managedObject;
 
@@ -78,7 +85,7 @@
 {
     UIImage *thumbnail = [VLCThumbnailsCache thumbnailForManagedObject:managedObject];
     if (thumbnail) {
-        [self.group setBackgroundImage:thumbnail];
+        [self.group performSelectorOnMainThread:@selector(setBackgroundImage:) withObject:thumbnail waitUntilDone:NO];
     }
 }
 

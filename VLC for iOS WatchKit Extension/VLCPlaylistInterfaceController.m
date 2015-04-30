@@ -21,6 +21,7 @@
 #import "VLCWatchTableController.h"
 #import "VLCThumbnailsCache.h"
 #import "WKInterfaceObject+VLCProgress.h"
+#import "NSManagedObjectContext+refreshAll.h"
 
 static NSString *const rowType = @"mediaRow";
 static NSString *const VLCDBUpdateNotification = @"VLCUpdateDataBase";
@@ -41,7 +42,6 @@ typedef enum {
 
 @property (nonatomic, strong) VLCWatchTableController *tableController;
 @property (nonatomic) VLCLibraryMode libraryMode;
-@property (nonatomic) BOOL needsUpdate;
 @property (nonatomic) id groupObject;
 
 @end
@@ -75,7 +75,6 @@ typedef enum {
     }
 
     [[VLCNotificationRelay sharedRelay] addRelayRemoteName:VLCDBUpdateNotificationRemote toLocalName:VLCDBUpdateNotification];
-    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(updateData) name:VLCDBUpdateNotification object:nil];
 
     /* setup table view controller */
     VLCWatchTableController *tableController = [[VLCWatchTableController alloc] init];
@@ -95,16 +94,9 @@ typedef enum {
     [self updateData];
 }
 
-- (void) dealloc {
-    [[NSNotificationCenter defaultCenter] removeObserver:self name:VLCDBUpdateNotification object:nil];
-}
-
 - (void)willActivate {
     // This method is called when watch view controller is about to be visible to user
     [super willActivate];
-    if (self.needsUpdate) {
-        [self updateData];
-    }
 }
 
 - (void)table:(WKInterfaceTable *)table didSelectRowAtIndex:(NSInteger)rowIndex {
@@ -155,13 +147,10 @@ typedef enum {
 #pragma mark - data handling
 
 - (void)updateData {
-    // if not activated/visible we defer the update til activation
-    if (self.activated) {
-        self.tableController.objects = [self mediaArray];
-        self.needsUpdate = NO;
-    } else {
-        self.needsUpdate = YES;
-    }
+    [super updateData];
+    NSManagedObjectContext *moc = [(NSManagedObject *)self.tableController.objects.firstObject managedObjectContext];
+    [moc vlc_refreshAllObjectsMerge:NO];
+    self.tableController.objects = [self mediaArray];
 }
 
 - (void)configureTableRowController:(id)rowController withObject:(id)storageObject {
@@ -299,6 +288,3 @@ typedef enum {
 }
 
 @end
-
-
-
