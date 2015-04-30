@@ -64,6 +64,7 @@ typedef enum {
         self.title = [self.groupObject name];
         self.libraryMode = VLCLibraryModeInGroup;
     }
+    [self addNowPlayingMenu];
 
     [[VLCNotificationRelay sharedRelay] addRelayRemoteName:VLCDBUpdateNotificationRemote toLocalName:VLCDBUpdateNotification];
 
@@ -84,11 +85,6 @@ typedef enum {
     self.tableController = tableController;
 
     [self updateData];
-}
-
-- (void)willActivate {
-    // This method is called when watch view controller is about to be visible to user
-    [super willActivate];
 }
 
 - (void)table:(WKInterfaceTable *)table didSelectRowAtIndex:(NSInteger)rowIndex {
@@ -115,7 +111,6 @@ typedef enum {
     [self addMenuItemWithImageNamed:@"AllFiles" title: NSLocalizedString(@"LIBRARY_ALL_FILES", nil) action:@selector(switchToAllFiles)];
     [self addMenuItemWithImageNamed:@"MusicAlbums" title: NSLocalizedString(@"LIBRARY_MUSIC", nil) action:@selector(switchToMusic)];
     [self addMenuItemWithImageNamed:@"TVShows" title: NSLocalizedString(@"LIBRARY_SERIES", nil) action:@selector(switchToSeries)];
-    [self addNowPlayingMenu];
 }
 
 - (void)switchToAllFiles{

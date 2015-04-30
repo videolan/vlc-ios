@@ -21,5 +21,9 @@
 @property (weak, nonatomic) IBOutlet WKInterfaceGroup *group;
 @property (weak, nonatomic) IBOutlet WKInterfaceObject *progressObject;
 
+@property (copy, nonatomic) NSString *mediaTitle;
+@property (copy, nonatomic) NSString *mediaDuration;
+@property (nonatomic) CGFloat playbackProgress;
+
 - (IBAction)playNow;
 @end

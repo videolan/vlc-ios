@@ -20,6 +20,8 @@
 @property (nonatomic, readonly) CGRect thumbnailSize;
 @property (nonatomic, readonly) CGFloat rowWidth;
 
+@property (nonatomic) UIImage *rawBackgroundImage;
+
 @end
 
 @implementation VLCRowController
@@ -29,6 +31,7 @@
     self = [super init];
     if (self) {
         [self calculateThumbnailSizeAndRowWidth];
+        _playbackProgress = -1;
     }
     return self;
 }
@@ -48,24 +51,26 @@
 
 - (void)configureWithMediaLibraryObject:(id)storageObject
 {
+    NSString *title = nil;
     float playbackProgress = 0.0;
     if ([storageObject isKindOfClass:[MLShow class]]) {
-        self.titleLabel.text = ((MLAlbum *)storageObject).name;
+        title = ((MLAlbum *)storageObject).name;
     } else if ([storageObject isKindOfClass:[MLShowEpisode class]]) {
-        self.titleLabel.text = ((MLShowEpisode *)storageObject).name;
+        title = ((MLShowEpisode *)storageObject).name;
     } else if ([storageObject isKindOfClass:[MLLabel class]]) {
-        self.titleLabel.text = ((MLLabel *)storageObject).name;
+        title = ((MLLabel *)storageObject).name;
     } else if ([storageObject isKindOfClass:[MLAlbum class]]) {
-        self.titleLabel.text = ((MLAlbum *)storageObject).name;
+        title = ((MLAlbum *)storageObject).name;
     } else if ([storageObject isKindOfClass:[MLAlbumTrack class]]) {
-        self.titleLabel.text = ((MLAlbumTrack *)storageObject).title;
+        title = ((MLAlbumTrack *)storageObject).title;
     } else if ([storageObject isKindOfClass:[MLFile class]]){
         MLFile *file = (MLFile *)storageObject;
-        self.titleLabel.text = [file title];
+        title = [file title];
         playbackProgress = file.lastPosition.floatValue;
     }
 
-    [self.progressObject vlc_setProgress:playbackProgress hideForNoProgress:YES];
+    self.mediaTitle = title;
+    self.playbackProgress = playbackProgress;
 
     /* FIXME: add placeholder image once designed */
 
@@ -82,6 +87,13 @@
 - (void)backgroundThumbnailSetter:(NSArray *)array
 {
     UIImage *backgroundImage = [VLCThumbnailsCache thumbnailForManagedObject:array[1] toFitRect:_thumbnailSize shouldReplaceCache:YES];
+
+    // don't redo image processing if no necessary
+    if ([self.rawBackgroundImage isEqual:backgroundImage]) {
+        return;
+    }
+    self.rawBackgroundImage = backgroundImage;
+
     UIImage *gradient = [UIImage imageNamed:@"tableview-gradient"];
 
     CGSize newSize = backgroundImage ? backgroundImage.size : CGSizeMake(_rowWidth, 120.);
@@ -102,4 +114,21 @@
 
     [array.firstObject performSelectorOnMainThread:@selector(setBackgroundImage:) withObject:newImage waitUntilDone:NO];
 }
+
+- (void)setMediaTitle:(NSString *)mediaTitle {
+    if (![_mediaTitle isEqualToString:mediaTitle]) {
+        _mediaTitle = [mediaTitle copy];
+        self.titleLabel.text = mediaTitle;
+        self.accessibilityValue = mediaTitle;
+        self.titleLabel.hidden = mediaTitle.length == 0;
+    }
+}
+
+- (void)setPlaybackProgress:(CGFloat)playbackProgress {
+    if (_playbackProgress != playbackProgress) {
+        _playbackProgress = playbackProgress;
+        [self.progressObject vlc_setProgress:playbackProgress hideForNoProgress:YES];
+    }
+}
+
 @end
