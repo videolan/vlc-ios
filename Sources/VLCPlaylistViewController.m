@@ -443,11 +443,6 @@ static NSString *kDisplayedFirstSteps = @"Did we display the first steps tutoria
     [self updateViewContents];
 }
 
-- (void)libraryWasUpdated
-{
-    [self updateViewContents];
-}
-
 - (void)updateViewContents
 {
     _foundMedia = [[NSMutableArray alloc] init];
