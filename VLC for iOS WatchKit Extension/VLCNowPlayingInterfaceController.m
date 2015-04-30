@@ -35,7 +35,6 @@
 {
     self = [super init];
     if (self) {
-        [self setTitle:NSLocalizedString(@"PLAYING", nil)];
         _isPlaying = YES;
     }
     return self;
@@ -48,7 +47,8 @@
     _screenBounds = currentDevice.screenBounds;
     _screenScale = currentDevice.screenScale;
 
-    // Configure interface objects here.
+    [self setTitle:NSLocalizedString(@"PLAYING", nil)];
+
     [self requestNowPlayingInfo];
     [[VLCNotificationRelay sharedRelay] addRelayRemoteName:@"org.videolan.ios-app.nowPlayingInfoUpdate" toLocalName:@"nowPlayingInfoUpdate"];
 }
@@ -56,7 +56,6 @@
 - (void)willActivate {
     // This method is called when watch view controller is about to be visible to user
     [super willActivate];
-    [self setTitle:NSLocalizedString(@"PLAYING", nil)];
 
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(requestNowPlayingInfo) name:@"nowPlayingInfoUpdate" object:nil];
     [self requestNowPlayingInfo];
@@ -148,7 +147,7 @@
 }
 
 - (void)setTitleString:(NSString *)titleString {
-    if (![_titleString isEqualToString:titleString] || (_titleString==nil && titleString)) {
+    if (![_titleString isEqualToString:titleString]) {
         _titleString = [titleString copy];
         [self.titleLabel setText:titleString];
     }

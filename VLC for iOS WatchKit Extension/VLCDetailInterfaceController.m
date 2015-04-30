@@ -33,20 +33,10 @@
 
 - (void)awakeWithContext:(id)context {
     [super awakeWithContext:context];
+    [self setTitle:NSLocalizedString(@"DETAIL", nil)];
 
     [self addNowPlayingMenu];
     [self configureWithFile:context];
-}
-
-- (void)willActivate {
-    [self setTitle:NSLocalizedString(@"DETAIL", nil)];
-    // This method is called when watch view controller is about to be visible to user
-    [super willActivate];
-}
-
-- (void)didDeactivate {
-    // This method is called when watch view controller is no longer visible
-    [super didDeactivate];
 }
 
 - (void)updateData {
@@ -59,23 +49,29 @@
 - (void)configureWithFile:(NSManagedObject *)managedObject {
     self.managedObject = managedObject;
 
+    NSString *title = nil;
+    NSString *durationString = nil;
+
     float playbackProgress = 0.0;
     if ([managedObject isKindOfClass:[MLShowEpisode class]]) {
-        [self.titleLabel setText:((MLShowEpisode *)managedObject).name];
+        title = ((MLShowEpisode *)managedObject).name;
     } else if ([managedObject isKindOfClass:[MLFile class]]) {
         MLFile *file = (MLFile *)managedObject;
-        self.durationLabel.text = [VLCTime timeWithNumber:file.duration].stringValue;
+        durationString =  [VLCTime timeWithNumber:file.duration].stringValue;
         playbackProgress = file.lastPosition.floatValue;
-        [self.titleLabel setText:((MLFile *)file).title];
+        title = ((MLFile *)file).title;
     } else if ([managedObject isKindOfClass:[MLAlbumTrack class]]) {
-        [self.titleLabel setText:((MLAlbumTrack *)managedObject).title];
+        title = ((MLAlbumTrack *)managedObject).title;
     } else {
         NSAssert(NO, @"check what filetype we try to show here and add it above");
     }
+
     BOOL playEnabled = managedObject != nil;
     self.playNowButton.enabled = playEnabled;
 
-    [self.progressObject vlc_setProgress:playbackProgress hideForNoProgress:YES];
+    self.mediaTitle = title;
+    self.mediaDuration = durationString;
+    self.playbackProgress = playbackProgress;
 
     /* do not block the main thread */
     [self performSelectorInBackground:@selector(loadThumbnailForManagedObject:) withObject:managedObject];
@@ -100,6 +96,30 @@
         [self showNowPlaying:nil];
     }];
 }
+
+- (void)setMediaTitle:(NSString *)mediaTitle {
+    if (![_mediaTitle isEqualToString:mediaTitle]) {
+        _mediaTitle = [mediaTitle copy];
+        self.titleLabel.text = mediaTitle;
+        self.titleLabel.hidden = mediaTitle.length == 0;
+    }
+}
+
+- (void)setMediaDuration:(NSString *)mediaDuration {
+    if (![_mediaDuration isEqualToString:mediaDuration]) {
+        _mediaDuration = [mediaDuration copy];
+        self.durationLabel.text = mediaDuration;
+        self.durationLabel.hidden = mediaDuration.length == 0;
+    }
+}
+
+- (void)setPlaybackProgress:(CGFloat)playbackProgress {
+    if (_playbackProgress != playbackProgress) {
+        _playbackProgress = playbackProgress;
+        [self.progressObject vlc_setProgress:playbackProgress hideForNoProgress:YES];
+    }
+}
+
 @end
 
 
