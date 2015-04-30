@@ -25,20 +25,12 @@
 }
 @property (nonatomic, copy) NSString *titleString;
 @property (nonatomic, copy) NSNumber *playBackDurationNumber;
-@property (nonatomic) BOOL isPlaying;
+@property (nonatomic, getter=isPlaying) BOOL playing;
 @property (nonatomic) NSTimer *updateTimer;
+@property (nonatomic, weak) MLFile *currentFile;
 @end
 
 @implementation VLCNowPlayingInterfaceController
-
-- (instancetype)init
-{
-    self = [super init];
-    if (self) {
-        _isPlaying = YES;
-    }
-    return self;
-}
 
 - (void)awakeWithContext:(id)context {
     [super awakeWithContext:context];
@@ -48,6 +40,8 @@
     _screenScale = currentDevice.screenScale;
 
     [self setTitle:NSLocalizedString(@"PLAYING", nil)];
+
+    [self setPlaying:YES];
 
     [self requestNowPlayingInfo];
     [[VLCNotificationRelay sharedRelay] addRelayRemoteName:@"org.videolan.ios-app.nowPlayingInfoUpdate" toLocalName:@"nowPlayingInfoUpdate"];
@@ -106,8 +100,14 @@
 
     self.playBackDurationNumber = duration;
 
-    /* do not block */
-    [self performSelectorInBackground:@selector(loadThumbnailForFile:) withObject:file];
+    NSNumber *rate = nowPlayingInfo[MPNowPlayingInfoPropertyPlaybackRate];
+    self.playing = rate.floatValue > 0.0;
+
+    if ([self.currentFile isEqual:file]) {
+        self.currentFile = file;
+        /* do not block */
+        [self performSelectorInBackground:@selector(loadThumbnailForFile:) withObject:file];
+    }
 }
 
 - (void)loadThumbnailForFile:(MLFile *)file
@@ -118,8 +118,13 @@
 }
 
 - (IBAction)playPausePressed {
-    self.isPlaying = !self.isPlaying;
     [WKInterfaceController openParentApplication:@{@"name": @"playpause"} reply:^(NSDictionary *replyInfo, NSError *error) {
+        NSNumber *playing = replyInfo[@"playing"];
+        if ([playing isKindOfClass:[NSNumber class]]) {
+            self.playing = playing.boolValue;
+        } else {
+            self.playing = !self.playing;
+        }
         if (error)
             NSLog(@"playpause failed with reply %@ error: %@",replyInfo,error);
     }];
@@ -140,10 +145,11 @@
 }
 
 
-- (void)setIsPlaying:(BOOL)isPlaying {
-
-    [self.playPauseButton setBackgroundImageNamed:isPlaying? @"pause":@"play"];
-    _isPlaying = isPlaying;
+- (void)setPlaying:(BOOL)playing {
+    if (_playing != playing) {
+        [self.playPauseButton setBackgroundImageNamed:playing? @"pause":@"play"];
+        _playing = playing;
+    }
 }
 
 - (void)setTitleString:(NSString *)titleString {

@@ -670,6 +670,7 @@
         responseDict = [self nowPlayingResponseDict];
     } else if ([userInfo[@"name"] isEqualToString:@"playpause"]) {
         [_movieViewController playPause];
+        responseDict = @{@"playing": @(_movieViewController.isPlaying)};
     } else if ([userInfo[@"name"] isEqualToString:@"skipForward"]) {
         [_movieViewController forward:nil];
     } else if ([userInfo[@"name"] isEqualToString:@"skipBackward"]) {

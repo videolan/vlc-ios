@@ -847,6 +847,12 @@ currentMediaHasTrackToChooseFrom:(BOOL)currentMediaHasTrackToChooseFrom
     self.videoFilterButton.hidden = audioOnly;
 }
 
+- (BOOL)isPlaying
+{
+    return [VLCPlaybackController sharedInstance].isPlaying;
+}
+
+
 - (IBAction)playPause
 {
     LOCKCHECK;
