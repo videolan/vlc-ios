@@ -761,7 +761,12 @@
 
     MLFile *item;
     NSNumber *trackNumber;
-    _mediaIsAudioOnly = YES;
+
+    NSString *title;
+    NSString *artist;
+    NSString *albumName;
+    UIImage* artworkImage;
+    BOOL mediaIsAudioOnly = YES;
 
     if (self.fileFromMediaLibrary)
         item = self.fileFromMediaLibrary;
@@ -772,17 +777,17 @@
 
     if (item) {
         if (item.isAlbumTrack) {
-            _title = item.albumTrack.title;
-            _artist = item.albumTrack.artist;
-            _albumName = item.albumTrack.album.name;
+            title = item.albumTrack.title;
+            artist = item.albumTrack.artist;
+            albumName = item.albumTrack.album.name;
         } else
-            _title = item.title;
+            title = item.title;
 
         /* MLKit knows better than us if this thing is audio only or not */
-        _mediaIsAudioOnly = [item isSupportedAudioFile];
+        mediaIsAudioOnly = [item isSupportedAudioFile];
 
-        if (_mediaIsAudioOnly)
-            _artworkImage = [VLCThumbnailsCache thumbnailForManagedObject:item];
+        if (mediaIsAudioOnly)
+            artworkImage = [VLCThumbnailsCache thumbnailForManagedObject:item];
     } else {
         NSDictionary * metaDict = _mediaPlayer.media.metaDictionary;
 
@@ -792,41 +797,41 @@
         NSUInteger trackCount = tracks.count;
         for (NSUInteger x = 0 ; x < trackCount; x++) {
             if ([[tracks[x] objectForKey:VLCMediaTracksInformationType] isEqualToString:VLCMediaTracksInformationTypeVideo]) {
-                _mediaIsAudioOnly = NO;
+                mediaIsAudioOnly = NO;
                 break;
             }
         }
 
         if (metaDict) {
-            _title = metaDict[VLCMetaInformationNowPlaying] ? metaDict[VLCMetaInformationNowPlaying] : metaDict[VLCMetaInformationTitle];
-            _artist = metaDict[VLCMetaInformationArtist];
-            _albumName = metaDict[VLCMetaInformationAlbum];
+            title = metaDict[VLCMetaInformationNowPlaying] ? metaDict[VLCMetaInformationNowPlaying] : metaDict[VLCMetaInformationTitle];
+            artist = metaDict[VLCMetaInformationArtist];
+            albumName = metaDict[VLCMetaInformationAlbum];
             trackNumber = metaDict[VLCMetaInformationTrackNumber];
-            if (_mediaIsAudioOnly)
-                _artworkImage = [VLCThumbnailsCache thumbnailForManagedObject:item];
+            if (mediaIsAudioOnly)
+                artworkImage = [VLCThumbnailsCache thumbnailForManagedObject:item];
         }
     }
 
-    if (_mediaIsAudioOnly) {
-        if (_artworkImage) {
-            if (_artist)
-                _title = [_title stringByAppendingFormat:@" — %@", _artist];
-            if (_albumName)
-                _title = [_title stringByAppendingFormat:@" — %@", _albumName];
+    if (mediaIsAudioOnly) {
+        if (artworkImage) {
+            if (artist)
+                title = [title stringByAppendingFormat:@" — %@", artist];
+            if (albumName)
+                title = [title stringByAppendingFormat:@" — %@", albumName];
         }
 
-        if (_title.length < 1)
-            _title = [[_mediaPlayer.media url] lastPathComponent];
+        if (title.length < 1)
+            title = [[_mediaPlayer.media url] lastPathComponent];
     }
 
     /* populate delegate with metadata info */
     if ([self.delegate respondsToSelector:@selector(displayMetadataForPlaybackController:title:artwork:artist:album:audioOnly:)])
         [self.delegate displayMetadataForPlaybackController:self
-                                                      title:_title
-                                                    artwork:_artworkImage
-                                                     artist:_artist
-                                                      album:_albumName
-                                                  audioOnly:_mediaIsAudioOnly];
+                                                      title:title
+                                                    artwork:artworkImage
+                                                     artist:artist
+                                                      album:albumName
+                                                  audioOnly:mediaIsAudioOnly];
 
     /* populate now playing info center with metadata information */
     NSMutableDictionary *currentlyPlayingTrackInfo = [NSMutableDictionary dictionary];
@@ -836,12 +841,12 @@
 
     /* don't leak sensitive information to the OS, if passcode lock is enabled */
     if (![[[NSUserDefaults standardUserDefaults] objectForKey:kVLCSettingPasscodeOnKey] boolValue]) {
-        if (_title)
-            currentlyPlayingTrackInfo[MPMediaItemPropertyTitle] = _title;
-        if (_artist.length > 0)
-            currentlyPlayingTrackInfo[MPMediaItemPropertyArtist] = _artist;
-        if (_albumName.length > 0)
-            currentlyPlayingTrackInfo[MPMediaItemPropertyAlbumTitle] = _albumName;
+        if (title)
+            currentlyPlayingTrackInfo[MPMediaItemPropertyTitle] = title;
+        if (artist.length > 0)
+            currentlyPlayingTrackInfo[MPMediaItemPropertyArtist] = artist;
+        if (albumName.length > 0)
+            currentlyPlayingTrackInfo[MPMediaItemPropertyAlbumTitle] = albumName;
 
         if ([trackNumber intValue] > 0)
             currentlyPlayingTrackInfo[MPMediaItemPropertyAlbumTrackNumber] = trackNumber;
@@ -854,8 +859,8 @@
             if ([WKInterfaceDevice currentDevice] != nil)
                 goto setstuff;
         }
-        if (_artworkImage) {
-            MPMediaItemArtwork *mpartwork = [[MPMediaItemArtwork alloc] initWithImage:_artworkImage];
+        if (artworkImage) {
+            MPMediaItemArtwork *mpartwork = [[MPMediaItemArtwork alloc] initWithImage:artworkImage];
             currentlyPlayingTrackInfo[MPMediaItemPropertyArtwork] = mpartwork;
         }
     }
@@ -863,6 +868,14 @@
 setstuff:
     [MPNowPlayingInfoCenter defaultCenter].nowPlayingInfo = currentlyPlayingTrackInfo;
     [[NSNotificationCenter defaultCenter] postNotificationName:kVLCNotificationNowPlayingInfoUpdate object:self];
+
+
+    _title = title;
+    _artist = artist;
+    _albumName = albumName;
+    _artworkImage = artworkImage;
+    _mediaIsAudioOnly = mediaIsAudioOnly;
+
 }
 
 - (void)recoverDisplayedMetadata
