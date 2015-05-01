@@ -23,6 +23,8 @@
 #import <MediaPlayer/MediaPlayer.h>
 #import "VLCThumbnailsCache.h"
 #import <WatchKit/WatchKit.h>
+#import "VLCAppDelegate.h"
+#import "VLCPlaylistViewController.h"
 
 @interface VLCPlaybackController () <AVAudioSessionDelegate, VLCMediaPlayerDelegate, VLCMediaDelegate>
 {
@@ -332,6 +334,7 @@
         _mediaPlayer.position = lastPosition;
 
     [self subscribeRemoteCommands];
+    [[(VLCAppDelegate *)[UIApplication sharedApplication].delegate playlistViewController] displayMiniPlaybackViewIfNeeded];
 
     _playerIsSetup = YES;
 }
@@ -449,6 +452,16 @@
 - (BOOL)currentMediaHasTrackToChooseFrom
 {
     return [[_mediaPlayer audioTrackIndexes] count] > 2 || [[_mediaPlayer videoSubTitlesIndexes] count] > 1;
+}
+
+- (BOOL)activePlaybackSession
+{
+    return _mediaPlayer != nil;
+}
+
+- (BOOL)audioOnlyPlaybackSession
+{
+    return _mediaIsAudioOnly;
 }
 
 - (float)playbackRate
@@ -594,6 +607,9 @@
 - (void)setVideoOutputView:(UIView *)videoOutputView
 {
     if (videoOutputView) {
+        if ([_actualVideoOutputView superview] != nil)
+            [_actualVideoOutputView removeFromSuperview];
+
         _mediaPlayer.currentVideoTrackIndex = 0;
         _actualVideoOutputView.frame = (CGRect){CGPointZero, videoOutputView.frame.size};
         [_actualVideoOutputView layoutSubviews];
