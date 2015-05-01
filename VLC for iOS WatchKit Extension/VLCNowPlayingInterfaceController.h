@@ -19,10 +19,12 @@
 @property (weak, nonatomic) IBOutlet WKInterfaceLabel *durationLabel;
 @property (weak, nonatomic) IBOutlet WKInterfaceButton *playPauseButton;
 @property (weak, nonatomic) IBOutlet WKInterfaceObject *progressObject;
+@property (weak, nonatomic) IBOutlet WKInterfaceSlider *volumeSlider;
 
 - (IBAction)playPausePressed;
 - (IBAction)skipForward;
 - (IBAction)skipBackward;
+- (IBAction)volumeSliderChanged:(float)value;
 
 
 @end
