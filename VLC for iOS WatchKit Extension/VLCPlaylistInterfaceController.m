@@ -68,7 +68,7 @@ static NSString *const VLCDBUpdateNotificationRemote = @"org.videolan.ios-app.db
     tableController.previousPageButton = self.previousButton;
     tableController.nextPageButton = self.nextButton;
     tableController.emptyLibraryInterfaceObjects = self.emptyLibraryGroup;
-    tableController.pageSize = 5;
+    tableController.pageSize = 20;
     tableController.rowType = rowType;
 
     tableController.configureRowControllerWithObjectBlock = ^(id controller, id object) {
