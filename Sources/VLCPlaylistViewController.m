@@ -26,6 +26,8 @@
 #import "VLCAlertView.h"
 #import "VLCOpenInActivity.h"
 #import "VLCNavigationController.h"
+#import "VLCPlaybackController.h"
+#import "VLCMiniPlaybackView.h"
 
 #import <AssetsLibrary/AssetsLibrary.h>
 
@@ -67,6 +69,7 @@ static NSString *kDisplayedFirstSteps = @"Did we display the first steps tutoria
 
     UIBarButtonItem *_actionBarButtonItem;
     VLCOpenInActivity *_openInActivity;
+    VLCMiniPlaybackView *_miniPlaybackView;
 }
 
 @property (nonatomic, strong) UITableView *tableView;
@@ -111,6 +114,7 @@ static NSString *kDisplayedFirstSteps = @"Did we display the first steps tutoria
             _tableView.dataSource = self;
             _tableView.opaque = YES;
             _tableView.indicatorStyle = UIScrollViewIndicatorStyleWhite;
+            _tableView.autoresizingMask = UIViewAutoresizingFlexibleHeight | UIViewAutoresizingFlexibleWidth;
         }
         [contentView addSubview:_tableView];
         [_tableView reloadData];
@@ -124,6 +128,7 @@ static NSString *kDisplayedFirstSteps = @"Did we display the first steps tutoria
             _collectionView.dataSource = self;
             _collectionView.opaque = YES;
             _collectionView.backgroundColor = [UIColor VLCDarkBackgroundColor];
+            _collectionView.autoresizingMask = UIViewAutoresizingFlexibleHeight | UIViewAutoresizingFlexibleWidth;
             _longPressGestureRecognizer = [[UILongPressGestureRecognizer alloc] initWithTarget:self action:@selector(_collectionViewHandleLongPressGesture:)];
             [_collectionView addGestureRecognizer:_longPressGestureRecognizer];
             if (SYSTEM_RUNS_IOS7_OR_LATER)
@@ -229,6 +234,7 @@ static NSString *kDisplayedFirstSteps = @"Did we display the first steps tutoria
     [super viewWillAppear:animated];
     [self.collectionView.collectionViewLayout invalidateLayout];
     [self _displayEmptyLibraryViewIfNeeded];
+    [self displayMiniPlaybackViewIfNeeded];
 }
 
 - (void)viewDidAppear:(BOOL)animated
@@ -434,6 +440,22 @@ static NSString *kDisplayedFirstSteps = @"Did we display the first steps tutoria
         [self.collectionView.collectionViewLayout invalidateLayout];
 }
 
+- (void)displayMiniPlaybackViewIfNeeded
+{
+    VLCPlaybackController *playbackController = [VLCPlaybackController sharedInstance];
+
+    if (playbackController.activePlaybackSession) {
+        CGRect viewRect = self.view.frame;
+        _miniPlaybackView = [[VLCMiniPlaybackView alloc] initWithFrame:CGRectMake(0., viewRect.size.height - 60., viewRect.size.width, 60.)];
+        _miniPlaybackView.autoresizingMask = UIViewAutoresizingFlexibleWidth | UIViewAutoresizingFlexibleTopMargin;
+        [_miniPlaybackView setupForWork];
+        [self.view addSubview:_miniPlaybackView];
+    } else {
+        [_miniPlaybackView removeFromSuperview];
+        _miniPlaybackView = nil;
+    }
+}
+
 - (void)libraryUpgradeComplete
 {
     self.title = NSLocalizedString(@"LIBRARY_ALL_FILES", nil);
@@ -532,6 +554,7 @@ static NSString *kDisplayedFirstSteps = @"Did we display the first steps tutoria
     }
 
     [self _displayEmptyLibraryViewIfNeeded];
+    [self displayMiniPlaybackViewIfNeeded];
 }
 
 #pragma mark - Table View
