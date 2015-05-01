@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
-<document type="com.apple.InterfaceBuilder.WatchKit.Storyboard" version="3.0" toolsVersion="7531" systemVersion="14D131" targetRuntime="watchKit" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" initialViewController="AgC-eL-Hgc">
+<document type="com.apple.InterfaceBuilder.WatchKit.Storyboard" version="3.0" toolsVersion="7702" systemVersion="14D136" targetRuntime="watchKit" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" initialViewController="AgC-eL-Hgc">
     <dependencies>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="7520"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="7701"/>
         <plugIn identifier="com.apple.InterfaceBuilder.IBWatchKitPlugin" version="3737"/>
     </dependencies>
     <scenes>
@@ -122,7 +122,7 @@
                     <items>
                         <group width="1" height="1" heightAdjustment="-2" alignment="left" verticalAlignment="center" contentMode="scaleAspectFit" layout="vertical" id="uwS-0S-Ag2">
                             <items>
-                                <group width="1" height="1" heightAdjustment="-30" alignment="left" contentMode="scaleAspectFit" id="iCs-yD-jsj">
+                                <group width="1" height="1" heightAdjustment="-55" alignment="left" contentMode="scaleAspectFit" layout="vertical" id="iCs-yD-jsj">
                                     <items>
                                         <group alignment="center" verticalAlignment="center" spacing="25" id="egl-IT-539">
                                             <items>
@@ -147,7 +147,14 @@
                                             </items>
                                         </group>
                                     </items>
+                                    <variation key="device=watch42mm" heightAdjustment="-60"/>
                                 </group>
+                                <slider width="1" alignment="left" verticalAlignment="bottom" continuous="YES" value="0.5" steps="16" id="WNd-eJ-DzK">
+                                    <color key="color" red="1" green="0.50196081400000003" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
+                                    <connections>
+                                        <action selector="volumeSliderChanged:" destination="Mzo-Y8-gdK" id="8uu-ZX-J9P"/>
+                                    </connections>
+                                </slider>
                                 <group width="1" alignment="left" verticalAlignment="bottom" id="d9m-EJ-n3r">
                                     <items>
                                         <label width="100" alignment="left" verticalAlignment="bottom" accessibilityLabel="title" text="title" id="H58-Y8-Tbc">
@@ -173,6 +180,7 @@
                         <outlet property="playPauseButton" destination="BAZ-aC-ETt" id="X17-bz-cFy"/>
                         <outlet property="progressObject" destination="9DQ-Bn-k5Y" id="LK1-eS-RGv"/>
                         <outlet property="titleLabel" destination="H58-Y8-Tbc" id="xZs-ZW-Shj"/>
+                        <outlet property="volumeSlider" destination="WNd-eJ-DzK" id="IyP-bA-Qmf"/>
                     </connections>
                 </controller>
             </objects>

@@ -28,6 +28,7 @@
 @property (nonatomic, getter=isPlaying) BOOL playing;
 @property (nonatomic) NSTimer *updateTimer;
 @property (nonatomic, weak) MLFile *currentFile;
+@property (nonatomic) float volume;
 @end
 
 @implementation VLCNowPlayingInterfaceController
@@ -78,6 +79,10 @@
             file = [MLFile fileForURIRepresentation:uriRepresentation];
         }
         [self updateWithNowPlayingInfo:replyInfo[@"nowPlayingInfo"] andFile:file];
+        NSNumber *currentVolume = replyInfo[@"volume"];
+        if (currentVolume) {
+            self.volume = currentVolume.floatValue;
+        }
     }];
 }
 
@@ -144,6 +149,27 @@
     }];
 }
 
+- (IBAction)volumeSliderChanged:(float)value {
+    _volume = value;
+    NSDictionary *dict = @{@"name" : @"setVolume",
+                           @"userInfo" : @{
+                                   @"volume" : @(value)
+                                   },
+                           };
+    [WKInterfaceController openParentApplication:dict reply:^(NSDictionary *replyInfo, NSError *error) {
+        if (error)
+            NSLog(@"setVolume failed with reply %@ error: %@",replyInfo,error);
+    }];
+}
+
+
+- (void)setVolume:(float)volume
+{
+    if (_volume != volume) {
+        _volume = volume;
+        self.volumeSlider.value = volume;
+    }
+}
 
 - (void)setPlaying:(BOOL)playing {
     if (_playing != playing) {

@@ -674,6 +674,8 @@
         [[VLCPlaybackController sharedInstance] backward];
     } else if ([userInfo[@"name"] isEqualToString:@"playFile"]) {
         [self playFileFromWatch:userInfo[@"userInfo"]];
+    } else if ([userInfo[@"name"] isEqualToString:@"setVolume"]) {
+        [self setVolumeFromWatch:userInfo[@"userInfo"]];
     } else {
         NSLog(@"Did not handle request from WatchKit Extension: %@",userInfo);
     }
@@ -696,6 +698,18 @@
     [self openMediaFromManagedObject:managedObject];
 }
 
+- (void)setVolumeFromWatch:(NSDictionary *)userInfo
+{
+    NSNumber *volume = userInfo[@"volume"];
+    if ([volume isKindOfClass:[NSNumber class]]) {
+        /*
+         * Since WatchKit doen't provide something like MPVolumeView we use deprecated API.
+         * rdar://20783803 Feature Request: WatchKit equivalent for MPVolumeView
+         */
+        [MPMusicPlayerController applicationMusicPlayer].volume = volume.floatValue;
+    }
+}
+
 - (NSDictionary *)nowPlayingResponseDict {
     NSMutableDictionary *response = [NSMutableDictionary new];
     NSMutableDictionary *nowPlayingInfo = [[MPNowPlayingInfoCenter defaultCenter].nowPlayingInfo mutableCopy];
@@ -711,6 +725,9 @@
     if (URIString) {
         response[@"URIRepresentation"] = URIString;
     }
+
+    response[@"volume"] = @([MPMusicPlayerController applicationMusicPlayer].volume);
+
     return response;
 }
 
