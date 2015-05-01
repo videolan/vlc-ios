@@ -96,9 +96,14 @@ static NSString *kDisplayedFirstSteps = @"Did we display the first steps tutoria
 
 - (void)setupContentViewWithContentInset:(BOOL)setInset
 {
+    CGRect viewDimensions = [UIScreen mainScreen].bounds;
+    UIView *contentView = [[UIView alloc] initWithFrame:viewDimensions];
+    contentView.autoresizingMask = UIViewAutoresizingFlexibleHeight | UIViewAutoresizingFlexibleWidth;
+    contentView.backgroundColor = [UIColor VLCDarkBackgroundColor];
+
     if (_usingTableViewToShowData) {
         if(!_tableView) {
-            _tableView = [[UITableView alloc] initWithFrame:[UIScreen mainScreen].bounds style:UITableViewStylePlain];
+            _tableView = [[UITableView alloc] initWithFrame:viewDimensions style:UITableViewStylePlain];
             _tableView.backgroundColor = [UIColor VLCDarkBackgroundColor];
             _tableView.rowHeight = [VLCPlaylistTableViewCell heightOfCell];
             _tableView.separatorColor = [UIColor VLCDarkBackgroundColor];
@@ -107,12 +112,12 @@ static NSString *kDisplayedFirstSteps = @"Did we display the first steps tutoria
             _tableView.opaque = YES;
             _tableView.indicatorStyle = UIScrollViewIndicatorStyleWhite;
         }
-        self.view = _tableView;
+        [contentView addSubview:_tableView];
         [_tableView reloadData];
     } else {
         if (!_collectionView) {
             _folderLayout = [[VLCFolderCollectionViewFlowLayout alloc] init];
-            _collectionView = [[UICollectionView alloc] initWithFrame:[UIScreen mainScreen].bounds collectionViewLayout:_folderLayout];
+            _collectionView = [[UICollectionView alloc] initWithFrame:viewDimensions collectionViewLayout:_folderLayout];
             _collectionView.alwaysBounceVertical = YES;
             _collectionView.indicatorStyle = UIScrollViewIndicatorStyleWhite;
             _collectionView.delegate = self;
@@ -125,23 +130,21 @@ static NSString *kDisplayedFirstSteps = @"Did we display the first steps tutoria
                 [_collectionView registerNib:[UINib nibWithNibName:@"VLCFuturePlaylistCollectionViewCell" bundle:nil] forCellWithReuseIdentifier:@"PlaylistCell"];
             else
                 [_collectionView registerNib:[UINib nibWithNibName:@"VLCPlaylistCollectionViewCell" bundle:nil] forCellWithReuseIdentifier:@"PlaylistCell"];
-            self.view.backgroundColor = [UIColor VLCDarkBackgroundColor];
         }
-        self.view = _collectionView;
+        [contentView addSubview:_collectionView];
         [_collectionView reloadData];
     }
 
-    if (setInset) {
+    if (setInset && _usingTableViewToShowData) {
         CGSize statusBarSize = [UIApplication sharedApplication].statusBarFrame.size;
         // Status bar frame doesn't change correctly on rotation
         CGFloat statusBarHeight = MIN(statusBarSize.height, statusBarSize.width);
         CGFloat originY = self.navigationController.navigationBar.frame.size.height + statusBarHeight;
 
-        if (_usingTableViewToShowData)
-            _tableView.contentInset = UIEdgeInsetsMake(originY, 0, 0, 0);
+        _tableView.contentInset = UIEdgeInsetsMake(originY, 0, 0, 0);
     }
 
-    self.view.autoresizingMask = UIViewAutoresizingFlexibleHeight | UIViewAutoresizingFlexibleWidth;
+    self.view = contentView;
 }
 
 #pragma mark -
@@ -301,7 +304,7 @@ static NSString *kDisplayedFirstSteps = @"Did we display the first steps tutoria
         inFolder = YES;
         if (!_usingTableViewToShowData) {
             if (![self.collectionView.collectionViewLayout isEqual:_reorderLayout]) {
-                for (UIGestureRecognizer *recognizer in self.view.gestureRecognizers) {
+                for (UIGestureRecognizer *recognizer in _collectionView.gestureRecognizers) {
                     if (recognizer == _folderLayout.panGestureRecognizer || recognizer == _folderLayout.longPressGestureRecognizer || recognizer == _longPressGestureRecognizer)
                         [self.collectionView removeGestureRecognizer:recognizer];
                 }
@@ -694,10 +697,10 @@ static NSString *kDisplayedFirstSteps = @"Did we display the first steps tutoria
     else {
         [self setEditing:YES animated:YES];
 
-        NSIndexPath *path = [(UITableView *)self.view indexPathForRowAtPoint:[recognizer locationInView:self.view]];
-        [self.tableView selectRowAtIndexPath:[NSIndexPath indexPathForRow:path.row inSection:path.section]
-                                    animated:YES
-                              scrollPosition:UITableViewScrollPositionNone];
+        NSIndexPath *path = [_tableView indexPathForRowAtPoint:[recognizer locationInView:self.view]];
+        [_tableView selectRowAtIndexPath:[NSIndexPath indexPathForRow:path.row inSection:path.section]
+                                animated:YES
+                          scrollPosition:UITableViewScrollPositionNone];
     }
 }
 
