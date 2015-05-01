@@ -19,7 +19,7 @@
 @implementation MLMediaLibrary (playlist)
 
 
-- (NSArray *)playlistArrayForGroupObject:(id)groupObject
+- (nonnull NSArray *)playlistArrayForGroupObject:(nonnull id)groupObject
 {
     if([groupObject isKindOfClass:[MLLabel class]]) {
         return [(MLLabel *)groupObject sortedFolderItems];
@@ -34,10 +34,13 @@
 }
 
 //TODO: this code could use refactoring to be more readable
-- (NSArray *)playlistArrayForLibraryMode:(VLCLibraryMode)libraryMode
+- (nonnull NSArray *)playlistArrayForLibraryMode:(VLCLibraryMode)libraryMode
 {
 
     NSMutableArray *objects = [NSMutableArray array];
+    if (libraryMode == VLCLibraryModeNone) {
+        return  objects;
+    }
 
     /* add all albums */
     if (libraryMode != VLCLibraryModeAllSeries) {

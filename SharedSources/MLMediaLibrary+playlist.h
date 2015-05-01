@@ -23,7 +23,7 @@ typedef NS_ENUM(NSUInteger, VLCLibraryMode) {
 
 @interface MLMediaLibrary (playlist)
 
-- (NSArray *)playlistArrayForGroupObject:(id)groupObject;
-- (NSArray *)playlistArrayForLibraryMode:(VLCLibraryMode)libraryMode;
+- (nonnull NSArray *)playlistArrayForGroupObject:(nonnull id)groupObject;
+- (nonnull NSArray *)playlistArrayForLibraryMode:(VLCLibraryMode)libraryMode;
 
 @end
