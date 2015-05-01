@@ -552,6 +552,8 @@
 		DD02C30E1ACAF4A50026EFEE /* VLCRowController.m in Sources */ = {isa = PBXBuildFile; fileRef = DD02C30D1ACAF4A50026EFEE /* VLCRowController.m */; };
 		DD1542121ACFF76400AFD4EC /* VLCWatchTableController.m in Sources */ = {isa = PBXBuildFile; fileRef = DD1542111ACFF76400AFD4EC /* VLCWatchTableController.m */; };
 		DD6FA7B01ACD641C006DEB2E /* VLCNowPlayingInterfaceController.m in Sources */ = {isa = PBXBuildFile; fileRef = DD6FA7AF1ACD641C006DEB2E /* VLCNowPlayingInterfaceController.m */; };
+		DD7110F01AF38B2B00854776 /* MLMediaLibrary+playlist.m in Sources */ = {isa = PBXBuildFile; fileRef = DD7110EF1AF38B2B00854776 /* MLMediaLibrary+playlist.m */; };
+		DD7110F11AF38B2B00854776 /* MLMediaLibrary+playlist.m in Sources */ = {isa = PBXBuildFile; fileRef = DD7110EF1AF38B2B00854776 /* MLMediaLibrary+playlist.m */; };
 		DD7635D61AF262D100240CB8 /* NSManagedObjectContext+refreshAll.m in Sources */ = {isa = PBXBuildFile; fileRef = DD7635D51AF262D100240CB8 /* NSManagedObjectContext+refreshAll.m */; };
 		DDACEB561ADAD11300735484 /* WKInterfaceObject+VLCProgress.m in Sources */ = {isa = PBXBuildFile; fileRef = DDACEB551ADAD11300735484 /* WKInterfaceObject+VLCProgress.m */; };
 		DDC10BE41AEE8EA700890DC3 /* VLCTimeNavigationTitleView.m in Sources */ = {isa = PBXBuildFile; fileRef = DDC10BE31AEE8EA700890DC3 /* VLCTimeNavigationTitleView.m */; };
@@ -1618,6 +1620,8 @@
 		DD1542111ACFF76400AFD4EC /* VLCWatchTableController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = VLCWatchTableController.m; sourceTree = "<group>"; };
 		DD6FA7AE1ACD641C006DEB2E /* VLCNowPlayingInterfaceController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = VLCNowPlayingInterfaceController.h; sourceTree = "<group>"; };
 		DD6FA7AF1ACD641C006DEB2E /* VLCNowPlayingInterfaceController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = VLCNowPlayingInterfaceController.m; sourceTree = "<group>"; };
+		DD7110EE1AF38B2B00854776 /* MLMediaLibrary+playlist.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "MLMediaLibrary+playlist.h"; sourceTree = "<group>"; };
+		DD7110EF1AF38B2B00854776 /* MLMediaLibrary+playlist.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "MLMediaLibrary+playlist.m"; sourceTree = "<group>"; };
 		DD7635D41AF262D100240CB8 /* NSManagedObjectContext+refreshAll.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSManagedObjectContext+refreshAll.h"; sourceTree = "<group>"; };
 		DD7635D51AF262D100240CB8 /* NSManagedObjectContext+refreshAll.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSManagedObjectContext+refreshAll.m"; sourceTree = "<group>"; };
 		DDACEB541ADAD11300735484 /* WKInterfaceObject+VLCProgress.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "WKInterfaceObject+VLCProgress.h"; sourceTree = "<group>"; };
@@ -2468,6 +2472,7 @@
 				A7924697170F0ED20036AAF2 /* Resources */,
 				7D94FCE516DE7D1000F2623B /* Supporting Files */,
 				CC1BBC441704936500A20CBF /* External VLC Libraries */,
+				DD7110ED1AF38AFD00854776 /* SharedSources */,
 				4173AEA11ABF1B850004101D /* VLC for iOS WatchKit Extension */,
 				4173AEAF1ABF1B850004101D /* VLC for iOS WatchKit App */,
 				7D94FCDD16DE7D1000F2623B /* Frameworks */,
@@ -3008,6 +3013,15 @@
 				CC1BBC3E1704934200A20CBF /* libMobileVLCKit.a */,
 			);
 			name = "External VLC Libraries";
+			sourceTree = "<group>";
+		};
+		DD7110ED1AF38AFD00854776 /* SharedSources */ = {
+			isa = PBXGroup;
+			children = (
+				DD7110EE1AF38B2B00854776 /* MLMediaLibrary+playlist.h */,
+				DD7110EF1AF38B2B00854776 /* MLMediaLibrary+playlist.m */,
+			);
+			path = SharedSources;
 			sourceTree = "<group>";
 		};
 		E0C04F921A25B41C0080331A /* Document Picker */ = {
@@ -3638,6 +3652,7 @@
 				DDF157B11ACB162700AAFBC6 /* MediaLibrary.xcdatamodeld in Sources */,
 				DDE490731ACE964200B1B5E3 /* VLCBaseInterfaceController.m in Sources */,
 				DDE4906C1ACDB63F00B1B5E3 /* VLCNotificationRelay.m in Sources */,
+				DD7110F11AF38B2B00854776 /* MLMediaLibrary+playlist.m in Sources */,
 				DD1542121ACFF76400AFD4EC /* VLCWatchTableController.m in Sources */,
 				DD02C30E1ACAF4A50026EFEE /* VLCRowController.m in Sources */,
 				DD7635D61AF262D100240CB8 /* NSManagedObjectContext+refreshAll.m in Sources */,
@@ -3696,6 +3711,7 @@
 				7DC19ADF1868C7BB00810BF7 /* VLCFirstStepsViewController.m in Sources */,
 				7DE56C1A1AD93F9100E8CA00 /* VLCPlaybackController.m in Sources */,
 				7DC72D6317B7ED24008A26D0 /* WhiteRaccoon.m in Sources */,
+				DD7110F01AF38B2B00854776 /* MLMediaLibrary+playlist.m in Sources */,
 				7D5CAA891A4AD763003F2CBC /* VLCTrackSelectorTableViewCell.m in Sources */,
 				7D63C19018774B1700BD5256 /* VLCFirstStepsSecondPageViewController.m in Sources */,
 				8F91EC79195CEC7900F5BCBA /* VLCOpenInActivity.m in Sources */,
