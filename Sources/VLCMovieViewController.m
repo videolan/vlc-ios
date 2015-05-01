@@ -410,7 +410,9 @@ typedef NS_ENUM(NSInteger, VLCPanType) {
             [UIApplication sharedApplication].statusBarStyle = UIStatusBarStyleBlackTranslucent;
     }
 
-    [VLCPlaybackController sharedInstance].videoOutputView = self.movieView;
+    VLCPlaybackController *vpc = [VLCPlaybackController sharedInstance];
+    vpc.videoOutputView = self.movieView;
+    vpc.delegate = self;
 
     [self setControlsHidden:NO animated:YES];
 }
@@ -637,8 +639,6 @@ typedef NS_ENUM(NSInteger, VLCPanType) {
     LOCKCHECK;
 
     [self presentingViewControllerShouldBeClosed:nil];
-
-    [[VLCPlaybackController sharedInstance] stopPlayback];
 }
 
 - (IBAction)positionSliderAction:(UISlider *)sender
