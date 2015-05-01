@@ -36,6 +36,7 @@
     float _currentPlaybackRate;
     UIView *_videoOutputViewWrapper;
     UIView *_actualVideoOutputView;
+    UIView *_preBackgroundWrapperView;
 
     /* cached stuff for the VC */
     NSString *_title;
@@ -1020,6 +1021,9 @@ static inline NSArray * RemoteCommandCenterCommandsToHandle(MPRemoteCommandCente
 {
     [self _savePlaybackState];
 
+    _preBackgroundWrapperView = _videoOutputViewWrapper;
+    [self setVideoOutputView:nil];
+
     if (_mediaPlayer.audioTrackIndexes.count > 0)
         _mediaPlayer.currentVideoTrackIndex = -1;
 
@@ -1038,8 +1042,10 @@ static inline NSArray * RemoteCommandCenterCommandsToHandle(MPRemoteCommandCente
 
 - (void)applicationDidBecomeActive:(NSNotification *)notification
 {
-    if (_videoOutputViewWrapper)
-        [self setVideoOutputView:_videoOutputViewWrapper];
+    if (_preBackgroundWrapperView) {
+        [self setVideoOutputView:_preBackgroundWrapperView];
+        _preBackgroundWrapperView = nil;
+    }
 
     if (_mediaPlayer.numberOfVideoTracks > 0) {
         /* re-enable video decoding and reset position once done */
