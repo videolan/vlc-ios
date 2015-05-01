@@ -208,7 +208,6 @@
 
 - (void)pathMigrationToGroupsIfNeeded:(NSError **)migrationError
 {
-
     /*
      * We can't and don't need to migrate to groups on pre-iOS 7
      */
@@ -363,9 +362,13 @@
         _isComingFromHandoff = NO;
     }
 
-    if ([VLCPlaybackController sharedInstance].isPlaying && !self.movieViewController.presentingViewController) {
-        [self presentMovieViewController];
-    }
+    VLCPlaybackController *vpc = [VLCPlaybackController sharedInstance];
+
+    if (!vpc.audioOnlyPlaybackSession) {
+        if (vpc.isPlaying && !self.movieViewController.presentingViewController)
+            [self presentMovieViewController];
+    } else
+        [self.playlistViewController displayMiniPlaybackViewIfNeeded];
 }
 
 - (void)applicationWillTerminate:(UIApplication *)application
@@ -606,8 +609,6 @@
         vpc.fileFromMediaLibrary = [(MLShowEpisode*)mediaObject files].anyObject;
     [(MLFile *)vpc.fileFromMediaLibrary setUnread:@(NO)];
 
-    [self presentMovieViewController];
-
     [vpc startPlayback];
 }
 
@@ -621,8 +622,6 @@
     vpc.url = url;
     vpc.successCallback = successCallback;
     vpc.errorCallback = errorCallback;
-
-    [self presentMovieViewController];
 
     [vpc startPlayback];
 }
@@ -640,8 +639,6 @@
     vpc.itemInMediaListToBePlayedFirst = index;
     vpc.pathToExternalSubtitlesFile = nil;
 
-    [self presentMovieViewController];
-
     [vpc startPlayback];
 }
 
@@ -651,8 +648,6 @@
 
     vpc.url = url;
     vpc.pathToExternalSubtitlesFile = SubtitlePath;
-
-    [self presentMovieViewController];
 
     [vpc startPlayback];
 }

@@ -33,6 +33,7 @@
 
 - (void)cleanCache;
 
+- (void)presentMovieViewController;
 - (void)openMediaFromManagedObject:(NSManagedObject *)file;
 - (void)openMovieFromURL:(NSURL *)url;
 - (void)openMediaList:(VLCMediaList*)list atIndex:(int)index;
