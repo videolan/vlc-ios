@@ -52,7 +52,7 @@ currentMediaHasTrackToChooseFrom:(BOOL)currentMediaHasTrackToChooseFrom
 @property (nonatomic, retain) VLCMediaList *mediaList;
 @property (nonatomic, readwrite) int itemInMediaListToBePlayedFirst;
 
-/* returns nil if currenlty plaing item is not a MLFile, e.g. a url */
+/* returns nil if currently playing item is not a MLFile, e.g. a url */
 @property (nonatomic, strong, readonly) MLFile *currentlyPlayingMediaFile;
 
 @property (nonatomic, weak) id<VLCPlaybackControllerDelegate> delegate;
@@ -64,6 +64,8 @@ currentMediaHasTrackToChooseFrom:(BOOL)currentMediaHasTrackToChooseFrom
 @property (nonatomic, readwrite) float playbackRate;
 @property (nonatomic, readonly) BOOL currentMediaHasChapters;
 @property (nonatomic, readonly) BOOL currentMediaHasTrackToChooseFrom;
+@property (nonatomic, readonly) BOOL activePlaybackSession;
+@property (nonatomic, readonly) BOOL audioOnlyPlaybackSession;
 
 + (VLCPlaybackController *)sharedInstance;
 
