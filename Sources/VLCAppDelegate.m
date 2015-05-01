@@ -694,13 +694,6 @@
     }
 
     [self openMediaFromManagedObject:managedObject];
-    UIApplication *application = [UIApplication sharedApplication];
-
-    BOOL appShouldBeOpenedForPlayback = [[NSUserDefaults standardUserDefaults] boolForKey:kVLCSettingOpenAppForPlayback];
-    BOOL appIsInBackground = [application applicationState] == UIApplicationStateBackground;
-    if (appShouldBeOpenedForPlayback && appIsInBackground) {
-        [application openURL:[NSURL URLWithString:@"vlc-x-callback://x-callback-url"]];
-    }
 }
 
 - (NSDictionary *)nowPlayingResponseDict {
