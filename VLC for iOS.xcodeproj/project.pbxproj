@@ -337,6 +337,7 @@
 		7D94FCDF16DE7D1000F2623B /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 7D94FCDE16DE7D1000F2623B /* UIKit.framework */; };
 		7D94FCE116DE7D1000F2623B /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 7D94FCE016DE7D1000F2623B /* Foundation.framework */; };
 		7D94FCE316DE7D1000F2623B /* CoreGraphics.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 7D94FCE216DE7D1000F2623B /* CoreGraphics.framework */; };
+		7D95610B1AF3E9E800779745 /* VLCMiniPlaybackView.m in Sources */ = {isa = PBXBuildFile; fileRef = 7D95610A1AF3E9E800779745 /* VLCMiniPlaybackView.m */; };
 		7D9870201A3DEC99009CF27D /* modernSliderKnob@3x.png in Resources */ = {isa = PBXBuildFile; fileRef = 7D98701F1A3DEC99009CF27D /* modernSliderKnob@3x.png */; };
 		7D9870221A3DECA8009CF27D /* forwardIcon@3x.png in Resources */ = {isa = PBXBuildFile; fileRef = 7D9870211A3DECA8009CF27D /* forwardIcon@3x.png */; };
 		7D9870241A3DECB1009CF27D /* arrows@3x.png in Resources */ = {isa = PBXBuildFile; fileRef = 7D9870231A3DECB1009CF27D /* arrows@3x.png */; };
@@ -1250,6 +1251,8 @@
 		7D94FCDE16DE7D1000F2623B /* UIKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = UIKit.framework; path = System/Library/Frameworks/UIKit.framework; sourceTree = SDKROOT; };
 		7D94FCE016DE7D1000F2623B /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = System/Library/Frameworks/Foundation.framework; sourceTree = SDKROOT; };
 		7D94FCE216DE7D1000F2623B /* CoreGraphics.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreGraphics.framework; path = System/Library/Frameworks/CoreGraphics.framework; sourceTree = SDKROOT; };
+		7D9561091AF3E9E800779745 /* VLCMiniPlaybackView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = VLCMiniPlaybackView.h; path = Sources/VLCMiniPlaybackView.h; sourceTree = SOURCE_ROOT; };
+		7D95610A1AF3E9E800779745 /* VLCMiniPlaybackView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = VLCMiniPlaybackView.m; path = Sources/VLCMiniPlaybackView.m; sourceTree = SOURCE_ROOT; };
 		7D98701F1A3DEC99009CF27D /* modernSliderKnob@3x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "modernSliderKnob@3x.png"; sourceTree = "<group>"; };
 		7D9870211A3DECA8009CF27D /* forwardIcon@3x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "forwardIcon@3x.png"; sourceTree = "<group>"; };
 		7D9870231A3DECB1009CF27D /* arrows@3x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "arrows@3x.png"; sourceTree = "<group>"; };
@@ -2291,6 +2294,8 @@
 				7DE56C191AD93F9100E8CA00 /* VLCPlaybackController.m */,
 				7D37848D183A98B6009EE944 /* VLCMovieViewController.h */,
 				7D37848E183A98B6009EE944 /* VLCMovieViewController.m */,
+				7D9561091AF3E9E800779745 /* VLCMiniPlaybackView.h */,
+				7D95610A1AF3E9E800779745 /* VLCMiniPlaybackView.m */,
 				7D378490183A98BF009EE944 /* VLCExternalDisplayController.h */,
 				7D378491183A98BF009EE944 /* VLCExternalDisplayController.m */,
 				7D4625861A5614A1001A80B4 /* VLCEqualizerView.h */,
@@ -3690,6 +3695,7 @@
 				2915542617490A9C00B86CAD /* DDFileLogger.m in Sources */,
 				26D4AF8D1A78379000D5EC65 /* VLCSharedLibraryListViewController.m in Sources */,
 				2915542717490A9C00B86CAD /* DDLog.m in Sources */,
+				7D95610B1AF3E9E800779745 /* VLCMiniPlaybackView.m in Sources */,
 				2915542817490A9C00B86CAD /* DDTTYLogger.m in Sources */,
 				2915542917490A9C00B86CAD /* ContextFilterLogFormatter.m in Sources */,
 				2915542A17490A9C00B86CAD /* DispatchQueueLogFormatter.m in Sources */,
