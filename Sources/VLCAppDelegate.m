@@ -32,6 +32,7 @@
 #import "VLCNotificationRelay.h"
 #import "VLCPlaybackController.h"
 #import "VLCNavigationController.h"
+#import "VLCWatchMessage.h"
 
 #define HAVE_FABRIC 0
 
@@ -662,45 +663,47 @@
                                                                                    taskIdentifier = UIBackgroundTaskInvalid;
     }];
 
+    VLCWatchMessage *message = [[VLCWatchMessage alloc] initWithDictionary:userInfo];
+    NSString *name = message.name;
     NSDictionary *responseDict = nil;
-    if ([userInfo[@"name"] isEqualToString:@"getNowPlayingInfo"]) {
+    if ([name isEqualToString:VLCWatchMessageNameGetNowPlayingInfo]) {
         responseDict = [self nowPlayingResponseDict];
-    } else if ([userInfo[@"name"] isEqualToString:@"playpause"]) {
+    } else if ([name isEqualToString:VLCWatchMessageNamePlayPause]) {
         [[VLCPlaybackController sharedInstance] playPause];
         responseDict = @{@"playing": @([VLCPlaybackController sharedInstance].isPlaying)};
-    } else if ([userInfo[@"name"] isEqualToString:@"skipForward"]) {
+    } else if ([name isEqualToString:VLCWatchMessageNameSkipForward]) {
         [[VLCPlaybackController sharedInstance] forward];
-    } else if ([userInfo[@"name"] isEqualToString:@"skipBackward"]) {
+    } else if ([name isEqualToString:VLCWatchMessageNameSkipBackward]) {
         [[VLCPlaybackController sharedInstance] backward];
-    } else if ([userInfo[@"name"] isEqualToString:@"playFile"]) {
-        [self playFileFromWatch:userInfo[@"userInfo"]];
-    } else if ([userInfo[@"name"] isEqualToString:@"setVolume"]) {
-        [self setVolumeFromWatch:userInfo[@"userInfo"]];
+    } else if ([name isEqualToString:VLCWatchMessageNamePlayFile]) {
+        [self playFileFromWatch:message];
+    } else if ([name isEqualToString:VLCWatchMessageNameSetVolume]) {
+        [self setVolumeFromWatch:message];
     } else {
         NSLog(@"Did not handle request from WatchKit Extension: %@",userInfo);
     }
     reply(responseDict);
 }
 
-- (void)playFileFromWatch:(NSDictionary *)userInfo
+- (void)playFileFromWatch:(VLCWatchMessage *)message
 {
     NSManagedObject *managedObject = nil;
-    NSString *uriString = userInfo[@"URIRepresentation"];
-    if (uriString) {
+    NSString *uriString = (id)message.payload;
+    if ([uriString isKindOfClass:[NSString class]]) {
         NSURL *uriRepresentation = [NSURL URLWithString:uriString];
         managedObject = [[MLMediaLibrary sharedMediaLibrary] objectForURIRepresentation:uriRepresentation];
     }
     if (managedObject == nil) {
-        NSLog(@"%s file not found: %@",__PRETTY_FUNCTION__,userInfo);
+        NSLog(@"%s file not found: %@",__PRETTY_FUNCTION__,message);
         return;
     }
 
     [self openMediaFromManagedObject:managedObject];
 }
 
-- (void)setVolumeFromWatch:(NSDictionary *)userInfo
+- (void)setVolumeFromWatch:(VLCWatchMessage *)message
 {
-    NSNumber *volume = userInfo[@"volume"];
+    NSNumber *volume = (id)message.payload;
     if ([volume isKindOfClass:[NSNumber class]]) {
         /*
          * Since WatchKit doen't provide something like MPVolumeView we use deprecated API.

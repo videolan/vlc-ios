@@ -17,6 +17,7 @@
 #import "VLCNotificationRelay.h"
 #import "VLCThumbnailsCache.h"
 #import "WKInterfaceObject+VLCProgress.h"
+#import "VLCWatchMessage.h"
 
 @interface VLCNowPlayingInterfaceController ()
 {
@@ -71,7 +72,7 @@
 }
 
 - (void)requestNowPlayingInfo {
-    [WKInterfaceController openParentApplication:@{@"name": @"getNowPlayingInfo"} reply:^(NSDictionary *replyInfo, NSError *error) {
+    [WKInterfaceController openParentApplication:[VLCWatchMessage messageDictionaryForName:VLCWatchMessageNameGetNowPlayingInfo] reply:^(NSDictionary *replyInfo, NSError *error) {
         MLFile *file = nil;
         NSString *uriString = replyInfo[@"URIRepresentation"];
         if (uriString) {
@@ -123,7 +124,8 @@
 }
 
 - (IBAction)playPausePressed {
-    [WKInterfaceController openParentApplication:@{@"name": @"playpause"} reply:^(NSDictionary *replyInfo, NSError *error) {
+    NSDictionary *dict = [VLCWatchMessage messageDictionaryForName:VLCWatchMessageNamePlayPause];
+    [WKInterfaceController openParentApplication:dict reply:^(NSDictionary *replyInfo, NSError *error) {
         NSNumber *playing = replyInfo[@"playing"];
         if ([playing isKindOfClass:[NSNumber class]]) {
             self.playing = playing.boolValue;
@@ -136,14 +138,18 @@
 }
 
 - (IBAction)skipForward {
-    [WKInterfaceController openParentApplication:@{@"name": @"skipForward"} reply:^(NSDictionary *replyInfo, NSError *error) {
+    NSDictionary *dict = [VLCWatchMessage messageDictionaryForName:VLCWatchMessageNameSkipForward];
+
+    [WKInterfaceController openParentApplication:dict reply:^(NSDictionary *replyInfo, NSError *error) {
         if (error)
             NSLog(@"skipForward failed with reply %@ error: %@",replyInfo,error);
     }];
 }
 
 - (IBAction)skipBackward {
-    [WKInterfaceController openParentApplication:@{@"name": @"skipBackward"} reply:^(NSDictionary *replyInfo, NSError *error) {
+    NSDictionary *dict = [VLCWatchMessage messageDictionaryForName:VLCWatchMessageNameSkipBackward];
+
+    [WKInterfaceController openParentApplication:dict reply:^(NSDictionary *replyInfo, NSError *error) {
         if (error)
             NSLog(@"skipBackward failed with reply %@ error: %@",replyInfo,error);
     }];
@@ -151,11 +157,8 @@
 
 - (IBAction)volumeSliderChanged:(float)value {
     _volume = value;
-    NSDictionary *dict = @{@"name" : @"setVolume",
-                           @"userInfo" : @{
-                                   @"volume" : @(value)
-                                   },
-                           };
+    NSDictionary *dict = [VLCWatchMessage messageDictionaryForName:VLCWatchMessageNameSetVolume
+                                                           payload:@(value)];
     [WKInterfaceController openParentApplication:dict reply:^(NSDictionary *replyInfo, NSError *error) {
         if (error)
             NSLog(@"setVolume failed with reply %@ error: %@",replyInfo,error);
