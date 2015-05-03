@@ -69,6 +69,7 @@ typedef NS_ENUM(NSInteger, VLCPanType) {
     BOOL _isScrubbing;
     BOOL _interfaceIsLocked;
     BOOL _switchingTracksNotChapters;
+    BOOL _audioOnly;
 
     BOOL _swipeGesturesEnabled;
     UIPinchGestureRecognizer *_pinchRecognizer;
@@ -546,6 +547,10 @@ typedef NS_ENUM(NSInteger, VLCPanType) {
         }
         _multiSelectionView.alpha = 0.0f;
         _multiSelectionView.hidden = YES;
+
+        _artistNameLabel.hidden = NO;
+        _albumNameLabel.hidden = NO;
+        _trackNameLabel.hidden = NO;
     }
 
     void (^animationBlock)() = ^() {
@@ -559,6 +564,11 @@ typedef NS_ENUM(NSInteger, VLCPanType) {
         _multiSelectionView.alpha = alpha;
         if (_sleepTimerContainer)
             _sleepTimerContainer.alpha = alpha;
+
+        CGFloat metaInfoAlpha = _audioOnly ? 1.0f : alpha;
+        _artistNameLabel.alpha = metaInfoAlpha;
+        _albumNameLabel.alpha = metaInfoAlpha;
+        _trackNameLabel.alpha = metaInfoAlpha;
     };
 
     void (^completionBlock)(BOOL finished) = ^(BOOL finished) {
@@ -572,6 +582,10 @@ typedef NS_ENUM(NSInteger, VLCPanType) {
         if (_sleepTimerContainer)
             _sleepTimerContainer.hidden = YES;
         _multiSelectionView.hidden = YES;
+
+        _artistNameLabel.hidden = _audioOnly ? NO : _controlsHidden;
+        _albumNameLabel.hidden =  _audioOnly ? NO : _controlsHidden;
+        _trackNameLabel.hidden =  _audioOnly ? NO : _controlsHidden;
     };
 
     UIStatusBarAnimation animationType = animated? UIStatusBarAnimationFade: UIStatusBarAnimationNone;
@@ -822,6 +836,8 @@ currentMediaHasTrackToChooseFrom:(BOOL)currentMediaHasTrackToChooseFrom
     self.timeNavigationTitleView.positionSlider.hidden = NO;
 
     self.videoFilterButton.hidden = audioOnly;
+
+    _audioOnly = audioOnly;
 }
 
 - (IBAction)playPause
