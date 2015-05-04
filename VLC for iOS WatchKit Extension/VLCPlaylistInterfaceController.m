@@ -44,6 +44,15 @@ static NSString *const VLCDBUpdateNotificationRemote = @"org.videolan.ios-app.db
     [super awakeWithContext:context];
 
     NSURL *groupURL = [[NSFileManager defaultManager] containerURLForSecurityApplicationGroupIdentifier:@"group.org.videolan.vlc-ios"];
+#if TARGET_IPHONE_SIMULATOR
+    // if something went wrong with the entitlements in the Simulator
+    if (!groupURL) {
+        NSArray *pathComponents = [[[NSBundle mainBundle] bundlePath] pathComponents];
+        pathComponents = [pathComponents subarrayWithRange:NSMakeRange(0, pathComponents.count-4)];
+        NSString *groupPath = [[NSString pathWithComponents:pathComponents] stringByAppendingPathComponent:@"Shared/AppGroup/fake-group.org.videolan.vlc-ios"];
+        groupURL = [NSURL fileURLWithPath:groupPath];
+    }
+#endif
     MLMediaLibrary *mediaLibrary = [MLMediaLibrary sharedMediaLibrary];
     mediaLibrary.libraryBasePath = groupURL.path;
     mediaLibrary.additionalPersitentStoreOptions = @{NSReadOnlyPersistentStoreOption : @YES};

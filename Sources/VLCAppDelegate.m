@@ -218,7 +218,15 @@
 
     MLMediaLibrary *mediaLibrary = [MLMediaLibrary sharedMediaLibrary];
     NSURL *groupURL = [[NSFileManager defaultManager] containerURLForSecurityApplicationGroupIdentifier:@"group.org.videolan.vlc-ios"];
-
+#if TARGET_IPHONE_SIMULATOR
+    // if something went wrong with the entitlements in the Simulator
+    if (!groupURL) {
+        NSArray *pathComponents = [[[NSBundle mainBundle] bundlePath] pathComponents];
+        pathComponents = [pathComponents subarrayWithRange:NSMakeRange(0, pathComponents.count-4)];
+        NSString *groupPath = [[NSString pathWithComponents:pathComponents] stringByAppendingPathComponent:@"Shared/AppGroup/fake-group.org.videolan.vlc-ios"];
+        groupURL = [NSURL fileURLWithPath:groupPath];
+    }
+#endif
     NSString *oldBasePath = [mediaLibrary libraryBasePath];
     NSString *oldPersistentStorePath = [oldBasePath stringByAppendingPathComponent: @"MediaLibrary.sqlite"];
 
