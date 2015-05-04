@@ -36,9 +36,8 @@
     if (!self)
         return self;
 
-    CGRect workingRect;
     CGRect previousRect;
-    CGFloat buttonGap = 10.;
+    CGFloat buttonSize = 44.;
 
     _artworkView = [[UIImageView alloc] initWithFrame:CGRectMake(0., 0., 60., 60.)];
     _artworkView.autoresizingMask = UIViewAutoresizingFlexibleRightMargin;
@@ -47,13 +46,9 @@
     /* build buttons from right to left */
     _expandButton = [UIButton buttonWithType:UIButtonTypeCustom];
     [_expandButton setImage:[UIImage imageNamed:@"ratioIcon"] forState:UIControlStateNormal];
-    [_expandButton sizeToFit];
     _expandButton.autoresizingMask = UIViewAutoresizingFlexibleLeftMargin;
     [_expandButton addTarget:self action:@selector(pushFullPlaybackView:) forControlEvents:UIControlEventTouchUpInside];
-    workingRect = _expandButton.frame;
-    workingRect.origin.x = viewFrame.size.width - buttonGap * 2. - workingRect.size.width;
-    workingRect.origin.y = (viewFrame.size.height - workingRect.size.height) / 2.;
-    _expandButton.frame = previousRect = workingRect;
+    _expandButton.frame = previousRect = CGRectMake(viewFrame.size.width - buttonSize, (viewFrame.size.height - buttonSize) / 2., buttonSize, buttonSize);
     [self addSubview:_expandButton];
 
     _nextButton = [UIButton buttonWithType:UIButtonTypeCustom];
@@ -61,10 +56,7 @@
     [_nextButton sizeToFit];
     _nextButton.autoresizingMask = UIViewAutoresizingFlexibleLeftMargin;
     [_nextButton addTarget:self action:@selector(nextAction:) forControlEvents:UIControlEventTouchUpInside];
-    workingRect = _nextButton.frame;
-    workingRect.origin.x = previousRect.origin.x - buttonGap * 2. - workingRect.size.width;
-    workingRect.origin.y = (viewFrame.size.height - workingRect.size.height) / 2.;
-    _nextButton.frame = previousRect = workingRect;
+    _nextButton.frame = previousRect = CGRectMake(previousRect.origin.x - buttonSize, (viewFrame.size.height - buttonSize) / 2., buttonSize, buttonSize);
     [self addSubview:_nextButton];
 
     _playPauseButton = [UIButton buttonWithType:UIButtonTypeCustom];
@@ -72,28 +64,23 @@
     [_playPauseButton sizeToFit];
     _playPauseButton.autoresizingMask = UIViewAutoresizingFlexibleLeftMargin;
     [_playPauseButton addTarget:self action:@selector(playPauseAction:) forControlEvents:UIControlEventTouchUpInside];
-    workingRect = _playPauseButton.frame;
-    workingRect.origin.x = previousRect.origin.x - buttonGap - workingRect.size.width;
-    workingRect.origin.y = (viewFrame.size.height - workingRect.size.height) / 2.;
-    _playPauseButton.frame = previousRect = workingRect;
+    _playPauseButton.frame = previousRect = CGRectMake(previousRect.origin.x - buttonSize, (viewFrame.size.height - buttonSize) / 2., buttonSize, buttonSize);
     [self addSubview:_playPauseButton];
 
     _previousButton = [UIButton buttonWithType:UIButtonTypeCustom];
     [_previousButton setImage:[UIImage imageNamed:@"backIcon"] forState:UIControlStateNormal];
     [_previousButton sizeToFit];
     _previousButton.autoresizingMask = UIViewAutoresizingFlexibleLeftMargin;
-    [_playPauseButton addTarget:self action:@selector(previousAction:) forControlEvents:UIControlEventTouchUpInside];
-    workingRect = _previousButton.frame;
-    workingRect.origin.x = previousRect.origin.x - buttonGap - workingRect.size.width;
-    workingRect.origin.y = (viewFrame.size.height - workingRect.size.height) / 2.;
-    _previousButton.frame = previousRect = workingRect;
+    [_previousButton addTarget:self action:@selector(previousAction:) forControlEvents:UIControlEventTouchUpInside];
+    _previousButton.frame = previousRect = CGRectMake(previousRect.origin.x - buttonSize, (viewFrame.size.height - buttonSize) / 2., buttonSize, buttonSize);
     [self addSubview:_previousButton];
 
     CGFloat artworkViewWidth = _artworkView.frame.size.width;
-    _metaDataLabel = [[UILabel alloc] initWithFrame:CGRectMake(artworkViewWidth + buttonGap, 0., previousRect.origin.x - artworkViewWidth - buttonGap, viewFrame.size.height)];
+    _metaDataLabel = [[UILabel alloc] initWithFrame:CGRectMake(artworkViewWidth, 0., previousRect.origin.x - artworkViewWidth, viewFrame.size.height)];
     _metaDataLabel.font = [UIFont systemFontOfSize:12.];
     _metaDataLabel.textColor = [UIColor VLCLightTextColor];
     _metaDataLabel.numberOfLines = 0;
+    _metaDataLabel.autoresizingMask = UIViewAutoresizingFlexibleWidth;
     [self addSubview:_metaDataLabel];
 
     return self;
