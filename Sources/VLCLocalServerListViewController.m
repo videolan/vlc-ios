@@ -453,6 +453,7 @@
     UPnPManager *managerInstance = [UPnPManager GetInstance];
     [[managerInstance DB] removeObserver:self];
     [[managerInstance SSDP] stopSSDP];
+    [self _stopDSMDiscovery];
 
     //set the title while refreshing
     _refreshControl.attributedTitle = [[NSAttributedString alloc]initWithString:NSLocalizedString(@"LOCAL_SERVER_REFRESH",nil)];
@@ -671,6 +672,7 @@
 - (void)_stopDSMDiscovery
 {
     [_dsmDiscoverer stopDiscoverer];
+    _dsmDiscoverer = nil;
 }
 
 @end
