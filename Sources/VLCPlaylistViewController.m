@@ -248,21 +248,6 @@ static NSString *kDisplayedFirstSteps = @"Did we display the first steps tutoria
         [defaults synchronize];
     }
 
-    if ([[MLMediaLibrary sharedMediaLibrary] libraryNeedsUpgrade]) {
-        self.navigationItem.rightBarButtonItem = nil;
-        self.navigationItem.leftBarButtonItem = nil;
-        self.title = @"";
-        self.emptyLibraryView.emptyLibraryLabel.text = NSLocalizedString(@"UPGRADING_LIBRARY", nil);
-        self.emptyLibraryView.emptyLibraryLongDescriptionLabel.hidden = YES;
-        [self.emptyLibraryView.activityIndicator startAnimating];
-        self.emptyLibraryView.frame = self.view.bounds;
-        [self.view addSubview:self.emptyLibraryView];
-
-        [[MLMediaLibrary sharedMediaLibrary] setDelegate: self];
-        [[MLMediaLibrary sharedMediaLibrary] performSelectorInBackground:@selector(upgradeLibrary) withObject:nil];
-        return;
-    }
-
     if (_foundMedia.count < 1)
         [self updateViewContents];
     [[MLMediaLibrary sharedMediaLibrary] performSelector:@selector(libraryDidAppear) withObject:nil afterDelay:1.];
