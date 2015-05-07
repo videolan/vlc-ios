@@ -26,7 +26,7 @@
     [self.statusLabel setText:NSLocalizedString(@"UPGRADING_LIBRARY", "")];
     dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), ^{
         NSLog(@"migrating coredata");
-        [[MLMediaLibrary sharedMediaLibrary] persistentStoreCoordinator];
+        [[MLMediaLibrary sharedMediaLibrary] migrateLibrary];
         dispatch_async(dispatch_get_main_queue(), ^{
             self.completionHandler();
         });
