@@ -139,12 +139,13 @@
     };
 
     NSError *error = nil;
-    [self pathMigrationToGroupsIfNeeded:&error];
-    if ([self migrationNeeded:&error]){
+
+    if ([[MLMediaLibrary sharedMediaLibrary] libraryMigrationNeeded]){
         _isRunningMigration = YES;
 
         VLCMigrationViewController *migrationController = [[VLCMigrationViewController alloc] initWithNibName:@"VLCMigrationViewController" bundle:nil];
         migrationController.completionHandler = ^{
+
             //migrate
             setupBlock();
             _isRunningMigration = NO;
@@ -205,59 +206,6 @@
     if (error.code != NSUserCancelledError){
         //TODO: present alert
     }
-}
-
-- (void)pathMigrationToGroupsIfNeeded:(NSError **)migrationError
-{
-    /*
-     * We can't and don't need to migrate to groups on pre-iOS 7
-     */
-    if (![[NSFileManager defaultManager] respondsToSelector:@selector(containerURLForSecurityApplicationGroupIdentifier:)]) {
-        return;
-    }
-
-    MLMediaLibrary *mediaLibrary = [MLMediaLibrary sharedMediaLibrary];
-    NSURL *groupURL = [[NSFileManager defaultManager] containerURLForSecurityApplicationGroupIdentifier:@"group.org.videolan.vlc-ios"];
-#if TARGET_IPHONE_SIMULATOR
-    // if something went wrong with the entitlements in the Simulator
-    if (!groupURL) {
-        NSArray *pathComponents = [[[NSBundle mainBundle] bundlePath] pathComponents];
-        pathComponents = [pathComponents subarrayWithRange:NSMakeRange(0, pathComponents.count-4)];
-        NSString *groupPath = [[NSString pathWithComponents:pathComponents] stringByAppendingPathComponent:@"Shared/AppGroup/fake-group.org.videolan.vlc-ios"];
-        groupURL = [NSURL fileURLWithPath:groupPath];
-    }
-#endif
-    NSString *oldBasePath = [mediaLibrary libraryBasePath];
-    NSString *oldPersistentStorePath = [oldBasePath stringByAppendingPathComponent: @"MediaLibrary.sqlite"];
-
-    NSError *error = nil;
-    if (![[NSFileManager defaultManager] fileExistsAtPath:oldPersistentStorePath]) {
-        mediaLibrary.libraryBasePath = groupURL.path;
-    } else if (![mediaLibrary migrateLibraryToBasePath:groupURL.path error:&error]) {
-        NSLog(@"Failed to migrate Library to new location with error: %@", error);
-    }
-
-    if (migrationError && error) {
-        *migrationError = error;
-    }
-}
-
-- (BOOL)migrationNeeded:(NSError **) migrationCheckError {
-
-    BOOL migrationNeeded = NO;
-
-    if ([[NSFileManager defaultManager] fileExistsAtPath:((MLMediaLibrary *)[MLMediaLibrary sharedMediaLibrary]).persistentStoreURL.path]) {
-        NSDictionary *sourceMetadata = [NSPersistentStoreCoordinator metadataForPersistentStoreOfType:NSSQLiteStoreType
-                                                                                                  URL:((MLMediaLibrary *)[MLMediaLibrary sharedMediaLibrary]).persistentStoreURL
-                                                                                                error:migrationCheckError];
-        if (*migrationCheckError) {
-            return NO;
-        }
-        NSManagedObjectModel *destinationModel = [[MLMediaLibrary sharedMediaLibrary] managedObjectModel];
-        migrationNeeded = ![destinationModel isConfiguration:nil compatibleWithStoreMetadata:sourceMetadata];
-    }
-
-    return migrationNeeded;
 }
 
 - (BOOL)application:(UIApplication *)application openURL:(NSURL *)url sourceApplication:(NSString *)sourceApplication annotation:(id)annotation
