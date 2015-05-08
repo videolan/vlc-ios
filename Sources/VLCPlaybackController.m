@@ -175,9 +175,9 @@
         [_mediaPlayer openVideoSubTitlesFromFile:self.pathToExternalSubtitlesFile];
 
     VLCMedia *media;
-    if (self.fileFromMediaLibrary) {
-        MLFile *item = self.fileFromMediaLibrary;
-        media = [VLCMedia mediaWithURL:[NSURL URLWithString:item.url]];
+    MLFile *item = self.fileFromMediaLibrary;
+    if (item) {
+        media = [VLCMedia mediaWithURL:item.url];
         media.delegate = self;
     } else if (self.mediaList) {
         media = [self.mediaList mediaAtIndex:self.itemInMediaListToBePlayedFirst];
@@ -408,7 +408,7 @@
             APLog(@"failed to save current media state - file removed?");
         }
     } else {
-        NSArray *files = [MLFile fileForURL:[[_mediaPlayer.media url] absoluteString]];
+        NSArray *files = [MLFile fileForURL:_mediaPlayer.media.url];
         if (files.count > 0) {
             MLFile *fileFromList = files.firstObject;
             fileFromList.lastPosition = @([_mediaPlayer position]);
@@ -727,7 +727,7 @@
     if (mediaFile) {
         return mediaFile;
     } else if (self.mediaList) {
-        NSArray *results = [MLFile fileForURL:_mediaPlayer.media.url.absoluteString];
+        NSArray *results = [MLFile fileForURL:_mediaPlayer.media.url];
         return results.firstObject;
     }
 
@@ -771,7 +771,7 @@
     if (self.fileFromMediaLibrary)
         item = self.fileFromMediaLibrary;
     else if (self.mediaList) {
-        NSArray *matches = [MLFile fileForURL:[_mediaPlayer.media.url absoluteString]];
+        NSArray *matches = [MLFile fileForURL:_mediaPlayer.media.url];
         item = matches.firstObject;
     }
 
