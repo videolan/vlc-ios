@@ -380,9 +380,9 @@ static NSString *kDisplayedFirstSteps = @"Did we display the first steps tutoria
         [self rearrangeFolderTrackNumbersForRemovedItem:mediaObject];
 
     NSFileManager *fileManager = [NSFileManager defaultManager];
-    NSString *folderLocation = [[[NSURL URLWithString:mediaObject.url] path] stringByDeletingLastPathComponent];
+    NSString *folderLocation = [[mediaObject.url path] stringByDeletingLastPathComponent];
     NSArray *allfiles = [fileManager contentsOfDirectoryAtPath:folderLocation error:nil];
-    NSString *fileName = [[[[NSURL URLWithString:mediaObject.url] path] lastPathComponent] stringByDeletingPathExtension];
+    NSString *fileName = [mediaObject.path.lastPathComponent stringByDeletingPathExtension];
     NSIndexSet *indexSet = [allfiles indexesOfObjectsPassingTest:^BOOL(id obj, NSUInteger idx, BOOL *stop) {
        return ([obj rangeOfString:fileName].location != NSNotFound);
     }];
@@ -395,7 +395,7 @@ static NSString *kDisplayedFirstSteps = @"Did we display the first steps tutoria
             [fileManager removeItemAtPath:[folderLocation stringByAppendingPathComponent:additionalFilePath] error:nil];
         currentIndex = [indexSet indexGreaterThanIndex:currentIndex];
     }
-    [fileManager removeItemAtPath:[[NSURL URLWithString:mediaObject.url] path] error:nil];
+    [fileManager removeItemAtURL:mediaObject.url error:nil];
 }
 
 - (void)_displayEmptyLibraryViewIfNeeded
@@ -664,7 +664,7 @@ static NSString *kDisplayedFirstSteps = @"Did we display the first steps tutoria
         VLCMedia *media;
         for (NSInteger x = count - 1; x > -1; x--) {
             file = [(MLAlbumTrack*)_tracks[x] files].anyObject;
-            media = [VLCMedia mediaWithURL: [NSURL URLWithString:file.url]];
+            media = [VLCMedia mediaWithURL:file.url];
             [media parse];
             [_list addMedia:media];
         }
@@ -678,7 +678,7 @@ static NSString *kDisplayedFirstSteps = @"Did we display the first steps tutoria
         MLFile *file;
         for (NSInteger x = count - 1; x > -1; x--) {
             file = (MLFile *)_tracks[x];
-            [_list addMedia:[VLCMedia mediaWithURL:[NSURL URLWithString:file.url]]];
+            [_list addMedia:[VLCMedia mediaWithURL:file.url]];
         }
         _mediaToPlayIndex = indexPath.row;
     } else {
@@ -822,7 +822,7 @@ static NSString *kDisplayedFirstSteps = @"Did we display the first steps tutoria
         MLFile *file;
         for (NSInteger x = count - 1; x > -1; x--) {
             file = [(MLAlbumTrack*)tracks[x] files].anyObject;
-            [list addMedia:[VLCMedia mediaWithURL: [NSURL URLWithString:file.url]]];
+            [list addMedia:[VLCMedia mediaWithURL:file.url]];
         }
         [(VLCAppDelegate*)[UIApplication sharedApplication].delegate openMediaList:list atIndex:(int)[tracks indexOfObject:selectedObject]];
     } else if ([selectedObject isKindOfClass:[MLFile class]] && [((MLFile *)selectedObject).labels count] > 0) {
@@ -835,7 +835,7 @@ static NSString *kDisplayedFirstSteps = @"Did we display the first steps tutoria
         MLFile *file;
         for (NSInteger x = count - 1; x > -1; x--) {
             file = (MLFile *)folderTracks[x];
-            [list addMedia:[VLCMedia mediaWithURL:[NSURL URLWithString:file.url]]];
+            [list addMedia:[VLCMedia mediaWithURL:file.url]];
         }
         [(VLCAppDelegate *)[UIApplication sharedApplication].delegate openMediaList:list atIndex:(int)[folderTracks indexOfObject:selectedObject]];
     } else
@@ -1317,11 +1317,11 @@ static NSString *kDisplayedFirstSteps = @"Did we display the first steps tutoria
             NSURL *fileURL;
 
             if ([mediaItem isKindOfClass:[MLFile class]])
-                fileURL = [NSURL URLWithString:[(MLFile *)mediaItem url]];
+                fileURL = [(MLFile *) mediaItem url];
             else if ([mediaItem isKindOfClass:[MLAlbumTrack class]])
-                fileURL = [NSURL URLWithString:[(MLFile *)[[(MLAlbumTrack *)mediaItem files] anyObject] url]];
+                fileURL = [(MLFile *) [[(MLAlbumTrack *) mediaItem files] anyObject] url];
             else if ([mediaItem isKindOfClass:[MLShowEpisode class]])
-                fileURL = [NSURL URLWithString:[(MLFile *)[[(MLShowEpisode *)mediaItem files] anyObject] url]];
+                fileURL = [(MLFile *) [[(MLShowEpisode *) mediaItem files] anyObject] url];
 
             if ([fileURL isFileURL])
                 [fileURLobjects addObject:fileURL];

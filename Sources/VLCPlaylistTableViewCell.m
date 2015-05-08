@@ -424,9 +424,9 @@
         trackCount = spuTracks.count;
         if (trackCount == 0) {
             NSFileManager *fileManager = [NSFileManager defaultManager];
-            NSString *folderLocation = [[[NSURL URLWithString:theFile.url] path] stringByDeletingLastPathComponent];
+            NSString *folderLocation = [theFile.url.path stringByDeletingLastPathComponent];
             NSArray *allfiles = [fileManager contentsOfDirectoryAtPath:folderLocation error:nil];
-            NSString *fileName = [[[[NSURL URLWithString:theFile.url] path] lastPathComponent] stringByDeletingPathExtension];
+            NSString *fileName = [theFile.path.lastPathComponent stringByDeletingPathExtension];
             NSUInteger count = allfiles.count;
             NSString *additionalFilePath;
             for (unsigned int x = 0; x < count; x++) {
