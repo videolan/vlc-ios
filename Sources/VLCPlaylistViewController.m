@@ -379,6 +379,16 @@ static NSString *kDisplayedFirstSteps = @"Did we display the first steps tutoria
     if (inFolder)
         [self rearrangeFolderTrackNumbersForRemovedItem:mediaObject];
 
+    /* stop playback if needed */
+    VLCPlaybackController *vpc = [VLCPlaybackController sharedInstance];
+    if (vpc.isPlaying) {
+        MLFile *currentlyPlayingFile = [[MLFile fileForURL:vpc.mediaPlayer.media.url] firstObject];
+        if (currentlyPlayingFile) {
+            if (currentlyPlayingFile == mediaObject)
+                [vpc stopPlayback];
+        }
+    }
+
     NSFileManager *fileManager = [NSFileManager defaultManager];
     NSString *folderLocation = [[mediaObject.url path] stringByDeletingLastPathComponent];
     NSArray *allfiles = [fileManager contentsOfDirectoryAtPath:folderLocation error:nil];
