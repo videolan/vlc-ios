@@ -13,9 +13,9 @@
 "PLAY_BUTTON"="Play";
 "PAUSE_BUTTON"="Pause";
 
-"VOLUME_SLIDER"="Volume";
-"DURATION_LABEL"="Duration";
-"TITLE_LABEL"="Title";
+"VOLUME"="Volume";
+"DURATION"="Duration";
+"TITLE"="Title";
 
 // accessibility labels for the playlist
 "OBJECT_TYPE_SHOW"="Show";

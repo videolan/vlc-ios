@@ -472,7 +472,7 @@
             NSString *message = [NSString stringWithFormat:@"%@ (%@)\naudio(%@) video(%@)", mediaSize, durationInSeconds, audioCodec, videoCodec];
             NSString *summary = [NSString stringWithFormat:@"%@", [[ObjList objectAtIndex:0] objectForKey:@"summary"]];
 
-            VLCAlertView *alertView = [[VLCAlertView alloc] initWithTitle:title message:message cancelButtonTitle:NSLocalizedString(@"BUTTON_CANCEL", nil) otherButtonTitles:@[NSLocalizedString(@"BUTTON_PLAY", nil), NSLocalizedString(@"BUTTON_DOWNLOAD", nil)]];
+            VLCAlertView *alertView = [[VLCAlertView alloc] initWithTitle:title message:message cancelButtonTitle:NSLocalizedString(@"BUTTON_CANCEL", nil) otherButtonTitles:@[NSLocalizedString(@"PLAY_BUTTON", nil), NSLocalizedString(@"BUTTON_DOWNLOAD", nil)]];
             if (![summary isEqualToString:@""]) {
                 UITextView *textView = [[UITextView alloc] initWithFrame:alertView.bounds];
                 textView.text = summary;

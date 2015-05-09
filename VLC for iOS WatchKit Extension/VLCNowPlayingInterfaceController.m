@@ -44,9 +44,9 @@
     [self setTitle:NSLocalizedString(@"PLAYING", nil)];
     self.skipBackwardButton.accessibilityLabel = NSLocalizedString(@"BWD_BUTTON", nil);
     self.skipForwardButton.accessibilityLabel = NSLocalizedString(@"FWD_BUTTON", nil);
-    self.volumeSlider.accessibilityLabel = NSLocalizedString(@"VOLUME_SLIDER", nil);
-    self.durationLabel.accessibilityLabel = NSLocalizedString(@"DURATION_LABEL", nil);
-    self.titleLabel.accessibilityLabel = NSLocalizedString(@"TITLE_LABEL", nil);
+    self.volumeSlider.accessibilityLabel = NSLocalizedString(@"VOLUME", nil);
+    self.durationLabel.accessibilityLabel = NSLocalizedString(@"DURATION", nil);
+    self.titleLabel.accessibilityLabel = NSLocalizedString(@"TITLE", nil);
 
     [self setPlaying:YES];
 
