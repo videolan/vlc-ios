@@ -556,6 +556,12 @@
 
 - (void)openMediaFromManagedObject:(NSManagedObject *)mediaObject
 {
+    BOOL retainFullscreenPlayback = false;
+    if (self.movieViewController.presentingViewController) {
+        NSLog(@"movie player is open");
+        retainFullscreenPlayback = YES;
+    }
+
     VLCPlaybackController *vpc = [VLCPlaybackController sharedInstance];
 
     if ([mediaObject isKindOfClass:[MLFile class]])
@@ -567,6 +573,8 @@
     [(MLFile *)vpc.fileFromMediaLibrary setUnread:@(NO)];
 
     [vpc startPlayback];
+    if (retainFullscreenPlayback)
+        [self presentMovieViewController];
 }
 
 - (void)openMovieFromURL:(NSURL *)url
