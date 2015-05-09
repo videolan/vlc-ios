@@ -78,6 +78,7 @@ currentMediaHasTrackToChooseFrom:(BOOL)currentMediaHasTrackToChooseFrom
 - (void)switchAspectRatio;
 
 - (void)recoverDisplayedMetadata;
+- (void)recoverPlaybackState;
 
 - (void)setNeedsMetadataUpdate;
 

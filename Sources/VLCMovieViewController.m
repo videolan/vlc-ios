@@ -414,6 +414,7 @@ typedef NS_ENUM(NSInteger, VLCPanType) {
     VLCPlaybackController *vpc = [VLCPlaybackController sharedInstance];
     vpc.videoOutputView = self.movieView;
     vpc.delegate = self;
+    [vpc recoverPlaybackState];
 
     [self setControlsHidden:NO animated:YES];
 }
@@ -422,7 +423,9 @@ typedef NS_ENUM(NSInteger, VLCPanType) {
 {
     [super viewDidAppear:animated];
     _viewAppeared = YES;
-    [[VLCPlaybackController sharedInstance] recoverDisplayedMetadata];
+
+    VLCPlaybackController *vpc = [VLCPlaybackController sharedInstance];
+    [vpc recoverDisplayedMetadata];
 }
 
 - (void)viewWillLayoutSubviews

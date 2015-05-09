@@ -863,6 +863,16 @@ setstuff:
                                                   audioOnly:_mediaIsAudioOnly];
 }
 
+- (void)recoverPlaybackState
+{
+    if ([self.delegate respondsToSelector:@selector(mediaPlayerStateChanged:isPlaying:currentMediaHasTrackToChooseFrom:currentMediaHasChapters:forPlaybackController:)])
+        [self.delegate mediaPlayerStateChanged:_mediaPlayer.state
+                                     isPlaying:self.isPlaying
+              currentMediaHasTrackToChooseFrom:self.currentMediaHasTrackToChooseFrom
+                       currentMediaHasChapters:self.currentMediaHasChapters
+                         forPlaybackController:self];
+}
+
 #pragma mark - remote events
 
 static inline NSArray * RemoteCommandCenterCommandsToHandle(MPRemoteCommandCenter *cc)
