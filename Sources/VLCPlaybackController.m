@@ -675,10 +675,9 @@
 
 - (void)setFileFromMediaLibrary:(MLFile *)fileFromMediaLibrary
 {
-    if (_fileFromMediaLibrary != fileFromMediaLibrary) {
-        [self stopPlayback];
-        _fileFromMediaLibrary = fileFromMediaLibrary;
-    }
+    [self stopPlayback];
+    _fileFromMediaLibrary = fileFromMediaLibrary;
+    _playerIsSetup = NO;
 }
 
 - (void)setUrl:(NSURL *)url
