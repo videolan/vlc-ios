@@ -48,6 +48,7 @@
     BOOL _mediaIsAudioOnly;
 
     BOOL _needsMetadataUpdate;
+    BOOL _mediaWasJustStarted;
 }
 
 @end
@@ -307,18 +308,19 @@
         _mediaPlayer.position = lastPosition;
 
     [self subscribeRemoteCommands];
+
     [[(VLCAppDelegate *)[UIApplication sharedApplication].delegate playlistViewController] displayMiniPlaybackViewIfNeeded];
 
     _playerIsSetup = YES;
+    _mediaWasJustStarted = YES;
 }
 
 - (void)alertView:(UIAlertView *)alertView clickedButtonAtIndex:(NSInteger)buttonIndex
 {
     if (buttonIndex == 1)
         [self _playNewMedia];
-    else {
+    else
         [self stopPlayback];
-    }
 }
 
 - (void)stopPlayback
@@ -795,6 +797,9 @@
 
         if (title.length < 1)
             title = [[_mediaPlayer.media url] lastPathComponent];
+    } else if (_mediaWasJustStarted) {
+        _mediaWasJustStarted = NO;
+        [(VLCAppDelegate *)[UIApplication sharedApplication].delegate presentMovieViewController];
     }
 
     /* populate delegate with metadata info */
