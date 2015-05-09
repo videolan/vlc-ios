@@ -53,22 +53,34 @@
 {
     NSString *title = nil;
     float playbackProgress = 0.0;
+    NSString *objectType = nil;
     if ([storageObject isKindOfClass:[MLShow class]]) {
+        objectType = NSLocalizedString(@"OBJECT_TYPE_SHOW", nil);
         title = ((MLAlbum *)storageObject).name;
     } else if ([storageObject isKindOfClass:[MLShowEpisode class]]) {
+        objectType = NSLocalizedString(@"OBJECT_TYPE_SHOW_EPISODE", nil);
         title = ((MLShowEpisode *)storageObject).name;
     } else if ([storageObject isKindOfClass:[MLLabel class]]) {
+        objectType = NSLocalizedString(@"OBJECT_TYPE_LABEL", nil);
         title = ((MLLabel *)storageObject).name;
     } else if ([storageObject isKindOfClass:[MLAlbum class]]) {
+        objectType = NSLocalizedString(@"OBJECT_TYPE_ALBUM", nil);
         title = ((MLAlbum *)storageObject).name;
     } else if ([storageObject isKindOfClass:[MLAlbumTrack class]]) {
+        objectType = NSLocalizedString(@"OBJECT_TYPE_ALBUM_TRACK", nil);
         title = ((MLAlbumTrack *)storageObject).title;
     } else if ([storageObject isKindOfClass:[MLFile class]]){
         MLFile *file = (MLFile *)storageObject;
         title = [file title];
         playbackProgress = file.lastPosition.floatValue;
+        if (file.isSupportedAudioFile) {
+            objectType = NSLocalizedString(@"OBJECT_TYPE_FILE_AUDIO", nil);
+        } else {
+            objectType = NSLocalizedString(@"OBJECT_TYPE_FILE", nil);
+        }
     }
 
+    self.titleLabel.accessibilityValue = objectType;
     self.mediaTitle = title;
     self.playbackProgress = playbackProgress;
 
@@ -119,7 +131,7 @@
     if (![_mediaTitle isEqualToString:mediaTitle]) {
         _mediaTitle = [mediaTitle copy];
         self.titleLabel.text = mediaTitle;
-        self.accessibilityValue = mediaTitle;
+        self.accessibilityLabel = mediaTitle;
         self.titleLabel.hidden = mediaTitle.length == 0;
     }
 }

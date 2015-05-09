@@ -80,6 +80,7 @@
                                 <group alignment="center" verticalAlignment="center" radius="20" id="bEJ-d5-UhP">
                                     <items>
                                         <button width="40" height="40" alignment="center" verticalAlignment="center" title="▶︎" enabled="NO" id="4LT-2D-Zeq">
+                                            <accessibilityTraits key="accessibilityTraits" none="YES" button="YES" playsSound="YES"/>
                                             <color key="titleColor" red="0.92549019610000005" green="0.43529411759999997" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
                                             <color key="backgroundColor" red="1" green="1" blue="1" alpha="0.40000000000000002" colorSpace="calibratedRGB"/>
                                             <connections>
@@ -157,7 +158,7 @@
                                 </slider>
                                 <group width="1" alignment="left" verticalAlignment="bottom" id="d9m-EJ-n3r">
                                     <items>
-                                        <label width="100" alignment="left" verticalAlignment="bottom" accessibilityLabel="title" text="title" id="H58-Y8-Tbc">
+                                        <label width="100" alignment="left" verticalAlignment="bottom" text="title" id="H58-Y8-Tbc">
                                             <fontDescription key="font" type="system" pointSize="14"/>
                                         </label>
                                         <label alignment="right" verticalAlignment="bottom" accessibilityLabel="playback duration" text="duration" id="D0h-cq-wsv">
@@ -179,6 +180,8 @@
                         <outlet property="playElementsGroup" destination="uwS-0S-Ag2" id="aJc-Db-Z3L"/>
                         <outlet property="playPauseButton" destination="BAZ-aC-ETt" id="X17-bz-cFy"/>
                         <outlet property="progressObject" destination="9DQ-Bn-k5Y" id="LK1-eS-RGv"/>
+                        <outlet property="skipBackwardButton" destination="uKa-8V-C8x" id="88k-O6-fq3"/>
+                        <outlet property="skipForwardButton" destination="w8s-Mc-7oV" id="E9p-we-dPi"/>
                         <outlet property="titleLabel" destination="H58-Y8-Tbc" id="xZs-ZW-Shj"/>
                         <outlet property="volumeSlider" destination="WNd-eJ-DzK" id="IyP-bA-Qmf"/>
                     </connections>

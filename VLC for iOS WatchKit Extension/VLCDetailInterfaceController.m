@@ -23,18 +23,12 @@
 
 @implementation VLCDetailInterfaceController
 
-- (instancetype)init
-{
-    self = [super init];
-    if (self) {
-        [self setTitle:NSLocalizedString(@"DETAIL", nil)];
-    }
-    return self;
-}
-
 - (void)awakeWithContext:(id)context {
     [super awakeWithContext:context];
-    [self setTitle:NSLocalizedString(@"DETAIL", nil)];
+    self.title = NSLocalizedString(@"DETAIL", nil);
+    self.playNowButton.accessibilityLabel = NSLocalizedString(@"PLAY_NOW", nil);
+    self.titleLabel.accessibilityLabel = NSLocalizedString(@"TITLE_LABEL", nil);
+    self.durationLabel.accessibilityLabel = NSLocalizedString(@"DURATION_LABEL", nil);
 
     [self addNowPlayingMenu];
     [self configureWithFile:context];
@@ -102,6 +96,7 @@
     if (![_mediaTitle isEqualToString:mediaTitle]) {
         _mediaTitle = [mediaTitle copy];
         self.titleLabel.text = mediaTitle;
+        self.titleLabel.accessibilityValue = mediaTitle;
         self.titleLabel.hidden = mediaTitle.length == 0;
     }
 }
@@ -111,6 +106,7 @@
         _mediaDuration = [mediaDuration copy];
         self.durationLabel.text = mediaDuration;
         self.durationLabel.hidden = mediaDuration.length == 0;
+        self.durationLabel.accessibilityValue = mediaDuration;
     }
 }
 
