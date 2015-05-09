@@ -739,7 +739,7 @@
     NSString *artist;
     NSString *albumName;
     UIImage* artworkImage;
-    BOOL mediaIsAudioOnly = YES;
+    BOOL mediaIsAudioOnly = NO;
 
     if (self.fileFromMediaLibrary)
         item = self.fileFromMediaLibrary;
@@ -758,34 +758,35 @@
 
         /* MLKit knows better than us if this thing is audio only or not */
         mediaIsAudioOnly = [item isSupportedAudioFile];
-
-        if (mediaIsAudioOnly)
-            artworkImage = [VLCThumbnailsCache thumbnailForManagedObject:item];
     } else {
         NSDictionary * metaDict = _mediaPlayer.media.metaDictionary;
-
-        /* this is a non file media, so we need to actually check if there is there is
-         * a video track included or not */
-        NSArray *tracks = _mediaPlayer.media.tracksInformation;
-        NSUInteger trackCount = tracks.count;
-        for (NSUInteger x = 0 ; x < trackCount; x++) {
-            if ([[tracks[x] objectForKey:VLCMediaTracksInformationType] isEqualToString:VLCMediaTracksInformationTypeVideo]) {
-                mediaIsAudioOnly = NO;
-                break;
-            }
-        }
 
         if (metaDict) {
             title = metaDict[VLCMetaInformationNowPlaying] ? metaDict[VLCMetaInformationNowPlaying] : metaDict[VLCMetaInformationTitle];
             artist = metaDict[VLCMetaInformationArtist];
             albumName = metaDict[VLCMetaInformationAlbum];
             trackNumber = metaDict[VLCMetaInformationTrackNumber];
-            if (mediaIsAudioOnly)
-                artworkImage = [VLCThumbnailsCache thumbnailForManagedObject:item];
+        }
+    }
+
+    if (!mediaIsAudioOnly) {
+        /* either what we are playing is not a file known to MLKit or
+         * MLKit fails to acknowledge that it is audio-only.
+         * Either way, do a more expensive check to see if it is really audio-only */
+        NSArray *tracks = _mediaPlayer.media.tracksInformation;
+        NSUInteger trackCount = tracks.count;
+        mediaIsAudioOnly = YES;
+        for (NSUInteger x = 0 ; x < trackCount; x++) {
+            if ([[tracks[x] objectForKey:VLCMediaTracksInformationType] isEqualToString:VLCMediaTracksInformationTypeVideo]) {
+                mediaIsAudioOnly = NO;
+                break;
+            }
         }
     }
 
     if (mediaIsAudioOnly) {
+        artworkImage = [VLCThumbnailsCache thumbnailForManagedObject:item];
+
         if (artworkImage) {
             if (artist)
                 title = [title stringByAppendingFormat:@" — %@", artist];
