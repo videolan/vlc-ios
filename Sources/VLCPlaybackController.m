@@ -264,40 +264,13 @@
     if (self.fileFromMediaLibrary)
         matchedFile = self.fileFromMediaLibrary;
     else if (self.mediaList) {
-        /* TODO: move this code to MLKit */
-        NSString *path = [[[self.mediaList mediaAtIndex:self.itemInMediaListToBePlayedFirst] url] absoluteString];
-        NSString *componentString = @"";
-        NSArray *pathComponents = [path componentsSeparatedByString:@"/"];
-        NSUInteger componentCount = pathComponents.count;
-
-        if ([pathComponents[componentCount - 2] isEqualToString:@"Documents"])
-            componentString = [path lastPathComponent];
-        else {
-            NSUInteger firstElement = [pathComponents indexOfObject:@"Documents"] + 1;
-            for (NSUInteger x = 0; x < componentCount - firstElement; x++) {
-                if (x == 0)
-                    componentString = [componentString stringByAppendingFormat:@"%@", pathComponents[firstElement + x]];
-                else
-                    componentString = [componentString stringByAppendingFormat:@"/%@", pathComponents[firstElement + x]];
-            }
-        }
-
-        NSFetchRequest *request = [[NSFetchRequest alloc] init];
-        NSManagedObjectContext *moc = [[MLMediaLibrary sharedMediaLibrary] managedObjectContext];
-        if (moc) {
-            NSEntityDescription *entity = [NSEntityDescription entityForName:@"File" inManagedObjectContext:moc];
-            [request setEntity:entity];
-            [request setPredicate:[NSPredicate predicateWithFormat:@"url CONTAINS %@", componentString]];
-
-            NSSortDescriptor *descriptor = [[NSSortDescriptor alloc] initWithKey:@"title" ascending:YES selector:@selector(localizedCaseInsensitiveCompare:)];
-            [request setSortDescriptors:@[descriptor]];
-
-            NSArray *matches = [moc executeFetchRequest:request error:nil];
-            matchedFile = matches.firstObject;
-        }
+        NSURL *url  = [self.mediaList mediaAtIndex:self.itemInMediaListToBePlayedFirst].url;
+        NSArray *files = [MLFile fileForURL:url];
+        matchedFile = files.firstObject;
     }
-    if (matchedFile.lastPosition)
+    if (matchedFile.lastPosition) {
         lastPosition = matchedFile.lastPosition.floatValue;
+    }
     duration = matchedFile.duration.intValue;
     if (lastPosition < .95) {
         if (duration != 0)
