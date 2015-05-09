@@ -17,7 +17,9 @@
 @property (weak, nonatomic) IBOutlet WKInterfaceGroup *playElementsGroup;
 @property (weak, nonatomic) IBOutlet WKInterfaceLabel *titleLabel;
 @property (weak, nonatomic) IBOutlet WKInterfaceLabel *durationLabel;
+@property (weak, nonatomic) IBOutlet WKInterfaceButton *skipBackwardButton;
 @property (weak, nonatomic) IBOutlet WKInterfaceButton *playPauseButton;
+@property (weak, nonatomic) IBOutlet WKInterfaceButton *skipForwardButton;
 @property (weak, nonatomic) IBOutlet WKInterfaceObject *progressObject;
 @property (weak, nonatomic) IBOutlet WKInterfaceSlider *volumeSlider;
 

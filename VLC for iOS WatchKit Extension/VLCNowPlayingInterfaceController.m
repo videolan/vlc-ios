@@ -42,6 +42,11 @@
     _screenScale = currentDevice.screenScale;
 
     [self setTitle:NSLocalizedString(@"PLAYING", nil)];
+    self.skipBackwardButton.accessibilityLabel = NSLocalizedString(@"BWD_BUTTON", nil);
+    self.skipForwardButton.accessibilityLabel = NSLocalizedString(@"FWD_BUTTON", nil);
+    self.volumeSlider.accessibilityLabel = NSLocalizedString(@"VOLUME_SLIDER", nil);
+    self.durationLabel.accessibilityLabel = NSLocalizedString(@"DURATION_LABEL", nil);
+    self.titleLabel.accessibilityLabel = NSLocalizedString(@"TITLE_LABEL", nil);
 
     [self setPlaying:YES];
 
@@ -177,6 +182,7 @@
 - (void)setPlaying:(BOOL)playing {
     if (_playing != playing) {
         [self.playPauseButton setBackgroundImageNamed:playing? @"pause":@"play"];
+        self.playPauseButton.accessibilityLabel = playing ? NSLocalizedString(@"PAUSE_BUTTON", nil) : NSLocalizedString(@"PLAY_BUTTON", nil);
         _playing = playing;
     }
 }
@@ -184,14 +190,17 @@
 - (void)setTitleString:(NSString *)titleString {
     if (![_titleString isEqualToString:titleString]) {
         _titleString = [titleString copy];
-        [self.titleLabel setText:titleString];
+        self.titleLabel.text = titleString;
+        self.titleLabel.accessibilityValue = titleString;
     }
 }
 
 - (void)setPlayBackDurationNumber:(NSNumber *)playBackDurationNumber {
     if (![_playBackDurationNumber isEqualToNumber:playBackDurationNumber] || (_playBackDurationNumber==nil && playBackDurationNumber)) {
         _playBackDurationNumber = playBackDurationNumber;
-        [self.durationLabel setText:[VLCTime timeWithNumber:playBackDurationNumber].stringValue];
+        NSString *durationString = [VLCTime timeWithNumber:playBackDurationNumber].stringValue;
+        self.durationLabel.text = durationString;
+        self.durationLabel.accessibilityValue = durationString;
     }
 }
 
