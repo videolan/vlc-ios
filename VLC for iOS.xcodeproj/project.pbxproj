@@ -1616,8 +1616,8 @@
 		CCE2A22D17A5859E00D9EAAD /* CoreText.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreText.framework; path = System/Library/Frameworks/CoreText.framework; sourceTree = SDKROOT; };
 		DAF8927B0BE9C328466C0EA7 /* libPods-vlc-ios.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-vlc-ios.a"; sourceTree = BUILT_PRODUCTS_DIR; };
 		DD02C2FC1ACACF400026EFEE /* VLC for iOS WatchKit Extension.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.xml; path = "VLC for iOS WatchKit Extension.entitlements"; sourceTree = "<group>"; };
-		DD02C2FE1ACAE7A10026EFEE /* libMediaLibraryKit.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; name = libMediaLibraryKit.a; path = "../../../Library/Developer/Xcode/DerivedData/VLC_for_iOS-asxdcuzswmictvazfgdbzoqjdhaf/Build/Products/Debug-iphoneos/libMediaLibraryKit.a"; sourceTree = "<group>"; };
-		DD02C3001ACAE9690026EFEE /* libMobileVLCKit.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; name = libMobileVLCKit.a; path = "../../../Library/Developer/Xcode/DerivedData/VLC_for_iOS-asxdcuzswmictvazfgdbzoqjdhaf/Build/Products/Debug-iphoneos/libMobileVLCKit.a"; sourceTree = "<group>"; };
+		DD02C2FE1ACAE7A10026EFEE /* libMediaLibraryKit.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; name = libMediaLibraryKit.a; path = External/MediaLibraryKit/libMediaLibraryKit.a; sourceTree = "<group>"; };
+		DD02C3001ACAE9690026EFEE /* libMobileVLCKit.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; name = libMobileVLCKit.a; path = External/MobileVLCKit/libMobileVLCKit.a; sourceTree = "<group>"; };
 		DD02C30A1ACAF0370026EFEE /* libstdc++.6.0.9.dylib */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.dylib"; name = "libstdc++.6.0.9.dylib"; path = "usr/lib/libstdc++.6.0.9.dylib"; sourceTree = SDKROOT; };
 		DD02C30C1ACAF4A50026EFEE /* VLCRowController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = VLCRowController.h; sourceTree = "<group>"; };
 		DD02C30D1ACAF4A50026EFEE /* VLCRowController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = VLCRowController.m; sourceTree = "<group>"; };
@@ -4237,7 +4237,8 @@
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @executable_path/../../Frameworks";
 				LIBRARY_SEARCH_PATHS = (
 					"$(inherited)",
-					"$(USER_LIBRARY_DIR)/Developer/Xcode/DerivedData/VLC_for_iOS-asxdcuzswmictvazfgdbzoqjdhaf/Build/Products/Debug-iphoneos",
+					"$(SRCROOT)/External/MobileVLCKit/",
+					"$(SRCROOT)/External/MediaLibraryKit/",
 				);
 				MTL_ENABLE_DEBUG_INFO = YES;
 				PRODUCT_NAME = "${TARGET_NAME}";
@@ -4277,7 +4278,8 @@
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @executable_path/../../Frameworks";
 				LIBRARY_SEARCH_PATHS = (
 					"$(inherited)",
-					"$(USER_LIBRARY_DIR)/Developer/Xcode/DerivedData/VLC_for_iOS-asxdcuzswmictvazfgdbzoqjdhaf/Build/Products/Debug-iphoneos",
+					"$(SRCROOT)/External/MobileVLCKit/",
+					"$(SRCROOT)/External/MediaLibraryKit/",
 				);
 				MTL_ENABLE_DEBUG_INFO = NO;
 				PRODUCT_NAME = "${TARGET_NAME}";
@@ -4317,7 +4319,8 @@
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @executable_path/../../Frameworks";
 				LIBRARY_SEARCH_PATHS = (
 					"$(inherited)",
-					"$(USER_LIBRARY_DIR)/Developer/Xcode/DerivedData/VLC_for_iOS-asxdcuzswmictvazfgdbzoqjdhaf/Build/Products/Debug-iphoneos",
+					"$(SRCROOT)/External/MobileVLCKit/",
+					"$(SRCROOT)/External/MediaLibraryKit/",
 				);
 				MTL_ENABLE_DEBUG_INFO = NO;
 				PRODUCT_NAME = "${TARGET_NAME}";
