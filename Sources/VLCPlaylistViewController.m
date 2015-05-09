@@ -150,6 +150,7 @@ static NSString *kDisplayedFirstSteps = @"Did we display the first steps tutoria
     }
 
     self.view = contentView;
+    [self displayMiniPlaybackViewIfNeeded];
 }
 
 #pragma mark -
@@ -445,9 +446,19 @@ static NSString *kDisplayedFirstSteps = @"Did we display the first steps tutoria
         _miniPlaybackView.autoresizingMask = UIViewAutoresizingFlexibleWidth | UIViewAutoresizingFlexibleTopMargin;
         [_miniPlaybackView setupForWork];
         [self.view addSubview:_miniPlaybackView];
+        CGRect listViewRect = viewRect;
+        listViewRect.size.height = listViewRect.size.height - _miniPlaybackView.frame.size.height;
+        if (_usingTableViewToShowData)
+            _tableView.frame = listViewRect;
+        else
+            _collectionView.frame = listViewRect;
     } else {
         [_miniPlaybackView removeFromSuperview];
         _miniPlaybackView = nil;
+        if (_usingTableViewToShowData)
+            _tableView.frame = self.view.frame;
+        else
+            _collectionView.frame = self.view.frame;
     }
 }
 
