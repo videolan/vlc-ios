@@ -27,7 +27,7 @@
     self.repeatLabel.text = NSLocalizedString(@"FIRST_STEPS_REPEAT", nil);
     self.subtitlesLabel.text = NSLocalizedString(@"FIRST_STEPS_SUBTITLES", nil);
     self.audioLabel.text = NSLocalizedString(@"FIRST_STEPS_AUDIO", nil);
-    self.volumeLabel.text = NSLocalizedString(@"FIRST_STEPS_VOLUME", nil);
+    self.volumeLabel.text = NSLocalizedString(@"VOLUME", nil);
     self.positionLabel.text = NSLocalizedString(@"FIRST_STEPS_POSITION", nil);
     self.effectsLabel.text = NSLocalizedString(@"VIDEO_FILTER", nil);
 }

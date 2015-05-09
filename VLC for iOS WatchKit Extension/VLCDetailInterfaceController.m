@@ -27,8 +27,8 @@
     [super awakeWithContext:context];
     self.title = NSLocalizedString(@"DETAIL", nil);
     self.playNowButton.accessibilityLabel = NSLocalizedString(@"PLAY_NOW", nil);
-    self.titleLabel.accessibilityLabel = NSLocalizedString(@"TITLE_LABEL", nil);
-    self.durationLabel.accessibilityLabel = NSLocalizedString(@"DURATION_LABEL", nil);
+    self.titleLabel.accessibilityLabel = NSLocalizedString(@"TITLE", nil);
+    self.durationLabel.accessibilityLabel = NSLocalizedString(@"DURATION", nil);
 
     [self addNowPlayingMenu];
     [self configureWithFile:context];
