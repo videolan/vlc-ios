@@ -38,7 +38,7 @@
 {
 
     NSMutableArray *objects = [NSMutableArray array];
-    if (libraryMode == VLCLibraryModeNone) {
+    if (libraryMode == VLCLibraryModeFolder) {
         return  objects;
     }
 

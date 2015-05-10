@@ -158,7 +158,7 @@
 
     } else {
         if (error != nil) {
-            NSLog(@"removed persistentStore since it was corrupt");
+            APLog(@"removed persistentStore since it was corrupt");
             NSURL *storeURL = ((MLMediaLibrary *)[MLMediaLibrary sharedMediaLibrary]).persistentStoreURL;
             [[NSFileManager defaultManager] removeItemAtURL:storeURL error:&error];
         }
@@ -178,12 +178,11 @@
 
 #pragma mark - Handoff
 
-- (BOOL)application:(UIApplication *)application willContinueUserActivityWithType:(NSString *)userActivityType {
-
-
-    if ([userActivityType isEqualToString:@"org.videolan.vlc-ios.librarymode"] ||[userActivityType isEqualToString:@"org.videolan.vlc-ios.playing"]) {
+- (BOOL)application:(UIApplication *)application willContinueUserActivityWithType:(NSString *)userActivityType
+{
+    if ([userActivityType isEqualToString:@"org.videolan.vlc-ios.librarymode"] ||[userActivityType isEqualToString:@"org.videolan.vlc-ios.playing"])
         return YES;
-    }
+
     return NO;
 }
 
@@ -191,9 +190,10 @@
 
     if([userActivity.activityType isEqualToString:@"org.videolan.vlc-ios.librarymode"]) {
         NSDictionary *dict = userActivity.userInfo;
-        NSInteger row = [(NSNumber *)dict[@"state"] integerValue];
-        
+        VLCLibraryMode row = (VLCLibraryMode)[(NSNumber *)dict[@"state"] integerValue];
+
         [self.menuViewController selectRowAtIndexPath:[NSIndexPath indexPathForRow:row inSection:0] animated:NO scrollPosition:UITableViewScrollPositionTop];
+        [self.playlistViewController setLibraryMode:(VLCLibraryMode)row];
         [self.playlistViewController restoreUserActivityState:userActivity];
         _isComingFromHandoff = YES;
         return YES;
@@ -557,10 +557,8 @@
 - (void)openMediaFromManagedObject:(NSManagedObject *)mediaObject
 {
     BOOL retainFullscreenPlayback = false;
-    if (self.movieViewController.presentingViewController) {
-        NSLog(@"movie player is open");
+    if (self.movieViewController.presentingViewController)
         retainFullscreenPlayback = YES;
-    }
 
     VLCPlaybackController *vpc = [VLCPlaybackController sharedInstance];
 
@@ -644,7 +642,7 @@
     } else if ([name isEqualToString:VLCWatchMessageNameSetVolume]) {
         [self setVolumeFromWatch:message];
     } else {
-        NSLog(@"Did not handle request from WatchKit Extension: %@",userInfo);
+        APLog(@"Did not handle request from WatchKit Extension: %@",userInfo);
     }
     reply(responseDict);
 }
@@ -658,7 +656,7 @@
         managedObject = [[MLMediaLibrary sharedMediaLibrary] objectForURIRepresentation:uriRepresentation];
     }
     if (managedObject == nil) {
-        NSLog(@"%s file not found: %@",__PRETTY_FUNCTION__,message);
+        APLog(@"%s file not found: %@",__PRETTY_FUNCTION__,message);
         return;
     }
 

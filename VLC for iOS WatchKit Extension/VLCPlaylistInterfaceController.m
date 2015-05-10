@@ -54,7 +54,7 @@ static NSString *const VLCDBUpdateNotificationRemote = @"org.videolan.ios-app.db
     } else {
         self.groupObject = context;
         self.title = [self.groupObject name];
-        self.libraryMode = VLCLibraryModeNone;
+        self.libraryMode = VLCLibraryModeFolder;
     }
     [self addNowPlayingMenu];
 
@@ -82,9 +82,11 @@ static NSString *const VLCDBUpdateNotificationRemote = @"org.videolan.ios-app.db
 - (void)table:(WKInterfaceTable *)table didSelectRowAtIndex:(NSInteger)rowIndex {
     id object = self.tableController.displayedObjects[rowIndex];
     if ([object isKindOfClass:[MLAlbum class]] || [object isKindOfClass:[MLLabel class]] || [object isKindOfClass:[MLShow class]]) {
-
+        NSLog(@"we have class %@", [object class]);
         [self pushControllerWithName:@"tableViewController" context:object];
-        [self updateUserActivity:@"org.videolan.vlc-ios.librarymode" userInfo:@{@"state" : @(self.libraryMode), @"folder":((NSManagedObject *)object).objectID.URIRepresentation} webpageURL:nil];
+        [self updateUserActivity:@"org.videolan.vlc-ios.librarymode"
+                        userInfo:@{@"state" : @(self.libraryMode), @"folder":((NSManagedObject *)object).objectID.URIRepresentation}
+                      webpageURL:nil];
     } else {
         [self pushControllerWithName:@"detailInfo" context:object];
     }

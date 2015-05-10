@@ -14,12 +14,13 @@
 
 #import <MediaLibraryKit/MLMediaLibrary.h>
 
-typedef NS_ENUM(NSUInteger, VLCLibraryMode) {
-    VLCLibraryModeNone = 0,
-    VLCLibraryModeAllFiles,
-    VLCLibraryModeAllAlbums,
-    VLCLibraryModeAllSeries,
-};
+typedef enum {
+    VLCLibraryModeAllFiles  = 0,
+    VLCLibraryModeAllAlbums = 1,
+    VLCLibraryModeAllSeries = 2,
+    VLCLibraryModeCreateFolder = 3,
+    VLCLibraryModeFolder = 4
+} VLCLibraryMode;
 
 @interface MLMediaLibrary (playlist)
 

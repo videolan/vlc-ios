@@ -735,7 +735,6 @@ static NSString *kDisplayedFirstSteps = @"Did we display the first steps tutoria
 
 - (void)swipeRightOnCollectionViewCellGestureAction:(UIGestureRecognizer *)recognizer
 {
-    NSLog(@"swipeRightOnCollectionViewCellGestureAction");
     NSIndexPath *path = [self.collectionView indexPathForItemAtPoint:[recognizer locationInView:self.collectionView]];
     VLCPlaylistCollectionViewCell *cell = (VLCPlaylistCollectionViewCell *)[self.collectionView cellForItemAtIndexPath:path];
     [cell showMetadata:!cell.showsMetaData];
@@ -1546,15 +1545,18 @@ static NSString *kDisplayedFirstSteps = @"Did we display the first steps tutoria
 
 #pragma mark - handoff
 
-- (void)restoreUserActivityState:(NSUserActivity *)activity {
-
-    if([activity.activityType isEqualToString:@"org.videolan.vlc-ios.librarymode"]) {
+- (void)restoreUserActivityState:(NSUserActivity *)activity
+{
+    if([activity.activityType isEqualToString:@"org.videolan.vlc-ios.librarymode"])
+    {
         NSDictionary *dict = activity.userInfo;
         NSURL *folderURL = dict[@"folder"];
         if (!folderURL) return;
 
-        for (int i = 0; i<_foundMedia.count; i++){
+        NSUInteger count = _foundMedia.count;
+        for (NSUInteger i = 0; i < count; i++) {
             NSManagedObject *object = _foundMedia[i];
+
             if([object.objectID.URIRepresentation isEqual:folderURL]) {
                 [self tableView:self.tableView didSelectRowAtIndexPath:[NSIndexPath indexPathForRow:i inSection:0]];
             }
