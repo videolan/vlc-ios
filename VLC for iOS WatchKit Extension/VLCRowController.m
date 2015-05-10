@@ -115,10 +115,10 @@
         [backgroundImage drawInRect:CGRectMake(0,0,newSize.width,newSize.height)];
     else {
         [[UIColor darkGrayColor] set];
-        UIRectFill(CGRectMake(.0, .0, newSize.width, newSize.height));
+        UIRectFill(CGRectMake(0., 0., newSize.width, newSize.height));
     }
 
-    [gradient drawInRect:CGRectMake(.0, newSize.height / 2., newSize.width, newSize.height / 2.) blendMode:kCGBlendModeNormal alpha:1.];
+    [gradient drawInRect:CGRectMake(0., 0., newSize.width, newSize.height / 2.) blendMode:kCGBlendModeNormal alpha:1.];
 
     UIImage *newImage = UIGraphicsGetImageFromCurrentImageContext();
 
