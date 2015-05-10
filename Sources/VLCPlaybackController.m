@@ -585,17 +585,13 @@
         if ([_actualVideoOutputView superview] != nil)
             [_actualVideoOutputView removeFromSuperview];
 
-        _mediaPlayer.currentVideoTrackIndex = 0;
         _actualVideoOutputView.frame = (CGRect){CGPointZero, videoOutputView.frame.size};
         [_actualVideoOutputView layoutSubviews];
         [_actualVideoOutputView updateConstraints];
 
         [videoOutputView addSubview:_actualVideoOutputView];
-    } else {
+    } else
         [_actualVideoOutputView removeFromSuperview];
-        if (_mediaPlayer.audioTrackIndexes.count > 0)
-            _mediaPlayer.currentVideoTrackIndex = -1;
-    }
 
     _videoOutputViewWrapper = videoOutputView;
 }
