@@ -9,6 +9,7 @@
  *          Gleb Pinigin <gpinigin # gmail.com>
  *          Tamas Timar <ttimar.vlc # gmail.com>
  *          Carola Nitz <nitz.carola # gmail.com>
+ *          Tobias Conradi <videolan # tobias-conradi.de>
  *
  * Refer to the COPYING file of the official project for license.
  *****************************************************************************/
@@ -440,30 +441,61 @@ static NSString *kDisplayedFirstSteps = @"Did we display the first steps tutoria
 {
     VLCPlaybackController *playbackController = [VLCPlaybackController sharedInstance];
 
+    const NSTimeInterval animationDuration = 0.25;
     const BOOL showMiniPlayer = playbackController.activePlaybackSession;
-    if (showMiniPlayer) {
-        const CGFloat miniPlayerHeight = 60.;
-        const CGRect viewRect = self.view.frame;
-        const CGRect miniPlayerFrame = CGRectMake(0., viewRect.size.height - miniPlayerHeight, viewRect.size.width, miniPlayerHeight);
+    const BOOL miniPlayerVisible = _miniPlaybackView.visible;
+
+    const CGRect viewRect = self.view.frame;
+    const CGFloat miniPlayerHeight = 60.;
+    const CGRect miniPlayerFrameIn =  CGRectMake(0., viewRect.size.height-miniPlayerHeight, viewRect.size.width, miniPlayerHeight);
+    const CGRect miniPlayerFrameOut = CGRectMake(0., viewRect.size.height, viewRect.size.width, miniPlayerHeight);
+
+    const BOOL needsShow = showMiniPlayer && !miniPlayerVisible;
+    const BOOL needsHide = !showMiniPlayer && miniPlayerVisible;
+
+    void (^completionBlock)(BOOL) = nil;
+    if (needsShow) {
         if (!_miniPlaybackView) {
-            _miniPlaybackView = [[VLCMiniPlaybackView alloc] initWithFrame:miniPlayerFrame];
+            _miniPlaybackView = [[VLCMiniPlaybackView alloc] initWithFrame:miniPlayerFrameOut];
             _miniPlaybackView.autoresizingMask = UIViewAutoresizingFlexibleWidth | UIViewAutoresizingFlexibleTopMargin;
+            [self.view addSubview:_miniPlaybackView];
         }
-        [_miniPlaybackView setupForWork];
-        _miniPlaybackView.frame = miniPlayerFrame;
-        [self.view addSubview:_miniPlaybackView];
-    } else {
-        [_miniPlaybackView removeFromSuperview];
-        _miniPlaybackView = nil;
+        _miniPlaybackView.visible = YES;
+    } else if (needsHide) {
+        _miniPlaybackView.visible = NO;
+        completionBlock = ^(BOOL finished) {
+            if (_miniPlaybackView.visible == NO) {
+                [_miniPlaybackView removeFromSuperview];
+                _miniPlaybackView = nil;
+            }
+        };
     }
 
-    const CGFloat bottomInset = showMiniPlayer ? CGRectGetHeight(_miniPlaybackView.frame) : 0.;
+    // either way update view
+    [_miniPlaybackView setupForWork];
+
+    if (needsShow || needsHide) {
+        const CGRect newFrame = needsHide ? miniPlayerFrameOut : miniPlayerFrameIn;
+
+        [UIView animateWithDuration:animationDuration
+                              delay:animationDuration
+                            options:UIViewAnimationOptionBeginFromCurrentState | UIViewAnimationOptionAllowUserInteraction
+                         animations:^{
+                             _miniPlaybackView.frame = newFrame;
+                             [self adjustScrollViewInsetsForMiniPlayerVisible:needsShow];
+                         }
+                         completion:completionBlock];
+    }
+
+}
+- (void)adjustScrollViewInsetsForMiniPlayerVisible:(BOOL)miniPlayerVisible
+{
+    const CGFloat bottomInset = miniPlayerVisible ? CGRectGetHeight(_miniPlaybackView.frame) : 0.;
     UIScrollView *playListDataView = _usingTableViewToShowData ? _tableView : _collectionView;
     UIEdgeInsets inset = playListDataView.contentInset;
     inset.bottom = bottomInset;
     playListDataView.contentInset = inset;
     playListDataView.scrollIndicatorInsets = inset;
-
 }
 
 - (void)libraryUpgradeComplete
