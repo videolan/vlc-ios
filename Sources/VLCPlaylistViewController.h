@@ -15,12 +15,7 @@
 
 #define EXPERIMENTAL_LIBRARY 1
 
-typedef enum {
-    VLCLibraryModeAllFiles  = 0,
-    VLCLibraryModeAllAlbums = 1,
-    VLCLibraryModeAllSeries = 2,
-    VLCLibraryModeCreateFolder = 3
-} VLCLibraryMode;
+#import "MLMediaLibrary+playlist.h"
 
 @class EmptyLibraryView;
 

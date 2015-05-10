@@ -1551,11 +1551,14 @@ static NSString *kDisplayedFirstSteps = @"Did we display the first steps tutoria
 
 - (void)restoreUserActivityState:(NSUserActivity *)activity
 {
-    if([activity.activityType isEqualToString:@"org.videolan.vlc-ios.librarymode"])
-    {
+    NSString *userActivityType = activity.activityType;
+    if([userActivityType isEqualToString:@"org.videolan.vlc-ios.librarymode"] ||
+       [userActivityType isEqualToString:@"org.videolan.vlc-ios.libraryselection"]) {
+
         NSDictionary *dict = activity.userInfo;
-        NSURL *folderURL = dict[@"folder"];
-        if (!folderURL) return;
+        NSString *folderPath = dict[@"folder"];
+        if (!folderPath) return;
+        NSURL *folderURL = [NSURL URLWithString:folderPath];
 
         NSUInteger count = _foundMedia.count;
         for (NSUInteger i = 0; i < count; i++) {
