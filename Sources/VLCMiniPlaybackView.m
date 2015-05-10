@@ -144,9 +144,15 @@ currentMediaHasTrackToChooseFrom:(BOOL)currentMediaHasTrackToChooseFrom
             _videoView = nil;
         }
     } else {
+        if (_videoView) {
+            [_videoView removeFromSuperview];
+            _videoView = nil;
+        }
         _videoView = [[UIView alloc] initWithFrame:_artworkView.frame];
         [self addSubview:_videoView];
-        controller.videoOutputView = _videoView;
+
+        if (!controller.presentingMovieViewController)
+            controller.videoOutputView = _videoView;
     }
 
     NSString *metaDataString;

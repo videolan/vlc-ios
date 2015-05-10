@@ -589,6 +589,9 @@
         [_actualVideoOutputView layoutSubviews];
         [_actualVideoOutputView updateConstraints];
 
+        if (_mediaPlayer.currentVideoTrackIndex == -1)
+            _mediaPlayer.currentVideoTrackIndex = 0;
+
         [videoOutputView addSubview:_actualVideoOutputView];
     } else
         [_actualVideoOutputView removeFromSuperview];

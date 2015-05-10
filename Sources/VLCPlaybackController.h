@@ -66,6 +66,7 @@ currentMediaHasTrackToChooseFrom:(BOOL)currentMediaHasTrackToChooseFrom
 @property (nonatomic, readonly) BOOL currentMediaHasTrackToChooseFrom;
 @property (nonatomic, readonly) BOOL activePlaybackSession;
 @property (nonatomic, readonly) BOOL audioOnlyPlaybackSession;
+@property (nonatomic, readwrite) BOOL presentingMovieViewController;
 
 + (VLCPlaybackController *)sharedInstance;
 

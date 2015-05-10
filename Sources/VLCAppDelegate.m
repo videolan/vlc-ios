@@ -567,10 +567,11 @@ continueUserActivity:(NSUserActivity *)userActivity
 - (void)openMediaFromManagedObject:(NSManagedObject *)mediaObject
 {
     BOOL retainFullscreenPlayback = false;
-    if (self.movieViewController.presentingViewController)
-        retainFullscreenPlayback = YES;
 
     VLCPlaybackController *vpc = [VLCPlaybackController sharedInstance];
+
+    if (vpc.presentingMovieViewController)
+        retainFullscreenPlayback = YES;
 
     if ([mediaObject isKindOfClass:[MLFile class]])
         vpc.fileFromMediaLibrary = (MLFile *)mediaObject;
