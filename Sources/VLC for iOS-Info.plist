@@ -64,6 +64,7 @@
 	<key>NSUserActivityTypes</key>
 	<array>
 		<string>org.videolan.vlc-ios.librarymode</string>
+		<string>org.videolan.vlc-ios.libraryselection</string>
 		<string>org.videolan.vlc-ios.playing</string>
 	</array>
 	<key>LSApplicationCategoryType</key>

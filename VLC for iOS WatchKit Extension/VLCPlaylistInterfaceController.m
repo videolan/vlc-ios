@@ -81,11 +81,16 @@ static NSString *const VLCDBUpdateNotificationRemote = @"org.videolan.ios-app.db
 
 - (void)table:(WKInterfaceTable *)table didSelectRowAtIndex:(NSInteger)rowIndex {
     id object = self.tableController.displayedObjects[rowIndex];
+
     if ([object isKindOfClass:[MLAlbum class]] || [object isKindOfClass:[MLLabel class]] || [object isKindOfClass:[MLShow class]]) {
-        NSLog(@"we have class %@", [object class]);
         [self pushControllerWithName:@"tableViewController" context:object];
-        [self updateUserActivity:@"org.videolan.vlc-ios.librarymode"
-                        userInfo:@{@"state" : @(self.libraryMode), @"folder":((NSManagedObject *)object).objectID.URIRepresentation}
+        NSString *folderRepresentation = [((NSManagedObject *)object).objectID.URIRepresentation absoluteString];
+        NSDictionary *userDict = @{@"state" : @(self.libraryMode),
+                                   @"folder" : folderRepresentation};
+
+        [self invalidateUserActivity];
+        [self updateUserActivity:@"org.videolan.vlc-ios.libraryselection"
+                        userInfo:userDict
                       webpageURL:nil];
     } else {
         [self pushControllerWithName:@"detailInfo" context:object];
@@ -138,6 +143,7 @@ static NSString *const VLCDBUpdateNotificationRemote = @"org.videolan.ios-app.db
 - (void)setLibraryMode:(VLCLibraryMode)libraryMode
 {
     //should also handle diving into a folder
+    [self invalidateUserActivity];
     [self updateUserActivity:@"org.videolan.vlc-ios.librarymode" userInfo:@{@"state" : @(libraryMode)} webpageURL:nil];
     _libraryMode = libraryMode;
 }

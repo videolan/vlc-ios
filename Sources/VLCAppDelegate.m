@@ -180,20 +180,30 @@
 
 - (BOOL)application:(UIApplication *)application willContinueUserActivityWithType:(NSString *)userActivityType
 {
-    if ([userActivityType isEqualToString:@"org.videolan.vlc-ios.librarymode"] ||[userActivityType isEqualToString:@"org.videolan.vlc-ios.playing"])
+    if ([userActivityType isEqualToString:@"org.videolan.vlc-ios.librarymode"] ||
+        [userActivityType isEqualToString:@"org.videolan.vlc-ios.playing"] ||
+        [userActivityType isEqualToString:@"org.videolan.vlc-ios.libraryselection"])
         return YES;
 
     return NO;
 }
 
-- (BOOL)application:(UIApplication *)application continueUserActivity:(NSUserActivity *)userActivity restorationHandler:(void (^)(NSArray *))restorationHandler {
+- (BOOL)application:(UIApplication *)application
+continueUserActivity:(NSUserActivity *)userActivity
+ restorationHandler:(void (^)(NSArray *))restorationHandler
+{
+    NSString *userActivityType = userActivity.activityType;
 
-    if([userActivity.activityType isEqualToString:@"org.videolan.vlc-ios.librarymode"]) {
+    if([userActivityType isEqualToString:@"org.videolan.vlc-ios.librarymode"] ||
+       [userActivityType isEqualToString:@"org.videolan.vlc-ios.libraryselection"]) {
         NSDictionary *dict = userActivity.userInfo;
-        VLCLibraryMode row = (VLCLibraryMode)[(NSNumber *)dict[@"state"] integerValue];
+        VLCLibraryMode libraryMode = (VLCLibraryMode)[(NSNumber *)dict[@"state"] integerValue];
 
-        [self.menuViewController selectRowAtIndexPath:[NSIndexPath indexPathForRow:row inSection:0] animated:NO scrollPosition:UITableViewScrollPositionTop];
-        [self.playlistViewController setLibraryMode:(VLCLibraryMode)row];
+        if (libraryMode <= VLCLibraryModeAllSeries) {
+            [self.menuViewController selectRowAtIndexPath:[NSIndexPath indexPathForRow:libraryMode inSection:0] animated:NO scrollPosition:UITableViewScrollPositionTop];
+            [self.playlistViewController setLibraryMode:(VLCLibraryMode)libraryMode];
+        }
+
         [self.playlistViewController restoreUserActivityState:userActivity];
         _isComingFromHandoff = YES;
         return YES;
