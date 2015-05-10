@@ -440,26 +440,30 @@ static NSString *kDisplayedFirstSteps = @"Did we display the first steps tutoria
 {
     VLCPlaybackController *playbackController = [VLCPlaybackController sharedInstance];
 
-    if (playbackController.activePlaybackSession) {
-        CGRect viewRect = self.view.frame;
-        _miniPlaybackView = [[VLCMiniPlaybackView alloc] initWithFrame:CGRectMake(0., viewRect.size.height - 60., viewRect.size.width, 60.)];
-        _miniPlaybackView.autoresizingMask = UIViewAutoresizingFlexibleWidth | UIViewAutoresizingFlexibleTopMargin;
+    const BOOL showMiniPlayer = playbackController.activePlaybackSession;
+    if (showMiniPlayer) {
+        const CGFloat miniPlayerHeight = 60.;
+        const CGRect viewRect = self.view.frame;
+        const CGRect miniPlayerFrame = CGRectMake(0., viewRect.size.height - miniPlayerHeight, viewRect.size.width, miniPlayerHeight);
+        if (!_miniPlaybackView) {
+            _miniPlaybackView = [[VLCMiniPlaybackView alloc] initWithFrame:miniPlayerFrame];
+            _miniPlaybackView.autoresizingMask = UIViewAutoresizingFlexibleWidth | UIViewAutoresizingFlexibleTopMargin;
+        }
         [_miniPlaybackView setupForWork];
+        _miniPlaybackView.frame = miniPlayerFrame;
         [self.view addSubview:_miniPlaybackView];
-        CGRect listViewRect = viewRect;
-        listViewRect.size.height = listViewRect.size.height - _miniPlaybackView.frame.size.height;
-        if (_usingTableViewToShowData)
-            _tableView.frame = listViewRect;
-        else
-            _collectionView.frame = listViewRect;
     } else {
         [_miniPlaybackView removeFromSuperview];
         _miniPlaybackView = nil;
-        if (_usingTableViewToShowData)
-            _tableView.frame = self.view.frame;
-        else
-            _collectionView.frame = self.view.frame;
     }
+
+    const CGFloat bottomInset = showMiniPlayer ? CGRectGetHeight(_miniPlaybackView.frame) : 0.;
+    UIScrollView *playListDataView = _usingTableViewToShowData ? _tableView : _collectionView;
+    UIEdgeInsets inset = playListDataView.contentInset;
+    inset.bottom = bottomInset;
+    playListDataView.contentInset = inset;
+    playListDataView.scrollIndicatorInsets = inset;
+
 }
 
 - (void)libraryUpgradeComplete
