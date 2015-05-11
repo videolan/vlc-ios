@@ -33,6 +33,7 @@
 #import "VLCPlaybackController.h"
 #import "VLCNavigationController.h"
 #import "VLCWatchMessage.h"
+#import "VLCPlaybackController+MediaLibrary.h"
 
 #define HAVE_FABRIC 0
 
@@ -573,15 +574,8 @@ continueUserActivity:(NSUserActivity *)userActivity
     if (vpc.presentingMovieViewController)
         retainFullscreenPlayback = YES;
 
-    if ([mediaObject isKindOfClass:[MLFile class]])
-        vpc.fileFromMediaLibrary = (MLFile *)mediaObject;
-    else if ([mediaObject isKindOfClass:[MLAlbumTrack class]])
-        vpc.fileFromMediaLibrary = [(MLAlbumTrack*)mediaObject files].anyObject;
-    else if ([mediaObject isKindOfClass:[MLShowEpisode class]])
-        vpc.fileFromMediaLibrary = [(MLShowEpisode*)mediaObject files].anyObject;
-    [(MLFile *)vpc.fileFromMediaLibrary setUnread:@(NO)];
+    [vpc playMediaLibraryObject:mediaObject];
 
-    [vpc startPlayback];
     if (retainFullscreenPlayback)
         [self presentMovieViewController];
 }
@@ -590,7 +584,6 @@ continueUserActivity:(NSUserActivity *)userActivity
          successCallback:(NSURL *)successCallback
            errorCallback:(NSURL *)errorCallback
 {
-
     VLCPlaybackController *vpc = [VLCPlaybackController sharedInstance];
 
     vpc.url = url;
@@ -603,17 +596,6 @@ continueUserActivity:(NSUserActivity *)userActivity
 - (void)openMovieFromURL:(NSURL *)url
 {
     [self openMovieFromURL:url successCallback:nil errorCallback:nil];
-}
-
-- (void)openMediaList:(VLCMediaList *)list atIndex:(int)index
-{
-    VLCPlaybackController *vpc = [VLCPlaybackController sharedInstance];
-
-    vpc.mediaList = list;
-    vpc.itemInMediaListToBePlayedFirst = index;
-    vpc.pathToExternalSubtitlesFile = nil;
-
-    [vpc startPlayback];
 }
 
 - (void)openMovieWithExternalSubtitleFromURL:(NSURL *)url externalSubURL:(NSString *)SubtitlePath
