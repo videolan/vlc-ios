@@ -41,6 +41,8 @@
 
     _artworkView = [[UIImageView alloc] initWithFrame:CGRectMake(0., 0., 60., 60.)];
     _artworkView.autoresizingMask = UIViewAutoresizingFlexibleRightMargin;
+    _artworkView.backgroundColor = [UIColor VLCDarkBackgroundColor];
+    _artworkView.opaque = YES;
     [self addSubview:_artworkView];
 
     /* build buttons from right to left */
@@ -76,7 +78,7 @@
     [self addSubview:_previousButton];
 
     CGFloat artworkViewWidth = _artworkView.frame.size.width;
-    _metaDataLabel = [[UILabel alloc] initWithFrame:CGRectMake(artworkViewWidth, 0., previousRect.origin.x - artworkViewWidth, viewFrame.size.height)];
+    _metaDataLabel = [[UILabel alloc] initWithFrame:CGRectMake(artworkViewWidth + 10., 0., previousRect.origin.x - artworkViewWidth, viewFrame.size.height)];
     _metaDataLabel.font = [UIFont systemFontOfSize:12.];
     _metaDataLabel.textColor = [UIColor VLCLightTextColor];
     _metaDataLabel.numberOfLines = 0;
@@ -138,7 +140,8 @@ currentMediaHasTrackToChooseFrom:(BOOL)currentMediaHasTrackToChooseFrom
                                    audioOnly:(BOOL)audioOnly
 {
     if (audioOnly) {
-        _artworkView.image = artwork;
+        _artworkView.contentMode = UIViewContentModeScaleAspectFill;
+        _artworkView.image = artwork ? artwork : [UIImage imageNamed:@"no-artwork"];
         if (_videoView) {
             [_videoView removeFromSuperview];
             _videoView = nil;
