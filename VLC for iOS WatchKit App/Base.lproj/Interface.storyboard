@@ -125,22 +125,22 @@
                             <items>
                                 <group width="1" height="1" heightAdjustment="-55" alignment="left" contentMode="scaleAspectFit" layout="vertical" id="iCs-yD-jsj">
                                     <items>
-                                        <group alignment="center" verticalAlignment="center" spacing="25" id="egl-IT-539">
+                                        <group width="1" height="45" alignment="center" verticalAlignment="center" spacing="0.0" id="egl-IT-539">
                                             <items>
-                                                <button alignment="left" verticalAlignment="center" accessibilityLabel="backward" backgroundImage="backward" id="uKa-8V-C8x">
-                                                    <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
+                                                <button alignment="center" verticalAlignment="center" accessibilityLabel="backward" id="uKa-8V-C8x">
+                                                    <group key="contentGroup" width="0.29999999999999999" height="1" alignment="left" backgroundImage="backward" contentMode="center" id="5qh-bH-XHx"/>
                                                     <connections>
                                                         <action selector="skipBackward" destination="Mzo-Y8-gdK" id="aP1-vb-XwF"/>
                                                     </connections>
                                                 </button>
-                                                <button alignment="center" accessibilityLabel="play / pause" accessibilityHint="starts playing or pauses the current playback" backgroundImage="pause" id="BAZ-aC-ETt">
-                                                    <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
+                                                <button alignment="center" verticalAlignment="center" accessibilityLabel="play / pause" accessibilityHint="starts playing or pauses the current playback" id="BAZ-aC-ETt">
+                                                    <group key="contentGroup" width="0.30000000000000004" height="1" alignment="left" backgroundImage="play" contentMode="center" id="21n-1o-3T6"/>
                                                     <connections>
                                                         <action selector="playPausePressed" destination="Mzo-Y8-gdK" id="6p8-JZ-0Gh"/>
                                                     </connections>
                                                 </button>
-                                                <button alignment="right" verticalAlignment="center" accessibilityLabel="forward" backgroundImage="forward" id="w8s-Mc-7oV">
-                                                    <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
+                                                <button alignment="center" verticalAlignment="center" accessibilityLabel="forward" id="w8s-Mc-7oV">
+                                                    <group key="contentGroup" width="0.29999999999999999" height="1" alignment="left" backgroundImage="forward" contentMode="center" id="ZlX-jT-lUZ"/>
                                                     <connections>
                                                         <action selector="skipForward" destination="Mzo-Y8-gdK" id="1kf-Nh-kjr"/>
                                                     </connections>
@@ -179,6 +179,7 @@
                         <outlet property="durationLabel" destination="D0h-cq-wsv" id="3AN-YZ-yEj"/>
                         <outlet property="playElementsGroup" destination="uwS-0S-Ag2" id="aJc-Db-Z3L"/>
                         <outlet property="playPauseButton" destination="BAZ-aC-ETt" id="X17-bz-cFy"/>
+                        <outlet property="playPauseButtonGroup" destination="21n-1o-3T6" id="piE-Uf-NeC"/>
                         <outlet property="progressObject" destination="9DQ-Bn-k5Y" id="LK1-eS-RGv"/>
                         <outlet property="skipBackwardButton" destination="uKa-8V-C8x" id="88k-O6-fq3"/>
                         <outlet property="skipForwardButton" destination="w8s-Mc-7oV" id="E9p-we-dPi"/>

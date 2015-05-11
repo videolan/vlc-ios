@@ -181,7 +181,7 @@
 
 - (void)setPlaying:(BOOL)playing {
     if (_playing != playing) {
-        [self.playPauseButton setBackgroundImageNamed:playing? @"pause":@"play"];
+        [self.playPauseButtonGroup setBackgroundImageNamed:playing? @"pause":@"play"];
         self.playPauseButton.accessibilityLabel = playing ? NSLocalizedString(@"PAUSE_BUTTON", nil) : NSLocalizedString(@"PLAY_BUTTON", nil);
         _playing = playing;
     }
