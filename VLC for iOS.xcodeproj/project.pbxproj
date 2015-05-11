@@ -206,6 +206,9 @@
 		7D298F451AD58A0700A0BF68 /* UIImage+Blur.m in Sources */ = {isa = PBXBuildFile; fileRef = 7D168F7318D4A33F003FAF59 /* UIImage+Blur.m */; };
 		7D2A34A41805CDBA004078AA /* gradient-cell-ios7.png in Resources */ = {isa = PBXBuildFile; fileRef = 7D2A34A21805CDBA004078AA /* gradient-cell-ios7.png */; };
 		7D2A34A51805CDBA004078AA /* gradient-cell-ios7@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 7D2A34A31805CDBA004078AA /* gradient-cell-ios7@2x.png */; };
+		7D2B22A71B00A4F600E98F37 /* no-artwork.png in Resources */ = {isa = PBXBuildFile; fileRef = 7D2B22A41B00A4F600E98F37 /* no-artwork.png */; };
+		7D2B22A81B00A4F600E98F37 /* no-artwork@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 7D2B22A51B00A4F600E98F37 /* no-artwork@2x.png */; };
+		7D2B22A91B00A4F600E98F37 /* no-artwork@3x.png in Resources */ = {isa = PBXBuildFile; fileRef = 7D2B22A61B00A4F600E98F37 /* no-artwork@3x.png */; };
 		7D2D4ECC1ACFFA42006A8DBD /* Localizable.strings in Resources */ = {isa = PBXBuildFile; fileRef = 7D2D4ECE1ACFFA42006A8DBD /* Localizable.strings */; };
 		7D30F3C2183AB24C00FFC021 /* VLCHTTPConnection.m in Sources */ = {isa = PBXBuildFile; fileRef = 7D30F3BD183AB24C00FFC021 /* VLCHTTPConnection.m */; };
 		7D30F3C3183AB24C00FFC021 /* VLCHTTPFileDownloader.m in Sources */ = {isa = PBXBuildFile; fileRef = 7D30F3BF183AB24C00FFC021 /* VLCHTTPFileDownloader.m */; };
@@ -910,6 +913,9 @@
 		7D2AEDE717FB785200B5281E /* hu */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = hu; path = "hu.lproj/badgeUnread@2x~iphone.png"; sourceTree = "<group>"; };
 		7D2AEDE817FB785200B5281E /* hu */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = hu; path = "hu.lproj/badgeUnread~ipad.png"; sourceTree = "<group>"; };
 		7D2AEDE917FB785200B5281E /* hu */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = hu; path = "hu.lproj/badgeUnread~iphone.png"; sourceTree = "<group>"; };
+		7D2B22A41B00A4F600E98F37 /* no-artwork.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "no-artwork.png"; sourceTree = "<group>"; };
+		7D2B22A51B00A4F600E98F37 /* no-artwork@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "no-artwork@2x.png"; sourceTree = "<group>"; };
+		7D2B22A61B00A4F600E98F37 /* no-artwork@3x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "no-artwork@3x.png"; sourceTree = "<group>"; };
 		7D2D4ECD1ACFFA42006A8DBD /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/Localizable.strings; sourceTree = "<group>"; };
 		7D2D4ECF1ACFFA46006A8DBD /* de */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = de; path = de.lproj/Localizable.strings; sourceTree = "<group>"; };
 		7D2E27891AD6DF72001FFE28 /* ja */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = ja; path = ja.lproj/Localizable.strings; sourceTree = "<group>"; };
@@ -1961,6 +1967,9 @@
 		7D10BC661743F9AC00DA7059 /* Library View */ = {
 			isa = PBXGroup;
 			children = (
+				7D2B22A41B00A4F600E98F37 /* no-artwork.png */,
+				7D2B22A51B00A4F600E98F37 /* no-artwork@2x.png */,
+				7D2B22A61B00A4F600E98F37 /* no-artwork@3x.png */,
 				41F475CE1899A438001B919F /* folderIcon.png */,
 				41F475CF1899A438001B919F /* folderIcon@2x.png */,
 				41F475D01899A438001B919F /* folderIcon@2x~ipad.png */,
@@ -3337,6 +3346,7 @@
 				7DFC38D11A45F117002476CB /* dropbox-white@3x.png in Resources */,
 				9BD3F368185DEC0A00569ADC /* arrows@2x.png in Resources */,
 				7D9870691A3E03D5009CF27D /* papasscode_marker@2x.png in Resources */,
+				7D2B22A91B00A4F600E98F37 /* no-artwork@3x.png in Resources */,
 				9BF0708E185122AA009B23DD /* audio.png in Resources */,
 				7D07F731175691CC00CDE21C /* backButtonHighlight@2x.png in Resources */,
 				7D27EC3019DF314F00EF0370 /* wifi.png in Resources */,
@@ -3346,6 +3356,7 @@
 				7DE18629175BA9A5006C0173 /* badgeUnread@2x~ipad.png in Resources */,
 				7DE1862C175BA9A9006C0173 /* badgeUnread@2x~iphone.png in Resources */,
 				7DFC38DB1A45F1C9002476CB /* PlayingExternally@3x~iphone.png in Resources */,
+				7D2B22A71B00A4F600E98F37 /* no-artwork.png in Resources */,
 				7D9870221A3DECA8009CF27D /* forwardIcon@3x.png in Resources */,
 				7DE1862F175BA9AC006C0173 /* badgeUnread~ipad.png in Resources */,
 				26FAE63919240C2E00A43737 /* PlexServerIcon@1x.png in Resources */,
@@ -3545,6 +3556,7 @@
 				7D0699D617CB1FAE00713BEB /* Settings@2x.png in Resources */,
 				7DF3B77D19DF01550041A02E /* fsarrow-position@2x.png in Resources */,
 				7D711ADA18227A490094E4F0 /* GTMOAuth2ViewTouch.xib in Resources */,
+				7D2B22A81B00A4F600E98F37 /* no-artwork@2x.png in Resources */,
 				7D0699D717CB1FAE00713BEB /* TVShowsIcon.png in Resources */,
 				7D0699D817CB1FAE00713BEB /* TVShowsIcon@2x.png in Resources */,
 				7D9870541A3DEE43009CF27D /* Downloads@3x.png in Resources */,
