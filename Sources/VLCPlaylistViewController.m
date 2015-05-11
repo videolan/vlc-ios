@@ -58,9 +58,6 @@ static NSString *kDisplayedFirstSteps = @"Did we display the first steps tutoria
     LXReorderableCollectionViewFlowLayout *_reorderLayout;
     BOOL inFolder;
     UILongPressGestureRecognizer *_longPressGestureRecognizer;
-    NSInteger _mediaToPlayIndex;
-    VLCMediaList *_list;
-    NSArray *_tracks;
 
     NSMutableArray *_searchData;
     UISearchBar *_searchBar;
@@ -712,46 +709,10 @@ static NSString *kDisplayedFirstSteps = @"Did we display the first steps tutoria
     else
         selectedObject = _foundMedia[indexPath.row];
 
-    if ([selectedObject isKindOfClass:[MLAlbumTrack class]]) {
-        _tracks = [[(MLAlbumTrack*)selectedObject album] sortedTracks];
-        NSUInteger count = _tracks.count;
-        _list = [[VLCMediaList alloc] init];
-        _list.delegate = self;
-        MLFile *file;
-        VLCMedia *media;
-        for (NSInteger x = count - 1; x > -1; x--) {
-            file = [(MLAlbumTrack*)_tracks[x] files].anyObject;
-            media = [VLCMedia mediaWithURL:file.url];
-            [media parse];
-            [_list addMedia:media];
-        }
-        _mediaToPlayIndex = indexPath.row;
-    } else if ([selectedObject isKindOfClass:[MLFile class]] && [((MLFile *)selectedObject).labels count] > 0) {
-        MLLabel *folder = [((MLFile *)selectedObject).labels anyObject];
-        _tracks = [folder sortedFolderItems];
-        NSUInteger count = _tracks.count;
-        _list = [[VLCMediaList alloc] init];
-        _list.delegate = self;
-        MLFile *file;
-        for (NSInteger x = count - 1; x > -1; x--) {
-            file = (MLFile *)_tracks[x];
-            [_list addMedia:[VLCMedia mediaWithURL:file.url]];
-        }
-        _mediaToPlayIndex = indexPath.row;
-    } else {
-        if (_searchDisplayController.active == YES)
-            [_searchDisplayController setActive:NO animated:NO];
-        [self openMediaObject:selectedObject];
-    }
-}
+    if (_searchDisplayController.active == YES)
+        [_searchDisplayController setActive:NO animated:NO];
 
-#pragma mark - VLCMedialistDelegate
-- (void)mediaList:(VLCMediaList *)aMediaList mediaAdded:(VLCMedia *)media atIndex:(NSInteger)index
-{
-    if (index == _tracks.count - 1) {
-        NSManagedObject *selectedObject = _foundMedia[_mediaToPlayIndex];
-        [(VLCAppDelegate *)[UIApplication sharedApplication].delegate openMediaList:_list atIndex:(int)[_tracks indexOfObject:selectedObject]];
-    }
+    [self openMediaObject:selectedObject];
 }
 
 #pragma mark - Gesture Action
@@ -869,33 +830,7 @@ static NSString *kDisplayedFirstSteps = @"Did we display the first steps tutoria
     }
 
     NSManagedObject *selectedObject = _foundMedia[indexPath.row];
-    if ([selectedObject isKindOfClass:[MLAlbumTrack class]]) {
-        VLCMediaList *list;
-        NSArray *tracks = [[(MLAlbumTrack*)selectedObject album] sortedTracks];
-        NSUInteger count = tracks.count;
-        list = [[VLCMediaList alloc] init];
-
-        MLFile *file;
-        for (NSInteger x = count - 1; x > -1; x--) {
-            file = [(MLAlbumTrack*)tracks[x] files].anyObject;
-            [list addMedia:[VLCMedia mediaWithURL:file.url]];
-        }
-        [(VLCAppDelegate*)[UIApplication sharedApplication].delegate openMediaList:list atIndex:(int)[tracks indexOfObject:selectedObject]];
-    } else if ([selectedObject isKindOfClass:[MLFile class]] && [((MLFile *)selectedObject).labels count] > 0) {
-        VLCMediaList *list;
-        MLLabel *folder = [((MLFile *)selectedObject).labels anyObject];
-        NSArray *folderTracks = [folder sortedFolderItems];
-        NSUInteger count = folderTracks.count;
-        list = [[VLCMediaList alloc] init];
-
-        MLFile *file;
-        for (NSInteger x = count - 1; x > -1; x--) {
-            file = (MLFile *)folderTracks[x];
-            [list addMedia:[VLCMedia mediaWithURL:file.url]];
-        }
-        [(VLCAppDelegate *)[UIApplication sharedApplication].delegate openMediaList:list atIndex:(int)[folderTracks indexOfObject:selectedObject]];
-    } else
-        [self openMediaObject:selectedObject];
+    [self openMediaObject:selectedObject];
 }
 
 - (void)collectionView:(UICollectionView *)collectionView didDeselectItemAtIndexPath:(NSIndexPath *)indexPath

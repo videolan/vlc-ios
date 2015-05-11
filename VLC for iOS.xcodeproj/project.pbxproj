@@ -562,6 +562,7 @@
 		DD7110F01AF38B2B00854776 /* MLMediaLibrary+playlist.m in Sources */ = {isa = PBXBuildFile; fileRef = DD7110EF1AF38B2B00854776 /* MLMediaLibrary+playlist.m */; };
 		DD7110F11AF38B2B00854776 /* MLMediaLibrary+playlist.m in Sources */ = {isa = PBXBuildFile; fileRef = DD7110EF1AF38B2B00854776 /* MLMediaLibrary+playlist.m */; };
 		DD7635D61AF262D100240CB8 /* NSManagedObjectContext+refreshAll.m in Sources */ = {isa = PBXBuildFile; fileRef = DD7635D51AF262D100240CB8 /* NSManagedObjectContext+refreshAll.m */; };
+		DD8F84311B00EB3B0009138A /* VLCPlaybackController+MediaLibrary.m in Sources */ = {isa = PBXBuildFile; fileRef = DD8F84301B00EB3B0009138A /* VLCPlaybackController+MediaLibrary.m */; };
 		DDACEB561ADAD11300735484 /* WKInterfaceObject+VLCProgress.m in Sources */ = {isa = PBXBuildFile; fileRef = DDACEB551ADAD11300735484 /* WKInterfaceObject+VLCProgress.m */; };
 		DDB959401AFBB2F600BB8CFF /* MediaLibrary.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = DDB9593C1AFBB2F600BB8CFF /* MediaLibrary.xcdatamodeld */; };
 		DDB959421AFBB30500BB8CFF /* MappingModel_2_5_to_2_5_2.xcmappingmodel in Sources */ = {isa = PBXBuildFile; fileRef = DDB959411AFBB30500BB8CFF /* MappingModel_2_5_to_2_5_2.xcmappingmodel */; };
@@ -1637,6 +1638,8 @@
 		DD7110EF1AF38B2B00854776 /* MLMediaLibrary+playlist.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "MLMediaLibrary+playlist.m"; sourceTree = "<group>"; };
 		DD7635D41AF262D100240CB8 /* NSManagedObjectContext+refreshAll.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSManagedObjectContext+refreshAll.h"; sourceTree = "<group>"; };
 		DD7635D51AF262D100240CB8 /* NSManagedObjectContext+refreshAll.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSManagedObjectContext+refreshAll.m"; sourceTree = "<group>"; };
+		DD8F842F1B00EB3B0009138A /* VLCPlaybackController+MediaLibrary.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = "VLCPlaybackController+MediaLibrary.h"; path = "Sources/VLCPlaybackController+MediaLibrary.h"; sourceTree = SOURCE_ROOT; };
+		DD8F84301B00EB3B0009138A /* VLCPlaybackController+MediaLibrary.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = "VLCPlaybackController+MediaLibrary.m"; path = "Sources/VLCPlaybackController+MediaLibrary.m"; sourceTree = SOURCE_ROOT; };
 		DDACEB541ADAD11300735484 /* WKInterfaceObject+VLCProgress.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "WKInterfaceObject+VLCProgress.h"; sourceTree = "<group>"; };
 		DDACEB551ADAD11300735484 /* WKInterfaceObject+VLCProgress.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "WKInterfaceObject+VLCProgress.m"; sourceTree = "<group>"; };
 		DDB9593D1AFBB2F600BB8CFF /* MediaLibrary-2.1.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = "MediaLibrary-2.1.xcdatamodel"; sourceTree = "<group>"; };
@@ -2309,6 +2312,8 @@
 			children = (
 				7DE56C181AD93F9100E8CA00 /* VLCPlaybackController.h */,
 				7DE56C191AD93F9100E8CA00 /* VLCPlaybackController.m */,
+				DD8F842F1B00EB3B0009138A /* VLCPlaybackController+MediaLibrary.h */,
+				DD8F84301B00EB3B0009138A /* VLCPlaybackController+MediaLibrary.m */,
 				7D37848D183A98B6009EE944 /* VLCMovieViewController.h */,
 				7D37848E183A98B6009EE944 /* VLCMovieViewController.m */,
 				7D9561091AF3E9E800779745 /* VLCMiniPlaybackView.h */,
@@ -3748,6 +3753,7 @@
 				7D37848F183A98B6009EE944 /* VLCMovieViewController.m in Sources */,
 				7D378492183A98BF009EE944 /* VLCExternalDisplayController.m in Sources */,
 				7D378499183A98D1009EE944 /* VLCPlaylistCollectionViewCell.m in Sources */,
+				DD8F84311B00EB3B0009138A /* VLCPlaybackController+MediaLibrary.m in Sources */,
 				7D37849A183A98D1009EE944 /* VLCPlaylistTableViewCell.m in Sources */,
 				7D37849B183A98D1009EE944 /* VLCPlaylistViewController.m in Sources */,
 				7D37849E183A98DD009EE944 /* VLCThumbnailsCache.m in Sources */,
