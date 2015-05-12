@@ -34,7 +34,7 @@
 
 /* prefs keys */
 static NSString *kDisplayedFirstSteps = @"Did we display the first steps tutorial?";
-
+static NSString *kUsingTableViewToShowData = @"UsingTableViewToShowData";
 @implementation EmptyLibraryView
 
 - (IBAction)learnMore:(id)sender
@@ -82,11 +82,12 @@ static NSString *kDisplayedFirstSteps = @"Did we display the first steps tutoria
 {
     NSUserDefaults *defaults = [NSUserDefaults standardUserDefaults];
     [defaults registerDefaults:@{kDisplayedFirstSteps : [NSNumber numberWithBool:NO]}];
+    [defaults registerDefaults:@{kUsingTableViewToShowData : [NSNumber numberWithBool:UI_USER_INTERFACE_IDIOM() == UIUserInterfaceIdiomPhone]}];
 }
 
 - (void)loadView
 {
-    _usingTableViewToShowData = UI_USER_INTERFACE_IDIOM() == UIUserInterfaceIdiomPhone;
+    _usingTableViewToShowData = [[NSUserDefaults standardUserDefaults] boolForKey:kUsingTableViewToShowData];;
     [self setupContentViewWithContentInset:NO];
     _libraryMode = VLCLibraryModeAllFiles;
 
@@ -1137,6 +1138,8 @@ static NSString *kDisplayedFirstSteps = @"Did we display the first steps tutoria
 - (void)toggleDisplayedView:(UIBarButtonItem *)button
 {
     _usingTableViewToShowData = !_usingTableViewToShowData;
+    [[NSUserDefaults standardUserDefaults] setBool:_usingTableViewToShowData forKey:kUsingTableViewToShowData];
+    [[NSUserDefaults standardUserDefaults] synchronize];
     UIImage *newButtonImage = [UIImage imageNamed: _usingTableViewToShowData ? @"collectionViewIcon" : @"tableViewIcon"];
     [button setImage:newButtonImage];
     [self setupContentViewWithContentInset:YES];
