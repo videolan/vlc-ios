@@ -38,10 +38,10 @@
 
 - (void)downloadFileFromURL:(NSURL *)url
 {
-    [self downloadFileFromURLwithFileName:url fileNameOfMedia:nil];
+    [self downloadFileFromURL:url withFileName:nil];
 }
 
-- (void)downloadFileFromURLwithFileName:(NSURL *)url fileNameOfMedia:(NSString*)fileName
+- (void)downloadFileFromURL:(NSURL *)url withFileName:(NSString*)fileName
 {
     NSArray *searchPaths = NSSearchPathForDirectoriesInDomains(NSCachesDirectory, NSUserDomainMask, YES);
     NSString *basePath = [searchPaths[0] stringByAppendingPathComponent:@"Upload"];
