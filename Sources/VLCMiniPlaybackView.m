@@ -78,7 +78,7 @@
     [self addSubview:_previousButton];
 
     CGFloat artworkViewWidth = _artworkView.frame.size.width;
-    _metaDataLabel = [[UILabel alloc] initWithFrame:CGRectMake(artworkViewWidth + 10., 0., previousRect.origin.x - artworkViewWidth, viewFrame.size.height)];
+    _metaDataLabel = [[UILabel alloc] initWithFrame:CGRectMake(artworkViewWidth + 10., 0., previousRect.origin.x - artworkViewWidth - 10., viewFrame.size.height)];
     _metaDataLabel.font = [UIFont systemFontOfSize:12.];
     _metaDataLabel.textColor = [UIColor VLCLightTextColor];
     _metaDataLabel.numberOfLines = 0;
@@ -147,6 +147,7 @@ currentMediaHasTrackToChooseFrom:(BOOL)currentMediaHasTrackToChooseFrom
             _videoView = nil;
         }
     } else {
+        _artworkView.image = nil;
         if (_videoView) {
             [_videoView removeFromSuperview];
             _videoView = nil;
