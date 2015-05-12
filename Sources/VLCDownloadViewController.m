@@ -148,7 +148,7 @@
             if (!_httpDownloader.downloadInProgress) {
                 _currentDownloadType = kVLCDownloadViaHTTP;
                 if (![_currentDownloadFilename.firstObject isEqualToString:@""]) {
-                    [_httpDownloader downloadFileFromURLwithFileName:_currentDownloads.firstObject fileNameOfMedia:_currentDownloadFilename.firstObject];
+                    [_httpDownloader downloadFileFromURL:_currentDownloads.firstObject withFileName:_currentDownloadFilename.firstObject];
                     _humanReadableFilename = [_currentDownloadFilename objectAtIndex:0];
                 } else {
                     [_httpDownloader downloadFileFromURL:_currentDownloads.firstObject];

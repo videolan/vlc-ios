@@ -170,7 +170,7 @@
 {
     _fileDownloader = [[VLCHTTPFileDownloader alloc] init];
     _fileDownloader.delegate = self;
-    [_fileDownloader downloadFileFromURLwithFileName:[NSURL URLWithString:self.downloadPath] fileNameOfMedia:self.name];
+    [_fileDownloader downloadFileFromURL:[NSURL URLWithString:self.downloadPath] withFileName:self.name];
 }
 
 - (void)downloadStarted
