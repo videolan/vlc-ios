@@ -468,7 +468,10 @@ static NSString *kUsingTableViewToShowData = @"UsingTableViewToShowData";
             }
         };
     }
-
+    //when switching between tableview and collectionview all subviews are removed, make sure to readd it when this happens
+    if (!_miniPlaybackView.superview && miniPlayerVisible) {
+        [self.view addSubview:_miniPlaybackView];
+    }
     // either way update view
     [_miniPlaybackView setupForWork];
 
