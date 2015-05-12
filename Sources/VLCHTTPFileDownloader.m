@@ -38,40 +38,24 @@
 
 - (void)downloadFileFromURL:(NSURL *)url
 {
-    NSArray *searchPaths = NSSearchPathForDirectoriesInDomains(NSCachesDirectory, NSUserDomainMask, YES);
-    NSString *basePath = [searchPaths[0] stringByAppendingPathComponent:@"Upload"];
-    _fileName = url.lastPathComponent;
-    _filePath = [basePath stringByAppendingPathComponent:_fileName];
-    NSFileManager *fileManager = [NSFileManager defaultManager];
-    if (![fileManager fileExistsAtPath:basePath])
-        [fileManager createDirectoryAtPath:basePath withIntermediateDirectories:YES attributes:nil error:nil];
-    _expectedDownloadSize = _receivedDataSize = 0;
-    NSMutableURLRequest *theRequest = [NSMutableURLRequest requestWithURL:url];
-    [theRequest addValue:[NSString stringWithFormat:@"Mozilla/5.0 (%@; CPU OS 7_0 like Mac OS X) AppleWebKit/537.51.1 (KHTML, like Gecko) Version/%@ Mobile/11A465 Safari/9537.53 VLC for iOS/%@", UI_USER_INTERFACE_IDIOM() == UIUserInterfaceIdiomPad ? @"iPad" : @"iPhone", [[UIDevice currentDevice] systemVersion], [[NSBundle mainBundle] objectForInfoDictionaryKey:@"CFBundleVersion"]] forHTTPHeaderField:@"User-Agent"];
-    _originalRequest = [theRequest mutableCopy];
-    _urlConnection = [[NSURLConnection alloc] initWithRequest:theRequest delegate:self];
-    if (!_urlConnection) {
-        APLog(@"failed to establish connection");
-        _downloadInProgress = NO;
-    } else {
-        _downloadInProgress = YES;
-        [(VLCAppDelegate*)[UIApplication sharedApplication].delegate networkActivityStarted];
-        [(VLCAppDelegate*)[UIApplication sharedApplication].delegate disableIdleTimer];
-    }
+    [self downloadFileFromURLwithFileName:url fileNameOfMedia:nil];
 }
 
 - (void)downloadFileFromURLwithFileName:(NSURL *)url fileNameOfMedia:(NSString*)fileName
 {
     NSArray *searchPaths = NSSearchPathForDirectoriesInDomains(NSCachesDirectory, NSUserDomainMask, YES);
     NSString *basePath = [searchPaths[0] stringByAppendingPathComponent:@"Upload"];
-    _fileName = fileName;
+    if (fileName)
+        _fileName = fileName;
+    else
+        _fileName = url.lastPathComponent;
     _filePath = [basePath stringByAppendingPathComponent:_fileName];
     NSFileManager *fileManager = [NSFileManager defaultManager];
     if (![fileManager fileExistsAtPath:basePath])
         [fileManager createDirectoryAtPath:basePath withIntermediateDirectories:YES attributes:nil error:nil];
     _expectedDownloadSize = _receivedDataSize = 0;
     NSMutableURLRequest *theRequest = [NSMutableURLRequest requestWithURL:url];
-    [theRequest addValue:[NSString stringWithFormat:@"Mozilla/5.0 (%@; CPU OS 7_0 like Mac OS X) AppleWebKit/537.51.1 (KHTML, like Gecko) Version/%@ Mobile/11A465 Safari/9537.53 VLC for iOS/%@", UI_USER_INTERFACE_IDIOM() == UIUserInterfaceIdiomPad ? @"iPad" : @"iPhone", [[UIDevice currentDevice] systemVersion], [[NSBundle mainBundle] objectForInfoDictionaryKey:@"CFBundleVersion"]] forHTTPHeaderField:@"User-Agent"];
+    [theRequest addValue:[NSString stringWithFormat:@"Mozilla/5.0 (%@; CPU OS 7_0 like Mac OS X) AppleWebKit/537.51.1 (KHTML, like Gecko) Version/%@ Mobile/11A465 Safari/9537.53 VLC for iOS/%@", UI_USER_INTERFACE_IDIOM() == UIUserInterfaceIdiomPad ? @"iPad" : @"iPhone", [[UIDevice currentDevice] systemVersion], [[NSBundle mainBundle] objectForInfoDictionaryKey:@"CFBundleShortVersionString"]] forHTTPHeaderField:@"User-Agent"];
     _originalRequest = [theRequest mutableCopy];
     _urlConnection = [[NSURLConnection alloc] initWithRequest:theRequest delegate:self];
     if (!_urlConnection) {
