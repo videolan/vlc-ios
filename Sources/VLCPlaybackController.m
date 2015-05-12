@@ -290,13 +290,6 @@
     else
         [_listPlayer playMedia:_listPlayer.rootMedia];
 
-    if (matchedFile) {
-        if (matchedFile.lastAudioTrack.intValue > 0)
-            _mediaPlayer.currentAudioTrackIndex = matchedFile.lastAudioTrack.intValue;
-        if (matchedFile.lastSubtitleTrack.intValue > 0)
-            _mediaPlayer.currentVideoSubTitleIndex = matchedFile.lastSubtitleTrack.intValue;
-    }
-
     if ([self.delegate respondsToSelector:@selector(prepareForMediaPlayback:)])
         [self.delegate prepareForMediaPlayback:self];
 
@@ -480,14 +473,14 @@
         [self stopPlayback];
     } else if ((currentState == VLCMediaPlayerStateEnded || currentState == VLCMediaPlayerStateStopped) && _listPlayer.repeatMode == VLCDoNotRepeat) {
         if ([_listPlayer.mediaList indexOfMedia:_mediaPlayer.media] == _listPlayer.mediaList.count - 1) {
-            if ([self.delegate respondsToSelector:@selector(presentingViewControllerShouldBeClosedAfterADelay:)])
-                [self.delegate presentingViewControllerShouldBeClosedAfterADelay:self];
+            if ([self.delegate respondsToSelector:@selector(presentingViewControllerShouldBeClosed:)])
+                [self.delegate presentingViewControllerShouldBeClosed:self];
             [self stopPlayback];
             return;
         }
     } else {
         /* disable video decoding if we have no place to show */
-        if (_mediaPlayer.audioTrackIndexes.count > 0) {
+        if (_mediaPlayer.numberOfAudioTracks > 0) {
             if (_videoOutputViewWrapper == nil)
                 _mediaPlayer.currentVideoTrackIndex = -1;
         }
@@ -799,6 +792,17 @@
     } else if (_mediaWasJustStarted) {
         _mediaWasJustStarted = NO;
         [(VLCAppDelegate *)[UIApplication sharedApplication].delegate presentMovieViewController];
+
+        if (item) {
+            if (_mediaPlayer.numberOfAudioTracks > 2) {
+                if (item.lastAudioTrack.intValue > 0)
+                    _mediaPlayer.currentAudioTrackIndex = item.lastAudioTrack.intValue;
+            }
+            if (_mediaPlayer.numberOfSubtitlesTracks > 2) {
+                if (item.lastSubtitleTrack.intValue > 0)
+                    _mediaPlayer.currentVideoSubTitleIndex = item.lastSubtitleTrack.intValue;
+            }
+        }
     }
 
     /* populate delegate with metadata info */
@@ -845,7 +849,6 @@
 setstuff:
     [MPNowPlayingInfoCenter defaultCenter].nowPlayingInfo = currentlyPlayingTrackInfo;
     [[NSNotificationCenter defaultCenter] postNotificationName:kVLCNotificationNowPlayingInfoUpdate object:self];
-
 
     _title = title;
     _artist = artist;
