@@ -61,7 +61,9 @@ currentMediaHasTrackToChooseFrom:(BOOL)currentMediaHasTrackToChooseFrom
 @property (nonatomic, readonly) NSInteger mediaDuration;
 @property (nonatomic, readonly) BOOL isPlaying;
 @property (nonatomic, readwrite) VLCRepeatMode repeatMode;
-@property (nonatomic, readwrite) float playbackRate;
+@property (nonatomic, readwrite) float playbackRate; // default = 1.0
+@property (nonatomic, readwrite) float audioDelay; // in seconds, default = 0.0
+@property (nonatomic, readwrite) float subtitleDelay; // in seconds, default = 0.0
 @property (nonatomic, readonly) BOOL currentMediaHasChapters;
 @property (nonatomic, readonly) BOOL currentMediaHasTrackToChooseFrom;
 @property (nonatomic, readonly) BOOL activePlaybackSession;

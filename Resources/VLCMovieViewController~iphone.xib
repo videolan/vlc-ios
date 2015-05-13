@@ -330,7 +330,7 @@
                         </button>
                     </subviews>
                 </view>
-                <view hidden="YES" contentMode="scaleToFill" id="165" userLabel="Controls panel" customClass="VLCFrostedGlasView">
+                <view hidden="YES" contentMode="scaleToFill" id="165" userLabel="speed delay Controls panel" customClass="VLCFrostedGlasView">
                     <rect key="frame" x="0.0" y="314" width="320" height="163"/>
                     <autoresizingMask key="autoresizingMask" flexibleMinX="YES" flexibleMaxX="YES" flexibleMinY="YES"/>
                     <subviews>
@@ -390,7 +390,7 @@
                             <color key="textColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                             <nil key="highlightedColor"/>
                         </label>
-                        <slider opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" minValue="-34" maxValue="34" id="168" customClass="VLCSlider">
+                        <slider opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" minValue="-2" maxValue="2" id="168" customClass="VLCSlider">
                             <rect key="frame" x="18" y="97" width="284" height="29"/>
                             <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                             <connections>
