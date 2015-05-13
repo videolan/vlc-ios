@@ -32,7 +32,6 @@
 
 #import "VLCStatusLabel.h"
 
-#define INPUT_RATE_DEFAULT  1000.
 #define FORWARD_SWIPE_DURATION 30
 #define BACKWARD_SWIPE_DURATION 10
 
@@ -783,17 +782,16 @@ typedef NS_ENUM(NSInteger, VLCPanType) {
     [_equalizerView reloadData];
 
     float playbackRate = controller.playbackRate;
-    self.playbackSpeedSlider.value = playbackRate;
-    double speed = pow(2, playbackRate / 17.);
-    self.playbackSpeedIndicator.text = [NSString stringWithFormat:@"%.2fx", speed];
+    self.playbackSpeedSlider.value = log2(playbackRate);
+    self.playbackSpeedIndicator.text = [NSString stringWithFormat:@"%.2fx", playbackRate];
 
-    VLCMediaPlayer *mediaPlayer = [VLCPlaybackController sharedInstance].mediaPlayer;
+    float audioDelay = controller.audioDelay;
+    self.audioDelaySlider.value = audioDelay;
+    self.audioDelayIndicator.text = [NSString stringWithFormat:@"%1.00f s", audioDelay];
 
-    self.audioDelaySlider.value = mediaPlayer.currentAudioPlaybackDelay / 1000000;
-    self.audioDelayIndicator.text = [NSString stringWithFormat:@"%1.00f s", self.audioDelaySlider.value];
-
-    self.spuDelaySlider.value = mediaPlayer.currentVideoSubTitleDelay / 1000000;
-    self.spuDelayIndicator.text = [NSString stringWithFormat:@"%1.00f s", self.spuDelaySlider.value];
+    float subtitleDelay = controller.subtitleDelay;
+    self.spuDelaySlider.value = subtitleDelay;
+    self.spuDelayIndicator.text = [NSString stringWithFormat:@"%1.00f s", subtitleDelay];
 
     [self _resetIdleTimer];
 }
@@ -1473,18 +1471,19 @@ currentMediaHasTrackToChooseFrom:(BOOL)currentMediaHasTrackToChooseFrom
 {
     LOCKCHECK;
     VLCPlaybackController *vpc = [VLCPlaybackController sharedInstance];
-    VLCMediaPlayer *mediaPlayer = vpc.mediaPlayer;
 
     if (sender == _playbackSpeedSlider) {
-        double speed = pow(2, sender.value / 17.);
-        vpc.playbackRate = INPUT_RATE_DEFAULT / speed;
+        double speed = exp2(sender.value);
+        vpc.playbackRate = speed;
         self.playbackSpeedIndicator.text = [NSString stringWithFormat:@"%.2fx", speed];
     } else if (sender == _audioDelaySlider) {
-        mediaPlayer.currentAudioPlaybackDelay = _audioDelaySlider.value * 1000000;
-        _audioDelayIndicator.text = [NSString stringWithFormat:@"%1.2f s", _audioDelaySlider.value];
+        double delay = sender.value;
+        vpc.audioDelay = delay;
+        _audioDelayIndicator.text = [NSString stringWithFormat:@"%1.2f s", delay];
     } else if (sender == _spuDelaySlider) {
-        mediaPlayer.currentVideoSubTitleDelay = _spuDelaySlider.value * 1000000;
-        _spuDelayIndicator.text = [NSString stringWithFormat:@"%1.00f s", _spuDelaySlider.value];
+        double delay = sender.value;
+        vpc.subtitleDelay = delay;
+        _spuDelayIndicator.text = [NSString stringWithFormat:@"%1.00f s", delay];
     }
 
     [self _resetIdleTimer];

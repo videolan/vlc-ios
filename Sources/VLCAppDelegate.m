@@ -561,6 +561,7 @@ continueUserActivity:(NSUserActivity *)userActivity
     }
 
     UINavigationController *navCon = [[VLCPlaybackNavigationController alloc] initWithRootViewController:self.movieViewController];
+    [self.movieViewController prepareForMediaPlayback:[VLCPlaybackController sharedInstance]];
     navCon.modalPresentationStyle = UIModalPresentationFullScreen;
     [self.window.rootViewController presentViewController:navCon animated:YES completion:nil];
 }

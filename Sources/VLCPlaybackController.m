@@ -435,17 +435,8 @@
 - (float)playbackRate
 {
     float f_rate = _mediaPlayer.rate;
-
-    double value = 17 * log(f_rate) / log(2.);
-    float returnValue = (int) ((value > 0) ? value + .5 : value - .5);
-
-    if (returnValue < -34.)
-        returnValue = -34.;
-    else if (returnValue > 34.)
-        returnValue = 34.;
-
-    _currentPlaybackRate = returnValue;
-    return returnValue;
+    _currentPlaybackRate = f_rate;
+    return f_rate;
 }
 
 - (void)setPlaybackRate:(float)playbackRate
@@ -453,6 +444,23 @@
     if (_currentPlaybackRate != playbackRate)
         [_mediaPlayer setRate:playbackRate];
     _currentPlaybackRate = playbackRate;
+}
+
+- (void)setAudioDelay:(float)audioDelay
+{
+    _mediaPlayer.currentAudioPlaybackDelay = 1000000.*audioDelay;
+}
+- (float)audioDelay
+{
+    return _mediaPlayer.currentAudioPlaybackDelay/1000000.;
+}
+-(void)setSubtitleDelay:(float)subtitleDeleay
+{
+    _mediaPlayer.currentVideoSubTitleDelay = 1000000.*subtitleDeleay;
+}
+- (float)subtitleDelay
+{
+    return _mediaPlayer.currentVideoSubTitleDelay/1000000.;
 }
 
 - (void)mediaPlayerStateChanged:(NSNotification *)aNotification
