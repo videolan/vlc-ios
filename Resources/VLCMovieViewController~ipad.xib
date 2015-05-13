@@ -207,9 +207,15 @@
                             <color key="textColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                             <nil key="highlightedColor"/>
                         </label>
-                        <slider opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" minValue="-30" maxValue="30" id="ahb-li-nqH" customClass="VLCSlider">
+                        <slider opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" minValue="-30" maxValue="30" id="ahb-li-nqH" customClass="VLCResettingSlider">
                             <rect key="frame" x="18" y="21" width="284" height="29"/>
                             <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                            <userDefinedRuntimeAttributes>
+                                <userDefinedRuntimeAttribute type="boolean" keyPath="resetOnDoubleTap" value="YES"/>
+                                <userDefinedRuntimeAttribute type="number" keyPath="defaultValue">
+                                    <real key="value" value="0.0"/>
+                                </userDefinedRuntimeAttribute>
+                            </userDefinedRuntimeAttributes>
                             <connections>
                                 <action selector="playbackSliderAction:" destination="-1" eventType="valueChanged" id="MB1-sB-W8m"/>
                             </connections>
@@ -228,9 +234,15 @@
                             <color key="textColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                             <nil key="highlightedColor"/>
                         </label>
-                        <slider opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" minValue="-30" maxValue="30" id="juX-HR-PqD" customClass="VLCSlider">
+                        <slider opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" minValue="-30" maxValue="30" id="juX-HR-PqD" customClass="VLCResettingSlider">
                             <rect key="frame" x="18" y="58" width="284" height="29"/>
                             <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                            <userDefinedRuntimeAttributes>
+                                <userDefinedRuntimeAttribute type="boolean" keyPath="resetOnDoubleTap" value="YES"/>
+                                <userDefinedRuntimeAttribute type="number" keyPath="defaultValue">
+                                    <real key="value" value="0.0"/>
+                                </userDefinedRuntimeAttribute>
+                            </userDefinedRuntimeAttributes>
                             <connections>
                                 <action selector="playbackSliderAction:" destination="-1" eventType="valueChanged" id="acG-8w-Mgd"/>
                             </connections>
@@ -249,9 +261,15 @@
                             <color key="textColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                             <nil key="highlightedColor"/>
                         </label>
-                        <slider opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" minValue="-2" maxValue="2" id="180" customClass="VLCSlider">
+                        <slider opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" minValue="-2" maxValue="2" id="180" customClass="VLCResettingSlider">
                             <rect key="frame" x="18" y="96" width="284" height="29"/>
                             <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                            <userDefinedRuntimeAttributes>
+                                <userDefinedRuntimeAttribute type="boolean" keyPath="resetOnDoubleTap" value="YES"/>
+                                <userDefinedRuntimeAttribute type="number" keyPath="defaultValue">
+                                    <real key="value" value="0.0"/>
+                                </userDefinedRuntimeAttribute>
+                            </userDefinedRuntimeAttributes>
                             <connections>
                                 <action selector="playbackSliderAction:" destination="-1" eventType="valueChanged" id="4Xo-T4-hPJ"/>
                             </connections>

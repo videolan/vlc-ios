@@ -19,3 +19,8 @@
 @interface VLCSlider : UISlider
 
 @end
+
+@interface VLCResettingSlider : VLCSlider
+@property (nonatomic) IBInspectable float defaultValue;
+@property (nonatomic) IBInspectable BOOL resetOnDoubleTap;
+@end
