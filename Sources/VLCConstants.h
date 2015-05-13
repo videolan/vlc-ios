@@ -11,7 +11,7 @@
  * Refer to the COPYING file of the official project for license.
  *****************************************************************************/
 
-#define kVLCVersionCodename @"Get Off Of My Cloud"
+#define kVLCVersionCodename @"All Along the Watchtower"
 
 #define kVLCSettingPasscodeKey @"Passcode"
 #define kVLCSettingPasscodeOnKey @"PasscodeProtection"
