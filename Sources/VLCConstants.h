@@ -11,7 +11,7 @@
  * Refer to the COPYING file of the official project for license.
  *****************************************************************************/
 
-#define kVLCVersionCodename @"Walking with a Ghost"
+#define kVLCVersionCodename @"All Along the Watchtower"
 
 #define kVLCSettingPasscodeKey @"Passcode"
 #define kVLCSettingPasscodeOnKey @"PasscodeProtection"
