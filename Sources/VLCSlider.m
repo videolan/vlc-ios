@@ -83,3 +83,38 @@
 }
 
 @end
+
+@interface VLCResettingSlider ()
+@property (nonatomic, weak) UITapGestureRecognizer *doubleTapRecognizer;
+@end
+
+@implementation VLCResettingSlider
+- (void)awakeFromNib
+{
+    [super awakeFromNib];
+    if (self.resetOnDoubleTap) {
+        [self setResetOnDoubleTap:YES];
+    }
+    
+}
+- (void)setResetOnDoubleTap:(BOOL)resetOnDoubleTap
+{
+    _resetOnDoubleTap = resetOnDoubleTap;
+    if (resetOnDoubleTap && self.doubleTapRecognizer == nil) {
+        UITapGestureRecognizer *recognizer = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(didDoubleTap:)];
+        recognizer.numberOfTapsRequired = 2;
+        [self addGestureRecognizer:recognizer];
+        self.doubleTapRecognizer = recognizer;
+    } else if (!resetOnDoubleTap) {
+        UITapGestureRecognizer *recognizer = self.doubleTapRecognizer;
+        [self removeGestureRecognizer:recognizer];
+        self.doubleTapRecognizer = nil;
+    }
+}
+
+- (IBAction)didDoubleTap:(id)sender {
+    self.value = self.defaultValue;
+    [self sendActionsForControlEvents:UIControlEventValueChanged];
+}
+
+@end
