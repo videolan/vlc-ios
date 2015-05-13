@@ -556,17 +556,16 @@
 		DD1542121ACFF76400AFD4EC /* VLCWatchTableController.m in Sources */ = {isa = PBXBuildFile; fileRef = DD1542111ACFF76400AFD4EC /* VLCWatchTableController.m */; };
 		DD3EA6311AF50CFE007FF096 /* VLCWatchMessage.m in Sources */ = {isa = PBXBuildFile; fileRef = DD3EA6301AF50CFE007FF096 /* VLCWatchMessage.m */; };
 		DD3EA6321AF50D01007FF096 /* VLCWatchMessage.m in Sources */ = {isa = PBXBuildFile; fileRef = DD3EA6301AF50CFE007FF096 /* VLCWatchMessage.m */; };
-		DD670C971AFBEED400A2D7AB /* MappingModel_2_5_to_2_5_2.xcmappingmodel in Sources */ = {isa = PBXBuildFile; fileRef = DDB959411AFBB30500BB8CFF /* MappingModel_2_5_to_2_5_2.xcmappingmodel */; };
-		DD670C981AFBEF0B00A2D7AB /* MediaLibrary.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = DDB9593C1AFBB2F600BB8CFF /* MediaLibrary.xcdatamodeld */; };
+		DD670C971AFBEED400A2D7AB /* MappingModel_2_5_to_2_6.xcmappingmodel in Sources */ = {isa = PBXBuildFile; fileRef = DDB959411AFBB30500BB8CFF /* MappingModel_2_5_to_2_6.xcmappingmodel */; };
 		DD6FA7B01ACD641C006DEB2E /* VLCNowPlayingInterfaceController.m in Sources */ = {isa = PBXBuildFile; fileRef = DD6FA7AF1ACD641C006DEB2E /* VLCNowPlayingInterfaceController.m */; };
 		DD7110F01AF38B2B00854776 /* MLMediaLibrary+playlist.m in Sources */ = {isa = PBXBuildFile; fileRef = DD7110EF1AF38B2B00854776 /* MLMediaLibrary+playlist.m */; };
 		DD7110F11AF38B2B00854776 /* MLMediaLibrary+playlist.m in Sources */ = {isa = PBXBuildFile; fileRef = DD7110EF1AF38B2B00854776 /* MLMediaLibrary+playlist.m */; };
 		DD7635D61AF262D100240CB8 /* NSManagedObjectContext+refreshAll.m in Sources */ = {isa = PBXBuildFile; fileRef = DD7635D51AF262D100240CB8 /* NSManagedObjectContext+refreshAll.m */; };
 		DD8F84311B00EB3B0009138A /* VLCPlaybackController+MediaLibrary.m in Sources */ = {isa = PBXBuildFile; fileRef = DD8F84301B00EB3B0009138A /* VLCPlaybackController+MediaLibrary.m */; };
 		DDACEB561ADAD11300735484 /* WKInterfaceObject+VLCProgress.m in Sources */ = {isa = PBXBuildFile; fileRef = DDACEB551ADAD11300735484 /* WKInterfaceObject+VLCProgress.m */; };
-		DDB959401AFBB2F600BB8CFF /* MediaLibrary.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = DDB9593C1AFBB2F600BB8CFF /* MediaLibrary.xcdatamodeld */; };
-		DDB959421AFBB30500BB8CFF /* MappingModel_2_5_to_2_5_2.xcmappingmodel in Sources */ = {isa = PBXBuildFile; fileRef = DDB959411AFBB30500BB8CFF /* MappingModel_2_5_to_2_5_2.xcmappingmodel */; };
+		DDB959421AFBB30500BB8CFF /* MappingModel_2_5_to_2_6.xcmappingmodel in Sources */ = {isa = PBXBuildFile; fileRef = DDB959411AFBB30500BB8CFF /* MappingModel_2_5_to_2_6.xcmappingmodel */; };
 		DDC10BE41AEE8EA700890DC3 /* VLCTimeNavigationTitleView.m in Sources */ = {isa = PBXBuildFile; fileRef = DDC10BE31AEE8EA700890DC3 /* VLCTimeNavigationTitleView.m */; };
+		DDC7BFB31B03829100160878 /* MediaLibrary.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = DDC7BFAF1B03829100160878 /* MediaLibrary.xcdatamodeld */; };
 		DDE4906C1ACDB63F00B1B5E3 /* VLCNotificationRelay.m in Sources */ = {isa = PBXBuildFile; fileRef = DDE4906B1ACDB63F00B1B5E3 /* VLCNotificationRelay.m */; };
 		DDE4906D1ACDBEA000B1B5E3 /* VLCNotificationRelay.m in Sources */ = {isa = PBXBuildFile; fileRef = DDE4906B1ACDB63F00B1B5E3 /* VLCNotificationRelay.m */; };
 		DDE490701ACE8BBC00B1B5E3 /* VLCDetailInterfaceController.m in Sources */ = {isa = PBXBuildFile; fileRef = DDE4906F1ACE8BBC00B1B5E3 /* VLCDetailInterfaceController.m */; };
@@ -1642,12 +1641,12 @@
 		DD8F84301B00EB3B0009138A /* VLCPlaybackController+MediaLibrary.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = "VLCPlaybackController+MediaLibrary.m"; path = "Sources/VLCPlaybackController+MediaLibrary.m"; sourceTree = SOURCE_ROOT; };
 		DDACEB541ADAD11300735484 /* WKInterfaceObject+VLCProgress.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "WKInterfaceObject+VLCProgress.h"; sourceTree = "<group>"; };
 		DDACEB551ADAD11300735484 /* WKInterfaceObject+VLCProgress.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "WKInterfaceObject+VLCProgress.m"; sourceTree = "<group>"; };
-		DDB9593D1AFBB2F600BB8CFF /* MediaLibrary-2.1.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = "MediaLibrary-2.1.xcdatamodel"; sourceTree = "<group>"; };
-		DDB9593E1AFBB2F600BB8CFF /* MediaLibrary-2.5.2.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = "MediaLibrary-2.5.2.xcdatamodel"; sourceTree = "<group>"; };
-		DDB9593F1AFBB2F600BB8CFF /* MediaLibrary-2.5.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = "MediaLibrary-2.5.xcdatamodel"; sourceTree = "<group>"; };
-		DDB959411AFBB30500BB8CFF /* MappingModel_2_5_to_2_5_2.xcmappingmodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcmappingmodel; name = MappingModel_2_5_to_2_5_2.xcmappingmodel; path = ImportedSources/MediaLibraryKit/MappingModel_2_5_to_2_5_2.xcmappingmodel; sourceTree = "<group>"; };
+		DDB959411AFBB30500BB8CFF /* MappingModel_2_5_to_2_6.xcmappingmodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcmappingmodel; name = MappingModel_2_5_to_2_6.xcmappingmodel; path = ImportedSources/MediaLibraryKit/MappingModel_2_5_to_2_6.xcmappingmodel; sourceTree = "<group>"; };
 		DDC10BE21AEE8EA700890DC3 /* VLCTimeNavigationTitleView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = VLCTimeNavigationTitleView.h; path = Sources/VLCTimeNavigationTitleView.h; sourceTree = SOURCE_ROOT; };
 		DDC10BE31AEE8EA700890DC3 /* VLCTimeNavigationTitleView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = VLCTimeNavigationTitleView.m; path = Sources/VLCTimeNavigationTitleView.m; sourceTree = SOURCE_ROOT; };
+		DDC7BFB01B03829100160878 /* MediaLibrary-2.1.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = "MediaLibrary-2.1.xcdatamodel"; sourceTree = "<group>"; };
+		DDC7BFB11B03829100160878 /* MediaLibrary-2.5.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = "MediaLibrary-2.5.xcdatamodel"; sourceTree = "<group>"; };
+		DDC7BFB21B03829100160878 /* MediaLibrary-2.6.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = "MediaLibrary-2.6.xcdatamodel"; sourceTree = "<group>"; };
 		DDE4906A1ACDB63F00B1B5E3 /* VLCNotificationRelay.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = VLCNotificationRelay.h; sourceTree = "<group>"; };
 		DDE4906B1ACDB63F00B1B5E3 /* VLCNotificationRelay.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = VLCNotificationRelay.m; sourceTree = "<group>"; };
 		DDE4906E1ACE8BBC00B1B5E3 /* VLCDetailInterfaceController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = VLCDetailInterfaceController.h; sourceTree = "<group>"; };
@@ -2491,8 +2490,8 @@
 		7D94FCD216DE7D1000F2623B = {
 			isa = PBXGroup;
 			children = (
-				DDB959411AFBB30500BB8CFF /* MappingModel_2_5_to_2_5_2.xcmappingmodel */,
-				DDB9593C1AFBB2F600BB8CFF /* MediaLibrary.xcdatamodeld */,
+				DDB959411AFBB30500BB8CFF /* MappingModel_2_5_to_2_6.xcmappingmodel */,
+				DDC7BFAF1B03829100160878 /* MediaLibrary.xcdatamodeld */,
 				7D31719C19FEC91F0019357A /* VLC for iOS.entitlements */,
 				7DB638AA185BC0890003887C /* Images.xcassets */,
 				7D94FCE416DE7D1000F2623B /* Classes */,
@@ -3684,10 +3683,9 @@
 				7D298F451AD58A0700A0BF68 /* UIImage+Blur.m in Sources */,
 				7D871F521AD7257100348D27 /* UIImage+Scaling.m in Sources */,
 				DDE490731ACE964200B1B5E3 /* VLCBaseInterfaceController.m in Sources */,
-				DD670C981AFBEF0B00A2D7AB /* MediaLibrary.xcdatamodeld in Sources */,
 				DDE4906C1ACDB63F00B1B5E3 /* VLCNotificationRelay.m in Sources */,
 				DD7110F11AF38B2B00854776 /* MLMediaLibrary+playlist.m in Sources */,
-				DD670C971AFBEED400A2D7AB /* MappingModel_2_5_to_2_5_2.xcmappingmodel in Sources */,
+				DD670C971AFBEED400A2D7AB /* MappingModel_2_5_to_2_6.xcmappingmodel in Sources */,
 				DD1542121ACFF76400AFD4EC /* VLCWatchTableController.m in Sources */,
 				DD02C30E1ACAF4A50026EFEE /* VLCRowController.m in Sources */,
 				DD7635D61AF262D100240CB8 /* NSManagedObjectContext+refreshAll.m in Sources */,
@@ -3711,6 +3709,7 @@
 				4171D35818A2D90200A16EF9 /* LXReorderableCollectionViewFlowLayout.m in Sources */,
 				2915540417490A1E00B86CAD /* HTTPAuthenticationRequest.m in Sources */,
 				2915540517490A1E00B86CAD /* HTTPConnection.m in Sources */,
+				DDC7BFB31B03829100160878 /* MediaLibrary.xcdatamodeld in Sources */,
 				2915540617490A1E00B86CAD /* HTTPMessage.m in Sources */,
 				7DC19B0C1868D21800810BF7 /* VLCFirstStepsSixthPageViewController.m in Sources */,
 				2915540717490A1E00B86CAD /* HTTPServer.m in Sources */,
@@ -3771,7 +3770,6 @@
 				7DBBF182183AB3B80009A339 /* VLCAppDelegate.m in Sources */,
 				7D3784C0183A9938009EE944 /* VLCLinearProgressIndicator.m in Sources */,
 				DD3EA6311AF50CFE007FF096 /* VLCWatchMessage.m in Sources */,
-				DDB959401AFBB2F600BB8CFF /* MediaLibrary.xcdatamodeld in Sources */,
 				41CD695D1A29D72600E60BCE /* VLCBoxTableViewController.m in Sources */,
 				7D3784C1183A9938009EE944 /* VLCMenuButton.m in Sources */,
 				41CD695C1A29D72600E60BCE /* VLCBoxController.m in Sources */,
@@ -3806,7 +3804,7 @@
 				7D30F3D8183AB2F100FFC021 /* VLCLocalServerFolderListViewController.m in Sources */,
 				7D30F3D9183AB2F100FFC021 /* VLCLocalServerListViewController.m in Sources */,
 				7D30F3DC183AB2F900FFC021 /* VLCNetworkLoginViewController.m in Sources */,
-				DDB959421AFBB30500BB8CFF /* MappingModel_2_5_to_2_5_2.xcmappingmodel in Sources */,
+				DDB959421AFBB30500BB8CFF /* MappingModel_2_5_to_2_6.xcmappingmodel in Sources */,
 				7D30F3DF183AB31E00FFC021 /* VLCWiFiUploadTableViewCell.m in Sources */,
 				7D74177A1AE2D3CE001F1997 /* VLCNavigationController.m in Sources */,
 				7D30F3E2183AB33200FFC021 /* VLCSidebarViewCell.m in Sources */,
@@ -4631,14 +4629,14 @@
 /* End XCConfigurationList section */
 
 /* Begin XCVersionGroup section */
-		DDB9593C1AFBB2F600BB8CFF /* MediaLibrary.xcdatamodeld */ = {
+		DDC7BFAF1B03829100160878 /* MediaLibrary.xcdatamodeld */ = {
 			isa = XCVersionGroup;
 			children = (
-				DDB9593D1AFBB2F600BB8CFF /* MediaLibrary-2.1.xcdatamodel */,
-				DDB9593E1AFBB2F600BB8CFF /* MediaLibrary-2.5.2.xcdatamodel */,
-				DDB9593F1AFBB2F600BB8CFF /* MediaLibrary-2.5.xcdatamodel */,
+				DDC7BFB01B03829100160878 /* MediaLibrary-2.1.xcdatamodel */,
+				DDC7BFB11B03829100160878 /* MediaLibrary-2.5.xcdatamodel */,
+				DDC7BFB21B03829100160878 /* MediaLibrary-2.6.xcdatamodel */,
 			);
-			currentVersion = DDB9593E1AFBB2F600BB8CFF /* MediaLibrary-2.5.2.xcdatamodel */;
+			currentVersion = DDC7BFB21B03829100160878 /* MediaLibrary-2.6.xcdatamodel */;
 			name = MediaLibrary.xcdatamodeld;
 			path = ImportedSources/MediaLibraryKit/MediaLibrary.xcdatamodeld;
 			sourceTree = "<group>";
