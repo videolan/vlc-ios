@@ -7,3 +7,21 @@
 "LIBRARY_MUSIC"="音楽アルバム";
 "LIBRARY_SERIES"="TVショー";
 "EMPTY_LIBRARY"="メディアライブラリが空です";
+
+"BWD_BUTTON"="ジャンプして戻る";
+"FWD_BUTTON"="ジャンプして進む";
+"PLAY_BUTTON"="再生";
+"PAUSE_BUTTON"="一時停止";
+
+"VOLUME"="音量";
+"DURATION"="長さ";
+"TITLE"="タイトル";
+
+// accessibility labels for the playlist
+"OBJECT_TYPE_SHOW"="テレビ番組";
+"OBJECT_TYPE_SHOW_EPISODE"="番組の説明";
+"OBJECT_TYPE_LABEL"="フォルダー";
+"OBJECT_TYPE_ALBUM"="アルバム";
+"OBJECT_TYPE_ALBUM_TRACK"="アルバムトラック";
+"OBJECT_TYPE_FILE"="ファイル";
+"OBJECT_TYPE_FILE_AUDIO"="おー";

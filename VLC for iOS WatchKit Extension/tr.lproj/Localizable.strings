@@ -7,3 +7,21 @@
 "LIBRARY_MUSIC"="Music Albums";
 "LIBRARY_SERIES"="TV Shows";
 "EMPTY_LIBRARY"="Ortam Kitaplığı Boş";
+
+"BWD_BUTTON"="Geriye Atlayın";
+"FWD_BUTTON"="İleriye Atlayın";
+"PLAY_BUTTON"="Oynatın";
+"PAUSE_BUTTON"="Duraklatın";
+
+"VOLUME"="Ses düzeyi";
+"DURATION"="Süre";
+"TITLE"="Başlık";
+
+// accessibility labels for the playlist
+"OBJECT_TYPE_SHOW"="Görüntüleme";
+"OBJECT_TYPE_SHOW_EPISODE"="Bölümlere bakın";
+"OBJECT_TYPE_LABEL"="Klasör";
+"OBJECT_TYPE_ALBUM"="Albüm";
+"OBJECT_TYPE_ALBUM_TRACK"="Albüm izi";
+"OBJECT_TYPE_FILE"="Dosya";
+"OBJECT_TYPE_FILE_AUDIO"="Ses dosyası";

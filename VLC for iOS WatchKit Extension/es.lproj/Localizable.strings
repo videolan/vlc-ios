@@ -7,3 +7,21 @@
 "LIBRARY_MUSIC"="Álbumes de música";
 "LIBRARY_SERIES"="Programas de TV";
 "EMPTY_LIBRARY"="Biblioteca multimedia vacía";
+
+"BWD_BUTTON"="Retroceder";
+"FWD_BUTTON"="Avanzar";
+"PLAY_BUTTON"="Reproducir";
+"PAUSE_BUTTON"="Pausar";
+
+"VOLUME"="Volumen";
+"DURATION"="Duración";
+"TITLE"="Título";
+
+// accessibility labels for the playlist
+"OBJECT_TYPE_SHOW"="Programa";
+"OBJECT_TYPE_SHOW_EPISODE"="Mostrar episodio";
+"OBJECT_TYPE_LABEL"="Carpeta";
+"OBJECT_TYPE_ALBUM"="Álbum";
+"OBJECT_TYPE_ALBUM_TRACK"="Pista del álbum";
+"OBJECT_TYPE_FILE"="Archivo";
+"OBJECT_TYPE_FILE_AUDIO"="Archivo de audio";

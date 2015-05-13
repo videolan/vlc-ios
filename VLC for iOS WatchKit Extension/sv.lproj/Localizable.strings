@@ -7,3 +7,21 @@
 "LIBRARY_MUSIC"="Musikalbum";
 "LIBRARY_SERIES"="TV-program";
 "EMPTY_LIBRARY"="Tomt mediabibliotek";
+
+"BWD_BUTTON"="Hoppa bakåt";
+"FWD_BUTTON"="Hoppa framåt";
+"PLAY_BUTTON"="Spela upp";
+"PAUSE_BUTTON"="Pausa";
+
+"VOLUME"="Volym";
+"DURATION"="Speltid";
+"TITLE"="Titel";
+
+// accessibility labels for the playlist
+"OBJECT_TYPE_SHOW"="Program";
+"OBJECT_TYPE_SHOW_EPISODE"="Visa episod";
+"OBJECT_TYPE_LABEL"="Mapp";
+"OBJECT_TYPE_ALBUM"="Album";
+"OBJECT_TYPE_ALBUM_TRACK"="Albumspår";
+"OBJECT_TYPE_FILE"="Fil";
+"OBJECT_TYPE_FILE_AUDIO"="Ljudfil";

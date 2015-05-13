@@ -7,3 +7,21 @@
 "LIBRARY_MUSIC"="இசைத் தொகுப்புகள்";
 "LIBRARY_SERIES"="தொலைக்காட்சி நிகழ்ச்சிகள்";
 "EMPTY_LIBRARY"="காலியான ஊடக நூலகம்";
+
+"BWD_BUTTON"="பின்னால் நகரவும்";
+"FWD_BUTTON"="முன்னால் நகரவும்";
+"PLAY_BUTTON"="இயக்கு";
+"PAUSE_BUTTON"="நிறுத்து";
+
+"VOLUME"="ஒலியளவு";
+"DURATION"="காலம்";
+"TITLE"="தலைப்பு";
+
+// accessibility labels for the playlist
+"OBJECT_TYPE_SHOW"="காட்டு";
+"OBJECT_TYPE_SHOW_EPISODE"="பாகம் காட்டு";
+"OBJECT_TYPE_LABEL"="அடைவு";
+"OBJECT_TYPE_ALBUM"="தொகுப்பு";
+"OBJECT_TYPE_ALBUM_TRACK"="தொகுப்பு தடம்";
+"OBJECT_TYPE_FILE"="கோப்பு";
+"OBJECT_TYPE_FILE_AUDIO"="ஒலி கோப்பு";

@@ -7,3 +7,21 @@
 "LIBRARY_MUSIC"="Musiikkialbumit";
 "LIBRARY_SERIES"="TV-ohjelmat";
 "EMPTY_LIBRARY"="Mediakirjasto on tyhjä";
+
+"BWD_BUTTON"="Siirry taaksepäin";
+"FWD_BUTTON"="Siirry eteenpäin";
+"PLAY_BUTTON"="Toista";
+"PAUSE_BUTTON"="Tauko";
+
+"VOLUME"="Äänenvoimakkuus";
+"DURATION"="Kesto";
+"TITLE"="Nimi";
+
+// accessibility labels for the playlist
+"OBJECT_TYPE_SHOW"="-ohjelma";
+"OBJECT_TYPE_SHOW_EPISODE"="Näytä jakso";
+"OBJECT_TYPE_LABEL"="Kansio";
+"OBJECT_TYPE_ALBUM"="Albumi";
+"OBJECT_TYPE_ALBUM_TRACK"="Albumin raita";
+"OBJECT_TYPE_FILE"="Tiedosto";
+"OBJECT_TYPE_FILE_AUDIO"="Äänitiedosto";

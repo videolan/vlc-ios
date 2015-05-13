@@ -7,3 +7,21 @@
 "LIBRARY_MUSIC"="Musikalbum";
 "LIBRARY_SERIES"="TV-udsendelser";
 "EMPTY_LIBRARY"="Tomt mediebibliotek";
+
+"BWD_BUTTON"="Hop tilbage";
+"FWD_BUTTON"="Hop fremad";
+"PLAY_BUTTON"="Play";
+"PAUSE_BUTTON"="Pause";
+
+"VOLUME"="Volume";
+"DURATION"="Duration";
+"TITLE"="Title";
+
+// accessibility labels for the playlist
+"OBJECT_TYPE_SHOW"="Show";
+"OBJECT_TYPE_SHOW_EPISODE"="Show episode";
+"OBJECT_TYPE_LABEL"="Folder";
+"OBJECT_TYPE_ALBUM"="Album";
+"OBJECT_TYPE_ALBUM_TRACK"="Album track";
+"OBJECT_TYPE_FILE"="File";
+"OBJECT_TYPE_FILE_AUDIO"="Audio file";

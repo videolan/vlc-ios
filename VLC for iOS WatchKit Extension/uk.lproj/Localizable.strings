@@ -7,3 +7,21 @@
 "LIBRARY_MUSIC"="Музичні альбоми";
 "LIBRARY_SERIES"="Серіали";
 "EMPTY_LIBRARY"="Порожня бібліотека медіа";
+
+"BWD_BUTTON"="Стрибок назад";
+"FWD_BUTTON"="Стрибок вперед";
+"PLAY_BUTTON"="Відтворити";
+"PAUSE_BUTTON"="Пауза";
+
+"VOLUME"="Гучність";
+"DURATION"="Тривалість";
+"TITLE"="Назва";
+
+// accessibility labels for the playlist
+"OBJECT_TYPE_SHOW"="Показати";
+"OBJECT_TYPE_SHOW_EPISODE"="Показати епізод";
+"OBJECT_TYPE_LABEL"="Тека";
+"OBJECT_TYPE_ALBUM"="Альбом";
+"OBJECT_TYPE_ALBUM_TRACK"="Доріжка альбому";
+"OBJECT_TYPE_FILE"="Файл";
+"OBJECT_TYPE_FILE_AUDIO"="Аудіо файл";

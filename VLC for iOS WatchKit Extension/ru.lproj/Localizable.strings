@@ -1,9 +1,27 @@
-"NOW_PLAYING"="Сейчас Воспроизводится";
-"PLAY_NOW"="Воспроизвести Сейчас";
-"PLAYING"="Проигрывается";
+"NOW_PLAYING"="Сейчас играет";
+"PLAY_NOW"="Воспроизвести сейчас";
+"PLAYING"="Воспроизводится";
 "PAUSED"="Приостановлено";
-"DETAIL"="Информация";
+"DETAIL"="Подробнее";
 "LIBRARY_ALL_FILES"="Все файлы";
 "LIBRARY_MUSIC"="Музыка";
 "LIBRARY_SERIES"="ТВ-сериалы";
 "EMPTY_LIBRARY"="Медиатека пуста";
+
+"BWD_BUTTON"="Перемотать назад";
+"FWD_BUTTON"="Перемотать вперёд";
+"PLAY_BUTTON"="Play";
+"PAUSE_BUTTON"="Pause";
+
+"VOLUME"="Volume";
+"DURATION"="Duration";
+"TITLE"="Title";
+
+// accessibility labels for the playlist
+"OBJECT_TYPE_SHOW"="Show";
+"OBJECT_TYPE_SHOW_EPISODE"="Show episode";
+"OBJECT_TYPE_LABEL"="Folder";
+"OBJECT_TYPE_ALBUM"="Album";
+"OBJECT_TYPE_ALBUM_TRACK"="Album track";
+"OBJECT_TYPE_FILE"="File";
+"OBJECT_TYPE_FILE_AUDIO"="Audio file";

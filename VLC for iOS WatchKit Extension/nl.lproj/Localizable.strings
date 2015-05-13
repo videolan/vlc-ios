@@ -7,3 +7,21 @@
 "LIBRARY_MUSIC"="Muziek-albums";
 "LIBRARY_SERIES"="Tv-shows";
 "EMPTY_LIBRARY"="Mediabibliotheek leeg";
+
+"BWD_BUTTON"="Achteruit springen";
+"FWD_BUTTON"="Vooruit springen";
+"PLAY_BUTTON"="Afspelen";
+"PAUSE_BUTTON"="Pauzeren";
+
+"VOLUME"="Volume";
+"DURATION"="Duur";
+"TITLE"="Titel";
+
+// accessibility labels for the playlist
+"OBJECT_TYPE_SHOW"="Show";
+"OBJECT_TYPE_SHOW_EPISODE"="Aflevering";
+"OBJECT_TYPE_LABEL"="Map";
+"OBJECT_TYPE_ALBUM"="Album";
+"OBJECT_TYPE_ALBUM_TRACK"="Albumspoor";
+"OBJECT_TYPE_FILE"="Bestand";
+"OBJECT_TYPE_FILE_AUDIO"="Audiobestand";

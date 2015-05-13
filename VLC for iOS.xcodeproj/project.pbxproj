@@ -926,7 +926,6 @@
 		7D2E278D1AD6E1AD001FFE28 /* pt-PT */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = "pt-PT"; path = "pt-PT.lproj/Localizable.strings"; sourceTree = "<group>"; };
 		7D2E278E1AD6E2E8001FFE28 /* fr */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = fr; path = fr.lproj/Localizable.strings; sourceTree = "<group>"; };
 		7D2E278F1AD6E318001FFE28 /* uk */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = uk; path = uk.lproj/Localizable.strings; sourceTree = "<group>"; };
-		7D2E27901AD6E3C9001FFE28 /* ru */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = ru; path = ru.lproj/Localizable.strings; sourceTree = "<group>"; };
 		7D2E27911AD6E415001FFE28 /* el */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = el; path = el.lproj/Localizable.strings; sourceTree = "<group>"; };
 		7D2E27921AD6E4D3001FFE28 /* da */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = da; path = da.lproj/Localizable.strings; sourceTree = "<group>"; };
 		7D2E27931AD6E4FA001FFE28 /* nl */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = nl; path = nl.lproj/Localizable.strings; sourceTree = "<group>"; };
@@ -1304,6 +1303,7 @@
 		7D9B6B0A17C9626000F9425D /* sl */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = sl; path = "sl.lproj/badgeUnread@2x~iphone.png"; sourceTree = "<group>"; };
 		7D9B6B0B17C9626000F9425D /* sl */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = sl; path = "sl.lproj/badgeUnread~ipad.png"; sourceTree = "<group>"; };
 		7D9B6B0C17C9626000F9425D /* sl */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = sl; path = "sl.lproj/badgeUnread~iphone.png"; sourceTree = "<group>"; };
+		7D9CB11A1B0360B700C25F3B /* ru */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = ru; path = ru.lproj/Localizable.strings; sourceTree = "<group>"; };
 		7D9CB9DA1A4C55EF00BB74B4 /* VLCPlaybackNavigationController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = VLCPlaybackNavigationController.h; path = Sources/VLCPlaybackNavigationController.h; sourceTree = SOURCE_ROOT; };
 		7D9CB9DB1A4C55EF00BB74B4 /* VLCPlaybackNavigationController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = VLCPlaybackNavigationController.m; path = Sources/VLCPlaybackNavigationController.m; sourceTree = SOURCE_ROOT; };
 		7DA7C902186324FA00B56120 /* serverIcon@1x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "serverIcon@1x.png"; sourceTree = "<group>"; };
@@ -3853,7 +3853,6 @@
 				7D2E278D1AD6E1AD001FFE28 /* pt-PT */,
 				7D2E278E1AD6E2E8001FFE28 /* fr */,
 				7D2E278F1AD6E318001FFE28 /* uk */,
-				7D2E27901AD6E3C9001FFE28 /* ru */,
 				7D2E27911AD6E415001FFE28 /* el */,
 				7D2E27921AD6E4D3001FFE28 /* da */,
 				7D2E27931AD6E4FA001FFE28 /* nl */,
@@ -3861,6 +3860,7 @@
 				7D2E27951AD6E554001FFE28 /* fi */,
 				7D2E27961AD6E583001FFE28 /* it */,
 				7D2E27971AD6E59C001FFE28 /* es */,
+				7D9CB11A1B0360B700C25F3B /* ru */,
 			);
 			name = Localizable.strings;
 			sourceTree = "<group>";

@@ -7,3 +7,21 @@
 "LIBRARY_MUSIC"="Μουσικά Άλμπουμ";
 "LIBRARY_SERIES"="Εκπομπές TV";
 "EMPTY_LIBRARY"="Άδεια Βιβλιοθήκη Μέσων";
+
+"BWD_BUTTON"="Άλμα Πίσω";
+"FWD_BUTTON"="Άλμα Μπροστά";
+"PLAY_BUTTON"="Αναπαραγωγή";
+"PAUSE_BUTTON"="Παύση";
+
+"VOLUME"="Ένταση";
+"DURATION"="Διάρκεια";
+"TITLE"="Τίτλος";
+
+// accessibility labels for the playlist
+"OBJECT_TYPE_SHOW"="Προβολή";
+"OBJECT_TYPE_SHOW_EPISODE"="Προβολή επεισοδίου ";
+"OBJECT_TYPE_LABEL"="Φάκελος";
+"OBJECT_TYPE_ALBUM"="Άλμπουμ";
+"OBJECT_TYPE_ALBUM_TRACK"="Κομμάτι άλμπουμ";
+"OBJECT_TYPE_FILE"="Αρχείο";
+"OBJECT_TYPE_FILE_AUDIO"="Αρχείο ήχου";

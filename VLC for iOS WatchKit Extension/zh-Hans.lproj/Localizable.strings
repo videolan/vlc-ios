@@ -7,3 +7,21 @@
 "LIBRARY_MUSIC"="唱片专辑";
 "LIBRARY_SERIES"="电视节目";
 "EMPTY_LIBRARY"="媒体库为空";
+
+"BWD_BUTTON"="快进";
+"FWD_BUTTON"="快退";
+"PLAY_BUTTON"="播放";
+"PAUSE_BUTTON"="暂停";
+
+"VOLUME"="音量";
+"DURATION"="时长";
+"TITLE"="标题";
+
+// accessibility labels for the playlist
+"OBJECT_TYPE_SHOW"="节目";
+"OBJECT_TYPE_SHOW_EPISODE"="剧集";
+"OBJECT_TYPE_LABEL"="文件夹";
+"OBJECT_TYPE_ALBUM"="专辑";
+"OBJECT_TYPE_ALBUM_TRACK"="轨道";
+"OBJECT_TYPE_FILE"="文件";
+"OBJECT_TYPE_FILE_AUDIO"="音频文件";
