@@ -48,6 +48,7 @@
                 <outlet property="spuDelayLabel" destination="NX8-Zc-K6Y" id="WLd-cA-fUn"/>
                 <outlet property="spuDelaySlider" destination="juX-HR-PqD" id="x4D-ki-Lwk"/>
                 <outlet property="statusLabel" destination="205" id="206"/>
+                <outlet property="timeNavigationTitleView" destination="248" id="Ghx-eD-EQA"/>
                 <outlet property="toolbar" destination="256" id="260"/>
                 <outlet property="trackNameLabel" destination="304" id="307"/>
                 <outlet property="trackSwitcherButton" destination="277" id="4wh-dZ-qaR"/>
