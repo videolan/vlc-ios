@@ -672,6 +672,7 @@ typedef NS_ENUM(NSInteger, VLCPanType) {
     if (_mediaDuration > 0) {
         VLCTime *newPosition = [VLCTime timeWithInt:(int)(sender.value * _mediaDuration)];
         [self.timeNavigationTitleView.timeDisplayButton setTitle:newPosition.stringValue forState:UIControlStateNormal];
+        [self.timeNavigationTitleView setNeedsLayout];
         self.timeNavigationTitleView.timeDisplayButton.accessibilityLabel = [NSString stringWithFormat:@"%@: %@", NSLocalizedString(@"PLAYBACK_POSITION", nil), newPosition.stringValue];
         _positionSet = NO;
     }
@@ -746,6 +747,7 @@ typedef NS_ENUM(NSInteger, VLCPanType) {
         [self.timeNavigationTitleView.timeDisplayButton setTitle:[[mediaPlayer remainingTime] stringValue] forState:UIControlStateNormal];
     else
         [self.timeNavigationTitleView.timeDisplayButton setTitle:[[mediaPlayer time] stringValue] forState:UIControlStateNormal];
+    [self.timeNavigationTitleView setNeedsLayout];
 }
 
 - (void)prepareForMediaPlayback:(VLCPlaybackController *)controller
