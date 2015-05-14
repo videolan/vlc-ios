@@ -139,15 +139,17 @@ static NSString *kUsingTableViewToShowData = @"UsingTableViewToShowData";
         [_collectionView reloadData];
     }
 
-    if (setInset && _usingTableViewToShowData) {
+    if (setInset) {
         CGSize statusBarSize = [UIApplication sharedApplication].statusBarFrame.size;
         // Status bar frame doesn't change correctly on rotation
         CGFloat statusBarHeight = MIN(statusBarSize.height, statusBarSize.width);
         CGFloat originY = self.navigationController.navigationBar.frame.size.height + statusBarHeight;
 
-        _tableView.contentInset = UIEdgeInsetsMake(originY, 0, 0, 0);
+        UIScrollView *playlistView = _usingTableViewToShowData ? _tableView : _collectionView;
+        playlistView.contentInset = UIEdgeInsetsMake(originY, 0, 0, 0);
     }
 
+    [self adjustScrollViewInsetsForMiniPlayerVisible:_miniPlaybackView.visible];
     self.view = contentView;
     [self displayMiniPlaybackViewIfNeeded];
 }
