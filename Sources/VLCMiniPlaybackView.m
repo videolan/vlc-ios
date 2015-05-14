@@ -153,6 +153,7 @@ currentMediaHasTrackToChooseFrom:(BOOL)currentMediaHasTrackToChooseFrom
             _videoView = nil;
         }
         _videoView = [[UIView alloc] initWithFrame:_artworkView.frame];
+        [_videoView setClipsToBounds:YES];
         [self addSubview:_videoView];
 
         if (!controller.presentingMovieViewController)
