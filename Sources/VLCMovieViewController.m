@@ -1053,13 +1053,6 @@ currentMediaHasTrackToChooseFrom:(BOOL)currentMediaHasTrackToChooseFrom
     }
 }
 
-- (void)toggleShuffleMode
-{
-    LOCKCHECK;
-
-    // FIXME: missing implementation
-}
-
 - (void)hideMenu
 {
     [UIView animateWithDuration:.2

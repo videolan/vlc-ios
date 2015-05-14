@@ -15,7 +15,6 @@
 - (void)toggleEqualizer;
 - (void)toggleChapterAndTitleSelector;
 - (void)toggleRepeatMode;
-- (void)toggleShuffleMode;
 - (void)hideMenu;
 
 @end
@@ -29,7 +28,6 @@
 
 - (void)setDisplayRepeatOne:(BOOL)displayRepeatOne;
 - (void)setDisplayLock:(BOOL)displayLock;
-- (void)setDisplayShuffle:(BOOL)displayShuffle;
 - (CGSize)proposedDisplaySize;
 
 @end
