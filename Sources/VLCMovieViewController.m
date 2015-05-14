@@ -364,7 +364,7 @@ typedef NS_ENUM(NSInteger, VLCPanType) {
     } else {
         _equalizerView = [[VLCEqualizerView alloc] initWithFrame:CGRectMake((rect.size.width - 450.) / 2., self.controllerPanel.frame.origin.y - 240., 450., 240.)];
     }
-    _equalizerView.delegate = [VLCPlaybackController sharedInstance];
+    _equalizerView.delegate = self.playbackController;
     _equalizerView.UIdelegate = self;
     _equalizerView.autoresizingMask = UIViewAutoresizingFlexibleRightMargin | UIViewAutoresizingFlexibleLeftMargin | UIViewAutoresizingFlexibleTopMargin;
     _equalizerView.hidden = YES;
@@ -433,7 +433,7 @@ typedef NS_ENUM(NSInteger, VLCPanType) {
             [UIApplication sharedApplication].statusBarStyle = UIStatusBarStyleBlackTranslucent;
     }
 
-    VLCPlaybackController *vpc = [VLCPlaybackController sharedInstance];
+    VLCPlaybackController *vpc = self.playbackController;
     vpc.delegate = self;
     vpc.presentingMovieViewController = YES;
     [vpc recoverPlaybackState];
@@ -446,7 +446,7 @@ typedef NS_ENUM(NSInteger, VLCPanType) {
     [super viewDidAppear:animated];
     _viewAppeared = YES;
 
-    VLCPlaybackController *vpc = [VLCPlaybackController sharedInstance];
+    VLCPlaybackController *vpc = self.playbackController;
     [vpc recoverDisplayedMetadata];
     vpc.videoOutputView = nil;
     vpc.videoOutputView = self.movieView;
@@ -494,7 +494,7 @@ typedef NS_ENUM(NSInteger, VLCPanType) {
 
 - (void)viewWillDisappear:(BOOL)animated
 {
-    VLCPlaybackController *vpc = [VLCPlaybackController sharedInstance];
+    VLCPlaybackController *vpc = self.playbackController;
     vpc.videoOutputView = nil;
     vpc.presentingMovieViewController = NO;
 
@@ -705,8 +705,8 @@ typedef NS_ENUM(NSInteger, VLCPanType) {
 - (void)_setPositionForReal
 {
     if (!_positionSet) {
-        [VLCPlaybackController sharedInstance].mediaPlayer.position = self.timeNavigationTitleView.positionSlider.value;
-        [[VLCPlaybackController sharedInstance] setNeedsMetadataUpdate];
+        self.playbackController.mediaPlayer.position = self.timeNavigationTitleView.positionSlider.value;
+        [self.playbackController setNeedsMetadataUpdate];
         _positionSet = YES;
     }
 }
@@ -758,6 +758,14 @@ typedef NS_ENUM(NSInteger, VLCPanType) {
 }
 
 #pragma mark - playback controller delegation
+
+- (VLCPlaybackController *)playbackController
+{
+    if (!_playbackController) {
+        _playbackController = [VLCPlaybackController sharedInstance];
+    }
+    return _playbackController;
+}
 
 - (void)playbackPositionUpdated:(VLCPlaybackController *)controller
 {
@@ -874,21 +882,21 @@ currentMediaHasTrackToChooseFrom:(BOOL)currentMediaHasTrackToChooseFrom
 {
     LOCKCHECK;
 
-    [[VLCPlaybackController sharedInstance] playPause];
+    [self.playbackController playPause];
 }
 
 - (IBAction)forward:(id)sender
 {
     LOCKCHECK;
 
-    [[VLCPlaybackController sharedInstance] forward];
+    [self.playbackController forward];
 }
 
 - (IBAction)backward:(id)sender
 {
     LOCKCHECK;
 
-    [[VLCPlaybackController sharedInstance] backward];
+    [self.playbackController backward];
 }
 
 - (IBAction)switchTrack:(id)sender
@@ -1065,7 +1073,7 @@ currentMediaHasTrackToChooseFrom:(BOOL)currentMediaHasTrackToChooseFrom
 {
     LOCKCHECK;
 
-    VLCMediaListPlayer *listPlayer = [VLCPlaybackController sharedInstance].listPlayer;
+    VLCMediaListPlayer *listPlayer = self.playbackController.listPlayer;
 
     if (listPlayer.repeatMode == VLCDoNotRepeat) {
         listPlayer.repeatMode = VLCRepeatCurrentItem;
@@ -1098,7 +1106,7 @@ currentMediaHasTrackToChooseFrom:(BOOL)currentMediaHasTrackToChooseFrom
 - (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView
 {
     NSInteger ret = 0;
-    VLCMediaPlayer *mediaPlayer = [VLCPlaybackController sharedInstance].mediaPlayer;
+    VLCMediaPlayer *mediaPlayer = self.playbackController.mediaPlayer;
 
     if (_switchingTracksNotChapters == YES) {
         if (mediaPlayer.audioTrackIndexes.count > 2)
@@ -1129,7 +1137,7 @@ currentMediaHasTrackToChooseFrom:(BOOL)currentMediaHasTrackToChooseFrom
 
 - (NSString *)tableView:(UITableView *)tableView titleForHeaderInSection:(NSInteger)section
 {
-    VLCMediaPlayer *mediaPlayer = [VLCPlaybackController sharedInstance].mediaPlayer;
+    VLCMediaPlayer *mediaPlayer = self.playbackController.mediaPlayer;
 
     if (_switchingTracksNotChapters == YES) {
         if (mediaPlayer.audioTrackIndexes.count > 2 && section == 0)
@@ -1157,7 +1165,7 @@ currentMediaHasTrackToChooseFrom:(BOOL)currentMediaHasTrackToChooseFrom
 
     NSInteger row = indexPath.row;
     NSInteger section = indexPath.section;
-    VLCMediaPlayer *mediaPlayer = [VLCPlaybackController sharedInstance].mediaPlayer;
+    VLCMediaPlayer *mediaPlayer = self.playbackController.mediaPlayer;
 
     if (_switchingTracksNotChapters == YES) {
         NSArray *indexArray;
@@ -1203,7 +1211,7 @@ currentMediaHasTrackToChooseFrom:(BOOL)currentMediaHasTrackToChooseFrom
 
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section
 {
-    VLCMediaPlayer *mediaPlayer = [VLCPlaybackController sharedInstance].mediaPlayer;
+    VLCMediaPlayer *mediaPlayer = self.playbackController.mediaPlayer;
 
     if (_switchingTracksNotChapters == YES) {
         NSInteger audioTrackCount = mediaPlayer.audioTrackIndexes.count;
@@ -1224,7 +1232,7 @@ currentMediaHasTrackToChooseFrom:(BOOL)currentMediaHasTrackToChooseFrom
 {
     [tableView deselectRowAtIndexPath:indexPath animated:NO];
     NSInteger index = indexPath.row;
-    VLCMediaPlayer *mediaPlayer = [VLCPlaybackController sharedInstance].mediaPlayer;
+    VLCMediaPlayer *mediaPlayer = self.playbackController.mediaPlayer;
 
     if (_switchingTracksNotChapters == YES) {
         NSArray *indexArray;
@@ -1271,7 +1279,7 @@ currentMediaHasTrackToChooseFrom:(BOOL)currentMediaHasTrackToChooseFrom
     if (!_swipeGesturesEnabled)
         return;
 
-    VLCPlaybackController *vpc = [VLCPlaybackController sharedInstance];
+    VLCPlaybackController *vpc = self.playbackController;
 
     if ([vpc.mediaPlayer isPlaying]) {
         [vpc.listPlayer pause];
@@ -1323,7 +1331,7 @@ currentMediaHasTrackToChooseFrom:(BOOL)currentMediaHasTrackToChooseFrom
         _currentPanType = [self detectPanTypeForPan:panRecognizer];
 
     if (_currentPanType == VLCPanTypeSeek) {
-        VLCMediaPlayer *mediaPlayer = [VLCPlaybackController sharedInstance].mediaPlayer;
+        VLCMediaPlayer *mediaPlayer = self.playbackController.mediaPlayer;
         double timeRemainingDouble = (-mediaPlayer.remainingTime.intValue*0.001);
         int timeRemaining = timeRemainingDouble;
 
@@ -1362,7 +1370,7 @@ currentMediaHasTrackToChooseFrom:(BOOL)currentMediaHasTrackToChooseFrom
     }
 
     if (panRecognizer.state == UIGestureRecognizerStateEnded) {
-        VLCPlaybackController *vpc = [VLCPlaybackController sharedInstance];
+        VLCPlaybackController *vpc = self.playbackController;
         _currentPanType = VLCPanTypeNone;
         if ([vpc.mediaPlayer isPlaying])
             [vpc.listPlayer play];
@@ -1377,7 +1385,7 @@ currentMediaHasTrackToChooseFrom:(BOOL)currentMediaHasTrackToChooseFrom
         return;
 
     NSString * hudString = @" ";
-    VLCPlaybackController *vpc = [VLCPlaybackController sharedInstance];
+    VLCPlaybackController *vpc = self.playbackController;
     VLCMediaPlayer *mediaPlayer = vpc.mediaPlayer;
     int swipeForwardDuration = (_variableJumpDurationEnabled) ? ((int)(_mediaDuration*0.001*0.05)) : FORWARD_SWIPE_DURATION;
     int swipeBackwardDuration = (_variableJumpDurationEnabled) ? ((int)(_mediaDuration*0.001*0.05)) : BACKWARD_SWIPE_DURATION;
@@ -1441,7 +1449,7 @@ currentMediaHasTrackToChooseFrom:(BOOL)currentMediaHasTrackToChooseFrom
 
 - (IBAction)videoFilterSliderAction:(id)sender
 {
-    VLCMediaPlayer *mediaPlayer = [VLCPlaybackController sharedInstance].mediaPlayer;
+    VLCMediaPlayer *mediaPlayer = self.playbackController.mediaPlayer;
 
     if (sender == self.hueSlider)
         mediaPlayer.hue = (int)self.hueSlider.value;
@@ -1472,7 +1480,7 @@ currentMediaHasTrackToChooseFrom:(BOOL)currentMediaHasTrackToChooseFrom
 - (IBAction)playbackSliderAction:(UISlider *)sender
 {
     LOCKCHECK;
-    VLCPlaybackController *vpc = [VLCPlaybackController sharedInstance];
+    VLCPlaybackController *vpc = self.playbackController;
 
     if (sender == _playbackSpeedSlider) {
         double speed = exp2(sender.value);
@@ -1503,7 +1511,7 @@ currentMediaHasTrackToChooseFrom:(BOOL)currentMediaHasTrackToChooseFrom
         _playbackSpeedViewHidden = self.playbackSpeedView.hidden;
         [self _resetIdleTimer];
     } else if (sender == self.timeNavigationTitleView.aspectRatioButton) {
-        [[VLCPlaybackController sharedInstance] switchAspectRatio];
+        [self.playbackController switchAspectRatio];
     }
 }
 
