@@ -466,6 +466,28 @@
 			<key>DefaultValue</key>
 			<integer>5</integer>
 		</dict>
+		<dict>
+			<key>Type</key>
+			<string>PSGroupSpecifier</string>
+			<key>Title</key>
+			<string>SETTINGS_PLEX_TITLE</string>
+		</dict>
+		<dict>
+			<key>Type</key>
+			<string>PSTextFieldSpecifier</string>
+			<key>Title</key>
+			<string>SETINGS_PLEX_LOGIN</string>
+			<key>Key</key>
+			<string>plex-login</string>
+		</dict>
+		<dict>
+			<key>Type</key>
+			<string>PSTextFieldSpecifier</string>
+			<key>Title</key>
+			<string>SETINGS_PLEX_PASSWORD</string>
+			<key>Key</key>
+			<string>plex-password</string>
+		</dict>
 	</array>
 	<key>StringsTable</key>
 	<string>Root</string>
