@@ -4,16 +4,17 @@
   - playback control
   - media info
   - library browsing
-* Added mini-player to browse the library during playback
+* Added mini-player to browse the library during playback (#13367)
+* Added support for the PLEX Web API
 * Improved remote command support
 * Improved thumbnail generation
 * Improved thumbnail and web interface performance on devices with A5 CPU and above
-* Fixed crash when playing media from a folder or music album on iPad
+* Fixed crash when playing media from a folder or music album on iPad (#14394)
 * Fixed crash when app goes to background while a video is playing
-* Fixed privacy leak when using a passcode to protect the library
+* Fixed privacy leak when using a passcode to protect the library (#14159, #14615)
 * Removed stray popup announcing VLC's crash all the time while it actually
   didn't crash before, but terminated by the user
-* Various small fixes and minor performance improvements
+* Various small fixes and minor performance improvements (e.g. #14588)
 
 2.5.1:
 ------
