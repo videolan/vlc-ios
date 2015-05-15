@@ -121,7 +121,7 @@
         mutableMediaObject = [_PlexParser PlexMediaServerParser:_PlexServerAddress port:_PlexServerPort navigationPath:newPath authentification:@""];
         NSString *URLofSubtitle = nil;
         if ([[mutableMediaObject objectAtIndex:0] objectForKey:@"keySubtitle"])
-            URLofSubtitle = [_PlexParser getFileSubtitleFromPlexServer:mutableMediaObject modeStream:YES];
+            URLofSubtitle = [_PlexWebAPI getFileSubtitleFromPlexServer:mutableMediaObject modeStream:YES];
 
         NSURL *itemURL = [NSURL URLWithString:[_PlexWebAPI urlAuth:[[mutableMediaObject objectAtIndex:0] objectForKey:@"keyMedia"] autentification:_PlexAuthentification]];
         if (itemURL) {
@@ -140,7 +140,7 @@
     NSInteger size = [[[mutableMediaObject objectAtIndex:0] objectForKey:@"size"] integerValue];
     if (size  < [[UIDevice currentDevice] freeDiskspace].longLongValue) {
         if ([[mutableMediaObject objectAtIndex:0] objectForKey:@"keySubtitle"])
-            [_PlexParser getFileSubtitleFromPlexServer:mutableMediaObject modeStream:NO];
+            [_PlexWebAPI getFileSubtitleFromPlexServer:mutableMediaObject modeStream:NO];
 
         [self _downloadFileFromMediaItem:mutableMediaObject];
     } else {
@@ -181,7 +181,7 @@
     NSString *ratingKey = [[_mutableMediaInformation objectAtIndex:0] objectForKey:@"ratingKey"];
     NSString *tag = [[_mutableMediaInformation objectAtIndex:0] objectForKey:@"state"];
 
-    NSInteger status = [_PlexParser MarkWatchedUnwatchedMedia:_PlexServerAddress port:_PlexServerPort videoRatingKey:ratingKey state:tag authentification:_PlexAuthentification];
+    NSInteger status = [_PlexWebAPI MarkWatchedUnwatchedMedia:_PlexServerAddress port:_PlexServerPort videoRatingKey:ratingKey state:tag authentification:_PlexAuthentification];
     if (status == 200) {
         if ([tag isEqualToString:@"watched"]) {
             tag = @"unwatched";

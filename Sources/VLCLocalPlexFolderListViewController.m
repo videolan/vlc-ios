@@ -277,7 +277,7 @@
         ObjList = [_PlexParser PlexMediaServerParser:_PlexServerAddress port:_PlexServerPort navigationPath:newPath authentification:_PlexAuthentification];
         NSString *URLofSubtitle = nil;
         if ([[ObjList objectAtIndex:0] objectForKey:@"keySubtitle"])
-            URLofSubtitle = [_PlexParser getFileSubtitleFromPlexServer:ObjList modeStream:YES];
+            URLofSubtitle = [_PlexWebAPI getFileSubtitleFromPlexServer:ObjList modeStream:YES];
 
         NSURL *itemURL = [NSURL URLWithString:[self _urlAuth:[[ObjList objectAtIndex:0] objectForKey:@"keyMedia"]]];
         if (itemURL) {
@@ -313,7 +313,7 @@
         mutableMediaObject = [_PlexParser PlexMediaServerParser:_PlexServerAddress port:_PlexServerPort navigationPath:newPath authentification:_PlexAuthentification];
         NSString *URLofSubtitle = nil;
         if ([[mutableMediaObject objectAtIndex:0] objectForKey:@"keySubtitle"])
-            URLofSubtitle = [_PlexParser getFileSubtitleFromPlexServer:mutableMediaObject modeStream:YES];
+            URLofSubtitle = [_PlexWebAPI getFileSubtitleFromPlexServer:mutableMediaObject modeStream:YES];
 
         NSURL *itemURL = [NSURL URLWithString:[self _urlAuth:[[mutableMediaObject objectAtIndex:0] objectForKey:@"keyMedia"]]];
         if (itemURL) {
@@ -352,7 +352,7 @@
     NSString *tag = [[ObjList objectAtIndex:0] objectForKey:@"state"];
     NSString *cellStatusLbl = nil;
 
-    NSInteger status = [_PlexParser MarkWatchedUnwatchedMedia:_PlexServerAddress port:_PlexServerPort videoRatingKey:ratingKey state:tag authentification:_PlexAuthentification];
+    NSInteger status = [_PlexWebAPI MarkWatchedUnwatchedMedia:_PlexServerAddress port:_PlexServerPort videoRatingKey:ratingKey state:tag authentification:_PlexAuthentification];
 
     if (status == 200) {
         if ([tag isEqualToString:@"watched"]) {
@@ -396,7 +396,7 @@
     NSInteger size = [[[ObjList objectAtIndex:0] objectForKey:@"size"] integerValue];
     if (size  < [[UIDevice currentDevice] freeDiskspace].longLongValue) {
         if ([[ObjList objectAtIndex:0] objectForKey:@"keySubtitle"])
-            [_PlexParser getFileSubtitleFromPlexServer:ObjList modeStream:NO];
+            [_PlexWebAPI getFileSubtitleFromPlexServer:ObjList modeStream:NO];
 
         [self _downloadFileFromMediaItem:ObjList];
         [cell.statusLabel showStatusMessage:NSLocalizedString(@"DOWNLOADING", nil)];
