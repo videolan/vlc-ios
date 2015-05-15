@@ -392,7 +392,7 @@
             NSString *name = [_PlexServicesInfo[row] objectForKey:@"name"];
             NSString *hostName = [_PlexServicesInfo[row] objectForKey:@"hostName"];
             NSString *portNum = [_PlexServicesInfo[row] objectForKey:@"port"];
-            VLCLocalPlexFolderListViewController *targetViewController = [[VLCLocalPlexFolderListViewController alloc] initWithPlexServer:name serverAddress:hostName portNumber:portNum atPath:@""];
+            VLCLocalPlexFolderListViewController *targetViewController = [[VLCLocalPlexFolderListViewController alloc] initWithPlexServer:name serverAddress:hostName portNumber:portNum atPath:@"" authentification:@""];
             [[self navigationController] pushViewController:targetViewController animated:YES];
         }
     } else if (section == 2) {

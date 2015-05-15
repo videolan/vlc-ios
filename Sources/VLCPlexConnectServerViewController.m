@@ -122,7 +122,7 @@
 
     if ([self isValidPort:port] && [self isValidAddress:server]) {
         if ([self isValidURL:[NSURL URLWithString:[NSString stringWithFormat:@"http://%@:%@", server, port]]]) {
-            VLCLocalPlexFolderListViewController *targetViewController = [[VLCLocalPlexFolderListViewController alloc] initWithPlexServer:server serverAddress:server portNumber:[NSString stringWithFormat:@":%@", port] atPath:@""];
+            VLCLocalPlexFolderListViewController *targetViewController = [[VLCLocalPlexFolderListViewController alloc] initWithPlexServer:server serverAddress:server portNumber:[NSString stringWithFormat:@":%@", port] atPath:@"" authentification:@""];
             [[self navigationController] pushViewController:targetViewController animated:YES];
         } else {
             UIAlertView *alert = [[UIAlertView alloc] initWithTitle:nil message:NSLocalizedString(@"HTTP_UPLOAD_SERVER_OFF", nil) delegate:self cancelButtonTitle:NSLocalizedString(@"BUTTON_OK", nil) otherButtonTitles:nil];
@@ -255,11 +255,12 @@
 - (BOOL)isValidURL:(NSURL*)url
 {
     NSMutableURLRequest *request = [NSMutableURLRequest requestWithURL:url cachePolicy:NSURLRequestUseProtocolCachePolicy timeoutInterval:5.0];
-    [request setHTTPMethod:@"HEAD"];
+    //[request setHTTPMethod:@"HEAD"];
     NSHTTPURLResponse *response = nil;
     NSError *error = nil;
-    [NSURLConnection sendSynchronousRequest:request returningResponse:&response error:&error];
-    if ([response statusCode] == 200)
+    NSData *data = [NSURLConnection sendSynchronousRequest:request returningResponse:&response error:&error];
+    NSString *responseString = [[NSString alloc] initWithData:data encoding:NSUTF8StringEncoding];
+    if (([response statusCode] == 200) || ([responseString rangeOfString:@"Unauthorized"].location != NSNotFound))
         return YES;
     else
         return NO;

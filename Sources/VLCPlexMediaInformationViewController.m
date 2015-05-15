@@ -11,6 +11,7 @@
 
 #import "VLCPlexMediaInformationViewController.h"
 #import "VLCPlexParser.h"
+#import "VLCPlexWebAPI.h"
 #import "VLCAppDelegate.h"
 #import "NSString+SupportedMedia.h"
 #import "UIDevice+VLC.h"
@@ -21,13 +22,15 @@
     NSString *_PlexServerAddress;
     NSString *_PlexServerPort;
     NSString *_PlexServerPath;
+    NSString *_PlexAuthentification;
     VLCPlexParser *_PlexParser;
+    VLCPlexWebAPI *_PlexWebAPI;
 }
 @end
 
 @implementation VLCPlexMediaInformationViewController
 
-- (id)initPlexMediaInformation:(NSMutableArray *)mediaInformation serverAddress:(NSString *)serverAddress portNumber:(NSString *)portNumber atPath:(NSString *)path
+- (id)initPlexMediaInformation:(NSMutableArray *)mediaInformation serverAddress:(NSString *)serverAddress portNumber:(NSString *)portNumber atPath:(NSString *)path authentification:(NSString *)auth
 {
     self = [super init];
     if (self) {
@@ -36,7 +39,9 @@
         _PlexServerAddress = serverAddress;
         _PlexServerPort = portNumber;
         _PlexServerPath = path;
+        _PlexAuthentification = auth;
         _PlexParser = [[VLCPlexParser alloc] init];
+        _PlexWebAPI = [[VLCPlexWebAPI alloc] init];
     }
     return self;
 }
@@ -50,7 +55,7 @@
     self.navigationController.navigationBar.translucent = NO;
 
     NSString *title = [[_mutableMediaInformation objectAtIndex:0] objectForKey:@"title"];
-    NSString *thumbPath = [[_mutableMediaInformation objectAtIndex:0] objectForKey:@"thumb"];
+    NSString *thumbPath = [_PlexWebAPI urlAuth:[[_mutableMediaInformation objectAtIndex:0] objectForKey:@"thumb"] autentification:_PlexAuthentification];
     UIImage *image = [UIImage imageWithData:[NSData dataWithContentsOfURL:[NSURL URLWithString:thumbPath]]];
     NSInteger size = [[[_mutableMediaInformation objectAtIndex:0] objectForKey:@"size"] integerValue];
     NSString *mediaSize = [NSByteCountFormatter stringFromByteCount:size countStyle:NSByteCountFormatterCountStyleFile];
@@ -113,12 +118,12 @@
 
     if ([[[mutableMediaObject objectAtIndex:0] objectForKey:@"container"] isEqualToString:@"item"]) {
         [mutableMediaObject removeAllObjects];
-        mutableMediaObject = [_PlexParser PlexMediaServerParser:_PlexServerAddress port:_PlexServerPort navigationPath:newPath];
+        mutableMediaObject = [_PlexParser PlexMediaServerParser:_PlexServerAddress port:_PlexServerPort navigationPath:newPath authentification:@""];
         NSString *URLofSubtitle = nil;
         if ([[mutableMediaObject objectAtIndex:0] objectForKey:@"keySubtitle"])
             URLofSubtitle = [_PlexParser getFileSubtitleFromPlexServer:mutableMediaObject modeStream:YES];
 
-        NSURL *itemURL = [NSURL URLWithString:[[mutableMediaObject objectAtIndex:0] objectForKey:@"keyMedia"]];
+        NSURL *itemURL = [NSURL URLWithString:[_PlexWebAPI urlAuth:[[mutableMediaObject objectAtIndex:0] objectForKey:@"keyMedia"] autentification:_PlexAuthentification]];
         if (itemURL) {
             VLCAppDelegate *appDelegate = [UIApplication sharedApplication].delegate;
             [appDelegate openMovieWithExternalSubtitleFromURL:itemURL externalSubURL:URLofSubtitle];
@@ -130,7 +135,7 @@
 {
     NSString *path = [[mutableMediaObject objectAtIndex:0] objectForKey:@"key"];
     [mutableMediaObject removeAllObjects];
-    mutableMediaObject = [_PlexParser PlexMediaServerParser:_PlexServerAddress port:_PlexServerPort navigationPath:path];
+    mutableMediaObject = [_PlexParser PlexMediaServerParser:_PlexServerAddress port:_PlexServerPort navigationPath:path authentification:@""];
 
     NSInteger size = [[[mutableMediaObject objectAtIndex:0] objectForKey:@"size"] integerValue];
     if (size  < [[UIDevice currentDevice] freeDiskspace].longLongValue) {
@@ -176,7 +181,7 @@
     NSString *ratingKey = [[_mutableMediaInformation objectAtIndex:0] objectForKey:@"ratingKey"];
     NSString *tag = [[_mutableMediaInformation objectAtIndex:0] objectForKey:@"state"];
 
-    NSInteger status = [_PlexParser MarkWatchedUnwatchedMedia:_PlexServerAddress port:_PlexServerPort videoRatingKey:ratingKey state:tag];
+    NSInteger status = [_PlexParser MarkWatchedUnwatchedMedia:_PlexServerAddress port:_PlexServerPort videoRatingKey:ratingKey state:tag authentification:_PlexAuthentification];
     if (status == 200) {
         if ([tag isEqualToString:@"watched"]) {
             tag = @"unwatched";
