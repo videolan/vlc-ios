@@ -11,7 +11,6 @@
 
 #import "VLCPlexParser.h"
 #import "VLCPlexWebAPI.h"
-#import "UIDevice+VLC.h"
 #import "VLCAlertView.h"
 #import "VLCConstants.h"
 
@@ -192,64 +191,6 @@
         [_containerInfo addObject:_dicoInfo];
         _dicoInfo = [[NSMutableDictionary alloc] init];
     }
-}
-
-#pragma mark - API
-
-- (NSInteger)MarkWatchedUnwatchedMedia:(NSString *)adress port:(NSString *)port videoRatingKey:(NSString *)ratingKey state:(NSString *)state authentification:(NSString *)auth
-{
-    NSString *url = nil;
-
-    if ([state isEqualToString:@"watched"])
-        url = [NSString stringWithFormat:@"http://%@%@/:/unscrobble?identifier=com.plexapp.plugins.library&key=%@", adress, port, ratingKey];
-    else
-        url = [NSString stringWithFormat:@"http://%@%@/:/scrobble?identifier=com.plexapp.plugins.library&key=%@", adress, port, ratingKey];
-
-    NSURLRequest *request = [[NSURLRequest alloc] initWithURL:[NSURL URLWithString:[[[VLCPlexWebAPI alloc] init] urlAuth:url autentification:auth]] cachePolicy:NSURLRequestReloadIgnoringLocalAndRemoteCacheData timeoutInterval:20];
-    NSURLResponse *response = nil;
-    NSError *error = nil;
-    [NSURLConnection sendSynchronousRequest:request returningResponse:&response error:&error];
-
-    NSInteger httpStatus = [(NSHTTPURLResponse *)response statusCode];
-
-    if (httpStatus != 200)
-        APLog(@"Mark Watched Unwatched Media Error status: %ld at URL : %@", (long)httpStatus, url);
-
-    return httpStatus;
-}
-
-- (NSString *)getFileSubtitleFromPlexServer:(NSMutableArray *)mutableMediaObject modeStream:(BOOL)modeStream
-{
-    NSString *FileSubtitlePath = nil;
-    NSString *fileName = [[[[mutableMediaObject objectAtIndex:0] objectForKey:@"namefile"] stringByDeletingPathExtension] stringByAppendingPathExtension:[[mutableMediaObject objectAtIndex:0] objectForKey:@"codecSubtitle"]];
-
-    VLCPlexWebAPI *PlexWebAPI = [[VLCPlexWebAPI alloc] init];
-    NSURL *url = [[NSURL alloc] initWithString:[PlexWebAPI urlAuth:[[mutableMediaObject objectAtIndex:0] objectForKey:@"keySubtitle"] autentification:[[mutableMediaObject objectAtIndex:0] objectForKey:@"authentification"]]];
-
-    NSData *receivedSub = [NSData dataWithContentsOfURL:url];
-
-    if (receivedSub.length < [[UIDevice currentDevice] freeDiskspace].longLongValue) {
-        NSArray *searchPaths =  nil;
-        if (modeStream)
-            searchPaths = NSSearchPathForDirectoriesInDomains(NSCachesDirectory, NSUserDomainMask, YES);
-        else
-            searchPaths = NSSearchPathForDirectoriesInDomains(NSDocumentDirectory, NSUserDomainMask, YES);
-
-        NSString *directoryPath = [searchPaths objectAtIndex:0];
-        FileSubtitlePath = [directoryPath stringByAppendingPathComponent:fileName];
-        NSFileManager *fileManager = [NSFileManager defaultManager];
-        if (![fileManager fileExistsAtPath:FileSubtitlePath]) {
-            [fileManager createFileAtPath:FileSubtitlePath contents:nil attributes:nil];
-            if (![fileManager fileExistsAtPath:FileSubtitlePath])
-                APLog(@"file creation failed, no data was saved");
-        }
-        [receivedSub writeToFile:FileSubtitlePath atomically:YES];
-    } else {
-        UIAlertView *alert = [[UIAlertView alloc] initWithTitle:NSLocalizedString(@"DISK_FULL", nil) message:[NSString stringWithFormat:NSLocalizedString(@"DISK_FULL_FORMAT", nil), fileName, [[UIDevice currentDevice] model]] delegate:self cancelButtonTitle:NSLocalizedString(@"BUTTON_OK", nil) otherButtonTitles:nil];
-        [alert show];
-    }
-
-    return FileSubtitlePath;
 }
 
 @end
