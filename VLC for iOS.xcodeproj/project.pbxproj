@@ -125,7 +125,6 @@
 		7D3784C9183A9972009EE944 /* UIDevice+VLC.m in Sources */ = {isa = PBXBuildFile; fileRef = 7D3784C7183A9972009EE944 /* UIDevice+VLC.m */; };
 		7D3784CC183A99BA009EE944 /* PAPasscodeViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 7D3784CB183A99BA009EE944 /* PAPasscodeViewController.m */; };
 		7D3784E9183A9A15009EE944 /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 7D3784E8183A9A15009EE944 /* main.m */; };
-		7D3E6CE518589EE000D584E7 /* AppIcon512x512.png in Resources */ = {isa = PBXBuildFile; fileRef = 7D3E6CE418589EE000D584E7 /* AppIcon512x512.png */; };
 		7D3EB014174A353E002062C2 /* SystemConfiguration.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 7D3EB013174A353E002062C2 /* SystemConfiguration.framework */; };
 		7D4625881A5614A1001A80B4 /* VLCEqualizerView.m in Sources */ = {isa = PBXBuildFile; fileRef = 7D4625871A5614A1001A80B4 /* VLCEqualizerView.m */; };
 		7D50903218F41C7900180139 /* VLCAlertView.m in Sources */ = {isa = PBXBuildFile; fileRef = 7D50903118F41C7900180139 /* VLCAlertView.m */; };
@@ -528,8 +527,6 @@
 		7D30F3E5183AB34200FFC021 /* VLCGoogleDriveController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = VLCGoogleDriveController.m; path = Sources/VLCGoogleDriveController.m; sourceTree = SOURCE_ROOT; };
 		7D30F3E8183AB34200FFC021 /* VLCGoogleDriveTableViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = VLCGoogleDriveTableViewController.h; path = Sources/VLCGoogleDriveTableViewController.h; sourceTree = SOURCE_ROOT; };
 		7D30F3E9183AB34200FFC021 /* VLCGoogleDriveTableViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = VLCGoogleDriveTableViewController.m; path = Sources/VLCGoogleDriveTableViewController.m; sourceTree = SOURCE_ROOT; };
-		7D31001B17B64AE100E6516D /* GHRevealViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = GHRevealViewController.h; path = ImportedSources/GHSidebarNav/GHSidebarNav/GHRevealViewController.h; sourceTree = SOURCE_ROOT; };
-		7D31001C17B64AE100E6516D /* GHRevealViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = GHRevealViewController.m; path = ImportedSources/GHSidebarNav/GHSidebarNav/GHRevealViewController.m; sourceTree = SOURCE_ROOT; };
 		7D31001F17B6768B00E6516D /* libupnpx.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; name = libupnpx.a; path = External/upnpx/libupnpx.a; sourceTree = "<group>"; };
 		7D31719C19FEC91F0019357A /* VLC for iOS.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.xml; name = "VLC for iOS.entitlements"; path = "vlc-ios/VLC for iOS.entitlements"; sourceTree = "<group>"; };
 		7D32B383185E293D006CA474 /* Raleway.woff */ = {isa = PBXFileReference; lastKnownFileType = file; path = Raleway.woff; sourceTree = "<group>"; };
@@ -579,18 +576,11 @@
 		7D3784C7183A9972009EE944 /* UIDevice+VLC.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = "UIDevice+VLC.m"; path = "Sources/UIDevice+VLC.m"; sourceTree = SOURCE_ROOT; };
 		7D3784CA183A99BA009EE944 /* PAPasscodeViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = PAPasscodeViewController.h; path = PAPasscode/PAPasscodeViewController.h; sourceTree = SOURCE_ROOT; };
 		7D3784CB183A99BA009EE944 /* PAPasscodeViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = PAPasscodeViewController.m; path = PAPasscode/PAPasscodeViewController.m; sourceTree = SOURCE_ROOT; };
-		7D3784D9183A99D2009EE944 /* papasscode_background.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = papasscode_background.png; sourceTree = "<group>"; };
-		7D3784DA183A99D2009EE944 /* papasscode_background@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "papasscode_background@2x.png"; sourceTree = "<group>"; };
-		7D3784DB183A99D2009EE944 /* papasscode_failed_bg.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = papasscode_failed_bg.png; sourceTree = "<group>"; };
-		7D3784DC183A99D2009EE944 /* papasscode_failed_bg@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "papasscode_failed_bg@2x.png"; sourceTree = "<group>"; };
-		7D3784DD183A99D2009EE944 /* papasscode_marker.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = papasscode_marker.png; sourceTree = "<group>"; };
-		7D3784DE183A99D2009EE944 /* papasscode_marker@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "papasscode_marker@2x.png"; sourceTree = "<group>"; };
 		7D3784E5183A99E1009EE944 /* Reachability.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = Reachability.h; path = Sources/Reachability.h; sourceTree = SOURCE_ROOT; };
 		7D3784E6183A99E1009EE944 /* Reachability.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = Reachability.m; path = Sources/Reachability.m; sourceTree = SOURCE_ROOT; };
 		7D3784E8183A9A15009EE944 /* main.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = main.m; path = Sources/main.m; sourceTree = SOURCE_ROOT; };
 		7D3784EA183A9A1E009EE944 /* VLC for iOS-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; name = "VLC for iOS-Info.plist"; path = "Sources/VLC for iOS-Info.plist"; sourceTree = SOURCE_ROOT; };
 		7D3784EB183A9A1E009EE944 /* VLC for iOS-Prefix.pch */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = "VLC for iOS-Prefix.pch"; path = "Sources/VLC for iOS-Prefix.pch"; sourceTree = SOURCE_ROOT; };
-		7D3E6CE418589EE000D584E7 /* AppIcon512x512.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = AppIcon512x512.png; sourceTree = "<group>"; };
 		7D3EB013174A353E002062C2 /* SystemConfiguration.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = SystemConfiguration.framework; path = System/Library/Frameworks/SystemConfiguration.framework; sourceTree = SDKROOT; };
 		7D4136621896710500D7B4B2 /* si */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = si; path = si.lproj/Localizable.strings; sourceTree = "<group>"; };
 		7D4136631896710500D7B4B2 /* si */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = si; path = "si.lproj/badgeUnread@2x~ipad.png"; sourceTree = "<group>"; };
@@ -668,35 +658,6 @@
 		7D685AB11AAF74F9006CD82A /* sr-Latn */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "sr-Latn"; path = "sr-Latn.lproj/badgeUnread~ipad.png"; sourceTree = "<group>"; };
 		7D685AB21AAF74F9006CD82A /* sr-Latn */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "sr-Latn"; path = "sr-Latn.lproj/badgeUnread~iphone.png"; sourceTree = "<group>"; };
 		7D6B08BB174A72A900A05173 /* VLCConstants.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = VLCConstants.h; path = Sources/VLCConstants.h; sourceTree = "<group>"; };
-		7D6B08CC174D65B500A05173 /* IASKAppSettingsViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = IASKAppSettingsViewController.h; sourceTree = "<group>"; };
-		7D6B08CD174D65B500A05173 /* IASKAppSettingsViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = IASKAppSettingsViewController.m; sourceTree = "<group>"; };
-		7D6B08CE174D65B500A05173 /* IASKAppSettingsWebViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = IASKAppSettingsWebViewController.h; sourceTree = "<group>"; };
-		7D6B08CF174D65B500A05173 /* IASKAppSettingsWebViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = IASKAppSettingsWebViewController.m; sourceTree = "<group>"; };
-		7D6B08D0174D65B500A05173 /* IASKSpecifierValuesViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = IASKSpecifierValuesViewController.h; sourceTree = "<group>"; };
-		7D6B08D1174D65B500A05173 /* IASKSpecifierValuesViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = IASKSpecifierValuesViewController.m; sourceTree = "<group>"; };
-		7D6B08D2174D65B500A05173 /* IASKViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = IASKViewController.h; sourceTree = "<group>"; };
-		7D6B08D4174D65B500A05173 /* IASKSettingsReader.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = IASKSettingsReader.h; sourceTree = "<group>"; };
-		7D6B08D5174D65B500A05173 /* IASKSettingsReader.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = IASKSettingsReader.m; sourceTree = "<group>"; };
-		7D6B08D6174D65B500A05173 /* IASKSettingsStore.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = IASKSettingsStore.h; sourceTree = "<group>"; };
-		7D6B08D7174D65B500A05173 /* IASKSettingsStore.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = IASKSettingsStore.m; sourceTree = "<group>"; };
-		7D6B08D8174D65B500A05173 /* IASKSettingsStoreFile.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = IASKSettingsStoreFile.h; sourceTree = "<group>"; };
-		7D6B08D9174D65B500A05173 /* IASKSettingsStoreFile.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = IASKSettingsStoreFile.m; sourceTree = "<group>"; };
-		7D6B08DA174D65B500A05173 /* IASKSettingsStoreUserDefaults.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = IASKSettingsStoreUserDefaults.h; sourceTree = "<group>"; };
-		7D6B08DB174D65B500A05173 /* IASKSettingsStoreUserDefaults.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = IASKSettingsStoreUserDefaults.m; sourceTree = "<group>"; };
-		7D6B08DC174D65B500A05173 /* IASKSpecifier.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = IASKSpecifier.h; sourceTree = "<group>"; };
-		7D6B08DD174D65B500A05173 /* IASKSpecifier.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = IASKSpecifier.m; sourceTree = "<group>"; };
-		7D6B08DF174D65B500A05173 /* IASKPSSliderSpecifierViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = IASKPSSliderSpecifierViewCell.h; sourceTree = "<group>"; };
-		7D6B08E0174D65B500A05173 /* IASKPSSliderSpecifierViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = IASKPSSliderSpecifierViewCell.m; sourceTree = "<group>"; };
-		7D6B08E1174D65B500A05173 /* IASKPSTextFieldSpecifierViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = IASKPSTextFieldSpecifierViewCell.h; sourceTree = "<group>"; };
-		7D6B08E2174D65B500A05173 /* IASKPSTextFieldSpecifierViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = IASKPSTextFieldSpecifierViewCell.m; sourceTree = "<group>"; };
-		7D6B08E3174D65B500A05173 /* IASKPSTitleValueSpecifierViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = IASKPSTitleValueSpecifierViewCell.h; sourceTree = "<group>"; };
-		7D6B08E4174D65B500A05173 /* IASKPSTitleValueSpecifierViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = IASKPSTitleValueSpecifierViewCell.m; sourceTree = "<group>"; };
-		7D6B08E5174D65B500A05173 /* IASKSlider.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = IASKSlider.h; sourceTree = "<group>"; };
-		7D6B08E6174D65B500A05173 /* IASKSlider.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = IASKSlider.m; sourceTree = "<group>"; };
-		7D6B08E7174D65B500A05173 /* IASKSwitch.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = IASKSwitch.h; sourceTree = "<group>"; };
-		7D6B08E8174D65B500A05173 /* IASKSwitch.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = IASKSwitch.m; sourceTree = "<group>"; };
-		7D6B08E9174D65B500A05173 /* IASKTextField.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = IASKTextField.h; sourceTree = "<group>"; };
-		7D6B08EA174D65B500A05173 /* IASKTextField.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = IASKTextField.m; sourceTree = "<group>"; };
 		7D6B08F9174D716200A05173 /* MessageUI.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = MessageUI.framework; path = System/Library/Frameworks/MessageUI.framework; sourceTree = SDKROOT; };
 		7D6B08FB174D773C00A05173 /* Settings.bundle */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.plug-in"; name = Settings.bundle; path = Resources/Settings.bundle; sourceTree = SOURCE_ROOT; };
 		7D6D13591758D1A00007EA9A /* it */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = it; path = it.lproj/Localizable.strings; sourceTree = "<group>"; };
@@ -867,72 +828,6 @@
 		A7924695170F0BA90036AAF2 /* libMediaLibraryKit.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; name = libMediaLibraryKit.a; path = External/MediaLibraryKit/libMediaLibraryKit.a; sourceTree = "<group>"; };
 		A79246C7170F11DF0036AAF2 /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/Localizable.strings; sourceTree = "<group>"; };
 		A79246C9170F11E40036AAF2 /* ru */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = ru; path = ru.lproj/Localizable.strings; sourceTree = "<group>"; };
-		A7B5316117E3728D00EAE4B3 /* BasicDeviceParser.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BasicDeviceParser.h; sourceTree = "<group>"; };
-		A7B5316217E3728D00EAE4B3 /* BasicHTTPServer_ObjC.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BasicHTTPServer_ObjC.h; sourceTree = "<group>"; };
-		A7B5316317E3728D00EAE4B3 /* BasicParser.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BasicParser.h; sourceTree = "<group>"; };
-		A7B5316417E3728D00EAE4B3 /* BasicParserAsset.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BasicParserAsset.h; sourceTree = "<group>"; };
-		A7B5316517E3728D00EAE4B3 /* BasicServiceParser.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BasicServiceParser.h; sourceTree = "<group>"; };
-		A7B5316617E3728D00EAE4B3 /* BasicUPnPDevice.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BasicUPnPDevice.h; sourceTree = "<group>"; };
-		A7B5316717E3728D00EAE4B3 /* BasicUPnPService.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BasicUPnPService.h; sourceTree = "<group>"; };
-		A7B5316817E3728D00EAE4B3 /* BinaryLight1Device.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BinaryLight1Device.h; sourceTree = "<group>"; };
-		A7B5316917E3728D00EAE4B3 /* CocoaTools.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CocoaTools.h; sourceTree = "<group>"; };
-		A7B5316A17E3728D00EAE4B3 /* DeviceFactory.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DeviceFactory.h; sourceTree = "<group>"; };
-		A7B5316B17E3728D00EAE4B3 /* DigitalSecurityCamera1Device.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DigitalSecurityCamera1Device.h; sourceTree = "<group>"; };
-		A7B5316C17E3728D00EAE4B3 /* DimmableLight1Device.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DimmableLight1Device.h; sourceTree = "<group>"; };
-		A7B5316D17E3728D00EAE4B3 /* InternetGateway2Device.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = InternetGateway2Device.h; sourceTree = "<group>"; };
-		A7B5316E17E3728D00EAE4B3 /* LAN1Device.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LAN1Device.h; sourceTree = "<group>"; };
-		A7B5316F17E3728D00EAE4B3 /* LastChangeParser.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LastChangeParser.h; sourceTree = "<group>"; };
-		A7B5317017E3728D00EAE4B3 /* MediaPlaylist.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MediaPlaylist.h; sourceTree = "<group>"; };
-		A7B5317117E3728D00EAE4B3 /* MediaRenderer1Device.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MediaRenderer1Device.h; sourceTree = "<group>"; };
-		A7B5317217E3728D00EAE4B3 /* MediaServer1BasicObject.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MediaServer1BasicObject.h; sourceTree = "<group>"; };
-		A7B5317317E3728D00EAE4B3 /* MediaServer1ContainerObject.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MediaServer1ContainerObject.h; sourceTree = "<group>"; };
-		A7B5317417E3728D00EAE4B3 /* MediaServer1Device.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MediaServer1Device.h; sourceTree = "<group>"; };
-		A7B5317517E3728D00EAE4B3 /* MediaServer1ItemObject.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MediaServer1ItemObject.h; sourceTree = "<group>"; };
-		A7B5317617E3728D00EAE4B3 /* MediaServer1ItemRes.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MediaServer1ItemRes.h; sourceTree = "<group>"; };
-		A7B5317717E3728D00EAE4B3 /* MediaServerBasicObjectParser.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MediaServerBasicObjectParser.h; sourceTree = "<group>"; };
-		A7B5317817E3728D00EAE4B3 /* ServiceFactory.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ServiceFactory.h; sourceTree = "<group>"; };
-		A7B5317917E3728D00EAE4B3 /* SoapAction.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SoapAction.h; sourceTree = "<group>"; };
-		A7B5317A17E3728D00EAE4B3 /* SoapActionFactory.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SoapActionFactory.h; sourceTree = "<group>"; };
-		A7B5317B17E3728D00EAE4B3 /* SoapActionsAVTransport1.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SoapActionsAVTransport1.h; sourceTree = "<group>"; };
-		A7B5317C17E3728D00EAE4B3 /* SoapActionsCallManagement1.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SoapActionsCallManagement1.h; sourceTree = "<group>"; };
-		A7B5317D17E3728D00EAE4B3 /* SoapActionsConfigurationManagement1.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SoapActionsConfigurationManagement1.h; sourceTree = "<group>"; };
-		A7B5317E17E3728D00EAE4B3 /* SoapActionsConnectionManager1.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SoapActionsConnectionManager1.h; sourceTree = "<group>"; };
-		A7B5317F17E3728D00EAE4B3 /* SoapActionsContentDirectory1.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SoapActionsContentDirectory1.h; sourceTree = "<group>"; };
-		A7B5318017E3728D00EAE4B3 /* SoapActionsDeviceProtection1.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SoapActionsDeviceProtection1.h; sourceTree = "<group>"; };
-		A7B5318117E3728D00EAE4B3 /* SoapActionsDigitalSecurityCameraMotionImage1.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SoapActionsDigitalSecurityCameraMotionImage1.h; sourceTree = "<group>"; };
-		A7B5318217E3728D00EAE4B3 /* SoapActionsDigitalSecurityCameraSettings1.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SoapActionsDigitalSecurityCameraSettings1.h; sourceTree = "<group>"; };
-		A7B5318317E3728D00EAE4B3 /* SoapActionsDigitalSecurityCameraStillImage1.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SoapActionsDigitalSecurityCameraStillImage1.h; sourceTree = "<group>"; };
-		A7B5318417E3728D00EAE4B3 /* SoapActionsDimming1.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SoapActionsDimming1.h; sourceTree = "<group>"; };
-		A7B5318517E3728D00EAE4B3 /* SoapActionsInputConfig1.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SoapActionsInputConfig1.h; sourceTree = "<group>"; };
-		A7B5318617E3728D00EAE4B3 /* SoapActionsLANHostConfigManagement1.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SoapActionsLANHostConfigManagement1.h; sourceTree = "<group>"; };
-		A7B5318717E3728D00EAE4B3 /* SoapActionsLayer3Forwarding1.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SoapActionsLayer3Forwarding1.h; sourceTree = "<group>"; };
-		A7B5318817E3728D00EAE4B3 /* SoapActionsMediaManagement1.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SoapActionsMediaManagement1.h; sourceTree = "<group>"; };
-		A7B5318917E3728D00EAE4B3 /* SoapActionsMessaging1.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SoapActionsMessaging1.h; sourceTree = "<group>"; };
-		A7B5318A17E3728D00EAE4B3 /* SoapActionsRendering.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SoapActionsRendering.h; sourceTree = "<group>"; };
-		A7B5318B17E3728D00EAE4B3 /* SoapActionsRenderingControl1.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SoapActionsRenderingControl1.h; sourceTree = "<group>"; };
-		A7B5318C17E3728D00EAE4B3 /* SoapActionsSwitchPower1.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SoapActionsSwitchPower1.h; sourceTree = "<group>"; };
-		A7B5318D17E3728D00EAE4B3 /* SoapActionsWANCableLinkConfig1.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SoapActionsWANCableLinkConfig1.h; sourceTree = "<group>"; };
-		A7B5318E17E3728D00EAE4B3 /* SoapActionsWANCommonInterfaceConfig1.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SoapActionsWANCommonInterfaceConfig1.h; sourceTree = "<group>"; };
-		A7B5318F17E3728D00EAE4B3 /* SoapActionsWANDSLLinkConfig1.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SoapActionsWANDSLLinkConfig1.h; sourceTree = "<group>"; };
-		A7B5319017E3728D00EAE4B3 /* SoapActionsWANEthernetLinkConfig1.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SoapActionsWANEthernetLinkConfig1.h; sourceTree = "<group>"; };
-		A7B5319117E3728D00EAE4B3 /* SoapActionsWANIPConnection1.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SoapActionsWANIPConnection1.h; sourceTree = "<group>"; };
-		A7B5319217E3728D00EAE4B3 /* SoapActionsWANIPConnection2.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SoapActionsWANIPConnection2.h; sourceTree = "<group>"; };
-		A7B5319317E3728D00EAE4B3 /* SoapActionsWANIPv6FirewallControl1.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SoapActionsWANIPv6FirewallControl1.h; sourceTree = "<group>"; };
-		A7B5319417E3728D00EAE4B3 /* SoapActionsWANPOTSLinkConfig1.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SoapActionsWANPOTSLinkConfig1.h; sourceTree = "<group>"; };
-		A7B5319517E3728D00EAE4B3 /* SoapActionsWANPPPConnection1.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SoapActionsWANPPPConnection1.h; sourceTree = "<group>"; };
-		A7B5319617E3728D00EAE4B3 /* SSDPDB_ObjC.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SSDPDB_ObjC.h; sourceTree = "<group>"; };
-		A7B5319717E3728D00EAE4B3 /* StateVariable.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = StateVariable.h; sourceTree = "<group>"; };
-		A7B5319817E3728D00EAE4B3 /* StateVariableList.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = StateVariableList.h; sourceTree = "<group>"; };
-		A7B5319917E3728D00EAE4B3 /* StateVariableRange.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = StateVariableRange.h; sourceTree = "<group>"; };
-		A7B5319A17E3728D00EAE4B3 /* TelephonyClient1Device.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TelephonyClient1Device.h; sourceTree = "<group>"; };
-		A7B5319B17E3728D00EAE4B3 /* TelephonyServer1Device.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TelephonyServer1Device.h; sourceTree = "<group>"; };
-		A7B5319C17E3728D00EAE4B3 /* UPnPDB.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = UPnPDB.h; sourceTree = "<group>"; };
-		A7B5319D17E3728D00EAE4B3 /* UPnPEventParser.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = UPnPEventParser.h; sourceTree = "<group>"; };
-		A7B5319E17E3728D00EAE4B3 /* UPnPEvents.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = UPnPEvents.h; sourceTree = "<group>"; };
-		A7B5319F17E3728D00EAE4B3 /* UPnPManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = UPnPManager.h; sourceTree = "<group>"; };
-		A7B531A017E3728D00EAE4B3 /* WAN2Device.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = WAN2Device.h; sourceTree = "<group>"; };
-		A7B531A117E3728D00EAE4B3 /* WANConnection1Device.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = WANConnection1Device.h; sourceTree = "<group>"; };
-		A7B531A217E3728D00EAE4B3 /* WANConnection2Device.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = WANConnection2Device.h; sourceTree = "<group>"; };
 		CC1BBC3E1704934200A20CBF /* libMobileVLCKit.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; name = libMobileVLCKit.a; path = External/MobileVLCKit/libMobileVLCKit.a; sourceTree = "<group>"; };
 		CC1BBC451704938300A20CBF /* libiconv.dylib */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.dylib"; name = libiconv.dylib; path = usr/lib/libiconv.dylib; sourceTree = SDKROOT; };
 		CC1BBC471704938B00A20CBF /* libstdc++.dylib */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.dylib"; name = "libstdc++.dylib"; path = "usr/lib/libstdc++.dylib"; sourceTree = SDKROOT; };
@@ -1335,15 +1230,6 @@
 			name = Menu;
 			sourceTree = "<group>";
 		};
-		7D31001E17B64AE600E6516D /* GHSidebarNav */ = {
-			isa = PBXGroup;
-			children = (
-				7D31001B17B64AE100E6516D /* GHRevealViewController.h */,
-				7D31001C17B64AE100E6516D /* GHRevealViewController.m */,
-			);
-			name = GHSidebarNav;
-			sourceTree = "<group>";
-		};
 		7D31002117B676D500E6516D /* Local Network Connectivity */ = {
 			isa = PBXGroup;
 			children = (
@@ -1495,67 +1381,6 @@
 				7D30F3C9183AB27A00FFC021 /* VLCDownloadViewController.m */,
 			);
 			name = "HTTP Connectivity";
-			sourceTree = "<group>";
-		};
-		7D6B08CA174D65B400A05173 /* InAppSettingsKit */ = {
-			isa = PBXGroup;
-			children = (
-				7D6B08CB174D65B500A05173 /* Controllers */,
-				7D6B08D3174D65B500A05173 /* Models */,
-				7D6B08DE174D65B500A05173 /* Views */,
-			);
-			name = InAppSettingsKit;
-			path = ImportedSources/InAppSettingsKit/InAppSettingsKit;
-			sourceTree = SOURCE_ROOT;
-		};
-		7D6B08CB174D65B500A05173 /* Controllers */ = {
-			isa = PBXGroup;
-			children = (
-				7D6B08CC174D65B500A05173 /* IASKAppSettingsViewController.h */,
-				7D6B08CD174D65B500A05173 /* IASKAppSettingsViewController.m */,
-				7D6B08CE174D65B500A05173 /* IASKAppSettingsWebViewController.h */,
-				7D6B08CF174D65B500A05173 /* IASKAppSettingsWebViewController.m */,
-				7D6B08D0174D65B500A05173 /* IASKSpecifierValuesViewController.h */,
-				7D6B08D1174D65B500A05173 /* IASKSpecifierValuesViewController.m */,
-				7D6B08D2174D65B500A05173 /* IASKViewController.h */,
-			);
-			path = Controllers;
-			sourceTree = "<group>";
-		};
-		7D6B08D3174D65B500A05173 /* Models */ = {
-			isa = PBXGroup;
-			children = (
-				7D6B08D4174D65B500A05173 /* IASKSettingsReader.h */,
-				7D6B08D5174D65B500A05173 /* IASKSettingsReader.m */,
-				7D6B08D6174D65B500A05173 /* IASKSettingsStore.h */,
-				7D6B08D7174D65B500A05173 /* IASKSettingsStore.m */,
-				7D6B08D8174D65B500A05173 /* IASKSettingsStoreFile.h */,
-				7D6B08D9174D65B500A05173 /* IASKSettingsStoreFile.m */,
-				7D6B08DA174D65B500A05173 /* IASKSettingsStoreUserDefaults.h */,
-				7D6B08DB174D65B500A05173 /* IASKSettingsStoreUserDefaults.m */,
-				7D6B08DC174D65B500A05173 /* IASKSpecifier.h */,
-				7D6B08DD174D65B500A05173 /* IASKSpecifier.m */,
-			);
-			path = Models;
-			sourceTree = "<group>";
-		};
-		7D6B08DE174D65B500A05173 /* Views */ = {
-			isa = PBXGroup;
-			children = (
-				7D6B08DF174D65B500A05173 /* IASKPSSliderSpecifierViewCell.h */,
-				7D6B08E0174D65B500A05173 /* IASKPSSliderSpecifierViewCell.m */,
-				7D6B08E1174D65B500A05173 /* IASKPSTextFieldSpecifierViewCell.h */,
-				7D6B08E2174D65B500A05173 /* IASKPSTextFieldSpecifierViewCell.m */,
-				7D6B08E3174D65B500A05173 /* IASKPSTitleValueSpecifierViewCell.h */,
-				7D6B08E4174D65B500A05173 /* IASKPSTitleValueSpecifierViewCell.m */,
-				7D6B08E5174D65B500A05173 /* IASKSlider.h */,
-				7D6B08E6174D65B500A05173 /* IASKSlider.m */,
-				7D6B08E7174D65B500A05173 /* IASKSwitch.h */,
-				7D6B08E8174D65B500A05173 /* IASKSwitch.m */,
-				7D6B08E9174D65B500A05173 /* IASKTextField.h */,
-				7D6B08EA174D65B500A05173 /* IASKTextField.m */,
-			);
-			path = Views;
 			sourceTree = "<group>";
 		};
 		7D6BEF1D19E027A100DF3972 /* Cloud */ = {
@@ -1751,23 +1576,12 @@
 			children = (
 				4171D35518A2D90200A16EF9 /* LXReorderableCollectionViewFlowLayout */,
 				9B2E0CED17FB5B3F0098E3DF /* GoogleDrive */,
-				A7B5316017E3728D00EAE4B3 /* upnpx */,
-				7D6B08CA174D65B400A05173 /* InAppSettingsKit */,
 				A7A0E9EB174BA66000162F25 /* PAPasscode */,
 				7DC72D6517B7ED36008A26D0 /* Reachability */,
 				7DC72D6417B7ED2A008A26D0 /* WhiteRaccoon */,
-				7D31001E17B64AE600E6516D /* GHSidebarNav */,
 				291553E817490A0400B86CAD /* CocoaHTTPServer */,
 			);
 			name = Imported;
-			sourceTree = "<group>";
-		};
-		7DBC3B3C1711DD1E00DCF688 /* Icons */ = {
-			isa = PBXGroup;
-			children = (
-				7D3E6CE418589EE000D584E7 /* AppIcon512x512.png */,
-			);
-			name = Icons;
 			sourceTree = "<group>";
 		};
 		7DC19AEB1868C91400810BF7 /* First Steps */ = {
@@ -1871,7 +1685,6 @@
 				7DA8B0F9173318E80029698C /* SourceCodePro-Regular.ttf */,
 				7DD2A3A8179C04A6003EB537 /* OpenSans-Regular.ttf */,
 				7D5DD5C617590ABF001421E3 /* About Contents.html */,
-				7DBC3B3C1711DD1E00DCF688 /* Icons */,
 				A79246C6170F11DF0036AAF2 /* Localizable.strings */,
 				7D10BC661743F9AC00DA7059 /* Library View */,
 			);
@@ -1883,98 +1696,10 @@
 			children = (
 				7D3784CA183A99BA009EE944 /* PAPasscodeViewController.h */,
 				7D3784CB183A99BA009EE944 /* PAPasscodeViewController.m */,
-				A7A0E9EC174BA66000162F25 /* Assets */,
 			);
 			name = PAPasscode;
 			path = ../PAPasscode;
 			sourceTree = "<group>";
-		};
-		A7A0E9EC174BA66000162F25 /* Assets */ = {
-			isa = PBXGroup;
-			children = (
-				7D3784D9183A99D2009EE944 /* papasscode_background.png */,
-				7D3784DA183A99D2009EE944 /* papasscode_background@2x.png */,
-				7D3784DB183A99D2009EE944 /* papasscode_failed_bg.png */,
-				7D3784DC183A99D2009EE944 /* papasscode_failed_bg@2x.png */,
-				7D3784DD183A99D2009EE944 /* papasscode_marker.png */,
-				7D3784DE183A99D2009EE944 /* papasscode_marker@2x.png */,
-			);
-			path = Assets;
-			sourceTree = "<group>";
-		};
-		A7B5316017E3728D00EAE4B3 /* upnpx */ = {
-			isa = PBXGroup;
-			children = (
-				A7B5316117E3728D00EAE4B3 /* BasicDeviceParser.h */,
-				A7B5316217E3728D00EAE4B3 /* BasicHTTPServer_ObjC.h */,
-				A7B5316317E3728D00EAE4B3 /* BasicParser.h */,
-				A7B5316417E3728D00EAE4B3 /* BasicParserAsset.h */,
-				A7B5316517E3728D00EAE4B3 /* BasicServiceParser.h */,
-				A7B5316617E3728D00EAE4B3 /* BasicUPnPDevice.h */,
-				A7B5316717E3728D00EAE4B3 /* BasicUPnPService.h */,
-				A7B5316817E3728D00EAE4B3 /* BinaryLight1Device.h */,
-				A7B5316917E3728D00EAE4B3 /* CocoaTools.h */,
-				A7B5316A17E3728D00EAE4B3 /* DeviceFactory.h */,
-				A7B5316B17E3728D00EAE4B3 /* DigitalSecurityCamera1Device.h */,
-				A7B5316C17E3728D00EAE4B3 /* DimmableLight1Device.h */,
-				A7B5316D17E3728D00EAE4B3 /* InternetGateway2Device.h */,
-				A7B5316E17E3728D00EAE4B3 /* LAN1Device.h */,
-				A7B5316F17E3728D00EAE4B3 /* LastChangeParser.h */,
-				A7B5317017E3728D00EAE4B3 /* MediaPlaylist.h */,
-				A7B5317117E3728D00EAE4B3 /* MediaRenderer1Device.h */,
-				A7B5317217E3728D00EAE4B3 /* MediaServer1BasicObject.h */,
-				A7B5317317E3728D00EAE4B3 /* MediaServer1ContainerObject.h */,
-				A7B5317417E3728D00EAE4B3 /* MediaServer1Device.h */,
-				A7B5317517E3728D00EAE4B3 /* MediaServer1ItemObject.h */,
-				A7B5317617E3728D00EAE4B3 /* MediaServer1ItemRes.h */,
-				A7B5317717E3728D00EAE4B3 /* MediaServerBasicObjectParser.h */,
-				A7B5317817E3728D00EAE4B3 /* ServiceFactory.h */,
-				A7B5317917E3728D00EAE4B3 /* SoapAction.h */,
-				A7B5317A17E3728D00EAE4B3 /* SoapActionFactory.h */,
-				A7B5317B17E3728D00EAE4B3 /* SoapActionsAVTransport1.h */,
-				A7B5317C17E3728D00EAE4B3 /* SoapActionsCallManagement1.h */,
-				A7B5317D17E3728D00EAE4B3 /* SoapActionsConfigurationManagement1.h */,
-				A7B5317E17E3728D00EAE4B3 /* SoapActionsConnectionManager1.h */,
-				A7B5317F17E3728D00EAE4B3 /* SoapActionsContentDirectory1.h */,
-				A7B5318017E3728D00EAE4B3 /* SoapActionsDeviceProtection1.h */,
-				A7B5318117E3728D00EAE4B3 /* SoapActionsDigitalSecurityCameraMotionImage1.h */,
-				A7B5318217E3728D00EAE4B3 /* SoapActionsDigitalSecurityCameraSettings1.h */,
-				A7B5318317E3728D00EAE4B3 /* SoapActionsDigitalSecurityCameraStillImage1.h */,
-				A7B5318417E3728D00EAE4B3 /* SoapActionsDimming1.h */,
-				A7B5318517E3728D00EAE4B3 /* SoapActionsInputConfig1.h */,
-				A7B5318617E3728D00EAE4B3 /* SoapActionsLANHostConfigManagement1.h */,
-				A7B5318717E3728D00EAE4B3 /* SoapActionsLayer3Forwarding1.h */,
-				A7B5318817E3728D00EAE4B3 /* SoapActionsMediaManagement1.h */,
-				A7B5318917E3728D00EAE4B3 /* SoapActionsMessaging1.h */,
-				A7B5318A17E3728D00EAE4B3 /* SoapActionsRendering.h */,
-				A7B5318B17E3728D00EAE4B3 /* SoapActionsRenderingControl1.h */,
-				A7B5318C17E3728D00EAE4B3 /* SoapActionsSwitchPower1.h */,
-				A7B5318D17E3728D00EAE4B3 /* SoapActionsWANCableLinkConfig1.h */,
-				A7B5318E17E3728D00EAE4B3 /* SoapActionsWANCommonInterfaceConfig1.h */,
-				A7B5318F17E3728D00EAE4B3 /* SoapActionsWANDSLLinkConfig1.h */,
-				A7B5319017E3728D00EAE4B3 /* SoapActionsWANEthernetLinkConfig1.h */,
-				A7B5319117E3728D00EAE4B3 /* SoapActionsWANIPConnection1.h */,
-				A7B5319217E3728D00EAE4B3 /* SoapActionsWANIPConnection2.h */,
-				A7B5319317E3728D00EAE4B3 /* SoapActionsWANIPv6FirewallControl1.h */,
-				A7B5319417E3728D00EAE4B3 /* SoapActionsWANPOTSLinkConfig1.h */,
-				A7B5319517E3728D00EAE4B3 /* SoapActionsWANPPPConnection1.h */,
-				A7B5319617E3728D00EAE4B3 /* SSDPDB_ObjC.h */,
-				A7B5319717E3728D00EAE4B3 /* StateVariable.h */,
-				A7B5319817E3728D00EAE4B3 /* StateVariableList.h */,
-				A7B5319917E3728D00EAE4B3 /* StateVariableRange.h */,
-				A7B5319A17E3728D00EAE4B3 /* TelephonyClient1Device.h */,
-				A7B5319B17E3728D00EAE4B3 /* TelephonyServer1Device.h */,
-				A7B5319C17E3728D00EAE4B3 /* UPnPDB.h */,
-				A7B5319D17E3728D00EAE4B3 /* UPnPEventParser.h */,
-				A7B5319E17E3728D00EAE4B3 /* UPnPEvents.h */,
-				A7B5319F17E3728D00EAE4B3 /* UPnPManager.h */,
-				A7B531A017E3728D00EAE4B3 /* WAN2Device.h */,
-				A7B531A117E3728D00EAE4B3 /* WANConnection1Device.h */,
-				A7B531A217E3728D00EAE4B3 /* WANConnection2Device.h */,
-			);
-			name = upnpx;
-			path = ImportedSources/upnpx/src/api;
-			sourceTree = SOURCE_ROOT;
 		};
 		A7C3025A175A538700AD4388 /* Extensions */ = {
 			isa = PBXGroup;
@@ -2273,7 +1998,6 @@
 				7AC8629D1765DC560011611A /* style.css in Resources */,
 				7DD2A3A9179C04A7003EB537 /* OpenSans-Regular.ttf in Resources */,
 				7D27EC2B19DF310300EF0370 /* VLCFirstStepsSecondPageViewController~ipad.xib in Resources */,
-				7D3E6CE518589EE000D584E7 /* AppIcon512x512.png in Resources */,
 				26E3A7011AAB76D300B32450 /* VLCFuturePlexConnectServerViewController.xib in Resources */,
 				7DBBF1A0183AB4300009A339 /* VLCFuturePlaylistCollectionViewCell.xib in Resources */,
 				7D711ADA18227A490094E4F0 /* GTMOAuth2ViewTouch.xib in Resources */,
