@@ -10,9 +10,13 @@
  *****************************************************************************/
 
 #import "VLCPlexParser.h"
+#import "VLCPlexWebAPI.h"
 #import "UIDevice+VLC.h"
+#import "VLCAlertView.h"
+#import "VLCConstants.h"
 
 #define kPlexMediaServerDirInit @"library/sections"
+#define kPlexVLCDeviceName @"VLC for iOS"
 
 @interface VLCPlexParser () <NSXMLParserDelegate>
 {
@@ -24,7 +28,7 @@
 
 @implementation VLCPlexParser
 
-- (NSMutableArray *)PlexMediaServerParser:(NSString *)adress port:(NSString *)port navigationPath:(NSString *)path
+- (NSMutableArray *)PlexMediaServerParser:(NSString *)adress port:(NSString *)port navigationPath:(NSString *)path authentification:(NSString *)auth
 {
     _containerInfo = [[NSMutableArray alloc] init];
     [_containerInfo removeAllObjects];
@@ -41,15 +45,69 @@
             mediaServerUrl = [NSString stringWithFormat:@"%@/%@/%@",_PlexMediaServerUrl, kPlexMediaServerDirInit, path];
     }
 
-    NSURL *url = [[NSURL alloc] initWithString:mediaServerUrl];
-    NSXMLParser *xmlparser = [[NSXMLParser alloc] initWithContentsOfURL:url];
+    VLCPlexWebAPI *PlexWebAPI = [[VLCPlexWebAPI alloc] init];
+    NSURL *url = [[NSURL alloc] initWithString:[PlexWebAPI urlAuth:mediaServerUrl autentification:auth]];
+
+    NSURLRequest *request = [NSURLRequest requestWithURL:url cachePolicy:NSURLRequestUseProtocolCachePolicy timeoutInterval:5.0];
+    NSHTTPURLResponse *response = nil;
+    NSError *error = nil;
+    NSData *data = [NSURLConnection sendSynchronousRequest:request returningResponse:&response error:&error];
+
+    if ([response statusCode] != 200) {
+        NSString *responseString = [[NSString alloc] initWithData:data encoding:NSUTF8StringEncoding];
+        if([responseString rangeOfString:@"Unauthorized"].location != NSNotFound) {
+
+            NSUserDefaults *prefs = [NSUserDefaults standardUserDefaults];
+            NSString *username = [prefs stringForKey:kVLCPLEXLogin];
+            NSString *password = [prefs stringForKey:kVLCPLEXPassword];
+
+            if ((username && password) && ((![username isEqualToString:@""]) && (![password isEqualToString:@""]))) {
+                auth = [PlexWebAPI PlexAuthentification:username password:password];
+                url = [NSURL URLWithString:[PlexWebAPI urlAuth:mediaServerUrl autentification:auth]];
+                request = [NSURLRequest requestWithURL:url cachePolicy:NSURLRequestUseProtocolCachePolicy timeoutInterval:5.0];
+                response = nil;
+                error = nil;
+                data = [NSURLConnection sendSynchronousRequest:request returningResponse:&response error:&error];
+                if ([response statusCode] != 200) {
+                    VLCAlertView *alertView = [[VLCAlertView alloc] initWithTitle:NSLocalizedString(@"PLEX_ERROR_ACCOUNT", nil) message:NSLocalizedString(@"PLEX_CHECK_ACCOUNT", nil) cancelButtonTitle:NSLocalizedString(@"BUTTON_OK", nil) otherButtonTitles:nil];
+                    [alertView show];
+                }
+                [_containerInfo removeAllObjects];
+                [_dicoInfo removeAllObjects];
+            } else {
+                VLCAlertView *alertView = [[VLCAlertView alloc] initWithTitle:NSLocalizedString(@"UNAUTHORIZED", nil) message:NSLocalizedString(@"PLEX_CHECK_ACCOUNT", nil) cancelButtonTitle:NSLocalizedString(@"BUTTON_OK", nil) otherButtonTitles:nil];
+                [alertView show];
+            }
+        } else
+            APLog(@"PlexParser url Errors : %ld", (long)[response statusCode]);
+    }
+
+    NSXMLParser *xmlparser = [[NSXMLParser alloc] initWithData:data];
     [xmlparser setDelegate:self];
 
     if (![xmlparser parse])
         APLog(@"PlexParser url Errors : %@", url);
 
+    [_containerInfo setValue:auth forKey:@"authentification"];
+
     return _containerInfo;
 }
+
+- (NSMutableArray *)PlexExtractDeviceInfo:(NSData *)data
+{
+    _containerInfo = [[NSMutableArray alloc] init];
+    [_containerInfo removeAllObjects];
+    _dicoInfo = [[NSMutableDictionary alloc] init];
+    NSXMLParser *xmlparser = [[NSXMLParser alloc] initWithData:data];
+    [xmlparser setDelegate:self];
+
+    if (![xmlparser parse])
+        NSLog(@"PlexParser data Errors : %@", data);
+
+    return _containerInfo;
+}
+
+#pragma mark - Parser
 
 - (void)parser:(NSXMLParser *)parser didStartElement:(NSString *)elementName namespaceURI:(NSString *)namespaceURI qualifiedName:(NSString *)qualifiedName attributes:(NSDictionary *)attributeDict
 {
@@ -62,10 +120,12 @@
             [_dicoInfo setObject:[attributeDict objectForKey:@"title2"] forKey:@"libTitle"];
         if ([attributeDict objectForKey:@"grandparentTitle"])
             [_dicoInfo setObject:[attributeDict objectForKey:@"grandparentTitle"] forKey:@"grandparentTitle"];
+
     } else if ([elementName isEqualToString:@"Directory"]) {
         [_dicoInfo setObject:@"directory" forKey:@"container"];
         [_dicoInfo setObject:[attributeDict objectForKey:@"key"] forKey:@"key"];
         [_dicoInfo setObject:[attributeDict objectForKey:@"title"] forKey:@"title"];
+
     } else if ([elementName isEqualToString:@"Video"] || [elementName isEqualToString:@"Track"]) {
         [_dicoInfo setObject:@"item" forKey:@"container"];
         [_dicoInfo setObject:[attributeDict objectForKey:@"key"] forKey:@"key"];
@@ -83,6 +143,7 @@
             [_dicoInfo setObject:[attributeDict objectForKey:@"audioCodec"] forKey:@"audioCodec"];
         if ([attributeDict objectForKey:@"videoCodec"])
             [_dicoInfo setObject:[attributeDict objectForKey:@"videoCodec"] forKey:@"videoCodec"];
+
     } else if ([elementName isEqualToString:@"Part"]) {
         [_dicoInfo setObject:[NSString stringWithFormat:@"%@%@",_PlexMediaServerUrl, [attributeDict objectForKey:@"key"]] forKey:@"keyMedia"];
         if([attributeDict objectForKey:@"file"])
@@ -102,6 +163,22 @@
             [_dicoInfo setObject:[attributeDict objectForKey:@"language"] forKey:@"languageSubtitle"];
         if ([attributeDict objectForKey:@"languageCode"])
             [_dicoInfo setObject:[attributeDict objectForKey:@"languageCode"] forKey:@"languageCode"];
+
+    } else if ([elementName isEqualToString:@"Device"] && [[attributeDict objectForKey:@"name"] isEqualToString:kPlexVLCDeviceName]) {
+        if ([attributeDict objectForKey:@"name"])
+            [_dicoInfo setObject:[attributeDict objectForKey:@"name"] forKey:@"name"];
+        if ([attributeDict objectForKey:@"product"])
+            [_dicoInfo setObject:[attributeDict objectForKey:@"product"] forKey:@"product"];
+        if ([attributeDict objectForKey:@"productVersion"])
+            [_dicoInfo setObject:[attributeDict objectForKey:@"productVersion"] forKey:@"productVersion"];
+        if ([attributeDict objectForKey:@"platformVersion"])
+            [_dicoInfo setObject:[attributeDict objectForKey:@"platformVersion"] forKey:@"platformVersion"];
+        if ([attributeDict objectForKey:@"token"])
+            [_dicoInfo setObject:[attributeDict objectForKey:@"token"] forKey:@"token"];
+        if ([attributeDict objectForKey:@"clientIdentifier"])
+            [_dicoInfo setObject:[attributeDict objectForKey:@"clientIdentifier"] forKey:@"clientIdentifier"];
+        if ([attributeDict objectForKey:@"id"])
+            [_dicoInfo setObject:[attributeDict objectForKey:@"id"] forKey:@"id"];
     }
 
     if ([attributeDict objectForKey:@"thumb"] && ([elementName isEqualToString:@"Video"] || [elementName isEqualToString:@"Directory"] || [elementName isEqualToString:@"Part"] || [elementName isEqualToString:@"Track"]))
@@ -111,13 +188,15 @@
 
 - (void)parser:(NSXMLParser *)parser didEndElement:(NSString *)elementName namespaceURI:(NSString *)namespaceURI qualifiedName:(NSString *)qName
 {
-    if (([elementName isEqualToString:@"Video"] || [elementName isEqualToString:@"Track"] || [elementName isEqualToString:@"Directory"] || [elementName isEqualToString:@"MediaContainer"]) && [_dicoInfo count] > 0) {
+    if (([elementName isEqualToString:@"Video"] || [elementName isEqualToString:@"Track"] || [elementName isEqualToString:@"Directory"] || [elementName isEqualToString:@"MediaContainer"] || [elementName isEqualToString:@"Device"]) && [_dicoInfo count] > 0) {
         [_containerInfo addObject:_dicoInfo];
         _dicoInfo = [[NSMutableDictionary alloc] init];
     }
 }
 
-- (NSInteger)MarkWatchedUnwatchedMedia:(NSString *)adress port:(NSString *)port videoRatingKey:(NSString *)ratingKey state:(NSString *)state
+#pragma mark - API
+
+- (NSInteger)MarkWatchedUnwatchedMedia:(NSString *)adress port:(NSString *)port videoRatingKey:(NSString *)ratingKey state:(NSString *)state authentification:(NSString *)auth
 {
     NSString *url = nil;
 
@@ -126,7 +205,7 @@
     else
         url = [NSString stringWithFormat:@"http://%@%@/:/scrobble?identifier=com.plexapp.plugins.library&key=%@", adress, port, ratingKey];
 
-    NSURLRequest *request = [[NSURLRequest alloc] initWithURL:[NSURL URLWithString:url] cachePolicy:NSURLRequestReloadIgnoringLocalAndRemoteCacheData timeoutInterval:20];
+    NSURLRequest *request = [[NSURLRequest alloc] initWithURL:[NSURL URLWithString:[[[VLCPlexWebAPI alloc] init] urlAuth:url autentification:auth]] cachePolicy:NSURLRequestReloadIgnoringLocalAndRemoteCacheData timeoutInterval:20];
     NSURLResponse *response = nil;
     NSError *error = nil;
     [NSURLConnection sendSynchronousRequest:request returningResponse:&response error:&error];
@@ -144,7 +223,9 @@
     NSString *FileSubtitlePath = nil;
     NSString *fileName = [[[[mutableMediaObject objectAtIndex:0] objectForKey:@"namefile"] stringByDeletingPathExtension] stringByAppendingPathExtension:[[mutableMediaObject objectAtIndex:0] objectForKey:@"codecSubtitle"]];
 
-    NSURL *url = [NSURL URLWithString:[[mutableMediaObject objectAtIndex:0] objectForKey:@"keySubtitle"]];
+    VLCPlexWebAPI *PlexWebAPI = [[VLCPlexWebAPI alloc] init];
+    NSURL *url = [[NSURL alloc] initWithString:[PlexWebAPI urlAuth:[[mutableMediaObject objectAtIndex:0] objectForKey:@"keySubtitle"] autentification:[[mutableMediaObject objectAtIndex:0] objectForKey:@"authentification"]]];
+
     NSData *receivedSub = [NSData dataWithContentsOfURL:url];
 
     if (receivedSub.length < [[UIDevice currentDevice] freeDiskspace].longLongValue) {

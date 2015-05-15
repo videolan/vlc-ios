@@ -16,6 +16,6 @@
 
 @property (nonatomic, strong) UITableView *tableView;
 
-- (id)initWithPlexServer:(NSString *)serverName serverAddress:(NSString *)serverAddress portNumber:(NSString *)portNumber atPath:(NSString *)path;
+- (id)initWithPlexServer:(NSString *)serverName serverAddress:(NSString *)serverAddress portNumber:(NSString *)portNumber atPath:(NSString *)path authentification:(NSString *)auth;
 
 @end

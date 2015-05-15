@@ -13,6 +13,7 @@
 #import "VLCLocalPlexFolderListViewController.h"
 #import "VLCPlexMediaInformationViewController.h"
 #import "VLCPlexParser.h"
+#import "VLCPlexWebAPI.h"
 #import "VLCLocalNetworkListCell.h"
 #import "VLCAppDelegate.h"
 #import "VLCPlaylistViewController.h"
@@ -31,7 +32,10 @@
     NSString *_PlexServerAddress;
     NSString *_PlexServerPort;
     NSString *_PlexServerPath;
+    NSString *_PlexAuthentification;
+
     VLCPlexParser *_PlexParser;
+    VLCPlexWebAPI *_PlexWebAPI;
 
     NSMutableArray *_searchData;
     UISearchBar *_searchBar;
@@ -55,7 +59,7 @@
     self.view = _tableView;
 }
 
-- (id)initWithPlexServer:(NSString *)serverName serverAddress:(NSString *)serverAddress portNumber:(NSString *)portNumber atPath:(NSString *)path
+- (id)initWithPlexServer:(NSString *)serverName serverAddress:(NSString *)serverAddress portNumber:(NSString *)portNumber atPath:(NSString *)path authentification:(NSString *)auth
 {
     self = [super init];
     if (self) {
@@ -63,6 +67,8 @@
         _PlexServerAddress = serverAddress;
         _PlexServerPort = portNumber;
         _PlexServerPath = path;
+
+        _PlexAuthentification = auth;
 
         _mutableObjectList = [[NSMutableArray alloc] init];
         _imageCache = [[NSCache alloc] init];
@@ -78,10 +84,17 @@
     [super viewDidLoad];
 
     [_mutableObjectList removeAllObjects];
-    _mutableObjectList = [_PlexParser PlexMediaServerParser:_PlexServerAddress port:_PlexServerPort navigationPath:_PlexServerPath];
+    _mutableObjectList = [_PlexParser PlexMediaServerParser:_PlexServerAddress port:_PlexServerPort navigationPath:_PlexServerPath authentification:_PlexAuthentification];
+
+    if (_mutableObjectList.count == 0)
+        _PlexAuthentification = @"";
+    else
+        _PlexAuthentification = [[_mutableObjectList objectAtIndex:0] objectForKey:@"authentification"];
 
     self.tableView.separatorColor = [UIColor VLCDarkBackgroundColor];
     self.view.backgroundColor = [UIColor VLCDarkBackgroundColor];
+
+    _PlexWebAPI = [[VLCPlexWebAPI alloc] init];
 
     NSString *titleValue;
     if ([_PlexServerPath isEqualToString:@""] || _mutableObjectList.count == 0)
@@ -185,7 +198,7 @@
     if (thumbPath) {
         dispatch_queue_t queue = dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_LOW, 0);
         dispatch_async(queue, ^{
-            UIImage *img = [self getCachedImage:thumbPath];
+            UIImage *img = [self getCachedImage:[self _urlAuth:thumbPath]];
             dispatch_async(dispatch_get_main_queue(), ^{
                 if (!img)
                     [cell setIcon:[UIImage imageNamed:@"blank"]];
@@ -261,24 +274,29 @@
 
     if ([[[ObjList objectAtIndex:indexPath.row] objectForKey:@"container"] isEqualToString:@"item"]) {
         [ObjList removeAllObjects];
-        ObjList = [_PlexParser PlexMediaServerParser:_PlexServerAddress port:_PlexServerPort navigationPath:newPath];
+        ObjList = [_PlexParser PlexMediaServerParser:_PlexServerAddress port:_PlexServerPort navigationPath:newPath authentification:_PlexAuthentification];
         NSString *URLofSubtitle = nil;
         if ([[ObjList objectAtIndex:0] objectForKey:@"keySubtitle"])
             URLofSubtitle = [_PlexParser getFileSubtitleFromPlexServer:ObjList modeStream:YES];
 
-        NSURL *itemURL = [NSURL URLWithString:[[ObjList objectAtIndex:0] objectForKey:@"keyMedia"]];
+        NSURL *itemURL = [NSURL URLWithString:[self _urlAuth:[[ObjList objectAtIndex:0] objectForKey:@"keyMedia"]]];
         if (itemURL) {
             VLCAppDelegate *appDelegate = [UIApplication sharedApplication].delegate;
             [appDelegate openMovieWithExternalSubtitleFromURL:itemURL externalSubURL:URLofSubtitle];
         }
     } else {
-        VLCLocalPlexFolderListViewController *targetViewController = [[VLCLocalPlexFolderListViewController alloc] initWithPlexServer:_PlexServerName serverAddress:_PlexServerAddress portNumber:_PlexServerPort atPath:newPath];
+        VLCLocalPlexFolderListViewController *targetViewController = [[VLCLocalPlexFolderListViewController alloc] initWithPlexServer:_PlexServerName serverAddress:_PlexServerAddress portNumber:_PlexServerPort atPath:newPath authentification:_PlexAuthentification];
         [[self navigationController] pushViewController:targetViewController animated:YES];
     }
     [tableView deselectRowAtIndexPath:indexPath animated:NO];
 }
 
 #pragma mark - Specifics
+
+- (NSString *)_urlAuth:(NSString *)url
+{
+    return [_PlexWebAPI urlAuth:url autentification:_PlexAuthentification];
+}
 
 - (void)_playMediaItem:(NSMutableArray *)mutableMediaObject
 {
@@ -292,12 +310,12 @@
 
     if ([[[mutableMediaObject objectAtIndex:0] objectForKey:@"container"] isEqualToString:@"item"]) {
         [mutableMediaObject removeAllObjects];
-        mutableMediaObject = [_PlexParser PlexMediaServerParser:_PlexServerAddress port:_PlexServerPort navigationPath:newPath];
+        mutableMediaObject = [_PlexParser PlexMediaServerParser:_PlexServerAddress port:_PlexServerPort navigationPath:newPath authentification:_PlexAuthentification];
         NSString *URLofSubtitle = nil;
         if ([[mutableMediaObject objectAtIndex:0] objectForKey:@"keySubtitle"])
             URLofSubtitle = [_PlexParser getFileSubtitleFromPlexServer:mutableMediaObject modeStream:YES];
 
-        NSURL *itemURL = [NSURL URLWithString:[[mutableMediaObject objectAtIndex:0] objectForKey:@"keyMedia"]];
+        NSURL *itemURL = [NSURL URLWithString:[self _urlAuth:[[mutableMediaObject objectAtIndex:0] objectForKey:@"keyMedia"]]];
         if (itemURL) {
             VLCAppDelegate *appDelegate = [UIApplication sharedApplication].delegate;
             [appDelegate openMovieWithExternalSubtitleFromURL:itemURL externalSubURL:URLofSubtitle];
@@ -334,7 +352,7 @@
     NSString *tag = [[ObjList objectAtIndex:0] objectForKey:@"state"];
     NSString *cellStatusLbl = nil;
 
-    NSInteger status = [_PlexParser MarkWatchedUnwatchedMedia:_PlexServerAddress port:_PlexServerPort videoRatingKey:ratingKey state:tag];
+    NSInteger status = [_PlexParser MarkWatchedUnwatchedMedia:_PlexServerAddress port:_PlexServerPort videoRatingKey:ratingKey state:tag authentification:_PlexAuthentification];
 
     if (status == 200) {
         if ([tag isEqualToString:@"watched"]) {
@@ -355,7 +373,7 @@
 - (void)reloadTableViewPlex
 {
     [_mutableObjectList removeAllObjects];
-    _mutableObjectList = [_PlexParser PlexMediaServerParser:_PlexServerAddress port:_PlexServerPort navigationPath:_PlexServerPath];
+    _mutableObjectList = [_PlexParser PlexMediaServerParser:_PlexServerAddress port:_PlexServerPort navigationPath:_PlexServerPath authentification:_PlexAuthentification];
     [self.tableView reloadData];
 }
 
@@ -373,7 +391,7 @@
 
     NSString *path = [[ObjList objectAtIndex:0] objectForKey:@"key"];
     [ObjList removeAllObjects];
-    ObjList = [_PlexParser PlexMediaServerParser:_PlexServerAddress port:_PlexServerPort navigationPath:path];
+    ObjList = [_PlexParser PlexMediaServerParser:_PlexServerAddress port:_PlexServerPort navigationPath:path authentification:_PlexAuthentification];
 
     NSInteger size = [[[ObjList objectAtIndex:0] objectForKey:@"size"] integerValue];
     if (size  < [[UIDevice currentDevice] freeDiskspace].longLongValue) {
@@ -454,7 +472,7 @@
         [ObjList addObject:[_mutableObjectList objectAtIndex:[self.tableView indexPathForCell:swipedCell].row]];
 
         if (SYSTEM_RUNS_IOS7_OR_LATER) {
-            VLCPlexMediaInformationViewController *targetViewController = [[VLCPlexMediaInformationViewController alloc] initPlexMediaInformation:ObjList serverAddress:_PlexServerAddress portNumber:_PlexServerPort atPath:_PlexServerPath];
+            VLCPlexMediaInformationViewController *targetViewController = [[VLCPlexMediaInformationViewController alloc] initPlexMediaInformation:ObjList serverAddress:_PlexServerAddress portNumber:_PlexServerPort atPath:_PlexServerPath authentification:_PlexAuthentification];
             [[self navigationController] pushViewController:targetViewController animated:YES];
         } else {
             NSString *title = [[ObjList objectAtIndex:0] objectForKey:@"title"];
