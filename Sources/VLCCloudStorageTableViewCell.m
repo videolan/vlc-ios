@@ -108,7 +108,7 @@
             [self performSelectorInBackground:@selector(_updateIconFromURL) withObject:@""];
         }
         NSString *iconName = self.driveFile.iconLink;
-        if ([iconName isEqualToString:@"https://ssl.gstatic.com/docs/doclist/images/icon_11_shared_collection_list.png"] || [iconName isEqualToString:@"https://ssl.gstatic.com/docs/doclist/images/icon_11_collection_list.png"]) {
+        if (isDirectory) {
             self.thumbnailView.image = [UIImage imageNamed:@"folder"];
         } else if ([iconName isEqualToString:@"https://ssl.gstatic.com/docs/doclist/images/icon_10_audio_list.png"]) {
             self.thumbnailView.image = [UIImage imageNamed:@"audio"];
