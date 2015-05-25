@@ -139,7 +139,7 @@
 
     BoxAPIJSONFailureBlock failure = ^(NSURLRequest *request, NSHTTPURLResponse *response, NSError *error, NSDictionary *JSONDictionary)
     {
-        NSLog(@"there was an error getting the files but we don't show an error. this request is used to check if we need to refresh the token");
+        APLog(@"there was an error getting the files but we don't show an error. this request is used to check if we need to refresh the token");
     };
 
     [_operation cancel];

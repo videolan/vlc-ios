@@ -15,17 +15,14 @@
 @implementation VLCMigrationViewController
 
 - (id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil {
-    if (self = [super initWithNibName:nibNameOrNil bundle:nibBundleOrNil]) {
-
-    }
-     return self;
+    return self = [super initWithNibName:nibNameOrNil bundle:nibBundleOrNil];
 }
 
 - (void)viewDidLoad {
     [super viewDidLoad];
     [self.statusLabel setText:NSLocalizedString(@"UPGRADING_LIBRARY", "")];
     dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), ^{
-        NSLog(@"migrating coredata");
+        APLog(@"migrating coredata");
         [[MLMediaLibrary sharedMediaLibrary] migrateLibrary];
         dispatch_async(dispatch_get_main_queue(), ^{
             self.completionHandler();
