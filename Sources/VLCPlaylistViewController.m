@@ -1147,6 +1147,14 @@ static NSString *kUsingTableViewToShowData = @"UsingTableViewToShowData";
     }
 
     self.navigationController.toolbarHidden = !editing;
+
+    if (UI_USER_INTERFACE_IDIOM() == UIUserInterfaceIdiomPad) {
+        NSMutableArray *rightBarButtonItems = [self.navigationItem.rightBarButtonItems mutableCopy];
+        UIBarButtonItem *toggleDisplayedView = rightBarButtonItems[0];
+        toggleDisplayedView.enabled = !editing;
+        rightBarButtonItems[0] = toggleDisplayedView;
+        self.navigationItem.rightBarButtonItems = rightBarButtonItems;
+    }
 }
 
 - (void)toggleDisplayedView:(UIBarButtonItem *)button
