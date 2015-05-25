@@ -247,12 +247,16 @@
     [self addSubview:textView];
 
     // TableView
-    _tableView = [[UITableView alloc] initWithFrame:CGRectMake(0,frame.size.height - vertical_padding_down + 25.,frame.size.width,145.)
+    CGFloat tableInset = frame.size.height - vertical_padding_down + 25.;
+    _tableView = [[UITableView alloc] initWithFrame:CGRectMake(0,tableInset,frame.size.width, frame.size.height - tableInset)
                                               style:UITableViewStylePlain];
     _tableView.delegate = self;
     _tableView.dataSource = self;
     _tableView.separatorColor = [UIColor clearColor];
     _tableView.indicatorStyle = UIScrollViewIndicatorStyleWhite;
+    _tableView.rowHeight = 44.;
+    _tableView.separatorStyle = UITableViewCellSeparatorStyleNone;
+    _tableView.sectionHeaderHeight = 28.;
     [_tableView registerClass:[VLCTrackSelectorHeaderView class] forHeaderFooterViewReuseIdentifier:PROFILE_SELECTOR_TABLEVIEW_SECTIONHEADER];
     [_tableView registerClass:[VLCTrackSelectorTableViewCell class] forCellReuseIdentifier:PROFILE_SELECTOR_TABLEVIEW_CELL];
     if ([[UIDevice currentDevice] speedCategory] >= 3) {
