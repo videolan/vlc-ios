@@ -523,12 +523,21 @@ static NSString *kUsingTableViewToShowData = @"UsingTableViewToShowData";
     }
 
     self.navigationItem.leftBarButtonItem = _menuButton;
+
     if (_libraryMode == VLCLibraryModeAllAlbums)
         self.title = NSLocalizedString(@"LIBRARY_MUSIC", nil);
     else if( _libraryMode == VLCLibraryModeAllSeries)
         self.title = NSLocalizedString(@"LIBRARY_SERIES", nil);
     else
         self.title = NSLocalizedString(@"LIBRARY_ALL_FILES", nil);
+
+    NSMutableArray *toolbarItems = [self.toolbarItems mutableCopy];
+    if (toolbarItems.count >= 3) {
+        UIBarButtonItem *createFolderButton = toolbarItems[2];
+        createFolderButton.enabled = (_libraryMode == VLCLibraryModeAllAlbums || _libraryMode == VLCLibraryModeAllSeries) ? NO : YES;
+        toolbarItems[2] = createFolderButton;
+        self.toolbarItems = toolbarItems;
+    }
 
     /* add all albums */
     if (_libraryMode != VLCLibraryModeAllSeries) {
