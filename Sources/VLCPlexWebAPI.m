@@ -103,7 +103,7 @@
 
     // for debug
     //NSString *debugStr = [[NSString alloc] initWithData:urlData encoding:NSUTF8StringEncoding];
-    //NSLog(@"data : %@", debugStr);
+    //APLog(@"data : %@", debugStr);
 
     return urlData;
 }
@@ -234,7 +234,7 @@
     [NSURLConnection sendSynchronousRequest:request returningResponse:&response error:&error];
 
     if ([response statusCode] != 200)
-        NSLog(@"Plex stop Session %@ : %@", session, [response allHeaderFields]);
+        APLog(@"Plex stop Session %@ : %@", session, [response allHeaderFields]);
 }
 
 #pragma mark -

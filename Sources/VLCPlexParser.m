@@ -101,7 +101,7 @@
     [xmlparser setDelegate:self];
 
     if (![xmlparser parse])
-        NSLog(@"PlexParser data Errors : %@", data);
+        APLog(@"PlexParser data Errors : %@", data);
 
     return _containerInfo;
 }
