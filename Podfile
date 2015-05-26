@@ -18,5 +18,7 @@ end
 post_install do |installer_representation|
   installer_representation.project.build_configurations.each do |config|
             config.build_settings['SKIP_INSTALL'] = 'YES'
+            config.build_settings['VALID_ARCHS'] = 'armv7 armv7s arm64'
+            config.build_settings['ARCHS'] = 'armv7 armv7s arm64'
   end
 end
