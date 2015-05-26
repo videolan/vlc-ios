@@ -76,7 +76,7 @@
     if (cell == nil)
         cell = [VLCCloudStorageTableViewCell cellWithReuseIdentifier:CellIdentifier];
 
-    cell.fileMetadata = _dropboxController.currentListFiles[indexPath.row];
+    cell.dropboxFile = _dropboxController.currentListFiles[indexPath.row];
     cell.delegate = self;
 
     return cell;
@@ -120,6 +120,7 @@
 
 
 #pragma mark - VLCCloudStorageTableViewCell delegation
+
 - (void)triggerDownloadForCell:(VLCCloudStorageTableViewCell *)cell
 {
     _selectedFile = _dropboxController.currentListFiles[[self.tableView indexPathForCell:cell].row];

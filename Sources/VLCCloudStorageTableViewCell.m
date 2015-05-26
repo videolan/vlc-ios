@@ -2,7 +2,7 @@
  * VLCCloudStorageTableViewCell.m
  * VLC for iOS
  *****************************************************************************
- * Copyright (c) 2013 VideoLAN. All rights reserved.
+ * Copyright (c) 2013-2015 VideoLAN. All rights reserved.
  * $Id$
  *
  * Authors: Carola Nitz <nitz.carola # googlemail.com>
@@ -30,10 +30,10 @@
     return cell;
 }
 
-- (void)setFileMetadata:(DBMetadata *)fileMetadata
+- (void)setDropboxFile:(DBMetadata *)dropboxFile
 {
-    if (fileMetadata != _fileMetadata)
-        _fileMetadata = fileMetadata;
+    if (dropboxFile != _dropboxFile)
+        _dropboxFile = dropboxFile;
 
     [self _updatedDisplayedInformation];
 }
@@ -64,19 +64,19 @@
 
 - (void)_updatedDisplayedInformation
 {
-    if (_fileMetadata != nil) {
-        if (self.fileMetadata.isDirectory) {
-            self.folderTitleLabel.text = self.fileMetadata.filename;
+    if (_dropboxFile != nil) {
+        if (self.dropboxFile.isDirectory) {
+            self.folderTitleLabel.text = self.dropboxFile.filename;
             self.titleLabel.hidden = self.subtitleLabel.hidden = YES;
             self.folderTitleLabel.hidden = NO;
         } else {
-            self.titleLabel.text = self.fileMetadata.filename;
-            self.subtitleLabel.text = (self.fileMetadata.totalBytes > 0) ? self.fileMetadata.humanReadableSize : @"";
+            self.titleLabel.text = self.dropboxFile.filename;
+            self.subtitleLabel.text = (self.dropboxFile.totalBytes > 0) ? self.dropboxFile.humanReadableSize : @"";
             self.titleLabel.hidden = self.subtitleLabel.hidden = NO;
             self.folderTitleLabel.hidden = YES;
         }
 
-        NSString *iconName = self.fileMetadata.icon;
+        NSString *iconName = self.dropboxFile.icon;
         if ([iconName isEqualToString:@"folder_user"] || [iconName isEqualToString:@"folder"] || [iconName isEqualToString:@"folder_public"] || [iconName isEqualToString:@"folder_photos"] || [iconName isEqualToString:@"package"]) {
             self.thumbnailView.image = [UIImage imageNamed:@"folder"];
             self.downloadButton.hidden = YES;
@@ -88,7 +88,7 @@
             self.thumbnailView.image = [UIImage imageNamed:@"audio"];
         else {
             self.thumbnailView.image = [UIImage imageNamed:@"blank"];
-            APLog(@"missing icon for type '%@'", self.fileMetadata.icon);
+            APLog(@"missing icon for type '%@'", self.dropboxFile.icon);
         }
 
     } else if(_driveFile != nil){

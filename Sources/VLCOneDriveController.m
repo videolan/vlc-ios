@@ -10,7 +10,6 @@
  * Refer to the COPYING file of the official project for license.
  *****************************************************************************/
 
-
 #import "VLCOneDriveController.h"
 #import "VLCOneDriveConstants.h"
 #import "VLCOneDriveObject.h"
@@ -24,7 +23,6 @@
 @interface VLCOneDriveController () <LiveAuthDelegate, VLCOneDriveObjectDelegate, VLCOneDriveObjectDownloadDelegate>
 {
     LiveConnectClient *_liveClient;
-    //VLCOneDriveObject *_folderiD;
     NSString *_folderId;
     NSArray *_liveScopes;
     BOOL _activeSession;

@@ -155,9 +155,9 @@
      * and pass the final location to libvlc, which does not require a custom HTTP header */
 
     NSURL *baseURL = [[[BoxSDK sharedSDK] filesManager] URLWithResource:@"files"
-                                        ID:file.modelID
-                               subresource:@"content"
-                                     subID:nil];
+                                                                     ID:file.modelID
+                                                            subresource:@"content"
+                                                                  subID:nil];
 
     NSMutableURLRequest *urlRequest = [NSMutableURLRequest requestWithURL:baseURL
                                                               cachePolicy:NSURLRequestReloadIgnoringLocalCacheData

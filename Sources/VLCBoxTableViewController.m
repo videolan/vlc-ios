@@ -43,34 +43,34 @@
     self.cloudStorageLogo.center = self.view.center;
     
     // Handle logged in
-    [[NSNotificationCenter defaultCenter] addObserver:self
-                                             selector:@selector(boxApiTokenDidRefresh)
-                                                 name:BoxOAuth2SessionDidRefreshTokensNotification
-                                               object:[BoxSDK sharedSDK].OAuth2Session];
+    NSNotificationCenter *defaultCenter = [NSNotificationCenter defaultCenter];
+    [defaultCenter addObserver:self
+                      selector:@selector(boxApiTokenDidRefresh)
+                          name:BoxOAuth2SessionDidRefreshTokensNotification
+                        object:[BoxSDK sharedSDK].OAuth2Session];
 
-    [[NSNotificationCenter defaultCenter] addObserver:self
-                                             selector:@selector(boxApiTokenDidRefresh)
-                                                 name:BoxOAuth2SessionDidBecomeAuthenticatedNotification
-                                               object:[BoxSDK sharedSDK].OAuth2Session];
+    [defaultCenter addObserver:self
+                      selector:@selector(boxApiTokenDidRefresh)
+                          name:BoxOAuth2SessionDidBecomeAuthenticatedNotification
+                        object:[BoxSDK sharedSDK].OAuth2Session];
     // Handle logout
-    [[NSNotificationCenter defaultCenter] addObserver:self
-                                             selector:@selector(boxDidGetLoggedOut)
-                                                 name:BoxOAuth2SessionDidReceiveAuthenticationErrorNotification
-                                               object:[BoxSDK sharedSDK].OAuth2Session];
-    [[NSNotificationCenter defaultCenter] addObserver:self
-                                             selector:@selector(boxDidGetLoggedOut)
-                                                 name:BoxOAuth2SessionDidReceiveRefreshErrorNotification
-                                               object:[BoxSDK sharedSDK].OAuth2Session];
+    [defaultCenter addObserver:self
+                      selector:@selector(boxDidGetLoggedOut)
+                          name:BoxOAuth2SessionDidReceiveAuthenticationErrorNotification
+                        object:[BoxSDK sharedSDK].OAuth2Session];
+    [defaultCenter addObserver:self
+                      selector:@selector(boxDidGetLoggedOut)
+                          name:BoxOAuth2SessionDidReceiveRefreshErrorNotification
+                        object:[BoxSDK sharedSDK].OAuth2Session];
 
-    [[NSNotificationCenter defaultCenter] addObserver:self
-                                             selector:@selector(boxAPIAuthenticationDidFail)
-                                                 name:BoxOAuth2SessionDidReceiveAuthenticationErrorNotification
-                                               object:[BoxSDK sharedSDK].OAuth2Session];
-    [[NSNotificationCenter defaultCenter] addObserver:self
-                                             selector:@selector(boxAPIInitiateLogin)
-                                                 name:BoxOAuth2SessionDidReceiveRefreshErrorNotification
-                                               object:[BoxSDK sharedSDK].OAuth2Session];
-
+    [defaultCenter addObserver:self
+                      selector:@selector(boxAPIAuthenticationDidFail)
+                          name:BoxOAuth2SessionDidReceiveAuthenticationErrorNotification
+                        object:[BoxSDK sharedSDK].OAuth2Session];
+    [defaultCenter addObserver:self
+                      selector:@selector(boxAPIInitiateLogin)
+                          name:BoxOAuth2SessionDidReceiveRefreshErrorNotification
+                        object:[BoxSDK sharedSDK].OAuth2Session];
 }
 
 - (UIViewController *)createAuthController
