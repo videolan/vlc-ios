@@ -450,8 +450,13 @@ static NSString *kUsingTableViewToShowData = @"UsingTableViewToShowData";
     const CGRect miniPlayerFrameIn =  CGRectMake(0., viewRect.size.height-miniPlayerHeight, viewRect.size.width, miniPlayerHeight);
     const CGRect miniPlayerFrameOut = CGRectMake(0., viewRect.size.height, viewRect.size.width, miniPlayerHeight);
 
-    const BOOL needsShow = showMiniPlayer && !miniPlayerVisible;
-    const BOOL needsHide = !showMiniPlayer && miniPlayerVisible;
+    BOOL needsShow = showMiniPlayer && !miniPlayerVisible;
+    BOOL needsHide = !showMiniPlayer && miniPlayerVisible;
+
+    if (self.editing) {
+        needsHide = YES;
+        needsShow = NO;
+    }
 
     void (^completionBlock)(BOOL) = nil;
     if (needsShow) {
@@ -1099,6 +1104,8 @@ static NSString *kUsingTableViewToShowData = @"UsingTableViewToShowData";
 - (void)setEditing:(BOOL)editing animated:(BOOL)animated
 {
     [super setEditing:editing animated:animated];
+
+    [self displayMiniPlaybackViewIfNeeded];
 
     UIBarButtonItem *editButton = self.editButtonItem;
     NSString *editImage = editing? @"doneButton": @"button";
