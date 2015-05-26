@@ -85,4 +85,6 @@ currentMediaHasTrackToChooseFrom:(BOOL)currentMediaHasTrackToChooseFrom
 
 - (void)setNeedsMetadataUpdate;
 
+- (void)destroyCurrentViewController;
+
 @end

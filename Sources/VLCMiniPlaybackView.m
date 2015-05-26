@@ -108,7 +108,7 @@
     [VLCPlaybackController sharedInstance].videoOutputView = nil;
 
     VLCAppDelegate *appDelegate = [UIApplication sharedApplication].delegate;
-    [appDelegate presentMovieViewController];
+    [appDelegate presentMovieViewControllerAnimated:YES];
 }
 
 - (void)setupForWork

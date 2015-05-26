@@ -356,8 +356,7 @@
     else if (self.successCallback)
         [[UIApplication sharedApplication] openURL:self.successCallback];
 
-    if ([self.delegate respondsToSelector:@selector(presentingViewControllerShouldBeClosed:)])
-        [self.delegate presentingViewControllerShouldBeClosed:self];
+    [self destroyCurrentViewController];
 
     [MPNowPlayingInfoCenter defaultCenter].nowPlayingInfo = nil;
     [self unsubscribeFromRemoteCommand];
@@ -481,8 +480,7 @@
         [self stopPlayback];
     } else if ((currentState == VLCMediaPlayerStateEnded || currentState == VLCMediaPlayerStateStopped) && _listPlayer.repeatMode == VLCDoNotRepeat) {
         if ([_listPlayer.mediaList indexOfMedia:_mediaPlayer.media] == _listPlayer.mediaList.count - 1) {
-            if ([self.delegate respondsToSelector:@selector(presentingViewControllerShouldBeClosed:)])
-                [self.delegate presentingViewControllerShouldBeClosed:self];
+            [self destroyCurrentViewController];
             [self stopPlayback];
             return;
         }
@@ -729,6 +727,12 @@
     }
 }
 
+- (void)destroyCurrentViewController
+{
+    if ([self.delegate respondsToSelector:@selector(presentingViewControllerShouldBeClosed:)])
+        [self.delegate presentingViewControllerShouldBeClosed:self];
+}
+
 - (void)_updateDisplayedMetadata
 {
     _needsMetadataUpdate = NO;
@@ -799,7 +803,7 @@
             title = [[_mediaPlayer.media url] lastPathComponent];
     } else if (_mediaWasJustStarted) {
         _mediaWasJustStarted = NO;
-        [(VLCAppDelegate *)[UIApplication sharedApplication].delegate presentMovieViewController];
+        [(VLCAppDelegate *)[UIApplication sharedApplication].delegate presentMovieViewControllerAnimated:YES];
 
         if (item) {
             if (_mediaPlayer.numberOfAudioTracks > 2) {
