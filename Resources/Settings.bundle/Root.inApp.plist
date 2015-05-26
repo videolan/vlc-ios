@@ -126,14 +126,14 @@
 			<key>Titles</key>
 			<array>
 				<string>SETTINGS_SKIP_LOOP_FILTER_NONE</string>
-				<string>SETTINGS_SKIP_LOOP_FILTER_NONREF</string>
 				<string>SETTINGS_SKIP_LOOP_FILTER_NONKEY</string>
+				<string>SETTINGS_SKIP_LOOP_FILTER_NONREF</string>
 			</array>
 			<key>Values</key>
 			<array>
 				<integer>0</integer>
-				<integer>1</integer>
 				<integer>3</integer>
+				<integer>1</integer>
 			</array>
 		</dict>
 		<dict>
