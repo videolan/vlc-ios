@@ -1079,10 +1079,8 @@ static inline NSArray * RemoteCommandCenterCommandsToHandle(MPRemoteCommandCente
     }
 
     if (_mediaPlayer.numberOfVideoTracks > 0) {
-        /* re-enable video decoding and reset position once done */
-        float position = _mediaPlayer.position;
+        /* re-enable video decoding */
         _mediaPlayer.currentVideoTrackIndex = 1;
-        _mediaPlayer.position = position;
     }
 
     if (_shouldResumePlaying) {
