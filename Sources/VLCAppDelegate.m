@@ -51,6 +51,7 @@
     BOOL _passcodeValidated;
     BOOL _isRunningMigration;
     BOOL _isComingFromHandoff;
+    BOOL _presentingMovieController;
 }
 
 @property (nonatomic, strong) VLCMovieViewController *movieViewController;
@@ -316,6 +317,10 @@ continueUserActivity:(NSUserActivity *)userActivity
 
 - (void)applicationWillResignActive:(UIApplication *)application
 {
+    VLCPlaybackController *vpc = [VLCPlaybackController sharedInstance];
+    _presentingMovieController = vpc.presentingMovieViewController;
+    [vpc destroyCurrentViewController];
+
     _passcodeValidated = NO;
     [self validatePasscode];
     [[MLMediaLibrary sharedMediaLibrary] applicationWillExit];
@@ -331,11 +336,9 @@ continueUserActivity:(NSUserActivity *)userActivity
     }
 
     VLCPlaybackController *vpc = [VLCPlaybackController sharedInstance];
-
-    if (!vpc.audioOnlyPlaybackSession) {
-        if (vpc.isPlaying && !self.movieViewController.presentingViewController)
-            [self presentMovieViewController];
-    } else
+    if (!vpc.audioOnlyPlaybackSession && _presentingMovieController)
+        [self presentMovieViewControllerAnimated:NO];
+    else
         [self.playlistViewController displayMiniPlaybackViewIfNeeded];
 }
 
@@ -554,7 +557,7 @@ continueUserActivity:(NSUserActivity *)userActivity
 
 #pragma mark - playback view handling
 
-- (void)presentMovieViewController
+- (void)presentMovieViewControllerAnimated:(BOOL)animated
 {
     if ([UIApplication sharedApplication].applicationState != UIApplicationStateActive) {
         return;
@@ -563,7 +566,7 @@ continueUserActivity:(NSUserActivity *)userActivity
     UINavigationController *navCon = [[VLCPlaybackNavigationController alloc] initWithRootViewController:self.movieViewController];
     [self.movieViewController prepareForMediaPlayback:[VLCPlaybackController sharedInstance]];
     navCon.modalPresentationStyle = UIModalPresentationFullScreen;
-    [self.window.rootViewController presentViewController:navCon animated:YES completion:nil];
+    [self.window.rootViewController presentViewController:navCon animated:animated completion:nil];
 }
 
 - (void)openMediaFromManagedObject:(NSManagedObject *)mediaObject
@@ -578,7 +581,7 @@ continueUserActivity:(NSUserActivity *)userActivity
     [vpc playMediaLibraryObject:mediaObject];
 
     if (retainFullscreenPlayback)
-        [self presentMovieViewController];
+        [self presentMovieViewControllerAnimated:YES];
 }
 
 - (void)openMovieFromURL:(NSURL *)url

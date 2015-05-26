@@ -33,7 +33,7 @@
 
 - (void)cleanCache;
 
-- (void)presentMovieViewController;
+- (void)presentMovieViewControllerAnimated:(BOOL)animated;
 - (void)openMediaFromManagedObject:(NSManagedObject *)file;
 - (void)openMovieFromURL:(NSURL *)url;
 - (void)openMovieWithExternalSubtitleFromURL:(NSURL *)url externalSubURL:(NSString *)SubtitlePath;
