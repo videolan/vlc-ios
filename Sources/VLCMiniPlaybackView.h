@@ -12,9 +12,10 @@
 
 #import "VLCFrostedGlasView.h"
 
+@class VLCPlaybackController;
 @interface VLCMiniPlaybackView : VLCFrostedGlasView
 // just a state keeper for animation, has no other implementation
 @property (nonatomic) BOOL visible;
-- (void)setupForWork;
 
+- (void)setupForWork:(VLCPlaybackController *)playbackController;
 @end

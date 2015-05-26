@@ -21,6 +21,7 @@
 #import "VLCDownloadViewController.h"
 
 @class VLCPlaylistViewController;
+@class VLCPlayerDisplayController;
 @interface VLCAppDelegate : UIResponder <UIApplicationDelegate>
 
 - (void)updateMediaList;
@@ -33,7 +34,6 @@
 
 - (void)cleanCache;
 
-- (void)presentMovieViewControllerAnimated:(BOOL)animated;
 - (void)openMediaFromManagedObject:(NSManagedObject *)file;
 - (void)openMovieFromURL:(NSURL *)url;
 - (void)openMovieWithExternalSubtitleFromURL:(NSURL *)url externalSubURL:(NSString *)SubtitlePath;
@@ -41,6 +41,8 @@
 @property (nonatomic, readonly) VLCPlaylistViewController *playlistViewController;
 @property (nonatomic, readonly) VLCDropboxTableViewController *dropboxTableViewController;
 @property (nonatomic, readonly) VLCDownloadViewController *downloadViewController;
+
+@property (nonatomic, readonly) VLCPlayerDisplayController *playerDisplayController;
 
 @property (nonatomic, strong) UIWindow *window;
 

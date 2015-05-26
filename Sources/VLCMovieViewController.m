@@ -416,6 +416,8 @@ typedef NS_ENUM(NSInteger, VLCPanType) {
 
         [self.view addSubview:_sleepTimerContainer];
     }
+
+    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(playbackDidStop:) name:VLCPlaybackControllerPlaybackDidStop object:nil];
 }
 
 - (void)viewWillAppear:(BOOL)animated
@@ -440,7 +442,6 @@ typedef NS_ENUM(NSInteger, VLCPanType) {
 
     VLCPlaybackController *vpc = self.playbackController;
     vpc.delegate = self;
-    vpc.presentingMovieViewController = YES;
     [vpc recoverPlaybackState];
 
     [self setControlsHidden:NO animated:YES];
@@ -500,8 +501,9 @@ typedef NS_ENUM(NSInteger, VLCPanType) {
 - (void)viewWillDisappear:(BOOL)animated
 {
     VLCPlaybackController *vpc = self.playbackController;
-    vpc.videoOutputView = nil;
-    vpc.presentingMovieViewController = NO;
+    if (vpc.videoOutputView == self.movieView) {
+        vpc.videoOutputView = nil;
+    }
 
     _viewAppeared = NO;
     if (_idleTimer) {
@@ -685,10 +687,9 @@ typedef NS_ENUM(NSInteger, VLCPanType) {
 - (IBAction)closePlayback:(id)sender
 {
     LOCKCHECK;
+    [[UIApplication sharedApplication] sendAction:@selector(closeFullscreenPlayback) to:nil from:self forEvent:nil];
 
-    [self presentingViewControllerShouldBeClosed:nil];
 }
-
 - (IBAction)positionSliderAction:(UISlider *)sender
 {
     LOCKCHECK;
@@ -811,15 +812,9 @@ typedef NS_ENUM(NSInteger, VLCPanType) {
     [self _resetIdleTimer];
 }
 
-- (void)presentingViewControllerShouldBeClosed:(VLCPlaybackController *)controller
+- (void)playbackDidStop:(NSNotification *)notification
 {
-    [self setControlsHidden:NO animated:NO];
-    [self.navigationController dismissViewControllerAnimated:YES completion:nil];
-}
-
-- (void)presentingViewControllerShouldBeClosedAfterADelay:(VLCPlaybackController *)controller
-{
-    [self performSelector:@selector(presentingViewControllerShouldBeClosed:) withObject:nil afterDelay:2.];
+    [self closePlayback:nil];
 }
 
 - (void)mediaPlayerStateChanged:(VLCMediaPlayerState)currentState
@@ -854,7 +849,7 @@ currentMediaHasTrackToChooseFrom:(BOOL)currentMediaHasTrackToChooseFrom
 
 - (void)showStatusMessage:(NSString *)statusMessage forPlaybackController:(VLCPlaybackController *)controller
 {
-    [self.statusLabel showStatusMessage:statusMessage];
+    [self showStatusMessage:statusMessage];
 }
 
 - (void)displayMetadataForPlaybackController:(VLCPlaybackController *)controller
@@ -1014,15 +1009,19 @@ currentMediaHasTrackToChooseFrom:(BOOL)currentMediaHasTrackToChooseFrom
     [self _resetIdleTimer];
 }
 
+- (void)showStatusMessage:(NSString *)statusMessage
+{
+    [self.statusLabel showStatusMessage:statusMessage];
+}
+
 #pragma mark - multi-select delegation
 
 - (void)toggleUILock
 {
     _interfaceIsLocked = !_interfaceIsLocked;
-    if (_interfaceIsLocked)
-        _multiSelectionView.displayLock = YES;
-    else
-        _multiSelectionView.displayLock = NO;
+
+    _multiSelectionView.displayLock = _interfaceIsLocked;
+    self.backButton.enabled = !_interfaceIsLocked;
 }
 
 - (void)toggleEqualizer

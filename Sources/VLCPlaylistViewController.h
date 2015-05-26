@@ -25,7 +25,6 @@
 
 - (void)updateViewContents;
 - (void)removeMediaObject:(id)mediaObject updateDatabase:(BOOL)updateDB;
-- (void)displayMiniPlaybackViewIfNeeded;
 
 - (void)setLibraryMode:(VLCLibraryMode)mode;
 

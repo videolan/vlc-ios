@@ -23,8 +23,14 @@
 #import <MediaPlayer/MediaPlayer.h>
 #import "VLCThumbnailsCache.h"
 #import <WatchKit/WatchKit.h>
-#import "VLCAppDelegate.h"
 #import "VLCPlaylistViewController.h"
+
+NSString *const VLCPlaybackControllerPlaybackDidStart = @"VLCPlaybackControllerPlaybackDidStart";
+NSString *const VLCPlaybackControllerPlaybackDidPause = @"VLCPlaybackControllerPlaybackDidPause";
+NSString *const VLCPlaybackControllerPlaybackDidResume = @"VLCPlaybackControllerPlaybackDidResume";
+NSString *const VLCPlaybackControllerPlaybackDidStop = @"VLCPlaybackControllerPlaybackDidStop";
+NSString *const VLCPlaybackControllerPlaybackMetadataDidChange = @"VLCPlaybackControllerPlaybackMetadataDidChange";
+NSString *const VLCPlaybackControllerPlaybackDidFail = @"VLCPlaybackControllerPlaybackDidFail";
 
 @interface VLCPlaybackController () <AVAudioSessionDelegate, VLCMediaPlayerDelegate, VLCMediaDelegate>
 {
@@ -303,10 +309,10 @@
 
     [self subscribeRemoteCommands];
 
-    [[(VLCAppDelegate *)[UIApplication sharedApplication].delegate playlistViewController] displayMiniPlaybackViewIfNeeded];
-
     _playerIsSetup = YES;
     _mediaWasJustStarted = YES;
+
+    [[NSNotificationCenter defaultCenter] postNotificationName:VLCPlaybackControllerPlaybackDidStart object:self];
 }
 
 - (void)alertView:(UIAlertView *)alertView clickedButtonAtIndex:(NSInteger)buttonIndex
@@ -357,10 +363,14 @@
     else if (self.successCallback)
         [[UIApplication sharedApplication] openURL:self.successCallback];
 
-    [self destroyCurrentViewController];
-
     [MPNowPlayingInfoCenter defaultCenter].nowPlayingInfo = nil;
     [self unsubscribeFromRemoteCommand];
+
+    if (_playbackFailed) {
+        [[NSNotificationCenter defaultCenter] postNotificationName:VLCPlaybackControllerPlaybackDidFail object:self];
+    } else {
+        [[NSNotificationCenter defaultCenter] postNotificationName:VLCPlaybackControllerPlaybackDidStop object:self];
+    }
 }
 
 - (void)_savePlaybackState
@@ -517,6 +527,7 @@
 - (void)mediaPlayerStateChanged:(NSNotification *)aNotification
 {
     VLCMediaPlayerState currentState = _mediaPlayer.state;
+
     if (currentState == VLCMediaPlayerStateBuffering) {
         /* attach delegate */
         _mediaPlayer.media.delegate = self;
@@ -527,21 +538,18 @@
         [_mediaPlayer performSelector:@selector(setTextRendererFontColor:) withObject:[[NSUserDefaults standardUserDefaults] objectForKey:kVLCSettingSubtitlesFontColor]];
     } else if (currentState == VLCMediaPlayerStateError) {
         _playbackFailed = YES;
-        if ([self.delegate respondsToSelector:@selector(presentingViewControllerShouldBeClosedAfterADelay:)])
-            [self.delegate presentingViewControllerShouldBeClosedAfterADelay:self];
         [self stopPlayback];
     } else if ((currentState == VLCMediaPlayerStateEnded || currentState == VLCMediaPlayerStateStopped) && _listPlayer.repeatMode == VLCDoNotRepeat) {
         if ([_listPlayer.mediaList indexOfMedia:_mediaPlayer.media] == _listPlayer.mediaList.count - 1) {
-            [self destroyCurrentViewController];
             [self stopPlayback];
             return;
         }
-    } else {
-        /* disable video decoding if we have no place to show */
-        if (_mediaPlayer.numberOfAudioTracks > 0) {
-            if (_videoOutputViewWrapper == nil)
-                _mediaPlayer.currentVideoTrackIndex = -1;
-        }
+    }
+
+    /* disable video decoding if we have no place to show */
+    if (_mediaPlayer.numberOfAudioTracks > 0) {
+        if (_videoOutputViewWrapper == nil)
+            _mediaPlayer.currentVideoTrackIndex = -1;
     }
 
     if ([self.delegate respondsToSelector:@selector(mediaPlayerStateChanged:isPlaying:currentMediaHasTrackToChooseFrom:currentMediaHasChapters:forPlaybackController:)])
@@ -560,14 +568,18 @@
     if ([_mediaPlayer isPlaying]) {
         [_listPlayer pause];
         [self _savePlaybackState];
-    } else
+        [[NSNotificationCenter defaultCenter] postNotificationName:VLCPlaybackControllerPlaybackDidPause object:self];
+    } else {
         [_listPlayer play];
+        [[NSNotificationCenter defaultCenter] postNotificationName:VLCPlaybackControllerPlaybackDidResume object:self];
+    }
 }
 
 - (void)forward
 {
     if (_mediaList) {
         [_listPlayer next];
+        [[NSNotificationCenter defaultCenter] postNotificationName:VLCPlaybackControllerPlaybackMetadataDidChange object:self];
     } else {
         NSNumber *skipLength = [[NSUserDefaults standardUserDefaults] valueForKey:kVLCSettingPlaybackForwardSkipLength];
         [_mediaPlayer jumpForward:skipLength.intValue];
@@ -578,6 +590,7 @@
 {
     if (_mediaList) {
         [_listPlayer previous];
+        [[NSNotificationCenter defaultCenter] postNotificationName:VLCPlaybackControllerPlaybackMetadataDidChange object:self];
     }
     else {
         NSNumber *skipLength = [[NSUserDefaults standardUserDefaults] valueForKey:kVLCSettingPlaybackBackwardSkipLength];
@@ -780,12 +793,6 @@
     }
 }
 
-- (void)destroyCurrentViewController
-{
-    if ([self.delegate respondsToSelector:@selector(presentingViewControllerShouldBeClosed:)])
-        [self.delegate presentingViewControllerShouldBeClosed:self];
-}
-
 - (void)_updateDisplayedMetadata
 {
     _needsMetadataUpdate = NO;
@@ -856,7 +863,6 @@
             title = [[_mediaPlayer.media url] lastPathComponent];
     } else if (_mediaWasJustStarted) {
         _mediaWasJustStarted = NO;
-        [(VLCAppDelegate *)[UIApplication sharedApplication].delegate presentMovieViewControllerAnimated:YES];
 
         if (item) {
             if (_mediaPlayer.numberOfAudioTracks > 2) {
@@ -913,7 +919,7 @@
 
 setstuff:
     [MPNowPlayingInfoCenter defaultCenter].nowPlayingInfo = currentlyPlayingTrackInfo;
-    [[NSNotificationCenter defaultCenter] postNotificationName:kVLCNotificationNowPlayingInfoUpdate object:self];
+    [[NSNotificationCenter defaultCenter] postNotificationName:VLCPlaybackControllerPlaybackMetadataDidChange object:self];
 
     _title = title;
     _artist = artist;
