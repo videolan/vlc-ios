@@ -341,6 +341,9 @@ typedef NS_ENUM(NSInteger, VLCPanType) {
     _trackSelectorTableView.dataSource = self;
     _trackSelectorTableView.separatorColor = [UIColor clearColor];
     _trackSelectorTableView.indicatorStyle = UIScrollViewIndicatorStyleWhite;
+    _trackSelectorTableView.rowHeight = 44.;
+    _trackSelectorTableView.separatorStyle = UITableViewCellSeparatorStyleNone;
+    _trackSelectorTableView.sectionHeaderHeight = 28.;
     [_trackSelectorTableView registerClass:[VLCTrackSelectorTableViewCell class] forCellReuseIdentifier:TRACK_SELECTOR_TABLEVIEW_CELL];
     [_trackSelectorTableView registerClass:[VLCTrackSelectorHeaderView class] forHeaderFooterViewReuseIdentifier:TRACK_SELECTOR_TABLEVIEW_SECTIONHEADER];
     _trackSelectorTableView.autoresizingMask = UIViewAutoresizingFlexibleHeight | UIViewAutoresizingFlexibleWidth;
@@ -906,9 +909,10 @@ currentMediaHasTrackToChooseFrom:(BOOL)currentMediaHasTrackToChooseFrom
     if (_trackSelectorContainer.hidden == YES || _switchingTracksNotChapters == NO) {
         _switchingTracksNotChapters = YES;
 
-        [_trackSelectorTableView reloadData];
         _trackSelectorContainer.hidden = NO;
         _trackSelectorContainer.alpha = 1.;
+
+        [_trackSelectorTableView reloadData];
 
         if (!_playbackSpeedViewHidden)
             self.playbackSpeedView.hidden = _playbackSpeedViewHidden = YES;
@@ -1158,7 +1162,7 @@ currentMediaHasTrackToChooseFrom:(BOOL)currentMediaHasTrackToChooseFrom
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
 {
-    VLCTrackSelectorTableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:TRACK_SELECTOR_TABLEVIEW_CELL forIndexPath:indexPath];
+    VLCTrackSelectorTableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:TRACK_SELECTOR_TABLEVIEW_CELL];
 
     if (!cell)
         cell = [[VLCTrackSelectorTableViewCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:TRACK_SELECTOR_TABLEVIEW_CELL];
@@ -1166,25 +1170,22 @@ currentMediaHasTrackToChooseFrom:(BOOL)currentMediaHasTrackToChooseFrom
     NSInteger row = indexPath.row;
     NSInteger section = indexPath.section;
     VLCMediaPlayer *mediaPlayer = self.playbackController.mediaPlayer;
+    BOOL cellShowsCurrentTrack = NO;
 
     if (_switchingTracksNotChapters == YES) {
         NSArray *indexArray;
-        if (mediaPlayer.audioTrackIndexes.count > 2 && section == 0) {
+        if ([mediaPlayer numberOfAudioTracks] > 2 && section == 0) {
             indexArray = mediaPlayer.audioTrackIndexes;
 
-            if ([indexArray indexOfObjectIdenticalTo:[NSNumber numberWithUnsignedInteger:mediaPlayer.currentAudioTrackIndex]] == row)
-                [cell setShowsCurrentTrack:YES];
-            else
-                [cell setShowsCurrentTrack:NO];
+            if ([indexArray indexOfObject:[NSNumber numberWithInt:mediaPlayer.currentAudioTrackIndex]] == row)
+                cellShowsCurrentTrack = YES;
 
             cell.textLabel.text = [NSString stringWithFormat:@"%@", mediaPlayer.audioTrackNames[row]];
         } else {
             indexArray = mediaPlayer.videoSubTitlesIndexes;
 
-            if ([indexArray indexOfObjectIdenticalTo:[NSNumber numberWithUnsignedInteger:mediaPlayer.currentVideoSubTitleIndex]] == row)
-                [cell setShowsCurrentTrack:YES];
-            else
-                [cell setShowsCurrentTrack:NO];
+            if ([indexArray indexOfObject:[NSNumber numberWithInt:mediaPlayer.currentVideoSubTitleIndex]] == row)
+                cellShowsCurrentTrack = YES;
 
             cell.textLabel.text = [NSString stringWithFormat:@"%@", mediaPlayer.videoSubTitlesNames[row]];
         }
@@ -1193,18 +1194,15 @@ currentMediaHasTrackToChooseFrom:(BOOL)currentMediaHasTrackToChooseFrom
             cell.textLabel.text = mediaPlayer.titles[row];
 
             if (row == mediaPlayer.currentTitleIndex)
-                [cell setShowsCurrentTrack:YES];
-            else
-                [cell setShowsCurrentTrack:NO];
+                cellShowsCurrentTrack = YES;
         } else {
             cell.textLabel.text = [mediaPlayer chaptersForTitleIndex:mediaPlayer.currentTitleIndex][row];
 
             if (row == mediaPlayer.currentChapterIndex)
-                [cell setShowsCurrentTrack:YES];
-            else
-                [cell setShowsCurrentTrack:NO];
+                cellShowsCurrentTrack = YES;
         }
     }
+    [cell setShowsCurrentTrack:cellShowsCurrentTrack];
 
     return cell;
 }
