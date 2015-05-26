@@ -80,8 +80,6 @@
 
 #define kBlobHash @"521923d214b9ae628da7987cf621e94c4afdd726"
 
-
-#define kVLCNotificationNowPlayingInfoUpdate @"nowPlayingInfoUpdate"
 #define kVLCDarwinNotificationNowPlayingInfoUpdate @"org.videolan.ios-app.nowPlayingInfoUpdate"
 
 #if TARGET_IPHONE_SIMULATOR

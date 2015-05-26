@@ -27,8 +27,6 @@
 #import "VLCAlertView.h"
 #import "VLCOpenInActivity.h"
 #import "VLCNavigationController.h"
-#import "VLCPlaybackController.h"
-#import "VLCMiniPlaybackView.h"
 
 #import <AssetsLibrary/AssetsLibrary.h>
 
@@ -67,7 +65,6 @@ static NSString *kUsingTableViewToShowData = @"UsingTableViewToShowData";
 
     UIBarButtonItem *_actionBarButtonItem;
     VLCOpenInActivity *_openInActivity;
-    VLCMiniPlaybackView *_miniPlaybackView;
 }
 
 @property (nonatomic, strong) UITableView *tableView;
@@ -148,10 +145,7 @@ static NSString *kUsingTableViewToShowData = @"UsingTableViewToShowData";
         UIScrollView *playlistView = _usingTableViewToShowData ? _tableView : _collectionView;
         playlistView.contentInset = UIEdgeInsetsMake(originY, 0, 0, 0);
     }
-
-    [self adjustScrollViewInsetsForMiniPlayerVisible:_miniPlaybackView.visible];
     self.view = contentView;
-    [self displayMiniPlaybackViewIfNeeded];
 }
 
 #pragma mark -
@@ -236,7 +230,6 @@ static NSString *kUsingTableViewToShowData = @"UsingTableViewToShowData";
     [super viewWillAppear:animated];
     [self.collectionView.collectionViewLayout invalidateLayout];
     [self _displayEmptyLibraryViewIfNeeded];
-    [self displayMiniPlaybackViewIfNeeded];
 }
 
 - (void)viewDidAppear:(BOOL)animated
@@ -437,75 +430,6 @@ static NSString *kUsingTableViewToShowData = @"UsingTableViewToShowData";
         [self.collectionView.collectionViewLayout invalidateLayout];
 }
 
-- (void)displayMiniPlaybackViewIfNeeded
-{
-    VLCPlaybackController *playbackController = [VLCPlaybackController sharedInstance];
-
-    const NSTimeInterval animationDuration = 0.25;
-    const BOOL showMiniPlayer = playbackController.activePlaybackSession;
-    const BOOL miniPlayerVisible = _miniPlaybackView.visible;
-
-    const CGRect viewRect = self.view.frame;
-    const CGFloat miniPlayerHeight = 60.;
-    const CGRect miniPlayerFrameIn =  CGRectMake(0., viewRect.size.height-miniPlayerHeight, viewRect.size.width, miniPlayerHeight);
-    const CGRect miniPlayerFrameOut = CGRectMake(0., viewRect.size.height, viewRect.size.width, miniPlayerHeight);
-
-    BOOL needsShow = showMiniPlayer && !miniPlayerVisible;
-    BOOL needsHide = !showMiniPlayer && miniPlayerVisible;
-
-    if (self.editing) {
-        needsHide = YES;
-        needsShow = NO;
-    }
-
-    void (^completionBlock)(BOOL) = nil;
-    if (needsShow) {
-        if (!_miniPlaybackView) {
-            _miniPlaybackView = [[VLCMiniPlaybackView alloc] initWithFrame:miniPlayerFrameOut];
-            _miniPlaybackView.autoresizingMask = UIViewAutoresizingFlexibleWidth | UIViewAutoresizingFlexibleTopMargin;
-            [self.view addSubview:_miniPlaybackView];
-        }
-        _miniPlaybackView.visible = YES;
-    } else if (needsHide) {
-        _miniPlaybackView.visible = NO;
-        completionBlock = ^(BOOL finished) {
-            if (_miniPlaybackView.visible == NO) {
-                [_miniPlaybackView removeFromSuperview];
-                _miniPlaybackView = nil;
-            }
-        };
-    }
-    //when switching between tableview and collectionview all subviews are removed, make sure to readd it when this happens
-    if (!_miniPlaybackView.superview && miniPlayerVisible) {
-        [self.view addSubview:_miniPlaybackView];
-    }
-    // either way update view
-    [_miniPlaybackView setupForWork];
-
-    if (needsShow || needsHide) {
-        const CGRect newFrame = needsHide ? miniPlayerFrameOut : miniPlayerFrameIn;
-
-        [UIView animateWithDuration:animationDuration
-                              delay:animationDuration
-                            options:UIViewAnimationOptionBeginFromCurrentState | UIViewAnimationOptionAllowUserInteraction
-                         animations:^{
-                             _miniPlaybackView.frame = newFrame;
-                             [self adjustScrollViewInsetsForMiniPlayerVisible:needsShow];
-                         }
-                         completion:completionBlock];
-    }
-
-}
-- (void)adjustScrollViewInsetsForMiniPlayerVisible:(BOOL)miniPlayerVisible
-{
-    const CGFloat bottomInset = miniPlayerVisible ? CGRectGetHeight(_miniPlaybackView.frame) : 0.;
-    UIScrollView *playListDataView = _usingTableViewToShowData ? _tableView : _collectionView;
-    UIEdgeInsets inset = playListDataView.contentInset;
-    inset.bottom = bottomInset;
-    playListDataView.contentInset = inset;
-    playListDataView.scrollIndicatorInsets = inset;
-}
-
 - (void)libraryUpgradeComplete
 {
     self.title = NSLocalizedString(@"LIBRARY_ALL_FILES", nil);
@@ -613,7 +537,6 @@ static NSString *kUsingTableViewToShowData = @"UsingTableViewToShowData";
     }
 
     [self _displayEmptyLibraryViewIfNeeded];
-    [self displayMiniPlaybackViewIfNeeded];
 }
 
 #pragma mark - Table View
@@ -1104,8 +1027,6 @@ static NSString *kUsingTableViewToShowData = @"UsingTableViewToShowData";
 - (void)setEditing:(BOOL)editing animated:(BOOL)animated
 {
     [super setEditing:editing animated:animated];
-
-    [self displayMiniPlaybackViewIfNeeded];
 
     UIBarButtonItem *editButton = self.editButtonItem;
     NSString *editImage = editing? @"doneButton": @"button";

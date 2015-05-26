@@ -13,6 +13,13 @@
 
 #import "VLCEqualizerView.h"
 
+extern NSString *const VLCPlaybackControllerPlaybackDidStart;
+extern NSString *const VLCPlaybackControllerPlaybackDidPause;
+extern NSString *const VLCPlaybackControllerPlaybackDidResume;
+extern NSString *const VLCPlaybackControllerPlaybackDidStop;
+extern NSString *const VLCPlaybackControllerPlaybackDidFail;
+extern NSString *const VLCPlaybackControllerPlaybackMetadataDidChange;
+
 @class VLCPlaybackController;
 
 @protocol VLCPlaybackControllerDelegate <NSObject>
@@ -24,8 +31,6 @@ currentMediaHasTrackToChooseFrom:(BOOL)currentMediaHasTrackToChooseFrom
         currentMediaHasChapters:(BOOL)currentMediaHasChapters
           forPlaybackController:(VLCPlaybackController *)controller;
 - (void)prepareForMediaPlayback:(VLCPlaybackController *)controller;
-- (void)presentingViewControllerShouldBeClosed:(VLCPlaybackController *)controller;
-- (void)presentingViewControllerShouldBeClosedAfterADelay:(VLCPlaybackController *)controller;
 - (void)showStatusMessage:(NSString *)statusMessage forPlaybackController:(VLCPlaybackController *)controller;
 - (void)displayMetadataForPlaybackController:(VLCPlaybackController *)controller
                                        title:(NSString *)title
@@ -68,7 +73,6 @@ currentMediaHasTrackToChooseFrom:(BOOL)currentMediaHasTrackToChooseFrom
 @property (nonatomic, readonly) BOOL currentMediaHasTrackToChooseFrom;
 @property (nonatomic, readonly) BOOL activePlaybackSession;
 @property (nonatomic, readonly) BOOL audioOnlyPlaybackSession;
-@property (nonatomic, readwrite) BOOL presentingMovieViewController;
 
 + (VLCPlaybackController *)sharedInstance;
 
@@ -85,6 +89,5 @@ currentMediaHasTrackToChooseFrom:(BOOL)currentMediaHasTrackToChooseFrom
 
 - (void)setNeedsMetadataUpdate;
 
-- (void)destroyCurrentViewController;
 
 @end

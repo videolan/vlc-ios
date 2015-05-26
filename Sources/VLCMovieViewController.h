@@ -115,4 +115,7 @@
 
 - (BOOL)rotationIsDisabled;
 
+- (void)setControlsHidden:(BOOL)hidden animated:(BOOL)animated;
+- (void)showStatusMessage:(NSString *)statusMessage;
+
 @end

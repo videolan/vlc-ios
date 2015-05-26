@@ -25,6 +25,7 @@
     UIButton *_expandButton;
     UILabel *_metaDataLabel;
 }
+@property (nonatomic, weak) VLCPlaybackController *playbackController;
 
 @end
 
@@ -90,30 +91,27 @@
 
 - (void)previousAction:(id)sender
 {
-    [[VLCPlaybackController sharedInstance] backward];
+    [self.playbackController backward];
 }
 
 - (void)playPauseAction:(id)sender
 {
-    [[VLCPlaybackController sharedInstance] playPause];
+    [self.playbackController playPause];
 }
 
 - (void)nextAction:(id)sender
 {
-    [[VLCPlaybackController sharedInstance] forward];
+    [self.playbackController forward];
 }
 
 - (void)pushFullPlaybackView:(id)sender
 {
-    [VLCPlaybackController sharedInstance].videoOutputView = nil;
-
-    VLCAppDelegate *appDelegate = [UIApplication sharedApplication].delegate;
-    [appDelegate presentMovieViewControllerAnimated:YES];
+    [[UIApplication sharedApplication] sendAction:@selector(showFullscreenPlayback) to:nil from:self forEvent:nil];
 }
 
-- (void)setupForWork
+- (void)setupForWork:(VLCPlaybackController *)playbackController
 {
-    VLCPlaybackController *playbackController = [VLCPlaybackController sharedInstance];
+    self.playbackController = playbackController;
     if (playbackController.isPlaying)
         [_playPauseButton setImage:[UIImage imageNamed:@"pauseIcon"] forState:UIControlStateNormal];
     else
@@ -155,9 +153,7 @@ currentMediaHasTrackToChooseFrom:(BOOL)currentMediaHasTrackToChooseFrom
         _videoView = [[UIView alloc] initWithFrame:_artworkView.frame];
         [_videoView setClipsToBounds:YES];
         [self addSubview:_videoView];
-
-        if (!controller.presentingMovieViewController)
-            controller.videoOutputView = _videoView;
+        controller.videoOutputView = _videoView;
     }
 
     NSString *metaDataString;
@@ -171,17 +167,6 @@ currentMediaHasTrackToChooseFrom:(BOOL)currentMediaHasTrackToChooseFrom
         metaDataString = title;
 
     _metaDataLabel.text = metaDataString;
-}
-
-- (void)presentingViewControllerShouldBeClosed:(VLCPlaybackController *)controller
-{
-    VLCAppDelegate *appDelegate = [UIApplication sharedApplication].delegate;
-    [appDelegate.playlistViewController displayMiniPlaybackViewIfNeeded];
-}
-
-- (void)presentingViewControllerShouldBeClosedAfterADelay:(VLCPlaybackController *)controller
-{
-    [self presentingViewControllerShouldBeClosed:controller];
 }
 
 @end

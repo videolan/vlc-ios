@@ -21,7 +21,6 @@
 #import "NSString+SupportedMedia.h"
 #import "UIDevice+VLC.h"
 #import "VLCPlaylistViewController.h"
-#import "VLCMovieViewController.h"
 #import "VLCPlaybackNavigationController.h"
 #import "PAPasscodeViewController.h"
 #import "VLCHTTPUploaderController.h"
@@ -34,6 +33,7 @@
 #import "VLCNavigationController.h"
 #import "VLCWatchMessage.h"
 #import "VLCPlaybackController+MediaLibrary.h"
+#import "VLCPlayerDisplayController.h"
 
 #define HAVE_FABRIC 0
 
@@ -51,10 +51,7 @@
     BOOL _passcodeValidated;
     BOOL _isRunningMigration;
     BOOL _isComingFromHandoff;
-    BOOL _presentingMovieController;
 }
-
-@property (nonatomic, strong) VLCMovieViewController *movieViewController;
 
 @end
 
@@ -126,7 +123,10 @@
         _revealController.sidebarViewController = _menuViewController;
         _revealController.contentViewController = navCon;
 
-        self.window.rootViewController = self.revealController;
+         _playerDisplayController = [[VLCPlayerDisplayController alloc] init];
+         _playerDisplayController.childViewController = self.revealController;
+
+        self.window.rootViewController = _playerDisplayController;
         // necessary to avoid navbar blinking in VLCOpenNetworkStreamViewController & VLCDownloadViewController
         _revealController.contentViewController.view.backgroundColor = [UIColor VLCDarkBackgroundColor];
         [self.window makeKeyAndVisible];
@@ -169,7 +169,7 @@
 
     [[VLCNotificationRelay sharedRelay] addRelayLocalName:NSManagedObjectContextDidSaveNotification toRemoteName:@"org.videolan.ios-app.dbupdate"];
 
-    [[VLCNotificationRelay sharedRelay] addRelayLocalName:kVLCNotificationNowPlayingInfoUpdate toRemoteName:kVLCDarwinNotificationNowPlayingInfoUpdate];
+    [[VLCNotificationRelay sharedRelay] addRelayLocalName:VLCPlaybackControllerPlaybackMetadataDidChange toRemoteName:kVLCDarwinNotificationNowPlayingInfoUpdate];
 
 #if HAVE_FABRIC
     [Fabric with:@[CrashlyticsKit]];
@@ -317,10 +317,6 @@ continueUserActivity:(NSUserActivity *)userActivity
 
 - (void)applicationWillResignActive:(UIApplication *)application
 {
-    VLCPlaybackController *vpc = [VLCPlaybackController sharedInstance];
-    _presentingMovieController = vpc.presentingMovieViewController;
-    [vpc destroyCurrentViewController];
-
     _passcodeValidated = NO;
     [self validatePasscode];
     [[MLMediaLibrary sharedMediaLibrary] applicationWillExit];
@@ -334,12 +330,6 @@ continueUserActivity:(NSUserActivity *)userActivity
     } else if(_isComingFromHandoff) {
         _isComingFromHandoff = NO;
     }
-
-    VLCPlaybackController *vpc = [VLCPlaybackController sharedInstance];
-    if (!vpc.audioOnlyPlaybackSession && _presentingMovieController)
-        [self presentMovieViewControllerAnimated:NO];
-    else
-        [self.playlistViewController displayMiniPlaybackViewIfNeeded];
 }
 
 - (void)applicationWillTerminate:(UIApplication *)application
@@ -369,14 +359,6 @@ continueUserActivity:(NSUserActivity *)userActivity
     return _downloadViewController;
 }
 
-- (VLCMovieViewController *)movieViewController
-{
-    if (!_movieViewController) {
-        _movieViewController = [[VLCMovieViewController alloc] initWithNibName:nil bundle:nil];
-        [VLCPlaybackController sharedInstance].delegate = _movieViewController;
-    }
-    return _movieViewController;
-}
 
 #pragma mark - media discovering
 
@@ -557,31 +539,10 @@ continueUserActivity:(NSUserActivity *)userActivity
 
 #pragma mark - playback view handling
 
-- (void)presentMovieViewControllerAnimated:(BOOL)animated
-{
-    if ([UIApplication sharedApplication].applicationState != UIApplicationStateActive) {
-        return;
-    }
-
-    UINavigationController *navCon = [[VLCPlaybackNavigationController alloc] initWithRootViewController:self.movieViewController];
-    [self.movieViewController prepareForMediaPlayback:[VLCPlaybackController sharedInstance]];
-    navCon.modalPresentationStyle = UIModalPresentationFullScreen;
-    [self.window.rootViewController presentViewController:navCon animated:animated completion:nil];
-}
-
 - (void)openMediaFromManagedObject:(NSManagedObject *)mediaObject
 {
-    BOOL retainFullscreenPlayback = false;
-
     VLCPlaybackController *vpc = [VLCPlaybackController sharedInstance];
-
-    if (vpc.presentingMovieViewController)
-        retainFullscreenPlayback = YES;
-
     [vpc playMediaLibraryObject:mediaObject];
-
-    if (retainFullscreenPlayback)
-        [self presentMovieViewControllerAnimated:YES];
 }
 
 - (void)openMovieFromURL:(NSURL *)url
