@@ -182,7 +182,9 @@
     }
 
     //reload if we didn't come back from streaming
-    self.currentPath = @"";
+    if (self.currentPath == nil) {
+        self.currentPath = @"";
+    }
     if([self.controller.currentListFiles count] == 0)
         [self _requestInformationForCurrentPath];
 }
