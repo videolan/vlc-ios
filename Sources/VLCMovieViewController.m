@@ -219,6 +219,8 @@ typedef NS_ENUM(NSInteger, VLCPanType) {
                    name:UIScreenDidConnectNotification object:nil];
     [center addObserver:self selector:@selector(handleExternalScreenDidDisconnect:)
                    name:UIScreenDidDisconnectNotification object:nil];
+    [center addObserver:self selector:@selector(screenBrightnessChanged:)
+                   name:UIScreenBrightnessDidChangeNotification object:nil];
 
     _playingExternallyTitle.text = NSLocalizedString(@"PLAYING_EXTERNALLY_TITLE", nil);
     _playingExternallyDescription.text = NSLocalizedString(@"PLAYING_EXTERNALLY_DESC", nil);
@@ -1472,6 +1474,11 @@ currentMediaHasTrackToChooseFrom:(BOOL)currentMediaHasTrackToChooseFrom
     } else
         APLog(@"unknown sender for videoFilterSliderAction");
     [self _resetIdleTimer];
+}
+
+- (void)screenBrightnessChanged:(NSNotification *)notification
+{
+    self.brightnessSlider.value = [(UIScreen *)notification.object brightness] * 2.;
 }
 
 #pragma mark - playback view
