@@ -48,6 +48,7 @@
 				<string>com.microsoft.waveform-​audio</string>
 				<string>com.microsoft.windows-​media-wma</string>
 				<string>com.real.realaudio</string>
+				<string>org.videolan.vlc</string>
 			</array>
 		</dict>
 		<dict>
@@ -86,8 +87,6 @@
 	<string>org.videolan.vlc-ios</string>
 	<key>CFBundleInfoDictionaryVersion</key>
 	<string>6.0</string>
-	<key>LSApplicationCategoryType</key>
-	<string></string>
 	<key>CFBundleName</key>
 	<string>VLC for iOS</string>
 	<key>CFBundlePackageType</key>
@@ -597,6 +596,18 @@
 			<string>org.videolan.smi</string>
 			<key>public.filename-extension</key>
 			<string>smi</string>
+		</dict>
+		<dict>
+			<key>UTTypeConformsTo</key>
+			<array>
+				<string>public.movie</string>
+			</array>
+			<key>UTTypeDescription</key>
+			<string>vlc fake file</string>
+			<key>UTTypeIdentifier</key>
+			<string>org.videolan.vlc</string>
+			<key>public.filename-extension</key>
+			<string>vlc</string>
 		</dict>
 	</array>
 </dict>
