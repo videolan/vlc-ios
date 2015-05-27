@@ -12,7 +12,7 @@ CONFIGURATION="Release"
 NONETWORK=no
 SKIPLIBVLCCOMPILATION=no
 
-TESTEDVLCKITHASH=d8dd9a92a9d483f
+TESTEDVLCKITHASH=bc7775afa96
 TESTEDMEDIALIBRARYKITHASH=73dea49ae657
 
 usage()
@@ -166,11 +166,11 @@ fi
 if ! [ -e VLCKit ]; then
 git clone git://git.videolan.org/vlc-bindings/VLCKit.git
 cd VLCKit
-#git reset --hard ${TESTEDVLCKITHASH}
+git reset --hard ${TESTEDVLCKITHASH}
 cd ..
 else
 cd VLCKit
-#git reset --hard ${TESTEDVLCKITHASH}
+git reset --hard ${TESTEDVLCKITHASH}
 cd ..
 fi
 if ! [ -e GDrive ]; then
