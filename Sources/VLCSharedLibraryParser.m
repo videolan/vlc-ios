@@ -13,74 +13,97 @@
 
 #define kLibraryXmlFile @"libMediaVLC.xml"
 
+NSString *const VLCSharedLibraryParserDeterminedNetserviceAsVLCInstance = @"VLCSharedLibraryParserDeterminedNetserviceAsVLCInstance";
+
 @interface VLCSharedLibraryParser () <NSXMLParserDelegate>
 {
     NSMutableArray *_containerInfo;
     NSMutableDictionary *_dicoInfo;
-    NSString *_libraryServerUrl;
 }
 @end
 
 @implementation VLCSharedLibraryParser
 
-- (NSMutableArray *)VLCLibraryServerParser:(NSString *)adress port:(NSString *)port
+- (void)checkNetserviceForVLCService:(NSNetService *)aNetService
+{
+    [self performSelectorInBackground:@selector(parseNetServiceOnBackgroundThread:) withObject:aNetService];
+}
+
+- (void)parseNetServiceOnBackgroundThread:(NSNetService *)aNetService
+{
+    NSString *hostnamePort = [NSString stringWithFormat:@"%@:%ld", [aNetService hostName], [aNetService port]];
+    NSArray *parsedContents = [self downloadAndProcessDataFromServer:hostnamePort];
+
+    if (parsedContents.count > 0) {
+        if ([[parsedContents.firstObject objectForKey:@"identifier"] isEqualToString:@"org.videolan.vlc-ios"]) {
+            [[NSNotificationCenter defaultCenter] postNotificationName:VLCSharedLibraryParserDeterminedNetserviceAsVLCInstance
+                                                                object:self
+                                                              userInfo:@{@"aNetService" : aNetService}];
+        }
+    }
+}
+
+- (void)fetchDataFromServer:(NSString *)hostname port:(long)port
+{
+    NSString *hostnamePort = [NSString stringWithFormat:@"%@:%ld", hostname, port];
+    [self performSelectorInBackground:@selector(processDataOnBackgroundThreadFromHostnameAndPort:) withObject:hostnamePort];
+}
+
+- (void)processDataOnBackgroundThreadFromHostnameAndPort:(NSString *)hostnameAndPort
+{
+    NSArray *parsedContents = [self downloadAndProcessDataFromServer:hostnameAndPort];
+
+    if ([self.delegate respondsToSelector:@selector(sharedLibraryDataProcessings:)])
+        [self.delegate sharedLibraryDataProcessings:parsedContents];
+}
+
+- (NSArray *)downloadAndProcessDataFromServer:(NSString *)hostnamePort
 {
     _containerInfo = [[NSMutableArray alloc] init];
     [_containerInfo removeAllObjects];
     _dicoInfo = [[NSMutableDictionary alloc] init];
-    _libraryServerUrl = [NSString stringWithFormat:@"http://%@%@", adress, port];
+    NSString *serverURL = [NSString stringWithFormat:@"http://%@/%@", hostnamePort, kLibraryXmlFile];
 
-    NSString *mediaServerUrl = [NSString stringWithFormat:@"%@/%@", _libraryServerUrl, kLibraryXmlFile];
-
-    NSURL *url = [[NSURL alloc] initWithString:mediaServerUrl];
+    NSURL *url = [[NSURL alloc] initWithString:serverURL];
     NSXMLParser *xmlparser = [[NSXMLParser alloc] initWithContentsOfURL:url];
     [xmlparser setDelegate:self];
 
-    if (![xmlparser parse])
+    if (![xmlparser parse]) {
         APLog(@"VLC Library Parser url Errors : %@", url);
-
-    return _containerInfo;
-}
-
-- (BOOL)isVLCMediaServer:(NSString *)adress port:(NSString *)port
-{
-    NSMutableArray *mutableObjectList = [self VLCLibraryServerParser:adress port:port];
-    if (mutableObjectList.count > 0) {
-        NSString *identifier = [[mutableObjectList objectAtIndex:0] objectForKey:@"identifier"];
-        if ([identifier isEqualToString:@"org.videolan.vlc-ios"])
-            return YES;
+        return [NSArray array];
     }
-    return NO;
+
+    return [NSArray arrayWithArray:_containerInfo];
 }
 
 - (void)parser:(NSXMLParser *)parser didStartElement:(NSString *)elementName namespaceURI:(NSString *)namespaceURI qualifiedName:(NSString *)qualifiedName attributes:(NSDictionary *)attributeDict
 {
-    if([elementName isEqualToString:@"MediaContainer"]) {
+    if ([elementName isEqualToString:@"MediaContainer"]) {
         if ([attributeDict objectForKey:@"size"])
             [_dicoInfo setObject:[attributeDict objectForKey:@"size"] forKey:@"size"];
         if ([attributeDict objectForKey:@"identifier"])
             [_dicoInfo setObject:[attributeDict objectForKey:@"identifier"] forKey:@"identifier"];
         if ([attributeDict objectForKey:@"libraryTitle"])
             [_dicoInfo setObject:[attributeDict objectForKey:@"libraryTitle"] forKey:@"libTitle"];
-    } else if([elementName isEqualToString:@"Media"]) {
-        if([attributeDict objectForKey:@"title"])
+    } else if ([elementName isEqualToString:@"Media"]) {
+        if ([attributeDict objectForKey:@"title"])
             [_dicoInfo setObject:[attributeDict objectForKey:@"title"] forKey:@"title"];
-        if([attributeDict objectForKey:@"thumb"])
+        if ([attributeDict objectForKey:@"thumb"])
             [_dicoInfo setObject:[attributeDict objectForKey:@"thumb"] forKey:@"thumb"];
-        if([attributeDict objectForKey:@"duration"])
+        if ([attributeDict objectForKey:@"duration"])
             [_dicoInfo setObject:[attributeDict objectForKey:@"duration"] forKey:@"duration"];
-        if([attributeDict objectForKey:@"size"])
+        if ([attributeDict objectForKey:@"size"])
             [_dicoInfo setObject:[attributeDict objectForKey:@"size"] forKey:@"size"];
-        if([attributeDict objectForKey:@"pathfile"])
+        if ([attributeDict objectForKey:@"pathfile"])
             [_dicoInfo setObject:[attributeDict objectForKey:@"pathfile"] forKey:@"pathfile"];
-        if([attributeDict objectForKey:@"pathSubtitle"])
+        if ([attributeDict objectForKey:@"pathSubtitle"])
             [_dicoInfo setObject:[attributeDict objectForKey:@"pathSubtitle"] forKey:@"pathSubtitle"];
     }
 }
 
 - (void)parser:(NSXMLParser *)parser didEndElement:(NSString *)elementName namespaceURI:(NSString *)namespaceURI qualifiedName:(NSString *)qName
 {
-    if(([elementName isEqualToString:@"Media"] || [elementName isEqualToString:@"MediaContainer"]) && [_dicoInfo count] > 0) {
+    if (([elementName isEqualToString:@"Media"] || [elementName isEqualToString:@"MediaContainer"]) && [_dicoInfo count] > 0) {
         [_containerInfo addObject:_dicoInfo];
         _dicoInfo = [[NSMutableDictionary alloc] init];
     }

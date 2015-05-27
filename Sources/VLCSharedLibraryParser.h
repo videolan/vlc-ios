@@ -10,9 +10,22 @@
  *****************************************************************************/
 
 #import <UIKit/UIKit.h>
+
+extern NSString *const VLCSharedLibraryParserDeterminedNetserviceAsVLCInstance;
+
+@protocol VLCSharedLibraryParserDelegate <NSObject>
+
+@required
+
+- (void)sharedLibraryDataProcessings:(NSArray *)result;
+
+@end
+
 @interface VLCSharedLibraryParser : NSObject
 
-- (NSMutableArray *)VLCLibraryServerParser:(NSString *)adress port:(NSString *)port;
-- (BOOL)isVLCMediaServer:(NSString *)adress port:(NSString *)port;
+@property (readwrite, weak) id<VLCSharedLibraryParserDelegate> delegate;
+
+- (void)checkNetserviceForVLCService:(NSNetService *)netservice;
+- (void)fetchDataFromServer:(NSString *)hostname port:(long)port;
 
 @end

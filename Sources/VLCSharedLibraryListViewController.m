@@ -21,9 +21,9 @@
 #import "VLCAlertView.h"
 #import "UIDevice+VLC.h"
 
-@interface VLCSharedLibraryListViewController () <UITableViewDataSource, UITableViewDelegate, VLCLocalNetworkListCell, UISearchBarDelegate, UISearchDisplayDelegate>
+@interface VLCSharedLibraryListViewController () <UITableViewDataSource, UITableViewDelegate, VLCLocalNetworkListCell, UISearchBarDelegate, UISearchDisplayDelegate, VLCSharedLibraryParserDelegate>
 {
-    NSMutableArray *_mutableObjectList;
+    NSArray *_serverDataArray;
     NSCache *_imageCache;
 
     NSString *_httpServerName;
@@ -61,32 +61,30 @@
         _httpServerAddress = serverAddress;
         _httpServerPort = portNumber;
 
-        _mutableObjectList = [[NSMutableArray alloc] init];
         _imageCache = [[NSCache alloc] init];
         [_imageCache setCountLimit:50];
 
         _httpParser = [[VLCSharedLibraryParser alloc] init];
+        _httpParser.delegate = self;
     }
     return self;
+}
+
+- (void)viewWillAppear:(BOOL)animated
+{
+    [super viewWillAppear:animated];
+
+    [_httpParser fetchDataFromServer:_httpServerAddress port:_httpServerPort.longLongValue];
 }
 
 - (void)viewDidLoad
 {
     [super viewDidLoad];
 
-    [_mutableObjectList removeAllObjects];
-    _mutableObjectList = [_httpParser VLCLibraryServerParser:_httpServerAddress port:_httpServerPort];
-
     self.tableView.separatorColor = [UIColor VLCDarkBackgroundColor];
     self.view.backgroundColor = [UIColor VLCDarkBackgroundColor];
 
-    NSString *titleValue;
-    if (_mutableObjectList.count == 0)
-        titleValue = _httpServerAddress;
-    else
-        titleValue = [_mutableObjectList.firstObject objectForKey:@"libTitle"];
-
-    self.title = titleValue;
+    self.title = _httpServerAddress;
 
     _searchBar = [[UISearchBar alloc] initWithFrame:CGRectMake(0, 0, 320, 44)];
     UINavigationBar *navBar = self.navigationController.navigationBar;
@@ -139,10 +137,12 @@
 
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section
 {
-    if (tableView == self.searchDisplayController.searchResultsTableView)
-        return _searchData.count;
-    else
-        return _mutableObjectList.count;
+    @synchronized(self) {
+        if (tableView == self.searchDisplayController.searchResultsTableView)
+            return _searchData.count;
+        else
+            return _serverDataArray.count;
+    }
 }
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
@@ -154,18 +154,18 @@
     if (cell == nil)
         cell = [VLCLocalNetworkListCell cellWithReuseIdentifier:CellIdentifier];
 
-    NSMutableArray *ObjList = [[NSMutableArray alloc] init];
-    [ObjList removeAllObjects];
+    NSDictionary *cellObject;
+    @synchronized(self) {
+        if (tableView == self.searchDisplayController.searchResultsTableView)
+            cellObject = _searchData[indexPath.row];
+        else
+            cellObject = _serverDataArray[indexPath.row];
+    }
 
-    if (tableView == self.searchDisplayController.searchResultsTableView)
-        [ObjList addObjectsFromArray:_searchData];
-    else
-        [ObjList addObjectsFromArray:_mutableObjectList];
-
-    [cell setTitle:[[ObjList objectAtIndex:indexPath.row] objectForKey:@"title"]];
+    [cell setTitle:[cellObject objectForKey:@"title"]];
     [cell setIcon:[UIImage imageNamed:@"blank"]];
 
-    NSString *thumbPath = [[ObjList objectAtIndex:indexPath.row] objectForKey:@"thumb"];
+    NSString *thumbPath = [cellObject objectForKey:@"thumb"];
     if (thumbPath) {
         dispatch_queue_t queue = dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_LOW, 0);
         dispatch_async(queue, ^{
@@ -179,9 +179,9 @@
         });
     }
 
-    NSInteger size = [[[ObjList objectAtIndex:indexPath.row] objectForKey:@"size"] integerValue];
+    NSInteger size = [[cellObject objectForKey:@"size"] integerValue];
     NSString *mediaSize = [NSByteCountFormatter stringFromByteCount:size countStyle:NSByteCountFormatterCountStyleFile];
-    NSString *duration = [[ObjList objectAtIndex:indexPath.row] objectForKey:@"duration"];
+    NSString *duration = [cellObject objectForKey:@"duration"];
     [cell setIsDirectory:NO];
     [cell setSubtitle:[NSString stringWithFormat:@"%@ (%@)", mediaSize, duration]];
     [cell setIsDownloadable:YES];
@@ -214,21 +214,22 @@
 
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
 {
-    NSMutableArray *ObjList = [[NSMutableArray alloc] init];
-    [ObjList removeAllObjects];
+    NSDictionary *selectedObject;
 
-    if (tableView == self.searchDisplayController.searchResultsTableView)
-        [ObjList addObjectsFromArray:_searchData];
-    else
-        [ObjList addObjectsFromArray:_mutableObjectList];
+    @synchronized(self) {
+        if (tableView == self.searchDisplayController.searchResultsTableView)
+            selectedObject = _searchData[indexPath.row];
+        else
+            selectedObject = _serverDataArray[indexPath.row];
+    }
 
     NSString *URLofSubtitle = nil;
-    if (![[[ObjList objectAtIndex:indexPath.row] objectForKey:@"pathSubtitle"] isEqualToString:@""]) {
-        NSURL *url = [NSURL URLWithString:[[[ObjList objectAtIndex:indexPath.row] objectForKey:@"pathSubtitle"] stringByAddingPercentEscapesUsingEncoding:NSUTF8StringEncoding]];
+    if (![[selectedObject objectForKey:@"pathSubtitle"] isEqualToString:@""]) {
+        NSURL *url = [NSURL URLWithString:[[selectedObject objectForKey:@"pathSubtitle"] stringByAddingPercentEscapesUsingEncoding:NSUTF8StringEncoding]];
         URLofSubtitle = [self _getFileSubtitleFromServer:url modeStream:YES];
     }
 
-    NSURL *itemURL = [NSURL URLWithString:[[ObjList objectAtIndex:indexPath.row] objectForKey:@"pathfile"]];
+    NSURL *itemURL = [NSURL URLWithString:[selectedObject objectForKey:@"pathfile"]];
     if (itemURL) {
             VLCAppDelegate *appDelegate = [UIApplication sharedApplication].delegate;
             [appDelegate openMovieWithExternalSubtitleFromURL:itemURL externalSubURL:URLofSubtitle];
@@ -239,21 +240,25 @@
 
 #pragma mark - Specifics
 
+- (void)sharedLibraryDataProcessings:(NSArray *)result
+{
+    @synchronized(self) {
+        _serverDataArray = result;
+        self.title = [_serverDataArray.firstObject objectForKey:@"libTitle"];
+    }
+    [self.tableView reloadData];
+}
+
+
 - (void)_downloadFileFromMediaItem:(NSURL *)itemURL
 {
+    NSLog(@"trying to download %@", [itemURL absoluteString]);
     if (![[itemURL absoluteString] isSupportedFormat]) {
         UIAlertView *alert = [[UIAlertView alloc] initWithTitle:NSLocalizedString(@"FILE_NOT_SUPPORTED", nil) message:[NSString stringWithFormat:NSLocalizedString(@"FILE_NOT_SUPPORTED_LONG", nil), [itemURL absoluteString]] delegate:self cancelButtonTitle:NSLocalizedString(@"BUTTON_CANCEL", nil) otherButtonTitles:nil];
         [alert show];
     } else if (itemURL) {
         [[(VLCAppDelegate *)[UIApplication sharedApplication].delegate downloadViewController] addURLToDownloadList:itemURL fileNameOfMedia:nil];
     }
-}
-
-- (void)reloadSharedLibrary
-{
-    [_mutableObjectList removeAllObjects];
-    _mutableObjectList = [_httpParser VLCLibraryServerParser:_httpServerAddress port:_httpServerPort];
-    [self.tableView reloadData];
 }
 
 - (NSString *)_getFileSubtitleFromServer:(NSURL *)url modeStream:(BOOL)modeStream
@@ -290,28 +295,29 @@
 
 - (void)triggerDownloadForCell:(VLCLocalNetworkListCell *)cell
 {
-    NSMutableArray *ObjList = [[NSMutableArray alloc] init];
-    [ObjList removeAllObjects];
+    NSDictionary *dataItem;
 
-    if ([self.searchDisplayController isActive])
-        [ObjList addObject:_searchData[[self.searchDisplayController.searchResultsTableView indexPathForCell:cell].row]];
-    else
-        [ObjList addObject:_mutableObjectList[[self.tableView indexPathForCell:cell].row]];
+    @synchronized(self) {
+        if ([self.searchDisplayController isActive])
+            dataItem = _searchData[[self.searchDisplayController.searchResultsTableView indexPathForCell:cell].row];
+        else
+            dataItem = _serverDataArray[[self.tableView indexPathForCell:cell].row];
+    }
 
-    NSURL *itemURL = [NSURL URLWithString:[ObjList[0] objectForKey:@"pathfile"]];
+    NSURL *itemURL = [NSURL URLWithString:[dataItem objectForKey:@"pathfile"]];
 
-    NSInteger size = [[[ObjList objectAtIndex:0] objectForKey:@"size"] integerValue];
+    NSInteger size = [[dataItem objectForKey:@"size"] integerValue];
     if (size  < [[UIDevice currentDevice] freeDiskspace].longLongValue) {
         NSString *URLofSubtitle = nil;
-        if (![[[ObjList objectAtIndex:0] objectForKey:@"pathSubtitle"] isEqualToString:@""]) {
-            NSURL *url = [NSURL URLWithString:[[[ObjList objectAtIndex:0] objectForKey:@"pathSubtitle"] stringByAddingPercentEscapesUsingEncoding:NSUTF8StringEncoding]];
+        if (![[dataItem objectForKey:@"pathSubtitle"] isEqualToString:@""]) {
+            NSURL *url = [NSURL URLWithString:[[dataItem objectForKey:@"pathSubtitle"] stringByAddingPercentEscapesUsingEncoding:NSUTF8StringEncoding]];
             URLofSubtitle = [self _getFileSubtitleFromServer:url modeStream:NO];
         }
 
         [self _downloadFileFromMediaItem:itemURL];
         [cell.statusLabel showStatusMessage:NSLocalizedString(@"DOWNLOADING", nil)];
     } else {
-        UIAlertView *alert = [[UIAlertView alloc] initWithTitle:NSLocalizedString(@"DISK_FULL", nil) message:[NSString stringWithFormat:NSLocalizedString(@"DISK_FULL_FORMAT", nil), [[ObjList objectAtIndex:0] objectForKey:@"title"], [[UIDevice currentDevice] model]] delegate:self cancelButtonTitle:NSLocalizedString(@"BUTTON_OK", nil) otherButtonTitles:nil];
+        UIAlertView *alert = [[UIAlertView alloc] initWithTitle:NSLocalizedString(@"DISK_FULL", nil) message:[NSString stringWithFormat:NSLocalizedString(@"DISK_FULL_FORMAT", nil), [dataItem objectForKey:@"title"], [[UIDevice currentDevice] model]] delegate:self cancelButtonTitle:NSLocalizedString(@"BUTTON_OK", nil) otherButtonTitles:nil];
         [alert show];
     }
 }
@@ -320,13 +326,15 @@
 
 - (BOOL)searchDisplayController:(UISearchDisplayController *)controller shouldReloadTableForSearchString:(NSString *)searchString
 {
-    [_searchData removeAllObjects];
-    NSUInteger count = _mutableObjectList.count;
-    for (NSUInteger i = 0; i < count; i++) {
-        NSRange nameRange;
-        nameRange = [[[_mutableObjectList objectAtIndex:i] objectForKey:@"title"] rangeOfString:searchString options:NSCaseInsensitiveSearch];
-        if (nameRange.location != NSNotFound)
-            [_searchData addObject:_mutableObjectList[i]];
+    @synchronized (self) {
+        [_searchData removeAllObjects];
+        NSUInteger count = _serverDataArray.count;
+        for (NSUInteger i = 0; i < count; i++) {
+            NSRange nameRange;
+            nameRange = [[_serverDataArray[i] objectForKey:@"title"] rangeOfString:searchString options:NSCaseInsensitiveSearch];
+            if (nameRange.location != NSNotFound)
+                [_searchData addObject:_serverDataArray[i]];
+        }
     }
     return YES;
 }
@@ -355,7 +363,11 @@
     _refreshControl.attributedTitle = [[NSAttributedString alloc] initWithString:lastupdated attributes:attrsDictionary];
     //end the refreshing
     [_refreshControl endRefreshing];
-    [self performSelector:@selector(reloadSharedLibrary) withObject:nil];
+
+    @synchronized(self) {
+        _serverDataArray = nil;
+    }
+    [_httpParser fetchDataFromServer:_httpServerAddress port:_httpServerPort.longLongValue];
 }
 
 #pragma mark - Gesture Action
