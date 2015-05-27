@@ -73,13 +73,7 @@
 
 - (void)dealloc
 {
-    [[NSNotificationCenter defaultCenter] removeObserver:self
-                                                    name:UIApplicationWillResignActiveNotification
-                                                  object:[UIApplication sharedApplication]];
-
-    [[NSNotificationCenter defaultCenter] removeObserver:self
-                                                    name:UIApplicationDidBecomeActiveNotification
-                                                  object:[UIApplication sharedApplication]];
+    [[NSNotificationCenter defaultCenter] removeObserver:self];
 
     [_reachability stopNotifier];
     [_ftpNetServiceBrowser stop];
@@ -121,15 +115,22 @@
 {
     [super viewDidLoad];
 
-    [[NSNotificationCenter defaultCenter] addObserver:self
-                                             selector:@selector(applicationWillResignActive:)
-                                                 name:UIApplicationWillResignActiveNotification
-                                               object:[UIApplication sharedApplication]];
+    NSNotificationCenter *defaultCenter = [NSNotificationCenter defaultCenter];
 
-    [[NSNotificationCenter defaultCenter] addObserver:self
-                                             selector:@selector(applicationDidBecomeActive:)
-                                                 name:UIApplicationDidBecomeActiveNotification
-                                               object:[UIApplication sharedApplication]];
+    [defaultCenter addObserver:self
+                      selector:@selector(applicationWillResignActive:)
+                          name:UIApplicationWillResignActiveNotification
+                        object:[UIApplication sharedApplication]];
+
+    [defaultCenter addObserver:self
+                      selector:@selector(applicationDidBecomeActive:)
+                          name:UIApplicationDidBecomeActiveNotification
+                        object:[UIApplication sharedApplication]];
+
+    [defaultCenter addObserver:self
+                      selector:@selector(sharedLibraryFound:)
+                          name:VLCSharedLibraryParserDeterminedNetserviceAsVLCInstance
+                        object:nil];
 
 /*    if (SYSTEM_RUNS_IOS7_OR_LATER)
         _sectionHeaderTexts = @[@"Universal Plug'n'Play (UPNP)", @"File Transfer Protocol (FTP)", NSLocalizedString(@"SAP_STREAMS", nil)];
@@ -416,7 +417,10 @@
         NSString *name = [_httpServicesInfo[row] objectForKey:@"name"];
         NSString *hostName = [_httpServicesInfo[row] objectForKey:@"hostName"];
         NSString *portNum = [_httpServicesInfo[row] objectForKey:@"port"];
-        VLCSharedLibraryListViewController *targetViewController = [[VLCSharedLibraryListViewController alloc] initWithHttpServer:name serverAddress:hostName portNumber:portNum];
+        VLCSharedLibraryListViewController *targetViewController = [[VLCSharedLibraryListViewController alloc]
+                                                                    initWithHttpServer:name
+                                                                    serverAddress:hostName
+                                                                    portNumber:portNum];
         [[self navigationController] pushViewController:targetViewController animated:YES];
     } else if (section == 4) {
         VLCAppDelegate *appDelegate = [UIApplication sharedApplication].delegate;
@@ -557,17 +561,7 @@
         }
     }  else if ([aNetService.type isEqualToString:@"_http._tcp."]) {
         if ([[aNetService hostName] rangeOfString:_myHostName].location == NSNotFound) {
-            if ([_httpParser isVLCMediaServer:[aNetService hostName] port:[NSString stringWithFormat:@":%ld", (long)[aNetService port]]]) {
-                if (![_httpServices containsObject:aNetService]) {
-                    [_httpServices addObject:aNetService];
-                    NSMutableDictionary *_dictService = [[NSMutableDictionary alloc] init];
-                    [_dictService setObject:[aNetService name] forKey:@"name"];
-                    [_dictService setObject:[aNetService hostName] forKey:@"hostName"];
-                    NSString *portStr = [[NSString alloc] initWithFormat:@":%ld", (long)[aNetService port]];
-                    [_dictService setObject:portStr forKey:@"port"];
-                    [_httpServicesInfo addObject:_dictService];
-                }
-            }
+            [_httpParser checkNetserviceForVLCService:aNetService];
         }
     }
     [_rawNetServices removeObject:aNetService];
@@ -578,6 +572,23 @@
 {
     APLog(@"failed to resolve: %@", aNetService.name);
     [_rawNetServices removeObject:aNetService];
+}
+
+#pragma mark - shared library stuff
+
+- (void)sharedLibraryFound:(NSNotification *)aNotification
+{
+    NSNetService *aNetService = [aNotification.userInfo objectForKey:@"aNetService"];
+
+    if (![_httpServices containsObject:aNetService]) {
+        [_httpServices addObject:aNetService];
+        NSMutableDictionary *_dictService = [[NSMutableDictionary alloc] init];
+        [_dictService setObject:[aNetService name] forKey:@"name"];
+        [_dictService setObject:[aNetService hostName] forKey:@"hostName"];
+        NSString *portStr = [[NSString alloc] initWithFormat:@"%ld", (long)[aNetService port]];
+        [_dictService setObject:portStr forKey:@"port"];
+        [_httpServicesInfo addObject:_dictService];
+    }
 }
 
 #pragma mark - UPNP details
