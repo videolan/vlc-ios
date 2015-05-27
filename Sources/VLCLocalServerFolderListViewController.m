@@ -617,12 +617,16 @@
     if (uriCollectionObjects.count > 0)
         itemURL = [NSURL URLWithString:uriCollectionObjects[correctIndex]];
 
-    if (![itemURL.absoluteString isSupportedFormat]) {
-        UIAlertView * alert = [[UIAlertView alloc] initWithTitle:NSLocalizedString(@"FILE_NOT_SUPPORTED", nil) message:[NSString stringWithFormat:NSLocalizedString(@"FILE_NOT_SUPPORTED_LONG", nil), [mediaItem uri]] delegate:self cancelButtonTitle:NSLocalizedString(@"BUTTON_CANCEL", nil) otherButtonTitles:nil];
-        [alert show];
-    } else if (itemURL) {
-        NSString *fileName = [[mediaItem.title stringByAppendingString:@"."] stringByAppendingString:[[itemURL absoluteString] pathExtension]];
-        [[(VLCAppDelegate*)[UIApplication sharedApplication].delegate downloadViewController] addURLToDownloadList:itemURL fileNameOfMedia:fileName];
+    if (itemURL) {
+        NSString *filename;
+
+        /* there are few crappy UPnP servers who don't reveal the correct file extension, so we use a generic fake (#11123) */
+        if (![itemURL.absoluteString isSupportedFormat])
+            filename = [mediaItem.title stringByAppendingString:@".vlc"];
+        else
+            filename = [[mediaItem.title stringByAppendingString:@"."] stringByAppendingString:[[itemURL absoluteString] pathExtension]];
+
+        [[(VLCAppDelegate*)[UIApplication sharedApplication].delegate downloadViewController] addURLToDownloadList:itemURL fileNameOfMedia:filename];
     }
 }
 
