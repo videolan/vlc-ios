@@ -96,9 +96,10 @@
 
 - (void)_removeObserver
 {
-    if ([_mediaObject isKindOfClass:[MLLabel class]])
+    if ([_mediaObject isKindOfClass:[MLLabel class]]) {
+        [_mediaObject removeObserver:self forKeyPath:@"files"];
         [_mediaObject removeObserver:self forKeyPath:@"name"];
-    else if ([_mediaObject isKindOfClass:[MLShow class]])
+    } else if ([_mediaObject isKindOfClass:[MLShow class]])
         [_mediaObject removeObserver:self forKeyPath:@"episodes"];
     else if ([_mediaObject isKindOfClass:[MLShowEpisode class]]) {
         [_mediaObject removeObserver:self forKeyPath:@"name"];
@@ -108,6 +109,13 @@
     } else if ([_mediaObject isKindOfClass:[MLAlbum class]]) {
         [_mediaObject removeObserver:self forKeyPath:@"name"];
         [_mediaObject removeObserver:self forKeyPath:@"tracks"];
+    } else if ([_mediaObject isKindOfClass:[MLAlbumTrack class]]) {
+        [_mediaObject addObserver:self forKeyPath:@"unread" options:0 context:nil];
+        [_mediaObject removeObserver:self forKeyPath:@"artist"];
+        [_mediaObject removeObserver:self forKeyPath:@"title"];
+        [_mediaObject removeObserver:self forKeyPath:@"files"];
+        MLFile *anyFileFromTrack = [(MLAlbumTrack *)_mediaObject files].anyObject;
+        [anyFileFromTrack removeObserver:self forKeyPath:@"artworkURL"];
     } else if ([_mediaObject isKindOfClass:[MLFile class]]) {
         [_mediaObject removeObserver:self forKeyPath:@"computedThumbnail"];
         [_mediaObject removeObserver:self forKeyPath:@"lastPosition"];
@@ -126,9 +134,10 @@
 
 - (void)_addObserver
 {
-    if ([_mediaObject isKindOfClass:[MLLabel class]])
+    if ([_mediaObject isKindOfClass:[MLLabel class]]) {
+        [_mediaObject addObserver:self forKeyPath:@"files" options:0 context:nil];
         [_mediaObject addObserver:self forKeyPath:@"name" options:0 context:nil];
-    else if ([_mediaObject isKindOfClass:[MLShow class]])
+    } else if ([_mediaObject isKindOfClass:[MLShow class]])
         [_mediaObject addObserver:self forKeyPath:@"episodes" options:0 context:nil];
     else if ([_mediaObject isKindOfClass:[MLShowEpisode class]]) {
         [_mediaObject addObserver:self forKeyPath:@"name" options:0 context:nil];
@@ -138,6 +147,13 @@
     } else if ([_mediaObject isKindOfClass:[MLAlbum class]]) {
         [_mediaObject addObserver:self forKeyPath:@"name" options:0 context:nil];
         [_mediaObject addObserver:self forKeyPath:@"tracks" options:0 context:nil];
+    } else if ([_mediaObject isKindOfClass:[MLAlbumTrack class]]) {
+        [_mediaObject addObserver:self forKeyPath:@"unread" options:0 context:nil];
+        [_mediaObject addObserver:self forKeyPath:@"artist" options:0 context:nil];
+        [_mediaObject addObserver:self forKeyPath:@"title" options:0 context:nil];
+        [_mediaObject addObserver:self forKeyPath:@"files" options:0 context:nil];
+        MLFile *anyFileFromTrack = [(MLAlbumTrack *)_mediaObject files].anyObject;
+        [anyFileFromTrack addObserver:self forKeyPath:@"artworkURL" options:0 context:nil];
     } else if ([_mediaObject isKindOfClass:[MLFile class]]) {
         [_mediaObject addObserver:self forKeyPath:@"computedThumbnail" options:0 context:nil];
         [_mediaObject addObserver:self forKeyPath:@"lastPosition" options:0 context:nil];
