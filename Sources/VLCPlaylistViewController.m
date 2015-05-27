@@ -1470,56 +1470,17 @@ static NSString *kUsingTableViewToShowData = @"UsingTableViewToShowData";
         item = _foundMedia[i];
 
         if ([item isKindOfClass:[MLAlbum class]]) {
-            nameRange = [[(MLAlbum*)item name] rangeOfString:searchString options:NSCaseInsensitiveSearch];
-
-            if (nameRange.location == NSNotFound) {
-                NSString *releaseYear = [(MLAlbum *)item releaseYear];
-                if (releaseYear)
-                    nameRange = [releaseYear rangeOfString:searchString options:NSCaseInsensitiveSearch];
-
-                /* user didn't search for our album name or year, let's do a deeper search */
-                if (nameRange.location == NSNotFound) {
-                    NSArray *tracks = [(MLAlbum*)item sortedTracks];
-                    NSUInteger trackCount = tracks.count;
-                    for (NSUInteger x = 0; x < trackCount; x++) {
-                        nameRange = [self _processItem:tracks[x] withString:searchString];
-                        if (nameRange.location != NSNotFound)
-                            break;
-                    }
-                }
-            }
+            nameRange = [self _searchAlbum:(MLAlbum *)item forString:searchString];
+        } else if ([item isKindOfClass:[MLAlbumTrack class]]) {
+            nameRange = [self _searchAlbumTrack:(MLAlbumTrack *)item forString:searchString];
+        } else if ([item isKindOfClass:[MLShowEpisode class]]) {
+            nameRange = [self _searchShowEpisode:(MLShowEpisode *)item forString:searchString];
         } else if ([item isKindOfClass:[MLShow class]]) {
-            nameRange = [[(MLShow*)item name] rangeOfString:searchString options:NSCaseInsensitiveSearch];
-
-            /* user didn't search for our show name, let's do a deeper search */
-            if (nameRange.location == NSNotFound) {
-                NSArray *episodes = [(MLShow*)item sortedEpisodes];
-                NSUInteger episodeCount = episodes.count;
-                NSString *name;
-                for (NSUInteger x = 0; x < episodeCount; x++) {
-                    name = [(MLShowEpisode*)episodes[x] name];
-                    if (name)
-                        nameRange = [name rangeOfString:searchString options:NSCaseInsensitiveSearch];
-                    if (nameRange.location != NSNotFound) {
-                        break;
-                    }
-                }
-            }
-        } else if ([item isKindOfClass:[MLLabel class]]) {
-            nameRange = [[(MLLabel*)item name] rangeOfString:searchString options:NSCaseInsensitiveSearch];
-
-            /* user didn't search for our label name, let's do a deeper search */
-            if (nameRange.location == NSNotFound) {
-                NSArray *files = [(MLLabel*)item sortedFolderItems];
-                NSUInteger fileCount = files.count;
-                for (NSUInteger x = 0; x < fileCount; x++) {
-                    nameRange = [self _processItem:files[x] withString:searchString];
-                    if (nameRange.location != NSNotFound)
-                        break;
-                }
-            }
-        } else // simple file
-            nameRange = [self _processItem:(MLFile*)item withString:searchString];
+            nameRange = [self _searchShow:(MLShow *)item forString:searchString];
+        } else if ([item isKindOfClass:[MLLabel class]])
+            nameRange = [self _searchLabel:(MLLabel *)item forString:searchString];
+        else // simple file
+            nameRange = [self _searchFile:(MLFile*)item forString:searchString];
 
         if (nameRange.location != NSNotFound)
             [_searchData addObject:item];
@@ -1528,19 +1489,176 @@ static NSString *kUsingTableViewToShowData = @"UsingTableViewToShowData";
     return YES;
 }
 
-- (NSRange)_processItem:(NSManagedObject *)file withString:(NSString *)searchString
+- (NSRange)_searchAlbumTrack:(MLAlbumTrack *)albumTrack forString:(NSString *)searchString
 {
-    NSRange nameRange;
-    nameRange = [[(MLFile *)file title] rangeOfString:searchString options:NSCaseInsensitiveSearch];
-    if (nameRange.location == NSNotFound) {
-        NSString *artist = [(MLFile *)file artist];
-        if (artist)
-            nameRange = [artist rangeOfString:searchString options:NSCaseInsensitiveSearch];
-        if (nameRange.location == NSNotFound && ![file isKindOfClass:[MLAlbumTrack class]]) {
-            NSString *releaseYear = [(MLFile *)file releaseYear];
-            if (releaseYear)
-                nameRange = [releaseYear rangeOfString:searchString options:NSCaseInsensitiveSearch];
+    NSString *trackTitle = albumTrack.title;
+    NSRange nameRange = [trackTitle rangeOfString:searchString options:NSCaseInsensitiveSearch];
+    if (nameRange.location != NSNotFound)
+        return nameRange;
+
+    NSMutableArray *stringsToSearch = [[NSMutableArray alloc] initWithObjects:trackTitle, nil];
+    if ([albumTrack artist])
+        [stringsToSearch addObject:[albumTrack artist]];
+    if ([albumTrack genre])
+        [stringsToSearch addObject:[albumTrack genre]];
+
+    NSArray *substrings = [searchString componentsSeparatedByString:@" "];
+    NSUInteger substringCount = substrings.count;
+    NSUInteger searchStringCount = stringsToSearch.count;
+
+    for (NSUInteger x = 0; x < substringCount; x++) {
+        for (NSUInteger y = 0; y < searchStringCount; y++) {
+            nameRange = [stringsToSearch[y] rangeOfString:substrings[x] options:NSCaseInsensitiveSearch];
+            if (nameRange.location != NSNotFound)
+                break;
         }
+        if (nameRange.location != NSNotFound)
+            break;
+    }
+    return nameRange;
+}
+
+- (NSRange)_searchAlbum:(MLAlbum *)album forString:(NSString *)searchString
+{
+    NSString *albumName = [album name];
+    NSRange nameRange = [albumName rangeOfString:searchString options:NSCaseInsensitiveSearch];
+    if (nameRange.location != NSNotFound)
+        return nameRange;
+
+    if ([album releaseYear]) {
+        nameRange = [[album releaseYear] rangeOfString:searchString options:NSCaseInsensitiveSearch];
+        if (nameRange.location != NSNotFound)
+            return nameRange;
+    }
+
+    /* split search string into substrings and try again */
+    NSArray *substrings = [searchString componentsSeparatedByString:@" "];
+    NSUInteger substringCount = substrings.count;
+    if (substringCount > 1) {
+        for (NSUInteger x = 0; x < substringCount; x++) {
+            nameRange = [searchString rangeOfString:substrings[x] options:NSCaseInsensitiveSearch];
+            if (nameRange.location != NSNotFound)
+                break;
+        }
+    }
+
+    if (nameRange.location != NSNotFound)
+        return nameRange;
+
+    /* search our tracks if we can't find what the user is looking for */
+    NSArray *tracks = [album sortedTracks];
+    NSUInteger trackCount = tracks.count;
+    for (NSUInteger x = 0; x < trackCount; x++) {
+        nameRange = [self _searchAlbumTrack:tracks[x] forString:searchString];
+        if (nameRange.location != NSNotFound)
+            break;
+    }
+    return nameRange;
+}
+
+- (NSRange)_searchShowEpisode:(MLShowEpisode *)episode forString:(NSString *)searchString
+{
+    /* basic search first, then try more complex things */
+    NSString *episodeName = [episode name];
+    NSRange nameRange;
+
+    if (episodeName) {
+        nameRange = [episodeName rangeOfString:searchString options:NSCaseInsensitiveSearch];
+        if (nameRange.location != NSNotFound)
+            return nameRange;
+    }
+
+    /* split search string into substrings and try again */
+    NSArray *substrings = [searchString componentsSeparatedByString:@" "];
+    NSUInteger substringCount = substrings.count;
+    if (substringCount > 1) {
+        for (NSUInteger x = 0; x < substringCount; x++) {
+            nameRange = [searchString rangeOfString:substrings[x] options:NSCaseInsensitiveSearch];
+            if (nameRange.location != NSNotFound)
+                break;
+        }
+    }
+
+    return nameRange;
+}
+
+- (NSRange)_searchShow:(MLShow *)mediaShow forString:(NSString *)searchString
+{
+    /* basic search first, then try more complex things */
+    NSRange nameRange = [[mediaShow name] rangeOfString:searchString options:NSCaseInsensitiveSearch];
+
+    if (nameRange.location != NSNotFound)
+        return nameRange;
+
+    /* split search string into substrings and try again */
+    NSArray *substrings = [searchString componentsSeparatedByString:@" "];
+    NSUInteger substringCount = substrings.count;
+    if (substringCount > 1) {
+        for (NSUInteger x = 0; x < substringCount; x++) {
+            nameRange = [searchString rangeOfString:substrings[x] options:NSCaseInsensitiveSearch];
+            if (nameRange.location != NSNotFound)
+                break;
+        }
+    }
+    if (nameRange.location != NSNotFound)
+        return nameRange;
+
+    /* user didn't search for our show name, let's do a deeper search on the episodes */
+    NSArray *episodes = [mediaShow sortedEpisodes];
+    NSUInteger episodeCount = episodes.count;
+    for (NSUInteger x = 0; x < episodeCount; x++)
+        nameRange = [self _searchShowEpisode:episodes[x] forString:searchString];
+
+    return nameRange;
+}
+
+- (NSRange)_searchLabel:(MLLabel *)mediaLabel forString:(NSString *)searchString
+{
+    /* basic search first, then try more complex things */
+    NSRange nameRange = [[mediaLabel name] rangeOfString:searchString options:NSCaseInsensitiveSearch];
+
+    if (nameRange.location != NSNotFound)
+        return nameRange;
+
+    /* user didn't search for our label name, let's do a deeper search */
+    NSArray *files = [mediaLabel sortedFolderItems];
+    NSUInteger fileCount = files.count;
+    for (NSUInteger x = 0; x < fileCount; x++) {
+        nameRange = [self _searchFile:files[x] forString:searchString];
+        if (nameRange.location != NSNotFound)
+            break;
+    }
+    return nameRange;
+}
+
+- (NSRange)_searchFile:(MLFile *)mediaFile forString:(NSString *)searchString
+{
+    /* basic search first, then try more complex things */
+    NSRange nameRange = [[mediaFile title] rangeOfString:searchString options:NSCaseInsensitiveSearch];
+    if (nameRange.location != NSNotFound)
+        return nameRange;
+
+    NSMutableArray *stringsToSearch = [[NSMutableArray alloc] initWithObjects:[mediaFile title], nil];
+    if ([mediaFile artist])
+        [stringsToSearch addObject:[mediaFile artist]];
+    if ([mediaFile releaseYear])
+        [stringsToSearch addObject:[mediaFile releaseYear]];
+
+    NSArray *substrings = [searchString componentsSeparatedByString:@" "];
+    NSUInteger substringCount = substrings.count;
+    NSUInteger searchStringCount = stringsToSearch.count;
+
+    NSLog(@"substrings: %@", substrings);
+    NSLog(@"strings to search %@", stringsToSearch);
+
+    for (NSUInteger x = 0; x < substringCount; x++) {
+        for (NSUInteger y = 0; y < searchStringCount; y++) {
+            nameRange = [stringsToSearch[y] rangeOfString:substrings[x] options:NSCaseInsensitiveSearch];
+            if (nameRange.location != NSNotFound)
+                break;
+        }
+        if (nameRange.location != NSNotFound)
+            break;
     }
 
     return nameRange;
