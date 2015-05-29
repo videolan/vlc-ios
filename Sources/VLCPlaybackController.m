@@ -49,6 +49,7 @@
 
     BOOL _needsMetadataUpdate;
     BOOL _mediaWasJustStarted;
+    BOOL _recheckForExistingThumbnail;
 }
 
 @end
@@ -364,25 +365,76 @@
 
 - (void)_savePlaybackState
 {
-    if (self.fileFromMediaLibrary) {
-        @try {
-            MLFile *item = self.fileFromMediaLibrary;
-            item.lastPosition = @([_mediaPlayer position]);
-            item.lastAudioTrack = @(_mediaPlayer.currentAudioTrackIndex);
-            item.lastSubtitleTrack = @(_mediaPlayer.currentVideoSubTitleIndex);
-        }
-        @catch (NSException *exception) {
-            APLog(@"failed to save current media state - file removed?");
-        }
-    } else {
+    MLFile *fileItem = self.fileFromMediaLibrary;
+
+    if (!fileItem) {
         NSArray *files = [MLFile fileForURL:_mediaPlayer.media.url];
-        if (files.count > 0) {
-            MLFile *fileFromList = files.firstObject;
-            fileFromList.lastPosition = @([_mediaPlayer position]);
-            fileFromList.lastAudioTrack = @(_mediaPlayer.currentAudioTrackIndex);
-            fileFromList.lastSubtitleTrack = @(_mediaPlayer.currentVideoSubTitleIndex);
-        }
+        if (files.count > 0)
+            fileItem = files.firstObject;
     }
+
+    if (!fileItem)
+        return;
+
+    @try {
+        float position = _mediaPlayer.position;
+        fileItem.lastPosition = @(position);
+        fileItem.lastAudioTrack = @(_mediaPlayer.currentAudioTrackIndex);
+        fileItem.lastSubtitleTrack = @(_mediaPlayer.currentVideoSubTitleIndex);
+
+        if (position > .95)
+            return;
+
+        NSArray *searchPaths = NSSearchPathForDirectoriesInDomains(NSCachesDirectory, NSUserDomainMask, YES);
+        NSString* newThumbnailPath = [searchPaths[0] stringByAppendingPathComponent:@"VideoSnapshots"];
+        NSFileManager *fileManager = [NSFileManager defaultManager];
+
+        if (![fileManager fileExistsAtPath:newThumbnailPath])
+            [fileManager createDirectoryAtPath:newThumbnailPath withIntermediateDirectories:YES attributes:nil error:nil];
+
+        newThumbnailPath = [newThumbnailPath stringByAppendingPathComponent:fileItem.objectID.URIRepresentation.lastPathComponent];
+        [_mediaPlayer saveVideoSnapshotAt:newThumbnailPath withWidth:0 andHeight:0];
+
+        _recheckForExistingThumbnail = YES;
+        [self performSelector:@selector(_updateStoredThumbnailForFile:) withObject:fileItem afterDelay:.25];
+    }
+    @catch (NSException *exception) {
+        APLog(@"failed to save current media state - file removed?");
+    }
+}
+
+- (void)_updateStoredThumbnailForFile:(MLFile *)fileItem
+{
+    NSFileManager *fileManager = [NSFileManager defaultManager];
+    NSArray *searchPaths = NSSearchPathForDirectoriesInDomains(NSCachesDirectory, NSUserDomainMask, YES);
+    NSString* newThumbnailPath = [searchPaths[0] stringByAppendingPathComponent:@"VideoSnapshots"];
+    newThumbnailPath = [newThumbnailPath stringByAppendingPathComponent:fileItem.objectID.URIRepresentation.lastPathComponent];
+
+    if (![fileManager fileExistsAtPath:newThumbnailPath]) {
+        if (_recheckForExistingThumbnail) {
+            [self performSelector:@selector(_updateStoredThumbnailForFile:) withObject:fileItem afterDelay:1.];
+            _recheckForExistingThumbnail = NO;
+        } else
+            return;
+    }
+
+    UIImage *newThumbnail = [UIImage imageWithContentsOfFile:newThumbnailPath];
+    if (!newThumbnail) {
+        if (_recheckForExistingThumbnail) {
+            [self performSelector:@selector(_updateStoredThumbnailForFile:) withObject:fileItem afterDelay:1.];
+            _recheckForExistingThumbnail = NO;
+        } else
+            return;
+    }
+
+    @try {
+        [fileItem setComputedThumbnailScaledForDevice:newThumbnail];
+    }
+    @catch (NSException *exception) {
+        APLog(@"updating thumbnail failed");
+    }
+
+    [fileManager removeItemAtPath:newThumbnailPath error:nil];
 }
 
 - (void)observeValueForKeyPath:(NSString *)keyPath ofObject:(id)object change:(NSDictionary *)change context:(void *)context
@@ -505,9 +557,10 @@
 #pragma mark - playback controls
 - (void)playPause
 {
-    if ([_mediaPlayer isPlaying])
+    if ([_mediaPlayer isPlaying]) {
         [_listPlayer pause];
-    else
+        [self _savePlaybackState];
+    } else
         [_listPlayer play];
 }
 

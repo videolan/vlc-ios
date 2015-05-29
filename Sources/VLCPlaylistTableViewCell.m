@@ -93,6 +93,7 @@
         [_mediaObject removeObserver:self forKeyPath:@"album"];
         [_mediaObject removeObserver:self forKeyPath:@"artist"];
         [_mediaObject removeObserver:self forKeyPath:@"genre"];
+        [[NSNotificationCenter defaultCenter] removeObserver:self];
         [(MLFile*)_mediaObject didHide];
     }
 }
@@ -131,6 +132,10 @@
         [_mediaObject addObserver:self forKeyPath:@"album" options:0 context:nil];
         [_mediaObject addObserver:self forKeyPath:@"artist" options:0 context:nil];
         [_mediaObject addObserver:self forKeyPath:@"genre" options:0 context:nil];
+        [[NSNotificationCenter defaultCenter] addObserver:self
+                                                 selector:@selector(thumbnailWasUpdated:)
+                                                     name:MLFileThumbnailWasUpdated
+                                                   object:nil];
         [(MLFile*)_mediaObject willDisplay];
     }
 }
@@ -523,6 +528,12 @@
 
     NSTimeInterval animationDuration = .2;
     [UIView animateWithDuration:animationDuration animations:animationBlock completion:completionBlock];
+}
+
+- (void)thumbnailWasUpdated:(NSNotification *)aNotification
+{
+    self.thumbnailView.contentMode = UIViewContentModeScaleAspectFill;
+    self.thumbnailView.image = [VLCThumbnailsCache thumbnailForManagedObject:self.mediaObject refreshCache:YES];
 }
 
 @end
