@@ -16,6 +16,8 @@
 
 + (UIImage *)thumbnailForManagedObject:(NSManagedObject *)object;
 
++ (UIImage *)thumbnailForManagedObject:(NSManagedObject *)object refreshCache:(BOOL)refreshCache;
+
 + (UIImage *)thumbnailForManagedObject:(NSManagedObject *)object toFitRect:(CGRect)rect shouldReplaceCache:(BOOL)replaceCache;
 
 @end

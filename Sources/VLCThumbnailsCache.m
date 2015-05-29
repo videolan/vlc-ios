@@ -75,21 +75,27 @@
 
 + (UIImage *)thumbnailForManagedObject:(NSManagedObject *)object
 {
+    return [self thumbnailForManagedObject:object refreshCache:NO];
+}
+
++ (UIImage *)thumbnailForManagedObject:(NSManagedObject *)object
+                          refreshCache:(BOOL)refreshCache
+{
     UIImage *thumbnail;
     VLCThumbnailsCache *cache = [VLCThumbnailsCache sharedThumbnailCache];
     if ([object isKindOfClass:[MLShow class]]) {
-        thumbnail = [cache thumbnailForShow:(MLShow *)object];
+        thumbnail = [cache thumbnailForShow:(MLShow *)object refreshCache:refreshCache];
     } else if ([object isKindOfClass:[MLShowEpisode class]]) {
         MLFile *anyFileFromEpisode = [(MLShowEpisode *)object files].anyObject;
-        thumbnail = [cache thumbnailForMediaFile:anyFileFromEpisode];
+        thumbnail = [cache thumbnailForMediaFile:anyFileFromEpisode refreshCache:refreshCache];
     } else if ([object isKindOfClass:[MLLabel class]]) {
-        thumbnail = [cache thumbnailForLabel:(MLLabel *)object];
+        thumbnail = [cache thumbnailForLabel:(MLLabel *)object refreshCache:refreshCache];
     } else if ([object isKindOfClass:[MLAlbum class]]) {
-        thumbnail = [cache thumbnailForAlbum:(MLAlbum *)object];
+        thumbnail = [cache thumbnailForAlbum:(MLAlbum *)object refreshCache:refreshCache];
     } else if ([object isKindOfClass:[MLAlbumTrack class]]) {
-        thumbnail = [cache thumbnailForAlbumTrack:(MLAlbumTrack *)object];
+        thumbnail = [cache thumbnailForAlbumTrack:(MLAlbumTrack *)object refreshCache:refreshCache];
     } else {
-        thumbnail = [cache thumbnailForMediaFile:(MLFile *)object];
+        thumbnail = [cache thumbnailForMediaFile:(MLFile *)object refreshCache:refreshCache];
     }
     return thumbnail;
 }
@@ -117,16 +123,19 @@
         [_thumbnailCache setObject:image forKey:objID];
 }
 
-- (UIImage *)thumbnailForMediaFile:(MLFile *)mediaFile
+- (UIImage *)thumbnailForMediaFile:(MLFile *)mediaFile refreshCache:(BOOL)refreshCache
 {
     if (mediaFile == nil || mediaFile.objectID == nil)
         return nil;
 
     NSManagedObjectID *objID = mediaFile.objectID;
-    UIImage *displayedImage = [_thumbnailCache objectForKey:objID];
+    UIImage *displayedImage;
 
-    if (displayedImage)
-        return displayedImage;
+    if (!refreshCache) {
+        displayedImage = [_thumbnailCache objectForKey:objID];
+        if (displayedImage)
+            return displayedImage;
+    }
 
     if (!displayedImage) {
         __block UIImage *computedImage = nil;
@@ -146,7 +155,7 @@
     return displayedImage;
 }
 
-- (UIImage *)thumbnailForShow:(MLShow *)mediaShow
+- (UIImage *)thumbnailForShow:(MLShow *)mediaShow refreshCache:(BOOL)refreshCache
 {
     NSManagedObjectID *objID = mediaShow.objectID;
     UIImage *displayedImage;
@@ -156,6 +165,9 @@
     NSNumber *previousCount = [_thumbnailCacheMetadata objectForKey:objID];
 
     if (previousCount.unsignedIntegerValue != count)
+        forceRefresh = YES;
+
+    if (refreshCache)
         forceRefresh = YES;
 
     if (!forceRefresh) {
@@ -183,7 +195,7 @@
     return displayedImage;
 }
 
-- (UIImage *)thumbnailForLabel:(MLLabel *)mediaLabel
+- (UIImage *)thumbnailForLabel:(MLLabel *)mediaLabel refreshCache:(BOOL)refreshCache
 {
     NSManagedObjectID *objID = mediaLabel.objectID;
     UIImage *displayedImage;
@@ -193,6 +205,9 @@
     NSNumber *previousCount = [_thumbnailCacheMetadata objectForKey:objID];
 
     if (previousCount.unsignedIntegerValue != count)
+        forceRefresh = YES;
+
+    if (refreshCache)
         forceRefresh = YES;
 
     if (!forceRefresh) {
@@ -215,7 +230,7 @@
     return displayedImage;
 }
 
-- (UIImage *)thumbnailForAlbum:(MLAlbum *)album
+- (UIImage *)thumbnailForAlbum:(MLAlbum *)album refreshCache:(BOOL)refreshCache
 {
     __block MLAlbumTrack *track = nil;
     void (^getFileBlock)(void) = ^(){
@@ -226,10 +241,10 @@
     else
         dispatch_sync(dispatch_get_main_queue(), getFileBlock);
 
-    return [self thumbnailForAlbumTrack:track];
+    return [self thumbnailForAlbumTrack:track refreshCache:refreshCache];
 }
 
-- (UIImage *)thumbnailForAlbumTrack:(MLAlbumTrack *)albumTrack
+- (UIImage *)thumbnailForAlbumTrack:(MLAlbumTrack *)albumTrack refreshCache:(BOOL)refreshCache
 {
     __block MLFile *anyFileFromAnyTrack = nil;
     void (^getFileBlock)(void) = ^(){
@@ -239,7 +254,7 @@
         getFileBlock();
     else
         dispatch_sync(dispatch_get_main_queue(), getFileBlock);
-    return [self thumbnailForMediaFile:anyFileFromAnyTrack];
+    return [self thumbnailForMediaFile:anyFileFromAnyTrack refreshCache:refreshCache];
 }
 
 - (UIImage *)clusterThumbFromFiles:(NSArray *)files andNumber:(NSUInteger)fileNumber blur:(BOOL)blurImage
@@ -276,7 +291,7 @@
     NSUInteger iter = files.count < fileNumber ? files.count : fileNumber;
     for (NSUInteger i = 0; i < iter; i++) {
         MLFile *file =  [files objectAtIndex:i];
-        clusterThumb = [self thumbnailForMediaFile:file];
+        clusterThumb = [self thumbnailForMediaFile:file refreshCache:NO];
         CGContextRef context = UIGraphicsGetCurrentContext();
         CGFloat imagePartWidth = (imageSize.width / iter);
         //the rect in which the image should be drawn
