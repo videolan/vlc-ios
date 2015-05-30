@@ -9,11 +9,16 @@
 * Improved remote command support
 * Improved thumbnail generation
 * Improved thumbnail and web interface performance on devices with A5 CPU and above
+* Thumbnail displayed in the media library are updated to the last playback position (#14462)
+* Improved reliability when sharing media library on the local network
+* Improved media library search delivering more accurate results (#14593)
+* Fixed 'crop to fill screen' on iPad (#14575)
+* Fixed issue which prevented downloading of a few files via UPnP (#11123)
 * Fixed crash when playing media from a folder or music album on iPad (#14394)
-* Fixed crash when app goes to background while a video is playing
+* Fixed crash when app goes to background while a video is playing (#14643)
 * Fixed privacy leak when using a passcode to protect the library (#14159, #14615)
 * Removed stray popup announcing VLC's crash all the time while it actually
-  didn't crash before, but terminated by the user
+  didn't crash before, but terminated by the user (#13194)
 * Various small fixes and minor performance improvements (e.g. #14588)
 
 2.5.1:
