@@ -1264,6 +1264,8 @@
 		7D31CF061746AEF2005997E0 /* UI Elements */ = {
 			isa = PBXGroup;
 			children = (
+				7D9561091AF3E9E800779745 /* VLCMiniPlaybackView.h */,
+				7D95610A1AF3E9E800779745 /* VLCMiniPlaybackView.m */,
 				9BADAF43185FBD9D00108BD8 /* VLCFrostedGlasView.h */,
 				9BADAF44185FBD9D00108BD8 /* VLCFrostedGlasView.m */,
 				7D3784B2183A9938009EE944 /* UIBarButtonItem+Theme.h */,
@@ -1356,8 +1358,6 @@
 				DD8F84301B00EB3B0009138A /* VLCPlaybackController+MediaLibrary.m */,
 				7D37848D183A98B6009EE944 /* VLCMovieViewController.h */,
 				7D37848E183A98B6009EE944 /* VLCMovieViewController.m */,
-				7D9561091AF3E9E800779745 /* VLCMiniPlaybackView.h */,
-				7D95610A1AF3E9E800779745 /* VLCMiniPlaybackView.m */,
 				7D378490183A98BF009EE944 /* VLCExternalDisplayController.h */,
 				7D378491183A98BF009EE944 /* VLCExternalDisplayController.m */,
 				7D4625861A5614A1001A80B4 /* VLCEqualizerView.h */,
