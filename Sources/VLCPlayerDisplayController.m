@@ -258,7 +258,7 @@ static inline void commonSetup(VLCPlayerDisplayController *self)
             VLCMiniPlaybackView *miniPlaybackView = self.miniPlaybackView;
             if (miniPlaybackView.visible == NO) {
                 [miniPlaybackView removeFromSuperview];
-                miniPlaybackView = nil;
+                self.miniPlaybackView = nil;
             }
         };
     }
