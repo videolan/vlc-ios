@@ -176,9 +176,15 @@ typedef NS_ENUM(NSInteger, VLCPanType) {
     _videoFilterButtonLandscape.isAccessibilityElement = YES;
     _resetVideoFilterButton.accessibilityLabel = NSLocalizedString(@"VIDEO_FILTER_RESET_BUTTON", nil);
     _resetVideoFilterButton.isAccessibilityElement = YES;
+    UILongPressGestureRecognizer *longPressRecognizer = [[UILongPressGestureRecognizer alloc] initWithTarget:self action:@selector(playPauseLongPress:)];
+    [_playPauseButton addGestureRecognizer:longPressRecognizer];
     _playPauseButton.accessibilityLabel = NSLocalizedString(@"PLAY_PAUSE_BUTTON", nil);
+    _playPauseButton.accessibilityHint = NSLocalizedString(@"LONGPRESS_TO_STOP", nil);
     _playPauseButton.isAccessibilityElement = YES;
+    UILongPressGestureRecognizer *longPressRecognizerLandscape = [[UILongPressGestureRecognizer alloc] initWithTarget:self action:@selector(playPauseLongPress:)];
+    [_playPauseButton addGestureRecognizer:longPressRecognizerLandscape];
     _playPauseButtonLandscape.accessibilityLabel = NSLocalizedString(@"PLAY_PAUSE_BUTTON", nil);
+    _playPauseButtonLandscape.accessibilityHint = NSLocalizedString(@"LONGPRESS_TO_STOP", nil);
     _playPauseButtonLandscape.isAccessibilityElement = YES;
     _bwdButton.accessibilityLabel = NSLocalizedString(@"BWD_BUTTON", nil);
     _bwdButton.isAccessibilityElement = YES;
@@ -740,6 +746,35 @@ typedef NS_ENUM(NSInteger, VLCPanType) {
     [self _resetIdleTimer];
 }
 
+- (void)playPauseLongPress:(UILongPressGestureRecognizer *)recognizer
+{
+    switch (recognizer.state) {
+        case UIGestureRecognizerStateBegan:
+        {   UIImage *image = [UIImage imageNamed:@"stopIcon"];
+            [_playPauseButton setImage:image forState:UIControlStateNormal];
+            [_playPauseButtonLandscape setImage:image forState:UIControlStateNormal];
+        }
+            break;
+        case UIGestureRecognizerStateEnded:
+            [self.playbackController stopPlayback];
+            break;
+        case UIGestureRecognizerStateCancelled:
+        case UIGestureRecognizerStateFailed:
+            [self updatePlayPauseButton];
+            break;
+        default:
+            break;
+    }
+}
+
+- (void)updatePlayPauseButton
+{
+    const BOOL isPlaying = self.playbackController.isPlaying;
+    UIImage *playPauseImage = isPlaying ? [UIImage imageNamed:@"pauseIcon"] : [UIImage imageNamed:@"playIcon"];
+    [_playPauseButton setImage:playPauseImage forState:UIControlStateNormal];
+    [_playPauseButtonLandscape setImage:playPauseImage forState:UIControlStateNormal];
+}
+
 #pragma mark - playback controller delegation
 
 - (VLCPlaybackController *)playbackController
@@ -806,9 +841,7 @@ currentMediaHasTrackToChooseFrom:(BOOL)currentMediaHasTrackToChooseFrom
     if (currentState == VLCMediaPlayerStateError)
         [self.statusLabel showStatusMessage:NSLocalizedString(@"PLAYBACK_FAILED", nil)];
 
-    UIImage *playPauseImage = isPlaying ? [UIImage imageNamed:@"pauseIcon"] : [UIImage imageNamed:@"playIcon"];
-    [_playPauseButton setImage:playPauseImage forState:UIControlStateNormal];
-    [_playPauseButtonLandscape setImage:playPauseImage forState:UIControlStateNormal];
+    [self updatePlayPauseButton];
 
     if (currentMediaHasTrackToChooseFrom) {
         self.trackSwitcherButton.hidden = NO;
