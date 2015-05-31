@@ -34,6 +34,7 @@
 #import "VLCWatchMessage.h"
 #import "VLCPlaybackController+MediaLibrary.h"
 #import "VLCPlayerDisplayController.h"
+#import <MediaPlayer/MediaPlayer.h>
 
 #define HAVE_FABRIC 0
 
