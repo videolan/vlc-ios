@@ -67,7 +67,12 @@
     [_playPauseButton sizeToFit];
     _playPauseButton.autoresizingMask = UIViewAutoresizingFlexibleLeftMargin;
     [_playPauseButton addTarget:self action:@selector(playPauseAction:) forControlEvents:UIControlEventTouchUpInside];
+    _playPauseButton.accessibilityLabel = NSLocalizedString(@"PLAY_PAUSE_BUTTON", nil);
+    _playPauseButton.accessibilityHint = NSLocalizedString(@"LONGPRESS_TO_STOP", nil);
+    _playPauseButton.isAccessibilityElement = YES;
     _playPauseButton.frame = previousRect = CGRectMake(previousRect.origin.x - buttonSize, (viewFrame.size.height - buttonSize) / 2., buttonSize, buttonSize);
+    UILongPressGestureRecognizer *longPressRecognizer = [[UILongPressGestureRecognizer alloc] initWithTarget:self action:@selector(playPauseLongPress:)];
+    [_playPauseButton addGestureRecognizer:longPressRecognizer];
     [self addSubview:_playPauseButton];
 
     _previousButton = [UIButton buttonWithType:UIButtonTypeCustom];
@@ -99,6 +104,24 @@
     [self.playbackController playPause];
 }
 
+- (void)playPauseLongPress:(UILongPressGestureRecognizer *)recognizer
+{
+    switch (recognizer.state) {
+        case UIGestureRecognizerStateBegan:
+            [_playPauseButton setImage:[UIImage imageNamed:@"stopIcon"] forState:UIControlStateNormal];
+            break;
+        case UIGestureRecognizerStateEnded:
+            [self.playbackController stopPlayback];
+            break;
+        case UIGestureRecognizerStateCancelled:
+        case UIGestureRecognizerStateFailed:
+            [self updatePlayPauseButton];
+            break;
+        default:
+            break;
+    }
+}
+
 - (void)nextAction:(id)sender
 {
     [self.playbackController forward];
@@ -109,13 +132,18 @@
     [[UIApplication sharedApplication] sendAction:@selector(showFullscreenPlayback) to:nil from:self forEvent:nil];
 }
 
+
+- (void)updatePlayPauseButton
+{
+    const BOOL isPlaying = self.playbackController.isPlaying;
+    UIImage *playPauseImage = isPlaying ? [UIImage imageNamed:@"pauseIcon"] : [UIImage imageNamed:@"playIcon"];
+    [_playPauseButton setImage:playPauseImage forState:UIControlStateNormal];
+}
+
 - (void)setupForWork:(VLCPlaybackController *)playbackController
 {
     self.playbackController = playbackController;
-    if (playbackController.isPlaying)
-        [_playPauseButton setImage:[UIImage imageNamed:@"pauseIcon"] forState:UIControlStateNormal];
-    else
-        [_playPauseButton setImage:[UIImage imageNamed:@"playIcon"] forState:UIControlStateNormal];
+    [self updatePlayPauseButton];
     playbackController.delegate = self;
     [playbackController recoverDisplayedMetadata];
 }
@@ -126,8 +154,7 @@ currentMediaHasTrackToChooseFrom:(BOOL)currentMediaHasTrackToChooseFrom
         currentMediaHasChapters:(BOOL)currentMediaHasChapters
           forPlaybackController:(VLCPlaybackController *)controller
 {
-    UIImage *playPauseImage = isPlaying ? [UIImage imageNamed:@"pauseIcon"] : [UIImage imageNamed:@"playIcon"];
-    [_playPauseButton setImage:playPauseImage forState:UIControlStateNormal];
+    [self updatePlayPauseButton];
 }
 
 - (void)displayMetadataForPlaybackController:(VLCPlaybackController *)controller
