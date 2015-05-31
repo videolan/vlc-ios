@@ -128,6 +128,7 @@
 		7D3EB014174A353E002062C2 /* SystemConfiguration.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 7D3EB013174A353E002062C2 /* SystemConfiguration.framework */; };
 		7D4625881A5614A1001A80B4 /* VLCEqualizerView.m in Sources */ = {isa = PBXBuildFile; fileRef = 7D4625871A5614A1001A80B4 /* VLCEqualizerView.m */; };
 		7D50903218F41C7900180139 /* VLCAlertView.m in Sources */ = {isa = PBXBuildFile; fileRef = 7D50903118F41C7900180139 /* VLCAlertView.m */; };
+		7D54ECA91B1B3F370025BE2D /* MediaLibrary.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = DDC7BFAF1B03829100160878 /* MediaLibrary.xcdatamodeld */; };
 		7D5CAA891A4AD763003F2CBC /* VLCTrackSelectorTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 7D5CAA881A4AD763003F2CBC /* VLCTrackSelectorTableViewCell.m */; };
 		7D5CAA8C1A4AD8E5003F2CBC /* VLCTrackSelectorHeaderView.m in Sources */ = {isa = PBXBuildFile; fileRef = 7D5CAA8B1A4AD8E5003F2CBC /* VLCTrackSelectorHeaderView.m */; };
 		7D5DD5C717590ABF001421E3 /* About Contents.html in Resources */ = {isa = PBXBuildFile; fileRef = 7D5DD5C617590ABF001421E3 /* About Contents.html */; };
@@ -2073,6 +2074,7 @@
 				7D298F451AD58A0700A0BF68 /* UIImage+Blur.m in Sources */,
 				7D871F521AD7257100348D27 /* UIImage+Scaling.m in Sources */,
 				DDE490731ACE964200B1B5E3 /* VLCBaseInterfaceController.m in Sources */,
+				7D54ECA91B1B3F370025BE2D /* MediaLibrary.xcdatamodeld in Sources */,
 				DDE4906C1ACDB63F00B1B5E3 /* VLCNotificationRelay.m in Sources */,
 				DD7110F11AF38B2B00854776 /* MLMediaLibrary+playlist.m in Sources */,
 				DD670C971AFBEED400A2D7AB /* MappingModel_2_5_to_2_6.xcmappingmodel in Sources */,
