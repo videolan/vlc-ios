@@ -1,0 +1,27 @@
+"NOW_PLAYING"="Sekarang Diputar";
+"PLAY_NOW"="Putar Sekarang";
+"PLAYING"="Sedang memutar";
+"PAUSED"="Jeda";
+"DETAIL"="Perinci";
+"LIBRARY_ALL_FILES"="Semua Berkas";
+"LIBRARY_MUSIC"="Album Musik";
+"LIBRARY_SERIES"="Acara TV";
+"EMPTY_LIBRARY"="Pustaka Media Kosong";
+
+"BWD_BUTTON"="Lompat Mundur";
+"FWD_BUTTON"="Lompat Maju";
+"PLAY_BUTTON"="Putar";
+"PAUSE_BUTTON"="Jeda";
+
+"VOLUME"="Volume";
+"DURATION"="Durasi";
+"TITLE"="Judul";
+
+// accessibility labels for the playlist
+"OBJECT_TYPE_SHOW"="Acara";
+"OBJECT_TYPE_SHOW_EPISODE"="Episode acara";
+"OBJECT_TYPE_LABEL"="Folder";
+"OBJECT_TYPE_ALBUM"="Album";
+"OBJECT_TYPE_ALBUM_TRACK"="Trek album";
+"OBJECT_TYPE_FILE"="Berkas";
+"OBJECT_TYPE_FILE_AUDIO"="Berkas audio";

@@ -10,18 +10,18 @@
 
 "BWD_BUTTON"="Hop tilbage";
 "FWD_BUTTON"="Hop fremad";
-"PLAY_BUTTON"="Play";
+"PLAY_BUTTON"="Afspil";
 "PAUSE_BUTTON"="Pause";
 
-"VOLUME"="Volume";
-"DURATION"="Duration";
-"TITLE"="Title";
+"VOLUME"="Lydstyrke";
+"DURATION"="Varighed";
+"TITLE"="Titel";
 
 // accessibility labels for the playlist
-"OBJECT_TYPE_SHOW"="Show";
-"OBJECT_TYPE_SHOW_EPISODE"="Show episode";
-"OBJECT_TYPE_LABEL"="Folder";
+"OBJECT_TYPE_SHOW"="Udsendelse";
+"OBJECT_TYPE_SHOW_EPISODE"="Udsendelse episode";
+"OBJECT_TYPE_LABEL"="Mappe";
 "OBJECT_TYPE_ALBUM"="Album";
-"OBJECT_TYPE_ALBUM_TRACK"="Album track";
-"OBJECT_TYPE_FILE"="File";
-"OBJECT_TYPE_FILE_AUDIO"="Audio file";
+"OBJECT_TYPE_ALBUM_TRACK"="Albumspor";
+"OBJECT_TYPE_FILE"="Fil";
+"OBJECT_TYPE_FILE_AUDIO"="Lydfil";

@@ -1,0 +1,27 @@
+"NOW_PLAYING"="Kini Dimainkan";
+"PLAY_NOW"="Main Sekarang";
+"PLAYING"="Dimainkan";
+"PAUSED"="Dijeda";
+"DETAIL"="Perincian";
+"LIBRARY_ALL_FILES"="Semua Fail";
+"LIBRARY_MUSIC"="Album Muzik";
+"LIBRARY_SERIES"="Rancangan TV";
+"EMPTY_LIBRARY"="Pustaka Media Kosong";
+
+"BWD_BUTTON"="Lompat Mengundur";
+"FWD_BUTTON"="Lompat Ke Hadapan";
+"PLAY_BUTTON"="Main";
+"PAUSE_BUTTON"="Jeda";
+
+"VOLUME"="Volum";
+"DURATION"="Tempoh";
+"TITLE"="Tajuk";
+
+// accessibility labels for the playlist
+"OBJECT_TYPE_SHOW"="Rancangan";
+"OBJECT_TYPE_SHOW_EPISODE"="Episod rancangan";
+"OBJECT_TYPE_LABEL"="Folder";
+"OBJECT_TYPE_ALBUM"="Album";
+"OBJECT_TYPE_ALBUM_TRACK"="Trek album";
+"OBJECT_TYPE_FILE"="Fail";
+"OBJECT_TYPE_FILE_AUDIO"="Fail audio";

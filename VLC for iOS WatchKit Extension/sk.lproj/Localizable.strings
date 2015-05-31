@@ -1,0 +1,27 @@
+"NOW_PLAYING"="Práve sa prehráva";
+"PLAY_NOW"="Prehrať teraz";
+"PLAYING"="Prehráva sa";
+"PAUSED"="Pozastavené";
+"DETAIL"="Detail";
+"LIBRARY_ALL_FILES"="Všetky súbory";
+"LIBRARY_MUSIC"="Hudobné albumy";
+"LIBRARY_SERIES"="TV show";
+"EMPTY_LIBRARY"="Prázdna knižnica médií";
+
+"BWD_BUTTON"="Preskočiť dozadu";
+"FWD_BUTTON"="Preskočiť dopredu";
+"PLAY_BUTTON"="Prehrať";
+"PAUSE_BUTTON"="Pozastaviť";
+
+"VOLUME"="Hlasitosť";
+"DURATION"="Trvanie";
+"TITLE"="Titul";
+
+// accessibility labels for the playlist
+"OBJECT_TYPE_SHOW"="Show";
+"OBJECT_TYPE_SHOW_EPISODE"="Epizóda show";
+"OBJECT_TYPE_LABEL"="Priečinok";
+"OBJECT_TYPE_ALBUM"="Album";
+"OBJECT_TYPE_ALBUM_TRACK"="Stopa albumu";
+"OBJECT_TYPE_FILE"="Súbor";
+"OBJECT_TYPE_FILE_AUDIO"="Zvukový súbor";

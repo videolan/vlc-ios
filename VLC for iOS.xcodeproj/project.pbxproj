@@ -729,6 +729,12 @@
 		7DB2487118EA1D6E0097ADD2 /* ro */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = ro; path = "ro.lproj/badgeUnread~ipad.png"; sourceTree = "<group>"; };
 		7DB2487218EA1D6E0097ADD2 /* ro */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = ro; path = "ro.lproj/badgeUnread~iphone.png"; sourceTree = "<group>"; };
 		7DB638AA185BC0890003887C /* Images.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; name = Images.xcassets; path = "vlc-ios/Images.xcassets"; sourceTree = "<group>"; };
+		7DB669AB1B1B13C1007B1DEB /* id */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = id; path = id.lproj/Localizable.strings; sourceTree = "<group>"; };
+		7DB669AC1B1B1448007B1DEB /* sk */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = sk; path = sk.lproj/Localizable.strings; sourceTree = "<group>"; };
+		7DB669AD1B1B14F6007B1DEB /* bs */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = bs; path = bs.lproj/Localizable.strings; sourceTree = "<group>"; };
+		7DB669AE1B1B1562007B1DEB /* pl */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = pl; path = pl.lproj/Localizable.strings; sourceTree = "<group>"; };
+		7DB669AF1B1B15D0007B1DEB /* ms */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = ms; path = ms.lproj/Localizable.strings; sourceTree = "<group>"; };
+		7DB669B01B1B1649007B1DEB /* pt-BR */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = "pt-BR"; path = "pt-BR.lproj/Localizable.strings"; sourceTree = "<group>"; };
 		7DB847D51A5871570002DC30 /* VLCOneDriveObject.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = VLCOneDriveObject.h; path = Sources/VLCOneDriveObject.h; sourceTree = SOURCE_ROOT; };
 		7DB847D61A5871570002DC30 /* VLCOneDriveObject.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = VLCOneDriveObject.m; path = Sources/VLCOneDriveObject.m; sourceTree = SOURCE_ROOT; };
 		7DBBF180183AB3B80009A339 /* VLCAppDelegate.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = VLCAppDelegate.h; path = Sources/VLCAppDelegate.h; sourceTree = SOURCE_ROOT; };
@@ -2233,6 +2239,12 @@
 				7D2E27961AD6E583001FFE28 /* it */,
 				7D2E27971AD6E59C001FFE28 /* es */,
 				7D9CB11A1B0360B700C25F3B /* ru */,
+				7DB669AB1B1B13C1007B1DEB /* id */,
+				7DB669AC1B1B1448007B1DEB /* sk */,
+				7DB669AD1B1B14F6007B1DEB /* bs */,
+				7DB669AE1B1B1562007B1DEB /* pl */,
+				7DB669AF1B1B15D0007B1DEB /* ms */,
+				7DB669B01B1B1649007B1DEB /* pt-BR */,
 			);
 			name = Localizable.strings;
 			sourceTree = "<group>";

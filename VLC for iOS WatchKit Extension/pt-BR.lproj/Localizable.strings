@@ -1,0 +1,27 @@
+"NOW_PLAYING"="Reproduzindo";
+"PLAY_NOW"="Reproduzir Agora";
+"PLAYING"="Reproduzindo";
+"PAUSED"="Pausado";
+"DETAIL"="Detalhe";
+"LIBRARY_ALL_FILES"="Todos os Arquivos";
+"LIBRARY_MUSIC"="Álbuns de Músicas";
+"LIBRARY_SERIES"="Programas de TV";
+"EMPTY_LIBRARY"="Biblioteca de Mídias Vazia";
+
+"BWD_BUTTON"="Retroceder a um Ponto";
+"FWD_BUTTON"="Avançar a um Ponto";
+"PLAY_BUTTON"="Reproduzir";
+"PAUSE_BUTTON"="Pausar";
+
+"VOLUME"="Volume";
+"DURATION"="Duração";
+"TITLE"="Título";
+
+// accessibility labels for the playlist
+"OBJECT_TYPE_SHOW"="Apresentação";
+"OBJECT_TYPE_SHOW_EPISODE"="Episódio do programa";
+"OBJECT_TYPE_LABEL"="Pasta";
+"OBJECT_TYPE_ALBUM"="Álbum";
+"OBJECT_TYPE_ALBUM_TRACK"="Trilha do álbum";
+"OBJECT_TYPE_FILE"="Arquivo";
+"OBJECT_TYPE_FILE_AUDIO"="Arquivo de áudio";

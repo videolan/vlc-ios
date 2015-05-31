@@ -1,0 +1,27 @@
+"NOW_PLAYING"="Trenutno Producira";
+"PLAY_NOW"="Produciraj Sada";
+"PLAYING"="Producira se";
+"PAUSED"="Pauzirano";
+"DETAIL"="Detalj";
+"LIBRARY_ALL_FILES"="Sve Datoteke";
+"LIBRARY_MUSIC"="Muzički Albumi";
+"LIBRARY_SERIES"="TV Emisije";
+"EMPTY_LIBRARY"="Isprazni Biblioteku Medija";
+
+"BWD_BUTTON"="Skoči Nazad";
+"FWD_BUTTON"="Skoči Naprijed";
+"PLAY_BUTTON"="Produciraj";
+"PAUSE_BUTTON"="Pauziraj";
+
+"VOLUME"="Glasnoća";
+"DURATION"="Trajanje";
+"TITLE"="Naslov";
+
+// accessibility labels for the playlist
+"OBJECT_TYPE_SHOW"="Emisija";
+"OBJECT_TYPE_SHOW_EPISODE"="Prikaži epizodu";
+"OBJECT_TYPE_LABEL"="Mapa";
+"OBJECT_TYPE_ALBUM"="Album";
+"OBJECT_TYPE_ALBUM_TRACK"="Trag albuma";
+"OBJECT_TYPE_FILE"="Datoteka";
+"OBJECT_TYPE_FILE_AUDIO"="Audio datoteka";
