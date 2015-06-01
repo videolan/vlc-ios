@@ -12,8 +12,8 @@ CONFIGURATION="Release"
 NONETWORK=no
 SKIPLIBVLCCOMPILATION=no
 
-TESTEDVLCKITHASH=bc7775afa96
-TESTEDMEDIALIBRARYKITHASH=92f0e4eea443c4fe
+TESTEDVLCKITHASH=0c8eec04
+TESTEDMEDIALIBRARYKITHASH=f75bde89
 
 usage()
 {
@@ -160,6 +160,7 @@ git branch --set-upstream-to=origin/master localAspenBranch
 cd ..
 else
 cd MediaLibraryKit
+git pull --rebase
 git reset --hard ${TESTEDMEDIALIBRARYKITHASH}
 cd ..
 fi
@@ -170,6 +171,7 @@ git reset --hard ${TESTEDVLCKITHASH}
 cd ..
 else
 cd VLCKit
+git pull --rebase
 git reset --hard ${TESTEDVLCKITHASH}
 cd ..
 fi
