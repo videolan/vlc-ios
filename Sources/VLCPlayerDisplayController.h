@@ -10,9 +10,6 @@
  * Refer to the COPYING file of the official project for license.
  *****************************************************************************/
 
-
-#import <Foundation/Foundation.h>
-
 @class VLCPlaybackController;
 
 typedef NS_ENUM(NSUInteger, VLCPlayerDisplayControllerDisplayMode) {

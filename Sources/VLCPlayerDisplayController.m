@@ -27,19 +27,9 @@ static NSString *const VLCPlayerDisplayControllerDisplayModeKey = @"VLCPlayerDis
 
 + (void)initialize
 {
-    [[NSUserDefaults standardUserDefaults] registerDefaults:
-  @{
-    VLCPlayerDisplayControllerDisplayModeKey : @(VLCPlayerDisplayControllerDisplayModeFullscreen),
-    }];
+    [[NSUserDefaults standardUserDefaults] registerDefaults:@{VLCPlayerDisplayControllerDisplayModeKey : @(VLCPlayerDisplayControllerDisplayModeFullscreen)}];
 }
 
-- (instancetype)init
-{
-    self = [super init];
-    if (self) {
-    }
-    return self;
-}
 static inline void commonSetup(VLCPlayerDisplayController *self)
 {
     NSNotificationCenter *notificationCenter = [NSNotificationCenter defaultCenter];
@@ -124,8 +114,6 @@ static inline void commonSetup(VLCPlayerDisplayController *self)
     return _movieViewController;
 }
 
-
-
 #pragma mark - Notification Handling
 
 - (void)playbackDidStart:(NSNotification *)notification
@@ -168,11 +156,11 @@ static inline void commonSetup(VLCPlayerDisplayController *self)
 }
 
 #pragma mark - presentation handling
+
 - (BOOL)shouldAnimate
 {
     return [[UIApplication sharedApplication] applicationState] != UIApplicationStateBackground;
 }
-
 
 - (void)dismissPlaybackView
 {
@@ -205,9 +193,8 @@ static inline void commonSetup(VLCPlayerDisplayController *self)
     }
 }
 
-
-
 #pragma mark - fullscreen player
+
 - (void)_presentFullscreenPlaybackViewIfNeeded
 {
     if (!self.movieViewController.presentingViewController) {
@@ -236,10 +223,8 @@ static inline void commonSetup(VLCPlayerDisplayController *self)
 
 #pragma mark - miniplayer
 
-
 - (void)_showHideMiniPlaybackView
 {
-
     VLCPlaybackController *playbackController = [VLCPlaybackController sharedInstance];
     VLCMiniPlaybackView *miniPlaybackView = self.miniPlaybackView;
     const NSTimeInterval animationDuration = 0.25;

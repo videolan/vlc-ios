@@ -252,7 +252,7 @@
 
 - (void)_downloadFileFromMediaItem:(NSURL *)itemURL
 {
-    NSLog(@"trying to download %@", [itemURL absoluteString]);
+    APLog(@"trying to download %@", [itemURL absoluteString]);
     if (![[itemURL absoluteString] isSupportedFormat]) {
         UIAlertView *alert = [[UIAlertView alloc] initWithTitle:NSLocalizedString(@"FILE_NOT_SUPPORTED", nil) message:[NSString stringWithFormat:NSLocalizedString(@"FILE_NOT_SUPPORTED_LONG", nil), [itemURL absoluteString]] delegate:self cancelButtonTitle:NSLocalizedString(@"BUTTON_CANCEL", nil) otherButtonTitles:nil];
         [alert show];
