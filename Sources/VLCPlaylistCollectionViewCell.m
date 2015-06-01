@@ -285,7 +285,7 @@
 {
     self.titleLabel.text = label.name;
     NSUInteger count = label.files.count;
-    self.subtitleLabel.text = [NSString stringWithFormat:(count == 1) ? NSLocalizedString(@"LIBRARY_SINGLE_TRACK", nil) : NSLocalizedString(@"LIBRARY_TRACKS", nil), count];
+    self.subtitleLabel.text = (count == 1) ? NSLocalizedString(@"ONE_FILE", nil) : [NSString stringWithFormat:NSLocalizedString(@"NUM_OF_FILES", nil), count];
     self.mediaIsUnreadView.hidden = YES;
     self.progressView.hidden = YES;
     self.folderIconView.image = [UIImage imageNamed:@"folderIcon"];
