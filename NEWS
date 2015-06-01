@@ -16,10 +16,14 @@
 * Fixed issue which prevented downloading of a few files via UPnP (#11123)
 * Fixed crash when playing media from a folder or music album on iPad (#14394)
 * Fixed crash when app goes to background while a video is playing (#14643)
+* Fixed crash when screen is being locked during playback (#14610)
 * Fixed privacy leak when using a passcode to protect the library (#14159, #14615)
 * Removed stray popup announcing VLC's crash all the time while it actually
   didn't crash before, but terminated by the user (#13194)
-* Various small fixes and minor performance improvements (e.g. #14588)
+* A large number of small fixes and performance improvements (#13194, #14056,
+  #14270, #14284, #14355, #14477, #14588, #14589, #14609, #14623, #14624,
+  #14628, #14629, #14635, #14638, #14641, #14642, #14654, #14663, #14687,
+  #14688, #14713, #14715, #14716, #14733, #14736)
 
 2.5.1:
 ------
