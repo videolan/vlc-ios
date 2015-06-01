@@ -1569,9 +1569,6 @@ static NSString *kUsingTableViewToShowData = @"UsingTableViewToShowData";
     NSUInteger substringCount = substrings.count;
     NSUInteger searchStringCount = stringsToSearch.count;
 
-    NSLog(@"substrings: %@", substrings);
-    NSLog(@"strings to search %@", stringsToSearch);
-
     for (NSUInteger x = 0; x < substringCount; x++) {
         for (NSUInteger y = 0; y < searchStringCount; y++) {
             nameRange = [stringsToSearch[y] rangeOfString:substrings[x] options:NSCaseInsensitiveSearch];
