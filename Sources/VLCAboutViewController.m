@@ -28,13 +28,15 @@
 {
     self.view = [[UIView alloc] initWithFrame:[UIScreen mainScreen].bounds];
     self.view.backgroundColor = [UIColor VLCDarkBackgroundColor];
+    self.view.autoresizingMask = UIViewAutoresizingFlexibleHeight | UIViewAutoresizingFlexibleWidth;
 
-    _webView = [[UIWebView alloc] initWithFrame:[UIScreen mainScreen].bounds];
+    _webView = [[UIWebView alloc] initWithFrame:self.view.frame];
     _webView.clipsToBounds = YES;
     _webView.delegate = self;
     _webView.backgroundColor = [UIColor clearColor];
     _webView.opaque = NO;
     _webView.scrollView.indicatorStyle = UIScrollViewIndicatorStyleWhite;
+    _webView.autoresizingMask = UIViewAutoresizingFlexibleWidth | UIViewAutoresizingFlexibleHeight;
     [self.view addSubview:_webView];
 }
 
