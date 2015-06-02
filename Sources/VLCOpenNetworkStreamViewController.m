@@ -143,7 +143,7 @@
             if ([_recentURLs indexOfObject:self.urlField.text] != NSNotFound)
                 [_recentURLs removeObject:self.urlField.text];
 
-            if (_recentURLs.count >= 15)
+            if (_recentURLs.count >= 100)
                 [_recentURLs removeLastObject];
             [_recentURLs addObject:self.urlField.text];
 
