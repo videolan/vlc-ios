@@ -36,13 +36,6 @@
 #import "VLCPlayerDisplayController.h"
 #import <MediaPlayer/MediaPlayer.h>
 
-#define HAVE_FABRIC 0
-
-#if HAVE_FABRIC
-#import <Fabric/Fabric.h>
-#import <Crashlytics/Crashlytics.h>
-#endif
-
 @interface VLCAppDelegate () <PAPasscodeViewControllerDelegate, VLCMediaFileDiscovererDelegate> {
     PAPasscodeViewController *_passcodeLockController;
     VLCDownloadViewController *_downloadViewController;
@@ -171,10 +164,6 @@
     [[VLCNotificationRelay sharedRelay] addRelayLocalName:NSManagedObjectContextDidSaveNotification toRemoteName:@"org.videolan.ios-app.dbupdate"];
 
     [[VLCNotificationRelay sharedRelay] addRelayLocalName:VLCPlaybackControllerPlaybackMetadataDidChange toRemoteName:kVLCDarwinNotificationNowPlayingInfoUpdate];
-
-#if HAVE_FABRIC
-    [Fabric with:@[CrashlyticsKit]];
-#endif
 
     return YES;
 }

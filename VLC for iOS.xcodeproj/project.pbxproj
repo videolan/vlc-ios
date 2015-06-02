@@ -638,8 +638,6 @@
 		7D711AD918227A490094E4F0 /* GTMOAuth2ViewTouch.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; name = GTMOAuth2ViewTouch.xib; path = ImportedSources/GDrive/OAuth2/Touch/GTMOAuth2ViewTouch.xib; sourceTree = SOURCE_ROOT; };
 		7D7417781AE2D3CE001F1997 /* VLCNavigationController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = VLCNavigationController.h; path = Sources/VLCNavigationController.h; sourceTree = SOURCE_ROOT; };
 		7D7417791AE2D3CE001F1997 /* VLCNavigationController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = VLCNavigationController.m; path = Sources/VLCNavigationController.m; sourceTree = SOURCE_ROOT; };
-		7D7B17EA1AD8052A003BF3D7 /* Crashlytics.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = Crashlytics.framework; sourceTree = "<group>"; };
-		7D7B17EB1AD8052A003BF3D7 /* Fabric.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = Fabric.framework; sourceTree = "<group>"; };
 		7D7B17EC1AD8052A003BF3D7 /* libc++.dylib */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.dylib"; name = "libc++.dylib"; path = "usr/lib/libc++.dylib"; sourceTree = SDKROOT; };
 		7D7B17ED1AD8052B003BF3D7 /* libz.dylib */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.dylib"; name = libz.dylib; path = usr/lib/libz.dylib; sourceTree = SDKROOT; };
 		7D7DA5301768A53200C7E95D /* id */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = id; path = "id.lproj/badgeUnread@2x~ipad.png"; sourceTree = "<group>"; };
@@ -1479,8 +1477,6 @@
 		7D94FCDD16DE7D1000F2623B /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
-				7D7B17EA1AD8052A003BF3D7 /* Crashlytics.framework */,
-				7D7B17EB1AD8052A003BF3D7 /* Fabric.framework */,
 				7D7B17EC1AD8052A003BF3D7 /* libc++.dylib */,
 				7D7B17ED1AD8052B003BF3D7 /* libz.dylib */,
 				DDF157B31ACB169B00AAFBC6 /* WatchKit.framework */,
