@@ -1,9 +1,9 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="6249" systemVersion="14A379a" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="7702" systemVersion="14D136" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none">
     <dependencies>
         <deployment identifier="iOS"/>
         <development version="5100" identifier="xcode"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="6243"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="7701"/>
     </dependencies>
     <objects>
         <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner" customClass="VLCFirstStepsFifthPageViewController">
@@ -30,7 +30,7 @@
                     <rect key="frame" x="0.0" y="47" width="320" height="375"/>
                     <autoresizingMask key="autoresizingMask" flexibleMinX="YES" flexibleMaxX="YES" flexibleMinY="YES" flexibleMaxY="YES"/>
                     <subviews>
-                        <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="vlcsnap.png" id="bfA-AA-aOm">
+                        <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="vlcsnap" id="bfA-AA-aOm">
                             <rect key="frame" x="0.0" y="47" width="320" height="225"/>
                             <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                         </imageView>
@@ -49,7 +49,7 @@
                                     <color key="textColor" white="0.71999999999999997" alpha="1" colorSpace="calibratedWhite"/>
                                     <nil key="highlightedColor"/>
                                 </label>
-                                <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="ratioIcon.png" id="nZg-XB-fhj">
+                                <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="ratioIcon" id="nZg-XB-fhj">
                                     <rect key="frame" x="289" y="9" width="15" height="15"/>
                                     <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                 </imageView>
@@ -123,35 +123,35 @@
                             <rect key="frame" x="0.0" y="199" width="320" height="73"/>
                             <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                             <subviews>
-                                <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="repeat.png" id="PpX-ou-pWI">
+                                <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="repeat" id="PpX-ou-pWI">
                                     <rect key="frame" x="20" y="49" width="23" height="18"/>
                                     <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                 </imageView>
-                                <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="speedIcon.png" id="twJ-2X-XBF">
+                                <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="speedIcon" id="twJ-2X-XBF">
                                     <rect key="frame" x="22" y="12" width="19" height="19"/>
                                     <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                 </imageView>
-                                <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="forwardIcon.png" id="J3B-cz-pXQ">
+                                <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="forwardIcon" id="J3B-cz-pXQ">
                                     <rect key="frame" x="197" y="13" width="32" height="16"/>
                                     <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                 </imageView>
-                                <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="videoEffectsIcon.png" id="r5D-uq-5cx">
+                                <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="videoEffectsIcon" id="r5D-uq-5cx">
                                     <rect key="frame" x="284" y="10" width="21" height="21"/>
                                     <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                 </imageView>
-                                <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="playIcon.png" id="d7P-F0-iYa">
+                                <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="playIcon" id="d7P-F0-iYa">
                                     <rect key="frame" x="158" y="13" width="19" height="17"/>
                                     <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                 </imageView>
-                                <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="backIcon.png" id="ejj-jQ-QaL">
+                                <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="backIcon" id="ejj-jQ-QaL">
                                     <rect key="frame" x="101" y="13" width="32" height="16"/>
                                     <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                 </imageView>
-                                <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="audioTrackIcon.png" id="9RJ-kB-qXH">
+                                <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="audioTrackIcon" id="9RJ-kB-qXH">
                                     <rect key="frame" x="59" y="12" width="19" height="19"/>
                                     <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                 </imageView>
-                                <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="subtitleIcon.png" id="aLv-6K-CQw">
+                                <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="subtitleIcon" id="aLv-6K-CQw">
                                     <rect key="frame" x="249" y="13" width="19" height="19"/>
                                     <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                 </imageView>
@@ -162,39 +162,39 @@
                             </subviews>
                             <color key="backgroundColor" white="0.0" alpha="0.60999999999999999" colorSpace="custom" customColorSpace="calibratedWhite"/>
                         </view>
-                        <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="fsarrow-position.png" id="a4q-TS-Quq">
+                        <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="fsarrow-position" id="a4q-TS-Quq">
                             <rect key="frame" x="44" y="36" width="49" height="24"/>
                             <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                         </imageView>
-                        <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="fsarrow-aspectratio.png" id="nqM-tS-QDH">
+                        <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="fsarrow-aspectratio" id="nqM-tS-QDH">
                             <rect key="frame" x="293" y="38" width="17" height="20"/>
                             <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                         </imageView>
-                        <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="fsarrow-effects.png" id="PYW-4a-xja">
+                        <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="fsarrow-effects" id="PYW-4a-xja">
                             <rect key="frame" x="265" y="187" width="33" height="20"/>
                             <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                         </imageView>
-                        <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="fsarrow-speed.png" id="4oB-1c-h40">
+                        <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="fsarrow-speed" id="4oB-1c-h40">
                             <rect key="frame" x="28" y="188" width="33" height="20"/>
                             <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                         </imageView>
-                        <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="fsarrow-repeat.png" id="3H6-01-2Gp">
+                        <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="fsarrow-repeat" id="3H6-01-2Gp">
                             <rect key="frame" x="28" y="266" width="33" height="20"/>
                             <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                         </imageView>
-                        <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="fsarrow-time.png" id="xve-3V-cvc">
+                        <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="fsarrow-time" id="xve-3V-cvc">
                             <rect key="frame" x="145" y="36" width="110" height="22"/>
                             <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                         </imageView>
-                        <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="fsarrow-subtitles.png" id="385-6t-Pwr">
+                        <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="fsarrow-subtitles" id="385-6t-Pwr">
                             <rect key="frame" x="263" y="229" width="57" height="56"/>
                             <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                         </imageView>
-                        <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="fsarrow-audio.png" id="fQR-h3-pFj">
+                        <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="fsarrow-audio" id="fQR-h3-pFj">
                             <rect key="frame" x="6" y="226" width="57" height="91"/>
                             <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                         </imageView>
-                        <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="fsarrow-volume.png" id="0VT-Nu-S5e">
+                        <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="fsarrow-volume" id="0VT-Nu-S5e">
                             <rect key="frame" x="228" y="263" width="93" height="57"/>
                             <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                         </imageView>
@@ -208,25 +208,25 @@
         </view>
     </objects>
     <resources>
-        <image name="audioTrackIcon.png" width="19" height="19"/>
-        <image name="backIcon.png" width="32" height="16"/>
-        <image name="forwardIcon.png" width="32" height="16"/>
-        <image name="fsarrow-aspectratio.png" width="17" height="20"/>
-        <image name="fsarrow-audio.png" width="57" height="91"/>
-        <image name="fsarrow-effects.png" width="34" height="21"/>
-        <image name="fsarrow-position.png" width="49" height="25"/>
-        <image name="fsarrow-repeat.png" width="33" height="21"/>
-        <image name="fsarrow-speed.png" width="34" height="21"/>
-        <image name="fsarrow-subtitles.png" width="57" height="56"/>
-        <image name="fsarrow-time.png" width="110" height="23"/>
-        <image name="fsarrow-volume.png" width="93" height="57"/>
-        <image name="playIcon.png" width="19" height="17"/>
-        <image name="ratioIcon.png" width="15" height="15"/>
-        <image name="repeat.png" width="23" height="18"/>
-        <image name="speedIcon.png" width="19" height="19"/>
-        <image name="subtitleIcon.png" width="19" height="19"/>
-        <image name="videoEffectsIcon.png" width="21" height="21"/>
-        <image name="vlcsnap.png" width="325" height="183"/>
+        <image name="audioTrackIcon" width="19" height="19"/>
+        <image name="backIcon" width="32" height="16"/>
+        <image name="forwardIcon" width="32" height="16"/>
+        <image name="fsarrow-aspectratio" width="17" height="20"/>
+        <image name="fsarrow-audio" width="57" height="91"/>
+        <image name="fsarrow-effects" width="34" height="21"/>
+        <image name="fsarrow-position" width="49" height="25"/>
+        <image name="fsarrow-repeat" width="33" height="21"/>
+        <image name="fsarrow-speed" width="34" height="21"/>
+        <image name="fsarrow-subtitles" width="57" height="56"/>
+        <image name="fsarrow-time" width="110" height="23"/>
+        <image name="fsarrow-volume" width="93" height="57"/>
+        <image name="playIcon" width="19" height="17"/>
+        <image name="ratioIcon" width="15" height="15"/>
+        <image name="repeat" width="23" height="18"/>
+        <image name="speedIcon" width="19" height="19"/>
+        <image name="subtitleIcon" width="19" height="19"/>
+        <image name="videoEffectsIcon" width="21" height="21"/>
+        <image name="vlcsnap" width="325" height="183"/>
     </resources>
     <simulatedMetricsContainer key="defaultSimulatedMetrics">
         <simulatedStatusBarMetrics key="statusBar"/>
