@@ -27,7 +27,7 @@ We hope you enjoy it.</string>
                     <color key="textColor" white="0.71999999999999997" alpha="1" colorSpace="calibratedWhite"/>
                     <nil key="highlightedColor"/>
                 </label>
-                <imageView userInteractionEnabled="NO" contentMode="scaleToFill" image="AppIcon512x512.png" id="TKA-c3-IgQ">
+                <imageView userInteractionEnabled="NO" contentMode="scaleToFill" image="VLCCone512x512" id="TKA-c3-IgQ">
                     <rect key="frame" x="96" y="71" width="128" height="128"/>
                     <autoresizingMask key="autoresizingMask" flexibleMinX="YES" flexibleMaxX="YES" flexibleMinY="YES" flexibleMaxY="YES"/>
                 </imageView>
@@ -49,7 +49,7 @@ We hope you enjoy it.</string>
         </view>
     </objects>
     <resources>
-        <image name="AppIcon512x512.png" width="512" height="512"/>
+        <image name="VLCCone512x512" width="512" height="512"/>
     </resources>
     <simulatedMetricsContainer key="defaultSimulatedMetrics">
         <simulatedStatusBarMetrics key="statusBar"/>
