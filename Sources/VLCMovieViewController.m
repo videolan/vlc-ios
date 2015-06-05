@@ -450,6 +450,7 @@ typedef NS_ENUM(NSInteger, VLCPanType) {
     vpc.delegate = self;
     [vpc recoverPlaybackState];
 
+    [self screenBrightnessChanged:nil];
     [self setControlsHidden:NO animated:YES];
 }
 
@@ -1527,7 +1528,10 @@ currentMediaHasTrackToChooseFrom:(BOOL)currentMediaHasTrackToChooseFrom
 
 - (void)screenBrightnessChanged:(NSNotification *)notification
 {
-    self.brightnessSlider.value = [(UIScreen *)notification.object brightness] * 2.;
+    if (notification)
+        self.brightnessSlider.value = [(UIScreen *)notification.object brightness] * 2.;
+    else if (![[UIDevice currentDevice] hasExternalDisplay])
+        self.brightnessSlider.value = [[[UIScreen screens] firstObject] brightness] * 2.;
 }
 
 #pragma mark - playback view
