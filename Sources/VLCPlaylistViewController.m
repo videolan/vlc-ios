@@ -388,6 +388,8 @@ static NSString *kUsingTableViewToShowData = @"UsingTableViewToShowData";
     NSString *folderLocation = [[mediaObject.url path] stringByDeletingLastPathComponent];
     NSArray *allfiles = [fileManager contentsOfDirectoryAtPath:folderLocation error:nil];
     NSString *fileName = [mediaObject.path.lastPathComponent stringByDeletingPathExtension];
+    if (!fileName)
+        return;
     NSIndexSet *indexSet = [allfiles indexesOfObjectsPassingTest:^BOOL(id obj, NSUInteger idx, BOOL *stop) {
        return ([obj rangeOfString:fileName].location != NSNotFound);
     }];
