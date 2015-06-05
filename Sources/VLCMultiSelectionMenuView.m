@@ -152,12 +152,21 @@
     return CGSizeMake(spacer + buttonWidth + spacer, height);
 }
 
-- (void)setDisplayRepeatOne:(BOOL)displayRepeatOne
+- (void)setRepeatMode:(VLCRepeatMode)repeatMode
 {
-    if (displayRepeatOne)
-        [_repeatButton setImage:[UIImage imageNamed:@"repeatOne"] forState:UIControlStateNormal];
-    else
-        [_repeatButton setImage:[UIImage imageNamed:@"repeat"] forState:UIControlStateNormal];
+    _repeatMode = repeatMode;
+    switch (repeatMode) {
+        case VLCRepeatCurrentItem:
+            [_repeatButton setImage:[UIImage imageNamed:@"repeatOne"] forState:UIControlStateNormal];
+            break;
+        case VLCRepeatAllItems:
+            [_repeatButton setImage:[UIImage imageNamed:@"repeatList"] forState:UIControlStateNormal];
+            break;
+        case VLCDoNotRepeat:
+        default:
+            [_repeatButton setImage:[UIImage imageNamed:@"repeat"] forState:UIControlStateNormal];
+            break;
+    }
 }
 
 - (void)setDisplayLock:(BOOL)displayLock

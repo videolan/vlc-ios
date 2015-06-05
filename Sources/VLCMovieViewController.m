@@ -1127,14 +1127,20 @@ currentMediaHasTrackToChooseFrom:(BOOL)currentMediaHasTrackToChooseFrom
     LOCKCHECK;
 
     VLCMediaListPlayer *listPlayer = self.playbackController.listPlayer;
-
-    if (listPlayer.repeatMode == VLCDoNotRepeat) {
-        listPlayer.repeatMode = VLCRepeatCurrentItem;
-        _multiSelectionView.displayRepeatOne = YES;
-    } else {
-        listPlayer.repeatMode = VLCDoNotRepeat;
-        _multiSelectionView.displayRepeatOne = NO;
+    VLCRepeatMode nextRepeatMode = VLCDoNotRepeat;
+    switch (listPlayer.repeatMode) {
+        case VLCDoNotRepeat:
+            nextRepeatMode = VLCRepeatCurrentItem;
+            break;
+        case VLCRepeatCurrentItem:
+            nextRepeatMode = VLCRepeatAllItems;
+            break;
+        default:
+            nextRepeatMode = VLCDoNotRepeat;
+            break;
     }
+    listPlayer.repeatMode = nextRepeatMode;
+    _multiSelectionView.repeatMode = nextRepeatMode;
 }
 
 - (void)toggleShuffleMode
