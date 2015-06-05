@@ -13,6 +13,10 @@
 			<array/>
 			<key>CFBundleTypeName</key>
 			<string>Video Files</string>
+			<key>CFBundleTypeRole</key>
+			<string>Viewer</string>
+			<key>LSHandlerRank</key>
+			<string>Owner</string>
 			<key>LSItemContentTypes</key>
 			<array>
 				<string>public.audiovisual-content</string>
@@ -30,6 +34,12 @@
 				<string>com.real.realmedia</string>
 				<string>com.apple.quicktime-movie</string>
 				<string>public.mpeg4</string>
+				<string>org.videolan.mxg</string>
+				<string>org.videolan.webm</string>
+				<string>org.videolan.mxf</string>
+				<string>org.matroska.mkv</string>
+				<string>com.divx.divx</string>
+				<string>org.xiph.ogv</string>
 			</array>
 		</dict>
 		<dict>
@@ -37,6 +47,10 @@
 			<array/>
 			<key>CFBundleTypeName</key>
 			<string>Audio Files</string>
+			<key>CFBundleTypeRole</key>
+			<string>Viewer</string>
+			<key>LSHandlerRank</key>
+			<string>Owner</string>
 			<key>LSItemContentTypes</key>
 			<array>
 				<string>public.audio</string>
@@ -49,6 +63,12 @@
 				<string>com.microsoft.windows-​media-wma</string>
 				<string>com.real.realaudio</string>
 				<string>org.videolan.vlc</string>
+				<string>org.videolan.w64</string>
+				<string>org.videolan.oma</string>
+				<string>org.videolan.caf</string>
+				<string>org.videolan.opus</string>
+				<string>org.videolan.flac</string>
+				<string>org.xiph.oga</string>
 			</array>
 		</dict>
 		<dict>
@@ -56,23 +76,27 @@
 			<array/>
 			<key>CFBundleTypeName</key>
 			<string>Subtitles Files</string>
+			<key>CFBundleTypeRole</key>
+			<string>Viewer</string>
+			<key>LSHandlerRank</key>
+			<string>Owner</string>
 			<key>LSItemContentTypes</key>
 			<array>
 				<string>public.plain-text</string>
-				<string>public.srt</string>
-				<string>public.sub</string>
-				<string>public.cdg</string>
-				<string>public.idx</string>
+				<string>org.videolan.srt</string>
+				<string>org.videolan.sub</string>
+				<string>org.videolan.cdg</string>
+				<string>org.videolan.idx</string>
 				<string>public.utf</string>
-				<string>public.ass</string>
-				<string>public.ssa</string>
-				<string>public.aqt</string>
-				<string>public.jss</string>
-				<string>public.psb</string>
-				<string>public.rt</string>
-				<string>public.smi</string>
+				<string>org.videolan.ass</string>
+				<string>org.videolan.ssa</string>
+				<string>org.videolan.aqt</string>
+				<string>org.videolan.jss</string>
+				<string>org.videolan.psb</string>
+				<string>org.videolan.rt</string>
+				<string>org.videolan.smi</string>
 				<string>public.txt</string>
-				<string>public.smil</string>
+				<string>org.videolan.smil</string>
 				<string>com.real.smil</string>
 			</array>
 		</dict>
@@ -324,6 +348,8 @@
 			<dict>
 				<key>public.filename-extension</key>
 				<string>divx</string>
+				<key>public.mime-type</key>
+				<string>application/octet-stream</string>
 			</dict>
 		</dict>
 		<dict>
@@ -420,6 +446,12 @@
 			<string>MXG</string>
 			<key>UTTypeIdentifier</key>
 			<string>org.videolan.mxg</string>
+			<dict>
+				<key>public.filename-extension</key>
+				<string>mxg</string>
+				<key>public.mime-type</key>
+				<string>application/octet-stream</string>
+			</dict>
 		</dict>
 		<dict>
 			<key>UTTypeConformsTo</key>
@@ -430,6 +462,12 @@
 			<string>CAF</string>
 			<key>UTTypeIdentifier</key>
 			<string>org.videolan.caf</string>
+			<dict>
+				<key>public.filename-extension</key>
+				<string>caf</string>
+				<key>public.mime-type</key>
+				<string>application/octet-stream</string>
+			</dict>
 		</dict>
 		<dict>
 			<key>UTTypeConformsTo</key>
@@ -440,6 +478,12 @@
 			<string>OMA</string>
 			<key>UTTypeIdentifier</key>
 			<string>org.videolan.oma</string>
+			<dict>
+				<key>public.filename-extension</key>
+				<string>oma</string>
+				<key>public.mime-type</key>
+				<string>application/octet-stream</string>
+			</dict>
 		</dict>
 		<dict>
 			<key>UTTypeConformsTo</key>
@@ -449,7 +493,14 @@
 			<key>UTTypeDescription</key>
 			<string>w64</string>
 			<key>UTTypeIdentifier</key>
-			<string>org.videolan.x64</string>
+			<string>org.videolan.w64</string>
+			<key>UTTypeTagSpecification</key>
+			<dict>
+				<key>public.filename-extension</key>
+				<string>w64</string>
+				<key>public.mime-type</key>
+				<string>application/octet-stream</string>
+			</dict>
 		</dict>
 		<dict>
 			<key>UTTypeConformsTo</key>
@@ -460,8 +511,13 @@
 			<string>srt</string>
 			<key>UTTypeIdentifier</key>
 			<string>org.videolan.srt</string>
-			<key>public.filename-extension</key>
-			<string>srt</string>
+			<key>UTTypeTagSpecification</key>
+			<dict>
+				<key>public.filename-extension</key>
+				<string>srt</string>
+				<key>public.mime-type</key>
+				<string>text/plain</string>
+			</dict>
 		</dict>
 		<dict>
 			<key>UTTypeConformsTo</key>
@@ -472,8 +528,13 @@
 			<string>sub</string>
 			<key>UTTypeIdentifier</key>
 			<string>org.videolan.sub</string>
-			<key>public.filename-extension</key>
-			<string>sub</string>
+			<key>UTTypeTagSpecification</key>
+			<dict>
+				<key>public.filename-extension</key>
+				<string>sub</string>
+				<key>public.mime-type</key>
+				<string>text/plain</string>
+			</dict>
 		</dict>
 		<dict>
 			<key>UTTypeConformsTo</key>
@@ -484,8 +545,13 @@
 			<string>cdg</string>
 			<key>UTTypeIdentifier</key>
 			<string>org.videolan.cdg</string>
-			<key>public.filename-extension</key>
-			<string>cdg</string>
+			<key>UTTypeTagSpecification</key>
+			<dict>
+				<key>public.filename-extension</key>
+				<string>cdg</string>
+				<key>public.mime-type</key>
+				<string>text/plain</string>
+			</dict>
 		</dict>
 		<dict>
 			<key>UTTypeConformsTo</key>
@@ -496,8 +562,13 @@
 			<string>idx</string>
 			<key>UTTypeIdentifier</key>
 			<string>org.videolan.idx</string>
-			<key>public.filename-extension</key>
-			<string>idx</string>
+			<key>UTTypeTagSpecification</key>
+			<dict>
+				<key>public.filename-extension</key>
+				<string>idx</string>
+				<key>public.mime-type</key>
+				<string>text/plain</string>
+			</dict>
 		</dict>
 		<dict>
 			<key>UTTypeConformsTo</key>
@@ -508,8 +579,13 @@
 			<string>ass</string>
 			<key>UTTypeIdentifier</key>
 			<string>org.videolan.ass</string>
-			<key>public.filename-extension</key>
-			<string>ass</string>
+			<key>UTTypeTagSpecification</key>
+			<dict>
+				<key>public.filename-extension</key>
+				<string>ass</string>
+				<key>public.mime-type</key>
+				<string>text/plain</string>
+			</dict>
 		</dict>
 		<dict>
 			<key>UTTypeConformsTo</key>
@@ -520,8 +596,13 @@
 			<string>ssa</string>
 			<key>UTTypeIdentifier</key>
 			<string>org.videolan.ssa</string>
-			<key>public.filename-extension</key>
-			<string>ssa</string>
+			<key>UTTypeTagSpecification</key>
+			<dict>
+				<key>public.filename-extension</key>
+				<string>ssa</string>
+				<key>public.mime-type</key>
+				<string>text/plain</string>
+			</dict>
 		</dict>
 		<dict>
 			<key>UTTypeConformsTo</key>
@@ -532,8 +613,13 @@
 			<string>aqt</string>
 			<key>UTTypeIdentifier</key>
 			<string>org.videolan.aqt</string>
-			<key>public.filename-extension</key>
-			<string>aqt</string>
+			<key>UTTypeTagSpecification</key>
+			<dict>
+				<key>public.filename-extension</key>
+				<string>aqt</string>
+				<key>public.mime-type</key>
+				<string>text/plain</string>
+			</dict>
 		</dict>
 		<dict>
 			<key>UTTypeConformsTo</key>
@@ -544,8 +630,13 @@
 			<string>jss</string>
 			<key>UTTypeIdentifier</key>
 			<string>org.videolan.jss</string>
-			<key>public.filename-extension</key>
-			<string>jss</string>
+			<key>UTTypeTagSpecification</key>
+			<dict>
+				<key>public.filename-extension</key>
+				<string>jss</string>
+				<key>public.mime-type</key>
+				<string>text/plain</string>
+			</dict>
 		</dict>
 		<dict>
 			<key>UTTypeConformsTo</key>
@@ -556,8 +647,13 @@
 			<string>psb</string>
 			<key>UTTypeIdentifier</key>
 			<string>org.videolan.psb</string>
-			<key>public.filename-extension</key>
-			<string>psb</string>
+			<key>UTTypeTagSpecification</key>
+			<dict>
+				<key>public.filename-extension</key>
+				<string>psb</string>
+				<key>public.mime-type</key>
+				<string>text/plain</string>
+			</dict>
 		</dict>
 		<dict>
 			<key>UTTypeConformsTo</key>
@@ -568,8 +664,13 @@
 			<string>rt</string>
 			<key>UTTypeIdentifier</key>
 			<string>org.videolan.rt</string>
-			<key>public.filename-extension</key>
-			<string>rt</string>
+			<key>UTTypeTagSpecification</key>
+			<dict>
+				<key>public.filename-extension</key>
+				<string>rt</string>
+				<key>public.mime-type</key>
+				<string>text/plain</string>
+			</dict>
 		</dict>
 		<dict>
 			<key>UTTypeConformsTo</key>
@@ -580,8 +681,13 @@
 			<string>smi</string>
 			<key>UTTypeIdentifier</key>
 			<string>org.videolan.smi</string>
-			<key>public.filename-extension</key>
-			<string>smi</string>
+			<key>UTTypeTagSpecification</key>
+			<dict>
+				<key>public.filename-extension</key>
+				<string>smi</string>
+				<key>public.mime-type</key>
+				<string>text/plain</string>
+			</dict>
 		</dict>
 		<dict>
 			<key>UTTypeConformsTo</key>
@@ -592,8 +698,13 @@
 			<string>vlc fake file</string>
 			<key>UTTypeIdentifier</key>
 			<string>org.videolan.vlc</string>
-			<key>public.filename-extension</key>
-			<string>vlc</string>
+			<key>UTTypeTagSpecification</key>
+			<dict>
+				<key>public.filename-extension</key>
+				<string>vlc</string>
+				<key>public.mime-type</key>
+				<string>application/octet-stream</string>
+			</dict>
 		</dict>
 	</array>
 </dict>
