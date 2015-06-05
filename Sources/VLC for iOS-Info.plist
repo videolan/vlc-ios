@@ -446,6 +446,7 @@
 			<string>MXG</string>
 			<key>UTTypeIdentifier</key>
 			<string>org.videolan.mxg</string>
+			<key>UTTypeTagSpecification</key>
 			<dict>
 				<key>public.filename-extension</key>
 				<string>mxg</string>
@@ -462,6 +463,7 @@
 			<string>CAF</string>
 			<key>UTTypeIdentifier</key>
 			<string>org.videolan.caf</string>
+			<key>UTTypeTagSpecification</key>
 			<dict>
 				<key>public.filename-extension</key>
 				<string>caf</string>
@@ -478,6 +480,7 @@
 			<string>OMA</string>
 			<key>UTTypeIdentifier</key>
 			<string>org.videolan.oma</string>
+			<key>UTTypeTagSpecification</key>
 			<dict>
 				<key>public.filename-extension</key>
 				<string>oma</string>
