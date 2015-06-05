@@ -340,7 +340,7 @@ typedef NS_ENUM(NSInteger, VLCPanType) {
         width = 300.;
         height = 320.;
     } else {
-        width = 450.;
+        width = 420.;
         height = 470.;
     }
 
@@ -526,6 +526,9 @@ typedef NS_ENUM(NSInteger, VLCPanType) {
     if (!_videoFiltersHidden)
         _videoFiltersHidden = YES;
 
+    if (_equalizerView.hidden == NO)
+        _equalizerView.hidden = YES;
+
     if (!_playbackSpeedViewHidden)
         _playbackSpeedViewHidden = YES;
 
@@ -674,6 +677,9 @@ typedef NS_ENUM(NSInteger, VLCPanType) {
 
     if (!_videoFiltersHidden)
         _videoFiltersHidden = YES;
+
+    if (_equalizerView.hidden == NO)
+        _equalizerView.hidden = YES;
 
     if (!_playbackSpeedViewHidden)
         _playbackSpeedViewHidden = YES;
@@ -944,6 +950,9 @@ currentMediaHasTrackToChooseFrom:(BOOL)currentMediaHasTrackToChooseFrom
 
         [_trackSelectorTableView reloadData];
 
+        if (_equalizerView.hidden == NO)
+            _equalizerView.hidden = YES;
+
         if (!_playbackSpeedViewHidden)
             self.playbackSpeedView.hidden = _playbackSpeedViewHidden = YES;
 
@@ -1073,6 +1082,8 @@ currentMediaHasTrackToChooseFrom:(BOOL)currentMediaHasTrackToChooseFrom
             }
         }
 
+        _trackSelectorContainer.hidden = YES;
+
         self.videoFilterView.hidden = _videoFiltersHidden = YES;
         _equalizerView.alpha = 1.;
         _equalizerView.hidden = NO;
@@ -1090,6 +1101,9 @@ currentMediaHasTrackToChooseFrom:(BOOL)currentMediaHasTrackToChooseFrom
         [_trackSelectorTableView reloadData];
         _trackSelectorContainer.hidden = NO;
         _trackSelectorContainer.alpha = 1.;
+
+        if (_equalizerView.hidden == NO)
+            _equalizerView.hidden = YES;
 
         if (!_playbackSpeedViewHidden)
             self.playbackSpeedView.hidden = _playbackSpeedViewHidden = YES;
@@ -1468,6 +1482,9 @@ currentMediaHasTrackToChooseFrom:(BOOL)currentMediaHasTrackToChooseFrom
     if (!_playbackSpeedViewHidden)
         self.playbackSpeedView.hidden = _playbackSpeedViewHidden = YES;
 
+    if (_equalizerView.hidden == NO)
+        _equalizerView.hidden = YES;
+
     if (UI_USER_INTERFACE_IDIOM() == UIUserInterfaceIdiomPhone) {
         if (!_controlsHidden) {
             self.controllerPanel.hidden = _controlsHidden = YES;
@@ -1543,6 +1560,9 @@ currentMediaHasTrackToChooseFrom:(BOOL)currentMediaHasTrackToChooseFrom
     if (sender == self.playbackSpeedButton || sender == self.playbackSpeedButtonLandscape) {
         if (!_videoFiltersHidden)
             self.videoFilterView.hidden = _videoFiltersHidden = YES;
+
+        if (_equalizerView.hidden == NO)
+            _equalizerView.hidden = YES;
 
         self.playbackSpeedView.hidden = !_playbackSpeedViewHidden;
         _playbackSpeedViewHidden = self.playbackSpeedView.hidden;
