@@ -85,12 +85,11 @@
 
 - (void)showAlert:(NSString *)title message:(NSString *)message
 {
-    UIAlertView *alert;
-    alert = [[UIAlertView alloc] initWithTitle: title
-                                       message: message
-                                      delegate: nil
-                             cancelButtonTitle: NSLocalizedString(@"BUTTON_OK", nil)
-                             otherButtonTitles: nil];
+    VLCAlertView *alert = [[VLCAlertView alloc] initWithTitle:title
+                                                      message:message
+                                                     delegate:nil
+                                            cancelButtonTitle:NSLocalizedString(@"BUTTON_OK", nil)
+                                            otherButtonTitles:nil];
     [alert show];
 }
 

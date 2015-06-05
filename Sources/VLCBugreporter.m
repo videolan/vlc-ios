@@ -33,11 +33,10 @@
 
 - (void)handleBugreportRequest
 {
-    UIAlertView *alert = [[UIAlertView alloc]
-                          initWithTitle:NSLocalizedString(@"BUG_REPORT_TITLE", nil)
-                          message:NSLocalizedString(@"BUG_REPORT_MESSAGE", nil) delegate:self
-                          cancelButtonTitle:NSLocalizedString(@"BUTTON_CANCEL", nil)
-                          otherButtonTitles:NSLocalizedString(@"BUG_REPORT_BUTTON", nil), nil];;
+    VLCAlertView *alert = [[VLCAlertView alloc] initWithTitle:NSLocalizedString(@"BUG_REPORT_TITLE", nil)
+                                                      message:NSLocalizedString(@"BUG_REPORT_MESSAGE", nil) delegate:self
+                                            cancelButtonTitle:NSLocalizedString(@"BUTTON_CANCEL", nil)
+                                            otherButtonTitles:NSLocalizedString(@"BUG_REPORT_BUTTON", nil), nil];;
     [alert show];
 }
 

@@ -125,11 +125,19 @@
             VLCLocalPlexFolderListViewController *targetViewController = [[VLCLocalPlexFolderListViewController alloc] initWithPlexServer:server serverAddress:server portNumber:[NSString stringWithFormat:@":%@", port] atPath:@"" authentification:@""];
             [[self navigationController] pushViewController:targetViewController animated:YES];
         } else {
-            UIAlertView *alert = [[UIAlertView alloc] initWithTitle:nil message:NSLocalizedString(@"HTTP_UPLOAD_SERVER_OFF", nil) delegate:self cancelButtonTitle:NSLocalizedString(@"BUTTON_OK", nil) otherButtonTitles:nil];
+            VLCAlertView *alert = [[VLCAlertView alloc] initWithTitle:nil
+                                                              message:NSLocalizedString(@"HTTP_UPLOAD_SERVER_OFF", nil)
+                                                             delegate:self
+                                                    cancelButtonTitle:NSLocalizedString(@"BUTTON_OK", nil)
+                                                    otherButtonTitles:nil];
             [alert show];
         }
     } else {
-        UIAlertView *alert = [[UIAlertView alloc] initWithTitle:nil message:NSLocalizedString(@"INVALID_IP_PORT", nil) delegate:self cancelButtonTitle:NSLocalizedString(@"BUTTON_OK", nil) otherButtonTitles:nil];
+        VLCAlertView *alert = [[VLCAlertView alloc] initWithTitle:nil
+                                                          message:NSLocalizedString(@"INVALID_IP_PORT", nil)
+                                                         delegate:self
+                                                cancelButtonTitle:NSLocalizedString(@"BUTTON_OK", nil)
+                                                otherButtonTitles:nil];
         [alert show];
 
         if (![self isValidPort:port])
@@ -152,7 +160,11 @@
         [defaults synchronize];
         [self.serverPlexBookmark reloadData];
     } else {
-        UIAlertView *alert = [[UIAlertView alloc] initWithTitle:nil message:NSLocalizedString(@"INVALID_IP_PORT", nil) delegate:self cancelButtonTitle:NSLocalizedString(@"BUTTON_OK", nil) otherButtonTitles:nil];
+        VLCAlertView *alert = [[VLCAlertView alloc] initWithTitle:nil
+                                                          message:NSLocalizedString(@"INVALID_IP_PORT", nil)
+                                                         delegate:self
+                                                cancelButtonTitle:NSLocalizedString(@"BUTTON_OK", nil)
+                                                otherButtonTitles:nil];
         [alert show];
     }
 }

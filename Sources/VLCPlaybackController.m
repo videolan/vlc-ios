@@ -251,7 +251,11 @@ NSString *const VLCPlaybackControllerPlaybackDidFail = @"VLCPlaybackControllerPl
     [_listPlayer setRepeatMode:VLCDoNotRepeat];
 
     if (![self _isMediaSuitableForDevice]) {
-        UIAlertView * alert = [[UIAlertView alloc] initWithTitle:NSLocalizedString(@"DEVICE_TOOSLOW_TITLE", nil) message:[NSString stringWithFormat:NSLocalizedString(@"DEVICE_TOOSLOW", nil), [[UIDevice currentDevice] model], self.fileFromMediaLibrary.title] delegate:self cancelButtonTitle:NSLocalizedString(@"BUTTON_CANCEL", nil) otherButtonTitles:NSLocalizedString(@"BUTTON_OPEN", nil), nil];
+        VLCAlertView *alert = [[VLCAlertView alloc] initWithTitle:NSLocalizedString(@"DEVICE_TOOSLOW_TITLE", nil)
+                                                          message:[NSString stringWithFormat:NSLocalizedString(@"DEVICE_TOOSLOW", nil), [[UIDevice currentDevice] model], self.fileFromMediaLibrary.title]
+                                                         delegate:self
+                                                cancelButtonTitle:NSLocalizedString(@"BUTTON_CANCEL", nil)
+                                                otherButtonTitles:NSLocalizedString(@"BUTTON_OPEN", nil), nil];
         [alert show];
     } else
         [self _playNewMedia];

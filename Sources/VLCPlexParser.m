@@ -11,7 +11,6 @@
 
 #import "VLCPlexParser.h"
 #import "VLCPlexWebAPI.h"
-#import "VLCAlertView.h"
 #import "VLCConstants.h"
 
 #define kPlexMediaServerDirInit @"library/sections"

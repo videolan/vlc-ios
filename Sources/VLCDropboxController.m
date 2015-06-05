@@ -254,7 +254,11 @@
 #pragma mark - user feedback
 - (void)_handleError:(NSError *)error
 {
-    UIAlertView * alert = [[UIAlertView alloc] initWithTitle:[NSString stringWithFormat:NSLocalizedString(@"ERROR_NUMBER", nil), error.code] message:error.localizedDescription delegate:self cancelButtonTitle:NSLocalizedString(@"BUTTON_CANCEL", nil) otherButtonTitles:nil];
+    VLCAlertView *alert = [[VLCAlertView alloc] initWithTitle:[NSString stringWithFormat:NSLocalizedString(@"ERROR_NUMBER", nil), error.code]
+                                                      message:error.localizedDescription
+                                                     delegate:self
+                                            cancelButtonTitle:NSLocalizedString(@"BUTTON_CANCEL", nil)
+                                            otherButtonTitles:nil];
     [alert show];
 }
 
