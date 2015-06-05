@@ -1537,7 +1537,7 @@ currentMediaHasTrackToChooseFrom:(BOOL)currentMediaHasTrackToChooseFrom
     if (notification)
         self.brightnessSlider.value = [(UIScreen *)notification.object brightness] * 2.;
     else if (![[UIDevice currentDevice] hasExternalDisplay])
-        self.brightnessSlider.value = [[[UIScreen screens] firstObject] brightness] * 2.;
+        self.brightnessSlider.value = [(UIScreen *)[[UIScreen screens] firstObject] brightness] * 2.;
 }
 
 #pragma mark - playback view
