@@ -399,7 +399,11 @@
             NSData *flippedData = [rawObjectName dataUsingEncoding:[[[NSUserDefaults standardUserDefaults] objectForKey:kVLCSettingFTPTextEncoding] intValue] allowLossyConversion:YES];
             NSString *properObjectName = [[NSString alloc] initWithData:flippedData encoding:NSUTF8StringEncoding];
             if (![properObjectName isSupportedFormat]) {
-                UIAlertView * alert = [[UIAlertView alloc] initWithTitle:NSLocalizedString(@"FILE_NOT_SUPPORTED", nil) message:[NSString stringWithFormat:NSLocalizedString(@"FILE_NOT_SUPPORTED_LONG", nil), properObjectName] delegate:self cancelButtonTitle:NSLocalizedString(@"BUTTON_CANCEL", nil) otherButtonTitles:nil];
+                VLCAlertView *alert = [[VLCAlertView alloc] initWithTitle:NSLocalizedString(@"FILE_NOT_SUPPORTED", nil)
+                                                                  message:[NSString stringWithFormat:NSLocalizedString(@"FILE_NOT_SUPPORTED_LONG", nil), properObjectName]
+                                                                 delegate:self
+                                                        cancelButtonTitle:NSLocalizedString(@"BUTTON_CANCEL", nil)
+                                                        otherButtonTitles:nil];
                 [alert show];
             } else
                 [self _streamFTPFile:properObjectName];
@@ -650,7 +654,11 @@
 
 - (void)requestFailed:(WRRequest *)request
 {
-    UIAlertView *alert = [[UIAlertView alloc] initWithTitle:NSLocalizedString(@"LOCAL_SERVER_CONNECTION_FAILED_TITLE", nil) message:NSLocalizedString(@"LOCAL_SERVER_CONNECTION_FAILED_MESSAGE", nil) delegate:self cancelButtonTitle:NSLocalizedString(@"BUTTON_CANCEL", nil) otherButtonTitles:nil];
+    VLCAlertView *alert = [[VLCAlertView alloc] initWithTitle:NSLocalizedString(@"LOCAL_SERVER_CONNECTION_FAILED_TITLE", nil)
+                                                      message:NSLocalizedString(@"LOCAL_SERVER_CONNECTION_FAILED_MESSAGE", nil)
+                                                     delegate:self
+                                            cancelButtonTitle:NSLocalizedString(@"BUTTON_CANCEL", nil)
+                                            otherButtonTitles:nil];
     [alert show];
 
     APLog(@"request %@ failed with error %i", request, request.error.errorCode);
@@ -687,14 +695,22 @@
         NSData *flippedData = [rawObjectName dataUsingEncoding:[[[NSUserDefaults standardUserDefaults] objectForKey:kVLCSettingFTPTextEncoding] intValue] allowLossyConversion:YES];
         NSString *properObjectName = [[NSString alloc] initWithData:flippedData encoding:NSUTF8StringEncoding];
         if (![properObjectName isSupportedFormat]) {
-            UIAlertView * alert = [[UIAlertView alloc] initWithTitle:NSLocalizedString(@"FILE_NOT_SUPPORTED", nil) message:[NSString stringWithFormat:NSLocalizedString(@"FILE_NOT_SUPPORTED_LONG", nil), properObjectName] delegate:self cancelButtonTitle:NSLocalizedString(@"BUTTON_CANCEL", nil) otherButtonTitles:nil];
+            VLCAlertView *alert = [[VLCAlertView alloc] initWithTitle:NSLocalizedString(@"FILE_NOT_SUPPORTED", nil)
+                                                              message:[NSString stringWithFormat:NSLocalizedString(@"FILE_NOT_SUPPORTED_LONG", nil), properObjectName]
+                                                             delegate:self
+                                                    cancelButtonTitle:NSLocalizedString(@"BUTTON_CANCEL", nil)
+                                                    otherButtonTitles:nil];
             [alert show];
         } else {
             if (size  < [[UIDevice currentDevice] freeDiskspace].longLongValue) {
                 [self _downloadFTPFile:properObjectName];
                 [cell.statusLabel showStatusMessage:NSLocalizedString(@"DOWNLOADING", nil)];
             } else {
-                UIAlertView *alert = [[UIAlertView alloc] initWithTitle:NSLocalizedString(@"DISK_FULL", nil) message:[NSString stringWithFormat:NSLocalizedString(@"DISK_FULL_FORMAT", nil), properObjectName, [[UIDevice currentDevice] model]] delegate:self cancelButtonTitle:NSLocalizedString(@"BUTTON_OK", nil) otherButtonTitles:nil];
+                VLCAlertView *alert = [[VLCAlertView alloc] initWithTitle:NSLocalizedString(@"DISK_FULL", nil)
+                                                                  message:[NSString stringWithFormat:NSLocalizedString(@"DISK_FULL_FORMAT", nil), properObjectName, [[UIDevice currentDevice] model]]
+                                                                 delegate:self
+                                                        cancelButtonTitle:NSLocalizedString(@"BUTTON_OK", nil)
+                                                        otherButtonTitles:nil];
                 [alert show];
             }
         }
@@ -758,7 +774,11 @@
         }
         [receivedSub writeToFile:FileSubtitlePath atomically:YES];
     } else {
-        UIAlertView *alert = [[UIAlertView alloc] initWithTitle:NSLocalizedString(@"DISK_FULL", nil) message:[NSString stringWithFormat:NSLocalizedString(@"DISK_FULL_FORMAT", nil), [fileName lastPathComponent], [[UIDevice currentDevice] model]] delegate:self cancelButtonTitle:NSLocalizedString(@"BUTTON_OK", nil) otherButtonTitles:nil];
+        VLCAlertView *alert = [[VLCAlertView alloc] initWithTitle:NSLocalizedString(@"DISK_FULL", nil)
+                                                          message:[NSString stringWithFormat:NSLocalizedString(@"DISK_FULL_FORMAT", nil), [fileName lastPathComponent], [[UIDevice currentDevice] model]]
+                                                         delegate:self
+                                                cancelButtonTitle:NSLocalizedString(@"BUTTON_OK", nil)
+                                                otherButtonTitles:nil];
         [alert show];
     }
 

@@ -87,11 +87,11 @@
     } else if (count == 1) {
         [self presentDocumentInteractionControllerWithFileURL:[_fileURLs firstObject]];
     } else {
-        UIAlertView *alertView = [[UIAlertView alloc] initWithTitle:NSLocalizedString(@"SHARING_ERROR_NO_FILES", nil)
-                                                            message:nil
-                                                           delegate:nil
-                                                  cancelButtonTitle:NSLocalizedString(@"BUTTON_OK", nil)
-                                                  otherButtonTitles:nil];
+        VLCAlertView *alertView = [[VLCAlertView alloc] initWithTitle:NSLocalizedString(@"SHARING_ERROR_NO_FILES", nil)
+                                                              message:nil
+                                                             delegate:nil
+                                                    cancelButtonTitle:NSLocalizedString(@"BUTTON_OK", nil)
+                                                    otherButtonTitles:nil];
         [alertView show];
 
         [self activityDidFinish:NO];
@@ -130,11 +130,11 @@
         controllerWasPresentedSuccessfully = [_documentInteractionController presentOpenInMenuFromBarButtonItem:self.presentingBarButtonItem animated:YES];
 
         if (!controllerWasPresentedSuccessfully) {
-            UIAlertView *alertView = [[UIAlertView alloc] initWithTitle:NSLocalizedString(@"SHARING_ERROR_NO_APPLICATIONS", nil)
-                                                                message:nil
-                                                               delegate:nil
-                                                      cancelButtonTitle:NSLocalizedString(@"BUTTON_OK", nil)
-                                                      otherButtonTitles:nil];
+            VLCAlertView *alertView = [[VLCAlertView alloc] initWithTitle:NSLocalizedString(@"SHARING_ERROR_NO_APPLICATIONS", nil)
+                                                                  message:nil
+                                                                 delegate:nil
+                                                        cancelButtonTitle:NSLocalizedString(@"BUTTON_OK", nil)
+                                                        otherButtonTitles:nil];
             [alertView show];
 
             [self activityDidFinish:NO];

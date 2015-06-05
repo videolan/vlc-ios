@@ -97,7 +97,11 @@
     _statusCode = [response statusCode];
     if (_statusCode == 200) {
         if (![[response suggestedFilename] isSupportedFormat]) {
-            UIAlertView *alert = [[UIAlertView alloc] initWithTitle:NSLocalizedString(@"FILE_NOT_SUPPORTED", nil) message:[NSString stringWithFormat:NSLocalizedString(@"FILE_NOT_SUPPORTED_LONG", nil), [response suggestedFilename]] delegate:self cancelButtonTitle:NSLocalizedString(@"BUTTON_CANCEL", nil) otherButtonTitles:nil];
+            VLCAlertView *alert = [[VLCAlertView alloc] initWithTitle:NSLocalizedString(@"FILE_NOT_SUPPORTED", nil)
+                                                              message:[NSString stringWithFormat:NSLocalizedString(@"FILE_NOT_SUPPORTED_LONG", nil), [response suggestedFilename]]
+                                                             delegate:self
+                                                    cancelButtonTitle:NSLocalizedString(@"BUTTON_CANCEL", nil)
+                                                    otherButtonTitles:nil];
             [alert show];
 
             [_urlConnection cancel];
@@ -112,7 +116,11 @@
             else {
                 [_urlConnection cancel];
                 [self _downloadEnded];
-                UIAlertView *alert = [[UIAlertView alloc] initWithTitle:NSLocalizedString(@"DISK_FULL", nil) message:[NSString stringWithFormat:NSLocalizedString(@"DISK_FULL_FORMAT", nil), _fileName, [[UIDevice currentDevice] model]] delegate:self cancelButtonTitle:NSLocalizedString(@"BUTTON_OK", nil) otherButtonTitles:nil];
+                VLCAlertView *alert = [[VLCAlertView alloc] initWithTitle:NSLocalizedString(@"DISK_FULL", nil)
+                                                                 message:[NSString stringWithFormat:NSLocalizedString(@"DISK_FULL_FORMAT", nil), _fileName, [[UIDevice currentDevice] model]]
+                                                                 delegate:self
+                                                        cancelButtonTitle:NSLocalizedString(@"BUTTON_OK", nil)
+                                                        otherButtonTitles:nil];
                 [alert show];
             }
             APLog(@"expected download size: %lu", (unsigned long)_expectedDownloadSize);

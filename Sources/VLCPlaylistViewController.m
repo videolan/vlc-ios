@@ -24,7 +24,6 @@
 #import "VLCFirstStepsViewController.h"
 #import "VLCFolderCollectionViewFlowLayout.h"
 #import "LXReorderableCollectionViewFlowLayout.h"
-#import "VLCAlertView.h"
 #import "VLCOpenInActivity.h"
 #import "VLCNavigationController.h"
 
@@ -1318,11 +1317,11 @@ static NSString *kUsingTableViewToShowData = @"UsingTableViewToShowData";
 
                     // By the time this is called, the user has not had time to choose whether to allow access to the Photos library, so only display the message if we are truly sure we got authorization. The first time the user saves to the camera roll he won't see the confirmation because of this timing issue. This is better than showing a success message when the user had denied access. A timing workaround could be developed if needed through UIApplicationDidBecomeActiveNotification (to know when the security alert view was dismissed) or through other ALAssets APIs.
                     if (completed && [activityType isEqualToString:UIActivityTypeSaveToCameraRoll] && [ALAssetsLibrary authorizationStatus] == ALAuthorizationStatusAuthorized) {
-                        UIAlertView *alertView = [[UIAlertView alloc] initWithTitle:NSLocalizedString(@"SHARING_SUCCESS_CAMERA_ROLL", nil)
-                                                                            message:nil
-                                                                           delegate:nil
-                                                                  cancelButtonTitle:NSLocalizedString(@"BUTTON_OK", nil)
-                                                                  otherButtonTitles:nil];
+                        VLCAlertView *alertView = [[VLCAlertView alloc] initWithTitle:NSLocalizedString(@"SHARING_SUCCESS_CAMERA_ROLL", nil)
+                                                                              message:nil
+                                                                             delegate:nil
+                                                                    cancelButtonTitle:NSLocalizedString(@"BUTTON_OK", nil)
+                                                                    otherButtonTitles:nil];
                         [alertView show];
                     }
                     _openInActivity = nil;
@@ -1336,11 +1335,11 @@ static NSString *kUsingTableViewToShowData = @"UsingTableViewToShowData";
         }
     }
 
-    UIAlertView *alertView = [[UIAlertView alloc] initWithTitle:NSLocalizedString(@"SHARING_ERROR_NO_FILES", nil)
-                                                        message:nil
-                                                       delegate:nil
-                                              cancelButtonTitle:NSLocalizedString(@"BUTTON_OK", nil)
-                                              otherButtonTitles:nil];
+    VLCAlertView *alertView = [[VLCAlertView alloc] initWithTitle:NSLocalizedString(@"SHARING_ERROR_NO_FILES", nil)
+                                                          message:nil
+                                                         delegate:nil
+                                                cancelButtonTitle:NSLocalizedString(@"BUTTON_OK", nil)
+                                                otherButtonTitles:nil];
     [alertView show];
 }
 

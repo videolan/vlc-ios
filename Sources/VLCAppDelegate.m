@@ -26,7 +26,6 @@
 #import "VLCHTTPUploaderController.h"
 #import "VLCMenuTableViewController.h"
 #import "VLCMigrationViewController.h"
-#import "VLCAlertView.h"
 #import <BoxSDK/BoxSDK.h>
 #import "VLCNotificationRelay.h"
 #import "VLCPlaybackController.h"

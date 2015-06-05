@@ -446,14 +446,14 @@
 
 - (void)notifyUserAboutEndOfFreeStorage:(NSString *)filename
 {
-    UIAlertView *alert = [[UIAlertView alloc] initWithTitle:NSLocalizedString(@"DISK_FULL", nil)
-                                                    message:[NSString stringWithFormat:
-                                                             NSLocalizedString(@"DISK_FULL_FORMAT", nil),
-                                                             filename,
-                                                             [[UIDevice currentDevice] model]]
-                                                   delegate:self
-                                          cancelButtonTitle:NSLocalizedString(@"BUTTON_OK", nil)
-                                          otherButtonTitles:nil];
+    VLCAlertView *alert = [[VLCAlertView alloc] initWithTitle:NSLocalizedString(@"DISK_FULL", nil)
+                                                      message:[NSString stringWithFormat:
+                                                               NSLocalizedString(@"DISK_FULL_FORMAT", nil),
+                                                               filename,
+                                                               [[UIDevice currentDevice] model]]
+                                                     delegate:self
+                                            cancelButtonTitle:NSLocalizedString(@"BUTTON_OK", nil)
+                                            otherButtonTitles:nil];
     [alert show];
 }
 

@@ -18,7 +18,6 @@
 #import "VLCDownloadViewController.h"
 #import "NSString+SupportedMedia.h"
 #import "VLCStatusLabel.h"
-#import "VLCAlertView.h"
 #import "UIDevice+VLC.h"
 
 @interface VLCSharedLibraryListViewController () <UITableViewDataSource, UITableViewDelegate, VLCLocalNetworkListCell, UISearchBarDelegate, UISearchDisplayDelegate, VLCSharedLibraryParserDelegate>
@@ -254,7 +253,11 @@
 {
     APLog(@"trying to download %@", [itemURL absoluteString]);
     if (![[itemURL absoluteString] isSupportedFormat]) {
-        UIAlertView *alert = [[UIAlertView alloc] initWithTitle:NSLocalizedString(@"FILE_NOT_SUPPORTED", nil) message:[NSString stringWithFormat:NSLocalizedString(@"FILE_NOT_SUPPORTED_LONG", nil), [itemURL absoluteString]] delegate:self cancelButtonTitle:NSLocalizedString(@"BUTTON_CANCEL", nil) otherButtonTitles:nil];
+        VLCAlertView *alert = [[VLCAlertView alloc] initWithTitle:NSLocalizedString(@"FILE_NOT_SUPPORTED", nil)
+                                                          message:[NSString stringWithFormat:NSLocalizedString(@"FILE_NOT_SUPPORTED_LONG", nil), [itemURL absoluteString]]
+                                                         delegate:self
+                                                cancelButtonTitle:NSLocalizedString(@"BUTTON_CANCEL", nil)
+                                                otherButtonTitles:nil];
         [alert show];
     } else if (itemURL) {
         [[(VLCAppDelegate *)[UIApplication sharedApplication].delegate downloadViewController] addURLToDownloadList:itemURL fileNameOfMedia:nil];
@@ -284,7 +287,11 @@
         }
         [receivedSub writeToFile:FileSubtitlePath atomically:YES];
     } else {
-        UIAlertView *alert = [[UIAlertView alloc] initWithTitle:NSLocalizedString(@"DISK_FULL", nil) message:[NSString stringWithFormat:NSLocalizedString(@"DISK_FULL_FORMAT", nil), fileName, [[UIDevice currentDevice] model]] delegate:self cancelButtonTitle:NSLocalizedString(@"BUTTON_OK", nil) otherButtonTitles:nil];
+        VLCAlertView *alert = [[VLCAlertView alloc] initWithTitle:NSLocalizedString(@"DISK_FULL", nil)
+                                                          message:[NSString stringWithFormat:NSLocalizedString(@"DISK_FULL_FORMAT", nil), fileName, [[UIDevice currentDevice] model]]
+                                                         delegate:self
+                                                cancelButtonTitle:NSLocalizedString(@"BUTTON_OK", nil)
+                                                otherButtonTitles:nil];
         [alert show];
     }
 
@@ -317,7 +324,11 @@
         [self _downloadFileFromMediaItem:itemURL];
         [cell.statusLabel showStatusMessage:NSLocalizedString(@"DOWNLOADING", nil)];
     } else {
-        UIAlertView *alert = [[UIAlertView alloc] initWithTitle:NSLocalizedString(@"DISK_FULL", nil) message:[NSString stringWithFormat:NSLocalizedString(@"DISK_FULL_FORMAT", nil), [dataItem objectForKey:@"title"], [[UIDevice currentDevice] model]] delegate:self cancelButtonTitle:NSLocalizedString(@"BUTTON_OK", nil) otherButtonTitles:nil];
+        VLCAlertView *alert = [[VLCAlertView alloc] initWithTitle:NSLocalizedString(@"DISK_FULL", nil)
+                                                          message:[NSString stringWithFormat:NSLocalizedString(@"DISK_FULL_FORMAT", nil), [dataItem objectForKey:@"title"], [[UIDevice currentDevice] model]]
+                                                         delegate:self
+                                                cancelButtonTitle:NSLocalizedString(@"BUTTON_OK", nil)
+                                                otherButtonTitles:nil];
         [alert show];
     }
 }

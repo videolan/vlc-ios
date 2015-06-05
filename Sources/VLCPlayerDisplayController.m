@@ -184,11 +184,11 @@ static inline void commonSetup(VLCPlayerDisplayController *self)
             break;
         case VLCPlayerDisplayControllerDisplayModeMiniplayer:
         default:
-            [[[UIAlertView alloc] initWithTitle:failedString
-                                        message:nil
-                                       delegate:nil
-                              cancelButtonTitle:NSLocalizedString(@"BUTTON_OK", nil)
-                              otherButtonTitles:nil] show];
+            [[[VLCAlertView alloc] initWithTitle:failedString
+                                         message:nil
+                                        delegate:nil
+                               cancelButtonTitle:NSLocalizedString(@"BUTTON_OK", nil)
+                               otherButtonTitles:nil] show];
             break;
     }
 }

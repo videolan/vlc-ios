@@ -111,11 +111,19 @@
                 [self.downloadsTable reloadData];
                 [self _triggerNextDownload];
             } else {
-                UIAlertView * alert = [[UIAlertView alloc] initWithTitle:NSLocalizedString(@"FILE_NOT_SUPPORTED", nil) message:[NSString stringWithFormat:NSLocalizedString(@"FILE_NOT_SUPPORTED_LONG", nil), URLtoSave.lastPathComponent] delegate:self cancelButtonTitle:NSLocalizedString(@"BUTTON_CANCEL", nil) otherButtonTitles:nil];
+                VLCAlertView *alert = [[VLCAlertView alloc] initWithTitle:NSLocalizedString(@"FILE_NOT_SUPPORTED", nil)
+                                                                  message:[NSString stringWithFormat:NSLocalizedString(@"FILE_NOT_SUPPORTED_LONG", nil), URLtoSave.lastPathComponent]
+                                                                 delegate:self
+                                                        cancelButtonTitle:NSLocalizedString(@"BUTTON_CANCEL", nil)
+                                                        otherButtonTitles:nil];
                 [alert show];
             }
         } else {
-            UIAlertView * alert = [[UIAlertView alloc] initWithTitle:NSLocalizedString(@"SCHEME_NOT_SUPPORTED", nil) message:[NSString stringWithFormat:NSLocalizedString(@"SCHEME_NOT_SUPPORTED_LONG", nil), URLtoSave.scheme] delegate:self cancelButtonTitle:NSLocalizedString(@"BUTTON_CANCEL", nil) otherButtonTitles:nil];
+            VLCAlertView *alert = [[VLCAlertView alloc] initWithTitle:NSLocalizedString(@"SCHEME_NOT_SUPPORTED", nil)
+                                                              message:[NSString stringWithFormat:NSLocalizedString(@"SCHEME_NOT_SUPPORTED_LONG", nil), URLtoSave.scheme]
+                                                             delegate:self
+                                                    cancelButtonTitle:NSLocalizedString(@"BUTTON_CANCEL", nil)
+                                                    otherButtonTitles:nil];
             [alert show];
         }
     }
@@ -249,7 +257,11 @@
 
 - (void)downloadFailedWithErrorDescription:(NSString *)description
 {
-    UIAlertView * alert = [[UIAlertView alloc] initWithTitle:NSLocalizedString(@"DOWNLOAD_FAILED", nil) message:description delegate:self cancelButtonTitle:NSLocalizedString(@"BUTTON_CANCEL", nil) otherButtonTitles:nil];
+    VLCAlertView *alert = [[VLCAlertView alloc] initWithTitle:NSLocalizedString(@"DOWNLOAD_FAILED", nil)
+                                                      message:description
+                                                     delegate:self
+                                            cancelButtonTitle:NSLocalizedString(@"BUTTON_CANCEL", nil)
+                                            otherButtonTitles:nil];
     [alert show];
 }
 
@@ -324,7 +336,11 @@
     _FTPDownloadRequest = nil;
     [self downloadEnded];
 
-    UIAlertView * alert = [[UIAlertView alloc] initWithTitle:[NSString stringWithFormat:NSLocalizedString(@"ERROR_NUMBER", nil), request.error.errorCode] message:request.error.message delegate:self cancelButtonTitle:NSLocalizedString(@"BUTTON_CANCEL", nil) otherButtonTitles:nil];
+    VLCAlertView * alert = [[VLCAlertView alloc] initWithTitle:[NSString stringWithFormat:NSLocalizedString(@"ERROR_NUMBER", nil), request.error.errorCode]
+                                                       message:request.error.message
+                                                      delegate:self
+                                             cancelButtonTitle:NSLocalizedString(@"BUTTON_CANCEL", nil)
+                                             otherButtonTitles:nil];
     [alert show];
 }
 
