@@ -392,6 +392,9 @@ NSString *const VLCPlaybackControllerPlaybackDidFail = @"VLCPlaybackControllerPl
         fileItem.lastAudioTrack = @(_mediaPlayer.currentAudioTrackIndex);
         fileItem.lastSubtitleTrack = @(_mediaPlayer.currentVideoSubTitleIndex);
 
+        if ([fileItem isKindOfType:kMLFileTypeAudio])
+            return;
+
         if (position > .95)
             return;
 
