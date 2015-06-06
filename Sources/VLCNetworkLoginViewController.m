@@ -142,8 +142,15 @@
     }
 }
 
-- (IBAction)saveFTP:(id)sender {
-    [_saveServer addObject:self.serverAddressField.text];
+- (IBAction)saveFTP:(id)sender
+{
+    NSString *serverAddress = self.serverAddressField.text;
+    if (!serverAddress)
+        return;
+    if (serverAddress.length < 1)
+        return;
+
+    [_saveServer addObject:serverAddress];
     [_saveLogin addObject:self.usernameField.text];
     [_savePass  addObject:self.passwordField.text];
     NSUserDefaults *defaults = [NSUserDefaults standardUserDefaults];
