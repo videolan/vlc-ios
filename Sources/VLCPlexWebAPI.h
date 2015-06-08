@@ -17,10 +17,10 @@
 - (NSString *)PlexAuthentification:(NSString *)username password:(NSString *)password;
 - (NSString *)urlAuth:(NSString *)url autentification:(NSString *)auth;
 - (NSData *)HttpRequestWithCookie:(NSURL *)url cookies:(NSArray *)authToken HTTPMethod:(NSString *)method;
-- (NSURL *)CreatePlexStreamingURL:(NSString *)adress port:(NSString *)port videoKey:(NSString *)key username:(NSString *)username deviceInfo:(NSMutableArray *)deviceInfo session:(NSString *)session;
+- (NSURL *)CreatePlexStreamingURL:(NSString *)address port:(NSString *)port videoKey:(NSString *)key username:(NSString *)username deviceInfo:(NSDictionary *)deviceInfo session:(NSString *)session;
 - (void)stopSession:(NSString *)adress port:(NSString *)port session:(NSString *)session;
-- (NSInteger)MarkWatchedUnwatchedMedia:(NSString *)adress port:(NSString *)port videoRatingKey:(NSString *)ratingKey state:(NSString *)state authentification:(NSString *)auth;
-- (NSString *)getFileSubtitleFromPlexServer:(NSMutableArray *)mutableMediaObject modeStream:(BOOL)modeStream;
+- (NSInteger)MarkWatchedUnwatchedMedia:(NSString *)address port:(NSString *)port videoRatingKey:(NSString *)ratingKey state:(NSString *)state authentification:(NSString *)auth;
+- (NSString *)getFileSubtitleFromPlexServer:(NSDictionary *)mediaObject modeStream:(BOOL)modeStream;
 - (NSString *)getSession;
 - (NSData *)PlexDeviceInfo:(NSArray *)cookies;
 

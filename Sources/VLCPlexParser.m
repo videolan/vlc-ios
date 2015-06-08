@@ -26,12 +26,11 @@
 
 @implementation VLCPlexParser
 
-- (NSMutableArray *)PlexMediaServerParser:(NSString *)adress port:(NSString *)port navigationPath:(NSString *)path authentification:(NSString *)auth
+- (NSArray *)PlexMediaServerParser:(NSString *)address port:(NSString *)port navigationPath:(NSString *)path authentification:(NSString *)auth
 {
     _containerInfo = [[NSMutableArray alloc] init];
-    [_containerInfo removeAllObjects];
     _dicoInfo = [[NSMutableDictionary alloc] init];
-    _PlexMediaServerUrl = [NSString stringWithFormat:@"http://%@%@",adress, port];
+    _PlexMediaServerUrl = [NSString stringWithFormat:@"http://%@%@",address, port];
     NSString *mediaServerUrl;
 
     if ([path isEqualToString:@""])
@@ -88,13 +87,12 @@
 
     [_containerInfo setValue:auth forKey:@"authentification"];
 
-    return _containerInfo;
+    return [NSArray arrayWithArray:_containerInfo];
 }
 
-- (NSMutableArray *)PlexExtractDeviceInfo:(NSData *)data
+- (NSArray *)PlexExtractDeviceInfo:(NSData *)data
 {
     _containerInfo = [[NSMutableArray alloc] init];
-    [_containerInfo removeAllObjects];
     _dicoInfo = [[NSMutableDictionary alloc] init];
     NSXMLParser *xmlparser = [[NSXMLParser alloc] initWithData:data];
     [xmlparser setDelegate:self];
@@ -102,7 +100,7 @@
     if (![xmlparser parse])
         APLog(@"PlexParser data Errors : %@", data);
 
-    return _containerInfo;
+    return [NSArray arrayWithArray:_containerInfo];
 }
 
 #pragma mark - Parser

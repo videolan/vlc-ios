@@ -18,7 +18,7 @@
 
 @interface VLCPlexMediaInformationViewController ()
 {
-    NSMutableArray *_mutableMediaInformation;
+    NSDictionary *_mediaObject;
     NSString *_PlexServerAddress;
     NSString *_PlexServerPort;
     NSString *_PlexServerPath;
@@ -30,12 +30,15 @@
 
 @implementation VLCPlexMediaInformationViewController
 
-- (id)initPlexMediaInformation:(NSMutableArray *)mediaInformation serverAddress:(NSString *)serverAddress portNumber:(NSString *)portNumber atPath:(NSString *)path authentification:(NSString *)auth
+- (id)initPlexMediaInformation:(NSDictionary *)mediaInformation
+                 serverAddress:(NSString *)serverAddress
+                    portNumber:(NSString *)portNumber
+                        atPath:(NSString *)path
+              authentification:(NSString *)auth
 {
     self = [super init];
     if (self) {
-        _mutableMediaInformation = [[NSMutableArray alloc] init];
-        [_mutableMediaInformation addObjectsFromArray:mediaInformation];
+        _mediaObject = mediaInformation;
         _PlexServerAddress = serverAddress;
         _PlexServerPort = portNumber;
         _PlexServerPath = path;
@@ -54,29 +57,31 @@
     self.automaticallyAdjustsScrollViewInsets = NO;
     self.navigationController.navigationBar.translucent = NO;
 
-    NSString *title = [[_mutableMediaInformation objectAtIndex:0] objectForKey:@"title"];
-    NSString *thumbPath = [_PlexWebAPI urlAuth:[[_mutableMediaInformation objectAtIndex:0] objectForKey:@"thumb"] autentification:_PlexAuthentification];
+    NSString *title = _mediaObject[@"title"];
+    NSString *thumbPath = [_PlexWebAPI urlAuth:_mediaObject[@"thumb"] autentification:_PlexAuthentification];
     UIImage *image = [UIImage imageWithData:[NSData dataWithContentsOfURL:[NSURL URLWithString:thumbPath]]];
-    NSInteger size = [[[_mutableMediaInformation objectAtIndex:0] objectForKey:@"size"] integerValue];
+    NSInteger size = [_mediaObject[@"size"] integerValue];
     NSString *mediaSize = [NSByteCountFormatter stringFromByteCount:size countStyle:NSByteCountFormatterCountStyleFile];
-    NSString *durationInSeconds = [[_mutableMediaInformation objectAtIndex:0] objectForKey:@"duration"];
+    NSString *durationInSeconds = _mediaObject[@"duration"];
     NSString *displaySize = [NSString stringWithFormat:@"%@ (%@)", mediaSize, durationInSeconds];
-    NSString *tag = [[_mutableMediaInformation objectAtIndex:0] objectForKey:@"state"];
-    NSString *displaySummary = [NSString stringWithFormat:@"%@", [[_mutableMediaInformation objectAtIndex:0] objectForKey:@"summary"]];
+    NSString *tag = _mediaObject[@"state"];
+    NSString *displaySummary = [NSString stringWithFormat:@"%@", _mediaObject[@"summary"]];
 
-    NSString *audioCodec = [[_mutableMediaInformation objectAtIndex:0] objectForKey:@"audioCodec"];
+    NSString *audioCodec = _mediaObject[@"audioCodec"];
     if (!audioCodec)
         audioCodec = @"no track";
 
-    NSString *videoCodec = [[_mutableMediaInformation objectAtIndex:0] objectForKey:@"videoCodec"];
+    NSString *videoCodec = _mediaObject[@"videoCodec"];
     if (!videoCodec)
         videoCodec = @"no track";
 
     NSString *displayCodec = [NSString stringWithFormat:@"audio(%@) video(%@)", audioCodec, videoCodec];
 
-    NSString *grandparentTitle = [[_mutableMediaInformation objectAtIndex:0] objectForKey:@"grandparentTitle"];
+    NSString *grandparentTitle = _mediaObject[@"grandparentTitle"];
     if (grandparentTitle)
         self.title = grandparentTitle;
+    else
+        self.title = title;
 
     [self.thumb setContentMode:UIViewContentModeScaleAspectFit];
     [self.thumb setImage:image];
@@ -99,31 +104,32 @@
     [self.badgeUnread setNeedsDisplay];
 }
 
-- (void)viewWillAppear:(BOOL)animated
-{
-    [super viewWillAppear:animated];
-}
-
 #pragma mark - Specifics
 
-- (void)_playMediaItem:(NSMutableArray *)mutableMediaObject
+- (void)_playMediaItem
 {
+    if (_mediaObject == nil)
+        return;
+
     NSString *newPath = nil;
-    NSString *keyValue = [[mutableMediaObject objectAtIndex:0] objectForKey:@"key"];
+    NSString *keyValue = _mediaObject[@"key"];
 
     if ([keyValue rangeOfString:@"library"].location == NSNotFound)
         newPath = [_PlexServerPath stringByAppendingPathComponent:keyValue];
     else
         newPath = keyValue;
 
-    if ([[[mutableMediaObject objectAtIndex:0] objectForKey:@"container"] isEqualToString:@"item"]) {
-        [mutableMediaObject removeAllObjects];
-        mutableMediaObject = [_PlexParser PlexMediaServerParser:_PlexServerAddress port:_PlexServerPort navigationPath:newPath authentification:@""];
+    if ([_mediaObject[@"container"] isEqualToString:@"item"]) {
+        NSArray *mediaList = [_PlexParser PlexMediaServerParser:_PlexServerAddress port:_PlexServerPort navigationPath:newPath authentification:@""];
         NSString *URLofSubtitle = nil;
-        if ([[mutableMediaObject objectAtIndex:0] objectForKey:@"keySubtitle"])
-            URLofSubtitle = [_PlexWebAPI getFileSubtitleFromPlexServer:mutableMediaObject modeStream:YES];
+        NSDictionary *firstObject = [mediaList firstObject];
+        if (!firstObject)
+            return;
 
-        NSURL *itemURL = [NSURL URLWithString:[_PlexWebAPI urlAuth:[[mutableMediaObject objectAtIndex:0] objectForKey:@"keyMedia"] autentification:_PlexAuthentification]];
+        if (firstObject[@"keySubtitle"])
+            URLofSubtitle = [_PlexWebAPI getFileSubtitleFromPlexServer:firstObject modeStream:YES];
+
+        NSURL *itemURL = [NSURL URLWithString:[_PlexWebAPI urlAuth:firstObject[@"keyMedia"] autentification:_PlexAuthentification]];
         if (itemURL) {
             VLCAppDelegate *appDelegate = [UIApplication sharedApplication].delegate;
             [appDelegate openMovieWithExternalSubtitleFromURL:itemURL externalSubURL:URLofSubtitle];
@@ -131,21 +137,40 @@
     }
 }
 
-- (void)_download:(NSMutableArray *)mutableMediaObject
+- (void)_download
 {
-    NSString *path = [[mutableMediaObject objectAtIndex:0] objectForKey:@"key"];
-    [mutableMediaObject removeAllObjects];
-    mutableMediaObject = [_PlexParser PlexMediaServerParser:_PlexServerAddress port:_PlexServerPort navigationPath:path authentification:@""];
+    if (_mediaObject == nil)
+        return;
 
-    NSInteger size = [[[mutableMediaObject objectAtIndex:0] objectForKey:@"size"] integerValue];
+    NSString *path = _mediaObject[@"key"];
+
+    NSArray *mediaList = [_PlexParser PlexMediaServerParser:_PlexServerAddress port:_PlexServerPort navigationPath:path authentification:@""];
+    NSDictionary *firstObject = [mediaList firstObject];
+    if (!firstObject)
+        return;
+
+    NSInteger size = [firstObject[@"size"] integerValue];
     if (size  < [[UIDevice currentDevice] freeDiskspace].longLongValue) {
-        if ([[mutableMediaObject objectAtIndex:0] objectForKey:@"keySubtitle"])
-            [_PlexWebAPI getFileSubtitleFromPlexServer:mutableMediaObject modeStream:NO];
+        if (firstObject[@"keySubtitle"])
+            [_PlexWebAPI getFileSubtitleFromPlexServer:firstObject modeStream:NO];
 
-        [self _downloadFileFromMediaItem:mutableMediaObject];
+
+
+        NSURL *itemURL = [NSURL URLWithString:firstObject[@"keyMedia"]];
+        if (![[itemURL absoluteString] isSupportedFormat]) {
+            VLCAlertView *alert = [[VLCAlertView alloc] initWithTitle:NSLocalizedString(@"FILE_NOT_SUPPORTED", nil)
+                                                              message:[NSString stringWithFormat:NSLocalizedString(@"FILE_NOT_SUPPORTED_LONG", nil), [itemURL absoluteString]]
+                                                             delegate:self
+                                                    cancelButtonTitle:NSLocalizedString(@"BUTTON_CANCEL", nil)
+                                                    otherButtonTitles:nil];
+            [alert show];
+        } else if (itemURL) {
+            NSString *fileName = [firstObject objectForKey:@"namefile"];
+            [[(VLCAppDelegate *)[UIApplication sharedApplication].delegate downloadViewController] addURLToDownloadList:itemURL fileNameOfMedia:fileName];
+        }
     } else {
         VLCAlertView *alert = [[VLCAlertView alloc] initWithTitle:NSLocalizedString(@"DISK_FULL", nil)
-                                                          message:[NSString stringWithFormat:NSLocalizedString(@"DISK_FULL_FORMAT", nil), [[mutableMediaObject objectAtIndex:0] objectForKey:@"title"], [[UIDevice currentDevice] model]]
+                                                          message:[NSString stringWithFormat:NSLocalizedString(@"DISK_FULL_FORMAT", nil), firstObject[@"title"], [[UIDevice currentDevice] model]]
                                                          delegate:self
                                                 cancelButtonTitle:NSLocalizedString(@"BUTTON_OK", nil)
                                                 otherButtonTitles:nil];
@@ -153,41 +178,24 @@
     }
 }
 
-- (void)_downloadFileFromMediaItem:(NSMutableArray *)mutableMediaObject
-{
-    NSURL *itemURL = [NSURL URLWithString:[[mutableMediaObject objectAtIndex:0] objectForKey:@"keyMedia"]];
-
-    if (![[itemURL absoluteString] isSupportedFormat]) {
-        VLCAlertView *alert = [[VLCAlertView alloc] initWithTitle:NSLocalizedString(@"FILE_NOT_SUPPORTED", nil)
-                                                          message:[NSString stringWithFormat:NSLocalizedString(@"FILE_NOT_SUPPORTED_LONG", nil), [itemURL absoluteString]]
-                                                         delegate:self
-                                                cancelButtonTitle:NSLocalizedString(@"BUTTON_CANCEL", nil)
-                                                otherButtonTitles:nil];
-        [alert show];
-    } else if (itemURL) {
-        NSString *fileName = [[mutableMediaObject objectAtIndex:0] objectForKey:@"namefile"];
-        [[(VLCAppDelegate *)[UIApplication sharedApplication].delegate downloadViewController] addURLToDownloadList:itemURL fileNameOfMedia:fileName];
-    }
-}
-
 #pragma mark - Action
 
 - (IBAction)play:(id)sender
 {
-    [self _playMediaItem:_mutableMediaInformation];
+    [self _playMediaItem];
     [[self navigationController] popViewControllerAnimated:YES];
 }
 
 - (IBAction)download:(id)sender
 {
-    [self _download:_mutableMediaInformation];
+    [self _download];
     [[self navigationController] popViewControllerAnimated:YES];
 }
 
 - (IBAction)markMedia:(id)sender
 {
-    NSString *ratingKey = [[_mutableMediaInformation objectAtIndex:0] objectForKey:@"ratingKey"];
-    NSString *tag = [[_mutableMediaInformation objectAtIndex:0] objectForKey:@"state"];
+    NSString *ratingKey = _mediaObject[@"ratingKey"];
+    NSString *tag = _mediaObject[@"state"];
 
     NSInteger status = [_PlexWebAPI MarkWatchedUnwatchedMedia:_PlexServerAddress port:_PlexServerPort videoRatingKey:ratingKey state:tag authentification:_PlexAuthentification];
     if (status == 200) {
@@ -205,7 +213,9 @@
 
     [self.badgeUnread setNeedsDisplay];
 
-    [[_mutableMediaInformation objectAtIndex:0] setObject:tag forKey:@"state"];
+    NSMutableDictionary *mutableMediaObject = [NSMutableDictionary dictionaryWithDictionary:_mediaObject];
+    [mutableMediaObject setObject:tag forKey:@"state"];
+    _mediaObject = [NSDictionary dictionaryWithDictionary:mutableMediaObject];
 }
 
 #pragma mark - UI interaction

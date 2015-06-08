@@ -16,12 +16,6 @@
 #define kPlexMediaServerSignIn @"https://plex.tv/users/sign_in.xml"
 #define kPlexURLdeviceInfo @"https://plex.tv/devices.xml"
 
-@interface VLCPlexWebAPI ()
-{
-
-}
-@end
-
 @implementation VLCPlexWebAPI
 
 #pragma mark - Authentification
@@ -113,7 +107,7 @@
     NSString *authentification = @"";
 
     if ((![username isEqualToString:@""]) && (![password isEqualToString:@""])) {
-        NSMutableArray *deviceInfo = [[NSMutableArray alloc] init];
+        NSArray *deviceInfo;
         NSString *appVersion = [NSString stringWithFormat:@"%@", [[NSBundle mainBundle] objectForInfoDictionaryKey:@"CFBundleShortVersionString"]];
 
         NSArray *authToken = [self PlexBasicAuthentification:username password:password];
@@ -121,16 +115,30 @@
 
         VLCPlexParser *plexParser = [[VLCPlexParser alloc] init];
         deviceInfo = [plexParser PlexExtractDeviceInfo:data];
+        NSDictionary *firstObject = [deviceInfo firstObject];
 
-        if ((deviceInfo.count == 0) || ((![[[deviceInfo objectAtIndex:0] objectForKey:@"productVersion"] isEqualToString:appVersion]) || (![[[deviceInfo objectAtIndex:0] objectForKey:@"platformVersion"] isEqualToString:[[UIDevice currentDevice] systemVersion]]))) {
-            [deviceInfo removeAllObjects];
+        if ((deviceInfo.count == 0) ||
+            ((![firstObject[@"productVersion"] isEqualToString:appVersion]) ||
+             (![firstObject[@"platformVersion"] isEqualToString:[[UIDevice currentDevice] systemVersion]]))) {
+
             [self PlexCreateIdentification:username password:password];
             data = [self PlexDeviceInfo:authToken];
             deviceInfo = [plexParser PlexExtractDeviceInfo:data];
         }
 
-        if (deviceInfo.count != 0)
-            authentification = [[NSString stringWithFormat:@"X-Plex-Product=%@&X-Plex-Version=%@&X-Plex-Client-Identifier=%@&X-Plex-Platform=iOS&X-Plex-Platform-Version=%@&X-Plex-Device=%@&X-Plex-Device-Name=%@&X-Plex-Token=%@&X-Plex-Username=%@", [[deviceInfo objectAtIndex:0] objectForKey:@"product"], [[deviceInfo objectAtIndex:0] objectForKey:@"productVersion"], [[deviceInfo objectAtIndex:0] objectForKey:@"clientIdentifier"], [[UIDevice currentDevice] systemVersion], [[UIDevice currentDevice] model], [[deviceInfo objectAtIndex:0] objectForKey:@"name"], [[deviceInfo objectAtIndex:0] objectForKey:@"token"], username] stringByReplacingOccurrencesOfString:@" " withString:@"+"];
+        if (deviceInfo.count != 0) {
+            firstObject = [deviceInfo firstObject];
+            UIDevice *currentDevice = [UIDevice currentDevice];
+            authentification = [[NSString stringWithFormat:@"X-Plex-Product=%@&X-Plex-Version=%@&X-Plex-Client-Identifier=%@&X-Plex-Platform=iOS&X-Plex-Platform-Version=%@&X-Plex-Device=%@&X-Plex-Device-Name=%@&X-Plex-Token=%@&X-Plex-Username=%@",
+                                 firstObject[@"product"],
+                                 firstObject[@"productVersion"],
+                                 firstObject[@"clientIdentifier"],
+                                 [currentDevice systemVersion],
+                                 [currentDevice model],
+                                 firstObject[@"name"],
+                                 firstObject[@"token"], username]
+                                stringByReplacingOccurrencesOfString:@" " withString:@"+"];
+        }
     }
 
     return authentification;
@@ -175,13 +183,16 @@
     return httpStatus;
 }
 
-- (NSString *)getFileSubtitleFromPlexServer:(NSMutableArray *)mutableMediaObject modeStream:(BOOL)modeStream
+- (NSString *)getFileSubtitleFromPlexServer:(NSDictionary *)mediaObject modeStream:(BOOL)modeStream
 {
+    if (!mediaObject)
+        return @"";
+
     NSString *FileSubtitlePath = nil;
-    NSString *fileName = [[[[mutableMediaObject objectAtIndex:0] objectForKey:@"namefile"] stringByDeletingPathExtension] stringByAppendingPathExtension:[[mutableMediaObject objectAtIndex:0] objectForKey:@"codecSubtitle"]];
+    NSString *fileName = [[mediaObject[@"namefile"] stringByDeletingPathExtension] stringByAppendingPathExtension:mediaObject[@"codecSubtitle"]];
 
     VLCPlexWebAPI *PlexWebAPI = [[VLCPlexWebAPI alloc] init];
-    NSURL *url = [[NSURL alloc] initWithString:[PlexWebAPI urlAuth:[[mutableMediaObject objectAtIndex:0] objectForKey:@"keySubtitle"] autentification:[[mutableMediaObject objectAtIndex:0] objectForKey:@"authentification"]]];
+    NSURL *url = [[NSURL alloc] initWithString:[PlexWebAPI urlAuth:mediaObject[@"keySubtitle"] autentification:mediaObject[@"authentification"]]];
 
     NSData *receivedSub = [NSData dataWithContentsOfURL:url];
 
@@ -213,26 +224,38 @@
     return FileSubtitlePath;
 }
 
-- (NSURL *)CreatePlexStreamingURL:(NSString *)adress port:(NSString *)port videoKey:(NSString *)key username:(NSString *)username deviceInfo:(NSMutableArray *)deviceInfo session:(NSString *)session
+- (NSURL *)CreatePlexStreamingURL:(NSString *)address port:(NSString *)port videoKey:(NSString *)key username:(NSString *)username deviceInfo:(NSDictionary *)deviceInfo session:(NSString *)session
 {
     /* it starts video transcoding but without sound !!! why ? */
+    UIDevice *currentDevice = [UIDevice currentDevice];
 
-    NSString *authentification = [[NSString stringWithFormat:@"&X-Plex-Product=%@&X-Plex-Version=%@&X-Plex-Client-Identifier=%@&X-Plex-Platform=iOS&X-Plex-Platform-Version=%@&X-Plex-Device=%@&X-Plex-Device-Name=%@&X-Plex-Token=%@&X-Plex-Username=%@", [[deviceInfo objectAtIndex:0] objectForKey:@"product"], [[deviceInfo objectAtIndex:0] objectForKey:@"productVersion"], [[deviceInfo objectAtIndex:0] objectForKey:@"clientIdentifier"], [[UIDevice currentDevice] systemVersion], [[UIDevice currentDevice] model], [[deviceInfo objectAtIndex:0] objectForKey:@"name"], [[deviceInfo objectAtIndex:0] objectForKey:@"token"], username] stringByReplacingOccurrencesOfString:@" " withString:@"+"];
+    NSString *authentification = [[NSString stringWithFormat:@"&X-Plex-Product=%@&X-Plex-Version=%@&X-Plex-Client-Identifier=%@&X-Plex-Platform=iOS&X-Plex-Platform-Version=%@&X-Plex-Device=%@&X-Plex-Device-Name=%@&X-Plex-Token=%@&X-Plex-Username=%@",
+                                   deviceInfo[@"product"],
+                                   deviceInfo[@"productVersion"],
+                                   deviceInfo[@"clientIdentifier"],
+                                   [currentDevice systemVersion],
+                                   [currentDevice model],
+                                   deviceInfo[@"name"],
+                                   deviceInfo[@"token"], username]
+                                  stringByReplacingOccurrencesOfString:@" " withString:@"+"];
 
     NSString *unescaped = [NSString stringWithFormat:@"http://127.0.0.1:32400%@", key];
     NSString *escapedString = [unescaped stringByAddingPercentEncodingWithAllowedCharacters:[NSCharacterSet URLHostAllowedCharacterSet]];
 
-    NSURL *url = [NSURL URLWithString:[[NSString stringWithFormat:@"http://%@%@/video/:/transcode/universal/start.m3u8?path=%@&mediaIndex=0&partIndex=0&protocol=hls&offset=0&fastSeek=1&directPlay=0&directStream=1&subtitleSize=100&audioBoost=100&session=%@&subtitles=burn", adress, port, escapedString, session] stringByAppendingString:authentification]];
+    NSURL *url = [NSURL URLWithString:[[NSString stringWithFormat:@"http://%@%@/video/:/transcode/universal/start.m3u8?path=%@&mediaIndex=0&partIndex=0&protocol=hls&offset=0&fastSeek=1&directPlay=0&directStream=1&subtitleSize=100&audioBoost=100&session=%@&subtitles=burn",
+                                        address,
+                                        port,
+                                        escapedString,
+                                        session] stringByAppendingString:authentification]];
 
     return url;
 }
 
 - (void)stopSession:(NSString *)adress port:(NSString *)port session:(NSString *)session
 {
-
     NSURL *url = [NSURL URLWithString:[NSString stringWithFormat:@"http://%@:%@/video/:/transcode/universal/stop?session=%@", adress, port, session]];
 
-    NSMutableURLRequest *request = [NSMutableURLRequest requestWithURL:url cachePolicy:NSURLRequestUseProtocolCachePolicy timeoutInterval:5.0];
+    NSURLRequest *request = [NSURLRequest requestWithURL:url cachePolicy:NSURLRequestUseProtocolCachePolicy timeoutInterval:5.0];
     NSHTTPURLResponse *response = nil;
     NSError *error = nil;
     [NSURLConnection sendSynchronousRequest:request returningResponse:&response error:&error];

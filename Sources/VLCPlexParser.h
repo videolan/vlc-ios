@@ -12,7 +12,7 @@
 #import <UIKit/UIKit.h>
 @interface VLCPlexParser : NSObject
 
-- (NSMutableArray *)PlexMediaServerParser:(NSString *)adress port:(NSString *)port navigationPath:(NSString *)navPath authentification:(NSString *)auth;
-- (NSMutableArray *)PlexExtractDeviceInfo:(NSData *)data;
+- (NSArray *)PlexMediaServerParser:(NSString *)adress port:(NSString *)port navigationPath:(NSString *)navPath authentification:(NSString *)auth;
+- (NSArray *)PlexExtractDeviceInfo:(NSData *)data;
 
 @end

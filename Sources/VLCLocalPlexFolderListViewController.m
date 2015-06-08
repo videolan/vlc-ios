@@ -24,7 +24,7 @@
 
 @interface VLCLocalPlexFolderListViewController () <UITableViewDataSource, UITableViewDelegate, VLCLocalNetworkListCell, UISearchBarDelegate, UISearchDisplayDelegate>
 {
-    NSMutableArray *_mutableObjectList;
+    NSArray *_globalObjectList;
     NSCache *_imageCache;
 
     NSString *_PlexServerName;
@@ -69,7 +69,7 @@
 
         _PlexAuthentification = auth;
 
-        _mutableObjectList = [[NSMutableArray alloc] init];
+        _globalObjectList = [[NSArray alloc] init];
         _imageCache = [[NSCache alloc] init];
         [_imageCache setCountLimit:50];
 
@@ -82,26 +82,12 @@
 {
     [super viewDidLoad];
 
-    [_mutableObjectList removeAllObjects];
-    _mutableObjectList = [_PlexParser PlexMediaServerParser:_PlexServerAddress port:_PlexServerPort navigationPath:_PlexServerPath authentification:_PlexAuthentification];
-
-    if (_mutableObjectList.count == 0)
-        _PlexAuthentification = @"";
-    else
-        _PlexAuthentification = [[_mutableObjectList objectAtIndex:0] objectForKey:@"authentification"];
-
     self.tableView.separatorColor = [UIColor VLCDarkBackgroundColor];
     self.view.backgroundColor = [UIColor VLCDarkBackgroundColor];
 
     _PlexWebAPI = [[VLCPlexWebAPI alloc] init];
 
-    NSString *titleValue;
-    if ([_PlexServerPath isEqualToString:@""] || _mutableObjectList.count == 0)
-        titleValue = _PlexServerName;
-    else
-        titleValue = [_mutableObjectList[0] objectForKey:@"libTitle"];
-
-    self.title = titleValue;
+    self.title = _PlexServerName;
 
     _searchBar = [[UISearchBar alloc] initWithFrame:CGRectMake(0, 0, 320, 44)];
     UINavigationBar *navBar = self.navigationController.navigationBar;
@@ -138,8 +124,30 @@
     _menuButton = [UIBarButtonItem themedRevealMenuButtonWithTarget:self andSelector:@selector(menuButtonAction:)];
     self.navigationItem.rightBarButtonItem = _menuButton;
 
+    _globalObjectList = [[NSArray alloc] init];
     _searchData = [[NSMutableArray alloc] init];
-    [_searchData removeAllObjects];
+
+    [self performSelectorInBackground:@selector(loadContents) withObject:nil];
+}
+
+- (void)loadContents
+{
+    _globalObjectList = [_PlexParser PlexMediaServerParser:_PlexServerAddress port:_PlexServerPort navigationPath:_PlexServerPath authentification:_PlexAuthentification];
+    NSDictionary *firstObject = [_globalObjectList firstObject];
+
+    if (_globalObjectList.count == 0 || firstObject == nil)
+        _PlexAuthentification = @"";
+    else
+        _PlexAuthentification = [firstObject objectForKey:@"authentification"];
+
+    NSString *titleValue;
+    if ([_PlexServerPath isEqualToString:@""] || _globalObjectList.count == 0 || firstObject == nil)
+        titleValue = _PlexServerName;
+    else
+        titleValue = [firstObject objectForKey:@"libTitle"];
+    self.title = titleValue;
+
+    [self.tableView performSelectorOnMainThread:@selector(reloadData) withObject:nil waitUntilDone:NO];
 }
 
 - (BOOL)shouldAutorotate
@@ -170,7 +178,7 @@
     if (tableView == self.searchDisplayController.searchResultsTableView)
         return _searchData.count;
     else
-        return _mutableObjectList.count;
+        return _globalObjectList.count;
 }
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
@@ -182,18 +190,17 @@
     if (cell == nil)
         cell = [VLCLocalNetworkListCell cellWithReuseIdentifier:CellIdentifier];
 
-    NSMutableArray *ObjList = [[NSMutableArray alloc] init];
-    [ObjList removeAllObjects];
+    NSDictionary *cellObject;
 
     if (tableView == self.searchDisplayController.searchResultsTableView)
-        [ObjList addObjectsFromArray:_searchData];
+        cellObject = _searchData[indexPath.row];
     else
-        [ObjList addObjectsFromArray:_mutableObjectList];
+        cellObject = _globalObjectList[indexPath.row];
 
-    [cell setTitle:[[ObjList objectAtIndex:indexPath.row] objectForKey:@"title"]];
+    [cell setTitle:cellObject[@"title"]];
     [cell setIcon:[UIImage imageNamed:@"blank"]];
 
-    NSString *thumbPath = [[ObjList objectAtIndex:indexPath.row] objectForKey:@"thumb"];
+    NSString *thumbPath = cellObject[@"thumb"];
     if (thumbPath) {
         dispatch_queue_t queue = dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_LOW, 0);
         dispatch_async(queue, ^{
@@ -207,7 +214,7 @@
         });
     }
 
-    if ([[[ObjList objectAtIndex:indexPath.row] objectForKey:@"container"] isEqualToString:@"item"]) {
+    if ([cellObject[@"container"] isEqualToString:@"item"]) {
         UISwipeGestureRecognizer *swipeRight = [[UISwipeGestureRecognizer alloc] initWithTarget:self action:@selector(swipeRightGestureAction:)];
         [swipeRight setDirection:(UISwipeGestureRecognizerDirectionRight)];
         [cell addGestureRecognizer:swipeRight];
@@ -215,9 +222,9 @@
             UILongPressGestureRecognizer *longPressGestureRecognizer = [[UILongPressGestureRecognizer alloc] initWithTarget:self action:@selector(longTouchGestureAction:)];
             [cell addGestureRecognizer:longPressGestureRecognizer];
         }
-        NSInteger size = [[[ObjList objectAtIndex:indexPath.row] objectForKey:@"size"] integerValue];
+        NSInteger size = [cellObject[@"size"] integerValue];
         NSString *mediaSize = [NSByteCountFormatter stringFromByteCount:size countStyle:NSByteCountFormatterCountStyleFile];
-        NSString *durationInSeconds = [[ObjList objectAtIndex:indexPath.row] objectForKey:@"duration"];
+        NSString *durationInSeconds = cellObject[@"duration"];
         [cell setIsDirectory:NO];
         [cell setSubtitle:[NSString stringWithFormat:@"%@ (%@)", mediaSize, durationInSeconds]];
         [cell setIsDownloadable:YES];
@@ -255,30 +262,35 @@
 
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
 {
-    NSMutableArray *ObjList = [[NSMutableArray alloc] init];
-    [ObjList removeAllObjects];
+    NSArray *objectList;
     NSString *newPath = nil;
 
     if (tableView == self.searchDisplayController.searchResultsTableView)
-        [ObjList addObjectsFromArray:_searchData];
+        objectList = [_searchData copy];
     else
-        [ObjList addObjectsFromArray:_mutableObjectList];
+        objectList = _globalObjectList;
 
-    NSString *keyValue = [[ObjList objectAtIndex:indexPath.row] objectForKey:@"key"];
+    NSDictionary *rowObject = objectList[indexPath.row];
+
+    NSString *keyValue = [rowObject objectForKey:@"key"];
 
     if ([keyValue rangeOfString:@"library"].location == NSNotFound)
         newPath = [_PlexServerPath stringByAppendingPathComponent:keyValue];
     else
         newPath = keyValue;
 
-    if ([[[ObjList objectAtIndex:indexPath.row] objectForKey:@"container"] isEqualToString:@"item"]) {
-        [ObjList removeAllObjects];
-        ObjList = [_PlexParser PlexMediaServerParser:_PlexServerAddress port:_PlexServerPort navigationPath:newPath authentification:_PlexAuthentification];
+    if ([rowObject[@"container"] isEqualToString:@"item"]) {
+        objectList = [_PlexParser PlexMediaServerParser:_PlexServerAddress port:_PlexServerPort navigationPath:newPath authentification:_PlexAuthentification];
         NSString *URLofSubtitle = nil;
-        if ([[ObjList objectAtIndex:0] objectForKey:@"keySubtitle"])
-            URLofSubtitle = [_PlexWebAPI getFileSubtitleFromPlexServer:ObjList modeStream:YES];
 
-        NSURL *itemURL = [NSURL URLWithString:[self _urlAuth:[[ObjList objectAtIndex:0] objectForKey:@"keyMedia"]]];
+        NSDictionary *firstObject = [objectList firstObject];
+        if (!firstObject)
+            return;
+
+        if ([firstObject objectForKey:@"keySubtitle"])
+            URLofSubtitle = [_PlexWebAPI getFileSubtitleFromPlexServer:firstObject modeStream:YES];
+
+        NSURL *itemURL = [NSURL URLWithString:[self _urlAuth:firstObject[@"keyMedia"]]];
         if (itemURL) {
             VLCAppDelegate *appDelegate = [UIApplication sharedApplication].delegate;
             [appDelegate openMovieWithExternalSubtitleFromURL:itemURL externalSubURL:URLofSubtitle];
@@ -297,24 +309,27 @@
     return [_PlexWebAPI urlAuth:url autentification:_PlexAuthentification];
 }
 
-- (void)_playMediaItem:(NSMutableArray *)mutableMediaObject
+- (void)_playMediaItem:(NSDictionary *)mediaObject
 {
     NSString *newPath = nil;
-    NSString *keyValue = [[mutableMediaObject objectAtIndex:0] objectForKey:@"key"];
+    NSString *keyValue = [mediaObject objectForKey:@"key"];
 
     if ([keyValue rangeOfString:@"library"].location == NSNotFound)
         newPath = [_PlexServerPath stringByAppendingPathComponent:keyValue];
     else
         newPath = keyValue;
 
-    if ([[[mutableMediaObject objectAtIndex:0] objectForKey:@"container"] isEqualToString:@"item"]) {
-        [mutableMediaObject removeAllObjects];
-        mutableMediaObject = [_PlexParser PlexMediaServerParser:_PlexServerAddress port:_PlexServerPort navigationPath:newPath authentification:_PlexAuthentification];
+    if ([[mediaObject objectForKey:@"container"] isEqualToString:@"item"]) {
+        NSArray *mediaList = [_PlexParser PlexMediaServerParser:_PlexServerAddress port:_PlexServerPort navigationPath:newPath authentification:_PlexAuthentification];
         NSString *URLofSubtitle = nil;
-        if ([[mutableMediaObject objectAtIndex:0] objectForKey:@"keySubtitle"])
-            URLofSubtitle = [_PlexWebAPI getFileSubtitleFromPlexServer:mutableMediaObject modeStream:YES];
+        NSDictionary *firstObject = [mediaList firstObject];
+        if (!firstObject)
+            return;
 
-        NSURL *itemURL = [NSURL URLWithString:[self _urlAuth:[[mutableMediaObject objectAtIndex:0] objectForKey:@"keyMedia"]]];
+        if ([firstObject objectForKey:@"keySubtitle"])
+            URLofSubtitle = [_PlexWebAPI getFileSubtitleFromPlexServer:firstObject modeStream:YES];
+
+        NSURL *itemURL = [NSURL URLWithString:[self _urlAuth:[firstObject objectForKey:@"keyMedia"]]];
         if (itemURL) {
             VLCAppDelegate *appDelegate = [UIApplication sharedApplication].delegate;
             [appDelegate openMovieWithExternalSubtitleFromURL:itemURL externalSubURL:URLofSubtitle];
@@ -322,9 +337,12 @@
     }
 }
 
-- (void)_downloadFileFromMediaItem:(NSMutableArray *)mutableMediaObject
+- (void)_downloadFileFromMediaItem:(NSDictionary *)mediaObject
 {
-    NSURL *itemURL = [NSURL URLWithString:[[mutableMediaObject objectAtIndex:0] objectForKey:@"keyMedia"]];
+    if (!mediaObject)
+        return;
+
+    NSURL *itemURL = [NSURL URLWithString:[mediaObject objectForKey:@"keyMedia"]];
 
     if (![[itemURL absoluteString] isSupportedFormat]) {
         VLCAlertView *alert = [[VLCAlertView alloc] initWithTitle:NSLocalizedString(@"FILE_NOT_SUPPORTED", nil)
@@ -334,7 +352,7 @@
                                                 otherButtonTitles:nil];
         [alert show];
     } else if (itemURL) {
-        NSString *fileName = [[mutableMediaObject objectAtIndex:0] objectForKey:@"namefile"];
+        NSString *fileName = [mediaObject objectForKey:@"namefile"];
         [[(VLCAppDelegate *)[UIApplication sharedApplication].delegate downloadViewController] addURLToDownloadList:itemURL fileNameOfMedia:fileName];
     }
 }
@@ -346,13 +364,10 @@
 
     VLCLocalNetworkListCell *cell = (VLCLocalNetworkListCell *)[[self tableView] cellForRowAtIndexPath:swipedIndexPath];
 
-    NSMutableArray *ObjList = [[NSMutableArray alloc] init];
-    [ObjList removeAllObjects];
+    NSDictionary *cellObject = _globalObjectList[[self.tableView indexPathForCell:swipedCell].row];
 
-    [ObjList addObject:_mutableObjectList[[self.tableView indexPathForCell:swipedCell].row]];
-
-    NSString *ratingKey = [[ObjList objectAtIndex:0] objectForKey:@"ratingKey"];
-    NSString *tag = [[ObjList objectAtIndex:0] objectForKey:@"state"];
+    NSString *ratingKey = cellObject[@"ratingKey"];
+    NSString *tag = cellObject[@"state"];
     NSString *cellStatusLbl = nil;
 
     NSInteger status = [_PlexWebAPI MarkWatchedUnwatchedMedia:_PlexServerAddress port:_PlexServerPort videoRatingKey:ratingKey state:tag authentification:_PlexAuthentification];
@@ -370,13 +385,12 @@
 
     [cell.statusLabel showStatusMessage:cellStatusLbl];
 
-    [[_mutableObjectList objectAtIndex:[self.tableView indexPathForCell:swipedCell].row] setObject:tag forKey:@"state"];
+    [_globalObjectList[[self.tableView indexPathForCell:swipedCell].row] setObject:tag forKey:@"state"];
 }
 
 - (void)reloadTableViewPlex
 {
-    [_mutableObjectList removeAllObjects];
-    _mutableObjectList = [_PlexParser PlexMediaServerParser:_PlexServerAddress port:_PlexServerPort navigationPath:_PlexServerPath authentification:_PlexAuthentification];
+    _globalObjectList = [_PlexParser PlexMediaServerParser:_PlexServerAddress port:_PlexServerPort navigationPath:_PlexServerPath authentification:_PlexAuthentification];
     [self.tableView reloadData];
 }
 
@@ -384,28 +398,28 @@
 
 - (void)triggerDownloadForCell:(VLCLocalNetworkListCell *)cell
 {
-    NSMutableArray *ObjList = [[NSMutableArray alloc] init];
-    [ObjList removeAllObjects];
+    NSDictionary *cellObject;
 
     if ([self.searchDisplayController isActive])
-        [ObjList addObject:_searchData[[self.searchDisplayController.searchResultsTableView indexPathForCell:cell].row]];
+        cellObject = _searchData[[self.searchDisplayController.searchResultsTableView indexPathForCell:cell].row];
     else
-        [ObjList addObject:_mutableObjectList[[self.tableView indexPathForCell:cell].row]];
+        cellObject = _globalObjectList[[self.tableView indexPathForCell:cell].row];
 
-    NSString *path = [[ObjList objectAtIndex:0] objectForKey:@"key"];
-    [ObjList removeAllObjects];
-    ObjList = [_PlexParser PlexMediaServerParser:_PlexServerAddress port:_PlexServerPort navigationPath:path authentification:_PlexAuthentification];
+    NSString *path = cellObject[@"key"];
 
-    NSInteger size = [[[ObjList objectAtIndex:0] objectForKey:@"size"] integerValue];
+    NSArray *mediaList = [_PlexParser PlexMediaServerParser:_PlexServerAddress port:_PlexServerPort navigationPath:path authentification:_PlexAuthentification];
+    NSDictionary *firstObject = [mediaList firstObject];
+
+    NSInteger size = [[firstObject objectForKey:@"size"] integerValue];
     if (size  < [[UIDevice currentDevice] freeDiskspace].longLongValue) {
-        if ([[ObjList objectAtIndex:0] objectForKey:@"keySubtitle"])
-            [_PlexWebAPI getFileSubtitleFromPlexServer:ObjList modeStream:NO];
+        if ([firstObject objectForKey:@"keySubtitle"])
+            [_PlexWebAPI getFileSubtitleFromPlexServer:firstObject modeStream:NO];
 
-        [self _downloadFileFromMediaItem:ObjList];
+        [self _downloadFileFromMediaItem:firstObject];
         [cell.statusLabel showStatusMessage:NSLocalizedString(@"DOWNLOADING", nil)];
     } else {
         VLCAlertView *alert = [[VLCAlertView alloc] initWithTitle:NSLocalizedString(@"DISK_FULL", nil)
-                                                          message:[NSString stringWithFormat:NSLocalizedString(@"DISK_FULL_FORMAT", nil), [[ObjList objectAtIndex:0] objectForKey:@"title"], [[UIDevice currentDevice] model]]
+                                                          message:[NSString stringWithFormat:NSLocalizedString(@"DISK_FULL_FORMAT", nil), [firstObject objectForKey:@"title"], [[UIDevice currentDevice] model]]
                                                          delegate:self
                                                 cancelButtonTitle:NSLocalizedString(@"BUTTON_OK", nil)
                                                 otherButtonTitles:nil];
@@ -419,11 +433,12 @@
 {
     [_searchData removeAllObjects];
 
-    for (int i = 0; i < [_mutableObjectList count]; i++) {
+    NSUInteger count = _globalObjectList.count;
+    for (NSUInteger i = 0; i < count; i++) {
         NSRange nameRange;
-        nameRange = [[[_mutableObjectList objectAtIndex:i] objectForKey:@"title"] rangeOfString:searchString options:NSCaseInsensitiveSearch];
+        nameRange = [[_globalObjectList[i] objectForKey:@"title"] rangeOfString:searchString options:NSCaseInsensitiveSearch];
         if (nameRange.location != NSNotFound)
-            [_searchData addObject:_mutableObjectList[i]];
+            [_searchData addObject:_globalObjectList[i]];
     }
     return YES;
 }
@@ -471,31 +486,30 @@
 - (void)longTouchGestureAction:(UIGestureRecognizer *)recognizer
 {
     if (recognizer.state == UIGestureRecognizerStateBegan) {
-        NSMutableArray *ObjList = [[NSMutableArray alloc] init];
-        [ObjList removeAllObjects];
         NSIndexPath *swipedIndexPath = [self.tableView indexPathForRowAtPoint:[recognizer locationInView:self.tableView]];
         UITableViewCell *swipedCell = [self.tableView cellForRowAtIndexPath:swipedIndexPath];
         VLCLocalNetworkListCell *cell = (VLCLocalNetworkListCell *)[[self tableView] cellForRowAtIndexPath:swipedIndexPath];
-        [ObjList addObject:[_mutableObjectList objectAtIndex:[self.tableView indexPathForCell:swipedCell].row]];
+
+        NSDictionary *cellObject = _globalObjectList[[self.tableView indexPathForCell:swipedCell].row];
 
         if (SYSTEM_RUNS_IOS7_OR_LATER) {
-            VLCPlexMediaInformationViewController *targetViewController = [[VLCPlexMediaInformationViewController alloc] initPlexMediaInformation:ObjList serverAddress:_PlexServerAddress portNumber:_PlexServerPort atPath:_PlexServerPath authentification:_PlexAuthentification];
+            VLCPlexMediaInformationViewController *targetViewController = [[VLCPlexMediaInformationViewController alloc] initPlexMediaInformation:cellObject serverAddress:_PlexServerAddress portNumber:_PlexServerPort atPath:_PlexServerPath authentification:_PlexAuthentification];
             [[self navigationController] pushViewController:targetViewController animated:YES];
         } else {
-            NSString *title = [[ObjList objectAtIndex:0] objectForKey:@"title"];
-            NSInteger size = [[[ObjList objectAtIndex:0] objectForKey:@"size"] integerValue];
+            NSString *title = cellObject[@"title"];
+            NSInteger size = [cellObject[@"size"] integerValue];
             NSString *mediaSize = [NSByteCountFormatter stringFromByteCount:size countStyle:NSByteCountFormatterCountStyleFile];
-            NSString *durationInSeconds = [[ObjList objectAtIndex:0] objectForKey:@"duration"];
-            NSString *audioCodec = [[ObjList objectAtIndex:0] objectForKey:@"audioCodec"];
+            NSString *durationInSeconds = cellObject[@"duration"];
+            NSString *audioCodec = cellObject[@"audioCodec"];
             if (!audioCodec)
                 audioCodec = @"no track";
 
-            NSString *videoCodec = [[ObjList objectAtIndex:0] objectForKey:@"videoCodec"];
+            NSString *videoCodec = cellObject[@"videoCodec"];
             if (!videoCodec)
                 videoCodec = @"no track";
 
             NSString *message = [NSString stringWithFormat:@"%@ (%@)\naudio(%@) video(%@)", mediaSize, durationInSeconds, audioCodec, videoCodec];
-            NSString *summary = [NSString stringWithFormat:@"%@", [[ObjList objectAtIndex:0] objectForKey:@"summary"]];
+            NSString *summary = [NSString stringWithFormat:@"%@", cellObject[@"summary"]];
 
             VLCAlertView *alertView = [[VLCAlertView alloc] initWithTitle:title message:message cancelButtonTitle:NSLocalizedString(@"BUTTON_CANCEL", nil) otherButtonTitles:@[NSLocalizedString(@"PLAY_BUTTON", nil), NSLocalizedString(@"BUTTON_DOWNLOAD", nil)]];
             if (![summary isEqualToString:@""]) {
@@ -509,7 +523,7 @@
                     if (buttonIndex == 2)
                         [self triggerDownloadForCell:cell];
                     else
-                        [self _playMediaItem:ObjList];
+                        [self _playMediaItem:cellObject];
                 }
             };
             [alertView show];
