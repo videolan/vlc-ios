@@ -245,8 +245,8 @@
     //Search for UPnP Devices
     [[managerInstance SSDP] startSSDP];
     [[managerInstance SSDP] notifySSDPAlive];
-    _searchTimer = [NSTimer timerWithTimeInterval:10.0 target:self selector:@selector(_performSSDPSearch) userInfo:nil repeats:YES];
-    [_searchTimer setFireDate:[NSDate dateWithTimeIntervalSinceNow:1.0]];
+
+    _searchTimer = [[NSTimer alloc] initWithFireDate:[NSDate dateWithTimeIntervalSinceNow:1.0] interval:10.0 target:self selector:@selector(_performSSDPSearch) userInfo:nil repeats:YES];
     [[NSRunLoop mainRunLoop] addTimer:_searchTimer forMode:NSRunLoopCommonModes];
     _udnpDiscoveryRunning = YES;
 }
