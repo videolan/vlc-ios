@@ -63,6 +63,7 @@
 
     BOOL _udnpDiscoveryRunning;
     NSTimer *_searchTimer;
+    BOOL _setup;
 }
 
 @property (nonatomic) VLCHTTPUploaderController *uploadController;
@@ -235,7 +236,10 @@
     [[managerInstance DB] addObserver:self];
 
     //Optional; set User Agent
-    [[managerInstance SSDP] setUserAgentProduct:[NSString stringWithFormat:@"VLCforiOS/%@", [[NSBundle mainBundle] objectForInfoDictionaryKey:@"CFBundleShortVersionString"]] andOS:[NSString stringWithFormat:@"iOS/%@", [[UIDevice currentDevice] systemVersion]]];
+    if (!_setup) {
+        [[managerInstance SSDP] setUserAgentProduct:[NSString stringWithFormat:@"VLCforiOS/%@", [[NSBundle mainBundle] objectForInfoDictionaryKey:@"CFBundleShortVersionString"]] andOS:[NSString stringWithFormat:@"iOS/%@", [[UIDevice currentDevice] systemVersion]]];
+        _setup = YES;
+    }
 
     //Search for UPnP Devices
     [[managerInstance SSDP] startSSDP];
