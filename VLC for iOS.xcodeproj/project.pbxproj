@@ -1233,24 +1233,12 @@
 		7D31002117B676D500E6516D /* Local Network Connectivity */ = {
 			isa = PBXGroup;
 			children = (
-				265D511A1922746C00E38383 /* VLCPlexParser.h */,
-				265D511B1922746C00E38383 /* VLCPlexParser.m */,
-				2640FAE41B01477A00E359D6 /* VLCPlexWebAPI.h */,
-				2640FAE51B01477A00E359D6 /* VLCPlexWebAPI.m */,
-				26D4AF8B1A78379000D5EC65 /* VLCSharedLibraryParser.h */,
-				26D4AF8C1A78379000D5EC65 /* VLCSharedLibraryParser.m */,
+				7DCA8DA01B25BBAD00946349 /* PLEX */,
+				7DCA8DA11B25BBB700946349 /* Library Sharing */,
 				7D30F3D1183AB2F100FFC021 /* VLCLocalNetworkListCell.h */,
 				7D30F3D2183AB2F100FFC021 /* VLCLocalNetworkListCell.m */,
 				7D30F3D3183AB2F100FFC021 /* VLCLocalServerFolderListViewController.h */,
 				7D30F3D4183AB2F100FFC021 /* VLCLocalServerFolderListViewController.m */,
-				265D51181922746C00E38383 /* VLCLocalPlexFolderListViewController.h */,
-				265D51191922746C00E38383 /* VLCLocalPlexFolderListViewController.m */,
-				262C71571A98FA9200F7ED34 /* VLCPlexMediaInformationViewController.h */,
-				262C71581A98FA9200F7ED34 /* VLCPlexMediaInformationViewController.m */,
-				26E3A6FC1AAB76A100B32450 /* VLCPlexConnectServerViewController.h */,
-				26E3A6FD1AAB76A100B32450 /* VLCPlexConnectServerViewController.m */,
-				26D4AF891A78379000D5EC65 /* VLCSharedLibraryListViewController.h */,
-				26D4AF8A1A78379000D5EC65 /* VLCSharedLibraryListViewController.m */,
 				7D30F3D5183AB2F100FFC021 /* VLCLocalServerListViewController.h */,
 				7D30F3D6183AB2F100FFC021 /* VLCLocalServerListViewController.m */,
 				7D30F3DA183AB2F900FFC021 /* VLCNetworkLoginViewController.h */,
@@ -1639,6 +1627,34 @@
 				7D3784E6183A99E1009EE944 /* Reachability.m */,
 			);
 			name = Reachability;
+			sourceTree = "<group>";
+		};
+		7DCA8DA01B25BBAD00946349 /* PLEX */ = {
+			isa = PBXGroup;
+			children = (
+				265D511A1922746C00E38383 /* VLCPlexParser.h */,
+				265D511B1922746C00E38383 /* VLCPlexParser.m */,
+				2640FAE41B01477A00E359D6 /* VLCPlexWebAPI.h */,
+				2640FAE51B01477A00E359D6 /* VLCPlexWebAPI.m */,
+				265D51181922746C00E38383 /* VLCLocalPlexFolderListViewController.h */,
+				265D51191922746C00E38383 /* VLCLocalPlexFolderListViewController.m */,
+				262C71571A98FA9200F7ED34 /* VLCPlexMediaInformationViewController.h */,
+				262C71581A98FA9200F7ED34 /* VLCPlexMediaInformationViewController.m */,
+				26E3A6FC1AAB76A100B32450 /* VLCPlexConnectServerViewController.h */,
+				26E3A6FD1AAB76A100B32450 /* VLCPlexConnectServerViewController.m */,
+			);
+			name = PLEX;
+			sourceTree = "<group>";
+		};
+		7DCA8DA11B25BBB700946349 /* Library Sharing */ = {
+			isa = PBXGroup;
+			children = (
+				26D4AF8B1A78379000D5EC65 /* VLCSharedLibraryParser.h */,
+				26D4AF8C1A78379000D5EC65 /* VLCSharedLibraryParser.m */,
+				26D4AF891A78379000D5EC65 /* VLCSharedLibraryListViewController.h */,
+				26D4AF8A1A78379000D5EC65 /* VLCSharedLibraryListViewController.m */,
+			);
+			name = "Library Sharing";
 			sourceTree = "<group>";
 		};
 		7DFB1567185CC38A008D49BB /* Dropbox */ = {

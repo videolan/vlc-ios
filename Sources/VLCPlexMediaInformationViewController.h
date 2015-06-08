@@ -25,6 +25,6 @@
 - (IBAction)download:(id)sender;
 - (IBAction)markMedia:(id)sender;
 
-- (id)initPlexMediaInformation:(NSMutableArray *)mediaInformation serverAddress:(NSString *)serverAddress portNumber:(NSString *)portNumber atPath:(NSString *)path authentification:(NSString *)auth;
+- (id)initPlexMediaInformation:(NSDictionary *)mediaObject serverAddress:(NSString *)serverAddress portNumber:(NSString *)portNumber atPath:(NSString *)path authentification:(NSString *)auth;
 
 @end
