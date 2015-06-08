@@ -54,7 +54,8 @@
     NSMutableArray *files = [NSMutableArray arrayWithCapacity:tracks.count];
     for (MLAlbumTrack *track in tracks) {
         MLFile *file = track.files.anyObject;
-        [files addObject:file];
+        if (file)
+            [files addObject:file];
     }
     int index = (int)[tracks indexOfObject:albumTrack];
     [self configureMediaListWithFiles:files indexToPlay:index];
@@ -75,6 +76,5 @@
     self.itemInMediaListToBePlayedFirst = index;
     self.pathToExternalSubtitlesFile = nil;
 }
-
 
 @end
