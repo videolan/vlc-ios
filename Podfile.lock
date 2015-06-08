@@ -6,7 +6,7 @@ PODS:
   - InAppSettingsKit (2.2.2)
   - OBSlider (1.1.0)
   - SSKeychain (1.2.2)
-  - upnpx (1.3.2)
+  - upnpx (1.3.3)
 
 DEPENDENCIES:
   - box-ios-sdk-v2 (from `git://github.com/carolanitz/box-ios-sdk-v2.git`, commit
@@ -15,7 +15,7 @@ DEPENDENCIES:
   - InAppSettingsKit (= 2.2.2)
   - OBSlider (= 1.1.0)
   - SSKeychain
-  - upnpx (= 1.3.2)
+  - upnpx (= 1.3.3)
 
 EXTERNAL SOURCES:
   box-ios-sdk-v2:
@@ -33,6 +33,6 @@ SPEC CHECKSUMS:
   InAppSettingsKit: 76d5cfbaa3e3f8aa53fe3628516da7eb1aa6a5cb
   OBSlider: 490f108007bfdd5414a38650b211fe403a95b8a0
   SSKeychain: 88767e903ee8d274ed380e364d96b7a101235286
-  upnpx: e56e4f26d21c439b2383e03b5ca9082a3d5046a1
+  upnpx: 40e4cc7bf8f71f086264cc82cfefc8e47a3f0241
 
 COCOAPODS: 0.37.1
