@@ -961,20 +961,23 @@ static NSString *kUsingTableViewToShowData = @"UsingTableViewToShowData";
 
     for (NSInteger i = [_indexPaths count] - 1; i >= 0; i--) {
         NSIndexPath *path = _indexPaths[i];
-        MLFile *file = (MLFile *)_foundMedia[_usingTableViewToShowData ? path.row : path.item];
+        id item = _foundMedia[_usingTableViewToShowData ? path.row : path.item];
 
-        MLLabel *folder = [file.labels anyObject];
-        [self rearrangeFolderTrackNumbersForRemovedItem:file];
-        file.labels = nil;
-        file.folderTrackNumber = nil;
-        @synchronized(self) {
-            [_foundMedia removeObject:file];
+        if ([item isKindOfClass:[MLFile class]]) {
+            MLFile *file = (MLFile *)item;
+            MLLabel *folder = [file.labels anyObject];
+            [self rearrangeFolderTrackNumbersForRemovedItem:file];
+            file.labels = nil;
+            file.folderTrackNumber = nil;
+
+            if ([folder.files count] == 0) {
+                [self removeMediaObject:folder updateDatabase:YES];
+                [self setEditing:NO];
+                [self backToAllItems:nil];
+            }
         }
-
-        if ([folder.files count] == 0) {
-            [self removeMediaObject:folder updateDatabase:YES];
-            [self setEditing:NO];
-            [self backToAllItems:nil];
+        @synchronized(self) {
+            [_foundMedia removeObject:item];
         }
     }
     [self reloadViews];
@@ -1013,7 +1016,11 @@ static NSString *kUsingTableViewToShowData = @"UsingTableViewToShowData";
                 [_foundMedia removeObjectAtIndex:folderIndex];
                 [_foundMedia insertObject:label atIndex:folderIndex];
             }
-            MLFile *itemFile = _foundMedia[((NSIndexPath *)_indexPaths[0]).item];
+            id item = _foundMedia[((NSIndexPath *)_indexPaths[0]).item];
+            if (![item isKindOfClass:[MLFile class]])
+                return;
+
+            MLFile *itemFile = (MLFile *)item;
             itemFile.labels = file.labels;
             @synchronized(self) {
                 [_foundMedia removeObjectAtIndex:((NSIndexPath *)_indexPaths[0]).item];
@@ -1031,7 +1038,12 @@ static NSString *kUsingTableViewToShowData = @"UsingTableViewToShowData";
                 if (_libraryMode == VLCLibraryModeCreateFolder)
                     [self updateViewContents];
 
-                MLFile *file = _foundMedia[path.row];
+                id item = _foundMedia[path.row];
+
+                if (![item isKindOfClass:[MLFile class]])
+                    continue;
+
+                MLFile *file = (MLFile *)item;
                 file.labels = [NSSet setWithObjects:label, nil];
                 @synchronized(self) {
                     [_foundMedia removeObjectAtIndex:path.row];
@@ -1053,12 +1065,20 @@ static NSString *kUsingTableViewToShowData = @"UsingTableViewToShowData";
                 NSIndexPath *path = _indexPaths[i];
                 @synchronized(self) {
                     if (!_usingTableViewToShowData) {
-                        MLFile *file = _foundMedia[path.item];
+                        id item = _foundMedia[path.item];
+                        if (![item isKindOfClass:[MLFile class]])
+                            continue;
+
+                        MLFile *file = (MLFile *)item;
                         file.labels = [NSSet setWithObjects:label, nil];
                         file.folderTrackNumber = @([label files].count - 1);
                         [_foundMedia removeObjectAtIndex:path.item];
                     } else {
-                        MLFile *file = _foundMedia[path.row];
+                        id item = _foundMedia[path.row];
+                        if (![item isKindOfClass:[MLFile class]])
+                            continue;
+
+                        MLFile *file = (MLFile *)item;
                         file.labels = [NSSet setWithObjects:label, nil];
                         file.folderTrackNumber = @([label files].count - 1);
                         [_foundMedia removeObjectAtIndex:path.row];
