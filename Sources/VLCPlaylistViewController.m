@@ -823,10 +823,14 @@ static NSString *kUsingTableViewToShowData = @"UsingTableViewToShowData";
 
 - (void)collectionView:(UICollectionView *)collectionView removeItemFromFolderAtIndexPathIfNeeded:(NSIndexPath *)indexPath
 {
-    MLFile *mediaObject = (MLFile *)_foundMedia[indexPath.item];
-    [self rearrangeFolderTrackNumbersForRemovedItem:mediaObject];
-    mediaObject.labels = nil;
-    mediaObject.folderTrackNumber = nil;
+    id mediaObject = _foundMedia[indexPath.item];
+    if (![mediaObject isKindOfClass:[MLFile class]])
+        return;
+
+    MLFile *mediaFile = (MLFile *)mediaObject;
+    [self rearrangeFolderTrackNumbersForRemovedItem:mediaFile];
+    mediaFile.labels = nil;
+    mediaFile.folderTrackNumber = nil;
 
     [self backToAllItems:nil];
 }
@@ -834,12 +838,16 @@ static NSString *kUsingTableViewToShowData = @"UsingTableViewToShowData";
 - (void)collectionView:(UICollectionView *)collectionView itemAtIndexPath:(NSIndexPath *)fromIndexPath willMoveToIndexPath:(NSIndexPath *)toIndexPath
 {
     @synchronized(self) {
-        MLFile* object = _foundMedia[fromIndexPath.item];
+        id object = _foundMedia[fromIndexPath.item];
+        if (![object isKindOfClass:[MLFile class]])
+            return;
         [_foundMedia removeObjectAtIndex:fromIndexPath.item];
         [_foundMedia insertObject:object atIndex:toIndexPath.item];
-        object.folderTrackNumber = @(toIndexPath.item - 1);
+        [(MLFile *)object setFolderTrackNumber: @(toIndexPath.item - 1)];
         object = _foundMedia[fromIndexPath.item];
-        object.folderTrackNumber = @(fromIndexPath.item - 1);
+        if (![object isKindOfClass:[MLFile class]])
+            return;
+        [(MLFile *)object setFolderTrackNumber: @(fromIndexPath.item - 1)];
     }
 }
 
