@@ -25,15 +25,21 @@
         [self configureWithAlbumTrack:(MLAlbumTrack *)mediaObject];
     }
     else if ([mediaObject isKindOfClass:[MLShowEpisode class]])
-        [self configureWithSingleFile:[(MLShowEpisode*)mediaObject files].anyObject];
+        [self configureWithShowEpisode:(MLShowEpisode *)mediaObject];
 
-    [self startPlayback];
+    if (self.activePlaybackSession) {
+        self.sessionWillRestart = YES;
+        [self stopPlayback];
+    } else {
+        self.sessionWillRestart = NO;
+        [self startPlayback];
+    }
 }
 
 - (void)configureWithFile:(MLFile *)file
 {
     if (file.labels.count == 0) {
-        [self configureWithSingleFile:file];
+        [self configureMediaListWithFiles:@[file] indexToPlay:0];
     } else {
         MLLabel *folder = [file.labels anyObject];
         NSArray *files = [folder sortedFolderItems];
@@ -42,10 +48,17 @@
     }
 }
 
-- (void)configureWithSingleFile:(MLFile *)file
+- (void)configureWithShowEpisode:(MLShowEpisode *)showEpisode
 {
-    [file setUnread:@(NO)];
-    self.fileFromMediaLibrary = file;
+    NSArray *episodes = [[showEpisode show] sortedEpisodes];
+    NSMutableArray *files = [NSMutableArray arrayWithCapacity:episodes.count];
+    for (MLShowEpisode *episode in episodes) {
+        MLFile *file = episode.files.anyObject;
+        if (files)
+            [files addObject:file];
+    }
+    int index = (int)[episodes indexOfObject:showEpisode];
+    [self configureMediaListWithFiles:files indexToPlay:index];
 }
 
 - (void)configureWithAlbumTrack:(MLAlbumTrack *)albumTrack

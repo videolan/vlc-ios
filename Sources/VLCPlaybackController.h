@@ -48,7 +48,8 @@ currentMediaHasTrackToChooseFrom:(BOOL)currentMediaHasTrackToChooseFrom
 
 @property (nonatomic, strong) UIView *videoOutputView;
 
-@property (nonatomic, strong) MLFile *fileFromMediaLibrary;
+@property (nonatomic, readwrite) BOOL sessionWillRestart;
+
 @property (nonatomic, strong) NSURL *url;
 @property (nonatomic, strong) NSURL *successCallback;
 @property (nonatomic, strong) NSURL *errorCallback;
