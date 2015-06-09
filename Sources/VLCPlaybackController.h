@@ -89,6 +89,6 @@ currentMediaHasTrackToChooseFrom:(BOOL)currentMediaHasTrackToChooseFrom
 - (void)recoverPlaybackState;
 
 - (void)setNeedsMetadataUpdate;
-
+- (void)scheduleSleepTimerWithInterval:(NSTimeInterval)timeInterval;
 
 @end

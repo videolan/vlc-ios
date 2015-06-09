@@ -37,6 +37,7 @@ NSString *const VLCPlaybackControllerPlaybackDidFail = @"VLCPlaybackControllerPl
     BOOL _playerIsSetup;
     BOOL _playbackFailed;
     BOOL _shouldResumePlaying;
+    NSTimer *_sleepTimer;
 
     NSArray *_aspectRatios;
     NSUInteger _currentAspectRatioMask;
@@ -929,6 +930,15 @@ setstuff:
               currentMediaHasTrackToChooseFrom:self.currentMediaHasTrackToChooseFrom
                        currentMediaHasChapters:self.currentMediaHasChapters
                          forPlaybackController:self];
+}
+
+- (void)scheduleSleepTimerWithInterval:(NSTimeInterval)timeInterval
+{
+    if (_sleepTimer) {
+        [_sleepTimer invalidate];
+        _sleepTimer = nil;
+    }
+    _sleepTimer = [NSTimer scheduledTimerWithTimeInterval:timeInterval target:self selector:@selector(stopPlayback) userInfo:nil repeats:NO];
 }
 
 #pragma mark - remote events

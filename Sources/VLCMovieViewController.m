@@ -59,7 +59,6 @@ typedef NS_ENUM(NSInteger, VLCPanType) {
     UIActionSheet *_audiotrackActionSheet;
 
     NSTimer *_idleTimer;
-    NSTimer *_sleepTimer;
 
     BOOL _viewAppeared;
     BOOL _displayRemainingTime;
@@ -985,11 +984,8 @@ currentMediaHasTrackToChooseFrom:(BOOL)currentMediaHasTrackToChooseFrom
 
 - (IBAction)sleepTimerAction:(id)sender
 {
-    if (_sleepTimer) {
-        [_sleepTimer invalidate];
-        _sleepTimer = nil;
-    }
-    _sleepTimer = [NSTimer scheduledTimerWithTimeInterval:_sleepTimeDatePicker.countDownDuration target:self selector:@selector(closePlayback:) userInfo:nil repeats:NO];
+    VLCPlaybackController *vpc = [VLCPlaybackController sharedInstance];
+    [vpc scheduleSleepTimerWithInterval:_sleepTimeDatePicker.countDownDuration];
 }
 
 - (void)moreActions:(id)sender
