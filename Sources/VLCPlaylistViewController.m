@@ -704,8 +704,8 @@ static NSString *kUsingTableViewToShowData = @"UsingTableViewToShowData";
     else {
         [self setEditing:YES animated:YES];
 
-        NSIndexPath *path = [_tableView indexPathForRowAtPoint:[recognizer locationInView:self.view]];
-        [_tableView selectRowAtIndexPath:[NSIndexPath indexPathForRow:path.row inSection:path.section]
+        NSIndexPath *path = [self.tableView indexPathForRowAtPoint:[recognizer locationInView:self.tableView]];
+        [self.tableView selectRowAtIndexPath:[NSIndexPath indexPathForRow:path.row inSection:path.section]
                                 animated:YES
                           scrollPosition:UITableViewScrollPositionNone];
     }
