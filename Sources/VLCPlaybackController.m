@@ -56,6 +56,7 @@ NSString *const VLCPlaybackControllerPlaybackDidFail = @"VLCPlaybackControllerPl
     BOOL _needsMetadataUpdate;
     BOOL _mediaWasJustStarted;
     BOOL _recheckForExistingThumbnail;
+    BOOL _activeSession;
 }
 
 @end
@@ -107,12 +108,20 @@ NSString *const VLCPlaybackControllerPlaybackDidFail = @"VLCPlaybackControllerPl
 }
 
 
-- (BOOL)_isMediaSuitableForDevice
+- (BOOL)_isMediaSuitableForDevice:(VLCMedia *)media
 {
-    if (!self.fileFromMediaLibrary)
-        return YES;
+    NSArray *tracksInfo = media.tracksInformation;
+    double width, height = 0;
+    NSDictionary *track;
+    for (NSUInteger x = 0; x < tracksInfo.count; x++) {
+        track = tracksInfo[x];
+        if ([track[VLCMediaTracksInformationType] isEqualToString:VLCMediaTracksInformationTypeVideo]) {
+            width = [track[VLCMediaTracksInformationVideoWidth] doubleValue];
+            height = [track[VLCMediaTracksInformationVideoHeight] doubleValue];
+        }
+    }
 
-    NSUInteger totalNumberOfPixels = [[[self.fileFromMediaLibrary videoTrack] valueForKey:@"width"] doubleValue] * [[[self.fileFromMediaLibrary videoTrack] valueForKey:@"height"] doubleValue];
+    NSUInteger totalNumberOfPixels = width * height;
 
     NSInteger speedCategory = [[UIDevice currentDevice] speedCategory];
 
@@ -137,6 +146,7 @@ NSString *const VLCPlaybackControllerPlaybackDidFail = @"VLCPlaybackControllerPl
 {
     if (_playerIsSetup)
         return;
+    _activeSession = YES;
 
     [[AVAudioSession sharedInstance] setDelegate:self];
 
@@ -154,7 +164,7 @@ NSString *const VLCPlaybackControllerPlaybackDidFail = @"VLCPlaybackControllerPl
 
     _aspectRatios = @[@"DEFAULT", @"FILL_TO_SCREEN", @"4:3", @"16:9", @"16:10", @"2.21:1"];
 
-    if (!self.fileFromMediaLibrary && !self.url && !self.mediaList) {
+    if (!self.url && !self.mediaList) {
         [self stopPlayback];
         return;
     }
@@ -183,17 +193,13 @@ NSString *const VLCPlaybackControllerPlaybackDidFail = @"VLCPlaybackControllerPl
         [_mediaPlayer openVideoSubTitlesFromFile:self.pathToExternalSubtitlesFile];
 
     VLCMedia *media;
-    MLFile *item = self.fileFromMediaLibrary;
-    if (item) {
-        media = [VLCMedia mediaWithURL:item.url];
-        media.delegate = self;
-    } else if (self.mediaList) {
-        media = [self.mediaList mediaAtIndex:self.itemInMediaListToBePlayedFirst];
+    if (_mediaList) {
+        media = [_mediaList mediaAtIndex:_itemInMediaListToBePlayedFirst];
         media.delegate = self;
     } else {
         media = [VLCMedia mediaWithURL:self.url];
         media.delegate = self;
-        [media parse];
+        [media synchronousParse];
     }
 
     NSMutableDictionary *mediaDictionary = [[NSMutableDictionary alloc] init];
@@ -250,9 +256,9 @@ NSString *const VLCPlaybackControllerPlaybackDidFail = @"VLCPlaybackControllerPl
     }
     [_listPlayer setRepeatMode:VLCDoNotRepeat];
 
-    if (![self _isMediaSuitableForDevice]) {
+    if (![self _isMediaSuitableForDevice:media]) {
         VLCAlertView *alert = [[VLCAlertView alloc] initWithTitle:NSLocalizedString(@"DEVICE_TOOSLOW_TITLE", nil)
-                                                          message:[NSString stringWithFormat:NSLocalizedString(@"DEVICE_TOOSLOW", nil), [[UIDevice currentDevice] model], self.fileFromMediaLibrary.title]
+                                                          message:[NSString stringWithFormat:NSLocalizedString(@"DEVICE_TOOSLOW", nil), [[UIDevice currentDevice] model], media.url.lastPathComponent]
                                                          delegate:self
                                                 cancelButtonTitle:NSLocalizedString(@"BUTTON_CANCEL", nil)
                                                 otherButtonTitles:NSLocalizedString(@"BUTTON_OPEN", nil), nil];
@@ -263,35 +269,10 @@ NSString *const VLCPlaybackControllerPlaybackDidFail = @"VLCPlaybackControllerPl
 
 - (void)_playNewMedia
 {
-    NSNumber *playbackPositionInTime = @(0);
-    CGFloat lastPosition = .0;
-    NSInteger duration = 0;
-    MLFile *matchedFile;
-
     // Set last selected equalizer profile
     unsigned int profile = (unsigned int)[[[NSUserDefaults standardUserDefaults] objectForKey:kVLCSettingEqualizerProfile] integerValue];
     [_mediaPlayer resetEqualizerFromProfile:profile];
     [_mediaPlayer setPreAmplification:[_mediaPlayer preAmplification]];
-
-    if (self.fileFromMediaLibrary)
-        matchedFile = self.fileFromMediaLibrary;
-    else if (self.mediaList) {
-        NSURL *url  = [self.mediaList mediaAtIndex:self.itemInMediaListToBePlayedFirst].url;
-        NSArray *files = [MLFile fileForURL:url];
-        matchedFile = files.firstObject;
-    }
-    if (matchedFile.lastPosition) {
-        lastPosition = matchedFile.lastPosition.floatValue;
-    }
-    duration = matchedFile.duration.intValue;
-    if (lastPosition < .95) {
-        if (duration != 0)
-            playbackPositionInTime = @(lastPosition * (duration / 1000.));
-    }
-    if (playbackPositionInTime.intValue > 0 && (duration * lastPosition - duration) < -60000) {
-        [_mediaPlayer.media addOptions:@{@"start-time": playbackPositionInTime}];
-        APLog(@"set starttime to %i", playbackPositionInTime.intValue);
-    }
 
     [_mediaPlayer addObserver:self forKeyPath:@"time" options:0 context:nil];
     [_mediaPlayer addObserver:self forKeyPath:@"remainingTime" options:0 context:nil];
@@ -306,10 +287,6 @@ NSString *const VLCPlaybackControllerPlaybackDidFail = @"VLCPlaybackControllerPl
 
     _currentAspectRatioMask = 0;
     _mediaPlayer.videoAspectRatio = NULL;
-
-    /* some demuxers don't respect :start-time, so re-try here */
-    if (lastPosition < .95 && _mediaPlayer.position < lastPosition && (duration * lastPosition - duration) < -60000)
-        _mediaPlayer.position = lastPosition;
 
     [self subscribeRemoteCommands];
 
@@ -348,8 +325,6 @@ NSString *const VLCPlaybackControllerPlaybackDidFail = @"VLCPlaybackControllerPl
         if (_listPlayer)
             _listPlayer = nil;
     }
-    if (_fileFromMediaLibrary)
-        _fileFromMediaLibrary = nil;
     if (_mediaList)
         _mediaList = nil;
     if (_url)
@@ -369,23 +344,24 @@ NSString *const VLCPlaybackControllerPlaybackDidFail = @"VLCPlaybackControllerPl
 
     [MPNowPlayingInfoCenter defaultCenter].nowPlayingInfo = nil;
     [self unsubscribeFromRemoteCommand];
+    _activeSession = NO;
 
     if (_playbackFailed) {
         [[NSNotificationCenter defaultCenter] postNotificationName:VLCPlaybackControllerPlaybackDidFail object:self];
-    } else {
+    } else if (!_sessionWillRestart) {
         [[NSNotificationCenter defaultCenter] postNotificationName:VLCPlaybackControllerPlaybackDidStop object:self];
+    } else {
+        self.sessionWillRestart = NO;
+        [self startPlayback];
     }
 }
 
 - (void)_savePlaybackState
 {
-    MLFile *fileItem = self.fileFromMediaLibrary;
-
-    if (!fileItem) {
-        NSArray *files = [MLFile fileForURL:_mediaPlayer.media.url];
-        if (files.count > 0)
-            fileItem = files.firstObject;
-    }
+    MLFile *fileItem;
+    NSArray *files = [MLFile fileForURL:_mediaPlayer.media.url];
+    if (files.count > 0)
+        fileItem = files.firstObject;
 
     if (!fileItem)
         return;
@@ -492,7 +468,7 @@ NSString *const VLCPlaybackControllerPlaybackDidFail = @"VLCPlaybackControllerPl
 
 - (BOOL)activePlaybackSession
 {
-    return _mediaPlayer != nil;
+    return _activeSession;
 }
 
 - (BOOL)audioOnlyPlaybackSession
@@ -746,13 +722,6 @@ NSString *const VLCPlaybackControllerPlaybackDidFail = @"VLCPlaybackControllerPl
 
 #pragma mark - Managing the media item
 
-- (void)setFileFromMediaLibrary:(MLFile *)fileFromMediaLibrary
-{
-    [self stopPlayback];
-    _fileFromMediaLibrary = fileFromMediaLibrary;
-    _playerIsSetup = NO;
-}
-
 - (void)setUrl:(NSURL *)url
 {
     [self stopPlayback];
@@ -768,10 +737,7 @@ NSString *const VLCPlaybackControllerPlaybackDidFail = @"VLCPlaybackControllerPl
 }
 
 - (MLFile *)currentlyPlayingMediaFile {
-    MLFile *mediaFile = self.fileFromMediaLibrary;
-    if (mediaFile) {
-        return mediaFile;
-    } else if (self.mediaList) {
+    if (self.mediaList) {
         NSArray *results = [MLFile fileForURL:_mediaPlayer.media.url];
         return results.firstObject;
     }
@@ -813,9 +779,7 @@ NSString *const VLCPlaybackControllerPlaybackDidFail = @"VLCPlaybackControllerPl
     UIImage* artworkImage;
     BOOL mediaIsAudioOnly = NO;
 
-    if (self.fileFromMediaLibrary)
-        item = self.fileFromMediaLibrary;
-    else if (self.mediaList) {
+    if (self.mediaList) {
         NSArray *matches = [MLFile fileForURL:_mediaPlayer.media.url];
         item = matches.firstObject;
     }
@@ -880,6 +844,16 @@ NSString *const VLCPlaybackControllerPlaybackDidFail = @"VLCPlaybackControllerPl
                 if (item.lastSubtitleTrack.intValue > 0)
                     _mediaPlayer.currentVideoSubTitleIndex = item.lastSubtitleTrack.intValue;
             }
+
+            CGFloat lastPosition = .0;
+            NSInteger duration = 0;
+
+            if (item.lastPosition)
+                lastPosition = item.lastPosition.floatValue;
+            duration = item.duration.intValue;
+
+            if (lastPosition < .95 && _mediaPlayer.position < lastPosition && (duration * lastPosition - duration) < -60000)
+                _mediaPlayer.position = lastPosition;
         }
     }
 
