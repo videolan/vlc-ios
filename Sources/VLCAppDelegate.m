@@ -307,6 +307,7 @@ continueUserActivity:(NSUserActivity *)userActivity
 - (void)applicationWillResignActive:(UIApplication *)application
 {
     _passcodeValidated = NO;
+    [self.playlistViewController setEditing:NO animated:NO];
     [self validatePasscode];
     [[MLMediaLibrary sharedMediaLibrary] applicationWillExit];
 }
