@@ -821,7 +821,7 @@ typedef NS_ENUM(NSInteger, VLCPanType) {
 
     float audioDelay = controller.audioDelay;
     self.audioDelaySlider.value = audioDelay;
-    self.audioDelayIndicator.text = [NSString stringWithFormat:@"%1.00f s", audioDelay];
+    self.audioDelayIndicator.text = [NSString stringWithFormat:@"%1.2f s", audioDelay];
 
     float subtitleDelay = controller.subtitleDelay;
     self.spuDelaySlider.value = subtitleDelay;
