@@ -15,7 +15,7 @@
 #import "VLCAppDelegate.h"
 #import "VLCPlaylistViewController.h"
 
-@interface VLCMiniPlaybackView () <VLCPlaybackControllerDelegate>
+@interface VLCMiniPlaybackView () <VLCPlaybackControllerDelegate, UIGestureRecognizerDelegate>
 {
     UIImageView *_artworkView;
     UIView *_videoView;
@@ -24,6 +24,8 @@
     UIButton *_nextButton;
     UIButton *_expandButton;
     UILabel *_metaDataLabel;
+    UITapGestureRecognizer *_labelTapRecognizer;
+    UITapGestureRecognizer *_artworkTapRecognizer;
 }
 @property (nonatomic, weak) VLCPlaybackController *playbackController;
 
@@ -91,7 +93,24 @@
     _metaDataLabel.autoresizingMask = UIViewAutoresizingFlexibleWidth;
     [self addSubview:_metaDataLabel];
 
+    _labelTapRecognizer = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(tapRecognized)];
+    _labelTapRecognizer.delegate = self;
+    _labelTapRecognizer.numberOfTouchesRequired = 1;
+    [_metaDataLabel addGestureRecognizer:_labelTapRecognizer];
+    _metaDataLabel.userInteractionEnabled = YES;
+
+    _artworkTapRecognizer = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(tapRecognized)];
+    _artworkTapRecognizer.delegate = self;
+    _artworkTapRecognizer.numberOfTouchesRequired = 1;
+    [_artworkView addGestureRecognizer:_artworkTapRecognizer];
+    _artworkView.userInteractionEnabled = YES;
+
     return self;
+}
+
+- (void)tapRecognized
+{
+    [self pushFullPlaybackView:nil];
 }
 
 - (void)previousAction:(id)sender
@@ -171,6 +190,7 @@ currentMediaHasTrackToChooseFrom:(BOOL)currentMediaHasTrackToChooseFrom
             [_videoView removeFromSuperview];
             _videoView = nil;
         }
+        [_artworkView addGestureRecognizer:_artworkTapRecognizer];
     } else {
         _artworkView.image = nil;
         if (_videoView) {
@@ -179,6 +199,8 @@ currentMediaHasTrackToChooseFrom:(BOOL)currentMediaHasTrackToChooseFrom
         }
         _videoView = [[UIView alloc] initWithFrame:_artworkView.frame];
         [_videoView setClipsToBounds:YES];
+        [_videoView addGestureRecognizer:_artworkTapRecognizer];
+        _videoView.userInteractionEnabled = YES;
         [self addSubview:_videoView];
         controller.videoOutputView = _videoView;
     }
