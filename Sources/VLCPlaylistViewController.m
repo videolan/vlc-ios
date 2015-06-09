@@ -156,6 +156,8 @@ static NSString *kUsingTableViewToShowData = @"UsingTableViewToShowData";
     _menuButton = [UIBarButtonItem themedRevealMenuButtonWithTarget:self andSelector:@selector(leftButtonAction:)];
     self.navigationItem.leftBarButtonItem = _menuButton;
 
+    self.editButtonItem.title = NSLocalizedString(@"BUTTON_EDIT", nil);
+
     if (SYSTEM_RUNS_IOS7_OR_LATER)
         self.editButtonItem.tintColor = [UIColor whiteColor];
     else {
