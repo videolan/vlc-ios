@@ -14,6 +14,7 @@
 #import "VLCPlaybackController.h"
 #import "VLCAppDelegate.h"
 #import "VLCPlaylistViewController.h"
+#import "VLCPlayerDisplayController.h"
 
 @interface VLCMiniPlaybackView () <VLCPlaybackControllerDelegate, UIGestureRecognizerDelegate>
 {
@@ -32,6 +33,11 @@
 @end
 
 @implementation VLCMiniPlaybackView
+
+- (void)dealloc
+{
+    [[NSNotificationCenter defaultCenter] removeObserver:self];
+}
 
 - (instancetype)initWithFrame:(CGRect)viewFrame
 {
@@ -105,7 +111,21 @@
     [_artworkView addGestureRecognizer:_artworkTapRecognizer];
     _artworkView.userInteractionEnabled = YES;
 
+    [[NSNotificationCenter defaultCenter] addObserver:self
+                                             selector:@selector(appBecameActive:)
+                                                 name:UIApplicationDidBecomeActiveNotification
+                                               object:nil];
+
     return self;
+}
+
+- (void)appBecameActive:(NSNotification *)aNotification
+{
+    VLCPlayerDisplayController *pdc = [(VLCAppDelegate *)[UIApplication sharedApplication].delegate playerDisplayController];
+    if (pdc.displayMode == VLCPlayerDisplayControllerDisplayModeMiniplayer) {
+        VLCPlaybackController *vpc = self.playbackController;
+        [vpc recoverDisplayedMetadata];
+    }
 }
 
 - (void)tapRecognized
