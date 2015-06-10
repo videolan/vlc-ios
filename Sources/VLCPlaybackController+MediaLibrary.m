@@ -54,7 +54,7 @@
     NSMutableArray *files = [NSMutableArray arrayWithCapacity:episodes.count];
     for (MLShowEpisode *episode in episodes) {
         MLFile *file = episode.files.anyObject;
-        if (files)
+        if (file)
             [files addObject:file];
     }
     int index = (int)[episodes indexOfObject:showEpisode];
