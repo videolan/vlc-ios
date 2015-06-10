@@ -153,7 +153,7 @@ spushd ImportedSources
 
 if [ "$NONETWORK" != "yes" ]; then
 if ! [ -e MediaLibraryKit ]; then
-git clone git://git.videolan.org/MediaLibraryKit.git
+git clone http://code.videolan.org/videolan/MediaLibraryKit.git
 cd MediaLibraryKit
 git checkout -B localAspenBranch ${TESTEDMEDIALIBRARYKITHASH}
 git branch --set-upstream-to=origin/master localAspenBranch
@@ -165,7 +165,7 @@ git reset --hard ${TESTEDMEDIALIBRARYKITHASH}
 cd ..
 fi
 if ! [ -e VLCKit ]; then
-git clone git://git.videolan.org/vlc-bindings/VLCKit.git
+git clone http://code.videolan.org/videolan/VLCKit.git
 cd VLCKit
 git checkout -B 2.2.x ${TESTEDVLCKITHASH}
 git branch --set-upstream-to=origin/2.2.x 2.2.x
