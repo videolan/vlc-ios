@@ -109,7 +109,7 @@
 - (void)applicationDidBecomeActive:(NSNotification *)notification
 {
     if (_reachability.currentReachabilityStatus == ReachableViaWiFi) {
-        [self performSelectorInBackground:@selector(_startUPNPDiscovery) withObject:nil];
+        [self _startUPNPDiscovery];
         [self performSelectorInBackground:@selector(_startSAPDiscovery) withObject:nil];
         [self performSelectorInBackground:@selector(_startDSMDiscovery) withObject:nil];
     }
@@ -216,7 +216,7 @@
 - (void)netReachabilityChanged:(NSNotification *)notification
 {
     if (_reachability.currentReachabilityStatus == ReachableViaWiFi) {
-        [self performSelectorInBackground:@selector(_startUPNPDiscovery) withObject:nil];
+        [self _startUPNPDiscovery];
         [self performSelectorInBackground:@selector(_startSAPDiscovery) withObject:nil];
         [self performSelectorInBackground:@selector(_startDSMDiscovery) withObject:nil];
     } else {
