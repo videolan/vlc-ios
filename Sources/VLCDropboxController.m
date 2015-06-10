@@ -2,7 +2,7 @@
  * VLCDropboxController.m
  * VLC for iOS
  *****************************************************************************
- * Copyright (c) 2013 VideoLAN. All rights reserved.
+ * Copyright (c) 2013-2015 VideoLAN. All rights reserved.
  * $Id$
  *
  * Authors: Felix Paul Kühne <fkuehne # videolan.org>
@@ -37,8 +37,21 @@
 
 #pragma mark - session handling
 
++ (instancetype)sharedInstance
+{
+    static VLCDropboxController *sharedInstance = nil;
+    static dispatch_once_t pred;
+
+    dispatch_once(&pred, ^{
+        sharedInstance = [self new];
+    });
+
+    return sharedInstance;
+}
+
 - (void)startSession
 {
+    [[DBSession sharedSession] isLinked];
 }
 
 - (void)logout
@@ -48,7 +61,7 @@
 
 - (BOOL)isAuthorized
 {
-    return  [[DBSession sharedSession] isLinked];
+    return [[DBSession sharedSession] isLinked];
 }
 
 - (DBRestClient *)restClient {

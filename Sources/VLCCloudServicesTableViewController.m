@@ -2,10 +2,11 @@
  * VLCCloudServicesTableViewController.m
  * VLC for iOS
  *****************************************************************************
- * Copyright (c) 2014 VideoLAN. All rights reserved.
+ * Copyright (c) 2014-2015 VideoLAN. All rights reserved.
  * $Id$
  *
  * Authors: Carola Nitz <nitz.carola # googlemail.com>
+ *          Felix Paul Kühne <fkuehne # videolan.org>
  *
  * Refer to the COPYING file of the official project for license.
  *****************************************************************************/
@@ -101,7 +102,7 @@
     switch (indexPath.row) {
         case 0: {
             //Dropbox
-            BOOL isAuthorized = [[DBSession sharedSession] isLinked];
+            BOOL isAuthorized = [[VLCDropboxController sharedInstance] isAuthorized];
             cell.icon.image = [UIImage imageNamed:@"Dropbox"];
             cell.cloudTitle.text = @"Dropbox";
             cell.cloudInformation.text = isAuthorized ? NSLocalizedString(@"LOGGED_IN", "") : NSLocalizedString(@"LOGIN", "");

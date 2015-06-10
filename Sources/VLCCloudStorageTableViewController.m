@@ -2,7 +2,7 @@
  * VLCCloudStorageTableViewController.m
  * VLC for iOS
  *****************************************************************************
- * Copyright (c) 2013 VideoLAN. All rights reserved.
+ * Copyright (c) 2013-2015 VideoLAN. All rights reserved.
  * $Id$
  *
  * Authors: Felix Paul Kühne <fkuehne # videolan.org>
@@ -91,6 +91,7 @@
 {
     [_activityIndicator startAnimating];
     [self.controller requestDirectoryListingAtPath:self.currentPath];
+    [_activityIndicator stopAnimating];
 }
 
 - (void)mediaListUpdated
@@ -172,11 +173,12 @@
     self.navigationItem.rightBarButtonItem = _logoutButton;
     if(_authorizationInProgress) {
         if (self.loginToCloudStorageView.superview) {
-            [self.loginToCloudStorageView removeFromSuperview];
-        }
-        return;
+        [self.loginToCloudStorageView removeFromSuperview];
+            }
     }
+
     if (![self.controller isAuthorized]) {
+        [_activityIndicator stopAnimating];
         [self _showLoginPanel];
         return;
     }

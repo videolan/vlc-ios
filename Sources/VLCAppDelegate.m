@@ -34,11 +34,13 @@
 #import "VLCPlaybackController+MediaLibrary.h"
 #import "VLCPlayerDisplayController.h"
 #import <MediaPlayer/MediaPlayer.h>
+#import <DropboxSDK/DropboxSDK.h>
+
+NSString *const VLCDropboxSessionWasAuthorized = @"VLCDropboxSessionWasAuthorized";
 
 @interface VLCAppDelegate () <PAPasscodeViewControllerDelegate, VLCMediaFileDiscovererDelegate> {
     PAPasscodeViewController *_passcodeLockController;
     VLCDownloadViewController *_downloadViewController;
-    VLCDropboxTableViewController *_dropboxTableViewController;
     int _idleCounter;
     int _networkActivityCounter;
     BOOL _passcodeValidated;
@@ -212,7 +214,7 @@ continueUserActivity:(NSUserActivity *)userActivity
 - (BOOL)application:(UIApplication *)application openURL:(NSURL *)url sourceApplication:(NSString *)sourceApplication annotation:(id)annotation
 {
     if ([[DBSession sharedSession] handleOpenURL:url]) {
-        [self.dropboxTableViewController updateViewAfterSessionChange];
+        [[NSNotificationCenter defaultCenter] postNotificationName:VLCDropboxSessionWasAuthorized object:nil];
         return YES;
     }
 
@@ -329,13 +331,6 @@ continueUserActivity:(NSUserActivity *)userActivity
 }
 
 #pragma mark - properties
-- (VLCDropboxTableViewController *)dropboxTableViewController
-{
-    if (_dropboxTableViewController == nil)
-        _dropboxTableViewController = [[VLCDropboxTableViewController alloc] initWithNibName:@"VLCCloudStorageTableViewController" bundle:nil];
-
-    return _dropboxTableViewController;
-}
 
 - (VLCDownloadViewController *)downloadViewController
 {

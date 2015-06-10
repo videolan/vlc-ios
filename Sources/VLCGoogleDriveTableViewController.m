@@ -19,7 +19,6 @@
 
 @interface VLCGoogleDriveTableViewController () <VLCCloudStorageTableViewCell>
 {
-
     VLCGoogleDriveController *_googleDriveController;
 
     GTLDriveFile *_selectedFile;
