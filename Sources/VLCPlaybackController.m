@@ -727,10 +727,13 @@ NSString *const VLCPlaybackControllerPlaybackDidFail = @"VLCPlaybackControllerPl
 - (void)audioSessionRouteChange:(NSNotification *)notification
 {
     NSArray *outputs = [[AVAudioSession sharedInstance] currentRoute].outputs;
-    NSString *portName = [[outputs objectAtIndex:0] portName];
+    NSString *portName = [[outputs firstObject] portName];
 
-    if (![portName isEqualToString:@"Headphones"] && [_mediaPlayer isPlaying])
-        [_listPlayer pause];
+    if (![portName isEqualToString:@"Headphones"] && [_mediaPlayer isPlaying]) {
+        [_mediaPlayer pause];
+        [self _savePlaybackState];
+        [[NSNotificationCenter defaultCenter] postNotificationName:VLCPlaybackControllerPlaybackDidPause object:self];
+    }
 }
 
 #pragma mark - Managing the media item
