@@ -217,12 +217,16 @@ currentMediaHasTrackToChooseFrom:(BOOL)currentMediaHasTrackToChooseFrom
             [_videoView removeFromSuperview];
             _videoView = nil;
         }
-        _videoView = [[UIView alloc] initWithFrame:_artworkView.frame];
-        [_videoView setClipsToBounds:YES];
-        [_videoView addGestureRecognizer:_artworkTapRecognizer];
-        _videoView.userInteractionEnabled = YES;
-        [self addSubview:_videoView];
-        controller.videoOutputView = _videoView;
+
+        VLCPlayerDisplayController *pdc = [(VLCAppDelegate *)[UIApplication sharedApplication].delegate playerDisplayController];
+        if (pdc.displayMode == VLCPlayerDisplayControllerDisplayModeMiniplayer) {
+            _videoView = [[UIView alloc] initWithFrame:_artworkView.frame];
+            [_videoView setClipsToBounds:YES];
+            [_videoView addGestureRecognizer:_artworkTapRecognizer];
+            _videoView.userInteractionEnabled = YES;
+            [self addSubview:_videoView];
+            controller.videoOutputView = _videoView;
+        }
     }
 
     NSString *metaDataString;
