@@ -423,7 +423,7 @@ static NSString *kUsingTableViewToShowData = @"UsingTableViewToShowData";
         self.emptyLibraryView.learnMoreButton.hidden = inFolder;
         self.emptyLibraryView.frame = self.view.bounds;
         [self.view addSubview:self.emptyLibraryView];
-        self.navigationItem.rightBarButtonItem = nil;
+        self.navigationItem.rightBarButtonItems = nil;
     } else {
         if (UI_USER_INTERFACE_IDIOM() == UIUserInterfaceIdiomPad) {
             UIBarButtonItem *toggleDisplayedView = [[UIBarButtonItem alloc] initWithImage:[UIImage imageNamed:@"tableViewIcon"] style:UIBarButtonItemStylePlain target:self action:@selector(toggleDisplayedView:)];
