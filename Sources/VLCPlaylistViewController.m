@@ -53,7 +53,7 @@ static NSString *kUsingTableViewToShowData = @"UsingTableViewToShowData";
     id _folderObject;
     VLCFolderCollectionViewFlowLayout *_folderLayout;
     LXReorderableCollectionViewFlowLayout *_reorderLayout;
-    BOOL inFolder;
+    BOOL _inFolder;
     UILongPressGestureRecognizer *_longPressGestureRecognizer;
 
     NSMutableArray *_searchData;
@@ -292,7 +292,7 @@ static NSString *kUsingTableViewToShowData = @"UsingTableViewToShowData";
         [self reloadViews];
     } else if ([mediaObject isKindOfClass:[MLLabel class]]) {
         MLLabel *folder = (MLLabel*) mediaObject;
-        inFolder = YES;
+        _inFolder = YES;
         if (!_usingTableViewToShowData) {
             if (![self.collectionView.collectionViewLayout isEqual:_reorderLayout]) {
                 for (UIGestureRecognizer *recognizer in _collectionView.gestureRecognizers) {
@@ -378,7 +378,7 @@ static NSString *kUsingTableViewToShowData = @"UsingTableViewToShowData";
 
 - (void)_deleteMediaObject:(MLFile *)mediaObject
 {
-    if (inFolder)
+    if (_inFolder)
         [self rearrangeFolderTrackNumbersForRemovedItem:mediaObject];
 
     /* stop playback if needed */
@@ -418,9 +418,10 @@ static NSString *kUsingTableViewToShowData = @"UsingTableViewToShowData";
         [self.emptyLibraryView removeFromSuperview];
 
     if (_foundMedia.count == 0) {
-        self.emptyLibraryView.emptyLibraryLabel.text = inFolder ? NSLocalizedString(@"FOLDER_EMPTY", nil) : NSLocalizedString(@"EMPTY_LIBRARY", nil);
-        self.emptyLibraryView.emptyLibraryLongDescriptionLabel.text = inFolder ? NSLocalizedString(@"FOLDER_EMPTY_LONG", nil) : NSLocalizedString(@"EMPTY_LIBRARY_LONG", nil);
-        self.emptyLibraryView.learnMoreButton.hidden = inFolder;
+        _inFolder = (_libraryMode == VLCLibraryModeFolder || _libraryMode == VLCLibraryModeCreateFolder);
+        self.emptyLibraryView.emptyLibraryLabel.text = _inFolder ? NSLocalizedString(@"FOLDER_EMPTY", nil) : NSLocalizedString(@"EMPTY_LIBRARY", nil);
+        self.emptyLibraryView.emptyLibraryLongDescriptionLabel.text = _inFolder ? NSLocalizedString(@"FOLDER_EMPTY_LONG", nil) : NSLocalizedString(@"EMPTY_LIBRARY_LONG", nil);
+        self.emptyLibraryView.learnMoreButton.hidden = _inFolder;
         self.emptyLibraryView.frame = self.view.bounds;
         [self.view addSubview:self.emptyLibraryView];
         self.navigationItem.rightBarButtonItems = nil;
@@ -629,7 +630,7 @@ static NSString *kUsingTableViewToShowData = @"UsingTableViewToShowData";
 
 - (BOOL)tableView:(UITableView *)tableView canMoveRowAtIndexPath:(NSIndexPath *)indexPath
 {
-    return inFolder;
+    return _inFolder;
 }
 
 - (void)tableView:(UITableView *)tableView willDisplayCell:(UITableViewCell *)cell forRowAtIndexPath:(NSIndexPath *)indexPath
@@ -1198,7 +1199,7 @@ static NSString *kUsingTableViewToShowData = @"UsingTableViewToShowData";
         if (self.editing)
             [self setEditing:NO animated:NO];
     }
-    inFolder = NO;
+    _inFolder = NO;
     UIBarButtonItem *createFolderItem = [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemOrganize target:self action:@selector(createFolder)];
     NSMutableArray *toolbarItems = [self.toolbarItems mutableCopy];
     toolbarItems[2] = createFolderItem;
