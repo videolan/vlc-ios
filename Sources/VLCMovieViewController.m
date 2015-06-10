@@ -29,7 +29,8 @@
 #import "VLCPlaybackController.h"
 #import "UIDevice+VLC.h"
 #import "VLCTimeNavigationTitleView.h"
-
+#import "VLCPlayerDisplayController.h"
+#import "VLCAppDelegate.h"
 #import "VLCStatusLabel.h"
 
 #define FORWARD_SWIPE_DURATION 30
@@ -217,6 +218,10 @@ typedef NS_ENUM(NSInteger, VLCPanType) {
                    name:UIScreenDidDisconnectNotification object:nil];
     [center addObserver:self selector:@selector(screenBrightnessChanged:)
                    name:UIScreenBrightnessDidChangeNotification object:nil];
+    [center addObserver:self
+               selector:@selector(appBecameActive:)
+                   name:UIApplicationDidBecomeActiveNotification
+                 object:nil];
 
     _playingExternallyTitle.text = NSLocalizedString(@"PLAYING_EXTERNALLY_TITLE", nil);
     _playingExternallyDescription.text = NSLocalizedString(@"PLAYING_EXTERNALLY_DESC", nil);
@@ -1495,6 +1500,19 @@ currentMediaHasTrackToChooseFrom:(BOOL)currentMediaHasTrackToChooseFrom
         self.brightnessSlider.value = [(UIScreen *)notification.object brightness] * 2.;
     else if (![[UIDevice currentDevice] hasExternalDisplay])
         self.brightnessSlider.value = [(UIScreen *)[[UIScreen screens] firstObject] brightness] * 2.;
+}
+
+- (void)appBecameActive:(NSNotification *)aNotification
+{
+    VLCPlayerDisplayController *pdc = [(VLCAppDelegate *)[UIApplication sharedApplication].delegate playerDisplayController];
+    if (pdc.displayMode == VLCPlayerDisplayControllerDisplayModeFullscreen) {
+        VLCPlaybackController *vpc = self.playbackController;
+        [vpc recoverDisplayedMetadata];
+        if (vpc.videoOutputView != self.movieView) {
+            vpc.videoOutputView = nil;
+            vpc.videoOutputView = self.movieView;
+        }
+    }
 }
 
 #pragma mark - playback view

@@ -37,6 +37,7 @@ NSString *const VLCPlaybackControllerPlaybackDidFail = @"VLCPlaybackControllerPl
     BOOL _playerIsSetup;
     BOOL _playbackFailed;
     BOOL _shouldResumePlaying;
+    BOOL _shouldResumePlayingAfterInteruption;
     NSTimer *_sleepTimer;
 
     NSArray *_aspectRatios;
@@ -711,15 +712,15 @@ NSString *const VLCPlaybackControllerPlaybackDidFail = @"VLCPlaybackControllerPl
 {
     if ([_mediaPlayer isPlaying]) {
         [_mediaPlayer pause];
-        _shouldResumePlaying = YES;
+        _shouldResumePlayingAfterInteruption = YES;
     }
 }
 
 - (void)endInterruption
 {
-    if (_shouldResumePlaying) {
+    if (_shouldResumePlayingAfterInteruption) {
         [_mediaPlayer play];
-        _shouldResumePlaying = NO;
+        _shouldResumePlayingAfterInteruption = NO;
     }
 }
 
@@ -1114,12 +1115,6 @@ static inline NSArray * RemoteCommandCenterCommandsToHandle(MPRemoteCommandCente
 {
     [self _savePlaybackState];
 
-    _preBackgroundWrapperView = _videoOutputViewWrapper;
-    [self setVideoOutputView:nil];
-
-    if (_mediaPlayer.audioTrackIndexes.count > 0)
-        _mediaPlayer.currentVideoTrackIndex = -1;
-
     if (![[[NSUserDefaults standardUserDefaults] objectForKey:kVLCSettingContinueAudioInBackgroundKey] boolValue]) {
         if ([_mediaPlayer isPlaying]) {
             [_mediaPlayer pause];
@@ -1130,7 +1125,11 @@ static inline NSArray * RemoteCommandCenterCommandsToHandle(MPRemoteCommandCente
 
 - (void)applicationDidEnterBackground:(NSNotification *)notification
 {
-    _shouldResumePlaying = NO;
+    _preBackgroundWrapperView = _videoOutputViewWrapper;
+    [self setVideoOutputView:nil];
+
+    if (_mediaPlayer.audioTrackIndexes.count > 0)
+        _mediaPlayer.currentVideoTrackIndex = -1;
 }
 
 - (void)applicationDidBecomeActive:(NSNotification *)notification
