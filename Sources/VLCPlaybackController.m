@@ -275,6 +275,8 @@ NSString *const VLCPlaybackControllerPlaybackDidFail = @"VLCPlaybackControllerPl
     [_mediaPlayer resetEqualizerFromProfile:profile];
     [_mediaPlayer setPreAmplification:[_mediaPlayer preAmplification]];
 
+    _mediaWasJustStarted = YES;
+
     [_mediaPlayer addObserver:self forKeyPath:@"time" options:0 context:nil];
     [_mediaPlayer addObserver:self forKeyPath:@"remainingTime" options:0 context:nil];
 
@@ -292,7 +294,6 @@ NSString *const VLCPlaybackControllerPlaybackDidFail = @"VLCPlaybackControllerPl
     [self subscribeRemoteCommands];
 
     _playerIsSetup = YES;
-    _mediaWasJustStarted = YES;
 
     [[NSNotificationCenter defaultCenter] postNotificationName:VLCPlaybackControllerPlaybackDidStart object:self];
 }
@@ -433,6 +434,16 @@ NSString *const VLCPlaybackControllerPlaybackDidFail = @"VLCPlaybackControllerPl
 
 - (void)observeValueForKeyPath:(NSString *)keyPath ofObject:(id)object change:(NSDictionary *)change context:(void *)context
 {
+    if (_mediaWasJustStarted) {
+        _mediaWasJustStarted = NO;
+        if (self.mediaList) {
+            MLFile *item;
+            NSArray *matches = [MLFile fileForURL:_mediaPlayer.media.url];
+            item = matches.firstObject;
+            [self _recoverLastPlaybackStateOfItem:item];
+        }
+    }
+
     if ([self.delegate respondsToSelector:@selector(playbackPositionUpdated:)])
         [self.delegate playbackPositionUpdated:self];
 }
@@ -833,29 +844,6 @@ NSString *const VLCPlaybackControllerPlaybackDidFail = @"VLCPlaybackControllerPl
 
         if (title.length < 1)
             title = [[_mediaPlayer.media url] lastPathComponent];
-    } else if (_mediaWasJustStarted) {
-        _mediaWasJustStarted = NO;
-
-        if (item) {
-            if (_mediaPlayer.numberOfAudioTracks > 2) {
-                if (item.lastAudioTrack.intValue > 0)
-                    _mediaPlayer.currentAudioTrackIndex = item.lastAudioTrack.intValue;
-            }
-            if (_mediaPlayer.numberOfSubtitlesTracks > 2) {
-                if (item.lastSubtitleTrack.intValue > 0)
-                    _mediaPlayer.currentVideoSubTitleIndex = item.lastSubtitleTrack.intValue;
-            }
-
-            CGFloat lastPosition = .0;
-            NSInteger duration = 0;
-
-            if (item.lastPosition)
-                lastPosition = item.lastPosition.floatValue;
-            duration = item.duration.intValue;
-
-            if (lastPosition < .95 && _mediaPlayer.position < lastPosition && (duration * lastPosition - duration) < -60000)
-                _mediaPlayer.position = lastPosition;
-        }
     }
 
     /* populate delegate with metadata info */
@@ -909,6 +897,30 @@ setstuff:
     _artworkImage = artworkImage;
     _mediaIsAudioOnly = mediaIsAudioOnly;
 
+}
+
+- (void)_recoverLastPlaybackStateOfItem:(MLFile *)item
+{
+    if (item) {
+        if (_mediaPlayer.numberOfAudioTracks > 2) {
+            if (item.lastAudioTrack.intValue > 0)
+                _mediaPlayer.currentAudioTrackIndex = item.lastAudioTrack.intValue;
+        }
+        if (_mediaPlayer.numberOfSubtitlesTracks > 2) {
+            if (item.lastSubtitleTrack.intValue > 0)
+                _mediaPlayer.currentVideoSubTitleIndex = item.lastSubtitleTrack.intValue;
+        }
+
+        CGFloat lastPosition = .0;
+        NSInteger duration = 0;
+
+        if (item.lastPosition)
+            lastPosition = item.lastPosition.floatValue;
+        duration = item.duration.intValue;
+
+        if (lastPosition < .95 && _mediaPlayer.position < lastPosition && (duration * lastPosition - duration) < -60000)
+            _mediaPlayer.position = lastPosition;
+    }
 }
 
 - (void)recoverDisplayedMetadata
