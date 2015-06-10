@@ -14,7 +14,6 @@
  * Refer to the COPYING file of the official project for license.
  *****************************************************************************/
 
-#import "VLCDropboxTableViewController.h"
 #import "VLCHTTPUploaderController.h"
 #import "GHRevealViewController.h"
 #import "VLCMenuTableViewController.h"
@@ -22,6 +21,9 @@
 
 @class VLCPlaylistViewController;
 @class VLCPlayerDisplayController;
+
+extern NSString *const VLCDropboxSessionWasAuthorized;
+
 @interface VLCAppDelegate : UIResponder <UIApplicationDelegate>
 
 - (void)updateMediaList;
@@ -39,7 +41,6 @@
 - (void)openMovieWithExternalSubtitleFromURL:(NSURL *)url externalSubURL:(NSString *)SubtitlePath;
 
 @property (nonatomic, readonly) VLCPlaylistViewController *playlistViewController;
-@property (nonatomic, readonly) VLCDropboxTableViewController *dropboxTableViewController;
 @property (nonatomic, readonly) VLCDownloadViewController *downloadViewController;
 
 @property (nonatomic, readonly) VLCPlayerDisplayController *playerDisplayController;

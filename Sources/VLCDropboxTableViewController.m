@@ -30,13 +30,23 @@
 
 @implementation VLCDropboxTableViewController
 
+- (void)dealloc
+{
+    [[NSNotificationCenter defaultCenter] removeObserver:self];
+}
+
 - (void)viewDidLoad
 {
     [super viewDidLoad];
 
-    _dropboxController = [[VLCDropboxController alloc] init];
+    _dropboxController = [VLCDropboxController sharedInstance];
     self.controller = _dropboxController;
     self.controller.delegate = self;
+
+    [[NSNotificationCenter defaultCenter] addObserver:self
+                                             selector:@selector(sessionWasUpdated:)
+                                                 name:VLCDropboxSessionWasAuthorized
+                                               object:nil];
 
     DBSession* dbSession = [[DBSession alloc] initWithAppKey:kVLCDropboxAppKey appSecret:kVLCDropboxPrivateKey root:kDBRootDropbox];
     [DBSession setSharedSession:dbSession];
@@ -53,6 +63,10 @@
 - (void)viewWillAppear:(BOOL)animated
 {
     [super viewWillAppear:animated];
+
+    self.controller = _dropboxController;
+    self.controller.delegate = self;
+
     [self updateViewAfterSessionChange];
 }
 
@@ -118,6 +132,11 @@
         [_dropboxController logout];
 }
 
+- (void)sessionWasUpdated:(NSNotification *)aNotification
+{
+    self.authorizationInProgress = YES;
+    [self updateViewAfterSessionChange];
+}
 
 #pragma mark - VLCCloudStorageTableViewCell delegation
 
