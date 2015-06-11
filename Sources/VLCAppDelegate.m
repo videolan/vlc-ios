@@ -35,8 +35,11 @@
 #import "VLCPlayerDisplayController.h"
 #import <MediaPlayer/MediaPlayer.h>
 #import <DropboxSDK/DropboxSDK.h>
+#import <HockeySDK/HockeySDK.h>
 
 NSString *const VLCDropboxSessionWasAuthorized = @"VLCDropboxSessionWasAuthorized";
+
+#define BETA_DISTRIBUTION 1
 
 @interface VLCAppDelegate () <PAPasscodeViewControllerDelegate, VLCMediaFileDiscovererDelegate> {
     PAPasscodeViewController *_passcodeLockController;
@@ -87,6 +90,18 @@ NSString *const VLCDropboxSessionWasAuthorized = @"VLCDropboxSessionWasAuthorize
 
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions
 {
+    BITHockeyManager *hockeyManager = [BITHockeyManager sharedHockeyManager];
+
+    if (BETA_DISTRIBUTION) {
+        APLog(@"Using HockeySDK beta key");
+        [hockeyManager configureWithIdentifier:@"0114ca8e265244ce588d2ebd035c3577"];
+    } else
+        [hockeyManager configureWithIdentifier:@"c95f4227dff96c61f8b3a46a25edc584"];
+
+    // Configure the SDK in here only!
+    [hockeyManager startManager];
+    [hockeyManager.authenticator authenticateInstallation];
+
     if (SYSTEM_RUNS_IOS7_OR_LATER) {
         // Change the keyboard for UISearchBar
         [[UITextField appearance] setKeyboardAppearance:UIKeyboardAppearanceDark];

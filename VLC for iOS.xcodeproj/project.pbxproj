@@ -59,7 +59,6 @@
 		417CDA231A48D1F300D9ACE7 /* VLCCloudServicesTableViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 417CDA211A48D1F300D9ACE7 /* VLCCloudServicesTableViewController.m */; };
 		417CDA241A48D1F300D9ACE7 /* VLCCloudServicesTableViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 417CDA221A48D1F300D9ACE7 /* VLCCloudServicesTableViewController.xib */; };
 		4184AA151A5492070063DF5A /* VLCCloudStorageController.m in Sources */ = {isa = PBXBuildFile; fileRef = 4184AA141A5492070063DF5A /* VLCCloudStorageController.m */; };
-		418FF4B11A0EC1D5005FE808 /* libPods-vlc-ios.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 418FF4B01A0EC1D5005FE808 /* libPods-vlc-ios.a */; };
 		41B93C011A53833B00102E8B /* VLCProgressView.m in Sources */ = {isa = PBXBuildFile; fileRef = 41B93C001A53833B00102E8B /* VLCProgressView.m */; };
 		41B93C051A53835300102E8B /* VLCCloudServiceCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 41B93C031A53835300102E8B /* VLCCloudServiceCell.m */; };
 		41B93C081A53853B00102E8B /* VLCCloudServiceCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 41B93C071A53853B00102E8B /* VLCCloudServiceCell.xib */; };
@@ -225,6 +224,7 @@
 		CC1BBC56170493C100A20CBF /* QuartzCore.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = CC1BBC55170493C100A20CBF /* QuartzCore.framework */; };
 		CC1BBC58170493E100A20CBF /* CoreData.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = CC1BBC57170493E100A20CBF /* CoreData.framework */; };
 		CCE2A22E17A5859E00D9EAAD /* CoreText.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = CCE2A22D17A5859E00D9EAAD /* CoreText.framework */; };
+		D9C52A9E9D4D5AFA7EF1B45A /* libPods-vlc-ios.a in Frameworks */ = {isa = PBXBuildFile; fileRef = DAF8927B0BE9C328466C0EA7 /* libPods-vlc-ios.a */; };
 		DD02C2FF1ACAE7A10026EFEE /* libMediaLibraryKit.a in Frameworks */ = {isa = PBXBuildFile; fileRef = DD02C2FE1ACAE7A10026EFEE /* libMediaLibraryKit.a */; };
 		DD02C3011ACAE9690026EFEE /* libMobileVLCKit.a in Frameworks */ = {isa = PBXBuildFile; fileRef = DD02C3001ACAE9690026EFEE /* libMobileVLCKit.a */; };
 		DD02C3031ACAEB050026EFEE /* libiconv.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = CC1BBC451704938300A20CBF /* libiconv.dylib */; };
@@ -385,7 +385,6 @@
 		417CDA221A48D1F300D9ACE7 /* VLCCloudServicesTableViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; name = VLCCloudServicesTableViewController.xib; path = Resources/VLCCloudServicesTableViewController.xib; sourceTree = SOURCE_ROOT; };
 		4184AA131A5492070063DF5A /* VLCCloudStorageController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = VLCCloudStorageController.h; path = Sources/VLCCloudStorageController.h; sourceTree = SOURCE_ROOT; };
 		4184AA141A5492070063DF5A /* VLCCloudStorageController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = VLCCloudStorageController.m; path = Sources/VLCCloudStorageController.m; sourceTree = SOURCE_ROOT; };
-		418FF4B01A0EC1D5005FE808 /* libPods-vlc-ios.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; name = "libPods-vlc-ios.a"; path = "Pods/build/Debug-iphoneos/libPods-vlc-ios.a"; sourceTree = "<group>"; };
 		41B93BFF1A53833B00102E8B /* VLCProgressView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = VLCProgressView.h; path = Sources/VLCProgressView.h; sourceTree = SOURCE_ROOT; };
 		41B93C001A53833B00102E8B /* VLCProgressView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = VLCProgressView.m; path = Sources/VLCProgressView.m; sourceTree = SOURCE_ROOT; };
 		41B93C021A53835300102E8B /* VLCCloudServiceCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = VLCCloudServiceCell.h; path = Sources/VLCCloudServiceCell.h; sourceTree = SOURCE_ROOT; };
@@ -516,7 +515,6 @@
 		7D30F3E5183AB34200FFC021 /* VLCGoogleDriveController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = VLCGoogleDriveController.m; path = Sources/VLCGoogleDriveController.m; sourceTree = SOURCE_ROOT; };
 		7D30F3E8183AB34200FFC021 /* VLCGoogleDriveTableViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = VLCGoogleDriveTableViewController.h; path = Sources/VLCGoogleDriveTableViewController.h; sourceTree = SOURCE_ROOT; };
 		7D30F3E9183AB34200FFC021 /* VLCGoogleDriveTableViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = VLCGoogleDriveTableViewController.m; path = Sources/VLCGoogleDriveTableViewController.m; sourceTree = SOURCE_ROOT; };
-		7D31001F17B6768B00E6516D /* libupnpx.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; name = libupnpx.a; path = External/upnpx/libupnpx.a; sourceTree = "<group>"; };
 		7D31719C19FEC91F0019357A /* VLC for iOS.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.xml; name = "VLC for iOS.entitlements"; path = "vlc-ios/VLC for iOS.entitlements"; sourceTree = "<group>"; };
 		7D32B383185E293D006CA474 /* Raleway.woff */ = {isa = PBXFileReference; lastKnownFileType = file; path = Raleway.woff; sourceTree = "<group>"; };
 		7D3323FC18E61DD5000ABEA5 /* en-GB */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "en-GB"; path = "en-GB.lproj/badgeUnread@2x~ipad.png"; sourceTree = "<group>"; };
@@ -944,7 +942,6 @@
 			buildActionMask = 2147483647;
 			files = (
 				7D298F441AD5827E00A0BF68 /* WatchKit.framework in Frameworks */,
-				418FF4B11A0EC1D5005FE808 /* libPods-vlc-ios.a in Frameworks */,
 				8F91EC7F195E1DAB00F5BCBA /* AssetsLibrary.framework in Frameworks */,
 				7D15168B194773630086FB8C /* MobileCoreServices.framework in Frameworks */,
 				7DC0C0551A4D78A4000EE359 /* DropboxSDK.framework in Frameworks */,
@@ -974,6 +971,7 @@
 				7D94FCE316DE7D1000F2623B /* CoreGraphics.framework in Frameworks */,
 				A7924696170F0BA90036AAF2 /* libMediaLibraryKit.a in Frameworks */,
 				7D7B17F01AD8052B003BF3D7 /* libc++.dylib in Frameworks */,
+				D9C52A9E9D4D5AFA7EF1B45A /* libPods-vlc-ios.a in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -1471,7 +1469,6 @@
 				DD02C30A1ACAF0370026EFEE /* libstdc++.6.0.9.dylib */,
 				DD02C3001ACAE9690026EFEE /* libMobileVLCKit.a */,
 				DD02C2FE1ACAE7A10026EFEE /* libMediaLibraryKit.a */,
-				418FF4B01A0EC1D5005FE808 /* libPods-vlc-ios.a */,
 				8F91EC7E195E1DAB00F5BCBA /* AssetsLibrary.framework */,
 				7D15168A194773630086FB8C /* MobileCoreServices.framework */,
 				7D168F7018D4A21B003FAF59 /* Accelerate.framework */,
@@ -1490,7 +1487,6 @@
 				CC1BBC53170493B800A20CBF /* AudioToolbox.framework */,
 				CC1BBC51170493B100A20CBF /* OpenGLES.framework */,
 				CC1BBC4F170493AA00A20CBF /* libxml2.dylib */,
-				7D31001F17B6768B00E6516D /* libupnpx.a */,
 				CC1BBC4D170493A300A20CBF /* libbz2.dylib */,
 				CC1BBC4B1704939B00A20CBF /* libsqlite3.dylib */,
 				CC1BBC491704939300A20CBF /* libz.dylib */,

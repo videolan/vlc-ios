@@ -12,6 +12,7 @@ pod 'GHSidebarNav', '1.0.0'
 pod 'InAppSettingsKit', '2.2.2'
 pod 'upnpx', '1.3.3'
 pod 'SSKeychain'
+pod 'HockeySDK'
 pod 'box-ios-sdk-v2', :git => 'git://github.com/carolanitz/box-ios-sdk-v2.git', :commit => 'd2df30aa5f76d30910e06f3ef5aff49025de3cf1' #has a logout function added
 
 end
