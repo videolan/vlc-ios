@@ -3,6 +3,7 @@ PODS:
     - box-ios-sdk-v2/no-arc (= 1.2.2)
   - box-ios-sdk-v2/no-arc (1.2.2)
   - GHSidebarNav (1.0.0)
+  - HockeySDK (3.6.4)
   - InAppSettingsKit (2.2.2)
   - OBSlider (1.1.0)
   - SSKeychain (1.2.2)
@@ -12,6 +13,7 @@ DEPENDENCIES:
   - box-ios-sdk-v2 (from `git://github.com/carolanitz/box-ios-sdk-v2.git`, commit
     `d2df30aa5f76d30910e06f3ef5aff49025de3cf1`)
   - GHSidebarNav (= 1.0.0)
+  - HockeySDK
   - InAppSettingsKit (= 2.2.2)
   - OBSlider (= 1.1.0)
   - SSKeychain
@@ -30,6 +32,7 @@ CHECKOUT OPTIONS:
 SPEC CHECKSUMS:
   box-ios-sdk-v2: e6833ca786bf93da1dbe63e3d0a945b1e1fe1f42
   GHSidebarNav: b0c7937f3fdc2889025d307036223bc0dd7c3a0d
+  HockeySDK: c07cdd580296737edcd0963e292c19885a53f563
   InAppSettingsKit: 76d5cfbaa3e3f8aa53fe3628516da7eb1aa6a5cb
   OBSlider: 490f108007bfdd5414a38650b211fe403a95b8a0
   SSKeychain: 88767e903ee8d274ed380e364d96b7a101235286
