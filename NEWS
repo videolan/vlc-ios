@@ -1,5 +1,35 @@
-2.6 (not-yet-released):
------------------------
+2.6.0:
+------
+* Added support for Apple Watch - control VLC from your watch!
+  - playback control
+  - media info
+  - library browsing
+* Added mini-player to browse the library during playback (#13367)
+* Added support for looping playlists
+* New ingest mechanism for audio files
+* Improved remote command support
+* Improved thumbnail generation
+* Improved thumbnail and web interface performance on devices with A5 CPU and above
+* Fixed crash when playing media from a folder or music album on iPad (#14394, #14706)
+* Fixed crash when app goes to background while a video is playing (#14643)
+* Fixed privacy leak when using a passcode to protect the library (#14159, #14615)
+* Removed stray popup announcing VLC's crash all the time while it actually
+  didn't crash before, but terminated by the user (#13194)
+* Added support for the PLEX Web API
+* Thumbnails displayed in the media library are updated to the last playback position (#14462)
+* Improved reliability when sharing media library on the local network
+* Improved media library search delivering more accurate results (#14593)
+* Fixed 'crop to fill screen' on iPad (#14575)
+* Fixed issue which prevented downloading of a few files via UPnP (#11123)
+* Fixed crash when screen is being locked during playback (#14610)
+* A large number of bug fixes affecting most parts of the app (#13194, #14056,
+  #14270, #14284, #14355, #14477, #14588, #14589, #14609, #14623, #14624,
+  #14628, #14629, #14635, #14638, #14641, #14642, #14654, #14663, #14687,
+  #14688, #14713, #14715, #14716, #14733, #14736, #14795, #14800, #14801, #14829)
+
+2.5.1:
+------
+* Fixed playback on iOS 6.1
 
 2.5:
 ----
