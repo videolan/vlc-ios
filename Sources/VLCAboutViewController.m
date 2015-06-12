@@ -47,12 +47,7 @@
     self.navigationItem.titleView = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"title"]];
 
     UIBarButtonItem *contributeButton = [[UIBarButtonItem alloc] initWithTitle:NSLocalizedString(@"BUTTON_CONTRIBUTE", nil) style:UIBarButtonItemStyleBordered target:self action:@selector(openContributePage:)];
-    if (SYSTEM_RUNS_IOS7_OR_LATER)
-        contributeButton.tintColor = [UIColor whiteColor];
-    else {
-        [contributeButton setBackgroundImage:[UIImage imageNamed:@"button"] forState:UIControlStateNormal barMetrics:UIBarMetricsDefault];
-        [contributeButton setBackgroundImage:[UIImage imageNamed:@"buttonHighlight"] forState:UIControlStateHighlighted barMetrics:UIBarMetricsDefault];
-    }
+    contributeButton.tintColor = [UIColor whiteColor];
 
     self.navigationItem.rightBarButtonItem = contributeButton;
     self.navigationItem.leftBarButtonItem = [UIBarButtonItem themedRevealMenuButtonWithTarget:self andSelector:@selector(goBack:)];

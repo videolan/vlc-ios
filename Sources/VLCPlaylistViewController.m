@@ -126,10 +126,7 @@ static NSString *kUsingTableViewToShowData = @"UsingTableViewToShowData";
             _collectionView.autoresizingMask = UIViewAutoresizingFlexibleHeight | UIViewAutoresizingFlexibleWidth;
             _longPressGestureRecognizer = [[UILongPressGestureRecognizer alloc] initWithTarget:self action:@selector(_collectionViewHandleLongPressGesture:)];
             [_collectionView addGestureRecognizer:_longPressGestureRecognizer];
-            if (SYSTEM_RUNS_IOS7_OR_LATER)
-                [_collectionView registerNib:[UINib nibWithNibName:@"VLCFuturePlaylistCollectionViewCell" bundle:nil] forCellWithReuseIdentifier:@"PlaylistCell"];
-            else
-                [_collectionView registerNib:[UINib nibWithNibName:@"VLCPlaylistCollectionViewCell" bundle:nil] forCellWithReuseIdentifier:@"PlaylistCell"];
+            [_collectionView registerNib:[UINib nibWithNibName:@"VLCPlaylistCollectionViewCell" bundle:nil] forCellWithReuseIdentifier:@"PlaylistCell"];
         }
         [contentView addSubview:_collectionView];
         [_collectionView reloadData];
@@ -157,15 +154,7 @@ static NSString *kUsingTableViewToShowData = @"UsingTableViewToShowData";
     self.navigationItem.leftBarButtonItem = _menuButton;
 
     self.editButtonItem.title = NSLocalizedString(@"BUTTON_EDIT", nil);
-
-    if (SYSTEM_RUNS_IOS7_OR_LATER)
-        self.editButtonItem.tintColor = [UIColor whiteColor];
-    else {
-        [self.editButtonItem setBackgroundImage:[UIImage imageNamed:@"button"]
-                                       forState:UIControlStateNormal barMetrics:UIBarMetricsDefault];
-        [self.editButtonItem setBackgroundImage:[UIImage imageNamed:@"buttonHighlight"]
-                                       forState:UIControlStateHighlighted barMetrics:UIBarMetricsDefault];
-    }
+    self.editButtonItem.tintColor = [UIColor whiteColor];
 
     _emptyLibraryView.emptyLibraryLabel.text = NSLocalizedString(@"EMPTY_LIBRARY", nil);
     _emptyLibraryView.emptyLibraryLongDescriptionLabel.text = NSLocalizedString(@"EMPTY_LIBRARY_LONG", nil);
@@ -193,20 +182,14 @@ static NSString *kUsingTableViewToShowData = @"UsingTableViewToShowData";
 
     [self setToolbarItems:@[_actionBarButtonItem, fixedSpace, createFolderItem, [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemFlexibleSpace target:nil action:nil], [UIBarButtonItem themedDarkToolbarButtonWithTitle:NSLocalizedString(@"BUTTON_RENAME", nil) target:self andSelector:@selector(renameSelection)], [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemFlexibleSpace target:nil action:nil], [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemTrash target:self action:@selector(deleteSelection)]]];
     self.navigationController.toolbar.barStyle = UIBarStyleBlack;
-
-    if (SYSTEM_RUNS_IOS7_OR_LATER) {
-        self.navigationController.toolbar.tintColor = [UIColor whiteColor];
-        [UIApplication sharedApplication].statusBarStyle = UIStatusBarStyleLightContent;
-    } else
-        [self.navigationController.toolbar setBackgroundImage:[UIImage imageNamed:@"bottomBlackBar"] forToolbarPosition:UIToolbarPositionAny barMetrics:UIBarMetricsDefault];
+    self.navigationController.toolbar.tintColor = [UIColor whiteColor];
+    [UIApplication sharedApplication].statusBarStyle = UIStatusBarStyleLightContent;
 
     _searchBar = [[UISearchBar alloc] initWithFrame:CGRectMake(0, 0, 320, 44)];
     UINavigationBar *navBar = self.navigationController.navigationBar;
-    if (SYSTEM_RUNS_IOS7_OR_LATER) {
-        _searchBar.barTintColor = navBar.barTintColor;
-        // cancel button tint color of UISearchBar with white color
-        [[UIBarButtonItem appearanceWhenContainedIn:[UISearchBar class], nil] setTitleTextAttributes:[NSDictionary dictionaryWithObjectsAndKeys:[UIColor whiteColor], NSForegroundColorAttributeName, nil] forState:UIControlStateNormal];
-    }
+    _searchBar.barTintColor = navBar.barTintColor;
+    // cancel button tint color of UISearchBar with white color
+    [[UIBarButtonItem appearanceWhenContainedIn:[UISearchBar class], nil] setTitleTextAttributes:[NSDictionary dictionaryWithObjectsAndKeys:[UIColor whiteColor], NSForegroundColorAttributeName, nil] forState:UIControlStateNormal];
     _searchBar.tintColor = navBar.tintColor;
     _searchBar.translucent = navBar.translucent;
     _searchBar.opaque = navBar.opaque;
@@ -757,35 +740,25 @@ static NSString *kUsingTableViewToShowData = @"UsingTableViewToShowData";
 
 - (CGSize)collectionView:(UICollectionView *)collectionView layout:(UICollectionViewLayout *)collectionViewLayout sizeForItemAtIndexPath:(NSIndexPath *)indexPath
 {
-    if (SYSTEM_RUNS_IOS7_OR_LATER) {
-        if (UIInterfaceOrientationIsLandscape([UIApplication sharedApplication].statusBarOrientation))
-            return CGSizeMake(341., 190.);
-        else
-            return CGSizeMake(384., 216.);
-    }
-
-    return CGSizeMake(298.0, 220.0);
+    if (UIInterfaceOrientationIsLandscape([UIApplication sharedApplication].statusBarOrientation))
+        return CGSizeMake(341., 190.);
+    else
+        return CGSizeMake(384., 216.);
 }
 
 - (UIEdgeInsets)collectionView:(UICollectionView *)collectionView layout:(UICollectionViewLayout *)collectionViewLayout insetForSectionAtIndex:(NSInteger)section
 {
-    if (SYSTEM_RUNS_IOS7_OR_LATER)
-        return UIEdgeInsetsZero;
-    return UIEdgeInsetsMake(0.0, 34.0, 0.0, 34.0);
+    return UIEdgeInsetsZero;
 }
 
 - (CGFloat)collectionView:(UICollectionView *)collectionView layout:(UICollectionViewLayout*)collectionViewLayout minimumLineSpacingForSectionAtIndex:(NSInteger)section
 {
-    if (SYSTEM_RUNS_IOS7_OR_LATER)
-        return 0.;
-    return 10.0;
+    return 0.;
 }
 
 - (CGFloat)collectionView:(UICollectionView *)collectionView layout:(UICollectionViewLayout*)collectionViewLayout minimumInteritemSpacingForSectionAtIndex:(NSInteger)section
 {
-    if (SYSTEM_RUNS_IOS7_OR_LATER)
-        return 0.;
-    return 10.0;
+    return 0.;
 }
 
 - (void)collectionView:(UICollectionView *)collectionView didSelectItemAtIndexPath:(NSIndexPath *)indexPath
@@ -1114,17 +1087,7 @@ static NSString *kUsingTableViewToShowData = @"UsingTableViewToShowData";
     [super setEditing:editing animated:animated];
 
     UIBarButtonItem *editButton = self.editButtonItem;
-    NSString *editImage = editing? @"doneButton": @"button";
-    NSString *editImageHighlight = editing? @"doneButtonHighlight": @"buttonHighlight";
-    if (SYSTEM_RUNS_IOS7_OR_LATER)
-        editButton.tintColor = [UIColor whiteColor];
-    else {
-        [editButton setBackgroundImage:[UIImage imageNamed:editImage] forState:UIControlStateNormal
-                                     barMetrics:UIBarMetricsDefault];
-        [editButton setBackgroundImage:[UIImage imageNamed:editImageHighlight]
-                                       forState:UIControlStateHighlighted barMetrics:UIBarMetricsDefault];
-        [editButton setTitleTextAttributes: editing ? @{UITextAttributeTextShadowColor : [UIColor whiteColor], UITextAttributeTextColor : [UIColor blackColor]} : @{UITextAttributeTextShadowColor : [UIColor VLCDarkTextShadowColor], UITextAttributeTextColor : [UIColor whiteColor]} forState:UIControlStateNormal];
-    }
+    editButton.tintColor = [UIColor whiteColor];
 
     if (!_usingTableViewToShowData) {
         NSArray *visibleCells = self.collectionView.visibleCells;
@@ -1370,12 +1333,7 @@ static NSString *kUsingTableViewToShowData = @"UsingTableViewToShowData";
 
         if ([fileURLobjects count]) {
             // Provide some basic user feedback as UIActivityController lags in presentation sometimes (blocking the main thread).
-            // iOS 6 has trouble re-enabling all the icons, so only disable the sharing one. Usage of the toolbar will be disabled by UIApplication in this case anyhow.
-            if (SYSTEM_RUNS_IOS7_OR_LATER) {
-                [self.navigationController.toolbar.items makeObjectsPerformSelector:@selector(setEnabled:) withObject:@(NO)];
-            } else {
-                _actionBarButtonItem.enabled = YES;
-            }
+            [self.navigationController.toolbar.items makeObjectsPerformSelector:@selector(setEnabled:) withObject:@(NO)];
 
             // Just in case, since we are facing a possible delay from code we do not control (UIActivityViewController), disable any possible changes to selection (or exit from this screen)
             [[UIApplication sharedApplication] beginIgnoringInteractionEvents];
@@ -1387,14 +1345,10 @@ static NSString *kUsingTableViewToShowData = @"UsingTableViewToShowData";
                 _openInActivity.presentingBarButtonItem = barButtonItem;
 
                 dispatch_block_t enableInteractionBlock = ^{
-                    if (SYSTEM_RUNS_IOS7_OR_LATER) {
-                        // Strangely makeObjectsPerformSelector:withObject has trouble here (when called from presentViewController:animated:completion:)
-                        // [self.navigationController.toolbar.items makeObjectsPerformSelector:@selector(setEnabled:) withObject:@(YES)];
-                        for (UIBarButtonItem *item in self.navigationController.toolbar.items) {
-                            item.enabled = YES;
-                        }
-                    } else {
-                        _actionBarButtonItem.enabled = YES;
+                    // Strangely makeObjectsPerformSelector:withObject has trouble here (when called from presentViewController:animated:completion:)
+                    // [self.navigationController.toolbar.items makeObjectsPerformSelector:@selector(setEnabled:) withObject:@(YES)];
+                    for (UIBarButtonItem *item in self.navigationController.toolbar.items) {
+                        item.enabled = YES;
                     }
 
                     if ([[UIApplication sharedApplication] isIgnoringInteractionEvents]) {

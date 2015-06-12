@@ -35,10 +35,7 @@
 + (VLCPlaylistTableViewCell *)cellWithReuseIdentifier:(NSString *)ident
 {
     NSArray *nibContentArray;
-    if (SYSTEM_RUNS_IOS7_OR_LATER)
-        nibContentArray = [[NSBundle mainBundle] loadNibNamed:@"VLCFuturePlaylistTableViewCell" owner:nil options:nil];
-    else
-        nibContentArray = [[NSBundle mainBundle] loadNibNamed:@"VLCPlaylistTableViewCell" owner:nil options:nil];
+    nibContentArray = [[NSBundle mainBundle] loadNibNamed:@"VLCPlaylistTableViewCell" owner:nil options:nil];
     NSAssert([nibContentArray count] == 1, @"meh");
     NSAssert([[nibContentArray lastObject] isKindOfClass:[VLCPlaylistTableViewCell class]], @"meh meh");
     VLCPlaylistTableViewCell *cell = (VLCPlaylistTableViewCell *)[nibContentArray lastObject];
@@ -161,15 +158,13 @@
     [super setEditing:editing animated:animated];
     [self _updatedDisplayedInformationForKeyPath:@"editing"];
 
-    if (SYSTEM_RUNS_IOS7_OR_LATER) {
-        if (editing) {
-            if (_longPress)
-                [self removeGestureRecognizer:_longPress];
-        } else {
-            if (!_longPress)
-                _longPress = [[UILongPressGestureRecognizer alloc] initWithTarget:self action:@selector(longTouchGestureAction:)];
-            [self addGestureRecognizer:_longPress];
-        }
+    if (editing) {
+        if (_longPress)
+            [self removeGestureRecognizer:_longPress];
+    } else {
+        if (!_longPress)
+            _longPress = [[UILongPressGestureRecognizer alloc] initWithTarget:self action:@selector(longTouchGestureAction:)];
+        [self addGestureRecognizer:_longPress];
     }
 }
 
@@ -206,10 +201,7 @@
 
 + (CGFloat)heightOfCell
 {
-    if (SYSTEM_RUNS_IOS7_OR_LATER)
-        return 90.;
-
-    return 80.;
+    return 90.;
 }
 
 #pragma mark - presentation
@@ -314,23 +306,16 @@
 - (void)_showPositionOfItem:(MLFile *)mediaLibraryFile
 {
     CGFloat position = mediaLibraryFile.lastPosition.floatValue;
+    CGFloat duration = mediaLibraryFile.duration.floatValue;
 
-    if (SYSTEM_RUNS_IOS7_OR_LATER) {
-        CGFloat duration = mediaLibraryFile.duration.floatValue;
-        if (position > .05f && position < .95f && (duration * position - duration) < -60000) {
-            [(UITextView*)self.mediaIsUnreadView setText:[NSString stringWithFormat:NSLocalizedString(@"LIBRARY_MINUTES_LEFT", nil), [[VLCTime timeWithInt:(duration * position - duration)] minuteStringValue]]];
-            self.mediaIsUnreadView.hidden = NO;
-        } else if (mediaLibraryFile.unread.intValue) {
-            [(UILabel *)self.mediaIsUnreadView setText:[NSLocalizedString(@"NEW", nil) capitalizedStringWithLocale:[NSLocale currentLocale]]];
-            self.mediaIsUnreadView.hidden = NO;
-        } else
-            self.mediaIsUnreadView.hidden = YES;
-    } else {
-        self.progressIndicator.progress = position;
-        self.progressIndicator.hidden = ((position < .1f) || (position > .95f)) ? YES : NO;
-        [self.progressIndicator setNeedsDisplay];
-        self.mediaIsUnreadView.hidden = !mediaLibraryFile.unread.intValue;
-    }
+    if (position > .05f && position < .95f && (duration * position - duration) < -60000) {
+        [(UITextView*)self.mediaIsUnreadView setText:[NSString stringWithFormat:NSLocalizedString(@"LIBRARY_MINUTES_LEFT", nil), [[VLCTime timeWithInt:(duration * position - duration)] minuteStringValue]]];
+        self.mediaIsUnreadView.hidden = NO;
+    } else if (mediaLibraryFile.unread.intValue) {
+        [(UILabel *)self.mediaIsUnreadView setText:[NSLocalizedString(@"NEW", nil) capitalizedStringWithLocale:[NSLocale currentLocale]]];
+        self.mediaIsUnreadView.hidden = NO;
+    } else
+        self.mediaIsUnreadView.hidden = YES;
 }
 
 - (void)longTouchGestureAction:(UIGestureRecognizer *)recognizer

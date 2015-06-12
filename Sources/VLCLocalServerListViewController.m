@@ -136,9 +136,6 @@
                           name:VLCSharedLibraryParserDeterminedNetserviceAsVLCInstance
                         object:nil];
 
-/*    if (SYSTEM_RUNS_IOS7_OR_LATER)
-        _sectionHeaderTexts = @[@"Universal Plug'n'Play (UPNP)", @"Plex Media Server (via Bonjour)", @"File Transfer Protocol (FTP)", NSLocalizedString(@"SHARED_VLC_IOS_LIBRARY", nil), @"libDSM", NSLocalizedString(@"SAP_STREAMS", nil)];
-    else*/
     _sectionHeaderTexts = @[@"Universal Plug'n'Play (UPnP)", @"Plex Media Server (via Bonjour)", @"File Transfer Protocol (FTP)", NSLocalizedString(@"SHARED_VLC_IOS_LIBRARY", nil), @"libDSM"];
 
     _backToMenuButton = [UIBarButtonItem themedRevealMenuButtonWithTarget:self andSelector:@selector(goBack:)];
@@ -174,10 +171,7 @@
     [_refreshControl addTarget:self action:@selector(handleRefresh) forControlEvents:UIControlEventValueChanged];
     [self.tableView addSubview:_refreshControl];
 
-    if (SYSTEM_RUNS_IOS7_OR_LATER)
-        _loginViewController = [[VLCNetworkLoginViewController alloc] initWithNibName:@"VLCFutureNetworkLoginViewController" bundle:nil];
-    else
-        _loginViewController = [[VLCNetworkLoginViewController alloc] initWithNibName:@"VLCNetworkLoginViewController" bundle:nil];
+    _loginViewController = [[VLCNetworkLoginViewController alloc] initWithNibName:@"VLCNetworkLoginViewController" bundle:nil];
 
     _loginViewController.delegate = self;
 
@@ -394,10 +388,7 @@
         NSInteger totalRow = [tableView numberOfRowsInSection:section];
         if (row == (totalRow - 1)) {
             VLCPlexConnectServerViewController *_connectPlexServer;
-            if (SYSTEM_RUNS_IOS7_OR_LATER)
-                _connectPlexServer = [[VLCPlexConnectServerViewController alloc] initWithNibName:@"VLCFuturePlexConnectServerViewController" bundle:nil];
-            else
-                _connectPlexServer = [[VLCPlexConnectServerViewController alloc] initWithNibName:@"VLCPlexConnectServerViewController" bundle:nil];
+            _connectPlexServer = [[VLCPlexConnectServerViewController alloc] initWithNibName:@"VLCPlexConnectServerViewController" bundle:nil];
 
             UINavigationController *navCon = [[VLCNavigationController alloc] initWithRootViewController:_connectPlexServer];
             navCon.navigationBarHidden = NO;
@@ -501,16 +492,7 @@
     UIView *headerView = nil;
     if (headerText != [NSNull null]) {
         headerView = [[UIView alloc] initWithFrame:CGRectMake(0.0f, 0.0f, [UIScreen mainScreen].bounds.size.height, 21.0f)];
-        if (!SYSTEM_RUNS_IOS7_OR_LATER) {
-            CAGradientLayer *gradient = [CAGradientLayer layer];
-            gradient.frame = headerView.bounds;
-            gradient.colors = @[
-                          (id)[UIColor colorWithRed:(66.0f/255.0f) green:(66.0f/255.0f) blue:(66.0f/255.0f) alpha:1.0f].CGColor,
-                          (id)[UIColor colorWithRed:(56.0f/255.0f) green:(56.0f/255.0f) blue:(56.0f/255.0f) alpha:1.0f].CGColor,
-                          ];
-            [headerView.layer insertSublayer:gradient atIndex:0];
-        } else
-            headerView.backgroundColor = [UIColor VLCDarkBackgroundColor];
+        headerView.backgroundColor = [UIColor VLCDarkBackgroundColor];
 
         UILabel *textLabel = [[UILabel alloc] initWithFrame:CGRectInset(headerView.bounds, 12.0f, 0.f)];
         textLabel.text = (NSString *) headerText;

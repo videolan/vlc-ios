@@ -91,8 +91,7 @@
 
     _searchBar = [[UISearchBar alloc] initWithFrame:CGRectMake(0, 0, 320, 44)];
     UINavigationBar *navBar = self.navigationController.navigationBar;
-    if (SYSTEM_RUNS_IOS7_OR_LATER)
-        _searchBar.barTintColor = navBar.barTintColor;
+    _searchBar.barTintColor = navBar.barTintColor;
     _searchBar.tintColor = navBar.tintColor;
     _searchBar.translucent = navBar.translucent;
     _searchBar.opaque = navBar.opaque;
@@ -100,8 +99,7 @@
     _searchDisplayController.delegate = self;
     _searchDisplayController.searchResultsDataSource = self;
     _searchDisplayController.searchResultsDelegate = self;
-    if (SYSTEM_RUNS_IOS7_OR_LATER)
-        _searchDisplayController.searchBar.searchBarStyle = UIBarStyleBlack;
+    _searchDisplayController.searchBar.searchBarStyle = UIBarStyleBlack;
     _searchDisplayController.searchResultsTableView.separatorStyle = UITableViewCellSeparatorStyleNone;
     _searchDisplayController.searchResultsTableView.indicatorStyle = UIScrollViewIndicatorStyleWhite;
     _searchBar.delegate = self;
@@ -218,10 +216,8 @@
         UISwipeGestureRecognizer *swipeRight = [[UISwipeGestureRecognizer alloc] initWithTarget:self action:@selector(swipeRightGestureAction:)];
         [swipeRight setDirection:(UISwipeGestureRecognizerDirectionRight)];
         [cell addGestureRecognizer:swipeRight];
-        if (SYSTEM_RUNS_IOS7_OR_LATER) {
-            UILongPressGestureRecognizer *longPressGestureRecognizer = [[UILongPressGestureRecognizer alloc] initWithTarget:self action:@selector(longTouchGestureAction:)];
-            [cell addGestureRecognizer:longPressGestureRecognizer];
-        }
+        UILongPressGestureRecognizer *longPressGestureRecognizer = [[UILongPressGestureRecognizer alloc] initWithTarget:self action:@selector(longTouchGestureAction:)];
+        [cell addGestureRecognizer:longPressGestureRecognizer];
         NSInteger size = [cellObject[@"size"] integerValue];
         NSString *mediaSize = [NSByteCountFormatter stringFromByteCount:size countStyle:NSByteCountFormatterCountStyleFile];
         NSString *durationInSeconds = cellObject[@"duration"];
@@ -488,46 +484,10 @@
     if (recognizer.state == UIGestureRecognizerStateBegan) {
         NSIndexPath *swipedIndexPath = [self.tableView indexPathForRowAtPoint:[recognizer locationInView:self.tableView]];
         UITableViewCell *swipedCell = [self.tableView cellForRowAtIndexPath:swipedIndexPath];
-        VLCLocalNetworkListCell *cell = (VLCLocalNetworkListCell *)[[self tableView] cellForRowAtIndexPath:swipedIndexPath];
-
         NSDictionary *cellObject = _globalObjectList[[self.tableView indexPathForCell:swipedCell].row];
 
-        if (SYSTEM_RUNS_IOS7_OR_LATER) {
-            VLCPlexMediaInformationViewController *targetViewController = [[VLCPlexMediaInformationViewController alloc] initPlexMediaInformation:cellObject serverAddress:_PlexServerAddress portNumber:_PlexServerPort atPath:_PlexServerPath authentification:_PlexAuthentification];
-            [[self navigationController] pushViewController:targetViewController animated:YES];
-        } else {
-            NSString *title = cellObject[@"title"];
-            NSInteger size = [cellObject[@"size"] integerValue];
-            NSString *mediaSize = [NSByteCountFormatter stringFromByteCount:size countStyle:NSByteCountFormatterCountStyleFile];
-            NSString *durationInSeconds = cellObject[@"duration"];
-            NSString *audioCodec = cellObject[@"audioCodec"];
-            if (!audioCodec)
-                audioCodec = @"no track";
-
-            NSString *videoCodec = cellObject[@"videoCodec"];
-            if (!videoCodec)
-                videoCodec = @"no track";
-
-            NSString *message = [NSString stringWithFormat:@"%@ (%@)\naudio(%@) video(%@)", mediaSize, durationInSeconds, audioCodec, videoCodec];
-            NSString *summary = [NSString stringWithFormat:@"%@", cellObject[@"summary"]];
-
-            VLCAlertView *alertView = [[VLCAlertView alloc] initWithTitle:title message:message cancelButtonTitle:NSLocalizedString(@"BUTTON_CANCEL", nil) otherButtonTitles:@[NSLocalizedString(@"PLAY_BUTTON", nil), NSLocalizedString(@"BUTTON_DOWNLOAD", nil)]];
-            if (![summary isEqualToString:@""]) {
-                UITextView *textView = [[UITextView alloc] initWithFrame:alertView.bounds];
-                textView.text = summary;
-                textView.editable = NO;
-                [alertView setValue:textView forKey:@"accessoryView"];
-            }
-            alertView.completion = ^(BOOL cancelled, NSInteger buttonIndex) {
-                if (!cancelled) {
-                    if (buttonIndex == 2)
-                        [self triggerDownloadForCell:cell];
-                    else
-                        [self _playMediaItem:cellObject];
-                }
-            };
-            [alertView show];
-        }
+        VLCPlexMediaInformationViewController *targetViewController = [[VLCPlexMediaInformationViewController alloc] initPlexMediaInformation:cellObject serverAddress:_PlexServerAddress portNumber:_PlexServerPort atPath:_PlexServerPath authentification:_PlexAuthentification];
+        [[self navigationController] pushViewController:targetViewController animated:YES];
     }
 }
 

@@ -35,13 +35,8 @@
 
 - (void)awakeFromNib
 {
-    if (SYSTEM_RUNS_IOS7_OR_LATER) {
-        _checkboxEmptyImage = [UIImage imageNamed:@"checkboxEmpty"];
-        _checkboxImage = [UIImage imageNamed:@"checkbox"];
-    } else {
-        _checkboxEmptyImage = [UIImage imageNamed:@"checkbox-legacy-empty"];
-        _checkboxImage = [UIImage imageNamed:@"checkbox-legacy"];
-    }
+    _checkboxEmptyImage = [UIImage imageNamed:@"checkboxEmpty"];
+    _checkboxImage = [UIImage imageNamed:@"checkbox"];
     self.metaDataLabel.hidden = YES;
 }
 
@@ -324,23 +319,16 @@
 - (void)_showPositionOfItem:(MLFile *)mediaLibraryFile
 {
     CGFloat position = mediaLibraryFile.lastPosition.floatValue;
+    CGFloat duration = mediaLibraryFile.duration.floatValue;
 
-    if (SYSTEM_RUNS_IOS7_OR_LATER) {
-        CGFloat duration = mediaLibraryFile.duration.floatValue;
-        if (position > .05f && position < .95f && (duration * position - duration) < -60000) {
-            [(UITextView*)self.mediaIsUnreadView setText:[NSString stringWithFormat:NSLocalizedString(@"LIBRARY_MINUTES_LEFT", nil), [[VLCTime timeWithInt:(duration * position - duration)] minuteStringValue]]];
-            self.mediaIsUnreadView.hidden = NO;
-        } else if (mediaLibraryFile.unread.intValue) {
-            [(UILabel *)self.mediaIsUnreadView setText:[NSLocalizedString(@"NEW", nil) capitalizedStringWithLocale:[NSLocale currentLocale]]];
-            self.mediaIsUnreadView.hidden = NO;
-        } else
-            self.mediaIsUnreadView.hidden = YES;
-    } else {
-        self.progressView.progress = position;
-        self.progressView.hidden = ((position < .1f) || (position > .95f)) ? YES : NO;
-        [self.progressView setNeedsDisplay];
-        self.mediaIsUnreadView.hidden = !mediaLibraryFile.unread.intValue;
-    }
+    if (position > .05f && position < .95f && (duration * position - duration) < -60000) {
+        [(UITextView*)self.mediaIsUnreadView setText:[NSString stringWithFormat:NSLocalizedString(@"LIBRARY_MINUTES_LEFT", nil), [[VLCTime timeWithInt:(duration * position - duration)] minuteStringValue]]];
+        self.mediaIsUnreadView.hidden = NO;
+    } else if (mediaLibraryFile.unread.intValue) {
+        [(UILabel *)self.mediaIsUnreadView setText:[NSLocalizedString(@"NEW", nil) capitalizedStringWithLocale:[NSLocale currentLocale]]];
+        self.mediaIsUnreadView.hidden = NO;
+    } else
+        self.mediaIsUnreadView.hidden = YES;
 }
 
 - (void)showMetadata:(BOOL)showMeta

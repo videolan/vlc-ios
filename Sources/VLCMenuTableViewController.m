@@ -87,17 +87,10 @@
     self.view.autoresizingMask = UIViewAutoresizingFlexibleHeight;
     [self.view addSubview:_tableView];
 
-    if (SYSTEM_RUNS_IOS7_OR_LATER) {
-        UIView *brandingBackgroundView = [[UIView alloc] initWithFrame:CGRectMake(0.0f, 0.0f, kGHRevealSidebarWidth, 64.0f)];
-        brandingBackgroundView.backgroundColor = [UIColor colorWithRed:0.1608 green:0.1608 blue:0.1608 alpha:1.0000];
-        [self.view addSubview:brandingBackgroundView];
-    } else {
-        UIImageView *brandingBackgroundImageView;
-        brandingBackgroundImageView = [[UIImageView alloc] initWithFrame:CGRectMake(0.0f, 20.0f, kGHRevealSidebarWidth, 44.0f)];
-        brandingBackgroundImageView.contentMode = UIViewContentModeScaleToFill;
-        brandingBackgroundImageView.image = [UIImage imageNamed:@"headerSidebar"];
-        [self.view addSubview:brandingBackgroundImageView];
-    }
+    UIView *brandingBackgroundView = [[UIView alloc] initWithFrame:CGRectMake(0.0f, 0.0f, kGHRevealSidebarWidth, 64.0f)];
+    brandingBackgroundView.backgroundColor = [UIColor colorWithRed:0.1608 green:0.1608 blue:0.1608 alpha:1.0000];
+    [self.view addSubview:brandingBackgroundView];
+
     UIImageView *brandingImageView;
     brandingImageView = [[UIImageView alloc] initWithFrame:CGRectMake(0.0f, 0.0f, kGHRevealSidebarWidth, 44.0f + 40.0f)];
     brandingImageView.contentMode = UIViewContentModeCenter;
@@ -245,16 +238,7 @@
     UIView *headerView = nil;
     if (headerText != [NSNull null]) {
         headerView = [[UIView alloc] initWithFrame:CGRectMake(0.0f, 0.0f, [UIScreen mainScreen].bounds.size.height, 21.0f)];
-        if (!SYSTEM_RUNS_IOS7_OR_LATER) {
-            CAGradientLayer *gradient = [CAGradientLayer layer];
-            gradient.frame = headerView.bounds;
-            gradient.colors = @[
-                          (id)[UIColor colorWithRed:(66.0f/255.0f) green:(66.0f/255.0f) blue:(66.0f/255.0f) alpha:1.0f].CGColor,
-                          (id)[UIColor colorWithRed:(56.0f/255.0f) green:(56.0f/255.0f) blue:(56.0f/255.0f) alpha:1.0f].CGColor,
-                          ];
-            [headerView.layer insertSublayer:gradient atIndex:0];
-        } else
-            headerView.backgroundColor = [UIColor VLCDarkBackgroundColor];
+        headerView.backgroundColor = [UIColor VLCDarkBackgroundColor];
 
         UILabel *textLabel = [[UILabel alloc] initWithFrame:CGRectInset(headerView.bounds, 12.0f, 5.0f)];
         textLabel.text = (NSString *) headerText;
@@ -314,10 +298,7 @@
         if (itemIndex == 0)
             viewController = [[VLCLocalServerListViewController alloc] init];
         else if (itemIndex == 1) {
-            if (SYSTEM_RUNS_IOS7_OR_LATER)
-                viewController = [[VLCOpenNetworkStreamViewController alloc] initWithNibName:@"VLCFutureOpenNetworkStreamViewController" bundle:nil];
-            else
-                viewController = [[VLCOpenNetworkStreamViewController alloc] initWithNibName:@"VLCOpenNetworkStreamViewController" bundle:nil];
+            viewController = [[VLCOpenNetworkStreamViewController alloc] initWithNibName:@"VLCOpenNetworkStreamViewController" bundle:nil];
         } else if (itemIndex == 2)
             viewController = appDelegate.downloadViewController;
         else if (itemIndex == 3)

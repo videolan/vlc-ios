@@ -218,10 +218,8 @@
 
     NSUInteger fileNumber = count > 3 ? 3 : count;
     NSArray *files = [mediaLabel.files allObjects];
-    BOOL blur = NO;
-    if (SYSTEM_RUNS_IOS7_OR_LATER)
-        blur = YES;
-    displayedImage = [self clusterThumbFromFiles:files andNumber:fileNumber blur:blur];
+
+    displayedImage = [self clusterThumbFromFiles:files andNumber:fileNumber blur:YES];
     if (displayedImage) {
         [_thumbnailCache setObject:displayedImage forKey:objID];
         [_thumbnailCacheMetadata setObject:@(count) forKey:objID];
@@ -267,17 +265,10 @@
         else
             imageSize = CGSizeMake(341., 192.);
     } else if (_currentDeviceIdiom == UIUserInterfaceIdiomPhone) {
-        if (SYSTEM_RUNS_IOS7_OR_LATER) {
-            if ([UIScreen mainScreen].scale==2.0)
-                imageSize = CGSizeMake(480., 270.);
-            else
-                imageSize = CGSizeMake(720., 405.);
-        } else {
-            if ([UIScreen mainScreen].scale==2.0)
-                imageSize = CGSizeMake(258., 145.);
-            else
-                imageSize = CGSizeMake(129., 73.);
-        }
+        if ([UIScreen mainScreen].scale==2.0)
+            imageSize = CGSizeMake(480., 270.);
+        else
+            imageSize = CGSizeMake(720., 405.);
     } else {
         if (SYSTEM_RUNS_IOS82_OR_LATER) {
             if (WKInterfaceDevice.currentDevice != nil) {

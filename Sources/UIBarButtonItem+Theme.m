@@ -19,16 +19,7 @@
                                                                    style:UIBarButtonItemStyleBordered
                                                                   target:target
                                                                   action:selector];
-    if (SYSTEM_RUNS_IOS7_OR_LATER)
-        backButton.tintColor = [UIColor whiteColor];
-    else {
-        [backButton setBackgroundImage:[[UIImage imageNamed:@"backButton"] resizableImageWithCapInsets:UIEdgeInsetsMake(0, 12, 0, 6)]
-                              forState:UIControlStateNormal
-                            barMetrics:UIBarMetricsDefault];
-        [backButton setBackgroundImage:[[UIImage imageNamed:@"backButtonHighlight"] resizableImageWithCapInsets:UIEdgeInsetsMake(0, 12, 0, 6)]
-                              forState:UIControlStateHighlighted
-                            barMetrics:UIBarMetricsDefault];
-    }
+    backButton.tintColor = [UIColor whiteColor];
     [backButton setTitleTextAttributes:@{UITextAttributeTextShadowColor : [UIColor colorWithWhite:0. alpha:.37], UITextAttributeTextColor : [UIColor whiteColor]} forState:UIControlStateNormal];
     [backButton setTitlePositionAdjustment:UIOffsetMake(3, 0) forBarMetrics:UIBarMetricsDefault];
     return backButton;
@@ -51,12 +42,7 @@
         icon = [UIImage imageNamed:@"menuCone"];
 
     UIBarButtonItem *menuButton = [[UIBarButtonItem alloc] initWithImage:icon style:UIBarButtonItemStyleBordered target:target action:selector];
-    if (SYSTEM_RUNS_IOS7_OR_LATER)
-        menuButton.tintColor = [UIColor whiteColor];
-    else {
-        [menuButton setBackgroundImage:[UIImage imageNamed:@"button"] forState:UIControlStateNormal barMetrics:UIBarMetricsDefault];
-        [menuButton setBackgroundImage:[UIImage imageNamed:@"buttonHighlight"] forState:UIControlStateHighlighted barMetrics:UIBarMetricsDefault];
-    }
+    menuButton.tintColor = [UIColor whiteColor];
     menuButton.accessibilityLabel = NSLocalizedString(@"OPEN_VLC_MENU", nil);
     menuButton.isAccessibilityElement = YES;
 
@@ -66,12 +52,7 @@
 + (UIBarButtonItem *)themedDarkToolbarButtonWithTitle:(NSString*)title target:(id)target andSelector:(SEL)selector
 {
     UIBarButtonItem *button = [[UIBarButtonItem alloc] initWithTitle:title style:UIBarButtonItemStyleBordered target:target action:selector];
-    if (SYSTEM_RUNS_IOS7_OR_LATER)
-        button.tintColor = [UIColor whiteColor];
-    else {
-        [button setBackgroundImage:[[UIImage imageNamed:@"darkButton"] resizableImageWithCapInsets:UIEdgeInsetsMake(5, 5, 5, 5)] forState:UIControlStateNormal barMetrics:UIBarMetricsDefault];
-        [button setBackgroundImage:[[UIImage imageNamed:@"darkButtonHighlight"] resizableImageWithCapInsets:UIEdgeInsetsMake(5, 5, 5, 5)] forState:UIControlStateNormal barMetrics:UIBarMetricsDefault];
-    }
+    button.tintColor = [UIColor whiteColor];
 
     return button;
 }

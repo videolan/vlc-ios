@@ -1,0 +1,13 @@
+Index: GTMGatherInputStream.m
+===================================================================
+--- GTMGatherInputStream.m	(revision 143)
++++ GTMGatherInputStream.m	(working copy)
+@@ -18,7 +18,7 @@
+ @implementation GTMGatherInputStream
+ 
+ + (NSInputStream *)streamWithArray:(NSArray *)dataArray {
+-  return [[[self alloc] initWithArray:dataArray] autorelease];
++  return [[[GTMGatherInputStream alloc] initWithArray:dataArray] autorelease];
+ }
+ 
+ - (id)initWithArray:(NSArray *)dataArray {

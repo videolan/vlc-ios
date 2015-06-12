@@ -61,10 +61,8 @@
                                              selector:@selector(applicationDidBecomeActive:)
                                                  name:UIApplicationDidBecomeActiveNotification
                                                object:[UIApplication sharedApplication]];
-    if (SYSTEM_RUNS_IOS7_OR_LATER)
-        [self.openButton setTitle:NSLocalizedString(@"OPEN_NETWORK", nil) forState:UIControlStateNormal];
-    else
-        [self.openButton setTitle:NSLocalizedString(@"BUTTON_OPEN", nil) forState:UIControlStateNormal];
+
+    [self.openButton setTitle:NSLocalizedString(@"OPEN_NETWORK", nil) forState:UIControlStateNormal];
     [self.privateModeLabel setText:NSLocalizedString(@"PRIVATE_PLAYBACK_TOGGLE", nil)];
     [self.ScanSubModeLabel setText:NSLocalizedString(@"SCAN_SUBTITLE_TOGGLE", nil)];
     [self.ScanSubModeLabel setAdjustsFontSizeToFitWidth:YES];
@@ -75,11 +73,9 @@
     self.urlField.delegate = self;
     self.urlField.keyboardType = UIKeyboardTypeURL;
 
-    if (SYSTEM_RUNS_IOS7_OR_LATER) {
-        NSAttributedString *coloredAttributedPlaceholder = [[NSAttributedString alloc] initWithString:@"http://myserver.com/file.mkv" attributes:@{NSForegroundColorAttributeName: [UIColor VLCLightTextColor]}];
-        self.urlField.attributedPlaceholder = coloredAttributedPlaceholder;
-        self.edgesForExtendedLayout = UIRectEdgeNone;
-    }
+    NSAttributedString *coloredAttributedPlaceholder = [[NSAttributedString alloc] initWithString:@"http://myserver.com/file.mkv" attributes:@{NSForegroundColorAttributeName: [UIColor VLCLightTextColor]}];
+    self.urlField.attributedPlaceholder = coloredAttributedPlaceholder;
+    self.edgesForExtendedLayout = UIRectEdgeNone;
 
     // This will be called every time this VC is opened by the side menu controller
     [self updatePasteboardTextInURLField];

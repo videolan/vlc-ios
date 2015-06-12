@@ -27,16 +27,9 @@
         return;
 
     UINavigationBar *navigationBar = self.navigationBar;
-    if (!SYSTEM_RUNS_IOS7_OR_LATER) {
-        [navigationBar setBackgroundImage:[UIImage imageNamed:@"navBarBackground"] forBarMetrics:UIBarMetricsDefault];
-        navigationBar.barStyle = UIBarStyleBlack;
-        navigationBar.translucent = NO;
-        navigationBar.opaque = YES;
-    } else {
-        navigationBar.barTintColor = [UIColor VLCOrangeTintColor];
-        navigationBar.tintColor = [UIColor whiteColor];
-        navigationBar.titleTextAttributes = @{ UITextAttributeTextColor : [UIColor whiteColor] };
-    }
+    navigationBar.barTintColor = [UIColor VLCOrangeTintColor];
+    navigationBar.tintColor = [UIColor whiteColor];
+    navigationBar.titleTextAttributes = @{ UITextAttributeTextColor : [UIColor whiteColor] };
 
     _setup = YES;
 }

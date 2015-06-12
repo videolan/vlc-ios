@@ -93,15 +93,9 @@
     UINavigationBar *navigationBar = [[UINavigationBar alloc] initWithFrame:CGRectMake(0, 0, view.bounds.size.width, NAVBAR_HEIGHT)];
     navigationBar.autoresizingMask = UIViewAutoresizingFlexibleWidth;
     navigationBar.items = @[self.navigationItem];
-    if (SYSTEM_RUNS_IOS7_OR_LATER) {
-        navigationBar.barTintColor = [UIColor VLCOrangeTintColor];
-        navigationBar.tintColor = [UIColor whiteColor];
-        navigationBar.titleTextAttributes = @{ UITextAttributeTextColor : [UIColor whiteColor] };
-    } else {
-        [navigationBar setBackgroundImage:[UIImage imageNamed:@"navBarBackground"] forBarMetrics:UIBarMetricsDefault];
-        navigationBar.translucent = NO;
-        navigationBar.opaque = YES;
-    }
+    navigationBar.barTintColor = [UIColor VLCOrangeTintColor];
+    navigationBar.tintColor = [UIColor whiteColor];
+    navigationBar.titleTextAttributes = @{ UITextAttributeTextColor : [UIColor whiteColor] };
     [view addSubview:navigationBar];
     
     contentView = [[UIView alloc] initWithFrame:CGRectMake(0, NAVBAR_HEIGHT, view.bounds.size.width, view.bounds.size.height-NAVBAR_HEIGHT)];

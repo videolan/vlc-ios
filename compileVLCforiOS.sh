@@ -6,13 +6,13 @@ set -e
 
 PLATFORM=iphoneos
 SDK=`xcrun --sdk iphoneos --show-sdk-version`
-SDK_MIN=6.1
+SDK_MIN=7.0
 VERBOSE=no
 CONFIGURATION="Release"
 NONETWORK=no
 SKIPLIBVLCCOMPILATION=no
 
-TESTEDVLCKITHASH=0c8eec04
+TESTEDVLCKITHASH=ae8c1142
 TESTEDMEDIALIBRARYKITHASH=d7e992d4
 
 usage()
@@ -178,6 +178,7 @@ fi
 if ! [ -e GDrive ]; then
 svn checkout http://google-api-objectivec-client.googlecode.com/svn/trunk/Source GDrive
 cd GDrive && patch -p0 < ../../patches/gdrive/upgrade-default-target.patch && cd ..
+cd GDrive/HTTPFetcher && patch -p0 < ../../../patches/gdrive/httpfetcher-compilation-fix.diff && cd ../..
 else
 cd GDrive && svn up && cd ..
 fi

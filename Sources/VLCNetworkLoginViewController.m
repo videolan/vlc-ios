@@ -63,13 +63,11 @@
     self.passwordField.returnKeyType = UIReturnKeyDone;
     self.passwordField.clearButtonMode = UITextFieldViewModeWhileEditing;
 
-    if (SYSTEM_RUNS_IOS7_OR_LATER) {
-        UIColor *color = [UIColor VLCLightTextColor];
-        self.serverAddressField.attributedPlaceholder = [[NSAttributedString alloc] initWithString:@"ftp://yourserver.local" attributes:@{NSForegroundColorAttributeName: color}];
-        self.usernameField.attributedPlaceholder = [[NSAttributedString alloc] initWithString:NSLocalizedString(@"USER_LABEL", nil) attributes:@{NSForegroundColorAttributeName: color}];
-        self.passwordField.attributedPlaceholder = [[NSAttributedString alloc] initWithString:NSLocalizedString(@"PASSWORD_LABEL", nil) attributes:@{NSForegroundColorAttributeName: color}];
-        self.edgesForExtendedLayout = UIRectEdgeNone;
-    }
+    UIColor *color = [UIColor VLCLightTextColor];
+    self.serverAddressField.attributedPlaceholder = [[NSAttributedString alloc] initWithString:@"ftp://yourserver.local" attributes:@{NSForegroundColorAttributeName: color}];
+    self.usernameField.attributedPlaceholder = [[NSAttributedString alloc] initWithString:NSLocalizedString(@"USER_LABEL", nil) attributes:@{NSForegroundColorAttributeName: color}];
+    self.passwordField.attributedPlaceholder = [[NSAttributedString alloc] initWithString:NSLocalizedString(@"PASSWORD_LABEL", nil) attributes:@{NSForegroundColorAttributeName: color}];
+    self.edgesForExtendedLayout = UIRectEdgeNone;
 }
 
 - (void)viewWillAppear:(BOOL)animated
@@ -108,8 +106,7 @@
 
 - (IBAction)dismissWithAnimation:(id)sender
 {
-    if (SYSTEM_RUNS_IOS7_OR_LATER)
-        self.navigationController.navigationBar.translucent = YES;
+    self.navigationController.navigationBar.translucent = YES;
 
     if (UI_USER_INTERFACE_IDIOM() == UIUserInterfaceIdiomPhone)
         [self.navigationController popViewControllerAnimated:YES];
@@ -119,8 +116,7 @@
 
 - (IBAction)dismiss:(id)sender
 {
-    if (SYSTEM_RUNS_IOS7_OR_LATER)
-        self.navigationController.navigationBar.translucent = YES;
+    self.navigationController.navigationBar.translucent = YES;
 
     if (UI_USER_INTERFACE_IDIOM() == UIUserInterfaceIdiomPhone)
         [self.navigationController popViewControllerAnimated:NO];

@@ -56,10 +56,8 @@
 {
     [super viewDidLoad];
 
-    if (SYSTEM_RUNS_IOS7_OR_LATER) {
-        NSAttributedString *coloredAttributedPlaceholder = [[NSAttributedString alloc] initWithString:@"http://myserver.com/file.mkv" attributes:@{NSForegroundColorAttributeName: [UIColor VLCLightTextColor]}];
-        self.urlField.attributedPlaceholder = coloredAttributedPlaceholder;
-    }
+    NSAttributedString *coloredAttributedPlaceholder = [[NSAttributedString alloc] initWithString:@"http://myserver.com/file.mkv" attributes:@{NSForegroundColorAttributeName: [UIColor VLCLightTextColor]}];
+    self.urlField.attributedPlaceholder = coloredAttributedPlaceholder;
 
     [self.downloadButton setTitle:NSLocalizedString(@"BUTTON_DOWNLOAD", nil) forState:UIControlStateNormal];
     self.navigationItem.leftBarButtonItem = [UIBarButtonItem themedRevealMenuButtonWithTarget:self andSelector:@selector(goBack:)];
@@ -70,8 +68,7 @@
     self.progressContainer.hidden = YES;
     self.downloadsTable.hidden = YES;
 
-    if (SYSTEM_RUNS_IOS7_OR_LATER)
-        self.edgesForExtendedLayout = UIRectEdgeNone;
+    self.edgesForExtendedLayout = UIRectEdgeNone;
 }
 
 - (void)viewWillAppear:(BOOL)animated

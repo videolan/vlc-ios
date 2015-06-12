@@ -87,8 +87,7 @@
 
     _searchBar = [[UISearchBar alloc] initWithFrame:CGRectMake(0, 0, 320, 44)];
     UINavigationBar *navBar = self.navigationController.navigationBar;
-    if (SYSTEM_RUNS_IOS7_OR_LATER)
-        _searchBar.barTintColor = navBar.barTintColor;
+    _searchBar.barTintColor = navBar.barTintColor;
     _searchBar.tintColor = navBar.tintColor;
     _searchBar.translucent = navBar.translucent;
     _searchBar.opaque = navBar.opaque;
@@ -96,7 +95,6 @@
     _searchDisplayController.delegate = self;
     _searchDisplayController.searchResultsDataSource = self;
     _searchDisplayController.searchResultsDelegate = self;
-    if (SYSTEM_RUNS_IOS7_OR_LATER)
         _searchDisplayController.searchBar.searchBarStyle = UIBarStyleBlack;
     _searchDisplayController.searchResultsTableView.separatorStyle = UITableViewCellSeparatorStyleNone;
     _searchDisplayController.searchResultsTableView.indicatorStyle = UIScrollViewIndicatorStyleWhite;

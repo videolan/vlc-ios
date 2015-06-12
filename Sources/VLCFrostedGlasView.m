@@ -43,27 +43,17 @@
 - (void)setupView
 {
     [self setClipsToBounds:YES];
-    if (SYSTEM_RUNS_IOS7_OR_LATER) {
-        if (![self toolbar]) {
-            [self setToolbar:[[UIToolbar alloc] initWithFrame:[self bounds]]];
-            [self.layer insertSublayer:[self.toolbar layer] atIndex:0];
-            [self.toolbar setBarStyle:UIBarStyleBlack];
-        }
-    } else {
-        if(![self imageview]) {
-            [self setImageview:[[UIImageView alloc] initWithImage:[UIImage imageNamed:@"playbackControllerBg"]]];
-            [self insertSubview:self.imageview atIndex:0];
-        }
+
+    if (![self toolbar]) {
+        [self setToolbar:[[UIToolbar alloc] initWithFrame:[self bounds]]];
+        [self.layer insertSublayer:[self.toolbar layer] atIndex:0];
+        [self.toolbar setBarStyle:UIBarStyleBlack];
     }
 }
 
 - (void)layoutSubviews {
     [super layoutSubviews];
-     if (SYSTEM_RUNS_IOS7_OR_LATER) {
-         [self.toolbar setFrame:[self bounds]];
-     } else {
-         [self.imageview setFrame:[self bounds]];
-     }
+    [self.toolbar setFrame:[self bounds]];
 }
 
 @end

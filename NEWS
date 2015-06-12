@@ -1,3 +1,7 @@
+2.7.0:
+------
+* Dropped support for iOS 6.1. VLC requires iOS 7.0 now
+
 2.6.0:
 ------
 * Added support for Apple Watch - control VLC from your watch!

@@ -57,13 +57,11 @@
     self.serverPlexBookmark.showsVerticalScrollIndicator = YES;
     self.serverPlexBookmark.indicatorStyle = UIScrollViewIndicatorStyleWhite;
 
-    if (SYSTEM_RUNS_IOS7_OR_LATER) {
-        UIColor *color = [UIColor VLCLightTextColor];
-        self.serverAddressField.attributedPlaceholder = [[NSAttributedString alloc] initWithString:@"192.168.0.0" attributes:@{NSForegroundColorAttributeName: color}];
-        self.portField.attributedPlaceholder = [[NSAttributedString alloc] initWithString:kPlexMediaServerPortDefault attributes:@{NSForegroundColorAttributeName: color}];
+    UIColor *color = [UIColor VLCLightTextColor];
+    self.serverAddressField.attributedPlaceholder = [[NSAttributedString alloc] initWithString:@"192.168.0.0" attributes:@{NSForegroundColorAttributeName: color}];
+    self.portField.attributedPlaceholder = [[NSAttributedString alloc] initWithString:kPlexMediaServerPortDefault attributes:@{NSForegroundColorAttributeName: color}];
 
-        self.edgesForExtendedLayout = UIRectEdgeNone;
-    }
+    self.edgesForExtendedLayout = UIRectEdgeNone;
 
     _activityIndicator = [[UIActivityIndicatorView alloc] initWithActivityIndicatorStyle:UIActivityIndicatorViewStyleWhiteLarge];
     _activityIndicator.center = self.view.center;
