@@ -111,7 +111,7 @@
     if (_reachability.currentReachabilityStatus == ReachableViaWiFi) {
         [self _startUPNPDiscovery];
         [self performSelectorInBackground:@selector(_startSAPDiscovery) withObject:nil];
-        [self performSelectorInBackground:@selector(_startDSMDiscovery) withObject:nil];
+        [self _startDSMDiscovery];
     }
 }
 
@@ -212,7 +212,7 @@
     if (_reachability.currentReachabilityStatus == ReachableViaWiFi) {
         [self _startUPNPDiscovery];
         [self performSelectorInBackground:@selector(_startSAPDiscovery) withObject:nil];
-        [self performSelectorInBackground:@selector(_startDSMDiscovery) withObject:nil];
+        [self _startDSMDiscovery];
     } else {
         [self _stopUPNPDiscovery];
         [self _stopSAPDiscovery];
@@ -461,9 +461,9 @@
 
     [self.tableView reloadData];
 
-    [self performSelectorInBackground:@selector(_startUPNPDiscovery) withObject:nil];
+    [self _startUPNPDiscovery];
     [self performSelectorInBackground:@selector(_startSAPDiscovery) withObject:nil];
-    [self performSelectorInBackground:@selector(_startDSMDiscovery) withObject:nil];
+    [self _startDSMDiscovery];
 }
 
 #pragma mark - login panel protocol
@@ -654,8 +654,10 @@
     if (_reachability.currentReachabilityStatus != ReachableViaWiFi)
         return;
 
-    if (!_dsmDiscoverer)
-        _dsmDiscoverer = [[VLCMediaDiscoverer alloc] initWithName:@"dsm"];
+    if (_dsmDiscoverer)
+        return;
+
+    _dsmDiscoverer = [[VLCMediaDiscoverer alloc] initWithName:@"dsm"];
     [_dsmDiscoverer startDiscoverer];
     _dsmDiscoverer.discoveredMedia.delegate = self;
 }
