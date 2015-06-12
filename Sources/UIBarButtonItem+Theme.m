@@ -20,7 +20,8 @@
                                                                   target:target
                                                                   action:selector];
     backButton.tintColor = [UIColor whiteColor];
-    [backButton setTitleTextAttributes:@{UITextAttributeTextShadowColor : [UIColor colorWithWhite:0. alpha:.37], UITextAttributeTextColor : [UIColor whiteColor]} forState:UIControlStateNormal];
+    NSShadow *shadow = [[NSShadow alloc] init];
+    [backButton setTitleTextAttributes:@{NSShadowAttributeName : shadow, NSForegroundColorAttributeName : [UIColor whiteColor]} forState:UIControlStateNormal];
     [backButton setTitlePositionAdjustment:UIOffsetMake(3, 0) forBarMetrics:UIBarMetricsDefault];
     return backButton;
 }

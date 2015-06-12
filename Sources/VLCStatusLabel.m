@@ -103,7 +103,7 @@
 
 - (CGSize)sizeThatFits:(CGSize)size
 {
-    CGSize textSize = [self.text sizeWithFont:self.font];
+    CGSize textSize = [self.text sizeWithAttributes:self.font.fontDescriptor.fontAttributes];
     textSize.width += 16.f; // take extra width into account for our custom drawing
     return textSize;
 }

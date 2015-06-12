@@ -95,7 +95,7 @@
     navigationBar.items = @[self.navigationItem];
     navigationBar.barTintColor = [UIColor VLCOrangeTintColor];
     navigationBar.tintColor = [UIColor whiteColor];
-    navigationBar.titleTextAttributes = @{ UITextAttributeTextColor : [UIColor whiteColor] };
+    navigationBar.titleTextAttributes = @{ NSForegroundColorAttributeName : [UIColor whiteColor] };
     [view addSubview:navigationBar];
     
     contentView = [[UIView alloc] initWithFrame:CGRectMake(0, NAVBAR_HEIGHT, view.bounds.size.width, view.bounds.size.height-NAVBAR_HEIGHT)];

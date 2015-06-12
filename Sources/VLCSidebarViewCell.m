@@ -33,8 +33,6 @@
         self.textLabel.shadowColor = [UIColor VLCDarkTextShadowColor];
         self.textLabel.textColor = [UIColor whiteColor];
         self.textLabel.adjustsFontSizeToFitWidth = YES;
-        if ([self.textLabel respondsToSelector:@selector(setAdjustsLetterSpacingToFitWidth:)])
-            self.textLabel.adjustsLetterSpacingToFitWidth = YES;
         self.textLabel.minimumScaleFactor = 0.5f;
         self.textLabel.lineBreakMode = NSLineBreakByTruncatingTail;
 

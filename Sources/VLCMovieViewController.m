@@ -142,7 +142,8 @@ typedef NS_ENUM(NSInteger, VLCPanType) {
     [super viewDidLoad];
     CGRect rect;
 
-    self.wantsFullScreenLayout = YES;
+    self.extendedLayoutIncludesOpaqueBars = YES;
+    self.edgesForExtendedLayout = UIRectEdgeAll;
 
     self.videoFilterView.hidden = YES;
     _videoFiltersHidden = YES;
@@ -1374,10 +1375,15 @@ currentMediaHasTrackToChooseFrom:(BOOL)currentMediaHasTrackToChooseFrom
             [mediaPlayer jumpBackward:1];
     } else if (_currentPanType == VLCPanTypeVolume) {
         MPMusicPlayerController *musicPlayer = [MPMusicPlayerController applicationMusicPlayer];
+#pragma clang diagnostic push
+#pragma clang diagnostic ignored "-Wdeprecated"
+        // there is no replacement for .volume which we want to use since Apple's susggestion is to not use their overlays
+        // but switch to the volume slider exclusively. meh.
         if (panDirectionY > 0)
             musicPlayer.volume -= 0.01;
         else
             musicPlayer.volume += 0.01;
+#pragma clang diagnostic pop
     } else if (_currentPanType == VLCPanTypeBrightness) {
         CGFloat brightness = [UIScreen mainScreen].brightness;
 

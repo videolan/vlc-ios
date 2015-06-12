@@ -121,18 +121,19 @@ NSString *const VLCDropboxSessionWasAuthorized = @"VLCDropboxSessionWasAuthorize
 
     self.window = [[UIWindow alloc] initWithFrame:[[UIScreen mainScreen] bounds]];
     // enable crash preventer
-     void (^setupBlock)() = ^{
-         _playlistViewController = [[VLCPlaylistViewController alloc] init];
+    void (^setupBlock)() = ^{
+        _playlistViewController = [[VLCPlaylistViewController alloc] init];
         UINavigationController *navCon = [[VLCNavigationController alloc] initWithRootViewController:_playlistViewController];
 
         _revealController = [[GHRevealViewController alloc] initWithNibName:nil bundle:nil];
-        _revealController.wantsFullScreenLayout = YES;
+        _revealController.extendedLayoutIncludesOpaqueBars = YES;
+        _revealController.edgesForExtendedLayout = UIRectEdgeAll;
         _menuViewController = [[VLCMenuTableViewController alloc] initWithNibName:nil bundle:nil];
         _revealController.sidebarViewController = _menuViewController;
         _revealController.contentViewController = navCon;
 
-         _playerDisplayController = [[VLCPlayerDisplayController alloc] init];
-         _playerDisplayController.childViewController = self.revealController;
+        _playerDisplayController = [[VLCPlayerDisplayController alloc] init];
+        _playerDisplayController.childViewController = self.revealController;
 
         self.window.rootViewController = _playerDisplayController;
         // necessary to avoid navbar blinking in VLCOpenNetworkStreamViewController & VLCDownloadViewController

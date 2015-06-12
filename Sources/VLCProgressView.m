@@ -45,7 +45,7 @@
 - (void)updateTime:(NSString *)time
 {
     [self.progressLabel setText:[NSString stringWithFormat:NSLocalizedString(@"REMAINING_TIME", nil), time]];
-    CGSize size = [self.progressLabel.text sizeWithFont:self.progressLabel.font];
+    CGSize size = [self.progressLabel.text sizeWithAttributes:self.progressLabel.font.fontDescriptor.fontAttributes];
     [self.progressLabel setFrame:CGRectMake(self.progressLabel.frame.origin.x, self.progressLabel.frame.origin.y, size.width, size.height)];
 }
 

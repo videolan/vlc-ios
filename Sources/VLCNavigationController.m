@@ -29,7 +29,7 @@
     UINavigationBar *navigationBar = self.navigationBar;
     navigationBar.barTintColor = [UIColor VLCOrangeTintColor];
     navigationBar.tintColor = [UIColor whiteColor];
-    navigationBar.titleTextAttributes = @{ UITextAttributeTextColor : [UIColor whiteColor] };
+    navigationBar.titleTextAttributes = @{ NSForegroundColorAttributeName : [UIColor whiteColor] };
 
     _setup = YES;
 }
