@@ -136,7 +136,7 @@
                           name:VLCSharedLibraryParserDeterminedNetserviceAsVLCInstance
                         object:nil];
 
-    _sectionHeaderTexts = @[@"Universal Plug'n'Play (UPnP)", @"Plex Media Server (via Bonjour)", @"File Transfer Protocol (FTP)", NSLocalizedString(@"SHARED_VLC_IOS_LIBRARY", nil), @"libDSM"];
+    _sectionHeaderTexts = @[@"Universal Plug'n'Play (UPnP)", @"Plex Media Server (via Bonjour)", @"File Transfer Protocol (FTP)", NSLocalizedString(@"SHARED_VLC_IOS_LIBRARY", nil), NSLocalizedString(@"SMB_CIFS_FILE_SERVERS", nil)];
 
     _backToMenuButton = [UIBarButtonItem themedRevealMenuButtonWithTarget:self andSelector:@selector(goBack:)];
     self.navigationItem.leftBarButtonItem = _backToMenuButton;
@@ -358,9 +358,10 @@
     } else if (section == 3) {
         [cell setTitle:[_httpServices[row] name]];
         [cell setIcon:[UIImage imageNamed:@"menuCone"]];
-    } else if (section == 4)
+    } else if (section == 4) {
         [cell setTitle:[[_dsmDiscoverer.discoveredMedia mediaAtIndex:row] metadataForKey: VLCMetaInformationTitle]];
-    else if (section == 5)
+        [cell setIcon:[UIImage imageNamed:@"serverIcon"]];
+    } else if (section == 5)
         [cell setTitle:[[_sapDiscoverer.discoveredMedia mediaAtIndex:row] metadataForKey: VLCMetaInformationTitle]];
 
     return cell;
