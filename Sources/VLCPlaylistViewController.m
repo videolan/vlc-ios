@@ -692,6 +692,7 @@ static NSString *kUsingTableViewToShowData = @"UsingTableViewToShowData";
         [self.tableView selectRowAtIndexPath:[NSIndexPath indexPathForRow:path.row inSection:path.section]
                                 animated:YES
                           scrollPosition:UITableViewScrollPositionNone];
+        [self updateActionBarButtonItemStateWithSelectedIndexPaths:[self.tableView indexPathsForSelectedRows]];
     }
 }
 
