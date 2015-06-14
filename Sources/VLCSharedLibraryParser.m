@@ -31,7 +31,7 @@ NSString *const VLCSharedLibraryParserDeterminedNetserviceAsVLCInstance = @"VLCS
 
 - (void)parseNetServiceOnBackgroundThread:(NSNetService *)aNetService
 {
-    NSString *hostnamePort = [NSString stringWithFormat:@"%@:%ld", [aNetService hostName], [aNetService port]];
+    NSString *hostnamePort = [NSString stringWithFormat:@"%@:%ld", [aNetService hostName], (long)[aNetService port]];
     NSArray *parsedContents = [self downloadAndProcessDataFromServer:hostnamePort];
 
     if (parsedContents.count > 0) {
