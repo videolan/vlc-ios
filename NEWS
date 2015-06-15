@@ -1,6 +1,7 @@
 2.7.0:
 ------
 * Dropped support for iOS 6.1. VLC requires iOS 7.0 now
+* Added support for music albums with more than 1 disk (#14650)
 
 2.6.0:
 ------
