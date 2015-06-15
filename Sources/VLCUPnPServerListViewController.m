@@ -25,7 +25,7 @@
 #import "MediaServer1Device.h"
 #import "BasicUPnPDevice+VLC.h"
 
-@interface VLCUPnPServerListViewController () <VLCLocalNetworkListCell>
+@interface VLCUPnPServerListViewController () <VLCLocalNetworkListCell, UITableViewDataSource, UITableViewDelegate, UIActionSheetDelegate>
 {
     MediaServer1Device *_UPNPdevice;
     NSString *_UPNProotID;
@@ -132,7 +132,7 @@
         unsigned int durationInSeconds = 0;
         unsigned int bitrate = 0;
 
-        if (tableView == self.searchDisplayController.searchResultsTableView) {
+        if (tableView == self.searchDisplayController.searchResultsTableView) {
             @synchronized(self) {
                 mediaItem = _searchData[indexPath.row];
             }
@@ -358,62 +358,64 @@
     // Provide users with a descriptive action sheet for them to choose based on the multiple resources advertised by DLNA devices (HDHomeRun for example)
     for (NSUInteger i = 0; i < count; i++) {
         position = [uriCollectionKeys[i] rangeOfString:@"http-get:*:video/"];
-        if (position.location != NSNotFound) {
-            NSString *orgPNValue;
-            NSString *transcodeValue;
 
-            // Attempt to parse DLNA.ORG_PN first
-            NSString *protocolInfo = uriCollectionKeys[i];
-            NSArray *components = [protocolInfo componentsSeparatedByString:@";"];
-            NSArray *nonFlagsComponents = [components[0] componentsSeparatedByString:@":"];
-            NSString *orgPN = [nonFlagsComponents lastObject];
+        if (position.location == NSNotFound)
+            continue;
 
-            // Check to see if we are where we should be
-            NSRange orgPNRange = [orgPN rangeOfString:@"DLNA.ORG_PN="];
-            if (orgPNRange.location == 0) {
-                orgPNValue = [orgPN substringFromIndex:orgPNRange.length];
-            }
+        NSString *orgPNValue;
+        NSString *transcodeValue;
 
-            // HDHomeRun: Get the transcode profile from the HTTP API if possible
-            if ([_UPNPdevice VLC_isHDHomeRunMediaServer]) {
-                NSRange transcodeRange = [uriCollectionObjects[i] rangeOfString:@"transcode="];
-                if (transcodeRange.location != NSNotFound) {
-                    transcodeValue = [uriCollectionObjects[i] substringFromIndex:transcodeRange.location + transcodeRange.length];
-                    // Check that there are no more parameters
-                    NSRange ampersandRange = [transcodeValue rangeOfString:@"&"];
-                    if (ampersandRange.location != NSNotFound) {
-                        transcodeValue = [transcodeValue substringToIndex:transcodeRange.location];
-                    }
+        // Attempt to parse DLNA.ORG_PN first
+        NSString *protocolInfo = uriCollectionKeys[i];
+        NSArray *components = [protocolInfo componentsSeparatedByString:@";"];
+        NSArray *nonFlagsComponents = [components[0] componentsSeparatedByString:@":"];
+        NSString *orgPN = [nonFlagsComponents lastObject];
 
-                    transcodeValue = [transcodeValue capitalizedString];
-                }
-            }
-
-            // Fallbacks to get the most descriptive resource title
-            NSString *profileTitle;
-            if ([transcodeValue length] && [orgPNValue length]) {
-                profileTitle = [NSString stringWithFormat:@"%@ (%@)", transcodeValue, orgPNValue];
-
-                // The extra whitespace is to get UIActionSheet to render the text better (this bug has been fixed in iOS 8)
-                if (UI_USER_INTERFACE_IDIOM() == UIUserInterfaceIdiomPhone) {
-                    if (!SYSTEM_VERSION_GREATER_THAN_OR_EQUAL_TO(@"8.0")) {
-                        profileTitle = [NSString stringWithFormat:@" %@ ", profileTitle];
-                    }
-                }
-            } else if ([transcodeValue length]) {
-                profileTitle = transcodeValue;
-            } else if ([orgPNValue length]) {
-                profileTitle = orgPNValue;
-            } else if ([uriCollectionKeys[i] length]) {
-                profileTitle = uriCollectionKeys[i];
-            } else if ([uriCollectionObjects[i] length]) {
-                profileTitle = uriCollectionObjects[i];
-            } else  {
-                profileTitle = NSLocalizedString(@"UNKNOWN", nil);
-            }
-
-            [actionSheet addButtonWithTitle:profileTitle];
+        // Check to see if we are where we should be
+        NSRange orgPNRange = [orgPN rangeOfString:@"DLNA.ORG_PN="];
+        if (orgPNRange.location == 0) {
+            orgPNValue = [orgPN substringFromIndex:orgPNRange.length];
         }
+
+        // HDHomeRun: Get the transcode profile from the HTTP API if possible
+        if ([_UPNPdevice VLC_isHDHomeRunMediaServer]) {
+            NSRange transcodeRange = [uriCollectionObjects[i] rangeOfString:@"transcode="];
+            if (transcodeRange.location != NSNotFound) {
+                transcodeValue = [uriCollectionObjects[i] substringFromIndex:transcodeRange.location + transcodeRange.length];
+                // Check that there are no more parameters
+                NSRange ampersandRange = [transcodeValue rangeOfString:@"&"];
+                if (ampersandRange.location != NSNotFound) {
+                    transcodeValue = [transcodeValue substringToIndex:transcodeRange.location];
+                }
+
+                transcodeValue = [transcodeValue capitalizedString];
+            }
+        }
+
+        // Fallbacks to get the most descriptive resource title
+        NSString *profileTitle;
+        if ([transcodeValue length] && [orgPNValue length]) {
+            profileTitle = [NSString stringWithFormat:@"%@ (%@)", transcodeValue, orgPNValue];
+
+            // The extra whitespace is to get UIActionSheet to render the text better (this bug has been fixed in iOS 8)
+            if (UI_USER_INTERFACE_IDIOM() == UIUserInterfaceIdiomPhone) {
+                if (!SYSTEM_VERSION_GREATER_THAN_OR_EQUAL_TO(@"8.0")) {
+                    profileTitle = [NSString stringWithFormat:@" %@ ", profileTitle];
+                }
+            }
+        } else if ([transcodeValue length]) {
+            profileTitle = transcodeValue;
+        } else if ([orgPNValue length]) {
+            profileTitle = orgPNValue;
+        } else if ([uriCollectionKeys[i] length]) {
+            profileTitle = uriCollectionKeys[i];
+        } else if ([uriCollectionObjects[i] length]) {
+            profileTitle = uriCollectionObjects[i];
+        } else  {
+            profileTitle = NSLocalizedString(@"UNKNOWN", nil);
+        }
+
+        [actionSheet addButtonWithTitle:profileTitle];
     }
 
     // If no resources are found, an empty action sheet will be presented, but the fact that we got here implies that we have playable resources, so no special handling for this case is included

@@ -85,6 +85,8 @@
 - (void)_updateIconFromURL
 {
     NSData* imageData = [[NSData alloc]initWithContentsOfURL:self.iconURL];
+    if (!imageData)
+        return;
     UIImage* image = [[UIImage alloc] initWithData:imageData];
     [self setIcon:image];
 }

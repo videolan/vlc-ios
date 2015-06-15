@@ -26,16 +26,10 @@
 #import "VLCSharedLibraryListViewController.h"
 #import "VLCSharedLibraryParser.h"
 
-#import <QuartzCore/QuartzCore.h>
-#import "GHRevealViewController.h"
-
 #import "VLCNetworkLoginViewController.h"
-#import "VLCPlaylistViewController.h"
-
 #import "VLCHTTPUploaderController.h"
-#import "Reachability.h"
 
-#import "VLCNavigationController.h"
+#import "Reachability.h"
 
 #define kPlexServiceType @"_plexmediasvr._tcp."
 
@@ -60,8 +54,6 @@
     VLCMediaDiscoverer *_sapDiscoverer;
     VLCMediaDiscoverer *_dsmDiscoverer;
 
-    VLCNetworkLoginViewController *_loginViewController;
-
     VLCSharedLibraryParser *_httpParser;
 
     UIRefreshControl *_refreshControl;
@@ -74,8 +66,6 @@
     NSTimer *_searchTimer;
     BOOL _setup;
 }
-
-@property (nonatomic) VLCHTTPUploaderController *uploadController;
 
 @end
 
@@ -118,7 +108,7 @@
 {
     if (_reachability.currentReachabilityStatus == ReachableViaWiFi) {
         [self _startUPNPDiscovery];
-        [self performSelectorInBackground:@selector(_startSAPDiscovery) withObject:nil];
+        [self _startSAPDiscovery];
         [self _startDSMDiscovery];
     }
 }
@@ -179,18 +169,12 @@
     [_refreshControl addTarget:self action:@selector(handleRefresh) forControlEvents:UIControlEventValueChanged];
     [self.tableView addSubview:_refreshControl];
 
-    _loginViewController = [[VLCNetworkLoginViewController alloc] initWithNibName:@"VLCNetworkLoginViewController" bundle:nil];
-
-    _loginViewController.delegate = self;
-
     _reachability = [Reachability reachabilityForLocalWiFi];
     [_reachability startNotifier];
 
     [self netReachabilityChanged:nil];
 
-    self.uploadController = [[VLCHTTPUploaderController alloc] init];
-    _myHostName = [self.uploadController hostname];
-    _httpParser = [[VLCSharedLibraryParser alloc] init];
+    _myHostName = [[VLCHTTPUploaderController sharedInstance] hostname];
 
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(netReachabilityChanged:) name:kReachabilityChangedNotification object:nil];
 }
@@ -219,7 +203,7 @@
 {
     if (_reachability.currentReachabilityStatus == ReachableViaWiFi) {
         [self _startUPNPDiscovery];
-        [self performSelectorInBackground:@selector(_startSAPDiscovery) withObject:nil];
+        [self _startSAPDiscovery];
         [self _startDSMDiscovery];
     } else {
         [self _stopUPNPDiscovery];
@@ -411,22 +395,25 @@
             [[self navigationController] pushViewController:targetViewController animated:YES];
         }
     } else if (section == 2) {
-        UINavigationController *navCon = [[VLCNavigationController alloc] initWithRootViewController:_loginViewController];
+        VLCNetworkLoginViewController *loginViewController = [[VLCNetworkLoginViewController alloc] initWithNibName:@"VLCNetworkLoginViewController" bundle:nil];
+        loginViewController.delegate = self;
+
+        UINavigationController *navCon = [[VLCNavigationController alloc] initWithRootViewController:loginViewController];
         navCon.navigationBarHidden = NO;
 
         if (UI_USER_INTERFACE_IDIOM() == UIUserInterfaceIdiomPad) {
             navCon.modalPresentationStyle = UIModalPresentationFormSheet;
             [self presentViewController:navCon animated:YES completion:nil];
 
-            if (_loginViewController.navigationItem.leftBarButtonItem == nil)
-                _loginViewController.navigationItem.leftBarButtonItem = [UIBarButtonItem themedDarkToolbarButtonWithTitle:NSLocalizedString(@"BUTTON_DONE", nil) target:_loginViewController andSelector:@selector(dismissWithAnimation:)];
+            if (loginViewController.navigationItem.leftBarButtonItem == nil)
+                loginViewController.navigationItem.leftBarButtonItem = [UIBarButtonItem themedDarkToolbarButtonWithTitle:NSLocalizedString(@"BUTTON_DONE", nil) target:loginViewController andSelector:@selector(dismissWithAnimation:)];
         } else
-            [self.navigationController pushViewController:_loginViewController animated:YES];
+            [self.navigationController pushViewController:loginViewController animated:YES];
 
         if (row != 0 && [_ftpServices[row] hostName].length > 0) // FTP Connect To Server Special Item and hostname is long enough
-            _loginViewController.hostname = [_ftpServices[row] hostName];
+            loginViewController.hostname = [_ftpServices[row] hostName];
         else
-            _loginViewController.hostname = @"";
+            loginViewController.hostname = @"";
     } else if (section == 3) {
         NSString *name = [_httpServicesInfo[row] objectForKey:@"name"];
         NSString *hostName = [_httpServicesInfo[row] objectForKey:@"hostName"];
@@ -471,7 +458,7 @@
     [self.tableView reloadData];
 
     [self _startUPNPDiscovery];
-    [self performSelectorInBackground:@selector(_startSAPDiscovery) withObject:nil];
+    [self _startSAPDiscovery];
     [self _startDSMDiscovery];
 }
 
@@ -570,6 +557,8 @@
         }
     }  else if ([aNetService.type isEqualToString:@"_http._tcp."]) {
         if ([[aNetService hostName] rangeOfString:_myHostName].location == NSNotFound) {
+            if (!_httpParser)
+                _httpParser = [[VLCSharedLibraryParser alloc] init];
             [_httpParser checkNetserviceForVLCService:aNetService];
         }
     }

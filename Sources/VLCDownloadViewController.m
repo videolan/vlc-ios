@@ -229,8 +229,9 @@
 - (void)downloadStarted
 {
     [self.activityIndicator stopAnimating];
-    [(VLCAppDelegate*)[UIApplication sharedApplication].delegate networkActivityStopped];
-    [(VLCAppDelegate*)[UIApplication sharedApplication].delegate networkActivityStarted];
+    VLCAppDelegate *appDelegate = [UIApplication sharedApplication].delegate;
+    [appDelegate networkActivityStopped];
+    [appDelegate networkActivityStarted];
     self.currentDownloadLabel.text = _humanReadableFilename;
     self.progressView.progress = 0.;
     [self.progressPercent setText:@"0%%"];

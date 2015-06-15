@@ -24,6 +24,7 @@
 #import "VLCThumbnailsCache.h"
 #import "NSString+SupportedMedia.h"
 #import "UIDevice+VLC.h"
+#import "VLCHTTPUploaderController.h"
 
 @interface VLCHTTPConnection()
 {
@@ -177,7 +178,7 @@
         NSUInteger mediaCount = allMedia.count;
         NSMutableArray *mediaInHtml = [[NSMutableArray alloc] initWithCapacity:mediaCount];
         NSMutableArray *mediaInXml = [[NSMutableArray alloc] initWithCapacity:mediaCount];
-        NSString *hostName = [[(VLCAppDelegate*)[UIApplication sharedApplication].delegate uploadController] hostname];
+        NSString *hostName = [[VLCHTTPUploaderController sharedInstance] hostname];
         NSString *duration;
 
         for (NSManagedObject *mo in allMedia) {
@@ -487,7 +488,7 @@
 {
     if (_filepath) {
         if (_filepath.length > 0)
-            [[(VLCAppDelegate*)[UIApplication sharedApplication].delegate uploadController] moveFileFrom:_filepath];
+            [[VLCHTTPUploaderController sharedInstance] moveFileFrom:_filepath];
     }
     return [super shouldDie];
 }

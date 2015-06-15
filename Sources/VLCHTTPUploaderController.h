@@ -18,6 +18,8 @@
 
 @interface VLCHTTPUploaderController : NSObject
 
++ (instancetype)sharedInstance;
+
 @property (nonatomic, readonly) HTTPServer *httpServer;
 
 - (BOOL)changeHTTPServerState:(BOOL)state;

@@ -27,6 +27,18 @@
     UIBackgroundTaskIdentifier _backgroundTaskIdentifier;
 }
 
++ (instancetype)sharedInstance
+{
+    static VLCHTTPUploaderController *sharedInstance = nil;
+    static dispatch_once_t pred;
+
+    dispatch_once(&pred, ^{
+        sharedInstance = [self new];
+    });
+
+    return sharedInstance;
+}
+
 - (id)init
 {
     if (self = [super init]) {
@@ -193,11 +205,10 @@
         [fileManager removeItemAtPath:filepath error:nil];
     }
 
-    [(VLCAppDelegate*)[UIApplication sharedApplication].delegate networkActivityStopped];
-    [(VLCAppDelegate*)[UIApplication sharedApplication].delegate activateIdleTimer];
-
     /* update media library when file upload was completed */
-    VLCAppDelegate* appDelegate = [UIApplication sharedApplication].delegate;
+    VLCAppDelegate *appDelegate = [UIApplication sharedApplication].delegate;
+    [appDelegate networkActivityStopped];
+    [appDelegate activateIdleTimer];
     [appDelegate performSelectorOnMainThread:@selector(updateMediaList) withObject:nil waitUntilDone:NO];
 }
 

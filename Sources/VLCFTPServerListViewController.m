@@ -20,7 +20,7 @@
 
 #import "WhiteRaccoon.h"
 
-@interface VLCFTPServerListViewController () <WRRequestDelegate, VLCLocalNetworkListCell>
+@interface VLCFTPServerListViewController () <WRRequestDelegate, VLCLocalNetworkListCell, UITableViewDataSource, UITableViewDelegate, UIActionSheetDelegate>
 {
     NSString *_ftpServerAddress;
     NSString *_ftpServerUserName;

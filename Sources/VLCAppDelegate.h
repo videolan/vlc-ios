@@ -14,7 +14,6 @@
  * Refer to the COPYING file of the official project for license.
  *****************************************************************************/
 
-#import "VLCHTTPUploaderController.h"
 #import "GHRevealViewController.h"
 #import "VLCMenuTableViewController.h"
 #import "VLCDownloadViewController.h"
@@ -50,7 +49,6 @@ extern NSString *const VLCDropboxSessionWasAuthorized;
 @property (nonatomic, strong) GHRevealViewController *revealController;
 @property (nonatomic, strong) VLCMenuTableViewController *menuViewController;
 
-@property (nonatomic) VLCHTTPUploaderController *uploadController;
 @property (nonatomic, readonly) BOOL passcodeValidated;
 
 @end

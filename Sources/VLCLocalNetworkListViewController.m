@@ -16,7 +16,7 @@
 
 #import "VLCAppDelegate.h"
 
-@interface VLCLocalNetworkListViewController () <UITableViewDataSource, UITableViewDelegate, UISearchBarDelegate, UISearchDisplayDelegate, UIActionSheetDelegate>
+@interface VLCLocalNetworkListViewController () <UITableViewDataSource, UITableViewDelegate, UISearchBarDelegate, UISearchDisplayDelegate>
 {
     NSMutableArray *_searchData;
     UISearchBar *_searchBar;

@@ -117,7 +117,7 @@ NSString *const VLCDropboxSessionWasAuthorized = @"VLCDropboxSessionWasAuthorize
     [self cleanCache];
 
     // Init the HTTP Server
-    self.uploadController = [[VLCHTTPUploaderController alloc] init];
+    [VLCHTTPUploaderController sharedInstance];
 
     self.window = [[UIWindow alloc] initWithFrame:[[UIScreen mainScreen] bounds]];
     // enable crash preventer

@@ -48,8 +48,6 @@
     Reachability *_reachability;
 }
 
-@property (nonatomic) VLCHTTPUploaderController *uploadController;
-
 @end
 
 @implementation VLCMenuTableViewController
@@ -104,13 +102,10 @@
 
     [self netReachabilityChanged:nil];
 
-    VLCAppDelegate *appDelegate = [[UIApplication sharedApplication] delegate];
-    self.uploadController = appDelegate.uploadController;
-
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(netReachabilityChanged:) name:kReachabilityChangedNotification object:nil];
 
     BOOL isHTTPServerOn = [[NSUserDefaults standardUserDefaults] boolForKey:kVLCSettingSaveHTTPUploadServerStatus];
-    [self.uploadController changeHTTPServerState:isHTTPServerOn];
+    [[VLCHTTPUploaderController sharedInstance] changeHTTPServerState:isHTTPServerOn];
     [self updateHTTPServerAddress];
 }
 
@@ -131,7 +126,7 @@
         _uploadButton.enabled = NO;
         [_uploadButton setImage:[UIImage imageNamed:@"WiFiUp"] forState:UIControlStateDisabled];
         _uploadLocationLabel.text = NSLocalizedString(@"HTTP_UPLOAD_NO_CONNECTIVITY", nil);
-        [self.uploadController changeHTTPServerState:NO];
+        [[VLCHTTPUploaderController sharedInstance] changeHTTPServerState:NO];
     }
 }
 
@@ -264,13 +259,14 @@
 
 - (void)updateHTTPServerAddress
 {
-    HTTPServer *server = self.uploadController.httpServer;
+    VLCHTTPUploaderController *uploadController = [VLCHTTPUploaderController sharedInstance];
+    HTTPServer *server = uploadController.httpServer;
     if (server.isRunning) {
         _uploadLocationLabel.numberOfLines = 0;
         if (server.listeningPort != 80)
-            _uploadLocationLabel.text = [NSString stringWithFormat:@"http://%@:%i\nhttp://%@:%i", [self.uploadController currentIPAddress], server.listeningPort, [self.uploadController hostname], server.listeningPort];
+            _uploadLocationLabel.text = [NSString stringWithFormat:@"http://%@:%i\nhttp://%@:%i", [uploadController currentIPAddress], server.listeningPort, [uploadController hostname], server.listeningPort];
         else
-            _uploadLocationLabel.text = [NSString stringWithFormat:@"http://%@\nhttp://%@", [self.uploadController currentIPAddress], [self.uploadController hostname]];
+            _uploadLocationLabel.text = [NSString stringWithFormat:@"http://%@\nhttp://%@", [uploadController currentIPAddress], [uploadController hostname]];
         [_uploadButton setImage:[UIImage imageNamed:@"WifiUpOn"] forState:UIControlStateNormal];
     } else {
         _uploadLocationLabel.text = NSLocalizedString(@"HTTP_UPLOAD_SERVER_OFF", nil);
@@ -281,10 +277,11 @@
 - (IBAction)toggleHTTPServer:(UIButton *)sender
 {
     if (_uploadButton.enabled) {
-        BOOL futureHTTPServerState = !self.uploadController.httpServer.isRunning;
+        VLCHTTPUploaderController *uploadController = [VLCHTTPUploaderController sharedInstance];
+        BOOL futureHTTPServerState = !uploadController.httpServer.isRunning;
 
         [[NSUserDefaults standardUserDefaults] setBool:futureHTTPServerState forKey:kVLCSettingSaveHTTPUploadServerStatus];
-        [self.uploadController changeHTTPServerState:futureHTTPServerState];
+        [uploadController changeHTTPServerState:futureHTTPServerState];
         [self updateHTTPServerAddress];
         [[NSUserDefaults standardUserDefaults] synchronize];
     }

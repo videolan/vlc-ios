@@ -63,8 +63,9 @@
         _downloadInProgress = NO;
     } else {
         _downloadInProgress = YES;
-        [(VLCAppDelegate*)[UIApplication sharedApplication].delegate networkActivityStarted];
-        [(VLCAppDelegate*)[UIApplication sharedApplication].delegate disableIdleTimer];
+        VLCAppDelegate *appDelegate = [UIApplication sharedApplication].delegate;
+        [appDelegate networkActivityStarted];
+        [appDelegate disableIdleTimer];
     }
 }
 
@@ -198,8 +199,9 @@
 - (void)_downloadEnded
 {
     _downloadInProgress = NO;
-    [(VLCAppDelegate*)[UIApplication sharedApplication].delegate networkActivityStopped];
-    [(VLCAppDelegate*)[UIApplication sharedApplication].delegate activateIdleTimer];
+    VLCAppDelegate *appDelegate = [UIApplication sharedApplication].delegate;
+    [appDelegate networkActivityStopped];
+    [appDelegate activateIdleTimer];
 
     NSArray *searchPaths = NSSearchPathForDirectoriesInDomains(NSDocumentDirectory, NSUserDomainMask, YES);
     NSString *libraryPath = searchPaths[0];
@@ -209,7 +211,6 @@
 
     if ([fileManager fileExistsAtPath:_filePath]) {
         [fileManager moveItemAtPath:_filePath toPath:finalFilePath error:nil];
-        VLCAppDelegate * appDelegate = [UIApplication sharedApplication].delegate;
         [appDelegate performSelectorOnMainThread:@selector(updateMediaList) withObject:nil waitUntilDone:NO];
     }
 
