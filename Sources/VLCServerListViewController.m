@@ -22,6 +22,7 @@
 
 #import "VLCFTPServerListViewController.h"
 #import "VLCUPnPServerListViewController.h"
+#import "VLCDiscoveryListViewController.h"
 
 #import "VLCSharedLibraryListViewController.h"
 #import "VLCSharedLibraryParser.h"
@@ -134,7 +135,7 @@
                           name:VLCSharedLibraryParserDeterminedNetserviceAsVLCInstance
                         object:nil];
 
-    _sectionHeaderTexts = @[@"Universal Plug'n'Play (UPnP)", @"Plex Media Server (via Bonjour)", @"File Transfer Protocol (FTP)", NSLocalizedString(@"SHARED_VLC_IOS_LIBRARY", nil), NSLocalizedString(@"SMB_CIFS_FILE_SERVERS", nil)];
+    _sectionHeaderTexts = @[@"Universal Plug'n'Play (UPnP)", @"Plex Media Server (via Bonjour)", @"File Transfer Protocol (FTP)", NSLocalizedString(@"SHARED_VLC_IOS_LIBRARY", nil), NSLocalizedString(@"SMB_CIFS_FILE_SERVERS", nil), @"SAP"];
 
     _backToMenuButton = [UIBarButtonItem themedRevealMenuButtonWithTarget:self andSelector:@selector(goBack:)];
     self.navigationItem.leftBarButtonItem = _backToMenuButton;
@@ -214,6 +215,7 @@
 
 - (void)_startUPNPDiscovery
 {
+    return;
     if (_reachability.currentReachabilityStatus != ReachableViaWiFi)
         return;
 
@@ -424,10 +426,19 @@
                                                                     portNumber:portNum];
         [[self navigationController] pushViewController:targetViewController animated:YES];
     } else if (section == 4) {
-        NSLog(@"DSM entry (type %lu) selected", (unsigned long)[[_dsmDiscoverer.discoveredMedia mediaAtIndex:row] mediaType]);
+        VLCMedia *cellMedia = [_dsmDiscoverer.discoveredMedia mediaAtIndex:row];
+        if (cellMedia.mediaType != VLCMediaTypeDirectory)
+            return;
+
+        VLCDiscoveryListViewController *targetViewController = [[VLCDiscoveryListViewController alloc]
+                                                                initWithMedia:cellMedia];
+        [[self navigationController] pushViewController:targetViewController animated:YES];
     } else if (section == 5) {
         VLCAppDelegate *appDelegate = [UIApplication sharedApplication].delegate;
-        [appDelegate openMovieFromURL:[[_sapDiscoverer.discoveredMedia mediaAtIndex:row] url]];
+        VLCMedia *cellMedia = [_sapDiscoverer.discoveredMedia mediaAtIndex:row];
+        VLCMediaType mediaType = cellMedia.mediaType;
+        if (mediaType != VLCMediaTypeDirectory && mediaType != VLCMediaTypeDisc)
+            [appDelegate openMovieFromURL:[[_sapDiscoverer.discoveredMedia mediaAtIndex:row] url]];
     }
 }
 
@@ -617,8 +628,6 @@
 
 - (void)_startSAPDiscovery
 {
-    return;
-
     if (_reachability.currentReachabilityStatus != ReachableViaWiFi)
         return;
 
@@ -629,8 +638,6 @@
 
 - (void)_stopSAPDiscovery
 {
-    return;
-
     [_sapDiscoverer stopDiscoverer];
     _sapDiscoverer = nil;
 }
