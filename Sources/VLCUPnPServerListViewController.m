@@ -25,7 +25,7 @@
 #import "MediaServer1Device.h"
 #import "BasicUPnPDevice+VLC.h"
 
-@interface VLCUPnPServerListViewController () <VLCLocalNetworkListCell, UITableViewDataSource, UITableViewDelegate, UIActionSheetDelegate>
+@interface VLCUPnPServerListViewController () <VLCNetworkListCellDelegate, UITableViewDataSource, UITableViewDelegate, UIActionSheetDelegate>
 {
     MediaServer1Device *_UPNPdevice;
     NSString *_UPNProotID;
@@ -273,7 +273,7 @@
     [tableView deselectRowAtIndexPath:indexPath animated:NO];
 }
 
-#pragma mark - VLCLocalNetworkListCell delegation
+#pragma mark - VLCNetworkListCell delegation
 - (void)triggerDownloadForCell:(VLCNetworkListCell *)cell
 {
     MediaServer1ItemObject *item;

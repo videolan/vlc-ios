@@ -22,7 +22,7 @@
 #import "VLCStatusLabel.h"
 #import "UIDevice+VLC.h"
 
-@interface VLCLocalPlexFolderListViewController () <UITableViewDataSource, UITableViewDelegate, VLCLocalNetworkListCell, UISearchBarDelegate, UISearchDisplayDelegate>
+@interface VLCLocalPlexFolderListViewController () <UITableViewDataSource, UITableViewDelegate, VLCNetworkListCellDelegate, UISearchBarDelegate, UISearchDisplayDelegate>
 {
     NSArray *_globalObjectList;
     NSCache *_imageCache;
@@ -52,7 +52,7 @@
     _tableView.backgroundColor = [UIColor VLCDarkBackgroundColor];
     _tableView.delegate = self;
     _tableView.dataSource = self;
-    _tableView.rowHeight = [VLCLocalNetworkListCell heightOfCell];
+    _tableView.rowHeight = [VLCNetworkListCell heightOfCell];
     _tableView.separatorStyle = UITableViewCellSeparatorStyleNone;
     _tableView.indicatorStyle = UIScrollViewIndicatorStyleWhite;
     self.view = _tableView;
@@ -390,7 +390,7 @@
     [self.tableView reloadData];
 }
 
-#pragma mark - VLCLocalNetworkListCell delegation
+#pragma mark - VLCNetworkListCell delegation
 
 - (void)triggerDownloadForCell:(VLCNetworkListCell *)cell
 {

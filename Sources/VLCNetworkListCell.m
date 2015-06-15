@@ -1,5 +1,5 @@
 /*****************************************************************************
- * VLCLocalNetworkListCell.m
+ * VLCNetworkListCell.m
  * VLC for iOS
  *****************************************************************************
  * Copyright (c) 2013 VideoLAN. All rights reserved.

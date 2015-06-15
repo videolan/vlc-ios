@@ -31,7 +31,7 @@
     _tableView.backgroundColor = [UIColor VLCDarkBackgroundColor];
     _tableView.delegate = self;
     _tableView.dataSource = self;
-    _tableView.rowHeight = [VLCLocalNetworkListCell heightOfCell];
+    _tableView.rowHeight = [VLCNetworkListCell heightOfCell];
     _tableView.separatorStyle = UITableViewCellSeparatorStyleNone;
     _tableView.indicatorStyle = UIScrollViewIndicatorStyleWhite;
     self.view = _tableView;

@@ -1,5 +1,5 @@
 /*****************************************************************************
- * VLCLocalNetworkListCell.h
+ * VLCNetworkListCell.h
  * VLC for iOS
  *****************************************************************************
  * Copyright (c) 2013 VideoLAN. All rights reserved.
@@ -42,8 +42,8 @@
 
 @end
 
-@protocol VLCLocalNetworkListCell <NSObject>
+@protocol VLCNetworkListCellDelegate <NSObject>
 
-- (void)triggerDownloadForCell:(VLCLocalNetworkListCell *)cell;
+- (void)triggerDownloadForCell:(VLCNetworkListCell *)cell;
 
 @end

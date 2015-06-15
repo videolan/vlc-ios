@@ -20,7 +20,7 @@
 
 #import "WhiteRaccoon.h"
 
-@interface VLCFTPServerListViewController () <WRRequestDelegate, VLCLocalNetworkListCell, UITableViewDataSource, UITableViewDelegate, UIActionSheetDelegate>
+@interface VLCFTPServerListViewController () <WRRequestDelegate, VLCNetworkListCellDelegate, UITableViewDataSource, UITableViewDelegate, UIActionSheetDelegate>
 {
     NSString *_ftpServerAddress;
     NSString *_ftpServerUserName;
@@ -257,7 +257,7 @@
     [tableView deselectRowAtIndexPath:indexPath animated:NO];
 }
 
-#pragma mark - VLCLocalNetworkListCell delegation
+#pragma mark - VLCNetworkListCell delegation
 - (void)triggerDownloadForCell:(VLCNetworkListCell *)cell
 {
     NSString *rawObjectName;

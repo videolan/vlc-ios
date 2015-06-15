@@ -20,7 +20,7 @@
 #import "VLCStatusLabel.h"
 #import "UIDevice+VLC.h"
 
-@interface VLCSharedLibraryListViewController () <UITableViewDataSource, UITableViewDelegate, VLCLocalNetworkListCell, UISearchBarDelegate, UISearchDisplayDelegate, VLCSharedLibraryParserDelegate>
+@interface VLCSharedLibraryListViewController () <UITableViewDataSource, UITableViewDelegate, VLCNetworkListCellDelegate, UISearchBarDelegate, UISearchDisplayDelegate, VLCSharedLibraryParserDelegate>
 {
     NSArray *_serverDataArray;
     NSCache *_imageCache;
@@ -46,7 +46,7 @@
     _tableView.backgroundColor = [UIColor VLCDarkBackgroundColor];
     _tableView.delegate = self;
     _tableView.dataSource = self;
-    _tableView.rowHeight = [VLCLocalNetworkListCell heightOfCell];
+    _tableView.rowHeight = [VLCNetworkListCell heightOfCell];
     _tableView.separatorStyle = UITableViewCellSeparatorStyleNone;
     _tableView.indicatorStyle = UIScrollViewIndicatorStyleWhite;
     self.view = _tableView;
@@ -146,10 +146,10 @@
 {
     static NSString *CellIdentifier = @"libraryVLCCellDetail";
 
-    VLCLocalNetworkListCell *cell = (VLCNetworkListCell *)[tableView dequeueReusableCellWithIdentifier:CellIdentifier];
+    VLCNetworkListCell *cell = (VLCNetworkListCell *)[tableView dequeueReusableCellWithIdentifier:CellIdentifier];
 
     if (cell == nil)
-        cell = [VLCLocalNetworkListCell cellWithReuseIdentifier:CellIdentifier];
+        cell = [VLCNetworkListCell cellWithReuseIdentifier:CellIdentifier];
 
     NSDictionary *cellObject;
     @synchronized(self) {
@@ -296,7 +296,7 @@
     return FileSubtitlePath;
 }
 
-#pragma mark - VLCLocalNetworkListCell delegation
+#pragma mark - VLCNetworkListCell delegation
 
 - (void)triggerDownloadForCell:(VLCNetworkListCell *)cell
 {

@@ -139,7 +139,7 @@
     _backToMenuButton = [UIBarButtonItem themedRevealMenuButtonWithTarget:self andSelector:@selector(goBack:)];
     self.navigationItem.leftBarButtonItem = _backToMenuButton;
 
-    self.tableView.rowHeight = [VLCLocalNetworkListCell heightOfCell];
+    self.tableView.rowHeight = [VLCNetworkListCell heightOfCell];
     self.tableView.separatorColor = [UIColor VLCDarkBackgroundColor];
     self.view.backgroundColor = [UIColor VLCDarkBackgroundColor];
 
