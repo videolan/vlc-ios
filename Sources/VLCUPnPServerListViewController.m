@@ -48,7 +48,6 @@
         _UPNPdevice = device;
         self.title = header;
         _UPNProotID = rootID;
-        _mutableObjectList = [[NSMutableArray alloc] init];
     }
 
     return self;
@@ -57,6 +56,11 @@
 - (void)viewDidLoad
 {
     [super viewDidLoad];
+
+    @synchronized(self) {
+        _mutableObjectList = [[NSMutableArray alloc] init];
+    }
+
     NSString *sortCriteria = @"";
     NSMutableString *outSortCaps = [[NSMutableString alloc] init];
     [[_UPNPdevice contentDirectory] GetSortCapabilitiesWithOutSortCaps:outSortCaps];
@@ -73,9 +77,14 @@
 
     [[_UPNPdevice contentDirectory] BrowseWithObjectID:_UPNProotID BrowseFlag:@"BrowseDirectChildren" Filter:@"*" StartingIndex:@"0" RequestedCount:@"0" SortCriteria:sortCriteria OutResult:outResult OutNumberReturned:outNumberReturned OutTotalMatches:outTotalMatches OutUpdateID:outUpdateID];
 
-    [_mutableObjectList removeAllObjects];
+    @synchronized(self) {
+        [_mutableObjectList removeAllObjects];
+    }
     NSData *didl = [outResult dataUsingEncoding:NSUTF8StringEncoding];
-    MediaServerBasicObjectParser *parser = [[MediaServerBasicObjectParser alloc] initWithMediaObjectArray:_mutableObjectList itemsOnly:NO];
+    MediaServerBasicObjectParser *parser;
+    @synchronized(self) {
+        parser = [[MediaServerBasicObjectParser alloc] initWithMediaObjectArray:_mutableObjectList itemsOnly:NO];
+    }
     [parser parseFromData:didl];
 }
 
@@ -83,10 +92,19 @@
 
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section
 {
-    if (tableView == self.searchDisplayController.searchResultsTableView)
-        return _searchData.count;
+    NSUInteger count;
 
-    return _mutableObjectList.count;
+    if (tableView == self.searchDisplayController.searchResultsTableView) {
+        @synchronized(self) {
+            count = _searchData.count;
+        }
+    } else {
+        @synchronized(self) {
+            count = _mutableObjectList.count;
+        }
+    }
+
+    return count;
 }
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
@@ -98,10 +116,15 @@
         cell = [VLCLocalNetworkListCell cellWithReuseIdentifier:CellIdentifier];
 
     MediaServer1BasicObject *item;
-    if (tableView == self.searchDisplayController.searchResultsTableView)
-        item = _searchData[indexPath.row];
-    else
-        item = _mutableObjectList[indexPath.row];
+    if (tableView == self.searchDisplayController.searchResultsTableView) {
+        @synchronized(self) {
+            item = _searchData[indexPath.row];
+        }
+    } else {
+        @synchronized(self) {
+            item = _mutableObjectList[indexPath.row];
+        }
+    }
 
     if (![item isContainer]) {
         MediaServer1ItemObject *mediaItem;
@@ -109,10 +132,15 @@
         unsigned int durationInSeconds = 0;
         unsigned int bitrate = 0;
 
-        if (tableView == self.searchDisplayController.searchResultsTableView)
-            mediaItem = _searchData[indexPath.row];
-        else
-            mediaItem = _mutableObjectList[indexPath.row];
+        if (tableView == self.searchDisplayController.searchResultsTableView) {
+            @synchronized(self) {
+                mediaItem = _searchData[indexPath.row];
+            }
+        } else {
+            @synchronized(self) {
+                mediaItem = _mutableObjectList[indexPath.row];
+            }
+        }
 
         MediaServer1ItemRes *resource = nil;
         NSEnumerator *e = [[mediaItem resources] objectEnumerator];
@@ -175,27 +203,42 @@
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
 {
     MediaServer1BasicObject *item;
-    if (tableView == self.searchDisplayController.searchResultsTableView)
-        item = _searchData[indexPath.row];
-    else
-        item = _mutableObjectList[indexPath.row];
+    if (tableView == self.searchDisplayController.searchResultsTableView) {
+        @synchronized(self) {
+            item = _searchData[indexPath.row];
+        }
+    } else {
+        @synchronized(self) {
+            item = _mutableObjectList[indexPath.row];
+        }
+    }
 
     if ([item isContainer]) {
         MediaServer1ContainerObject *container;
-        if (tableView == self.searchDisplayController.searchResultsTableView)
-            container = _searchData[indexPath.row];
-        else
-            container = _mutableObjectList[indexPath.row];
+        if (tableView == self.searchDisplayController.searchResultsTableView) {
+            @synchronized(self) {
+                container = _searchData[indexPath.row];
+            }
+        } else {
+            @synchronized(self) {
+                container = _mutableObjectList[indexPath.row];
+            }
+        }
 
         VLCUPnPServerListViewController *targetViewController = [[VLCUPnPServerListViewController alloc] initWithUPNPDevice:_UPNPdevice header:[container title] andRootID:[container objectID]];
         [[self navigationController] pushViewController:targetViewController animated:YES];
     } else {
         MediaServer1ItemObject *mediaItem;
 
-        if (tableView == self.searchDisplayController.searchResultsTableView)
-            mediaItem = _searchData[indexPath.row];
-        else
-            mediaItem = _mutableObjectList[indexPath.row];
+        if (tableView == self.searchDisplayController.searchResultsTableView) {
+            @synchronized(self) {
+                mediaItem = _searchData[indexPath.row];
+            }
+        } else {
+            @synchronized(self) {
+                mediaItem = _mutableObjectList[indexPath.row];
+            }
+        }
 
         NSURL *itemURL;
         NSArray *uriCollectionKeys = [[mediaItem uriCollection] allKeys];
@@ -234,10 +277,15 @@
 - (void)triggerDownloadForCell:(VLCLocalNetworkListCell *)cell
 {
     MediaServer1ItemObject *item;
-    if ([self.searchDisplayController isActive])
-        item = _searchData[[self.searchDisplayController.searchResultsTableView indexPathForCell:cell].row];
-    else
-        item = _mutableObjectList[[self.tableView indexPathForCell:cell].row];
+    if ([self.searchDisplayController isActive]) {
+        @synchronized(self) {
+            item = _searchData[[self.searchDisplayController.searchResultsTableView indexPathForCell:cell].row];
+        }
+    } else {
+        @synchronized(self) {
+            item = _mutableObjectList[[self.tableView indexPathForCell:cell].row];
+        }
+    }
 
     [self _downloadUPNPFileFromMediaItem:item];
     [cell.statusLabel showStatusMessage:NSLocalizedString(@"DOWNLOADING", nil)];
@@ -433,17 +481,19 @@
 {
     MediaServer1BasicObject *item;
     NSInteger listCount = 0;
-    [_searchData removeAllObjects];
 
-    listCount = _mutableObjectList.count;
+    @synchronized(self) {
+        [_searchData removeAllObjects];
+        listCount = _mutableObjectList.count;
 
-    for (int i = 0; i < listCount; i++) {
-        NSRange nameRange;
-        item = _mutableObjectList[i];
-        nameRange = [[item title] rangeOfString:searchString options:NSCaseInsensitiveSearch];
+        for (int i = 0; i < listCount; i++) {
+            NSRange nameRange;
+            item = _mutableObjectList[i];
+            nameRange = [[item title] rangeOfString:searchString options:NSCaseInsensitiveSearch];
 
-        if (nameRange.location != NSNotFound)
-            [_searchData addObject:_mutableObjectList[i]];
+            if (nameRange.location != NSNotFound)
+                [_searchData addObject:_mutableObjectList[i]];
+        }
     }
 
     return YES;
