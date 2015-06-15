@@ -36,6 +36,7 @@
 #import <MediaPlayer/MediaPlayer.h>
 #import <DropboxSDK/DropboxSDK.h>
 #import <HockeySDK/HockeySDK.h>
+#import "VLCSidebarController.h"
 
 NSString *const VLCDropboxSessionWasAuthorized = @"VLCDropboxSessionWasAuthorized";
 
@@ -43,7 +44,6 @@ NSString *const VLCDropboxSessionWasAuthorized = @"VLCDropboxSessionWasAuthorize
 
 @interface VLCAppDelegate () <PAPasscodeViewControllerDelegate, VLCMediaFileDiscovererDelegate> {
     PAPasscodeViewController *_passcodeLockController;
-    VLCDownloadViewController *_downloadViewController;
     int _idleCounter;
     int _networkActivityCounter;
     BOOL _passcodeValidated;
@@ -123,21 +123,14 @@ NSString *const VLCDropboxSessionWasAuthorized = @"VLCDropboxSessionWasAuthorize
     // enable crash preventer
     void (^setupBlock)() = ^{
         _playlistViewController = [[VLCPlaylistViewController alloc] init];
-        UINavigationController *navCon = [[VLCNavigationController alloc] initWithRootViewController:_playlistViewController];
-
-        _revealController = [[GHRevealViewController alloc] initWithNibName:nil bundle:nil];
-        _revealController.extendedLayoutIncludesOpaqueBars = YES;
-        _revealController.edgesForExtendedLayout = UIRectEdgeAll;
-        _menuViewController = [[VLCMenuTableViewController alloc] initWithNibName:nil bundle:nil];
-        _revealController.sidebarViewController = _menuViewController;
-        _revealController.contentViewController = navCon;
+        VLCSidebarController *sidebarVC = [VLCSidebarController sharedInstance];
+        VLCNavigationController *navCon = [[VLCNavigationController alloc] initWithRootViewController:_playlistViewController];
+        sidebarVC.contentViewController = navCon;
 
         _playerDisplayController = [[VLCPlayerDisplayController alloc] init];
-        _playerDisplayController.childViewController = self.revealController;
+        _playerDisplayController.childViewController = sidebarVC.fullViewController;
 
         self.window.rootViewController = _playerDisplayController;
-        // necessary to avoid navbar blinking in VLCOpenNetworkStreamViewController & VLCDownloadViewController
-        _revealController.contentViewController.view.backgroundColor = [UIColor VLCDarkBackgroundColor];
         [self.window makeKeyAndVisible];
 
         [self validatePasscode];
@@ -207,7 +200,8 @@ continueUserActivity:(NSUserActivity *)userActivity
         VLCLibraryMode libraryMode = (VLCLibraryMode)[(NSNumber *)dict[@"state"] integerValue];
 
         if (libraryMode <= VLCLibraryModeAllSeries) {
-            [self.menuViewController selectRowAtIndexPath:[NSIndexPath indexPathForRow:libraryMode inSection:0] animated:NO scrollPosition:UITableViewScrollPositionTop];
+            [[VLCSidebarController sharedInstance] selectRowAtIndexPath:[NSIndexPath indexPathForRow:libraryMode inSection:0]
+                                                         scrollPosition:UITableViewScrollPositionTop];
             [self.playlistViewController setLibraryMode:(VLCLibraryMode)libraryMode];
         }
 
@@ -295,7 +289,8 @@ continueUserActivity:(NSUserActivity *)userActivity
                     url = [NSURL URLWithString:parsedString];
                 }
             }
-            [self.menuViewController selectRowAtIndexPath:[NSIndexPath indexPathForRow:0 inSection:0] animated:NO scrollPosition:UITableViewScrollPositionNone];
+            [[VLCSidebarController sharedInstance] selectRowAtIndexPath:[NSIndexPath indexPathForRow:0 inSection:0]
+                                                         scrollPosition:UITableViewScrollPositionNone];
 
             NSString *scheme = url.scheme;
             if ([scheme isEqualToString:@"http"] || [scheme isEqualToString:@"https"] || [scheme isEqualToString:@"ftp"]) {
@@ -343,17 +338,6 @@ continueUserActivity:(NSUserActivity *)userActivity
     _passcodeValidated = NO;
     [[NSUserDefaults standardUserDefaults] synchronize];
 }
-
-#pragma mark - properties
-
-- (VLCDownloadViewController *)downloadViewController
-{
-    if (_downloadViewController == nil)
-        _downloadViewController = [[VLCDownloadViewController alloc] initWithNibName:@"VLCDownloadViewController" bundle:nil];
-
-    return _downloadViewController;
-}
-
 
 #pragma mark - media discovering
 
@@ -526,10 +510,9 @@ continueUserActivity:(NSUserActivity *)userActivity
 - (void)downloadMovieFromURL:(NSURL *)url
              fileNameOfMedia:(NSString *)fileName
 {
-    [self.downloadViewController addURLToDownloadList:url fileNameOfMedia:fileName];
-
-    // select Downloads menu item and reveal corresponding viewcontroller
-    [self.menuViewController selectRowAtIndexPath:[NSIndexPath indexPathForRow:2 inSection:1] animated:NO scrollPosition:UITableViewScrollPositionNone];
+    [[VLCDownloadViewController sharedInstance] addURLToDownloadList:url fileNameOfMedia:fileName];
+    [[VLCSidebarController sharedInstance] selectRowAtIndexPath:[NSIndexPath indexPathForRow:2 inSection:1]
+                                                 scrollPosition:UITableViewScrollPositionNone];
 }
 
 #pragma mark - playback view handling

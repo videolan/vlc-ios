@@ -29,6 +29,7 @@
 #import "UIBarButtonItem+Theme.h"
 #import "VLCAlertView.h"
 #import "VLCNavigationController.h"
+#import "VLCSidebarController.h"
 
 #define SYSTEM_VERSION_GREATER_THAN_OR_EQUAL_TO(v)  ([[[UIDevice currentDevice] systemVersion] compare:v options:NSNumericSearch] != NSOrderedAscending)
 

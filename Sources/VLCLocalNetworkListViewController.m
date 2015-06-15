@@ -14,8 +14,6 @@
 #import "VLCLocalNetworkListViewController.h"
 #import "VLCLocalNetworkListCell.h"
 
-#import "VLCAppDelegate.h"
-
 @interface VLCLocalNetworkListViewController () <UITableViewDataSource, UITableViewDelegate, UISearchBarDelegate, UISearchDisplayDelegate>
 {
     NSMutableArray *_searchData;
@@ -82,7 +80,7 @@
 
 - (IBAction)menuButtonAction:(id)sender
 {
-    [[(VLCAppDelegate*)[UIApplication sharedApplication].delegate revealController] toggleSidebar:![(VLCAppDelegate*)[UIApplication sharedApplication].delegate revealController].sidebarShowing duration:kGHRevealSidebarDefaultAnimationDuration];
+    [[VLCSidebarController sharedInstance] toggleSidebar];
 
     if (self.isEditing)
         [self setEditing:NO animated:YES];

@@ -16,6 +16,8 @@
 
 @interface VLCDownloadViewController : UIViewController
 
++ (instancetype)sharedInstance;
+
 @property (nonatomic, strong) IBOutlet UIButton *downloadButton;
 @property (nonatomic, strong) IBOutlet UITextField *urlField;
 @property (nonatomic, strong) IBOutlet UILabel *whatToDownloadHelpLabel;

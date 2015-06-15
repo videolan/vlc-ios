@@ -13,7 +13,6 @@
  *****************************************************************************/
 
 #import "VLCSettingsController.h"
-#import "VLCAppDelegate.h"
 #import "VLCPlaylistViewController.h"
 #import "IASKSettingsReader.h"
 #import "IASKAppSettingsViewController.h"
@@ -58,7 +57,7 @@
 
 - (void)settingsViewControllerDidEnd:(IASKAppSettingsViewController*)sender
 {
-    [[(VLCAppDelegate*)[UIApplication sharedApplication].delegate revealController] toggleSidebar:![(VLCAppDelegate*)[UIApplication sharedApplication].delegate revealController].sidebarShowing duration:kGHRevealSidebarDefaultAnimationDuration];
+    [[VLCSidebarController sharedInstance] toggleSidebar];
 }
 
 #pragma mark - PAPasscode delegate

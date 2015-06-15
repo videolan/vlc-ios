@@ -166,7 +166,7 @@
             [alert show];
         } else if (itemURL) {
             NSString *fileName = [firstObject objectForKey:@"namefile"];
-            [[(VLCAppDelegate *)[UIApplication sharedApplication].delegate downloadViewController] addURLToDownloadList:itemURL fileNameOfMedia:fileName];
+            [[VLCDownloadViewController sharedInstance] addURLToDownloadList:itemURL fileNameOfMedia:fileName];
         }
     } else {
         VLCAlertView *alert = [[VLCAlertView alloc] initWithTitle:NSLocalizedString(@"DISK_FULL", nil)

@@ -57,8 +57,8 @@
     documentPicker.delegate = self;
 
     if (UI_USER_INTERFACE_IDIOM() == UIUserInterfaceIdiomPad) { // on iPhone it's done in menu table vc
-        VLCAppDelegate* appDelegate = [UIApplication sharedApplication].delegate;
-        [appDelegate.menuViewController selectRowAtIndexPath:[NSIndexPath indexPathForRow:0 inSection:0] animated:YES scrollPosition:UITableViewScrollPositionNone];
+        [[VLCSidebarController sharedInstance] selectRowAtIndexPath:[NSIndexPath indexPathForRow:0 inSection:0]
+                                                     scrollPosition:UITableViewScrollPositionNone];
     }
 
     [[UIApplication sharedApplication].keyWindow.rootViewController presentViewController:documentPicker animated:YES completion:nil];

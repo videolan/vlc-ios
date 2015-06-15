@@ -268,7 +268,7 @@
     [self _stopSAPDiscovery];
     [self _stopDSMDiscovery];
 
-    [[(VLCAppDelegate*)[UIApplication sharedApplication].delegate revealController] toggleSidebar:![(VLCAppDelegate*)[UIApplication sharedApplication].delegate revealController].sidebarShowing duration:kGHRevealSidebarDefaultAnimationDuration];
+    [[VLCSidebarController sharedInstance] toggleSidebar];
 }
 
 - (BOOL)shouldAutorotate

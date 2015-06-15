@@ -16,7 +16,6 @@
  *****************************************************************************/
 
 #import "VLCMenuTableViewController.h"
-#import "GHRevealViewController.h"
 #import "VLCSidebarViewCell.h"
 #import "Reachability.h"
 #import <QuartzCore/QuartzCore.h>
@@ -25,7 +24,6 @@
 #import "VLCAppDelegate.h"
 #import "HTTPServer.h"
 #import "IASKAppSettingsViewController.h"
-#import "GHRevealViewController.h"
 #import "VLCLocalServerListViewController.h"
 #import "VLCOpenNetworkStreamViewController.h"
 #import "VLCSettingsController.h"
@@ -34,6 +32,7 @@
 #import "VLCBugreporter.h"
 #import "VLCCloudServicesTableViewController.h"
 #import "VLCNavigationController.h"
+#import "GHRevealViewController.h"
 
 @interface VLCMenuTableViewController () <UITableViewDataSource, UITableViewDelegate>
 {
@@ -297,7 +296,7 @@
         else if (itemIndex == 1) {
             viewController = [[VLCOpenNetworkStreamViewController alloc] initWithNibName:@"VLCOpenNetworkStreamViewController" bundle:nil];
         } else if (itemIndex == 2)
-            viewController = appDelegate.downloadViewController;
+            viewController = [VLCDownloadViewController sharedInstance];
         else if (itemIndex == 3)
             [self toggleHTTPServer:nil];
         else if (itemIndex == 4)
@@ -336,15 +335,13 @@
     if (!viewController)
         return;
 
-
-    GHRevealViewController *revealController = appDelegate.revealController;
-    if ([revealController.contentViewController isKindOfClass:[UINavigationController class]]) {
-        UINavigationController *navCon = (UINavigationController*)revealController.contentViewController;
+    VLCSidebarController *sidebarController = [VLCSidebarController sharedInstance];
+    if ([sidebarController.contentViewController isKindOfClass:[UINavigationController class]]) {
+        UINavigationController *navCon = (UINavigationController*)sidebarController.contentViewController;
         navCon.viewControllers = @[viewController];
     } else
-        revealController.contentViewController = [[VLCNavigationController alloc] initWithRootViewController:viewController];
-
-    [revealController toggleSidebar:NO duration:kGHRevealSidebarDefaultAnimationDuration];
+        sidebarController.contentViewController = [[VLCNavigationController alloc] initWithRootViewController:viewController];
+    [sidebarController hideSidebar];
 }
 
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath

@@ -12,7 +12,6 @@
  *****************************************************************************/
 
 #import "VLCCloudServicesTableViewController.h"
-#import "VLCAppDelegate.h"
 #import "VLCDropboxTableViewController.h"
 #import "VLCGoogleDriveTableViewController.h"
 #import "VLCBoxTableViewController.h"
@@ -63,8 +62,7 @@
 - (void)goBack
 {
     [[NSNotificationCenter defaultCenter] removeObserver:self];
-    VLCAppDelegate *appDelegate = [UIApplication sharedApplication].delegate;
-    [[appDelegate revealController] toggleSidebar:![appDelegate revealController].sidebarShowing duration:kGHRevealSidebarDefaultAnimationDuration];
+    [[VLCSidebarController sharedInstance] toggleSidebar];
 }
 
 - (void)authenticationSessionsChanged:(NSNotification *)notification

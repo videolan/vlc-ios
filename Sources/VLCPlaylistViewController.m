@@ -1151,7 +1151,7 @@ static NSString *kUsingTableViewToShowData = @"UsingTableViewToShowData";
 
 - (IBAction)leftButtonAction:(id)sender
 {
-    [[(VLCAppDelegate*)[UIApplication sharedApplication].delegate revealController] toggleSidebar:![(VLCAppDelegate*)[UIApplication sharedApplication].delegate revealController].sidebarShowing duration:kGHRevealSidebarDefaultAnimationDuration];
+    [[VLCSidebarController sharedInstance] toggleSidebar];
 
     if (self.isEditing)
         [self setEditing:NO animated:YES];
@@ -1407,7 +1407,7 @@ static NSString *kUsingTableViewToShowData = @"UsingTableViewToShowData";
 // RootController is responsible for supporting interface orientation(iOS6.0+), i.e. navigation controller
 // so this will not work as intended without "voodoo magic"(UINavigationController category, subclassing, etc)
 /* introduced in iOS 6 */
-- (NSUInteger)supportedInterfaceOrientations
+- (UIInterfaceOrientationMask)supportedInterfaceOrientations
 {
     if (UI_USER_INTERFACE_IDIOM() == UIUserInterfaceIdiomPad)
         return UIInterfaceOrientationMaskAll;

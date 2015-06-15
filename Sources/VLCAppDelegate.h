@@ -14,7 +14,6 @@
  * Refer to the COPYING file of the official project for license.
  *****************************************************************************/
 
-#import "GHRevealViewController.h"
 #import "VLCMenuTableViewController.h"
 #import "VLCDownloadViewController.h"
 
@@ -40,14 +39,10 @@ extern NSString *const VLCDropboxSessionWasAuthorized;
 - (void)openMovieWithExternalSubtitleFromURL:(NSURL *)url externalSubURL:(NSString *)SubtitlePath;
 
 @property (nonatomic, readonly) VLCPlaylistViewController *playlistViewController;
-@property (nonatomic, readonly) VLCDownloadViewController *downloadViewController;
 
 @property (nonatomic, readonly) VLCPlayerDisplayController *playerDisplayController;
 
 @property (nonatomic, strong) UIWindow *window;
-
-@property (nonatomic, strong) GHRevealViewController *revealController;
-@property (nonatomic, strong) VLCMenuTableViewController *menuViewController;
 
 @property (nonatomic, readonly) BOOL passcodeValidated;
 

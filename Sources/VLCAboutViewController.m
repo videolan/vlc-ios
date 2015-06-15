@@ -13,7 +13,6 @@
  *****************************************************************************/
 
 #import "VLCAboutViewController.h"
-#import "VLCAppDelegate.h"
 
 @interface VLCAboutViewController ()
 {
@@ -70,7 +69,7 @@
 
 - (IBAction)goBack:(id)sender
 {
-    [[(VLCAppDelegate*)[UIApplication sharedApplication].delegate revealController] toggleSidebar:![(VLCAppDelegate*)[UIApplication sharedApplication].delegate revealController].sidebarShowing duration:kGHRevealSidebarDefaultAnimationDuration];
+    [[VLCSidebarController sharedInstance] toggleSidebar];
 }
 
 - (BOOL)webView:(UIWebView *)webView shouldStartLoadWithRequest:(NSURLRequest *)request navigationType:(UIWebViewNavigationType)navigationType

@@ -158,7 +158,7 @@
 
 - (IBAction)menuButtonAction:(id)sender
 {
-    [[(VLCAppDelegate*)[UIApplication sharedApplication].delegate revealController] toggleSidebar:![(VLCAppDelegate*)[UIApplication sharedApplication].delegate revealController].sidebarShowing duration:kGHRevealSidebarDefaultAnimationDuration];
+    [[VLCSidebarController sharedInstance] toggleSidebar];
 
     if (self.isEditing)
         [self setEditing:NO animated:YES];
@@ -349,7 +349,7 @@
         [alert show];
     } else if (itemURL) {
         NSString *fileName = [mediaObject objectForKey:@"namefile"];
-        [[(VLCAppDelegate *)[UIApplication sharedApplication].delegate downloadViewController] addURLToDownloadList:itemURL fileNameOfMedia:fileName];
+        [[VLCDownloadViewController sharedInstance] addURLToDownloadList:itemURL fileNameOfMedia:fileName];
     }
 }
 

@@ -42,6 +42,18 @@
 
 @implementation VLCDownloadViewController
 
++ (instancetype)sharedInstance
+{
+    static VLCDownloadViewController *sharedInstance = nil;
+    static dispatch_once_t pred;
+
+    dispatch_once(&pred, ^{
+        sharedInstance = [[VLCDownloadViewController alloc] initWithNibName:@"VLCDownloadViewController" bundle:nil];
+    });
+
+    return sharedInstance;
+}
+
 - (id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil
 {
     self = [super initWithNibName:nibNameOrNil bundle:nibBundleOrNil];
@@ -93,7 +105,7 @@
 - (IBAction)goBack:(id)sender
 {
     [self.view endEditing:YES];
-    [[(VLCAppDelegate*)[UIApplication sharedApplication].delegate revealController] toggleSidebar:![(VLCAppDelegate*)[UIApplication sharedApplication].delegate revealController].sidebarShowing duration:kGHRevealSidebarDefaultAnimationDuration];
+    [[VLCSidebarController sharedInstance] toggleSidebar];
 }
 
 - (IBAction)downloadAction:(id)sender

@@ -258,7 +258,7 @@
                                                 otherButtonTitles:nil];
         [alert show];
     } else if (itemURL) {
-        [[(VLCAppDelegate *)[UIApplication sharedApplication].delegate downloadViewController] addURLToDownloadList:itemURL fileNameOfMedia:nil];
+        [[VLCDownloadViewController sharedInstance] addURLToDownloadList:itemURL fileNameOfMedia:nil];
     }
 }
 

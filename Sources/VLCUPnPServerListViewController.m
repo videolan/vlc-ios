@@ -319,7 +319,7 @@
         else
             filename = [[mediaItem.title stringByAppendingString:@"."] stringByAppendingString:[[itemURL absoluteString] pathExtension]];
 
-        [[(VLCAppDelegate*)[UIApplication sharedApplication].delegate downloadViewController] addURLToDownloadList:itemURL fileNameOfMedia:filename];
+        [[VLCDownloadViewController sharedInstance] addURLToDownloadList:itemURL fileNameOfMedia:filename];
     }
 }
 
