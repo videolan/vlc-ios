@@ -1,24 +1,21 @@
 /*****************************************************************************
- * VLCLocalServerFolderListViewController.h
+ * VLCUPnPServerListViewController.h
  * VLC for iOS
  *****************************************************************************
- * Copyright (c) 2013 VideoLAN. All rights reserved.
+ * Copyright (c) 2015 VideoLAN. All rights reserved.
  * $Id$
  *
- * Authors: Felix Paul Kühne <fkuehne # videolan.org>
+ * Author: Felix Paul Kühne <fkuehne # videolan.org>
  *
  * Refer to the COPYING file of the official project for license.
  *****************************************************************************/
 
-#import <UIKit/UIKit.h>
+#import "VLCLocalNetworkListViewController.h"
 
 @class MediaServer1Device;
 
-@interface VLCLocalServerFolderListViewController : UIViewController
-
-@property (nonatomic, strong) UITableView *tableView;
+@interface VLCUPnPServerListViewController : VLCLocalNetworkListViewController
 
 - (id)initWithUPNPDevice:(MediaServer1Device *)device header:(NSString *)header andRootID:(NSString *)rootID;
-- (id)initWithFTPServer:(NSString *)serverAddress userName:(NSString *)username andPassword:(NSString *)password atPath:(NSString *)path;
 
 @end

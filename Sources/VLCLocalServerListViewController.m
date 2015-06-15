@@ -16,17 +16,25 @@
 #import "VLCAppDelegate.h"
 #import "UPnPManager.h"
 #import "VLCLocalNetworkListCell.h"
-#import "VLCLocalServerFolderListViewController.h"
+
 #import "VLCLocalPlexFolderListViewController.h"
 #import "VLCPlexConnectServerViewController.h"
+
+#import "VLCFTPServerListViewController.h"
+#import "VLCUPnPServerListViewController.h"
+
 #import "VLCSharedLibraryListViewController.h"
 #import "VLCSharedLibraryParser.h"
+
 #import <QuartzCore/QuartzCore.h>
 #import "GHRevealViewController.h"
+
 #import "VLCNetworkLoginViewController.h"
 #import "VLCPlaylistViewController.h"
+
 #import "VLCHTTPUploaderController.h"
 #import "Reachability.h"
+
 #import "VLCNavigationController.h"
 
 #define kPlexServiceType @"_plexmediasvr._tcp."
@@ -382,7 +390,7 @@
         BasicUPnPDevice *device = _filteredUPNPDevices[row];
         if ([[device urn] isEqualToString:@"urn:schemas-upnp-org:device:MediaServer:1"]) {
             MediaServer1Device *server = (MediaServer1Device*)device;
-            VLCLocalServerFolderListViewController *targetViewController = [[VLCLocalServerFolderListViewController alloc] initWithUPNPDevice:server header:[device friendlyName] andRootID:@"0"];
+            VLCUPnPServerListViewController *targetViewController = [[VLCUPnPServerListViewController alloc] initWithUPNPDevice:server header:[device friendlyName] andRootID:@"0"];
             [self.navigationController pushViewController:targetViewController animated:YES];
         }
     } else if (section == 1) {
@@ -429,7 +437,7 @@
                                                                     portNumber:portNum];
         [[self navigationController] pushViewController:targetViewController animated:YES];
     } else if (section == 4) {
-        NSLog(@"DSM entry selected");
+        NSLog(@"DSM entry (type %lu) selected", (unsigned long)[[_dsmDiscoverer.discoveredMedia mediaAtIndex:row] mediaType]);
     } else if (section == 5) {
         VLCAppDelegate *appDelegate = [UIApplication sharedApplication].delegate;
         [appDelegate openMovieFromURL:[[_sapDiscoverer.discoveredMedia mediaAtIndex:row] url]];
@@ -473,7 +481,7 @@
 {
     if ([url.scheme isEqualToString:@"ftp"]) {
         if (url.host.length > 0) {
-            VLCLocalServerFolderListViewController *targetViewController = [[VLCLocalServerFolderListViewController alloc] initWithFTPServer:url.host userName:username andPassword:password atPath:@"/"];
+            VLCFTPServerListViewController *targetViewController = [[VLCFTPServerListViewController alloc] initWithFTPServer:url.host userName:username andPassword:password atPath:@"/"];
             [self.navigationController pushViewController:targetViewController animated:YES];
         }
     } else
@@ -640,6 +648,7 @@
 
 - (void)mediaList:(VLCMediaList *)aMediaList mediaAdded:(VLCMedia *)media atIndex:(NSInteger)index
 {
+    NSLog(@"found media %@ of type %lu", media.url.lastPathComponent, media.mediaType);
     [self.tableView performSelectorOnMainThread:@selector(reloadData) withObject:nil waitUntilDone:NO];
 }
 
