@@ -116,6 +116,8 @@ NSString *const VLCDropboxSessionWasAuthorized = @"VLCDropboxSessionWasAuthorize
     /* clean caches on launch (since those are used for wifi upload only) */
     [self cleanCache];
 
+    [VLCLibrary sharedLibrary];
+
     // Init the HTTP Server
     [VLCHTTPUploaderController sharedInstance];
 

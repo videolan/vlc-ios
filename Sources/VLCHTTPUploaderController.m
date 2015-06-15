@@ -33,7 +33,7 @@
     static dispatch_once_t pred;
 
     dispatch_once(&pred, ^{
-        sharedInstance = [self new];
+        sharedInstance = [VLCHTTPUploaderController new];
     });
 
     return sharedInstance;

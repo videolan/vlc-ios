@@ -43,7 +43,7 @@
     static dispatch_once_t pred;
 
     dispatch_once(&pred, ^{
-        sharedInstance = [self new];
+        sharedInstance = [VLCDropboxController new];
     });
 
     return sharedInstance;

@@ -73,7 +73,7 @@ NSString *const VLCPlaybackControllerPlaybackDidFail = @"VLCPlaybackControllerPl
     static dispatch_once_t pred;
 
     dispatch_once(&pred, ^{
-        sharedInstance = [self new];
+        sharedInstance = [VLCPlaybackController new];
     });
 
     return sharedInstance;
