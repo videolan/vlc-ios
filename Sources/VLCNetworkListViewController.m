@@ -11,10 +11,10 @@
  * Refer to the COPYING file of the official project for license.
  *****************************************************************************/
 
-#import "VLCLocalNetworkListViewController.h"
-#import "VLCLocalNetworkListCell.h"
+#import "VLCNetworkListViewController.h"
+#import "VLCNetworkListCell.h"
 
-@interface VLCLocalNetworkListViewController () <UITableViewDataSource, UITableViewDelegate, UISearchBarDelegate, UISearchDisplayDelegate>
+@interface VLCNetworkListViewController () <UITableViewDataSource, UITableViewDelegate, UISearchBarDelegate, UISearchDisplayDelegate>
 {
     NSMutableArray *_searchData;
     UISearchBar *_searchBar;
@@ -23,7 +23,7 @@
 
 @end
 
-@implementation VLCLocalNetworkListViewController
+@implementation VLCNetworkListViewController
 
 - (void)loadView
 {
@@ -105,7 +105,7 @@
 
 #pragma mark - Table view delegate
 
-- (void)tableView:(UITableView *)tableView willDisplayCell:(VLCLocalNetworkListCell *)cell forRowAtIndexPath:(NSIndexPath *)indexPath
+- (void)tableView:(UITableView *)tableView willDisplayCell:(VLCNetworkListCell *)cell forRowAtIndexPath:(NSIndexPath *)indexPath
 {
     UIColor *color = (indexPath.row % 2 == 0)? [UIColor blackColor]: [UIColor VLCDarkBackgroundColor];
     cell.contentView.backgroundColor = cell.titleLabel.backgroundColor = cell.folderTitleLabel.backgroundColor = cell.subtitleLabel.backgroundColor =  color;

@@ -14,7 +14,7 @@
 
 #import "VLCUPnPServerListViewController.h"
 
-#import "VLCLocalNetworkListCell.h"
+#import "VLCNetworkListCell.h"
 #import "VLCAppDelegate.h"
 #import "VLCStatusLabel.h"
 #import "NSString+SupportedMedia.h"
@@ -111,9 +111,9 @@
 {
     static NSString *CellIdentifier = @"LocalNetworkCellDetail";
 
-    VLCLocalNetworkListCell *cell = (VLCLocalNetworkListCell *)[tableView dequeueReusableCellWithIdentifier:CellIdentifier];
+    VLCNetworkListCell *cell = (VLCNetworkListCell *)[tableView dequeueReusableCellWithIdentifier:CellIdentifier];
     if (cell == nil)
-        cell = [VLCLocalNetworkListCell cellWithReuseIdentifier:CellIdentifier];
+        cell = [VLCNetworkListCell cellWithReuseIdentifier:CellIdentifier];
 
     MediaServer1BasicObject *item;
     if (tableView == self.searchDisplayController.searchResultsTableView) {
@@ -274,7 +274,7 @@
 }
 
 #pragma mark - VLCLocalNetworkListCell delegation
-- (void)triggerDownloadForCell:(VLCLocalNetworkListCell *)cell
+- (void)triggerDownloadForCell:(VLCNetworkListCell *)cell
 {
     MediaServer1ItemObject *item;
     if ([self.searchDisplayController isActive]) {

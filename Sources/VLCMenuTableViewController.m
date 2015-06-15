@@ -24,7 +24,7 @@
 #import "VLCAppDelegate.h"
 #import "HTTPServer.h"
 #import "IASKAppSettingsViewController.h"
-#import "VLCLocalServerListViewController.h"
+#import "VLCServerListViewController.h"
 #import "VLCOpenNetworkStreamViewController.h"
 #import "VLCSettingsController.h"
 #import "VLCAboutViewController.h"
@@ -292,7 +292,7 @@
     VLCAppDelegate *appDelegate = [[UIApplication sharedApplication] delegate];
     if (sectionNumber == 1) {
         if (itemIndex == 0)
-            viewController = [[VLCLocalServerListViewController alloc] init];
+            viewController = [[VLCServerListViewController alloc] init];
         else if (itemIndex == 1) {
             viewController = [[VLCOpenNetworkStreamViewController alloc] initWithNibName:@"VLCOpenNetworkStreamViewController" bundle:nil];
         } else if (itemIndex == 2)

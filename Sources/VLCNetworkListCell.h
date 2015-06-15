@@ -14,7 +14,7 @@
 
 @class VLCStatusLabel;
 
-@interface VLCLocalNetworkListCell : UITableViewCell
+@interface VLCNetworkListCell : UITableViewCell
 
 @property (nonatomic, weak) id delegate;
 
@@ -35,7 +35,7 @@
 @property (nonatomic, retain) NSURL *iconURL;
 @property (nonatomic, readwrite) BOOL isDownloadable;
 
-+ (VLCLocalNetworkListCell *)cellWithReuseIdentifier:(NSString *)ident;
++ (VLCNetworkListCell *)cellWithReuseIdentifier:(NSString *)ident;
 + (CGFloat)heightOfCell;
 
 - (IBAction)triggerDownload:(id)sender;

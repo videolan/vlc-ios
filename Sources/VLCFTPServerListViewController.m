@@ -12,7 +12,7 @@
  *****************************************************************************/
 
 #import "VLCFTPServerListViewController.h"
-#import "VLCLocalNetworkListCell.h"
+#import "VLCNetworkListCell.h"
 #import "VLCAppDelegate.h"
 #import "NSString+SupportedMedia.h"
 #import "UIDevice+VLC.h"
@@ -185,9 +185,9 @@
 {
     static NSString *CellIdentifier = @"LocalNetworkCellDetail";
 
-    VLCLocalNetworkListCell *cell = (VLCLocalNetworkListCell *)[tableView dequeueReusableCellWithIdentifier:CellIdentifier];
+    VLCNetworkListCell *cell = (VLCNetworkListCell *)[tableView dequeueReusableCellWithIdentifier:CellIdentifier];
     if (cell == nil)
-        cell = [VLCLocalNetworkListCell cellWithReuseIdentifier:CellIdentifier];
+        cell = [VLCNetworkListCell cellWithReuseIdentifier:CellIdentifier];
 
 
     NSDictionary *cellObject;
@@ -217,7 +217,7 @@
 
 #pragma mark - table view delegate, for more see super
 
-- (void)tableView:(UITableView *)tableView willDisplayCell:(VLCLocalNetworkListCell *)cell forRowAtIndexPath:(NSIndexPath *)indexPath
+- (void)tableView:(UITableView *)tableView willDisplayCell:(VLCNetworkListCell *)cell forRowAtIndexPath:(NSIndexPath *)indexPath
 {
     [super tableView:tableView willDisplayCell:cell forRowAtIndexPath:indexPath];
 
@@ -258,7 +258,7 @@
 }
 
 #pragma mark - VLCLocalNetworkListCell delegation
-- (void)triggerDownloadForCell:(VLCLocalNetworkListCell *)cell
+- (void)triggerDownloadForCell:(VLCNetworkListCell *)cell
 {
     NSString *rawObjectName;
     NSInteger size;

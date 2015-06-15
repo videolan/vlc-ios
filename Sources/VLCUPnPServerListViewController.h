@@ -10,11 +10,11 @@
  * Refer to the COPYING file of the official project for license.
  *****************************************************************************/
 
-#import "VLCLocalNetworkListViewController.h"
+#import "VLCNetworkListViewController.h"
 
 @class MediaServer1Device;
 
-@interface VLCUPnPServerListViewController : VLCLocalNetworkListViewController
+@interface VLCUPnPServerListViewController : VLCNetworkListViewController
 
 - (id)initWithUPNPDevice:(MediaServer1Device *)device header:(NSString *)header andRootID:(NSString *)rootID;
 

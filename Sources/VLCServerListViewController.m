@@ -12,10 +12,10 @@
  * Refer to the COPYING file of the official project for license.
  *****************************************************************************/
 
-#import "VLCLocalServerListViewController.h"
+#import "VLCServerListViewController.h"
 #import "VLCAppDelegate.h"
 #import "UPnPManager.h"
-#import "VLCLocalNetworkListCell.h"
+#import "VLCNetworkListCell.h"
 
 #import "VLCLocalPlexFolderListViewController.h"
 #import "VLCPlexConnectServerViewController.h"
@@ -33,7 +33,7 @@
 
 #define kPlexServiceType @"_plexmediasvr._tcp."
 
-@interface VLCLocalServerListViewController () <UITableViewDataSource, UITableViewDelegate, NSNetServiceBrowserDelegate, VLCNetworkLoginViewController, NSNetServiceDelegate, VLCMediaListDelegate, UPnPDBObserver>
+@interface VLCServerListViewController () <UITableViewDataSource, UITableViewDelegate, NSNetServiceBrowserDelegate, VLCNetworkLoginViewController, NSNetServiceDelegate, VLCMediaListDelegate, UPnPDBObserver>
 {
     UIBarButtonItem *_backToMenuButton;
     NSArray *_sectionHeaderTexts;
@@ -69,7 +69,7 @@
 
 @end
 
-@implementation VLCLocalServerListViewController
+@implementation VLCServerListViewController
 
 - (void)dealloc
 {
@@ -304,7 +304,7 @@
     return 0;
 }
 
-- (void)tableView:(UITableView *)tableView willDisplayCell:(VLCLocalNetworkListCell *)cell forRowAtIndexPath:(NSIndexPath *)indexPath
+- (void)tableView:(UITableView *)tableView willDisplayCell:(VLCNetworkListCell *)cell forRowAtIndexPath:(NSIndexPath *)indexPath
 {
     UIColor *color = (indexPath.row % 2 == 0)? [UIColor blackColor]: [UIColor VLCDarkBackgroundColor];
     cell.contentView.backgroundColor = cell.titleLabel.backgroundColor = cell.folderTitleLabel.backgroundColor = cell.subtitleLabel.backgroundColor = color;
@@ -314,9 +314,9 @@
 {
     static NSString *CellIdentifier = @"LocalNetworkCell";
 
-    VLCLocalNetworkListCell *cell = (VLCLocalNetworkListCell *)[tableView dequeueReusableCellWithIdentifier:CellIdentifier];
+    VLCNetworkListCell *cell = (VLCNetworkListCell *)[tableView dequeueReusableCellWithIdentifier:CellIdentifier];
     if (cell == nil)
-        cell = [VLCLocalNetworkListCell cellWithReuseIdentifier:CellIdentifier];
+        cell = [VLCNetworkListCell cellWithReuseIdentifier:CellIdentifier];
 
     NSUInteger row = indexPath.row;
     NSUInteger section = indexPath.section;

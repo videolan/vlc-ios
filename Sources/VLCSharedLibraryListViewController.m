@@ -12,7 +12,7 @@
 
 #import "VLCSharedLibraryListViewController.h"
 #import "VLCSharedLibraryParser.h"
-#import "VLCLocalNetworkListCell.h"
+#import "VLCNetworkListCell.h"
 #import "VLCAppDelegate.h"
 #import "VLCPlaylistViewController.h"
 #import "VLCDownloadViewController.h"
@@ -146,7 +146,7 @@
 {
     static NSString *CellIdentifier = @"libraryVLCCellDetail";
 
-    VLCLocalNetworkListCell *cell = (VLCLocalNetworkListCell *)[tableView dequeueReusableCellWithIdentifier:CellIdentifier];
+    VLCLocalNetworkListCell *cell = (VLCNetworkListCell *)[tableView dequeueReusableCellWithIdentifier:CellIdentifier];
 
     if (cell == nil)
         cell = [VLCLocalNetworkListCell cellWithReuseIdentifier:CellIdentifier];
@@ -203,7 +203,7 @@
 
 #pragma mark - Table view delegate
 
-- (void)tableView:(UITableView *)tableView willDisplayCell:(VLCLocalNetworkListCell *)cell forRowAtIndexPath:(NSIndexPath *)indexPath
+- (void)tableView:(UITableView *)tableView willDisplayCell:(VLCNetworkListCell *)cell forRowAtIndexPath:(NSIndexPath *)indexPath
 {
     UIColor *color = (indexPath.row % 2 == 0)? [UIColor blackColor]: [UIColor VLCDarkBackgroundColor];
     cell.contentView.backgroundColor = cell.titleLabel.backgroundColor = cell.folderTitleLabel.backgroundColor = cell.subtitleLabel.backgroundColor =  color;
@@ -298,7 +298,7 @@
 
 #pragma mark - VLCLocalNetworkListCell delegation
 
-- (void)triggerDownloadForCell:(VLCLocalNetworkListCell *)cell
+- (void)triggerDownloadForCell:(VLCNetworkListCell *)cell
 {
     NSDictionary *dataItem;
 

@@ -11,18 +11,18 @@
  * Refer to the COPYING file of the official project for license.
  *****************************************************************************/
 
-#import "VLCLocalNetworkListCell.h"
+#import "VLCNetworkListCell.h"
 
 #import "VLCStatusLabel.h"
 
-@implementation VLCLocalNetworkListCell
+@implementation VLCNetworkListCell
 
-+ (VLCLocalNetworkListCell *)cellWithReuseIdentifier:(NSString *)ident
++ (VLCNetworkListCell *)cellWithReuseIdentifier:(NSString *)ident
 {
-    NSArray *nibContentArray = [[NSBundle mainBundle] loadNibNamed:@"VLCLocalNetworkListCell" owner:nil options:nil];
+    NSArray *nibContentArray = [[NSBundle mainBundle] loadNibNamed:@"VLCNetworkListCell" owner:nil options:nil];
     NSAssert([nibContentArray count] == 1, @"meh");
-    NSAssert([[nibContentArray lastObject] isKindOfClass:[VLCLocalNetworkListCell class]], @"meh meh");
-    VLCLocalNetworkListCell *cell = (VLCLocalNetworkListCell *)[nibContentArray lastObject];
+    NSAssert([[nibContentArray lastObject] isKindOfClass:[VLCNetworkListCell class]], @"meh meh");
+    VLCNetworkListCell *cell = (VLCNetworkListCell *)[nibContentArray lastObject];
 
     return cell;
 }
