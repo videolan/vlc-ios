@@ -167,6 +167,7 @@
 		7DB638AB185BC0890003887C /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 7DB638AA185BC0890003887C /* Images.xcassets */; };
 		7DB847D71A5871570002DC30 /* VLCOneDriveObject.m in Sources */ = {isa = PBXBuildFile; fileRef = 7DB847D61A5871570002DC30 /* VLCOneDriveObject.m */; };
 		7DBB788A1B30423B00894467 /* VLCKeychainCoordinator.m in Sources */ = {isa = PBXBuildFile; fileRef = 7DBB78891B30423B00894467 /* VLCKeychainCoordinator.m */; };
+		7DBB788D1B305D7E00894467 /* KeychainItemWrapper.m in Sources */ = {isa = PBXBuildFile; fileRef = 7DBB788C1B305D7E00894467 /* KeychainItemWrapper.m */; settings = {COMPILER_FLAGS = "-fno-objc-arc"; }; };
 		7DBBF182183AB3B80009A339 /* VLCAppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 7DBBF181183AB3B80009A339 /* VLCAppDelegate.m */; };
 		7DBBF19A183AB4300009A339 /* VLCCloudStorageTableViewCell~ipad.xib in Resources */ = {isa = PBXBuildFile; fileRef = 7DBBF185183AB4300009A339 /* VLCCloudStorageTableViewCell~ipad.xib */; };
 		7DBBF19B183AB4300009A339 /* VLCCloudStorageTableViewCell~iphone.xib in Resources */ = {isa = PBXBuildFile; fileRef = 7DBBF186183AB4300009A339 /* VLCCloudStorageTableViewCell~iphone.xib */; };
@@ -611,6 +612,8 @@
 		7DB847D61A5871570002DC30 /* VLCOneDriveObject.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = VLCOneDriveObject.m; path = Sources/VLCOneDriveObject.m; sourceTree = SOURCE_ROOT; };
 		7DBB78881B30423B00894467 /* VLCKeychainCoordinator.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = VLCKeychainCoordinator.h; path = Sources/VLCKeychainCoordinator.h; sourceTree = SOURCE_ROOT; };
 		7DBB78891B30423B00894467 /* VLCKeychainCoordinator.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = VLCKeychainCoordinator.m; path = Sources/VLCKeychainCoordinator.m; sourceTree = SOURCE_ROOT; };
+		7DBB788B1B305D7E00894467 /* KeychainItemWrapper.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = KeychainItemWrapper.h; path = Sources/KeychainItemWrapper.h; sourceTree = SOURCE_ROOT; };
+		7DBB788C1B305D7E00894467 /* KeychainItemWrapper.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = KeychainItemWrapper.m; path = Sources/KeychainItemWrapper.m; sourceTree = SOURCE_ROOT; };
 		7DBBF180183AB3B80009A339 /* VLCAppDelegate.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = VLCAppDelegate.h; path = Sources/VLCAppDelegate.h; sourceTree = SOURCE_ROOT; };
 		7DBBF181183AB3B80009A339 /* VLCAppDelegate.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = VLCAppDelegate.m; path = Sources/VLCAppDelegate.m; sourceTree = SOURCE_ROOT; };
 		7DBBF185183AB4300009A339 /* VLCCloudStorageTableViewCell~ipad.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; name = "VLCCloudStorageTableViewCell~ipad.xib"; path = "Resources/VLCCloudStorageTableViewCell~ipad.xib"; sourceTree = SOURCE_ROOT; };
@@ -1298,8 +1301,7 @@
 				7D6B08BB174A72A900A05173 /* VLCConstants.h */,
 				7DBBF180183AB3B80009A339 /* VLCAppDelegate.h */,
 				7DBBF181183AB3B80009A339 /* VLCAppDelegate.m */,
-				7DBB78881B30423B00894467 /* VLCKeychainCoordinator.h */,
-				7DBB78891B30423B00894467 /* VLCKeychainCoordinator.m */,
+				7DBB788E1B305D8300894467 /* Keychain */,
 				A7D03A4817A4249F0022C16F /* MediaDiscovering */,
 				7D2339AB176DE70E008D223C /* Menu */,
 				7D5F7ABA175265CB006CCCFA /* HTTP Connectivity */,
@@ -1384,6 +1386,17 @@
 				7DAE0C391B2F085F00C53996 /* VLCDiscoveryListViewController.m */,
 			);
 			name = "Server browsing";
+			sourceTree = "<group>";
+		};
+		7DBB788E1B305D8300894467 /* Keychain */ = {
+			isa = PBXGroup;
+			children = (
+				7DBB78881B30423B00894467 /* VLCKeychainCoordinator.h */,
+				7DBB78891B30423B00894467 /* VLCKeychainCoordinator.m */,
+				7DBB788B1B305D7E00894467 /* KeychainItemWrapper.h */,
+				7DBB788C1B305D7E00894467 /* KeychainItemWrapper.m */,
+			);
+			name = Keychain;
 			sourceTree = "<group>";
 		};
 		7DC19AEB1868C91400810BF7 /* First Steps */ = {
@@ -1965,6 +1978,7 @@
 				7D50903218F41C7900180139 /* VLCAlertView.m in Sources */,
 				7DBBF182183AB3B80009A339 /* VLCAppDelegate.m in Sources */,
 				7D3784C0183A9938009EE944 /* VLCLinearProgressIndicator.m in Sources */,
+				7DBB788D1B305D7E00894467 /* KeychainItemWrapper.m in Sources */,
 				DD3EA6311AF50CFE007FF096 /* VLCWatchMessage.m in Sources */,
 				41CD695D1A29D72600E60BCE /* VLCBoxTableViewController.m in Sources */,
 				7D3784C1183A9938009EE944 /* VLCMenuButton.m in Sources */,
