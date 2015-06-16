@@ -1154,10 +1154,10 @@ currentMediaHasTrackToChooseFrom:(BOOL)currentMediaHasTrackToChooseFrom
         if (mediaPlayer.videoSubTitlesIndexes.count > 1)
             ret++;
     } else {
-        if ([mediaPlayer countOfTitles] > 1)
+        if ([mediaPlayer numberOfTitles] > 1)
             ret++;
 
-        if ([mediaPlayer chaptersForTitleIndex:mediaPlayer.currentTitleIndex].count > 1)
+        if ([mediaPlayer numberOfChaptersForTitle:mediaPlayer.currentTitleIndex] > 1)
             ret++;
     }
 
@@ -1185,10 +1185,10 @@ currentMediaHasTrackToChooseFrom:(BOOL)currentMediaHasTrackToChooseFrom
         if (mediaPlayer.videoSubTitlesIndexes.count > 1)
             return NSLocalizedString(@"CHOOSE_SUBTITLE_TRACK", nil);
     } else {
-        if ([mediaPlayer countOfTitles] > 1 && section == 0)
+        if ([mediaPlayer numberOfTitles] > 1 && section == 0)
             return NSLocalizedString(@"CHOOSE_TITLE", nil);
 
-        if ([mediaPlayer chaptersForTitleIndex:mediaPlayer.currentTitleIndex].count > 1)
+        if ([mediaPlayer numberOfChaptersForTitle:mediaPlayer.currentTitleIndex] > 1)
             return NSLocalizedString(@"CHOOSE_CHAPTER", nil);
     }
 
@@ -1225,13 +1225,15 @@ currentMediaHasTrackToChooseFrom:(BOOL)currentMediaHasTrackToChooseFrom
             cell.textLabel.text = [NSString stringWithFormat:@"%@", mediaPlayer.videoSubTitlesNames[row]];
         }
     } else {
-        if ([mediaPlayer countOfTitles] > 1 && section == 0) {
-            cell.textLabel.text = mediaPlayer.titles[row];
+        if ([mediaPlayer numberOfTitles] > 1 && section == 0) {
+            NSDictionary *description = mediaPlayer.titleDescriptions[row];
+            cell.textLabel.text = [NSString stringWithFormat:@"%@ (%@)", description[VLCTitleDescriptionName], [[VLCTime timeWithNumber:description[VLCTitleDescriptionDuration]] stringValue]];
 
             if (row == mediaPlayer.currentTitleIndex)
                 cellShowsCurrentTrack = YES;
         } else {
-            cell.textLabel.text = [mediaPlayer chaptersForTitleIndex:mediaPlayer.currentTitleIndex][row];
+            NSDictionary *description = [mediaPlayer chapterDescriptionsOfTitle:mediaPlayer.currentTitleIndex][row];
+            cell.textLabel.text = [NSString stringWithFormat:@"%@ (%@)", description[VLCChapterDescriptionName], [[VLCTime timeWithNumber:description[VLCChapterDescriptionDuration]] stringValue]];
 
             if (row == mediaPlayer.currentChapterIndex)
                 cellShowsCurrentTrack = YES;
@@ -1254,10 +1256,10 @@ currentMediaHasTrackToChooseFrom:(BOOL)currentMediaHasTrackToChooseFrom
 
         return mediaPlayer.videoSubTitlesIndexes.count;
     } else {
-        if ([mediaPlayer countOfTitles] > 1 && section == 0)
-            return [mediaPlayer countOfTitles];
+        if ([mediaPlayer numberOfTitles] > 1 && section == 0)
+            return [mediaPlayer numberOfTitles];
         else
-            return [mediaPlayer chaptersForTitleIndex:mediaPlayer.currentTitleIndex].count;
+            return [mediaPlayer numberOfChaptersForTitle:mediaPlayer.currentTitleIndex];
     }
 }
 
@@ -1280,7 +1282,7 @@ currentMediaHasTrackToChooseFrom:(BOOL)currentMediaHasTrackToChooseFrom
                 mediaPlayer.currentVideoSubTitleIndex = [indexArray[index] intValue];
         }
     } else {
-        if ([mediaPlayer countOfTitles] > 1 && indexPath.section == 0)
+        if ([mediaPlayer numberOfTitles] > 1 && indexPath.section == 0)
             mediaPlayer.currentTitleIndex = (int)index;
         else
             mediaPlayer.currentChapterIndex = (int)index;
