@@ -42,7 +42,7 @@
     NSNetServiceBrowser *_ftpNetServiceBrowser;
     NSNetServiceBrowser *_PlexNetServiceBrowser;
     NSNetServiceBrowser *_httpNetServiceBrowser;
-    NSMutableArray *_PlexServices;
+    NSMutableArray *_plexServices;
     NSMutableArray *_PlexServicesInfo;
     NSMutableArray *_httpServices;
     NSMutableArray *_httpServicesInfo;
@@ -153,7 +153,7 @@
     _ftpNetServiceBrowser = [[NSNetServiceBrowser alloc] init];
     _ftpNetServiceBrowser.delegate = self;
 
-    _PlexServices = [[NSMutableArray alloc] init];
+    _plexServices = [[NSMutableArray alloc] init];
     _PlexServicesInfo = [[NSMutableArray alloc] init];
     _PlexNetServiceBrowser = [[NSNetServiceBrowser alloc] init];
     _PlexNetServiceBrowser.delegate = self;
@@ -214,7 +214,6 @@
 
 - (void)_startUPNPDiscovery
 {
-    return;
     if (_reachability.currentReachabilityStatus != ReachableViaWiFi)
         return;
 
@@ -297,7 +296,7 @@
             return _filteredUPNPDevices.count;
 
         case 2:
-            return _PlexServices.count;
+            return _plexServices.count;
 
         case 3:
             return _ftpServices.count;
@@ -358,7 +357,7 @@
 
         case 2:
         {
-            [cell setTitle:[_PlexServices[row] name]];
+            [cell setTitle:[_plexServices[row] name]];
             [cell setIcon:[UIImage imageNamed:@"PlexServerIcon"]];
             break;
         }
@@ -567,6 +566,58 @@
 
 - (CGFloat)tableView:(UITableView *)tableView heightForHeaderInSection:(NSInteger)section
 {
+    switch (section) {
+        case 0:
+        {
+            // always hide the header of the first section
+            return 0.;
+        }
+        case 1:
+        {
+            if (_filteredUPNPDevices.count == 0)
+                return .0;
+            break;
+        }
+
+        case 2:
+        {
+            if (_plexServices.count == 0)
+                return .0;
+            break;
+        }
+
+        case 3:
+        {
+            if (_ftpServices.count == 0)
+                return .0;
+            break;
+        }
+
+        case 4:
+        {
+            if (_httpServices.count == 0)
+                return .0;
+            break;
+        }
+
+        case 5:
+        {
+            if (_dsmDiscoverer.discoveredMedia.count == 0)
+                return .0;
+            break;
+        }
+
+        case 6:
+        {
+            if (_sapDiscoverer.discoveredMedia.count == 0)
+                return .0;
+            break;
+        }
+
+        default:
+            break;
+    }
+
     return 21.f;
 }
 
@@ -617,7 +668,7 @@
     if ([aNetService.type isEqualToString:@"_ftp._tcp."])
         [_ftpServices removeObject:aNetService];
     if ([aNetService.type isEqualToString:kPlexServiceType]) {
-        [_PlexServices removeObject:aNetService];
+        [_plexServices removeObject:aNetService];
         [_PlexServicesInfo removeAllObjects];
     }
     if ([aNetService.type isEqualToString:@"_http._tcp."]) {
@@ -634,8 +685,8 @@
         if (![_ftpServices containsObject:aNetService])
             [_ftpServices addObject:aNetService];
     } else if ([aNetService.type isEqualToString:kPlexServiceType]) {
-        if (![_PlexServices containsObject:aNetService]) {
-            [_PlexServices addObject:aNetService];
+        if (![_plexServices containsObject:aNetService]) {
+            [_plexServices addObject:aNetService];
             NSMutableDictionary *_dictService = [[NSMutableDictionary alloc] init];
             [_dictService setObject:[aNetService name] forKey:@"name"];
             [_dictService setObject:[aNetService hostName] forKey:@"hostName"];
