@@ -135,7 +135,7 @@
                           name:VLCSharedLibraryParserDeterminedNetserviceAsVLCInstance
                         object:nil];
 
-    _sectionHeaderTexts = @[@"Universal Plug'n'Play (UPnP)", @"Plex Media Server (via Bonjour)", @"File Transfer Protocol (FTP)", NSLocalizedString(@"SHARED_VLC_IOS_LIBRARY", nil), NSLocalizedString(@"SMB_CIFS_FILE_SERVERS", nil), @"SAP"];
+    _sectionHeaderTexts = @[@"Generic", @"Universal Plug'n'Play (UPnP)", @"Plex Media Server (via Bonjour)", @"File Transfer Protocol (FTP)", NSLocalizedString(@"SHARED_VLC_IOS_LIBRARY", nil), NSLocalizedString(@"SMB_CIFS_FILE_SERVERS", nil), @"SAP"];
 
     _backToMenuButton = [UIBarButtonItem themedRevealMenuButtonWithTarget:self andSelector:@selector(goBack:)];
     self.navigationItem.leftBarButtonItem = _backToMenuButton;
@@ -147,7 +147,6 @@
     self.title = NSLocalizedString(@"LOCAL_NETWORK", nil);
 
     _ftpServices = [[NSMutableArray alloc] init];
-    [_ftpServices addObject:NSLocalizedString(@"CONNECT_TO_SERVER", nil)];
 
     _rawNetServices = [[NSMutableArray alloc] init];
 
@@ -290,20 +289,31 @@
 
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section
 {
-    if (section == 0)
-        return _filteredUPNPDevices.count;
-    else if (section == 1)
-        return (_PlexServices.count + 1);
-    else if (section == 2)
-        return _ftpServices.count;
-    else if (section == 3)
-        return _httpServices.count;
-    else if (section == 4)
-        return _dsmDiscoverer.discoveredMedia.count;
-    else if (section == 5)
-        return _sapDiscoverer.discoveredMedia.count;
+    switch (section) {
+        case 0:
+            return 1;
 
-    return 0;
+        case 1:
+            return _filteredUPNPDevices.count;
+
+        case 2:
+            return _PlexServices.count;
+
+        case 3:
+            return _ftpServices.count;
+
+        case 4:
+            return _httpServices.count;
+
+        case 5:
+            return _dsmDiscoverer.discoveredMedia.count;
+
+        case 6:
+            return _sapDiscoverer.discoveredMedia.count;
+
+        default:
+            return 0;
+    }
 }
 
 - (void)tableView:(UITableView *)tableView willDisplayCell:(VLCNetworkListCell *)cell forRowAtIndexPath:(NSIndexPath *)indexPath
@@ -326,37 +336,64 @@
     [cell setIsDirectory:YES];
     [cell setIcon:nil];
 
-    if (section == 0) {
-        UIImage *icon;
-        if (_filteredUPNPDevices.count > row) {
-            BasicUPnPDevice *device = _filteredUPNPDevices[row];
-            [cell setTitle:[device friendlyName]];
-            icon = [device smallIcon];
+    switch (section) {
+        case 0:
+        {
+            [cell setTitle:NSLocalizedString(@"CONNECT_TO_SERVER", nil)];
+            [cell setIcon:[UIImage imageNamed:@"menuCone"]];
+            break;
         }
-        [cell setIcon:icon != nil ? icon : [UIImage imageNamed:@"serverIcon"]];
-    } else if (section == 1) {
-        NSInteger totalRow = [tableView numberOfRowsInSection:section];
-        if (row == (totalRow - 1))
-            [cell setTitle:NSLocalizedString(@"PLEX_CONNECT_TO_SERVER", nil)];
-        else {
+
+        case 1:
+        {
+            UIImage *icon;
+            if (_filteredUPNPDevices.count > row) {
+                BasicUPnPDevice *device = _filteredUPNPDevices[row];
+                [cell setTitle:[device friendlyName]];
+                icon = [device smallIcon];
+            }
+            [cell setIcon:icon != nil ? icon : [UIImage imageNamed:@"serverIcon"]];
+            break;
+        }
+
+        case 2:
+        {
             [cell setTitle:[_PlexServices[row] name]];
             [cell setIcon:[UIImage imageNamed:@"PlexServerIcon"]];
+            break;
         }
-    } else if (section == 2) {
-        if (row == 0)
-            [cell setTitle:_ftpServices[row]];
-        else {
+
+        case 3:
+        {
             [cell setTitle:[_ftpServices[row] name]];
             [cell setIcon:[UIImage imageNamed:@"serverIcon"]];
+            break;
         }
-    } else if (section == 3) {
-        [cell setTitle:[_httpServices[row] name]];
-        [cell setIcon:[UIImage imageNamed:@"menuCone"]];
-    } else if (section == 4) {
-        [cell setTitle:[[_dsmDiscoverer.discoveredMedia mediaAtIndex:row] metadataForKey: VLCMetaInformationTitle]];
-        [cell setIcon:[UIImage imageNamed:@"serverIcon"]];
-    } else if (section == 5)
-        [cell setTitle:[[_sapDiscoverer.discoveredMedia mediaAtIndex:row] metadataForKey: VLCMetaInformationTitle]];
+
+        case 4:
+        {
+            [cell setTitle:[_httpServices[row] name]];
+            [cell setIcon:[UIImage imageNamed:@"menuCone"]];
+            break;
+        }
+
+        case 5:
+        {
+            [cell setTitle:[[_dsmDiscoverer.discoveredMedia mediaAtIndex:row] metadataForKey: VLCMetaInformationTitle]];
+            [cell setIcon:[UIImage imageNamed:@"serverIcon"]];
+            break;
+        }
+
+        case 6:
+        {
+            [cell setTitle:[[_sapDiscoverer.discoveredMedia mediaAtIndex:row] metadataForKey: VLCMetaInformationTitle]];
+            [cell setIcon:[UIImage imageNamed:@"TVBroadcastIcon"]];
+            break;
+        }
+
+        default:
+            break;
+    }
 
     return cell;
 }
@@ -368,77 +405,117 @@
     NSUInteger row = indexPath.row;
     NSUInteger section = indexPath.section;
 
-    if (section == 0) {
-        if (_filteredUPNPDevices.count < row || _filteredUPNPDevices.count == 0)
-            return;
+    switch (section) {
+        case 0:
+        {
+            VLCNetworkLoginViewController *loginViewController = [[VLCNetworkLoginViewController alloc] initWithNibName:@"VLCNetworkLoginViewController" bundle:nil];
+            loginViewController.delegate = self;
 
-        [_activityIndicator startAnimating];
-        BasicUPnPDevice *device = _filteredUPNPDevices[row];
-        if ([[device urn] isEqualToString:@"urn:schemas-upnp-org:device:MediaServer:1"]) {
-            MediaServer1Device *server = (MediaServer1Device*)device;
-            VLCUPnPServerListViewController *targetViewController = [[VLCUPnPServerListViewController alloc] initWithUPNPDevice:server header:[device friendlyName] andRootID:@"0"];
-            [self.navigationController pushViewController:targetViewController animated:YES];
-        }
-    } else if (section == 1) {
-        NSInteger totalRow = [tableView numberOfRowsInSection:section];
-        if (row == (totalRow - 1)) {
-            VLCPlexConnectServerViewController *_connectPlexServer;
-            _connectPlexServer = [[VLCPlexConnectServerViewController alloc] initWithNibName:@"VLCPlexConnectServerViewController" bundle:nil];
-
-            UINavigationController *navCon = [[VLCNavigationController alloc] initWithRootViewController:_connectPlexServer];
+            UINavigationController *navCon = [[VLCNavigationController alloc] initWithRootViewController:loginViewController];
             navCon.navigationBarHidden = NO;
 
-            [self.navigationController pushViewController:_connectPlexServer animated:YES];
-        } else {
-            NSString *name = [_PlexServicesInfo[row] objectForKey:@"name"];
-            NSString *hostName = [_PlexServicesInfo[row] objectForKey:@"hostName"];
-            NSString *portNum = [_PlexServicesInfo[row] objectForKey:@"port"];
-            VLCLocalPlexFolderListViewController *targetViewController = [[VLCLocalPlexFolderListViewController alloc] initWithPlexServer:name serverAddress:hostName portNumber:portNum atPath:@"" authentification:@""];
-            [[self navigationController] pushViewController:targetViewController animated:YES];
+            if (UI_USER_INTERFACE_IDIOM() == UIUserInterfaceIdiomPad) {
+                navCon.modalPresentationStyle = UIModalPresentationFormSheet;
+                [self presentViewController:navCon animated:YES completion:nil];
+
+                if (loginViewController.navigationItem.leftBarButtonItem == nil)
+                    loginViewController.navigationItem.leftBarButtonItem = [UIBarButtonItem themedDarkToolbarButtonWithTitle:NSLocalizedString(@"BUTTON_DONE", nil) target:loginViewController andSelector:@selector(dismissWithAnimation:)];
+            } else
+                [self.navigationController pushViewController:loginViewController animated:YES];
         }
-    } else if (section == 2) {
-        VLCNetworkLoginViewController *loginViewController = [[VLCNetworkLoginViewController alloc] initWithNibName:@"VLCNetworkLoginViewController" bundle:nil];
-        loginViewController.delegate = self;
+        case 1:
+        {
+            if (_filteredUPNPDevices.count < row || _filteredUPNPDevices.count == 0)
+                return;
 
-        UINavigationController *navCon = [[VLCNavigationController alloc] initWithRootViewController:loginViewController];
-        navCon.navigationBarHidden = NO;
+            [_activityIndicator startAnimating];
+            BasicUPnPDevice *device = _filteredUPNPDevices[row];
+            if ([[device urn] isEqualToString:@"urn:schemas-upnp-org:device:MediaServer:1"]) {
+                MediaServer1Device *server = (MediaServer1Device*)device;
+                VLCUPnPServerListViewController *targetViewController = [[VLCUPnPServerListViewController alloc] initWithUPNPDevice:server header:[device friendlyName] andRootID:@"0"];
+                [self.navigationController pushViewController:targetViewController animated:YES];
+            }
+            break;
+        }
 
-        if (UI_USER_INTERFACE_IDIOM() == UIUserInterfaceIdiomPad) {
-            navCon.modalPresentationStyle = UIModalPresentationFormSheet;
-            [self presentViewController:navCon animated:YES completion:nil];
+        case 2:
+        {
+            NSInteger totalRow = [tableView numberOfRowsInSection:section];
+            if (row == (totalRow - 1)) {
+                VLCPlexConnectServerViewController *_connectPlexServer;
+                _connectPlexServer = [[VLCPlexConnectServerViewController alloc] initWithNibName:@"VLCPlexConnectServerViewController" bundle:nil];
 
-            if (loginViewController.navigationItem.leftBarButtonItem == nil)
-                loginViewController.navigationItem.leftBarButtonItem = [UIBarButtonItem themedDarkToolbarButtonWithTitle:NSLocalizedString(@"BUTTON_DONE", nil) target:loginViewController andSelector:@selector(dismissWithAnimation:)];
-        } else
-            [self.navigationController pushViewController:loginViewController animated:YES];
+                UINavigationController *navCon = [[VLCNavigationController alloc] initWithRootViewController:_connectPlexServer];
+                navCon.navigationBarHidden = NO;
 
-        if (row != 0 && [_ftpServices[row] hostName].length > 0) // FTP Connect To Server Special Item and hostname is long enough
+                [self.navigationController pushViewController:_connectPlexServer animated:YES];
+            } else {
+                NSString *name = [_PlexServicesInfo[row] objectForKey:@"name"];
+                NSString *hostName = [_PlexServicesInfo[row] objectForKey:@"hostName"];
+                NSString *portNum = [_PlexServicesInfo[row] objectForKey:@"port"];
+                VLCLocalPlexFolderListViewController *targetViewController = [[VLCLocalPlexFolderListViewController alloc] initWithPlexServer:name serverAddress:hostName portNumber:portNum atPath:@"" authentification:@""];
+                [[self navigationController] pushViewController:targetViewController animated:YES];
+            }
+            break;
+        }
+
+        case 3:
+        {
+            VLCNetworkLoginViewController *loginViewController = [[VLCNetworkLoginViewController alloc] initWithNibName:@"VLCNetworkLoginViewController" bundle:nil];
+            loginViewController.delegate = self;
+
+            UINavigationController *navCon = [[VLCNavigationController alloc] initWithRootViewController:loginViewController];
+            navCon.navigationBarHidden = NO;
+
+            if (UI_USER_INTERFACE_IDIOM() == UIUserInterfaceIdiomPad) {
+                navCon.modalPresentationStyle = UIModalPresentationFormSheet;
+                [self presentViewController:navCon animated:YES completion:nil];
+
+                if (loginViewController.navigationItem.leftBarButtonItem == nil)
+                    loginViewController.navigationItem.leftBarButtonItem = [UIBarButtonItem themedDarkToolbarButtonWithTitle:NSLocalizedString(@"BUTTON_DONE", nil) target:loginViewController andSelector:@selector(dismissWithAnimation:)];
+            } else
+                [self.navigationController pushViewController:loginViewController animated:YES];
             loginViewController.hostname = [_ftpServices[row] hostName];
-        else
-            loginViewController.hostname = @"";
-    } else if (section == 3) {
-        NSString *name = [_httpServicesInfo[row] objectForKey:@"name"];
-        NSString *hostName = [_httpServicesInfo[row] objectForKey:@"hostName"];
-        NSString *portNum = [_httpServicesInfo[row] objectForKey:@"port"];
-        VLCSharedLibraryListViewController *targetViewController = [[VLCSharedLibraryListViewController alloc]
-                                                                    initWithHttpServer:name
-                                                                    serverAddress:hostName
-                                                                    portNumber:portNum];
-        [[self navigationController] pushViewController:targetViewController animated:YES];
-    } else if (section == 4) {
-        VLCMedia *cellMedia = [_dsmDiscoverer.discoveredMedia mediaAtIndex:row];
-        if (cellMedia.mediaType != VLCMediaTypeDirectory)
-            return;
+            break;
+        }
 
-        VLCDiscoveryListViewController *targetViewController = [[VLCDiscoveryListViewController alloc]
-                                                                initWithMedia:cellMedia];
-        [[self navigationController] pushViewController:targetViewController animated:YES];
-    } else if (section == 5) {
-        VLCAppDelegate *appDelegate = [UIApplication sharedApplication].delegate;
-        VLCMedia *cellMedia = [_sapDiscoverer.discoveredMedia mediaAtIndex:row];
-        VLCMediaType mediaType = cellMedia.mediaType;
-        if (mediaType != VLCMediaTypeDirectory && mediaType != VLCMediaTypeDisc)
-            [appDelegate openMovieFromURL:[[_sapDiscoverer.discoveredMedia mediaAtIndex:row] url]];
+        case 4:
+        {
+            NSString *name = [_httpServicesInfo[row] objectForKey:@"name"];
+            NSString *hostName = [_httpServicesInfo[row] objectForKey:@"hostName"];
+            NSString *portNum = [_httpServicesInfo[row] objectForKey:@"port"];
+            VLCSharedLibraryListViewController *targetViewController = [[VLCSharedLibraryListViewController alloc]
+                                                                        initWithHttpServer:name
+                                                                        serverAddress:hostName
+                                                                        portNumber:portNum];
+            [[self navigationController] pushViewController:targetViewController animated:YES];
+            break;
+        }
+
+        case 5:
+        {
+            VLCMedia *cellMedia = [_dsmDiscoverer.discoveredMedia mediaAtIndex:row];
+            if (cellMedia.mediaType != VLCMediaTypeDirectory)
+                return;
+
+            VLCDiscoveryListViewController *targetViewController = [[VLCDiscoveryListViewController alloc]
+                                                                    initWithMedia:cellMedia];
+            [[self navigationController] pushViewController:targetViewController animated:YES];
+            break;
+        }
+
+        case 6:
+        {
+            VLCAppDelegate *appDelegate = [UIApplication sharedApplication].delegate;
+            VLCMedia *cellMedia = [_sapDiscoverer.discoveredMedia mediaAtIndex:row];
+            VLCMediaType mediaType = cellMedia.mediaType;
+            if (mediaType != VLCMediaTypeDirectory && mediaType != VLCMediaTypeDisc)
+                [appDelegate openMovieFromURL:[[_sapDiscoverer.discoveredMedia mediaAtIndex:row] url]];
+            break;
+        }
+
+        default:
+            break;
     }
 }
 
