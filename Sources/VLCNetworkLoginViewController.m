@@ -2,7 +2,7 @@
  * VLCNetworkLoginViewController.m
  * VLC for iOS
  *****************************************************************************
- * Copyright (c) 2013 VideoLAN. All rights reserved.
+ * Copyright (c) 2013-2015 VideoLAN. All rights reserved.
  * $Id$
  *
  * Authors: Felix Paul Kühne <fkuehne # videolan.org>
@@ -15,9 +15,6 @@
 
 @interface VLCNetworkLoginViewController () <UITableViewDataSource, UITableViewDelegate, UITextFieldDelegate>
 {
-    NSMutableArray *_saveServer;
-    NSMutableArray *_saveLogin;
-    NSMutableArray *_savePass;
     NSString *_hostname;
     NSString *_username;
     NSString *_password;
@@ -26,45 +23,37 @@
 
 @implementation VLCNetworkLoginViewController
 
-+ (void)initialize
-{
-    NSUserDefaults *defaults = [NSUserDefaults standardUserDefaults];
-
-    NSDictionary *loginDefaults = @{kVLCFTPServer : @[], kVLCFTPLogin : @[],kVLCFTPServer : @[]};
-
-    [defaults registerDefaults:loginDefaults];
-}
-
 - (void)viewDidLoad
 {
     [super viewDidLoad];
 
     self.modalPresentationStyle = UIModalPresentationFormSheet;
 
-    if (UI_USER_INTERFACE_IDIOM() == UIUserInterfaceIdiomPhone) {
-        UIBarButtonItem *dismissButton = [UIBarButtonItem themedBackButtonWithTarget:self andSelector:@selector(dismissWithAnimation:)];
-        self.navigationItem.leftBarButtonItem = dismissButton;
-    }
-
     self.title = NSLocalizedString(@"CONNECT_TO_SERVER", nil);
     [self.connectButton setTitle:NSLocalizedString(@"BUTTON_CONNECT", nil) forState:UIControlStateNormal];
-    self.serverAddressHelpLabel.text = NSLocalizedString(@"ENTER_SERVER_ADDRESS_HELP", nil);
+    self.serverLabel.text = NSLocalizedString(@"SERVER", nil);
+    self.portLabel.text = NSLocalizedString(@"SERVER_PORT", nil);
     self.loginHelpLabel.text = NSLocalizedString(@"ENTER_SERVER_CREDS_HELP", nil);
-    self.usernameLabel.text = NSLocalizedString(@"USER_LABEL", nil);
-    self.passwordLabel.text = NSLocalizedString(@"PASSWORD_LABEL", nil);
 
-    self.serverAddressField.delegate = self;
-    self.serverAddressField.returnKeyType = UIReturnKeyNext;
-    self.serverAddressField.clearButtonMode = UITextFieldViewModeWhileEditing;
+    self.serverField.delegate = self;
+    self.serverField.returnKeyType = UIReturnKeyNext;
+    self.serverField.clearButtonMode = UITextFieldViewModeWhileEditing;
+    self.portField.delegate = self;
+    self.portField.returnKeyType = UIReturnKeyNext;
+    self.portField.clearButtonMode = UITextFieldViewModeWhileEditing;
     self.usernameField.delegate = self;
     self.usernameField.returnKeyType = UIReturnKeyNext;
     self.usernameField.clearButtonMode = UITextFieldViewModeWhileEditing;
     self.passwordField.delegate = self;
     self.passwordField.returnKeyType = UIReturnKeyDone;
     self.passwordField.clearButtonMode = UITextFieldViewModeWhileEditing;
+    self.historyLogin.backgroundColor = [UIColor VLCDarkBackgroundColor];
 
     UIColor *color = [UIColor VLCLightTextColor];
-    self.serverAddressField.attributedPlaceholder = [[NSAttributedString alloc] initWithString:@"ftp://yourserver.local" attributes:@{NSForegroundColorAttributeName: color}];
+    self.protocolSegmentedControl.selectedSegmentIndex = 1; // FTP
+    self.serverProtocol = VLCServerProtocolFTP;
+    self.serverField.attributedPlaceholder = [[NSAttributedString alloc] initWithString:@"yourserver.local" attributes:@{NSForegroundColorAttributeName: color}];
+    self.portField.attributedPlaceholder = [[NSAttributedString alloc] initWithString:@"21" attributes:@{NSForegroundColorAttributeName: color}];
     self.usernameField.attributedPlaceholder = [[NSAttributedString alloc] initWithString:NSLocalizedString(@"USER_LABEL", nil) attributes:@{NSForegroundColorAttributeName: color}];
     self.passwordField.attributedPlaceholder = [[NSAttributedString alloc] initWithString:NSLocalizedString(@"PASSWORD_LABEL", nil) attributes:@{NSForegroundColorAttributeName: color}];
     self.edgesForExtendedLayout = UIRectEdgeNone;
@@ -72,74 +61,65 @@
 
 - (void)viewWillAppear:(BOOL)animated
 {
-    NSUserDefaults *defaults = [NSUserDefaults standardUserDefaults];
-    _saveServer = [NSMutableArray arrayWithArray:[defaults objectForKey:kVLCFTPServer]];
-    _saveLogin = [NSMutableArray arrayWithArray:[defaults objectForKey:kVLCFTPLogin]];
-    _savePass = [NSMutableArray arrayWithArray:[defaults objectForKey:kVLCFTPPassword]];
-
     [super viewWillAppear:animated];
 
-    if ([defaults stringForKey:kVLCLastFTPServer])
-        self.serverAddressField.text = [defaults stringForKey:kVLCLastFTPServer];
-    if ([defaults stringForKey:kVLCLastFTPLogin])
-        self.usernameField.text = [defaults stringForKey:kVLCLastFTPLogin];
-    if ([defaults stringForKey:kVLCLastFTPPassword])
-        self.passwordField.text = [defaults stringForKey:kVLCLastFTPPassword];
-
     if (_hostname.length > 0)
-        self.serverAddressField.text = _hostname;
+        self.serverField.text = _hostname;
+    if (_port.length > 0)
+        self.portField.text = _port;
     if (_username.length > 0)
         self.usernameField.text = _username;
     if (_password.length > 0)
         self.passwordField.text = _password;
+    if (self.serverProtocol != VLCServerProtocolUndefined) {
+        self.protocolSegmentedControl.selectedSegmentIndex = self.serverProtocol;
+        self.protocolSegmentedControl.enabled = NO;
+    } else {
+        self.protocolSegmentedControl.enabled = YES;
+    }
+
+    // FIXME: persistent state
+    /* 
+     NSUserDefaults *defaults = [NSUserDefaults standardUserDefaults];
+     _bookmarkServer = [NSMutableArray arrayWithArray:[defaults objectForKey:kVLCPLEXServer]];
+     _bookmarkPort = [NSMutableArray arrayWithArray:[defaults objectForKey:kVLCPLEXPort]];
+
+     [super viewWillAppear:animated];
+
+     if ([defaults stringForKey:kVLCLastPLEXServer])
+     self.serverAddressField.text = [defaults stringForKey:kVLCLastPLEXServer];
+     if ([defaults stringForKey:kVLCLastPLEXPort])
+     self.portField.text = [defaults stringForKey:kVLCLastPLEXPort];
+
+     if (self.portField.text.length < 1)
+     self.portField.text = kPlexMediaServerPortDefault;
+     */
 }
 
 - (void)viewWillDisappear:(BOOL)animated
 {
-    NSUserDefaults *defaults = [NSUserDefaults standardUserDefaults];
-    [defaults setObject:self.serverAddressField.text forKey:kVLCLastFTPServer];
-    [defaults setObject:self.usernameField.text forKey:kVLCLastFTPLogin];
-    [defaults setObject:self.passwordField.text forKey:kVLCLastFTPPassword];
-
+    // FIXME: persistent state?!
     [super viewWillDisappear:animated];
-}
-
-- (IBAction)dismissWithAnimation:(id)sender
-{
-    self.navigationController.navigationBar.translucent = YES;
-
-    if (UI_USER_INTERFACE_IDIOM() == UIUserInterfaceIdiomPhone)
-        [self.navigationController popViewControllerAnimated:YES];
-    else
-        [self dismissViewControllerAnimated:YES completion:nil];
-}
-
-- (IBAction)dismiss:(id)sender
-{
-    self.navigationController.navigationBar.translucent = YES;
-
-    if (UI_USER_INTERFACE_IDIOM() == UIUserInterfaceIdiomPhone)
-        [self.navigationController popViewControllerAnimated:NO];
-    else
-        [self dismissViewControllerAnimated:NO completion:nil];
 }
 
 - (IBAction)connectToServer:(id)sender
 {
-    [self dismiss:nil];
-
     if (self.delegate) {
-        if ([self.delegate respondsToSelector:@selector(loginToURL:confirmedWithUsername:andPassword:)]) {
-            NSString *string = self.serverAddressField.text;
-            if (![string hasPrefix:@"ftp://"])
-                string = [NSString stringWithFormat:@"ftp://%@", string];
-            [self.delegate loginToURL:[NSURL URLWithString:string] confirmedWithUsername:self.usernameField.text andPassword:self.passwordField.text];
+        if ([self.delegate respondsToSelector:@selector(loginToServer:port:protocol:confirmedWithUsername:andPassword:)]) {
+
+            [self.delegate loginToServer:self.serverField.text
+                                    port:self.portField.text
+                                protocol:self.protocolSegmentedControl.selectedSegmentIndex
+                   confirmedWithUsername:self.usernameField.text
+                             andPassword:self.passwordField.text];
         }
     }
 }
 
-- (IBAction)saveFTP:(id)sender
+- (IBAction)saveServer:(id)sender
 {
+    // FIXME:
+    /*
     NSString *serverAddress = self.serverAddressField.text;
     if (!serverAddress)
         return;
@@ -149,19 +129,49 @@
     [_saveServer addObject:serverAddress];
     [_saveLogin addObject:self.usernameField.text];
     [_savePass  addObject:self.passwordField.text];
-    NSUserDefaults *defaults = [NSUserDefaults standardUserDefaults];
-    [defaults setObject:[NSArray arrayWithArray:_saveServer] forKey:kVLCFTPServer];
-    [defaults setObject:[NSArray arrayWithArray:_saveLogin] forKey:kVLCFTPLogin];
-    [defaults setObject:[NSArray arrayWithArray:_savePass] forKey:kVLCFTPPassword];
-    [defaults synchronize];
-    [self.historyLogin reloadData];
+
+     NSUserDefaults *defaults = [NSUserDefaults standardUserDefaults];
+     [defaults setObject:[NSArray arrayWithArray:_bookmarkServer] forKey:kVLCPLEXServer];
+     [defaults setObject:[NSArray arrayWithArray:_bookmarkPort] forKey:kVLCPLEXPort];
+
+     [self.historyLogin reloadData];*/
+}
+
+- (IBAction)protocolSelectionChanged:(id)sender
+{
+    UIColor *color = [UIColor VLCLightTextColor];
+
+    switch (self.protocolSegmentedControl.selectedSegmentIndex) {
+        case VLCServerProtocolFTP:
+        {
+            self.portField.attributedPlaceholder = [[NSAttributedString alloc] initWithString:@"21" attributes:@{NSForegroundColorAttributeName: color}];
+            self.usernameField.enabled = self.passwordField.enabled = YES;
+            break;
+        }
+        case VLCServerProtocolPLEX:
+        {
+            self.portField.attributedPlaceholder = [[NSAttributedString alloc] initWithString:@"32400" attributes:@{NSForegroundColorAttributeName: color}];
+            self.usernameField.enabled = self.passwordField.enabled = NO;
+            break;
+        }
+        case VLCServerProtocolSMB:
+        {
+            self.portField.placeholder = @"";
+            self.portField.enabled = NO;
+            self.usernameField.enabled = self.passwordField.enabled = YES;
+        }
+
+        default:
+            break;
+    }
+
 }
 
 #pragma mark - text view delegate
 - (BOOL)textFieldShouldReturn:(UITextField *)textField
 {
-    if ([self.serverAddressField isFirstResponder]) {
-        [self.serverAddressField resignFirstResponder];
+    if ([self.serverField isFirstResponder]) {
+        [self.serverField resignFirstResponder];
         [self.usernameField becomeFirstResponder];
     } else if ([self.usernameField isFirstResponder]) {
         [self.usernameField resignFirstResponder];
@@ -181,7 +191,7 @@
 
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section
 {
-    return _saveServer.count;
+    return 0; // FIXME: _saveServer.count;
 }
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
@@ -196,8 +206,9 @@
     }
 
     NSInteger row = indexPath.row;
+/*  FIXME: fetch from storage
     cell.textLabel.text = [_saveServer[row] lastPathComponent];
-    cell.detailTextLabel.text = _saveLogin[row];
+    cell.detailTextLabel.text = _saveLogin[row];*/
 
     return cell;
 }
@@ -217,23 +228,14 @@
 - (void)tableView:(UITableView *)tableView commitEditingStyle:(UITableViewCellEditingStyle)editingStyle forRowAtIndexPath:(NSIndexPath *)indexPath
 {
     if (editingStyle == UITableViewCellEditingStyleDelete) {
-        [_saveServer removeObjectAtIndex:indexPath.row];
-        [_saveLogin removeObjectAtIndex:indexPath.row];
-        [_savePass removeObjectAtIndex:indexPath.row];
+        // FIXME: remove from storage
         [tableView reloadData];
-        NSUserDefaults *defaults = [NSUserDefaults standardUserDefaults];
-        [defaults setObject:[NSArray arrayWithArray:_saveServer] forKey:kVLCFTPServer];
-        [defaults setObject:[NSArray arrayWithArray:_saveLogin] forKey:kVLCFTPLogin];
-        [defaults setObject:[NSArray arrayWithArray:_savePass] forKey:kVLCFTPPassword];
-        [defaults synchronize];
     }
 }
 
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
 {
-    [self.serverAddressField setText:_saveServer[indexPath.row]];
-    [self.usernameField setText:_saveLogin[indexPath.row]];
-    [self.passwordField setText:_savePass[indexPath.row]];
+    // FIXME: fetch from storage
 
     [self.historyLogin deselectRowAtIndexPath:indexPath animated:NO];
 }
@@ -241,12 +243,12 @@
 - (void)setHostname:(NSString *)theHostname
 {
     _hostname = theHostname;
-    self.serverAddressField.text = theHostname;
+    self.serverField.text = theHostname;
 }
 
 - (NSString *)hostname
 {
-    return self.serverAddressField.text;
+    return self.serverField.text;
 }
 
 - (void)setUsername:(NSString *)theUsername
@@ -270,5 +272,6 @@
 {
     return self.passwordField.text;
 }
+
 
 @end

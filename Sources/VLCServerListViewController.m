@@ -18,7 +18,6 @@
 #import "VLCNetworkListCell.h"
 
 #import "VLCLocalPlexFolderListViewController.h"
-#import "VLCPlexConnectServerViewController.h"
 
 #import "VLCFTPServerListViewController.h"
 #import "VLCUPnPServerListViewController.h"
@@ -34,7 +33,7 @@
 
 #define kPlexServiceType @"_plexmediasvr._tcp."
 
-@interface VLCServerListViewController () <UITableViewDataSource, UITableViewDelegate, NSNetServiceBrowserDelegate, VLCNetworkLoginViewController, NSNetServiceDelegate, VLCMediaListDelegate, UPnPDBObserver>
+@interface VLCServerListViewController () <UITableViewDataSource, UITableViewDelegate, NSNetServiceBrowserDelegate, VLCNetworkLoginViewControllerDelegate, NSNetServiceDelegate, VLCMediaListDelegate, UPnPDBObserver>
 {
     UIBarButtonItem *_backToMenuButton;
     NSArray *_sectionHeaderTexts;
@@ -246,7 +245,7 @@
     UPnPManager *managerInstance = [UPnPManager GetInstance];
     [[managerInstance SSDP] searchSSDP];
     [[managerInstance SSDP] searchForMediaServer];
-    [[managerInstance SSDP] SSDPDBUpdate];
+    [[managerInstance SSDP] performSelectorInBackground:@selector(SSDPDBUpdate) withObject:nil];
 }
 
 - (void)_stopUPNPDiscovery
@@ -409,6 +408,7 @@
         {
             VLCNetworkLoginViewController *loginViewController = [[VLCNetworkLoginViewController alloc] initWithNibName:@"VLCNetworkLoginViewController" bundle:nil];
             loginViewController.delegate = self;
+            loginViewController.serverProtocol = VLCServerProtocolUndefined;
 
             UINavigationController *navCon = [[VLCNavigationController alloc] initWithRootViewController:loginViewController];
             navCon.navigationBarHidden = NO;
@@ -439,22 +439,11 @@
 
         case 2:
         {
-            NSInteger totalRow = [tableView numberOfRowsInSection:section];
-            if (row == (totalRow - 1)) {
-                VLCPlexConnectServerViewController *_connectPlexServer;
-                _connectPlexServer = [[VLCPlexConnectServerViewController alloc] initWithNibName:@"VLCPlexConnectServerViewController" bundle:nil];
-
-                UINavigationController *navCon = [[VLCNavigationController alloc] initWithRootViewController:_connectPlexServer];
-                navCon.navigationBarHidden = NO;
-
-                [self.navigationController pushViewController:_connectPlexServer animated:YES];
-            } else {
-                NSString *name = [_PlexServicesInfo[row] objectForKey:@"name"];
-                NSString *hostName = [_PlexServicesInfo[row] objectForKey:@"hostName"];
-                NSString *portNum = [_PlexServicesInfo[row] objectForKey:@"port"];
-                VLCLocalPlexFolderListViewController *targetViewController = [[VLCLocalPlexFolderListViewController alloc] initWithPlexServer:name serverAddress:hostName portNumber:portNum atPath:@"" authentification:@""];
-                [[self navigationController] pushViewController:targetViewController animated:YES];
-            }
+            NSString *name = [_PlexServicesInfo[row] objectForKey:@"name"];
+            NSString *hostName = [_PlexServicesInfo[row] objectForKey:@"hostName"];
+            NSString *portNum = [_PlexServicesInfo[row] objectForKey:@"port"];
+            VLCLocalPlexFolderListViewController *targetViewController = [[VLCLocalPlexFolderListViewController alloc] initWithPlexServer:name serverAddress:hostName portNumber:portNum atPath:@"" authentification:@""];
+            [[self navigationController] pushViewController:targetViewController animated:YES];
             break;
         }
 
@@ -462,6 +451,7 @@
         {
             VLCNetworkLoginViewController *loginViewController = [[VLCNetworkLoginViewController alloc] initWithNibName:@"VLCNetworkLoginViewController" bundle:nil];
             loginViewController.delegate = self;
+            loginViewController.serverProtocol = VLCServerProtocolFTP;
 
             UINavigationController *navCon = [[VLCNavigationController alloc] initWithRootViewController:loginViewController];
             navCon.navigationBarHidden = NO;
@@ -551,15 +541,39 @@
 
 #pragma mark - login panel protocol
 
-- (void)loginToURL:(NSURL *)url confirmedWithUsername:(NSString *)username andPassword:(NSString *)password
+- (void)loginToServer:(NSString *)server
+                 port:(NSString *)port
+             protocol:(VLCServerProtocol)protocol
+confirmedWithUsername:(NSString *)username
+          andPassword:(NSString *)password
 {
-    if ([url.scheme isEqualToString:@"ftp"]) {
-        if (url.host.length > 0) {
-            VLCFTPServerListViewController *targetViewController = [[VLCFTPServerListViewController alloc] initWithFTPServer:url.host userName:username andPassword:password atPath:@"/"];
+    switch (protocol) {
+        case VLCServerProtocolFTP:
+        {
+            VLCFTPServerListViewController *targetViewController = [[VLCFTPServerListViewController alloc]
+                                                                    initWithFTPServer:[NSString stringWithFormat:@"ftp://%@", server]
+                                                                    userName:username
+                                                                    andPassword:password atPath:@"/"];
             [self.navigationController pushViewController:targetViewController animated:YES];
+            break;
         }
-    } else
-        APLog(@"Unsupported URL Scheme requested %@", url.scheme);
+        case VLCServerProtocolPLEX:
+        {
+            if (port == nil || port.length == 0)
+                port = @"32400";
+            VLCLocalPlexFolderListViewController *targetViewController = [[VLCLocalPlexFolderListViewController alloc]
+                                                                          initWithPlexServer:server
+                                                                          serverAddress:server
+                                                                          portNumber:[NSString stringWithFormat:@":%@", port] atPath:@""
+                                                                          authentification:@""];
+            [[self navigationController] pushViewController:targetViewController animated:YES];
+            break;
+        }
+
+        default:
+            APLog(@"Unsupported URL Scheme requested %lu", protocol);
+            break;
+    }
 }
 
 #pragma mark - custom table view appearance

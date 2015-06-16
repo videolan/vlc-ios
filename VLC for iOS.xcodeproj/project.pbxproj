@@ -13,8 +13,6 @@
 		265D511D1922746C00E38383 /* VLCPlexParser.m in Sources */ = {isa = PBXBuildFile; fileRef = 265D511B1922746C00E38383 /* VLCPlexParser.m */; };
 		26D4AF8D1A78379000D5EC65 /* VLCSharedLibraryListViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 26D4AF8A1A78379000D5EC65 /* VLCSharedLibraryListViewController.m */; };
 		26D4AF8E1A78379000D5EC65 /* VLCSharedLibraryParser.m in Sources */ = {isa = PBXBuildFile; fileRef = 26D4AF8C1A78379000D5EC65 /* VLCSharedLibraryParser.m */; };
-		26E3A6FE1AAB76A100B32450 /* VLCPlexConnectServerViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 26E3A6FD1AAB76A100B32450 /* VLCPlexConnectServerViewController.m */; };
-		26E3A7021AAB76D300B32450 /* VLCPlexConnectServerViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 26E3A7001AAB76D300B32450 /* VLCPlexConnectServerViewController.xib */; };
 		26F1BFD01A770408001DF30C /* libMediaVLC.xml in Resources */ = {isa = PBXBuildFile; fileRef = 26F1BFCF1A770408001DF30C /* libMediaVLC.xml */; };
 		29125E5617492219003F03E5 /* index.html in Resources */ = {isa = PBXBuildFile; fileRef = 29125E5417492219003F03E5 /* index.html */; };
 		2915540117490A1E00B86CAD /* DDData.m in Sources */ = {isa = PBXBuildFile; fileRef = 291553EB17490A1E00B86CAD /* DDData.m */; };
@@ -297,9 +295,6 @@
 		26D4AF8A1A78379000D5EC65 /* VLCSharedLibraryListViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = VLCSharedLibraryListViewController.m; path = Sources/VLCSharedLibraryListViewController.m; sourceTree = SOURCE_ROOT; };
 		26D4AF8B1A78379000D5EC65 /* VLCSharedLibraryParser.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = VLCSharedLibraryParser.h; path = Sources/VLCSharedLibraryParser.h; sourceTree = SOURCE_ROOT; };
 		26D4AF8C1A78379000D5EC65 /* VLCSharedLibraryParser.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = VLCSharedLibraryParser.m; path = Sources/VLCSharedLibraryParser.m; sourceTree = SOURCE_ROOT; };
-		26E3A6FC1AAB76A100B32450 /* VLCPlexConnectServerViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = VLCPlexConnectServerViewController.h; path = Sources/VLCPlexConnectServerViewController.h; sourceTree = SOURCE_ROOT; };
-		26E3A6FD1AAB76A100B32450 /* VLCPlexConnectServerViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = VLCPlexConnectServerViewController.m; path = Sources/VLCPlexConnectServerViewController.m; sourceTree = SOURCE_ROOT; };
-		26E3A7001AAB76D300B32450 /* VLCPlexConnectServerViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; name = VLCPlexConnectServerViewController.xib; path = Resources/VLCPlexConnectServerViewController.xib; sourceTree = SOURCE_ROOT; };
 		26F1BFCF1A770408001DF30C /* libMediaVLC.xml */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xml; path = libMediaVLC.xml; sourceTree = "<group>"; };
 		29125E5417492219003F03E5 /* index.html */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.html; path = index.html; sourceTree = "<group>"; };
 		291553EA17490A1E00B86CAD /* DDData.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DDData.h; sourceTree = "<group>"; };
@@ -1216,7 +1211,6 @@
 				7DBBF18F183AB4300009A339 /* VLCNetworkListCell~iphone.xib */,
 				9B9231C3185A703700F89498 /* VLCNetworkLoginViewController.xib */,
 				7D89787C185DF794009BAB5D /* VLCOpenNetworkStreamViewController.xib */,
-				26E3A7001AAB76D300B32450 /* VLCPlexConnectServerViewController.xib */,
 			);
 			name = "Download & Network";
 			sourceTree = "<group>";
@@ -1467,8 +1461,6 @@
 				265D51191922746C00E38383 /* VLCLocalPlexFolderListViewController.m */,
 				262C71571A98FA9200F7ED34 /* VLCPlexMediaInformationViewController.h */,
 				262C71581A98FA9200F7ED34 /* VLCPlexMediaInformationViewController.m */,
-				26E3A6FC1AAB76A100B32450 /* VLCPlexConnectServerViewController.h */,
-				26E3A6FD1AAB76A100B32450 /* VLCPlexConnectServerViewController.m */,
 			);
 			name = PLEX;
 			sourceTree = "<group>";
@@ -1804,7 +1796,6 @@
 				7D9870691A3E03D5009CF27D /* papasscode_marker@2x.png in Resources */,
 				7D5DD5C717590ABF001421E3 /* About Contents.html in Resources */,
 				7DBBF19B183AB4300009A339 /* VLCCloudStorageTableViewCell~iphone.xib in Resources */,
-				26E3A7021AAB76D300B32450 /* VLCPlexConnectServerViewController.xib in Resources */,
 				7DBBF19F183AB4300009A339 /* VLCEmptyLibraryView~iphone.xib in Resources */,
 				7DBC85641A50B8860098D388 /* LiveAuthDialog_iPhone.xib in Resources */,
 				7D92897B1877467E009108FD /* VLCFirstStepsFourthPageViewController~iphone.xib in Resources */,
@@ -1993,7 +1984,6 @@
 				7D3784CC183A99BA009EE944 /* PAPasscodeViewController.m in Sources */,
 				7D3784E9183A9A15009EE944 /* main.m in Sources */,
 				7D30F3C2183AB24C00FFC021 /* VLCHTTPConnection.m in Sources */,
-				26E3A6FE1AAB76A100B32450 /* VLCPlexConnectServerViewController.m in Sources */,
 				7D30F3C3183AB24C00FFC021 /* VLCHTTPFileDownloader.m in Sources */,
 				41273A3C1A955C4100A2EF77 /* VLCMigrationViewController.m in Sources */,
 				7D30F3C4183AB24C00FFC021 /* VLCHTTPUploaderController.m in Sources */,

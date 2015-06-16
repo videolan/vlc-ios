@@ -66,9 +66,6 @@
 #define kVLCFTPServer @"ftp-server"
 #define kVLCFTPLogin @"ftp-login"
 #define kVLCFTPPassword @"ftp-pass"
-#define kVLCLastFTPServer @"last-ftp-server"
-#define kVLCLastFTPLogin @"last-ftp-login"
-#define kVLCLastFTPPassword @"last-ftp-pass"
 
 #define kVLCPLEXServer @"plex-server"
 #define kVLCPLEXPort @"plex-port"

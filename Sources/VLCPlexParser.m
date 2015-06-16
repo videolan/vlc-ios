@@ -67,13 +67,13 @@
                 data = [NSURLConnection sendSynchronousRequest:request returningResponse:&response error:&error];
                 if ([response statusCode] != 200) {
                     VLCAlertView *alertView = [[VLCAlertView alloc] initWithTitle:NSLocalizedString(@"PLEX_ERROR_ACCOUNT", nil) message:NSLocalizedString(@"PLEX_CHECK_ACCOUNT", nil) cancelButtonTitle:NSLocalizedString(@"BUTTON_OK", nil) otherButtonTitles:nil];
-                    [alertView show];
+                    [alertView performSelectorOnMainThread:@selector(show) withObject:nil waitUntilDone:NO];
                 }
                 [_containerInfo removeAllObjects];
                 [_dicoInfo removeAllObjects];
             } else {
                 VLCAlertView *alertView = [[VLCAlertView alloc] initWithTitle:NSLocalizedString(@"UNAUTHORIZED", nil) message:NSLocalizedString(@"PLEX_CHECK_ACCOUNT", nil) cancelButtonTitle:NSLocalizedString(@"BUTTON_OK", nil) otherButtonTitles:nil];
-                [alertView show];
+                [alertView performSelectorOnMainThread:@selector(show) withObject:nil waitUntilDone:NO];
             }
         } else
             APLog(@"PlexParser url Errors : %ld", (long)[response statusCode]);
