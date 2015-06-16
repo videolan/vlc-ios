@@ -13,6 +13,8 @@
 
 #define kVLCVersionCodename @"All Along the Watchtower"
 
+#define kVLCApplicationGroupIdentifier @"group.org.videolan.vlc-ios"
+
 #define kVLCSettingPasscodeKey @"Passcode"
 #define kVLCSettingPasscodeOnKey @"PasscodeProtection"
 #define kVLCSettingContinueAudioInBackgroundKey @"BackgroundAudioPlayback"

@@ -13,12 +13,16 @@
 #import "VLCKeychainCoordinator.h"
 #import "PAPasscodeViewController.h"
 #import "VLCAppDelegate.h"
+#import "KeychainItemWrapper.h"
 
 NSString *const VLCPasscodeValidated = @"VLCPasscodeValidated";
+
+NSString *const VLCPasscode = @"org.videolan.vlc-ios.passcode";
 
 @interface VLCKeychainCoordinator () <PAPasscodeViewControllerDelegate>
 {
     PAPasscodeViewController *_passcodeLockController;
+    NSDictionary *_passcodeQuery;
 }
 
 @end
@@ -37,10 +41,28 @@ NSString *const VLCPasscodeValidated = @"VLCPasscodeValidated";
     return sharedInstance;
 }
 
+
+- (NSString *)_obtainPasscode
+{
+    KeychainItemWrapper *keychain = [[KeychainItemWrapper alloc] initWithIdentifier:VLCPasscode
+                                                                        accessGroup:kVLCApplicationGroupIdentifier];
+    NSString *passcode = [keychain objectForKey:(__bridge id)kSecValueData];
+
+    if (!passcode) {
+        /* legacy passcode retrieval */
+        NSUserDefaults *defaults = [NSUserDefaults standardUserDefaults];
+        passcode = [defaults objectForKey:kVLCSettingPasscodeKey];
+        if (passcode)
+            [self setPasscode:passcode];
+    }
+
+    return passcode;
+}
+
 - (BOOL)passcodeLockEnabled
 {
-    NSUserDefaults *defaults = [NSUserDefaults standardUserDefaults];
-    NSString *passcode = [defaults objectForKey:kVLCSettingPasscodeKey];
+    NSString *passcode = [self _obtainPasscode];
+
     if (!passcode)
         return NO;
 
@@ -52,8 +74,7 @@ NSString *const VLCPasscodeValidated = @"VLCPasscodeValidated";
 
 - (void)validatePasscode
 {
-    NSUserDefaults *defaults = [NSUserDefaults standardUserDefaults];
-    NSString *passcode = [defaults objectForKey:kVLCSettingPasscodeKey];
+    NSString *passcode = [self _obtainPasscode];
     if ([passcode isEqualToString:@""]) {
         [[NSNotificationCenter defaultCenter] postNotificationName:VLCPasscodeValidated object:self];
     }
@@ -88,9 +109,15 @@ NSString *const VLCPasscodeValidated = @"VLCPasscodeValidated";
 
 - (void)setPasscode:(NSString *)passcode
 {
-    NSUserDefaults *defaults = [NSUserDefaults standardUserDefaults];
-    [defaults setObject:passcode forKey:kVLCSettingPasscodeKey];
-    [defaults synchronize];
+    if (!passcode)
+        passcode = @"";
+
+    KeychainItemWrapper *keychain = [[KeychainItemWrapper alloc] initWithIdentifier:VLCPasscode
+                                                                        accessGroup:kVLCApplicationGroupIdentifier];
+    [keychain setObject:(__bridge id)kSecAttrAccessibleAfterFirstUnlock forKey:(__bridge id)kSecAttrAccessible];
+    [keychain setObject:passcode forKey:(__bridge id)kSecValueData];
+
+    keychain = nil;
 }
 
 @end

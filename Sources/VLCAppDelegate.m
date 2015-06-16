@@ -457,7 +457,8 @@ continueUserActivity:(NSUserActivity *)userActivity
 
     if (!_passcodeValidated && [keychainCoordinator passcodeLockEnabled]) {
         [keychainCoordinator validatePasscode];
-    }
+    } else
+        _passcodeValidated = YES;
 }
 
 #pragma mark - idle timer preventer
