@@ -24,6 +24,7 @@
 #import "VLCThumbnailsCache.h"
 #import <WatchKit/WatchKit.h>
 #import "VLCPlaylistViewController.h"
+#import "VLCKeychainCoordinator.h"
 
 NSString *const VLCPlaybackControllerPlaybackDidStart = @"VLCPlaybackControllerPlaybackDidStart";
 NSString *const VLCPlaybackControllerPlaybackDidPause = @"VLCPlaybackControllerPlaybackDidPause";
@@ -866,7 +867,7 @@ NSString *const VLCPlaybackControllerPlaybackDidFail = @"VLCPlaybackControllerPl
     currentlyPlayingTrackInfo[MPNowPlayingInfoPropertyPlaybackRate] = @(_mediaPlayer.isPlaying ? _mediaPlayer.rate : 0.0);
 
     /* don't leak sensitive information to the OS, if passcode lock is enabled */
-    if (![[[NSUserDefaults standardUserDefaults] objectForKey:kVLCSettingPasscodeOnKey] boolValue]) {
+    if (![[VLCKeychainCoordinator defaultCoordinator] passcodeLockEnabled]) {
         if (title)
             currentlyPlayingTrackInfo[MPMediaItemPropertyTitle] = title;
         if (artist.length > 0)

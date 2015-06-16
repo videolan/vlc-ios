@@ -21,15 +21,11 @@
 #import "NSString+SupportedMedia.h"
 #import "UIDevice+VLC.h"
 #import "VLCPlaylistViewController.h"
-#import "VLCPlaybackNavigationController.h"
-#import "PAPasscodeViewController.h"
 #import "VLCHTTPUploaderController.h"
-#import "VLCMenuTableViewController.h"
 #import "VLCMigrationViewController.h"
 #import <BoxSDK/BoxSDK.h>
 #import "VLCNotificationRelay.h"
 #import "VLCPlaybackController.h"
-#import "VLCNavigationController.h"
 #import "VLCWatchMessage.h"
 #import "VLCPlaybackController+MediaLibrary.h"
 #import "VLCPlayerDisplayController.h"
@@ -37,13 +33,14 @@
 #import <DropboxSDK/DropboxSDK.h>
 #import <HockeySDK/HockeySDK.h>
 #import "VLCSidebarController.h"
+#import "VLCKeychainCoordinator.h"
 
 NSString *const VLCDropboxSessionWasAuthorized = @"VLCDropboxSessionWasAuthorized";
 
 #define BETA_DISTRIBUTION 1
 
-@interface VLCAppDelegate () <PAPasscodeViewControllerDelegate, VLCMediaFileDiscovererDelegate> {
-    PAPasscodeViewController *_passcodeLockController;
+@interface VLCAppDelegate () <VLCMediaFileDiscovererDelegate>
+{
     int _idleCounter;
     int _networkActivityCounter;
     BOOL _passcodeValidated;
@@ -67,7 +64,6 @@ NSString *const VLCDropboxSessionWasAuthorized = @"VLCDropboxSessionWasAuthorize
         skipLoopFilterDefaultValue = kVLCSettingSkipLoopFilterNonRef;
 
     NSDictionary *appDefaults = @{kVLCSettingPasscodeKey : @"",
-                                  kVLCSettingPasscodeOnKey : @(NO),
                                   kVLCSettingContinueAudioInBackgroundKey : @(YES),
                                   kVLCSettingStretchAudio : @(NO),
                                   kVLCSettingTextEncoding : kVLCSettingTextEncodingDefaultValue,
@@ -101,6 +97,12 @@ NSString *const VLCDropboxSessionWasAuthorized = @"VLCDropboxSessionWasAuthorize
     // Configure the SDK in here only!
     [hockeyManager startManager];
     [hockeyManager.authenticator authenticateInstallation];
+
+    /* listen to validation notification */
+    [[NSNotificationCenter defaultCenter] addObserver:self
+                                             selector:@selector(passcodeWasValidated:)
+                                                 name:VLCPasscodeValidated
+                                               object:nil];
 
     // Change the keyboard for UISearchBar
     [[UITextField appearance] setKeyboardAppearance:UIKeyboardAppearanceDark];
@@ -176,6 +178,11 @@ NSString *const VLCDropboxSessionWasAuthorized = @"VLCDropboxSessionWasAuthorize
     [[VLCNotificationRelay sharedRelay] addRelayLocalName:VLCPlaybackControllerPlaybackMetadataDidChange toRemoteName:kVLCDarwinNotificationNowPlayingInfoUpdate];
 
     return YES;
+}
+
+- (void)dealloc
+{
+    [[NSNotificationCenter defaultCenter] removeObserver:self];
 }
 
 #pragma mark - Handoff
@@ -433,6 +440,12 @@ continueUserActivity:(NSUserActivity *)userActivity
 
 #pragma mark - pass code validation
 
+- (void)passcodeWasValidated:(NSNotification *)aNotifcation
+{
+    _passcodeValidated = YES;
+    [self.playlistViewController updateViewContents];
+}
+
 - (BOOL)passcodeValidated
 {
     return _passcodeValidated;
@@ -440,37 +453,11 @@ continueUserActivity:(NSUserActivity *)userActivity
 
 - (void)validatePasscode
 {
-    NSUserDefaults *defaults = [NSUserDefaults standardUserDefaults];
-    NSString *passcode = [defaults objectForKey:kVLCSettingPasscodeKey];
-    if ([passcode isEqualToString:@""] || ![[defaults objectForKey:kVLCSettingPasscodeOnKey] boolValue]) {
-        _passcodeValidated = YES;
-        return;
+    VLCKeychainCoordinator *keychainCoordinator = [VLCKeychainCoordinator defaultCoordinator];
+
+    if (!_passcodeValidated && [keychainCoordinator passcodeLockEnabled]) {
+        [keychainCoordinator validatePasscode];
     }
-
-    if (!_passcodeValidated) {
-        _passcodeLockController = [[PAPasscodeViewController alloc] initForAction:PasscodeActionEnter];
-        _passcodeLockController.delegate = self;
-        _passcodeLockController.passcode = passcode;
-
-        if (self.window.rootViewController.presentedViewController)
-            [self.window.rootViewController dismissViewControllerAnimated:NO completion:nil];
-
-        UINavigationController *navCon = [[UINavigationController alloc] initWithRootViewController:_passcodeLockController];
-        navCon.modalPresentationStyle = UIModalPresentationFullScreen;
-        [self.window.rootViewController presentViewController:navCon animated:NO completion:nil];
-    }
-}
-
-- (void)PAPasscodeViewControllerDidEnterPasscode:(PAPasscodeViewController *)controller
-{
-    _passcodeValidated = YES;
-    [self.playlistViewController updateViewContents];
-    [self.window.rootViewController dismissViewControllerAnimated:YES completion:nil];
-}
-
-- (void)PAPasscodeViewController:(PAPasscodeViewController *)controller didFailToEnterPasscode:(NSInteger)attempts
-{
-    // FIXME: handle countless failed passcode attempts
 }
 
 #pragma mark - idle timer preventer

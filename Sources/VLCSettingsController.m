@@ -17,6 +17,7 @@
 #import "IASKSettingsReader.h"
 #import "IASKAppSettingsViewController.h"
 #import "PAPasscodeViewController.h"
+#import "VLCKeychainCoordinator.h"
 
 @interface VLCSettingsController ()<PAPasscodeViewControllerDelegate, IASKSettingsDelegate>
 
@@ -47,6 +48,8 @@
             PAPasscodeViewController *passcodeLockController = [[PAPasscodeViewController alloc] initForAction:PasscodeActionSet];
             passcodeLockController.delegate = self;
             [self.viewController presentViewController:passcodeLockController animated:YES completion:nil];
+        } else {
+            [[VLCKeychainCoordinator defaultCoordinator] setPasscode:nil];
         }
     }
     if ([notification.object isEqual:kVLCSettingPlaybackGestures]) {
@@ -64,18 +67,14 @@
 
 - (void)PAPasscodeViewControllerDidCancel:(PAPasscodeViewController *)controller
 {
-    NSUserDefaults *defaults = [NSUserDefaults standardUserDefaults];
-    [defaults setObject:@(NO) forKey:kVLCSettingPasscodeOnKey];
-    [defaults synchronize];
+    [[VLCKeychainCoordinator defaultCoordinator] setPasscode:nil];
+
     [controller dismissViewControllerAnimated:YES completion:nil];
 }
 
 - (void)PAPasscodeViewControllerDidSetPasscode:(PAPasscodeViewController *)controller
 {
-    NSUserDefaults *defaults = [NSUserDefaults standardUserDefaults];
-    [defaults setObject:@(YES) forKey:kVLCSettingPasscodeOnKey];
-    [defaults setObject:controller.passcode forKey:kVLCSettingPasscodeKey];
-    [defaults synchronize];
+    [[VLCKeychainCoordinator defaultCoordinator] setPasscode:controller.passcode];
 
     [controller dismissViewControllerAnimated:YES completion:nil];
 }
