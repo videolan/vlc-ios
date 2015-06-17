@@ -53,8 +53,7 @@
     if ([response statusCode] != 200) {
         NSString *responseString = [[NSString alloc] initWithData:data encoding:NSUTF8StringEncoding];
         if([responseString rangeOfString:@"Unauthorized"].location != NSNotFound) {
-            NSString *serviceString = [NSString stringWithFormat:@"plex://%@:%@", address, port];
-
+            NSString *serviceString = [NSString stringWithFormat:@"plex://%@%@", address, port];
             NSArray *accounts = [SSKeychain accountsForService:serviceString];
             if (accounts) {
                 NSDictionary *account = [accounts firstObject];
