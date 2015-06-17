@@ -418,7 +418,7 @@
                 [self presentViewController:navCon animated:YES completion:nil];
 
                 if (loginViewController.navigationItem.leftBarButtonItem == nil)
-                    loginViewController.navigationItem.leftBarButtonItem = [UIBarButtonItem themedDarkToolbarButtonWithTitle:NSLocalizedString(@"BUTTON_DONE", nil) target:loginViewController andSelector:@selector(dismissWithAnimation:)];
+                    loginViewController.navigationItem.leftBarButtonItem = [UIBarButtonItem themedDarkToolbarButtonWithTitle:NSLocalizedString(@"BUTTON_DONE", nil) target:loginViewController andSelector:@selector(_dismiss)];
             } else
                 [self.navigationController pushViewController:loginViewController animated:YES];
             break;
@@ -462,7 +462,7 @@
                 [self presentViewController:navCon animated:YES completion:nil];
 
                 if (loginViewController.navigationItem.leftBarButtonItem == nil)
-                    loginViewController.navigationItem.leftBarButtonItem = [UIBarButtonItem themedDarkToolbarButtonWithTitle:NSLocalizedString(@"BUTTON_DONE", nil) target:loginViewController andSelector:@selector(dismissWithAnimation:)];
+                    loginViewController.navigationItem.leftBarButtonItem = [UIBarButtonItem themedDarkToolbarButtonWithTitle:NSLocalizedString(@"BUTTON_DONE", nil) target:loginViewController andSelector:@selector(_dismiss)];
             } else
                 [self.navigationController pushViewController:loginViewController animated:YES];
             loginViewController.hostname = [_ftpServices[row] hostName];

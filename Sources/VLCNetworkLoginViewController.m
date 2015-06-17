@@ -197,7 +197,10 @@
 {
     _activityBackgroundView.hidden = YES;
     [_activityIndicator stopAnimating];
-    [self.navigationController popViewControllerAnimated:YES];
+    if (UI_USER_INTERFACE_IDIOM() == UIUserInterfaceIdiomPhone)
+        [self.navigationController popViewControllerAnimated:YES];
+    else
+        [self dismissViewControllerAnimated:YES completion:nil];
 }
 
 - (IBAction)saveServer:(id)sender
