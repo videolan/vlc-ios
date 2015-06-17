@@ -11,7 +11,7 @@
 
 #import "VLCPlexParser.h"
 #import "VLCPlexWebAPI.h"
-#import "VLCConstants.h"
+#import "SSKeychain.h"
 
 #define kPlexMediaServerDirInit @"library/sections"
 #define kPlexVLCDeviceName @"VLC for iOS"
@@ -53,12 +53,14 @@
     if ([response statusCode] != 200) {
         NSString *responseString = [[NSString alloc] initWithData:data encoding:NSUTF8StringEncoding];
         if([responseString rangeOfString:@"Unauthorized"].location != NSNotFound) {
+            NSString *serviceString = [NSString stringWithFormat:@"plex://%@:%@", address, port];
 
-            NSUserDefaults *prefs = [NSUserDefaults standardUserDefaults];
-            NSString *username = [prefs stringForKey:kVLCPLEXLogin];
-            NSString *password = [prefs stringForKey:kVLCPLEXPassword];
+            NSArray *accounts = [SSKeychain accountsForService:serviceString];
+            if (accounts) {
+                NSDictionary *account = [accounts firstObject];
+                NSString *username = [account objectForKey:@"acct"];
+                NSString *password = [SSKeychain passwordForService:serviceString account:username];
 
-            if ((username && password) && ((![username isEqualToString:@""]) && (![password isEqualToString:@""]))) {
                 auth = [PlexWebAPI PlexAuthentification:username password:password];
                 url = [NSURL URLWithString:[PlexWebAPI urlAuth:mediaServerUrl autentification:auth]];
                 request = [NSURLRequest requestWithURL:url cachePolicy:NSURLRequestUseProtocolCachePolicy timeoutInterval:5.0];

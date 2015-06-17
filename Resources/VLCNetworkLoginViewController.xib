@@ -1,22 +1,23 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="7706" systemVersion="14E36b" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="8121.17" systemVersion="14E36b" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none">
     <dependencies>
         <deployment identifier="iOS"/>
         <development version="5000" identifier="xcode"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="7703"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="8101.14"/>
     </dependencies>
     <objects>
         <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner" customClass="VLCNetworkLoginViewController">
             <connections>
                 <outlet property="connectButton" destination="6" id="96"/>
-                <outlet property="historyLogin" destination="105" id="106"/>
                 <outlet property="loginHelpLabel" destination="lGc-Rk-dDO" id="q9y-NH-Vuw"/>
                 <outlet property="passwordField" destination="94" id="98"/>
                 <outlet property="portField" destination="apI-bG-FZ2" id="MIF-Oo-nwz"/>
                 <outlet property="portLabel" destination="Zhl-CE-wU8" id="zn0-t5-T93"/>
                 <outlet property="protocolSegmentedControl" destination="NYh-cy-I1V" id="ceN-Fw-Wvi"/>
+                <outlet property="saveButton" destination="axZ-sK-2Iz" id="V1h-25-LcT"/>
                 <outlet property="serverField" destination="7" id="1wI-tJ-SsR"/>
                 <outlet property="serverLabel" destination="LPm-mG-2Dr" id="wuB-QJ-2n3"/>
+                <outlet property="storedServersTableView" destination="105" id="spe-O0-i8M"/>
                 <outlet property="usernameField" destination="44" id="101"/>
                 <outlet property="view" destination="1" id="3"/>
             </connections>
@@ -25,6 +26,10 @@
         <view contentMode="scaleToFill" id="1">
             <rect key="frame" x="0.0" y="0.0" width="320" height="522"/>
             <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+            <userGuides>
+                <userLayoutGuide location="160" affinity="minX"/>
+                <userLayoutGuide location="160" affinity="minX"/>
+            </userGuides>
             <subviews>
                 <textField clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" placeholder="yourserver.local" textAlignment="center" minimumFontSize="17" clearButtonMode="unlessEditing" id="7">
                     <rect key="frame" x="104" y="44" width="216" height="31"/>
@@ -131,9 +136,4 @@
             <point key="canvasLocation" x="380" y="373"/>
         </view>
     </objects>
-    <simulatedMetricsContainer key="defaultSimulatedMetrics">
-        <simulatedStatusBarMetrics key="statusBar"/>
-        <simulatedOrientationMetrics key="orientation"/>
-        <simulatedScreenMetrics key="destination" type="retina4"/>
-    </simulatedMetricsContainer>
 </document>

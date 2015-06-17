@@ -40,7 +40,7 @@ confirmedWithUsername:(NSString *)username
 @property (nonatomic, strong) IBOutlet UITextField *usernameField;
 @property (nonatomic, strong) IBOutlet UITextField *passwordField;
 @property (nonatomic, strong) IBOutlet UILabel *loginHelpLabel;
-@property (nonatomic, strong) IBOutlet UITableView *historyLogin;
+@property (nonatomic, strong) IBOutlet UITableView *storedServersTableView;
 @property (nonatomic, strong) IBOutlet UIButton *saveButton;
 
 @property (nonatomic, readwrite) NSInteger serverProtocol;

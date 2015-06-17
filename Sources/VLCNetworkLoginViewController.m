@@ -13,6 +13,7 @@
 
 #import "VLCNetworkLoginViewController.h"
 #import "VLCPlexWebAPI.h"
+#import "SSKeychain.h"
 
 @interface VLCNetworkLoginViewController () <UITableViewDataSource, UITableViewDelegate, UITextFieldDelegate>
 {
@@ -21,6 +22,7 @@
     NSString *_password;
     UIActivityIndicatorView *_activityIndicator;
     UIView *_activityBackgroundView;
+    NSMutableArray *_serverList;
 }
 @end
 
@@ -37,6 +39,7 @@
     self.serverLabel.text = NSLocalizedString(@"SERVER", nil);
     self.portLabel.text = NSLocalizedString(@"SERVER_PORT", nil);
     self.loginHelpLabel.text = NSLocalizedString(@"ENTER_SERVER_CREDS_HELP", nil);
+    [self.saveButton setTitle:NSLocalizedString(@"BUTTON_SAVE", nil) forState:UIControlStateNormal];
 
     self.serverField.delegate = self;
     self.serverField.returnKeyType = UIReturnKeyNext;
@@ -50,7 +53,7 @@
     self.passwordField.delegate = self;
     self.passwordField.returnKeyType = UIReturnKeyDone;
     self.passwordField.clearButtonMode = UITextFieldViewModeWhileEditing;
-    self.historyLogin.backgroundColor = [UIColor VLCDarkBackgroundColor];
+    self.storedServersTableView.backgroundColor = [UIColor VLCDarkBackgroundColor];
 
     _activityBackgroundView = [[UIView alloc] initWithFrame:self.view.frame];
     _activityBackgroundView.autoresizingMask = UIViewAutoresizingFlexibleWidth | UIViewAutoresizingFlexibleHeight;
@@ -93,28 +96,44 @@
         [self protocolSelectionChanged:nil];
     }
 
-    // FIXME: persistent state
-    /* 
-     NSUserDefaults *defaults = [NSUserDefaults standardUserDefaults];
-     _bookmarkServer = [NSMutableArray arrayWithArray:[defaults objectForKey:kVLCPLEXServer]];
-     _bookmarkPort = [NSMutableArray arrayWithArray:[defaults objectForKey:kVLCPLEXPort]];
+    // persistent state
+    NSUserDefaults *defaults = [NSUserDefaults standardUserDefaults];
+    _serverList = [NSMutableArray arrayWithArray:[defaults objectForKey:kVLCStoredServerList]];
 
-     [super viewWillAppear:animated];
+    if (_serverList.count == 0) {
+        /* we need to migrate from previous, insecure storage fields */
+        NSArray *ftpServerList = [defaults objectForKey:kVLCFTPServer];
+        NSArray *ftpLoginList = [defaults objectForKey:kVLCFTPLogin];
+        NSArray *ftpPasswordList = [defaults objectForKey:kVLCFTPPassword];
+        NSUInteger count = ftpServerList.count;
 
-     if ([defaults stringForKey:kVLCLastPLEXServer])
-     self.serverAddressField.text = [defaults stringForKey:kVLCLastPLEXServer];
-     if ([defaults stringForKey:kVLCLastPLEXPort])
-     self.portField.text = [defaults stringForKey:kVLCLastPLEXPort];
+        if (count > 0) {
+            for (NSUInteger i = 0; i < count; i++) {
+                [SSKeychain setPassword:ftpPasswordList[i] forService:ftpServerList[i] account:ftpLoginList[i]];
+                [_serverList addObject:ftpServerList[i]];
+            }
+        }
 
-     if (self.portField.text.length < 1)
-     self.portField.text = kPlexMediaServerPortDefault;
-     */
+        NSArray *plexServerList = [defaults objectForKey:kVLCPLEXServer];
+        NSArray *plexPortList = [defaults objectForKey:kVLCPLEXPort];
+        count = plexServerList.count;
+        if (count > 0) {
+            for (NSUInteger i = 0; i < count; i++) {
+                [_serverList addObject:[NSString stringWithFormat:@"plex://%@:%@", plexServerList[i], plexPortList[i]]];
+            }
+        }
+        [defaults setObject:_serverList forKey:kVLCStoredServerList];
+        [defaults synchronize];
+    }
+
+    [self.storedServersTableView reloadData];
 }
 
 - (void)viewWillDisappear:(BOOL)animated
 {
-    // FIXME: persistent state?!
     [super viewWillDisappear:animated];
+    NSUserDefaults *defaults = [NSUserDefaults standardUserDefaults];
+    [defaults setObject:_serverList forKey:kVLCStoredServerList];
 }
 
 - (IBAction)connectToServer:(id)sender
@@ -183,23 +202,51 @@
 
 - (IBAction)saveServer:(id)sender
 {
-    // FIXME:
-    /*
-    NSString *serverAddress = self.serverAddressField.text;
-    if (!serverAddress)
-        return;
-    if (serverAddress.length < 1)
+    [[UIApplication sharedApplication] sendAction:@selector(resignFirstResponder) to:nil from:nil forEvent:nil];
+
+    NSString *server = self.serverField.text;
+    if (!server)
         return;
 
-    [_saveServer addObject:serverAddress];
-    [_saveLogin addObject:self.usernameField.text];
-    [_savePass  addObject:self.passwordField.text];
+    VLCServerProtocol protocol = self.protocolSegmentedControl.selectedSegmentIndex;
+    NSString *scheme;
+    switch (protocol) {
+        case VLCServerProtocolFTP:
+            scheme = @"ftp";
+            break;
 
-     NSUserDefaults *defaults = [NSUserDefaults standardUserDefaults];
-     [defaults setObject:[NSArray arrayWithArray:_bookmarkServer] forKey:kVLCPLEXServer];
-     [defaults setObject:[NSArray arrayWithArray:_bookmarkPort] forKey:kVLCPLEXPort];
+        case VLCServerProtocolSMB:
+            scheme = @"smb";
+            break;
 
-     [self.historyLogin reloadData];*/
+        case VLCServerProtocolPLEX:
+            scheme = @"plex";
+            break;
+
+        default:
+            break;
+    }
+
+    NSString *port = self.portField.text;
+    NSString *service;
+    if (port.length > 0)
+        service = [NSString stringWithFormat:@"%@://%@:%@",
+                   scheme, server, port];
+    else
+        service = [NSString stringWithFormat:@"%@://%@",
+                   scheme, server];
+    [_serverList addObject:service];
+    NSUserDefaults *defaults = [NSUserDefaults standardUserDefaults];
+    [defaults setObject:_serverList forKey:kVLCStoredServerList];
+    [defaults synchronize];
+
+    NSString *username = self.usernameField.text;
+    NSString *password = self.passwordField.text;
+
+    if (username || password)
+        [SSKeychain setPassword:password forService:service account:username];
+
+    [self.storedServersTableView reloadData];
 }
 
 - (IBAction)protocolSelectionChanged:(id)sender
@@ -210,16 +257,19 @@
         case VLCServerProtocolFTP:
         {
             self.portField.attributedPlaceholder = [[NSAttributedString alloc] initWithString:@"21" attributes:@{NSForegroundColorAttributeName: color}];
+            self.portField.enabled = YES;
             break;
         }
         case VLCServerProtocolPLEX:
         {
             self.portField.attributedPlaceholder = [[NSAttributedString alloc] initWithString:@"32400" attributes:@{NSForegroundColorAttributeName: color}];
+            self.portField.enabled = YES;
             break;
         }
         case VLCServerProtocolSMB:
         {
             self.portField.placeholder = @"";
+            self.portField.text = @"";
             self.portField.enabled = NO;
         }
 
@@ -252,12 +302,12 @@
 
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section
 {
-    return 0; // FIXME: _saveServer.count;
+    return _serverList.count;
 }
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
 {
-    static NSString *CellIdentifier = @"FTPHistoryCell";
+    static NSString *CellIdentifier = @"StoredServerListCell";
 
     UITableViewCell *cell = (UITableViewCell *)[tableView dequeueReusableCellWithIdentifier:CellIdentifier];
     if (cell == nil) {
@@ -267,9 +317,15 @@
     }
 
     NSInteger row = indexPath.row;
-/*  FIXME: fetch from storage
-    cell.textLabel.text = [_saveServer[row] lastPathComponent];
-    cell.detailTextLabel.text = _saveLogin[row];*/
+    NSString *serviceString = _serverList[row];
+    NSURL *service = [NSURL URLWithString:serviceString];
+    cell.textLabel.text = [NSString stringWithFormat:@"%@ [%@]", service.host, [service.scheme uppercaseString]];
+    NSArray *accounts = [SSKeychain accountsForService:serviceString];
+    if (accounts.count > 0) {
+        NSDictionary *account = [accounts firstObject];
+        cell.detailTextLabel.text = [account objectForKey:@"acct"];
+    } else
+        cell.detailTextLabel.text = @"";
 
     return cell;
 }
@@ -286,19 +342,57 @@
     return YES;
 }
 
-- (void)tableView:(UITableView *)tableView commitEditingStyle:(UITableViewCellEditingStyle)editingStyle forRowAtIndexPath:(NSIndexPath *)indexPath
+- (void)tableView:(UITableView *)tableView
+commitEditingStyle:(UITableViewCellEditingStyle)editingStyle
+forRowAtIndexPath:(NSIndexPath *)indexPath
 {
     if (editingStyle == UITableViewCellEditingStyleDelete) {
-        // FIXME: remove from storage
+        NSString *serviceString = _serverList[indexPath.row];
+        NSArray *accounts = [SSKeychain accountsForService:serviceString];
+        NSUInteger count = accounts.count;
+        for (NSUInteger i = 0; i < count; i++) {
+            NSString *username = [accounts[i] objectForKey:@"acct"];
+            [SSKeychain deletePasswordForService:serviceString account:username];
+        }
+        [_serverList removeObject:serviceString];
+        NSUserDefaults *defaults = [NSUserDefaults standardUserDefaults];
+        [defaults removeObjectForKey:serviceString];
+
         [tableView reloadData];
     }
 }
 
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
 {
-    // FIXME: fetch from storage
+    [tableView deselectRowAtIndexPath:indexPath animated:NO];
 
-    [self.historyLogin deselectRowAtIndexPath:indexPath animated:NO];
+    NSString *serviceString = _serverList[indexPath.row];
+    NSURL *service = [NSURL URLWithString:serviceString];
+    NSString *scheme = service.scheme;
+
+    if ([scheme isEqualToString:@"smb"])
+        self.serverProtocol = VLCServerProtocolSMB;
+    else if ([scheme isEqualToString:@"ftp"])
+        self.serverProtocol = VLCServerProtocolFTP;
+    else if ([scheme isEqualToString:@"plex"])
+        self.serverProtocol = VLCServerProtocolPLEX;
+    self.protocolSegmentedControl.selectedSegmentIndex = self.serverProtocol;
+    [self protocolSelectionChanged:nil];
+
+    self.serverField.text = service.host;
+    self.portField.text = [service.port stringValue];
+
+    NSArray *accounts = [SSKeychain accountsForService:serviceString];
+    if (!accounts) {
+        self.usernameField.text = self.passwordField.text = @"";
+        return;
+    }
+
+    NSDictionary *account = [accounts firstObject];
+
+    NSString *username = [account objectForKey:@"acct"];
+    self.usernameField.text = username;
+    self.passwordField.text = [SSKeychain passwordForService:serviceString account:username];
 }
 
 - (void)setHostname:(NSString *)theHostname
