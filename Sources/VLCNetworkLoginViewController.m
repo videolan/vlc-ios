@@ -12,12 +12,15 @@
  *****************************************************************************/
 
 #import "VLCNetworkLoginViewController.h"
+#import "VLCPlexWebAPI.h"
 
 @interface VLCNetworkLoginViewController () <UITableViewDataSource, UITableViewDelegate, UITextFieldDelegate>
 {
     NSString *_hostname;
     NSString *_username;
     NSString *_password;
+    UIActivityIndicatorView *_activityIndicator;
+    UIView *_activityBackgroundView;
 }
 @end
 
@@ -49,11 +52,21 @@
     self.passwordField.clearButtonMode = UITextFieldViewModeWhileEditing;
     self.historyLogin.backgroundColor = [UIColor VLCDarkBackgroundColor];
 
+    _activityBackgroundView = [[UIView alloc] initWithFrame:self.view.frame];
+    _activityBackgroundView.autoresizingMask = UIViewAutoresizingFlexibleWidth | UIViewAutoresizingFlexibleHeight;
+    _activityBackgroundView.hidden = YES;
+    _activityBackgroundView.backgroundColor = [UIColor VLCDarkBackgroundColor];
+    [self.view addSubview:_activityBackgroundView];
+
+    _activityIndicator = [[UIActivityIndicatorView alloc] initWithActivityIndicatorStyle:UIActivityIndicatorViewStyleWhiteLarge];
+    _activityIndicator.hidesWhenStopped = YES;
+    _activityIndicator.autoresizingMask = UIViewAutoresizingFlexibleLeftMargin | UIViewAutoresizingFlexibleRightMargin | UIViewAutoresizingFlexibleTopMargin | UIViewAutoresizingFlexibleBottomMargin;
+
+    [_activityBackgroundView addSubview:_activityIndicator];
+    [_activityIndicator setCenter:_activityBackgroundView.center];
+
     UIColor *color = [UIColor VLCLightTextColor];
-    self.protocolSegmentedControl.selectedSegmentIndex = 1; // FTP
-    self.serverProtocol = VLCServerProtocolFTP;
     self.serverField.attributedPlaceholder = [[NSAttributedString alloc] initWithString:@"yourserver.local" attributes:@{NSForegroundColorAttributeName: color}];
-    self.portField.attributedPlaceholder = [[NSAttributedString alloc] initWithString:@"21" attributes:@{NSForegroundColorAttributeName: color}];
     self.usernameField.attributedPlaceholder = [[NSAttributedString alloc] initWithString:NSLocalizedString(@"USER_LABEL", nil) attributes:@{NSForegroundColorAttributeName: color}];
     self.passwordField.attributedPlaceholder = [[NSAttributedString alloc] initWithString:NSLocalizedString(@"PASSWORD_LABEL", nil) attributes:@{NSForegroundColorAttributeName: color}];
     self.edgesForExtendedLayout = UIRectEdgeNone;
@@ -75,7 +88,9 @@
         self.protocolSegmentedControl.selectedSegmentIndex = self.serverProtocol;
         self.protocolSegmentedControl.enabled = NO;
     } else {
+        self.protocolSegmentedControl.selectedSegmentIndex = VLCServerProtocolSMB;
         self.protocolSegmentedControl.enabled = YES;
+        [self protocolSelectionChanged:nil];
     }
 
     // FIXME: persistent state
@@ -107,13 +122,63 @@
     if (self.delegate) {
         if ([self.delegate respondsToSelector:@selector(loginToServer:port:protocol:confirmedWithUsername:andPassword:)]) {
 
+            VLCServerProtocol protocol = self.protocolSegmentedControl.selectedSegmentIndex;
+            NSString *username = self.usernameField.text;
+            NSString *password = self.passwordField.text;
+
+            if ((username.length > 0 || password.length > 0) && protocol == VLCServerProtocolPLEX) {
+                _activityBackgroundView.hidden = NO;
+                [_activityIndicator startAnimating];
+                [self performSelectorInBackground:@selector(_plexLogin)
+                                       withObject:nil];
+                return;
+            }
+
+            [self.navigationController popViewControllerAnimated:YES];
             [self.delegate loginToServer:self.serverField.text
                                     port:self.portField.text
-                                protocol:self.protocolSegmentedControl.selectedSegmentIndex
-                   confirmedWithUsername:self.usernameField.text
-                             andPassword:self.passwordField.text];
+                                protocol:protocol
+                   confirmedWithUsername:username
+                             andPassword:password];
         }
     }
+}
+
+- (void)_plexLogin
+{
+    VLCPlexWebAPI *PlexWebAPI = [[VLCPlexWebAPI alloc] init];
+    NSString *auth = [PlexWebAPI PlexAuthentification:self.usernameField.text password:self.passwordField.text];
+
+    if ([auth isEqualToString:@""]) {
+        [self performSelectorOnMainThread:@selector(_stopActivity) withObject:nil waitUntilDone:YES];
+        VLCAlertView *alertView = [[VLCAlertView alloc] initWithTitle:NSLocalizedString(@"PLEX_ERROR_ACCOUNT", nil)
+                                                              message:NSLocalizedString(@"PLEX_CHECK_ACCOUNT", nil)
+                                                    cancelButtonTitle:NSLocalizedString(@"BUTTON_OK", nil)
+                                                    otherButtonTitles:nil];
+        [alertView performSelectorOnMainThread:@selector(show) withObject:nil waitUntilDone:NO];
+        return;
+    }
+
+    [self performSelectorOnMainThread:@selector(_dismiss) withObject:nil waitUntilDone:YES];
+
+    [self.delegate loginToServer:self.serverField.text
+                            port:self.portField.text
+                        protocol:VLCServerProtocolPLEX
+           confirmedWithUsername:auth
+                     andPassword:nil];
+}
+
+- (void)_stopActivity
+{
+    _activityBackgroundView.hidden = YES;
+    [_activityIndicator stopAnimating];
+}
+
+- (void)_dismiss
+{
+    _activityBackgroundView.hidden = YES;
+    [_activityIndicator stopAnimating];
+    [self.navigationController popViewControllerAnimated:YES];
 }
 
 - (IBAction)saveServer:(id)sender
@@ -145,20 +210,17 @@
         case VLCServerProtocolFTP:
         {
             self.portField.attributedPlaceholder = [[NSAttributedString alloc] initWithString:@"21" attributes:@{NSForegroundColorAttributeName: color}];
-            self.usernameField.enabled = self.passwordField.enabled = YES;
             break;
         }
         case VLCServerProtocolPLEX:
         {
             self.portField.attributedPlaceholder = [[NSAttributedString alloc] initWithString:@"32400" attributes:@{NSForegroundColorAttributeName: color}];
-            self.usernameField.enabled = self.passwordField.enabled = NO;
             break;
         }
         case VLCServerProtocolSMB:
         {
             self.portField.placeholder = @"";
             self.portField.enabled = NO;
-            self.usernameField.enabled = self.passwordField.enabled = YES;
         }
 
         default:
@@ -178,7 +240,6 @@
         [self.passwordField becomeFirstResponder];
     } else if ([self.passwordField isFirstResponder]) {
         [self.passwordField resignFirstResponder];
-        //[self connectToServer:nil];
     }
     return NO;
 }

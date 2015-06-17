@@ -421,6 +421,7 @@
                     loginViewController.navigationItem.leftBarButtonItem = [UIBarButtonItem themedDarkToolbarButtonWithTitle:NSLocalizedString(@"BUTTON_DONE", nil) target:loginViewController andSelector:@selector(dismissWithAnimation:)];
             } else
                 [self.navigationController pushViewController:loginViewController animated:YES];
+            break;
         }
         case 1:
         {
@@ -565,7 +566,7 @@ confirmedWithUsername:(NSString *)username
                                                                           initWithPlexServer:server
                                                                           serverAddress:server
                                                                           portNumber:[NSString stringWithFormat:@":%@", port] atPath:@""
-                                                                          authentification:@""];
+                                                                          authentification:username];
             [[self navigationController] pushViewController:targetViewController animated:YES];
             break;
         }
