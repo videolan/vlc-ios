@@ -13,7 +13,7 @@
 #import "VLCKeychainCoordinator.h"
 #import "PAPasscodeViewController.h"
 #import "VLCAppDelegate.h"
-#import "KeychainItemWrapper.h"
+#import "SSKeychain.h"
 
 NSString *const VLCPasscodeValidated = @"VLCPasscodeValidated";
 
@@ -44,9 +44,7 @@ NSString *const VLCPasscode = @"org.videolan.vlc-ios.passcode";
 
 - (NSString *)_obtainPasscode
 {
-    KeychainItemWrapper *keychain = [[KeychainItemWrapper alloc] initWithIdentifier:VLCPasscode
-                                                                        accessGroup:kVLCApplicationGroupIdentifier];
-    NSString *passcode = [keychain objectForKey:(__bridge id)kSecValueData];
+    NSString *passcode = [SSKeychain passwordForService:VLCPasscode account:VLCPasscode];
 
     if (!passcode) {
         /* legacy passcode retrieval */
@@ -109,15 +107,12 @@ NSString *const VLCPasscode = @"org.videolan.vlc-ios.passcode";
 
 - (void)setPasscode:(NSString *)passcode
 {
-    if (!passcode)
-        passcode = @"";
+    if (!passcode) {
+        [SSKeychain deletePasswordForService:VLCPasscode account:VLCPasscode];
+        return;
+    }
 
-    KeychainItemWrapper *keychain = [[KeychainItemWrapper alloc] initWithIdentifier:VLCPasscode
-                                                                        accessGroup:kVLCApplicationGroupIdentifier];
-    [keychain setObject:(__bridge id)kSecAttrAccessibleAfterFirstUnlock forKey:(__bridge id)kSecAttrAccessible];
-    [keychain setObject:passcode forKey:(__bridge id)kSecValueData];
-
-    keychain = nil;
+    [SSKeychain setPassword:passcode forService:VLCPasscode account:VLCPasscode];
 }
 
 @end
