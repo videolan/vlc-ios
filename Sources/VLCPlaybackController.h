@@ -91,4 +91,6 @@ currentMediaHasTrackToChooseFrom:(BOOL)currentMediaHasTrackToChooseFrom
 - (void)setNeedsMetadataUpdate;
 - (void)scheduleSleepTimerWithInterval:(NSTimeInterval)timeInterval;
 
+- (void)playMediaList:(VLCMediaList *)mediaList firstIndex:(int)index;
+
 @end

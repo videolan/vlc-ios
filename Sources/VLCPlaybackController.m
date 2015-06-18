@@ -145,6 +145,21 @@ NSString *const VLCPlaybackControllerPlaybackDidFail = @"VLCPlaybackControllerPl
     return YES;
 }
 
+- (void)playMediaList:(VLCMediaList *)mediaList firstIndex:(int)index
+{
+    self.mediaList = mediaList;
+    self.itemInMediaListToBePlayedFirst = index;
+    self.pathToExternalSubtitlesFile = nil;
+
+    if (self.activePlaybackSession) {
+        self.sessionWillRestart = YES;
+        [self stopPlayback];
+    } else {
+        self.sessionWillRestart = NO;
+        [self startPlayback];
+    }
+}
+
 - (void)startPlayback
 {
     if (_playerIsSetup)
