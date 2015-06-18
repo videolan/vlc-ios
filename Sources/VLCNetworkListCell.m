@@ -73,6 +73,7 @@
 
 - (void)setIcon:(UIImage *)icon
 {
+    self.thumbnailView.contentMode = UIViewContentModeScaleAspectFit;
     self.thumbnailView.image = icon;
 }
 
