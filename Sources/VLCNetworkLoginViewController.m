@@ -153,7 +153,10 @@
                 return;
             }
 
-            [self.navigationController popViewControllerAnimated:YES];
+            if (UI_USER_INTERFACE_IDIOM() == UIUserInterfaceIdiomPhone)
+                [self.navigationController popViewControllerAnimated:YES];
+            else
+                [self dismissViewControllerAnimated:YES completion:nil];
             [self.delegate loginToServer:self.serverField.text
                                     port:self.portField.text
                                 protocol:protocol
