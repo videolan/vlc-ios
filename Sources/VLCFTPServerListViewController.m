@@ -183,15 +183,11 @@
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
 {
-    static NSString *CellIdentifier = @"LocalNetworkCellDetail";
-
-    VLCNetworkListCell *cell = (VLCNetworkListCell *)[tableView dequeueReusableCellWithIdentifier:CellIdentifier];
+    VLCNetworkListCell *cell = (VLCNetworkListCell *)[tableView dequeueReusableCellWithIdentifier:VLCNetworkListCellIdentifier];
     if (cell == nil)
-        cell = [VLCNetworkListCell cellWithReuseIdentifier:CellIdentifier];
-
+        cell = [VLCNetworkListCell cellWithReuseIdentifier:VLCNetworkListCellIdentifier];
 
     NSDictionary *cellObject;
-
     if (tableView == self.searchDisplayController.searchResultsTableView)
         cellObject = _searchData[indexPath.row];
     else
