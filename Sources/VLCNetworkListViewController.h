@@ -12,6 +12,8 @@
 
 @class VLCNetworkListCell;
 
+extern NSString *VLCNetworkListCellIdentifier;
+
 @interface VLCNetworkListViewController : UIViewController
 
 @property (nonatomic, strong) UITableView *tableView;

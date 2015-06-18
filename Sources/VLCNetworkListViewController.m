@@ -14,6 +14,8 @@
 #import "VLCNetworkListViewController.h"
 #import "VLCNetworkListCell.h"
 
+NSString *VLCNetworkListCellIdentifier = @"VLCNetworkListCellIdentifier";
+
 @interface VLCNetworkListViewController () <UITableViewDataSource, UITableViewDelegate, UISearchBarDelegate, UISearchDisplayDelegate>
 {
     NSMutableArray *_searchData;
@@ -31,6 +33,7 @@
     _tableView.backgroundColor = [UIColor VLCDarkBackgroundColor];
     _tableView.delegate = self;
     _tableView.dataSource = self;
+    _tableView.opaque = YES;
     _tableView.rowHeight = [VLCNetworkListCell heightOfCell];
     _tableView.separatorStyle = UITableViewCellSeparatorStyleNone;
     _tableView.indicatorStyle = UIScrollViewIndicatorStyleWhite;
