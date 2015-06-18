@@ -15,7 +15,7 @@
 #import "VLCPlexParser.h"
 #import "VLCPlexWebAPI.h"
 #import "VLCNetworkListCell.h"
-#import "VLCAppDelegate.h"
+#import "VLCPlaybackController.h"
 #import "VLCPlaylistViewController.h"
 #import "VLCDownloadViewController.h"
 #import "NSString+SupportedMedia.h"
@@ -288,8 +288,8 @@
 
         NSURL *itemURL = [NSURL URLWithString:[self _urlAuth:firstObject[@"keyMedia"]]];
         if (itemURL) {
-            VLCAppDelegate *appDelegate = [UIApplication sharedApplication].delegate;
-            [appDelegate openMovieWithExternalSubtitleFromURL:itemURL externalSubURL:URLofSubtitle];
+            VLCPlaybackController *vpc = [VLCPlaybackController sharedInstance];
+            [vpc playURL:itemURL subtitlesFilePath:URLofSubtitle];
         }
     } else {
         VLCLocalPlexFolderListViewController *targetViewController = [[VLCLocalPlexFolderListViewController alloc] initWithPlexServer:_PlexServerName serverAddress:_PlexServerAddress portNumber:_PlexServerPort atPath:newPath authentification:_PlexAuthentification];
@@ -327,8 +327,8 @@
 
         NSURL *itemURL = [NSURL URLWithString:[self _urlAuth:[firstObject objectForKey:@"keyMedia"]]];
         if (itemURL) {
-            VLCAppDelegate *appDelegate = [UIApplication sharedApplication].delegate;
-            [appDelegate openMovieWithExternalSubtitleFromURL:itemURL externalSubURL:URLofSubtitle];
+            VLCPlaybackController *vpc = [VLCPlaybackController sharedInstance];
+            [vpc playURL:itemURL subtitlesFilePath:URLofSubtitle];
         }
     }
 }

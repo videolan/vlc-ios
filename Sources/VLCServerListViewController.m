@@ -13,7 +13,7 @@
  *****************************************************************************/
 
 #import "VLCServerListViewController.h"
-#import "VLCAppDelegate.h"
+#import "VLCPlaybackController.h"
 #import "UPnPManager.h"
 #import "VLCNetworkListCell.h"
 
@@ -452,11 +452,12 @@
 
         case 6:
         {
-            VLCAppDelegate *appDelegate = [UIApplication sharedApplication].delegate;
             VLCMedia *cellMedia = [_sapDiscoverer.discoveredMedia mediaAtIndex:row];
             VLCMediaType mediaType = cellMedia.mediaType;
-            if (mediaType != VLCMediaTypeDirectory && mediaType != VLCMediaTypeDisc)
-                [appDelegate openMovieFromURL:[[_sapDiscoverer.discoveredMedia mediaAtIndex:row] url]];
+            if (mediaType != VLCMediaTypeDirectory && mediaType != VLCMediaTypeDisc) {
+                VLCPlaybackController *vpc = [VLCPlaybackController sharedInstance];
+                [vpc playURL:[[_sapDiscoverer.discoveredMedia mediaAtIndex:row] url] successCallback:nil errorCallback:nil];
+            }
             break;
         }
 

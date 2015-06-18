@@ -34,10 +34,6 @@ extern NSString *const VLCDropboxSessionWasAuthorized;
 
 - (void)cleanCache;
 
-- (void)openMediaFromManagedObject:(NSManagedObject *)file;
-- (void)openMovieFromURL:(NSURL *)url;
-- (void)openMovieWithExternalSubtitleFromURL:(NSURL *)url externalSubURL:(NSString *)SubtitlePath;
-
 @property (nonatomic, readonly) VLCPlaylistViewController *playlistViewController;
 
 @property (nonatomic, readonly) VLCPlayerDisplayController *playerDisplayController;

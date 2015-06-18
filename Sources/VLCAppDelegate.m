@@ -221,14 +221,19 @@ continueUserActivity:(NSUserActivity *)userActivity
     return NO;
 }
 
-- (void)application:(UIApplication *)application didFailToContinueUserActivityWithType:(NSString *)userActivityType error:(NSError *)error
+- (void)application:(UIApplication *)application
+didFailToContinueUserActivityWithType:(NSString *)userActivityType
+              error:(NSError *)error
 {
     if (error.code != NSUserCancelledError){
         //TODO: present alert
     }
 }
 
-- (BOOL)application:(UIApplication *)application openURL:(NSURL *)url sourceApplication:(NSString *)sourceApplication annotation:(id)annotation
+- (BOOL)application:(UIApplication *)application
+            openURL:(NSURL *)url
+  sourceApplication:(NSString *)sourceApplication
+         annotation:(id)annotation
 {
     if ([[DBSession sharedSession] handleOpenURL:url]) {
         [[NSNotificationCenter defaultCenter] postNotificationName:VLCDropboxSessionWasAuthorized object:nil];
@@ -273,7 +278,8 @@ continueUserActivity:(NSUserActivity *)userActivity
                     errorCallback = [NSURL URLWithString:value];
             }
             if ([action isEqualToString:@"stream"] && movieURL) {
-                [self openMovieFromURL:movieURL successCallback:successCallback errorCallback:errorCallback];
+                VLCPlaybackController *vpc = [VLCPlaybackController sharedInstance];
+                [vpc playURL:movieURL successCallback:successCallback errorCallback:errorCallback];
             }
             else if ([action isEqualToString:@"download"] && movieURL) {
                 [self downloadMovieFromURL:movieURL fileNameOfMedia:fileName];
@@ -307,12 +313,16 @@ continueUserActivity:(NSUserActivity *)userActivity
                 alert.completion = ^(BOOL cancelled, NSInteger buttonIndex) {
                     if (cancelled)
                         [self downloadMovieFromURL:url fileNameOfMedia:nil];
-                    else
-                        [self openMovieFromURL:url];
+                    else {
+                        VLCPlaybackController *vpc = [VLCPlaybackController sharedInstance];
+                        [vpc playURL:url successCallback:nil errorCallback:nil];
+                    }
                 };
                 [alert show];
-            } else
-                [self openMovieFromURL:url];
+            } else {
+                VLCPlaybackController *vpc = [VLCPlaybackController sharedInstance];
+                [vpc playURL:url successCallback:nil errorCallback:nil];
+            }
         }
         return YES;
     }
@@ -505,44 +515,10 @@ continueUserActivity:(NSUserActivity *)userActivity
                                                  scrollPosition:UITableViewScrollPositionNone];
 }
 
-#pragma mark - playback view handling
-
-- (void)openMediaFromManagedObject:(NSManagedObject *)mediaObject
-{
-    VLCPlaybackController *vpc = [VLCPlaybackController sharedInstance];
-    [vpc playMediaLibraryObject:mediaObject];
-}
-
-- (void)openMovieFromURL:(NSURL *)url
-         successCallback:(NSURL *)successCallback
-           errorCallback:(NSURL *)errorCallback
-{
-    VLCPlaybackController *vpc = [VLCPlaybackController sharedInstance];
-
-    vpc.url = url;
-    vpc.successCallback = successCallback;
-    vpc.errorCallback = errorCallback;
-
-    [vpc startPlayback];
-}
-
-- (void)openMovieFromURL:(NSURL *)url
-{
-    [self openMovieFromURL:url successCallback:nil errorCallback:nil];
-}
-
-- (void)openMovieWithExternalSubtitleFromURL:(NSURL *)url externalSubURL:(NSString *)SubtitlePath
-{
-    VLCPlaybackController *vpc = [VLCPlaybackController sharedInstance];
-
-    vpc.url = url;
-    vpc.pathToExternalSubtitlesFile = SubtitlePath;
-
-    [vpc startPlayback];
-}
-
 #pragma mark - watch struff
-- (void)application:(UIApplication *)application handleWatchKitExtensionRequest:(NSDictionary *)userInfo reply:(void (^)(NSDictionary *))reply
+- (void)application:(UIApplication *)application
+handleWatchKitExtensionRequest:(NSDictionary *)userInfo
+              reply:(void (^)(NSDictionary *))reply
 {
     /* dispatch background task */
     __block UIBackgroundTaskIdentifier taskIdentifier = [application beginBackgroundTaskWithName:nil
@@ -586,7 +562,8 @@ continueUserActivity:(NSUserActivity *)userActivity
         return;
     }
 
-    [self openMediaFromManagedObject:managedObject];
+    VLCPlaybackController *vpc = [VLCPlaybackController sharedInstance];
+    [vpc playMediaLibraryObject:managedObject];
 }
 
 - (void)setVolumeFromWatch:(VLCWatchMessage *)message

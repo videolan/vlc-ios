@@ -13,9 +13,10 @@
  *****************************************************************************/
 
 #import "VLCUPnPServerListViewController.h"
+#import "VLCDownloadViewController.h"
 
 #import "VLCNetworkListCell.h"
-#import "VLCAppDelegate.h"
+#import "VLCPlaybackController.h"
 #import "VLCStatusLabel.h"
 #import "NSString+SupportedMedia.h"
 
@@ -262,8 +263,8 @@
                 itemURL = [NSURL URLWithString:uriCollectionObjects[correctIndex]];
             }
             if (itemURL) {
-                VLCAppDelegate* appDelegate = [UIApplication sharedApplication].delegate;
-                [appDelegate openMovieFromURL:itemURL];
+                VLCPlaybackController *vpc = [VLCPlaybackController sharedInstance];
+                [vpc playURL:itemURL successCallback:nil errorCallback:nil];
             }
         }
     }
@@ -456,8 +457,8 @@
                 NSString *itemURLString = uriCollectionObjects[buttonIndex];
 
                 if ([itemURLString length]) {
-                    VLCAppDelegate* appDelegate = [UIApplication sharedApplication].delegate;
-                    [appDelegate openMovieFromURL:[NSURL URLWithString:itemURLString]];
+                    VLCPlaybackController *vpc = [VLCPlaybackController sharedInstance];
+                    [vpc playURL:[NSURL URLWithString:itemURLString] successCallback:nil errorCallback:nil];
                 }
             }
         }

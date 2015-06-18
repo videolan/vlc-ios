@@ -12,7 +12,8 @@
 #import "VLCPlexMediaInformationViewController.h"
 #import "VLCPlexParser.h"
 #import "VLCPlexWebAPI.h"
-#import "VLCAppDelegate.h"
+#import "VLCPlaybackController.h"
+#import "VLCDownloadViewController.h"
 #import "NSString+SupportedMedia.h"
 #import "UIDevice+VLC.h"
 
@@ -131,8 +132,8 @@
 
         NSURL *itemURL = [NSURL URLWithString:[_PlexWebAPI urlAuth:firstObject[@"keyMedia"] autentification:_PlexAuthentification]];
         if (itemURL) {
-            VLCAppDelegate *appDelegate = [UIApplication sharedApplication].delegate;
-            [appDelegate openMovieWithExternalSubtitleFromURL:itemURL externalSubURL:URLofSubtitle];
+            VLCPlaybackController *vpc = [VLCPlaybackController sharedInstance];
+            [vpc playURL:itemURL subtitlesFilePath:URLofSubtitle];
         }
     }
 }

@@ -17,6 +17,7 @@
 #import "NSString+SupportedMedia.h"
 #import "UIDevice+VLC.h"
 #import "VLCStatusLabel.h"
+#import "VLCPlaybackController.h"
 
 #import "WhiteRaccoon.h"
 
@@ -113,8 +114,8 @@
 
     NSURL *URLToPlay = [NSURL URLWithString:[[@"ftp" stringByAppendingFormat:@"://%@%@/%@/%@", [self _credentials], _ftpServerAddress, _ftpServerPath, fileName] stringByAddingPercentEscapesUsingEncoding:NSUTF8StringEncoding]];
 
-    VLCAppDelegate* appDelegate = [UIApplication sharedApplication].delegate;
-    [appDelegate openMovieWithExternalSubtitleFromURL:URLToPlay externalSubURL:URLofSubtitle];
+    VLCPlaybackController *vpc = [VLCPlaybackController sharedInstance];
+    [vpc playURL:URLToPlay subtitlesFilePath:URLofSubtitle];
 }
 
 - (NSArray *)_searchSubtitle:(NSString *)url

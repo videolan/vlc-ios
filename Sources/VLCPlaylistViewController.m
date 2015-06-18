@@ -26,6 +26,7 @@
 #import "LXReorderableCollectionViewFlowLayout.h"
 #import "VLCOpenInActivity.h"
 #import "VLCNavigationController.h"
+#import "VLCPlaybackController+MediaLibrary.h"
 
 #import <AssetsLibrary/AssetsLibrary.h>
 
@@ -300,8 +301,10 @@ static NSString *kUsingTableViewToShowData = @"UsingTableViewToShowData";
 
         [self reloadViews];
         return;
-    } else
-        [(VLCAppDelegate*)[UIApplication sharedApplication].delegate openMediaFromManagedObject:mediaObject];
+    } else {
+        VLCPlaybackController *vpc = [VLCPlaybackController sharedInstance];
+        [vpc playMediaLibraryObject:mediaObject];
+    }
 }
 
 - (void)removeMediaObject:(id)managedObject updateDatabase:(BOOL)updateDB

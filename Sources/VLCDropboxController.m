@@ -13,6 +13,7 @@
 
 #import "VLCDropboxController.h"
 #import "NSString+SupportedMedia.h"
+#import "VLCPlaybackController.h"
 #import "VLCAppDelegate.h"
 
 @interface VLCDropboxController ()
@@ -195,8 +196,8 @@
 
 - (void)restClient:(DBRestClient*)restClient loadedStreamableURL:(NSURL*)url forFile:(NSString*)path
 {
-    VLCAppDelegate *appDelegate = (VLCAppDelegate *)[UIApplication sharedApplication].delegate;
-    [appDelegate openMovieFromURL:url];
+    VLCPlaybackController *vpc = [VLCPlaybackController sharedInstance];
+    [vpc playURL:url successCallback:nil errorCallback:nil];
 }
 
 - (void)restClient:(DBRestClient*)restClient loadStreamableURLFailedWithError:(NSError*)error

@@ -13,7 +13,7 @@
 #import "VLCOneDriveTableViewController.h"
 #import "VLCOneDriveController.h"
 #import "VLCCloudStorageTableViewCell.h"
-#import "VLCAppDelegate.h"
+#import "VLCPlaybackController.h"
 #import "VLCOneDriveController.h"
 #import "VLCProgressView.h"
 #import "UIDevice+VLC.h"
@@ -104,8 +104,8 @@
     } else {
         /* stream file */
         NSURL *url = [NSURL URLWithString:selectedObject.downloadPath];
-        VLCAppDelegate *appDelegate = (VLCAppDelegate *)[UIApplication sharedApplication].delegate;
-        [appDelegate openMovieFromURL:url];
+        VLCPlaybackController *vpc = [VLCPlaybackController sharedInstance];
+        [vpc playURL:url successCallback:nil errorCallback:nil];
     }
 
     [self.tableView deselectRowAtIndexPath:indexPath animated:NO];

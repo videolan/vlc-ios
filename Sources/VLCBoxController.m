@@ -12,6 +12,7 @@
 
 #import "VLCBoxController.h"
 #import "NSString+SupportedMedia.h"
+#import "VLCPlaybackController.h"
 #import "VLCAppDelegate.h"
 #import <SSKeychain/SSKeychain.h>
 
@@ -178,8 +179,8 @@
         [connection cancel];
 
         /* now ask VLC to stream the URL we were just passed */
-        VLCAppDelegate *appDelegate = (VLCAppDelegate *)[UIApplication sharedApplication].delegate;
-        [appDelegate openMovieFromURL:theActualURL];
+        VLCPlaybackController *vpc = [VLCPlaybackController sharedInstance];
+        [vpc playURL:theActualURL successCallback:nil errorCallback:nil];
     }
 
     return request;

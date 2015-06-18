@@ -160,6 +160,35 @@ NSString *const VLCPlaybackControllerPlaybackDidFail = @"VLCPlaybackControllerPl
     }
 }
 
+- (void)playURL:(NSURL *)url successCallback:(NSURL*)successCallback errorCallback:(NSURL *)errorCallback
+{
+    self.url = url;
+    self.successCallback = successCallback;
+    self.errorCallback = errorCallback;
+
+    if (self.activePlaybackSession) {
+        self.sessionWillRestart = YES;
+        [self stopPlayback];
+    } else {
+        self.sessionWillRestart = NO;
+        [self startPlayback];
+    }
+}
+
+- (void)playURL:(NSURL *)url subtitlesFilePath:(NSString *)subsFilePath
+{
+    self.url = url;
+    self.pathToExternalSubtitlesFile = subsFilePath;
+
+    if (self.activePlaybackSession) {
+        self.sessionWillRestart = YES;
+        [self stopPlayback];
+    } else {
+        self.sessionWillRestart = NO;
+        [self startPlayback];
+    }
+}
+
 - (void)startPlayback
 {
     if (_playerIsSetup)

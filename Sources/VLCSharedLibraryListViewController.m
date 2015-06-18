@@ -13,7 +13,7 @@
 #import "VLCSharedLibraryListViewController.h"
 #import "VLCSharedLibraryParser.h"
 #import "VLCNetworkListCell.h"
-#import "VLCAppDelegate.h"
+#import "VLCPlaybackController.h"
 #import "VLCPlaylistViewController.h"
 #import "VLCDownloadViewController.h"
 #import "NSString+SupportedMedia.h"
@@ -228,8 +228,8 @@
 
     NSURL *itemURL = [NSURL URLWithString:[selectedObject objectForKey:@"pathfile"]];
     if (itemURL) {
-            VLCAppDelegate *appDelegate = [UIApplication sharedApplication].delegate;
-            [appDelegate openMovieWithExternalSubtitleFromURL:itemURL externalSubURL:URLofSubtitle];
+        VLCPlaybackController *vpc = [VLCPlaybackController sharedInstance];
+        [vpc playURL:itemURL subtitlesFilePath:URLofSubtitle];
     }
 
     [tableView deselectRowAtIndexPath:indexPath animated:NO];

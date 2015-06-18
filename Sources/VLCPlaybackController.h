@@ -92,5 +92,7 @@ currentMediaHasTrackToChooseFrom:(BOOL)currentMediaHasTrackToChooseFrom
 - (void)scheduleSleepTimerWithInterval:(NSTimeInterval)timeInterval;
 
 - (void)playMediaList:(VLCMediaList *)mediaList firstIndex:(int)index;
+- (void)playURL:(NSURL *)url successCallback:(NSURL*)successCallback errorCallback:(NSURL *)errorCallback;
+- (void)playURL:(NSURL *)url subtitlesFilePath:(NSString *)subsFilePath;
 
 @end

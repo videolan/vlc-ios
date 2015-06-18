@@ -13,7 +13,7 @@
  *****************************************************************************/
 
 #import "VLCOpenNetworkStreamViewController.h"
-#import "VLCAppDelegate.h"
+#import "VLCPlaybackController.h"
 #import "VLCPlaylistViewController.h"
 #import "VLCMenuTableViewController.h"
 #import "UIDevice+VLC.h"
@@ -249,7 +249,8 @@ forRowAtIndexPath:(NSIndexPath *)indexPath
         if (self.ScanSubToggleSwitch.on)
             URLofSubtitle = [self _checkURLofSubtitle:url];
 
-    [(VLCAppDelegate*)[UIApplication sharedApplication].delegate openMovieWithExternalSubtitleFromURL:[NSURL URLWithString:url] externalSubURL:URLofSubtitle];
+    VLCPlaybackController *vpc = [VLCPlaybackController sharedInstance];
+    [vpc playURL:[NSURL URLWithString:url] subtitlesFilePath:URLofSubtitle];
 }
 
 - (NSString *)_checkURLofSubtitle:(NSString *)url

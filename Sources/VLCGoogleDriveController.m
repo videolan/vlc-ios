@@ -13,6 +13,7 @@
 
 #import "VLCGoogleDriveController.h"
 #import "NSString+SupportedMedia.h"
+#import "VLCPlaybackController.h"
 #import "VLCAppDelegate.h"
 
 @interface VLCGoogleDriveController ()
@@ -152,10 +153,10 @@
 
 - (void)streamFile:(GTLDriveFile *)file
 {
-    VLCAppDelegate *appDelegate = (VLCAppDelegate *)[UIApplication sharedApplication].delegate;
     NSString *token = ((GTMOAuth2Authentication *)self.driveService.authorizer).accessToken;
     NSString *downloadString = [file.downloadUrl stringByAppendingString:[NSString stringWithFormat:@"&access_token=%@",token]];
-    [appDelegate openMovieFromURL:[NSURL URLWithString:downloadString]];
+    VLCPlaybackController *vpc = [VLCPlaybackController sharedInstance];
+    [vpc playURL:[NSURL URLWithString:downloadString] successCallback:nil errorCallback:nil];
 }
 
 - (void)_triggerNextDownload
