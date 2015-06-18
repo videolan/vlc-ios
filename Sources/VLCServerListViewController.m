@@ -211,56 +211,6 @@
     }
 }
 
-- (void)_startUPNPDiscovery
-{
-    if (_reachability.currentReachabilityStatus != ReachableViaWiFi)
-        return;
-
-    UPnPManager *managerInstance = [UPnPManager GetInstance];
-
-    _UPNPdevices = [[managerInstance DB] rootDevices];
-
-    if (_UPNPdevices.count > 0)
-        [self UPnPDBUpdated:nil];
-
-    [[managerInstance DB] addObserver:self];
-
-    //Optional; set User Agent
-    if (!_setup) {
-        [[managerInstance SSDP] setUserAgentProduct:[NSString stringWithFormat:@"VLCforiOS/%@", [[NSBundle mainBundle] objectForInfoDictionaryKey:@"CFBundleShortVersionString"]] andOS:[NSString stringWithFormat:@"iOS/%@", [[UIDevice currentDevice] systemVersion]]];
-        _setup = YES;
-    }
-
-    //Search for UPnP Devices
-    [[managerInstance SSDP] startSSDP];
-    [[managerInstance SSDP] notifySSDPAlive];
-
-    _searchTimer = [[NSTimer alloc] initWithFireDate:[NSDate dateWithTimeIntervalSinceNow:1.0] interval:10.0 target:self selector:@selector(_performSSDPSearch) userInfo:nil repeats:YES];
-    [[NSRunLoop mainRunLoop] addTimer:_searchTimer forMode:NSRunLoopCommonModes];
-    _udnpDiscoveryRunning = YES;
-}
-
-- (void)_performSSDPSearch
-{
-    UPnPManager *managerInstance = [UPnPManager GetInstance];
-    [[managerInstance SSDP] searchSSDP];
-    [[managerInstance SSDP] searchForMediaServer];
-    [[managerInstance SSDP] performSelectorInBackground:@selector(SSDPDBUpdate) withObject:nil];
-}
-
-- (void)_stopUPNPDiscovery
-{
-    if (_udnpDiscoveryRunning) {
-        UPnPManager *managerInstance = [UPnPManager GetInstance];
-        [[managerInstance SSDP] notifySSDPByeBye];
-        [_searchTimer invalidate];
-        _searchTimer = nil;
-        [[managerInstance DB] removeObserver:self];
-        [[managerInstance SSDP] stopSSDP];
-        _udnpDiscoveryRunning = NO;
-    }
-}
-
 - (IBAction)goBack:(id)sender
 {
     [self _stopUPNPDiscovery];
@@ -488,8 +438,14 @@
             if (cellMedia.mediaType != VLCMediaTypeDirectory)
                 return;
 
+            NSDictionary *mediaOptions = @{@"smb-user" : @"",
+                                           @"smb-pwd" : @"",
+                                           @"smb-domain" : @""};
+            [cellMedia addOptions:mediaOptions];
+
             VLCDiscoveryListViewController *targetViewController = [[VLCDiscoveryListViewController alloc]
-                                                                    initWithMedia:cellMedia];
+                                                                    initWithMedia:cellMedia
+                                                                    options:mediaOptions];
             [[self navigationController] pushViewController:targetViewController animated:YES];
             break;
         }
@@ -569,6 +525,19 @@ confirmedWithUsername:(NSString *)username
                                                                           authentification:username];
             [[self navigationController] pushViewController:targetViewController animated:YES];
             break;
+        }
+        case VLCServerProtocolSMB:
+        {
+            VLCMedia *media = [VLCMedia mediaWithURL:[NSURL URLWithString:[NSString stringWithFormat:@"smb://%@", server]]];
+            NSDictionary *mediaOptions = @{@"smb-user" : username ? username : @"",
+                                           @"smb-pwd" : password ? password : @"",
+                                           @"smb-domain" : @"WORKGROUP"};
+            [media addOptions:mediaOptions];
+
+            VLCDiscoveryListViewController *targetViewController = [[VLCDiscoveryListViewController alloc]
+                                                                    initWithMedia:media
+                                                                    options:mediaOptions];
+            [[self navigationController] pushViewController:targetViewController animated:YES];
         }
 
         default:
@@ -743,7 +712,57 @@ confirmedWithUsername:(NSString *)username
     }
 }
 
-#pragma mark - UPNP details
+#pragma mark - UPNP discovery
+- (void)_startUPNPDiscovery
+{
+    if (_reachability.currentReachabilityStatus != ReachableViaWiFi)
+        return;
+
+    UPnPManager *managerInstance = [UPnPManager GetInstance];
+
+    _UPNPdevices = [[managerInstance DB] rootDevices];
+
+    if (_UPNPdevices.count > 0)
+        [self UPnPDBUpdated:nil];
+
+    [[managerInstance DB] addObserver:self];
+
+    //Optional; set User Agent
+    if (!_setup) {
+        [[managerInstance SSDP] setUserAgentProduct:[NSString stringWithFormat:@"VLCforiOS/%@", [[NSBundle mainBundle] objectForInfoDictionaryKey:@"CFBundleShortVersionString"]] andOS:[NSString stringWithFormat:@"iOS/%@", [[UIDevice currentDevice] systemVersion]]];
+        _setup = YES;
+    }
+
+    //Search for UPnP Devices
+    [[managerInstance SSDP] startSSDP];
+    [[managerInstance SSDP] notifySSDPAlive];
+
+    _searchTimer = [[NSTimer alloc] initWithFireDate:[NSDate dateWithTimeIntervalSinceNow:1.0] interval:10.0 target:self selector:@selector(_performSSDPSearch) userInfo:nil repeats:YES];
+    [[NSRunLoop mainRunLoop] addTimer:_searchTimer forMode:NSRunLoopCommonModes];
+    _udnpDiscoveryRunning = YES;
+}
+
+- (void)_performSSDPSearch
+{
+    UPnPManager *managerInstance = [UPnPManager GetInstance];
+    [[managerInstance SSDP] searchSSDP];
+    [[managerInstance SSDP] searchForMediaServer];
+    [[managerInstance SSDP] performSelectorInBackground:@selector(SSDPDBUpdate) withObject:nil];
+}
+
+- (void)_stopUPNPDiscovery
+{
+    if (_udnpDiscoveryRunning) {
+        UPnPManager *managerInstance = [UPnPManager GetInstance];
+        [[managerInstance SSDP] notifySSDPByeBye];
+        [_searchTimer invalidate];
+        _searchTimer = nil;
+        [[managerInstance DB] removeObserver:self];
+        [[managerInstance SSDP] stopSSDP];
+        _udnpDiscoveryRunning = NO;
+    }
+}
+
 //protocol UPnPDBObserver
 - (void)UPnPDBWillUpdate:(UPnPDB*)sender
 {
@@ -774,7 +793,8 @@ confirmedWithUsername:(NSString *)username
     if (_reachability.currentReachabilityStatus != ReachableViaWiFi)
         return;
 
-    _sapDiscoverer = [[VLCMediaDiscoverer alloc] initWithName:@"sap"];
+    if (!_sapDiscoverer)
+        _sapDiscoverer = [[VLCMediaDiscoverer alloc] initWithName:@"sap"];
     [_sapDiscoverer startDiscoverer];
     _sapDiscoverer.discoveredMedia.delegate = self;
 }
@@ -787,7 +807,7 @@ confirmedWithUsername:(NSString *)username
 
 - (void)mediaList:(VLCMediaList *)aMediaList mediaAdded:(VLCMedia *)media atIndex:(NSInteger)index
 {
-    NSLog(@"found media %@ of type %lu", media.url.lastPathComponent, media.mediaType);
+    [media parseWithOptions:VLCMediaParseNetwork];
     [self.tableView performSelectorOnMainThread:@selector(reloadData) withObject:nil waitUntilDone:NO];
 }
 

@@ -14,6 +14,6 @@
 
 @interface VLCDiscoveryListViewController : VLCNetworkListViewController
 
-- (instancetype)initWithMedia:(VLCMedia*)media;
+- (instancetype)initWithMedia:(VLCMedia*)media options:(NSDictionary *)options;
 
 @end
