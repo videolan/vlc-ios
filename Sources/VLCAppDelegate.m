@@ -468,6 +468,8 @@ continueUserActivity:(NSUserActivity *)userActivity
     }
 
     if (!_passcodeValidated) {
+        [_playerDisplayController dismissPlaybackView];
+
         _passcodeLockController = [[PAPasscodeViewController alloc] initForAction:PasscodeActionEnter];
         _passcodeLockController.delegate = self;
         _passcodeLockController.passcode = passcode;
@@ -484,6 +486,7 @@ continueUserActivity:(NSUserActivity *)userActivity
 - (void)PAPasscodeViewControllerDidEnterPasscode:(PAPasscodeViewController *)controller
 {
     _passcodeValidated = YES;
+    [_playerDisplayController pushPlaybackView];
     [self.playlistViewController updateViewContents];
     [self.window.rootViewController dismissViewControllerAnimated:YES completion:nil];
 }

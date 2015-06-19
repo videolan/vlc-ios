@@ -162,6 +162,19 @@ static inline void commonSetup(VLCPlayerDisplayController *self)
     return [[UIApplication sharedApplication] applicationState] != UIApplicationStateBackground;
 }
 
+- (void)pushPlaybackView
+{
+    switch (self.displayMode) {
+        case VLCPlayerDisplayControllerDisplayModeFullscreen:
+            [self _presentFullscreenPlaybackViewIfNeeded];
+            break;
+        case VLCPlayerDisplayControllerDisplayModeMiniplayer:
+            [self _showHideMiniPlaybackView];
+        default:
+            break;
+    }
+}
+
 - (void)dismissPlaybackView
 {
     switch (self.displayMode) {

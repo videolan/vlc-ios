@@ -26,4 +26,7 @@ typedef NS_ENUM(NSUInteger, VLCPlayerDisplayControllerDisplayMode) {
 - (void)showFullscreenPlayback;
 - (void)closeFullscreenPlayback;
 
+- (void)pushPlaybackView;
+- (void)dismissPlaybackView;
+
 @end
