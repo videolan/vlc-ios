@@ -487,10 +487,11 @@ continueUserActivity:(NSUserActivity *)userActivity
 - (void)PAPasscodeViewControllerDidEnterPasscode:(PAPasscodeViewController *)controller
 {
     _passcodeValidated = YES;
-    [[NSNotificationCenter defaultCenter] postNotificationName:VLCPasscodeValidated object:self];
-    [_playerDisplayController pushPlaybackView];
     [self.playlistViewController updateViewContents];
     [self.window.rootViewController dismissViewControllerAnimated:YES completion:nil];
+    [[NSNotificationCenter defaultCenter] postNotificationName:VLCPasscodeValidated object:self];
+    if ([VLCPlaybackController sharedInstance].isPlaying)
+        [_playerDisplayController pushPlaybackView];
 }
 
 - (void)PAPasscodeViewController:(PAPasscodeViewController *)controller didFailToEnterPasscode:(NSInteger)attempts
