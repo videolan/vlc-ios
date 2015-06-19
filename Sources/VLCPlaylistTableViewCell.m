@@ -329,7 +329,7 @@
         self.progressIndicator.progress = position;
         self.progressIndicator.hidden = ((position < .1f) || (position > .95f)) ? YES : NO;
         [self.progressIndicator setNeedsDisplay];
-        self.mediaIsUnreadView.hidden = !mediaLibraryFile.unread.intValue;
+        self.mediaIsUnreadView.hidden = !mediaLibraryFile.unread.intValue || self.progressIndicator.hidden;
     }
 }
 
