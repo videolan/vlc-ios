@@ -111,10 +111,15 @@
     [_artworkView addGestureRecognizer:_artworkTapRecognizer];
     _artworkView.userInteractionEnabled = YES;
 
-    [[NSNotificationCenter defaultCenter] addObserver:self
-                                             selector:@selector(appBecameActive:)
-                                                 name:UIApplicationDidBecomeActiveNotification
-                                               object:nil];
+    NSNotificationCenter *center = [NSNotificationCenter defaultCenter];
+    [center addObserver:self
+               selector:@selector(appBecameActive:)
+                   name:UIApplicationDidBecomeActiveNotification
+                 object:nil];
+    [center addObserver:self
+               selector:@selector(appBecameActive:)
+                   name:VLCPasscodeValidated
+                 object:nil];
 
     return self;
 }

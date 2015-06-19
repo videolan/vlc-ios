@@ -382,6 +382,8 @@ didFailToContinueUserActivityWithType:(NSString *)userActivityType
 {
     _passcodeValidated = YES;
     [self.playlistViewController updateViewContents];
+    if ([VLCPlaybackController sharedInstance].isPlaying)
+        [_playerDisplayController pushPlaybackView];
 }
 
 - (BOOL)passcodeValidated
@@ -394,6 +396,8 @@ didFailToContinueUserActivityWithType:(NSString *)userActivityType
     VLCKeychainCoordinator *keychainCoordinator = [VLCKeychainCoordinator defaultCoordinator];
 
     if (!_passcodeValidated && [keychainCoordinator passcodeLockEnabled]) {
+        [_playerDisplayController dismissPlaybackView];
+
         [keychainCoordinator validatePasscode];
     } else
         _passcodeValidated = YES;
