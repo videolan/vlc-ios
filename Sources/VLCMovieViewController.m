@@ -433,6 +433,12 @@ typedef NS_ENUM(NSInteger, VLCPanType) {
 
     [self screenBrightnessChanged:nil];
     [self setControlsHidden:NO animated:YES];
+
+    VLCMediaPlayer *player = vpc.mediaPlayer;
+    self.hueSlider.value = player.hue;
+    self.contrastSlider.value = player.contrast;
+    self.saturationSlider.value = player.saturation;
+    self.gammaSlider.value = player.gamma;
 }
 
 - (void)viewDidAppear:(BOOL)animated
