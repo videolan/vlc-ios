@@ -132,6 +132,8 @@ NSString *const VLCDropboxSessionWasAuthorized = @"VLCDropboxSessionWasAuthorize
         _menuViewController = [[VLCMenuTableViewController alloc] initWithNibName:nil bundle:nil];
         _revealController.sidebarViewController = _menuViewController;
         _revealController.contentViewController = navCon;
+         if (!SYSTEM_RUNS_IOS7_OR_LATER)
+             _revealController.view.frame = self.window.frame;
 
          _playerDisplayController = [[VLCPlayerDisplayController alloc] init];
          _playerDisplayController.childViewController = self.revealController;
@@ -167,7 +169,6 @@ NSString *const VLCDropboxSessionWasAuthorized = @"VLCDropboxSessionWasAuthorize
 
         self.window.rootViewController = migrationController;
         [self.window makeKeyAndVisible];
-
     } else {
         if (error != nil) {
             APLog(@"removed persistentStore since it was corrupt");
