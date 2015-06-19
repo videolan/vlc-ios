@@ -14,6 +14,13 @@
 #import "VLCTimeNavigationTitleView.h"
 #import "VLCSlider.h"
 
+@interface VLCTimeNavigationTitleView()
+{
+    CGFloat _sliderHeight;
+}
+
+@end
+
 @implementation VLCTimeNavigationTitleView
 
 -(void)awakeFromNib {
@@ -25,6 +32,9 @@
 
     self.aspectRatioButton.accessibilityLabel = NSLocalizedString(@"VIDEO_ASPECT_RATIO_BUTTON", nil);
     self.aspectRatioButton.isAccessibilityElement = YES;
+
+    if (!SYSTEM_RUNS_IOS7_OR_LATER)
+        _sliderHeight = self.positionSlider.frame.size.height;
 
     if (SYSTEM_RUNS_IOS7_OR_LATER) {
         [self.aspectRatioButton setImage:[UIImage imageNamed:@"ratioIcon"] forState:UIControlStateNormal];
@@ -51,6 +61,11 @@
     [self.timeDisplayButton sizeToFit];
     CGRectDivide(remainder, &slice, &remainder, CGRectGetWidth(self.timeDisplayButton.frame), CGRectMaxXEdge);
     self.timeDisplayButton.frame = slice;
+
+    if (!SYSTEM_RUNS_IOS7_OR_LATER) {
+        remainder.size.height = _sliderHeight;
+        remainder.origin.y = (self.frame.size.height - _sliderHeight) / 2.;
+    }
 
     self.positionSlider.frame = remainder;
 }
