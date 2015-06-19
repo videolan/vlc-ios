@@ -45,6 +45,9 @@
     if (!self)
         return self;
 
+    self.backgroundColor = [UIColor blackColor];
+    self.opaque = YES;
+
     CGRect previousRect;
     CGFloat buttonSize = 44.;
 
@@ -97,6 +100,8 @@
     _metaDataLabel.textColor = [UIColor VLCLightTextColor];
     _metaDataLabel.numberOfLines = 0;
     _metaDataLabel.autoresizingMask = UIViewAutoresizingFlexibleWidth;
+    _metaDataLabel.backgroundColor = [UIColor blackColor];
+    _metaDataLabel.opaque = YES;
     [self addSubview:_metaDataLabel];
 
     _labelTapRecognizer = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(tapRecognized)];
