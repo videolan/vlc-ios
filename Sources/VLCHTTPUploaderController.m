@@ -13,10 +13,10 @@
  * Refer to the COPYING file of the official project for license.
  *****************************************************************************/
 
-#import "VLCAppDelegate.h"
 #import "VLCHTTPUploaderController.h"
 #import "VLCHTTPConnection.h"
-
+#import "VLCActivityManager.h"
+#import "VLCMediaFileDiscoverer.h"
 #import "HTTPServer.h"
 
 #import <ifaddrs.h>
@@ -88,7 +88,7 @@
         return true;
     }
     // clean cache before accepting new stuff
-    [(VLCAppDelegate *)[UIApplication sharedApplication].delegate cleanCache];
+    [self cleanCache];
 
     // Initialize our http server
     _httpServer = [[HTTPServer alloc] init];
@@ -206,10 +206,22 @@
     }
 
     /* update media library when file upload was completed */
-    VLCAppDelegate *appDelegate = [UIApplication sharedApplication].delegate;
-    [appDelegate networkActivityStopped];
-    [appDelegate activateIdleTimer];
-    [appDelegate performSelectorOnMainThread:@selector(updateMediaList) withObject:nil waitUntilDone:NO];
+    VLCActivityManager *activityManager = [VLCActivityManager defaultManager];
+    [activityManager networkActivityStopped];
+    [activityManager activateIdleTimer];
+    [[VLCMediaFileDiscoverer sharedInstance] performSelectorOnMainThread:@selector(updateMediaList) withObject:nil waitUntilDone:NO];
+}
+
+- (void)cleanCache
+{
+    if ([[VLCActivityManager defaultManager] haveNetworkActivity])
+        return;
+
+    NSArray *searchPaths = NSSearchPathForDirectoriesInDomains(NSCachesDirectory, NSUserDomainMask, YES);
+    NSString* uploadDirPath = [searchPaths[0] stringByAppendingPathComponent:@"Upload"];
+    NSFileManager *fileManager = [NSFileManager defaultManager];
+    if ([fileManager fileExistsAtPath:uploadDirPath])
+        [fileManager removeItemAtPath:uploadDirPath error:nil];
 }
 
 @end

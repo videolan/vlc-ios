@@ -34,6 +34,7 @@
 #import <HockeySDK/HockeySDK.h>
 #import "VLCSidebarController.h"
 #import "VLCKeychainCoordinator.h"
+#import "VLCActivityManager.h"
 
 NSString *const VLCDropboxSessionWasAuthorized = @"VLCDropboxSessionWasAuthorized";
 
@@ -41,8 +42,6 @@ NSString *const VLCDropboxSessionWasAuthorized = @"VLCDropboxSessionWasAuthorize
 
 @interface VLCAppDelegate () <VLCMediaFileDiscovererDelegate>
 {
-    int _idleCounter;
-    int _networkActivityCounter;
     BOOL _passcodeValidated;
     BOOL _isRunningMigration;
     BOOL _isComingFromHandoff;
@@ -115,13 +114,8 @@ NSString *const VLCDropboxSessionWasAuthorized = @"VLCDropboxSessionWasAuthorize
 
     [[UISwitch appearance] setOnTintColor:[UIColor VLCOrangeTintColor]];
 
-    /* clean caches on launch (since those are used for wifi upload only) */
-    [self cleanCache];
-
-    [VLCLibrary sharedLibrary];
-
-    // Init the HTTP Server
-    [VLCHTTPUploaderController sharedInstance];
+    // Init the HTTP Server and clean its cache
+    [[VLCHTTPUploaderController sharedInstance] cleanCache];
 
     self.window = [[UIWindow alloc] initWithFrame:[[UIScreen mainScreen] bounds]];
     // enable crash preventer
@@ -143,7 +137,7 @@ NSString *const VLCDropboxSessionWasAuthorized = @"VLCDropboxSessionWasAuthorize
 
         VLCMediaFileDiscoverer *discoverer = [VLCMediaFileDiscoverer sharedInstance];
         [discoverer addObserver:self];
-        [discoverer startDiscovering:[self directoryPath]];
+        [discoverer startDiscovering];
     };
 
     NSError *error = nil;
@@ -158,7 +152,7 @@ NSString *const VLCDropboxSessionWasAuthorized = @"VLCDropboxSessionWasAuthorize
             setupBlock();
             _isRunningMigration = NO;
             [[MLMediaLibrary sharedMediaLibrary] updateMediaDatabase];
-            [self updateMediaList];
+            [[VLCMediaFileDiscoverer sharedInstance] updateMediaList];
         };
 
         self.window.rootViewController = migrationController;
@@ -252,7 +246,7 @@ didFailToContinueUserActivityWithType:(NSString *)userActivityType
             if (theError.code != noErr)
                 APLog(@"saving the file failed (%li): %@", (long)theError.code, theError.localizedDescription);
 
-            [self updateMediaList];
+            [[VLCMediaFileDiscoverer sharedInstance] updateMediaList];
         } else if ([url.scheme isEqualToString:@"vlc-x-callback"] || [url.host isEqualToString:@"x-callback-url"]) {
             // URL confirmes to the x-callback-url specification
             // vlc-x-callback://x-callback-url/action?param=value&x-success=callback
@@ -346,7 +340,7 @@ didFailToContinueUserActivityWithType:(NSString *)userActivityType
 {
     if (!_isRunningMigration && !_isComingFromHandoff) {
         [[MLMediaLibrary sharedMediaLibrary] updateMediaDatabase];
-        [self updateMediaList];
+        [[VLCMediaFileDiscoverer sharedInstance] updateMediaList];
     } else if(_isComingFromHandoff) {
         _isComingFromHandoff = NO;
     }
@@ -382,72 +376,6 @@ didFailToContinueUserActivityWithType:(NSString *)userActivityType
     [_playlistViewController updateViewContents];
 }
 
-- (void)cleanCache
-{
-    if ([self haveNetworkActivity])
-        return;
-
-    NSArray *searchPaths = NSSearchPathForDirectoriesInDomains(NSCachesDirectory, NSUserDomainMask, YES);
-    NSString* uploadDirPath = [searchPaths[0] stringByAppendingPathComponent:@"Upload"];
-    NSFileManager *fileManager = [NSFileManager defaultManager];
-    if ([fileManager fileExistsAtPath:uploadDirPath])
-        [fileManager removeItemAtPath:uploadDirPath error:nil];
-}
-
-#pragma mark - media list methods
-
-- (NSString *)directoryPath
-{
-    NSArray *searchPaths = NSSearchPathForDirectoriesInDomains(NSDocumentDirectory, NSUserDomainMask, YES);
-    NSString *directoryPath = searchPaths[0];
-    return directoryPath;
-}
-
-- (void)updateMediaList
-{
-    NSString *directoryPath = [self directoryPath];
-    NSMutableArray *foundFiles = [NSMutableArray arrayWithArray:[[NSFileManager defaultManager] contentsOfDirectoryAtPath:directoryPath error:nil]];
-    NSMutableArray *filePaths = [NSMutableArray array];
-    NSURL *fileURL;
-    while (foundFiles.count) {
-        NSString *fileName = foundFiles.firstObject;
-        NSString *filePath = [directoryPath stringByAppendingPathComponent:fileName];
-        [foundFiles removeObject:fileName];
-
-        if ([fileName isSupportedMediaFormat] || [fileName isSupportedAudioMediaFormat]) {
-            [filePaths addObject:filePath];
-
-            /* exclude media files from backup (QA1719) */
-            fileURL = [NSURL fileURLWithPath:filePath];
-            [fileURL setResourceValue:@YES forKey:NSURLIsExcludedFromBackupKey error:nil];
-        } else {
-            BOOL isDirectory = NO;
-            BOOL exists = [[NSFileManager defaultManager] fileExistsAtPath:filePath isDirectory:&isDirectory];
-
-            // add folders
-            if (exists && isDirectory) {
-                NSArray *files = [[NSFileManager defaultManager] contentsOfDirectoryAtPath:filePath error:nil];
-                for (NSString* file in files) {
-                    NSString *fullFilePath = [directoryPath stringByAppendingPathComponent:file];
-                    isDirectory = NO;
-                    exists = [[NSFileManager defaultManager] fileExistsAtPath:fullFilePath isDirectory:&isDirectory];
-                    //only add folders or files in folders
-                    if ((exists && isDirectory) || ![filePath.lastPathComponent isEqualToString:@"Documents"]) {
-                        NSString *folderpath = [filePath stringByReplacingOccurrencesOfString:directoryPath withString:@""];
-                        if (![folderpath isEqualToString:@""]) {
-                            folderpath = [folderpath stringByAppendingString:@"/"];
-                        }
-                        NSString *path = [folderpath stringByAppendingString:file];
-                        [foundFiles addObject:path];
-                    }
-                }
-            }
-        }
-    }
-    [[MLMediaLibrary sharedMediaLibrary] addFilePaths:filePaths];
-    [_playlistViewController updateViewContents];
-}
-
 #pragma mark - pass code validation
 
 - (void)passcodeWasValidated:(NSNotification *)aNotifcation
@@ -469,40 +397,6 @@ didFailToContinueUserActivityWithType:(NSString *)userActivityType
         [keychainCoordinator validatePasscode];
     } else
         _passcodeValidated = YES;
-}
-
-#pragma mark - idle timer preventer
-- (void)disableIdleTimer
-{
-    _idleCounter++;
-    if ([UIApplication sharedApplication].idleTimerDisabled == NO)
-        [UIApplication sharedApplication].idleTimerDisabled = YES;
-}
-
-- (void)activateIdleTimer
-{
-    _idleCounter--;
-    if (_idleCounter < 1)
-        [UIApplication sharedApplication].idleTimerDisabled = NO;
-}
-
-- (void)networkActivityStarted
-{
-    _networkActivityCounter++;
-    if ([UIApplication sharedApplication].networkActivityIndicatorVisible == NO)
-        [UIApplication sharedApplication].networkActivityIndicatorVisible = YES;
-}
-
-- (BOOL)haveNetworkActivity
-{
-    return _networkActivityCounter >= 1;
-}
-
-- (void)networkActivityStopped
-{
-    _networkActivityCounter--;
-    if (_networkActivityCounter < 1)
-        [UIApplication sharedApplication].networkActivityIndicatorVisible = NO;
 }
 
 #pragma mark - download handling

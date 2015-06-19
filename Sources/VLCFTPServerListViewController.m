@@ -13,11 +13,12 @@
 
 #import "VLCFTPServerListViewController.h"
 #import "VLCNetworkListCell.h"
-#import "VLCAppDelegate.h"
+#import "VLCActivityManager.h"
 #import "NSString+SupportedMedia.h"
 #import "UIDevice+VLC.h"
 #import "VLCStatusLabel.h"
 #import "VLCPlaybackController.h"
+#import "VLCDownloadViewController.h"
 
 #import "WhiteRaccoon.h"
 
@@ -78,7 +79,7 @@
     _FTPListDirRequest.path = _ftpServerPath;
     _FTPListDirRequest.passive = YES;
 
-    [(VLCAppDelegate*)[UIApplication sharedApplication].delegate networkActivityStarted];
+    [[VLCActivityManager defaultManager] networkActivityStarted];
     [_FTPListDirRequest start];
 }
 
@@ -219,7 +220,7 @@
     [super tableView:tableView willDisplayCell:cell forRowAtIndexPath:indexPath];
 
     if([indexPath row] == ((NSIndexPath*)[[tableView indexPathsForVisibleRows] lastObject]).row)
-        [(VLCAppDelegate*)[UIApplication sharedApplication].delegate networkActivityStopped];
+        [[VLCActivityManager defaultManager] networkActivityStopped];
 }
 
 

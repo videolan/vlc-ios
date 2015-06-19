@@ -80,6 +80,7 @@
 		7D15168B194773630086FB8C /* MobileCoreServices.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 7D15168A194773630086FB8C /* MobileCoreServices.framework */; };
 		7D168F7118D4A21B003FAF59 /* Accelerate.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 7D168F7018D4A21B003FAF59 /* Accelerate.framework */; };
 		7D168F7418D4A33F003FAF59 /* UIImage+Blur.m in Sources */ = {isa = PBXBuildFile; fileRef = 7D168F7318D4A33F003FAF59 /* UIImage+Blur.m */; };
+		7D18F0A21B34522000651A30 /* VLCActivityManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 7D18F0A11B34522000651A30 /* VLCActivityManager.m */; };
 		7D27EB9419DEE11900EF0370 /* Launch Screen.xib in Resources */ = {isa = PBXBuildFile; fileRef = 7D27EB9319DEE11900EF0370 /* Launch Screen.xib */; };
 		7D27EC2B19DF310300EF0370 /* VLCFirstStepsSecondPageViewController~ipad.xib in Resources */ = {isa = PBXBuildFile; fileRef = 7D27EC2919DF310300EF0370 /* VLCFirstStepsSecondPageViewController~ipad.xib */; };
 		7D27EC2C19DF310300EF0370 /* VLCFirstStepsSecondPageViewController~iphone.xib in Resources */ = {isa = PBXBuildFile; fileRef = 7D27EC2A19DF310300EF0370 /* VLCFirstStepsSecondPageViewController~iphone.xib */; };
@@ -413,6 +414,8 @@
 		7D168F7018D4A21B003FAF59 /* Accelerate.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Accelerate.framework; path = System/Library/Frameworks/Accelerate.framework; sourceTree = SDKROOT; };
 		7D168F7218D4A317003FAF59 /* UIImage+Blur.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = "UIImage+Blur.h"; path = "Sources/UIImage+Blur.h"; sourceTree = SOURCE_ROOT; };
 		7D168F7318D4A33F003FAF59 /* UIImage+Blur.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = "UIImage+Blur.m"; path = "Sources/UIImage+Blur.m"; sourceTree = SOURCE_ROOT; };
+		7D18F0A01B34522000651A30 /* VLCActivityManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = VLCActivityManager.h; path = Sources/VLCActivityManager.h; sourceTree = SOURCE_ROOT; };
+		7D18F0A11B34522000651A30 /* VLCActivityManager.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = VLCActivityManager.m; path = Sources/VLCActivityManager.m; sourceTree = SOURCE_ROOT; };
 		7D19492B17C661A300959800 /* el */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = el; path = el.lproj/Localizable.strings; sourceTree = "<group>"; };
 		7D1AB27C179C98BF004CC271 /* he */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = he; path = he.lproj/Localizable.strings; sourceTree = "<group>"; };
 		7D1AB281179C98CD004CC271 /* nl */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = nl; path = nl.lproj/Localizable.strings; sourceTree = "<group>"; };
@@ -1292,7 +1295,7 @@
 				7D6B08BB174A72A900A05173 /* VLCConstants.h */,
 				7DBBF180183AB3B80009A339 /* VLCAppDelegate.h */,
 				7DBBF181183AB3B80009A339 /* VLCAppDelegate.m */,
-				7DBB788E1B305D8300894467 /* Keychain */,
+				7DBB788E1B305D8300894467 /* Keychain & random singletons */,
 				A7D03A4817A4249F0022C16F /* MediaDiscovering */,
 				7D2339AB176DE70E008D223C /* Menu */,
 				7D5F7ABA175265CB006CCCFA /* HTTP Connectivity */,
@@ -1379,13 +1382,15 @@
 			name = "Server browsing";
 			sourceTree = "<group>";
 		};
-		7DBB788E1B305D8300894467 /* Keychain */ = {
+		7DBB788E1B305D8300894467 /* Keychain & random singletons */ = {
 			isa = PBXGroup;
 			children = (
 				7DBB78881B30423B00894467 /* VLCKeychainCoordinator.h */,
 				7DBB78891B30423B00894467 /* VLCKeychainCoordinator.m */,
+				7D18F0A01B34522000651A30 /* VLCActivityManager.h */,
+				7D18F0A11B34522000651A30 /* VLCActivityManager.m */,
 			);
-			name = Keychain;
+			name = "Keychain & random singletons";
 			sourceTree = "<group>";
 		};
 		7DC19AEB1868C91400810BF7 /* First Steps */ = {
@@ -1992,6 +1997,7 @@
 				493B1A1D195D06B1000A491A /* BasicUPnPDevice+VLC.m in Sources */,
 				265D511D1922746C00E38383 /* VLCPlexParser.m in Sources */,
 				2640FAE61B01477A00E359D6 /* VLCPlexWebAPI.m in Sources */,
+				7D18F0A21B34522000651A30 /* VLCActivityManager.m in Sources */,
 				7DB847D71A5871570002DC30 /* VLCOneDriveObject.m in Sources */,
 				7DAE0C2E1B2EDF7A00C53996 /* VLCNetworkListViewController.m in Sources */,
 				7D1052E91A4DCC1100295F08 /* VLCOneDriveTableViewController.m in Sources */,

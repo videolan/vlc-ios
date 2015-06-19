@@ -13,7 +13,7 @@
  * Refer to the COPYING file of the official project for license.
  *****************************************************************************/
 
-#import "VLCAppDelegate.h"
+#import "VLCActivityManager.h"
 #import "VLCHTTPConnection.h"
 #import "MultipartFormDataParser.h"
 #import "HTTPMessage.h"
@@ -440,9 +440,10 @@
         APLog(@"Could not create file at path: %@", _filepath);
 
     _storeFile = [NSFileHandle fileHandleForWritingAtPath:_filepath];
-    VLCAppDelegate *appDelegate = [UIApplication sharedApplication].delegate;
-    [appDelegate networkActivityStarted];
-    [appDelegate disableIdleTimer];
+
+    VLCActivityManager *activityManager = [VLCActivityManager defaultManager];
+    [activityManager networkActivityStarted];
+    [activityManager disableIdleTimer];
 }
 
 - (void)notifyUserAboutEndOfFreeStorage:(NSString *)filename

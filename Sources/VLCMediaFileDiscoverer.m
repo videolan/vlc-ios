@@ -12,6 +12,8 @@
 
 #import "VLCMediaFileDiscoverer.h"
 #import "NSString+SupportedMedia.h"
+#import "VLCAppDelegate.h"
+#import "VLCPlaylistViewController.h"
 
 const float MediaTimerInterval = 2.f;
 
@@ -92,12 +94,12 @@ const float MediaTimerInterval = 2.f;
 
 #pragma mark - discovering
 
-- (void)startDiscovering:(NSString *)directoryPath
+- (void)startDiscovering
 {
-    _directoryPath = directoryPath;
-     _directoryFiles = [self directoryFiles];
+    _directoryPath = [self directoryPath];
+    _directoryFiles = [self directoryFiles];
 
-    int const folderDescriptor = open([directoryPath fileSystemRepresentation], O_EVTONLY);
+    int const folderDescriptor = open([_directoryPath fileSystemRepresentation], O_EVTONLY);
     _directorySource = dispatch_source_create(DISPATCH_SOURCE_TYPE_VNODE, folderDescriptor,
                                               DISPATCH_VNODE_WRITE, DISPATCH_TARGET_QUEUE_DEFAULT);
 
@@ -244,6 +246,58 @@ const float MediaTimerInterval = 2.f;
 {
     [_addMediaTimer invalidate];
     _addMediaTimer = nil;
+}
+
+#pragma mark - media list management
+
+- (void)updateMediaList
+{
+    if (![NSThread isMainThread]) {
+        [self performSelectorOnMainThread:@selector(updateMediaList) withObject:nil waitUntilDone:NO];
+        return;
+    }
+
+    NSString *directoryPath = [self directoryPath];
+    NSMutableArray *foundFiles = [NSMutableArray arrayWithArray:[[NSFileManager defaultManager] contentsOfDirectoryAtPath:directoryPath error:nil]];
+    NSMutableArray *filePaths = [NSMutableArray array];
+    NSURL *fileURL;
+    while (foundFiles.count) {
+        NSString *fileName = foundFiles.firstObject;
+        NSString *filePath = [directoryPath stringByAppendingPathComponent:fileName];
+        [foundFiles removeObject:fileName];
+
+        if ([fileName isSupportedMediaFormat] || [fileName isSupportedAudioMediaFormat]) {
+            [filePaths addObject:filePath];
+
+            /* exclude media files from backup (QA1719) */
+            fileURL = [NSURL fileURLWithPath:filePath];
+            [fileURL setResourceValue:@YES forKey:NSURLIsExcludedFromBackupKey error:nil];
+        } else {
+            BOOL isDirectory = NO;
+            BOOL exists = [[NSFileManager defaultManager] fileExistsAtPath:filePath isDirectory:&isDirectory];
+
+            // add folders
+            if (exists && isDirectory) {
+                NSArray *files = [[NSFileManager defaultManager] contentsOfDirectoryAtPath:filePath error:nil];
+                for (NSString* file in files) {
+                    NSString *fullFilePath = [directoryPath stringByAppendingPathComponent:file];
+                    isDirectory = NO;
+                    exists = [[NSFileManager defaultManager] fileExistsAtPath:fullFilePath isDirectory:&isDirectory];
+                    //only add folders or files in folders
+                    if ((exists && isDirectory) || ![filePath.lastPathComponent isEqualToString:@"Documents"]) {
+                        NSString *folderpath = [filePath stringByReplacingOccurrencesOfString:directoryPath withString:@""];
+                        if (![folderpath isEqualToString:@""]) {
+                            folderpath = [folderpath stringByAppendingString:@"/"];
+                        }
+                        NSString *path = [folderpath stringByAppendingString:file];
+                        [foundFiles addObject:path];
+                    }
+                }
+            }
+        }
+    }
+    [[MLMediaLibrary sharedMediaLibrary] addFilePaths:filePaths];
+    [[(VLCAppDelegate *)[UIApplication sharedApplication].delegate playlistViewController] updateViewContents];
 }
 
 @end

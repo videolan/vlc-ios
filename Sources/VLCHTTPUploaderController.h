@@ -27,5 +27,6 @@
 - (NSString *)hostname;
 
 - (void)moveFileFrom:(NSString *)filepath;
+- (void)cleanCache;
 
 @end

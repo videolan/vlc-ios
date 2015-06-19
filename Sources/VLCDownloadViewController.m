@@ -14,7 +14,7 @@
 
 #import "VLCDownloadViewController.h"
 #import "VLCHTTPFileDownloader.h"
-#import "VLCAppDelegate.h"
+#import "VLCActivityManager.h"
 #import "WhiteRaccoon.h"
 #import "NSString+SupportedMedia.h"
 #import "VLCHTTPFileDownloader.h"
@@ -241,9 +241,11 @@
 - (void)downloadStarted
 {
     [self.activityIndicator stopAnimating];
-    VLCAppDelegate *appDelegate = [UIApplication sharedApplication].delegate;
-    [appDelegate networkActivityStopped];
-    [appDelegate networkActivityStarted];
+
+    VLCActivityManager *activityManager = [VLCActivityManager defaultManager];
+    [activityManager networkActivityStopped];
+    [activityManager networkActivityStarted];
+
     self.currentDownloadLabel.text = _humanReadableFilename;
     self.progressView.progress = 0.;
     [self.progressPercent setText:@"0%%"];
@@ -257,7 +259,7 @@
 
 - (void)downloadEnded
 {
-    [(VLCAppDelegate*)[UIApplication sharedApplication].delegate networkActivityStopped];
+    [[VLCActivityManager defaultManager] networkActivityStopped];
     _currentDownloadType = 0;
     APLog(@"download ended");
     self.progressContainer.hidden = YES;

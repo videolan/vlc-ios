@@ -28,8 +28,10 @@
 - (void)addObserver:(id<VLCMediaFileDiscovererDelegate>)delegate;
 - (void)removeObserver:(id<VLCMediaFileDiscovererDelegate>)delegate;
 
-- (void)startDiscovering:(NSString *)directoryPath;
+- (void)startDiscovering;
 - (void)stopDiscovering;
+
+- (void)updateMediaList;
 
 + (instancetype)sharedInstance;
 

@@ -14,7 +14,7 @@
 #import "VLCGoogleDriveController.h"
 #import "NSString+SupportedMedia.h"
 #import "VLCPlaybackController.h"
-#import "VLCAppDelegate.h"
+#import "VLCMediaFileDiscoverer.h"
 
 @interface VLCGoogleDriveController ()
 {
@@ -293,8 +293,7 @@
 {
     /* update library now that we got a file */
     APLog(@"DriveFile download was successful");
-    VLCAppDelegate *appDelegate = (VLCAppDelegate *) [UIApplication sharedApplication].delegate;
-    [appDelegate performSelectorOnMainThread:@selector(updateMediaList) withObject:nil waitUntilDone:NO];
+    [[VLCMediaFileDiscoverer sharedInstance] performSelectorOnMainThread:@selector(updateMediaList) withObject:nil waitUntilDone:NO];
 
     if ([self.delegate respondsToSelector:@selector(operationWithProgressInformationStopped)])
         [self.delegate operationWithProgressInformationStopped];

@@ -14,7 +14,8 @@
 #import "VLCDropboxController.h"
 #import "NSString+SupportedMedia.h"
 #import "VLCPlaybackController.h"
-#import "VLCAppDelegate.h"
+#import "VLCActivityManager.h"
+#import "VLCMediaFileDiscoverer.h"
 
 @interface VLCDropboxController ()
 {
@@ -163,8 +164,7 @@
 - (void)restClient:(DBRestClient*)client loadedFile:(NSString*)localPath
 {
     /* update library now that we got a file */
-    VLCAppDelegate *appDelegate = [UIApplication sharedApplication].delegate;
-    [appDelegate performSelectorOnMainThread:@selector(updateMediaList) withObject:nil waitUntilDone:NO];
+    [[VLCMediaFileDiscoverer sharedInstance] performSelectorOnMainThread:@selector(updateMediaList) withObject:nil waitUntilDone:NO];
 
     if ([self.delegate respondsToSelector:@selector(operationWithProgressInformationStopped)])
         [self.delegate operationWithProgressInformationStopped];
@@ -218,8 +218,9 @@
 {
     _outstandingNetworkRequests++;
     if (_outstandingNetworkRequests == 1) {
-        [(VLCAppDelegate*)[UIApplication sharedApplication].delegate networkActivityStarted];
-        [(VLCAppDelegate*)[UIApplication sharedApplication].delegate disableIdleTimer];
+        VLCActivityManager *activityManager = [VLCActivityManager defaultManager];
+        [activityManager networkActivityStarted];
+        [activityManager disableIdleTimer];
     }
 }
 
@@ -227,8 +228,9 @@
 {
     _outstandingNetworkRequests--;
     if (_outstandingNetworkRequests == 0) {
-        [(VLCAppDelegate*)[UIApplication sharedApplication].delegate networkActivityStopped];
-        [(VLCAppDelegate*)[UIApplication sharedApplication].delegate activateIdleTimer];
+        VLCActivityManager *activityManager = [VLCActivityManager defaultManager];
+        [activityManager networkActivityStopped];
+        [activityManager activateIdleTimer];
     }
 }
 

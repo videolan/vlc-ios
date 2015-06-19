@@ -41,7 +41,6 @@ NSString *const VLCPasscode = @"org.videolan.vlc-ios.passcode";
     return sharedInstance;
 }
 
-
 - (NSString *)_obtainPasscode
 {
     NSString *passcode = [SSKeychain passwordForService:VLCPasscode account:VLCPasscode];

@@ -12,7 +12,7 @@
 
 #import "VLCDocumentPickerController.h"
 #import <MobileCoreServices/MobileCoreServices.h>
-#import "VLCAppDelegate.h"
+#import "VLCMediaFileDiscoverer.h"
 #import "VLCPlaylistViewController.h"
 
 @interface VLCDocumentPickerController () <UIDocumentMenuDelegate, UIDocumentPickerDelegate>
@@ -74,11 +74,10 @@
 
     if (![fileManager fileExistsAtPath:filePath]) {
         NSError *error = nil;
-        BOOL succes = [fileManager moveItemAtPath:[url path] toPath:filePath error:&error];
+        BOOL success = [fileManager moveItemAtPath:[url path] toPath:filePath error:&error];
 
-        if (succes) {
-            VLCAppDelegate *appDelegate = [UIApplication sharedApplication].delegate;
-            [appDelegate updateMediaList];
+        if (success) {
+            [[VLCMediaFileDiscoverer sharedInstance] updateMediaList];
         }
     }
 }

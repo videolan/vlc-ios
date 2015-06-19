@@ -13,7 +13,7 @@
 #import "VLCBoxController.h"
 #import "NSString+SupportedMedia.h"
 #import "VLCPlaybackController.h"
-#import "VLCAppDelegate.h"
+#import "VLCMediaFileDiscoverer.h"
 #import <SSKeychain/SSKeychain.h>
 
 @interface VLCBoxController () <NSURLConnectionDataDelegate>
@@ -306,8 +306,7 @@
 {
     /* update library now that we got a file */
     APLog(@"BoxFile download was successful");
-    VLCAppDelegate *appDelegate = (VLCAppDelegate *) [UIApplication sharedApplication].delegate;
-    [appDelegate performSelectorOnMainThread:@selector(updateMediaList) withObject:nil waitUntilDone:NO];
+    [[VLCMediaFileDiscoverer sharedInstance] performSelectorOnMainThread:@selector(updateMediaList) withObject:nil waitUntilDone:NO];
 
     if ([self.delegate respondsToSelector:@selector(operationWithProgressInformationStopped)])
         [self.delegate operationWithProgressInformationStopped];

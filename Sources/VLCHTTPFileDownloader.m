@@ -13,8 +13,9 @@
 
 #import "VLCHTTPFileDownloader.h"
 #import "NSString+SupportedMedia.h"
-#import "VLCAppDelegate.h"
+#import "VLCActivityManager.h"
 #import "UIDevice+VLC.h"
+#import "VLCMediaFileDiscoverer.h"
 
 @interface VLCHTTPFileDownloader ()
 {
@@ -63,9 +64,9 @@
         _downloadInProgress = NO;
     } else {
         _downloadInProgress = YES;
-        VLCAppDelegate *appDelegate = [UIApplication sharedApplication].delegate;
-        [appDelegate networkActivityStarted];
-        [appDelegate disableIdleTimer];
+        VLCActivityManager *activityManager = [VLCActivityManager defaultManager];
+        [activityManager networkActivityStarted];
+        [activityManager disableIdleTimer];
     }
 }
 
@@ -199,9 +200,9 @@
 - (void)_downloadEnded
 {
     _downloadInProgress = NO;
-    VLCAppDelegate *appDelegate = [UIApplication sharedApplication].delegate;
-    [appDelegate networkActivityStopped];
-    [appDelegate activateIdleTimer];
+    VLCActivityManager *activityManager = [VLCActivityManager defaultManager];
+    [activityManager networkActivityStopped];
+    [activityManager activateIdleTimer];
 
     NSArray *searchPaths = NSSearchPathForDirectoriesInDomains(NSDocumentDirectory, NSUserDomainMask, YES);
     NSString *libraryPath = searchPaths[0];
@@ -211,7 +212,7 @@
 
     if ([fileManager fileExistsAtPath:_filePath]) {
         [fileManager moveItemAtPath:_filePath toPath:finalFilePath error:nil];
-        [appDelegate performSelectorOnMainThread:@selector(updateMediaList) withObject:nil waitUntilDone:NO];
+        [[VLCMediaFileDiscoverer sharedInstance] performSelectorOnMainThread:@selector(updateMediaList) withObject:nil waitUntilDone:NO];
     }
 
     [self.delegate downloadEnded];

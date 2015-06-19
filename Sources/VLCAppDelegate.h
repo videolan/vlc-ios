@@ -24,16 +24,6 @@ extern NSString *const VLCDropboxSessionWasAuthorized;
 
 @interface VLCAppDelegate : UIResponder <UIApplicationDelegate>
 
-- (void)updateMediaList;
-- (void)disableIdleTimer;
-- (void)activateIdleTimer;
-
-- (void)networkActivityStarted;
-- (BOOL)haveNetworkActivity;
-- (void)networkActivityStopped;
-
-- (void)cleanCache;
-
 @property (nonatomic, readonly) VLCPlaylistViewController *playlistViewController;
 
 @property (nonatomic, readonly) VLCPlayerDisplayController *playerDisplayController;
