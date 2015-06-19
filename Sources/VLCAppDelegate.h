@@ -23,6 +23,7 @@
 @class VLCPlayerDisplayController;
 
 extern NSString *const VLCDropboxSessionWasAuthorized;
+extern NSString *const VLCPasscodeValidated;
 
 @interface VLCAppDelegate : UIResponder <UIApplicationDelegate>
 

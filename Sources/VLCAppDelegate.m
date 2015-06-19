@@ -38,6 +38,7 @@
 #import <HockeySDK/HockeySDK.h>
 
 NSString *const VLCDropboxSessionWasAuthorized = @"VLCDropboxSessionWasAuthorized";
+NSString *const VLCPasscodeValidated = @"VLCPasscodeValidated";
 
 #define BETA_DISTRIBUTION 1
 
@@ -486,6 +487,7 @@ continueUserActivity:(NSUserActivity *)userActivity
 - (void)PAPasscodeViewControllerDidEnterPasscode:(PAPasscodeViewController *)controller
 {
     _passcodeValidated = YES;
+    [[NSNotificationCenter defaultCenter] postNotificationName:VLCPasscodeValidated object:self];
     [_playerDisplayController pushPlaybackView];
     [self.playlistViewController updateViewContents];
     [self.window.rootViewController dismissViewControllerAnimated:YES completion:nil];
