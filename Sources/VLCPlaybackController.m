@@ -516,7 +516,7 @@ NSString *const VLCPlaybackControllerPlaybackDidFail = @"VLCPlaybackControllerPl
 
 - (BOOL)currentMediaHasChapters
 {
-    return [_mediaPlayer countOfTitles] > 1 || [_mediaPlayer chaptersForTitleIndex:_mediaPlayer.currentTitleIndex].count > 1;
+    return [_mediaPlayer numberOfTitles] > 1 || [_mediaPlayer numberOfChaptersForTitle:_mediaPlayer.currentTitleIndex] > 1;
 }
 
 - (BOOL)currentMediaHasTrackToChooseFrom
