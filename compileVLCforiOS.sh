@@ -12,7 +12,7 @@ CONFIGURATION="Release"
 NONETWORK=no
 SKIPLIBVLCCOMPILATION=no
 
-TESTEDVLCKITHASH=9bdb1a46
+TESTEDVLCKITHASH=d65f9821
 TESTEDMEDIALIBRARYKITHASH=d7e992d4
 
 usage()
@@ -179,6 +179,7 @@ fi
 if ! [ -e GDrive ]; then
 svn checkout http://google-api-objectivec-client.googlecode.com/svn/trunk/Source GDrive
 cd GDrive && patch -p0 < ../../patches/gdrive/upgrade-default-target.patch && cd ..
+cd GDrive/HTTPFetcher && patch -p0 < ../../../patches/gdrive/httpfetcher-compilation-fix.diff && cd ../..
 else
 cd GDrive && svn up && cd ..
 fi
