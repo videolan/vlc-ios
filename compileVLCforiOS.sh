@@ -13,7 +13,7 @@ NONETWORK=no
 SKIPLIBVLCCOMPILATION=no
 
 TESTEDVLCKITHASH=d65f9821
-TESTEDMEDIALIBRARYKITHASH=d7e992d4
+TESTEDMEDIALIBRARYKITHASH=1328678c
 
 usage()
 {
@@ -155,8 +155,8 @@ if [ "$NONETWORK" != "yes" ]; then
 if ! [ -e MediaLibraryKit ]; then
 git clone http://code.videolan.org/videolan/MediaLibraryKit.git
 cd MediaLibraryKit
-git checkout -B localAspenBranch ${TESTEDMEDIALIBRARYKITHASH}
-git branch --set-upstream-to=origin/master localAspenBranch
+git checkout -B 2.5.x ${TESTEDMEDIALIBRARYKITHASH}
+git branch --set-upstream-to=origin/2.5.x 2.5.x
 cd ..
 else
 cd MediaLibraryKit
