@@ -167,9 +167,9 @@ NSString *const VLCDropboxSessionWasAuthorized = @"VLCDropboxSessionWasAuthorize
         setupBlock();
     }
 
-    [[VLCNotificationRelay sharedRelay] addRelayLocalName:NSManagedObjectContextDidSaveNotification toRemoteName:@"org.videolan.ios-app.dbupdate"];
-
-    [[VLCNotificationRelay sharedRelay] addRelayLocalName:VLCPlaybackControllerPlaybackMetadataDidChange toRemoteName:kVLCDarwinNotificationNowPlayingInfoUpdate];
+    VLCNotificationRelay *notificationRelay = [VLCNotificationRelay sharedRelay];
+    [notificationRelay addRelayLocalName:NSManagedObjectContextDidSaveNotification toRemoteName:@"org.videolan.ios-app.dbupdate"];
+    [notificationRelay addRelayLocalName:VLCPlaybackControllerPlaybackMetadataDidChange toRemoteName:kVLCDarwinNotificationNowPlayingInfoUpdate];
 
     return YES;
 }
