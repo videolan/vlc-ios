@@ -15,6 +15,7 @@
 #import "VLCAppDelegate.h"
 #import "VLCPlaylistViewController.h"
 #import "VLCPlayerDisplayController.h"
+#import "VLCKeychainCoordinator.h"
 
 @interface VLCMiniPlaybackView () <VLCPlaybackControllerDelegate, UIGestureRecognizerDelegate>
 {
