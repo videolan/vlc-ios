@@ -300,6 +300,9 @@
     if ([self.serverField isFirstResponder]) {
         [self.serverField resignFirstResponder];
         [self.usernameField becomeFirstResponder];
+    } else if ([self.portField isFirstResponder]) {
+        [self.portField resignFirstResponder];
+        [self.usernameField becomeFirstResponder];
     } else if ([self.usernameField isFirstResponder]) {
         [self.usernameField resignFirstResponder];
         [self.passwordField becomeFirstResponder];
