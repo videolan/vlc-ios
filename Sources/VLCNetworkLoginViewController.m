@@ -241,6 +241,15 @@
     else
         service = [NSString stringWithFormat:@"%@://%@",
                    scheme, server];
+
+    if ([scheme isEqualToString:@"plex"]) {
+        if ([server isEqualToString:@""])
+            service = [service stringByAppendingString:@"Account"];
+        else
+            if ([port isEqualToString:@""])
+                service = [service stringByAppendingString:@":32400"];
+    }
+
     [_serverList addObject:service];
     NSUserDefaults *defaults = [NSUserDefaults standardUserDefaults];
     [defaults setObject:_serverList forKey:kVLCStoredServerList];
@@ -385,7 +394,10 @@ forRowAtIndexPath:(NSIndexPath *)indexPath
     self.protocolSegmentedControl.selectedSegmentIndex = self.serverProtocol;
     [self protocolSelectionChanged:nil];
 
-    self.serverField.text = service.host;
+    if ([service.host isEqualToString:@"Account"])
+        self.serverField.text = @"";
+    else
+        self.serverField.text = service.host;
     self.portField.text = [service.port stringValue];
 
     NSArray *accounts = [SSKeychain accountsForService:serviceString];

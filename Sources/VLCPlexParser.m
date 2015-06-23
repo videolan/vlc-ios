@@ -55,6 +55,10 @@
         if([responseString rangeOfString:@"Unauthorized"].location != NSNotFound) {
             NSString *serviceString = [NSString stringWithFormat:@"plex://%@%@", address, port];
             NSArray *accounts = [SSKeychain accountsForService:serviceString];
+            if (!accounts) {
+                serviceString = @"plex://Account";
+                accounts = [SSKeychain accountsForService:serviceString];
+            }
             if (accounts) {
                 NSDictionary *account = [accounts firstObject];
                 NSString *username = [account objectForKey:@"acct"];
