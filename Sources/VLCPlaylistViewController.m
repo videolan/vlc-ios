@@ -337,6 +337,7 @@ static NSString *kUsingTableViewToShowData = @"UsingTableViewToShowData";
             for (MLFile *file in iterFiles)
                 [self _deleteMediaObject:file];
         }
+        [[MLMediaLibrary sharedMediaLibrary] removeObject: album];
         // delete all episodes from a show
     } else if ([managedObject isKindOfClass:[MLShow class]]) {
         MLShow *show = managedObject;
@@ -348,6 +349,7 @@ static NSString *kUsingTableViewToShowData = @"UsingTableViewToShowData";
             for (MLFile *file in iterFiles)
                 [self _deleteMediaObject:file];
         }
+        [[MLMediaLibrary sharedMediaLibrary] removeObject: show];
         // delete all files from an episode
     } else if ([managedObject isKindOfClass:[MLShowEpisode class]]) {
         MLShowEpisode *episode = managedObject;
@@ -356,6 +358,7 @@ static NSString *kUsingTableViewToShowData = @"UsingTableViewToShowData";
         for (MLFile *file in iterFiles)
             [self _deleteMediaObject:file];
         // delete all files from a track
+        [[MLMediaLibrary sharedMediaLibrary] removeObject: episode];
     } else if ([managedObject isKindOfClass:[MLAlbumTrack class]]) {
         MLAlbumTrack *track = managedObject;
         NSSet *iterFiles = [NSSet setWithSet:track.files];
@@ -1026,11 +1029,13 @@ static NSString *kUsingTableViewToShowData = @"UsingTableViewToShowData";
             NSNumber *folderTrackNumber = [NSNumber numberWithInt:(int)[label files].count - 1];
             file.folderTrackNumber = folderTrackNumber;
 
+            id item;
             @synchronized(self) {
                 [_foundMedia removeObjectAtIndex:folderIndex];
                 [_foundMedia insertObject:label atIndex:folderIndex];
+
+                item = _foundMedia[((NSIndexPath *)_indexPaths[0]).item];
             }
-            id item = _foundMedia[((NSIndexPath *)_indexPaths[0]).item];
             if (![item isKindOfClass:[MLFile class]])
                 return;
 
