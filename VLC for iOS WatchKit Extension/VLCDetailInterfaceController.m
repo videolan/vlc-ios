@@ -12,7 +12,7 @@
 
 #import "VLCDetailInterfaceController.h"
 #import <MediaLibraryKit/MediaLibraryKit.h>
-#import <MobileVLCKit/MobileVLCKit.h>
+#import "VLCTime.h"
 #import "VLCThumbnailsCache.h"
 #import "WKInterfaceObject+VLCProgress.h"
 #import "VLCWatchMessage.h"

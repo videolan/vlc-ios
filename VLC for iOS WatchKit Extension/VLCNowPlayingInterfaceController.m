@@ -12,7 +12,7 @@
 
 #import "VLCNowPlayingInterfaceController.h"
 #import <MediaPlayer/MediaPlayer.h>
-#import <MobileVLCKit/VLCTime.h>
+#import "VLCTime.h"
 #import <MediaLibraryKit/MediaLibraryKit.h>
 #import "VLCNotificationRelay.h"
 #import "VLCThumbnailsCache.h"
