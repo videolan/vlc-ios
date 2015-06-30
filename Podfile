@@ -1,5 +1,4 @@
-# Uncomment this line to define a global platform for your project
-# platform :ios, '6.0'
+platform :ios, '7.0'
 
 source 'https://github.com/CocoaPods/Specs.git'
 
@@ -21,5 +20,6 @@ post_install do |installer_representation|
             config.build_settings['SKIP_INSTALL'] = 'YES'
             config.build_settings['VALID_ARCHS'] = 'armv7 armv7s arm64'
             config.build_settings['ARCHS'] = 'armv7 armv7s arm64'
+            config.build_settings['CLANG_CXX_LIBRARY'] = 'libc++'
   end
 end
