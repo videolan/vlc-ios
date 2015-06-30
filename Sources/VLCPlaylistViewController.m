@@ -94,7 +94,8 @@ static NSString *kUsingTableViewToShowData = @"UsingTableViewToShowData";
 
 - (void)setupContentViewWithContentInset:(BOOL)setInset
 {
-    CGRect viewDimensions = [UIScreen mainScreen].bounds;
+    VLCAppDelegate *appDelegate = [UIApplication sharedApplication].delegate;
+    CGRect viewDimensions = appDelegate.window.bounds;
     UIView *contentView = [[UIView alloc] initWithFrame:viewDimensions];
     contentView.autoresizingMask = UIViewAutoresizingFlexibleHeight | UIViewAutoresizingFlexibleWidth;
     contentView.backgroundColor = [UIColor VLCDarkBackgroundColor];
@@ -111,6 +112,7 @@ static NSString *kUsingTableViewToShowData = @"UsingTableViewToShowData";
             _tableView.indicatorStyle = UIScrollViewIndicatorStyleWhite;
             _tableView.autoresizingMask = UIViewAutoresizingFlexibleHeight | UIViewAutoresizingFlexibleWidth;
         }
+        _tableView.frame = viewDimensions;
         [contentView addSubview:_tableView];
         [_tableView reloadData];
     } else {
@@ -131,6 +133,7 @@ static NSString *kUsingTableViewToShowData = @"UsingTableViewToShowData";
             else
                 [_collectionView registerNib:[UINib nibWithNibName:@"VLCPlaylistCollectionViewCell" bundle:nil] forCellWithReuseIdentifier:@"PlaylistCell"];
         }
+        _collectionView.frame = viewDimensions;
         [contentView addSubview:_collectionView];
         [_collectionView reloadData];
     }
