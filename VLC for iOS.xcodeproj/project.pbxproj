@@ -141,6 +141,8 @@
 		7D84E4C61B41AB2800EA7D1F /* VideoToolbox.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 7D84E4C51B41AB2800EA7D1F /* VideoToolbox.framework */; settings = {ATTRIBUTES = (Weak, ); }; };
 		7D84E4C71B41AB6E00EA7D1F /* VideoToolbox.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 7D84E4C51B41AB2800EA7D1F /* VideoToolbox.framework */; };
 		7D84E4C91B41ABCE00EA7D1F /* CoreMedia.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 7D84E4C81B41ABCE00EA7D1F /* CoreMedia.framework */; };
+		7D84E5201B42C6AC00EA7D1F /* libMediaLibraryKit-readonly.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 7D84E51F1B42C6AC00EA7D1F /* libMediaLibraryKit-readonly.a */; };
+		7D84E5221B42C6E000EA7D1F /* VLCTime.m in Sources */ = {isa = PBXBuildFile; fileRef = 7D84E5211B42C6E000EA7D1F /* VLCTime.m */; };
 		7D871F521AD7257100348D27 /* UIImage+Scaling.m in Sources */ = {isa = PBXBuildFile; fileRef = 7D871F501AD7257100348D27 /* UIImage+Scaling.m */; };
 		7D89786F185DED88009BAB5D /* VLCDownloadViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 7D89786E185DED88009BAB5D /* VLCDownloadViewController.xib */; };
 		7D89787D185DF794009BAB5D /* VLCOpenNetworkStreamViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 7D89787C185DF794009BAB5D /* VLCOpenNetworkStreamViewController.xib */; };
@@ -222,8 +224,6 @@
 		CC1BBC58170493E100A20CBF /* CoreData.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = CC1BBC57170493E100A20CBF /* CoreData.framework */; };
 		CCE2A22E17A5859E00D9EAAD /* CoreText.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = CCE2A22D17A5859E00D9EAAD /* CoreText.framework */; };
 		D9C52A9E9D4D5AFA7EF1B45A /* libPods-vlc-ios.a in Frameworks */ = {isa = PBXBuildFile; fileRef = DAF8927B0BE9C328466C0EA7 /* libPods-vlc-ios.a */; };
-		DD02C2FF1ACAE7A10026EFEE /* libMediaLibraryKit.a in Frameworks */ = {isa = PBXBuildFile; fileRef = DD02C2FE1ACAE7A10026EFEE /* libMediaLibraryKit.a */; };
-		DD02C3011ACAE9690026EFEE /* libMobileVLCKit.a in Frameworks */ = {isa = PBXBuildFile; fileRef = DD02C3001ACAE9690026EFEE /* libMobileVLCKit.a */; };
 		DD02C3031ACAEB050026EFEE /* libiconv.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = CC1BBC451704938300A20CBF /* libiconv.dylib */; };
 		DD02C3041ACAEB550026EFEE /* libstdc++.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = CC1BBC471704938B00A20CBF /* libstdc++.dylib */; };
 		DD02C3051ACAEC560026EFEE /* libxml2.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = CC1BBC4F170493AA00A20CBF /* libxml2.dylib */; };
@@ -571,6 +571,9 @@
 		7D8139CD1865211900D65504 /* ms */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = ms; path = ms.lproj/Localizable.strings; sourceTree = "<group>"; };
 		7D84E4C51B41AB2800EA7D1F /* VideoToolbox.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = VideoToolbox.framework; path = System/Library/Frameworks/VideoToolbox.framework; sourceTree = SDKROOT; };
 		7D84E4C81B41ABCE00EA7D1F /* CoreMedia.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreMedia.framework; path = System/Library/Frameworks/CoreMedia.framework; sourceTree = SDKROOT; };
+		7D84E51F1B42C6AC00EA7D1F /* libMediaLibraryKit-readonly.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; name = "libMediaLibraryKit-readonly.a"; path = "ImportedSources/MediaLibraryKit/build/Debug-iphoneos/libMediaLibraryKit-readonly.a"; sourceTree = "<group>"; };
+		7D84E5211B42C6E000EA7D1F /* VLCTime.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = VLCTime.m; path = ImportedSources/VLCKit/Sources/VLCTime.m; sourceTree = SOURCE_ROOT; };
+		7D84E5231B42C6F200EA7D1F /* VLCTime.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = VLCTime.h; path = ImportedSources/VLCKit/Headers/Public/VLCTime.h; sourceTree = SOURCE_ROOT; };
 		7D871F4F1AD7257100348D27 /* UIImage+Scaling.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = "UIImage+Scaling.h"; path = "Sources/UIImage+Scaling.h"; sourceTree = SOURCE_ROOT; };
 		7D871F501AD7257100348D27 /* UIImage+Scaling.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = "UIImage+Scaling.m"; path = "Sources/UIImage+Scaling.m"; sourceTree = SOURCE_ROOT; };
 		7D89786E185DED88009BAB5D /* VLCDownloadViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; name = VLCDownloadViewController.xib; path = Resources/VLCDownloadViewController.xib; sourceTree = SOURCE_ROOT; };
@@ -733,6 +736,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				7D84E5201B42C6AC00EA7D1F /* libMediaLibraryKit-readonly.a in Frameworks */,
 				7D84E4C71B41AB6E00EA7D1F /* VideoToolbox.framework in Frameworks */,
 				DDF157B51ACB16E500AAFBC6 /* AudioToolbox.framework in Frameworks */,
 				DDF157B41ACB169B00AAFBC6 /* WatchKit.framework in Frameworks */,
@@ -743,8 +747,6 @@
 				DD02C3051ACAEC560026EFEE /* libxml2.dylib in Frameworks */,
 				DD02C3041ACAEB550026EFEE /* libstdc++.dylib in Frameworks */,
 				DD02C3031ACAEB050026EFEE /* libiconv.dylib in Frameworks */,
-				DD02C3011ACAE9690026EFEE /* libMobileVLCKit.a in Frameworks */,
-				DD02C2FF1ACAE7A10026EFEE /* libMediaLibraryKit.a in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -938,6 +940,7 @@
 		4173AEA11ABF1B850004101D /* VLC for iOS WatchKit Extension */ = {
 			isa = PBXGroup;
 			children = (
+				7D84E51D1B42BFE400EA7D1F /* Linked from VLCKit */,
 				DD02C2FC1ACACF400026EFEE /* VLC for iOS WatchKit Extension.entitlements */,
 				DD7635D41AF262D100240CB8 /* NSManagedObjectContext+refreshAll.h */,
 				DD7635D51AF262D100240CB8 /* NSManagedObjectContext+refreshAll.m */,
@@ -1223,6 +1226,15 @@
 			name = "Download & Network";
 			sourceTree = "<group>";
 		};
+		7D84E51D1B42BFE400EA7D1F /* Linked from VLCKit */ = {
+			isa = PBXGroup;
+			children = (
+				7D84E5231B42C6F200EA7D1F /* VLCTime.h */,
+				7D84E5211B42C6E000EA7D1F /* VLCTime.m */,
+			);
+			name = "Linked from VLCKit";
+			sourceTree = "<group>";
+		};
 		7D94FCD216DE7D1000F2623B = {
 			isa = PBXGroup;
 			children = (
@@ -1258,6 +1270,7 @@
 		7D94FCDD16DE7D1000F2623B /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
+				7D84E51F1B42C6AC00EA7D1F /* libMediaLibraryKit-readonly.a */,
 				7D84E4C81B41ABCE00EA7D1F /* CoreMedia.framework */,
 				7D84E4C51B41AB2800EA7D1F /* VideoToolbox.framework */,
 				7D7B17EC1AD8052A003BF3D7 /* libc++.dylib */,
@@ -1900,6 +1913,7 @@
 				DDE490701ACE8BBC00B1B5E3 /* VLCDetailInterfaceController.m in Sources */,
 				4173AEA61ABF1B850004101D /* VLCPlaylistInterfaceController.m in Sources */,
 				DDACEB561ADAD11300735484 /* WKInterfaceObject+VLCProgress.m in Sources */,
+				7D84E5221B42C6E000EA7D1F /* VLCTime.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -2273,6 +2287,7 @@
 					"$(inherited)",
 					"$(SRCROOT)/External/MobileVLCKit/",
 					"$(SRCROOT)/External/MediaLibraryKit/",
+					"$(PROJECT_DIR)/ImportedSources/MediaLibraryKit/build/Debug-iphoneos",
 				);
 				MTL_ENABLE_DEBUG_INFO = YES;
 				PRODUCT_BUNDLE_IDENTIFIER = "org.videolan.vlc-ios.watchkitextension";
@@ -2320,6 +2335,7 @@
 					"$(inherited)",
 					"$(SRCROOT)/External/MobileVLCKit/",
 					"$(SRCROOT)/External/MediaLibraryKit/",
+					"$(PROJECT_DIR)/ImportedSources/MediaLibraryKit/build/Debug-iphoneos",
 				);
 				MTL_ENABLE_DEBUG_INFO = NO;
 				PRODUCT_BUNDLE_IDENTIFIER = "org.videolan.vlc-ios.watchkitextension";
@@ -2367,6 +2383,7 @@
 					"$(inherited)",
 					"$(SRCROOT)/External/MobileVLCKit/",
 					"$(SRCROOT)/External/MediaLibraryKit/",
+					"$(PROJECT_DIR)/ImportedSources/MediaLibraryKit/build/Debug-iphoneos",
 				);
 				MTL_ENABLE_DEBUG_INFO = NO;
 				PRODUCT_BUNDLE_IDENTIFIER = "org.videolan.vlc-ios.watchkitextension";

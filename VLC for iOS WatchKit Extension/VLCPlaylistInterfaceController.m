@@ -15,7 +15,6 @@
 #import "VLCPlaylistInterfaceController.h"
 #import <MediaLibraryKit/MediaLibraryKit.h>
 #import "VLCRowController.h"
-#import <MobileVLCKit/VLCTime.h>
 
 #import "VLCNotificationRelay.h"
 #import "VLCWatchTableController.h"
