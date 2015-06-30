@@ -1,3 +1,8 @@
+2.6.1:
+------
+* Reduced Apple Watch extension file size by 90%
+* Minor bug fix (#14942)
+
 2.6.0:
 ------
 * Added support for Apple Watch - control VLC from your watch!
