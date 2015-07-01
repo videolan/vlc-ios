@@ -91,6 +91,10 @@
     [self.size setText:displaySize];
     [self.summary setText:displaySummary];
 
+    [self.badgeUnread setBackgroundColor:[UIColor whiteColor]];
+    self.badgeUnread.layer.cornerRadius = 10;
+    self.badgeUnread.layer.masksToBounds = YES;
+
     if ([tag isEqualToString:@"watched"]) {
         [self.badgeUnread setHidden:YES];
         [self.markMediaButton setTitle:NSLocalizedString(@"PLEX_UNWATCHED", nil)];
