@@ -385,6 +385,7 @@ typedef NS_ENUM(NSInteger, VLCPanType) {
     } else
         _sleepTimeDatePicker.backgroundColor = [UIColor blackColor];
     _sleepTimeDatePicker.tintColor = [UIColor VLCLightTextColor];
+    _sleepTimeDatePicker.frame = CGRectMake(0., 0., 300., 162.);
     _sleepTimeDatePicker.autoresizingMask = UIViewAutoresizingFlexibleRightMargin | UIViewAutoresizingFlexibleLeftMargin | UIViewAutoresizingFlexibleBottomMargin | UIViewAutoresizingFlexibleTopMargin;
     [_sleepTimerContainer addSubview:_sleepTimeDatePicker];
 
