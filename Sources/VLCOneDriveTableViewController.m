@@ -77,8 +77,12 @@
     if (cell == nil)
         cell = [VLCCloudStorageTableViewCell cellWithReuseIdentifier:CellIdentifier];
 
-    cell.oneDriveFile = _oneDriveController.currentFolder.items[indexPath.row];
-    cell.delegate = self;
+    NSArray *items = _oneDriveController.currentFolder.items;
+
+    if (indexPath.row < items.count) {
+        cell.oneDriveFile = _oneDriveController.currentFolder.items[indexPath.row];
+        cell.delegate = self;
+    }
 
     return cell;
 }

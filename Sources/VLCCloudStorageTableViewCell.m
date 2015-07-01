@@ -174,8 +174,10 @@
             else if (self.oneDriveFile.isVideo) {
                 self.thumbnailView.image = [UIImage imageNamed:@"movie"];
                 if (_oneDriveFile.thumbnailURL != nil) {
-                    _iconURL = [NSURL URLWithString:_oneDriveFile.thumbnailURL];
-                    [self performSelectorInBackground:@selector(_updateIconFromURL) withObject:@""];
+                    if (_oneDriveFile.thumbnailURL.length > 0) {
+                        _iconURL = [NSURL URLWithString:_oneDriveFile.thumbnailURL];
+                        [self performSelectorInBackground:@selector(_updateIconFromURL) withObject:@""];
+                    }
                 }
             } else
                 self.thumbnailView.image = [UIImage imageNamed:@"blank"];
