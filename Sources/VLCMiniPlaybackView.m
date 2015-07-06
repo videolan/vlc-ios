@@ -63,6 +63,7 @@
     _expandButton.autoresizingMask = UIViewAutoresizingFlexibleLeftMargin;
     [_expandButton addTarget:self action:@selector(pushFullPlaybackView:) forControlEvents:UIControlEventTouchUpInside];
     _expandButton.frame = previousRect = CGRectMake(viewFrame.size.width - buttonSize, (viewFrame.size.height - buttonSize) / 2., buttonSize, buttonSize);
+    _expandButton.accessibilityLabel = NSLocalizedString(@"FULLSCREEN_PLAYBACK", nil);
     [self addSubview:_expandButton];
 
     _nextButton = [UIButton buttonWithType:UIButtonTypeCustom];
@@ -71,6 +72,7 @@
     _nextButton.autoresizingMask = UIViewAutoresizingFlexibleLeftMargin;
     [_nextButton addTarget:self action:@selector(nextAction:) forControlEvents:UIControlEventTouchUpInside];
     _nextButton.frame = previousRect = CGRectMake(previousRect.origin.x - buttonSize, (viewFrame.size.height - buttonSize) / 2., buttonSize, buttonSize);
+    _nextButton.accessibilityLabel = NSLocalizedString(@"FWD_BUTTON", nil);
     [self addSubview:_nextButton];
 
     _playPauseButton = [UIButton buttonWithType:UIButtonTypeCustom];
@@ -92,6 +94,7 @@
     _previousButton.autoresizingMask = UIViewAutoresizingFlexibleLeftMargin;
     [_previousButton addTarget:self action:@selector(previousAction:) forControlEvents:UIControlEventTouchUpInside];
     _previousButton.frame = previousRect = CGRectMake(previousRect.origin.x - buttonSize, (viewFrame.size.height - buttonSize) / 2., buttonSize, buttonSize);
+    _previousButton.accessibilityLabel = NSLocalizedString(@"BWD_BUTTON", nil);
     [self addSubview:_previousButton];
 
     CGFloat artworkViewWidth = _artworkView.frame.size.width;

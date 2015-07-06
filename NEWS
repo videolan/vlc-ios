@@ -1,5 +1,7 @@
 2.6.2:
 ------
+* Fixed playback issue on iOS 7 on iPad (#14977)
+* Improved accessibility (#15012)
 * Added minimize button to fullscreen playback so 'Done' stops playback again
 
 2.6.1:
