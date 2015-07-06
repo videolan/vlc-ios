@@ -3,6 +3,8 @@
 "OPEN_TRACK_PANEL"="Open track selection";
 "CHOOSE_TITLE"="Choose Title";
 "CHOOSE_CHAPTER"="Choose Chapter";
+"MINIMIZE_PLAYBACK_VIEW"="Minimize playback";
+"FULLSCREEN_PLAYBACK"="Play in fullscreen";
 
 "PLAYING_EXTERNALLY_TITLE"="TV Connected";
 "PLAYING_EXTERNALLY_DESC"="This video is playing on the TV";
