@@ -85,6 +85,23 @@ NSString *const VLCPlaybackControllerPlaybackDidFail = @"VLCPlaybackControllerPl
     [[NSNotificationCenter defaultCenter] removeObserver:self];
 }
 
+- (instancetype)init
+{
+    self = [super init];
+    if (self) {
+        NSNotificationCenter *defaultCenter = [NSNotificationCenter defaultCenter];
+        [defaultCenter addObserver:self selector:@selector(audioSessionRouteChange:)
+                              name:AVAudioSessionRouteChangeNotification object:nil];
+        [defaultCenter addObserver:self selector:@selector(applicationWillResignActive:)
+                              name:UIApplicationWillResignActiveNotification object:nil];
+        [defaultCenter addObserver:self selector:@selector(applicationDidBecomeActive:)
+                              name:UIApplicationDidBecomeActiveNotification object:nil];
+        [defaultCenter addObserver:self selector:@selector(applicationDidEnterBackground:)
+                              name:UIApplicationDidEnterBackgroundNotification object:nil];
+    }
+    return self;
+}
+
 #pragma mark - playback management
 
 - (BOOL)_blobCheck
@@ -196,16 +213,6 @@ NSString *const VLCPlaybackControllerPlaybackDidFail = @"VLCPlaybackControllerPl
     _activeSession = YES;
 
     [[AVAudioSession sharedInstance] setDelegate:self];
-
-    NSNotificationCenter *defaultCenter = [NSNotificationCenter defaultCenter];
-    [defaultCenter addObserver:self selector:@selector(audioSessionRouteChange:)
-                          name:AVAudioSessionRouteChangeNotification object:nil];
-    [defaultCenter addObserver:self selector:@selector(applicationWillResignActive:)
-                          name:UIApplicationWillResignActiveNotification object:nil];
-    [defaultCenter addObserver:self selector:@selector(applicationDidBecomeActive:)
-                          name:UIApplicationDidBecomeActiveNotification object:nil];
-    [defaultCenter addObserver:self selector:@selector(applicationDidEnterBackground:)
-                          name:UIApplicationDidEnterBackgroundNotification object:nil];
 
     NSUserDefaults *defaults = [NSUserDefaults standardUserDefaults];
 
