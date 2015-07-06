@@ -25,7 +25,11 @@
 
     self.aspectRatioButton.accessibilityLabel = NSLocalizedString(@"VIDEO_ASPECT_RATIO_BUTTON", nil);
     self.aspectRatioButton.isAccessibilityElement = YES;
+
     [self.aspectRatioButton setImage:[UIImage imageNamed:@"ratioIcon"] forState:UIControlStateNormal];
+
+    self.minimizePlaybackButton.accessibilityLabel = NSLocalizedString(@"MINIMIZE_PLAYBACK_VIEW", nil);
+    self.minimizePlaybackButton.isAccessibilityElement = YES;
 
     [self setNeedsLayout];
 }
@@ -36,6 +40,10 @@
 
     CGRect remainder = self.bounds;
     CGRect slice;
+
+    CGRectDivide(remainder, &slice, &remainder, CGRectGetWidth(self.minimizePlaybackButton.frame), CGRectMinXEdge);
+    self.minimizePlaybackButton.frame = slice;
+
     if (!self.aspectRatioButton.hidden) {
         [self.aspectRatioButton sizeToFit];
         CGRectDivide(remainder, &slice, &remainder, CGRectGetWidth(self.aspectRatioButton.frame), CGRectMaxXEdge);

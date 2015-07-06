@@ -15,6 +15,7 @@
 @class VLCOBSlider;
 
 @interface VLCTimeNavigationTitleView : UIView
+@property (weak, nonatomic) IBOutlet UIButton *minimizePlaybackButton;
 @property (weak, nonatomic) IBOutlet VLCOBSlider *positionSlider;
 @property (weak, nonatomic) IBOutlet UIButton *timeDisplayButton;
 @property (weak, nonatomic) IBOutlet UIButton *aspectRatioButton;
