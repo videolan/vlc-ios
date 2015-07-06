@@ -539,7 +539,7 @@ typedef NS_ENUM(NSInteger, VLCPanType) {
         return;
 
     if (recognizer.velocity < 0.)
-        [self closePlayback:nil];
+        [self minimizePlayback:nil];
 }
 
 - (BOOL)gestureRecognizer:(UIGestureRecognizer *)gestureRecognizer shouldReceiveTouch:(UITouch *)touch
@@ -688,9 +688,15 @@ typedef NS_ENUM(NSInteger, VLCPanType) {
 - (IBAction)closePlayback:(id)sender
 {
     LOCKCHECK;
-    [[UIApplication sharedApplication] sendAction:@selector(closeFullscreenPlayback) to:nil from:self forEvent:nil];
-
+    [[VLCPlaybackController sharedInstance] stopPlayback];
 }
+
+- (IBAction)minimizePlayback:(id)sender
+{
+    LOCKCHECK;
+    [[UIApplication sharedApplication] sendAction:@selector(closeFullscreenPlayback) to:nil from:self forEvent:nil];
+}
+
 - (IBAction)positionSliderAction:(UISlider *)sender
 {
     LOCKCHECK;
@@ -844,7 +850,7 @@ typedef NS_ENUM(NSInteger, VLCPanType) {
 
 - (void)playbackDidStop:(NSNotification *)notification
 {
-    [self closePlayback:nil];
+    [self minimizePlayback:nil];
 }
 
 - (void)mediaPlayerStateChanged:(VLCMediaPlayerState)currentState

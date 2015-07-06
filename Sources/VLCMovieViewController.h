@@ -87,6 +87,7 @@
 @property (nonatomic, weak) IBOutlet VLCPlaybackController *playbackController;
 
 - (IBAction)closePlayback:(id)sender;
+- (IBAction)minimizePlayback:(id)sender;
 
 - (IBAction)positionSliderAction:(id)sender;
 - (IBAction)positionSliderTouchDown:(id)sender;

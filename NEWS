@@ -1,3 +1,7 @@
+2.6.2:
+------
+* Added minimize button to fullscreen playback so 'Done' stops playback again
+
 2.6.1:
 ------
 * Reduced Apple Watch extension file size by 90%

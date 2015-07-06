@@ -33,6 +33,9 @@
     self.aspectRatioButton.accessibilityLabel = NSLocalizedString(@"VIDEO_ASPECT_RATIO_BUTTON", nil);
     self.aspectRatioButton.isAccessibilityElement = YES;
 
+    self.minimizePlaybackButton.accessibilityLabel = NSLocalizedString(@"MINIMIZE_PLAYBACK_VIEW", nil);
+    self.minimizePlaybackButton.isAccessibilityElement = YES;
+
     if (!SYSTEM_RUNS_IOS7_OR_LATER)
         _sliderHeight = self.positionSlider.frame.size.height;
 
@@ -52,6 +55,10 @@
 
     CGRect remainder = self.bounds;
     CGRect slice;
+
+    CGRectDivide(remainder, &slice, &remainder, CGRectGetWidth(self.minimizePlaybackButton.frame), CGRectMinXEdge);
+    self.minimizePlaybackButton.frame = slice;
+
     if (!self.aspectRatioButton.hidden) {
         [self.aspectRatioButton sizeToFit];
         CGRectDivide(remainder, &slice, &remainder, CGRectGetWidth(self.aspectRatioButton.frame), CGRectMaxXEdge);
