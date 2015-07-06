@@ -618,7 +618,7 @@ NSString *const VLCPlaybackControllerPlaybackDidFail = @"VLCPlaybackControllerPl
 
 - (void)forward
 {
-    if (_mediaList) {
+    if (_mediaList.count > 1) {
         [_listPlayer next];
         [[NSNotificationCenter defaultCenter] postNotificationName:VLCPlaybackControllerPlaybackMetadataDidChange object:self];
     } else {
@@ -629,7 +629,7 @@ NSString *const VLCPlaybackControllerPlaybackDidFail = @"VLCPlaybackControllerPl
 
 - (void)backward
 {
-    if (_mediaList) {
+    if (_mediaList.count > 1) {
         [_listPlayer previous];
         [[NSNotificationCenter defaultCenter] postNotificationName:VLCPlaybackControllerPlaybackMetadataDidChange object:self];
     }
@@ -1034,7 +1034,7 @@ static inline NSArray * RemoteCommandCenterCommandsToHandle(MPRemoteCommandCente
      * or next/previousTrack buttons but prefers skip buttons,
      * we only enable skip buttons if we have a no medialist
      */
-    BOOL enableSkip = [VLCPlaybackController sharedInstance].mediaList == nil;
+    BOOL enableSkip = [VLCPlaybackController sharedInstance].mediaList.count <= 1;
     commandCenter.skipForwardCommand.enabled = enableSkip;
     commandCenter.skipBackwardCommand.enabled = enableSkip;
 
