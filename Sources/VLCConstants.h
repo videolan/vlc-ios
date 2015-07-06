@@ -41,6 +41,7 @@
 #define kVLCSettingNetworkCachingDefaultValue @(999)
 #define kVLCSettingsDecrapifyTitles @"MLDecrapifyTitles"
 #define kVLCSettingPlaybackGestures @"EnableGesturesToControlPlayback"
+#define kVLCSettingVideoFullscreenPlayback @"AlwaysUseFullscreenForVideo"
 #define kVLCSettingFTPTextEncoding @"ftp-text-encoding"
 #define kVLCSettingFTPTextEncodingDefaultValue @(5) // ISO Latin 1
 #define kVLCSettingPlaybackSpeedDefaultValue @"playback-speed"

@@ -79,7 +79,8 @@ NSString *const VLCPasscodeValidated = @"VLCPasscodeValidated";
                                   kVLCSettingSubtitlesBoldFont: kVLCSettingSubtitlesBoldFontDefaultValue,
                                   kVLCSettingDeinterlace : kVLCSettingDeinterlaceDefaultValue,
                                   kVLCSettingNetworkCaching : kVLCSettingNetworkCachingDefaultValue,
-                                  kVLCSettingPlaybackGestures : [NSNumber numberWithBool:YES],
+                                  kVLCSettingPlaybackGestures : @(YES),
+                                  kVLCSettingVideoFullscreenPlayback : @(YES),
                                   kVLCSettingFTPTextEncoding : kVLCSettingFTPTextEncodingDefaultValue,
                                   kVLCSettingWiFiSharingIPv6 : kVLCSettingWiFiSharingIPv6DefaultValue,
                                   kVLCSettingEqualizerProfile : kVLCSettingEqualizerProfileDefaultValue,
@@ -561,6 +562,7 @@ continueUserActivity:(NSUserActivity *)userActivity
     vpc.url = url;
     vpc.successCallback = successCallback;
     vpc.errorCallback = errorCallback;
+    vpc.fullscreenSessionRequested = YES;
 
     [vpc startPlayback];
 }
@@ -576,6 +578,7 @@ continueUserActivity:(NSUserActivity *)userActivity
 
     vpc.url = url;
     vpc.pathToExternalSubtitlesFile = SubtitlePath;
+    vpc.fullscreenSessionRequested = YES;
 
     [vpc startPlayback];
 }

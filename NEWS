@@ -3,6 +3,7 @@
 * Fixed playback issue on iOS 7 on iPad (#14977)
 * Improved accessibility (#15012)
 * Added minimize button to fullscreen playback so 'Done' stops playback again
+* Added option to always play video in fullscreen, on by default (#14985)
 
 2.6.1:
 ------
