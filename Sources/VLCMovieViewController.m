@@ -833,7 +833,7 @@ typedef NS_ENUM(NSInteger, VLCPanType) {
         self.brightnessSlider.value = [UIScreen mainScreen].brightness * 2.;
     [_equalizerView reloadData];
 
-    float playbackRate = controller.playbackRate;
+    double playbackRate = controller.playbackRate;
     self.playbackSpeedSlider.value = log2(playbackRate);
     self.playbackSpeedIndicator.text = [NSString stringWithFormat:@"%.2fx", playbackRate];
 
