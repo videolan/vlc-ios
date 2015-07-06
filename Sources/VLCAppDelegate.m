@@ -416,6 +416,12 @@ didFailToContinueUserActivityWithType:(NSString *)userActivityType
                                                  scrollPosition:UITableViewScrollPositionNone];
 }
 
+#pragma mark - remote events pre 7.1
+
+- (void)remoteControlReceivedWithEvent:(UIEvent *)event {
+    [[VLCPlaybackController sharedInstance] remoteControlReceivedWithEvent:event];
+}
+
 #pragma mark - watch struff
 - (void)application:(UIApplication *)application
 handleWatchKitExtensionRequest:(NSDictionary *)userInfo
