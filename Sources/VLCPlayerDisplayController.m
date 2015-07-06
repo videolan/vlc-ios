@@ -244,7 +244,7 @@ static inline void commonSetup(VLCPlayerDisplayController *self)
     const BOOL activePlaybackSession = playbackController.activePlaybackSession;
     const BOOL miniPlayerVisible = miniPlaybackView.visible;
 
-    const CGRect viewRect = self.view.frame;
+    const CGRect viewRect = self.view.bounds;
     const CGFloat miniPlayerHeight = 60.;
     const CGRect miniPlayerFrameIn =  CGRectMake(0., viewRect.size.height-miniPlayerHeight, viewRect.size.width, miniPlayerHeight);
     const CGRect miniPlayerFrameOut = CGRectMake(0., viewRect.size.height, viewRect.size.width, miniPlayerHeight);
