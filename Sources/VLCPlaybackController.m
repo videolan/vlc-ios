@@ -202,58 +202,12 @@ NSString *const VLCPlaybackControllerPlaybackDidFail = @"VLCPlaybackControllerPl
         media = [VLCMedia mediaWithURL:self.url];
         media.delegate = self;
         [media synchronousParse];
+        [media addOptions:self.mediaOptionsDictionary];
     }
-
-    NSMutableDictionary *mediaDictionary = [[NSMutableDictionary alloc] init];
-    [mediaDictionary setObject:[defaults objectForKey:kVLCSettingNetworkCaching] forKey:kVLCSettingNetworkCaching];
-    [mediaDictionary setObject:[[defaults objectForKey:kVLCSettingStretchAudio] boolValue] ? kVLCSettingStretchAudioOnValue : kVLCSettingStretchAudioOffValue forKey:kVLCSettingStretchAudio];
-    [mediaDictionary setObject:[defaults objectForKey:kVLCSettingTextEncoding] forKey:kVLCSettingTextEncoding];
-    [mediaDictionary setObject:[defaults objectForKey:kVLCSettingSkipLoopFilter] forKey:kVLCSettingSkipLoopFilter];
-
-#if 0
-    [NSTimeZone resetSystemTimeZone];
-    NSString *tzName = [[NSTimeZone systemTimeZone] name];
-    NSArray *tzNames = @[@"America/Adak", @"America/Anchorage", @"America/Boise", @"America/Chicago", @"America/Denver", @"America/Detroit", @"America/Indiana/Indianapolis", @"America/Indiana/Knox", @"America/Indiana/Marengo", @"America/Indiana/Petersburg", @"America/Indiana/Tell_City", @"America/Indiana/Vevay", @"America/Indiana/Vincennes", @"America/Indiana/Winamac", @"America/Juneau", @"America/Kentucky/Louisville", @"America/Kentucky/Monticello", @"America/Los_Angeles", @"America/Menominee", @"America/Metlakatla", @"America/New_York", @"America/Nome", @"America/North_Dakota/Beulah", @"America/North_Dakota/Center", @"America/North_Dakota/New_Salem", @"America/Phoenix", @"America/Puerto_Rico", @"America/Shiprock", @"America/Sitka", @"America/St_Thomas", @"America/Thule", @"America/Yakutat", @"Pacific/Guam", @"Pacific/Honolulu", @"Pacific/Johnston", @"Pacific/Kwajalein", @"Pacific/Midway", @"Pacific/Pago_Pago", @"Pacific/Saipan", @"Pacific/Wake"];
-
-    if ([tzNames containsObject:tzName] || [[tzName stringByDeletingLastPathComponent] isEqualToString:@"US"]) {
-        NSArray *tracksInfo = media.tracksInformation;
-        for (NSUInteger x = 0; x < tracksInfo.count; x++) {
-            if ([[tracksInfo[x] objectForKey:VLCMediaTracksInformationType] isEqualToString:VLCMediaTracksInformationTypeAudio])
-                {
-                NSInteger fourcc = [[tracksInfo[x] objectForKey:VLCMediaTracksInformationCodec] integerValue];
-
-                switch (fourcc) {
-                    case 540161377:
-                    case 1647457633:
-                    case 858612577:
-                    case 862151027:
-                    case 862151013:
-                    case 1684566644:
-                    case 2126701:
-                    {
-                    if (![self _blobCheck]) {
-                        [mediaDictionary setObject:[NSNull null] forKey:@"no-audio"];
-                        APLog(@"audio playback disabled because an unsupported codec was found");
-                    }
-                    break;
-                    }
-
-                    default:
-                        break;
-                }
-                }
-        }
-    }
-#endif
 
     if (self.mediaList) {
-        VLCMediaList *list = self.mediaList;
-        NSUInteger count = list.count;
-        for (NSUInteger x = 0; x < count; x++)
-            [[list mediaAtIndex:x] addOptions:mediaDictionary];
         [_listPlayer setMediaList:self.mediaList];
     } else {
-        [media addOptions:mediaDictionary];
         [_listPlayer setRootMedia:media];
     }
     [_listPlayer setRepeatMode:VLCDoNotRepeat];
@@ -647,13 +601,14 @@ NSString *const VLCPlaybackControllerPlaybackDidFail = @"VLCPlaybackControllerPl
             [_actualVideoOutputView removeFromSuperview];
 
         _actualVideoOutputView.frame = (CGRect){CGPointZero, videoOutputView.frame.size};
-        [_actualVideoOutputView layoutSubviews];
-        [_actualVideoOutputView updateConstraints];
 
         if (_mediaPlayer.currentVideoTrackIndex == -1)
             _mediaPlayer.currentVideoTrackIndex = 0;
 
         [videoOutputView addSubview:_actualVideoOutputView];
+        [_actualVideoOutputView layoutSubviews];
+        [_actualVideoOutputView updateConstraints];
+        [_actualVideoOutputView setNeedsLayout];
     } else
         [_actualVideoOutputView removeFromSuperview];
 
@@ -1192,6 +1147,15 @@ static inline NSArray * RemoteCommandCenterCommandsToHandle(MPRemoteCommandCente
     } else {
         return fontMap[font];
     }
+}
+
+- (NSDictionary *)mediaOptionsDictionary
+{
+    NSUserDefaults *defaults = [NSUserDefaults standardUserDefaults];
+    return @{ kVLCSettingNetworkCaching : [defaults objectForKey:kVLCSettingNetworkCaching],
+                                       kVLCSettingStretchAudio : [[defaults objectForKey:kVLCSettingStretchAudio] boolValue] ? kVLCSettingStretchAudioOnValue : kVLCSettingStretchAudioOffValue,
+                                       kVLCSettingTextEncoding : [defaults objectForKey:kVLCSettingTextEncoding],
+                                       kVLCSettingSkipLoopFilter : [defaults objectForKey:kVLCSettingSkipLoopFilter] };
 }
 
 @end
