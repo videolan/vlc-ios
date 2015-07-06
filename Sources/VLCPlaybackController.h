@@ -92,4 +92,6 @@ currentMediaHasTrackToChooseFrom:(BOOL)currentMediaHasTrackToChooseFrom
 - (void)setNeedsMetadataUpdate;
 - (void)scheduleSleepTimerWithInterval:(NSTimeInterval)timeInterval;
 
+- (void)remoteControlReceivedWithEvent:(UIEvent *)event;
+
 @end
