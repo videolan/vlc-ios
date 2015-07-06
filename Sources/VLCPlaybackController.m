@@ -946,6 +946,8 @@ setstuff:
               currentMediaHasTrackToChooseFrom:self.currentMediaHasTrackToChooseFrom
                        currentMediaHasChapters:self.currentMediaHasChapters
                          forPlaybackController:self];
+    if ([self.delegate respondsToSelector:@selector(prepareForMediaPlayback:)])
+        [self.delegate prepareForMediaPlayback:self];
 }
 
 - (void)scheduleSleepTimerWithInterval:(NSTimeInterval)timeInterval
