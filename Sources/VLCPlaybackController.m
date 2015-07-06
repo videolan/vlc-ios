@@ -541,12 +541,6 @@ NSString *const VLCPlaybackControllerPlaybackDidFail = @"VLCPlaybackControllerPl
         }
     }
 
-    /* disable video decoding if we have no place to show */
-    if (_mediaPlayer.numberOfAudioTracks > 0) {
-        if (_videoOutputViewWrapper == nil)
-            _mediaPlayer.currentVideoTrackIndex = -1;
-    }
-
     if ([self.delegate respondsToSelector:@selector(mediaPlayerStateChanged:isPlaying:currentMediaHasTrackToChooseFrom:currentMediaHasChapters:forPlaybackController:)])
         [self.delegate mediaPlayerStateChanged:currentState
                                      isPlaying:_mediaPlayer.isPlaying
