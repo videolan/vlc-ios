@@ -4,6 +4,23 @@
 * Added support for SMB file sharing (#8879)
 * Added support for music albums with more than 1 disk (#14650)
 
+2.6.2:
+------
+* Improved playback reliability (#15000 et al)
+* Added minimize button to fullscreen playback so 'Done' stops playback again
+* Added option to always play video in fullscreen, on by default (#14985)
+* Fixed subtitles rendering which produced incorrect umlauts or pixelated fonts (#14978 et al.,
+  #14883, #14919, #14929)
+* Fixed major playback issue on iOS 7 on iPad (#14977)
+* Fixed remove control events on iOS 6 (#14996)
+* Fixed x-callback-url on playback close (#14984)
+* Improved accessibility (#15012)
+
+2.6.1:
+------
+* Reduced Apple Watch extension file size by 90%
+* Minor bug fix (#14942)
+
 2.6.0:
 ------
 * Added support for Apple Watch - control VLC from your watch!
