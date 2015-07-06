@@ -79,8 +79,11 @@
 - (void)configureMediaListWithFiles:(NSArray *)files indexToPlay:(int)index
 {
     VLCMediaList *list = [[VLCMediaList alloc] init];
+    VLCMedia *media;
     for (MLFile *file in files.reverseObjectEnumerator) {
-        [list addMedia:[VLCMedia mediaWithURL:file.url]];
+        media = [VLCMedia mediaWithURL:file.url];
+        [media addOptions:self.mediaOptionsDictionary];
+        [list addMedia:media];
     }
     [self configureMediaList:list atIndex:index];
 }
