@@ -73,6 +73,16 @@
 			</array>
 		</dict>
 		<dict>
+			<key>DefaultValue</key>
+			<true/>
+			<key>Key</key>
+			<string>AlwaysUseFullscreenForVideo</string>
+			<key>Title</key>
+			<string>SETTINGS_VIDEO_FULLSCREEN</string>
+			<key>Type</key>
+			<string>PSToggleSwitchSpecifier</string>
+		</dict>
+		<dict>
 			<key>Type</key>
 			<string>PSGroupSpecifier</string>
 			<key>Title</key>

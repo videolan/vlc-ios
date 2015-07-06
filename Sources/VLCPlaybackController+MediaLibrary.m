@@ -18,11 +18,13 @@
 
 - (void)playMediaLibraryObject:(NSManagedObject *)mediaObject
 {
+    self.fullscreenSessionRequested = YES;
     if ([mediaObject isKindOfClass:[MLFile class]]) {
         [self configureWithFile:(MLFile *)mediaObject];
     }
     else if ([mediaObject isKindOfClass:[MLAlbumTrack class]]) {
         [self configureWithAlbumTrack:(MLAlbumTrack *)mediaObject];
+        self.fullscreenSessionRequested = NO;
     }
     else if ([mediaObject isKindOfClass:[MLShowEpisode class]])
         [self configureWithShowEpisode:(MLShowEpisode *)mediaObject];

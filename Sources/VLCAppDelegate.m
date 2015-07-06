@@ -73,7 +73,8 @@ NSString *const VLCDropboxSessionWasAuthorized = @"VLCDropboxSessionWasAuthorize
                                   kVLCSettingSubtitlesBoldFont: kVLCSettingSubtitlesBoldFontDefaultValue,
                                   kVLCSettingDeinterlace : kVLCSettingDeinterlaceDefaultValue,
                                   kVLCSettingNetworkCaching : kVLCSettingNetworkCachingDefaultValue,
-                                  kVLCSettingPlaybackGestures : [NSNumber numberWithBool:YES],
+                                  kVLCSettingPlaybackGestures : @(YES),
+                                  kVLCSettingVideoFullscreenPlayback : @(YES),
                                   kVLCSettingFTPTextEncoding : kVLCSettingFTPTextEncodingDefaultValue,
                                   kVLCSettingWiFiSharingIPv6 : kVLCSettingWiFiSharingIPv6DefaultValue,
                                   kVLCSettingEqualizerProfile : kVLCSettingEqualizerProfileDefaultValue,
@@ -273,6 +274,7 @@ didFailToContinueUserActivityWithType:(NSString *)userActivityType
             }
             if ([action isEqualToString:@"stream"] && movieURL) {
                 VLCPlaybackController *vpc = [VLCPlaybackController sharedInstance];
+                vpc.fullscreenSessionRequested = YES;
                 [vpc playURL:movieURL successCallback:successCallback errorCallback:errorCallback];
             }
             else if ([action isEqualToString:@"download"] && movieURL) {
@@ -315,6 +317,7 @@ didFailToContinueUserActivityWithType:(NSString *)userActivityType
                 [alert show];
             } else {
                 VLCPlaybackController *vpc = [VLCPlaybackController sharedInstance];
+                vpc.fullscreenSessionRequested = YES;
                 [vpc playURL:url successCallback:nil errorCallback:nil];
             }
         }

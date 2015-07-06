@@ -44,6 +44,7 @@
 #define kVLCSettingsDecrapifyTitles @"MLDecrapifyTitles"
 #define kVLCSettingPlaybackGestures @"EnableGesturesToControlPlayback"
 #define kVLCSettingVariableJumpDuration @"EnableVariableJumpDuration"
+#define kVLCSettingVideoFullscreenPlayback @"AlwaysUseFullscreenForVideo"
 #define kVLCSettingFTPTextEncoding @"ftp-text-encoding"
 #define kVLCSettingFTPTextEncodingDefaultValue @(5) // ISO Latin 1
 #define kVLCSettingPlaybackSpeedDefaultValue @"playback-speed"

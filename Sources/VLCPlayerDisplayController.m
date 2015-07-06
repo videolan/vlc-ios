@@ -118,6 +118,15 @@ static inline void commonSetup(VLCPlayerDisplayController *self)
 
 - (void)playbackDidStart:(NSNotification *)notification
 {
+    NSUserDefaults *defaults = [NSUserDefaults standardUserDefaults];
+    BOOL enforceFullscreen = [[defaults objectForKey:kVLCSettingVideoFullscreenPlayback] boolValue];
+
+    VLCPlaybackController *vpc = [VLCPlaybackController sharedInstance];
+    if (vpc.fullscreenSessionRequested && enforceFullscreen) {
+        [self showFullscreenPlayback];
+        return;
+    }
+
     switch (self.displayMode) {
         case VLCPlayerDisplayControllerDisplayModeFullscreen:
             [self _presentFullscreenPlaybackViewIfNeeded];
