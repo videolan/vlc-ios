@@ -177,11 +177,8 @@ static NSString *kUsingTableViewToShowData = @"UsingTableViewToShowData";
     UIBarButtonItem *createFolderItem = [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemOrganize target:self action:@selector(createFolder)];
 
     // Better visual alignment with the action button
-    UIEdgeInsets insets = UIEdgeInsetsMake(4, 0, 0, 0);
-    if (UI_USER_INTERFACE_IDIOM() == UIUserInterfaceIdiomPhone) {
-        insets.top += 1;
-    }
-    createFolderItem.imageInsets = insets;
+    createFolderItem.imageInsets = UIEdgeInsetsMake(4, 0, -4, 0);
+    createFolderItem.landscapeImagePhoneInsets = UIEdgeInsetsMake(3, 0, -3, 0);
 
     _actionBarButtonItem = [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemAction target:self action:@selector(actOnSelection:)];
     _actionBarButtonItem.enabled = NO;
