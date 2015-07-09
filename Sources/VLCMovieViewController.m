@@ -795,6 +795,17 @@ typedef NS_ENUM(NSInteger, VLCPanType) {
     [_playPauseButtonLandscape setImage:playPauseImage forState:UIControlStateNormal];
 }
 
+- (void)updateTimeDisplayButton
+{
+    VLCMediaPlayer *mediaPlayer = self.playbackController.mediaPlayer;
+    UIButton *timeDisplayButton = self.timeNavigationTitleView.timeDisplayButton;
+    if (_displayRemainingTime)
+        [timeDisplayButton setTitle:[[mediaPlayer remainingTime] stringValue] forState:UIControlStateNormal];
+    else
+        [timeDisplayButton setTitle:[[mediaPlayer time] stringValue] forState:UIControlStateNormal];
+    [self.timeNavigationTitleView setNeedsLayout];
+}
+
 #pragma mark - playback controller delegation
 
 - (VLCPlaybackController *)playbackController
@@ -812,11 +823,7 @@ typedef NS_ENUM(NSInteger, VLCPanType) {
         self.timeNavigationTitleView.positionSlider.value = [mediaPlayer position];
     }
 
-    if (_displayRemainingTime)
-        [self.timeNavigationTitleView.timeDisplayButton setTitle:[[mediaPlayer remainingTime] stringValue] forState:UIControlStateNormal];
-    else
-        [self.timeNavigationTitleView.timeDisplayButton setTitle:[[mediaPlayer time] stringValue] forState:UIControlStateNormal];
-    [self.timeNavigationTitleView setNeedsLayout];
+    [self updateTimeDisplayButton];
 }
 
 - (void)prepareForMediaPlayback:(VLCPlaybackController *)controller
@@ -972,6 +979,7 @@ currentMediaHasTrackToChooseFrom:(BOOL)currentMediaHasTrackToChooseFrom
     LOCKCHECK;
 
     _displayRemainingTime = !_displayRemainingTime;
+    [self updateTimeDisplayButton];
 
     [self _resetIdleTimer];
 }
