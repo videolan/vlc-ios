@@ -3,6 +3,8 @@
 "OPEN_TRACK_PANEL"="Open track selection";
 "CHOOSE_TITLE"="Kies Titel";
 "CHOOSE_CHAPTER"="Kies Hoofstuk";
+"MINIMIZE_PLAYBACK_VIEW"="Minimize playback";
+"FULLSCREEN_PLAYBACK"="Play in fullscreen";
 
 "PLAYING_EXTERNALLY_TITLE"="TV is verbind";
 "PLAYING_EXTERNALLY_DESC"="Hierdie video speel op die TV";
@@ -209,6 +211,10 @@
 "PLEX_UNWATCHED"="Merk as nie-gekyk";
 "PLEX_ERROR_MARK"="MEdia kon nie gemerk word nie";
 "PLEX_CONNECT_TO_SERVER"="Connect to Plex Media Server";
+"PLEX_CHECK_ACCOUNT"="Check your Plex account in settings";
+"PLEX_ERROR_ACCOUNT"="Plex login Error";
+
+"UNAUTHORIZED"="Unauthorized";
 
 "SERVER"="Server";
 "SERVER_PORT"="Port";
@@ -241,3 +247,5 @@
 "OBJECT_TYPE_ALBUM_TRACK"="Album track";
 "OBJECT_TYPE_FILE"="File";
 "OBJECT_TYPE_FILE_AUDIO"="Audio file";
+
+"LONGPRESS_TO_STOP"="Long-press to stop playback.";

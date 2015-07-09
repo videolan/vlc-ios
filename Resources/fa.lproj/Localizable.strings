@@ -3,6 +3,8 @@
 "OPEN_TRACK_PANEL"="گشودن قطعه انتخابی";
 "CHOOSE_TITLE"="Choose Title";
 "CHOOSE_CHAPTER"="Choose Chapter";
+"MINIMIZE_PLAYBACK_VIEW"="Minimize playback";
+"FULLSCREEN_PLAYBACK"="Play in fullscreen";
 
 "PLAYING_EXTERNALLY_TITLE"="تلویزیون متصل شد";
 "PLAYING_EXTERNALLY_DESC"="این ویدیو در تلویزیون در حال پخش است";
@@ -209,6 +211,10 @@
 "PLEX_UNWATCHED"="نشانه به عنوان دیده نشده";
 "PLEX_ERROR_MARK"="خطا در نشان دار کردن رسانه";
 "PLEX_CONNECT_TO_SERVER"="Connect to Plex Media Server";
+"PLEX_CHECK_ACCOUNT"="Check your Plex account in settings";
+"PLEX_ERROR_ACCOUNT"="Plex login Error";
+
+"UNAUTHORIZED"="Unauthorized";
 
 "SERVER"="Server";
 "SERVER_PORT"="Port";
@@ -241,3 +247,5 @@
 "OBJECT_TYPE_ALBUM_TRACK"="Album track";
 "OBJECT_TYPE_FILE"="File";
 "OBJECT_TYPE_FILE_AUDIO"="Audio file";
+
+"LONGPRESS_TO_STOP"="Long-press to stop playback.";

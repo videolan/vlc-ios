@@ -3,6 +3,8 @@
 "OPEN_TRACK_PANEL"="បើ​ក​បទ​ដែល​បាន​ជ្រើស​រើស";
 "CHOOSE_TITLE"="Choose Title";
 "CHOOSE_CHAPTER"="Choose Chapter";
+"MINIMIZE_PLAYBACK_VIEW"="Minimize playback";
+"FULLSCREEN_PLAYBACK"="Play in fullscreen";
 
 "PLAYING_EXTERNALLY_TITLE"="បាន​តភ្ជាប់​ទូរទស្សន៍";
 "PLAYING_EXTERNALLY_DESC"="កំពុង​ចាក់​វីដេអូ​នេះ​នៅ​លើ​ទូរទស្សន៍";
@@ -209,6 +211,10 @@
 "PLEX_UNWATCHED"="កំ​ណត់​ថា​មិន​ទាន់​មើល​";
 "PLEX_ERROR_MARK"="កំ​ណត់​ប្រព័ន្ធផ្សព្វផ្សាយមិន​ដំ​ណើរ​ការ​";
 "PLEX_CONNECT_TO_SERVER"="Connect to Plex Media Server";
+"PLEX_CHECK_ACCOUNT"="Check your Plex account in settings";
+"PLEX_ERROR_ACCOUNT"="Plex login Error";
+
+"UNAUTHORIZED"="Unauthorized";
 
 "SERVER"="Server";
 "SERVER_PORT"="Port";
@@ -241,3 +247,5 @@
 "OBJECT_TYPE_ALBUM_TRACK"="Album track";
 "OBJECT_TYPE_FILE"="File";
 "OBJECT_TYPE_FILE_AUDIO"="Audio file";
+
+"LONGPRESS_TO_STOP"="Long-press to stop playback.";

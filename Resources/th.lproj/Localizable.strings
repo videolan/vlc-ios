@@ -3,6 +3,8 @@
 "OPEN_TRACK_PANEL"="เปิดแฟ้มรายการที่เลือก";
 "CHOOSE_TITLE"="เลือก Title";
 "CHOOSE_CHAPTER"="เลือก Chapter";
+"MINIMIZE_PLAYBACK_VIEW"="Minimize playback";
+"FULLSCREEN_PLAYBACK"="Play in fullscreen";
 
 "PLAYING_EXTERNALLY_TITLE"="เชื่อมต่อทีวีเรียบร้อยแล้ว";
 "PLAYING_EXTERNALLY_DESC"="วีดีโอนี้กำลังเล่นอยู่บนทีวี";
@@ -209,6 +211,10 @@
 "PLEX_UNWATCHED"="ทำเครื่องหมายว่ายังไม่ได้ดู";
 "PLEX_ERROR_MARK"="Error marking media";
 "PLEX_CONNECT_TO_SERVER"="เชื่อมต่อไปยัง Plex มีเดียเซิร์ฟเวอร์";
+"PLEX_CHECK_ACCOUNT"="Check your Plex account in settings";
+"PLEX_ERROR_ACCOUNT"="Plex login Error";
+
+"UNAUTHORIZED"="Unauthorized";
 
 "SERVER"="เซิร์ฟเวอร์";
 "SERVER_PORT"="พอร์ต";
@@ -241,3 +247,5 @@
 "OBJECT_TYPE_ALBUM_TRACK"="Album track";
 "OBJECT_TYPE_FILE"="File";
 "OBJECT_TYPE_FILE_AUDIO"="Audio file";
+
+"LONGPRESS_TO_STOP"="Long-press to stop playback.";

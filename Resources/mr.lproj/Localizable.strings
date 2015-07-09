@@ -3,6 +3,8 @@
 "OPEN_TRACK_PANEL"="ट्रॅक निवड उघडा";
 "CHOOSE_TITLE"="शीर्षक निवडा";
 "CHOOSE_CHAPTER"="पाठ निवडा";
+"MINIMIZE_PLAYBACK_VIEW"="Minimize playback";
+"FULLSCREEN_PLAYBACK"="Play in fullscreen";
 
 "PLAYING_EXTERNALLY_TITLE"="टीव्ही जोडला";
 "PLAYING_EXTERNALLY_DESC"="ही चित्रफीत टीव्हीवर प्ले केली जात आहे";
@@ -209,6 +211,10 @@
 "PLEX_UNWATCHED"="Mark as un-watched";
 "PLEX_ERROR_MARK"="Error marking media";
 "PLEX_CONNECT_TO_SERVER"="Connect to Plex Media Server";
+"PLEX_CHECK_ACCOUNT"="Check your Plex account in settings";
+"PLEX_ERROR_ACCOUNT"="Plex login Error";
+
+"UNAUTHORIZED"="Unauthorized";
 
 "SERVER"="सर्व्हर";
 "SERVER_PORT"="पोर्ट";
@@ -241,3 +247,5 @@
 "OBJECT_TYPE_ALBUM_TRACK"="Album track";
 "OBJECT_TYPE_FILE"="File";
 "OBJECT_TYPE_FILE_AUDIO"="Audio file";
+
+"LONGPRESS_TO_STOP"="Long-press to stop playback.";

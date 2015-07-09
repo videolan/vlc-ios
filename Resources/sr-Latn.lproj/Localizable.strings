@@ -3,6 +3,8 @@
 "OPEN_TRACK_PANEL"="Otvori listu zapisa";
 "CHOOSE_TITLE"="Choose Title";
 "CHOOSE_CHAPTER"="Choose Chapter";
+"MINIMIZE_PLAYBACK_VIEW"="Minimize playback";
+"FULLSCREEN_PLAYBACK"="Play in fullscreen";
 
 "PLAYING_EXTERNALLY_TITLE"="TV je povezan";
 "PLAYING_EXTERNALLY_DESC"="Ovaj video zapis se trenutno reprodukuje na TV-u";
@@ -245,3 +247,5 @@
 "OBJECT_TYPE_ALBUM_TRACK"="Album track";
 "OBJECT_TYPE_FILE"="File";
 "OBJECT_TYPE_FILE_AUDIO"="Audio file";
+
+"LONGPRESS_TO_STOP"="Long-press to stop playback.";
