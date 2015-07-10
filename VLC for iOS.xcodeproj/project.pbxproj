@@ -192,6 +192,7 @@
 		7DC19B051868D1C400810BF7 /* VLCFirstStepsFifthPageViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 7DC19B031868D1C400810BF7 /* VLCFirstStepsFifthPageViewController.m */; };
 		7DC19B0C1868D21800810BF7 /* VLCFirstStepsSixthPageViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 7DC19B0A1868D21800810BF7 /* VLCFirstStepsSixthPageViewController.m */; };
 		7DC72D6317B7ED24008A26D0 /* WhiteRaccoon.m in Sources */ = {isa = PBXBuildFile; fileRef = 7DC72D6217B7ED24008A26D0 /* WhiteRaccoon.m */; };
+		7DCD64A31B60012400FC98AA /* backArrow_black.png in Resources */ = {isa = PBXBuildFile; fileRef = 7DCD64A21B60012400FC98AA /* backArrow_black.png */; };
 		7DD2A3A9179C04A7003EB537 /* OpenSans-Regular.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 7DD2A3A8179C04A6003EB537 /* OpenSans-Regular.ttf */; };
 		7DDD0429172D98E5005A7B10 /* CFNetwork.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 7DDD0428172D98E5005A7B10 /* CFNetwork.framework */; };
 		7DE18629175BA9A5006C0173 /* badgeUnread@2x~ipad.png in Resources */ = {isa = PBXBuildFile; fileRef = 7DE1862B175BA9A5006C0173 /* badgeUnread@2x~ipad.png */; };
@@ -792,6 +793,7 @@
 		7DC2227B1773AB0900371B5C /* es */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = es; path = "es.lproj/badgeUnread~iphone.png"; sourceTree = "<group>"; };
 		7DC72D6117B7ED24008A26D0 /* WhiteRaccoon.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = WhiteRaccoon.h; path = ImportedSources/WhiteRaccoon/WhiteRaccoon.h; sourceTree = SOURCE_ROOT; };
 		7DC72D6217B7ED24008A26D0 /* WhiteRaccoon.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = WhiteRaccoon.m; path = ImportedSources/WhiteRaccoon/WhiteRaccoon.m; sourceTree = SOURCE_ROOT; };
+		7DCD64A21B60012400FC98AA /* backArrow_black.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = backArrow_black.png; path = ImportedSources/OneDrive/src/LiveSDK/Library/Internal/Resources/backArrow_black.png; sourceTree = SOURCE_ROOT; };
 		7DD2A3A8179C04A6003EB537 /* OpenSans-Regular.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "OpenSans-Regular.ttf"; sourceTree = "<group>"; };
 		7DD32D23194F1946002510A9 /* zh-Hant */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "zh-Hant"; path = "zh-Hant.lproj/badgeUnread@2x~ipad.png"; sourceTree = "<group>"; };
 		7DD32D24194F1946002510A9 /* zh-Hant */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "zh-Hant"; path = "zh-Hant.lproj/badgeUnread@2x~iphone.png"; sourceTree = "<group>"; };
@@ -1721,6 +1723,7 @@
 				A7035BBD174519600057DFA7 /* iTunesArtwork */,
 				7DEB3B5F17647DE30038FC70 /* iTunesArtwork@2x */,
 				7DA8B0F9173318E80029698C /* SourceCodePro-Regular.ttf */,
+				7DCD64A21B60012400FC98AA /* backArrow_black.png */,
 				7DD2A3A8179C04A6003EB537 /* OpenSans-Regular.ttf */,
 				7D5DD5C617590ABF001421E3 /* About Contents.html */,
 				7DB669BC1B1B19CB007B1DEB /* Localizable.strings */,
@@ -2016,6 +2019,7 @@
 				41273A3D1A955C4100A2EF77 /* VLCMigrationViewController.xib in Resources */,
 				7DBBF19D183AB4300009A339 /* VLCCloudStorageTableViewController.xib in Resources */,
 				7D9289761877459B009108FD /* VLCFirstStepsThirdPageViewController~iphone.xib in Resources */,
+				7DCD64A31B60012400FC98AA /* backArrow_black.png in Resources */,
 				7DBBF1AB183AB4300009A339 /* VLCPlaylistTableViewCell.xib in Resources */,
 				7DBBF19E183AB4300009A339 /* VLCEmptyLibraryView~ipad.xib in Resources */,
 				7D63C19518774E0100BD5256 /* VLCFirstStepsThirdPageViewController~ipad.xib in Resources */,
