@@ -12,7 +12,7 @@ CONFIGURATION="Release"
 NONETWORK=no
 SKIPLIBVLCCOMPILATION=no
 
-TESTEDVLCKITHASH=dcd42c6f
+TESTEDVLCKITHASH=6c6d6863
 TESTEDMEDIALIBRARYKITHASH=e5ca039f
 
 usage()
@@ -146,9 +146,6 @@ info "Preparing build dirs"
 
 mkdir -p ImportedSources
 
-rm -rf External
-mkdir -p External
-
 spushd ImportedSources
 
 if [ "$NONETWORK" != "yes" ]; then
@@ -213,24 +210,7 @@ cd OneDrive && git pull --rebase && cd ..
 fi
 fi
 
-info "Setup 'External' folders"
-
-if [ "$PLATFORM" = "iphonesimulator" ]; then
-    xcbuilddir="build/${CONFIGURATION}-iphonesimulator"
-else
-    xcbuilddir="build/${CONFIGURATION}-iphoneos"
-fi
-framework_build="${aspen_root_dir}/ImportedSources/VLCKit/${xcbuilddir}"
-mlkit_build="${aspen_root_dir}/ImportedSources/MediaLibraryKit/${xcbuilddir}"
-gtl_build="${aspen_root_dir}/ImportedSources/GDrive/${xcbuilddir}"
-onedrive_build="${aspen_root_dir}/ImportedSources/OneDrive/src/${xcbuilddir}"
-
 spopd #ImportedSources
-
-ln -sf ${framework_build} External/MobileVLCKit
-ln -sf ${mlkit_build} External/MediaLibraryKit
-ln -sf ${gtl_build} External/gtl
-ln -sf ${onedrive_build} External/OneDrive
 
 #
 # Build time
@@ -256,22 +236,6 @@ if [ "$SKIPLIBVLCCOMPILATION" = "yes" ]; then
     args="${args} -l"
 fi
 ./buildMobileVLCKit.sh ${args} -k "${SDK}"
-buildxcodeproj MobileVLCKit "Aggregate static plugins"
-buildxcodeproj MobileVLCKit "MobileVLCKit"
-spopd
-
-spushd MediaLibraryKit
-rm -f External/MobileVLCKit
-ln -sf ${framework_build} External/MobileVLCKit
-buildxcodeproj MediaLibraryKit
-spopd
-
-spushd GDrive
-buildxcodeproj GTL "GTLTouchStaticLib"
-spopd
-
-spushd OneDrive/src
-buildxcodeproj LiveSDK "LiveSDK"
 spopd
 
 spopd # ImportedSources

@@ -1,8 +1,8 @@
 /*****************************************************************************
- * Prefix header for all source files of the 'vlc-ios' target
+ * Prefix header for all source files of the 'VLC for iOS WK Ext' target
  * VLC for iOS
  *****************************************************************************
- * Copyright (c) 2013-2014 VideoLAN. All rights reserved.
+ * Copyright (c) 2015 VideoLAN. All rights reserved.
  * $Id$
  *
  * Authors: Felix Paul Kühne <fkuehne # videolan.org>
@@ -37,19 +37,6 @@
 #import "MLShowEpisode.h"
 #import "MLAlbum.h"
 #import "MLAlbumTrack.h"
-
-#import "VLCConstants.h"
-#import "UIColor+Presets.h"
-#import "UIBarButtonItem+Theme.h"
-#import "VLCAlertView.h"
-#import "VLCNavigationController.h"
-#import "VLCSidebarController.h"
-
-#define SYSTEM_VERSION_GREATER_THAN_OR_EQUAL_TO(v)  ([[[UIDevice currentDevice] systemVersion] compare:v options:NSNumericSearch] != NSOrderedAscending)
-
-#define SYSTEM_RUNS_IOS8_OR_LATER SYSTEM_VERSION_GREATER_THAN_OR_EQUAL_TO(@"8.0")
-
-#define SYSTEM_RUNS_IOS82_OR_LATER SYSTEM_VERSION_GREATER_THAN_OR_EQUAL_TO(@"8.2")
 
 #ifndef NDEBUG
 #define APLog(format, ...) NSLog(format, ## __VA_ARGS__)

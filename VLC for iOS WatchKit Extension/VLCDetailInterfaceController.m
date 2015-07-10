@@ -11,7 +11,6 @@
  *****************************************************************************/
 
 #import "VLCDetailInterfaceController.h"
-#import <MediaLibraryKit/MediaLibraryKit.h>
 #import "VLCTime.h"
 #import "VLCThumbnailsCache.h"
 #import "WKInterfaceObject+VLCProgress.h"

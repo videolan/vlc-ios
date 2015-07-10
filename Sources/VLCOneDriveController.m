@@ -15,10 +15,10 @@
 #import "VLCOneDriveObject.h"
 
 /* the Live SDK doesn't have an umbrella header so we need to import what we need */
-#import <LiveSDK/LiveConnectClient.h>
+#import "LiveConnectClient.h"
 
 /* include private API headers */
-#import <LiveSDK/LiveApiHelper.h>
+#import "LiveApiHelper.h"
 
 @interface VLCOneDriveController () <LiveAuthDelegate, VLCOneDriveObjectDelegate, VLCOneDriveObjectDownloadDelegate>
 {

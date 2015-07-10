@@ -11,7 +11,6 @@
  *****************************************************************************/
 
 #import "VLCRowController.h"
-#import <MediaLibraryKit/MediaLibraryKit.h>
 #import "WKInterfaceObject+VLCProgress.h"
 #import "VLCThumbnailsCache.h"
 

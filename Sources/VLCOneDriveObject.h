@@ -10,7 +10,7 @@
  * Refer to the COPYING file of the official project for license.
  *****************************************************************************/
 
-#import <LiveSDK/LiveConnectClient.h>
+#import "LiveConnectClient.h"
 
 @class VLCOneDriveObject;
 

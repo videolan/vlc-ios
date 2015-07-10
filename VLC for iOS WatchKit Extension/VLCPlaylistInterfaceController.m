@@ -13,7 +13,6 @@
  *****************************************************************************/
 
 #import "VLCPlaylistInterfaceController.h"
-#import <MediaLibraryKit/MediaLibraryKit.h>
 #import "VLCRowController.h"
 
 #import "VLCNotificationRelay.h"

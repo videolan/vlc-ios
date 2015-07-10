@@ -12,8 +12,6 @@
  * Refer to the COPYING file of the official project for license.
  *****************************************************************************/
 
-#import <MediaLibraryKit/MLMediaLibrary.h>
-
 typedef enum {
     VLCLibraryModeAllFiles  = 0,
     VLCLibraryModeAllAlbums = 1,

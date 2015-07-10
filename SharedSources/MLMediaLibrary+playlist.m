@@ -13,8 +13,6 @@
  *****************************************************************************/
 
 #import "MLMediaLibrary+playlist.h"
-#import <UIKit/UIKit.h>
-#import <MediaLibraryKit/MediaLibraryKit.h>
 
 @implementation MLMediaLibrary (playlist)
 

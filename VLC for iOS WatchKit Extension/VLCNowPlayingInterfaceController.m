@@ -13,11 +13,10 @@
 #import "VLCNowPlayingInterfaceController.h"
 #import <MediaPlayer/MediaPlayer.h>
 #import "VLCTime.h"
-#import <MediaLibraryKit/MediaLibraryKit.h>
 #import "VLCNotificationRelay.h"
-#import "VLCThumbnailsCache.h"
 #import "WKInterfaceObject+VLCProgress.h"
 #import "VLCWatchMessage.h"
+#import "VLCThumbnailsCache.h"
 
 @interface VLCNowPlayingInterfaceController ()
 {

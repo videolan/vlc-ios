@@ -16,7 +16,6 @@
 #import "VLCLinearProgressIndicator.h"
 #import "VLCThumbnailsCache.h"
 #import "NSString+SupportedMedia.h"
-#import <MediaLibraryKit/MLAlbum.h>
 
 @interface VLCPlaylistTableViewCell ()
 {
