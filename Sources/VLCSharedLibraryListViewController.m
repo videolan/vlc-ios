@@ -35,10 +35,16 @@
     UISearchDisplayController *_searchDisplayController;
     UIRefreshControl *_refreshControl;
     UIBarButtonItem *_menuButton;
+    UITapGestureRecognizer *_tapTwiceGestureRecognizer;
 }
 @end
 
 @implementation VLCSharedLibraryListViewController
+
+- (void)dealloc
+{
+    [_tapTwiceGestureRecognizer removeTarget:self action:NULL];
+}
 
 - (void)loadView
 {
@@ -103,9 +109,9 @@
     _searchBar.delegate = self;
     _searchBar.hidden = YES;
 
-    UITapGestureRecognizer *tapTwiceGesture = [[UITapGestureRecognizer alloc] initWithTarget:self  action:@selector(tapTwiceGestureAction:)];
-    [tapTwiceGesture setNumberOfTapsRequired:2];
-    [self.navigationController.navigationBar addGestureRecognizer:tapTwiceGesture];
+    _tapTwiceGestureRecognizer = [[UITapGestureRecognizer alloc] initWithTarget:self  action:@selector(tapTwiceGestureAction:)];
+    [_tapTwiceGestureRecognizer setNumberOfTapsRequired:2];
+    [self.navigationController.navigationBar addGestureRecognizer:_tapTwiceGestureRecognizer];
 
     // Active le Pull down to refresh
     _refreshControl = [[UIRefreshControl alloc] init];

@@ -41,10 +41,16 @@
     UISearchDisplayController *_searchDisplayController;
     UIRefreshControl *_refreshControl;
     UIBarButtonItem *_menuButton;
+    UITapGestureRecognizer *_tapTwiceGestureRecognizer;
 }
 @end
 
 @implementation VLCLocalPlexFolderListViewController
+
+- (void)dealloc
+{
+    [_tapTwiceGestureRecognizer removeTarget:self action:NULL];
+}
 
 - (void)loadView
 {
@@ -109,9 +115,9 @@
     //self.tableView.tableHeaderView = _searchBar;
     //self.tableView.contentOffset = CGPointMake(0, CGRectGetHeight(_searchBar.frame)); // -> hide search bar to load
 
-    UITapGestureRecognizer *tapTwiceGesture = [[UITapGestureRecognizer alloc] initWithTarget:self  action:@selector(tapTwiceGestureAction:)];
-    [tapTwiceGesture setNumberOfTapsRequired:2];
-    [self.navigationController.navigationBar addGestureRecognizer:tapTwiceGesture];
+    _tapTwiceGestureRecognizer = [[UITapGestureRecognizer alloc] initWithTarget:self  action:@selector(tapTwiceGestureAction:)];
+    [_tapTwiceGestureRecognizer setNumberOfTapsRequired:2];
+    [self.navigationController.navigationBar addGestureRecognizer:_tapTwiceGestureRecognizer];
 
     // Active le Pull down to refresh
     _refreshControl = [[UIRefreshControl alloc] init];
