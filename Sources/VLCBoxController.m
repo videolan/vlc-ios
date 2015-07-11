@@ -109,12 +109,14 @@
 
 - (void)downloadFileToDocumentFolder:(BoxItem *)file
 {
-    if ([file.type isEqualToString:BoxAPIItemTypeFolder]) return;
+    if (file != nil) {
+        if ([file.type isEqualToString:BoxAPIItemTypeFolder]) return;
 
-    if (!_listOfBoxFilesToDownload)
-        _listOfBoxFilesToDownload = [NSMutableArray new];
+        if (!_listOfBoxFilesToDownload)
+            _listOfBoxFilesToDownload = [NSMutableArray new];
 
-    [_listOfBoxFilesToDownload addObject:file];
+        [_listOfBoxFilesToDownload addObject:file];
+    }
 
     if ([self.delegate respondsToSelector:@selector(numberOfFilesWaitingToBeDownloadedChanged)])
         [self.delegate numberOfFilesWaitingToBeDownloadedChanged];
