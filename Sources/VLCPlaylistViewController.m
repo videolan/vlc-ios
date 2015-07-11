@@ -1027,24 +1027,28 @@ static NSString *kUsingTableViewToShowData = @"UsingTableViewToShowData";
             MLLabel *label = _foundMedia[folderIndex];
             [_indexPaths sortUsingSelector:@selector(compare:)];
 
-            for (NSInteger i = [_indexPaths count] - 1; i >= 0; i--) {
-                NSIndexPath *path = _indexPaths[i];
-                if (_libraryMode != VLCLibraryModeCreateFolder && ![_foundMedia[path.row] isKindOfClass:[MLFile class]])
-                    continue;
-                if (_libraryMode == VLCLibraryModeCreateFolder)
-                    [self updateViewContents];
+            @synchronized(self) {
+                NSUInteger count = _foundMedia.count;
+                for (NSInteger i = [_indexPaths count] - 1; i >= 0; i--) {
+                    NSIndexPath *path = _indexPaths[i];
+                    if (path.row >= count)
+                        continue;
+                    if (_libraryMode != VLCLibraryModeCreateFolder && ![_foundMedia[path.row] isKindOfClass:[MLFile class]])
+                        continue;
+                    if (_libraryMode == VLCLibraryModeCreateFolder)
+                        [self updateViewContents];
 
-                id item = _foundMedia[path.row];
+                    id item = _foundMedia[path.row];
 
-                if (![item isKindOfClass:[MLFile class]])
-                    continue;
+                    if (![item isKindOfClass:[MLFile class]])
+                        continue;
 
-                MLFile *file = (MLFile *)item;
-                file.labels = [NSSet setWithObjects:label, nil];
-                @synchronized(self) {
+                    MLFile *file = (MLFile *)item;
+                    file.labels = [NSSet setWithObjects:label, nil];
                     [_foundMedia removeObjectAtIndex:path.row];
+
+                    file.folderTrackNumber = @([label files].count - 1);
                 }
-                file.folderTrackNumber = @([label files].count - 1);
             }
         }
         _folderObject = nil;
