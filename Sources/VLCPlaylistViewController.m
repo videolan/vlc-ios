@@ -631,6 +631,8 @@ static NSString *kUsingTableViewToShowData = @"UsingTableViewToShowData";
         MLFile* object = _foundMedia[fromIndexPath.item];
         [_foundMedia removeObjectAtIndex:fromIndexPath.item];
         [_foundMedia insertObject:object atIndex:toIndexPath.item];
+        if (![object isKindOfClass:[MLFile class]])
+            return;
         object.folderTrackNumber = @(toIndexPath.item - 1);
         object = [_foundMedia objectAtIndex:fromIndexPath.item];
         object.folderTrackNumber = @(fromIndexPath.item - 1);
