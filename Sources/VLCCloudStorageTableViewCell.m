@@ -173,9 +173,10 @@
                 self.thumbnailView.image = [UIImage imageNamed:@"audio"];
             else if (self.oneDriveFile.isVideo) {
                 self.thumbnailView.image = [UIImage imageNamed:@"movie"];
-                if (_oneDriveFile.thumbnailURL != nil) {
-                    if (_oneDriveFile.thumbnailURL.length > 0) {
-                        _iconURL = [NSURL URLWithString:_oneDriveFile.thumbnailURL];
+                NSString *thumbnailURL = _oneDriveFile.thumbnailURL;
+                if (thumbnailURL != NULL) {
+                    if (thumbnailURL.length > 0) {
+                        _iconURL = [NSURL URLWithString:thumbnailURL];
                         [self performSelectorInBackground:@selector(_updateIconFromURL) withObject:@""];
                     }
                 }
