@@ -1137,6 +1137,8 @@ static NSString *kUsingTableViewToShowData = @"UsingTableViewToShowData";
         [visibleCells enumerateObjectsUsingBlock:^(id obj, NSUInteger idx, BOOL *stop) {
             VLCPlaylistCollectionViewCell *aCell = (VLCPlaylistCollectionViewCell*)obj;
 
+            // always clear selection when enter edit mode
+            aCell.selected = NO;
             [aCell setEditing:editing animated:animated];
         }];
         self.collectionView.allowsMultipleSelection = editing;
