@@ -120,6 +120,11 @@
 
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
 {
+    [self.tableView deselectRowAtIndexPath:indexPath animated:NO];
+
+    if (indexPath.row >= _googleDriveController.currentListFiles.count)
+        return;
+
     _selectedFile = _googleDriveController.currentListFiles[indexPath.row];
     if (![_selectedFile.mimeType isEqualToString:@"application/vnd.google-apps.folder"]) {
         [_googleDriveController streamFile:_selectedFile];
@@ -130,7 +135,6 @@
         self.currentPath = [self.currentPath stringByAppendingString:_selectedFile.identifier];
         [self _requestInformationForCurrentPath];
     }
-    [self.tableView deselectRowAtIndexPath:indexPath animated:NO];
 }
 
 - (void)triggerDownloadForCell:(VLCCloudStorageTableViewCell *)cell
