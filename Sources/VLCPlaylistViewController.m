@@ -796,7 +796,10 @@ static NSString *kUsingTableViewToShowData = @"UsingTableViewToShowData";
             [cell showMetadata:NO];
     }
 
-    NSManagedObject *selectedObject = _foundMedia[indexPath.row];
+    NSManagedObject *selectedObject;
+    @synchronized(self) {
+        selectedObject = _foundMedia[indexPath.row];
+    }
     [self openMediaObject:selectedObject];
 }
 
@@ -811,7 +814,10 @@ static NSString *kUsingTableViewToShowData = @"UsingTableViewToShowData";
 
 - (void)collectionView:(UICollectionView *)collectionView removeItemFromFolderAtIndexPathIfNeeded:(NSIndexPath *)indexPath
 {
-    id mediaObject = _foundMedia[indexPath.item];
+    id mediaObject;
+    @synchronized(self) {
+        mediaObject = _foundMedia[indexPath.item];
+    }
     if (![mediaObject isKindOfClass:[MLFile class]])
         return;
 
@@ -841,8 +847,12 @@ static NSString *kUsingTableViewToShowData = @"UsingTableViewToShowData";
 
 - (void)collectionView:(UICollectionView *)collectionView requestToMoveItemAtIndexPath:(NSIndexPath *)itemPath intoFolderAtIndexPath:(NSIndexPath *)folderPath
 {
-    id folderPathItem = _foundMedia[folderPath.item];
-    id itemPathItem = _foundMedia[itemPath.item];
+    id folderPathItem;
+    id itemPathItem;
+    @synchronized(self) {
+        folderPathItem = _foundMedia[folderPath.item];
+        itemPathItem = _foundMedia[itemPath.item];
+    }
 
     BOOL validFileTypeAtFolderPath = ([folderPathItem isKindOfClass:[MLFile class]] || [folderPathItem isKindOfClass:[MLLabel class]]) && [itemPathItem isKindOfClass:[MLFile class]];
 
@@ -922,10 +932,15 @@ static NSString *kUsingTableViewToShowData = @"UsingTableViewToShowData";
     for (NSInteger i = _indexPaths.count - 1; i >=0; i--) {
         NSIndexPath *path = _indexPaths[i];
         id mediaObject;
-        if (!_usingTableViewToShowData)
-            mediaObject = _foundMedia[path.item];
-        else
-            mediaObject = _foundMedia[path.row];
+        if (!_usingTableViewToShowData) {
+            @synchronized(self) {
+                mediaObject = _foundMedia[path.item];
+            }
+        } else {
+            @synchronized(self) {
+                mediaObject = _foundMedia[path.row];
+            }
+        }
         if ([mediaObject isKindOfClass:[MLLabel class]])
             [_indexPaths removeObject:path];
     }
@@ -934,7 +949,9 @@ static NSString *kUsingTableViewToShowData = @"UsingTableViewToShowData";
         NSArray *folder = [MLLabel allLabels];
         //if we already have folders display them
         if ([folder count] > 0) {
-            _foundMedia = [NSMutableArray arrayWithArray:folder];
+            @synchronized(self) {
+                _foundMedia = [NSMutableArray arrayWithArray:folder];
+            }
             self.title = NSLocalizedString(@"SELECT_FOLDER", nil);
             _previousLibraryMode = _libraryMode;
             _libraryMode = VLCLibraryModeCreateFolder;
@@ -957,7 +974,10 @@ static NSString *kUsingTableViewToShowData = @"UsingTableViewToShowData";
 
     for (NSInteger i = [_indexPaths count] - 1; i >= 0; i--) {
         NSIndexPath *path = _indexPaths[i];
-        id item = _foundMedia[_usingTableViewToShowData ? path.row : path.item];
+        id item;
+        @synchronized(self) {
+            item = _foundMedia[_usingTableViewToShowData ? path.row : path.item];
+        }
 
         if ([item isKindOfClass:[MLFile class]]) {
             MLFile *file = (MLFile *)item;
@@ -997,10 +1017,16 @@ static NSString *kUsingTableViewToShowData = @"UsingTableViewToShowData";
     }
 
     if (_folderObject != nil) {
-        NSUInteger folderIndex = [_foundMedia indexOfObject:_folderObject];
+        id mediaObject;
+        NSUInteger folderIndex;
+        @synchronized(self) {
+            folderIndex = [_foundMedia indexOfObject:_folderObject];
+            mediaObject = _foundMedia[folderIndex];
+        }
+
         //item got dragged onto item
-        if ([_foundMedia[folderIndex] isKindOfClass:[MLFile class]]) {
-            MLFile *file = _foundMedia[folderIndex];
+        if ([mediaObject isKindOfClass:[MLFile class]]) {
+            MLFile *file = (MLFile *)mediaObject;
             MLLabel *label = [[MLMediaLibrary sharedMediaLibrary] createObjectForEntity:@"Label"];
             label.name = folderName;
 
@@ -1026,7 +1052,10 @@ static NSString *kUsingTableViewToShowData = @"UsingTableViewToShowData";
             itemFile.folderTrackNumber = @([label files].count - 1);
         } else {
             //item got dragged onto folder or items should be added to folder
-            MLLabel *label = _foundMedia[folderIndex];
+            MLLabel *label;
+            @synchronized(self) {
+                label = _foundMedia[folderIndex];
+            }
             [_indexPaths sortUsingSelector:@selector(compare:)];
 
             @synchronized(self) {
