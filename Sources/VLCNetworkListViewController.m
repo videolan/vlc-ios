@@ -21,11 +21,17 @@ NSString *VLCNetworkListCellIdentifier = @"VLCNetworkListCellIdentifier";
     NSMutableArray *_searchData;
     UISearchBar *_searchBar;
     UISearchDisplayController *_searchDisplayController;
+    UITapGestureRecognizer *_tapTwiceGestureRecognizer;
 }
 
 @end
 
 @implementation VLCNetworkListViewController
+
+- (void)dealloc
+{
+    [_tapTwiceGestureRecognizer removeTarget:self action:NULL];
+}
 
 - (void)loadView
 {
@@ -63,9 +69,9 @@ NSString *VLCNetworkListCellIdentifier = @"VLCNetworkListCellIdentifier";
     _searchBar.delegate = self;
     _searchBar.hidden = YES;
 
-    UITapGestureRecognizer *tapTwiceGesture = [[UITapGestureRecognizer alloc] initWithTarget:self  action:@selector(tapTwiceGestureAction:)];
-    [tapTwiceGesture setNumberOfTapsRequired:2];
-    [self.navigationController.navigationBar addGestureRecognizer:tapTwiceGesture];
+    _tapTwiceGestureRecognizer = [[UITapGestureRecognizer alloc] initWithTarget:self  action:@selector(tapTwiceGestureAction:)];
+    [_tapTwiceGestureRecognizer setNumberOfTapsRequired:2];
+    [self.navigationController.navigationBar addGestureRecognizer:_tapTwiceGestureRecognizer];
 
     self.navigationItem.rightBarButtonItem = [UIBarButtonItem themedRevealMenuButtonWithTarget:self andSelector:@selector(menuButtonAction:)];
 

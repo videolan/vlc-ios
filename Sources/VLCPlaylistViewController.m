@@ -56,6 +56,7 @@ static NSString *kUsingTableViewToShowData = @"UsingTableViewToShowData";
     LXReorderableCollectionViewFlowLayout *_reorderLayout;
     BOOL _inFolder;
     UILongPressGestureRecognizer *_longPressGestureRecognizer;
+    UITapGestureRecognizer *_tapTwiceGestureRecognizer;
 
     NSMutableArray *_searchData;
     UISearchBar *_searchBar;
@@ -74,6 +75,11 @@ static NSString *kUsingTableViewToShowData = @"UsingTableViewToShowData";
 @end
 
 @implementation VLCPlaylistViewController
+
+- (void)dealloc
+{
+    [_tapTwiceGestureRecognizer removeTarget:self action:NULL];
+}
 
 + (void)initialize
 {
@@ -200,9 +206,9 @@ static NSString *kUsingTableViewToShowData = @"UsingTableViewToShowData";
     _searchBar.delegate = self;
     _searchBar.hidden = YES;
 
-    UITapGestureRecognizer *tapTwiceGesture = [[UITapGestureRecognizer alloc] initWithTarget:self  action:@selector(tapTwiceGestureAction:)];
-    [tapTwiceGesture setNumberOfTapsRequired:2];
-    [self.navigationController.navigationBar addGestureRecognizer:tapTwiceGesture];
+    _tapTwiceGestureRecognizer = [[UITapGestureRecognizer alloc] initWithTarget:self  action:@selector(tapTwiceGestureAction:)];
+    [_tapTwiceGestureRecognizer setNumberOfTapsRequired:2];
+    [self.navigationController.navigationBar addGestureRecognizer:_tapTwiceGestureRecognizer];
 
     _searchData = [[NSMutableArray alloc] init];
 }
