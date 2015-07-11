@@ -1,6 +1,6 @@
 #!/bin/sh
 # Copyright (C) Pierre d'Herbemont, 2010
-# Copyright (C) Felix Paul Kühne, 2012-2014
+# Copyright (C) Felix Paul Kühne, 2012-2015
 
 set -e
 
@@ -45,30 +45,6 @@ info()
      local green="\033[1;32m"
      local normal="\033[0m"
      echo "[${green}info${normal}] $1"
-}
-
-buildxcodeproj()
-{
-    local target="$2"
-    if [ "x$target" = "x" ]; then
-        target="$1"
-    fi
-
-    info "Building $1 ($target, ${CONFIGURATION})"
-
-    local architectures=""
-    if [ "$PLATFORM" = "iphonesimulator" ]; then
-        architectures="i386 x86_64"
-    else
-        architectures="armv7 armv7s arm64"
-    fi
-
-    xcodebuild -project "$1.xcodeproj" \
-               -target "$target" \
-               -sdk $PLATFORM$SDK \
-               -configuration ${CONFIGURATION} \
-               ARCHS="${architectures}" \
-               IPHONEOS_DEPLOYMENT_TARGET=${SDK_MIN} > ${out}
 }
 
 buildxcworkspace()
@@ -136,11 +112,6 @@ if [ "x$1" != "x" ]; then
     usage
     exit 1
 fi
-
-# Get root dir
-spushd .
-aspen_root_dir=`pwd`
-spopd
 
 info "Preparing build dirs"
 
@@ -226,9 +197,6 @@ args=""
 if [ "$VERBOSE" = "yes" ]; then
     args="${args} -v"
 fi
-if [ "$PLATFORM" = "iphonesimulator" ]; then
-    args="${args} -s"
-fi
 if [ "$NONETWORK" = "yes" ]; then
     args="${args} -n"
 fi
@@ -244,7 +212,7 @@ spopd # ImportedSources
 info "installing pods"
 pod install
 
-# Build the Aspen Project now
+# Build the VLC for iOS workspace now
 buildxcworkspace "VLC for iOS" "VLC for iOS"
 
 info "Build completed"
