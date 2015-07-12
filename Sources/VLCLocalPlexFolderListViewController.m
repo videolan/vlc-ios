@@ -248,7 +248,8 @@
         NSData *imageData = [[NSData alloc] initWithContentsOfURL:[NSURL URLWithString:url]];
         if (imageData) {
             image = [[UIImage alloc] initWithData:imageData];
-            [_imageCache setObject:image forKey:url];
+            if (image)
+                [_imageCache setObject:image forKey:url];
         }
         return image;
     }
