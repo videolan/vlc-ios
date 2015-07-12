@@ -120,6 +120,10 @@
 
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
 {
+    [self.tableView deselectRowAtIndexPath:indexPath animated:NO];
+    if (indexPath.row >= _boxController.currentListFiles.count)
+        return;
+
     _selectedFile = _boxController.currentListFiles[indexPath.row];
     if (![_selectedFile.type isEqualToString:@"folder"])
         [_boxController streamFile:(BoxFile *)_selectedFile];
@@ -130,7 +134,6 @@
         self.currentPath = [self.currentPath stringByAppendingString:_selectedFile.modelID];
         [self _requestInformationForCurrentPath];
     }
-    [self.tableView deselectRowAtIndexPath:indexPath animated:NO];
 }
 
 - (void)triggerDownloadForCell:(VLCCloudStorageTableViewCell *)cell
