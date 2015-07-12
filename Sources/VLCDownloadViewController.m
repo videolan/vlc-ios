@@ -262,7 +262,7 @@
                                                      delegate:self
                                             cancelButtonTitle:NSLocalizedString(@"BUTTON_CANCEL", nil)
                                             otherButtonTitles:nil];
-    [alert show];
+    [alert performSelectorOnMainThread:@selector(show) withObject:nil waitUntilDone:NO];
 }
 
 - (void)progressUpdatedTo:(CGFloat)percentage receivedDataSize:(CGFloat)receivedDataSize  expectedDownloadSize:(CGFloat)expectedDownloadSize
@@ -336,12 +336,12 @@
     _FTPDownloadRequest = nil;
     [self downloadEnded];
 
-    VLCAlertView * alert = [[VLCAlertView alloc] initWithTitle:[NSString stringWithFormat:NSLocalizedString(@"ERROR_NUMBER", nil), request.error.errorCode]
+    VLCAlertView *alert = [[VLCAlertView alloc] initWithTitle:[NSString stringWithFormat:NSLocalizedString(@"ERROR_NUMBER", nil), request.error.errorCode]
                                                        message:request.error.message
                                                       delegate:self
                                              cancelButtonTitle:NSLocalizedString(@"BUTTON_CANCEL", nil)
                                              otherButtonTitles:nil];
-    [alert show];
+    [alert performSelectorOnMainThread:@selector(show) withObject:nil waitUntilDone:NO];
 }
 
 #pragma mark - table view data source
