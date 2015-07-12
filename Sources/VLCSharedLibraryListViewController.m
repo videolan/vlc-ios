@@ -14,7 +14,7 @@
 #import "VLCSharedLibraryParser.h"
 #import "VLCNetworkListCell.h"
 #import "VLCPlaybackController.h"
-#import "VLCPlaylistViewController.h"
+#import "VLCLibraryViewController.h"
 #import "VLCDownloadViewController.h"
 #import "NSString+SupportedMedia.h"
 #import "VLCStatusLabel.h"

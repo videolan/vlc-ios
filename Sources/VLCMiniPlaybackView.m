@@ -13,7 +13,7 @@
 #import "VLCMiniPlaybackView.h"
 #import "VLCPlaybackController.h"
 #import "VLCAppDelegate.h"
-#import "VLCPlaylistViewController.h"
+#import "VLCLibraryViewController.h"
 #import "VLCPlayerDisplayController.h"
 #import "VLCKeychainCoordinator.h"
 

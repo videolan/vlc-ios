@@ -17,14 +17,14 @@
 #import "VLCMenuTableViewController.h"
 #import "VLCDownloadViewController.h"
 
-@class VLCPlaylistViewController;
+@class VLCLibraryViewController;
 @class VLCPlayerDisplayController;
 
 extern NSString *const VLCDropboxSessionWasAuthorized;
 
 @interface VLCAppDelegate : UIResponder <UIApplicationDelegate>
 
-@property (nonatomic, readonly) VLCPlaylistViewController *playlistViewController;
+@property (nonatomic, readonly) VLCLibraryViewController *libraryViewController;
 
 @property (nonatomic, readonly) VLCPlayerDisplayController *playerDisplayController;
 

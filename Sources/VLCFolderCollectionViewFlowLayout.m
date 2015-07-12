@@ -12,7 +12,7 @@
 
 #import "VLCFolderCollectionViewFlowLayout.h"
 #import <objc/runtime.h>
-#import "VLCPlaylistViewController.h"
+#import "VLCLibraryViewController.h"
 
 //framrate were motion appears fluent
 #define LX_FRAMES_PER_SECOND 60.0
@@ -259,7 +259,7 @@ static NSString * const kLXCollectionViewKeyPath = @"collectionView";
 
 - (void)handleLongPressGesture:(UILongPressGestureRecognizer *)gestureRecognizer {
     //keeps the controller from dragging while not in editmode
-    if (!((VLCPlaylistViewController *)self.delegate).isEditing) return;
+    if (!((VLCLibraryViewController *)self.delegate).isEditing) return;
 
     switch(gestureRecognizer.state) {
         case UIGestureRecognizerStateBegan: {
@@ -378,7 +378,7 @@ static NSString * const kLXCollectionViewKeyPath = @"collectionView";
             NSIndexPath *newIndexPath = [self.collectionView indexPathForItemAtPoint:_currentView.center];
             NSIndexPath *currentIndexPath = _selectedItemIndexPath;
 
-            if (newIndexPath != nil && ![currentIndexPath isEqual:newIndexPath] && ((VLCPlaylistViewController *)self.delegate).isEditing) {
+            if (newIndexPath != nil && ![currentIndexPath isEqual:newIndexPath] && ((VLCLibraryViewController *)self.delegate).isEditing) {
                 [UIView animateWithDuration:0.3 delay:0.0 options:UIViewAnimationOptionBeginFromCurrentState animations:^{
                     _currentView.transform = CGAffineTransformMakeScale(0.1f, 0.1f);
                     _currentView.center = [self layoutAttributesForItemAtIndexPath:newIndexPath].center;

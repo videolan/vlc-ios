@@ -14,7 +14,7 @@
  *****************************************************************************/
 
 #import "VLCPlaylistCollectionViewCell.h"
-#import "VLCPlaylistViewController.h"
+#import "VLCLibraryViewController.h"
 #import "VLCThumbnailsCache.h"
 #import "NSString+SupportedMedia.h"
 
@@ -306,7 +306,7 @@
     } else
         self.titleLabel.text = mediaFile.title;
 
-    VLCPlaylistViewController *delegate = (VLCPlaylistViewController*)self.collectionView.delegate;
+    VLCLibraryViewController *delegate = (VLCLibraryViewController*)self.collectionView.delegate;
 
     if (delegate.isEditing)
         self.subtitleLabel.text = [NSString stringWithFormat:@"%@ — %@", [VLCTime timeWithNumber:[mediaFile duration]], [NSByteCountFormatter stringFromByteCount:[mediaFile fileSizeInBytes] countStyle:NSByteCountFormatterCountStyleFile]];

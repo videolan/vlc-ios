@@ -28,7 +28,7 @@
 #import "VLCOpenNetworkStreamViewController.h"
 #import "VLCSettingsController.h"
 #import "VLCAboutViewController.h"
-#import "VLCPlaylistViewController.h"
+#import "VLCLibraryViewController.h"
 #import "VLCBugreporter.h"
 #import "VLCCloudServicesTableViewController.h"
 #import "VLCNavigationController.h"
@@ -328,8 +328,8 @@
         } else if (itemIndex == 1)
             viewController = [[VLCAboutViewController alloc] init];
     } else {
-        viewController = appDelegate.playlistViewController;
-        [(VLCPlaylistViewController *)viewController setLibraryMode:(int)itemIndex];
+        viewController = appDelegate.libraryViewController;
+        [(VLCLibraryViewController *)viewController setLibraryMode:(int)itemIndex];
     }
 
     if (!viewController)

@@ -20,7 +20,7 @@
 #import "VLCMediaFileDiscoverer.h"
 #import "NSString+SupportedMedia.h"
 #import "UIDevice+VLC.h"
-#import "VLCPlaylistViewController.h"
+#import "VLCLibraryViewController.h"
 #import "VLCHTTPUploaderController.h"
 #import "VLCMigrationViewController.h"
 #import <BoxSDK/BoxSDK.h>
@@ -121,9 +121,9 @@ NSString *const VLCDropboxSessionWasAuthorized = @"VLCDropboxSessionWasAuthorize
     self.window = [[UIWindow alloc] initWithFrame:[[UIScreen mainScreen] bounds]];
     // enable crash preventer
     void (^setupBlock)() = ^{
-        _playlistViewController = [[VLCPlaylistViewController alloc] init];
+        _libraryViewController = [[VLCLibraryViewController alloc] init];
         VLCSidebarController *sidebarVC = [VLCSidebarController sharedInstance];
-        VLCNavigationController *navCon = [[VLCNavigationController alloc] initWithRootViewController:_playlistViewController];
+        VLCNavigationController *navCon = [[VLCNavigationController alloc] initWithRootViewController:_libraryViewController];
         sidebarVC.contentViewController = navCon;
 
         _playerDisplayController = [[VLCPlayerDisplayController alloc] init];
@@ -206,10 +206,10 @@ continueUserActivity:(NSUserActivity *)userActivity
         if (libraryMode <= VLCLibraryModeAllSeries) {
             [[VLCSidebarController sharedInstance] selectRowAtIndexPath:[NSIndexPath indexPathForRow:libraryMode inSection:0]
                                                          scrollPosition:UITableViewScrollPositionTop];
-            [self.playlistViewController setLibraryMode:(VLCLibraryMode)libraryMode];
+            [self.libraryViewController setLibraryMode:(VLCLibraryMode)libraryMode];
         }
 
-        [self.playlistViewController restoreUserActivityState:userActivity];
+        [self.libraryViewController restoreUserActivityState:userActivity];
         _isComingFromHandoff = YES;
         return YES;
     }
@@ -235,7 +235,7 @@ didFailToContinueUserActivityWithType:(NSString *)userActivityType
         return YES;
     }
 
-    if (_playlistViewController && url != nil) {
+    if (_libraryViewController && url != nil) {
         APLog(@"%@ requested %@ to be opened", sourceApplication, url);
 
         if (url.isFileURL) {
@@ -334,7 +334,7 @@ didFailToContinueUserActivityWithType:(NSString *)userActivityType
 - (void)applicationWillResignActive:(UIApplication *)application
 {
     _passcodeValidated = NO;
-    [self.playlistViewController setEditing:NO animated:NO];
+    [self.libraryViewController setEditing:NO animated:NO];
     [self validatePasscode];
     [[MLMediaLibrary sharedMediaLibrary] applicationWillExit];
 }
@@ -369,14 +369,14 @@ didFailToContinueUserActivityWithType:(NSString *)userActivityType
 
         // TODO Should we update media db after adding new files?
         [sharedLibrary updateMediaDatabase];
-        [_playlistViewController updateViewContents];
+        [_libraryViewController updateViewContents];
     }
 }
 
 - (void)mediaFileDeleted:(NSString *)name
 {
     [[MLMediaLibrary sharedMediaLibrary] updateMediaDatabase];
-    [_playlistViewController updateViewContents];
+    [_libraryViewController updateViewContents];
 }
 
 #pragma mark - pass code validation
@@ -384,7 +384,7 @@ didFailToContinueUserActivityWithType:(NSString *)userActivityType
 - (void)passcodeWasValidated:(NSNotification *)aNotifcation
 {
     _passcodeValidated = YES;
-    [self.playlistViewController updateViewContents];
+    [self.libraryViewController updateViewContents];
     if ([VLCPlaybackController sharedInstance].isPlaying)
         [_playerDisplayController pushPlaybackView];
 }

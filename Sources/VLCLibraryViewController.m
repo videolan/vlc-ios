@@ -1,5 +1,5 @@
 /*****************************************************************************
- * VLCPlaylistViewController.m
+ * VLCLibraryViewController.m
  * VLC for iOS
  *****************************************************************************
  * Copyright (c) 2013-2015 VideoLAN. All rights reserved.
@@ -14,7 +14,7 @@
  * Refer to the COPYING file of the official project for license.
  *****************************************************************************/
 
-#import "VLCPlaylistViewController.h"
+#import "VLCLibraryViewController.h"
 #import "VLCMovieViewController.h"
 #import "VLCPlaylistTableViewCell.h"
 #import "VLCPlaylistCollectionViewCell.h"
@@ -45,7 +45,7 @@ static NSString *kUsingTableViewToShowData = @"UsingTableViewToShowData";
 
 @end
 
-@interface VLCPlaylistViewController () <VLCFolderCollectionViewDelegateFlowLayout, LXReorderableCollectionViewDataSource, LXReorderableCollectionViewDelegateFlowLayout, UITableViewDataSource, UITableViewDelegate, MLMediaLibrary, VLCMediaListDelegate, UISearchBarDelegate, UISearchDisplayDelegate> {
+@interface VLCLibraryViewController () <VLCFolderCollectionViewDelegateFlowLayout, LXReorderableCollectionViewDataSource, LXReorderableCollectionViewDelegateFlowLayout, UITableViewDataSource, UITableViewDelegate, MLMediaLibrary, VLCMediaListDelegate, UISearchBarDelegate, UISearchDisplayDelegate> {
     NSMutableArray *_foundMedia;
     VLCLibraryMode _libraryMode;
     VLCLibraryMode _previousLibraryMode;
@@ -74,7 +74,7 @@ static NSString *kUsingTableViewToShowData = @"UsingTableViewToShowData";
 
 @end
 
-@implementation VLCPlaylistViewController
+@implementation VLCLibraryViewController
 
 - (void)dealloc
 {
@@ -255,27 +255,19 @@ static NSString *kUsingTableViewToShowData = @"UsingTableViewToShowData";
 
 - (void)openMediaObject:(NSManagedObject *)mediaObject
 {
-    if ([mediaObject isKindOfClass:[MLAlbum class]]) {
+    if ([mediaObject isKindOfClass:[MLAlbum class]] || [mediaObject isKindOfClass:[MLShow class]]) {
+
+        BOOL isAlbum = [mediaObject isKindOfClass:[MLAlbum class]];
+        NSArray* array =  isAlbum ? [(MLAlbum *)mediaObject sortedTracks] : [(MLShow *)mediaObject sortedEpisodes];
         @synchronized(self) {
-            _foundMedia = [NSMutableArray arrayWithArray:[(MLAlbum *)mediaObject sortedTracks]];
+            _foundMedia = [NSMutableArray arrayWithArray:array];
         }
         self.navigationItem.leftBarButtonItem = [UIBarButtonItem themedBackButtonWithTarget:self andSelector:@selector(backToAllItems:)];
         if (_libraryMode == VLCLibraryModeAllFiles)
             self.navigationItem.leftBarButtonItem.title = NSLocalizedString(@"BUTTON_BACK", nil);
         else
-            [self.navigationItem.leftBarButtonItem setTitle:NSLocalizedString(@"LIBRARY_MUSIC", nil)];
+            [self.navigationItem.leftBarButtonItem setTitle: isAlbum ? NSLocalizedString(@"LIBRARY_MUSIC", nil) : NSLocalizedString(@"LIBRARY_SERIES", nil)];
         self.title = [(MLAlbum*)mediaObject name];
-        [self reloadViews];
-    } else if ([mediaObject isKindOfClass:[MLShow class]]) {
-        @synchronized(self) {
-            _foundMedia = [NSMutableArray arrayWithArray:[(MLShow *)mediaObject sortedEpisodes]];
-        }
-        self.navigationItem.leftBarButtonItem = [UIBarButtonItem themedBackButtonWithTarget:self andSelector:@selector(backToAllItems:)];
-        if (_libraryMode == VLCLibraryModeAllFiles)
-            self.navigationItem.leftBarButtonItem.title = NSLocalizedString(@"BUTTON_BACK", nil);
-        else
-            [self.navigationItem.leftBarButtonItem setTitle:NSLocalizedString(@"LIBRARY_SERIES", nil)];
-        self.title = [(MLShow*)mediaObject name];
         [self reloadViews];
     } else if ([mediaObject isKindOfClass:[MLLabel class]]) {
         MLLabel *folder = (MLLabel*) mediaObject;
@@ -685,7 +677,7 @@ static NSString *kUsingTableViewToShowData = @"UsingTableViewToShowData";
     else
         selectedObject = _foundMedia[indexPath.row];
 
-    if (_searchDisplayController.active == YES)
+    if (_searchDisplayController.active)
         [_searchDisplayController setActive:NO animated:NO];
 
     [self openMediaObject:selectedObject];

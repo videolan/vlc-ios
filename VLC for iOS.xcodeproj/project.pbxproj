@@ -107,7 +107,7 @@
 		7D378492183A98BF009EE944 /* VLCExternalDisplayController.m in Sources */ = {isa = PBXBuildFile; fileRef = 7D378491183A98BF009EE944 /* VLCExternalDisplayController.m */; };
 		7D378499183A98D1009EE944 /* VLCPlaylistCollectionViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 7D378494183A98D1009EE944 /* VLCPlaylistCollectionViewCell.m */; };
 		7D37849A183A98D1009EE944 /* VLCPlaylistTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 7D378496183A98D1009EE944 /* VLCPlaylistTableViewCell.m */; };
-		7D37849B183A98D1009EE944 /* VLCPlaylistViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 7D378498183A98D1009EE944 /* VLCPlaylistViewController.m */; };
+		7D37849B183A98D1009EE944 /* VLCLibraryViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 7D378498183A98D1009EE944 /* VLCLibraryViewController.m */; };
 		7D37849E183A98DD009EE944 /* VLCThumbnailsCache.m in Sources */ = {isa = PBXBuildFile; fileRef = 7D37849D183A98DD009EE944 /* VLCThumbnailsCache.m */; };
 		7D3784A1183A98EB009EE944 /* VLCBugreporter.m in Sources */ = {isa = PBXBuildFile; fileRef = 7D3784A0183A98EB009EE944 /* VLCBugreporter.m */; };
 		7D3784A6183A98F5009EE944 /* VLCAboutViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 7D3784A3183A98F5009EE944 /* VLCAboutViewController.m */; };
@@ -492,8 +492,8 @@
 		7D378494183A98D1009EE944 /* VLCPlaylistCollectionViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = VLCPlaylistCollectionViewCell.m; path = Sources/VLCPlaylistCollectionViewCell.m; sourceTree = SOURCE_ROOT; };
 		7D378495183A98D1009EE944 /* VLCPlaylistTableViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = VLCPlaylistTableViewCell.h; path = Sources/VLCPlaylistTableViewCell.h; sourceTree = SOURCE_ROOT; };
 		7D378496183A98D1009EE944 /* VLCPlaylistTableViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = VLCPlaylistTableViewCell.m; path = Sources/VLCPlaylistTableViewCell.m; sourceTree = SOURCE_ROOT; };
-		7D378497183A98D1009EE944 /* VLCPlaylistViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = VLCPlaylistViewController.h; path = Sources/VLCPlaylistViewController.h; sourceTree = SOURCE_ROOT; };
-		7D378498183A98D1009EE944 /* VLCPlaylistViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = VLCPlaylistViewController.m; path = Sources/VLCPlaylistViewController.m; sourceTree = SOURCE_ROOT; };
+		7D378497183A98D1009EE944 /* VLCLibraryViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = VLCLibraryViewController.h; path = Sources/VLCLibraryViewController.h; sourceTree = SOURCE_ROOT; };
+		7D378498183A98D1009EE944 /* VLCLibraryViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = VLCLibraryViewController.m; path = Sources/VLCLibraryViewController.m; sourceTree = SOURCE_ROOT; };
 		7D37849C183A98DD009EE944 /* VLCThumbnailsCache.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = VLCThumbnailsCache.h; path = Sources/VLCThumbnailsCache.h; sourceTree = SOURCE_ROOT; };
 		7D37849D183A98DD009EE944 /* VLCThumbnailsCache.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = VLCThumbnailsCache.m; path = Sources/VLCThumbnailsCache.m; sourceTree = SOURCE_ROOT; };
 		7D37849F183A98EB009EE944 /* VLCBugreporter.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = VLCBugreporter.h; path = Sources/VLCBugreporter.h; sourceTree = SOURCE_ROOT; };
@@ -1148,8 +1148,8 @@
 				7D378494183A98D1009EE944 /* VLCPlaylistCollectionViewCell.m */,
 				7D378495183A98D1009EE944 /* VLCPlaylistTableViewCell.h */,
 				7D378496183A98D1009EE944 /* VLCPlaylistTableViewCell.m */,
-				7D378497183A98D1009EE944 /* VLCPlaylistViewController.h */,
-				7D378498183A98D1009EE944 /* VLCPlaylistViewController.m */,
+				7D378497183A98D1009EE944 /* VLCLibraryViewController.h */,
+				7D378498183A98D1009EE944 /* VLCLibraryViewController.m */,
 				8F91EC77195CEC7900F5BCBA /* VLCOpenInActivity.h */,
 				8F91EC78195CEC7900F5BCBA /* VLCOpenInActivity.m */,
 				7D37849C183A98DD009EE944 /* VLCThumbnailsCache.h */,
@@ -1996,7 +1996,7 @@
 				7D378499183A98D1009EE944 /* VLCPlaylistCollectionViewCell.m in Sources */,
 				DD8F84311B00EB3B0009138A /* VLCPlaybackController+MediaLibrary.m in Sources */,
 				7D37849A183A98D1009EE944 /* VLCPlaylistTableViewCell.m in Sources */,
-				7D37849B183A98D1009EE944 /* VLCPlaylistViewController.m in Sources */,
+				7D37849B183A98D1009EE944 /* VLCLibraryViewController.m in Sources */,
 				7DAE0C3A1B2F085F00C53996 /* VLCDiscoveryListViewController.m in Sources */,
 				7D37849E183A98DD009EE944 /* VLCThumbnailsCache.m in Sources */,
 				7D3784A1183A98EB009EE944 /* VLCBugreporter.m in Sources */,

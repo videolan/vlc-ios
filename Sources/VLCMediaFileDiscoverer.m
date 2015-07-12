@@ -13,7 +13,7 @@
 #import "VLCMediaFileDiscoverer.h"
 #import "NSString+SupportedMedia.h"
 #import "VLCAppDelegate.h"
-#import "VLCPlaylistViewController.h"
+#import "VLCLibraryViewController.h"
 
 const float MediaTimerInterval = 2.f;
 
@@ -297,7 +297,7 @@ const float MediaTimerInterval = 2.f;
         }
     }
     [[MLMediaLibrary sharedMediaLibrary] addFilePaths:filePaths];
-    [[(VLCAppDelegate *)[UIApplication sharedApplication].delegate playlistViewController] updateViewContents];
+    [[(VLCAppDelegate *)[UIApplication sharedApplication].delegate libraryViewController] updateViewContents];
 }
 
 @end

@@ -1,5 +1,5 @@
 /*****************************************************************************
- * VLCPlaylistViewController.h
+ * VLCLibraryViewController.h
  * VLC for iOS
  *****************************************************************************
  * Copyright (c) 2013 VideoLAN. All rights reserved.
@@ -19,7 +19,7 @@
 
 @class EmptyLibraryView;
 
-@interface VLCPlaylistViewController : UIViewController <UITabBarDelegate, UIPopoverControllerDelegate>
+@interface VLCLibraryViewController : UIViewController <UITabBarDelegate, UIPopoverControllerDelegate>
 
 - (IBAction)leftButtonAction:(id)sender;
 

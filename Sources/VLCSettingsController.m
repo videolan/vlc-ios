@@ -13,7 +13,7 @@
  *****************************************************************************/
 
 #import "VLCSettingsController.h"
-#import "VLCPlaylistViewController.h"
+#import "VLCLibraryViewController.h"
 #import "IASKSettingsReader.h"
 #import "IASKAppSettingsViewController.h"
 #import "PAPasscodeViewController.h"

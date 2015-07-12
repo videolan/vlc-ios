@@ -23,7 +23,7 @@
 #import <MediaPlayer/MediaPlayer.h>
 #import "VLCThumbnailsCache.h"
 #import <WatchKit/WatchKit.h>
-#import "VLCPlaylistViewController.h"
+#import "VLCLibraryViewController.h"
 #import "VLCKeychainCoordinator.h"
 
 NSString *const VLCPlaybackControllerPlaybackDidStart = @"VLCPlaybackControllerPlaybackDidStart";
@@ -256,7 +256,7 @@ NSString *const VLCPlaybackControllerPlaybackDidFail = @"VLCPlaybackControllerPl
         [media synchronousParse];
         [media addOptions:self.mediaOptionsDictionary];
     }
-
+    
     if (self.mediaList) {
         [_listPlayer setMediaList:self.mediaList];
     } else {
