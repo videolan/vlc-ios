@@ -399,7 +399,7 @@ typedef NS_ENUM(NSInteger, VLCPanType) {
             }
         }
         _sleepTimeDatePicker.datePickerMode = UIDatePickerModeCountDownTimer;
-        _sleepTimeDatePicker.minuteInterval = 5;
+        _sleepTimeDatePicker.minuteInterval = 1;
         _sleepTimeDatePicker.minimumDate = [NSDate date];
         _sleepTimeDatePicker.countDownDuration = 1200.;
         [_sleepTimeDatePicker addTarget:self action:@selector(sleepTimerAction:) forControlEvents:UIControlEventValueChanged];
