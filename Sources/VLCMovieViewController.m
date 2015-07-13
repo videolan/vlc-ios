@@ -90,6 +90,7 @@ typedef NS_ENUM(NSInteger, VLCPanType) {
 
     UIView *_sleepTimerContainer;
     UIDatePicker *_sleepTimeDatePicker;
+    NSTimer *_sleepCountDownTimer;
 
     NSInteger _mediaDuration;
 }
@@ -806,6 +807,23 @@ typedef NS_ENUM(NSInteger, VLCPanType) {
     [self.timeNavigationTitleView setNeedsLayout];
 }
 
+- (void)updateSleepTimerButton
+{
+    NSMutableString *title = [NSMutableString stringWithString:NSLocalizedString(@"BUTTON_SLEEP_TIMER", nil)];
+    VLCPlaybackController *vpc = [VLCPlaybackController sharedInstance];
+    if (vpc.sleepTimer != nil && vpc.sleepTimer.valid) {
+        int remainSeconds = (int)[vpc.sleepTimer.fireDate timeIntervalSinceNow];
+        int hour = remainSeconds / 3600;
+        int minute = (remainSeconds - hour * 3600) / 60;
+        int second = remainSeconds % 60;
+        [title appendFormat:@"  %02d:%02d:%02d", hour, minute, second];
+    } else {
+        [_sleepCountDownTimer invalidate];
+    }
+
+    [_sleepTimerButton setTitle:title forState:UIControlStateNormal];
+}
+
 #pragma mark - playback controller delegation
 
 - (VLCPlaybackController *)playbackController
@@ -1008,6 +1026,14 @@ currentMediaHasTrackToChooseFrom:(BOOL)currentMediaHasTrackToChooseFrom
 {
     VLCPlaybackController *vpc = [VLCPlaybackController sharedInstance];
     [vpc scheduleSleepTimerWithInterval:_sleepTimeDatePicker.countDownDuration];
+
+    if (_sleepCountDownTimer == nil || _sleepCountDownTimer.valid == NO) {
+        _sleepCountDownTimer = [NSTimer scheduledTimerWithTimeInterval:1
+                                                                   target:self
+                                                                 selector:@selector(updateSleepTimerButton)
+                                                                 userInfo:nil
+                                                                  repeats:YES];
+    }
 }
 
 - (void)moreActions:(id)sender
