@@ -1,3 +1,7 @@
+2.6.3:
+------
+* Stability improvements and minor bug fixes (#13601, #14154, #14611, #14852, #14860)
+
 2.6.2:
 ------
 * Improved playback reliability (#15000 et al)
