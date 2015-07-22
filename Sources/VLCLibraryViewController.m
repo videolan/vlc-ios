@@ -587,13 +587,11 @@ static NSString *kUsingTableViewToShowData = @"UsingTableViewToShowData";
         NSInteger row = indexPath.row;
 
         if (tableView == self.searchDisplayController.searchResultsTableView) {
-            if (row >= _searchData.count)
-                return nil;
-            cell.mediaObject = _searchData[row];
+            if (row < _searchData.count)
+                cell.mediaObject = _searchData[row];
         } else {
-            if (row >= _foundMedia.count)
-                return nil;
-            cell.mediaObject = _foundMedia[row];
+            if (row < _foundMedia.count)
+                cell.mediaObject = _foundMedia[row];
         }
     }
 
