@@ -1137,6 +1137,8 @@ currentMediaHasTrackToChooseFrom:(BOOL)currentMediaHasTrackToChooseFrom
             }
         }
 
+        self.sleepTimerContainer.hidden = YES;
+
         self.videoFilterView.hidden = _videoFiltersHidden = YES;
     } else {
         _trackSelectorContainer.hidden = YES;
