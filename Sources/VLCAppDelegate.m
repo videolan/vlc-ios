@@ -566,11 +566,14 @@ continueUserActivity:(NSUserActivity *)userActivity
     VLCPlaybackController *vpc = [VLCPlaybackController sharedInstance];
 
     vpc.url = url;
+
     vpc.successCallback = successCallback;
     vpc.errorCallback = errorCallback;
     vpc.fullscreenSessionRequested = YES;
 
-    [vpc startPlayback];
+    /* we need to return YES in application:openURL:sourceApplication:annotation:
+     * before we can start, so, ehm, do that */
+    [vpc performSelector:@selector(startPlayback) withObject:nil afterDelay:1.];
 }
 
 - (void)openMovieFromURL:(NSURL *)url
