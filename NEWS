@@ -1,6 +1,7 @@
 2.6.3:
 ------
-* Stability improvements and minor bug fixes (#13601, #14154, #14611, #14852, #14860)
+* Stability improvements and minor bug fixes (#13601, #14154, #14611, #14852, #14860, #14864)
+* Fixed video playback for URLs open via third party apps (#15075)
 
 2.6.2:
 ------
