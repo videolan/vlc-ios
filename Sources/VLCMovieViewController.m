@@ -1141,6 +1141,9 @@ currentMediaHasTrackToChooseFrom:(BOOL)currentMediaHasTrackToChooseFrom
             }
         }
 
+        if (SYSTEM_RUNS_IOS7_OR_LATER)
+            self.sleepTimerContainer.hidden = YES;
+
         self.videoFilterView.hidden = _videoFiltersHidden = YES;
     } else {
         _trackSelectorContainer.hidden = YES;
