@@ -50,6 +50,7 @@ NSString *const VLCPasscodeValidated = @"VLCPasscodeValidated";
     BOOL _passcodeValidated;
     BOOL _isRunningMigration;
     BOOL _isComingFromHandoff;
+    BOOL _isComingFromURLHandler;
 }
 
 @end
@@ -340,6 +341,11 @@ continueUserActivity:(NSUserActivity *)userActivity
     } else if(_isComingFromHandoff) {
         _isComingFromHandoff = NO;
     }
+
+    if (_isComingFromURLHandler) {
+        _isComingFromURLHandler = NO;
+        [[VLCPlaybackController sharedInstance] startPlayback];
+    }
 }
 
 - (void)applicationWillTerminate:(UIApplication *)application
@@ -571,9 +577,7 @@ continueUserActivity:(NSUserActivity *)userActivity
     vpc.errorCallback = errorCallback;
     vpc.fullscreenSessionRequested = YES;
 
-    /* we need to return YES in application:openURL:sourceApplication:annotation:
-     * before we can start, so, ehm, do that */
-    [vpc performSelector:@selector(startPlayback) withObject:nil afterDelay:1.];
+    _isComingFromURLHandler = YES;
 }
 
 - (void)openMovieFromURL:(NSURL *)url
