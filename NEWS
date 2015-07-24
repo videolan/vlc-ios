@@ -4,6 +4,11 @@
 * Added support for SMB file sharing (#8879)
 * Added support for music albums with more than 1 disk (#14650)
 
+2.6.3:
+------
+* Stability improvements and minor bug fixes (#13601, #14154, #14611, #14852, #14860, #14864)
+* Fixed video playback for URLs open via third party apps (#15075)
+
 2.6.2:
 ------
 * Improved playback reliability (#15000 et al)
