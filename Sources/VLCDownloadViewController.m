@@ -78,6 +78,7 @@
     self.urlField.delegate = self;
     self.urlField.keyboardType = UIKeyboardTypeURL;
     self.progressContainer.hidden = YES;
+    self.downloadsTable.backgroundColor = [UIColor VLCDarkBackgroundColor];
     self.downloadsTable.hidden = YES;
 
     self.edgesForExtendedLayout = UIRectEdgeNone;

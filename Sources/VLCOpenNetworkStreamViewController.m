@@ -72,6 +72,7 @@
     [self.whatToOpenHelpLabel setText:NSLocalizedString(@"OPEN_NETWORK_HELP", nil)];
     self.urlField.delegate = self;
     self.urlField.keyboardType = UIKeyboardTypeURL;
+    self.historyTableView.backgroundColor = [UIColor VLCDarkBackgroundColor];
 
     NSAttributedString *coloredAttributedPlaceholder = [[NSAttributedString alloc] initWithString:@"http://myserver.com/file.mkv" attributes:@{NSForegroundColorAttributeName: [UIColor VLCLightTextColor]}];
     self.urlField.attributedPlaceholder = coloredAttributedPlaceholder;
