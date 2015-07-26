@@ -509,7 +509,7 @@ confirmedWithUsername:(NSString *)username
         case VLCServerProtocolFTP:
         {
             VLCFTPServerListViewController *targetViewController = [[VLCFTPServerListViewController alloc]
-                                                                    initWithFTPServer:[NSString stringWithFormat:@"ftp://%@", server]
+                                                                    initWithFTPServer:server
                                                                     userName:username
                                                                     andPassword:password atPath:@"/"];
             [self.navigationController pushViewController:targetViewController animated:YES];
@@ -542,7 +542,7 @@ confirmedWithUsername:(NSString *)username
         }
 
         default:
-            APLog(@"Unsupported URL Scheme requested %lu", protocol);
+            APLog(@"Unsupported URL Scheme requested %ld", (long)protocol);
             break;
     }
 }
