@@ -47,6 +47,7 @@
 
     self.tableView.rowHeight = [VLCCloudStorageTableViewCell heightOfCell];
     self.tableView.separatorColor = [UIColor VLCDarkBackgroundColor];
+    self.tableView.backgroundColor = [UIColor VLCDarkBackgroundColor];
     self.view.backgroundColor = [UIColor VLCDarkBackgroundColor];
 
     _progressView = [VLCProgressView new];
