@@ -146,6 +146,7 @@
 
             [self.historyTableView reloadData];
         }
+        [self.urlField resignFirstResponder];
         [self _openURLStringAndDismiss:self.urlField.text];
     }
 }
