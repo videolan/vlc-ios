@@ -123,24 +123,23 @@ if [ "$NONETWORK" != "yes" ]; then
 if ! [ -e MediaLibraryKit ]; then
 git clone http://code.videolan.org/videolan/MediaLibraryKit.git
 cd MediaLibraryKit
-git checkout -B localAspenBranch ${TESTEDMEDIALIBRARYKITHASH}
-git branch --set-upstream-to=origin/master localAspenBranch
+# git reset --hard ${TESTEDMEDIALIBRARYKITHASH}
 cd ..
 else
 cd MediaLibraryKit
 git pull --rebase
-git reset --hard ${TESTEDMEDIALIBRARYKITHASH}
+# git reset --hard ${TESTEDMEDIALIBRARYKITHASH}
 cd ..
 fi
 if ! [ -e VLCKit ]; then
 git clone http://code.videolan.org/videolan/VLCKit.git
 cd VLCKit
-git reset --hard ${TESTEDVLCKITHASH}
+# git reset --hard ${TESTEDVLCKITHASH}
 cd ..
 else
 cd VLCKit
 git pull --rebase
-git reset --hard ${TESTEDVLCKITHASH}
+# git reset --hard ${TESTEDVLCKITHASH}
 cd ..
 fi
 if ! [ -e GDrive ]; then
