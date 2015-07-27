@@ -37,6 +37,7 @@
 #import "MLShowEpisode.h"
 #import "MLAlbum.h"
 #import "MLAlbumTrack.h"
+#import "VLCConstants.h"
 
 #ifndef NDEBUG
 #define APLog(format, ...) NSLog(format, ## __VA_ARGS__)

@@ -246,7 +246,7 @@
 {
     __block MLFile *anyFileFromAnyTrack = nil;
     void (^getFileBlock)(void) = ^(){
-        anyFileFromAnyTrack = [albumTrack files].anyObject;
+        anyFileFromAnyTrack = [albumTrack anyFileFromTrack];
     };
     if ([NSThread isMainThread])
         getFileBlock();

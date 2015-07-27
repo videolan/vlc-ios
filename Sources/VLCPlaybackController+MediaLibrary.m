@@ -15,6 +15,13 @@
 
 @implementation VLCPlaybackController (MediaLibrary)
 
+/*
+ Open a file in the libraryViewController and toggle the playstate
+
+ @param mediaObject the object that should be openend
+ 
+*/
+
 - (void)playMediaLibraryObject:(NSManagedObject *)mediaObject
 {
     self.fullscreenSessionRequested = YES;
@@ -35,6 +42,38 @@
         self.sessionWillRestart = NO;
         [self startPlayback];
     }
+}
+
+/*
+Open a file in the libraryViewController without changing the playstate
+
+@param mediaObject the object that should be openend
+
+*/
+
+- (void)openMediaLibraryObject:(NSManagedObject *)mediaObject
+{
+    if (self.activePlaybackSession) {
+        NSArray *files = [MLFile fileForURL:self.mediaPlayer.media.url];
+        MLFile *nowPlayingFile = (MLFile *)(NSManagedObject *)files.firstObject;
+        MLFile *newFile;
+        if ([mediaObject isKindOfClass:[MLAlbumTrack class]]) {
+            newFile = ((MLAlbumTrack *)mediaObject).anyFileFromTrack;
+        } else if ([mediaObject isKindOfClass:[MLShowEpisode class]]) {
+            newFile = ((MLShowEpisode *)mediaObject).anyFileFromEpisode;
+        } else if ([mediaObject isKindOfClass:[MLFile class]]) {
+            newFile = (MLFile *)mediaObject;
+        }
+
+        //if the newfile is not the currently playing one, stop and start the new one else do nothing
+        if (![nowPlayingFile isEqual:newFile]) {
+            [self stopPlayback];
+            [self playMediaLibraryObject:mediaObject];
+        }
+        return;
+    }
+    //if nothing is playing start playing
+    [self playMediaLibraryObject:mediaObject];
 }
 
 - (void)configureWithFile:(MLFile *)file
@@ -67,7 +106,7 @@
     NSArray *tracks = [[albumTrack album] sortedTracks];
     NSMutableArray *files = [NSMutableArray arrayWithCapacity:tracks.count];
     for (MLAlbumTrack *track in tracks) {
-        MLFile *file = track.files.anyObject;
+        MLFile *file = track.anyFileFromTrack;
         if (file)
             [files addObject:file];
     }

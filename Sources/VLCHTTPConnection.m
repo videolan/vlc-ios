@@ -306,7 +306,7 @@
                                         album.name,
                                         (unsigned long)albumTracks.count]];
                 for (MLAlbumTrack *track in albumTracks) {
-                    MLFile *anyFileFromTrack = (MLFile *)[[track files] anyObject];
+                    MLFile *anyFileFromTrack = [track anyFileFromTrack];
                     duration = [[VLCTime timeWithNumber:[anyFileFromTrack duration]] stringValue];
                     [mediaInHtml addObject:[NSString stringWithFormat:
                                             @"<div style=\"background-image:url('thumbnail/%@.png')\"> \

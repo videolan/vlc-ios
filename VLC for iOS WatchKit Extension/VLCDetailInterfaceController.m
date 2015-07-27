@@ -15,6 +15,7 @@
 #import "VLCThumbnailsCache.h"
 #import "WKInterfaceObject+VLCProgress.h"
 #import "VLCWatchMessage.h"
+#import "VLCConstants.h"
 
 @interface VLCDetailInterfaceController ()
 @property (nonatomic, weak) NSManagedObject *managedObject;
@@ -84,7 +85,7 @@
     id payload = self.managedObject.objectID.URIRepresentation.absoluteString;
     NSDictionary *dict = [VLCWatchMessage messageDictionaryForName:@"playFile"
                                                            payload:payload];
-    [self updateUserActivity:@"org.videolan.vlc-ios.playing" userInfo:@{@"playingmedia":self.managedObject.objectID.URIRepresentation} webpageURL:nil];
+    [self updateUserActivity:kVLCUserActivityPlaying userInfo:@{@"playingmedia":self.managedObject.objectID.URIRepresentation} webpageURL:nil];
 
     [WKInterfaceController openParentApplication:dict reply:^(NSDictionary *replyInfo, NSError *error) {
         [self showNowPlaying:nil];

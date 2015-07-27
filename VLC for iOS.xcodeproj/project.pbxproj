@@ -2325,6 +2325,7 @@
 					"$(SRCROOT)/ImportedSources/MediaLibraryKit/Headers/Public",
 					"$(inherited)",
 					/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/include,
+					"$(SRCROOT)/Sources",
 				);
 				INFOPLIST_FILE = "VLC for iOS WatchKit Extension/Info.plist";
 				IPHONEOS_DEPLOYMENT_TARGET = 8.2;
@@ -2369,6 +2370,7 @@
 					"$(SRCROOT)/ImportedSources/MediaLibraryKit/Headers/Public",
 					"$(inherited)",
 					/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/include,
+					"$(SRCROOT)/Sources",
 				);
 				INFOPLIST_FILE = "VLC for iOS WatchKit Extension/Info.plist";
 				IPHONEOS_DEPLOYMENT_TARGET = 8.2;
@@ -2413,6 +2415,7 @@
 					"$(SRCROOT)/ImportedSources/MediaLibraryKit/Headers/Public",
 					"$(inherited)",
 					/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/include,
+					"$(SRCROOT)/Sources",
 				);
 				INFOPLIST_FILE = "VLC for iOS WatchKit Extension/Info.plist";
 				IPHONEOS_DEPLOYMENT_TARGET = 8.2;

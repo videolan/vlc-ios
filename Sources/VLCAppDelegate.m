@@ -184,9 +184,9 @@ NSString *const VLCDropboxSessionWasAuthorized = @"VLCDropboxSessionWasAuthorize
 
 - (BOOL)application:(UIApplication *)application willContinueUserActivityWithType:(NSString *)userActivityType
 {
-    if ([userActivityType isEqualToString:@"org.videolan.vlc-ios.librarymode"] ||
-        [userActivityType isEqualToString:@"org.videolan.vlc-ios.playing"] ||
-        [userActivityType isEqualToString:@"org.videolan.vlc-ios.libraryselection"])
+    if ([userActivityType isEqualToString:kVLCUserActivityLibraryMode] ||
+        [userActivityType isEqualToString:kVLCUserActivityPlaying] ||
+        [userActivityType isEqualToString:kVLCUserActivityLibrarySelection])
         return YES;
 
     return NO;
@@ -197,20 +197,29 @@ continueUserActivity:(NSUserActivity *)userActivity
  restorationHandler:(void (^)(NSArray *))restorationHandler
 {
     NSString *userActivityType = userActivity.activityType;
+    NSDictionary *dict = userActivity.userInfo;
+    if([userActivityType isEqualToString:kVLCUserActivityLibraryMode] ||
+       [userActivityType isEqualToString:kVLCUserActivityLibrarySelection]) {
 
-    if([userActivityType isEqualToString:@"org.videolan.vlc-ios.librarymode"] ||
-       [userActivityType isEqualToString:@"org.videolan.vlc-ios.libraryselection"]) {
-        NSDictionary *dict = userActivity.userInfo;
         VLCLibraryMode libraryMode = (VLCLibraryMode)[(NSNumber *)dict[@"state"] integerValue];
 
         if (libraryMode <= VLCLibraryModeAllSeries) {
             [[VLCSidebarController sharedInstance] selectRowAtIndexPath:[NSIndexPath indexPathForRow:libraryMode inSection:0]
                                                          scrollPosition:UITableViewScrollPositionTop];
-            [self.libraryViewController setLibraryMode:(VLCLibraryMode)libraryMode];
+            [self.libraryViewController setLibraryMode:libraryMode];
         }
 
         [self.libraryViewController restoreUserActivityState:userActivity];
         _isComingFromHandoff = YES;
+        return YES;
+    } else {
+        NSURL *uriRepresentation = dict[@"playingmedia"];
+        NSManagedObject *managedObject = [[MLMediaLibrary sharedMediaLibrary] objectForURIRepresentation:uriRepresentation];
+        if (managedObject == nil) {
+            APLog(@"%s file not found: %@",__PRETTY_FUNCTION__,userActivity);
+            return NO;
+        }
+        [[VLCPlaybackController sharedInstance] openMediaLibraryObject:managedObject];
         return YES;
     }
     return NO;
@@ -422,7 +431,7 @@ didFailToContinueUserActivityWithType:(NSString *)userActivityType
     [[VLCPlaybackController sharedInstance] remoteControlReceivedWithEvent:event];
 }
 
-#pragma mark - watch struff
+#pragma mark - watch stuff
 - (void)application:(UIApplication *)application
 handleWatchKitExtensionRequest:(NSDictionary *)userInfo
               reply:(void (^)(NSDictionary *))reply
@@ -478,7 +487,7 @@ handleWatchKitExtensionRequest:(NSDictionary *)userInfo
     NSNumber *volume = (id)message.payload;
     if ([volume isKindOfClass:[NSNumber class]]) {
         /*
-         * Since WatchKit doen't provide something like MPVolumeView we use deprecated API.
+         * Since WatchKit doesn't provide something like MPVolumeView we use deprecated API.
          * rdar://20783803 Feature Request: WatchKit equivalent for MPVolumeView
          */
         [MPMusicPlayerController applicationMusicPlayer].volume = volume.floatValue;

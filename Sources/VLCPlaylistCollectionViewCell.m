@@ -110,7 +110,7 @@
             [_mediaObject removeObserver:self forKeyPath:@"artist"];
             [_mediaObject removeObserver:self forKeyPath:@"title"];
             [_mediaObject removeObserver:self forKeyPath:@"files"];
-            MLFile *anyFileFromTrack = [(MLAlbumTrack *)_mediaObject files].anyObject;
+            MLFile *anyFileFromTrack = [(MLAlbumTrack *)_mediaObject anyFileFromTrack];
             if (anyFileFromTrack)
                 [anyFileFromTrack removeObserver:self forKeyPath:@"artworkURL"];
         } else if ([_mediaObject isKindOfClass:[MLFile class]]) {
@@ -154,7 +154,7 @@
         [_mediaObject addObserver:self forKeyPath:@"artist" options:0 context:nil];
         [_mediaObject addObserver:self forKeyPath:@"title" options:0 context:nil];
         [_mediaObject addObserver:self forKeyPath:@"files" options:0 context:nil];
-        MLFile *anyFileFromTrack = [(MLAlbumTrack *)_mediaObject files].anyObject;
+        MLFile *anyFileFromTrack = [(MLAlbumTrack *)_mediaObject anyFileFromTrack];
         if (anyFileFromTrack)
             [anyFileFromTrack addObserver:self forKeyPath:@"artworkURL" options:0 context:nil];
     } else if ([_mediaObject isKindOfClass:[MLFile class]]) {
@@ -239,7 +239,7 @@
 
 - (void)_configureForAlbumTrack:(MLAlbumTrack *)albumTrack
 {
-    MLFile *anyFileFromTrack = albumTrack.files.anyObject;
+    MLFile *anyFileFromTrack = albumTrack.anyFileFromTrack;
 
     self.subtitleLabel.text = [NSString stringWithFormat:@"%@ — %@ — %@", albumTrack.artist, [NSString stringWithFormat:NSLocalizedString(@"LIBRARY_TRACK_N", nil), albumTrack.trackNumber.intValue], [VLCTime timeWithNumber:[anyFileFromTrack duration]]];
     self.titleLabel.text = albumTrack.title;
@@ -351,7 +351,7 @@
         else if ([self.mediaObject isKindOfClass:[MLShowEpisode class]])
             theFile = [[(MLShowEpisode *)self.mediaObject files]anyObject];
         else if ([self.mediaObject isKindOfClass:[MLAlbumTrack class]])
-            theFile = [[(MLAlbumTrack *)self.mediaObject files]anyObject];
+            theFile = [(MLAlbumTrack *)self.mediaObject anyFileFromTrack];
 
         if (!theFile) {
             self.metaDataLabel.hidden = YES;

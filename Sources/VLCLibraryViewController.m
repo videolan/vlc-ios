@@ -29,6 +29,7 @@
 #import "VLCPlaybackController+MediaLibrary.h"
 
 #import <AssetsLibrary/AssetsLibrary.h>
+#import <CoreSpotlight/CoreSpotlight.h>
 
 /* prefs keys */
 static NSString *kDisplayedFirstSteps = @"Did we display the first steps tutorial?";
@@ -299,6 +300,30 @@ static NSString *kUsingTableViewToShowData = @"UsingTableViewToShowData";
     } else {
         VLCPlaybackController *vpc = [VLCPlaybackController sharedInstance];
         [vpc playMediaLibraryObject:mediaObject];
+
+        [self createSpotlightItem:mediaObject];
+    }
+}
+
+- (void)createSpotlightItem:(nonnull NSManagedObject *)mediaObject
+{
+    if ([CSSearchableItemAttributeSet class] != nil && [(VLCAppDelegate *)[UIApplication sharedApplication].delegate passcodeValidated]) {
+        self.userActivity = [[NSUserActivity alloc] initWithActivityType:kVLCUserActivityPlaying];
+        self.userActivity.title = ((MLFile *)mediaObject).title;
+        self.userActivity.userInfo = @{@"playingmedia":mediaObject.objectID.URIRepresentation};
+        if ([mediaObject isKindOfClass:[MLAlbumTrack class]]) {
+            MLFile *file = [(MLAlbumTrack *)mediaObject anyFileFromTrack];
+            self.userActivity.contentAttributeSet = file.coreSpotlightAttributeSet;
+        } else if ([mediaObject isKindOfClass:[MLShowEpisode class]]) {
+            MLFile *file = [(MLShowEpisode *)mediaObject anyFileFromEpisode];
+            self.userActivity.contentAttributeSet = file.coreSpotlightAttributeSet;
+        } else {
+            self.userActivity.contentAttributeSet = ((MLFile *)mediaObject).coreSpotlightAttributeSet;
+        }
+        self.userActivity.eligibleForSearch = YES;
+        self.userActivity.eligibleForHandoff = YES;
+        //self.userActivity.contentUserAction = NSUserActivityContentUserActionPlay;
+        [self.userActivity becomeCurrent];
     }
 }
 
@@ -1362,9 +1387,9 @@ static NSString *kUsingTableViewToShowData = @"UsingTableViewToShowData";
             if ([mediaItem isKindOfClass:[MLFile class]])
                 fileURL = [(MLFile *) mediaItem url];
             else if ([mediaItem isKindOfClass:[MLAlbumTrack class]])
-                fileURL = [(MLFile *) [[(MLAlbumTrack *) mediaItem files] anyObject] url];
+                fileURL = [[(MLAlbumTrack *) mediaItem anyFileFromTrack] url];
             else if ([mediaItem isKindOfClass:[MLShowEpisode class]])
-                fileURL = [(MLFile *) [[(MLShowEpisode *) mediaItem files] anyObject] url];
+                fileURL = [[(MLShowEpisode *) mediaItem anyFileFromEpisode] url];
 
             if ([fileURL isFileURL])
                 [fileURLobjects addObject:fileURL];
@@ -1679,8 +1704,8 @@ static NSString *kUsingTableViewToShowData = @"UsingTableViewToShowData";
 - (void)restoreUserActivityState:(NSUserActivity *)activity
 {
     NSString *userActivityType = activity.activityType;
-    if([userActivityType isEqualToString:@"org.videolan.vlc-ios.librarymode"] ||
-       [userActivityType isEqualToString:@"org.videolan.vlc-ios.libraryselection"]) {
+    if([userActivityType isEqualToString:kVLCUserActivityLibraryMode] ||
+       [userActivityType isEqualToString:kVLCUserActivityLibrarySelection]) {
 
         NSDictionary *dict = activity.userInfo;
         NSString *folderPath = dict[@"folder"];

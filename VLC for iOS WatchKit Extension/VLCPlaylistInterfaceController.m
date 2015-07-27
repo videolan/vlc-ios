@@ -87,7 +87,7 @@ static NSString *const VLCDBUpdateNotificationRemote = @"org.videolan.ios-app.db
                                    @"folder" : folderRepresentation};
 
         [self invalidateUserActivity];
-        [self updateUserActivity:@"org.videolan.vlc-ios.libraryselection"
+        [self updateUserActivity:kVLCUserActivityLibrarySelection
                         userInfo:userDict
                       webpageURL:nil];
     } else {
@@ -142,7 +142,7 @@ static NSString *const VLCDBUpdateNotificationRemote = @"org.videolan.ios-app.db
 {
     //should also handle diving into a folder
     [self invalidateUserActivity];
-    [self updateUserActivity:@"org.videolan.vlc-ios.librarymode" userInfo:@{@"state" : @(libraryMode)} webpageURL:nil];
+    [self updateUserActivity:kVLCUserActivityLibraryMode userInfo:@{@"state" : @(libraryMode)} webpageURL:nil];
     _libraryMode = libraryMode;
 }
 
