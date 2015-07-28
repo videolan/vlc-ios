@@ -15,16 +15,16 @@
                 <rect key="frame" x="0.0" y="0.0" width="260" height="49.5"/>
                 <autoresizingMask key="autoresizingMask"/>
                 <subviews>
-                    <label clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" misplaced="YES" text="HTTP Upload" textAlignment="justified" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" minimumScaleFactor="0.5" adjustsLetterSpacingToFitWidth="YES" translatesAutoresizingMaskIntoConstraints="NO" id="28">
-                        <rect key="frame" x="50" y="5" width="203" height="21"/>
+                    <label clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" text="HTTP Upload" textAlignment="justified" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" minimumScaleFactor="0.5" adjustsLetterSpacingToFitWidth="YES" translatesAutoresizingMaskIntoConstraints="NO" id="28">
+                        <rect key="frame" x="50" y="5" width="97.5" height="19.5"/>
                         <animations/>
                         <color key="backgroundColor" white="0.17000000000000001" alpha="1" colorSpace="calibratedWhite"/>
                         <fontDescription key="fontDescription" type="system" pointSize="16"/>
                         <color key="textColor" red="0.76862745099999996" green="0.80000000000000004" blue="0.85490196080000003" alpha="1" colorSpace="calibratedRGB"/>
                         <nil key="highlightedColor"/>
                     </label>
-                    <label clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" misplaced="YES" text="Inactive Server" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" minimumScaleFactor="0.5" adjustsLetterSpacingToFitWidth="YES" translatesAutoresizingMaskIntoConstraints="NO" id="30">
-                        <rect key="frame" x="50" y="24" width="203" height="21"/>
+                    <label clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" text="Inactive Server" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" minimumScaleFactor="0.5" adjustsLetterSpacingToFitWidth="YES" translatesAutoresizingMaskIntoConstraints="NO" id="30">
+                        <rect key="frame" x="50" y="29" width="90.5" height="16"/>
                         <animations/>
                         <color key="backgroundColor" white="0.17000000000000001" alpha="1" colorSpace="calibratedWhite"/>
                         <fontDescription key="fontDescription" type="system" pointSize="13"/>
@@ -50,13 +50,12 @@
                 </subviews>
                 <animations/>
                 <constraints>
-                    <constraint firstItem="30" firstAttribute="leading" secondItem="34" secondAttribute="trailing" id="1OE-lH-jpQ"/>
                     <constraint firstAttribute="bottomMargin" secondItem="30" secondAttribute="bottom" constant="-3.5" id="2Fr-vF-HgI"/>
                     <constraint firstItem="34" firstAttribute="top" secondItem="qYq-WE-nye" secondAttribute="topMargin" constant="-8" id="3uj-4T-hgH"/>
-                    <constraint firstItem="28" firstAttribute="leading" secondItem="34" secondAttribute="trailing" id="crQ-XQ-rKu"/>
+                    <constraint firstItem="28" firstAttribute="leading" secondItem="34" secondAttribute="trailing" id="Tbz-RD-inH"/>
+                    <constraint firstItem="30" firstAttribute="leading" secondItem="34" secondAttribute="trailing" id="mxE-0S-cjg"/>
                     <constraint firstItem="34" firstAttribute="leading" secondItem="qYq-WE-nye" secondAttribute="leadingMargin" constant="-8" id="u4g-A3-Smq"/>
                     <constraint firstItem="28" firstAttribute="top" secondItem="qYq-WE-nye" secondAttribute="topMargin" constant="-3" id="xgV-vT-ruF"/>
-                    <constraint firstAttribute="bottomMargin" secondItem="34" secondAttribute="bottom" constant="-8.5" id="z4p-iK-AkJ"/>
                 </constraints>
             </tableViewCellContentView>
             <animations/>

@@ -40,8 +40,8 @@
                         <color key="highlightedColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                         <size key="shadowOffset" width="0.0" height="0.0"/>
                     </label>
-                    <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleToFill" misplaced="YES" text="New" textAlignment="right" lineBreakMode="wordWrap" baselineAdjustment="none" minimumScaleFactor="0.5" adjustsLetterSpacingToFitWidth="YES" translatesAutoresizingMaskIntoConstraints="NO" id="sYw-l2-Tmv">
-                        <rect key="frame" x="122" y="67" width="190" height="14.5"/>
+                    <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleToFill" text="New" textAlignment="right" lineBreakMode="wordWrap" baselineAdjustment="none" minimumScaleFactor="0.5" adjustsLetterSpacingToFitWidth="YES" translatesAutoresizingMaskIntoConstraints="NO" id="sYw-l2-Tmv">
+                        <rect key="frame" x="286.5" y="67" width="25.5" height="14.5"/>
                         <animations/>
                         <fontDescription key="fontDescription" type="system" pointSize="12"/>
                         <color key="textColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
@@ -110,7 +110,7 @@
         </tableViewCell>
     </objects>
     <resources>
-        <image name="folderIcon.png" width="120" height="112"/>
+        <image name="folderIcon.png" width="221" height="205"/>
         <image name="gradient-cell-ios7" width="2" height="92"/>
     </resources>
 </document>

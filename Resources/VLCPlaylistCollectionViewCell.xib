@@ -59,15 +59,15 @@
                         <animations/>
                     </imageView>
                     <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" text="Subtitle — Subtitle" textAlignment="natural" lineBreakMode="wordWrap" baselineAdjustment="alignBaselines" minimumScaleFactor="0.5" translatesAutoresizingMaskIntoConstraints="NO" id="jdp-lJ-hIF">
-                        <rect key="frame" x="10" y="167.5" width="321" height="14.5"/>
+                        <rect key="frame" x="10" y="167" width="321" height="14.5"/>
                         <animations/>
                         <fontDescription key="fontDescription" type="boldSystem" pointSize="12"/>
                         <color key="textColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                         <color key="highlightedColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                         <size key="shadowOffset" width="0.0" height="0.0"/>
                     </label>
-                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" misplaced="YES" text="Meta Data" textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="lP6-D2-Oef">
-                        <rect key="frame" x="10" y="8" width="321" height="125"/>
+                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Meta Data" textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="lP6-D2-Oef">
+                        <rect key="frame" x="8" y="8" width="325" height="14.5"/>
                         <animations/>
                         <fontDescription key="fontDescription" type="system" pointSize="12"/>
                         <color key="textColor" cocoaTouchSystemColor="lightTextColor"/>
@@ -86,9 +86,8 @@
                 <constraint firstAttribute="bottom" secondItem="jdp-lJ-hIF" secondAttribute="bottom" constant="8" id="AVR-YF-5FR"/>
                 <constraint firstItem="ftR-Og-FOs" firstAttribute="top" secondItem="2" secondAttribute="top" constant="8" id="Cf0-yy-7iB"/>
                 <constraint firstAttribute="trailing" secondItem="0uT-W6-UMC" secondAttribute="trailing" id="I1e-9b-1Eu"/>
-                <constraint firstItem="lP6-D2-Oef" firstAttribute="leading" secondItem="2" secondAttribute="leadingMargin" constant="8" id="JHU-cs-lPD"/>
-                <constraint firstItem="lP6-D2-Oef" firstAttribute="top" secondItem="2" secondAttribute="topMargin" constant="8" id="Jlz-mN-M29"/>
                 <constraint firstItem="4XD-oC-pqG" firstAttribute="leading" secondItem="2" secondAttribute="leadingMargin" constant="2" id="Myr-sC-Y6O"/>
+                <constraint firstItem="4XD-oC-pqG" firstAttribute="top" relation="greaterThanOrEqual" secondItem="lP6-D2-Oef" secondAttribute="bottom" constant="5" id="OeB-fW-gBP"/>
                 <constraint firstItem="pl6-iw-2ZI" firstAttribute="top" secondItem="2" secondAttribute="top" constant="6" id="SKc-13-c0F"/>
                 <constraint firstItem="Gzk-gj-0jk" firstAttribute="top" secondItem="2" secondAttribute="top" id="XMJ-wS-Zg4"/>
                 <constraint firstItem="31" firstAttribute="top" secondItem="2" secondAttribute="top" id="YMD-tj-91G"/>
@@ -96,7 +95,6 @@
                 <constraint firstAttribute="trailing" secondItem="ftR-Og-FOs" secondAttribute="trailing" constant="8" id="bcZ-dH-pSC"/>
                 <constraint firstAttribute="bottom" secondItem="Gzk-gj-0jk" secondAttribute="bottom" id="e0A-1e-hof"/>
                 <constraint firstItem="lP6-D2-Oef" firstAttribute="top" secondItem="2" secondAttribute="top" constant="8" id="gcu-no-yiW"/>
-                <constraint firstAttribute="trailingMargin" secondItem="lP6-D2-Oef" secondAttribute="trailing" constant="8" id="jPM-cp-cyg"/>
                 <constraint firstAttribute="trailing" secondItem="lP6-D2-Oef" secondAttribute="trailing" constant="8" id="jlC-Bw-trU"/>
                 <constraint firstAttribute="trailingMargin" secondItem="4XD-oC-pqG" secondAttribute="trailing" constant="2" id="l0F-mv-LDZ"/>
                 <constraint firstItem="pl6-iw-2ZI" firstAttribute="leading" secondItem="2" secondAttribute="leading" constant="6" id="lWY-9H-Xrv"/>
