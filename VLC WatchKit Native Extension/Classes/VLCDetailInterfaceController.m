@@ -16,6 +16,8 @@
 #import "WKInterfaceObject+VLCProgress.h"
 #import "VLCWatchMessage.h"
 
+#import <WatchConnectivity/WatchConnectivity.h>
+
 @interface VLCDetailInterfaceController ()
 @property (nonatomic, weak) NSManagedObject *managedObject;
 @end
@@ -86,10 +88,12 @@
                                                            payload:payload];
     [self updateUserActivity:@"org.videolan.vlc-ios.playing" userInfo:@{@"playingmedia":self.managedObject.objectID.URIRepresentation} webpageURL:nil];
 
-    // TODO: toco
-//    [WKInterfaceController openParentApplication:dict reply:^(NSDictionary *replyInfo, NSError *error) {
-//        [self showNowPlaying:nil];
-//    }];
+
+    [[WCSession defaultSession] sendMessage:dict replyHandler:^(NSDictionary<NSString *,id> * _Nonnull replyMessage) {
+        [self showNowPlaying:nil];
+    } errorHandler:^(NSError * _Nonnull error) {
+        // TODO: error handling
+    }];
 }
 
 - (void)setMediaTitle:(NSString *)mediaTitle {

@@ -257,7 +257,6 @@
 		DD3567F71B6768FC00338947 /* VLCRowController.m in Sources */ = {isa = PBXBuildFile; fileRef = DD3567EA1B6768FC00338947 /* VLCRowController.m */; };
 		DD3567F81B6768FC00338947 /* VLCWatchTableController.m in Sources */ = {isa = PBXBuildFile; fileRef = DD3567EC1B6768FC00338947 /* VLCWatchTableController.m */; };
 		DD3567F91B6768FC00338947 /* WKInterfaceObject+VLCProgress.m in Sources */ = {isa = PBXBuildFile; fileRef = DD3567EE1B6768FC00338947 /* WKInterfaceObject+VLCProgress.m */; };
-		DD3568101B676A0700338947 /* Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = DD35677B1B6760BF00338947 /* Info.plist */; };
 		DD3EA6311AF50CFE007FF096 /* VLCWatchMessage.m in Sources */ = {isa = PBXBuildFile; fileRef = DD3EA6301AF50CFE007FF096 /* VLCWatchMessage.m */; };
 		DD3EA6321AF50D01007FF096 /* VLCWatchMessage.m in Sources */ = {isa = PBXBuildFile; fileRef = DD3EA6301AF50CFE007FF096 /* VLCWatchMessage.m */; };
 		DD510B701B14E564003BA71C /* VLCPlayerDisplayController.m in Sources */ = {isa = PBXBuildFile; fileRef = DD510B6F1B14E564003BA71C /* VLCPlayerDisplayController.m */; };
@@ -267,6 +266,7 @@
 		DD7110F11AF38B2B00854776 /* MLMediaLibrary+playlist.m in Sources */ = {isa = PBXBuildFile; fileRef = DD7110EF1AF38B2B00854776 /* MLMediaLibrary+playlist.m */; };
 		DD7635D61AF262D100240CB8 /* NSManagedObjectContext+refreshAll.m in Sources */ = {isa = PBXBuildFile; fileRef = DD7635D51AF262D100240CB8 /* NSManagedObjectContext+refreshAll.m */; };
 		DD8F84311B00EB3B0009138A /* VLCPlaybackController+MediaLibrary.m in Sources */ = {isa = PBXBuildFile; fileRef = DD8F84301B00EB3B0009138A /* VLCPlaybackController+MediaLibrary.m */; };
+		DD95D92A1B6776AB004441E2 /* Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = DD35677B1B6760BF00338947 /* Info.plist */; };
 		DDACEB561ADAD11300735484 /* WKInterfaceObject+VLCProgress.m in Sources */ = {isa = PBXBuildFile; fileRef = DDACEB551ADAD11300735484 /* WKInterfaceObject+VLCProgress.m */; };
 		DDB959421AFBB30500BB8CFF /* MappingModel_2_5_to_2_6.xcmappingmodel in Sources */ = {isa = PBXBuildFile; fileRef = DDB959411AFBB30500BB8CFF /* MappingModel_2_5_to_2_6.xcmappingmodel */; };
 		DDC10BE41AEE8EA700890DC3 /* VLCTimeNavigationTitleView.m in Sources */ = {isa = PBXBuildFile; fileRef = DDC10BE31AEE8EA700890DC3 /* VLCTimeNavigationTitleView.m */; };
@@ -1756,6 +1756,7 @@
 				DD3567D81B6768FC00338947 /* Classes */,
 				DD3567791B6760BF00338947 /* Assets.xcassets */,
 				DD35677B1B6760BF00338947 /* Info.plist */,
+				DD3567DD1B6768FC00338947 /* VLC for iOS WatchKit Extension-Prefix.pch */,
 				DD8C8FAE1B676D8500B3C4EE /* VLC WatchKit Extension-Bridging-Header.h */,
 				DDE1BCE41B676B8800A4B9CE /* Localizable.strings */,
 			);
@@ -1774,7 +1775,6 @@
 		DD3567D81B6768FC00338947 /* Classes */ = {
 			isa = PBXGroup;
 			children = (
-				DD3567DD1B6768FC00338947 /* VLC for iOS WatchKit Extension-Prefix.pch */,
 				DD3567D91B6768FC00338947 /* ExtensionDelegate.swift */,
 				DD3567DA1B6768FC00338947 /* InterfaceController.swift */,
 				DD3567DB1B6768FC00338947 /* NSManagedObjectContext+refreshAll.h */,
@@ -1955,6 +1955,7 @@
 					};
 					DD35676F1B6760BF00338947 = {
 						CreatedOnToolsVersion = 7.0;
+						DevelopmentTeam = 75GAHG3SZQ;
 					};
 				};
 			};
@@ -2126,9 +2127,9 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				DD95D92A1B6776AB004441E2 /* Info.plist in Resources */,
 				DD35677A1B6760BF00338947 /* Assets.xcassets in Resources */,
 				DD1A45FD1B676BAC00086F57 /* Localizable.strings in Resources */,
-				DD3568101B676A0700338947 /* Info.plist in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -2994,7 +2995,7 @@
 				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
 				GCC_WARN_UNUSED_FUNCTION = YES;
 				IBSC_MODULE = watchkitapp_Extension;
-				INFOPLIST_FILE = watchkitapp/Info.plist;
+				INFOPLIST_FILE = "$(SRCROOT)/VLC WatchKit Native/Info.plist";
 				MTL_ENABLE_DEBUG_INFO = YES;
 				PRODUCT_BUNDLE_IDENTIFIER = "org.videolan.vlc-ios.watchkitapp";
 				PRODUCT_NAME = "$(TARGET_NAME)";
@@ -3030,7 +3031,7 @@
 				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
 				GCC_WARN_UNUSED_FUNCTION = YES;
 				IBSC_MODULE = watchkitapp_Extension;
-				INFOPLIST_FILE = watchkitapp/Info.plist;
+				INFOPLIST_FILE = "$(SRCROOT)/VLC WatchKit Native/Info.plist";
 				MTL_ENABLE_DEBUG_INFO = NO;
 				PRODUCT_BUNDLE_IDENTIFIER = "org.videolan.vlc-ios.watchkitapp";
 				PRODUCT_NAME = "$(TARGET_NAME)";
@@ -3065,7 +3066,7 @@
 				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
 				GCC_WARN_UNUSED_FUNCTION = YES;
 				IBSC_MODULE = watchkitapp_Extension;
-				INFOPLIST_FILE = watchkitapp/Info.plist;
+				INFOPLIST_FILE = "$(SRCROOT)/VLC WatchKit Native/Info.plist";
 				MTL_ENABLE_DEBUG_INFO = NO;
 				PRODUCT_BUNDLE_IDENTIFIER = "org.videolan.vlc-ios.watchkitapp";
 				PRODUCT_NAME = "$(TARGET_NAME)";
@@ -3085,6 +3086,7 @@
 				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
 				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
 				CLANG_WARN_UNREACHABLE_CODE = YES;
+				CODE_SIGN_IDENTITY = "iPhone Developer";
 				DEBUG_INFORMATION_FORMAT = dwarf;
 				ENABLE_STRICT_OBJC_MSGSEND = YES;
 				GCC_NO_COMMON_BLOCKS = YES;
@@ -3102,7 +3104,7 @@
 					"$(SRCROOT)/ImportedSources/VLCKit/Headers/Public",
 					"$(SRCROOT)/ImportedSources/MediaLibraryKit/Headers/Public",
 				);
-				INFOPLIST_FILE = "watchkitapp Extension/Info.plist";
+				INFOPLIST_FILE = "$(SRCROOT)/VLC WatchKit Native Extension/Info.plist";
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @executable_path/../../Frameworks";
 				MTL_ENABLE_DEBUG_INFO = YES;
 				PRODUCT_BUNDLE_IDENTIFIER = "org.videolan.vlc-ios.watchkitapp.watchkitextension";
@@ -3125,6 +3127,7 @@
 				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
 				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
 				CLANG_WARN_UNREACHABLE_CODE = YES;
+				CODE_SIGN_IDENTITY = "iPhone Developer";
 				COPY_PHASE_STRIP = NO;
 				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
 				ENABLE_NS_ASSERTIONS = NO;
@@ -3143,7 +3146,7 @@
 					"$(SRCROOT)/ImportedSources/VLCKit/Headers/Public",
 					"$(SRCROOT)/ImportedSources/MediaLibraryKit/Headers/Public",
 				);
-				INFOPLIST_FILE = "watchkitapp Extension/Info.plist";
+				INFOPLIST_FILE = "$(SRCROOT)/VLC WatchKit Native Extension/Info.plist";
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @executable_path/../../Frameworks";
 				MTL_ENABLE_DEBUG_INFO = NO;
 				PRODUCT_BUNDLE_IDENTIFIER = "org.videolan.vlc-ios.watchkitapp.watchkitextension";
@@ -3165,6 +3168,7 @@
 				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
 				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
 				CLANG_WARN_UNREACHABLE_CODE = YES;
+				CODE_SIGN_IDENTITY = "iPhone Developer";
 				COPY_PHASE_STRIP = NO;
 				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
 				ENABLE_NS_ASSERTIONS = NO;
@@ -3183,7 +3187,7 @@
 					"$(SRCROOT)/ImportedSources/VLCKit/Headers/Public",
 					"$(SRCROOT)/ImportedSources/MediaLibraryKit/Headers/Public",
 				);
-				INFOPLIST_FILE = "watchkitapp Extension/Info.plist";
+				INFOPLIST_FILE = "$(SRCROOT)/VLC WatchKit Native Extension/Info.plist";
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @executable_path/../../Frameworks";
 				MTL_ENABLE_DEBUG_INFO = NO;
 				PRODUCT_BUNDLE_IDENTIFIER = "org.videolan.vlc-ios.watchkitapp.watchkitextension";

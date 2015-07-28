@@ -16,6 +16,7 @@
 #import "WKInterfaceObject+VLCProgress.h"
 #import "VLCWatchMessage.h"
 #import "VLCThumbnailsCache.h"
+#import <WatchConnectivity/WatchConnectivity.h>
 
 @interface VLCNowPlayingInterfaceController ()
 {
@@ -75,20 +76,21 @@
 }
 
 - (void)requestNowPlayingInfo {
-    // TODO: toco
-//    [WKInterfaceController openParentApplication:[VLCWatchMessage messageDictionaryForName:VLCWatchMessageNameGetNowPlayingInfo] reply:^(NSDictionary *replyInfo, NSError *error) {
-//        MLFile *file = nil;
-//        NSString *uriString = replyInfo[@"URIRepresentation"];
-//        if (uriString) {
-//            NSURL *uriRepresentation = [NSURL URLWithString:uriString];
-//            file = [MLFile fileForURIRepresentation:uriRepresentation];
-//        }
-//        [self updateWithNowPlayingInfo:replyInfo[@"nowPlayingInfo"] andFile:file];
-//        NSNumber *currentVolume = replyInfo[@"volume"];
-//        if (currentVolume) {
-//            self.volume = currentVolume.floatValue;
-//        }
-//    }];
+
+    NSDictionary *dict = [VLCWatchMessage messageDictionaryForName:VLCWatchMessageNameGetNowPlayingInfo];
+    [[WCSession defaultSession] sendMessage:dict replyHandler:^(NSDictionary<NSString *,id> * _Nonnull replyInfo) {
+        MLFile *file = nil;
+        NSString *uriString = replyInfo[@"URIRepresentation"];
+        if (uriString) {
+            NSURL *uriRepresentation = [NSURL URLWithString:uriString];
+            file = [MLFile fileForURIRepresentation:uriRepresentation];
+        }
+        [self updateWithNowPlayingInfo:replyInfo[@"nowPlayingInfo"] andFile:file];
+        NSNumber *currentVolume = replyInfo[@"volume"];
+        if (currentVolume) {
+            self.volume = currentVolume.floatValue;
+        }
+    } errorHandler:nil];
 }
 
 - (void)updateWithNowPlayingInfo:(NSDictionary*)nowPlayingInfo andFile:(MLFile*)file {
@@ -131,46 +133,40 @@
 
 - (IBAction)playPausePressed {
     NSDictionary *dict = [VLCWatchMessage messageDictionaryForName:VLCWatchMessageNamePlayPause];
-    // TODO: toco
-//    [WKInterfaceController openParentApplication:dict reply:^(NSDictionary *replyInfo, NSError *error) {
-//        NSNumber *playing = replyInfo[@"playing"];
-//        if ([playing isKindOfClass:[NSNumber class]]) {
-//            self.playing = playing.boolValue;
-//        } else {
-//            self.playing = !self.playing;
-//        }
-//        if (error)
-//            NSLog(@"playpause failed with reply %@ error: %@",replyInfo,error);
-//    }];
+    [[WCSession defaultSession] sendMessage:dict replyHandler:^(NSDictionary<NSString *,id> * _Nonnull replyInfo) {
+        NSNumber *playing = replyInfo[@"playing"];
+        if ([playing isKindOfClass:[NSNumber class]]) {
+            self.playing = playing.boolValue;
+        } else {
+            self.playing = !self.playing;
+        }
+
+    } errorHandler:^(NSError * _Nonnull error) {
+        NSLog(@"playpause failed with error: %@",error);
+    }];
 }
 
 - (IBAction)skipForward {
     NSDictionary *dict = [VLCWatchMessage messageDictionaryForName:VLCWatchMessageNameSkipForward];
-    // TODO: toco
-//    [WKInterfaceController openParentApplication:dict reply:^(NSDictionary *replyInfo, NSError *error) {
-//        if (error)
-//            NSLog(@"skipForward failed with reply %@ error: %@",replyInfo,error);
-//    }];
+    [[WCSession defaultSession] sendMessage:dict replyHandler:nil errorHandler:^(NSError * _Nonnull error) {
+        NSLog(@"skipForward failed with error: %@",error);
+    }];
 }
 
 - (IBAction)skipBackward {
     NSDictionary *dict = [VLCWatchMessage messageDictionaryForName:VLCWatchMessageNameSkipBackward];
-    // TODO: toco
-//    [WKInterfaceController openParentApplication:dict reply:^(NSDictionary *replyInfo, NSError *error) {
-//        if (error)
-//            NSLog(@"skipBackward failed with reply %@ error: %@",replyInfo,error);
-//    }];
+    [[WCSession defaultSession] sendMessage:dict replyHandler:nil errorHandler:^(NSError * _Nonnull error) {
+        NSLog(@"skipBackward failed with error: %@",error);
+    }];
 }
 
 - (IBAction)volumeSliderChanged:(float)value {
     _volume = value;
     NSDictionary *dict = [VLCWatchMessage messageDictionaryForName:VLCWatchMessageNameSetVolume
                                                            payload:@(value)];
-    // TODO: toco
-//    [WKInterfaceController openParentApplication:dict reply:^(NSDictionary *replyInfo, NSError *error) {
-//        if (error)
-//            NSLog(@"setVolume failed with reply %@ error: %@",replyInfo,error);
-//    }];
+    [[WCSession defaultSession] sendMessage:dict replyHandler:nil errorHandler:^(NSError * _Nonnull error) {
+        NSLog(@"setVolume failed with error: %@",error);
+    }];
 }
 
 
