@@ -1,0 +1,59 @@
+Index: GTL.xcodeproj/project.pbxproj
+===================================================================
+--- GTL.xcodeproj/project.pbxproj	(revision 451)
++++ GTL.xcodeproj/project.pbxproj	(working copy)
+@@ -1053,7 +1053,6 @@
+ 				SDKROOT = macosx;
+ 				WARNING_CFLAGS = (
+ 					"-Wall",
+-					"-Werror",
+ 					"-Wendif-labels",
+ 					"-Wnewline-eof",
+ 					"-Wfloat-equal",
+@@ -1095,7 +1094,6 @@
+ 				SDKROOT = macosx;
+ 				WARNING_CFLAGS = (
+ 					"-Wall",
+-					"-Werror",
+ 					"-Wendif-labels",
+ 					"-Wnewline-eof",
+ 					"-Wfloat-equal",
+@@ -1197,26 +1195,36 @@
+ 		4F1C6E101027B3CF00B46459 /* Debug */ = {
+ 			isa = XCBuildConfiguration;
+ 			buildSettings = {
+-				ARCHS = "$(ARCHS_STANDARD)";
++				ARCHS = (
++					"$(ARCHS_STANDARD)",
++					armv7s,
++				);
++				IPHONEOS_DEPLOYMENT_TARGET = 7.0;
+ 				OTHER_CFLAGS = (
+ 					"$(inherited)",
+ 					"-DGTL_IPHONE=1",
+ 				);
+ 				PRODUCT_NAME = GTLTouchStaticLib;
+ 				SDKROOT = iphoneos;
++				SKIP_INSTALL = YES;
+ 			};
+ 			name = Debug;
+ 		};
+ 		4F1C6E111027B3CF00B46459 /* Release */ = {
+ 			isa = XCBuildConfiguration;
+ 			buildSettings = {
+-				ARCHS = "$(ARCHS_STANDARD)";
++				ARCHS = (
++					"$(ARCHS_STANDARD)",
++					armv7s,
++				);
++				IPHONEOS_DEPLOYMENT_TARGET = 7.0;
+ 				OTHER_CFLAGS = (
+ 					"$(inherited)",
+ 					"-DGTL_IPHONE=1",
+ 				);
+ 				PRODUCT_NAME = GTLTouchStaticLib;
+ 				SDKROOT = iphoneos;
++				SKIP_INSTALL = YES;
+ 			};
+ 			name = Release;
+ 		};
