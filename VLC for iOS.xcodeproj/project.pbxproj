@@ -94,6 +94,7 @@
 		7D2DF7BB1B67753E00FB78AB /* libMediaLibraryKit-readonly.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 7D2DF7BA1B67753E00FB78AB /* libMediaLibraryKit-readonly.a */; };
 		7D2DF7BF1B67757700FB78AB /* libMediaLibraryKit.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 7D2DF7BE1B67757700FB78AB /* libMediaLibraryKit.a */; };
 		7D2DF7C11B67760100FB78AB /* libGTLTouchStaticLib.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 7D2DF7C01B67760100FB78AB /* libGTLTouchStaticLib.a */; };
+		7D2DF7C31B67777D00FB78AB /* libc++.tbd in Frameworks */ = {isa = PBXBuildFile; fileRef = 7D2DF7C21B67777D00FB78AB /* libc++.tbd */; };
 		7D30F3C2183AB24C00FFC021 /* VLCHTTPConnection.m in Sources */ = {isa = PBXBuildFile; fileRef = 7D30F3BD183AB24C00FFC021 /* VLCHTTPConnection.m */; };
 		7D30F3C3183AB24C00FFC021 /* VLCHTTPFileDownloader.m in Sources */ = {isa = PBXBuildFile; fileRef = 7D30F3BF183AB24C00FFC021 /* VLCHTTPFileDownloader.m */; };
 		7D30F3C4183AB24C00FFC021 /* VLCHTTPUploaderController.m in Sources */ = {isa = PBXBuildFile; fileRef = 7D30F3C1183AB24C00FFC021 /* VLCHTTPUploaderController.m */; };
@@ -217,7 +218,6 @@
 		9BE4D1CE183D76950006346C /* VLCCloudStorageTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 7D3784B0183A990F009EE944 /* VLCCloudStorageTableViewCell.m */; };
 		A79246C8170F11DF0036AAF2 /* Localizable.strings in Resources */ = {isa = PBXBuildFile; fileRef = A79246C6170F11DF0036AAF2 /* Localizable.strings */; };
 		CC1BBC461704938300A20CBF /* libiconv.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = CC1BBC451704938300A20CBF /* libiconv.dylib */; };
-		CC1BBC481704938B00A20CBF /* libstdc++.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = CC1BBC471704938B00A20CBF /* libstdc++.dylib */; };
 		CC1BBC4C1704939B00A20CBF /* libsqlite3.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = CC1BBC4B1704939B00A20CBF /* libsqlite3.dylib */; };
 		CC1BBC4E170493A300A20CBF /* libbz2.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = CC1BBC4D170493A300A20CBF /* libbz2.dylib */; };
 		CC1BBC50170493AA00A20CBF /* libxml2.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = CC1BBC4F170493AA00A20CBF /* libxml2.dylib */; };
@@ -444,6 +444,7 @@
 		7D2DF7BC1B67756E00FB78AB /* libMobileVLCKit.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; name = libMobileVLCKit.a; path = "ImportedSources/VLCKit/build/Debug-iphoneos/libMobileVLCKit.a"; sourceTree = "<group>"; };
 		7D2DF7BE1B67757700FB78AB /* libMediaLibraryKit.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; name = libMediaLibraryKit.a; path = "ImportedSources/MediaLibraryKit/build/Debug-iphoneos/libMediaLibraryKit.a"; sourceTree = "<group>"; };
 		7D2DF7C01B67760100FB78AB /* libGTLTouchStaticLib.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; name = libGTLTouchStaticLib.a; path = "ImportedSources/GDrive/build/Debug-iphoneos/libGTLTouchStaticLib.a"; sourceTree = "<group>"; };
+		7D2DF7C21B67777D00FB78AB /* libc++.tbd */ = {isa = PBXFileReference; lastKnownFileType = "sourcecode.text-based-dylib-definition"; name = "libc++.tbd"; path = "usr/lib/libc++.tbd"; sourceTree = SDKROOT; };
 		7D2E27891AD6DF72001FFE28 /* ja */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = ja; path = ja.lproj/Localizable.strings; sourceTree = "<group>"; };
 		7D2E278A1AD6DFE4001FFE28 /* zh-Hans */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = "zh-Hans"; path = "zh-Hans.lproj/Localizable.strings"; sourceTree = "<group>"; };
 		7D2E278B1AD6E02D001FFE28 /* sv */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = sv; path = sv.lproj/Localizable.strings; sourceTree = "<group>"; };
@@ -759,6 +760,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				7D2DF7C31B67777D00FB78AB /* libc++.tbd in Frameworks */,
 				7D2DF7C11B67760100FB78AB /* libGTLTouchStaticLib.a in Frameworks */,
 				7D2DF7BF1B67757700FB78AB /* libMediaLibraryKit.a in Frameworks */,
 				7D2AC5CD1B67737C00A8D9DD /* libLiveSDK-static.a in Frameworks */,
@@ -784,7 +786,6 @@
 				CC1BBC50170493AA00A20CBF /* libxml2.dylib in Frameworks */,
 				CC1BBC4E170493A300A20CBF /* libbz2.dylib in Frameworks */,
 				CC1BBC4C1704939B00A20CBF /* libsqlite3.dylib in Frameworks */,
-				CC1BBC481704938B00A20CBF /* libstdc++.dylib in Frameworks */,
 				CC1BBC461704938300A20CBF /* libiconv.dylib in Frameworks */,
 				7D94FCDF16DE7D1000F2623B /* UIKit.framework in Frameworks */,
 				7D94FCE116DE7D1000F2623B /* Foundation.framework in Frameworks */,
@@ -1285,6 +1286,7 @@
 		7D94FCDD16DE7D1000F2623B /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
+				7D2DF7C21B67777D00FB78AB /* libc++.tbd */,
 				7D2DF7C01B67760100FB78AB /* libGTLTouchStaticLib.a */,
 				7D2DF7BE1B67757700FB78AB /* libMediaLibraryKit.a */,
 				7D2DF7BC1B67756E00FB78AB /* libMobileVLCKit.a */,
@@ -2321,10 +2323,6 @@
 				INFOPLIST_FILE = "VLC for iOS WatchKit Extension/Info.plist";
 				IPHONEOS_DEPLOYMENT_TARGET = 8.2;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @executable_path/../../Frameworks";
-				LIBRARY_SEARCH_PATHS = (
-					"$(inherited)",
-					"$(PROJECT_DIR)/ImportedSources/MediaLibraryKit/build/Debug-iphoneos",
-				);
 				MTL_ENABLE_DEBUG_INFO = YES;
 				PRODUCT_BUNDLE_IDENTIFIER = "org.videolan.vlc-ios.watchkitextension";
 				PRODUCT_NAME = "${TARGET_NAME}";
@@ -2369,10 +2367,6 @@
 				INFOPLIST_FILE = "VLC for iOS WatchKit Extension/Info.plist";
 				IPHONEOS_DEPLOYMENT_TARGET = 8.2;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @executable_path/../../Frameworks";
-				LIBRARY_SEARCH_PATHS = (
-					"$(inherited)",
-					"$(PROJECT_DIR)/ImportedSources/MediaLibraryKit/build/Debug-iphoneos",
-				);
 				MTL_ENABLE_DEBUG_INFO = NO;
 				PRODUCT_BUNDLE_IDENTIFIER = "org.videolan.vlc-ios.watchkitextension";
 				PRODUCT_NAME = "${TARGET_NAME}";
@@ -2417,10 +2411,6 @@
 				INFOPLIST_FILE = "VLC for iOS WatchKit Extension/Info.plist";
 				IPHONEOS_DEPLOYMENT_TARGET = 8.2;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @executable_path/../../Frameworks";
-				LIBRARY_SEARCH_PATHS = (
-					"$(inherited)",
-					"$(PROJECT_DIR)/ImportedSources/MediaLibraryKit/build/Debug-iphoneos",
-				);
 				MTL_ENABLE_DEBUG_INFO = NO;
 				PRODUCT_BUNDLE_IDENTIFIER = "org.videolan.vlc-ios.watchkitextension";
 				PRODUCT_NAME = "${TARGET_NAME}";
@@ -2525,12 +2515,6 @@
 				);
 				INFOPLIST_FILE = "Sources/VLC for iOS-Info.plist";
 				IPHONEOS_DEPLOYMENT_TARGET = 7.0;
-				LIBRARY_SEARCH_PATHS = (
-					"$(inherited)",
-					"$(PROJECT_DIR)/ImportedSources/VLCKit/build/Debug-iphoneos",
-					"$(PROJECT_DIR)/ImportedSources/MediaLibraryKit/build/Debug-iphoneos",
-					"$(PROJECT_DIR)/ImportedSources/GDrive/build/Debug-iphoneos",
-				);
 				ONLY_ACTIVE_ARCH = YES;
 				OTHER_LDFLAGS = (
 					"-read_only_relocs",
@@ -2582,12 +2566,6 @@
 				);
 				INFOPLIST_FILE = "Sources/VLC for iOS-Info.plist";
 				IPHONEOS_DEPLOYMENT_TARGET = 7.0;
-				LIBRARY_SEARCH_PATHS = (
-					"$(inherited)",
-					"$(PROJECT_DIR)/ImportedSources/VLCKit/build/Debug-iphoneos",
-					"$(PROJECT_DIR)/ImportedSources/MediaLibraryKit/build/Debug-iphoneos",
-					"$(PROJECT_DIR)/ImportedSources/GDrive/build/Debug-iphoneos",
-				);
 				ONLY_ACTIVE_ARCH = NO;
 				OTHER_LDFLAGS = (
 					"-read_only_relocs",
@@ -2666,12 +2644,6 @@
 				);
 				INFOPLIST_FILE = "Sources/VLC for iOS-Info.plist";
 				IPHONEOS_DEPLOYMENT_TARGET = 7.0;
-				LIBRARY_SEARCH_PATHS = (
-					"$(inherited)",
-					"$(PROJECT_DIR)/ImportedSources/VLCKit/build/Debug-iphoneos",
-					"$(PROJECT_DIR)/ImportedSources/MediaLibraryKit/build/Debug-iphoneos",
-					"$(PROJECT_DIR)/ImportedSources/GDrive/build/Debug-iphoneos",
-				);
 				ONLY_ACTIVE_ARCH = NO;
 				OTHER_LDFLAGS = (
 					"-read_only_relocs",
