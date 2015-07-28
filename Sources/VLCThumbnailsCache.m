@@ -20,6 +20,9 @@
 #import <WatchKit/WatchKit.h>
 #import <CoreData/CoreData.h>
 #import <MediaLibraryKit/MediaLibraryKit.h>
+#if TARGET_OS_IOS
+#import <UIKit/UIKit.h>
+#endif
 
 @interface VLCThumbnailsCache() {
     NSInteger MaxCacheSize;
@@ -40,7 +43,7 @@
     self = [super init];
     if (self) {
 // TODO: correct for watch
-#ifndef TARGET_OS_WATCH
+#if TARGET_OS_IOS
         _currentDeviceIdiom = [[UIDevice currentDevice] userInterfaceIdiom];
         MaxCacheSize = 0;
 
