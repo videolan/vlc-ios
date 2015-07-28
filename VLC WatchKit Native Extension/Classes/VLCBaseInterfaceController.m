@@ -12,7 +12,7 @@
 
 #import "VLCBaseInterfaceController.h"
 
-static NSString *const VLCDBUpdateNotification = @"VLCUpdateDataBase";
+NSString *const VLCDBUpdateNotification = @"VLCUpdateDatabase";
 
 @interface VLCBaseInterfaceController()
 @property (nonatomic) BOOL needsUpdate;

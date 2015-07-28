@@ -12,8 +12,15 @@
 #import <Foundation/Foundation.h>
 #import <WatchConnectivity/WatchConnectivity.h>
 
+NS_ASSUME_NONNULL_BEGIN
+
 @interface VLCWatchCommunication : NSObject <WCSessionDelegate>
 
 + (instancetype)sharedInstance;
 
+- (void)startRelayingNotificationName:(nullable NSString *)name object:(nullable id)object;
+- (void)stopRelayingNotificationName:(nullable NSString *)name object:(nullable id)object;
+
 @end
+
+NS_ASSUME_NONNULL_END

@@ -24,7 +24,6 @@
 #import "VLCHTTPUploaderController.h"
 #import "VLCMigrationViewController.h"
 #import <BoxSDK/BoxSDK.h>
-#import "VLCNotificationRelay.h"
 #import "VLCPlaybackController.h"
 #import "VLCPlaybackController+MediaLibrary.h"
 #import "VLCPlayerDisplayController.h"
@@ -170,9 +169,9 @@ NSString *const VLCDropboxSessionWasAuthorized = @"VLCDropboxSessionWasAuthorize
 
     _watchCommunication = [VLCWatchCommunication sharedInstance];
 
-    VLCNotificationRelay *notificationRelay = [VLCNotificationRelay sharedRelay];
-    [notificationRelay addRelayLocalName:NSManagedObjectContextDidSaveNotification toRemoteName:@"org.videolan.ios-app.dbupdate"];
-    [notificationRelay addRelayLocalName:VLCPlaybackControllerPlaybackMetadataDidChange toRemoteName:kVLCDarwinNotificationNowPlayingInfoUpdate];
+    // TODO: push DB changes instead
+//    [_watchCommunication startRelayingNotificationName:NSManagedObjectContextDidSaveNotification object:nil];
+    [_watchCommunication startRelayingNotificationName:VLCPlaybackControllerPlaybackMetadataDidChange object:nil];
 
     return YES;
 }

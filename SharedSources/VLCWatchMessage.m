@@ -14,6 +14,7 @@ NSString *const VLCWatchMessageNameSkipForward = @"skipForward";
 NSString *const VLCWatchMessageNameSkipBackward = @"skipBackward";
 NSString *const VLCWatchMessageNamePlayFile = @"playFile";
 NSString *const VLCWatchMessageNameSetVolume = @"setVolume";
+NSString *const VLCWatchMessageNameNotification = @"notification";
 
 static NSString *const VLCWatchMessageNameKey = @"name";
 static NSString *const VLCWatchMessagePayloadKey = @"payload";
@@ -21,7 +22,7 @@ static NSString *const VLCWatchMessagePayloadKey = @"payload";
 @implementation VLCWatchMessage
 @synthesize dictionaryRepresentation = _dictionaryRepresentation;
 
-- (instancetype)initWithName:(NSString *)name payload:(id<NSObject, NSCoding>)payload
+- (instancetype)initWithName:(NSString *)name payload:(nullable id<NSObject,NSCoding>)payload
 {
     self = [super init];
     if (self) {
@@ -62,7 +63,7 @@ static NSString *const VLCWatchMessagePayloadKey = @"payload";
     return payload;
 }
 
-+ (NSDictionary *)messageDictionaryForName:(NSString *)name payload:(id<NSObject,NSCoding>)payload
++ (NSDictionary *)messageDictionaryForName:(NSString *)name payload:(nullable id<NSObject,NSCoding>)payload
 {
     id payloadObject;
     BOOL noArchiving = [payload isKindOfClass:[NSNumber class]] || [payload isKindOfClass:[NSString class]];

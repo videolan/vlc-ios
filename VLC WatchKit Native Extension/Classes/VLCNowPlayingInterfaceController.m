@@ -12,11 +12,12 @@
 
 #import "VLCNowPlayingInterfaceController.h"
 #import "VLCTime.h"
-#import "VLCNotificationRelay.h"
 #import "WKInterfaceObject+VLCProgress.h"
 #import "VLCWatchMessage.h"
 #import "VLCThumbnailsCache.h"
 #import <WatchConnectivity/WatchConnectivity.h>
+
+static NSString *const VLCNowPlayingUpdateNotification = @"VLCPlaybackControllerPlaybackMetadataDidChange";
 
 @interface VLCNowPlayingInterfaceController ()
 {
@@ -50,14 +51,15 @@
     [self setPlaying:YES];
 
     [self requestNowPlayingInfo];
-    [[VLCNotificationRelay sharedRelay] addRelayRemoteName:@"org.videolan.ios-app.nowPlayingInfoUpdate" toLocalName:@"nowPlayingInfoUpdate"];
 }
+
+// TODO: check if iPhone is connected when inteface controller activates and for each user action
 
 - (void)willActivate {
     // This method is called when watch view controller is about to be visible to user
     [super willActivate];
 
-    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(requestNowPlayingInfo) name:@"nowPlayingInfoUpdate" object:nil];
+    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(requestNowPlayingInfo) name:VLCNowPlayingUpdateNotification object:nil];
     [self requestNowPlayingInfo];
 
     const NSTimeInterval updateInterval = 5;
@@ -70,11 +72,14 @@
 - (void)didDeactivate {
     // This method is called when watch view controller is no longer visible
     [super didDeactivate];
-    [[NSNotificationCenter defaultCenter] removeObserver:self name:@"nowPlayingInfoUpdate" object:nil];
+    [[NSNotificationCenter defaultCenter] removeObserver:self name:VLCNowPlayingUpdateNotification object:nil];
     [self.updateTimer invalidate];
     self.updateTimer = nil;
 }
 
+
+// TODO: don't query for after receiving a notification from iPhone instead add user info to message which sends the notification
+// and use that user info dictionary
 - (void)requestNowPlayingInfo {
 
     NSDictionary *dict = [VLCWatchMessage messageDictionaryForName:VLCWatchMessageNameGetNowPlayingInfo];
@@ -168,7 +173,6 @@
         NSLog(@"setVolume failed with error: %@",error);
     }];
 }
-
 
 - (void)setVolume:(float)volume
 {

@@ -213,7 +213,6 @@
 		CC1BBC58170493E100A20CBF /* CoreData.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = CC1BBC57170493E100A20CBF /* CoreData.framework */; };
 		CCE2A22E17A5859E00D9EAAD /* CoreText.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = CCE2A22D17A5859E00D9EAAD /* CoreText.framework */; };
 		D9C52A9E9D4D5AFA7EF1B45A /* libPods-vlc-ios.a in Frameworks */ = {isa = PBXBuildFile; fileRef = DAF8927B0BE9C328466C0EA7 /* libPods-vlc-ios.a */; };
-		DD1574761B67BBDB00641E8E /* VLCNotificationRelay.m in Sources */ = {isa = PBXBuildFile; fileRef = DD1574751B67BBDB00641E8E /* VLCNotificationRelay.m */; };
 		DD1A45FD1B676BAC00086F57 /* Localizable.strings in Resources */ = {isa = PBXBuildFile; fileRef = DDE1BCE41B676B8800A4B9CE /* Localizable.strings */; };
 		DD2789DC1B67A44200CED769 /* MediaLibraryKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = DD2789DB1B67A44200CED769 /* MediaLibraryKit.framework */; };
 		DD2789DD1B67A5C400CED769 /* VLCThumbnailsCache.m in Sources */ = {isa = PBXBuildFile; fileRef = 7D37849D183A98DD009EE944 /* VLCThumbnailsCache.m */; };
@@ -231,11 +230,9 @@
 		DD3567901B6761CE00338947 /* WatchConnectivity.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = DD35678F1B6761CD00338947 /* WatchConnectivity.framework */; };
 		DD3567B41B67674700338947 /* VLCTime.m in Sources */ = {isa = PBXBuildFile; fileRef = DD3567B31B67674700338947 /* VLCTime.m */; };
 		DD3567EF1B6768FC00338947 /* ExtensionDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = DD3567D91B6768FC00338947 /* ExtensionDelegate.swift */; };
-		DD3567F01B6768FC00338947 /* InterfaceController.swift in Sources */ = {isa = PBXBuildFile; fileRef = DD3567DA1B6768FC00338947 /* InterfaceController.swift */; };
 		DD3567F11B6768FC00338947 /* NSManagedObjectContext+refreshAll.m in Sources */ = {isa = PBXBuildFile; fileRef = DD3567DC1B6768FC00338947 /* NSManagedObjectContext+refreshAll.m */; };
 		DD3567F21B6768FC00338947 /* VLCBaseInterfaceController.m in Sources */ = {isa = PBXBuildFile; fileRef = DD3567E01B6768FC00338947 /* VLCBaseInterfaceController.m */; };
 		DD3567F31B6768FC00338947 /* VLCDetailInterfaceController.m in Sources */ = {isa = PBXBuildFile; fileRef = DD3567E21B6768FC00338947 /* VLCDetailInterfaceController.m */; };
-		DD3567F41B6768FC00338947 /* VLCNotificationRelay.m in Sources */ = {isa = PBXBuildFile; fileRef = DD3567E41B6768FC00338947 /* VLCNotificationRelay.m */; };
 		DD3567F51B6768FC00338947 /* VLCNowPlayingInterfaceController.m in Sources */ = {isa = PBXBuildFile; fileRef = DD3567E61B6768FC00338947 /* VLCNowPlayingInterfaceController.m */; };
 		DD3567F61B6768FC00338947 /* VLCPlaylistInterfaceController.m in Sources */ = {isa = PBXBuildFile; fileRef = DD3567E81B6768FC00338947 /* VLCPlaylistInterfaceController.m */; };
 		DD3567F71B6768FC00338947 /* VLCRowController.m in Sources */ = {isa = PBXBuildFile; fileRef = DD3567EA1B6768FC00338947 /* VLCRowController.m */; };
@@ -690,8 +687,6 @@
 		CCAF837E17DE46D800E3578F /* pl */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = pl; path = pl.lproj/Localizable.strings; sourceTree = "<group>"; };
 		CCE2A22D17A5859E00D9EAAD /* CoreText.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreText.framework; path = System/Library/Frameworks/CoreText.framework; sourceTree = SDKROOT; };
 		DAF8927B0BE9C328466C0EA7 /* libPods-vlc-ios.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-vlc-ios.a"; sourceTree = BUILT_PRODUCTS_DIR; };
-		DD1574741B67BBDB00641E8E /* VLCNotificationRelay.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = VLCNotificationRelay.h; sourceTree = "<group>"; };
-		DD1574751B67BBDB00641E8E /* VLCNotificationRelay.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = VLCNotificationRelay.m; sourceTree = "<group>"; };
 		DD1A45FC1B676BAC00086F57 /* ru */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = ru; path = ru.lproj/Localizable.strings; sourceTree = "<group>"; };
 		DD2789DB1B67A44200CED769 /* MediaLibraryKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = MediaLibraryKit.framework; path = "ImportedSources/MediaLibraryKit/build/Debug-watchos/MediaLibraryKit.framework"; sourceTree = "<group>"; };
 		DD2789E01B67A7BE00CED769 /* VLCWatchCommunication.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = VLCWatchCommunication.h; path = Sources/VLCWatchCommunication.h; sourceTree = SOURCE_ROOT; };
@@ -710,7 +705,6 @@
 		DD3567B31B67674700338947 /* VLCTime.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = VLCTime.m; path = ImportedSources/VLCKit/Sources/VLCTime.m; sourceTree = SOURCE_ROOT; };
 		DD3567B51B67675400338947 /* VLCTime.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = VLCTime.h; path = ImportedSources/VLCKit/Headers/Public/VLCTime.h; sourceTree = SOURCE_ROOT; };
 		DD3567D91B6768FC00338947 /* ExtensionDelegate.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ExtensionDelegate.swift; sourceTree = "<group>"; };
-		DD3567DA1B6768FC00338947 /* InterfaceController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = InterfaceController.swift; sourceTree = "<group>"; };
 		DD3567DB1B6768FC00338947 /* NSManagedObjectContext+refreshAll.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSManagedObjectContext+refreshAll.h"; sourceTree = "<group>"; };
 		DD3567DC1B6768FC00338947 /* NSManagedObjectContext+refreshAll.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSManagedObjectContext+refreshAll.m"; sourceTree = "<group>"; };
 		DD3567DD1B6768FC00338947 /* VLC for iOS WatchKit Extension-Prefix.pch */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "VLC for iOS WatchKit Extension-Prefix.pch"; sourceTree = "<group>"; };
@@ -718,8 +712,6 @@
 		DD3567E01B6768FC00338947 /* VLCBaseInterfaceController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = VLCBaseInterfaceController.m; sourceTree = "<group>"; };
 		DD3567E11B6768FC00338947 /* VLCDetailInterfaceController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = VLCDetailInterfaceController.h; sourceTree = "<group>"; };
 		DD3567E21B6768FC00338947 /* VLCDetailInterfaceController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = VLCDetailInterfaceController.m; sourceTree = "<group>"; };
-		DD3567E31B6768FC00338947 /* VLCNotificationRelay.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = VLCNotificationRelay.h; sourceTree = "<group>"; };
-		DD3567E41B6768FC00338947 /* VLCNotificationRelay.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = VLCNotificationRelay.m; sourceTree = "<group>"; };
 		DD3567E51B6768FC00338947 /* VLCNowPlayingInterfaceController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = VLCNowPlayingInterfaceController.h; sourceTree = "<group>"; };
 		DD3567E61B6768FC00338947 /* VLCNowPlayingInterfaceController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = VLCNowPlayingInterfaceController.m; sourceTree = "<group>"; };
 		DD3567E71B6768FC00338947 /* VLCPlaylistInterfaceController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = VLCPlaylistInterfaceController.h; sourceTree = "<group>"; };
@@ -1615,15 +1607,12 @@
 			isa = PBXGroup;
 			children = (
 				DD3567D91B6768FC00338947 /* ExtensionDelegate.swift */,
-				DD3567DA1B6768FC00338947 /* InterfaceController.swift */,
 				DD3567DB1B6768FC00338947 /* NSManagedObjectContext+refreshAll.h */,
 				DD3567DC1B6768FC00338947 /* NSManagedObjectContext+refreshAll.m */,
 				DD3567DF1B6768FC00338947 /* VLCBaseInterfaceController.h */,
 				DD3567E01B6768FC00338947 /* VLCBaseInterfaceController.m */,
 				DD3567E11B6768FC00338947 /* VLCDetailInterfaceController.h */,
 				DD3567E21B6768FC00338947 /* VLCDetailInterfaceController.m */,
-				DD3567E31B6768FC00338947 /* VLCNotificationRelay.h */,
-				DD3567E41B6768FC00338947 /* VLCNotificationRelay.m */,
 				DD3567E51B6768FC00338947 /* VLCNowPlayingInterfaceController.h */,
 				DD3567E61B6768FC00338947 /* VLCNowPlayingInterfaceController.m */,
 				DD3567E71B6768FC00338947 /* VLCPlaylistInterfaceController.h */,
@@ -1645,8 +1634,6 @@
 				7D37849D183A98DD009EE944 /* VLCThumbnailsCache.m */,
 				DD7110EE1AF38B2B00854776 /* MLMediaLibrary+playlist.h */,
 				DD7110EF1AF38B2B00854776 /* MLMediaLibrary+playlist.m */,
-				DD1574741B67BBDB00641E8E /* VLCNotificationRelay.h */,
-				DD1574751B67BBDB00641E8E /* VLCNotificationRelay.m */,
 				DD3EA62F1AF50CFE007FF096 /* VLCWatchMessage.h */,
 				DD3EA6301AF50CFE007FF096 /* VLCWatchMessage.m */,
 			);
@@ -1971,7 +1958,6 @@
 				2915542717490A9C00B86CAD /* DDLog.m in Sources */,
 				7D95610B1AF3E9E800779745 /* VLCMiniPlaybackView.m in Sources */,
 				2915542817490A9C00B86CAD /* DDTTYLogger.m in Sources */,
-				DD1574761B67BBDB00641E8E /* VLCNotificationRelay.m in Sources */,
 				2915542917490A9C00B86CAD /* ContextFilterLogFormatter.m in Sources */,
 				2915542A17490A9C00B86CAD /* DispatchQueueLogFormatter.m in Sources */,
 				7DC19B051868D1C400810BF7 /* VLCFirstStepsFifthPageViewController.m in Sources */,
@@ -2075,7 +2061,6 @@
 			files = (
 				DD3567F91B6768FC00338947 /* WKInterfaceObject+VLCProgress.m in Sources */,
 				DD3567F11B6768FC00338947 /* NSManagedObjectContext+refreshAll.m in Sources */,
-				DD3567F01B6768FC00338947 /* InterfaceController.swift in Sources */,
 				DD3567EF1B6768FC00338947 /* ExtensionDelegate.swift in Sources */,
 				DD3567F81B6768FC00338947 /* VLCWatchTableController.m in Sources */,
 				DD3567F61B6768FC00338947 /* VLCPlaylistInterfaceController.m in Sources */,
@@ -2085,7 +2070,6 @@
 				DD3567F71B6768FC00338947 /* VLCRowController.m in Sources */,
 				DD3567F21B6768FC00338947 /* VLCBaseInterfaceController.m in Sources */,
 				DD3567B41B67674700338947 /* VLCTime.m in Sources */,
-				DD3567F41B6768FC00338947 /* VLCNotificationRelay.m in Sources */,
 				DD2789DD1B67A5C400CED769 /* VLCThumbnailsCache.m in Sources */,
 				DD3567F51B6768FC00338947 /* VLCNowPlayingInterfaceController.m in Sources */,
 			);

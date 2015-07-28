@@ -1,13 +1,18 @@
-//
-//  ExtensionDelegate.swift
-//  watchkitapp Extension
-//
-//  Created by Tobias Conradi on 28.07.15.
-//  Copyright © 2015 VideoLAN. All rights reserved.
-//
+/*****************************************************************************
+* ExtensionDelegate.swift
+* VLC for iOS
+*****************************************************************************
+* Copyright (c) 2015 VideoLAN. All rights reserved.
+* $Id$
+*
+* Authors: Tobias Conradi <videolan # tobias-conradi.de>
+*
+* Refer to the COPYING file of the official project for license.
+*****************************************************************************/
 
 import WatchKit
 import WatchConnectivity
+import CoreData
 
 class ExtensionDelegate: NSObject, WKExtensionDelegate, WCSessionDelegate {
 
@@ -18,13 +23,21 @@ class ExtensionDelegate: NSObject, WKExtensionDelegate, WCSessionDelegate {
 
     }
 
-    func applicationDidBecomeActive() {
-        // Restart any tasks that were paused (or not yet started) while the application was inactive. If the application was previously in the background, optionally refresh the user interface.
+    func session(session: WCSession, didReceiveMessage message: [String : AnyObject], replyHandler: ([String : AnyObject]) -> Void) {
+        let msg = VLCWatchMessage(dictionary: message)
+        if msg.name == VLCWatchMessageNameNotification, let payloadDict = msg.payload as? [String : AnyObject] {
+            if let name = payloadDict["name"] as? String {
+                handleRemoteNotification(name, userInfo: payloadDict["userInfo"] as? [String : AnyObject])
+            }
+        }
     }
 
-    func applicationWillResignActive() {
-        // Sent when the application is about to move from active to inactive state. This can occur for certain types of temporary interruptions (such as an incoming phone call or SMS message) or when the user quits the application and it begins the transition to the background state.
-        // Use this method to pause ongoing tasks, disable timers, etc.
+    func handleRemoteNotification(name:String, userInfo: [String: AnyObject]?) {
+        NSNotificationCenter.defaultCenter().postNotificationName(name, object: self, userInfo: userInfo)
     }
 
+
+    func session(session: WCSession, didReceiveFile file: WCSessionFile) {
+        // TODO: copy db and send update notification
+    }
 }

@@ -12,6 +12,8 @@
 
 #import <WatchKit/WatchKit.h>
 
+extern NSString *const VLCDBUpdateNotification;
+
 @interface VLCBaseInterfaceController : WKInterfaceController
 @property (nonatomic, assign, readonly, getter=isActivated) BOOL activated;
 

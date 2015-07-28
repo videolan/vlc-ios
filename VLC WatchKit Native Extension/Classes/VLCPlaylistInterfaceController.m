@@ -15,14 +15,11 @@
 #import "VLCPlaylistInterfaceController.h"
 #import "VLCRowController.h"
 
-#import "VLCNotificationRelay.h"
 #import "VLCWatchTableController.h"
 #import "NSManagedObjectContext+refreshAll.h"
 #import "MLMediaLibrary+playlist.h"
 
 static NSString *const rowType = @"mediaRow";
-static NSString *const VLCDBUpdateNotification = @"VLCUpdateDataBase";
-static NSString *const VLCDBUpdateNotificationRemote = @"org.videolan.ios-app.dbupdate";
 
 @interface VLCPlaylistInterfaceController()
 {
@@ -55,8 +52,6 @@ static NSString *const VLCDBUpdateNotificationRemote = @"org.videolan.ios-app.db
         self.libraryMode = VLCLibraryModeFolder;
     }
     [self addNowPlayingMenu];
-
-    [[VLCNotificationRelay sharedRelay] addRelayRemoteName:VLCDBUpdateNotificationRemote toLocalName:VLCDBUpdateNotification];
 
     /* setup table view controller */
     VLCWatchTableController *tableController = [[VLCWatchTableController alloc] init];

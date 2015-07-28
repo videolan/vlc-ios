@@ -31,6 +31,10 @@
     return self;
 }
 
+- (void)dealloc {
+    [[NSNotificationCenter defaultCenter] removeObserver:self name:nil object:nil];
+}
+
 static VLCWatchCommunication *_singeltonInstance = nil;
 
 + (VLCWatchCommunication *)sharedInstance
@@ -124,6 +128,23 @@ static VLCWatchCommunication *_singeltonInstance = nil;
     response[@"volume"] = @([MPMusicPlayerController applicationMusicPlayer].volume);
 
     return response;
+}
+
+#pragma mark - Notifications
+- (void)startRelayingNotificationName:(nullable NSString *)name object:(nullable id)object {
+    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(relayNotification:) name:name object:object];
+}
+- (void)stopRelayingNotificationName:(nullable NSString *)name object:(nullable id)object {
+    [[NSNotificationCenter defaultCenter] removeObserver:self name:name object:object];
+}
+- (void)relayNotification:(NSNotification *)notification {
+    NSDictionary *dict = [VLCWatchMessage messageDictionaryForName:VLCWatchMessageNameNotification
+                                                           payload:@{@"name" : notification.name,
+                                                                     @"userInfo" : notification.userInfo
+                                                                     }];
+    if ([WCSession isSupported] && [[WCSession defaultSession] isReachable]) {
+        [[WCSession defaultSession] sendMessage:dict replyHandler:nil errorHandler:nil];
+    }
 }
 
 @end
