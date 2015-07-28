@@ -1,0 +1,27 @@
+"NOW_PLAYING"="Now Playing";
+"PLAY_NOW"="Play Now";
+"PLAYING"="Playing";
+"PAUSED"="Paused";
+"DETAIL"="Detail";
+"LIBRARY_ALL_FILES"="All Files";
+"LIBRARY_MUSIC"="Music Albums";
+"LIBRARY_SERIES"="TV Shows";
+"EMPTY_LIBRARY"="Empty Media Library";
+
+"BWD_BUTTON"="Jump Backwards";
+"FWD_BUTTON"="Jump Forwards";
+"PLAY_BUTTON"="Play";
+"PAUSE_BUTTON"="Pause";
+
+"VOLUME"="Volume";
+"DURATION"="Duration";
+"TITLE"="Title";
+
+// accessibility labels for the playlist
+"OBJECT_TYPE_SHOW"="Show";
+"OBJECT_TYPE_SHOW_EPISODE"="Show episode";
+"OBJECT_TYPE_LABEL"="Folder";
+"OBJECT_TYPE_ALBUM"="Album";
+"OBJECT_TYPE_ALBUM_TRACK"="Album track";
+"OBJECT_TYPE_FILE"="File";
+"OBJECT_TYPE_FILE_AUDIO"="Audio file";

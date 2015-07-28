@@ -235,6 +235,29 @@
 		DD02C3071ACAEC690026EFEE /* libbz2.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = CC1BBC4D170493A300A20CBF /* libbz2.dylib */; };
 		DD02C30E1ACAF4A50026EFEE /* VLCRowController.m in Sources */ = {isa = PBXBuildFile; fileRef = DD02C30D1ACAF4A50026EFEE /* VLCRowController.m */; };
 		DD1542121ACFF76400AFD4EC /* VLCWatchTableController.m in Sources */ = {isa = PBXBuildFile; fileRef = DD1542111ACFF76400AFD4EC /* VLCWatchTableController.m */; };
+		DD1A45FD1B676BAC00086F57 /* Localizable.strings in Resources */ = {isa = PBXBuildFile; fileRef = DDE1BCE41B676B8800A4B9CE /* Localizable.strings */; };
+		DD3567681B6760BF00338947 /* Interface.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = DD3567661B6760BF00338947 /* Interface.storyboard */; };
+		DD35676A1B6760BF00338947 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = DD3567691B6760BF00338947 /* Assets.xcassets */; };
+		DD3567711B6760BF00338947 /* VLC WatchKit Extension.appex in Embed App Extensions */ = {isa = PBXBuildFile; fileRef = DD3567701B6760BF00338947 /* VLC WatchKit Extension.appex */; settings = {ATTRIBUTES = (RemoveHeadersOnCopy, ); }; };
+		DD35677A1B6760BF00338947 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = DD3567791B6760BF00338947 /* Assets.xcassets */; };
+		DD35677E1B6760BF00338947 /* VLC WatchKit App.app in Embed Watch Content */ = {isa = PBXBuildFile; fileRef = DD3567641B6760BF00338947 /* VLC WatchKit App.app */; };
+		DD35678A1B67618F00338947 /* CoreData.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = DD3567891B67618F00338947 /* CoreData.framework */; };
+		DD35678C1B67619700338947 /* WatchKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = DD35678B1B67619700338947 /* WatchKit.framework */; };
+		DD35678E1B6761A600338947 /* libMediaLibraryKit-readonly.a in Frameworks */ = {isa = PBXBuildFile; fileRef = DD35678D1B6761A600338947 /* libMediaLibraryKit-readonly.a */; };
+		DD3567901B6761CE00338947 /* WatchConnectivity.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = DD35678F1B6761CD00338947 /* WatchConnectivity.framework */; };
+		DD3567B41B67674700338947 /* VLCTime.m in Sources */ = {isa = PBXBuildFile; fileRef = DD3567B31B67674700338947 /* VLCTime.m */; };
+		DD3567EF1B6768FC00338947 /* ExtensionDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = DD3567D91B6768FC00338947 /* ExtensionDelegate.swift */; };
+		DD3567F01B6768FC00338947 /* InterfaceController.swift in Sources */ = {isa = PBXBuildFile; fileRef = DD3567DA1B6768FC00338947 /* InterfaceController.swift */; };
+		DD3567F11B6768FC00338947 /* NSManagedObjectContext+refreshAll.m in Sources */ = {isa = PBXBuildFile; fileRef = DD3567DC1B6768FC00338947 /* NSManagedObjectContext+refreshAll.m */; };
+		DD3567F21B6768FC00338947 /* VLCBaseInterfaceController.m in Sources */ = {isa = PBXBuildFile; fileRef = DD3567E01B6768FC00338947 /* VLCBaseInterfaceController.m */; };
+		DD3567F31B6768FC00338947 /* VLCDetailInterfaceController.m in Sources */ = {isa = PBXBuildFile; fileRef = DD3567E21B6768FC00338947 /* VLCDetailInterfaceController.m */; };
+		DD3567F41B6768FC00338947 /* VLCNotificationRelay.m in Sources */ = {isa = PBXBuildFile; fileRef = DD3567E41B6768FC00338947 /* VLCNotificationRelay.m */; };
+		DD3567F51B6768FC00338947 /* VLCNowPlayingInterfaceController.m in Sources */ = {isa = PBXBuildFile; fileRef = DD3567E61B6768FC00338947 /* VLCNowPlayingInterfaceController.m */; };
+		DD3567F61B6768FC00338947 /* VLCPlaylistInterfaceController.m in Sources */ = {isa = PBXBuildFile; fileRef = DD3567E81B6768FC00338947 /* VLCPlaylistInterfaceController.m */; };
+		DD3567F71B6768FC00338947 /* VLCRowController.m in Sources */ = {isa = PBXBuildFile; fileRef = DD3567EA1B6768FC00338947 /* VLCRowController.m */; };
+		DD3567F81B6768FC00338947 /* VLCWatchTableController.m in Sources */ = {isa = PBXBuildFile; fileRef = DD3567EC1B6768FC00338947 /* VLCWatchTableController.m */; };
+		DD3567F91B6768FC00338947 /* WKInterfaceObject+VLCProgress.m in Sources */ = {isa = PBXBuildFile; fileRef = DD3567EE1B6768FC00338947 /* WKInterfaceObject+VLCProgress.m */; };
+		DD3568101B676A0700338947 /* Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = DD35677B1B6760BF00338947 /* Info.plist */; };
 		DD3EA6311AF50CFE007FF096 /* VLCWatchMessage.m in Sources */ = {isa = PBXBuildFile; fileRef = DD3EA6301AF50CFE007FF096 /* VLCWatchMessage.m */; };
 		DD3EA6321AF50D01007FF096 /* VLCWatchMessage.m in Sources */ = {isa = PBXBuildFile; fileRef = DD3EA6301AF50CFE007FF096 /* VLCWatchMessage.m */; };
 		DD510B701B14E564003BA71C /* VLCPlayerDisplayController.m in Sources */ = {isa = PBXBuildFile; fileRef = DD510B6F1B14E564003BA71C /* VLCPlayerDisplayController.m */; };
@@ -272,6 +295,20 @@
 			remoteGlobalIDString = 4173AE9F1ABF1B850004101D;
 			remoteInfo = "VLC for iOS WatchKit Extension";
 		};
+		DD3567721B6760BF00338947 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 7D94FCD316DE7D1000F2623B /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = DD35676F1B6760BF00338947;
+			remoteInfo = "watchkitapp Extension";
+		};
+		DD35677C1B6760BF00338947 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 7D94FCD316DE7D1000F2623B /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = DD3567631B6760BF00338947;
+			remoteInfo = watchkitapp;
+		};
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXCopyFilesBuildPhase section */
@@ -284,6 +321,28 @@
 				4173AEB91ABF1B860004101D /* VLC for iOS WatchKit Extension.appex in Embed App Extensions */,
 			);
 			name = "Embed App Extensions";
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		DD3567861B6760BF00338947 /* Embed App Extensions */ = {
+			isa = PBXCopyFilesBuildPhase;
+			buildActionMask = 2147483647;
+			dstPath = "";
+			dstSubfolderSpec = 13;
+			files = (
+				DD3567711B6760BF00338947 /* VLC WatchKit Extension.appex in Embed App Extensions */,
+			);
+			name = "Embed App Extensions";
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		DD3567881B6760BF00338947 /* Embed Watch Content */ = {
+			isa = PBXCopyFilesBuildPhase;
+			buildActionMask = 2147483647;
+			dstPath = "$(CONTENTS_FOLDER_PATH)/Watch";
+			dstSubfolderSpec = 16;
+			files = (
+				DD35677E1B6760BF00338947 /* VLC WatchKit App.app in Embed Watch Content */,
+			);
+			name = "Embed Watch Content";
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXCopyFilesBuildPhase section */
@@ -710,6 +769,41 @@
 		DD02C30D1ACAF4A50026EFEE /* VLCRowController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = VLCRowController.m; sourceTree = "<group>"; };
 		DD1542101ACFF76400AFD4EC /* VLCWatchTableController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = VLCWatchTableController.h; sourceTree = "<group>"; };
 		DD1542111ACFF76400AFD4EC /* VLCWatchTableController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = VLCWatchTableController.m; sourceTree = "<group>"; };
+		DD1A45FC1B676BAC00086F57 /* ru */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = ru; path = ru.lproj/Localizable.strings; sourceTree = "<group>"; };
+		DD3567641B6760BF00338947 /* VLC WatchKit App.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "VLC WatchKit App.app"; sourceTree = BUILT_PRODUCTS_DIR; };
+		DD3567671B6760BF00338947 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Interface.storyboard; sourceTree = "<group>"; };
+		DD3567691B6760BF00338947 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
+		DD35676B1B6760BF00338947 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		DD3567701B6760BF00338947 /* VLC WatchKit Extension.appex */ = {isa = PBXFileReference; explicitFileType = "wrapper.app-extension"; includeInIndex = 0; path = "VLC WatchKit Extension.appex"; sourceTree = BUILT_PRODUCTS_DIR; };
+		DD3567791B6760BF00338947 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
+		DD35677B1B6760BF00338947 /* Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		DD3567891B67618F00338947 /* CoreData.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreData.framework; path = Platforms/WatchOS.platform/Developer/SDKs/WatchOS2.0.sdk/System/Library/Frameworks/CoreData.framework; sourceTree = DEVELOPER_DIR; };
+		DD35678B1B67619700338947 /* WatchKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = WatchKit.framework; path = Platforms/WatchOS.platform/Developer/SDKs/WatchOS2.0.sdk/System/Library/Frameworks/WatchKit.framework; sourceTree = DEVELOPER_DIR; };
+		DD35678D1B6761A600338947 /* libMediaLibraryKit-readonly.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; name = "libMediaLibraryKit-readonly.a"; path = "../../../Library/Developer/Xcode/DerivedData/VLC_for_iOS-asxdcuzswmictvazfgdbzoqjdhaf/Build/Products/Debug-iphoneos/libMediaLibraryKit-readonly.a"; sourceTree = "<group>"; };
+		DD35678F1B6761CD00338947 /* WatchConnectivity.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = WatchConnectivity.framework; path = Platforms/WatchOS.platform/Developer/SDKs/WatchOS2.0.sdk/System/Library/Frameworks/WatchConnectivity.framework; sourceTree = DEVELOPER_DIR; };
+		DD3567B31B67674700338947 /* VLCTime.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = VLCTime.m; path = ImportedSources/VLCKit/Sources/VLCTime.m; sourceTree = SOURCE_ROOT; };
+		DD3567B51B67675400338947 /* VLCTime.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = VLCTime.h; path = ImportedSources/VLCKit/Headers/Public/VLCTime.h; sourceTree = SOURCE_ROOT; };
+		DD3567D91B6768FC00338947 /* ExtensionDelegate.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ExtensionDelegate.swift; sourceTree = "<group>"; };
+		DD3567DA1B6768FC00338947 /* InterfaceController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = InterfaceController.swift; sourceTree = "<group>"; };
+		DD3567DB1B6768FC00338947 /* NSManagedObjectContext+refreshAll.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSManagedObjectContext+refreshAll.h"; sourceTree = "<group>"; };
+		DD3567DC1B6768FC00338947 /* NSManagedObjectContext+refreshAll.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSManagedObjectContext+refreshAll.m"; sourceTree = "<group>"; };
+		DD3567DD1B6768FC00338947 /* VLC for iOS WatchKit Extension-Prefix.pch */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "VLC for iOS WatchKit Extension-Prefix.pch"; sourceTree = "<group>"; };
+		DD3567DF1B6768FC00338947 /* VLCBaseInterfaceController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = VLCBaseInterfaceController.h; sourceTree = "<group>"; };
+		DD3567E01B6768FC00338947 /* VLCBaseInterfaceController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = VLCBaseInterfaceController.m; sourceTree = "<group>"; };
+		DD3567E11B6768FC00338947 /* VLCDetailInterfaceController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = VLCDetailInterfaceController.h; sourceTree = "<group>"; };
+		DD3567E21B6768FC00338947 /* VLCDetailInterfaceController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = VLCDetailInterfaceController.m; sourceTree = "<group>"; };
+		DD3567E31B6768FC00338947 /* VLCNotificationRelay.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = VLCNotificationRelay.h; sourceTree = "<group>"; };
+		DD3567E41B6768FC00338947 /* VLCNotificationRelay.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = VLCNotificationRelay.m; sourceTree = "<group>"; };
+		DD3567E51B6768FC00338947 /* VLCNowPlayingInterfaceController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = VLCNowPlayingInterfaceController.h; sourceTree = "<group>"; };
+		DD3567E61B6768FC00338947 /* VLCNowPlayingInterfaceController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = VLCNowPlayingInterfaceController.m; sourceTree = "<group>"; };
+		DD3567E71B6768FC00338947 /* VLCPlaylistInterfaceController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = VLCPlaylistInterfaceController.h; sourceTree = "<group>"; };
+		DD3567E81B6768FC00338947 /* VLCPlaylistInterfaceController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = VLCPlaylistInterfaceController.m; sourceTree = "<group>"; };
+		DD3567E91B6768FC00338947 /* VLCRowController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = VLCRowController.h; sourceTree = "<group>"; };
+		DD3567EA1B6768FC00338947 /* VLCRowController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = VLCRowController.m; sourceTree = "<group>"; };
+		DD3567EB1B6768FC00338947 /* VLCWatchTableController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = VLCWatchTableController.h; sourceTree = "<group>"; };
+		DD3567EC1B6768FC00338947 /* VLCWatchTableController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = VLCWatchTableController.m; sourceTree = "<group>"; };
+		DD3567ED1B6768FC00338947 /* WKInterfaceObject+VLCProgress.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "WKInterfaceObject+VLCProgress.h"; sourceTree = "<group>"; };
+		DD3567EE1B6768FC00338947 /* WKInterfaceObject+VLCProgress.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "WKInterfaceObject+VLCProgress.m"; sourceTree = "<group>"; };
 		DD3EA62F1AF50CFE007FF096 /* VLCWatchMessage.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = VLCWatchMessage.h; sourceTree = "<group>"; };
 		DD3EA6301AF50CFE007FF096 /* VLCWatchMessage.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = VLCWatchMessage.m; sourceTree = "<group>"; };
 		DD510B6E1B14E564003BA71C /* VLCPlayerDisplayController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = VLCPlayerDisplayController.h; path = Sources/VLCPlayerDisplayController.h; sourceTree = SOURCE_ROOT; };
@@ -720,6 +814,22 @@
 		DD7110EF1AF38B2B00854776 /* MLMediaLibrary+playlist.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "MLMediaLibrary+playlist.m"; sourceTree = "<group>"; };
 		DD7635D41AF262D100240CB8 /* NSManagedObjectContext+refreshAll.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSManagedObjectContext+refreshAll.h"; sourceTree = "<group>"; };
 		DD7635D51AF262D100240CB8 /* NSManagedObjectContext+refreshAll.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSManagedObjectContext+refreshAll.m"; sourceTree = "<group>"; };
+		DD8C8F9F1B676C0900B3C4EE /* zh-Hans */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = "zh-Hans"; path = "zh-Hans.lproj/Localizable.strings"; sourceTree = "<group>"; };
+		DD8C8FA01B676C0F00B3C4EE /* fi */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = fi; path = fi.lproj/Localizable.strings; sourceTree = "<group>"; };
+		DD8C8FA11B676C1700B3C4EE /* el */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = el; path = el.lproj/Localizable.strings; sourceTree = "<group>"; };
+		DD8C8FA21B676C1D00B3C4EE /* ta */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = ta; path = ta.lproj/Localizable.strings; sourceTree = "<group>"; };
+		DD8C8FA31B676C2200B3C4EE /* fr */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = fr; path = fr.lproj/Localizable.strings; sourceTree = "<group>"; };
+		DD8C8FA41B676C2700B3C4EE /* sv */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = sv; path = sv.lproj/Localizable.strings; sourceTree = "<group>"; };
+		DD8C8FA51B676C2C00B3C4EE /* da */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = da; path = da.lproj/Localizable.strings; sourceTree = "<group>"; };
+		DD8C8FA61B676C3100B3C4EE /* uk */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = uk; path = uk.lproj/Localizable.strings; sourceTree = "<group>"; };
+		DD8C8FA71B676C4700B3C4EE /* pt-PT */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = "pt-PT"; path = "pt-PT.lproj/Localizable.strings"; sourceTree = "<group>"; };
+		DD8C8FA81B676C6000B3C4EE /* es */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = es; path = es.lproj/Localizable.strings; sourceTree = "<group>"; };
+		DD8C8FA91B676C6600B3C4EE /* de */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = de; path = de.lproj/Localizable.strings; sourceTree = "<group>"; };
+		DD8C8FAA1B676C6C00B3C4EE /* it */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = it; path = it.lproj/Localizable.strings; sourceTree = "<group>"; };
+		DD8C8FAB1B676C7700B3C4EE /* nl */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = nl; path = nl.lproj/Localizable.strings; sourceTree = "<group>"; };
+		DD8C8FAC1B676C8A00B3C4EE /* ja */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = ja; path = ja.lproj/Localizable.strings; sourceTree = "<group>"; };
+		DD8C8FAD1B676C9200B3C4EE /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/Localizable.strings; sourceTree = "<group>"; };
+		DD8C8FAE1B676D8500B3C4EE /* VLC WatchKit Extension-Bridging-Header.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "VLC WatchKit Extension-Bridging-Header.h"; sourceTree = "<group>"; };
 		DD8F842F1B00EB3B0009138A /* VLCPlaybackController+MediaLibrary.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = "VLCPlaybackController+MediaLibrary.h"; path = "Sources/VLCPlaybackController+MediaLibrary.h"; sourceTree = SOURCE_ROOT; };
 		DD8F84301B00EB3B0009138A /* VLCPlaybackController+MediaLibrary.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = "VLCPlaybackController+MediaLibrary.m"; path = "Sources/VLCPlaybackController+MediaLibrary.m"; sourceTree = SOURCE_ROOT; };
 		DDACEB541ADAD11300735484 /* WKInterfaceObject+VLCProgress.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "WKInterfaceObject+VLCProgress.h"; sourceTree = "<group>"; };
@@ -727,6 +837,7 @@
 		DDB959411AFBB30500BB8CFF /* MappingModel_2_5_to_2_6.xcmappingmodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcmappingmodel; name = MappingModel_2_5_to_2_6.xcmappingmodel; path = ImportedSources/MediaLibraryKit/MappingModel_2_5_to_2_6.xcmappingmodel; sourceTree = "<group>"; };
 		DDC10BE21AEE8EA700890DC3 /* VLCTimeNavigationTitleView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = VLCTimeNavigationTitleView.h; path = Sources/VLCTimeNavigationTitleView.h; sourceTree = SOURCE_ROOT; };
 		DDC10BE31AEE8EA700890DC3 /* VLCTimeNavigationTitleView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = VLCTimeNavigationTitleView.m; path = Sources/VLCTimeNavigationTitleView.m; sourceTree = SOURCE_ROOT; };
+		DDE1BCE51B676B8800A4B9CE /* tr */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = tr; path = tr.lproj/Localizable.strings; sourceTree = "<group>"; };
 		DDE4906A1ACDB63F00B1B5E3 /* VLCNotificationRelay.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = VLCNotificationRelay.h; sourceTree = "<group>"; };
 		DDE4906B1ACDB63F00B1B5E3 /* VLCNotificationRelay.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = VLCNotificationRelay.m; sourceTree = "<group>"; };
 		DDE4906E1ACE8BBC00B1B5E3 /* VLCDetailInterfaceController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = VLCDetailInterfaceController.h; sourceTree = "<group>"; };
@@ -794,6 +905,17 @@
 				7D94FCE116DE7D1000F2623B /* Foundation.framework in Frameworks */,
 				7D94FCE316DE7D1000F2623B /* CoreGraphics.framework in Frameworks */,
 				D9C52A9E9D4D5AFA7EF1B45A /* libPods-vlc-ios.a in Frameworks */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		DD35676D1B6760BF00338947 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				DD3567901B6761CE00338947 /* WatchConnectivity.framework in Frameworks */,
+				DD35678E1B6761A600338947 /* libMediaLibraryKit-readonly.a in Frameworks */,
+				DD35678C1B67619700338947 /* WatchKit.framework in Frameworks */,
+				DD35678A1B67618F00338947 /* CoreData.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -1267,6 +1389,8 @@
 				DD7110ED1AF38AFD00854776 /* SharedSources */,
 				4173AEA11ABF1B850004101D /* VLC for iOS WatchKit Extension */,
 				4173AEAF1ABF1B850004101D /* VLC for iOS WatchKit App */,
+				DD3567651B6760BF00338947 /* VLC WatchKit Native */,
+				DD3567741B6760BF00338947 /* VLC WatchKit Native Extension */,
 				7D94FCDD16DE7D1000F2623B /* Frameworks */,
 				7D94FCDC16DE7D1000F2623B /* Products */,
 				5BC7EE378D444805CA59B5BA /* Pods */,
@@ -1280,6 +1404,8 @@
 				7D94FCDB16DE7D1000F2623B /* VLC for iOS.app */,
 				4173AEA01ABF1B850004101D /* VLC for iOS WatchKit Extension.appex */,
 				4173AEAB1ABF1B850004101D /* VLC for iOS WatchKit App.app */,
+				DD3567641B6760BF00338947 /* VLC WatchKit App.app */,
+				DD3567701B6760BF00338947 /* VLC WatchKit Extension.appex */,
 			);
 			name = Products;
 			sourceTree = "<group>";
@@ -1613,6 +1739,66 @@
 			name = "External VLC Libraries";
 			sourceTree = "<group>";
 		};
+		DD3567651B6760BF00338947 /* VLC WatchKit Native */ = {
+			isa = PBXGroup;
+			children = (
+				DD3567661B6760BF00338947 /* Interface.storyboard */,
+				DD3567691B6760BF00338947 /* Assets.xcassets */,
+				DD35676B1B6760BF00338947 /* Info.plist */,
+			);
+			path = "VLC WatchKit Native";
+			sourceTree = "<group>";
+		};
+		DD3567741B6760BF00338947 /* VLC WatchKit Native Extension */ = {
+			isa = PBXGroup;
+			children = (
+				DD3567B11B67672600338947 /* Linked from VLCKit */,
+				DD3567D81B6768FC00338947 /* Classes */,
+				DD3567791B6760BF00338947 /* Assets.xcassets */,
+				DD35677B1B6760BF00338947 /* Info.plist */,
+				DD8C8FAE1B676D8500B3C4EE /* VLC WatchKit Extension-Bridging-Header.h */,
+				DDE1BCE41B676B8800A4B9CE /* Localizable.strings */,
+			);
+			path = "VLC WatchKit Native Extension";
+			sourceTree = "<group>";
+		};
+		DD3567B11B67672600338947 /* Linked from VLCKit */ = {
+			isa = PBXGroup;
+			children = (
+				DD3567B51B67675400338947 /* VLCTime.h */,
+				DD3567B31B67674700338947 /* VLCTime.m */,
+			);
+			name = "Linked from VLCKit";
+			sourceTree = "<group>";
+		};
+		DD3567D81B6768FC00338947 /* Classes */ = {
+			isa = PBXGroup;
+			children = (
+				DD3567DD1B6768FC00338947 /* VLC for iOS WatchKit Extension-Prefix.pch */,
+				DD3567D91B6768FC00338947 /* ExtensionDelegate.swift */,
+				DD3567DA1B6768FC00338947 /* InterfaceController.swift */,
+				DD3567DB1B6768FC00338947 /* NSManagedObjectContext+refreshAll.h */,
+				DD3567DC1B6768FC00338947 /* NSManagedObjectContext+refreshAll.m */,
+				DD3567DF1B6768FC00338947 /* VLCBaseInterfaceController.h */,
+				DD3567E01B6768FC00338947 /* VLCBaseInterfaceController.m */,
+				DD3567E11B6768FC00338947 /* VLCDetailInterfaceController.h */,
+				DD3567E21B6768FC00338947 /* VLCDetailInterfaceController.m */,
+				DD3567E31B6768FC00338947 /* VLCNotificationRelay.h */,
+				DD3567E41B6768FC00338947 /* VLCNotificationRelay.m */,
+				DD3567E51B6768FC00338947 /* VLCNowPlayingInterfaceController.h */,
+				DD3567E61B6768FC00338947 /* VLCNowPlayingInterfaceController.m */,
+				DD3567E71B6768FC00338947 /* VLCPlaylistInterfaceController.h */,
+				DD3567E81B6768FC00338947 /* VLCPlaylistInterfaceController.m */,
+				DD3567E91B6768FC00338947 /* VLCRowController.h */,
+				DD3567EA1B6768FC00338947 /* VLCRowController.m */,
+				DD3567EB1B6768FC00338947 /* VLCWatchTableController.h */,
+				DD3567EC1B6768FC00338947 /* VLCWatchTableController.m */,
+				DD3567ED1B6768FC00338947 /* WKInterfaceObject+VLCProgress.h */,
+				DD3567EE1B6768FC00338947 /* WKInterfaceObject+VLCProgress.m */,
+			);
+			path = Classes;
+			sourceTree = "<group>";
+		};
 		DD7110ED1AF38AFD00854776 /* SharedSources */ = {
 			isa = PBXGroup;
 			children = (
@@ -1681,16 +1867,52 @@
 				7D94FCD916DE7D1000F2623B /* Resources */,
 				F2C5CAE560C074258A574B08 /* Copy Pods Resources */,
 				4173AEC21ABF1B860004101D /* Embed App Extensions */,
+				DD3567881B6760BF00338947 /* Embed Watch Content */,
 			);
 			buildRules = (
 			);
 			dependencies = (
 				4173AEB81ABF1B860004101D /* PBXTargetDependency */,
+				DD35677D1B6760BF00338947 /* PBXTargetDependency */,
 			);
 			name = "vlc-ios";
 			productName = AspenProject;
 			productReference = 7D94FCDB16DE7D1000F2623B /* VLC for iOS.app */;
 			productType = "com.apple.product-type.application";
+		};
+		DD3567631B6760BF00338947 /* VLC WatchKit App */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = DD3567871B6760BF00338947 /* Build configuration list for PBXNativeTarget "VLC WatchKit App" */;
+			buildPhases = (
+				DD3567621B6760BF00338947 /* Resources */,
+				DD3567861B6760BF00338947 /* Embed App Extensions */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+				DD3567731B6760BF00338947 /* PBXTargetDependency */,
+			);
+			name = "VLC WatchKit App";
+			productName = watchkitapp;
+			productReference = DD3567641B6760BF00338947 /* VLC WatchKit App.app */;
+			productType = "com.apple.product-type.application.watchapp2";
+		};
+		DD35676F1B6760BF00338947 /* VLC WatchKit Extension */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = DD3567851B6760BF00338947 /* Build configuration list for PBXNativeTarget "VLC WatchKit Extension" */;
+			buildPhases = (
+				DD35676C1B6760BF00338947 /* Sources */,
+				DD35676D1B6760BF00338947 /* Frameworks */,
+				DD35676E1B6760BF00338947 /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+			);
+			name = "VLC WatchKit Extension";
+			productName = "watchkitapp Extension";
+			productReference = DD3567701B6760BF00338947 /* VLC WatchKit Extension.appex */;
+			productType = "com.apple.product-type.watchkit2-extension";
 		};
 /* End PBXNativeTarget section */
 
@@ -1699,6 +1921,7 @@
 			isa = PBXProject;
 			attributes = {
 				CLASSPREFIX = VLC;
+				LastSwiftUpdateCheck = 0700;
 				LastUpgradeCheck = 0700;
 				ORGANIZATIONNAME = VideoLAN;
 				TargetAttributes = {
@@ -1725,6 +1948,13 @@
 								enabled = 1;
 							};
 						};
+					};
+					DD3567631B6760BF00338947 = {
+						CreatedOnToolsVersion = 7.0;
+						DevelopmentTeam = 75GAHG3SZQ;
+					};
+					DD35676F1B6760BF00338947 = {
+						CreatedOnToolsVersion = 7.0;
 					};
 				};
 			};
@@ -1788,6 +2018,8 @@
 				7D94FCDA16DE7D1000F2623B /* vlc-ios */,
 				4173AE9F1ABF1B850004101D /* VLC for iOS WatchKit Extension */,
 				4173AEAA1ABF1B850004101D /* VLC for iOS WatchKit App */,
+				DD35676F1B6760BF00338947 /* VLC WatchKit Extension */,
+				DD3567631B6760BF00338947 /* VLC WatchKit App */,
 			);
 		};
 /* End PBXProject section */
@@ -1878,6 +2110,25 @@
 				7D63C1991877504B00BD5256 /* VLCFirstStepsSixthPageViewController~ipad.xib in Resources */,
 				7DF04F4D1961F2B8004A5429 /* web-download-fixed.png in Resources */,
 				7D89786F185DED88009BAB5D /* VLCDownloadViewController.xib in Resources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		DD3567621B6760BF00338947 /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				DD35676A1B6760BF00338947 /* Assets.xcassets in Resources */,
+				DD3567681B6760BF00338947 /* Interface.storyboard in Resources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		DD35676E1B6760BF00338947 /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				DD35677A1B6760BF00338947 /* Assets.xcassets in Resources */,
+				DD1A45FD1B676BAC00086F57 /* Localizable.strings in Resources */,
+				DD3568101B676A0700338947 /* Info.plist in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -2068,6 +2319,25 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
+		DD35676C1B6760BF00338947 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				DD3567F91B6768FC00338947 /* WKInterfaceObject+VLCProgress.m in Sources */,
+				DD3567F11B6768FC00338947 /* NSManagedObjectContext+refreshAll.m in Sources */,
+				DD3567F01B6768FC00338947 /* InterfaceController.swift in Sources */,
+				DD3567EF1B6768FC00338947 /* ExtensionDelegate.swift in Sources */,
+				DD3567F81B6768FC00338947 /* VLCWatchTableController.m in Sources */,
+				DD3567F61B6768FC00338947 /* VLCPlaylistInterfaceController.m in Sources */,
+				DD3567F31B6768FC00338947 /* VLCDetailInterfaceController.m in Sources */,
+				DD3567F71B6768FC00338947 /* VLCRowController.m in Sources */,
+				DD3567F21B6768FC00338947 /* VLCBaseInterfaceController.m in Sources */,
+				DD3567B41B67674700338947 /* VLCTime.m in Sources */,
+				DD3567F41B6768FC00338947 /* VLCNotificationRelay.m in Sources */,
+				DD3567F51B6768FC00338947 /* VLCNowPlayingInterfaceController.m in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 /* End PBXSourcesBuildPhase section */
 
 /* Begin PBXTargetDependency section */
@@ -2080,6 +2350,16 @@
 			isa = PBXTargetDependency;
 			target = 4173AE9F1ABF1B850004101D /* VLC for iOS WatchKit Extension */;
 			targetProxy = 4173AEB71ABF1B860004101D /* PBXContainerItemProxy */;
+		};
+		DD3567731B6760BF00338947 /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = DD35676F1B6760BF00338947 /* VLC WatchKit Extension */;
+			targetProxy = DD3567721B6760BF00338947 /* PBXContainerItemProxy */;
+		};
+		DD35677D1B6760BF00338947 /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = DD3567631B6760BF00338947 /* VLC WatchKit App */;
+			targetProxy = DD35677C1B6760BF00338947 /* PBXContainerItemProxy */;
 		};
 /* End PBXTargetDependency section */
 
@@ -2164,6 +2444,38 @@
 				7D685AA41AAF7472006CD82A /* pt-PT */,
 				7D685AA91AAF7488006CD82A /* pt-BR */,
 				7D685AAE1AAF74F9006CD82A /* sr-Latn */,
+			);
+			name = Localizable.strings;
+			sourceTree = "<group>";
+		};
+		DD3567661B6760BF00338947 /* Interface.storyboard */ = {
+			isa = PBXVariantGroup;
+			children = (
+				DD3567671B6760BF00338947 /* Base */,
+			);
+			name = Interface.storyboard;
+			sourceTree = "<group>";
+		};
+		DDE1BCE41B676B8800A4B9CE /* Localizable.strings */ = {
+			isa = PBXVariantGroup;
+			children = (
+				DDE1BCE51B676B8800A4B9CE /* tr */,
+				DD1A45FC1B676BAC00086F57 /* ru */,
+				DD8C8F9F1B676C0900B3C4EE /* zh-Hans */,
+				DD8C8FA01B676C0F00B3C4EE /* fi */,
+				DD8C8FA11B676C1700B3C4EE /* el */,
+				DD8C8FA21B676C1D00B3C4EE /* ta */,
+				DD8C8FA31B676C2200B3C4EE /* fr */,
+				DD8C8FA41B676C2700B3C4EE /* sv */,
+				DD8C8FA51B676C2C00B3C4EE /* da */,
+				DD8C8FA61B676C3100B3C4EE /* uk */,
+				DD8C8FA71B676C4700B3C4EE /* pt-PT */,
+				DD8C8FA81B676C6000B3C4EE /* es */,
+				DD8C8FA91B676C6600B3C4EE /* de */,
+				DD8C8FAA1B676C6C00B3C4EE /* it */,
+				DD8C8FAB1B676C7700B3C4EE /* nl */,
+				DD8C8FAC1B676C8A00B3C4EE /* ja */,
+				DD8C8FAD1B676C9200B3C4EE /* en */,
 			);
 			name = Localizable.strings;
 			sourceTree = "<group>";
@@ -2659,6 +2971,231 @@
 			};
 			name = Distribution;
 		};
+		DD35677F1B6760BF00338947 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				CLANG_ENABLE_MODULES = YES;
+				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_WARN_BOOL_CONVERSION = YES;
+				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
+				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_UNREACHABLE_CODE = YES;
+				CODE_SIGN_IDENTITY = "iPhone Developer";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
+				DEBUG_INFORMATION_FORMAT = dwarf;
+				EMBEDDED_CONTENT_CONTAINS_SWIFT = YES;
+				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				GCC_NO_COMMON_BLOCKS = YES;
+				GCC_OPTIMIZATION_LEVEL = 0;
+				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
+				GCC_WARN_UNDECLARED_SELECTOR = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
+				GCC_WARN_UNUSED_FUNCTION = YES;
+				IBSC_MODULE = watchkitapp_Extension;
+				INFOPLIST_FILE = watchkitapp/Info.plist;
+				MTL_ENABLE_DEBUG_INFO = YES;
+				PRODUCT_BUNDLE_IDENTIFIER = "org.videolan.vlc-ios.watchkitapp";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SDKROOT = watchos;
+				SKIP_INSTALL = YES;
+				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
+				TARGETED_DEVICE_FAMILY = 4;
+				WATCHOS_DEPLOYMENT_TARGET = 2.0;
+			};
+			name = Debug;
+		};
+		DD3567801B6760BF00338947 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				CLANG_ENABLE_MODULES = YES;
+				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_WARN_BOOL_CONVERSION = YES;
+				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
+				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_UNREACHABLE_CODE = YES;
+				CODE_SIGN_IDENTITY = "iPhone Developer";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
+				COPY_PHASE_STRIP = NO;
+				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
+				EMBEDDED_CONTENT_CONTAINS_SWIFT = YES;
+				ENABLE_NS_ASSERTIONS = NO;
+				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				GCC_NO_COMMON_BLOCKS = YES;
+				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
+				GCC_WARN_UNDECLARED_SELECTOR = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
+				GCC_WARN_UNUSED_FUNCTION = YES;
+				IBSC_MODULE = watchkitapp_Extension;
+				INFOPLIST_FILE = watchkitapp/Info.plist;
+				MTL_ENABLE_DEBUG_INFO = NO;
+				PRODUCT_BUNDLE_IDENTIFIER = "org.videolan.vlc-ios.watchkitapp";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SDKROOT = watchos;
+				SKIP_INSTALL = YES;
+				TARGETED_DEVICE_FAMILY = 4;
+				WATCHOS_DEPLOYMENT_TARGET = 2.0;
+			};
+			name = Release;
+		};
+		DD3567811B6760BF00338947 /* Distribution */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				CLANG_ENABLE_MODULES = YES;
+				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_WARN_BOOL_CONVERSION = YES;
+				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
+				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_UNREACHABLE_CODE = YES;
+				CODE_SIGN_IDENTITY = "iPhone Developer";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
+				COPY_PHASE_STRIP = NO;
+				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
+				EMBEDDED_CONTENT_CONTAINS_SWIFT = YES;
+				ENABLE_NS_ASSERTIONS = NO;
+				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				GCC_NO_COMMON_BLOCKS = YES;
+				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
+				GCC_WARN_UNDECLARED_SELECTOR = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
+				GCC_WARN_UNUSED_FUNCTION = YES;
+				IBSC_MODULE = watchkitapp_Extension;
+				INFOPLIST_FILE = watchkitapp/Info.plist;
+				MTL_ENABLE_DEBUG_INFO = NO;
+				PRODUCT_BUNDLE_IDENTIFIER = "org.videolan.vlc-ios.watchkitapp";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SDKROOT = watchos;
+				SKIP_INSTALL = YES;
+				TARGETED_DEVICE_FAMILY = 4;
+				WATCHOS_DEPLOYMENT_TARGET = 2.0;
+			};
+			name = Distribution;
+		};
+		DD3567821B6760BF00338947 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				CLANG_ENABLE_MODULES = YES;
+				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_WARN_BOOL_CONVERSION = YES;
+				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
+				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_UNREACHABLE_CODE = YES;
+				DEBUG_INFORMATION_FORMAT = dwarf;
+				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				GCC_NO_COMMON_BLOCKS = YES;
+				GCC_OPTIMIZATION_LEVEL = 0;
+				GCC_PRECOMPILE_PREFIX_HEADER = YES;
+				GCC_PREFIX_HEADER = "VLC for iOS WatchKit Extension/VLC for iOS WatchKit Extension-Prefix.pch";
+				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
+				GCC_WARN_UNDECLARED_SELECTOR = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
+				GCC_WARN_UNUSED_FUNCTION = YES;
+				HEADER_SEARCH_PATHS = (
+					"$(inherited)",
+					/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/include,
+					"$(SRCROOT)/ImportedSources/VLCKit/Headers/Public",
+					"$(SRCROOT)/ImportedSources/MediaLibraryKit/Headers/Public",
+				);
+				INFOPLIST_FILE = "watchkitapp Extension/Info.plist";
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @executable_path/../../Frameworks";
+				MTL_ENABLE_DEBUG_INFO = YES;
+				PRODUCT_BUNDLE_IDENTIFIER = "org.videolan.vlc-ios.watchkitapp.watchkitextension";
+				PRODUCT_NAME = "${TARGET_NAME}";
+				SDKROOT = watchos;
+				SKIP_INSTALL = YES;
+				SWIFT_OBJC_BRIDGING_HEADER = "VLC WatchKit Native Extension/VLC WatchKit Extension-Bridging-Header.h";
+				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
+				TARGETED_DEVICE_FAMILY = 4;
+				WATCHOS_DEPLOYMENT_TARGET = 2.0;
+			};
+			name = Debug;
+		};
+		DD3567831B6760BF00338947 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				CLANG_ENABLE_MODULES = YES;
+				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_WARN_BOOL_CONVERSION = YES;
+				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
+				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_UNREACHABLE_CODE = YES;
+				COPY_PHASE_STRIP = NO;
+				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
+				ENABLE_NS_ASSERTIONS = NO;
+				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				GCC_NO_COMMON_BLOCKS = YES;
+				GCC_PRECOMPILE_PREFIX_HEADER = YES;
+				GCC_PREFIX_HEADER = "VLC for iOS WatchKit Extension/VLC for iOS WatchKit Extension-Prefix.pch";
+				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
+				GCC_WARN_UNDECLARED_SELECTOR = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
+				GCC_WARN_UNUSED_FUNCTION = YES;
+				HEADER_SEARCH_PATHS = (
+					"$(inherited)",
+					/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/include,
+					"$(SRCROOT)/ImportedSources/VLCKit/Headers/Public",
+					"$(SRCROOT)/ImportedSources/MediaLibraryKit/Headers/Public",
+				);
+				INFOPLIST_FILE = "watchkitapp Extension/Info.plist";
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @executable_path/../../Frameworks";
+				MTL_ENABLE_DEBUG_INFO = NO;
+				PRODUCT_BUNDLE_IDENTIFIER = "org.videolan.vlc-ios.watchkitapp.watchkitextension";
+				PRODUCT_NAME = "${TARGET_NAME}";
+				SDKROOT = watchos;
+				SKIP_INSTALL = YES;
+				SWIFT_OBJC_BRIDGING_HEADER = "VLC WatchKit Native Extension/VLC WatchKit Extension-Bridging-Header.h";
+				TARGETED_DEVICE_FAMILY = 4;
+				WATCHOS_DEPLOYMENT_TARGET = 2.0;
+			};
+			name = Release;
+		};
+		DD3567841B6760BF00338947 /* Distribution */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				CLANG_ENABLE_MODULES = YES;
+				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_WARN_BOOL_CONVERSION = YES;
+				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
+				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_UNREACHABLE_CODE = YES;
+				COPY_PHASE_STRIP = NO;
+				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
+				ENABLE_NS_ASSERTIONS = NO;
+				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				GCC_NO_COMMON_BLOCKS = YES;
+				GCC_PRECOMPILE_PREFIX_HEADER = YES;
+				GCC_PREFIX_HEADER = "VLC for iOS WatchKit Extension/VLC for iOS WatchKit Extension-Prefix.pch";
+				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
+				GCC_WARN_UNDECLARED_SELECTOR = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
+				GCC_WARN_UNUSED_FUNCTION = YES;
+				HEADER_SEARCH_PATHS = (
+					"$(inherited)",
+					/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/include,
+					"$(SRCROOT)/ImportedSources/VLCKit/Headers/Public",
+					"$(SRCROOT)/ImportedSources/MediaLibraryKit/Headers/Public",
+				);
+				INFOPLIST_FILE = "watchkitapp Extension/Info.plist";
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @executable_path/../../Frameworks";
+				MTL_ENABLE_DEBUG_INFO = NO;
+				PRODUCT_BUNDLE_IDENTIFIER = "org.videolan.vlc-ios.watchkitapp.watchkitextension";
+				PRODUCT_NAME = "${TARGET_NAME}";
+				SDKROOT = watchos;
+				SKIP_INSTALL = YES;
+				SWIFT_OBJC_BRIDGING_HEADER = "VLC WatchKit Native Extension/VLC WatchKit Extension-Bridging-Header.h";
+				TARGETED_DEVICE_FAMILY = 4;
+				WATCHOS_DEPLOYMENT_TARGET = 2.0;
+			};
+			name = Distribution;
+		};
 /* End XCBuildConfiguration section */
 
 /* Begin XCConfigurationList section */
@@ -2698,6 +3235,26 @@
 				7D94FD0B16DE7D1100F2623B /* Debug */,
 				7D94FD0C16DE7D1100F2623B /* Release */,
 				A7035BC0174519E40057DFA7 /* Distribution */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		DD3567851B6760BF00338947 /* Build configuration list for PBXNativeTarget "VLC WatchKit Extension" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				DD3567821B6760BF00338947 /* Debug */,
+				DD3567831B6760BF00338947 /* Release */,
+				DD3567841B6760BF00338947 /* Distribution */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		DD3567871B6760BF00338947 /* Build configuration list for PBXNativeTarget "VLC WatchKit App" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				DD35677F1B6760BF00338947 /* Debug */,
+				DD3567801B6760BF00338947 /* Release */,
+				DD3567811B6760BF00338947 /* Distribution */,
 			);
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;

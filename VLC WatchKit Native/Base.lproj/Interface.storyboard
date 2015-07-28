@@ -1,0 +1,194 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<document type="com.apple.InterfaceBuilder.WatchKit.Storyboard" version="3.0" toolsVersion="8164.2" systemVersion="14E46" targetRuntime="watchKit" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" initialViewController="8Kw-Vw-M31">
+    <dependencies>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="8135.1"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBWatchKitPlugin" version="8083.2"/>
+    </dependencies>
+    <scenes>
+        <!--nowPlaying-->
+        <scene sceneID="5SR-5f-CHg">
+            <objects>
+                <controller identifier="nowPlaying" id="wXp-wP-Bbn" customClass="VLCNowPlayingInterfaceController">
+                    <items>
+                        <group width="1" height="1" heightAdjustment="-2" alignment="left" verticalAlignment="center" contentMode="scaleAspectFit" layout="vertical" id="q2L-GO-rtM">
+                            <items>
+                                <group width="1" height="1" heightAdjustment="-55" alignment="left" contentMode="scaleAspectFit" layout="vertical" id="z5I-mo-Bub">
+                                    <items>
+                                        <group width="1" height="45" alignment="center" verticalAlignment="center" spacing="0.0" id="R30-tL-swB">
+                                            <items>
+                                                <button alignment="center" verticalAlignment="center" accessibilityLabel="backward" id="D9t-yh-TGk">
+                                                    <group key="contentGroup" width="0.29999999999999999" height="1" alignment="left" backgroundImage="backward" contentMode="center" id="b6R-Z3-p9V"/>
+                                                    <connections>
+                                                        <action selector="skipBackward" destination="wXp-wP-Bbn" id="Int-qZ-fgC"/>
+                                                    </connections>
+                                                </button>
+                                                <button alignment="center" verticalAlignment="center" accessibilityLabel="play / pause" accessibilityHint="starts playing or pauses the current playback" id="3x6-ox-bnK">
+                                                    <group key="contentGroup" width="0.30000000000000004" height="1" alignment="left" backgroundImage="play" contentMode="center" id="4od-0P-P26"/>
+                                                    <connections>
+                                                        <action selector="playPausePressed" destination="wXp-wP-Bbn" id="Cl7-Q1-FND"/>
+                                                    </connections>
+                                                </button>
+                                                <button alignment="center" verticalAlignment="center" accessibilityLabel="forward" id="k1c-4V-CVV">
+                                                    <group key="contentGroup" width="0.29999999999999999" height="1" alignment="left" backgroundImage="forward" contentMode="center" id="DoH-0p-k2x"/>
+                                                    <connections>
+                                                        <action selector="skipForward" destination="wXp-wP-Bbn" id="gv7-b6-Btn"/>
+                                                    </connections>
+                                                </button>
+                                            </items>
+                                        </group>
+                                    </items>
+                                    <variation key="device=watch42mm" heightAdjustment="-60"/>
+                                </group>
+                                <slider width="1" alignment="left" verticalAlignment="bottom" continuous="YES" value="0.5" steps="16" id="uYe-jt-MWv">
+                                    <color key="color" red="1" green="0.50196081400000003" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
+                                    <connections>
+                                        <action selector="volumeSliderChanged:" destination="wXp-wP-Bbn" id="QlO-NP-xGb"/>
+                                    </connections>
+                                </slider>
+                                <group width="1" alignment="left" verticalAlignment="bottom" id="lds-Ir-4BZ">
+                                    <items>
+                                        <label width="100" alignment="left" verticalAlignment="bottom" text="title" id="gzb-lW-3d6">
+                                            <fontDescription key="font" type="system" pointSize="14"/>
+                                        </label>
+                                        <label alignment="right" verticalAlignment="bottom" accessibilityLabel="playback duration" text="duration" id="YZ5-DZ-LtT">
+                                            <color key="textColor" white="0.66666666666666663" alpha="1" colorSpace="calibratedWhite"/>
+                                            <fontDescription key="font" style="UICTFontTextStyleFootnote"/>
+                                        </label>
+                                    </items>
+                                </group>
+                            </items>
+                            <edgeInsets key="margins" left="1" right="1" top="0.0" bottom="0.0"/>
+                        </group>
+                        <group width="1" height="2" alignment="left" verticalAlignment="bottom" radius="0.0" spacing="0.0" id="SBq-Xe-PWO" userLabel="progress Group">
+                            <color key="backgroundColor" red="0.92549019610000005" green="0.43529411759999997" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
+                        </group>
+                    </items>
+                    <edgeInsets key="margins" left="0.0" right="0.0" top="0.0" bottom="0.0"/>
+                    <connections>
+                        <outlet property="durationLabel" destination="YZ5-DZ-LtT" id="Dh3-Vp-xzF"/>
+                        <outlet property="playElementsGroup" destination="q2L-GO-rtM" id="Fxc-ad-7r6"/>
+                        <outlet property="playPauseButton" destination="3x6-ox-bnK" id="AMc-Yd-Rbb"/>
+                        <outlet property="playPauseButtonGroup" destination="4od-0P-P26" id="9mH-eZ-YKp"/>
+                        <outlet property="progressObject" destination="SBq-Xe-PWO" id="0Cf-pw-QZe"/>
+                        <outlet property="skipBackwardButton" destination="D9t-yh-TGk" id="K0y-TI-Kit"/>
+                        <outlet property="skipForwardButton" destination="k1c-4V-CVV" id="BVN-sa-MUa"/>
+                        <outlet property="titleLabel" destination="gzb-lW-3d6" id="8MQ-Tj-6bC"/>
+                        <outlet property="volumeSlider" destination="uYe-jt-MWv" id="OQr-y7-imh"/>
+                    </connections>
+                </controller>
+            </objects>
+            <point key="canvasLocation" x="373" y="483"/>
+        </scene>
+        <!--detailInfo-->
+        <scene sceneID="Zh3-F7-pab">
+            <objects>
+                <controller identifier="detailInfo" id="hnG-Kr-aOH" customClass="VLCDetailInterfaceController">
+                    <items>
+                        <group width="1" height="100" alignment="left" layout="vertical" id="KLa-8Q-ZjO">
+                            <items>
+                                <group alignment="center" verticalAlignment="center" radius="20" id="cWe-n0-qzZ">
+                                    <items>
+                                        <button width="40" height="40" alignment="center" verticalAlignment="center" title="▶︎" enabled="NO" id="wQV-jM-QFL">
+                                            <accessibilityTraits key="accessibilityTraits" button="YES" playsSound="YES"/>
+                                            <color key="titleColor" red="0.92549019610000005" green="0.43529411759999997" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
+                                            <color key="backgroundColor" red="1" green="1" blue="1" alpha="0.40000000000000002" colorSpace="calibratedRGB"/>
+                                            <connections>
+                                                <action selector="playNow" destination="hnG-Kr-aOH" id="C4n-rC-4JI"/>
+                                            </connections>
+                                        </button>
+                                    </items>
+                                </group>
+                            </items>
+                        </group>
+                        <group width="1" height="2" alignment="left" verticalAlignment="center" radius="0.0" spacing="0.0" id="4lu-Rs-hJN" userLabel="progress Group">
+                            <color key="backgroundColor" red="0.92549019610000005" green="0.43529411759999997" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
+                        </group>
+                        <label alignment="left" verticalAlignment="bottom" text="title" textAlignment="left" numberOfLines="0" id="mQk-aM-hhz">
+                            <fontDescription key="font" style="UICTFontTextStyleCaption1"/>
+                        </label>
+                        <group width="1" alignment="left" verticalAlignment="bottom" layout="vertical" id="8mT-uG-qbw">
+                            <items>
+                                <label alignment="left" verticalAlignment="bottom" text="duration" id="PK7-sh-qfO">
+                                    <fontDescription key="font" type="italicSystem" pointSize="14"/>
+                                </label>
+                            </items>
+                        </group>
+                    </items>
+                    <connections>
+                        <outlet property="durationLabel" destination="PK7-sh-qfO" id="5qZ-4C-Ohl"/>
+                        <outlet property="group" destination="KLa-8Q-ZjO" id="KUP-in-n5M"/>
+                        <outlet property="playNowButton" destination="wQV-jM-QFL" id="c7X-No-nuA"/>
+                        <outlet property="progressObject" destination="4lu-Rs-hJN" id="wkt-PE-oqe"/>
+                        <outlet property="titleLabel" destination="mQk-aM-hhz" id="UfX-qP-U1h"/>
+                    </connections>
+                </controller>
+            </objects>
+            <point key="canvasLocation" x="497" y="222"/>
+        </scene>
+        <!--tableViewController-->
+        <scene sceneID="36c-U0-xsi">
+            <objects>
+                <controller identifier="tableViewController" id="8Kw-Vw-M31" customClass="VLCPlaylistInterfaceController">
+                    <items>
+                        <button width="1" alignment="left" title="︿" id="6Cs-sA-OnZ">
+                            <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
+                            <connections>
+                                <action selector="previousPagePressed" destination="8Kw-Vw-M31" id="Er3-bh-pa7"/>
+                            </connections>
+                        </button>
+                        <table alignment="left" id="DD3-78-CbV">
+                            <items>
+                                <tableRow identifier="mediaRow" id="j6m-XM-kdB" customClass="VLCRowController">
+                                    <group key="rootItem" width="1" height="60" alignment="left" contentMode="scaleAspectFill" layout="vertical" radius="5" spacing="0.0" id="9aa-8p-fGY">
+                                        <items>
+                                            <group width="1" height="1" heightAdjustment="-2" alignment="left" contentMode="scaleAspectFill" layout="vertical" id="bb7-G9-ggT">
+                                                <items>
+                                                    <label alignment="left" text="title" minimumScaleFactor="0.90000000000000002" id="UnX-S3-Jsk">
+                                                        <fontDescription key="font" style="UICTFontTextStyleCaption2"/>
+                                                    </label>
+                                                </items>
+                                                <edgeInsets key="margins" left="5" right="5" top="5" bottom="5"/>
+                                            </group>
+                                            <group width="1" widthAdjustment="11" height="2" alignment="left" verticalAlignment="bottom" radius="0.0" spacing="0.0" id="Jsb-rc-gPm" userLabel="progress Group">
+                                                <color key="backgroundColor" red="0.92549019610000005" green="0.43529411759999997" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
+                                            </group>
+                                        </items>
+                                        <color key="backgroundColor" red="0.76862745099999996" green="0.74901960779999999" blue="0.75686274509999996" alpha="1" colorSpace="calibratedRGB"/>
+                                        <edgeInsets key="margins" left="0.0" right="0.0" top="0.0" bottom="0.0"/>
+                                    </group>
+                                    <connections>
+                                        <outlet property="group" destination="9aa-8p-fGY" id="rUd-O5-OJC"/>
+                                        <outlet property="progressObject" destination="Jsb-rc-gPm" id="eAc-r5-ckq"/>
+                                        <outlet property="titleLabel" destination="UnX-S3-Jsk" id="I1x-GA-6z1"/>
+                                    </connections>
+                                </tableRow>
+                            </items>
+                        </table>
+                        <button width="1" alignment="left" title="﹀" id="N06-Yc-JEB">
+                            <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
+                            <connections>
+                                <action selector="nextPagePressed" destination="8Kw-Vw-M31" id="wr5-X0-iIi"/>
+                            </connections>
+                        </button>
+                        <group width="1" alignment="left" hidden="YES" layout="vertical" id="xpI-vG-uo1">
+                            <items>
+                                <imageView alignment="center" image="vlcCone" contentMode="scaleAspectFit" id="GuW-9p-Ed6"/>
+                                <label width="1" alignment="center" textAlignment="center" numberOfLines="0" id="FqM-Wy-AKa">
+                                    <fontDescription key="font" style="UICTFontTextStyleHeadline"/>
+                                </label>
+                            </items>
+                        </group>
+                    </items>
+                    <connections>
+                        <outlet property="emptyLibraryGroup" destination="xpI-vG-uo1" id="d6N-Z8-GlC"/>
+                        <outlet property="emptyLibraryLabel" destination="FqM-Wy-AKa" id="iad-B7-MET"/>
+                        <outlet property="nextButton" destination="N06-Yc-JEB" id="yTF-m8-PND"/>
+                        <outlet property="previousButton" destination="6Cs-sA-OnZ" id="S0M-cO-f1H"/>
+                        <outlet property="table" destination="DD3-78-CbV" id="y6W-Wb-tgc"/>
+                    </connections>
+                </controller>
+            </objects>
+            <point key="canvasLocation" x="221" y="216"/>
+        </scene>
+    </scenes>
+</document>
