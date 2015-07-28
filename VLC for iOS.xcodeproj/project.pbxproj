@@ -1160,8 +1160,6 @@
 				7D378498183A98D1009EE944 /* VLCLibraryViewController.m */,
 				8F91EC77195CEC7900F5BCBA /* VLCOpenInActivity.h */,
 				8F91EC78195CEC7900F5BCBA /* VLCOpenInActivity.m */,
-				7D37849C183A98DD009EE944 /* VLCThumbnailsCache.h */,
-				7D37849D183A98DD009EE944 /* VLCThumbnailsCache.m */,
 			);
 			name = "Everything Playlist";
 			sourceTree = "<group>";
@@ -1618,6 +1616,8 @@
 		DD7110ED1AF38AFD00854776 /* SharedSources */ = {
 			isa = PBXGroup;
 			children = (
+				7D37849C183A98DD009EE944 /* VLCThumbnailsCache.h */,
+				7D37849D183A98DD009EE944 /* VLCThumbnailsCache.m */,
 				DD7110EE1AF38B2B00854776 /* MLMediaLibrary+playlist.h */,
 				DD7110EF1AF38B2B00854776 /* MLMediaLibrary+playlist.m */,
 				DD3EA62F1AF50CFE007FF096 /* VLCWatchMessage.h */,
