@@ -30,6 +30,3 @@
 #else
 #define APLog(format, ...)
 #endif
-
-#define SYSTEM_VERSION_GREATER_THAN_OR_EQUAL_TO(v)  ([[UIDevice currentDevice] systemVersion].floatValue >= [v floatValue])
-#define SYSTEM_RUNS_IOS82_OR_LATER SYSTEM_VERSION_GREATER_THAN_OR_EQUAL_TO(@"8.2")
