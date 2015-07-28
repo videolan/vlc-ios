@@ -65,7 +65,7 @@ static VLCWatchCommunication *_singeltonInstance = nil;
     [vpc playMediaLibraryObject:managedObject];
 }
 
-- (void)session:(nonnull WCSession *)session didReceiveMessage:(nonnull NSDictionary<NSString *,id> *)userInfo replyHandler:(nonnull void (^)(NSDictionary<NSString *,id> * _Nonnull))replyHandler {
+- (NSDictionary *)handleMessage:(nonnull VLCWatchMessage *)message {
     UIApplication *application = [UIApplication sharedApplication];
     /* dispatch background task */
     __block UIBackgroundTaskIdentifier taskIdentifier = [application beginBackgroundTaskWithName:nil
@@ -74,9 +74,8 @@ static VLCWatchCommunication *_singeltonInstance = nil;
                                                                                    taskIdentifier = UIBackgroundTaskInvalid;
                                                                                }];
 
-    VLCWatchMessage *message = [[VLCWatchMessage alloc] initWithDictionary:userInfo];
     NSString *name = message.name;
-    NSDictionary *responseDict = nil;
+    NSDictionary *responseDict = @{};
     if ([name isEqualToString:VLCWatchMessageNameGetNowPlayingInfo]) {
         responseDict = [self nowPlayingResponseDict];
     } else if ([name isEqualToString:VLCWatchMessageNamePlayPause]) {
@@ -91,9 +90,20 @@ static VLCWatchCommunication *_singeltonInstance = nil;
     } else if ([name isEqualToString:VLCWatchMessageNameSetVolume]) {
         [self setVolumeFromWatch:message];
     } else {
-        APLog(@"Did not handle request from WatchKit Extension: %@",userInfo);
+        APLog(@"Did not handle request from WatchKit Extension: %@",message);
     }
+    return responseDict;
+}
+
+- (void)session:(nonnull WCSession *)session didReceiveMessage:(nonnull NSDictionary<NSString *,id> *)userInfo replyHandler:(nonnull void (^)(NSDictionary<NSString *,id> * _Nonnull))replyHandler {
+    VLCWatchMessage *message = [[VLCWatchMessage alloc] initWithDictionary:userInfo];
+    NSDictionary *responseDict = [self handleMessage:message];
     replyHandler(responseDict);
+}
+
+- (void)session:(nonnull WCSession *)session didReceiveMessage:(nonnull NSDictionary<NSString *,id> *)messageDict {
+    VLCWatchMessage *message = [[VLCWatchMessage alloc] initWithDictionary:messageDict];
+    [self handleMessage:message];
 }
 
 
@@ -138,10 +148,14 @@ static VLCWatchCommunication *_singeltonInstance = nil;
     [[NSNotificationCenter defaultCenter] removeObserver:self name:name object:object];
 }
 - (void)relayNotification:(NSNotification *)notification {
+
+    NSMutableDictionary *payload = [NSMutableDictionary dictionary];
+    payload[@"name"] = notification.name;
+    if (notification.userInfo) {
+        payload[@"userInfo"] = notification.userInfo;
+    }
     NSDictionary *dict = [VLCWatchMessage messageDictionaryForName:VLCWatchMessageNameNotification
-                                                           payload:@{@"name" : notification.name,
-                                                                     @"userInfo" : notification.userInfo
-                                                                     }];
+                                                           payload:payload];
     if ([WCSession isSupported] && [[WCSession defaultSession] isReachable]) {
         [[WCSession defaultSession] sendMessage:dict replyHandler:nil errorHandler:nil];
     }
