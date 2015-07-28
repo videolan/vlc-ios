@@ -92,7 +92,6 @@
 		7D2AC5D11B67746700A8D9DD /* LiveAuthDialog_iPhone.xib in Resources */ = {isa = PBXBuildFile; fileRef = 7D2AC5CF1B67746700A8D9DD /* LiveAuthDialog_iPhone.xib */; };
 		7D2D4ECC1ACFFA42006A8DBD /* Localizable.strings in Resources */ = {isa = PBXBuildFile; fileRef = 7D2D4ECE1ACFFA42006A8DBD /* Localizable.strings */; };
 		7D2DF7BB1B67753E00FB78AB /* libMediaLibraryKit-readonly.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 7D2DF7BA1B67753E00FB78AB /* libMediaLibraryKit-readonly.a */; };
-		7D2DF7BD1B67756E00FB78AB /* libMobileVLCKit.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 7D2DF7BC1B67756E00FB78AB /* libMobileVLCKit.a */; };
 		7D2DF7BF1B67757700FB78AB /* libMediaLibraryKit.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 7D2DF7BE1B67757700FB78AB /* libMediaLibraryKit.a */; };
 		7D2DF7C11B67760100FB78AB /* libGTLTouchStaticLib.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 7D2DF7C01B67760100FB78AB /* libGTLTouchStaticLib.a */; };
 		7D30F3C2183AB24C00FFC021 /* VLCHTTPConnection.m in Sources */ = {isa = PBXBuildFile; fileRef = 7D30F3BD183AB24C00FFC021 /* VLCHTTPConnection.m */; };
@@ -762,7 +761,6 @@
 			files = (
 				7D2DF7C11B67760100FB78AB /* libGTLTouchStaticLib.a in Frameworks */,
 				7D2DF7BF1B67757700FB78AB /* libMediaLibraryKit.a in Frameworks */,
-				7D2DF7BD1B67756E00FB78AB /* libMobileVLCKit.a in Frameworks */,
 				7D2AC5CD1B67737C00A8D9DD /* libLiveSDK-static.a in Frameworks */,
 				7D4DF2181B55209200739326 /* CoreSpotlight.framework in Frameworks */,
 				7D84E4C91B41ABCE00EA7D1F /* CoreMedia.framework in Frameworks */,
