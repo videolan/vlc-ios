@@ -21,7 +21,6 @@
  * THE SOFTWARE. */
 
 #import <Accelerate/Accelerate.h>
-#import "VLC for iOS-Prefix.pch"
 
 @implementation UIImage (Blur)
 

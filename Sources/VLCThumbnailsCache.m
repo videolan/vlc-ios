@@ -13,12 +13,13 @@
  * Refer to the COPYING file of the official project for license.
  *****************************************************************************/
 
-#import "VLC for iOS-Prefix.pch"
 #import "VLCThumbnailsCache.h"
 #import <CommonCrypto/CommonDigest.h>
 #import "UIImage+Blur.h"
 #import "UIImage+Scaling.h"
 #import <WatchKit/WatchKit.h>
+#import <CoreData/CoreData.h>
+#import <MediaLibraryKit/MediaLibraryKit.h>
 
 @interface VLCThumbnailsCache() {
     NSInteger MaxCacheSize;

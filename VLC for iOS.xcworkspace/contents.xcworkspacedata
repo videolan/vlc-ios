@@ -11,10 +11,10 @@
       location = "group:ImportedSources/VLCKit/MobileVLCKit.xcodeproj">
    </FileRef>
    <FileRef
-      location = "group:ImportedSources/OneDrive/src/LiveSDK.xcodeproj">
+      location = "group:ImportedSources/GDrive/GTL.xcodeproj">
    </FileRef>
    <FileRef
-      location = "group:ImportedSources/GDrive/GTL.xcodeproj">
+      location = "group:ImportedSources/OneDrive/src/LiveSDK.xcodeproj">
    </FileRef>
    <FileRef
       location = "group:Pods/Pods.xcodeproj">

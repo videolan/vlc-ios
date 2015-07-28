@@ -21,22 +21,8 @@
     #import <Foundation/Foundation.h>
 #endif
 
-#import "VLCAudio.h"
-#import "VLCLibrary.h"
-#import "VLCMedia.h"
-#import "VLCMediaDiscoverer.h"
-#import "VLCMediaList.h"
-#import "VLCMediaPlayer.h"
-#import "VLCMediaListPlayer.h"
-#import "VLCMediaThumbnailer.h"
-#import "VLCTime.h"
-#import "MLFile.h"
-#import "MLLabel.h"
-#import "MLMediaLibrary.h"
-#import "MLShow.h"
-#import "MLShowEpisode.h"
-#import "MLAlbum.h"
-#import "MLAlbumTrack.h"
+#import <MediaLibraryKit/MediaLibraryKit.h>
+
 #import "VLCConstants.h"
 
 #ifndef NDEBUG
@@ -44,3 +30,6 @@
 #else
 #define APLog(format, ...)
 #endif
+
+#define SYSTEM_VERSION_GREATER_THAN_OR_EQUAL_TO(v)  ([[UIDevice currentDevice] systemVersion].floatValue >= [v floatValue])
+#define SYSTEM_RUNS_IOS82_OR_LATER SYSTEM_VERSION_GREATER_THAN_OR_EQUAL_TO(@"8.2")
