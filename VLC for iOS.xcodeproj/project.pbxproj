@@ -85,7 +85,6 @@
 		7D2DF7BF1B67757700FB78AB /* libMediaLibraryKit.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 7D2DF7BE1B67757700FB78AB /* libMediaLibraryKit.a */; };
 		7D2DF7C11B67760100FB78AB /* libGTLTouchStaticLib.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 7D2DF7C01B67760100FB78AB /* libGTLTouchStaticLib.a */; };
 		7D2DF7C31B67777D00FB78AB /* libc++.tbd in Frameworks */ = {isa = PBXBuildFile; fileRef = 7D2DF7C21B67777D00FB78AB /* libc++.tbd */; };
-		7D2DF7C51B677C2600FB78AB /* libMobileVLCKit.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 7D2DF7C41B677C2600FB78AB /* libMobileVLCKit.a */; };
 		7D30F3C2183AB24C00FFC021 /* VLCHTTPConnection.m in Sources */ = {isa = PBXBuildFile; fileRef = 7D30F3BD183AB24C00FFC021 /* VLCHTTPConnection.m */; };
 		7D30F3C3183AB24C00FFC021 /* VLCHTTPFileDownloader.m in Sources */ = {isa = PBXBuildFile; fileRef = 7D30F3BF183AB24C00FFC021 /* VLCHTTPFileDownloader.m */; };
 		7D30F3C4183AB24C00FFC021 /* VLCHTTPUploaderController.m in Sources */ = {isa = PBXBuildFile; fileRef = 7D30F3C1183AB24C00FFC021 /* VLCHTTPUploaderController.m */; };
@@ -762,10 +761,8 @@
 			buildActionMask = 2147483647;
 			files = (
 				DD2789E41B67A88600CED769 /* WatchConnectivity.framework in Frameworks */,
-				7D2DF7C51B677C2600FB78AB /* libMobileVLCKit.a in Frameworks */,
 				7D2DF7C31B67777D00FB78AB /* libc++.tbd in Frameworks */,
 				7D2DF7C11B67760100FB78AB /* libGTLTouchStaticLib.a in Frameworks */,
-				7D2DF7BF1B67757700FB78AB /* libMediaLibraryKit.a in Frameworks */,
 				7D2AC5CD1B67737C00A8D9DD /* libLiveSDK-static.a in Frameworks */,
 				7D4DF2181B55209200739326 /* CoreSpotlight.framework in Frameworks */,
 				7D84E4C91B41ABCE00EA7D1F /* CoreMedia.framework in Frameworks */,
@@ -794,6 +791,7 @@
 				7D94FCE116DE7D1000F2623B /* Foundation.framework in Frameworks */,
 				7D94FCE316DE7D1000F2623B /* CoreGraphics.framework in Frameworks */,
 				D9C52A9E9D4D5AFA7EF1B45A /* libPods-vlc-ios.a in Frameworks */,
+				7D2DF7BF1B67757700FB78AB /* libMediaLibraryKit.a in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -2273,6 +2271,10 @@
 				);
 				INFOPLIST_FILE = "Sources/VLC for iOS-Info.plist";
 				IPHONEOS_DEPLOYMENT_TARGET = 7.0;
+				LIBRARY_SEARCH_PATHS = (
+					"$(inherited)",
+					"$(PROJECT_DIR)/ImportedSources/MediaLibraryKit/build/Debug-iphoneos",
+				);
 				ONLY_ACTIVE_ARCH = YES;
 				OTHER_LDFLAGS = (
 					"-read_only_relocs",
@@ -2323,6 +2325,10 @@
 				);
 				INFOPLIST_FILE = "Sources/VLC for iOS-Info.plist";
 				IPHONEOS_DEPLOYMENT_TARGET = 7.0;
+				LIBRARY_SEARCH_PATHS = (
+					"$(inherited)",
+					"$(PROJECT_DIR)/ImportedSources/MediaLibraryKit/build/Debug-iphoneos",
+				);
 				ONLY_ACTIVE_ARCH = NO;
 				OTHER_LDFLAGS = (
 					"-read_only_relocs",
@@ -2400,6 +2406,10 @@
 				);
 				INFOPLIST_FILE = "Sources/VLC for iOS-Info.plist";
 				IPHONEOS_DEPLOYMENT_TARGET = 7.0;
+				LIBRARY_SEARCH_PATHS = (
+					"$(inherited)",
+					"$(PROJECT_DIR)/ImportedSources/MediaLibraryKit/build/Debug-iphoneos",
+				);
 				ONLY_ACTIVE_ARCH = NO;
 				OTHER_LDFLAGS = (
 					"-read_only_relocs",
