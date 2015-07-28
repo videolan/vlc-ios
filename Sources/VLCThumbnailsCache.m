@@ -22,10 +22,10 @@
 #import <MediaLibraryKit/MediaLibraryKit.h>
 
 @interface VLCThumbnailsCache() {
-    NSInteger _maximalCacheSize;
+    NSInteger MaxCacheSize;
     NSCache *_thumbnailCache;
     NSCache *_thumbnailCacheMetadata;
-    CGSize _imageSize;
+    NSInteger _currentDeviceIdiom;
 }
 @end
 
@@ -39,50 +39,30 @@
 {
     self = [super init];
     if (self) {
-#if TARGET_OS_WATCH
-        CGRect screenRect = WKInterfaceDevice.currentDevice.screenBounds;
-        _imageSize = CGSizeMake(screenRect.size.width * WKInterfaceDevice.currentDevice.screenScale, 120.);
-        _maximalCacheSize = MAX_CACHE_SIZE_WATCH;
-#else
-        NSInteger currentDeviceIdiom = [[UIDevice currentDevice] userInterfaceIdiom];
+// TODO: correct for watch
+#ifndef TARGET_OS_WATCH
+        _currentDeviceIdiom = [[UIDevice currentDevice] userInterfaceIdiom];
+        MaxCacheSize = 0;
 
-        switch (currentDeviceIdiom) {
+        switch (_currentDeviceIdiom) {
             case UIUserInterfaceIdiomPad:
-                _maximalCacheSize = MAX_CACHE_SIZE_IPAD;
+                MaxCacheSize = MAX_CACHE_SIZE_IPAD;
                 break;
             case UIUserInterfaceIdiomPhone:
-                _maximalCacheSize = MAX_CACHE_SIZE_IPHONE;
+                MaxCacheSize = MAX_CACHE_SIZE_IPHONE;
                 break;
 
             default:
-                _maximalCacheSize = MAX_CACHE_SIZE_WATCH;
+                MaxCacheSize = MAX_CACHE_SIZE_WATCH;
                 break;
         }
-
-        if (currentDeviceIdiom == UIUserInterfaceIdiomPad) {
-            if ([UIScreen mainScreen].scale==2.0)
-                _imageSize = CGSizeMake(682., 384.);
-            else
-                _imageSize = CGSizeMake(341., 192.);
-        } else if (currentDeviceIdiom == UIUserInterfaceIdiomPhone) {
-            if ([UIScreen mainScreen].scale==2.0)
-                _imageSize = CGSizeMake(480., 270.);
-            else
-                _imageSize = CGSizeMake(720., 405.);
-        } else {
-            if ([WKInterfaceDevice class]) {
-                if (WKInterfaceDevice.currentDevice != nil) {
-                    CGRect screenRect = WKInterfaceDevice.currentDevice.screenBounds;
-                    _imageSize = CGSizeMake(screenRect.size.width * WKInterfaceDevice.currentDevice.screenScale, 120.);
-                }
-            }
-        }
+#else
+        MaxCacheSize = MAX_CACHE_SIZE_WATCH;
 #endif
-
         _thumbnailCache = [[NSCache alloc] init];
         _thumbnailCacheMetadata = [[NSCache alloc] init];
-        [_thumbnailCache setCountLimit: _maximalCacheSize];
-        [_thumbnailCacheMetadata setCountLimit: _maximalCacheSize];
+        [_thumbnailCache setCountLimit: MaxCacheSize];
+        [_thumbnailCacheMetadata setCountLimit: MaxCacheSize];
     }
     return self;
 }
@@ -283,22 +263,45 @@
 - (UIImage *)clusterThumbFromFiles:(NSArray *)files andNumber:(NSUInteger)fileNumber blur:(BOOL)blurImage
 {
     UIImage *clusterThumb;
+    CGSize imageSize;
+    // TODO: correct for watch
+#ifndef TARGET_OS_WATCH
+    if (_currentDeviceIdiom == UIUserInterfaceIdiomPad) {
+        if ([UIScreen mainScreen].scale==2.0)
+            imageSize = CGSizeMake(682., 384.);
+        else
+            imageSize = CGSizeMake(341., 192.);
+    } else if (_currentDeviceIdiom == UIUserInterfaceIdiomPhone) {
+        if ([UIScreen mainScreen].scale==2.0)
+            imageSize = CGSizeMake(480., 270.);
+        else
+            imageSize = CGSizeMake(720., 405.);
+    } else
+#endif
+    {
+        if ([WKInterfaceDevice class]) {
+            if (WKInterfaceDevice.currentDevice != nil) {
+                CGRect screenRect = WKInterfaceDevice.currentDevice.screenBounds;
+                imageSize = CGSizeMake(screenRect.size.width * WKInterfaceDevice.currentDevice.screenScale, 120.);
+            }
+        }
+    }
 
-    UIGraphicsBeginImageContext(_imageSize);
+    UIGraphicsBeginImageContext(imageSize);
     NSUInteger iter = files.count < fileNumber ? files.count : fileNumber;
     for (NSUInteger i = 0; i < iter; i++) {
         MLFile *file =  [files objectAtIndex:i];
         clusterThumb = [self thumbnailForMediaFile:file refreshCache:NO];
         CGContextRef context = UIGraphicsGetCurrentContext();
-        CGFloat imagePartWidth = (_imageSize.width / iter);
+        CGFloat imagePartWidth = (imageSize.width / iter);
         //the rect in which the image should be drawn
-        CGRect clippingRect = CGRectMake(imagePartWidth * i, 0, imagePartWidth, _imageSize.height);
+        CGRect clippingRect = CGRectMake(imagePartWidth * i, 0, imagePartWidth, imageSize.height);
         CGContextSaveGState(context);
         CGContextClipToRect(context, clippingRect);
         //take the center of the clippingRect and calculate the offset from the original center
-        CGFloat centerOffset = (imagePartWidth * i + imagePartWidth / 2) - _imageSize.width / 2;
+        CGFloat centerOffset = (imagePartWidth * i + imagePartWidth / 2) - imageSize.width / 2;
         //shift the rect to draw the middle of the image in the clippingrect
-        CGRect drawingRect = CGRectMake(centerOffset, 0, _imageSize.width, _imageSize.height);
+        CGRect drawingRect = CGRectMake(centerOffset, 0, imageSize.width, imageSize.height);
         [clusterThumb drawInRect:drawingRect];
         //get rid of the old clippingRect
         CGContextRestoreGState(context);

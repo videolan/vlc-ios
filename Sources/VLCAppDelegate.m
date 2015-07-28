@@ -26,7 +26,6 @@
 #import <BoxSDK/BoxSDK.h>
 #import "VLCNotificationRelay.h"
 #import "VLCPlaybackController.h"
-#import "VLCWatchMessage.h"
 #import "VLCPlaybackController+MediaLibrary.h"
 #import "VLCPlayerDisplayController.h"
 #import <MediaPlayer/MediaPlayer.h>
@@ -45,6 +44,7 @@ NSString *const VLCDropboxSessionWasAuthorized = @"VLCDropboxSessionWasAuthorize
     BOOL _passcodeValidated;
     BOOL _isRunningMigration;
     BOOL _isComingFromHandoff;
+    VLCWatchCommunication *_watchCommunication;
 }
 
 @end
@@ -167,6 +167,8 @@ NSString *const VLCDropboxSessionWasAuthorized = @"VLCDropboxSessionWasAuthorize
         }
         setupBlock();
     }
+
+    _watchCommunication = [VLCWatchCommunication sharedInstance];
 
     VLCNotificationRelay *notificationRelay = [VLCNotificationRelay sharedRelay];
     [notificationRelay addRelayLocalName:NSManagedObjectContextDidSaveNotification toRemoteName:@"org.videolan.ios-app.dbupdate"];
@@ -436,83 +438,9 @@ didFailToContinueUserActivityWithType:(NSString *)userActivityType
 handleWatchKitExtensionRequest:(NSDictionary *)userInfo
               reply:(void (^)(NSDictionary *))reply
 {
-    /* dispatch background task */
-    __block UIBackgroundTaskIdentifier taskIdentifier = [application beginBackgroundTaskWithName:nil
-                                                                               expirationHandler:^{
-                                                                                   [application endBackgroundTask:taskIdentifier];
-                                                                                   taskIdentifier = UIBackgroundTaskInvalid;
-    }];
-
-    VLCWatchMessage *message = [[VLCWatchMessage alloc] initWithDictionary:userInfo];
-    NSString *name = message.name;
-    NSDictionary *responseDict = nil;
-    if ([name isEqualToString:VLCWatchMessageNameGetNowPlayingInfo]) {
-        responseDict = [self nowPlayingResponseDict];
-    } else if ([name isEqualToString:VLCWatchMessageNamePlayPause]) {
-        [[VLCPlaybackController sharedInstance] playPause];
-        responseDict = @{@"playing": @([VLCPlaybackController sharedInstance].isPlaying)};
-    } else if ([name isEqualToString:VLCWatchMessageNameSkipForward]) {
-        [[VLCPlaybackController sharedInstance] forward];
-    } else if ([name isEqualToString:VLCWatchMessageNameSkipBackward]) {
-        [[VLCPlaybackController sharedInstance] backward];
-    } else if ([name isEqualToString:VLCWatchMessageNamePlayFile]) {
-        [self playFileFromWatch:message];
-    } else if ([name isEqualToString:VLCWatchMessageNameSetVolume]) {
-        [self setVolumeFromWatch:message];
-    } else {
-        APLog(@"Did not handle request from WatchKit Extension: %@",userInfo);
-    }
-    reply(responseDict);
+    [self.watchCommunication session:[WCSession defaultSession] didReceiveMessage:userInfo replyHandler:reply];
 }
 
-- (void)playFileFromWatch:(VLCWatchMessage *)message
-{
-    NSManagedObject *managedObject = nil;
-    NSString *uriString = (id)message.payload;
-    if ([uriString isKindOfClass:[NSString class]]) {
-        NSURL *uriRepresentation = [NSURL URLWithString:uriString];
-        managedObject = [[MLMediaLibrary sharedMediaLibrary] objectForURIRepresentation:uriRepresentation];
-    }
-    if (managedObject == nil) {
-        APLog(@"%s file not found: %@",__PRETTY_FUNCTION__,message);
-        return;
-    }
 
-    VLCPlaybackController *vpc = [VLCPlaybackController sharedInstance];
-    [vpc playMediaLibraryObject:managedObject];
-}
-
-- (void)setVolumeFromWatch:(VLCWatchMessage *)message
-{
-    NSNumber *volume = (id)message.payload;
-    if ([volume isKindOfClass:[NSNumber class]]) {
-        /*
-         * Since WatchKit doesn't provide something like MPVolumeView we use deprecated API.
-         * rdar://20783803 Feature Request: WatchKit equivalent for MPVolumeView
-         */
-        [MPMusicPlayerController applicationMusicPlayer].volume = volume.floatValue;
-    }
-}
-
-- (NSDictionary *)nowPlayingResponseDict {
-    NSMutableDictionary *response = [NSMutableDictionary new];
-    NSMutableDictionary *nowPlayingInfo = [[MPNowPlayingInfoCenter defaultCenter].nowPlayingInfo mutableCopy];
-    NSNumber *playbackTime = [VLCPlaybackController sharedInstance].mediaPlayer.time.numberValue;
-    if (playbackTime) {
-        nowPlayingInfo[MPNowPlayingInfoPropertyElapsedPlaybackTime] = @(playbackTime.floatValue/1000);
-    }
-    if (nowPlayingInfo) {
-        response[@"nowPlayingInfo"] = nowPlayingInfo;
-    }
-    MLFile *currentFile = [VLCPlaybackController sharedInstance].currentlyPlayingMediaFile;
-    NSString *URIString = currentFile.objectID.URIRepresentation.absoluteString;
-    if (URIString) {
-        response[@"URIRepresentation"] = URIString;
-    }
-
-    response[@"volume"] = @([MPMusicPlayerController applicationMusicPlayer].volume);
-
-    return response;
-}
 
 @end

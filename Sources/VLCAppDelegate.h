@@ -16,6 +16,7 @@
 
 #import "VLCMenuTableViewController.h"
 #import "VLCDownloadViewController.h"
+#import "VLCWatchCommunication.h"
 
 @class VLCLibraryViewController;
 @class VLCPlayerDisplayController;
@@ -27,6 +28,8 @@ extern NSString *const VLCDropboxSessionWasAuthorized;
 @property (nonatomic, readonly) VLCLibraryViewController *libraryViewController;
 
 @property (nonatomic, readonly) VLCPlayerDisplayController *playerDisplayController;
+
+@property (nonatomic, readonly) VLCWatchCommunication *watchCommunication;
 
 @property (nonatomic, strong) UIWindow *window;
 
