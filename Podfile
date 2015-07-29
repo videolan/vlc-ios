@@ -13,6 +13,7 @@ pod 'upnpx', '~>1.3.4'
 pod 'HockeySDK', '~>3.6.4'
 pod 'SSKeychain', '~>1.2.2'
 pod 'box-ios-sdk-v2', :git => 'git://github.com/carolanitz/box-ios-sdk-v2.git', :commit => 'd2df30aa5f76d30910e06f3ef5aff49025de3cf1' #has a logout function added
+pod 'RESideMenu', '~>4.0.7'
 
 end
 post_install do |installer_representation|
