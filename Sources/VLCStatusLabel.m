@@ -112,7 +112,7 @@
 
 - (void)drawRect:(CGRect)rect
 {
-    UIColor *drawingColor = [UIColor VLCDarkBackgroundColor];
+    UIColor *drawingColor = [UIColor VLCDarkTextShadowColor];
     [drawingColor setFill];
 
     UIBezierPath* bezierPath = [UIBezierPath bezierPathWithRoundedRect:rect cornerRadius:rect.size.height / 2];
