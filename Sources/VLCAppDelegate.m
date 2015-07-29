@@ -167,11 +167,12 @@ NSString *const VLCDropboxSessionWasAuthorized = @"VLCDropboxSessionWasAuthorize
         setupBlock();
     }
 
-    _watchCommunication = [VLCWatchCommunication sharedInstance];
-
-    // TODO: push DB changes instead
-//    [_watchCommunication startRelayingNotificationName:NSManagedObjectContextDidSaveNotification object:nil];
-    [_watchCommunication startRelayingNotificationName:VLCPlaybackControllerPlaybackMetadataDidChange object:nil];
+    if ([VLCWatchCommunication isSupported]) {
+        _watchCommunication = [VLCWatchCommunication sharedInstance];
+        // TODO: push DB changes instead
+        //    [_watchCommunication startRelayingNotificationName:NSManagedObjectContextDidSaveNotification object:nil];
+        [_watchCommunication startRelayingNotificationName:VLCPlaybackControllerPlaybackMetadataDidChange object:nil];
+    }
 
     return YES;
 }
@@ -437,7 +438,9 @@ didFailToContinueUserActivityWithType:(NSString *)userActivityType
 handleWatchKitExtensionRequest:(NSDictionary *)userInfo
               reply:(void (^)(NSDictionary *))reply
 {
-    [self.watchCommunication session:[WCSession defaultSession] didReceiveMessage:userInfo replyHandler:reply];
+    if ([VLCWatchCommunication isSupported]) {
+        [self.watchCommunication session:[WCSession defaultSession] didReceiveMessage:userInfo replyHandler:reply];
+    }
 }
 
 

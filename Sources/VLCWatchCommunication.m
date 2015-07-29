@@ -18,6 +18,10 @@
 
 @implementation VLCWatchCommunication
 
++ (BOOL)isSupported {
+    return [WCSession class] != nil && [WCSession isSupported];
+}
+
 - (instancetype)init
 {
     self = [super init];

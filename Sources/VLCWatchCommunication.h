@@ -16,6 +16,7 @@ NS_ASSUME_NONNULL_BEGIN
 
 @interface VLCWatchCommunication : NSObject <WCSessionDelegate>
 
++ (BOOL)isSupported;
 + (instancetype)sharedInstance;
 
 - (void)startRelayingNotificationName:(nullable NSString *)name object:(nullable id)object;
