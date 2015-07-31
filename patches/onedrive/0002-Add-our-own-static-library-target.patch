@@ -1,7 +1,7 @@
 From 18efb2ac1a857d3abbeefc3dbc08fb4a0a91be70 Mon Sep 17 00:00:00 2001
 From: =?UTF-8?q?Felix=20Paul=20K=C3=BChne?= <fkuehne@videolan.org>
 Date: Tue, 28 Jul 2015 10:32:55 +0200
-Subject: [PATCH] Add our own static library target
+Subject: [PATCH 2/3] Add our own static library target
 
 ---
  src/LiveSDK.xcodeproj/project.pbxproj | 162 ++++++++++++++++++++++++++++++++++
@@ -260,5 +260,5 @@ index fd45f68..c4772ce 100755
  	};
  	rootObject = 5297DDD0145E102B005B463E /* Project object */;
 -- 
-2.3.2 (Apple Git-55)
+2.3.8 (Apple Git-58)
 

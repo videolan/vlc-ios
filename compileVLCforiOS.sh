@@ -176,7 +176,7 @@ rm -rf __MACOSX
 fi
 if ! [ -e OneDrive ]; then
 git clone git://github.com/liveservices/LiveSDK-for-iOS.git OneDrive
-cd OneDrive && git am ../../patches/onedrive/0001-Compile-ARMv7s-slice.patch && cd ..
+cd OneDrive && git am ../../patches/onedrive/*.patch && cd ..
 else
 cd OneDrive && git pull --rebase && cd ..
 fi
