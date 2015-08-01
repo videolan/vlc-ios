@@ -275,6 +275,7 @@ continueUserActivity:(NSUserActivity *)userActivity
                     errorCallback = [NSURL URLWithString:value];
             }
             if ([action isEqualToString:@"stream"] && movieURL) {
+                _isComingFromURLHandler = YES;
                 [self openMovieFromURL:movieURL successCallback:successCallback errorCallback:errorCallback];
             }
             else if ([action isEqualToString:@"download"] && movieURL) {
@@ -308,12 +309,16 @@ continueUserActivity:(NSUserActivity *)userActivity
                 alert.completion = ^(BOOL cancelled, NSInteger buttonIndex) {
                     if (cancelled)
                         [self downloadMovieFromURL:url fileNameOfMedia:nil];
-                    else
+                    else {
+                        _isComingFromURLHandler = YES;
                         [self openMovieFromURL:url];
+                    }
                 };
                 [alert show];
-            } else
+            } else {
+                _isComingFromURLHandler = YES;
                 [self openMovieFromURL:url];
+            }
         }
         return YES;
     }
@@ -577,7 +582,9 @@ continueUserActivity:(NSUserActivity *)userActivity
     vpc.errorCallback = errorCallback;
     vpc.fullscreenSessionRequested = YES;
 
-    _isComingFromURLHandler = YES;
+    if (!_isComingFromURLHandler) {
+        [[VLCPlaybackController sharedInstance] startPlayback];
+    }
 }
 
 - (void)openMovieFromURL:(NSURL *)url
