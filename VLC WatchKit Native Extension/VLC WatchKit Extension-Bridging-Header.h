@@ -4,3 +4,4 @@
 
 
 #import "VLCWatchMessage.h"
+#import "VLCBaseInterfaceController.h"

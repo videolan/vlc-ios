@@ -30,6 +30,7 @@
             WCSession *session = [WCSession defaultSession];
             session.delegate = self;
             [session activateSession];
+            [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(savedManagedObjectContextNotification:) name:NSManagedObjectContextDidSaveNotification object:nil];
         }
     }
     return self;
@@ -163,6 +164,54 @@ static VLCWatchCommunication *_singeltonInstance = nil;
     if ([WCSession isSupported] && [[WCSession defaultSession] isReachable]) {
         [[WCSession defaultSession] sendMessage:dict replyHandler:nil errorHandler:nil];
     }
+}
+
+#pragma mark - Copy CoreData to Watch
+
+- (void)savedManagedObjectContextNotification:(NSNotification *)notification {
+    NSManagedObjectContext *moc = notification.object;
+    if (moc.persistentStoreCoordinator == [[MLMediaLibrary sharedMediaLibrary] persistentStoreCoordinator]) {
+        [self copyCoreDataToWatch];
+    }
+}
+
+- (void)copyCoreDataToWatch {
+    if (![[WCSession defaultSession] isReachable]) return;
+
+    MLMediaLibrary *library = [MLMediaLibrary sharedMediaLibrary];
+    NSPersistentStoreCoordinator *libraryPSC = [library persistentStoreCoordinator];
+    NSPersistentStore *persistentStore = [libraryPSC persistentStoreForURL:[library persistentStoreURL]];
+    NSURL *tmpURL = [NSURL fileURLWithPath:[NSTemporaryDirectory() stringByAppendingPathComponent:persistentStore.URL.lastPathComponent]];
+
+    NSPersistentStoreCoordinator *migratePSC = [[NSPersistentStoreCoordinator alloc] initWithManagedObjectModel:libraryPSC.managedObjectModel];
+    NSError *error;
+    NSPersistentStore *migrateStore = [migratePSC addPersistentStoreWithType:persistentStore.type
+                                                               configuration:persistentStore.configurationName
+                                                                         URL:persistentStore.URL
+                                                                     options:persistentStore.options
+                                                                       error:&error];
+    if (!migrateStore) {
+        NSLog(@"%s failed to add persistent store with error %@",__PRETTY_FUNCTION__,error);
+        return;
+    }
+
+
+    NSMutableDictionary *destOptions = [persistentStore.options mutableCopy] ?: [NSMutableDictionary new];
+    destOptions[NSSQLitePragmasOption] = @{@"journal_mode": @"OFF"};
+
+    [migratePSC destroyPersistentStoreAtURL:tmpURL withType:persistentStore.type options:destOptions error:nil];
+
+    error = nil;
+    BOOL success = [migratePSC migratePersistentStore:migrateStore
+                                                toURL:tmpURL
+                                              options:destOptions
+                                             withType:NSSQLiteStoreType error:&error];
+    if (!success) {
+        NSLog(@"%s failed to copy persistent store to tmp location for copy to watch with error %@",__PRETTY_FUNCTION__,error);
+    }
+
+    NSDictionary *metadata = @{@"filetype":@"coredata"};
+    [[WCSession defaultSession] transferFile:tmpURL metadata:metadata];
 }
 
 @end
