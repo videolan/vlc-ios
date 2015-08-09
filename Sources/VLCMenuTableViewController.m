@@ -120,13 +120,8 @@
     if (_reachability.currentReachabilityStatus == ReachableViaWiFi) {
         _uploadButton.enabled = YES;
         [self updateHTTPServerAddress];
-    } else {
-        [_uploadButton setImage:[UIImage imageNamed:@"WifiUp"] forState:UIControlStateNormal];
-        _uploadButton.enabled = NO;
-        [_uploadButton setImage:[UIImage imageNamed:@"WiFiUp"] forState:UIControlStateDisabled];
-        _uploadLocationLabel.text = NSLocalizedString(@"HTTP_UPLOAD_NO_CONNECTIVITY", nil);
-        [[VLCHTTPUploaderController sharedInstance] changeHTTPServerState:NO];
-    }
+    } else
+        [self disableButtonHTTPServer];
 }
 
 - (BOOL)shouldAutorotate
@@ -203,6 +198,7 @@
             _uploadLocationLabel = [(VLCWiFiUploadTableViewCell*)cell uploadAddressLabel];
             _uploadButton = [(VLCWiFiUploadTableViewCell*)cell serverOnButton];
             [_uploadButton addTarget:self action:@selector(toggleHTTPServer:) forControlEvents:UIControlEventTouchUpInside];
+            [self updateHTTPServerAddress];
         } else if ([rawTitle isEqualToString:@"CLOUD_SERVICES"])
             cell.imageView.image = [UIImage imageNamed:@"iCloudIcon"];
     } else if (section == 2) {
@@ -258,18 +254,23 @@
 
 - (void)updateHTTPServerAddress
 {
-    VLCHTTPUploaderController *uploadController = [VLCHTTPUploaderController sharedInstance];
-    HTTPServer *server = uploadController.httpServer;
-    if (server.isRunning) {
-        _uploadLocationLabel.numberOfLines = 0;
-        if (server.listeningPort != 80)
-            _uploadLocationLabel.text = [NSString stringWithFormat:@"http://%@:%i\nhttp://%@:%i", [uploadController currentIPAddress], server.listeningPort, [uploadController hostname], server.listeningPort];
-        else
-            _uploadLocationLabel.text = [NSString stringWithFormat:@"http://%@\nhttp://%@", [uploadController currentIPAddress], [uploadController hostname]];
-        [_uploadButton setImage:[UIImage imageNamed:@"WifiUpOn"] forState:UIControlStateNormal];
-    } else {
-        _uploadLocationLabel.text = NSLocalizedString(@"HTTP_UPLOAD_SERVER_OFF", nil);
-        [_uploadButton setImage:[UIImage imageNamed:@"WifiUp"] forState:UIControlStateNormal];
+    if (_reachability.currentReachabilityStatus == !ReachableViaWiFi)
+        [self disableButtonHTTPServer];
+    else {
+        VLCHTTPUploaderController *uploadController = [VLCHTTPUploaderController sharedInstance];
+        HTTPServer *server = uploadController.httpServer;
+        _uploadButton.enabled = YES;
+        if (server.isRunning) {
+            _uploadLocationLabel.numberOfLines = 0;
+            if (server.listeningPort != 80)
+                _uploadLocationLabel.text = [NSString stringWithFormat:@"http://%@:%i\nhttp://%@:%i", [uploadController currentIPAddress], server.listeningPort, [uploadController hostname], server.listeningPort];
+            else
+                _uploadLocationLabel.text = [NSString stringWithFormat:@"http://%@\nhttp://%@", [uploadController currentIPAddress], [uploadController hostname]];
+            [_uploadButton setImage:[UIImage imageNamed:@"WifiUpOn"] forState:UIControlStateNormal];
+        } else {
+            _uploadLocationLabel.text = NSLocalizedString(@"HTTP_UPLOAD_SERVER_OFF", nil);
+            [_uploadButton setImage:[UIImage imageNamed:@"WifiUp"] forState:UIControlStateNormal];
+        }
     }
 }
 
@@ -284,6 +285,15 @@
         [self updateHTTPServerAddress];
         [[NSUserDefaults standardUserDefaults] synchronize];
     }
+}
+
+- (void)disableButtonHTTPServer
+{
+    [_uploadButton setImage:[UIImage imageNamed:@"WifiUp"] forState:UIControlStateNormal];
+    _uploadButton.enabled = NO;
+    [_uploadButton setImage:[UIImage imageNamed:@"WiFiUp"] forState:UIControlStateDisabled];
+    _uploadLocationLabel.text = NSLocalizedString(@"HTTP_UPLOAD_NO_CONNECTIVITY", nil);
+    [[VLCHTTPUploaderController sharedInstance] changeHTTPServerState:NO];
 }
 
 - (void)_revealItem:(NSUInteger)itemIndex inSection:(NSUInteger)sectionNumber
