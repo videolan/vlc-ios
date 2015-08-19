@@ -1007,16 +1007,9 @@ static NSString *kUsingTableViewToShowData = @"UsingTableViewToShowData";
 
         if ([item isKindOfClass:[MLFile class]]) {
             MLFile *file = (MLFile *)item;
-            MLLabel *folder = [file.labels anyObject];
             [self rearrangeFolderTrackNumbersForRemovedItem:file];
             file.labels = nil;
             file.folderTrackNumber = nil;
-
-            if ([folder.files count] == 0) {
-                [self removeMediaObject:folder updateDatabase:YES];
-                [self setEditing:NO];
-                [self backToAllItems:nil];
-            }
         }
         @synchronized(self) {
             [_foundMedia removeObject:item];
