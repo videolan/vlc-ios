@@ -227,6 +227,11 @@ NSString *const VLCPlaybackControllerPlaybackDidFail = @"VLCPlaybackControllerPl
     else
         _listPlayer = [[VLCMediaListPlayer alloc] init];
 
+    /* to enable debug logging for the playback library instance, switch the boolean below
+     * note that the library instance used for playback may not necessarily match the instance
+     * used for media discovery or thumbnailing */
+    _listPlayer.mediaPlayer.libraryInstance.debugLogging = NO;
+
     /* video decoding permanently fails if we don't provide a UIView to draw into on init
      * hence we provide one which is not attached to any view controller for off-screen drawing
      * and disable video decoding once playback started */
