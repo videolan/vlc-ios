@@ -2,6 +2,10 @@
 ------
 * Fixed playback of streams opened through the legacy vlc:// pseudo protocol
 * Minor improvements (#14080, #14836, #14881, #15118)
+* New translation to Norwegian Bokmål
+* Updated translations to Afrikaans, Arabic, Bosnian, Czech, Danish, English (GB),
+  Spanish (Mexico), Persian, Hungarian, Korean, Latvian, Malay, Polish, Portuguese (Brazil),
+  Portuguese (Portugal), Slovenian, Turkish and Traditional Chinese
 
 2.6.4:
 ------
