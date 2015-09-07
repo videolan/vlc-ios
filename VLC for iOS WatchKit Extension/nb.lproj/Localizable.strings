@@ -1,0 +1,27 @@
+"NOW_PLAYING"="Spilles nå";
+"PLAY_NOW"="Spill nå";
+"PLAYING"="Spiller";
+"PAUSED"="Satt på pause";
+"DETAIL"="Detaljer";
+"LIBRARY_ALL_FILES"="Alle filer";
+"LIBRARY_MUSIC"="Musikk album";
+"LIBRARY_SERIES"="TV Show";
+"EMPTY_LIBRARY"="Tomt Mediabibliotek";
+
+"BWD_BUTTON"="Spol tilbake";
+"FWD_BUTTON"="Spol fremover";
+"PLAY_BUTTON"="Spill";
+"PAUSE_BUTTON"="Pause";
+
+"VOLUME"="Lydstyrke";
+"DURATION"="Varighet";
+"TITLE"="Tittel";
+
+// accessibility labels for the playlist
+"OBJECT_TYPE_SHOW"="Vis";
+"OBJECT_TYPE_SHOW_EPISODE"="Vis episode";
+"OBJECT_TYPE_LABEL"="Mappe";
+"OBJECT_TYPE_ALBUM"="Album";
+"OBJECT_TYPE_ALBUM_TRACK"="Album spor";
+"OBJECT_TYPE_FILE"="Fil";
+"OBJECT_TYPE_FILE_AUDIO"="Lydfil";

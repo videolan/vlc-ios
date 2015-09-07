@@ -1,0 +1,252 @@
+"STORE_DESCRIPTION"="VLC for iOS er en port av gratis VLC media player til iPad, iPhone og iPod touch.\n\nDen kan spille av alle dine filmer, Serier og musikk i de fleste formater direkte uten konvertering.\n\n\nDet tillater Filsynkronisering med Dropbox, GDrive, OneDrive, Box, iCloud Drive, iTunes, direkte nedlasting og gjennom WiFi dele samt streaming fra UPnP media servere.\n\n\n\nVLC for iOS er helt gratis og åpen kildekode.\n";
+"CHOOSE_AUDIO_TRACK"="Velg Lydspor";
+"CHOOSE_SUBTITLE_TRACK"="Velg undertekstspor";
+"OPEN_TRACK_PANEL"="Åpne spor utvalg";
+"CHOOSE_TITLE"="Velg tittel";
+"CHOOSE_CHAPTER"="Velg kapittel";
+"MINIMIZE_PLAYBACK_VIEW"="Minimer avspilling";
+"FULLSCREEN_PLAYBACK"="Spill i fullskjerm";
+
+"PLAYING_EXTERNALLY_TITLE"="TV Koblet Til";
+"PLAYING_EXTERNALLY_DESC"="Denne videoen blir spilt på TV'en.";
+
+"VFILTER_HUE"="Farge";
+"VFILTER_CONTRAST"="Kontrast";
+"VFILTER_BRIGHTNESS"="Lysstyrke";
+"VFILTER_SATURATION"="Metning";
+"VFILTER_GAMMA"="Gamma";
+
+"BUTTON_EQUALIZER"="Tonekontroll";
+"PREAMP"="Forforsterker";
+"DB_FORMAT"="%i dB";
+"CHOOSE_EQUALIZER_PROFILES"="Velg Tonekontroll Profil";
+
+"PLAYBACK_FAILED"="Avspilling feilet";
+"AR_CHANGED"="Størrelsesforhold: %@";
+"DEFAULT"="Standard";
+"FILL_TO_SCREEN"="Beskjær for å fylle skjermen";
+"DEVICE_TOOSLOW_TITLE"="Enhet for treg";
+"DEVICE_TOOSLOW"="Din %@ er sannsynligvis for treg til å spille av \"%@\". Åpne uansett?";
+"PLAYBACK_SPEED"="Avspillingsfart";
+"SPU_DELAY"="Undertekster forsinkelse";
+"AUDIO_DELAY"="Lydforsinkelse";
+"BUTTON_SLEEP_TIMER"="Sovetimer";
+
+"BUTTON_EDIT"="Rediger";
+"BUTTON_DONE"="Ferdig";
+"BUTTON_OPEN"="Åpne";
+"BUTTON_CANCEL"="Avbryt";
+"BUTTON_SAVE"="Lagre";
+"BUTTON_DOWNLOAD"="Last ned";
+"BUTTON_DELETE"="Slett";
+"BUTTON_OK"="OK";
+"BUTTON_NEXT"="Neste";
+"BUTTON_CONTRIBUTE"="Bidra";
+"BUTTON_BACK"="Tilbake";
+"BUTTON_CONNECT"="Koble til";
+"BUTTON_REPEAT"="Gjenta";
+"BUTTON_RENAME"="Gi nytt navn";
+"BUTTON_LEARN_MORE"="Lær mer";
+"BUTTON_LOGOUT"="Logg ut";
+"PRIVATE_PLAYBACK_TOGGLE"="Privat avspilling";
+"SCAN_SUBTITLE_TOGGLE"="Søke etter undertekster (http-only)";
+
+"UPGRADING_LIBRARY"="Oppdater mediebibliotek";
+"UNTITLED_SHOW"="Navnløs visning";
+"UNKNOWN"="Ukjent";
+
+"OPEN_NETWORK"="Åpne Nettverkstrøm";
+"NETWORK_TITLE"="Nettverkstrøm";
+"OPEN_NETWORK_HELP"="Skriv inn en HTTP, RTSP, RTMP, MMS, FTP eller UDP / RTP adresse åpne strømme direkte.";
+"ABOUT_APP"="Om VLC for iOS";
+"OPEN_VLC_MENU"="Åpne VLC sidebar menyen";
+"HTTP_UPLOAD_SERVER_OFF"="Uaktiv Server";
+"HTTP_UPLOAD_NO_CONNECTIVITY"="Ingen aktiv WiFi tilkobling";
+"OPEN_STREAM_OR_DOWNLOAD"="Vil du laste ned eller spille av denne URL?";
+"SELECT_RESOURCE_TO_PLAY"="Velg en kilde å spille:";
+"SELECT_RESOURCE_TO_DOWNLOAD"="Velg en kilde å laste ned:";
+"SHARED_VLC_IOS_LIBRARY"="Delt VLC for iOS bibliotek";
+"SAP_STREAMS"="Nettverkstrøm (SAP)";
+
+"HTTP_DOWNLOAD_FAILED"="Nedlastning feilet med HTTP kode %i";
+"HTTP_FILE_CREATION_FAILED"="Filopprettelse feilet";
+"HTTP_DOWNLOAD_CANCELLED"="Nedlasting avbrutt av bruker";
+
+"DOWNLOAD_FROM_HTTP_HELP"="Skriv inn en adresse for å laste ned filen til %@.";
+"DOWNLOAD_FROM_HTTP"="Nedlastninger";
+"ERROR_NUMBER"="Feil %i oppstod";
+"DOWNLOAD_FAILED"="Mislykket nedlasting";
+"FILE_NOT_SUPPORTED"="Filformat ikke tilgjengelig";
+"FILE_NOT_SUPPORTED_LONG"="Filformatet som brukes av %@ støttes ikke av denne versjonen av VLC for iOS.";
+"SCHEME_NOT_SUPPORTED"="Adresse ordningen støttes ikke";
+"SCHEME_NOT_SUPPORTED_LONG"="Adressen ordningen (%@) støttes ikke. Vennligst bruk en adresse som starter med HTTP, HTTPS eller FTP.";
+"LIBRARY_ALL_FILES"="Alle filer";
+"LIBRARY_MUSIC"="Musikk album";
+"LIBRARY_SERIES"="TV Show";
+"LIBRARY_TRACKS"="%i Spor";
+"LIBRARY_SINGLE_TRACK"="%i Spor";
+"LIBRARY_EPISODES"="%i Episoder, %i ulest";
+"LIBRARY_SINGLE_EPISODE"="%i Episode, %i ulest";
+"LIBRARY_TRACK_N"="Spor %i ";
+"LIBRARY_MINUTES_LEFT"="%@m venstre";
+"RENAME_MEDIA_TO"="Skriv nytt navn for %@";
+
+"FOLDER_EMPTY"="Tøm mappe";
+"FOLDER_EMPTY_LONG"="For å legge til filer på Rediger, velge filene du ønsker, klikk på mappen-knappen og velg denne mappen.";
+"FOLDER_INVALID_TYPE_TITLE"="Ugyldig filtype";
+"FOLDER_INVALID_TYPE_MESSAGE"="Du kan bare ta to filer for å danne en mappe eller legge til en enkelt fil til en eksisterende mappe.";
+"FOLDER_CHOOSE_NAME_TITLE"="Ny mappe";
+"FOLDER_CHOOSE_NAME_MESSAGE"="Skriv inn en tittel for mappen";
+"FOLDER_NAME_PLACEHOLDER"="Mappe Tittel";
+"FOLDER_NAME_DUPLICATE_TITLE"="Tittel finnes";
+"FOLDER_NAME_DUPLICATE_MESSAGE"="Vennligst velg en annen tittel";
+"SELECT_FOLDER"="Velg mappe";
+
+"SHARING_ACTION_SHEET_TITLE_CHOOSE_FILE"="Velg en fil å åpne:";
+"SHARING_ACTIVITY_OPEN_IN_TITLE"="Åpne i...";
+"SHARING_ERROR_NO_FILES"="Kunne ikke finne noen filer å dele";
+"SHARING_ERROR_NO_APPLICATIONS"="Kunne ikke finne noen programmer for å åpne denne filtypen";
+"SHARING_SUCCESS_CAMERA_ROLL"="Filen ble lagret i Kamerarull";
+
+"SECTION_HEADER_LIBRARY"="Mediabibliotek";
+"SECTION_HEADER_NETWORK"="Nettverk";
+
+"LOCAL_NETWORK"="Lokalt nettverk";
+"CONNECT_TO_SERVER"="Koble til server";
+"ENTER_SERVER_ADDRESS_HELP"="Angi IP eller navnet på serveren du vil koble til.";
+"ENTER_SERVER_CREDS_HELP"="Hvis det er nødvendig av serveren, angi brukernavn og passord.";
+"USER_LABEL"="Bruker";
+"PASSWORD_LABEL"="Passord";
+
+"LOCAL_SERVER_REFRESH"="Oppdater";
+"LOCAL_SERVER_LAST_UPDATE"="Sist oppdatert den %@";
+"LOCAL_SERVER_CONNECTION_FAILED_TITLE"="SERVER TILKOBLING FEILET";
+"LOCAL_SERVER_CONNECTION_FAILED_MESSAGE"="Vennligst sjekk din serveradresse og legitimasjon";
+
+"CLOUD_SERVICES"="Skytjenester";
+"LOGIN"="Logg inn";
+"LOGGED_IN"="Innlogget";
+
+"DROPBOX_DOWNLOAD"="Last ned fil?";
+"DROPBOX_DL_LONG"="Vil du laste ned \"%@\" til din %@?";
+"DROPBOX_LOGIN"="Logg inn";
+
+"GDRIVE_ERROR_FETCHING_FILES"="Feil ved henting av filer";
+"GDRIVE_DOWNLOAD_SUCCESSFUL"="Filen har blitt lastet ned";
+"GDRIVE_DOWNLOAD_SUCCESSFUL_TITLE"="VELLYKKET";
+"GDRIVE_ERROR_DOWNLOADING_FILE"="Det oppstod en feil under nedlasting";
+"GDRIVE_ERROR_DOWNLOADING_FILE_TITLE"="FEIL";
+
+"DISK_FULL"="Lagringsgrense nådd";
+"DISK_FULL_FORMAT"="%@ Kan ikke lagres på din %@, fordi du ikke har nok ledig plass igjen.";
+
+"NUM_OF_FILES"="%i filer";
+"ONE_FILE"="1 fil";
+"NO_FILES"="Ingen støttede filer";
+"DOWNLOADING"="Nedlasting...";
+"REMAINING_TIME"= "Gjenstående tid: %@";
+"ENTER_PASSCODE"="Skriv passord";
+"REENTER_PASSCODE"="Gjenta passord";
+"PASSCODE_SET"="Sett passord";
+"PASSCODE_CHANGE"="Endre passord";
+"PASSCODE_ENTER_OLD"="Skriv ditt gamle passord";
+"PASSCODE_ENTER_NEW"="Skriv ditt nye passord";
+"PASSCODE_REENTER_NEW"="Gjenta ditt nye passord";
+"PASSCODES_DID_NOT_MATCH"="Passord samsvarer ikke. Prøv igjen.";
+"PASSCODE_FAILED_1"="1 feilet kode Forsøk";
+"PASSCODE_FAILED_FORMAT"="%d mislykkede Passord forsøk";
+
+"Settings"="Innstillinger"; // plain text key to keep compatibility with InAppSettingsKit's upstream
+
+"EMPTY_LIBRARY"="Tomt Mediabibliotek";
+"EMPTY_LIBRARY_LONG"="For avspilling kan du Strømme media fra en server på det lokale nettverket, fra skyen eller synkronisere medier til enheten ved hjelp av iTunes, WiFi Opplastning eller Sky tjenester.";
+
+"PLAYBACK_SCRUB_HELP"="Skyv fingeren nedover for å justere bla hastighet.";
+"PLAYBACK_SCRUB_HIGH"="Høy-Hastighet Skrubbing";
+"PLAYBACK_SCRUB_HALF"="Halv-Hastighet Skrubbing";
+"PLAYBACK_SCRUB_QUARTER"="Kvart-Hastighet skrubbing";
+"PLAYBACK_SCRUB_FINE"="fin skrubbing";
+"PLAYBACK_POSITION"="avspillingsposisjon";
+"VIDEO_FILTER"="Videofilter";
+"VIDEO_FILTER_RESET_BUTTON"="Tilbakestill videofiltre";
+"VIDEO_ASPECT_RATIO_BUTTON"="Bytt Video Størrelsesforhold";
+"PLAY_PAUSE_BUTTON"="Spille eller pause gjeldende avspilling";
+"BWD_BUTTON"="Spol tilbake";
+"FWD_BUTTON"="Spol fremover";
+"PLAY_BUTTON"="Spill";
+"PAUSE_BUTTON"="Pause";
+
+"VERSION_FORMAT"="Versjon: %@";
+"BASED_ON_FORMAT"="Basert på:<br />%@";
+
+"NEW"="NY";
+
+"BUG_REPORT_TITLE"="Rapporter en feil";
+"BUG_REPORT_MESSAGE"="Vil du opprette en feilrapport?";
+"BUG_REPORT_BUTTON"="Åpne Safari";
+
+"VO_VIDEOPLAYER_TITLE"="Film avspiller";
+"VO_VIDEOPLAYER_DOUBLETAP"="Dobbelttrykk for å vise eller skjule avspillingskontroller";
+
+"FIRST_STEPS_WELCOME"="Velkommen";
+"FIRST_STEPS_WELCOME_DETAIL"="Første skritt for å synkronisere og spille av dine media.";
+"FIRST_STEPS_ITUNES"="iTunes Fil Synk";
+"FIRST_STEPS_ITUNES_DETAILS"="Koble %@ til din Mac eller PC via cable.\n\nÅpne iTunes.\n\nVelg din %@. \n\nBytte til \"App\" -kategorien, bla nedover og se etter VLC.\n\nOverføre dine filer.";
+"FIRST_STEPS_WIFI_CONNECT_DETAILS"="Koble %@ til det samme nettverket som din Mac eller PC.";
+"FIRST_STEPS_WIFI_UPLOAD_DETAILS"="Slå på vippe i sidepanelet, skriv inn nettadressen til nettleseren og laste opp filene dine.";
+"FIRST_STEPS_CLOUDS"="Skyer";
+"FIRST_STEPS_CLOUD_UPLOAD_DETAILS"="Last opp dine medier til Google Drive eller Dropbox.";
+"FIRST_STEPS_CLOUD_ACCESS_DETAILS"="Åpne sidepanelet for å velge Sky leverandøren og få tilgang til media for nedlasting eller strømme.";
+"FIRST_STEPS_PLAYBACK"="Spill av";
+"FIRST_STEPS_FLOSS"="VLC for iOS er gratis og åpen kildekode programvare utviklet av frivillige.\nVi håper du vil elske den.";
+
+"FIRST_STEPS_TIME"="Tid";
+"FIRST_STEPS_ASPECT"="Størrelsesforhold";
+"FIRST_STEPS_SPEED"="Hastighet";
+"FIRST_STEPS_REPEAT"="Gjenta";
+"FIRST_STEPS_SUBTITLES"="Undertekstspor";
+"FIRST_STEPS_AUDIO"="Lydspor";
+"FIRST_STEPS_POSITION"="Posisjon";
+
+"PLEX_WATCHED"="Merk som sett";
+"PLEX_UNWATCHED"="Merk som usett";
+"PLEX_ERROR_MARK"="Kan ikke merke media";
+"PLEX_CONNECT_TO_SERVER"="Koble til Plex Media Server";
+"PLEX_CHECK_ACCOUNT"="Sjekk din Plex konto i innstillingene";
+"PLEX_ERROR_ACCOUNT"="Plex innlogging Feil";
+
+"UNAUTHORIZED"="Uautorisert";
+
+"SERVER"="Server";
+"SERVER_PORT"="Port";
+"BOOKMARK"="Bokmerke";
+"INVALID_IP_PORT"="Vennligst skriv inn en gyldig IP-adresse og port";
+
+"WEBINTF_TITLE"="Del via WiFi";
+"WEBINTF_DROPFILES"="Slipp filer";
+"WEBINTF_DROPFILES_LONG"="Slipp filer i vinduet for å legge dem til %@.<br>Eller klikk på \"+\" knappen for å bruke fil dialog velger.";
+"WEBINTF_DOWNLOADFILES"="Last ned filer";
+"WEBINTF_DOWNLOADFILES_LONG"="Bare klikk på filen du ønsker å laste ned fra %@.";
+
+"CLOUD_DRIVES"="Andre Skytjenetser";
+
+"NOW_PLAYING"="Spilles nå";
+"PLAY_NOW"="Spill nå";
+"PLAYING"="Spiller";
+"PAUSED"="Satt på pause";
+"DETAIL"="Detaljer";
+
+"VOLUME"="Lydstyrke";
+"DURATION"="Varighet";
+"TITLE"="Tittel";
+
+// accessibility labels for the playlist
+"OBJECT_TYPE_SHOW"="Vis";
+"OBJECT_TYPE_SHOW_EPISODE"="Vis episode";
+"OBJECT_TYPE_LABEL"="Mappe";
+"OBJECT_TYPE_ALBUM"="Album";
+"OBJECT_TYPE_ALBUM_TRACK"="Album spor";
+"OBJECT_TYPE_FILE"="Fil";
+"OBJECT_TYPE_FILE_AUDIO"="Lydfil";
+
+"LONGPRESS_TO_STOP"="lenge-trykk for å stoppe avspillingen.";
