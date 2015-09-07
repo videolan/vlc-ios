@@ -329,16 +329,17 @@
         if (position > .05f && position < .95f && (duration * position - duration) < -60000) {
             [(UITextView*)self.mediaIsUnreadView setText:[NSString stringWithFormat:NSLocalizedString(@"LIBRARY_MINUTES_LEFT", nil), [[VLCTime timeWithInt:(duration * position - duration)] minuteStringValue]]];
             self.mediaIsUnreadView.hidden = NO;
-        } else if (mediaLibraryFile.unread.intValue) {
+        } else if (position != 0.) {
+            self.mediaIsUnreadView.hidden = YES;
+        } else {
             [(UILabel *)self.mediaIsUnreadView setText:[NSLocalizedString(@"NEW", nil) capitalizedStringWithLocale:[NSLocale currentLocale]]];
             self.mediaIsUnreadView.hidden = NO;
-        } else
-            self.mediaIsUnreadView.hidden = YES;
+        }
     } else {
         self.progressIndicator.progress = position;
         self.progressIndicator.hidden = ((position < .1f) || (position > .95f)) ? YES : NO;
         [self.progressIndicator setNeedsDisplay];
-        self.mediaIsUnreadView.hidden = !mediaLibraryFile.unread.intValue || self.progressIndicator.hidden;
+        self.mediaIsUnreadView.hidden = position != 0. || self.progressIndicator.hidden;
     }
 }
 
