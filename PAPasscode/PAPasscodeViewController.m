@@ -168,9 +168,9 @@
     messageLabel = [[UILabel alloc] initWithFrame:CGRectMake(0, PROMPT_HEIGHT+DIGIT_HEIGHT, contentView.bounds.size.width, MESSAGE_HEIGHT)];
     messageLabel.autoresizingMask = UIViewAutoresizingFlexibleWidth;
     messageLabel.backgroundColor = [UIColor clearColor];
-    messageLabel.textColor = [UIColor colorWithRed:0.30 green:0.34 blue:0.42 alpha:1.0];
-    messageLabel.font = [UIFont systemFontOfSize:14];
-    messageLabel.shadowColor = [UIColor whiteColor];
+    messageLabel.textColor = [UIColor VLCLightTextColor];
+    messageLabel.font = [UIFont boldSystemFontOfSize:14];
+    messageLabel.shadowColor = [UIColor VLCDarkTextShadowColor];
     messageLabel.shadowOffset = CGSizeMake(0, 1);
     messageLabel.textAlignment = NSTextAlignmentCenter;
     messageLabel.numberOfLines = 0;
