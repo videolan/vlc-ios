@@ -18,13 +18,21 @@
 #import "VLCActivityManager.h"
 #import "VLCMediaFileDiscoverer.h"
 #import "HTTPServer.h"
+#import "Reachability.h"
 
 #import <ifaddrs.h>
 #import <arpa/inet.h>
 
+@interface VLCHTTPUploaderController()
+
+@property(nonatomic, strong) HTTPServer *httpServer;
+
+@end
+
 @implementation VLCHTTPUploaderController
 {
     UIBackgroundTaskIdentifier _backgroundTaskIdentifier;
+    Reachability *_reachability;
 }
 
 + (instancetype)sharedInstance
@@ -47,9 +55,19 @@
             name:UIApplicationDidBecomeActiveNotification object:nil];
         [center addObserver:self selector:@selector(applicationDidEnterBackground:)
             name:UIApplicationDidEnterBackgroundNotification object:nil];
+        [center addObserver:self selector:@selector(netReachabilityChanged:) name:kReachabilityChangedNotification object:nil];
+        
+        BOOL isHTTPServerOn = [[NSUserDefaults standardUserDefaults] boolForKey:kVLCSettingSaveHTTPUploadServerStatus];
+        [self changeHTTPServerState:isHTTPServerOn];
+
     }
 
     return self;
+}
+
+- (void)dealloc
+{
+    [[NSNotificationCenter defaultCenter] removeObserver:self];
 }
 
 - (void)applicationDidBecomeActive: (NSNotification *)notification
@@ -78,6 +96,31 @@
                 _backgroundTaskIdentifier = [[UIApplication sharedApplication] beginBackgroundTaskWithExpirationHandler:expirationHandler];
             }
         }
+    }
+}
+
+- (NSString *)httpStatus
+{
+    if (self.httpServer.isRunning) {
+        if (self.httpServer.listeningPort != 80) {
+            return [NSString stringWithFormat:@"http://%@:%i\nhttp://%@:%i", [self currentIPAddress], self.httpServer.listeningPort, [self hostname], self.httpServer.listeningPort];
+        } else {
+            return [NSString stringWithFormat:@"http://%@\nhttp://%@", [self currentIPAddress], [self hostname]];
+        }
+    } else {
+        return NSLocalizedString(@"HTTP_UPLOAD_SERVER_OFF", nil);
+    }
+}
+
+- (BOOL)isServerRunning
+{
+    return self.httpServer.isRunning;
+}
+
+- (void)netReachabilityChanged
+{
+    if (_reachability.currentReachabilityStatus != ReachableViaWiFi) {
+        [[VLCHTTPUploaderController sharedInstance] changeHTTPServerState:NO];
     }
 }
 

@@ -17,12 +17,9 @@
 
 #import "VLCMenuTableViewController.h"
 #import "VLCSidebarViewCell.h"
-#import "Reachability.h"
 #import <QuartzCore/QuartzCore.h>
 #import "VLCWiFiUploadTableViewCell.h"
-#import "VLCHTTPUploaderController.h"
 #import "VLCAppDelegate.h"
-#import "HTTPServer.h"
 #import "IASKAppSettingsViewController.h"
 #import "VLCServerListViewController.h"
 #import "VLCOpenNetworkStreamViewController.h"
@@ -34,6 +31,10 @@
 #import "VLCNavigationController.h"
 #import "GHRevealViewController.h"
 
+#define ROW_HEIGHT 50
+static NSString *CellIdentifier = @"VLCMenuCell";
+static NSString *WiFiCellIdentifier = @"VLCMenuWiFiCell";
+
 @interface VLCMenuTableViewController () <UITableViewDataSource, UITableViewDelegate>
 {
     NSArray *_sectionHeaderTexts;
@@ -41,10 +42,7 @@
     NSArray *_menuItemsSectionTwo;
     NSArray *_menuItemsSectionThree;
     NSMutableSet *_hiddenSettingKeys;
-
-    UILabel *_uploadLocationLabel;
-    UIButton *_uploadButton;
-    Reachability *_reachability;
+    
 }
 
 @end
@@ -53,7 +51,6 @@
 
 - (void)dealloc
 {
-    [_reachability stopNotifier];
     [[NSNotificationCenter defaultCenter] removeObserver:self];
 }
 
@@ -77,8 +74,9 @@
     _tableView.backgroundColor = [UIColor colorWithRed:(43.0f/255.0f) green:(43.0f/255.0f) blue:(43.0f/255.0f) alpha:1.0f];
     _tableView.separatorStyle = UITableViewCellSeparatorStyleNone;
     _tableView.indicatorStyle = UIScrollViewIndicatorStyleWhite;
-    _tableView.rowHeight = [VLCWiFiUploadTableViewCell heightOfCell];
+    _tableView.rowHeight = ROW_HEIGHT;
     _tableView.scrollsToTop = NO;
+    [_tableView registerClass:[VLCWiFiUploadTableViewCell class] forCellReuseIdentifier:WiFiCellIdentifier];
 
     self.view = [[UIView alloc] initWithFrame:CGRectMake(0.0f, 0.0f, kGHRevealSidebarWidth, CGRectGetHeight(self.view.bounds))];
     self.view.autoresizingMask = UIViewAutoresizingFlexibleHeight;
@@ -96,32 +94,12 @@
 
     [self.tableView selectRowAtIndexPath:[NSIndexPath indexPathForRow:0 inSection:0] animated:NO scrollPosition:UITableViewScrollPositionTop];
 
-    _reachability = [Reachability reachabilityForLocalWiFi];
-    [_reachability startNotifier];
-
-    [self netReachabilityChanged:nil];
-
-    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(netReachabilityChanged:) name:kReachabilityChangedNotification object:nil];
-
-    BOOL isHTTPServerOn = [[NSUserDefaults standardUserDefaults] boolForKey:kVLCSettingSaveHTTPUploadServerStatus];
-    [[VLCHTTPUploaderController sharedInstance] changeHTTPServerState:isHTTPServerOn];
-    [self updateHTTPServerAddress];
 }
 
 - (void)viewWillAppear:(BOOL)animated
 {
     [super viewWillAppear:animated];
     self.view.frame = CGRectMake(0.0f, 0.0f,kGHRevealSidebarWidth, CGRectGetHeight(self.view.bounds));
-    [self netReachabilityChanged:nil];
-}
-
-- (void)netReachabilityChanged:(NSNotification *)notification
-{
-    if (_reachability.currentReachabilityStatus == ReachableViaWiFi) {
-        _uploadButton.enabled = YES;
-        [self updateHTTPServerAddress];
-    } else
-        [self disableButtonHTTPServer];
 }
 
 - (BOOL)shouldAutorotate
@@ -156,8 +134,6 @@
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
 {
-    static NSString *CellIdentifier = @"VLCMenuCell";
-    static NSString *WiFiCellIdentifier = @"VLCMenuWiFiCell";
 
     NSString *rawTitle;
     NSUInteger section = indexPath.section;
@@ -169,11 +145,8 @@
         rawTitle = _menuItemsSectionThree[indexPath.row];
 
     UITableViewCell *cell;
-
     if ([rawTitle isEqualToString:@"WEBINTF_TITLE"]) {
         cell = (VLCWiFiUploadTableViewCell *)[tableView dequeueReusableCellWithIdentifier:WiFiCellIdentifier];
-        if (cell == nil)
-            cell = [VLCWiFiUploadTableViewCell cellWithReuseIdentifier:WiFiCellIdentifier];
     } else {
         cell = (VLCSidebarViewCell *)[tableView dequeueReusableCellWithIdentifier:CellIdentifier];
         if (cell == nil)
@@ -194,12 +167,7 @@
             cell.imageView.image = [UIImage imageNamed:@"OpenNetStream"];
         else if ([rawTitle isEqualToString:@"DOWNLOAD_FROM_HTTP"])
             cell.imageView.image = [UIImage imageNamed:@"Downloads"];
-        else if ([rawTitle isEqualToString:@"WEBINTF_TITLE"]) {
-            _uploadLocationLabel = [(VLCWiFiUploadTableViewCell*)cell uploadAddressLabel];
-            _uploadButton = [(VLCWiFiUploadTableViewCell*)cell serverOnButton];
-            [_uploadButton addTarget:self action:@selector(toggleHTTPServer:) forControlEvents:UIControlEventTouchUpInside];
-            [self updateHTTPServerAddress];
-        } else if ([rawTitle isEqualToString:@"CLOUD_SERVICES"])
+        else if ([rawTitle isEqualToString:@"CLOUD_SERVICES"])
             cell.imageView.image = [UIImage imageNamed:@"iCloudIcon"];
     } else if (section == 2) {
         if ([rawTitle isEqualToString:@"Settings"])
@@ -252,50 +220,6 @@
 
 #pragma mark - menu implementation
 
-- (void)updateHTTPServerAddress
-{
-    if (_reachability.currentReachabilityStatus == !ReachableViaWiFi)
-        [self disableButtonHTTPServer];
-    else {
-        VLCHTTPUploaderController *uploadController = [VLCHTTPUploaderController sharedInstance];
-        HTTPServer *server = uploadController.httpServer;
-        _uploadButton.enabled = YES;
-        if (server.isRunning) {
-            _uploadLocationLabel.numberOfLines = 0;
-            if (server.listeningPort != 80)
-                _uploadLocationLabel.text = [NSString stringWithFormat:@"http://%@:%i\nhttp://%@:%i", [uploadController currentIPAddress], server.listeningPort, [uploadController hostname], server.listeningPort];
-            else
-                _uploadLocationLabel.text = [NSString stringWithFormat:@"http://%@\nhttp://%@", [uploadController currentIPAddress], [uploadController hostname]];
-            [_uploadButton setImage:[UIImage imageNamed:@"WifiUpOn"] forState:UIControlStateNormal];
-        } else {
-            _uploadLocationLabel.text = NSLocalizedString(@"HTTP_UPLOAD_SERVER_OFF", nil);
-            [_uploadButton setImage:[UIImage imageNamed:@"WifiUp"] forState:UIControlStateNormal];
-        }
-    }
-}
-
-- (IBAction)toggleHTTPServer:(UIButton *)sender
-{
-    if (_uploadButton.enabled) {
-        VLCHTTPUploaderController *uploadController = [VLCHTTPUploaderController sharedInstance];
-        BOOL futureHTTPServerState = !uploadController.httpServer.isRunning;
-
-        [[NSUserDefaults standardUserDefaults] setBool:futureHTTPServerState forKey:kVLCSettingSaveHTTPUploadServerStatus];
-        [uploadController changeHTTPServerState:futureHTTPServerState];
-        [self updateHTTPServerAddress];
-        [[NSUserDefaults standardUserDefaults] synchronize];
-    }
-}
-
-- (void)disableButtonHTTPServer
-{
-    [_uploadButton setImage:[UIImage imageNamed:@"WifiUp"] forState:UIControlStateNormal];
-    _uploadButton.enabled = NO;
-    [_uploadButton setImage:[UIImage imageNamed:@"WiFiUp"] forState:UIControlStateDisabled];
-    _uploadLocationLabel.text = NSLocalizedString(@"HTTP_UPLOAD_NO_CONNECTIVITY", nil);
-    [[VLCHTTPUploaderController sharedInstance] changeHTTPServerState:NO];
-}
-
 - (void)_revealItem:(NSUInteger)itemIndex inSection:(NSUInteger)sectionNumber
 {
     UIViewController *viewController;
@@ -308,7 +232,7 @@
         } else if (itemIndex == 2)
             viewController = [VLCDownloadViewController sharedInstance];
         else if (itemIndex == 3)
-            [self toggleHTTPServer:nil];
+            [((VLCWiFiUploadTableViewCell *)[self.tableView cellForRowAtIndexPath:[NSIndexPath indexPathForRow:itemIndex inSection:sectionNumber]]) toggleHTTPServer];
         else if (itemIndex == 4)
             viewController = [[VLCCloudServicesTableViewController alloc] initWithNibName:@"VLCCloudServicesTableViewController" bundle:nil];
     } else if (sectionNumber == 2) {

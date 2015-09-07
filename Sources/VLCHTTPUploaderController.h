@@ -14,16 +14,13 @@
 
 #import <UIKit/UIKit.h>
 
-@class HTTPServer;
-
 @interface VLCHTTPUploaderController : NSObject
 
 + (instancetype)sharedInstance;
 
-@property (nonatomic, readonly) HTTPServer *httpServer;
-
 - (BOOL)changeHTTPServerState:(BOOL)state;
-- (NSString *)currentIPAddress;
+- (NSString *)httpStatus;
+- (BOOL)isServerRunning;
 - (NSString *)hostname;
 
 - (void)moveFileFrom:(NSString *)filepath;

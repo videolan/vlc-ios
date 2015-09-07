@@ -175,7 +175,6 @@
 		7DBBF1A4183AB4300009A339 /* VLCNetworkListCell~iphone.xib in Resources */ = {isa = PBXBuildFile; fileRef = 7DBBF18F183AB4300009A339 /* VLCNetworkListCell~iphone.xib */; };
 		7DBBF1A5183AB4300009A339 /* VLCMovieViewController~ipad.xib in Resources */ = {isa = PBXBuildFile; fileRef = 7DBBF190183AB4300009A339 /* VLCMovieViewController~ipad.xib */; };
 		7DBBF1A6183AB4300009A339 /* VLCMovieViewController~iphone.xib in Resources */ = {isa = PBXBuildFile; fileRef = 7DBBF191183AB4300009A339 /* VLCMovieViewController~iphone.xib */; };
-		7DBBF1AC183AB4300009A339 /* VLCWiFiUploadTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 7DBBF197183AB4300009A339 /* VLCWiFiUploadTableViewCell.xib */; };
 		7DBC85631A50B8860098D388 /* LiveAuthDialog_iPad.xib in Resources */ = {isa = PBXBuildFile; fileRef = 7DBC85611A50B8860098D388 /* LiveAuthDialog_iPad.xib */; };
 		7DBC85641A50B8860098D388 /* LiveAuthDialog_iPhone.xib in Resources */ = {isa = PBXBuildFile; fileRef = 7DBC85621A50B8860098D388 /* LiveAuthDialog_iPhone.xib */; };
 		7DC0C0551A4D78A4000EE359 /* DropboxSDK.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 7DC0C0541A4D78A4000EE359 /* DropboxSDK.framework */; };
@@ -635,7 +634,6 @@
 		7DBBF18F183AB4300009A339 /* VLCNetworkListCell~iphone.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; name = "VLCNetworkListCell~iphone.xib"; path = "Resources/VLCNetworkListCell~iphone.xib"; sourceTree = SOURCE_ROOT; };
 		7DBBF190183AB4300009A339 /* VLCMovieViewController~ipad.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; name = "VLCMovieViewController~ipad.xib"; path = "Resources/VLCMovieViewController~ipad.xib"; sourceTree = SOURCE_ROOT; };
 		7DBBF191183AB4300009A339 /* VLCMovieViewController~iphone.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; name = "VLCMovieViewController~iphone.xib"; path = "Resources/VLCMovieViewController~iphone.xib"; sourceTree = SOURCE_ROOT; };
-		7DBBF197183AB4300009A339 /* VLCWiFiUploadTableViewCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; name = VLCWiFiUploadTableViewCell.xib; path = Resources/VLCWiFiUploadTableViewCell.xib; sourceTree = SOURCE_ROOT; };
 		7DBC85611A50B8860098D388 /* LiveAuthDialog_iPad.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; name = LiveAuthDialog_iPad.xib; path = ImportedSources/OneDrive/src/LiveSDK/Library/Internal/LiveAuthDialog_iPad.xib; sourceTree = SOURCE_ROOT; };
 		7DBC85621A50B8860098D388 /* LiveAuthDialog_iPhone.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; name = LiveAuthDialog_iPhone.xib; path = ImportedSources/OneDrive/src/LiveSDK/Library/Internal/LiveAuthDialog_iPhone.xib; sourceTree = SOURCE_ROOT; };
 		7DC0C0541A4D78A4000EE359 /* DropboxSDK.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = DropboxSDK.framework; path = ImportedSources/Dropbox/DropboxSDK.framework; sourceTree = "<group>"; };
@@ -1347,7 +1345,6 @@
 				7D6BEF1E19E027BE00DF3972 /* Library */,
 				7DBBF190183AB4300009A339 /* VLCMovieViewController~ipad.xib */,
 				7DBBF191183AB4300009A339 /* VLCMovieViewController~iphone.xib */,
-				7DBBF197183AB4300009A339 /* VLCWiFiUploadTableViewCell.xib */,
 				7D27EB9319DEE11900EF0370 /* Launch Screen.xib */,
 			);
 			name = XIBs;
@@ -1864,7 +1861,6 @@
 				266DB8EB1B447E5000EA415E /* VLCPlexMediaInformationViewController.xib in Resources */,
 				7D9870651A3E03D5009CF27D /* papasscode_background@2x.png in Resources */,
 				7DBBF1A1183AB4300009A339 /* VLCPlaylistTableViewCell.xib in Resources */,
-				7DBBF1AC183AB4300009A339 /* VLCWiFiUploadTableViewCell.xib in Resources */,
 				7D63C19718774F1000BD5256 /* VLCFirstStepsFourthPageViewController~ipad.xib in Resources */,
 				7DBC85631A50B8860098D388 /* LiveAuthDialog_iPad.xib in Resources */,
 				7DBBF1A3183AB4300009A339 /* VLCNetworkListCell~ipad.xib in Resources */,
