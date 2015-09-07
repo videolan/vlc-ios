@@ -347,9 +347,11 @@ continueUserActivity:(NSUserActivity *)userActivity
         _isComingFromHandoff = NO;
     }
 
-    if (_isComingFromURLHandler) {
-        _isComingFromURLHandler = NO;
-        [[VLCPlaybackController sharedInstance] startPlayback];
+    if ([self passcodeValidated]) {
+        if (_isComingFromURLHandler) {
+            _isComingFromURLHandler = NO;
+            [[VLCPlaybackController sharedInstance] startPlayback];
+        }
     }
 }
 
@@ -504,6 +506,11 @@ continueUserActivity:(NSUserActivity *)userActivity
     [[NSNotificationCenter defaultCenter] postNotificationName:VLCPasscodeValidated object:self];
     if ([VLCPlaybackController sharedInstance].isPlaying)
         [_playerDisplayController pushPlaybackView];
+
+    if (_isComingFromURLHandler) {
+        _isComingFromURLHandler = NO;
+        [[VLCPlaybackController sharedInstance] startPlayback];
+    }
 }
 
 - (void)PAPasscodeViewController:(PAPasscodeViewController *)controller didFailToEnterPasscode:(NSInteger)attempts
@@ -582,9 +589,11 @@ continueUserActivity:(NSUserActivity *)userActivity
     vpc.errorCallback = errorCallback;
     vpc.fullscreenSessionRequested = YES;
 
-    if (!_isComingFromURLHandler || ([[UIApplication sharedApplication] applicationState] == UIApplicationStateActive)) {
-        _isComingFromURLHandler = NO;
-        [[VLCPlaybackController sharedInstance] startPlayback];
+    if ([self passcodeValidated]) {
+        if (!_isComingFromURLHandler || ([[UIApplication sharedApplication] applicationState] == UIApplicationStateActive)) {
+            _isComingFromURLHandler = NO;
+            [[VLCPlaybackController sharedInstance] startPlayback];
+        }
     }
 }
 

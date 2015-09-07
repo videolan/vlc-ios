@@ -1,7 +1,7 @@
 2.6.5:
 ------
 * Fixed playback of streams opened through the legacy vlc:// pseudo protocol
-* Minor improvements (#14836, #14881, #15118)
+* Minor improvements (#14080, #14836, #14881, #15118)
 
 2.6.4:
 ------
