@@ -582,7 +582,8 @@ continueUserActivity:(NSUserActivity *)userActivity
     vpc.errorCallback = errorCallback;
     vpc.fullscreenSessionRequested = YES;
 
-    if (!_isComingFromURLHandler) {
+    if (!_isComingFromURLHandler || ([[UIApplication sharedApplication] applicationState] == UIApplicationStateActive)) {
+        _isComingFromURLHandler = NO;
         [[VLCPlaybackController sharedInstance] startPlayback];
     }
 }

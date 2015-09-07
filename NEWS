@@ -1,3 +1,7 @@
+2.6.5:
+------
+* Fixed playback of streams opened through the legacy vlc:// pseudo protocol
+
 2.6.4:
 ------
 * Fixed playback of UPnP streams broken in previous update
