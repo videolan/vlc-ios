@@ -4,6 +4,19 @@
 * Added support for SMB file sharing (#8879)
 * Added support for music albums with more than 1 disk (#14650)
 
+2.6.5:
+------
+* Fixed playback of streams opened through the legacy vlc:// pseudo protocol
+* Minor improvements (#14080, #14836, #14881, #15118)
+* New translation to Norwegian Bokmål
+* Updated translations to Afrikaans, Arabic, Bosnian, Czech, Danish, English (GB),
+  Spanish (Mexico), Persian, Hungarian, Korean, Latvian, Malay, Polish, Portuguese (Brazil),
+  Portuguese (Portugal), Slovenian, Turkish and Traditional Chinese
+
+2.6.4:
+------
+* Fixed playback of UPnP streams broken in previous update
+
 2.6.3:
 ------
 * Stability improvements and minor bug fixes (#13601, #14154, #14611, #14852, #14860, #14864)
