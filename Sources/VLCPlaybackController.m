@@ -332,6 +332,12 @@ NSString *const VLCPlaybackControllerPlaybackDidFail = @"VLCPlaybackControllerPl
         if (_mediaPlayer.media) {
             [_mediaPlayer pause];
             [self _savePlaybackState];
+            @try {
+                [[MLMediaLibrary sharedMediaLibrary] save];
+            }
+            @catch (NSException *exception) {
+                APLog(@"saving playback state failed");
+            }
             [_mediaPlayer stop];
         }
         if (_mediaPlayer)
