@@ -157,7 +157,7 @@ static NSString * const kLXCollectionViewKeyPath = @"collectionView";
     UICollectionViewCell *cell = [self.collectionView.dataSource collectionView:self.collectionView cellForItemAtIndexPath:newIndexPath];
     if (!_folderView) {
         _folderView = [[UIView alloc] initWithFrame:cell.frame];
-        _folderView.backgroundColor = [UIColor colorWithRed:(236.0f/255.0f) green:(111.0f/255.0f) blue:0.0f alpha:1.f];
+        _folderView.backgroundColor = [UIColor VLCOrangeTintColor];
         _folderView.layer.cornerRadius = 8;
     }
     [self.collectionView insertSubview:_folderView atIndex:0];
