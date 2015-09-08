@@ -319,11 +319,12 @@
     if (position > .05f && position < .95f && (duration * position - duration) < -60000) {
         [(UITextView*)self.mediaIsUnreadView setText:[NSString stringWithFormat:NSLocalizedString(@"LIBRARY_MINUTES_LEFT", nil), [[VLCTime timeWithInt:(duration * position - duration)] minuteStringValue]]];
         self.mediaIsUnreadView.hidden = NO;
-    } else if (mediaLibraryFile.unread.intValue) {
+    } else if (position != 0.) {
+        self.mediaIsUnreadView.hidden = YES;
+    } else {
         [(UILabel *)self.mediaIsUnreadView setText:[NSLocalizedString(@"NEW", nil) capitalizedStringWithLocale:[NSLocale currentLocale]]];
         self.mediaIsUnreadView.hidden = NO;
-    } else
-        self.mediaIsUnreadView.hidden = YES;
+    }
 }
 
 - (void)longTouchGestureAction:(UIGestureRecognizer *)recognizer
