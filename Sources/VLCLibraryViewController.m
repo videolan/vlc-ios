@@ -1470,6 +1470,12 @@ static NSString *kUsingTableViewToShowData = @"UsingTableViewToShowData";
 {
     _libraryMode = mode;
     [self updateViewContents];
+
+    if (mode == VLCLibraryModeAllAlbums ||
+        mode == VLCLibraryModeAllSeries ||
+        mode == VLCLibraryModeAllFiles) {
+        _previousLibraryMode = mode;
+    }
 }
 
 #pragma mark - autorotation
