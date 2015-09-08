@@ -19,7 +19,7 @@
 @interface VLCHTTPFileDownloader ()
 {
     NSString *_filePath;
-    NSUInteger _expectedDownloadSize;
+    long long _expectedDownloadSize;
     NSUInteger _receivedDataSize;
     NSString *_fileName;
     NSURLConnection *_urlConnection;
@@ -111,6 +111,7 @@
             [self _downloadEnded];
         } else {
             _expectedDownloadSize = [response expectedContentLength];
+            APLog(@"expected download size: %lli", _expectedDownloadSize);
             if (_expectedDownloadSize  < [[UIDevice currentDevice] freeDiskspace].longLongValue)
                 [self.delegate downloadStarted];
             else {
@@ -123,7 +124,6 @@
                                                         otherButtonTitles:nil];
                 [alert show];
             }
-            APLog(@"expected download size: %lu", (unsigned long)_expectedDownloadSize);
         }
     } else {
         APLog(@"unhandled status code %lu", (unsigned long)_statusCode);
