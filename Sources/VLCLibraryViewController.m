@@ -281,6 +281,7 @@ static NSString *kUsingTableViewToShowData = @"UsingTableViewToShowData";
                 }
                 _reorderLayout = [[LXReorderableCollectionViewFlowLayout alloc] init];
                 [self.collectionView setCollectionViewLayout:_reorderLayout animated:NO];
+                _libraryMode = VLCLibraryModeFolder;
             }
         }
         @synchronized(self) {
@@ -573,6 +574,19 @@ static NSString *kUsingTableViewToShowData = @"UsingTableViewToShowData";
     } else {
         [self.collectionView reloadData];
         [self updateActionBarButtonItemStateWithSelectedIndexPaths:[self.collectionView indexPathsForSelectedItems]];
+        if (_libraryMode == VLCLibraryModeAllFiles) {
+            if (self.collectionView.collectionViewLayout != _folderLayout) {
+                for (UIGestureRecognizer *recognizer in _collectionView.gestureRecognizers) {
+                    if (recognizer != _folderLayout.panGestureRecognizer ||
+                        recognizer != _folderLayout.longPressGestureRecognizer ||
+                        recognizer != _longPressGestureRecognizer)
+                        [self.collectionView removeGestureRecognizer:recognizer];
+                }
+
+                [self.collectionView setCollectionViewLayout:_folderLayout animated:NO];
+                [self.collectionView addGestureRecognizer:_longPressGestureRecognizer];
+            }
+        }
     }
 
     [self _displayEmptyLibraryViewIfNeeded];
@@ -1224,7 +1238,7 @@ static NSString *kUsingTableViewToShowData = @"UsingTableViewToShowData";
     NSMutableArray *toolbarItems = [self.toolbarItems mutableCopy];
     toolbarItems[2] = createFolderItem;
     self.toolbarItems = toolbarItems;
-    [self setLibraryMode:_libraryMode];
+    [self setLibraryMode:_previousLibraryMode];
     [self updateViewContents];
 }
 
