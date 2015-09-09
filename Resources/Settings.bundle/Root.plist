@@ -486,7 +486,7 @@
 			<key>Type</key>
 			<string>PSTextFieldSpecifier</string>
 			<key>Title</key>
-			<string>SETINGS_PLEX_LOGIN</string>
+			<string>SETTINGS_PLEX_LOGIN</string>
 			<key>Key</key>
 			<string>plex-login</string>
 		</dict>
@@ -494,7 +494,7 @@
 			<key>Type</key>
 			<string>PSTextFieldSpecifier</string>
 			<key>Title</key>
-			<string>SETINGS_PLEX_PASSWORD</string>
+			<string>SETTINGS_PLEX_PASSWORD</string>
 			<key>Key</key>
 			<string>plex-password</string>
 		</dict>
