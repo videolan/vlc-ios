@@ -183,29 +183,11 @@ static VLCWatchCommunication *_singeltonInstance = nil;
     NSPersistentStore *persistentStore = [libraryPSC persistentStoreForURL:[library persistentStoreURL]];
     NSURL *tmpURL = [NSURL fileURLWithPath:[NSTemporaryDirectory() stringByAppendingPathComponent:persistentStore.URL.lastPathComponent]];
 
-    NSPersistentStoreCoordinator *migratePSC = [[NSPersistentStoreCoordinator alloc] initWithManagedObjectModel:libraryPSC.managedObjectModel];
-    NSError *error;
-    NSPersistentStore *migrateStore = [migratePSC addPersistentStoreWithType:persistentStore.type
-                                                               configuration:persistentStore.configurationName
-                                                                         URL:persistentStore.URL
-                                                                     options:persistentStore.options
-                                                                       error:&error];
-    if (!migrateStore) {
-        NSLog(@"%s failed to add persistent store with error %@",__PRETTY_FUNCTION__,error);
-        return;
-    }
-
-
     NSMutableDictionary *destOptions = [persistentStore.options mutableCopy] ?: [NSMutableDictionary new];
-    destOptions[NSSQLitePragmasOption] = @{@"journal_mode": @"OFF"};
+    destOptions[NSSQLitePragmasOption] = @{@"journal_mode": @"DELETE"};
 
-    [migratePSC destroyPersistentStoreAtURL:tmpURL withType:persistentStore.type options:destOptions error:nil];
-
-    error = nil;
-    BOOL success = [migratePSC migratePersistentStore:migrateStore
-                                                toURL:tmpURL
-                                              options:destOptions
-                                             withType:NSSQLiteStoreType error:&error];
+    NSError *error;
+    bool success = [libraryPSC replacePersistentStoreAtURL:tmpURL destinationOptions:destOptions withPersistentStoreFromURL:persistentStore.URL sourceOptions:persistentStore.options storeType:NSSQLiteStoreType error:&error];
     if (!success) {
         NSLog(@"%s failed to copy persistent store to tmp location for copy to watch with error %@",__PRETTY_FUNCTION__,error);
     }

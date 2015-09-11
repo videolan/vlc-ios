@@ -239,7 +239,6 @@
 		DD3567901B6761CE00338947 /* WatchConnectivity.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = DD35678F1B6761CD00338947 /* WatchConnectivity.framework */; };
 		DD3567B41B67674700338947 /* VLCTime.m in Sources */ = {isa = PBXBuildFile; fileRef = DD3567B31B67674700338947 /* VLCTime.m */; };
 		DD3567EF1B6768FC00338947 /* ExtensionDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = DD3567D91B6768FC00338947 /* ExtensionDelegate.swift */; };
-		DD3567F11B6768FC00338947 /* NSManagedObjectContext+refreshAll.m in Sources */ = {isa = PBXBuildFile; fileRef = DD3567DC1B6768FC00338947 /* NSManagedObjectContext+refreshAll.m */; };
 		DD3567F21B6768FC00338947 /* VLCBaseInterfaceController.m in Sources */ = {isa = PBXBuildFile; fileRef = DD3567E01B6768FC00338947 /* VLCBaseInterfaceController.m */; };
 		DD3567F31B6768FC00338947 /* VLCDetailInterfaceController.m in Sources */ = {isa = PBXBuildFile; fileRef = DD3567E21B6768FC00338947 /* VLCDetailInterfaceController.m */; };
 		DD3567F51B6768FC00338947 /* VLCNowPlayingInterfaceController.m in Sources */ = {isa = PBXBuildFile; fileRef = DD3567E61B6768FC00338947 /* VLCNowPlayingInterfaceController.m */; };
@@ -749,8 +748,6 @@
 		DD3567B31B67674700338947 /* VLCTime.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = VLCTime.m; path = ImportedSources/VLCKit/Sources/VLCTime.m; sourceTree = SOURCE_ROOT; };
 		DD3567B51B67675400338947 /* VLCTime.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = VLCTime.h; path = ImportedSources/VLCKit/Headers/Public/VLCTime.h; sourceTree = SOURCE_ROOT; };
 		DD3567D91B6768FC00338947 /* ExtensionDelegate.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ExtensionDelegate.swift; sourceTree = "<group>"; };
-		DD3567DB1B6768FC00338947 /* NSManagedObjectContext+refreshAll.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSManagedObjectContext+refreshAll.h"; sourceTree = "<group>"; };
-		DD3567DC1B6768FC00338947 /* NSManagedObjectContext+refreshAll.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSManagedObjectContext+refreshAll.m"; sourceTree = "<group>"; };
 		DD3567DD1B6768FC00338947 /* VLC for iOS WatchKit Extension-Prefix.pch */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "VLC for iOS WatchKit Extension-Prefix.pch"; sourceTree = "<group>"; };
 		DD3567DF1B6768FC00338947 /* VLCBaseInterfaceController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = VLCBaseInterfaceController.h; sourceTree = "<group>"; };
 		DD3567E01B6768FC00338947 /* VLCBaseInterfaceController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = VLCBaseInterfaceController.m; sourceTree = "<group>"; };
@@ -1703,8 +1700,6 @@
 			isa = PBXGroup;
 			children = (
 				DD3567D91B6768FC00338947 /* ExtensionDelegate.swift */,
-				DD3567DB1B6768FC00338947 /* NSManagedObjectContext+refreshAll.h */,
-				DD3567DC1B6768FC00338947 /* NSManagedObjectContext+refreshAll.m */,
 				DD3567DF1B6768FC00338947 /* VLCBaseInterfaceController.h */,
 				DD3567E01B6768FC00338947 /* VLCBaseInterfaceController.m */,
 				DD3567E11B6768FC00338947 /* VLCDetailInterfaceController.h */,
@@ -2203,7 +2198,6 @@
 			buildActionMask = 2147483647;
 			files = (
 				DD3567F91B6768FC00338947 /* WKInterfaceObject+VLCProgress.m in Sources */,
-				DD3567F11B6768FC00338947 /* NSManagedObjectContext+refreshAll.m in Sources */,
 				DD3567EF1B6768FC00338947 /* ExtensionDelegate.swift in Sources */,
 				DD3567F81B6768FC00338947 /* VLCWatchTableController.m in Sources */,
 				DD3567F61B6768FC00338947 /* VLCPlaylistInterfaceController.m in Sources */,

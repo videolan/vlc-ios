@@ -19,7 +19,8 @@
 #import <WatchConnectivity/WatchConnectivity.h>
 
 @interface VLCDetailInterfaceController ()
-@property (nonatomic, weak) NSManagedObject *managedObject;
+@property (nonatomic, weak) NSManagedObjectContext *moc;
+@property (nonatomic, strong) NSManagedObjectID *objectID;
 @end
 
 @implementation VLCDetailInterfaceController
@@ -32,18 +33,22 @@
     self.durationLabel.accessibilityLabel = NSLocalizedString(@"DURATION", nil);
 
     [self addNowPlayingMenu];
-    [self configureWithFile:context];
+
+    NSManagedObject *managedObject = context;
+    [self configureWithFile:managedObject];
+
+    self.objectID = managedObject.objectID;
+    self.moc = managedObject.managedObjectContext;
 }
 
 - (void)updateData {
     [super updateData];
-    NSManagedObject *managedObject = self.managedObject;
-    [managedObject.managedObjectContext refreshObject:managedObject mergeChanges:NO];
-    [self configureWithFile:managedObject];
+    [self.moc performBlock:^{
+        [self configureWithFile:[self.moc objectWithID:self.objectID]];
+    }];
 }
 
 - (void)configureWithFile:(NSManagedObject *)managedObject {
-    self.managedObject = managedObject;
 
     NSString *title = nil;
     NSString *durationString = nil;
@@ -63,11 +68,14 @@
     }
 
     BOOL playEnabled = managedObject != nil;
-    self.playNowButton.enabled = playEnabled;
 
-    self.mediaTitle = title;
-    self.mediaDuration = durationString;
-    self.playbackProgress = playbackProgress;
+    [[NSOperationQueue mainQueue] addOperationWithBlock:^{
+        self.playNowButton.enabled = playEnabled;
+
+        self.mediaTitle = title;
+        self.mediaDuration = durationString;
+        self.playbackProgress = playbackProgress;
+    }];
 
     /* do not block the main thread */
     [self performSelectorInBackground:@selector(loadThumbnailForManagedObject:) withObject:managedObject];
@@ -83,10 +91,10 @@
 
 - (IBAction)playNow {
 
-    id payload = self.managedObject.objectID.URIRepresentation.absoluteString;
+    NSURL *currentObjectURI = self.objectID.URIRepresentation;
     NSDictionary *dict = [VLCWatchMessage messageDictionaryForName:@"playFile"
-                                                           payload:payload];
-    [self updateUserActivity:@"org.videolan.vlc-ios.playing" userInfo:@{@"playingmedia":self.managedObject.objectID.URIRepresentation} webpageURL:nil];
+                                                           payload:currentObjectURI.absoluteString];
+    [self updateUserActivity:@"org.videolan.vlc-ios.playing" userInfo:@{@"playingmedia":currentObjectURI} webpageURL:nil];
 
 
     [[WCSession defaultSession] sendMessage:dict replyHandler:^(NSDictionary<NSString *,id> * _Nonnull replyMessage) {

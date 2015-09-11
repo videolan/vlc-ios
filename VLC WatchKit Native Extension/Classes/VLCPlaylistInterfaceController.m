@@ -16,7 +16,6 @@
 #import "VLCRowController.h"
 
 #import "VLCWatchTableController.h"
-#import "NSManagedObjectContext+refreshAll.h"
 #import "MLMediaLibrary+playlist.h"
 
 static NSString *const rowType = @"mediaRow";
@@ -37,9 +36,6 @@ static NSString *const rowType = @"mediaRow";
 
 - (void)awakeWithContext:(id)context {
     [super awakeWithContext:context];
-
-    MLMediaLibrary *mediaLibrary = [MLMediaLibrary sharedMediaLibrary];
-    mediaLibrary.additionalPersitentStoreOptions = @{NSReadOnlyPersistentStoreOption : @YES};
 
     if (context == nil) {
         self.libraryMode = VLCLibraryModeAllFiles;
@@ -128,7 +124,7 @@ static NSString *const rowType = @"mediaRow";
 - (void)updateData {
     [super updateData];
     NSManagedObjectContext *moc = [(NSManagedObject *)self.tableController.objects.firstObject managedObjectContext];
-    [moc vlc_refreshAllObjectsMerge:NO];
+    [moc refreshAllObjects];
     self.tableController.objects = [self mediaArray];
 }
 
