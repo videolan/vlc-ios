@@ -176,7 +176,7 @@ static VLCWatchCommunication *_singeltonInstance = nil;
 }
 
 - (void)copyCoreDataToWatch {
-    if (![[WCSession defaultSession] isReachable]) return;
+    if (![[WCSession defaultSession] isPaired]) return;
 
     MLMediaLibrary *library = [MLMediaLibrary sharedMediaLibrary];
     NSPersistentStoreCoordinator *libraryPSC = [library persistentStoreCoordinator];
@@ -191,6 +191,14 @@ static VLCWatchCommunication *_singeltonInstance = nil;
     if (!success) {
         NSLog(@"%s failed to copy persistent store to tmp location for copy to watch with error %@",__PRETTY_FUNCTION__,error);
     }
+
+    // cancel old transfers
+    NSArray<WCSessionFileTransfer *> *outstandingtransfers = [[WCSession defaultSession] outstandingFileTransfers];
+    [outstandingtransfers enumerateObjectsUsingBlock:^(WCSessionFileTransfer * _Nonnull obj, NSUInteger idx, BOOL * _Nonnull stop) {
+        if ([obj.file.metadata[@"filetype"] isEqualToString:@"coredata"]) {
+            [obj cancel];
+        }
+    }];
 
     NSDictionary *metadata = @{@"filetype":@"coredata"};
     [[WCSession defaultSession] transferFile:tmpURL metadata:metadata];
