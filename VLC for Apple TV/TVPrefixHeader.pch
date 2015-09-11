@@ -1,0 +1,23 @@
+/*****************************************************************************
+ * Prefix header for all source files of the 'VLC for Apple TV' target
+ * VLC for iOS
+ *****************************************************************************
+ * Copyright (c) 2015 VideoLAN. All rights reserved.
+ * $Id$
+ *
+ * Authors: Felix Paul Kühne <fkuehne # videolan.org>
+ *
+ * Refer to the COPYING file of the official project for license.
+ *****************************************************************************/
+
+#ifndef PrefixHeader_pch
+#define PrefixHeader_pch
+
+#ifdef __OBJC__
+#import <UIKit/UIKit.h>
+#import <Foundation/Foundation.h>
+#endif
+
+#import <TVVLCKit/TVVLCKit.h>
+
+#endif /* PrefixHeader_pch */
