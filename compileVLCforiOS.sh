@@ -4,7 +4,6 @@
 
 set -e
 
-PLATFORM=iphoneos
 SDK=`xcrun --sdk iphoneos --show-sdk-version`
 SDK_MIN=7.0
 VERBOSE=no
@@ -19,12 +18,11 @@ TESTEDMEDIALIBRARYKITHASH=e5ca039f
 usage()
 {
 cat << EOF
-usage: $0 [-s] [-v] [-k sdk] [-d] [-n] [-l] [-u]
+usage: $0 [-v] [-k sdk] [-d] [-n] [-l] [-t]
 
 OPTIONS
    -k       Specify which sdk to use (see 'xcodebuild -showsdks', current: ${SDK})
    -v       Be more verbose
-   -s       Build for simulator
    -d       Enable Debug
    -n       Skip script steps requiring network interaction
    -l       Skip libvlc compilation
@@ -59,15 +57,11 @@ buildxcworkspace()
     info "Building the workspace $1 ($target, ${CONFIGURATION})"
 
     local architectures=""
-    if [ "$PLATFORM" = "iphonesimulator" ]; then
-        architectures="i386 x86_64"
-    else
-        architectures="armv7 armv7s arm64"
-    fi
+    architectures="armv7 armv7s arm64"
 
     xcodebuild -workspace "$1.xcworkspace" \
     -scheme "Pods-vlc-ios" \
-    -sdk $PLATFORM$SDK \
+    -sdk iphoneos$SDK \
     -configuration ${CONFIGURATION} \
     ARCHS="${architectures}" \
     IPHONEOS_DEPLOYMENT_TARGET=${SDK_MIN} > ${out}
@@ -82,9 +76,6 @@ do
              ;;
          v)
              VERBOSE=yes
-             ;;
-         s)
-             PLATFORM=iphonesimulator
              ;;
          d)  CONFIGURATION="Debug"
              ;;
