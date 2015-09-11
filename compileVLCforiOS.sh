@@ -90,6 +90,8 @@ do
              ;;
          t)
              TVOS=yes
+             SDK=`xcrun --sdk appletvos --show-sdk-version`
+             SDK_MIN=9.0
              ;;
          ?)
              usage
