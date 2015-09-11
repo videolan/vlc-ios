@@ -11,6 +11,7 @@ VERBOSE=no
 CONFIGURATION="Release"
 NONETWORK=no
 SKIPLIBVLCCOMPILATION=no
+TVOS=no
 
 TESTEDVLCKITHASH=3f93c1e7
 TESTEDMEDIALIBRARYKITHASH=e5ca039f
@@ -27,6 +28,7 @@ OPTIONS
    -d       Enable Debug
    -n       Skip script steps requiring network interaction
    -l       Skip libvlc compilation
+   -t       Build for TV
 EOF
 }
 
@@ -71,7 +73,7 @@ buildxcworkspace()
     IPHONEOS_DEPLOYMENT_TARGET=${SDK_MIN} > ${out}
 }
 
-while getopts "hvsdnluk:" OPTION
+while getopts "hvsdtnluk:" OPTION
 do
      case $OPTION in
          h)
@@ -94,6 +96,9 @@ do
              ;;
          k)
              SDK=$OPTARG
+             ;;
+         t)
+             TVOS=yes
              ;;
          ?)
              usage
@@ -204,6 +209,9 @@ fi
 if [ "$SKIPLIBVLCCOMPILATION" = "yes" ]; then
     args="${args} -l"
 fi
+if [ "$TVOS" = "yes" ]; then
+    args="${args} -t"
+fi
 ./buildMobileVLCKit.sh ${args} -k "${SDK}"
 spopd
 
@@ -214,6 +222,11 @@ info "installing pods"
 pod install
 
 # Build the VLC for iOS workspace now
-buildxcworkspace "VLC for iOS" "VLC for iOS"
+if [ "$TVOS" = "no" ]; then
+    buildxcworkspace "VLC for iOS" "VLC for iOS"
+else
+    buildxcworkspace "VLC for iOS" "VLC for Apple TV"
+fi
+
 
 info "Build completed"
