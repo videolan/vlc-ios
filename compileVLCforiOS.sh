@@ -217,8 +217,6 @@ pod install
 # Build the VLC for iOS workspace now
 if [ "$TVOS" = "no" ]; then
     buildxcworkspace "VLC for iOS" "VLC for iOS"
-else
-    buildxcworkspace "VLC for iOS" "VLC for Apple TV"
 fi
 
 
