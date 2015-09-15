@@ -45,11 +45,23 @@ class ExtensionDelegate: NSObject, WKExtensionDelegate, WCSessionDelegate, NSFil
 
     func session(session: WCSession, didReceiveFile file: WCSessionFile) {
         let fileType = file.metadata?["filetype"] as? String ?? ""
-        if fileType == "coredata" {
+        switch (fileType) {
+        case "coredata":
             dispatch_sync(dispatch_get_main_queue())
-            {
-                self.copyUpdatedCoreDataDBFromURL(file.fileURL)
+                {
+                    self.copyUpdatedCoreDataDBFromURL(file.fileURL)
             }
+
+        case "thumbnail":
+            if let data = NSData(contentsOfURL: file.fileURL),
+                let image = UIImage(data: data),
+                let URIRepresentation = file.metadata?["URIRepresentation"] as? String,
+                let objectIDURL = NSURL(string: URIRepresentation) {
+                    setImage(image, forObjectIDURL: objectIDURL)
+            }
+
+        default:
+            NSLog("unandled file with meta data \(file.metadata)")
         }
     }
 
@@ -57,6 +69,16 @@ class ExtensionDelegate: NSObject, WKExtensionDelegate, WCSessionDelegate, NSFil
         let library = MLMediaLibrary.sharedMediaLibrary() as! MLMediaLibrary
         library.overrideLibraryWithLibraryFromURL(url)
         NSNotificationCenter.defaultCenter().postNotificationName(VLCDBUpdateNotification, object: self)
+    }
+
+    func setImage(image: UIImage, forObjectIDURL objectIDURL: NSURL) {
+        let library = MLMediaLibrary.sharedMediaLibrary()
+        if let file = library.objectForURIRepresentation(objectIDURL) as? MLFile {
+            file.managedObjectContext?.performBlock({ () -> Void in
+                file.computedThumbnail = image
+            })
+        }
+
     }
 
 }

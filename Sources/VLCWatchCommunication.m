@@ -15,6 +15,13 @@
 #import "VLCWatchMessage.h"
 #import "VLCPlaybackController+MediaLibrary.h"
 #import <MediaPlayer/MediaPlayer.h>
+#import <MediaLibraryKit/UIImage+MLKit.h>
+#import <WatchKit/WatchKit.h>
+
+@interface VLCWatchCommunication()
+@property (nonatomic, strong) NSOperationQueue *thumbnailingQueue;
+
+@end
 
 @implementation VLCWatchCommunication
 
@@ -26,11 +33,15 @@
 {
     self = [super init];
     if (self) {
-        if ([WCSession isSupported]) {
+
+        if ([VLCWatchCommunication isSupported]) {
             WCSession *session = [WCSession defaultSession];
             session.delegate = self;
             [session activateSession];
             [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(savedManagedObjectContextNotification:) name:NSManagedObjectContextDidSaveNotification object:nil];
+            [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(didUpdateThumbnail:) name:MLFileThumbnailWasUpdated object:nil];
+            _thumbnailingQueue = [NSOperationQueue new];
+            _thumbnailingQueue.name = @"org.videolan.vlc.watch-thumbnailing";
         }
     }
     return self;
@@ -161,7 +172,7 @@ static VLCWatchCommunication *_singeltonInstance = nil;
     }
     NSDictionary *dict = [VLCWatchMessage messageDictionaryForName:VLCWatchMessageNameNotification
                                                            payload:payload];
-    if ([WCSession isSupported] && [[WCSession defaultSession] isReachable]) {
+    if ([WCSession isSupported] && [[WCSession defaultSession] isWatchAppInstalled] && [[WCSession defaultSession] isReachable]) {
         [[WCSession defaultSession] sendMessage:dict replyHandler:nil errorHandler:nil];
     }
 }
@@ -176,7 +187,7 @@ static VLCWatchCommunication *_singeltonInstance = nil;
 }
 
 - (void)copyCoreDataToWatch {
-    if (![[WCSession defaultSession] isPaired]) return;
+    if (![[WCSession defaultSession] isPaired] || ![[WCSession defaultSession] isWatchAppInstalled]) return;
 
     MLMediaLibrary *library = [MLMediaLibrary sharedMediaLibrary];
     NSPersistentStoreCoordinator *libraryPSC = [library persistentStoreCoordinator];
@@ -203,5 +214,42 @@ static VLCWatchCommunication *_singeltonInstance = nil;
     NSDictionary *metadata = @{@"filetype":@"coredata"};
     [[WCSession defaultSession] transferFile:tmpURL metadata:metadata];
 }
+
+- (void)didUpdateThumbnail:(NSNotification *)notification {
+    MLFile *file = notification.object;
+    if(![file isKindOfClass:[MLFile class]])
+        return;
+
+    UIImage *image = file.computedThumbnail;
+    NSManagedObjectID *objectID = file.objectID;
+    CGRect bounds = [WKInterfaceDevice currentDevice].screenBounds;
+    CGFloat scale = [WKInterfaceDevice currentDevice].screenScale;
+    [self.thumbnailingQueue addOperationWithBlock:^{
+        UIImage *scaledImage = [UIImage scaleImage:image toFitRect:bounds scale:scale];
+        [self transferImage:scaledImage forObjectID:objectID];
+    }];
+}
+
+- (void)transferImage:(UIImage *)image forObjectID:(NSManagedObjectID *)objectID {
+
+    NSString *imageName = [[NSUUID UUID] UUIDString];
+    NSURL *tmpURL = [NSURL fileURLWithPath:[NSTemporaryDirectory() stringByAppendingPathComponent:imageName]];
+
+    NSData *data = UIImageJPEGRepresentation(image, 0.7);
+    [data writeToURL:tmpURL atomically:YES];
+
+    NSDictionary *metaData = @{@"filetype" : @"thumbnail",
+                               @"URIRepresentation" : objectID.URIRepresentation.absoluteString};
+
+
+    NSArray<WCSessionFileTransfer *> *outstandingtransfers = [[WCSession defaultSession] outstandingFileTransfers];
+    [outstandingtransfers enumerateObjectsUsingBlock:^(WCSessionFileTransfer * _Nonnull obj, NSUInteger idx, BOOL * _Nonnull stop) {
+        if ([obj.file.metadata isEqualToDictionary:metaData])
+            [obj cancel];
+    }];
+
+    [[WCSession defaultSession] transferFile:tmpURL metadata:metaData];
+}
+
 
 @end
