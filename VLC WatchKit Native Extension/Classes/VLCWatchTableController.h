@@ -52,6 +52,14 @@ typedef void(^VLCWatchTableControllerConfigureRowControllerWithObjectBlock)(id r
  */
 @property (nonatomic, copy) NSArray *objects;
 
+/*
+ * Set the identifierKeyPath to the key path of a unique identifier of the objects.
+ * The identifier at the keyPath is used to determine if a object was added or removed.
+ * Default is @"self".
+ */
+@property (nonatomic, copy) NSString *identifierKeyPath;
+
+
 /* updates the table with the current configuration (pagesize, page, objects) */
 - (void)updateTable;
 

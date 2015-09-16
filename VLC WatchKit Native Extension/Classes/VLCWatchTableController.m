@@ -23,6 +23,12 @@
 
 @implementation VLCWatchTableController
 
+- (NSString *)identifierKey {
+    if (!_identifierKeyPath) {
+        _identifierKeyPath = @"self";
+    }
+    return _identifierKeyPath;
+}
 
 - (void)setObjects:(NSArray *)objects {
     _objects = [objects copy];
@@ -56,10 +62,10 @@
     /* get new dispayed objects */
     NSRange range = NSMakeRange(startIndex, endIndex-startIndex);
     NSArray *newObjects = [self.objects subarrayWithRange:range];
-    NSSet *newSet = [[NSSet alloc] initWithArray:newObjects];
+    NSSet *newSet = [[NSSet alloc] initWithArray:[newObjects valueForKeyPath:self.identifierKeyPath]];
 
     NSArray *oldObjects = self.displayedObjects;
-    NSSet *oldSet = [[NSSet alloc] initWithArray:oldObjects];
+    NSSet *oldSet = [[NSSet alloc] initWithArray:[oldObjects valueForKeyPath:self.identifierKeyPath]];
 
     WKInterfaceTable *table = self.table;
 
@@ -102,14 +108,14 @@
     else {
         NSMutableIndexSet *removeRowIndexes = [NSMutableIndexSet new];
         [oldObjects enumerateObjectsUsingBlock:^(id obj, NSUInteger idx, BOOL *stop) {
-            if ([removedSet containsObject:obj]) {
+            if ([removedSet containsObject:[obj valueForKeyPath:self.identifierKeyPath]]) {
                 [removeRowIndexes addIndex:idx];
             }
         }];
         [table removeRowsAtIndexes:removeRowIndexes];
 
         [newObjects enumerateObjectsUsingBlock:^(id obj, NSUInteger idx, BOOL *stop) {
-            if ([addedSet containsObject:obj]) {
+            if ([addedSet containsObject:[obj valueForKeyPath:self.identifierKeyPath]]) {
                 NSString *rowType = [self _rowTypeForObject:obj];
                 [table insertRowsAtIndexes:[NSIndexSet indexSetWithIndex:idx] withRowType:rowType];
             }

@@ -57,6 +57,7 @@ static NSString *const rowType = @"mediaRow";
     tableController.emptyLibraryInterfaceObjects = self.emptyLibraryGroup;
     tableController.pageSize = 20;
     tableController.rowType = rowType;
+    tableController.identifierKeyPath = @"objectID.URIRepresentation";
 
     tableController.configureRowControllerWithObjectBlock = ^(id controller, id object) {
         if ([controller respondsToSelector:@selector(configureWithMediaLibraryObject:)]) {
