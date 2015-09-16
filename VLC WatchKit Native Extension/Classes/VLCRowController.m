@@ -13,12 +13,14 @@
 #import "VLCRowController.h"
 #import "WKInterfaceObject+VLCProgress.h"
 #import "VLCThumbnailsCache.h"
+#import "VLCWatchMessage.h"
+#import <WatchConnectivity/WatchConnectivity.h>
 
 @interface VLCRowController()
 @property (nonatomic, weak, readwrite) id mediaLibraryObject;
 @property (nonatomic, readonly) CGRect thumbnailSize;
 @property (nonatomic, readonly) CGFloat rowWidth;
-
+@property (nonatomic, readonly) CGFloat scale;
 @property (nonatomic) UIImage *rawBackgroundImage;
 
 @end
@@ -41,11 +43,12 @@
     CGRect screenRect = currentDevice.screenBounds;
     CGFloat screenScale = currentDevice.screenScale;
     _thumbnailSize =  CGRectMake(0,
-                                       0,
-                                       screenRect.size.width * screenScale,
-                                       120. * screenScale
-                                       );
-    _rowWidth = screenRect.size.width * screenScale;
+                                 0,
+                                 screenRect.size.width,
+                                 120.
+                                 );
+    _rowWidth = screenRect.size.width;
+    _scale = screenScale;
 }
 
 - (void)configureWithMediaLibraryObject:(id)storageObject
@@ -95,9 +98,28 @@
     self.mediaLibraryObject = storageObject;
 }
 
+- (void)requestBackgroundImageForObjectID:(NSManagedObjectID *)objectID {
+    NSDictionary *dict = [VLCWatchMessage messageDictionaryForName:VLCWatchMessageNameRequestThumbnail
+                                                           payload:@{VLCWatchMessageKeyURIRepresentation : objectID.URIRepresentation.absoluteString}];
+
+    [[WCSession defaultSession] sendMessage:dict replyHandler:nil errorHandler:nil];
+}
+
 - (void)backgroundThumbnailSetter:(NSArray *)array
 {
-    UIImage *backgroundImage = [VLCThumbnailsCache thumbnailForManagedObject:array[1] toFitRect:_thumbnailSize shouldReplaceCache:YES];
+    WKInterfaceGroup *interfaceGroup = array.firstObject;
+    NSManagedObject *managedObject = array[1];
+
+    UIImage *backgroundImage = [VLCThumbnailsCache thumbnailForManagedObject:managedObject
+                                                                refreshCache:NO
+                                                                   toFitRect:_thumbnailSize
+                                                                       scale:_scale
+                                                          shouldReplaceCache:YES];
+
+    if (!backgroundImage)   {
+        [self requestBackgroundImageForObjectID:managedObject.objectID];
+        return;
+    }
 
     // don't redo image processing if no necessary
     if ([self.rawBackgroundImage isEqual:backgroundImage]) {
@@ -108,7 +130,7 @@
     UIImage *gradient = [UIImage imageNamed:@"tableview-gradient"];
 
     CGSize newSize = backgroundImage ? backgroundImage.size : CGSizeMake(_rowWidth, 120.);
-    UIGraphicsBeginImageContext(newSize);
+    UIGraphicsBeginImageContextWithOptions(newSize, YES, _scale);
 
     if (backgroundImage)
         [backgroundImage drawInRect:CGRectMake(0,0,newSize.width,newSize.height)];
@@ -123,7 +145,7 @@
 
     UIGraphicsEndImageContext();
 
-    [array.firstObject performSelectorOnMainThread:@selector(setBackgroundImage:) withObject:newImage waitUntilDone:NO];
+    [interfaceGroup performSelectorOnMainThread:@selector(setBackgroundImage:) withObject:newImage waitUntilDone:NO];
 }
 
 - (void)setMediaTitle:(NSString *)mediaTitle {

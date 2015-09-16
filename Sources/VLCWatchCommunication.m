@@ -17,6 +17,7 @@
 #import <MediaPlayer/MediaPlayer.h>
 #import <MediaLibraryKit/UIImage+MLKit.h>
 #import <WatchKit/WatchKit.h>
+#import "VLCThumbnailsCache.h"
 
 @interface VLCWatchCommunication()
 @property (nonatomic, strong) NSOperationQueue *thumbnailingQueue;
@@ -105,6 +106,8 @@ static VLCWatchCommunication *_singeltonInstance = nil;
         [self playFileFromWatch:message];
     } else if ([name isEqualToString:VLCWatchMessageNameSetVolume]) {
         [self setVolumeFromWatch:message];
+    } else if ([name isEqualToString:VLCWatchMessageNameRequestThumbnail]) {
+        [self requestThumnail:message];
     } else {
         APLog(@"Did not handle request from WatchKit Extension: %@",message);
     }
@@ -148,12 +151,21 @@ static VLCWatchCommunication *_singeltonInstance = nil;
     MLFile *currentFile = [VLCPlaybackController sharedInstance].currentlyPlayingMediaFile;
     NSString *URIString = currentFile.objectID.URIRepresentation.absoluteString;
     if (URIString) {
-        response[@"URIRepresentation"] = URIString;
+        response[VLCWatchMessageKeyURIRepresentation] = URIString;
     }
 
     response[@"volume"] = @([MPMusicPlayerController applicationMusicPlayer].volume);
 
     return response;
+}
+
+- (void)requestThumnail:(VLCWatchMessage *)message {
+    NSString *uriString = message.payload[VLCWatchMessageKeyURIRepresentation];
+    NSURL *url = [NSURL URLWithString:uriString];
+    NSManagedObject *object = [[MLMediaLibrary sharedMediaLibrary] objectForURIRepresentation:url];
+    if (object) {
+        [self transferThumbnailForObject:object refreshCache:NO];
+    }
 }
 
 #pragma mark - Notifications
@@ -215,19 +227,22 @@ static VLCWatchCommunication *_singeltonInstance = nil;
     [[WCSession defaultSession] transferFile:tmpURL metadata:metadata];
 }
 
-- (void)didUpdateThumbnail:(NSNotification *)notification {
-    MLFile *file = notification.object;
-    if(![file isKindOfClass:[MLFile class]])
-        return;
+- (void)transferThumbnailForObject:(NSManagedObject *__nonnull)object refreshCache:(BOOL)refresh{
 
-    UIImage *image = file.computedThumbnail;
-    NSManagedObjectID *objectID = file.objectID;
     CGRect bounds = [WKInterfaceDevice currentDevice].screenBounds;
     CGFloat scale = [WKInterfaceDevice currentDevice].screenScale;
     [self.thumbnailingQueue addOperationWithBlock:^{
-        UIImage *scaledImage = [UIImage scaleImage:image toFitRect:bounds scale:scale];
-        [self transferImage:scaledImage forObjectID:objectID];
+        UIImage *scaledImage = [VLCThumbnailsCache thumbnailForManagedObject:object refreshCache:refresh toFitRect:bounds scale:scale shouldReplaceCache:NO];
+        [self transferImage:scaledImage forObjectID:object.objectID];
     }];
+
+}
+
+- (void)didUpdateThumbnail:(NSNotification *)notification {
+    NSManagedObject *object = notification.object;
+    if(![object isKindOfClass:[NSManagedObject class]])
+        return;
+    [self transferThumbnailForObject:object refreshCache:YES];
 }
 
 - (void)transferImage:(UIImage *)image forObjectID:(NSManagedObjectID *)objectID {
@@ -239,8 +254,7 @@ static VLCWatchCommunication *_singeltonInstance = nil;
     [data writeToURL:tmpURL atomically:YES];
 
     NSDictionary *metaData = @{@"filetype" : @"thumbnail",
-                               @"URIRepresentation" : objectID.URIRepresentation.absoluteString};
-
+                               VLCWatchMessageKeyURIRepresentation : objectID.URIRepresentation.absoluteString};
 
     NSArray<WCSessionFileTransfer *> *outstandingtransfers = [[WCSession defaultSession] outstandingFileTransfers];
     [outstandingtransfers enumerateObjectsUsingBlock:^(WCSessionFileTransfer * _Nonnull obj, NSUInteger idx, BOOL * _Nonnull stop) {

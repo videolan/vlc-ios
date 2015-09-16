@@ -604,8 +604,6 @@
 		7D8139CD1865211900D65504 /* ms */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = ms; path = ms.lproj/Localizable.strings; sourceTree = "<group>"; };
 		7D84E4C51B41AB2800EA7D1F /* VideoToolbox.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = VideoToolbox.framework; path = System/Library/Frameworks/VideoToolbox.framework; sourceTree = SDKROOT; };
 		7D84E4C81B41ABCE00EA7D1F /* CoreMedia.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreMedia.framework; path = System/Library/Frameworks/CoreMedia.framework; sourceTree = SDKROOT; };
-		7D871F4F1AD7257100348D27 /* UIImage+Scaling.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = "UIImage+Scaling.h"; path = "Sources/UIImage+Scaling.h"; sourceTree = SOURCE_ROOT; };
-		7D871F501AD7257100348D27 /* UIImage+Scaling.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = "UIImage+Scaling.m"; path = "Sources/UIImage+Scaling.m"; sourceTree = SOURCE_ROOT; };
 		7D89786E185DED88009BAB5D /* VLCDownloadViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; name = VLCDownloadViewController.xib; path = Resources/VLCDownloadViewController.xib; sourceTree = SOURCE_ROOT; };
 		7D89787C185DF794009BAB5D /* VLCOpenNetworkStreamViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; name = VLCOpenNetworkStreamViewController.xib; path = Resources/VLCOpenNetworkStreamViewController.xib; sourceTree = SOURCE_ROOT; };
 		7D8E19271B6BC186000D7C74 /* VLC WatchKit App.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.xml; path = "VLC WatchKit App.entitlements"; sourceTree = "<group>"; };
@@ -1628,8 +1626,6 @@
 				7D3784C7183A9972009EE944 /* UIDevice+VLC.m */,
 				7D168F7218D4A317003FAF59 /* UIImage+Blur.h */,
 				7D168F7318D4A33F003FAF59 /* UIImage+Blur.m */,
-				7D871F4F1AD7257100348D27 /* UIImage+Scaling.h */,
-				7D871F501AD7257100348D27 /* UIImage+Scaling.m */,
 				7DF9352D1958AB0600E60FD4 /* UIColor+Presets.h */,
 				7DF9352E1958AB0600E60FD4 /* UIColor+Presets.m */,
 			);

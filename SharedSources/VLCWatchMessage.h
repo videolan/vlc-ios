@@ -17,6 +17,9 @@ extern NSString *const VLCWatchMessageNameSkipBackward;
 extern NSString *const VLCWatchMessageNamePlayFile;
 extern NSString *const VLCWatchMessageNameSetVolume;
 extern NSString *const VLCWatchMessageNameNotification;
+extern NSString *const VLCWatchMessageNameRequestThumbnail;
+
+extern NSString *const VLCWatchMessageKeyURIRepresentation;
 
 @interface VLCWatchMessage : NSObject
 @property (nonatomic, readonly) NSString *name;

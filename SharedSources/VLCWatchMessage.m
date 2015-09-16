@@ -15,6 +15,10 @@ NSString *const VLCWatchMessageNameSkipBackward = @"skipBackward";
 NSString *const VLCWatchMessageNamePlayFile = @"playFile";
 NSString *const VLCWatchMessageNameSetVolume = @"setVolume";
 NSString *const VLCWatchMessageNameNotification = @"notification";
+NSString *const VLCWatchMessageNameRequestThumbnail = @"requestThumbnail";
+
+NSString *const VLCWatchMessageKeyURIRepresentation = @"URIRepresentation";
+
 
 static NSString *const VLCWatchMessageNameKey = @"name";
 static NSString *const VLCWatchMessagePayloadKey = @"payload";

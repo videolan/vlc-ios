@@ -16,10 +16,10 @@
 #import "VLCThumbnailsCache.h"
 #import <CommonCrypto/CommonDigest.h>
 #import "UIImage+Blur.h"
-#import "UIImage+Scaling.h"
 #import <WatchKit/WatchKit.h>
 #import <CoreData/CoreData.h>
 #import <MediaLibraryKit/MediaLibraryKit.h>
+#import <MediaLibraryKit/UIImage+MLKit.h>
 #if TARGET_OS_IOS
 #import <UIKit/UIKit.h>
 #endif
@@ -108,16 +108,16 @@
     return thumbnail;
 }
 
-+ (UIImage *)thumbnailForManagedObject:(NSManagedObject *)object toFitRect:(CGRect)rect shouldReplaceCache:(BOOL)replaceCache
++ (UIImage *)thumbnailForManagedObject:(NSManagedObject *)object refreshCache:(BOOL)refreshCache toFitRect:(CGRect)rect scale:(CGFloat)scale shouldReplaceCache:(BOOL)replaceCache;
 {
-    UIImage *rawThumbnail = [self thumbnailForManagedObject:object];
+    UIImage *rawThumbnail = [self thumbnailForManagedObject:object refreshCache:refreshCache];
     CGSize rawSize = rawThumbnail.size;
 
     /* scaling is potentially expensive, so we should avoid re-doing it for the same size over and over again */ 
     if (rawSize.width <= rect.size.width && rawSize.height <= rect.size.height)
         return rawThumbnail;
 
-    UIImage *scaledImage = [UIImage scaleImage:rawThumbnail toFitRect:rect];
+    UIImage *scaledImage = [UIImage scaleImage:rawThumbnail toFitRect:rect scale:scale];
 
     if (replaceCache)
         [[VLCThumbnailsCache sharedThumbnailCache] _setThumbnail:scaledImage forObjectId:object.objectID];
@@ -266,7 +266,7 @@
 - (UIImage *)clusterThumbFromFiles:(NSArray *)files andNumber:(NSUInteger)fileNumber blur:(BOOL)blurImage
 {
     UIImage *clusterThumb;
-    CGSize imageSize;
+    CGSize imageSize = CGSizeZero;
     // TODO: correct for watch
 #ifndef TARGET_OS_WATCH
     if (_currentDeviceIdiom == UIUserInterfaceIdiomPad) {

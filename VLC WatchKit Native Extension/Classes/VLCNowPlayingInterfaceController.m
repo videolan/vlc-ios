@@ -85,7 +85,7 @@ static NSString *const VLCNowPlayingUpdateNotification = @"VLCPlaybackController
     NSDictionary *dict = [VLCWatchMessage messageDictionaryForName:VLCWatchMessageNameGetNowPlayingInfo];
     [[WCSession defaultSession] sendMessage:dict replyHandler:^(NSDictionary<NSString *,id> * _Nonnull replyInfo) {
         MLFile *file = nil;
-        NSString *uriString = replyInfo[@"URIRepresentation"];
+        NSString *uriString = replyInfo[VLCWatchMessageKeyURIRepresentation];
         if (uriString) {
             NSURL *uriRepresentation = [NSURL URLWithString:uriString];
             file = [MLFile fileForURIRepresentation:uriRepresentation];
@@ -131,7 +131,7 @@ static NSString *const VLCNowPlayingUpdateNotification = @"VLCPlaybackController
 
 - (void)loadThumbnailForFile:(MLFile *)file
 {
-    UIImage *image = [VLCThumbnailsCache thumbnailForManagedObject:file toFitRect:CGRectMake(0., 0., _screenBounds.size.width * _screenScale, _screenBounds.size.height * _screenScale) shouldReplaceCache:NO];
+    UIImage *image = [VLCThumbnailsCache thumbnailForManagedObject:file refreshCache:YES toFitRect:_screenBounds scale:_screenScale shouldReplaceCache:NO];
 
     [self.playElementsGroup performSelectorOnMainThread:@selector(setBackgroundImage:) withObject:image waitUntilDone:NO];
 }
