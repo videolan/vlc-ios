@@ -171,11 +171,11 @@
     _reachability = [Reachability reachabilityForLocalWiFi];
     [_reachability startNotifier];
 
-    [self netReachabilityChanged:nil];
+    [self netReachabilityChanged];
 
     _myHostName = [[VLCHTTPUploaderController sharedInstance] hostname];
 
-    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(netReachabilityChanged:) name:kReachabilityChangedNotification object:nil];
+    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(netReachabilityChanged) name:kReachabilityChangedNotification object:nil];
 }
 
 - (void)viewWillDisappear:(BOOL)animated
@@ -195,10 +195,10 @@
     [_activityIndicator stopAnimating];
     [super viewWillAppear:animated];
 
-    [self netReachabilityChanged:nil];
+    [self netReachabilityChanged];
 }
 
-- (void)netReachabilityChanged:(NSNotification *)notification
+- (void)netReachabilityChanged
 {
     if (_reachability.currentReachabilityStatus == ReachableViaWiFi) {
         [self _startUPNPDiscovery];

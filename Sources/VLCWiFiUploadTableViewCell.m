@@ -32,7 +32,7 @@
         [self setupCell];
         [self setupConstraints];
         [self updateHTTPServerAddress];
-        [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(netReachabilityChanged:) name:kReachabilityChangedNotification object:nil];
+        [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(netReachabilityChanged) name:kReachabilityChangedNotification object:nil];
     }
     return self;
 }

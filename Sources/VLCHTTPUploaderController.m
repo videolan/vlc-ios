@@ -55,7 +55,7 @@
             name:UIApplicationDidBecomeActiveNotification object:nil];
         [center addObserver:self selector:@selector(applicationDidEnterBackground:)
             name:UIApplicationDidEnterBackgroundNotification object:nil];
-        [center addObserver:self selector:@selector(netReachabilityChanged:) name:kReachabilityChangedNotification object:nil];
+        [center addObserver:self selector:@selector(netReachabilityChanged) name:kReachabilityChangedNotification object:nil];
         
         BOOL isHTTPServerOn = [[NSUserDefaults standardUserDefaults] boolForKey:kVLCSettingSaveHTTPUploadServerStatus];
         [self changeHTTPServerState:isHTTPServerOn];
