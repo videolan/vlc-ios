@@ -473,17 +473,16 @@
 		7D27EB9319DEE11900EF0370 /* Launch Screen.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; name = "Launch Screen.xib"; path = "Resources/Launch Screen.xib"; sourceTree = SOURCE_ROOT; };
 		7D27EC2919DF310300EF0370 /* VLCFirstStepsSecondPageViewController~ipad.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; name = "VLCFirstStepsSecondPageViewController~ipad.xib"; path = "Resources/VLCFirstStepsSecondPageViewController~ipad.xib"; sourceTree = SOURCE_ROOT; };
 		7D27EC2A19DF310300EF0370 /* VLCFirstStepsSecondPageViewController~iphone.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; name = "VLCFirstStepsSecondPageViewController~iphone.xib"; path = "Resources/VLCFirstStepsSecondPageViewController~iphone.xib"; sourceTree = SOURCE_ROOT; };
-		7D2AC5CC1B67737C00A8D9DD /* libLiveSDK-static.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; name = "libLiveSDK-static.a"; path = "../../../../Library/Developer/Xcode/DerivedData/VLC_for_iOS-aihbdkeagpzjqsczvuoyenddvmqy/Build/Products/Debug-iphoneos/libLiveSDK-static.a"; sourceTree = "<group>"; };
+		7D2AC5CC1B67737C00A8D9DD /* libLiveSDK-static.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; path = "libLiveSDK-static.a"; sourceTree = BUILT_PRODUCTS_DIR; };
 		7D2AC5CE1B67746700A8D9DD /* LiveAuthDialog_iPad.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; name = LiveAuthDialog_iPad.xib; path = ImportedSources/OneDrive/src/LiveSDK/Library/Internal/LiveAuthDialog_iPad.xib; sourceTree = SOURCE_ROOT; };
 		7D2AC5CF1B67746700A8D9DD /* LiveAuthDialog_iPhone.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; name = LiveAuthDialog_iPhone.xib; path = ImportedSources/OneDrive/src/LiveSDK/Library/Internal/LiveAuthDialog_iPhone.xib; sourceTree = SOURCE_ROOT; };
 		7D2AEDE017FB775900B5281E /* sv */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = sv; path = sv.lproj/Localizable.strings; sourceTree = "<group>"; };
 		7D2AEDE517FB785100B5281E /* hu */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = hu; path = hu.lproj/Localizable.strings; sourceTree = "<group>"; };
-		7D2DF7BA1B67753E00FB78AB /* libMediaLibraryKit-readonly.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; name = "libMediaLibraryKit-readonly.a"; path = "ImportedSources/MediaLibraryKit/build/Debug-iphoneos/libMediaLibraryKit-readonly.a"; sourceTree = "<group>"; };
-		7D2DF7BC1B67756E00FB78AB /* libMobileVLCKit.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; name = libMobileVLCKit.a; path = "ImportedSources/VLCKit/build/Debug-iphoneos/libMobileVLCKit.a"; sourceTree = "<group>"; };
-		7D2DF7BE1B67757700FB78AB /* libMediaLibraryKit.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; name = libMediaLibraryKit.a; path = "ImportedSources/MediaLibraryKit/build/Debug-iphoneos/libMediaLibraryKit.a"; sourceTree = "<group>"; };
-		7D2DF7C01B67760100FB78AB /* libGTLTouchStaticLib.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; name = libGTLTouchStaticLib.a; path = "ImportedSources/GDrive/build/Debug-iphoneos/libGTLTouchStaticLib.a"; sourceTree = "<group>"; };
+		7D2DF7BA1B67753E00FB78AB /* libMediaLibraryKit-readonly.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; path = "libMediaLibraryKit-readonly.a"; sourceTree = BUILT_PRODUCTS_DIR; };
+		7D2DF7BE1B67757700FB78AB /* libMediaLibraryKit.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; path = libMediaLibraryKit.a; sourceTree = BUILT_PRODUCTS_DIR; };
+		7D2DF7C01B67760100FB78AB /* libGTLTouchStaticLib.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; path = libGTLTouchStaticLib.a; sourceTree = BUILT_PRODUCTS_DIR; };
 		7D2DF7C21B67777D00FB78AB /* libc++.tbd */ = {isa = PBXFileReference; lastKnownFileType = "sourcecode.text-based-dylib-definition"; name = "libc++.tbd"; path = "usr/lib/libc++.tbd"; sourceTree = SDKROOT; };
-		7D2DF7C41B677C2600FB78AB /* libMobileVLCKit.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; name = libMobileVLCKit.a; path = "../../../../Library/Developer/Xcode/DerivedData/VLC_for_iOS-aihbdkeagpzjqsczvuoyenddvmqy/Build/Products/Debug-iphoneos/libMobileVLCKit.a"; sourceTree = "<group>"; };
+		7D2DF7C41B677C2600FB78AB /* libMobileVLCKit.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; path = libMobileVLCKit.a; sourceTree = BUILT_PRODUCTS_DIR; };
 		7D30F3BC183AB24C00FFC021 /* VLCHTTPConnection.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = VLCHTTPConnection.h; path = Sources/VLCHTTPConnection.h; sourceTree = SOURCE_ROOT; };
 		7D30F3BD183AB24C00FFC021 /* VLCHTTPConnection.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = VLCHTTPConnection.m; path = Sources/VLCHTTPConnection.m; sourceTree = SOURCE_ROOT; };
 		7D30F3BE183AB24C00FFC021 /* VLCHTTPFileDownloader.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = VLCHTTPFileDownloader.h; path = Sources/VLCHTTPFileDownloader.h; sourceTree = SOURCE_ROOT; };
@@ -711,7 +710,6 @@
 		A7924695170F0BA90036AAF2 /* libMediaLibraryKit.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; name = libMediaLibraryKit.a; path = External/MediaLibraryKit/libMediaLibraryKit.a; sourceTree = "<group>"; };
 		A79246C7170F11DF0036AAF2 /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/Localizable.strings; sourceTree = "<group>"; };
 		A79246C9170F11E40036AAF2 /* ru */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = ru; path = ru.lproj/Localizable.strings; sourceTree = "<group>"; };
-		CC1BBC3E1704934200A20CBF /* libMobileVLCKit.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; name = libMobileVLCKit.a; path = External/MobileVLCKit/libMobileVLCKit.a; sourceTree = "<group>"; };
 		CC1BBC451704938300A20CBF /* libiconv.dylib */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.dylib"; name = libiconv.dylib; path = usr/lib/libiconv.dylib; sourceTree = SDKROOT; };
 		CC1BBC471704938B00A20CBF /* libstdc++.dylib */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.dylib"; name = "libstdc++.dylib"; path = "usr/lib/libstdc++.dylib"; sourceTree = SDKROOT; };
 		CC1BBC491704939300A20CBF /* libz.dylib */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.dylib"; name = libz.dylib; path = usr/lib/libz.dylib; sourceTree = SDKROOT; };
@@ -768,7 +766,7 @@
 		DD510B6F1B14E564003BA71C /* VLCPlayerDisplayController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = VLCPlayerDisplayController.m; path = Sources/VLCPlayerDisplayController.m; sourceTree = SOURCE_ROOT; };
 		DD7110EE1AF38B2B00854776 /* MLMediaLibrary+playlist.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "MLMediaLibrary+playlist.h"; sourceTree = "<group>"; };
 		DD7110EF1AF38B2B00854776 /* MLMediaLibrary+playlist.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "MLMediaLibrary+playlist.m"; sourceTree = "<group>"; };
-		DD7BA2601B680C1B002D9F54 /* MediaLibraryKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = MediaLibraryKit.framework; path = "../Debug-watchsimulator/MediaLibraryKit.framework"; sourceTree = BUILT_PRODUCTS_DIR; };
+		DD7BA2601B680C1B002D9F54 /* MediaLibraryKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = MediaLibraryKit.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		DD8C8F9F1B676C0900B3C4EE /* zh-Hans */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = "zh-Hans"; path = "zh-Hans.lproj/Localizable.strings"; sourceTree = "<group>"; };
 		DD8C8FA01B676C0F00B3C4EE /* fi */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = fi; path = fi.lproj/Localizable.strings; sourceTree = "<group>"; };
 		DD8C8FA11B676C1700B3C4EE /* el */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = el; path = el.lproj/Localizable.strings; sourceTree = "<group>"; };
@@ -1335,7 +1333,6 @@
 				7D2DF7C21B67777D00FB78AB /* libc++.tbd */,
 				7D2DF7C01B67760100FB78AB /* libGTLTouchStaticLib.a */,
 				7D2DF7BE1B67757700FB78AB /* libMediaLibraryKit.a */,
-				7D2DF7BC1B67756E00FB78AB /* libMobileVLCKit.a */,
 				7D2DF7BA1B67753E00FB78AB /* libMediaLibraryKit-readonly.a */,
 				7D2AC5CC1B67737C00A8D9DD /* libLiveSDK-static.a */,
 				7D4DF2171B55209200739326 /* CoreSpotlight.framework */,
@@ -1650,7 +1647,6 @@
 			isa = PBXGroup;
 			children = (
 				A7924695170F0BA90036AAF2 /* libMediaLibraryKit.a */,
-				CC1BBC3E1704934200A20CBF /* libMobileVLCKit.a */,
 			);
 			name = "External VLC Libraries";
 			sourceTree = "<group>";
@@ -2571,7 +2567,6 @@
 				IPHONEOS_DEPLOYMENT_TARGET = 7.0;
 				LIBRARY_SEARCH_PATHS = (
 					"$(inherited)",
-					"$(PROJECT_DIR)/ImportedSources/MediaLibraryKit/build/Debug-iphoneos",
 				);
 				ONLY_ACTIVE_ARCH = YES;
 				OTHER_LDFLAGS = (
@@ -2625,7 +2620,6 @@
 				IPHONEOS_DEPLOYMENT_TARGET = 7.0;
 				LIBRARY_SEARCH_PATHS = (
 					"$(inherited)",
-					"$(PROJECT_DIR)/ImportedSources/MediaLibraryKit/build/Debug-iphoneos",
 				);
 				ONLY_ACTIVE_ARCH = NO;
 				OTHER_LDFLAGS = (
@@ -2707,7 +2701,6 @@
 				IPHONEOS_DEPLOYMENT_TARGET = 7.0;
 				LIBRARY_SEARCH_PATHS = (
 					"$(inherited)",
-					"$(PROJECT_DIR)/ImportedSources/MediaLibraryKit/build/Debug-iphoneos",
 				);
 				ONLY_ACTIVE_ARCH = NO;
 				OTHER_LDFLAGS = (
