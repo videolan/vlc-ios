@@ -48,12 +48,17 @@ static NSString *const VLCNowPlayingUpdateNotification = @"VLCPlaybackController
     self.durationLabel.accessibilityLabel = NSLocalizedString(@"DURATION", nil);
     self.titleLabel.accessibilityLabel = NSLocalizedString(@"TITLE", nil);
 
+    self.volume = -1.0;
+
     [self setPlaying:YES];
 
     [self requestNowPlayingInfo];
+
+    [self vlc_performBlockIfSessionReachable:nil showUnreachableAlert:YES alertOKAction:^{
+        [self dismissController];
+    }];
 }
 
-// TODO: check if iPhone is connected when inteface controller activates and for each user action
 
 - (void)willActivate {
     // This method is called when watch view controller is about to be visible to user
@@ -82,20 +87,22 @@ static NSString *const VLCNowPlayingUpdateNotification = @"VLCPlaybackController
 // and use that user info dictionary
 - (void)requestNowPlayingInfo {
 
-    NSDictionary *dict = [VLCWatchMessage messageDictionaryForName:VLCWatchMessageNameGetNowPlayingInfo];
-    [[WCSession defaultSession] sendMessage:dict replyHandler:^(NSDictionary<NSString *,id> * _Nonnull replyInfo) {
-        MLFile *file = nil;
-        NSString *uriString = replyInfo[VLCWatchMessageKeyURIRepresentation];
-        if (uriString) {
-            NSURL *uriRepresentation = [NSURL URLWithString:uriString];
-            file = [MLFile fileForURIRepresentation:uriRepresentation];
-        }
-        [self updateWithNowPlayingInfo:replyInfo[@"nowPlayingInfo"] andFile:file];
-        NSNumber *currentVolume = replyInfo[@"volume"];
-        if (currentVolume) {
-            self.volume = currentVolume.floatValue;
-        }
-    } errorHandler:nil];
+    [self vlc_performBlockIfSessionReachable:^{
+        NSDictionary *dict = [VLCWatchMessage messageDictionaryForName:VLCWatchMessageNameGetNowPlayingInfo];
+        [[WCSession defaultSession] sendMessage:dict replyHandler:^(NSDictionary<NSString *,id> * _Nonnull replyInfo) {
+            MLFile *file = nil;
+            NSString *uriString = replyInfo[VLCWatchMessageKeyURIRepresentation];
+            if (uriString) {
+                NSURL *uriRepresentation = [NSURL URLWithString:uriString];
+                file = [MLFile fileForURIRepresentation:uriRepresentation];
+            }
+            [self updateWithNowPlayingInfo:replyInfo[@"nowPlayingInfo"] andFile:file];
+            NSNumber *currentVolume = replyInfo[@"volume"];
+            if (currentVolume) {
+                self.volume = currentVolume.floatValue;
+            }
+        } errorHandler:nil];
+    } showUnreachableAlert:NO];
 }
 
 - (void)updateWithNowPlayingInfo:(NSDictionary*)nowPlayingInfo andFile:(MLFile*)file {
@@ -137,42 +144,56 @@ static NSString *const VLCNowPlayingUpdateNotification = @"VLCPlaybackController
 }
 
 - (IBAction)playPausePressed {
-    NSDictionary *dict = [VLCWatchMessage messageDictionaryForName:VLCWatchMessageNamePlayPause];
-    [[WCSession defaultSession] sendMessage:dict replyHandler:^(NSDictionary<NSString *,id> * _Nonnull replyInfo) {
-        NSNumber *playing = replyInfo[@"playing"];
-        if ([playing isKindOfClass:[NSNumber class]]) {
-            self.playing = playing.boolValue;
-        } else {
-            self.playing = !self.playing;
-        }
+    [self vlc_performBlockIfSessionReachable:^{
+        NSDictionary *dict = [VLCWatchMessage messageDictionaryForName:VLCWatchMessageNamePlayPause];
+        [[WCSession defaultSession] sendMessage:dict replyHandler:^(NSDictionary<NSString *,id> * _Nonnull replyInfo) {
+            NSNumber *playing = replyInfo[@"playing"];
+            if ([playing isKindOfClass:[NSNumber class]]) {
+                self.playing = playing.boolValue;
+            } else {
+                self.playing = !self.playing;
+            }
 
-    } errorHandler:^(NSError * _Nonnull error) {
-        NSLog(@"playpause failed with error: %@",error);
-    }];
+        } errorHandler:^(NSError * _Nonnull error) {
+            NSLog(@"playpause failed with error: %@",error);
+        }];
+    } showUnreachableAlert:YES];
 }
 
 - (IBAction)skipForward {
-    NSDictionary *dict = [VLCWatchMessage messageDictionaryForName:VLCWatchMessageNameSkipForward];
-    [[WCSession defaultSession] sendMessage:dict replyHandler:nil errorHandler:^(NSError * _Nonnull error) {
-        NSLog(@"skipForward failed with error: %@",error);
-    }];
+    [self vlc_performBlockIfSessionReachable:^{
+        NSDictionary *dict = [VLCWatchMessage messageDictionaryForName:VLCWatchMessageNameSkipForward];
+        [[WCSession defaultSession] sendMessage:dict replyHandler:nil errorHandler:^(NSError * _Nonnull error) {
+            NSLog(@"skipForward failed with error: %@",error);
+        }];
+
+    } showUnreachableAlert:YES];
 }
 
 - (IBAction)skipBackward {
-    NSDictionary *dict = [VLCWatchMessage messageDictionaryForName:VLCWatchMessageNameSkipBackward];
-    [[WCSession defaultSession] sendMessage:dict replyHandler:nil errorHandler:^(NSError * _Nonnull error) {
-        NSLog(@"skipBackward failed with error: %@",error);
-    }];
+    [self vlc_performBlockIfSessionReachable:^{
+
+        NSDictionary *dict = [VLCWatchMessage messageDictionaryForName:VLCWatchMessageNameSkipBackward];
+        [[WCSession defaultSession] sendMessage:dict replyHandler:nil errorHandler:^(NSError * _Nonnull error) {
+            NSLog(@"skipBackward failed with error: %@",error);
+        }];
+    } showUnreachableAlert:YES];
 }
 
 - (IBAction)volumeSliderChanged:(float)value {
     _volume = value;
-    NSDictionary *dict = [VLCWatchMessage messageDictionaryForName:VLCWatchMessageNameSetVolume
-                                                           payload:@(value)];
-    [[WCSession defaultSession] sendMessage:dict replyHandler:nil errorHandler:^(NSError * _Nonnull error) {
-        NSLog(@"setVolume failed with error: %@",error);
-    }];
+
+    [self vlc_performBlockIfSessionReachable:^{
+
+        NSDictionary *dict = [VLCWatchMessage messageDictionaryForName:VLCWatchMessageNameSetVolume
+                                                               payload:@(value)];
+        [[WCSession defaultSession] sendMessage:dict replyHandler:nil errorHandler:^(NSError * _Nonnull error) {
+            NSLog(@"setVolume failed with error: %@",error);
+        }];
+    } showUnreachableAlert:YES];
 }
+
+#pragma mark value comparing setters -
 
 - (void)setVolume:(float)volume
 {

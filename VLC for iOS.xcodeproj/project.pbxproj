@@ -252,6 +252,7 @@
 		DD7BA2631B680C8E002D9F54 /* MediaLibraryKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = DD7BA2601B680C1B002D9F54 /* MediaLibraryKit.framework */; };
 		DD7BA2641B680C8E002D9F54 /* MediaLibraryKit.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = DD7BA2601B680C1B002D9F54 /* MediaLibraryKit.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
 		DD8F84311B00EB3B0009138A /* VLCPlaybackController+MediaLibrary.m in Sources */ = {isa = PBXBuildFile; fileRef = DD8F84301B00EB3B0009138A /* VLCPlaybackController+MediaLibrary.m */; };
+		DDB7C6A41BAEB28200E6570E /* WKInterfaceController+VLCConnectionAlert.m in Sources */ = {isa = PBXBuildFile; fileRef = DD9FBE761BAD6BB600FFE77A /* WKInterfaceController+VLCConnectionAlert.m */; settings = {ASSET_TAGS = (); }; };
 		DDB959421AFBB30500BB8CFF /* MappingModel_2_5_to_2_6.xcmappingmodel in Sources */ = {isa = PBXBuildFile; fileRef = DDB959411AFBB30500BB8CFF /* MappingModel_2_5_to_2_6.xcmappingmodel */; };
 		DDC10BE41AEE8EA700890DC3 /* VLCTimeNavigationTitleView.m in Sources */ = {isa = PBXBuildFile; fileRef = DDC10BE31AEE8EA700890DC3 /* VLCTimeNavigationTitleView.m */; };
 		E0C04F951A25B4410080331A /* VLCDocumentPickerController.m in Sources */ = {isa = PBXBuildFile; fileRef = E0C04F941A25B4410080331A /* VLCDocumentPickerController.m */; };
@@ -786,6 +787,9 @@
 		DD8C8FAE1B676D8500B3C4EE /* VLC WatchKit Extension-Bridging-Header.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "VLC WatchKit Extension-Bridging-Header.h"; sourceTree = "<group>"; };
 		DD8F842F1B00EB3B0009138A /* VLCPlaybackController+MediaLibrary.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = "VLCPlaybackController+MediaLibrary.h"; path = "Sources/VLCPlaybackController+MediaLibrary.h"; sourceTree = SOURCE_ROOT; };
 		DD8F84301B00EB3B0009138A /* VLCPlaybackController+MediaLibrary.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = "VLCPlaybackController+MediaLibrary.m"; path = "Sources/VLCPlaybackController+MediaLibrary.m"; sourceTree = SOURCE_ROOT; };
+		DD9FBE751BAD6BB600FFE77A /* WKInterfaceController+VLCConnectionAlert.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "WKInterfaceController+VLCConnectionAlert.h"; sourceTree = "<group>"; };
+		DD9FBE761BAD6BB600FFE77A /* WKInterfaceController+VLCConnectionAlert.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "WKInterfaceController+VLCConnectionAlert.m"; sourceTree = "<group>"; };
+		DD9FBE791BADA8E300FFE77A /* VLC WatchKit Extension.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.xml; path = "VLC WatchKit Extension.entitlements"; sourceTree = "<group>"; };
 		DDB959411AFBB30500BB8CFF /* MappingModel_2_5_to_2_6.xcmappingmodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcmappingmodel; name = MappingModel_2_5_to_2_6.xcmappingmodel; path = ImportedSources/MediaLibraryKit/MappingModel_2_5_to_2_6.xcmappingmodel; sourceTree = "<group>"; };
 		DDC10BE21AEE8EA700890DC3 /* VLCTimeNavigationTitleView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = VLCTimeNavigationTitleView.h; path = Sources/VLCTimeNavigationTitleView.h; sourceTree = SOURCE_ROOT; };
 		DDC10BE31AEE8EA700890DC3 /* VLCTimeNavigationTitleView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = VLCTimeNavigationTitleView.m; path = Sources/VLCTimeNavigationTitleView.m; sourceTree = SOURCE_ROOT; };
@@ -1278,6 +1282,7 @@
 		7D94FCD216DE7D1000F2623B = {
 			isa = PBXGroup;
 			children = (
+				DD9FBE791BADA8E300FFE77A /* VLC WatchKit Extension.entitlements */,
 				7D8E19271B6BC186000D7C74 /* VLC WatchKit App.entitlements */,
 				DDB959411AFBB30500BB8CFF /* MappingModel_2_5_to_2_6.xcmappingmodel */,
 				7D31719C19FEC91F0019357A /* VLC for iOS.entitlements */,
@@ -1710,6 +1715,8 @@
 				DD3567EC1B6768FC00338947 /* VLCWatchTableController.m */,
 				DD3567ED1B6768FC00338947 /* WKInterfaceObject+VLCProgress.h */,
 				DD3567EE1B6768FC00338947 /* WKInterfaceObject+VLCProgress.m */,
+				DD9FBE751BAD6BB600FFE77A /* WKInterfaceController+VLCConnectionAlert.h */,
+				DD9FBE761BAD6BB600FFE77A /* WKInterfaceController+VLCConnectionAlert.m */,
 			);
 			path = Classes;
 			sourceTree = "<group>";
@@ -1851,6 +1858,11 @@
 					DD35676F1B6760BF00338947 = {
 						CreatedOnToolsVersion = 7.0;
 						DevelopmentTeam = 75GAHG3SZQ;
+						SystemCapabilities = {
+							com.apple.ApplicationGroups.iOS = {
+								enabled = 1;
+							};
+						};
 					};
 				};
 			};
@@ -2198,6 +2210,7 @@
 				DD3567F81B6768FC00338947 /* VLCWatchTableController.m in Sources */,
 				DD3567F61B6768FC00338947 /* VLCPlaylistInterfaceController.m in Sources */,
 				DD2789E51B67A8F000CED769 /* MLMediaLibrary+playlist.m in Sources */,
+				DDB7C6A41BAEB28200E6570E /* WKInterfaceController+VLCConnectionAlert.m in Sources */,
 				DD3567F31B6768FC00338947 /* VLCDetailInterfaceController.m in Sources */,
 				DD2789DE1B67A5CD00CED769 /* VLCWatchMessage.m in Sources */,
 				DD3567F71B6768FC00338947 /* VLCRowController.m in Sources */,
@@ -2833,6 +2846,7 @@
 				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
 				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
 				CLANG_WARN_UNREACHABLE_CODE = YES;
+				CODE_SIGN_ENTITLEMENTS = "VLC WatchKit Extension.entitlements";
 				CODE_SIGN_IDENTITY = "iPhone Developer";
 				DEBUG_INFORMATION_FORMAT = dwarf;
 				ENABLE_STRICT_OBJC_MSGSEND = YES;
@@ -2880,6 +2894,7 @@
 				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
 				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
 				CLANG_WARN_UNREACHABLE_CODE = YES;
+				CODE_SIGN_ENTITLEMENTS = "VLC WatchKit Extension.entitlements";
 				CODE_SIGN_IDENTITY = "iPhone Developer";
 				COPY_PHASE_STRIP = NO;
 				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
@@ -2927,6 +2942,7 @@
 				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
 				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
 				CLANG_WARN_UNREACHABLE_CODE = YES;
+				CODE_SIGN_ENTITLEMENTS = "VLC WatchKit Extension.entitlements";
 				CODE_SIGN_IDENTITY = "iPhone Developer";
 				COPY_PHASE_STRIP = NO;
 				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";

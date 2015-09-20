@@ -23,6 +23,7 @@
 
 #import <MediaLibraryKit/MediaLibraryKit.h>
 
+#import "WKInterfaceController+VLCConnectionAlert.h"
 
 #ifndef NDEBUG
 #define APLog(format, ...) NSLog(format, ## __VA_ARGS__)

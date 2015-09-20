@@ -17,6 +17,12 @@
 "DURATION"="Duration";
 "TITLE"="Title";
 
+"BUTTON_OK"="OK";
+
+
+"NOT_CONNECTED_TO_PHONE_TITLE"="Not connected to iPhone";
+"NOT_CONNECTED_TO_PHONE_MESSAGE"="Please connect your iPhone to perform remote control actions.";
+
 // accessibility labels for the playlist
 "OBJECT_TYPE_SHOW"="Show";
 "OBJECT_TYPE_SHOW_EPISODE"="Show episode";

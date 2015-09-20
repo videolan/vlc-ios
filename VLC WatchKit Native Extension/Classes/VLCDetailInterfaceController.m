@@ -96,12 +96,11 @@
                                                            payload:currentObjectURI.absoluteString];
     [self updateUserActivity:@"org.videolan.vlc-ios.playing" userInfo:@{@"playingmedia":currentObjectURI} webpageURL:nil];
 
-
-    [[WCSession defaultSession] sendMessage:dict replyHandler:^(NSDictionary<NSString *,id> * _Nonnull replyMessage) {
-        [self showNowPlaying:nil];
-    } errorHandler:^(NSError * _Nonnull error) {
-        // TODO: error handling
-    }];
+    [self vlc_performBlockIfSessionReachable:^{
+        [[WCSession defaultSession] sendMessage:dict replyHandler:^(NSDictionary<NSString *,id> * _Nonnull replyMessage) {
+            [self showNowPlaying:nil];
+        } errorHandler:nil];
+    } showUnreachableAlert:YES];
 }
 
 - (void)setMediaTitle:(NSString *)mediaTitle {
