@@ -206,7 +206,8 @@ static VLCWatchCommunication *_singeltonInstance = nil;
     MLMediaLibrary *library = [MLMediaLibrary sharedMediaLibrary];
     NSPersistentStoreCoordinator *libraryPSC = [library persistentStoreCoordinator];
     NSPersistentStore *persistentStore = [libraryPSC persistentStoreForURL:[library persistentStoreURL]];
-    NSURL *tmpURL = [NSURL fileURLWithPath:[NSTemporaryDirectory() stringByAppendingPathComponent:persistentStore.URL.lastPathComponent]];
+    NSURL *tmpDirectoryURL = [[WCSession defaultSession] watchDirectoryURL];
+    NSURL *tmpURL = [tmpDirectoryURL URLByAppendingPathComponent:persistentStore.URL.lastPathComponent];
 
     NSMutableDictionary *destOptions = [persistentStore.options mutableCopy] ?: [NSMutableDictionary new];
     destOptions[NSSQLitePragmasOption] = @{@"journal_mode": @"DELETE"};
@@ -250,7 +251,8 @@ static VLCWatchCommunication *_singeltonInstance = nil;
 - (void)transferImage:(UIImage *)image forObjectID:(NSManagedObjectID *)objectID {
 
     NSString *imageName = [[NSUUID UUID] UUIDString];
-    NSURL *tmpURL = [NSURL fileURLWithPath:[NSTemporaryDirectory() stringByAppendingPathComponent:imageName]];
+    NSURL *tmpDirectoryURL = [[WCSession defaultSession] watchDirectoryURL];
+    NSURL *tmpURL = [tmpDirectoryURL URLByAppendingPathComponent:imageName];
 
     NSData *data = UIImageJPEGRepresentation(image, 0.7);
     [data writeToURL:tmpURL atomically:YES];
