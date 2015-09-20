@@ -781,10 +781,17 @@ static NSString *kUsingTableViewToShowData = @"UsingTableViewToShowData";
 
 - (CGSize)collectionView:(UICollectionView *)collectionView layout:(UICollectionViewLayout *)collectionViewLayout sizeForItemAtIndexPath:(NSIndexPath *)indexPath
 {
-    if (UIInterfaceOrientationIsLandscape([UIApplication sharedApplication].statusBarOrientation))
-        return CGSizeMake(341., 190.);
-    else
-        return CGSizeMake(384., 216.);
+    const CGFloat maxCellWidth = 300.0;
+    const CGFloat aspectRatio = 9/16;
+
+    CGRect windowFrame = [UIApplication sharedApplication].keyWindow.frame;
+    CGFloat windowWidth = windowFrame.size.width;
+
+    int numberOfCellsPerRow = ceil(windowWidth/maxCellWidth);
+    CGFloat cellWidth = windowWidth/numberOfCellsPerRow;
+
+    return CGSizeMake(cellWidth, cellWidth * aspectRatio);
+
 }
 
 - (UIEdgeInsets)collectionView:(UICollectionView *)collectionView layout:(UICollectionViewLayout *)collectionViewLayout insetForSectionAtIndex:(NSInteger)section
