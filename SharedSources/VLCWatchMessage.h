@@ -18,6 +18,7 @@ extern NSString *const VLCWatchMessageNamePlayFile;
 extern NSString *const VLCWatchMessageNameSetVolume;
 extern NSString *const VLCWatchMessageNameNotification;
 extern NSString *const VLCWatchMessageNameRequestThumbnail;
+extern NSString *const VLCWatchMessageNameRequestDB;
 
 extern NSString *const VLCWatchMessageKeyURIRepresentation;
 

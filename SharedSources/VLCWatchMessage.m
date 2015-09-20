@@ -16,6 +16,7 @@ NSString *const VLCWatchMessageNamePlayFile = @"playFile";
 NSString *const VLCWatchMessageNameSetVolume = @"setVolume";
 NSString *const VLCWatchMessageNameNotification = @"notification";
 NSString *const VLCWatchMessageNameRequestThumbnail = @"requestThumbnail";
+NSString *const VLCWatchMessageNameRequestDB = @"requestDB";
 
 NSString *const VLCWatchMessageKeyURIRepresentation = @"URIRepresentation";
 

@@ -108,6 +108,8 @@ static VLCWatchCommunication *_singeltonInstance = nil;
         [self setVolumeFromWatch:message];
     } else if ([name isEqualToString:VLCWatchMessageNameRequestThumbnail]) {
         [self requestThumnail:message];
+    } else if([name isEqualToString:VLCWatchMessageNameRequestDB]) {
+        [self copyCoreDataToWatch];
     } else {
         APLog(@"Did not handle request from WatchKit Extension: %@",message);
     }

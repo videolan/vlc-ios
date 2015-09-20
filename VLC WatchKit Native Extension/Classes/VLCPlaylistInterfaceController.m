@@ -17,6 +17,8 @@
 
 #import "VLCWatchTableController.h"
 #import "MLMediaLibrary+playlist.h"
+#import <WatchConnectivity/WatchConnectivity.h>
+#import "VLCWatchMessage.h"
 
 static NSString *const rowType = @"mediaRow";
 
@@ -67,6 +69,13 @@ static NSString *const rowType = @"mediaRow";
     self.tableController = tableController;
 
     [self updateData];
+
+    if (self.tableController.objects.count == 0) {
+        NSDictionary *dict = [VLCWatchMessage messageDictionaryForName:VLCWatchMessageNameRequestDB];
+        [[WCSession defaultSession] sendMessage:dict
+                                   replyHandler:nil
+                                   errorHandler:nil];
+    }
 }
 
 - (void)table:(WKInterfaceTable *)table didSelectRowAtIndex:(NSInteger)rowIndex {
