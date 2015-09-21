@@ -215,7 +215,17 @@ continueUserActivity:(NSUserActivity *)userActivity
         _isComingFromHandoff = YES;
         return YES;
     } else {
-        NSURL *uriRepresentation = dict[@"playingmedia"];
+        NSURL *uriRepresentation = nil;
+        if ([userActivityType isEqualToString:CSSearchableItemActionType]) {
+            uriRepresentation = [NSURL URLWithString:dict[CSSearchableItemActivityIdentifier]];
+        } else {
+            uriRepresentation = dict[@"playingmedia"];
+        }
+
+        if (!uriRepresentation) {
+            return NO;
+        }
+
         NSManagedObject *managedObject = [[MLMediaLibrary sharedMediaLibrary] objectForURIRepresentation:uriRepresentation];
         if (managedObject == nil) {
             APLog(@"%s file not found: %@",__PRETTY_FUNCTION__,userActivity);
