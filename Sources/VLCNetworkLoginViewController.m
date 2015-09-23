@@ -47,6 +47,7 @@
     self.portField.delegate = self;
     self.portField.returnKeyType = UIReturnKeyNext;
     self.portField.clearButtonMode = UITextFieldViewModeWhileEditing;
+    self.portField.keyboardType = UIKeyboardTypeNumbersAndPunctuation;
     self.usernameField.delegate = self;
     self.usernameField.returnKeyType = UIReturnKeyNext;
     self.usernameField.clearButtonMode = UITextFieldViewModeWhileEditing;
