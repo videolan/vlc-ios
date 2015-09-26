@@ -461,22 +461,24 @@
                 [mediaInfo appendFormat:@"%lu subtitles tracks", (unsigned long)trackCount];
             else
                 [mediaInfo appendString:@"1 subtitles track"];
+            
+                [mediaInfo appendString:@" ("];
+                for (NSUInteger x = 0; x < trackCount; x++) {
+                    NSString *language = [spuTracks[x] valueForKey:@"language"];
 
-            [mediaInfo appendString:@" ("];
-            for (NSUInteger x = 0; x < trackCount; x++) {
-                NSString *language = [spuTracks[x] valueForKey:@"language"];
-
-                if (language) {
-                    if (x != 0)
-                        [mediaInfo appendFormat:@", %@", [language uppercaseString]];
-                    else
-                        [mediaInfo appendString:[language uppercaseString]];
+                    if (language) {
+                        if (x != 0)
+                            [mediaInfo appendFormat:@", %@", [language uppercaseString]];
+                        else
+                            [mediaInfo appendString:[language uppercaseString]];
+                    }
                 }
+                [mediaInfo appendString:@")"];
             }
-            [mediaInfo appendString:@")"];
-        }
 
         self.metaDataLabel.text = mediaInfo;
+        [self.metaDataLabel sizeToFit];
+        [self.metaDataLabel setFrame:CGRectMake((self.frame.size.width - self.metaDataLabel.frame.size.width)/2, self.metaDataLabel.frame.origin.y, self.metaDataLabel.frame.size.width, self.metaDataLabel.frame.size.height)];
         videoTracks = audioTracks = spuTracks = nil;
     } else
         self.metaDataLabel.text = @"";
