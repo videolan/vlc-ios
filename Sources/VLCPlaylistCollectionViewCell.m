@@ -468,7 +468,7 @@
             }
         }
 
-        if ((trackCount > 0) && (spuTracks.count > 0)) {
+        if ((trackCount > 0) || (spuTracks.count > 0)) {
             if (mediaInfo.length > 0)
                 [mediaInfo appendString:@"\n\n"];
 
@@ -477,19 +477,20 @@
             else
                 [mediaInfo appendString:@"1 subtitles track"];
 
+            if (spuTracks.count > 0) {
+                [mediaInfo appendString:@" ("];
+                for (NSUInteger x = 0; x < trackCount; x++) {
+                    NSString *language = [spuTracks[x] valueForKey:@"language"];
 
-            [mediaInfo appendString:@" ("];
-            for (NSUInteger x = 0; x < trackCount; x++) {
-                NSString *language = [spuTracks[x] valueForKey:@"language"];
-
-                if (language) {
-                    if (x != 0)
-                        [mediaInfo appendFormat:@", %@", [language uppercaseString]];
-                    else
-                        [mediaInfo appendString:[language uppercaseString]];
+                    if (language) {
+                        if (x != 0)
+                            [mediaInfo appendFormat:@", %@", [language uppercaseString]];
+                        else
+                            [mediaInfo appendString:[language uppercaseString]];
+                    }
                 }
+                [mediaInfo appendString:@")"];
             }
-            [mediaInfo appendString:@")"];
         }
 
         self.metaDataLabel.text = mediaInfo;
