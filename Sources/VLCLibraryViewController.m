@@ -1511,6 +1511,14 @@ static NSString *kUsingTableViewToShowData = @"UsingTableViewToShowData";
 
     if (!_usingTableViewToShowData)
         [self.collectionView.collectionViewLayout invalidateLayout];
+    else {
+        NSArray *visibleCells = [self.tableView visibleCells];
+        NSUInteger cellCount = visibleCells.count;
+        for (NSUInteger x = 0; x < cellCount; x++) {
+            if ([visibleCells[x] isExpanded])
+                [visibleCells[x] metaDataLabel].hidden = YES;
+        }
+    }
 }
 
 #pragma mark - Search Display Controller Delegate
