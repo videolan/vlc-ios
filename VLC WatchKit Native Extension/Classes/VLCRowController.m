@@ -17,7 +17,7 @@
 #import <WatchConnectivity/WatchConnectivity.h>
 
 @interface VLCRowController()
-@property (nonatomic, weak, readwrite) id mediaLibraryObject;
+@property (nonatomic, weak, readwrite) NSManagedObject *mediaLibraryObject;
 @property (nonatomic, readonly) CGRect thumbnailSize;
 @property (nonatomic, readonly) CGFloat rowWidth;
 @property (nonatomic, readonly) CGFloat scale;
@@ -51,7 +51,7 @@
     _scale = screenScale;
 }
 
-- (void)configureWithMediaLibraryObject:(id)storageObject
+- (void)configureWithMediaLibraryObject:(NSManagedObject *)storageObject
 {
     NSString *title = nil;
     float playbackProgress = 0.0;
@@ -88,7 +88,7 @@
 
     /* FIXME: add placeholder image once designed */
 
-    if (storageObject != self.mediaLibraryObject) {
+    if (![storageObject.objectID.URIRepresentation isEqual: self.mediaLibraryObject.objectID.URIRepresentation]) {
         self.group.backgroundImage = [UIImage imageNamed:@"tableview-gradient"];
     }
 

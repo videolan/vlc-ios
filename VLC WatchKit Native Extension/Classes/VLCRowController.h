@@ -20,8 +20,8 @@
 @property (nonatomic, copy) NSString *mediaTitle;
 @property (nonatomic) CGFloat playbackProgress;
 
-@property (nonatomic, weak, readonly) id mediaLibraryObject;
+@property (nonatomic, weak, readonly) NSManagedObject *mediaLibraryObject;
 
-- (void) configureWithMediaLibraryObject:(id)object;
+- (void) configureWithMediaLibraryObject:(NSManagedObject *)object;
 
 @end

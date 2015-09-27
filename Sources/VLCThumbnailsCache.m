@@ -112,9 +112,10 @@
 {
     UIImage *rawThumbnail = [self thumbnailForManagedObject:object refreshCache:refreshCache];
     CGSize rawSize = rawThumbnail.size;
+    CGFloat rawScale = rawThumbnail.scale;
 
     /* scaling is potentially expensive, so we should avoid re-doing it for the same size over and over again */ 
-    if (rawSize.width <= rect.size.width && rawSize.height <= rect.size.height)
+    if (rawSize.width*rawScale <= rect.size.width*scale && rawSize.height*rawScale <= rect.size.height*scale)
         return rawThumbnail;
 
     UIImage *scaledImage = [UIImage scaleImage:rawThumbnail toFitRect:rect scale:scale];
