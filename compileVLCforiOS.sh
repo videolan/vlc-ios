@@ -147,7 +147,6 @@ patch -p0 < ../../patches/gdrive/fix-target.patch
 patch -p0 < ../../patches/gdrive/session-fetcher-top.diff
 cd ..
 cd GDrive/HTTPFetcher && patch -p0 < ../../../patches/gdrive/httpfetcher-compilation-fix.diff && cd ../..
-cd ..
 cd GDrive/Objects && patch -p0 < ../../../patches/gdrive/session-fetcher-objects.diff && cd ../..
 else
 cd GDrive && svn up && cd ..
