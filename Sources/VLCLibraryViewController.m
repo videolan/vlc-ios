@@ -310,17 +310,19 @@ static NSString *kUsingTableViewToShowData = @"UsingTableViewToShowData";
 {
     if ([CSSearchableItemAttributeSet class] != nil && [(VLCAppDelegate *)[UIApplication sharedApplication].delegate passcodeValidated]) {
         self.userActivity = [[NSUserActivity alloc] initWithActivityType:kVLCUserActivityPlaying];
-        self.userActivity.title = ((MLFile *)mediaObject).title;
-        self.userActivity.userInfo = @{@"playingmedia":mediaObject.objectID.URIRepresentation};
+
+        MLFile *file = nil;
         if ([mediaObject isKindOfClass:[MLAlbumTrack class]]) {
-            MLFile *file = [(MLAlbumTrack *)mediaObject anyFileFromTrack];
-            self.userActivity.contentAttributeSet = file.coreSpotlightAttributeSet;
+            file = [(MLAlbumTrack *)mediaObject anyFileFromTrack];
         } else if ([mediaObject isKindOfClass:[MLShowEpisode class]]) {
-            MLFile *file = [(MLShowEpisode *)mediaObject anyFileFromEpisode];
-            self.userActivity.contentAttributeSet = file.coreSpotlightAttributeSet;
-        } else {
-            self.userActivity.contentAttributeSet = ((MLFile *)mediaObject).coreSpotlightAttributeSet;
+            file = [(MLShowEpisode *)mediaObject anyFileFromEpisode];
+        } else if ([mediaObject isKindOfClass:[MLFile class]]){
+            file = (MLFile *)mediaObject;
         }
+        self.userActivity.title = file.title;
+        self.userActivity.contentAttributeSet = file.coreSpotlightAttributeSet;
+        self.userActivity.userInfo = @{@"playingmedia":mediaObject.objectID.URIRepresentation};
+
         self.userActivity.eligibleForSearch = YES;
         self.userActivity.eligibleForHandoff = YES;
         //self.userActivity.contentUserAction = NSUserActivityContentUserActionPlay;
