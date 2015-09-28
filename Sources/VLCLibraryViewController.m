@@ -120,6 +120,7 @@ static NSString *kUsingTableViewToShowData = @"UsingTableViewToShowData";
             _tableView.indicatorStyle = UIScrollViewIndicatorStyleWhite;
             _tableView.autoresizingMask = UIViewAutoresizingFlexibleHeight | UIViewAutoresizingFlexibleWidth;
         }
+        _tableView.frame = contentView.bounds;
         [contentView addSubview:_tableView];
         [_tableView reloadData];
     } else {
@@ -137,6 +138,7 @@ static NSString *kUsingTableViewToShowData = @"UsingTableViewToShowData";
             [_collectionView addGestureRecognizer:_longPressGestureRecognizer];
             [_collectionView registerNib:[UINib nibWithNibName:@"VLCPlaylistCollectionViewCell" bundle:nil] forCellWithReuseIdentifier:@"PlaylistCell"];
         }
+        _collectionView.frame = contentView.bounds;
         [contentView addSubview:_collectionView];
         [_collectionView reloadData];
     }
