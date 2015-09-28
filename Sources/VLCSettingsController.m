@@ -71,8 +71,6 @@
     if (!spotlightEnabled) {
         // delete whole index for VLC
         [[CSSearchableIndex defaultSearchableIndex] deleteAllSearchableItemsWithCompletionHandler:nil];
-    } else {
-        [[MLMediaLibrary sharedMediaLibrary] ]
     }
 }
 
