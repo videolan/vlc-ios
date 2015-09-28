@@ -103,7 +103,7 @@ static NSString *kUsingTableViewToShowData = @"UsingTableViewToShowData";
 
 - (void)setupContentViewWithContentInset:(BOOL)setInset
 {
-    CGRect viewDimensions = [UIScreen mainScreen].bounds;
+    CGRect viewDimensions = [UIApplication sharedApplication].keyWindow.bounds;
     UIView *contentView = [[UIView alloc] initWithFrame:viewDimensions];
     contentView.autoresizingMask = UIViewAutoresizingFlexibleHeight | UIViewAutoresizingFlexibleWidth;
     contentView.backgroundColor = [UIColor VLCDarkBackgroundColor];
@@ -785,7 +785,7 @@ static NSString *kUsingTableViewToShowData = @"UsingTableViewToShowData";
 - (CGSize)collectionView:(UICollectionView *)collectionView layout:(UICollectionViewLayout *)collectionViewLayout sizeForItemAtIndexPath:(NSIndexPath *)indexPath
 {
     const CGFloat maxCellWidth = 300.0;
-    const CGFloat aspectRatio = 9/16;
+    const CGFloat aspectRatio = 9.0/16.0;
 
     CGRect windowFrame = [UIApplication sharedApplication].keyWindow.frame;
     CGFloat windowWidth = windowFrame.size.width;
