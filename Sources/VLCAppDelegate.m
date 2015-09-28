@@ -133,6 +133,8 @@ NSString *const VLCDropboxSessionWasAuthorized = @"VLCDropboxSessionWasAuthorize
 
         [self validatePasscode];
 
+        BOOL spotlightEnabled = ![[VLCKeychainCoordinator defaultCoordinator] passcodeLockEnabled];
+        [[MLMediaLibrary sharedMediaLibrary] setSpotlightIndexingEnabled:spotlightEnabled];
         [[MLMediaLibrary sharedMediaLibrary] applicationWillStart];
 
         VLCMediaFileDiscoverer *discoverer = [VLCMediaFileDiscoverer sharedInstance];

@@ -50,6 +50,7 @@
             [self.viewController presentViewController:passcodeLockController animated:YES completion:nil];
         } else {
             [[VLCKeychainCoordinator defaultCoordinator] setPasscode:nil];
+            [self didChangePasscodeStatus:NO];
         }
     }
     if ([notification.object isEqual:kVLCSettingPlaybackGestures]) {
@@ -63,11 +64,24 @@
     [[VLCSidebarController sharedInstance] toggleSidebar];
 }
 
+
+- (void)didChangePasscodeStatus:(BOOL)passcodeEnabled {
+    BOOL spotlightEnabled = !passcodeEnabled;
+    [[MLMediaLibrary sharedMediaLibrary] setSpotlightIndexingEnabled:spotlightEnabled];
+    if (!spotlightEnabled) {
+        // delete whole index for VLC
+        [[CSSearchableIndex defaultSearchableIndex] deleteAllSearchableItemsWithCompletionHandler:nil];
+    } else {
+        [[MLMediaLibrary sharedMediaLibrary] ]
+    }
+}
+
 #pragma mark - PAPasscode delegate
 
 - (void)PAPasscodeViewControllerDidCancel:(PAPasscodeViewController *)controller
 {
     [[VLCKeychainCoordinator defaultCoordinator] setPasscode:nil];
+    [self didChangePasscodeStatus:NO];
 
     [controller dismissViewControllerAnimated:YES completion:nil];
 }
@@ -75,6 +89,7 @@
 - (void)PAPasscodeViewControllerDidSetPasscode:(PAPasscodeViewController *)controller
 {
     [[VLCKeychainCoordinator defaultCoordinator] setPasscode:controller.passcode];
+    [self didChangePasscodeStatus:YES];
 
     [controller dismissViewControllerAnimated:YES completion:nil];
 }
