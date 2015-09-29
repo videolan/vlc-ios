@@ -39,8 +39,6 @@
             WCSession *session = [WCSession defaultSession];
             session.delegate = self;
             [session activateSession];
-            [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(savedManagedObjectContextNotification:) name:NSManagedObjectContextDidSaveNotification object:nil];
-            [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(didUpdateThumbnail:) name:MLFileThumbnailWasUpdated object:nil];
             _thumbnailingQueue = [NSOperationQueue new];
             _thumbnailingQueue.name = @"org.videolan.vlc.watch-thumbnailing";
         }
@@ -82,6 +80,7 @@ static VLCWatchCommunication *_singeltonInstance = nil;
     [vpc playMediaLibraryObject:managedObject];
 }
 
+#pragma mark - WCSessionDelegate
 - (NSDictionary *)handleMessage:(nonnull VLCWatchMessage *)message {
     UIApplication *application = [UIApplication sharedApplication];
     /* dispatch background task */
@@ -127,6 +126,19 @@ static VLCWatchCommunication *_singeltonInstance = nil;
     [self handleMessage:message];
 }
 
+- (void)sessionWatchStateDidChange:(WCSession *)session {
+
+    NSNotificationCenter *center = [NSNotificationCenter defaultCenter];
+    [center removeObserver:self name:NSManagedObjectContextDidSaveNotification object:nil];
+    [center removeObserver:self name:MLFileThumbnailWasUpdated object:nil];
+
+    if ([[WCSession defaultSession] isPaired] && [[WCSession defaultSession] isWatchAppInstalled]) {
+        [center addObserver:self selector:@selector(savedManagedObjectContextNotification:) name:NSManagedObjectContextDidSaveNotification object:nil];
+        [center addObserver:self selector:@selector(didUpdateThumbnail:) name:MLFileThumbnailWasUpdated object:nil];
+    }
+}
+
+#pragma mark -
 
 - (void)setVolumeFromWatch:(VLCWatchMessage *)message
 {
@@ -232,6 +244,10 @@ static VLCWatchCommunication *_singeltonInstance = nil;
 
 - (void)transferThumbnailForObject:(NSManagedObject *__nonnull)object refreshCache:(BOOL)refresh{
 
+    if (![[WCSession defaultSession] isPaired] || ![[WCSession defaultSession] isWatchAppInstalled]) {
+        return;
+    }
+
     CGRect bounds = [WKInterfaceDevice currentDevice].screenBounds;
     CGFloat scale = [WKInterfaceDevice currentDevice].screenScale;
     [self.thumbnailingQueue addOperationWithBlock:^{
@@ -249,6 +265,9 @@ static VLCWatchCommunication *_singeltonInstance = nil;
 }
 
 - (void)transferImage:(UIImage *)image forObjectID:(NSManagedObjectID *)objectID {
+    if (!image || ![[WCSession defaultSession] isPaired] || ![[WCSession defaultSession] isWatchAppInstalled]) {
+        return;
+    }
 
     NSString *imageName = [[NSUUID UUID] UUIDString];
     NSURL *tmpDirectoryURL = [[WCSession defaultSession] watchDirectoryURL];
