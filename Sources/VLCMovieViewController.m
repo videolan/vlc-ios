@@ -1169,20 +1169,28 @@ currentMediaHasTrackToChooseFrom:(BOOL)currentMediaHasTrackToChooseFrom
 
     if (_switchingTracksNotChapters == YES) {
         NSArray *indexArray;
+        NSString *trackName;
         if ([mediaPlayer numberOfAudioTracks] > 2 && section == 0) {
             indexArray = mediaPlayer.audioTrackIndexes;
 
             if ([indexArray indexOfObject:[NSNumber numberWithInt:mediaPlayer.currentAudioTrackIndex]] == row)
                 cellShowsCurrentTrack = YES;
 
-            cell.textLabel.text = [NSString stringWithFormat:@"%@", mediaPlayer.audioTrackNames[row]];
+            trackName = mediaPlayer.audioTrackNames[row];
         } else {
             indexArray = mediaPlayer.videoSubTitlesIndexes;
 
             if ([indexArray indexOfObject:[NSNumber numberWithInt:mediaPlayer.currentVideoSubTitleIndex]] == row)
                 cellShowsCurrentTrack = YES;
 
-            cell.textLabel.text = [NSString stringWithFormat:@"%@", mediaPlayer.videoSubTitlesNames[row]];
+            trackName = mediaPlayer.videoSubTitlesNames[row];
+        }
+
+        if (trackName != nil) {
+            if ([trackName isEqualToString:@"Disable"])
+                cell.textLabel.text = NSLocalizedString(@"DISABLE_LABEL", nil);
+            else
+                cell.textLabel.text = trackName;
         }
     } else {
         if ([mediaPlayer numberOfTitles] > 1 && section == 0) {
