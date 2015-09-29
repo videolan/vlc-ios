@@ -119,7 +119,7 @@
                         <constraint firstAttribute="width" relation="lessThanOrEqual" priority="900" constant="300" id="rkl-fF-S16"/>
                     </constraints>
                 </view>
-                <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="2cP-rW-fzM" userLabel="Playback controls">
+                <view contentMode="scaleToFill" semanticContentAttribute="playback" translatesAutoresizingMaskIntoConstraints="NO" id="2cP-rW-fzM" userLabel="Playback controls">
                     <rect key="frame" x="94" y="8" width="132" height="40"/>
                     <subviews>
                         <button opaque="NO" contentMode="scaleToFill" semanticContentAttribute="playback" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="JDB-xi-tPg" userLabel="bwd button">
@@ -142,7 +142,7 @@
                                 <action selector="backward:" destination="-2" eventType="touchUpInside" id="Jci-SY-Oyo"/>
                             </connections>
                         </button>
-                        <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="sWz-p2-OOq" userLabel="play pause button">
+                        <button opaque="NO" contentMode="scaleToFill" semanticContentAttribute="playback" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="sWz-p2-OOq" userLabel="play pause button">
                             <rect key="frame" x="46" y="0.0" width="40" height="40"/>
                             <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
                             <constraints>
@@ -188,14 +188,14 @@
                         <constraint firstItem="sWz-p2-OOq" firstAttribute="top" secondItem="2cP-rW-fzM" secondAttribute="top" id="1GA-3R-rNJ"/>
                         <constraint firstItem="ebr-CU-0C0" firstAttribute="top" secondItem="2cP-rW-fzM" secondAttribute="top" id="4rg-xz-1ZA"/>
                         <constraint firstItem="sWz-p2-OOq" firstAttribute="centerX" secondItem="2cP-rW-fzM" secondAttribute="centerX" id="AZ1-5b-Su4"/>
-                        <constraint firstItem="sWz-p2-OOq" firstAttribute="leading" secondItem="JDB-xi-tPg" secondAttribute="trailing" priority="750" constant="15" id="Aau-p6-v2m"/>
+                        <constraint firstItem="sWz-p2-OOq" firstAttribute="left" secondItem="JDB-xi-tPg" secondAttribute="right" priority="750" constant="15" id="Aau-p6-v2m"/>
                         <constraint firstItem="JDB-xi-tPg" firstAttribute="top" secondItem="2cP-rW-fzM" secondAttribute="top" id="Bb5-bY-0Mo"/>
                         <constraint firstAttribute="bottom" secondItem="sWz-p2-OOq" secondAttribute="bottom" id="DoC-Pm-7fV"/>
                         <constraint firstAttribute="bottom" secondItem="ebr-CU-0C0" secondAttribute="bottom" id="a11-IG-9Hf"/>
-                        <constraint firstItem="JDB-xi-tPg" firstAttribute="leading" secondItem="2cP-rW-fzM" secondAttribute="leading" id="aMc-E9-yjF"/>
+                        <constraint firstItem="JDB-xi-tPg" firstAttribute="left" secondItem="2cP-rW-fzM" secondAttribute="left" id="aMc-E9-yjF"/>
                         <constraint firstAttribute="bottom" secondItem="JDB-xi-tPg" secondAttribute="bottom" id="c0j-dl-pOQ"/>
-                        <constraint firstItem="ebr-CU-0C0" firstAttribute="leading" secondItem="sWz-p2-OOq" secondAttribute="trailing" priority="750" constant="15" id="cfF-Ax-geb"/>
-                        <constraint firstAttribute="trailing" secondItem="ebr-CU-0C0" secondAttribute="trailing" id="dyi-Jl-CkU"/>
+                        <constraint firstItem="ebr-CU-0C0" firstAttribute="left" secondItem="sWz-p2-OOq" secondAttribute="right" priority="750" constant="15" id="cfF-Ax-geb"/>
+                        <constraint firstAttribute="right" secondItem="ebr-CU-0C0" secondAttribute="right" id="dyi-Jl-CkU"/>
                     </constraints>
                 </view>
             </subviews>
