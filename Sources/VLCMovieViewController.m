@@ -219,8 +219,7 @@ typedef NS_ENUM(NSInteger, VLCPanType) {
     _tapOnVideoRecognizer.delegate = self;
     [self.view addGestureRecognizer:_tapOnVideoRecognizer];
 
-    NSUserDefaults *defaults = [NSUserDefaults standardUserDefaults];
-    _displayRemainingTime = [[defaults objectForKey:kVLCShowRemainingTime] boolValue];
+
 
     _pinchRecognizer = [[UIPinchGestureRecognizer alloc] initWithTarget:self action:@selector(handlePinchGesture:)];
     _pinchRecognizer.delegate = self;
@@ -401,14 +400,6 @@ typedef NS_ENUM(NSInteger, VLCPanType) {
     self.artistNameLabel.text = nil;
     self.albumNameLabel.text = nil;
 
-    NSUserDefaults *defaults = [NSUserDefaults standardUserDefaults];
-    _volumeGestureEnabled = [[defaults objectForKey:kVLCSettingVolumeGesture] boolValue];
-    _playPauseGestureEnabled = [[defaults objectForKey:kVLCSettingPlayPauseGesture] boolValue];
-    _brightnessGestureEnabled = [[defaults objectForKey:kVLCSettingBrightnessGesture] boolValue];
-    _seekGestureEnabled = [[defaults objectForKey:kVLCSettingSeekGesture] boolValue];
-    _closeGestureEnabled = [[defaults objectForKey:kVLCSettingCloseGesture] boolValue];
-    _variableJumpDurationEnabled = [[defaults objectForKey:kVLCSettingVariableJumpDuration] boolValue];
-
     [self.navigationController setNavigationBarHidden:YES animated:animated];
 
     VLCPlaybackController *vpc = self.playbackController;
@@ -417,6 +408,10 @@ typedef NS_ENUM(NSInteger, VLCPanType) {
 
     [self screenBrightnessChanged:nil];
     [self setControlsHidden:NO animated:animated];
+
+    [self updateDefaults];
+    [NSUserDefaults standardUserDefaults];
+    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(updateDefaults) name:NSUserDefaultsDidChangeNotification object:nil];
 }
 
 - (void)viewDidAppear:(BOOL)animated
@@ -490,12 +485,27 @@ typedef NS_ENUM(NSInteger, VLCPanType) {
     if (!_playbackSpeedViewHidden)
         _playbackSpeedViewHidden = YES;
 
+    [[NSNotificationCenter defaultCenter] removeObserver:self name:NSUserDefaultsDidChangeNotification object:nil];
     [[NSUserDefaults standardUserDefaults] setBool:_displayRemainingTime forKey:kVLCShowRemainingTime];
 }
 
 - (BOOL)canBecomeFirstResponder
 {
     return YES;
+}
+
+- (void) updateDefaults
+{
+    NSUserDefaults *defaults = [NSUserDefaults standardUserDefaults];
+    _displayRemainingTime = [[defaults objectForKey:kVLCShowRemainingTime] boolValue];
+    [self updateTimeDisplayButton];
+
+    _volumeGestureEnabled = [[defaults objectForKey:kVLCSettingVolumeGesture] boolValue];
+    _playPauseGestureEnabled = [[defaults objectForKey:kVLCSettingPlayPauseGesture] boolValue];
+    _brightnessGestureEnabled = [[defaults objectForKey:kVLCSettingBrightnessGesture] boolValue];
+    _seekGestureEnabled = [[defaults objectForKey:kVLCSettingSeekGesture] boolValue];
+    _closeGestureEnabled = [[defaults objectForKey:kVLCSettingCloseGesture] boolValue];
+    _variableJumpDurationEnabled = [[defaults objectForKey:kVLCSettingVariableJumpDuration] boolValue];
 }
 
 #pragma mark - controls visibility
