@@ -91,12 +91,9 @@ NSString *const VLCDropboxSessionWasAuthorized = @"VLCDropboxSessionWasAuthorize
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions
 {
     BITHockeyManager *hockeyManager = [BITHockeyManager sharedHockeyManager];
-
-    if (BETA_DISTRIBUTION) {
-        APLog(@"Using HockeySDK beta key");
-        [hockeyManager configureWithIdentifier:@"0114ca8e265244ce588d2ebd035c3577"];
-    } else
-        [hockeyManager configureWithIdentifier:@"c95f4227dff96c61f8b3a46a25edc584"];
+    [hockeyManager configureWithBetaIdentifier:@"0114ca8e265244ce588d2ebd035c3577"
+                                liveIdentifier:@"c95f4227dff96c61f8b3a46a25edc584"
+                                      delegate:nil];
 
     // Configure the SDK in here only!
     [hockeyManager startManager];
