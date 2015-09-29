@@ -20,35 +20,23 @@
 @class VLCHorizontalSwipeGestureRecognizer;
 @class VLCVerticalSwipeGestureRecognizer;
 @class VLCTimeNavigationTitleView;
+@class VLCMovieViewControlPanelViewController;
 
 @interface VLCMovieViewController : UIViewController <UIActionSheetDelegate, VLCPlaybackControllerDelegate>
 
 @property (nonatomic, strong) IBOutlet UIView *movieView;
 @property (nonatomic, strong) IBOutlet UIBarButtonItem *backButton;
 @property (nonatomic, strong) IBOutlet VLCTimeNavigationTitleView *timeNavigationTitleView;
-@property (nonatomic, strong) IBOutlet UIButton *playPauseButton;
-@property (nonatomic, strong) IBOutlet UIButton *playPauseButtonLandscape;
-@property (nonatomic, strong) IBOutlet UIButton *bwdButton;
-@property (nonatomic, strong) IBOutlet UIButton *bwdButtonLandscape;
-@property (nonatomic, strong) IBOutlet UIButton *fwdButton;
-@property (nonatomic, strong) IBOutlet UIButton *fwdButtonLandscape;
-@property (nonatomic, strong) IBOutlet UIButton *trackSwitcherButton;
-@property (nonatomic, strong) IBOutlet UIButton *trackSwitcherButtonLandscape;
 @property (nonatomic, strong) IBOutlet UIButton *sleepTimerButton;
 @property (nonatomic, strong) IBOutlet UINavigationBar *toolbar;
-@property (nonatomic, strong) IBOutlet VLCFrostedGlasView *controllerPanel;
-@property (nonatomic, strong) IBOutlet VLCFrostedGlasView *controllerPanelLandscape;
+@property (nonatomic, strong) IBOutlet UIView *controllerPanel;
 @property (nonatomic, strong) IBOutlet VLCStatusLabel *statusLabel;
-@property (nonatomic, strong) IBOutlet MPVolumeView *volumeView;
-@property (nonatomic, strong) IBOutlet MPVolumeView *volumeViewLandscape;
 
 @property (nonatomic, strong) IBOutlet UIView *playingExternallyView;
 @property (nonatomic, strong) IBOutlet UILabel *playingExternallyTitle;
 @property (nonatomic, strong) IBOutlet UILabel *playingExternallyDescription;
 
 @property (nonatomic, strong) IBOutlet VLCFrostedGlasView *videoFilterView;
-@property (nonatomic, strong) IBOutlet UIButton *videoFilterButton;
-@property (nonatomic, strong) IBOutlet UIButton *videoFilterButtonLandscape;
 @property (nonatomic, strong) IBOutlet UILabel *hueLabel;
 @property (nonatomic, strong) IBOutlet UISlider *hueSlider;
 @property (nonatomic, strong) IBOutlet UILabel *contrastLabel;
@@ -62,8 +50,6 @@
 @property (nonatomic, strong) IBOutlet UIButton *resetVideoFilterButton;
 
 @property (nonatomic, strong) IBOutlet VLCFrostedGlasView *playbackSpeedView;
-@property (nonatomic, strong) IBOutlet UIButton *playbackSpeedButton;
-@property (nonatomic, strong) IBOutlet UIButton *playbackSpeedButtonLandscape;
 @property (nonatomic, strong) IBOutlet UISlider *playbackSpeedSlider;
 @property (nonatomic, strong) IBOutlet UILabel *playbackSpeedLabel;
 @property (nonatomic, strong) IBOutlet UILabel *playbackSpeedIndicator;
@@ -73,7 +59,6 @@
 @property (nonatomic, strong) IBOutlet UISlider *spuDelaySlider;
 @property (nonatomic, strong) IBOutlet UILabel *spuDelayLabel;
 @property (nonatomic, strong) IBOutlet UILabel *spuDelayIndicator;
-@property (nonatomic, strong) IBOutlet UIButton *moreActionsButton;
 
 @property (nonatomic, strong) IBOutlet VLCFrostedGlasView *scrubIndicatorView;
 @property (nonatomic, strong) IBOutlet UILabel *currentScrubSpeedLabel;
@@ -85,6 +70,7 @@
 @property (nonatomic, strong) IBOutlet UIImageView *artworkImageView;
 
 @property (nonatomic, weak) IBOutlet VLCPlaybackController *playbackController;
+@property (nonatomic, weak) VLCMovieViewControlPanelViewController *controlPanelController;
 
 - (IBAction)closePlayback:(id)sender;
 - (IBAction)minimizePlayback:(id)sender;

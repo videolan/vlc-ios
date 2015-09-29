@@ -32,6 +32,7 @@
 #import "VLCPlayerDisplayController.h"
 #import "VLCAppDelegate.h"
 #import "VLCStatusLabel.h"
+#import "VLCMovieViewControlPanelViewController.h"
 
 #define FORWARD_SWIPE_DURATION 30
 #define BACKWARD_SWIPE_DURATION 10
@@ -173,38 +174,8 @@ typedef NS_ENUM(NSInteger, VLCPanType) {
     _spuDelaySlider.accessibilityLabel = _spuDelayLabel.text;
     _spuDelaySlider.isAccessibilityElement = YES;
 
-    _trackSwitcherButton.accessibilityLabel = NSLocalizedString(@"OPEN_TRACK_PANEL", nil);
-    _trackSwitcherButton.isAccessibilityElement = YES;
-    _trackSwitcherButtonLandscape.accessibilityLabel = NSLocalizedString(@"OPEN_TRACK_PANEL", nil);
-    _trackSwitcherButtonLandscape.isAccessibilityElement = YES;
-    _playbackSpeedButton.accessibilityLabel = _playbackSpeedLabel.text;
-    _playbackSpeedButton.isAccessibilityElement = YES;
-    _playbackSpeedButtonLandscape.accessibilityLabel = _playbackSpeedLabel.text;
-    _playbackSpeedButtonLandscape.isAccessibilityElement = YES;
-    _videoFilterButton.accessibilityLabel = NSLocalizedString(@"VIDEO_FILTER", nil);
-    _videoFilterButton.isAccessibilityElement = YES;
-    _videoFilterButtonLandscape.accessibilityLabel = NSLocalizedString(@"VIDEO_FILTER", nil);
-    _videoFilterButtonLandscape.isAccessibilityElement = YES;
     _resetVideoFilterButton.accessibilityLabel = NSLocalizedString(@"VIDEO_FILTER_RESET_BUTTON", nil);
     _resetVideoFilterButton.isAccessibilityElement = YES;
-    UILongPressGestureRecognizer *longPressRecognizer = [[UILongPressGestureRecognizer alloc] initWithTarget:self action:@selector(playPauseLongPress:)];
-    [_playPauseButton addGestureRecognizer:longPressRecognizer];
-    _playPauseButton.accessibilityLabel = NSLocalizedString(@"PLAY_PAUSE_BUTTON", nil);
-    _playPauseButton.accessibilityHint = NSLocalizedString(@"LONGPRESS_TO_STOP", nil);
-    _playPauseButton.isAccessibilityElement = YES;
-    UILongPressGestureRecognizer *longPressRecognizerLandscape = [[UILongPressGestureRecognizer alloc] initWithTarget:self action:@selector(playPauseLongPress:)];
-    [_playPauseButton addGestureRecognizer:longPressRecognizerLandscape];
-    _playPauseButtonLandscape.accessibilityLabel = NSLocalizedString(@"PLAY_PAUSE_BUTTON", nil);
-    _playPauseButtonLandscape.accessibilityHint = NSLocalizedString(@"LONGPRESS_TO_STOP", nil);
-    _playPauseButtonLandscape.isAccessibilityElement = YES;
-    _bwdButton.accessibilityLabel = NSLocalizedString(@"BWD_BUTTON", nil);
-    _bwdButton.isAccessibilityElement = YES;
-    _bwdButtonLandscape.accessibilityLabel = NSLocalizedString(@"BWD_BUTTON", nil);
-    _bwdButtonLandscape.isAccessibilityElement = YES;
-    _fwdButton.accessibilityLabel = NSLocalizedString(@"FWD_BUTTON", nil);
-    _fwdButton.isAccessibilityElement = YES;
-    _fwdButtonLandscape.accessibilityLabel = NSLocalizedString(@"FWD_BUTTON", nil);
-    _fwdButtonLandscape.isAccessibilityElement = YES;
     _sleepTimerButton.accessibilityLabel = NSLocalizedString(@"BUTTON_SLEEP_TIMER", nil);
     _sleepTimerButton.isAccessibilityElement = YES;
     [_sleepTimerButton setTitle:NSLocalizedString(@"BUTTON_SLEEP_TIMER", nil) forState:UIControlStateNormal];
@@ -302,25 +273,6 @@ typedef NS_ENUM(NSInteger, VLCPanType) {
     rect.origin.y = 0;
     self.toolbar.frame = rect;
 
-    /* FIXME: there is a saner iOS 6+ API for this! */
-    /* this looks a bit weird, but we need to support iOS 5 and should show the same appearance */
-    void (^initVolumeSlider)(MPVolumeView *) = ^(MPVolumeView *volumeView){
-        UISlider *volumeSlider = nil;
-        for (id aView in volumeView.subviews){
-            if ([[[aView class] description] isEqualToString:@"MPVolumeSlider"]){
-                volumeSlider = (UISlider *)aView;
-                break;
-            }
-        }
-        [volumeView setVolumeThumbImage:[UIImage imageNamed:@"modernSliderKnob"] forState:UIControlStateNormal];
-        [volumeSlider addTarget:self
-                         action:@selector(volumeSliderAction:)
-               forControlEvents:UIControlEventValueChanged];
-    };
-
-    initVolumeSlider(self.volumeView);
-    initVolumeSlider(self.volumeViewLandscape);
-
     _playerIsSetup = NO;
 
     [self.movieView setAccessibilityLabel:NSLocalizedString(@"VO_VIDEOPLAYER_TITLE", nil)];
@@ -363,11 +315,7 @@ typedef NS_ENUM(NSInteger, VLCPanType) {
 
     [self.view addSubview:_trackSelectorContainer];
 
-    if (UI_USER_INTERFACE_IDIOM() == UIUserInterfaceIdiomPhone) {
-        _equalizerView = [[VLCEqualizerView alloc] initWithFrame:CGRectMake((rect.size.width - 450.) / 2., self.controllerPanel.frame.origin.y - 200., 450., 240.)];
-    } else {
-        _equalizerView = [[VLCEqualizerView alloc] initWithFrame:CGRectMake((rect.size.width - 450.) / 2., self.controllerPanel.frame.origin.y - 240., 450., 240.)];
-    }
+    _equalizerView = [[VLCEqualizerView alloc] initWithFrame:CGRectMake(0, 0, 450., 240.)];
     _equalizerView.delegate = self.playbackController;
     _equalizerView.UIdelegate = self;
     _equalizerView.autoresizingMask = UIViewAutoresizingFlexibleRightMargin | UIViewAutoresizingFlexibleLeftMargin | UIViewAutoresizingFlexibleTopMargin;
@@ -416,6 +364,29 @@ typedef NS_ENUM(NSInteger, VLCPanType) {
     [self.view addSubview:_sleepTimerContainer];
 
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(playbackDidStop:) name:VLCPlaybackControllerPlaybackDidStop object:nil];
+
+
+    VLCMovieViewControlPanelViewController *panelVC = [[VLCMovieViewControlPanelViewController alloc] initWithNibName:@"VLCMovieViewControlPanel"
+                                                                                                               bundle:nil];
+    [self addChildViewController:panelVC];
+    [self.view addSubview:panelVC.view];
+    panelVC.view.translatesAutoresizingMaskIntoConstraints = NO;
+    NSArray *hConstraints = [NSLayoutConstraint constraintsWithVisualFormat:@"H:|[panel]|"
+                                                                    options:0
+                                                                    metrics:nil
+                                                                      views:@{@"panel":panelVC.view}];
+
+    NSArray *vConstraints = [NSLayoutConstraint constraintsWithVisualFormat:@"V:[panel]|"
+                                                                    options:0
+                                                                    metrics:nil
+                                                                      views:@{@"panel":panelVC.view}];
+    [self.view addConstraints:hConstraints];
+    [self.view addConstraints:vConstraints];
+
+
+    [panelVC didMoveToParentViewController:self];
+    self.controlPanelController = panelVC;
+    self.controllerPanel = panelVC.view;
 }
 
 - (void)viewWillAppear:(BOOL)animated
@@ -452,13 +423,18 @@ typedef NS_ENUM(NSInteger, VLCPanType) {
     vpc.videoOutputView = self.movieView;
 }
 
-- (void)viewWillLayoutSubviews
+- (void)viewDidLayoutSubviews
 {
+
+    CGRect equalizerRect = _equalizerView.frame;
+    equalizerRect.origin.x = CGRectGetMidX(self.view.bounds) - CGRectGetWidth(equalizerRect)/2.0;
+    equalizerRect.origin.y = CGRectGetMidY(self.view.bounds) - CGRectGetHeight(equalizerRect)/2.0;
+    _equalizerView.frame = equalizerRect;
+
     CGRect multiSelectionFrame;
-    CGRect controllerPanelFrame;
+    CGRect controllerPanelFrame = _controllerPanel.frame;;
 
     if (UI_USER_INTERFACE_IDIOM() != UIUserInterfaceIdiomPhone) {
-        controllerPanelFrame = _controllerPanel.frame;
         multiSelectionFrame = (CGRect){CGPointMake(0., 0.), [_multiSelectionView proposedDisplaySize]};
         multiSelectionFrame.origin.x = controllerPanelFrame.size.width - multiSelectionFrame.size.width;
         multiSelectionFrame.origin.y = controllerPanelFrame.origin.y - multiSelectionFrame.size.height;
@@ -467,28 +443,17 @@ typedef NS_ENUM(NSInteger, VLCPanType) {
         return;
     }
 
-    CGSize viewSize = self.view.frame.size;
-
     if (UIDeviceOrientationIsLandscape([UIDevice currentDevice].orientation)) {
-        [_controllerPanel removeFromSuperview];
-        controllerPanelFrame = (CGRect){CGPointMake(0, viewSize.height - _controllerPanelLandscape.frame.size.height), CGSizeMake(viewSize.width, _controllerPanelLandscape.frame.size.height)};
-        _controllerPanelLandscape.frame = controllerPanelFrame;
-        [self.view addSubview:_controllerPanelLandscape];
         _multiSelectionView.showsEqualizer = YES;
         multiSelectionFrame = (CGRect){CGPointMake(0., 0.), [_multiSelectionView proposedDisplaySize]};
         multiSelectionFrame.origin.x = controllerPanelFrame.size.width - multiSelectionFrame.size.width;
         multiSelectionFrame.origin.y = controllerPanelFrame.origin.y - multiSelectionFrame.size.height;
     } else {
-        [_controllerPanelLandscape removeFromSuperview];
-        controllerPanelFrame = (CGRect){CGPointMake(0, viewSize.height - _controllerPanel.frame.size.height), CGSizeMake(viewSize.width, _controllerPanel.frame.size.height)};
-        _controllerPanel.frame = controllerPanelFrame;
-        [self.view addSubview:_controllerPanel];
         _multiSelectionView.showsEqualizer = NO;
         multiSelectionFrame = (CGRect){CGPointMake(0., 0.), [_multiSelectionView proposedDisplaySize]};
         multiSelectionFrame.origin.x = controllerPanelFrame.size.width - multiSelectionFrame.size.width;
         multiSelectionFrame.origin.y = controllerPanelFrame.origin.y - multiSelectionFrame.size.height;
     }
-
     _multiSelectionView.frame = multiSelectionFrame;
 }
 
@@ -560,8 +525,6 @@ typedef NS_ENUM(NSInteger, VLCPanType) {
     if (!_controlsHidden) {
         _controllerPanel.alpha = 0.0f;
         _controllerPanel.hidden = !_videoFiltersHidden;
-        _controllerPanelLandscape.alpha = 0.0f;
-        _controllerPanelLandscape.hidden = !_videoFiltersHidden;
         _toolbar.alpha = 0.0f;
         _toolbar.hidden = NO;
         _videoFilterView.alpha = 0.0f;
@@ -586,7 +549,6 @@ typedef NS_ENUM(NSInteger, VLCPanType) {
 
     void (^animationBlock)() = ^() {
         _controllerPanel.alpha = alpha;
-        _controllerPanelLandscape.alpha = alpha;
         _toolbar.alpha = alpha;
         _videoFilterView.alpha = alpha;
         _playbackSpeedView.alpha = alpha;
@@ -604,7 +566,6 @@ typedef NS_ENUM(NSInteger, VLCPanType) {
 
     void (^completionBlock)(BOOL finished) = ^(BOOL finished) {
         _controllerPanel.hidden = _videoFiltersHidden ? _controlsHidden : NO;
-        _controllerPanelLandscape.hidden = _videoFiltersHidden ? _controlsHidden : NO;
         _toolbar.hidden = _controlsHidden;
         _videoFilterView.hidden = _videoFiltersHidden;
         _playbackSpeedView.hidden = _playbackSpeedViewHidden;
@@ -624,8 +585,6 @@ typedef NS_ENUM(NSInteger, VLCPanType) {
 
     [[UIApplication sharedApplication] setStatusBarHidden:_viewAppeared ? _controlsHidden : NO withAnimation:animationType];
     [UIView animateWithDuration:animationDuration animations:animationBlock completion:completionBlock];
-
-    _volumeView.hidden = _volumeViewLandscape.hidden = _controllerPanel.hidden;
 }
 
 - (void)toggleControlsVisible
@@ -767,34 +726,7 @@ typedef NS_ENUM(NSInteger, VLCPanType) {
     [self _resetIdleTimer];
 }
 
-- (void)playPauseLongPress:(UILongPressGestureRecognizer *)recognizer
-{
-    switch (recognizer.state) {
-        case UIGestureRecognizerStateBegan:
-        {   UIImage *image = [UIImage imageNamed:@"stopIcon"];
-            [_playPauseButton setImage:image forState:UIControlStateNormal];
-            [_playPauseButtonLandscape setImage:image forState:UIControlStateNormal];
-        }
-            break;
-        case UIGestureRecognizerStateEnded:
-            [self.playbackController stopPlayback];
-            break;
-        case UIGestureRecognizerStateCancelled:
-        case UIGestureRecognizerStateFailed:
-            [self updatePlayPauseButton];
-            break;
-        default:
-            break;
-    }
-}
 
-- (void)updatePlayPauseButton
-{
-    const BOOL isPlaying = self.playbackController.isPlaying;
-    UIImage *playPauseImage = isPlaying ? [UIImage imageNamed:@"pauseIcon"] : [UIImage imageNamed:@"playIcon"];
-    [_playPauseButton setImage:playPauseImage forState:UIControlStateNormal];
-    [_playPauseButtonLandscape setImage:playPauseImage forState:UIControlStateNormal];
-}
 
 - (void)updateTimeDisplayButton
 {
@@ -886,20 +818,9 @@ currentMediaHasTrackToChooseFrom:(BOOL)currentMediaHasTrackToChooseFrom
     if (currentState == VLCMediaPlayerStateError)
         [self.statusLabel showStatusMessage:NSLocalizedString(@"PLAYBACK_FAILED", nil)];
 
-    [self updatePlayPauseButton];
+    [self.controlPanelController updateButtons];
 
-    if (currentMediaHasTrackToChooseFrom) {
-        self.trackSwitcherButton.hidden = NO;
-        self.trackSwitcherButtonLandscape.hidden = NO;
-    } else {
-        self.trackSwitcherButton.hidden = YES;
-        self.trackSwitcherButtonLandscape.hidden = YES;
-    }
-
-    if (currentMediaHasChapters)
-        _multiSelectionView.mediaHasChapters = YES;
-    else
-        _multiSelectionView.mediaHasChapters = NO;
+    _multiSelectionView.mediaHasChapters = currentMediaHasChapters;
 }
 
 - (void)showStatusMessage:(NSString *)statusMessage forPlaybackController:(VLCPlaybackController *)controller
@@ -928,8 +849,8 @@ currentMediaHasTrackToChooseFrom:(BOOL)currentMediaHasTrackToChooseFrom
     self.timeNavigationTitleView.hideAspectRatio = audioOnly;
     self.timeNavigationTitleView.positionSlider.hidden = NO;
 
-    self.videoFilterButton.hidden = audioOnly;
-
+    [[self controlPanelController] updateButtons];
+    
     _audioOnly = audioOnly;
 }
 
@@ -975,7 +896,6 @@ currentMediaHasTrackToChooseFrom:(BOOL)currentMediaHasTrackToChooseFrom
         if (UI_USER_INTERFACE_IDIOM() == UIUserInterfaceIdiomPhone) {
             if (!_controlsHidden) {
                 self.controllerPanel.hidden = _controlsHidden = YES;
-                self.controllerPanelLandscape.hidden = YES;
                 self.toolbar.hidden = YES;
             }
         }
@@ -1013,7 +933,6 @@ currentMediaHasTrackToChooseFrom:(BOOL)currentMediaHasTrackToChooseFrom
     if (UI_USER_INTERFACE_IDIOM() == UIUserInterfaceIdiomPhone) {
         if (!_controlsHidden) {
             self.controllerPanel.hidden = _controlsHidden = YES;
-            self.controllerPanelLandscape.hidden = YES;
         }
     }
 
@@ -1036,7 +955,7 @@ currentMediaHasTrackToChooseFrom:(BOOL)currentMediaHasTrackToChooseFrom
     }
 }
 
-- (void)moreActions:(id)sender
+- (void)moreActions:(UIButton *)sender
 {
     if (_multiSelectionView.hidden == NO) {
         [UIView animateWithDuration:.3
@@ -1057,7 +976,7 @@ currentMediaHasTrackToChooseFrom:(BOOL)currentMediaHasTrackToChooseFrom
 
     CGRect workFrame = _multiSelectionView.frame;
     workFrame.size = [_multiSelectionView proposedDisplaySize];
-    workFrame.origin.x = self.toolbar.frame.size.width - workFrame.size.width;
+    workFrame.origin.x = CGRectGetMaxX(sender.frame) - workFrame.size.width;
 
     _multiSelectionView.alpha = 1.0f;
 
@@ -1099,7 +1018,6 @@ currentMediaHasTrackToChooseFrom:(BOOL)currentMediaHasTrackToChooseFrom
         if (UI_USER_INTERFACE_IDIOM() == UIUserInterfaceIdiomPhone) {
             if (!_controlsHidden) {
                 self.controllerPanel.hidden = _controlsHidden = YES;
-                self.controllerPanelLandscape.hidden = YES;
                 self.toolbar.hidden = YES;
             }
         }
@@ -1133,7 +1051,6 @@ currentMediaHasTrackToChooseFrom:(BOOL)currentMediaHasTrackToChooseFrom
         if (UI_USER_INTERFACE_IDIOM() == UIUserInterfaceIdiomPhone) {
             if (!_controlsHidden) {
                 self.controllerPanel.hidden = _controlsHidden = YES;
-                self.controllerPanelLandscape.hidden = YES;
             }
         }
 
@@ -1371,19 +1288,12 @@ currentMediaHasTrackToChooseFrom:(BOOL)currentMediaHasTrackToChooseFrom
 - (VLCPanType)detectPanTypeForPan:(UIPanGestureRecognizer*)panRecognizer
 {
     NSString *deviceType = [[UIDevice currentDevice] model];
-    CGPoint location = [panRecognizer locationInView:self.view];
-    CGFloat position = location.x;
-
-    UIInterfaceOrientation orientation = [[UIApplication sharedApplication] statusBarOrientation];
-    CGRect screenRect = [[UIScreen mainScreen] bounds];
-    CGFloat screenWidth = .0;
-    if (orientation == UIDeviceOrientationPortrait)
-        screenWidth = screenRect.size.width;
-    else
-        screenWidth = screenRect.size.height;
+    UIWindow *window = [[UIApplication sharedApplication] keyWindow];
+    CGFloat windowWidth = CGRectGetWidth(window.bounds);
+    CGPoint location = [panRecognizer locationInView:window];
 
     VLCPanType panType = VLCPanTypeVolume; // default or right side of the screen
-    if (position < screenWidth / 2)
+    if (location.x < windowWidth / 2)
         panType = VLCPanTypeBrightness;
 
     // only check for seeking gesture if on iPad , will overwrite last statements if true
@@ -1525,7 +1435,6 @@ currentMediaHasTrackToChooseFrom:(BOOL)currentMediaHasTrackToChooseFrom
     if (UI_USER_INTERFACE_IDIOM() == UIUserInterfaceIdiomPhone) {
         if (!_controlsHidden) {
             self.controllerPanel.hidden = _controlsHidden = YES;
-            self.controllerPanelLandscape.hidden = YES;
         }
     }
 
@@ -1608,22 +1517,25 @@ currentMediaHasTrackToChooseFrom:(BOOL)currentMediaHasTrackToChooseFrom
 
 - (IBAction)videoDimensionAction:(id)sender
 {
-    LOCKCHECK;
-
-    if (sender == self.playbackSpeedButton || sender == self.playbackSpeedButtonLandscape) {
-        if (!_videoFiltersHidden)
-            self.videoFilterView.hidden = _videoFiltersHidden = YES;
-
-        if (_equalizerView.hidden == NO)
-            _equalizerView.hidden = YES;
-
-        self.playbackSpeedView.hidden = !_playbackSpeedViewHidden;
-        _playbackSpeedViewHidden = self.playbackSpeedView.hidden;
-        [self _resetIdleTimer];
-    } else if (sender == self.timeNavigationTitleView.aspectRatioButton) {
+    if (sender == self.timeNavigationTitleView.aspectRatioButton) {
         [self.playbackController switchAspectRatio];
     }
 }
+
+- (IBAction)showPlaybackSpeedView {
+    LOCKCHECK;
+
+    if (!_videoFiltersHidden)
+        self.videoFilterView.hidden = _videoFiltersHidden = YES;
+
+    if (_equalizerView.hidden == NO)
+        _equalizerView.hidden = YES;
+
+    self.playbackSpeedView.hidden = !_playbackSpeedViewHidden;
+    _playbackSpeedViewHidden = self.playbackSpeedView.hidden;
+    [self _resetIdleTimer];
+}
+
 
 #pragma mark - autorotation
 
