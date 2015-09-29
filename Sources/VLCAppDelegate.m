@@ -79,6 +79,7 @@ NSString *const VLCDropboxSessionWasAuthorized = @"VLCDropboxSessionWasAuthorize
                                   kVLCSettingCloseGesture : @(YES),
                                   kVLCSettingVariableJumpDuration : @(NO),
                                   kVLCSettingVideoFullscreenPlayback : @(YES),
+                                  kVLCSettingContinuePlayback : @(1),
                                   kVLCSettingFTPTextEncoding : kVLCSettingFTPTextEncodingDefaultValue,
                                   kVLCSettingWiFiSharingIPv6 : kVLCSettingWiFiSharingIPv6DefaultValue,
                                   kVLCSettingEqualizerProfile : kVLCSettingEqualizerProfileDefaultValue,

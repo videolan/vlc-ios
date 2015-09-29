@@ -934,8 +934,24 @@ setstuff:
             lastPosition = item.lastPosition.floatValue;
         duration = item.duration.intValue;
 
-        if (lastPosition < .95 && _mediaPlayer.position < lastPosition && (duration * lastPosition - duration) < -60000)
-            _mediaPlayer.position = lastPosition;
+        if (lastPosition < .95 && _mediaPlayer.position < lastPosition && (duration * lastPosition - duration) < -60000) {
+            NSInteger continuePlayback = [[[NSUserDefaults standardUserDefaults] objectForKey:kVLCSettingContinuePlayback] integerValue];
+            if (continuePlayback == 1) {
+                _mediaPlayer.position = lastPosition;
+            } else if (continuePlayback == 0) {
+                VLCAlertView *alert = [[VLCAlertView alloc] initWithTitle:NSLocalizedString(@"CONTINUE_PLAYBACK", nil)
+                                                                  message:[NSString stringWithFormat:NSLocalizedString(@"CONTINUE_PLAYBACK_LONG", nil), item.title]
+                                                                 delegate:self
+                                                        cancelButtonTitle:NSLocalizedString(@"BUTTON_CANCEL", nil)
+                                                        otherButtonTitles:NSLocalizedString(@"BUTTON_CONTINUE", nil), nil];
+                alert.completion = ^(BOOL cancelled, NSInteger buttonIndex) {
+                    if (!cancelled) {
+                        _mediaPlayer.position = lastPosition;
+                    }
+                };
+                [alert show];
+            }
+        }
     }
 }
 

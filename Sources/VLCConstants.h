@@ -49,6 +49,7 @@
 #define kVLCSettingCloseGesture @"EnableCloseGesture"
 #define kVLCSettingVariableJumpDuration @"EnableVariableJumpDuration"
 #define kVLCSettingVideoFullscreenPlayback @"AlwaysUseFullscreenForVideo"
+#define kVLCSettingContinuePlayback @"ContinuePlayback"
 #define kVLCSettingFTPTextEncoding @"ftp-text-encoding"
 #define kVLCSettingFTPTextEncodingDefaultValue @(5) // ISO Latin 1
 #define kVLCSettingPlaybackSpeedDefaultValue @"playback-speed"
