@@ -2,7 +2,7 @@
  * VLCStatusLabel.m
  * VLC for iOS
  *****************************************************************************
- * Copyright (c) 2014 VideoLAN. All rights reserved.
+ * Copyright (c) 2014-2015 VideoLAN. All rights reserved.
  * $Id$
  *
  * Authors: Carola Nitz <nitz.carola # googlemail.com>
@@ -45,11 +45,19 @@
 }
 
 - (void)alertView:(UIAlertView *)alertView didDismissWithButtonIndex:(NSInteger)buttonIndex {
-
     if (self.completion) {
         self.completion(buttonIndex == self.cancelButtonIndex, buttonIndex);
         self.completion = nil;
+        self.delegate = nil;
     }
+}
+
+- (void)show
+{
+    if (self.completion)
+        self.delegate = self;
+
+    [super show];
 }
 
 @end
