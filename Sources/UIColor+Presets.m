@@ -2,7 +2,7 @@
  * UIColor+Presets.m
  * VLC for iOS
  *****************************************************************************
- * Copyright (c) 2014 VideoLAN. All rights reserved.
+ * Copyright (c) 2014-2015 VideoLAN. All rights reserved.
  * $Id$
  *
  * Authors: Felix Paul Kühne <fkuehne # videolan org>
@@ -17,6 +17,11 @@
 + (UIColor *)VLCDarkBackgroundColor
 {
     return [UIColor colorWithWhite:.122 alpha:1.];
+}
+
++ (UIColor *)VLCTransparentDarkBackgroundColor
+{
+    return [UIColor colorWithWhite:.122 alpha:0.75];
 }
 
 + (UIColor *)VLCLightTextColor
