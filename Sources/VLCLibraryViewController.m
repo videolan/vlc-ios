@@ -112,6 +112,11 @@ static NSString *kUsingTableViewToShowData = @"UsingTableViewToShowData";
         if(!_tableView) {
             _tableView = [[UITableView alloc] initWithFrame:viewDimensions style:UITableViewStylePlain];
             _tableView.backgroundColor = [UIColor VLCDarkBackgroundColor];
+            CGRect frame = _tableView.bounds;
+            frame.origin.y = -frame.size.height;
+            UIView *topView = [[UIView alloc] initWithFrame:frame];
+            topView.backgroundColor = [UIColor VLCDarkBackgroundColor];
+            [_tableView addSubview:topView];
             _tableView.rowHeight = [VLCPlaylistTableViewCell heightOfCell];
             _tableView.separatorColor = [UIColor VLCDarkBackgroundColor];
             _tableView.delegate = self;

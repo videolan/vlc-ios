@@ -37,6 +37,11 @@ NSString *VLCNetworkListCellIdentifier = @"VLCNetworkListCellIdentifier";
 {
     _tableView = [[UITableView alloc] initWithFrame:[UIScreen mainScreen].bounds style:UITableViewStylePlain];
     _tableView.backgroundColor = [UIColor VLCDarkBackgroundColor];
+    CGRect frame = _tableView.bounds;
+    frame.origin.y = -frame.size.height;
+    UIView *topView = [[UIView alloc] initWithFrame:frame];
+    topView.backgroundColor = [UIColor VLCDarkBackgroundColor];
+    [_tableView addSubview:topView];
     _tableView.delegate = self;
     _tableView.dataSource = self;
     _tableView.opaque = YES;
