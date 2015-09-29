@@ -96,15 +96,55 @@
 			<key>Type</key>
 			<string>PSGroupSpecifier</string>
 			<key>Title</key>
-			<string>SETTINGS_GESTURE_TITLE</string>
+			<string>SETTINGS_GESTURE</string>
 		</dict>
 		<dict>
 			<key>DefaultValue</key>
 			<true/>
 			<key>Key</key>
-			<string>EnableGesturesToControlPlayback</string>
+			<string>EnableVolumeGesture</string>
 			<key>Title</key>
-			<string>SETTINGS_GESTURES</string>
+			<string>SETTINGS_GESTURES_VOLUME</string>
+			<key>Type</key>
+			<string>PSToggleSwitchSpecifier</string>
+		</dict>
+		<dict>
+			<key>DefaultValue</key>
+			<true/>
+			<key>Key</key>
+			<string>EnablePlayPauseGesture</string>
+			<key>Title</key>
+			<string>SETTINGS_GESTURES_PLAYPAUSE</string>
+			<key>Type</key>
+			<string>PSToggleSwitchSpecifier</string>
+		</dict>
+		<dict>
+			<key>DefaultValue</key>
+			<true/>
+			<key>Key</key>
+			<string>EnableBrightnessGesture</string>
+			<key>Title</key>
+			<string>SETTINGS_GESTURES_BRIGHTNESS</string>
+			<key>Type</key>
+			<string>PSToggleSwitchSpecifier</string>
+		</dict>
+		<dict>
+			<key>DefaultValue</key>
+			<true/>
+			<key>Key</key>
+			<string>EnableSeekGesture</string>
+			<key>Title</key>
+			<string>SETTINGS_GESTURES_SEEK</string>
+			<key>Type</key>
+			<string>PSToggleSwitchSpecifier</string>
+		</dict>
+		<dict>
+			<key>DefaultValue</key>
+			<true/>
+			<key>Key</key>
+			<string>EnableCloseGesture</string>
+			<key>Title</key>
+			<string>SETTINGS_GESTURES_CLOSE</string>
 			<key>Type</key>
 			<string>PSToggleSwitchSpecifier</string>
 		</dict>

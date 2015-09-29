@@ -53,10 +53,6 @@
             [self didChangePasscodeStatus:NO];
         }
     }
-    if ([notification.object isEqual:kVLCSettingPlaybackGestures]) {
-        BOOL enabled = (BOOL)[[notification.userInfo objectForKey:@"EnableGesturesToControlPlayback"] intValue];
-        [self.viewController setHiddenKeys:enabled ? nil : [NSSet setWithObjects:@"EnableVariableJumpDuration", nil] animated:YES];
-    }
 }
 
 - (void)settingsViewControllerDidEnd:(IASKAppSettingsViewController*)sender

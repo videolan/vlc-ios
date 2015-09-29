@@ -247,17 +247,12 @@ static NSString *WiFiCellIdentifier = @"VLCMenuWiFiCell";
                 self.settingsViewController.navigationItem.leftBarButtonItem = [UIBarButtonItem themedRevealMenuButtonWithTarget:self.settingsController.viewController andSelector:@selector(dismiss:)];
             }
 
-            _hiddenSettingKeys = [[NSMutableSet alloc] init];
             IASKAppSettingsViewController *settingsVC = self.settingsViewController;
             settingsVC.modalPresentationStyle = UIModalPresentationFormSheet;
             settingsVC.delegate = self.settingsController;
             settingsVC.showDoneButton = NO;
             settingsVC.showCreditsFooter = NO;
 
-            if (![[[NSUserDefaults standardUserDefaults] objectForKey:kVLCSettingPlaybackGestures] boolValue])
-                [_hiddenSettingKeys addObject:@"EnableVariableJumpDuration"];
-
-            [self.settingsController.viewController setHiddenKeys:_hiddenSettingKeys];
             viewController = settingsVC;
         } else if (itemIndex == 1)
             viewController = [[VLCAboutViewController alloc] init];

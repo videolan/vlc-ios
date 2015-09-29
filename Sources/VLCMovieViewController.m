@@ -71,7 +71,11 @@ typedef NS_ENUM(NSInteger, VLCPanType) {
     BOOL _switchingTracksNotChapters;
     BOOL _audioOnly;
 
-    BOOL _swipeGesturesEnabled;
+    BOOL _volumeGestureEnabled;
+    BOOL _playPauseGestureEnabled;
+    BOOL _brightnessGestureEnabled;
+    BOOL _seekGestureEnabled;
+    BOOL _closeGestureEnabled;
     BOOL _variableJumpDurationEnabled;
     UIPinchGestureRecognizer *_pinchRecognizer;
     VLCPanType _currentPanType;
@@ -217,8 +221,6 @@ typedef NS_ENUM(NSInteger, VLCPanType) {
 
     NSUserDefaults *defaults = [NSUserDefaults standardUserDefaults];
     _displayRemainingTime = [[defaults objectForKey:kVLCShowRemainingTime] boolValue];
-    _swipeGesturesEnabled = [[defaults objectForKey:kVLCSettingPlaybackGestures] boolValue];
-    _variableJumpDurationEnabled = [[defaults objectForKey:kVLCSettingVariableJumpDuration] boolValue];
 
     _pinchRecognizer = [[UIPinchGestureRecognizer alloc] initWithTarget:self action:@selector(handlePinchGesture:)];
     _pinchRecognizer.delegate = self;
@@ -399,17 +401,22 @@ typedef NS_ENUM(NSInteger, VLCPanType) {
     self.artistNameLabel.text = nil;
     self.albumNameLabel.text = nil;
 
-    _swipeGesturesEnabled = [[[NSUserDefaults standardUserDefaults] objectForKey:kVLCSettingPlaybackGestures] boolValue];
-    _variableJumpDurationEnabled = [[[NSUserDefaults standardUserDefaults] objectForKey:kVLCSettingVariableJumpDuration] boolValue];
+    NSUserDefaults *defaults = [NSUserDefaults standardUserDefaults];
+    _volumeGestureEnabled = [[defaults objectForKey:kVLCSettingVolumeGesture] boolValue];
+    _playPauseGestureEnabled = [[defaults objectForKey:kVLCSettingPlayPauseGesture] boolValue];
+    _brightnessGestureEnabled = [[defaults objectForKey:kVLCSettingBrightnessGesture] boolValue];
+    _seekGestureEnabled = [[defaults objectForKey:kVLCSettingSeekGesture] boolValue];
+    _closeGestureEnabled = [[defaults objectForKey:kVLCSettingCloseGesture] boolValue];
+    _variableJumpDurationEnabled = [[defaults objectForKey:kVLCSettingVariableJumpDuration] boolValue];
 
-    [self.navigationController setNavigationBarHidden:YES animated:YES];
+    [self.navigationController setNavigationBarHidden:YES animated:animated];
 
     VLCPlaybackController *vpc = self.playbackController;
     vpc.delegate = self;
     [vpc recoverPlaybackState];
 
     [self screenBrightnessChanged:nil];
-    [self setControlsHidden:NO animated:YES];
+    [self setControlsHidden:NO animated:animated];
 }
 
 - (void)viewDidAppear:(BOOL)animated
@@ -497,7 +504,7 @@ typedef NS_ENUM(NSInteger, VLCPanType) {
 {
     LOCKCHECK;
 
-    if (!_swipeGesturesEnabled)
+    if (!_closeGestureEnabled)
         return;
 
     if (recognizer.velocity < 0.)
@@ -1279,7 +1286,7 @@ currentMediaHasTrackToChooseFrom:(BOOL)currentMediaHasTrackToChooseFrom
 {
     LOCKCHECK;
 
-    if (!_swipeGesturesEnabled)
+    if (!_playPauseGestureEnabled)
         return;
 
     VLCPlaybackController *vpc = self.playbackController;
@@ -1317,9 +1324,6 @@ currentMediaHasTrackToChooseFrom:(BOOL)currentMediaHasTrackToChooseFrom
 {
     LOCKCHECK;
 
-    if (!_swipeGesturesEnabled)
-        return;
-
     CGFloat panDirectionX = [panRecognizer velocityInView:self.view].x;
     CGFloat panDirectionY = [panRecognizer velocityInView:self.view].y;
 
@@ -1327,6 +1331,8 @@ currentMediaHasTrackToChooseFrom:(BOOL)currentMediaHasTrackToChooseFrom
         _currentPanType = [self detectPanTypeForPan:panRecognizer];
 
     if (_currentPanType == VLCPanTypeSeek) {
+        if (!_seekGestureEnabled)
+            return;
         VLCMediaPlayer *mediaPlayer = self.playbackController.mediaPlayer;
         double timeRemainingDouble = (-mediaPlayer.remainingTime.intValue*0.001);
         int timeRemaining = timeRemainingDouble;
@@ -1337,6 +1343,8 @@ currentMediaHasTrackToChooseFrom:(BOOL)currentMediaHasTrackToChooseFrom
         } else
             [mediaPlayer jumpBackward:1];
     } else if (_currentPanType == VLCPanTypeVolume) {
+        if (!_volumeGestureEnabled)
+            return;
         MPMusicPlayerController *musicPlayer = [MPMusicPlayerController applicationMusicPlayer];
 #pragma clang diagnostic push
 #pragma clang diagnostic ignored "-Wdeprecated"
@@ -1348,6 +1356,8 @@ currentMediaHasTrackToChooseFrom:(BOOL)currentMediaHasTrackToChooseFrom
             musicPlayer.volume += 0.01;
 #pragma clang diagnostic pop
     } else if (_currentPanType == VLCPanTypeBrightness) {
+        if (!_brightnessGestureEnabled)
+            return;
         CGFloat brightness = [UIScreen mainScreen].brightness;
 
         if (panDirectionY > 0)
@@ -1382,7 +1392,7 @@ currentMediaHasTrackToChooseFrom:(BOOL)currentMediaHasTrackToChooseFrom
 {
     LOCKCHECK;
 
-    if (!_swipeGesturesEnabled)
+    if (!_seekGestureEnabled)
         return;
 
     NSString * hudString = @" ";
