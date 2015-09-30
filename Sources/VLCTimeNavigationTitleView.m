@@ -31,6 +31,14 @@
     self.minimizePlaybackButton.accessibilityLabel = NSLocalizedString(@"MINIMIZE_PLAYBACK_VIEW", nil);
     self.minimizePlaybackButton.isAccessibilityElement = YES;
 
+    // workaround for radar://22897614 ( http://www.openradar.me/22897614 )
+    UISlider *slider = self.positionSlider;
+    if ([slider respondsToSelector:@selector(semanticContentAttribute)]) {
+        UISemanticContentAttribute attribute = slider.semanticContentAttribute;
+        slider.semanticContentAttribute = UISemanticContentAttributeUnspecified;
+        slider.semanticContentAttribute = attribute;
+    }
+
     [self setNeedsLayout];
 }
 
