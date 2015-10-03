@@ -12,15 +12,7 @@
 
 #import <UIKit/UIKit.h>
 
-@class VLCSettingsController;
-@class IASKAppSettingsViewController;
-
 @interface VLCMenuTableViewController : UIViewController
-
-@property (strong, nonatomic) IASKAppSettingsViewController *settingsViewController;
-@property (strong, nonatomic) VLCSettingsController *settingsController;
-
-@property (nonatomic, strong) UITableView *tableView;
 
 - (void)selectRowAtIndexPath:(NSIndexPath *)indexPath animated:(BOOL)animated scrollPosition:(UITableViewScrollPosition)scrollPosition;
 

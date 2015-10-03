@@ -7,7 +7,6 @@ inhibit_all_warnings!
 target 'vlc-ios' do
 
 pod 'OBSlider', '1.1.0'
-pod 'GHSidebarNav', '1.0.0'
 pod 'InAppSettingsKit', '2.2.2'
 pod 'upnpx', '~>1.3.4'
 pod 'HockeySDK', '~>3.6.4'

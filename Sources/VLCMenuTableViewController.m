@@ -29,9 +29,10 @@
 #import "VLCBugreporter.h"
 #import "VLCCloudServicesTableViewController.h"
 #import "VLCNavigationController.h"
-#import "GHRevealViewController.h"
 
-#define ROW_HEIGHT 50
+#define ROW_HEIGHT 50.
+#define HEADER_HEIGHT 22.
+
 static NSString *CellIdentifier = @"VLCMenuCell";
 static NSString *WiFiCellIdentifier = @"VLCMenuWiFiCell";
 
@@ -42,8 +43,11 @@ static NSString *WiFiCellIdentifier = @"VLCMenuWiFiCell";
     NSArray *_menuItemsSectionTwo;
     NSArray *_menuItemsSectionThree;
     NSMutableSet *_hiddenSettingKeys;
-    
+
+    UITableView *_menuTableView;
 }
+@property (strong, nonatomic) IASKAppSettingsViewController *settingsViewController;
+@property (strong, nonatomic) VLCSettingsController *settingsController;
 
 @end
 
@@ -58,48 +62,36 @@ static NSString *WiFiCellIdentifier = @"VLCMenuWiFiCell";
 {
     [super viewDidLoad];
 
-    self.view.frame = CGRectMake(0.0f, 0.0f, kGHRevealSidebarWidth, CGRectGetHeight(self.view.bounds));
-    self.view.autoresizingMask = UIViewAutoresizingFlexibleHeight;
+    CGRect viewRect = self.view.frame;
 
     _sectionHeaderTexts = @[@"SECTION_HEADER_LIBRARY", @"SECTION_HEADER_NETWORK", @"Settings"];
     _menuItemsSectionOne = @[@"LIBRARY_ALL_FILES", @"LIBRARY_MUSIC", @"LIBRARY_SERIES"];
     _menuItemsSectionTwo = @[@"LOCAL_NETWORK", @"OPEN_NETWORK", @"DOWNLOAD_FROM_HTTP", @"WEBINTF_TITLE", @"CLOUD_SERVICES"];
-
     _menuItemsSectionThree = @[@"Settings", @"ABOUT_APP"];
 
-    _tableView = [[UITableView alloc] initWithFrame:CGRectMake(0.0f, 44.0f + 20.0f, kGHRevealSidebarWidth, CGRectGetHeight(self.view.bounds) - (44.0f + 20.0f)) style:UITableViewStylePlain];
-    _tableView.delegate = self;
-    _tableView.dataSource = self;
-    _tableView.autoresizingMask = UIViewAutoresizingFlexibleHeight;
-    _tableView.backgroundColor = [UIColor colorWithRed:(43.0f/255.0f) green:(43.0f/255.0f) blue:(43.0f/255.0f) alpha:1.0f];
-    _tableView.separatorStyle = UITableViewCellSeparatorStyleNone;
-    _tableView.indicatorStyle = UIScrollViewIndicatorStyleWhite;
-    _tableView.rowHeight = ROW_HEIGHT;
-    _tableView.scrollsToTop = NO;
-    [_tableView registerClass:[VLCWiFiUploadTableViewCell class] forCellReuseIdentifier:WiFiCellIdentifier];
+    _menuTableView = ({
+        NSUInteger count = _menuItemsSectionOne.count + _menuItemsSectionTwo.count + _menuItemsSectionThree.count;
+        CGFloat height = (count * ROW_HEIGHT) + (3. * HEADER_HEIGHT);
+        CGFloat top = ([UIScreen mainScreen].bounds.size.height - height) / 2.;
 
-    self.view = [[UIView alloc] initWithFrame:CGRectMake(0.0f, 0.0f, kGHRevealSidebarWidth, CGRectGetHeight(self.view.bounds))];
-    self.view.autoresizingMask = UIViewAutoresizingFlexibleHeight;
-    [self.view addSubview:_tableView];
+        UITableView *tableView = [[UITableView alloc] initWithFrame:
+                                  CGRectMake(20., top, viewRect.size.width - 20., height)
+                                                              style:UITableViewStylePlain];
+        tableView.autoresizingMask = UIViewAutoresizingFlexibleTopMargin | UIViewAutoresizingFlexibleBottomMargin | UIViewAutoresizingFlexibleWidth;
+        tableView.delegate = self;
+        tableView.dataSource = self;
+        tableView.backgroundColor = [UIColor clearColor];
+        tableView.separatorStyle = UITableViewCellSeparatorStyleNone;
+        tableView.indicatorStyle = UIScrollViewIndicatorStyleWhite;
+        tableView.rowHeight = ROW_HEIGHT;
+        tableView.scrollsToTop = NO;
+        tableView.autoresizingMask = UIViewAutoresizingFlexibleWidth|UIViewAutoresizingFlexibleHeight;
+        tableView;
+    });
 
-    UIView *brandingBackgroundView = [[UIView alloc] initWithFrame:CGRectMake(0.0f, 0.0f, kGHRevealSidebarWidth, 64.0f)];
-    brandingBackgroundView.backgroundColor = [UIColor colorWithRed:0.1608 green:0.1608 blue:0.1608 alpha:1.0000];
-    [self.view addSubview:brandingBackgroundView];
+    [self.view addSubview:_menuTableView];
 
-    UIImageView *brandingImageView;
-    brandingImageView = [[UIImageView alloc] initWithFrame:CGRectMake(0.0f, 0.0f, kGHRevealSidebarWidth, 44.0f + 40.0f)];
-    brandingImageView.contentMode = UIViewContentModeCenter;
-    brandingImageView.image = [UIImage imageNamed:@"title"];
-    [self.view addSubview:brandingImageView];
-
-    [self.tableView selectRowAtIndexPath:[NSIndexPath indexPathForRow:0 inSection:0] animated:NO scrollPosition:UITableViewScrollPositionTop];
-
-}
-
-- (void)viewWillAppear:(BOOL)animated
-{
-    [super viewWillAppear:animated];
-    self.view.frame = CGRectMake(0.0f, 0.0f,kGHRevealSidebarWidth, CGRectGetHeight(self.view.bounds));
+    [_menuTableView selectRowAtIndexPath:[NSIndexPath indexPathForRow:0 inSection:0] animated:NO scrollPosition:UITableViewScrollPositionTop];
 }
 
 - (BOOL)shouldAutorotate
@@ -134,7 +126,6 @@ static NSString *WiFiCellIdentifier = @"VLCMenuWiFiCell";
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
 {
-
     NSString *rawTitle;
     NSUInteger section = indexPath.section;
     if (section == 0)
@@ -147,6 +138,9 @@ static NSString *WiFiCellIdentifier = @"VLCMenuWiFiCell";
     UITableViewCell *cell;
     if ([rawTitle isEqualToString:@"WEBINTF_TITLE"]) {
         cell = (VLCWiFiUploadTableViewCell *)[tableView dequeueReusableCellWithIdentifier:WiFiCellIdentifier];
+        if (cell == nil) {
+            cell = [[VLCWiFiUploadTableViewCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:WiFiCellIdentifier];
+        }
     } else {
         cell = (VLCSidebarViewCell *)[tableView dequeueReusableCellWithIdentifier:CellIdentifier];
         if (cell == nil)
@@ -186,34 +180,35 @@ static NSString *WiFiCellIdentifier = @"VLCMenuWiFiCell";
 - (CGFloat)tableView:(UITableView *)tableView heightForHeaderInSection:(NSInteger)section
 {
     if (section < 3)
-        return 21.f;
+        return 22.f;
     return 0.;
 }
 
 - (UIView *)tableView:(UITableView *)tableView viewForHeaderInSection:(NSInteger)section
 {
-    NSObject *headerText = NSLocalizedString(_sectionHeaderTexts[section], nil);
+    NSString *headerText = NSLocalizedString(_sectionHeaderTexts[section], nil);
     UIView *headerView = nil;
-    if (headerText != [NSNull null]) {
-        headerView = [[UIView alloc] initWithFrame:CGRectMake(0.0f, 0.0f, [UIScreen mainScreen].bounds.size.height, 21.0f)];
-        headerView.backgroundColor = [UIColor VLCDarkBackgroundColor];
+    if (headerText) {
+        headerView = [[UIView alloc] initWithFrame:CGRectMake(0.0f, 0.0f, [UIScreen mainScreen].bounds.size.height, HEADER_HEIGHT)];
 
-        UILabel *textLabel = [[UILabel alloc] initWithFrame:CGRectInset(headerView.bounds, 12.0f, 5.0f)];
-        textLabel.text = (NSString *) headerText;
-        textLabel.font = [UIFont fontWithName:@"Helvetica-Bold" size:([UIFont systemFontSize] * 0.8f)];
-        textLabel.shadowOffset = CGSizeMake(0.0f, 1.0f);
-        textLabel.shadowColor = [UIColor VLCDarkTextShadowColor];
-        textLabel.textColor = [UIColor colorWithRed:(118.0f/255.0f) green:(118.0f/255.0f) blue:(118.0f/255.0f) alpha:1.0f];
+        UILabel *textLabel = [UILabel new];
+        textLabel.text = headerText;
+        textLabel.font = [UIFont fontWithName:@"Helvetica-Bold" size:[UIFont systemFontSize]];
+        textLabel.textColor = [UIColor whiteColor];
         textLabel.backgroundColor = [UIColor clearColor];
+        [textLabel sizeToFit];
+        textLabel.translatesAutoresizingMaskIntoConstraints = NO;
         [headerView addSubview:textLabel];
 
-        UIView *topLine = [[UIView alloc] initWithFrame:CGRectMake(0.0f, 0.0f, [UIScreen mainScreen].bounds.size.height, 1.0f)];
-        topLine.backgroundColor = [UIColor colorWithRed:(95.0f/255.0f) green:(95.0f/255.0f) blue:(95.0f/255.0f) alpha:1.0f];
-        [headerView addSubview:topLine];
-
-        UIView *bottomLine = [[UIView alloc] initWithFrame:CGRectMake(0.0f, 21.0f, [UIScreen mainScreen].bounds.size.height, 1.0f)];
-        bottomLine.backgroundColor = [UIColor colorWithRed:(16.0f/255.0f) green:(16.0f/255.0f) blue:(16.0f/255.0f) alpha:1.0f];
+        UIView *bottomLine = [UIView new];
+        bottomLine.backgroundColor = [UIColor whiteColor];
+        bottomLine.translatesAutoresizingMaskIntoConstraints = NO;
         [headerView addSubview:bottomLine];
+
+        NSDictionary *dict = NSDictionaryOfVariableBindings(textLabel,bottomLine);
+        [headerView addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"H:|[bottomLine]|" options:0 metrics:0 views:dict]];
+        [headerView addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"H:|-(12)-[textLabel]" options:0 metrics:0 views:dict]];
+        [headerView addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"V:|->=0-[textLabel]->=0-[bottomLine(0.5)]|" options:0 metrics:0 views:dict]];
     }
     return headerView;
 }
@@ -232,7 +227,7 @@ static NSString *WiFiCellIdentifier = @"VLCMenuWiFiCell";
         } else if (itemIndex == 2)
             viewController = [VLCDownloadViewController sharedInstance];
         else if (itemIndex == 3)
-            [((VLCWiFiUploadTableViewCell *)[self.tableView cellForRowAtIndexPath:[NSIndexPath indexPathForRow:itemIndex inSection:sectionNumber]]) toggleHTTPServer];
+            [((VLCWiFiUploadTableViewCell *)[_menuTableView cellForRowAtIndexPath:[NSIndexPath indexPathForRow:itemIndex inSection:sectionNumber]]) toggleHTTPServer];
         else if (itemIndex == 4)
             viewController = [[VLCCloudServicesTableViewController alloc] initWithNibName:@"VLCCloudServicesTableViewController" bundle:nil];
     } else if (sectionNumber == 2) {
@@ -281,10 +276,9 @@ static NSString *WiFiCellIdentifier = @"VLCMenuWiFiCell";
 #pragma mark Public Methods
 - (void)selectRowAtIndexPath:(NSIndexPath *)indexPath animated:(BOOL)animated scrollPosition:(UITableViewScrollPosition)scrollPosition
 {
-    UITableView *tableView = self.tableView;
-    [tableView selectRowAtIndexPath:indexPath animated:animated scrollPosition:scrollPosition];
+    [_menuTableView selectRowAtIndexPath:indexPath animated:animated scrollPosition:scrollPosition];
     if (scrollPosition == UITableViewScrollPositionNone)
-        [tableView scrollToRowAtIndexPath:indexPath atScrollPosition:scrollPosition animated:animated];
+        [_menuTableView scrollToRowAtIndexPath:indexPath atScrollPosition:scrollPosition animated:animated];
     [self _revealItem:indexPath.row inSection:indexPath.section];
 }
 

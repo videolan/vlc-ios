@@ -11,12 +11,13 @@
  *****************************************************************************/
 
 #import "VLCSidebarController.h"
-#import "GHRevealViewController.h"
 #import "VLCMenuTableViewController.h"
+#import "UIViewController+RESideMenu.h"
+#import "RESideMenu.h"
 
 @interface VLCSidebarController()
 {
-    GHRevealViewController *_revealController;
+    RESideMenu *_sideMenuViewController;
     VLCMenuTableViewController *_menuViewController;
     UIViewController *_contentViewController;
 }
@@ -43,13 +44,16 @@
 
     if (!self)
         return self;
-
-    _revealController = [[GHRevealViewController alloc] initWithNibName:nil bundle:nil];
-    _revealController.extendedLayoutIncludesOpaqueBars = YES;
-    _revealController.edgesForExtendedLayout = UIRectEdgeAll;
-
     _menuViewController = [[VLCMenuTableViewController alloc] initWithNibName:nil bundle:nil];
-    _revealController.sidebarViewController = _menuViewController;
+    if ([UIApplication sharedApplication].userInterfaceLayoutDirection == UIUserInterfaceLayoutDirectionLeftToRight) {
+        _sideMenuViewController = [[RESideMenu alloc] initWithContentViewController:nil
+                                                             leftMenuViewController:_menuViewController
+                                                            rightMenuViewController:[UIViewController new]];
+    } else {
+        _sideMenuViewController = [[RESideMenu alloc] initWithContentViewController:nil
+                                                             leftMenuViewController:[UIViewController new]
+                                                            rightMenuViewController:_menuViewController];
+    }
 
     return self;
 }
@@ -58,18 +62,18 @@
 
 - (UIViewController *)fullViewController
 {
-    return _revealController;
+    return _sideMenuViewController;
 }
 
 - (void)setContentViewController:(UIViewController *)contentViewController
 {
     contentViewController.view.backgroundColor = [UIColor VLCDarkBackgroundColor];
-    _revealController.contentViewController = contentViewController;
+    _sideMenuViewController.contentViewController = contentViewController;
 }
 
 - (UIViewController *)contentViewController
 {
-    return _revealController.contentViewController;
+    return _sideMenuViewController.contentViewController;
 }
 
 #pragma mark - actual work
@@ -83,12 +87,16 @@
 
 - (void)hideSidebar
 {
-    [_revealController toggleSidebar:NO duration:kGHRevealSidebarDefaultAnimationDuration];
+    [_sideMenuViewController hideMenuViewController];
 }
 
 - (void)toggleSidebar
 {
-    [_revealController toggleSidebar:!_revealController.sidebarShowing duration:kGHRevealSidebarDefaultAnimationDuration];
+    if ([UIApplication sharedApplication].userInterfaceLayoutDirection == UIUserInterfaceLayoutDirectionLeftToRight) {
+            [_sideMenuViewController presentLeftMenuViewController];
+    } else {
+            [_sideMenuViewController presentRightMenuViewController];
+    }
 }
 
 @end
