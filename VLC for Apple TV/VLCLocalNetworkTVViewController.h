@@ -11,8 +11,6 @@
 
 #import <UIKit/UIKit.h>
 
-@interface FirstViewController : UIViewController
-
+@interface VLCLocalNetworkTVViewController : UIViewController
 
 @end
-

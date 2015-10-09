@@ -9,22 +9,36 @@
  * Refer to the COPYING file of the official project for license.
  *****************************************************************************/
 
-#import "SecondViewController.h"
+#import "VLCLocalNetworkTVViewController.h"
 
-@interface SecondViewController ()
+@interface VLCLocalNetworkTVViewController ()
 
 @end
 
-@implementation SecondViewController
+@implementation VLCLocalNetworkTVViewController
 
 - (void)viewDidLoad {
     [super viewDidLoad];
-    // Do any additional setup after loading the view, typically from a nib.
+    // Do any additional setup after loading the view.
 }
 
 - (void)didReceiveMemoryWarning {
     [super didReceiveMemoryWarning];
     // Dispose of any resources that can be recreated.
 }
+
+- (NSString *)title {
+    return @"Local Network";
+}
+
+/*
+#pragma mark - Navigation
+
+// In a storyboard-based application, you will often want to do a little preparation before navigation
+- (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender {
+    // Get the new view controller using [segue destinationViewController].
+    // Pass the selected object to the new view controller.
+}
+*/
 
 @end

@@ -11,8 +11,6 @@
 
 #import <UIKit/UIKit.h>
 
-@interface SecondViewController : UIViewController
-
+@interface VLCAppSharesTVViewController : UIViewController
 
 @end
-

@@ -20,4 +20,6 @@
 
 #import <TVVLCKit/TVVLCKit.h>
 
+#import "UIColor+Presets.h"
+
 #endif /* PrefixHeader_pch */

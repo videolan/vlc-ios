@@ -10,8 +10,16 @@
  *****************************************************************************/
 
 #import "AppDelegate.h"
+#import "VLCAppSharesTVViewController.h"
+#import "VLCLocalNetworkTVViewController.h"
 
 @interface AppDelegate ()
+{
+    UITabBarController *_mainViewController;
+
+    VLCAppSharesTVViewController *_sharesVC;
+    VLCLocalNetworkTVViewController *_localNetworkVC;
+}
 
 @end
 
@@ -19,7 +27,19 @@
 
 
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions {
-    // Override point for customization after application launch.
+
+    self.window = [[UIWindow alloc] initWithFrame:[[UIScreen mainScreen] bounds]];
+
+    _localNetworkVC = [[VLCLocalNetworkTVViewController alloc] initWithNibName:nil bundle:nil];
+    _sharesVC = [[VLCAppSharesTVViewController alloc] initWithNibName:nil bundle:nil];
+
+    _mainViewController = [[UITabBarController alloc] init];
+    _mainViewController.tabBar.backgroundColor = [UIColor VLCOrangeTintColor];
+    _mainViewController.viewControllers = @[_sharesVC, _localNetworkVC];
+
+    self.window.rootViewController = _mainViewController;
+
+    [self.window makeKeyAndVisible];
     return YES;
 }
 
