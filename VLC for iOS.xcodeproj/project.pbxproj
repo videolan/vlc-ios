@@ -189,6 +189,7 @@
 		7DC19AE41868C8EC00810BF7 /* VLCFirstStepsFirstPageViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 7DC19AE21868C8EC00810BF7 /* VLCFirstStepsFirstPageViewController.m */; };
 		7DC19B051868D1C400810BF7 /* VLCFirstStepsFifthPageViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 7DC19B031868D1C400810BF7 /* VLCFirstStepsFifthPageViewController.m */; };
 		7DC19B0C1868D21800810BF7 /* VLCFirstStepsSixthPageViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 7DC19B0A1868D21800810BF7 /* VLCFirstStepsSixthPageViewController.m */; };
+		7DC71D0E1BC81F70001FACAA /* AVFoundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 7DC71D0D1BC81F70001FACAA /* AVFoundation.framework */; };
 		7DC72D6317B7ED24008A26D0 /* WhiteRaccoon.m in Sources */ = {isa = PBXBuildFile; fileRef = 7DC72D6217B7ED24008A26D0 /* WhiteRaccoon.m */; };
 		7DD2A3A9179C04A7003EB537 /* OpenSans-Regular.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 7DD2A3A8179C04A6003EB537 /* OpenSans-Regular.ttf */; };
 		7DDD0429172D98E5005A7B10 /* CFNetwork.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 7DDD0428172D98E5005A7B10 /* CFNetwork.framework */; };
@@ -673,6 +674,7 @@
 		7DC19B091868D21800810BF7 /* VLCFirstStepsSixthPageViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = VLCFirstStepsSixthPageViewController.h; path = Sources/VLCFirstStepsSixthPageViewController.h; sourceTree = SOURCE_ROOT; };
 		7DC19B0A1868D21800810BF7 /* VLCFirstStepsSixthPageViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = VLCFirstStepsSixthPageViewController.m; path = Sources/VLCFirstStepsSixthPageViewController.m; sourceTree = SOURCE_ROOT; };
 		7DC222771773AB0900371B5C /* es */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = es; path = es.lproj/Localizable.strings; sourceTree = "<group>"; };
+		7DC71D0D1BC81F70001FACAA /* AVFoundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AVFoundation.framework; path = Platforms/AppleTVOS.platform/Developer/SDKs/AppleTVOS9.0.sdk/System/Library/Frameworks/AVFoundation.framework; sourceTree = DEVELOPER_DIR; };
 		7DC72D6117B7ED24008A26D0 /* WhiteRaccoon.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = WhiteRaccoon.h; path = ImportedSources/WhiteRaccoon/WhiteRaccoon.h; sourceTree = SOURCE_ROOT; };
 		7DC72D6217B7ED24008A26D0 /* WhiteRaccoon.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = WhiteRaccoon.m; path = ImportedSources/WhiteRaccoon/WhiteRaccoon.m; sourceTree = SOURCE_ROOT; };
 		7DC87AEF17413634009DC250 /* de */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = de; path = de.lproj/Localizable.strings; sourceTree = "<group>"; };
@@ -811,6 +813,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				7DC71D0E1BC81F70001FACAA /* AVFoundation.framework in Frameworks */,
 				7DF28AE11BA31C580030C944 /* libc++.tbd in Frameworks */,
 				7DF28ADF1BA31C4D0030C944 /* libiconv.tbd in Frameworks */,
 				7DF28ADD1BA31C390030C944 /* OpenGLES.framework in Frameworks */,
@@ -1328,6 +1331,7 @@
 		7D94FCDD16DE7D1000F2623B /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
+				7DC71D0D1BC81F70001FACAA /* AVFoundation.framework */,
 				7DF28AE41BA31D9C0030C944 /* libSystem.tbd */,
 				7DF28AE21BA31D770030C944 /* libcommonCrypto.tbd */,
 				7DF28AE01BA31C580030C944 /* libc++.tbd */,
