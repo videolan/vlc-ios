@@ -13,58 +13,26 @@
  *****************************************************************************/
 
 #import "VLCServerListViewController.h"
+#import "VLCLocalServerDiscoveryController.h"
+
 #import "VLCPlaybackController.h"
-#import "UPnPManager.h"
 #import "VLCNetworkListCell.h"
-
-#import "VLCLocalPlexFolderListViewController.h"
-
-#import "VLCFTPServerListViewController.h"
-#import "VLCUPnPServerListViewController.h"
-#import "VLCDiscoveryListViewController.h"
-
-#import "VLCSharedLibraryListViewController.h"
-#import "VLCSharedLibraryParser.h"
-
 #import "VLCNetworkLoginViewController.h"
-#import "VLCHTTPUploaderController.h"
+#import "VLCUPnPServerListViewController.h"
+#import "VLCLocalPlexFolderListViewController.h"
+#import "VLCSharedLibraryListViewController.h"
+#import "VLCDiscoveryListViewController.h"
+#import "VLCFTPServerListViewController.h"
 
-#import "Reachability.h"
-
-#define kPlexServiceType @"_plexmediasvr._tcp."
-
-@interface VLCServerListViewController () <UITableViewDataSource, UITableViewDelegate, NSNetServiceBrowserDelegate, VLCNetworkLoginViewControllerDelegate, NSNetServiceDelegate, VLCMediaListDelegate, UPnPDBObserver>
+@interface VLCServerListViewController () <UITableViewDataSource, UITableViewDelegate, VLCLocalServerDiscoveryControllerDelegate>
 {
+    VLCLocalServerDiscoveryController *_discoveryController;
+
     UIBarButtonItem *_backToMenuButton;
     NSArray *_sectionHeaderTexts;
 
-    NSNetServiceBrowser *_ftpNetServiceBrowser;
-    NSNetServiceBrowser *_PlexNetServiceBrowser;
-    NSNetServiceBrowser *_httpNetServiceBrowser;
-    NSMutableArray *_plexServices;
-    NSMutableArray *_PlexServicesInfo;
-    NSMutableArray *_httpServices;
-    NSMutableArray *_httpServicesInfo;
-    NSMutableArray *_rawNetServices;
-    NSMutableArray *_ftpServices;
-
-    NSArray *_filteredUPNPDevices;
-    NSArray *_UPNPdevices;
-
-    VLCMediaDiscoverer *_sapDiscoverer;
-    VLCMediaDiscoverer *_dsmDiscoverer;
-
-    VLCSharedLibraryParser *_httpParser;
-
     UIRefreshControl *_refreshControl;
     UIActivityIndicatorView *_activityIndicator;
-    Reachability *_reachability;
-
-    NSString *_myHostName;
-
-    BOOL _udnpDiscoveryRunning;
-    NSTimer *_searchTimer;
-    BOOL _setup;
 }
 
 @end
@@ -74,11 +42,6 @@
 - (void)dealloc
 {
     [[NSNotificationCenter defaultCenter] removeObserver:self];
-
-    [_reachability stopNotifier];
-    [_ftpNetServiceBrowser stop];
-    [_PlexNetServiceBrowser stop];
-    [_httpNetServiceBrowser stop];
 }
 
 - (void)loadView
@@ -97,44 +60,14 @@
     [self.view addSubview:_activityIndicator];
 }
 
-- (void)applicationWillResignActive:(NSNotification *)notification
-{
-    [self _stopUPNPDiscovery];
-    [self _stopSAPDiscovery];
-    [self _stopDSMDiscovery];
-}
-
-- (void)applicationDidBecomeActive:(NSNotification *)notification
-{
-    if (_reachability.currentReachabilityStatus == ReachableViaWiFi) {
-        [self _startUPNPDiscovery];
-        [self _startSAPDiscovery];
-        [self _startDSMDiscovery];
-    }
-}
-
 - (void)viewDidLoad
 {
     [super viewDidLoad];
 
-    NSNotificationCenter *defaultCenter = [NSNotificationCenter defaultCenter];
+    _discoveryController = [[VLCLocalServerDiscoveryController alloc] init];
+    _discoveryController.delegate = self;
 
-    [defaultCenter addObserver:self
-                      selector:@selector(applicationWillResignActive:)
-                          name:UIApplicationWillResignActiveNotification
-                        object:[UIApplication sharedApplication]];
-
-    [defaultCenter addObserver:self
-                      selector:@selector(applicationDidBecomeActive:)
-                          name:UIApplicationDidBecomeActiveNotification
-                        object:[UIApplication sharedApplication]];
-
-    [defaultCenter addObserver:self
-                      selector:@selector(sharedLibraryFound:)
-                          name:VLCSharedLibraryParserDeterminedNetserviceAsVLCInstance
-                        object:nil];
-
-    _sectionHeaderTexts = @[@"Generic", @"Universal Plug'n'Play (UPnP)", @"Plex Media Server (via Bonjour)", @"File Transfer Protocol (FTP)", NSLocalizedString(@"SHARED_VLC_IOS_LIBRARY", nil), NSLocalizedString(@"SMB_CIFS_FILE_SERVERS", nil), @"SAP"];
+    _sectionHeaderTexts = _discoveryController.sectionHeaderTexts;
 
     _backToMenuButton = [UIBarButtonItem themedRevealMenuButtonWithTarget:self andSelector:@selector(goBack:)];
     self.navigationItem.leftBarButtonItem = _backToMenuButton;
@@ -145,78 +78,30 @@
 
     self.title = NSLocalizedString(@"LOCAL_NETWORK", nil);
 
-    _ftpServices = [[NSMutableArray alloc] init];
-
-    _rawNetServices = [[NSMutableArray alloc] init];
-
-    _ftpNetServiceBrowser = [[NSNetServiceBrowser alloc] init];
-    _ftpNetServiceBrowser.delegate = self;
-
-    _plexServices = [[NSMutableArray alloc] init];
-    _PlexServicesInfo = [[NSMutableArray alloc] init];
-    _PlexNetServiceBrowser = [[NSNetServiceBrowser alloc] init];
-    _PlexNetServiceBrowser.delegate = self;
-
-    _httpServices = [[NSMutableArray alloc] init];
-    _httpServicesInfo = [[NSMutableArray alloc] init];
-    _httpNetServiceBrowser = [[NSNetServiceBrowser alloc] init];
-    _httpNetServiceBrowser.delegate = self;
-
     _refreshControl = [[UIRefreshControl alloc] init];
     _refreshControl.backgroundColor = [UIColor VLCDarkBackgroundColor];
     _refreshControl.tintColor = [UIColor whiteColor];
     [_refreshControl addTarget:self action:@selector(handleRefresh) forControlEvents:UIControlEventValueChanged];
     [self.tableView addSubview:_refreshControl];
-
-    _reachability = [Reachability reachabilityForLocalWiFi];
-    [_reachability startNotifier];
-
-    [self netReachabilityChanged];
-
-    _myHostName = [[VLCHTTPUploaderController sharedInstance] hostname];
-
-    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(netReachabilityChanged) name:kReachabilityChangedNotification object:nil];
 }
 
 - (void)viewWillDisappear:(BOOL)animated
 {
     [super viewWillDisappear:animated];
     [_activityIndicator stopAnimating];
-    [_ftpNetServiceBrowser stop];
-    [_PlexNetServiceBrowser stop];
-    [_httpNetServiceBrowser stop];
+
+    [_discoveryController stopDiscovery];
 }
 
 - (void)viewWillAppear:(BOOL)animated
 {
-    [_ftpNetServiceBrowser searchForServicesOfType:@"_ftp._tcp." inDomain:@""];
-    [_PlexNetServiceBrowser searchForServicesOfType:kPlexServiceType inDomain:@""];
-    [_httpNetServiceBrowser searchForServicesOfType:@"_http._tcp." inDomain:@""];
-    [_activityIndicator stopAnimating];
     [super viewWillAppear:animated];
-
-    [self netReachabilityChanged];
-}
-
-- (void)netReachabilityChanged
-{
-    if (_reachability.currentReachabilityStatus == ReachableViaWiFi) {
-        [self _startUPNPDiscovery];
-        [self _startSAPDiscovery];
-        [self _startDSMDiscovery];
-    } else {
-        [self _stopUPNPDiscovery];
-        [self _stopSAPDiscovery];
-        [self _stopDSMDiscovery];
-    }
+    [_discoveryController startDiscovery];
 }
 
 - (IBAction)goBack:(id)sender
 {
-    [self _stopUPNPDiscovery];
-    [self _stopSAPDiscovery];
-    [self _stopDSMDiscovery];
-
+    [_discoveryController stopDiscovery];
     [[VLCSidebarController sharedInstance] toggleSidebar];
 }
 
@@ -237,31 +122,7 @@
 
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section
 {
-    switch (section) {
-        case 0:
-            return 1;
-
-        case 1:
-            return _filteredUPNPDevices.count;
-
-        case 2:
-            return _plexServices.count;
-
-        case 3:
-            return _ftpServices.count;
-
-        case 4:
-            return _httpServices.count;
-
-        case 5:
-            return _dsmDiscoverer.discoveredMedia.count;
-
-        case 6:
-            return _sapDiscoverer.discoveredMedia.count;
-
-        default:
-            return 0;
-    }
+    return [_discoveryController numberOfItemsInSection:section];
 }
 
 - (void)tableView:(UITableView *)tableView willDisplayCell:(VLCNetworkListCell *)cell forRowAtIndexPath:(NSIndexPath *)indexPath
@@ -278,70 +139,10 @@
     if (cell == nil)
         cell = [VLCNetworkListCell cellWithReuseIdentifier:CellIdentifier];
 
-    NSUInteger row = indexPath.row;
-    NSUInteger section = indexPath.section;
 
     [cell setIsDirectory:YES];
-    [cell setIcon:nil];
-
-    switch (section) {
-        case 0:
-        {
-            [cell setTitle:NSLocalizedString(@"CONNECT_TO_SERVER", nil)];
-            [cell setIcon:[UIImage imageNamed:@"menuCone"]];
-            break;
-        }
-
-        case 1:
-        {
-            UIImage *icon;
-            if (_filteredUPNPDevices.count > row) {
-                BasicUPnPDevice *device = _filteredUPNPDevices[row];
-                [cell setTitle:[device friendlyName]];
-                icon = [device smallIcon];
-            }
-            [cell setIcon:icon != nil ? icon : [UIImage imageNamed:@"serverIcon"]];
-            break;
-        }
-
-        case 2:
-        {
-            [cell setTitle:[_plexServices[row] name]];
-            [cell setIcon:[UIImage imageNamed:@"PlexServerIcon"]];
-            break;
-        }
-
-        case 3:
-        {
-            [cell setTitle:[_ftpServices[row] name]];
-            [cell setIcon:[UIImage imageNamed:@"serverIcon"]];
-            break;
-        }
-
-        case 4:
-        {
-            [cell setTitle:[_httpServices[row] name]];
-            [cell setIcon:[UIImage imageNamed:@"menuCone"]];
-            break;
-        }
-
-        case 5:
-        {
-            [cell setTitle:[[_dsmDiscoverer.discoveredMedia mediaAtIndex:row] metadataForKey: VLCMetaInformationTitle]];
-            [cell setIcon:[UIImage imageNamed:@"serverIcon"]];
-            break;
-        }
-
-        case 6:
-        {
-            [cell setTitle:[[_sapDiscoverer.discoveredMedia mediaAtIndex:row] metadataForKey: VLCMetaInformationTitle]];
-            [cell setIcon:[UIImage imageNamed:@"TVBroadcastIcon"]];
-            break;
-        }
-
-        default:
-            break;
-    }
+    [cell setIcon:[_discoveryController iconForIndexPath:indexPath]];
+    [cell setTitle:[_discoveryController titleForIndexPath:indexPath]];
 
     return cell;
 }
@@ -350,7 +151,6 @@
 {
     [tableView deselectRowAtIndexPath:indexPath animated:YES];
 
-    NSUInteger row = indexPath.row;
     NSUInteger section = indexPath.section;
 
     switch (section) {
@@ -375,26 +175,28 @@
         }
         case 1:
         {
-            if (_filteredUPNPDevices.count < row || _filteredUPNPDevices.count == 0)
-                return;
-
             [_activityIndicator startAnimating];
-            BasicUPnPDevice *device = _filteredUPNPDevices[row];
-            if ([[device urn] isEqualToString:@"urn:schemas-upnp-org:device:MediaServer:1"]) {
-                MediaServer1Device *server = (MediaServer1Device*)device;
-                VLCUPnPServerListViewController *targetViewController = [[VLCUPnPServerListViewController alloc] initWithUPNPDevice:server header:[device friendlyName] andRootID:@"0"];
-                [self.navigationController pushViewController:targetViewController animated:YES];
+            BasicUPnPDevice *device = [_discoveryController upnpDeviceForIndexPath:indexPath];
+            if (device != nil) {
+                if ([[device urn] isEqualToString:@"urn:schemas-upnp-org:device:MediaServer:1"]) {
+                    MediaServer1Device *server = (MediaServer1Device*)device;
+                    VLCUPnPServerListViewController *targetViewController = [[VLCUPnPServerListViewController alloc] initWithUPNPDevice:server header:[device friendlyName] andRootID:@"0"];
+                    [self.navigationController pushViewController:targetViewController animated:YES];
+                }
             }
             break;
         }
 
         case 2:
         {
-            NSString *name = [_PlexServicesInfo[row] objectForKey:@"name"];
-            NSString *hostName = [_PlexServicesInfo[row] objectForKey:@"hostName"];
-            NSString *portNum = [_PlexServicesInfo[row] objectForKey:@"port"];
-            VLCLocalPlexFolderListViewController *targetViewController = [[VLCLocalPlexFolderListViewController alloc] initWithPlexServer:name serverAddress:hostName portNumber:portNum atPath:@"" authentification:@""];
-            [[self navigationController] pushViewController:targetViewController animated:YES];
+            NSDictionary *serviceDescription = [_discoveryController plexServiceDescriptionForIndexPath:indexPath];
+            if (serviceDescription != nil) {
+                NSString *name = serviceDescription[@"name"];
+                NSString *hostName = serviceDescription[@"hostName"];
+                NSString *portNum = serviceDescription[@"port"];
+                VLCLocalPlexFolderListViewController *targetViewController = [[VLCLocalPlexFolderListViewController alloc] initWithPlexServer:name serverAddress:hostName portNumber:portNum atPath:@"" authentification:@""];
+                [[self navigationController] pushViewController:targetViewController animated:YES];
+            }
             break;
         }
 
@@ -415,26 +217,29 @@
                     loginViewController.navigationItem.leftBarButtonItem = [UIBarButtonItem themedDarkToolbarButtonWithTitle:NSLocalizedString(@"BUTTON_DONE", nil) target:loginViewController andSelector:@selector(_dismiss)];
             } else
                 [self.navigationController pushViewController:loginViewController animated:YES];
-            loginViewController.hostname = [_ftpServices[row] hostName];
+            loginViewController.hostname = [_discoveryController ftpHostnameForIndexPath:indexPath];
             break;
         }
 
         case 4:
         {
-            NSString *name = [_httpServicesInfo[row] objectForKey:@"name"];
-            NSString *hostName = [_httpServicesInfo[row] objectForKey:@"hostName"];
-            NSString *portNum = [_httpServicesInfo[row] objectForKey:@"port"];
-            VLCSharedLibraryListViewController *targetViewController = [[VLCSharedLibraryListViewController alloc]
-                                                                        initWithHttpServer:name
-                                                                        serverAddress:hostName
-                                                                        portNumber:portNum];
-            [[self navigationController] pushViewController:targetViewController animated:YES];
+            NSDictionary *serviceDescription = [_discoveryController httpServiceDescriptionForIndexPath:indexPath];
+            if (serviceDescription != nil) {
+                NSString *name = serviceDescription[@"name"];
+                NSString *hostName = serviceDescription[@"hostName"];
+                NSString *portNum = serviceDescription[@"port"];
+                VLCSharedLibraryListViewController *targetViewController = [[VLCSharedLibraryListViewController alloc]
+                                                                            initWithHttpServer:name
+                                                                            serverAddress:hostName
+                                                                            portNumber:portNum];
+                [[self navigationController] pushViewController:targetViewController animated:YES];
+            }
             break;
         }
 
         case 5:
         {
-            VLCMedia *cellMedia = [_dsmDiscoverer.discoveredMedia mediaAtIndex:row];
+            VLCMedia *cellMedia = [_discoveryController dsmDiscoveryForIndexPath:indexPath];
             if (cellMedia.mediaType != VLCMediaTypeDirectory)
                 return;
 
@@ -452,11 +257,11 @@
 
         case 6:
         {
-            VLCMedia *cellMedia = [_sapDiscoverer.discoveredMedia mediaAtIndex:row];
+            VLCMedia *cellMedia = [_discoveryController sapDiscoveryForIndexPath:indexPath];
             VLCMediaType mediaType = cellMedia.mediaType;
             if (mediaType != VLCMediaTypeDirectory && mediaType != VLCMediaTypeDisc) {
                 VLCPlaybackController *vpc = [VLCPlaybackController sharedInstance];
-                [vpc playURL:[[_sapDiscoverer.discoveredMedia mediaAtIndex:row] url] successCallback:nil errorCallback:nil];
+                [vpc playURL:[cellMedia url] successCallback:nil errorCallback:nil];
             }
             break;
         }
@@ -470,15 +275,6 @@
 
 -(void)handleRefresh
 {
-    if (_reachability.currentReachabilityStatus != ReachableViaWiFi) {
-        [_refreshControl endRefreshing];
-        return;
-    }
-    UPnPManager *managerInstance = [UPnPManager GetInstance];
-    [[managerInstance DB] removeObserver:self];
-    [[managerInstance SSDP] stopSSDP];
-    [self _stopDSMDiscovery];
-
     //set the title while refreshing
     _refreshControl.attributedTitle = [[NSAttributedString alloc]initWithString:NSLocalizedString(@"LOCAL_SERVER_REFRESH",nil)];
     //set the date and time of refreshing
@@ -488,13 +284,11 @@
     NSDictionary *attrsDictionary = [NSDictionary dictionaryWithObject:[UIColor whiteColor] forKey:NSForegroundColorAttributeName];
     _refreshControl.attributedTitle = [[NSAttributedString alloc] initWithString:lastupdated attributes:attrsDictionary];
     //end the refreshing
+
+    if ([_discoveryController refreshDiscoveredData])
+        [self.tableView reloadData];
+
     [_refreshControl endRefreshing];
-
-    [self.tableView reloadData];
-
-    [self _startUPNPDiscovery];
-    [self _startSAPDiscovery];
-    [self _startDSMDiscovery];
 }
 
 #pragma mark - login panel protocol
@@ -547,61 +341,21 @@ confirmedWithUsername:(NSString *)username
     }
 }
 
+- (void)discoveryFoundSomethingNew
+{
+    [self.tableView reloadData];
+}
+
 #pragma mark - custom table view appearance
 
 - (CGFloat)tableView:(UITableView *)tableView heightForHeaderInSection:(NSInteger)section
 {
-    switch (section) {
-        case 0:
-        {
-            // always hide the header of the first section
-            return 0.;
-        }
-        case 1:
-        {
-            if (_filteredUPNPDevices.count == 0)
-                return .0;
-            break;
-        }
+    // always hide the header of the first section
+    if (section == 0)
+        return 0.;
 
-        case 2:
-        {
-            if (_plexServices.count == 0)
-                return .0;
-            break;
-        }
-
-        case 3:
-        {
-            if (_ftpServices.count == 0)
-                return .0;
-            break;
-        }
-
-        case 4:
-        {
-            if (_httpServices.count == 0)
-                return .0;
-            break;
-        }
-
-        case 5:
-        {
-            if (_dsmDiscoverer.discoveredMedia.count == 0)
-                return .0;
-            break;
-        }
-
-        case 6:
-        {
-            if (_sapDiscoverer.discoveredMedia.count == 0)
-                return .0;
-            break;
-        }
-
-        default:
-            break;
-    }
+    if ([_discoveryController numberOfItemsInSection:section] == 0)
+        return 0.;
 
     return 21.f;
 }
@@ -634,208 +388,6 @@ confirmedWithUsername:(NSString *)username
         [headerView addSubview:bottomLine];
     }
     return headerView;
-}
-
-#pragma mark - bonjour discovery
-- (void)netServiceBrowser:(NSNetServiceBrowser *)aNetServiceBrowser didFindService:(NSNetService *)aNetService moreComing:(BOOL)moreComing
-{
-    APLog(@"found bonjour service: %@ (%@)", aNetService.name, aNetService.type);
-    [_rawNetServices addObject:aNetService];
-    aNetService.delegate = self;
-    [aNetService resolveWithTimeout:5.];
-}
-
-- (void)netServiceBrowser:(NSNetServiceBrowser *)aNetServiceBrowser didRemoveService:(NSNetService *)aNetService moreComing:(BOOL)moreComing
-{
-    APLog(@"bonjour service disappeared: %@ (%i)", aNetService.name, moreComing);
-    if ([_rawNetServices containsObject:aNetService])
-        [_rawNetServices removeObject:aNetService];
-    if ([aNetService.type isEqualToString:@"_ftp._tcp."])
-        [_ftpServices removeObject:aNetService];
-    if ([aNetService.type isEqualToString:kPlexServiceType]) {
-        [_plexServices removeObject:aNetService];
-        [_PlexServicesInfo removeAllObjects];
-    }
-    if ([aNetService.type isEqualToString:@"_http._tcp."]) {
-        [_httpServices removeObject:aNetService];
-        [_httpServicesInfo removeAllObjects];
-    }
-    if (!moreComing)
-        [self.tableView reloadData];
-}
-
-- (void)netServiceDidResolveAddress:(NSNetService *)aNetService
-{
-    if ([aNetService.type isEqualToString:@"_ftp._tcp."]) {
-        if (![_ftpServices containsObject:aNetService])
-            [_ftpServices addObject:aNetService];
-    } else if ([aNetService.type isEqualToString:kPlexServiceType]) {
-        if (![_plexServices containsObject:aNetService]) {
-            [_plexServices addObject:aNetService];
-            NSMutableDictionary *_dictService = [[NSMutableDictionary alloc] init];
-            [_dictService setObject:[aNetService name] forKey:@"name"];
-            [_dictService setObject:[aNetService hostName] forKey:@"hostName"];
-            NSString *portStr = [[NSString alloc] initWithFormat:@":%ld", (long)[aNetService port]];
-            [_dictService setObject:portStr forKey:@"port"];
-            [_PlexServicesInfo addObject:_dictService];
-        }
-    }  else if ([aNetService.type isEqualToString:@"_http._tcp."]) {
-        if ([[aNetService hostName] rangeOfString:_myHostName].location == NSNotFound) {
-            if (!_httpParser)
-                _httpParser = [[VLCSharedLibraryParser alloc] init];
-            [_httpParser checkNetserviceForVLCService:aNetService];
-        }
-    }
-    [_rawNetServices removeObject:aNetService];
-    [self.tableView reloadData];
-}
-
-- (void)netService:(NSNetService *)aNetService didNotResolve:(NSDictionary *)errorDict
-{
-    APLog(@"failed to resolve: %@", aNetService.name);
-    [_rawNetServices removeObject:aNetService];
-}
-
-#pragma mark - shared library stuff
-
-- (void)sharedLibraryFound:(NSNotification *)aNotification
-{
-    NSNetService *aNetService = [aNotification.userInfo objectForKey:@"aNetService"];
-
-    if (![_httpServices containsObject:aNetService]) {
-        [_httpServices addObject:aNetService];
-        NSMutableDictionary *_dictService = [[NSMutableDictionary alloc] init];
-        [_dictService setObject:[aNetService name] forKey:@"name"];
-        [_dictService setObject:[aNetService hostName] forKey:@"hostName"];
-        NSString *portStr = [[NSString alloc] initWithFormat:@"%ld", (long)[aNetService port]];
-        [_dictService setObject:portStr forKey:@"port"];
-        [_httpServicesInfo addObject:_dictService];
-    }
-}
-
-#pragma mark - UPNP discovery
-- (void)_startUPNPDiscovery
-{
-    if (_reachability.currentReachabilityStatus != ReachableViaWiFi)
-        return;
-
-    UPnPManager *managerInstance = [UPnPManager GetInstance];
-
-    _UPNPdevices = [[managerInstance DB] rootDevices];
-
-    if (_UPNPdevices.count > 0)
-        [self UPnPDBUpdated:nil];
-
-    [[managerInstance DB] addObserver:self];
-
-    //Optional; set User Agent
-    if (!_setup) {
-        [[managerInstance SSDP] setUserAgentProduct:[NSString stringWithFormat:@"VLCforiOS/%@", [[NSBundle mainBundle] objectForInfoDictionaryKey:@"CFBundleShortVersionString"]] andOS:[NSString stringWithFormat:@"iOS/%@", [[UIDevice currentDevice] systemVersion]]];
-        _setup = YES;
-    }
-
-    //Search for UPnP Devices
-    [[managerInstance SSDP] startSSDP];
-    [[managerInstance SSDP] notifySSDPAlive];
-
-    _searchTimer = [[NSTimer alloc] initWithFireDate:[NSDate dateWithTimeIntervalSinceNow:1.0] interval:10.0 target:self selector:@selector(_performSSDPSearch) userInfo:nil repeats:YES];
-    [[NSRunLoop mainRunLoop] addTimer:_searchTimer forMode:NSRunLoopCommonModes];
-    _udnpDiscoveryRunning = YES;
-}
-
-- (void)_performSSDPSearch
-{
-    UPnPManager *managerInstance = [UPnPManager GetInstance];
-    [[managerInstance SSDP] searchSSDP];
-    [[managerInstance SSDP] searchForMediaServer];
-    [[managerInstance SSDP] performSelectorInBackground:@selector(SSDPDBUpdate) withObject:nil];
-}
-
-- (void)_stopUPNPDiscovery
-{
-    if (_udnpDiscoveryRunning) {
-        UPnPManager *managerInstance = [UPnPManager GetInstance];
-        [[managerInstance SSDP] notifySSDPByeBye];
-        [_searchTimer invalidate];
-        _searchTimer = nil;
-        [[managerInstance DB] removeObserver:self];
-        [[managerInstance SSDP] stopSSDP];
-        _udnpDiscoveryRunning = NO;
-    }
-}
-
-//protocol UPnPDBObserver
-- (void)UPnPDBWillUpdate:(UPnPDB*)sender
-{
-}
-
-- (void)UPnPDBUpdated:(UPnPDB*)sender
-{
-    NSUInteger count = _UPNPdevices.count;
-    BasicUPnPDevice *device;
-    NSMutableArray *mutArray = [[NSMutableArray alloc] init];
-    for (NSUInteger x = 0; x < count; x++) {
-        device = _UPNPdevices[x];
-        if ([[device urn] isEqualToString:@"urn:schemas-upnp-org:device:MediaServer:1"])
-            [mutArray addObject:device];
-        else
-            APLog(@"found device '%@' with unsupported urn '%@'", [device friendlyName], [device urn]);
-    }
-    _filteredUPNPDevices = nil;
-    _filteredUPNPDevices = [NSArray arrayWithArray:mutArray];
-
-    [self.tableView performSelectorOnMainThread:@selector(reloadData) withObject:nil waitUntilDone:YES];
-}
-
-#pragma mark SAP discovery
-
-- (void)_startSAPDiscovery
-{
-    if (_reachability.currentReachabilityStatus != ReachableViaWiFi)
-        return;
-
-    if (!_sapDiscoverer)
-        _sapDiscoverer = [[VLCMediaDiscoverer alloc] initWithName:@"sap"];
-    [_sapDiscoverer startDiscoverer];
-    _sapDiscoverer.discoveredMedia.delegate = self;
-}
-
-- (void)_stopSAPDiscovery
-{
-    [_sapDiscoverer stopDiscoverer];
-    _sapDiscoverer = nil;
-}
-
-- (void)mediaList:(VLCMediaList *)aMediaList mediaAdded:(VLCMedia *)media atIndex:(NSInteger)index
-{
-    [media parseWithOptions:VLCMediaParseNetwork];
-    [self.tableView performSelectorOnMainThread:@selector(reloadData) withObject:nil waitUntilDone:NO];
-}
-
-- (void)mediaList:(VLCMediaList *)aMediaList mediaRemovedAtIndex:(NSInteger)index
-{
-    [self.tableView performSelectorOnMainThread:@selector(reloadData) withObject:nil waitUntilDone:NO];
-}
-
-#pragma DSM discovery
-
-- (void)_startDSMDiscovery
-{
-    if (_reachability.currentReachabilityStatus != ReachableViaWiFi)
-        return;
-
-    if (_dsmDiscoverer)
-        return;
-
-    _dsmDiscoverer = [[VLCMediaDiscoverer alloc] initWithName:@"dsm"];
-    [_dsmDiscoverer startDiscoverer];
-    _dsmDiscoverer.discoveredMedia.delegate = self;
-}
-
-- (void)_stopDSMDiscovery
-{
-    [_dsmDiscoverer stopDiscoverer];
-    _dsmDiscoverer = nil;
 }
 
 @end

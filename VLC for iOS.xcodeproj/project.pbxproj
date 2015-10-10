@@ -124,6 +124,7 @@
 		7D3784C9183A9972009EE944 /* UIDevice+VLC.m in Sources */ = {isa = PBXBuildFile; fileRef = 7D3784C7183A9972009EE944 /* UIDevice+VLC.m */; };
 		7D3784CC183A99BA009EE944 /* PAPasscodeViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 7D3784CB183A99BA009EE944 /* PAPasscodeViewController.m */; };
 		7D3784E9183A9A15009EE944 /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 7D3784E8183A9A15009EE944 /* main.m */; };
+		7D37E39A1BC93F7500AFA70E /* VLCLocalServerDiscoveryController.m in Sources */ = {isa = PBXBuildFile; fileRef = 7D37E3991BC93F7500AFA70E /* VLCLocalServerDiscoveryController.m */; };
 		7D3EB014174A353E002062C2 /* SystemConfiguration.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 7D3EB013174A353E002062C2 /* SystemConfiguration.framework */; };
 		7D4625881A5614A1001A80B4 /* VLCEqualizerView.m in Sources */ = {isa = PBXBuildFile; fileRef = 7D4625871A5614A1001A80B4 /* VLCEqualizerView.m */; };
 		7D4DF2181B55209200739326 /* CoreSpotlight.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 7D4DF2171B55209200739326 /* CoreSpotlight.framework */; settings = {ATTRIBUTES = (Weak, ); }; };
@@ -562,6 +563,8 @@
 		7D3784E8183A9A15009EE944 /* main.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = main.m; path = Sources/main.m; sourceTree = SOURCE_ROOT; };
 		7D3784EA183A9A1E009EE944 /* VLC for iOS-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; name = "VLC for iOS-Info.plist"; path = "Sources/VLC for iOS-Info.plist"; sourceTree = SOURCE_ROOT; };
 		7D3784EB183A9A1E009EE944 /* VLC for iOS-Prefix.pch */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = "VLC for iOS-Prefix.pch"; path = "Sources/VLC for iOS-Prefix.pch"; sourceTree = SOURCE_ROOT; };
+		7D37E3981BC93F7500AFA70E /* VLCLocalServerDiscoveryController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = VLCLocalServerDiscoveryController.h; path = Sources/VLCLocalServerDiscoveryController.h; sourceTree = SOURCE_ROOT; };
+		7D37E3991BC93F7500AFA70E /* VLCLocalServerDiscoveryController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = VLCLocalServerDiscoveryController.m; path = Sources/VLCLocalServerDiscoveryController.m; sourceTree = SOURCE_ROOT; };
 		7D3EB013174A353E002062C2 /* SystemConfiguration.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = SystemConfiguration.framework; path = System/Library/Frameworks/SystemConfiguration.framework; sourceTree = SDKROOT; };
 		7D4136621896710500D7B4B2 /* si */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = si; path = si.lproj/Localizable.strings; sourceTree = "<group>"; };
 		7D4625861A5614A1001A80B4 /* VLCEqualizerView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = VLCEqualizerView.h; path = Sources/VLCEqualizerView.h; sourceTree = SOURCE_ROOT; };
@@ -1122,6 +1125,8 @@
 				7DBB78871B3028C400894467 /* Server browsing */,
 				7D30F3D5183AB2F100FFC021 /* VLCServerListViewController.h */,
 				7D30F3D6183AB2F100FFC021 /* VLCServerListViewController.m */,
+				7D37E3981BC93F7500AFA70E /* VLCLocalServerDiscoveryController.h */,
+				7D37E3991BC93F7500AFA70E /* VLCLocalServerDiscoveryController.m */,
 				7D30F3DA183AB2F900FFC021 /* VLCNetworkLoginViewController.h */,
 				7D30F3DB183AB2F900FFC021 /* VLCNetworkLoginViewController.m */,
 			);
@@ -2178,6 +2183,7 @@
 				7DAE0C341B2EE0C200C53996 /* VLCFTPServerListViewController.m in Sources */,
 				7DF9352F1958AB0600E60FD4 /* UIColor+Presets.m in Sources */,
 				7D50903218F41C7900180139 /* VLCAlertView.m in Sources */,
+				7D37E39A1BC93F7500AFA70E /* VLCLocalServerDiscoveryController.m in Sources */,
 				7DBBF182183AB3B80009A339 /* VLCAppDelegate.m in Sources */,
 				7D3784C0183A9938009EE944 /* VLCLinearProgressIndicator.m in Sources */,
 				DD3EA6311AF50CFE007FF096 /* VLCWatchMessage.m in Sources */,
