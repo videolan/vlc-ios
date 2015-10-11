@@ -1,7 +1,19 @@
 {
   "images" : [
     {
+      "resizing" : {
+        "mode" : "3-part-horizontal",
+        "center" : {
+          "mode" : "tile",
+          "width" : 1
+        },
+        "cap-insets" : {
+          "right" : 640,
+          "left" : 639
+        }
+      },
       "idiom" : "tv",
+      "filename" : "IconBack.png",
       "scale" : "1x"
     }
   ],
