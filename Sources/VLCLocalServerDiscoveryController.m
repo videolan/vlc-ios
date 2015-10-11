@@ -318,7 +318,7 @@
 - (BasicUPnPDevice *)upnpDeviceForIndexPath:(NSIndexPath *)indexPath
 {
     NSUInteger row = indexPath.row;
-    if (row < _filteredUPNPDevices.count || _filteredUPNPDevices.count == 0)
+    if (row > _filteredUPNPDevices.count || _filteredUPNPDevices.count == 0)
         return nil;
     return _filteredUPNPDevices[row];
 }
@@ -326,7 +326,7 @@
 - (NSDictionary *)plexServiceDescriptionForIndexPath:(NSIndexPath *)indexPath
 {
     NSUInteger row = indexPath.row;
-    if (row < _PlexServicesInfo.count || _PlexServicesInfo.count == 0)
+    if (row > _PlexServicesInfo.count || _PlexServicesInfo.count == 0)
         return nil;
     return _PlexServicesInfo[row];
 }
@@ -334,7 +334,7 @@
 - (NSString *)ftpHostnameForIndexPath:(NSIndexPath *)indexPath
 {
     NSUInteger row = indexPath.row;
-    if (row < _ftpServices.count || _ftpServices.count == 0)
+    if (row > _ftpServices.count || _ftpServices.count == 0)
         return nil;
     return [_ftpServices[row] hostName];
 }
@@ -342,7 +342,7 @@
 - (NSDictionary *)httpServiceDescriptionForIndexPath:(NSIndexPath *)indexPath
 {
     NSUInteger row = indexPath.row;
-    if (row < _httpServicesInfo.count || _httpServicesInfo.count == 0)
+    if (row > _httpServicesInfo.count || _httpServicesInfo.count == 0)
         return nil;
     return _httpServicesInfo[row];
 }
