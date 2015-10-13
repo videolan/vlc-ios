@@ -105,12 +105,15 @@
     if (cell == nil)
         cell = [VLCCloudStorageTableViewCell cellWithReuseIdentifier:CellIdentifier];
 
-    cell.driveFile = _googleDriveController.currentListFiles[indexPath.row];
-    if ([cell.driveFile.mimeType isEqualToString:@"application/vnd.google-apps.folder"])
-        [cell setIsDownloadable:NO];
-    else
-        [cell setIsDownloadable:YES];
-
+    NSArray *listOfFiles = _googleDriveController.currentListFiles;
+    NSInteger row = indexPath.row;
+    if (row < listOfFiles.count) {
+        cell.driveFile = listOfFiles[row];
+        if ([cell.driveFile.mimeType isEqualToString:@"application/vnd.google-apps.folder"])
+            [cell setIsDownloadable:NO];
+        else
+            [cell setIsDownloadable:YES];
+    }
     cell.delegate = self;
 
     return cell;
