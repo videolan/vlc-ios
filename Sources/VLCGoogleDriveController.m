@@ -109,6 +109,9 @@
 
 - (void)downloadFileToDocumentFolder:(GTLDriveFile *)file
 {
+    if (file == nil)
+        return;
+
     if ([file.mimeType isEqualToString:@"application/vnd.google-apps.folder"]) return;
 
     if (!_listOfGoogleDriveFilesToDownload)
