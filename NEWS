@@ -1,3 +1,9 @@
+2.6.6:
+------
+* Desktop quality SSA subtitles rendering (finally!)
+* Stability improvements
+* New translations to Lao and Kabyle
+
 2.6.5:
 ------
 * Fixed playback of streams opened through the legacy vlc:// pseudo protocol
