@@ -1256,14 +1256,18 @@ currentMediaHasTrackToChooseFrom:(BOOL)currentMediaHasTrackToChooseFrom
             if ([indexArray indexOfObject:[NSNumber numberWithInt:mediaPlayer.currentAudioTrackIndex]] == row)
                 cellShowsCurrentTrack = YES;
 
-            cell.textLabel.text = [NSString stringWithFormat:@"%@", mediaPlayer.audioTrackNames[row]];
+            NSArray *trackNames = mediaPlayer.audioTrackNames;
+            if (row < trackNames.count)
+                cell.textLabel.text = [NSString stringWithFormat:@"%@", trackNames[row]];
         } else {
             indexArray = mediaPlayer.videoSubTitlesIndexes;
 
             if ([indexArray indexOfObject:[NSNumber numberWithInt:mediaPlayer.currentVideoSubTitleIndex]] == row)
                 cellShowsCurrentTrack = YES;
 
-            cell.textLabel.text = [NSString stringWithFormat:@"%@", mediaPlayer.videoSubTitlesNames[row]];
+            NSArray *trackNames = mediaPlayer.videoSubTitlesNames;
+            if (row < trackNames.count)
+                cell.textLabel.text = [NSString stringWithFormat:@"%@", trackNames[row]];
         }
     } else {
         if ([mediaPlayer countOfTitles] > 1 && section == 0) {
