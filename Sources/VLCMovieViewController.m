@@ -1272,7 +1272,9 @@ currentMediaHasTrackToChooseFrom:(BOOL)currentMediaHasTrackToChooseFrom
             if (row == mediaPlayer.currentTitleIndex)
                 cellShowsCurrentTrack = YES;
         } else {
-            cell.textLabel.text = [mediaPlayer chaptersForTitleIndex:mediaPlayer.currentTitleIndex][row];
+            NSArray *chapters = [mediaPlayer chaptersForTitleIndex:mediaPlayer.currentTitleIndex];
+            if (row < chapters.count)
+                cell.textLabel.text = chapters[row];
 
             if (row == mediaPlayer.currentChapterIndex)
                 cellShowsCurrentTrack = YES;
