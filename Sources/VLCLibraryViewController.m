@@ -657,6 +657,8 @@ static NSString *kUsingTableViewToShowData = @"UsingTableViewToShowData";
             return;
         object.folderTrackNumber = @(toIndexPath.item - 1);
         object = [_foundMedia objectAtIndex:fromIndexPath.item];
+        if (![object isKindOfClass:[MLFile class]])
+            return;
         object.folderTrackNumber = @(fromIndexPath.item - 1);
     }
 }
