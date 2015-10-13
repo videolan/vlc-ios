@@ -512,11 +512,16 @@
 - (NSString *)_checkIfSubtitleWasFound:(NSString *)filePath
 {
     NSString *subtitlePath;
-    NSString *fileName = [[filePath lastPathComponent] stringByDeletingPathExtension];
-    NSMutableArray *listOfSubtitles = [self _listOfSubtitles];
     NSString *fileSub;
-    NSUInteger count = listOfSubtitles.count;
     NSString *currentPath;
+
+    NSString *fileName = [[filePath lastPathComponent] stringByDeletingPathExtension];
+    if (fileName == nil)
+        return nil;
+
+    NSMutableArray *listOfSubtitles = [self _listOfSubtitles];
+    NSUInteger count = listOfSubtitles.count;
+
     for (NSUInteger i = 0; i < count; i++) {
         currentPath = listOfSubtitles[i];
         fileSub = [NSString stringWithFormat:@"%@", currentPath];
