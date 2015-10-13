@@ -681,8 +681,11 @@ static NSString *kUsingTableViewToShowData = @"UsingTableViewToShowData";
 
 - (void)tableView:(UITableView *)tableView commitEditingStyle:(UITableViewCellEditingStyle)editingStyle forRowAtIndexPath:(NSIndexPath *)indexPath
 {
-    if (editingStyle == UITableViewCellEditingStyleDelete)
-        [self removeMediaObject: _foundMedia[indexPath.row] updateDatabase:YES];
+    if (editingStyle == UITableViewCellEditingStyleDelete) {
+        NSInteger row = indexPath.row;
+        if (row < _foundMedia.count)
+            [self removeMediaObject: _foundMedia[row] updateDatabase:YES];
+    }
 }
 
 - (void)tableView:(UITableView *)tableView didDeselectRowAtIndexPath:(NSIndexPath *)indexPath
