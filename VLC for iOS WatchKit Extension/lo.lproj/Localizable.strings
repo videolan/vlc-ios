@@ -1,0 +1,27 @@
+"NOW_PLAYING"="ກຳລັງຫຼິ້ນ";
+"PLAY_NOW"="ຫຼິ້ນດຽວນີ້";
+"PLAYING"="ຫຼິ້ນ";
+"PAUSED"="ຢຸດ";
+"DETAIL"="ລາຍລະອຽດ";
+"LIBRARY_ALL_FILES"="ຟຼາຍທັງໝົດ";
+"LIBRARY_MUSIC"="ອາລະບຳເພງ";
+"LIBRARY_SERIES"="ລາຍການໂທລະພາບ";
+"EMPTY_LIBRARY"="ສື່ຫ້ອງສະໜຸດເປົ່າຫວ່າງ";
+
+"BWD_BUTTON"="ກັບຫຼັງ";
+"FWD_BUTTON"="ໄປໜ້າ";
+"PLAY_BUTTON"="ຫຼິ້ນ";
+"PAUSE_BUTTON"="ຢຸດ";
+
+"VOLUME"="ປະລິມານ";
+"DURATION"="ໄລຍະເວລາ";
+"TITLE"="ຫົວຂໍ້";
+
+// accessibility labels for the playlist
+"OBJECT_TYPE_SHOW"="ສະແດງ";
+"OBJECT_TYPE_SHOW_EPISODE"="ສະແດງຕອນ";
+"OBJECT_TYPE_LABEL"="ໂຟນເດີ";
+"OBJECT_TYPE_ALBUM"="ອາລະບຳ";
+"OBJECT_TYPE_ALBUM_TRACK"="ການຕິດຕາມອາລະບຳ";
+"OBJECT_TYPE_FILE"="ຟຼາຍ";
+"OBJECT_TYPE_FILE_AUDIO"="ຟຼາຍສຽງ";
