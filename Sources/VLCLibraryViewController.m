@@ -777,7 +777,10 @@ static NSString *kUsingTableViewToShowData = @"UsingTableViewToShowData";
 - (UICollectionViewCell*)collectionView:(UICollectionView *)collectionView cellForItemAtIndexPath:(NSIndexPath *)indexPath
 {
     VLCPlaylistCollectionViewCell *cell = [collectionView dequeueReusableCellWithReuseIdentifier:@"PlaylistCell" forIndexPath:indexPath];
-    cell.mediaObject = _foundMedia[indexPath.row];
+    NSUInteger row = indexPath.row;
+    if (row < _foundMedia.count)
+        cell.mediaObject = _foundMedia[row];
+
     cell.collectionView = _collectionView;
 
     [cell setEditing:self.editing animated:NO];
