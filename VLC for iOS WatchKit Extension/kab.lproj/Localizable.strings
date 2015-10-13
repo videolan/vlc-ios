@@ -1,0 +1,27 @@
+"NOW_PLAYING"="Taɣuri ala tetteddu";
+"PLAY_NOW"="Ɣer";
+"PLAYING"="Taɣuri al tetteddu";
+"PAUSED"="Yeḥbes";
+"DETAIL"="Amenḍar";
+"LIBRARY_ALL_FILES"="Ifuyla merra";
+"LIBRARY_MUSIC"="Albumen";
+"LIBRARY_SERIES"="Imazraren n TV";
+"EMPTY_LIBRARY"="Tamkarḍit n imidyaten d tilemt";
+
+"BWD_BUTTON"="Uɣal ɣer deffir";
+"FWD_BUTTON"="Aẓ ɣer sdat";
+"PLAY_BUTTON"="Taɣuri";
+"PAUSE_BUTTON"="Asgunfu";
+
+"VOLUME"="Ableɣ";
+"DURATION"="Tanzagt";
+"TITLE"="Azwel";
+
+// accessibility labels for the playlist
+"OBJECT_TYPE_SHOW"="Amazrar";
+"OBJECT_TYPE_SHOW_EPISODE"="Show episode";
+"OBJECT_TYPE_LABEL"="Akaram";
+"OBJECT_TYPE_ALBUM"="Album";
+"OBJECT_TYPE_ALBUM_TRACK"="Tafuɣalt";
+"OBJECT_TYPE_FILE"="Afaylu";
+"OBJECT_TYPE_FILE_AUDIO"="Afaylu imesli";
