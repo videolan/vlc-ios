@@ -1144,14 +1144,17 @@ static NSString *kUsingTableViewToShowData = @"UsingTableViewToShowData";
                         file.folderTrackNumber = @([label files].count - 1);
                         [_foundMedia removeObjectAtIndex:path.item];
                     } else {
-                        id item = _foundMedia[path.row];
-                        if (![item isKindOfClass:[MLFile class]])
-                            continue;
+                        NSUInteger row = path.row;
+                        if (row < _foundMedia.count) {
+                            id item = _foundMedia[row];
+                            if (![item isKindOfClass:[MLFile class]])
+                                continue;
 
-                        MLFile *file = (MLFile *)item;
-                        file.labels = [NSSet setWithObjects:label, nil];
-                        file.folderTrackNumber = @([label files].count - 1);
-                        [_foundMedia removeObjectAtIndex:path.row];
+                            MLFile *file = (MLFile *)item;
+                            file.labels = [NSSet setWithObjects:label, nil];
+                            file.folderTrackNumber = @([label files].count - 1);
+                            [_foundMedia removeObjectAtIndex:row];
+                        }
                     }
                 }
             }
