@@ -418,6 +418,8 @@
         else
             _loginViewController.hostname = @"";
     } else if (section == 3) {
+        if (row >= _httpServicesInfo.count)
+            return;
         NSString *name = [_httpServicesInfo[row] objectForKey:@"name"];
         NSString *hostName = [_httpServicesInfo[row] objectForKey:@"hostName"];
         NSString *portNum = [_httpServicesInfo[row] objectForKey:@"port"];
