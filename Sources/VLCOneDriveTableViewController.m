@@ -97,8 +97,12 @@
 
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
 {
-    VLCOneDriveObject *selectedObject = _oneDriveController.currentFolder.items[indexPath.row];
+    NSArray *folderItems = _oneDriveController.currentFolder.items;
+    NSInteger row = indexPath.row;
+    if (row >= folderItems.count)
+        return;
 
+    VLCOneDriveObject *selectedObject = folderItems[row];
     if (selectedObject.isFolder) {
         /* dive into sub folder */
         [self.activityIndicator startAnimating];
