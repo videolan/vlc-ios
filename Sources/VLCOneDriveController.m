@@ -188,6 +188,8 @@
 
 - (void)downloadObject:(VLCOneDriveObject *)object
 {
+    if (object == nil)
+        return;
     if (object.isFolder)
         return;
 
