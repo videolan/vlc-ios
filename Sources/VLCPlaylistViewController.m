@@ -711,15 +711,20 @@ static NSString *kUsingTableViewToShowData = @"UsingTableViewToShowData";
     [tableView deselectRowAtIndexPath:indexPath animated:YES];
     NSManagedObject *selectedObject;
 
-    if (tableView == self.searchDisplayController.searchResultsTableView)
-        selectedObject = _searchData[indexPath.row];
-    else
-        selectedObject = _foundMedia[indexPath.row];
+    NSUInteger row = indexPath.row;
+    if (tableView == self.searchDisplayController.searchResultsTableView) {
+        if (row < _searchData.count)
+            selectedObject = _searchData[row];
+    } else {
+        if (row < _foundMedia.count)
+            selectedObject = _foundMedia[row];
+    }
 
     if (_searchDisplayController.active == YES)
         [_searchDisplayController setActive:NO animated:NO];
 
-    [self openMediaObject:selectedObject];
+    if (selectedObject != nil)
+        [self openMediaObject:selectedObject];
 }
 
 #pragma mark - Gesture Action
