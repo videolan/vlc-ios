@@ -306,7 +306,8 @@
         CGFloat centerOffset = (imagePartWidth * i + imagePartWidth / 2) - imageSize.width / 2;
         //shift the rect to draw the middle of the image in the clippingrect
         CGRect drawingRect = CGRectMake(centerOffset, 0, imageSize.width, imageSize.height);
-        [clusterThumb drawInRect:drawingRect];
+        if (clusterThumb != nil)
+            [clusterThumb drawInRect:drawingRect];
         //get rid of the old clippingRect
         CGContextRestoreGState(context);
     }
