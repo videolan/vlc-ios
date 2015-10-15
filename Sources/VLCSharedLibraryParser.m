@@ -53,8 +53,14 @@ NSString *const VLCSharedLibraryParserDeterminedNetserviceAsVLCInstance = @"VLCS
 {
     NSArray *parsedContents = [self downloadAndProcessDataFromServer:hostnameAndPort];
 
-    if ([self.delegate respondsToSelector:@selector(sharedLibraryDataProcessings:)])
-        [self.delegate sharedLibraryDataProcessings:parsedContents];
+    __weak typeof(self) weakSelf = self;
+    [[NSOperationQueue mainQueue] addOperationWithBlock:^{
+        id delegate = weakSelf.delegate;
+        if ([delegate respondsToSelector:@selector(sharedLibraryDataProcessings:)]) {
+            [delegate sharedLibraryDataProcessings:parsedContents];
+        }
+    }];
+
 }
 
 - (NSArray *)downloadAndProcessDataFromServer:(NSString *)hostnamePort
