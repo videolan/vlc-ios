@@ -1,9 +1,10 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="6221" systemVersion="14B25" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="9058" systemVersion="15B30a" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES">
     <dependencies>
         <deployment identifier="iOS"/>
         <development version="5000" identifier="xcode"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="6213"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="9048"/>
+        <capability name="Constraints to layout margins" minToolsVersion="6.0"/>
     </dependencies>
     <objects>
         <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner"/>
@@ -12,37 +13,45 @@
             <rect key="frame" x="0.0" y="0.0" width="320" height="80"/>
             <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
             <tableViewCellContentView key="contentView" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="3" id="StH-9P-AYV">
-                <rect key="frame" x="0.0" y="0.0" width="320" height="79"/>
+                <rect key="frame" x="0.0" y="0.0" width="320" height="79.5"/>
                 <autoresizingMask key="autoresizingMask"/>
                 <subviews>
-                    <imageView userInteractionEnabled="NO" contentMode="scaleToFill" id="4">
+                    <imageView userInteractionEnabled="NO" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="4">
                         <rect key="frame" x="5" y="8" width="64" height="64"/>
-                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                        <animations/>
+                        <constraints>
+                            <constraint firstAttribute="height" constant="64" id="Iwi-eh-7B1"/>
+                            <constraint firstAttribute="width" constant="64" id="qDV-qh-2Z2"/>
+                        </constraints>
                     </imageView>
-                    <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" text="File Title" lineBreakMode="tailTruncation" baselineAdjustment="none" adjustsFontSizeToFit="NO" id="6">
+                    <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" text="File Title" lineBreakMode="tailTruncation" baselineAdjustment="none" adjustsFontSizeToFit="NO" useAutomaticPreferredMaxLayoutWidth="YES" translatesAutoresizingMaskIntoConstraints="NO" id="6">
                         <rect key="frame" x="83" y="21" width="177" height="21"/>
-                        <autoresizingMask key="autoresizingMask" widthSizable="YES" flexibleMaxY="YES"/>
+                        <animations/>
                         <fontDescription key="fontDescription" type="system" pointSize="17"/>
                         <color key="textColor" white="0.66666666666666663" alpha="1" colorSpace="calibratedWhite"/>
                         <color key="highlightedColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                     </label>
-                    <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" text="Folder Title" lineBreakMode="tailTruncation" baselineAdjustment="none" adjustsFontSizeToFit="NO" id="23">
+                    <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" text="Folder Title" lineBreakMode="tailTruncation" baselineAdjustment="none" adjustsFontSizeToFit="NO" useAutomaticPreferredMaxLayoutWidth="YES" translatesAutoresizingMaskIntoConstraints="NO" id="23">
                         <rect key="frame" x="83" y="29" width="177" height="21"/>
-                        <autoresizingMask key="autoresizingMask" widthSizable="YES" flexibleMaxY="YES"/>
+                        <animations/>
                         <fontDescription key="fontDescription" type="system" pointSize="17"/>
                         <color key="textColor" white="0.66666666666666663" alpha="1" colorSpace="calibratedWhite"/>
                         <color key="highlightedColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                     </label>
-                    <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" text="Subtitle — Subtitle" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="7">
+                    <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" text="Subtitle — Subtitle" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" useAutomaticPreferredMaxLayoutWidth="YES" translatesAutoresizingMaskIntoConstraints="NO" id="7">
                         <rect key="frame" x="83" y="44" width="177" height="15"/>
-                        <autoresizingMask key="autoresizingMask" widthSizable="YES" flexibleMaxY="YES"/>
+                        <animations/>
                         <fontDescription key="fontDescription" type="system" pointSize="12"/>
                         <color key="textColor" white="0.33333333333333331" alpha="1" colorSpace="calibratedWhite"/>
                         <color key="highlightedColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                     </label>
-                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" id="VuV-6r-r3f">
+                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="VuV-6r-r3f">
                         <rect key="frame" x="268" y="24" width="32" height="32"/>
-                        <autoresizingMask key="autoresizingMask" flexibleMinX="YES"/>
+                        <animations/>
+                        <constraints>
+                            <constraint firstAttribute="width" constant="32" id="Soh-Xq-7UR"/>
+                            <constraint firstAttribute="height" constant="32" id="ala-wX-3I7"/>
+                        </constraints>
                         <fontDescription key="fontDescription" type="boldSystem" pointSize="15"/>
                         <state key="normal" image="download.png">
                             <color key="titleColor" red="0.19607843459999999" green="0.30980393290000002" blue="0.52156865600000002" alpha="1" colorSpace="calibratedRGB"/>
@@ -56,7 +65,24 @@
                         </connections>
                     </button>
                 </subviews>
+                <animations/>
+                <constraints>
+                    <constraint firstItem="7" firstAttribute="leading" secondItem="4" secondAttribute="trailing" constant="14" id="1TH-PQ-JeX"/>
+                    <constraint firstItem="6" firstAttribute="top" secondItem="StH-9P-AYV" secondAttribute="topMargin" constant="13" id="1WQ-Ow-ZdV"/>
+                    <constraint firstAttribute="bottomMargin" secondItem="7" secondAttribute="bottom" constant="12.5" id="Dh4-em-cVM"/>
+                    <constraint firstItem="4" firstAttribute="centerY" secondItem="StH-9P-AYV" secondAttribute="centerY" id="I9D-mo-Hjf"/>
+                    <constraint firstItem="23" firstAttribute="leading" secondItem="4" secondAttribute="trailing" constant="14" id="MNT-to-TeZ"/>
+                    <constraint firstAttribute="trailingMargin" secondItem="6" secondAttribute="trailing" constant="52" id="PLx-cy-DQg"/>
+                    <constraint firstItem="4" firstAttribute="leading" secondItem="StH-9P-AYV" secondAttribute="leadingMargin" constant="-3" id="Ziu-eM-2E1"/>
+                    <constraint firstItem="VuV-6r-r3f" firstAttribute="leading" secondItem="7" secondAttribute="trailing" constant="8" id="a3B-gO-jNa"/>
+                    <constraint firstAttribute="trailingMargin" secondItem="VuV-6r-r3f" secondAttribute="trailing" constant="12" id="bVZ-bv-fYb"/>
+                    <constraint firstItem="VuV-6r-r3f" firstAttribute="leading" secondItem="23" secondAttribute="trailing" constant="8" id="dgk-4G-JDq"/>
+                    <constraint firstItem="6" firstAttribute="leading" secondItem="4" secondAttribute="trailing" constant="14" id="uRb-VT-8wR"/>
+                    <constraint firstItem="23" firstAttribute="centerY" secondItem="StH-9P-AYV" secondAttribute="centerY" id="vy0-xd-J4v"/>
+                    <constraint firstItem="VuV-6r-r3f" firstAttribute="centerY" secondItem="StH-9P-AYV" secondAttribute="centerY" id="xuG-RQ-ujX"/>
+                </constraints>
             </tableViewCellContentView>
+            <animations/>
             <connections>
                 <outlet property="downloadButton" destination="VuV-6r-r3f" id="K9G-fy-OwZ"/>
                 <outlet property="folderTitleLabel" destination="23" id="24"/>
@@ -69,9 +95,4 @@
     <resources>
         <image name="download.png" width="32" height="32"/>
     </resources>
-    <simulatedMetricsContainer key="defaultSimulatedMetrics">
-        <simulatedStatusBarMetrics key="statusBar"/>
-        <simulatedOrientationMetrics key="orientation"/>
-        <simulatedScreenMetrics key="destination" type="retina4"/>
-    </simulatedMetricsContainer>
 </document>
