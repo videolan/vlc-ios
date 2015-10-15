@@ -260,6 +260,7 @@
 		DDB7C6A41BAEB28200E6570E /* WKInterfaceController+VLCConnectionAlert.m in Sources */ = {isa = PBXBuildFile; fileRef = DD9FBE761BAD6BB600FFE77A /* WKInterfaceController+VLCConnectionAlert.m */; };
 		DDB959421AFBB30500BB8CFF /* MappingModel_2_5_to_2_6.xcmappingmodel in Sources */ = {isa = PBXBuildFile; fileRef = DDB959411AFBB30500BB8CFF /* MappingModel_2_5_to_2_6.xcmappingmodel */; };
 		DDC10BE41AEE8EA700890DC3 /* VLCTimeNavigationTitleView.m in Sources */ = {isa = PBXBuildFile; fileRef = DDC10BE31AEE8EA700890DC3 /* VLCTimeNavigationTitleView.m */; };
+		DDE3C8D01BD0246500C03B8B /* VLCLocalNetworkService.m in Sources */ = {isa = PBXBuildFile; fileRef = DDE3C8CF1BD0246500C03B8B /* VLCLocalNetworkService.m */; };
 		E0C04F951A25B4410080331A /* VLCDocumentPickerController.m in Sources */ = {isa = PBXBuildFile; fileRef = E0C04F941A25B4410080331A /* VLCDocumentPickerController.m */; };
 /* End PBXBuildFile section */
 
@@ -804,6 +805,8 @@
 		DDC10BE21AEE8EA700890DC3 /* VLCTimeNavigationTitleView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = VLCTimeNavigationTitleView.h; path = Sources/VLCTimeNavigationTitleView.h; sourceTree = SOURCE_ROOT; };
 		DDC10BE31AEE8EA700890DC3 /* VLCTimeNavigationTitleView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = VLCTimeNavigationTitleView.m; path = Sources/VLCTimeNavigationTitleView.m; sourceTree = SOURCE_ROOT; };
 		DDE1BCE51B676B8800A4B9CE /* tr */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = tr; path = tr.lproj/Localizable.strings; sourceTree = "<group>"; };
+		DDE3C8CE1BD0246500C03B8B /* VLCLocalNetworkService.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = VLCLocalNetworkService.h; path = Sources/VLCLocalNetworkService.h; sourceTree = SOURCE_ROOT; };
+		DDE3C8CF1BD0246500C03B8B /* VLCLocalNetworkService.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = VLCLocalNetworkService.m; path = Sources/VLCLocalNetworkService.m; sourceTree = SOURCE_ROOT; };
 		DDF157B31ACB169B00AAFBC6 /* WatchKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = WatchKit.framework; path = System/Library/Frameworks/WatchKit.framework; sourceTree = SDKROOT; };
 		E09EACF57CDD22ABAE66CDD0 /* Pods-vlc-ios.distribution.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-vlc-ios.distribution.xcconfig"; path = "Pods/Target Support Files/Pods-vlc-ios/Pods-vlc-ios.distribution.xcconfig"; sourceTree = "<group>"; };
 		E0C04F931A25B4410080331A /* VLCDocumentPickerController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = VLCDocumentPickerController.h; path = Sources/VLCDocumentPickerController.h; sourceTree = SOURCE_ROOT; };
@@ -1121,12 +1124,15 @@
 				7DBB78871B3028C400894467 /* Server browsing */,
 				7D30F3D5183AB2F100FFC021 /* VLCServerListViewController.h */,
 				7D30F3D6183AB2F100FFC021 /* VLCServerListViewController.m */,
+				DDE3C8CE1BD0246500C03B8B /* VLCLocalNetworkService.h */,
+				DDE3C8CF1BD0246500C03B8B /* VLCLocalNetworkService.m */,
 				7D37E3981BC93F7500AFA70E /* VLCLocalServerDiscoveryController.h */,
 				7D37E3991BC93F7500AFA70E /* VLCLocalServerDiscoveryController.m */,
 				7D30F3DA183AB2F900FFC021 /* VLCNetworkLoginViewController.h */,
 				7D30F3DB183AB2F900FFC021 /* VLCNetworkLoginViewController.m */,
 			);
 			name = "Local Network Connectivity";
+			path = Sources;
 			sourceTree = "<group>";
 		};
 		7D31CF061746AEF2005997E0 /* UI Elements */ = {
@@ -1798,6 +1804,7 @@
 				F2C5CAE560C074258A574B08 /* Copy Pods Resources */,
 				4173AEC21ABF1B860004101D /* Embed App Extensions */,
 				DD3567881B6760BF00338947 /* Embed Watch Content */,
+				EF695E012B3C222ED11192E3 /* Embed Pods Frameworks */,
 			);
 			buildRules = (
 			);
@@ -2069,6 +2076,21 @@
 			shellScript = "diff \"${PODS_ROOT}/../Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [[ $? != 0 ]] ; then\n    cat << EOM\nerror: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\nEOM\n    exit 1\nfi\n";
 			showEnvVarsInLog = 0;
 		};
+		EF695E012B3C222ED11192E3 /* Embed Pods Frameworks */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+			);
+			name = "Embed Pods Frameworks";
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods-vlc-ios/Pods-vlc-ios-frameworks.sh\"\n";
+			showEnvVarsInLog = 0;
+		};
 		F2C5CAE560C074258A574B08 /* Copy Pods Resources */ = {
 			isa = PBXShellScriptBuildPhase;
 			buildActionMask = 2147483647;
@@ -2149,6 +2171,7 @@
 				7D168F7418D4A33F003FAF59 /* UIImage+Blur.m in Sources */,
 				9B5BEF2917FBAEA50016F9CB /* GTLDrive_Sources.m in Sources */,
 				7DC19ADF1868C7BB00810BF7 /* VLCFirstStepsViewController.m in Sources */,
+				DDE3C8D01BD0246500C03B8B /* VLCLocalNetworkService.m in Sources */,
 				7DE56C1A1AD93F9100E8CA00 /* VLCPlaybackController.m in Sources */,
 				7DC72D6317B7ED24008A26D0 /* WhiteRaccoon.m in Sources */,
 				DD7110F01AF38B2B00854776 /* MLMediaLibrary+playlist.m in Sources */,

@@ -7,6 +7,7 @@
  *
  * Authors: Felix Paul Kühne <fkuehne # videolan.org>
  *          Pierre SAGASPE <pierre.sagaspe # me.com>
+ *          Tobias Conradi <videolan # tobias-conradi.de>
  *
  * Refer to the COPYING file of the official project for license.
  *****************************************************************************/
@@ -33,19 +34,58 @@
 
 #define kPlexServiceType @"_plexmediasvr._tcp."
 
+typedef NS_ENUM(NSUInteger, VLCLocalServerSections) {
+    VLCLocalServerSectionGeneric = 0,
+    VLCLocalServerSectionUPnP,
+    VLCLocalServerSectionPlex,
+    VLCLocalServerSectionFTP,
+    VLCLocalServerSectionVLCiOS,
+    VLCLocalServerSectionSMB,
+    VLCLocalServerSectionSAP
+};
+
+@interface NSMutableArray(VLCLocalNetworkServiceNetService)
+-(NSUInteger)vlc_indexOfServiceWithNetService:(NSNetService*)netService;
+-(void)vlc_removeServiceWithNetService:(NSNetService*)netService;
+
+@end
+@implementation NSMutableArray (VLCLocalNetworkServiceNetService)
+
+- (NSUInteger)vlc_indexOfServiceWithNetService:(NSNetService *)netService {
+    NSUInteger index = [self indexOfObjectPassingTest:^BOOL(VLCLocalNetworkServiceNetService *obj, NSUInteger idx, BOOL * _Nonnull stop) {
+        if (![obj respondsToSelector:@selector(netService)]) return false;
+
+        BOOL equal = [obj.netService isEqual:netService];
+        if (equal) {
+            *stop = YES;
+        }
+        return equal;
+    }];
+    return index;
+}
+
+-(void)vlc_removeServiceWithNetService:(NSNetService *)netService {
+    NSUInteger index = [self vlc_indexOfServiceWithNetService:netService];
+    if (index != NSNotFound) {
+        [self removeObjectAtIndex:index];
+    }
+}
+@end
+
+
 @interface VLCLocalServerDiscoveryController () <NSNetServiceBrowserDelegate, NSNetServiceDelegate, VLCMediaListDelegate, UPnPDBObserver>
 {
     NSNetServiceBrowser *_ftpNetServiceBrowser;
     NSNetServiceBrowser *_PlexNetServiceBrowser;
     NSNetServiceBrowser *_httpNetServiceBrowser;
-    NSMutableArray *_plexServices;
-    NSMutableArray *_PlexServicesInfo;
-    NSMutableArray *_httpServices;
-    NSMutableArray *_httpServicesInfo;
-    NSMutableArray *_rawNetServices;
-    NSMutableArray *_ftpServices;
+    NSMutableArray<VLCLocalNetworkServicePlex*> *_plexServices;
+    NSMutableArray<VLCLocalNetworkServiceHTTP*> *_httpVLCServices;
+    NSMutableArray<VLCLocalNetworkServiceFTP*> *_ftpServices;
 
-    NSArray *_filteredUPNPDevices;
+    // to keep strong references while resolving
+    NSMutableArray *_rawNetServices;
+
+    NSArray<VLCLocalNetworkServiceUPnP*> *_filteredUPNPDevices;
     NSArray *_UPNPdevices;
 
     VLCMediaDiscoverer *_sapDiscoverer;
@@ -98,7 +138,13 @@
 
 - (NSArray *)sectionHeaderTexts
 {
-    return @[@"Generic", @"Universal Plug'n'Play (UPnP)", @"Plex Media Server (via Bonjour)", @"File Transfer Protocol (FTP)", NSLocalizedString(@"SHARED_VLC_IOS_LIBRARY", nil), NSLocalizedString(@"SMB_CIFS_FILE_SERVERS", nil), @"SAP"];
+    return @[@"Generic",
+             @"Universal Plug'n'Play (UPnP)",
+             @"Plex Media Server (via Bonjour)",
+             @"File Transfer Protocol (FTP)",
+             NSLocalizedString(@"SHARED_VLC_IOS_LIBRARY", nil),
+             NSLocalizedString(@"SMB_CIFS_FILE_SERVERS", nil),
+             @"SAP"];
 }
 
 - (instancetype)init
@@ -132,12 +178,10 @@
     _ftpNetServiceBrowser.delegate = self;
 
     _plexServices = [[NSMutableArray alloc] init];
-    _PlexServicesInfo = [[NSMutableArray alloc] init];
     _PlexNetServiceBrowser = [[NSNetServiceBrowser alloc] init];
     _PlexNetServiceBrowser.delegate = self;
 
-    _httpServices = [[NSMutableArray alloc] init];
-    _httpServicesInfo = [[NSMutableArray alloc] init];
+    _httpVLCServices = [[NSMutableArray alloc] init];
     _httpNetServiceBrowser = [[NSNetServiceBrowser alloc] init];
     _httpNetServiceBrowser.delegate = self;
 
@@ -185,176 +229,85 @@
 
 #pragma mark - table view handling
 
+- (id<VLCLocalNetworkService>)networkServiceForIndexPath:(NSIndexPath *)indexPath
+{
+    VLCLocalServerSections section = indexPath.section;
+    NSUInteger row = indexPath.row;
+
+
+    switch (section) {
+        case VLCLocalServerSectionGeneric:
+        {
+            return [[VLCLocalNetworkServiceItemLogin alloc] init];
+        }
+
+        case VLCLocalServerSectionUPnP:
+        {
+            if (_filteredUPNPDevices.count > row) {
+                return _filteredUPNPDevices[row];
+            }
+        }
+
+        case VLCLocalServerSectionPlex:
+        {
+            return _plexServices[row];
+        }
+
+        case VLCLocalServerSectionFTP:
+        {
+            return _ftpServices[row];
+        }
+
+        case VLCLocalServerSectionVLCiOS:
+        {
+            return _httpVLCServices[row];
+        }
+
+        case VLCLocalServerSectionSMB:
+        {
+            return [[VLCLocalNetworkServiceDSM alloc] initWithMediaItem:[_dsmDiscoverer.discoveredMedia mediaAtIndex:row]];
+        }
+
+        case VLCLocalServerSectionSAP:
+        {
+            return [[VLCLocalNetworkServiceSAP alloc] initWithMediaItem:[_sapDiscoverer.discoveredMedia mediaAtIndex:row]];
+        }
+
+        default:
+            break;
+    }
+    return [[VLCLocalNetworkServiceItem alloc] initWithTile:@"FAIL"
+                                                       icon:nil];
+
+}
+
 - (NSInteger)numberOfItemsInSection:(NSInteger)section
 {
     switch (section) {
-        case 0:
+        case VLCLocalServerSectionGeneric:
             return 1;
 
-        case 1:
+        case VLCLocalServerSectionUPnP:
             return _filteredUPNPDevices.count;
 
-        case 2:
+        case VLCLocalServerSectionPlex:
             return _plexServices.count;
 
-        case 3:
+        case VLCLocalServerSectionFTP:
             return _ftpServices.count;
 
-        case 4:
-            return _httpServices.count;
+        case VLCLocalServerSectionVLCiOS:
+            return _httpVLCServices.count;
 
-        case 5:
+        case VLCLocalServerSectionSMB:
             return _dsmDiscoverer.discoveredMedia.count;
 
-        case 6:
+        case VLCLocalServerSectionSAP:
             return _sapDiscoverer.discoveredMedia.count;
 
         default:
             return 0;
     }
-}
-
-- (NSString *)titleForIndexPath:(NSIndexPath *)indexPath
-{
-    NSUInteger row = indexPath.row;
-    NSUInteger section = indexPath.section;
-
-    switch (section) {
-        case 0:
-        {
-            return NSLocalizedString(@"CONNECT_TO_SERVER", nil);
-        }
-
-        case 1:
-        {
-            if (_filteredUPNPDevices.count > row) {
-                BasicUPnPDevice *device = _filteredUPNPDevices[row];
-                return [device friendlyName];
-            }
-            return @"";
-        }
-
-        case 2:
-        {
-            return [_plexServices[row] name];
-        }
-
-        case 3:
-        {
-            return [_ftpServices[row] name];
-        }
-
-        case 4:
-        {
-            return [_httpServices[row] name];
-        }
-
-        case 5:
-        {
-            return [[_dsmDiscoverer.discoveredMedia mediaAtIndex:row] metadataForKey: VLCMetaInformationTitle];
-        }
-
-        case 6:
-        {
-            return [[_sapDiscoverer.discoveredMedia mediaAtIndex:row] metadataForKey: VLCMetaInformationTitle];
-        }
-
-        default:
-            return @"";
-    }
-}
-
-- (UIImage *)iconForIndexPath:(NSIndexPath *)indexPath
-{
-    NSUInteger row = indexPath.row;
-    NSUInteger section = indexPath.section;
-
-    switch (section) {
-        case 0:
-        {
-            return [UIImage imageNamed:@"menuCone"];
-        }
-
-        case 1:
-        {
-            UIImage *icon;
-            if (_filteredUPNPDevices.count > row) {
-                BasicUPnPDevice *device = _filteredUPNPDevices[row];
-                icon = [device smallIcon];
-            }
-            return icon != nil ? icon : [UIImage imageNamed:@"serverIcon"];
-        }
-
-        case 2:
-        {
-            return [UIImage imageNamed:@"PlexServerIcon"];
-        }
-
-        case 3:
-        {
-            return [UIImage imageNamed:@"serverIcon"];
-        }
-
-        case 4:
-        {
-            return [UIImage imageNamed:@"menuCone"];
-        }
-
-        case 5:
-        {
-            return [UIImage imageNamed:@"serverIcon"];
-        }
-
-        case 6:
-        {
-            return [UIImage imageNamed:@"TVBroadcastIcon"];
-        }
-
-        default:
-            return nil;
-    }
-}
-
-- (BasicUPnPDevice *)upnpDeviceForIndexPath:(NSIndexPath *)indexPath
-{
-    NSUInteger row = indexPath.row;
-    if (row > _filteredUPNPDevices.count || _filteredUPNPDevices.count == 0)
-        return nil;
-    return _filteredUPNPDevices[row];
-}
-
-- (NSDictionary *)plexServiceDescriptionForIndexPath:(NSIndexPath *)indexPath
-{
-    NSUInteger row = indexPath.row;
-    if (row > _PlexServicesInfo.count || _PlexServicesInfo.count == 0)
-        return nil;
-    return _PlexServicesInfo[row];
-}
-
-- (NSString *)ftpHostnameForIndexPath:(NSIndexPath *)indexPath
-{
-    NSUInteger row = indexPath.row;
-    if (row > _ftpServices.count || _ftpServices.count == 0)
-        return nil;
-    return [_ftpServices[row] hostName];
-}
-
-- (NSDictionary *)httpServiceDescriptionForIndexPath:(NSIndexPath *)indexPath
-{
-    NSUInteger row = indexPath.row;
-    if (row > _httpServicesInfo.count || _httpServicesInfo.count == 0)
-        return nil;
-    return _httpServicesInfo[row];
-}
-
-- (VLCMedia *)dsmDiscoveryForIndexPath:(NSIndexPath *)indexPath
-{
-    return [_dsmDiscoverer.discoveredMedia mediaAtIndex:indexPath.row];
-}
-
-- (VLCMedia *)sapDiscoveryForIndexPath:(NSIndexPath *)indexPath
-{
-    return [_sapDiscoverer.discoveredMedia mediaAtIndex:indexPath.row];
 }
 
 - (BOOL)refreshDiscoveredData
@@ -388,15 +341,17 @@
     APLog(@"bonjour service disappeared: %@ (%i)", aNetService.name, moreComing);
     if ([_rawNetServices containsObject:aNetService])
         [_rawNetServices removeObject:aNetService];
-    if ([aNetService.type isEqualToString:@"_ftp._tcp."])
-        [_ftpServices removeObject:aNetService];
+    if ([aNetService.type isEqualToString:@"_ftp._tcp."]) {
+        [_ftpServices vlc_removeServiceWithNetService:aNetService];
+    }
     if ([aNetService.type isEqualToString:kPlexServiceType]) {
-        [_plexServices removeObject:aNetService];
-        [_PlexServicesInfo removeAllObjects];
+        [_plexServices vlc_removeServiceWithNetService:aNetService];
     }
     if ([aNetService.type isEqualToString:@"_http._tcp."]) {
-        [_httpServices removeObject:aNetService];
-        [_httpServicesInfo removeAllObjects];
+        NSUInteger index = [_httpVLCServices vlc_indexOfServiceWithNetService:aNetService];
+        if (index != NSNotFound) {
+            [_httpVLCServices removeObjectAtIndex:index];
+        }
     }
     if (!moreComing) {
         if (self.delegate) {
@@ -410,17 +365,13 @@
 - (void)netServiceDidResolveAddress:(NSNetService *)aNetService
 {
     if ([aNetService.type isEqualToString:@"_ftp._tcp."]) {
-        if (![_ftpServices containsObject:aNetService])
-            [_ftpServices addObject:aNetService];
+        NSUInteger index = [_ftpServices vlc_indexOfServiceWithNetService:aNetService];
+        if (index == NSNotFound) {
+            [_ftpServices addObject:[[VLCLocalNetworkServiceFTP alloc] initWithNetService:aNetService]];
+        }
     } else if ([aNetService.type isEqualToString:kPlexServiceType]) {
-        if (![_plexServices containsObject:aNetService]) {
-            [_plexServices addObject:aNetService];
-            NSMutableDictionary *_dictService = [[NSMutableDictionary alloc] init];
-            [_dictService setObject:[aNetService name] forKey:@"name"];
-            [_dictService setObject:[aNetService hostName] forKey:@"hostName"];
-            NSString *portStr = [[NSString alloc] initWithFormat:@":%ld", (long)[aNetService port]];
-            [_dictService setObject:portStr forKey:@"port"];
-            [_PlexServicesInfo addObject:_dictService];
+        if ([_plexServices vlc_indexOfServiceWithNetService:aNetService] == NSNotFound) {
+            [_plexServices addObject:[[VLCLocalNetworkServicePlex alloc] initWithNetService: aNetService]];
         }
     }  else if ([aNetService.type isEqualToString:@"_http._tcp."]) {
         if ([[aNetService hostName] rangeOfString:_myHostName].location == NSNotFound) {
@@ -449,14 +400,9 @@
 {
     NSNetService *aNetService = [aNotification.userInfo objectForKey:@"aNetService"];
 
-    if (![_httpServices containsObject:aNetService]) {
-        [_httpServices addObject:aNetService];
-        NSMutableDictionary *_dictService = [[NSMutableDictionary alloc] init];
-        [_dictService setObject:[aNetService name] forKey:@"name"];
-        [_dictService setObject:[aNetService hostName] forKey:@"hostName"];
-        NSString *portStr = [[NSString alloc] initWithFormat:@"%ld", (long)[aNetService port]];
-        [_dictService setObject:portStr forKey:@"port"];
-        [_httpServicesInfo addObject:_dictService];
+    NSUInteger index = [_httpVLCServices vlc_indexOfServiceWithNetService:aNetService];
+    if (index == NSNotFound) {
+        [_httpVLCServices addObject:[[VLCLocalNetworkServiceHTTP alloc] initWithNetService:aNetService]];
     }
 }
 
@@ -520,11 +466,11 @@
 {
     NSUInteger count = _UPNPdevices.count;
     BasicUPnPDevice *device;
-    NSMutableArray *mutArray = [[NSMutableArray alloc] init];
+    NSMutableArray<VLCLocalNetworkServiceUPnP*> *mutArray = [[NSMutableArray alloc] init];
     for (NSUInteger x = 0; x < count; x++) {
         device = _UPNPdevices[x];
         if ([[device urn] isEqualToString:@"urn:schemas-upnp-org:device:MediaServer:1"])
-            [mutArray addObject:device];
+            [mutArray addObject:[[VLCLocalNetworkServiceUPnP alloc] initWithUPnPDevice:device]];
         else
             APLog(@"found device '%@' with unsupported urn '%@'", [device friendlyName], [device urn]);
     }

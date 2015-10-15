@@ -6,12 +6,15 @@
  * $Id$
  *
  * Authors: Felix Paul Kühne <fkuehne # videolan.org>
+ *          Tobias Conradi <videolan # tobias-conradi.de>
  *
  * Refer to the COPYING file of the official project for license.
  *****************************************************************************/
 
 #import <Foundation/Foundation.h>
 #import "UPnPManager.h"
+
+#import "VLCLocalNetworkService.h"
 
 @protocol VLCLocalServerDiscoveryControllerDelegate <NSObject>
 
@@ -25,17 +28,9 @@
 @property (nonatomic, readwrite, weak) id delegate;
 @property (nonatomic, readonly) NSArray *sectionHeaderTexts;
 
+- (id<VLCLocalNetworkService>)networkServiceForIndexPath:(NSIndexPath *)indexPath;
+
 - (NSInteger)numberOfItemsInSection:(NSInteger)section;
-
-- (NSString *)titleForIndexPath:(NSIndexPath *)indexPath;
-- (UIImage *)iconForIndexPath:(NSIndexPath *)indexPath;
-
-- (BasicUPnPDevice *)upnpDeviceForIndexPath:(NSIndexPath *)indexPath;
-- (NSDictionary *)plexServiceDescriptionForIndexPath:(NSIndexPath *)indexPath;
-- (NSString *)ftpHostnameForIndexPath:(NSIndexPath *)indexPath;
-- (NSDictionary *)httpServiceDescriptionForIndexPath:(NSIndexPath *)indexPath;
-- (VLCMedia *)dsmDiscoveryForIndexPath:(NSIndexPath *)indexPath;
-- (VLCMedia *)sapDiscoveryForIndexPath:(NSIndexPath *)indexPath;
 
 - (void)stopDiscovery;
 - (BOOL)refreshDiscoveredData;
