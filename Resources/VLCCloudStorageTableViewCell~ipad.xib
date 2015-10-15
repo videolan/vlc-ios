@@ -25,21 +25,21 @@
                         </constraints>
                     </imageView>
                     <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" text="File Title" lineBreakMode="tailTruncation" baselineAdjustment="none" adjustsFontSizeToFit="NO" useAutomaticPreferredMaxLayoutWidth="YES" translatesAutoresizingMaskIntoConstraints="NO" id="6">
-                        <rect key="frame" x="83" y="21" width="177" height="21"/>
+                        <rect key="frame" x="83" y="21" width="64" height="21"/>
                         <animations/>
                         <fontDescription key="fontDescription" type="system" pointSize="17"/>
                         <color key="textColor" white="0.66666666666666663" alpha="1" colorSpace="calibratedWhite"/>
                         <color key="highlightedColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                     </label>
                     <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" text="Folder Title" lineBreakMode="tailTruncation" baselineAdjustment="none" adjustsFontSizeToFit="NO" useAutomaticPreferredMaxLayoutWidth="YES" translatesAutoresizingMaskIntoConstraints="NO" id="23">
-                        <rect key="frame" x="83" y="29" width="177" height="21"/>
+                        <rect key="frame" x="83" y="29" width="86" height="21"/>
                         <animations/>
                         <fontDescription key="fontDescription" type="system" pointSize="17"/>
                         <color key="textColor" white="0.66666666666666663" alpha="1" colorSpace="calibratedWhite"/>
                         <color key="highlightedColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                     </label>
                     <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" text="Subtitle — Subtitle" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" useAutomaticPreferredMaxLayoutWidth="YES" translatesAutoresizingMaskIntoConstraints="NO" id="7">
-                        <rect key="frame" x="83" y="44" width="177" height="15"/>
+                        <rect key="frame" x="83" y="44" width="106" height="15"/>
                         <animations/>
                         <fontDescription key="fontDescription" type="system" pointSize="12"/>
                         <color key="textColor" white="0.33333333333333331" alpha="1" colorSpace="calibratedWhite"/>
@@ -72,11 +72,8 @@
                     <constraint firstAttribute="bottomMargin" secondItem="7" secondAttribute="bottom" constant="12.5" id="Dh4-em-cVM"/>
                     <constraint firstItem="4" firstAttribute="centerY" secondItem="StH-9P-AYV" secondAttribute="centerY" id="I9D-mo-Hjf"/>
                     <constraint firstItem="23" firstAttribute="leading" secondItem="4" secondAttribute="trailing" constant="14" id="MNT-to-TeZ"/>
-                    <constraint firstAttribute="trailingMargin" secondItem="6" secondAttribute="trailing" constant="52" id="PLx-cy-DQg"/>
                     <constraint firstItem="4" firstAttribute="leading" secondItem="StH-9P-AYV" secondAttribute="leadingMargin" constant="-3" id="Ziu-eM-2E1"/>
-                    <constraint firstItem="VuV-6r-r3f" firstAttribute="leading" secondItem="7" secondAttribute="trailing" constant="8" id="a3B-gO-jNa"/>
                     <constraint firstAttribute="trailingMargin" secondItem="VuV-6r-r3f" secondAttribute="trailing" constant="12" id="bVZ-bv-fYb"/>
-                    <constraint firstItem="VuV-6r-r3f" firstAttribute="leading" secondItem="23" secondAttribute="trailing" constant="8" id="dgk-4G-JDq"/>
                     <constraint firstItem="6" firstAttribute="leading" secondItem="4" secondAttribute="trailing" constant="14" id="uRb-VT-8wR"/>
                     <constraint firstItem="23" firstAttribute="centerY" secondItem="StH-9P-AYV" secondAttribute="centerY" id="vy0-xd-J4v"/>
                     <constraint firstItem="VuV-6r-r3f" firstAttribute="centerY" secondItem="StH-9P-AYV" secondAttribute="centerY" id="xuG-RQ-ujX"/>
