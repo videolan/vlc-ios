@@ -16,6 +16,6 @@
 
 @property (nonatomic, strong) UITableView *tableView;
 
-- (id)initWithHttpServer:(NSString *)serverName serverAddress:(NSString *)serverAddress portNumber:(NSString *)portNumber;
+- (id)initWithHttpServer:(NSString *)serverName serverAddress:(NSString *)serverAddress portNumber:(NSUInteger)portNumber;
 
 @end

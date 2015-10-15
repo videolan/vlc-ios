@@ -118,13 +118,14 @@
 }
 - (UIViewController *)detailViewController {
 
-    NSDictionary *serviceDescription = self.seviceDescription;
-    if (serviceDescription == nil) {
+    NSNetService *service = self.netService;
+    if (service.hostName == nil || service.port == 0) {
         return nil;
     }
-    NSString *name = serviceDescription[@"name"];
-    NSString *hostName = serviceDescription[@"hostName"];
-    NSString *portNum = serviceDescription[@"port"];
+
+    NSString *name = service.name;
+    NSString *hostName = service.hostName;
+    NSUInteger portNum = service.port;
     VLCSharedLibraryListViewController *targetViewController = [[VLCSharedLibraryListViewController alloc]
                                                                 initWithHttpServer:name
                                                                 serverAddress:hostName

@@ -49,7 +49,6 @@ typedef void (^VLCLocalNetworkServiceActionBlock)(void);
 
 @end
 @interface VLCLocalNetworkServiceHTTP : VLCLocalNetworkServiceNetService
-@property (nonatomic, strong) NSDictionary *seviceDescription;
 
 @end
 

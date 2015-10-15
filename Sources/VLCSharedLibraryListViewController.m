@@ -27,7 +27,7 @@
 
     NSString *_httpServerName;
     NSString *_httpServerAddress;
-    NSString *_httpServerPort;
+    NSUInteger _httpServerPort;
     VLCSharedLibraryParser *_httpParser;
 
     NSMutableArray *_searchData;
@@ -63,7 +63,7 @@
     self.view = _tableView;
 }
 
-- (id)initWithHttpServer:(NSString *)serverName serverAddress:(NSString *)serverAddress portNumber:(NSString *)portNumber
+- (id)initWithHttpServer:(NSString *)serverName serverAddress:(NSString *)serverAddress portNumber:(NSUInteger)portNumber
 {
     self = [super init];
     if (self) {
@@ -84,7 +84,7 @@
 {
     [super viewWillAppear:animated];
 
-    [_httpParser fetchDataFromServer:_httpServerAddress port:_httpServerPort.longLongValue];
+    [_httpParser fetchDataFromServer:_httpServerAddress port:_httpServerPort];
 }
 
 - (void)viewDidLoad
@@ -387,7 +387,7 @@
     @synchronized(self) {
         _serverDataArray = nil;
     }
-    [_httpParser fetchDataFromServer:_httpServerAddress port:_httpServerPort.longLongValue];
+    [_httpParser fetchDataFromServer:_httpServerAddress port:_httpServerPort];
 }
 
 #pragma mark - Gesture Action
