@@ -175,8 +175,7 @@
 		7DBBF19E183AB4300009A339 /* VLCEmptyLibraryView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 7DBBF189183AB4300009A339 /* VLCEmptyLibraryView.xib */; };
 		7DBBF1A0183AB4300009A339 /* VLCPlaylistCollectionViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 7DBBF18B183AB4300009A339 /* VLCPlaylistCollectionViewCell.xib */; };
 		7DBBF1A1183AB4300009A339 /* VLCPlaylistTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 7DBBF18C183AB4300009A339 /* VLCPlaylistTableViewCell.xib */; };
-		7DBBF1A3183AB4300009A339 /* VLCNetworkListCell~ipad.xib in Resources */ = {isa = PBXBuildFile; fileRef = 7DBBF18E183AB4300009A339 /* VLCNetworkListCell~ipad.xib */; };
-		7DBBF1A4183AB4300009A339 /* VLCNetworkListCell~iphone.xib in Resources */ = {isa = PBXBuildFile; fileRef = 7DBBF18F183AB4300009A339 /* VLCNetworkListCell~iphone.xib */; };
+		7DBBF1A4183AB4300009A339 /* VLCNetworkListCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 7DBBF18F183AB4300009A339 /* VLCNetworkListCell.xib */; };
 		7DBBF1A5183AB4300009A339 /* VLCMovieViewController~ipad.xib in Resources */ = {isa = PBXBuildFile; fileRef = 7DBBF190183AB4300009A339 /* VLCMovieViewController~ipad.xib */; };
 		7DBBF1A6183AB4300009A339 /* VLCMovieViewController~iphone.xib in Resources */ = {isa = PBXBuildFile; fileRef = 7DBBF191183AB4300009A339 /* VLCMovieViewController~iphone.xib */; };
 		7DBC85631A50B8860098D388 /* LiveAuthDialog_iPad.xib in Resources */ = {isa = PBXBuildFile; fileRef = 7DBC85611A50B8860098D388 /* LiveAuthDialog_iPad.xib */; };
@@ -656,8 +655,7 @@
 		7DBBF189183AB4300009A339 /* VLCEmptyLibraryView.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; name = VLCEmptyLibraryView.xib; path = Resources/VLCEmptyLibraryView.xib; sourceTree = SOURCE_ROOT; };
 		7DBBF18B183AB4300009A339 /* VLCPlaylistCollectionViewCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; name = VLCPlaylistCollectionViewCell.xib; path = Resources/VLCPlaylistCollectionViewCell.xib; sourceTree = SOURCE_ROOT; };
 		7DBBF18C183AB4300009A339 /* VLCPlaylistTableViewCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; name = VLCPlaylistTableViewCell.xib; path = Resources/VLCPlaylistTableViewCell.xib; sourceTree = SOURCE_ROOT; };
-		7DBBF18E183AB4300009A339 /* VLCNetworkListCell~ipad.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; name = "VLCNetworkListCell~ipad.xib"; path = "Resources/VLCNetworkListCell~ipad.xib"; sourceTree = SOURCE_ROOT; };
-		7DBBF18F183AB4300009A339 /* VLCNetworkListCell~iphone.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; name = "VLCNetworkListCell~iphone.xib"; path = "Resources/VLCNetworkListCell~iphone.xib"; sourceTree = SOURCE_ROOT; };
+		7DBBF18F183AB4300009A339 /* VLCNetworkListCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; name = VLCNetworkListCell.xib; path = Resources/VLCNetworkListCell.xib; sourceTree = SOURCE_ROOT; };
 		7DBBF190183AB4300009A339 /* VLCMovieViewController~ipad.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; name = "VLCMovieViewController~ipad.xib"; path = "Resources/VLCMovieViewController~ipad.xib"; sourceTree = SOURCE_ROOT; };
 		7DBBF191183AB4300009A339 /* VLCMovieViewController~iphone.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; name = "VLCMovieViewController~iphone.xib"; path = "Resources/VLCMovieViewController~iphone.xib"; sourceTree = SOURCE_ROOT; };
 		7DBC85611A50B8860098D388 /* LiveAuthDialog_iPad.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; name = LiveAuthDialog_iPad.xib; path = ImportedSources/OneDrive/src/LiveSDK/Library/Internal/LiveAuthDialog_iPad.xib; sourceTree = SOURCE_ROOT; };
@@ -1289,8 +1287,7 @@
 			children = (
 				266DB8EA1B447E5000EA415E /* VLCPlexMediaInformationViewController.xib */,
 				7D89786E185DED88009BAB5D /* VLCDownloadViewController.xib */,
-				7DBBF18E183AB4300009A339 /* VLCNetworkListCell~ipad.xib */,
-				7DBBF18F183AB4300009A339 /* VLCNetworkListCell~iphone.xib */,
+				7DBBF18F183AB4300009A339 /* VLCNetworkListCell.xib */,
 				9B9231C3185A703700F89498 /* VLCNetworkLoginViewController.xib */,
 				7D89787C185DF794009BAB5D /* VLCOpenNetworkStreamViewController.xib */,
 			);
@@ -1989,7 +1986,7 @@
 				7DB638AB185BC0890003887C /* Images.xcassets in Resources */,
 				7D27EB9419DEE11900EF0370 /* Launch Screen.xib in Resources */,
 				7D6B08FC174D773C00A05173 /* Settings.bundle in Resources */,
-				7DBBF1A4183AB4300009A339 /* VLCNetworkListCell~iphone.xib in Resources */,
+				7DBBF1A4183AB4300009A339 /* VLCNetworkListCell.xib in Resources */,
 				7DF04F501961F2B8004A5429 /* web-open.png in Resources */,
 				7D9870661A3E03D5009CF27D /* papasscode_failed_bg.png in Resources */,
 				268BDA7E1B4FE1E200D622DD /* backArrow_black.png in Resources */,
@@ -2011,7 +2008,6 @@
 				7DBBF1A1183AB4300009A339 /* VLCPlaylistTableViewCell.xib in Resources */,
 				7D63C19718774F1000BD5256 /* VLCFirstStepsFourthPageViewController~ipad.xib in Resources */,
 				7DBC85631A50B8860098D388 /* LiveAuthDialog_iPad.xib in Resources */,
-				7DBBF1A3183AB4300009A339 /* VLCNetworkListCell~ipad.xib in Resources */,
 				7DBBF1A5183AB4300009A339 /* VLCMovieViewController~ipad.xib in Resources */,
 				26F1BFD01A770408001DF30C /* libMediaVLC.xml in Resources */,
 				7DBBF1A6183AB4300009A339 /* VLCMovieViewController~iphone.xib in Resources */,

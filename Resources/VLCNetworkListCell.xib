@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="9058" systemVersion="15B30a" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="9058" systemVersion="15B30a" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES">
     <dependencies>
         <deployment identifier="iOS"/>
-        <development version="5000" identifier="xcode"/>
+        <development version="7000" identifier="xcode"/>
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="9048"/>
         <capability name="Constraints to layout margins" minToolsVersion="6.0"/>
     </dependencies>
@@ -21,27 +21,38 @@
                         <animations/>
                         <constraints>
                             <constraint firstAttribute="width" constant="50" id="4Vq-gO-XLC"/>
-                            <constraint firstAttribute="height" constant="50" id="a8P-bS-TpP"/>
+                            <constraint firstAttribute="height" relation="greaterThanOrEqual" constant="50" id="a8P-bS-TpP"/>
+                            <constraint firstAttribute="width" constant="50" id="q3t-5m-D2K"/>
+                            <constraint firstAttribute="height" constant="50" id="yWC-Jh-3pH"/>
                         </constraints>
+                        <variation key="default">
+                            <mask key="constraints">
+                                <exclude reference="4Vq-gO-XLC"/>
+                                <exclude reference="a8P-bS-TpP"/>
+                            </mask>
+                        </variation>
                     </imageView>
-                    <label clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" text="File Title" lineBreakMode="wordWrap" baselineAdjustment="none" minimumScaleFactor="0.5" useAutomaticPreferredMaxLayoutWidth="YES" translatesAutoresizingMaskIntoConstraints="NO" id="6">
-                        <rect key="frame" x="67" y="18" width="215" height="17"/>
+                    <label clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" text="File Title" lineBreakMode="wordWrap" baselineAdjustment="none" minimumScaleFactor="0.5" translatesAutoresizingMaskIntoConstraints="NO" id="6">
+                        <rect key="frame" x="67" y="18" width="54.5" height="17"/>
                         <animations/>
                         <color key="backgroundColor" red="0.1052877679" green="0.1052846164" blue="0.1052864045" alpha="1" colorSpace="calibratedRGB"/>
                         <fontDescription key="fontDescription" type="system" pointSize="14"/>
                         <color key="textColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                         <color key="highlightedColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                     </label>
-                    <label clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" text="Folder Title" lineBreakMode="wordWrap" baselineAdjustment="none" minimumScaleFactor="0.5" useAutomaticPreferredMaxLayoutWidth="YES" translatesAutoresizingMaskIntoConstraints="NO" id="23">
-                        <rect key="frame" x="67" y="25.5" width="215" height="17"/>
+                    <label hidden="YES" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" text="Downloading..." textAlignment="center" lineBreakMode="wordWrap" baselineAdjustment="none" minimumScaleFactor="0.5" translatesAutoresizingMaskIntoConstraints="NO" id="28" customClass="VLCStatusLabel">
+                        <rect key="frame" x="112" y="25.5" width="96" height="18"/>
                         <animations/>
                         <color key="backgroundColor" red="0.1052877679" green="0.1052846164" blue="0.1052864045" alpha="1" colorSpace="calibratedRGB"/>
+                        <constraints>
+                            <constraint firstAttribute="height" relation="greaterThanOrEqual" constant="18" id="Zr1-tM-Pyf"/>
+                        </constraints>
                         <fontDescription key="fontDescription" type="system" pointSize="14"/>
                         <color key="textColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                         <color key="highlightedColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                     </label>
-                    <label clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" text="Subtitle — Subtitle" lineBreakMode="wordWrap" baselineAdjustment="alignBaselines" minimumScaleFactor="0.5" useAutomaticPreferredMaxLayoutWidth="YES" translatesAutoresizingMaskIntoConstraints="NO" id="7">
-                        <rect key="frame" x="67" y="37.5" width="215" height="14.5"/>
+                    <label clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" text="Subtitle — Subtitle" lineBreakMode="wordWrap" baselineAdjustment="alignBaselines" minimumScaleFactor="0.5" translatesAutoresizingMaskIntoConstraints="NO" id="7">
+                        <rect key="frame" x="67" y="38" width="106" height="14.5"/>
                         <animations/>
                         <color key="backgroundColor" red="0.1052877679" green="0.1052846164" blue="0.1052864045" alpha="1" colorSpace="calibratedRGB"/>
                         <fontDescription key="fontDescription" type="system" pointSize="12"/>
@@ -67,13 +78,10 @@
                             <action selector="triggerDownload:" destination="3" eventType="touchUpInside" id="26"/>
                         </connections>
                     </button>
-                    <label hidden="YES" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" text="Downloading..." textAlignment="center" lineBreakMode="wordWrap" baselineAdjustment="none" minimumScaleFactor="0.5" useAutomaticPreferredMaxLayoutWidth="YES" translatesAutoresizingMaskIntoConstraints="NO" id="28" customClass="VLCStatusLabel">
-                        <rect key="frame" x="67" y="25.5" width="215" height="18"/>
+                    <label clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" text="Folder Title" lineBreakMode="wordWrap" baselineAdjustment="none" minimumScaleFactor="0.5" translatesAutoresizingMaskIntoConstraints="NO" id="23">
+                        <rect key="frame" x="67" y="26" width="73" height="17"/>
                         <animations/>
                         <color key="backgroundColor" red="0.1052877679" green="0.1052846164" blue="0.1052864045" alpha="1" colorSpace="calibratedRGB"/>
-                        <constraints>
-                            <constraint firstAttribute="height" relation="greaterThanOrEqual" constant="18" id="Zr1-tM-Pyf"/>
-                        </constraints>
                         <fontDescription key="fontDescription" type="system" pointSize="14"/>
                         <color key="textColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                         <color key="highlightedColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
@@ -82,13 +90,9 @@
                 <animations/>
                 <constraints>
                     <constraint firstItem="6" firstAttribute="leading" secondItem="4" secondAttribute="trailing" constant="9" id="0DO-SK-odg"/>
-                    <constraint firstItem="25" firstAttribute="leading" secondItem="28" secondAttribute="trailing" constant="1" id="92h-C3-F0z"/>
-                    <constraint firstItem="25" firstAttribute="leading" secondItem="6" secondAttribute="trailing" constant="1" id="Ayy-5N-RK6"/>
+                    <constraint firstItem="28" firstAttribute="centerX" secondItem="qo4-sr-qnV" secondAttribute="centerX" id="1or-QE-1fQ"/>
                     <constraint firstAttribute="bottomMargin" secondItem="4" secondAttribute="bottom" constant="0.5" id="IRG-mI-IkY"/>
                     <constraint firstItem="4" firstAttribute="top" secondItem="qo4-sr-qnV" secondAttribute="topMargin" constant="1" id="IYU-30-AGT"/>
-                    <constraint firstItem="28" firstAttribute="leading" secondItem="4" secondAttribute="trailing" constant="9" id="J8A-tT-IKo"/>
-                    <constraint firstItem="25" firstAttribute="leading" secondItem="28" secondAttribute="trailing" constant="1" id="Jp4-IN-8aX"/>
-                    <constraint firstItem="25" firstAttribute="leading" secondItem="7" secondAttribute="trailing" constant="1" id="QZh-8N-eDW"/>
                     <constraint firstAttribute="bottomMargin" secondItem="7" secondAttribute="bottom" constant="7.5" id="Qo6-Gd-U30"/>
                     <constraint firstItem="23" firstAttribute="leading" secondItem="4" secondAttribute="trailing" constant="9" id="UI8-4U-dR0"/>
                     <constraint firstAttribute="bottomMargin" secondItem="25" secondAttribute="bottom" constant="9.5" id="Zj0-99-Jyc"/>
@@ -97,7 +101,6 @@
                     <constraint firstItem="28" firstAttribute="centerY" secondItem="qo4-sr-qnV" secondAttribute="centerY" id="jOz-Wg-wfW"/>
                     <constraint firstItem="23" firstAttribute="centerY" secondItem="qo4-sr-qnV" secondAttribute="centerY" id="nw8-Li-eEV"/>
                     <constraint firstAttribute="trailingMargin" secondItem="25" secondAttribute="trailing" constant="-3" id="rSC-hz-6v1"/>
-                    <constraint firstItem="25" firstAttribute="leading" secondItem="23" secondAttribute="trailing" constant="1" id="tgu-vZ-Xqk"/>
                     <constraint firstItem="25" firstAttribute="top" secondItem="qo4-sr-qnV" secondAttribute="topMargin" constant="10" id="y0I-qt-yj9"/>
                     <constraint firstItem="4" firstAttribute="leading" secondItem="qo4-sr-qnV" secondAttribute="leadingMargin" id="zXF-XV-IEW"/>
                 </constraints>
@@ -112,6 +115,7 @@
                 <outlet property="thumbnailView" destination="4" id="9"/>
                 <outlet property="titleLabel" destination="6" id="10"/>
             </connections>
+            <point key="canvasLocation" x="454" y="376"/>
         </tableViewCell>
     </objects>
     <resources>
