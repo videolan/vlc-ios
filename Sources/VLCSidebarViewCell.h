@@ -2,7 +2,7 @@
  * VLCSidebarViewCell.h
  * VLC for iOS
  *****************************************************************************
- * Copyright (c) 2013 VideoLAN. All rights reserved.
+ * Copyright (c) 2013-2015 VideoLAN. All rights reserved.
  * $Id$
  *
  * Authors: Felix Paul Kühne <fkuehne # videolan.org>
@@ -13,7 +13,5 @@
 #import <UIKit/UIKit.h>
 
 @interface VLCSidebarViewCell : UITableViewCell
-
-@property (nonatomic, strong) UIImageView *titleImageView;
 
 @end

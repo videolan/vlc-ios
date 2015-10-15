@@ -2,7 +2,7 @@
  * VLCSidebarViewCell.m
  * VLC for iOS
  *****************************************************************************
- * Copyright (c) 2013 VideoLAN. All rights reserved.
+ * Copyright (c) 2013-2015 VideoLAN. All rights reserved.
  * $Id$
  *
  * Authors: Felix Paul Kühne <fkuehne # videolan.org>
@@ -24,9 +24,6 @@
         self.selectedBackgroundView = bgView;
 
         self.imageView.contentMode = UIViewContentModeCenter;
-        self.titleImageView = [[UIImageView alloc] initWithFrame:CGRectMake(0.0f, 0.0f, 260.0f, 50.0f)];
-        self.titleImageView.contentMode = UIViewContentModeCenter;
-        [self.textLabel.superview addSubview:self.titleImageView];
 
         self.textLabel.font = [UIFont fontWithName:@"Helvetica" size:([UIFont systemFontSize] * 1.2f)];
         self.textLabel.shadowOffset = CGSizeMake(0.0f, 1.0f);
@@ -50,7 +47,6 @@
 - (void)layoutSubviews {
     [super layoutSubviews];
     self.textLabel.frame = CGRectMake(50.0f, 0.0f, 200.0f, 50.0f);
-    self.titleImageView.frame = CGRectMake(0.0f, 0.0f, 260.0f, 50.0f);
     self.imageView.frame = CGRectMake(0.0f, 0.0f, 50.0f, 50.0f);
 }
 
