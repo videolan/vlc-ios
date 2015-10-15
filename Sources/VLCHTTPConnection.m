@@ -110,7 +110,13 @@
         if (moc) {
             NSPersistentStoreCoordinator *psc = [moc persistentStoreCoordinator];
             if (psc) {
-                NSManagedObject *mo = [moc existingObjectWithID:[psc managedObjectIDForURIRepresentation:[NSURL URLWithString:filePath]] error:nil];
+                NSManagedObject *mo = nil;
+                @try {
+                    mo = [moc existingObjectWithID:[psc managedObjectIDForURIRepresentation:[NSURL URLWithString:filePath]] error:nil];
+                }@catch (NSException *exeption) {
+                    // somebody gave us a malformed or stale URIRepresentation
+                }
+
                 NSData *theData;
                 NSString *contentType;
 
@@ -203,7 +209,7 @@
                     NSString *pathSub = [self _checkIfSubtitleWasFound:file.path];
                     if (pathSub)
                         pathSub = [NSString stringWithFormat:@"http://%@/download/%@", hostName, pathSub];
-                    [mediaInXml addObject:[NSString stringWithFormat:@"<Media title=\"%@\" thumb=\"http://%@/thumbnail/%@.png\" duration=\"%@\" size=\"%li\" pathfile=\"http://%@/download/%@\" pathSubtitle=\"%@\"/>", file.title, hostName, file.objectID.URIRepresentation, duration, file.fileSizeInBytes, hostName, [file.url.path stringByAddingPercentEscapesUsingEncoding:NSUTF8StringEncoding], pathSub]];
+                    [mediaInXml addObject:[NSString stringWithFormat:@"<Media title=\"%@\" thumb=\"http://%@/thumbnail/%@.png\" duration=\"%@\" size=\"%li\" pathfile=\"http://%@/download/%@\" pathSubtitle=\"%@\"/>", file.title, hostName, file.objectID.URIRepresentation.absoluteString, duration, file.fileSizeInBytes, hostName, [file.url.path stringByAddingPercentEscapesUsingEncoding:NSUTF8StringEncoding], pathSub]];
                 }
             }
             else if ([mo isKindOfClass:[MLShow class]]) {
