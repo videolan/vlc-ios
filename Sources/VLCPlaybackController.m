@@ -934,8 +934,13 @@ setstuff:
             lastPosition = item.lastPosition.floatValue;
         duration = item.duration.intValue;
 
-        if (lastPosition < .95 && _mediaPlayer.position < lastPosition && (duration * lastPosition - duration) < -60000) {
-            NSInteger continuePlayback = [[[NSUserDefaults standardUserDefaults] objectForKey:kVLCSettingContinuePlayback] integerValue];
+        if (lastPosition < .95 && _mediaPlayer.position < lastPosition && (duration * lastPosition - duration) < -50000) {
+            NSInteger continuePlayback;
+            if (!_mediaPlayer.hasVideoOut)
+                continuePlayback = [[[NSUserDefaults standardUserDefaults] objectForKey:kVLCSettingContinueAudioPlayback] integerValue];
+            else
+                continuePlayback = [[[NSUserDefaults standardUserDefaults] objectForKey:kVLCSettingContinuePlayback] integerValue];
+
             if (continuePlayback == 1) {
                 _mediaPlayer.position = lastPosition;
             } else if (continuePlayback == 0) {
