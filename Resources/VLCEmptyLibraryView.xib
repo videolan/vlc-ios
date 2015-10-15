@@ -1,0 +1,95 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.iPad.XIB" version="3.0" toolsVersion="9058" systemVersion="15B30a" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES">
+    <dependencies>
+        <deployment identifier="iOS"/>
+        <development version="6000" identifier="xcode"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="9048"/>
+    </dependencies>
+    <objects>
+        <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner"/>
+        <placeholder placeholderIdentifier="IBFirstResponder" id="-2" customClass="UIResponder"/>
+        <view contentMode="center" id="112" customClass="EmptyLibraryView">
+            <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
+            <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+            <subviews>
+                <imageView userInteractionEnabled="NO" contentMode="scaleToFill" image="VLCCone512x512" translatesAutoresizingMaskIntoConstraints="NO" id="115">
+                    <rect key="frame" x="123" y="175" width="128" height="128"/>
+                    <animations/>
+                    <constraints>
+                        <constraint firstAttribute="width" constant="128" id="SFf-AC-Ub8"/>
+                        <constraint firstAttribute="height" constant="128" id="m2Z-Tl-hAc"/>
+                    </constraints>
+                </imageView>
+                <label clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" text="Empty Media Library" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="114">
+                    <rect key="frame" x="103" y="323.5" width="169" height="20.5"/>
+                    <animations/>
+                    <color key="backgroundColor" red="0.1215686275" green="0.1215686275" blue="0.1215686275" alpha="1" colorSpace="calibratedRGB"/>
+                    <fontDescription key="fontDescription" type="boldSystem" pointSize="17"/>
+                    <color key="textColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                    <nil key="highlightedColor"/>
+                </label>
+                <activityIndicatorView hidden="YES" contentMode="scaleToFill" hidesWhenStopped="YES" style="whiteLarge" translatesAutoresizingMaskIntoConstraints="NO" id="122">
+                    <rect key="frame" x="169" y="315" width="37" height="37"/>
+                    <animations/>
+                </activityIndicatorView>
+                <label clipsSubviews="YES" userInteractionEnabled="NO" contentMode="center" textAlignment="center" lineBreakMode="wordWrap" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" preferredMaxLayoutWidth="300" translatesAutoresizingMaskIntoConstraints="NO" id="vqV-xO-9Ez">
+                    <rect key="frame" x="37" y="353.5" width="300" height="101.5"/>
+                    <animations/>
+                    <color key="backgroundColor" red="0.1215686275" green="0.1215686275" blue="0.1215686275" alpha="1" colorSpace="calibratedRGB"/>
+                    <string key="text">For playback, you can stream media from a server on your local network, from the cloud or synchronize media to your device using iTunes, WiFi Upload or Cloud services.</string>
+                    <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                    <color key="textColor" white="0.71999999999999997" alpha="1" colorSpace="calibratedWhite"/>
+                    <nil key="highlightedColor"/>
+                </label>
+                <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="A78-83-MhQ">
+                    <rect key="frame" x="124" y="463" width="126" height="42"/>
+                    <animations/>
+                    <constraints>
+                        <constraint firstAttribute="width" relation="greaterThanOrEqual" constant="126" id="ISw-i5-3Bn"/>
+                    </constraints>
+                    <fontDescription key="fontDescription" type="system" pointSize="25"/>
+                    <state key="normal" title="Learn More">
+                        <color key="titleColor" red="0.0" green="0.37647058820000001" blue="0.99607843139999996" alpha="1" colorSpace="calibratedRGB"/>
+                        <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
+                    </state>
+                    <connections>
+                        <action selector="learnMore:" destination="112" eventType="touchUpInside" id="TQf-Oo-oTD"/>
+                    </connections>
+                </button>
+            </subviews>
+            <animations/>
+            <color key="backgroundColor" white="0.12" alpha="1" colorSpace="calibratedWhite"/>
+            <constraints>
+                <constraint firstItem="114" firstAttribute="centerY" secondItem="112" secondAttribute="centerY" id="098-OL-ugD"/>
+                <constraint firstItem="115" firstAttribute="top" secondItem="112" secondAttribute="top" constant="100" id="0iO-j4-F4t"/>
+                <constraint firstItem="122" firstAttribute="centerX" secondItem="112" secondAttribute="centerX" id="1r4-45-cEq"/>
+                <constraint firstItem="A78-83-MhQ" firstAttribute="centerX" secondItem="112" secondAttribute="centerX" id="Dys-fq-utf"/>
+                <constraint firstItem="114" firstAttribute="centerX" secondItem="112" secondAttribute="centerX" id="I5K-I4-TIq"/>
+                <constraint firstItem="vqV-xO-9Ez" firstAttribute="centerY" secondItem="112" secondAttribute="centerY" id="ISD-nk-qjn"/>
+                <constraint firstItem="vqV-xO-9Ez" firstAttribute="centerX" secondItem="112" secondAttribute="centerX" id="IrI-hi-XZK"/>
+                <constraint firstItem="115" firstAttribute="centerX" secondItem="112" secondAttribute="centerX" id="SvE-9Q-MUz"/>
+                <constraint firstItem="122" firstAttribute="centerY" secondItem="112" secondAttribute="centerY" id="cDx-tE-VwH"/>
+                <constraint firstItem="A78-83-MhQ" firstAttribute="top" secondItem="vqV-xO-9Ez" secondAttribute="bottom" constant="8.5" id="fSe-v5-qdy"/>
+                <constraint firstItem="114" firstAttribute="top" secondItem="115" secondAttribute="bottom" constant="20" id="pbA-T9-jI3"/>
+                <constraint firstItem="vqV-xO-9Ez" firstAttribute="top" secondItem="114" secondAttribute="bottom" constant="9.5" id="w3w-k2-PUH"/>
+            </constraints>
+            <simulatedScreenMetrics key="simulatedDestinationMetrics" type="retina47"/>
+            <variation key="default">
+                <mask key="constraints">
+                    <exclude reference="0iO-j4-F4t"/>
+                    <exclude reference="ISD-nk-qjn"/>
+                </mask>
+            </variation>
+            <connections>
+                <outlet property="activityIndicator" destination="122" id="123"/>
+                <outlet property="emptyLibraryLabel" destination="114" id="119"/>
+                <outlet property="emptyLibraryLongDescriptionLabel" destination="vqV-xO-9Ez" id="Grj-83-sAj"/>
+                <outlet property="learnMoreButton" destination="A78-83-MhQ" id="z6i-rn-FZx"/>
+            </connections>
+            <point key="canvasLocation" x="368.5" y="66"/>
+        </view>
+    </objects>
+    <resources>
+        <image name="VLCCone512x512" width="512" height="512"/>
+    </resources>
+</document>
