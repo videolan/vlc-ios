@@ -156,12 +156,12 @@ typedef NS_ENUM(NSUInteger, VLCLocalServerSections) {
     NSNotificationCenter *defaultCenter = [NSNotificationCenter defaultCenter];
 
     [defaultCenter addObserver:self
-                      selector:@selector(applicationWillResignActive:)
+                      selector:@selector(stopDiscovery)
                           name:UIApplicationWillResignActiveNotification
                         object:[UIApplication sharedApplication]];
 
     [defaultCenter addObserver:self
-                      selector:@selector(applicationDidBecomeActive:)
+                      selector:@selector(startDiscovery:)
                           name:UIApplicationDidBecomeActiveNotification
                         object:[UIApplication sharedApplication]];
 
