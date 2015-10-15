@@ -16,7 +16,7 @@
                 <autoresizingMask key="autoresizingMask"/>
                 <subviews>
                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="O6V-Qc-Q8x" userLabel="ServiceName">
-                        <rect key="frame" x="61" y="8" width="251" height="27"/>
+                        <rect key="frame" x="61" y="8" width="44" height="27"/>
                         <animations/>
                         <constraints>
                             <constraint firstAttribute="height" constant="27" id="jmY-dU-gUi"/>
@@ -26,7 +26,7 @@
                         <nil key="highlightedColor"/>
                     </label>
                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Login" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="NEp-19-omb" userLabel="ServiceInformation">
-                        <rect key="frame" x="61" y="40" width="251" height="17"/>
+                        <rect key="frame" x="61" y="40" width="35.5" height="17"/>
                         <animations/>
                         <fontDescription key="fontDescription" type="system" pointSize="14"/>
                         <color key="textColor" red="1" green="1" blue="1" alpha="1" colorSpace="calibratedRGB"/>
@@ -46,7 +46,7 @@
                         </variation>
                     </imageView>
                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="gJ0-bA-ThN" userLabel="lonesome ServiceName">
-                        <rect key="frame" x="61" y="19" width="251" height="27"/>
+                        <rect key="frame" x="61" y="19.5" width="44" height="27"/>
                         <animations/>
                         <constraints>
                             <constraint firstAttribute="height" constant="27" id="VkC-Mm-ohS"/>
@@ -59,11 +59,13 @@
                 <animations/>
                 <constraints>
                     <constraint firstItem="gJ0-bA-ThN" firstAttribute="leading" secondItem="O6V-Qc-Q8x" secondAttribute="leading" id="3Mg-Bn-j8m"/>
+                    <constraint firstItem="gJ0-bA-ThN" firstAttribute="leading" secondItem="k9V-qn-xQh" secondAttribute="trailing" constant="8" id="6Dc-Po-gNx"/>
                     <constraint firstItem="gJ0-bA-ThN" firstAttribute="trailing" secondItem="O6V-Qc-Q8x" secondAttribute="trailing" id="6kW-bx-7Rl"/>
                     <constraint firstAttribute="bottomMargin" secondItem="k9V-qn-xQh" secondAttribute="bottom" constant="5" id="9mT-Ig-oz7"/>
                     <constraint firstAttribute="centerY" secondItem="gJ0-bA-ThN" secondAttribute="centerY" id="Bjq-5d-DS8"/>
                     <constraint firstAttribute="trailingMargin" secondItem="O6V-Qc-Q8x" secondAttribute="trailing" id="DGs-Ef-HwX"/>
                     <constraint firstItem="O6V-Qc-Q8x" firstAttribute="top" secondItem="P7G-Z3-wQa" secondAttribute="topMargin" id="P7b-lX-3qH"/>
+                    <constraint firstItem="O6V-Qc-Q8x" firstAttribute="leading" secondItem="k9V-qn-xQh" secondAttribute="trailing" constant="8" id="Sxk-GS-CZS"/>
                     <constraint firstItem="k9V-qn-xQh" firstAttribute="leading" secondItem="P7G-Z3-wQa" secondAttribute="leadingMargin" constant="5" id="bjd-BQ-kB6"/>
                     <constraint firstItem="NEp-19-omb" firstAttribute="leading" secondItem="k9V-qn-xQh" secondAttribute="trailing" constant="8" id="bks-dW-hBU"/>
                     <constraint firstItem="k9V-qn-xQh" firstAttribute="top" secondItem="P7G-Z3-wQa" secondAttribute="topMargin" constant="5" id="eeS-aO-JcR"/>
@@ -71,6 +73,15 @@
                     <constraint firstAttribute="trailingMargin" secondItem="NEp-19-omb" secondAttribute="trailing" id="p2Z-h2-q2X"/>
                     <constraint firstAttribute="bottomMargin" secondItem="NEp-19-omb" secondAttribute="bottom" id="xAM-tl-LLT"/>
                 </constraints>
+                <variation key="default">
+                    <mask key="constraints">
+                        <exclude reference="DGs-Ef-HwX"/>
+                        <exclude reference="3Mg-Bn-j8m"/>
+                        <exclude reference="6kW-bx-7Rl"/>
+                        <exclude reference="fL2-8r-L4U"/>
+                        <exclude reference="p2Z-h2-q2X"/>
+                    </mask>
+                </variation>
             </tableViewCellContentView>
             <animations/>
             <connections>
