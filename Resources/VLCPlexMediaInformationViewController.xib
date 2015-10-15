@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="7706" systemVersion="14E46" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="9058" systemVersion="15B30a" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES">
     <dependencies>
         <deployment identifier="iOS"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="7703"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="9048"/>
     </dependencies>
     <objects>
         <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner" customClass="VLCPlexMediaInformationViewController">
@@ -22,35 +22,39 @@
             <rect key="frame" x="0.0" y="0.0" width="320" height="568"/>
             <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
             <subviews>
-                <textView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" indicatorStyle="white" editable="NO" text="Summary" textAlignment="justified" id="a9b-Vy-VUa">
+                <textView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" ambiguous="YES" misplaced="YES" indicatorStyle="white" editable="NO" text="Summary" textAlignment="justified" translatesAutoresizingMaskIntoConstraints="NO" id="a9b-Vy-VUa">
                     <rect key="frame" x="17" y="304" width="286" height="200"/>
-                    <autoresizingMask key="autoresizingMask" widthSizable="YES" flexibleMinY="YES" heightSizable="YES" flexibleMaxY="YES"/>
+                    <animations/>
                     <color key="backgroundColor" white="0.0" alpha="1" colorSpace="calibratedWhite"/>
                     <color key="textColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                     <fontDescription key="fontDescription" name="HelveticaNeue" family="Helvetica Neue" pointSize="14"/>
                     <textInputTraits key="textInputTraits" autocapitalizationType="sentences" autocorrectionType="no"/>
                 </textView>
-                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Title" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="8rl-jn-Mwg">
+                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" ambiguous="YES" misplaced="YES" text="Title" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="8rl-jn-Mwg">
                     <rect key="frame" x="0.0" y="186" width="320" height="22"/>
-                    <autoresizingMask key="autoresizingMask" widthSizable="YES" flexibleMinY="YES" flexibleMaxY="YES"/>
+                    <animations/>
                     <fontDescription key="fontDescription" type="system" pointSize="17"/>
                     <color key="textColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="calibratedRGB"/>
                     <nil key="highlightedColor"/>
                 </label>
-                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Video &amp; Audio Codec" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="goK-5h-qRR">
+                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" ambiguous="YES" misplaced="YES" text="Video &amp; Audio Codec" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="goK-5h-qRR">
                     <rect key="frame" x="0.0" y="221" width="320" height="22"/>
-                    <autoresizingMask key="autoresizingMask" widthSizable="YES" flexibleMinY="YES" flexibleMaxY="YES"/>
+                    <animations/>
                     <fontDescription key="fontDescription" type="system" pointSize="14"/>
                     <color key="textColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="calibratedRGB"/>
                     <nil key="highlightedColor"/>
                 </label>
-                <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" id="HlH-2P-0eo">
+                <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" ambiguous="YES" misplaced="YES" translatesAutoresizingMaskIntoConstraints="NO" id="HlH-2P-0eo">
                     <rect key="frame" x="100" y="9" width="120" height="150"/>
-                    <autoresizingMask key="autoresizingMask" flexibleMinX="YES" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                    <animations/>
+                    <constraints>
+                        <constraint firstAttribute="width" relation="greaterThanOrEqual" constant="120" id="Nle-Cf-RKe"/>
+                        <constraint firstAttribute="height" relation="greaterThanOrEqual" constant="150" id="Sxb-Lu-4Sd"/>
+                    </constraints>
                 </imageView>
-                <toolbar opaque="NO" clearsContextBeforeDrawing="NO" contentMode="scaleToFill" id="1CU-w2-CLR">
+                <toolbar opaque="NO" clearsContextBeforeDrawing="NO" contentMode="scaleToFill" ambiguous="YES" misplaced="YES" translatesAutoresizingMaskIntoConstraints="NO" id="1CU-w2-CLR">
                     <rect key="frame" x="0.0" y="524" width="320" height="44"/>
-                    <autoresizingMask key="autoresizingMask" widthSizable="YES" flexibleMinY="YES"/>
+                    <animations/>
                     <items>
                         <barButtonItem systemItem="play" id="2qY-WQ-KIy">
                             <color key="tintColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
@@ -77,19 +81,44 @@
                     <color key="tintColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                     <color key="barTintColor" white="0.0" alpha="1" colorSpace="calibratedWhite"/>
                 </toolbar>
-                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Size &amp; Time" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="7mI-at-CYu">
+                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" ambiguous="YES" misplaced="YES" text="Size &amp; Time" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="7mI-at-CYu">
                     <rect key="frame" x="0.0" y="255" width="320" height="22"/>
-                    <autoresizingMask key="autoresizingMask" widthSizable="YES" flexibleMinY="YES" flexibleMaxY="YES"/>
+                    <animations/>
                     <fontDescription key="fontDescription" type="system" pointSize="14"/>
                     <color key="textColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="calibratedRGB"/>
                     <nil key="highlightedColor"/>
                 </label>
-                <imageView userInteractionEnabled="NO" contentMode="scaleToFill" id="ls6-CJ-vRi">
+                <imageView userInteractionEnabled="NO" contentMode="scaleToFill" ambiguous="YES" misplaced="YES" translatesAutoresizingMaskIntoConstraints="NO" id="ls6-CJ-vRi">
                     <rect key="frame" x="190" y="12" width="15" height="15"/>
-                    <autoresizingMask key="autoresizingMask" flexibleMinX="YES" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                    <animations/>
+                    <constraints>
+                        <constraint firstAttribute="width" constant="15" id="7Ja-yH-jVE"/>
+                        <constraint firstAttribute="height" constant="15" id="T0C-or-fRG"/>
+                    </constraints>
                 </imageView>
             </subviews>
+            <animations/>
             <color key="backgroundColor" white="0.0" alpha="1" colorSpace="calibratedWhite"/>
+            <constraints>
+                <constraint firstItem="HlH-2P-0eo" firstAttribute="top" secondItem="ls6-CJ-vRi" secondAttribute="bottom" constant="-18" id="2mR-Gc-mIo"/>
+                <constraint firstAttribute="trailing" secondItem="goK-5h-qRR" secondAttribute="trailing" id="6jO-B7-tHl"/>
+                <constraint firstItem="a9b-Vy-VUa" firstAttribute="top" secondItem="7mI-at-CYu" secondAttribute="bottom" constant="27" id="9Om-mp-acA"/>
+                <constraint firstItem="goK-5h-qRR" firstAttribute="leading" secondItem="iN0-l3-epB" secondAttribute="leading" id="AtM-M2-97R"/>
+                <constraint firstAttribute="bottom" secondItem="a9b-Vy-VUa" secondAttribute="bottom" constant="64" id="BG5-cE-f34"/>
+                <constraint firstItem="8rl-jn-Mwg" firstAttribute="top" secondItem="HlH-2P-0eo" secondAttribute="bottom" constant="27" id="FM7-mr-apw"/>
+                <constraint firstItem="goK-5h-qRR" firstAttribute="top" secondItem="8rl-jn-Mwg" secondAttribute="bottom" constant="13" id="H3b-LA-mC8"/>
+                <constraint firstItem="HlH-2P-0eo" firstAttribute="centerY" secondItem="iN0-l3-epB" secondAttribute="centerY" id="Olq-gP-x1A"/>
+                <constraint firstItem="7mI-at-CYu" firstAttribute="leading" secondItem="iN0-l3-epB" secondAttribute="leading" id="RPT-hC-dwG"/>
+                <constraint firstItem="8rl-jn-Mwg" firstAttribute="leading" secondItem="iN0-l3-epB" secondAttribute="leading" id="S4f-H6-2om"/>
+                <constraint firstAttribute="trailing" secondItem="7mI-at-CYu" secondAttribute="trailing" id="Ucq-eL-SKW"/>
+                <constraint firstAttribute="trailing" secondItem="8rl-jn-Mwg" secondAttribute="trailing" id="agD-UF-gLW"/>
+                <constraint firstAttribute="bottom" secondItem="1CU-w2-CLR" secondAttribute="bottom" id="d7J-Bw-Mxe"/>
+                <constraint firstItem="7mI-at-CYu" firstAttribute="top" secondItem="goK-5h-qRR" secondAttribute="bottom" constant="12" id="eWu-YB-Sxb"/>
+                <constraint firstItem="a9b-Vy-VUa" firstAttribute="leading" secondItem="iN0-l3-epB" secondAttribute="leading" constant="17" id="jHu-tO-whj"/>
+                <constraint firstItem="HlH-2P-0eo" firstAttribute="top" secondItem="iN0-l3-epB" secondAttribute="top" constant="9" id="jcr-qb-2sb"/>
+                <constraint firstAttribute="trailing" secondItem="a9b-Vy-VUa" secondAttribute="trailing" constant="17" id="kcE-AR-v2F"/>
+                <constraint firstItem="ls6-CJ-vRi" firstAttribute="leading" secondItem="HlH-2P-0eo" secondAttribute="trailing" constant="-30" id="laT-hv-k3S"/>
+            </constraints>
             <nil key="simulatedStatusBarMetrics"/>
             <freeformSimulatedSizeMetrics key="simulatedDestinationMetrics"/>
             <point key="canvasLocation" x="268" y="222"/>
@@ -98,9 +127,4 @@
     <resources>
         <image name="Downloads.png" width="17" height="25"/>
     </resources>
-    <simulatedMetricsContainer key="defaultSimulatedMetrics">
-        <simulatedStatusBarMetrics key="statusBar"/>
-        <simulatedOrientationMetrics key="orientation"/>
-        <simulatedScreenMetrics key="destination" type="retina4"/>
-    </simulatedMetricsContainer>
 </document>
