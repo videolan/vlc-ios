@@ -35,7 +35,8 @@
     if (dropboxFile != _dropboxFile)
         _dropboxFile = dropboxFile;
 
-    [self _updatedDisplayedInformation];
+    [self performSelectorOnMainThread:@selector(_updatedDisplayedInformation)
+                           withObject:nil waitUntilDone:NO];
 }
 
 - (void)setDriveFile:(GTLDriveFile *)driveFile
@@ -43,7 +44,8 @@
     if (driveFile != _driveFile)
         _driveFile = driveFile;
 
-    [self _updatedDisplayedInformation];
+    [self performSelectorOnMainThread:@selector(_updatedDisplayedInformation)
+                           withObject:nil waitUntilDone:NO];
 }
 
 - (void)setBoxFile:(BoxItem *)boxFile
@@ -51,7 +53,8 @@
     if (boxFile != _boxFile)
         _boxFile = boxFile;
 
-    [self _updatedDisplayedInformation];
+    [self performSelectorOnMainThread:@selector(_updatedDisplayedInformation)
+                           withObject:nil waitUntilDone:NO];
 }
 
 - (void)setOneDriveFile:(VLCOneDriveObject *)oneDriveFile
@@ -59,7 +62,8 @@
     if (oneDriveFile != _oneDriveFile)
         _oneDriveFile = oneDriveFile;
 
-    [self _updatedDisplayedInformation];
+    [self performSelectorOnMainThread:@selector(_updatedDisplayedInformation)
+                           withObject:nil waitUntilDone:NO];
 }
 
 - (void)_updatedDisplayedInformation
@@ -191,11 +195,16 @@
 - (void)_updateIconFromURL
 {
     NSData *imageData = [[NSData alloc] initWithContentsOfURL:_iconURL];
-    UIImage *image = [[UIImage alloc] initWithData:imageData];
-    if (image != nil) {
-        self.thumbnailView.contentMode = UIViewContentModeScaleAspectFit;
-        self.thumbnailView.image = image;
+    UIImage *icon = [[UIImage alloc] initWithData:imageData];
+    if (icon != nil) {
+        [self performSelectorOnMainThread:@selector(_updateIconOnMainThread:) withObject:icon waitUntilDone:NO];
     }
+}
+
+- (void)_updateIconOnMainThread:(UIImage *)icon
+{
+    self.thumbnailView.contentMode = UIViewContentModeScaleAspectFit;
+    self.thumbnailView.image = icon;
 }
 
 - (IBAction)triggerDownload:(id)sender
