@@ -3,6 +3,22 @@
 * Dropped support for iOS 6.1. VLC requires iOS 7.0 now
 * Added support for SMB file sharing (#8879)
 * Added support for music albums with more than 1 disk (#14650)
+* Re-wrote Apple Watch extension for watchOS 2
+* Reworked networking UI
+* Added hardware accelerated video decoding for H264 on iOS 8 & later (#8505)
+* Added support for system-wide search "CoreSpotlight"
+* Added improved UI support for Right-to-Left languages
+* Added support for the split-screen appearance in iOS 9 (#14840)
+* Added option to configure playback continuation (#14340)
+* Added option to configure gestures (#15449) 
+* Added support for music albums with more than 1 disk (#14650)
+* Display chapter duration in playback UI (#14718)
+
+2.6.6:
+------
+* Desktop quality SSA subtitles rendering (finally!, #11297, #13365, #14112)
+* Stability improvements
+* New translations to Lao and Kabyle
 
 2.6.5:
 ------
