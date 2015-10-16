@@ -54,6 +54,7 @@
                                                              leftMenuViewController:[UIViewController new]
                                                             rightMenuViewController:_menuViewController];
     }
+    _sideMenuViewController.backgroundImage = [UIImage imageNamed:@"menu-background"];
 
     return self;
 }
