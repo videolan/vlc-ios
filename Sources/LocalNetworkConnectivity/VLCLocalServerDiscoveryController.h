@@ -16,12 +16,12 @@
 
 #import "VLCLocalNetworkService.h"
 
-@protocol VLCLocalServerDiscoveryControllerDelegate <NSObject>
 
-@required
+@protocol VLCLocalServerDiscoveryControllerDelegate <NSObject>
 - (void)discoveryFoundSomethingNew;
 
 @end
+
 
 @interface VLCLocalServerDiscoveryController : NSObject
 

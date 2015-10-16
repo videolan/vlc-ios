@@ -9,22 +9,9 @@
  *
  * Refer to the COPYING file of the official project for license.
  *****************************************************************************/
-#import <Foundation/Foundation.h>
+#import "VLCLocalNetworkService-Protocol.h"
 
 NS_ASSUME_NONNULL_BEGIN
-@protocol VLCLocalNetworkService <NSObject>
-
-@required
-@property (nonatomic, readonly, nullable) UIImage *icon;
-@property (nonatomic, readonly) NSString *title;
-
-@optional
-- (nullable UIViewController *)detailViewController;
-
-typedef void (^VLCLocalNetworkServiceActionBlock)(void);
-@property (nonatomic, readonly) VLCLocalNetworkServiceActionBlock action;
-@end
-
 #pragma mark - item
 
 @interface VLCLocalNetworkServiceItem : NSObject <VLCLocalNetworkService>

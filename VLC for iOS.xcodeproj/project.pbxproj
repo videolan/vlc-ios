@@ -260,7 +260,8 @@
 		DDB7C6A41BAEB28200E6570E /* WKInterfaceController+VLCConnectionAlert.m in Sources */ = {isa = PBXBuildFile; fileRef = DD9FBE761BAD6BB600FFE77A /* WKInterfaceController+VLCConnectionAlert.m */; };
 		DDB959421AFBB30500BB8CFF /* MappingModel_2_5_to_2_6.xcmappingmodel in Sources */ = {isa = PBXBuildFile; fileRef = DDB959411AFBB30500BB8CFF /* MappingModel_2_5_to_2_6.xcmappingmodel */; };
 		DDC10BE41AEE8EA700890DC3 /* VLCTimeNavigationTitleView.m in Sources */ = {isa = PBXBuildFile; fileRef = DDC10BE31AEE8EA700890DC3 /* VLCTimeNavigationTitleView.m */; };
-		DDE3C8D01BD0246500C03B8B /* VLCLocalNetworkService.m in Sources */ = {isa = PBXBuildFile; fileRef = DDE3C8CF1BD0246500C03B8B /* VLCLocalNetworkService.m */; };
+		DDE3C8D91BD1322E00C03B8B /* VLCLocalNetworkServiceBrowserNetService.m in Sources */ = {isa = PBXBuildFile; fileRef = DDE3C8D51BD12E6B00C03B8B /* VLCLocalNetworkServiceBrowserNetService.m */; };
+		DDE3C8DA1BD1323800C03B8B /* VLCLocalNetworkService.m in Sources */ = {isa = PBXBuildFile; fileRef = DDE3C8CF1BD0246500C03B8B /* VLCLocalNetworkService.m */; };
 		E0C04F951A25B4410080331A /* VLCDocumentPickerController.m in Sources */ = {isa = PBXBuildFile; fileRef = E0C04F941A25B4410080331A /* VLCDocumentPickerController.m */; };
 /* End PBXBuildFile section */
 
@@ -807,6 +808,10 @@
 		DDE1BCE51B676B8800A4B9CE /* tr */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = tr; path = tr.lproj/Localizable.strings; sourceTree = "<group>"; };
 		DDE3C8CE1BD0246500C03B8B /* VLCLocalNetworkService.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = VLCLocalNetworkService.h; path = Sources/LocalNetworkConnectivity/VLCLocalNetworkService.h; sourceTree = SOURCE_ROOT; };
 		DDE3C8CF1BD0246500C03B8B /* VLCLocalNetworkService.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = VLCLocalNetworkService.m; path = Sources/LocalNetworkConnectivity/VLCLocalNetworkService.m; sourceTree = SOURCE_ROOT; };
+		DDE3C8D11BD1103300C03B8B /* VLCLocalNetworkServiceBrowser-Protocol.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "VLCLocalNetworkServiceBrowser-Protocol.h"; sourceTree = "<group>"; };
+		DDE3C8D41BD12E6B00C03B8B /* VLCLocalNetworkServiceBrowserNetService.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = VLCLocalNetworkServiceBrowserNetService.h; path = Sources/LocalNetworkConnectivity/VLCLocalNetworkServiceBrowserNetService.h; sourceTree = SOURCE_ROOT; };
+		DDE3C8D51BD12E6B00C03B8B /* VLCLocalNetworkServiceBrowserNetService.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = VLCLocalNetworkServiceBrowserNetService.m; path = Sources/LocalNetworkConnectivity/VLCLocalNetworkServiceBrowserNetService.m; sourceTree = SOURCE_ROOT; };
+		DDE3C8D71BD12F6800C03B8B /* VLCLocalNetworkService-Protocol.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "VLCLocalNetworkService-Protocol.h"; sourceTree = "<group>"; };
 		DDF157B31ACB169B00AAFBC6 /* WatchKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = WatchKit.framework; path = System/Library/Frameworks/WatchKit.framework; sourceTree = SDKROOT; };
 		E09EACF57CDD22ABAE66CDD0 /* Pods-vlc-ios.distribution.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-vlc-ios.distribution.xcconfig"; path = "Pods/Target Support Files/Pods-vlc-ios/Pods-vlc-ios.distribution.xcconfig"; sourceTree = "<group>"; };
 		E0C04F931A25B4410080331A /* VLCDocumentPickerController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = VLCDocumentPickerController.h; path = Sources/VLCDocumentPickerController.h; sourceTree = SOURCE_ROOT; };
@@ -1124,8 +1129,12 @@
 				7DBB78871B3028C400894467 /* Server browsing */,
 				7D30F3D5183AB2F100FFC021 /* VLCServerListViewController.h */,
 				7D30F3D6183AB2F100FFC021 /* VLCServerListViewController.m */,
+				DDE3C8D71BD12F6800C03B8B /* VLCLocalNetworkService-Protocol.h */,
 				DDE3C8CE1BD0246500C03B8B /* VLCLocalNetworkService.h */,
 				DDE3C8CF1BD0246500C03B8B /* VLCLocalNetworkService.m */,
+				DDE3C8D11BD1103300C03B8B /* VLCLocalNetworkServiceBrowser-Protocol.h */,
+				DDE3C8D41BD12E6B00C03B8B /* VLCLocalNetworkServiceBrowserNetService.h */,
+				DDE3C8D51BD12E6B00C03B8B /* VLCLocalNetworkServiceBrowserNetService.m */,
 				7D37E3981BC93F7500AFA70E /* VLCLocalServerDiscoveryController.h */,
 				7D37E3991BC93F7500AFA70E /* VLCLocalServerDiscoveryController.m */,
 				7D30F3DA183AB2F900FFC021 /* VLCNetworkLoginViewController.h */,
@@ -2172,12 +2181,12 @@
 				7D168F7418D4A33F003FAF59 /* UIImage+Blur.m in Sources */,
 				9B5BEF2917FBAEA50016F9CB /* GTLDrive_Sources.m in Sources */,
 				7DC19ADF1868C7BB00810BF7 /* VLCFirstStepsViewController.m in Sources */,
-				DDE3C8D01BD0246500C03B8B /* VLCLocalNetworkService.m in Sources */,
 				7DE56C1A1AD93F9100E8CA00 /* VLCPlaybackController.m in Sources */,
 				7DC72D6317B7ED24008A26D0 /* WhiteRaccoon.m in Sources */,
 				DD7110F01AF38B2B00854776 /* MLMediaLibrary+playlist.m in Sources */,
 				7D5CAA891A4AD763003F2CBC /* VLCTrackSelectorTableViewCell.m in Sources */,
 				7D63C19018774B1700BD5256 /* VLCFirstStepsSecondPageViewController.m in Sources */,
+				DDE3C8DA1BD1323800C03B8B /* VLCLocalNetworkService.m in Sources */,
 				8F91EC79195CEC7900F5BCBA /* VLCOpenInActivity.m in Sources */,
 				7D37848F183A98B6009EE944 /* VLCMovieViewController.m in Sources */,
 				7D378492183A98BF009EE944 /* VLCExternalDisplayController.m in Sources */,
@@ -2190,6 +2199,7 @@
 				7D3784A1183A98EB009EE944 /* VLCBugreporter.m in Sources */,
 				7D3784A6183A98F5009EE944 /* VLCAboutViewController.m in Sources */,
 				7D3784A7183A98F5009EE944 /* VLCSettingsController.m in Sources */,
+				DDE3C8D91BD1322E00C03B8B /* VLCLocalNetworkServiceBrowserNetService.m in Sources */,
 				7DC19AE41868C8EC00810BF7 /* VLCFirstStepsFirstPageViewController.m in Sources */,
 				7D3784AD183A9906009EE944 /* VLCDropboxController.m in Sources */,
 				7D3784AE183A9906009EE944 /* VLCDropboxTableViewController.m in Sources */,

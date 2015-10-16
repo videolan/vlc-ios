@@ -31,8 +31,8 @@
 #import "VLCHTTPUploaderController.h"
 
 #import "Reachability.h"
+#import "VLCLocalNetworkServiceBrowserNetService.h"
 
-#define kPlexServiceType @"_plexmediasvr._tcp."
 
 typedef NS_ENUM(NSUInteger, VLCLocalServerSections) {
     VLCLocalServerSectionGeneric = 0,
@@ -44,46 +44,14 @@ typedef NS_ENUM(NSUInteger, VLCLocalServerSections) {
     VLCLocalServerSectionSAP
 };
 
-@interface NSMutableArray(VLCLocalNetworkServiceNetService)
--(NSUInteger)vlc_indexOfServiceWithNetService:(NSNetService*)netService;
--(void)vlc_removeServiceWithNetService:(NSNetService*)netService;
-
-@end
-@implementation NSMutableArray (VLCLocalNetworkServiceNetService)
-
-- (NSUInteger)vlc_indexOfServiceWithNetService:(NSNetService *)netService {
-    NSUInteger index = [self indexOfObjectPassingTest:^BOOL(VLCLocalNetworkServiceNetService *obj, NSUInteger idx, BOOL * _Nonnull stop) {
-        if (![obj respondsToSelector:@selector(netService)]) return false;
-
-        BOOL equal = [obj.netService isEqual:netService];
-        if (equal) {
-            *stop = YES;
-        }
-        return equal;
-    }];
-    return index;
-}
-
--(void)vlc_removeServiceWithNetService:(NSNetService *)netService {
-    NSUInteger index = [self vlc_indexOfServiceWithNetService:netService];
-    if (index != NSNotFound) {
-        [self removeObjectAtIndex:index];
-    }
-}
-@end
 
 
-@interface VLCLocalServerDiscoveryController () <NSNetServiceBrowserDelegate, NSNetServiceDelegate, VLCMediaListDelegate, UPnPDBObserver>
+@interface VLCLocalServerDiscoveryController () <VLCLocalNetworkServiceBrowserDelegate, VLCMediaListDelegate, UPnPDBObserver>
 {
-    NSNetServiceBrowser *_ftpNetServiceBrowser;
-    NSNetServiceBrowser *_PlexNetServiceBrowser;
-    NSNetServiceBrowser *_httpNetServiceBrowser;
-    NSMutableArray<VLCLocalNetworkServicePlex*> *_plexServices;
-    NSMutableArray<VLCLocalNetworkServiceHTTP*> *_httpVLCServices;
-    NSMutableArray<VLCLocalNetworkServiceFTP*> *_ftpServices;
 
-    // to keep strong references while resolving
-    NSMutableArray *_rawNetServices;
+    id<VLCLocalNetworkServiceBrowser> _plexBrowser;
+    id<VLCLocalNetworkServiceBrowser> _FTPBrowser;
+    id<VLCLocalNetworkServiceBrowser> _HTTPBrowser;
 
     NSArray<VLCLocalNetworkServiceUPnP*> *_filteredUPNPDevices;
     NSArray *_UPNPdevices;
@@ -111,9 +79,7 @@ typedef NS_ENUM(NSUInteger, VLCLocalServerSections) {
     [[NSNotificationCenter defaultCenter] removeObserver:self];
 
     [_reachability stopNotifier];
-    [_ftpNetServiceBrowser stop];
-    [_PlexNetServiceBrowser stop];
-    [_httpNetServiceBrowser stop];
+    [self stopDiscovery];
 }
 
 - (void)stopDiscovery
@@ -122,16 +88,17 @@ typedef NS_ENUM(NSUInteger, VLCLocalServerSections) {
     [self _stopSAPDiscovery];
     [self _stopDSMDiscovery];
 
-    [_ftpNetServiceBrowser stop];
-    [_PlexNetServiceBrowser stop];
-    [_httpNetServiceBrowser stop];
+    [_FTPBrowser stopDiscovery];
+    [_plexBrowser stopDiscovery];
+    [_HTTPBrowser stopDiscovery];
 }
 
 - (void)startDiscovery
 {
-    [_ftpNetServiceBrowser searchForServicesOfType:@"_ftp._tcp." inDomain:@""];
-    [_PlexNetServiceBrowser searchForServicesOfType:kPlexServiceType inDomain:@""];
-    [_httpNetServiceBrowser searchForServicesOfType:@"_http._tcp." inDomain:@""];
+
+    [_FTPBrowser startDiscovery];
+    [_plexBrowser startDiscovery];
+    [_HTTPBrowser startDiscovery];
 
     [self netReachabilityChanged];
 }
@@ -140,9 +107,9 @@ typedef NS_ENUM(NSUInteger, VLCLocalServerSections) {
 {
     return @[@"Generic",
              @"Universal Plug'n'Play (UPnP)",
-             @"Plex Media Server (via Bonjour)",
-             @"File Transfer Protocol (FTP)",
-             NSLocalizedString(@"SHARED_VLC_IOS_LIBRARY", nil),
+             _plexBrowser.name,
+             _FTPBrowser.name,
+             _HTTPBrowser.name,
              NSLocalizedString(@"SMB_CIFS_FILE_SERVERS", nil),
              @"SAP"];
 }
@@ -165,25 +132,13 @@ typedef NS_ENUM(NSUInteger, VLCLocalServerSections) {
                           name:UIApplicationDidBecomeActiveNotification
                         object:[UIApplication sharedApplication]];
 
-    [defaultCenter addObserver:self
-                      selector:@selector(sharedLibraryFound:)
-                          name:VLCSharedLibraryParserDeterminedNetserviceAsVLCInstance
-                        object:nil];
 
-    _ftpServices = [[NSMutableArray alloc] init];
-
-    _rawNetServices = [[NSMutableArray alloc] init];
-
-    _ftpNetServiceBrowser = [[NSNetServiceBrowser alloc] init];
-    _ftpNetServiceBrowser.delegate = self;
-
-    _plexServices = [[NSMutableArray alloc] init];
-    _PlexNetServiceBrowser = [[NSNetServiceBrowser alloc] init];
-    _PlexNetServiceBrowser.delegate = self;
-
-    _httpVLCServices = [[NSMutableArray alloc] init];
-    _httpNetServiceBrowser = [[NSNetServiceBrowser alloc] init];
-    _httpNetServiceBrowser.delegate = self;
+    _plexBrowser = [[VLCLocalNetworkServiceBrowserPlex alloc] init];
+    _plexBrowser.delegate = self;
+    _FTPBrowser = [[VLCLocalNetworkServiceBrowserFTP alloc] init];
+    _FTPBrowser.delegate = self;
+    _HTTPBrowser = [[VLCLocalNetworkServiceBrowserHTTP alloc] init];
+    _HTTPBrowser.delegate = self;
 
     _reachability = [Reachability reachabilityForLocalWiFi];
     [_reachability startNotifier];
@@ -250,17 +205,17 @@ typedef NS_ENUM(NSUInteger, VLCLocalServerSections) {
 
         case VLCLocalServerSectionPlex:
         {
-            return _plexServices[row];
+            return [_plexBrowser networkServiceForIndex:row];
         }
 
         case VLCLocalServerSectionFTP:
         {
-            return _ftpServices[row];
+            return [_FTPBrowser networkServiceForIndex:row];
         }
 
         case VLCLocalServerSectionVLCiOS:
         {
-            return _httpVLCServices[row];
+            return [_HTTPBrowser networkServiceForIndex:row];
         }
 
         case VLCLocalServerSectionSMB:
@@ -291,13 +246,13 @@ typedef NS_ENUM(NSUInteger, VLCLocalServerSections) {
             return _filteredUPNPDevices.count;
 
         case VLCLocalServerSectionPlex:
-            return _plexServices.count;
+            return _plexBrowser.numberOfItems;
 
         case VLCLocalServerSectionFTP:
-            return _ftpServices.count;
+            return _FTPBrowser.numberOfItems;
 
         case VLCLocalServerSectionVLCiOS:
-            return _httpVLCServices.count;
+            return _HTTPBrowser.numberOfItems;
 
         case VLCLocalServerSectionSMB:
             return _dsmDiscoverer.discoveredMedia.count;
@@ -327,82 +282,10 @@ typedef NS_ENUM(NSUInteger, VLCLocalServerSections) {
     return YES;
 }
 
-#pragma mark - bonjour discovery
-- (void)netServiceBrowser:(NSNetServiceBrowser *)aNetServiceBrowser didFindService:(NSNetService *)aNetService moreComing:(BOOL)moreComing
-{
-    APLog(@"found bonjour service: %@ (%@)", aNetService.name, aNetService.type);
-    [_rawNetServices addObject:aNetService];
-    aNetService.delegate = self;
-    [aNetService resolveWithTimeout:5.];
-}
-
-- (void)netServiceBrowser:(NSNetServiceBrowser *)aNetServiceBrowser didRemoveService:(NSNetService *)aNetService moreComing:(BOOL)moreComing
-{
-    APLog(@"bonjour service disappeared: %@ (%i)", aNetService.name, moreComing);
-    if ([_rawNetServices containsObject:aNetService])
-        [_rawNetServices removeObject:aNetService];
-    if ([aNetService.type isEqualToString:@"_ftp._tcp."]) {
-        [_ftpServices vlc_removeServiceWithNetService:aNetService];
-    }
-    if ([aNetService.type isEqualToString:kPlexServiceType]) {
-        [_plexServices vlc_removeServiceWithNetService:aNetService];
-    }
-    if ([aNetService.type isEqualToString:@"_http._tcp."]) {
-        NSUInteger index = [_httpVLCServices vlc_indexOfServiceWithNetService:aNetService];
-        if (index != NSNotFound) {
-            [_httpVLCServices removeObjectAtIndex:index];
-        }
-    }
-    if (!moreComing) {
-        if (self.delegate) {
-            if ([self.delegate respondsToSelector:@selector(discoveryFoundSomethingNew)]) {
-                [self.delegate discoveryFoundSomethingNew];
-            }
-        }
-    }
-}
-
-- (void)netServiceDidResolveAddress:(NSNetService *)aNetService
-{
-    if ([aNetService.type isEqualToString:@"_ftp._tcp."]) {
-        NSUInteger index = [_ftpServices vlc_indexOfServiceWithNetService:aNetService];
-        if (index == NSNotFound) {
-            [_ftpServices addObject:[[VLCLocalNetworkServiceFTP alloc] initWithNetService:aNetService]];
-        }
-    } else if ([aNetService.type isEqualToString:kPlexServiceType]) {
-        if ([_plexServices vlc_indexOfServiceWithNetService:aNetService] == NSNotFound) {
-            [_plexServices addObject:[[VLCLocalNetworkServicePlex alloc] initWithNetService: aNetService]];
-        }
-    }  else if ([aNetService.type isEqualToString:@"_http._tcp."]) {
-        if ([[aNetService hostName] rangeOfString:_myHostName].location == NSNotFound) {
-            if (!_httpParser)
-                _httpParser = [[VLCSharedLibraryParser alloc] init];
-            [_httpParser checkNetserviceForVLCService:aNetService];
-        }
-    }
-    [_rawNetServices removeObject:aNetService];
-    if (self.delegate) {
-        if ([self.delegate respondsToSelector:@selector(discoveryFoundSomethingNew)]) {
-            [self.delegate discoveryFoundSomethingNew];
-        }
-    }
-}
-
-- (void)netService:(NSNetService *)aNetService didNotResolve:(NSDictionary *)errorDict
-{
-    APLog(@"failed to resolve: %@", aNetService.name);
-    [_rawNetServices removeObject:aNetService];
-}
-
-#pragma mark - shared library stuff
-
-- (void)sharedLibraryFound:(NSNotification *)aNotification
-{
-    NSNetService *aNetService = [aNotification.userInfo objectForKey:@"aNetService"];
-
-    NSUInteger index = [_httpVLCServices vlc_indexOfServiceWithNetService:aNetService];
-    if (index == NSNotFound) {
-        [_httpVLCServices addObject:[[VLCLocalNetworkServiceHTTP alloc] initWithNetService:aNetService]];
+#pragma mark - VLCLocalNetworkServiceBrowserDelegate
+- (void)localNetworkServiceBrowserDidUpdateServices:(id<VLCLocalNetworkServiceBrowser>)serviceBrowser {
+    if ([self.delegate respondsToSelector:@selector(discoveryFoundSomethingNew)]) {
+        [self.delegate discoveryFoundSomethingNew];
     }
 }
 
