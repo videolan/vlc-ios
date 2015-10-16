@@ -40,14 +40,17 @@
         UIView *bottomLine = [[UIView alloc] initWithFrame:CGRectMake(0.0f, 50.0f, [UIScreen mainScreen].bounds.size.height, 1.0f)];
         bottomLine.backgroundColor = [UIColor colorWithRed:(23.0f/255.0f) green:(23.0f/255.0f) blue:(23.0f/255.0f) alpha:1.0f];
         [self.textLabel.superview addSubview:bottomLine];
+
+        UILabel *textLabel = self.textLabel;
+        textLabel.translatesAutoresizingMaskIntoConstraints = NO;
+        UIImageView *imageView = self.imageView;
+
+        NSDictionary *dict = NSDictionaryOfVariableBindings(textLabel,imageView);
+        [self addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"H:|[imageView(50)]-==8-[textLabel]|" options:0 metrics:0 views:dict]];
+        [self addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"V:|[imageView(50)]|" options:0 metrics:0 views:dict]];
+        [self addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"V:|[textLabel]|" options:0 metrics:0 views:dict]];
     }
     return self;
-}
-
-- (void)layoutSubviews {
-    [super layoutSubviews];
-    self.textLabel.frame = CGRectMake(50.0f, 0.0f, 200.0f, 50.0f);
-    self.imageView.frame = CGRectMake(0.0f, 0.0f, 50.0f, 50.0f);
 }
 
 @end
