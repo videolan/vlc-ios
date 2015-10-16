@@ -25,7 +25,7 @@
 
         self.imageView.contentMode = UIViewContentModeCenter;
 
-        self.textLabel.font = [UIFont fontWithName:@"Helvetica" size:([UIFont systemFontSize] * 1.2f)];
+        self.textLabel.font = [UIFont systemFontOfSize:([UIFont systemFontSize] * 1.2f)];
         self.textLabel.shadowOffset = CGSizeMake(0.0f, 1.0f);
         self.textLabel.shadowColor = [UIColor VLCDarkTextShadowColor];
         self.textLabel.textColor = [UIColor whiteColor];

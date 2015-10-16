@@ -283,7 +283,7 @@ confirmedWithUsername:(NSString *)username
 
         UILabel *textLabel = [[UILabel alloc] initWithFrame:CGRectInset(headerView.bounds, 12.0f, 0.f)];
         textLabel.text = (NSString *) headerText;
-        textLabel.font = [UIFont fontWithName:@"Helvetica-Bold" size:([UIFont systemFontSize] * 0.8f)];
+        textLabel.font = [UIFont boldSystemFontOfSize:([UIFont systemFontSize] * 0.8f)];
         textLabel.shadowOffset = CGSizeMake(0.0f, 1.0f);
         textLabel.shadowColor = [UIColor VLCDarkTextShadowColor];
         textLabel.textColor = [UIColor colorWithRed:(118.0f/255.0f) green:(118.0f/255.0f) blue:(118.0f/255.0f) alpha:1.0f];
