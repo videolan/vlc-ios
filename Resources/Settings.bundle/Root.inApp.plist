@@ -22,6 +22,16 @@
 		</dict>
 		<dict>
 			<key>DefaultValue</key>
+			<string>YES</string>
+			<key>Key</key>
+			<string>AllowTouchID</string>
+			<key>Title</key>
+			<string>SETTINGS_PASSCODE_LOCK_ALLOWTOUCHID</string>
+			<key>Type</key>
+			<string>PSToggleSwitchSpecifier</string>
+		</dict>
+		<dict>
+			<key>DefaultValue</key>
 			<true/>
 			<key>Key</key>
 			<string>MLDecrapifyTitles</string>

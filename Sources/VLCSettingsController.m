@@ -39,6 +39,22 @@
     [[NSNotificationCenter defaultCenter] removeObserver:self];
 }
 
+- (void)willShow
+{
+    [self filterCellsWithAnimation:NO];
+}
+
+- (void)filterCellsWithAnimation:(BOOL)shouldAnimate
+{
+    NSMutableSet *hideKeys = [[NSMutableSet alloc] init];
+
+    VLCKeychainCoordinator *keychainCoordinator = [VLCKeychainCoordinator defaultCoordinator];
+    if (![keychainCoordinator passcodeLockEnabled])
+        [hideKeys addObject:kVLCSettingPasscodeAllowTouchID];
+
+    [self.viewController setHiddenKeys:hideKeys animated:shouldAnimate];
+}
+
 - (void)settingDidChange:(NSNotification*)notification
 {
     if ([notification.object isEqual:kVLCSettingPasscodeOnKey]) {
@@ -61,7 +77,10 @@
 }
 
 
-- (void)didChangePasscodeStatus:(BOOL)passcodeEnabled {
+- (void)didChangePasscodeStatus:(BOOL)passcodeEnabled
+{
+    [self filterCellsWithAnimation:YES];
+
     BOOL spotlightEnabled = !passcodeEnabled;
     [[MLMediaLibrary sharedMediaLibrary] setSpotlightIndexingEnabled:spotlightEnabled];
     if (!spotlightEnabled) {

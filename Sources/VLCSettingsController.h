@@ -16,4 +16,6 @@
 
 @property (nonatomic, retain) IASKAppSettingsViewController *viewController;
 
+- (void)willShow;
+
 @end

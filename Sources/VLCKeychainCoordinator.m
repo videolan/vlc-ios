@@ -14,6 +14,7 @@
 #import "PAPasscodeViewController.h"
 #import "VLCAppDelegate.h"
 #import "SSKeychain.h"
+#import <LocalAuthentication/LocalAuthentication.h>
 
 NSString *const VLCPasscodeValidated = @"VLCPasscodeValidated";
 
@@ -23,6 +24,8 @@ NSString *const VLCPasscode = @"org.videolan.vlc-ios.passcode";
 {
     PAPasscodeViewController *_passcodeLockController;
     NSDictionary *_passcodeQuery;
+    BOOL _inValidation;
+    BOOL _inTouchID;
 }
 
 @end
@@ -39,6 +42,32 @@ NSString *const VLCPasscode = @"org.videolan.vlc-ios.passcode";
     });
 
     return sharedInstance;
+}
+
+- (instancetype)init
+{
+    self = [super init];
+    if (!self)
+        return nil;
+
+    [[NSNotificationCenter defaultCenter] addObserver:self
+                                             selector:@selector(appInForeground:)
+                                                 name:UIApplicationDidBecomeActiveNotification
+                                               object:nil];
+    return self;
+}
+
+- (void)dealloc
+{
+    [[NSNotificationCenter defaultCenter] removeObserver:self];
+}
+
+- (void)appInForeground:(NSNotification *)notification
+{
+    /* our touch ID session is killed by the OS if the app moves to background, so re-init */
+    if (_inValidation) {
+        [self _touchIDQuery];
+    }
 }
 
 - (NSString *)_obtainPasscode
@@ -71,6 +100,11 @@ NSString *const VLCPasscode = @"org.videolan.vlc-ios.passcode";
 
 - (void)validatePasscode
 {
+    /* we may be called repeatedly as Touch ID uses an out-of-process dialog */
+    if (_inValidation)
+        return;
+    _inValidation = YES;
+
     NSString *passcode = [self _obtainPasscode];
     if ([passcode isEqualToString:@""]) {
         [[NSNotificationCenter defaultCenter] postNotificationName:VLCPasscodeValidated object:self];
@@ -88,8 +122,32 @@ NSString *const VLCPasscode = @"org.videolan.vlc-ios.passcode";
     UINavigationController *navCon = [[UINavigationController alloc] initWithRootViewController:_passcodeLockController];
     navCon.modalPresentationStyle = UIModalPresentationFullScreen;
     [appDelegate.window.rootViewController presentViewController:navCon animated:NO completion:nil];
+
+    if (SYSTEM_RUNS_IOS8_OR_LATER) {
+        if ([[NSUserDefaults standardUserDefaults] boolForKey:kVLCSettingPasscodeAllowTouchID]) {
+            [self _touchIDQuery];
+        }
+    }
 }
 
+- (void)_touchIDQuery
+{
+    /* don't launch multiple times */
+    if (_inTouchID)
+        return;
+    _inTouchID = YES;
+    LAContext *myContext = [[LAContext alloc] init];
+    if ([myContext canEvaluatePolicy:LAPolicyDeviceOwnerAuthenticationWithBiometrics error:nil]) {
+        [myContext evaluatePolicy:LAPolicyDeviceOwnerAuthenticationWithBiometrics
+                  localizedReason:NSLocalizedString(@"TOUCHID_UNLOCK", nil)
+                            reply:^(BOOL success, NSError *error) {
+                                if (success) {
+                                    [self PAPasscodeViewControllerDidEnterPasscode:nil];
+                                } else if (error.code == LAErrorSystemCancel)
+                                    _inTouchID = NO;
+                            }];
+    }
+}
 
 - (void)PAPasscodeViewControllerDidEnterPasscode:(PAPasscodeViewController *)controller
 {
@@ -97,6 +155,8 @@ NSString *const VLCPasscode = @"org.videolan.vlc-ios.passcode";
 
     VLCAppDelegate *appDelegate = (VLCAppDelegate *)[UIApplication sharedApplication].delegate;
     [appDelegate.window.rootViewController dismissViewControllerAnimated:YES completion:nil];
+    _inValidation = NO;
+    _inTouchID = NO;
 }
 
 - (void)PAPasscodeViewController:(PAPasscodeViewController *)controller didFailToEnterPasscode:(NSInteger)attempts

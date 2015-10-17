@@ -249,6 +249,7 @@ static NSString *WiFiCellIdentifier = @"VLCMenuWiFiCell";
             settingsVC.showCreditsFooter = NO;
 
             viewController = settingsVC;
+            [self.settingsController willShow];
         } else if (itemIndex == 1)
             viewController = [[VLCAboutViewController alloc] init];
     } else {

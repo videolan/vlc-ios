@@ -62,6 +62,7 @@ NSString *const VLCDropboxSessionWasAuthorized = @"VLCDropboxSessionWasAuthorize
         skipLoopFilterDefaultValue = kVLCSettingSkipLoopFilterNonRef;
 
     NSDictionary *appDefaults = @{kVLCSettingPasscodeKey : @"",
+                                  kVLCSettingPasscodeAllowTouchID : @(1),
                                   kVLCSettingContinueAudioInBackgroundKey : @(YES),
                                   kVLCSettingStretchAudio : @(NO),
                                   kVLCSettingTextEncoding : kVLCSettingTextEncodingDefaultValue,
