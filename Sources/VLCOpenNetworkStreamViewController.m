@@ -40,16 +40,47 @@
     [self updatePasteboardTextInURLField];
 }
 
+- (void)ubiquitousKeyValueStoreDidChange:(NSNotification *)notification
+{
+    /* TODO: don't blindly trust that the Cloud knows best */
+    _recentURLs = [NSMutableArray arrayWithArray:[[NSUbiquitousKeyValueStore defaultStore] arrayForKey:kVLCRecentURLs]];
+    [self.historyTableView reloadData];
+}
+
 - (void)dealloc
 {
-    [[NSNotificationCenter defaultCenter] removeObserver:self
-                                                    name:UIApplicationDidBecomeActiveNotification
-                                                  object:[UIApplication sharedApplication]];
+    [[NSNotificationCenter defaultCenter] removeObserver:self];
 }
 
 - (void)viewDidLoad
 {
     [super viewDidLoad];
+
+    NSNotificationCenter *notificationCenter = [NSNotificationCenter defaultCenter];
+
+    [notificationCenter addObserver:self
+                           selector:@selector(ubiquitousKeyValueStoreDidChange:)
+                               name:NSUbiquitousKeyValueStoreDidChangeExternallyNotification
+                             object:[NSUbiquitousKeyValueStore defaultStore]];
+
+    /* force store update */
+    NSUbiquitousKeyValueStore *ubiquitousKeyValueStore = [NSUbiquitousKeyValueStore defaultStore];
+    [ubiquitousKeyValueStore synchronize];
+
+    /* fetch data from cloud */
+    _recentURLs = [NSMutableArray arrayWithArray:[[NSUbiquitousKeyValueStore defaultStore] arrayForKey:kVLCRecentURLs]];
+
+    /* merge data from local storage (aka legacy VLC versions) */
+    NSUserDefaults *defaults = [NSUserDefaults standardUserDefaults];
+    NSArray *localRecentUrls = [defaults objectForKey:kVLCRecentURLs];
+    if (localRecentUrls != nil) {
+        if (localRecentUrls.count != 0) {
+            [_recentURLs addObjectsFromArray:localRecentUrls];
+            [defaults setObject:nil forKey:kVLCRecentURLs];
+            [ubiquitousKeyValueStore setArray:_recentURLs forKey:kVLCRecentURLs];
+            [ubiquitousKeyValueStore synchronize];
+        }
+    }
 
     /*
      * Observe changes to the pasteboard so we can automatically paste it into the URL field.
@@ -57,10 +88,10 @@
      * Instead when the user comes back to the application from the background (or the inactive state by pulling down notification center), update the URL field.
      * Using the 'active' rather than 'foreground' notification for future proofing if iOS ever allows running multiple apps on the same screen (which would allow the pasteboard to be changed without truly backgrounding the app).
      */
-    [[NSNotificationCenter defaultCenter] addObserver:self
-                                             selector:@selector(applicationDidBecomeActive:)
-                                                 name:UIApplicationDidBecomeActiveNotification
-                                               object:[UIApplication sharedApplication]];
+    [notificationCenter addObserver:self
+                           selector:@selector(applicationDidBecomeActive:)
+                               name:UIApplicationDidBecomeActiveNotification
+                             object:[UIApplication sharedApplication]];
 
     [self.openButton setTitle:NSLocalizedString(@"OPEN_NETWORK", nil) forState:UIControlStateNormal];
     [self.privateModeLabel setText:NSLocalizedString(@"PRIVATE_PLAYBACK_TOGGLE", nil)];
@@ -92,7 +123,6 @@
 - (void)viewWillAppear:(BOOL)animated
 {
     NSUserDefaults *defaults = [NSUserDefaults standardUserDefaults];
-    _recentURLs = [NSMutableArray arrayWithArray:[defaults objectForKey:kVLCRecentURLs]];
     self.privateToggleSwitch.on = [defaults boolForKey:kVLCPrivateWebStreaming];
     self.ScanSubToggleSwitch.on = [defaults boolForKey:kVLChttpScanSubtitle];
 
@@ -106,10 +136,12 @@
                                                   object:[UIApplication sharedApplication]];
 
     NSUserDefaults *defaults = [NSUserDefaults standardUserDefaults];
-    [defaults setObject:[NSArray arrayWithArray:_recentURLs] forKey:kVLCRecentURLs];
     [defaults setBool:self.privateToggleSwitch.on forKey:kVLCPrivateWebStreaming];
     [defaults setBool:self.ScanSubToggleSwitch.on forKey:kVLChttpScanSubtitle];
     [defaults synchronize];
+
+    /* force update before we leave */
+    [[NSUbiquitousKeyValueStore defaultStore] synchronize];
 
     [super viewWillDisappear:animated];
 }
@@ -143,6 +175,7 @@
             if (_recentURLs.count >= 100)
                 [_recentURLs removeLastObject];
             [_recentURLs addObject:self.urlField.text];
+            [[NSUbiquitousKeyValueStore defaultStore] setArray:_recentURLs forKey:kVLCRecentURLs];
 
             [self.historyTableView reloadData];
         }
@@ -198,6 +231,7 @@
 {
     if (editingStyle == UITableViewCellEditingStyleDelete) {
         [_recentURLs removeObjectAtIndex:indexPath.row];
+        [[NSUbiquitousKeyValueStore defaultStore] setArray:_recentURLs forKey:kVLCRecentURLs];
         [tableView reloadData];
     }
 }
