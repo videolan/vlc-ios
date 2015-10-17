@@ -483,6 +483,7 @@
 		7D2AC5CF1B67746700A8D9DD /* LiveAuthDialog_iPhone.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; name = LiveAuthDialog_iPhone.xib; path = ImportedSources/OneDrive/src/LiveSDK/Library/Internal/LiveAuthDialog_iPhone.xib; sourceTree = SOURCE_ROOT; };
 		7D2AEDE017FB775900B5281E /* sv */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = sv; path = sv.lproj/Localizable.strings; sourceTree = "<group>"; };
 		7D2AEDE517FB785100B5281E /* hu */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = hu; path = hu.lproj/Localizable.strings; sourceTree = "<group>"; };
+		7D2D7FD21BD2F109002D6B6D /* VLC for Apple TV.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.xml; path = "VLC for Apple TV.entitlements"; sourceTree = "<group>"; };
 		7D2DF7BA1B67753E00FB78AB /* libMediaLibraryKit-readonly.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; path = "libMediaLibraryKit-readonly.a"; sourceTree = BUILT_PRODUCTS_DIR; };
 		7D2DF7BE1B67757700FB78AB /* libMediaLibraryKit.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; path = libMediaLibraryKit.a; sourceTree = BUILT_PRODUCTS_DIR; };
 		7D2DF7C01B67760100FB78AB /* libGTLTouchStaticLib.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; path = libGTLTouchStaticLib.a; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -1078,6 +1079,7 @@
 		7D13293E1BA1F10100BE647E /* VLC for Apple TV */ = {
 			isa = PBXGroup;
 			children = (
+				7D2D7FD21BD2F109002D6B6D /* VLC for Apple TV.entitlements */,
 				7D1329421BA1F10100BE647E /* AppDelegate.h */,
 				7D1329431BA1F10100BE647E /* AppDelegate.m */,
 				7DC71D1E1BC83058001FACAA /* VLCAppSharesTVViewController.h */,
@@ -1899,6 +1901,14 @@
 					7D13293C1BA1F10100BE647E = {
 						CreatedOnToolsVersion = 7.1;
 						DevelopmentTeam = 75GAHG3SZQ;
+						SystemCapabilities = {
+							com.apple.BackgroundModes.appletvos = {
+								enabled = 1;
+							};
+							com.apple.iCloud = {
+								enabled = 1;
+							};
+						};
 					};
 					7D94FCDA16DE7D1000F2623B = {
 						DevelopmentTeam = 75GAHG3SZQ;
@@ -2424,6 +2434,7 @@
 				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
 				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
 				CLANG_WARN_UNREACHABLE_CODE = YES;
+				CODE_SIGN_ENTITLEMENTS = "VLC for Apple TV/VLC for Apple TV.entitlements";
 				CODE_SIGN_IDENTITY = "iPhone Developer";
 				"CODE_SIGN_IDENTITY[sdk=appletvos*]" = "iPhone Developer";
 				DEBUG_INFORMATION_FORMAT = dwarf;
@@ -2469,6 +2480,7 @@
 				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
 				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
 				CLANG_WARN_UNREACHABLE_CODE = YES;
+				CODE_SIGN_ENTITLEMENTS = "VLC for Apple TV/VLC for Apple TV.entitlements";
 				CODE_SIGN_IDENTITY = "iPhone Developer";
 				"CODE_SIGN_IDENTITY[sdk=appletvos*]" = "iPhone Developer";
 				COPY_PHASE_STRIP = NO;
@@ -2515,6 +2527,7 @@
 				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
 				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
 				CLANG_WARN_UNREACHABLE_CODE = YES;
+				CODE_SIGN_ENTITLEMENTS = "VLC for Apple TV/VLC for Apple TV.entitlements";
 				CODE_SIGN_IDENTITY = "iPhone Developer";
 				"CODE_SIGN_IDENTITY[sdk=appletvos*]" = "iPhone Developer";
 				COPY_PHASE_STRIP = NO;
