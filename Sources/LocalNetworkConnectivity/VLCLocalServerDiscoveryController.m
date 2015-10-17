@@ -16,7 +16,6 @@
 
 #import "VLCServerListViewController.h"
 #import "VLCPlaybackController.h"
-#import "UPnPManager.h"
 #import "VLCNetworkListCell.h"
 
 #import "VLCLocalPlexFolderListViewController.h"
@@ -34,6 +33,7 @@
 #import "VLCLocalNetworkServiceBrowserNetService.h"
 #import "VLCLocalNetworkServiceBrowserMediaDiscoverer.h"
 #import "VLCLocalNetworkServiceBrowserManualConnect.h"
+#import "VLCLocalNetworkServiceBrowserUPnP.h"
 
 typedef NS_ENUM(NSUInteger, VLCLocalServerSections) {
     VLCLocalServerSectionGeneric = 0,
@@ -47,25 +47,20 @@ typedef NS_ENUM(NSUInteger, VLCLocalServerSections) {
 
 
 
-@interface VLCLocalServerDiscoveryController () <VLCLocalNetworkServiceBrowserDelegate, VLCMediaListDelegate, UPnPDBObserver>
+@interface VLCLocalServerDiscoveryController () <VLCLocalNetworkServiceBrowserDelegate>
 {
     id<VLCLocalNetworkServiceBrowser> _manualConnectBrowser;
     id<VLCLocalNetworkServiceBrowser> _plexBrowser;
     id<VLCLocalNetworkServiceBrowser> _FTPBrowser;
     id<VLCLocalNetworkServiceBrowser> _HTTPBrowser;
 
-    NSArray<VLCLocalNetworkServiceUPnP*> *_filteredUPNPDevices;
-    NSArray *_UPNPdevices;
+    id<VLCLocalNetworkServiceBrowser> _UPnPBrowser;
 
     id<VLCLocalNetworkServiceBrowser> _sapBrowser;
     id<VLCLocalNetworkServiceBrowser> _dsmBrowser;
 
-    VLCSharedLibraryParser *_httpParser;
-
     Reachability *_reachability;
 
-    BOOL _udnpDiscoveryRunning;
-    NSTimer *_searchTimer;
     BOOL _setup;
 }
 
@@ -83,7 +78,7 @@ typedef NS_ENUM(NSUInteger, VLCLocalServerSections) {
 
 - (void)stopDiscovery
 {
-    [self _stopUPNPDiscovery];
+    [_UPnPBrowser stopDiscovery];
     [_sapBrowser stopDiscovery];
     [_dsmBrowser stopDiscovery];
 
@@ -94,8 +89,11 @@ typedef NS_ENUM(NSUInteger, VLCLocalServerSections) {
 
 - (void)startDiscovery
 {
+    if (_reachability.currentReachabilityStatus != ReachableViaWiFi) {
+        return;
+    }
 
-    [self _startUPNPDiscovery];
+    [_UPnPBrowser startDiscovery];
     [_sapBrowser startDiscovery];
     [_dsmBrowser startDiscovery];
 
@@ -107,7 +105,7 @@ typedef NS_ENUM(NSUInteger, VLCLocalServerSections) {
 - (NSArray *)sectionHeaderTexts
 {
     return @[_manualConnectBrowser.name,
-             @"Universal Plug'n'Play (UPnP)",
+             _UPnPBrowser.name,
              _plexBrowser.name,
              _FTPBrowser.name,
              _HTTPBrowser.name,
@@ -148,6 +146,8 @@ typedef NS_ENUM(NSUInteger, VLCLocalServerSections) {
     _dsmBrowser = [[VLCLocalNetworkServiceBrowserDSM alloc] init];
     _dsmBrowser.delegate = self;
 
+    _UPnPBrowser = [[VLCLocalNetworkServiceBrowserUPnP alloc] init];
+    _UPnPBrowser.delegate = self;
 
     _reachability = [Reachability reachabilityForLocalWiFi];
     [_reachability startNotifier];
@@ -168,22 +168,6 @@ typedef NS_ENUM(NSUInteger, VLCLocalServerSections) {
     }
 }
 
-- (IBAction)goBack:(id)sender
-{
-    [self _stopUPNPDiscovery];
-    [self stopDiscovery];
-
-    [[VLCSidebarController sharedInstance] toggleSidebar];
-}
-
-- (BOOL)shouldAutorotate
-{
-    UIInterfaceOrientation toInterfaceOrientation = [[UIApplication sharedApplication] statusBarOrientation];
-    if (UI_USER_INTERFACE_IDIOM() == UIUserInterfaceIdiomPhone && toInterfaceOrientation == UIInterfaceOrientationPortraitUpsideDown)
-        return NO;
-    return YES;
-}
-
 #pragma mark - table view handling
 
 - (id<VLCLocalNetworkService>)networkServiceForIndexPath:(NSIndexPath *)indexPath
@@ -200,9 +184,7 @@ typedef NS_ENUM(NSUInteger, VLCLocalServerSections) {
 
         case VLCLocalServerSectionUPnP:
         {
-            if (_filteredUPNPDevices.count > row) {
-                return _filteredUPNPDevices[row];
-            }
+            return [_UPnPBrowser networkServiceForIndex:row];
         }
 
         case VLCLocalServerSectionPlex:
@@ -245,7 +227,7 @@ typedef NS_ENUM(NSUInteger, VLCLocalServerSections) {
             return _manualConnectBrowser.numberOfItems;
 
         case VLCLocalServerSectionUPnP:
-            return _filteredUPNPDevices.count;
+            return _UPnPBrowser.numberOfItems;
 
         case VLCLocalServerSectionPlex:
             return _plexBrowser.numberOfItems;
@@ -272,11 +254,8 @@ typedef NS_ENUM(NSUInteger, VLCLocalServerSections) {
     if (_reachability.currentReachabilityStatus != ReachableViaWiFi)
          return NO;
 
-    UPnPManager *managerInstance = [UPnPManager GetInstance];
-    [[managerInstance DB] removeObserver:self];
-    [[managerInstance SSDP] stopSSDP];
-
-    [self _startUPNPDiscovery];
+    [self stopDiscovery];
+    [self startDiscovery];
 
     return YES;
 }
@@ -285,84 +264,6 @@ typedef NS_ENUM(NSUInteger, VLCLocalServerSections) {
 - (void)localNetworkServiceBrowserDidUpdateServices:(id<VLCLocalNetworkServiceBrowser>)serviceBrowser {
     if ([self.delegate respondsToSelector:@selector(discoveryFoundSomethingNew)]) {
         [self.delegate discoveryFoundSomethingNew];
-    }
-}
-
-#pragma mark - UPNP discovery
-- (void)_startUPNPDiscovery
-{
-    if (_reachability.currentReachabilityStatus != ReachableViaWiFi)
-        return;
-
-    UPnPManager *managerInstance = [UPnPManager GetInstance];
-
-    _UPNPdevices = [[managerInstance DB] rootDevices];
-
-    if (_UPNPdevices.count > 0)
-        [self UPnPDBUpdated:nil];
-
-    [[managerInstance DB] addObserver:self];
-
-    //Optional; set User Agent
-    if (!_setup) {
-        [[managerInstance SSDP] setUserAgentProduct:[NSString stringWithFormat:@"VLCforiOS/%@", [[NSBundle mainBundle] objectForInfoDictionaryKey:@"CFBundleShortVersionString"]] andOS:[NSString stringWithFormat:@"iOS/%@", [[UIDevice currentDevice] systemVersion]]];
-        _setup = YES;
-    }
-
-    //Search for UPnP Devices
-    [[managerInstance SSDP] startSSDP];
-    [[managerInstance SSDP] notifySSDPAlive];
-
-    _searchTimer = [[NSTimer alloc] initWithFireDate:[NSDate dateWithTimeIntervalSinceNow:1.0] interval:10.0 target:self selector:@selector(_performSSDPSearch) userInfo:nil repeats:YES];
-    [[NSRunLoop mainRunLoop] addTimer:_searchTimer forMode:NSRunLoopCommonModes];
-    _udnpDiscoveryRunning = YES;
-}
-
-- (void)_performSSDPSearch
-{
-    UPnPManager *managerInstance = [UPnPManager GetInstance];
-    [[managerInstance SSDP] searchSSDP];
-    [[managerInstance SSDP] searchForMediaServer];
-    [[managerInstance SSDP] performSelectorInBackground:@selector(SSDPDBUpdate) withObject:nil];
-}
-
-- (void)_stopUPNPDiscovery
-{
-    if (_udnpDiscoveryRunning) {
-        UPnPManager *managerInstance = [UPnPManager GetInstance];
-        [[managerInstance SSDP] notifySSDPByeBye];
-        [_searchTimer invalidate];
-        _searchTimer = nil;
-        [[managerInstance DB] removeObserver:self];
-        [[managerInstance SSDP] stopSSDP];
-        _udnpDiscoveryRunning = NO;
-    }
-}
-
-//protocol UPnPDBObserver
-- (void)UPnPDBWillUpdate:(UPnPDB*)sender
-{
-}
-
-- (void)UPnPDBUpdated:(UPnPDB*)sender
-{
-    NSUInteger count = _UPNPdevices.count;
-    BasicUPnPDevice *device;
-    NSMutableArray<VLCLocalNetworkServiceUPnP*> *mutArray = [[NSMutableArray alloc] init];
-    for (NSUInteger x = 0; x < count; x++) {
-        device = _UPNPdevices[x];
-        if ([[device urn] isEqualToString:@"urn:schemas-upnp-org:device:MediaServer:1"])
-            [mutArray addObject:[[VLCLocalNetworkServiceUPnP alloc] initWithUPnPDevice:device]];
-        else
-            APLog(@"found device '%@' with unsupported urn '%@'", [device friendlyName], [device urn]);
-    }
-    _filteredUPNPDevices = nil;
-    _filteredUPNPDevices = [NSArray arrayWithArray:mutArray];
-
-    if (self.delegate) {
-        if ([self.delegate respondsToSelector:@selector(discoveryFoundSomethingNew)]) {
-            [self.delegate performSelectorOnMainThread:@selector(discoveryFoundSomethingNew) withObject:nil waitUntilDone:NO];
-        }
     }
 }
 
