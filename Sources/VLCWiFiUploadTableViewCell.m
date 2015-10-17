@@ -93,10 +93,10 @@
 {
     NSDictionary *dict = NSDictionaryOfVariableBindings(_titleLabel, _uploadAddressLabel, _serverOnButton);
     
-    [self.contentView addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"H:|[_serverOnButton(50)][_titleLabel]" options:0 metrics:0 views:dict]];
-    [self.contentView addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"H:|[_serverOnButton(50)][_uploadAddressLabel]" options:0 metrics:0 views:dict]];
+    [self.contentView addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"H:|[_serverOnButton(50)]-==8-[_titleLabel]" options:0 metrics:0 views:dict]];
+    [self.contentView addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"H:|[_serverOnButton(50)]-==8-[_uploadAddressLabel]" options:0 metrics:0 views:dict]];
     [self.contentView addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"V:|[_serverOnButton(50)]|" options:0 metrics:0 views:dict]];
-    
+
     [self.contentView addConstraint:[NSLayoutConstraint constraintWithItem:_titleLabel attribute:NSLayoutAttributeTop relatedBy:NSLayoutRelationEqual toItem:self.contentView attribute:NSLayoutAttributeTop multiplier:1.0 constant:0]];
     [self.contentView addConstraint:[NSLayoutConstraint constraintWithItem:_uploadAddressLabel attribute:NSLayoutAttributeTop relatedBy:NSLayoutRelationEqual toItem:_titleLabel attribute:NSLayoutAttributeBottom multiplier:1.0 constant:0]];
 }

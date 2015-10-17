@@ -44,9 +44,11 @@
         UILabel *textLabel = self.textLabel;
         textLabel.translatesAutoresizingMaskIntoConstraints = NO;
         UIImageView *imageView = self.imageView;
+        imageView.translatesAutoresizingMaskIntoConstraints = NO;
 
         NSDictionary *dict = NSDictionaryOfVariableBindings(textLabel,imageView);
         [self addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"H:|[imageView(50)]-==8-[textLabel]|" options:0 metrics:0 views:dict]];
+
         [self addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"V:|[imageView(50)]|" options:0 metrics:0 views:dict]];
         [self addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"V:|[textLabel]|" options:0 metrics:0 views:dict]];
     }
