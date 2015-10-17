@@ -47,7 +47,7 @@
                         object:[UIApplication sharedApplication]];
 
     [defaultCenter addObserver:self
-                      selector:@selector(startDiscovery:)
+                      selector:@selector(startDiscovery)
                           name:UIApplicationDidBecomeActiveNotification
                         object:[UIApplication sharedApplication]];
 
