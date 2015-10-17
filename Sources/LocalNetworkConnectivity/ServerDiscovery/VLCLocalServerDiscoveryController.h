@@ -12,25 +12,20 @@
  *****************************************************************************/
 
 #import <Foundation/Foundation.h>
-#import "UPnPManager.h"
-
 #import "VLCLocalNetworkService.h"
-
 
 @protocol VLCLocalServerDiscoveryControllerDelegate <NSObject>
 - (void)discoveryFoundSomethingNew;
-
 @end
 
-
 @interface VLCLocalServerDiscoveryController : NSObject
-
 @property (nonatomic, readwrite, weak) id delegate;
-@property (nonatomic, readonly) NSArray *sectionHeaderTexts;
+
+- (NSUInteger)numberOfSections;
+- (NSString *)titleForSection:(NSUInteger)section;
+- (NSUInteger)numberOfItemsInSection:(NSUInteger)section;
 
 - (id<VLCLocalNetworkService>)networkServiceForIndexPath:(NSIndexPath *)indexPath;
-
-- (NSInteger)numberOfItemsInSection:(NSInteger)section;
 
 - (void)stopDiscovery;
 - (BOOL)refreshDiscoveredData;

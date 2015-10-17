@@ -30,7 +30,6 @@
     VLCLocalServerDiscoveryController *_discoveryController;
 
     UIBarButtonItem *_backToMenuButton;
-    NSArray *_sectionHeaderTexts;
 
     UIRefreshControl *_refreshControl;
     UIActivityIndicatorView *_activityIndicator;
@@ -67,8 +66,6 @@
 
     _discoveryController = [[VLCLocalServerDiscoveryController alloc] init];
     _discoveryController.delegate = self;
-
-    _sectionHeaderTexts = _discoveryController.sectionHeaderTexts;
 
     _backToMenuButton = [UIBarButtonItem themedRevealMenuButtonWithTarget:self andSelector:@selector(goBack:)];
     self.navigationItem.leftBarButtonItem = _backToMenuButton;
@@ -118,7 +115,7 @@
 
 - (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView
 {
-    return _sectionHeaderTexts.count;
+    return _discoveryController.numberOfSections;
 }
 
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section
@@ -275,31 +272,29 @@ confirmedWithUsername:(NSString *)username
 
 - (UIView *)tableView:(UITableView *)tableView viewForHeaderInSection:(NSInteger)section
 {
-    NSObject *headerText = NSLocalizedString(_sectionHeaderTexts[section], nil);
+    NSString *headerText = [_discoveryController titleForSection:section];
     UIView *headerView = nil;
-    if (headerText != [NSNull null]) {
-        headerView = [[UIView alloc] initWithFrame:CGRectMake(0.0f, 0.0f, [UIScreen mainScreen].bounds.size.height, 21.0f)];
-        headerView.backgroundColor = [UIColor VLCDarkBackgroundColor];
+    headerView = [[UIView alloc] initWithFrame:CGRectMake(0.0f, 0.0f, [UIScreen mainScreen].bounds.size.height, 21.0f)];
+    headerView.backgroundColor = [UIColor VLCDarkBackgroundColor];
 
-        UILabel *textLabel = [[UILabel alloc] initWithFrame:CGRectInset(headerView.bounds, 12.0f, 0.f)];
-        textLabel.text = (NSString *) headerText;
-        textLabel.font = [UIFont boldSystemFontOfSize:([UIFont systemFontSize] * 0.8f)];
-        textLabel.shadowOffset = CGSizeMake(0.0f, 1.0f);
-        textLabel.shadowColor = [UIColor VLCDarkTextShadowColor];
-        textLabel.textColor = [UIColor colorWithRed:(118.0f/255.0f) green:(118.0f/255.0f) blue:(118.0f/255.0f) alpha:1.0f];
-        textLabel.backgroundColor = [UIColor clearColor];
-        [headerView addSubview:textLabel];
+    UILabel *textLabel = [[UILabel alloc] initWithFrame:CGRectInset(headerView.bounds, 12.0f, 0.f)];
+    textLabel.text = (NSString *) headerText;
+    textLabel.font = [UIFont boldSystemFontOfSize:([UIFont systemFontSize] * 0.8f)];
+    textLabel.shadowOffset = CGSizeMake(0.0f, 1.0f);
+    textLabel.shadowColor = [UIColor VLCDarkTextShadowColor];
+    textLabel.textColor = [UIColor colorWithRed:(118.0f/255.0f) green:(118.0f/255.0f) blue:(118.0f/255.0f) alpha:1.0f];
+    textLabel.backgroundColor = [UIColor clearColor];
+    [headerView addSubview:textLabel];
 
-        UIView *topLine = [[UIView alloc] initWithFrame:CGRectMake(0.0f, 0.0f, [UIScreen mainScreen].bounds.size.height, 1.0f)];
-        topLine.backgroundColor = [UIColor colorWithRed:(95.0f/255.0f) green:(95.0f/255.0f) blue:(95.0f/255.0f) alpha:1.0f];
-        topLine.autoresizingMask = UIViewAutoresizingFlexibleWidth;
-        [headerView addSubview:topLine];
+    UIView *topLine = [[UIView alloc] initWithFrame:CGRectMake(0.0f, 0.0f, [UIScreen mainScreen].bounds.size.height, 1.0f)];
+    topLine.backgroundColor = [UIColor colorWithRed:(95.0f/255.0f) green:(95.0f/255.0f) blue:(95.0f/255.0f) alpha:1.0f];
+    topLine.autoresizingMask = UIViewAutoresizingFlexibleWidth;
+    [headerView addSubview:topLine];
 
-        UIView *bottomLine = [[UIView alloc] initWithFrame:CGRectMake(0.0f, 21.0f, [UIScreen mainScreen].bounds.size.height, 1.0f)];
-        bottomLine.backgroundColor = [UIColor colorWithRed:(16.0f/255.0f) green:(16.0f/255.0f) blue:(16.0f/255.0f) alpha:1.0f];
-        bottomLine.autoresizingMask = UIViewAutoresizingFlexibleWidth;
-        [headerView addSubview:bottomLine];
-    }
+    UIView *bottomLine = [[UIView alloc] initWithFrame:CGRectMake(0.0f, 21.0f, [UIScreen mainScreen].bounds.size.height, 1.0f)];
+    bottomLine.backgroundColor = [UIColor colorWithRed:(16.0f/255.0f) green:(16.0f/255.0f) blue:(16.0f/255.0f) alpha:1.0f];
+    bottomLine.autoresizingMask = UIViewAutoresizingFlexibleWidth;
+    [headerView addSubview:bottomLine];
     return headerView;
 }
 
