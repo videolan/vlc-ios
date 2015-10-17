@@ -135,6 +135,8 @@
 @end
 
 #import "VLCSharedLibraryParser.h"
+#import "VLCHTTPUploaderController.h"
+
 @interface VLCLocalNetworkServiceBrowserHTTP()
 @property (nonatomic) VLCSharedLibraryParser *httpParser;
 @end
@@ -159,6 +161,11 @@
     return _httpParser;
 }
 - (void)netServiceDidResolveAddress:(NSNetService *)sender {
+    NSString *ownHostname = [[VLCHTTPUploaderController sharedInstance] hostname];
+    if ([[sender hostName] rangeOfString:ownHostname].location != NSNotFound) {
+        return;
+    }
+
     [self.httpParser checkNetserviceForVLCService:sender];
 }
 
