@@ -32,6 +32,7 @@
 
 #import "Reachability.h"
 #import "VLCLocalNetworkServiceBrowserNetService.h"
+#import "VLCLocalNetworkServiceBrowserMediaDiscoverer.h"
 
 
 typedef NS_ENUM(NSUInteger, VLCLocalServerSections) {
@@ -56,8 +57,8 @@ typedef NS_ENUM(NSUInteger, VLCLocalServerSections) {
     NSArray<VLCLocalNetworkServiceUPnP*> *_filteredUPNPDevices;
     NSArray *_UPNPdevices;
 
-    VLCMediaDiscoverer *_sapDiscoverer;
-    VLCMediaDiscoverer *_dsmDiscoverer;
+    id<VLCLocalNetworkServiceBrowser> _sapBrowser;
+    id<VLCLocalNetworkServiceBrowser> _dsmBrowser;
 
     VLCSharedLibraryParser *_httpParser;
 
@@ -85,8 +86,8 @@ typedef NS_ENUM(NSUInteger, VLCLocalServerSections) {
 - (void)stopDiscovery
 {
     [self _stopUPNPDiscovery];
-    [self _stopSAPDiscovery];
-    [self _stopDSMDiscovery];
+    [_sapBrowser stopDiscovery];
+    [_dsmBrowser stopDiscovery];
 
     [_FTPBrowser stopDiscovery];
     [_plexBrowser stopDiscovery];
@@ -110,8 +111,8 @@ typedef NS_ENUM(NSUInteger, VLCLocalServerSections) {
              _plexBrowser.name,
              _FTPBrowser.name,
              _HTTPBrowser.name,
-             NSLocalizedString(@"SMB_CIFS_FILE_SERVERS", nil),
-             @"SAP"];
+             _dsmBrowser.name,
+             _sapBrowser.name];
 }
 
 - (instancetype)init
@@ -140,6 +141,10 @@ typedef NS_ENUM(NSUInteger, VLCLocalServerSections) {
     _HTTPBrowser = [[VLCLocalNetworkServiceBrowserHTTP alloc] init];
     _HTTPBrowser.delegate = self;
 
+    _sapBrowser = [[VLCLocalNetworkServiceBrowserSAP alloc] init];
+    _sapBrowser.delegate = self;
+
+
     _reachability = [Reachability reachabilityForLocalWiFi];
     [_reachability startNotifier];
 
@@ -156,20 +161,17 @@ typedef NS_ENUM(NSUInteger, VLCLocalServerSections) {
 {
     if (_reachability.currentReachabilityStatus == ReachableViaWiFi) {
         [self _startUPNPDiscovery];
-        [self _startSAPDiscovery];
-        [self _startDSMDiscovery];
+        [self startDiscovery];
     } else {
         [self _stopUPNPDiscovery];
-        [self _stopSAPDiscovery];
-        [self _stopDSMDiscovery];
+        [self stopDiscovery];
     }
 }
 
 - (IBAction)goBack:(id)sender
 {
     [self _stopUPNPDiscovery];
-    [self _stopSAPDiscovery];
-    [self _stopDSMDiscovery];
+    [self stopDiscovery];
 
     [[VLCSidebarController sharedInstance] toggleSidebar];
 }
@@ -220,12 +222,12 @@ typedef NS_ENUM(NSUInteger, VLCLocalServerSections) {
 
         case VLCLocalServerSectionSMB:
         {
-            return [[VLCLocalNetworkServiceDSM alloc] initWithMediaItem:[_dsmDiscoverer.discoveredMedia mediaAtIndex:row]];
+            return [_dsmBrowser networkServiceForIndex:row];
         }
 
         case VLCLocalServerSectionSAP:
         {
-            return [[VLCLocalNetworkServiceSAP alloc] initWithMediaItem:[_sapDiscoverer.discoveredMedia mediaAtIndex:row]];
+            return [_sapBrowser networkServiceForIndex:row];
         }
 
         default:
@@ -255,10 +257,10 @@ typedef NS_ENUM(NSUInteger, VLCLocalServerSections) {
             return _HTTPBrowser.numberOfItems;
 
         case VLCLocalServerSectionSMB:
-            return _dsmDiscoverer.discoveredMedia.count;
+            return _dsmBrowser.numberOfItems;
 
         case VLCLocalServerSectionSAP:
-            return _sapDiscoverer.discoveredMedia.count;
+            return _sapBrowser.numberOfItems;
 
         default:
             return 0;
@@ -273,11 +275,8 @@ typedef NS_ENUM(NSUInteger, VLCLocalServerSections) {
     UPnPManager *managerInstance = [UPnPManager GetInstance];
     [[managerInstance DB] removeObserver:self];
     [[managerInstance SSDP] stopSSDP];
-    [self _stopDSMDiscovery];
 
     [self _startUPNPDiscovery];
-    [self _startSAPDiscovery];
-    [self _startDSMDiscovery];
 
     return YES;
 }
@@ -365,65 +364,6 @@ typedef NS_ENUM(NSUInteger, VLCLocalServerSections) {
             [self.delegate performSelectorOnMainThread:@selector(discoveryFoundSomethingNew) withObject:nil waitUntilDone:NO];
         }
     }
-}
-
-#pragma mark SAP discovery
-
-- (void)_startSAPDiscovery
-{
-    if (_reachability.currentReachabilityStatus != ReachableViaWiFi)
-        return;
-
-    if (!_sapDiscoverer)
-        _sapDiscoverer = [[VLCMediaDiscoverer alloc] initWithName:@"sap"];
-    [_sapDiscoverer startDiscoverer];
-    _sapDiscoverer.discoveredMedia.delegate = self;
-}
-
-- (void)_stopSAPDiscovery
-{
-    [_sapDiscoverer stopDiscoverer];
-    _sapDiscoverer = nil;
-}
-
-- (void)mediaList:(VLCMediaList *)aMediaList mediaAdded:(VLCMedia *)media atIndex:(NSInteger)index
-{
-    [media parseWithOptions:VLCMediaParseNetwork];
-    if (self.delegate) {
-        if ([self.delegate respondsToSelector:@selector(discoveryFoundSomethingNew)]) {
-            [self.delegate performSelectorOnMainThread:@selector(discoveryFoundSomethingNew) withObject:nil waitUntilDone:NO];
-        }
-    }
-}
-
-- (void)mediaList:(VLCMediaList *)aMediaList mediaRemovedAtIndex:(NSInteger)index
-{
-    if (self.delegate) {
-        if ([self.delegate respondsToSelector:@selector(discoveryFoundSomethingNew)]) {
-            [self.delegate performSelectorOnMainThread:@selector(discoveryFoundSomethingNew) withObject:nil waitUntilDone:NO];
-        }
-    }
-}
-
-#pragma DSM discovery
-
-- (void)_startDSMDiscovery
-{
-    if (_reachability.currentReachabilityStatus != ReachableViaWiFi)
-        return;
-
-    if (_dsmDiscoverer)
-        return;
-
-    _dsmDiscoverer = [[VLCMediaDiscoverer alloc] initWithName:@"dsm"];
-    [_dsmDiscoverer startDiscoverer];
-    _dsmDiscoverer.discoveredMedia.delegate = self;
-}
-
-- (void)_stopDSMDiscovery
-{
-    [_dsmDiscoverer stopDiscoverer];
-    _dsmDiscoverer = nil;
 }
 
 @end
