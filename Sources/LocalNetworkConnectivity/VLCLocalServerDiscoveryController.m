@@ -33,7 +33,7 @@
 #import "Reachability.h"
 #import "VLCLocalNetworkServiceBrowserNetService.h"
 #import "VLCLocalNetworkServiceBrowserMediaDiscoverer.h"
-
+#import "VLCLocalNetworkServiceBrowserManualConnect.h"
 
 typedef NS_ENUM(NSUInteger, VLCLocalServerSections) {
     VLCLocalServerSectionGeneric = 0,
@@ -49,7 +49,7 @@ typedef NS_ENUM(NSUInteger, VLCLocalServerSections) {
 
 @interface VLCLocalServerDiscoveryController () <VLCLocalNetworkServiceBrowserDelegate, VLCMediaListDelegate, UPnPDBObserver>
 {
-
+    id<VLCLocalNetworkServiceBrowser> _manualConnectBrowser;
     id<VLCLocalNetworkServiceBrowser> _plexBrowser;
     id<VLCLocalNetworkServiceBrowser> _FTPBrowser;
     id<VLCLocalNetworkServiceBrowser> _HTTPBrowser;
@@ -106,7 +106,7 @@ typedef NS_ENUM(NSUInteger, VLCLocalServerSections) {
 
 - (NSArray *)sectionHeaderTexts
 {
-    return @[@"Generic",
+    return @[_manualConnectBrowser.name,
              @"Universal Plug'n'Play (UPnP)",
              _plexBrowser.name,
              _FTPBrowser.name,
@@ -133,6 +133,7 @@ typedef NS_ENUM(NSUInteger, VLCLocalServerSections) {
                           name:UIApplicationDidBecomeActiveNotification
                         object:[UIApplication sharedApplication]];
 
+    _manualConnectBrowser = [[VLCLocalNetworkServiceBrowserManualConnect alloc] init];
 
     _plexBrowser = [[VLCLocalNetworkServiceBrowserPlex alloc] init];
     _plexBrowser.delegate = self;
@@ -194,7 +195,7 @@ typedef NS_ENUM(NSUInteger, VLCLocalServerSections) {
     switch (section) {
         case VLCLocalServerSectionGeneric:
         {
-            return [[VLCLocalNetworkServiceItemLogin alloc] init];
+            return [_manualConnectBrowser networkServiceForIndex:row];
         }
 
         case VLCLocalServerSectionUPnP:
@@ -241,7 +242,7 @@ typedef NS_ENUM(NSUInteger, VLCLocalServerSections) {
 {
     switch (section) {
         case VLCLocalServerSectionGeneric:
-            return 1;
+            return _manualConnectBrowser.numberOfItems;
 
         case VLCLocalServerSectionUPnP:
             return _filteredUPNPDevices.count;
