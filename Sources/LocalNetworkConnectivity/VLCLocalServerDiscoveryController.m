@@ -64,8 +64,6 @@ typedef NS_ENUM(NSUInteger, VLCLocalServerSections) {
 
     Reachability *_reachability;
 
-    NSString *_myHostName;
-
     BOOL _udnpDiscoveryRunning;
     NSTimer *_searchTimer;
     BOOL _setup;
@@ -146,13 +144,14 @@ typedef NS_ENUM(NSUInteger, VLCLocalServerSections) {
     _sapBrowser = [[VLCLocalNetworkServiceBrowserSAP alloc] init];
     _sapBrowser.delegate = self;
 
+    _dsmBrowser = [[VLCLocalNetworkServiceBrowserDSM alloc] init];
+    _dsmBrowser.delegate = self;
+
 
     _reachability = [Reachability reachabilityForLocalWiFi];
     [_reachability startNotifier];
 
     [self netReachabilityChanged];
-
-    _myHostName = [[VLCHTTPUploaderController sharedInstance] hostname];
 
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(netReachabilityChanged) name:kReachabilityChangedNotification object:nil];
 

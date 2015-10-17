@@ -14,10 +14,13 @@
 #import "VLCLocalNetworkServiceBrowserMediaDiscoverer.h"
 
 @interface VLCLocalNetworkServiceBrowserMediaDiscoverer () <VLCMediaListDelegate>
+@property (nonatomic, readonly) NSString *serviceName;
+@property (nonatomic, readwrite) VLCMediaDiscoverer* mediaDiscoverer;
 
 @end
+
 @implementation VLCLocalNetworkServiceBrowserMediaDiscoverer
-@synthesize name = _name;
+@synthesize name = _name, delegate = _delegate;
 
 - (instancetype)initWithName:(NSString *)name serviceServiceName:(NSString *)serviceName
 {
@@ -25,20 +28,32 @@
     if (self) {
         _name = name;
         _serviceName = serviceName;
-        _mediaDiscoverer = [[VLCMediaDiscoverer alloc] initWithName:serviceName];
-        _mediaDiscoverer.discoveredMedia.delegate = self;
     }
     return self;
+}
+- (instancetype)init {
+    return [self initWithName:@"" serviceServiceName:@""];
 }
 
 - (void)startDiscovery
 {
-    [self.mediaDiscoverer startDiscoverer];
+    // don't start discovery twice
+    if (self.mediaDiscoverer) {
+        return;
+    }
+    VLCMediaDiscoverer *discoverer = [[VLCMediaDiscoverer alloc] initWithName:self.serviceName];
+    self.mediaDiscoverer = discoverer;
+    [discoverer startDiscoverer];
+    discoverer.discoveredMedia.delegate = self;
+
 }
 
 - (void)stopDiscovery
 {
-    [self.mediaDiscoverer stopDiscoverer];
+    VLCMediaDiscoverer *discoverer = self.mediaDiscoverer;
+    discoverer.discoveredMedia.delegate = nil;
+    [discoverer stopDiscoverer];
+    self.mediaDiscoverer = nil;
 }
 
 - (NSUInteger)numberOfItems {
