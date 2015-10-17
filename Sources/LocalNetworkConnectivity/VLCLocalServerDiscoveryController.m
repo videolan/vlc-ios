@@ -97,11 +97,13 @@ typedef NS_ENUM(NSUInteger, VLCLocalServerSections) {
 - (void)startDiscovery
 {
 
+    [self _startUPNPDiscovery];
+    [_sapBrowser startDiscovery];
+    [_dsmBrowser startDiscovery];
+
     [_FTPBrowser startDiscovery];
     [_plexBrowser startDiscovery];
     [_HTTPBrowser startDiscovery];
-
-    [self netReachabilityChanged];
 }
 
 - (NSArray *)sectionHeaderTexts
@@ -160,10 +162,8 @@ typedef NS_ENUM(NSUInteger, VLCLocalServerSections) {
 - (void)netReachabilityChanged
 {
     if (_reachability.currentReachabilityStatus == ReachableViaWiFi) {
-        [self _startUPNPDiscovery];
         [self startDiscovery];
     } else {
-        [self _stopUPNPDiscovery];
         [self stopDiscovery];
     }
 }
