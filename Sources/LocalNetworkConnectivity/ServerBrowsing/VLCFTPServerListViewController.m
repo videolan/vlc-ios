@@ -21,34 +21,23 @@
 #import "VLCDownloadViewController.h"
 
 #import "WhiteRaccoon.h"
+#import "VLCNetworkServerBrowserFTP.h"
 
-@interface VLCFTPServerListViewController () <WRRequestDelegate, VLCNetworkListCellDelegate, UITableViewDataSource, UITableViewDelegate, UIActionSheetDelegate>
-{
-    NSString *_ftpServerAddress;
-    NSString *_ftpServerUserName;
-    NSString *_ftpServerPassword;
-    NSString *_ftpServerPath;
-    WRRequestListDirectory *_FTPListDirRequest;
-
-    NSArray *_objectList;
-    NSMutableArray *_searchData;
-}
-
+@interface VLCFTPServerListViewController () <VLCNetworkServerBrowserDelegate,VLCNetworkListCellDelegate, UITableViewDataSource, UITableViewDelegate, UIActionSheetDelegate>
+@property (nonatomic) VLCNetworkServerBrowserFTP *serverBrowser;
+@property (nonatomic) NSByteCountFormatter *byteCounterFormatter;
+@property (nonatomic) NSArray<id<VLCNetworkServerBrowserItem>> *searchArray;
 @end
 
 @implementation VLCFTPServerListViewController
 
-- (id)initWithFTPServer:(NSString *)serverAddress userName:(NSString *)username andPassword:(NSString *)password atPath:(NSString *)path
+- (instancetype)initWithServerBrowser:(id<VLCNetworkServerBrowser>)browser
 {
     self = [super init];
-
     if (self) {
-        _ftpServerAddress = serverAddress;
-        _ftpServerUserName = username;
-        _ftpServerPassword = password;
-        _ftpServerPath = path;
+        _serverBrowser = browser;
+        browser.delegate = self;
     }
-
     return self;
 }
 
@@ -56,102 +45,90 @@
 {
     [super viewDidLoad];
 
-    if ([_ftpServerPath isEqualToString:@"/"])
-        self.title = _ftpServerAddress;
-    else
-        self.title = [_ftpServerPath lastPathComponent];
-    [self _listFTPDirectory];
+    self.title = self.serverBrowser.title;
+    [self update];
+}
+
+- (void)networkServerBrowserDidUpdate:(id<VLCNetworkServerBrowser>)networkBrowser {
+    [self.tableView reloadData];
+    [[VLCActivityManager defaultManager] networkActivityStopped];
+
+}
+
+- (void)networkServerBrowser:(id<VLCNetworkServerBrowser>)networkBrowser requestDidFailWithError:(NSError *)error {
+
+    VLCAlertView *alert = [[VLCAlertView alloc] initWithTitle:NSLocalizedString(@"LOCAL_SERVER_CONNECTION_FAILED_TITLE", nil)
+                                                      message:NSLocalizedString(@"LOCAL_SERVER_CONNECTION_FAILED_MESSAGE", nil)
+                                                     delegate:self
+                                            cancelButtonTitle:NSLocalizedString(@"BUTTON_CANCEL", nil)
+                                            otherButtonTitles:nil];
+    [alert show];
+    
+}
+
+- (void)update
+{
+    [self.serverBrowser update];
+    [[VLCActivityManager defaultManager] networkActivityStarted];
+}
+
+#pragma mark -
+- (NSByteCountFormatter *)byteCounterFormatter {
+    if (!_byteCounterFormatter) {
+        _byteCounterFormatter = [[NSByteCountFormatter alloc] init];
+    }
+    return _byteCounterFormatter;
 }
 
 #pragma mark - ftp specifics
 
 
-- (void)_listFTPDirectory
+- (void)_downloadFTPFile:(id<VLCNetworkServerBrowserItem>)item
 {
-    if (_FTPListDirRequest)
-        return;
-
-    _FTPListDirRequest = [[WRRequestListDirectory alloc] init];
-    _FTPListDirRequest.delegate = self;
-    _FTPListDirRequest.hostname = _ftpServerAddress;
-    _FTPListDirRequest.username = _ftpServerUserName;
-    _FTPListDirRequest.password = _ftpServerPassword;
-    _FTPListDirRequest.path = _ftpServerPath;
-    _FTPListDirRequest.passive = YES;
-
-    [[VLCActivityManager defaultManager] networkActivityStarted];
-    [_FTPListDirRequest start];
+    [[VLCDownloadViewController sharedInstance] addURLToDownloadList:item.URL fileNameOfMedia:nil];
 }
 
-- (NSString *)_credentials
-{
-    NSString *cred;
-
-    if (_ftpServerUserName.length > 0) {
-        if (_ftpServerPassword.length > 0)
-            cred = [NSString stringWithFormat:@"%@:%@@", _ftpServerUserName, _ftpServerPassword];
-        else
-            cred = [NSString stringWithFormat:@"%@@", _ftpServerPassword];
-    } else
-        cred = @"";
-
-    return [cred stringByStandardizingPath];
-}
-
-- (void)_downloadFTPFile:(NSString *)fileName
-{
-    NSURL *URLToQueue = [NSURL URLWithString:[[@"ftp" stringByAppendingFormat:@"://%@%@/%@/%@", [self _credentials], _ftpServerAddress, _ftpServerPath, fileName] stringByAddingPercentEscapesUsingEncoding:NSUTF8StringEncoding]];
-
-    [[VLCDownloadViewController sharedInstance] addURLToDownloadList:URLToQueue fileNameOfMedia:nil];
-}
-
-- (void)_streamFTPFile:(NSString *)fileName
+- (void)_streamFTPFile:(id<VLCNetworkServerBrowserItem>)item
 {
     NSString *URLofSubtitle = nil;
-    NSArray *SubtitlesList = [self _searchSubtitle:fileName];
+    NSArray *SubtitlesList = [self _searchSubtitle:item.URL.lastPathComponent];
 
     if(SubtitlesList.count > 0)
         URLofSubtitle = [self _getFileSubtitleFromFtpServer:SubtitlesList[0]];
 
-    NSURL *URLToPlay = [NSURL URLWithString:[[@"ftp" stringByAppendingFormat:@"://%@%@/%@/%@", [self _credentials], _ftpServerAddress, _ftpServerPath, fileName] stringByAddingPercentEscapesUsingEncoding:NSUTF8StringEncoding]];
+    NSURL *URLToPlay = item.URL;
 
     VLCPlaybackController *vpc = [VLCPlaybackController sharedInstance];
     [vpc playURL:URLToPlay subtitlesFilePath:URLofSubtitle];
 }
 
-- (NSArray *)_searchSubtitle:(NSString *)url
+- (NSArray<NSURL*> *)_searchSubtitle:(NSString *)url
 {
     NSString *urlTemp = [[url lastPathComponent] stringByDeletingPathExtension];
-    NSMutableArray *ObjList = [[NSMutableArray alloc] init];
-    NSUInteger count = _objectList.count;
 
-    for (NSUInteger i = 0; i < count; i++)
-        [ObjList addObject:[_objectList[i] objectForKey:(id)kCFFTPResourceName]];
+    NSMutableArray<NSURL*> *urls = [NSMutableArray arrayWithArray:[self.serverBrowser.items valueForKey:@"URL"]];
 
-    NSPredicate *predicate = [NSPredicate predicateWithFormat:@"SELF contains[c] %@", urlTemp];
-    NSArray *results = [ObjList filteredArrayUsingPredicate:predicate];
+    NSPredicate *namePredicate = [NSPredicate predicateWithFormat:@"SELF.path contains[c] %@", urlTemp];
+    [urls filterUsingPredicate:namePredicate];
 
-    [ObjList removeAllObjects];
+    NSPredicate *formatPrediate = [NSPredicate predicateWithBlock:^BOOL(NSURL *_Nonnull evaluatedObject, NSDictionary<NSString *,id> * _Nullable bindings) {
+        return [evaluatedObject.path isSupportedSubtitleFormat];
+    }];
+    [urls filterUsingPredicate:formatPrediate];
 
-    count = results.count;
-
-    for (NSUInteger i = 0; i < count; i++) {
-        if ([results[i] isSupportedSubtitleFormat])
-            [ObjList addObject:results[i]];
-    }
-    return [NSArray arrayWithArray:ObjList];
+    return [NSArray arrayWithArray:urls];
 }
 
-- (NSString *)_getFileSubtitleFromFtpServer:(NSString *)fileName
+- (NSString *)_getFileSubtitleFromFtpServer:(NSURL *)subtitleURL
 {
-    NSURL *url = [NSURL URLWithString:[[@"ftp" stringByAppendingFormat:@"://%@%@/%@/%@", [self _credentials], _ftpServerAddress, _ftpServerPath, fileName] stringByAddingPercentEscapesUsingEncoding:NSUTF8StringEncoding]];
+
     NSString *FileSubtitlePath = nil;
-    NSData *receivedSub = [NSData dataWithContentsOfURL:url];
+    NSData *receivedSub = [NSData dataWithContentsOfURL:subtitleURL]; // TODO: fix synchronous load
 
     if (receivedSub.length < [[UIDevice currentDevice] freeDiskspace].longLongValue) {
         NSArray *searchPaths = NSSearchPathForDirectoriesInDomains(NSCachesDirectory, NSUserDomainMask, YES);
         NSString *directoryPath = searchPaths[0];
-        FileSubtitlePath = [directoryPath stringByAppendingPathComponent:[fileName lastPathComponent]];
+        FileSubtitlePath = [directoryPath stringByAppendingPathComponent:[subtitleURL lastPathComponent]];
 
         NSFileManager *fileManager = [NSFileManager defaultManager];
         if (![fileManager fileExistsAtPath:FileSubtitlePath]) {
@@ -163,7 +140,7 @@
         [receivedSub writeToFile:FileSubtitlePath atomically:YES];
     } else {
         VLCAlertView *alert = [[VLCAlertView alloc] initWithTitle:NSLocalizedString(@"DISK_FULL", nil)
-                                                          message:[NSString stringWithFormat:NSLocalizedString(@"DISK_FULL_FORMAT", nil), [fileName lastPathComponent], [[UIDevice currentDevice] model]]
+                                                          message:[NSString stringWithFormat:NSLocalizedString(@"DISK_FULL_FORMAT", nil), [subtitleURL lastPathComponent], [[UIDevice currentDevice] model]]
                                                          delegate:self
                                                 cancelButtonTitle:NSLocalizedString(@"BUTTON_OK", nil)
                                                 otherButtonTitles:nil];
@@ -178,9 +155,9 @@
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section
 {
     if (tableView == self.searchDisplayController.searchResultsTableView)
-        return _searchData.count;
+        return _searchArray.count;
 
-    return _objectList.count;
+    return self.serverBrowser.items.count;
 }
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
@@ -189,23 +166,23 @@
     if (cell == nil)
         cell = [VLCNetworkListCell cellWithReuseIdentifier:VLCNetworkListCellIdentifier];
 
-    NSDictionary *cellObject;
-    if (tableView == self.searchDisplayController.searchResultsTableView)
-        cellObject = _searchData[indexPath.row];
-    else
-        cellObject = _objectList[indexPath.row];
 
-    NSString *rawFileName = [cellObject objectForKey:(id)kCFFTPResourceName];
-    NSData *flippedData = [rawFileName dataUsingEncoding:[[[NSUserDefaults standardUserDefaults] objectForKey:kVLCSettingFTPTextEncoding] intValue] allowLossyConversion:YES];
-    cell.title = [[NSString alloc] initWithData:flippedData encoding:NSUTF8StringEncoding];
+    id<VLCNetworkServerBrowserItem> item;
+    if (tableView == self.searchDisplayController.searchResultsTableView) {
+        item = _searchArray[indexPath.row];
+    } else {
+        item = self.serverBrowser.items[indexPath.row];
+    }
 
-    if ([cellObject[(id)kCFFTPResourceType] intValue] == 4) {
+    cell.title = item.name;
+
+    if (item.isContainer) {
         cell.isDirectory = YES;
         cell.icon = [UIImage imageNamed:@"folder"];
     } else {
         cell.isDirectory = NO;
         cell.icon = [UIImage imageNamed:@"blank"];
-        cell.subtitle = [NSString stringWithFormat:@"%0.2f MB", (float)([cellObject[(id)kCFFTPResourceSize] intValue] / 1e6)];
+        cell.subtitle = item.fileSizeBytes ? [self.byteCounterFormatter stringFromByteCount:item.fileSizeBytes.longLongValue] : nil;
         cell.isDownloadable = YES;
         cell.delegate = self;
     }
@@ -226,22 +203,19 @@
 
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
 {
-    NSDictionary *cellObject;
+    id<VLCNetworkServerBrowserItem> item;
+    if (tableView == self.searchDisplayController.searchResultsTableView) {
+        item = _searchArray[indexPath.row];
+    } else {
+        item = self.serverBrowser.items[indexPath.row];
+    }
 
-    if (tableView == self.searchDisplayController.searchResultsTableView)
-        cellObject = _searchData[indexPath.row];
-    else
-        cellObject = _objectList[indexPath.row];
+    if (item.isContainer) {
 
-    if ([cellObject[(id)kCFFTPResourceType] intValue] == 4) {
-        NSString *newPath = [NSString stringWithFormat:@"%@/%@", _ftpServerPath, cellObject[(id)kCFFTPResourceName]];
-
-        VLCFTPServerListViewController *targetViewController = [[VLCFTPServerListViewController alloc] initWithFTPServer:_ftpServerAddress userName:_ftpServerUserName andPassword:_ftpServerPassword atPath:newPath];
+        VLCFTPServerListViewController *targetViewController = [[VLCFTPServerListViewController alloc] initWithServerBrowser:item.containerBrowser];
         [self.navigationController pushViewController:targetViewController animated:YES];
     } else {
-        NSString *rawObjectName = cellObject[(id)kCFFTPResourceName];
-        NSData *flippedData = [rawObjectName dataUsingEncoding:[[[NSUserDefaults standardUserDefaults] objectForKey:kVLCSettingFTPTextEncoding] intValue] allowLossyConversion:YES];
-        NSString *properObjectName = [[NSString alloc] initWithData:flippedData encoding:NSUTF8StringEncoding];
+        NSString *properObjectName = item.name;
         if (![properObjectName isSupportedFormat]) {
             VLCAlertView *alert = [[VLCAlertView alloc] initWithTitle:NSLocalizedString(@"FILE_NOT_SUPPORTED", nil)
                                                               message:[NSString stringWithFormat:NSLocalizedString(@"FILE_NOT_SUPPORTED_LONG", nil), properObjectName]
@@ -250,7 +224,7 @@
                                                     otherButtonTitles:nil];
             [alert show];
         } else
-            [self _streamFTPFile:properObjectName];
+            [self _streamFTPFile:item];
     }
     [tableView deselectRowAtIndexPath:indexPath animated:NO];
 }
@@ -258,35 +232,27 @@
 #pragma mark - VLCNetworkListCell delegation
 - (void)triggerDownloadForCell:(VLCNetworkListCell *)cell
 {
-    NSString *rawObjectName;
-    NSInteger size;
-
-    NSDictionary *cellObject;
-
+    id<VLCNetworkServerBrowserItem> item;
     if ([self.searchDisplayController isActive])
-        cellObject = _searchData[[self.searchDisplayController.searchResultsTableView indexPathForCell:cell].row];
+        item = _searchArray[[self.searchDisplayController.searchResultsTableView indexPathForCell:cell].row];
     else
-        cellObject = _objectList[[self.tableView indexPathForCell:cell].row];
+        item = self.serverBrowser.items[[self.tableView indexPathForCell:cell].row];
 
-    rawObjectName = cellObject[(id)kCFFTPResourceName];
-    size = [cellObject[(id)kCFFTPResourceSize] intValue];
 
-    NSData *flippedData = [rawObjectName dataUsingEncoding:[[[NSUserDefaults standardUserDefaults] objectForKey:kVLCSettingFTPTextEncoding] intValue] allowLossyConversion:YES];
-    NSString *properObjectName = [[NSString alloc] initWithData:flippedData encoding:NSUTF8StringEncoding];
-    if (![properObjectName isSupportedFormat]) {
+    if (![item.name isSupportedFormat]) {
         VLCAlertView *alert = [[VLCAlertView alloc] initWithTitle:NSLocalizedString(@"FILE_NOT_SUPPORTED", nil)
-                                                          message:[NSString stringWithFormat:NSLocalizedString(@"FILE_NOT_SUPPORTED_LONG", nil), properObjectName]
+                                                          message:[NSString stringWithFormat:NSLocalizedString(@"FILE_NOT_SUPPORTED_LONG", nil), item.name]
                                                          delegate:self
                                                 cancelButtonTitle:NSLocalizedString(@"BUTTON_CANCEL", nil)
                                                 otherButtonTitles:nil];
         [alert show];
     } else {
-        if (size  < [[UIDevice currentDevice] freeDiskspace].longLongValue) {
-            [self _downloadFTPFile:properObjectName];
+        if (item.fileSizeBytes.longLongValue  < [[UIDevice currentDevice] freeDiskspace].longLongValue) {
+            [self _downloadFTPFile:item];
             [cell.statusLabel showStatusMessage:NSLocalizedString(@"DOWNLOADING", nil)];
         } else {
             VLCAlertView *alert = [[VLCAlertView alloc] initWithTitle:NSLocalizedString(@"DISK_FULL", nil)
-                                                              message:[NSString stringWithFormat:NSLocalizedString(@"DISK_FULL_FORMAT", nil), properObjectName, [[UIDevice currentDevice] model]]
+                                                              message:[NSString stringWithFormat:NSLocalizedString(@"DISK_FULL_FORMAT", nil), item.name, [[UIDevice currentDevice] model]]
                                                              delegate:self
                                                     cancelButtonTitle:NSLocalizedString(@"BUTTON_OK", nil)
                                                     otherButtonTitles:nil];
@@ -295,59 +261,13 @@
     }
 }
 
-#pragma mark - white raccoon delegation
-
-- (void)requestCompleted:(WRRequest *)request
-{
-    if (request == _FTPListDirRequest) {
-        NSMutableArray *filteredList = [[NSMutableArray alloc] init];
-        NSArray *rawList = [(WRRequestListDirectory*)request filesInfo];
-        NSUInteger count = rawList.count;
-
-        for (NSUInteger x = 0; x < count; x++) {
-            if (![[rawList[x] objectForKey:(id)kCFFTPResourceName] hasPrefix:@"."])
-                [filteredList addObject:rawList[x]];
-        }
-
-        _objectList = [NSArray arrayWithArray:filteredList];
-        [self.tableView reloadData];
-    } else
-        APLog(@"unknown request %@ completed", request);
-}
-
-- (void)requestFailed:(WRRequest *)request
-{
-    VLCAlertView *alert = [[VLCAlertView alloc] initWithTitle:NSLocalizedString(@"LOCAL_SERVER_CONNECTION_FAILED_TITLE", nil)
-                                                      message:NSLocalizedString(@"LOCAL_SERVER_CONNECTION_FAILED_MESSAGE", nil)
-                                                     delegate:self
-                                            cancelButtonTitle:NSLocalizedString(@"BUTTON_CANCEL", nil)
-                                            otherButtonTitles:nil];
-    [alert show];
-
-    APLog(@"request %@ failed with error %i", request, request.error.errorCode);
-}
 
 #pragma mark - search
 
 - (BOOL)searchDisplayController:(UISearchDisplayController *)controller shouldReloadTableForSearchString:(NSString *)searchString
 {
-    NSInteger listCount = 0;
-    [_searchData removeAllObjects];
-
-    listCount = _objectList.count;
-
-    for (int i = 0; i < listCount; i++) {
-        NSRange nameRange;
-
-        NSString *rawObjectName = [_objectList[i] objectForKey:(id)kCFFTPResourceName];
-        NSData *flippedData = [rawObjectName dataUsingEncoding:[[[NSUserDefaults standardUserDefaults] objectForKey:kVLCSettingFTPTextEncoding] intValue] allowLossyConversion:YES];
-        NSString *properObjectName = [[NSString alloc] initWithData:flippedData encoding:NSUTF8StringEncoding];
-        nameRange = [properObjectName rangeOfString:searchString options:NSCaseInsensitiveSearch];
-
-        if (nameRange.location != NSNotFound)
-            [_searchData addObject:_objectList[i]];
-    }
-
+    NSPredicate *predicate = [NSPredicate predicateWithFormat:@"name contains[c] %@",searchString];
+    self.searchArray = [self.serverBrowser.items filteredArrayUsingPredicate:predicate];
     return YES;
 }
 

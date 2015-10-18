@@ -266,6 +266,7 @@
 		DDE3C8DD1BD246DD00C03B8B /* VLCLocalNetworkServiceBrowserMediaDiscoverer.m in Sources */ = {isa = PBXBuildFile; fileRef = DDE3C8DC1BD246DD00C03B8B /* VLCLocalNetworkServiceBrowserMediaDiscoverer.m */; };
 		DDE3C8E01BD24FAC00C03B8B /* VLCLocalNetworkServiceBrowserManualConnect.m in Sources */ = {isa = PBXBuildFile; fileRef = DDE3C8DF1BD24FAC00C03B8B /* VLCLocalNetworkServiceBrowserManualConnect.m */; };
 		DDE3C8E31BD2592300C03B8B /* VLCLocalNetworkServiceBrowserUPnP.m in Sources */ = {isa = PBXBuildFile; fileRef = DDE3C8E21BD2592300C03B8B /* VLCLocalNetworkServiceBrowserUPnP.m */; };
+		DDE3C8E81BD3A81600C03B8B /* VLCNetworkServerBrowserFTP.m in Sources */ = {isa = PBXBuildFile; fileRef = DDE3C8E71BD3A81600C03B8B /* VLCNetworkServerBrowserFTP.m */; };
 		E0C04F951A25B4410080331A /* VLCDocumentPickerController.m in Sources */ = {isa = PBXBuildFile; fileRef = E0C04F941A25B4410080331A /* VLCDocumentPickerController.m */; };
 /* End PBXBuildFile section */
 
@@ -824,6 +825,9 @@
 		DDE3C8DF1BD24FAC00C03B8B /* VLCLocalNetworkServiceBrowserManualConnect.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = VLCLocalNetworkServiceBrowserManualConnect.m; sourceTree = "<group>"; };
 		DDE3C8E11BD2592300C03B8B /* VLCLocalNetworkServiceBrowserUPnP.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = VLCLocalNetworkServiceBrowserUPnP.h; sourceTree = "<group>"; };
 		DDE3C8E21BD2592300C03B8B /* VLCLocalNetworkServiceBrowserUPnP.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = VLCLocalNetworkServiceBrowserUPnP.m; sourceTree = "<group>"; };
+		DDE3C8E51BD2F75100C03B8B /* VLCNetworkServerBrowser-Protocol.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = "VLCNetworkServerBrowser-Protocol.h"; path = "Sources/LocalNetworkConnectivity/ServerBrowsing/VLCNetworkServerBrowser-Protocol.h"; sourceTree = SOURCE_ROOT; };
+		DDE3C8E61BD3A81600C03B8B /* VLCNetworkServerBrowserFTP.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = VLCNetworkServerBrowserFTP.h; path = Sources/LocalNetworkConnectivity/ServerBrowsing/VLCNetworkServerBrowserFTP.h; sourceTree = SOURCE_ROOT; };
+		DDE3C8E71BD3A81600C03B8B /* VLCNetworkServerBrowserFTP.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = VLCNetworkServerBrowserFTP.m; path = Sources/LocalNetworkConnectivity/ServerBrowsing/VLCNetworkServerBrowserFTP.m; sourceTree = SOURCE_ROOT; };
 		DDF157B31ACB169B00AAFBC6 /* WatchKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = WatchKit.framework; path = System/Library/Frameworks/WatchKit.framework; sourceTree = SDKROOT; };
 		E09EACF57CDD22ABAE66CDD0 /* Pods-vlc-ios.distribution.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-vlc-ios.distribution.xcconfig"; path = "Pods/Target Support Files/Pods-vlc-ios/Pods-vlc-ios.distribution.xcconfig"; sourceTree = "<group>"; };
 		E0C04F931A25B4410080331A /* VLCDocumentPickerController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = VLCDocumentPickerController.h; path = Sources/VLCDocumentPickerController.h; sourceTree = SOURCE_ROOT; };
@@ -1501,6 +1505,9 @@
 				7DAE0C331B2EE0C200C53996 /* VLCFTPServerListViewController.m */,
 				7DAE0C381B2F085F00C53996 /* VLCDiscoveryListViewController.h */,
 				7DAE0C391B2F085F00C53996 /* VLCDiscoveryListViewController.m */,
+				DDE3C8E51BD2F75100C03B8B /* VLCNetworkServerBrowser-Protocol.h */,
+				DDE3C8E61BD3A81600C03B8B /* VLCNetworkServerBrowserFTP.h */,
+				DDE3C8E71BD3A81600C03B8B /* VLCNetworkServerBrowserFTP.m */,
 			);
 			name = "Server browsing";
 			sourceTree = "<group>";
@@ -2222,6 +2229,7 @@
 				7D168F7418D4A33F003FAF59 /* UIImage+Blur.m in Sources */,
 				9B5BEF2917FBAEA50016F9CB /* GTLDrive_Sources.m in Sources */,
 				7DC19ADF1868C7BB00810BF7 /* VLCFirstStepsViewController.m in Sources */,
+				DDE3C8E81BD3A81600C03B8B /* VLCNetworkServerBrowserFTP.m in Sources */,
 				7DE56C1A1AD93F9100E8CA00 /* VLCPlaybackController.m in Sources */,
 				7DC72D6317B7ED24008A26D0 /* WhiteRaccoon.m in Sources */,
 				DD7110F01AF38B2B00854776 /* MLMediaLibrary+playlist.m in Sources */,

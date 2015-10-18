@@ -25,6 +25,8 @@
 #import "VLCDiscoveryListViewController.h"
 #import "VLCFTPServerListViewController.h"
 
+#import "VLCNetworkServerBrowserFTP.h"
+
 @interface VLCServerListViewController () <UITableViewDataSource, UITableViewDelegate, VLCLocalServerDiscoveryControllerDelegate>
 {
     VLCLocalServerDiscoveryController *_discoveryController;
@@ -212,10 +214,9 @@ confirmedWithUsername:(NSString *)username
     switch (protocol) {
         case VLCServerProtocolFTP:
         {
-            VLCFTPServerListViewController *targetViewController = [[VLCFTPServerListViewController alloc]
-                                                                    initWithFTPServer:server
-                                                                    userName:username
-                                                                    andPassword:password atPath:@"/"];
+            VLCNetworkServerBrowserFTP *browser = [[VLCNetworkServerBrowserFTP alloc]initWithFTPServer:server
+                                                                                              userName:username andPassword:password atPath:@"/"];
+            VLCFTPServerListViewController *targetViewController = [[VLCFTPServerListViewController alloc] initWithServerBrowser:browser];
             [self.navigationController pushViewController:targetViewController animated:YES];
             break;
         }

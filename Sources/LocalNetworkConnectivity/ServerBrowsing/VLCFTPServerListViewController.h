@@ -11,9 +11,9 @@
  *****************************************************************************/
 
 #import "VLCNetworkListViewController.h"
+#import "VLCNetworkServerBrowser-Protocol.h"
 
 @interface VLCFTPServerListViewController : VLCNetworkListViewController
 
-- (id)initWithFTPServer:(NSString *)serverAddress userName:(NSString *)username andPassword:(NSString *)password atPath:(NSString *)path;
-
+- (instancetype)initWithServerBrowser:(id<VLCNetworkServerBrowser>)browser;
 @end

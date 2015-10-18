@@ -76,12 +76,20 @@ NSString *VLCNetworkListCellIdentifier = @"VLCNetworkListCellIdentifier";
 
     _tapTwiceGestureRecognizer = [[UITapGestureRecognizer alloc] initWithTarget:self  action:@selector(tapTwiceGestureAction:)];
     [_tapTwiceGestureRecognizer setNumberOfTapsRequired:2];
-    [self.navigationController.navigationBar addGestureRecognizer:_tapTwiceGestureRecognizer];
 
     self.navigationItem.rightBarButtonItem = [UIBarButtonItem themedRevealMenuButtonWithTarget:self andSelector:@selector(menuButtonAction:)];
 
     _searchData = [[NSMutableArray alloc] init];
     [_searchData removeAllObjects];
+}
+
+- (void)viewDidAppear:(BOOL)animated {
+    [super viewDidAppear:animated];
+    [self.navigationController.navigationBar addGestureRecognizer:_tapTwiceGestureRecognizer];
+}
+- (void)viewWillDisappear:(BOOL)animated {
+    [super viewDidDisappear:animated];
+    [self.navigationController.navigationBar removeGestureRecognizer:_tapTwiceGestureRecognizer];
 }
 
 - (BOOL)shouldAutorotate
