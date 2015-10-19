@@ -10,6 +10,7 @@
  *****************************************************************************/
 
 #import "VLCOpenNetworkStreamTVViewController.h"
+#import "VLCPlaybackController.h"
 
 @interface VLCOpenNetworkStreamTVViewController ()
 {
@@ -39,6 +40,9 @@
 
     /* fetch data from cloud */
     _recentURLs = [NSMutableArray arrayWithArray:[[NSUbiquitousKeyValueStore defaultStore] arrayForKey:kVLCRecentURLs]];
+    if (_recentURLs.count == 0) {
+        [_recentURLs addObject:@"http://streams.videolan.org/streams/mp4/Mr_MrsSmith-h264_aac.mp4"];
+    }
     [self.previouslyPlayedStreamsTableView reloadData];
     self.noURLsToShowLabel.hidden = _recentURLs.count != 0;
 }
@@ -75,7 +79,8 @@
 
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
 {
-    NSLog(@"user tried to play something");
+    [self.previouslyPlayedStreamsTableView deselectRowAtIndexPath:indexPath animated:NO];
+    [self _openURLStringAndDismiss:_recentURLs[indexPath.row]];
 }
 
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section
@@ -90,7 +95,13 @@
 
 - (void)URLEnteredInField:(id)sender
 {
-    NSLog(@"user entered URL '%@'", self.playURLField.text);
+    [self _openURLStringAndDismiss:self.playURLField.text];
+}
+
+- (void)_openURLStringAndDismiss:(NSString *)url
+{
+    VLCPlaybackController *vpc = [VLCPlaybackController sharedInstance];
+    [vpc playURL:[NSURL URLWithString:url] subtitlesFilePath:nil];
 }
 
 @end
