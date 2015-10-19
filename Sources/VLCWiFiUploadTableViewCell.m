@@ -2,7 +2,7 @@
  * VLCWiFiUploadTableViewCell.m
  * VLC for iOS
  *****************************************************************************
- * Copyright (c) 2013 VideoLAN. All rights reserved.
+ * Copyright (c) 2013-2015 VideoLAN. All rights reserved.
  * $Id$
  *
  * Authors: Felix Paul Kühne <fkuehne # videolan.org>
@@ -79,14 +79,6 @@
     [self.serverOnButton addTarget:self action:@selector(toggleHTTPServer) forControlEvents:UIControlEventTouchUpInside];
     [self.serverOnButton setImage:[UIImage imageNamed:@"WiFiUp"] forState:UIControlStateDisabled];
     [self.contentView addSubview:self.serverOnButton];
-    
-    UIView *topLine = [[UIView alloc] initWithFrame:CGRectMake(0.0f, 0.0f, [UIScreen mainScreen].bounds.size.height, 1.0f)];
-    topLine.backgroundColor = [UIColor colorWithRed:(16.0f/255.0f) green:(16.0f/255.0f) blue:(16.0f/255.0f) alpha:1.0f];
-    [self.contentView addSubview:topLine];
-
-    UIView *bottomLine = [[UIView alloc] initWithFrame:CGRectMake(0.0f, 50.0f, [UIScreen mainScreen].bounds.size.height, 1.0f)];
-    bottomLine.backgroundColor = [UIColor colorWithRed:(23.0f/255.0f) green:(23.0f/255.0f) blue:(23.0f/255.0f) alpha:1.0f];
-    [self.contentView addSubview:bottomLine];
 }
 
 - (void)setupConstraints

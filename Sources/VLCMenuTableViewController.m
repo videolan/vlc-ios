@@ -31,7 +31,9 @@
 #import "VLCNavigationController.h"
 
 #define ROW_HEIGHT 50.
+#define IPAD_ROW_HEIGHT 65.
 #define HEADER_HEIGHT 22.
+#define MENU_WIDTH 320.
 
 static NSString *CellIdentifier = @"VLCMenuCell";
 static NSString *WiFiCellIdentifier = @"VLCMenuWiFiCell";
@@ -62,37 +64,63 @@ static NSString *WiFiCellIdentifier = @"VLCMenuWiFiCell";
 {
     [super viewDidLoad];
 
-    CGRect viewRect = self.view.frame;
-
     _sectionHeaderTexts = @[@"SECTION_HEADER_LIBRARY", @"SECTION_HEADER_NETWORK", @"Settings"];
     _menuItemsSectionOne = @[@"LIBRARY_ALL_FILES", @"LIBRARY_MUSIC", @"LIBRARY_SERIES"];
     _menuItemsSectionTwo = @[@"LOCAL_NETWORK", @"OPEN_NETWORK", @"DOWNLOAD_FROM_HTTP", @"WEBINTF_TITLE", @"CLOUD_SERVICES"];
     _menuItemsSectionThree = @[@"Settings", @"ABOUT_APP"];
 
-    _menuTableView = ({
-        NSUInteger count = _menuItemsSectionOne.count + _menuItemsSectionTwo.count + _menuItemsSectionThree.count;
-        CGFloat height = (count * ROW_HEIGHT) + (3. * HEADER_HEIGHT);
-        CGFloat screenheight = [UIScreen mainScreen].bounds.size.height;
-        if (height > screenheight - 40.)
-            height = screenheight - 40.;
-        CGFloat top = (screenheight - height) / 2.;
+    NSUInteger count = _menuItemsSectionOne.count + _menuItemsSectionTwo.count + _menuItemsSectionThree.count;
+    CGFloat screenheight = [UIScreen mainScreen].bounds.size.height;
+    CGFloat rowHeight;
+    if (UI_USER_INTERFACE_IDIOM() == UIUserInterfaceIdiomPad)
+        rowHeight = IPAD_ROW_HEIGHT;
+    else
+        rowHeight = ROW_HEIGHT;
+    CGFloat height = (count * rowHeight) + (3. * HEADER_HEIGHT);
+    CGFloat top;
+    if (height > screenheight - 20.) {
+        height = screenheight - 20.;
+        top = 10.;
+    } else
+        top = (screenheight - height) / 2.;
+    CGFloat left;
+    if (UI_USER_INTERFACE_IDIOM() == UIUserInterfaceIdiomPad)
+        left = 170.;
+    else
+        left = 20.;
 
-        UITableView *tableView = [[UITableView alloc] initWithFrame:
-                                  CGRectMake(20., top, viewRect.size.width - 20., height)
-                                                              style:UITableViewStylePlain];
-        tableView.autoresizingMask = UIViewAutoresizingFlexibleTopMargin | UIViewAutoresizingFlexibleBottomMargin | UIViewAutoresizingFlexibleWidth;
-        tableView.delegate = self;
-        tableView.dataSource = self;
-        tableView.backgroundColor = [UIColor clearColor];
-        tableView.separatorStyle = UITableViewCellSeparatorStyleNone;
-        tableView.indicatorStyle = UIScrollViewIndicatorStyleWhite;
-        tableView.rowHeight = ROW_HEIGHT;
-        tableView.scrollsToTop = NO;
-        tableView.autoresizingMask = UIViewAutoresizingFlexibleWidth|UIViewAutoresizingFlexibleHeight;
-        tableView;
-    });
+    _menuTableView = [[UITableView alloc] initWithFrame:CGRectMake(left, top, 320., height)
+                                                          style:UITableViewStylePlain];
+    _menuTableView.delegate = self;
+    _menuTableView.dataSource = self;
+    _menuTableView.backgroundColor = [UIColor clearColor];
+    _menuTableView.separatorStyle = UITableViewCellSeparatorStyleNone;
+    _menuTableView.indicatorStyle = UIScrollViewIndicatorStyleWhite;
+    _menuTableView.rowHeight = rowHeight;
+    _menuTableView.scrollsToTop = NO;
+    _menuTableView.translatesAutoresizingMaskIntoConstraints = NO;
 
     [self.view addSubview:_menuTableView];
+
+    NSDictionary *dict;
+
+    if (UI_USER_INTERFACE_IDIOM() == UIUserInterfaceIdiomPad) {
+        UIView *spacer1 = [UIView new];
+        UIView *spacer2 = [UIView new];
+        spacer1.translatesAutoresizingMaskIntoConstraints = NO;
+        spacer2.translatesAutoresizingMaskIntoConstraints = NO;
+        [self.view addSubview:spacer1];
+        [self.view addSubview:spacer2];
+        dict = NSDictionaryOfVariableBindings(_menuTableView, spacer1, spacer2);
+        [self.view addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:[NSString stringWithFormat:@"V:|[spacer1][_menuTableView(==%i)][spacer2(==spacer1)]|", (int)height] options:0 metrics:0 views:dict]];
+    } else {
+        dict = NSDictionaryOfVariableBindings(_menuTableView);
+        [self.view addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:[NSString stringWithFormat:@"V:|-==%i-[_menuTableView(<=%i)]-==%i-|", (int)top, (int)height, (int)top] options:0 metrics:0 views:dict]];
+    }
+
+    dict = NSDictionaryOfVariableBindings(_menuTableView);
+    [self.view addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:[NSString stringWithFormat:@"H:|-==%i-[_menuTableView(320)]->=0-|", (int)left] options:0 metrics:0 views:dict]];
+
 
     [_menuTableView selectRowAtIndexPath:[NSIndexPath indexPathForRow:0 inSection:0] animated:NO scrollPosition:UITableViewScrollPositionTop];
 }
@@ -274,6 +302,7 @@ static NSString *WiFiCellIdentifier = @"VLCMenuWiFiCell";
 
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
 {
+    [tableView deselectRowAtIndexPath:indexPath animated:YES];
     [self _revealItem:indexPath.row inSection:indexPath.section];
 }
 
