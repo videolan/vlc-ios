@@ -27,6 +27,25 @@
 
 @implementation AppDelegate
 
++ (void)initialize
+{
+    NSUserDefaults *defaults = [NSUserDefaults standardUserDefaults];
+
+    NSDictionary *appDefaults = @{kVLCSettingContinueAudioInBackgroundKey : @(YES),
+                                  kVLCSettingStretchAudio : @(NO),
+                                  kVLCSettingTextEncoding : kVLCSettingTextEncodingDefaultValue,
+                                  kVLCSettingSkipLoopFilter : kVLCSettingSkipLoopFilterNonRef,
+                                  kVLCSettingSubtitlesFont : kVLCSettingSubtitlesFontDefaultValue,
+                                  kVLCSettingSubtitlesFontColor : kVLCSettingSubtitlesFontColorDefaultValue,
+                                  kVLCSettingSubtitlesFontSize : kVLCSettingSubtitlesFontSizeDefaultValue,
+                                  kVLCSettingSubtitlesBoldFont: kVLCSettingSubtitlesBoldFontDefaultValue,
+                                  kVLCSettingDeinterlace : kVLCSettingDeinterlaceDefaultValue,
+                                  kVLCSettingNetworkCaching : kVLCSettingNetworkCachingDefaultValue,
+                                  kVLCSettingEqualizerProfile : kVLCSettingEqualizerProfileDefaultValue,
+                                  kVLCSettingPlaybackForwardSkipLength : kVLCSettingPlaybackForwardSkipLengthDefaultValue,
+                                  kVLCSettingPlaybackBackwardSkipLength : kVLCSettingPlaybackBackwardSkipLengthDefaultValue};
+    [defaults registerDefaults:appDefaults];
+}
 
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions {
 
