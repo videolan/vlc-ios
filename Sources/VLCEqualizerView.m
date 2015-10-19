@@ -15,6 +15,7 @@
 #import "VLCTrackSelectorTableViewCell.h"
 #import "VLCTrackSelectorHeaderView.h"
 #import "UIDevice+VLC.h"
+#import "VLCSlider.h"
 
 #define PROFILE_SELECTOR_TABLEVIEW_SECTIONHEADER @"profile selector table section header"
 #define PROFILE_SELECTOR_TABLEVIEW_CELL @"profile selector table view cell"

@@ -12,7 +12,6 @@
 
 #import <UIKit/UIKit.h>
 #import "VLCFrostedGlasView.h"
-#import "VLCSlider.h"
 
 @protocol VLCEqualizerViewDelegate <NSObject>
 
