@@ -2,7 +2,7 @@
  * VLCOpenNetworkStreamViewController.m
  * VLC for iOS
  *****************************************************************************
- * Copyright (c) 2013 VideoLAN. All rights reserved.
+ * Copyright (c) 2013-2015 VideoLAN. All rights reserved.
  * $Id$
  *
  * Authors: Felix Paul Kühne <fkuehne # videolan.org>
@@ -95,9 +95,10 @@
 
     [self.openButton setTitle:NSLocalizedString(@"OPEN_NETWORK", nil) forState:UIControlStateNormal];
     [self.privateModeLabel setText:NSLocalizedString(@"PRIVATE_PLAYBACK_TOGGLE", nil)];
-    [self.ScanSubModeLabel setText:NSLocalizedString(@"SCAN_SUBTITLE_TOGGLE", nil)];
-    [self.ScanSubModeLabel setAdjustsFontSizeToFitWidth:YES];
-    [self.ScanSubModeLabel setNumberOfLines:0];
+    UILabel *scanSubModelabel = self.ScanSubModeLabel;
+    [scanSubModelabel setText:NSLocalizedString(@"SCAN_SUBTITLE_TOGGLE", nil)];
+    [scanSubModelabel setAdjustsFontSizeToFitWidth:YES];
+    [scanSubModelabel setNumberOfLines:0];
     self.title = NSLocalizedString(@"OPEN_NETWORK", nil);
     self.navigationItem.leftBarButtonItem = [UIBarButtonItem themedRevealMenuButtonWithTarget:self andSelector:@selector(goBack:)];
     [self.whatToOpenHelpLabel setText:NSLocalizedString(@"OPEN_NETWORK_HELP", nil)];
@@ -180,7 +181,7 @@
             [self.historyTableView reloadData];
         }
         [self.urlField resignFirstResponder];
-        [self _openURLStringAndDismiss:self.urlField.text];
+        [self performSelectorInBackground:@selector(_openURLStringAndDismiss:) withObject:self.urlField.text];
     }
 }
 
@@ -208,9 +209,9 @@
         cell.detailTextLabel.highlightedTextColor = [UIColor blackColor];
     }
 
-    NSInteger row = indexPath.row;
-    cell.textLabel.text = [_recentURLs[row] lastPathComponent];
-    cell.detailTextLabel.text = _recentURLs[row];
+    NSString *content = _recentURLs[indexPath.row];
+    cell.textLabel.text = [content lastPathComponent];
+    cell.detailTextLabel.text = content;
 
     return cell;
 }
@@ -238,8 +239,8 @@
 
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
 {
-    [self _openURLStringAndDismiss:_recentURLs[indexPath.row]];
     [self.historyTableView deselectRowAtIndexPath:indexPath animated:NO];
+    [self performSelectorInBackground:@selector(_openURLStringAndDismiss:) withObject:_recentURLs[indexPath.row]];
 }
 
 - (void)tableView:(UITableView *)tableView
@@ -250,9 +251,7 @@ forRowAtIndexPath:(NSIndexPath *)indexPath
     NSString *actionText = NSStringFromSelector(action);
 
     if ([actionText isEqualToString:@"copy:"])
-    {
         [UIPasteboard generalPasteboard].string = _recentURLs[indexPath.row];
-    }
 }
 
 - (BOOL)tableView:(UITableView *)tableView
@@ -263,9 +262,7 @@ forRowAtIndexPath:(NSIndexPath *)indexPath
     NSString *actionText = NSStringFromSelector(action);
 
     if ([actionText isEqualToString:@"copy:"])
-    {
         return YES;
-    }
 
     return NO;
 }
@@ -291,14 +288,14 @@ forRowAtIndexPath:(NSIndexPath *)indexPath
 
 - (NSString *)_checkURLofSubtitle:(NSString *)url
 {
-    NSString *subtitleFileExtensions = kSupportedSubtitleFileExtensions;
     NSCharacterSet *characterFilter = [NSCharacterSet characterSetWithCharactersInString:@"\\.():$"];
-    subtitleFileExtensions = [[subtitleFileExtensions componentsSeparatedByCharactersInSet:characterFilter] componentsJoinedByString:@""];
+    NSString *subtitleFileExtensions = [[kSupportedSubtitleFileExtensions componentsSeparatedByCharactersInSet:characterFilter] componentsJoinedByString:@""];
     NSArray *arraySubtitleFileExtensions = [subtitleFileExtensions componentsSeparatedByString:@"|"];
     NSString *urlTemp = [[url stringByDeletingPathExtension] stringByAppendingString:@"."];
+    NSUInteger count = arraySubtitleFileExtensions.count;
 
-    for (int cnt = 0; cnt < arraySubtitleFileExtensions.count; cnt++) {
-        NSString *checkAddress = [urlTemp stringByAppendingString:arraySubtitleFileExtensions[cnt]];
+    for (int i = 0; i < count; i++) {
+        NSString *checkAddress = [urlTemp stringByAppendingString:arraySubtitleFileExtensions[i]];
         NSURL *checkURL = [NSURL URLWithString:checkAddress];
         NSMutableURLRequest *request = [NSMutableURLRequest requestWithURL:checkURL];
         request.HTTPMethod = @"HEAD";
@@ -317,31 +314,31 @@ forRowAtIndexPath:(NSIndexPath *)indexPath
 
 - (NSString *)_getFileSubtitleFromServer:(NSURL *)url
 {
-    NSString *FileSubtitlePath = nil;
+    NSString *fileSubtitlePath = nil;
     NSString *fileName = [[url path] lastPathComponent];
     NSData *receivedSub = [NSData dataWithContentsOfURL:url];
 
     if (receivedSub.length < [[UIDevice currentDevice] freeDiskspace].longLongValue) {
         NSArray *searchPaths = NSSearchPathForDirectoriesInDomains(NSCachesDirectory, NSUserDomainMask, YES);
         NSString *directoryPath = [searchPaths objectAtIndex:0];
-        FileSubtitlePath = [directoryPath stringByAppendingPathComponent:fileName];
+        fileSubtitlePath = [directoryPath stringByAppendingPathComponent:fileName];
         NSFileManager *fileManager = [NSFileManager defaultManager];
-        if (![fileManager fileExistsAtPath:FileSubtitlePath]) {
-            [fileManager createFileAtPath:FileSubtitlePath contents:nil attributes:nil];
-            if (![fileManager fileExistsAtPath:FileSubtitlePath])
+        if (![fileManager fileExistsAtPath:fileSubtitlePath]) {
+            [fileManager createFileAtPath:fileSubtitlePath contents:nil attributes:nil];
+            if (![fileManager fileExistsAtPath:fileSubtitlePath])
                 APLog(@"file creation failed, no data was saved");
         }
-        [receivedSub writeToFile:FileSubtitlePath atomically:YES];
+        [receivedSub writeToFile:fileSubtitlePath atomically:YES];
     } else {
         VLCAlertView *alert = [[VLCAlertView alloc] initWithTitle:NSLocalizedString(@"DISK_FULL", nil)
                                                           message:[NSString stringWithFormat:NSLocalizedString(@"DISK_FULL_FORMAT", nil), fileName, [[UIDevice currentDevice] model]]
                                                          delegate:self
                                                 cancelButtonTitle:NSLocalizedString(@"BUTTON_OK", nil)
                                                 otherButtonTitles:nil];
-        [alert show];
+        [alert performSelectorOnMainThread:@selector(show) withObject:nil waitUntilDone:NO];
     }
 
-    return FileSubtitlePath;
+    return fileSubtitlePath;
 }
 
 #pragma mark - text view delegate
