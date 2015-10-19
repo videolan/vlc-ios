@@ -170,10 +170,10 @@ NSString *const VLCPlaybackControllerPlaybackDidFail = @"VLCPlaybackControllerPl
 
     if (self.activePlaybackSession) {
         self.sessionWillRestart = YES;
-        [self stopPlayback];
+        [self performSelectorOnMainThread:@selector(stopPlayback) withObject:nil waitUntilDone:NO];
     } else {
         self.sessionWillRestart = NO;
-        [self startPlayback];
+        [self performSelectorOnMainThread:@selector(startPlayback) withObject:nil waitUntilDone:NO];
     }
 }
 
@@ -185,10 +185,10 @@ NSString *const VLCPlaybackControllerPlaybackDidFail = @"VLCPlaybackControllerPl
 
     if (self.activePlaybackSession) {
         self.sessionWillRestart = YES;
-        [self stopPlayback];
+        [self performSelectorOnMainThread:@selector(stopPlayback) withObject:nil waitUntilDone:NO];
     } else {
         self.sessionWillRestart = NO;
-        [self startPlayback];
+        [self performSelectorOnMainThread:@selector(startPlayback) withObject:nil waitUntilDone:NO];
     }
 }
 
@@ -199,10 +199,10 @@ NSString *const VLCPlaybackControllerPlaybackDidFail = @"VLCPlaybackControllerPl
 
     if (self.activePlaybackSession) {
         self.sessionWillRestart = YES;
-        [self stopPlayback];
+        [self performSelectorOnMainThread:@selector(stopPlayback) withObject:nil waitUntilDone:NO];
     } else {
         self.sessionWillRestart = NO;
-        [self startPlayback];
+        [self performSelectorOnMainThread:@selector(startPlayback) withObject:nil waitUntilDone:NO];
     }
 }
 
@@ -372,7 +372,7 @@ NSString *const VLCPlaybackControllerPlaybackDidFail = @"VLCPlaybackControllerPl
         [[NSNotificationCenter defaultCenter] postNotificationName:VLCPlaybackControllerPlaybackDidStop object:self];
     } else {
         self.sessionWillRestart = NO;
-        [self startPlayback];
+        [self performSelectorOnMainThread:@selector(startPlayback) withObject:nil waitUntilDone:NO];
     }
 }
 
@@ -752,14 +752,14 @@ NSString *const VLCPlaybackControllerPlaybackDidFail = @"VLCPlaybackControllerPl
 
 - (void)setUrl:(NSURL *)url
 {
-    [self stopPlayback];
+    [self performSelectorOnMainThread:@selector(stopPlayback) withObject:nil waitUntilDone:NO];
     _url = url;
     _playerIsSetup = NO;
 }
 
 - (void)setMediaList:(VLCMediaList *)mediaList
 {
-    [self stopPlayback];
+    [self performSelectorOnMainThread:@selector(stopPlayback) withObject:nil waitUntilDone:NO];
     _mediaList = mediaList;
     _playerIsSetup = NO;
 }
