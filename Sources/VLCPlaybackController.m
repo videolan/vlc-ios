@@ -187,8 +187,10 @@ NSString *const VLCPlaybackControllerPlaybackDidFail = @"VLCPlaybackControllerPl
 
 - (void)startPlayback
 {
-    if (_playerIsSetup)
+    if (_playerIsSetup) {
+        APLog(@"%s: player is already setup, bailing out", __PRETTY_FUNCTION__);
         return;
+    }
     _activeSession = YES;
 
 #if TARGET_OS_IOS
@@ -200,6 +202,7 @@ NSString *const VLCPlaybackControllerPlaybackDidFail = @"VLCPlaybackControllerPl
     _aspectRatios = @[@"DEFAULT", @"FILL_TO_SCREEN", @"4:3", @"16:9", @"16:10", @"2.21:1"];
 
     if (!self.url && !self.mediaList) {
+        APLog(@"%s: no URL and no media list set, stopping playback", __PRETTY_FUNCTION__);
         [self stopPlayback];
         return;
     }
