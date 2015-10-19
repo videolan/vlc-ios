@@ -72,7 +72,10 @@ static NSString *WiFiCellIdentifier = @"VLCMenuWiFiCell";
     _menuTableView = ({
         NSUInteger count = _menuItemsSectionOne.count + _menuItemsSectionTwo.count + _menuItemsSectionThree.count;
         CGFloat height = (count * ROW_HEIGHT) + (3. * HEADER_HEIGHT);
-        CGFloat top = ([UIScreen mainScreen].bounds.size.height - height) / 2.;
+        CGFloat screenheight = [UIScreen mainScreen].bounds.size.height;
+        if (height > screenheight - 40.)
+            height = screenheight - 40.;
+        CGFloat top = (screenheight - height) / 2.;
 
         UITableView *tableView = [[UITableView alloc] initWithFrame:
                                   CGRectMake(20., top, viewRect.size.width - 20., height)
