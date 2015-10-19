@@ -12,6 +12,7 @@
 #import "AppDelegate.h"
 #import "VLCAppSharesTVViewController.h"
 #import "VLCLocalNetworkTVViewController.h"
+#import "VLCOpenNetworkStreamTVViewController.h"
 
 @interface AppDelegate ()
 {
@@ -19,6 +20,7 @@
 
     VLCAppSharesTVViewController *_sharesVC;
     VLCLocalNetworkTVViewController *_localNetworkVC;
+    VLCOpenNetworkStreamTVViewController *_openNetworkVC;
 }
 
 @end
@@ -32,10 +34,11 @@
 
     _localNetworkVC = [[VLCLocalNetworkTVViewController alloc] initWithNibName:nil bundle:nil];
     _sharesVC = [[VLCAppSharesTVViewController alloc] initWithNibName:nil bundle:nil];
+    _openNetworkVC = [[VLCOpenNetworkStreamTVViewController alloc] initWithNibName:nil bundle:nil];
 
     _mainViewController = [[UITabBarController alloc] init];
     _mainViewController.tabBar.backgroundColor = [UIColor VLCOrangeTintColor];
-    _mainViewController.viewControllers = @[_sharesVC, _localNetworkVC];
+    _mainViewController.viewControllers = @[_sharesVC, _localNetworkVC, _openNetworkVC];
 
     self.window.rootViewController = _mainViewController;
 

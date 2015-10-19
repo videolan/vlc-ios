@@ -1,0 +1,96 @@
+/*****************************************************************************
+ * VLC for iOS
+ *****************************************************************************
+ * Copyright (c) 2015 VideoLAN. All rights reserved.
+ * $Id$
+ *
+ * Authors: Felix Paul Kühne <fkuehne # videolan.org>
+ *
+ * Refer to the COPYING file of the official project for license.
+ *****************************************************************************/
+
+#import "VLCOpenNetworkStreamTVViewController.h"
+
+@interface VLCOpenNetworkStreamTVViewController ()
+{
+    NSMutableArray *_recentURLs;
+}
+@end
+
+@implementation VLCOpenNetworkStreamTVViewController
+
+- (NSString *)title
+{
+    return @"Open Network Stream";
+}
+
+- (void)viewDidLoad {
+    [super viewDidLoad];
+
+    NSNotificationCenter *notificationCenter = [NSNotificationCenter defaultCenter];
+    [notificationCenter addObserver:self
+                           selector:@selector(ubiquitousKeyValueStoreDidChange:)
+                               name:NSUbiquitousKeyValueStoreDidChangeExternallyNotification
+                             object:[NSUbiquitousKeyValueStore defaultStore]];
+
+    /* force store update */
+    NSUbiquitousKeyValueStore *ubiquitousKeyValueStore = [NSUbiquitousKeyValueStore defaultStore];
+    [ubiquitousKeyValueStore synchronize];
+
+    /* fetch data from cloud */
+    _recentURLs = [NSMutableArray arrayWithArray:[[NSUbiquitousKeyValueStore defaultStore] arrayForKey:kVLCRecentURLs]];
+    [self.previouslyPlayedStreamsTableView reloadData];
+    self.noURLsToShowLabel.hidden = _recentURLs.count != 0;
+}
+
+- (void)ubiquitousKeyValueStoreDidChange:(NSNotification *)notification
+{
+    /* TODO: don't blindly trust that the Cloud knows best */
+    _recentURLs = [NSMutableArray arrayWithArray:[[NSUbiquitousKeyValueStore defaultStore] arrayForKey:kVLCRecentURLs]];
+    [self.previouslyPlayedStreamsTableView reloadData];
+    self.noURLsToShowLabel.hidden = _recentURLs.count != 0;
+}
+
+- (void)viewWillDisappear:(BOOL)animated
+{
+    [super viewWillDisappear:animated];
+
+    /* force update before we leave */
+    [[NSUbiquitousKeyValueStore defaultStore] synchronize];
+}
+
+- (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
+{
+    UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:@"RecentlyPlayedURLsTableViewCell"];
+    if (!cell) {
+        cell = [[UITableViewCell alloc] initWithStyle:UITableViewCellStyleSubtitle reuseIdentifier:@"RecentlyPlayedURLsTableViewCell"];
+    }
+
+    NSString *content = _recentURLs[indexPath.row];
+    cell.textLabel.text = [content lastPathComponent];
+    cell.detailTextLabel.text = content;
+
+    return cell;
+}
+
+- (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
+{
+    NSLog(@"user tried to play something");
+}
+
+- (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section
+{
+    return _recentURLs.count;
+}
+
+- (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView
+{
+    return 1;
+}
+
+- (void)URLEnteredInField:(id)sender
+{
+    NSLog(@"user entered URL '%@'", self.playURLField.text);
+}
+
+@end
