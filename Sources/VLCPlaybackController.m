@@ -21,10 +21,13 @@
 #import "UIDevice+VLC.h"
 #import <AVFoundation/AVFoundation.h>
 #import <MediaPlayer/MediaPlayer.h>
-#import "VLCThumbnailsCache.h"
-#import <WatchKit/WatchKit.h>
-#import "VLCLibraryViewController.h"
+
+#if TARGET_OS_IOS
 #import "VLCKeychainCoordinator.h"
+#import "VLCThumbnailsCache.h"
+#import "VLCLibraryViewController.h"
+#import <WatchKit/WatchKit.h>
+#endif
 
 NSString *const VLCPlaybackControllerPlaybackDidStart = @"VLCPlaybackControllerPlaybackDidStart";
 NSString *const VLCPlaybackControllerPlaybackDidPause = @"VLCPlaybackControllerPlaybackDidPause";
@@ -33,7 +36,7 @@ NSString *const VLCPlaybackControllerPlaybackDidStop = @"VLCPlaybackControllerPl
 NSString *const VLCPlaybackControllerPlaybackMetadataDidChange = @"VLCPlaybackControllerPlaybackMetadataDidChange";
 NSString *const VLCPlaybackControllerPlaybackDidFail = @"VLCPlaybackControllerPlaybackDidFail";
 
-@interface VLCPlaybackController () <AVAudioSessionDelegate, VLCMediaPlayerDelegate, VLCMediaDelegate>
+@interface VLCPlaybackController () <VLCMediaPlayerDelegate, VLCMediaDelegate>
 {
     BOOL _playerIsSetup;
     BOOL _playbackFailed;
@@ -104,34 +107,10 @@ NSString *const VLCPlaybackControllerPlaybackDidFail = @"VLCPlaybackControllerPl
 
 #pragma mark - playback management
 
-- (BOOL)_blobCheck
-{
-    NSArray *searchPaths = NSSearchPathForDirectoriesInDomains(NSDocumentDirectory, NSUserDomainMask, YES);
-    NSString *directoryPath = searchPaths[0];
-
-    if (![[NSFileManager defaultManager] fileExistsAtPath:[directoryPath stringByAppendingPathComponent:@"blob.bin"]])
-        return NO;
-
-    NSData *data = [NSData dataWithContentsOfFile:[directoryPath stringByAppendingPathComponent:@"blob.bin"]];
-    uint8_t digest[CC_SHA1_DIGEST_LENGTH];
-    CC_SHA1(data.bytes, (unsigned int)data.length, digest);
-
-    NSMutableString *hash = [NSMutableString stringWithCapacity:CC_SHA1_DIGEST_LENGTH * 2];
-
-    for (unsigned int u = 0; u < CC_SHA1_DIGEST_LENGTH; u++)
-        [hash appendFormat:@"%02x", digest[u]];
-
-    if ([hash isEqualToString:kBlobHash])
-        return YES;
-    else
-        return NO;
-}
-
-
 - (BOOL)_isMediaSuitableForDevice:(VLCMedia *)media
 {
     NSArray *tracksInfo = media.tracksInformation;
-    double width, height = 0;
+    double width = 0.0, height = 0.0;
     NSDictionary *track;
     for (NSUInteger x = 0; x < tracksInfo.count; x++) {
         track = tracksInfo[x];
@@ -212,7 +191,9 @@ NSString *const VLCPlaybackControllerPlaybackDidFail = @"VLCPlaybackControllerPl
         return;
     _activeSession = YES;
 
+#if TARGET_OS_IOS
     [[AVAudioSession sharedInstance] setDelegate:self];
+#endif
 
     NSUserDefaults *defaults = [NSUserDefaults standardUserDefaults];
 
@@ -269,6 +250,7 @@ NSString *const VLCPlaybackControllerPlaybackDidFail = @"VLCPlaybackControllerPl
     }
     [_listPlayer setRepeatMode:VLCDoNotRepeat];
 
+#if TARGET_OS_IOS
     if (![self _isMediaSuitableForDevice:media]) {
         VLCAlertView *alert = [[VLCAlertView alloc] initWithTitle:NSLocalizedString(@"DEVICE_TOOSLOW_TITLE", nil)
                                                           message:[NSString stringWithFormat:NSLocalizedString(@"DEVICE_TOOSLOW", nil), [[UIDevice currentDevice] model], media.url.lastPathComponent]
@@ -277,6 +259,7 @@ NSString *const VLCPlaybackControllerPlaybackDidFail = @"VLCPlaybackControllerPl
                                                 otherButtonTitles:NSLocalizedString(@"BUTTON_OPEN", nil), nil];
         [alert show];
     } else
+#endif
         [self _playNewMedia];
 }
 
@@ -310,6 +293,7 @@ NSString *const VLCPlaybackControllerPlaybackDidFail = @"VLCPlaybackControllerPl
     [[NSNotificationCenter defaultCenter] postNotificationName:VLCPlaybackControllerPlaybackDidStart object:self];
 }
 
+#if TARGET_OS_IOS
 - (void)alertView:(UIAlertView *)alertView clickedButtonAtIndex:(NSInteger)buttonIndex
 {
     if (buttonIndex == 1)
@@ -317,6 +301,7 @@ NSString *const VLCPlaybackControllerPlaybackDidFail = @"VLCPlaybackControllerPl
     else
         [self stopPlayback];
 }
+#endif
 
 - (void)stopPlayback
 {
@@ -331,13 +316,9 @@ NSString *const VLCPlaybackControllerPlaybackDidFail = @"VLCPlaybackControllerPl
 
         if (_mediaPlayer.media) {
             [_mediaPlayer pause];
+#if TARGET_OS_IOS
             [self _savePlaybackState];
-            @try {
-                [[MLMediaLibrary sharedMediaLibrary] save];
-            }
-            @catch (NSException *exception) {
-                APLog(@"saving playback state failed");
-            }
+#endif
             [_mediaPlayer stop];
         }
         if (_mediaPlayer)
@@ -376,8 +357,16 @@ NSString *const VLCPlaybackControllerPlaybackDidFail = @"VLCPlaybackControllerPl
     }
 }
 
+#if TARGET_OS_IOS
 - (void)_savePlaybackState
 {
+    @try {
+        [[MLMediaLibrary sharedMediaLibrary] save];
+    }
+    @catch (NSException *exception) {
+        APLog(@"saving playback state failed");
+    }
+
     MLFile *fileItem;
     NSArray *files = [MLFile fileForURL:_mediaPlayer.media.url];
     if (files.count > 0)
@@ -415,7 +404,9 @@ NSString *const VLCPlaybackControllerPlaybackDidFail = @"VLCPlaybackControllerPl
         APLog(@"failed to save current media state - file removed?");
     }
 }
+#endif
 
+#if TARGET_OS_IOS
 - (void)_updateStoredThumbnailForFile:(MLFile *)fileItem
 {
     NSFileManager *fileManager = [NSFileManager defaultManager];
@@ -449,17 +440,20 @@ NSString *const VLCPlaybackControllerPlaybackDidFail = @"VLCPlaybackControllerPl
 
     [fileManager removeItemAtPath:newThumbnailPath error:nil];
 }
+#endif
 
 - (void)observeValueForKeyPath:(NSString *)keyPath ofObject:(id)object change:(NSDictionary *)change context:(void *)context
 {
     if (_mediaWasJustStarted) {
         _mediaWasJustStarted = NO;
+#if TARGET_OS_IOS
         if (self.mediaList) {
             MLFile *item;
             NSArray *matches = [MLFile fileForURL:_mediaPlayer.media.url];
             item = matches.firstObject;
             [self _recoverLastPlaybackStateOfItem:item];
         }
+#endif
     }
 
     if ([self.delegate respondsToSelector:@selector(playbackPositionUpdated:)])
@@ -574,7 +568,9 @@ NSString *const VLCPlaybackControllerPlaybackDidFail = @"VLCPlaybackControllerPl
 {
     if ([_mediaPlayer isPlaying]) {
         [_listPlayer pause];
+#if TARGET_OS_IOS
         [self _savePlaybackState];
+#endif
         [[NSNotificationCenter defaultCenter] postNotificationName:VLCPlaybackControllerPlaybackDidPause object:self];
     } else {
         [_listPlayer play];
@@ -743,7 +739,9 @@ NSString *const VLCPlaybackControllerPlaybackDidFail = @"VLCPlaybackControllerPl
 
     if (![portName isEqualToString:@"Headphones"] && [_mediaPlayer isPlaying]) {
         [_mediaPlayer pause];
+#if TARGET_OS_IOS
         [self _savePlaybackState];
+#endif
         [[NSNotificationCenter defaultCenter] postNotificationName:VLCPlaybackControllerPlaybackDidPause object:self];
     }
 }
@@ -764,6 +762,7 @@ NSString *const VLCPlaybackControllerPlaybackDidFail = @"VLCPlaybackControllerPl
     _playerIsSetup = NO;
 }
 
+#if TARGET_OS_IOS
 - (MLFile *)currentlyPlayingMediaFile {
     if (self.mediaList) {
         NSArray *results = [MLFile fileForURL:_mediaPlayer.media.url];
@@ -772,6 +771,7 @@ NSString *const VLCPlaybackControllerPlaybackDidFail = @"VLCPlaybackControllerPl
 
     return nil;
 }
+#endif
 
 #pragma mark - metadata handling
 - (void)mediaDidFinishParsing:(VLCMedia *)aMedia
@@ -798,7 +798,6 @@ NSString *const VLCPlaybackControllerPlaybackDidFail = @"VLCPlaybackControllerPl
 {
     _needsMetadataUpdate = NO;
 
-    MLFile *item;
     NSNumber *trackNumber;
 
     NSString *title;
@@ -806,6 +805,9 @@ NSString *const VLCPlaybackControllerPlaybackDidFail = @"VLCPlaybackControllerPl
     NSString *albumName;
     UIImage* artworkImage;
     BOOL mediaIsAudioOnly = NO;
+
+#if TARGET_OS_IOS
+    MLFile *item;
 
     if (self.mediaList) {
         NSArray *matches = [MLFile fileForURL:_mediaPlayer.media.url];
@@ -823,6 +825,7 @@ NSString *const VLCPlaybackControllerPlaybackDidFail = @"VLCPlaybackControllerPl
         /* MLKit knows better than us if this thing is audio only or not */
         mediaIsAudioOnly = [item isSupportedAudioFile];
     } else {
+#endif
         NSDictionary * metaDict = _mediaPlayer.media.metaDictionary;
 
         if (metaDict) {
@@ -831,7 +834,9 @@ NSString *const VLCPlaybackControllerPlaybackDidFail = @"VLCPlaybackControllerPl
             albumName = metaDict[VLCMetaInformationAlbum];
             trackNumber = metaDict[VLCMetaInformationTrackNumber];
         }
+#if TARGET_OS_IOS
     }
+#endif
 
     if (!mediaIsAudioOnly) {
         /* either what we are playing is not a file known to MLKit or
@@ -849,6 +854,7 @@ NSString *const VLCPlaybackControllerPlaybackDidFail = @"VLCPlaybackControllerPl
     }
 
     if (mediaIsAudioOnly) {
+#if TARGET_OS_IOS
         artworkImage = [VLCThumbnailsCache thumbnailForManagedObject:item];
 
         if (artworkImage) {
@@ -857,6 +863,7 @@ NSString *const VLCPlaybackControllerPlaybackDidFail = @"VLCPlaybackControllerPl
             if (albumName)
                 title = [title stringByAppendingFormat:@" — %@", albumName];
         }
+#endif
 
         if (title.length < 1)
             title = [[_mediaPlayer.media url] lastPathComponent];
@@ -878,7 +885,9 @@ NSString *const VLCPlaybackControllerPlaybackDidFail = @"VLCPlaybackControllerPl
     currentlyPlayingTrackInfo[MPNowPlayingInfoPropertyPlaybackRate] = @(_mediaPlayer.isPlaying ? _mediaPlayer.rate : 0.0);
 
     /* don't leak sensitive information to the OS, if passcode lock is enabled */
+#if TARGET_OS_IOS
     if (![[VLCKeychainCoordinator defaultCoordinator] passcodeLockEnabled]) {
+#endif
         if (title)
             currentlyPlayingTrackInfo[MPMediaItemPropertyTitle] = title;
         if (artist.length > 0)
@@ -889,6 +898,7 @@ NSString *const VLCPlaybackControllerPlaybackDidFail = @"VLCPlaybackControllerPl
         if ([trackNumber intValue] > 0)
             currentlyPlayingTrackInfo[MPMediaItemPropertyAlbumTrackNumber] = trackNumber;
 
+#if TARGET_OS_IOS
         /* FIXME: UGLY HACK
          * iOS 8.2 and 8.3 include an issue which will lead to a termination of the client app if we set artwork
          * when the playback initialized through the watch extension
@@ -902,6 +912,7 @@ NSString *const VLCPlaybackControllerPlaybackDidFail = @"VLCPlaybackControllerPl
             currentlyPlayingTrackInfo[MPMediaItemPropertyArtwork] = mpartwork;
         }
     }
+#endif
 
 setstuff:
     [MPNowPlayingInfoCenter defaultCenter].nowPlayingInfo = currentlyPlayingTrackInfo;
@@ -912,9 +923,9 @@ setstuff:
     _albumName = albumName;
     _artworkImage = artworkImage;
     _mediaIsAudioOnly = mediaIsAudioOnly;
-
 }
 
+#if TARGET_OS_IOS
 - (void)_recoverLastPlaybackStateOfItem:(MLFile *)item
 {
     if (item) {
@@ -959,6 +970,7 @@ setstuff:
         }
     }
 }
+#endif
 
 - (void)recoverDisplayedMetadata
 {
@@ -1151,7 +1163,9 @@ static inline NSArray * RemoteCommandCenterCommandsToHandle(MPRemoteCommandCente
 
 - (void)applicationWillResignActive:(NSNotification *)aNotification
 {
+#if TARGET_OS_IOS
     [self _savePlaybackState];
+#endif
 
     if (![[[NSUserDefaults standardUserDefaults] objectForKey:kVLCSettingContinueAudioInBackgroundKey] boolValue]) {
         if ([_mediaPlayer isPlaying]) {

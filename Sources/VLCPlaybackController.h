@@ -58,8 +58,10 @@ currentMediaHasTrackToChooseFrom:(BOOL)currentMediaHasTrackToChooseFrom
 @property (nonatomic, retain) VLCMediaList *mediaList;
 @property (nonatomic, readwrite) int itemInMediaListToBePlayedFirst;
 
+#if TARGET_OS_IOS
 /* returns nil if currently playing item is not a MLFile, e.g. a url */
 @property (nonatomic, strong, readonly) MLFile *currentlyPlayingMediaFile;
+#endif
 
 @property (nonatomic, weak) id<VLCPlaybackControllerDelegate> delegate;
 
