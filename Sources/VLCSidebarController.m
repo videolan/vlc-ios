@@ -48,10 +48,10 @@
     if ([UIApplication sharedApplication].userInterfaceLayoutDirection == UIUserInterfaceLayoutDirectionLeftToRight) {
         _sideMenuViewController = [[RESideMenu alloc] initWithContentViewController:nil
                                                              leftMenuViewController:_menuViewController
-                                                            rightMenuViewController:[UIViewController new]];
+                                                            rightMenuViewController:nil];
     } else {
         _sideMenuViewController = [[RESideMenu alloc] initWithContentViewController:nil
-                                                             leftMenuViewController:[UIViewController new]
+                                                             leftMenuViewController:nil
                                                             rightMenuViewController:_menuViewController];
     }
     _sideMenuViewController.backgroundImage = [UIImage imageNamed:@"menu-background"];
