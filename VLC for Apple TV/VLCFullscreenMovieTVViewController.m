@@ -39,7 +39,13 @@
 
     _movieView.userInteractionEnabled = NO;
     _playerIsSetup = NO;
+
+    self.titleLabel.text = self.remainingTimeLabel.text = self.playedTimeLabel.text = @"";
+    self.playbackProgressView.progress = .0;
+    self.bottomOverlayView.hidden = YES;
 }
+
+#pragma mark - view events
 
 - (void)viewWillAppear:(BOOL)animated
 {
@@ -61,6 +67,8 @@
     [vpc recoverDisplayedMetadata];
     vpc.videoOutputView = nil;
     vpc.videoOutputView = self.movieView;
+
+    [[NSNotificationCenter defaultCenter] removeObserver:self];
 }
 
 - (void)viewWillDisappear:(BOOL)animated
@@ -77,6 +85,13 @@
 
     [[UIApplication sharedApplication] sendAction:@selector(closeFullscreenPlayback) to:nil from:self forEvent:nil];
 }
+
+- (BOOL)canBecomeFirstResponder
+{
+    return YES;
+}
+
+#pragma mark - playback controller delegation
 
 - (void)prepareForMediaPlayback:(VLCPlaybackController *)controller
 {
@@ -107,7 +122,12 @@ currentMediaHasTrackToChooseFrom:(BOOL)currentMediaHasTrackToChooseFrom
         currentMediaHasChapters:(BOOL)currentMediaHasChapters
           forPlaybackController:(VLCPlaybackController *)controller
 {
-    APLog(@"%s", __PRETTY_FUNCTION__);
+    if (controller.isPlaying && !self.bufferingLabel.hidden) {
+        [UIView animateWithDuration:.3 animations:^{
+            self.bufferingLabel.hidden = YES;
+            self.bottomOverlayView.hidden = NO;
+        }];
+    }
 }
 
 - (void)displayMetadataForPlaybackController:(VLCPlaybackController *)controller
@@ -117,13 +137,15 @@ currentMediaHasTrackToChooseFrom:(BOOL)currentMediaHasTrackToChooseFrom
                                        album:(NSString *)album
                                    audioOnly:(BOOL)audioOnly
 {
-    APLog(@"%s", __PRETTY_FUNCTION__);
+    self.titleLabel.text = title;
 }
 
-- (void)showStatusMessage:(NSString *)statusMessage
-    forPlaybackController:(VLCPlaybackController *)controller
+- (void)playbackPositionUpdated:(VLCPlaybackController *)controller
 {
-    APLog(@"%s", __PRETTY_FUNCTION__);
+    VLCMediaPlayer *mediaPlayer = [VLCPlaybackController sharedInstance].mediaPlayer;
+    self.remainingTimeLabel.text = [[mediaPlayer remainingTime] stringValue];
+    self.playedTimeLabel.text = [[mediaPlayer time] stringValue];
+    self.playbackProgressView.progress = mediaPlayer.position;
 }
 
 @end

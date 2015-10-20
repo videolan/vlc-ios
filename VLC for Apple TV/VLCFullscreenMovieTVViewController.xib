@@ -1,12 +1,19 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
 <document type="com.apple.InterfaceBuilder.AppleTV.XIB" version="3.0" toolsVersion="9058" systemVersion="14F1017" targetRuntime="AppleTV" propertyAccessControl="none" useAutolayout="YES">
     <dependencies>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="9058"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="9048"/>
     </dependencies>
     <objects>
         <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner" customClass="VLCFullscreenMovieTVViewController">
             <connections>
+                <outlet property="bottomOverlayView" destination="SzB-KN-vRr" id="HdG-qX-fha"/>
+                <outlet property="bufferingLabel" destination="yaX-qU-D4t" id="pDV-iQ-eaa"/>
                 <outlet property="movieView" destination="SpU-aa-czI" id="zKW-zZ-hB6"/>
+                <outlet property="playbackProgressView" destination="b0E-Da-d7m" id="ZKe-aD-o2c"/>
+                <outlet property="playedTimeLabel" destination="Qph-m8-iCR" id="iRZ-62-zrZ"/>
+                <outlet property="preferredFocusedView" destination="iN0-l3-epB" id="obT-bV-VZv"/>
+                <outlet property="remainingTimeLabel" destination="rIg-pG-JWA" id="kfd-Dm-yho"/>
+                <outlet property="titleLabel" destination="epY-iV-5FH" id="7pR-09-6Fu"/>
                 <outlet property="view" destination="iN0-l3-epB" id="Eym-vH-oyN"/>
             </connections>
         </placeholder>
@@ -17,15 +24,64 @@
             <subviews>
                 <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="SpU-aa-czI">
                     <rect key="frame" x="0.0" y="0.0" width="1920" height="1080"/>
-                    <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                    <color key="backgroundColor" white="0.0" alpha="1" colorSpace="calibratedWhite"/>
+                </view>
+                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Please wait" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="yaX-qU-D4t">
+                    <rect key="frame" x="815" y="506" width="289" height="69"/>
+                    <fontDescription key="fontDescription" style="UICTFontTextStyleTitle2"/>
+                    <color key="textColor" cocoaTouchSystemColor="lightTextColor"/>
+                    <nil key="highlightedColor"/>
+                </label>
+                <view userInteractionEnabled="NO" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="SzB-KN-vRr" customClass="VLCFrostedGlasView">
+                    <rect key="frame" x="0.0" y="940" width="1920" height="140"/>
+                    <subviews>
+                        <progressView opaque="NO" contentMode="scaleToFill" semanticContentAttribute="playback" verticalHuggingPriority="750" progress="0.5" translatesAutoresizingMaskIntoConstraints="NO" id="b0E-Da-d7m">
+                            <rect key="frame" x="200" y="95" width="1520" height="10"/>
+                        </progressView>
+                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" semanticContentAttribute="playback" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Qph-m8-iCR">
+                            <rect key="frame" x="200" y="59" width="57" height="28"/>
+                            <fontDescription key="fontDescription" style="UICTFontTextStyleCaption2"/>
+                            <color key="textColor" cocoaTouchSystemColor="lightTextColor"/>
+                            <nil key="highlightedColor"/>
+                        </label>
+                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" semanticContentAttribute="playback" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="rIg-pG-JWA">
+                            <rect key="frame" x="1663" y="59" width="57" height="28"/>
+                            <fontDescription key="fontDescription" style="UICTFontTextStyleCaption2"/>
+                            <color key="textColor" cocoaTouchSystemColor="lightTextColor"/>
+                            <nil key="highlightedColor"/>
+                        </label>
+                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="epY-iV-5FH">
+                            <rect key="frame" x="890" y="18" width="140" height="69"/>
+                            <fontDescription key="fontDescription" style="UICTFontTextStyleTitle2"/>
+                            <color key="textColor" cocoaTouchSystemColor="lightTextColor"/>
+                            <nil key="highlightedColor"/>
+                        </label>
+                    </subviews>
+                    <constraints>
+                        <constraint firstItem="b0E-Da-d7m" firstAttribute="top" secondItem="Qph-m8-iCR" secondAttribute="bottom" constant="8" id="4qM-OU-y9L"/>
+                        <constraint firstItem="rIg-pG-JWA" firstAttribute="trailing" secondItem="b0E-Da-d7m" secondAttribute="trailing" id="5Uf-62-xBp"/>
+                        <constraint firstAttribute="height" constant="140" id="JGE-bn-jF2"/>
+                        <constraint firstItem="epY-iV-5FH" firstAttribute="centerX" secondItem="b0E-Da-d7m" secondAttribute="centerX" id="RlC-TU-YCu"/>
+                        <constraint firstItem="b0E-Da-d7m" firstAttribute="top" secondItem="rIg-pG-JWA" secondAttribute="bottom" constant="8" id="Rxy-4w-OCf"/>
+                        <constraint firstAttribute="bottom" secondItem="b0E-Da-d7m" secondAttribute="bottom" constant="35" id="WRo-pW-Bul"/>
+                        <constraint firstItem="b0E-Da-d7m" firstAttribute="top" secondItem="epY-iV-5FH" secondAttribute="bottom" constant="8" id="bje-0n-PKO"/>
+                        <constraint firstAttribute="trailing" secondItem="b0E-Da-d7m" secondAttribute="trailing" constant="200" id="c2a-IL-fc2"/>
+                        <constraint firstItem="b0E-Da-d7m" firstAttribute="leading" secondItem="SzB-KN-vRr" secondAttribute="leading" constant="200" id="jpi-SZ-I5c"/>
+                        <constraint firstItem="Qph-m8-iCR" firstAttribute="leading" secondItem="b0E-Da-d7m" secondAttribute="leading" id="vJ1-lG-BUr"/>
+                    </constraints>
                 </view>
             </subviews>
             <animations/>
             <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
             <constraints>
+                <constraint firstAttribute="trailing" secondItem="SzB-KN-vRr" secondAttribute="trailing" id="3Bb-JP-76x"/>
+                <constraint firstAttribute="bottom" secondItem="SzB-KN-vRr" secondAttribute="bottom" id="542-su-jDp"/>
+                <constraint firstItem="SzB-KN-vRr" firstAttribute="leading" secondItem="iN0-l3-epB" secondAttribute="leading" id="DAq-5Q-AKJ"/>
                 <constraint firstAttribute="bottom" secondItem="SpU-aa-czI" secondAttribute="bottom" id="J9T-OC-2Sd"/>
+                <constraint firstItem="yaX-qU-D4t" firstAttribute="centerX" secondItem="iN0-l3-epB" secondAttribute="centerX" id="Qbe-FY-TR5"/>
                 <constraint firstItem="SpU-aa-czI" firstAttribute="leading" secondItem="iN0-l3-epB" secondAttribute="leading" id="SnQ-Wu-aiI"/>
                 <constraint firstItem="SpU-aa-czI" firstAttribute="top" secondItem="iN0-l3-epB" secondAttribute="top" id="XAU-E6-19A"/>
+                <constraint firstItem="yaX-qU-D4t" firstAttribute="centerY" secondItem="iN0-l3-epB" secondAttribute="centerY" id="ecl-IU-ALU"/>
                 <constraint firstAttribute="trailing" secondItem="SpU-aa-czI" secondAttribute="trailing" id="loH-43-lbw"/>
             </constraints>
         </view>

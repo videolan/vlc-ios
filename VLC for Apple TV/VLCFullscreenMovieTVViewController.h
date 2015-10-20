@@ -17,4 +17,11 @@
 
 @property (readwrite, nonatomic, weak) IBOutlet UIView *movieView;
 
+@property (readwrite, nonatomic, weak) IBOutlet UIView *bottomOverlayView;
+@property (readwrite, nonatomic, weak) IBOutlet UIProgressView *playbackProgressView;
+@property (readwrite, nonatomic, weak) IBOutlet UILabel *playedTimeLabel;
+@property (readwrite, nonatomic, weak) IBOutlet UILabel *remainingTimeLabel;
+@property (readwrite, nonatomic, weak) IBOutlet UILabel *titleLabel;
+@property (readwrite, nonatomic, weak) IBOutlet UILabel *bufferingLabel;
+
 @end
