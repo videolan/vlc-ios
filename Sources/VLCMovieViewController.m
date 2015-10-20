@@ -495,6 +495,12 @@ typedef NS_ENUM(NSInteger, VLCPanType) {
     return YES;
 }
 
+- (void)dismissViewControllerAnimated:(BOOL)flag completion:(void (^)(void))completion
+{
+    [self setControlsHidden:YES animated:animated];
+    [super dismissViewControllerAnimated:flag completion:completion];
+}
+
 - (void) updateDefaults
 {
     NSUserDefaults *defaults = [NSUserDefaults standardUserDefaults];
@@ -843,7 +849,7 @@ currentMediaHasTrackToChooseFrom:(BOOL)currentMediaHasTrackToChooseFrom
 
 - (void)showStatusMessage:(NSString *)statusMessage forPlaybackController:(VLCPlaybackController *)controller
 {
-    [self showStatusMessage:statusMessage];
+    [self.statusLabel showStatusMessage:statusMessage];
 }
 
 - (void)displayMetadataForPlaybackController:(VLCPlaybackController *)controller
@@ -1008,11 +1014,6 @@ currentMediaHasTrackToChooseFrom:(BOOL)currentMediaHasTrackToChooseFrom
                      completion:^(BOOL finished){
                      }];
     [self _resetIdleTimer];
-}
-
-- (void)showStatusMessage:(NSString *)statusMessage
-{
-    [self.statusLabel showStatusMessage:statusMessage];
 }
 
 #pragma mark - multi-select delegation
@@ -1304,10 +1305,10 @@ currentMediaHasTrackToChooseFrom:(BOOL)currentMediaHasTrackToChooseFrom
 
     if ([vpc.mediaPlayer isPlaying]) {
         [vpc.listPlayer pause];
-        [self.statusLabel showStatusMessage:@"  ▌▌"];
+        [self.statusLabel showStatusMessage:@"  ▌▌" forPlaybackController:nil];
     } else {
         [vpc.listPlayer play];
-        [self.statusLabel showStatusMessage:@" ►"];
+        [self.statusLabel showStatusMessage:@" ►" forPlaybackController:nil];
     }
 }
 
