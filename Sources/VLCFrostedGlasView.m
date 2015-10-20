@@ -59,7 +59,7 @@
     _effectView = [[UIVisualEffectView alloc] initWithEffect:[UIBlurEffect effectWithStyle:UIBlurEffectStyleDark]];
     _effectView.frame = self.bounds;
     _effectView.clipsToBounds = YES;
-    [self addSubview:_effectView];
+    [self insertSubview:_effectView atIndex:0];
 #endif
 }
 
