@@ -22,6 +22,13 @@
 #define kSupportedAudioFileExtensions @"\\.(aac|aiff|aif|amr|aob|ape|axa|caf|flac|it|m2a|m4a|m4b|mka|mlp|mod|mp1|mp2|mp3|mpa|mpc|mpga|oga|ogg|oma|opus|rmi|s3m|spx|tta|voc|vqf|wav|w64|wma|wv|xa|xm)$"
 
 #define kVLCSettingPlaybackSpeedDefaultValue @"playback-speed"
+#define kVLCSettingNetworkCaching @"network-caching"
+#define kVLCSettingNetworkCachingDefaultValue @(999)
+#define kVLCSettingVideoFullscreenPlayback @"AlwaysUseFullscreenForVideo"
+#define kVLCSettingSkipLoopFilter @"avcodec-skiploopfilter"
+#define kVLCSettingSkipLoopFilterNone @(0)
+#define kVLCSettingSkipLoopFilterNonRef @(1)
+#define kVLCSettingSkipLoopFilterNonKey @(3)
 #define kVLCSettingDeinterlace @"deinterlace"
 #define kVLCSettingDeinterlaceDefaultValue @(0)
 #define kVLCSettingSubtitlesFont @"quartztext-font"
@@ -32,6 +39,12 @@
 #define kVLCSettingSubtitlesBoldFontDefaultValue @NO
 #define kVLCSettingSubtitlesFontColor @"quartztext-color"
 #define kVLCSettingSubtitlesFontColorDefaultValue @"16777215"
+#define kVLCSettingTextEncoding @"subsdec-encoding"
+#define kVLCSettingTextEncodingDefaultValue @"Windows-1252"
+#define kVLCSettingStretchAudio @"audio-time-stretch"
+#define kVLCSettingStretchAudioOnValue @"1"
+#define kVLCSettingStretchAudioOffValue @"0"
+#define kVLCSettingContinueAudioInBackgroundKey @"BackgroundAudioPlayback"
 #define kVLCSettingSubtitlesFilePath @"sub-file"
 #define kVLCSettingEqualizerProfile @"EqualizerProfile"
 #define kVLCSettingEqualizerProfileDefaultValue @(0)
@@ -39,16 +52,3 @@
 #define kVLCSettingPlaybackForwardSkipLengthDefaultValue @(60)
 #define kVLCSettingPlaybackBackwardSkipLength @"playback-forward-skip-length"
 #define kVLCSettingPlaybackBackwardSkipLengthDefaultValue @(60)
-#define kVLCSettingContinueAudioInBackgroundKey @"BackgroundAudioPlayback"
-#define kVLCSettingStretchAudio @"audio-time-stretch"
-#define kVLCSettingStretchAudioOnValue @"1"
-#define kVLCSettingStretchAudioOffValue @"0"
-#define kVLCSettingNetworkCaching @"network-caching"
-#define kVLCSettingNetworkCachingDefaultValue @(999)
-#define kVLCSettingTextEncoding @"subsdec-encoding"
-#define kVLCSettingTextEncodingDefaultValue @"Windows-1252"
-#define kVLCSettingSkipLoopFilter @"avcodec-skiploopfilter"
-#define kVLCSettingSkipLoopFilterNone @(0)
-#define kVLCSettingSkipLoopFilterNonRef @(1)
-#define kVLCSettingSkipLoopFilterNonKey @(3)
-#define kVLCSettingVideoFullscreenPlayback @"AlwaysUseFullscreenForVideo"

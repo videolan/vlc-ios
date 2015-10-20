@@ -1,0 +1,453 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<plist version="1.0">
+<dict>
+	<key>PreferenceSpecifiers</key>
+	<array>
+		<dict>
+			<key>Type</key>
+			<string>PSGroupSpecifier</string>
+			<key>Title</key>
+			<string>SETTINGS_GENERIC_TITLE</string>
+		</dict>
+		<dict>
+			<key>Type</key>
+			<string>PSMultiValueSpecifier</string>
+			<key>Title</key>
+			<string>SETTINGS_PLAYBACK_SPEED_DEFAULT</string>
+			<key>Key</key>
+			<string>playback-speed</string>
+			<key>DefaultValue</key>
+			<real>1</real>
+			<key>Titles</key>
+			<array>
+				<string>0.50x</string>
+				<string>1.00x</string>
+				<string>1.50x</string>
+				<string>1.75x</string>
+				<string>2.00x</string>
+			</array>
+			<key>Values</key>
+			<array>
+				<real>0.5</real>
+				<real>1</real>
+				<real>1.5</real>
+				<real>1.75</real>
+				<real>2</real>
+			</array>
+		</dict>
+		<dict>
+			<key>Type</key>
+			<string>PSMultiValueSpecifier</string>
+			<key>Title</key>
+			<string>SETTINGS_NETWORK_CACHING_TITLE</string>
+			<key>Key</key>
+			<string>network-caching</string>
+			<key>DefaultValue</key>
+			<integer>999</integer>
+			<key>Titles</key>
+			<array>
+				<string>SETTINGS_NETWORK_CACHING_LEVEL_LOWEST</string>
+				<string>SETTINGS_NETWORK_CACHING_LEVEL_LOW</string>
+				<string>SETTINGS_NETWORK_CACHING_LEVEL_NORMAL</string>
+				<string>SETTINGS_NETWORK_CACHING_LEVEL_HIGH</string>
+				<string>SETTINGS_NETWORK_CACHING_LEVEL_HIGHEST</string>
+			</array>
+			<key>Values</key>
+			<array>
+				<integer>333</integer>
+				<integer>666</integer>
+				<integer>999</integer>
+				<integer>1667</integer>
+				<integer>3333</integer>
+			</array>
+		</dict>
+		<dict>
+			<key>DefaultValue</key>
+			<true/>
+			<key>Key</key>
+			<string>AlwaysUseFullscreenForVideo</string>
+			<key>Title</key>
+			<string>SETTINGS_VIDEO_FULLSCREEN</string>
+			<key>Type</key>
+			<string>PSToggleSwitchSpecifier</string>
+		</dict>
+		<dict>
+			<key>Type</key>
+			<string>PSGroupSpecifier</string>
+			<key>Title</key>
+			<string>SETTINGS_VIDEO_TITLE</string>
+		</dict>
+		<dict>
+			<key>Type</key>
+			<string>PSMultiValueSpecifier</string>
+			<key>Title</key>
+			<string>SETTINGS_SKIP_LOOP_FILTER</string>
+			<key>Key</key>
+			<string>avcodec-skiploopfilter</string>
+			<key>DefaultValue</key>
+			<string>3</string>
+			<key>Titles</key>
+			<array>
+				<string>SETTINGS_SKIP_LOOP_FILTER_NONE</string>
+				<string>SETTINGS_SKIP_LOOP_FILTER_NONKEY</string>
+				<string>SETTINGS_SKIP_LOOP_FILTER_NONREF</string>
+			</array>
+			<key>Values</key>
+			<array>
+				<integer>0</integer>
+				<integer>3</integer>
+				<integer>1</integer>
+			</array>
+		</dict>
+		<dict>
+			<key>Type</key>
+			<string>PSMultiValueSpecifier</string>
+			<key>Title</key>
+			<string>SETTINGS_DEINTERLACE</string>
+			<key>Key</key>
+			<string>deinterlace</string>
+			<key>DefaultValue</key>
+			<integer>0</integer>
+			<key>Titles</key>
+			<array>
+				<string>SETTINGS_DEINTERLACE_ON</string>
+				<string>SETTINGS_DEINTERLACE_OFF</string>
+			</array>
+			<key>Values</key>
+			<array>
+				<integer>1</integer>
+				<integer>0</integer>
+			</array>
+		</dict>
+		<dict>
+			<key>Type</key>
+			<string>PSGroupSpecifier</string>
+			<key>Title</key>
+			<string>SETTINGS_SUBTITLES_TITLE</string>
+		</dict>
+		<dict>
+			<key>Type</key>
+			<string>PSMultiValueSpecifier</string>
+			<key>Title</key>
+			<string>SETTINGS_SUBTITLES_FONT</string>
+			<key>Key</key>
+			<string>quartztext-font</string>
+			<key>DefaultValue</key>
+			<string>Helvetica Neue</string>
+			<key>Titles</key>
+			<array>
+				<string>American Typewriter</string>
+				<string>Arial</string>
+				<string>Arial Hebrew</string>
+				<string>Chalkboard SE</string>
+				<string>Courier New</string>
+				<string>Georgia</string>
+				<string>Gill Sans</string>
+				<string>Gujarati Sangam MN</string>
+				<string>Heiti SC</string>
+				<string>Heiti TC</string>
+				<string>Helvetica Neue</string>
+				<string>Hiragino Kaku Gothic ProN</string>
+				<string>Hiragino Mincho ProN</string>
+				<string>Hoefler Text</string>
+				<string>Kailasa</string>
+				<string>Kannada Sangam MN</string>
+				<string>Malayalam Sangam MN</string>
+				<string>Oriya Sangam MN</string>
+				<string>Sinhala Sangam MN</string>
+				<string>Snell Roundhand</string>
+				<string>Tamil Sangam MN</string>
+				<string>Telugu Sangam MN</string>
+				<string>Times New Roman</string>
+				<string>Zapfino</string>
+			</array>
+			<key>Values</key>
+			<array>
+				<string>AmericanTypewriter</string>
+				<string>ArialMT</string>
+				<string>ArialHebrew</string>
+				<string>ChalkboardSE-Regular</string>
+				<string>CourierNewPSMT</string>
+				<string>Georgia</string>
+				<string>GillSans</string>
+				<string>GujaratiSangamMN</string>
+				<string>STHeitiSC-Light</string>
+				<string>STHeitiTC-Light</string>
+				<string>HelveticaNeue</string>
+				<string>HiraKakuProN-W3</string>
+				<string>HiraMinProN-W3</string>
+				<string>HoeflerText-Regular</string>
+				<string>Kailasa</string>
+				<string>KannadaSangamMN</string>
+				<string>MalayalamSangamMN</string>
+				<string>OriyaSangamMN</string>
+				<string>SinhalaSangamMN</string>
+				<string>SnellRoundhand</string>
+				<string>TamilSangamMN</string>
+				<string>TeluguSangamMN</string>
+				<string>TimesNewRomanPSMT</string>
+				<string>Zapfino</string>
+			</array>
+		</dict>
+		<dict>
+			<key>Type</key>
+			<string>PSMultiValueSpecifier</string>
+			<key>Title</key>
+			<string>SETTINGS_SUBTITLES_FONTSIZE</string>
+			<key>Key</key>
+			<string>quartztext-rel-fontsize</string>
+			<key>DefaultValue</key>
+			<string>16</string>
+			<key>Titles</key>
+			<array>
+				<string>SETTINGS_SUBTITLES_FONTSIZE_SMALLEST</string>
+				<string>SETTINGS_SUBTITLES_FONTSIZE_SMALL</string>
+				<string>SETTINGS_SUBTITLES_FONTSIZE_NORMAL</string>
+				<string>SETTINGS_SUBTITLES_FONTSIZE_LARGE</string>
+				<string>SETTINGS_SUBTITLES_FONTSIZE_LARGEST</string>
+			</array>
+			<key>Values</key>
+			<array>
+				<string>20</string>
+				<string>18</string>
+				<string>16</string>
+				<string>12</string>
+				<string>6</string>
+			</array>
+		</dict>
+		<dict>
+			<key>Type</key>
+			<string>PSToggleSwitchSpecifier</string>
+			<key>Title</key>
+			<string>SETTINGS_SUBTITLES_BOLDFONT</string>
+			<key>Key</key>
+			<string>quartztext-bold</string>
+			<key>DefaultValue</key>
+			<false/>
+		</dict>
+		<dict>
+			<key>Type</key>
+			<string>PSMultiValueSpecifier</string>
+			<key>Title</key>
+			<string>SETTINGS_SUBTITLES_FONTCOLOR</string>
+			<key>Key</key>
+			<string>quartztext-color</string>
+			<key>DefaultValue</key>
+			<string>16777215</string>
+			<key>Titles</key>
+			<array>
+				<string>SETTINGS_SUBTITLES_FONTCOLOR_WHITE</string>
+				<string>SETTINGS_SUBTITLES_FONTCOLOR_BLACK</string>
+				<string>SETTINGS_SUBTITLES_FONTCOLOR_GRAY</string>
+				<string>SETTINGS_SUBTITLES_FONTCOLOR_SILVER</string>
+				<string>SETTINGS_SUBTITLES_FONTCOLOR_RED</string>
+				<string>SETTINGS_SUBTITLES_FONTCOLOR_FUCHSIA</string>
+				<string>SETTINGS_SUBTITLES_FONTCOLOR_YELLOW</string>
+				<string>SETTINGS_SUBTITLES_FONTCOLOR_GREEN</string>
+				<string>SETTINGS_SUBTITLES_FONTCOLOR_NAVY</string>
+			</array>
+			<key>Values</key>
+			<array>
+				<string>16777215</string>
+				<string>0</string>
+				<string>8421504</string>
+				<string>12632256</string>
+				<string>16711680</string>
+				<string>16711935</string>
+				<string>16776960</string>
+				<string>32768</string>
+				<string>128</string>
+			</array>
+		</dict>
+		<dict>
+			<key>Type</key>
+			<string>PSMultiValueSpecifier</string>
+			<key>Titles</key>
+			<array>
+				<string>Universal (UTF-8)</string>
+				<string>Universal (UTF-16)</string>
+				<string>Universal (big endian UTF-16)</string>
+				<string>Universal (little endian UTF-16)</string>
+				<string>Universal Chinese (GB18030)</string>
+				<string>Western European (Latin-9)</string>
+				<string>Western European (Windows-1252)</string>
+				<string>Western European (IBM 00850)</string>
+				<string>Eastern European (Latin-2)</string>
+				<string>Eastern European (Windows-1250)</string>
+				<string>Esperanto (Latin-3)</string>
+				<string>Nordic (Latin-6)</string>
+				<string>Cyrillic (Windows-1251)</string>
+				<string>Russian (KOI8-R)</string>
+				<string>Ukrainian (KOI8-U)</string>
+				<string>Arabic (ISO 8859-6)</string>
+				<string>Arabic (Windows-1256)</string>
+				<string>Greek (ISO 8859-7)</string>
+				<string>Greek (Windows-1253)</string>
+				<string>Hebrew (ISO 8859-8)</string>
+				<string>Hebrew (Windows-1255)</string>
+				<string>Turkish (ISO 8859-9)</string>
+				<string>Turkish (Windows-1254)</string>
+				<string>Thai (TIS 620-2533/ISO 8859-11)</string>
+				<string>Thai (Windows-874)</string>
+				<string>Baltic (Latin-7)</string>
+				<string>Baltic (Windows-1257)</string>
+				<string>Celtic (Latin-8)</string>
+				<string>South-Eastern European (Latin-10)</string>
+				<string>Simplified Chinese (ISO-2022-CN-EXT)</string>
+				<string>Simplified Chinese Unix (EUC-CN)</string>
+				<string>Japanese (7-bits JIS/ISO-2022-JP-2)</string>
+				<string>Japanese Unix (EUC-JP)</string>
+				<string>Japanese (Shift JIS)</string>
+				<string>Korean (EUC-KR/CP949)</string>
+				<string>Korean (ISO-2022-KR)</string>
+				<string>Traditional Chinese (Big5)</string>
+				<string>Traditional Chinese Unix (EUC-TW)</string>
+				<string>Hong-Kong Supplementary (HKSCS)</string>
+				<string>Vietnamese (VISCII)</string>
+				<string>Vietnamese (Windows-1258)</string>
+			</array>
+			<key>Values</key>
+			<array>
+				<string>UTF-8</string>
+				<string>UTF-16</string>
+				<string>UTF-16BE</string>
+				<string>UTF-16LE</string>
+				<string>GB18030</string>
+				<string>ISO-8859-15</string>
+				<string>Windows-1252</string>
+				<string>IBM850</string>
+				<string>ISO-8859-2</string>
+				<string>Windows-1250</string>
+				<string>ISO-8859-3</string>
+				<string>ISO-8859-10</string>
+				<string>Windows-1251</string>
+				<string>KOI8-R</string>
+				<string>KOI8-U</string>
+				<string>ISO-8859-6</string>
+				<string>Windows-1256</string>
+				<string>ISO-8859-7</string>
+				<string>Windows-1253</string>
+				<string>ISO-8859-8</string>
+				<string>Windows-1255</string>
+				<string>ISO-8859-9</string>
+				<string>Windows-1254</string>
+				<string>ISO-8859-11</string>
+				<string>Windows-874</string>
+				<string>ISO-8859-13</string>
+				<string>Windows-1257</string>
+				<string>ISO-8859-14</string>
+				<string>ISO-8859-16</string>
+				<string>ISO-2022-CN-EXT</string>
+				<string>EUC-CN</string>
+				<string>ISO-2022-JP-2</string>
+				<string>EUC-JP</string>
+				<string>Shift_JIS</string>
+				<string>CP949</string>
+				<string>ISO-2022-KR</string>
+				<string>Big5</string>
+				<string>ISO-2022-TW</string>
+				<string>Big5-HKSCS</string>
+				<string>VISCII</string>
+				<string>Windows-1258</string>
+			</array>
+			<key>Title</key>
+			<string>SETTINGS_SUBTITLES_TEXT_ENCODING</string>
+			<key>Key</key>
+			<string>subsdec-encoding</string>
+			<key>DefaultValue</key>
+			<string>Windows-1252</string>
+		</dict>
+		<dict>
+			<key>Type</key>
+			<string>PSGroupSpecifier</string>
+			<key>Title</key>
+			<string>SETTINGS_AUDIO_TITLE</string>
+		</dict>
+		<dict>
+			<key>Type</key>
+			<string>PSToggleSwitchSpecifier</string>
+			<key>Title</key>
+			<string>SETTINGS_TIME_STRETCH_AUDIO</string>
+			<key>Key</key>
+			<string>audio-time-stretch</string>
+			<key>DefaultValue</key>
+			<false/>
+		</dict>
+		<dict>
+			<key>DefaultValue</key>
+			<false/>
+			<key>Key</key>
+			<string>BackgroundAudioPlayback</string>
+			<key>Title</key>
+			<string>SETTINGS_BACKGROUND_AUDIO</string>
+			<key>Type</key>
+			<string>PSToggleSwitchSpecifier</string>
+		</dict>
+		<dict>
+			<key>Type</key>
+			<string>PSGroupSpecifier</string>
+			<key>Title</key>
+			<string>SETTINGS_FILE_SYNC</string>
+		</dict>
+		<dict>
+			<key>Type</key>
+			<string>PSMultiValueSpecifier</string>
+			<key>Titles</key>
+			<array>
+				<string>Universal (UTF-8)</string>
+				<string>Universal (UTF-16)</string>
+				<string>Universal (big endian UTF-16)</string>
+				<string>Universal (little endian UTF-16)</string>
+				<string>Universal (UTF-32)</string>
+				<string>Universal (big endian UTF-32)</string>
+				<string>Universal (little endian UTF-32)</string>
+				<string>Western (Mac OS Roman)</string>
+				<string>Western (ISO Latin 1)</string>
+				<string>Western (Windows Latin 1)</string>
+				<string>Western (ASCII)</string>
+				<string>Western (NextStep)</string>
+				<string>Japanese (EUC)</string>
+				<string>Japanese (Shift JIS)</string>
+				<string>Non-lossy ASCII</string>
+				<string>Central European (ISO Latin 2)</string>
+				<string>Central European (Windows Latin 2)</string>
+				<string>Cyrillic (Windows)</string>
+				<string>Turkish (CP1254)</string>
+				<string>Greek (CP1253)</string>
+			</array>
+			<key>Values</key>
+			<array>
+				<integer>4</integer>
+				<integer>10</integer>
+				<integer>2415919360</integer>
+				<integer>2483028224</integer>
+				<integer>2348810496</integer>
+				<integer>2550137088</integer>
+				<integer>2617245952</integer>
+				<integer>30</integer>
+				<string>5</string>
+				<string>12</string>
+				<string>1</string>
+				<string>2</string>
+				<string>3</string>
+				<string>8</string>
+				<string>7</string>
+				<string>9</string>
+				<string>15</string>
+				<string>11</string>
+				<string>14</string>
+				<string>13</string>
+			</array>
+			<key>Title</key>
+			<string>SETTINGS_FTP_TEXT_ENCODING</string>
+			<key>Key</key>
+			<string>ftp-text-encoding</string>
+			<key>DefaultValue</key>
+			<integer>5</integer>
+		</dict>
+	</array>
+	<key>StringsTable</key>
+	<string>Root</string>
+</dict>
+</plist>
