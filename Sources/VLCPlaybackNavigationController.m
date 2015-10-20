@@ -11,7 +11,9 @@
  *****************************************************************************/
 
 #import "VLCPlaybackNavigationController.h"
+#if TARGET_OS_IOS
 #import "VLCMovieViewController.h"
+#endif
 
 @interface VLCPlaybackNavigationController ()
 
@@ -24,6 +26,7 @@
     return [self.topViewController supportedInterfaceOrientations];
 }
 
+#if TARGET_OS_IOS
 - (BOOL)shouldAutorotate
 {
     id topVC = self.topViewController;
@@ -32,5 +35,6 @@
 
     return YES;
 }
+#endif
 
 @end
