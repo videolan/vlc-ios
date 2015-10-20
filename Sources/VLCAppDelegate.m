@@ -130,10 +130,10 @@ NSString *const VLCDropboxSessionWasAuthorized = @"VLCDropboxSessionWasAuthorize
         VLCNavigationController *navCon = [[VLCNavigationController alloc] initWithRootViewController:_libraryViewController];
         sidebarVC.contentViewController = navCon;
 
-        _playerDisplayController = [[VLCPlayerDisplayController alloc] init];
-        _playerDisplayController.childViewController = sidebarVC.fullViewController;
+        VLCPlayerDisplayController *playerDisplayController = [VLCPlayerDisplayController sharedInstance];
+        playerDisplayController.childViewController = sidebarVC.fullViewController;
 
-        self.window.rootViewController = _playerDisplayController;
+        self.window.rootViewController = playerDisplayController;
         [self.window makeKeyAndVisible];
 
         [self validatePasscode];
@@ -414,7 +414,7 @@ didFailToContinueUserActivityWithType:(NSString *)userActivityType
     _passcodeValidated = YES;
     [self.libraryViewController updateViewContents];
     if ([VLCPlaybackController sharedInstance].isPlaying)
-        [_playerDisplayController pushPlaybackView];
+        [[VLCPlayerDisplayController sharedInstance] pushPlaybackView];
 }
 
 - (BOOL)passcodeValidated
@@ -427,7 +427,7 @@ didFailToContinueUserActivityWithType:(NSString *)userActivityType
     VLCKeychainCoordinator *keychainCoordinator = [VLCKeychainCoordinator defaultCoordinator];
 
     if (!_passcodeValidated && [keychainCoordinator passcodeLockEnabled]) {
-        [_playerDisplayController dismissPlaybackView];
+        [[VLCPlayerDisplayController sharedInstance] dismissPlaybackView];
 
         [keychainCoordinator validatePasscode];
     } else

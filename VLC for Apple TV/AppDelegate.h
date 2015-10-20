@@ -11,12 +11,8 @@
 
 #import <UIKit/UIKit.h>
 
-@class VLCPlayerDisplayController;
-
 @interface AppDelegate : UIResponder <UIApplicationDelegate>
 
 @property (strong, nonatomic) UIWindow *window;
-
-@property (nonatomic, readonly) VLCPlayerDisplayController *playerDisplayController;
 
 @end

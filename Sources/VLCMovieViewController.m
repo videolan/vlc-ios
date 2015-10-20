@@ -497,7 +497,7 @@ typedef NS_ENUM(NSInteger, VLCPanType) {
 
 - (void)dismissViewControllerAnimated:(BOOL)flag completion:(void (^)(void))completion
 {
-    [self setControlsHidden:YES animated:animated];
+    [self setControlsHidden:YES animated:flag];
     [super dismissViewControllerAnimated:flag completion:completion];
 }
 
@@ -1305,10 +1305,10 @@ currentMediaHasTrackToChooseFrom:(BOOL)currentMediaHasTrackToChooseFrom
 
     if ([vpc.mediaPlayer isPlaying]) {
         [vpc.listPlayer pause];
-        [self.statusLabel showStatusMessage:@"  ▌▌" forPlaybackController:nil];
+        [self.statusLabel showStatusMessage:@"  ▌▌"];
     } else {
         [vpc.listPlayer play];
-        [self.statusLabel showStatusMessage:@" ►" forPlaybackController:nil];
+        [self.statusLabel showStatusMessage:@" ►"];
     }
 }
 
@@ -1511,7 +1511,7 @@ currentMediaHasTrackToChooseFrom:(BOOL)currentMediaHasTrackToChooseFrom
 
 - (void)appBecameActive:(NSNotification *)aNotification
 {
-    VLCPlayerDisplayController *pdc = [(VLCAppDelegate *)[UIApplication sharedApplication].delegate playerDisplayController];
+    VLCPlayerDisplayController *pdc = [VLCPlayerDisplayController sharedInstance];
     if (pdc.displayMode == VLCPlayerDisplayControllerDisplayModeFullscreen) {
         VLCPlaybackController *vpc = self.playbackController;
         [vpc recoverDisplayedMetadata];

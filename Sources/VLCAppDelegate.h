@@ -19,15 +19,12 @@
 #import "VLCWatchCommunication.h"
 
 @class VLCLibraryViewController;
-@class VLCPlayerDisplayController;
 
 extern NSString *const VLCDropboxSessionWasAuthorized;
 
 @interface VLCAppDelegate : UIResponder <UIApplicationDelegate>
 
 @property (nonatomic, readonly) VLCLibraryViewController *libraryViewController;
-
-@property (nonatomic, readonly) VLCPlayerDisplayController *playerDisplayController;
 
 @property (nonatomic, readonly) VLCWatchCommunication *watchCommunication;
 

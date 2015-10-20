@@ -12,9 +12,8 @@
 
 #import "VLCMiniPlaybackView.h"
 #import "VLCPlaybackController.h"
-#import "VLCAppDelegate.h"
-#import "VLCLibraryViewController.h"
 #import "VLCPlayerDisplayController.h"
+#import "VLCLibraryViewController.h"
 #import "VLCKeychainCoordinator.h"
 
 @interface VLCMiniPlaybackView () <UIGestureRecognizerDelegate>
@@ -130,7 +129,7 @@
 
 - (void)appBecameActive:(NSNotification *)aNotification
 {
-    VLCPlayerDisplayController *pdc = [(VLCAppDelegate *)[UIApplication sharedApplication].delegate playerDisplayController];
+    VLCPlayerDisplayController *pdc = [VLCPlayerDisplayController sharedInstance];
     if (pdc.displayMode == VLCPlayerDisplayControllerDisplayModeMiniplayer) {
         VLCPlaybackController *vpc = self.playbackController;
         [vpc recoverDisplayedMetadata];
@@ -190,10 +189,9 @@
 
 - (void)prepareForMediaPlayback:(VLCPlaybackController *)controller
 {
-    self.playbackController = playbackController;
     [self updatePlayPauseButton];
-    playbackController.delegate = self;
-    [playbackController recoverDisplayedMetadata];
+    controller.delegate = self;
+    [controller recoverDisplayedMetadata];
 }
 
 - (void)mediaPlayerStateChanged:(VLCMediaPlayerState)currentState
@@ -227,7 +225,7 @@ currentMediaHasTrackToChooseFrom:(BOOL)currentMediaHasTrackToChooseFrom
             _videoView = nil;
         }
 
-        VLCPlayerDisplayController *pdc = [(VLCAppDelegate *)[UIApplication sharedApplication].delegate playerDisplayController];
+        VLCPlayerDisplayController *pdc = [VLCPlayerDisplayController sharedInstance];
         if (pdc.displayMode == VLCPlayerDisplayControllerDisplayModeMiniplayer) {
             _videoView = [[UIView alloc] initWithFrame:_artworkView.frame];
             [_videoView setClipsToBounds:YES];

@@ -13,10 +13,10 @@
 #import "VLCPlayerDisplayController.h"
 #import "VLCPlaybackController.h"
 #import "VLCPlaybackNavigationController.h"
+#import "VLCMiniPlaybackView.h"
 
 #if TARGET_OS_IOS
 #import "VLCMovieViewController.h"
-#import "VLCMiniPlaybackView.h"
 #endif
 
 static NSString *const VLCPlayerDisplayControllerDisplayModeKey = @"VLCPlayerDisplayControllerDisplayMode";
@@ -27,6 +27,18 @@ static NSString *const VLCPlayerDisplayControllerDisplayModeKey = @"VLCPlayerDis
 @end
 
 @implementation VLCPlayerDisplayController
+
++ (VLCPlayerDisplayController *)sharedInstance
+{
+    static VLCPlayerDisplayController *sharedInstance = nil;
+    static dispatch_once_t pred;
+
+    dispatch_once(&pred, ^{
+        sharedInstance = [VLCPlayerDisplayController new];
+    });
+
+    return sharedInstance;
+}
 
 + (void)initialize
 {
@@ -281,9 +293,7 @@ static inline void commonSetup(VLCPlayerDisplayController *self)
     void (^completionBlock)(BOOL) = nil;
     if (needsShow) {
         if (!miniPlaybackView) {
-#if TARGET_OS_IOS
             self.miniPlaybackView = miniPlaybackView = [[VLCMiniPlaybackView alloc] initWithFrame:miniPlayerFrameOut];
-#endif
             miniPlaybackView.autoresizingMask = UIViewAutoresizingFlexibleWidth | UIViewAutoresizingFlexibleTopMargin;
             [self.view addSubview:miniPlaybackView];
         }

@@ -34,7 +34,7 @@
 
     NSDictionary *appDefaults = @{kVLCSettingContinueAudioInBackgroundKey : @(YES),
                                   kVLCSettingStretchAudio : @(NO),
-                                  kVLCSettingVideoFullscreenPlayback : @(YES),
+                                  kVLCSettingVideoFullscreenPlayback : @(NO),
                                   kVLCSettingTextEncoding : kVLCSettingTextEncodingDefaultValue,
                                   kVLCSettingSkipLoopFilter : kVLCSettingSkipLoopFilterNonRef,
                                   kVLCSettingSubtitlesFont : kVLCSettingSubtitlesFontDefaultValue,
@@ -61,10 +61,9 @@
     _mainViewController.tabBar.backgroundColor = [UIColor VLCOrangeTintColor];
     _mainViewController.viewControllers = @[_sharesVC, _localNetworkVC, _openNetworkVC];
 
-    _playerDisplayController = [[VLCPlayerDisplayController alloc] init];
-    _playerDisplayController.childViewController = _mainViewController;
-
-    self.window.rootViewController = _playerDisplayController;
+    VLCPlayerDisplayController *playerDisplayController = [VLCPlayerDisplayController sharedInstance];
+    playerDisplayController.childViewController = _mainViewController;
+    self.window.rootViewController = playerDisplayController;
 
     [self.window makeKeyAndVisible];
     return YES;
