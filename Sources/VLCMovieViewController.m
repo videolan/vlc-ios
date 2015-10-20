@@ -750,8 +750,6 @@ typedef NS_ENUM(NSInteger, VLCPanType) {
     [self _resetIdleTimer];
 }
 
-
-
 - (void)updateTimeDisplayButton
 {
     VLCMediaPlayer *mediaPlayer = self.playbackController.mediaPlayer;

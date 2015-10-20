@@ -11,6 +11,7 @@
 
 #import "VLCOpenNetworkStreamTVViewController.h"
 #import "VLCPlaybackController.h"
+#import "VLCPlayerDisplayController.h"
 
 @interface VLCOpenNetworkStreamTVViewController ()
 {
@@ -100,6 +101,8 @@
 
 - (void)_openURLStringAndDismiss:(NSString *)url
 {
+    [VLCPlayerDisplayController sharedInstance].displayMode = VLCPlayerDisplayControllerDisplayModeMiniplayer;
+
     VLCPlaybackController *vpc = [VLCPlaybackController sharedInstance];
     [vpc playURL:[NSURL URLWithString:url] subtitlesFilePath:nil];
 }

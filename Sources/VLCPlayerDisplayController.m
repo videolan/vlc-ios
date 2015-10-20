@@ -12,8 +12,8 @@
 
 #import "VLCPlayerDisplayController.h"
 #import "VLCPlaybackController.h"
-#import "VLCPlaybackNavigationController.h"
 #import "VLCMiniPlaybackView.h"
+#import "VLCPlaybackNavigationController.h"
 
 #if TARGET_OS_IOS
 #import "VLCMovieViewController.h"
@@ -51,8 +51,8 @@ static inline void commonSetup(VLCPlayerDisplayController *self)
     [notificationCenter addObserver:self selector:@selector(playbackDidStart:) name:VLCPlaybackControllerPlaybackDidStart object:nil];
     [notificationCenter addObserver:self selector:@selector(playbackDidFail:) name:VLCPlaybackControllerPlaybackDidFail object:nil];
     [notificationCenter addObserver:self selector:@selector(playbackDidStop:) name:VLCPlaybackControllerPlaybackDidStop object:nil];
-
 }
+
 - (instancetype)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil
 {
     self = [super initWithNibName:nibNameOrNil bundle:nibBundleOrNil];
