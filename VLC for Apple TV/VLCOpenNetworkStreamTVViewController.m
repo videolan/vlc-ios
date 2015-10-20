@@ -43,6 +43,7 @@
     _recentURLs = [NSMutableArray arrayWithArray:[[NSUbiquitousKeyValueStore defaultStore] arrayForKey:kVLCRecentURLs]];
     if (_recentURLs.count == 0) {
         [_recentURLs addObject:@"http://streams.videolan.org/streams/mp4/Mr_MrsSmith-h264_aac.mp4"];
+        [_recentURLs addObject:@"http://streams.videolan.org/streams/mp4/404.mp4"];
     }
     [self.previouslyPlayedStreamsTableView reloadData];
     self.noURLsToShowLabel.hidden = _recentURLs.count != 0;

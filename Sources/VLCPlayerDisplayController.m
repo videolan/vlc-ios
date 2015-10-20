@@ -47,26 +47,16 @@ static NSString *const VLCPlayerDisplayControllerDisplayModeKey = @"VLCPlayerDis
     [[NSUserDefaults standardUserDefaults] registerDefaults:@{VLCPlayerDisplayControllerDisplayModeKey : @(VLCPlayerDisplayControllerDisplayModeFullscreen)}];
 }
 
-static inline void commonSetup(VLCPlayerDisplayController *self)
+- (instancetype)init
 {
-    NSNotificationCenter *notificationCenter = [NSNotificationCenter defaultCenter];
-    [notificationCenter addObserver:self selector:@selector(playbackDidStart:) name:VLCPlaybackControllerPlaybackDidStart object:nil];
-    [notificationCenter addObserver:self selector:@selector(playbackDidFail:) name:VLCPlaybackControllerPlaybackDidFail object:nil];
-    [notificationCenter addObserver:self selector:@selector(playbackDidStop:) name:VLCPlaybackControllerPlaybackDidStop object:nil];
-}
-
-- (instancetype)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil
-{
-    self = [super initWithNibName:nibNameOrNil bundle:nibBundleOrNil];
+    self = [super init];
     if (self) {
-        commonSetup(self);
+        NSNotificationCenter *notificationCenter = [NSNotificationCenter defaultCenter];
+        [notificationCenter addObserver:self selector:@selector(playbackDidStart:) name:VLCPlaybackControllerPlaybackDidStart object:nil];
+        [notificationCenter addObserver:self selector:@selector(playbackDidFail:) name:VLCPlaybackControllerPlaybackDidFail object:nil];
+        [notificationCenter addObserver:self selector:@selector(playbackDidStop:) name:VLCPlaybackControllerPlaybackDidStop object:nil];
     }
     return self;
-}
-- (void)awakeFromNib
-{
-    [super awakeFromNib];
-    commonSetup(self);
 }
 
 - (void)dealloc
@@ -221,6 +211,7 @@ static inline void commonSetup(VLCPlayerDisplayController *self)
 - (void)showPlaybackError
 {
     NSString *failedString = NSLocalizedString(@"PLAYBACK_FAILED", nil);
+#if TARGET_OS_IOS
     switch (self.displayMode) {
         case VLCPlayerDisplayControllerDisplayModeFullscreen:
             if ([self.movieViewController respondsToSelector:@selector(showStatusMessage:forPlaybackController:)]) {
@@ -229,17 +220,26 @@ static inline void commonSetup(VLCPlayerDisplayController *self)
             break;
         case VLCPlayerDisplayControllerDisplayModeMiniplayer:
         default:
-#if TARGET_OS_IOS
+
             [[[VLCAlertView alloc] initWithTitle:failedString
                                          message:nil
                                         delegate:nil
                                cancelButtonTitle:NSLocalizedString(@"BUTTON_OK", nil)
                                otherButtonTitles:nil] show];
-#else
-            APLog(@"%@", failedString);
-#endif
             break;
     }
+#else
+    UIAlertController *alert = [UIAlertController alertControllerWithTitle:failedString
+                                                                   message:@""
+                                                            preferredStyle:UIAlertControllerStyleAlert];
+
+    UIAlertAction* defaultAction = [UIAlertAction actionWithTitle:NSLocalizedString(@"BUTTON_OK", nil)
+                                                            style:UIAlertActionStyleDefault
+                                                          handler:^(UIAlertAction * action) {}];
+
+    [alert addAction:defaultAction];
+    [self presentViewController:alert animated:YES completion:nil];
+#endif
 }
 
 #pragma mark - fullscreen player

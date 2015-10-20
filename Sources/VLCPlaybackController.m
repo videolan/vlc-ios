@@ -21,6 +21,7 @@
 #import "UIDevice+VLC.h"
 #import <AVFoundation/AVFoundation.h>
 #import <MediaPlayer/MediaPlayer.h>
+#import "VLCPlayerDisplayController.h"
 
 #if TARGET_OS_IOS
 #import "VLCKeychainCoordinator.h"
@@ -253,16 +254,35 @@ NSString *const VLCPlaybackControllerPlaybackDidFail = @"VLCPlaybackControllerPl
     }
     [_listPlayer setRepeatMode:VLCDoNotRepeat];
 
-#if TARGET_OS_IOS
     if (![self _isMediaSuitableForDevice:media]) {
+#if TARGET_OS_IOS
         VLCAlertView *alert = [[VLCAlertView alloc] initWithTitle:NSLocalizedString(@"DEVICE_TOOSLOW_TITLE", nil)
                                                           message:[NSString stringWithFormat:NSLocalizedString(@"DEVICE_TOOSLOW", nil), [[UIDevice currentDevice] model], media.url.lastPathComponent]
                                                          delegate:self
                                                 cancelButtonTitle:NSLocalizedString(@"BUTTON_CANCEL", nil)
                                                 otherButtonTitles:NSLocalizedString(@"BUTTON_OPEN", nil), nil];
         [alert show];
-    } else
+#else
+        UIAlertController *alert = [UIAlertController alertControllerWithTitle:NSLocalizedString(@"DEVICE_TOOSLOW_TITLE", nil)
+                                                                       message:[NSString stringWithFormat:NSLocalizedString(@"DEVICE_TOOSLOW", nil), [[UIDevice currentDevice] model], media.url.lastPathComponent]
+                                                                preferredStyle:UIAlertControllerStyleAlert];
+
+        UIAlertAction *defaultAction = [UIAlertAction actionWithTitle:NSLocalizedString(@"BUTTON_OPEN", nil)
+                                                                style:UIAlertActionStyleDefault
+                                                              handler:^(UIAlertAction * action) {
+                                                                      [self _playNewMedia];
+                                                              }];
+
+        UIAlertAction *cancelAction = [UIAlertAction actionWithTitle:NSLocalizedString(@"BUTTON_CANCEL", nil)
+                                                               style:UIAlertActionStyleDestructive
+                                                            handler:^(UIAlertAction * action) {
+                                                                [self stopPlayback];
+                                                            }];
+        [alert addAction:defaultAction];
+        [alert addAction:cancelAction];
+        [[[VLCPlayerDisplayController sharedInstance] childViewController] presentViewController:alert animated:YES completion:nil];
 #endif
+    } else
         [self _playNewMedia];
 }
 

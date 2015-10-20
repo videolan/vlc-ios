@@ -209,6 +209,7 @@
 		7DEC8BED1BD68D6A006E1093 /* VLCAboutTVViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 7DEC8BEB1BD68D6A006E1093 /* VLCAboutTVViewController.m */; };
 		7DEC8C1D1BD6913A006E1093 /* VLCSettingsAboutTableViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 7DEC8C1C1BD6913A006E1093 /* VLCSettingsAboutTableViewController.m */; };
 		7DEC8C1E1BD69710006E1093 /* About Contents.html in Resources */ = {isa = PBXBuildFile; fileRef = 7D5DD5C617590ABF001421E3 /* About Contents.html */; };
+		7DEC8C1F1BD6A113006E1093 /* UIDevice+VLC.m in Sources */ = {isa = PBXBuildFile; fileRef = 7D3784C7183A9972009EE944 /* UIDevice+VLC.m */; };
 		7DF04F4D1961F2B8004A5429 /* web-download-fixed.png in Resources */ = {isa = PBXBuildFile; fileRef = 7DF04F491961F2B8004A5429 /* web-download-fixed.png */; };
 		7DF04F4E1961F2B8004A5429 /* web-download.png in Resources */ = {isa = PBXBuildFile; fileRef = 7DF04F4A1961F2B8004A5429 /* web-download.png */; };
 		7DF04F4F1961F2B8004A5429 /* web-open-fixed.png in Resources */ = {isa = PBXBuildFile; fileRef = 7DF04F4B1961F2B8004A5429 /* web-open-fixed.png */; };
@@ -2273,6 +2274,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				7DEC8C1F1BD6A113006E1093 /* UIDevice+VLC.m in Sources */,
 				7DC71D211BC83058001FACAA /* VLCAppSharesTVViewController.m in Sources */,
 				7DEC8BED1BD68D6A006E1093 /* VLCAboutTVViewController.m in Sources */,
 				7DEC8BD81BD66DA8006E1093 /* VLCMiniPlaybackView.m in Sources */,
