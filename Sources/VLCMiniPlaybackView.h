@@ -10,12 +10,12 @@
  * Refer to the COPYING file of the official project for license.
  *****************************************************************************/
 
+#import "VLCPlaybackController.h"
+#import "VLCPlayerDisplayController.h"
 #import "VLCFrostedGlasView.h"
 
 @class VLCPlaybackController;
-@interface VLCMiniPlaybackView : VLCFrostedGlasView
+@interface VLCMiniPlaybackView : VLCFrostedGlasView <VLCPlaybackControllerDelegate, VLCMiniPlaybackViewInterface>
 // just a state keeper for animation, has no other implementation
 @property (nonatomic) BOOL visible;
-
-- (void)setupForWork:(VLCPlaybackController *)playbackController;
 @end

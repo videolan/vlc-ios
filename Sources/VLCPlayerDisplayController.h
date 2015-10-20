@@ -17,6 +17,13 @@ typedef NS_ENUM(NSUInteger, VLCPlayerDisplayControllerDisplayMode) {
     VLCPlayerDisplayControllerDisplayModeMiniplayer,
 };
 
+@protocol VLCMiniPlaybackViewInterface <NSObject>
+
+@required;
+@property (nonatomic) BOOL visible;
+
+@end
+
 @interface VLCPlayerDisplayController : UIViewController
 @property (nonatomic, strong) UIViewController *childViewController;
 

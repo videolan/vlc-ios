@@ -17,7 +17,7 @@
 #import "VLCPlayerDisplayController.h"
 #import "VLCKeychainCoordinator.h"
 
-@interface VLCMiniPlaybackView () <VLCPlaybackControllerDelegate, UIGestureRecognizerDelegate>
+@interface VLCMiniPlaybackView () <UIGestureRecognizerDelegate>
 {
     UIImageView *_artworkView;
     UIView *_videoView;
@@ -188,7 +188,7 @@
     [_playPauseButton setImage:playPauseImage forState:UIControlStateNormal];
 }
 
-- (void)setupForWork:(VLCPlaybackController *)playbackController
+- (void)prepareForMediaPlayback:(VLCPlaybackController *)controller
 {
     self.playbackController = playbackController;
     [self updatePlayPauseButton];
