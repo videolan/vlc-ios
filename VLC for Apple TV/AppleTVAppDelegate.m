@@ -14,6 +14,7 @@
 #import "VLCLocalNetworkTVViewController.h"
 #import "VLCOpenNetworkStreamTVViewController.h"
 #import "VLCPlayerDisplayController.h"
+#import "VLCSettingsAboutTableViewController.h"
 
 @interface AppleTVAppDelegate ()
 {
@@ -22,6 +23,8 @@
     VLCAppSharesTVViewController *_sharesVC;
     VLCLocalNetworkTVViewController *_localNetworkVC;
     VLCOpenNetworkStreamTVViewController *_openNetworkVC;
+    UISplitViewController *_aboutSettingsVC;
+    VLCSettingsAboutTableViewController *_aboutSettingsTableVC;
 }
 
 @end
@@ -56,10 +59,14 @@
     _localNetworkVC = [[VLCLocalNetworkTVViewController alloc] initWithNibName:nil bundle:nil];
     _sharesVC = [[VLCAppSharesTVViewController alloc] initWithNibName:nil bundle:nil];
     _openNetworkVC = [[VLCOpenNetworkStreamTVViewController alloc] initWithNibName:nil bundle:nil];
+    _aboutSettingsVC = [[UISplitViewController alloc] init];
+    _aboutSettingsTableVC = [[VLCSettingsAboutTableViewController alloc] initWithNibName:nil bundle:nil];
+    _aboutSettingsVC.viewControllers = @[_aboutSettingsTableVC];
+    _aboutSettingsVC.title = @"Settings & About";
 
     _mainViewController = [[UITabBarController alloc] init];
     _mainViewController.tabBar.backgroundColor = [UIColor VLCOrangeTintColor];
-    _mainViewController.viewControllers = @[_sharesVC, _localNetworkVC, _openNetworkVC];
+    _mainViewController.viewControllers = @[_sharesVC, _localNetworkVC, _openNetworkVC, _aboutSettingsVC];
 
     VLCPlayerDisplayController *playerDisplayController = [VLCPlayerDisplayController sharedInstance];
     playerDisplayController.childViewController = _mainViewController;

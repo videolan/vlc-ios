@@ -206,6 +206,9 @@
 		7DEC8BDE1BD67899006E1093 /* VLCFullscreenMovieTVViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 7DEC8BDC1BD67899006E1093 /* VLCFullscreenMovieTVViewController.m */; };
 		7DEC8BDF1BD67899006E1093 /* VLCFullscreenMovieTVViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 7DEC8BDD1BD67899006E1093 /* VLCFullscreenMovieTVViewController.xib */; };
 		7DEC8BE91BD68BC9006E1093 /* Settings.bundle in Resources */ = {isa = PBXBuildFile; fileRef = 7DEC8BE81BD68BC9006E1093 /* Settings.bundle */; };
+		7DEC8BED1BD68D6A006E1093 /* VLCAboutTVViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 7DEC8BEB1BD68D6A006E1093 /* VLCAboutTVViewController.m */; };
+		7DEC8C1D1BD6913A006E1093 /* VLCSettingsAboutTableViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 7DEC8C1C1BD6913A006E1093 /* VLCSettingsAboutTableViewController.m */; };
+		7DEC8C1E1BD69710006E1093 /* About Contents.html in Resources */ = {isa = PBXBuildFile; fileRef = 7D5DD5C617590ABF001421E3 /* About Contents.html */; };
 		7DF04F4D1961F2B8004A5429 /* web-download-fixed.png in Resources */ = {isa = PBXBuildFile; fileRef = 7DF04F491961F2B8004A5429 /* web-download-fixed.png */; };
 		7DF04F4E1961F2B8004A5429 /* web-download.png in Resources */ = {isa = PBXBuildFile; fileRef = 7DF04F4A1961F2B8004A5429 /* web-download.png */; };
 		7DF04F4F1961F2B8004A5429 /* web-open-fixed.png in Resources */ = {isa = PBXBuildFile; fileRef = 7DF04F4B1961F2B8004A5429 /* web-open-fixed.png */; };
@@ -714,6 +717,10 @@
 		7DEC8BDC1BD67899006E1093 /* VLCFullscreenMovieTVViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = VLCFullscreenMovieTVViewController.m; sourceTree = "<group>"; };
 		7DEC8BDD1BD67899006E1093 /* VLCFullscreenMovieTVViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = VLCFullscreenMovieTVViewController.xib; sourceTree = "<group>"; };
 		7DEC8BE81BD68BC9006E1093 /* Settings.bundle */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.plug-in"; path = Settings.bundle; sourceTree = "<group>"; };
+		7DEC8BEA1BD68D6A006E1093 /* VLCAboutTVViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = VLCAboutTVViewController.h; sourceTree = "<group>"; };
+		7DEC8BEB1BD68D6A006E1093 /* VLCAboutTVViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = VLCAboutTVViewController.m; sourceTree = "<group>"; };
+		7DEC8C1B1BD6913A006E1093 /* VLCSettingsAboutTableViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = VLCSettingsAboutTableViewController.h; sourceTree = "<group>"; };
+		7DEC8C1C1BD6913A006E1093 /* VLCSettingsAboutTableViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = VLCSettingsAboutTableViewController.m; sourceTree = "<group>"; };
 		7DF04F491961F2B8004A5429 /* web-download-fixed.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "web-download-fixed.png"; path = "Resources/web-download-fixed.png"; sourceTree = SOURCE_ROOT; };
 		7DF04F4A1961F2B8004A5429 /* web-download.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "web-download.png"; path = "Resources/web-download.png"; sourceTree = SOURCE_ROOT; };
 		7DF04F4B1961F2B8004A5429 /* web-open-fixed.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "web-open-fixed.png"; path = "Resources/web-open-fixed.png"; sourceTree = SOURCE_ROOT; };
@@ -1107,6 +1114,7 @@
 				7DEC8BE41BD6888F006E1093 /* Basics */,
 				7DEC8BE31BD68882006E1093 /* Network UI */,
 				7DEC8BE51BD6889C006E1093 /* Playback */,
+				7DEC8BEF1BD68D71006E1093 /* Settings and stuff */,
 				7DC71D281BC83138001FACAA /* xibs */,
 				7DEC8BE61BD688AD006E1093 /* Resources */,
 				7D13293F1BA1F10100BE647E /* Supporting Files */,
@@ -1699,6 +1707,17 @@
 			name = Resources;
 			sourceTree = "<group>";
 		};
+		7DEC8BEF1BD68D71006E1093 /* Settings and stuff */ = {
+			isa = PBXGroup;
+			children = (
+				7DEC8BEA1BD68D6A006E1093 /* VLCAboutTVViewController.h */,
+				7DEC8BEB1BD68D6A006E1093 /* VLCAboutTVViewController.m */,
+				7DEC8C1B1BD6913A006E1093 /* VLCSettingsAboutTableViewController.h */,
+				7DEC8C1C1BD6913A006E1093 /* VLCSettingsAboutTableViewController.m */,
+			);
+			name = "Settings and stuff";
+			sourceTree = "<group>";
+		};
 		7DFB1567185CC38A008D49BB /* Dropbox */ = {
 			isa = PBXGroup;
 			children = (
@@ -2107,6 +2126,7 @@
 				7DEC8BDF1BD67899006E1093 /* VLCFullscreenMovieTVViewController.xib in Resources */,
 				7DC71D271BC830A5001FACAA /* VLCLocalNetworkTVViewController.xib in Resources */,
 				7DC71D221BC83058001FACAA /* VLCAppSharesTVViewController.xib in Resources */,
+				7DEC8C1E1BD69710006E1093 /* About Contents.html in Resources */,
 				7D13294F1BA1F10100BE647E /* Assets.xcassets in Resources */,
 				7DEC8BE91BD68BC9006E1093 /* Settings.bundle in Resources */,
 				7D7EF3DB1BD56B5900CD4CEE /* VLCOpenNetworkStreamTVViewController.xib in Resources */,
@@ -2254,6 +2274,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				7DC71D211BC83058001FACAA /* VLCAppSharesTVViewController.m in Sources */,
+				7DEC8BED1BD68D6A006E1093 /* VLCAboutTVViewController.m in Sources */,
 				7DEC8BD81BD66DA8006E1093 /* VLCMiniPlaybackView.m in Sources */,
 				7D7EF3DA1BD56B5900CD4CEE /* VLCOpenNetworkStreamTVViewController.m in Sources */,
 				7D7EF3DD1BD5779F00CD4CEE /* VLCPlaybackController.m in Sources */,
@@ -2265,6 +2286,7 @@
 				7D1329441BA1F10100BE647E /* AppleTVAppDelegate.m in Sources */,
 				7D1329411BA1F10100BE647E /* main.m in Sources */,
 				7DC71D291BC83590001FACAA /* UIColor+Presets.m in Sources */,
+				7DEC8C1D1BD6913A006E1093 /* VLCSettingsAboutTableViewController.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
