@@ -74,6 +74,8 @@
     [self.navigationController setNavigationBarHidden:NO animated:YES];
 
     [super viewWillDisappear:animated];
+
+    [[UIApplication sharedApplication] sendAction:@selector(closeFullscreenPlayback) to:nil from:self forEvent:nil];
 }
 
 - (void)prepareForMediaPlayback:(VLCPlaybackController *)controller
