@@ -13,8 +13,11 @@
 #import "VLCMiniPlaybackView.h"
 #import "VLCPlaybackController.h"
 #import "VLCPlayerDisplayController.h"
+
+#if TARGET_OS_IOS
 #import "VLCLibraryViewController.h"
 #import "VLCKeychainCoordinator.h"
+#endif
 
 @interface VLCMiniPlaybackView () <UIGestureRecognizerDelegate>
 {
@@ -104,25 +107,30 @@
 
     _labelTapRecognizer = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(tapRecognized)];
     _labelTapRecognizer.delegate = self;
-    _labelTapRecognizer.numberOfTouchesRequired = 1;
     [_metaDataLabel addGestureRecognizer:_labelTapRecognizer];
     _metaDataLabel.userInteractionEnabled = YES;
 
     _artworkTapRecognizer = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(tapRecognized)];
     _artworkTapRecognizer.delegate = self;
-    _artworkTapRecognizer.numberOfTouchesRequired = 1;
     [_artworkView addGestureRecognizer:_artworkTapRecognizer];
     _artworkView.userInteractionEnabled = YES;
+
+#if TARGET_OS_IOS
+    _labelTapRecognizer.numberOfTouchesRequired = 1;
+    _artworkTapRecognizer.numberOfTouchesRequired = 1;
+#endif
 
     NSNotificationCenter *center = [NSNotificationCenter defaultCenter];
     [center addObserver:self
                selector:@selector(appBecameActive:)
                    name:UIApplicationDidBecomeActiveNotification
                  object:nil];
+#if TARGET_OS_IOS
     [center addObserver:self
                selector:@selector(appBecameActive:)
                    name:VLCPasscodeValidated
                  object:nil];
+#endif
 
     return self;
 }
