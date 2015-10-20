@@ -13,14 +13,17 @@
 #import "VLCPlayerDisplayController.h"
 #import "VLCPlaybackController.h"
 #import "VLCPlaybackNavigationController.h"
+
+#if TARGET_OS_IOS
 #import "VLCMovieViewController.h"
 #import "VLCMiniPlaybackView.h"
+#endif
 
 static NSString *const VLCPlayerDisplayControllerDisplayModeKey = @"VLCPlayerDisplayControllerDisplayMode";
 
 @interface VLCPlayerDisplayController ()
-@property (nonatomic, strong) VLCMovieViewController *movieViewController;
-@property (nonatomic, strong) VLCMiniPlaybackView *miniPlaybackView;
+@property (nonatomic, strong) UIViewController<VLCPlaybackControllerDelegate> *movieViewController;
+@property (nonatomic, strong) UIView<VLCPlaybackControllerDelegate, VLCMiniPlaybackViewInterface> *miniPlaybackView;
 @end
 
 @implementation VLCPlayerDisplayController
@@ -105,10 +108,12 @@ static inline void commonSetup(VLCPlayerDisplayController *self)
     return _playbackController;
 }
 
-- (VLCMovieViewController *)movieViewController
+- (UIViewController<VLCPlaybackControllerDelegate> *)movieViewController
 {
     if (!_movieViewController) {
+#if TARGET_OS_IOS
         _movieViewController = [[VLCMovieViewController alloc] initWithNibName:nil bundle:nil];
+#endif
         [VLCPlaybackController sharedInstance].delegate = _movieViewController;
     }
     return _movieViewController;
@@ -202,15 +207,21 @@ static inline void commonSetup(VLCPlayerDisplayController *self)
     NSString *failedString = NSLocalizedString(@"PLAYBACK_FAILED", nil);
     switch (self.displayMode) {
         case VLCPlayerDisplayControllerDisplayModeFullscreen:
-            [self.movieViewController showStatusMessage:failedString];
+            if ([self.movieViewController respondsToSelector:@selector(showStatusMessage:forPlaybackController:)]) {
+                [self.movieViewController showStatusMessage:failedString forPlaybackController:nil];
+            }
             break;
         case VLCPlayerDisplayControllerDisplayModeMiniplayer:
         default:
+#if TARGET_OS_IOS
             [[[VLCAlertView alloc] initWithTitle:failedString
                                          message:nil
                                         delegate:nil
                                cancelButtonTitle:NSLocalizedString(@"BUTTON_OK", nil)
                                otherButtonTitles:nil] show];
+#else
+            APLog(@"%@", failedString);
+#endif
             break;
     }
 }
@@ -219,28 +230,29 @@ static inline void commonSetup(VLCPlayerDisplayController *self)
 
 - (void)_presentFullscreenPlaybackViewIfNeeded
 {
+#if TARGET_OS_IOS
     if (!self.movieViewController.presentingViewController) {
         [self _presentMovieViewControllerAnimated:[self shouldAnimate]];
     }
+#endif
 }
 
 - (void)_closeFullscreenPlayback
 {
     BOOL animated = [self shouldAnimate];
-    [self.movieViewController setControlsHidden:YES animated:animated];
     [self.movieViewController dismissViewControllerAnimated:animated completion:nil];
     [self _showHideMiniPlaybackView];
 }
 
 - (void)_presentMovieViewControllerAnimated:(BOOL)animated
 {
-    VLCMovieViewController *movieViewController = self.movieViewController;
+    UIViewController<VLCPlaybackControllerDelegate> *movieViewController = self.movieViewController;
     UINavigationController *navCon = [[VLCPlaybackNavigationController alloc] initWithRootViewController:movieViewController];
     [movieViewController prepareForMediaPlayback:self.playbackController];
+
     navCon.modalPresentationStyle = UIModalPresentationFullScreen;
     UIWindow *window = [[UIApplication sharedApplication] keyWindow];
     [window.rootViewController presentViewController:navCon animated:animated completion:nil];
-
 }
 
 #pragma mark - miniplayer
@@ -248,7 +260,7 @@ static inline void commonSetup(VLCPlayerDisplayController *self)
 - (void)_showHideMiniPlaybackView
 {
     VLCPlaybackController *playbackController = [VLCPlaybackController sharedInstance];
-    VLCMiniPlaybackView *miniPlaybackView = self.miniPlaybackView;
+    UIView<VLCPlaybackControllerDelegate, VLCMiniPlaybackViewInterface> *miniPlaybackView = self.miniPlaybackView;
     const NSTimeInterval animationDuration = 0.25;
     const BOOL activePlaybackSession = playbackController.activePlaybackSession;
     const BOOL miniPlayerVisible = miniPlaybackView.visible;
@@ -269,7 +281,9 @@ static inline void commonSetup(VLCPlayerDisplayController *self)
     void (^completionBlock)(BOOL) = nil;
     if (needsShow) {
         if (!miniPlaybackView) {
+#if TARGET_OS_IOS
             self.miniPlaybackView = miniPlaybackView = [[VLCMiniPlaybackView alloc] initWithFrame:miniPlayerFrameOut];
+#endif
             miniPlaybackView.autoresizingMask = UIViewAutoresizingFlexibleWidth | UIViewAutoresizingFlexibleTopMargin;
             [self.view addSubview:miniPlaybackView];
         }
@@ -277,7 +291,7 @@ static inline void commonSetup(VLCPlayerDisplayController *self)
     } else if (needsHide) {
         miniPlaybackView.visible = NO;
         completionBlock = ^(BOOL finished) {
-            VLCMiniPlaybackView *miniPlaybackView = self.miniPlaybackView;
+            UIView<VLCPlaybackControllerDelegate, VLCMiniPlaybackViewInterface> *miniPlaybackView = self.miniPlaybackView;
             if (miniPlaybackView.visible == NO) {
                 [miniPlaybackView removeFromSuperview];
                 self.miniPlaybackView = nil;
@@ -289,7 +303,7 @@ static inline void commonSetup(VLCPlayerDisplayController *self)
         [self.view addSubview:miniPlaybackView];
     }
     // either way update view
-    [miniPlaybackView setupForWork:playbackController];
+    [miniPlaybackView prepareForMediaPlayback:playbackController];
 
     if (needsShow || needsHide) {
         UIViewController *childViewController = self.childViewController;
@@ -307,7 +321,6 @@ static inline void commonSetup(VLCPlayerDisplayController *self)
                          }
                          completion:completionBlock];
     }
-    
 }
 
 @end
