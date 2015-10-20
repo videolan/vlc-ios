@@ -51,3 +51,4 @@
 #define kVLCSettingSkipLoopFilterNone @(0)
 #define kVLCSettingSkipLoopFilterNonRef @(1)
 #define kVLCSettingSkipLoopFilterNonKey @(3)
+#define kVLCSettingVideoFullscreenPlayback @"AlwaysUseFullscreenForVideo"

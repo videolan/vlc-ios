@@ -13,6 +13,7 @@
 #import "VLCAppSharesTVViewController.h"
 #import "VLCLocalNetworkTVViewController.h"
 #import "VLCOpenNetworkStreamTVViewController.h"
+#import "VLCPlayerDisplayController.h"
 
 @interface AppDelegate ()
 {
@@ -33,6 +34,7 @@
 
     NSDictionary *appDefaults = @{kVLCSettingContinueAudioInBackgroundKey : @(YES),
                                   kVLCSettingStretchAudio : @(NO),
+                                  kVLCSettingVideoFullscreenPlayback : @(YES),
                                   kVLCSettingTextEncoding : kVLCSettingTextEncodingDefaultValue,
                                   kVLCSettingSkipLoopFilter : kVLCSettingSkipLoopFilterNonRef,
                                   kVLCSettingSubtitlesFont : kVLCSettingSubtitlesFontDefaultValue,
@@ -59,7 +61,10 @@
     _mainViewController.tabBar.backgroundColor = [UIColor VLCOrangeTintColor];
     _mainViewController.viewControllers = @[_sharesVC, _localNetworkVC, _openNetworkVC];
 
-    self.window.rootViewController = _mainViewController;
+    _playerDisplayController = [[VLCPlayerDisplayController alloc] init];
+    _playerDisplayController.childViewController = _mainViewController;
+
+    self.window.rootViewController = _playerDisplayController;
 
     [self.window makeKeyAndVisible];
     return YES;
