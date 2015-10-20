@@ -69,7 +69,7 @@
 		7D1052EE1A4DCD1E00295F08 /* VLCOneDriveController.m in Sources */ = {isa = PBXBuildFile; fileRef = 7D1052ED1A4DCD1E00295F08 /* VLCOneDriveController.m */; };
 		7D1276621AADA0E600F0260C /* VLCMultiSelectionMenuView.m in Sources */ = {isa = PBXBuildFile; fileRef = 7D1276611AADA0E600F0260C /* VLCMultiSelectionMenuView.m */; };
 		7D1329411BA1F10100BE647E /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 7D1329401BA1F10100BE647E /* main.m */; };
-		7D1329441BA1F10100BE647E /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 7D1329431BA1F10100BE647E /* AppDelegate.m */; };
+		7D1329441BA1F10100BE647E /* AppleTVAppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 7D1329431BA1F10100BE647E /* AppleTVAppDelegate.m */; };
 		7D13294F1BA1F10100BE647E /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 7D13294E1BA1F10100BE647E /* Assets.xcassets */; };
 		7D1516421868D7E0004B18F3 /* VLCFirstStepsFifthPageViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 7D15163B1868D7E0004B18F3 /* VLCFirstStepsFifthPageViewController.xib */; };
 		7D1516431868D7E0004B18F3 /* VLCFirstStepsFirstPageViewController~iphone.xib in Resources */ = {isa = PBXBuildFile; fileRef = 7D15163C1868D7E0004B18F3 /* VLCFirstStepsFirstPageViewController~iphone.xib */; };
@@ -460,8 +460,8 @@
 		7D1276611AADA0E600F0260C /* VLCMultiSelectionMenuView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = VLCMultiSelectionMenuView.m; path = Sources/VLCMultiSelectionMenuView.m; sourceTree = SOURCE_ROOT; };
 		7D13293D1BA1F10100BE647E /* VLC for Apple TV.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "VLC for Apple TV.app"; sourceTree = BUILT_PRODUCTS_DIR; };
 		7D1329401BA1F10100BE647E /* main.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = main.m; sourceTree = "<group>"; };
-		7D1329421BA1F10100BE647E /* AppDelegate.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = AppDelegate.h; sourceTree = "<group>"; };
-		7D1329431BA1F10100BE647E /* AppDelegate.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = AppDelegate.m; sourceTree = "<group>"; };
+		7D1329421BA1F10100BE647E /* AppleTVAppDelegate.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = AppleTVAppDelegate.h; sourceTree = "<group>"; };
+		7D1329431BA1F10100BE647E /* AppleTVAppDelegate.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = AppleTVAppDelegate.m; sourceTree = "<group>"; };
 		7D13294E1BA1F10100BE647E /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		7D1329501BA1F10100BE647E /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		7D13297A1BA313D500BE647E /* TVPrefixHeader.pch */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TVPrefixHeader.pch; sourceTree = "<group>"; };
@@ -1102,21 +1102,11 @@
 		7D13293E1BA1F10100BE647E /* VLC for Apple TV */ = {
 			isa = PBXGroup;
 			children = (
-				7D2D7FD21BD2F109002D6B6D /* VLC for Apple TV.entitlements */,
-				7D1329421BA1F10100BE647E /* AppDelegate.h */,
-				7D7EF3DC1BD572CE00CD4CEE /* VLCTVConstants.h */,
-				7D1329431BA1F10100BE647E /* AppDelegate.m */,
-				7DC71D1E1BC83058001FACAA /* VLCAppSharesTVViewController.h */,
-				7DC71D1F1BC83058001FACAA /* VLCAppSharesTVViewController.m */,
-				7DC71D231BC830A5001FACAA /* VLCLocalNetworkTVViewController.h */,
-				7DC71D241BC830A5001FACAA /* VLCLocalNetworkTVViewController.m */,
-				7D7EF3D71BD56B5900CD4CEE /* VLCOpenNetworkStreamTVViewController.h */,
-				7D7EF3D81BD56B5900CD4CEE /* VLCOpenNetworkStreamTVViewController.m */,
-				7DEC8BDB1BD67899006E1093 /* VLCFullscreenMovieTVViewController.h */,
-				7DEC8BDC1BD67899006E1093 /* VLCFullscreenMovieTVViewController.m */,
+				7DEC8BE41BD6888F006E1093 /* Basics */,
+				7DEC8BE31BD68882006E1093 /* Network UI */,
+				7DEC8BE51BD6889C006E1093 /* Playback */,
 				7DC71D281BC83138001FACAA /* xibs */,
-				7D13294E1BA1F10100BE647E /* Assets.xcassets */,
-				7D1329501BA1F10100BE647E /* Info.plist */,
+				7DEC8BE61BD688AD006E1093 /* Resources */,
 				7D13293F1BA1F10100BE647E /* Supporting Files */,
 			);
 			path = "VLC for Apple TV";
@@ -1179,10 +1169,6 @@
 		7D31CF061746AEF2005997E0 /* UI Elements */ = {
 			isa = PBXGroup;
 			children = (
-				7D9561091AF3E9E800779745 /* VLCMiniPlaybackView.h */,
-				7D95610A1AF3E9E800779745 /* VLCMiniPlaybackView.m */,
-				9BADAF43185FBD9D00108BD8 /* VLCFrostedGlasView.h */,
-				9BADAF44185FBD9D00108BD8 /* VLCFrostedGlasView.m */,
 				7D3784B2183A9938009EE944 /* UIBarButtonItem+Theme.h */,
 				7D3784B3183A9938009EE944 /* UIBarButtonItem+Theme.m */,
 				7D7417781AE2D3CE001F1997 /* VLCNavigationController.h */,
@@ -1265,10 +1251,6 @@
 		7D5F7AB9175265B2006CCCFA /* Playback */ = {
 			isa = PBXGroup;
 			children = (
-				7DE56C181AD93F9100E8CA00 /* VLCPlaybackController.h */,
-				7DE56C191AD93F9100E8CA00 /* VLCPlaybackController.m */,
-				DD510B6E1B14E564003BA71C /* VLCPlayerDisplayController.h */,
-				DD510B6F1B14E564003BA71C /* VLCPlayerDisplayController.m */,
 				DD8F842F1B00EB3B0009138A /* VLCPlaybackController+MediaLibrary.h */,
 				DD8F84301B00EB3B0009138A /* VLCPlaybackController+MediaLibrary.m */,
 				7D37848D183A98B6009EE944 /* VLCMovieViewController.h */,
@@ -1639,6 +1621,81 @@
 			name = "Library Sharing";
 			sourceTree = "<group>";
 		};
+		7DEC8BE01BD686D3006E1093 /* Playback */ = {
+			isa = PBXGroup;
+			children = (
+				7D9561091AF3E9E800779745 /* VLCMiniPlaybackView.h */,
+				7D95610A1AF3E9E800779745 /* VLCMiniPlaybackView.m */,
+				7DE56C181AD93F9100E8CA00 /* VLCPlaybackController.h */,
+				7DE56C191AD93F9100E8CA00 /* VLCPlaybackController.m */,
+				DD510B6E1B14E564003BA71C /* VLCPlayerDisplayController.h */,
+				DD510B6F1B14E564003BA71C /* VLCPlayerDisplayController.m */,
+			);
+			name = Playback;
+			sourceTree = "<group>";
+		};
+		7DEC8BE11BD686FA006E1093 /* Library */ = {
+			isa = PBXGroup;
+			children = (
+				7D37849C183A98DD009EE944 /* VLCThumbnailsCache.h */,
+				7D37849D183A98DD009EE944 /* VLCThumbnailsCache.m */,
+				DD7110EE1AF38B2B00854776 /* MLMediaLibrary+playlist.h */,
+				DD7110EF1AF38B2B00854776 /* MLMediaLibrary+playlist.m */,
+			);
+			name = Library;
+			sourceTree = "<group>";
+		};
+		7DEC8BE21BD6880C006E1093 /* UI */ = {
+			isa = PBXGroup;
+			children = (
+				9BADAF43185FBD9D00108BD8 /* VLCFrostedGlasView.h */,
+				9BADAF44185FBD9D00108BD8 /* VLCFrostedGlasView.m */,
+			);
+			name = UI;
+			sourceTree = "<group>";
+		};
+		7DEC8BE31BD68882006E1093 /* Network UI */ = {
+			isa = PBXGroup;
+			children = (
+				7DC71D1E1BC83058001FACAA /* VLCAppSharesTVViewController.h */,
+				7DC71D1F1BC83058001FACAA /* VLCAppSharesTVViewController.m */,
+				7DC71D231BC830A5001FACAA /* VLCLocalNetworkTVViewController.h */,
+				7DC71D241BC830A5001FACAA /* VLCLocalNetworkTVViewController.m */,
+				7D7EF3D71BD56B5900CD4CEE /* VLCOpenNetworkStreamTVViewController.h */,
+				7D7EF3D81BD56B5900CD4CEE /* VLCOpenNetworkStreamTVViewController.m */,
+			);
+			name = "Network UI";
+			sourceTree = "<group>";
+		};
+		7DEC8BE41BD6888F006E1093 /* Basics */ = {
+			isa = PBXGroup;
+			children = (
+				7D7EF3DC1BD572CE00CD4CEE /* VLCTVConstants.h */,
+				7D1329421BA1F10100BE647E /* AppleTVAppDelegate.h */,
+				7D1329431BA1F10100BE647E /* AppleTVAppDelegate.m */,
+			);
+			name = Basics;
+			sourceTree = "<group>";
+		};
+		7DEC8BE51BD6889C006E1093 /* Playback */ = {
+			isa = PBXGroup;
+			children = (
+				7DEC8BDB1BD67899006E1093 /* VLCFullscreenMovieTVViewController.h */,
+				7DEC8BDC1BD67899006E1093 /* VLCFullscreenMovieTVViewController.m */,
+			);
+			name = Playback;
+			sourceTree = "<group>";
+		};
+		7DEC8BE61BD688AD006E1093 /* Resources */ = {
+			isa = PBXGroup;
+			children = (
+				7D2D7FD21BD2F109002D6B6D /* VLC for Apple TV.entitlements */,
+				7D13294E1BA1F10100BE647E /* Assets.xcassets */,
+				7D1329501BA1F10100BE647E /* Info.plist */,
+			);
+			name = Resources;
+			sourceTree = "<group>";
+		};
 		7DFB1567185CC38A008D49BB /* Dropbox */ = {
 			isa = PBXGroup;
 			children = (
@@ -1802,10 +1859,9 @@
 		DD7110ED1AF38AFD00854776 /* SharedSources */ = {
 			isa = PBXGroup;
 			children = (
-				7D37849C183A98DD009EE944 /* VLCThumbnailsCache.h */,
-				7D37849D183A98DD009EE944 /* VLCThumbnailsCache.m */,
-				DD7110EE1AF38B2B00854776 /* MLMediaLibrary+playlist.h */,
-				DD7110EF1AF38B2B00854776 /* MLMediaLibrary+playlist.m */,
+				7DEC8BE21BD6880C006E1093 /* UI */,
+				7DEC8BE01BD686D3006E1093 /* Playback */,
+				7DEC8BE11BD686FA006E1093 /* Library */,
 				DD3EA62F1AF50CFE007FF096 /* VLCWatchMessage.h */,
 				DD3EA6301AF50CFE007FF096 /* VLCWatchMessage.m */,
 			);
@@ -2202,7 +2258,7 @@
 				7DC71D261BC830A5001FACAA /* VLCLocalNetworkTVViewController.m in Sources */,
 				7DEC8BD91BD670EB006E1093 /* VLCPlaybackNavigationController.m in Sources */,
 				7DEC8BDA1BD67112006E1093 /* VLCFrostedGlasView.m in Sources */,
-				7D1329441BA1F10100BE647E /* AppDelegate.m in Sources */,
+				7D1329441BA1F10100BE647E /* AppleTVAppDelegate.m in Sources */,
 				7D1329411BA1F10100BE647E /* main.m in Sources */,
 				7DC71D291BC83590001FACAA /* UIColor+Presets.m in Sources */,
 			);

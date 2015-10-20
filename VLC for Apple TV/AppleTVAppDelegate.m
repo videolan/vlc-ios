@@ -9,13 +9,13 @@
  * Refer to the COPYING file of the official project for license.
  *****************************************************************************/
 
-#import "AppDelegate.h"
+#import "AppleTVAppDelegate.h"
 #import "VLCAppSharesTVViewController.h"
 #import "VLCLocalNetworkTVViewController.h"
 #import "VLCOpenNetworkStreamTVViewController.h"
 #import "VLCPlayerDisplayController.h"
 
-@interface AppDelegate ()
+@interface AppleTVAppDelegate ()
 {
     UITabBarController *_mainViewController;
 
@@ -26,7 +26,7 @@
 
 @end
 
-@implementation AppDelegate
+@implementation AppleTVAppDelegate
 
 + (void)initialize
 {
