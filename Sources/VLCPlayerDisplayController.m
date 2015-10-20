@@ -17,6 +17,8 @@
 
 #if TARGET_OS_IOS
 #import "VLCMovieViewController.h"
+#else
+#import "VLCFullscreenMovieTVViewController.h"
 #endif
 
 static NSString *const VLCPlayerDisplayControllerDisplayModeKey = @"VLCPlayerDisplayControllerDisplayMode";
@@ -125,6 +127,8 @@ static inline void commonSetup(VLCPlayerDisplayController *self)
     if (!_movieViewController) {
 #if TARGET_OS_IOS
         _movieViewController = [[VLCMovieViewController alloc] initWithNibName:nil bundle:nil];
+#else
+        _movieViewController = [[VLCFullscreenMovieTVViewController alloc] initWithNibName:nil bundle:nil];
 #endif
         [VLCPlaybackController sharedInstance].delegate = _movieViewController;
     }
@@ -242,11 +246,9 @@ static inline void commonSetup(VLCPlayerDisplayController *self)
 
 - (void)_presentFullscreenPlaybackViewIfNeeded
 {
-#if TARGET_OS_IOS
     if (!self.movieViewController.presentingViewController) {
         [self _presentMovieViewControllerAnimated:[self shouldAnimate]];
     }
-#endif
 }
 
 - (void)_closeFullscreenPlayback

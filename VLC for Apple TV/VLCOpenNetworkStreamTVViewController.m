@@ -101,7 +101,7 @@
 
 - (void)_openURLStringAndDismiss:(NSString *)url
 {
-    [VLCPlayerDisplayController sharedInstance].displayMode = VLCPlayerDisplayControllerDisplayModeMiniplayer;
+    [VLCPlayerDisplayController sharedInstance].displayMode = VLCPlayerDisplayControllerDisplayModeFullscreen;
 
     VLCPlaybackController *vpc = [VLCPlaybackController sharedInstance];
     [vpc playURL:[NSURL URLWithString:url] subtitlesFilePath:nil];
