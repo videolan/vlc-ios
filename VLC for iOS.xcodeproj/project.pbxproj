@@ -131,6 +131,11 @@
 		7D4625881A5614A1001A80B4 /* VLCEqualizerView.m in Sources */ = {isa = PBXBuildFile; fileRef = 7D4625871A5614A1001A80B4 /* VLCEqualizerView.m */; };
 		7D4DF2181B55209200739326 /* CoreSpotlight.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 7D4DF2171B55209200739326 /* CoreSpotlight.framework */; settings = {ATTRIBUTES = (Weak, ); }; };
 		7D50903218F41C7900180139 /* VLCAlertView.m in Sources */ = {isa = PBXBuildFile; fileRef = 7D50903118F41C7900180139 /* VLCAlertView.m */; };
+		7D5278D81BD7DEF600D0CA0E /* DropboxTVSDK.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 7D5278D11BD7DE3D00D0CA0E /* DropboxTVSDK.framework */; };
+		7D5278DD1BD7DF1800D0CA0E /* DropboxTVSDK.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 7D5278D11BD7DE3D00D0CA0E /* DropboxTVSDK.framework */; };
+		7D5278DE1BD7DF1800D0CA0E /* DropboxTVSDK.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = 7D5278D11BD7DE3D00D0CA0E /* DropboxTVSDK.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
+		7D5278E21BD7E06E00D0CA0E /* VLCDropboxController.m in Sources */ = {isa = PBXBuildFile; fileRef = 7D3784AA183A9906009EE944 /* VLCDropboxController.m */; };
+		7D5278E41BD7E37300D0CA0E /* VLCCloudStorageController.m in Sources */ = {isa = PBXBuildFile; fileRef = 4184AA141A5492070063DF5A /* VLCCloudStorageController.m */; };
 		7D5CAA891A4AD763003F2CBC /* VLCTrackSelectorTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 7D5CAA881A4AD763003F2CBC /* VLCTrackSelectorTableViewCell.m */; };
 		7D5CAA8C1A4AD8E5003F2CBC /* VLCTrackSelectorHeaderView.m in Sources */ = {isa = PBXBuildFile; fileRef = 7D5CAA8B1A4AD8E5003F2CBC /* VLCTrackSelectorHeaderView.m */; };
 		7D5DD5C717590ABF001421E3 /* About Contents.html in Resources */ = {isa = PBXBuildFile; fileRef = 7D5DD5C617590ABF001421E3 /* About Contents.html */; };
@@ -287,6 +292,55 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
+		7D5278CA1BD7DE3D00D0CA0E /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 7D5278C31BD7DE3D00D0CA0E /* DropboxSDK.xcodeproj */;
+			proxyType = 2;
+			remoteGlobalIDString = D3196B831412FE180060E7C6;
+			remoteInfo = DropboxSDK;
+		};
+		7D5278CC1BD7DE3D00D0CA0E /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 7D5278C31BD7DE3D00D0CA0E /* DropboxSDK.xcodeproj */;
+			proxyType = 2;
+			remoteGlobalIDString = D3933BE5145F12AD00E15FA7;
+			remoteInfo = SDropboxSDK;
+		};
+		7D5278CE1BD7DE3D00D0CA0E /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 7D5278C31BD7DE3D00D0CA0E /* DropboxSDK.xcodeproj */;
+			proxyType = 2;
+			remoteGlobalIDString = D36931CC15088350003FBA23;
+			remoteInfo = DropboxOSX;
+		};
+		7D5278D01BD7DE3D00D0CA0E /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 7D5278C31BD7DE3D00D0CA0E /* DropboxSDK.xcodeproj */;
+			proxyType = 2;
+			remoteGlobalIDString = 7DEC0DCA1BD7C35D00A32C79;
+			remoteInfo = DropboxTVSDK;
+		};
+		7D5278D41BD7DE7D00D0CA0E /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 7D5278C31BD7DE3D00D0CA0E /* DropboxSDK.xcodeproj */;
+			proxyType = 1;
+			remoteGlobalIDString = 7DEC0DC91BD7C35D00A32C79;
+			remoteInfo = DropboxTVSDK;
+		};
+		7D5278DA1BD7DEF600D0CA0E /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 7D5278C31BD7DE3D00D0CA0E /* DropboxSDK.xcodeproj */;
+			proxyType = 1;
+			remoteGlobalIDString = 7DEC0DC91BD7C35D00A32C79;
+			remoteInfo = DropboxTVSDK;
+		};
+		7D5278DF1BD7DF1800D0CA0E /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 7D5278C31BD7DE3D00D0CA0E /* DropboxSDK.xcodeproj */;
+			proxyType = 1;
+			remoteGlobalIDString = 7DEC0DC91BD7C35D00A32C79;
+			remoteInfo = DropboxTVSDK;
+		};
 		DD3567721B6760BF00338947 /* PBXContainerItemProxy */ = {
 			isa = PBXContainerItemProxy;
 			containerPortal = 7D94FCD316DE7D1000F2623B /* Project object */;
@@ -312,6 +366,17 @@
 			files = (
 			);
 			name = "Embed App Extensions";
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		7D5278E11BD7DF1800D0CA0E /* Embed Frameworks */ = {
+			isa = PBXCopyFilesBuildPhase;
+			buildActionMask = 2147483647;
+			dstPath = "";
+			dstSubfolderSpec = 10;
+			files = (
+				7D5278DE1BD7DF1800D0CA0E /* DropboxTVSDK.framework in Embed Frameworks */,
+			);
+			name = "Embed Frameworks";
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 		DD3567861B6760BF00338947 /* Embed App Extensions */ = {
@@ -600,6 +665,7 @@
 		7D4DF2171B55209200739326 /* CoreSpotlight.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreSpotlight.framework; path = System/Library/Frameworks/CoreSpotlight.framework; sourceTree = SDKROOT; };
 		7D50903018F41C7900180139 /* VLCAlertView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = VLCAlertView.h; path = Sources/VLCAlertView.h; sourceTree = SOURCE_ROOT; };
 		7D50903118F41C7900180139 /* VLCAlertView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = VLCAlertView.m; path = Sources/VLCAlertView.m; sourceTree = SOURCE_ROOT; };
+		7D5278C31BD7DE3D00D0CA0E /* DropboxSDK.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = DropboxSDK.xcodeproj; path = ImportedSources/Dropbox/DropboxSDK/DropboxSDK.xcodeproj; sourceTree = SOURCE_ROOT; };
 		7D5C204D17999A74004F9443 /* da */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = da; path = da.lproj/Localizable.strings; sourceTree = "<group>"; };
 		7D5CAA871A4AD763003F2CBC /* VLCTrackSelectorTableViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = VLCTrackSelectorTableViewCell.h; path = Sources/VLCTrackSelectorTableViewCell.h; sourceTree = SOURCE_ROOT; };
 		7D5CAA881A4AD763003F2CBC /* VLCTrackSelectorTableViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = VLCTrackSelectorTableViewCell.m; path = Sources/VLCTrackSelectorTableViewCell.m; sourceTree = SOURCE_ROOT; };
@@ -874,7 +940,9 @@
 				7DF28AE11BA31C580030C944 /* libc++.tbd in Frameworks */,
 				7DF28ADF1BA31C4D0030C944 /* libiconv.tbd in Frameworks */,
 				7DF28ADD1BA31C390030C944 /* OpenGLES.framework in Frameworks */,
+				7D5278D81BD7DEF600D0CA0E /* DropboxTVSDK.framework in Frameworks */,
 				7DF28ADB1BA31C2B0030C944 /* CoreText.framework in Frameworks */,
+				7D5278DD1BD7DF1800D0CA0E /* DropboxTVSDK.framework in Frameworks */,
 				7DF28AD71BA31C150030C944 /* AudioToolbox.framework in Frameworks */,
 				7D1FEBD41BA3184A00D1058E /* libTVVLCKit.a in Frameworks */,
 			);
@@ -1215,8 +1283,20 @@
 			children = (
 				7D3E52881BD7B5E100309D15 /* VLCCloudServicesTVViewController.h */,
 				7D3E52891BD7B5E100309D15 /* VLCCloudServicesTVViewController.m */,
+				7D5278C31BD7DE3D00D0CA0E /* DropboxSDK.xcodeproj */,
 			);
 			name = Cloud;
+			sourceTree = "<group>";
+		};
+		7D5278C41BD7DE3D00D0CA0E /* Products */ = {
+			isa = PBXGroup;
+			children = (
+				7D5278CB1BD7DE3D00D0CA0E /* DropboxSDK.framework */,
+				7D5278CD1BD7DE3D00D0CA0E /* libSDropboxSDK.a */,
+				7D5278CF1BD7DE3D00D0CA0E /* DropboxOSX.framework */,
+				7D5278D11BD7DE3D00D0CA0E /* DropboxTVSDK.framework */,
+			);
+			name = Products;
 			sourceTree = "<group>";
 		};
 		7D5E39CC174FCDBE007DAFA1 /* Cloud Integration */ = {
@@ -1948,10 +2028,14 @@
 				7D1329391BA1F10100BE647E /* Sources */,
 				7D13293A1BA1F10100BE647E /* Frameworks */,
 				7D13293B1BA1F10100BE647E /* Resources */,
+				7D5278E11BD7DF1800D0CA0E /* Embed Frameworks */,
 			);
 			buildRules = (
 			);
 			dependencies = (
+				7D5278D51BD7DE7D00D0CA0E /* PBXTargetDependency */,
+				7D5278DB1BD7DEF600D0CA0E /* PBXTargetDependency */,
+				7D5278E01BD7DF1800D0CA0E /* PBXTargetDependency */,
 			);
 			name = "VLC for Apple TV";
 			productName = "VLC for Apple TV";
@@ -2131,6 +2215,12 @@
 			mainGroup = 7D94FCD216DE7D1000F2623B;
 			productRefGroup = 7D94FCDC16DE7D1000F2623B /* Products */;
 			projectDirPath = "";
+			projectReferences = (
+				{
+					ProductGroup = 7D5278C41BD7DE3D00D0CA0E /* Products */;
+					ProjectRef = 7D5278C31BD7DE3D00D0CA0E /* DropboxSDK.xcodeproj */;
+				},
+			);
 			projectRoot = "";
 			targets = (
 				7D94FCDA16DE7D1000F2623B /* vlc-ios */,
@@ -2140,6 +2230,37 @@
 			);
 		};
 /* End PBXProject section */
+
+/* Begin PBXReferenceProxy section */
+		7D5278CB1BD7DE3D00D0CA0E /* DropboxSDK.framework */ = {
+			isa = PBXReferenceProxy;
+			fileType = wrapper.cfbundle;
+			path = DropboxSDK.framework;
+			remoteRef = 7D5278CA1BD7DE3D00D0CA0E /* PBXContainerItemProxy */;
+			sourceTree = BUILT_PRODUCTS_DIR;
+		};
+		7D5278CD1BD7DE3D00D0CA0E /* libSDropboxSDK.a */ = {
+			isa = PBXReferenceProxy;
+			fileType = archive.ar;
+			path = libSDropboxSDK.a;
+			remoteRef = 7D5278CC1BD7DE3D00D0CA0E /* PBXContainerItemProxy */;
+			sourceTree = BUILT_PRODUCTS_DIR;
+		};
+		7D5278CF1BD7DE3D00D0CA0E /* DropboxOSX.framework */ = {
+			isa = PBXReferenceProxy;
+			fileType = wrapper.framework;
+			path = DropboxOSX.framework;
+			remoteRef = 7D5278CE1BD7DE3D00D0CA0E /* PBXContainerItemProxy */;
+			sourceTree = BUILT_PRODUCTS_DIR;
+		};
+		7D5278D11BD7DE3D00D0CA0E /* DropboxTVSDK.framework */ = {
+			isa = PBXReferenceProxy;
+			fileType = wrapper.framework;
+			path = DropboxTVSDK.framework;
+			remoteRef = 7D5278D01BD7DE3D00D0CA0E /* PBXContainerItemProxy */;
+			sourceTree = BUILT_PRODUCTS_DIR;
+		};
+/* End PBXReferenceProxy section */
 
 /* Begin PBXResourcesBuildPhase section */
 		7D13293B1BA1F10100BE647E /* Resources */ = {
@@ -2306,11 +2427,13 @@
 				7DEC8BDE1BD67899006E1093 /* VLCFullscreenMovieTVViewController.m in Sources */,
 				7DEC8BD71BD658E6006E1093 /* VLCPlayerDisplayController.m in Sources */,
 				7DC71D261BC830A5001FACAA /* VLCLocalNetworkTVViewController.m in Sources */,
+				7D5278E21BD7E06E00D0CA0E /* VLCDropboxController.m in Sources */,
 				7DEC8BD91BD670EB006E1093 /* VLCPlaybackNavigationController.m in Sources */,
 				7DEC8BDA1BD67112006E1093 /* VLCFrostedGlasView.m in Sources */,
 				7D1329441BA1F10100BE647E /* AppleTVAppDelegate.m in Sources */,
 				7D1329411BA1F10100BE647E /* main.m in Sources */,
 				7DC71D291BC83590001FACAA /* UIColor+Presets.m in Sources */,
+				7D5278E41BD7E37300D0CA0E /* VLCCloudStorageController.m in Sources */,
 				7D3E528B1BD7B5E100309D15 /* VLCCloudServicesTVViewController.m in Sources */,
 				7DEC8C1D1BD6913A006E1093 /* VLCSettingsAboutTableViewController.m in Sources */,
 			);
@@ -2475,6 +2598,21 @@
 /* End PBXSourcesBuildPhase section */
 
 /* Begin PBXTargetDependency section */
+		7D5278D51BD7DE7D00D0CA0E /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			name = DropboxTVSDK;
+			targetProxy = 7D5278D41BD7DE7D00D0CA0E /* PBXContainerItemProxy */;
+		};
+		7D5278DB1BD7DEF600D0CA0E /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			name = DropboxTVSDK;
+			targetProxy = 7D5278DA1BD7DEF600D0CA0E /* PBXContainerItemProxy */;
+		};
+		7D5278E01BD7DF1800D0CA0E /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			name = DropboxTVSDK;
+			targetProxy = 7D5278DF1BD7DF1800D0CA0E /* PBXContainerItemProxy */;
+		};
 		DD3567731B6760BF00338947 /* PBXTargetDependency */ = {
 			isa = PBXTargetDependency;
 			target = DD35676F1B6760BF00338947 /* VLC WatchKit Extension */;

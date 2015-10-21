@@ -11,6 +11,9 @@
       location = "group:ImportedSources/VLCKit/MobileVLCKit.xcodeproj">
    </FileRef>
    <FileRef
+      location = "group:ImportedSources/Dropbox/DropboxSDK/DropboxSDK.xcodeproj">
+   </FileRef>
+   <FileRef
       location = "group:ImportedSources/GDrive/GTL.xcodeproj">
    </FileRef>
    <FileRef
