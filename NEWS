@@ -14,7 +14,8 @@
 * Added option to configure gestures (#15449) 
 * Added support for music albums with more than 1 disk (#14650)
 * Display chapter duration in playback UI (#14718)
-* Recently played network stream URL are not shared across all devices
+* Recently played network stream URL are now shared across all devices
+* Stored login information is now shared across all devices
 
 2.6.6:
 ------

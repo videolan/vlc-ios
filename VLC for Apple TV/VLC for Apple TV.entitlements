@@ -6,5 +6,9 @@
 	<array/>
 	<key>com.apple.developer.ubiquity-kvstore-identifier</key>
 	<string>$(TeamIdentifierPrefix)$(CFBundleIdentifier)</string>
+	<key>keychain-access-groups</key>
+	<array>
+		<string>$(AppIdentifierPrefix)org.videolan.vlc-ios</string>
+	</array>
 </dict>
 </plist>

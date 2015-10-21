@@ -2034,6 +2034,9 @@
 							com.apple.BackgroundModes.appletvos = {
 								enabled = 1;
 							};
+							com.apple.Keychain = {
+								enabled = 1;
+							};
 							com.apple.iCloud = {
 								enabled = 1;
 							};
@@ -2043,6 +2046,9 @@
 						DevelopmentTeam = 75GAHG3SZQ;
 						SystemCapabilities = {
 							com.apple.ApplicationGroups.iOS = {
+								enabled = 1;
+							};
+							com.apple.Keychain = {
 								enabled = 1;
 							};
 							com.apple.iCloud = {
