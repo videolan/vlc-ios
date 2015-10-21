@@ -13,4 +13,6 @@
 
 @interface VLCCloudServicesTVViewController : UIViewController
 
+- (IBAction)dropbox:(id)sender;
+
 @end
