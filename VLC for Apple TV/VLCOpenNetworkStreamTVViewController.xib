@@ -43,9 +43,9 @@
                         <outlet property="delegate" destination="-1" id="osW-Kv-1VK"/>
                     </connections>
                 </tableView>
-                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Open Network Stream" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="SBQ-fX-9BB">
-                    <rect key="frame" x="718" y="57" width="485" height="60"/>
-                    <fontDescription key="fontDescription" type="system" pointSize="50"/>
+                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" misplaced="YES" text="Open Network Stream" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="SBQ-fX-9BB">
+                    <rect key="frame" x="597" y="26" width="728" height="91"/>
+                    <fontDescription key="fontDescription" style="UICTFontTextStyleTitle1"/>
                     <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
                     <nil key="highlightedColor"/>
                 </label>
@@ -59,6 +59,7 @@
             <animations/>
             <color key="backgroundColor" white="0.66666666666666663" alpha="1" colorSpace="calibratedWhite"/>
             <constraints>
+                <constraint firstItem="SBQ-fX-9BB" firstAttribute="top" secondItem="iN0-l3-epB" secondAttribute="top" constant="26" id="Ahc-1g-v0c"/>
                 <constraint firstItem="dWa-3n-YCa" firstAttribute="top" secondItem="SBQ-fX-9BB" secondAttribute="bottom" constant="39" id="QP5-C5-l6C"/>
                 <constraint firstItem="SBQ-fX-9BB" firstAttribute="centerX" secondItem="iN0-l3-epB" secondAttribute="centerX" id="VXg-dj-wUU"/>
                 <constraint firstItem="9hs-BK-cVI" firstAttribute="centerX" secondItem="iN0-l3-epB" secondAttribute="centerX" id="WOA-cL-SLX"/>
