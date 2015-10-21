@@ -171,6 +171,9 @@ DROPBOXSDKVERSION=1.3.13
 curl -L -O https://www.dropbox.com/static/developers/dropbox-ios-sdk-${DROPBOXSDKVERSION}.zip
 unzip -q dropbox-ios-sdk-${DROPBOXSDKVERSION}.zip
 mv dropbox-ios-sdk-${DROPBOXSDKVERSION} Dropbox
+cd Dropbox
+patch -p1 < ../../patches/dropbox/DropboxTV.patch
+cd ..
 rm dropbox-ios-sdk-${DROPBOXSDKVERSION}.zip
 rm -rf __MACOSX
 fi
