@@ -14,8 +14,12 @@
 #import "VLCDropboxController.h"
 #import "NSString+SupportedMedia.h"
 #import "VLCPlaybackController.h"
+#if TARGET_OS_TV
+#import "VLCPlayerDisplayController.h"
+#else
 #import "VLCActivityManager.h"
 #import "VLCMediaFileDiscoverer.h"
+#endif
 
 @interface VLCDropboxController ()
 {
@@ -163,6 +167,7 @@
 
 - (void)restClient:(DBRestClient*)client loadedFile:(NSString*)localPath
 {
+#if TARGET_OS_IOS
     /* update library now that we got a file */
     [[VLCMediaFileDiscoverer sharedInstance] performSelectorOnMainThread:@selector(updateMediaList) withObject:nil waitUntilDone:NO];
 
@@ -171,6 +176,7 @@
     _downloadInProgress = NO;
 
     [self _triggerNextDownload];
+#endif
 }
 
 - (void)restClient:(DBRestClient*)client loadFileFailedWithError:(NSError*)error
@@ -217,21 +223,25 @@
 - (void)networkRequestStarted
 {
     _outstandingNetworkRequests++;
+#if TARGET_OS_IOS
     if (_outstandingNetworkRequests == 1) {
         VLCActivityManager *activityManager = [VLCActivityManager defaultManager];
         [activityManager networkActivityStarted];
         [activityManager disableIdleTimer];
     }
+#endif
 }
 
 - (void)networkRequestStopped
 {
     _outstandingNetworkRequests--;
+#if TARGET_OS_IOS
     if (_outstandingNetworkRequests == 0) {
         VLCActivityManager *activityManager = [VLCActivityManager defaultManager];
         [activityManager networkActivityStopped];
         [activityManager activateIdleTimer];
     }
+#endif
 }
 
 #pragma mark - VLC internal communication and delegate
@@ -270,12 +280,27 @@
 #pragma mark - user feedback
 - (void)_handleError:(NSError *)error
 {
+#if TARGET_OS_IOS
     VLCAlertView *alert = [[VLCAlertView alloc] initWithTitle:[NSString stringWithFormat:NSLocalizedString(@"ERROR_NUMBER", nil), error.code]
                                                       message:error.localizedDescription
                                                      delegate:self
                                             cancelButtonTitle:NSLocalizedString(@"BUTTON_CANCEL", nil)
                                             otherButtonTitles:nil];
     [alert show];
+#else
+    UIAlertController *alert = [UIAlertController alertControllerWithTitle:[NSString stringWithFormat:NSLocalizedString(@"ERROR_NUMBER", nil), error.code]
+                                                                   message:error.localizedDescription
+                                                            preferredStyle:UIAlertControllerStyleAlert];
+
+    UIAlertAction *defaultAction = [UIAlertAction actionWithTitle:NSLocalizedString(@"BUTTON_CANCEL", nil)
+                                                            style:UIAlertActionStyleDestructive
+                                                          handler:^(UIAlertAction *action) {
+                                                          }];
+
+    [alert addAction:defaultAction];
+
+    [[[VLCPlayerDisplayController sharedInstance] childViewController] presentViewController:alert animated:YES completion:nil];
+#endif
 }
 
 @end

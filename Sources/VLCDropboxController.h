@@ -10,7 +10,11 @@
  * Refer to the COPYING file of the official project for license.
  *****************************************************************************/
 
+#if TARGET_OS_IOS
 #import <DropboxSDK/DropboxSDK.h>
+#else
+#import <DropboxTVSDK/DropboxSDK.h>
+#endif
 #import "VLCCloudStorageController.h"
 
 @interface VLCDropboxController : VLCCloudStorageController <DBRestClientDelegate, DBSessionDelegate, DBNetworkRequestDelegate>
