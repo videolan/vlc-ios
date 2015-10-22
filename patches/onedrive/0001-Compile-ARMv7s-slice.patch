@@ -1,7 +1,7 @@
-From 92383705dafbe1e1bce50de6613b5ed7ccbc780b Mon Sep 17 00:00:00 2001
+From 8553c1f37f30b366cfd77a4ead19d2e7d0ae356f Mon Sep 17 00:00:00 2001
 From: =?UTF-8?q?Felix=20Paul=20K=C3=BChne?= <fkuehne@videolan.org>
 Date: Thu, 8 Jan 2015 00:44:58 +0100
-Subject: [PATCH 1/3] Compile ARMv7s slice
+Subject: [PATCH 1/4] Compile ARMv7s slice
 
 ---
  src/LiveSDK.xcodeproj/project.pbxproj | 4 ++--
@@ -30,5 +30,5 @@ index 24c1677..fd45f68 100755
  			};
  			name = Release;
 -- 
-2.3.8 (Apple Git-58)
+2.6.1
 

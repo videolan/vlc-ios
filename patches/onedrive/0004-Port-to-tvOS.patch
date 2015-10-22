@@ -1,0 +1,350 @@
+From 4dd134c01bf6de8c040def7241472f007099c650 Mon Sep 17 00:00:00 2001
+From: =?UTF-8?q?Felix=20Paul=20K=C3=BChne?= <fkuehne@videolan.org>
+Date: Thu, 22 Oct 2015 21:30:16 +0200
+Subject: [PATCH 4/4] Port to tvOS
+
+---
+ src/LiveSDK.xcodeproj/project.pbxproj              | 156 +++++++++++++++++++++
+ .../Library/Internal/LiveConnectClientCore.h       |   6 +
+ .../Library/Internal/LiveConnectClientCore.m       |  10 ++
+ 3 files changed, 172 insertions(+)
+
+diff --git a/src/LiveSDK.xcodeproj/project.pbxproj b/src/LiveSDK.xcodeproj/project.pbxproj
+index c4772ce..29f0f9f 100755
+--- a/src/LiveSDK.xcodeproj/project.pbxproj
++++ b/src/LiveSDK.xcodeproj/project.pbxproj
+@@ -97,6 +97,25 @@
+ 		52C47514149B38D1007E646F /* LiveOperation.m in Sources */ = {isa = PBXBuildFile; fileRef = 529DB6D7146C7550000973C1 /* LiveOperation.m */; };
+ 		52C47515149B38D1007E646F /* LiveOperationProgress.m in Sources */ = {isa = PBXBuildFile; fileRef = 52B4944C1487625C001EA573 /* LiveOperationProgress.m */; };
+ 		52C47518149B390F007E646F /* LiveAuthDialog.m in Sources */ = {isa = PBXBuildFile; fileRef = 5210CF951494445E00C525F3 /* LiveAuthDialog.m */; };
++		7D0C34FD1BD967FB0058CD19 /* LiveAuthStorage.m in Sources */ = {isa = PBXBuildFile; fileRef = 52B54AE514909F16001E1E17 /* LiveAuthStorage.m */; };
++		7D0C35041BD967FB0058CD19 /* LiveDownloadOperationCore.m in Sources */ = {isa = PBXBuildFile; fileRef = 52B494521488BDF5001EA573 /* LiveDownloadOperationCore.m */; };
++		7D0C35071BD967FB0058CD19 /* LiveOperationCore.m in Sources */ = {isa = PBXBuildFile; fileRef = 529DB6EC146C7A39000973C1 /* LiveOperationCore.m */; };
++		7D0C350A1BD967FB0058CD19 /* LiveUploadOperationCore.m in Sources */ = {isa = PBXBuildFile; fileRef = 52B4946E148B7D67001EA573 /* LiveUploadOperationCore.m */; };
++		7D0C350D1BD968040058CD19 /* LiveConnectClient.m in Sources */ = {isa = PBXBuildFile; fileRef = 529DB6D0146C7550000973C1 /* LiveConnectClient.m */; };
++		7D0C350F1BD968040058CD19 /* LiveConnectSession.m in Sources */ = {isa = PBXBuildFile; fileRef = 529DB6D2146C7550000973C1 /* LiveConnectSession.m */; };
++		7D0C35121BD968040058CD19 /* LiveDownloadOperation.m in Sources */ = {isa = PBXBuildFile; fileRef = 529DB6D4146C7550000973C1 /* LiveDownloadOperation.m */; };
++		7D0C35151BD968040058CD19 /* LiveOperation.m in Sources */ = {isa = PBXBuildFile; fileRef = 529DB6D7146C7550000973C1 /* LiveOperation.m */; };
++		7D0C35181BD968040058CD19 /* LiveOperationProgress.m in Sources */ = {isa = PBXBuildFile; fileRef = 52B4944C1487625C001EA573 /* LiveOperationProgress.m */; };
++		7D0C35231BD9684F0058CD19 /* JsonParser.m in Sources */ = {isa = PBXBuildFile; fileRef = 7D0C351B1BD9684E0058CD19 /* JsonParser.m */; };
++		7D0C35241BD9684F0058CD19 /* JsonWriter.m in Sources */ = {isa = PBXBuildFile; fileRef = 7D0C351C1BD9684E0058CD19 /* JsonWriter.m */; };
++		7D0C35251BD9684F0058CD19 /* LiveApiHelper.m in Sources */ = {isa = PBXBuildFile; fileRef = 7D0C351D1BD9684E0058CD19 /* LiveApiHelper.m */; };
++		7D0C35261BD9684F0058CD19 /* LiveAuthHelper.m in Sources */ = {isa = PBXBuildFile; fileRef = 7D0C351E1BD9684E0058CD19 /* LiveAuthHelper.m */; };
++		7D0C35271BD9684F0058CD19 /* LiveConnectionHelper.m in Sources */ = {isa = PBXBuildFile; fileRef = 7D0C351F1BD9684E0058CD19 /* LiveConnectionHelper.m */; };
++		7D0C35281BD9684F0058CD19 /* StreamReader.m in Sources */ = {isa = PBXBuildFile; fileRef = 7D0C35201BD9684E0058CD19 /* StreamReader.m */; };
++		7D0C35291BD9684F0058CD19 /* StringHelper.m in Sources */ = {isa = PBXBuildFile; fileRef = 7D0C35211BD9684E0058CD19 /* StringHelper.m */; };
++		7D0C352A1BD9684F0058CD19 /* UrlHelper.m in Sources */ = {isa = PBXBuildFile; fileRef = 7D0C35221BD9684F0058CD19 /* UrlHelper.m */; };
++		7D0C352B1BD969510058CD19 /* LiveConnectClientCore.m in Sources */ = {isa = PBXBuildFile; fileRef = 529DB6EF146C7AEE000973C1 /* LiveConnectClientCore.m */; };
++		7D0C352C1BD9696F0058CD19 /* LiveAuthRefreshRequest.m in Sources */ = {isa = PBXBuildFile; fileRef = 52B54AEE14912DB8001E1E17 /* LiveAuthRefreshRequest.m */; };
+ 		7D2AC5B71B67723A00A8D9DD /* LiveOperation.m in Sources */ = {isa = PBXBuildFile; fileRef = 529DB6D7146C7550000973C1 /* LiveOperation.m */; };
+ 		7D2AC5B81B67723E00A8D9DD /* LiveDownloadOperation.m in Sources */ = {isa = PBXBuildFile; fileRef = 529DB6D4146C7550000973C1 /* LiveDownloadOperation.m */; };
+ 		7D2AC5B91B67724200A8D9DD /* LiveConnectSession.m in Sources */ = {isa = PBXBuildFile; fileRef = 529DB6D2146C7550000973C1 /* LiveConnectSession.m */; };
+@@ -121,6 +140,15 @@
+ /* End PBXBuildFile section */
+ 
+ /* Begin PBXCopyFilesBuildPhase section */
++		7D0C34EC1BD967470058CD19 /* CopyFiles */ = {
++			isa = PBXCopyFilesBuildPhase;
++			buildActionMask = 2147483647;
++			dstPath = "include/$(PRODUCT_NAME)";
++			dstSubfolderSpec = 16;
++			files = (
++			);
++			runOnlyForDeploymentPostprocessing = 0;
++		};
+ 		7D2AC5AC1B6771D000A8D9DD /* CopyFiles */ = {
+ 			isa = PBXCopyFilesBuildPhase;
+ 			buildActionMask = 2147483647;
+@@ -222,6 +250,15 @@
+ 		52F76E8F147A308500DA0A46 /* LiveApiHelper.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = LiveApiHelper.h; path = LiveSDK/Library/Internal/Helpers/LiveApiHelper.h; sourceTree = SOURCE_ROOT; };
+ 		52F76E90147A308500DA0A46 /* LiveApiHelper.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = LiveApiHelper.m; path = LiveSDK/Library/Internal/Helpers/LiveApiHelper.m; sourceTree = SOURCE_ROOT; };
+ 		52F76E94147A3FA500DA0A46 /* LiveAuthDialog_iPad.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; name = LiveAuthDialog_iPad.xib; path = Library/Internal/LiveAuthDialog_iPad.xib; sourceTree = "<group>"; };
++		7D0C34EE1BD967470058CD19 /* libLiveTVSDK.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = libLiveTVSDK.a; sourceTree = BUILT_PRODUCTS_DIR; };
++		7D0C351B1BD9684E0058CD19 /* JsonParser.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; name = JsonParser.m; path = LiveSDK/Library/Internal/Helpers/JsonParser.m; sourceTree = "<group>"; };
++		7D0C351C1BD9684E0058CD19 /* JsonWriter.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; name = JsonWriter.m; path = LiveSDK/Library/Internal/Helpers/JsonWriter.m; sourceTree = "<group>"; };
++		7D0C351D1BD9684E0058CD19 /* LiveApiHelper.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; name = LiveApiHelper.m; path = LiveSDK/Library/Internal/Helpers/LiveApiHelper.m; sourceTree = "<group>"; };
++		7D0C351E1BD9684E0058CD19 /* LiveAuthHelper.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; name = LiveAuthHelper.m; path = LiveSDK/Library/Internal/Helpers/LiveAuthHelper.m; sourceTree = "<group>"; };
++		7D0C351F1BD9684E0058CD19 /* LiveConnectionHelper.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; name = LiveConnectionHelper.m; path = LiveSDK/Library/Internal/Helpers/LiveConnectionHelper.m; sourceTree = "<group>"; };
++		7D0C35201BD9684E0058CD19 /* StreamReader.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; name = StreamReader.m; path = LiveSDK/Library/Internal/Helpers/StreamReader.m; sourceTree = "<group>"; };
++		7D0C35211BD9684E0058CD19 /* StringHelper.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; name = StringHelper.m; path = LiveSDK/Library/Internal/Helpers/StringHelper.m; sourceTree = "<group>"; };
++		7D0C35221BD9684F0058CD19 /* UrlHelper.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; name = UrlHelper.m; path = LiveSDK/Library/Internal/Helpers/UrlHelper.m; sourceTree = "<group>"; };
+ 		7D2AC5AE1B6771D000A8D9DD /* libLiveSDK-static.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libLiveSDK-static.a"; sourceTree = BUILT_PRODUCTS_DIR; };
+ /* End PBXFileReference section */
+ 
+@@ -243,6 +280,13 @@
+ 			);
+ 			runOnlyForDeploymentPostprocessing = 0;
+ 		};
++		7D0C34EB1BD967470058CD19 /* Frameworks */ = {
++			isa = PBXFrameworksBuildPhase;
++			buildActionMask = 2147483647;
++			files = (
++			);
++			runOnlyForDeploymentPostprocessing = 0;
++		};
+ 		7D2AC5AB1B6771D000A8D9DD /* Frameworks */ = {
+ 			isa = PBXFrameworksBuildPhase;
+ 			buildActionMask = 2147483647;
+@@ -283,6 +327,14 @@
+ 		5297DDCE145E102B005B463E = {
+ 			isa = PBXGroup;
+ 			children = (
++				7D0C351B1BD9684E0058CD19 /* JsonParser.m */,
++				7D0C351C1BD9684E0058CD19 /* JsonWriter.m */,
++				7D0C351D1BD9684E0058CD19 /* LiveApiHelper.m */,
++				7D0C351E1BD9684E0058CD19 /* LiveAuthHelper.m */,
++				7D0C351F1BD9684E0058CD19 /* LiveConnectionHelper.m */,
++				7D0C35201BD9684E0058CD19 /* StreamReader.m */,
++				7D0C35211BD9684E0058CD19 /* StringHelper.m */,
++				7D0C35221BD9684F0058CD19 /* UrlHelper.m */,
+ 				526B94AD17692E5F000E29D2 /* Default-568h@2x.png */,
+ 				5297DDE3145E102B005B463E /* LiveSDK */,
+ 				5297DDFB145E102B005B463E /* UnitTests */,
+@@ -298,6 +350,7 @@
+ 				5297DDF4145E102B005B463E /* LiveSDKTests.octest */,
+ 				5285182E14727FE6009E8BD6 /* LiveSDK.framework */,
+ 				7D2AC5AE1B6771D000A8D9DD /* libLiveSDK-static.a */,
++				7D0C34EE1BD967470058CD19 /* libLiveTVSDK.a */,
+ 			);
+ 			name = Products;
+ 			sourceTree = "<group>";
+@@ -529,6 +582,23 @@
+ 			productReference = 5297DDF4145E102B005B463E /* LiveSDKTests.octest */;
+ 			productType = "com.apple.product-type.bundle.ocunit-test";
+ 		};
++		7D0C34ED1BD967470058CD19 /* LiveTVSDK */ = {
++			isa = PBXNativeTarget;
++			buildConfigurationList = 7D0C34F61BD967470058CD19 /* Build configuration list for PBXNativeTarget "LiveTVSDK" */;
++			buildPhases = (
++				7D0C34EA1BD967470058CD19 /* Sources */,
++				7D0C34EB1BD967470058CD19 /* Frameworks */,
++				7D0C34EC1BD967470058CD19 /* CopyFiles */,
++			);
++			buildRules = (
++			);
++			dependencies = (
++			);
++			name = LiveTVSDK;
++			productName = LiveTVSDK;
++			productReference = 7D0C34EE1BD967470058CD19 /* libLiveTVSDK.a */;
++			productType = "com.apple.product-type.library.static";
++		};
+ 		7D2AC5AD1B6771D000A8D9DD /* LiveSDK-static */ = {
+ 			isa = PBXNativeTarget;
+ 			buildConfigurationList = 7D2AC5B61B6771D000A8D9DD /* Build configuration list for PBXNativeTarget "LiveSDK-static" */;
+@@ -555,6 +625,9 @@
+ 				LastTestingUpgradeCheck = 0600;
+ 				LastUpgradeCheck = 0600;
+ 				TargetAttributes = {
++					7D0C34ED1BD967470058CD19 = {
++						CreatedOnToolsVersion = 7.1;
++					};
+ 					7D2AC5AD1B6771D000A8D9DD = {
+ 						CreatedOnToolsVersion = 7.0;
+ 					};
+@@ -575,6 +648,7 @@
+ 				5297DDF3145E102B005B463E /* LiveSDKTests */,
+ 				5285182D14727FE6009E8BD6 /* LiveSDK */,
+ 				7D2AC5AD1B6771D000A8D9DD /* LiveSDK-static */,
++				7D0C34ED1BD967470058CD19 /* LiveTVSDK */,
+ 			);
+ 		};
+ /* End PBXProject section */
+@@ -682,6 +756,32 @@
+ 			);
+ 			runOnlyForDeploymentPostprocessing = 0;
+ 		};
++		7D0C34EA1BD967470058CD19 /* Sources */ = {
++			isa = PBXSourcesBuildPhase;
++			buildActionMask = 2147483647;
++			files = (
++				7D0C35271BD9684F0058CD19 /* LiveConnectionHelper.m in Sources */,
++				7D0C35251BD9684F0058CD19 /* LiveApiHelper.m in Sources */,
++				7D0C352C1BD9696F0058CD19 /* LiveAuthRefreshRequest.m in Sources */,
++				7D0C34FD1BD967FB0058CD19 /* LiveAuthStorage.m in Sources */,
++				7D0C35041BD967FB0058CD19 /* LiveDownloadOperationCore.m in Sources */,
++				7D0C350A1BD967FB0058CD19 /* LiveUploadOperationCore.m in Sources */,
++				7D0C35281BD9684F0058CD19 /* StreamReader.m in Sources */,
++				7D0C35181BD968040058CD19 /* LiveOperationProgress.m in Sources */,
++				7D0C352B1BD969510058CD19 /* LiveConnectClientCore.m in Sources */,
++				7D0C35071BD967FB0058CD19 /* LiveOperationCore.m in Sources */,
++				7D0C35231BD9684F0058CD19 /* JsonParser.m in Sources */,
++				7D0C35241BD9684F0058CD19 /* JsonWriter.m in Sources */,
++				7D0C35261BD9684F0058CD19 /* LiveAuthHelper.m in Sources */,
++				7D0C35291BD9684F0058CD19 /* StringHelper.m in Sources */,
++				7D0C352A1BD9684F0058CD19 /* UrlHelper.m in Sources */,
++				7D0C350D1BD968040058CD19 /* LiveConnectClient.m in Sources */,
++				7D0C350F1BD968040058CD19 /* LiveConnectSession.m in Sources */,
++				7D0C35121BD968040058CD19 /* LiveDownloadOperation.m in Sources */,
++				7D0C35151BD968040058CD19 /* LiveOperation.m in Sources */,
++			);
++			runOnlyForDeploymentPostprocessing = 0;
++		};
+ 		7D2AC5AA1B6771D000A8D9DD /* Sources */ = {
+ 			isa = PBXSourcesBuildPhase;
+ 			buildActionMask = 2147483647;
+@@ -877,6 +977,53 @@
+ 			};
+ 			name = Release;
+ 		};
++		7D0C34F41BD967470058CD19 /* Debug */ = {
++			isa = XCBuildConfiguration;
++			buildSettings = {
++				CLANG_CXX_LANGUAGE_STANDARD = "gnu++0x";
++				CLANG_CXX_LIBRARY = "libc++";
++				CLANG_ENABLE_MODULES = YES;
++				CLANG_ENABLE_OBJC_ARC = NO;
++				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
++				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
++				DEBUG_INFORMATION_FORMAT = dwarf;
++				ENABLE_TESTABILITY = YES;
++				GCC_NO_COMMON_BLOCKS = YES;
++				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
++				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
++				MTL_ENABLE_DEBUG_INFO = YES;
++				OTHER_LDFLAGS = "-ObjC";
++				PRODUCT_NAME = "$(TARGET_NAME)";
++				SDKROOT = appletvos;
++				SKIP_INSTALL = YES;
++				TVOS_DEPLOYMENT_TARGET = 9.0;
++			};
++			name = Debug;
++		};
++		7D0C34F51BD967470058CD19 /* Release */ = {
++			isa = XCBuildConfiguration;
++			buildSettings = {
++				CLANG_CXX_LANGUAGE_STANDARD = "gnu++0x";
++				CLANG_CXX_LIBRARY = "libc++";
++				CLANG_ENABLE_MODULES = YES;
++				CLANG_ENABLE_OBJC_ARC = NO;
++				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
++				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
++				COPY_PHASE_STRIP = NO;
++				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
++				ENABLE_NS_ASSERTIONS = NO;
++				GCC_NO_COMMON_BLOCKS = YES;
++				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
++				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
++				MTL_ENABLE_DEBUG_INFO = NO;
++				OTHER_LDFLAGS = "-ObjC";
++				PRODUCT_NAME = "$(TARGET_NAME)";
++				SDKROOT = appletvos;
++				SKIP_INSTALL = YES;
++				TVOS_DEPLOYMENT_TARGET = 9.0;
++			};
++			name = Release;
++		};
+ 		7D2AC5B41B6771D000A8D9DD /* Debug */ = {
+ 			isa = XCBuildConfiguration;
+ 			buildSettings = {
+@@ -966,6 +1113,14 @@
+ 			defaultConfigurationIsVisible = 0;
+ 			defaultConfigurationName = Release;
+ 		};
++		7D0C34F61BD967470058CD19 /* Build configuration list for PBXNativeTarget "LiveTVSDK" */ = {
++			isa = XCConfigurationList;
++			buildConfigurations = (
++				7D0C34F41BD967470058CD19 /* Debug */,
++				7D0C34F51BD967470058CD19 /* Release */,
++			);
++			defaultConfigurationIsVisible = 0;
++		};
+ 		7D2AC5B61B6771D000A8D9DD /* Build configuration list for PBXNativeTarget "LiveSDK-static" */ = {
+ 			isa = XCConfigurationList;
+ 			buildConfigurations = (
+@@ -973,6 +1128,7 @@
+ 				7D2AC5B51B6771D000A8D9DD /* Release */,
+ 			);
+ 			defaultConfigurationIsVisible = 0;
++			defaultConfigurationName = Release;
+ 		};
+ /* End XCConfigurationList section */
+ 	};
+diff --git a/src/LiveSDK/Library/Internal/LiveConnectClientCore.h b/src/LiveSDK/Library/Internal/LiveConnectClientCore.h
+index 44c3fd2..72f2871 100644
+--- a/src/LiveSDK/Library/Internal/LiveConnectClientCore.h
++++ b/src/LiveSDK/Library/Internal/LiveConnectClientCore.h
+@@ -26,7 +26,9 @@
+ 
+ #import <Foundation/Foundation.h>
+ #import "LiveAuthDelegate.h"
++#if TARGET_OS_IOS
+ #import "LiveAuthRequest.h"
++#endif
+ #import "LiveAuthRefreshRequest.h"
+ #import "LiveAuthStorage.h"
+ #import "LiveConnectSession.h"
+@@ -52,7 +54,9 @@
+ @property (nonatomic) LiveConnectSessionStatus status;
+ @property (nonatomic, retain) LiveConnectSession *session;
+ 
++#if TARGET_OS_IOS
+ @property (nonatomic, retain) LiveAuthRequest *authRequest;
++#endif
+ @property (nonatomic, retain) LiveAuthRefreshRequest *authRefreshRequest;
+ @property (nonatomic, readonly) BOOL hasPendingUIRequest;
+ 
+@@ -61,10 +65,12 @@
+                delegate:(id<LiveAuthDelegate>)delegate
+               userState:(id)userState;
+ 
++#if TARGET_OS_IOS
+ - (void) login:(UIViewController *)currentViewController
+         scopes:(NSArray *)scopes
+       delegate:(id<LiveAuthDelegate>)delegate
+      userState:(id)userState;
++#endif
+ 
+ - (void) logoutWithDelegate:(id<LiveAuthDelegate>)delegate
+                   userState:(id)userState;
+diff --git a/src/LiveSDK/Library/Internal/LiveConnectClientCore.m b/src/LiveSDK/Library/Internal/LiveConnectClientCore.m
+index 2c50c82..61d40c5 100644
+--- a/src/LiveSDK/Library/Internal/LiveConnectClientCore.m
++++ b/src/LiveSDK/Library/Internal/LiveConnectClientCore.m
+@@ -38,7 +38,9 @@
+               scopes = _scopes,
+              session = _session,
+               status = _status,
++#if TARGET_OS_IOS
+          authRequest = _authRequest,
++#endif
+   authRefreshRequest = _authRefreshRequest;
+ 
+ 
+@@ -77,7 +79,9 @@
+     [_clientId release];
+     [_scopes release];
+     [_session release];
++#if TARGET_OS_IOS
+     [_authRequest release];
++#endif
+     [_storage release];
+     
+     [super dealloc];
+@@ -85,6 +89,7 @@
+ 
+ #pragma mark Auth methods
+ 
++#if TARGET_OS_IOS
+ - (void) login:(UIViewController *)currentViewController 
+         scopes:(NSArray *)scopes 
+       delegate:(id<LiveAuthDelegate>)delegate
+@@ -109,10 +114,15 @@
+     
+     [authRequest execute]; 
+ }
++#endif
+ 
+ - (BOOL) hasPendingUIRequest
+ {
++#if TARGET_OS_IOS
+     return (self.authRequest != nil && self.authRequest.isUserInvolved);
++#else
++    return NO;
++#endif
+ }
+ 
+ - (void) logoutWithDelegate:(id<LiveAuthDelegate>)delegate
+-- 
+2.6.1
+

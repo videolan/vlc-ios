@@ -1,7 +1,7 @@
-From 0386b62ffade3bf4b65037cee030477175fb98c5 Mon Sep 17 00:00:00 2001
+From ba32ab79d2a3349f53de7af93b1fca5e581ce505 Mon Sep 17 00:00:00 2001
 From: Tobias Conradi <videolan@tobias-conradi.de>
 Date: Wed, 29 Apr 2015 22:19:20 +0200
-Subject: [PATCH 3/3] NavigationBar UI fixes
+Subject: [PATCH 3/4] NavigationBar UI fixes
 
 ---
  src/LiveSDK/Library/Internal/LiveAuthDialog.m | 25 ++++++-------------------
@@ -44,5 +44,5 @@ index ea3eba2..162085e 100644
      NSURLRequest *requestObj = [NSURLRequest requestWithURL:_startUrl];
      [webView loadRequest:requestObj];    
 -- 
-2.3.8 (Apple Git-58)
+2.6.1
 
