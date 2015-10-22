@@ -1,10 +1,9 @@
-platform :ios, '7.0'
-
 source 'https://github.com/CocoaPods/Specs.git'
 
 inhibit_all_warnings!
 
 target 'vlc-ios' do
+platform :ios, '7.0'
 
 pod 'OBSlider', '1.1.0'
 pod 'InAppSettingsKit', '2.2.2'
@@ -22,4 +21,10 @@ post_install do |installer_representation|
             config.build_settings['ARCHS'] = 'armv7 armv7s arm64'
             config.build_settings['CLANG_CXX_LIBRARY'] = 'libc++'
   end
+end
+
+target 'VLC-TV' do
+platform :tvos, '9.0'
+pod 'SSKeychain', '~>1.2.2'
+
 end
