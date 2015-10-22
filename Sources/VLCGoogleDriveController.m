@@ -15,6 +15,7 @@
 #import "NSString+SupportedMedia.h"
 #import "VLCPlaybackController.h"
 #import "VLCMediaFileDiscoverer.h"
+#import "SSKeychain.h"
 
 @interface VLCGoogleDriveController ()
 {
@@ -54,6 +55,7 @@
 
 - (void)startSession
 {
+    [self restoreFromSharedCredentials];
     self.driveService = [GTLServiceDrive new];
     self.driveService.authorizer = [GTMOAuth2ViewControllerTouch authForGoogleFromKeychainForName:kKeychainItemName clientID:kVLCGoogleDriveClientID clientSecret:kVLCGoogleDriveClientSecret];
 }
@@ -69,6 +71,9 @@
 {
     [GTMOAuth2ViewControllerTouch removeAuthFromKeychainForName:kKeychainItemName];
     self.driveService.authorizer = nil;
+    NSUbiquitousKeyValueStore *ubiquitousStore = [NSUbiquitousKeyValueStore defaultStore];
+    [ubiquitousStore setString:nil forKey:kVLCStoreGDriveCredentials];
+    [ubiquitousStore synchronize];
     [self stopSession];
     if ([self.delegate respondsToSelector:@selector(mediaListUpdated)])
         [self.delegate mediaListUpdated];
@@ -79,7 +84,35 @@
     if (!self.driveService) {
         [self startSession];
     }
-    return [((GTMOAuth2Authentication *)self.driveService.authorizer) canAuthorize];
+    BOOL ret = [((GTMOAuth2Authentication *)self.driveService.authorizer) canAuthorize];
+    if (ret) {
+        [self shareCredentials];
+    }
+    return ret;
+}
+
+- (void)shareCredentials
+{
+    /* share our credentials */
+    NSString *credentials = [SSKeychain passwordForService:kKeychainItemName account:@"OAuth"]; // kGTMOAuth2AccountName
+    if (credentials == nil)
+        return;
+
+    NSUbiquitousKeyValueStore *ubiquitousStore = [NSUbiquitousKeyValueStore defaultStore];
+    [ubiquitousStore setString:credentials forKey:kVLCStoreGDriveCredentials];
+    [ubiquitousStore synchronize];
+}
+
+- (BOOL)restoreFromSharedCredentials
+{
+    NSUbiquitousKeyValueStore *ubiquitousStore = [NSUbiquitousKeyValueStore defaultStore];
+    [ubiquitousStore synchronize];
+    NSString *credentials = [ubiquitousStore stringForKey:kVLCStoreGDriveCredentials];
+    if (!credentials)
+        return NO;
+
+    [SSKeychain setPassword:credentials forService:kKeychainItemName account:@"OAuth"]; // kGTMOAuth2AccountName
+    return YES;
 }
 
 - (void)showAlert:(NSString *)title message:(NSString *)message
