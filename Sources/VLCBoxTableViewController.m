@@ -11,6 +11,7 @@
  *****************************************************************************/
 
 #import "VLCBoxTableViewController.h"
+#import "VLCCloudStorageTableViewCell.h"
 #import "VLCBoxController.h"
 #import "VLCAppDelegate.h"
 #import <SSKeychain/SSKeychain.h>
