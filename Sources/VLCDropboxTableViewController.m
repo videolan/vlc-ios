@@ -16,9 +16,14 @@
 
 #import "VLCDropboxTableViewController.h"
 #import "VLCDropboxController.h"
-#import "VLCAppDelegate.h"
 #import "VLCDropboxConstants.h"
+#import "VLCCloudStorageTableViewCell.h"
 #import "UIDevice+VLC.h"
+#import "DBKeychain.h"
+#if TARGET_OS_IOS
+#import "VLCAppDelegate.h"
+#endif
+
 
 @interface VLCDropboxTableViewController () <VLCCloudStorageTableViewCell>
 {
@@ -43,10 +48,12 @@
     self.controller = _dropboxController;
     self.controller.delegate = self;
 
+#if TARGET_OS_IOS
     [[NSNotificationCenter defaultCenter] addObserver:self
                                              selector:@selector(sessionWasUpdated:)
                                                  name:VLCDropboxSessionWasAuthorized
                                                object:nil];
+#endif
 
     DBSession* dbSession = [[DBSession alloc] initWithAppKey:kVLCDropboxAppKey appSecret:kVLCDropboxPrivateKey root:kDBRootDropbox];
     [DBSession setSharedSession:dbSession];
@@ -113,14 +120,6 @@
     [self.tableView deselectRowAtIndexPath:indexPath animated:NO];
 }
 
-- (void)alertView:(UIAlertView *)alertView clickedButtonAtIndex:(NSInteger)buttonIndex
-{
-    if (buttonIndex == 1)
-        [_dropboxController downloadFileToDocumentFolder:_selectedFile];
-
-    _selectedFile = nil;
-}
-
 #pragma mark - login dialog
 
 - (IBAction)loginAction:(id)sender
@@ -136,10 +135,13 @@
 {
     self.authorizationInProgress = YES;
     [self updateViewAfterSessionChange];
+
+    [_dropboxController shareCredentials];
 }
 
 #pragma mark - VLCCloudStorageTableViewCell delegation
 
+#if TARGET_OS_IOS
 - (void)triggerDownloadForCell:(VLCCloudStorageTableViewCell *)cell
 {
     _selectedFile = _dropboxController.currentListFiles[[self.tableView indexPathForCell:cell].row];
@@ -161,5 +163,15 @@
         [alert show];
     }
 }
+
+- (void)alertView:(UIAlertView *)alertView clickedButtonAtIndex:(NSInteger)buttonIndex
+{
+    if (buttonIndex == 1)
+        [_dropboxController downloadFileToDocumentFolder:_selectedFile];
+
+    _selectedFile = nil;
+}
+
+#endif
 
 @end
