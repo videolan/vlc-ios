@@ -188,6 +188,9 @@
 {
     NSString *token = [BoxSDK sharedSDK].OAuth2Session.refreshToken;
     [SSKeychain setPassword:token forService:kVLCBoxService account:kVLCBoxAccount];
+    NSUbiquitousKeyValueStore *ubiquitousStore = [NSUbiquitousKeyValueStore defaultStore];
+    [ubiquitousStore setString:token forKey:kVLCStoreBoxCredentials];
+    [ubiquitousStore synchronize];
     self.authorizationInProgress = YES;
     [self updateViewAfterSessionChange];
     self.authorizationInProgress = NO;

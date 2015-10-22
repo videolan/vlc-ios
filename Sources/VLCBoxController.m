@@ -58,6 +58,11 @@
     [BoxSDK sharedSDK].OAuth2Session.clientID = kVLCBoxClientID;
     [BoxSDK sharedSDK].OAuth2Session.clientSecret = kVLCBoxClientSecret;
     NSString *token = [SSKeychain passwordForService:kVLCBoxService account:kVLCBoxAccount];
+    if (!token) {
+        NSUbiquitousKeyValueStore *ubiquitousStore = [NSUbiquitousKeyValueStore defaultStore];
+        [ubiquitousStore synchronize];
+        token = [ubiquitousStore stringForKey:kVLCStoreBoxCredentials];
+    }
     if (token != nil) {
         [BoxSDK sharedSDK].OAuth2Session.refreshToken = token;
     }
@@ -74,6 +79,9 @@
 {
     [SSKeychain deletePasswordForService:kVLCBoxService account:kVLCBoxAccount];
     [[BoxSDK sharedSDK].OAuth2Session logout];
+    NSUbiquitousKeyValueStore *ubiquitousStore = [NSUbiquitousKeyValueStore defaultStore];
+    [ubiquitousStore setString:nil forKey:kVLCStoreBoxCredentials];
+    [ubiquitousStore synchronize];
     [self stopSession];
     if ([self.delegate respondsToSelector:@selector(mediaListUpdated)])
         [self.delegate mediaListUpdated];
