@@ -57,6 +57,7 @@
 		41CD695C1A29D72600E60BCE /* VLCBoxController.m in Sources */ = {isa = PBXBuildFile; fileRef = 41CD69591A29D72600E60BCE /* VLCBoxController.m */; };
 		41CD695D1A29D72600E60BCE /* VLCBoxTableViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 41CD695B1A29D72600E60BCE /* VLCBoxTableViewController.m */; };
 		493B1A1D195D06B1000A491A /* BasicUPnPDevice+VLC.m in Sources */ = {isa = PBXBuildFile; fileRef = 493B1A1C195D06B1000A491A /* BasicUPnPDevice+VLC.m */; };
+		690D0AB5E34F29B46839C92E /* libPods-VLC-TV.a in Frameworks */ = {isa = PBXBuildFile; fileRef = C12FD7AD79D78B13860606CE /* libPods-VLC-TV.a */; };
 		7AC8629D1765DC560011611A /* style.css in Resources */ = {isa = PBXBuildFile; fileRef = 7AC8629B1765DC560011611A /* style.css */; };
 		7AC862A61765E9510011611A /* jquery-1.10.1.min.js in Resources */ = {isa = PBXBuildFile; fileRef = 7AC8629E1765E90C0011611A /* jquery-1.10.1.min.js */; };
 		7AC862A71765E9510011611A /* jquery.fileupload.js in Resources */ = {isa = PBXBuildFile; fileRef = 7AC8629F1765E90C0011611A /* jquery.fileupload.js */; };
@@ -139,6 +140,7 @@
 		7D5CAA891A4AD763003F2CBC /* VLCTrackSelectorTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 7D5CAA881A4AD763003F2CBC /* VLCTrackSelectorTableViewCell.m */; };
 		7D5CAA8C1A4AD8E5003F2CBC /* VLCTrackSelectorHeaderView.m in Sources */ = {isa = PBXBuildFile; fileRef = 7D5CAA8B1A4AD8E5003F2CBC /* VLCTrackSelectorHeaderView.m */; };
 		7D5DD5C717590ABF001421E3 /* About Contents.html in Resources */ = {isa = PBXBuildFile; fileRef = 7D5DD5C617590ABF001421E3 /* About Contents.html */; };
+		7D6069691BD92E6900AB765C /* libSDropboxSDK.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 7D5278CD1BD7DE3D00D0CA0E /* libSDropboxSDK.a */; };
 		7D63C19018774B1700BD5256 /* VLCFirstStepsSecondPageViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 7D63C18E18774B1700BD5256 /* VLCFirstStepsSecondPageViewController.m */; };
 		7D63C19518774E0100BD5256 /* VLCFirstStepsThirdPageViewController~ipad.xib in Resources */ = {isa = PBXBuildFile; fileRef = 7D63C19418774E0100BD5256 /* VLCFirstStepsThirdPageViewController~ipad.xib */; };
 		7D63C19718774F1000BD5256 /* VLCFirstStepsFourthPageViewController~ipad.xib in Resources */ = {isa = PBXBuildFile; fileRef = 7D63C19618774F1000BD5256 /* VLCFirstStepsFourthPageViewController~ipad.xib */; };
@@ -191,7 +193,6 @@
 		7DBBF1A6183AB4300009A339 /* VLCMovieViewController~iphone.xib in Resources */ = {isa = PBXBuildFile; fileRef = 7DBBF191183AB4300009A339 /* VLCMovieViewController~iphone.xib */; };
 		7DBC85631A50B8860098D388 /* LiveAuthDialog_iPad.xib in Resources */ = {isa = PBXBuildFile; fileRef = 7DBC85611A50B8860098D388 /* LiveAuthDialog_iPad.xib */; };
 		7DBC85641A50B8860098D388 /* LiveAuthDialog_iPhone.xib in Resources */ = {isa = PBXBuildFile; fileRef = 7DBC85621A50B8860098D388 /* LiveAuthDialog_iPhone.xib */; };
-		7DC0C0551A4D78A4000EE359 /* DropboxSDK.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 7DC0C0541A4D78A4000EE359 /* DropboxSDK.framework */; };
 		7DC19ADF1868C7BB00810BF7 /* VLCFirstStepsViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 7DC19ADD1868C7BB00810BF7 /* VLCFirstStepsViewController.m */; };
 		7DC19AE41868C8EC00810BF7 /* VLCFirstStepsFirstPageViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 7DC19AE21868C8EC00810BF7 /* VLCFirstStepsFirstPageViewController.m */; };
 		7DC19B051868D1C400810BF7 /* VLCFirstStepsFifthPageViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 7DC19B031868D1C400810BF7 /* VLCFirstStepsFifthPageViewController.m */; };
@@ -510,7 +511,9 @@
 		41CD695B1A29D72600E60BCE /* VLCBoxTableViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = VLCBoxTableViewController.m; path = Sources/VLCBoxTableViewController.m; sourceTree = SOURCE_ROOT; };
 		493B1A1B195D06B1000A491A /* BasicUPnPDevice+VLC.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = "BasicUPnPDevice+VLC.h"; path = "Sources/BasicUPnPDevice+VLC.h"; sourceTree = SOURCE_ROOT; };
 		493B1A1C195D06B1000A491A /* BasicUPnPDevice+VLC.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = "BasicUPnPDevice+VLC.m"; path = "Sources/BasicUPnPDevice+VLC.m"; sourceTree = SOURCE_ROOT; };
+		4C4A6D2751DCA7AD1BE2F573 /* Pods-VLC-TV.distribution.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-VLC-TV.distribution.xcconfig"; path = "Pods/Target Support Files/Pods-VLC-TV/Pods-VLC-TV.distribution.xcconfig"; sourceTree = "<group>"; };
 		521108CBC3CAA0810AF3CBA8 /* Pods-vlc-ios.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-vlc-ios.debug.xcconfig"; path = "Pods/Target Support Files/Pods-vlc-ios/Pods-vlc-ios.debug.xcconfig"; sourceTree = "<group>"; };
+		6104D285EA8F1AEDA6136FCF /* Pods-VLC-TV.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-VLC-TV.release.xcconfig"; path = "Pods/Target Support Files/Pods-VLC-TV/Pods-VLC-TV.release.xcconfig"; sourceTree = "<group>"; };
 		6AB5E0853B398B35369938EC /* Pods-vlc-ios.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-vlc-ios.release.xcconfig"; path = "Pods/Target Support Files/Pods-vlc-ios/Pods-vlc-ios.release.xcconfig"; sourceTree = "<group>"; };
 		7AC8629B1765DC560011611A /* style.css */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.css; path = style.css; sourceTree = "<group>"; };
 		7AC8629E1765E90C0011611A /* jquery-1.10.1.min.js */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.javascript; path = "jquery-1.10.1.min.js"; sourceTree = "<group>"; };
@@ -530,7 +533,7 @@
 		7D1052ED1A4DCD1E00295F08 /* VLCOneDriveController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = VLCOneDriveController.m; path = Sources/VLCOneDriveController.m; sourceTree = SOURCE_ROOT; };
 		7D1276601AADA0E600F0260C /* VLCMultiSelectionMenuView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = VLCMultiSelectionMenuView.h; path = Sources/VLCMultiSelectionMenuView.h; sourceTree = SOURCE_ROOT; };
 		7D1276611AADA0E600F0260C /* VLCMultiSelectionMenuView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = VLCMultiSelectionMenuView.m; path = Sources/VLCMultiSelectionMenuView.m; sourceTree = SOURCE_ROOT; };
-		7D13293D1BA1F10100BE647E /* VLC for Apple TV.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "VLC for Apple TV.app"; sourceTree = BUILT_PRODUCTS_DIR; };
+		7D13293D1BA1F10100BE647E /* VLC-TV.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "VLC-TV.app"; sourceTree = BUILT_PRODUCTS_DIR; };
 		7D1329401BA1F10100BE647E /* main.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = main.m; sourceTree = "<group>"; };
 		7D1329421BA1F10100BE647E /* AppleTVAppDelegate.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = AppleTVAppDelegate.h; sourceTree = "<group>"; };
 		7D1329431BA1F10100BE647E /* AppleTVAppDelegate.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = AppleTVAppDelegate.m; sourceTree = "<group>"; };
@@ -758,7 +761,6 @@
 		7DBBF191183AB4300009A339 /* VLCMovieViewController~iphone.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; name = "VLCMovieViewController~iphone.xib"; path = "Resources/VLCMovieViewController~iphone.xib"; sourceTree = SOURCE_ROOT; };
 		7DBC85611A50B8860098D388 /* LiveAuthDialog_iPad.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; name = LiveAuthDialog_iPad.xib; path = ImportedSources/OneDrive/src/LiveSDK/Library/Internal/LiveAuthDialog_iPad.xib; sourceTree = SOURCE_ROOT; };
 		7DBC85621A50B8860098D388 /* LiveAuthDialog_iPhone.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; name = LiveAuthDialog_iPhone.xib; path = ImportedSources/OneDrive/src/LiveSDK/Library/Internal/LiveAuthDialog_iPhone.xib; sourceTree = SOURCE_ROOT; };
-		7DC0C0541A4D78A4000EE359 /* DropboxSDK.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = DropboxSDK.framework; path = ImportedSources/Dropbox/DropboxSDK.framework; sourceTree = "<group>"; };
 		7DC19ADC1868C7BB00810BF7 /* VLCFirstStepsViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = VLCFirstStepsViewController.h; path = Sources/VLCFirstStepsViewController.h; sourceTree = SOURCE_ROOT; };
 		7DC19ADD1868C7BB00810BF7 /* VLCFirstStepsViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = VLCFirstStepsViewController.m; path = Sources/VLCFirstStepsViewController.m; sourceTree = SOURCE_ROOT; };
 		7DC19AE11868C8EC00810BF7 /* VLCFirstStepsFirstPageViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = VLCFirstStepsFirstPageViewController.h; path = Sources/VLCFirstStepsFirstPageViewController.h; sourceTree = SOURCE_ROOT; };
@@ -823,6 +825,8 @@
 		A7924695170F0BA90036AAF2 /* libMediaLibraryKit.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; name = libMediaLibraryKit.a; path = External/MediaLibraryKit/libMediaLibraryKit.a; sourceTree = "<group>"; };
 		A79246C7170F11DF0036AAF2 /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/Localizable.strings; sourceTree = "<group>"; };
 		A79246C9170F11E40036AAF2 /* ru */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = ru; path = ru.lproj/Localizable.strings; sourceTree = "<group>"; };
+		C12FD7AD79D78B13860606CE /* libPods-VLC-TV.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-VLC-TV.a"; sourceTree = BUILT_PRODUCTS_DIR; };
+		C9A248E2523A01F4AA281B41 /* Pods-VLC-TV.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-VLC-TV.debug.xcconfig"; path = "Pods/Target Support Files/Pods-VLC-TV/Pods-VLC-TV.debug.xcconfig"; sourceTree = "<group>"; };
 		CC1BBC451704938300A20CBF /* libiconv.dylib */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.dylib"; name = libiconv.dylib; path = usr/lib/libiconv.dylib; sourceTree = SDKROOT; };
 		CC1BBC471704938B00A20CBF /* libstdc++.dylib */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.dylib"; name = "libstdc++.dylib"; path = "usr/lib/libstdc++.dylib"; sourceTree = SDKROOT; };
 		CC1BBC491704939300A20CBF /* libz.dylib */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.dylib"; name = libz.dylib; path = usr/lib/libz.dylib; sourceTree = SDKROOT; };
@@ -945,6 +949,7 @@
 				7D5278DD1BD7DF1800D0CA0E /* DropboxTVSDK.framework in Frameworks */,
 				7DF28AD71BA31C150030C944 /* AudioToolbox.framework in Frameworks */,
 				7D1FEBD41BA3184A00D1058E /* libTVVLCKit.a in Frameworks */,
+				690D0AB5E34F29B46839C92E /* libPods-VLC-TV.a in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -952,6 +957,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				7D6069691BD92E6900AB765C /* libSDropboxSDK.a in Frameworks */,
 				7D8968711BD3058800F4EAAD /* LocalAuthentication.framework in Frameworks */,
 				DD2789E41B67A88600CED769 /* WatchConnectivity.framework in Frameworks */,
 				7D2DF7C31B67777D00FB78AB /* libc++.tbd in Frameworks */,
@@ -963,7 +969,6 @@
 				7D298F441AD5827E00A0BF68 /* WatchKit.framework in Frameworks */,
 				8F91EC7F195E1DAB00F5BCBA /* AssetsLibrary.framework in Frameworks */,
 				7D15168B194773630086FB8C /* MobileCoreServices.framework in Frameworks */,
-				7DC0C0551A4D78A4000EE359 /* DropboxSDK.framework in Frameworks */,
 				7D168F7118D4A21B003FAF59 /* Accelerate.framework in Frameworks */,
 				CCE2A22E17A5859E00D9EAAD /* CoreText.framework in Frameworks */,
 				7DF7CA0717650C2A00C61739 /* AVFoundation.framework in Frameworks */,
@@ -1164,6 +1169,9 @@
 				521108CBC3CAA0810AF3CBA8 /* Pods-vlc-ios.debug.xcconfig */,
 				6AB5E0853B398B35369938EC /* Pods-vlc-ios.release.xcconfig */,
 				E09EACF57CDD22ABAE66CDD0 /* Pods-vlc-ios.distribution.xcconfig */,
+				C9A248E2523A01F4AA281B41 /* Pods-VLC-TV.debug.xcconfig */,
+				6104D285EA8F1AEDA6136FCF /* Pods-VLC-TV.release.xcconfig */,
+				4C4A6D2751DCA7AD1BE2F573 /* Pods-VLC-TV.distribution.xcconfig */,
 			);
 			name = Pods;
 			sourceTree = "<group>";
@@ -1460,7 +1468,7 @@
 				7D94FCDB16DE7D1000F2623B /* VLC for iOS.app */,
 				DD3567641B6760BF00338947 /* VLC WatchKit App.app */,
 				DD3567701B6760BF00338947 /* VLC WatchKit Extension.appex */,
-				7D13293D1BA1F10100BE647E /* VLC for Apple TV.app */,
+				7D13293D1BA1F10100BE647E /* VLC-TV.app */,
 			);
 			name = Products;
 			sourceTree = "<group>";
@@ -1503,7 +1511,6 @@
 				7D3EB013174A353E002062C2 /* SystemConfiguration.framework */,
 				2915544217490D4A00B86CAD /* Security.framework */,
 				7DDD0428172D98E5005A7B10 /* CFNetwork.framework */,
-				7DC0C0541A4D78A4000EE359 /* DropboxSDK.framework */,
 				CC1BBC57170493E100A20CBF /* CoreData.framework */,
 				CC1BBC55170493C100A20CBF /* QuartzCore.framework */,
 				CC1BBC53170493B800A20CBF /* AudioToolbox.framework */,
@@ -1518,6 +1525,7 @@
 				7D94FCE016DE7D1000F2623B /* Foundation.framework */,
 				7D94FCE216DE7D1000F2623B /* CoreGraphics.framework */,
 				DAF8927B0BE9C328466C0EA7 /* libPods-vlc-ios.a */,
+				C12FD7AD79D78B13860606CE /* libPods-VLC-TV.a */,
 			);
 			name = Frameworks;
 			sourceTree = "<group>";
@@ -2021,14 +2029,17 @@
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
-		7D13293C1BA1F10100BE647E /* VLC for Apple TV */ = {
+		7D13293C1BA1F10100BE647E /* VLC-TV */ = {
 			isa = PBXNativeTarget;
-			buildConfigurationList = 7D1329541BA1F10100BE647E /* Build configuration list for PBXNativeTarget "VLC for Apple TV" */;
+			buildConfigurationList = 7D1329541BA1F10100BE647E /* Build configuration list for PBXNativeTarget "VLC-TV" */;
 			buildPhases = (
+				A94CB618CE58A4766B4A0B74 /* Check Pods Manifest.lock */,
 				7D1329391BA1F10100BE647E /* Sources */,
 				7D13293A1BA1F10100BE647E /* Frameworks */,
 				7D13293B1BA1F10100BE647E /* Resources */,
 				7D5278E11BD7DF1800D0CA0E /* Embed Frameworks */,
+				B59BF52D7592970355AF1DF4 /* Embed Pods Frameworks */,
+				90E479A81E88C3B5BE981A80 /* Copy Pods Resources */,
 			);
 			buildRules = (
 			);
@@ -2037,9 +2048,9 @@
 				7D5278DB1BD7DEF600D0CA0E /* PBXTargetDependency */,
 				7D5278E01BD7DF1800D0CA0E /* PBXTargetDependency */,
 			);
-			name = "VLC for Apple TV";
+			name = "VLC-TV";
 			productName = "VLC for Apple TV";
-			productReference = 7D13293D1BA1F10100BE647E /* VLC for Apple TV.app */;
+			productReference = 7D13293D1BA1F10100BE647E /* VLC-TV.app */;
 			productType = "com.apple.product-type.application";
 		};
 		7D94FCDA16DE7D1000F2623B /* vlc-ios */ = {
@@ -2226,7 +2237,7 @@
 				7D94FCDA16DE7D1000F2623B /* vlc-ios */,
 				DD35676F1B6760BF00338947 /* VLC WatchKit Extension */,
 				DD3567631B6760BF00338947 /* VLC WatchKit App */,
-				7D13293C1BA1F10100BE647E /* VLC for Apple TV */,
+				7D13293C1BA1F10100BE647E /* VLC-TV */,
 			);
 		};
 /* End PBXProject section */
@@ -2394,6 +2405,51 @@
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
 			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods-vlc-ios/Pods-vlc-ios-frameworks.sh\"\n";
+			showEnvVarsInLog = 0;
+		};
+		90E479A81E88C3B5BE981A80 /* Copy Pods Resources */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+			);
+			name = "Copy Pods Resources";
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods-VLC-TV/Pods-VLC-TV-resources.sh\"\n";
+			showEnvVarsInLog = 0;
+		};
+		A94CB618CE58A4766B4A0B74 /* Check Pods Manifest.lock */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+			);
+			name = "Check Pods Manifest.lock";
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "diff \"${PODS_ROOT}/../Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [[ $? != 0 ]] ; then\n    cat << EOM\nerror: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\nEOM\n    exit 1\nfi\n";
+			showEnvVarsInLog = 0;
+		};
+		B59BF52D7592970355AF1DF4 /* Embed Pods Frameworks */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+			);
+			name = "Embed Pods Frameworks";
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods-VLC-TV/Pods-VLC-TV-frameworks.sh\"\n";
 			showEnvVarsInLog = 0;
 		};
 		F2C5CAE560C074258A574B08 /* Copy Pods Resources */ = {
@@ -2715,6 +2771,7 @@
 /* Begin XCBuildConfiguration section */
 		7D1329511BA1F10100BE647E /* Debug */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = C9A248E2523A01F4AA281B41 /* Pods-VLC-TV.debug.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = "App Icon & Top Shelf Image";
 				ASSETCATALOG_COMPILER_LAUNCHIMAGE_NAME = LaunchImage;
@@ -2761,6 +2818,7 @@
 		};
 		7D1329521BA1F10100BE647E /* Release */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = 6104D285EA8F1AEDA6136FCF /* Pods-VLC-TV.release.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = "App Icon & Top Shelf Image";
 				ASSETCATALOG_COMPILER_LAUNCHIMAGE_NAME = LaunchImage;
@@ -2808,6 +2866,7 @@
 		};
 		7D1329531BA1F10100BE647E /* Distribution */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = 4C4A6D2751DCA7AD1BE2F573 /* Pods-VLC-TV.distribution.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = "App Icon & Top Shelf Image";
 				ASSETCATALOG_COMPILER_LAUNCHIMAGE_NAME = LaunchImage;
@@ -2934,7 +2993,6 @@
 				EXCLUDED_SOURCE_FILE_NAMES = "";
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
-					"$(PROJECT_DIR)/ImportedSources/Dropbox",
 					"$(PROJECT_DIR)",
 				);
 				GCC_C_LANGUAGE_STANDARD = gnu11;
@@ -2946,6 +3004,7 @@
 					"$(CONFIGURATION_BUILD_DIR)",
 					"$(SRCROOT)/ImportedSources/GDrive/**",
 					"\"$(SRCROOT)/ImportedSources/OneDrive/src/LiveSDK/Library\"/**",
+					"$(SRCROOT)/ImportedSources/Dropbox/DropboxSDK/Classes/**",
 					"$(inherited)",
 				);
 				INFOPLIST_FILE = "Sources/VLC for iOS-Info.plist";
@@ -2985,7 +3044,6 @@
 				EXCLUDED_SOURCE_FILE_NAMES = "";
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
-					"$(PROJECT_DIR)/ImportedSources/Dropbox",
 					"$(PROJECT_DIR)",
 				);
 				GCC_C_LANGUAGE_STANDARD = gnu11;
@@ -2997,6 +3055,7 @@
 					"$(CONFIGURATION_BUILD_DIR)",
 					"$(SRCROOT)/ImportedSources/GDrive/**",
 					"\"$(SRCROOT)/ImportedSources/OneDrive/src/LiveSDK/Library\"/**",
+					"$(SRCROOT)/ImportedSources/Dropbox/DropboxSDK/Classes/**",
 					"$(inherited)",
 				);
 				INFOPLIST_FILE = "Sources/VLC for iOS-Info.plist";
@@ -3064,7 +3123,6 @@
 				EXCLUDED_SOURCE_FILE_NAMES = "iTunesArtwork*";
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
-					"$(PROJECT_DIR)/ImportedSources/Dropbox",
 					"$(PROJECT_DIR)",
 				);
 				GCC_C_LANGUAGE_STANDARD = gnu11;
@@ -3076,6 +3134,7 @@
 					"$(CONFIGURATION_BUILD_DIR)",
 					"$(SRCROOT)/ImportedSources/GDrive/**",
 					"\"$(SRCROOT)/ImportedSources/OneDrive/src/LiveSDK/Library\"/**",
+					"$(SRCROOT)/ImportedSources/Dropbox/DropboxSDK/Classes/**",
 					"$(inherited)",
 				);
 				INFOPLIST_FILE = "Sources/VLC for iOS-Info.plist";
@@ -3356,7 +3415,7 @@
 /* End XCBuildConfiguration section */
 
 /* Begin XCConfigurationList section */
-		7D1329541BA1F10100BE647E /* Build configuration list for PBXNativeTarget "VLC for Apple TV" */ = {
+		7D1329541BA1F10100BE647E /* Build configuration list for PBXNativeTarget "VLC-TV" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
 				7D1329511BA1F10100BE647E /* Debug */,
