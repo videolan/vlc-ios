@@ -12,7 +12,6 @@
  * Refer to the COPYING file of the official project for license.
  *****************************************************************************/
 
-#import "VLCCloudStorageTableViewCell.h"
 #import "VLCCloudStorageController.h"
 
 @interface VLCCloudStorageTableViewController : UIViewController <VLCCloudStorageDelegate>

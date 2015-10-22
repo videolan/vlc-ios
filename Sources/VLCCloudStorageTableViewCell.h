@@ -11,10 +11,12 @@
  * Refer to the COPYING file of the official project for license.
  *****************************************************************************/
 
-#import <DropboxSDK/DropboxSDK.h>
+#import "VLCDropboxController.h"
+#if TARGET_OS_IOS
 #import "GTLDrive.h"
 #import <BoxSDK/BoxSDK.h>
 #import "VLCOneDriveObject.h"
+#endif
 
 @interface VLCCloudStorageTableViewCell : UITableViewCell
 
@@ -27,9 +29,11 @@
 @property (nonatomic, strong) IBOutlet UIButton *downloadButton;
 
 @property (nonatomic, retain) DBMetadata *dropboxFile;
+#if TARGET_OS_IOS
 @property (nonatomic, retain) GTLDriveFile *driveFile;
 @property (nonatomic, retain) BoxItem *boxFile;
 @property (nonatomic, retain) VLCOneDriveObject *oneDriveFile;
+#endif
 
 @property (nonatomic, readwrite) BOOL isDownloadable;
 

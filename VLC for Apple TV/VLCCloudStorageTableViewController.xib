@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<document type="com.apple.InterfaceBuilder.AppleTV.XIB" version="3.0" toolsVersion="9059" systemVersion="15B42" targetRuntime="AppleTV" propertyAccessControl="none" useAutolayout="YES">
+    <dependencies>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="9049"/>
+    </dependencies>
+    <objects>
+        <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner" customClass="VLCCloudStorageTableViewController">
+            <connections>
+                <outlet property="preferredFocusedView" destination="BJu-fh-cvS" id="esr-eG-51l"/>
+                <outlet property="tableView" destination="BJu-fh-cvS" id="Q4L-re-bYO"/>
+                <outlet property="view" destination="iN0-l3-epB" id="StN-hL-tvv"/>
+            </connections>
+        </placeholder>
+        <placeholder placeholderIdentifier="IBFirstResponder" id="-2" customClass="UIResponder"/>
+        <view contentMode="scaleToFill" id="iN0-l3-epB">
+            <rect key="frame" x="0.0" y="0.0" width="1920" height="1080"/>
+            <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+            <subviews>
+                <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" style="plain" separatorStyle="default" rowHeight="66" sectionHeaderHeight="40" sectionFooterHeight="40" translatesAutoresizingMaskIntoConstraints="NO" id="BJu-fh-cvS">
+                    <rect key="frame" x="68" y="114" width="1784" height="917"/>
+                    <animations/>
+                    <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                    <constraints>
+                        <constraint firstAttribute="width" constant="1784" id="Fbw-Lq-50b"/>
+                        <constraint firstAttribute="height" constant="917" id="U93-WZ-nro"/>
+                    </constraints>
+                    <connections>
+                        <outlet property="dataSource" destination="-1" id="KMS-Qu-Hei"/>
+                        <outlet property="delegate" destination="-1" id="LBp-MJ-kum"/>
+                    </connections>
+                </tableView>
+            </subviews>
+            <animations/>
+            <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
+            <constraints>
+                <constraint firstItem="BJu-fh-cvS" firstAttribute="top" secondItem="iN0-l3-epB" secondAttribute="top" constant="114" id="iWm-Kv-B61"/>
+                <constraint firstItem="BJu-fh-cvS" firstAttribute="centerX" secondItem="iN0-l3-epB" secondAttribute="centerX" id="tgK-kM-gPy"/>
+            </constraints>
+        </view>
+    </objects>
+</document>

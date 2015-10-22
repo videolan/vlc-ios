@@ -13,12 +13,17 @@
  *****************************************************************************/
 
 #import "VLCCloudStorageTableViewController.h"
+#import "VLCCloudStorageTableViewCell.h"
+#if TARGET_OS_IOS
 #import "VLCProgressView.h"
+#endif
 
 @interface VLCCloudStorageTableViewController()
 {
+#if TARGET_OS_IOS
     VLCProgressView *_progressView;
-    
+#endif
+
     UIBarButtonItem *_progressBarButtonItem;
     UIBarButtonItem *_logoutButton;
 }
@@ -33,9 +38,9 @@
 
     _authorizationInProgress = NO;
 
+#if TARGET_OS_IOS
     self.modalPresentationStyle = UIModalPresentationFormSheet;
-    self.navigationItem.titleView.contentMode = UIViewContentModeScaleAspectFit;
-    
+
     UIBarButtonItem *backButton = [UIBarButtonItem themedBackButtonWithTarget:self andSelector:@selector(goBack)];
     self.navigationItem.leftBarButtonItem = backButton;
 
@@ -45,13 +50,14 @@
 
     [self.navigationController.toolbar setBackgroundImage:[UIImage imageNamed:@"sudHeaderBg"] forToolbarPosition:UIToolbarPositionAny barMetrics:UIBarMetricsDefault];
 
-    self.tableView.rowHeight = [VLCCloudStorageTableViewCell heightOfCell];
     self.tableView.separatorColor = [UIColor VLCDarkBackgroundColor];
     self.tableView.backgroundColor = [UIColor VLCDarkBackgroundColor];
     self.view.backgroundColor = [UIColor VLCDarkBackgroundColor];
+#endif
 
-    _progressView = [VLCProgressView new];
-    _progressBarButtonItem = [[UIBarButtonItem alloc] initWithCustomView:_progressView];
+    self.navigationItem.titleView.contentMode = UIViewContentModeScaleAspectFit;
+
+    self.tableView.rowHeight = [VLCCloudStorageTableViewCell heightOfCell];
 
     _numberOfFilesBarButtonItem = [[UIBarButtonItem alloc] initWithTitle:[NSString stringWithFormat:NSLocalizedString(@"NUM_OF_FILES", nil), 0] style:UIBarButtonItemStylePlain target:nil action:nil];
     [_numberOfFilesBarButtonItem setTitleTextAttributes:@{ NSFontAttributeName : [UIFont systemFontOfSize:11.] } forState:UIControlStateNormal];
@@ -59,15 +65,21 @@
     _activityIndicator = [[UIActivityIndicatorView alloc] initWithActivityIndicatorStyle:UIActivityIndicatorViewStyleWhiteLarge];
     _activityIndicator.hidesWhenStopped = YES;
     _activityIndicator.translatesAutoresizingMaskIntoConstraints = NO;
-    
+
     [self.view addSubview:_activityIndicator];
 
     [self.view addConstraint:[NSLayoutConstraint constraintWithItem:_activityIndicator attribute:NSLayoutAttributeCenterX relatedBy:NSLayoutRelationEqual toItem:self.view attribute:NSLayoutAttributeCenterX multiplier:1.0 constant:0]];
     [self.view addConstraint:[NSLayoutConstraint constraintWithItem:_activityIndicator attribute:NSLayoutAttributeCenterY relatedBy:NSLayoutRelationEqual toItem:self.view attribute:NSLayoutAttributeCenterY multiplier:1.0 constant:0]];
-    
+
+#if TARGET_OS_IOS
+    _progressView = [VLCProgressView new];
+    _progressBarButtonItem = [[UIBarButtonItem alloc] initWithCustomView:_progressView];
+
     [self _showProgressInToolbar:NO];
+#endif
 }
 
+#if TARGET_OS_IOS
 - (void)viewWillAppear:(BOOL)animated
 {
     self.navigationController.toolbarHidden = NO;
@@ -81,6 +93,7 @@
     self.navigationController.toolbarHidden = YES;
     [super viewWillDisappear:animated];
 }
+#endif
 
 - (void)_requestInformationForCurrentPath
 {
@@ -104,6 +117,7 @@
         self.numberOfFilesBarButtonItem.title = NSLocalizedString(@"ONE_FILE", nil);
 }
 
+#if TARGET_OS_IOS
 - (void)_showProgressInToolbar:(BOOL)value
 {
     if (!value)
@@ -112,11 +126,6 @@
         _progressView.progressBar.progress = 0.;
         [self setToolbarItems:@[[[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemFlexibleSpace target:nil action:nil], _progressBarButtonItem, [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemFlexibleSpace target:nil action:nil]] animated:YES];
     }
-}
-
-- (void)operationWithProgressInformationStarted
-{
-    [self _showProgressInToolbar:YES];
 }
 
 - (void)updateRemainingTime:(NSString *)time
@@ -128,10 +137,20 @@
 {
     [_progressView.progressBar setProgress:progress animated:YES];
 }
+#endif
+
+- (void)operationWithProgressInformationStarted
+{
+#if TARGET_OS_IOS
+    [self _showProgressInToolbar:YES];
+#endif
+}
 
 - (void)operationWithProgressInformationStopped
 {
+#if TARGET_OS_IOS
     [self _showProgressInToolbar:NO];
+#endif
 }
 #pragma mark - UITableViewDataSources
 
@@ -142,10 +161,12 @@
 
 #pragma mark - UITableViewDelegate
 
+#if TARGET_OS_IOS
 - (void)tableView:(UITableView *)tableView willDisplayCell:(UITableViewCell *)cell forRowAtIndexPath:(NSIndexPath *)indexPath
 {
     cell.backgroundColor = (indexPath.row % 2 == 0)? [UIColor blackColor]: [UIColor VLCDarkBackgroundColor];
 }
+#endif
 
 - (void)goBack
 {

@@ -39,6 +39,7 @@
                            withObject:nil waitUntilDone:NO];
 }
 
+#if TARGET_OS_IOS
 - (void)setDriveFile:(GTLDriveFile *)driveFile
 {
     if (driveFile != _driveFile)
@@ -65,6 +66,7 @@
     [self performSelectorOnMainThread:@selector(_updatedDisplayedInformation)
                            withObject:nil waitUntilDone:NO];
 }
+#endif
 
 - (void)_updatedDisplayedInformation
 {
@@ -94,8 +96,9 @@
             self.thumbnailView.image = [UIImage imageNamed:@"blank"];
             APLog(@"missing icon for type '%@'", self.dropboxFile.icon);
         }
-
-    } else if(_driveFile != nil){
+    }
+#if TARGET_OS_IOS
+    else if(_driveFile != nil){
         BOOL isDirectory = [self.driveFile.mimeType isEqualToString:@"application/vnd.google-apps.folder"];
         if (isDirectory) {
             self.folderTitleLabel.text = self.driveFile.title;
@@ -188,6 +191,7 @@
                 self.thumbnailView.image = [UIImage imageNamed:@"blank"];
         }
     }
+#endif
 
     [self setNeedsDisplay];
 }
@@ -215,10 +219,14 @@
 
 + (CGFloat)heightOfCell
 {
+#if TARGET_OS_IOS
     if ([[UIDevice currentDevice] userInterfaceIdiom] == UIUserInterfaceIdiomPad)
         return 80.;
 
     return 48.;
+#else
+    return 107.;
+#endif
 }
 
 - (void)setIsDownloadable:(BOOL)isDownloadable
