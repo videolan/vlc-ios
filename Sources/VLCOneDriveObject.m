@@ -13,12 +13,18 @@
 #import "VLCOneDriveObject.h"
 #import "VLCHTTPFileDownloader.h"
 
+#if TARGET_OS_IOS
 @interface VLCOneDriveObject () <VLCHTTPFileDownloader>
 {
     VLCHTTPFileDownloader *_fileDownloader;
 }
 
 @end
+#else
+@interface VLCOneDriveObject ()
+
+@end
+#endif
 
 @implementation VLCOneDriveObject
 
@@ -168,9 +174,11 @@
 
 - (void)saveObjectToDocuments
 {
+#if TARGET_OS_IOS
     _fileDownloader = [[VLCHTTPFileDownloader alloc] init];
     _fileDownloader.delegate = self;
     [_fileDownloader downloadFileFromURL:[NSURL URLWithString:self.downloadPath] withFileName:self.name];
+#endif
 }
 
 - (void)downloadStarted
