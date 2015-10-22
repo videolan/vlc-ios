@@ -23,6 +23,9 @@
 
 + (instancetype)sharedInstance;
 
+- (void)shareCredentials;
+- (BOOL)restoreFromSharedCredentials;
+
 - (void)downloadFileToDocumentFolder:(DBMetadata *)file;
 - (void)streamFile:(DBMetadata *)file;
 

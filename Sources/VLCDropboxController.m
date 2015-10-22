@@ -20,6 +20,7 @@
 #import "VLCActivityManager.h"
 #import "VLCMediaFileDiscoverer.h"
 #endif
+#import "DBKeychain.h"
 
 @interface VLCDropboxController ()
 {
@@ -50,9 +51,34 @@
 
     dispatch_once(&pred, ^{
         sharedInstance = [VLCDropboxController new];
+        [sharedInstance shareCredentials];
     });
 
     return sharedInstance;
+}
+
+- (void)shareCredentials
+{
+    /* share our credentials */
+    NSDictionary *credentials = [DBKeychain credentials];
+    if (credentials == nil)
+        return;
+
+    NSUbiquitousKeyValueStore *ubiquitousStore = [NSUbiquitousKeyValueStore defaultStore];
+    [ubiquitousStore setDictionary:credentials forKey:kVLCStoreDropboxCredentials];
+    [ubiquitousStore synchronize];
+}
+
+- (BOOL)restoreFromSharedCredentials
+{
+    NSUbiquitousKeyValueStore *ubiquitousStore = [NSUbiquitousKeyValueStore defaultStore];
+    [ubiquitousStore synchronize];
+    NSDictionary *credentials = [ubiquitousStore dictionaryForKey:kVLCStoreDropboxCredentials];
+    if (!credentials)
+        return NO;
+
+    [DBKeychain setCredentials:credentials];
+    return YES;
 }
 
 - (void)startSession
@@ -139,7 +165,8 @@
     return NO;
 }
 
-- (void)restClient:(DBRestClient *)client loadedMetadata:(DBMetadata *)metadata {
+- (void)restClient:(DBRestClient *)client loadedMetadata:(DBMetadata *)metadata
+{
     NSMutableArray *listOfGoodFilesAndFolders = [[NSMutableArray alloc] init];
 
     if (metadata.isDirectory) {

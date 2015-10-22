@@ -86,6 +86,7 @@
 #endif
 
 #define kVLCStoredServerList @"kVLCStoredServerList"
+#define kVLCStoreDropboxCredentials @"kVLCStoreDropboxCredentials"
 
 #define kVLCUserActivityPlaying @"org.videolan.vlc-ios.playing"
 #define kVLCUserActivityLibrarySelection @"org.videolan.vlc-ios.libraryselection"
