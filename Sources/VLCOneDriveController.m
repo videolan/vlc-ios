@@ -19,6 +19,7 @@
 
 /* include private API headers */
 #import "LiveApiHelper.h"
+#import "LiveAuthStorage.h"
 
 @interface VLCOneDriveController () <LiveAuthDelegate, VLCOneDriveObjectDelegate, VLCOneDriveObjectDownloadDelegate>
 {
@@ -59,6 +60,8 @@
 
     if (!self)
         return self;
+
+    [self restoreFromSharedCredentials];
 
     _liveScopes = @[@"wl.signin",@"wl.offline_access",@"wl.skydrive"];
 
@@ -128,6 +131,8 @@
             [self.delegate performSelector:@selector(sessionWasUpdated)];
     }
     [[NSNotificationCenter defaultCenter] postNotificationName:VLCOneDriveControllerSessionUpdated object:self];
+
+    [self shareCredentials];
 }
 
 - (void)authFailed:(NSError *)error userState:(id)userState
@@ -142,6 +147,32 @@
             [self.delegate performSelector:@selector(sessionWasUpdated)];
     }
     [[NSNotificationCenter defaultCenter] postNotificationName:VLCOneDriveControllerSessionUpdated object:self];
+}
+
+- (void)shareCredentials
+{
+    /* share our credentials */
+    LiveAuthStorage *authStorage = [[LiveAuthStorage alloc] initWithClientId:kVLCOneDriveClientID];
+    NSString *credentials = [authStorage refreshToken];
+    if (credentials == nil)
+        return;
+
+    NSUbiquitousKeyValueStore *ubiquitousStore = [NSUbiquitousKeyValueStore defaultStore];
+    [ubiquitousStore setString:credentials forKey:kVLCStoreOneDriveCredentials];
+    [ubiquitousStore synchronize];
+}
+
+- (BOOL)restoreFromSharedCredentials
+{
+    LiveAuthStorage *authStorage = [[LiveAuthStorage alloc] initWithClientId:kVLCOneDriveClientID];
+    NSUbiquitousKeyValueStore *ubiquitousStore = [NSUbiquitousKeyValueStore defaultStore];
+    [ubiquitousStore synchronize];
+    NSString *credentials = [ubiquitousStore stringForKey:kVLCStoreOneDriveCredentials];
+    if (!credentials)
+        return NO;
+
+    [authStorage setRefreshToken:credentials];
+    return YES;
 }
 
 - (void)liveOperationSucceeded:(LiveDownloadOperation *)operation
