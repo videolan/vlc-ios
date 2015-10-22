@@ -1,6 +1,6 @@
-diff -ru Dropbox/DropboxSDK/Classes/DBSession+iOS.m DropboxTV/DropboxSDK/Classes/DBSession+iOS.m
---- Dropbox/DropboxSDK/Classes/DBSession+iOS.m	2014-09-15 20:51:33.000000000 +0200
-+++ DropboxTV/DropboxSDK/Classes/DBSession+iOS.m	2015-10-21 15:44:06.000000000 +0200
+diff -ru Dropbox/DropboxSDK/Classes/DBSession+iOS.m Dropbox/DropboxSDK/Classes/DBSession+iOS.m
+--- Dropbox/DropboxSDK/Classes/DBSession+iOS.m	2014-09-15 11:51:34.000000000 +0200
++++ Dropbox/DropboxSDK/Classes/DBSession+iOS.m	2015-10-21 16:10:46.000000000 +0200
 @@ -10,7 +10,9 @@
  
  #import <CommonCrypto/CommonDigest.h>
@@ -30,9 +30,9 @@ diff -ru Dropbox/DropboxSDK/Classes/DBSession+iOS.m DropboxTV/DropboxSDK/Classes
  }
  
  - (void)linkFromController:(UIViewController *)rootController {
-diff -ru Dropbox/DropboxSDK/DropboxSDK.xcodeproj/project.pbxproj DropboxTV/DropboxSDK/DropboxSDK.xcodeproj/project.pbxproj
---- Dropbox/DropboxSDK/DropboxSDK.xcodeproj/project.pbxproj	2014-09-15 20:51:33.000000000 +0200
-+++ DropboxTV/DropboxSDK/DropboxSDK.xcodeproj/project.pbxproj	2015-10-21 15:11:32.000000000 +0200
+diff -ru Dropbox/DropboxSDK/DropboxSDK.xcodeproj/project.pbxproj Dropbox/DropboxSDK/DropboxSDK.xcodeproj/project.pbxproj
+--- Dropbox/DropboxSDK/DropboxSDK.xcodeproj/project.pbxproj	2014-09-15 11:51:34.000000000 +0200
++++ Dropbox/DropboxSDK/DropboxSDK.xcodeproj/project.pbxproj	2015-10-21 16:58:13.000000000 +0200
 @@ -7,6 +7,84 @@
  	objects = {
  
@@ -381,7 +381,7 @@ diff -ru Dropbox/DropboxSDK/DropboxSDK.xcodeproj/project.pbxproj DropboxTV/Dropb
 +				GCC_WARN_UNDECLARED_SELECTOR = YES;
 +				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
 +				GCC_WARN_UNUSED_FUNCTION = YES;
-+				INFOPLIST_FILE = DropboxTVSDK/Info.plist;
++				INFOPLIST_FILE = "Classes/DropboxSDK-Info.plist";
 +				INSTALL_PATH = "$(LOCAL_LIBRARY_DIR)/Frameworks";
 +				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
 +				MTL_ENABLE_DEBUG_INFO = YES;
@@ -431,7 +431,7 @@ diff -ru Dropbox/DropboxSDK/DropboxSDK.xcodeproj/project.pbxproj DropboxTV/Dropb
 +				GCC_WARN_UNDECLARED_SELECTOR = YES;
 +				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
 +				GCC_WARN_UNUSED_FUNCTION = YES;
-+				INFOPLIST_FILE = DropboxTVSDK/Info.plist;
++				INFOPLIST_FILE = "Classes/DropboxSDK-Info.plist";
 +				INSTALL_PATH = "$(LOCAL_LIBRARY_DIR)/Frameworks";
 +				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
 +				MTL_ENABLE_DEBUG_INFO = NO;
@@ -450,7 +450,7 @@ diff -ru Dropbox/DropboxSDK/DropboxSDK.xcodeproj/project.pbxproj DropboxTV/Dropb
  		D3196B8E1412FE190060E7C6 /* Debug */ = {
  			isa = XCBuildConfiguration;
  			buildSettings = {
-@@ -1068,6 +1396,14 @@
+@@ -1068,6 +1396,15 @@
  			defaultConfigurationIsVisible = 0;
  			defaultConfigurationName = Release;
  		};
@@ -461,6 +461,7 @@ diff -ru Dropbox/DropboxSDK/DropboxSDK.xcodeproj/project.pbxproj DropboxTV/Dropb
 +				7DEC0DD01BD7C35D00A32C79 /* Release */,
 +			);
 +			defaultConfigurationIsVisible = 0;
++			defaultConfigurationName = Release;
 +		};
  		D3196B8D1412FE190060E7C6 /* Build configuration list for PBXNativeTarget "DropboxSDK" */ = {
  			isa = XCConfigurationList;
