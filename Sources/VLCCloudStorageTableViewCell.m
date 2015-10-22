@@ -57,6 +57,7 @@
     [self performSelectorOnMainThread:@selector(_updatedDisplayedInformation)
                            withObject:nil waitUntilDone:NO];
 }
+#endif
 
 - (void)setOneDriveFile:(VLCOneDriveObject *)oneDriveFile
 {
@@ -66,7 +67,6 @@
     [self performSelectorOnMainThread:@selector(_updatedDisplayedInformation)
                            withObject:nil waitUntilDone:NO];
 }
-#endif
 
 - (void)_updatedDisplayedInformation
 {
@@ -152,7 +152,9 @@
             self.thumbnailView.image = [UIImage imageNamed:@"blank"];
             APLog(@"missing icon for type '%@'", self.boxFile);
         }
-    } else if(_oneDriveFile != nil) {
+    }
+#endif
+    else if(_oneDriveFile != nil) {
         if (_oneDriveFile.isFolder) {
             self.downloadButton.hidden = YES;
             self.folderTitleLabel.text = self.oneDriveFile.name;
@@ -191,7 +193,6 @@
                 self.thumbnailView.image = [UIImage imageNamed:@"blank"];
         }
     }
-#endif
 
     [self setNeedsDisplay];
 }

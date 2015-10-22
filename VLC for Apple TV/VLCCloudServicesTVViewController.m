@@ -15,10 +15,13 @@
 #import "VLCDropboxTableViewController.h"
 #import "SSKeychain.h"
 #import "VLCPlayerDisplayController.h"
+#import "VLCOneDriveTableViewController.h"
 
 @interface VLCCloudServicesTVViewController ()
 
 @property (nonatomic) VLCDropboxTableViewController *dropboxTableViewController;
+@property (nonatomic) VLCOneDriveTableViewController *oneDriveTableViewController;
+
 @end
 
 @implementation VLCCloudServicesTVViewController
@@ -27,6 +30,7 @@
     [super viewDidLoad];
 
     self.dropboxTableViewController = [[VLCDropboxTableViewController alloc] initWithNibName:@"VLCCloudStorageTableViewController" bundle:nil];
+    self.oneDriveTableViewController = [[VLCOneDriveTableViewController alloc] initWithNibName:@"VLCCloudStorageTableViewController" bundle:nil];
 }
 
 - (NSString *)title
@@ -58,6 +62,11 @@
     [alert addAction:defaultAction];
     [alert addAction:cancelAction];
     [self presentViewController:alert animated:YES completion:nil];
+}
+
+- (void)onedrive:(id)sender
+{
+    [self showDetailViewController:self.oneDriveTableViewController sender:self];
 }
 
 @end

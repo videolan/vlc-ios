@@ -119,14 +119,6 @@
     [self.tableView deselectRowAtIndexPath:indexPath animated:NO];
 }
 
-- (void)alertView:(UIAlertView *)alertView clickedButtonAtIndex:(NSInteger)buttonIndex
-{
-    if (buttonIndex == 1)
-        [_oneDriveController downloadObject:_selectedFile];
-
-    _selectedFile = nil;
-}
-
 #pragma mark - login dialog
 
 - (void)loginAction:(id)sender
@@ -147,6 +139,7 @@
 
 #pragma mark - cell delegation
 
+#if TARGET_OS_IOS
 - (void)triggerDownloadForCell:(VLCCloudStorageTableViewCell *)cell
 {
     NSIndexPath *indexPath = [self.tableView indexPathForCell:cell];
@@ -169,5 +162,14 @@
         [alert show];
     }
 }
+
+- (void)alertView:(UIAlertView *)alertView clickedButtonAtIndex:(NSInteger)buttonIndex
+{
+    if (buttonIndex == 1)
+        [_oneDriveController downloadObject:_selectedFile];
+
+    _selectedFile = nil;
+}
+#endif
 
 @end
