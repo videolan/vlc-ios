@@ -1,9 +1,9 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="9058" systemVersion="15B30a" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="9059" systemVersion="15B42" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES">
     <dependencies>
         <deployment identifier="iOS"/>
         <development version="7000" identifier="xcode"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="9048"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="9049"/>
         <capability name="Constraints to layout margins" minToolsVersion="6.0"/>
     </dependencies>
     <objects>
@@ -13,7 +13,7 @@
             <rect key="frame" x="0.0" y="0.0" width="320" height="68"/>
             <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
             <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="3" id="qo4-sr-qnV">
-                <rect key="frame" x="0.0" y="0.0" width="320" height="67.5"/>
+                <rect key="frame" x="0.0" y="0.0" width="320" height="67"/>
                 <autoresizingMask key="autoresizingMask"/>
                 <subviews>
                     <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFill" translatesAutoresizingMaskIntoConstraints="NO" id="4">
@@ -33,7 +33,7 @@
                         </variation>
                     </imageView>
                     <label clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" text="File Title" lineBreakMode="wordWrap" baselineAdjustment="none" minimumScaleFactor="0.5" translatesAutoresizingMaskIntoConstraints="NO" id="6">
-                        <rect key="frame" x="67" y="18" width="54.5" height="17"/>
+                        <rect key="frame" x="67" y="18" width="55" height="17"/>
                         <animations/>
                         <color key="backgroundColor" red="0.1052877679" green="0.1052846164" blue="0.1052864045" alpha="1" colorSpace="calibratedRGB"/>
                         <fontDescription key="fontDescription" type="system" pointSize="14"/>
@@ -41,7 +41,7 @@
                         <color key="highlightedColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                     </label>
                     <label hidden="YES" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" text="Downloading..." textAlignment="center" lineBreakMode="wordWrap" baselineAdjustment="none" minimumScaleFactor="0.5" translatesAutoresizingMaskIntoConstraints="NO" id="28" customClass="VLCStatusLabel">
-                        <rect key="frame" x="112" y="25.5" width="96" height="18"/>
+                        <rect key="frame" x="112" y="25" width="96" height="18"/>
                         <animations/>
                         <color key="backgroundColor" red="0.1052877679" green="0.1052846164" blue="0.1052864045" alpha="1" colorSpace="calibratedRGB"/>
                         <constraints>
@@ -52,7 +52,7 @@
                         <color key="highlightedColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                     </label>
                     <label clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" text="Subtitle — Subtitle" lineBreakMode="wordWrap" baselineAdjustment="alignBaselines" minimumScaleFactor="0.5" translatesAutoresizingMaskIntoConstraints="NO" id="7">
-                        <rect key="frame" x="67" y="38" width="106" height="14.5"/>
+                        <rect key="frame" x="67" y="37" width="106" height="15"/>
                         <animations/>
                         <color key="backgroundColor" red="0.1052877679" green="0.1052846164" blue="0.1052864045" alpha="1" colorSpace="calibratedRGB"/>
                         <fontDescription key="fontDescription" type="system" pointSize="12"/>
@@ -74,12 +74,18 @@
                         <state key="highlighted">
                             <color key="titleColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                         </state>
+                        <variation key="default">
+                            <mask key="constraints">
+                                <exclude reference="b2E-BO-ESa"/>
+                                <exclude reference="jpk-NV-gaJ"/>
+                            </mask>
+                        </variation>
                         <connections>
                             <action selector="triggerDownload:" destination="3" eventType="touchUpInside" id="26"/>
                         </connections>
                     </button>
                     <label clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" text="Folder Title" lineBreakMode="wordWrap" baselineAdjustment="none" minimumScaleFactor="0.5" translatesAutoresizingMaskIntoConstraints="NO" id="23">
-                        <rect key="frame" x="67" y="26" width="73" height="17"/>
+                        <rect key="frame" x="67" y="25" width="73" height="17"/>
                         <animations/>
                         <color key="backgroundColor" red="0.1052877679" green="0.1052846164" blue="0.1052864045" alpha="1" colorSpace="calibratedRGB"/>
                         <fontDescription key="fontDescription" type="system" pointSize="14"/>
@@ -93,8 +99,10 @@
                     <constraint firstItem="28" firstAttribute="centerX" secondItem="qo4-sr-qnV" secondAttribute="centerX" id="1or-QE-1fQ"/>
                     <constraint firstAttribute="bottomMargin" secondItem="4" secondAttribute="bottom" constant="0.5" id="IRG-mI-IkY"/>
                     <constraint firstItem="4" firstAttribute="top" secondItem="qo4-sr-qnV" secondAttribute="topMargin" constant="1" id="IYU-30-AGT"/>
+                    <constraint firstItem="4" firstAttribute="centerY" secondItem="qo4-sr-qnV" secondAttribute="centerY" id="JxB-lj-rIe"/>
                     <constraint firstAttribute="bottomMargin" secondItem="7" secondAttribute="bottom" constant="7.5" id="Qo6-Gd-U30"/>
                     <constraint firstItem="23" firstAttribute="leading" secondItem="4" secondAttribute="trailing" constant="9" id="UI8-4U-dR0"/>
+                    <constraint firstItem="25" firstAttribute="centerY" secondItem="qo4-sr-qnV" secondAttribute="centerY" id="ZOR-bw-X93"/>
                     <constraint firstAttribute="bottomMargin" secondItem="25" secondAttribute="bottom" constant="9.5" id="Zj0-99-Jyc"/>
                     <constraint firstItem="6" firstAttribute="top" secondItem="qo4-sr-qnV" secondAttribute="topMargin" constant="10" id="csN-tj-rK0"/>
                     <constraint firstItem="7" firstAttribute="leading" secondItem="4" secondAttribute="trailing" constant="9" id="dJZ-l3-7bi"/>
@@ -104,6 +112,13 @@
                     <constraint firstItem="25" firstAttribute="top" secondItem="qo4-sr-qnV" secondAttribute="topMargin" constant="10" id="y0I-qt-yj9"/>
                     <constraint firstItem="4" firstAttribute="leading" secondItem="qo4-sr-qnV" secondAttribute="leadingMargin" id="zXF-XV-IEW"/>
                 </constraints>
+                <variation key="default">
+                    <mask key="constraints">
+                        <exclude reference="IRG-mI-IkY"/>
+                        <exclude reference="IYU-30-AGT"/>
+                        <exclude reference="y0I-qt-yj9"/>
+                    </mask>
+                </variation>
             </tableViewCellContentView>
             <animations/>
             <color key="backgroundColor" white="0.0" alpha="1" colorSpace="calibratedWhite"/>
