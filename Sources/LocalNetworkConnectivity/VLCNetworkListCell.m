@@ -89,7 +89,7 @@
     if (!imageData)
         return;
     UIImage* image = [[UIImage alloc] initWithData:imageData];
-    [self setIcon:image];
+    [self performSelectorOnMainThread:@selector(setIcon:) withObject:image waitUntilDone:NO];
 }
 
 - (void)setIsDownloadable:(BOOL)isDownloadable
