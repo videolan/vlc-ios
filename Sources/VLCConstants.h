@@ -85,6 +85,7 @@
 #define WifiInterfaceName @"en0"
 #endif
 
+#define kVLCMigratedToUbiquitousStoredServerList @"kVLCMigratedToUbiquitousStoredServerList"
 #define kVLCStoredServerList @"kVLCStoredServerList"
 #define kVLCStoreDropboxCredentials @"kVLCStoreDropboxCredentials"
 #define kVLCStoreOneDriveCredentials @"kVLCStoreOneDriveCredentials"

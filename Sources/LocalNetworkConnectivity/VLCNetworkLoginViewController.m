@@ -97,11 +97,13 @@
         [self protocolSelectionChanged:nil];
     }
 
-    // persistent state
-    NSUserDefaults *defaults = [NSUserDefaults standardUserDefaults];
-    _serverList = [NSMutableArray arrayWithArray:[defaults objectForKey:kVLCStoredServerList]];
+    NSUbiquitousKeyValueStore *ukvStore = [NSUbiquitousKeyValueStore defaultStore];
+    [ukvStore synchronize];
+    _serverList = [NSMutableArray arrayWithArray:[ukvStore arrayForKey:kVLCStoredServerList]];
 
-    if (_serverList.count == 0) {
+    NSUserDefaults *defaults = [NSUserDefaults standardUserDefaults];
+
+    if (![defaults boolForKey:kVLCMigratedToUbiquitousStoredServerList]) {
         /* we need to migrate from previous, insecure storage fields */
         NSArray *ftpServerList = [defaults objectForKey:kVLCFTPServer];
         NSArray *ftpLoginList = [defaults objectForKey:kVLCFTPLogin];
@@ -123,7 +125,9 @@
                 [_serverList addObject:[NSString stringWithFormat:@"plex://%@:%@", plexServerList[i], plexPortList[i]]];
             }
         }
-        [defaults setObject:_serverList forKey:kVLCStoredServerList];
+        [ukvStore setArray:_serverList forKey:kVLCStoredServerList];
+        [ukvStore synchronize];
+        [defaults setBool:YES forKey:kVLCMigratedToUbiquitousStoredServerList];
         [defaults synchronize];
     }
 
