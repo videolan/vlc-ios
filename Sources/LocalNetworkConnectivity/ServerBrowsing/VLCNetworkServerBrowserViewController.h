@@ -1,5 +1,5 @@
 /*****************************************************************************
- * VLCFTPServerListViewController
+ * VLCNetworkServerBrowserViewController.h
  * VLC for iOS
  *****************************************************************************
  * Copyright (c) 2013-2015 VideoLAN. All rights reserved.
@@ -13,7 +13,7 @@
 #import "VLCNetworkListViewController.h"
 #import "VLCNetworkServerBrowser-Protocol.h"
 
-@interface VLCFTPServerListViewController : VLCNetworkListViewController
+@interface VLCNetworkServerBrowserViewController : VLCNetworkListViewController
 
 - (instancetype)initWithServerBrowser:(id<VLCNetworkServerBrowser>)browser;
 @end

@@ -187,7 +187,7 @@
 		7DA8B0FB173318E80029698C /* SourceCodePro-Regular.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 7DA8B0F9173318E80029698C /* SourceCodePro-Regular.ttf */; };
 		7DAE0C2E1B2EDF7A00C53996 /* VLCNetworkListViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 7DAE0C2D1B2EDF7A00C53996 /* VLCNetworkListViewController.m */; };
 		7DAE0C311B2EDFD600C53996 /* VLCUPnPServerListViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 7DAE0C301B2EDFD600C53996 /* VLCUPnPServerListViewController.m */; };
-		7DAE0C341B2EE0C200C53996 /* VLCFTPServerListViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 7DAE0C331B2EE0C200C53996 /* VLCFTPServerListViewController.m */; };
+		7DAE0C341B2EE0C200C53996 /* VLCNetworkServerBrowserViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 7DAE0C331B2EE0C200C53996 /* VLCNetworkServerBrowserViewController.m */; };
 		7DAE0C371B2EF85B00C53996 /* VLCSidebarController.m in Sources */ = {isa = PBXBuildFile; fileRef = 7DAE0C361B2EF85B00C53996 /* VLCSidebarController.m */; };
 		7DAE0C3A1B2F085F00C53996 /* VLCDiscoveryListViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 7DAE0C391B2F085F00C53996 /* VLCDiscoveryListViewController.m */; };
 		7DB638AB185BC0890003887C /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 7DB638AA185BC0890003887C /* Images.xcassets */; };
@@ -751,8 +751,8 @@
 		7DAE0C2D1B2EDF7A00C53996 /* VLCNetworkListViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = VLCNetworkListViewController.m; path = Sources/LocalNetworkConnectivity/ServerBrowsing/VLCNetworkListViewController.m; sourceTree = SOURCE_ROOT; };
 		7DAE0C2F1B2EDFD600C53996 /* VLCUPnPServerListViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = VLCUPnPServerListViewController.h; path = Sources/LocalNetworkConnectivity/ServerBrowsing/VLCUPnPServerListViewController.h; sourceTree = SOURCE_ROOT; };
 		7DAE0C301B2EDFD600C53996 /* VLCUPnPServerListViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = VLCUPnPServerListViewController.m; path = Sources/LocalNetworkConnectivity/ServerBrowsing/VLCUPnPServerListViewController.m; sourceTree = SOURCE_ROOT; };
-		7DAE0C321B2EE0C200C53996 /* VLCFTPServerListViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = VLCFTPServerListViewController.h; path = Sources/LocalNetworkConnectivity/ServerBrowsing/VLCFTPServerListViewController.h; sourceTree = SOURCE_ROOT; };
-		7DAE0C331B2EE0C200C53996 /* VLCFTPServerListViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = VLCFTPServerListViewController.m; path = Sources/LocalNetworkConnectivity/ServerBrowsing/VLCFTPServerListViewController.m; sourceTree = SOURCE_ROOT; };
+		7DAE0C321B2EE0C200C53996 /* VLCNetworkServerBrowserViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = VLCNetworkServerBrowserViewController.h; path = Sources/LocalNetworkConnectivity/ServerBrowsing/VLCNetworkServerBrowserViewController.h; sourceTree = SOURCE_ROOT; };
+		7DAE0C331B2EE0C200C53996 /* VLCNetworkServerBrowserViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = VLCNetworkServerBrowserViewController.m; path = Sources/LocalNetworkConnectivity/ServerBrowsing/VLCNetworkServerBrowserViewController.m; sourceTree = SOURCE_ROOT; };
 		7DAE0C351B2EF85B00C53996 /* VLCSidebarController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = VLCSidebarController.h; path = Sources/VLCSidebarController.h; sourceTree = SOURCE_ROOT; };
 		7DAE0C361B2EF85B00C53996 /* VLCSidebarController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = VLCSidebarController.m; path = Sources/VLCSidebarController.m; sourceTree = SOURCE_ROOT; };
 		7DAE0C381B2F085F00C53996 /* VLCDiscoveryListViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = VLCDiscoveryListViewController.h; path = Sources/LocalNetworkConnectivity/ServerBrowsing/VLCDiscoveryListViewController.h; sourceTree = SOURCE_ROOT; };
@@ -1635,10 +1635,10 @@
 				7DAE0C2D1B2EDF7A00C53996 /* VLCNetworkListViewController.m */,
 				7DAE0C2F1B2EDFD600C53996 /* VLCUPnPServerListViewController.h */,
 				7DAE0C301B2EDFD600C53996 /* VLCUPnPServerListViewController.m */,
-				7DAE0C321B2EE0C200C53996 /* VLCFTPServerListViewController.h */,
-				7DAE0C331B2EE0C200C53996 /* VLCFTPServerListViewController.m */,
 				7DAE0C381B2F085F00C53996 /* VLCDiscoveryListViewController.h */,
 				7DAE0C391B2F085F00C53996 /* VLCDiscoveryListViewController.m */,
+				7DAE0C321B2EE0C200C53996 /* VLCNetworkServerBrowserViewController.h */,
+				7DAE0C331B2EE0C200C53996 /* VLCNetworkServerBrowserViewController.m */,
 				DDE3C8E51BD2F75100C03B8B /* VLCNetworkServerBrowser-Protocol.h */,
 				DDE3C8E61BD3A81600C03B8B /* VLCNetworkServerBrowserFTP.h */,
 				DDE3C8E71BD3A81600C03B8B /* VLCNetworkServerBrowserFTP.m */,
@@ -2604,7 +2604,7 @@
 				7D3784BE183A9938009EE944 /* UIBarButtonItem+Theme.m in Sources */,
 				41B93C051A53835300102E8B /* VLCCloudServiceCell.m in Sources */,
 				7D4625881A5614A1001A80B4 /* VLCEqualizerView.m in Sources */,
-				7DAE0C341B2EE0C200C53996 /* VLCFTPServerListViewController.m in Sources */,
+				7DAE0C341B2EE0C200C53996 /* VLCNetworkServerBrowserViewController.m in Sources */,
 				7DF9352F1958AB0600E60FD4 /* UIColor+Presets.m in Sources */,
 				7D50903218F41C7900180139 /* VLCAlertView.m in Sources */,
 				7D37E39A1BC93F7500AFA70E /* VLCLocalServerDiscoveryController.m in Sources */,

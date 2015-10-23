@@ -1,5 +1,5 @@
 /*****************************************************************************
- * VLCFTPServerListViewController.m
+ * VLCNetworkServerBrowserViewController.m
  * VLC for iOS
  *****************************************************************************
  * Copyright (c) 2013-2015 VideoLAN. All rights reserved.
@@ -7,11 +7,12 @@
  *
  * Authors: Felix Paul Kühne <fkuehne # videolan.org>
  *          Pierre SAGASPE <pierre.sagaspe # me.com>
+ *          Tobias Conradi <videolan # tobias-conradi.de>
  *
  * Refer to the COPYING file of the official project for license.
  *****************************************************************************/
 
-#import "VLCFTPServerListViewController.h"
+#import "VLCNetworkServerBrowserViewController.h"
 #import "VLCNetworkListCell.h"
 #import "VLCActivityManager.h"
 #import "NSString+SupportedMedia.h"
@@ -23,13 +24,13 @@
 #import "WhiteRaccoon.h"
 #import "VLCNetworkServerBrowserFTP.h"
 
-@interface VLCFTPServerListViewController () <VLCNetworkServerBrowserDelegate,VLCNetworkListCellDelegate, UITableViewDataSource, UITableViewDelegate, UIActionSheetDelegate>
-@property (nonatomic) VLCNetworkServerBrowserFTP *serverBrowser;
+@interface VLCNetworkServerBrowserViewController () <VLCNetworkServerBrowserDelegate,VLCNetworkListCellDelegate, UITableViewDataSource, UITableViewDelegate, UIActionSheetDelegate>
+@property (nonatomic) id<VLCNetworkServerBrowser> serverBrowser;
 @property (nonatomic) NSByteCountFormatter *byteCounterFormatter;
 @property (nonatomic) NSArray<id<VLCNetworkServerBrowserItem>> *searchArray;
 @end
 
-@implementation VLCFTPServerListViewController
+@implementation VLCNetworkServerBrowserViewController
 
 - (instancetype)initWithServerBrowser:(id<VLCNetworkServerBrowser>)browser
 {
@@ -80,15 +81,14 @@
     return _byteCounterFormatter;
 }
 
-#pragma mark - ftp specifics
+#pragma mark - server browser item specifics
 
-
-- (void)_downloadFTPFile:(id<VLCNetworkServerBrowserItem>)item
+- (void)_downloadItem:(id<VLCNetworkServerBrowserItem>)item
 {
     [[VLCDownloadViewController sharedInstance] addURLToDownloadList:item.URL fileNameOfMedia:nil];
 }
 
-- (void)_streamFTPFile:(id<VLCNetworkServerBrowserItem>)item
+- (void)_streamFileForItem:(id<VLCNetworkServerBrowserItem>)item
 {
     NSString *URLofSubtitle = nil;
     NSArray *SubtitlesList = [self _searchSubtitle:item.URL.lastPathComponent];
@@ -212,7 +212,7 @@
 
     if (item.isContainer) {
 
-        VLCFTPServerListViewController *targetViewController = [[VLCFTPServerListViewController alloc] initWithServerBrowser:item.containerBrowser];
+        VLCNetworkServerBrowserViewController *targetViewController = [[VLCNetworkServerBrowserViewController alloc] initWithServerBrowser:item.containerBrowser];
         [self.navigationController pushViewController:targetViewController animated:YES];
     } else {
         NSString *properObjectName = item.name;
@@ -224,7 +224,7 @@
                                                     otherButtonTitles:nil];
             [alert show];
         } else
-            [self _streamFTPFile:item];
+            [self _streamFileForItem:item];
     }
     [tableView deselectRowAtIndexPath:indexPath animated:NO];
 }
@@ -248,7 +248,7 @@
         [alert show];
     } else {
         if (item.fileSizeBytes.longLongValue  < [[UIDevice currentDevice] freeDiskspace].longLongValue) {
-            [self _downloadFTPFile:item];
+            [self _downloadItem:item];
             [cell.statusLabel showStatusMessage:NSLocalizedString(@"DOWNLOADING", nil)];
         } else {
             VLCAlertView *alert = [[VLCAlertView alloc] initWithTitle:NSLocalizedString(@"DISK_FULL", nil)

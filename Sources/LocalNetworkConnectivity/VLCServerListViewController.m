@@ -23,7 +23,7 @@
 #import "VLCLocalPlexFolderListViewController.h"
 #import "VLCSharedLibraryListViewController.h"
 #import "VLCDiscoveryListViewController.h"
-#import "VLCFTPServerListViewController.h"
+#import "VLCNetworkServerBrowserViewController.h"
 
 #import "VLCNetworkServerBrowserFTP.h"
 
@@ -216,7 +216,7 @@ confirmedWithUsername:(NSString *)username
         {
             VLCNetworkServerBrowserFTP *browser = [[VLCNetworkServerBrowserFTP alloc]initWithFTPServer:server
                                                                                               userName:username andPassword:password atPath:@"/"];
-            VLCFTPServerListViewController *targetViewController = [[VLCFTPServerListViewController alloc] initWithServerBrowser:browser];
+            VLCNetworkServerBrowserViewController *targetViewController = [[VLCNetworkServerBrowserViewController alloc] initWithServerBrowser:browser];
             [self.navigationController pushViewController:targetViewController animated:YES];
             break;
         }
