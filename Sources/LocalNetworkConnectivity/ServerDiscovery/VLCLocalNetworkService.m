@@ -154,30 +154,25 @@
     return nil;
 }
 @end
-#import "VLCDiscoveryListViewController.h"
 
 @implementation VLCLocalNetworkServiceDSM
 - (UIImage *)icon {
     return [UIImage imageNamed:@"serverIcon"];
 }
 - (UIViewController *)detailViewController {
-    VLCMedia *cellMedia = self.mediaItem;
-    if (cellMedia.mediaType != VLCMediaTypeDirectory)
+    VLCMedia *media = self.mediaItem;
+    if (media.mediaType != VLCMediaTypeDirectory)
         return nil;
 
-    NSDictionary *mediaOptions = @{@"smb-user" : @"",
-                                   @"smb-pwd" : @"",
-                                   @"smb-domain" : @""};
-    [cellMedia addOptions:mediaOptions];
-
-    VLCDiscoveryListViewController *targetViewController = [[VLCDiscoveryListViewController alloc]
-                                                            initWithMedia:cellMedia
-                                                            options:mediaOptions];
-    return targetViewController;
+    VLCNetworkLoginViewController *loginViewController = [[VLCNetworkLoginViewController alloc] initWithNibName:@"VLCNetworkLoginViewController" bundle:nil];
+    loginViewController.serverProtocol = VLCServerProtocolSMB;
+    loginViewController.hostname = self.mediaItem.url.host;
+    return loginViewController;
 }
-@end
-#import "VLCPlaybackController.h"
 
+@end
+
+#import "VLCPlaybackController.h"
 @implementation VLCLocalNetworkServiceSAP
 - (UIImage *)icon {
     return [UIImage imageNamed:@"TVBroadcastIcon"];

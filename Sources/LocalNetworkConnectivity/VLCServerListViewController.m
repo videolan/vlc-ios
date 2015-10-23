@@ -22,10 +22,10 @@
 #import "VLCUPnPServerListViewController.h"
 #import "VLCLocalPlexFolderListViewController.h"
 #import "VLCSharedLibraryListViewController.h"
-#import "VLCDiscoveryListViewController.h"
 #import "VLCNetworkServerBrowserViewController.h"
 
 #import "VLCNetworkServerBrowserFTP.h"
+#import "VLCNetworkServerBrowserVLCMedia.h"
 
 @interface VLCServerListViewController () <UITableViewDataSource, UITableViewDelegate, VLCLocalServerDiscoveryControllerDelegate>
 {
@@ -211,13 +211,14 @@
 confirmedWithUsername:(NSString *)username
           andPassword:(NSString *)password
 {
+
+    id<VLCNetworkServerBrowser> serverBrowser = nil;
     switch (protocol) {
         case VLCServerProtocolFTP:
         {
-            VLCNetworkServerBrowserFTP *browser = [[VLCNetworkServerBrowserFTP alloc]initWithFTPServer:server
-                                                                                              userName:username andPassword:password atPath:@"/"];
-            VLCNetworkServerBrowserViewController *targetViewController = [[VLCNetworkServerBrowserViewController alloc] initWithServerBrowser:browser];
-            [self.navigationController pushViewController:targetViewController animated:YES];
+            serverBrowser = [[VLCNetworkServerBrowserFTP alloc]initWithFTPServer:server
+                                                                        userName:username
+                                                                     andPassword:password atPath:@"/"];
             break;
         }
         case VLCServerProtocolPLEX:
@@ -234,21 +235,20 @@ confirmedWithUsername:(NSString *)username
         }
         case VLCServerProtocolSMB:
         {
-            VLCMedia *media = [VLCMedia mediaWithURL:[NSURL URLWithString:[NSString stringWithFormat:@"smb://%@", server]]];
-            NSDictionary *mediaOptions = @{@"smb-user" : username ? username : @"",
-                                           @"smb-pwd" : password ? password : @"",
-                                           @"smb-domain" : @"WORKGROUP"};
-            [media addOptions:mediaOptions];
-
-            VLCDiscoveryListViewController *targetViewController = [[VLCDiscoveryListViewController alloc]
-                                                                    initWithMedia:media
-                                                                    options:mediaOptions];
-            [[self navigationController] pushViewController:targetViewController animated:YES];
+            NSURL *url = [NSURL URLWithString:[NSString stringWithFormat:@"smb://%@", server]];
+            serverBrowser = [VLCNetworkServerBrowserVLCMedia SMBNetworkServerBrowserWithURL:url
+                                                                                   username:username
+                                                                                   password:password
+                                                                                  workgroup:nil];
         }
 
         default:
             APLog(@"Unsupported URL Scheme requested %ld", (long)protocol);
             break;
+    }
+    if (serverBrowser) {
+        VLCNetworkServerBrowserViewController *targetViewController = [[VLCNetworkServerBrowserViewController alloc] initWithServerBrowser:serverBrowser];
+        [self.navigationController pushViewController:targetViewController animated:YES];
     }
 }
 

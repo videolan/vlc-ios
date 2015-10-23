@@ -21,7 +21,7 @@ NS_ASSUME_NONNULL_BEGIN
 
 @property (nonatomic, weak) id <VLCNetworkServerBrowserDelegate> delegate;
 @property (nonatomic, readonly, nullable) NSString *title;
-@property (nonatomic, readonly) NSArray<id<VLCNetworkServerBrowserItem>> *items;
+@property (nonatomic, copy, readonly) NSArray<id<VLCNetworkServerBrowserItem>> *items;
 
 - (void)update;
 
