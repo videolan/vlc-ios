@@ -80,7 +80,7 @@ static NSString *WiFiCellIdentifier = @"VLCMenuWiFiCell";
     CGFloat top;
     if (height > screenheight - 20.) {
         height = screenheight - 20.;
-        top = 10.;
+        top = 20.;
     } else
         top = (screenheight - height) / 2.;
     CGFloat left;
@@ -112,15 +112,14 @@ static NSString *WiFiCellIdentifier = @"VLCMenuWiFiCell";
         [self.view addSubview:spacer1];
         [self.view addSubview:spacer2];
         dict = NSDictionaryOfVariableBindings(_menuTableView, spacer1, spacer2);
-        [self.view addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:[NSString stringWithFormat:@"V:|[spacer1][_menuTableView(==%i)][spacer2(==spacer1)]|", (int)height] options:0 metrics:0 views:dict]];
+        [self.view addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:[NSString stringWithFormat:@"V:|[spacer1][_menuTableView(==%0.2f)][spacer2(==spacer1)]|", height] options:0 metrics:0 views:dict]];
     } else {
         dict = NSDictionaryOfVariableBindings(_menuTableView);
-        [self.view addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:[NSString stringWithFormat:@"V:|-==%i-[_menuTableView(<=%i)]-==%i-|", (int)top, (int)height, (int)top] options:0 metrics:0 views:dict]];
+        [self.view addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:[NSString stringWithFormat:@"V:|-==%0.2f-[_menuTableView(<=%0.2f)]-==%0.2f-|", top, height, top] options:0 metrics:0 views:dict]];
     }
 
     dict = NSDictionaryOfVariableBindings(_menuTableView);
-    [self.view addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:[NSString stringWithFormat:@"H:|-==%i-[_menuTableView(320)]->=0-|", (int)left] options:0 metrics:0 views:dict]];
-
+    [self.view addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:[NSString stringWithFormat:@"H:|-==%0.2f-[_menuTableView(320)]->=0-|", left] options:0 metrics:0 views:dict]];
 
     [_menuTableView selectRowAtIndexPath:[NSIndexPath indexPathForRow:0 inSection:0] animated:NO scrollPosition:UITableViewScrollPositionTop];
 }
