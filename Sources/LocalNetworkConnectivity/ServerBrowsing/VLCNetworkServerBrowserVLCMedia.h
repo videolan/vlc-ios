@@ -14,13 +14,13 @@
 
 NS_ASSUME_NONNULL_BEGIN
 @interface VLCNetworkServerBrowserVLCMedia : NSObject <VLCNetworkServerBrowser>
-- (instancetype)initWithMedia:(VLCMedia *)media NS_DESIGNATED_INITIALIZER;
+- (instancetype)initWithMedia:(VLCMedia *)media options:(NSDictionary *)options NS_DESIGNATED_INITIALIZER;
 - (instancetype)init NS_UNAVAILABLE;
 @end
 
 
 @interface VLCNetworkServerBrowserItemVLCMedia : NSObject <VLCNetworkServerBrowserItem>
-- (instancetype)initWithMedia:(VLCMedia *)media;
+- (instancetype)initWithMedia:(VLCMedia *)media options:(NSDictionary *)mediaOptions;
 @end
 
 @interface VLCNetworkServerBrowserVLCMedia (SMB)

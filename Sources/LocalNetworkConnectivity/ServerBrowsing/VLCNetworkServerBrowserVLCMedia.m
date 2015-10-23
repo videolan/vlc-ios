@@ -16,11 +16,13 @@
 @property (nonatomic) VLCMedia *rootMedia;
 @property (nonatomic) VLCMediaList *mediaList;
 @property (nonatomic) NSMutableArray<id<VLCNetworkServerBrowserItem>> *mutableItems;
+@property (nonatomic, readonly) NSDictionary *mediaOptions;
+
 @end
 @implementation VLCNetworkServerBrowserVLCMedia
 @synthesize delegate = _delegate;
 
-- (instancetype)initWithMedia:(VLCMedia *)media
+- (instancetype)initWithMedia:(VLCMedia *)media options:(nonnull NSDictionary *)mediaOptions
 {
     self = [super init];
     if (self) {
@@ -29,6 +31,7 @@
         [media parseWithOptions:VLCMediaParseNetwork];
         _mediaList = [_rootMedia subitems];
         _mediaList.delegate = self;
+        _mediaOptions = [mediaOptions copy];
     }
     return self;
 }
@@ -49,7 +52,8 @@
 - (void)mediaList:(VLCMediaList *)aMediaList mediaAdded:(VLCMedia *)media atIndex:(NSInteger)index
 {
     [media parseWithOptions:VLCMediaParseNetwork];
-    [self.mutableItems addObject:[[VLCNetworkServerBrowserItemVLCMedia alloc] initWithMedia:media]];
+    [media addOptions:self.mediaOptions];
+    [self.mutableItems addObject:[[VLCNetworkServerBrowserItemVLCMedia alloc] initWithMedia:media options:self.mediaOptions]];
     [self.delegate networkServerBrowserDidUpdate:self];
 }
 
@@ -63,11 +67,13 @@
 
 @interface VLCNetworkServerBrowserItemVLCMedia ()
 @property (nonatomic, readonly) VLCMedia *media;
+@property (nonatomic, readonly) NSDictionary *mediaOptions;
+
 @end
 @implementation VLCNetworkServerBrowserItemVLCMedia
 @synthesize name = _name, container = _container, fileSizeBytes = _fileSizeBytes, URL = _URL;
 
-- (instancetype)initWithMedia:(VLCMedia *)media
+- (instancetype)initWithMedia:(VLCMedia *)media options:(NSDictionary *)mediaOptions;
 {
     self = [super init];
     if (self) {
@@ -82,13 +88,14 @@
         }
         _name = title;
         _URL = media.url;
+        _mediaOptions = [mediaOptions copy];
 //        _downloadable = NO; //TODO: add property for downloadable?
     }
     return self;
 }
 
 - (id<VLCNetworkServerBrowser>)containerBrowser {
-    return [[VLCNetworkServerBrowserVLCMedia alloc] initWithMedia:self.media];
+    return [[VLCNetworkServerBrowserVLCMedia alloc] initWithMedia:self.media options:self.mediaOptions];
 }
 
 @end
@@ -102,7 +109,7 @@
                                    @"smb-pwd" : password ?: @"",
                                    @"smb-domain" : workgroup?: @"WORKGROUP"};
     [media addOptions:mediaOptions];
-    return [[self alloc] initWithMedia:media];
+    return [[self alloc] initWithMedia:media options:mediaOptions];
 }
 @end
 
