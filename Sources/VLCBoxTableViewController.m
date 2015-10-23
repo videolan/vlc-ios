@@ -13,11 +13,14 @@
 #import "VLCBoxTableViewController.h"
 #import "VLCCloudStorageTableViewCell.h"
 #import "VLCBoxController.h"
-#import "VLCAppDelegate.h"
 #import <SSKeychain/SSKeychain.h>
 #import "UIDevice+VLC.h"
 
+#if TARGET_OS_IOS
 @interface VLCBoxTableViewController () <VLCCloudStorageTableViewCell, BoxAuthorizationViewControllerDelegate, VLCCloudStorageDelegate>
+#else
+@interface VLCBoxTableViewController () <VLCCloudStorageTableViewCell, VLCCloudStorageDelegate>
+#endif
 {
     BoxFile *_selectedFile;
     VLCBoxController *_boxController;
@@ -74,6 +77,7 @@
                         object:[BoxSDK sharedSDK].OAuth2Session];
 }
 
+#if TARGET_OS_IOS
 - (UIViewController *)createAuthController
 {
     NSURL *authorizationURL = [[BoxSDK sharedSDK].OAuth2Session authorizeURL];
@@ -82,6 +86,7 @@
     authorizationController.delegate = self;
     return authorizationController;
 }
+#endif
 
 - (void)viewWillAppear:(BOOL)animated
 {
@@ -94,7 +99,7 @@
 - (void)viewWillDisappear:(BOOL)animated
 {
     [super viewWillDisappear:animated];
-    if ((VLCAppDelegate*)[UIApplication sharedApplication].delegate.window.rootViewController.presentedViewController == nil) {
+    if ([UIApplication sharedApplication].delegate.window.rootViewController.presentedViewController == nil) {
         [_boxController stopSession];
         [self.tableView reloadData];
     }
@@ -137,6 +142,7 @@
     }
 }
 
+#if TARGET_OS_IOS
 - (void)triggerDownloadForCell:(VLCCloudStorageTableViewCell *)cell
 {
     _selectedFile = _boxController.currentListFiles[[self.tableView indexPathForCell:cell].row];
@@ -157,11 +163,13 @@
         [_boxController downloadFileToDocumentFolder:_selectedFile];
     _selectedFile = nil;
 }
+#endif
 
 #pragma mark - box controller delegate
 
 #pragma mark - BoxAuthorizationViewControllerDelegate
 
+#if TARGET_OS_IOS
 - (BOOL)authorizationViewController:(BoxAuthorizationViewController *)authorizationViewController shouldLoadReceivedOAuth2RedirectRequest:(NSURLRequest *)request
 {
     [[BoxSDK sharedSDK].OAuth2Session performAuthorizationCodeGrantWithReceivedURL:request.URL];
@@ -210,6 +218,7 @@
 {
     [self.navigationController popViewControllerAnimated:YES];
 }
+#endif
 
 - (void)scrollViewDidScroll:(UIScrollView *)scrollView
 {
@@ -224,6 +233,7 @@
 }
 #pragma mark - login dialog
 
+#if TARGET_OS_IOS
 - (IBAction)loginAction:(id)sender
 {
     if (![_boxController isAuthorized]) {
@@ -233,5 +243,6 @@
         [_boxController logout];
     }
 }
+#endif
 
 @end

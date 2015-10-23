@@ -92,16 +92,6 @@
     return [[BoxSDK sharedSDK].OAuth2Session isAuthorized];
 }
 
-- (void)showAlert:(NSString *)title message:(NSString *)message
-{
-    VLCAlertView *alert = [[VLCAlertView alloc] initWithTitle:title
-                                                      message:message
-                                                     delegate:nil
-                                            cancelButtonTitle:NSLocalizedString(@"BUTTON_OK", nil)
-                                            otherButtonTitles:nil];
-    [alert show];
-}
-
 #pragma mark - file management
 - (void)requestDirectoryListingAtPath:(NSString *)path
 {
@@ -114,23 +104,6 @@
 - (BOOL)hasMoreFiles
 {
     return _offset < _maxOffset;
-}
-
-- (void)downloadFileToDocumentFolder:(BoxItem *)file
-{
-    if (file != nil) {
-        if ([file.type isEqualToString:BoxAPIItemTypeFolder]) return;
-
-        if (!_listOfBoxFilesToDownload)
-            _listOfBoxFilesToDownload = [NSMutableArray new];
-
-        [_listOfBoxFilesToDownload addObject:file];
-    }
-
-    if ([self.delegate respondsToSelector:@selector(numberOfFilesWaitingToBeDownloadedChanged)])
-        [self.delegate numberOfFilesWaitingToBeDownloadedChanged];
-
-    [self _triggerNextDownload];
 }
 
 - (void)listFilesWithID:(NSString *)folderId
@@ -196,6 +169,25 @@
     return request;
 }
 
+#if TARGET_OS_IOS
+
+- (void)downloadFileToDocumentFolder:(BoxItem *)file
+{
+    if (file != nil) {
+        if ([file.type isEqualToString:BoxAPIItemTypeFolder]) return;
+
+        if (!_listOfBoxFilesToDownload)
+            _listOfBoxFilesToDownload = [NSMutableArray new];
+
+        [_listOfBoxFilesToDownload addObject:file];
+    }
+
+    if ([self.delegate respondsToSelector:@selector(numberOfFilesWaitingToBeDownloadedChanged)])
+        [self.delegate numberOfFilesWaitingToBeDownloadedChanged];
+
+    [self _triggerNextDownload];
+}
+
 - (void)_triggerNextDownload
 {
     if (_listOfBoxFilesToDownload.count > 0 && !_downloadInProgress) {
@@ -219,6 +211,7 @@
 
     _downloadInProgress = YES;
 }
+#endif
 
 - (BOOL)_supportedFileExtension:(NSString *)filename
 {
@@ -263,6 +256,7 @@
         [self.delegate mediaListUpdated];
 }
 
+#if TARGET_OS_IOS
 - (void)loadFile:(BoxFile *)file intoPath:(NSString*)destinationPath
 {
     NSOutputStream *outputStream = [NSOutputStream outputStreamToFileAtPath:destinationPath append:NO];
@@ -291,6 +285,16 @@
     };
 
     [[BoxSDK sharedSDK].filesManager downloadFileWithID:file.modelID outputStream:outputStream requestBuilder:nil success:successBlock failure:failureBlock progress:progressBlock];
+}
+
+- (void)showAlert:(NSString *)title message:(NSString *)message
+{
+    VLCAlertView *alert = [[VLCAlertView alloc] initWithTitle:title
+                                                      message:message
+                                                     delegate:nil
+                                            cancelButtonTitle:NSLocalizedString(@"BUTTON_OK", nil)
+                                            otherButtonTitles:nil];
+    [alert show];
 }
 
 - (void)calculateRemainingTime:(CGFloat)receivedDataSize expectedDownloadSize:(CGFloat)expectedDownloadSize
@@ -334,6 +338,7 @@
 
     [self _triggerNextDownload];
 }
+#endif
 
 #pragma mark - VLC internal communication and delegate
 

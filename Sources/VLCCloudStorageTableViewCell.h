@@ -13,9 +13,9 @@
 
 #import "VLCDropboxController.h"
 #import "VLCOneDriveObject.h"
+#import <BoxSDK/BoxSDK.h>
 #if TARGET_OS_IOS
 #import "GTLDrive.h"
-#import <BoxSDK/BoxSDK.h>
 #endif
 
 @interface VLCCloudStorageTableViewCell : UITableViewCell
@@ -30,9 +30,9 @@
 
 @property (nonatomic, retain) DBMetadata *dropboxFile;
 @property (nonatomic, retain) VLCOneDriveObject *oneDriveFile;
+@property (nonatomic, retain) BoxItem *boxFile;
 #if TARGET_OS_IOS
 @property (nonatomic, retain) GTLDriveFile *driveFile;
-@property (nonatomic, retain) BoxItem *boxFile;
 #endif
 
 @property (nonatomic, readwrite) BOOL isDownloadable;
