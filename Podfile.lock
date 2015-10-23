@@ -24,7 +24,7 @@ EXTERNAL SOURCES:
 
 CHECKOUT OPTIONS:
   box-ios-sdk-v2:
-    :commit: ff57cc3d6b38c143175283ad27ab3330cb290c0e
+    :commit: 180f009b3b22d813ca40e4c88074e0ef228c357b
     :git: git://github.com/fkuehne/box-ios-sdk-v2.git
 
 SPEC CHECKSUMS:
