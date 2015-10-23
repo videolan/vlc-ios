@@ -15,5 +15,6 @@
 
 - (IBAction)dropbox:(id)sender;
 - (IBAction)onedrive:(id)sender;
+- (IBAction)box:(id)sender;
 
 @end

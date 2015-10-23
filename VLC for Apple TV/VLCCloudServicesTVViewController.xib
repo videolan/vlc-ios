@@ -41,6 +41,9 @@
                     <animations/>
                     <inset key="contentEdgeInsets" minX="40" minY="20" maxX="40" maxY="20"/>
                     <state key="normal" title="Box"/>
+                    <connections>
+                        <action selector="box:" destination="-1" eventType="primaryActionTriggered" id="Eww-7q-bAn"/>
+                    </connections>
                 </button>
                 <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="gFm-4V-QFs">
                     <rect key="frame" x="810" y="677" width="301" height="86"/>

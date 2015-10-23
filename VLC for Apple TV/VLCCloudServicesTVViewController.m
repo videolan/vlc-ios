@@ -16,11 +16,13 @@
 #import "SSKeychain.h"
 #import "VLCPlayerDisplayController.h"
 #import "VLCOneDriveTableViewController.h"
+#import "VLCBoxTableViewController.h"
 
 @interface VLCCloudServicesTVViewController ()
 
 @property (nonatomic) VLCDropboxTableViewController *dropboxTableViewController;
 @property (nonatomic) VLCOneDriveTableViewController *oneDriveTableViewController;
+@property (nonatomic) VLCBoxTableViewController *boxTableViewController;
 
 @end
 
@@ -31,6 +33,7 @@
 
     self.dropboxTableViewController = [[VLCDropboxTableViewController alloc] initWithNibName:@"VLCCloudStorageTableViewController" bundle:nil];
     self.oneDriveTableViewController = [[VLCOneDriveTableViewController alloc] initWithNibName:@"VLCCloudStorageTableViewController" bundle:nil];
+    self.boxTableViewController = [[VLCBoxTableViewController alloc] initWithNibName:@"VLCCloudStorageTableViewController" bundle:nil];
 }
 
 - (NSString *)title
@@ -38,7 +41,7 @@
     return @"Cloud Services";
 }
 
-- (void)dropbox:(id)sender
+- (IBAction)dropbox:(id)sender
 {
     if ([[VLCDropboxController sharedInstance] restoreFromSharedCredentials]) {
         [self showDetailViewController:self.dropboxTableViewController sender:self];
@@ -64,9 +67,14 @@
     [self presentViewController:alert animated:YES completion:nil];
 }
 
-- (void)onedrive:(id)sender
+- (IBAction)onedrive:(id)sender
 {
     [self showDetailViewController:self.oneDriveTableViewController sender:self];
+}
+
+- (IBAction)box:(id)sender
+{
+    [self showDetailViewController:self.boxTableViewController sender:self];
 }
 
 @end

@@ -169,6 +169,18 @@
 
 #pragma mark - BoxAuthorizationViewControllerDelegate
 
+- (void)boxApiTokenDidRefresh
+{
+    NSString *token = [BoxSDK sharedSDK].OAuth2Session.refreshToken;
+    [SSKeychain setPassword:token forService:kVLCBoxService account:kVLCBoxAccount];
+    NSUbiquitousKeyValueStore *ubiquitousStore = [NSUbiquitousKeyValueStore defaultStore];
+    [ubiquitousStore setString:token forKey:kVLCStoreBoxCredentials];
+    [ubiquitousStore synchronize];
+    self.authorizationInProgress = YES;
+    [self updateViewAfterSessionChange];
+    self.authorizationInProgress = NO;
+}
+
 #if TARGET_OS_IOS
 - (BOOL)authorizationViewController:(BoxAuthorizationViewController *)authorizationViewController shouldLoadReceivedOAuth2RedirectRequest:(NSURLRequest *)request
 {
@@ -190,18 +202,6 @@
 - (void)boxDidGetLoggedOut
 {
     [self _showLoginPanel];
-}
-
-- (void)boxApiTokenDidRefresh
-{
-    NSString *token = [BoxSDK sharedSDK].OAuth2Session.refreshToken;
-    [SSKeychain setPassword:token forService:kVLCBoxService account:kVLCBoxAccount];
-    NSUbiquitousKeyValueStore *ubiquitousStore = [NSUbiquitousKeyValueStore defaultStore];
-    [ubiquitousStore setString:token forKey:kVLCStoreBoxCredentials];
-    [ubiquitousStore synchronize];
-    self.authorizationInProgress = YES;
-    [self updateViewAfterSessionChange];
-    self.authorizationInProgress = NO;
 }
 
 - (void)boxAPIAuthenticationDidFail
