@@ -65,10 +65,15 @@
     return self.resolvedLocalNetworkServices.count;
 }
 - (void)startDiscovery {
+    if (self.isDiscovering) {
+        return;
+    }
+    _discovering = YES;
     [self.netServiceBrowser searchForServicesOfType:self.serviceType inDomain:self.domain];
 }
 - (void)stopDiscovery {
     [self.netServiceBrowser stop];
+    _discovering = NO;
 }
 - (id<VLCLocalNetworkService>)networkServiceForIndex:(NSUInteger)index {
     return self.resolvedLocalNetworkServices[index];
@@ -90,6 +95,10 @@
         [self.delegate localNetworkServiceBrowserDidUpdateServices:self];
     }
 }
+- (void)netServiceBrowser:(NSNetServiceBrowser *)browser didNotSearch:(NSDictionary<NSString *,NSNumber *> *)errorDict {
+    APLog(@"bonjour service did not search: %@ %@", browser, errorDict);
+}
+
 
 #pragma mark - NSNetServiceDelegate
 - (void)netServiceDidResolveAddress:(NSNetService *)sender {

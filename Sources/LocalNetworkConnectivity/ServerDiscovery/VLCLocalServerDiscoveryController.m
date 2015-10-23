@@ -66,13 +66,11 @@
     }];
 
 
+    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(netReachabilityChanged) name:kReachabilityChangedNotification object:nil];
+
     _reachability = [Reachability reachabilityForLocalWiFi];
     [_reachability startNotifier];
 
-    [self netReachabilityChanged];
-
-    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(netReachabilityChanged) name:kReachabilityChangedNotification object:nil];
-    
     return self;
 }
 

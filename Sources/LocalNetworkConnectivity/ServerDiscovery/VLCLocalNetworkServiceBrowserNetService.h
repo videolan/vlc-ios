@@ -23,6 +23,8 @@
 @property (nonatomic, readonly) NSString *serviceType;
 @property (nonatomic, readonly) NSString *domain;
 
+@property (nonatomic, readonly, getter=isDiscovering) BOOL discovering;
+
 @property (nonatomic, readonly) NSMutableArray<NSNetService*> *rawNetServices;
 @property (nonatomic, readonly) NSMutableArray<VLCLocalNetworkServiceNetService*> *resolvedLocalNetworkServices;
 
