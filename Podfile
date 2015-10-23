@@ -9,7 +9,7 @@ pod 'OBSlider', '1.1.0'
 pod 'InAppSettingsKit', '2.2.2'
 pod 'upnpx', '~>1.3.4'
 pod 'HockeySDK', '~>3.6.4'
-pod 'SSKeychain', '~>1.2.2'
+pod 'SSKeychain', :git => 'git://github.com/fkuehne/sskeychain.git' #iCloud Keychain sync
 pod 'box-ios-sdk-v2', :git => 'git://github.com/fkuehne/box-ios-sdk-v2.git' #has a logout function added
 pod 'RESideMenu', '~>4.0.7'
 
@@ -25,7 +25,7 @@ end
 
 target 'VLC-TV' do
 platform :tvos, '9.0'
-pod 'SSKeychain', '~>1.2.2'
+pod 'SSKeychain', :git => 'git://github.com/fkuehne/sskeychain.git' #iCloud Keychain Sync
 pod 'box-ios-sdk-v2', :git => 'git://github.com/fkuehne/box-ios-sdk-v2.git' #has tvOS support added
 
 end
