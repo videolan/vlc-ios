@@ -76,6 +76,11 @@
     self.edgesForExtendedLayout = UIRectEdgeNone;
 }
 
+- (void)dealloc
+{
+    [[NSNotificationCenter defaultCenter] removeObserver:self];
+}
+
 - (void)viewWillAppear:(BOOL)animated
 {
     [super viewWillAppear:animated];
@@ -96,6 +101,12 @@
         self.protocolSegmentedControl.enabled = YES;
         [self protocolSelectionChanged:nil];
     }
+
+    NSNotificationCenter *notificationCenter = [NSNotificationCenter defaultCenter];
+    [notificationCenter addObserver:self
+                           selector:@selector(ubiquitousKeyValueStoreDidChange:)
+                               name:NSUbiquitousKeyValueStoreDidChangeExternallyNotification
+                             object:[NSUbiquitousKeyValueStore defaultStore]];
 
     NSUbiquitousKeyValueStore *ukvStore = [NSUbiquitousKeyValueStore defaultStore];
     [ukvStore synchronize];
@@ -137,8 +148,16 @@
 - (void)viewWillDisappear:(BOOL)animated
 {
     [super viewWillDisappear:animated];
-    NSUserDefaults *defaults = [NSUserDefaults standardUserDefaults];
-    [defaults setObject:_serverList forKey:kVLCStoredServerList];
+    NSUbiquitousKeyValueStore *ukvStore = [NSUbiquitousKeyValueStore defaultStore];
+    [ukvStore setArray:_serverList forKey:kVLCStoredServerList];
+    [ukvStore synchronize];
+}
+
+- (void)ubiquitousKeyValueStoreDidChange:(NSNotification *)notification
+{
+    /* TODO: don't blindly trust that the Cloud knows best */
+    _serverList = [NSMutableArray arrayWithArray:[[NSUbiquitousKeyValueStore defaultStore] arrayForKey:kVLCStoredServerList]];
+    [self.storedServersTableView reloadData];
 }
 
 - (IBAction)connectToServer:(id)sender

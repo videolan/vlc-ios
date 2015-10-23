@@ -57,7 +57,6 @@
     [super viewDidLoad];
 
     NSNotificationCenter *notificationCenter = [NSNotificationCenter defaultCenter];
-
     [notificationCenter addObserver:self
                            selector:@selector(ubiquitousKeyValueStoreDidChange:)
                                name:NSUbiquitousKeyValueStoreDidChangeExternallyNotification
