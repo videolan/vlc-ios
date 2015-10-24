@@ -21,7 +21,6 @@
 #import "VLCNetworkLoginViewController.h"
 #import "VLCUPnPServerListViewController.h"
 #import "VLCLocalPlexFolderListViewController.h"
-#import "VLCSharedLibraryListViewController.h"
 #import "VLCNetworkServerBrowserViewController.h"
 
 #import "VLCNetworkServerBrowserFTP.h"

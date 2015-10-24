@@ -111,7 +111,8 @@
 }
 @end
 
-#import "VLCSharedLibraryListViewController.h"
+#import "VLCNetworkServerBrowserSharedLibrary.h"
+#import "VLCNetworkServerBrowserViewController.h"
 @implementation VLCLocalNetworkServiceHTTP
 - (UIImage *)icon {
     return [UIImage imageNamed:@"menuCone"];
@@ -126,10 +127,9 @@
     NSString *name = service.name;
     NSString *hostName = service.hostName;
     NSUInteger portNum = service.port;
-    VLCSharedLibraryListViewController *targetViewController = [[VLCSharedLibraryListViewController alloc]
-                                                                initWithHttpServer:name
-                                                                serverAddress:hostName
-                                                                portNumber:portNum];
+    VLCNetworkServerBrowserSharedLibrary *serverBrowser = [[VLCNetworkServerBrowserSharedLibrary alloc] initWithName:name host:hostName portNumber:portNum];
+
+        VLCNetworkServerBrowserViewController *targetViewController = [[VLCNetworkServerBrowserViewController alloc] initWithServerBrowser:serverBrowser];
     return targetViewController;
 }
 @end

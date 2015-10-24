@@ -42,6 +42,10 @@ NS_ASSUME_NONNULL_BEGIN
 @property (nonatomic, readonly) NSURL *URL;
 @property (nonatomic, readonly, nullable) NSNumber *fileSizeBytes;
 
+@optional
+@property (nonatomic, readonly, nullable) NSString *duration;
+@property (nonatomic, readonly, nullable) NSURL *subtitleURL;
+
 @end
 
 
