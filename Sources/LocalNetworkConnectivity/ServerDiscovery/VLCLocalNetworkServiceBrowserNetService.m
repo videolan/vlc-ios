@@ -114,8 +114,10 @@
     if ([self.resolvedLocalNetworkServices vlc_indexOfServiceWithNetService:localNetworkService.netService] != NSNotFound) {
         return;
     }
-    [self.resolvedLocalNetworkServices addObject:localNetworkService];
-    [self.delegate localNetworkServiceBrowserDidUpdateServices:self];
+    dispatch_sync(dispatch_get_main_queue(), ^{
+        [self.resolvedLocalNetworkServices addObject:localNetworkService];
+        [self.delegate localNetworkServiceBrowserDidUpdateServices:self];
+    });
 }
 @end
 
