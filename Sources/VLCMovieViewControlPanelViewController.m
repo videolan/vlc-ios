@@ -21,7 +21,7 @@
 
 @implementation VLCMovieViewControlPanelViewController
 
-static const CGFloat maxCompactWidth = 400.0;
+static const CGFloat maxCompactWidth = 420.0;
 
 
 - (void)viewDidLoad {
