@@ -1,5 +1,5 @@
 /*****************************************************************************
- * VLCNetworkServerBrowserVLCMedia.m
+ * VLCNetworkServerBrowserSharedLibrary.m
  * VLC for iOS
  *****************************************************************************
  * Copyright (c) 2015 VideoLAN. All rights reserved.
