@@ -244,6 +244,10 @@
         cell.delegate = self;
 
         NSURL *thumbnailURL = nil;
+        if ([item respondsToSelector:@selector(thumbnailURL)]) {
+            thumbnailURL = item.thumbnailURL;
+        }
+        
         if (thumbnailURL) {
             dispatch_queue_t queue = dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_LOW, 0);
             dispatch_async(queue, ^{

@@ -70,16 +70,18 @@
     self = [super init];
     if (self) {
         _name = dictionary[@"title"];
-        NSString *thumbURLString = dictionary[@"thumb"];
-        _subtitleURL = thumbURLString ? [NSURL URLWithString:thumbURLString] : nil;
         _fileSizeBytes = dictionary[@"size"];
         _duration = dictionary[@"duration"];
         NSString *subtitleURLString = dictionary[@"pathSubtitle"];
         if ([subtitleURLString isEqualToString:@"(null)"]) subtitleURLString = nil;
         subtitleURLString = [subtitleURLString stringByAddingPercentEscapesUsingEncoding:NSUTF8StringEncoding];
-        _subtitleURL = subtitleURLString ? [NSURL URLWithString:subtitleURLString] : nil;
+        _subtitleURL = subtitleURLString.length ? [NSURL URLWithString:subtitleURLString] : nil;
         _URL = [NSURL URLWithString:dictionary[@"pathfile"]];
         _container = NO;
+
+        NSString *thumbURLString = dictionary[@"thumb"];
+        _thumbnailURL = thumbURLString.length ? [NSURL URLWithString:thumbURLString] : nil;
+
     }
     return self;
 }

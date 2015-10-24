@@ -45,7 +45,7 @@ NS_ASSUME_NONNULL_BEGIN
 @optional
 @property (nonatomic, readonly, nullable) NSString *duration;
 @property (nonatomic, readonly, nullable) NSURL *subtitleURL;
-
+@property (nonatomic, readonly, nullable) NSURL *thumbnailURL;
 @end
 
 
