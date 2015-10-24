@@ -22,12 +22,13 @@
 #import "VLCDownloadViewController.h"
 
 #import "WhiteRaccoon.h"
-#import "VLCNetworkServerBrowserFTP.h"
+#import "VLCNetworkServerBrowser-Protocol.h"
 
 @interface VLCNetworkServerBrowserViewController () <VLCNetworkServerBrowserDelegate,VLCNetworkListCellDelegate, UITableViewDataSource, UITableViewDelegate, UIActionSheetDelegate>
 @property (nonatomic) id<VLCNetworkServerBrowser> serverBrowser;
 @property (nonatomic) NSByteCountFormatter *byteCounterFormatter;
 @property (nonatomic) NSArray<id<VLCNetworkServerBrowserItem>> *searchArray;
+@property (nonatomic, readonly) NSCache *imageCache;
 @end
 
 @implementation VLCNetworkServerBrowserViewController
@@ -38,6 +39,9 @@
     if (self) {
         _serverBrowser = browser;
         browser.delegate = self;
+
+        _imageCache = [[NSCache alloc] init];
+        [_imageCache setCountLimit:50];
     }
     return self;
 }
@@ -81,6 +85,21 @@
     return _byteCounterFormatter;
 }
 
+- (BOOL)isSupportedItem:(id<VLCNetworkServerBrowserItem>)item {
+    NSString *properObjectName = item.name;
+    NSString *itemURLName = item.URL.lastPathComponent;
+    return [properObjectName isSupportedFormat] || [itemURLName isSupportedFormat];
+}
+
+- (void)showUnsupportedFileAlertForItem:(id<VLCNetworkServerBrowserItem>)item {
+    VLCAlertView *alert = [[VLCAlertView alloc] initWithTitle:NSLocalizedString(@"FILE_NOT_SUPPORTED", nil)
+                                                      message:[NSString stringWithFormat:NSLocalizedString(@"FILE_NOT_SUPPORTED_LONG", nil), item.name]
+                                                     delegate:self
+                                            cancelButtonTitle:NSLocalizedString(@"BUTTON_CANCEL", nil)
+                                            otherButtonTitles:nil];
+    [alert show];
+}
+
 #pragma mark - server browser item specifics
 
 - (void)_downloadItem:(id<VLCNetworkServerBrowserItem>)item
@@ -91,10 +110,17 @@
 - (void)_streamFileForItem:(id<VLCNetworkServerBrowserItem>)item
 {
     NSString *URLofSubtitle = nil;
-    NSArray *SubtitlesList = [self _searchSubtitle:item.URL.lastPathComponent];
+    NSURL *remoteSubtitleURL = nil;
+    if ([item respondsToSelector:@selector(subtitleURL)]) {
+        remoteSubtitleURL = [item subtitleURL];
+    }
+    if (!remoteSubtitleURL) {
+        NSArray *SubtitlesList = [self _searchSubtitle:item.URL.lastPathComponent];
+        remoteSubtitleURL = SubtitlesList.firstObject;
+    }
 
-    if(SubtitlesList.count > 0)
-        URLofSubtitle = [self _getFileSubtitleFromFtpServer:SubtitlesList[0]];
+    if(remoteSubtitleURL)
+        URLofSubtitle = [self _getFileSubtitleFromServer:remoteSubtitleURL];
 
     NSURL *URLToPlay = item.URL;
 
@@ -119,7 +145,7 @@
     return [NSArray arrayWithArray:urls];
 }
 
-- (NSString *)_getFileSubtitleFromFtpServer:(NSURL *)subtitleURL
+- (NSString *)_getFileSubtitleFromServer:(NSURL *)subtitleURL
 {
 
     NSString *FileSubtitlePath = nil;
@@ -148,6 +174,21 @@
     }
 
     return FileSubtitlePath;
+}
+
+- (UIImage *)getCachedImage:(NSURL *)url
+{
+    UIImage *image = [self.imageCache objectForKey:url];
+    if ((image != nil) && [image isKindOfClass:[UIImage class]]) {
+        return image;
+    } else {
+        NSData *imageData = [[NSData alloc] initWithContentsOfURL:url];
+        if (imageData) {
+            image = [[UIImage alloc] initWithData:imageData];
+            [self.imageCache setObject:image forKey:url];
+        }
+        return image;
+    }
 }
 
 #pragma mark - table view data source, for more see super
@@ -182,9 +223,39 @@
     } else {
         cell.isDirectory = NO;
         cell.icon = [UIImage imageNamed:@"blank"];
-        cell.subtitle = item.fileSizeBytes ? [self.byteCounterFormatter stringFromByteCount:item.fileSizeBytes.longLongValue] : nil;
+
+        NSString *sizeString = item.fileSizeBytes ? [self.byteCounterFormatter stringFromByteCount:item.fileSizeBytes.longLongValue] : nil;
+
+        NSString *duration = nil;
+        if ([item respondsToSelector:@selector(duration)]) {
+            duration = item.duration;
+        }
+
+        NSString *subtitle = nil;
+        if (sizeString && duration) {
+            subtitle = [NSString stringWithFormat:@"%@ (%@)",sizeString, duration];
+        } else if (sizeString) {
+            subtitle = sizeString;
+        } else if (duration) {
+            subtitle = duration;
+        }
+        cell.subtitle = sizeString;
         cell.isDownloadable = YES;
         cell.delegate = self;
+
+        NSURL *thumbnailURL = nil;
+        if (thumbnailURL) {
+            dispatch_queue_t queue = dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_LOW, 0);
+            dispatch_async(queue, ^{
+                UIImage *img = [self getCachedImage:thumbnailURL];
+                dispatch_async(dispatch_get_main_queue(), ^{
+                    if (img) {
+                        [cell setIcon:img];
+                    }
+                });
+            });
+        }
+
     }
 
     return cell;
@@ -215,14 +286,8 @@
         VLCNetworkServerBrowserViewController *targetViewController = [[VLCNetworkServerBrowserViewController alloc] initWithServerBrowser:item.containerBrowser];
         [self.navigationController pushViewController:targetViewController animated:YES];
     } else {
-        NSString *properObjectName = item.name;
-        if (![properObjectName isSupportedFormat]) {
-            VLCAlertView *alert = [[VLCAlertView alloc] initWithTitle:NSLocalizedString(@"FILE_NOT_SUPPORTED", nil)
-                                                              message:[NSString stringWithFormat:NSLocalizedString(@"FILE_NOT_SUPPORTED_LONG", nil), properObjectName]
-                                                             delegate:self
-                                                    cancelButtonTitle:NSLocalizedString(@"BUTTON_CANCEL", nil)
-                                                    otherButtonTitles:nil];
-            [alert show];
+        if (![self isSupportedItem:item]) {
+            [self showUnsupportedFileAlertForItem:item];
         } else
             [self _streamFileForItem:item];
     }
@@ -239,13 +304,8 @@
         item = self.serverBrowser.items[[self.tableView indexPathForCell:cell].row];
 
 
-    if (![item.name isSupportedFormat]) {
-        VLCAlertView *alert = [[VLCAlertView alloc] initWithTitle:NSLocalizedString(@"FILE_NOT_SUPPORTED", nil)
-                                                          message:[NSString stringWithFormat:NSLocalizedString(@"FILE_NOT_SUPPORTED_LONG", nil), item.name]
-                                                         delegate:self
-                                                cancelButtonTitle:NSLocalizedString(@"BUTTON_CANCEL", nil)
-                                                otherButtonTitles:nil];
-        [alert show];
+    if (![self isSupportedItem:item]) {
+        [self showUnsupportedFileAlertForItem:item];
     } else {
         if (item.fileSizeBytes.longLongValue  < [[UIDevice currentDevice] freeDiskspace].longLongValue) {
             [self _downloadItem:item];
