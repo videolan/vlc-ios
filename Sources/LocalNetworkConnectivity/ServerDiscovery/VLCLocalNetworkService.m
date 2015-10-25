@@ -197,7 +197,7 @@
 
 #pragma mark - UPnP
 #import "UPnPManager.h"
-#import "VLCUPnPServerListViewController.h"
+#import "VLCNetworkServerBrowserUPnP.h"
 
 @interface VLCLocalNetworkServiceUPnP ()
 @property (nonatomic, strong) BasicUPnPDevice *device;
@@ -226,12 +226,13 @@
     if (device != nil) {
         if ([[device urn] isEqualToString:@"urn:schemas-upnp-org:device:MediaServer:1"]) {
             MediaServer1Device *server = (MediaServer1Device*)device;
-            VLCUPnPServerListViewController *targetViewController = [[VLCUPnPServerListViewController alloc] initWithUPNPDevice:server header:[device friendlyName] andRootID:@"0"];
+            VLCNetworkServerBrowserUPnP *serverBrowser = [[VLCNetworkServerBrowserUPnP alloc] initWithUPNPDevice:server header:[device friendlyName] andRootID:@"0"];
+
+            VLCNetworkServerBrowserViewController *targetViewController = [[VLCNetworkServerBrowserViewController alloc] initWithServerBrowser:serverBrowser];
             return targetViewController;
         }
     }
     return nil;
 }
-
 @end
 

@@ -39,13 +39,14 @@ NS_ASSUME_NONNULL_BEGIN
 @property (nonatomic, readonly, nullable) id<VLCNetworkServerBrowser> containerBrowser;
 
 @property (nonatomic, readonly) NSString *name;
-@property (nonatomic, readonly) NSURL *URL;
+@property (nonatomic, readonly, nullable) NSURL *URL;
 @property (nonatomic, readonly, nullable) NSNumber *fileSizeBytes;
 
 @optional
 @property (nonatomic, readonly, nullable) NSString *duration;
 @property (nonatomic, readonly, nullable) NSURL *subtitleURL;
 @property (nonatomic, readonly, nullable) NSURL *thumbnailURL;
+@property (nonatomic, getter=isDownloadable, readonly) BOOL downloadable;
 @end
 
 

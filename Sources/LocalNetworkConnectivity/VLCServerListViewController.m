@@ -19,7 +19,6 @@
 #import "VLCPlaybackController.h"
 #import "VLCNetworkListCell.h"
 #import "VLCNetworkLoginViewController.h"
-#import "VLCUPnPServerListViewController.h"
 #import "VLCNetworkServerBrowserViewController.h"
 
 #import "VLCNetworkServerBrowserFTP.h"
