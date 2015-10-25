@@ -59,7 +59,7 @@
     self.navigationController.navigationBar.translucent = NO;
 
     NSString *title = _mediaObject[@"title"];
-    NSString *thumbPath = [_PlexWebAPI urlAuth:_mediaObject[@"thumb"] autentification:_PlexAuthentification];
+    NSString *thumbPath = [_PlexWebAPI urlAuth:_mediaObject[@"thumb"] authentification:_PlexAuthentification];
     UIImage *image = [UIImage imageWithData:[NSData dataWithContentsOfURL:[NSURL URLWithString:thumbPath]]];
     NSInteger size = [_mediaObject[@"size"] integerValue];
     NSString *mediaSize = [NSByteCountFormatter stringFromByteCount:size countStyle:NSByteCountFormatterCountStyleFile];
@@ -134,7 +134,7 @@
         if (firstObject[@"keySubtitle"])
             URLofSubtitle = [_PlexWebAPI getFileSubtitleFromPlexServer:firstObject modeStream:YES];
 
-        NSURL *itemURL = [NSURL URLWithString:[_PlexWebAPI urlAuth:firstObject[@"keyMedia"] autentification:_PlexAuthentification]];
+        NSURL *itemURL = [NSURL URLWithString:[_PlexWebAPI urlAuth:firstObject[@"keyMedia"] authentification:_PlexAuthentification]];
         if (itemURL) {
             VLCPlaybackController *vpc = [VLCPlaybackController sharedInstance];
             [vpc playURL:itemURL subtitlesFilePath:URLofSubtitle];

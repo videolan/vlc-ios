@@ -1,0 +1,34 @@
+/*****************************************************************************
+ * VLCNetworkServerBrowserPlex.h
+ * VLC for iOS
+ *****************************************************************************
+ * Copyright (c) 2015 VideoLAN. All rights reserved.
+ * $Id$
+ *
+ * Authors: Tobias Conradi <videolan # tobias-conradi.de>
+ *
+ * Refer to the COPYING file of the official project for license.
+ *****************************************************************************/
+
+#import "VLCNetworkServerBrowser-Protocol.h"
+
+NS_ASSUME_NONNULL_BEGIN
+@interface VLCNetworkServerBrowserPlex : NSObject <VLCNetworkServerBrowser>
+- (instancetype)initWithName:(NSString *)name host:(NSString *)addressOrName portNumber:(NSNumber *)portNumber path:(NSString *)path authentificication:(NSString *)auth NS_DESIGNATED_INITIALIZER;
+- (instancetype)initWithName:(NSString *)name url:(NSURL *)url auth:(NSString *)auth;
+
+- (instancetype)init NS_UNAVAILABLE;
+@end
+
+
+@interface VLCNetworkServerBrowserItemPlex : NSObject <VLCNetworkServerBrowserItem>
+- (instancetype)initWithDictionary:(NSDictionary *)dictionary currentURL:(NSURL *)currentURL authentificication:(NSString *)auth;
+
+@property (nonatomic, readonly, nullable) NSString *duration;
+@property (nonatomic, readonly, nullable) NSURL *subtitleURL;
+@property (nonatomic, readonly, nullable) NSURL *thumbnailURL;
+
+@end
+
+
+NS_ASSUME_NONNULL_END

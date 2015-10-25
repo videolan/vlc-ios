@@ -144,7 +144,11 @@
     return authentification;
 }
 
-- (NSString *)urlAuth:(NSString *)url autentification:(NSString *)auth
+- (NSString *)urlAuth:(NSString *)url autentification:(NSString *)auth {
+    return [[self class] urlAuth:url autentification:auth];
+}
+
++ (NSString *)urlAuth:(NSString *)url autentification:(NSString *)auth
 {
     NSString *key = @"";
 

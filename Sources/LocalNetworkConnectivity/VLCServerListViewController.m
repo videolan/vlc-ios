@@ -20,11 +20,11 @@
 #import "VLCNetworkListCell.h"
 #import "VLCNetworkLoginViewController.h"
 #import "VLCUPnPServerListViewController.h"
-#import "VLCLocalPlexFolderListViewController.h"
 #import "VLCNetworkServerBrowserViewController.h"
 
 #import "VLCNetworkServerBrowserFTP.h"
 #import "VLCNetworkServerBrowserVLCMedia.h"
+#import "VLCNetworkServerBrowserPlex.h"
 
 @interface VLCServerListViewController () <UITableViewDataSource, UITableViewDelegate, VLCLocalServerDiscoveryControllerDelegate>
 {
@@ -222,14 +222,19 @@ confirmedWithUsername:(NSString *)username
         }
         case VLCServerProtocolPLEX:
         {
-            if (port == nil || port.length == 0)
-                port = @"32400";
-            VLCLocalPlexFolderListViewController *targetViewController = [[VLCLocalPlexFolderListViewController alloc]
-                                                                          initWithPlexServer:server
-                                                                          serverAddress:server
-                                                                          portNumber:[NSString stringWithFormat:@":%@", port] atPath:@""
-                                                                          authentification:username];
-            [[self navigationController] pushViewController:targetViewController animated:YES];
+
+            NSNumber *portNumber;
+            NSUInteger portInteger = 0;
+            if (port.length) {
+                portInteger = [port integerValue];
+            }
+            portNumber = portInteger != 0 ? @(portInteger) : @(32400);
+
+            serverBrowser = [[VLCNetworkServerBrowserPlex alloc] initWithName:server
+                                                                         host:server
+                                                                   portNumber:@([port integerValue])
+                                                                         path:@""
+                                                           authentificication:@""];
             break;
         }
         case VLCServerProtocolSMB:

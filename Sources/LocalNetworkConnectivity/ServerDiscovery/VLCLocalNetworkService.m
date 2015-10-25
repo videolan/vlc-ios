@@ -11,6 +11,7 @@
  *****************************************************************************/
 
 #import "VLCLocalNetworkService.h"
+#import "VLCNetworkServerBrowserViewController.h"
 
 
 @interface VLCLocalNetworkServiceItem ()
@@ -79,7 +80,8 @@
 }
 @end
 
-#import "VLCLocalPlexFolderListViewController.h"
+#import "VLCNetworkServerBrowserPlex.h"
+
 @implementation VLCLocalNetworkServicePlex
 - (UIImage *)icon {
     return [UIImage imageNamed:@"PlexServerIcon"];
@@ -93,8 +95,10 @@
 
     NSString *name = service.name;
     NSString *hostName = service.hostName;
-    NSString *portNum = [[NSString alloc] initWithFormat:@":%ld", (long)service.port];
-    VLCLocalPlexFolderListViewController *targetViewController = [[VLCLocalPlexFolderListViewController alloc] initWithPlexServer:name serverAddress:hostName portNumber:portNum atPath:@"" authentification:@""];
+    NSUInteger portNum = service.port;
+    VLCNetworkServerBrowserPlex *serverBrowser = [[VLCNetworkServerBrowserPlex alloc] initWithName:name host:hostName portNumber:@(portNum) path:@"" authentificication:@""];
+
+    VLCNetworkServerBrowserViewController *targetViewController = [[VLCNetworkServerBrowserViewController alloc] initWithServerBrowser:serverBrowser];
     return targetViewController;
 }
 @end
@@ -112,7 +116,6 @@
 @end
 
 #import "VLCNetworkServerBrowserSharedLibrary.h"
-#import "VLCNetworkServerBrowserViewController.h"
 @implementation VLCLocalNetworkServiceHTTP
 - (UIImage *)icon {
     return [UIImage imageNamed:@"menuCone"];

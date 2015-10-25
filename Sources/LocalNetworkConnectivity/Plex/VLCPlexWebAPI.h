@@ -15,7 +15,7 @@
 - (BOOL)PlexCreateIdentification:(NSString *)username password:(NSString *)password;
 - (NSArray *)PlexBasicAuthentification:(NSString *)username password:(NSString *)password;
 - (NSString *)PlexAuthentification:(NSString *)username password:(NSString *)password;
-- (NSString *)urlAuth:(NSString *)url autentification:(NSString *)auth;
+- (NSString *)urlAuth:(NSString *)url authentification:(NSString *)auth;
 - (NSData *)HttpRequestWithCookie:(NSURL *)url cookies:(NSArray *)authToken HTTPMethod:(NSString *)method;
 - (NSURL *)CreatePlexStreamingURL:(NSString *)address port:(NSString *)port videoKey:(NSString *)key username:(NSString *)username deviceInfo:(NSDictionary *)deviceInfo session:(NSString *)session;
 - (void)stopSession:(NSString *)adress port:(NSString *)port session:(NSString *)session;
@@ -23,5 +23,7 @@
 - (NSString *)getFileSubtitleFromPlexServer:(NSDictionary *)mediaObject modeStream:(BOOL)modeStream;
 - (NSString *)getSession;
 - (NSData *)PlexDeviceInfo:(NSArray *)cookies;
+
++ (NSString *)urlAuth:(NSString *)url authentification:(NSString *)auth;
 
 @end

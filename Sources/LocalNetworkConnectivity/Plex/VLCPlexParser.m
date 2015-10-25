@@ -13,8 +13,8 @@
 #import "VLCPlexWebAPI.h"
 #import "SSKeychain.h"
 
-#define kPlexMediaServerDirInit @"library/sections"
-#define kPlexVLCDeviceName @"VLC for iOS"
+static NSString *const kPlexMediaServerDirInit = @"/library/sections";
+static NSString *const kPlexVLCDeviceName = @"VLC for iOS";
 
 @interface VLCPlexParser () <NSXMLParserDelegate>
 {
@@ -26,24 +26,33 @@
 
 @implementation VLCPlexParser
 
-- (NSArray *)PlexMediaServerParser:(NSString *)address port:(NSString *)port navigationPath:(NSString *)path authentification:(NSString *)auth
+- (NSArray *)PlexMediaServerParser:(NSString *)address port:(NSNumber *)port navigationPath:(NSString *)path authentification:(NSString *)auth
 {
     _containerInfo = [[NSMutableArray alloc] init];
     _dicoInfo = [[NSMutableDictionary alloc] init];
-    _PlexMediaServerUrl = [NSString stringWithFormat:@"http://%@%@",address, port];
+    NSURLComponents *urlComponents = [[NSURLComponents alloc] init];
+    urlComponents.scheme = @"http";
+    urlComponents.host = address;
+    urlComponents.port = port;
+
+    _PlexMediaServerUrl = [urlComponents URL].absoluteString;
+
     NSString *mediaServerUrl;
 
-    if ([path isEqualToString:@""])
-        mediaServerUrl = [NSString stringWithFormat:@"%@/%@",_PlexMediaServerUrl, kPlexMediaServerDirInit];
-    else {
-        if ([path rangeOfString:@"library"].location != NSNotFound)
-            mediaServerUrl = [NSString stringWithFormat:@"%@%@",_PlexMediaServerUrl, path];
-        else
-            mediaServerUrl = [NSString stringWithFormat:@"%@/%@/%@",_PlexMediaServerUrl, kPlexMediaServerDirInit, path];
+    if ([path length] == 0) {
+        urlComponents.path = kPlexMediaServerDirInit;
+    } else {
+        if ([path rangeOfString:@"library"].location != NSNotFound) {
+            urlComponents.path = [@"/" stringByAppendingPathComponent:path];
+        } else {
+            urlComponents.path = [kPlexMediaServerDirInit stringByAppendingPathComponent:path];
+        }
     }
 
+    mediaServerUrl = [urlComponents URL].absoluteString;
+
     VLCPlexWebAPI *PlexWebAPI = [[VLCPlexWebAPI alloc] init];
-    NSURL *url = [[NSURL alloc] initWithString:[PlexWebAPI urlAuth:mediaServerUrl autentification:auth]];
+    NSURL *url = [[NSURL alloc] initWithString:[PlexWebAPI urlAuth:mediaServerUrl authentification:auth]];
 
     NSURLRequest *request = [NSURLRequest requestWithURL:url cachePolicy:NSURLRequestUseProtocolCachePolicy timeoutInterval:5.0];
     NSHTTPURLResponse *response = nil;
@@ -65,7 +74,7 @@
                 NSString *password = [SSKeychain passwordForService:serviceString account:username];
 
                 auth = [PlexWebAPI PlexAuthentification:username password:password];
-                url = [NSURL URLWithString:[PlexWebAPI urlAuth:mediaServerUrl autentification:auth]];
+                url = [NSURL URLWithString:[PlexWebAPI urlAuth:mediaServerUrl authentification:auth]];
                 request = [NSURLRequest requestWithURL:url cachePolicy:NSURLRequestUseProtocolCachePolicy timeoutInterval:5.0];
                 response = nil;
                 error = nil;
@@ -84,6 +93,9 @@
             APLog(@"PlexParser url Errors : %ld", (long)[response statusCode]);
     }
 
+    if (error) {
+        APLog(@"PlexParser url Error: %@", error);
+    }
     NSXMLParser *xmlparser = [[NSXMLParser alloc] initWithData:data];
     [xmlparser setDelegate:self];
 
