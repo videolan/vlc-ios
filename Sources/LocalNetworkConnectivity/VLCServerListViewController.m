@@ -152,32 +152,59 @@
 
     id<VLCLocalNetworkService> service = [_discoveryController networkServiceForIndexPath:indexPath];
 
-    if ([service respondsToSelector:@selector(action)]) {
-        service.action();
+
+
+    if ([service respondsToSelector:@selector(serverBrowser)]) {
+        id<VLCNetworkServerBrowser> serverBrowser = [service serverBrowser];
+        if (serverBrowser) {
+            VLCNetworkServerBrowserViewController *vc = [[VLCNetworkServerBrowserViewController alloc] initWithServerBrowser:serverBrowser];
+            [self.navigationController pushViewController:vc animated:YES];
+            return;
+        }
     }
 
-    if ([service respondsToSelector:@selector(detailViewController)]) {
-        UIViewController *controller = [service detailViewController];
-
-        // TODO: refactor this out
-        if ([controller isKindOfClass:[VLCNetworkLoginViewController class]]) {
-            VLCNetworkLoginViewController *loginViewController = (id)controller;
-            loginViewController.delegate = self;
-            if (UI_USER_INTERFACE_IDIOM() == UIUserInterfaceIdiomPad) {
-                UINavigationController *navCon = [[VLCNavigationController alloc] initWithRootViewController:loginViewController];
-                navCon.navigationBarHidden = NO;
-                navCon.modalPresentationStyle = UIModalPresentationFormSheet;
-                [self presentViewController:navCon animated:YES completion:nil];
-
-                if (loginViewController.navigationItem.leftBarButtonItem == nil)
-                    loginViewController.navigationItem.leftBarButtonItem = [UIBarButtonItem themedDarkToolbarButtonWithTitle:NSLocalizedString(@"BUTTON_DONE", nil) target:loginViewController andSelector:@selector(_dismiss)];
-            } else
-                [self.navigationController pushViewController:loginViewController animated:YES];
+    if ([service respondsToSelector:@selector(directPlaybackURL)]) {
+        NSURL *playbackURL = [service directPlaybackURL];
+        if (playbackURL) {
+            VLCPlaybackController *vpc = [VLCPlaybackController sharedInstance];
+            [vpc playURL:playbackURL successCallback:nil errorCallback:nil];
+            return;
         }
-        // end TODO
-        else if (controller) {
-            [self.navigationController pushViewController:controller animated:YES];
-        }
+    }
+
+    VLCNetworkServerLoginInformation *login;
+    if ([service respondsToSelector:@selector(loginInformation)]) {
+        login = [service loginInformation];
+    }
+
+    VLCNetworkLoginViewController *loginViewController = [[VLCNetworkLoginViewController alloc] initWithNibName:@"VLCNetworkLoginViewController" bundle:nil];
+
+    VLCServerProtocol protocol = VLCServerProtocolUndefined;
+    NSString *protocolIdentifier = login.protocolIdentifier;
+    if ([protocolIdentifier isEqualToString:VLCNetworkServerProtocolIdentifierFTP]) {
+        protocol = VLCServerProtocolFTP;
+    } else if ([protocolIdentifier isEqualToString:VLCNetworkServerProtocolIdentifierPlex]) {
+        protocol = VLCServerProtocolPLEX;
+    } else if ([protocolIdentifier isEqualToString:VLCNetworkServerProtocolIdentifierSMB]) {
+        protocol = VLCServerProtocolSMB;
+    }
+
+    loginViewController.serverProtocol = protocol;
+    loginViewController.hostname = login.address;
+    loginViewController.username = login.username;
+    loginViewController.password = login.password;
+    loginViewController.port = login.port.stringValue;
+    loginViewController.delegate = self;
+    if (UI_USER_INTERFACE_IDIOM() == UIUserInterfaceIdiomPad) {
+        UINavigationController *navCon = [[VLCNavigationController alloc] initWithRootViewController:loginViewController];
+        navCon.navigationBarHidden = NO;
+        navCon.modalPresentationStyle = UIModalPresentationFormSheet;
+        [self presentViewController:navCon animated:YES completion:nil];
+
+        if (loginViewController.navigationItem.leftBarButtonItem == nil)
+            loginViewController.navigationItem.leftBarButtonItem = [UIBarButtonItem themedDarkToolbarButtonWithTitle:NSLocalizedString(@"BUTTON_DONE", nil) target:loginViewController andSelector:@selector(_dismiss)];
+    } else {
+        [self.navigationController pushViewController:loginViewController animated:YES];
     }
 }
 

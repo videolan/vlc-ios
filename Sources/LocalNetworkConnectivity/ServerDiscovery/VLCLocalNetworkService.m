@@ -11,8 +11,10 @@
  *****************************************************************************/
 
 #import "VLCLocalNetworkService.h"
-#import "VLCNetworkServerBrowserViewController.h"
 
+@implementation VLCNetworkServerLoginInformation
+
+@end
 
 @interface VLCLocalNetworkServiceItem ()
 @property (nonatomic, strong) NSString *title;
@@ -31,8 +33,6 @@
 }
 @end
 
-#import "VLCNetworkLoginViewController.h"
-
 @implementation VLCLocalNetworkServiceItemLogin
 
 - (instancetype)init
@@ -45,10 +45,9 @@
     return self;
 }
 
-- (UIViewController *)detailViewController {
-    VLCNetworkLoginViewController *loginViewController = [[VLCNetworkLoginViewController alloc] initWithNibName:@"VLCNetworkLoginViewController" bundle:nil];
-    loginViewController.serverProtocol = VLCServerProtocolUndefined;
-    return loginViewController;
+
+- (VLCNetworkServerLoginInformation *)loginInformation {
+    return [[VLCNetworkServerLoginInformation alloc] init];
 }
 
 @end
@@ -75,18 +74,19 @@
 - (UIImage *)icon {
     return nil;
 }
-- (UIViewController *)detailViewController {
+- (id<VLCNetworkServerBrowser>)serverBrowser {
     return nil;
 }
 @end
 
 #import "VLCNetworkServerBrowserPlex.h"
+NSString *const VLCNetworkServerProtocolIdentifierPlex = @"plex";
 
 @implementation VLCLocalNetworkServicePlex
 - (UIImage *)icon {
     return [UIImage imageNamed:@"PlexServerIcon"];
 }
-- (UIViewController *)detailViewController {
+- (id<VLCNetworkServerBrowser>)serverBrowser {
 
     NSNetService *service = self.netService;
     if (service.hostName == nil || service.port == 0) {
@@ -98,20 +98,23 @@
     NSUInteger portNum = service.port;
     VLCNetworkServerBrowserPlex *serverBrowser = [[VLCNetworkServerBrowserPlex alloc] initWithName:name host:hostName portNumber:@(portNum) path:@"" authentificication:@""];
 
-    VLCNetworkServerBrowserViewController *targetViewController = [[VLCNetworkServerBrowserViewController alloc] initWithServerBrowser:serverBrowser];
-    return targetViewController;
+    return serverBrowser;
 }
 @end
+
+NSString *const VLCNetworkServerProtocolIdentifierFTP = @"ftp";
 
 @implementation VLCLocalNetworkServiceFTP
 - (UIImage *)icon {
     return [UIImage imageNamed:@"serverIcon"];
 }
-- (UIViewController *)detailViewController {
-    VLCNetworkLoginViewController *loginViewController = [[VLCNetworkLoginViewController alloc] initWithNibName:@"VLCNetworkLoginViewController" bundle:nil];
-    loginViewController.serverProtocol = VLCServerProtocolFTP;
-    loginViewController.hostname = self.netService.hostName;
-    return loginViewController;
+
+- (VLCNetworkServerLoginInformation *)loginInformation
+{
+    VLCNetworkServerLoginInformation *login = [[VLCNetworkServerLoginInformation alloc] init];
+    login.address = self.netService.hostName;
+    login.protocolIdentifier = VLCNetworkServerProtocolIdentifierFTP;
+    return login;
 }
 @end
 
@@ -120,7 +123,7 @@
 - (UIImage *)icon {
     return [UIImage imageNamed:@"menuCone"];
 }
-- (UIViewController *)detailViewController {
+- (id<VLCNetworkServerBrowser>)serverBrowser {
 
     NSNetService *service = self.netService;
     if (service.hostName == nil || service.port == 0) {
@@ -131,9 +134,7 @@
     NSString *hostName = service.hostName;
     NSUInteger portNum = service.port;
     VLCNetworkServerBrowserSharedLibrary *serverBrowser = [[VLCNetworkServerBrowserSharedLibrary alloc] initWithName:name host:hostName portNumber:portNum];
-
-        VLCNetworkServerBrowserViewController *targetViewController = [[VLCNetworkServerBrowserViewController alloc] initWithServerBrowser:serverBrowser];
-    return targetViewController;
+    return serverBrowser;
 }
 @end
 
@@ -158,19 +159,23 @@
 }
 @end
 
+NSString *const VLCNetworkServerProtocolIdentifierSMB = @"smb";
 @implementation VLCLocalNetworkServiceDSM
 - (UIImage *)icon {
     return [UIImage imageNamed:@"serverIcon"];
 }
-- (UIViewController *)detailViewController {
+- (VLCNetworkServerLoginInformation *)loginInformation {
+
     VLCMedia *media = self.mediaItem;
     if (media.mediaType != VLCMediaTypeDirectory)
         return nil;
 
-    VLCNetworkLoginViewController *loginViewController = [[VLCNetworkLoginViewController alloc] initWithNibName:@"VLCNetworkLoginViewController" bundle:nil];
-    loginViewController.serverProtocol = VLCServerProtocolSMB;
-    loginViewController.hostname = self.mediaItem.url.host;
-    return loginViewController;
+    VLCNetworkServerLoginInformation *login = [[VLCNetworkServerLoginInformation alloc] init];
+    login.address = self.mediaItem.url.host;
+    login.protocolIdentifier = VLCNetworkServerProtocolIdentifierSMB;
+
+    return login;
+
 }
 
 @end
@@ -180,17 +185,13 @@
 - (UIImage *)icon {
     return [UIImage imageNamed:@"TVBroadcastIcon"];
 }
-- (VLCLocalNetworkServiceActionBlock)action {
-    __weak typeof(self) weakSelf = self;
-    return ^{
-        VLCMedia *cellMedia = weakSelf.mediaItem;
+- (NSURL *)directPlaybackURL {
 
-        VLCMediaType mediaType = cellMedia.mediaType;
-        if (cellMedia && mediaType != VLCMediaTypeDirectory && mediaType != VLCMediaTypeDisc) {
-            VLCPlaybackController *vpc = [VLCPlaybackController sharedInstance];
-            [vpc playURL:[cellMedia url] successCallback:nil errorCallback:nil];
-        }
-    };
+    VLCMediaType mediaType = self.mediaItem.mediaType;
+    if (mediaType != VLCMediaTypeDirectory && mediaType != VLCMediaTypeDisc) {
+        return [self.mediaItem url];
+    }
+    return nil;
 }
 
 @end
@@ -220,17 +221,14 @@
 - (UIImage *)icon {
     return [self.device smallIcon] ?: [UIImage imageNamed:@"serverIcon"];
 }
-- (UIViewController *)detailViewController {
+- (id<VLCNetworkServerBrowser>)serverBrowser {
 
     BasicUPnPDevice *device = self.device;
-    if (device != nil) {
-        if ([[device urn] isEqualToString:@"urn:schemas-upnp-org:device:MediaServer:1"]) {
-            MediaServer1Device *server = (MediaServer1Device*)device;
-            VLCNetworkServerBrowserUPnP *serverBrowser = [[VLCNetworkServerBrowserUPnP alloc] initWithUPNPDevice:server header:[device friendlyName] andRootID:@"0"];
+    if ([[device urn] isEqualToString:@"urn:schemas-upnp-org:device:MediaServer:1"]) {
+        MediaServer1Device *server = (MediaServer1Device*)device;
+        VLCNetworkServerBrowserUPnP *serverBrowser = [[VLCNetworkServerBrowserUPnP alloc] initWithUPNPDevice:server header:[device friendlyName] andRootID:@"0"];
 
-            VLCNetworkServerBrowserViewController *targetViewController = [[VLCNetworkServerBrowserViewController alloc] initWithServerBrowser:serverBrowser];
-            return targetViewController;
-        }
+        return serverBrowser;
     }
     return nil;
 }

@@ -12,6 +12,15 @@
 #import "VLCLocalNetworkService-Protocol.h"
 
 NS_ASSUME_NONNULL_BEGIN
+@interface VLCNetworkServerLoginInformation : NSObject
+@property (nonatomic) NSString *username;
+@property (nonatomic) NSString *password;
+@property (nonatomic) NSString *address;
+@property (nonatomic) NSNumber *port;
+@property (nonatomic) NSString *protocolIdentifier;
+@end
+
+
 #pragma mark - item
 
 @interface VLCLocalNetworkServiceItem : NSObject <VLCLocalNetworkService>
@@ -29,9 +38,11 @@ NS_ASSUME_NONNULL_BEGIN
 - (instancetype)initWithNetService:(NSNetService *)service;
 @end
 
+extern NSString *const VLCNetworkServerProtocolIdentifierPlex;
 @interface VLCLocalNetworkServicePlex : VLCLocalNetworkServiceNetService
 @end
 
+extern NSString *const VLCNetworkServerProtocolIdentifierFTP;
 @interface VLCLocalNetworkServiceFTP : VLCLocalNetworkServiceNetService
 
 @end
@@ -44,6 +55,7 @@ NS_ASSUME_NONNULL_BEGIN
 - (instancetype)initWithMediaItem:(VLCMedia *)mediaItem;
 @end
 
+extern NSString *const VLCNetworkServerProtocolIdentifierSMB;
 @interface VLCLocalNetworkServiceDSM: VLCLocalNetworkServiceVLCMedia
 
 @end

@@ -10,8 +10,18 @@
  * Refer to the COPYING file of the official project for license.
  *****************************************************************************/
 #import <Foundation/Foundation.h>
+#import "VLCNetworkServerBrowser-Protocol.h"
 
 NS_ASSUME_NONNULL_BEGIN
+
+@protocol VLCNetworkServerLoginInformation <NSObject>
+@property (nonatomic) NSString *username;
+@property (nonatomic) NSString *password;
+@property (nonatomic) NSString *address;
+@property (nonatomic) NSNumber *port;
+@property (nonatomic) NSString *protocolIdentifier;
+@end
+
 @protocol VLCLocalNetworkService <NSObject>
 
 @required
@@ -19,10 +29,10 @@ NS_ASSUME_NONNULL_BEGIN
 @property (nonatomic, readonly) NSString *title;
 
 @optional
-- (nullable UIViewController *)detailViewController;
+- (nullable id<VLCNetworkServerBrowser>)serverBrowser;
+- (NSURL *)directPlaybackURL;
+- (nullable id<VLCNetworkServerLoginInformation>)loginInformation;
 
-typedef void (^VLCLocalNetworkServiceActionBlock)(void);
-@property (nonatomic, readonly) VLCLocalNetworkServiceActionBlock action;
 @end
 
 NS_ASSUME_NONNULL_END
