@@ -104,7 +104,7 @@
 
 - (void)_downloadItem:(id<VLCNetworkServerBrowserItem>)item
 {
-    [[VLCDownloadViewController sharedInstance] addURLToDownloadList:item.URL fileNameOfMedia:nil];
+    [[VLCDownloadViewController sharedInstance] addURLToDownloadList:item.URL fileNameOfMedia:[item.name stringByAppendingPathExtension:item.URL.pathExtension]];
 }
 
 - (void)_streamFileForItem:(id<VLCNetworkServerBrowserItem>)item
