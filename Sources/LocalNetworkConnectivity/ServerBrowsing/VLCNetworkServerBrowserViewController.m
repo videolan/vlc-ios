@@ -104,7 +104,15 @@
 
 - (void)_downloadItem:(id<VLCNetworkServerBrowserItem>)item
 {
-    [[VLCDownloadViewController sharedInstance] addURLToDownloadList:item.URL fileNameOfMedia:[item.name stringByAppendingPathExtension:item.URL.pathExtension]];
+    NSString *filename = item.name;
+    if (filename.pathExtension.length == 0) {
+        /* there are few crappy UPnP servers who don't reveal the correct file extension, so we use a generic fake (#11123) */
+        NSString *urlExtension = item.URL.pathExtension;
+        NSString *extension = urlExtension.length!=0 ? urlExtension : @"vlc";
+        filename = [filename stringByAppendingPathExtension:extension];
+    }
+    [[VLCDownloadViewController sharedInstance] addURLToDownloadList:item.URL
+                                                     fileNameOfMedia:filename];
 }
 
 - (void)_streamFileForItem:(id<VLCNetworkServerBrowserItem>)item
