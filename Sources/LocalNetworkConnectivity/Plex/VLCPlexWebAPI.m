@@ -144,11 +144,11 @@
     return authentification;
 }
 
-- (NSString *)urlAuth:(NSString *)url autentification:(NSString *)auth {
-    return [[self class] urlAuth:url autentification:auth];
+- (NSString *)urlAuth:(NSString *)url authentification:(NSString *)auth {
+    return [[self class] urlAuth:url authentification:auth];
 }
 
-+ (NSString *)urlAuth:(NSString *)url autentification:(NSString *)auth
++ (NSString *)urlAuth:(NSString *)url authentification:(NSString *)auth
 {
     NSString *key = @"";
 
@@ -174,7 +174,7 @@
     else
         url = [NSString stringWithFormat:@"http://%@%@/:/scrobble?identifier=com.plexapp.plugins.library&key=%@", adress, port, ratingKey];
 
-    NSURLRequest *request = [[NSURLRequest alloc] initWithURL:[NSURL URLWithString:[[[VLCPlexWebAPI alloc] init] urlAuth:url autentification:auth]] cachePolicy:NSURLRequestReloadIgnoringLocalAndRemoteCacheData timeoutInterval:20];
+    NSURLRequest *request = [[NSURLRequest alloc] initWithURL:[NSURL URLWithString:[[[VLCPlexWebAPI alloc] init] urlAuth:url authentification:auth]] cachePolicy:NSURLRequestReloadIgnoringLocalAndRemoteCacheData timeoutInterval:20];
     NSURLResponse *response = nil;
     NSError *error = nil;
     [NSURLConnection sendSynchronousRequest:request returningResponse:&response error:&error];
@@ -196,7 +196,7 @@
     NSString *fileName = [[mediaObject[@"namefile"] stringByDeletingPathExtension] stringByAppendingPathExtension:mediaObject[@"codecSubtitle"]];
 
     VLCPlexWebAPI *PlexWebAPI = [[VLCPlexWebAPI alloc] init];
-    NSURL *url = [[NSURL alloc] initWithString:[PlexWebAPI urlAuth:mediaObject[@"keySubtitle"] autentification:mediaObject[@"authentification"]]];
+    NSURL *url = [[NSURL alloc] initWithString:[PlexWebAPI urlAuth:mediaObject[@"keySubtitle"] authentification:mediaObject[@"authentification"]]];
 
     NSData *receivedSub = [NSData dataWithContentsOfURL:url];
 
