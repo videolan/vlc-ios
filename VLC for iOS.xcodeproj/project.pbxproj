@@ -7,10 +7,8 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
-		262C71591A98FA9200F7ED34 /* VLCPlexMediaInformationViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 262C71581A98FA9200F7ED34 /* VLCPlexMediaInformationViewController.m */; };
 		2640FAE61B01477A00E359D6 /* VLCPlexWebAPI.m in Sources */ = {isa = PBXBuildFile; fileRef = 2640FAE51B01477A00E359D6 /* VLCPlexWebAPI.m */; };
 		265D511D1922746C00E38383 /* VLCPlexParser.m in Sources */ = {isa = PBXBuildFile; fileRef = 265D511B1922746C00E38383 /* VLCPlexParser.m */; };
-		266DB8EB1B447E5000EA415E /* VLCPlexMediaInformationViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 266DB8EA1B447E5000EA415E /* VLCPlexMediaInformationViewController.xib */; };
 		268BDA7E1B4FE1E200D622DD /* backArrow_black.png in Resources */ = {isa = PBXBuildFile; fileRef = 268BDA7D1B4FE1E200D622DD /* backArrow_black.png */; };
 		26D4AF8E1A78379000D5EC65 /* VLCSharedLibraryParser.m in Sources */ = {isa = PBXBuildFile; fileRef = 26D4AF8C1A78379000D5EC65 /* VLCSharedLibraryParser.m */; };
 		26F1BFD01A770408001DF30C /* libMediaVLC.xml in Resources */ = {isa = PBXBuildFile; fileRef = 26F1BFCF1A770408001DF30C /* libMediaVLC.xml */; };
@@ -428,13 +426,10 @@
 /* End PBXCopyFilesBuildPhase section */
 
 /* Begin PBXFileReference section */
-		262C71571A98FA9200F7ED34 /* VLCPlexMediaInformationViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = VLCPlexMediaInformationViewController.h; path = Sources/LocalNetworkConnectivity/Plex/VLCPlexMediaInformationViewController.h; sourceTree = SOURCE_ROOT; };
-		262C71581A98FA9200F7ED34 /* VLCPlexMediaInformationViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = VLCPlexMediaInformationViewController.m; path = Sources/LocalNetworkConnectivity/Plex/VLCPlexMediaInformationViewController.m; sourceTree = SOURCE_ROOT; };
 		2640FAE41B01477A00E359D6 /* VLCPlexWebAPI.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = VLCPlexWebAPI.h; path = Sources/LocalNetworkConnectivity/Plex/VLCPlexWebAPI.h; sourceTree = SOURCE_ROOT; };
 		2640FAE51B01477A00E359D6 /* VLCPlexWebAPI.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = VLCPlexWebAPI.m; path = Sources/LocalNetworkConnectivity/Plex/VLCPlexWebAPI.m; sourceTree = SOURCE_ROOT; };
 		265D511A1922746C00E38383 /* VLCPlexParser.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = VLCPlexParser.h; path = Sources/LocalNetworkConnectivity/Plex/VLCPlexParser.h; sourceTree = SOURCE_ROOT; };
 		265D511B1922746C00E38383 /* VLCPlexParser.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = VLCPlexParser.m; path = Sources/LocalNetworkConnectivity/Plex/VLCPlexParser.m; sourceTree = SOURCE_ROOT; };
-		266DB8EA1B447E5000EA415E /* VLCPlexMediaInformationViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; name = VLCPlexMediaInformationViewController.xib; path = Resources/VLCPlexMediaInformationViewController.xib; sourceTree = SOURCE_ROOT; };
 		268BDA7D1B4FE1E200D622DD /* backArrow_black.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = backArrow_black.png; path = ImportedSources/OneDrive/src/LiveSDK/Library/Internal/Resources/backArrow_black.png; sourceTree = SOURCE_ROOT; };
 		26D4AF8B1A78379000D5EC65 /* VLCSharedLibraryParser.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = VLCSharedLibraryParser.h; path = Sources/LocalNetworkConnectivity/LibrarySharing/VLCSharedLibraryParser.h; sourceTree = SOURCE_ROOT; };
 		26D4AF8C1A78379000D5EC65 /* VLCSharedLibraryParser.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = VLCSharedLibraryParser.m; path = Sources/LocalNetworkConnectivity/LibrarySharing/VLCSharedLibraryParser.m; sourceTree = SOURCE_ROOT; };
@@ -1444,7 +1439,6 @@
 		7D6BEF1F19E027DA00DF3972 /* Download & Network */ = {
 			isa = PBXGroup;
 			children = (
-				266DB8EA1B447E5000EA415E /* VLCPlexMediaInformationViewController.xib */,
 				7D89786E185DED88009BAB5D /* VLCDownloadViewController.xib */,
 				7DBBF18F183AB4300009A339 /* VLCNetworkListCell.xib */,
 				9B9231C3185A703700F89498 /* VLCNetworkLoginViewController.xib */,
@@ -1739,8 +1733,6 @@
 				265D511B1922746C00E38383 /* VLCPlexParser.m */,
 				2640FAE41B01477A00E359D6 /* VLCPlexWebAPI.h */,
 				2640FAE51B01477A00E359D6 /* VLCPlexWebAPI.m */,
-				262C71571A98FA9200F7ED34 /* VLCPlexMediaInformationViewController.h */,
-				262C71581A98FA9200F7ED34 /* VLCPlexMediaInformationViewController.m */,
 			);
 			name = PLEX;
 			path = Plex;
@@ -2347,7 +2339,6 @@
 				7D9289761877459B009108FD /* VLCFirstStepsThirdPageViewController~iphone.xib in Resources */,
 				7DBBF19E183AB4300009A339 /* VLCEmptyLibraryView.xib in Resources */,
 				7D63C19518774E0100BD5256 /* VLCFirstStepsThirdPageViewController~ipad.xib in Resources */,
-				266DB8EB1B447E5000EA415E /* VLCPlexMediaInformationViewController.xib in Resources */,
 				7D9870651A3E03D5009CF27D /* papasscode_background@2x.png in Resources */,
 				7DBBF1A1183AB4300009A339 /* VLCPlaylistTableViewCell.xib in Resources */,
 				7D63C19718774F1000BD5256 /* VLCFirstStepsFourthPageViewController~ipad.xib in Resources */,
@@ -2620,7 +2611,6 @@
 				7D1276621AADA0E600F0260C /* VLCMultiSelectionMenuView.m in Sources */,
 				7D3784C8183A9972009EE944 /* NSString+SupportedMedia.m in Sources */,
 				7D3784C9183A9972009EE944 /* UIDevice+VLC.m in Sources */,
-				262C71591A98FA9200F7ED34 /* VLCPlexMediaInformationViewController.m in Sources */,
 				7D3784CC183A99BA009EE944 /* PAPasscodeViewController.m in Sources */,
 				7D3784E9183A9A15009EE944 /* main.m in Sources */,
 				7D30F3C2183AB24C00FFC021 /* VLCHTTPConnection.m in Sources */,
