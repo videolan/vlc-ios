@@ -12,7 +12,7 @@ NONETWORK=no
 SKIPLIBVLCCOMPILATION=no
 TVOS=no
 
-TESTEDVLCKITHASH=37348ff5
+TESTEDVLCKITHASH=6cdac8bc
 TESTEDMEDIALIBRARYKITHASH=e5ca039f
 
 usage()
@@ -132,12 +132,13 @@ fi
 if ! [ -e VLCKit ]; then
 git clone http://code.videolan.org/videolan/VLCKit.git
 cd VLCKit
-# git reset --hard ${TESTEDVLCKITHASH}
+git checkout -B iOS-2.7 ${TESTEDVLCKITHASH}
+git branch --set-upstream-to=origin/iOS-2.7 iOS-2.7
 cd ..
 else
 cd VLCKit
 git pull --rebase
-# git reset --hard ${TESTEDVLCKITHASH}
+git reset --hard ${TESTEDVLCKITHASH}
 cd ..
 fi
 if ! [ -e GDrive ]; then
