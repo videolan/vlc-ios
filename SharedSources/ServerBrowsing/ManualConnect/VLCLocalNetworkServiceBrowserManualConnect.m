@@ -11,7 +11,7 @@
  *****************************************************************************/
 
 #import "VLCLocalNetworkServiceBrowserManualConnect.h"
-#import "VLCLocalNetworkService.h"
+#import "VLCNetworkServerLoginInformation.h"
 
 @interface VLCLocalNetworkServiceBrowserManualConnect ()
 @property (nonatomic, readonly) VLCLocalNetworkServiceItemLogin *loginItem;
@@ -42,4 +42,38 @@
 - (id<VLCLocalNetworkService>)networkServiceForIndex:(NSUInteger)index {
     return self.loginItem;
 }
+@end
+
+
+@interface VLCLocalNetworkServiceItemLogin ()
+@property (nonatomic, strong) NSString *title;
+@property (nonatomic, strong, nullable) UIImage *icon;
+@end
+
+@implementation VLCLocalNetworkServiceItemLogin
+- (instancetype)initWithTile:(NSString *)title icon:(UIImage *)icon
+{
+    self = [super init];
+    if (self) {
+        _title = title;
+        _icon = icon;
+    }
+    return self;
+}
+
+- (instancetype)init
+{
+    self = [self initWithTile:NSLocalizedString(@"CONNECT_TO_SERVER", nil)
+                         icon:[UIImage imageNamed:@"menuCone"]];
+    if (self) {
+
+    }
+    return self;
+}
+
+- (VLCNetworkServerLoginInformation *)loginInformation
+{
+    return [[VLCNetworkServerLoginInformation alloc] init];
+}
+
 @end

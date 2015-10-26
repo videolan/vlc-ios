@@ -15,12 +15,7 @@
 #import "VLCLocalServerDiscoveryController.h"
 
 #import "Reachability.h"
-
-#import "VLCLocalNetworkServiceBrowserNetService.h"
-#import "VLCLocalNetworkServiceBrowserMediaDiscoverer.h"
-#import "VLCLocalNetworkServiceBrowserManualConnect.h"
-#import "VLCLocalNetworkServiceBrowserUPnP.h"
-
+#import "VLCLocalNetworkServiceBrowser-Protocol.h"
 
 @interface VLCLocalServerDiscoveryController () <VLCLocalNetworkServiceBrowserDelegate>
 {

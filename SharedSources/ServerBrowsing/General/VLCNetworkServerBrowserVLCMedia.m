@@ -146,16 +146,3 @@
 }
 
 @end
-
-
-@implementation VLCNetworkServerBrowserVLCMedia (SMB)
-+ (instancetype)SMBNetworkServerBrowserWithURL:(NSURL *)url username:(NSString *)username password:(NSString *)password workgroup:(NSString *)workgroup {
-
-    VLCMedia *media = [VLCMedia mediaWithURL:url];
-    NSDictionary *mediaOptions = @{@"smb-user" : username ?: @"",
-                                   @"smb-pwd" : password ?: @"",
-                                   @"smb-domain" : workgroup?: @"WORKGROUP"};
-    [media addOptions:mediaOptions];
-    return [[self alloc] initWithMedia:media options:mediaOptions];
-}
-@end

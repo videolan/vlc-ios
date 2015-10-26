@@ -10,8 +10,7 @@
  * Refer to the COPYING file of the official project for license.
  *****************************************************************************/
 
-#import <Foundation/Foundation.h>
-#import "VLCLocalNetworkService.h"
+#import "VLCLocalNetworkService-Protocol.h"
 
 @protocol VLCLocalNetworkServiceBrowserDelegate;
 @protocol VLCLocalNetworkServiceBrowser <NSObject>

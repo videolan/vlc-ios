@@ -12,6 +12,7 @@
 
 #import <Foundation/Foundation.h>
 #import "VLCLocalNetworkServiceBrowser-Protocol.h"
+#import "VLCLocalNetworkServiceNetService.h"
 
 @interface VLCLocalNetworkServiceBrowserNetService : NSObject <VLCLocalNetworkServiceBrowser>
 - (instancetype)initWithName:(NSString *)name serviceType:(NSString *)serviceType domain:(NSString *)domain NS_DESIGNATED_INITIALIZER;
@@ -34,20 +35,4 @@
 // override in subclasses for different configurations
 - (VLCLocalNetworkServiceNetService *)localServiceForNetService:(NSNetService *)netService;
 - (void)netServiceDidResolveAddress:(NSNetService *)sender;
-@end
-
-#pragma mark - service specific subclasses
-@interface VLCLocalNetworkServiceBrowserFTP : VLCLocalNetworkServiceBrowserNetService
-- (instancetype)initWithName:(NSString *)name serviceType:(NSString *)serviceType domain:(NSString *)domain NS_UNAVAILABLE;
-- (instancetype)init NS_DESIGNATED_INITIALIZER;
-@end
-
-@interface VLCLocalNetworkServiceBrowserPlex : VLCLocalNetworkServiceBrowserNetService
-- (instancetype)initWithName:(NSString *)name serviceType:(NSString *)serviceType domain:(NSString *)domain NS_UNAVAILABLE;
-- (instancetype)init NS_DESIGNATED_INITIALIZER;
-@end
-
-@interface VLCLocalNetworkServiceBrowserHTTP : VLCLocalNetworkServiceBrowserNetService
-- (instancetype)initWithName:(NSString *)name serviceType:(NSString *)serviceType domain:(NSString *)domain NS_UNAVAILABLE;
-- (instancetype)init NS_DESIGNATED_INITIALIZER;
 @end

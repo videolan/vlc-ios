@@ -12,6 +12,7 @@
 
 
 #import "VLCLocalNetworkServiceBrowserMediaDiscoverer.h"
+#import "VLCLocalNetworkServiceVLCMedia.h"
 
 @interface VLCLocalNetworkServiceBrowserMediaDiscoverer () <VLCMediaListDelegate>
 @property (nonatomic, readonly) NSString *serviceName;
@@ -72,36 +73,6 @@
 - (void)mediaList:(VLCMediaList *)aMediaList mediaRemovedAtIndex:(NSInteger)index
 {
     [self.delegate localNetworkServiceBrowserDidUpdateServices:self];
-}
-
-@end
-
-
-#pragma mark - service specific subclasses
-
-@implementation VLCLocalNetworkServiceBrowserSAP
-
-- (instancetype)init {
-    return [super initWithName:@"SAP"
-     serviceServiceName:@"sap"];
-}
-
-- (id<VLCLocalNetworkService>)networkServiceForIndex:(NSUInteger)index {
-    VLCMedia *media = [self.mediaDiscoverer.discoveredMedia mediaAtIndex:index];
-    return [[VLCLocalNetworkServiceSAP alloc] initWithMediaItem:media];
-}
-
-@end
-
-@implementation VLCLocalNetworkServiceBrowserDSM
-
-- (instancetype)init {
-    return [super initWithName:NSLocalizedString(@"SMB_CIFS_FILE_SERVERS", nil)
-            serviceServiceName:@"dsm"];
-}
-- (id<VLCLocalNetworkService>)networkServiceForIndex:(NSUInteger)index {
-    VLCMedia *media = [self.mediaDiscoverer.discoveredMedia mediaAtIndex:index];
-    return [[VLCLocalNetworkServiceDSM alloc] initWithMediaItem:media];
 }
 
 @end

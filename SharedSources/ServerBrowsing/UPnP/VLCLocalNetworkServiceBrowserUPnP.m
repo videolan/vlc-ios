@@ -10,6 +10,8 @@
  * Refer to the COPYING file of the official project for license.
  *****************************************************************************/
 #import "VLCLocalNetworkServiceBrowserUPnP.h"
+#import "VLCLocalNetworkServiceUPnP.h"
+
 #import "UPnPManager.h"
 
 @interface VLCLocalNetworkServiceBrowserUPnP () <UPnPDBObserver>{
