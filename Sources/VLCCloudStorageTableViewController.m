@@ -22,6 +22,7 @@
 {
 #if TARGET_OS_IOS
     VLCProgressView *_progressView;
+    UIRefreshControl *_refreshControl;
 #endif
 
     UIBarButtonItem *_progressBarButtonItem;
@@ -53,6 +54,12 @@
     self.tableView.separatorColor = [UIColor VLCDarkBackgroundColor];
     self.tableView.backgroundColor = [UIColor VLCDarkBackgroundColor];
     self.view.backgroundColor = [UIColor VLCDarkBackgroundColor];
+
+    _refreshControl = [[UIRefreshControl alloc] init];
+    _refreshControl.backgroundColor = [UIColor VLCDarkBackgroundColor];
+    _refreshControl.tintColor = [UIColor whiteColor];
+    [_refreshControl addTarget:self action:@selector(handleRefresh) forControlEvents:UIControlEventValueChanged];
+    [self.tableView addSubview:_refreshControl];
 #endif
 
     self.navigationItem.titleView.contentMode = UIViewContentModeScaleAspectFit;
@@ -93,6 +100,21 @@
     self.navigationController.toolbarHidden = YES;
     [super viewWillDisappear:animated];
 }
+
+-(void)handleRefresh
+{
+    //set the title while refreshing
+    _refreshControl.attributedTitle = [[NSAttributedString alloc] initWithString:NSLocalizedString(@"LOCAL_SERVER_REFRESH",nil)];
+    //set the date and time of refreshing
+    NSDateFormatter *formattedDate = [[NSDateFormatter alloc]init];
+    [formattedDate setDateFormat:@"MMM d, h:mm a"];
+    NSString *lastupdated = [NSString stringWithFormat:NSLocalizedString(@"LOCAL_SERVER_LAST_UPDATE",nil),[formattedDate stringFromDate:[NSDate date]]];
+    NSDictionary *attrsDictionary = [NSDictionary dictionaryWithObject:[UIColor whiteColor] forKey:NSForegroundColorAttributeName];
+    _refreshControl.attributedTitle = [[NSAttributedString alloc] initWithString:lastupdated attributes:attrsDictionary];
+
+    [self _requestInformationForCurrentPath];
+}
+
 #endif
 
 - (void)_requestInformationForCurrentPath
@@ -105,6 +127,10 @@
 - (void)mediaListUpdated
 {
     [_activityIndicator stopAnimating];
+
+#if TARGET_OS_IOS
+    [_refreshControl endRefreshing];
+#endif
 
     [self.tableView reloadData];
 
