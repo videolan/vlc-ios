@@ -1,11 +1,11 @@
 2.7.0:
 ------
+* Added new app for the 4th gen. Apple TV
 * Dropped support for iOS 6.1. VLC requires iOS 7.0 now
 * Added support for SMB file sharing (#8879)
 * Added support for music albums with more than 1 disk (#14650)
 * Re-wrote Apple Watch extension for watchOS 2
 * Reworked networking UI
-* Added hardware accelerated video decoding for H264 on iOS 8 & later (#8505)
 * Added support for system-wide search "CoreSpotlight"
 * Added improved UI support for Right-to-Left languages
 * Added support for the split-screen appearance in iOS 9 (#14840)
@@ -16,6 +16,7 @@
 * Display chapter duration in playback UI (#14718)
 * Recently played network stream URL are now shared across all devices
 * Stored login information is now shared across all devices
+* Cloud login credentials are now shared across all devices
 
 2.6.6:
 ------
