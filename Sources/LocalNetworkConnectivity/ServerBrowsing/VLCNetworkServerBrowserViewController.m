@@ -25,6 +25,9 @@
 #import "VLCNetworkServerBrowser-Protocol.h"
 
 @interface VLCNetworkServerBrowserViewController () <VLCNetworkServerBrowserDelegate,VLCNetworkListCellDelegate, UITableViewDataSource, UITableViewDelegate, UIActionSheetDelegate>
+{
+    UIRefreshControl *_refreshControl;
+}
 @property (nonatomic) id<VLCNetworkServerBrowser> serverBrowser;
 @property (nonatomic) NSByteCountFormatter *byteCounterFormatter;
 @property (nonatomic) NSArray<id<VLCNetworkServerBrowserItem>> *searchArray;
@@ -50,6 +53,12 @@
 {
     [super viewDidLoad];
 
+    _refreshControl = [[UIRefreshControl alloc] init];
+    _refreshControl.backgroundColor = [UIColor VLCDarkBackgroundColor];
+    _refreshControl.tintColor = [UIColor whiteColor];
+    [_refreshControl addTarget:self action:@selector(handleRefresh) forControlEvents:UIControlEventValueChanged];
+    [self.tableView addSubview:_refreshControl];
+
     self.title = self.serverBrowser.title;
     [self update];
 }
@@ -57,7 +66,7 @@
 - (void)networkServerBrowserDidUpdate:(id<VLCNetworkServerBrowser>)networkBrowser {
     [self.tableView reloadData];
     [[VLCActivityManager defaultManager] networkActivityStopped];
-
+    [_refreshControl endRefreshing];
 }
 
 - (void)networkServerBrowser:(id<VLCNetworkServerBrowser>)networkBrowser requestDidFailWithError:(NSError *)error {
@@ -75,6 +84,21 @@
 {
     [self.serverBrowser update];
     [[VLCActivityManager defaultManager] networkActivityStarted];
+}
+
+-(void)handleRefresh
+{
+    //set the title while refreshing
+    _refreshControl.attributedTitle = [[NSAttributedString alloc] initWithString:NSLocalizedString(@"LOCAL_SERVER_REFRESH",nil)];
+    //set the date and time of refreshing
+    NSDateFormatter *formattedDate = [[NSDateFormatter alloc]init];
+    [formattedDate setDateFormat:@"MMM d, h:mm a"];
+    NSString *lastupdated = [NSString stringWithFormat:NSLocalizedString(@"LOCAL_SERVER_LAST_UPDATE",nil),[formattedDate stringFromDate:[NSDate date]]];
+    NSDictionary *attrsDictionary = [NSDictionary dictionaryWithObject:[UIColor whiteColor] forKey:NSForegroundColorAttributeName];
+    _refreshControl.attributedTitle = [[NSAttributedString alloc] initWithString:lastupdated attributes:attrsDictionary];
+    //end the refreshing
+
+    [self update];
 }
 
 #pragma mark -
@@ -294,7 +318,6 @@
     }
 
     if (item.isContainer) {
-
         VLCNetworkServerBrowserViewController *targetViewController = [[VLCNetworkServerBrowserViewController alloc] initWithServerBrowser:item.containerBrowser];
         [self.navigationController pushViewController:targetViewController animated:YES];
     } else {
