@@ -114,10 +114,16 @@
     if (self) {
         NSString *rawFileName = [dict objectForKey:(id)kCFFTPResourceName];
         NSData *flippedData = [rawFileName dataUsingEncoding:[[[NSUserDefaults standardUserDefaults] objectForKey:kVLCSettingFTPTextEncoding] intValue] allowLossyConversion:YES];
-        _name = [[NSString alloc] initWithData:flippedData encoding:NSUTF8StringEncoding];
-        _container = [dict[(id)kCFFTPResourceType] intValue] == 4;
-        _fileSizeBytes = dict[(id)kCFFTPResourceSize];
-        _URL = [baseURL URLByAppendingPathComponent:_name];
+        if (flippedData != nil) {
+            _name = [[NSString alloc] initWithData:flippedData encoding:NSUTF8StringEncoding];
+            if (_name == nil) {
+                /* this can happen if our string conversation failed */
+                _name = rawFileName;
+            }
+            _container = [dict[(id)kCFFTPResourceType] intValue] == 4;
+            _fileSizeBytes = dict[(id)kCFFTPResourceSize];
+            _URL = [baseURL URLByAppendingPathComponent:_name];
+        }
     }
     return self;
 }
