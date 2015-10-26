@@ -23,7 +23,7 @@
 
 - (NSString *)title
 {
-    return @"Open Network Stream";
+    return NSLocalizedString(@"OPEN_NETWORK", nil);
 }
 
 - (void)viewDidLoad {
@@ -47,6 +47,7 @@
     }
     [self.previouslyPlayedStreamsTableView reloadData];
     self.noURLsToShowLabel.hidden = _recentURLs.count != 0;
+    self.playURLField.placeholder = NSLocalizedString(@"ENTER_URL", nil);
 }
 
 - (void)ubiquitousKeyValueStoreDidChange:(NSNotification *)notification

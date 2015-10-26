@@ -38,7 +38,7 @@
 
 - (NSString *)title
 {
-    return @"Cloud Services";
+    return NSLocalizedString(@"CLOUD_SERVICES", nil);
 }
 
 - (IBAction)dropbox:(id)sender
@@ -48,8 +48,8 @@
         return;
     }
 
-    UIAlertController *alert = [UIAlertController alertControllerWithTitle:@"Login failure"
-                                                                   message:@"To use Dropbox, you need to login to iCloud with the same ID to both this Apple TV and an iOS device.\nAfterwards, login to Dropbox using the VLC app on your iOS device and try again."
+    UIAlertController *alert = [UIAlertController alertControllerWithTitle:NSLocalizedString(@"LOGIN_FAIL", nil)
+                                                                   message:[NSString stringWithFormat:NSLocalizedString(@"CLOUD_LOGIN_FAIL_LONG", nil), @"Dropbox", @"Dropbox"]
                                                             preferredStyle:UIAlertControllerStyleAlert];
 
     UIAlertAction *defaultAction = [UIAlertAction actionWithTitle:NSLocalizedString(@"BUTTON_OK", nil)

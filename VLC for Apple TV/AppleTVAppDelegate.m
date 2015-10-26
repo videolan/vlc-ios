@@ -65,7 +65,7 @@
     _aboutSettingsVC = [[UISplitViewController alloc] init];
     _aboutSettingsTableVC = [[VLCSettingsAboutTableViewController alloc] initWithNibName:nil bundle:nil];
     _aboutSettingsVC.viewControllers = @[_aboutSettingsTableVC];
-    _aboutSettingsVC.title = @"Settings & About";
+    _aboutSettingsVC.title = @"\u2699";
 
     _mainViewController = [[UITabBarController alloc] init];
     _mainViewController.tabBar.backgroundColor = [UIColor VLCOrangeTintColor];

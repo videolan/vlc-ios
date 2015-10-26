@@ -134,6 +134,7 @@
 		7D4408591BDA8DCA0080FB42 /* VLCBoxController.m in Sources */ = {isa = PBXBuildFile; fileRef = 41CD69591A29D72600E60BCE /* VLCBoxController.m */; };
 		7D44085A1BDA8DCE0080FB42 /* VLCBoxTableViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 41CD695B1A29D72600E60BCE /* VLCBoxTableViewController.m */; };
 		7D4625881A5614A1001A80B4 /* VLCEqualizerView.m in Sources */ = {isa = PBXBuildFile; fileRef = 7D4625871A5614A1001A80B4 /* VLCEqualizerView.m */; };
+		7D4CAAFC1BDE548A00A08EF5 /* Localizable.strings in Resources */ = {isa = PBXBuildFile; fileRef = A79246C6170F11DF0036AAF2 /* Localizable.strings */; };
 		7D4DF2181B55209200739326 /* CoreSpotlight.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 7D4DF2171B55209200739326 /* CoreSpotlight.framework */; settings = {ATTRIBUTES = (Weak, ); }; };
 		7D50903218F41C7900180139 /* VLCAlertView.m in Sources */ = {isa = PBXBuildFile; fileRef = 7D50903118F41C7900180139 /* VLCAlertView.m */; };
 		7D5278D81BD7DEF600D0CA0E /* DropboxTVSDK.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 7D5278D11BD7DE3D00D0CA0E /* DropboxTVSDK.framework */; };
@@ -2291,6 +2292,7 @@
 			files = (
 				7D6069721BD94AD600AB765C /* VLCCloudStorageTableViewCell.xib in Resources */,
 				7DEC8BDF1BD67899006E1093 /* VLCFullscreenMovieTVViewController.xib in Resources */,
+				7D4CAAFC1BDE548A00A08EF5 /* Localizable.strings in Resources */,
 				7DC71D271BC830A5001FACAA /* VLCLocalNetworkTVViewController.xib in Resources */,
 				7DC71D221BC83058001FACAA /* VLCAppSharesTVViewController.xib in Resources */,
 				7DEC8C1E1BD69710006E1093 /* About Contents.html in Resources */,
