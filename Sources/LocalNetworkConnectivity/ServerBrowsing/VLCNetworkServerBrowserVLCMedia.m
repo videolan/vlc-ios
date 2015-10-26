@@ -65,7 +65,9 @@
 }
 
 - (NSString *)title {
-    return [self.rootMedia metadataForKey:VLCMetaInformationTitle];
+    if (self.rootMedia.isParsed)
+        return [self.rootMedia metadataForKey:VLCMetaInformationTitle];
+    return @"";
 }
 
 - (NSArray<id<VLCNetworkServerBrowserItem>> *)items {
@@ -105,7 +107,7 @@
 
 @end
 
-@interface VLCNetworkServerBrowserItemVLCMedia ()
+@interface VLCNetworkServerBrowserItemVLCMedia () <VLCMediaDelegate>
 @property (nonatomic, readonly) VLCMedia *media;
 @property (nonatomic, readonly) NSDictionary *mediaOptions;
 
@@ -119,7 +121,10 @@
     if (self) {
         _media = media;
         _container = media.mediaType == VLCMediaTypeDirectory;
-        NSString *title = [media metadataForKey:VLCMetaInformationTitle];
+        NSString *title;
+        if (media.isParsed) {
+            title = [media metadataForKey:VLCMetaInformationTitle];
+        }
         if (!title) {
             title = media.url.lastPathComponent;
         }
