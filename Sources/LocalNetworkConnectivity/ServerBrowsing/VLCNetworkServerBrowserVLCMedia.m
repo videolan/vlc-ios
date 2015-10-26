@@ -12,7 +12,7 @@
 
 #import "VLCNetworkServerBrowserVLCMedia.h"
 
-@interface VLCNetworkServerBrowserVLCMedia () <VLCMediaListDelegate>
+@interface VLCNetworkServerBrowserVLCMedia () <VLCMediaListDelegate, VLCMediaDelegate>
 @property (nonatomic) VLCMedia *rootMedia;
 @property (nonatomic) VLCMediaList *mediaList;
 @property (nonatomic) NSMutableArray<id<VLCNetworkServerBrowserItem>> *mutableItems;
@@ -28,6 +28,7 @@
     if (self) {
         _mutableItems = [[NSMutableArray alloc] init];
         _rootMedia = media;
+        _rootMedia.delegate = self;
         [media parseWithOptions:VLCMediaParseNetwork];
         _mediaList = [_rootMedia subitems];
         _mediaList.delegate = self;
@@ -35,8 +36,13 @@
     }
     return self;
 }
+
 - (void)update {
-    [self.rootMedia parseWithOptions:VLCMediaParseNetwork];
+    int ret = [self.rootMedia parseWithOptions:VLCMediaParseNetwork | VLCMediaFetchNetwork];
+    APLog(@"%s: %i", __PRETTY_FUNCTION__, ret);
+    if (ret == -1) {
+        [self.delegate networkServerBrowserDidUpdate:self];
+    }
 }
 
 - (NSString *)title {
@@ -51,6 +57,7 @@
 
 - (void)mediaList:(VLCMediaList *)aMediaList mediaAdded:(VLCMedia *)media atIndex:(NSInteger)index
 {
+    APLog(@"%s", __PRETTY_FUNCTION__);
     [media parseWithOptions:VLCMediaParseNetwork];
     [media addOptions:self.mediaOptions];
     [self.mutableItems addObject:[[VLCNetworkServerBrowserItemVLCMedia alloc] initWithMedia:media options:self.mediaOptions]];
@@ -58,12 +65,26 @@
 }
 
 - (void)mediaList:(VLCMediaList *)aMediaList mediaRemovedAtIndex:(NSInteger)index {
+    APLog(@"%s", __PRETTY_FUNCTION__);
     [self.mutableItems removeObjectAtIndex:index];
     [self.delegate networkServerBrowserDidUpdate:self];
 }
 
-@end
+#pragma mark - media delegate
 
+- (void)mediaDidFinishParsing:(VLCMedia *)aMedia
+{
+    APLog(@"%s", __PRETTY_FUNCTION__);
+    [self.delegate networkServerBrowserDidUpdate:self];
+}
+
+- (void)mediaMetaDataDidChange:(VLCMedia *)aMedia
+{
+    APLog(@"%s", __PRETTY_FUNCTION__);
+    [self.delegate networkServerBrowserDidUpdate:self];
+}
+
+@end
 
 @interface VLCNetworkServerBrowserItemVLCMedia ()
 @property (nonatomic, readonly) VLCMedia *media;
@@ -112,5 +133,3 @@
     return [[self alloc] initWithMedia:media options:mediaOptions];
 }
 @end
-
-
