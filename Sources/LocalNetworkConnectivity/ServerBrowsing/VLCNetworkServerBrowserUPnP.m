@@ -76,7 +76,9 @@
         }
 
         self.items = [itemsArray copy];
-        [self.delegate networkServerBrowserDidUpdate:self];
+        [[NSOperationQueue mainQueue] addOperationWithBlock:^{
+            [self.delegate networkServerBrowserDidUpdate:self];
+        }];
     }];
 }
 
