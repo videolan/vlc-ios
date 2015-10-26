@@ -70,7 +70,7 @@ static NSString *WiFiCellIdentifier = @"VLCMenuWiFiCell";
     _menuItemsSectionThree = @[@"Settings", @"ABOUT_APP"];
 
     NSUInteger count = _menuItemsSectionOne.count + _menuItemsSectionTwo.count + _menuItemsSectionThree.count;
-    CGFloat screenheight = [UIScreen mainScreen].bounds.size.height;
+    CGRect screenDimensions = [UIScreen mainScreen].bounds;
     CGFloat rowHeight;
     if (UI_USER_INTERFACE_IDIOM() == UIUserInterfaceIdiomPad)
         rowHeight = IPAD_ROW_HEIGHT;
@@ -78,18 +78,21 @@ static NSString *WiFiCellIdentifier = @"VLCMenuWiFiCell";
         rowHeight = ROW_HEIGHT;
     CGFloat height = (count * rowHeight) + (3. * HEADER_HEIGHT);
     CGFloat top;
-    if (height > screenheight - 20.) {
-        height = screenheight - 20.;
+    if (height > screenDimensions.size.height - 20.) {
+        height = screenDimensions.size.height - 20.;
         top = 20.;
     } else
-        top = (screenheight - height) / 2.;
+        top = (screenDimensions.size.height - height) / 2.;
     CGFloat left;
     if (UI_USER_INTERFACE_IDIOM() == UIUserInterfaceIdiomPad)
         left = 170.;
     else
         left = 20.;
+    CGFloat width = MENU_WIDTH;
+    if (screenDimensions.size.width <= left + width)
+        width = width - (left * 2.);
 
-    _menuTableView = [[UITableView alloc] initWithFrame:CGRectMake(left, top, 320., height)
+    _menuTableView = [[UITableView alloc] initWithFrame:CGRectMake(left, top, width, height)
                                                           style:UITableViewStylePlain];
     _menuTableView.delegate = self;
     _menuTableView.dataSource = self;
@@ -119,7 +122,7 @@ static NSString *WiFiCellIdentifier = @"VLCMenuWiFiCell";
     }
 
     dict = NSDictionaryOfVariableBindings(_menuTableView);
-    [self.view addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:[NSString stringWithFormat:@"H:|-==%0.2f-[_menuTableView(320)]->=0-|", left] options:0 metrics:0 views:dict]];
+    [self.view addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:[NSString stringWithFormat:@"H:|-==%0.2f-[_menuTableView(%0.2f)]->=0-|", left, width] options:0 metrics:0 views:dict]];
 
     [_menuTableView selectRowAtIndexPath:[NSIndexPath indexPathForRow:0 inSection:0] animated:NO scrollPosition:UITableViewScrollPositionTop];
 }
