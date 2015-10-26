@@ -27,8 +27,7 @@
 
 @implementation VLCLocalServerDiscoveryController
 
-
-- (instancetype)init
+- (instancetype)initWithServiceBrowserClasses:(NSArray<Class> *)serviceBrowserClasses
 {
     self = [super init];
     if (!self)
@@ -46,15 +45,14 @@
                           name:UIApplicationDidBecomeActiveNotification
                         object:[UIApplication sharedApplication]];
 
-    _serviceBrowsers = @[
-                         [[VLCLocalNetworkServiceBrowserManualConnect alloc] init],
-                         [[VLCLocalNetworkServiceBrowserUPnP alloc] init],
-                         [[VLCLocalNetworkServiceBrowserPlex alloc] init],
-                         [[VLCLocalNetworkServiceBrowserFTP alloc] init],
-                         [[VLCLocalNetworkServiceBrowserHTTP alloc] init],
-                         [[VLCLocalNetworkServiceBrowserSAP alloc] init],
-                         [[VLCLocalNetworkServiceBrowserDSM alloc] init],
-                         ];
+
+    NSMutableArray *serviceBrowsers = [NSMutableArray new];
+    for (Class browserClass in serviceBrowserClasses) {
+        if ([browserClass conformsToProtocol:@protocol(VLCLocalNetworkServiceBrowser)]) {
+            [serviceBrowsers addObject:[[browserClass alloc] init]];
+        }
+    }
+    _serviceBrowsers = [serviceBrowsers copy];
 
     [_serviceBrowsers enumerateObjectsUsingBlock:^(id<VLCLocalNetworkServiceBrowser>  _Nonnull obj, NSUInteger idx, BOOL * _Nonnull stop) {
         obj.delegate = self;

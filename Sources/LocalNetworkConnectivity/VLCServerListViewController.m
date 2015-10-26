@@ -21,9 +21,19 @@
 #import "VLCNetworkLoginViewController.h"
 #import "VLCNetworkServerBrowserViewController.h"
 
+#import "VLCNetworkServerLoginInformation.h"
+
 #import "VLCNetworkServerBrowserFTP.h"
 #import "VLCNetworkServerBrowserVLCMedia.h"
 #import "VLCNetworkServerBrowserPlex.h"
+
+#import "VLCLocalNetworkServiceBrowserManualConnect.h"
+#import "VLCLocalNetworkServiceBrowserPlex.h"
+#import "VLCLocalNetworkServiceBrowserFTP.h"
+#import "VLCLocalNetworkServiceBrowserUPnP.h"
+#import "VLCLocalNetworkServiceBrowserHTTP.h"
+#import "VLCLocalNetworkServiceBrowserSAP.h"
+#import "VLCLocalNetworkServiceBrowserDSM.h"
 
 @interface VLCServerListViewController () <UITableViewDataSource, UITableViewDelegate, VLCLocalServerDiscoveryControllerDelegate>
 {
@@ -64,7 +74,17 @@
 {
     [super viewDidLoad];
 
-    _discoveryController = [[VLCLocalServerDiscoveryController alloc] init];
+    NSArray *browserClasses = @[
+                                [VLCLocalNetworkServiceBrowserManualConnect class],
+                                [VLCLocalNetworkServiceBrowserUPnP class],
+                                [VLCLocalNetworkServiceBrowserPlex class],
+                                [VLCLocalNetworkServiceBrowserFTP class],
+                                [VLCLocalNetworkServiceBrowserHTTP class],
+                                [VLCLocalNetworkServiceBrowserSAP class],
+                                [VLCLocalNetworkServiceBrowserDSM class],
+                                ];
+
+    _discoveryController = [[VLCLocalServerDiscoveryController alloc] initWithServiceBrowserClasses:browserClasses];
     _discoveryController.delegate = self;
 
     _backToMenuButton = [UIBarButtonItem themedRevealMenuButtonWithTarget:self andSelector:@selector(goBack:)];

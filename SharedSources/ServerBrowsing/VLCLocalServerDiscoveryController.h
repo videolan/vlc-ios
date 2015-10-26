@@ -12,7 +12,7 @@
  *****************************************************************************/
 
 #import <Foundation/Foundation.h>
-#import "VLCLocalNetworkService.h"
+#import "VLCLocalNetworkService-Protocol.h"
 
 @protocol VLCLocalServerDiscoveryControllerDelegate <NSObject>
 - (void)discoveryFoundSomethingNew;
@@ -20,6 +20,9 @@
 
 @interface VLCLocalServerDiscoveryController : NSObject
 @property (nonatomic, readwrite, weak) id delegate;
+
+// array of classes conforming to VLCLocalNetworkServiceBrowser
+- (instancetype)initWithServiceBrowserClasses:(NSArray<Class> *)serviceBrowserClasses;
 
 - (NSUInteger)numberOfSections;
 - (NSString *)titleForSection:(NSUInteger)section;
