@@ -33,14 +33,9 @@
         _mediaList = [_rootMedia subitems];
         _mediaList.delegate = self;
         _mediaOptions = [mediaOptions copy];
+        [self _addMediaListRootItemsToList];
     }
     return self;
-}
-
-- (void)setDelegate:(id<VLCNetworkServerBrowserDelegate>)delegate
-{
-    _delegate = delegate;
-    [self _addMediaListRootItemsToList];
 }
 
 - (void)_addMediaListRootItemsToList
@@ -57,12 +52,10 @@
         [newMedia parseWithOptions:VLCMediaParseNetwork];
     }
     [rootItems unlock];
-    [self.delegate networkServerBrowserDidUpdate:self];
 }
 
 - (void)update {
     int ret = [self.rootMedia parseWithOptions:VLCMediaParseNetwork];
-    APLog(@"%s: %i", __PRETTY_FUNCTION__, ret);
     if (ret == -1) {
         [self.delegate networkServerBrowserDidUpdate:self];
     }
@@ -82,7 +75,6 @@
 
 - (void)mediaList:(VLCMediaList *)aMediaList mediaAdded:(VLCMedia *)media atIndex:(NSInteger)index
 {
-    APLog(@"%s: %@", __PRETTY_FUNCTION__, media);
     [media addOptions:self.mediaOptions];
     [self.mutableItems addObject:[[VLCNetworkServerBrowserItemVLCMedia alloc] initWithMedia:media options:self.mediaOptions]];
     [self.delegate networkServerBrowserDidUpdate:self];
@@ -90,7 +82,6 @@
 
 - (void)mediaList:(VLCMediaList *)aMediaList mediaRemovedAtIndex:(NSInteger)index
 {
-    APLog(@"%s", __PRETTY_FUNCTION__);
     [self.mutableItems removeObjectAtIndex:index];
     [self.delegate networkServerBrowserDidUpdate:self];
 }
