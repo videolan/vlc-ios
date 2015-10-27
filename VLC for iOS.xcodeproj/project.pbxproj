@@ -206,6 +206,7 @@
 		7DC72D6317B7ED24008A26D0 /* WhiteRaccoon.m in Sources */ = {isa = PBXBuildFile; fileRef = 7DC72D6217B7ED24008A26D0 /* WhiteRaccoon.m */; };
 		7DD2A3A9179C04A7003EB537 /* OpenSans-Regular.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 7DD2A3A8179C04A6003EB537 /* OpenSans-Regular.ttf */; };
 		7DDD0429172D98E5005A7B10 /* CFNetwork.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 7DDD0428172D98E5005A7B10 /* CFNetwork.framework */; };
+		7DDFF4251BDFD23300913BD1 /* VLCCone512x512.png in Resources */ = {isa = PBXBuildFile; fileRef = 7DDFF4241BDFD23300913BD1 /* VLCCone512x512.png */; };
 		7DE56C1A1AD93F9100E8CA00 /* VLCPlaybackController.m in Sources */ = {isa = PBXBuildFile; fileRef = 7DE56C191AD93F9100E8CA00 /* VLCPlaybackController.m */; };
 		7DEC8BD71BD658E6006E1093 /* VLCPlayerDisplayController.m in Sources */ = {isa = PBXBuildFile; fileRef = DD510B6F1B14E564003BA71C /* VLCPlayerDisplayController.m */; };
 		7DEC8BD81BD66DA8006E1093 /* VLCMiniPlaybackView.m in Sources */ = {isa = PBXBuildFile; fileRef = 7D95610A1AF3E9E800779745 /* VLCMiniPlaybackView.m */; };
@@ -803,6 +804,7 @@
 		7DD2A3A8179C04A6003EB537 /* OpenSans-Regular.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "OpenSans-Regular.ttf"; sourceTree = "<group>"; };
 		7DD32D22194F1946002510A9 /* zh-Hant */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = "zh-Hant"; path = "zh-Hant.lproj/Localizable.strings"; sourceTree = "<group>"; };
 		7DDD0428172D98E5005A7B10 /* CFNetwork.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CFNetwork.framework; path = System/Library/Frameworks/CFNetwork.framework; sourceTree = SDKROOT; };
+		7DDFF4241BDFD23300913BD1 /* VLCCone512x512.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = VLCCone512x512.png; path = Resources/VLCCone512x512.png; sourceTree = SOURCE_ROOT; };
 		7DE56C181AD93F9100E8CA00 /* VLCPlaybackController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = VLCPlaybackController.h; path = Sources/VLCPlaybackController.h; sourceTree = SOURCE_ROOT; };
 		7DE56C191AD93F9100E8CA00 /* VLCPlaybackController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = VLCPlaybackController.m; path = Sources/VLCPlaybackController.m; sourceTree = SOURCE_ROOT; };
 		7DEB3B5F17647DE30038FC70 /* iTunesArtwork@2x */ = {isa = PBXFileReference; lastKnownFileType = file; path = "iTunesArtwork@2x"; sourceTree = "<group>"; };
@@ -1890,6 +1892,7 @@
 				7D6B08FB174D773C00A05173 /* Settings.bundle */,
 				29125E5317492219003F03E5 /* web */,
 				A7035BBD174519600057DFA7 /* iTunesArtwork */,
+				7DDFF4241BDFD23300913BD1 /* VLCCone512x512.png */,
 				7DEB3B5F17647DE30038FC70 /* iTunesArtwork@2x */,
 				7DA8B0F9173318E80029698C /* SourceCodePro-Regular.ttf */,
 				7DD2A3A8179C04A6003EB537 /* OpenSans-Regular.ttf */,
@@ -2473,6 +2476,7 @@
 				7D711ADA18227A490094E4F0 /* GTMOAuth2ViewTouch.xib in Resources */,
 				417CDA241A48D1F300D9ACE7 /* VLCCloudServicesTableViewController.xib in Resources */,
 				7D9870671A3E03D5009CF27D /* papasscode_failed_bg@2x.png in Resources */,
+				7DDFF4251BDFD23300913BD1 /* VLCCone512x512.png in Resources */,
 				7DF04F4F1961F2B8004A5429 /* web-open-fixed.png in Resources */,
 				7DBBF19A183AB4300009A339 /* VLCCloudStorageTableViewCell~ipad.xib in Resources */,
 				7D1516421868D7E0004B18F3 /* VLCFirstStepsFifthPageViewController.xib in Resources */,
