@@ -185,7 +185,6 @@
 
 - (NSString *)_getFileSubtitleFromServer:(NSURL *)subtitleURL
 {
-
     NSString *FileSubtitlePath = nil;
     NSData *receivedSub = [NSData dataWithContentsOfURL:subtitleURL]; // TODO: fix synchronous load
 
@@ -198,8 +197,10 @@
         if (![fileManager fileExistsAtPath:FileSubtitlePath]) {
             //create local subtitle file
             [fileManager createFileAtPath:FileSubtitlePath contents:nil attributes:nil];
-            if (![fileManager fileExistsAtPath:FileSubtitlePath])
+            if (![fileManager fileExistsAtPath:FileSubtitlePath]) {
                 APLog(@"file creation failed, no data was saved");
+                return nil;
+            }
         }
         [receivedSub writeToFile:FileSubtitlePath atomically:YES];
     } else {
@@ -336,7 +337,32 @@
             if (searchResult) {
                 [self _streamFileForItem:item];
             } else {
-                [self _streamMediaList:self.serverBrowser.mediaList startingAtIndex:row];
+                VLCMediaList *mediaList = self.serverBrowser.mediaList;
+
+                if ([item respondsToSelector:@selector(subtitleURL)]) {
+                    NSArray *items = self.serverBrowser.items;
+                    id<VLCNetworkServerBrowserItem> loopItem;
+                    [mediaList lock];
+                    NSUInteger count = mediaList.count;
+                    for (NSUInteger i = 0; i < count; i++) {
+                        loopItem = items[i];
+                        NSString *URLofSubtitle = nil;
+                        NSURL *remoteSubtitleURL = [loopItem subtitleURL];
+                        if (remoteSubtitleURL == nil) {
+                            NSArray *SubtitlesList = [self _searchSubtitle:loopItem.URL.lastPathComponent];
+                            remoteSubtitleURL = SubtitlesList.firstObject;
+                        }
+
+                        if(remoteSubtitleURL != nil) {
+                            URLofSubtitle = [self _getFileSubtitleFromServer:remoteSubtitleURL];
+                            if (URLofSubtitle != nil)
+                                [[mediaList mediaAtIndex:i] addOptions:@{ kVLCSettingSubtitlesFilePath : URLofSubtitle }];
+                        }
+                    }
+                    [mediaList unlock];
+                }
+
+                [self _streamMediaList:mediaList startingAtIndex:row];
             }
         }
     }
