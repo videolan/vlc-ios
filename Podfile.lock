@@ -7,7 +7,7 @@ PODS:
   - OBSlider (1.1.0)
   - RESideMenu (4.0.7)
   - SSKeychain (1.2.3)
-  - upnpx (1.3.4)
+  - upnpx (1.3.5)
 
 DEPENDENCIES:
   - box-ios-sdk-v2 (from `git://github.com/fkuehne/box-ios-sdk-v2.git`)
@@ -16,7 +16,7 @@ DEPENDENCIES:
   - OBSlider (= 1.1.0)
   - RESideMenu (~> 4.0.7)
   - SSKeychain (from `git://github.com/fkuehne/sskeychain.git`)
-  - upnpx (~> 1.3.4)
+  - upnpx (~> 1.3)
 
 EXTERNAL SOURCES:
   box-ios-sdk-v2:
@@ -39,6 +39,6 @@ SPEC CHECKSUMS:
   OBSlider: 490f108007bfdd5414a38650b211fe403a95b8a0
   RESideMenu: f24c508404b49c667344c54aba7e590883533958
   SSKeychain: 3f42991739c6c60a9cf1bbd4dff6c0d3694bcf3d
-  upnpx: 790dcf9598818385d881ca39a5b77b184b7d291a
+  upnpx: 10ea9a98bbda350dda836c93eddbe5903b857ec8
 
 COCOAPODS: 0.39.0

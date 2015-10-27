@@ -26,7 +26,7 @@ static NSString *const kPlexVLCDeviceName = @"VLC for iOS";
 
 @implementation VLCPlexParser
 
-- (NSArray *)PlexMediaServerParser:(NSString *)address port:(NSNumber *)port navigationPath:(NSString *)path authentification:(NSString *)auth
+- (NSArray *)PlexMediaServerParser:(NSString *)address port:(NSNumber *)port navigationPath:(NSString *)path authentification:(NSString *)auth error:(NSError *__autoreleasing *)outError
 {
     _containerInfo = [[NSMutableArray alloc] init];
     _dicoInfo = [[NSMutableDictionary alloc] init];
@@ -80,14 +80,39 @@ static NSString *const kPlexVLCDeviceName = @"VLC for iOS";
                 error = nil;
                 data = [NSURLConnection sendSynchronousRequest:request returningResponse:&response error:&error];
                 if ([response statusCode] != 200) {
-                    VLCAlertView *alertView = [[VLCAlertView alloc] initWithTitle:NSLocalizedString(@"PLEX_ERROR_ACCOUNT", nil) message:NSLocalizedString(@"PLEX_CHECK_ACCOUNT", nil) cancelButtonTitle:NSLocalizedString(@"BUTTON_OK", nil) otherButtonTitles:nil];
-                    [alertView performSelectorOnMainThread:@selector(show) withObject:nil waitUntilDone:NO];
+                    if (outError) {
+
+                        NSMutableDictionary *userInfo = [NSMutableDictionary dictionaryWithDictionary:
+                                                         @{
+                                                           NSLocalizedDescriptionKey : NSLocalizedString(@"PLEX_ERROR_ACCOUNT", nil),
+                                                           NSLocalizedFailureReasonErrorKey : NSLocalizedString(@"PLEX_CHECK_ACCOUNT", nil),
+                                                           }];
+                        if (error) {
+                            userInfo[NSUnderlyingErrorKey] = error;
+                        }
+                        *outError = [NSError errorWithDomain:@"org.videolan.vlc-ios.plexParser"
+                                                       code:response.statusCode
+                                                   userInfo:userInfo];
+                    }
                 }
                 [_containerInfo removeAllObjects];
                 [_dicoInfo removeAllObjects];
             } else {
-                VLCAlertView *alertView = [[VLCAlertView alloc] initWithTitle:NSLocalizedString(@"UNAUTHORIZED", nil) message:NSLocalizedString(@"PLEX_CHECK_ACCOUNT", nil) cancelButtonTitle:NSLocalizedString(@"BUTTON_OK", nil) otherButtonTitles:nil];
-                [alertView performSelectorOnMainThread:@selector(show) withObject:nil waitUntilDone:NO];
+
+                if (outError) {
+
+                    NSMutableDictionary *userInfo = [NSMutableDictionary dictionaryWithDictionary:
+                                                     @{
+                                                       NSLocalizedDescriptionKey : NSLocalizedString(@"UNAUTHORIZED", nil),
+                                                       NSLocalizedFailureReasonErrorKey : NSLocalizedString(@"PLEX_CHECK_ACCOUNT", nil),
+                                                       }];
+                    if (error) {
+                        userInfo[NSUnderlyingErrorKey] = error;
+                    }
+                    *outError = [NSError errorWithDomain:@"org.videolan.vlc-ios.plexParser"
+                                                    code:response.statusCode
+                                                userInfo:userInfo];
+                }
             }
         } else
             APLog(@"PlexParser url Errors : %ld", (long)[response statusCode]);

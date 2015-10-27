@@ -39,11 +39,12 @@
     return _httpParser;
 }
 - (void)netServiceDidResolveAddress:(NSNetService *)sender {
+#if !TARGET_OS_TV
     NSString *ownHostname = [[VLCHTTPUploaderController sharedInstance] hostname];
     if ([[sender hostName] rangeOfString:ownHostname].location != NSNotFound) {
         return;
     }
-
+#endif
     [self.httpParser checkNetserviceForVLCService:sender];
 }
 

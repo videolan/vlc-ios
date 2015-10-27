@@ -12,6 +12,7 @@
 #import "VLCPlexWebAPI.h"
 #import "VLCPlexParser.h"
 #import "UIDevice+VLC.h"
+#import "sysexits.h"
 
 #define kPlexMediaServerSignIn @"https://plex.tv/users/sign_in.xml"
 #define kPlexURLdeviceInfo @"https://plex.tv/devices.xml"
@@ -187,7 +188,7 @@
     return httpStatus;
 }
 
-- (NSString *)getFileSubtitleFromPlexServer:(NSDictionary *)mediaObject modeStream:(BOOL)modeStream
+- (NSString *)getFileSubtitleFromPlexServer:(NSDictionary *)mediaObject modeStream:(BOOL)modeStream error:(NSError *__autoreleasing *)outError
 {
     if (!mediaObject)
         return @"";
@@ -217,12 +218,17 @@
         }
         [receivedSub writeToFile:FileSubtitlePath atomically:YES];
     } else {
-        VLCAlertView *alert = [[VLCAlertView alloc] initWithTitle:NSLocalizedString(@"DISK_FULL", nil)
-                                                          message:[NSString stringWithFormat:NSLocalizedString(@"DISK_FULL_FORMAT", nil), fileName, [[UIDevice currentDevice] model]]
-                                                         delegate:self
-                                                cancelButtonTitle:NSLocalizedString(@"BUTTON_OK", nil)
-                                                otherButtonTitles:nil];
-        [alert show];
+        NSString *title = NSLocalizedString(@"DISK_FULL", nil);
+        NSString *message = [NSString stringWithFormat:NSLocalizedString(@"DISK_FULL_FORMAT", nil), fileName, [[UIDevice currentDevice] model]];
+
+        if (outError) {
+            *outError = [NSError errorWithDomain:@"org.videolan.vlc-ios.plex"
+                                            code:EX_CANTCREAT
+                                        userInfo:@{NSLocalizedDescriptionKey : title,
+                                                   NSLocalizedFailureReasonErrorKey : message
+                                                   }];
+        }
+
     }
 
     return FileSubtitlePath;

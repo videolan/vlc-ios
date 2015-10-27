@@ -72,7 +72,15 @@
 
 - (void)loadContents
 {
-    NSArray *dicts = [self.plexParser PlexMediaServerParser:self.plexServerAddress port:self.plexServerPort navigationPath:self.plexServerPath authentification:self.plexAuthentification];
+    NSError *error = nil;
+    NSArray *dicts = [self.plexParser PlexMediaServerParser:self.plexServerAddress port:self.plexServerPort navigationPath:self.plexServerPath authentification:self.plexAuthentification error:&error];
+
+    if (error) {
+        [[NSOperationQueue mainQueue] addOperationWithBlock:^{
+            [self.delegate networkServerBrowser:self requestDidFailWithError:error];
+        }];
+        return;
+    }
 
     NSDictionary *firstObject = [dicts firstObject];
     NSString *newAuth = firstObject[@"authentification"] ?: @"";
