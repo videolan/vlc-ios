@@ -31,7 +31,6 @@
     UITapGestureRecognizer *_labelTapRecognizer;
     UITapGestureRecognizer *_artworkTapRecognizer;
 }
-@property (nonatomic, weak) VLCPlaybackController *playbackController;
 
 @end
 
@@ -139,8 +138,7 @@
 {
     VLCPlayerDisplayController *pdc = [VLCPlayerDisplayController sharedInstance];
     if (pdc.displayMode == VLCPlayerDisplayControllerDisplayModeMiniplayer) {
-        VLCPlaybackController *vpc = self.playbackController;
-        [vpc recoverDisplayedMetadata];
+        [[VLCPlaybackController sharedInstance] recoverDisplayedMetadata];
     }
 }
 
@@ -151,12 +149,12 @@
 
 - (void)previousAction:(id)sender
 {
-    [self.playbackController backward];
+    [[VLCPlaybackController sharedInstance] backward];
 }
 
 - (void)playPauseAction:(id)sender
 {
-    [self.playbackController playPause];
+    [[VLCPlaybackController sharedInstance] playPause];
 }
 
 - (void)playPauseLongPress:(UILongPressGestureRecognizer *)recognizer
@@ -166,7 +164,7 @@
             [_playPauseButton setImage:[UIImage imageNamed:@"stopIcon"] forState:UIControlStateNormal];
             break;
         case UIGestureRecognizerStateEnded:
-            [self.playbackController stopPlayback];
+            [[VLCPlaybackController sharedInstance] stopPlayback];
             break;
         case UIGestureRecognizerStateCancelled:
         case UIGestureRecognizerStateFailed:
@@ -179,7 +177,7 @@
 
 - (void)nextAction:(id)sender
 {
-    [self.playbackController forward];
+    [[VLCPlaybackController sharedInstance] forward];
 }
 
 - (void)pushFullPlaybackView:(id)sender
@@ -190,7 +188,7 @@
 
 - (void)updatePlayPauseButton
 {
-    const BOOL isPlaying = self.playbackController.isPlaying;
+    const BOOL isPlaying = [VLCPlaybackController sharedInstance].isPlaying;
     UIImage *playPauseImage = isPlaying ? [UIImage imageNamed:@"pauseIcon"] : [UIImage imageNamed:@"playIcon"];
     [_playPauseButton setImage:playPauseImage forState:UIControlStateNormal];
 }
