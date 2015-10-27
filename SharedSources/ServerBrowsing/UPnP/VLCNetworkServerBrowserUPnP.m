@@ -86,16 +86,16 @@
 
 - (VLCMediaList *)mediaList
 {
-    NSMutableArray *mediaArray = [NSMutableArray array];
+    VLCMediaList *mediaList = [[VLCMediaList alloc] init];
     @synchronized(_items) {
         NSUInteger count = _items.count;
-        for (NSUInteger i = 0; i < count; i++) {
+        for (NSInteger i = count - 1; i >= 0; i--) {
             VLCMedia *media = [_items[i] media];
             if (media)
-                [mediaArray addObject:media];
+                [mediaList addMedia:media];
         }
     }
-    return [[VLCMediaList alloc] initWithArray:mediaArray];
+    return mediaList;
 }
 
 @end
@@ -318,16 +318,16 @@
 
 - (VLCMediaList *)mediaList
 {
-    NSMutableArray *mediaArray = [NSMutableArray array];
+    VLCMediaList *mediaList = [[VLCMediaList alloc] init];
     @synchronized(_items) {
         NSUInteger count = _items.count;
-        for (NSUInteger i = 0; i < count; i++) {
+        for (NSInteger i = count - 1; i >= 0; i--) {
             VLCMedia *media = [_items[i] media];
             if (media)
-                [mediaArray addObject:media];
+                [mediaList addMedia:media];
         }
     }
-    return [[VLCMediaList alloc] initWithArray:mediaArray];
+    return mediaList;
 }
 
 @end
