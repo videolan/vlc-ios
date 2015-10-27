@@ -8,6 +8,7 @@
 
 #import "VLCServerListTVTableViewController.h"
 #import "VLCLocalNetworkServerTVCell.h"
+#import "VLCServerBrowsingTVTableViewController.h"
 
 @interface VLCServerListTVTableViewController ()
 
@@ -36,6 +37,14 @@
     return self.discoveryController.numberOfSections;
 }
 
+- (NSString *)tableView:(UITableView *)tableView titleForHeaderInSection:(NSInteger)section {
+    VLCLocalServerDiscoveryController *discoverer = self.discoveryController;
+    if (discoverer.numberOfSections > 1 && [discoverer numberOfItemsInSection:section] > 0) {
+        return [self.discoveryController titleForSection:section];
+    }
+    return nil;
+}
+
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section {
     return [self.discoveryController numberOfItemsInSection:section];
 }
@@ -48,8 +57,42 @@
     return cell;
 }
 
+- (void)showWIP:(NSString *)todo {
+    UIAlertController *alertController = [UIAlertController alertControllerWithTitle:@"Work in Progress\nFeature not (yet) implemented."
+                                                                             message:todo
+                                                                      preferredStyle:UIAlertControllerStyleAlert];
+
+    [alertController addAction:[UIAlertAction actionWithTitle:@"Please fix this!"
+                                                        style:UIAlertActionStyleDefault
+                                                      handler:nil]];
+
+    [alertController addAction:[UIAlertAction actionWithTitle:@"Nevermind"
+                                                        style:UIAlertActionStyleCancel
+                                                      handler:nil]];
+    [self presentViewController:alertController animated:YES completion:nil];
+}
+
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
-    NSLog(@"%s",__PRETTY_FUNCTION__);
+
+    id<VLCLocalNetworkService> service = [self.discoveryController networkServiceForIndexPath:indexPath];
+    if ([service respondsToSelector:@selector(serverBrowser)]) {
+        id <VLCNetworkServerBrowser> browser = [service serverBrowser];
+        if (browser) {
+            VLCServerBrowsingTVTableViewController *browsingViewController = [[VLCServerBrowsingTVTableViewController alloc] initWithServerBrowser:browser];
+            [self showViewController:browsingViewController sender:nil];
+            return;
+        }
+    }
+
+    if ([service respondsToSelector:@selector(loginInformation)]) {
+        [self showWIP:@"Login"];
+        return;
+    }
+    if ([service respondsToSelector:@selector(directPlaybackURL)]) {
+        [self showWIP:@"Direct playback form URL"];
+        return;
+    }
+
 }
 
 #pragma mark - VLCLocalServerDiscoveryController

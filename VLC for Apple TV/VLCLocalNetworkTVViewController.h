@@ -10,7 +10,8 @@
  *****************************************************************************/
 
 #import <UIKit/UIKit.h>
+#import "VLCServerListTVTableViewController.h"
 
-@interface VLCLocalNetworkTVViewController : UIViewController
+@interface VLCLocalNetworkTVViewController : VLCServerListTVTableViewController
 
 @end

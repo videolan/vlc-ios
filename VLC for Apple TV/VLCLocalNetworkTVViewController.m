@@ -11,6 +11,13 @@
 
 #import "VLCLocalNetworkTVViewController.h"
 
+#import "VLCLocalNetworkServiceBrowserManualConnect.h"
+#import "VLCLocalNetworkServiceBrowserPlex.h"
+//#import "VLCLocalNetworkServiceBrowserFTP.h"
+//#import "VLCLocalNetworkServiceBrowserUPnP.h"
+#import "VLCLocalNetworkServiceBrowserSAP.h"
+#import "VLCLocalNetworkServiceBrowserDSM.h"
+
 @interface VLCLocalNetworkTVViewController ()
 
 @end
@@ -19,14 +26,17 @@
 
 - (void)viewDidLoad {
     [super viewDidLoad];
-    // Do any additional setup after loading the view.
+    NSArray *classes = @[
+                         [VLCLocalNetworkServiceBrowserManualConnect class],
+//                         [VLCLocalNetworkServiceBrowserUPnP class],
+                         [VLCLocalNetworkServiceBrowserPlex class],
+//                         [VLCLocalNetworkServiceBrowserFTP class],
+                         [VLCLocalNetworkServiceBrowserSAP class],
+                         [VLCLocalNetworkServiceBrowserDSM class],
+                         ];
+    self.discoveryController = [[VLCLocalServerDiscoveryController alloc] initWithServiceBrowserClasses:classes];
+    self.discoveryController.delegate = self;
 }
-
-- (void)didReceiveMemoryWarning {
-    [super didReceiveMemoryWarning];
-    // Dispose of any resources that can be recreated.
-}
-
 - (NSString *)title {
     return NSLocalizedString(@"LOCAL_NETWORK", nil);
 }

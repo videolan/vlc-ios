@@ -50,7 +50,9 @@
 
 - (void)sharedLibraryFound:(NSNotification *)aNotification {
     NSNetService *netService = [aNotification.userInfo objectForKey:@"aNetService"];
-    [self addResolvedLocalNetworkService:[self localServiceForNetService:netService]];
+    [[NSOperationQueue mainQueue] addOperationWithBlock:^{
+        [self addResolvedLocalNetworkService:[self localServiceForNetService:netService]];
+    }];
 }
 
 - (VLCLocalNetworkServiceNetService *)localServiceForNetService:(NSNetService *)netService {

@@ -70,7 +70,8 @@
     _mainViewController.tabBar.backgroundColor = [UIColor VLCOrangeTintColor];
 
     _mainViewController.viewControllers = @[[[UINavigationController alloc] initWithRootViewController:_sharesVC],
-                                            _localNetworkVC, _cloudServicesVC, _openNetworkVC, _aboutSettingsVC];
+                                            [[UINavigationController alloc] initWithRootViewController:_localNetworkVC],
+                                            _cloudServicesVC, _openNetworkVC, _aboutSettingsVC];
 
     VLCPlayerDisplayController *playerDisplayController = [VLCPlayerDisplayController sharedInstance];
     playerDisplayController.childViewController = _mainViewController;
