@@ -1219,6 +1219,7 @@
 				41CD695B1A29D72600E60BCE /* VLCBoxTableViewController.m */,
 			);
 			name = Box;
+			path = AspenProject;
 			sourceTree = "<group>";
 		};
 		5BC7EE378D444805CA59B5BA /* Pods */ = {
@@ -1246,6 +1247,7 @@
 				7DB847D61A5871570002DC30 /* VLCOneDriveObject.m */,
 			);
 			name = OneDrive;
+			path = AspenProject;
 			sourceTree = "<group>";
 		};
 		7D13293E1BA1F10100BE647E /* VLC for Apple TV */ = {
@@ -1320,6 +1322,8 @@
 		7D31CF061746AEF2005997E0 /* UI Elements */ = {
 			isa = PBXGroup;
 			children = (
+				41B93BFF1A53833B00102E8B /* VLCProgressView.h */,
+				41B93C001A53833B00102E8B /* VLCProgressView.m */,
 				7D3784B2183A9938009EE944 /* UIBarButtonItem+Theme.h */,
 				7D3784B3183A9938009EE944 /* UIBarButtonItem+Theme.m */,
 				7D7417781AE2D3CE001F1997 /* VLCNavigationController.h */,
@@ -1354,6 +1358,24 @@
 			name = Cloud;
 			sourceTree = "<group>";
 		};
+		7D4DFEA81BDF982400979881 /* Cloud Integration */ = {
+			isa = PBXGroup;
+			children = (
+				41CD69561A29D71B00E60BCE /* Box */,
+				9B51719A17EDEC8900F8FBA7 /* GoogleDrive */,
+				7DFB1567185CC38A008D49BB /* Dropbox */,
+				7D1052EA1A4DCC1700295F08 /* OneDrive */,
+				7D3784AF183A990F009EE944 /* VLCCloudStorageTableViewCell.h */,
+				7D3784B0183A990F009EE944 /* VLCCloudStorageTableViewCell.m */,
+				9B088306183D7BEC004B5C2A /* VLCCloudStorageTableViewController.h */,
+				9B088307183D7BEC004B5C2A /* VLCCloudStorageTableViewController.m */,
+				4184AA131A5492070063DF5A /* VLCCloudStorageController.h */,
+				4184AA141A5492070063DF5A /* VLCCloudStorageController.m */,
+			);
+			name = "Cloud Integration";
+			path = ..;
+			sourceTree = "<group>";
+		};
 		7D5278C41BD7DE3D00D0CA0E /* Products */ = {
 			isa = PBXGroup;
 			children = (
@@ -1368,23 +1390,11 @@
 		7D5E39CC174FCDBE007DAFA1 /* Cloud Integration */ = {
 			isa = PBXGroup;
 			children = (
+				E0C04F921A25B41C0080331A /* Document Picker */,
 				41B93C021A53835300102E8B /* VLCCloudServiceCell.h */,
 				41B93C031A53835300102E8B /* VLCCloudServiceCell.m */,
-				41B93BFF1A53833B00102E8B /* VLCProgressView.h */,
-				41B93C001A53833B00102E8B /* VLCProgressView.m */,
-				41CD69561A29D71B00E60BCE /* Box */,
-				E0C04F921A25B41C0080331A /* Document Picker */,
-				9B51719A17EDEC8900F8FBA7 /* GoogleDrive */,
-				7DFB1567185CC38A008D49BB /* Dropbox */,
-				7D1052EA1A4DCC1700295F08 /* OneDrive */,
-				7D3784AF183A990F009EE944 /* VLCCloudStorageTableViewCell.h */,
-				7D3784B0183A990F009EE944 /* VLCCloudStorageTableViewCell.m */,
-				9B088306183D7BEC004B5C2A /* VLCCloudStorageTableViewController.h */,
-				9B088307183D7BEC004B5C2A /* VLCCloudStorageTableViewController.m */,
 				417CDA201A48D1F300D9ACE7 /* VLCCloudServicesTableViewController.h */,
 				417CDA211A48D1F300D9ACE7 /* VLCCloudServicesTableViewController.m */,
-				4184AA131A5492070063DF5A /* VLCCloudStorageController.h */,
-				4184AA141A5492070063DF5A /* VLCCloudStorageController.m */,
 			);
 			name = "Cloud Integration";
 			sourceTree = "<group>";
@@ -1775,13 +1785,13 @@
 			name = Library;
 			sourceTree = "<group>";
 		};
-		7DEC8BE21BD6880C006E1093 /* UI */ = {
+		7DEC8BE21BD6880C006E1093 /* UI Elements */ = {
 			isa = PBXGroup;
 			children = (
 				9BADAF43185FBD9D00108BD8 /* VLCFrostedGlasView.h */,
 				9BADAF44185FBD9D00108BD8 /* VLCFrostedGlasView.m */,
 			);
-			name = UI;
+			name = "UI Elements";
 			sourceTree = "<group>";
 		};
 		7DEC8BE31BD68882006E1093 /* Network UI */ = {
@@ -1848,6 +1858,7 @@
 				7D3784AC183A9906009EE944 /* VLCDropboxTableViewController.m */,
 			);
 			name = Dropbox;
+			path = AspenProject;
 			sourceTree = "<group>";
 		};
 		9B2E0CED17FB5B3F0098E3DF /* GoogleDrive */ = {
@@ -1869,6 +1880,7 @@
 				7D30F3E9183AB34200FFC021 /* VLCGoogleDriveTableViewController.m */,
 			);
 			name = GoogleDrive;
+			path = AspenProject;
 			sourceTree = "<group>";
 		};
 		A7924697170F0ED20036AAF2 /* Resources */ = {
@@ -2007,7 +2019,7 @@
 				DD3EFF0B1BDEBCE500B68579 /* ManualConnect */,
 				DD3EFF101BDEBCE500B68579 /* Plex */,
 				DD3EFF1B1BDEBCE500B68579 /* SAP */,
-				DD3EFF1E1BDEBCE500B68579 /* SMB */,
+				DD3EFF1E1BDEBCE500B68579 /* SMB/DSM */,
 				DD3EFF211BDEBCE500B68579 /* UPnP */,
 				DD3EFF281BDEBCE500B68579 /* VLCLocalNetworkService-Protocol.h */,
 				DD3EFF291BDEBCE500B68579 /* VLCLocalNetworkServiceBrowser-Protocol.h */,
@@ -2094,12 +2106,13 @@
 			path = SAP;
 			sourceTree = "<group>";
 		};
-		DD3EFF1E1BDEBCE500B68579 /* SMB */ = {
+		DD3EFF1E1BDEBCE500B68579 /* SMB/DSM */ = {
 			isa = PBXGroup;
 			children = (
 				DD3EFF1F1BDEBCE500B68579 /* VLCLocalNetworkServiceBrowserDSM.h */,
 				DD3EFF201BDEBCE500B68579 /* VLCLocalNetworkServiceBrowserDSM.m */,
 			);
+			name = SMB/DSM;
 			path = SMB;
 			sourceTree = "<group>";
 		};
@@ -2119,7 +2132,8 @@
 		DD7110ED1AF38AFD00854776 /* SharedSources */ = {
 			isa = PBXGroup;
 			children = (
-				7DEC8BE21BD6880C006E1093 /* UI */,
+				7D4DFEA81BDF982400979881 /* Cloud Integration */,
+				7DEC8BE21BD6880C006E1093 /* UI Elements */,
 				7DEC8BE01BD686D3006E1093 /* Playback */,
 				7DEC8BE11BD686FA006E1093 /* Library */,
 				DD3EFEEF1BDEBCE500B68579 /* ServerBrowsing */,
