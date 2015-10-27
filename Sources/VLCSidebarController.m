@@ -68,7 +68,7 @@
 
 - (void)setContentViewController:(UIViewController *)contentViewController
 {
-    contentViewController.view.backgroundColor = [UIColor VLCDarkBackgroundColor];
+    contentViewController.view.backgroundColor = [UIColor VLCMenuBackgroundColor];
     _sideMenuViewController.contentViewController = contentViewController;
 }
 

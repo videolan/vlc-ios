@@ -96,7 +96,7 @@ static NSString *WiFiCellIdentifier = @"VLCMenuWiFiCell";
                                                           style:UITableViewStylePlain];
     _menuTableView.delegate = self;
     _menuTableView.dataSource = self;
-    _menuTableView.backgroundColor = [UIColor clearColor];
+    _menuTableView.backgroundColor = [UIColor VLCMenuBackgroundColor];
     _menuTableView.separatorStyle = UITableViewCellSeparatorStyleNone;
     _menuTableView.indicatorStyle = UIScrollViewIndicatorStyleWhite;
     _menuTableView.rowHeight = rowHeight;
@@ -223,12 +223,13 @@ static NSString *WiFiCellIdentifier = @"VLCMenuWiFiCell";
     UIView *headerView = nil;
     if (headerText) {
         headerView = [[UIView alloc] initWithFrame:CGRectMake(0.0f, 0.0f, [UIScreen mainScreen].bounds.size.height, HEADER_HEIGHT)];
+        headerView.backgroundColor = [UIColor VLCMenuBackgroundColor];
 
         UILabel *textLabel = [UILabel new];
         textLabel.text = headerText;
         textLabel.font = [UIFont fontWithName:@"Helvetica-Bold" size:[UIFont systemFontSize]];
         textLabel.textColor = [UIColor whiteColor];
-        textLabel.backgroundColor = [UIColor clearColor];
+        textLabel.backgroundColor = [UIColor VLCMenuBackgroundColor];
         [textLabel sizeToFit];
         textLabel.translatesAutoresizingMaskIntoConstraints = NO;
         [headerView addSubview:textLabel];

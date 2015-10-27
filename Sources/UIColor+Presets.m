@@ -34,6 +34,11 @@
     return [UIColor colorWithWhite:0. alpha:.25f];
 }
 
++ (UIColor *)VLCMenuBackgroundColor
+{
+    return [UIColor colorWithWhite:.17f alpha:1.];
+}
+
 + (UIColor *)VLCOrangeTintColor
 {
     return [UIColor colorWithRed:1.0f green:(132.0f/255.0f) blue:0.0f alpha:1.f];

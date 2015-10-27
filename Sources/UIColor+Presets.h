@@ -19,5 +19,6 @@
 + (UIColor *)VLCLightTextColor;
 + (UIColor *)VLCDarkTextShadowColor;
 + (UIColor *)VLCOrangeTintColor;
++ (UIColor *)VLCMenuBackgroundColor;
 
 @end
