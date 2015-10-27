@@ -20,6 +20,15 @@
     self.clearsSelectionOnViewWillAppear = NO;
     UINib *nib = [UINib nibWithNibName:@"VLCLocalNetworkServerTVCell" bundle:nil];
     [self.tableView registerNib:nib forCellReuseIdentifier:VLCLocalServerTVCell];
+    self.tableView.rowHeight = 150;
+}
+- (void)viewDidAppear:(BOOL)animated {
+    [super viewDidAppear:animated];
+    [self.discoveryController startDiscovery];
+}
+- (void)viewDidDisappear:(BOOL)animated {
+    [super viewDidDisappear:animated];
+    [self.discoveryController stopDiscovery];
 }
 
 #pragma mark - Table view data source
@@ -46,6 +55,7 @@
 #pragma mark - VLCLocalServerDiscoveryController
 - (void)discoveryFoundSomethingNew {
     [self.tableView reloadData];
+    NSLog(@"%s",__PRETTY_FUNCTION__);
 }
 
 /*

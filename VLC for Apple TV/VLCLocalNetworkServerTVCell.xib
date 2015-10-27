@@ -6,18 +6,18 @@
     <objects>
         <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner"/>
         <placeholder placeholderIdentifier="IBFirstResponder" id="-2" customClass="UIResponder"/>
-        <tableViewCell contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" textLabel="KKl-d9-ruX" rowHeight="100" style="IBUITableViewCellStyleDefault" id="K9f-aR-apf" customClass="VLCLocalNetworkServerTVCell">
-            <rect key="frame" x="0.0" y="0.0" width="1920" height="100"/>
+        <tableViewCell contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" textLabel="KKl-d9-ruX" rowHeight="150" style="IBUITableViewCellStyleDefault" id="K9f-aR-apf" customClass="VLCLocalNetworkServerTVCell">
+            <rect key="frame" x="0.0" y="0.0" width="1920" height="150"/>
             <autoresizingMask key="autoresizingMask"/>
             <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="K9f-aR-apf" id="EZR-E1-3S2">
-                <rect key="frame" x="0.0" y="0.0" width="1904" height="100"/>
+                <rect key="frame" x="0.0" y="0.0" width="1904" height="150"/>
                 <autoresizingMask key="autoresizingMask"/>
                 <subviews>
                     <label opaque="NO" multipleTouchEnabled="YES" contentMode="left" text="Title" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="KKl-d9-ruX">
-                        <rect key="frame" x="20" y="0.0" width="1864" height="100"/>
+                        <rect key="frame" x="20" y="0.0" width="1864" height="150"/>
                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                         <animations/>
-                        <fontDescription key="fontDescription" type="system" pointSize="38"/>
+                        <fontDescription key="fontDescription" style="UICTFontTextStyleHeadline"/>
                         <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
                         <nil key="highlightedColor"/>
                     </label>
@@ -25,7 +25,7 @@
                 <animations/>
             </tableViewCellContentView>
             <animations/>
-            <point key="canvasLocation" x="403" y="-236"/>
+            <point key="canvasLocation" x="403" y="-211"/>
         </tableViewCell>
     </objects>
 </document>

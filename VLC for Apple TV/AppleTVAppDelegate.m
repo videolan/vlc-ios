@@ -57,7 +57,6 @@
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions {
 
     self.window = [[UIWindow alloc] initWithFrame:[[UIScreen mainScreen] bounds]];
-
     _localNetworkVC = [[VLCLocalNetworkTVViewController alloc] initWithNibName:nil bundle:nil];
     _sharesVC = [[VLCAppSharesTVViewController alloc] initWithNibName:nil bundle:nil];
     _cloudServicesVC = [[VLCCloudServicesTVViewController alloc] initWithNibName:nil bundle:nil];
@@ -69,7 +68,9 @@
 
     _mainViewController = [[UITabBarController alloc] init];
     _mainViewController.tabBar.backgroundColor = [UIColor VLCOrangeTintColor];
-    _mainViewController.viewControllers = @[_sharesVC, _localNetworkVC, _cloudServicesVC, _openNetworkVC, _aboutSettingsVC];
+
+    _mainViewController.viewControllers = @[[[UINavigationController alloc] initWithRootViewController:_sharesVC],
+                                            _localNetworkVC, _cloudServicesVC, _openNetworkVC, _aboutSettingsVC];
 
     VLCPlayerDisplayController *playerDisplayController = [VLCPlayerDisplayController sharedInstance];
     playerDisplayController.childViewController = _mainViewController;

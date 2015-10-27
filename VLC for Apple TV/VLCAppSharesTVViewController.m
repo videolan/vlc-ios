@@ -22,6 +22,7 @@
     [super viewDidLoad];
     NSArray *classes = @[[VLCLocalNetworkServiceBrowserHTTP class]];
     self.discoveryController = [[VLCLocalServerDiscoveryController alloc] initWithServiceBrowserClasses:classes];
+    self.discoveryController.delegate = self;
 }
 
 - (NSString *)title {
