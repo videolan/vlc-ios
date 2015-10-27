@@ -109,21 +109,6 @@
     return _byteCounterFormatter;
 }
 
-- (BOOL)isSupportedItem:(id<VLCNetworkServerBrowserItem>)item {
-    NSString *properObjectName = item.name;
-    NSString *itemURLName = item.URL.lastPathComponent;
-    return [properObjectName isSupportedFormat] || [itemURLName isSupportedFormat];
-}
-
-- (void)showUnsupportedFileAlertForItem:(id<VLCNetworkServerBrowserItem>)item {
-    VLCAlertView *alert = [[VLCAlertView alloc] initWithTitle:NSLocalizedString(@"FILE_NOT_SUPPORTED", nil)
-                                                      message:[NSString stringWithFormat:NSLocalizedString(@"FILE_NOT_SUPPORTED_LONG", nil), item.name]
-                                                     delegate:self
-                                            cancelButtonTitle:NSLocalizedString(@"BUTTON_CANCEL", nil)
-                                            otherButtonTitles:nil];
-    [alert show];
-}
-
 #pragma mark - server browser item specifics
 
 - (void)_downloadItem:(id<VLCNetworkServerBrowserItem>)item
@@ -331,39 +316,35 @@
         VLCNetworkServerBrowserViewController *targetViewController = [[VLCNetworkServerBrowserViewController alloc] initWithServerBrowser:item.containerBrowser];
         [self.navigationController pushViewController:targetViewController animated:YES];
     } else {
-        if (![self isSupportedItem:item]) {
-            [self showUnsupportedFileAlertForItem:item];
+        if (searchResult) {
+            [self _streamFileForItem:item];
         } else {
-            if (searchResult) {
-                [self _streamFileForItem:item];
-            } else {
-                VLCMediaList *mediaList = self.serverBrowser.mediaList;
+            VLCMediaList *mediaList = self.serverBrowser.mediaList;
 
-                if ([item respondsToSelector:@selector(subtitleURL)]) {
-                    NSArray *items = self.serverBrowser.items;
-                    id<VLCNetworkServerBrowserItem> loopItem;
-                    [mediaList lock];
-                    NSUInteger count = mediaList.count;
-                    for (NSUInteger i = 0; i < count; i++) {
-                        loopItem = items[i];
-                        NSString *URLofSubtitle = nil;
-                        NSURL *remoteSubtitleURL = [loopItem subtitleURL];
-                        if (remoteSubtitleURL == nil) {
-                            NSArray *SubtitlesList = [self _searchSubtitle:loopItem.URL.lastPathComponent];
-                            remoteSubtitleURL = SubtitlesList.firstObject;
-                        }
-
-                        if(remoteSubtitleURL != nil) {
-                            URLofSubtitle = [self _getFileSubtitleFromServer:remoteSubtitleURL];
-                            if (URLofSubtitle != nil)
-                                [[mediaList mediaAtIndex:i] addOptions:@{ kVLCSettingSubtitlesFilePath : URLofSubtitle }];
-                        }
+            if ([item respondsToSelector:@selector(subtitleURL)]) {
+                NSArray *items = self.serverBrowser.items;
+                id<VLCNetworkServerBrowserItem> loopItem;
+                [mediaList lock];
+                NSUInteger count = mediaList.count;
+                for (NSUInteger i = 0; i < count; i++) {
+                    loopItem = items[i];
+                    NSString *URLofSubtitle = nil;
+                    NSURL *remoteSubtitleURL = [loopItem subtitleURL];
+                    if (remoteSubtitleURL == nil) {
+                        NSArray *SubtitlesList = [self _searchSubtitle:loopItem.URL.lastPathComponent];
+                        remoteSubtitleURL = SubtitlesList.firstObject;
                     }
-                    [mediaList unlock];
-                }
 
-                [self _streamMediaList:mediaList startingAtIndex:row];
+                    if(remoteSubtitleURL != nil) {
+                        URLofSubtitle = [self _getFileSubtitleFromServer:remoteSubtitleURL];
+                        if (URLofSubtitle != nil)
+                            [[mediaList mediaAtIndex:i] addOptions:@{ kVLCSettingSubtitlesFilePath : URLofSubtitle }];
+                    }
+                }
+                [mediaList unlock];
             }
+
+            [self _streamMediaList:mediaList startingAtIndex:row];
         }
     }
     [tableView deselectRowAtIndexPath:indexPath animated:NO];
@@ -378,21 +359,16 @@
     else
         item = self.serverBrowser.items[[self.tableView indexPathForCell:cell].row];
 
-
-    if (![self isSupportedItem:item]) {
-        [self showUnsupportedFileAlertForItem:item];
+    if (item.fileSizeBytes.longLongValue  < [[UIDevice currentDevice] freeDiskspace].longLongValue) {
+        [self _downloadItem:item];
+        [cell.statusLabel showStatusMessage:NSLocalizedString(@"DOWNLOADING", nil)];
     } else {
-        if (item.fileSizeBytes.longLongValue  < [[UIDevice currentDevice] freeDiskspace].longLongValue) {
-            [self _downloadItem:item];
-            [cell.statusLabel showStatusMessage:NSLocalizedString(@"DOWNLOADING", nil)];
-        } else {
-            VLCAlertView *alert = [[VLCAlertView alloc] initWithTitle:NSLocalizedString(@"DISK_FULL", nil)
-                                                              message:[NSString stringWithFormat:NSLocalizedString(@"DISK_FULL_FORMAT", nil), item.name, [[UIDevice currentDevice] model]]
-                                                             delegate:self
-                                                    cancelButtonTitle:NSLocalizedString(@"BUTTON_OK", nil)
-                                                    otherButtonTitles:nil];
-            [alert show];
-        }
+        VLCAlertView *alert = [[VLCAlertView alloc] initWithTitle:NSLocalizedString(@"DISK_FULL", nil)
+                                                          message:[NSString stringWithFormat:NSLocalizedString(@"DISK_FULL_FORMAT", nil), item.name, [[UIDevice currentDevice] model]]
+                                                         delegate:self
+                                                cancelButtonTitle:NSLocalizedString(@"BUTTON_OK", nil)
+                                                otherButtonTitles:nil];
+        [alert show];
     }
 }
 
