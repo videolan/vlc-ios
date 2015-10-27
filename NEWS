@@ -5,6 +5,7 @@
 * Added support for SMB file sharing (#8879)
 * Added support for music albums with more than 1 disk (#14650)
 * Re-wrote Apple Watch extension for watchOS 2
+* Media stored in folders on remote servers is now played as a list
 * Reworked networking UI
 * Added support for system-wide search "CoreSpotlight"
 * Added improved UI support for Right-to-Left languages

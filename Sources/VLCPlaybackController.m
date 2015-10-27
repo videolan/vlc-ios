@@ -567,12 +567,19 @@ NSString *const VLCPlaybackControllerPlaybackDidFail = @"VLCPlaybackControllerPl
         [_mediaPlayer performSelector:@selector(setTextRendererFontSize:) withObject:[[NSUserDefaults standardUserDefaults] objectForKey:kVLCSettingSubtitlesFontSize]];
         [_mediaPlayer performSelector:@selector(setTextRendererFontColor:) withObject:[[NSUserDefaults standardUserDefaults] objectForKey:kVLCSettingSubtitlesFontColor]];
     } else if (currentState == VLCMediaPlayerStateError) {
+        APLog(@"Playback failed");
         _playbackFailed = YES;
         [self stopPlayback];
     } else if ((currentState == VLCMediaPlayerStateEnded || currentState == VLCMediaPlayerStateStopped) && _listPlayer.repeatMode == VLCDoNotRepeat) {
-        if ([_listPlayer.mediaList indexOfMedia:_mediaPlayer.media] == _listPlayer.mediaList.count - 1) {
+        [_listPlayer.mediaList lock];
+        NSUInteger listCount = _listPlayer.mediaList.count;
+        if ([_listPlayer.mediaList indexOfMedia:_mediaPlayer.media] == listCount - 1) {
+            [_listPlayer.mediaList unlock];
             [self stopPlayback];
             return;
+        } else if (listCount > 1) {
+            [_listPlayer.mediaList unlock];
+            [_listPlayer next];
         }
     }
 
