@@ -9,8 +9,7 @@
  * Refer to the COPYING file of the official project for license.
  *****************************************************************************/
 
-#import <UIKit/UIKit.h>
-
-@interface VLCAppSharesTVViewController : UIViewController
+#import "VLCServerListTVTableViewController.h"
+@interface VLCAppSharesTVViewController : VLCServerListTVTableViewController
 
 @end

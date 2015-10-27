@@ -10,6 +10,7 @@
  *****************************************************************************/
 
 #import "VLCAppSharesTVViewController.h"
+#import "VLCLocalNetworkServiceBrowserHTTP.h"
 
 @interface VLCAppSharesTVViewController ()
 
@@ -19,12 +20,8 @@
 
 - (void)viewDidLoad {
     [super viewDidLoad];
-    // Do any additional setup after loading the view.
-}
-
-- (void)didReceiveMemoryWarning {
-    [super didReceiveMemoryWarning];
-    // Dispose of any resources that can be recreated.
+    NSArray *classes = @[[VLCLocalNetworkServiceBrowserHTTP class]];
+    self.discoveryController = [[VLCLocalServerDiscoveryController alloc] initWithServiceBrowserClasses:classes];
 }
 
 - (NSString *)title {
