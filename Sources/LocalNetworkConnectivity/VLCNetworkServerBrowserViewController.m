@@ -139,6 +139,12 @@
                                                      fileNameOfMedia:filename];
 }
 
+- (void)_streamMediaList:(VLCMediaList *)mediaList startingAtIndex:(NSInteger)startIndex
+{
+    VLCPlaybackController *vpc = [VLCPlaybackController sharedInstance];
+    [vpc playMediaList:mediaList firstIndex:startIndex];
+}
+
 - (void)_streamFileForItem:(id<VLCNetworkServerBrowserItem>)item
 {
     NSString *URLofSubtitle = nil;
@@ -311,10 +317,13 @@
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
 {
     id<VLCNetworkServerBrowserItem> item;
+    NSInteger row = indexPath.row;
+    BOOL searchResult = NO;
     if (tableView == self.searchDisplayController.searchResultsTableView) {
-        item = _searchArray[indexPath.row];
+        item = _searchArray[row];
+        searchResult = YES;
     } else {
-        item = self.serverBrowser.items[indexPath.row];
+        item = self.serverBrowser.items[row];
     }
 
     if (item.isContainer) {
@@ -323,8 +332,13 @@
     } else {
         if (![self isSupportedItem:item]) {
             [self showUnsupportedFileAlertForItem:item];
-        } else
-            [self _streamFileForItem:item];
+        } else {
+            if (searchResult) {
+                [self _streamFileForItem:item];
+            } else {
+                [self _streamMediaList:self.serverBrowser.mediaList startingAtIndex:row];
+            }
+        }
     }
     [tableView deselectRowAtIndexPath:indexPath animated:NO];
 }

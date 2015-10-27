@@ -19,8 +19,10 @@ NS_ASSUME_NONNULL_BEGIN
 
 @protocol VLCNetworkServerBrowser <NSObject>
 
+@required
 @property (nonatomic, weak) id <VLCNetworkServerBrowserDelegate> delegate;
 @property (nonatomic, readonly, nullable) NSString *title;
+@property (nonatomic, readonly, copy) VLCMediaList *mediaList;
 @property (nonatomic, copy, readonly) NSArray<id<VLCNetworkServerBrowserItem>> *items;
 
 - (void)update;
@@ -34,10 +36,12 @@ NS_ASSUME_NONNULL_BEGIN
 
 
 @protocol VLCNetworkServerBrowserItem <NSObject>
+@required
 @property (nonatomic, readonly, getter=isContainer) BOOL container;
 // if item is container browser is the browser for the container
 @property (nonatomic, readonly, nullable) id<VLCNetworkServerBrowser> containerBrowser;
 
+@property (nonatomic, readonly, nullable) VLCMedia *media;
 @property (nonatomic, readonly) NSString *name;
 @property (nonatomic, readonly, nullable) NSURL *URL;
 @property (nonatomic, readonly, nullable) NSNumber *fileSizeBytes;

@@ -75,11 +75,27 @@
             [itemsArray addObject:[[VLCNetworkServerBrowserItemUPnP alloc] initWithBasicObject:object device:self.upnpDevice]];
         }
 
-        self.items = [itemsArray copy];
+        @synchronized(_items) {
+            _items = [itemsArray copy];
+        }
         [[NSOperationQueue mainQueue] addOperationWithBlock:^{
             [self.delegate networkServerBrowserDidUpdate:self];
         }];
     }];
+}
+
+- (VLCMediaList *)mediaList
+{
+    NSMutableArray *mediaArray = [NSMutableArray array];
+    @synchronized(_items) {
+        NSUInteger count = _items.count;
+        for (NSUInteger i = 0; i < count; i++) {
+            VLCMedia *media = [_items[i] media];
+            if (media)
+                [mediaArray addObject:media];
+        }
+    }
+    return [[VLCMediaList alloc] initWithArray:mediaArray];
 }
 
 @end
@@ -268,6 +284,13 @@
     return broadcastImage;
 }
 
+- (VLCMedia *)media
+{
+    if (!_URL)
+        return nil;
+    return [VLCMedia mediaWithURL:_URL];
+}
+
 @end
 
 #pragma mark - Multi Ressource
@@ -288,6 +311,21 @@
 - (void) update {
     [self.delegate networkServerBrowserDidUpdate:self];
 }
+
+- (VLCMediaList *)mediaList
+{
+    NSMutableArray *mediaArray = [NSMutableArray array];
+    @synchronized(_items) {
+        NSUInteger count = _items.count;
+        for (NSUInteger i = 0; i < count; i++) {
+            VLCMedia *media = [_items[i] media];
+            if (media)
+                [mediaArray addObject:media];
+        }
+    }
+    return [[VLCMediaList alloc] initWithArray:mediaArray];
+}
+
 @end
 
 
@@ -308,6 +346,13 @@
 
 - (id<VLCNetworkServerBrowser>)containerBrowser {
     return nil;
+}
+
+- (VLCMedia *)media
+{
+    if (!_URL)
+        return nil;
+    return [VLCMedia mediaWithURL:_URL];
 }
 
 @end

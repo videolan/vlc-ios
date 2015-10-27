@@ -46,10 +46,10 @@
     for (NSUInteger i = 0; i < count; i++) {
         VLCMedia *media = [rootItems mediaAtIndex:i];
         VLCMedia *newMedia = [VLCMedia mediaWithURL:media.url];
-        [self.mutableItems addObject:[[VLCNetworkServerBrowserItemVLCMedia alloc] initWithMedia:newMedia options:self.mediaOptions]];
         newMedia.delegate = self;
         [newMedia addOptions:self.mediaOptions];
         [newMedia parseWithOptions:VLCMediaParseNetwork];
+        [self.mutableItems addObject:[[VLCNetworkServerBrowserItemVLCMedia alloc] initWithMedia:newMedia options:self.mediaOptions]];
     }
     [rootItems unlock];
 }
@@ -101,12 +101,11 @@
 @end
 
 @interface VLCNetworkServerBrowserItemVLCMedia () <VLCMediaDelegate>
-@property (nonatomic, readonly) VLCMedia *media;
 @property (nonatomic, readonly) NSDictionary *mediaOptions;
 
 @end
 @implementation VLCNetworkServerBrowserItemVLCMedia
-@synthesize name = _name, container = _container, fileSizeBytes = _fileSizeBytes, URL = _URL;
+@synthesize name = _name, container = _container, fileSizeBytes = _fileSizeBytes, URL = _URL, media = _media;
 
 - (instancetype)initWithMedia:(VLCMedia *)media options:(NSDictionary *)mediaOptions;
 {

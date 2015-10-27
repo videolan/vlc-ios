@@ -95,12 +95,25 @@
         self.title = titleValue;
     }
     self.plexAuthentification = newAuth;
-    self.items = [newItems copy];
+    @synchronized(_items) {
+        _items = [newItems copy];
+    }
     [[NSOperationQueue mainQueue] addOperationWithBlock:^{
         [self.delegate networkServerBrowserDidUpdate:self];
     }];
 }
 
+- (VLCMediaList *)mediaList
+{
+    NSMutableArray *mediaArray = [NSMutableArray array];
+    @synchronized(_items) {
+        NSUInteger count = _items.count;
+        for (NSUInteger i = 0; i < count; i++) {
+            [mediaArray addObject:[_items[i] media]];
+        }
+    }
+    return [[VLCMediaList alloc] initWithArray:mediaArray];
+}
 
 - (NSString *)_urlAuth:(NSString *)url
 {
@@ -166,6 +179,14 @@
         _subtitleURL = subtitleURLString.length ? [baseURL URLByAppendingPathComponent:subtitleURLString] : nil;
     }
     return self;
+}
+
+- (VLCMedia *)media
+{
+    if (!_URL)
+        return nil;
+
+    return [VLCMedia mediaWithURL:_URL];
 }
 
 - (id<VLCNetworkServerBrowser>)containerBrowser {

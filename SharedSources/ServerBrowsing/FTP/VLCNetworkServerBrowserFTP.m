@@ -16,7 +16,6 @@
 @interface VLCNetworkServerBrowserFTP () <WRRequestDelegate>
 @property (nonatomic) NSURL *url;
 @property (nonatomic) WRRequestListDirectory *FTPListDirRequest;
-@property (nonatomic, readwrite) NSArray<id<VLCNetworkServerBrowserItem>> *items;
 
 @end
 
@@ -68,6 +67,20 @@
     return self;
 }
 
+- (VLCMediaList *)mediaList
+{
+    NSMutableArray *mediaArray = [NSMutableArray array];
+    @synchronized(_items) {
+        NSUInteger count = _items.count;
+        for (NSUInteger i = 0; i < count; i++) {
+            VLCMedia *media = [_items[i] media];
+            if (media)
+                [mediaArray addObject:media];
+        }
+    }
+    return [[VLCMediaList alloc] initWithArray:mediaArray];
+}
+
 #pragma mark - white raccoon delegation
 
 - (void)requestCompleted:(WRRequest *)request
@@ -83,7 +96,9 @@
                 [filteredList addObject:[[VLCNetworkServerBrowserItemFTP alloc] initWithDictionary:dict baseURL:self.url]];
         }
         [[NSOperationQueue mainQueue] addOperationWithBlock:^{
-            self.items = [NSArray arrayWithArray:filteredList];
+            @synchronized(_items) {
+                _items = [NSArray arrayWithArray:filteredList];
+            }
             [self.delegate networkServerBrowserDidUpdate:self];
         }];
     } else
@@ -130,6 +145,13 @@
 
 - (id<VLCNetworkServerBrowser>)containerBrowser {
     return [[VLCNetworkServerBrowserFTP alloc] initWithURL:self.URL];
+}
+
+- (VLCMedia *)media
+{
+    if (_URL)
+        return [VLCMedia mediaWithURL:_URL];
+    return nil;
 }
 
 @end

@@ -20,8 +20,11 @@ NS_ASSUME_NONNULL_BEGIN
 @end
 
 @interface VLCNetworkServerBrowserItemFTP : NSObject <VLCNetworkServerBrowserItem>
+
 - (instancetype)initWithDictionary:(NSDictionary *)dict baseURL:(NSURL *)baseURL;
+
+@property (nonatomic, readwrite) NSArray<id<VLCNetworkServerBrowserItem>> *items;
+
 @end
 
 NS_ASSUME_NONNULL_END
-

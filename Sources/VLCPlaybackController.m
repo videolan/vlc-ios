@@ -142,10 +142,10 @@ NSString *const VLCPlaybackControllerPlaybackDidFail = @"VLCPlaybackControllerPl
     return YES;
 }
 
-- (void)playMediaList:(VLCMediaList *)mediaList firstIndex:(int)index
+- (void)playMediaList:(VLCMediaList *)mediaList firstIndex:(NSInteger)index
 {
     self.mediaList = mediaList;
-    self.itemInMediaListToBePlayedFirst = index;
+    self.itemInMediaListToBePlayedFirst = (int)index;
     self.pathToExternalSubtitlesFile = nil;
 
     if (self.activePlaybackSession) {
