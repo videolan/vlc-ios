@@ -60,7 +60,7 @@
     [self.titleLabel sizeToFit];
 
     self.clipsToBounds = YES;
-    self.backgroundColor = [UIColor clearColor];
+    self.backgroundColor = [UIColor VLCMenuBackgroundColor];
     self.selectionStyle =  UITableViewCellSelectionStyleNone;
 
     self.uploadAddressLabel = [UILabel new];
@@ -84,17 +84,23 @@
 {
     UIView *spacer1 = [UIView new];
     UIView *spacer2 = [UIView new];
+    UIView *spacer3 = [UIView new];
+    UIView *spacer4 = [UIView new];
     spacer1.translatesAutoresizingMaskIntoConstraints = NO;
     spacer2.translatesAutoresizingMaskIntoConstraints = NO;
+    spacer3.translatesAutoresizingMaskIntoConstraints = NO;
+    spacer4.translatesAutoresizingMaskIntoConstraints = NO;
     [self.contentView addSubview:spacer1];
     [self.contentView addSubview:spacer2];
+    [self.contentView addSubview:spacer3];
+    [self.contentView addSubview:spacer4];
 
-    NSDictionary *dict = NSDictionaryOfVariableBindings(_titleLabel, _uploadAddressLabel, _serverOnButton, spacer1, spacer2);
+    NSDictionary *dict = NSDictionaryOfVariableBindings(_titleLabel, _uploadAddressLabel, _serverOnButton, spacer1, spacer2, spacer3, spacer4);
     
     [self.contentView addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"H:|[_serverOnButton(50)]-==8-[_titleLabel]" options:0 metrics:0 views:dict]];
     [self.contentView addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"H:|[_serverOnButton(50)]-==8-[_uploadAddressLabel]" options:0 metrics:0 views:dict]];
     [self.contentView addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"V:|[spacer1][_titleLabel]-==0-[_uploadAddressLabel(>=0)][spacer2(==spacer1)]|" options:0 metrics:0 views:dict]];
-    [self.contentView addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"V:|[_serverOnButton(50)]|" options:0 metrics:0 views:dict]];
+    [self.contentView addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"V:|[spacer3][_serverOnButton(50)][spacer4]|" options:0 metrics:0 views:dict]];
 }
 
 - (void)netReachabilityChanged
