@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="9058" systemVersion="15B30a" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="9059" systemVersion="15B42" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES">
     <dependencies>
         <deployment version="1792" identifier="iOS"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="9048"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="9049"/>
     </dependencies>
     <objects>
         <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner"/>
@@ -11,24 +11,24 @@
             <rect key="frame" x="0.0" y="0.0" width="320" height="90"/>
             <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
             <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="3" id="pEL-yt-P8r">
-                <rect key="frame" x="0.0" y="0.0" width="320" height="89.5"/>
+                <rect key="frame" x="0.0" y="0.0" width="320" height="89"/>
                 <autoresizingMask key="autoresizingMask"/>
                 <subviews>
                     <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFill" translatesAutoresizingMaskIntoConstraints="NO" id="4">
-                        <rect key="frame" x="0.0" y="0.0" width="320" height="89.5"/>
+                        <rect key="frame" x="0.0" y="0.0" width="320" height="89"/>
                         <animations/>
                         <color key="backgroundColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
                     </imageView>
                     <imageView hidden="YES" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="top" image="folderIcon.png" translatesAutoresizingMaskIntoConstraints="NO" id="5iA-hI-rrr">
-                        <rect key="frame" x="0.0" y="35" width="320" height="54.5"/>
+                        <rect key="frame" x="0.0" y="35" width="320" height="54"/>
                         <animations/>
                     </imageView>
                     <imageView userInteractionEnabled="NO" contentMode="scaleToFill" image="gradient-cell-ios7" translatesAutoresizingMaskIntoConstraints="NO" id="22">
-                        <rect key="frame" x="0.0" y="0.0" width="320" height="89.5"/>
+                        <rect key="frame" x="0.0" y="0.0" width="320" height="89"/>
                         <animations/>
                     </imageView>
                     <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleToFill" text="Title" textAlignment="natural" lineBreakMode="wordWrap" baselineAdjustment="none" minimumScaleFactor="0.5" adjustsLetterSpacingToFitWidth="YES" translatesAutoresizingMaskIntoConstraints="NO" id="6">
-                        <rect key="frame" x="8" y="35" width="304" height="24.5"/>
+                        <rect key="frame" x="8" y="40" width="30" height="18"/>
                         <animations/>
                         <fontDescription key="fontDescription" type="system" weight="light" pointSize="15"/>
                         <color key="textColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
@@ -36,7 +36,7 @@
                         <size key="shadowOffset" width="0.0" height="0.0"/>
                     </label>
                     <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleToFill" text="New" textAlignment="right" lineBreakMode="wordWrap" baselineAdjustment="none" minimumScaleFactor="0.5" adjustsLetterSpacingToFitWidth="YES" translatesAutoresizingMaskIntoConstraints="NO" id="sYw-l2-Tmv">
-                        <rect key="frame" x="286.5" y="67" width="25.5" height="14.5"/>
+                        <rect key="frame" x="286" y="66" width="26" height="15"/>
                         <animations/>
                         <fontDescription key="fontDescription" type="system" pointSize="12"/>
                         <color key="textColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
@@ -44,7 +44,7 @@
                         <size key="shadowOffset" width="0.0" height="0.0"/>
                     </label>
                     <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleToFill" text="Subtitle — Subtitle" lineBreakMode="wordWrap" baselineAdjustment="alignBaselines" minimumScaleFactor="0.5" translatesAutoresizingMaskIntoConstraints="NO" id="7">
-                        <rect key="frame" x="8" y="67" width="106" height="14.5"/>
+                        <rect key="frame" x="8" y="66" width="106" height="15"/>
                         <animations/>
                         <fontDescription key="fontDescription" type="system" pointSize="12"/>
                         <color key="textColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
@@ -52,10 +52,10 @@
                         <size key="shadowOffset" width="0.0" height="0.0"/>
                     </label>
                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Meta Data" textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="3xi-uj-aAV">
-                        <rect key="frame" x="8" y="8" width="304" height="27"/>
+                        <rect key="frame" x="131" y="8" width="59" height="15"/>
                         <animations/>
                         <fontDescription key="fontDescription" type="system" pointSize="12"/>
-                        <color key="textColor" cocoaTouchSystemColor="lightTextColor"/>
+                        <color key="textColor" red="1" green="1" blue="1" alpha="0.59999999999999998" colorSpace="calibratedRGB"/>
                         <nil key="highlightedColor"/>
                     </label>
                 </subviews>
@@ -69,7 +69,6 @@
                     <constraint firstItem="7" firstAttribute="top" secondItem="6" secondAttribute="bottom" constant="8" id="FDZ-lE-uBQ"/>
                     <constraint firstItem="3xi-uj-aAV" firstAttribute="top" secondItem="pEL-yt-P8r" secondAttribute="top" constant="8" id="G7M-XR-ut3"/>
                     <constraint firstAttribute="bottom" secondItem="22" secondAttribute="bottom" id="JC6-Q6-E9V"/>
-                    <constraint firstItem="6" firstAttribute="top" secondItem="3xi-uj-aAV" secondAttribute="bottom" id="Kas-PX-vm8"/>
                     <constraint firstAttribute="bottom" secondItem="sYw-l2-Tmv" secondAttribute="bottom" constant="8" id="MpI-5C-JLG"/>
                     <constraint firstAttribute="trailing" secondItem="5iA-hI-rrr" secondAttribute="trailing" id="PfR-Cm-d7h"/>
                     <constraint firstAttribute="trailing" secondItem="4" secondAttribute="trailing" id="Q12-b6-BKB"/>
@@ -77,19 +76,12 @@
                     <constraint firstAttribute="bottom" secondItem="7" secondAttribute="bottom" constant="8" id="V2A-54-5Em"/>
                     <constraint firstItem="22" firstAttribute="top" secondItem="pEL-yt-P8r" secondAttribute="top" id="VLS-dT-bzc"/>
                     <constraint firstItem="5iA-hI-rrr" firstAttribute="leading" secondItem="pEL-yt-P8r" secondAttribute="leading" id="VNu-Ix-mHw"/>
-                    <constraint firstItem="3xi-uj-aAV" firstAttribute="leading" secondItem="pEL-yt-P8r" secondAttribute="leading" constant="8" id="VUx-h5-ae7"/>
-                    <constraint firstItem="sYw-l2-Tmv" firstAttribute="leading" relation="greaterThanOrEqual" secondItem="7" secondAttribute="trailing" constant="8" id="Wb4-Pv-BIS"/>
                     <constraint firstItem="22" firstAttribute="leading" secondItem="pEL-yt-P8r" secondAttribute="leading" id="XbD-ch-L0p"/>
+                    <constraint firstItem="3xi-uj-aAV" firstAttribute="centerX" secondItem="22" secondAttribute="centerX" id="Y3s-4z-kaM"/>
                     <constraint firstAttribute="trailing" secondItem="sYw-l2-Tmv" secondAttribute="trailing" constant="8" id="Zcw-z4-u4F"/>
-                    <constraint firstAttribute="bottom" secondItem="22" secondAttribute="bottom" id="b0j-Zr-f4n"/>
-                    <constraint firstItem="22" firstAttribute="leading" secondItem="pEL-yt-P8r" secondAttribute="leading" id="bM8-Zl-piv"/>
                     <constraint firstItem="7" firstAttribute="leading" secondItem="pEL-yt-P8r" secondAttribute="leading" constant="8" id="faR-g7-XYt"/>
                     <constraint firstAttribute="bottom" secondItem="4" secondAttribute="bottom" id="izG-dY-vNl"/>
                     <constraint firstItem="4" firstAttribute="top" secondItem="pEL-yt-P8r" secondAttribute="top" id="j8t-Ng-xOy"/>
-                    <constraint firstAttribute="trailing" secondItem="6" secondAttribute="trailing" constant="8" id="l9j-Qq-3QE"/>
-                    <constraint firstAttribute="trailing" secondItem="22" secondAttribute="trailing" id="lvH-eY-9Xa"/>
-                    <constraint firstItem="6" firstAttribute="top" secondItem="5iA-hI-rrr" secondAttribute="top" id="pQD-DM-a5q"/>
-                    <constraint firstAttribute="trailing" secondItem="3xi-uj-aAV" secondAttribute="trailing" constant="8" id="ri1-Fw-8xM"/>
                 </constraints>
             </tableViewCellContentView>
             <animations/>
