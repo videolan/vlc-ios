@@ -238,12 +238,16 @@
 
             NSArray<NSString *>* protocolStrings = [[mediaItem uriCollection] allKeys];
             protocolStrings = [protocolStrings filteredArrayUsingPredicate:[NSPredicate predicateWithBlock:^BOOL(NSString * _Nonnull evaluatedObject, NSDictionary<NSString *,id> * _Nullable bindings) {
-                return [evaluatedObject containsString:@"http-get:*:video/"];
+                if ([evaluatedObject containsString:@"http-get:*:video/"])
+                    return YES;
+                if ([evaluatedObject containsString:@"http-get:*:audio/"])
+                    return YES;
+                return NO;
             }]];
             if (protocolStrings.count == 1) {
                 _URL = [NSURL URLWithString:[mediaItem uri]];
             } else if (protocolStrings.count > 1) {
-                // whith mutlple playable ressources we simulate to be a container
+                // withh multiple playable resources we simulate to be a container
                 _container = YES;
             }
         }
