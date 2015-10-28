@@ -85,9 +85,9 @@
     _viewAppeared = NO;
     [self.navigationController setNavigationBarHidden:NO animated:YES];
 
-    [super viewWillDisappear:animated];
+    [vpc stopPlayback];
 
-    [[UIApplication sharedApplication] sendAction:@selector(closeFullscreenPlayback) to:nil from:self forEvent:nil];
+    [super viewWillDisappear:animated];
 }
 
 - (BOOL)canBecomeFirstResponder
