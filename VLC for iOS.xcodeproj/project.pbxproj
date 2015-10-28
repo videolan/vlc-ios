@@ -332,6 +332,13 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
+		7D13346E1BE0EA0B0012E919 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 7D5278C31BD7DE3D00D0CA0E /* DropboxSDK.xcodeproj */;
+			proxyType = 1;
+			remoteGlobalIDString = D3933BE4145F12AD00E15FA7;
+			remoteInfo = SDropboxSDK;
+		};
 		7D5278CA1BD7DE3D00D0CA0E /* PBXContainerItemProxy */ = {
 			isa = PBXContainerItemProxy;
 			containerPortal = 7D5278C31BD7DE3D00D0CA0E /* DropboxSDK.xcodeproj */;
@@ -2208,6 +2215,7 @@
 			buildRules = (
 			);
 			dependencies = (
+				7D13346F1BE0EA0B0012E919 /* PBXTargetDependency */,
 				DD35677D1B6760BF00338947 /* PBXTargetDependency */,
 			);
 			name = "vlc-ios";
@@ -2832,6 +2840,11 @@
 /* End PBXSourcesBuildPhase section */
 
 /* Begin PBXTargetDependency section */
+		7D13346F1BE0EA0B0012E919 /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			name = SDropboxSDK;
+			targetProxy = 7D13346E1BE0EA0B0012E919 /* PBXContainerItemProxy */;
+		};
 		7D5278D51BD7DE7D00D0CA0E /* PBXTargetDependency */ = {
 			isa = PBXTargetDependency;
 			name = DropboxTVSDK;
