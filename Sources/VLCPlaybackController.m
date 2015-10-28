@@ -349,21 +349,23 @@ NSString *const VLCPlaybackControllerPlaybackDidFail = @"VLCPlaybackControllerPl
         if (_listPlayer)
             _listPlayer = nil;
     }
-    if (_mediaList)
-        _mediaList = nil;
-    if (_url)
-        _url = nil;
-    if (_pathToExternalSubtitlesFile) {
-        NSFileManager *fileManager = [NSFileManager defaultManager];
-        if ([fileManager fileExistsAtPath:_pathToExternalSubtitlesFile])
-            [fileManager removeItemAtPath:_pathToExternalSubtitlesFile error:nil];
-        _pathToExternalSubtitlesFile = nil;
+    if (!_sessionWillRestart) {
+        if (_mediaList)
+            _mediaList = nil;
+        if (_url)
+            _url = nil;
+        if (_pathToExternalSubtitlesFile) {
+            NSFileManager *fileManager = [NSFileManager defaultManager];
+            if ([fileManager fileExistsAtPath:_pathToExternalSubtitlesFile])
+                [fileManager removeItemAtPath:_pathToExternalSubtitlesFile error:nil];
+            _pathToExternalSubtitlesFile = nil;
+        }
     }
     _playerIsSetup = NO;
 
-    if (self.errorCallback && _playbackFailed)
+    if (self.errorCallback && _playbackFailed && !_sessionWillRestart)
         [[UIApplication sharedApplication] openURL:self.errorCallback];
-    else if (self.successCallback)
+    else if (self.successCallback && !_sessionWillRestart)
         [[UIApplication sharedApplication] openURL:self.successCallback];
 
     [MPNowPlayingInfoCenter defaultCenter].nowPlayingInfo = nil;
@@ -569,12 +571,14 @@ NSString *const VLCPlaybackControllerPlaybackDidFail = @"VLCPlaybackControllerPl
     } else if (currentState == VLCMediaPlayerStateError) {
         APLog(@"Playback failed");
         _playbackFailed = YES;
+        self.sessionWillRestart = NO;
         [self stopPlayback];
     } else if ((currentState == VLCMediaPlayerStateEnded || currentState == VLCMediaPlayerStateStopped) && _listPlayer.repeatMode == VLCDoNotRepeat) {
         [_listPlayer.mediaList lock];
         NSUInteger listCount = _listPlayer.mediaList.count;
         if ([_listPlayer.mediaList indexOfMedia:_mediaPlayer.media] == listCount - 1) {
             [_listPlayer.mediaList unlock];
+            self.sessionWillRestart = NO;
             [self stopPlayback];
             return;
         } else if (listCount > 1) {
@@ -777,20 +781,6 @@ NSString *const VLCPlaybackControllerPlaybackDidFail = @"VLCPlaybackControllerPl
 }
 
 #pragma mark - Managing the media item
-
-- (void)setUrl:(NSURL *)url
-{
-    [self stopPlayback];
-    _url = url;
-    _playerIsSetup = NO;
-}
-
-- (void)setMediaList:(VLCMediaList *)mediaList
-{
-    [self stopPlayback];
-    _mediaList = mediaList;
-    _playerIsSetup = NO;
-}
 
 #if TARGET_OS_IOS
 - (MLFile *)currentlyPlayingMediaFile {
