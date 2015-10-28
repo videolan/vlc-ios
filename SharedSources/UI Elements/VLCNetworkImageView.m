@@ -64,6 +64,7 @@ static NSCache *sharedImageCache = nil;
                 }
             }];
         }];
+        [self.downloadTask resume];
     }
 }
 @end
