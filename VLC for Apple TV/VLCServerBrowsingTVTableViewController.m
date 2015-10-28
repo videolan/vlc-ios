@@ -11,6 +11,8 @@
 
 #import "VLCServerBrowsingTVTableViewController.h"
 #import "VLCServerBrowsingTVCell.h"
+#import "VLCPlayerDisplayController.h"
+#import "VLCPlaybackController.h"
 
 @interface VLCServerBrowsingTVTableViewController ()
 @property (nonatomic, readonly) id<VLCNetworkServerBrowser>serverBrowser;
@@ -145,11 +147,18 @@
 }
 
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
-    id<VLCNetworkServerBrowserItem> item = self.serverBrowser.items[indexPath.row];
+    NSInteger row = indexPath.row;
+    id<VLCNetworkServerBrowserItem> item = self.serverBrowser.items[row];
 
     if (item.isContainer) {
         VLCServerBrowsingTVTableViewController *browsingViewController = [[VLCServerBrowsingTVTableViewController alloc] initWithServerBrowser:[item containerBrowser]];
         [self showViewController:browsingViewController sender:nil];
+    } else {
+        [VLCPlayerDisplayController sharedInstance].displayMode = VLCPlayerDisplayControllerDisplayModeFullscreen;
+        VLCPlaybackController *vpc = [VLCPlaybackController sharedInstance];
+
+        VLCMediaList *mediaList = self.serverBrowser.mediaList;
+        [vpc playMediaList:mediaList firstIndex:row];
     }
 }
 
