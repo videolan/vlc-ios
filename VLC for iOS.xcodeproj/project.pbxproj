@@ -71,6 +71,9 @@
 		7D1329411BA1F10100BE647E /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 7D1329401BA1F10100BE647E /* main.m */; };
 		7D1329441BA1F10100BE647E /* AppleTVAppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 7D1329431BA1F10100BE647E /* AppleTVAppDelegate.m */; };
 		7D13294F1BA1F10100BE647E /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 7D13294E1BA1F10100BE647E /* Assets.xcassets */; };
+		7D13347C1BE132EA0012E919 /* VLCLocalNetworkServiceBrowserUPnP.m in Sources */ = {isa = PBXBuildFile; fileRef = DD3EFF231BDEBCE500B68579 /* VLCLocalNetworkServiceBrowserUPnP.m */; };
+		7D13347F1BE132ED0012E919 /* VLCLocalNetworkServiceUPnP.m in Sources */ = {isa = PBXBuildFile; fileRef = DD3EFF251BDEBCE500B68579 /* VLCLocalNetworkServiceUPnP.m */; };
+		7D1334801BE132F10012E919 /* VLCNetworkServerBrowserUPnP.m in Sources */ = {isa = PBXBuildFile; fileRef = DD3EFF271BDEBCE500B68579 /* VLCNetworkServerBrowserUPnP.m */; };
 		7D1516421868D7E0004B18F3 /* VLCFirstStepsFifthPageViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 7D15163B1868D7E0004B18F3 /* VLCFirstStepsFifthPageViewController.xib */; };
 		7D1516431868D7E0004B18F3 /* VLCFirstStepsFirstPageViewController~iphone.xib in Resources */ = {isa = PBXBuildFile; fileRef = 7D15163C1868D7E0004B18F3 /* VLCFirstStepsFirstPageViewController~iphone.xib */; };
 		7D1516461868D7E0004B18F3 /* VLCFirstStepsSixthPageViewController~iphone.xib in Resources */ = {isa = PBXBuildFile; fileRef = 7D15163F1868D7E0004B18F3 /* VLCFirstStepsSixthPageViewController~iphone.xib */; };
@@ -2636,6 +2639,7 @@
 				DDEAECF71BDFEB0200756C83 /* VLCLocalNetworkServerTVCell.m in Sources */,
 				DDDEA6AF1BE027FA000BB7A2 /* VLCServerBrowsingTVTableViewController.m in Sources */,
 				DD3EFF461BDEBCE500B68579 /* VLCLocalNetworkServiceBrowserManualConnect.m in Sources */,
+				7D13347F1BE132ED0012E919 /* VLCLocalNetworkServiceUPnP.m in Sources */,
 				DD3EFF4A1BDEBCE500B68579 /* VLCLocalNetworkServiceBrowserPlex.m in Sources */,
 				7DEC8BED1BD68D6A006E1093 /* VLCAboutTVViewController.m in Sources */,
 				7DEC8BD81BD66DA8006E1093 /* VLCMiniPlaybackView.m in Sources */,
@@ -2645,6 +2649,7 @@
 				7D60696C1BD93BE200AB765C /* VLCCloudStorageTableViewCell.m in Sources */,
 				7D7EF3DD1BD5779F00CD4CEE /* VLCPlaybackController.m in Sources */,
 				DD3EFF361BDEBCE500B68579 /* VLCLocalNetworkServiceBrowserNetService.m in Sources */,
+				7D13347C1BE132EA0012E919 /* VLCLocalNetworkServiceBrowserUPnP.m in Sources */,
 				DDEAECF11BDFE9E800756C83 /* VLCServerListTVTableViewController.m in Sources */,
 				7DEC8BDE1BD67899006E1093 /* VLCFullscreenMovieTVViewController.m in Sources */,
 				7DEC8BD71BD658E6006E1093 /* VLCPlayerDisplayController.m in Sources */,
@@ -2660,6 +2665,7 @@
 				7D0C35331BD97C100058CD19 /* VLCOneDriveController.m in Sources */,
 				7D60696B1BD93AC800AB765C /* VLCDropboxTableViewController.m in Sources */,
 				DD3EFF3C1BDEBCE500B68579 /* VLCNetworkServerBrowserVLCMedia.m in Sources */,
+				7D1334801BE132F10012E919 /* VLCNetworkServerBrowserUPnP.m in Sources */,
 				DDEAECC71BDEC79D00756C83 /* VLCLocalNetworkServiceBrowserSAP.m in Sources */,
 				7D1329441BA1F10100BE647E /* AppleTVAppDelegate.m in Sources */,
 				7D1329411BA1F10100BE647E /* main.m in Sources */,

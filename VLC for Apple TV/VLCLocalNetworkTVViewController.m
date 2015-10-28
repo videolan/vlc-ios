@@ -14,7 +14,7 @@
 #import "VLCLocalNetworkServiceBrowserManualConnect.h"
 #import "VLCLocalNetworkServiceBrowserPlex.h"
 //#import "VLCLocalNetworkServiceBrowserFTP.h"
-//#import "VLCLocalNetworkServiceBrowserUPnP.h"
+#import "VLCLocalNetworkServiceBrowserUPnP.h"
 #import "VLCLocalNetworkServiceBrowserSAP.h"
 #import "VLCLocalNetworkServiceBrowserDSM.h"
 
@@ -28,7 +28,7 @@
     [super viewDidLoad];
     NSArray *classes = @[
                          [VLCLocalNetworkServiceBrowserManualConnect class],
-//                         [VLCLocalNetworkServiceBrowserUPnP class],
+                         [VLCLocalNetworkServiceBrowserUPnP class],
                          [VLCLocalNetworkServiceBrowserPlex class],
 //                         [VLCLocalNetworkServiceBrowserFTP class],
                          [VLCLocalNetworkServiceBrowserSAP class],

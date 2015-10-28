@@ -23,11 +23,15 @@
     [self.tableView registerNib:nib forCellReuseIdentifier:VLCLocalServerTVCell];
     self.tableView.rowHeight = 150;
 }
-- (void)viewDidAppear:(BOOL)animated {
+
+- (void)viewDidAppear:(BOOL)animated
+{
     [super viewDidAppear:animated];
     [self.discoveryController startDiscovery];
 }
-- (void)viewDidDisappear:(BOOL)animated {
+
+- (void)viewDidDisappear:(BOOL)animated
+{
     [super viewDidDisappear:animated];
     [self.discoveryController stopDiscovery];
 }
