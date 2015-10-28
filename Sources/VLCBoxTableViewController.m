@@ -41,11 +41,13 @@
 
     self.navigationItem.titleView = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"Box"]];
 
+#if TARGET_OS_IOS
     [self.cloudStorageLogo setImage:[UIImage imageNamed:@"Box"]];
 
     [self.cloudStorageLogo sizeToFit];
     self.cloudStorageLogo.center = self.view.center;
-    
+#endif
+
     // Handle logged in
     NSNotificationCenter *defaultCenter = [NSNotificationCenter defaultCenter];
     [defaultCenter addObserver:self
@@ -93,7 +95,7 @@
     [super viewWillAppear:animated];
     self.currentPath = @"";
     if([_boxController.currentListFiles count] == 0)
-        [self _requestInformationForCurrentPath];
+        [self requestInformationForCurrentPath];
 }
 
 - (void)viewWillDisappear:(BOOL)animated
@@ -138,7 +140,7 @@
         if (![self.currentPath isEqualToString:@""])
             self.currentPath = [self.currentPath stringByAppendingString:@"/"];
         self.currentPath = [self.currentPath stringByAppendingString:_selectedFile.modelID];
-        [self _requestInformationForCurrentPath];
+        [self requestInformationForCurrentPath];
     }
 }
 
@@ -227,7 +229,7 @@
 
     if (maximumOffset - currentOffset <= - self.tableView.rowHeight) {
         if (_boxController.hasMoreFiles && !self.activityIndicator.isAnimating) {
-            [self _requestInformationForCurrentPath];
+            [self requestInformationForCurrentPath];
         }
     }
 }

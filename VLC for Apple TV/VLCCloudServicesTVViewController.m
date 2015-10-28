@@ -31,9 +31,9 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
 
-    self.dropboxTableViewController = [[VLCDropboxTableViewController alloc] initWithNibName:@"VLCCloudStorageTableViewController" bundle:nil];
-    self.oneDriveTableViewController = [[VLCOneDriveTableViewController alloc] initWithNibName:@"VLCCloudStorageTableViewController" bundle:nil];
-    self.boxTableViewController = [[VLCBoxTableViewController alloc] initWithNibName:@"VLCCloudStorageTableViewController" bundle:nil];
+    self.dropboxTableViewController = [[VLCDropboxTableViewController alloc] initWithNibName:nil bundle:nil];
+    self.oneDriveTableViewController = [[VLCOneDriveTableViewController alloc] initWithNibName:nil bundle:nil];
+    self.boxTableViewController = [[VLCBoxTableViewController alloc] initWithNibName:nil bundle:nil];
 }
 
 - (NSString *)title

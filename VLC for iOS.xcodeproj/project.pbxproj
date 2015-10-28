@@ -59,7 +59,6 @@
 		7D00161C177056B700649F27 /* main.js in Resources */ = {isa = PBXBuildFile; fileRef = 7D00161A17704DAC00649F27 /* main.js */; };
 		7D0117F1187F4BA400C5671C /* VLCFirstStepsFirstPageViewController~ipad.xib in Resources */ = {isa = PBXBuildFile; fileRef = 7D0117F0187F4BA400C5671C /* VLCFirstStepsFirstPageViewController~ipad.xib */; };
 		7D0363AC1B2F325500CC0343 /* MediaLibrary.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = 7D0363A71B2F325500CC0343 /* MediaLibrary.xcdatamodeld */; };
-		7D0C34E61BD94DEE0058CD19 /* VLCCloudStorageTableViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 7D0C34E51BD94DEE0058CD19 /* VLCCloudStorageTableViewController.xib */; };
 		7D0C34E71BD951080058CD19 /* NSString+SupportedMedia.m in Sources */ = {isa = PBXBuildFile; fileRef = 7D3784C5183A9972009EE944 /* NSString+SupportedMedia.m */; };
 		7D0C352F1BD97BC50058CD19 /* libLiveTVSDK.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 7D0C352E1BD97BC50058CD19 /* libLiveTVSDK.a */; };
 		7D0C35331BD97C100058CD19 /* VLCOneDriveController.m in Sources */ = {isa = PBXBuildFile; fileRef = 7D1052ED1A4DCD1E00295F08 /* VLCOneDriveController.m */; };
@@ -74,6 +73,7 @@
 		7D13347C1BE132EA0012E919 /* VLCLocalNetworkServiceBrowserUPnP.m in Sources */ = {isa = PBXBuildFile; fileRef = DD3EFF231BDEBCE500B68579 /* VLCLocalNetworkServiceBrowserUPnP.m */; };
 		7D13347F1BE132ED0012E919 /* VLCLocalNetworkServiceUPnP.m in Sources */ = {isa = PBXBuildFile; fileRef = DD3EFF251BDEBCE500B68579 /* VLCLocalNetworkServiceUPnP.m */; };
 		7D1334801BE132F10012E919 /* VLCNetworkServerBrowserUPnP.m in Sources */ = {isa = PBXBuildFile; fileRef = DD3EFF271BDEBCE500B68579 /* VLCNetworkServerBrowserUPnP.m */; };
+		7D1334831BE135700012E919 /* VLCCloudStorageTVTableViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 7D1334821BE135700012E919 /* VLCCloudStorageTVTableViewController.m */; };
 		7D1516421868D7E0004B18F3 /* VLCFirstStepsFifthPageViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 7D15163B1868D7E0004B18F3 /* VLCFirstStepsFifthPageViewController.xib */; };
 		7D1516431868D7E0004B18F3 /* VLCFirstStepsFirstPageViewController~iphone.xib in Resources */ = {isa = PBXBuildFile; fileRef = 7D15163C1868D7E0004B18F3 /* VLCFirstStepsFirstPageViewController~iphone.xib */; };
 		7D1516461868D7E0004B18F3 /* VLCFirstStepsSixthPageViewController~iphone.xib in Resources */ = {isa = PBXBuildFile; fileRef = 7D15163F1868D7E0004B18F3 /* VLCFirstStepsSixthPageViewController~iphone.xib */; };
@@ -142,7 +142,6 @@
 		7D5CAA8C1A4AD8E5003F2CBC /* VLCTrackSelectorHeaderView.m in Sources */ = {isa = PBXBuildFile; fileRef = 7D5CAA8B1A4AD8E5003F2CBC /* VLCTrackSelectorHeaderView.m */; };
 		7D5DD5C717590ABF001421E3 /* About Contents.html in Resources */ = {isa = PBXBuildFile; fileRef = 7D5DD5C617590ABF001421E3 /* About Contents.html */; };
 		7D6069691BD92E6900AB765C /* libSDropboxSDK.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 7D5278CD1BD7DE3D00D0CA0E /* libSDropboxSDK.a */; };
-		7D60696A1BD93ABF00AB765C /* VLCCloudStorageTableViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 9B088307183D7BEC004B5C2A /* VLCCloudStorageTableViewController.m */; };
 		7D60696B1BD93AC800AB765C /* VLCDropboxTableViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 7D3784AC183A9906009EE944 /* VLCDropboxTableViewController.m */; };
 		7D60696C1BD93BE200AB765C /* VLCCloudStorageTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 7D3784B0183A990F009EE944 /* VLCCloudStorageTableViewCell.m */; };
 		7D6069721BD94AD600AB765C /* VLCCloudStorageTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 7D6069711BD94AD600AB765C /* VLCCloudStorageTableViewCell.xib */; };
@@ -562,7 +561,6 @@
 		7D0363A91B2F325500CC0343 /* MediaLibrary-2.5.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = "MediaLibrary-2.5.xcdatamodel"; sourceTree = "<group>"; };
 		7D0363AA1B2F325500CC0343 /* MediaLibrary-2.6.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = "MediaLibrary-2.6.xcdatamodel"; sourceTree = "<group>"; };
 		7D0363AB1B2F325500CC0343 /* MediaLibrary-2.7.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = "MediaLibrary-2.7.xcdatamodel"; sourceTree = "<group>"; };
-		7D0C34E51BD94DEE0058CD19 /* VLCCloudStorageTableViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; name = VLCCloudStorageTableViewController.xib; path = "VLC for Apple TV/VLCCloudStorageTableViewController.xib"; sourceTree = SOURCE_ROOT; };
 		7D0C352E1BD97BC50058CD19 /* libLiveTVSDK.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; name = libLiveTVSDK.a; path = "ImportedSources/OneDrive/src/build/Debug-appletvos/libLiveTVSDK.a"; sourceTree = "<group>"; };
 		7D1052E71A4DCC1100295F08 /* VLCOneDriveTableViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = VLCOneDriveTableViewController.h; path = Sources/VLCOneDriveTableViewController.h; sourceTree = SOURCE_ROOT; };
 		7D1052E81A4DCC1100295F08 /* VLCOneDriveTableViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = VLCOneDriveTableViewController.m; path = Sources/VLCOneDriveTableViewController.m; sourceTree = SOURCE_ROOT; };
@@ -580,6 +578,8 @@
 		7D13297A1BA313D500BE647E /* TVPrefixHeader.pch */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TVPrefixHeader.pch; sourceTree = "<group>"; };
 		7D13297B1BA3142100BE647E /* libTVVLCKit.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; name = libTVVLCKit.a; path = "ImportedSources/VLCKit/build/Debug-appletvos/libTVVLCKit.a"; sourceTree = "<group>"; };
 		7D13297D1BA3160C00BE647E /* libTVVLCKit.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; name = libTVVLCKit.a; path = "ImportedSources/VLCKit/build/Debug-appletvos/libTVVLCKit.a"; sourceTree = "<group>"; };
+		7D1334811BE135700012E919 /* VLCCloudStorageTVTableViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = VLCCloudStorageTVTableViewController.h; sourceTree = "<group>"; };
+		7D1334821BE135700012E919 /* VLCCloudStorageTVTableViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = VLCCloudStorageTVTableViewController.m; sourceTree = "<group>"; };
 		7D15163B1868D7E0004B18F3 /* VLCFirstStepsFifthPageViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; name = VLCFirstStepsFifthPageViewController.xib; path = Resources/VLCFirstStepsFifthPageViewController.xib; sourceTree = SOURCE_ROOT; };
 		7D15163C1868D7E0004B18F3 /* VLCFirstStepsFirstPageViewController~iphone.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; name = "VLCFirstStepsFirstPageViewController~iphone.xib"; path = "Resources/VLCFirstStepsFirstPageViewController~iphone.xib"; sourceTree = SOURCE_ROOT; };
 		7D15163F1868D7E0004B18F3 /* VLCFirstStepsSixthPageViewController~iphone.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; name = "VLCFirstStepsSixthPageViewController~iphone.xib"; path = "Resources/VLCFirstStepsSixthPageViewController~iphone.xib"; sourceTree = SOURCE_ROOT; };
@@ -1368,6 +1368,8 @@
 			children = (
 				7D3E52881BD7B5E100309D15 /* VLCCloudServicesTVViewController.h */,
 				7D3E52891BD7B5E100309D15 /* VLCCloudServicesTVViewController.m */,
+				7D1334811BE135700012E919 /* VLCCloudStorageTVTableViewController.h */,
+				7D1334821BE135700012E919 /* VLCCloudStorageTVTableViewController.m */,
 				7D5278C31BD7DE3D00D0CA0E /* DropboxSDK.xcodeproj */,
 			);
 			name = Cloud;
@@ -1753,7 +1755,6 @@
 				7DC71D201BC83058001FACAA /* VLCAppSharesTVViewController.xib */,
 				7DC71D251BC830A5001FACAA /* VLCLocalNetworkTVViewController.xib */,
 				7D7EF3D91BD56B5900CD4CEE /* VLCOpenNetworkStreamTVViewController.xib */,
-				7D0C34E51BD94DEE0058CD19 /* VLCCloudStorageTableViewController.xib */,
 				DDEAECF51BDFEAFA00756C83 /* VLCLocalNetworkServerTVCell.xib */,
 			);
 			name = xibs;
@@ -2434,7 +2435,6 @@
 				7DC71D271BC830A5001FACAA /* VLCLocalNetworkTVViewController.xib in Resources */,
 				7DC71D221BC83058001FACAA /* VLCAppSharesTVViewController.xib in Resources */,
 				7DEC8C1E1BD69710006E1093 /* About Contents.html in Resources */,
-				7D0C34E61BD94DEE0058CD19 /* VLCCloudStorageTableViewController.xib in Resources */,
 				DDEAECF61BDFEAFA00756C83 /* VLCLocalNetworkServerTVCell.xib in Resources */,
 				7D13294F1BA1F10100BE647E /* Assets.xcassets in Resources */,
 				7DEC8BE91BD68BC9006E1093 /* Settings.bundle in Resources */,
@@ -2649,6 +2649,7 @@
 				7D60696C1BD93BE200AB765C /* VLCCloudStorageTableViewCell.m in Sources */,
 				7D7EF3DD1BD5779F00CD4CEE /* VLCPlaybackController.m in Sources */,
 				DD3EFF361BDEBCE500B68579 /* VLCLocalNetworkServiceBrowserNetService.m in Sources */,
+				7D1334831BE135700012E919 /* VLCCloudStorageTVTableViewController.m in Sources */,
 				7D13347C1BE132EA0012E919 /* VLCLocalNetworkServiceBrowserUPnP.m in Sources */,
 				DDEAECF11BDFE9E800756C83 /* VLCServerListTVTableViewController.m in Sources */,
 				7DEC8BDE1BD67899006E1093 /* VLCFullscreenMovieTVViewController.m in Sources */,
@@ -2674,7 +2675,6 @@
 				DD3EFF341BDEBCE500B68579 /* VLCLocalNetworkServiceBrowserMediaDiscoverer.m in Sources */,
 				DD3EFF421BDEBCE500B68579 /* VLCNetworkServerBrowserSharedLibrary.m in Sources */,
 				7D5278E41BD7E37300D0CA0E /* VLCCloudStorageController.m in Sources */,
-				7D60696A1BD93ABF00AB765C /* VLCCloudStorageTableViewController.m in Sources */,
 				7D3E528B1BD7B5E100309D15 /* VLCCloudServicesTVViewController.m in Sources */,
 				7DEC8C1D1BD6913A006E1093 /* VLCSettingsAboutTableViewController.m in Sources */,
 			);

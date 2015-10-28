@@ -25,7 +25,7 @@
 #endif
 
 
-@interface VLCDropboxTableViewController () <VLCCloudStorageTableViewCell>
+@interface VLCDropboxTableViewController () <VLCCloudStorageTableViewCell, VLCCloudStorageDelegate>
 {
     VLCDropboxController *_dropboxController;
     DBMetadata *_selectedFile;
@@ -61,10 +61,12 @@
 
     self.navigationItem.titleView = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"dropbox-white"]];
 
+#if TARGET_OS_IOS
     [self.cloudStorageLogo setImage:[UIImage imageNamed:@"dropbox-white.png"]];
 
     [self.cloudStorageLogo sizeToFit];
     self.cloudStorageLogo.center = self.view.center;
+#endif
 }
 
 - (void)viewWillAppear:(BOOL)animated
@@ -113,7 +115,7 @@
     else {
         /* dive into subdirectory */
         self.currentPath = [self.currentPath stringByAppendingFormat:@"/%@", _selectedFile.filename];
-        [self _requestInformationForCurrentPath];
+        [self requestInformationForCurrentPath];
     }
     _selectedFile = nil;
 

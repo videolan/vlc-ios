@@ -29,7 +29,7 @@
 
 - (IBAction)loginAction:(id)sender;
 
-- (void)_requestInformationForCurrentPath;
+- (void)requestInformationForCurrentPath;
 - (void)_showLoginPanel;
 - (void)updateViewAfterSessionChange;
 - (void)goBack;

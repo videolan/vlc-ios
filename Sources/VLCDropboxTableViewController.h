@@ -11,9 +11,20 @@
  * Refer to the COPYING file of the official project for license.
  *****************************************************************************/
 
-#import "VLCCloudStorageTableViewController.h"
 #import "VLCDropboxController.h"
+
+#if TARGET_OS_IOS
+#import "VLCCloudStorageTableViewController.h"
 
 @interface VLCDropboxTableViewController : VLCCloudStorageTableViewController
 
 @end
+
+#else
+#import "VLCCloudStorageTVTableViewController.h"
+
+@interface VLCDropboxTableViewController : VLCCloudStorageTVTableViewController
+
+@end
+
+#endif

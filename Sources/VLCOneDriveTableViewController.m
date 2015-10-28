@@ -36,10 +36,12 @@
 
     self.navigationItem.titleView = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"OneDriveWhite"]];
 
+#if TARGET_OS_IOS
     [self.cloudStorageLogo setImage:[UIImage imageNamed:@"OneDriveWhite"]];
 
     [self.cloudStorageLogo sizeToFit];
     self.cloudStorageLogo.center = self.view.center;
+#endif
 }
 
 - (void)viewWillAppear:(BOOL)animated

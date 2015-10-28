@@ -112,12 +112,12 @@
     NSDictionary *attrsDictionary = [NSDictionary dictionaryWithObject:[UIColor whiteColor] forKey:NSForegroundColorAttributeName];
     _refreshControl.attributedTitle = [[NSAttributedString alloc] initWithString:lastupdated attributes:attrsDictionary];
 
-    [self _requestInformationForCurrentPath];
+    [self requestInformationForCurrentPath];
 }
 
 #endif
 
-- (void)_requestInformationForCurrentPath
+- (void)requestInformationForCurrentPath
 {
     [_activityIndicator startAnimating];
     [self.controller requestDirectoryListingAtPath:self.currentPath];
@@ -198,7 +198,7 @@
 {
     if (((![self.currentPath isEqualToString:@""] && ![self.currentPath isEqualToString:@"/"]) && [self.currentPath length] > 0) && [self.controller isAuthorized]){
         self.currentPath = [self.currentPath stringByDeletingLastPathComponent];
-        [self _requestInformationForCurrentPath];
+        [self requestInformationForCurrentPath];
     } else
         [self.navigationController popViewControllerAnimated:YES];
 }
@@ -230,7 +230,7 @@
         self.currentPath = @"";
     }
     if([self.controller.currentListFiles count] == 0)
-        [self _requestInformationForCurrentPath];
+        [self requestInformationForCurrentPath];
 }
 
 - (void)logout
