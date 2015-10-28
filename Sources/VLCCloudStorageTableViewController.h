@@ -30,7 +30,7 @@
 - (IBAction)loginAction:(id)sender;
 
 - (void)requestInformationForCurrentPath;
-- (void)_showLoginPanel;
+- (void)showLoginPanel;
 - (void)updateViewAfterSessionChange;
 - (void)goBack;
 

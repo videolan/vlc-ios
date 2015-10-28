@@ -59,7 +59,7 @@
 
     if (maximumOffset - currentOffset <= - self.tableView.rowHeight) {
         if (_googleDriveController.hasMoreFiles && !self.activityIndicator.isAnimating) {
-            [self _requestInformationForCurrentPath];
+            [self requestInformationForCurrentPath];
         }
     }
 }
@@ -137,7 +137,7 @@
         if (![self.currentPath isEqualToString:@""])
             self.currentPath = [self.currentPath stringByAppendingString:@"/"];
         self.currentPath = [self.currentPath stringByAppendingString:_selectedFile.identifier];
-        [self _requestInformationForCurrentPath];
+        [self requestInformationForCurrentPath];
     }
 }
 

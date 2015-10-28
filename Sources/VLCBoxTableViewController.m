@@ -203,7 +203,7 @@
 
 - (void)boxDidGetLoggedOut
 {
-    [self _showLoginPanel];
+    [self showLoginPanel];
 }
 
 - (void)boxAPIAuthenticationDidFail
@@ -213,7 +213,7 @@
 
 - (void)boxAPIInitiateLogin
 {
-    [self _showLoginPanel];
+    [self showLoginPanel];
 }
 
 - (void)authorizationViewControllerDidCancel:(BoxAuthorizationViewController *)authorizationViewController

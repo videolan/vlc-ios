@@ -203,7 +203,7 @@
         [self.navigationController popViewControllerAnimated:YES];
 }
 
-- (void)_showLoginPanel
+- (void)showLoginPanel
 {
     self.loginToCloudStorageView.frame = self.tableView.frame;
     self.navigationItem.rightBarButtonItem = nil;
@@ -221,7 +221,7 @@
 
     if (![self.controller isAuthorized]) {
         [_activityIndicator stopAnimating];
-        [self _showLoginPanel];
+        [self showLoginPanel];
         return;
     }
 
