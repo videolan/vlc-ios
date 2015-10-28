@@ -1,8 +1,9 @@
 {
   "images" : [
     {
-      "idiom" : "universal",
-      "filename" : "first.pdf"
+      "idiom" : "tv",
+      "filename" : "folder@3x.png",
+      "scale" : "1x"
     }
   ],
   "info" : {
