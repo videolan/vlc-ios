@@ -43,6 +43,10 @@
     self.titleLabel.text = self.remainingTimeLabel.text = self.playedTimeLabel.text = @"";
     self.playbackProgressView.progress = .0;
     self.bottomOverlayView.hidden = YES;
+
+    UITapGestureRecognizer *playpauseGesture = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(playPausePressed)];
+    playpauseGesture.allowedPressTypes = @[@(UIPressTypePlayPause)];
+    [self.view addGestureRecognizer:playpauseGesture];
 }
 
 #pragma mark - view events
@@ -89,6 +93,13 @@
 - (BOOL)canBecomeFirstResponder
 {
     return YES;
+}
+
+#pragma mark - UIActions
+- (void) playPausePressed
+{
+    VLCPlaybackController *vpc = [VLCPlaybackController sharedInstance];
+    [vpc playPause];
 }
 
 #pragma mark - playback controller delegation
