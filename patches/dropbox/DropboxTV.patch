@@ -1,6 +1,6 @@
-diff -ru Dropbox/DropboxSDK/Classes/DBSession+iOS.m Dropbox/DropboxSDK/Classes/DBSession+iOS.m
---- Dropbox/DropboxSDK/Classes/DBSession+iOS.m	2014-09-15 11:51:34.000000000 +0200
-+++ Dropbox/DropboxSDK/Classes/DBSession+iOS.m	2015-10-21 16:10:46.000000000 +0200
+diff -ru dropbox-ios-sdk-1.3.13/DropboxSDK/Classes/DBSession+iOS.m Dropbox/DropboxSDK/Classes/DBSession+iOS.m
+--- dropbox-ios-sdk-1.3.13/DropboxSDK/Classes/DBSession+iOS.m	2014-09-15 12:51:34.000000000 +0200
++++ Dropbox/DropboxSDK/Classes/DBSession+iOS.m	2015-10-28 10:53:04.000000000 +0100
 @@ -10,7 +10,9 @@
  
  #import <CommonCrypto/CommonDigest.h>
@@ -30,9 +30,9 @@ diff -ru Dropbox/DropboxSDK/Classes/DBSession+iOS.m Dropbox/DropboxSDK/Classes/D
  }
  
  - (void)linkFromController:(UIViewController *)rootController {
-diff -ru Dropbox/DropboxSDK/DropboxSDK.xcodeproj/project.pbxproj Dropbox/DropboxSDK/DropboxSDK.xcodeproj/project.pbxproj
---- Dropbox/DropboxSDK/DropboxSDK.xcodeproj/project.pbxproj	2014-09-15 11:51:34.000000000 +0200
-+++ Dropbox/DropboxSDK/DropboxSDK.xcodeproj/project.pbxproj	2015-10-21 16:58:13.000000000 +0200
+diff -ru dropbox-ios-sdk-1.3.13/DropboxSDK/DropboxSDK.xcodeproj/project.pbxproj Dropbox/DropboxSDK/DropboxSDK.xcodeproj/project.pbxproj
+--- dropbox-ios-sdk-1.3.13/DropboxSDK/DropboxSDK.xcodeproj/project.pbxproj	2014-09-15 12:51:34.000000000 +0200
++++ Dropbox/DropboxSDK/DropboxSDK.xcodeproj/project.pbxproj	2015-10-28 12:37:36.000000000 +0100
 @@ -7,6 +7,84 @@
  	objects = {
  
@@ -450,7 +450,29 @@ diff -ru Dropbox/DropboxSDK/DropboxSDK.xcodeproj/project.pbxproj Dropbox/Dropbox
  		D3196B8E1412FE190060E7C6 /* Debug */ = {
  			isa = XCBuildConfiguration;
  			buildSettings = {
-@@ -1068,6 +1396,15 @@
+@@ -1015,6 +1343,10 @@
+ 			isa = XCBuildConfiguration;
+ 			buildSettings = {
+ 				ALWAYS_SEARCH_USER_PATHS = NO;
++				ARCHS = (
++					"$(ARCHS_STANDARD)",
++					armv7s,
++				);
+ 				COPY_PHASE_STRIP = NO;
+ 				DSTROOT = /tmp/SDropboxSDK.dst;
+ 				GCC_C_LANGUAGE_STANDARD = gnu99;
+@@ -1040,6 +1372,10 @@
+ 			isa = XCBuildConfiguration;
+ 			buildSettings = {
+ 				ALWAYS_SEARCH_USER_PATHS = NO;
++				ARCHS = (
++					"$(ARCHS_STANDARD)",
++					armv7s,
++				);
+ 				COPY_PHASE_STRIP = YES;
+ 				DSTROOT = /tmp/SDropboxSDK.dst;
+ 				GCC_C_LANGUAGE_STANDARD = gnu99;
+@@ -1068,6 +1404,15 @@
  			defaultConfigurationIsVisible = 0;
  			defaultConfigurationName = Release;
  		};
