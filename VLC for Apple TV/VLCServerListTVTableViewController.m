@@ -1,10 +1,13 @@
-//
-//  VLCServerListTableViewController.m
-//  VLC for iOS
-//
-//  Created by Tobias Conradi on 27.10.15.
-//  Copyright © 2015 VideoLAN. All rights reserved.
-//
+/*****************************************************************************
+ * VLC for iOS
+ *****************************************************************************
+ * Copyright (c) 2015 VideoLAN. All rights reserved.
+ * $Id$
+ *
+ * Authors: Tobias Conradi <videolan # tobias-conradi.de>
+ *
+ * Refer to the COPYING file of the official project for license.
+ *****************************************************************************/
 
 #import "VLCServerListTVTableViewController.h"
 #import "VLCLocalNetworkServerTVCell.h"
