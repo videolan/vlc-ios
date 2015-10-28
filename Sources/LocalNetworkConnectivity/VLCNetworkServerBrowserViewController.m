@@ -15,13 +15,13 @@
 #import "VLCNetworkServerBrowserViewController.h"
 #import "VLCNetworkListCell.h"
 #import "VLCActivityManager.h"
-#import "NSString+SupportedMedia.h"
-#import "UIDevice+VLC.h"
 #import "VLCStatusLabel.h"
 #import "VLCPlaybackController.h"
 #import "VLCDownloadViewController.h"
+#import "UIDevice+VLC.h"
+#import "NSString+SupportedMedia.h"
+#import "UIDevice+VLC.h"
 
-#import "WhiteRaccoon.h"
 #import "VLCNetworkServerBrowser-Protocol.h"
 
 @interface VLCNetworkServerBrowserViewController () <VLCNetworkServerBrowserDelegate,VLCNetworkListCellDelegate, UITableViewDataSource, UITableViewDelegate, UIActionSheetDelegate>
@@ -31,7 +31,6 @@
 @property (nonatomic) id<VLCNetworkServerBrowser> serverBrowser;
 @property (nonatomic) NSByteCountFormatter *byteCounterFormatter;
 @property (nonatomic) NSArray<id<VLCNetworkServerBrowserItem>> *searchArray;
-@property (nonatomic, readonly) NSCache *imageCache;
 @end
 
 @implementation VLCNetworkServerBrowserViewController
@@ -42,9 +41,6 @@
     if (self) {
         _serverBrowser = browser;
         browser.delegate = self;
-
-        _imageCache = [[NSCache alloc] init];
-        [_imageCache setCountLimit:50];
     }
     return self;
 }
@@ -71,13 +67,9 @@
 
 - (void)networkServerBrowser:(id<VLCNetworkServerBrowser>)networkBrowser requestDidFailWithError:(NSError *)error {
 
-    VLCAlertView *alert = [[VLCAlertView alloc] initWithTitle:NSLocalizedString(@"LOCAL_SERVER_CONNECTION_FAILED_TITLE", nil)
-                                                      message:NSLocalizedString(@"LOCAL_SERVER_CONNECTION_FAILED_MESSAGE", nil)
-                                                     delegate:self
-                                            cancelButtonTitle:NSLocalizedString(@"BUTTON_CANCEL", nil)
-                                            otherButtonTitles:nil];
-    [alert show];
-    
+    [self vlc_showAlertWithTitle:NSLocalizedString(@"LOCAL_SERVER_CONNECTION_FAILED_TITLE", nil)
+                         message:NSLocalizedString(@"LOCAL_SERVER_CONNECTION_FAILED_MESSAGE", nil)
+                     buttonTitle:NSLocalizedString(@"BUTTON_CANCEL", nil)];
 }
 
 - (void)update
@@ -124,6 +116,96 @@
                                                      fileNameOfMedia:filename];
 }
 
+- (BOOL)triggerDownloadForItem:(id<VLCNetworkServerBrowserItem>)item
+{
+    if (item.fileSizeBytes.longLongValue  < [[UIDevice currentDevice] freeDiskspace].longLongValue) {
+        [self _downloadItem:item];
+        return YES;
+    } else {
+        NSString *title = NSLocalizedString(@"DISK_FULL", nil);
+        NSString *messsage = [NSString stringWithFormat:NSLocalizedString(@"DISK_FULL_FORMAT", nil), item.name, [[UIDevice currentDevice] model]];
+        NSString *button = NSLocalizedString(@"BUTTON_OK", nil);
+        [self vlc_showAlertWithTitle:title message:messsage buttonTitle:button];
+        return NO;
+    }
+}
+
+
+
+- (void)didSelectItem:(id<VLCNetworkServerBrowserItem>)item index:(NSUInteger)index singlePlayback:(BOOL)singlePlayback
+{
+    if (item.isContainer) {
+        VLCNetworkServerBrowserViewController *targetViewController = [[VLCNetworkServerBrowserViewController alloc] initWithServerBrowser:item.containerBrowser];
+        [self.navigationController pushViewController:targetViewController animated:YES];
+    } else {
+        if (singlePlayback) {
+            [self _streamFileForItem:item];
+        } else {
+            VLCMediaList *mediaList = self.serverBrowser.mediaList;
+            [self configureSubtitlesInMediaList:mediaList];
+            [self _streamMediaList:mediaList startingAtIndex:index];
+        }
+    }
+}
+
+
+- (void)configureSubtitlesInMediaList:(VLCMediaList *)mediaList {
+    NSArray *items = self.serverBrowser.items;
+    id<VLCNetworkServerBrowserItem> loopItem;
+    [mediaList lock];
+    NSUInteger count = mediaList.count;
+    for (NSUInteger i = 0; i < count; i++) {
+        loopItem = items[i];
+        NSString *URLofSubtitle = nil;
+        NSURL *remoteSubtitleURL = nil;
+        if ([loopItem respondsToSelector:@selector(subtitleURL)]) {
+            [loopItem subtitleURL];
+        }
+        if (remoteSubtitleURL == nil) {
+            NSArray *subtitlesList = [self _searchSubtitle:loopItem.URL.lastPathComponent];
+            remoteSubtitleURL = subtitlesList.firstObject;
+        }
+
+        if(remoteSubtitleURL != nil) {
+            URLofSubtitle = [self _getFileSubtitleFromServer:remoteSubtitleURL];
+            if (URLofSubtitle != nil)
+                [[mediaList mediaAtIndex:i] addOptions:@{ kVLCSettingSubtitlesFilePath : URLofSubtitle }];
+        }
+    }
+    [mediaList unlock];
+}
+
+
+- (NSString *)_getFileSubtitleFromServer:(NSURL *)subtitleURL
+{
+    NSString *FileSubtitlePath = nil;
+    NSData *receivedSub = [NSData dataWithContentsOfURL:subtitleURL]; // TODO: fix synchronous load
+
+    if (receivedSub.length < [[UIDevice currentDevice] freeDiskspace].longLongValue) {
+        NSArray *searchPaths = NSSearchPathForDirectoriesInDomains(NSCachesDirectory, NSUserDomainMask, YES);
+        NSString *directoryPath = searchPaths[0];
+        FileSubtitlePath = [directoryPath stringByAppendingPathComponent:[subtitleURL lastPathComponent]];
+
+        NSFileManager *fileManager = [NSFileManager defaultManager];
+        if (![fileManager fileExistsAtPath:FileSubtitlePath]) {
+            //create local subtitle file
+            [fileManager createFileAtPath:FileSubtitlePath contents:nil attributes:nil];
+            if (![fileManager fileExistsAtPath:FileSubtitlePath]) {
+                APLog(@"file creation failed, no data was saved");
+                return nil;
+            }
+        }
+        [receivedSub writeToFile:FileSubtitlePath atomically:YES];
+    } else {
+
+        [self vlc_showAlertWithTitle:NSLocalizedString(@"DISK_FULL", nil)
+                                            message:[NSString stringWithFormat:NSLocalizedString(@"DISK_FULL_FORMAT", nil), [subtitleURL lastPathComponent], [[UIDevice currentDevice] model]]
+                                        buttonTitle:NSLocalizedString(@"BUTTON_OK", nil)];
+    }
+    
+    return FileSubtitlePath;
+}
+
 - (void)_streamMediaList:(VLCMediaList *)mediaList startingAtIndex:(NSInteger)startIndex
 {
     VLCPlaybackController *vpc = [VLCPlaybackController sharedInstance];
@@ -168,52 +250,6 @@
     return [NSArray arrayWithArray:urls];
 }
 
-- (NSString *)_getFileSubtitleFromServer:(NSURL *)subtitleURL
-{
-    NSString *FileSubtitlePath = nil;
-    NSData *receivedSub = [NSData dataWithContentsOfURL:subtitleURL]; // TODO: fix synchronous load
-
-    if (receivedSub.length < [[UIDevice currentDevice] freeDiskspace].longLongValue) {
-        NSArray *searchPaths = NSSearchPathForDirectoriesInDomains(NSCachesDirectory, NSUserDomainMask, YES);
-        NSString *directoryPath = searchPaths[0];
-        FileSubtitlePath = [directoryPath stringByAppendingPathComponent:[subtitleURL lastPathComponent]];
-
-        NSFileManager *fileManager = [NSFileManager defaultManager];
-        if (![fileManager fileExistsAtPath:FileSubtitlePath]) {
-            //create local subtitle file
-            [fileManager createFileAtPath:FileSubtitlePath contents:nil attributes:nil];
-            if (![fileManager fileExistsAtPath:FileSubtitlePath]) {
-                APLog(@"file creation failed, no data was saved");
-                return nil;
-            }
-        }
-        [receivedSub writeToFile:FileSubtitlePath atomically:YES];
-    } else {
-        VLCAlertView *alert = [[VLCAlertView alloc] initWithTitle:NSLocalizedString(@"DISK_FULL", nil)
-                                                          message:[NSString stringWithFormat:NSLocalizedString(@"DISK_FULL_FORMAT", nil), [subtitleURL lastPathComponent], [[UIDevice currentDevice] model]]
-                                                         delegate:self
-                                                cancelButtonTitle:NSLocalizedString(@"BUTTON_OK", nil)
-                                                otherButtonTitles:nil];
-        [alert show];
-    }
-
-    return FileSubtitlePath;
-}
-
-- (UIImage *)getCachedImage:(NSURL *)url
-{
-    UIImage *image = [self.imageCache objectForKey:url];
-    if ((image != nil) && [image isKindOfClass:[UIImage class]]) {
-        return image;
-    } else {
-        NSData *imageData = [[NSData alloc] initWithContentsOfURL:url];
-        if (imageData) {
-            image = [[UIImage alloc] initWithData:imageData];
-            [self.imageCache setObject:image forKey:url];
-        }
-        return image;
-    }
-}
 
 #pragma mark - table view data source, for more see super
 
@@ -271,19 +307,10 @@
         if ([item respondsToSelector:@selector(thumbnailURL)]) {
             thumbnailURL = item.thumbnailURL;
         }
-        
-        if (thumbnailURL) {
-            dispatch_queue_t queue = dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_LOW, 0);
-            dispatch_async(queue, ^{
-                UIImage *img = [self getCachedImage:thumbnailURL];
-                dispatch_async(dispatch_get_main_queue(), ^{
-                    if (img) {
-                        [cell setIcon:img];
-                    }
-                });
-            });
-        }
 
+        if (thumbnailURL) {
+            [cell setIconURL:thumbnailURL];
+        }
     }
 
     return cell;
@@ -304,51 +331,19 @@
 {
     id<VLCNetworkServerBrowserItem> item;
     NSInteger row = indexPath.row;
-    BOOL searchResult = NO;
+    BOOL singlePlayback = NO;
     if (tableView == self.searchDisplayController.searchResultsTableView) {
         item = _searchArray[row];
-        searchResult = YES;
+        singlePlayback = YES;
     } else {
         item = self.serverBrowser.items[row];
     }
 
-    if (item.isContainer) {
-        VLCNetworkServerBrowserViewController *targetViewController = [[VLCNetworkServerBrowserViewController alloc] initWithServerBrowser:item.containerBrowser];
-        [self.navigationController pushViewController:targetViewController animated:YES];
-    } else {
-        if (searchResult) {
-            [self _streamFileForItem:item];
-        } else {
-            VLCMediaList *mediaList = self.serverBrowser.mediaList;
+    [self didSelectItem:item index:row singlePlayback:singlePlayback];
 
-            if ([item respondsToSelector:@selector(subtitleURL)]) {
-                NSArray *items = self.serverBrowser.items;
-                id<VLCNetworkServerBrowserItem> loopItem;
-                [mediaList lock];
-                NSUInteger count = mediaList.count;
-                for (NSUInteger i = 0; i < count; i++) {
-                    loopItem = items[i];
-                    NSString *URLofSubtitle = nil;
-                    NSURL *remoteSubtitleURL = [loopItem subtitleURL];
-                    if (remoteSubtitleURL == nil) {
-                        NSArray *SubtitlesList = [self _searchSubtitle:loopItem.URL.lastPathComponent];
-                        remoteSubtitleURL = SubtitlesList.firstObject;
-                    }
-
-                    if(remoteSubtitleURL != nil) {
-                        URLofSubtitle = [self _getFileSubtitleFromServer:remoteSubtitleURL];
-                        if (URLofSubtitle != nil)
-                            [[mediaList mediaAtIndex:i] addOptions:@{ kVLCSettingSubtitlesFilePath : URLofSubtitle }];
-                    }
-                }
-                [mediaList unlock];
-            }
-
-            [self _streamMediaList:mediaList startingAtIndex:row];
-        }
-    }
     [tableView deselectRowAtIndexPath:indexPath animated:NO];
 }
+
 
 #pragma mark - VLCNetworkListCell delegation
 - (void)triggerDownloadForCell:(VLCNetworkListCell *)cell
@@ -359,16 +354,8 @@
     else
         item = self.serverBrowser.items[[self.tableView indexPathForCell:cell].row];
 
-    if (item.fileSizeBytes.longLongValue  < [[UIDevice currentDevice] freeDiskspace].longLongValue) {
-        [self _downloadItem:item];
+    if ([self triggerDownloadForItem:item]) {
         [cell.statusLabel showStatusMessage:NSLocalizedString(@"DOWNLOADING", nil)];
-    } else {
-        VLCAlertView *alert = [[VLCAlertView alloc] initWithTitle:NSLocalizedString(@"DISK_FULL", nil)
-                                                          message:[NSString stringWithFormat:NSLocalizedString(@"DISK_FULL_FORMAT", nil), item.name, [[UIDevice currentDevice] model]]
-                                                         delegate:self
-                                                cancelButtonTitle:NSLocalizedString(@"BUTTON_OK", nil)
-                                                otherButtonTitles:nil];
-        [alert show];
     }
 }
 

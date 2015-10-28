@@ -80,16 +80,7 @@
 - (void)setIconURL:(NSURL *)iconURL
 {
     _iconURL = iconURL;
-    [self performSelectorInBackground:@selector(_updateIconFromURL) withObject:@""];
-}
-
-- (void)_updateIconFromURL
-{
-    NSData* imageData = [[NSData alloc]initWithContentsOfURL:self.iconURL];
-    if (!imageData)
-        return;
-    UIImage* image = [[UIImage alloc] initWithData:imageData];
-    [self performSelectorOnMainThread:@selector(setIcon:) withObject:image waitUntilDone:NO];
+    [self.thumbnailView setImageWithURL:iconURL];
 }
 
 - (void)setIsDownloadable:(BOOL)isDownloadable
@@ -101,6 +92,10 @@
 {
     if ([self.delegate respondsToSelector:@selector(triggerDownloadForCell:)])
         [self.delegate triggerDownloadForCell:self];
+}
+
+- (void)prepareForReuse {
+    [self.thumbnailView cancelLoading];
 }
 
 + (CGFloat)heightOfCell
