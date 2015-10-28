@@ -274,6 +274,7 @@
 		DD3567F81B6768FC00338947 /* VLCWatchTableController.m in Sources */ = {isa = PBXBuildFile; fileRef = DD3567EC1B6768FC00338947 /* VLCWatchTableController.m */; };
 		DD3567F91B6768FC00338947 /* WKInterfaceObject+VLCProgress.m in Sources */ = {isa = PBXBuildFile; fileRef = DD3567EE1B6768FC00338947 /* WKInterfaceObject+VLCProgress.m */; };
 		DD3EA6311AF50CFE007FF096 /* VLCWatchMessage.m in Sources */ = {isa = PBXBuildFile; fileRef = DD3EA6301AF50CFE007FF096 /* VLCWatchMessage.m */; };
+		DD3EABE91BE13D5B003668DA /* VLCServerBrowsingTVCell.m in Sources */ = {isa = PBXBuildFile; fileRef = DD3EABE81BE13D5B003668DA /* VLCServerBrowsingTVCell.m */; };
 		DD3EFEED1BDEBA3800B68579 /* VLCNetworkServerBrowserViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = DD3EFEEA1BDEBA3800B68579 /* VLCNetworkServerBrowserViewController.m */; };
 		DD3EFEEE1BDEBA3800B68579 /* VLCServerListViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = DD3EFEEC1BDEBA3800B68579 /* VLCServerListViewController.m */; };
 		DD3EFF2D1BDEBCE500B68579 /* VLCLocalNetworkServiceBrowserFTP.m in Sources */ = {isa = PBXBuildFile; fileRef = DD3EFEF21BDEBCE500B68579 /* VLCLocalNetworkServiceBrowserFTP.m */; };
@@ -909,6 +910,8 @@
 		DD3567EE1B6768FC00338947 /* WKInterfaceObject+VLCProgress.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "WKInterfaceObject+VLCProgress.m"; sourceTree = "<group>"; };
 		DD3EA62F1AF50CFE007FF096 /* VLCWatchMessage.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = VLCWatchMessage.h; sourceTree = "<group>"; };
 		DD3EA6301AF50CFE007FF096 /* VLCWatchMessage.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = VLCWatchMessage.m; sourceTree = "<group>"; };
+		DD3EABE71BE13D5B003668DA /* VLCServerBrowsingTVCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = VLCServerBrowsingTVCell.h; sourceTree = "<group>"; };
+		DD3EABE81BE13D5B003668DA /* VLCServerBrowsingTVCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = VLCServerBrowsingTVCell.m; sourceTree = "<group>"; };
 		DD3EFEE91BDEBA3800B68579 /* VLCNetworkServerBrowserViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = VLCNetworkServerBrowserViewController.h; path = Sources/LocalNetworkConnectivity/VLCNetworkServerBrowserViewController.h; sourceTree = SOURCE_ROOT; };
 		DD3EFEEA1BDEBA3800B68579 /* VLCNetworkServerBrowserViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = VLCNetworkServerBrowserViewController.m; path = Sources/LocalNetworkConnectivity/VLCNetworkServerBrowserViewController.m; sourceTree = SOURCE_ROOT; };
 		DD3EFEEB1BDEBA3800B68579 /* VLCServerListViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = VLCServerListViewController.h; path = Sources/LocalNetworkConnectivity/VLCServerListViewController.h; sourceTree = SOURCE_ROOT; };
@@ -1826,6 +1829,8 @@
 				7D7EF3D81BD56B5900CD4CEE /* VLCOpenNetworkStreamTVViewController.m */,
 				DDEAECF21BDFEAE300756C83 /* VLCLocalNetworkServerTVCell.h */,
 				DDEAECF31BDFEAE300756C83 /* VLCLocalNetworkServerTVCell.m */,
+				DD3EABE71BE13D5B003668DA /* VLCServerBrowsingTVCell.h */,
+				DD3EABE81BE13D5B003668DA /* VLCServerBrowsingTVCell.m */,
 			);
 			name = "Network UI";
 			sourceTree = "<group>";
@@ -2647,6 +2652,7 @@
 				7D7EF3DA1BD56B5900CD4CEE /* VLCOpenNetworkStreamTVViewController.m in Sources */,
 				DD3EFF521BDEBCE500B68579 /* VLCPlexWebAPI.m in Sources */,
 				7D60696C1BD93BE200AB765C /* VLCCloudStorageTableViewCell.m in Sources */,
+				DD3EABE91BE13D5B003668DA /* VLCServerBrowsingTVCell.m in Sources */,
 				7D7EF3DD1BD5779F00CD4CEE /* VLCPlaybackController.m in Sources */,
 				DD3EFF361BDEBCE500B68579 /* VLCLocalNetworkServiceBrowserNetService.m in Sources */,
 				7D1334831BE135700012E919 /* VLCCloudStorageTVTableViewController.m in Sources */,

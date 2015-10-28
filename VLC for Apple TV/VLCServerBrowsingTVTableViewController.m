@@ -10,13 +10,13 @@
  *****************************************************************************/
 
 #import "VLCServerBrowsingTVTableViewController.h"
+#import "VLCServerBrowsingTVCell.h"
 
 @interface VLCServerBrowsingTVTableViewController ()
 @property (nonatomic, readonly) id<VLCNetworkServerBrowser>serverBrowser;
 @property (nonatomic) NSByteCountFormatter *byteCounterFormatter;
 
 @end
-static NSString *const cellIdentifier = @"cell";
 
 @implementation VLCServerBrowsingTVTableViewController
 
@@ -33,11 +33,19 @@ static NSString *const cellIdentifier = @"cell";
 
 - (void)viewDidLoad {
     [super viewDidLoad];
-    [self.tableView registerClass:[UITableViewCell class] forCellReuseIdentifier:cellIdentifier];
+
+    [self.tableView registerClass:[VLCServerBrowsingTVCell class] forCellReuseIdentifier:VLCServerBrowsingTVCellIdentifier];
+    self.navigationItem.rightBarButtonItem = [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemRefresh target:self action:@selector(reloadData)];
 }
 
 - (void)viewDidAppear:(BOOL)animated {
     [super viewDidAppear:animated];
+    [self.serverBrowser update];
+}
+
+#pragma mark -
+
+- (void)reloadData {
     [self.serverBrowser update];
 }
 
@@ -78,10 +86,10 @@ static NSString *const cellIdentifier = @"cell";
 
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
-    UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:cellIdentifier forIndexPath:indexPath];
+    VLCServerBrowsingTVCell *cell = [tableView dequeueReusableCellWithIdentifier:VLCServerBrowsingTVCellIdentifier forIndexPath:indexPath];
 
-    if (cell) {
-        cell = [[UITableViewCell alloc] initWithStyle:UITableViewCellStyleSubtitle reuseIdentifier:cellIdentifier];
+    if (!cell) {
+        cell = [[VLCServerBrowsingTVCell alloc] initWithStyle:UITableViewCellStyleSubtitle reuseIdentifier:VLCServerBrowsingTVCellIdentifier];
     }
 
     id<VLCNetworkServerBrowserItem> item = self.serverBrowser.items[indexPath.row];
