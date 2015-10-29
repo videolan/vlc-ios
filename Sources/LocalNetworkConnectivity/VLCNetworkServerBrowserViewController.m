@@ -40,7 +40,7 @@
     if (self) {
         _serverBrowser = browser;
         browser.delegate = self;
-        _browsingController = [[VLCServerBrowsingController alloc] init];
+        _browsingController = [[VLCServerBrowsingController alloc] initWithViewController:self serverBrowser:browser];
         _browsingController.allowsFileDownload = YES;
     }
     return self;

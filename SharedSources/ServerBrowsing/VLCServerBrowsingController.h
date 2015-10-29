@@ -40,6 +40,7 @@ NS_ASSUME_NONNULL_BEGIN
 @property (nonatomic, readonly) id<VLCNetworkServerBrowser> serverBrowser;
 @property (nonatomic, weak, nullable, readonly) UIViewController *viewController;
 
+- (instancetype)init NS_UNAVAILABLE;
 - (instancetype)initWithViewController:(UIViewController *)viewController serverBrowser:(id<VLCNetworkServerBrowser>)browser;
 
 - (void)configureCell:(id<VLCServerBrowsingCell>)cell withItem:(id<VLCNetworkServerBrowserItem>)item;

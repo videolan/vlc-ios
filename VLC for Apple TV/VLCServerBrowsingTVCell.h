@@ -10,9 +10,13 @@
  *****************************************************************************/
 
 #import <UIKit/UIKit.h>
+#import "VLCServerBrowsingController.h"
+#import "VLCNetworkImageView.h"
 
 extern NSString *const VLCServerBrowsingTVCellIdentifier;
 
-@interface VLCServerBrowsingTVCell : UITableViewCell
-
+@interface VLCServerBrowsingTVCell : UITableViewCell <VLCServerBrowsingCell>
+@property (nonatomic, weak) IBOutlet VLCNetworkImageView *thumbnailImageView;
+@property (nonatomic, weak) IBOutlet UILabel *titleLabel;
+@property (nonatomic, weak) IBOutlet UILabel *subtitleLabel;
 @end

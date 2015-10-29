@@ -13,10 +13,11 @@
 #import "VLCServerBrowsingTVCell.h"
 #import "VLCPlayerDisplayController.h"
 #import "VLCPlaybackController.h"
+#import "VLCServerBrowsingController.h"
 
 @interface VLCServerBrowsingTVTableViewController ()
 @property (nonatomic, readonly) id<VLCNetworkServerBrowser>serverBrowser;
-@property (nonatomic) NSByteCountFormatter *byteCounterFormatter;
+@property (nonatomic) VLCServerBrowsingController *browsingController;
 
 @end
 
@@ -28,6 +29,9 @@
     if (self) {
         _serverBrowser = serverBrowser;
         serverBrowser.delegate = self;
+
+        _browsingController = [[VLCServerBrowsingController alloc] initWithViewController:self serverBrowser:serverBrowser];
+
         self.title = serverBrowser.title;
     }
     return self;
@@ -35,8 +39,8 @@
 
 - (void)viewDidLoad {
     [super viewDidLoad];
-
-    [self.tableView registerClass:[VLCServerBrowsingTVCell class] forCellReuseIdentifier:VLCServerBrowsingTVCellIdentifier];
+    self.tableView.rowHeight = 150;
+    [self.tableView registerNib:[UINib nibWithNibName:@"VLCServerBrowsingTVCell" bundle:nil] forCellReuseIdentifier:VLCServerBrowsingTVCellIdentifier];
     self.navigationItem.rightBarButtonItem = [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemRefresh target:self action:@selector(reloadData)];
 }
 
@@ -60,25 +64,28 @@
 
 - (void)networkServerBrowser:(id<VLCNetworkServerBrowser>)networkBrowser requestDidFailWithError:(NSError *)error {
 
-    UIAlertController *alertController = [UIAlertController alertControllerWithTitle:NSLocalizedString(@"LOCAL_SERVER_CONNECTION_FAILED_TITLE", nil)
-                                                                             message:NSLocalizedString(@"LOCAL_SERVER_CONNECTION_FAILED_MESSAGE", nil)
-                                                                      preferredStyle:UIAlertControllerStyleAlert];
-
-
-    [alertController addAction:[UIAlertAction actionWithTitle:NSLocalizedString(@"BUTTON_CANCEL", nil)
-                                                        style:UIAlertActionStyleCancel
-                                                      handler:nil]];
-    [self presentViewController:alertController animated:YES completion:nil];
+    [self vlc_showAlertWithTitle:NSLocalizedString(@"LOCAL_SERVER_CONNECTION_FAILED_TITLE", nil)
+                         message:NSLocalizedString(@"LOCAL_SERVER_CONNECTION_FAILED_MESSAGE", nil)
+                     buttonTitle:NSLocalizedString(@"BUTTON_CANCEL", nil)];
 }
 
 #pragma mark -
-- (NSByteCountFormatter *)byteCounterFormatter {
-    if (!_byteCounterFormatter) {
-        _byteCounterFormatter = [[NSByteCountFormatter alloc] init];
-    }
-    return _byteCounterFormatter;
-}
 
+- (void)didSelectItem:(id<VLCNetworkServerBrowserItem>)item index:(NSUInteger)index singlePlayback:(BOOL)singlePlayback
+{
+    if (item.isContainer) {
+        VLCServerBrowsingTVTableViewController *targetViewController = [[VLCServerBrowsingTVTableViewController alloc] initWithServerBrowser:item.containerBrowser];
+        [self.navigationController pushViewController:targetViewController animated:YES];
+    } else {
+        if (singlePlayback) {
+            [self.browsingController streamFileForItem:item];
+        } else {
+            VLCMediaList *mediaList = self.serverBrowser.mediaList;
+            [self.browsingController configureSubtitlesInMediaList:mediaList];
+            [self.browsingController streamMediaList:mediaList startingAtIndex:index];
+        }
+    }
+}
 
 #pragma mark - Table view data source
 
@@ -86,63 +93,15 @@
     return [self.serverBrowser items].count;
 }
 
-
-- (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
-    VLCServerBrowsingTVCell *cell = [tableView dequeueReusableCellWithIdentifier:VLCServerBrowsingTVCellIdentifier forIndexPath:indexPath];
-
+- (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
+{
+    VLCServerBrowsingTVCell *cell = (VLCServerBrowsingTVCell *)[tableView dequeueReusableCellWithIdentifier:VLCServerBrowsingTVCellIdentifier];
     if (!cell) {
         cell = [[VLCServerBrowsingTVCell alloc] initWithStyle:UITableViewCellStyleSubtitle reuseIdentifier:VLCServerBrowsingTVCellIdentifier];
     }
-
     id<VLCNetworkServerBrowserItem> item = self.serverBrowser.items[indexPath.row];
 
-    cell.textLabel.text = item.name;
-
-    if (item.isContainer) {
-//        cell.isDirectory = YES;
-        cell.imageView.image = [UIImage imageNamed:@"folder"];
-    } else {
-//        cell.isDirectory = NO;
-        cell.imageView.image = [UIImage imageNamed:@"blank"];
-
-        NSString *sizeString = item.fileSizeBytes ? [self.byteCounterFormatter stringFromByteCount:item.fileSizeBytes.longLongValue] : nil;
-
-        NSString *duration = nil;
-        if ([item respondsToSelector:@selector(duration)]) {
-            duration = item.duration;
-        }
-
-        NSString *subtitle = nil;
-        if (sizeString && duration) {
-            subtitle = [NSString stringWithFormat:@"%@ (%@)",sizeString, duration];
-        } else if (sizeString) {
-            subtitle = sizeString;
-        } else if (duration) {
-            subtitle = duration;
-        }
-        cell.detailTextLabel.text = sizeString;
-//        cell.isDownloadable = YES;
-//        cell.delegate = self;
-
-        NSURL *thumbnailURL = nil;
-        if ([item respondsToSelector:@selector(thumbnailURL)]) {
-            thumbnailURL = item.thumbnailURL;
-        }
-
-//        if (thumbnailURL) {
-//            dispatch_queue_t queue = dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_LOW, 0);
-//            dispatch_async(queue, ^{
-//                UIImage *img = [self getCachedImage:thumbnailURL];
-//                dispatch_async(dispatch_get_main_queue(), ^{
-//                    if (img) {
-//                        [cell setIcon:img];
-//                    }
-//                });
-//            });
-//        }
-
-    }
-    
+    [self.browsingController configureCell:cell withItem:item];
     return cell;
 }
 
@@ -150,16 +109,12 @@
     NSInteger row = indexPath.row;
     id<VLCNetworkServerBrowserItem> item = self.serverBrowser.items[row];
 
-    if (item.isContainer) {
-        VLCServerBrowsingTVTableViewController *browsingViewController = [[VLCServerBrowsingTVTableViewController alloc] initWithServerBrowser:[item containerBrowser]];
-        [self showViewController:browsingViewController sender:nil];
-    } else {
-        [VLCPlayerDisplayController sharedInstance].displayMode = VLCPlayerDisplayControllerDisplayModeFullscreen;
-        VLCPlaybackController *vpc = [VLCPlaybackController sharedInstance];
+    // would make sence if item came from search which isn't
+    // currently the case on the TV
+    const BOOL singlePlayback = NO;
+    [self didSelectItem:item index:row singlePlayback:singlePlayback];
 
-        VLCMediaList *mediaList = self.serverBrowser.mediaList;
-        [vpc playMediaList:mediaList firstIndex:row];
-    }
+
 }
 
 @end
