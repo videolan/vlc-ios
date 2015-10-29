@@ -51,6 +51,21 @@ NSString *const VLCNetworkServerProtocolIdentifierSMB = @"smb";
 
 
 @implementation VLCNetworkServerBrowserVLCMedia (SMB)
+
++ (instancetype)SMBNetworkServerBrowserWithLogin:(VLCNetworkServerLoginInformation *)login
+{
+    NSURLComponents *components = [[NSURLComponents alloc] init];
+    components.scheme = @"smb";
+    components.host = login.address;
+    components.port = login.port;
+    NSURL *url = components.URL;
+    return [self SMBNetworkServerBrowserWithURL:url
+                                       username:login.username
+                                       password:login.password
+                                      workgroup:nil];
+}
+
+
 + (instancetype)SMBNetworkServerBrowserWithURL:(NSURL *)url username:(NSString *)username password:(NSString *)password workgroup:(NSString *)workgroup {
 
 	VLCMedia *media = [VLCMedia mediaWithURL:url];

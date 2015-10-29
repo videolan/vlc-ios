@@ -11,11 +11,13 @@
  *****************************************************************************/
 
 #import "VLCNetworkServerBrowser-Protocol.h"
+#import "VLCNetworkServerLoginInformation.h"
 
 NS_ASSUME_NONNULL_BEGIN
 @interface VLCNetworkServerBrowserPlex : NSObject <VLCNetworkServerBrowser>
 - (instancetype)initWithName:(NSString *)name host:(NSString *)addressOrName portNumber:(NSNumber *)portNumber path:(NSString *)path authentificication:(NSString *)auth NS_DESIGNATED_INITIALIZER;
 - (instancetype)initWithName:(NSString *)name url:(NSURL *)url auth:(NSString *)auth;
+- (instancetype)initWithLogin:(VLCNetworkServerLoginInformation *)login;
 
 - (instancetype)init NS_UNAVAILABLE;
 @end

@@ -11,9 +11,12 @@
  *****************************************************************************/
 
 #import "VLCNetworkServerBrowser-Protocol.h"
+#import "VLCNetworkServerLoginInformation.h"
 
 NS_ASSUME_NONNULL_BEGIN
+
 @interface VLCNetworkServerBrowserFTP : NSObject <VLCNetworkServerBrowser>
+- (instancetype)initWithLogin:(VLCNetworkServerLoginInformation *)login;
 - (instancetype)initWithFTPServer:(NSString *)serverAddress userName:(nullable NSString *)username andPassword:(nullable NSString *)password atPath:(NSString *)path;
 - (instancetype)initWithURL:(NSURL *)url NS_DESIGNATED_INITIALIZER;
 - (instancetype)init NS_UNAVAILABLE;

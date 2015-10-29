@@ -12,6 +12,14 @@
 #import "VLCServerListTVTableViewController.h"
 #import "VLCLocalNetworkServerTVCell.h"
 #import "VLCServerBrowsingTVTableViewController.h"
+#import "VLCNetworkServerLoginInformation.h"
+
+//#import "VLCNetworkServerBrowserFTP.h"
+#import "VLCNetworkServerBrowserPlex.h"
+#import "VLCLocalNetworkServiceBrowserPlex.h"
+#import "VLCNetworkServerBrowserVLCMedia.h"
+#import "VLCLocalNetworkServiceBrowserDSM.h"
+#import <SSKeychain/SSKeychain.h>
 
 @interface VLCServerListTVTableViewController ()
 
@@ -96,14 +104,110 @@
     }
 
     if ([service respondsToSelector:@selector(loginInformation)]) {
-        [self showWIP:@"Login"];
-        return;
-    }
-    if ([service respondsToSelector:@selector(directPlaybackURL)]) {
-        [self showWIP:@"Direct playback form URL"];
+        VLCNetworkServerLoginInformation *login = service.loginInformation;
+        if (!login) return;
+        [self showLoginAlertWithLogin:login];
+
         return;
     }
 
+    if ([service respondsToSelector:@selector(directPlaybackURL)]) {
+
+        NSURL *url = service.directPlaybackURL;
+        if (!url) return;
+
+        VLCPlaybackController *vpc = [VLCPlaybackController sharedInstance];
+        [vpc playURL:url subtitlesFilePath:nil];
+        [self presentViewController:[VLCFullscreenMovieTVViewController fullscreenMovieTVViewController]
+                           animated:YES
+                         completion:nil];
+        return;
+    }
+}
+
+- (void)showLoginAlertWithLogin:(nonnull VLCNetworkServerLoginInformation *)login
+{
+    UIAlertController *alertController = [UIAlertController alertControllerWithTitle:NSLocalizedString(@"CONNECT_TO_SERVER", nil)
+                                                                             message:login.address preferredStyle:UIAlertControllerStyleAlert];
+
+
+    NSURLComponents *components = [[NSURLComponents alloc] init];
+    components.scheme = login.protocolIdentifier;
+    components.host = login.address;
+    components.port = login.port;
+    NSString *serviceIdentifier = components.URL.absoluteString;
+    NSString *accountName = [SSKeychain accountsForService:serviceIdentifier].firstObject[kSSKeychainAccountKey];
+    NSString *password = [SSKeychain passwordForService:serviceIdentifier account:accountName];
+
+
+    __block UITextField *usernameField = nil;
+    __block UITextField *passwordField = nil;
+    [alertController addTextFieldWithConfigurationHandler:^(UITextField * _Nonnull textField) {
+        textField.placeholder = NSLocalizedString(@"USER_LABEL", nil);
+        textField.text = accountName;
+        usernameField = textField;
+    }];
+    [alertController addTextFieldWithConfigurationHandler:^(UITextField * _Nonnull textField) {
+        textField.secureTextEntry = YES;
+        textField.placeholder = NSLocalizedString(@"PASSWORD_LABEL", nil);
+        textField.text = password;
+        passwordField = textField;
+    }];
+    [alertController addAction:[UIAlertAction actionWithTitle:NSLocalizedString(@"LOGIN", nil)
+                                                        style:UIAlertActionStyleDefault
+                                                      handler:^(UIAlertAction * _Nonnull action) {
+                                                          login.username = usernameField.text;
+                                                          login.password = passwordField.text;
+                                                          [self showBrowserWithLogin:login];
+                                                      }]];
+
+    [alertController addAction:[UIAlertAction actionWithTitle:NSLocalizedString(@"BUTTON_SAVE", nil)
+                                                        style:UIAlertActionStyleDefault
+                                                      handler:^(UIAlertAction * _Nonnull action) {
+                                                          NSString *accountName = usernameField.text;
+                                                          NSString *password = passwordField.text;
+                                                          [SSKeychain setPassword:password forService:serviceIdentifier account:accountName];
+                                                          login.username = accountName;
+                                                          login.password = password;
+                                                          [self showBrowserWithLogin:login];
+                                                      }]];
+    if (accountName.length && password.length) {
+        [alertController addAction:[UIAlertAction actionWithTitle:NSLocalizedString(@"BUTTON_DELETE", nil)
+                                                            style:UIAlertActionStyleDestructive
+                                                          handler:^(UIAlertAction * _Nonnull action) {
+                                                              [SSKeychain deletePasswordForService:serviceIdentifier account:accountName];
+                                                          }]];
+    }
+
+    [alertController addAction:[UIAlertAction actionWithTitle:NSLocalizedString(@"BUTTON_CANCEL", nil)
+                                                        style:UIAlertActionStyleCancel
+                                                      handler:nil]];
+
+    [self presentViewController:alertController animated:YES completion:nil];
+}
+
+- (void)showBrowserWithLogin:(nonnull VLCNetworkServerLoginInformation *)login
+{
+    id<VLCNetworkServerBrowser> serverBrowser = nil;
+    NSString *identifier = login.protocolIdentifier;
+
+    // TODO: enable for FTP servers
+//    if ([identifier isEqualToString:VLCNetworkServerProtocolIdentifierFTP]) {
+//        serverBrowser = [[VLCLocalNetworkServiceBrowserFTP alloc] initWithLogin:login];
+//    } else
+
+    if ([identifier isEqualToString:VLCNetworkServerProtocolIdentifierPlex]) {
+        serverBrowser = [[VLCNetworkServerBrowserPlex alloc] initWithLogin:login];
+    } else if ([identifier isEqualToString:VLCNetworkServerProtocolIdentifierSMB]) {
+        serverBrowser = [VLCNetworkServerBrowserVLCMedia SMBNetworkServerBrowserWithLogin:login];
+    }
+
+    if (serverBrowser) {
+        VLCServerBrowsingTVTableViewController *targetViewController = [[VLCServerBrowsingTVTableViewController alloc] initWithServerBrowser:serverBrowser];
+        [self presentViewController:[[UINavigationController alloc] initWithRootViewController:targetViewController]
+                           animated:YES
+                         completion:nil];
+    }
 }
 
 #pragma mark - VLCLocalServerDiscoveryController

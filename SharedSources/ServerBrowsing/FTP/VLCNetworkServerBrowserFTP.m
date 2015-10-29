@@ -47,6 +47,14 @@
 
 #pragma mark -
 
+- (instancetype)initWithLogin:(VLCNetworkServerLoginInformation *)login
+{
+    return [self initWithFTPServer:login.address
+                          userName:login.username
+                       andPassword:login.password
+                            atPath:@"/"];
+}
+
 - (instancetype)initWithFTPServer:(NSString *)serverAddress userName:(NSString *)username andPassword:(NSString *)password atPath:(NSString *)path
 {
     NSURLComponents *components = [[NSURLComponents alloc] init];

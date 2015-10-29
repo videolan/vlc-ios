@@ -12,6 +12,7 @@
 #import "VLCLocalNetworkServiceVLCMedia.h"
 #import "VLCNetworkServerBrowserVLCMedia.h"
 #import "VLCLocalNetworkServiceBrowserMediaDiscoverer.h"
+#import "VLCNetworkServerLoginInformation.h"
 
 NS_ASSUME_NONNULL_BEGIN
 
@@ -25,6 +26,7 @@ extern NSString *const VLCNetworkServerProtocolIdentifierSMB;
 @end
 
 @interface VLCNetworkServerBrowserVLCMedia (SMB)
++ (instancetype)SMBNetworkServerBrowserWithLogin:(VLCNetworkServerLoginInformation *)login;
 + (instancetype)SMBNetworkServerBrowserWithURL:(NSURL *)url
 									  username:(nullable NSString *)username
 									  password:(nullable NSString *)password

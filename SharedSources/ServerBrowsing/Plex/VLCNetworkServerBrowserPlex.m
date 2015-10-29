@@ -36,6 +36,15 @@
 @implementation VLCNetworkServerBrowserPlex
 @synthesize title = _title, delegate = _delegate, items = _items;
 
+- (instancetype)initWithLogin:(VLCNetworkServerLoginInformation *)login
+{
+    return [self initWithName:login.address
+                         host:login.address
+                   portNumber:login.port
+                         path:@""
+           authentificication:@""];
+}
+
 - (instancetype)initWithName:(NSString *)name host:(NSString *)addressOrName portNumber:(NSNumber *)portNumber path:(NSString *)path authentificication:(NSString *)auth
 {
     self = [super init];
