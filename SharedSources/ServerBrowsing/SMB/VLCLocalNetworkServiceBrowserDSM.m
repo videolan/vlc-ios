@@ -44,7 +44,6 @@ NSString *const VLCNetworkServerProtocolIdentifierSMB = @"smb";
     login.protocolIdentifier = VLCNetworkServerProtocolIdentifierSMB;
 
     return login;
-
 }
 
 @end
