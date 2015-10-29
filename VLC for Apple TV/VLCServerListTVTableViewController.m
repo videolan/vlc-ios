@@ -86,7 +86,9 @@
         id <VLCNetworkServerBrowser> browser = [service serverBrowser];
         if (browser) {
             VLCServerBrowsingTVTableViewController *browsingViewController = [[VLCServerBrowsingTVTableViewController alloc] initWithServerBrowser:browser];
-            [self showViewController:browsingViewController sender:nil];
+            [self presentViewController:[[UINavigationController alloc] initWithRootViewController:browsingViewController]
+                               animated:YES
+                             completion:nil];
             return;
         }
     }
