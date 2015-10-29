@@ -22,6 +22,7 @@
 
 #import "UIColor+Presets.h"
 #import "VLCTVConstants.h"
+#import "UIViewController+VLCAlert.h"
 
 #define SYSTEM_VERSION_GREATER_THAN_OR_EQUAL_TO(v)  ([[UIDevice currentDevice] systemVersion].floatValue >= [v floatValue])
 

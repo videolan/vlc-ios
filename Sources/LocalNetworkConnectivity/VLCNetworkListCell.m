@@ -96,6 +96,9 @@
 
 - (void)prepareForReuse {
     [self.thumbnailView cancelLoading];
+    self.isDownloadable = NO;
+    self.subtitle = nil;
+    self.title = nil;
 }
 
 + (CGFloat)heightOfCell
@@ -104,6 +107,24 @@
         return 80.;
 
     return 68.;
+}
+
+@end
+
+
+
+@implementation VLCNetworkListCell (CellConfigurator)
+- (void)setThumbnailImage:(UIImage *)thumbnailImage {
+    self.icon = thumbnailImage;
+}
+- (UIImage *)thumbnailImage {
+    return self.icon;
+}
+- (void)setThumbnailURL:(NSURL *)thumbnailURL {
+    self.iconURL = thumbnailURL;
+}
+- (NSURL *)thumbnailURL {
+    return self.iconURL;
 }
 
 @end

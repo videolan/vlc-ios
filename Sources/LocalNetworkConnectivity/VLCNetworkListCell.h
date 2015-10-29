@@ -12,6 +12,7 @@
 
 #import <UIKit/UIKit.h>
 #import "VLCNetworkImageView.h"
+#import "VLCServerBrowsingController.h"
 
 @class VLCStatusLabel;
 
@@ -46,5 +47,10 @@
 @protocol VLCNetworkListCellDelegate <NSObject>
 
 - (void)triggerDownloadForCell:(VLCNetworkListCell *)cell;
+
+@end
+
+
+@interface VLCNetworkListCell (CellConfigurator) <VLCServerBrowsingCell>
 
 @end
