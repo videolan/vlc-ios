@@ -23,7 +23,7 @@
                         </constraints>
                     </imageView>
                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="TIO-jK-60o" userLabel="TitleLabel">
-                        <rect key="frame" x="254" y="8" width="1658" height="46"/>
+                        <rect key="frame" x="254" y="52" width="1658" height="46"/>
                         <animations/>
                         <fontDescription key="fontDescription" style="UICTFontTextStyleHeadline"/>
                         <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
@@ -41,8 +41,9 @@
                 <constraints>
                     <constraint firstItem="4q6-BG-uo0" firstAttribute="top" relation="greaterThanOrEqual" secondItem="TIO-jK-60o" secondAttribute="bottom" id="0Cw-Zg-YdT"/>
                     <constraint firstItem="4q6-BG-uo0" firstAttribute="leading" secondItem="Diw-kq-1Zk" secondAttribute="trailing" constant="8" symbolic="YES" id="4JT-bL-xgJ"/>
+                    <constraint firstItem="TIO-jK-60o" firstAttribute="centerY" secondItem="Ygk-DT-1Ta" secondAttribute="centerY" priority="250" id="6mH-XN-FhD"/>
                     <constraint firstAttribute="trailingMargin" secondItem="4q6-BG-uo0" secondAttribute="trailing" id="D8M-Ob-ojk"/>
-                    <constraint firstItem="TIO-jK-60o" firstAttribute="top" secondItem="Ygk-DT-1Ta" secondAttribute="topMargin" id="PdB-cs-3vU"/>
+                    <constraint firstItem="TIO-jK-60o" firstAttribute="top" relation="greaterThanOrEqual" secondItem="Ygk-DT-1Ta" secondAttribute="topMargin" id="PdB-cs-3vU"/>
                     <constraint firstItem="TIO-jK-60o" firstAttribute="leading" secondItem="Diw-kq-1Zk" secondAttribute="trailing" constant="8" symbolic="YES" id="Tbh-RC-OQm"/>
                     <constraint firstAttribute="bottomMargin" secondItem="Diw-kq-1Zk" secondAttribute="bottom" id="VIf-rD-KS8"/>
                     <constraint firstItem="Diw-kq-1Zk" firstAttribute="leading" secondItem="Ygk-DT-1Ta" secondAttribute="leadingMargin" id="Z1h-4m-nw8"/>

@@ -42,6 +42,18 @@ NSString *const VLCServerBrowsingTVCellIdentifier = @"VLCServerBrowsingTVCell";
     return self.subtitleLabel.text;
 }
 
+- (void)awakeFromNib {
+    [super awakeFromNib];
+    [self prepareForReuse];
+}
+
+- (void)prepareForReuse {
+    [super prepareForReuse];
+    [self.thumbnailImageView cancelLoading];
+    self.title = nil;
+    self.subtitle = nil;
+}
+
 @end
 
 

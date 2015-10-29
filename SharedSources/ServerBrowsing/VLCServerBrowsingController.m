@@ -87,7 +87,7 @@
         } else if (duration) {
             subtitle = duration;
         }
-        cell.subtitle = sizeString;
+        cell.subtitle = subtitle;
 #if DOWNLOAD_SUPPORTED
         cell.isDownloadable = self.allowsFileDownload;
 #endif
