@@ -102,6 +102,8 @@ static NSString *WiFiCellIdentifier = @"VLCMenuWiFiCell";
     _menuTableView.rowHeight = rowHeight;
     _menuTableView.scrollsToTop = NO;
     _menuTableView.translatesAutoresizingMaskIntoConstraints = NO;
+    _menuTableView.showsHorizontalScrollIndicator = NO;
+    _menuTableView.showsVerticalScrollIndicator = NO;
 
     [self.view addSubview:_menuTableView];
 
