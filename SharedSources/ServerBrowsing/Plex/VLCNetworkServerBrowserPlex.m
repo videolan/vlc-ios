@@ -173,7 +173,7 @@
         if (thumbPath) {
             thumbPath = [VLCPlexWebAPI urlAuth:thumbPath authentification:auth];
         }
-        _thumbnailURL = thumbPath.length ? [baseURL URLByAppendingPathComponent:thumbPath] : nil;
+        _thumbnailURL = thumbPath.length ? [NSURL URLWithString:thumbPath] : nil;
 
 
         _duration = dictionary[@"duration"];
