@@ -21,7 +21,9 @@
 
 - (void)viewDidLoad {
     [super viewDidLoad];
-    self.clearsSelectionOnViewWillAppear = NO;
+    self.automaticallyAdjustsScrollViewInsets = NO;
+    self.edgesForExtendedLayout = UIRectEdgeAll ^ UIRectEdgeTop;
+    
     UINib *nib = [UINib nibWithNibName:@"VLCLocalNetworkServerTVCell" bundle:nil];
     [self.tableView registerNib:nib forCellReuseIdentifier:VLCLocalServerTVCell];
     self.tableView.rowHeight = 150;
@@ -109,15 +111,5 @@
     [self.tableView reloadData];
     NSLog(@"%s",__PRETTY_FUNCTION__);
 }
-
-/*
-#pragma mark - Navigation
-
-// In a storyboard-based application, you will often want to do a little preparation before navigation
-- (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender {
-    // Get the new view controller using [segue destinationViewController].
-    // Pass the selected object to the new view controller.
-}
-*/
 
 @end

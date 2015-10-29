@@ -197,9 +197,7 @@
 		7DC19B0C1868D21800810BF7 /* VLCFirstStepsSixthPageViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 7DC19B0A1868D21800810BF7 /* VLCFirstStepsSixthPageViewController.m */; };
 		7DC71D0E1BC81F70001FACAA /* AVFoundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 7DC71D0D1BC81F70001FACAA /* AVFoundation.framework */; };
 		7DC71D211BC83058001FACAA /* VLCAppSharesTVViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 7DC71D1F1BC83058001FACAA /* VLCAppSharesTVViewController.m */; };
-		7DC71D221BC83058001FACAA /* VLCAppSharesTVViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 7DC71D201BC83058001FACAA /* VLCAppSharesTVViewController.xib */; };
 		7DC71D261BC830A5001FACAA /* VLCLocalNetworkTVViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 7DC71D241BC830A5001FACAA /* VLCLocalNetworkTVViewController.m */; };
-		7DC71D271BC830A5001FACAA /* VLCLocalNetworkTVViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 7DC71D251BC830A5001FACAA /* VLCLocalNetworkTVViewController.xib */; };
 		7DC71D291BC83590001FACAA /* UIColor+Presets.m in Sources */ = {isa = PBXBuildFile; fileRef = 7DF9352E1958AB0600E60FD4 /* UIColor+Presets.m */; };
 		7DC72D6317B7ED24008A26D0 /* WhiteRaccoon.m in Sources */ = {isa = PBXBuildFile; fileRef = 7DC72D6217B7ED24008A26D0 /* WhiteRaccoon.m */; };
 		7DD2A3A9179C04A7003EB537 /* OpenSans-Regular.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 7DD2A3A8179C04A6003EB537 /* OpenSans-Regular.ttf */; };
@@ -806,10 +804,8 @@
 		7DC71D0D1BC81F70001FACAA /* AVFoundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AVFoundation.framework; path = Platforms/AppleTVOS.platform/Developer/SDKs/AppleTVOS9.0.sdk/System/Library/Frameworks/AVFoundation.framework; sourceTree = DEVELOPER_DIR; };
 		7DC71D1E1BC83058001FACAA /* VLCAppSharesTVViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = VLCAppSharesTVViewController.h; sourceTree = "<group>"; };
 		7DC71D1F1BC83058001FACAA /* VLCAppSharesTVViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = VLCAppSharesTVViewController.m; sourceTree = "<group>"; };
-		7DC71D201BC83058001FACAA /* VLCAppSharesTVViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = VLCAppSharesTVViewController.xib; sourceTree = "<group>"; };
 		7DC71D231BC830A5001FACAA /* VLCLocalNetworkTVViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = VLCLocalNetworkTVViewController.h; sourceTree = "<group>"; };
 		7DC71D241BC830A5001FACAA /* VLCLocalNetworkTVViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = VLCLocalNetworkTVViewController.m; sourceTree = "<group>"; };
-		7DC71D251BC830A5001FACAA /* VLCLocalNetworkTVViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = VLCLocalNetworkTVViewController.xib; sourceTree = "<group>"; };
 		7DC72D6117B7ED24008A26D0 /* WhiteRaccoon.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = WhiteRaccoon.h; path = ImportedSources/WhiteRaccoon/WhiteRaccoon.h; sourceTree = SOURCE_ROOT; };
 		7DC72D6217B7ED24008A26D0 /* WhiteRaccoon.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = WhiteRaccoon.m; path = ImportedSources/WhiteRaccoon/WhiteRaccoon.m; sourceTree = SOURCE_ROOT; };
 		7DC87AEF17413634009DC250 /* de */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = de; path = de.lproj/Localizable.strings; sourceTree = "<group>"; };
@@ -1772,8 +1768,6 @@
 				DD3EAC121BE26166003668DA /* VLCServerBrowsingTVCell.xib */,
 				7D3E528A1BD7B5E100309D15 /* VLCCloudServicesTVViewController.xib */,
 				7DEC8BDD1BD67899006E1093 /* VLCFullscreenMovieTVViewController.xib */,
-				7DC71D201BC83058001FACAA /* VLCAppSharesTVViewController.xib */,
-				7DC71D251BC830A5001FACAA /* VLCLocalNetworkTVViewController.xib */,
 				7D7EF3D91BD56B5900CD4CEE /* VLCOpenNetworkStreamTVViewController.xib */,
 				DDEAECF51BDFEAFA00756C83 /* VLCLocalNetworkServerTVCell.xib */,
 			);
@@ -2462,8 +2456,6 @@
 				7D6069721BD94AD600AB765C /* VLCCloudStorageTableViewCell.xib in Resources */,
 				7DEC8BDF1BD67899006E1093 /* VLCFullscreenMovieTVViewController.xib in Resources */,
 				7D4CAAFC1BDE548A00A08EF5 /* Localizable.strings in Resources */,
-				7DC71D271BC830A5001FACAA /* VLCLocalNetworkTVViewController.xib in Resources */,
-				7DC71D221BC83058001FACAA /* VLCAppSharesTVViewController.xib in Resources */,
 				7DEC8C1E1BD69710006E1093 /* About Contents.html in Resources */,
 				DDEAECF61BDFEAFA00756C83 /* VLCLocalNetworkServerTVCell.xib in Resources */,
 				7D13294F1BA1F10100BE647E /* Assets.xcassets in Resources */,
