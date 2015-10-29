@@ -66,7 +66,11 @@ NSString *const VLCPasscode = @"org.videolan.vlc-ios.passcode";
 {
     /* our touch ID session is killed by the OS if the app moves to background, so re-init */
     if (_inValidation) {
-        [self _touchIDQuery];
+        if (SYSTEM_RUNS_IOS8_OR_LATER) {
+            if ([[NSUserDefaults standardUserDefaults] boolForKey:kVLCSettingPasscodeAllowTouchID]) {
+                [self _touchIDQuery];
+            }
+        }
     }
 }
 
