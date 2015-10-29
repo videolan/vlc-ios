@@ -16,6 +16,9 @@
 
 #import "VLCPlaybackController.h"
 
+#if TARGET_OS_TV
+#import "VLCFullscreenMovieTVViewController.h"
+#endif
 
 #if DOWNLOAD_SUPPORTED
 #import "VLCDownloadViewController.h"
@@ -179,11 +182,22 @@
 
 #pragma mark - File Streaming
 
+- (void)showMovieViewController
+{
+#if TARGET_OS_TV
+    VLCFullscreenMovieTVViewController *moviewVC = [VLCFullscreenMovieTVViewController fullscreenMovieTVViewController];
+    [self.viewController presentViewController:moviewVC
+                                      animated:YES
+                                    completion:nil];
+#endif
+}
+
 
 - (void)streamMediaList:(VLCMediaList *)mediaList startingAtIndex:(NSInteger)startIndex
 {
     VLCPlaybackController *vpc = [VLCPlaybackController sharedInstance];
     [vpc playMediaList:mediaList firstIndex:startIndex];
+    [self showMovieViewController];
 }
 
 - (void)streamFileForItem:(id<VLCNetworkServerBrowserItem>)item
@@ -205,6 +219,7 @@
 
     VLCPlaybackController *vpc = [VLCPlaybackController sharedInstance];
     [vpc playURL:URLToPlay subtitlesFilePath:URLofSubtitle];
+    [self showMovieViewController];
 }
 
 

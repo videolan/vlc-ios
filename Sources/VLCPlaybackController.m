@@ -280,7 +280,7 @@ NSString *const VLCPlaybackControllerPlaybackDidFail = @"VLCPlaybackControllerPl
                                                             }];
         [alert addAction:defaultAction];
         [alert addAction:cancelAction];
-        [[[VLCPlayerDisplayController sharedInstance] childViewController] presentViewController:alert animated:YES completion:nil];
+        [[UIApplication sharedApplication].keyWindow.rootViewController presentViewController:alert animated:YES completion:nil];
 #endif
     } else
         [self _playNewMedia];

@@ -24,4 +24,6 @@
 @property (readwrite, nonatomic, weak) IBOutlet UILabel *titleLabel;
 @property (readwrite, nonatomic, weak) IBOutlet UILabel *bufferingLabel;
 
++ (instancetype) fullscreenMovieTVViewController;
+
 @end

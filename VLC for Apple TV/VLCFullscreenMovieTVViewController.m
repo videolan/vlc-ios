@@ -10,7 +10,6 @@
  *****************************************************************************/
 
 #import "VLCFullscreenMovieTVViewController.h"
-#import "VLCPlayerDisplayController.h"
 
 @interface VLCFullscreenMovieTVViewController ()
 {
@@ -21,6 +20,11 @@
 
 @implementation VLCFullscreenMovieTVViewController
 
++ (instancetype)fullscreenMovieTVViewController
+{
+    return [[self alloc] initWithNibName:nil bundle:nil];
+}
+
 - (void)viewDidLoad {
     [super viewDidLoad];
 
@@ -28,10 +32,6 @@
     self.edgesForExtendedLayout = UIRectEdgeAll;
 
     NSNotificationCenter *center = [NSNotificationCenter defaultCenter];
-    [center addObserver:self
-               selector:@selector(appBecameActive:)
-                   name:UIApplicationDidBecomeActiveNotification
-                 object:nil];
     [center addObserver:self
                selector:@selector(playbackDidStop:)
                    name:VLCPlaybackControllerPlaybackDidStop
@@ -109,22 +109,9 @@
     APLog(@"%s", __PRETTY_FUNCTION__);
 }
 
-- (void)appBecameActive:(NSNotification *)aNotification
-{
-    VLCPlayerDisplayController *pdc = [VLCPlayerDisplayController sharedInstance];
-    if (pdc.displayMode == VLCPlayerDisplayControllerDisplayModeFullscreen) {
-        VLCPlaybackController *vpc = [VLCPlaybackController sharedInstance];
-        [vpc recoverDisplayedMetadata];
-        if (vpc.videoOutputView != self.movieView) {
-            vpc.videoOutputView = nil;
-            vpc.videoOutputView = self.movieView;
-        }
-    }
-}
-
 - (void)playbackDidStop:(NSNotification *)aNotification
 {
-    [[UIApplication sharedApplication] sendAction:@selector(closeFullscreenPlayback) to:nil from:self forEvent:nil];
+    [self dismissViewControllerAnimated:YES completion:nil];
 }
 
 - (void)mediaPlayerStateChanged:(VLCMediaPlayerState)currentState

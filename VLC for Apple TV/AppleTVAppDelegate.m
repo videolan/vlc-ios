@@ -13,7 +13,6 @@
 #import "VLCAppSharesTVViewController.h"
 #import "VLCLocalNetworkTVViewController.h"
 #import "VLCOpenNetworkStreamTVViewController.h"
-#import "VLCPlayerDisplayController.h"
 #import "VLCSettingsAboutTableViewController.h"
 #import "VLCCloudServicesTVViewController.h"
 
@@ -73,9 +72,7 @@
                                             [[UINavigationController alloc] initWithRootViewController:_localNetworkVC],
                                             _cloudServicesVC, _openNetworkVC, _aboutSettingsVC];
 
-    VLCPlayerDisplayController *playerDisplayController = [VLCPlayerDisplayController sharedInstance];
-    playerDisplayController.childViewController = _mainViewController;
-    self.window.rootViewController = playerDisplayController;
+    self.window.rootViewController = _mainViewController;
 
     [self.window makeKeyAndVisible];
     return YES;

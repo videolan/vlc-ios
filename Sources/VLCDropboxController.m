@@ -14,9 +14,7 @@
 #import "VLCDropboxController.h"
 #import "NSString+SupportedMedia.h"
 #import "VLCPlaybackController.h"
-#if TARGET_OS_TV
-#import "VLCPlayerDisplayController.h"
-#else
+#if !TARGET_OS_TV
 #import "VLCActivityManager.h"
 #import "VLCMediaFileDiscoverer.h"
 #endif
@@ -326,7 +324,7 @@
 
     [alert addAction:defaultAction];
 
-    [[[VLCPlayerDisplayController sharedInstance] childViewController] presentViewController:alert animated:YES completion:nil];
+    [[UIApplication sharedApplication].keyWindow.rootViewController presentViewController:alert animated:YES completion:nil];
 #endif
 }
 

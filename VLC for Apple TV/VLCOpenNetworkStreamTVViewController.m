@@ -12,6 +12,7 @@
 #import "VLCOpenNetworkStreamTVViewController.h"
 #import "VLCPlaybackController.h"
 #import "VLCPlayerDisplayController.h"
+#import "VLCFullscreenMovieTVViewController.h"
 
 @interface VLCOpenNetworkStreamTVViewController ()
 {
@@ -103,10 +104,11 @@
 
 - (void)_openURLStringAndDismiss:(NSString *)url
 {
-    [VLCPlayerDisplayController sharedInstance].displayMode = VLCPlayerDisplayControllerDisplayModeFullscreen;
-
     VLCPlaybackController *vpc = [VLCPlaybackController sharedInstance];
     [vpc playURL:[NSURL URLWithString:url] subtitlesFilePath:nil];
+    [self presentViewController:[VLCFullscreenMovieTVViewController fullscreenMovieTVViewController]
+                       animated:YES
+                     completion:nil];
 }
 
 @end
