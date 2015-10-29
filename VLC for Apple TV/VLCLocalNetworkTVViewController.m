@@ -27,7 +27,7 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
     NSArray *classes = @[
-                         [VLCLocalNetworkServiceBrowserManualConnect class],
+//                         [VLCLocalNetworkServiceBrowserManualConnect class],
                          [VLCLocalNetworkServiceBrowserUPnP class],
                          [VLCLocalNetworkServiceBrowserPlex class],
 //                         [VLCLocalNetworkServiceBrowserFTP class],
