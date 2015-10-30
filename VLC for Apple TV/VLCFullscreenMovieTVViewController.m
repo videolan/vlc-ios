@@ -47,6 +47,7 @@
     self.transportBar.playbackFraction = 0.0;
     self.transportBar.scrubbingFraction = 0.0;
 
+    self.dimmingView.alpha = 0.0;
     self.bottomOverlayView.hidden = YES;
 
     UITapGestureRecognizer *playpauseGesture = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(playPausePressed)];
@@ -56,10 +57,12 @@
     UIPanGestureRecognizer *panGestureRecognizer = [[UIPanGestureRecognizer alloc] initWithTarget:self action:@selector(panGesture:)];
     [self.view addGestureRecognizer:panGestureRecognizer];
 
-    UITapGestureRecognizer *tapGestureRecognizer = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(selectTap:)];
-    tapGestureRecognizer.allowedPressTypes = @[@(UIPressTypeSelect)];
-    [self.view addGestureRecognizer:tapGestureRecognizer];
-
+    UITapGestureRecognizer *selectTapGestureRecognizer = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(selectButtonPressed:)];
+    selectTapGestureRecognizer.allowedPressTypes = @[@(UIPressTypeSelect)];
+    [self.view addGestureRecognizer:selectTapGestureRecognizer];
+    UITapGestureRecognizer *menuTapGestureRecognizer = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(menuButtonPressed:)];
+    menuTapGestureRecognizer.allowedPressTypes = @[@(UIPressTypeMenu)];
+    [self.view addGestureRecognizer:menuTapGestureRecognizer];
 }
 
 #pragma mark - view events
@@ -117,18 +120,14 @@
 
 - (void)panGesture:(UIPanGestureRecognizer *)panGestureRecognizer
 {
-    VLCPlaybackController *vpc = [VLCPlaybackController sharedInstance];
     VLCTransportBar *bar = self.transportBar;
 
     UIView *view = self.view;
     CGPoint translation = [panGestureRecognizer translationInView:view];
 
     if (!bar.scrubbing) {
-        if (translation.x > 100.0) {
-            bar.scrubbing = YES;
-            if (vpc.isPlaying) {
-                [vpc playPause];
-            }
+        if (ABS(translation.x) > 100.0) {
+            [self startScrubbing];
         } else {
             return;
         }
@@ -139,24 +138,90 @@
     translation.x = 0.0;
     [panGestureRecognizer setTranslation:translation inView:view];
 
-    CGFloat scrubbinFraction = MAX(0.0, MIN(bar.scrubbingFraction + fractionInView,1.0));
-    bar.scrubbingFraction = scrubbinFraction;
+    CGFloat scrubbingFraction = MAX(0.0, MIN(bar.scrubbingFraction + fractionInView,1.0));
+    bar.scrubbingFraction = scrubbingFraction;
+    [self updateTimeLabelsForScrubbingFraction:scrubbingFraction];
+}
+
+- (void)selectButtonPressed:(UITapGestureRecognizer *)recognizer
+{
+    VLCPlaybackController *vpc = [VLCPlaybackController sharedInstance];
+    VLCTransportBar *bar = self.transportBar;
+    if (bar.scrubbing) {
+        [vpc.mediaPlayer setPosition:bar.scrubbingFraction];
+        [self stopScrubbing];
+    }
+}
+- (void)menuButtonPressed:(UITapGestureRecognizer *)recognizer
+{
+    VLCTransportBar *bar = self.transportBar;
+    if (bar.scrubbing) {
+        [UIView animateWithDuration:0.3 animations:^{
+            bar.scrubbingFraction = bar.playbackFraction;
+            [bar layoutIfNeeded];
+        }];
+        [self updateTimeLabelsForScrubbingFraction:bar.playbackFraction];
+        [self stopScrubbing];
+    }
+}
+
+#pragma mark - 
+
+- (void)updateTimeLabelsForScrubbingFraction:(CGFloat)scrubbingFraction
+{
+    VLCTransportBar *bar = self.transportBar;
+    VLCPlaybackController *vpc = [VLCPlaybackController sharedInstance];
     // MAX 1, _ is ugly hack to prevent --:-- instead of 00:00
-    int scrubbingTimeInt = MAX(1,vpc.mediaDuration*scrubbinFraction);
+    int scrubbingTimeInt = MAX(1,vpc.mediaDuration*scrubbingFraction);
     VLCTime *scrubbingTime = [VLCTime timeWithInt:scrubbingTimeInt];
     bar.markerTimeLabel.text = [scrubbingTime stringValue];
     VLCTime *remainingTime = [VLCTime timeWithInt:(int)vpc.mediaDuration-scrubbingTime.intValue];
     bar.remainingTimeLabel.text = [remainingTime stringValue];
 }
 
-- (void)selectTap:(UITapGestureRecognizer *)recognizer
+- (void)startScrubbing
 {
     VLCPlaybackController *vpc = [VLCPlaybackController sharedInstance];
-    VLCTransportBar *bar = self.transportBar;
-    if (bar.scrubbing) {
-        bar.scrubbing = NO;
-        [vpc.mediaPlayer setPosition:bar.scrubbingFraction];
-        [vpc.mediaPlayer play];
+    self.transportBar.scrubbing = YES;
+    [self updateDimmingView];
+    if (vpc.isPlaying) {
+        [vpc playPause];
+    }
+}
+- (void)stopScrubbing
+{
+    self.transportBar.scrubbing = NO;
+    [self updateDimmingView];
+    VLCPlaybackController *vpc = [VLCPlaybackController sharedInstance];
+    [vpc.mediaPlayer play];
+}
+
+- (void)updateDimmingView
+{
+    BOOL shouldBeVisible = self.transportBar.scrubbing;
+    BOOL isVisible = self.dimmingView.alpha == 1.0;
+    if (shouldBeVisible != isVisible) {
+        [UIView animateWithDuration:0.3 animations:^{
+            self.dimmingView.alpha = shouldBeVisible ? 1.0 : 0.0;
+        }];
+    }
+}
+
+- (void)updateActivityIndicatorForState:(VLCMediaPlayerState)state {
+    UIActivityIndicatorView *indicator = self.activityIndicator;
+    switch (state) {
+        case VLCMediaPlayerStateBuffering:
+            if (!indicator.isAnimating) {
+                self.activityIndicator.alpha = 1.0;
+                [self.activityIndicator startAnimating];
+            }
+            break;
+        default:
+            if (indicator.isAnimating) {
+                [self.activityIndicator stopAnimating];
+                self.activityIndicator.alpha = 0.0;
+            }
+            break;
     }
 }
 
@@ -179,20 +244,8 @@ currentMediaHasTrackToChooseFrom:(BOOL)currentMediaHasTrackToChooseFrom
           forPlaybackController:(VLCPlaybackController *)controller
 {
 
-    switch (currentState) {
-        case VLCMediaPlayerStateBuffering:
-            [self.activityIndicator startAnimating];
-            self.activityIndicator.alpha = 1.0;
-            break;
-
-        default:
-            [self.activityIndicator stopAnimating];
-            self.activityIndicator.alpha = 0.0;
-            break;
-    }
-
+    [self updateActivityIndicatorForState:currentState];
     if (controller.isPlaying && !self.bufferingLabel.hidden) {
-        [self.activityIndicator stopAnimating];
         [UIView animateWithDuration:.3 animations:^{
             self.bufferingLabel.hidden = YES;
             self.bottomOverlayView.hidden = NO;
@@ -213,6 +266,8 @@ currentMediaHasTrackToChooseFrom:(BOOL)currentMediaHasTrackToChooseFrom
 - (void)playbackPositionUpdated:(VLCPlaybackController *)controller
 {
     VLCMediaPlayer *mediaPlayer = [VLCPlaybackController sharedInstance].mediaPlayer;
+    // FIXME: hard coded state since the state in mediaPlayer is incorrectly still buffering
+    [self updateActivityIndicatorForState:VLCMediaPlayerStatePlaying];
 
     VLCTransportBar *transportBar = self.transportBar;
     transportBar.remainingTimeLabel.text = [[mediaPlayer remainingTime] stringValue];

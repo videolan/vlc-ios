@@ -23,6 +23,7 @@
 @property (readwrite, nonatomic, weak) IBOutlet UILabel *titleLabel;
 @property (readwrite, nonatomic, weak) IBOutlet UILabel *bufferingLabel;
 @property (readwrite, nonatomic, weak) IBOutlet UIActivityIndicatorView *activityIndicator;
+@property (readwrite, nonatomic, weak) IBOutlet UIView *dimmingView;
 
 + (instancetype) fullscreenMovieTVViewController;
 
