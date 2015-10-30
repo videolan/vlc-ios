@@ -22,7 +22,9 @@
 #import <SSKeychain/SSKeychain.h>
 
 @interface VLCServerListTVTableViewController ()
-
+{
+    UILabel *_nothingFoundLabel;
+}
 @end
 
 @implementation VLCServerListTVTableViewController
@@ -35,6 +37,32 @@
     UINib *nib = [UINib nibWithNibName:@"VLCLocalNetworkServerTVCell" bundle:nil];
     [self.tableView registerNib:nib forCellReuseIdentifier:VLCLocalServerTVCell];
     self.tableView.rowHeight = 150;
+
+    _nothingFoundLabel = [[UILabel alloc] init];
+    _nothingFoundLabel.text = NSLocalizedString(@"NO_SERVER_FOUND", nil);
+    _nothingFoundLabel.textAlignment = NSTextAlignmentCenter;
+    _nothingFoundLabel.textColor = [UIColor VLCLightTextColor];
+    _nothingFoundLabel.font = [UIFont preferredFontForTextStyle:UIFontTextStyleTitle3];
+    [_nothingFoundLabel sizeToFit];
+    [_nothingFoundLabel setTranslatesAutoresizingMaskIntoConstraints:NO];
+    [self.view addSubview:_nothingFoundLabel];
+
+    NSLayoutConstraint *yConstraint = [NSLayoutConstraint constraintWithItem:_nothingFoundLabel
+                                                                   attribute:NSLayoutAttributeCenterY
+                                                                   relatedBy:NSLayoutRelationEqual
+                                                                      toItem:self.view
+                                                                   attribute:NSLayoutAttributeCenterY
+                                                                  multiplier:1.0
+                                                                    constant:0.0];
+    [self.view addConstraint:yConstraint];
+    NSLayoutConstraint *xConstraint = [NSLayoutConstraint constraintWithItem:_nothingFoundLabel
+                                                                   attribute:NSLayoutAttributeCenterX
+                                                                   relatedBy:NSLayoutRelationEqual
+                                                                      toItem:self.view
+                                                                   attribute:NSLayoutAttributeCenterX
+                                                                  multiplier:1.0
+                                                                    constant:0.0];
+    [self.view addConstraint:xConstraint];
 }
 
 - (void)viewDidAppear:(BOOL)animated
@@ -211,9 +239,12 @@
 }
 
 #pragma mark - VLCLocalServerDiscoveryController
-- (void)discoveryFoundSomethingNew {
+- (void)discoveryFoundSomethingNew
+{
     [self.tableView reloadData];
     NSLog(@"%s",__PRETTY_FUNCTION__);
+
+    _nothingFoundLabel.hidden = self.discoveryController.foundAnythingAtAll;
 }
 
 @end

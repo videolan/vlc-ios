@@ -137,6 +137,18 @@
     return [browser networkServiceForIndex:row];
 }
 
+- (BOOL)foundAnythingAtAll
+{
+    NSUInteger serviceCount = _serviceBrowsers.count;
+    BOOL ret = NO;
+    for (NSUInteger i = 0; i < serviceCount; i++) {
+        ret = [_serviceBrowsers[i] numberOfItems] > 0;
+        if (ret)
+            break;
+    }
+    return ret;
+}
+
 #pragma mark - VLCLocalNetworkServiceBrowserDelegate
 - (void)localNetworkServiceBrowserDidUpdateServices:(id<VLCLocalNetworkServiceBrowser>)serviceBrowser {
     if ([self.delegate respondsToSelector:@selector(discoveryFoundSomethingNew)]) {

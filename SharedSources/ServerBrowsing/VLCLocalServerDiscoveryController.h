@@ -27,6 +27,7 @@
 - (NSUInteger)numberOfSections;
 - (NSString *)titleForSection:(NSUInteger)section;
 - (NSUInteger)numberOfItemsInSection:(NSUInteger)section;
+- (BOOL)foundAnythingAtAll;
 
 - (id<VLCLocalNetworkService>)networkServiceForIndexPath:(NSIndexPath *)indexPath;
 
