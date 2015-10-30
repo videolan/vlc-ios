@@ -18,10 +18,12 @@
 #import "VLCOneDriveController.h"
 #import "VLCOneDriveTableViewController2.h"
 #import "VLCBoxTableViewController.h"
+#import "VLCBoxController.h"
 
 @interface VLCCloudServicesTVViewController ()
 {
     VLCOneDriveController *_oneDriveController;
+    VLCBoxController *_boxController;
 }
 
 @property (nonatomic) VLCDropboxTableViewController *dropboxTableViewController;
@@ -36,12 +38,19 @@
 
     NSNotificationCenter *center = [NSNotificationCenter defaultCenter];
     [center addObserver:self selector:@selector(oneDriveSessionUpdated:) name:VLCOneDriveControllerSessionUpdated object:nil];
+    [center addObserver:self selector:@selector(boxSessionUpdated:) name:VLCBoxControllerSessionUpdated object:nil];
 
     _oneDriveController = [VLCOneDriveController sharedInstance];
-    self.dropboxTableViewController = [[VLCDropboxTableViewController alloc] initWithNibName:nil bundle:nil];
-    self.boxTableViewController = [[VLCBoxTableViewController alloc] initWithNibName:nil bundle:nil];
+    _boxController = [VLCBoxController sharedInstance];
+    [_boxController startSession];
 
+    self.dropboxTableViewController = [[VLCDropboxTableViewController alloc] initWithNibName:nil bundle:nil];
+
+    self.dropboxButton.enabled = self.gDriveButton.enabled = NO;
     [self oneDriveSessionUpdated:nil];
+    [self boxSessionUpdated:nil];
+
+    [self performSelector:@selector(updateDropbox) withObject:nil afterDelay:0.1];
 }
 
 - (void)dealloc
@@ -56,33 +65,22 @@
 
 - (IBAction)dropbox:(id)sender
 {
-    if ([[VLCDropboxController sharedInstance] restoreFromSharedCredentials]) {
-        [self.navigationController pushViewController:self.dropboxTableViewController animated:YES];
-        return;
-    }
+    [self.navigationController pushViewController:self.dropboxTableViewController animated:YES];
+}
 
-    UIAlertController *alert = [UIAlertController alertControllerWithTitle:NSLocalizedString(@"LOGIN_FAIL", nil)
-                                                                   message:[NSString stringWithFormat:NSLocalizedString(@"CLOUD_LOGIN_FAIL_LONG", nil), @"Dropbox", @"Dropbox"]
-                                                            preferredStyle:UIAlertControllerStyleAlert];
-
-    UIAlertAction *defaultAction = [UIAlertAction actionWithTitle:NSLocalizedString(@"BUTTON_OK", nil)
-                                                            style:UIAlertActionStyleDestructive
-                                                          handler:^(UIAlertAction * action) {
-                                                          }];
-
-    UIAlertAction *cancelAction = [UIAlertAction actionWithTitle:NSLocalizedString(@"BUTTON_RETRY", nil)
-                                                           style:UIAlertActionStyleDefault
-                                                         handler:^(UIAlertAction * action) {
-                                                             [self dropbox:nil];
-                                                         }];
-    [alert addAction:defaultAction];
-    [alert addAction:cancelAction];
-    [self presentViewController:alert animated:YES completion:nil];
+- (void)updateDropbox
+{
+    self.dropboxButton.enabled = [[VLCDropboxController sharedInstance] restoreFromSharedCredentials];
 }
 
 - (void)oneDriveSessionUpdated:(NSNotification *)aNotification
 {
     self.oneDriveButton.enabled = _oneDriveController.activeSession;
+}
+
+- (void)boxSessionUpdated:(NSNotification *)aNotification
+{
+    self.boxButton.enabled = YES;
 }
 
 - (IBAction)onedrive:(id)sender
@@ -93,7 +91,13 @@
 
 - (IBAction)box:(id)sender
 {
-    [self.navigationController pushViewController:self.boxTableViewController animated:YES];
+    VLCBoxTableViewController *targetViewController = [[VLCBoxTableViewController alloc] initWithPath:@""];
+    [self.navigationController pushViewController:targetViewController animated:YES];
+}
+
+- (IBAction)gdrive:(id)sender
+{
+    // TODO
 }
 
 @end

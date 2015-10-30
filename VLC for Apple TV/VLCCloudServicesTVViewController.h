@@ -14,9 +14,13 @@
 @interface VLCCloudServicesTVViewController : UIViewController
 
 @property (readwrite, nonatomic, weak) IBOutlet UIButton *oneDriveButton;
+@property (readwrite, nonatomic, weak) IBOutlet UIButton *boxButton;
+@property (readwrite, nonatomic, weak) IBOutlet UIButton *gDriveButton;
+@property (readwrite, nonatomic, weak) IBOutlet UIButton *dropboxButton;
 
 - (IBAction)dropbox:(id)sender;
 - (IBAction)onedrive:(id)sender;
 - (IBAction)box:(id)sender;
+- (IBAction)gdrive:(id)sender;
 
 @end

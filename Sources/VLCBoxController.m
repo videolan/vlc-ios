@@ -16,7 +16,7 @@
 #import "VLCMediaFileDiscoverer.h"
 #import <SSKeychain/SSKeychain.h>
 
-@interface VLCBoxController () <NSURLConnectionDataDelegate>
+@interface VLCBoxController ()
 {
     BoxCollection *_fileList;
     BoxAPIJSONOperation *_operation;
@@ -53,8 +53,24 @@
     return sharedInstance;
 }
 
+- (void)dealloc
+{
+    [[NSNotificationCenter defaultCenter] removeObserver:self];
+}
+
 - (void)startSession
 {
+    NSNotificationCenter *defaultCenter = [NSNotificationCenter defaultCenter];
+    [defaultCenter addObserver:self
+                      selector:@selector(boxApiTokenDidRefresh)
+                          name:BoxOAuth2SessionDidRefreshTokensNotification
+                        object:[BoxSDK sharedSDK].OAuth2Session];
+
+    [defaultCenter addObserver:self
+                      selector:@selector(boxApiTokenDidRefresh)
+                          name:BoxOAuth2SessionDidBecomeAuthenticatedNotification
+                        object:[BoxSDK sharedSDK].OAuth2Session];
+
     [BoxSDK sharedSDK].OAuth2Session.clientID = kVLCBoxClientID;
     [BoxSDK sharedSDK].OAuth2Session.clientSecret = kVLCBoxClientSecret;
     NSString *token = [SSKeychain passwordForService:kVLCBoxService account:kVLCBoxAccount];
@@ -85,6 +101,12 @@
     [self stopSession];
     if ([self.delegate respondsToSelector:@selector(mediaListUpdated)])
         [self.delegate mediaListUpdated];
+}
+
+- (void)boxApiTokenDidRefresh
+{
+    NSLog(@"%s", __PRETTY_FUNCTION__);
+    [[NSNotificationCenter defaultCenter] postNotificationName:VLCBoxControllerSessionUpdated object:nil];
 }
 
 - (BOOL)isAuthorized
@@ -127,46 +149,6 @@
 
     [_operation cancel];
     _operation = [[BoxSDK sharedSDK].foldersManager folderItemsWithID:_folderId requestBuilder:nil success:success failure:failure];
-}
-
-- (void)streamFile:(BoxFile *)file
-{
-    /* the Box API requires us to set an HTTP header to get the actual URL:
-     * curl -L https://api.box.com/2.0/files/FILE_ID/content -H "Authorization: Bearer ACCESS_TOKEN"
-     *
-     * ... however, libvlc does not support setting custom HTTP headers, so we are resolving the redirect ourselves with a NSURLConnection
-     * and pass the final location to libvlc, which does not require a custom HTTP header */
-
-    NSURL *baseURL = [[[BoxSDK sharedSDK] filesManager] URLWithResource:@"files"
-                                                                     ID:file.modelID
-                                                            subresource:@"content"
-                                                                  subID:nil];
-
-    NSMutableURLRequest *urlRequest = [NSMutableURLRequest requestWithURL:baseURL
-                                                              cachePolicy:NSURLRequestReloadIgnoringLocalCacheData
-                                                          timeoutInterval:60];
-
-    [urlRequest setValue:[NSString stringWithFormat:@"Bearer %@", [BoxSDK sharedSDK].OAuth2Session.accessToken] forHTTPHeaderField:@"Authorization"];
-
-    NSURLConnection *theTestConnection = [[NSURLConnection alloc] initWithRequest:urlRequest delegate:self];
-    [theTestConnection start];
-}
-
-- (NSURLRequest *)connection:(NSURLConnection *)connection willSendRequest:(NSURLRequest *)request redirectResponse:(NSURLResponse *)response
-{
-    if (response != nil) {
-        /* we have 1 redirect from the original URL, so as soon as we'd do that,
-         * we grab the URL and cancel the connection */
-        NSURL *theActualURL = request.URL;
-
-        [connection cancel];
-
-        /* now ask VLC to stream the URL we were just passed */
-        VLCPlaybackController *vpc = [VLCPlaybackController sharedInstance];
-        [vpc playURL:theActualURL successCallback:nil errorCallback:nil];
-    }
-
-    return request;
 }
 
 #if TARGET_OS_IOS
@@ -229,6 +211,7 @@
     NSMutableArray *listOfGoodFilesAndFolders = [NSMutableArray new];
     _maxOffset = _fileList.totalCount.intValue;
     _offset += _fileList.numberOfEntries;
+
     NSUInteger numberOfEntries = _fileList.numberOfEntries;
     for (int i = 0; i < numberOfEntries; i++)
     {

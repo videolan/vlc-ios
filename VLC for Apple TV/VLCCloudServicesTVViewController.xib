@@ -6,6 +6,9 @@
     <objects>
         <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner" customClass="VLCCloudServicesTVViewController">
             <connections>
+                <outlet property="boxButton" destination="HPy-k8-PTt" id="FcV-v2-CVw"/>
+                <outlet property="dropboxButton" destination="hdP-Dp-Mn0" id="K7o-9U-5hB"/>
+                <outlet property="gDriveButton" destination="uaI-5Z-SJq" id="Etu-VC-Z2o"/>
                 <outlet property="oneDriveButton" destination="gFm-4V-QFs" id="eWx-9Y-RDg"/>
                 <outlet property="view" destination="iN0-l3-epB" id="Eym-vH-oyN"/>
             </connections>
@@ -27,6 +30,9 @@
                     <rect key="frame" x="810" y="445" width="301" height="86"/>
                     <inset key="contentEdgeInsets" minX="40" minY="20" maxX="40" maxY="20"/>
                     <state key="normal" title="Google Drive"/>
+                    <connections>
+                        <action selector="gdrive:" destination="-1" eventType="primaryActionTriggered" id="150-FC-FlB"/>
+                    </connections>
                 </button>
                 <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="HPy-k8-PTt">
                     <rect key="frame" x="810" y="561" width="301" height="86"/>

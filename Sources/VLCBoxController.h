@@ -14,10 +14,11 @@
 #import "VLCCloudStorageController.h"
 #import "VLCBoxConstants.h"
 
+#define VLCBoxControllerSessionUpdated @"VLCBoxControllerSessionUpdated"
+
 @interface VLCBoxController : VLCCloudStorageController
 
 - (void)stopSession;
-- (void)streamFile:(BoxFile *)file;
 - (void)downloadFileToDocumentFolder:(BoxFile *)file;
 - (BOOL)hasMoreFiles;
 

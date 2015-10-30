@@ -15,6 +15,7 @@
 #import "VLCDropboxTableViewController.h"
 #import "VLCGoogleDriveTableViewController.h"
 #import "VLCBoxTableViewController.h"
+#import "VLCBoxController.h"
 #import "VLCOneDriveTableViewController.h"
 #import "VLCOneDriveController.h"
 #import "VLCDocumentPickerController.h"
@@ -48,6 +49,7 @@
 
     self.dropboxTableViewController = [[VLCDropboxTableViewController alloc] initWithNibName:@"VLCCloudStorageTableViewController" bundle:nil];
     self.googleDriveTableViewController = [[VLCGoogleDriveTableViewController alloc] initWithNibName:@"VLCCloudStorageTableViewController" bundle:nil];
+    [[VLCBoxController sharedInstance] startSession];
     self.boxTableViewController = [[VLCBoxTableViewController alloc] initWithNibName:@"VLCCloudStorageTableViewController" bundle:nil];
     self.oneDriveTableViewController = [[VLCOneDriveTableViewController alloc] initWithNibName:@"VLCCloudStorageTableViewController" bundle:nil];
     self.documentPickerController = [VLCDocumentPickerController new];
