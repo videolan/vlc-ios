@@ -1,10 +1,14 @@
-//
-//  VLCOneDriveTableViewController2.m
-//  VLC for iOS
-//
-//  Created by Felix Paul Kühne on 30/10/15.
-//  Copyright © 2015 VideoLAN. All rights reserved.
-//
+/*****************************************************************************
+ * VLCOneDriveTableViewController.m
+ * VLC for iOS
+ *****************************************************************************
+ * Copyright (c) 2014-2015 VideoLAN. All rights reserved.
+ * $Id$
+ *
+ * Authors: Felix Paul Kühne <fkuehne # videolan.org>
+ *
+ * Refer to the COPYING file of the official project for license.
+ *****************************************************************************/
 
 #import "VLCOneDriveTableViewController2.h"
 #import "VLCOneDriveController.h"
