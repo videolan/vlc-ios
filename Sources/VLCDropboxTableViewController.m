@@ -16,7 +16,6 @@
 
 #import "VLCDropboxTableViewController.h"
 #import "VLCDropboxController.h"
-#import "VLCDropboxConstants.h"
 #import "VLCCloudStorageTableViewCell.h"
 #import "UIDevice+VLC.h"
 #import "DBKeychain.h"
@@ -29,11 +28,22 @@
 {
     VLCDropboxController *_dropboxController;
     DBMetadata *_selectedFile;
+    NSArray *_mediaList;
 }
 
 @end
 
 @implementation VLCDropboxTableViewController
+
+- (instancetype)initWithPath:(NSString *)path
+{
+    NSLog(@"%s", __PRETTY_FUNCTION__);
+    self = [super init];
+    if (self) {
+        self.currentPath = path;
+    }
+    return self;
+}
 
 - (void)dealloc
 {
@@ -53,19 +63,15 @@
                                              selector:@selector(sessionWasUpdated:)
                                                  name:VLCDropboxSessionWasAuthorized
                                                object:nil];
-#endif
-
-    DBSession* dbSession = [[DBSession alloc] initWithAppKey:kVLCDropboxAppKey appSecret:kVLCDropboxPrivateKey root:kDBRootDropbox];
-    [DBSession setSharedSession:dbSession];
-    [DBRequest setNetworkRequestDelegate:_dropboxController];
 
     self.navigationItem.titleView = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"dropbox-white"]];
 
-#if TARGET_OS_IOS
     [self.cloudStorageLogo setImage:[UIImage imageNamed:@"dropbox-white.png"]];
 
     [self.cloudStorageLogo sizeToFit];
     self.cloudStorageLogo.center = self.view.center;
+#else
+    self.title = @"Dropbox";
 #endif
 }
 
@@ -73,8 +79,11 @@
 {
     [super viewWillAppear:animated];
 
-    self.controller = _dropboxController;
+    self.controller = [VLCDropboxController sharedInstance];
     self.controller.delegate = self;
+
+    if (self.currentPath != nil)
+        self.title = self.currentPath.lastPathComponent;
 
     [self updateViewAfterSessionChange];
 }
@@ -99,23 +108,41 @@
     if (cell == nil)
         cell = [VLCCloudStorageTableViewCell cellWithReuseIdentifier:CellIdentifier];
 
-    cell.dropboxFile = _dropboxController.currentListFiles[indexPath.row];
-    cell.delegate = self;
+    NSUInteger index = indexPath.row;
+    if (_mediaList) {
+        if (index < _mediaList.count) {
+            cell.dropboxFile = _mediaList[index];
+            cell.delegate = self;
+        }
+    }
 
     return cell;
+}
+
+- (void)mediaListUpdated
+{
+    _mediaList = [self.controller.currentListFiles copy];
+    [self.tableView reloadData];
 }
 
 #pragma mark - Table view delegate
 
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
 {
-    _selectedFile = _dropboxController.currentListFiles[indexPath.row];
+    _selectedFile = _mediaList[indexPath.row];
     if (!_selectedFile.isDirectory)
-        [_dropboxController streamFile:_selectedFile];
+        [_dropboxController streamFile:_selectedFile currentNavigationController:self.navigationController];
     else {
         /* dive into subdirectory */
-        self.currentPath = [self.currentPath stringByAppendingFormat:@"/%@", _selectedFile.filename];
+        NSString *futurePath = [self.currentPath stringByAppendingFormat:@"/%@", _selectedFile.filename];
+#if TARGET_OS_TV
+        [_dropboxController reset];
+        VLCDropboxTableViewController *targetViewController = [[VLCDropboxTableViewController alloc] initWithPath:futurePath];
+        [self.navigationController pushViewController:targetViewController animated:YES];
+#else
+        self.currentPath = futurePath;
         [self requestInformationForCurrentPath];
+#endif
     }
     _selectedFile = nil;
 
@@ -146,7 +173,7 @@
 #if TARGET_OS_IOS
 - (void)triggerDownloadForCell:(VLCCloudStorageTableViewCell *)cell
 {
-    _selectedFile = _dropboxController.currentListFiles[[self.tableView indexPathForCell:cell].row];
+    _selectedFile = _mediaList[[self.tableView indexPathForCell:cell].row];
 
     if (_selectedFile.totalBytes < [[UIDevice currentDevice] freeDiskspace].longLongValue) {
         /* selected item is a proper file, ask the user if s/he wants to download it */

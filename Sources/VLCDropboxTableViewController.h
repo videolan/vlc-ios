@@ -25,6 +25,8 @@
 
 @interface VLCDropboxTableViewController : VLCCloudStorageTVTableViewController
 
+- (instancetype)initWithPath:(NSString *)path;
+
 @end
 
 #endif

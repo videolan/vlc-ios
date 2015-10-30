@@ -27,6 +27,8 @@
 - (BOOL)restoreFromSharedCredentials;
 
 - (void)downloadFileToDocumentFolder:(DBMetadata *)file;
-- (void)streamFile:(DBMetadata *)file;
+- (void)streamFile:(DBMetadata *)file currentNavigationController:(UINavigationController *)navigationController;
+
+- (void)reset;
 
 @end

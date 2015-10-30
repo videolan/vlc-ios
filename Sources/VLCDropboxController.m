@@ -19,6 +19,7 @@
 #import "VLCMediaFileDiscoverer.h"
 #endif
 #import "DBKeychain.h"
+#import "VLCDropboxConstants.h"
 
 @interface VLCDropboxController ()
 {
@@ -34,6 +35,8 @@
     CGFloat _fileSize;
     NSTimeInterval _startDL;
     NSTimeInterval _lastStatsUpdate;
+
+    UINavigationController *_lastKnownNavigationController;
 }
 
 @end
@@ -50,6 +53,10 @@
     dispatch_once(&pred, ^{
         sharedInstance = [VLCDropboxController new];
         [sharedInstance shareCredentials];
+
+        DBSession* dbSession = [[DBSession alloc] initWithAppKey:kVLCDropboxAppKey appSecret:kVLCDropboxPrivateKey root:kDBRootDropbox];
+        [DBSession setSharedSession:dbSession];
+        [DBRequest setNetworkRequestDelegate:sharedInstance];
     });
 
     return sharedInstance;
@@ -123,10 +130,12 @@
     }
 }
 
-- (void)streamFile:(DBMetadata *)file
+- (void)streamFile:(DBMetadata *)file currentNavigationController:(UINavigationController *)navigationController
 {
-    if (!file.isDirectory)
+    if (!file.isDirectory) {
+        _lastKnownNavigationController = navigationController;
         [[self restClient] loadStreamableURLForFile:file.path];
+    }
 }
 
 - (void)_triggerNextDownload
@@ -229,6 +238,14 @@
 {
     VLCPlaybackController *vpc = [VLCPlaybackController sharedInstance];
     [vpc playURL:url successCallback:nil errorCallback:nil];
+#if TARGET_OS_TV
+    if (_lastKnownNavigationController) {
+        VLCFullscreenMovieTVViewController *movieVC = [VLCFullscreenMovieTVViewController fullscreenMovieTVViewController];
+        [_lastKnownNavigationController presentViewController:movieVC
+                                                     animated:YES
+                                                   completion:nil];
+    }
+#endif
 }
 
 - (void)restClient:(DBRestClient*)restClient loadStreamableURLFailedWithError:(NSError*)error
@@ -326,6 +343,12 @@
 
     [[UIApplication sharedApplication].keyWindow.rootViewController presentViewController:alert animated:YES completion:nil];
 #endif
+}
+
+- (void)reset
+{
+    [_restClient cancelAllRequests];
+    _currentFileList = nil;
 }
 
 @end

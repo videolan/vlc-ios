@@ -25,10 +25,6 @@
     VLCOneDriveController *_oneDriveController;
     VLCBoxController *_boxController;
 }
-
-@property (nonatomic) VLCDropboxTableViewController *dropboxTableViewController;
-@property (nonatomic) VLCBoxTableViewController *boxTableViewController;
-
 @end
 
 @implementation VLCCloudServicesTVViewController
@@ -43,8 +39,6 @@
     _oneDriveController = [VLCOneDriveController sharedInstance];
     _boxController = [VLCBoxController sharedInstance];
     [_boxController startSession];
-
-    self.dropboxTableViewController = [[VLCDropboxTableViewController alloc] initWithNibName:nil bundle:nil];
 
     self.dropboxButton.enabled = self.gDriveButton.enabled = NO;
     [self oneDriveSessionUpdated:nil];
@@ -65,7 +59,8 @@
 
 - (IBAction)dropbox:(id)sender
 {
-    [self.navigationController pushViewController:self.dropboxTableViewController animated:YES];
+    VLCDropboxTableViewController *targetViewController = [[VLCDropboxTableViewController alloc] initWithPath:nil];
+    [self.navigationController pushViewController:targetViewController animated:YES];
 }
 
 - (void)updateDropbox
