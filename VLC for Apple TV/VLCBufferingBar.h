@@ -9,11 +9,14 @@
  * Refer to the COPYING file of the official project for license.
  *****************************************************************************/
 
-#import "VLCPlaybackControlsFocusView.h"
+#import <UIKit/UIKit.h>
 
-@implementation VLCPlaybackControlsFocusView
+NS_ASSUME_NONNULL_BEGIN
+@interface VLCBufferingBar : UIView
+@property (nonatomic) CGFloat bufferStartFraction;
+@property (nonatomic) CGFloat bufferEndFraction;
 
-- (BOOL)canBecomeFocused {
-    return YES;
-}
+@property (nonatomic) UIColor *bufferColor;
+@property (nonatomic) UIColor *borderColor;
 @end
+NS_ASSUME_NONNULL_END

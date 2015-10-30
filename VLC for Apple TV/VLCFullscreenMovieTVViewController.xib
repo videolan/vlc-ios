@@ -9,11 +9,9 @@
                 <outlet property="bottomOverlayView" destination="SzB-KN-vRr" id="HdG-qX-fha"/>
                 <outlet property="bufferingLabel" destination="yaX-qU-D4t" id="pDV-iQ-eaa"/>
                 <outlet property="movieView" destination="SpU-aa-czI" id="zKW-zZ-hB6"/>
-                <outlet property="playbackProgressView" destination="b0E-Da-d7m" id="ZKe-aD-o2c"/>
-                <outlet property="playedTimeLabel" destination="Qph-m8-iCR" id="iRZ-62-zrZ"/>
                 <outlet property="preferredFocusedView" destination="iN0-l3-epB" id="obT-bV-VZv"/>
-                <outlet property="remainingTimeLabel" destination="rIg-pG-JWA" id="kfd-Dm-yho"/>
                 <outlet property="titleLabel" destination="epY-iV-5FH" id="7pR-09-6Fu"/>
+                <outlet property="transportBar" destination="CO6-ze-V9M" id="ogH-U0-9Vy"/>
                 <outlet property="view" destination="iN0-l3-epB" id="Eym-vH-oyN"/>
             </connections>
         </placeholder>
@@ -41,46 +39,35 @@
                     <nil key="highlightedColor"/>
                 </label>
                 <view userInteractionEnabled="NO" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="SzB-KN-vRr" customClass="VLCFrostedGlasView">
-                    <rect key="frame" x="0.0" y="940" width="1920" height="140"/>
+                    <rect key="frame" x="0.0" y="886" width="1920" height="194"/>
                     <subviews>
-                        <progressView opaque="NO" contentMode="scaleToFill" semanticContentAttribute="playback" verticalHuggingPriority="750" progress="0.5" translatesAutoresizingMaskIntoConstraints="NO" id="b0E-Da-d7m">
-                            <rect key="frame" x="200" y="95" width="1520" height="10"/>
+                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" misplaced="YES" text="" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="epY-iV-5FH">
+                            <rect key="frame" x="890" y="10" width="140" height="69"/>
                             <animations/>
-                        </progressView>
-                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" semanticContentAttribute="playback" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Qph-m8-iCR">
-                            <rect key="frame" x="200" y="59" width="57" height="28"/>
-                            <animations/>
-                            <fontDescription key="fontDescription" style="UICTFontTextStyleCaption2"/>
-                            <color key="textColor" red="1" green="1" blue="1" alpha="0.59999999999999998" colorSpace="calibratedRGB"/>
-                            <nil key="highlightedColor"/>
-                        </label>
-                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" semanticContentAttribute="playback" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="rIg-pG-JWA">
-                            <rect key="frame" x="1663" y="59" width="57" height="28"/>
-                            <animations/>
-                            <fontDescription key="fontDescription" style="UICTFontTextStyleCaption2"/>
-                            <color key="textColor" red="1" green="1" blue="1" alpha="0.59999999999999998" colorSpace="calibratedRGB"/>
-                            <nil key="highlightedColor"/>
-                        </label>
-                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="epY-iV-5FH">
-                            <rect key="frame" x="890" y="18" width="140" height="69"/>
-                            <animations/>
+                            <constraints>
+                                <constraint firstAttribute="height" relation="greaterThanOrEqual" constant="69" id="Cum-M9-lbH"/>
+                            </constraints>
                             <fontDescription key="fontDescription" style="UICTFontTextStyleTitle2"/>
                             <color key="textColor" red="1" green="1" blue="1" alpha="0.59999999999999998" colorSpace="calibratedRGB"/>
                             <nil key="highlightedColor"/>
                         </label>
+                        <view opaque="NO" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="CO6-ze-V9M" customClass="VLCTransportBar">
+                            <rect key="frame" x="90" y="94" width="1740" height="10"/>
+                            <animations/>
+                            <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
+                            <constraints>
+                                <constraint firstAttribute="height" constant="10" id="N7R-Ku-vGb"/>
+                            </constraints>
+                        </view>
                     </subviews>
                     <animations/>
                     <constraints>
-                        <constraint firstItem="b0E-Da-d7m" firstAttribute="top" secondItem="Qph-m8-iCR" secondAttribute="bottom" constant="8" id="4qM-OU-y9L"/>
-                        <constraint firstItem="rIg-pG-JWA" firstAttribute="trailing" secondItem="b0E-Da-d7m" secondAttribute="trailing" id="5Uf-62-xBp"/>
-                        <constraint firstAttribute="height" constant="140" id="JGE-bn-jF2"/>
-                        <constraint firstItem="epY-iV-5FH" firstAttribute="centerX" secondItem="b0E-Da-d7m" secondAttribute="centerX" id="RlC-TU-YCu"/>
-                        <constraint firstItem="b0E-Da-d7m" firstAttribute="top" secondItem="rIg-pG-JWA" secondAttribute="bottom" constant="8" id="Rxy-4w-OCf"/>
-                        <constraint firstAttribute="bottom" secondItem="b0E-Da-d7m" secondAttribute="bottom" constant="35" id="WRo-pW-Bul"/>
-                        <constraint firstItem="b0E-Da-d7m" firstAttribute="top" secondItem="epY-iV-5FH" secondAttribute="bottom" constant="8" id="bje-0n-PKO"/>
-                        <constraint firstAttribute="trailing" secondItem="b0E-Da-d7m" secondAttribute="trailing" constant="200" id="c2a-IL-fc2"/>
-                        <constraint firstItem="b0E-Da-d7m" firstAttribute="leading" secondItem="SzB-KN-vRr" secondAttribute="leading" constant="200" id="jpi-SZ-I5c"/>
-                        <constraint firstItem="Qph-m8-iCR" firstAttribute="leading" secondItem="b0E-Da-d7m" secondAttribute="leading" id="vJ1-lG-BUr"/>
+                        <constraint firstItem="CO6-ze-V9M" firstAttribute="top" secondItem="epY-iV-5FH" secondAttribute="bottom" constant="15" id="3KL-US-KZa"/>
+                        <constraint firstItem="CO6-ze-V9M" firstAttribute="leading" secondItem="SzB-KN-vRr" secondAttribute="leading" constant="90" id="6fm-9L-qPq"/>
+                        <constraint firstItem="epY-iV-5FH" firstAttribute="top" secondItem="SzB-KN-vRr" secondAttribute="top" constant="10" id="92r-mU-afS"/>
+                        <constraint firstItem="epY-iV-5FH" firstAttribute="centerX" secondItem="SzB-KN-vRr" secondAttribute="centerX" id="HiD-5l-FVo"/>
+                        <constraint firstAttribute="trailing" secondItem="CO6-ze-V9M" secondAttribute="trailing" constant="90" id="iA4-Us-HaM"/>
+                        <constraint firstAttribute="bottom" secondItem="CO6-ze-V9M" secondAttribute="bottom" constant="90" id="qW9-4Q-Y5z"/>
                     </constraints>
                 </view>
             </subviews>

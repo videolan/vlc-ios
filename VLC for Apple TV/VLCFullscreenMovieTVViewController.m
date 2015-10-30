@@ -40,8 +40,13 @@
     _movieView.userInteractionEnabled = NO;
     _playerIsSetup = NO;
 
-    self.titleLabel.text = self.remainingTimeLabel.text = self.playedTimeLabel.text = @"";
-    self.playbackProgressView.progress = .0;
+    self.titleLabel.text = @"";
+
+    self.transportBar.bufferStartFraction = 0.0;
+    self.transportBar.bufferEndFraction = 1.0;
+    self.transportBar.playbackFraction = 0.0;
+    self.transportBar.scrubbingFraction = 0.0;
+
     self.bottomOverlayView.hidden = YES;
 
     UITapGestureRecognizer *playpauseGesture = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(playPausePressed)];
@@ -156,9 +161,11 @@ currentMediaHasTrackToChooseFrom:(BOOL)currentMediaHasTrackToChooseFrom
 - (void)playbackPositionUpdated:(VLCPlaybackController *)controller
 {
     VLCMediaPlayer *mediaPlayer = [VLCPlaybackController sharedInstance].mediaPlayer;
-    self.remainingTimeLabel.text = [[mediaPlayer remainingTime] stringValue];
-    self.playedTimeLabel.text = [[mediaPlayer time] stringValue];
-    self.playbackProgressView.progress = mediaPlayer.position;
+
+    VLCTransportBar *transportBar = self.transportBar;
+    transportBar.remainingTimeLabel.text = [[mediaPlayer remainingTime] stringValue];
+    transportBar.markerTimeLabel.text = [[mediaPlayer time] stringValue];
+    transportBar.playbackFraction = mediaPlayer.position;
 }
 
 @end
