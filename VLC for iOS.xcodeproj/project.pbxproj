@@ -196,7 +196,6 @@
 		7DC19B051868D1C400810BF7 /* VLCFirstStepsFifthPageViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 7DC19B031868D1C400810BF7 /* VLCFirstStepsFifthPageViewController.m */; };
 		7DC19B0C1868D21800810BF7 /* VLCFirstStepsSixthPageViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 7DC19B0A1868D21800810BF7 /* VLCFirstStepsSixthPageViewController.m */; };
 		7DC71D0E1BC81F70001FACAA /* AVFoundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 7DC71D0D1BC81F70001FACAA /* AVFoundation.framework */; };
-		7DC71D211BC83058001FACAA /* VLCAppSharesTVViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 7DC71D1F1BC83058001FACAA /* VLCAppSharesTVViewController.m */; };
 		7DC71D261BC830A5001FACAA /* VLCLocalNetworkTVViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 7DC71D241BC830A5001FACAA /* VLCLocalNetworkTVViewController.m */; };
 		7DC71D291BC83590001FACAA /* UIColor+Presets.m in Sources */ = {isa = PBXBuildFile; fileRef = 7DF9352E1958AB0600E60FD4 /* UIColor+Presets.m */; };
 		7DC72D6317B7ED24008A26D0 /* WhiteRaccoon.m in Sources */ = {isa = PBXBuildFile; fileRef = 7DC72D6217B7ED24008A26D0 /* WhiteRaccoon.m */; };
@@ -804,8 +803,6 @@
 		7DC19B0A1868D21800810BF7 /* VLCFirstStepsSixthPageViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = VLCFirstStepsSixthPageViewController.m; path = Sources/VLCFirstStepsSixthPageViewController.m; sourceTree = SOURCE_ROOT; };
 		7DC222771773AB0900371B5C /* es */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = es; path = es.lproj/Localizable.strings; sourceTree = "<group>"; };
 		7DC71D0D1BC81F70001FACAA /* AVFoundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AVFoundation.framework; path = Platforms/AppleTVOS.platform/Developer/SDKs/AppleTVOS9.0.sdk/System/Library/Frameworks/AVFoundation.framework; sourceTree = DEVELOPER_DIR; };
-		7DC71D1E1BC83058001FACAA /* VLCAppSharesTVViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = VLCAppSharesTVViewController.h; sourceTree = "<group>"; };
-		7DC71D1F1BC83058001FACAA /* VLCAppSharesTVViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = VLCAppSharesTVViewController.m; sourceTree = "<group>"; };
 		7DC71D231BC830A5001FACAA /* VLCLocalNetworkTVViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = VLCLocalNetworkTVViewController.h; sourceTree = "<group>"; };
 		7DC71D241BC830A5001FACAA /* VLCLocalNetworkTVViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = VLCLocalNetworkTVViewController.m; sourceTree = "<group>"; };
 		7DC72D6117B7ED24008A26D0 /* WhiteRaccoon.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = WhiteRaccoon.h; path = ImportedSources/WhiteRaccoon/WhiteRaccoon.h; sourceTree = SOURCE_ROOT; };
@@ -1836,8 +1833,6 @@
 		7DEC8BE31BD68882006E1093 /* Network UI */ = {
 			isa = PBXGroup;
 			children = (
-				7DC71D1E1BC83058001FACAA /* VLCAppSharesTVViewController.h */,
-				7DC71D1F1BC83058001FACAA /* VLCAppSharesTVViewController.m */,
 				DDEAECEB1BDFE99200756C83 /* VLCServerListTVTableViewController.h */,
 				DDEAECEC1BDFE99200756C83 /* VLCServerListTVTableViewController.m */,
 				DDDEA6AD1BE027FA000BB7A2 /* VLCServerBrowsingTVTableViewController.h */,
@@ -2667,7 +2662,6 @@
 				DD3EFF561BDEBCE500B68579 /* VLCLocalNetworkServiceBrowserDSM.m in Sources */,
 				DD3EABF91BE14BD6003668DA /* BasicUPnPDevice+VLC.m in Sources */,
 				7D0C34E71BD951080058CD19 /* NSString+SupportedMedia.m in Sources */,
-				7DC71D211BC83058001FACAA /* VLCAppSharesTVViewController.m in Sources */,
 				DDEAECBF1BDEBF6700756C83 /* VLCNetworkServerLoginInformation.m in Sources */,
 				DD3EFF381BDEBCE500B68579 /* VLCLocalNetworkServiceNetService.m in Sources */,
 				DD8095D61BE3C3BA0065D8E1 /* VLCTransportBar.m in Sources */,

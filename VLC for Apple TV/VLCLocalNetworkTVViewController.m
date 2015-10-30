@@ -17,6 +17,7 @@
 #import "VLCLocalNetworkServiceBrowserUPnP.h"
 #import "VLCLocalNetworkServiceBrowserSAP.h"
 #import "VLCLocalNetworkServiceBrowserDSM.h"
+#import "VLCLocalNetworkServiceBrowserHTTP.h"
 
 @interface VLCLocalNetworkTVViewController ()
 
@@ -28,11 +29,12 @@
     [super viewDidLoad];
     NSArray *classes = @[
 //                         [VLCLocalNetworkServiceBrowserManualConnect class],
+                         [VLCLocalNetworkServiceBrowserHTTP class],
                          [VLCLocalNetworkServiceBrowserUPnP class],
+                         [VLCLocalNetworkServiceBrowserDSM class],
                          [VLCLocalNetworkServiceBrowserPlex class],
 //                         [VLCLocalNetworkServiceBrowserFTP class],
                          [VLCLocalNetworkServiceBrowserSAP class],
-                         [VLCLocalNetworkServiceBrowserDSM class],
                          ];
     self.discoveryController = [[VLCLocalServerDiscoveryController alloc] initWithServiceBrowserClasses:classes];
     self.discoveryController.delegate = self;

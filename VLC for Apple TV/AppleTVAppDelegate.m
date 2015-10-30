@@ -10,7 +10,6 @@
  *****************************************************************************/
 
 #import "AppleTVAppDelegate.h"
-#import "VLCAppSharesTVViewController.h"
 #import "VLCLocalNetworkTVViewController.h"
 #import "VLCOpenNetworkStreamTVViewController.h"
 #import "VLCSettingsAboutTableViewController.h"
@@ -20,7 +19,6 @@
 {
     UITabBarController *_mainViewController;
 
-    VLCAppSharesTVViewController *_sharesVC;
     VLCLocalNetworkTVViewController *_localNetworkVC;
     VLCCloudServicesTVViewController *_cloudServicesVC;
     VLCOpenNetworkStreamTVViewController *_openNetworkVC;
@@ -57,7 +55,6 @@
 
     self.window = [[UIWindow alloc] initWithFrame:[[UIScreen mainScreen] bounds]];
     _localNetworkVC = [[VLCLocalNetworkTVViewController alloc] initWithNibName:nil bundle:nil];
-    _sharesVC = [[VLCAppSharesTVViewController alloc] initWithNibName:nil bundle:nil];
     _cloudServicesVC = [[VLCCloudServicesTVViewController alloc] initWithNibName:nil bundle:nil];
     _openNetworkVC = [[VLCOpenNetworkStreamTVViewController alloc] initWithNibName:nil bundle:nil];
     _aboutSettingsVC = [[UISplitViewController alloc] init];
@@ -68,8 +65,7 @@
     _mainViewController = [[UITabBarController alloc] init];
     _mainViewController.tabBar.backgroundColor = [UIColor VLCOrangeTintColor];
 
-    _mainViewController.viewControllers = @[[[UINavigationController alloc] initWithRootViewController:_sharesVC],
-                                            [[UINavigationController alloc] initWithRootViewController:_localNetworkVC],
+    _mainViewController.viewControllers = @[[[UINavigationController alloc] initWithRootViewController:_localNetworkVC],
                                             _cloudServicesVC, _openNetworkVC, _aboutSettingsVC];
 
     self.window.rootViewController = _mainViewController;
