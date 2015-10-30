@@ -15,13 +15,16 @@
 #import "VLCDropboxTableViewController.h"
 #import "SSKeychain.h"
 #import "VLCPlayerDisplayController.h"
-#import "VLCOneDriveTableViewController.h"
+#import "VLCOneDriveController.h"
+#import "VLCOneDriveTableViewController2.h"
 #import "VLCBoxTableViewController.h"
 
 @interface VLCCloudServicesTVViewController ()
+{
+    VLCOneDriveController *_oneDriveController;
+}
 
 @property (nonatomic) VLCDropboxTableViewController *dropboxTableViewController;
-@property (nonatomic) VLCOneDriveTableViewController *oneDriveTableViewController;
 @property (nonatomic) VLCBoxTableViewController *boxTableViewController;
 
 @end
@@ -31,9 +34,19 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
 
+    NSNotificationCenter *center = [NSNotificationCenter defaultCenter];
+    [center addObserver:self selector:@selector(oneDriveSessionUpdated:) name:VLCOneDriveControllerSessionUpdated object:nil];
+
+    _oneDriveController = [VLCOneDriveController sharedInstance];
     self.dropboxTableViewController = [[VLCDropboxTableViewController alloc] initWithNibName:nil bundle:nil];
-    self.oneDriveTableViewController = [[VLCOneDriveTableViewController alloc] initWithNibName:nil bundle:nil];
     self.boxTableViewController = [[VLCBoxTableViewController alloc] initWithNibName:nil bundle:nil];
+
+    [self oneDriveSessionUpdated:nil];
+}
+
+- (void)dealloc
+{
+    [[NSNotificationCenter defaultCenter] removeObserver:self];
 }
 
 - (NSString *)title
@@ -67,9 +80,15 @@
     [self presentViewController:alert animated:YES completion:nil];
 }
 
+- (void)oneDriveSessionUpdated:(NSNotification *)aNotification
+{
+    self.oneDriveButton.enabled = _oneDriveController.activeSession;
+}
+
 - (IBAction)onedrive:(id)sender
 {
-    [self.navigationController pushViewController:self.oneDriveTableViewController animated:YES];
+    VLCOneDriveTableViewController2 *newKid = [[VLCOneDriveTableViewController2 alloc] initWithOneDriveObject:nil];
+    [self.navigationController pushViewController:newKid animated:YES];
 }
 
 - (IBAction)box:(id)sender

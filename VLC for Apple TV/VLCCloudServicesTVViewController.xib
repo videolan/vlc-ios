@@ -6,6 +6,7 @@
     <objects>
         <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner" customClass="VLCCloudServicesTVViewController">
             <connections>
+                <outlet property="oneDriveButton" destination="gFm-4V-QFs" id="eWx-9Y-RDg"/>
                 <outlet property="view" destination="iN0-l3-epB" id="Eym-vH-oyN"/>
             </connections>
         </placeholder>

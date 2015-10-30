@@ -202,6 +202,7 @@
 		7DD2A3A9179C04A7003EB537 /* OpenSans-Regular.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 7DD2A3A8179C04A6003EB537 /* OpenSans-Regular.ttf */; };
 		7DDD0429172D98E5005A7B10 /* CFNetwork.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 7DDD0428172D98E5005A7B10 /* CFNetwork.framework */; };
 		7DDFF4251BDFD23300913BD1 /* VLCCone512x512.png in Resources */ = {isa = PBXBuildFile; fileRef = 7DDFF4241BDFD23300913BD1 /* VLCCone512x512.png */; };
+		7DE0648D1BE3F36700C706BE /* VLCOneDriveTableViewController2.m in Sources */ = {isa = PBXBuildFile; fileRef = 7DE0648C1BE3F36700C706BE /* VLCOneDriveTableViewController2.m */; };
 		7DE56C1A1AD93F9100E8CA00 /* VLCPlaybackController.m in Sources */ = {isa = PBXBuildFile; fileRef = 7DE56C191AD93F9100E8CA00 /* VLCPlaybackController.m */; };
 		7DEC8BD91BD670EB006E1093 /* VLCPlaybackNavigationController.m in Sources */ = {isa = PBXBuildFile; fileRef = 7D9CB9DB1A4C55EF00BB74B4 /* VLCPlaybackNavigationController.m */; };
 		7DEC8BDA1BD67112006E1093 /* VLCFrostedGlasView.m in Sources */ = {isa = PBXBuildFile; fileRef = 9BADAF44185FBD9D00108BD8 /* VLCFrostedGlasView.m */; };
@@ -815,6 +816,8 @@
 		7DD32D22194F1946002510A9 /* zh-Hant */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = "zh-Hant"; path = "zh-Hant.lproj/Localizable.strings"; sourceTree = "<group>"; };
 		7DDD0428172D98E5005A7B10 /* CFNetwork.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CFNetwork.framework; path = System/Library/Frameworks/CFNetwork.framework; sourceTree = SDKROOT; };
 		7DDFF4241BDFD23300913BD1 /* VLCCone512x512.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = VLCCone512x512.png; path = Resources/VLCCone512x512.png; sourceTree = SOURCE_ROOT; };
+		7DE0648B1BE3F36700C706BE /* VLCOneDriveTableViewController2.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = VLCOneDriveTableViewController2.h; path = SharedSources/Clouds/VLCOneDriveTableViewController2.h; sourceTree = SOURCE_ROOT; };
+		7DE0648C1BE3F36700C706BE /* VLCOneDriveTableViewController2.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = VLCOneDriveTableViewController2.m; path = SharedSources/Clouds/VLCOneDriveTableViewController2.m; sourceTree = SOURCE_ROOT; };
 		7DE56C181AD93F9100E8CA00 /* VLCPlaybackController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = VLCPlaybackController.h; path = Sources/VLCPlaybackController.h; sourceTree = SOURCE_ROOT; };
 		7DE56C191AD93F9100E8CA00 /* VLCPlaybackController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = VLCPlaybackController.m; path = Sources/VLCPlaybackController.m; sourceTree = SOURCE_ROOT; };
 		7DEB3B5F17647DE30038FC70 /* iTunesArtwork@2x */ = {isa = PBXFileReference; lastKnownFileType = file; path = "iTunesArtwork@2x"; sourceTree = "<group>"; };
@@ -1279,6 +1282,8 @@
 				7D1052EB1A4DCC4B00295F08 /* VLCOneDriveConstants.h */,
 				7D1052E71A4DCC1100295F08 /* VLCOneDriveTableViewController.h */,
 				7D1052E81A4DCC1100295F08 /* VLCOneDriveTableViewController.m */,
+				7DE0648B1BE3F36700C706BE /* VLCOneDriveTableViewController2.h */,
+				7DE0648C1BE3F36700C706BE /* VLCOneDriveTableViewController2.m */,
 				7D1052EC1A4DCD1E00295F08 /* VLCOneDriveController.h */,
 				7D1052ED1A4DCD1E00295F08 /* VLCOneDriveController.m */,
 				7DB847D51A5871570002DC30 /* VLCOneDriveObject.h */,
@@ -2665,6 +2670,7 @@
 			files = (
 				DD3EFF441BDEBCE500B68579 /* VLCSharedLibraryParser.m in Sources */,
 				DD3EFF5E1BDEBCE500B68579 /* VLCLocalServerDiscoveryController.m in Sources */,
+				7DE0648D1BE3F36700C706BE /* VLCOneDriveTableViewController2.m in Sources */,
 				7D0C35371BD97E870058CD19 /* VLCOneDriveTableViewController.m in Sources */,
 				DD8095E01BE3EFC20065D8E1 /* VLCPlaybackInfoTVViewController.m in Sources */,
 				7DEC8C1F1BD6A113006E1093 /* UIDevice+VLC.m in Sources */,
