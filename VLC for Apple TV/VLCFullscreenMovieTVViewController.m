@@ -10,6 +10,11 @@
  *****************************************************************************/
 
 #import "VLCFullscreenMovieTVViewController.h"
+#import "VLCPlaybackInfoTVViewController.h"
+
+
+@interface VLCFullscreenMovieTVViewController (UIViewControllerTransitioningDelegate) <UIViewControllerTransitioningDelegate>
+@end
 
 @interface VLCFullscreenMovieTVViewController ()
 {
@@ -50,16 +55,31 @@
     self.dimmingView.alpha = 0.0;
     self.bottomOverlayView.hidden = YES;
 
-    UITapGestureRecognizer *playpauseGesture = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(playPausePressed)];
-    playpauseGesture.allowedPressTypes = @[@(UIPressTypePlayPause)];
-    [self.view addGestureRecognizer:playpauseGesture];
+
+
+    // Panning and Swiping
+
+    // does not work with pan gesture
+//    UISwipeGestureRecognizer *swipeDownRecognizer = [[UISwipeGestureRecognizer alloc] initWithTarget:self action:@selector(swipeDownRecognized:)];
+//    swipeDownRecognizer.direction = UISwipeGestureRecognizerDirectionDown;
+//    [self.view addGestureRecognizer:swipeDownRecognizer];
+
+    UITapGestureRecognizer *swipeDownRecognizer = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(swipeDownRecognized:)];
+    swipeDownRecognizer.allowedPressTypes = @[@(UIPressTypeUpArrow)];
+    [self.view addGestureRecognizer:swipeDownRecognizer];
 
     UIPanGestureRecognizer *panGestureRecognizer = [[UIPanGestureRecognizer alloc] initWithTarget:self action:@selector(panGesture:)];
     [self.view addGestureRecognizer:panGestureRecognizer];
 
+    // Button presses
+    UITapGestureRecognizer *playpauseGesture = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(playPausePressed)];
+    playpauseGesture.allowedPressTypes = @[@(UIPressTypePlayPause)];
+    [self.view addGestureRecognizer:playpauseGesture];
+
     UITapGestureRecognizer *selectTapGestureRecognizer = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(selectButtonPressed:)];
     selectTapGestureRecognizer.allowedPressTypes = @[@(UIPressTypeSelect)];
     [self.view addGestureRecognizer:selectTapGestureRecognizer];
+
     UITapGestureRecognizer *menuTapGestureRecognizer = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(menuButtonPressed:)];
     menuTapGestureRecognizer.allowedPressTypes = @[@(UIPressTypeMenu)];
     [self.view addGestureRecognizer:menuTapGestureRecognizer];
@@ -163,6 +183,19 @@
         [self updateTimeLabelsForScrubbingFraction:bar.playbackFraction];
         [self stopScrubbing];
     }
+}
+
+- (void)swipeDownRecognized:(UITapGestureRecognizer *)recognizer
+{
+    if (self.transportBar.scrubbing) {
+        return;
+    }
+
+    VLCPlaybackInfoTVViewController *infoController = [[VLCPlaybackInfoTVViewController alloc] initWithNibName:nil bundle:nil];
+    infoController.transitioningDelegate = self;
+    infoController.modalPresentationStyle = UIModalPresentationOverCurrentContext;
+    // TODO: configure with player info
+    [self presentViewController:infoController animated:YES completion:nil];
 }
 
 #pragma mark - 
@@ -275,4 +308,17 @@ currentMediaHasTrackToChooseFrom:(BOOL)currentMediaHasTrackToChooseFrom
     transportBar.playbackFraction = mediaPlayer.position;
 }
 
+@end
+
+
+@implementation VLCFullscreenMovieTVViewController (UIViewControllerTransitioningDelegate)
+
+- (id<UIViewControllerAnimatedTransitioning>)animationControllerForPresentedController:(UIViewController *)presented presentingController:(UIViewController *)presenting sourceController:(UIViewController *)source
+{
+    return [[VLCPlaybackInfoTVTransitioningAnimator alloc] init];
+}
+- (id<UIViewControllerAnimatedTransitioning>)animationControllerForDismissedController:(UIViewController *)dismissed
+{
+    return [[VLCPlaybackInfoTVTransitioningAnimator alloc] init];
+}
 @end

@@ -1,0 +1,47 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<document type="com.apple.InterfaceBuilder.AppleTV.XIB" version="3.0" toolsVersion="9059" systemVersion="15B42" targetRuntime="AppleTV" propertyAccessControl="none" useAutolayout="YES">
+    <dependencies>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="9059"/>
+    </dependencies>
+    <objects>
+        <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner" customClass="VLCPlaybackInfoTVViewController">
+            <connections>
+                <outlet property="containerHeightConstraint" destination="PQd-PR-z5I" id="40d-bO-xMR"/>
+                <outlet property="containerView" destination="U6y-cE-eGu" id="pdM-21-C2a"/>
+                <outlet property="dimmingView" destination="fkF-mr-3nG" id="NO9-Ww-dkm"/>
+                <outlet property="view" destination="iN0-l3-epB" id="aoh-6Y-hrX"/>
+            </connections>
+        </placeholder>
+        <placeholder placeholderIdentifier="IBFirstResponder" id="-2" customClass="UIResponder"/>
+        <view contentMode="scaleToFill" id="iN0-l3-epB">
+            <rect key="frame" x="0.0" y="0.0" width="1920" height="1080"/>
+            <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+            <subviews>
+                <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="fkF-mr-3nG" userLabel="DimmingView">
+                    <rect key="frame" x="0.0" y="400" width="1920" height="680"/>
+                    <animations/>
+                    <color key="backgroundColor" white="0.0" alpha="0.29999999999999999" colorSpace="calibratedWhite"/>
+                </view>
+                <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="U6y-cE-eGu" userLabel="Container">
+                    <rect key="frame" x="0.0" y="0.0" width="1920" height="400"/>
+                    <animations/>
+                    <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                    <constraints>
+                        <constraint firstAttribute="height" constant="400" id="PQd-PR-z5I"/>
+                    </constraints>
+                </view>
+            </subviews>
+            <animations/>
+            <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
+            <constraints>
+                <constraint firstItem="fkF-mr-3nG" firstAttribute="top" secondItem="U6y-cE-eGu" secondAttribute="bottom" id="56R-lg-86y"/>
+                <constraint firstItem="fkF-mr-3nG" firstAttribute="leading" secondItem="iN0-l3-epB" secondAttribute="leading" id="9tl-tu-ZJg"/>
+                <constraint firstItem="U6y-cE-eGu" firstAttribute="leading" secondItem="iN0-l3-epB" secondAttribute="leading" id="C8C-JW-U5v"/>
+                <constraint firstAttribute="bottom" secondItem="fkF-mr-3nG" secondAttribute="bottom" id="X7X-Ek-8zE"/>
+                <constraint firstAttribute="trailing" secondItem="fkF-mr-3nG" secondAttribute="trailing" id="a5y-gG-ndP"/>
+                <constraint firstAttribute="trailing" secondItem="U6y-cE-eGu" secondAttribute="trailing" id="amL-DA-aLx"/>
+                <constraint firstItem="U6y-cE-eGu" firstAttribute="top" secondItem="iN0-l3-epB" secondAttribute="top" id="wZW-k5-Ugc"/>
+            </constraints>
+        </view>
+    </objects>
+</document>
