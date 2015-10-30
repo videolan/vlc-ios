@@ -113,8 +113,6 @@
     // currently the case on the TV
     const BOOL singlePlayback = NO;
     [self didSelectItem:item index:row singlePlayback:singlePlayback];
-
-
 }
 
 @end

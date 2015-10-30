@@ -66,7 +66,9 @@
     _mainViewController.tabBar.backgroundColor = [UIColor VLCOrangeTintColor];
 
     _mainViewController.viewControllers = @[[[UINavigationController alloc] initWithRootViewController:_localNetworkVC],
-                                            _cloudServicesVC, _openNetworkVC, _aboutSettingsVC];
+                                            [[UINavigationController alloc] initWithRootViewController:_cloudServicesVC],
+                                            [[UINavigationController alloc] initWithRootViewController:_openNetworkVC],
+                                            _aboutSettingsVC];
 
     self.window.rootViewController = _mainViewController;
 

@@ -44,7 +44,7 @@
 - (IBAction)dropbox:(id)sender
 {
     if ([[VLCDropboxController sharedInstance] restoreFromSharedCredentials]) {
-        [self showDetailViewController:self.dropboxTableViewController sender:self];
+        [self.navigationController pushViewController:self.dropboxTableViewController animated:YES];
         return;
     }
 
@@ -69,12 +69,12 @@
 
 - (IBAction)onedrive:(id)sender
 {
-    [self showDetailViewController:self.oneDriveTableViewController sender:self];
+    [self.navigationController pushViewController:self.oneDriveTableViewController animated:YES];
 }
 
 - (IBAction)box:(id)sender
 {
-    [self showDetailViewController:self.boxTableViewController sender:self];
+    [self.navigationController pushViewController:self.boxTableViewController animated:YES];
 }
 
 @end
