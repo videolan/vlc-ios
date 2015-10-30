@@ -14,16 +14,12 @@
 
 #import "VLCCloudStorageTableViewController.h"
 #import "VLCCloudStorageTableViewCell.h"
-#if TARGET_OS_IOS
 #import "VLCProgressView.h"
-#endif
 
 @interface VLCCloudStorageTableViewController()
 {
-#if TARGET_OS_IOS
     VLCProgressView *_progressView;
     UIRefreshControl *_refreshControl;
-#endif
 
     UIBarButtonItem *_progressBarButtonItem;
     UIBarButtonItem *_logoutButton;
@@ -39,7 +35,6 @@
 
     _authorizationInProgress = NO;
 
-#if TARGET_OS_IOS
     self.modalPresentationStyle = UIModalPresentationFormSheet;
 
     UIBarButtonItem *backButton = [UIBarButtonItem themedBackButtonWithTarget:self andSelector:@selector(goBack)];
@@ -60,7 +55,6 @@
     _refreshControl.tintColor = [UIColor whiteColor];
     [_refreshControl addTarget:self action:@selector(handleRefresh) forControlEvents:UIControlEventValueChanged];
     [self.tableView addSubview:_refreshControl];
-#endif
 
     self.navigationItem.titleView.contentMode = UIViewContentModeScaleAspectFit;
 
@@ -78,15 +72,12 @@
     [self.view addConstraint:[NSLayoutConstraint constraintWithItem:_activityIndicator attribute:NSLayoutAttributeCenterX relatedBy:NSLayoutRelationEqual toItem:self.view attribute:NSLayoutAttributeCenterX multiplier:1.0 constant:0]];
     [self.view addConstraint:[NSLayoutConstraint constraintWithItem:_activityIndicator attribute:NSLayoutAttributeCenterY relatedBy:NSLayoutRelationEqual toItem:self.view attribute:NSLayoutAttributeCenterY multiplier:1.0 constant:0]];
 
-#if TARGET_OS_IOS
     _progressView = [VLCProgressView new];
     _progressBarButtonItem = [[UIBarButtonItem alloc] initWithCustomView:_progressView];
 
     [self _showProgressInToolbar:NO];
-#endif
 }
 
-#if TARGET_OS_IOS
 - (void)viewWillAppear:(BOOL)animated
 {
     self.navigationController.toolbarHidden = NO;
@@ -115,8 +106,6 @@
     [self requestInformationForCurrentPath];
 }
 
-#endif
-
 - (void)requestInformationForCurrentPath
 {
     [_activityIndicator startAnimating];
@@ -127,10 +116,7 @@
 - (void)mediaListUpdated
 {
     [_activityIndicator stopAnimating];
-
-#if TARGET_OS_IOS
     [_refreshControl endRefreshing];
-#endif
 
     [self.tableView reloadData];
 
@@ -143,7 +129,6 @@
         self.numberOfFilesBarButtonItem.title = NSLocalizedString(@"ONE_FILE", nil);
 }
 
-#if TARGET_OS_IOS
 - (void)_showProgressInToolbar:(BOOL)value
 {
     if (!value)
@@ -163,20 +148,15 @@
 {
     [_progressView.progressBar setProgress:progress animated:YES];
 }
-#endif
 
 - (void)operationWithProgressInformationStarted
 {
-#if TARGET_OS_IOS
     [self _showProgressInToolbar:YES];
-#endif
 }
 
 - (void)operationWithProgressInformationStopped
 {
-#if TARGET_OS_IOS
     [self _showProgressInToolbar:NO];
-#endif
 }
 #pragma mark - UITableViewDataSources
 
@@ -187,12 +167,10 @@
 
 #pragma mark - UITableViewDelegate
 
-#if TARGET_OS_IOS
 - (void)tableView:(UITableView *)tableView willDisplayCell:(UITableViewCell *)cell forRowAtIndexPath:(NSIndexPath *)indexPath
 {
     cell.backgroundColor = (indexPath.row % 2 == 0)? [UIColor blackColor]: [UIColor VLCDarkBackgroundColor];
 }
-#endif
 
 - (void)goBack
 {
