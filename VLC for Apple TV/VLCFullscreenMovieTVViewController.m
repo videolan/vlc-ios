@@ -53,6 +53,13 @@
     playpauseGesture.allowedPressTypes = @[@(UIPressTypePlayPause)];
     [self.view addGestureRecognizer:playpauseGesture];
 
+    UIPanGestureRecognizer *panGestureRecognizer = [[UIPanGestureRecognizer alloc] initWithTarget:self action:@selector(panGesture:)];
+    [self.view addGestureRecognizer:panGestureRecognizer];
+
+    UITapGestureRecognizer *tapGestureRecognizer = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(selectTap:)];
+    tapGestureRecognizer.allowedPressTypes = @[@(UIPressTypeSelect)];
+    [self.view addGestureRecognizer:tapGestureRecognizer];
+
 }
 
 #pragma mark - view events
@@ -102,10 +109,55 @@
 }
 
 #pragma mark - UIActions
-- (void) playPausePressed
+- (void)playPausePressed
 {
     VLCPlaybackController *vpc = [VLCPlaybackController sharedInstance];
     [vpc playPause];
+}
+
+- (void)panGesture:(UIPanGestureRecognizer *)panGestureRecognizer
+{
+    VLCPlaybackController *vpc = [VLCPlaybackController sharedInstance];
+    VLCTransportBar *bar = self.transportBar;
+
+    UIView *view = self.view;
+    CGPoint translation = [panGestureRecognizer translationInView:view];
+
+    if (!bar.scrubbing) {
+        if (translation.x > 100.0) {
+            bar.scrubbing = YES;
+            if (vpc.isPlaying) {
+                [vpc playPause];
+            }
+        } else {
+            return;
+        }
+    }
+
+    const CGFloat scaleFactor = 8.0;
+    CGFloat fractionInView = translation.x/CGRectGetWidth(view.bounds)/scaleFactor;
+    translation.x = 0.0;
+    [panGestureRecognizer setTranslation:translation inView:view];
+
+    CGFloat scrubbinFraction = MAX(0.0, MIN(bar.scrubbingFraction + fractionInView,1.0));
+    bar.scrubbingFraction = scrubbinFraction;
+    // MAX 1, _ is ugly hack to prevent --:-- instead of 00:00
+    int scrubbingTimeInt = MAX(1,vpc.mediaDuration*scrubbinFraction);
+    VLCTime *scrubbingTime = [VLCTime timeWithInt:scrubbingTimeInt];
+    bar.markerTimeLabel.text = [scrubbingTime stringValue];
+    VLCTime *remainingTime = [VLCTime timeWithInt:(int)vpc.mediaDuration-scrubbingTime.intValue];
+    bar.remainingTimeLabel.text = [remainingTime stringValue];
+}
+
+- (void)selectTap:(UITapGestureRecognizer *)recognizer
+{
+    VLCPlaybackController *vpc = [VLCPlaybackController sharedInstance];
+    VLCTransportBar *bar = self.transportBar;
+    if (bar.scrubbing) {
+        bar.scrubbing = NO;
+        [vpc.mediaPlayer setPosition:bar.scrubbingFraction];
+        [vpc.mediaPlayer play];
+    }
 }
 
 #pragma mark - playback controller delegation

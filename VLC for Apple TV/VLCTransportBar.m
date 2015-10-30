@@ -81,22 +81,25 @@ static inline void sharedSetup(VLCTransportBar *self) {
 }
 
 - (void)setBufferStartFraction:(CGFloat)bufferStartFraction {
-    _bufferStartFraction = bufferStartFraction;
-    self.bufferingBar.bufferStartFraction = bufferStartFraction;
+    CGFloat fraction = MAX(0.0, MIN(bufferStartFraction, 1.0));
+    _bufferStartFraction = fraction;
+    self.bufferingBar.bufferStartFraction = fraction;
 }
 - (void)setBufferEndFraction:(CGFloat)bufferEndFraction {
-    _bufferEndFraction = bufferEndFraction;
-    self.bufferingBar.bufferEndFraction = bufferEndFraction;
+    CGFloat fraction = MAX(0.0, MIN(bufferEndFraction, 1.0));
+    _bufferEndFraction = fraction;
+    self.bufferingBar.bufferEndFraction = fraction;
 }
 - (void)setPlaybackFraction:(CGFloat)playbackFraction {
-    _playbackFraction = playbackFraction;
+    CGFloat fraction = MAX(0.0, MIN(playbackFraction, 1.0));
+    _playbackFraction = fraction;
     if (!self.scrubbing) {
-        [self setScrubbingFraction:playbackFraction];
+        [self setScrubbingFraction:fraction];
     }
     [self setNeedsLayout];
 }
 - (void)setScrubbingFraction:(CGFloat)scrubbingFraction {
-    _scrubbingFraction = scrubbingFraction;
+    _scrubbingFraction = MAX(0.0, MIN(scrubbingFraction, 1.0));
     [self setNeedsLayout];
 }
 - (void)setScrubbing:(BOOL)scrubbing {
