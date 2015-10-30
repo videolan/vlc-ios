@@ -14,7 +14,6 @@
 @interface VLCOpenNetworkStreamTVViewController : UIViewController <UITableViewDataSource, UITableViewDelegate>
 
 @property (readwrite, nonatomic, weak) IBOutlet UILabel *titleLabel;
-@property (readwrite, nonatomic, weak) IBOutlet UILabel *noURLsToShowLabel;
 @property (readwrite, nonatomic, weak) IBOutlet UITextField *playURLField;
 @property (readwrite, nonatomic, weak) IBOutlet UITableView *previouslyPlayedStreamsTableView;
 

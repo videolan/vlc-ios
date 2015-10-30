@@ -17,6 +17,7 @@
 @interface VLCOpenNetworkStreamTVViewController ()
 {
     NSMutableArray *_recentURLs;
+    UILabel *_noURLsToShowLabel;
 }
 @end
 
@@ -30,6 +31,32 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
 
+    _noURLsToShowLabel = [[UILabel alloc] init];
+    _noURLsToShowLabel.text = NSLocalizedString(@"NO_RECENT_STREAMS", nil);
+    _noURLsToShowLabel.textAlignment = NSTextAlignmentCenter;
+    _noURLsToShowLabel.textColor = [UIColor VLCLightTextColor];
+    _noURLsToShowLabel.font = [UIFont preferredFontForTextStyle:UIFontTextStyleTitle3];
+    [_noURLsToShowLabel sizeToFit];
+    [_noURLsToShowLabel setTranslatesAutoresizingMaskIntoConstraints:NO];
+    [self.view addSubview:_noURLsToShowLabel];
+
+    NSLayoutConstraint *yConstraint = [NSLayoutConstraint constraintWithItem:_noURLsToShowLabel
+                                                                   attribute:NSLayoutAttributeCenterY
+                                                                   relatedBy:NSLayoutRelationEqual
+                                                                      toItem:self.view
+                                                                   attribute:NSLayoutAttributeCenterY
+                                                                  multiplier:1.0
+                                                                    constant:0.0];
+    [self.view addConstraint:yConstraint];
+    NSLayoutConstraint *xConstraint = [NSLayoutConstraint constraintWithItem:_noURLsToShowLabel
+                                                                   attribute:NSLayoutAttributeCenterX
+                                                                   relatedBy:NSLayoutRelationEqual
+                                                                      toItem:self.view
+                                                                   attribute:NSLayoutAttributeCenterX
+                                                                  multiplier:1.0
+                                                                    constant:0.0];
+    [self.view addConstraint:xConstraint];
+
     NSNotificationCenter *notificationCenter = [NSNotificationCenter defaultCenter];
     [notificationCenter addObserver:self
                            selector:@selector(ubiquitousKeyValueStoreDidChange:)
@@ -42,12 +69,14 @@
 
     /* fetch data from cloud */
     _recentURLs = [NSMutableArray arrayWithArray:[[NSUbiquitousKeyValueStore defaultStore] arrayForKey:kVLCRecentURLs]];
+#ifndef NDEBUG
     if (_recentURLs.count == 0) {
         [_recentURLs addObject:@"http://streams.videolan.org/streams/mp4/Mr_MrsSmith-h264_aac.mp4"];
         [_recentURLs addObject:@"http://streams.videolan.org/streams/mp4/Mr&MrsSmith.txt"];
     }
+#endif
     [self.previouslyPlayedStreamsTableView reloadData];
-    self.noURLsToShowLabel.hidden = _recentURLs.count != 0;
+    _noURLsToShowLabel.hidden = _recentURLs.count != 0;
     self.playURLField.placeholder = NSLocalizedString(@"ENTER_URL", nil);
 }
 
@@ -56,7 +85,7 @@
     /* TODO: don't blindly trust that the Cloud knows best */
     _recentURLs = [NSMutableArray arrayWithArray:[[NSUbiquitousKeyValueStore defaultStore] arrayForKey:kVLCRecentURLs]];
     [self.previouslyPlayedStreamsTableView reloadData];
-    self.noURLsToShowLabel.hidden = _recentURLs.count != 0;
+    _noURLsToShowLabel.hidden = _recentURLs.count != 0;
 }
 
 - (void)viewWillDisappear:(BOOL)animated

@@ -6,7 +6,6 @@
     <objects>
         <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner" customClass="VLCOpenNetworkStreamTVViewController">
             <connections>
-                <outlet property="noURLsToShowLabel" destination="9hs-BK-cVI" id="jpj-cD-PRW"/>
                 <outlet property="playURLField" destination="dWa-3n-YCa" id="Eoe-vT-AuM"/>
                 <outlet property="preferredFocusedView" destination="dWa-3n-YCa" id="0Ez-4Z-KFF"/>
                 <outlet property="previouslyPlayedStreamsTableView" destination="v0o-s0-Xaz" id="I1r-ie-lFf"/>
@@ -42,19 +41,10 @@
                         <outlet property="delegate" destination="-1" id="osW-Kv-1VK"/>
                     </connections>
                 </tableView>
-                <label hidden="YES" opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="No recently played streams" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="9hs-BK-cVI">
-                    <rect key="frame" x="662" y="510" width="596" height="60"/>
-                    <fontDescription key="fontDescription" type="system" pointSize="50"/>
-                    <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
-                    <nil key="highlightedColor"/>
-                </label>
             </subviews>
-            <color key="backgroundColor" white="0.66666666666666663" alpha="1" colorSpace="calibratedWhite"/>
             <constraints>
-                <constraint firstItem="9hs-BK-cVI" firstAttribute="centerX" secondItem="iN0-l3-epB" secondAttribute="centerX" id="WOA-cL-SLX"/>
                 <constraint firstItem="v0o-s0-Xaz" firstAttribute="centerX" secondItem="iN0-l3-epB" secondAttribute="centerX" id="elq-bO-Tb3"/>
                 <constraint firstItem="v0o-s0-Xaz" firstAttribute="top" secondItem="dWa-3n-YCa" secondAttribute="bottom" constant="70" id="jCe-Gz-82c"/>
-                <constraint firstItem="9hs-BK-cVI" firstAttribute="centerY" secondItem="iN0-l3-epB" secondAttribute="centerY" id="n8b-cY-wQE"/>
                 <constraint firstItem="dWa-3n-YCa" firstAttribute="centerX" secondItem="iN0-l3-epB" secondAttribute="centerX" id="oFS-xp-QJo"/>
                 <constraint firstAttribute="bottom" secondItem="v0o-s0-Xaz" secondAttribute="bottom" constant="70" id="ydf-eT-5UK"/>
             </constraints>
