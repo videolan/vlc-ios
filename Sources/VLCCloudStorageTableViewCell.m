@@ -27,6 +27,10 @@
     NSAssert([[nibContentArray lastObject] isKindOfClass:[VLCCloudStorageTableViewCell class]], @"meh meh");
     VLCCloudStorageTableViewCell *cell = (VLCCloudStorageTableViewCell *)[nibContentArray lastObject];
 
+    cell.titleLabel.hidden = YES;
+    cell.subtitleLabel.hidden = YES;
+    cell.folderTitleLabel.hidden = YES;
+
     return cell;
 }
 
