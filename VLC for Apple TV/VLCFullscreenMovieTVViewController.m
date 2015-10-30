@@ -47,6 +47,7 @@
     UITapGestureRecognizer *playpauseGesture = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(playPausePressed)];
     playpauseGesture.allowedPressTypes = @[@(UIPressTypePlayPause)];
     [self.view addGestureRecognizer:playpauseGesture];
+
 }
 
 #pragma mark - view events
@@ -120,7 +121,21 @@ currentMediaHasTrackToChooseFrom:(BOOL)currentMediaHasTrackToChooseFrom
         currentMediaHasChapters:(BOOL)currentMediaHasChapters
           forPlaybackController:(VLCPlaybackController *)controller
 {
+
+    switch (currentState) {
+        case VLCMediaPlayerStateBuffering:
+            [self.activityIndicator startAnimating];
+            self.activityIndicator.alpha = 1.0;
+            break;
+
+        default:
+            [self.activityIndicator stopAnimating];
+            self.activityIndicator.alpha = 0.0;
+            break;
+    }
+
     if (controller.isPlaying && !self.bufferingLabel.hidden) {
+        [self.activityIndicator stopAnimating];
         [UIView animateWithDuration:.3 animations:^{
             self.bufferingLabel.hidden = YES;
             self.bottomOverlayView.hidden = NO;

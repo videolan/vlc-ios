@@ -24,6 +24,12 @@
             <subviews>
                 <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="SpU-aa-czI">
                     <rect key="frame" x="0.0" y="0.0" width="1920" height="1080"/>
+                    <subviews>
+                        <activityIndicatorView opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" hidesWhenStopped="YES" animating="YES" style="whiteLarge" translatesAutoresizingMaskIntoConstraints="NO" id="UcH-Yc-Sd0">
+                            <rect key="frame" x="928" y="595" width="64" height="64"/>
+                            <animations/>
+                        </activityIndicatorView>
+                    </subviews>
                     <animations/>
                     <color key="backgroundColor" white="0.0" alpha="1" colorSpace="calibratedWhite"/>
                 </view>
@@ -84,8 +90,10 @@
                 <constraint firstAttribute="trailing" secondItem="SzB-KN-vRr" secondAttribute="trailing" id="3Bb-JP-76x"/>
                 <constraint firstAttribute="bottom" secondItem="SzB-KN-vRr" secondAttribute="bottom" id="542-su-jDp"/>
                 <constraint firstItem="SzB-KN-vRr" firstAttribute="leading" secondItem="iN0-l3-epB" secondAttribute="leading" id="DAq-5Q-AKJ"/>
+                <constraint firstItem="UcH-Yc-Sd0" firstAttribute="top" secondItem="yaX-qU-D4t" secondAttribute="bottom" constant="20" id="G3v-bW-rEA"/>
                 <constraint firstAttribute="bottom" secondItem="SpU-aa-czI" secondAttribute="bottom" id="J9T-OC-2Sd"/>
                 <constraint firstItem="yaX-qU-D4t" firstAttribute="centerX" secondItem="iN0-l3-epB" secondAttribute="centerX" id="Qbe-FY-TR5"/>
+                <constraint firstItem="UcH-Yc-Sd0" firstAttribute="centerX" secondItem="yaX-qU-D4t" secondAttribute="centerX" id="SjI-w2-nOq"/>
                 <constraint firstItem="SpU-aa-czI" firstAttribute="leading" secondItem="iN0-l3-epB" secondAttribute="leading" id="SnQ-Wu-aiI"/>
                 <constraint firstItem="SpU-aa-czI" firstAttribute="top" secondItem="iN0-l3-epB" secondAttribute="top" id="XAU-E6-19A"/>
                 <constraint firstItem="yaX-qU-D4t" firstAttribute="centerY" secondItem="iN0-l3-epB" secondAttribute="centerY" id="ecl-IU-ALU"/>
