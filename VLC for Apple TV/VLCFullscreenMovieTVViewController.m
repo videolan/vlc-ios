@@ -55,6 +55,7 @@
     self.dimmingView.alpha = 0.0;
     self.bottomOverlayView.hidden = YES;
 
+    self.bufferingLabel.text = NSLocalizedString(@"PLEASE_WAIT", nil);
 
 
     // Panning and Swiping
