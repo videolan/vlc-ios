@@ -96,6 +96,7 @@
     }
 
     infoVC.view.frame = fromFrame;
+    [infoVC.view layoutIfNeeded];
 
     // fallback
     if (!infoVC) {
@@ -105,6 +106,7 @@
     [UIView animateWithDuration:[self transitionDuration:transitionContext]
                      animations:^{
                          infoVC.view.frame = toFrame;
+                         [infoVC.view layoutIfNeeded];
                          infoVC.dimmingView.alpha = targetAlpha;
                      }
                      completion:^(BOOL finished) {

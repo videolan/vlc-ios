@@ -13,7 +13,7 @@
 #import "VLCPlaybackInfoTVViewController.h"
 
 
-@interface VLCFullscreenMovieTVViewController (UIViewControllerTransitioningDelegate) <UIViewControllerTransitioningDelegate>
+@interface VLCFullscreenMovieTVViewController (UIViewControllerTransitioningDelegate) <UIViewControllerTransitioningDelegate, UIGestureRecognizerDelegate>
 @end
 
 @interface VLCFullscreenMovieTVViewController ()
@@ -60,15 +60,6 @@
 
     // Panning and Swiping
 
-    // does not work with pan gesture
-//    UISwipeGestureRecognizer *swipeDownRecognizer = [[UISwipeGestureRecognizer alloc] initWithTarget:self action:@selector(swipeDownRecognized:)];
-//    swipeDownRecognizer.direction = UISwipeGestureRecognizerDirectionDown;
-//    [self.view addGestureRecognizer:swipeDownRecognizer];
-
-    UITapGestureRecognizer *swipeDownRecognizer = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(swipeDownRecognized:)];
-    swipeDownRecognizer.allowedPressTypes = @[@(UIPressTypeUpArrow)];
-    [self.view addGestureRecognizer:swipeDownRecognizer];
-
     UIPanGestureRecognizer *panGestureRecognizer = [[UIPanGestureRecognizer alloc] initWithTarget:self action:@selector(panGesture:)];
     [self.view addGestureRecognizer:panGestureRecognizer];
 
@@ -83,7 +74,13 @@
 
     UITapGestureRecognizer *menuTapGestureRecognizer = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(menuButtonPressed:)];
     menuTapGestureRecognizer.allowedPressTypes = @[@(UIPressTypeMenu)];
+    menuTapGestureRecognizer.delegate = self;
     [self.view addGestureRecognizer:menuTapGestureRecognizer];
+
+    UITapGestureRecognizer *upArrowRecognizer = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(showInfoVCIfNotScrubbing)];
+    upArrowRecognizer.allowedPressTypes = @[@(UIPressTypeUpArrow)];
+    [self.view addGestureRecognizer:upArrowRecognizer];
+
 }
 
 #pragma mark - view events
@@ -147,8 +144,11 @@
     CGPoint translation = [panGestureRecognizer translationInView:view];
 
     if (!bar.scrubbing) {
-        if (ABS(translation.x) > 100.0) {
+        if (ABS(translation.x) > 150.0) {
             [self startScrubbing];
+        } else if (translation.y > 200.0) {
+            [self showInfoVCIfNotScrubbing];
+            return;
         } else {
             return;
         }
@@ -184,12 +184,10 @@
         }];
         [self updateTimeLabelsForScrubbingFraction:bar.playbackFraction];
         [self stopScrubbing];
-    } else {
-        [self dismissViewControllerAnimated:YES completion:nil];
     }
 }
 
-- (void)swipeDownRecognized:(UITapGestureRecognizer *)recognizer
+- (void)showInfoVCIfNotScrubbing
 {
     if (self.transportBar.scrubbing) {
         return;
@@ -310,6 +308,15 @@ currentMediaHasTrackToChooseFrom:(BOOL)currentMediaHasTrackToChooseFrom
     transportBar.remainingTimeLabel.text = [[mediaPlayer remainingTime] stringValue];
     transportBar.markerTimeLabel.text = [[mediaPlayer time] stringValue];
     transportBar.playbackFraction = mediaPlayer.position;
+}
+
+#pragma mark - gesture recognizer delegate
+
+- (BOOL)gestureRecognizerShouldBegin:(UIGestureRecognizer *)gestureRecognizer {
+    if ([gestureRecognizer.allowedPressTypes containsObject:@(UIPressTypeMenu)]) {
+        return self.transportBar.scrubbing;
+    }
+    return YES;
 }
 
 @end
