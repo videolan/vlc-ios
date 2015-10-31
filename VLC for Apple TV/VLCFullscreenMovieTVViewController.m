@@ -169,6 +169,7 @@
     VLCPlaybackController *vpc = [VLCPlaybackController sharedInstance];
     VLCTransportBar *bar = self.transportBar;
     if (bar.scrubbing) {
+        bar.playbackFraction = bar.scrubbingFraction;
         [vpc.mediaPlayer setPosition:bar.scrubbingFraction];
         [self stopScrubbing];
     }
@@ -183,6 +184,8 @@
         }];
         [self updateTimeLabelsForScrubbingFraction:bar.playbackFraction];
         [self stopScrubbing];
+    } else {
+        [self dismissViewControllerAnimated:YES completion:nil];
     }
 }
 
