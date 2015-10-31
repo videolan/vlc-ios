@@ -10,8 +10,10 @@
  *****************************************************************************/
 
 #import "VLCPlaybackInfoTVViewController.h"
+#import "VLCPlaybackInfoSpeedTVViewController.h"
+#import "VLCPlaybackInfoAudioTVViewController.h"
 
-@interface VLCPlaybackInfoTVViewController ()
+@interface VLCPlaybackInfoTVViewController () <UITabBarControllerDelegate, UIGestureRecognizerDelegate>
 @property (nonatomic) IBOutlet UIView *containerView;
 @property (nonatomic) IBOutlet UIView *dimmingView;
 @property (nonatomic) IBOutlet NSLayoutConstraint *containerHeightConstraint;
@@ -21,11 +23,23 @@
 
 @implementation VLCPlaybackInfoTVViewController
 
-- (void)viewDidLoad {
+- (NSArray<UIViewController*>*) tabViewControllers {
+    return @[
+             [[VLCPlaybackInfoSpeedTVViewController alloc] initWithNibName:nil bundle:nil],
+             [[VLCPlaybackInfoAudioTVViewController alloc] initWithNibName:nil bundle:nil],
+             ];
+}
+
+
+
+- (void)viewDidLoad
+{
     [super viewDidLoad];
 
     UITabBarController *controller = [[UITabBarController alloc] init];
-
+    controller.delegate = self;
+    controller.viewControllers = [self tabViewControllers];
+    self.tabBarController = controller;
 
     [self addChildViewController:controller];
     controller.view.frame = self.containerView.bounds;
@@ -35,8 +49,10 @@
 
     UISwipeGestureRecognizer *swipeUpRecognizer = [[UISwipeGestureRecognizer alloc] initWithTarget:self action:@selector(swipeUpRecognized:)];
     swipeUpRecognizer.direction = UISwipeGestureRecognizerDirectionUp;
+    swipeUpRecognizer.delegate = self;
     [self.view addGestureRecognizer:swipeUpRecognizer];
 }
+
 
 - (BOOL)shouldAutomaticallyForwardAppearanceMethods {
     return YES;
@@ -44,9 +60,39 @@
 
 - (void)swipeUpRecognized:(UISwipeGestureRecognizer *)recognizer {
 
-    // TODO: check if it was a navigation gesture in child??
-
     [self dismissViewControllerAnimated:YES completion:nil];
+}
+
+- (void)updateViewConstraints {
+    [super updateViewConstraints];
+
+    UIViewController *viewController = self.tabBarController.selectedViewController;
+    CGFloat tabbarHeight = CGRectGetHeight(self.tabBarController.tabBar.bounds);
+    CGFloat controllerHeight = viewController.preferredContentSize.height;
+    self.containerHeightConstraint.constant = controllerHeight + tabbarHeight;
+}
+
+- (void)tabBarController:(UITabBarController *)tabBarController didSelectViewController:(UIViewController *)viewController
+{
+    [UIView animateWithDuration:0.3
+                     animations:^{
+                         [self updateViewConstraints];
+                         [self.view layoutIfNeeded];
+                     }];
+}
+
+
+- (BOOL)gestureRecognizerShouldBegin:(UIGestureRecognizer *)gestureRecognizer
+{
+    // FIXME: is there any other way to figure out if the tab bar item is currenlty focused?
+    UIView *view = [[UIScreen mainScreen] focusedView];
+    while (view) {
+        if ([view isKindOfClass:[UITabBar class]]) {
+            return YES;
+        }
+        view = view.superview;
+    }
+    return NO;
 }
 
 @end

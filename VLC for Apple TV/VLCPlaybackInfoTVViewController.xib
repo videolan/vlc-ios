@@ -6,7 +6,7 @@
     <objects>
         <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner" customClass="VLCPlaybackInfoTVViewController">
             <connections>
-                <outlet property="containerHeightConstraint" destination="PQd-PR-z5I" id="40d-bO-xMR"/>
+                <outlet property="containerHeightConstraint" destination="PQd-PR-z5I" id="zui-1d-1Yo"/>
                 <outlet property="containerView" destination="U6y-cE-eGu" id="pdM-21-C2a"/>
                 <outlet property="dimmingView" destination="fkF-mr-3nG" id="NO9-Ww-dkm"/>
                 <outlet property="view" destination="iN0-l3-epB" id="aoh-6Y-hrX"/>
@@ -25,14 +25,12 @@
                 <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="U6y-cE-eGu" userLabel="Container">
                     <rect key="frame" x="0.0" y="0.0" width="1920" height="400"/>
                     <animations/>
-                    <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                     <constraints>
-                        <constraint firstAttribute="height" constant="400" id="PQd-PR-z5I"/>
+                        <constraint firstAttribute="height" constant="400" identifier="container height constraint" id="PQd-PR-z5I"/>
                     </constraints>
                 </view>
             </subviews>
             <animations/>
-            <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
             <constraints>
                 <constraint firstItem="fkF-mr-3nG" firstAttribute="top" secondItem="U6y-cE-eGu" secondAttribute="bottom" id="56R-lg-86y"/>
                 <constraint firstItem="fkF-mr-3nG" firstAttribute="leading" secondItem="iN0-l3-epB" secondAttribute="leading" id="9tl-tu-ZJg"/>
