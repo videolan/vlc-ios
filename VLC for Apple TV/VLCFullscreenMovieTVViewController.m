@@ -17,10 +17,8 @@
 @end
 
 @interface VLCFullscreenMovieTVViewController ()
-{
-    BOOL _playerIsSetup;
-    BOOL _viewAppeared;
-}
+
+@property (nonatomic) NSTimer *hidePlaybackControlsViewAfterDeleayTimer;
 @end
 
 @implementation VLCFullscreenMovieTVViewController
@@ -43,7 +41,6 @@
                  object:nil];
 
     _movieView.userInteractionEnabled = NO;
-    _playerIsSetup = NO;
 
     self.titleLabel.text = @"";
 
@@ -53,7 +50,7 @@
     self.transportBar.scrubbingFraction = 0.0;
 
     self.dimmingView.alpha = 0.0;
-    self.bottomOverlayView.hidden = YES;
+    self.bottomOverlayView.alpha = 0.0;
 
     self.bufferingLabel.text = NSLocalizedString(@"PLEASE_WAIT", nil);
 
@@ -89,8 +86,6 @@
 {
     [super viewWillAppear:animated];
 
-    [self.navigationController setNavigationBarHidden:YES animated:animated];
-
     VLCPlaybackController *vpc = [VLCPlaybackController sharedInstance];
     vpc.delegate = self;
     [vpc recoverPlaybackState];
@@ -99,7 +94,6 @@
 - (void)viewDidAppear:(BOOL)animated
 {
     [super viewDidAppear:animated];
-    _viewAppeared = YES;
 
     VLCPlaybackController *vpc = [VLCPlaybackController sharedInstance];
     [vpc recoverDisplayedMetadata];
@@ -116,9 +110,6 @@
         vpc.videoOutputView = nil;
     }
 
-    _viewAppeared = NO;
-    [self.navigationController setNavigationBarHidden:NO animated:YES];
-
     [vpc stopPlayback];
 
     [super viewWillDisappear:animated];
@@ -132,12 +123,20 @@
 #pragma mark - UIActions
 - (void)playPausePressed
 {
+    [self showPlaybackControlsIfNeededForUserInteraction];
+
     VLCPlaybackController *vpc = [VLCPlaybackController sharedInstance];
-    [vpc playPause];
+    if (self.transportBar.scrubbing) {
+        [self selectButtonPressed:nil];
+    } else {
+        [vpc playPause];
+    }
 }
 
 - (void)panGesture:(UIPanGestureRecognizer *)panGestureRecognizer
 {
+    [self showPlaybackControlsIfNeededForUserInteraction];
+
     VLCTransportBar *bar = self.transportBar;
 
     UIView *view = self.view;
@@ -166,12 +165,16 @@
 
 - (void)selectButtonPressed:(UITapGestureRecognizer *)recognizer
 {
+    [self showPlaybackControlsIfNeededForUserInteraction];
+
     VLCPlaybackController *vpc = [VLCPlaybackController sharedInstance];
     VLCTransportBar *bar = self.transportBar;
     if (bar.scrubbing) {
         bar.playbackFraction = bar.scrubbingFraction;
         [vpc.mediaPlayer setPosition:bar.scrubbingFraction];
         [self stopScrubbing];
+    } else if(vpc.mediaPlayer.playing) {
+        [vpc.mediaPlayer pause];
     }
 }
 - (void)menuButtonPressed:(UITapGestureRecognizer *)recognizer
@@ -184,6 +187,7 @@
         }];
         [self updateTimeLabelsForScrubbingFraction:bar.playbackFraction];
         [self stopScrubbing];
+        [self hidePlaybackControlsIfNeededAfterDelay];
     }
 }
 
@@ -198,7 +202,9 @@
     infoController.modalPresentationStyle = UIModalPresentationOverCurrentContext;
     // TODO: configure with player info
     [self presentViewController:infoController animated:YES completion:nil];
+    [self animatePlaybackControlsToVisibility:NO];
 }
+
 
 #pragma mark - 
 
@@ -260,6 +266,49 @@
     }
 }
 
+#pragma mark - PlaybackControls
+
+- (void)fireHidePlaybackControlsIfNotPlayingTimer:(NSTimer *)timer
+{
+    BOOL playing = [[VLCPlaybackController sharedInstance] isPlaying];
+    if (playing) {
+        [self animatePlaybackControlsToVisibility:NO];
+    }
+}
+- (void)showPlaybackControlsIfNeededForUserInteraction
+{
+    if (self.bottomOverlayView.alpha == 0.0) {
+        [self animatePlaybackControlsToVisibility:YES];
+    }
+    [self hidePlaybackControlsIfNeededAfterDelay];
+}
+- (void)hidePlaybackControlsIfNeededAfterDelay
+{
+    self.hidePlaybackControlsViewAfterDeleayTimer = [NSTimer scheduledTimerWithTimeInterval:3.0
+                                                                                     target:self
+                                                                                   selector:@selector(fireHidePlaybackControlsIfNotPlayingTimer:)
+                                                                                   userInfo:nil repeats:NO];
+}
+
+
+- (void)animatePlaybackControlsToVisibility:(BOOL)visible
+{
+    NSTimeInterval duration = visible ? 0.3 : 1.0;
+
+    CGFloat alpha = visible ? 1.0 : 0.0;
+    [UIView animateWithDuration:duration
+                     animations:^{
+                         self.bottomOverlayView.alpha = alpha;
+                     }];
+}
+
+
+#pragma mark - Properties
+- (void)setHidePlaybackControlsViewAfterDeleayTimer:(NSTimer *)hidePlaybackControlsViewAfterDeleayTimer {
+    [_hidePlaybackControlsViewAfterDeleayTimer invalidate];
+    _hidePlaybackControlsViewAfterDeleayTimer = hidePlaybackControlsViewAfterDeleayTimer;
+}
+
 #pragma mark - playback controller delegation
 
 - (void)prepareForMediaPlayback:(VLCPlaybackController *)controller
@@ -280,10 +329,16 @@ currentMediaHasTrackToChooseFrom:(BOOL)currentMediaHasTrackToChooseFrom
 {
 
     [self updateActivityIndicatorForState:currentState];
+
+    if (controller.isPlaying) {
+        [self hidePlaybackControlsIfNeededAfterDelay];
+    } else {
+        [self showPlaybackControlsIfNeededForUserInteraction];
+    }
+
     if (controller.isPlaying && !self.bufferingLabel.hidden) {
         [UIView animateWithDuration:.3 animations:^{
             self.bufferingLabel.hidden = YES;
-            self.bottomOverlayView.hidden = NO;
         }];
     }
 }
@@ -297,6 +352,8 @@ currentMediaHasTrackToChooseFrom:(BOOL)currentMediaHasTrackToChooseFrom
 {
     self.titleLabel.text = title;
 }
+
+#pragma mark -
 
 - (void)playbackPositionUpdated:(VLCPlaybackController *)controller
 {
