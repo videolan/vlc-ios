@@ -1899,18 +1899,9 @@
 				DD8095D51BE3C3BA0065D8E1 /* VLCTransportBar.m */,
 				7DEC8BDB1BD67899006E1093 /* VLCFullscreenMovieTVViewController.h */,
 				7DEC8BDC1BD67899006E1093 /* VLCFullscreenMovieTVViewController.m */,
-				DD8095DD1BE3EFC20065D8E1 /* VLCPlaybackInfoTVViewController.h */,
-				DD8095DE1BE3EFC20065D8E1 /* VLCPlaybackInfoTVViewController.m */,
-				DD8095F41BE624C00065D8E1 /* VLCPlaybackInfoTVAnimators.h */,
-				DD8095F51BE624C00065D8E1 /* VLCPlaybackInfoTVAnimators.m */,
-				DD8095F71BE6268A0065D8E1 /* VLCPlaybackInfoPanelTVViewController.h */,
-				DD8095F81BE6268A0065D8E1 /* VLCPlaybackInfoPanelTVViewController.m */,
-				DD8095E81BE4F04E0065D8E1 /* VLCPlaybackInfoSpeedTVViewController.h */,
-				DD8095E91BE4F04E0065D8E1 /* VLCPlaybackInfoSpeedTVViewController.m */,
-				DD8095EF1BE510770065D8E1 /* VLCPlaybackInfoAudioTVViewController.h */,
-				DD8095F01BE510770065D8E1 /* VLCPlaybackInfoAudioTVViewController.m */,
+				DD8095FA1BE628800065D8E1 /* Playback Info */,
 			);
-			name = Playback;
+			path = Playback;
 			sourceTree = "<group>";
 		};
 		7DEC8BE61BD688AD006E1093 /* Resources */ = {
@@ -2233,6 +2224,23 @@
 				DD3EA6301AF50CFE007FF096 /* VLCWatchMessage.m */,
 			);
 			path = SharedSources;
+			sourceTree = "<group>";
+		};
+		DD8095FA1BE628800065D8E1 /* Playback Info */ = {
+			isa = PBXGroup;
+			children = (
+				DD8095DD1BE3EFC20065D8E1 /* VLCPlaybackInfoTVViewController.h */,
+				DD8095DE1BE3EFC20065D8E1 /* VLCPlaybackInfoTVViewController.m */,
+				DD8095F41BE624C00065D8E1 /* VLCPlaybackInfoTVAnimators.h */,
+				DD8095F51BE624C00065D8E1 /* VLCPlaybackInfoTVAnimators.m */,
+				DD8095F71BE6268A0065D8E1 /* VLCPlaybackInfoPanelTVViewController.h */,
+				DD8095F81BE6268A0065D8E1 /* VLCPlaybackInfoPanelTVViewController.m */,
+				DD8095E81BE4F04E0065D8E1 /* VLCPlaybackInfoSpeedTVViewController.h */,
+				DD8095E91BE4F04E0065D8E1 /* VLCPlaybackInfoSpeedTVViewController.m */,
+				DD8095EF1BE510770065D8E1 /* VLCPlaybackInfoAudioTVViewController.h */,
+				DD8095F01BE510770065D8E1 /* VLCPlaybackInfoAudioTVViewController.m */,
+			);
+			path = "Playback Info";
 			sourceTree = "<group>";
 		};
 		E0C04F921A25B41C0080331A /* Document Picker */ = {
