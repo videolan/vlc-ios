@@ -29,7 +29,8 @@
     return [[self alloc] initWithNibName:nil bundle:nil];
 }
 
-- (void)viewDidLoad {
+- (void)viewDidLoad
+{
     [super viewDidLoad];
 
     self.extendedLayoutIncludesOpaqueBars = YES;
@@ -176,7 +177,7 @@
     CGFloat scrubbingFraction = MAX(0.0, MIN(bar.scrubbingFraction + fractionInView,1.0));
 
 
-    if (ABS(scrubbingFraction - bar.playbackFraction)<0.01) {
+    if (ABS(scrubbingFraction - bar.playbackFraction)<0.005) {
         scrubbingFraction = bar.playbackFraction;
     } else {
         translation.x = 0.0;
@@ -243,7 +244,7 @@
     int scrubbingTimeInt = MAX(1,vpc.mediaDuration*scrubbingFraction);
     VLCTime *scrubbingTime = [VLCTime timeWithInt:scrubbingTimeInt];
     bar.markerTimeLabel.text = [scrubbingTime stringValue];
-    VLCTime *remainingTime = [VLCTime timeWithInt:(int)vpc.mediaDuration-scrubbingTime.intValue];
+    VLCTime *remainingTime = [VLCTime timeWithInt:-(int)(vpc.mediaDuration-scrubbingTime.intValue)];
     bar.remainingTimeLabel.text = [remainingTime stringValue];
 }
 
