@@ -12,6 +12,7 @@
 #import "VLCFullscreenMovieTVViewController.h"
 #import "VLCPlaybackInfoTVViewController.h"
 #import "VLCPlaybackInfoTVAnimators.h"
+#import "VLCIRTVTapGestureRecognizer.h"
 
 @interface VLCFullscreenMovieTVViewController (UIViewControllerTransitioningDelegate) <UIViewControllerTransitioningDelegate, UIGestureRecognizerDelegate>
 @end
@@ -76,9 +77,10 @@
     menuTapGestureRecognizer.delegate = self;
     [self.view addGestureRecognizer:menuTapGestureRecognizer];
 
-    UITapGestureRecognizer *upArrowRecognizer = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(showInfoVCIfNotScrubbing)];
-    upArrowRecognizer.allowedPressTypes = @[@(UIPressTypeUpArrow)];
-    [self.view addGestureRecognizer:upArrowRecognizer];
+    // IR only recognizer
+    UITapGestureRecognizer *downArrowRecognizer = [[VLCIRTVTapGestureRecognizer alloc] initWithTarget:self action:@selector(showInfoVCIfNotScrubbing)];
+    downArrowRecognizer.allowedPressTypes = @[@(UIPressTypeDownArrow)];
+    [self.view addGestureRecognizer:downArrowRecognizer];
 
 }
 

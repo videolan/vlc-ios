@@ -317,6 +317,7 @@
 		DD3EFF5B1BDEBCE500B68579 /* VLCNetworkServerBrowserUPnP.m in Sources */ = {isa = PBXBuildFile; fileRef = DD3EFF271BDEBCE500B68579 /* VLCNetworkServerBrowserUPnP.m */; };
 		DD3EFF5D1BDEBCE500B68579 /* VLCLocalServerDiscoveryController.m in Sources */ = {isa = PBXBuildFile; fileRef = DD3EFF2B1BDEBCE500B68579 /* VLCLocalServerDiscoveryController.m */; };
 		DD3EFF5E1BDEBCE500B68579 /* VLCLocalServerDiscoveryController.m in Sources */ = {isa = PBXBuildFile; fileRef = DD3EFF2B1BDEBCE500B68579 /* VLCLocalServerDiscoveryController.m */; };
+		DD490B171BE6BA580010F335 /* VLCIRTVTapGestureRecognizer.m in Sources */ = {isa = PBXBuildFile; fileRef = DD490B161BE6BA580010F335 /* VLCIRTVTapGestureRecognizer.m */; };
 		DD510B701B14E564003BA71C /* VLCPlayerDisplayController.m in Sources */ = {isa = PBXBuildFile; fileRef = DD510B6F1B14E564003BA71C /* VLCPlayerDisplayController.m */; };
 		DD7110F01AF38B2B00854776 /* MLMediaLibrary+playlist.m in Sources */ = {isa = PBXBuildFile; fileRef = DD7110EF1AF38B2B00854776 /* MLMediaLibrary+playlist.m */; };
 		DD7BA2631B680C8E002D9F54 /* MediaLibraryKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = DD7BA2601B680C1B002D9F54 /* MediaLibraryKit.framework */; };
@@ -981,6 +982,8 @@
 		DD3EFF2A1BDEBCE500B68579 /* VLCLocalServerDiscoveryController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = VLCLocalServerDiscoveryController.h; sourceTree = "<group>"; };
 		DD3EFF2B1BDEBCE500B68579 /* VLCLocalServerDiscoveryController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = VLCLocalServerDiscoveryController.m; sourceTree = "<group>"; };
 		DD3EFF2C1BDEBCE500B68579 /* VLCNetworkServerBrowser-Protocol.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "VLCNetworkServerBrowser-Protocol.h"; sourceTree = "<group>"; };
+		DD490B151BE6BA580010F335 /* VLCIRTVTapGestureRecognizer.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = VLCIRTVTapGestureRecognizer.h; sourceTree = "<group>"; };
+		DD490B161BE6BA580010F335 /* VLCIRTVTapGestureRecognizer.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = VLCIRTVTapGestureRecognizer.m; sourceTree = "<group>"; };
 		DD510B6E1B14E564003BA71C /* VLCPlayerDisplayController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = VLCPlayerDisplayController.h; path = Sources/VLCPlayerDisplayController.h; sourceTree = SOURCE_ROOT; };
 		DD510B6F1B14E564003BA71C /* VLCPlayerDisplayController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = VLCPlayerDisplayController.m; path = Sources/VLCPlayerDisplayController.m; sourceTree = SOURCE_ROOT; };
 		DD7110EE1AF38B2B00854776 /* MLMediaLibrary+playlist.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "MLMediaLibrary+playlist.h"; sourceTree = "<group>"; };
@@ -1899,6 +1902,8 @@
 				DD8095D51BE3C3BA0065D8E1 /* VLCTransportBar.m */,
 				7DEC8BDB1BD67899006E1093 /* VLCFullscreenMovieTVViewController.h */,
 				7DEC8BDC1BD67899006E1093 /* VLCFullscreenMovieTVViewController.m */,
+				DD490B151BE6BA580010F335 /* VLCIRTVTapGestureRecognizer.h */,
+				DD490B161BE6BA580010F335 /* VLCIRTVTapGestureRecognizer.m */,
 				DD8095FA1BE628800065D8E1 /* Playback Info */,
 			);
 			path = Playback;
@@ -2764,6 +2769,7 @@
 				DD3EFF341BDEBCE500B68579 /* VLCLocalNetworkServiceBrowserMediaDiscoverer.m in Sources */,
 				DD3EFF421BDEBCE500B68579 /* VLCNetworkServerBrowserSharedLibrary.m in Sources */,
 				7D5278E41BD7E37300D0CA0E /* VLCCloudStorageController.m in Sources */,
+				DD490B171BE6BA580010F335 /* VLCIRTVTapGestureRecognizer.m in Sources */,
 				7D3E528B1BD7B5E100309D15 /* VLCCloudServicesTVViewController.m in Sources */,
 				7DEC8C1D1BD6913A006E1093 /* VLCSettingsAboutTableViewController.m in Sources */,
 			);
