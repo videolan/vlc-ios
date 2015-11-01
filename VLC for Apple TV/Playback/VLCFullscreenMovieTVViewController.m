@@ -19,6 +19,7 @@
 @interface VLCFullscreenMovieTVViewController ()
 
 @property (nonatomic) NSTimer *hidePlaybackControlsViewAfterDeleayTimer;
+@property (nonatomic) VLCPlaybackInfoTVViewController *infoViewController;
 @end
 
 @implementation VLCFullscreenMovieTVViewController
@@ -80,6 +81,12 @@
 
 }
 
+- (void)didReceiveMemoryWarning
+{
+    [super didReceiveMemoryWarning];
+    self.infoViewController = nil;
+}
+
 #pragma mark - view events
 
 - (void)viewWillAppear:(BOOL)animated
@@ -135,7 +142,13 @@
 
 - (void)panGesture:(UIPanGestureRecognizer *)panGestureRecognizer
 {
-    [self showPlaybackControlsIfNeededForUserInteraction];
+    switch (panGestureRecognizer.state) {
+        case UIGestureRecognizerStateCancelled:
+        case UIGestureRecognizerStateFailed:
+            return;
+        default:
+            break;
+    }
 
     VLCTransportBar *bar = self.transportBar;
 
@@ -146,12 +159,16 @@
         if (ABS(translation.x) > 150.0) {
             [self startScrubbing];
         } else if (translation.y > 200.0) {
+            panGestureRecognizer.enabled = NO;
+            panGestureRecognizer.enabled = YES;
             [self showInfoVCIfNotScrubbing];
             return;
         } else {
             return;
         }
     }
+    [self showPlaybackControlsIfNeededForUserInteraction];
+
 
     const CGFloat scaleFactor = 8.0;
     CGFloat fractionInView = translation.x/CGRectGetWidth(view.bounds)/scaleFactor;
@@ -196,15 +213,12 @@
     if (self.transportBar.scrubbing) {
         return;
     }
-
-    VLCPlaybackInfoTVViewController *infoController = [[VLCPlaybackInfoTVViewController alloc] initWithNibName:nil bundle:nil];
-    infoController.transitioningDelegate = self;
-    infoController.modalPresentationStyle = UIModalPresentationOverCurrentContext;
     // TODO: configure with player info
-    [self presentViewController:infoController animated:YES completion:nil];
+    VLCPlaybackInfoTVViewController *infoViewController = self.infoViewController;
+    infoViewController.transitioningDelegate = self;
+    [self presentViewController:infoViewController animated:YES completion:nil];
     [self animatePlaybackControlsToVisibility:NO];
 }
-
 
 #pragma mark - 
 
@@ -307,6 +321,14 @@
 - (void)setHidePlaybackControlsViewAfterDeleayTimer:(NSTimer *)hidePlaybackControlsViewAfterDeleayTimer {
     [_hidePlaybackControlsViewAfterDeleayTimer invalidate];
     _hidePlaybackControlsViewAfterDeleayTimer = hidePlaybackControlsViewAfterDeleayTimer;
+}
+
+- (VLCPlaybackInfoTVViewController *)infoViewController
+{
+    if (!_infoViewController) {
+        _infoViewController = [[VLCPlaybackInfoTVViewController alloc] initWithNibName:nil bundle:nil];
+    }
+    return _infoViewController;
 }
 
 #pragma mark - playback controller delegation
