@@ -21,7 +21,7 @@
 {
     self = [super initWithNibName:nibNameOrNil bundle:nibBundleOrNil];
     if (self) {
-        self.title = NSLocalizedString(@"PLAYBACK_RATE_INFO_VC_TITLE", nil);
+        self.title = NSLocalizedString(@"PLAYBACK_SPEED", nil);
     }
     return self;
 }
