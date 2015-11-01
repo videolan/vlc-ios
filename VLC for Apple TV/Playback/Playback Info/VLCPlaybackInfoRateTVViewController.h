@@ -11,6 +11,7 @@
 
 #import "VLCPlaybackInfoPanelTVViewController.h"
 
-@interface VLCPlaybackInfoSpeedTVViewController : VLCPlaybackInfoPanelTVViewController
-@property (nonatomic) IBOutlet UISegmentedControl *speedSegementedControl;
+@interface VLCPlaybackInfoRateTVViewController : VLCPlaybackInfoPanelTVViewController
+@property (nonatomic, weak) IBOutlet UISegmentedControl *segmentedControl;
+- (IBAction)segmentedControlChanged:(UISegmentedControl *)sender;
 @end

@@ -10,7 +10,7 @@
  *****************************************************************************/
 
 #import "VLCPlaybackInfoTVViewController.h"
-#import "VLCPlaybackInfoSpeedTVViewController.h"
+#import "VLCPlaybackInfoRateTVViewController.h"
 #import "VLCPlaybackInfoAudioTVViewController.h"
 #import "VLCPlaybackInfoTVAnimators.h"
 
@@ -25,7 +25,7 @@
 - (NSArray<UIViewController*>*)tabViewControllers
 {
     return @[
-             [[VLCPlaybackInfoSpeedTVViewController alloc] initWithNibName:nil bundle:nil],
+             [[VLCPlaybackInfoRateTVViewController alloc] initWithNibName:nil bundle:nil],
              [[VLCPlaybackInfoAudioTVViewController alloc] initWithNibName:nil bundle:nil],
              ];
 }

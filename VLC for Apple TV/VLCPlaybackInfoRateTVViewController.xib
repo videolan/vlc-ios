@@ -4,8 +4,10 @@
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="9049"/>
     </dependencies>
     <objects>
-        <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner" customClass="VLCPlaybackInfoSpeedTVViewController">
+        <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner" customClass="VLCPlaybackInfoRateTVViewController">
             <connections>
+                <outlet property="preferredFocusedView" destination="a34-9y-ZcI" id="Xa7-Zq-uyz"/>
+                <outlet property="segmentedControl" destination="a34-9y-ZcI" id="ob8-jh-Cvo"/>
                 <outlet property="view" destination="vgW-9U-IlZ" id="527-h1-jOO"/>
             </connections>
         </placeholder>
@@ -22,6 +24,9 @@
                         <segment title="First"/>
                         <segment title="Second"/>
                     </segments>
+                    <connections>
+                        <action selector="segmentedControlChanged:" destination="-1" eventType="valueChanged" id="rh8-Qo-MRd"/>
+                    </connections>
                 </segmentedControl>
             </subviews>
             <animations/>
