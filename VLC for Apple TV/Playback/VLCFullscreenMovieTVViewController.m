@@ -172,11 +172,24 @@
 
     const CGFloat scaleFactor = 8.0;
     CGFloat fractionInView = translation.x/CGRectGetWidth(view.bounds)/scaleFactor;
-    translation.x = 0.0;
-    [panGestureRecognizer setTranslation:translation inView:view];
 
     CGFloat scrubbingFraction = MAX(0.0, MIN(bar.scrubbingFraction + fractionInView,1.0));
-    bar.scrubbingFraction = scrubbingFraction;
+
+
+    if (ABS(scrubbingFraction - bar.playbackFraction)<0.01) {
+        scrubbingFraction = bar.playbackFraction;
+    } else {
+        translation.x = 0.0;
+        [panGestureRecognizer setTranslation:translation inView:view];
+    }
+
+    [UIView animateWithDuration:0.3
+                          delay:0.0
+                        options:UIViewAnimationOptionAllowUserInteraction | UIViewAnimationOptionBeginFromCurrentState
+                     animations:^{
+                         bar.scrubbingFraction = scrubbingFraction;
+                     }
+                     completion:nil];
     [self updateTimeLabelsForScrubbingFraction:scrubbingFraction];
 }
 
