@@ -32,6 +32,11 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
 
+    self.helpLabel.textColor = [UIColor VLCLightTextColor];
+    self.helpLabel.shadowColor = [UIColor VLCDarkTextShadowColor];
+    self.helpLabel.text = NSLocalizedString(@"CLOUD_LOGIN_LONG", nil);
+    [self.helpLabel sizeToFit];
+
     NSNotificationCenter *center = [NSNotificationCenter defaultCenter];
     [center addObserver:self selector:@selector(oneDriveSessionUpdated:) name:VLCOneDriveControllerSessionUpdated object:nil];
     [center addObserver:self selector:@selector(boxSessionUpdated:) name:VLCBoxControllerSessionUpdated object:nil];

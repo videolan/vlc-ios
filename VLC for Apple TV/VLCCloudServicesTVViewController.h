@@ -17,6 +17,7 @@
 @property (readwrite, nonatomic, weak) IBOutlet UIButton *boxButton;
 @property (readwrite, nonatomic, weak) IBOutlet UIButton *gDriveButton;
 @property (readwrite, nonatomic, weak) IBOutlet UIButton *dropboxButton;
+@property (readwrite, nonatomic, weak) IBOutlet UILabel *helpLabel;
 
 - (IBAction)dropbox:(id)sender;
 - (IBAction)onedrive:(id)sender;

@@ -9,6 +9,7 @@
                 <outlet property="boxButton" destination="HPy-k8-PTt" id="FcV-v2-CVw"/>
                 <outlet property="dropboxButton" destination="hdP-Dp-Mn0" id="K7o-9U-5hB"/>
                 <outlet property="gDriveButton" destination="uaI-5Z-SJq" id="Etu-VC-Z2o"/>
+                <outlet property="helpLabel" destination="pdj-Fb-JlC" id="MhC-1o-W69"/>
                 <outlet property="oneDriveButton" destination="gFm-4V-QFs" id="eWx-9Y-RDg"/>
                 <outlet property="view" destination="iN0-l3-epB" id="Eym-vH-oyN"/>
             </connections>
@@ -50,17 +51,27 @@
                         <action selector="onedrive:" destination="-1" eventType="primaryActionTriggered" id="FXo-bT-UMk"/>
                     </connections>
                 </button>
+                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="pdj-Fb-JlC">
+                    <rect key="frame" x="105" y="874" width="1710" height="62"/>
+                    <mutableString key="text">To access Cloud Services, login to iCloud on both this Apple TV and an iOS device with the same Apple ID and enable Keychain Sharing in System Settings.
+Afterwards, login to the cloud provider of your choice using the VLC app on your iOS device. Finally, select it on this screen.</mutableString>
+                    <fontDescription key="fontDescription" style="UICTFontTextStyleCaption1"/>
+                    <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
+                    <nil key="highlightedColor"/>
+                </label>
             </subviews>
             <constraints>
                 <constraint firstItem="uaI-5Z-SJq" firstAttribute="top" secondItem="hdP-Dp-Mn0" secondAttribute="bottom" constant="30" id="0Pp-jT-hyL"/>
                 <constraint firstItem="gFm-4V-QFs" firstAttribute="top" secondItem="HPy-k8-PTt" secondAttribute="bottom" constant="30" id="6Ds-Dz-j0d"/>
                 <constraint firstItem="HPy-k8-PTt" firstAttribute="width" secondItem="gFm-4V-QFs" secondAttribute="width" id="KGz-R5-SlU"/>
                 <constraint firstItem="uaI-5Z-SJq" firstAttribute="centerX" secondItem="hdP-Dp-Mn0" secondAttribute="centerX" id="Mw8-qu-Vqj"/>
+                <constraint firstAttribute="bottom" secondItem="pdj-Fb-JlC" secondAttribute="bottom" constant="144" id="NFe-Ll-MoL"/>
                 <constraint firstItem="HPy-k8-PTt" firstAttribute="top" secondItem="uaI-5Z-SJq" secondAttribute="bottom" constant="30" id="YoM-LV-tnC"/>
                 <constraint firstItem="uaI-5Z-SJq" firstAttribute="width" secondItem="HPy-k8-PTt" secondAttribute="width" id="eSY-0J-2hE"/>
                 <constraint firstItem="hdP-Dp-Mn0" firstAttribute="top" secondItem="iN0-l3-epB" secondAttribute="top" constant="329" id="g5n-EN-pyy"/>
                 <constraint firstItem="uaI-5Z-SJq" firstAttribute="width" secondItem="hdP-Dp-Mn0" secondAttribute="width" id="gjb-7z-ngq"/>
                 <constraint firstItem="gFm-4V-QFs" firstAttribute="centerX" secondItem="HPy-k8-PTt" secondAttribute="centerX" id="lqg-W6-TQS"/>
+                <constraint firstItem="pdj-Fb-JlC" firstAttribute="centerX" secondItem="iN0-l3-epB" secondAttribute="centerX" id="nSz-oS-JWs"/>
                 <constraint firstItem="HPy-k8-PTt" firstAttribute="centerX" secondItem="uaI-5Z-SJq" secondAttribute="centerX" id="qaE-he-YUJ"/>
                 <constraint firstItem="hdP-Dp-Mn0" firstAttribute="centerX" secondItem="iN0-l3-epB" secondAttribute="centerX" id="qcb-Sc-GzH"/>
             </constraints>
