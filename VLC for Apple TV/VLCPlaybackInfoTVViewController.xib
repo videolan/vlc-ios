@@ -1,14 +1,15 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
 <document type="com.apple.InterfaceBuilder.AppleTV.XIB" version="3.0" toolsVersion="9059" systemVersion="15B42" targetRuntime="AppleTV" propertyAccessControl="none" useAutolayout="YES">
     <dependencies>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="9059"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="9049"/>
     </dependencies>
     <objects>
         <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner" customClass="VLCPlaybackInfoTVViewController">
             <connections>
-                <outlet property="containerHeightConstraint" destination="PQd-PR-z5I" id="zui-1d-1Yo"/>
-                <outlet property="containerView" destination="U6y-cE-eGu" id="pdM-21-C2a"/>
+                <outlet property="containerHeightConstraint" destination="QR2-Gh-Hdy" id="u84-XK-o7J"/>
+                <outlet property="containerView" destination="b8s-Xi-SUg" id="qEg-s0-4Si"/>
                 <outlet property="dimmingView" destination="fkF-mr-3nG" id="NO9-Ww-dkm"/>
+                <outlet property="tabBarRegiomHeightConstraint" destination="qQN-Xf-pTW" id="rPf-Al-chE"/>
                 <outlet property="view" destination="iN0-l3-epB" id="aoh-6Y-hrX"/>
             </connections>
         </placeholder>
@@ -17,28 +18,46 @@
             <rect key="frame" x="0.0" y="0.0" width="1920" height="1080"/>
             <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
             <subviews>
-                <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="fkF-mr-3nG" userLabel="DimmingView">
-                    <rect key="frame" x="0.0" y="400" width="1920" height="680"/>
-                    <animations/>
-                    <color key="backgroundColor" white="0.0" alpha="0.29999999999999999" colorSpace="calibratedWhite"/>
-                </view>
-                <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="U6y-cE-eGu" userLabel="Container">
-                    <rect key="frame" x="0.0" y="0.0" width="1920" height="400"/>
+                <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="b8s-Xi-SUg">
+                    <rect key="frame" x="0.0" y="0.0" width="1920" height="340"/>
+                    <subviews>
+                        <visualEffectView opaque="NO" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="ley-eR-13d">
+                            <rect key="frame" x="0.0" y="140" width="1920" height="200"/>
+                            <view key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" id="aZZ-Hu-gGZ">
+                                <rect key="frame" x="0.0" y="0.0" width="1920" height="200"/>
+                                <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                                <animations/>
+                            </view>
+                            <animations/>
+                            <constraints>
+                                <constraint firstAttribute="height" constant="200" id="QR2-Gh-Hdy"/>
+                            </constraints>
+                            <blurEffect style="light"/>
+                        </visualEffectView>
+                    </subviews>
                     <animations/>
                     <constraints>
-                        <constraint firstAttribute="height" constant="400" identifier="container height constraint" id="PQd-PR-z5I"/>
+                        <constraint firstAttribute="trailing" secondItem="ley-eR-13d" secondAttribute="trailing" id="Ao7-YI-lz8"/>
+                        <constraint firstAttribute="bottom" secondItem="ley-eR-13d" secondAttribute="bottom" id="dVS-rh-HHf"/>
+                        <constraint firstItem="ley-eR-13d" firstAttribute="top" secondItem="b8s-Xi-SUg" secondAttribute="top" constant="140" id="qQN-Xf-pTW"/>
+                        <constraint firstItem="ley-eR-13d" firstAttribute="leading" secondItem="b8s-Xi-SUg" secondAttribute="leading" id="zPq-ti-J51"/>
                     </constraints>
+                </view>
+                <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="fkF-mr-3nG" userLabel="DimmingView">
+                    <rect key="frame" x="0.0" y="340" width="1920" height="740"/>
+                    <animations/>
+                    <color key="backgroundColor" white="0.0" alpha="0.29999999999999999" colorSpace="calibratedWhite"/>
                 </view>
             </subviews>
             <animations/>
             <constraints>
-                <constraint firstItem="fkF-mr-3nG" firstAttribute="top" secondItem="U6y-cE-eGu" secondAttribute="bottom" id="56R-lg-86y"/>
+                <constraint firstItem="b8s-Xi-SUg" firstAttribute="leading" secondItem="iN0-l3-epB" secondAttribute="leading" id="14B-v2-BBA"/>
                 <constraint firstItem="fkF-mr-3nG" firstAttribute="leading" secondItem="iN0-l3-epB" secondAttribute="leading" id="9tl-tu-ZJg"/>
-                <constraint firstItem="U6y-cE-eGu" firstAttribute="leading" secondItem="iN0-l3-epB" secondAttribute="leading" id="C8C-JW-U5v"/>
+                <constraint firstAttribute="trailing" secondItem="b8s-Xi-SUg" secondAttribute="trailing" id="W2m-A6-QU7"/>
                 <constraint firstAttribute="bottom" secondItem="fkF-mr-3nG" secondAttribute="bottom" id="X7X-Ek-8zE"/>
                 <constraint firstAttribute="trailing" secondItem="fkF-mr-3nG" secondAttribute="trailing" id="a5y-gG-ndP"/>
-                <constraint firstAttribute="trailing" secondItem="U6y-cE-eGu" secondAttribute="trailing" id="amL-DA-aLx"/>
-                <constraint firstItem="U6y-cE-eGu" firstAttribute="top" secondItem="iN0-l3-epB" secondAttribute="top" id="wZW-k5-Ugc"/>
+                <constraint firstItem="b8s-Xi-SUg" firstAttribute="top" secondItem="iN0-l3-epB" secondAttribute="top" id="rWa-6e-vRp"/>
+                <constraint firstItem="fkF-mr-3nG" firstAttribute="top" secondItem="b8s-Xi-SUg" secondAttribute="bottom" id="tow-1m-6YL"/>
             </constraints>
         </view>
     </objects>

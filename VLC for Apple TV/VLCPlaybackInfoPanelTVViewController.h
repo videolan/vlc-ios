@@ -11,13 +11,11 @@
 
 #import <UIKit/UIKit.h>
 
-@interface VLCPlaybackInfoTVViewController : UIViewController <UITabBarControllerDelegate, UIGestureRecognizerDelegate>
+@interface VLCPlaybackInfoPanelTVViewController : UIViewController
 
-@property (nonatomic) IBOutlet UIView *containerView;
-@property (nonatomic) IBOutlet UIView *dimmingView;
-@property (nonatomic) IBOutlet NSLayoutConstraint *tabBarRegiomHeightConstraint;
-@property (nonatomic) IBOutlet NSLayoutConstraint *containerHeightConstraint;
-@property (nonatomic) IBOutlet UITabBarController *tabBarController;
+
+// subclasses should override preferred content size to enable
+// correct sizing of the info VC
+- (CGSize)preferredContentSize;
 
 @end
-

@@ -22,17 +22,11 @@
     self = [super initWithNibName:nibNameOrNil bundle:nibBundleOrNil];
     if (self) {
         self.title = NSLocalizedString(@"AUDIO_INFO_VC_TITLE", nil);
-        self.edgesForExtendedLayout = UIRectEdgeNone;
     }
     return self;
 }
-
-- (CGSize)preferredContentSize {
+- (CGSize)preferredContentSize
+{
     return CGSizeMake(CGRectGetWidth(self.view.bounds), 300);
 }
-- (BOOL)_tvTabBarShouldAutohide
-{
-    return NO;
-}
-
 @end

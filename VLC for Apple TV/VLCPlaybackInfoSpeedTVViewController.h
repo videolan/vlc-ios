@@ -9,9 +9,8 @@
  * Refer to the COPYING file of the official project for license.
  *****************************************************************************/
 
+#import "VLCPlaybackInfoPanelTVViewController.h"
 
-#import <UIKit/UIKit.h>
-
-@interface VLCPlaybackInfoSpeedTVViewController : UIViewController
+@interface VLCPlaybackInfoSpeedTVViewController : VLCPlaybackInfoPanelTVViewController
 @property (nonatomic) IBOutlet UISegmentedControl *speedSegementedControl;
 @end

@@ -6,33 +6,27 @@
     <objects>
         <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner" customClass="VLCPlaybackInfoAudioTVViewController">
             <connections>
-                <outlet property="view" destination="lzE-Lg-I4v" id="muP-eq-TfJ"/>
+                <outlet property="view" destination="SfU-3e-bi3" id="dbi-nU-kf2"/>
             </connections>
         </placeholder>
         <placeholder placeholderIdentifier="IBFirstResponder" id="-2" customClass="UIResponder"/>
-        <visualEffectView opaque="NO" contentMode="scaleToFill" id="lzE-Lg-I4v">
-            <rect key="frame" x="0.0" y="0.0" width="240" height="128"/>
+        <view contentMode="scaleToFill" id="SfU-3e-bi3">
+            <rect key="frame" x="0.0" y="0.0" width="1920" height="1080"/>
             <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-            <view key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" id="oh5-AA-mJb">
-                <rect key="frame" x="0.0" y="0.0" width="240" height="128"/>
-                <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
-                <subviews>
-                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Put audio stuff here" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="RD5-yN-Bxj">
-                        <rect key="frame" x="45" y="54" width="151" height="21"/>
-                        <animations/>
-                        <fontDescription key="fontDescription" type="system" pointSize="17"/>
-                        <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
-                        <nil key="highlightedColor"/>
-                    </label>
-                </subviews>
-                <animations/>
-                <constraints>
-                    <constraint firstItem="RD5-yN-Bxj" firstAttribute="centerX" secondItem="oh5-AA-mJb" secondAttribute="centerX" id="LbQ-gh-TnV"/>
-                    <constraint firstItem="RD5-yN-Bxj" firstAttribute="centerY" secondItem="oh5-AA-mJb" secondAttribute="centerY" id="Y2G-FT-lep"/>
-                </constraints>
-            </view>
+            <subviews>
+                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Put audio stuff here" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="RD5-yN-Bxj">
+                    <rect key="frame" x="884" y="530" width="151" height="21"/>
+                    <animations/>
+                    <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                    <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
+                    <nil key="highlightedColor"/>
+                </label>
+            </subviews>
             <animations/>
-            <blurEffect style="light"/>
-        </visualEffectView>
+            <constraints>
+                <constraint firstItem="RD5-yN-Bxj" firstAttribute="centerY" secondItem="SfU-3e-bi3" secondAttribute="centerY" id="U6D-ND-4bN"/>
+                <constraint firstItem="RD5-yN-Bxj" firstAttribute="centerX" secondItem="SfU-3e-bi3" secondAttribute="centerX" id="eNA-sk-bI6"/>
+            </constraints>
+        </view>
     </objects>
 </document>

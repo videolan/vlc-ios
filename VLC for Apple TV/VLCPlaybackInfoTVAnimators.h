@@ -11,13 +11,12 @@
 
 #import <UIKit/UIKit.h>
 
-@interface VLCPlaybackInfoTVViewController : UIViewController <UITabBarControllerDelegate, UIGestureRecognizerDelegate>
+@class VLCPlaybackInfoTVViewController;
+@interface VLCPlaybackInfoTabBarTVTransitioningAnimator : NSObject <UIViewControllerAnimatedTransitioning>
+@property (nonatomic) VLCPlaybackInfoTVViewController *infoContainerViewController;
+@end
 
-@property (nonatomic) IBOutlet UIView *containerView;
-@property (nonatomic) IBOutlet UIView *dimmingView;
-@property (nonatomic) IBOutlet NSLayoutConstraint *tabBarRegiomHeightConstraint;
-@property (nonatomic) IBOutlet NSLayoutConstraint *containerHeightConstraint;
-@property (nonatomic) IBOutlet UITabBarController *tabBarController;
+@interface VLCPlaybackInfoTVTransitioningAnimator : NSObject <UIViewControllerAnimatedTransitioning>
 
 @end
 

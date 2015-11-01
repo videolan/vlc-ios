@@ -12,31 +12,31 @@
 #import "VLCPlaybackInfoTVViewController.h"
 #import "VLCPlaybackInfoSpeedTVViewController.h"
 #import "VLCPlaybackInfoAudioTVViewController.h"
+#import "VLCPlaybackInfoTVAnimators.h"
 
-@interface VLCPlaybackInfoTVViewController () <UITabBarControllerDelegate, UIGestureRecognizerDelegate>
-@property (nonatomic) IBOutlet UIView *containerView;
-@property (nonatomic) IBOutlet UIView *dimmingView;
-@property (nonatomic) IBOutlet NSLayoutConstraint *containerHeightConstraint;
-@property (nonatomic) IBOutlet UITabBarController *tabBarController;
-
+// just for appearance reasons
+@interface VLCPlaybackInfoTVTabBarController : UITabBarController
+@end
+@implementation VLCPlaybackInfoTVTabBarController
 @end
 
 @implementation VLCPlaybackInfoTVViewController
 
-- (NSArray<UIViewController*>*) tabViewControllers {
+- (NSArray<UIViewController*>*)tabViewControllers
+{
     return @[
              [[VLCPlaybackInfoSpeedTVViewController alloc] initWithNibName:nil bundle:nil],
              [[VLCPlaybackInfoAudioTVViewController alloc] initWithNibName:nil bundle:nil],
              ];
 }
 
-
-
 - (void)viewDidLoad
 {
     [super viewDidLoad];
 
-    UITabBarController *controller = [[UITabBarController alloc] init];
+    [self setupTabBarItemAppearance];
+
+    UITabBarController *controller = [[VLCPlaybackInfoTVTabBarController alloc] init];
     controller.delegate = self;
     controller.viewControllers = [self tabViewControllers];
     self.tabBarController = controller;
@@ -53,34 +53,38 @@
     [self.view addGestureRecognizer:swipeUpRecognizer];
 }
 
-
-- (BOOL)shouldAutomaticallyForwardAppearanceMethods {
+- (BOOL)shouldAutomaticallyForwardAppearanceMethods
+{
     return YES;
 }
 
-- (void)swipeUpRecognized:(UISwipeGestureRecognizer *)recognizer {
+- (void)updateViewConstraints
+{
+    [super updateViewConstraints];
+    UIViewController *viewController = self.tabBarController.selectedViewController;
+    CGFloat tabBarHeight = CGRectGetHeight(self.tabBarController.tabBar.bounds);
+    self.tabBarRegiomHeightConstraint.constant = tabBarHeight;
+    CGFloat controllerHeight = viewController.preferredContentSize.height;
+    self.containerHeightConstraint.constant = controllerHeight;
+}
 
+
+- (void)setupTabBarItemAppearance
+{
+    UITabBarItem *tabBarItemApprearance = [UITabBarItem appearanceWhenContainedInInstancesOfClasses:@[[VLCPlaybackInfoTVTabBarController class]]];
+    NSDictionary *attributesSelected = @{NSForegroundColorAttributeName : [UIColor colorWithWhite:0.75 alpha:1.0]};
+    [tabBarItemApprearance setTitleTextAttributes:attributesSelected forState:UIControlStateSelected];
+    NSDictionary *attributesFocused = @{NSForegroundColorAttributeName : [UIColor colorWithWhite:1.0 alpha:1.0]};
+    [tabBarItemApprearance setTitleTextAttributes:attributesFocused forState:UIControlStateFocused];
+}
+
+- (void)swipeUpRecognized:(UISwipeGestureRecognizer *)recognizer
+{
     [self dismissViewControllerAnimated:YES completion:nil];
 }
 
-- (void)updateViewConstraints {
-    [super updateViewConstraints];
 
-    UIViewController *viewController = self.tabBarController.selectedViewController;
-    CGFloat tabbarHeight = CGRectGetHeight(self.tabBarController.tabBar.bounds);
-    CGFloat controllerHeight = viewController.preferredContentSize.height;
-    self.containerHeightConstraint.constant = controllerHeight + tabbarHeight;
-}
-
-- (void)tabBarController:(UITabBarController *)tabBarController didSelectViewController:(UIViewController *)viewController
-{
-    [UIView animateWithDuration:0.3
-                     animations:^{
-                         [self updateViewConstraints];
-                         [self.view layoutIfNeeded];
-                     }];
-}
-
+#pragma mark - GestureRecognizerDelegate
 
 - (BOOL)gestureRecognizerShouldBegin:(UIGestureRecognizer *)gestureRecognizer
 {
@@ -95,70 +99,16 @@
     return NO;
 }
 
-@end
-
-
-@implementation VLCPlaybackInfoTVTransitioningAnimator
-
-- (NSTimeInterval)transitionDuration:(id<UIViewControllerContextTransitioning>)transitionContext {
-    return 0.5;
+#pragma mark - TabBarControllerDelegate
+- (nullable id <UIViewControllerAnimatedTransitioning>)tabBarController:(UITabBarController *)tabBarController
+                     animationControllerForTransitionFromViewController:(UIViewController *)fromVC
+                                                       toViewController:(UIViewController *)toVC
+{
+    VLCPlaybackInfoTabBarTVTransitioningAnimator* animator = [[VLCPlaybackInfoTabBarTVTransitioningAnimator alloc] init];
+    animator.infoContainerViewController = self;
+    return animator;
 }
 
-- (void)animateTransition:(id<UIViewControllerContextTransitioning>)transitionContext {
-    UIViewController *source = [transitionContext viewControllerForKey:UITransitionContextFromViewControllerKey];
-    UIViewController *target = [transitionContext viewControllerForKey:UITransitionContextToViewControllerKey];
-
-    UIView *container = [transitionContext containerView];
-    CGRect initialSourceFrame = [transitionContext initialFrameForViewController:source];
-    // TODO: calculate
-    CGFloat infoHeight = CGRectGetHeight(initialSourceFrame);
-
-    CGRect largeFrame = ({
-        CGRect frame = initialSourceFrame;
-        frame.origin.y -=infoHeight;
-        frame.size.height += infoHeight;
-        frame;
-    });
-    CGRect smallFrame = initialSourceFrame;
-
-    CGFloat targetAlpha = 1.0;
-    CGRect fromFrame = initialSourceFrame;
-    CGRect toFrame = initialSourceFrame;
-
-    VLCPlaybackInfoTVViewController *infoVC = nil;
-    if ([target isKindOfClass:[VLCPlaybackInfoTVViewController class]]) {
-        infoVC = (VLCPlaybackInfoTVViewController*) target;
-        infoVC.dimmingView.alpha = 0.0;
-        targetAlpha = 1.0;
-        toFrame = smallFrame;
-        fromFrame = largeFrame;
-        [container addSubview:target.view];
-    } else if ([source isKindOfClass:[VLCPlaybackInfoTVViewController class]]) {
-        infoVC = (VLCPlaybackInfoTVViewController*) source;
-        infoVC.dimmingView.alpha = 1.0;
-        targetAlpha = 0.0;
-        toFrame = largeFrame;
-        fromFrame = smallFrame;
-    }
-
-    infoVC.view.frame = fromFrame;
-    [infoVC.view layoutIfNeeded];
-
-    // fallback
-    if (!infoVC) {
-        target.view.frame = smallFrame;
-    }
-
-    [UIView animateWithDuration:[self transitionDuration:transitionContext]
-                     animations:^{
-                         infoVC.view.frame = toFrame;
-                         [infoVC.view layoutIfNeeded];
-                         infoVC.dimmingView.alpha = targetAlpha;
-                     }
-                     completion:^(BOOL finished) {
-                         [transitionContext completeTransition:![transitionContext transitionWasCancelled]];
-                     }];
-
-}
 
 @end
+

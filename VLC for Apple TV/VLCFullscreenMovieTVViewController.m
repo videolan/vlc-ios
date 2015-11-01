@@ -11,7 +11,7 @@
 
 #import "VLCFullscreenMovieTVViewController.h"
 #import "VLCPlaybackInfoTVViewController.h"
-
+#import "VLCPlaybackInfoTVAnimators.h"
 
 @interface VLCFullscreenMovieTVViewController (UIViewControllerTransitioningDelegate) <UIViewControllerTransitioningDelegate, UIGestureRecognizerDelegate>
 @end
