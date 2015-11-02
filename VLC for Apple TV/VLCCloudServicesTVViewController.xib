@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
-<document type="com.apple.InterfaceBuilder.AppleTV.XIB" version="3.0" toolsVersion="9527.1" systemVersion="15B42" targetRuntime="AppleTV" propertyAccessControl="none" useAutolayout="YES">
+<document type="com.apple.InterfaceBuilder.AppleTV.XIB" version="3.0" toolsVersion="9527.1" systemVersion="15C27e" targetRuntime="AppleTV" propertyAccessControl="none" useAutolayout="YES">
     <dependencies>
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="9525.1"/>
     </dependencies>
@@ -53,8 +53,8 @@
                 </button>
                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="pdj-Fb-JlC">
                     <rect key="frame" x="105" y="874" width="1710" height="62"/>
-                    <mutableString key="text">To access Cloud Services, login to iCloud on both this Apple TV and an iOS device with the same Apple ID and enable Keychain Sharing in System Settings.
-Afterwards, login to the cloud provider of your choice using the VLC app on your iOS device. Finally, select it on this screen.</mutableString>
+                    <string key="text">To access Cloud Services, login to iCloud on both this Apple TV and an iOS device with the same Apple ID and enable Keychain Sharing in System Settings.
+Afterwards, login to the cloud provider of your choice using the VLC app on your iOS device. Finally, select it on this screen.</string>
                     <fontDescription key="fontDescription" style="UICTFontTextStyleCaption1"/>
                     <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
                     <nil key="highlightedColor"/>
@@ -63,10 +63,12 @@ Afterwards, login to the cloud provider of your choice using the VLC app on your
             <constraints>
                 <constraint firstItem="uaI-5Z-SJq" firstAttribute="top" secondItem="hdP-Dp-Mn0" secondAttribute="bottom" constant="30" id="0Pp-jT-hyL"/>
                 <constraint firstItem="gFm-4V-QFs" firstAttribute="top" secondItem="HPy-k8-PTt" secondAttribute="bottom" constant="30" id="6Ds-Dz-j0d"/>
+                <constraint firstItem="pdj-Fb-JlC" firstAttribute="leading" secondItem="iN0-l3-epB" secondAttribute="leading" constant="105" id="Dgd-na-5Zj"/>
                 <constraint firstItem="HPy-k8-PTt" firstAttribute="width" secondItem="gFm-4V-QFs" secondAttribute="width" id="KGz-R5-SlU"/>
                 <constraint firstItem="uaI-5Z-SJq" firstAttribute="centerX" secondItem="hdP-Dp-Mn0" secondAttribute="centerX" id="Mw8-qu-Vqj"/>
-                <constraint firstAttribute="bottom" secondItem="pdj-Fb-JlC" secondAttribute="bottom" constant="144" id="NFe-Ll-MoL"/>
+                <constraint firstAttribute="trailing" secondItem="pdj-Fb-JlC" secondAttribute="trailing" constant="105" id="XDT-AL-j2a"/>
                 <constraint firstItem="HPy-k8-PTt" firstAttribute="top" secondItem="uaI-5Z-SJq" secondAttribute="bottom" constant="30" id="YoM-LV-tnC"/>
+                <constraint firstItem="pdj-Fb-JlC" firstAttribute="top" secondItem="gFm-4V-QFs" secondAttribute="bottom" constant="111" id="ZnH-2y-fol"/>
                 <constraint firstItem="uaI-5Z-SJq" firstAttribute="width" secondItem="HPy-k8-PTt" secondAttribute="width" id="eSY-0J-2hE"/>
                 <constraint firstItem="hdP-Dp-Mn0" firstAttribute="top" secondItem="iN0-l3-epB" secondAttribute="top" constant="329" id="g5n-EN-pyy"/>
                 <constraint firstItem="uaI-5Z-SJq" firstAttribute="width" secondItem="hdP-Dp-Mn0" secondAttribute="width" id="gjb-7z-ngq"/>
