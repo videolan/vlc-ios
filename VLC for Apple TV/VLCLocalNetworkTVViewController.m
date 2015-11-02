@@ -34,7 +34,9 @@
                          [VLCLocalNetworkServiceBrowserDSM class],
                          [VLCLocalNetworkServiceBrowserPlex class],
 //                         [VLCLocalNetworkServiceBrowserFTP class],
+#ifndef NDEBUG
                          [VLCLocalNetworkServiceBrowserSAP class],
+#endif
                          ];
     self.discoveryController = [[VLCLocalServerDiscoveryController alloc] initWithServiceBrowserClasses:classes];
     self.discoveryController.delegate = self;

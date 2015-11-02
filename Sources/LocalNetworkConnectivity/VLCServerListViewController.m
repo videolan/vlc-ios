@@ -80,7 +80,9 @@
                                 [VLCLocalNetworkServiceBrowserPlex class],
                                 [VLCLocalNetworkServiceBrowserFTP class],
                                 [VLCLocalNetworkServiceBrowserHTTP class],
+#ifndef NDEBUG
                                 [VLCLocalNetworkServiceBrowserSAP class],
+#endif
                                 [VLCLocalNetworkServiceBrowserDSM class],
                                 ];
 
