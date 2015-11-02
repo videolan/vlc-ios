@@ -32,8 +32,8 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
 
-    self.helpLabel.textColor = [UIColor VLCLightTextColor];
-    self.helpLabel.shadowColor = [UIColor VLCDarkTextShadowColor];
+    self.helpLabel.textColor = [UIColor VLCDarkTextShadowColor];
+    self.helpLabel.shadowColor = [UIColor VLCLightTextColor];
     self.helpLabel.text = NSLocalizedString(@"CLOUD_LOGIN_LONG", nil);
     [self.helpLabel sizeToFit];
 
