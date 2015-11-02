@@ -64,8 +64,10 @@
 
     IASKSpecifier *specifier = [_settingsReader specifierForIndexPath:indexPath];
     cell.textLabel.text = [specifier title];
- 	cell.detailTextLabel.text = [specifier subtitle];
-    cell.accessoryType = UITableViewCellAccessoryDisclosureIndicator;
+    if (![specifier.type isEqualToString:kIASKButtonSpecifier]) {
+        cell.detailTextLabel.text = [specifier subtitle];
+        cell.accessoryType = UITableViewCellAccessoryDisclosureIndicator;
+    }
 
     return cell;
 }
