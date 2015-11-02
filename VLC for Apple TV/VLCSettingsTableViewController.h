@@ -11,6 +11,6 @@
 
 #import <UIKit/UIKit.h>
 
-@interface VLCAboutTVViewController : UIViewController
+@interface VLCSettingsTableViewController : UITableViewController
 
 @end

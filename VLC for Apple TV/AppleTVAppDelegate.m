@@ -12,7 +12,7 @@
 #import "AppleTVAppDelegate.h"
 #import "VLCLocalNetworkTVViewController.h"
 #import "VLCOpenNetworkStreamTVViewController.h"
-#import "VLCSettingsAboutTableViewController.h"
+#import "VLCSettingsTableViewController.h"
 #import "VLCCloudServicesTVViewController.h"
 
 @interface AppleTVAppDelegate ()
@@ -22,8 +22,7 @@
     VLCLocalNetworkTVViewController *_localNetworkVC;
     VLCCloudServicesTVViewController *_cloudServicesVC;
     VLCOpenNetworkStreamTVViewController *_openNetworkVC;
-    UISplitViewController *_aboutSettingsVC;
-    VLCSettingsAboutTableViewController *_aboutSettingsTableVC;
+    VLCSettingsTableViewController *_settingsTableVC;
 }
 
 @end
@@ -57,10 +56,7 @@
     _localNetworkVC = [[VLCLocalNetworkTVViewController alloc] initWithNibName:nil bundle:nil];
     _cloudServicesVC = [[VLCCloudServicesTVViewController alloc] initWithNibName:nil bundle:nil];
     _openNetworkVC = [[VLCOpenNetworkStreamTVViewController alloc] initWithNibName:nil bundle:nil];
-    _aboutSettingsVC = [[UISplitViewController alloc] init];
-    _aboutSettingsTableVC = [[VLCSettingsAboutTableViewController alloc] initWithNibName:nil bundle:nil];
-    _aboutSettingsVC.viewControllers = @[_aboutSettingsTableVC];
-    _aboutSettingsVC.title = @"\u2699";
+    _settingsTableVC = [[VLCSettingsTableViewController alloc] initWithNibName:nil bundle:nil];
 
     _mainViewController = [[UITabBarController alloc] init];
     _mainViewController.tabBar.backgroundColor = [UIColor VLCOrangeTintColor];
@@ -68,7 +64,7 @@
     _mainViewController.viewControllers = @[[[UINavigationController alloc] initWithRootViewController:_localNetworkVC],
                                             [[UINavigationController alloc] initWithRootViewController:_cloudServicesVC],
                                             [[UINavigationController alloc] initWithRootViewController:_openNetworkVC],
-                                            _aboutSettingsVC];
+                                            [[UINavigationController alloc] initWithRootViewController:_settingsTableVC]];
 
     self.window.rootViewController = _mainViewController;
 

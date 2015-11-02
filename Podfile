@@ -6,7 +6,7 @@ target 'vlc-ios' do
 platform :ios, '7.0'
 
 pod 'OBSlider', '1.1.0'
-pod 'InAppSettingsKit', '2.2.2'
+pod 'InAppSettingsKit', :git => 'git://github.com/fkuehne/InAppSettingsKit.git', :commit => '415ea6bb' #tvOS fix
 pod 'upnpx', '~>1.3.6'
 pod 'HockeySDK', '~>3.6.4'
 pod 'SSKeychain', :git => 'git://github.com/fkuehne/sskeychain.git' #iCloud Keychain sync
