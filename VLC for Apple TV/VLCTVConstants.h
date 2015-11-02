@@ -56,3 +56,5 @@
 #define kVLCSettingPlaybackForwardSkipLengthDefaultValue @(60)
 #define kVLCSettingPlaybackBackwardSkipLength @"playback-forward-skip-length"
 #define kVLCSettingPlaybackBackwardSkipLengthDefaultValue @(60)
+#define kVLCSettingFTPTextEncoding @"ftp-text-encoding"
+#define kVLCSettingFTPTextEncodingDefaultValue @(5) // ISO Latin 1

@@ -14,11 +14,12 @@
 #import "VLCServerBrowsingTVTableViewController.h"
 #import "VLCNetworkServerLoginInformation.h"
 
-//#import "VLCNetworkServerBrowserFTP.h"
 #import "VLCNetworkServerBrowserPlex.h"
 #import "VLCLocalNetworkServiceBrowserPlex.h"
 #import "VLCNetworkServerBrowserVLCMedia.h"
 #import "VLCLocalNetworkServiceBrowserDSM.h"
+#import "VLCLocalNetworkServiceBrowserFTP.h"
+#import "VLCNetworkServerBrowserFTP.h"
 #import <SSKeychain/SSKeychain.h>
 
 @interface VLCServerListTVTableViewController ()
@@ -219,12 +220,9 @@
     id<VLCNetworkServerBrowser> serverBrowser = nil;
     NSString *identifier = login.protocolIdentifier;
 
-    // TODO: enable for FTP servers
-//    if ([identifier isEqualToString:VLCNetworkServerProtocolIdentifierFTP]) {
-//        serverBrowser = [[VLCLocalNetworkServiceBrowserFTP alloc] initWithLogin:login];
-//    } else
-
-    if ([identifier isEqualToString:VLCNetworkServerProtocolIdentifierPlex]) {
+    if ([identifier isEqualToString:VLCNetworkServerProtocolIdentifierFTP]) {
+        serverBrowser = [[VLCNetworkServerBrowserFTP alloc] initWithLogin:login];
+    } else if ([identifier isEqualToString:VLCNetworkServerProtocolIdentifierPlex]) {
         serverBrowser = [[VLCNetworkServerBrowserPlex alloc] initWithLogin:login];
     } else if ([identifier isEqualToString:VLCNetworkServerProtocolIdentifierSMB]) {
         serverBrowser = [VLCNetworkServerBrowserVLCMedia SMBNetworkServerBrowserWithLogin:login];

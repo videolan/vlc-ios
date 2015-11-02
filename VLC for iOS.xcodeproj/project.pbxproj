@@ -63,6 +63,9 @@
 		7D0C35331BD97C100058CD19 /* VLCOneDriveController.m in Sources */ = {isa = PBXBuildFile; fileRef = 7D1052ED1A4DCD1E00295F08 /* VLCOneDriveController.m */; };
 		7D0C35341BD97C7B0058CD19 /* VLCOneDriveObject.m in Sources */ = {isa = PBXBuildFile; fileRef = 7DB847D61A5871570002DC30 /* VLCOneDriveObject.m */; };
 		7D0C35371BD97E870058CD19 /* VLCOneDriveTableViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 7D1052E81A4DCC1100295F08 /* VLCOneDriveTableViewController.m */; };
+		7D0EDE061BE774BF00363AA1 /* WhiteRaccoon.m in Sources */ = {isa = PBXBuildFile; fileRef = 7DC72D6217B7ED24008A26D0 /* WhiteRaccoon.m */; };
+		7D0EDE091BE7752800363AA1 /* VLCLocalNetworkServiceBrowserFTP.m in Sources */ = {isa = PBXBuildFile; fileRef = DD3EFEF21BDEBCE500B68579 /* VLCLocalNetworkServiceBrowserFTP.m */; };
+		7D0EDE0A1BE7752C00363AA1 /* VLCNetworkServerBrowserFTP.m in Sources */ = {isa = PBXBuildFile; fileRef = DD3EFEF61BDEBCE500B68579 /* VLCNetworkServerBrowserFTP.m */; };
 		7D1052E91A4DCC1100295F08 /* VLCOneDriveTableViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 7D1052E81A4DCC1100295F08 /* VLCOneDriveTableViewController.m */; };
 		7D1052EE1A4DCD1E00295F08 /* VLCOneDriveController.m in Sources */ = {isa = PBXBuildFile; fileRef = 7D1052ED1A4DCD1E00295F08 /* VLCOneDriveController.m */; };
 		7D1276621AADA0E600F0260C /* VLCMultiSelectionMenuView.m in Sources */ = {isa = PBXBuildFile; fileRef = 7D1276611AADA0E600F0260C /* VLCMultiSelectionMenuView.m */; };
@@ -2733,6 +2736,7 @@
 				DD3EFF3A1BDEBCE500B68579 /* VLCLocalNetworkServiceVLCMedia.m in Sources */,
 				7D7EF3DA1BD56B5900CD4CEE /* VLCOpenNetworkStreamTVViewController.m in Sources */,
 				DD3EFF521BDEBCE500B68579 /* VLCPlexWebAPI.m in Sources */,
+				7D0EDE091BE7752800363AA1 /* VLCLocalNetworkServiceBrowserFTP.m in Sources */,
 				DD8095F91BE6268A0065D8E1 /* VLCPlaybackInfoPanelTVViewController.m in Sources */,
 				7D60696C1BD93BE200AB765C /* VLCCloudStorageTableViewCell.m in Sources */,
 				DD3EABE91BE13D5B003668DA /* VLCServerBrowsingTVCell.m in Sources */,
@@ -2745,6 +2749,7 @@
 				7DEC8BDE1BD67899006E1093 /* VLCFullscreenMovieTVViewController.m in Sources */,
 				DD3EFF501BDEBCE500B68579 /* VLCPlexParser.m in Sources */,
 				7D44085A1BDA8DCE0080FB42 /* VLCBoxTableViewController.m in Sources */,
+				7D0EDE0A1BE7752C00363AA1 /* VLCNetworkServerBrowserFTP.m in Sources */,
 				DD3EFF4E1BDEBCE500B68579 /* VLCNetworkServerBrowserPlex.m in Sources */,
 				DD3EFF3E1BDEBCE500B68579 /* VLCLocalNetworkServiceBrowserHTTP.m in Sources */,
 				7DC71D261BC830A5001FACAA /* VLCLocalNetworkTVViewController.m in Sources */,
@@ -2756,6 +2761,7 @@
 				DD3EAC051BE153B4003668DA /* VLCNetworkImageView.m in Sources */,
 				7D0C35341BD97C7B0058CD19 /* VLCOneDriveObject.m in Sources */,
 				7D0C35331BD97C100058CD19 /* VLCOneDriveController.m in Sources */,
+				7D0EDE061BE774BF00363AA1 /* WhiteRaccoon.m in Sources */,
 				7D60696B1BD93AC800AB765C /* VLCDropboxTableViewController.m in Sources */,
 				DD3EFF3C1BDEBCE500B68579 /* VLCNetworkServerBrowserVLCMedia.m in Sources */,
 				7D1334801BE132F10012E919 /* VLCNetworkServerBrowserUPnP.m in Sources */,
