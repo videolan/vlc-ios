@@ -28,7 +28,6 @@
 #define kVLCSettingPlaybackSpeedDefaultValue @"playback-speed"
 #define kVLCSettingNetworkCaching @"network-caching"
 #define kVLCSettingNetworkCachingDefaultValue @(999)
-#define kVLCSettingVideoFullscreenPlayback @"AlwaysUseFullscreenForVideo"
 #define kVLCSettingSkipLoopFilter @"avcodec-skiploopfilter"
 #define kVLCSettingSkipLoopFilterNone @(0)
 #define kVLCSettingSkipLoopFilterNonRef @(1)

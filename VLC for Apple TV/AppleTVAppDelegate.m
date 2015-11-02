@@ -35,7 +35,6 @@
 
     NSDictionary *appDefaults = @{kVLCSettingContinueAudioInBackgroundKey : @(YES),
                                   kVLCSettingStretchAudio : @(NO),
-                                  kVLCSettingVideoFullscreenPlayback : @(NO),
                                   kVLCSettingTextEncoding : kVLCSettingTextEncodingDefaultValue,
                                   kVLCSettingSkipLoopFilter : kVLCSettingSkipLoopFilterNonRef,
                                   kVLCSettingSubtitlesFont : kVLCSettingSubtitlesFontDefaultValue,
