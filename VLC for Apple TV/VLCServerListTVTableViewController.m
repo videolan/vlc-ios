@@ -99,7 +99,7 @@
     UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:VLCLocalServerTVCell forIndexPath:indexPath];
     id<VLCLocalNetworkService> service = [self.discoveryController networkServiceForIndexPath:indexPath];
     cell.textLabel.text = service.title;
-    cell.imageView.image = service.icon;
+    cell.imageView.image = service.icon ? service.icon : [UIImage imageNamed:@"serverIcon"];
     return cell;
 }
 
