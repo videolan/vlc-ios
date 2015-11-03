@@ -30,7 +30,6 @@
     UITableView *tableView = [[UITableView alloc] initWithFrame:[UIScreen mainScreen].bounds style:UITableViewStyleGrouped];
     tableView.delegate = self;
     tableView.dataSource = self;
-    [tableView registerClass:[UITableViewCell class] forCellReuseIdentifier:SettingsReUseIdentifier];
     [tableView registerClass:[UITableViewHeaderFooterView class] forHeaderFooterViewReuseIdentifier:SettingsHeaderReUseIdentifier];
     self.view = tableView;
 }
@@ -40,6 +39,7 @@
 
     self.clearsSelectionOnViewWillAppear = YES;
 
+    _userDefaults = [NSUserDefaults standardUserDefaults];
     _settingsReader = [[IASKSettingsReader alloc] init];
 }
 
@@ -60,13 +60,30 @@
 }
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
-    UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:SettingsReUseIdentifier forIndexPath:indexPath];
+    UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:SettingsReUseIdentifier];
+
+    if (!cell)
+        cell = [[UITableViewCell alloc] initWithStyle:UITableViewCellStyleValue1 reuseIdentifier:SettingsReUseIdentifier];
 
     IASKSpecifier *specifier = [_settingsReader specifierForIndexPath:indexPath];
     cell.textLabel.text = [specifier title];
-    if (![specifier.type isEqualToString:kIASKButtonSpecifier]) {
-        cell.detailTextLabel.text = [specifier subtitle];
+    NSString *specifierType = specifier.type;
+    if ([specifierType isEqualToString:kIASKPSMultiValueSpecifier]) {
+        NSArray *titles = [specifier multipleTitles];
+        NSArray *values = [specifier multipleValues];
+        NSUInteger selectedIndex = [values indexOfObject:[_userDefaults objectForKey:[specifier key]]];
+        NSUInteger titlesCount = titles.count;
+        if (selectedIndex < titlesCount)
+            cell.detailTextLabel.text = [_settingsReader titleForStringId:titles[selectedIndex]];
+        else {
+            selectedIndex = [values indexOfObject:[specifier defaultValue]];
+            if (selectedIndex < titlesCount)
+                cell.detailTextLabel.text = [_settingsReader titleForStringId:titles[selectedIndex]];
+        }
         cell.accessoryType = UITableViewCellAccessoryDisclosureIndicator;
+    } else if ([specifierType isEqualToString:kIASKPSToggleSwitchSpecifier]) {
+        cell.detailTextLabel.text = [_userDefaults boolForKey:[specifier key]] ? NSLocalizedString(@"On", nil) : NSLocalizedString(@"Off", nil);
+        cell.accessoryType = UITableViewCellAccessoryNone;
     }
 
     return cell;
@@ -81,13 +98,14 @@
 {
     IASKSpecifier *specifier = [_settingsReader specifierForIndexPath:indexPath];
 
-    UIAlertController *alertController = [UIAlertController alertControllerWithTitle:specifier.title
-                                                                             message:nil preferredStyle:UIAlertControllerStyleActionSheet];
     NSString *specifierType = specifier.type;
     if ([specifierType isEqualToString:kIASKPSMultiValueSpecifier]) {
+        UIAlertController *alertController = [UIAlertController alertControllerWithTitle:specifier.title
+                                                                                 message:nil preferredStyle:UIAlertControllerStyleActionSheet];
+
         NSUInteger count = [specifier multipleValuesCount];
         NSArray *titles = [specifier multipleTitles];
-        NSUInteger indexOfPreferredAction = [[specifier multipleValues] indexOfObject:[_userDefaults objectForKey:[specifier key]]]; // FIXME: lookup correct value
+        NSUInteger indexOfPreferredAction = [[specifier multipleValues] indexOfObject:[_userDefaults objectForKey:[specifier key]]];
         for (NSUInteger i = 0; i < count; i++) {
             id value = [[specifier multipleValues][i] copy];
             UIAlertAction *action = [UIAlertAction actionWithTitle:[_settingsReader titleForStringId:titles[i]]
@@ -101,31 +119,18 @@
             if (i == indexOfPreferredAction)
                 [alertController setPreferredAction:action];
         }
+
+        [alertController addAction:[UIAlertAction actionWithTitle:NSLocalizedString(@"BUTTON_CANCEL", nil)
+                                                            style:UIAlertActionStyleCancel
+                                                          handler:nil]];
+
+        [self presentViewController:alertController animated:YES completion:nil];
     } else if ([specifierType isEqualToString:kIASKPSToggleSwitchSpecifier]) {
-        UIAlertAction *onAction = [UIAlertAction actionWithTitle:NSLocalizedString(@"On", nil)
-                                                            style:UIAlertActionStyleDefault
-                                                          handler:^(UIAlertAction * _Nonnull action) {
-                                                              [_userDefaults setBool:YES forKey:[specifier key]];
-                                                              [_userDefaults synchronize];
-                                                              [self.tableView reloadData];
-                                                          }];
-        UIAlertAction *offAction = [UIAlertAction actionWithTitle:NSLocalizedString(@"Off", nil)
-                                                            style:UIAlertActionStyleDefault
-                                                          handler:^(UIAlertAction * _Nonnull action) {
-                                                              [_userDefaults setBool:NO forKey:[specifier key]];
-                                                              [_userDefaults synchronize];
-                                                              [self.tableView reloadData];
-                                                          }];
-        [alertController addAction:onAction];
-        [alertController addAction:offAction];
-        [alertController setPreferredAction:[_userDefaults boolForKey:[specifier key]] ? onAction : offAction];
+        NSString *specifierKey = [specifier key];
+        [_userDefaults setBool:![_userDefaults boolForKey:specifierKey] forKey:specifierKey];
+        [_userDefaults synchronize];
+        [self.tableView reloadData];
     }
-
-    [alertController addAction:[UIAlertAction actionWithTitle:NSLocalizedString(@"BUTTON_CANCEL", nil)
-                                                        style:UIAlertActionStyleCancel
-                                                      handler:nil]];
-
-    [self presentViewController:alertController animated:YES completion:nil];
 }
 
 @end
