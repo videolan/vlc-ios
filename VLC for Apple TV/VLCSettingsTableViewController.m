@@ -12,6 +12,7 @@
 #import "VLCSettingsTableViewController.h"
 #import "IASKSettingsReader.h"
 #import "IASKSpecifier.h"
+#import "VLCAboutViewController.h"
 
 #define SettingsReUseIdentifier @"SettingsReUseIdentifier"
 #define SettingsHeaderReUseIdentifier @"SettingsHeaderReUseIdentifier"
@@ -133,6 +134,12 @@
         [_userDefaults setBool:![_userDefaults boolForKey:specifierKey] forKey:specifierKey];
         [_userDefaults synchronize];
         [self.tableView reloadData];
+    } else {
+        VLCAboutViewController *targetViewController = [[VLCAboutViewController alloc] initWithNibName:nil bundle:nil];
+        targetViewController.title = specifier.title;
+        [self presentViewController:targetViewController
+                           animated:YES
+                         completion:nil];
     }
 }
 
