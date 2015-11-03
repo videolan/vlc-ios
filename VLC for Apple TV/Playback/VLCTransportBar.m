@@ -16,6 +16,9 @@
 @property (nonatomic) VLCBufferingBar *bufferingBar;
 @property (nonatomic) UIView *playbackPositionMarker;
 @property (nonatomic) UIView *scrubbingPostionMarker;
+
+@property (nonatomic) UIImageView *leftHintImageView;
+@property (nonatomic) UIImageView *rightHintImageView;
 @end
 
 @implementation VLCTransportBar
@@ -54,7 +57,7 @@ static inline void sharedSetup(VLCTransportBar *self) {
     UIFont *font = [UIFont monospacedDigitSystemFontOfSize:size weight:UIFontWeightSemibold];
     UIColor *textColor = [UIColor whiteColor];
 
-    UILabel *markerLabel = [[UILabel alloc] initWithFrame:CGRectZero];
+    UILabel *markerLabel = [[UILabel alloc] initWithFrame:CGRectMake(0, 0, 10, 10)];
     markerLabel.font = font;
     markerLabel.textColor = textColor;
     [self addSubview:markerLabel];
@@ -65,6 +68,18 @@ static inline void sharedSetup(VLCTransportBar *self) {
     remainingLabel.textColor = textColor;
     [self addSubview:remainingLabel];
     self->_remainingTimeLabel = remainingLabel;
+
+
+    CGFloat iconLength = 32.0;
+    CGRect imageRect = CGRectMake(0, 0, iconLength, iconLength);
+
+    UIImageView *leftHintImageView = [[UIImageView alloc] initWithFrame:imageRect];
+    [self addSubview:leftHintImageView];
+    self.leftHintImageView = leftHintImageView;
+
+    UIImageView *rightHintImageView = [[UIImageView alloc] initWithFrame:imageRect];
+    [self addSubview:rightHintImageView];
+    self.rightHintImageView = rightHintImageView;
 }
 
 - (instancetype)initWithFrame:(CGRect)frame
@@ -107,6 +122,50 @@ static inline void sharedSetup(VLCTransportBar *self) {
     [self setNeedsLayout];
 }
 
+- (UIImage *)imageForHint:(VLCTransportBarHint)hint
+{
+    NSString *imageName = nil;
+    switch (hint) {
+        case VLCTransportBarHintScanForward:
+            imageName = @"NowPlayingFastForward.png";
+            break;
+        case VLCTransportBarHintJumpForward10:
+            imageName = @"NowPlayingSkip10Forward.png";
+            break;
+        case VLCTransportBarHintJumpBackward10:
+            imageName = @"NowPlayingSkip10Backward.png";
+            break;
+        default:
+			break;
+	}
+    if (imageName) {
+        // FIXME: TODO: don't use the images from AVKit
+        NSBundle *bundle = [NSBundle bundleWithPath:@"/System/Library/Frameworks/AVKit.framework"];
+        return [UIImage imageNamed:imageName inBundle:bundle compatibleWithTraitCollection:nil];
+    }
+    return nil;
+}
+- (void)setHint:(VLCTransportBarHint)hint
+{
+    UIImage *leftImage = nil;
+    UIImage *rightImage = nil;
+	switch (hint) {
+        case VLCTransportBarHintScanForward:
+        case VLCTransportBarHintJumpForward10:
+            rightImage = [self imageForHint:hint];
+			break;
+        case VLCTransportBarHintJumpBackward10:
+            leftImage = [self imageForHint:hint];
+            break;
+        default:
+			break;
+	}
+
+    // TODO: add animations
+    self.leftHintImageView.image = leftImage;
+    self.rightHintImageView.image = rightImage;
+}
+
 - (void)layoutSubviews {
     [super layoutSubviews];
     const CGRect bounds = self.bounds;
@@ -136,6 +195,16 @@ static inline void sharedSetup(VLCTransportBar *self) {
     CGPoint timeLabelCenter = remainingLabel.center;
     timeLabelCenter.x = self.scrubbingPostionMarker.center.x;
     markerLabel.center = timeLabelCenter;
+
+    CGRect markerLabelFrame = markerLabel.frame;
+
+    UIImageView *leftHint = self.leftHintImageView;
+    CGFloat leftImageSize = CGRectGetWidth(leftHint.bounds);
+    leftHint.center = CGPointMake(CGRectGetMinX(markerLabelFrame)-leftImageSize, timeLabelCenter.y);
+
+    UIImageView *rightHint = self.rightHintImageView;
+    CGFloat rightImageSize = CGRectGetWidth(rightHint.bounds);
+    rightHint.center = CGPointMake(CGRectGetMaxX(markerLabelFrame)+rightImageSize, timeLabelCenter.y);
 
     CGFloat remainingAlfa = CGRectIntersectsRect(markerLabel.frame, remainingLabelFrame) ? 0.0 : 1.0;
     remainingLabel.alpha = remainingAlfa;

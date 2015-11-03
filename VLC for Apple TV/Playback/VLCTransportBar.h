@@ -13,6 +13,13 @@
 
 NS_ASSUME_NONNULL_BEGIN
 
+typedef NS_ENUM(NSUInteger, VLCTransportBarHint) {
+    VLCTransportBarHintNone,
+    VLCTransportBarHintScanForward,
+    VLCTransportBarHintJumpForward10,
+    VLCTransportBarHintJumpBackward10,
+};
+
 IB_DESIGNABLE @interface VLCTransportBar : UIView
 @property (nonatomic) IBInspectable CGFloat bufferStartFraction;
 @property (nonatomic) IBInspectable CGFloat bufferEndFraction;
@@ -22,6 +29,8 @@ IB_DESIGNABLE @interface VLCTransportBar : UIView
 
 @property (nonatomic, readonly) UILabel *markerTimeLabel;
 @property (nonatomic, readonly) UILabel *remainingTimeLabel;
+
+-(void)setHint:(VLCTransportBarHint)hint;
 @end
 
 NS_ASSUME_NONNULL_END

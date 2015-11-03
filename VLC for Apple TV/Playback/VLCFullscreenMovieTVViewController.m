@@ -14,6 +14,13 @@
 #import "VLCPlaybackInfoTVAnimators.h"
 #import "VLCIRTVTapGestureRecognizer.h"
 
+typedef NS_ENUM(NSInteger, VLCPlayerScanState)
+{
+    VLCPlayerScanStateNone,
+    VLCPlayerScanStateForward2,
+    VLCPlayerScanStateForward4,
+};
+
 @interface VLCFullscreenMovieTVViewController (UIViewControllerTransitioningDelegate) <UIViewControllerTransitioningDelegate, UIGestureRecognizerDelegate>
 @end
 
@@ -21,6 +28,8 @@
 
 @property (nonatomic) NSTimer *hidePlaybackControlsViewAfterDeleayTimer;
 @property (nonatomic) VLCPlaybackInfoTVViewController *infoViewController;
+@property (nonatomic) NSNumber *scanSavedPlaybackRate;
+@property (nonatomic) VLCPlayerScanState scanState;
 @end
 
 @implementation VLCFullscreenMovieTVViewController
@@ -82,6 +91,13 @@
     downArrowRecognizer.allowedPressTypes = @[@(UIPressTypeDownArrow)];
     [self.view addGestureRecognizer:downArrowRecognizer];
 
+    UITapGestureRecognizer *leftArrowRecognizer = [[VLCIRTVTapGestureRecognizer alloc] initWithTarget:self action:@selector(handleIRPressLeft)];
+    leftArrowRecognizer.allowedPressTypes = @[@(UIPressTypeLeftArrow)];
+    [self.view addGestureRecognizer:leftArrowRecognizer];
+
+    UITapGestureRecognizer *rightArrowRecognizer = [[VLCIRTVTapGestureRecognizer alloc] initWithTarget:self action:@selector(handleIRPressRight)];
+    rightArrowRecognizer.allowedPressTypes = @[@(UIPressTypeRightArrow)];
+    [self.view addGestureRecognizer:rightArrowRecognizer];
 }
 
 - (void)didReceiveMemoryWarning
@@ -135,6 +151,8 @@
 {
     [self showPlaybackControlsIfNeededForUserInteraction];
 
+    [self setScanState:VLCPlayerScanStateNone];
+
     VLCPlaybackController *vpc = [VLCPlaybackController sharedInstance];
     if (self.transportBar.scrubbing) {
         [self selectButtonPressed:nil];
@@ -171,6 +189,7 @@
         }
     }
     [self showPlaybackControlsIfNeededForUserInteraction];
+    [self setScanState:VLCPlayerScanStateNone];
 
 
     const CGFloat scaleFactor = 8.0;
@@ -199,6 +218,7 @@
 - (void)selectButtonPressed:(UITapGestureRecognizer *)recognizer
 {
     [self showPlaybackControlsIfNeededForUserInteraction];
+    [self setScanState:VLCPlayerScanStateNone];
 
     VLCPlaybackController *vpc = [VLCPlaybackController sharedInstance];
     VLCTransportBar *bar = self.transportBar;
@@ -236,7 +256,122 @@
     [self animatePlaybackControlsToVisibility:NO];
 }
 
-#pragma mark - 
+- (void)handleIRPressLeft
+{
+    [self showPlaybackControlsIfNeededForUserInteraction];
+    BOOL paused = ![VLCPlaybackController sharedInstance].isPlaying;
+    if (paused) {
+        [self jumpBackward];
+    } else
+    {
+        [self scanForwardPrevious];
+    }
+}
+
+- (void)handleIRPressRight
+{
+    [self showPlaybackControlsIfNeededForUserInteraction];
+    BOOL paused = ![VLCPlaybackController sharedInstance].isPlaying;
+    if (paused) {
+        [self jumpForward];
+    } else {
+        [self scanForwardNext];
+    }
+}
+
+#pragma mark -
+static const NSInteger VLCJumpInterval = 10000; // 10 seconds
+- (void)jumpForward
+{
+    [self jumpInterval:VLCJumpInterval];
+}
+- (void)jumpBackward
+{
+    [self jumpInterval:-VLCJumpInterval];
+}
+
+- (void)jumpInterval:(NSInteger)interval
+{
+    NSInteger duration = [VLCPlaybackController sharedInstance].mediaDuration;
+    if (duration==0) {
+        return;
+    }
+    CGFloat intervalFraction = ((CGFloat)interval)/((CGFloat)duration);
+    VLCTransportBar *bar = self.transportBar;
+    bar.scrubbing = YES;
+    CGFloat currentFraction = bar.scrubbingFraction;
+    currentFraction += intervalFraction;
+    bar.scrubbingFraction = currentFraction;
+    [self updateTimeLabelsForScrubbingFraction:currentFraction];
+}
+
+- (void)scanForwardNext
+{
+    VLCPlayerScanState nextState = self.scanState;
+    switch (self.scanState) {
+        case VLCPlayerScanStateNone:
+            nextState = VLCPlayerScanStateForward2;
+            break;
+        case VLCPlayerScanStateForward2:
+            nextState = VLCPlayerScanStateForward4;
+            break;
+        case VLCPlayerScanStateForward4:
+            return;
+        default:
+            return;
+    }
+    [self setScanState:nextState];
+}
+
+- (void)scanForwardPrevious
+{
+    VLCPlayerScanState nextState = self.scanState;
+    switch (self.scanState) {
+        case VLCPlayerScanStateNone:
+            return;
+        case VLCPlayerScanStateForward2:
+            nextState = VLCPlayerScanStateNone;
+            break;
+        case VLCPlayerScanStateForward4:
+            nextState = VLCPlayerScanStateForward2;
+            break;
+        default:
+            return;
+    }
+    [self setScanState:nextState];
+}
+
+
+- (void)setScanState:(VLCPlayerScanState)scanState
+{
+    if (_scanState == VLCPlayerScanStateNone) {
+        self.scanSavedPlaybackRate = @([VLCPlaybackController sharedInstance].playbackRate);
+    }
+    _scanState = scanState;
+    float rate = 1.0;
+    VLCTransportBarHint hint = VLCTransportBarHintNone;
+    switch (scanState) {
+        case VLCPlayerScanStateForward2:
+            rate = 2.0;
+            hint = VLCTransportBarHintScanForward;
+            break;
+        case VLCPlayerScanStateForward4:
+            rate = 4.0;
+            hint = VLCTransportBarHintScanForward;
+            break;
+
+        case VLCPlayerScanStateNone:
+        default:
+            rate = self.scanSavedPlaybackRate.floatValue ?: 1.0;
+            hint = VLCTransportBarHintNone;
+            self.scanSavedPlaybackRate = nil;
+            break;
+    }
+
+    [VLCPlaybackController sharedInstance].playbackRate = rate;
+    [self.transportBar setHint:hint];
+}
+#pragma mark -
 
 - (void)updateTimeLabelsForScrubbingFraction:(CGFloat)scrubbingFraction
 {
@@ -395,7 +530,7 @@ currentMediaHasTrackToChooseFrom:(BOOL)currentMediaHasTrackToChooseFrom
 
 - (void)playbackPositionUpdated:(VLCPlaybackController *)controller
 {
-    VLCMediaPlayer *mediaPlayer = [VLCPlaybackController sharedInstance].mediaPlayer;
+    VLCMediaPlayer *mediaPlayer = controller.mediaPlayer;
     // FIXME: hard coded state since the state in mediaPlayer is incorrectly still buffering
     [self updateActivityIndicatorForState:VLCMediaPlayerStatePlaying];
 
