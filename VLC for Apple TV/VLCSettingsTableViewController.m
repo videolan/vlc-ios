@@ -39,6 +39,9 @@
     [super viewDidLoad];
 
     self.clearsSelectionOnViewWillAppear = YES;
+    self.automaticallyAdjustsScrollViewInsets = NO;
+    self.edgesForExtendedLayout = UIRectEdgeAll ^ UIRectEdgeTop;
+
 
     _userDefaults = [NSUserDefaults standardUserDefaults];
     _settingsReader = [[IASKSettingsReader alloc] init];
