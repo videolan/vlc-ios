@@ -13,11 +13,9 @@
 
 @interface VLCAboutViewController ()
 {
-    NSTimer *_scrollTimer;
-    NSTimeInterval _startInterval;
-    CGPoint _scrollPoint;
+    CADisplayLink *displayLink;
+    NSTimer *startAnimationTimer;
 }
-
 @end
 
 @implementation VLCAboutViewController
@@ -31,7 +29,8 @@
     self.titleLabel.text = self.title;
     self.titleLabel.textColor = [UIColor colorWithWhite:0.5 alpha:1.];
 
-    self.blablaTextView.attributedText = [[NSAttributedString alloc] initWithData:[[NSString stringWithContentsOfFile:[[NSBundle mainBundle]
+    UITextView *textView = self.blablaTextView;
+    textView.attributedText = [[NSAttributedString alloc] initWithData:[[NSString stringWithContentsOfFile:[[NSBundle mainBundle]
                                                                                                                        pathForResource:@"About Contents" ofType:@"html"]
                                                                                                              encoding:NSUTF8StringEncoding
                                                                                                                 error:nil]
@@ -39,55 +38,89 @@
                                                                           options:@{NSDocumentTypeDocumentAttribute: NSHTMLTextDocumentType,
                                                                                     NSCharacterEncodingDocumentAttribute: @(NSUTF8StringEncoding)}
                                                                documentAttributes:nil error:nil];
-    self.blablaTextView.scrollEnabled = YES;
+    textView.scrollEnabled = YES;
+    textView.panGestureRecognizer.allowedTouchTypes = @[ @(UITouchTypeIndirect) ];
+    [textView.panGestureRecognizer addTarget:self action:@selector(scrollViewPan:)];
+    textView.userInteractionEnabled = YES;
+    textView.showsVerticalScrollIndicator = YES;
+
+    UITapGestureRecognizer *tapUpArrowRecognizer = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(scrollToTop)];
+    tapUpArrowRecognizer.allowedPressTypes = @[@(UIPressTypeUpArrow)];
+    [textView addGestureRecognizer:tapUpArrowRecognizer];
 }
 
-- (void)viewWillAppear:(BOOL)animated
+- (void)viewDidAppear:(BOOL)animated
 {
-    [super viewWillAppear:animated];
+    [super viewDidAppear:animated];
+    [self startAnimationTimer];
+}
+- (void) viewDidDisappear:(BOOL)animated
+{
+    [super viewDidDisappear:animated];
+    [self stopAnimation];
+}
 
-    _scrollPoint = CGPointZero;
-    if (!_scrollTimer) {
-        _scrollTimer = [NSTimer scheduledTimerWithTimeInterval:1/6
-                                                        target:self
-                                                      selector:@selector(scrollABit:)
-                                                      userInfo:nil
-                                                       repeats:YES];
+- (UIView *)preferredFocusedView
+{
+    return self.blablaTextView;
+}
+
+- (void)scrollToTop
+{
+    [self stopAnimation];
+    [self.blablaTextView setContentOffset:CGPointZero animated:YES];
+    [self startAnimationTimer];
+}
+
+- (void)scrollViewPan:(UIPanGestureRecognizer *)recognizer
+{
+    switch(recognizer.state) {
+        case UIGestureRecognizerStateCancelled:
+        case UIGestureRecognizerStateFailed:
+        case UIGestureRecognizerStateEnded:
+            [self startAnimationTimer];
+            break;
+        default:
+            [self stopAnimation];
+            break;
     }
 }
 
-- (void)viewWillDisappear:(BOOL)animated
+- (void)startAnimationTimer
 {
-    [super viewWillDisappear:animated];
-
-    if (_scrollTimer) {
-        [_scrollTimer invalidate];
-        _scrollTimer = nil;
-    }
+    [startAnimationTimer invalidate];
+    startAnimationTimer = [NSTimer scheduledTimerWithTimeInterval:2.0 target:self selector:@selector(startAnimation) userInfo:nil repeats:NO];
 }
 
-- (void)resetScrolling
+- (void)stopAnimation
 {
-    _scrollPoint = CGPointZero;
-    [self.blablaTextView setContentOffset:_scrollPoint animated:YES];
+    [startAnimationTimer invalidate];
+    startAnimationTimer = nil;
+    [displayLink invalidate];
+    displayLink = nil;
+}
+- (void)startAnimation
+{
+    [displayLink invalidate];
+    displayLink = [CADisplayLink displayLinkWithTarget:self selector:@selector(displayLinkTriggered:)];
+    [displayLink addToRunLoop:[NSRunLoop mainRunLoop] forMode:NSDefaultRunLoopMode];
 }
 
-- (void)scrollABit:(NSTimer *)timer
+- (void)displayLinkTriggered:(CADisplayLink*)link
 {
-    CGFloat maxHeight = self.blablaTextView.contentSize.height;
+    UIScrollView *scrollView = self.blablaTextView;
+    CGFloat viewHeight = CGRectGetHeight(scrollView.frame);
+    CGFloat maxOffsetY = scrollView.contentSize.height - viewHeight;
 
-    if (!_startInterval) {
-        _startInterval = [NSDate timeIntervalSinceReferenceDate] + 3.;
-    }
+    CFTimeInterval secondsPerPage = 4.0;
+    CGFloat offset = link.duration/secondsPerPage * viewHeight;
 
-    if ([NSDate timeIntervalSinceReferenceDate] >= _startInterval) {
-        if (_scrollPoint.y > maxHeight) {
-            [self resetScrolling];
-            return;
-        }
+    CGFloat newYOffset = scrollView.contentOffset.y + offset;
 
-        _scrollPoint.y++;
-        [self.blablaTextView setContentOffset:_scrollPoint animated:NO];
+    if (newYOffset > maxOffsetY+viewHeight) {
+        scrollView.contentOffset = CGPointMake(0, -viewHeight);
+    } else {
+        scrollView.contentOffset = CGPointMake(0, newYOffset);
     }
 }
 
