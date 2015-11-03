@@ -82,7 +82,10 @@
         }
         cell.accessoryType = UITableViewCellAccessoryDisclosureIndicator;
     } else if ([specifierType isEqualToString:kIASKPSToggleSwitchSpecifier]) {
-        cell.detailTextLabel.text = [_userDefaults boolForKey:[specifier key]] ? NSLocalizedString(@"On", nil) : NSLocalizedString(@"Off", nil);
+        cell.detailTextLabel.text = [_userDefaults boolForKey:[specifier key]] ? NSLocalizedString(@"ON", nil) : NSLocalizedString(@"OFF", nil);
+        cell.accessoryType = UITableViewCellAccessoryNone;
+    } else {
+        cell.detailTextLabel.text = @"";
         cell.accessoryType = UITableViewCellAccessoryNone;
     }
 

@@ -18,7 +18,7 @@
 			<key>Key</key>
 			<string>playback-speed</string>
 			<key>DefaultValue</key>
-			<real>1.0</real>
+			<real>1</real>
 			<key>Titles</key>
 			<array>
 				<string>0.25x</string>
@@ -35,11 +35,11 @@
 				<real>0.25</real>
 				<real>0.5</real>
 				<real>0.75</real>
-				<real>1.0</real>
+				<real>1</real>
 				<real>1.25</real>
 				<real>1.5</real>
-				<real>2.0</real>
-				<real>4.0</real>
+				<real>2</real>
+				<real>4</real>
 			</array>
 		</dict>
 		<dict>
@@ -452,7 +452,7 @@
 			<key>Type</key>
 			<string>IASKButtonSpecifier</string>
 			<key>Title</key>
-			<string>SETTINGS_ABOUT_APP</string>
+			<string>ABOUT_APP_TV</string>
 		</dict>
 	</array>
 	<key>StringsTable</key>
