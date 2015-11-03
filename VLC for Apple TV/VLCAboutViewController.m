@@ -31,7 +31,14 @@
     self.titleLabel.text = self.title;
     self.titleLabel.textColor = [UIColor colorWithWhite:0.5 alpha:1.];
 
-    self.blablaTextView.text = [NSString stringWithContentsOfFile:[[NSBundle mainBundle] pathForResource:@"About Contents" ofType:@"html"] encoding:NSUTF8StringEncoding error:nil];
+    self.blablaTextView.attributedText = [[NSAttributedString alloc] initWithData:[[NSString stringWithContentsOfFile:[[NSBundle mainBundle]
+                                                                                                                       pathForResource:@"About Contents" ofType:@"html"]
+                                                                                                             encoding:NSUTF8StringEncoding
+                                                                                                                error:nil]
+                                                                                   dataUsingEncoding:NSUTF8StringEncoding]
+                                                                          options:@{NSDocumentTypeDocumentAttribute: NSHTMLTextDocumentType,
+                                                                                    NSCharacterEncodingDocumentAttribute: @(NSUTF8StringEncoding)}
+                                                               documentAttributes:nil error:nil];
     self.blablaTextView.scrollEnabled = YES;
 }
 
@@ -41,11 +48,11 @@
 
     _scrollPoint = CGPointZero;
     if (!_scrollTimer) {
-        _scrollTimer = [NSTimer scheduledTimerWithTimeInterval: 1/6
-                                                       target:self
-                                                     selector:@selector(scrollABit:)
-                                                     userInfo:nil
-                                                      repeats:YES];
+        _scrollTimer = [NSTimer scheduledTimerWithTimeInterval:1/6
+                                                        target:self
+                                                      selector:@selector(scrollABit:)
+                                                      userInfo:nil
+                                                       repeats:YES];
     }
 }
 
@@ -70,7 +77,7 @@
     CGFloat maxHeight = self.blablaTextView.contentSize.height;
 
     if (!_startInterval) {
-        _startInterval = [NSDate timeIntervalSinceReferenceDate] + 2.0;
+        _startInterval = [NSDate timeIntervalSinceReferenceDate] + 3.;
     }
 
     if ([NSDate timeIntervalSinceReferenceDate] >= _startInterval) {
