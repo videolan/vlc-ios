@@ -11,6 +11,7 @@ pod 'upnpx', '~>1.3.6'
 pod 'HockeySDK', '~>3.6.4'
 pod 'SSKeychain', :git => 'git://github.com/fkuehne/sskeychain.git' #iCloud Keychain sync
 pod 'box-ios-sdk-v2', :git => 'git://github.com/fkuehne/box-ios-sdk-v2.git' #has a logout function added
+pod 'CocoaHTTPServer', :git => 'git://github.com/fkuehne/CocoaHTTPServer.git' # has our fixes
 pod 'RESideMenu', '~>4.0.7'
 
 end

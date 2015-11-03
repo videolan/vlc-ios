@@ -10,31 +10,6 @@
 		268BDA7E1B4FE1E200D622DD /* backArrow_black.png in Resources */ = {isa = PBXBuildFile; fileRef = 268BDA7D1B4FE1E200D622DD /* backArrow_black.png */; };
 		26F1BFD01A770408001DF30C /* libMediaVLC.xml in Resources */ = {isa = PBXBuildFile; fileRef = 26F1BFCF1A770408001DF30C /* libMediaVLC.xml */; };
 		29125E5617492219003F03E5 /* index.html in Resources */ = {isa = PBXBuildFile; fileRef = 29125E5417492219003F03E5 /* index.html */; };
-		2915540117490A1E00B86CAD /* DDData.m in Sources */ = {isa = PBXBuildFile; fileRef = 291553EB17490A1E00B86CAD /* DDData.m */; };
-		2915540217490A1E00B86CAD /* DDNumber.m in Sources */ = {isa = PBXBuildFile; fileRef = 291553ED17490A1E00B86CAD /* DDNumber.m */; };
-		2915540317490A1E00B86CAD /* DDRange.m in Sources */ = {isa = PBXBuildFile; fileRef = 291553EF17490A1E00B86CAD /* DDRange.m */; };
-		2915540417490A1E00B86CAD /* HTTPAuthenticationRequest.m in Sources */ = {isa = PBXBuildFile; fileRef = 291553F117490A1E00B86CAD /* HTTPAuthenticationRequest.m */; };
-		2915540517490A1E00B86CAD /* HTTPConnection.m in Sources */ = {isa = PBXBuildFile; fileRef = 291553F317490A1E00B86CAD /* HTTPConnection.m */; };
-		2915540617490A1E00B86CAD /* HTTPMessage.m in Sources */ = {isa = PBXBuildFile; fileRef = 291553F617490A1E00B86CAD /* HTTPMessage.m */; };
-		2915540717490A1E00B86CAD /* HTTPServer.m in Sources */ = {isa = PBXBuildFile; fileRef = 291553F917490A1E00B86CAD /* HTTPServer.m */; };
-		2915540817490A1E00B86CAD /* MultipartFormDataParser.m in Sources */ = {isa = PBXBuildFile; fileRef = 291553FC17490A1E00B86CAD /* MultipartFormDataParser.m */; };
-		2915540917490A1E00B86CAD /* MultipartMessageHeader.m in Sources */ = {isa = PBXBuildFile; fileRef = 291553FE17490A1E00B86CAD /* MultipartMessageHeader.m */; };
-		2915540A17490A1E00B86CAD /* MultipartMessageHeaderField.m in Sources */ = {isa = PBXBuildFile; fileRef = 2915540017490A1E00B86CAD /* MultipartMessageHeaderField.m */; };
-		2915542217490A9C00B86CAD /* GCDAsyncSocket.m in Sources */ = {isa = PBXBuildFile; fileRef = 2915540E17490A9C00B86CAD /* GCDAsyncSocket.m */; };
-		2915542417490A9C00B86CAD /* DDAbstractDatabaseLogger.m in Sources */ = {isa = PBXBuildFile; fileRef = 2915541217490A9C00B86CAD /* DDAbstractDatabaseLogger.m */; };
-		2915542517490A9C00B86CAD /* DDASLLogger.m in Sources */ = {isa = PBXBuildFile; fileRef = 2915541417490A9C00B86CAD /* DDASLLogger.m */; };
-		2915542617490A9C00B86CAD /* DDFileLogger.m in Sources */ = {isa = PBXBuildFile; fileRef = 2915541617490A9C00B86CAD /* DDFileLogger.m */; };
-		2915542717490A9C00B86CAD /* DDLog.m in Sources */ = {isa = PBXBuildFile; fileRef = 2915541817490A9C00B86CAD /* DDLog.m */; };
-		2915542817490A9C00B86CAD /* DDTTYLogger.m in Sources */ = {isa = PBXBuildFile; fileRef = 2915541A17490A9C00B86CAD /* DDTTYLogger.m */; };
-		2915542917490A9C00B86CAD /* ContextFilterLogFormatter.m in Sources */ = {isa = PBXBuildFile; fileRef = 2915541D17490A9C00B86CAD /* ContextFilterLogFormatter.m */; };
-		2915542A17490A9C00B86CAD /* DispatchQueueLogFormatter.m in Sources */ = {isa = PBXBuildFile; fileRef = 2915541F17490A9C00B86CAD /* DispatchQueueLogFormatter.m */; };
-		2915543B17490B9C00B86CAD /* HTTPAsyncFileResponse.m in Sources */ = {isa = PBXBuildFile; fileRef = 2915542E17490B9C00B86CAD /* HTTPAsyncFileResponse.m */; };
-		2915543C17490B9C00B86CAD /* HTTPDataResponse.m in Sources */ = {isa = PBXBuildFile; fileRef = 2915543017490B9C00B86CAD /* HTTPDataResponse.m */; };
-		2915543D17490B9C00B86CAD /* HTTPDynamicFileResponse.m in Sources */ = {isa = PBXBuildFile; fileRef = 2915543217490B9C00B86CAD /* HTTPDynamicFileResponse.m */; };
-		2915543E17490B9C00B86CAD /* HTTPErrorResponse.m in Sources */ = {isa = PBXBuildFile; fileRef = 2915543417490B9C00B86CAD /* HTTPErrorResponse.m */; };
-		2915543F17490B9C00B86CAD /* HTTPFileResponse.m in Sources */ = {isa = PBXBuildFile; fileRef = 2915543617490B9C00B86CAD /* HTTPFileResponse.m */; };
-		2915544017490B9C00B86CAD /* HTTPRedirectResponse.m in Sources */ = {isa = PBXBuildFile; fileRef = 2915543817490B9C00B86CAD /* HTTPRedirectResponse.m */; };
-		2915544117490B9C00B86CAD /* WebSocket.m in Sources */ = {isa = PBXBuildFile; fileRef = 2915543A17490B9C00B86CAD /* WebSocket.m */; };
 		2915544317490D4A00B86CAD /* Security.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 2915544217490D4A00B86CAD /* Security.framework */; };
 		41273A3C1A955C4100A2EF77 /* VLCMigrationViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 41273A3A1A955C4100A2EF77 /* VLCMigrationViewController.m */; };
 		41273A3D1A955C4100A2EF77 /* VLCMigrationViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 41273A3B1A955C4100A2EF77 /* VLCMigrationViewController.xib */; };
@@ -492,60 +467,6 @@
 		268BDA7D1B4FE1E200D622DD /* backArrow_black.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = backArrow_black.png; path = ImportedSources/OneDrive/src/LiveSDK/Library/Internal/Resources/backArrow_black.png; sourceTree = SOURCE_ROOT; };
 		26F1BFCF1A770408001DF30C /* libMediaVLC.xml */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xml; path = libMediaVLC.xml; sourceTree = "<group>"; };
 		29125E5417492219003F03E5 /* index.html */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.html; path = index.html; sourceTree = "<group>"; };
-		291553EA17490A1E00B86CAD /* DDData.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DDData.h; sourceTree = "<group>"; };
-		291553EB17490A1E00B86CAD /* DDData.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DDData.m; sourceTree = "<group>"; };
-		291553EC17490A1E00B86CAD /* DDNumber.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DDNumber.h; sourceTree = "<group>"; };
-		291553ED17490A1E00B86CAD /* DDNumber.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DDNumber.m; sourceTree = "<group>"; };
-		291553EE17490A1E00B86CAD /* DDRange.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DDRange.h; sourceTree = "<group>"; };
-		291553EF17490A1E00B86CAD /* DDRange.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DDRange.m; sourceTree = "<group>"; };
-		291553F017490A1E00B86CAD /* HTTPAuthenticationRequest.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = HTTPAuthenticationRequest.h; path = ImportedSources/CocoaHTTPServer/Core/HTTPAuthenticationRequest.h; sourceTree = SOURCE_ROOT; };
-		291553F117490A1E00B86CAD /* HTTPAuthenticationRequest.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = HTTPAuthenticationRequest.m; path = ImportedSources/CocoaHTTPServer/Core/HTTPAuthenticationRequest.m; sourceTree = SOURCE_ROOT; };
-		291553F217490A1E00B86CAD /* HTTPConnection.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = HTTPConnection.h; path = ImportedSources/CocoaHTTPServer/Core/HTTPConnection.h; sourceTree = SOURCE_ROOT; };
-		291553F317490A1E00B86CAD /* HTTPConnection.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = HTTPConnection.m; path = ImportedSources/CocoaHTTPServer/Core/HTTPConnection.m; sourceTree = SOURCE_ROOT; };
-		291553F417490A1E00B86CAD /* HTTPLogging.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = HTTPLogging.h; path = ImportedSources/CocoaHTTPServer/Core/HTTPLogging.h; sourceTree = SOURCE_ROOT; };
-		291553F517490A1E00B86CAD /* HTTPMessage.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = HTTPMessage.h; path = ImportedSources/CocoaHTTPServer/Core/HTTPMessage.h; sourceTree = SOURCE_ROOT; };
-		291553F617490A1E00B86CAD /* HTTPMessage.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = HTTPMessage.m; path = ImportedSources/CocoaHTTPServer/Core/HTTPMessage.m; sourceTree = SOURCE_ROOT; };
-		291553F717490A1E00B86CAD /* HTTPResponse.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = HTTPResponse.h; path = ImportedSources/CocoaHTTPServer/Core/HTTPResponse.h; sourceTree = SOURCE_ROOT; };
-		291553F817490A1E00B86CAD /* HTTPServer.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = HTTPServer.h; path = ImportedSources/CocoaHTTPServer/Core/HTTPServer.h; sourceTree = SOURCE_ROOT; };
-		291553F917490A1E00B86CAD /* HTTPServer.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = HTTPServer.m; path = ImportedSources/CocoaHTTPServer/Core/HTTPServer.m; sourceTree = SOURCE_ROOT; };
-		291553FB17490A1E00B86CAD /* MultipartFormDataParser.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MultipartFormDataParser.h; sourceTree = "<group>"; };
-		291553FC17490A1E00B86CAD /* MultipartFormDataParser.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MultipartFormDataParser.m; sourceTree = "<group>"; };
-		291553FD17490A1E00B86CAD /* MultipartMessageHeader.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MultipartMessageHeader.h; sourceTree = "<group>"; };
-		291553FE17490A1E00B86CAD /* MultipartMessageHeader.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MultipartMessageHeader.m; sourceTree = "<group>"; };
-		291553FF17490A1E00B86CAD /* MultipartMessageHeaderField.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MultipartMessageHeaderField.h; sourceTree = "<group>"; };
-		2915540017490A1E00B86CAD /* MultipartMessageHeaderField.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MultipartMessageHeaderField.m; sourceTree = "<group>"; };
-		2915540D17490A9C00B86CAD /* GCDAsyncSocket.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GCDAsyncSocket.h; sourceTree = "<group>"; };
-		2915540E17490A9C00B86CAD /* GCDAsyncSocket.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GCDAsyncSocket.m; sourceTree = "<group>"; };
-		2915541017490A9C00B86CAD /* About.txt */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = About.txt; sourceTree = "<group>"; };
-		2915541117490A9C00B86CAD /* DDAbstractDatabaseLogger.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DDAbstractDatabaseLogger.h; sourceTree = "<group>"; };
-		2915541217490A9C00B86CAD /* DDAbstractDatabaseLogger.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DDAbstractDatabaseLogger.m; sourceTree = "<group>"; };
-		2915541317490A9C00B86CAD /* DDASLLogger.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DDASLLogger.h; sourceTree = "<group>"; };
-		2915541417490A9C00B86CAD /* DDASLLogger.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DDASLLogger.m; sourceTree = "<group>"; };
-		2915541517490A9C00B86CAD /* DDFileLogger.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DDFileLogger.h; sourceTree = "<group>"; };
-		2915541617490A9C00B86CAD /* DDFileLogger.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DDFileLogger.m; sourceTree = "<group>"; };
-		2915541717490A9C00B86CAD /* DDLog.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DDLog.h; sourceTree = "<group>"; };
-		2915541817490A9C00B86CAD /* DDLog.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DDLog.m; sourceTree = "<group>"; };
-		2915541917490A9C00B86CAD /* DDTTYLogger.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DDTTYLogger.h; sourceTree = "<group>"; };
-		2915541A17490A9C00B86CAD /* DDTTYLogger.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DDTTYLogger.m; sourceTree = "<group>"; };
-		2915541C17490A9C00B86CAD /* ContextFilterLogFormatter.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ContextFilterLogFormatter.h; sourceTree = "<group>"; };
-		2915541D17490A9C00B86CAD /* ContextFilterLogFormatter.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ContextFilterLogFormatter.m; sourceTree = "<group>"; };
-		2915541E17490A9C00B86CAD /* DispatchQueueLogFormatter.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DispatchQueueLogFormatter.h; sourceTree = "<group>"; };
-		2915541F17490A9C00B86CAD /* DispatchQueueLogFormatter.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DispatchQueueLogFormatter.m; sourceTree = "<group>"; };
-		2915542017490A9C00B86CAD /* README.txt */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = README.txt; sourceTree = "<group>"; };
-		2915542D17490B9C00B86CAD /* HTTPAsyncFileResponse.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = HTTPAsyncFileResponse.h; sourceTree = "<group>"; };
-		2915542E17490B9C00B86CAD /* HTTPAsyncFileResponse.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = HTTPAsyncFileResponse.m; sourceTree = "<group>"; };
-		2915542F17490B9C00B86CAD /* HTTPDataResponse.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = HTTPDataResponse.h; sourceTree = "<group>"; };
-		2915543017490B9C00B86CAD /* HTTPDataResponse.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = HTTPDataResponse.m; sourceTree = "<group>"; };
-		2915543117490B9C00B86CAD /* HTTPDynamicFileResponse.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = HTTPDynamicFileResponse.h; sourceTree = "<group>"; };
-		2915543217490B9C00B86CAD /* HTTPDynamicFileResponse.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = HTTPDynamicFileResponse.m; sourceTree = "<group>"; };
-		2915543317490B9C00B86CAD /* HTTPErrorResponse.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = HTTPErrorResponse.h; sourceTree = "<group>"; };
-		2915543417490B9C00B86CAD /* HTTPErrorResponse.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = HTTPErrorResponse.m; sourceTree = "<group>"; };
-		2915543517490B9C00B86CAD /* HTTPFileResponse.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = HTTPFileResponse.h; sourceTree = "<group>"; };
-		2915543617490B9C00B86CAD /* HTTPFileResponse.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = HTTPFileResponse.m; sourceTree = "<group>"; };
-		2915543717490B9C00B86CAD /* HTTPRedirectResponse.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = HTTPRedirectResponse.h; sourceTree = "<group>"; };
-		2915543817490B9C00B86CAD /* HTTPRedirectResponse.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = HTTPRedirectResponse.m; sourceTree = "<group>"; };
-		2915543917490B9C00B86CAD /* WebSocket.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = WebSocket.h; path = ImportedSources/CocoaHTTPServer/Core/WebSocket.h; sourceTree = SOURCE_ROOT; };
-		2915543A17490B9C00B86CAD /* WebSocket.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = WebSocket.m; path = ImportedSources/CocoaHTTPServer/Core/WebSocket.m; sourceTree = SOURCE_ROOT; };
 		2915544217490D4A00B86CAD /* Security.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Security.framework; path = System/Library/Frameworks/Security.framework; sourceTree = SDKROOT; };
 		41273A391A955C4100A2EF77 /* VLCMigrationViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = VLCMigrationViewController.h; path = Sources/VLCMigrationViewController.h; sourceTree = SOURCE_ROOT; };
 		41273A3A1A955C4100A2EF77 /* VLCMigrationViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = VLCMigrationViewController.m; path = Sources/VLCMigrationViewController.m; sourceTree = SOURCE_ROOT; };
@@ -1159,120 +1080,6 @@
 			path = web;
 			sourceTree = "<group>";
 		};
-		291553E817490A0400B86CAD /* CocoaHTTPServer */ = {
-			isa = PBXGroup;
-			children = (
-				2915542C17490B9C00B86CAD /* Responses */,
-				2915543917490B9C00B86CAD /* WebSocket.h */,
-				2915543A17490B9C00B86CAD /* WebSocket.m */,
-				2915540B17490A9C00B86CAD /* CocoaAsyncSocket */,
-				2915540F17490A9C00B86CAD /* CocoaLumberjack */,
-				291553E917490A1E00B86CAD /* Categories */,
-				291553F017490A1E00B86CAD /* HTTPAuthenticationRequest.h */,
-				291553F117490A1E00B86CAD /* HTTPAuthenticationRequest.m */,
-				291553F217490A1E00B86CAD /* HTTPConnection.h */,
-				291553F317490A1E00B86CAD /* HTTPConnection.m */,
-				291553F417490A1E00B86CAD /* HTTPLogging.h */,
-				291553F517490A1E00B86CAD /* HTTPMessage.h */,
-				291553F617490A1E00B86CAD /* HTTPMessage.m */,
-				291553F717490A1E00B86CAD /* HTTPResponse.h */,
-				291553F817490A1E00B86CAD /* HTTPServer.h */,
-				291553F917490A1E00B86CAD /* HTTPServer.m */,
-				291553FA17490A1E00B86CAD /* Mime */,
-			);
-			name = CocoaHTTPServer;
-			sourceTree = "<group>";
-		};
-		291553E917490A1E00B86CAD /* Categories */ = {
-			isa = PBXGroup;
-			children = (
-				291553EA17490A1E00B86CAD /* DDData.h */,
-				291553EB17490A1E00B86CAD /* DDData.m */,
-				291553EC17490A1E00B86CAD /* DDNumber.h */,
-				291553ED17490A1E00B86CAD /* DDNumber.m */,
-				291553EE17490A1E00B86CAD /* DDRange.h */,
-				291553EF17490A1E00B86CAD /* DDRange.m */,
-			);
-			name = Categories;
-			path = ImportedSources/CocoaHTTPServer/Core/Categories;
-			sourceTree = SOURCE_ROOT;
-		};
-		291553FA17490A1E00B86CAD /* Mime */ = {
-			isa = PBXGroup;
-			children = (
-				291553FB17490A1E00B86CAD /* MultipartFormDataParser.h */,
-				291553FC17490A1E00B86CAD /* MultipartFormDataParser.m */,
-				291553FD17490A1E00B86CAD /* MultipartMessageHeader.h */,
-				291553FE17490A1E00B86CAD /* MultipartMessageHeader.m */,
-				291553FF17490A1E00B86CAD /* MultipartMessageHeaderField.h */,
-				2915540017490A1E00B86CAD /* MultipartMessageHeaderField.m */,
-			);
-			name = Mime;
-			path = ImportedSources/CocoaHTTPServer/Core/Mime;
-			sourceTree = SOURCE_ROOT;
-		};
-		2915540B17490A9C00B86CAD /* CocoaAsyncSocket */ = {
-			isa = PBXGroup;
-			children = (
-				2915540D17490A9C00B86CAD /* GCDAsyncSocket.h */,
-				2915540E17490A9C00B86CAD /* GCDAsyncSocket.m */,
-			);
-			name = CocoaAsyncSocket;
-			path = ImportedSources/CocoaHTTPServer/Vendor/CocoaAsyncSocket;
-			sourceTree = SOURCE_ROOT;
-		};
-		2915540F17490A9C00B86CAD /* CocoaLumberjack */ = {
-			isa = PBXGroup;
-			children = (
-				2915541017490A9C00B86CAD /* About.txt */,
-				2915541117490A9C00B86CAD /* DDAbstractDatabaseLogger.h */,
-				2915541217490A9C00B86CAD /* DDAbstractDatabaseLogger.m */,
-				2915541317490A9C00B86CAD /* DDASLLogger.h */,
-				2915541417490A9C00B86CAD /* DDASLLogger.m */,
-				2915541517490A9C00B86CAD /* DDFileLogger.h */,
-				2915541617490A9C00B86CAD /* DDFileLogger.m */,
-				2915541717490A9C00B86CAD /* DDLog.h */,
-				2915541817490A9C00B86CAD /* DDLog.m */,
-				2915541917490A9C00B86CAD /* DDTTYLogger.h */,
-				2915541A17490A9C00B86CAD /* DDTTYLogger.m */,
-				2915541B17490A9C00B86CAD /* Extensions */,
-			);
-			name = CocoaLumberjack;
-			path = ImportedSources/CocoaHTTPServer/Vendor/CocoaLumberjack;
-			sourceTree = SOURCE_ROOT;
-		};
-		2915541B17490A9C00B86CAD /* Extensions */ = {
-			isa = PBXGroup;
-			children = (
-				2915541C17490A9C00B86CAD /* ContextFilterLogFormatter.h */,
-				2915541D17490A9C00B86CAD /* ContextFilterLogFormatter.m */,
-				2915541E17490A9C00B86CAD /* DispatchQueueLogFormatter.h */,
-				2915541F17490A9C00B86CAD /* DispatchQueueLogFormatter.m */,
-				2915542017490A9C00B86CAD /* README.txt */,
-			);
-			path = Extensions;
-			sourceTree = "<group>";
-		};
-		2915542C17490B9C00B86CAD /* Responses */ = {
-			isa = PBXGroup;
-			children = (
-				2915542D17490B9C00B86CAD /* HTTPAsyncFileResponse.h */,
-				2915542E17490B9C00B86CAD /* HTTPAsyncFileResponse.m */,
-				2915542F17490B9C00B86CAD /* HTTPDataResponse.h */,
-				2915543017490B9C00B86CAD /* HTTPDataResponse.m */,
-				2915543117490B9C00B86CAD /* HTTPDynamicFileResponse.h */,
-				2915543217490B9C00B86CAD /* HTTPDynamicFileResponse.m */,
-				2915543317490B9C00B86CAD /* HTTPErrorResponse.h */,
-				2915543417490B9C00B86CAD /* HTTPErrorResponse.m */,
-				2915543517490B9C00B86CAD /* HTTPFileResponse.h */,
-				2915543617490B9C00B86CAD /* HTTPFileResponse.m */,
-				2915543717490B9C00B86CAD /* HTTPRedirectResponse.h */,
-				2915543817490B9C00B86CAD /* HTTPRedirectResponse.m */,
-			);
-			name = Responses;
-			path = ImportedSources/CocoaHTTPServer/Core/Responses;
-			sourceTree = SOURCE_ROOT;
-		};
 		4171D35518A2D90200A16EF9 /* LXReorderableCollectionViewFlowLayout */ = {
 			isa = PBXGroup;
 			children = (
@@ -1752,7 +1559,6 @@
 				A7A0E9EB174BA66000162F25 /* PAPasscode */,
 				7DC72D6517B7ED36008A26D0 /* Reachability */,
 				7DC72D6417B7ED2A008A26D0 /* WhiteRaccoon */,
-				291553E817490A0400B86CAD /* CocoaHTTPServer */,
 			);
 			name = Imported;
 			sourceTree = "<group>";
@@ -2820,54 +2626,29 @@
 				4184AA151A5492070063DF5A /* VLCCloudStorageController.m in Sources */,
 				9BE4D1CE183D76950006346C /* VLCCloudStorageTableViewCell.m in Sources */,
 				DD1CB0321BB9E005006EDDE6 /* VLCMovieViewControlPanelViewController.m in Sources */,
-				2915540117490A1E00B86CAD /* DDData.m in Sources */,
 				DD3EFF3D1BDEBCE500B68579 /* VLCLocalNetworkServiceBrowserHTTP.m in Sources */,
 				DDEAECBE1BDEBF6700756C83 /* VLCNetworkServerLoginInformation.m in Sources */,
-				2915540217490A1E00B86CAD /* DDNumber.m in Sources */,
 				7D92897A1877467E009108FD /* VLCFirstStepsFourthPageViewController.m in Sources */,
-				2915540317490A1E00B86CAD /* DDRange.m in Sources */,
 				4171D35818A2D90200A16EF9 /* LXReorderableCollectionViewFlowLayout.m in Sources */,
-				2915540417490A1E00B86CAD /* HTTPAuthenticationRequest.m in Sources */,
-				2915540517490A1E00B86CAD /* HTTPConnection.m in Sources */,
 				DD3EFF391BDEBCE500B68579 /* VLCLocalNetworkServiceVLCMedia.m in Sources */,
 				DD3EFF5D1BDEBCE500B68579 /* VLCLocalServerDiscoveryController.m in Sources */,
-				2915540617490A1E00B86CAD /* HTTPMessage.m in Sources */,
 				7DC19B0C1868D21800810BF7 /* VLCFirstStepsSixthPageViewController.m in Sources */,
 				DD3EFEED1BDEBA3800B68579 /* VLCNetworkServerBrowserViewController.m in Sources */,
-				2915540717490A1E00B86CAD /* HTTPServer.m in Sources */,
 				DD3EABFC1BE14C4B003668DA /* UIViewController+VLCAlert.m in Sources */,
-				2915540817490A1E00B86CAD /* MultipartFormDataParser.m in Sources */,
-				2915540917490A1E00B86CAD /* MultipartMessageHeader.m in Sources */,
-				2915540A17490A1E00B86CAD /* MultipartMessageHeaderField.m in Sources */,
-				2915542217490A9C00B86CAD /* GCDAsyncSocket.m in Sources */,
 				7D9289751877459B009108FD /* VLCFirstStepsThirdPageViewController.m in Sources */,
-				2915542417490A9C00B86CAD /* DDAbstractDatabaseLogger.m in Sources */,
-				2915542517490A9C00B86CAD /* DDASLLogger.m in Sources */,
-				2915542617490A9C00B86CAD /* DDFileLogger.m in Sources */,
 				7D0363AC1B2F325500CC0343 /* MediaLibrary.xcdatamodeld in Sources */,
-				2915542717490A9C00B86CAD /* DDLog.m in Sources */,
 				7D95610B1AF3E9E800779745 /* VLCMiniPlaybackView.m in Sources */,
-				2915542817490A9C00B86CAD /* DDTTYLogger.m in Sources */,
-				2915542917490A9C00B86CAD /* ContextFilterLogFormatter.m in Sources */,
 				DD3EFF451BDEBCE500B68579 /* VLCLocalNetworkServiceBrowserManualConnect.m in Sources */,
-				2915542A17490A9C00B86CAD /* DispatchQueueLogFormatter.m in Sources */,
 				7DC19B051868D1C400810BF7 /* VLCFirstStepsFifthPageViewController.m in Sources */,
-				2915543B17490B9C00B86CAD /* HTTPAsyncFileResponse.m in Sources */,
-				2915543C17490B9C00B86CAD /* HTTPDataResponse.m in Sources */,
-				2915543D17490B9C00B86CAD /* HTTPDynamicFileResponse.m in Sources */,
 				DD3EFF311BDEBCE500B68579 /* VLCNetworkServerBrowserFTP.m in Sources */,
 				9BADAF45185FBD9D00108BD8 /* VLCFrostedGlasView.m in Sources */,
 				DDC10BE41AEE8EA700890DC3 /* VLCTimeNavigationTitleView.m in Sources */,
-				2915543E17490B9C00B86CAD /* HTTPErrorResponse.m in Sources */,
 				DD3EAC041BE153B4003668DA /* VLCNetworkImageView.m in Sources */,
 				E0C04F951A25B4410080331A /* VLCDocumentPickerController.m in Sources */,
-				2915543F17490B9C00B86CAD /* HTTPFileResponse.m in Sources */,
 				DD2789E21B67A7BE00CED769 /* VLCWatchCommunication.m in Sources */,
 				DD3EFF351BDEBCE500B68579 /* VLCLocalNetworkServiceBrowserNetService.m in Sources */,
 				41B93C011A53833B00102E8B /* VLCProgressView.m in Sources */,
 				417CDA231A48D1F300D9ACE7 /* VLCCloudServicesTableViewController.m in Sources */,
-				2915544017490B9C00B86CAD /* HTTPRedirectResponse.m in Sources */,
-				2915544117490B9C00B86CAD /* WebSocket.m in Sources */,
 				7D168F7418D4A33F003FAF59 /* UIImage+Blur.m in Sources */,
 				9B5BEF2917FBAEA50016F9CB /* GTLDrive_Sources.m in Sources */,
 				7DC19ADF1868C7BB00810BF7 /* VLCFirstStepsViewController.m in Sources */,

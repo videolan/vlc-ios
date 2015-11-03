@@ -162,11 +162,6 @@ git clone git://github.com/fkuehne/WhiteRaccoon.git
 else
 cd WhiteRaccoon && git pull --rebase && cd ..
 fi
-if ! [ -e CocoaHTTPServer ]; then
-git clone git://github.com/fkuehne/CocoaHTTPServer.git
-else
-cd CocoaHTTPServer && git pull --rebase && cd ..
-fi
 if ! [ -e Dropbox ]; then
 DROPBOXSDKVERSION=1.3.13
 curl -L -O https://www.dropbox.com/static/developers/dropbox-ios-sdk-${DROPBOXSDKVERSION}.zip
