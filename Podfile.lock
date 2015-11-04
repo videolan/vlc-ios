@@ -37,7 +37,7 @@ CHECKOUT OPTIONS:
     :commit: 180f009b3b22d813ca40e4c88074e0ef228c357b
     :git: git://github.com/fkuehne/box-ios-sdk-v2.git
   CocoaHTTPServer:
-    :commit: 4369b6542391b444f779d174ec9cc0360be07554
+    :commit: 570343ea4207c832e08e8d368b5e6faf35307031
     :git: git://github.com/fkuehne/CocoaHTTPServer.git
   InAppSettingsKit:
     :commit: 415ea6bb

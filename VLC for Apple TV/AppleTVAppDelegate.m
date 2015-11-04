@@ -45,7 +45,9 @@
                                   kVLCSettingNetworkCaching : kVLCSettingNetworkCachingDefaultValue,
                                   kVLCSettingEqualizerProfile : kVLCSettingEqualizerProfileDefaultValue,
                                   kVLCSettingPlaybackForwardSkipLength : kVLCSettingPlaybackForwardSkipLengthDefaultValue,
-                                  kVLCSettingPlaybackBackwardSkipLength : kVLCSettingPlaybackBackwardSkipLengthDefaultValue};
+                                  kVLCSettingPlaybackBackwardSkipLength : kVLCSettingPlaybackBackwardSkipLengthDefaultValue,
+                                  kVLCSettingFTPTextEncoding : kVLCSettingFTPTextEncodingDefaultValue,
+                                  kVLCSettingWiFiSharingIPv6 : kVLCSettingWiFiSharingIPv6DefaultValue};
     [defaults registerDefaults:appDefaults];
 }
 

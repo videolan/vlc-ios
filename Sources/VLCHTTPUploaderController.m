@@ -16,12 +16,15 @@
 #import "VLCHTTPUploaderController.h"
 #import "VLCHTTPConnection.h"
 #import "VLCActivityManager.h"
-#import "VLCMediaFileDiscoverer.h"
 #import "HTTPServer.h"
 #import "Reachability.h"
 
 #import <ifaddrs.h>
 #import <arpa/inet.h>
+
+#if TARGET_OS_IOS
+#import "VLCMediaFileDiscoverer.h"
+#endif
 
 @interface VLCHTTPUploaderController()
 
@@ -252,7 +255,9 @@
     VLCActivityManager *activityManager = [VLCActivityManager defaultManager];
     [activityManager networkActivityStopped];
     [activityManager activateIdleTimer];
+#if TARGET_OS_IOS
     [[VLCMediaFileDiscoverer sharedInstance] performSelectorOnMainThread:@selector(updateMediaList) withObject:nil waitUntilDone:NO];
+#endif
 }
 
 - (void)cleanCache

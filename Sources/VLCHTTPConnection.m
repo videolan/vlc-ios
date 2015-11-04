@@ -21,10 +21,13 @@
 #import "HTTPFileResponse.h"
 #import "MultipartMessageHeaderField.h"
 #import "HTTPDynamicFileResponse.h"
-#import "VLCThumbnailsCache.h"
 #import "NSString+SupportedMedia.h"
 #import "UIDevice+VLC.h"
 #import "VLCHTTPUploaderController.h"
+
+#if TARGET_OS_IOS
+#import "VLCThumbnailsCache.h"
+#endif
 
 @interface VLCHTTPConnection()
 {
@@ -96,6 +99,7 @@
     if ([method isEqualToString:@"POST"] && [path isEqualToString:@"/upload.json"])
         return [[HTTPDataResponse alloc] initWithData:[@"\"OK\"" dataUsingEncoding:NSUTF8StringEncoding]];
 
+#if TARGET_OS_IOS
     if ([path hasPrefix:@"/download/"]) {
         NSString *filePath = [[path stringByReplacingOccurrencesOfString:@"/download/" withString:@""]stringByReplacingPercentEscapesUsingEncoding:NSUTF8StringEncoding];
         HTTPFileResponse *fileResponse = [[HTTPFileResponse alloc] initWithFilePath:filePath forConnection:self];
@@ -335,6 +339,7 @@
             }
         }
 
+
         UIDevice *currentDevice = [UIDevice currentDevice];
         NSString *deviceModel = [currentDevice model];
         NSDictionary *replacementDict;
@@ -363,6 +368,27 @@
                                                        replacementDictionary:replacementDict];
             fileResponse.contentType = @"text/html";
         }
+#else
+#warning FIXME
+        UIDevice *currentDevice = [UIDevice currentDevice];
+        NSString *deviceModel = [currentDevice model];
+        NSString *filePath = [self filePathForURI:path];
+        NSString *documentRoot = [config documentRoot];
+        NSString *relativePath = [filePath substringFromIndex:[documentRoot length]];
+        NSDictionary *replacementDict = @{@"WEBINTF_TITLE" : NSLocalizedString(@"WEBINTF_TITLE", nil),
+                                          @"WEBINTF_DROPFILES" : NSLocalizedString(@"WEBINTF_DROPFILES", nil),
+                                          @"WEBINTF_DROPFILES_LONG" : [NSString stringWithFormat:NSLocalizedString(@"WEBINTF_DROPFILES_LONG", nil), deviceModel],
+                                          @"WEBINTF_DOWNLOADFILES" : NSLocalizedString(@"WEBINTF_DOWNLOADFILES", nil),
+                                          @"WEBINTF_DOWNLOADFILES_LONG" : [NSString stringWithFormat: NSLocalizedString(@"WEBINTF_DOWNLOADFILES_LONG", nil), deviceModel]};
+
+        HTTPDynamicFileResponse *fileResponse;
+    if ([relativePath isEqualToString:@"/index.html"]) {
+        fileResponse = [[HTTPDynamicFileResponse alloc] initWithFilePath:[self filePathForURI:path]
+                                                           forConnection:self
+                                                               separator:@"%%"
+                                                   replacementDictionary:replacementDict];
+        fileResponse.contentType = @"text/html";
+#endif
 
         return fileResponse;
     } else if ([relativePath isEqualToString:@"/style.css"]) {
@@ -454,6 +480,7 @@
 
 - (void)notifyUserAboutEndOfFreeStorage:(NSString *)filename
 {
+#if TARGET_OS_IOS
     VLCAlertView *alert = [[VLCAlertView alloc] initWithTitle:NSLocalizedString(@"DISK_FULL", nil)
                                                       message:[NSString stringWithFormat:
                                                                NSLocalizedString(@"DISK_FULL_FORMAT", nil),
@@ -463,6 +490,18 @@
                                             cancelButtonTitle:NSLocalizedString(@"BUTTON_OK", nil)
                                             otherButtonTitles:nil];
     [alert show];
+#else
+    UIAlertController *alertController = [UIAlertController alertControllerWithTitle:NSLocalizedString(@"DISK_FULL", nil)
+                                                                             message:[NSString stringWithFormat:
+                                                                                      NSLocalizedString(@"DISK_FULL_FORMAT", nil),
+                                                                                      filename,
+                                                                                      [[UIDevice currentDevice] model]]
+                                                                      preferredStyle:UIAlertControllerStyleAlert];
+    [alertController addAction:[UIAlertAction actionWithTitle:NSLocalizedString(@"BUTTON_CANCEL", nil)
+                                                        style:UIAlertActionStyleCancel
+                                                      handler:nil]];
+    [[UIApplication sharedApplication].keyWindow.rootViewController presentViewController:alertController animated:YES completion:nil];
+#endif
 }
 
 - (void)processContent:(NSData*)data WithHeader:(MultipartMessageHeader*) header

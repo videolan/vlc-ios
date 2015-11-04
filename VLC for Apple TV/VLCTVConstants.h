@@ -57,3 +57,13 @@
 #define kVLCSettingPlaybackBackwardSkipLengthDefaultValue @(60)
 #define kVLCSettingFTPTextEncoding @"ftp-text-encoding"
 #define kVLCSettingFTPTextEncodingDefaultValue @(5) // ISO Latin 1
+#define kVLCSettingSaveHTTPUploadServerStatus @"isHTTPServerOn"
+
+#define kVLCSettingWiFiSharingIPv6 @"wifi-sharing-ipv6"
+#define kVLCSettingWiFiSharingIPv6DefaultValue @(NO)
+
+#if TARGET_IPHONE_SIMULATOR
+#define WifiInterfaceName @"en1"
+#else
+#define WifiInterfaceName @"en0"
+#endif

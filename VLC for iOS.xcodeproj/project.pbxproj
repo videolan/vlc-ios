@@ -104,6 +104,9 @@
 		7D3E528B1BD7B5E100309D15 /* VLCCloudServicesTVViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 7D3E52891BD7B5E100309D15 /* VLCCloudServicesTVViewController.m */; };
 		7D3E528C1BD7B5E100309D15 /* VLCCloudServicesTVViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 7D3E528A1BD7B5E100309D15 /* VLCCloudServicesTVViewController.xib */; };
 		7D3EB014174A353E002062C2 /* SystemConfiguration.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 7D3EB013174A353E002062C2 /* SystemConfiguration.framework */; };
+		7D405ED01BEA11C1006ED886 /* VLCHTTPConnection.m in Sources */ = {isa = PBXBuildFile; fileRef = 7D30F3BD183AB24C00FFC021 /* VLCHTTPConnection.m */; };
+		7D405ED31BEA11CD006ED886 /* VLCHTTPUploaderController.m in Sources */ = {isa = PBXBuildFile; fileRef = 7D30F3C1183AB24C00FFC021 /* VLCHTTPUploaderController.m */; };
+		7D405ED41BEA150C006ED886 /* VLCActivityManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 7D18F0A11B34522000651A30 /* VLCActivityManager.m */; };
 		7D4408591BDA8DCA0080FB42 /* VLCBoxController.m in Sources */ = {isa = PBXBuildFile; fileRef = 41CD69591A29D72600E60BCE /* VLCBoxController.m */; };
 		7D44085A1BDA8DCE0080FB42 /* VLCBoxTableViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 41CD695B1A29D72600E60BCE /* VLCBoxTableViewController.m */; };
 		7D4625881A5614A1001A80B4 /* VLCEqualizerView.m in Sources */ = {isa = PBXBuildFile; fileRef = 7D4625871A5614A1001A80B4 /* VLCEqualizerView.m */; };
@@ -2584,6 +2587,7 @@
 				DDEAECF11BDFE9E800756C83 /* VLCServerListTVTableViewController.m in Sources */,
 				7DEC8BDE1BD67899006E1093 /* VLCFullscreenMovieTVViewController.m in Sources */,
 				DD3EFF501BDEBCE500B68579 /* VLCPlexParser.m in Sources */,
+				7D405ED31BEA11CD006ED886 /* VLCHTTPUploaderController.m in Sources */,
 				7DF90B4B1BE7A8110059C0E3 /* IASKSpecifier.m in Sources */,
 				7D44085A1BDA8DCE0080FB42 /* VLCBoxTableViewController.m in Sources */,
 				7D0EDE0A1BE7752C00363AA1 /* VLCNetworkServerBrowserFTP.m in Sources */,
@@ -2601,6 +2605,7 @@
 				7D0C35331BD97C100058CD19 /* VLCOneDriveController.m in Sources */,
 				7D0EDE061BE774BF00363AA1 /* WhiteRaccoon.m in Sources */,
 				7D60696B1BD93AC800AB765C /* VLCDropboxTableViewController.m in Sources */,
+				7D405ED01BEA11C1006ED886 /* VLCHTTPConnection.m in Sources */,
 				DD3EFF3C1BDEBCE500B68579 /* VLCNetworkServerBrowserVLCMedia.m in Sources */,
 				7D1334801BE132F10012E919 /* VLCNetworkServerBrowserUPnP.m in Sources */,
 				DDEAECC71BDEC79D00756C83 /* VLCLocalNetworkServiceBrowserSAP.m in Sources */,
@@ -2615,6 +2620,7 @@
 				7D5278E41BD7E37300D0CA0E /* VLCCloudStorageController.m in Sources */,
 				DD490B171BE6BA580010F335 /* VLCIRTVTapGestureRecognizer.m in Sources */,
 				7D3E528B1BD7B5E100309D15 /* VLCCloudServicesTVViewController.m in Sources */,
+				7D405ED41BEA150C006ED886 /* VLCActivityManager.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
