@@ -71,6 +71,8 @@
                       selector:@selector(boxApiTokenDidRefresh)
                           name:BoxOAuth2SessionDidBecomeAuthenticatedNotification
                         object:[BoxSDK sharedSDK].OAuth2Session];
+
+#if TARGET_OS_IOS
     // Handle logout
     [defaultCenter addObserver:self
                       selector:@selector(boxDidGetLoggedOut)
@@ -89,6 +91,7 @@
                       selector:@selector(boxAPIInitiateLogin)
                           name:BoxOAuth2SessionDidReceiveRefreshErrorNotification
                         object:[BoxSDK sharedSDK].OAuth2Session];
+#endif
 }
 
 #if TARGET_OS_IOS
