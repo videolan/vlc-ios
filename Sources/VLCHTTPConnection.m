@@ -45,7 +45,7 @@
 {
     // Add support for POST
     if ([method isEqualToString:@"POST"] && [path isEqualToString:@"/upload.json"])
-            return YES;
+        return YES;
 
     return [super supportsMethod:method atPath:path];
 }
@@ -369,30 +369,31 @@
             fileResponse.contentType = @"text/html";
         }
 #else
-#warning FIXME
         UIDevice *currentDevice = [UIDevice currentDevice];
         NSString *deviceModel = [currentDevice model];
         NSString *filePath = [self filePathForURI:path];
         NSString *documentRoot = [config documentRoot];
         NSString *relativePath = [filePath substringFromIndex:[documentRoot length]];
-        NSDictionary *replacementDict = @{@"WEBINTF_TITLE" : NSLocalizedString(@"WEBINTF_TITLE", nil),
+        NSDictionary *replacementDict = @{@"WEBINTF_TITLE" : NSLocalizedString(@"WEBINTF_TITLE_ATV", nil),
                                           @"WEBINTF_DROPFILES" : NSLocalizedString(@"WEBINTF_DROPFILES", nil),
-                                          @"WEBINTF_DROPFILES_LONG" : [NSString stringWithFormat:NSLocalizedString(@"WEBINTF_DROPFILES_LONG", nil), deviceModel],
-                                          @"WEBINTF_DOWNLOADFILES" : NSLocalizedString(@"WEBINTF_DOWNLOADFILES", nil),
-                                          @"WEBINTF_DOWNLOADFILES_LONG" : [NSString stringWithFormat: NSLocalizedString(@"WEBINTF_DOWNLOADFILES_LONG", nil), deviceModel]};
+                                          @"WEBINTF_DROPFILES_LONG" : [NSString stringWithFormat:NSLocalizedString(@"WEBINTF_DROPFILES_LONG_ATV", nil), deviceModel]};
 
         HTTPDynamicFileResponse *fileResponse;
-    if ([relativePath isEqualToString:@"/index.html"]) {
-        fileResponse = [[HTTPDynamicFileResponse alloc] initWithFilePath:[self filePathForURI:path]
-                                                           forConnection:self
-                                                               separator:@"%%"
-                                                   replacementDictionary:replacementDict];
-        fileResponse.contentType = @"text/html";
+        if ([relativePath isEqualToString:@"/index.html"]) {
+            fileResponse = [[HTTPDynamicFileResponse alloc] initWithFilePath:[self filePathForURI:path]
+                                                               forConnection:self
+                                                                   separator:@"%%"
+                                                       replacementDictionary:replacementDict];
+            fileResponse.contentType = @"text/html";
 #endif
 
         return fileResponse;
     } else if ([relativePath isEqualToString:@"/style.css"]) {
+#if TARGET_OS_IOS
         NSDictionary *replacementDict = @{@"WEBINTF_TITLE" : NSLocalizedString(@"WEBINTF_TITLE", nil)};
+#else
+        NSDictionary *replacementDict = @{@"WEBINTF_TITLE" : NSLocalizedString(@"WEBINTF_TITLE_ATV", nil)};
+#endif
         HTTPDynamicFileResponse *fileResponse = [[HTTPDynamicFileResponse alloc] initWithFilePath:[self filePathForURI:path]
                                                                                     forConnection:self
                                                                                         separator:@"%%"
