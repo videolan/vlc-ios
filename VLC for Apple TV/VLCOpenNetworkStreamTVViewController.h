@@ -13,10 +13,12 @@
 
 @interface VLCOpenNetworkStreamTVViewController : UIViewController <UITableViewDataSource, UITableViewDelegate>
 
-@property (readwrite, nonatomic, weak) IBOutlet UILabel *titleLabel;
 @property (readwrite, nonatomic, weak) IBOutlet UITextField *playURLField;
 @property (readwrite, nonatomic, weak) IBOutlet UITableView *previouslyPlayedStreamsTableView;
+@property (readwrite, nonatomic, weak) IBOutlet UIButton *toggleHTTPServerButton;
+@property (readwrite, nonatomic, weak) IBOutlet UILabel *httpServerLabel;
 
 - (IBAction)URLEnteredInField:(id)sender;
+- (IBAction)toggleHTTPServer:(id)sender;
 
 @end

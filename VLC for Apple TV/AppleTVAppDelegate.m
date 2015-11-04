@@ -14,6 +14,7 @@
 #import "VLCOpenNetworkStreamTVViewController.h"
 #import "VLCSettingsTableViewController.h"
 #import "VLCCloudServicesTVViewController.h"
+#import "VLCHTTPUploaderController.h"
 
 @interface AppleTVAppDelegate ()
 {
@@ -68,6 +69,9 @@
                                             [[UINavigationController alloc] initWithRootViewController:_settingsTableVC]];
 
     self.window.rootViewController = _mainViewController;
+
+    // Init the HTTP Server and clean its cache
+    [[VLCHTTPUploaderController sharedInstance] cleanCache];
 
     [self.window makeKeyAndVisible];
     return YES;

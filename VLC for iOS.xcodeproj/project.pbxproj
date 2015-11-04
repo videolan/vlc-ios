@@ -1695,12 +1695,12 @@
 				DDDEA6AE1BE027FA000BB7A2 /* VLCServerBrowsingTVTableViewController.m */,
 				7DC71D231BC830A5001FACAA /* VLCLocalNetworkTVViewController.h */,
 				7DC71D241BC830A5001FACAA /* VLCLocalNetworkTVViewController.m */,
-				7D7EF3D71BD56B5900CD4CEE /* VLCOpenNetworkStreamTVViewController.h */,
-				7D7EF3D81BD56B5900CD4CEE /* VLCOpenNetworkStreamTVViewController.m */,
 				DDEAECF21BDFEAE300756C83 /* VLCLocalNetworkServerTVCell.h */,
 				DDEAECF31BDFEAE300756C83 /* VLCLocalNetworkServerTVCell.m */,
 				DD3EABE71BE13D5B003668DA /* VLCServerBrowsingTVCell.h */,
 				DD3EABE81BE13D5B003668DA /* VLCServerBrowsingTVCell.m */,
+				7D7EF3D71BD56B5900CD4CEE /* VLCOpenNetworkStreamTVViewController.h */,
+				7D7EF3D81BD56B5900CD4CEE /* VLCOpenNetworkStreamTVViewController.m */,
 			);
 			name = "Network UI";
 			sourceTree = "<group>";
