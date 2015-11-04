@@ -14,6 +14,7 @@
 #import "VLCPlaybackInfoTVAnimators.h"
 #import "VLCIRTVTapGestureRecognizer.h"
 #import "VLCHTTPUploaderController.h"
+#import "VLCSiriRemoteGestureRecognizer.h"
 
 typedef NS_ENUM(NSInteger, VLCPlayerScanState)
 {
@@ -71,16 +72,13 @@ typedef NS_ENUM(NSInteger, VLCPlayerScanState)
     // Panning and Swiping
 
     UIPanGestureRecognizer *panGestureRecognizer = [[UIPanGestureRecognizer alloc] initWithTarget:self action:@selector(panGesture:)];
+    panGestureRecognizer.delegate = self;
     [self.view addGestureRecognizer:panGestureRecognizer];
 
     // Button presses
     UITapGestureRecognizer *playpauseGesture = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(playPausePressed)];
     playpauseGesture.allowedPressTypes = @[@(UIPressTypePlayPause)];
     [self.view addGestureRecognizer:playpauseGesture];
-
-    UITapGestureRecognizer *selectTapGestureRecognizer = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(selectButtonPressed:)];
-    selectTapGestureRecognizer.allowedPressTypes = @[@(UIPressTypeSelect)];
-    [self.view addGestureRecognizer:selectTapGestureRecognizer];
 
     UITapGestureRecognizer *menuTapGestureRecognizer = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(menuButtonPressed:)];
     menuTapGestureRecognizer.allowedPressTypes = @[@(UIPressTypeMenu)];
@@ -99,6 +97,12 @@ typedef NS_ENUM(NSInteger, VLCPlayerScanState)
     UITapGestureRecognizer *rightArrowRecognizer = [[VLCIRTVTapGestureRecognizer alloc] initWithTarget:self action:@selector(handleIRPressRight)];
     rightArrowRecognizer.allowedPressTypes = @[@(UIPressTypeRightArrow)];
     [self.view addGestureRecognizer:rightArrowRecognizer];
+
+    // Siri remote arrow presses
+    VLCSiriRemoteGestureRecognizer *siriArrowRecognizer = [[VLCSiriRemoteGestureRecognizer alloc] initWithTarget:self action:@selector(handleSiriRemote:)];
+    siriArrowRecognizer.delegate = self;
+    [self.view addGestureRecognizer:siriArrowRecognizer];
+
 }
 
 - (void)didReceiveMemoryWarning
@@ -162,7 +166,7 @@ typedef NS_ENUM(NSInteger, VLCPlayerScanState)
 
     VLCPlaybackController *vpc = [VLCPlaybackController sharedInstance];
     if (self.transportBar.scrubbing) {
-        [self selectButtonPressed:nil];
+        [self selectButtonPressed];
     } else {
         [vpc playPause];
     }
@@ -195,6 +199,7 @@ typedef NS_ENUM(NSInteger, VLCPlayerScanState)
             return;
         }
     }
+
     [self showPlaybackControlsIfNeededForUserInteraction];
     [self setScanState:VLCPlayerScanStateNone];
 
@@ -222,7 +227,7 @@ typedef NS_ENUM(NSInteger, VLCPlayerScanState)
     [self updateTimeLabelsForScrubbingFraction:scrubbingFraction];
 }
 
-- (void)selectButtonPressed:(UITapGestureRecognizer *)recognizer
+- (void)selectButtonPressed
 {
     [self showPlaybackControlsIfNeededForUserInteraction];
     [self setScanState:VLCPlayerScanStateNone];
@@ -286,18 +291,88 @@ typedef NS_ENUM(NSInteger, VLCPlayerScanState)
     }
 }
 
+- (void)handleSiriRemote:(VLCSiriRemoteGestureRecognizer *)recognizer
+{
+    [self showPlaybackControlsIfNeededForUserInteraction];
+    VLCTransportBarHint hint = self.transportBar.hint;
+    switch (recognizer.state) {
+        case UIGestureRecognizerStateBegan:
+        case UIGestureRecognizerStateChanged:
+            if (recognizer.isLongPress) {
+                if (recognizer.touchLocation == VLCSiriRemoteTouchLocationRight) {
+                    [self setScanState:VLCPlayerScanStateForward2];
+                    return;
+                }
+            } else {
+                switch (recognizer.touchLocation) {
+                    case VLCSiriRemoteTouchLocationLeft:
+                        hint = VLCTransportBarHintJumpBackward10;
+                        break;
+                    case VLCSiriRemoteTouchLocationRight:
+                        hint = VLCTransportBarHintJumpForward10;
+                        break;
+                    default:
+                        hint = VLCTransportBarHintNone;
+                        break;
+                }
+            }
+            break;
+        case UIGestureRecognizerStateEnded:
+            if (recognizer.isClick && !recognizer.isLongPress) {
+                [self handleSiriPressUpAtLocation:recognizer.touchLocation];
+            }
+            [self setScanState:VLCPlayerScanStateNone];
+            break;
+        case UIGestureRecognizerStateCancelled:
+            hint = VLCTransportBarHintNone;
+            [self setScanState:VLCPlayerScanStateNone];
+            break;
+        default:
+            break;
+    }
+    self.transportBar.hint = hint;
+}
+
+- (void)handleSiriPressUpAtLocation:(VLCSiriRemoteTouchLocation)location
+{
+    switch (location) {
+        case VLCSiriRemoteTouchLocationLeft:
+            [self jumpBackward];
+            break;
+        case VLCSiriRemoteTouchLocationRight:
+            [self jumpForward];
+        default:
+            [self selectButtonPressed];
+            break;
+    }
+}
+
 #pragma mark -
 static const NSInteger VLCJumpInterval = 10000; // 10 seconds
 - (void)jumpForward
 {
-    [self jumpInterval:VLCJumpInterval];
+    VLCPlaybackController *vpc = [VLCPlaybackController sharedInstance];
+    VLCMediaPlayer *player = vpc.mediaPlayer;
+
+    if (player.isPlaying) {
+        [player jumpForward:VLCJumpInterval];
+    } else {
+        [self scrubbingJumpInterval:VLCJumpInterval];
+    }
 }
 - (void)jumpBackward
 {
-    [self jumpInterval:-VLCJumpInterval];
+    VLCPlaybackController *vpc = [VLCPlaybackController sharedInstance];
+    VLCMediaPlayer *player = vpc.mediaPlayer;
+
+    if (player.isPlaying) {
+        [player jumpBackward:VLCJumpInterval];
+    } else {
+        [self scrubbingJumpInterval:-VLCJumpInterval];
+    }
 }
 
-- (void)jumpInterval:(NSInteger)interval
+- (void)scrubbingJumpInterval:(NSInteger)interval
 {
     NSInteger duration = [VLCPlaybackController sharedInstance].mediaDuration;
     if (duration==0) {
@@ -351,6 +426,10 @@ static const NSInteger VLCJumpInterval = 10000; // 10 seconds
 
 - (void)setScanState:(VLCPlayerScanState)scanState
 {
+    if (_scanState == scanState) {
+        return;
+    }
+
     if (_scanState == VLCPlayerScanStateNone) {
         self.scanSavedPlaybackRate = @([VLCPlaybackController sharedInstance].playbackRate);
     }
@@ -489,6 +568,8 @@ static const NSInteger VLCJumpInterval = 10000; // 10 seconds
     return _infoViewController;
 }
 
+
+
 #pragma mark - playback controller delegation
 
 - (void)prepareForMediaPlayback:(VLCPlaybackController *)controller
@@ -555,7 +636,10 @@ currentMediaHasTrackToChooseFrom:(BOOL)currentMediaHasTrackToChooseFrom
     }
     return YES;
 }
-
+- (BOOL)gestureRecognizer:(UIGestureRecognizer *)gestureRecognizer shouldRecognizeSimultaneouslyWithGestureRecognizer:(UIGestureRecognizer *)otherGestureRecognizer
+{
+    return YES;
+}
 @end
 
 

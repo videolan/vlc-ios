@@ -30,7 +30,7 @@ IB_DESIGNABLE @interface VLCTransportBar : UIView
 @property (nonatomic, readonly) UILabel *markerTimeLabel;
 @property (nonatomic, readonly) UILabel *remainingTimeLabel;
 
--(void)setHint:(VLCTransportBarHint)hint;
+@property (nonatomic) VLCTransportBarHint hint;
 @end
 
 NS_ASSUME_NONNULL_END

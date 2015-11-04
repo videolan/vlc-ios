@@ -22,7 +22,10 @@
 
 - (BOOL)vlc_isSynthetic
 {
-    /*Attention we are using private API here
+    /*
+     * !!! Attention: We are using private API !!!
+     * !!!  Might break in any future release  !!!
+     *
      * For internal name changes the press might wrongly detected as non-synthetic.
      * Since we us it to filter for only non-synthetic presses arrow taps
      * on the Siri remote might be additionally be detected.

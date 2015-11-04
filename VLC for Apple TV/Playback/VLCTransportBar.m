@@ -147,6 +147,7 @@ static inline void sharedSetup(VLCTransportBar *self) {
 }
 - (void)setHint:(VLCTransportBarHint)hint
 {
+    _hint = hint;
     UIImage *leftImage = nil;
     UIImage *rightImage = nil;
 	switch (hint) {
