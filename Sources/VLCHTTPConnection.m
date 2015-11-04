@@ -36,6 +36,9 @@
     NSString *_filepath;
     UInt64 _contentLength;
     UInt64 _receivedContent;
+#if TARGET_OS_TV
+    BOOL _playbackStarted;
+#endif
 }
 @end
 
@@ -424,7 +427,25 @@
 
     _receivedContent += postDataChunk.length;
 
-    APLog(@"received %lli kB (%lli %%)", _receivedContent / 1024, ((_receivedContent * 100) / _contentLength));
+    long long percentage = ((_receivedContent * 100) / _contentLength);
+    APLog(@"received %lli kB (%lli %%)", _receivedContent / 1024, percentage);
+#if TARGET_OS_TV
+    if (!_playbackStarted) {
+        if (percentage >= 10) {
+            _playbackStarted = YES;
+
+            APLog(@"Starting playback of %@", _filepath);
+            VLCPlaybackController *vpc = [VLCPlaybackController sharedInstance];
+            [vpc playURL:[NSURL fileURLWithPath:_filepath] successCallback:nil errorCallback:nil];
+
+            VLCFullscreenMovieTVViewController *moviewVC = [VLCFullscreenMovieTVViewController fullscreenMovieTVViewController];
+            [[UIApplication sharedApplication].keyWindow.rootViewController presentViewController:moviewVC
+                                                                                         animated:YES
+                                                                                       completion:nil];
+
+        }
+    }
+#endif
 }
 
 //-----------------------------------------------------------------

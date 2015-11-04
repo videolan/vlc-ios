@@ -225,6 +225,12 @@
 
 - (void)moveFileFrom:(NSString *)filepath
 {
+    /* update media library when file upload was completed */
+    VLCActivityManager *activityManager = [VLCActivityManager defaultManager];
+    [activityManager networkActivityStopped];
+    [activityManager activateIdleTimer];
+
+#if TARGET_OS_IOS
     NSString *fileName = [filepath lastPathComponent];
     NSArray *searchPaths = NSSearchPathForDirectoriesInDomains(NSDocumentDirectory, NSUserDomainMask, YES);
     NSString *libraryPath = searchPaths[0];
@@ -251,11 +257,6 @@
         [fileManager removeItemAtPath:filepath error:nil];
     }
 
-    /* update media library when file upload was completed */
-    VLCActivityManager *activityManager = [VLCActivityManager defaultManager];
-    [activityManager networkActivityStopped];
-    [activityManager activateIdleTimer];
-#if TARGET_OS_IOS
     [[VLCMediaFileDiscoverer sharedInstance] performSelectorOnMainThread:@selector(updateMediaList) withObject:nil waitUntilDone:NO];
 #endif
 }

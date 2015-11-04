@@ -13,6 +13,7 @@
 #import "VLCPlaybackInfoTVViewController.h"
 #import "VLCPlaybackInfoTVAnimators.h"
 #import "VLCIRTVTapGestureRecognizer.h"
+#import "VLCHTTPUploaderController.h"
 
 typedef NS_ENUM(NSInteger, VLCPlayerScanState)
 {
@@ -139,6 +140,12 @@ typedef NS_ENUM(NSInteger, VLCPlayerScanState)
     [vpc stopPlayback];
 
     [super viewWillDisappear:animated];
+
+    /* clean caches in case remote playback was used
+     * note that if we cancel before the upload is complete
+     * the cache won't be emptied, but on the next launch only (or if the system is under storage pressure)
+     */
+    [[VLCHTTPUploaderController sharedInstance] cleanCache];
 }
 
 - (BOOL)canBecomeFirstResponder
