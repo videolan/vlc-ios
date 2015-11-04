@@ -13,6 +13,7 @@
 #import "VLCServerBrowsingController.h"
 #import "NSString+SupportedMedia.h"
 #import "UIDevice+VLC.h"
+#import "MetaDataFetcherKit.h"
 
 #import "VLCPlaybackController.h"
 
@@ -32,6 +33,9 @@
     if (self) {
         _viewController = viewController;
         _serverBrowser = browser;
+        MDFMovieDBSessionManager *movieDBSessionManager = [MDFMovieDBSessionManager sharedInstance];
+        movieDBSessionManager.apiKey = kVLCfortvOSMovieDBKey;
+        [movieDBSessionManager fetchProperties];
     }
     return self;
 }
@@ -91,14 +95,13 @@
 #if DOWNLOAD_SUPPORTED
         cell.isDownloadable = self.allowsFileDownload;
 #endif
+
         NSURL *thumbnailURL = nil;
         if ([item respondsToSelector:@selector(thumbnailURL)]) {
             thumbnailURL = item.thumbnailURL;
         }
 
-        if (thumbnailURL) {
-            [cell setThumbnailURL:thumbnailURL];
-        }
+        [cell setThumbnailURL:thumbnailURL];
     }
 }
 

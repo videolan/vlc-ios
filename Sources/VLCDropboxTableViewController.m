@@ -37,7 +37,6 @@
 
 - (instancetype)initWithPath:(NSString *)path
 {
-    NSLog(@"%s", __PRETTY_FUNCTION__);
     self = [super init];
     if (self) {
         self.currentPath = path;

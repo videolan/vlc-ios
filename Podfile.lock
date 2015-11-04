@@ -1,10 +1,27 @@
 PODS:
+  - AFNetworking (3.0.0-beta.1):
+    - AFNetworking/NSURLSession (= 3.0.0-beta.1)
+    - AFNetworking/Reachability (= 3.0.0-beta.1)
+    - AFNetworking/Security (= 3.0.0-beta.1)
+    - AFNetworking/Serialization (= 3.0.0-beta.1)
+    - AFNetworking/UIKit (= 3.0.0-beta.1)
+  - AFNetworking/NSURLSession (3.0.0-beta.1):
+    - AFNetworking/Reachability
+    - AFNetworking/Security
+    - AFNetworking/Serialization
+  - AFNetworking/Reachability (3.0.0-beta.1)
+  - AFNetworking/Security (3.0.0-beta.1)
+  - AFNetworking/Serialization (3.0.0-beta.1)
+  - AFNetworking/UIKit (3.0.0-beta.1):
+    - AFNetworking/NSURLSession
   - box-ios-sdk-v2 (1.2.3):
     - box-ios-sdk-v2/no-arc (= 1.2.3)
   - box-ios-sdk-v2/no-arc (1.2.3)
   - CocoaHTTPServer (2.3)
   - HockeySDK (3.6.4)
   - InAppSettingsKit (2.2.2)
+  - MetaDataFetcherKit (0.1.0):
+    - AFNetworking (= 3.0.0-beta.1)
   - OBSlider (1.1.0)
   - RESideMenu (4.0.7)
   - SSKeychain (1.2.3)
@@ -16,6 +33,7 @@ DEPENDENCIES:
   - HockeySDK (~> 3.6.4)
   - InAppSettingsKit (from `git://github.com/fkuehne/InAppSettingsKit.git`, commit
     `415ea6bb`)
+  - MetaDataFetcherKit
   - OBSlider (= 1.1.0)
   - RESideMenu (~> 4.0.7)
   - SSKeychain (from `git://github.com/fkuehne/sskeychain.git`)
@@ -47,10 +65,12 @@ CHECKOUT OPTIONS:
     :git: git://github.com/fkuehne/sskeychain.git
 
 SPEC CHECKSUMS:
+  AFNetworking: 1100906802d9479aa0949e8e2cbc1d4e6beba327
   box-ios-sdk-v2: 9423bd75373350ea40b92f3d2d6e89f81d96d634
   CocoaHTTPServer: 07df8b05a8bde406fe367d22c90a24a2fd4ca49f
   HockeySDK: c07cdd580296737edcd0963e292c19885a53f563
   InAppSettingsKit: 76d5cfbaa3e3f8aa53fe3628516da7eb1aa6a5cb
+  MetaDataFetcherKit: c28ea384506120500f7c84b29557ac9b079c3f89
   OBSlider: 490f108007bfdd5414a38650b211fe403a95b8a0
   RESideMenu: f24c508404b49c667344c54aba7e590883533958
   SSKeychain: 3f42991739c6c60a9cf1bbd4dff6c0d3694bcf3d

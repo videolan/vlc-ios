@@ -240,7 +240,6 @@
 - (void)discoveryFoundSomethingNew
 {
     [self.tableView reloadData];
-    NSLog(@"%s",__PRETTY_FUNCTION__);
 
     _nothingFoundLabel.hidden = self.discoveryController.foundAnythingAtAll;
 }
