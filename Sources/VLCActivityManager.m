@@ -50,8 +50,10 @@
 - (void)networkActivityStarted
 {
     _networkActivityCounter++;
+#if TARGET_OS_IOS
     if ([UIApplication sharedApplication].networkActivityIndicatorVisible == NO)
         [UIApplication sharedApplication].networkActivityIndicatorVisible = YES;
+#endif
 }
 
 - (BOOL)haveNetworkActivity
@@ -62,8 +64,10 @@
 - (void)networkActivityStopped
 {
     _networkActivityCounter--;
+#if TARGET_OS_IOS
     if (_networkActivityCounter < 1)
         [UIApplication sharedApplication].networkActivityIndicatorVisible = NO;
+#endif
 }
 
 @end

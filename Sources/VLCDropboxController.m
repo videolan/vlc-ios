@@ -14,8 +14,8 @@
 #import "VLCDropboxController.h"
 #import "NSString+SupportedMedia.h"
 #import "VLCPlaybackController.h"
-#if !TARGET_OS_TV
 #import "VLCActivityManager.h"
+#if !TARGET_OS_TV
 #import "VLCMediaFileDiscoverer.h"
 #endif
 #import "DBKeychain.h"
@@ -265,25 +265,21 @@
 - (void)networkRequestStarted
 {
     _outstandingNetworkRequests++;
-#if TARGET_OS_IOS
     if (_outstandingNetworkRequests == 1) {
         VLCActivityManager *activityManager = [VLCActivityManager defaultManager];
         [activityManager networkActivityStarted];
         [activityManager disableIdleTimer];
     }
-#endif
 }
 
 - (void)networkRequestStopped
 {
     _outstandingNetworkRequests--;
-#if TARGET_OS_IOS
     if (_outstandingNetworkRequests == 0) {
         VLCActivityManager *activityManager = [VLCActivityManager defaultManager];
         [activityManager networkActivityStopped];
         [activityManager activateIdleTimer];
     }
-#endif
 }
 
 #pragma mark - VLC internal communication and delegate
