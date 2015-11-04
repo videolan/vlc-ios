@@ -341,6 +341,7 @@ typedef NS_ENUM(NSInteger, VLCPlayerScanState)
             break;
         case VLCSiriRemoteTouchLocationRight:
             [self jumpForward];
+            break;
         default:
             [self selectButtonPressed];
             break;
