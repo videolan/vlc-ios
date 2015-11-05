@@ -1,5 +1,5 @@
 /*****************************************************************************
- * VLCHTTPUploaderViewController.m
+ * VLCHTTPUploaderController.m
  * VLC for iOS
  *****************************************************************************
  * Copyright (c) 2013-2015 VideoLAN. All rights reserved.
@@ -9,6 +9,8 @@
  *          Gleb Pinigin <gpinigin # gmail.com>
  *          Felix Paul Kühne <fkuehne # videolan.org>
  *          Jean-Romain Prévost <jr # 3on.fr>
+ *          Carola Nitz <caro # videolan.org>
+ *          Ron Soffer <rsoffer1 # gmail.com>
  *
  * Refer to the COPYING file of the official project for license.
  *****************************************************************************/
@@ -27,16 +29,15 @@
 #endif
 
 @interface VLCHTTPUploaderController()
-
-@property(nonatomic, strong) HTTPServer *httpServer;
-
-@end
-
-@implementation VLCHTTPUploaderController
 {
+    NSString *_nameOfUsedNetworkInterface;
+    HTTPServer *_httpServer;
     UIBackgroundTaskIdentifier _backgroundTaskIdentifier;
     Reachability *_reachability;
 }
+@end
+
+@implementation VLCHTTPUploaderController
 
 + (instancetype)sharedInstance
 {
@@ -75,7 +76,7 @@
 
 - (void)applicationDidBecomeActive: (NSNotification *)notification
 {
-    if (!self.httpServer.isRunning)
+    if (!_httpServer.isRunning)
         [self changeHTTPServerState:[[NSUserDefaults standardUserDefaults] boolForKey:kVLCSettingSaveHTTPUploadServerStatus]];
 
     if (_backgroundTaskIdentifier && _backgroundTaskIdentifier != UIBackgroundTaskInvalid) {
@@ -86,7 +87,7 @@
 
 - (void)applicationDidEnterBackground: (NSNotification *)notification
 {
-    if (self.httpServer.isRunning) {
+    if (_httpServer.isRunning) {
         if (!_backgroundTaskIdentifier || _backgroundTaskIdentifier == UIBackgroundTaskInvalid) {
             dispatch_block_t expirationHandler = ^{
                 [self changeHTTPServerState:NO];
@@ -104,11 +105,17 @@
 
 - (NSString *)httpStatus
 {
-    if (self.httpServer.isRunning) {
-        if (self.httpServer.listeningPort != 80) {
-            return [NSString stringWithFormat:@"http://%@:%i\nhttp://%@:%i", [self currentIPAddress], self.httpServer.listeningPort, [self hostname], self.httpServer.listeningPort];
+    if (_httpServer.isRunning) {
+        if (_httpServer.listeningPort != 80) {
+            return [NSString stringWithFormat:@"http://%@:%i\nhttp://%@:%i",
+                    [self currentIPAddress],
+                    _httpServer.listeningPort,
+                    [self hostname],
+                    _httpServer.listeningPort];
         } else {
-            return [NSString stringWithFormat:@"http://%@\nhttp://%@", [self currentIPAddress], [self hostname]];
+            return [NSString stringWithFormat:@"http://%@\nhttp://%@",
+                    [self currentIPAddress],
+                    [self hostname]];
         }
     } else {
         return NSLocalizedString(@"HTTP_UPLOAD_SERVER_OFF", nil);
@@ -117,7 +124,7 @@
 
 - (BOOL)isServerRunning
 {
-    return self.httpServer.isRunning;
+    return _httpServer.isRunning;
 }
 
 - (void)netReachabilityChanged
@@ -130,7 +137,7 @@
 - (BOOL)changeHTTPServerState:(BOOL)state
 {
     if (!state) {
-        [self.httpServer stop];
+        [_httpServer stop];
         return true;
     }
     // clean cache before accepting new stuff
@@ -142,7 +149,7 @@
     // find an interface to listen on
     struct ifaddrs *listOfInterfaces = NULL;
     struct ifaddrs *anInterface = NULL;
-    NSString *interfaceToUse = nil;
+    _nameOfUsedNetworkInterface = nil;
     int ret = getifaddrs(&listOfInterfaces);
     if (ret == 0) {
         anInterface = listOfInterfaces;
@@ -155,7 +162,7 @@
                 if (strncmp (anInterface->ifa_name,"en0",strlen("en0")) == 0) {
                     unsigned int flags = anInterface->ifa_flags;
                     if( (flags & 0x1) && (flags & 0x40) && !(flags & 0x8) ) {
-                        interfaceToUse = [NSString stringWithUTF8String:anInterface->ifa_name];
+                        _nameOfUsedNetworkInterface = [NSString stringWithUTF8String:anInterface->ifa_name];
                         break;
                     }
                 }
@@ -164,57 +171,57 @@
                 if (strncmp (anInterface->ifa_name,"en1",strlen("en1")) == 0) {
                     unsigned int flags = anInterface->ifa_flags;
                     if( (flags & 0x1) && (flags & 0x40) && !(flags & 0x8) ) {
-                        interfaceToUse = [NSString stringWithUTF8String:anInterface->ifa_name];
+                        _nameOfUsedNetworkInterface = [NSString stringWithUTF8String:anInterface->ifa_name];
                         break;
                     }
                 }
             }
             anInterface = anInterface->ifa_next;
         }
-        freeifaddrs(listOfInterfaces);
     }
-    if (interfaceToUse == nil)
+    freeifaddrs(listOfInterfaces);
+    if (_nameOfUsedNetworkInterface == nil)
         return false;
 
-    [_httpServer setInterface:interfaceToUse];
+    [_httpServer setInterface:_nameOfUsedNetworkInterface];
 
     [_httpServer setIPv4Enabled:YES];
     [_httpServer setIPv6Enabled:[[[NSUserDefaults standardUserDefaults] objectForKey:kVLCSettingWiFiSharingIPv6] boolValue]];
 
     // Tell the server to broadcast its presence via Bonjour.
     // This allows browsers such as Safari to automatically discover our service.
-    [self.httpServer setType:@"_http._tcp."];
+    [_httpServer setType:@"_http._tcp."];
 
     // Serve files from the standard Sites folder
     NSString *docRoot = [[[NSBundle mainBundle] pathForResource:@"index" ofType:@"html"] stringByDeletingLastPathComponent];
 
     APLog(@"Setting document root: %@", docRoot);
 
-    [self.httpServer setDocumentRoot:docRoot];
-    [self.httpServer setPort:80];
+    [_httpServer setDocumentRoot:docRoot];
+    [_httpServer setPort:80];
 
-    [self.httpServer setConnectionClass:[VLCHTTPConnection class]];
+    [_httpServer setConnectionClass:[VLCHTTPConnection class]];
 
     NSError *error = nil;
-    if (![self.httpServer start:&error]) {
+    if (![_httpServer start:&error]) {
         if (error.code == EACCES) {
             APLog(@"Port forbidden by OS, trying another one");
-            [self.httpServer setPort:8888];
-            if(![self.httpServer start:&error])
+            [_httpServer setPort:8888];
+            if(![_httpServer start:&error])
                 return true;
         }
 
         /* Address already in Use, take a random one */
         if (error.code == EADDRINUSE) {
             APLog(@"Port already in use, trying another one");
-            [self.httpServer setPort:0];
-            if(![self.httpServer start:&error])
+            [_httpServer setPort:0];
+            if(![_httpServer start:&error])
                 return true;
         }
 
         if (error) {
             APLog(@"Error starting HTTP Server: %@", error.localizedDescription);
-            [self.httpServer stop];
+            [_httpServer stop];
         }
         return false;
     }
@@ -236,7 +243,7 @@
     temp_addr = interfaces;
     while (temp_addr != NULL) {
         if (temp_addr->ifa_addr->sa_family == AF_INET) {
-            if([@(temp_addr->ifa_name) isEqualToString:WifiInterfaceName])
+            if([@(temp_addr->ifa_name) isEqualToString:_nameOfUsedNetworkInterface])
                 address = @(inet_ntoa(((struct sockaddr_in *)temp_addr->ifa_addr)->sin_addr));
         }
         temp_addr = temp_addr->ifa_next;
@@ -268,6 +275,8 @@
     [activityManager networkActivityStopped];
     [activityManager activateIdleTimer];
 
+    /* on tvOS, the media remains in the cache folder and will disappear from there
+     * while on iOS we have persistent storage, so move it there */
 #if TARGET_OS_IOS
     NSString *fileName = [filepath lastPathComponent];
     NSArray *searchPaths = NSSearchPathForDirectoriesInDomains(NSDocumentDirectory, NSUserDomainMask, YES);
