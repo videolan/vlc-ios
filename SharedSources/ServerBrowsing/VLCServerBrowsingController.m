@@ -7,6 +7,7 @@
  * Authors: Tobias Conradi <videolan # tobias-conradi.de>
  *          Felix Paul Kühne <fkuehne # videolan.org>
  *          Pierre SAGASPE <pierre.sagaspe # me.com>
+ *
  * Refer to the COPYING file of the official project for license.
  *****************************************************************************/
 
@@ -43,31 +44,35 @@
 }
 
 #pragma mark -
-- (NSByteCountFormatter *)byteCounterFormatter {
-    if (!_byteCountFormatter) {
+
+- (NSByteCountFormatter *)byteCounterFormatter
+{
+    if (!_byteCountFormatter)
         _byteCountFormatter = [[NSByteCountFormatter alloc] init];
-    }
+
     return _byteCountFormatter;
 }
 
-- (UIImage *)genericFileImage {
-    if (!_genericFileImage) {
+- (UIImage *)genericFileImage
+{
+    if (!_genericFileImage)
         _genericFileImage = [UIImage imageNamed:@"blank"];
-    }
+
     return _genericFileImage;
 }
 
-- (UIImage *)folderImage {
-    if (!_folderImage) {
+- (UIImage *)folderImage
+{
+    if (!_folderImage)
         _folderImage = [UIImage imageNamed:@"folder"];
-    }
+
     return _folderImage;
 }
 
 #pragma mark - cell configuration
 
-- (void)configureCell:(id<VLCServerBrowsingCell>)cell withItem:(id<VLCNetworkServerBrowserItem>)item {
-
+- (void)configureCell:(id<VLCServerBrowsingCell>)cell withItem:(id<VLCNetworkServerBrowserItem>)item
+{
     cell.title = item.name;
 
     if (item.isContainer) {
@@ -80,9 +85,8 @@
         NSString *sizeString = item.fileSizeBytes ? [self.byteCounterFormatter stringFromByteCount:item.fileSizeBytes.longLongValue] : nil;
 
         NSString *duration = nil;
-        if ([item respondsToSelector:@selector(duration)]) {
+        if ([item respondsToSelector:@selector(duration)])
             duration = item.duration;
-        }
 
         NSString *subtitle = nil;
         if (sizeString && duration) {
@@ -99,13 +103,11 @@
     }
 
     NSURL *thumbnailURL = nil;
-    if ([item respondsToSelector:@selector(thumbnailURL)]) {
+    if ([item respondsToSelector:@selector(thumbnailURL)])
         thumbnailURL = item.thumbnailURL;
-    }
 
     [cell setThumbnailURL:thumbnailURL];
 }
-
 
 #pragma mark - subtitles
 
@@ -183,7 +185,6 @@
     [mediaList unlock];
 }
 
-
 #pragma mark - File Streaming
 
 - (void)showMovieViewController
@@ -196,7 +197,6 @@
 #endif
 }
 
-
 - (void)streamMediaList:(VLCMediaList *)mediaList startingAtIndex:(NSInteger)startIndex
 {
     VLCPlaybackController *vpc = [VLCPlaybackController sharedInstance];
@@ -208,9 +208,9 @@
 {
     NSString *URLofSubtitle = nil;
     NSURL *remoteSubtitleURL = nil;
-    if ([item respondsToSelector:@selector(subtitleURL)]) {
+    if ([item respondsToSelector:@selector(subtitleURL)])
         remoteSubtitleURL = [item subtitleURL];
-    }
+
     if (!remoteSubtitleURL) {
         NSArray *SubtitlesList = [self _searchSubtitle:item.URL.lastPathComponent];
         remoteSubtitleURL = SubtitlesList.firstObject;
@@ -226,8 +226,8 @@
     [self showMovieViewController];
 }
 
-
 #pragma mark - Downloads
+
 #if DOWNLOAD_SUPPORTED
 - (BOOL)triggerDownloadForItem:(id<VLCNetworkServerBrowserItem>)item
 {
@@ -255,8 +255,6 @@
     [[VLCDownloadViewController sharedInstance] addURLToDownloadList:item.URL
                                                      fileNameOfMedia:filename];
 }
-
-
 
 #endif
 
