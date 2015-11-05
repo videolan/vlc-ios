@@ -96,14 +96,14 @@
 #if DOWNLOAD_SUPPORTED
         cell.isDownloadable = self.allowsFileDownload;
 #endif
-
-        NSURL *thumbnailURL = nil;
-        if ([item respondsToSelector:@selector(thumbnailURL)]) {
-            thumbnailURL = item.thumbnailURL;
-        }
-
-        [cell setThumbnailURL:thumbnailURL];
     }
+
+    NSURL *thumbnailURL = nil;
+    if ([item respondsToSelector:@selector(thumbnailURL)]) {
+        thumbnailURL = item.thumbnailURL;
+    }
+
+    [cell setThumbnailURL:thumbnailURL];
 }
 
 
