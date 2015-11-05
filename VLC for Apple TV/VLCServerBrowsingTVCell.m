@@ -43,6 +43,7 @@ NSString *const VLCServerBrowsingTVCellIdentifier = @"VLCServerBrowsingTVCell";
     } else {
         _metadataFetcher = [[MDFMovieDBFetcher alloc] init];
         _metadataFetcher.dataRecipient = self;
+        _metadataFetcher.shouldDecrapifyInputStrings = YES;
     }
     [self.thumbnailImageView cancelLoading];
     self.title = nil;

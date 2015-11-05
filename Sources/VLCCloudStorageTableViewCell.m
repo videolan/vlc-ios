@@ -53,6 +53,7 @@
     } else {
         _metadataFetcher = [[MDFMovieDBFetcher alloc] init];
         _metadataFetcher.dataRecipient = self;
+        _metadataFetcher.shouldDecrapifyInputStrings = YES;
     }
 }
 #endif
