@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
-<document type="com.apple.InterfaceBuilder.AppleTV.XIB" version="3.0" toolsVersion="9527.1" systemVersion="15B42" targetRuntime="AppleTV" propertyAccessControl="none" useAutolayout="YES">
+<document type="com.apple.InterfaceBuilder.AppleTV.XIB" version="3.0" toolsVersion="9527.1" systemVersion="15C27e" targetRuntime="AppleTV" propertyAccessControl="none" useAutolayout="YES">
     <dependencies>
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="9525.1"/>
     </dependencies>
@@ -28,6 +28,12 @@
                 </textView>
                 <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="about-app-icon" translatesAutoresizingMaskIntoConstraints="NO" id="R08-li-qdl">
                     <rect key="frame" x="69" y="168" width="372" height="225"/>
+                    <constraints>
+                        <constraint firstAttribute="width" constant="372" id="DCL-pI-IFE"/>
+                    </constraints>
+                </imageView>
+                <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="TMDb" translatesAutoresizingMaskIntoConstraints="NO" id="3Da-Zc-Ax4">
+                    <rect key="frame" x="69" y="600" width="372" height="47"/>
                 </imageView>
                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Version: %@ (%@)" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="rzP-zh-asV">
                     <rect key="frame" x="155" y="414" width="200" height="30"/>
@@ -49,24 +55,37 @@ lollipop 4.4</string>
                     <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
                     <nil key="highlightedColor"/>
                 </label>
+                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="This product uses the TMDb API but is not endorsed or certified by TMDb." textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="W9c-cp-khK">
+                    <rect key="frame" x="69" y="654" width="372" height="41"/>
+                    <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                    <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
+                    <nil key="highlightedColor"/>
+                </label>
             </subviews>
             <constraints>
+                <constraint firstItem="3Da-Zc-Ax4" firstAttribute="width" secondItem="R08-li-qdl" secondAttribute="width" id="2vY-lX-WkX"/>
+                <constraint firstItem="3Da-Zc-Ax4" firstAttribute="centerX" secondItem="R08-li-qdl" secondAttribute="centerX" id="4WI-Pr-oFM"/>
                 <constraint firstItem="icn-Lc-xfi" firstAttribute="top" secondItem="iN0-l3-epB" secondAttribute="top" constant="168" id="518-q1-Xms"/>
                 <constraint firstAttribute="bottom" secondItem="icn-Lc-xfi" secondAttribute="bottom" constant="63" id="K65-n5-bFs"/>
                 <constraint firstAttribute="trailing" secondItem="icn-Lc-xfi" secondAttribute="trailing" constant="59" id="Kt4-h1-11h"/>
                 <constraint firstItem="R08-li-qdl" firstAttribute="top" secondItem="icn-Lc-xfi" secondAttribute="top" id="LkX-k6-Hcl"/>
                 <constraint firstItem="icn-Lc-xfi" firstAttribute="leading" secondItem="R08-li-qdl" secondAttribute="trailing" constant="8" id="VJs-eZ-VsC"/>
+                <constraint firstItem="W9c-cp-khK" firstAttribute="centerX" secondItem="3Da-Zc-Ax4" secondAttribute="centerX" id="W1f-ae-GPV"/>
+                <constraint firstItem="W9c-cp-khK" firstAttribute="top" secondItem="3Da-Zc-Ax4" secondAttribute="bottom" constant="7.5" id="aY5-89-sg7"/>
                 <constraint firstItem="rzP-zh-asV" firstAttribute="centerX" secondItem="R08-li-qdl" secondAttribute="centerX" id="dEL-qi-8f7"/>
                 <constraint firstItem="rzP-zh-asV" firstAttribute="top" secondItem="R08-li-qdl" secondAttribute="bottom" constant="21" id="ebQ-O6-Tkt"/>
                 <constraint firstItem="QoD-of-U1w" firstAttribute="centerX" secondItem="iN0-l3-epB" secondAttribute="centerX" id="n53-d0-uXb"/>
                 <constraint firstItem="QoD-of-U1w" firstAttribute="top" secondItem="iN0-l3-epB" secondAttribute="top" constant="60" id="nBv-Lu-mM2"/>
                 <constraint firstItem="Rjh-23-auY" firstAttribute="top" secondItem="rzP-zh-asV" secondAttribute="bottom" constant="8" id="nNO-KC-G1O"/>
+                <constraint firstItem="W9c-cp-khK" firstAttribute="width" secondItem="R08-li-qdl" secondAttribute="width" id="pC0-TE-FJk"/>
+                <constraint firstItem="3Da-Zc-Ax4" firstAttribute="top" secondItem="Rjh-23-auY" secondAttribute="bottom" constant="89.5" id="tKQ-c3-gIM"/>
                 <constraint firstItem="R08-li-qdl" firstAttribute="leading" secondItem="iN0-l3-epB" secondAttribute="leading" constant="69" id="veM-Hm-xSQ"/>
                 <constraint firstItem="Rjh-23-auY" firstAttribute="centerX" secondItem="rzP-zh-asV" secondAttribute="centerX" id="xDc-V4-ia2"/>
             </constraints>
         </view>
     </objects>
     <resources>
+        <image name="TMDb" width="372" height="47"/>
         <image name="about-app-icon" width="372" height="225"/>
     </resources>
 </document>
