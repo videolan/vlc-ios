@@ -13,12 +13,12 @@
 #import "VLCServerBrowsingController.h"
 #import "NSString+SupportedMedia.h"
 #import "UIDevice+VLC.h"
-#import "MetaDataFetcherKit.h"
 
 #import "VLCPlaybackController.h"
 
 #if TARGET_OS_TV
 #import "VLCFullscreenMovieTVViewController.h"
+#import "MetaDataFetcherKit.h"
 #endif
 
 #if DOWNLOAD_SUPPORTED
@@ -33,9 +33,11 @@
     if (self) {
         _viewController = viewController;
         _serverBrowser = browser;
+#if TARGET_OS_TV
         MDFMovieDBSessionManager *movieDBSessionManager = [MDFMovieDBSessionManager sharedInstance];
         movieDBSessionManager.apiKey = kVLCfortvOSMovieDBKey;
         [movieDBSessionManager fetchProperties];
+#endif
     }
     return self;
 }
