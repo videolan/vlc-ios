@@ -138,7 +138,45 @@
 
     // Initialize our http server
     _httpServer = [[HTTPServer alloc] init];
-    [_httpServer setInterface:WifiInterfaceName];
+
+    // find an interface to listen on
+    struct ifaddrs *listOfInterfaces = NULL;
+    struct ifaddrs *anInterface = NULL;
+    NSString *interfaceToUse = nil;
+    int ret = getifaddrs(&listOfInterfaces);
+    if (ret == 0) {
+        anInterface = listOfInterfaces;
+
+        while (anInterface != NULL) {
+            if (anInterface->ifa_addr->sa_family == AF_INET) {
+                APLog(@"Found interface %s", anInterface->ifa_name);
+
+                /* check for primary interface first */
+                if (strncmp (anInterface->ifa_name,"en0",strlen("en0")) == 0) {
+                    unsigned int flags = anInterface->ifa_flags;
+                    if( (flags & 0x1) && (flags & 0x40) && !(flags & 0x8) ) {
+                        interfaceToUse = [NSString stringWithUTF8String:anInterface->ifa_name];
+                        break;
+                    }
+                }
+
+                /* oh well, let's move on to the secondary interface */
+                if (strncmp (anInterface->ifa_name,"en1",strlen("en1")) == 0) {
+                    unsigned int flags = anInterface->ifa_flags;
+                    if( (flags & 0x1) && (flags & 0x40) && !(flags & 0x8) ) {
+                        interfaceToUse = [NSString stringWithUTF8String:anInterface->ifa_name];
+                        break;
+                    }
+                }
+            }
+            anInterface = anInterface->ifa_next;
+        }
+        freeifaddrs(listOfInterfaces);
+    }
+    if (interfaceToUse == nil)
+        return false;
+
+    [_httpServer setInterface:interfaceToUse];
 
     [_httpServer setIPv4Enabled:YES];
     [_httpServer setIPv6Enabled:[[[NSUserDefaults standardUserDefaults] objectForKey:kVLCSettingWiFiSharingIPv6] boolValue]];

@@ -79,12 +79,6 @@
 
 #define kVLCDarwinNotificationNowPlayingInfoUpdate @"org.videolan.ios-app.nowPlayingInfoUpdate"
 
-#if TARGET_IPHONE_SIMULATOR
-#define WifiInterfaceName @"en1"
-#else
-#define WifiInterfaceName @"en0"
-#endif
-
 #define kVLCMigratedToUbiquitousStoredServerList @"kVLCMigratedToUbiquitousStoredServerList"
 #define kVLCStoredServerList @"kVLCStoredServerList"
 #define kVLCStoreDropboxCredentials @"kVLCStoreDropboxCredentials"

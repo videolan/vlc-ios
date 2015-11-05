@@ -62,10 +62,4 @@
 #define kVLCSettingWiFiSharingIPv6 @"wifi-sharing-ipv6"
 #define kVLCSettingWiFiSharingIPv6DefaultValue @(NO)
 
-#if TARGET_IPHONE_SIMULATOR
-#define WifiInterfaceName @"en1"
-#else
-#define WifiInterfaceName @"en1"
-#endif
-
 #define kVLCfortvOSMovieDBKey @""
