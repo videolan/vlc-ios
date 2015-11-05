@@ -12,11 +12,18 @@
  *****************************************************************************/
 
 #import "VLCCloudStorageTableViewCell.h"
-@interface VLCCloudStorageTableViewCell ()
+#import "VLCNetworkImageView.h"
+#if TARGET_OS_TV
+#import "MetaDataFetcherKit.h"
+#endif
+
+#if TARGET_OS_TV
+@interface VLCCloudStorageTableViewCell () <MDFMovieDBFetcherDataRecipient>
 {
-    NSURL *_iconURL;
+    MDFMovieDBFetcher *_metadataFetcher;
 }
 @end
+#endif
 
 @implementation VLCCloudStorageTableViewCell
 
@@ -31,8 +38,24 @@
     cell.subtitleLabel.hidden = YES;
     cell.folderTitleLabel.hidden = YES;
 
+#if TARGET_OS_TV
+    [cell prepareForReuse];
+#endif
+
     return cell;
 }
+
+#if TARGET_OS_TV
+- (void)prepareForReuse
+{
+    if (_metadataFetcher) {
+        [_metadataFetcher cancelAllRequests];
+    } else {
+        _metadataFetcher = [[MDFMovieDBFetcher alloc] init];
+        _metadataFetcher.dataRecipient = self;
+    }
+}
+#endif
 
 - (void)setDropboxFile:(DBMetadata *)dropboxFile
 {
@@ -80,7 +103,11 @@
             self.titleLabel.hidden = self.subtitleLabel.hidden = YES;
             self.folderTitleLabel.hidden = NO;
         } else {
-            self.titleLabel.text = self.dropboxFile.filename;
+            NSString *title = self.dropboxFile.filename;
+            self.titleLabel.text = title;
+#if TARGET_OS_TV
+            [_metadataFetcher searchForMovie:title];
+#endif
             self.subtitleLabel.text = (self.dropboxFile.totalBytes > 0) ? self.dropboxFile.humanReadableSize : @"";
             self.titleLabel.hidden = self.subtitleLabel.hidden = NO;
             self.folderTitleLabel.hidden = YES;
@@ -109,14 +136,20 @@
             self.titleLabel.hidden = self.subtitleLabel.hidden = YES;
             self.folderTitleLabel.hidden = NO;
         } else {
-            self.titleLabel.text = self.driveFile.title;
+            NSString *title = self.driveFile.title;
+            self.titleLabel.text = title;
             self.subtitleLabel.text = (self.driveFile.fileSize > 0) ? [NSByteCountFormatter stringFromByteCount:[self.driveFile.fileSize longLongValue] countStyle:NSByteCountFormatterCountStyleFile]: @"";
             self.titleLabel.hidden = self.subtitleLabel.hidden = NO;
             self.folderTitleLabel.hidden = YES;
-        }
-        if (_driveFile.thumbnailLink != nil) {
-            _iconURL = [NSURL URLWithString:_driveFile.thumbnailLink];
-            [self performSelectorInBackground:@selector(_updateIconFromURL) withObject:@""];
+
+            if (_driveFile.thumbnailLink != nil) {
+                [self.thumbnailView setImageWithURL:[NSURL URLWithString:_driveFile.thumbnailLink]];
+            }
+#if TARGET_OS_TV
+            else {
+                [_metadataFetcher searchForMovie:title];
+            }
+#endif
         }
         NSString *iconName = self.driveFile.iconLink;
         if (isDirectory) {
@@ -138,7 +171,11 @@
             self.titleLabel.hidden = self.subtitleLabel.hidden = YES;
             self.folderTitleLabel.hidden = NO;
         } else {
-            self.titleLabel.text = self.boxFile.name;
+            NSString *title = self.boxFile.name;
+            self.titleLabel.text = title;
+#if TARGET_OS_TV
+            [_metadataFetcher searchForMovie:title];
+#endif
             self.subtitleLabel.text = (self.boxFile.size > 0) ? [NSByteCountFormatter stringFromByteCount:[self.boxFile.size longLongValue] countStyle:NSByteCountFormatterCountStyleFile]: @"";
             self.titleLabel.hidden = self.subtitleLabel.hidden = NO;
             self.folderTitleLabel.hidden = YES;
@@ -148,8 +185,7 @@
 //        if (_boxFile.modelID != nil) {
 //            //this request needs a token in the header to work
 //            NSString *thumbnailURLString = [NSString stringWithFormat:@"https://api.box.com/2.0/files/%@/thumbnail.png?min_height=32&min_width=32&max_height=64&max_width=64", _boxFile.modelID];
-//            _iconURL = [NSURL URLWithString:thumbnailURLString];
-//            [self performSelectorInBackground:@selector(_updateIconFromURL) withObject:@""];
+//            [self.thumbnailView setImageWithURL:[NSURL URLWithString:thumbnailURLString]];
 //        }
         //TODO:correct icons
         if (isDirectory) {
@@ -167,8 +203,26 @@
             self.thumbnailView.image = [UIImage imageNamed:@"folder"];
         } else {
             self.downloadButton.hidden = NO;
-            self.titleLabel.text = self.oneDriveFile.name;
+            NSString *title = self.oneDriveFile.name;
+            self.titleLabel.text = title;
             NSMutableString *subtitle = [[NSMutableString alloc] init];
+
+            if (self.oneDriveFile.isAudio)
+                self.thumbnailView.image = [UIImage imageNamed:@"audio"];
+            else if (self.oneDriveFile.isVideo) {
+                self.thumbnailView.image = [UIImage imageNamed:@"movie"];
+                NSString *thumbnailURLString = _oneDriveFile.thumbnailURL;
+                if (thumbnailURLString) {
+                    [self.thumbnailView setImageWithURL:[NSURL URLWithString:thumbnailURLString]];
+                }
+#if TARGET_OS_TV
+                else {
+                    [_metadataFetcher searchForMovie:title];
+                }
+#endif
+            } else
+                self.thumbnailView.image = [UIImage imageNamed:@"blank"];
+
             if (self.oneDriveFile.size > 0) {
                 [subtitle appendString:[NSByteCountFormatter stringFromByteCount:[self.oneDriveFile.size longLongValue] countStyle:NSByteCountFormatterCountStyleFile]];
                 if (self.oneDriveFile.duration > 0) {
@@ -182,38 +236,10 @@
             self.subtitleLabel.text = subtitle;
             self.titleLabel.hidden = self.subtitleLabel.hidden = NO;
             self.folderTitleLabel.hidden = YES;
-            if (self.oneDriveFile.isAudio)
-                self.thumbnailView.image = [UIImage imageNamed:@"audio"];
-            else if (self.oneDriveFile.isVideo) {
-                self.thumbnailView.image = [UIImage imageNamed:@"movie"];
-                NSString *thumbnailURL = _oneDriveFile.thumbnailURL;
-                if ([thumbnailURL isKindOfClass:[NSString class]]) {
-                    if (thumbnailURL.length > 0) {
-                        _iconURL = [NSURL URLWithString:thumbnailURL];
-                        [self performSelectorInBackground:@selector(_updateIconFromURL) withObject:@""];
-                    }
-                }
-            } else
-                self.thumbnailView.image = [UIImage imageNamed:@"blank"];
         }
     }
 
     [self setNeedsDisplay];
-}
-
-- (void)_updateIconFromURL
-{
-    NSData *imageData = [[NSData alloc] initWithContentsOfURL:_iconURL];
-    UIImage *icon = [[UIImage alloc] initWithData:imageData];
-    if (icon != nil) {
-        [self performSelectorOnMainThread:@selector(_updateIconOnMainThread:) withObject:icon waitUntilDone:NO];
-    }
-}
-
-- (void)_updateIconOnMainThread:(UIImage *)icon
-{
-    self.thumbnailView.contentMode = UIViewContentModeScaleAspectFit;
-    self.thumbnailView.image = icon;
 }
 
 - (IBAction)triggerDownload:(id)sender
@@ -238,5 +264,67 @@
 {
     self.downloadButton.hidden = !isDownloadable;
 }
+
+#if TARGET_OS_TV
+- (void)MDFMovieDBFetcher:(MDFMovieDBFetcher *)aFetcher didFindMovie:(MDFMovie *)details forSearchRequest:(NSString *)searchRequest
+{
+    if (details == nil)
+        return;
+    [aFetcher cancelAllRequests];
+    MDFMovieDBSessionManager *sessionManager = [MDFMovieDBSessionManager sharedInstance];
+    if (!sessionManager.hasFetchedProperties)
+        return;
+
+    if (details.movieDBID == 0) {
+        /* we found nothing, let's see if it's a TV show */
+        [_metadataFetcher searchForTVShow:searchRequest];
+        return;
+    }
+
+    NSString *imagePath = details.posterPath;
+    if (!imagePath)
+        imagePath = details.backdropPath;
+    if (!imagePath)
+        return;
+
+    NSString *thumbnailURLString = [NSString stringWithFormat:@"%@%@%@",
+                                    sessionManager.imageBaseURL,
+                                    sessionManager.posterSizes.firstObject,
+                                    details.posterPath];
+    [self.thumbnailView setImageWithURL:[NSURL URLWithString:thumbnailURLString]];
+}
+
+- (void)MDFMovieDBFetcher:(MDFMovieDBFetcher *)aFetcher didFailToFindMovieForSearchRequest:(NSString *)searchRequest
+{
+    APLog(@"Failed to find a movie for '%@'", searchRequest);
+}
+
+-(void)MDFMovieDBFetcher:(MDFMovieDBFetcher *)aFetcher didFindTVShow:(MDFTVShow *)details forSearchRequest:(NSString *)searchRequest
+{
+    if (details == nil)
+        return;
+    [aFetcher cancelAllRequests];
+    MDFMovieDBSessionManager *sessionManager = [MDFMovieDBSessionManager sharedInstance];
+    if (!sessionManager.hasFetchedProperties)
+        return;
+
+    NSString *imagePath = details.posterPath;
+    if (!imagePath)
+        imagePath = details.backdropPath;
+    if (!imagePath)
+        return;
+
+    NSString *thumbnailURLString = [NSString stringWithFormat:@"%@%@%@",
+                                    sessionManager.imageBaseURL,
+                                    sessionManager.posterSizes.firstObject,
+                                    details.posterPath];
+    [self.thumbnailView setImageWithURL:[NSURL URLWithString:thumbnailURLString]];
+}
+
+- (void)MDFMovieDBFetcher:(MDFMovieDBFetcher *)aFetcher didFailToFindTVShowForSearchRequest:(NSString *)searchRequest
+{
+    APLog(@"failed to find TV show");
+}
+#endif
 
 @end

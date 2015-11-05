@@ -19,6 +19,7 @@
 #import "VLCOneDriveTableViewController2.h"
 #import "VLCBoxTableViewController.h"
 #import "VLCBoxController.h"
+#import "MetaDataFetcherKit.h"
 
 @interface VLCCloudServicesTVViewController ()
 {
@@ -40,6 +41,10 @@
     NSNotificationCenter *center = [NSNotificationCenter defaultCenter];
     [center addObserver:self selector:@selector(oneDriveSessionUpdated:) name:VLCOneDriveControllerSessionUpdated object:nil];
     [center addObserver:self selector:@selector(boxSessionUpdated:) name:VLCBoxControllerSessionUpdated object:nil];
+
+    MDFMovieDBSessionManager *movieDBSessionManager = [MDFMovieDBSessionManager sharedInstance];
+    movieDBSessionManager.apiKey = kVLCfortvOSMovieDBKey;
+    [movieDBSessionManager fetchProperties];
 
     _oneDriveController = [VLCOneDriveController sharedInstance];
     _boxController = [VLCBoxController sharedInstance];

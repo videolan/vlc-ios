@@ -42,7 +42,6 @@
     return self;
 }
 
-
 #pragma mark -
 - (NSByteCountFormatter *)byteCounterFormatter {
     if (!_byteCountFormatter) {

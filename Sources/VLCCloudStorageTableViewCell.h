@@ -18,6 +18,8 @@
 #import "GTLDrive.h"
 #endif
 
+@class VLCNetworkImageView;
+
 @interface VLCCloudStorageTableViewCell : UITableViewCell
 
 @property (nonatomic, weak) id delegate;
@@ -25,7 +27,7 @@
 @property (nonatomic, strong) IBOutlet UILabel *titleLabel;
 @property (nonatomic, strong) IBOutlet UILabel *folderTitleLabel;
 @property (nonatomic, strong) IBOutlet UILabel *subtitleLabel;
-@property (nonatomic, strong) IBOutlet UIImageView *thumbnailView;
+@property (nonatomic, strong) IBOutlet VLCNetworkImageView *thumbnailView;
 @property (nonatomic, strong) IBOutlet UIButton *downloadButton;
 
 @property (nonatomic, retain) DBMetadata *dropboxFile;
