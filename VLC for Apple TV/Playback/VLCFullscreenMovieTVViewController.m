@@ -639,10 +639,8 @@ currentMediaHasTrackToChooseFrom:(BOOL)currentMediaHasTrackToChooseFrom
         [self.audioMetaDataFetcher cancelAllRequests];
 
         if (artist != nil && album != nil) {
-            [self.audioMetaDataFetcher searchForAlbum:album ofArtist:artist];
             APLog(@"Audio-only track meta changed, tracing artist '%@' and album '%@'", artist, album);
         } else if (artist != nil) {
-            [self.audioMetaDataFetcher searchForArtist:artist];
             APLog(@"Audio-only track meta changed, tracing artist '%@'", artist);
         } else if (title != nil) {
             NSRange deviderRange = [title rangeOfString:@" - "];
@@ -650,8 +648,23 @@ currentMediaHasTrackToChooseFrom:(BOOL)currentMediaHasTrackToChooseFrom
                 title = [title substringToIndex:deviderRange.location];
             }
             APLog(@"Audio-only track meta changed, tracing artist '%@'", title);
-            [self.audioMetaDataFetcher searchForArtist:title];
+            artist = title;
         }
+        if (![self.lastArtist isEqualToString:artist]) {
+            @synchronized(self.audioImagesArray) {
+                [self.animatedImageView stopAnimating];
+                [self.audioImagesArray removeAllObjects];
+            }
+        }
+        self.lastArtist = artist;
+
+        if (artist != nil) {
+            if (album != nil) {
+                [self.audioMetaDataFetcher searchForAlbum:album ofArtist:artist];
+            } else
+                [self.audioMetaDataFetcher searchForArtist:artist];
+        }
+
         [self performSelectorOnMainThread:@selector(showAnimatedImagesView) withObject:nil waitUntilDone:NO];
     } else if (animatedImageView.superview != nil) {
         [self.audioMetaDataFetcher cancelAllRequests];
@@ -734,14 +747,6 @@ currentMediaHasTrackToChooseFrom:(BOOL)currentMediaHasTrackToChooseFrom
 #pragma mark - meta data recipient
 - (void)MDFHatchetFetcher:(MDFHatchetFetcher *)aFetcher didFindAlbum:(MDFMusicAlbum *)album forArtistName:(NSString *)artistName
 {
-    if (![self.lastArtist isEqualToString:artistName]) {
-        @synchronized(self.audioImagesArray) {
-            [self.animatedImageView stopAnimating];
-            [self.audioImagesArray removeAllObjects];
-        }
-    }
-    self.lastArtist = artistName;
-
     NSString *artworkImageURLString = album.artworkImage;
     if (artworkImageURLString != nil)
         [self fetchAudioImage:[NSURL URLWithString:artworkImageURLString]];
@@ -750,10 +755,14 @@ currentMediaHasTrackToChooseFrom:(BOOL)currentMediaHasTrackToChooseFrom
     NSUInteger imageCount = imageURLStrings.count;
     NSUInteger totalImageCount;
 
+    @synchronized(self.audioImagesArray) {
+        totalImageCount = self.audioImagesArray.count;
+    }
+
     /* reasonably limit the number of images we fetch */
     if (imageCount > 10)
         imageCount = 10;
-    totalImageCount = imageCount;
+    totalImageCount += imageCount;
     for (NSUInteger x = 0; x < imageCount; x++)
         [self fetchAudioImage:[NSURL URLWithString:imageURLStrings[x]]];
 
@@ -763,7 +772,7 @@ currentMediaHasTrackToChooseFrom:(BOOL)currentMediaHasTrackToChooseFrom
     }
 
     /* if we have too few HD pictures, try to add some medium quality ones */
-    if (imageCount < 4) {
+    if (imageCount < 4 && totalImageCount < 10) {
         imageURLStrings = album.mediumSizedArtistImages;
         imageCount = imageURLStrings.count;
         if (imageCount > 10)
@@ -790,21 +799,18 @@ currentMediaHasTrackToChooseFrom:(BOOL)currentMediaHasTrackToChooseFrom
 
 - (void)MDFHatchetFetcher:(MDFHatchetFetcher *)aFetcher didFindArtist:(MDFArtist *)artist forSearchRequest:(NSString *)searchRequest
 {
-    if (![self.lastArtist isEqualToString:searchRequest]) {
-        @synchronized(self.audioImagesArray) {
-            [self.animatedImageView stopAnimating];
-            [self.audioImagesArray removeAllObjects];
-        }
-    }
-    self.lastArtist = searchRequest;
     NSArray *imageURLStrings = artist.largeSizedImages;
     NSUInteger imageCount = imageURLStrings.count;
     NSUInteger totalImageCount;
 
+    @synchronized(self.audioImagesArray) {
+        totalImageCount = self.audioImagesArray.count;
+    }
+
     /* reasonably limit the number of images we fetch */
     if (imageCount > 10)
         imageCount = 10;
-    totalImageCount = imageCount;
+    totalImageCount += imageCount;
     for (NSUInteger x = 0; x < imageCount; x++)
         [self fetchAudioImage:[NSURL URLWithString:imageURLStrings[x]]];
 
@@ -814,7 +820,7 @@ currentMediaHasTrackToChooseFrom:(BOOL)currentMediaHasTrackToChooseFrom
     }
 
     /* if we have too few HD pictures, try to add some medium quality ones */
-    if (imageCount < 4) {
+    if (imageCount < 4 && totalImageCount < 10) {
         imageURLStrings = artist.mediumSizedImages;
         imageCount = imageURLStrings.count;
         if (imageCount > 10)
