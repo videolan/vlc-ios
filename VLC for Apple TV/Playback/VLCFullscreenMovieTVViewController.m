@@ -668,10 +668,12 @@ currentMediaHasTrackToChooseFrom:(BOOL)currentMediaHasTrackToChooseFrom
     // FIXME: hard coded state since the state in mediaPlayer is incorrectly still buffering
     [self updateActivityIndicatorForState:VLCMediaPlayerStatePlaying];
 
-    VLCTransportBar *transportBar = self.transportBar;
-    transportBar.remainingTimeLabel.text = [[mediaPlayer remainingTime] stringValue];
-    transportBar.markerTimeLabel.text = [[mediaPlayer time] stringValue];
-    transportBar.playbackFraction = mediaPlayer.position;
+    if (self.bottomOverlayView.alpha != 0.0) {
+        VLCTransportBar *transportBar = self.transportBar;
+        transportBar.remainingTimeLabel.text = [[mediaPlayer remainingTime] stringValue];
+        transportBar.markerTimeLabel.text = [[mediaPlayer time] stringValue];
+        transportBar.playbackFraction = mediaPlayer.position;
+    }
 }
 
 #pragma mark - gesture recognizer delegate
