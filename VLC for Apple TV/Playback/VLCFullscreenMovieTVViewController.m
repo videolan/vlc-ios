@@ -742,10 +742,19 @@ currentMediaHasTrackToChooseFrom:(BOOL)currentMediaHasTrackToChooseFrom
 
     NSArray *imageURLStrings = album.largeSizedArtistImages;
     NSUInteger imageCount = imageURLStrings.count;
+
+    /* reasonably limit the number of images we fetch */
     if (imageCount > 10)
         imageCount = 10;
     for (NSUInteger x = 0; x < imageCount; x++)
         [self fetchAudioImage:[NSURL URLWithString:imageURLStrings[x]]];
+
+    /* when we only have 1 HD image, duplicate it */
+    if (imageCount == 1) {
+        [self fetchAudioImage:[NSURL URLWithString:[imageURLStrings firstObject]]];
+    }
+
+    /* if we have too few HD pictures, try to add some medium quality ones */
     if (imageCount < 4) {
         imageURLStrings = album.mediumSizedArtistImages;
         imageCount = imageURLStrings.count;
@@ -772,10 +781,19 @@ currentMediaHasTrackToChooseFrom:(BOOL)currentMediaHasTrackToChooseFrom
     self.lastArtist = searchRequest;
     NSArray *imageURLStrings = artist.largeSizedImages;
     NSUInteger imageCount = imageURLStrings.count;
+
+    /* reasonably limit the number of images we fetch */
     if (imageCount > 10)
         imageCount = 10;
     for (NSUInteger x = 0; x < imageCount; x++)
         [self fetchAudioImage:[NSURL URLWithString:imageURLStrings[x]]];
+
+    /* when we only have 1 HD image, duplicate it */
+    if (imageCount == 1) {
+        [self fetchAudioImage:[NSURL URLWithString:[imageURLStrings firstObject]]];
+    }
+
+    /* if we have too few HD pictures, try to add some medium quality ones */
     if (imageCount < 4) {
         imageURLStrings = artist.mediumSizedImages;
         imageCount = imageURLStrings.count;
