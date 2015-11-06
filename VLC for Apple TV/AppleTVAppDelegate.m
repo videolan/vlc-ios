@@ -61,7 +61,7 @@
     _settingsTableVC = [[VLCSettingsTableViewController alloc] initWithNibName:nil bundle:nil];
 
     _mainViewController = [[UITabBarController alloc] init];
-    _mainViewController.tabBar.backgroundColor = [UIColor VLCOrangeTintColor];
+    _mainViewController.tabBar.barTintColor = [UIColor VLCOrangeTintColor];
 
     _mainViewController.viewControllers = @[[[UINavigationController alloc] initWithRootViewController:_localNetworkVC],
                                             [[UINavigationController alloc] initWithRootViewController:_cloudServicesVC],
