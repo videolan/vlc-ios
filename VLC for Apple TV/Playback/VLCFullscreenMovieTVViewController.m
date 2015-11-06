@@ -722,6 +722,10 @@ currentMediaHasTrackToChooseFrom:(BOOL)currentMediaHasTrackToChooseFrom
     } else if (imageCount > 1) {
         [self.animatedImageView reloadData];
         [self.animatedImageView startAnimating];
+        if (imageCount > 2)
+            self.animatedImageView.timePerImage = JSAnimatedImagesViewDefaultTimePerImage;
+        else
+            self.animatedImageView.timePerImage = 30;
     }
 }
 
@@ -742,10 +746,12 @@ currentMediaHasTrackToChooseFrom:(BOOL)currentMediaHasTrackToChooseFrom
 
     NSArray *imageURLStrings = album.largeSizedArtistImages;
     NSUInteger imageCount = imageURLStrings.count;
+    NSUInteger totalImageCount;
 
     /* reasonably limit the number of images we fetch */
     if (imageCount > 10)
         imageCount = 10;
+    totalImageCount = imageCount;
     for (NSUInteger x = 0; x < imageCount; x++)
         [self fetchAudioImage:[NSURL URLWithString:imageURLStrings[x]]];
 
@@ -760,8 +766,18 @@ currentMediaHasTrackToChooseFrom:(BOOL)currentMediaHasTrackToChooseFrom
         imageCount = imageURLStrings.count;
         if (imageCount > 10)
             imageCount = 10;
+        totalImageCount += imageCount;
         for (NSUInteger x = 0; x < imageCount; x++)
             [self fetchAudioImage:[NSURL URLWithString:imageURLStrings[x]]];
+
+        /* oh crap, well better than a black screen */
+        if (imageCount == 1)
+            [self fetchAudioImage:[NSURL URLWithString:[imageURLStrings firstObject]]];
+    }
+
+    /* we have too few images, let's simplify our search request */
+    if (totalImageCount < 4) {
+        [self _simplifyMetaDataSearchString:artistName];
     }
 }
 
@@ -781,10 +797,12 @@ currentMediaHasTrackToChooseFrom:(BOOL)currentMediaHasTrackToChooseFrom
     self.lastArtist = searchRequest;
     NSArray *imageURLStrings = artist.largeSizedImages;
     NSUInteger imageCount = imageURLStrings.count;
+    NSUInteger totalImageCount;
 
     /* reasonably limit the number of images we fetch */
     if (imageCount > 10)
         imageCount = 10;
+    totalImageCount = imageCount;
     for (NSUInteger x = 0; x < imageCount; x++)
         [self fetchAudioImage:[NSURL URLWithString:imageURLStrings[x]]];
 
@@ -799,9 +817,26 @@ currentMediaHasTrackToChooseFrom:(BOOL)currentMediaHasTrackToChooseFrom
         imageCount = imageURLStrings.count;
         if (imageCount > 10)
             imageCount = 10;
+        totalImageCount += imageCount;
         for (NSUInteger x = 0; x < imageCount; x++)
             [self fetchAudioImage:[NSURL URLWithString:imageURLStrings[x]]];
+
+        /* oh crap, well better than a black screen */
+        if (imageCount == 1)
+            [self fetchAudioImage:[NSURL URLWithString:[imageURLStrings firstObject]]];
     }
+
+    /* we have too few images, let's simplify our search request */
+    if (totalImageCount < 4) {
+        [self _simplifyMetaDataSearchString:searchRequest];
+    }
+}
+
+- (void)_simplifyMetaDataSearchString:(NSString *)searchString
+{
+    NSRange lastRange = [searchString rangeOfString:@" " options:NSBackwardsSearch];
+    if (lastRange.location != NSNotFound)
+        [self.audioMetaDataFetcher searchForArtist:[searchString substringToIndex:lastRange.location]];
 }
 
 - (void)MDFHatchetFetcher:(MDFHatchetFetcher *)aFetcher didFailToFindArtistForSearchRequest:(NSString *)searchRequest
