@@ -742,11 +742,15 @@ currentMediaHasTrackToChooseFrom:(BOOL)currentMediaHasTrackToChooseFrom
 
     NSArray *imageURLStrings = album.largeSizedArtistImages;
     NSUInteger imageCount = imageURLStrings.count;
+    if (imageCount > 10)
+        imageCount = 10;
     for (NSUInteger x = 0; x < imageCount; x++)
         [self fetchAudioImage:[NSURL URLWithString:imageURLStrings[x]]];
-    if (imageCount < 5) {
+    if (imageCount < 4) {
         imageURLStrings = album.mediumSizedArtistImages;
         imageCount = imageURLStrings.count;
+        if (imageCount > 10)
+            imageCount = 10;
         for (NSUInteger x = 0; x < imageCount; x++)
             [self fetchAudioImage:[NSURL URLWithString:imageURLStrings[x]]];
     }
@@ -768,11 +772,15 @@ currentMediaHasTrackToChooseFrom:(BOOL)currentMediaHasTrackToChooseFrom
     self.lastArtist = searchRequest;
     NSArray *imageURLStrings = artist.largeSizedImages;
     NSUInteger imageCount = imageURLStrings.count;
+    if (imageCount > 10)
+        imageCount = 10;
     for (NSUInteger x = 0; x < imageCount; x++)
         [self fetchAudioImage:[NSURL URLWithString:imageURLStrings[x]]];
     if (imageCount < 4) {
         imageURLStrings = artist.mediumSizedImages;
         imageCount = imageURLStrings.count;
+        if (imageCount > 10)
+            imageCount = 10;
         for (NSUInteger x = 0; x < imageCount; x++)
             [self fetchAudioImage:[NSURL URLWithString:imageURLStrings[x]]];
     }
