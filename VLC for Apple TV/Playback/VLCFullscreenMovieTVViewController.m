@@ -110,9 +110,11 @@ typedef NS_ENUM(NSInteger, VLCPlayerScanState)
     siriArrowRecognizer.delegate = self;
     [self.view addGestureRecognizer:siriArrowRecognizer];
 
-    self.animatedImageView = [[JSAnimatedImagesView alloc] initWithFrame:self.view.frame];
-    self.animatedImageView.dataSource = self;
-    self.animatedImageView.backgroundColor = [UIColor blackColor];
+    JSAnimatedImagesView *animatedImageView = [[JSAnimatedImagesView alloc] initWithFrame:self.view.frame];
+    animatedImageView.dataSource = self;
+    animatedImageView.backgroundColor = [UIColor blackColor];
+    animatedImageView.timePerImage = 20;
+    self.animatedImageView = animatedImageView;
 }
 
 - (void)didReceiveMemoryWarning
@@ -624,6 +626,7 @@ currentMediaHasTrackToChooseFrom:(BOOL)currentMediaHasTrackToChooseFrom
 {
     self.titleLabel.text = title;
 
+    JSAnimatedImagesView *animatedImageView = self.animatedImageView;
     if (audioOnly) {
         if (!self.audioImagesArray)
             self.audioImagesArray = [NSMutableArray array];
@@ -650,10 +653,10 @@ currentMediaHasTrackToChooseFrom:(BOOL)currentMediaHasTrackToChooseFrom
             [self.audioMetaDataFetcher searchForArtist:title];
         }
         [self performSelectorOnMainThread:@selector(showAnimatedImagesView) withObject:nil waitUntilDone:NO];
-    } else if (self.animatedImageView.superview != nil) {
+    } else if (animatedImageView.superview != nil) {
         [self.audioMetaDataFetcher cancelAllRequests];
-        [self.animatedImageView stopAnimating];
-        [self.animatedImageView removeFromSuperview];
+        [animatedImageView stopAnimating];
+        [animatedImageView removeFromSuperview];
         if (self.audioImagesArray) {
             [self.audioImagesArray removeAllObjects];
         }
@@ -714,20 +717,17 @@ currentMediaHasTrackToChooseFrom:(BOOL)currentMediaHasTrackToChooseFrom
 - (void)showAnimatedImagesView
 {
     NSUInteger imageCount;
+    JSAnimatedImagesView *animatedImageView = self.animatedImageView;
     @synchronized(self.audioImagesArray) {
         imageCount = self.audioImagesArray.count;
     }
-    if (self.animatedImageView.superview == nil && imageCount > 1) {
-        [self.animatedImageView reloadData];
-        self.animatedImageView.frame = self.view.frame;
-        [self.view addSubview:self.animatedImageView];
+    if (animatedImageView.superview == nil && imageCount > 1) {
+        [animatedImageView reloadData];
+        animatedImageView.frame = self.view.frame;
+        [self.view addSubview:animatedImageView];
     } else if (imageCount > 1) {
-        [self.animatedImageView reloadData];
-        [self.animatedImageView startAnimating];
-        if (imageCount > 2)
-            self.animatedImageView.timePerImage = JSAnimatedImagesViewDefaultTimePerImage;
-        else
-            self.animatedImageView.timePerImage = 30;
+        [animatedImageView reloadData];
+        [animatedImageView startAnimating];
     }
 }
 
