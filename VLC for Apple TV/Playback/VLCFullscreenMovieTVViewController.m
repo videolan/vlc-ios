@@ -15,6 +15,8 @@
 #import "VLCIRTVTapGestureRecognizer.h"
 #import "VLCHTTPUploaderController.h"
 #import "VLCSiriRemoteGestureRecognizer.h"
+#import "JSAnimatedImagesView.h"
+#import "MetaDataFetcherKit.h"
 
 typedef NS_ENUM(NSInteger, VLCPlayerScanState)
 {
@@ -26,12 +28,17 @@ typedef NS_ENUM(NSInteger, VLCPlayerScanState)
 @interface VLCFullscreenMovieTVViewController (UIViewControllerTransitioningDelegate) <UIViewControllerTransitioningDelegate, UIGestureRecognizerDelegate>
 @end
 
-@interface VLCFullscreenMovieTVViewController ()
+@interface VLCFullscreenMovieTVViewController () <JSAnimatedImagesViewDataSource, MDFHatchetFetcherDataRecipient>
 
 @property (nonatomic) NSTimer *hidePlaybackControlsViewAfterDeleayTimer;
 @property (nonatomic) VLCPlaybackInfoTVViewController *infoViewController;
 @property (nonatomic) NSNumber *scanSavedPlaybackRate;
 @property (nonatomic) VLCPlayerScanState scanState;
+@property (nonatomic) JSAnimatedImagesView *animatedImageView;
+@property (nonatomic) MDFHatchetFetcher *audioMetaDataFetcher;
+@property (nonatomic) NSString *lastArtist;
+@property (nonatomic) NSMutableArray *audioImagesArray;
+
 @end
 
 @implementation VLCFullscreenMovieTVViewController
@@ -103,6 +110,9 @@ typedef NS_ENUM(NSInteger, VLCPlayerScanState)
     siriArrowRecognizer.delegate = self;
     [self.view addGestureRecognizer:siriArrowRecognizer];
 
+    self.animatedImageView = [[JSAnimatedImagesView alloc] initWithFrame:self.view.frame];
+    self.animatedImageView.dataSource = self;
+    self.animatedImageView.backgroundColor = [UIColor blackColor];
 }
 
 - (void)didReceiveMemoryWarning
@@ -613,6 +623,41 @@ currentMediaHasTrackToChooseFrom:(BOOL)currentMediaHasTrackToChooseFrom
                                    audioOnly:(BOOL)audioOnly
 {
     self.titleLabel.text = title;
+
+    if (audioOnly) {
+        if (!self.audioImagesArray)
+            self.audioImagesArray = [NSMutableArray array];
+
+        if (!self.audioMetaDataFetcher) {
+            self.audioMetaDataFetcher = [[MDFHatchetFetcher alloc] init];
+            self.audioMetaDataFetcher.dataRecipient = self;
+        }
+
+        [self.audioMetaDataFetcher cancelAllRequests];
+
+        if (artist != nil && album != nil) {
+            [self.audioMetaDataFetcher searchForAlbum:album ofArtist:artist];
+            APLog(@"Audio-only track meta changed, tracing artist '%@' and album '%@'", artist, album);
+        } else if (artist != nil) {
+            [self.audioMetaDataFetcher searchForArtist:artist];
+            APLog(@"Audio-only track meta changed, tracing artist '%@'", artist);
+        } else if (title != nil) {
+            NSRange deviderRange = [title rangeOfString:@" - "];
+            if (deviderRange.length != 0) { // for radio stations, all we have is "ARTIST - TITLE"
+                title = [title substringToIndex:deviderRange.location];
+            }
+            APLog(@"Audio-only track meta changed, tracing artist '%@'", title);
+            [self.audioMetaDataFetcher searchForArtist:title];
+        }
+        [self performSelectorOnMainThread:@selector(showAnimatedImagesView) withObject:nil waitUntilDone:NO];
+    } else if (self.animatedImageView.superview != nil) {
+        [self.audioMetaDataFetcher cancelAllRequests];
+        [self.animatedImageView stopAnimating];
+        [self.animatedImageView removeFromSuperview];
+        if (self.audioImagesArray) {
+            [self.audioImagesArray removeAllObjects];
+        }
+    }
 }
 
 #pragma mark -
@@ -641,6 +686,120 @@ currentMediaHasTrackToChooseFrom:(BOOL)currentMediaHasTrackToChooseFrom
 {
     return YES;
 }
+
+#pragma mark - slide show view data source
+
+- (NSUInteger)animatedImagesNumberOfImages:(JSAnimatedImagesView *)animatedImagesView
+{
+    NSUInteger retValue;
+    @synchronized(self.audioImagesArray) {
+        retValue = self.audioImagesArray.count;
+    }
+    return retValue;
+}
+
+- (UIImage *)animatedImagesView:(JSAnimatedImagesView *)animatedImagesView imageAtIndex:(NSUInteger)index
+{
+    UIImage *retImage;
+    @synchronized(self.audioImagesArray) {
+        if (index < self.audioImagesArray.count) {
+            retImage = self.audioImagesArray[index];
+        }
+    }
+    return retImage;
+}
+
+- (void)showAnimatedImagesView
+{
+    NSUInteger imageCount;
+    @synchronized(self.audioImagesArray) {
+        imageCount = self.audioImagesArray.count;
+    }
+    if (self.animatedImageView.superview == nil && imageCount > 1) {
+        [self.animatedImageView reloadData];
+        self.animatedImageView.frame = self.view.frame;
+        [self.view addSubview:self.animatedImageView];
+    } else if (imageCount > 1) {
+        [self.animatedImageView reloadData];
+        [self.animatedImageView startAnimating];
+    }
+}
+
+#pragma mark - meta data recipient
+- (void)MDFHatchetFetcher:(MDFHatchetFetcher *)aFetcher didFindAlbum:(MDFMusicAlbum *)album forArtistName:(NSString *)artistName
+{
+    if (![self.lastArtist isEqualToString:artistName]) {
+        @synchronized(self.audioImagesArray) {
+            [self.animatedImageView stopAnimating];
+            [self.audioImagesArray removeAllObjects];
+        }
+    }
+    self.lastArtist = artistName;
+
+    NSString *artworkImageURLString = album.artworkImage;
+    if (artworkImageURLString != nil)
+        [self fetchAudioImage:[NSURL URLWithString:artworkImageURLString]];
+
+    NSArray *imageURLStrings = album.largeSizedArtistImages;
+    NSUInteger imageCount = imageURLStrings.count;
+    for (NSUInteger x = 0; x < imageCount; x++)
+        [self fetchAudioImage:[NSURL URLWithString:imageURLStrings[x]]];
+    if (imageCount < 5) {
+        imageURLStrings = album.mediumSizedArtistImages;
+        imageCount = imageURLStrings.count;
+        for (NSUInteger x = 0; x < imageCount; x++)
+            [self fetchAudioImage:[NSURL URLWithString:imageURLStrings[x]]];
+    }
+}
+
+- (void)MDFHatchetFetcher:(MDFHatchetFetcher *)aFetcher didFailToFindAlbum:(NSString *)albumName forArtistName:(NSString *)artistName
+{
+    APLog(@"%s: %@ %@", __PRETTY_FUNCTION__, artistName, albumName);
+}
+
+- (void)MDFHatchetFetcher:(MDFHatchetFetcher *)aFetcher didFindArtist:(MDFArtist *)artist forSearchRequest:(NSString *)searchRequest
+{
+    if (![self.lastArtist isEqualToString:searchRequest]) {
+        @synchronized(self.audioImagesArray) {
+            [self.animatedImageView stopAnimating];
+            [self.audioImagesArray removeAllObjects];
+        }
+    }
+    self.lastArtist = searchRequest;
+    NSArray *imageURLStrings = artist.largeSizedImages;
+    NSUInteger imageCount = imageURLStrings.count;
+    for (NSUInteger x = 0; x < imageCount; x++)
+        [self fetchAudioImage:[NSURL URLWithString:imageURLStrings[x]]];
+    if (imageCount < 4) {
+        imageURLStrings = artist.mediumSizedImages;
+        imageCount = imageURLStrings.count;
+        for (NSUInteger x = 0; x < imageCount; x++)
+            [self fetchAudioImage:[NSURL URLWithString:imageURLStrings[x]]];
+    }
+}
+
+- (void)MDFHatchetFetcher:(MDFHatchetFetcher *)aFetcher didFailToFindArtistForSearchRequest:(NSString *)searchRequest
+{
+    APLog(@"%s: %@", __PRETTY_FUNCTION__, searchRequest);
+}
+
+- (void)fetchAudioImage:(NSURL *)url
+{
+    __weak typeof(self) weakSelf = self;
+    NSURLSession *sharedSession = [NSURLSession sharedSession];
+    NSURLSessionDataTask *task = [sharedSession dataTaskWithURL:url completionHandler:^(NSData * _Nullable data, NSURLResponse * _Nullable response, NSError * _Nullable error) {
+        if (!data) {
+            return;
+        }
+        UIImage *image = [UIImage imageWithData:data];
+        @synchronized(weakSelf.audioImagesArray) {
+            [weakSelf.audioImagesArray addObject:image];
+        }
+        [weakSelf performSelectorOnMainThread:@selector(showAnimatedImagesView) withObject:nil waitUntilDone:NO];
+    }];
+    [task resume];
+}
+
 @end
 
 
