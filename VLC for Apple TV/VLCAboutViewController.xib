@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
-<document type="com.apple.InterfaceBuilder.AppleTV.XIB" version="3.0" toolsVersion="9527.1" systemVersion="15C27e" targetRuntime="AppleTV" propertyAccessControl="none" useAutolayout="YES">
+<document type="com.apple.InterfaceBuilder.AppleTV.XIB" version="3.0" toolsVersion="9059" systemVersion="15B42" targetRuntime="AppleTV" propertyAccessControl="none" useAutolayout="YES">
     <dependencies>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="9525.1"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="9049"/>
     </dependencies>
     <objects>
         <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner" customClass="VLCAboutViewController">
@@ -21,28 +21,33 @@
             <subviews>
                 <textView clipsSubviews="YES" multipleTouchEnabled="YES" userInteractionEnabled="NO" contentMode="scaleToFill" editable="NO" textAlignment="natural" selectable="NO" translatesAutoresizingMaskIntoConstraints="NO" id="icn-Lc-xfi">
                     <rect key="frame" x="449" y="168" width="1412" height="849"/>
+                    <animations/>
                     <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
                     <string key="text">Lorem ipsum dolor sit er elit lamet, consectetaur cillium adipisicing pecu, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum. Nam liber te conscient to factor tum poen legum odioque civiuda.</string>
                     <fontDescription key="fontDescription" style="UICTFontTextStyleBody"/>
                     <textInputTraits key="textInputTraits" autocapitalizationType="sentences"/>
                 </textView>
-                <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="about-app-icon" translatesAutoresizingMaskIntoConstraints="NO" id="R08-li-qdl">
-                    <rect key="frame" x="69" y="168" width="372" height="225"/>
+                <imageView userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="about-app-icon" translatesAutoresizingMaskIntoConstraints="NO" id="R08-li-qdl">
+                    <rect key="frame" x="69" y="168" width="372" height="255"/>
+                    <animations/>
                     <constraints>
                         <constraint firstAttribute="width" constant="372" id="DCL-pI-IFE"/>
                     </constraints>
                 </imageView>
                 <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="TMDb" translatesAutoresizingMaskIntoConstraints="NO" id="3Da-Zc-Ax4">
-                    <rect key="frame" x="69" y="600" width="372" height="47"/>
+                    <rect key="frame" x="69" y="630" width="372" height="47"/>
+                    <animations/>
                 </imageView>
                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Version: %@ (%@)" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="rzP-zh-asV">
-                    <rect key="frame" x="155" y="414" width="200" height="30"/>
+                    <rect key="frame" x="155" y="444" width="200" height="30"/>
+                    <animations/>
                     <fontDescription key="fontDescription" style="UICTFontTextStyleCaption1"/>
                     <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
                     <nil key="highlightedColor"/>
                 </label>
                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="2" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Rjh-23-auY">
-                    <rect key="frame" x="197" y="452" width="116" height="58"/>
+                    <rect key="frame" x="197" y="482" width="116" height="58"/>
+                    <animations/>
                     <string key="text">Based on:
 lollipop 4.4</string>
                     <fontDescription key="fontDescription" style="UICTFontTextStyleCaption2"/>
@@ -51,17 +56,20 @@ lollipop 4.4</string>
                 </label>
                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="QoD-of-U1w">
                     <rect key="frame" x="890" y="60" width="140" height="69"/>
+                    <animations/>
                     <fontDescription key="fontDescription" style="UICTFontTextStyleTitle2"/>
                     <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
                     <nil key="highlightedColor"/>
                 </label>
                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="This product uses the TMDb API but is not endorsed or certified by TMDb." textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="W9c-cp-khK">
-                    <rect key="frame" x="69" y="654" width="372" height="41"/>
+                    <rect key="frame" x="69" y="684" width="372" height="41"/>
+                    <animations/>
                     <fontDescription key="fontDescription" type="system" pointSize="17"/>
                     <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
                     <nil key="highlightedColor"/>
                 </label>
             </subviews>
+            <animations/>
             <constraints>
                 <constraint firstItem="3Da-Zc-Ax4" firstAttribute="width" secondItem="R08-li-qdl" secondAttribute="width" id="2vY-lX-WkX"/>
                 <constraint firstItem="3Da-Zc-Ax4" firstAttribute="centerX" secondItem="R08-li-qdl" secondAttribute="centerX" id="4WI-Pr-oFM"/>
@@ -86,6 +94,6 @@ lollipop 4.4</string>
     </objects>
     <resources>
         <image name="TMDb" width="372" height="47"/>
-        <image name="about-app-icon" width="372" height="225"/>
+        <image name="about-app-icon" width="425" height="255"/>
     </resources>
 </document>

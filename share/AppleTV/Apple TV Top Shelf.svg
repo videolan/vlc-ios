@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<svg width="1920px" height="720px" viewBox="0 0 1920 720" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" xmlns:sketch="http://www.bohemiancoding.com/sketch/ns">
+    <!-- Generator: Sketch 3.4.1 (15681) - http://www.bohemiancoding.com/sketch -->
+    <title>Apple TV Top Shelf</title>
+    <desc>Created with Sketch.</desc>
+    <defs>
+        <linearGradient x1="50%" y1="0%" x2="50%" y2="100%" id="linearGradient-1">
+            <stop stop-color="#EE9700" offset="0%"></stop>
+            <stop stop-color="#E75D17" offset="100%"></stop>
+        </linearGradient>
+        <linearGradient x1="50%" y1="0%" x2="50%" y2="100%" id="linearGradient-2">
+            <stop stop-color="#FEF9F4" offset="0%"></stop>
+            <stop stop-color="#CAC4C1" offset="100%"></stop>
+        </linearGradient>
+        <path d="M2.04112193,433.898351 C2.04112193,433.898351 -5.03463949,458.504277 13.692708,460.54535 C33.014871,460.134882 399.324228,460.955838 399.324228,460.955838 C399.324228,460.955838 417.551499,458.340875 415.085079,440.075225 C412.618659,421.809574 371.788253,294.814442 371.788253,294.814442 C371.788253,294.814442 370.552877,282.871183 348.894707,282.871183 C327.236537,282.871182 325.308222,283.138336 325.308222,283.138336 L242.126863,13.3735747 C242.126863,13.3735747 237.753083,1.25374595 208.022436,1.25374573 C178.291789,1.2537455 173.412359,13.3735747 173.412359,13.3735747 L89.8073006,282.871183 C89.8073006,282.871183 61.3068647,283.138338 61.3068623,283.138326 C61.3068599,283.138314 47.146191,282.026323 41.6439292,300.015357 L2.04112193,433.898351 Z M207.606412,263.984973 C244.501647,263.984973 278.154812,259.399045 299.955471,236.021739 C299.955471,236.021739 299.95547,236.021739 320.686013,305.538632 C304.495549,344.994142 246.997151,351.360062 205.024123,350.733563 C185.838411,350.447193 107.937596,350.733568 94.1357314,303.160173 C115.24794,236.021739 115.247939,236.021739 115.247939,236.021739 C133.28635,256.516023 170.711177,263.984973 207.606412,263.984973 Z M165.550976,70.1486474 C150.155981,119.311715 140.902027,150.90849 140.902027,150.90849 C140.902027,150.90849 163.444678,167.536473 202.927138,167.877242 C235.249458,168.156212 256.010754,165.277837 274.163196,149.743096 C263.809517,118.424262 260.049148,106.291624 249.308635,70.1486474 C215.901179,79.8181213 193.369266,78.7872531 165.550976,70.1486474 Z" id="path-3"></path>
+    </defs>
+    <g id="Page-1" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd" sketch:type="MSPage">
+        <g id="Apple-TV-Top-Shelf" sketch:type="MSArtboardGroup">
+            <rect id="Rectangle-1-Copy" fill="url(#linearGradient-1)" sketch:type="MSShapeGroup" x="0" y="0" width="1920" height="720"></rect>
+            <g id="Cone-Copy" sketch:type="MSLayerGroup" transform="translate(751.000000, 129.000000)">
+                <mask id="mask-4" sketch:name="Cone" fill="white">
+                    <use xlink:href="#path-3"></use>
+                </mask>
+                <use id="Cone" fill="url(#linearGradient-2)" sketch:type="MSShapeGroup" xlink:href="#path-3"></use>
+            </g>
+        </g>
+    </g>
+</svg>

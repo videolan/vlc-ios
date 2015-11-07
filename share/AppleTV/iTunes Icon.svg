@@ -1,0 +1,34 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<svg width="400px" height="240px" viewBox="0 0 400 240" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" xmlns:sketch="http://www.bohemiancoding.com/sketch/ns">
+    <!-- Generator: Sketch 3.4.1 (15681) - http://www.bohemiancoding.com/sketch -->
+    <title>iTunes Icon</title>
+    <desc>Created with Sketch.</desc>
+    <defs>
+        <linearGradient x1="50%" y1="0%" x2="50%" y2="100%" id="linearGradient-1">
+            <stop stop-color="#EE9700" offset="0%"></stop>
+            <stop stop-color="#E75D17" offset="100%"></stop>
+        </linearGradient>
+        <linearGradient x1="50%" y1="0%" x2="50%" y2="100%" id="linearGradient-2">
+            <stop stop-color="#FEF9F4" offset="0%"></stop>
+            <stop stop-color="#CAC4C1" offset="100%"></stop>
+        </linearGradient>
+        <path d="M0.664097088,140.876088 C0.664097088,140.876088 -1.63806452,148.865025 4.45504374,149.527711 C10.7416805,149.394442 129.923672,149.660986 129.923672,149.660986 C129.923672,149.660986 135.854076,148.811972 135.051605,142.881566 C134.249133,136.95116 120.964599,95.7189746 120.964599,95.7189746 C120.964599,95.7189746 120.562659,91.8412933 113.515981,91.8412931 C106.469304,91.8412929 105.84191,91.9280313 105.84191,91.9280313 L78.7781181,4.3420697 C78.7781181,4.3420697 77.3550702,0.407060374 67.6819409,0.407060301 C58.0088117,0.407060228 56.421246,4.3420697 56.421246,4.3420697 L29.2196002,91.8412931 C29.2196002,91.8412931 19.9467311,91.9280317 19.9467303,91.9280279 C19.9467295,91.9280242 15.3394306,91.566988 13.549221,97.4075833 L0.664097088,140.876088 Z M67.5465839,85.7094069 C79.5507751,85.7094069 90.5001303,84.2204692 97.5931677,76.6304348 C97.5931677,76.6304348 97.5931672,76.6304348 104.338033,99.2008547 C99.0703222,112.011085 80.3627094,114.077942 66.7064131,113.874533 C60.4641721,113.781556 35.1184522,113.874535 30.6278935,98.4286276 C37.4969374,76.6304348 37.4969372,76.6304348 37.4969372,76.6304348 C43.3658939,83.2844229 55.5423926,85.7094069 67.5465839,85.7094069 Z M53.8634753,22.7755349 C48.8545776,38.7375698 45.8437218,48.9962629 45.8437218,48.9962629 C45.8437218,48.9962629 53.1781728,54.3949588 66.0241405,54.5055979 C76.5404936,54.5961727 83.2953648,53.6616353 89.2014225,48.6178882 C85.8327617,38.4494359 84.6092923,34.5102675 81.1147713,22.7755349 C70.2453595,25.9149745 62.9144023,25.580277 53.8634753,22.7755349 Z" id="path-3"></path>
+    </defs>
+    <g id="Page-1" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd" sketch:type="MSPage">
+        <g id="Apple-TV-Icon" sketch:type="MSArtboardGroup">
+            <g id="iTunes-Icon" sketch:type="MSLayerGroup">
+                <g id="Icon-Background" fill="url(#linearGradient-1)" sketch:type="MSShapeGroup">
+                    <rect id="Rectangle-1" x="0" y="0" width="400" height="240"></rect>
+                </g>
+                <g id="Icon-Foreground" transform="translate(132.000000, 45.000000)">
+                    <g id="Mask-Copy">
+                        <mask id="mask-4" sketch:name="Cone" fill="white">
+                            <use xlink:href="#path-3"></use>
+                        </mask>
+                        <use id="Cone" fill="url(#linearGradient-2)" sketch:type="MSShapeGroup" xlink:href="#path-3"></use>
+                    </g>
+                </g>
+            </g>
+        </g>
+    </g>
+</svg>
