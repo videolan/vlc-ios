@@ -11,7 +11,7 @@
 
 #import <UIKit/UIKit.h>
 #import "VLCNetworkServerBrowser-Protocol.h"
-@interface VLCServerBrowsingTVTableViewController : UITableViewController <VLCNetworkServerBrowserDelegate>
+@interface VLCServerBrowsingTVViewController : UICollectionViewController <VLCNetworkServerBrowserDelegate>
 
 - (instancetype)initWithServerBrowser:(id<VLCNetworkServerBrowser>)serverBrowser;
 @end

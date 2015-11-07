@@ -15,7 +15,7 @@
 
 extern NSString *const VLCServerBrowsingTVCellIdentifier;
 
-@interface VLCServerBrowsingTVCell : UITableViewCell <VLCServerBrowsingCell>
+@interface VLCServerBrowsingTVCell : UICollectionViewCell <VLCServerBrowsingCell>
 
 @property (nonatomic, weak) IBOutlet VLCNetworkImageView *thumbnailImageView;
 @property (nonatomic, weak) IBOutlet UILabel *titleLabel;

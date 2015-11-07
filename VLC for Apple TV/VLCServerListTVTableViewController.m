@@ -11,7 +11,7 @@
 
 #import "VLCServerListTVTableViewController.h"
 #import "VLCLocalNetworkServerTVCell.h"
-#import "VLCServerBrowsingTVTableViewController.h"
+#import "VLCServerBrowsingTVViewController.h"
 #import "VLCNetworkServerLoginInformation.h"
 
 #import "VLCNetworkServerBrowserPlex.h"
@@ -124,7 +124,7 @@
     if ([service respondsToSelector:@selector(serverBrowser)]) {
         id <VLCNetworkServerBrowser> browser = [service serverBrowser];
         if (browser) {
-            VLCServerBrowsingTVTableViewController *browsingViewController = [[VLCServerBrowsingTVTableViewController alloc] initWithServerBrowser:browser];
+            VLCServerBrowsingTVViewController *browsingViewController = [[VLCServerBrowsingTVViewController alloc] initWithServerBrowser:browser];
             [self presentViewController:[[UINavigationController alloc] initWithRootViewController:browsingViewController]
                                animated:YES
                              completion:nil];
@@ -229,7 +229,7 @@
     }
 
     if (serverBrowser) {
-        VLCServerBrowsingTVTableViewController *targetViewController = [[VLCServerBrowsingTVTableViewController alloc] initWithServerBrowser:serverBrowser];
+        VLCServerBrowsingTVViewController *targetViewController = [[VLCServerBrowsingTVViewController alloc] initWithServerBrowser:serverBrowser];
         [self presentViewController:[[UINavigationController alloc] initWithRootViewController:targetViewController]
                            animated:YES
                          completion:nil];

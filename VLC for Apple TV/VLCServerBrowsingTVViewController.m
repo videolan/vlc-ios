@@ -9,23 +9,23 @@
  * Refer to the COPYING file of the official project for license.
  *****************************************************************************/
 
-#import "VLCServerBrowsingTVTableViewController.h"
+#import "VLCServerBrowsingTVViewController.h"
 #import "VLCServerBrowsingTVCell.h"
 #import "VLCPlayerDisplayController.h"
 #import "VLCPlaybackController.h"
 #import "VLCServerBrowsingController.h"
+#import "VLCMaskView.h"
 
-@interface VLCServerBrowsingTVTableViewController ()
+@interface VLCServerBrowsingTVViewController ()
 @property (nonatomic, readonly) id<VLCNetworkServerBrowser>serverBrowser;
 @property (nonatomic) VLCServerBrowsingController *browsingController;
-
 @end
 
-@implementation VLCServerBrowsingTVTableViewController
+@implementation VLCServerBrowsingTVViewController
 
 - (instancetype)initWithServerBrowser:(id<VLCNetworkServerBrowser>)serverBrowser
 {
-    self = [super init];
+    self = [super initWithNibName:@"VLCServerBrowsingTVViewController" bundle:nil];
     if (self) {
         _serverBrowser = serverBrowser;
         serverBrowser.delegate = self;
@@ -37,16 +37,49 @@
     return self;
 }
 
+
 - (void)viewDidLoad {
     [super viewDidLoad];
-    self.tableView.rowHeight = 150;
-    [self.tableView registerNib:[UINib nibWithNibName:@"VLCServerBrowsingTVCell" bundle:nil] forCellReuseIdentifier:VLCServerBrowsingTVCellIdentifier];
+
+    UICollectionViewFlowLayout *flowLayout = (UICollectionViewFlowLayout *)self.collectionViewLayout;
+    const CGFloat inset = 50;
+    flowLayout.sectionInset = UIEdgeInsetsMake(inset, inset, inset, inset);
+    [self.collectionView registerNib:[UINib nibWithNibName:@"VLCServerBrowsingTVCell" bundle:nil] forCellWithReuseIdentifier:VLCServerBrowsingTVCellIdentifier];
     self.navigationItem.rightBarButtonItem = [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemRefresh target:self action:@selector(reloadData)];
+
+    self.collectionView.maskView = [[VLCMaskView alloc] initWithFrame:self.collectionView.bounds];
 }
 
 - (void)viewDidAppear:(BOOL)animated {
     [super viewDidAppear:animated];
     [self.serverBrowser update];
+}
+
+
+- (void)viewDidLayoutSubviews
+{
+    [super viewDidLayoutSubviews];
+
+    UICollectionView *collectionView = self.collectionView;
+    VLCMaskView *maskView = (VLCMaskView *)collectionView.maskView;
+    maskView.maskEnd = self.topLayoutGuide.length * 0.8;
+
+    /*
+     Update the position from where the collection view's content should
+     start to fade out. The size of the fade increases as the collection
+     view scrolls to a maximum of half the navigation bar's height.
+     */
+    CGFloat maximumMaskStart = maskView.maskEnd + (self.topLayoutGuide.length * 0.5);
+    CGFloat verticalScrollPosition = MAX(0, collectionView.contentOffset.y + collectionView.contentInset.top);
+    maskView.maskStart = MIN(maximumMaskStart, maskView.maskEnd + verticalScrollPosition);
+
+    /*
+     Position the mask view so that it is always fills the visible area of
+     the collection view.
+     */
+    CGSize collectionViewSize = self.collectionView.bounds.size;
+    maskView.frame = CGRectMake(0, collectionView.contentOffset.y, collectionViewSize.width, collectionViewSize.height);
+    
 }
 
 #pragma mark -
@@ -59,7 +92,7 @@
 
 - (void)networkServerBrowserDidUpdate:(id<VLCNetworkServerBrowser>)networkBrowser {
     self.title = networkBrowser.title;
-    [self.tableView reloadData];
+    [self.collectionView reloadData];
 }
 
 - (void)networkServerBrowser:(id<VLCNetworkServerBrowser>)networkBrowser requestDidFailWithError:(NSError *)error {
@@ -74,7 +107,7 @@
 - (void)didSelectItem:(id<VLCNetworkServerBrowserItem>)item index:(NSUInteger)index singlePlayback:(BOOL)singlePlayback
 {
     if (item.isContainer) {
-        VLCServerBrowsingTVTableViewController *targetViewController = [[VLCServerBrowsingTVTableViewController alloc] initWithServerBrowser:item.containerBrowser];
+        VLCServerBrowsingTVViewController *targetViewController = [[VLCServerBrowsingTVViewController alloc] initWithServerBrowser:item.containerBrowser];
         [self.navigationController pushViewController:targetViewController animated:YES];
     } else {
         if (singlePlayback) {
@@ -87,25 +120,31 @@
     }
 }
 
-#pragma mark - Table view data source
 
-- (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section {
+#pragma mark - collection view data source
+
+- (NSInteger)collectionView:(UICollectionView *)collectionView numberOfItemsInSection:(NSInteger)section
+{
     return [self.serverBrowser items].count;
 }
 
-- (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
+- (UICollectionViewCell *)collectionView:(UICollectionView *)collectionView cellForItemAtIndexPath:(NSIndexPath *)indexPath
 {
-    VLCServerBrowsingTVCell *cell = (VLCServerBrowsingTVCell *)[tableView dequeueReusableCellWithIdentifier:VLCServerBrowsingTVCellIdentifier];
-    if (!cell) {
-        cell = [[VLCServerBrowsingTVCell alloc] initWithStyle:UITableViewCellStyleSubtitle reuseIdentifier:VLCServerBrowsingTVCellIdentifier];
-    }
-    id<VLCNetworkServerBrowserItem> item = self.serverBrowser.items[indexPath.row];
-
-    [self.browsingController configureCell:cell withItem:item];
+    VLCServerBrowsingTVCell *cell = (VLCServerBrowsingTVCell *)[collectionView dequeueReusableCellWithReuseIdentifier:VLCServerBrowsingTVCellIdentifier forIndexPath:indexPath];
     return cell;
 }
 
-- (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
+- (void)collectionView:(UICollectionView *)collectionView willDisplayCell:(UICollectionViewCell *)cell forItemAtIndexPath:(NSIndexPath *)indexPath
+{
+        id<VLCNetworkServerBrowserItem> item = self.serverBrowser.items[indexPath.row];
+
+    if ([cell conformsToProtocol:@protocol(VLCServerBrowsingCell)]) {
+        [self.browsingController configureCell:(id<VLCServerBrowsingCell>)cell withItem:item];
+    }
+}
+
+- (void)collectionView:(UICollectionView *)collectionView didSelectItemAtIndexPath:(NSIndexPath *)indexPath
+{
     NSInteger row = indexPath.row;
     id<VLCNetworkServerBrowserItem> item = self.serverBrowser.items[row];
 

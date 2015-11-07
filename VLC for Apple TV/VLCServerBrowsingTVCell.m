@@ -18,15 +18,13 @@ NSString *const VLCServerBrowsingTVCellIdentifier = @"VLCServerBrowsingTVCell";
 {
     MDFMovieDBFetcher *_metadataFetcher;
 }
+@property (nonatomic) IBOutlet NSLayoutConstraint *aspectRationConstraint;
+
 @end
 
 @implementation VLCServerBrowsingTVCell
 @synthesize thumbnailURL = _thumbnailURL, isDirectory = _isDirectory;
 
-- (instancetype)initWithStyle:(UITableViewCellStyle)style reuseIdentifier:(NSString *)reuseIdentifier
-{
-    return [super initWithStyle:UITableViewCellStyleSubtitle reuseIdentifier:reuseIdentifier];
-}
 
 
 - (void)awakeFromNib
@@ -95,6 +93,15 @@ NSString *const VLCServerBrowsingTVCellIdentifier = @"VLCServerBrowsingTVCell";
 {
     return self.subtitleLabel.text;
 }
+
+- (void)didUpdateFocusInContext:(UIFocusUpdateContext *)context withAnimationCoordinator:(UIFocusAnimationCoordinator *)coordinator
+{
+    [coordinator addCoordinatedAnimations:^{
+        self.transform = self.focused ? CGAffineTransformMakeScale(1.3, 1.3): CGAffineTransformIdentity;
+    } completion:nil];
+}
+
+#pragma mark - MDFMovieDB
 
 - (void)MDFMovieDBFetcher:(MDFMovieDBFetcher *)aFetcher didFindMovie:(MDFMovie *)details forSearchRequest:(NSString *)searchRequest
 {
