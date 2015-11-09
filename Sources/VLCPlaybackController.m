@@ -525,6 +525,11 @@ NSString *const VLCPlaybackControllerPlaybackDidFail = @"VLCPlaybackControllerPl
     return _mediaIsAudioOnly;
 }
 
+- (NSString *)mediaTitle
+{
+    return _title;
+}
+
 - (float)playbackRate
 {
     float f_rate = _mediaPlayer.rate;

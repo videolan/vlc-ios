@@ -11,7 +11,7 @@
 
 #import "VLCPlaybackInfoTVViewController.h"
 #import "VLCPlaybackInfoRateTVViewController.h"
-#import "VLCPlaybackInfoAudioTVViewController.h"
+#import "VLCPlaybackInfoMediaInfoTVViewController.h"
 #import "VLCPlaybackInfoTVAnimators.h"
 
 // just for appearance reasons
@@ -26,7 +26,7 @@
 {
     return @[
              [[VLCPlaybackInfoRateTVViewController alloc] initWithNibName:nil bundle:nil],
-             [[VLCPlaybackInfoAudioTVViewController alloc] initWithNibName:nil bundle:nil],
+             [[VLCPlaybackInfoMediaInfoTVViewController alloc] initWithNibName:nil bundle:nil],
              ];
 }
 

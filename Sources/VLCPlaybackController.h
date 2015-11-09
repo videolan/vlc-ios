@@ -76,6 +76,7 @@ currentMediaHasTrackToChooseFrom:(BOOL)currentMediaHasTrackToChooseFrom
 @property (nonatomic, readonly) BOOL currentMediaHasTrackToChooseFrom;
 @property (nonatomic, readonly) BOOL activePlaybackSession;
 @property (nonatomic, readonly) BOOL audioOnlyPlaybackSession;
+@property (nonatomic, readonly) NSString *mediaTitle;
 @property (nonatomic, readwrite) BOOL fullscreenSessionRequested;
 @property (nonatomic, readonly) NSDictionary *mediaOptionsDictionary;
 @property (nonatomic, readonly) NSTimer* sleepTimer;

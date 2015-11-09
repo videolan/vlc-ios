@@ -25,6 +25,7 @@
     }
     return self;
 }
+
 - (CGSize)preferredContentSize
 {
     return CGSizeMake(CGRectGetWidth(self.view.bounds), 100);
