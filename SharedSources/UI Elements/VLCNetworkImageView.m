@@ -72,4 +72,11 @@ static NSCache *sharedImageCache = nil;
         [self.downloadTask resume];
     }
 }
+
+- (void)setImage:(UIImage *)image
+{
+    [super setImage:image];
+    [self invalidateIntrinsicContentSize];
+}
+
 @end

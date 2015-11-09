@@ -27,7 +27,7 @@
                         <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
                         <nil key="highlightedColor"/>
                     </label>
-                    <imageView userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" placeholderIntrinsicWidth="300" placeholderIntrinsicHeight="169" translatesAutoresizingMaskIntoConstraints="NO" id="tHQ-sR-zn4" customClass="VLCNetworkImageView">
+                    <imageView userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" placeholderIntrinsicWidth="300" placeholderIntrinsicHeight="169" adjustsImageWhenAncestorFocused="YES" translatesAutoresizingMaskIntoConstraints="NO" id="tHQ-sR-zn4" customClass="VLCNetworkImageView">
                         <rect key="frame" x="0.0" y="13" width="300" height="169"/>
                         <animations/>
                     </imageView>
@@ -46,10 +46,11 @@
                 <constraint firstItem="I51-60-pwl" firstAttribute="top" secondItem="h3U-B3-AOa" secondAttribute="bottom" constant="8" id="UJB-cg-tjo"/>
                 <constraint firstAttribute="bottom" relation="greaterThanOrEqual" secondItem="I51-60-pwl" secondAttribute="bottom" constant="8" id="UxF-cz-tVA"/>
                 <constraint firstItem="I51-60-pwl" firstAttribute="centerX" secondItem="Q7n-Zw-Frg" secondAttribute="centerX" id="b1v-nG-XoP"/>
-                <constraint firstAttribute="trailing" secondItem="tHQ-sR-zn4" secondAttribute="trailing" id="bmc-sc-RXt"/>
+                <constraint firstAttribute="trailing" relation="greaterThanOrEqual" secondItem="tHQ-sR-zn4" secondAttribute="trailing" id="bmc-sc-RXt"/>
+                <constraint firstItem="tHQ-sR-zn4" firstAttribute="centerX" secondItem="Q7n-Zw-Frg" secondAttribute="centerX" id="chF-tu-ma8"/>
                 <constraint firstAttribute="trailing" secondItem="I51-60-pwl" secondAttribute="trailing" constant="8" id="ftZ-YD-4bt"/>
                 <constraint firstItem="h3U-B3-AOa" firstAttribute="leading" secondItem="Q7n-Zw-Frg" secondAttribute="leading" constant="8" id="p8s-T6-E5f"/>
-                <constraint firstItem="tHQ-sR-zn4" firstAttribute="leading" secondItem="Q7n-Zw-Frg" secondAttribute="leading" id="tfE-v0-GDf"/>
+                <constraint firstItem="tHQ-sR-zn4" firstAttribute="leading" relation="greaterThanOrEqual" secondItem="Q7n-Zw-Frg" secondAttribute="leading" id="tfE-v0-GDf"/>
                 <constraint firstItem="tHQ-sR-zn4" firstAttribute="top" relation="greaterThanOrEqual" secondItem="Q7n-Zw-Frg" secondAttribute="top" id="yTa-gB-hID"/>
             </constraints>
             <size key="customSize" width="314" height="270"/>

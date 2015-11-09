@@ -94,13 +94,6 @@ NSString *const VLCServerBrowsingTVCellIdentifier = @"VLCServerBrowsingTVCell";
     return self.subtitleLabel.text;
 }
 
-- (void)didUpdateFocusInContext:(UIFocusUpdateContext *)context withAnimationCoordinator:(UIFocusAnimationCoordinator *)coordinator
-{
-    [coordinator addCoordinatedAnimations:^{
-        self.transform = self.focused ? CGAffineTransformMakeScale(1.3, 1.3): CGAffineTransformIdentity;
-    } completion:nil];
-}
-
 #pragma mark - MDFMovieDB
 
 - (void)MDFMovieDBFetcher:(MDFMovieDBFetcher *)aFetcher didFindMovie:(MDFMovie *)details forSearchRequest:(NSString *)searchRequest
