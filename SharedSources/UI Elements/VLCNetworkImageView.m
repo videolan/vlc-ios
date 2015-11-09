@@ -59,7 +59,12 @@ static NSCache *sharedImageCache = nil;
             [[NSOperationQueue mainQueue] addOperationWithBlock:^{
                 __strong typeof(weakSelf) strongSelf = weakSelf;
                 if ([strongSelf.downloadTask.originalRequest.URL isEqual:url]) {
-                    strongSelf.image = image;
+                    if (strongSelf.animateImageSetting) {
+                        [UIView animateWithDuration:.3 animations:^{
+                            strongSelf.image = image;
+                        }];
+                    } else
+                        strongSelf.image = image;
                     strongSelf.downloadTask = nil;
                 }
             }];

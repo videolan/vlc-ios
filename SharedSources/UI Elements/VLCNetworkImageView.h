@@ -18,5 +18,6 @@
 @property (nonatomic) NSURLSessionDataTask *downloadTask;
 - (void)setImageWithURL:(NSURL *)url;
 - (void)cancelLoading;
+@property (nonatomic, readwrite) BOOL animateImageSetting;
 
 @end

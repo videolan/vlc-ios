@@ -31,6 +31,4 @@ pod 'box-ios-sdk-v2', :git => 'git://github.com/fkuehne/box-ios-sdk-v2.git' #has
 pod 'upnpx', '~>1.3.6'
 pod 'CocoaHTTPServer', :git => 'git://github.com/fkuehne/CocoaHTTPServer.git' # has our fixes
 pod 'MetaDataFetcherKit', '~>0.1.5'
-pod 'MSWeakTimer', :git => 'git://github.com/fkuehne/MSWeakTimer.git' #has tvOS support added
-pod 'JSAnimatedImagesView', :git => 'git://github.com/fkuehne/JSAnimatedImagesView.git' #has tvOS support added
 end

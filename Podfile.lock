@@ -20,10 +20,8 @@ PODS:
   - CocoaHTTPServer (2.3)
   - HockeySDK (3.6.4)
   - InAppSettingsKit (2.2.2)
-  - JSAnimatedImagesView (1.0.1)
   - MetaDataFetcherKit (0.1.5):
     - AFNetworking (= 3.0.0-beta.1)
-  - MSWeakTimer (1.1.1)
   - OBSlider (1.1.0)
   - RESideMenu (4.0.7)
   - SSKeychain (1.2.3)
@@ -35,9 +33,7 @@ DEPENDENCIES:
   - HockeySDK (~> 3.6.4)
   - InAppSettingsKit (from `git://github.com/fkuehne/InAppSettingsKit.git`, commit
     `415ea6bb`)
-  - JSAnimatedImagesView (from `git://github.com/fkuehne/JSAnimatedImagesView.git`)
   - MetaDataFetcherKit (~> 0.1.5)
-  - MSWeakTimer (from `git://github.com/fkuehne/MSWeakTimer.git`)
   - OBSlider (= 1.1.0)
   - RESideMenu (~> 4.0.7)
   - SSKeychain (from `git://github.com/fkuehne/sskeychain.git`)
@@ -51,10 +47,6 @@ EXTERNAL SOURCES:
   InAppSettingsKit:
     :commit: 415ea6bb
     :git: git://github.com/fkuehne/InAppSettingsKit.git
-  JSAnimatedImagesView:
-    :git: git://github.com/fkuehne/JSAnimatedImagesView.git
-  MSWeakTimer:
-    :git: git://github.com/fkuehne/MSWeakTimer.git
   SSKeychain:
     :git: git://github.com/fkuehne/sskeychain.git
 
@@ -68,12 +60,6 @@ CHECKOUT OPTIONS:
   InAppSettingsKit:
     :commit: 415ea6bb
     :git: git://github.com/fkuehne/InAppSettingsKit.git
-  JSAnimatedImagesView:
-    :commit: fd203bc32fedccc4589afb72974b7b1a9edf79f3
-    :git: git://github.com/fkuehne/JSAnimatedImagesView.git
-  MSWeakTimer:
-    :commit: 12a962bf2feaf219a044ccfa06b380f5b3ab26ee
-    :git: git://github.com/fkuehne/MSWeakTimer.git
   SSKeychain:
     :commit: a8e9b21f96adf1ec296e51778ef137f0ea3bd078
     :git: git://github.com/fkuehne/sskeychain.git
@@ -84,9 +70,7 @@ SPEC CHECKSUMS:
   CocoaHTTPServer: 07df8b05a8bde406fe367d22c90a24a2fd4ca49f
   HockeySDK: c07cdd580296737edcd0963e292c19885a53f563
   InAppSettingsKit: 76d5cfbaa3e3f8aa53fe3628516da7eb1aa6a5cb
-  JSAnimatedImagesView: ad2d21873490d3e675cbe8e49954dfd9495bdcec
   MetaDataFetcherKit: be17957a9498740bc34329a7e8295e930800884a
-  MSWeakTimer: 08188e0ae3f8eafcc31b95639565543c3c03cda6
   OBSlider: 490f108007bfdd5414a38650b211fe403a95b8a0
   RESideMenu: f24c508404b49c667344c54aba7e590883533958
   SSKeychain: 3f42991739c6c60a9cf1bbd4dff6c0d3694bcf3d

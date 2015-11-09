@@ -15,8 +15,8 @@
 #import "VLCIRTVTapGestureRecognizer.h"
 #import "VLCHTTPUploaderController.h"
 #import "VLCSiriRemoteGestureRecognizer.h"
-#import "JSAnimatedImagesView.h"
 #import "MetaDataFetcherKit.h"
+#import "VLCNetworkImageView.h"
 
 typedef NS_ENUM(NSInteger, VLCPlayerScanState)
 {
@@ -28,16 +28,16 @@ typedef NS_ENUM(NSInteger, VLCPlayerScanState)
 @interface VLCFullscreenMovieTVViewController (UIViewControllerTransitioningDelegate) <UIViewControllerTransitioningDelegate, UIGestureRecognizerDelegate>
 @end
 
-@interface VLCFullscreenMovieTVViewController () <JSAnimatedImagesViewDataSource, MDFHatchetFetcherDataRecipient>
+@interface VLCFullscreenMovieTVViewController () <MDFHatchetFetcherDataRecipient>
 
+@property (nonatomic) CADisplayLink *displayLink;
+@property (nonatomic) NSTimer *audioDescriptionScrollTimer;
 @property (nonatomic) NSTimer *hidePlaybackControlsViewAfterDeleayTimer;
 @property (nonatomic) VLCPlaybackInfoTVViewController *infoViewController;
 @property (nonatomic) NSNumber *scanSavedPlaybackRate;
 @property (nonatomic) VLCPlayerScanState scanState;
-@property (nonatomic) JSAnimatedImagesView *animatedImageView;
 @property (nonatomic) MDFHatchetFetcher *audioMetaDataFetcher;
 @property (nonatomic) NSString *lastArtist;
-@property (nonatomic) NSMutableArray *audioImagesArray;
 
 @end
 
@@ -75,7 +75,6 @@ typedef NS_ENUM(NSInteger, VLCPlayerScanState)
 
     self.bufferingLabel.text = NSLocalizedString(@"PLEASE_WAIT", nil);
 
-
     // Panning and Swiping
 
     UIPanGestureRecognizer *panGestureRecognizer = [[UIPanGestureRecognizer alloc] initWithTarget:self action:@selector(panGesture:)];
@@ -110,11 +109,9 @@ typedef NS_ENUM(NSInteger, VLCPlayerScanState)
     siriArrowRecognizer.delegate = self;
     [self.view addGestureRecognizer:siriArrowRecognizer];
 
-    JSAnimatedImagesView *animatedImageView = [[JSAnimatedImagesView alloc] initWithFrame:self.view.frame];
-    animatedImageView.dataSource = self;
-    animatedImageView.backgroundColor = [UIColor blackColor];
-    animatedImageView.timePerImage = 20;
-    self.animatedImageView = animatedImageView;
+    self.audioView.hidden = YES;
+    self.audioArtworkImageView.animateImageSetting = YES;
+    self.audioLargeBackgroundImageView.animateImageSetting = YES;
 }
 
 - (void)didReceiveMemoryWarning
@@ -154,6 +151,8 @@ typedef NS_ENUM(NSInteger, VLCPlayerScanState)
     }
 
     [vpc stopPlayback];
+
+    [self stopAudioDescriptionAnimation];
 
     [super viewWillDisappear:animated];
 
@@ -614,6 +613,11 @@ currentMediaHasTrackToChooseFrom:(BOOL)currentMediaHasTrackToChooseFrom
         [UIView animateWithDuration:.3 animations:^{
             self.bufferingLabel.hidden = YES;
         }];
+        if (controller.audioOnlyPlaybackSession) {
+            [UIView animateWithDuration:.3 animations:^{
+                self.audioView.hidden = NO;
+            }];
+        }
     }
 }
 
@@ -626,10 +630,10 @@ currentMediaHasTrackToChooseFrom:(BOOL)currentMediaHasTrackToChooseFrom
 {
     self.titleLabel.text = title;
 
-    JSAnimatedImagesView *animatedImageView = self.animatedImageView;
     if (audioOnly) {
-        if (!self.audioImagesArray)
-            self.audioImagesArray = [NSMutableArray array];
+        self.audioArtworkImageView.image = nil;
+        self.audioDescriptionTextView.text = nil;
+        [self stopAudioDescriptionAnimation];
 
         if (!self.audioMetaDataFetcher) {
             self.audioMetaDataFetcher = [[MDFHatchetFetcher alloc] init];
@@ -639,24 +643,39 @@ currentMediaHasTrackToChooseFrom:(BOOL)currentMediaHasTrackToChooseFrom
         [self.audioMetaDataFetcher cancelAllRequests];
 
         if (artist != nil && album != nil) {
+            [UIView animateWithDuration:.3 animations:^{
+                self.audioArtistLabel.text = artist;
+                self.audioAlbumNameLabel.text = album;
+            }];
             APLog(@"Audio-only track meta changed, tracing artist '%@' and album '%@'", artist, album);
         } else if (artist != nil) {
+            [UIView animateWithDuration:.3 animations:^{
+                self.audioArtistLabel.text = artist;
+                self.audioAlbumNameLabel.text = nil;
+            }];
             APLog(@"Audio-only track meta changed, tracing artist '%@'", artist);
         } else if (title != nil) {
             NSRange deviderRange = [title rangeOfString:@" - "];
             if (deviderRange.length != 0) { // for radio stations, all we have is "ARTIST - TITLE"
-                title = [title substringToIndex:deviderRange.location];
+                artist = [title substringToIndex:deviderRange.location];
+                title = [title substringFromIndex:deviderRange.location + deviderRange.length];
             }
-            APLog(@"Audio-only track meta changed, tracing artist '%@'", title);
-            artist = title;
+            APLog(@"Audio-only track meta changed, tracing artist '%@'", artist);
+            [UIView animateWithDuration:.3 animations:^{
+                self.audioArtistLabel.text = artist;
+                self.audioTitleLabel.text = nil;
+                self.audioAlbumNameLabel.text = nil;
+            }];
         }
         if (![self.lastArtist isEqualToString:artist]) {
-            @synchronized(self.audioImagesArray) {
-                [self.animatedImageView stopAnimating];
-                [self.audioImagesArray removeAllObjects];
-            }
+            UIImage *dummyImage = [UIImage imageNamed:@"about-app-icon"];
+            [UIView animateWithDuration:.3 animations:^{
+                self.audioArtworkImageView.image = dummyImage;
+                self.audioLargeBackgroundImageView.image = dummyImage;
+            }];
         }
         self.lastArtist = artist;
+        self.audioTitleLabel.text = title;
 
         if (artist != nil) {
             if (album != nil) {
@@ -664,15 +683,11 @@ currentMediaHasTrackToChooseFrom:(BOOL)currentMediaHasTrackToChooseFrom
             } else
                 [self.audioMetaDataFetcher searchForArtist:artist];
         }
-
-        [self performSelectorOnMainThread:@selector(showAnimatedImagesView) withObject:nil waitUntilDone:NO];
-    } else if (animatedImageView.superview != nil) {
+    } else if (!self.audioView.hidden) {
         [self.audioMetaDataFetcher cancelAllRequests];
-        [animatedImageView stopAnimating];
-        [animatedImageView removeFromSuperview];
-        if (self.audioImagesArray) {
-            [self.audioImagesArray removeAllObjects];
-        }
+        self.audioView.hidden = YES;
+        self.audioArtworkImageView.image = nil;
+        [self.audioLargeBackgroundImageView stopAnimating];
     }
 }
 
@@ -705,90 +720,49 @@ currentMediaHasTrackToChooseFrom:(BOOL)currentMediaHasTrackToChooseFrom
     return YES;
 }
 
-#pragma mark - slide show view data source
-
-- (NSUInteger)animatedImagesNumberOfImages:(JSAnimatedImagesView *)animatedImagesView
+#pragma mark - meta data recipient
+- (void)MDFHatchetFetcher:(MDFHatchetFetcher * _Nonnull)aFetcher
+             didFindAlbum:(MDFMusicAlbum * _Nonnull)album
+                 byArtist:(MDFArtist * _Nullable)artist
+         forSearchRequest:(NSString *)searchRequest
 {
-    NSUInteger retValue;
-    @synchronized(self.audioImagesArray) {
-        retValue = self.audioImagesArray.count;
+    /* we have no match */
+    if (!artist) {
+        [self _simplifyMetaDataSearchString:searchRequest];
+        return;
     }
-    return retValue;
-}
+    self.audioArtistLabel.text = artist.name;
+    if (artist.biography) {
+        [UIView animateWithDuration:.3 animations:^{
+            self.audioDescriptionTextView.text = artist.biography;
+        }];
+        [self startAudioDescriptionAnimation];
+    } else
+        [self stopAudioDescriptionAnimation];
 
-- (UIImage *)animatedImagesView:(JSAnimatedImagesView *)animatedImagesView imageAtIndex:(NSUInteger)index
-{
-    UIImage *retImage;
-    @synchronized(self.audioImagesArray) {
-        if (index < self.audioImagesArray.count) {
-            retImage = self.audioImagesArray[index];
+    NSString *imageURLString = album.artworkImage;
+    if (!imageURLString) {
+        NSArray *imageURLStrings = album.largeSizedArtistImages;
+
+        if (imageURLStrings.count > 0) {
+            imageURLString = imageURLStrings.firstObject;
+        } else {
+            imageURLStrings = artist.mediumSizedImages;
+            if (imageURLStrings.count > 0) {
+                imageURLString = imageURLStrings.firstObject;
+            }
         }
     }
-    return retImage;
-}
 
-- (void)showAnimatedImagesView
-{
-    NSUInteger imageCount;
-    JSAnimatedImagesView *animatedImageView = self.animatedImageView;
-    @synchronized(self.audioImagesArray) {
-        imageCount = self.audioImagesArray.count;
-    }
-    if (animatedImageView.superview == nil && imageCount > 1) {
-        [animatedImageView reloadData];
-        animatedImageView.frame = self.view.frame;
-        [self.view addSubview:animatedImageView];
-    } else if (imageCount > 1) {
-        [animatedImageView reloadData];
-        [animatedImageView startAnimating];
-    }
-}
+    if (imageURLString) {
+        [self.audioArtworkImageView setImageWithURL:[NSURL URLWithString:[NSString stringWithFormat:@"%@?height=500&width=500", imageURLString]]];
+        [self.audioLargeBackgroundImageView setImageWithURL:[NSURL URLWithString:imageURLString]];
+    } else {
+        UIImage *dummyImage = [UIImage imageNamed:@"about-app-icon"];
+        self.audioArtworkImageView.image = dummyImage;
+        self.audioLargeBackgroundImageView.image = dummyImage;
 
-#pragma mark - meta data recipient
-- (void)MDFHatchetFetcher:(MDFHatchetFetcher *)aFetcher didFindAlbum:(MDFMusicAlbum *)album forArtistName:(NSString *)artistName
-{
-    NSString *artworkImageURLString = album.artworkImage;
-    if (artworkImageURLString != nil)
-        [self fetchAudioImage:[NSURL URLWithString:artworkImageURLString]];
-
-    NSArray *imageURLStrings = album.largeSizedArtistImages;
-    NSUInteger imageCount = imageURLStrings.count;
-    NSUInteger totalImageCount;
-
-    @synchronized(self.audioImagesArray) {
-        totalImageCount = self.audioImagesArray.count;
-    }
-
-    /* reasonably limit the number of images we fetch */
-    if (imageCount > 10)
-        imageCount = 10;
-    totalImageCount += imageCount;
-    for (NSUInteger x = 0; x < imageCount; x++)
-        [self fetchAudioImage:[NSURL URLWithString:imageURLStrings[x]]];
-
-    /* when we only have 1 HD image, duplicate it */
-    if (imageCount == 1) {
-        [self fetchAudioImage:[NSURL URLWithString:[imageURLStrings firstObject]]];
-    }
-
-    /* if we have too few HD pictures, try to add some medium quality ones */
-    if (imageCount < 4 && totalImageCount < 10) {
-        imageURLStrings = album.mediumSizedArtistImages;
-        imageCount = imageURLStrings.count;
-        if (imageCount > 10)
-            imageCount = 10;
-        totalImageCount += imageCount;
-        for (NSUInteger x = 0; x < imageCount; x++)
-            [self fetchAudioImage:[NSURL URLWithString:imageURLStrings[x]]];
-
-        /* oh crap, well better than a black screen */
-        if (imageCount == 1)
-            [self fetchAudioImage:[NSURL URLWithString:[imageURLStrings firstObject]]];
-    }
-
-    /* we have too few images, let's simplify our search request */
-    if (totalImageCount < 4) {
-        [self _simplifyMetaDataSearchString:artistName];
+        [self _simplifyMetaDataSearchString:searchRequest];
     }
 }
 
@@ -799,43 +773,36 @@ currentMediaHasTrackToChooseFrom:(BOOL)currentMediaHasTrackToChooseFrom
 
 - (void)MDFHatchetFetcher:(MDFHatchetFetcher *)aFetcher didFindArtist:(MDFArtist *)artist forSearchRequest:(NSString *)searchRequest
 {
+    /* we have no match */
+    if (!artist) {
+        [self _simplifyMetaDataSearchString:searchRequest];
+        return;
+    }
+    self.audioArtistLabel.text = artist.name;
+    if (artist.biography) {
+        [UIView animateWithDuration:.3 animations:^{
+            self.audioDescriptionTextView.text = artist.biography;
+        }];
+        [self startAudioDescriptionAnimation];
+    } else
+        [self stopAudioDescriptionAnimation];
+
     NSArray *imageURLStrings = artist.largeSizedImages;
-    NSUInteger imageCount = imageURLStrings.count;
-    NSUInteger totalImageCount;
+    NSString *imageURLString;
 
-    @synchronized(self.audioImagesArray) {
-        totalImageCount = self.audioImagesArray.count;
-    }
-
-    /* reasonably limit the number of images we fetch */
-    if (imageCount > 10)
-        imageCount = 10;
-    totalImageCount += imageCount;
-    for (NSUInteger x = 0; x < imageCount; x++)
-        [self fetchAudioImage:[NSURL URLWithString:imageURLStrings[x]]];
-
-    /* when we only have 1 HD image, duplicate it */
-    if (imageCount == 1) {
-        [self fetchAudioImage:[NSURL URLWithString:[imageURLStrings firstObject]]];
-    }
-
-    /* if we have too few HD pictures, try to add some medium quality ones */
-    if (imageCount < 4 && totalImageCount < 10) {
+    if (imageURLStrings.count > 0) {
+        imageURLString = imageURLStrings.firstObject;
+    } else {
         imageURLStrings = artist.mediumSizedImages;
-        imageCount = imageURLStrings.count;
-        if (imageCount > 10)
-            imageCount = 10;
-        totalImageCount += imageCount;
-        for (NSUInteger x = 0; x < imageCount; x++)
-            [self fetchAudioImage:[NSURL URLWithString:imageURLStrings[x]]];
-
-        /* oh crap, well better than a black screen */
-        if (imageCount == 1)
-            [self fetchAudioImage:[NSURL URLWithString:[imageURLStrings firstObject]]];
+        if (imageURLStrings.count > 0) {
+            imageURLString = imageURLStrings.firstObject;
+        }
     }
 
-    /* we have too few images, let's simplify our search request */
-    if (totalImageCount < 4) {
+    if (imageURLString) {
+        [self.audioArtworkImageView setImageWithURL:[NSURL URLWithString:[NSString stringWithFormat:@"%@?height=500&width=500",imageURLString]]];
+        [self.audioLargeBackgroundImageView setImageWithURL:[NSURL URLWithString:imageURLString]];
+    } else {
         [self _simplifyMetaDataSearchString:searchRequest];
     }
 }
@@ -852,21 +819,53 @@ currentMediaHasTrackToChooseFrom:(BOOL)currentMediaHasTrackToChooseFrom
     APLog(@"%s: %@", __PRETTY_FUNCTION__, searchRequest);
 }
 
-- (void)fetchAudioImage:(NSURL *)url
+- (void)scrollAudioDescriptionAnimationToTop
 {
-    __weak typeof(self) weakSelf = self;
-    NSURLSession *sharedSession = [NSURLSession sharedSession];
-    NSURLSessionDataTask *task = [sharedSession dataTaskWithURL:url completionHandler:^(NSData * _Nullable data, NSURLResponse * _Nullable response, NSError * _Nullable error) {
-        if (!data) {
-            return;
-        }
-        UIImage *image = [UIImage imageWithData:data];
-        @synchronized(weakSelf.audioImagesArray) {
-            [weakSelf.audioImagesArray addObject:image];
-        }
-        [weakSelf performSelectorOnMainThread:@selector(showAnimatedImagesView) withObject:nil waitUntilDone:NO];
-    }];
-    [task resume];
+    [self stopAudioDescriptionAnimation];
+    [self.audioDescriptionTextView setContentOffset:CGPointZero animated:YES];
+    [self startAudioDescriptionAnimation];
+}
+
+- (void)startAudioDescriptionAnimation
+{
+    [self.audioDescriptionScrollTimer invalidate];
+    self.audioDescriptionScrollTimer = [NSTimer scheduledTimerWithTimeInterval:2.0
+                                                                        target:self
+                                                                      selector:@selector(animateAudioDescription)
+                                                                      userInfo:nil repeats:NO];
+}
+
+- (void)stopAudioDescriptionAnimation
+{
+    [self.audioDescriptionScrollTimer invalidate];
+    self.audioDescriptionScrollTimer = nil;
+    [self.displayLink invalidate];
+    self.displayLink = nil;
+}
+
+- (void)animateAudioDescription
+{
+    [self.displayLink invalidate];
+    self.displayLink = [CADisplayLink displayLinkWithTarget:self selector:@selector(displayLinkTriggered:)];
+    [self.displayLink addToRunLoop:[NSRunLoop mainRunLoop] forMode:NSDefaultRunLoopMode];
+}
+
+- (void)displayLinkTriggered:(CADisplayLink*)link
+{
+    UIScrollView *scrollView = self.audioDescriptionTextView;
+    CGFloat viewHeight = CGRectGetHeight(scrollView.frame);
+    CGFloat maxOffsetY = scrollView.contentSize.height - viewHeight;
+
+    CFTimeInterval secondsPerPage = 4.0;
+    CGFloat offset = link.duration/secondsPerPage * viewHeight;
+
+    CGFloat newYOffset = scrollView.contentOffset.y + offset;
+
+    if (newYOffset > maxOffsetY+viewHeight) {
+        scrollView.contentOffset = CGPointMake(0, -viewHeight);
+    } else {
+        scrollView.contentOffset = CGPointMake(0, newYOffset);
+    }
 }
 
 @end
