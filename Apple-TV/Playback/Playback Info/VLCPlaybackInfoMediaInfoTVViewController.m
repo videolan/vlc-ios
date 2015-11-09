@@ -119,7 +119,6 @@
         } else {
             metaDataString = [metaDataString stringByAppendingString:NSLocalizedString(@"ONE_AUDIO_TRACK", nil)];
         }
-        NSLog(@"audioCodecs %@", audioCodecs);
         metaDataString = [metaDataString stringByAppendingFormat:@" (%@)\n", audioCodecs];
     }
     NSInteger spuTrackCount = player.numberOfSubtitlesTracks - 1; // minus fake disable track
