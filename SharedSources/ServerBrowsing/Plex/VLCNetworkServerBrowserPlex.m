@@ -171,7 +171,9 @@
             } else {
                 keyPath = keyValue;
             }
-            urlPath = [baseURL URLByAppendingPathComponent:keyPath].absoluteString;
+            if (keyPath) {
+                urlPath = [baseURL URLByAppendingPathComponent:keyPath].absoluteString;
+            }
         } else {
             urlPath = dictionary[@"keyMedia"];
         }
