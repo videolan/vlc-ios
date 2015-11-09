@@ -733,6 +733,7 @@ currentMediaHasTrackToChooseFrom:(BOOL)currentMediaHasTrackToChooseFrom
     }
     self.audioArtistLabel.text = artist.name;
     if (artist.biography) {
+        [self scrollAudioDescriptionAnimationToTop];
         [UIView animateWithDuration:.3 animations:^{
             self.audioDescriptionTextView.text = artist.biography;
         }];
@@ -780,6 +781,7 @@ currentMediaHasTrackToChooseFrom:(BOOL)currentMediaHasTrackToChooseFrom
     }
     self.audioArtistLabel.text = artist.name;
     if (artist.biography) {
+        [self scrollAudioDescriptionAnimationToTop];
         [UIView animateWithDuration:.3 animations:^{
             self.audioDescriptionTextView.text = artist.biography;
         }];
