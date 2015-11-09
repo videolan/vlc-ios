@@ -73,8 +73,6 @@
 
 - (void)configureCell:(id<VLCServerBrowsingCell>)cell withItem:(id<VLCNetworkServerBrowserItem>)item
 {
-    cell.title = item.name;
-
     if (item.isContainer) {
         cell.isDirectory = YES;
         cell.thumbnailImage = self.folderImage;
@@ -101,6 +99,7 @@
         cell.isDownloadable = self.allowsFileDownload;
 #endif
     }
+    cell.title = item.name;
 
     NSURL *thumbnailURL = nil;
     if ([item respondsToSelector:@selector(thumbnailURL)])
