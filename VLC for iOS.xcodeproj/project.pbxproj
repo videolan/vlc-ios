@@ -565,7 +565,7 @@
 		7D2AC5CF1B67746700A8D9DD /* LiveAuthDialog_iPhone.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; name = LiveAuthDialog_iPhone.xib; path = ImportedSources/OneDrive/src/LiveSDK/Library/Internal/LiveAuthDialog_iPhone.xib; sourceTree = SOURCE_ROOT; };
 		7D2AEDE017FB775900B5281E /* sv */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = sv; path = sv.lproj/Localizable.strings; sourceTree = "<group>"; };
 		7D2AEDE517FB785100B5281E /* hu */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = hu; path = hu.lproj/Localizable.strings; sourceTree = "<group>"; };
-		7D2D7FD21BD2F109002D6B6D /* VLC for Apple TV.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.xml; path = "VLC for Apple TV.entitlements"; sourceTree = "<group>"; };
+		7D2D7FD21BD2F109002D6B6D /* VLC-TV.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.xml; path = "VLC-TV.entitlements"; sourceTree = "<group>"; };
 		7D2DF7BA1B67753E00FB78AB /* libMediaLibraryKit-readonly.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; path = "libMediaLibraryKit-readonly.a"; sourceTree = BUILT_PRODUCTS_DIR; };
 		7D2DF7BE1B67757700FB78AB /* libMediaLibraryKit.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; path = libMediaLibraryKit.a; sourceTree = BUILT_PRODUCTS_DIR; };
 		7D2DF7C01B67760100FB78AB /* libGTLTouchStaticLib.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; path = libGTLTouchStaticLib.a; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -668,7 +668,7 @@
 		7D5CAA8A1A4AD8E5003F2CBC /* VLCTrackSelectorHeaderView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = VLCTrackSelectorHeaderView.h; path = Sources/VLCTrackSelectorHeaderView.h; sourceTree = SOURCE_ROOT; };
 		7D5CAA8B1A4AD8E5003F2CBC /* VLCTrackSelectorHeaderView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = VLCTrackSelectorHeaderView.m; path = Sources/VLCTrackSelectorHeaderView.m; sourceTree = SOURCE_ROOT; };
 		7D5DD5C617590ABF001421E3 /* About Contents.html */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.html; path = "About Contents.html"; sourceTree = "<group>"; };
-		7D6069711BD94AD600AB765C /* VLCCloudStorageTableViewCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; name = VLCCloudStorageTableViewCell.xib; path = "VLC for Apple TV/VLCCloudStorageTableViewCell.xib"; sourceTree = SOURCE_ROOT; };
+		7D6069711BD94AD600AB765C /* VLCCloudStorageTableViewCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; name = VLCCloudStorageTableViewCell.xib; path = "Apple-TV/VLCCloudStorageTableViewCell.xib"; sourceTree = SOURCE_ROOT; };
 		7D63C18D18774B1700BD5256 /* VLCFirstStepsSecondPageViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = VLCFirstStepsSecondPageViewController.h; path = Sources/VLCFirstStepsSecondPageViewController.h; sourceTree = SOURCE_ROOT; };
 		7D63C18E18774B1700BD5256 /* VLCFirstStepsSecondPageViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = VLCFirstStepsSecondPageViewController.m; path = Sources/VLCFirstStepsSecondPageViewController.m; sourceTree = SOURCE_ROOT; };
 		7D63C19418774E0100BD5256 /* VLCFirstStepsThirdPageViewController~ipad.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; name = "VLCFirstStepsThirdPageViewController~ipad.xib"; path = "Resources/VLCFirstStepsThirdPageViewController~ipad.xib"; sourceTree = SOURCE_ROOT; };
@@ -1153,7 +1153,7 @@
 			path = AspenProject;
 			sourceTree = "<group>";
 		};
-		7D13293E1BA1F10100BE647E /* VLC for Apple TV */ = {
+		7D13293E1BA1F10100BE647E /* VLC-TV */ = {
 			isa = PBXGroup;
 			children = (
 				7DEC8BE41BD6888F006E1093 /* Basics */,
@@ -1165,7 +1165,8 @@
 				7DEC8BE61BD688AD006E1093 /* Resources */,
 				7D13293F1BA1F10100BE647E /* Supporting Files */,
 			);
-			path = "VLC for Apple TV";
+			name = "VLC-TV";
+			path = "Apple-TV";
 			sourceTree = "<group>";
 		};
 		7D13293F1BA1F10100BE647E /* Supporting Files */ = {
@@ -1420,7 +1421,7 @@
 				DD7110ED1AF38AFD00854776 /* SharedSources */,
 				DD3567651B6760BF00338947 /* VLC WatchKit Native */,
 				DD3567741B6760BF00338947 /* VLC WatchKit Native Extension */,
-				7D13293E1BA1F10100BE647E /* VLC for Apple TV */,
+				7D13293E1BA1F10100BE647E /* VLC-TV */,
 				7D94FCDD16DE7D1000F2623B /* Frameworks */,
 				7D94FCDC16DE7D1000F2623B /* Products */,
 				5BC7EE378D444805CA59B5BA /* Pods */,
@@ -1759,7 +1760,7 @@
 			isa = PBXGroup;
 			children = (
 				7DEDD38B1BE936130053802C /* About Contents.html */,
-				7D2D7FD21BD2F109002D6B6D /* VLC for Apple TV.entitlements */,
+				7D2D7FD21BD2F109002D6B6D /* VLC-TV.entitlements */,
 				7D13294E1BA1F10100BE647E /* Assets.xcassets */,
 				7D405EE11BEA1FAD006ED886 /* index.html */,
 				7D1329501BA1F10100BE647E /* Info.plist */,
@@ -2934,7 +2935,7 @@
 				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
 				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
 				CLANG_WARN_UNREACHABLE_CODE = YES;
-				CODE_SIGN_ENTITLEMENTS = "VLC for Apple TV/VLC for Apple TV.entitlements";
+				CODE_SIGN_ENTITLEMENTS = "Apple-TV/VLC-TV.entitlements";
 				CODE_SIGN_IDENTITY = "iPhone Developer";
 				"CODE_SIGN_IDENTITY[sdk=appletvos*]" = "iPhone Developer";
 				DEBUG_INFORMATION_FORMAT = dwarf;
@@ -2942,7 +2943,7 @@
 				GCC_NO_COMMON_BLOCKS = YES;
 				GCC_OPTIMIZATION_LEVEL = 0;
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
-				GCC_PREFIX_HEADER = "VLC for Apple TV/TVPrefixHeader.pch";
+				GCC_PREFIX_HEADER = "Apple-TV/TVPrefixHeader.pch";
 				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
 				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
 				GCC_WARN_UNDECLARED_SELECTOR = YES;
@@ -2954,7 +2955,7 @@
 					"$(SRCROOT)/ImportedSources/Dropbox/DropboxSDK/Classes/**",
 					"$(SRCROOT)/ImportedSources/OneDrive/src/LiveSDK/Library/**",
 				);
-				INFOPLIST_FILE = "VLC for Apple TV/Info.plist";
+				INFOPLIST_FILE = "Apple-TV/Info.plist";
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				LIBRARY_SEARCH_PATHS = (
 					"$(inherited)",
@@ -2984,7 +2985,7 @@
 				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
 				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
 				CLANG_WARN_UNREACHABLE_CODE = YES;
-				CODE_SIGN_ENTITLEMENTS = "VLC for Apple TV/VLC for Apple TV.entitlements";
+				CODE_SIGN_ENTITLEMENTS = "Apple-TV/VLC-TV.entitlements";
 				CODE_SIGN_IDENTITY = "iPhone Developer";
 				"CODE_SIGN_IDENTITY[sdk=appletvos*]" = "iPhone Developer";
 				COPY_PHASE_STRIP = NO;
@@ -2993,7 +2994,7 @@
 				ENABLE_STRICT_OBJC_MSGSEND = YES;
 				GCC_NO_COMMON_BLOCKS = YES;
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
-				GCC_PREFIX_HEADER = "VLC for Apple TV/TVPrefixHeader.pch";
+				GCC_PREFIX_HEADER = "Apple-TV/TVPrefixHeader.pch";
 				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
 				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
 				GCC_WARN_UNDECLARED_SELECTOR = YES;
@@ -3005,7 +3006,7 @@
 					"$(SRCROOT)/ImportedSources/Dropbox/DropboxSDK/Classes/**",
 					"$(SRCROOT)/ImportedSources/OneDrive/src/LiveSDK/Library/**",
 				);
-				INFOPLIST_FILE = "VLC for Apple TV/Info.plist";
+				INFOPLIST_FILE = "Apple-TV/Info.plist";
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				LIBRARY_SEARCH_PATHS = (
 					"$(inherited)",
@@ -3035,7 +3036,7 @@
 				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
 				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
 				CLANG_WARN_UNREACHABLE_CODE = YES;
-				CODE_SIGN_ENTITLEMENTS = "VLC for Apple TV/VLC for Apple TV.entitlements";
+				CODE_SIGN_ENTITLEMENTS = "Apple-TV/VLC-TV.entitlements";
 				CODE_SIGN_IDENTITY = "iPhone Developer";
 				"CODE_SIGN_IDENTITY[sdk=appletvos*]" = "iPhone Developer";
 				COPY_PHASE_STRIP = NO;
@@ -3044,7 +3045,7 @@
 				ENABLE_STRICT_OBJC_MSGSEND = YES;
 				GCC_NO_COMMON_BLOCKS = YES;
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
-				GCC_PREFIX_HEADER = "VLC for Apple TV/TVPrefixHeader.pch";
+				GCC_PREFIX_HEADER = "Apple-TV/TVPrefixHeader.pch";
 				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
 				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
 				GCC_WARN_UNDECLARED_SELECTOR = YES;
@@ -3056,7 +3057,7 @@
 					"$(SRCROOT)/ImportedSources/Dropbox/DropboxSDK/Classes/**",
 					"$(SRCROOT)/ImportedSources/OneDrive/src/LiveSDK/Library/**",
 				);
-				INFOPLIST_FILE = "VLC for Apple TV/Info.plist";
+				INFOPLIST_FILE = "Apple-TV/Info.plist";
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				LIBRARY_SEARCH_PATHS = (
 					"$(inherited)",
