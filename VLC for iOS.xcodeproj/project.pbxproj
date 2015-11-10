@@ -1189,8 +1189,6 @@
 				7D30F3CC183AB29300FFC021 /* VLCMenuTableViewController.m */,
 				7D30F3DD183AB31E00FFC021 /* VLCWiFiUploadTableViewCell.h */,
 				7D30F3DE183AB31E00FFC021 /* VLCWiFiUploadTableViewCell.m */,
-				7D30F3C5183AB26F00FFC021 /* VLCOpenNetworkStreamViewController.h */,
-				7D30F3C6183AB26F00FFC021 /* VLCOpenNetworkStreamViewController.m */,
 				7D30F3E0183AB33200FFC021 /* VLCSidebarViewCell.h */,
 				7D30F3E1183AB33200FFC021 /* VLCSidebarViewCell.m */,
 				7DAE0C351B2EF85B00C53996 /* VLCSidebarController.h */,
@@ -1372,10 +1370,9 @@
 				7D30F3BF183AB24C00FFC021 /* VLCHTTPFileDownloader.m */,
 				7D30F3C0183AB24C00FFC021 /* VLCHTTPUploaderController.h */,
 				7D30F3C1183AB24C00FFC021 /* VLCHTTPUploaderController.m */,
-				7D30F3C8183AB27A00FFC021 /* VLCDownloadViewController.h */,
-				7D30F3C9183AB27A00FFC021 /* VLCDownloadViewController.m */,
 			);
 			name = "HTTP Connectivity";
+			path = ../AspenProject;
 			sourceTree = "<group>";
 		};
 		7D6BEF1D19E027A100DF3972 /* Cloud */ = {
@@ -1510,11 +1507,11 @@
 				7D6B08BB174A72A900A05173 /* VLCConstants.h */,
 				7DBBF180183AB3B80009A339 /* VLCAppDelegate.h */,
 				7DBBF181183AB3B80009A339 /* VLCAppDelegate.m */,
+				7DF383B41BF20E4600D71A5C /* Network dialogs */,
 				DD2789DF1B67A79700CED769 /* WatchSupport */,
 				7DBB788E1B305D8300894467 /* Keychain & random singletons */,
 				A7D03A4817A4249F0022C16F /* MediaDiscovering */,
 				7D2339AB176DE70E008D223C /* Menu */,
-				7D5F7ABA175265CB006CCCFA /* HTTP Connectivity */,
 				7D31002117B676D500E6516D /* Local Network Connectivity */,
 				7D5F7AB9175265B2006CCCFA /* Playback */,
 				7D5F7AB81752658E006CCCFA /* Everything Playlist */,
@@ -1792,6 +1789,17 @@
 				DD3EABE81BE13D5B003668DA /* VLCRemoteBrowsingTVCell.m */,
 			);
 			name = "Common Code";
+			sourceTree = "<group>";
+		};
+		7DF383B41BF20E4600D71A5C /* Network dialogs */ = {
+			isa = PBXGroup;
+			children = (
+				7D30F3C5183AB26F00FFC021 /* VLCOpenNetworkStreamViewController.h */,
+				7D30F3C6183AB26F00FFC021 /* VLCOpenNetworkStreamViewController.m */,
+				7D30F3C8183AB27A00FFC021 /* VLCDownloadViewController.h */,
+				7D30F3C9183AB27A00FFC021 /* VLCDownloadViewController.m */,
+			);
+			name = "Network dialogs";
 			sourceTree = "<group>";
 		};
 		7DF90B451BE7A8030059C0E3 /* Mini-InAppSettingsKit */ = {
@@ -2093,6 +2101,7 @@
 		DD7110ED1AF38AFD00854776 /* SharedSources */ = {
 			isa = PBXGroup;
 			children = (
+				7D5F7ABA175265CB006CCCFA /* HTTP Connectivity */,
 				7D4DFEA81BDF982400979881 /* Cloud Integration */,
 				7DEC8BE21BD6880C006E1093 /* UI Elements */,
 				7DEC8BE01BD686D3006E1093 /* Playback */,
