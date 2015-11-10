@@ -2,7 +2,7 @@
   "images" : [
     {
       "idiom" : "tv",
-      "filename" : "serverIcon@3x.png",
+      "filename" : "ServerIconSlice-front.png",
       "scale" : "1x"
     }
   ],
