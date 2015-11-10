@@ -5,16 +5,17 @@
  * $Id$
  *
  * Authors: Tobias Conradi <videolan # tobias-conradi.de>
+ *          Felix Paul Kühne <fkuehne # videolan.org>
  *
  * Refer to the COPYING file of the official project for license.
  *****************************************************************************/
 
-#import "VLCServerBrowsingTVCell.h"
+#import "VLCRemoteBrowsingTVCell.h"
 #import "MetaDataFetcherKit.h"
 
-NSString *const VLCServerBrowsingTVCellIdentifier = @"VLCServerBrowsingTVCell";
+NSString *const VLCRemoteBrowsingTVCellIdentifier = @"VLCRemoteBrowsingTVCell";
 
-@interface VLCServerBrowsingTVCell () <MDFMovieDBFetcherDataRecipient>
+@interface VLCRemoteBrowsingTVCell () <MDFMovieDBFetcherDataRecipient>
 {
     MDFMovieDBFetcher *_metadataFetcher;
 }
@@ -22,10 +23,9 @@ NSString *const VLCServerBrowsingTVCellIdentifier = @"VLCServerBrowsingTVCell";
 
 @end
 
-@implementation VLCServerBrowsingTVCell
+@implementation VLCRemoteBrowsingTVCell
+
 @synthesize thumbnailURL = _thumbnailURL, isDirectory = _isDirectory;
-
-
 
 - (void)awakeFromNib
 {
@@ -145,7 +145,7 @@ NSString *const VLCServerBrowsingTVCellIdentifier = @"VLCServerBrowsingTVCell";
     APLog(@"Failed to find a movie for '%@'", searchRequest);
 }
 
--(void)MDFMovieDBFetcher:(MDFMovieDBFetcher *)aFetcher didFindTVShow:(MDFTVShow *)details forSearchRequest:(NSString *)searchRequest
+- (void)MDFMovieDBFetcher:(MDFMovieDBFetcher *)aFetcher didFindTVShow:(MDFTVShow *)details forSearchRequest:(NSString *)searchRequest
 {
     if (details == nil)
         return;

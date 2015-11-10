@@ -15,7 +15,7 @@
 #define DOWNLOAD_SUPPORTED TARGET_OS_IOS
 
 NS_ASSUME_NONNULL_BEGIN
-@protocol VLCServerBrowsingCell <NSObject>
+@protocol VLCRemoteBrowsingCell <NSObject>
 
 @property (nonatomic, nullable) NSString *title;
 @property (nonatomic, nullable) NSString *subtitle;
@@ -43,7 +43,7 @@ NS_ASSUME_NONNULL_BEGIN
 - (instancetype)init NS_UNAVAILABLE;
 - (instancetype)initWithViewController:(UIViewController *)viewController serverBrowser:(id<VLCNetworkServerBrowser>)browser;
 
-- (void)configureCell:(id<VLCServerBrowsingCell>)cell withItem:(id<VLCNetworkServerBrowserItem>)item;
+- (void)configureCell:(id<VLCRemoteBrowsingCell>)cell withItem:(id<VLCNetworkServerBrowserItem>)item;
 
 #pragma mark - Subtitles
 - (void)configureSubtitlesInMediaList:(VLCMediaList *)mediaList;

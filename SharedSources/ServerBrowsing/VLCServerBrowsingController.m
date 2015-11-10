@@ -71,7 +71,7 @@
 
 #pragma mark - cell configuration
 
-- (void)configureCell:(id<VLCServerBrowsingCell>)cell withItem:(id<VLCNetworkServerBrowserItem>)item
+- (void)configureCell:(id<VLCRemoteBrowsingCell>)cell withItem:(id<VLCNetworkServerBrowserItem>)item
 {
     if (item.isContainer) {
         cell.isDirectory = YES;

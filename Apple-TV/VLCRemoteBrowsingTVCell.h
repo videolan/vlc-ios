@@ -10,12 +10,15 @@
  *****************************************************************************/
 
 #import <UIKit/UIKit.h>
+#import "VLCServerBrowsingController.h"
+#import "VLCNetworkImageView.h"
 
-#import "VLCRemoteBrowsingCollectionViewController.h"
-#import "VLCNetworkServerBrowser-Protocol.h"
+extern NSString *const VLCRemoteBrowsingTVCellIdentifier;
 
-@interface VLCServerBrowsingTVViewController : VLCRemoteBrowsingCollectionViewController <VLCNetworkServerBrowserDelegate>
+@interface VLCRemoteBrowsingTVCell : UICollectionViewCell <VLCRemoteBrowsingCell>
 
-- (instancetype)initWithServerBrowser:(id<VLCNetworkServerBrowser>)serverBrowser;
+@property (nonatomic, weak) IBOutlet VLCNetworkImageView *thumbnailImageView;
+@property (nonatomic, weak) IBOutlet UILabel *titleLabel;
+@property (nonatomic, weak) IBOutlet UILabel *subtitleLabel;
 
 @end

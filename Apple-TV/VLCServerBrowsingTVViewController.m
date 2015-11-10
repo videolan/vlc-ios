@@ -10,7 +10,7 @@
  *****************************************************************************/
 
 #import "VLCServerBrowsingTVViewController.h"
-#import "VLCServerBrowsingTVCell.h"
+#import "VLCRemoteBrowsingTVCell.h"
 #import "VLCPlayerDisplayController.h"
 #import "VLCPlaybackController.h"
 #import "VLCServerBrowsingController.h"
@@ -25,7 +25,7 @@
 
 - (instancetype)initWithServerBrowser:(id<VLCNetworkServerBrowser>)serverBrowser
 {
-    self = [super initWithNibName:@"VLCServerBrowsingTVViewController" bundle:nil];
+    self = [super initWithNibName:@"VLCRemoteBrowsingCollectionViewController" bundle:nil];
     if (self) {
         _serverBrowser = serverBrowser;
         serverBrowser.delegate = self;
@@ -37,60 +37,23 @@
     return self;
 }
 
-
-- (void)viewDidLoad {
-    [super viewDidLoad];
-
-    UICollectionViewFlowLayout *flowLayout = (UICollectionViewFlowLayout *)self.collectionViewLayout;
-    const CGFloat inset = 50;
-    flowLayout.sectionInset = UIEdgeInsetsMake(inset, inset, inset, inset);
-    [self.collectionView registerNib:[UINib nibWithNibName:@"VLCServerBrowsingTVCell" bundle:nil] forCellWithReuseIdentifier:VLCServerBrowsingTVCellIdentifier];
-    self.navigationItem.rightBarButtonItem = [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemRefresh target:self action:@selector(reloadData)];
-
-    self.collectionView.maskView = [[VLCMaskView alloc] initWithFrame:self.collectionView.bounds];
-}
-
-- (void)viewDidAppear:(BOOL)animated {
+- (void)viewDidAppear:(BOOL)animated
+{
     [super viewDidAppear:animated];
     [self.serverBrowser update];
 }
 
-
-- (void)viewDidLayoutSubviews
-{
-    [super viewDidLayoutSubviews];
-
-    UICollectionView *collectionView = self.collectionView;
-    VLCMaskView *maskView = (VLCMaskView *)collectionView.maskView;
-    maskView.maskEnd = self.topLayoutGuide.length * 0.8;
-
-    /*
-     Update the position from where the collection view's content should
-     start to fade out. The size of the fade increases as the collection
-     view scrolls to a maximum of half the navigation bar's height.
-     */
-    CGFloat maximumMaskStart = maskView.maskEnd + (self.topLayoutGuide.length * 0.5);
-    CGFloat verticalScrollPosition = MAX(0, collectionView.contentOffset.y + collectionView.contentInset.top);
-    maskView.maskStart = MIN(maximumMaskStart, maskView.maskEnd + verticalScrollPosition);
-
-    /*
-     Position the mask view so that it is always fills the visible area of
-     the collection view.
-     */
-    CGSize collectionViewSize = self.collectionView.bounds.size;
-    maskView.frame = CGRectMake(0, collectionView.contentOffset.y, collectionViewSize.width, collectionViewSize.height);
-    
-}
-
 #pragma mark -
 
-- (void)reloadData {
+- (void)reloadData
+{
     [self.serverBrowser update];
 }
 
 #pragma mark -
 
-- (void)networkServerBrowserDidUpdate:(id<VLCNetworkServerBrowser>)networkBrowser {
+- (void)networkServerBrowserDidUpdate:(id<VLCNetworkServerBrowser>)networkBrowser
+{
     self.title = networkBrowser.title;
     [self.collectionView reloadData];
 }
@@ -128,18 +91,12 @@
     return [self.serverBrowser items].count;
 }
 
-- (UICollectionViewCell *)collectionView:(UICollectionView *)collectionView cellForItemAtIndexPath:(NSIndexPath *)indexPath
-{
-    VLCServerBrowsingTVCell *cell = (VLCServerBrowsingTVCell *)[collectionView dequeueReusableCellWithReuseIdentifier:VLCServerBrowsingTVCellIdentifier forIndexPath:indexPath];
-    return cell;
-}
-
 - (void)collectionView:(UICollectionView *)collectionView willDisplayCell:(UICollectionViewCell *)cell forItemAtIndexPath:(NSIndexPath *)indexPath
 {
         id<VLCNetworkServerBrowserItem> item = self.serverBrowser.items[indexPath.row];
 
-    if ([cell conformsToProtocol:@protocol(VLCServerBrowsingCell)]) {
-        [self.browsingController configureCell:(id<VLCServerBrowsingCell>)cell withItem:item];
+    if ([cell conformsToProtocol:@protocol(VLCRemoteBrowsingCell)]) {
+        [self.browsingController configureCell:(id<VLCRemoteBrowsingCell>)cell withItem:item];
     }
 }
 

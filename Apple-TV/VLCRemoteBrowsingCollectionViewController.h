@@ -5,20 +5,13 @@
  * $Id$
  *
  * Authors: Tobias Conradi <videolan # tobias-conradi.de>
+ *          Felix Paul Kühne <fkuehne # videolan.org>
  *
  * Refer to the COPYING file of the official project for license.
  *****************************************************************************/
 
 #import <UIKit/UIKit.h>
-#import "VLCServerBrowsingController.h"
-#import "VLCNetworkImageView.h"
 
-extern NSString *const VLCServerBrowsingTVCellIdentifier;
-
-@interface VLCServerBrowsingTVCell : UICollectionViewCell <VLCServerBrowsingCell>
-
-@property (nonatomic, weak) IBOutlet VLCNetworkImageView *thumbnailImageView;
-@property (nonatomic, weak) IBOutlet UILabel *titleLabel;
-@property (nonatomic, weak) IBOutlet UILabel *subtitleLabel;
+@interface VLCRemoteBrowsingCollectionViewController : UICollectionViewController
 
 @end
