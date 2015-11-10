@@ -217,6 +217,9 @@
 		7DF383AC1BF206F100D71A5C /* VLCRemoteBrowsingCollectionViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 7DF383AB1BF206F100D71A5C /* VLCRemoteBrowsingCollectionViewController.m */; };
 		7DF383AE1BF206FB00D71A5C /* VLCRemoteBrowsingCollectionViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 7DF383AD1BF206FB00D71A5C /* VLCRemoteBrowsingCollectionViewController.xib */; };
 		7DF383B91BF21E4400D71A5C /* VLCPlayerControlWebSocket.m in Sources */ = {isa = PBXBuildFile; fileRef = 7DF383B81BF21E4400D71A5C /* VLCPlayerControlWebSocket.m */; };
+		7DF383C11BF231BC00D71A5C /* VLCCloudStorageTVViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 7DF383C01BF231BC00D71A5C /* VLCCloudStorageTVViewController.m */; };
+		7DF383C41BF2329500D71A5C /* VLCDropboxCollectionViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 7DF383C31BF2329500D71A5C /* VLCDropboxCollectionViewController.m */; };
+		7DF383C71BF23AC000D71A5C /* VLCCloudStorageCollectionViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 7DF383C61BF23AC000D71A5C /* VLCCloudStorageCollectionViewCell.m */; };
 		7DF7CA0717650C2A00C61739 /* AVFoundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 7DF7CA0617650C2A00C61739 /* AVFoundation.framework */; };
 		7DF7E791175F47DC0018858D /* MediaPlayer.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 7DF7E790175F47DC0018858D /* MediaPlayer.framework */; };
 		7DF90B441BE7A5380059C0E3 /* VLCSettingsTableViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 7DF90B431BE7A5380059C0E3 /* VLCSettingsTableViewController.m */; };
@@ -802,6 +805,12 @@
 		7DF383AD1BF206FB00D71A5C /* VLCRemoteBrowsingCollectionViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = VLCRemoteBrowsingCollectionViewController.xib; sourceTree = "<group>"; };
 		7DF383B71BF21E4400D71A5C /* VLCPlayerControlWebSocket.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = VLCPlayerControlWebSocket.h; path = SharedSources/VLCPlayerControlWebSocket.h; sourceTree = SOURCE_ROOT; };
 		7DF383B81BF21E4400D71A5C /* VLCPlayerControlWebSocket.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = VLCPlayerControlWebSocket.m; path = SharedSources/VLCPlayerControlWebSocket.m; sourceTree = SOURCE_ROOT; };
+		7DF383BF1BF231BC00D71A5C /* VLCCloudStorageTVViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = VLCCloudStorageTVViewController.h; sourceTree = "<group>"; };
+		7DF383C01BF231BC00D71A5C /* VLCCloudStorageTVViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = VLCCloudStorageTVViewController.m; sourceTree = "<group>"; };
+		7DF383C21BF2329500D71A5C /* VLCDropboxCollectionViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = VLCDropboxCollectionViewController.h; path = SharedSources/Clouds/VLCDropboxCollectionViewController.h; sourceTree = SOURCE_ROOT; };
+		7DF383C31BF2329500D71A5C /* VLCDropboxCollectionViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = VLCDropboxCollectionViewController.m; path = SharedSources/Clouds/VLCDropboxCollectionViewController.m; sourceTree = SOURCE_ROOT; };
+		7DF383C51BF23AC000D71A5C /* VLCCloudStorageCollectionViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = VLCCloudStorageCollectionViewCell.h; path = SharedSources/Clouds/VLCCloudStorageCollectionViewCell.h; sourceTree = "<group>"; };
+		7DF383C61BF23AC000D71A5C /* VLCCloudStorageCollectionViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = VLCCloudStorageCollectionViewCell.m; path = SharedSources/Clouds/VLCCloudStorageCollectionViewCell.m; sourceTree = "<group>"; };
 		7DF7CA0617650C2A00C61739 /* AVFoundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AVFoundation.framework; path = System/Library/Frameworks/AVFoundation.framework; sourceTree = SDKROOT; };
 		7DF7E790175F47DC0018858D /* MediaPlayer.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = MediaPlayer.framework; path = System/Library/Frameworks/MediaPlayer.framework; sourceTree = SDKROOT; };
 		7DF90B421BE7A5380059C0E3 /* VLCSettingsTableViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = VLCSettingsTableViewController.h; sourceTree = "<group>"; };
@@ -1263,6 +1272,8 @@
 			children = (
 				7D3E52881BD7B5E100309D15 /* VLCCloudServicesTVViewController.h */,
 				7D3E52891BD7B5E100309D15 /* VLCCloudServicesTVViewController.m */,
+				7DF383BF1BF231BC00D71A5C /* VLCCloudStorageTVViewController.h */,
+				7DF383C01BF231BC00D71A5C /* VLCCloudStorageTVViewController.m */,
 				7D1334811BE135700012E919 /* VLCCloudStorageTVTableViewController.h */,
 				7D1334821BE135700012E919 /* VLCCloudStorageTVTableViewController.m */,
 				7D5278C31BD7DE3D00D0CA0E /* DropboxSDK.xcodeproj */,
@@ -1279,6 +1290,8 @@
 				7D1052EA1A4DCC1700295F08 /* OneDrive */,
 				7D3784AF183A990F009EE944 /* VLCCloudStorageTableViewCell.h */,
 				7D3784B0183A990F009EE944 /* VLCCloudStorageTableViewCell.m */,
+				7DF383C51BF23AC000D71A5C /* VLCCloudStorageCollectionViewCell.h */,
+				7DF383C61BF23AC000D71A5C /* VLCCloudStorageCollectionViewCell.m */,
 				9B088306183D7BEC004B5C2A /* VLCCloudStorageTableViewController.h */,
 				9B088307183D7BEC004B5C2A /* VLCCloudStorageTableViewController.m */,
 				4184AA131A5492070063DF5A /* VLCCloudStorageController.h */,
@@ -1828,6 +1841,8 @@
 				7D3784AA183A9906009EE944 /* VLCDropboxController.m */,
 				7D3784AB183A9906009EE944 /* VLCDropboxTableViewController.h */,
 				7D3784AC183A9906009EE944 /* VLCDropboxTableViewController.m */,
+				7DF383C21BF2329500D71A5C /* VLCDropboxCollectionViewController.h */,
+				7DF383C31BF2329500D71A5C /* VLCDropboxCollectionViewController.m */,
 			);
 			name = Dropbox;
 			path = AspenProject;
@@ -2619,6 +2634,7 @@
 				DD8095E01BE3EFC20065D8E1 /* VLCPlaybackInfoTVViewController.m in Sources */,
 				7DEC8C1F1BD6A113006E1093 /* UIDevice+VLC.m in Sources */,
 				DDEAECFE1BDFFAEE00756C83 /* Reachability.m in Sources */,
+				7DF383C41BF2329500D71A5C /* VLCDropboxCollectionViewController.m in Sources */,
 				7DF90B441BE7A5380059C0E3 /* VLCSettingsTableViewController.m in Sources */,
 				DD3EFF561BDEBCE500B68579 /* VLCLocalNetworkServiceBrowserDSM.m in Sources */,
 				DD3EABF91BE14BD6003668DA /* BasicUPnPDevice+VLC.m in Sources */,
@@ -2638,6 +2654,7 @@
 				7D7EF3DA1BD56B5900CD4CEE /* VLCOpenNetworkStreamTVViewController.m in Sources */,
 				DD3EFF521BDEBCE500B68579 /* VLCPlexWebAPI.m in Sources */,
 				7D0EDE091BE7752800363AA1 /* VLCLocalNetworkServiceBrowserFTP.m in Sources */,
+				7DF383C11BF231BC00D71A5C /* VLCCloudStorageTVViewController.m in Sources */,
 				DD8095F91BE6268A0065D8E1 /* VLCPlaybackInfoPanelTVViewController.m in Sources */,
 				7D60696C1BD93BE200AB765C /* VLCCloudStorageTableViewCell.m in Sources */,
 				DD3EABE91BE13D5B003668DA /* VLCRemoteBrowsingTVCell.m in Sources */,
@@ -2668,6 +2685,7 @@
 				7D0C35331BD97C100058CD19 /* VLCOneDriveController.m in Sources */,
 				7D0EDE061BE774BF00363AA1 /* WhiteRaccoon.m in Sources */,
 				7D60696B1BD93AC800AB765C /* VLCDropboxTableViewController.m in Sources */,
+				7DF383C71BF23AC000D71A5C /* VLCCloudStorageCollectionViewCell.m in Sources */,
 				DD13A37B1BEE2FAA00A35554 /* VLCMaskView.m in Sources */,
 				7DF383AC1BF206F100D71A5C /* VLCRemoteBrowsingCollectionViewController.m in Sources */,
 				7D405ED01BEA11C1006ED886 /* VLCHTTPConnection.m in Sources */,

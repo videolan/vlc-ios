@@ -12,7 +12,7 @@
 #import "VLCCloudServicesTVViewController.h"
 #import <DropboxTVSDK/DropboxSDK.h>
 #import "VLCDropboxController.h"
-#import "VLCDropboxTableViewController.h"
+#import "VLCDropboxCollectionViewController.h"
 #import "SSKeychain.h"
 #import "VLCPlayerDisplayController.h"
 #import "VLCOneDriveController.h"
@@ -69,7 +69,7 @@
 
 - (IBAction)dropbox:(id)sender
 {
-    VLCDropboxTableViewController *targetViewController = [[VLCDropboxTableViewController alloc] initWithPath:nil];
+    VLCDropboxCollectionViewController *targetViewController = [[VLCDropboxCollectionViewController alloc] initWithNibName:@"VLCRemoteBrowsingCollectionViewController" bundle:nil];
     [self.navigationController pushViewController:targetViewController animated:YES];
 }
 
