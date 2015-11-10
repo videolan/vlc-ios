@@ -115,12 +115,6 @@
         NSURL *url = [NSURL URLWithString:selectedObject.downloadPath];
         VLCPlaybackController *vpc = [VLCPlaybackController sharedInstance];
         [vpc playURL:url successCallback:nil errorCallback:nil];
-#if TARGET_OS_TV
-        VLCFullscreenMovieTVViewController *movieVC = [VLCFullscreenMovieTVViewController fullscreenMovieTVViewController];
-        [self presentViewController:movieVC
-                           animated:YES
-                         completion:nil];
-#endif
     }
 
     [self.tableView deselectRowAtIndexPath:indexPath animated:NO];

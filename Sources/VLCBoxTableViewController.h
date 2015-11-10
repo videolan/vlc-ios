@@ -10,20 +10,8 @@
  * Refer to the COPYING file of the official project for license.
  *****************************************************************************/
 
-#if TARGET_OS_IOS
 #import "VLCCloudStorageTableViewController.h"
 
 @interface VLCBoxTableViewController : VLCCloudStorageTableViewController
 
 @end
-
-#else
-#import "VLCCloudStorageTVTableViewController.h"
-
-@interface VLCBoxTableViewController : VLCCloudStorageTVTableViewController
-
-- (instancetype)initWithPath:(NSString *)path;
-
-@end
-
-#endif

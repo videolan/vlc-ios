@@ -134,14 +134,8 @@
     else {
         /* dive into subdirectory */
         NSString *futurePath = [self.currentPath stringByAppendingFormat:@"/%@", _selectedFile.filename];
-#if TARGET_OS_TV
-        [_dropboxController reset];
-        VLCDropboxTableViewController *targetViewController = [[VLCDropboxTableViewController alloc] initWithPath:futurePath];
-        [self.navigationController pushViewController:targetViewController animated:YES];
-#else
         self.currentPath = futurePath;
         [self requestInformationForCurrentPath];
-#endif
     }
     _selectedFile = nil;
 

@@ -182,13 +182,8 @@
             path = [path stringByAppendingString:@"/"];
         path = [path stringByAppendingString:_selectedFile.modelID];
 
-#if TARGET_OS_TV
-        VLCBoxTableViewController *targetViewController = [[VLCBoxTableViewController alloc] initWithPath:path];
-        [self.navigationController pushViewController:targetViewController animated:YES];
-#else
         self.currentPath = path;
         [self requestInformationForCurrentPath];
-#endif
     }
 }
 
@@ -227,13 +222,6 @@
         /* now ask VLC to stream the URL we were just passed */
         VLCPlaybackController *vpc = [VLCPlaybackController sharedInstance];
         [vpc playURL:theActualURL successCallback:nil errorCallback:nil];
-
-#if TARGET_OS_TV
-        VLCFullscreenMovieTVViewController *movieVC = [VLCFullscreenMovieTVViewController fullscreenMovieTVViewController];
-        [self presentViewController:movieVC
-                           animated:YES
-                         completion:nil];
-#endif
     }
 
     return request;
