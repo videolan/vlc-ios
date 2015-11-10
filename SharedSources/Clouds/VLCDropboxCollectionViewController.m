@@ -1,10 +1,13 @@
-//
-//  VLCDropboxCollectionViewController.m
-//  VLC for iOS
-//
-//  Created by Felix Paul Kühne on 10/11/15.
-//  Copyright © 2015 VideoLAN. All rights reserved.
-//
+/*****************************************************************************
+ * VLC for iOS
+ *****************************************************************************
+ * Copyright (c) 2015 VideoLAN. All rights reserved.
+ * $Id$
+ *
+ * Authors: Felix Paul Kühne <fkuehne # videolan.org>
+ *
+ * Refer to the COPYING file of the official project for license.
+ *****************************************************************************/
 
 #import "VLCDropboxCollectionViewController.h"
 #import "VLCDropboxController.h"
@@ -44,8 +47,10 @@
     self.controller = [VLCDropboxController sharedInstance];
     self.controller.delegate = self;
 
-    if (self.currentPath != nil)
-        self.title = self.currentPath.lastPathComponent;
+    if (self.currentPath != nil) {
+        NSString *lastPathComponent = self.currentPath.lastPathComponent;
+        self.title = lastPathComponent.length > 0 ? lastPathComponent : @"Dropbox";
+    }
 
     [self updateViewAfterSessionChange];
 }

@@ -174,19 +174,7 @@
 
 - (void)restClient:(DBRestClient *)client loadedMetadata:(DBMetadata *)metadata
 {
-    NSMutableArray *listOfGoodFilesAndFolders = [[NSMutableArray alloc] init];
-
-    if (metadata.isDirectory) {
-        NSArray *contents = metadata.contents;
-        NSUInteger metaDataCount = metadata.contents.count;
-        for (NSUInteger x = 0; x < metaDataCount; x++) {
-            DBMetadata *file = contents[x];
-            if ([file isDirectory] || [self _supportedFileExtension:file.filename])
-                [listOfGoodFilesAndFolders addObject:file];
-        }
-    }
-
-    _currentFileList = [NSArray arrayWithArray:listOfGoodFilesAndFolders];
+    _currentFileList = [NSArray arrayWithArray:metadata.contents];
 
     APLog(@"found filtered metadata for %lu files", (unsigned long)_currentFileList.count);
     if ([self.delegate respondsToSelector:@selector(mediaListUpdated)])
