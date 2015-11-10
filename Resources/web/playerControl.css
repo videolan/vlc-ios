@@ -1,0 +1,330 @@
+.player-control {
+    position: relative;
+    margin: auto;
+    width: 70%;
+    background: #2a2a2a;
+    box-sizing: border-box;
+    border-radius: 5px;
+    height: 80px;
+    -moz-box-sizing: border-box;
+    font-family: Arial, sans-serif;
+    padding: 0;
+    bottom: 20px;
+    z-index: 2;
+    opacity: 1;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.3);
+    -webkit-transition: opacity 0.3s ease-in;
+    transition: opacity 0.3s ease-in;
+    -moz-user-select: none;
+    -webkit-user-select: none;
+    user-select: none;
+    cursor: default;
+}
+
+.player-control .progress {
+    width: 76%;
+    height: 8px;
+    border-radius: 5px;
+    background: #676767;
+    box-shadow: inset 0 -5px 10px rgba(0, 0, 0, 0.1);
+    float: left;
+    cursor: pointer;
+    margin: 40px 0 0 0;
+    padding: 0;
+    position: relative;
+}
+
+.player-control .progress-bar {
+    background: #fff;
+    box-shadow: inset -30px 0px 69px -20px #89f6f5;
+    border-radius: 5px;
+    height: 100%;
+    position: relative;
+    z-index: 999;
+    width: 0;
+}
+
+.player-control .button-holder {
+    position: relative;
+    left: 10px;
+}
+
+.player-control .progress-button {
+    top: -3px;
+    background: #fff;
+    box-shadow: 0 0 20px rgba(0, 0, 0, 0.3);
+    border-radius: 30px;
+    width: 6px;
+    height: 15px;
+    position: absolute;
+    left: -1px;
+    text-decoration: overline;
+}
+
+.player-control [class^="buffered"] {
+    background: rgba(255, 255, 255, 0.1);
+    position: absolute;
+    top: 0;
+    left: 30px;
+    height: 100%;
+    border-radius: 5px;
+    z-index: 1;
+}
+
+.player-control .play-pause {
+    display: inline-block;
+    font-size: 2.3em;
+    float: left;
+    text-shadow: 0 0 0 #fff;
+    color: rgba(255, 255, 255, 0.8);
+    width: 10%;
+    padding: 32px 0 0 3%;
+    cursor: pointer;
+    font-variant: small-caps;
+}
+
+.player-control .play, .player-control .pause-button {
+    -webkit-transition: all 0.2s ease-out;
+}
+
+.player-control .play .pause-button, .player-control .pause .play-button {
+    display: none;
+}
+
+.player-control .pause-button {
+    padding: 0 2px;
+    box-sizing: border-box;
+    -moz-box-sizing: border-box;
+    height: 34px;
+}
+
+.player-control .pause-button span {
+    background: #fff;
+    width: 8px;
+    height: 24px;
+    float: left;
+    display: block;
+}
+
+.player-control .pause-button span:first-of-type {
+    margin: 0 4px 0 0;
+}
+
+.player-control .time {
+    color: #fff;
+    font-weight: bold;
+    font-size: 1.2em;
+    position: absolute;
+    right: 0;
+    top: 16px;
+}
+
+.player-control .stime, .ttime {
+    color: #444;
+}
+
+.player-control .play:hover {
+    text-shadow: 0 0 5px #fff;
+}
+
+.player-control .play:active, .pause-button:active span {
+    text-shadow: 0 0 7px #fff;
+}
+
+.player-control .pause-button:hover span {
+    box-shadow: 0 0 5px #fff;
+}
+
+.player-control .pause-button:active span {
+    box-shadow: 0 0 7px #fff;
+}
+
+.player-control .volume {
+    position: relative;
+    float: left;
+    width: 5%;
+    margin: 0 0 0 4%;
+    height: 100%;
+}
+
+.player-control .volume-icon {
+    padding: 1.5%;
+    height: 100%;
+    cursor: pointer;
+    box-sizing: border-box;
+    -moz-box-sizing: border-box;
+    -webkit-transition: all 0.15s linear;
+}
+
+.player-control .volume-holder {
+    height: 100px;
+    width: 100%;
+    background: black;
+    position: absolute;
+    display: none;
+    background: #4f4f4f;
+    left: 0;
+    border-radius: 5px 5px 0 0;
+    top: -100px;
+}
+
+.player-control .volume-bar-holder {
+    background: #333;
+    width: 8px;
+    box-shadow: inset 0px 0px 5px rgba(0, 0, 0, 0.3);
+    margin: 15px auto;
+    height: 80px;
+    border-radius: 5px;
+    position: relative;
+    cursor: pointer;
+}
+
+.player-control .volume-button {
+    background: #fff;
+    box-shadow: 0 0 20px rgba(0, 0, 0, 0.3);
+    border-radius: 30px;
+    width: 15px;
+    height: 8px;
+    margin-left: -3px;
+    margin-top: -4px; /* height / 2 center the mouse */
+}
+
+.player-control .volume-button-holder {
+    position: relative;
+    top: 0;
+}
+
+.player-control .volume-bar {
+    background: #fff;
+    box-shadow: inset -30px 0px 69px -20px #89f6f5;
+    border-radius: 5px;
+    width: 100%;
+    height: 100%;
+    position: absolute;
+    bottom: 0;
+}
+
+.player-control .volume-icon span {
+    width: 20%;
+    height: 13%;
+    background-color: #fff;
+    display: block;
+    position: relative;
+    z-index: 1;
+    font-weight: bold;
+    top: 50%;
+    color: #fff;
+    left: 22%;
+}
+
+.player-control .volume-icon span:before,
+.player-control .volume-icon span:after {
+    content: '';
+    position: absolute;
+}
+
+.player-control .volume-icon span:before {
+    width: 0;
+    height: 0px;
+    border: 1em solid transparent;
+    border-left: none;
+    border-right-color: #fff;
+    z-index: 2;
+    top: -6px;
+    left: 10%;
+    margin-top: -31%;
+}
+
+.player-control .volume-icon span:after {
+    width: 2%;
+    height: 2%;
+    border: 1px solid #fff;
+    left: 200%;
+    border-width: 0px 0px 0 0;
+    top: 5px;
+    border-radius: 0 50px 0 0;
+    -webkit-transform: rotate(45deg);
+    -moz-transform: rotate(45deg);
+    -ms-transform: rotate(45deg);
+    -o-transform: rotate(45deg);
+    transform: rotate(45deg);
+    font-variant: small-caps;
+}
+
+.player-control .v-change-10 span:after {
+    border-width: 10px 10px 0 0;
+    top: 0;
+}
+
+.player-control .v-change-9 span:after {
+    border-width: 9px 9px 0 0;
+    top: 1px;
+}
+
+.player-control .v-change-8 span:after {
+    border-width: 8px 8px 0 0;
+    top: 1px;
+}
+
+.player-control .v-change-7 span:after {
+    border-width: 7px 7px 0 0;
+    top: 2px;
+}
+
+.player-control .v-change-6 span:after {
+    border-width: 6px 6px 0 0;
+    top: 2px;
+}
+
+.player-control .v-change-5 span:after {
+    border-width: 5px 5px 0 0;
+    top: 3px;
+}
+
+.player-control .v-change-4 span:after {
+    border-width: 4px 4px 0 0;
+    top: 3px;
+}
+
+.player-control .v-change-3 span:after {
+    border-width: 3px 3px 0 0;
+    top: 4px;
+}
+
+.player-control .v-change-2 span:after {
+    border-width: 2px 2px 0 0;
+    top: 4px;
+}
+
+.player-control .v-change-1 span:after {
+    border-width: 1px 1px 0 0;
+    top: 5px;
+}
+
+.player-control .v-change-0 span:after {
+    border-width: 0px 0px 0 0;
+    top: 5px;
+}
+
+.player-control .v-change-0 span:after {
+    content: '+';
+    -webkit-transform: rotate(45deg);
+    font-size: 20px;
+    top: -7px;
+    left: 28px;
+}
+
+.player-control .title {
+    position: absolute;
+    line-height: 40px;
+    text-align: center;
+    width: 100%;
+}
+
+.player-control .volume:hover {
+    background-color: #4f4f4f;
+}
+
+.player-control .volume:hover .volume-holder {
+    display: block !important;
+}

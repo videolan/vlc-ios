@@ -1,44 +1,78 @@
 <!doctype html>
 <html lang="en">
-  <head>
-    <meta charset="UTF-8">
-    <title>%%WEBINTF_TITLE%%</title>
-    <link rel="stylesheet" href="style.css">
-    <script type="text/javascript" src="jquery-1.10.1.min.js"></script>
-    <script type="text/javascript" src="jquery.ui.widget.js"></script>
-    <script type="text/javascript" src="jquery.iframe-transport.js"></script>
-    <script type="text/javascript" src="jquery.fileupload.js"></script>
-    <script type="text/javascript" src="main.js"></script>
-  </head>
-  <body>
-    <div id="header">
-      <div class="nav">
-        <a class="btn linkBtn" href="http://www.videolan.org" target="_blank"><div class="icon"></div></a>
-        <div class="btn uploadBtn">
-          <input id="fileupload" type="file" name="files[]" data-url="upload.json" multiple>
-          +
+    <head>
+        <meta charset="UTF-8">
+            <title>%%WEBINTF_TITLE%%</title>
+            <link rel="stylesheet" href="style.css">
+                <link rel="stylesheet" href="playerControl.css">
+                    <script type="text/javascript" src="jquery-1.10.1.min.js"></script>
+                    <script type="text/javascript" src="jquery.ui.widget.js"></script>
+                    <script type="text/javascript" src="jquery.iframe-transport.js"></script>
+                    <script type="text/javascript" src="jquery.fileupload.js"></script>
+                    <script type="text/javascript" src="main.js"></script>
+                    <script type="text/javascript" src="playerControl.js"></script>
+                    </head>
+    <body>
+        <div id="header">
+            <div class="nav">
+                <a class="btn linkBtn" href="http://www.videolan.org" target="_blank"><div class="icon"></div></a>
+                <div class="btn uploadBtn">
+                    <input id="fileupload" type="file" name="files[]" data-url="upload.json" multiple>
+                        +
+                        </div>
+            </div>
         </div>
-      </div>
-    </div>
-    <div class="main">
-      <div class="uploads">
-        <ul></ul>
-      </div>
-      <div class="messageUpload">
-        <h1>%%WEBINTF_DROPFILES%%</h1>
-        <p>%%WEBINTF_DROPFILES_LONG%%</p>
-      </div>
-
-      <div id="footer">
-        <p>VLC for tvOS is free, open-source software published by <a href="http://www.videolan.org" target="_blank">VideoLAN</a>. <br />Modification and redistribution is subject to both the <a href="http://opensource.org/licenses/GPL-2.0" target="_blank">GPLv2 (or later)</a> and the <a href="http://opensource.org/licenses/MPL-2.0" target="_blank">MPLv2</a> as well as further rights reserved by the VideoLAN non-profit organization.<br />You can find more information about licensing in the About dialog within the app.<br />VideoLAN, VLC and VLC media player are internationally registered trademarks of the <a href="http://www.videolan.org/videolan/" target="_blank">VideoLAN non-profit organization</a>.</p>
-      </div>
-    </div>
-    <div id="overlay" class="">
-      <div id="modal">
-        <ul class="downloads cf">
-          <!-- content of div.content goes here -->
-        </ul>
-      </div>
-    </div>
-  </body>
+        <div class="main">
+            <div class="uploads">
+                <ul></ul>
+            </div>
+            <div class="messageUpload">
+                <h1>%%WEBINTF_DROPFILES%%</h1>
+                <p>%%WEBINTF_DROPFILES_LONG%%</p>
+            </div>
+            
+            <div class="player-control">
+                <div class="title"></div>
+                <div class="play-pause play">
+                    <span class="play-button">►</span>
+                    <div class="pause-button"><span> </span><span> </span></div>
+                </div>
+                <div class="progress">
+                    <div class="progress-bar">
+                        <div class="button-holder">
+                            <div class="progress-button"> </div>
+                        </div>
+                    </div>
+                    <div class="time"><span class="ctime">0:00</span>
+                        <span class="stime"> / </span>
+                        <span class="ttime">0:26</span></div>
+                    <div class="buffered"></div></div>
+                <div class="volume">
+                    <div class="volume-holder">
+                        <div class="volume-bar-holder">
+                            <div class="volume-bar">
+                                <div class="volume-button-holder">
+                                    <div class="volume-button"> </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="volume-icon v-change-0">
+                        <span> </span>
+                    </div>
+                </div>
+            </div>
+            
+            <div id="footer">
+                <p>VLC for tvOS is free, open-source software published by <a href="http://www.videolan.org" target="_blank">VideoLAN</a>. <br />Modification and redistribution is subject to both the <a href="http://opensource.org/licenses/GPL-2.0" target="_blank">GPLv2 (or later)</a> and the <a href="http://opensource.org/licenses/MPL-2.0" target="_blank">MPLv2</a> as well as further rights reserved by the VideoLAN non-profit organization.<br />You can find more information about licensing in the About dialog within the app.<br />VideoLAN, VLC and VLC media player are internationally registered trademarks of the <a href="http://www.videolan.org/videolan/" target="_blank">VideoLAN non-profit organization</a>.</p>
+            </div>
+        </div>
+        <div id="overlay" class="">
+            <div id="modal">
+                <ul class="downloads cf">
+                    <!-- content of div.content goes here -->
+                </ul>
+            </div>
+        </div>
+    </body>
 </html>

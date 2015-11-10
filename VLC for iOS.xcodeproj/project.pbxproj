@@ -25,6 +25,8 @@
 		41CD695C1A29D72600E60BCE /* VLCBoxController.m in Sources */ = {isa = PBXBuildFile; fileRef = 41CD69591A29D72600E60BCE /* VLCBoxController.m */; };
 		41CD695D1A29D72600E60BCE /* VLCBoxTableViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 41CD695B1A29D72600E60BCE /* VLCBoxTableViewController.m */; };
 		690D0AB5E34F29B46839C92E /* libPods-VLC-TV.a in Frameworks */ = {isa = PBXBuildFile; fileRef = C12FD7AD79D78B13860606CE /* libPods-VLC-TV.a */; };
+		6B4E33D11BF2A39400A35255 /* playerControl.css in Resources */ = {isa = PBXBuildFile; fileRef = 6B4E33CF1BF2A39400A35255 /* playerControl.css */; };
+		6B4E33D21BF2A39400A35255 /* playerControl.js in Resources */ = {isa = PBXBuildFile; fileRef = 6B4E33D01BF2A39400A35255 /* playerControl.js */; };
 		7AC8629D1765DC560011611A /* style.css in Resources */ = {isa = PBXBuildFile; fileRef = 7AC8629B1765DC560011611A /* style.css */; };
 		7AC862A61765E9510011611A /* jquery-1.10.1.min.js in Resources */ = {isa = PBXBuildFile; fileRef = 7AC8629E1765E90C0011611A /* jquery-1.10.1.min.js */; };
 		7AC862A71765E9510011611A /* jquery.fileupload.js in Resources */ = {isa = PBXBuildFile; fileRef = 7AC8629F1765E90C0011611A /* jquery.fileupload.js */; };
@@ -507,6 +509,8 @@
 		521108CBC3CAA0810AF3CBA8 /* Pods-vlc-ios.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-vlc-ios.debug.xcconfig"; path = "Pods/Target Support Files/Pods-vlc-ios/Pods-vlc-ios.debug.xcconfig"; sourceTree = "<group>"; };
 		6104D285EA8F1AEDA6136FCF /* Pods-VLC-TV.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-VLC-TV.release.xcconfig"; path = "Pods/Target Support Files/Pods-VLC-TV/Pods-VLC-TV.release.xcconfig"; sourceTree = "<group>"; };
 		6AB5E0853B398B35369938EC /* Pods-vlc-ios.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-vlc-ios.release.xcconfig"; path = "Pods/Target Support Files/Pods-vlc-ios/Pods-vlc-ios.release.xcconfig"; sourceTree = "<group>"; };
+		6B4E33CF1BF2A39400A35255 /* playerControl.css */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.css; name = playerControl.css; path = Resources/web/playerControl.css; sourceTree = SOURCE_ROOT; };
+		6B4E33D01BF2A39400A35255 /* playerControl.js */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.javascript; name = playerControl.js; path = Resources/web/playerControl.js; sourceTree = SOURCE_ROOT; };
 		7AC8629B1765DC560011611A /* style.css */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.css; path = style.css; sourceTree = "<group>"; };
 		7AC8629E1765E90C0011611A /* jquery-1.10.1.min.js */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.javascript; path = "jquery-1.10.1.min.js"; sourceTree = "<group>"; };
 		7AC8629F1765E90C0011611A /* jquery.fileupload.js */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.javascript; path = jquery.fileupload.js; sourceTree = "<group>"; };
@@ -1145,6 +1149,15 @@
 			name = Pods;
 			sourceTree = "<group>";
 		};
+		6B4E33CC1BF2A35A00A35255 /* web */ = {
+			isa = PBXGroup;
+			children = (
+				6B4E33CF1BF2A39400A35255 /* playerControl.css */,
+				6B4E33D01BF2A39400A35255 /* playerControl.js */,
+			);
+			name = web;
+			sourceTree = "<group>";
+		};
 		7D1052EA1A4DCC1700295F08 /* OneDrive */ = {
 			isa = PBXGroup;
 			children = (
@@ -1766,6 +1779,7 @@
 		7DEC8BE61BD688AD006E1093 /* Resources */ = {
 			isa = PBXGroup;
 			children = (
+				6B4E33CC1BF2A35A00A35255 /* web */,
 				7DEDD38B1BE936130053802C /* About Contents.html */,
 				7D2D7FD21BD2F109002D6B6D /* VLC-TV.entitlements */,
 				7D13294E1BA1F10100BE647E /* Assets.xcassets */,
@@ -2419,12 +2433,14 @@
 				7D405ED61BEA1F56006ED886 /* jquery-1.10.1.min.js in Resources */,
 				7DEC8BE91BD68BC9006E1093 /* Settings.bundle in Resources */,
 				7D405ED51BEA1F56006ED886 /* Raleway.woff in Resources */,
+				6B4E33D21BF2A39400A35255 /* playerControl.js in Resources */,
 				7D405ED81BEA1F56006ED886 /* jquery.iframe-transport.js in Resources */,
 				DD3EAC131BE26166003668DA /* VLCRemoteBrowsingTVCell.xib in Resources */,
 				7D3E528C1BD7B5E100309D15 /* VLCCloudServicesTVViewController.xib in Resources */,
 				7D405EDA1BEA1F56006ED886 /* style.css in Resources */,
 				7D7EF3DB1BD56B5900CD4CEE /* VLCOpenNetworkStreamTVViewController.xib in Resources */,
 				7DDE41901BE9225A0065C53A /* VLCAboutViewController.xib in Resources */,
+				6B4E33D11BF2A39400A35255 /* playerControl.css in Resources */,
 				7D405EE21BEA1FAD006ED886 /* index.html in Resources */,
 				7D51B3B11BF0EEF4005AF4D5 /* VLCPlaybackInfoMediaInfoTVViewController.xib in Resources */,
 				7DEDD38D1BE936F30053802C /* SourceCodePro-Regular.ttf in Resources */,
