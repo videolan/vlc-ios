@@ -112,7 +112,8 @@
 
         NSUInteger count = [specifier multipleValuesCount];
         NSArray *titles = [specifier multipleTitles];
-        NSUInteger indexOfPreferredAction = [[specifier multipleValues] indexOfObject:[_userDefaults objectForKey:[specifier key]]];
+        NSValue *currentValue = [_userDefaults objectForKey:[specifier key]] ?: [specifier defaultValue];
+        NSUInteger indexOfPreferredAction = [[specifier multipleValues] indexOfObject:currentValue];
         for (NSUInteger i = 0; i < count; i++) {
             id value = [[specifier multipleValues][i] copy];
             UIAlertAction *action = [UIAlertAction actionWithTitle:[_settingsReader titleForStringId:titles[i]]
