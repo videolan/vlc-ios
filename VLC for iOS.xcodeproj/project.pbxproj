@@ -118,7 +118,6 @@
 		7D4408591BDA8DCA0080FB42 /* VLCBoxController.m in Sources */ = {isa = PBXBuildFile; fileRef = 41CD69591A29D72600E60BCE /* VLCBoxController.m */; };
 		7D44085A1BDA8DCE0080FB42 /* VLCBoxTableViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 41CD695B1A29D72600E60BCE /* VLCBoxTableViewController.m */; };
 		7D4625881A5614A1001A80B4 /* VLCEqualizerView.m in Sources */ = {isa = PBXBuildFile; fileRef = 7D4625871A5614A1001A80B4 /* VLCEqualizerView.m */; };
-		7D4CAAFC1BDE548A00A08EF5 /* Localizable.strings in Resources */ = {isa = PBXBuildFile; fileRef = A79246C6170F11DF0036AAF2 /* Localizable.strings */; };
 		7D4DF2181B55209200739326 /* CoreSpotlight.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 7D4DF2171B55209200739326 /* CoreSpotlight.framework */; settings = {ATTRIBUTES = (Weak, ); }; };
 		7D50903218F41C7900180139 /* VLCAlertView.m in Sources */ = {isa = PBXBuildFile; fileRef = 7D50903118F41C7900180139 /* VLCAlertView.m */; };
 		7D51B3B01BF0EEF4005AF4D5 /* VLCPlaybackInfoMediaInfoTVViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 7D51B3AE1BF0EEF4005AF4D5 /* VLCPlaybackInfoMediaInfoTVViewController.m */; };
@@ -250,6 +249,7 @@
 		DD2789E21B67A7BE00CED769 /* VLCWatchCommunication.m in Sources */ = {isa = PBXBuildFile; fileRef = DD2789E11B67A7BE00CED769 /* VLCWatchCommunication.m */; };
 		DD2789E41B67A88600CED769 /* WatchConnectivity.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = DD2789E31B67A88600CED769 /* WatchConnectivity.framework */; };
 		DD2789E51B67A8F000CED769 /* MLMediaLibrary+playlist.m in Sources */ = {isa = PBXBuildFile; fileRef = DD7110EF1AF38B2B00854776 /* MLMediaLibrary+playlist.m */; };
+		DD29A3E91BF223D000A27A91 /* Localizable.strings in Resources */ = {isa = PBXBuildFile; fileRef = A79246C6170F11DF0036AAF2 /* Localizable.strings */; };
 		DD3567681B6760BF00338947 /* Interface.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = DD3567661B6760BF00338947 /* Interface.storyboard */; };
 		DD35676A1B6760BF00338947 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = DD3567691B6760BF00338947 /* Assets.xcassets */; };
 		DD3567711B6760BF00338947 /* VLC WatchKit Extension.appex in Embed App Extensions */ = {isa = PBXBuildFile; fileRef = DD3567701B6760BF00338947 /* VLC WatchKit Extension.appex */; settings = {ATTRIBUTES = (RemoveHeadersOnCopy, ); }; };
@@ -2404,9 +2404,9 @@
 				7DEC8BDF1BD67899006E1093 /* VLCFullscreenMovieTVViewController.xib in Resources */,
 				7DEDD38C1BE936130053802C /* About Contents.html in Resources */,
 				7DF383AE1BF206FB00D71A5C /* VLCRemoteBrowsingCollectionViewController.xib in Resources */,
-				7D4CAAFC1BDE548A00A08EF5 /* Localizable.strings in Resources */,
 				7DDE41931BE925820065C53A /* Assets.xcassets in Resources */,
 				7DEDD38E1BE936F30053802C /* OpenSans-Regular.ttf in Resources */,
+				DD29A3E91BF223D000A27A91 /* Localizable.strings in Resources */,
 				DDEAECF61BDFEAFA00756C83 /* VLCLocalNetworkServerTVCell.xib in Resources */,
 				DD8095EC1BE4F04E0065D8E1 /* VLCPlaybackInfoRateTVViewController.xib in Resources */,
 				7D405ED61BEA1F56006ED886 /* jquery-1.10.1.min.js in Resources */,
