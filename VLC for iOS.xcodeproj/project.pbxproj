@@ -1539,7 +1539,7 @@
 				7D3784EB183A9A1E009EE944 /* VLC for iOS-Prefix.pch */,
 			);
 			name = "iOS Supporting Files";
-			path = AspenProject;
+			path = "vlc-ios";
 			sourceTree = "<group>";
 		};
 		7D98705D1A3E03D5009CF27D /* PAPasscode */ = {
