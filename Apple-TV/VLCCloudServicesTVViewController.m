@@ -17,7 +17,7 @@
 #import "VLCPlayerDisplayController.h"
 #import "VLCOneDriveController.h"
 #import "VLCOneDriveCollectionViewController.h"
-#import "VLCBoxTableViewController.h"
+#import "VLCBoxCollectionViewController.h"
 #import "VLCBoxController.h"
 #import "MetaDataFetcherKit.h"
 
@@ -96,7 +96,7 @@
 
 - (IBAction)box:(id)sender
 {
-    VLCBoxTableViewController *targetViewController = [[VLCBoxTableViewController alloc] initWithPath:@""];
+    VLCBoxCollectionViewController *targetViewController = [[VLCBoxCollectionViewController alloc] initWithPath:@""];
     [self.navigationController pushViewController:targetViewController animated:YES];
 }
 

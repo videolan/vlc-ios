@@ -61,7 +61,6 @@
     [self.collectionView reloadData];
 }
 
-
 - (UICollectionViewCell *)collectionView:(UICollectionView *)collectionView cellForItemAtIndexPath:(NSIndexPath *)indexPath
 {
     VLCCloudStorageCollectionViewCell *cell = (VLCCloudStorageCollectionViewCell *)[collectionView dequeueReusableCellWithReuseIdentifier:VLCRemoteBrowsingTVCellIdentifier forIndexPath:indexPath];
