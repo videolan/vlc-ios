@@ -16,7 +16,7 @@
 #import "SSKeychain.h"
 #import "VLCPlayerDisplayController.h"
 #import "VLCOneDriveController.h"
-#import "VLCOneDriveTableViewController2.h"
+#import "VLCOneDriveCollectionViewController.h"
 #import "VLCBoxTableViewController.h"
 #import "VLCBoxController.h"
 #import "MetaDataFetcherKit.h"
@@ -90,8 +90,8 @@
 
 - (IBAction)onedrive:(id)sender
 {
-    VLCOneDriveTableViewController2 *newKid = [[VLCOneDriveTableViewController2 alloc] initWithOneDriveObject:nil];
-    [self.navigationController pushViewController:newKid animated:YES];
+    VLCOneDriveCollectionViewController *targetViewController = [[VLCOneDriveCollectionViewController alloc] initWithOneDriveObject:nil];
+    [self.navigationController pushViewController:targetViewController animated:YES];
 }
 
 - (IBAction)box:(id)sender

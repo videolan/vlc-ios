@@ -1,5 +1,4 @@
 /*****************************************************************************
- * VLCOneDriveTableViewController.h
  * VLC for iOS
  *****************************************************************************
  * Copyright (c) 2015 VideoLAN. All rights reserved.
@@ -10,12 +9,9 @@
  * Refer to the COPYING file of the official project for license.
  *****************************************************************************/
 
-#import <UIKit/UIKit.h>
-#import "VLCCloudStorageTVTableViewController.h"
+#import "VLCCloudStorageTVViewController.h"
 
-@class VLCOneDriveObject;
-
-@interface VLCOneDriveTableViewController2 : VLCCloudStorageTVTableViewController
+@interface VLCOneDriveCollectionViewController : VLCCloudStorageTVViewController
 
 - (instancetype)initWithOneDriveObject:(VLCOneDriveObject *)object;
 

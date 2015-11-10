@@ -1,5 +1,4 @@
 /*****************************************************************************
- * VLCOneDriveTableViewController.m
  * VLC for iOS
  *****************************************************************************
  * Copyright (c) 2014-2015 VideoLAN. All rights reserved.
@@ -10,22 +9,22 @@
  * Refer to the COPYING file of the official project for license.
  *****************************************************************************/
 
-#import "VLCOneDriveTableViewController2.h"
+#import "VLCOneDriveCollectionViewController.h"
 #import "VLCOneDriveController.h"
-#import "VLCCloudStorageTableViewCell.h"
+#import "VLCRemoteBrowsingTVCell.h"
 
-@interface VLCOneDriveTableViewController2 () <VLCCloudStorageDelegate>
+@interface VLCOneDriveCollectionViewController ()
 {
     VLCOneDriveObject *_currentFolder;
     VLCOneDriveController *_oneDriveController;
 }
 @end
 
-@implementation VLCOneDriveTableViewController2
+@implementation VLCOneDriveCollectionViewController
 
 - (instancetype)initWithOneDriveObject:(VLCOneDriveObject *)object
 {
-    self = [super init];
+    self = [super initWithNibName:@"VLCRemoteBrowsingCollectionViewController" bundle:nil];
 
     if (self) {
         _oneDriveController = [VLCOneDriveController sharedInstance];
@@ -53,15 +52,16 @@
     [super viewWillAppear:animated];
 }
 
-#pragma mark - table view data source
-
-- (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
+- (void)mediaListUpdated
 {
-    static NSString *CellIdentifier = @"OneDriveCell";
+    [self.collectionView reloadData];
+    [self.activityIndicator stopAnimating];
+}
 
-    VLCCloudStorageTableViewCell *cell = (VLCCloudStorageTableViewCell *)[tableView dequeueReusableCellWithIdentifier:CellIdentifier];
-    if (cell == nil)
-        cell = [VLCCloudStorageTableViewCell cellWithReuseIdentifier:CellIdentifier];
+
+- (UICollectionViewCell *)collectionView:(UICollectionView *)collectionView cellForItemAtIndexPath:(NSIndexPath *)indexPath
+{
+    VLCCloudStorageCollectionViewCell *cell = (VLCCloudStorageCollectionViewCell *)[collectionView dequeueReusableCellWithReuseIdentifier:VLCRemoteBrowsingTVCellIdentifier forIndexPath:indexPath];
 
     if (_currentFolder == nil)
         _currentFolder = _oneDriveController.rootFolder;
@@ -71,24 +71,14 @@
 
         if (indexPath.row < items.count) {
             cell.oneDriveFile = items[indexPath.row];
-            cell.delegate = self;
         }
     }
 
     return cell;
 }
 
-#pragma mark - table view delegate
-
-- (void)mediaListUpdated
+- (void)collectionView:(UICollectionView *)collectionView didSelectItemAtIndexPath:(NSIndexPath *)indexPath
 {
-    [self.tableView reloadData];
-    [self.activityIndicator stopAnimating];
-}
-
-- (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
-{
-    [self.tableView deselectRowAtIndexPath:indexPath animated:NO];
     if (_currentFolder == nil)
         return;
 
@@ -100,23 +90,19 @@
     VLCOneDriveObject *selectedObject = folderItems[row];
     if (selectedObject.isFolder) {
         /* dive into sub folder */
-        VLCOneDriveTableViewController2 *targetViewController = [[VLCOneDriveTableViewController2 alloc] initWithOneDriveObject:selectedObject];
+        VLCOneDriveCollectionViewController *targetViewController = [[VLCOneDriveCollectionViewController alloc] initWithOneDriveObject:selectedObject];
         [self.navigationController pushViewController:targetViewController animated:YES];
     } else {
         /* stream file */
         NSURL *url = [NSURL URLWithString:selectedObject.downloadPath];
         VLCPlaybackController *vpc = [VLCPlaybackController sharedInstance];
         [vpc playURL:url successCallback:nil errorCallback:nil];
-#if TARGET_OS_TV
         VLCFullscreenMovieTVViewController *movieVC = [VLCFullscreenMovieTVViewController fullscreenMovieTVViewController];
         [self presentViewController:movieVC
                            animated:YES
                          completion:nil];
-#endif
     }
 }
-
-#pragma mark - onedrive controller delegation
 
 - (void)sessionWasUpdated
 {

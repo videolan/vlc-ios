@@ -100,7 +100,6 @@
                 }
             } else
                 self.thumbnailImage = [UIImage imageNamed:@"blank"];
-            self.title = self.oneDriveFile.name;
 
             if (self.oneDriveFile.size > 0) {
                 [subtitle appendString:[NSByteCountFormatter stringFromByteCount:[self.oneDriveFile.size longLongValue] countStyle:NSByteCountFormatterCountStyleFile]];
@@ -114,6 +113,7 @@
             }
             self.subtitle = subtitle;
         }
+        self.title = self.oneDriveFile.name;
     }
 }
 
