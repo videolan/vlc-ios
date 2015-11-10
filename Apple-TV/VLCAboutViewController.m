@@ -89,7 +89,7 @@
 - (void)startAnimationTimer
 {
     [startAnimationTimer invalidate];
-    startAnimationTimer = [NSTimer scheduledTimerWithTimeInterval:2.0 target:self selector:@selector(startAnimation) userInfo:nil repeats:NO];
+    startAnimationTimer = [NSTimer scheduledTimerWithTimeInterval:4.0 target:self selector:@selector(startAnimation) userInfo:nil repeats:NO];
 }
 
 - (void)stopAnimation

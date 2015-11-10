@@ -28,7 +28,7 @@
 
 - (NSString *)title
 {
-    return NSLocalizedString(@"OPEN_NETWORK", nil);
+    return NSLocalizedString(@"NETWORK_TITLE", nil);
 }
 
 - (void)viewDidLoad {

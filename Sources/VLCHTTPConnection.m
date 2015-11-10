@@ -583,19 +583,22 @@
     if (!_playbackStarted) {
         if (percentage >= 10) {
             _playbackStarted = YES;
-
-            APLog(@"Starting playback of %@", _filepath);
-            VLCPlaybackController *vpc = [VLCPlaybackController sharedInstance];
-            [vpc playURL:[NSURL fileURLWithPath:_filepath] successCallback:nil errorCallback:nil];
-
-            VLCFullscreenMovieTVViewController *moviewVC = [VLCFullscreenMovieTVViewController fullscreenMovieTVViewController];
-            [[UIApplication sharedApplication].keyWindow.rootViewController presentViewController:moviewVC
-                                                                                         animated:YES
-                                                                                       completion:nil];
-
+            [self performSelectorOnMainThread:@selector(startPlaybackOfPath:) withObject:_filepath waitUntilDone:NO];
         }
     }
 #endif
+}
+
+- (void)startPlaybackOfPath:(NSString *)path
+{
+    APLog(@"Starting playback of %@", path);
+    VLCPlaybackController *vpc = [VLCPlaybackController sharedInstance];
+    [vpc playURL:[NSURL fileURLWithPath:path] successCallback:nil errorCallback:nil];
+
+    VLCFullscreenMovieTVViewController *moviewVC = [VLCFullscreenMovieTVViewController fullscreenMovieTVViewController];
+    [[UIApplication sharedApplication].keyWindow.rootViewController presentViewController:moviewVC
+                                                                                 animated:YES
+                                                                               completion:nil];
 }
 
 //-----------------------------------------------------------------
