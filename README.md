@@ -1,8 +1,12 @@
 # How to start development for VLC for iOS:
 
-1. Run the compilescript with: sh compileVLCforiOS.sh
+1. Run the compilescript with: ```sh compileVLCforiOS.sh```
 
-The first time around this will take roughly an hour and take up 7.5GB of free space
+    The first time around this will take roughly an hour and take up 7.5GB of free space.
+
+2. Open `VLC for iOS.xcworkspace`.
+3. Change `BUNDLE_IDENTIFIER_PREFIX` in `SharedConfig.xcconfig` to your domain name in reverse DNS style.
+4. Hit "Build and Run".
 
 If it compiled and ran in your simulator, throw confetti, celebrate or just cheers to that. 
 You got further than a lot of people before you!
