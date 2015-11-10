@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
-<document type="com.apple.InterfaceBuilder.AppleTV.XIB" version="3.0" toolsVersion="9527.1" systemVersion="15C27e" targetRuntime="AppleTV" propertyAccessControl="none" useAutolayout="YES">
+<document type="com.apple.InterfaceBuilder.AppleTV.XIB" version="3.0" toolsVersion="9527.1" systemVersion="15B42" targetRuntime="AppleTV" propertyAccessControl="none" useAutolayout="YES">
     <dependencies>
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="9525.1"/>
     </dependencies>
@@ -8,7 +8,6 @@
             <connections>
                 <outlet property="boxButton" destination="HPy-k8-PTt" id="FcV-v2-CVw"/>
                 <outlet property="dropboxButton" destination="hdP-Dp-Mn0" id="K7o-9U-5hB"/>
-                <outlet property="gDriveButton" destination="uaI-5Z-SJq" id="Etu-VC-Z2o"/>
                 <outlet property="helpLabel" destination="pdj-Fb-JlC" id="MhC-1o-W69"/>
                 <outlet property="oneDriveButton" destination="gFm-4V-QFs" id="eWx-9Y-RDg"/>
                 <outlet property="view" destination="iN0-l3-epB" id="Eym-vH-oyN"/>
@@ -19,63 +18,54 @@
             <rect key="frame" x="0.0" y="0.0" width="1920" height="1080"/>
             <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
             <subviews>
-                <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="hdP-Dp-Mn0">
-                    <rect key="frame" x="810" y="329" width="301" height="86"/>
+                <button opaque="NO" contentMode="scaleToFill" misplaced="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="hdP-Dp-Mn0">
+                    <rect key="frame" x="841" y="329" width="240" height="86"/>
                     <inset key="contentEdgeInsets" minX="40" minY="20" maxX="40" maxY="20"/>
                     <state key="normal" title="Dropbox"/>
                     <connections>
                         <action selector="dropbox:" destination="-1" eventType="primaryActionTriggered" id="CbH-po-vKw"/>
                     </connections>
                 </button>
-                <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="uaI-5Z-SJq">
-                    <rect key="frame" x="810" y="445" width="301" height="86"/>
-                    <inset key="contentEdgeInsets" minX="40" minY="20" maxX="40" maxY="20"/>
-                    <state key="normal" title="Google Drive"/>
-                    <connections>
-                        <action selector="gdrive:" destination="-1" eventType="primaryActionTriggered" id="150-FC-FlB"/>
-                    </connections>
-                </button>
-                <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="HPy-k8-PTt">
-                    <rect key="frame" x="810" y="561" width="301" height="86"/>
-                    <inset key="contentEdgeInsets" minX="40" minY="20" maxX="40" maxY="20"/>
-                    <state key="normal" title="Box"/>
-                    <connections>
-                        <action selector="box:" destination="-1" eventType="primaryActionTriggered" id="Eww-7q-bAn"/>
-                    </connections>
-                </button>
-                <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="gFm-4V-QFs">
-                    <rect key="frame" x="810" y="677" width="301" height="86"/>
-                    <inset key="contentEdgeInsets" minX="40" minY="20" maxX="40" maxY="20"/>
-                    <state key="normal" title="OneDrive"/>
-                    <connections>
-                        <action selector="onedrive:" destination="-1" eventType="primaryActionTriggered" id="FXo-bT-UMk"/>
-                    </connections>
-                </button>
                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="pdj-Fb-JlC">
-                    <rect key="frame" x="105" y="874" width="1710" height="62"/>
+                    <rect key="frame" x="105" y="758" width="1710" height="62"/>
                     <string key="text">To access Cloud Services, login to iCloud on both this Apple TV and an iOS device with the same Apple ID and enable Keychain Sharing in System Settings.
 Afterwards, login to the cloud provider of your choice using the VLC app on your iOS device. Finally, select it on this screen.</string>
                     <fontDescription key="fontDescription" style="UICTFontTextStyleCaption1"/>
                     <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
                     <nil key="highlightedColor"/>
                 </label>
+                <button opaque="NO" contentMode="scaleToFill" misplaced="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="HPy-k8-PTt">
+                    <rect key="frame" x="841" y="445" width="240" height="86"/>
+                    <inset key="contentEdgeInsets" minX="40" minY="20" maxX="40" maxY="20"/>
+                    <state key="normal" title="Box"/>
+                    <connections>
+                        <action selector="box:" destination="-1" eventType="primaryActionTriggered" id="Eww-7q-bAn"/>
+                    </connections>
+                </button>
+                <button opaque="NO" contentMode="scaleToFill" misplaced="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="gFm-4V-QFs">
+                    <rect key="frame" x="841" y="561" width="240" height="86"/>
+                    <inset key="contentEdgeInsets" minX="40" minY="20" maxX="40" maxY="20"/>
+                    <state key="normal" title="OneDrive"/>
+                    <connections>
+                        <action selector="onedrive:" destination="-1" eventType="primaryActionTriggered" id="FXo-bT-UMk"/>
+                    </connections>
+                </button>
             </subviews>
             <constraints>
-                <constraint firstItem="uaI-5Z-SJq" firstAttribute="top" secondItem="hdP-Dp-Mn0" secondAttribute="bottom" constant="30" id="0Pp-jT-hyL"/>
+                <constraint firstItem="HPy-k8-PTt" firstAttribute="width" secondItem="hdP-Dp-Mn0" secondAttribute="width" id="3Qb-ZD-pEs"/>
+                <constraint firstItem="HPy-k8-PTt" firstAttribute="top" secondItem="hdP-Dp-Mn0" secondAttribute="bottom" constant="30" id="4gr-k9-yFu"/>
                 <constraint firstItem="gFm-4V-QFs" firstAttribute="top" secondItem="HPy-k8-PTt" secondAttribute="bottom" constant="30" id="6Ds-Dz-j0d"/>
                 <constraint firstItem="pdj-Fb-JlC" firstAttribute="leading" secondItem="iN0-l3-epB" secondAttribute="leading" constant="105" id="Dgd-na-5Zj"/>
                 <constraint firstItem="HPy-k8-PTt" firstAttribute="width" secondItem="gFm-4V-QFs" secondAttribute="width" id="KGz-R5-SlU"/>
-                <constraint firstItem="uaI-5Z-SJq" firstAttribute="centerX" secondItem="hdP-Dp-Mn0" secondAttribute="centerX" id="Mw8-qu-Vqj"/>
+                <constraint firstItem="gFm-4V-QFs" firstAttribute="height" secondItem="HPy-k8-PTt" secondAttribute="height" id="Wnc-gl-N2w"/>
                 <constraint firstAttribute="trailing" secondItem="pdj-Fb-JlC" secondAttribute="trailing" constant="105" id="XDT-AL-j2a"/>
-                <constraint firstItem="HPy-k8-PTt" firstAttribute="top" secondItem="uaI-5Z-SJq" secondAttribute="bottom" constant="30" id="YoM-LV-tnC"/>
                 <constraint firstItem="pdj-Fb-JlC" firstAttribute="top" secondItem="gFm-4V-QFs" secondAttribute="bottom" constant="111" id="ZnH-2y-fol"/>
-                <constraint firstItem="uaI-5Z-SJq" firstAttribute="width" secondItem="HPy-k8-PTt" secondAttribute="width" id="eSY-0J-2hE"/>
                 <constraint firstItem="hdP-Dp-Mn0" firstAttribute="top" secondItem="iN0-l3-epB" secondAttribute="top" constant="329" id="g5n-EN-pyy"/>
-                <constraint firstItem="uaI-5Z-SJq" firstAttribute="width" secondItem="hdP-Dp-Mn0" secondAttribute="width" id="gjb-7z-ngq"/>
+                <constraint firstItem="HPy-k8-PTt" firstAttribute="centerX" secondItem="hdP-Dp-Mn0" secondAttribute="centerX" id="jIH-kr-W4O"/>
                 <constraint firstItem="gFm-4V-QFs" firstAttribute="centerX" secondItem="HPy-k8-PTt" secondAttribute="centerX" id="lqg-W6-TQS"/>
                 <constraint firstItem="pdj-Fb-JlC" firstAttribute="centerX" secondItem="iN0-l3-epB" secondAttribute="centerX" id="nSz-oS-JWs"/>
-                <constraint firstItem="HPy-k8-PTt" firstAttribute="centerX" secondItem="uaI-5Z-SJq" secondAttribute="centerX" id="qaE-he-YUJ"/>
                 <constraint firstItem="hdP-Dp-Mn0" firstAttribute="centerX" secondItem="iN0-l3-epB" secondAttribute="centerX" id="qcb-Sc-GzH"/>
+                <constraint firstItem="HPy-k8-PTt" firstAttribute="height" secondItem="hdP-Dp-Mn0" secondAttribute="height" id="yWU-Sc-oab"/>
             </constraints>
         </view>
     </objects>
