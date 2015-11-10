@@ -10,9 +10,10 @@
  *****************************************************************************/
 
 #import <UIKit/UIKit.h>
+#import "VLCRemoteBrowsingCollectionViewController.h"
 #import "VLCLocalServerDiscoveryController.h"
 
-@interface VLCServerListTVTableViewController : UITableViewController <VLCLocalServerDiscoveryControllerDelegate>
+@interface VLCServerListTVViewController : VLCRemoteBrowsingCollectionViewController <VLCLocalServerDiscoveryControllerDelegate>
 
 @property (nonatomic) VLCLocalServerDiscoveryController *discoveryController;
 

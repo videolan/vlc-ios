@@ -10,7 +10,7 @@
  *****************************************************************************/
 
 #import "AppleTVAppDelegate.h"
-#import "VLCServerListTVTableViewController.h"
+#import "VLCServerListTVViewController.h"
 #import "VLCOpenNetworkStreamTVViewController.h"
 #import "VLCSettingsTableViewController.h"
 #import "VLCCloudServicesTVViewController.h"
@@ -20,7 +20,7 @@
 {
     UITabBarController *_mainViewController;
 
-    VLCServerListTVTableViewController *_localNetworkVC;
+    VLCServerListTVViewController *_localNetworkVC;
     VLCCloudServicesTVViewController *_cloudServicesVC;
     VLCOpenNetworkStreamTVViewController *_openNetworkVC;
     VLCSettingsTableViewController *_settingsTableVC;
@@ -52,10 +52,10 @@
     [defaults registerDefaults:appDefaults];
 }
 
-- (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions {
-
+- (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions
+{
     self.window = [[UIWindow alloc] initWithFrame:[[UIScreen mainScreen] bounds]];
-    _localNetworkVC = [[VLCServerListTVTableViewController alloc] initWithNibName:nil bundle:nil];
+    _localNetworkVC = [[VLCServerListTVViewController alloc] initWithNibName:nil bundle:nil];
     _cloudServicesVC = [[VLCCloudServicesTVViewController alloc] initWithNibName:nil bundle:nil];
     _openNetworkVC = [[VLCOpenNetworkStreamTVViewController alloc] initWithNibName:nil bundle:nil];
     _settingsTableVC = [[VLCSettingsTableViewController alloc] initWithNibName:nil bundle:nil];

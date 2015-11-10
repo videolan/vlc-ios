@@ -9,7 +9,7 @@
  * Refer to the COPYING file of the official project for license.
  *****************************************************************************/
 
-#import "VLCServerListTVTableViewController.h"
+#import "VLCServerListTVViewController.h"
 #import "VLCLocalNetworkServerTVCell.h"
 #import "VLCServerBrowsingTVViewController.h"
 #import "VLCNetworkServerLoginInformation.h"
@@ -29,22 +29,30 @@
 #import "VLCLocalNetworkServiceBrowserDSM.h"
 #import "VLCLocalNetworkServiceBrowserHTTP.h"
 
-@interface VLCServerListTVTableViewController ()
+#import "VLCRemoteBrowsingTVCell.h"
+
+@interface VLCServerListTVViewController ()
 {
     UILabel *_nothingFoundLabel;
 }
+@property (nonatomic) NSArray <NSIndexPath *> *indexPaths;
 @end
 
-@implementation VLCServerListTVTableViewController
+@implementation VLCServerListTVViewController
+
+- (instancetype)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil
+{
+    return [super initWithNibName:@"VLCRemoteBrowsingCollectionViewController" bundle:nil];
+}
 
 - (void)viewDidLoad {
     [super viewDidLoad];
     self.automaticallyAdjustsScrollViewInsets = NO;
     self.edgesForExtendedLayout = UIRectEdgeAll ^ UIRectEdgeTop;
-    
-    UINib *nib = [UINib nibWithNibName:@"VLCLocalNetworkServerTVCell" bundle:nil];
-    [self.tableView registerNib:nib forCellReuseIdentifier:VLCLocalServerTVCell];
-    self.tableView.rowHeight = 150;
+
+    UICollectionViewFlowLayout *flowLayout = (UICollectionViewFlowLayout *)self.collectionViewLayout;
+    flowLayout.itemSize = CGSizeMake(200, 300);
+
 
     _nothingFoundLabel = [[UILabel alloc] init];
     _nothingFoundLabel.text = NSLocalizedString(@"NO_SERVER_FOUND", nil);
@@ -103,49 +111,41 @@
     [self.discoveryController stopDiscovery];
 }
 
-#pragma mark - Table view data source
-- (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView {
-    return self.discoveryController.numberOfSections;
+#pragma mark - Collection view data source
+
+- (NSInteger)collectionView:(UICollectionView *)collectionView numberOfItemsInSection:(NSInteger)section
+{
+    return self.indexPaths.count;
 }
 
-- (NSString *)tableView:(UITableView *)tableView titleForHeaderInSection:(NSInteger)section {
-    VLCLocalServerDiscoveryController *discoverer = self.discoveryController;
-    if (discoverer.numberOfSections > 1 && [discoverer numberOfItemsInSection:section] > 0) {
-        return [self.discoveryController titleForSection:section];
-    }
-    return nil;
+- (UICollectionViewCell *)collectionView:(UICollectionView *)collectionView cellForItemAtIndexPath:(nonnull NSIndexPath *)indexPath
+{
+    VLCRemoteBrowsingTVCell *browsingCell = (VLCRemoteBrowsingTVCell *) [collectionView dequeueReusableCellWithReuseIdentifier:VLCRemoteBrowsingTVCellIdentifier forIndexPath:indexPath];
+
+    NSIndexPath *discoveryIndexPath = self.indexPaths[indexPath.row];
+    id<VLCLocalNetworkService> service = [self.discoveryController networkServiceForIndexPath:discoveryIndexPath];
+
+    browsingCell.isDirectory = YES;
+    browsingCell.title = service.title;
+    browsingCell.subtitle = [self.discoveryController titleForSection:discoveryIndexPath.section];
+    browsingCell.subtitleLabel.font = [UIFont preferredFontForTextStyle:UIFontTextStyleCaption1];
+    browsingCell.thumbnailImage = service.icon ? service.icon : [UIImage imageNamed:@"serverIcon"];
+
+    return browsingCell;
 }
 
-- (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section {
-    return [self.discoveryController numberOfItemsInSection:section];
+- (void)collectionView:(UICollectionView *)collectionView didSelectItemAtIndexPath:(NSIndexPath *)indexPath
+{
+    NSIndexPath *discoveryIndexPath = self.indexPaths[indexPath.row];
+    id<VLCLocalNetworkService> service = [self.discoveryController networkServiceForIndexPath:discoveryIndexPath];
+    [self didSelectService:service];
 }
 
-- (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
-    UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:VLCLocalServerTVCell forIndexPath:indexPath];
-    id<VLCLocalNetworkService> service = [self.discoveryController networkServiceForIndexPath:indexPath];
-    cell.textLabel.text = service.title;
-    cell.imageView.image = service.icon ? service.icon : [UIImage imageNamed:@"serverIcon"];
-    return cell;
-}
 
-- (void)showWIP:(NSString *)todo {
-    UIAlertController *alertController = [UIAlertController alertControllerWithTitle:@"Work in Progress\nFeature not (yet) implemented."
-                                                                             message:todo
-                                                                      preferredStyle:UIAlertControllerStyleAlert];
+#pragma mark - Service specific stuff
 
-    [alertController addAction:[UIAlertAction actionWithTitle:@"Please fix this!"
-                                                        style:UIAlertActionStyleDefault
-                                                      handler:nil]];
-
-    [alertController addAction:[UIAlertAction actionWithTitle:@"Nevermind"
-                                                        style:UIAlertActionStyleCancel
-                                                      handler:nil]];
-    [self presentViewController:alertController animated:YES completion:nil];
-}
-
-- (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
-
-    id<VLCLocalNetworkService> service = [self.discoveryController networkServiceForIndexPath:indexPath];
+- (void)didSelectService:(id<VLCLocalNetworkService>)service
+{
     if ([service respondsToSelector:@selector(serverBrowser)]) {
         id <VLCNetworkServerBrowser> browser = [service serverBrowser];
         if (browser) {
@@ -264,7 +264,19 @@
 #pragma mark - VLCLocalServerDiscoveryController
 - (void)discoveryFoundSomethingNew
 {
-    [self.tableView reloadData];
+    NSMutableArray<NSIndexPath *> *indexPaths = [NSMutableArray array];
+    VLCLocalServerDiscoveryController *discoveryController = self.discoveryController;
+    NSUInteger sectionCount = [discoveryController numberOfSections];
+    for (NSUInteger section = 0; section < sectionCount; ++section) {
+        NSUInteger itemsCount = [discoveryController numberOfItemsInSection:section];
+        for (NSUInteger index = 0; index < itemsCount; ++index) {
+            NSIndexPath *indexPath = [NSIndexPath indexPathForItem:index inSection:section];
+            [indexPaths addObject:indexPath];
+        }
+    }
+    self.indexPaths = [indexPaths copy];
+
+    [self.collectionView reloadData];
 
     _nothingFoundLabel.hidden = self.discoveryController.foundAnythingAtAll;
 }
