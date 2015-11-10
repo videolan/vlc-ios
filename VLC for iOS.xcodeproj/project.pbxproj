@@ -851,6 +851,7 @@
 		DD2789E01B67A7BE00CED769 /* VLCWatchCommunication.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = VLCWatchCommunication.h; path = Sources/VLCWatchCommunication.h; sourceTree = SOURCE_ROOT; };
 		DD2789E11B67A7BE00CED769 /* VLCWatchCommunication.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = VLCWatchCommunication.m; path = Sources/VLCWatchCommunication.m; sourceTree = SOURCE_ROOT; };
 		DD2789E31B67A88600CED769 /* WatchConnectivity.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = WatchConnectivity.framework; path = System/Library/Frameworks/WatchConnectivity.framework; sourceTree = SDKROOT; };
+		DD29A3E81BF21E3D00A27A91 /* SharedConfig.xcconfig */ = {isa = PBXFileReference; lastKnownFileType = text.xcconfig; path = SharedConfig.xcconfig; sourceTree = "<group>"; };
 		DD3567641B6760BF00338947 /* VLC WatchKit App.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "VLC WatchKit App.app"; sourceTree = BUILT_PRODUCTS_DIR; };
 		DD3567671B6760BF00338947 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Interface.storyboard; sourceTree = "<group>"; };
 		DD3567691B6760BF00338947 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
@@ -1414,6 +1415,7 @@
 		7D94FCD216DE7D1000F2623B = {
 			isa = PBXGroup;
 			children = (
+				DD29A3E81BF21E3D00A27A91 /* SharedConfig.xcconfig */,
 				7D94FCE416DE7D1000F2623B /* iOS specific classes */,
 				7DADC55C1704FAA8001DAC63 /* XIBs */,
 				A7924697170F0ED20036AAF2 /* iOS Resources */,
@@ -3100,9 +3102,9 @@
 		};
 		7D94FD0816DE7D1100F2623B /* Debug */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = DD29A3E81BF21E3D00A27A91 /* SharedConfig.xcconfig */;
 			buildSettings = {
 				ALWAYS_SEARCH_USER_PATHS = NO;
-				BUNDLE_IDENTIFIER_PREFIX = org.videolan;
 				CLANG_CXX_LANGUAGE_STANDARD = "gnu++0x";
 				CLANG_CXX_LIBRARY = "libc++";
 				CLANG_WARN_CONSTANT_CONVERSION = YES;
@@ -3133,9 +3135,9 @@
 		};
 		7D94FD0916DE7D1100F2623B /* Release */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = DD29A3E81BF21E3D00A27A91 /* SharedConfig.xcconfig */;
 			buildSettings = {
 				ALWAYS_SEARCH_USER_PATHS = NO;
-				BUNDLE_IDENTIFIER_PREFIX = org.videolan;
 				CLANG_CXX_LANGUAGE_STANDARD = "gnu++0x";
 				CLANG_CXX_LIBRARY = "libc++";
 				CLANG_WARN_CONSTANT_CONVERSION = YES;
@@ -3265,9 +3267,9 @@
 		};
 		A7035BBF174519E40057DFA7 /* Distribution */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = DD29A3E81BF21E3D00A27A91 /* SharedConfig.xcconfig */;
 			buildSettings = {
 				ALWAYS_SEARCH_USER_PATHS = NO;
-				BUNDLE_IDENTIFIER_PREFIX = org.videolan;
 				CLANG_CXX_LANGUAGE_STANDARD = "gnu++0x";
 				CLANG_CXX_LIBRARY = "libc++";
 				CLANG_WARN_CONSTANT_CONVERSION = YES;
