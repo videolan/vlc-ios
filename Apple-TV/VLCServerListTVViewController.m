@@ -51,8 +51,9 @@
     self.edgesForExtendedLayout = UIRectEdgeAll ^ UIRectEdgeTop;
 
     UICollectionViewFlowLayout *flowLayout = (UICollectionViewFlowLayout *)self.collectionViewLayout;
-    flowLayout.itemSize = CGSizeMake(200, 300);
-
+    flowLayout.itemSize = CGSizeMake(250.0, 300.0);
+    flowLayout.minimumInteritemSpacing = 48.0;
+    flowLayout.minimumLineSpacing = 100.0;
 
     _nothingFoundLabel = [[UILabel alloc] init];
     _nothingFoundLabel.text = NSLocalizedString(@"NO_SERVER_FOUND", nil);
