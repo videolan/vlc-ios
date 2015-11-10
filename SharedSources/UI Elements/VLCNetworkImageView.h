@@ -20,4 +20,7 @@
 - (void)cancelLoading;
 @property (nonatomic, readwrite) BOOL animateImageSetting;
 
+// if set the image view replaces the constraint on image uodates with a
+// constraint that has the same aspect ratio as the image
+@property (nonatomic) IBOutlet NSLayoutConstraint *aspectRatioConstraint;
 @end

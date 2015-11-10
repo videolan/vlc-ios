@@ -2,6 +2,7 @@
 <document type="com.apple.InterfaceBuilder.AppleTV.XIB" version="3.0" toolsVersion="9527.1" systemVersion="15B42" targetRuntime="AppleTV" propertyAccessControl="none" useAutolayout="YES">
     <dependencies>
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="9525.1"/>
+        <capability name="Aspect ratio constraints" minToolsVersion="5.1"/>
     </dependencies>
     <objects>
         <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner"/>
@@ -26,7 +27,13 @@
                         <nil key="highlightedColor"/>
                     </label>
                     <imageView userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" placeholderIntrinsicWidth="300" placeholderIntrinsicHeight="169" adjustsImageWhenAncestorFocused="YES" translatesAutoresizingMaskIntoConstraints="NO" id="tHQ-sR-zn4" customClass="VLCNetworkImageView">
-                        <rect key="frame" x="0.0" y="13" width="300" height="169"/>
+                        <rect key="frame" x="0.0" y="40" width="300" height="142"/>
+                        <constraints>
+                            <constraint firstAttribute="width" secondItem="tHQ-sR-zn4" secondAttribute="height" multiplier="19:9" id="TP3-nW-8dd"/>
+                        </constraints>
+                        <connections>
+                            <outlet property="aspectRatioConstraint" destination="TP3-nW-8dd" id="0SY-4J-iS5"/>
+                        </connections>
                     </imageView>
                 </subviews>
                 <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>

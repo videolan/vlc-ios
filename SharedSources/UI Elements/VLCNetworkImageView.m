@@ -76,7 +76,27 @@ static NSCache *sharedImageCache = nil;
 - (void)setImage:(UIImage *)image
 {
     [super setImage:image];
+    [self setNeedsUpdateConstraints];
     [self invalidateIntrinsicContentSize];
+}
+
+- (void)updateConstraints
+{
+    [super updateConstraints];
+
+    CGSize size = self.image.size;
+    if (self.aspectRatioConstraint && size.height && size.width) {
+        NSLayoutConstraint *newConstraint = [NSLayoutConstraint constraintWithItem:self
+                                                                         attribute:NSLayoutAttributeWidth
+                                                                         relatedBy:NSLayoutRelationEqual
+                                                                            toItem:self
+                                                                         attribute:NSLayoutAttributeHeight
+                                                                        multiplier:size.width/size.height
+                                                                          constant:0];
+        [self removeConstraint:self.aspectRatioConstraint];
+        [self addConstraint:newConstraint];
+        self.aspectRatioConstraint = newConstraint;
+    }
 }
 
 @end
