@@ -11,6 +11,9 @@
 
 #import <UIKit/UIKit.h>
 #import "VLCLocalServerDiscoveryController.h"
+
 @interface VLCServerListTVTableViewController : UITableViewController <VLCLocalServerDiscoveryControllerDelegate>
+
 @property (nonatomic) VLCLocalServerDiscoveryController *discoveryController;
+
 @end

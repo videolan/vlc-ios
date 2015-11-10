@@ -179,7 +179,6 @@
 		7DC19B051868D1C400810BF7 /* VLCFirstStepsFifthPageViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 7DC19B031868D1C400810BF7 /* VLCFirstStepsFifthPageViewController.m */; };
 		7DC19B0C1868D21800810BF7 /* VLCFirstStepsSixthPageViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 7DC19B0A1868D21800810BF7 /* VLCFirstStepsSixthPageViewController.m */; };
 		7DC71D0E1BC81F70001FACAA /* AVFoundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 7DC71D0D1BC81F70001FACAA /* AVFoundation.framework */; };
-		7DC71D261BC830A5001FACAA /* VLCLocalNetworkTVViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 7DC71D241BC830A5001FACAA /* VLCLocalNetworkTVViewController.m */; };
 		7DC71D291BC83590001FACAA /* UIColor+Presets.m in Sources */ = {isa = PBXBuildFile; fileRef = 7DF9352E1958AB0600E60FD4 /* UIColor+Presets.m */; };
 		7DC72D6317B7ED24008A26D0 /* WhiteRaccoon.m in Sources */ = {isa = PBXBuildFile; fileRef = 7DC72D6217B7ED24008A26D0 /* WhiteRaccoon.m */; };
 		7DD2A3A9179C04A7003EB537 /* OpenSans-Regular.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 7DD2A3A8179C04A6003EB537 /* OpenSans-Regular.ttf */; };
@@ -757,8 +756,6 @@
 		7DC19B0A1868D21800810BF7 /* VLCFirstStepsSixthPageViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = VLCFirstStepsSixthPageViewController.m; path = Sources/VLCFirstStepsSixthPageViewController.m; sourceTree = SOURCE_ROOT; };
 		7DC222771773AB0900371B5C /* es */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = es; path = es.lproj/Localizable.strings; sourceTree = "<group>"; };
 		7DC71D0D1BC81F70001FACAA /* AVFoundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AVFoundation.framework; path = Platforms/AppleTVOS.platform/Developer/SDKs/AppleTVOS9.0.sdk/System/Library/Frameworks/AVFoundation.framework; sourceTree = DEVELOPER_DIR; };
-		7DC71D231BC830A5001FACAA /* VLCLocalNetworkTVViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = VLCLocalNetworkTVViewController.h; sourceTree = "<group>"; };
-		7DC71D241BC830A5001FACAA /* VLCLocalNetworkTVViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = VLCLocalNetworkTVViewController.m; sourceTree = "<group>"; };
 		7DC72D6117B7ED24008A26D0 /* WhiteRaccoon.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = WhiteRaccoon.h; path = ImportedSources/WhiteRaccoon/WhiteRaccoon.h; sourceTree = SOURCE_ROOT; };
 		7DC72D6217B7ED24008A26D0 /* WhiteRaccoon.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = WhiteRaccoon.m; path = ImportedSources/WhiteRaccoon/WhiteRaccoon.m; sourceTree = SOURCE_ROOT; };
 		7DC87AEF17413634009DC250 /* de */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = de; path = de.lproj/Localizable.strings; sourceTree = "<group>"; };
@@ -1728,8 +1725,6 @@
 				DDEAECEC1BDFE99200756C83 /* VLCServerListTVTableViewController.m */,
 				DDDEA6AD1BE027FA000BB7A2 /* VLCServerBrowsingTVViewController.h */,
 				DDDEA6AE1BE027FA000BB7A2 /* VLCServerBrowsingTVViewController.m */,
-				7DC71D231BC830A5001FACAA /* VLCLocalNetworkTVViewController.h */,
-				7DC71D241BC830A5001FACAA /* VLCLocalNetworkTVViewController.m */,
 				DDEAECF21BDFEAE300756C83 /* VLCLocalNetworkServerTVCell.h */,
 				DDEAECF31BDFEAE300756C83 /* VLCLocalNetworkServerTVCell.m */,
 				7D7EF3D71BD56B5900CD4CEE /* VLCOpenNetworkStreamTVViewController.h */,
@@ -2661,7 +2656,6 @@
 				DD3EFF4E1BDEBCE500B68579 /* VLCNetworkServerBrowserPlex.m in Sources */,
 				7DF90B4A1BE7A8110059C0E3 /* IASKSettingsReader.m in Sources */,
 				DD3EFF3E1BDEBCE500B68579 /* VLCLocalNetworkServiceBrowserHTTP.m in Sources */,
-				7DC71D261BC830A5001FACAA /* VLCLocalNetworkTVViewController.m in Sources */,
 				7DF383CB1BF2498800D71A5C /* VLCOneDriveCollectionViewController.m in Sources */,
 				7D5278E21BD7E06E00D0CA0E /* VLCDropboxController.m in Sources */,
 				7DEC8BD91BD670EB006E1093 /* VLCPlaybackNavigationController.m in Sources */,

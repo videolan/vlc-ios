@@ -15,12 +15,19 @@
 #import "VLCNetworkServerLoginInformation.h"
 
 #import "VLCNetworkServerBrowserPlex.h"
-#import "VLCLocalNetworkServiceBrowserPlex.h"
 #import "VLCNetworkServerBrowserVLCMedia.h"
-#import "VLCLocalNetworkServiceBrowserDSM.h"
-#import "VLCLocalNetworkServiceBrowserFTP.h"
 #import "VLCNetworkServerBrowserFTP.h"
 #import <SSKeychain/SSKeychain.h>
+
+#import "VLCLocalNetworkServiceBrowserManualConnect.h"
+#import "VLCLocalNetworkServiceBrowserPlex.h"
+#import "VLCLocalNetworkServiceBrowserFTP.h"
+#import "VLCLocalNetworkServiceBrowserUPnP.h"
+#ifndef NDEBUG
+#import "VLCLocalNetworkServiceBrowserSAP.h"
+#endif
+#import "VLCLocalNetworkServiceBrowserDSM.h"
+#import "VLCLocalNetworkServiceBrowserHTTP.h"
 
 @interface VLCServerListTVTableViewController ()
 {
@@ -64,6 +71,24 @@
                                                                   multiplier:1.0
                                                                     constant:0.0];
     [self.view addConstraint:xConstraint];
+
+    NSArray *classes = @[
+                         //                         [VLCLocalNetworkServiceBrowserManualConnect class],
+                         [VLCLocalNetworkServiceBrowserHTTP class],
+                         [VLCLocalNetworkServiceBrowserUPnP class],
+                         [VLCLocalNetworkServiceBrowserDSM class],
+                         [VLCLocalNetworkServiceBrowserPlex class],
+                         [VLCLocalNetworkServiceBrowserFTP class],
+#ifndef NDEBUG
+                         [VLCLocalNetworkServiceBrowserSAP class],
+#endif
+                         ];
+    self.discoveryController = [[VLCLocalServerDiscoveryController alloc] initWithServiceBrowserClasses:classes];
+    self.discoveryController.delegate = self;
+}
+
+- (NSString *)title {
+    return NSLocalizedString(@"LOCAL_NETWORK", nil);
 }
 
 - (void)viewDidAppear:(BOOL)animated
