@@ -31,6 +31,9 @@ NSString *const VLCRemoteBrowsingTVCellIdentifier = @"VLCRemoteBrowsingTVCell";
 {
     [super awakeFromNib];
     [self prepareForReuse];
+    UILayoutGuide *focusedFrameGuide = self.thumbnailImageView.focusedFrameGuide;
+    NSLayoutConstraint *constraint = [self.titleLabel.topAnchor constraintEqualToAnchor:focusedFrameGuide.bottomAnchor];
+    [self.contentView addConstraint:constraint];
 }
 
 - (void)prepareForReuse
