@@ -21,6 +21,7 @@
 #import "HTTPFileResponse.h"
 #import "MultipartMessageHeaderField.h"
 #import "HTTPDynamicFileResponse.h"
+#import "HTTPErrorResponse.h"
 #import "NSString+SupportedMedia.h"
 #import "UIDevice+VLC.h"
 #import "VLCHTTPUploaderController.h"
@@ -420,6 +421,98 @@
     return fileResponse;
 }
 
+#if TARGET_OS_TV
+- (NSObject <HTTPResponse> *)_HTTPGETPlaying
+{
+    /* JSON response:
+     {
+        "currentTime": 42,
+        "media": {
+            "id": "some id",
+            "title": "some title",
+            "duration": 120000
+        }
+     }
+     */
+
+    VLCPlaybackController *vpc = [VLCPlaybackController sharedInstance];
+    if (!vpc.activePlaybackSession) {
+        return [[HTTPErrorResponse alloc] initWithErrorCode:404];
+    }
+    VLCMediaPlayer *player = vpc.mediaPlayer;
+    VLCMedia *media = player.media;
+    if (!media) {
+        return [[HTTPErrorResponse alloc] initWithErrorCode:404];
+    }
+
+    NSString *mediaTitle = vpc.mediaTitle;
+    if (!mediaTitle)
+        mediaTitle = @"";
+    NSDictionary *mediaDict = @{ @"id" : media.url.absoluteString,
+                                 @"title" : mediaTitle,
+                                 @"duration" : @(media.length.intValue)};
+    NSDictionary *returnDict = @{ @"currentTime" : @(player.time.intValue),
+                                  @"media" : mediaDict };
+
+    NSError *error;
+    NSData *returnData = [NSJSONSerialization dataWithJSONObject:returnDict options:0 error:&error];
+    if (error != nil) {
+        APLog(@"JSON serialization failed %@", error);
+        return [[HTTPErrorResponse alloc] initWithErrorCode:500];
+    }
+
+    return [[HTTPDataResponse alloc] initWithData:returnData];
+}
+
+- (NSObject <HTTPResponse> *)_HTTPGETPlaylist
+{
+    /* JSON response:
+     [
+        {
+            "media": {
+                "id": "some id 1",
+                "title": "some title 1",
+                "duration": 120000
+            }
+        },
+     ...]
+     */
+
+    VLCPlaybackController *vpc = [VLCPlaybackController sharedInstance];
+    if (!vpc.activePlaybackSession || !vpc.mediaList) {
+        return [[HTTPErrorResponse alloc] initWithErrorCode:404];
+    }
+
+    VLCMediaList *mediaList = vpc.mediaList;
+    [mediaList lock];
+    NSUInteger mediaCount = mediaList.count;
+    NSMutableArray *retArray = [NSMutableArray array];
+    for (NSUInteger x = 0; x < mediaCount; x++) {
+        VLCMedia *media = [mediaList mediaAtIndex:x];
+        NSString *mediaTitle;
+        if (media.isParsed) {
+            mediaTitle = [media metadataForKey:VLCMetaInformationTitle];
+        } else {
+            mediaTitle = media.url.lastPathComponent;
+        }
+
+        NSDictionary *mediaDict = @{ @"id" : media.url.absoluteString,
+                                     @"title" : mediaTitle,
+                                     @"duration" : @(media.length.intValue) };
+        [retArray addObject:@{ @"media" : mediaDict }];
+    }
+    [mediaList unlock];
+
+    NSError *error;
+    NSData *returnData = [NSJSONSerialization dataWithJSONObject:retArray options:0 error:&error];
+    if (error != nil) {
+        APLog(@"JSON serialization failed %@", error);
+        return [[HTTPErrorResponse alloc] initWithErrorCode:500];
+    }
+
+    return [[HTTPDataResponse alloc] initWithData:returnData];
+}
+#endif
 
 - (NSObject<HTTPResponse> *)httpResponseForMethod:(NSString *)method URI:(NSString *)path
 {
@@ -432,6 +525,13 @@
     }
     if ([path hasPrefix:@"/thumbnail"]) {
         return [self _httpGETThumbnailForPath:path];
+    }
+#else
+    if ([path hasPrefix:@"/playing"]) {
+        return [self _HTTPGETPlaying];
+    }
+    if ([path hasPrefix:@"/playlist"]) {
+        return [self _HTTPGETPlaylist];
     }
 #endif
 
