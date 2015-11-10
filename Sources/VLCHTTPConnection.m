@@ -29,6 +29,9 @@
 #if TARGET_OS_IOS
 #import "VLCThumbnailsCache.h"
 #endif
+#if TARGET_OS_TV
+#import "VLCPlayerControlWebSocket.h"
+#endif
 
 @interface VLCHTTPConnection()
 {
@@ -547,6 +550,13 @@
 
     return [super httpResponseForMethod:method URI:path];
 }
+
+#if TARGET_OS_TV
+- (WebSocket *)webSocketForURI:(NSString *)path
+{
+    return [[VLCPlayerControlWebSocket alloc] initWithRequest:request socket:asyncSocket];
+}
+#endif
 
 - (void)prepareForBodyWithSize:(UInt64)contentLength
 {
