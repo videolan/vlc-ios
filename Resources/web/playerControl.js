@@ -523,8 +523,7 @@ $(function() {
     /**
      * Instanciation of the Ws class
      */
-    //@TODO: This URL need to be updated at runtime
-    var URL = 'ws://192.168.0.14:8888';
+    var URL = 'ws://' + location.host;
 
     var socket = new Ws({
         url: URL
