@@ -15,7 +15,12 @@
 
 @implementation VLCLocalNetworkServiceBrowserPlex
 - (instancetype)init {
-    return [super initWithName:@"Plex Media Server (via Bonjour)"
+#if TARGET_OS_TV
+    NSString *name = NSLocalizedString(@"PLEX_SHORT",nil);
+#else
+    NSString *name = NSLocalizedString(@"PLEX_LONG",nil);
+#endif
+    return [super initWithName:name
                    serviceType:@"_plexmediasvr._tcp."
                         domain:@""];
 }

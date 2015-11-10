@@ -31,7 +31,11 @@
 {
     self = [super init];
     if (self) {
-        _name = @"Universal Plug'n'Play (UPnP)";
+#if TARGET_OS_TV
+        _name = NSLocalizedString(@"UPNP_SHORT", nil);
+#else
+        _name = NSLocalizedString(@"UPNP_LONG", nil);
+#endif
     }
     return self;
 }

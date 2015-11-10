@@ -16,7 +16,12 @@
 
 @implementation VLCLocalNetworkServiceBrowserFTP
 - (instancetype)init {
-    return [super initWithName:@"File Transfer Protocol (FTP)"
+#if TARGET_OS_TV
+    NSString *name = NSLocalizedString(@"FTP_SHORT",nil);
+#else
+    NSString *name = NSLocalizedString(@"FTP_LONG",nil);
+#endif
+    return [super initWithName:name
                    serviceType:@"_ftp._tcp."
                         domain:@""];
 }

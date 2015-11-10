@@ -17,7 +17,13 @@
 @implementation VLCLocalNetworkServiceBrowserDSM
 
 - (instancetype)init {
-    return [super initWithName:NSLocalizedString(@"SMB_CIFS_FILE_SERVERS", nil)
+#if TARGET_OS_TV
+    NSString *name = NSLocalizedString(@"SMB_CIFS_FILE_SERVERS_SHORT", nil);
+#else
+    NSString *name = NSLocalizedString(@"SMB_CIFS_FILE_SERVERS", nil);
+#endif
+
+    return [super initWithName:name
             serviceServiceName:@"dsm"];
 }
 - (id<VLCLocalNetworkService>)networkServiceForIndex:(NSUInteger)index {
