@@ -112,17 +112,30 @@ NSString *const VLCServerBrowsingTVCellIdentifier = @"VLCServerBrowsingTVCell";
     }
 
     NSString *imagePath = details.posterPath;
-    NSString *imageSize = sessionManager.posterSizes.firstObject;
+    NSArray *sizes = sessionManager.posterSizes;
+    NSString *imageSize;
+
+    if (sizes != nil) {
+        if (sizes.count > 1) {
+            imageSize = sizes[1];
+        } else if (sizes.count > 0) {
+            imageSize = sizes.firstObject;
+        }
+    }
+
     if (!imagePath) {
         imagePath = details.backdropPath;
-        imageSize = sessionManager.backdropSizes.firstObject;
+        sizes = sessionManager.backdropSizes;
+        if (sizes != nil && sizes.count > 0) {
+            imageSize = sizes.firstObject;
+        }
     }
     if (!imagePath)
         return;
 
     NSString *thumbnailURLString = [NSString stringWithFormat:@"%@%@%@",
                                     sessionManager.imageBaseURL,
-                                    sessionManager.posterSizes.firstObject,
+                                    imageSize,
                                     imagePath];
     self.thumbnailURL = [NSURL URLWithString:thumbnailURLString];
 }
@@ -142,10 +155,23 @@ NSString *const VLCServerBrowsingTVCellIdentifier = @"VLCServerBrowsingTVCell";
         return;
 
     NSString *imagePath = details.posterPath;
-    NSString *imageSize = sessionManager.posterSizes.firstObject;
+    NSArray *sizes = sessionManager.posterSizes;
+    NSString *imageSize;
+
+    if (sizes != nil) {
+        if (sizes.count > 1) {
+            imageSize = sizes[1];
+        } else if (sizes.count > 0) {
+            imageSize = sizes.firstObject;
+        }
+    }
+
     if (!imagePath) {
         imagePath = details.backdropPath;
-        imageSize = sessionManager.backdropSizes.firstObject;
+        sizes = sessionManager.backdropSizes;
+        if (sizes != nil && sizes.count > 0) {
+            imageSize = sizes.firstObject;
+        }
     }
     if (!imagePath)
         return;
