@@ -1,7 +1,7 @@
 .player-control {
     position: relative;
     margin: auto;
-    width: 70%;
+    width: 65%;
     background: #2a2a2a;
     box-sizing: border-box;
     border-radius: 5px;
@@ -22,14 +22,15 @@
 }
 
 .player-control .progress {
-    width: 76%;
+    width: 80%;
     height: 8px;
     border-radius: 5px;
     background: #676767;
     box-shadow: inset 0 -5px 10px rgba(0, 0, 0, 0.1);
     float: left;
     cursor: pointer;
-    margin: 40px 0 0 0;
+    top: 50%;
+    margin-top: -4px;
     padding: 0;
     position: relative;
 }
@@ -78,7 +79,7 @@
     text-shadow: 0 0 0 #fff;
     color: rgba(255, 255, 255, 0.8);
     width: 10%;
-    padding: 32px 0 0 3%;
+    padding: 29px 0 0 3%;
     cursor: pointer;
     font-variant: small-caps;
 }
@@ -141,19 +142,10 @@
 
 .player-control .volume {
     position: relative;
-    float: left;
-    width: 5%;
-    margin: 0 0 0 4%;
+    float: right;
+    width: 48px;
+    margin-right: 16px;
     height: 100%;
-}
-
-.player-control .volume-icon {
-    padding: 1.5%;
-    height: 100%;
-    cursor: pointer;
-    box-sizing: border-box;
-    -moz-box-sizing: border-box;
-    -webkit-transition: all 0.15s linear;
 }
 
 .player-control .volume-holder {
@@ -204,114 +196,72 @@
     bottom: 0;
 }
 
-.player-control .volume-icon span {
-    width: 20%;
-    height: 13%;
-    background-color: #fff;
-    display: block;
-    position: relative;
-    z-index: 1;
-    font-weight: bold;
-    top: 50%;
-    color: #fff;
-    left: 22%;
-}
-
-.player-control .volume-icon span:before,
-.player-control .volume-icon span:after {
-    content: '';
+.player-control .v-mute:before, .player-control .v-mute:after {
+    width: 10px;
+    box-shadow: inset 0 0 0 32px;
     position: absolute;
+    -webkit-transform: translateY(-50%) rotate(45deg);
+    -ms-transform: translateY(-50%) rotate(45deg);
+    transform: translateY(-50%) rotate(45deg);
 }
 
-.player-control .volume-icon span:before {
-    width: 0;
-    height: 0px;
-    border: 1em solid transparent;
-    border-left: none;
-    border-right-color: #fff;
-    z-index: 2;
-    top: -6px;
-    left: 10%;
-    margin-top: -31%;
+.player-control .v-mute:before {
+    left: 17px;
+    height: 2px;
+    width: 10px;
 }
 
-.player-control .volume-icon span:after {
-    width: 2%;
-    height: 2%;
-    border: 1px solid #fff;
-    left: 200%;
-    border-width: 0px 0px 0 0;
-    top: 5px;
-    border-radius: 0 50px 0 0;
-    -webkit-transform: rotate(45deg);
-    -moz-transform: rotate(45deg);
-    -ms-transform: rotate(45deg);
-    -o-transform: rotate(45deg);
-    transform: rotate(45deg);
-    font-variant: small-caps;
+.player-control .v-mute:after {
+    height: 10px;
+    width: 2px;
+    left: 21px;
 }
 
-.player-control .v-change-10 span:after {
-    border-width: 10px 10px 0 0;
-    top: 0;
+.player-control .v-low:before,
+.player-control .v-medium:before,
+.player-control .v-high:before,
+.player-control .v-high:after,
+.player-control .v-very-high:before,
+.player-control .v-very-high:after {
+    width: 15px;
+    height: 15px;
+    position: absolute;
+    border-radius: 50%;
+    border-top-color: transparent;
+    border-bottom-color: transparent;
+    border-left-color: transparent;
+    left: 2px;
+    -webkit-transform: translateY(-50%);
+    -ms-transform: translateY(-50%);
+    transform: translateY(-50%);
 }
 
-.player-control .v-change-9 span:after {
-    border-width: 9px 9px 0 0;
-    top: 1px;
+.player-control .v-high:before,
+.player-control .v-medium:before {
+    border-style: double;
+    border-width: 6px;
+    left: -2px;
 }
 
-.player-control .v-change-8 span:after {
-    border-width: 8px 8px 0 0;
-    top: 1px;
+.player-control .v-very-high:before {
+    border-style: inset;
+    border-width: 6px;
+    left: -2px;
 }
 
-.player-control .v-change-7 span:after {
-    border-width: 7px 7px 0 0;
-    top: 2px;
+.player-control .v-high:after,
+.player-control .v-very-high:after {
+    width: 32px;
+    height: 32px;
+    left: -7px;
 }
 
-.player-control .v-change-6 span:after {
-    border-width: 6px 6px 0 0;
-    top: 2px;
-}
-
-.player-control .v-change-5 span:after {
-    border-width: 5px 5px 0 0;
-    top: 3px;
-}
-
-.player-control .v-change-4 span:after {
-    border-width: 4px 4px 0 0;
-    top: 3px;
-}
-
-.player-control .v-change-3 span:after {
-    border-width: 3px 3px 0 0;
-    top: 4px;
-}
-
-.player-control .v-change-2 span:after {
-    border-width: 2px 2px 0 0;
-    top: 4px;
-}
-
-.player-control .v-change-1 span:after {
-    border-width: 1px 1px 0 0;
-    top: 5px;
-}
-
-.player-control .v-change-0 span:after {
-    border-width: 0px 0px 0 0;
-    top: 5px;
-}
-
-.player-control .v-change-0 span:after {
-    content: '+';
-    -webkit-transform: rotate(45deg);
-    font-size: 20px;
-    top: -7px;
-    left: 28px;
+.v-low:before,
+.v-high:before,
+.v-high:after,
+.v-very-high:before,
+.v-very-high:after {
+    border: 2px solid;
 }
 
 .player-control .title {
@@ -327,4 +277,37 @@
 
 .player-control .volume:hover .volume-holder {
     display: block !important;
+}
+
+[class*=-icon], [class*=-icon] * {
+    box-sizing: border-box;
+}
+
+[class*=-icon] {
+    display: inline-block;
+    vertical-align: middle;
+    position: relative;
+    font-style: normal;
+    color: #fff;
+    text-align: left;
+    text-indent: -9999px;
+    direction: ltr;
+}
+
+[class*=-icon]:after, [class*=-icon]:before {
+    content: '';
+    pointer-events: none;
+}
+
+.volume-icon {
+    width: 0;
+    height: 0;
+    border: 7px solid;
+    border-left: none;
+    border-top-color: transparent;
+    border-bottom-color: transparent;
+    padding: 6px 3px;
+    box-shadow: inset 4px 0;
+    margin: -20px 10px 4px 11px;
+    top: 50%
 }

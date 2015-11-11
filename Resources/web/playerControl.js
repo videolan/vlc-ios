@@ -125,6 +125,19 @@ $(function() {
         this._previousVolume = 1;
         this.timeInterval = null;
         this.enableInterval = false;
+        this.volumeStyleMap = {
+            0: 'mute',
+            1: 'very-low',
+            2: 'very-low',
+            3: 'low',
+            4: 'low',
+            5: 'medium',
+            6: 'medium',
+            7: 'high',
+            8: 'high',
+            9: 'very-high',
+            10: 'very-high'
+        };
     };
 
     /**
@@ -262,7 +275,7 @@ $(function() {
      */
     PlayerControl.prototype.animateVolume = function() {
         var volumeIcon = this.element.find('.volume-icon');
-        volumeIcon.removeClass().addClass('volume-icon v-change-' + parseInt(this.volume * 10));
+        volumeIcon.removeClass().addClass('volume-icon v-' + this.volumeStyleMap[parseInt(this.volume * 10)]);
     };
 
     /**
