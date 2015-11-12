@@ -589,6 +589,7 @@
 #endif
 }
 
+#if TARGET_OS_TV
 - (void)startPlaybackOfPath:(NSString *)path
 {
     APLog(@"Starting playback of %@", path);
@@ -600,6 +601,7 @@
                                                                                  animated:YES
                                                                                completion:nil];
 }
+#endif
 
 //-----------------------------------------------------------------
 #pragma mark multipart form data parser delegate

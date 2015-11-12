@@ -51,6 +51,6 @@
 @end
 
 
-@interface VLCNetworkListCell (CellConfigurator) <VLCServerBrowsingCell>
+@interface VLCNetworkListCell (CellConfigurator) <VLCRemoteBrowsingCell>
 
 @end
