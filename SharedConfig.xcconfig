@@ -15,3 +15,8 @@
 // Using com.example leads to com.example.vlc-ios for the iOS target.
 
 BUNDLE_IDENTIFIER_PREFIX=com.example
+
+GROUP_IDENTIFIER=group.$(BUNDLE_IDENTIFIER_PREFIX).vlc-ios
+KEYCHAIN_ACCESS_GROUP=$(AppIdentifierPrefix)$(BUNDLE_IDENTIFIER_PREFIX).vlc-ios
+
+GCC_PREPROCESSOR_DEFINITIONS = "GROUP_IDENTIFIER=@\"$(GROUP_IDENTIFIER)\"";

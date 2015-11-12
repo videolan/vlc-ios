@@ -27,7 +27,7 @@
 		<key>NSExtensionAttributes</key>
 		<dict>
 			<key>WKAppBundleIdentifier</key>
-			<string>org.videolan.vlc-ios.watchkitapp</string>
+			<string>$(BUNDLE_IDENTIFIER_PREFIX).vlc-ios.watchkitapp</string>
 		</dict>
 		<key>NSExtensionPointIdentifier</key>
 		<string>com.apple.watchkit</string>

@@ -13,7 +13,7 @@
 
 #define kVLCVersionCodename @"All Along the Watchtower"
 
-#define kVLCApplicationGroupIdentifier @"group.org.videolan.vlc-ios"
+#define kVLCApplicationGroupIdentifier GROUP_IDENTIFIER
 
 #define kVLCRecentURLs @"recent-urls"
 #define kVLCStoreDropboxCredentials @"kVLCStoreDropboxCredentials"

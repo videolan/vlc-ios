@@ -28,7 +28,7 @@
 		<string>UIInterfaceOrientationPortraitUpsideDown</string>
 	</array>
 	<key>WKCompanionAppBundleIdentifier</key>
-	<string>org.videolan.vlc-ios</string>
+	<string>$(BUNDLE_IDENTIFIER_PREFIX).vlc-ios</string>
 	<key>WKWatchKitApp</key>
 	<true/>
 </dict>

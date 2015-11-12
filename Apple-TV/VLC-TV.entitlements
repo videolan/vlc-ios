@@ -8,7 +8,7 @@
 	<string>$(TeamIdentifierPrefix)$(CFBundleIdentifier)</string>
 	<key>keychain-access-groups</key>
 	<array>
-		<string>$(AppIdentifierPrefix)org.videolan.vlc-ios</string>
+		<string>$(KEYCHAIN_ACCESS_GROUP)</string>
 	</array>
 </dict>
 </plist>
