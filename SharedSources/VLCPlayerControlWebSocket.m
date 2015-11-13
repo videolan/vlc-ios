@@ -119,10 +119,11 @@
             VLCMedia *media = player.media;
 
             if (media) {
+                NSURL *url = media.url;
                 NSString *mediaTitle = vpc.mediaTitle;
                 if (!mediaTitle)
-                    mediaTitle = @"";
-                NSDictionary *mediaDict = @{ @"id" : media.url.absoluteString,
+                    mediaTitle = url.lastPathComponent;
+                NSDictionary *mediaDict = @{ @"id" : url.absoluteString,
                                              @"title" : mediaTitle,
                                              @"duration" : @(media.length.intValue)};
                 returnDict = @{ @"currentTime" : @(player.time.intValue),
