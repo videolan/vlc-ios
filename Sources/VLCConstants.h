@@ -13,8 +13,6 @@
 
 #define kVLCVersionCodename @"All Along the Watchtower"
 
-#define kVLCApplicationGroupIdentifier GROUP_IDENTIFIER
-
 #define kVLCSettingPasscodeKey @"Passcode"
 #define kVLCSettingPasscodeOnKey @"PasscodeProtection"
 #define kVLCSettingPasscodeAllowTouchID @"AllowTouchID"

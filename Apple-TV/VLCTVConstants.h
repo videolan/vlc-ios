@@ -13,8 +13,6 @@
 
 #define kVLCVersionCodename @"All Along the Watchtower"
 
-#define kVLCApplicationGroupIdentifier GROUP_IDENTIFIER
-
 #define kVLCRecentURLs @"recent-urls"
 #define kVLCStoreDropboxCredentials @"kVLCStoreDropboxCredentials"
 #define kVLCStoreOneDriveCredentials @"kVLCStoreOneDriveCredentials"
