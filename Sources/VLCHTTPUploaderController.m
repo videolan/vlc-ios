@@ -140,8 +140,10 @@
         [_httpServer stop];
         return true;
     }
+#if TARGET_OS_IOS
     // clean cache before accepting new stuff
     [self cleanCache];
+#endif
 
     // Initialize our http server
     _httpServer = [[HTTPServer alloc] init];

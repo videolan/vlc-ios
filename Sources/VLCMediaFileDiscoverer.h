@@ -28,6 +28,12 @@
 
 @interface VLCMediaFileDiscoverer : NSObject
 
+/**
+ * the path the discoverer will monitor
+ * \note _MUST_ be set before starting the discovery
+ */
+@property (readwrite, retain, nonatomic) NSString *directoryPath;
+
 - (void)addObserver:(id<VLCMediaFileDiscovererDelegate>)delegate;
 - (void)removeObserver:(id<VLCMediaFileDiscovererDelegate>)delegate;
 

@@ -20,7 +20,6 @@ const float MediaTimerInterval = 2.f;
     NSMutableArray *_observers;
     dispatch_source_t _directorySource;
 
-    NSString *_directoryPath;
     NSArray *_directoryFiles;
     NSMutableDictionary *_addedFilesMapping;
     NSTimer *_addMediaTimer;
@@ -95,7 +94,12 @@ const float MediaTimerInterval = 2.f;
 
 - (void)startDiscovering
 {
-    _directoryPath = [self directoryPath];
+    if (!_directoryPath) {
+        APLog(@"file discovery failed, no path was set");
+        return;
+    } else
+        APLog(@"will discover files in path: '%@'", _directoryPath);
+
     _directoryFiles = [self directoryFiles];
 
     int const folderDescriptor = open([_directoryPath fileSystemRepresentation], O_EVTONLY);
@@ -142,13 +146,6 @@ const float MediaTimerInterval = 2.f;
 }
 
 #pragma mark - directory watcher delegate
-
-- (NSString *)directoryPath
-{
-    NSArray *searchPaths = NSSearchPathForDirectoriesInDomains(NSDocumentDirectory, NSUserDomainMask, YES);
-    NSString *directoryPath = searchPaths[0];
-    return directoryPath;
-}
 
 - (void)directoryDidChange
 {

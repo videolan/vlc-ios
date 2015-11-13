@@ -143,6 +143,8 @@ NSString *const VLCDropboxSessionWasAuthorized = @"VLCDropboxSessionWasAuthorize
         [[MLMediaLibrary sharedMediaLibrary] applicationWillStart];
 
         VLCMediaFileDiscoverer *discoverer = [VLCMediaFileDiscoverer sharedInstance];
+        NSArray *searchPaths = NSSearchPathForDirectoriesInDomains(NSDocumentDirectory, NSUserDomainMask, YES);
+        discoverer.directoryPath = [searchPaths firstObject];
         [discoverer addObserver:self];
         [discoverer startDiscovering];
     };
