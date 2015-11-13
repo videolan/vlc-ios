@@ -58,18 +58,30 @@
 
 - (void)didReceiveMessage:(NSString *)msg
 {
-    APLog(@"web socket received message: '%@'", msg);
-    if ([msg isEqualToString:@"playing"]) {
+    NSError *error;
+    NSDictionary *receivedDict = [NSJSONSerialization JSONObjectWithData:[msg dataUsingEncoding:NSUTF8StringEncoding] options:NSJSONReadingAllowFragments error:&error];
+
+    if (error != nil) {
+        APLog(@"JSON deserialization failed for %@", msg);
+        return;
+    }
+
+    NSString *type = receivedDict[@"type"];
+    if (!type) {
+        APLog(@"No type in received JSON dict %@", receivedDict);
+    }
+
+    if ([type isEqualToString:@"playing"]) {
         [self _respondToPlaying];
-    } else if ([msg isEqualToString:@"play"]) {
+    } else if ([type isEqualToString:@"play"]) {
         [self _respondToPlay];
-    } else if ([msg isEqualToString:@"pause"]) {
+    } else if ([type isEqualToString:@"pause"]) {
         [self _respondToPause];
-    } else if ([msg isEqualToString:@"ended"]) {
+    } else if ([type isEqualToString:@"ended"]) {
         [self _respondToEnded];
-    } else if ([msg isEqualToString:@"seekTo"]) {
-        [self _respondToSeek];
-    } else if ([msg isEqualToString:@"volume"]) {
+    } else if ([type isEqualToString:@"seekTo"]) {
+        [self _respondToSeek:receivedDict];
+    } else if ([type isEqualToString:@"volume"]) {
         [self sendMessage:@"VOLUME CONTROL NOT SUPPORTED ON THIS DEVICE"];
     } else
         [self sendMessage:@"INVALID REQUEST!"];
@@ -148,10 +160,7 @@
     /*
      {
         "type": "play",
-        "currentTime": 42,
-        "media": {
-            "id": 42
-        }
+        "currentTime": 42
      }
      */
 
@@ -160,10 +169,8 @@
     if (player) {
         VLCMedia *media = player.media;
         if (media) {
-            NSDictionary *mediaDict = @{ @"id" : media.url.absoluteString};
             NSDictionary *returnDict = @{ @"currentTime" : @(player.time.intValue),
-                                          @"type" : @"play",
-                                          @"media" : mediaDict };
+                                          @"type" : @"play" };
 
             NSError *error;
             NSData *returnData = [NSJSONSerialization dataWithJSONObject:returnDict options:0 error:&error];
@@ -193,9 +200,6 @@
      {
         "type": "pause",
         "currentTime": 42,
-        "media": {
-            "id": 42
-        }
      }
      */
 
@@ -204,10 +208,8 @@
     if (player) {
         VLCMedia *media = player.media;
         if (media) {
-            NSDictionary *mediaDict = @{ @"id" : media.url.absoluteString};
             NSDictionary *returnDict = @{ @"currentTime" : @(player.time.intValue),
-                                          @"type" : @"pause",
-                                          @"media" : mediaDict };
+                                          @"type" : @"pause" };
 
             NSError *error;
             NSData *returnData = [NSJSONSerialization dataWithJSONObject:returnDict options:0 error:&error];
@@ -232,10 +234,7 @@
 {
     /*
      {
-        "type": "ended",
-        "media": {
-            "id": 42
-        }
+        "type": "ended"
      }
      */
 
@@ -244,9 +243,7 @@
     if (player) {
         VLCMedia *media = player.media;
         if (media) {
-            NSDictionary *mediaDict = @{ @"id" : media.url.absoluteString};
-            NSDictionary *returnDict = @{ @"type" : @"ended",
-                                          @"media" : mediaDict };
+            NSDictionary *returnDict = @{ @"type" : @"ended" };
 
             NSError *error;
             NSData *returnData = [NSJSONSerialization dataWithJSONObject:returnDict options:0 error:&error];
@@ -261,9 +258,25 @@
 
 #pragma mark - seek
 
-- (void)_respondToSeek
+- (void)_respondToSeek:(NSDictionary *)dictionary
 {
-    [self sendMessage:@"VOLUME CONTROL NOT SUPPORTED ON THIS DEVICE"];
+    /*
+     {
+        "currentTime" = 12514;
+        "type" = seekTo;
+     }
+     */
+    VLCPlaybackController *vpc = [VLCPlaybackController sharedInstance];
+    VLCMediaPlayer *player = vpc.mediaPlayer;
+
+    if (!player)
+        return;
+
+    VLCMedia *media = player.media;
+    if (!media)
+        return;
+
+    player.position = [dictionary[@"currentTime"] floatValue] / (CGFloat)media.length.intValue;
 }
 
 - (void)playbackSeekTo
