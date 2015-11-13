@@ -12,10 +12,14 @@
 #import "VLCRemotePlaybackViewController.h"
 #import "Reachability.h"
 #import "VLCHTTPUploaderController.h"
+#import "VLCMediaFileDiscoverer.h"
 
-@interface VLCRemotePlaybackViewController () <UITableViewDataSource, UITableViewDelegate>
+#define remotePlaybackReuseIdentifer @"remotePlaybackReuseIdentifer"
+
+@interface VLCRemotePlaybackViewController () <UITableViewDataSource, UITableViewDelegate, VLCMediaFileDiscovererDelegate>
 {
     Reachability *_reachability;
+    NSMutableArray *_discoveredFiles;
 }
 @end
 
@@ -38,11 +42,23 @@
                            selector:@selector(reachabilityChanged)
                                name:kReachabilityChangedNotification
                              object:nil];
+
+    VLCMediaFileDiscoverer *discoverer = [VLCMediaFileDiscoverer sharedInstance];
+
+    _discoveredFiles = [NSMutableArray array];
+
+    NSArray *searchPaths = NSSearchPathForDirectoriesInDomains(NSCachesDirectory, NSUserDomainMask, YES);
+    discoverer.directoryPath = [[searchPaths firstObject] stringByAppendingPathComponent:@"Upload"];
+    [discoverer addObserver:self];
+    [discoverer startDiscovering];
 }
 
 - (void)viewWillAppear:(BOOL)animated
 {
     [super viewWillAppear:animated];
+
+    [[VLCMediaFileDiscoverer sharedInstance] updateMediaList];
+
     [_reachability startNotifier];
     [self updateHTTPServerAddress];
 }
@@ -80,5 +96,89 @@
     [[NSUserDefaults standardUserDefaults] synchronize];
 }
 
+#pragma mark - table view data source
+
+- (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView
+{
+    return 1;
+}
+
+- (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
+{
+    UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:remotePlaybackReuseIdentifer];
+    if (!cell) {
+        cell = [[UITableViewCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:remotePlaybackReuseIdentifer];
+    }
+
+    NSString *cellTitle;
+    NSUInteger row = indexPath.row;
+    @synchronized(_discoveredFiles) {
+        if (_discoveredFiles.count > row) {
+            cellTitle = [_discoveredFiles[row] lastPathComponent];
+        }
+    }
+
+    cell.textLabel.text = cellTitle;
+    cell.imageView.image = [UIImage imageNamed:@"blank"];
+    return cell;
+}
+
+- (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section
+{
+    NSUInteger ret;
+
+    @synchronized(_discoveredFiles) {
+        ret = _discoveredFiles.count;
+    }
+
+    return ret;
+}
+
+#pragma mark - table view delegate
+
+- (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
+{
+    [tableView deselectRowAtIndexPath:indexPath animated:NO];
+
+    VLCPlaybackController *vpc = [VLCPlaybackController sharedInstance];
+    NSURL *url;
+    @synchronized(_discoveredFiles) {
+        url = [NSURL fileURLWithPath:_discoveredFiles[indexPath.row]];
+    }
+    [vpc playURL:url subtitlesFilePath:nil];
+    [self presentViewController:[VLCFullscreenMovieTVViewController fullscreenMovieTVViewController]
+                       animated:YES
+                     completion:nil];
+}
+
+#pragma mark - media file discovery
+- (void)mediaFilesFoundRequiringAdditionToStorageBackend:(NSArray<NSString *> *)foundFiles
+{
+    NSLog(@"Found files %@", foundFiles);
+
+    @synchronized(_discoveredFiles) {
+        _discoveredFiles = [NSMutableArray arrayWithArray:foundFiles];
+    }
+    [self.cachedMediaTableView reloadData];
+}
+
+- (void)mediaFileAdded:(NSString *)filePath loading:(BOOL)isLoading
+{
+    @synchronized(_discoveredFiles) {
+        if ([_discoveredFiles indexOfObjectIdenticalTo:filePath] == NSNotFound) {
+            [_discoveredFiles addObject:filePath];
+        }
+    }
+    [self.cachedMediaTableView reloadData];
+}
+
+- (void)mediaFileDeleted:(NSString *)filePath
+{
+    NSLog(@"removed file %@", filePath);
+    @synchronized(_discoveredFiles) {
+        [_discoveredFiles removeObjectIdenticalTo:filePath];
+    }
+    [self.cachedMediaTableView reloadData];
+}
 
 @end

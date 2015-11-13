@@ -13,8 +13,10 @@
 
 @interface VLCRemotePlaybackViewController : UIViewController
 
-@property (readwrite, nonatomic, weak) IBOutlet UIButton *toggleHTTPServerButton;
 @property (readwrite, nonatomic, weak) IBOutlet UILabel *httpServerLabel;
+@property (readwrite, nonatomic, weak) IBOutlet UIButton *toggleHTTPServerButton;
+
+@property (readwrite, nonatomic, weak) IBOutlet UILabel *cachedMediaLabel;
 @property (readwrite, nonatomic, weak) IBOutlet UITableView *cachedMediaTableView;
 
 - (IBAction)toggleHTTPServer:(id)sender;

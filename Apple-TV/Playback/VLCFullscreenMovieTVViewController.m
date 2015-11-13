@@ -155,12 +155,6 @@ typedef NS_ENUM(NSInteger, VLCPlayerScanState)
     [self stopAudioDescriptionAnimation];
 
     [super viewWillDisappear:animated];
-
-    /* clean caches in case remote playback was used
-     * note that if we cancel before the upload is complete
-     * the cache won't be emptied, but on the next launch only (or if the system is under storage pressure)
-     */
-    [[VLCHTTPUploaderController sharedInstance] cleanCache];
 }
 
 - (BOOL)canBecomeFirstResponder

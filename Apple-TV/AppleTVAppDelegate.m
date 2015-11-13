@@ -74,8 +74,8 @@
 
     self.window.rootViewController = _mainViewController;
 
-    // Init the HTTP Server and clean its cache
-    [[VLCHTTPUploaderController sharedInstance] cleanCache];
+    // Init the HTTP Server
+    [VLCHTTPUploaderController sharedInstance];
 
     [self.window makeKeyAndVisible];
     return YES;
