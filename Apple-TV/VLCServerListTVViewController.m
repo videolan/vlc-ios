@@ -128,6 +128,7 @@
 
     browsingCell.isDirectory = YES;
     browsingCell.title = service.title;
+    browsingCell.titleLabel.font = [UIFont preferredFontForTextStyle:UIFontTextStyleCaption2];
     browsingCell.subtitle = [self.discoveryController titleForSection:discoveryIndexPath.section];
     browsingCell.subtitleLabel.font = [UIFont preferredFontForTextStyle:UIFontTextStyleCaption1];
     browsingCell.thumbnailImage = service.icon ? service.icon : [UIImage imageNamed:@"serverIcon"];
