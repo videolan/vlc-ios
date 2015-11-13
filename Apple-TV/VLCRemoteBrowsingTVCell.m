@@ -25,7 +25,7 @@ NSString *const VLCRemoteBrowsingTVCellIdentifier = @"VLCRemoteBrowsingTVCell";
 
 @implementation VLCRemoteBrowsingTVCell
 
-@synthesize thumbnailURL = _thumbnailURL, isDirectory = _isDirectory;
+@synthesize thumbnailURL = _thumbnailURL, isDirectory = _isDirectory, couldBeAudioOnlyMedia = _couldBeAudioOnlyMedia;
 
 - (void)awakeFromNib
 {
@@ -45,6 +45,15 @@ NSString *const VLCRemoteBrowsingTVCellIdentifier = @"VLCRemoteBrowsingTVCell";
     [self.thumbnailImageView cancelLoading];
     self.title = nil;
     self.subtitle = nil;
+}
+
+- (void)setCouldBeAudioOnlyMedia:(BOOL)couldBeAudioOnlyMedia
+{
+    _artworkProvider.searchForAudioMetadata = _couldBeAudioOnlyMedia;
+    if (_couldBeAudioOnlyMedia != couldBeAudioOnlyMedia) {
+        [_artworkProvider reset];
+    }
+    _couldBeAudioOnlyMedia = couldBeAudioOnlyMedia;
 }
 
 - (void)setThumbnailURL:(NSURL *)thumbnailURL

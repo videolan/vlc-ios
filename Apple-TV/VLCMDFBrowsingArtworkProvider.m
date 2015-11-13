@@ -12,9 +12,10 @@
 #import "VLCMDFBrowsingArtworkProvider.h"
 #import "MetaDataFetcherKit.h"
 
-@interface VLCMDFBrowsingArtworkProvider () <MDFMovieDBFetcherDataRecipient>
+@interface VLCMDFBrowsingArtworkProvider () <MDFMovieDBFetcherDataRecipient, MDFHatchetFetcherDataRecipient>
 {
-    MDFMovieDBFetcher *_metadataFetcher;
+    MDFMovieDBFetcher *_tmdbFetcher;
+    MDFHatchetFetcher *_hatchetFetcher;
 }
 
 @end
@@ -23,34 +24,52 @@
 
 - (void)reset
 {
-    if (_metadataFetcher) {
-        [_metadataFetcher cancelAllRequests];
+    if (_tmdbFetcher) {
+        [_tmdbFetcher cancelAllRequests];
+        if (_hatchetFetcher)
+            [_hatchetFetcher cancelAllRequests];
     } else {
-        _metadataFetcher = [[MDFMovieDBFetcher alloc] init];
-        _metadataFetcher.dataRecipient = self;
-        _metadataFetcher.shouldDecrapifyInputStrings = YES;
+        _tmdbFetcher = [[MDFMovieDBFetcher alloc] init];
+        _tmdbFetcher.dataRecipient = self;
+        _tmdbFetcher.shouldDecrapifyInputStrings = YES;
+
+        if (_searchForAudioMetadata) {
+            _hatchetFetcher = [[MDFHatchetFetcher alloc] init];
+            _hatchetFetcher.dataRecipient = self;
+        }
     }
+}
+
+- (void)setSearchForAudioMetadata:(BOOL)searchForAudioMetadata
+{
+    if (searchForAudioMetadata) {
+        _hatchetFetcher = [[MDFHatchetFetcher alloc] init];
+        _hatchetFetcher.dataRecipient = self;
+    }
+    _searchForAudioMetadata = searchForAudioMetadata;
 }
 
 - (void)searchForArtworkForVideoRelatedString:(NSString *)string
 {
-    [_metadataFetcher searchForMovie:string];
+    [_tmdbFetcher searchForMovie:string];
 }
 
 #pragma mark - MDFMovieDB
 
 - (void)MDFMovieDBFetcher:(MDFMovieDBFetcher *)aFetcher didFindMovie:(MDFMovie *)details forSearchRequest:(NSString *)searchRequest
 {
-    if (details == nil)
+    if (details == nil) {
         return;
+    }
     [aFetcher cancelAllRequests];
     MDFMovieDBSessionManager *sessionManager = [MDFMovieDBSessionManager sharedInstance];
-    if (!sessionManager.hasFetchedProperties)
+    if (!sessionManager.hasFetchedProperties) {
         return;
+    }
 
     if (details.movieDBID == 0) {
         /* we found nothing, let's see if it's a TV show */
-        [_metadataFetcher searchForTVShow:searchRequest];
+        [_tmdbFetcher searchForTVShow:searchRequest];
         return;
     }
 
@@ -74,8 +93,9 @@
             imageSize = sizes.firstObject;
         }
     }
-    if (!imagePath)
+    if (!imagePath) {
         return;
+    }
 
     NSString *thumbnailURLString = [NSString stringWithFormat:@"%@%@%@",
                                     sessionManager.imageBaseURL,
@@ -87,12 +107,21 @@
 - (void)MDFMovieDBFetcher:(MDFMovieDBFetcher *)aFetcher didFailToFindMovieForSearchRequest:(NSString *)searchRequest
 {
     APLog(@"Failed to find a movie for '%@'", searchRequest);
+
+    if (_searchForAudioMetadata) {
+        [_hatchetFetcher searchForArtist:searchRequest];
+    }
 }
 
 - (void)MDFMovieDBFetcher:(MDFMovieDBFetcher *)aFetcher didFindTVShow:(MDFTVShow *)details forSearchRequest:(NSString *)searchRequest
 {
-    if (details == nil)
+    if (details == nil) {
+        if (_searchForAudioMetadata) {
+            [_hatchetFetcher searchForArtist:searchRequest];
+        }
         return;
+    }
+
     [aFetcher cancelAllRequests];
     MDFMovieDBSessionManager *sessionManager = [MDFMovieDBSessionManager sharedInstance];
     if (!sessionManager.hasFetchedProperties)
@@ -118,8 +147,12 @@
             imageSize = sizes.firstObject;
         }
     }
-    if (!imagePath)
+    if (!imagePath) {
+        if (_searchForAudioMetadata) {
+            [_hatchetFetcher searchForArtist:searchRequest];
+        }
         return;
+    }
 
     NSString *thumbnailURLString = [NSString stringWithFormat:@"%@%@%@",
                                     sessionManager.imageBaseURL,
@@ -131,6 +164,49 @@
 - (void)MDFMovieDBFetcher:(MDFMovieDBFetcher *)aFetcher didFailToFindTVShowForSearchRequest:(NSString *)searchRequest
 {
     APLog(@"failed to find TV show");
+
+    if (_searchForAudioMetadata) {
+        [_hatchetFetcher searchForArtist:searchRequest];
+    }
+}
+
+- (void)MDFHatchetFetcher:(MDFHatchetFetcher *)aFetcher didFindArtist:(MDFArtist *)artist forSearchRequest:(NSString *)searchRequest
+{
+    /* we have no match */
+    if (!artist) {
+        [self _simplifyMetaDataSearchString:searchRequest];
+        return;
+    }
+
+    NSArray *imageURLStrings = artist.largeSizedImages;
+    NSString *imageURLString;
+
+    if (imageURLStrings.count > 0) {
+        imageURLString = imageURLStrings.firstObject;
+    } else {
+        imageURLStrings = artist.mediumSizedImages;
+        if (imageURLStrings.count > 0) {
+            imageURLString = imageURLStrings.firstObject;
+        }
+    }
+
+    if (imageURLString) {
+        self.artworkReceiver.thumbnailURL = [NSURL URLWithString:[NSString stringWithFormat:@"%@?height=300&width=250",imageURLString]];
+    } else {
+        [self _simplifyMetaDataSearchString:searchRequest];
+    }
+}
+
+- (void)MDFHatchetFetcher:(MDFHatchetFetcher *)aFetcher didFailToFindArtistForSearchRequest:(NSString *)searchRequest
+{
+    [self _simplifyMetaDataSearchString:searchRequest];
+}
+
+- (void)_simplifyMetaDataSearchString:(NSString *)searchString
+{
+    NSRange lastRange = [searchString rangeOfString:@" " options:NSBackwardsSearch];
+    if (lastRange.location != NSNotFound)
+        [_hatchetFetcher searchForArtist:[searchString substringToIndex:lastRange.location]];
 }
 
 @end

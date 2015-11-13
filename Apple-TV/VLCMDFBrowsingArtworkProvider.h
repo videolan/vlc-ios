@@ -16,6 +16,7 @@
 @interface VLCMDFBrowsingArtworkProvider : NSObject
 
 @property (readwrite, weak) id<VLCRemoteBrowsingCell> artworkReceiver;
+@property (readwrite, nonatomic) BOOL searchForAudioMetadata;
 
 - (void)reset;
 - (void)searchForArtworkForVideoRelatedString:(NSString *)string;
