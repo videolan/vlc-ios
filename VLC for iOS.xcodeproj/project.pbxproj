@@ -183,6 +183,7 @@
 		7DC19B0C1868D21800810BF7 /* VLCFirstStepsSixthPageViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 7DC19B0A1868D21800810BF7 /* VLCFirstStepsSixthPageViewController.m */; };
 		7DC5A3E71BF6370800CFEBA8 /* VLCRemotePlaybackViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 7DC5A3E51BF6370800CFEBA8 /* VLCRemotePlaybackViewController.m */; };
 		7DC5A3E81BF6370800CFEBA8 /* VLCRemotePlaybackViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 7DC5A3E61BF6370800CFEBA8 /* VLCRemotePlaybackViewController.xib */; };
+		7DC5A3EC1BF63F4B00CFEBA8 /* VLCMediaFileDiscoverer.m in Sources */ = {isa = PBXBuildFile; fileRef = 7D30F3CF183AB2AC00FFC021 /* VLCMediaFileDiscoverer.m */; };
 		7DC71D0E1BC81F70001FACAA /* AVFoundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 7DC71D0D1BC81F70001FACAA /* AVFoundation.framework */; };
 		7DC71D291BC83590001FACAA /* UIColor+Presets.m in Sources */ = {isa = PBXBuildFile; fileRef = 7DF9352E1958AB0600E60FD4 /* UIColor+Presets.m */; };
 		7DC72D6317B7ED24008A26D0 /* WhiteRaccoon.m in Sources */ = {isa = PBXBuildFile; fileRef = 7DC72D6217B7ED24008A26D0 /* WhiteRaccoon.m */; };
@@ -2727,6 +2728,7 @@
 				DD3EFF421BDEBCE500B68579 /* VLCNetworkServerBrowserSharedLibrary.m in Sources */,
 				7D5278E41BD7E37300D0CA0E /* VLCCloudStorageController.m in Sources */,
 				DD490B171BE6BA580010F335 /* VLCIRTVTapGestureRecognizer.m in Sources */,
+				7DC5A3EC1BF63F4B00CFEBA8 /* VLCMediaFileDiscoverer.m in Sources */,
 				7D3E528B1BD7B5E100309D15 /* VLCCloudServicesTVViewController.m in Sources */,
 				7D405ED41BEA150C006ED886 /* VLCActivityManager.m in Sources */,
 			);

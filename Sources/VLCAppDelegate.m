@@ -407,6 +407,12 @@ didFailToContinueUserActivityWithType:(NSString *)userActivityType
     [_libraryViewController updateViewContents];
 }
 
+- (void)mediaFilesFoundRequiringAdditionToStorageBackend:(NSArray<NSString *>)foundFiles
+{
+    [[MLMediaLibrary sharedMediaLibrary] addFilePaths:foundFiles];
+    [[(VLCAppDelegate *)[UIApplication sharedApplication].delegate libraryViewController] updateViewContents];
+}
+
 #pragma mark - pass code validation
 
 - (void)passcodeWasValidated:(NSNotification *)aNotifcation

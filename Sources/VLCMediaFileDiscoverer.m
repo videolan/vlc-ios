@@ -2,18 +2,17 @@
  * VLCMediaFileDiscoverer.m
  * VLC for iOS
  *****************************************************************************
- * Copyright (c) 2013 VideoLAN. All rights reserved.
+ * Copyright (c) 2013-2015 VideoLAN. All rights reserved.
  * $Id$
  *
  * Authors: Gleb Pinigin <gpinigin # gmail.com>
+ *          Felix Paul Kühne <fkuehne # videolan.org>
  *
  * Refer to the COPYING file of the official project for license.
  *****************************************************************************/
 
 #import "VLCMediaFileDiscoverer.h"
 #import "NSString+SupportedMedia.h"
-#import "VLCAppDelegate.h"
-#import "VLCLibraryViewController.h"
 
 const float MediaTimerInterval = 2.f;
 
@@ -296,8 +295,11 @@ const float MediaTimerInterval = 2.f;
             }
         }
     }
-    [[MLMediaLibrary sharedMediaLibrary] addFilePaths:filePaths];
-    [[(VLCAppDelegate *)[UIApplication sharedApplication].delegate libraryViewController] updateViewContents];
+    for (id<VLCMediaFileDiscovererDelegate> delegate in _observers) {
+        if ([delegate respondsToSelector:@selector(mediaFilesFoundRequiringAdditionToStorageBackend:)]) {
+            [delegate mediaFilesFoundRequiringAdditionToStorageBackend:[filePaths copy]];
+        }
+    }
 }
 
 @end
