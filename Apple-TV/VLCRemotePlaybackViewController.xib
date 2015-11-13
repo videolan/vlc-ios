@@ -1,0 +1,48 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<document type="com.apple.InterfaceBuilder.AppleTV.XIB" version="3.0" toolsVersion="9059" systemVersion="15B42" targetRuntime="AppleTV" propertyAccessControl="none" useAutolayout="YES">
+    <dependencies>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="9049"/>
+    </dependencies>
+    <objects>
+        <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner" customClass="VLCRemotePlaybackViewController">
+            <connections>
+                <outlet property="httpServerLabel" destination="mOM-K1-6hX" id="PvM-0r-xq1"/>
+                <outlet property="toggleHTTPServerButton" destination="N4Q-4c-bh0" id="5Je-Lj-ba0"/>
+                <outlet property="view" destination="iN0-l3-epB" id="Eym-vH-oyN"/>
+            </connections>
+        </placeholder>
+        <placeholder placeholderIdentifier="IBFirstResponder" id="-2" customClass="UIResponder"/>
+        <view contentMode="scaleToFill" id="iN0-l3-epB">
+            <rect key="frame" x="0.0" y="0.0" width="1920" height="1080"/>
+            <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+            <subviews>
+                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="3" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="mOM-K1-6hX">
+                    <rect key="frame" x="533" y="315" width="855" height="113"/>
+                    <animations/>
+                    <string key="text">Open either of these URLs in a web browser on your network:
+http://bonjour.local
+http://192.168.1.1</string>
+                    <fontDescription key="fontDescription" style="UICTFontTextStyleCallout"/>
+                    <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
+                    <nil key="highlightedColor"/>
+                </label>
+                <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="N4Q-4c-bh0">
+                    <rect key="frame" x="710" y="193" width="501" height="86"/>
+                    <animations/>
+                    <inset key="contentEdgeInsets" minX="40" minY="20" maxX="40" maxY="20"/>
+                    <state key="normal" title="Enable Remote Playback"/>
+                    <connections>
+                        <action selector="toggleHTTPServer:" destination="-1" eventType="primaryActionTriggered" id="65K-IM-LdJ"/>
+                    </connections>
+                </button>
+            </subviews>
+            <animations/>
+            <constraints>
+                <constraint firstItem="N4Q-4c-bh0" firstAttribute="top" secondItem="iN0-l3-epB" secondAttribute="top" constant="193" id="Dsp-yk-pru"/>
+                <constraint firstItem="mOM-K1-6hX" firstAttribute="centerX" secondItem="N4Q-4c-bh0" secondAttribute="centerX" id="ScU-iV-uMa"/>
+                <constraint firstItem="mOM-K1-6hX" firstAttribute="top" secondItem="N4Q-4c-bh0" secondAttribute="bottom" constant="36" id="Szw-br-TIc"/>
+                <constraint firstItem="N4Q-4c-bh0" firstAttribute="centerX" secondItem="iN0-l3-epB" secondAttribute="centerX" id="VFF-HR-rhV"/>
+            </constraints>
+        </view>
+    </objects>
+</document>

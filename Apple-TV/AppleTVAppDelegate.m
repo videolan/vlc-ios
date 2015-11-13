@@ -15,6 +15,7 @@
 #import "VLCSettingsTableViewController.h"
 #import "VLCCloudServicesTVViewController.h"
 #import "VLCHTTPUploaderController.h"
+#import "VLCRemotePlaybackViewController.h"
 
 @interface AppleTVAppDelegate ()
 {
@@ -22,6 +23,7 @@
 
     VLCServerListTVViewController *_localNetworkVC;
     VLCCloudServicesTVViewController *_cloudServicesVC;
+    VLCRemotePlaybackViewController *_remotePlaybackVC;
     VLCOpenNetworkStreamTVViewController *_openNetworkVC;
     VLCSettingsTableViewController *_settingsTableVC;
 }
@@ -57,6 +59,7 @@
     self.window = [[UIWindow alloc] initWithFrame:[[UIScreen mainScreen] bounds]];
     _localNetworkVC = [[VLCServerListTVViewController alloc] initWithNibName:nil bundle:nil];
     _cloudServicesVC = [[VLCCloudServicesTVViewController alloc] initWithNibName:nil bundle:nil];
+    _remotePlaybackVC = [[VLCRemotePlaybackViewController alloc] initWithNibName:nil bundle:nil];
     _openNetworkVC = [[VLCOpenNetworkStreamTVViewController alloc] initWithNibName:nil bundle:nil];
     _settingsTableVC = [[VLCSettingsTableViewController alloc] initWithNibName:nil bundle:nil];
 
@@ -65,6 +68,7 @@
 
     _mainViewController.viewControllers = @[[[UINavigationController alloc] initWithRootViewController:_localNetworkVC],
                                             [[UINavigationController alloc] initWithRootViewController:_cloudServicesVC],
+                                            [[UINavigationController alloc] initWithRootViewController:_remotePlaybackVC],
                                             [[UINavigationController alloc] initWithRootViewController:_openNetworkVC],
                                             [[UINavigationController alloc] initWithRootViewController:_settingsTableVC]];
 

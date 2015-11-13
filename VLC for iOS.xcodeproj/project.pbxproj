@@ -181,6 +181,8 @@
 		7DC19AE41868C8EC00810BF7 /* VLCFirstStepsFirstPageViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 7DC19AE21868C8EC00810BF7 /* VLCFirstStepsFirstPageViewController.m */; };
 		7DC19B051868D1C400810BF7 /* VLCFirstStepsFifthPageViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 7DC19B031868D1C400810BF7 /* VLCFirstStepsFifthPageViewController.m */; };
 		7DC19B0C1868D21800810BF7 /* VLCFirstStepsSixthPageViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 7DC19B0A1868D21800810BF7 /* VLCFirstStepsSixthPageViewController.m */; };
+		7DC5A3E71BF6370800CFEBA8 /* VLCRemotePlaybackViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 7DC5A3E51BF6370800CFEBA8 /* VLCRemotePlaybackViewController.m */; };
+		7DC5A3E81BF6370800CFEBA8 /* VLCRemotePlaybackViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 7DC5A3E61BF6370800CFEBA8 /* VLCRemotePlaybackViewController.xib */; };
 		7DC71D0E1BC81F70001FACAA /* AVFoundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 7DC71D0D1BC81F70001FACAA /* AVFoundation.framework */; };
 		7DC71D291BC83590001FACAA /* UIColor+Presets.m in Sources */ = {isa = PBXBuildFile; fileRef = 7DF9352E1958AB0600E60FD4 /* UIColor+Presets.m */; };
 		7DC72D6317B7ED24008A26D0 /* WhiteRaccoon.m in Sources */ = {isa = PBXBuildFile; fileRef = 7DC72D6217B7ED24008A26D0 /* WhiteRaccoon.m */; };
@@ -766,6 +768,9 @@
 		7DC19B091868D21800810BF7 /* VLCFirstStepsSixthPageViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = VLCFirstStepsSixthPageViewController.h; path = Sources/VLCFirstStepsSixthPageViewController.h; sourceTree = SOURCE_ROOT; };
 		7DC19B0A1868D21800810BF7 /* VLCFirstStepsSixthPageViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = VLCFirstStepsSixthPageViewController.m; path = Sources/VLCFirstStepsSixthPageViewController.m; sourceTree = SOURCE_ROOT; };
 		7DC222771773AB0900371B5C /* es */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = es; path = es.lproj/Localizable.strings; sourceTree = "<group>"; };
+		7DC5A3E41BF6370800CFEBA8 /* VLCRemotePlaybackViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = VLCRemotePlaybackViewController.h; sourceTree = "<group>"; };
+		7DC5A3E51BF6370800CFEBA8 /* VLCRemotePlaybackViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = VLCRemotePlaybackViewController.m; sourceTree = "<group>"; };
+		7DC5A3E61BF6370800CFEBA8 /* VLCRemotePlaybackViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = VLCRemotePlaybackViewController.xib; sourceTree = "<group>"; };
 		7DC71D0D1BC81F70001FACAA /* AVFoundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AVFoundation.framework; path = Platforms/AppleTVOS.platform/Developer/SDKs/AppleTVOS9.0.sdk/System/Library/Frameworks/AVFoundation.framework; sourceTree = DEVELOPER_DIR; };
 		7DC72D6117B7ED24008A26D0 /* WhiteRaccoon.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = WhiteRaccoon.h; path = ImportedSources/WhiteRaccoon/WhiteRaccoon.h; sourceTree = SOURCE_ROOT; };
 		7DC72D6217B7ED24008A26D0 /* WhiteRaccoon.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = WhiteRaccoon.m; path = ImportedSources/WhiteRaccoon/WhiteRaccoon.m; sourceTree = SOURCE_ROOT; };
@@ -1189,6 +1194,7 @@
 				7DEC8BE41BD6888F006E1093 /* Basics */,
 				7DEC8BE31BD68882006E1093 /* Network UI */,
 				7D3E528D1BD7B5E600309D15 /* Cloud */,
+				7DC5A3EB1BF6370E00CFEBA8 /* Remote Playback */,
 				7DEC8BEF1BD68D71006E1093 /* Settings and stuff */,
 				7DEC8BE51BD6889C006E1093 /* Playback */,
 				7DC71D281BC83138001FACAA /* xibs */,
@@ -1666,9 +1672,19 @@
 			name = "First Steps";
 			sourceTree = "<group>";
 		};
+		7DC5A3EB1BF6370E00CFEBA8 /* Remote Playback */ = {
+			isa = PBXGroup;
+			children = (
+				7DC5A3E41BF6370800CFEBA8 /* VLCRemotePlaybackViewController.h */,
+				7DC5A3E51BF6370800CFEBA8 /* VLCRemotePlaybackViewController.m */,
+			);
+			name = "Remote Playback";
+			sourceTree = "<group>";
+		};
 		7DC71D281BC83138001FACAA /* xibs */ = {
 			isa = PBXGroup;
 			children = (
+				7DC5A3E61BF6370800CFEBA8 /* VLCRemotePlaybackViewController.xib */,
 				7DDE418E1BE9225A0065C53A /* VLCAboutViewController.xib */,
 				DD3EAC121BE26166003668DA /* VLCRemoteBrowsingTVCell.xib */,
 				7DF383AD1BF206FB00D71A5C /* VLCRemoteBrowsingCollectionViewController.xib */,
@@ -2447,6 +2463,7 @@
 				7D3E528C1BD7B5E100309D15 /* VLCCloudServicesTVViewController.xib in Resources */,
 				7D405EDA1BEA1F56006ED886 /* style.css in Resources */,
 				7D7EF3DB1BD56B5900CD4CEE /* VLCOpenNetworkStreamTVViewController.xib in Resources */,
+				7DC5A3E81BF6370800CFEBA8 /* VLCRemotePlaybackViewController.xib in Resources */,
 				7DDE41901BE9225A0065C53A /* VLCAboutViewController.xib in Resources */,
 				6B4E33D11BF2A39400A35255 /* playerControl.css in Resources */,
 				7D405EE21BEA1FAD006ED886 /* index.html in Resources */,
@@ -2671,6 +2688,7 @@
 				DD3EFF361BDEBCE500B68579 /* VLCLocalNetworkServiceBrowserNetService.m in Sources */,
 				7D51B3B01BF0EEF4005AF4D5 /* VLCPlaybackInfoMediaInfoTVViewController.m in Sources */,
 				7D13347C1BE132EA0012E919 /* VLCLocalNetworkServiceBrowserUPnP.m in Sources */,
+				7DC5A3E71BF6370800CFEBA8 /* VLCRemotePlaybackViewController.m in Sources */,
 				DDEAECF11BDFE9E800756C83 /* VLCServerListTVViewController.m in Sources */,
 				7DEC8BDE1BD67899006E1093 /* VLCFullscreenMovieTVViewController.m in Sources */,
 				DD3EFF501BDEBCE500B68579 /* VLCPlexParser.m in Sources */,

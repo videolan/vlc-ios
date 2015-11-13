@@ -1,16 +1,14 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
-<document type="com.apple.InterfaceBuilder.AppleTV.XIB" version="3.0" toolsVersion="9527.1" systemVersion="15B42" targetRuntime="AppleTV" propertyAccessControl="none" useAutolayout="YES">
+<document type="com.apple.InterfaceBuilder.AppleTV.XIB" version="3.0" toolsVersion="9059" systemVersion="15B42" targetRuntime="AppleTV" propertyAccessControl="none" useAutolayout="YES">
     <dependencies>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="9525.1"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="9049"/>
     </dependencies>
     <objects>
         <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner" customClass="VLCOpenNetworkStreamTVViewController">
             <connections>
-                <outlet property="httpServerLabel" destination="Nb1-SP-5iY" id="jwT-VV-Uf9"/>
                 <outlet property="playURLField" destination="dWa-3n-YCa" id="Eoe-vT-AuM"/>
                 <outlet property="preferredFocusedView" destination="dWa-3n-YCa" id="0Ez-4Z-KFF"/>
                 <outlet property="previouslyPlayedStreamsTableView" destination="v0o-s0-Xaz" id="I1r-ie-lFf"/>
-                <outlet property="toggleHTTPServerButton" destination="zWl-AV-9Ga" id="WC7-Uc-lxA"/>
                 <outlet property="view" destination="iN0-l3-epB" id="Eym-vH-oyN"/>
             </connections>
         </placeholder>
@@ -21,6 +19,7 @@
             <subviews>
                 <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" placeholder="Enter URL to play" textAlignment="center" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="dWa-3n-YCa">
                     <rect key="frame" x="710" y="524" width="500" height="66"/>
+                    <animations/>
                     <constraints>
                         <constraint firstAttribute="width" constant="500" id="3fz-h4-cGU"/>
                         <constraint firstAttribute="height" constant="66" id="hDw-hW-ont"/>
@@ -33,6 +32,7 @@
                 </textField>
                 <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" style="plain" separatorStyle="default" rowHeight="66" sectionHeaderHeight="40" sectionFooterHeight="40" translatesAutoresizingMaskIntoConstraints="NO" id="v0o-s0-Xaz">
                     <rect key="frame" x="183" y="660" width="1555" height="350"/>
+                    <animations/>
                     <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                     <constraints>
                         <constraint firstAttribute="width" constant="1555" id="ELC-Ea-jpC"/>
@@ -43,32 +43,12 @@
                         <outlet property="delegate" destination="-1" id="osW-Kv-1VK"/>
                     </connections>
                 </tableView>
-                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="3" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Nb1-SP-5iY">
-                    <rect key="frame" x="533" y="302" width="855" height="113"/>
-                    <string key="text">Open either of these URLs in a web browser on your network:
-http://bonjour.local
-http://192.168.1.1</string>
-                    <fontDescription key="fontDescription" style="UICTFontTextStyleCallout"/>
-                    <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
-                    <nil key="highlightedColor"/>
-                </label>
-                <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="zWl-AV-9Ga">
-                    <rect key="frame" x="710" y="180" width="501" height="86"/>
-                    <inset key="contentEdgeInsets" minX="40" minY="20" maxX="40" maxY="20"/>
-                    <state key="normal" title="Enable Remote Playback"/>
-                    <connections>
-                        <action selector="toggleHTTPServer:" destination="-1" eventType="primaryActionTriggered" id="vhQ-WP-o1L"/>
-                    </connections>
-                </button>
             </subviews>
+            <animations/>
             <constraints>
-                <constraint firstItem="dWa-3n-YCa" firstAttribute="top" secondItem="zWl-AV-9Ga" secondAttribute="bottom" constant="258" id="0dj-Io-wvg"/>
                 <constraint firstItem="v0o-s0-Xaz" firstAttribute="centerX" secondItem="iN0-l3-epB" secondAttribute="centerX" id="elq-bO-Tb3"/>
-                <constraint firstItem="zWl-AV-9Ga" firstAttribute="centerX" secondItem="iN0-l3-epB" secondAttribute="centerX" id="jB3-Df-sFO"/>
                 <constraint firstItem="v0o-s0-Xaz" firstAttribute="top" secondItem="dWa-3n-YCa" secondAttribute="bottom" constant="70" id="jCe-Gz-82c"/>
-                <constraint firstItem="Nb1-SP-5iY" firstAttribute="top" secondItem="zWl-AV-9Ga" secondAttribute="bottom" constant="36" id="jDR-XJ-Feh"/>
                 <constraint firstItem="dWa-3n-YCa" firstAttribute="centerX" secondItem="iN0-l3-epB" secondAttribute="centerX" id="oFS-xp-QJo"/>
-                <constraint firstItem="Nb1-SP-5iY" firstAttribute="centerX" secondItem="iN0-l3-epB" secondAttribute="centerX" id="rag-MH-SLa"/>
                 <constraint firstAttribute="bottom" secondItem="v0o-s0-Xaz" secondAttribute="bottom" constant="70" id="ydf-eT-5UK"/>
             </constraints>
         </view>

@@ -13,14 +13,11 @@
 #import "VLCPlaybackController.h"
 #import "VLCPlayerDisplayController.h"
 #import "VLCFullscreenMovieTVViewController.h"
-#import "Reachability.h"
-#import "VLCHTTPUploaderController.h"
 
 @interface VLCOpenNetworkStreamTVViewController ()
 {
     NSMutableArray *_recentURLs;
     UILabel *_noURLsToShowLabel;
-    Reachability *_reachability;
 }
 @end
 
@@ -33,9 +30,6 @@
 
 - (void)viewDidLoad {
     [super viewDidLoad];
-
-    _reachability = [Reachability reachabilityForLocalWiFi];
-    self.httpServerLabel.textColor = [UIColor VLCDarkBackgroundColor];
 
     _noURLsToShowLabel = [[UILabel alloc] init];
     _noURLsToShowLabel.text = NSLocalizedString(@"NO_RECENT_STREAMS", nil);
@@ -68,10 +62,6 @@
                            selector:@selector(ubiquitousKeyValueStoreDidChange:)
                                name:NSUbiquitousKeyValueStoreDidChangeExternallyNotification
                              object:[NSUbiquitousKeyValueStore defaultStore]];
-    [notificationCenter addObserver:self
-                           selector:@selector(reachabilityChanged)
-                               name:kReachabilityChangedNotification
-                             object:nil];
 
     /* force store update */
     NSUbiquitousKeyValueStore *ubiquitousKeyValueStore = [NSUbiquitousKeyValueStore defaultStore];
@@ -98,44 +88,9 @@
     _noURLsToShowLabel.hidden = _recentURLs.count != 0;
 }
 
-- (void)reachabilityChanged
-{
-    [self updateHTTPServerAddress];
-}
-
-- (void)updateHTTPServerAddress
-{
-    BOOL connectedViaWifi = _reachability.currentReachabilityStatus == ReachableViaWiFi;
-    self.toggleHTTPServerButton.enabled = connectedViaWifi;
-    NSString *uploadText = connectedViaWifi ? [[VLCHTTPUploaderController sharedInstance] httpStatus] : NSLocalizedString(@"HTTP_UPLOAD_NO_CONNECTIVITY", nil);
-    self.httpServerLabel.text = uploadText;
-    if (connectedViaWifi && [VLCHTTPUploaderController sharedInstance].isServerRunning)
-        [self.toggleHTTPServerButton setTitle:NSLocalizedString(@"HTTP_SERVER_ON", nil) forState:UIControlStateNormal];
-    else
-        [self.toggleHTTPServerButton setTitle:NSLocalizedString(@"HTTP_SERVER_OFF", nil) forState:UIControlStateNormal];
-}
-
-- (void)toggleHTTPServer:(id)sender
-{
-    BOOL futureHTTPServerState = ![VLCHTTPUploaderController sharedInstance].isServerRunning ;
-    [[NSUserDefaults standardUserDefaults] setBool:futureHTTPServerState forKey:kVLCSettingSaveHTTPUploadServerStatus];
-    [[VLCHTTPUploaderController sharedInstance] changeHTTPServerState:futureHTTPServerState];
-    [self updateHTTPServerAddress];
-    [[NSUserDefaults standardUserDefaults] synchronize];
-}
-
-- (void)viewWillAppear:(BOOL)animated
-{
-    [super viewWillAppear:animated];
-    [_reachability startNotifier];
-    [self updateHTTPServerAddress];
-}
-
 - (void)viewWillDisappear:(BOOL)animated
 {
     [super viewWillDisappear:animated];
-
-    [_reachability stopNotifier];
 
     /* force update before we leave */
     [[NSUbiquitousKeyValueStore defaultStore] synchronize];

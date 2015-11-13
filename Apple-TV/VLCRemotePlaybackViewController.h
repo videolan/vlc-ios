@@ -11,11 +11,12 @@
 
 #import <UIKit/UIKit.h>
 
-@interface VLCOpenNetworkStreamTVViewController : UIViewController <UITableViewDataSource, UITableViewDelegate>
+@interface VLCRemotePlaybackViewController : UIViewController
 
-@property (readwrite, nonatomic, weak) IBOutlet UITextField *playURLField;
-@property (readwrite, nonatomic, weak) IBOutlet UITableView *previouslyPlayedStreamsTableView;
+@property (readwrite, nonatomic, weak) IBOutlet UIButton *toggleHTTPServerButton;
+@property (readwrite, nonatomic, weak) IBOutlet UILabel *httpServerLabel;
+@property (readwrite, nonatomic, weak) IBOutlet UITableView *cachedMediaTableView;
 
-- (IBAction)URLEnteredInField:(id)sender;
+- (IBAction)toggleHTTPServer:(id)sender;
 
 @end
