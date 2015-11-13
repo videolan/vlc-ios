@@ -13,10 +13,12 @@
 #import "Reachability.h"
 #import "VLCHTTPUploaderController.h"
 #import "VLCMediaFileDiscoverer.h"
+#import "VLCRemoteBrowsingTVCell.h"
+#import "VLCMaskView.h"
 
 #define remotePlaybackReuseIdentifer @"remotePlaybackReuseIdentifer"
 
-@interface VLCRemotePlaybackViewController () <UITableViewDataSource, UITableViewDelegate, VLCMediaFileDiscovererDelegate>
+@interface VLCRemotePlaybackViewController () <UICollectionViewDataSource, UICollectionViewDelegate, VLCMediaFileDiscovererDelegate>
 {
     Reachability *_reachability;
     NSMutableArray *_discoveredFiles;
@@ -33,6 +35,15 @@
 - (void)viewDidLoad
 {
     [super viewDidLoad];
+
+    UICollectionViewFlowLayout *flowLayout = (UICollectionViewFlowLayout *)self.cachedMediaCollectionView.collectionViewLayout;
+    const CGFloat inset = 50.;
+    flowLayout.sectionInset = UIEdgeInsetsMake(inset, inset, inset, inset);
+    flowLayout.itemSize = CGSizeMake(250.0, 300.0);
+    flowLayout.minimumInteritemSpacing = 48.0;
+    flowLayout.minimumLineSpacing = 100.0;
+    [self.cachedMediaCollectionView registerNib:[UINib nibWithNibName:@"VLCRemoteBrowsingTVCell" bundle:nil]
+          forCellWithReuseIdentifier:VLCRemoteBrowsingTVCellIdentifier];
 
     _reachability = [Reachability reachabilityForLocalWiFi];
     self.httpServerLabel.textColor = [UIColor VLCDarkBackgroundColor];
@@ -51,6 +62,31 @@
     discoverer.directoryPath = [[searchPaths firstObject] stringByAppendingPathComponent:@"Upload"];
     [discoverer addObserver:self];
     [discoverer startDiscovering];
+}
+
+- (void)viewDidLayoutSubviews
+{
+    [super viewDidLayoutSubviews];
+
+    UICollectionView *collectionView = self.cachedMediaCollectionView;
+    VLCMaskView *maskView = (VLCMaskView *)collectionView.maskView;
+    maskView.maskEnd = self.topLayoutGuide.length * 0.8;
+
+    /*
+     Update the position from where the collection view's content should
+     start to fade out. The size of the fade increases as the collection
+     view scrolls to a maximum of half the navigation bar's height.
+     */
+    CGFloat maximumMaskStart = maskView.maskEnd + (self.topLayoutGuide.length * 0.5);
+    CGFloat verticalScrollPosition = MAX(0, collectionView.contentOffset.y + collectionView.contentInset.top);
+    maskView.maskStart = MIN(maximumMaskStart, maskView.maskEnd + verticalScrollPosition);
+
+    /*
+     Position the mask view so that it is always fills the visible area of
+     the collection view.
+     */
+    CGSize collectionViewSize = collectionView.bounds.size;
+    maskView.frame = CGRectMake(0, collectionView.contentOffset.y, collectionViewSize.width, collectionViewSize.height);
 }
 
 - (void)viewWillAppear:(BOOL)animated
@@ -96,20 +132,21 @@
     [[NSUserDefaults standardUserDefaults] synchronize];
 }
 
-#pragma mark - table view data source
+#pragma mark - collection view data source
 
-- (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView
+- (UICollectionViewCell *)collectionView:(UICollectionView *)collectionView cellForItemAtIndexPath:(NSIndexPath *)indexPath
+{
+    VLCRemoteBrowsingTVCell *cell = (VLCRemoteBrowsingTVCell *)[collectionView dequeueReusableCellWithReuseIdentifier:VLCRemoteBrowsingTVCellIdentifier forIndexPath:indexPath];
+    return cell;
+}
+
+- (NSInteger)numberOfSectionsInCollectionView:(UICollectionView *)collectionView
 {
     return 1;
 }
 
-- (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
+- (void)collectionView:(UICollectionView *)collectionView willDisplayCell:(VLCRemoteBrowsingTVCell *)cell forItemAtIndexPath:(NSIndexPath *)indexPath
 {
-    UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:remotePlaybackReuseIdentifer];
-    if (!cell) {
-        cell = [[UITableViewCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:remotePlaybackReuseIdentifer];
-    }
-
     NSString *cellTitle;
     NSUInteger row = indexPath.row;
     @synchronized(_discoveredFiles) {
@@ -118,12 +155,13 @@
         }
     }
 
-    cell.textLabel.text = cellTitle;
-    cell.imageView.image = [UIImage imageNamed:@"blank"];
-    return cell;
+    [cell prepareForReuse];
+    [cell setIsDirectory:NO];
+    [cell setThumbnailImage:[UIImage imageNamed:@"blank"]];
+    [cell setTitle:cellTitle];
 }
 
-- (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section
+- (NSInteger)collectionView:(UICollectionView *)collectionView numberOfItemsInSection:(NSInteger)section
 {
     NSUInteger ret;
 
@@ -134,12 +172,10 @@
     return ret;
 }
 
-#pragma mark - table view delegate
+#pragma mark - collection view delegate
 
-- (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
+- (void)collectionView:(UICollectionView *)collectionView didSelectItemAtIndexPath:(NSIndexPath *)indexPath
 {
-    [tableView deselectRowAtIndexPath:indexPath animated:NO];
-
     VLCPlaybackController *vpc = [VLCPlaybackController sharedInstance];
     NSURL *url;
     @synchronized(_discoveredFiles) {
@@ -154,31 +190,28 @@
 #pragma mark - media file discovery
 - (void)mediaFilesFoundRequiringAdditionToStorageBackend:(NSArray<NSString *> *)foundFiles
 {
-    NSLog(@"Found files %@", foundFiles);
-
     @synchronized(_discoveredFiles) {
         _discoveredFiles = [NSMutableArray arrayWithArray:foundFiles];
     }
-    [self.cachedMediaTableView reloadData];
+    [self.cachedMediaCollectionView reloadData];
 }
 
 - (void)mediaFileAdded:(NSString *)filePath loading:(BOOL)isLoading
 {
     @synchronized(_discoveredFiles) {
-        if ([_discoveredFiles indexOfObjectIdenticalTo:filePath] == NSNotFound) {
+        if (![_discoveredFiles containsObject:filePath]) {
             [_discoveredFiles addObject:filePath];
         }
     }
-    [self.cachedMediaTableView reloadData];
+    [self.cachedMediaCollectionView reloadData];
 }
 
 - (void)mediaFileDeleted:(NSString *)filePath
 {
-    NSLog(@"removed file %@", filePath);
     @synchronized(_discoveredFiles) {
-        [_discoveredFiles removeObjectIdenticalTo:filePath];
+        [_discoveredFiles removeObject:filePath];
     }
-    [self.cachedMediaTableView reloadData];
+    [self.cachedMediaCollectionView reloadData];
 }
 
 @end

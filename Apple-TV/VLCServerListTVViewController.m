@@ -144,7 +144,6 @@
     [self didSelectService:service];
 }
 
-
 #pragma mark - Service specific stuff
 
 - (void)didSelectService:(id<VLCLocalNetworkService>)service

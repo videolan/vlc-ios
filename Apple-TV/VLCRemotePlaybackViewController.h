@@ -10,6 +10,7 @@
  *****************************************************************************/
 
 #import <UIKit/UIKit.h>
+#import "VLCRemoteBrowsingCollectionViewController.h"
 
 @interface VLCRemotePlaybackViewController : UIViewController
 
@@ -17,7 +18,7 @@
 @property (readwrite, nonatomic, weak) IBOutlet UIButton *toggleHTTPServerButton;
 
 @property (readwrite, nonatomic, weak) IBOutlet UILabel *cachedMediaLabel;
-@property (readwrite, nonatomic, weak) IBOutlet UITableView *cachedMediaTableView;
+@property (readwrite, nonatomic, weak) IBOutlet UICollectionView *cachedMediaCollectionView;
 
 - (IBAction)toggleHTTPServer:(id)sender;
 

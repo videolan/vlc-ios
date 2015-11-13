@@ -6,8 +6,8 @@
     <objects>
         <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner" customClass="VLCRemotePlaybackViewController">
             <connections>
+                <outlet property="cachedMediaCollectionView" destination="VjG-Gw-i36" id="ATe-7D-fDz"/>
                 <outlet property="cachedMediaLabel" destination="77q-qM-GSv" id="gs2-sW-Z17"/>
-                <outlet property="cachedMediaTableView" destination="WfO-PV-wWU" id="eAC-TD-XyD"/>
                 <outlet property="httpServerLabel" destination="mOM-K1-6hX" id="PvM-0r-xq1"/>
                 <outlet property="toggleHTTPServerButton" destination="N4Q-4c-bh0" id="5Je-Lj-ba0"/>
                 <outlet property="view" destination="iN0-l3-epB" id="Eym-vH-oyN"/>
@@ -37,37 +37,41 @@ http://192.168.1.1</string>
                         <action selector="toggleHTTPServer:" destination="-1" eventType="primaryActionTriggered" id="65K-IM-LdJ"/>
                     </connections>
                 </button>
-                <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" style="plain" separatorStyle="default" rowHeight="66" sectionHeaderHeight="40" sectionFooterHeight="40" translatesAutoresizingMaskIntoConstraints="NO" id="WfO-PV-wWU">
-                    <rect key="frame" x="183" y="660" width="1555" height="350"/>
-                    <animations/>
-                    <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
-                    <constraints>
-                        <constraint firstAttribute="width" constant="1555" id="7ob-FN-Pyb"/>
-                        <constraint firstAttribute="height" constant="350" id="NRR-JN-TcZ"/>
-                    </constraints>
-                    <connections>
-                        <outlet property="dataSource" destination="-1" id="f0f-ZE-xAG"/>
-                        <outlet property="delegate" destination="-1" id="KRu-Hq-2VH"/>
-                    </connections>
-                </tableView>
                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Cached Media" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="77q-qM-GSv">
-                    <rect key="frame" x="837" y="544" width="246" height="46"/>
+                    <rect key="frame" x="837" y="514" width="246" height="46"/>
                     <animations/>
                     <fontDescription key="fontDescription" style="UICTFontTextStyleHeadline"/>
                     <color key="textColor" white="0.33333333333333331" alpha="1" colorSpace="calibratedWhite"/>
                     <nil key="highlightedColor"/>
                 </label>
+                <collectionView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" dataMode="none" translatesAutoresizingMaskIntoConstraints="NO" id="VjG-Gw-i36">
+                    <rect key="frame" x="0.0" y="630" width="1920" height="450"/>
+                    <animations/>
+                    <collectionViewFlowLayout key="collectionViewLayout" minimumLineSpacing="10" minimumInteritemSpacing="10" id="pP2-ie-8Sr">
+                        <size key="itemSize" width="50" height="50"/>
+                        <size key="headerReferenceSize" width="0.0" height="0.0"/>
+                        <size key="footerReferenceSize" width="0.0" height="0.0"/>
+                        <inset key="sectionInset" minX="0.0" minY="0.0" maxX="0.0" maxY="0.0"/>
+                    </collectionViewFlowLayout>
+                    <connections>
+                        <outlet property="dataSource" destination="-1" id="5CW-nY-7m4"/>
+                        <outlet property="delegate" destination="-1" id="hUM-OV-Y9o"/>
+                    </connections>
+                </collectionView>
             </subviews>
             <animations/>
             <constraints>
-                <constraint firstItem="WfO-PV-wWU" firstAttribute="centerX" secondItem="iN0-l3-epB" secondAttribute="centerX" id="CNP-DM-grr"/>
                 <constraint firstItem="N4Q-4c-bh0" firstAttribute="top" secondItem="iN0-l3-epB" secondAttribute="top" constant="193" id="Dsp-yk-pru"/>
+                <constraint firstItem="77q-qM-GSv" firstAttribute="top" secondItem="mOM-K1-6hX" secondAttribute="bottom" constant="86" id="PQh-oO-VDm"/>
                 <constraint firstItem="mOM-K1-6hX" firstAttribute="centerX" secondItem="N4Q-4c-bh0" secondAttribute="centerX" id="ScU-iV-uMa"/>
                 <constraint firstItem="mOM-K1-6hX" firstAttribute="top" secondItem="N4Q-4c-bh0" secondAttribute="bottom" constant="36" id="Szw-br-TIc"/>
+                <constraint firstItem="77q-qM-GSv" firstAttribute="centerX" secondItem="VjG-Gw-i36" secondAttribute="centerX" id="Tcb-Jy-an4"/>
                 <constraint firstItem="N4Q-4c-bh0" firstAttribute="centerX" secondItem="iN0-l3-epB" secondAttribute="centerX" id="VFF-HR-rhV"/>
-                <constraint firstAttribute="bottom" secondItem="WfO-PV-wWU" secondAttribute="bottom" constant="70" id="f6B-oF-hIP"/>
-                <constraint firstItem="WfO-PV-wWU" firstAttribute="top" secondItem="77q-qM-GSv" secondAttribute="bottom" constant="70" id="uW6-vD-T7X"/>
-                <constraint firstItem="77q-qM-GSv" firstAttribute="centerX" secondItem="WfO-PV-wWU" secondAttribute="centerX" id="xSw-ba-1ov"/>
+                <constraint firstItem="VjG-Gw-i36" firstAttribute="leading" secondItem="iN0-l3-epB" secondAttribute="leading" id="hSa-3P-bGw"/>
+                <constraint firstItem="VjG-Gw-i36" firstAttribute="centerX" secondItem="iN0-l3-epB" secondAttribute="centerX" id="l72-n9-cwb"/>
+                <constraint firstAttribute="trailing" secondItem="VjG-Gw-i36" secondAttribute="trailing" id="lJF-jb-gaz"/>
+                <constraint firstItem="VjG-Gw-i36" firstAttribute="top" secondItem="77q-qM-GSv" secondAttribute="bottom" constant="70" id="nNF-vd-238"/>
+                <constraint firstAttribute="bottom" secondItem="VjG-Gw-i36" secondAttribute="bottom" id="v0P-HU-3wm"/>
             </constraints>
         </view>
     </objects>
