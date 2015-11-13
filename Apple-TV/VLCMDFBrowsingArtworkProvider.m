@@ -59,9 +59,10 @@
     NSString *imageSize;
 
     if (sizes != nil) {
-        if (sizes.count > 1) {
+        NSUInteger count = sizes.count;
+        if (count > 1) {
             imageSize = sizes[1];
-        } else if (sizes.count > 0) {
+        } else if (count > 0) {
             imageSize = sizes.firstObject;
         }
     }
@@ -102,9 +103,10 @@
     NSString *imageSize;
 
     if (sizes != nil) {
-        if (sizes.count > 1) {
+        NSUInteger count = sizes.count;
+        if (count > 1) {
             imageSize = sizes[1];
-        } else if (sizes.count > 0) {
+        } else if (count > 0) {
             imageSize = sizes.firstObject;
         }
     }

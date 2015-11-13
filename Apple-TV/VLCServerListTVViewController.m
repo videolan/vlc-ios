@@ -131,7 +131,8 @@
     browsingCell.titleLabel.font = [UIFont preferredFontForTextStyle:UIFontTextStyleCaption2];
     browsingCell.subtitle = [self.discoveryController titleForSection:discoveryIndexPath.section];
     browsingCell.subtitleLabel.font = [UIFont preferredFontForTextStyle:UIFontTextStyleCaption1];
-    browsingCell.thumbnailImage = service.icon ? service.icon : [UIImage imageNamed:@"serverIcon"];
+    UIImage *serviceIcon = service.icon;
+    browsingCell.thumbnailImage = serviceIcon ? serviceIcon : [UIImage imageNamed:@"serverIcon"];
 
     return browsingCell;
 }
@@ -186,7 +187,6 @@
     UIAlertController *alertController = [UIAlertController alertControllerWithTitle:NSLocalizedString(@"CONNECT_TO_SERVER", nil)
                                                                              message:login.address preferredStyle:UIAlertControllerStyleAlert];
 
-
     NSURLComponents *components = [[NSURLComponents alloc] init];
     components.scheme = login.protocolIdentifier;
     components.host = login.address;
@@ -194,7 +194,6 @@
     NSString *serviceIdentifier = components.URL.absoluteString;
     NSString *accountName = [SSKeychain accountsForService:serviceIdentifier].firstObject[kSSKeychainAccountKey];
     NSString *password = [SSKeychain passwordForService:serviceIdentifier account:accountName];
-
 
     __block UITextField *usernameField = nil;
     __block UITextField *passwordField = nil;
