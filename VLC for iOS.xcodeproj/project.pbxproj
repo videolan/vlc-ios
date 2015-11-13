@@ -57,6 +57,7 @@
 		7D168F7118D4A21B003FAF59 /* Accelerate.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 7D168F7018D4A21B003FAF59 /* Accelerate.framework */; };
 		7D168F7418D4A33F003FAF59 /* UIImage+Blur.m in Sources */ = {isa = PBXBuildFile; fileRef = 7D168F7318D4A33F003FAF59 /* UIImage+Blur.m */; };
 		7D18F0A21B34522000651A30 /* VLCActivityManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 7D18F0A11B34522000651A30 /* VLCActivityManager.m */; };
+		7D1A2DB11BF66335002E0962 /* VLCMDFBrowsingArtworkProvider.m in Sources */ = {isa = PBXBuildFile; fileRef = 7D1A2DB01BF66335002E0962 /* VLCMDFBrowsingArtworkProvider.m */; };
 		7D1FEBD41BA3184A00D1058E /* libTVVLCKit.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 7D1FEBD31BA3184A00D1058E /* libTVVLCKit.a */; };
 		7D27EB9419DEE11900EF0370 /* Launch Screen.xib in Resources */ = {isa = PBXBuildFile; fileRef = 7D27EB9319DEE11900EF0370 /* Launch Screen.xib */; };
 		7D27EC2B19DF310300EF0370 /* VLCFirstStepsSecondPageViewController~ipad.xib in Resources */ = {isa = PBXBuildFile; fileRef = 7D27EC2919DF310300EF0370 /* VLCFirstStepsSecondPageViewController~ipad.xib */; };
@@ -566,6 +567,8 @@
 		7D18F0A01B34522000651A30 /* VLCActivityManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = VLCActivityManager.h; path = Sources/VLCActivityManager.h; sourceTree = SOURCE_ROOT; };
 		7D18F0A11B34522000651A30 /* VLCActivityManager.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = VLCActivityManager.m; path = Sources/VLCActivityManager.m; sourceTree = SOURCE_ROOT; };
 		7D19492B17C661A300959800 /* el */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = el; path = el.lproj/Localizable.strings; sourceTree = "<group>"; };
+		7D1A2DAF1BF66335002E0962 /* VLCMDFBrowsingArtworkProvider.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = VLCMDFBrowsingArtworkProvider.h; sourceTree = "<group>"; };
+		7D1A2DB01BF66335002E0962 /* VLCMDFBrowsingArtworkProvider.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = VLCMDFBrowsingArtworkProvider.m; sourceTree = "<group>"; };
 		7D1AB27C179C98BF004CC271 /* he */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = he; path = he.lproj/Localizable.strings; sourceTree = "<group>"; };
 		7D1AB281179C98CD004CC271 /* nl */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = nl; path = nl.lproj/Localizable.strings; sourceTree = "<group>"; };
 		7D1AB286179C98D4004CC271 /* sk */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = sk; path = sk.lproj/Localizable.strings; sourceTree = "<group>"; };
@@ -1853,6 +1856,8 @@
 				7DF383AB1BF206F100D71A5C /* VLCRemoteBrowsingCollectionViewController.m */,
 				DD3EABE71BE13D5B003668DA /* VLCRemoteBrowsingTVCell.h */,
 				DD3EABE81BE13D5B003668DA /* VLCRemoteBrowsingTVCell.m */,
+				7D1A2DAF1BF66335002E0962 /* VLCMDFBrowsingArtworkProvider.h */,
+				7D1A2DB01BF66335002E0962 /* VLCMDFBrowsingArtworkProvider.m */,
 			);
 			name = "Common Code";
 			sourceTree = "<group>";
@@ -2722,6 +2727,7 @@
 				7DC5A3E71BF6370800CFEBA8 /* VLCRemotePlaybackViewController.m in Sources */,
 				DDEAECF11BDFE9E800756C83 /* VLCServerListTVViewController.m in Sources */,
 				7DEC8BDE1BD67899006E1093 /* VLCFullscreenMovieTVViewController.m in Sources */,
+				7D1A2DB11BF66335002E0962 /* VLCMDFBrowsingArtworkProvider.m in Sources */,
 				DD3EFF501BDEBCE500B68579 /* VLCPlexParser.m in Sources */,
 				7D405ED31BEA11CD006ED886 /* VLCHTTPUploaderController.m in Sources */,
 				7DF90B4B1BE7A8110059C0E3 /* IASKSpecifier.m in Sources */,

@@ -11,13 +11,13 @@
  *****************************************************************************/
 
 #import "VLCRemoteBrowsingTVCell.h"
-#import "MetaDataFetcherKit.h"
+#import "VLCMDFBrowsingArtworkProvider.h"
 
 NSString *const VLCRemoteBrowsingTVCellIdentifier = @"VLCRemoteBrowsingTVCell";
 
-@interface VLCRemoteBrowsingTVCell () <MDFMovieDBFetcherDataRecipient>
+@interface VLCRemoteBrowsingTVCell ()
 {
-    MDFMovieDBFetcher *_metadataFetcher;
+    VLCMDFBrowsingArtworkProvider *_artworkProvider;
 }
 @property (nonatomic) IBOutlet NSLayoutConstraint *aspectRationConstraint;
 
@@ -30,6 +30,8 @@ NSString *const VLCRemoteBrowsingTVCellIdentifier = @"VLCRemoteBrowsingTVCell";
 - (void)awakeFromNib
 {
     [super awakeFromNib];
+    _artworkProvider = [[VLCMDFBrowsingArtworkProvider alloc] init];
+    _artworkProvider.artworkReceiver = self;
     [self prepareForReuse];
     UILayoutGuide *focusedFrameGuide = self.thumbnailImageView.focusedFrameGuide;
     NSLayoutConstraint *constraint = [self.titleLabel.topAnchor constraintEqualToAnchor:focusedFrameGuide.bottomAnchor];
@@ -39,13 +41,7 @@ NSString *const VLCRemoteBrowsingTVCellIdentifier = @"VLCRemoteBrowsingTVCell";
 - (void)prepareForReuse
 {
     [super prepareForReuse];
-    if (_metadataFetcher) {
-        [_metadataFetcher cancelAllRequests];
-    } else {
-        _metadataFetcher = [[MDFMovieDBFetcher alloc] init];
-        _metadataFetcher.dataRecipient = self;
-        _metadataFetcher.shouldDecrapifyInputStrings = YES;
-    }
+    [_artworkProvider reset];
     [self.thumbnailImageView cancelLoading];
     self.title = nil;
     self.subtitle = nil;
@@ -59,7 +55,7 @@ NSString *const VLCRemoteBrowsingTVCellIdentifier = @"VLCRemoteBrowsingTVCell";
     } else {
         NSString *searchString = self.title;
         if (searchString != nil && !_isDirectory) {
-            [_metadataFetcher searchForMovie:searchString];
+            [_artworkProvider searchForArtworkForVideoRelatedString:searchString];
         }
     }
 }
@@ -78,7 +74,7 @@ NSString *const VLCRemoteBrowsingTVCellIdentifier = @"VLCRemoteBrowsingTVCell";
 {
     self.titleLabel.text = title;
     if (title != nil && !_isDirectory) {
-        [_metadataFetcher searchForMovie:title];
+        [_artworkProvider searchForArtworkForVideoRelatedString:title];
     }
 }
 
@@ -95,100 +91,6 @@ NSString *const VLCRemoteBrowsingTVCellIdentifier = @"VLCRemoteBrowsingTVCell";
 - (NSString *)subtitle
 {
     return self.subtitleLabel.text;
-}
-
-#pragma mark - MDFMovieDB
-
-- (void)MDFMovieDBFetcher:(MDFMovieDBFetcher *)aFetcher didFindMovie:(MDFMovie *)details forSearchRequest:(NSString *)searchRequest
-{
-    if (details == nil)
-        return;
-    [aFetcher cancelAllRequests];
-    MDFMovieDBSessionManager *sessionManager = [MDFMovieDBSessionManager sharedInstance];
-    if (!sessionManager.hasFetchedProperties)
-        return;
-
-    if (details.movieDBID == 0) {
-        /* we found nothing, let's see if it's a TV show */
-        [_metadataFetcher searchForTVShow:searchRequest];
-        return;
-    }
-
-    NSString *imagePath = details.posterPath;
-    NSArray *sizes = sessionManager.posterSizes;
-    NSString *imageSize;
-
-    if (sizes != nil) {
-        if (sizes.count > 1) {
-            imageSize = sizes[1];
-        } else if (sizes.count > 0) {
-            imageSize = sizes.firstObject;
-        }
-    }
-
-    if (!imagePath) {
-        imagePath = details.backdropPath;
-        sizes = sessionManager.backdropSizes;
-        if (sizes != nil && sizes.count > 0) {
-            imageSize = sizes.firstObject;
-        }
-    }
-    if (!imagePath)
-        return;
-
-    NSString *thumbnailURLString = [NSString stringWithFormat:@"%@%@%@",
-                                    sessionManager.imageBaseURL,
-                                    imageSize,
-                                    imagePath];
-    self.thumbnailURL = [NSURL URLWithString:thumbnailURLString];
-}
-
-- (void)MDFMovieDBFetcher:(MDFMovieDBFetcher *)aFetcher didFailToFindMovieForSearchRequest:(NSString *)searchRequest
-{
-    APLog(@"Failed to find a movie for '%@'", searchRequest);
-}
-
-- (void)MDFMovieDBFetcher:(MDFMovieDBFetcher *)aFetcher didFindTVShow:(MDFTVShow *)details forSearchRequest:(NSString *)searchRequest
-{
-    if (details == nil)
-        return;
-    [aFetcher cancelAllRequests];
-    MDFMovieDBSessionManager *sessionManager = [MDFMovieDBSessionManager sharedInstance];
-    if (!sessionManager.hasFetchedProperties)
-        return;
-
-    NSString *imagePath = details.posterPath;
-    NSArray *sizes = sessionManager.posterSizes;
-    NSString *imageSize;
-
-    if (sizes != nil) {
-        if (sizes.count > 1) {
-            imageSize = sizes[1];
-        } else if (sizes.count > 0) {
-            imageSize = sizes.firstObject;
-        }
-    }
-
-    if (!imagePath) {
-        imagePath = details.backdropPath;
-        sizes = sessionManager.backdropSizes;
-        if (sizes != nil && sizes.count > 0) {
-            imageSize = sizes.firstObject;
-        }
-    }
-    if (!imagePath)
-        return;
-
-    NSString *thumbnailURLString = [NSString stringWithFormat:@"%@%@%@",
-                                    sessionManager.imageBaseURL,
-                                    imageSize,
-                                    imagePath];
-    self.thumbnailURL = [NSURL URLWithString:thumbnailURLString];
-}
-
-- (void)MDFMovieDBFetcher:(MDFMovieDBFetcher *)aFetcher didFailToFindTVShowForSearchRequest:(NSString *)searchRequest
-{
-    APLog(@"failed to find TV show");
 }
 
 @end
