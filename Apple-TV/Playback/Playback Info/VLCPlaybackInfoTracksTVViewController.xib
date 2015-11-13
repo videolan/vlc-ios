@@ -1,0 +1,67 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<document type="com.apple.InterfaceBuilder.AppleTV.XIB" version="3.0" toolsVersion="9060" systemVersion="15B42" targetRuntime="AppleTV" propertyAccessControl="none" useAutolayout="YES">
+    <dependencies>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="9051"/>
+    </dependencies>
+    <objects>
+        <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner" customClass="VLCPlaybackInfoTracksTVViewController">
+            <connections>
+                <outlet property="audioDataSource" destination="odX-Um-Jiy" id="FHQ-ad-anU"/>
+                <outlet property="audioTrackCollectionView" destination="rYJ-pW-rFQ" id="GXj-Ds-Ggf"/>
+                <outlet property="subtitleDataSource" destination="Z5d-WW-D76" id="AaD-El-QGo"/>
+                <outlet property="subtitleTrackCollectionView" destination="YZb-MS-8i8" id="a2J-7X-pa8"/>
+                <outlet property="view" destination="iN0-l3-epB" id="Rsf-oc-98a"/>
+            </connections>
+        </placeholder>
+        <placeholder placeholderIdentifier="IBFirstResponder" id="-2" customClass="UIResponder"/>
+        <view contentMode="scaleToFill" id="iN0-l3-epB">
+            <rect key="frame" x="0.0" y="0.0" width="1920" height="500"/>
+            <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+            <subviews>
+                <collectionView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" dataMode="none" translatesAutoresizingMaskIntoConstraints="NO" id="YZb-MS-8i8">
+                    <rect key="frame" x="1060" y="0.0" width="660" height="500"/>
+                    <animations/>
+                    <collectionViewFlowLayout key="collectionViewLayout" minimumLineSpacing="10" minimumInteritemSpacing="10" id="2bC-W2-ECp" customClass="VLCFullWidthCollectionViewFlowLayout">
+                        <size key="itemSize" width="660" height="50"/>
+                        <size key="headerReferenceSize" width="660" height="50"/>
+                        <size key="footerReferenceSize" width="0.0" height="0.0"/>
+                        <inset key="sectionInset" minX="0.0" minY="0.0" maxX="0.0" maxY="0.0"/>
+                    </collectionViewFlowLayout>
+                    <connections>
+                        <outlet property="dataSource" destination="Z5d-WW-D76" id="CEX-jp-S6S"/>
+                        <outlet property="delegate" destination="Z5d-WW-D76" id="t1D-sI-B0C"/>
+                    </connections>
+                </collectionView>
+                <collectionView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" dataMode="none" translatesAutoresizingMaskIntoConstraints="NO" id="rYJ-pW-rFQ">
+                    <rect key="frame" x="200" y="0.0" width="660" height="500"/>
+                    <animations/>
+                    <collectionViewFlowLayout key="collectionViewLayout" minimumLineSpacing="10" minimumInteritemSpacing="10" id="ceq-Lt-V8g" customClass="VLCFullWidthCollectionViewFlowLayout">
+                        <size key="itemSize" width="660" height="50"/>
+                        <size key="headerReferenceSize" width="660" height="50"/>
+                        <size key="footerReferenceSize" width="0.0" height="0.0"/>
+                        <inset key="sectionInset" minX="0.0" minY="0.0" maxX="0.0" maxY="0.0"/>
+                    </collectionViewFlowLayout>
+                    <connections>
+                        <outlet property="dataSource" destination="odX-Um-Jiy" id="0oK-qY-Aiz"/>
+                        <outlet property="delegate" destination="odX-Um-Jiy" id="hDT-5c-OYk"/>
+                    </connections>
+                </collectionView>
+            </subviews>
+            <animations/>
+            <constraints>
+                <constraint firstAttribute="bottom" secondItem="rYJ-pW-rFQ" secondAttribute="bottom" priority="500" id="5QS-de-XaJ"/>
+                <constraint firstItem="rYJ-pW-rFQ" firstAttribute="top" secondItem="iN0-l3-epB" secondAttribute="top" id="Grw-co-Uag"/>
+                <constraint firstItem="rYJ-pW-rFQ" firstAttribute="leading" secondItem="iN0-l3-epB" secondAttribute="leading" constant="200" id="HMO-0c-28f"/>
+                <constraint firstItem="YZb-MS-8i8" firstAttribute="top" secondItem="iN0-l3-epB" secondAttribute="top" id="lJk-bE-qdA"/>
+                <constraint firstItem="YZb-MS-8i8" firstAttribute="width" secondItem="rYJ-pW-rFQ" secondAttribute="width" id="mvl-Qm-zsX"/>
+                <constraint firstAttribute="bottom" secondItem="YZb-MS-8i8" secondAttribute="bottom" priority="500" id="twj-q2-HtE"/>
+                <constraint firstAttribute="trailing" secondItem="YZb-MS-8i8" secondAttribute="trailing" constant="200" id="xiO-53-o5T"/>
+                <constraint firstItem="YZb-MS-8i8" firstAttribute="leading" secondItem="rYJ-pW-rFQ" secondAttribute="trailing" constant="200" id="xqK-zW-jRW"/>
+            </constraints>
+            <freeformSimulatedSizeMetrics key="simulatedDestinationMetrics"/>
+            <point key="canvasLocation" x="384" y="420"/>
+        </view>
+        <customObject id="odX-Um-Jiy" customClass="VLCPlaybackInfoTracksDataSourceAudio"/>
+        <customObject id="Z5d-WW-D76" customClass="VLCPlaybackInfoTracksDataSourceSubtitle"/>
+    </objects>
+</document>

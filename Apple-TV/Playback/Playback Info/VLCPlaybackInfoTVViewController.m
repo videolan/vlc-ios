@@ -13,6 +13,8 @@
 #import "VLCPlaybackInfoRateTVViewController.h"
 #import "VLCPlaybackInfoMediaInfoTVViewController.h"
 #import "VLCPlaybackInfoTVAnimators.h"
+#import "VLCPlaybackInfoTracksTVViewController.h"
+
 
 // just for appearance reasons
 @interface VLCPlaybackInfoTVTabBarController : UITabBarController
@@ -27,6 +29,7 @@
     return @[
              [[VLCPlaybackInfoRateTVViewController alloc] initWithNibName:nil bundle:nil],
              [[VLCPlaybackInfoMediaInfoTVViewController alloc] initWithNibName:nil bundle:nil],
+             [[VLCPlaybackInfoTracksTVViewController alloc] initWithNibName:nil bundle:nil],
              ];
 }
 
