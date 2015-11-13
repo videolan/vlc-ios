@@ -134,7 +134,7 @@
 		7D63C19518774E0100BD5256 /* VLCFirstStepsThirdPageViewController~ipad.xib in Resources */ = {isa = PBXBuildFile; fileRef = 7D63C19418774E0100BD5256 /* VLCFirstStepsThirdPageViewController~ipad.xib */; };
 		7D63C19718774F1000BD5256 /* VLCFirstStepsFourthPageViewController~ipad.xib in Resources */ = {isa = PBXBuildFile; fileRef = 7D63C19618774F1000BD5256 /* VLCFirstStepsFourthPageViewController~ipad.xib */; };
 		7D63C1991877504B00BD5256 /* VLCFirstStepsSixthPageViewController~ipad.xib in Resources */ = {isa = PBXBuildFile; fileRef = 7D63C1981877504B00BD5256 /* VLCFirstStepsSixthPageViewController~ipad.xib */; };
-		7D655D891BF4C14A00C61ED2 /* VLC WatchKit App.app in Embed Watch Content */ = {isa = PBXBuildFile; fileRef = DD3567641B6760BF00338947 /* VLC WatchKit App.app */; };
+		7D655D891BF4C14A00C61ED2 /* VLC for watchOS.app in Embed Watch Content */ = {isa = PBXBuildFile; fileRef = DD3567641B6760BF00338947 /* VLC for watchOS.app */; };
 		7D6B08FA174D716200A05173 /* MessageUI.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 7D6B08F9174D716200A05173 /* MessageUI.framework */; };
 		7D6B08FC174D773C00A05173 /* Settings.bundle in Resources */ = {isa = PBXBuildFile; fileRef = 7D6B08FB174D773C00A05173 /* Settings.bundle */; };
 		7D711ADA18227A490094E4F0 /* GTMOAuth2ViewTouch.xib in Resources */ = {isa = PBXBuildFile; fileRef = 7D711AD918227A490094E4F0 /* GTMOAuth2ViewTouch.xib */; };
@@ -258,7 +258,7 @@
 		DD29A3E91BF223D000A27A91 /* Localizable.strings in Resources */ = {isa = PBXBuildFile; fileRef = A79246C6170F11DF0036AAF2 /* Localizable.strings */; };
 		DD3567681B6760BF00338947 /* Interface.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = DD3567661B6760BF00338947 /* Interface.storyboard */; };
 		DD35676A1B6760BF00338947 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = DD3567691B6760BF00338947 /* Assets.xcassets */; };
-		DD3567711B6760BF00338947 /* VLC WatchKit Extension.appex in Embed App Extensions */ = {isa = PBXBuildFile; fileRef = DD3567701B6760BF00338947 /* VLC WatchKit Extension.appex */; settings = {ATTRIBUTES = (RemoveHeadersOnCopy, ); }; };
+		DD3567711B6760BF00338947 /* VLC for watchOS Extension.appex in Embed App Extensions */ = {isa = PBXBuildFile; fileRef = DD3567701B6760BF00338947 /* VLC for watchOS Extension.appex */; settings = {ATTRIBUTES = (RemoveHeadersOnCopy, ); }; };
 		DD35677A1B6760BF00338947 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = DD3567791B6760BF00338947 /* Assets.xcassets */; };
 		DD35678A1B67618F00338947 /* CoreData.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = DD3567891B67618F00338947 /* CoreData.framework */; };
 		DD35678C1B67619700338947 /* WatchKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = DD35678B1B67619700338947 /* WatchKit.framework */; };
@@ -466,7 +466,7 @@
 			dstPath = "";
 			dstSubfolderSpec = 13;
 			files = (
-				DD3567711B6760BF00338947 /* VLC WatchKit Extension.appex in Embed App Extensions */,
+				DD3567711B6760BF00338947 /* VLC for watchOS Extension.appex in Embed App Extensions */,
 			);
 			name = "Embed App Extensions";
 			runOnlyForDeploymentPostprocessing = 0;
@@ -477,7 +477,7 @@
 			dstPath = "$(CONTENTS_FOLDER_PATH)/Watch";
 			dstSubfolderSpec = 16;
 			files = (
-				7D655D891BF4C14A00C61ED2 /* VLC WatchKit App.app in Embed Watch Content */,
+				7D655D891BF4C14A00C61ED2 /* VLC for watchOS.app in Embed Watch Content */,
 			);
 			name = "Embed Watch Content";
 			runOnlyForDeploymentPostprocessing = 0;
@@ -883,11 +883,11 @@
 		DD2789E11B67A7BE00CED769 /* VLCWatchCommunication.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = VLCWatchCommunication.m; path = Sources/VLCWatchCommunication.m; sourceTree = SOURCE_ROOT; };
 		DD2789E31B67A88600CED769 /* WatchConnectivity.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = WatchConnectivity.framework; path = System/Library/Frameworks/WatchConnectivity.framework; sourceTree = SDKROOT; };
 		DD29A3E81BF21E3D00A27A91 /* SharedConfig.xcconfig */ = {isa = PBXFileReference; lastKnownFileType = text.xcconfig; path = SharedConfig.xcconfig; sourceTree = "<group>"; };
-		DD3567641B6760BF00338947 /* VLC WatchKit App.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "VLC WatchKit App.app"; sourceTree = BUILT_PRODUCTS_DIR; };
+		DD3567641B6760BF00338947 /* VLC for watchOS.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "VLC for watchOS.app"; sourceTree = BUILT_PRODUCTS_DIR; };
 		DD3567671B6760BF00338947 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Interface.storyboard; sourceTree = "<group>"; };
 		DD3567691B6760BF00338947 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		DD35676B1B6760BF00338947 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
-		DD3567701B6760BF00338947 /* VLC WatchKit Extension.appex */ = {isa = PBXFileReference; explicitFileType = "wrapper.app-extension"; includeInIndex = 0; path = "VLC WatchKit Extension.appex"; sourceTree = BUILT_PRODUCTS_DIR; };
+		DD3567701B6760BF00338947 /* VLC for watchOS Extension.appex */ = {isa = PBXFileReference; explicitFileType = "wrapper.app-extension"; includeInIndex = 0; path = "VLC for watchOS Extension.appex"; sourceTree = BUILT_PRODUCTS_DIR; };
 		DD3567791B6760BF00338947 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		DD35677B1B6760BF00338947 /* Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		DD3567891B67618F00338947 /* CoreData.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreData.framework; path = Platforms/WatchOS.platform/Developer/SDKs/WatchOS2.0.sdk/System/Library/Frameworks/CoreData.framework; sourceTree = DEVELOPER_DIR; };
@@ -1491,8 +1491,8 @@
 			isa = PBXGroup;
 			children = (
 				7D94FCDB16DE7D1000F2623B /* VLC for iOS.app */,
-				DD3567641B6760BF00338947 /* VLC WatchKit App.app */,
-				DD3567701B6760BF00338947 /* VLC WatchKit Extension.appex */,
+				DD3567641B6760BF00338947 /* VLC for watchOS.app */,
+				DD3567701B6760BF00338947 /* VLC for watchOS Extension.appex */,
 				7D13293D1BA1F10100BE647E /* VLC-TV.app */,
 			);
 			name = Products;
@@ -2272,9 +2272,9 @@
 			productReference = 7D94FCDB16DE7D1000F2623B /* VLC for iOS.app */;
 			productType = "com.apple.product-type.application";
 		};
-		DD3567631B6760BF00338947 /* VLC WatchKit App */ = {
+		DD3567631B6760BF00338947 /* VLC for watchOS */ = {
 			isa = PBXNativeTarget;
-			buildConfigurationList = DD3567871B6760BF00338947 /* Build configuration list for PBXNativeTarget "VLC WatchKit App" */;
+			buildConfigurationList = DD3567871B6760BF00338947 /* Build configuration list for PBXNativeTarget "VLC for watchOS" */;
 			buildPhases = (
 				DD3567621B6760BF00338947 /* Resources */,
 				DD3567861B6760BF00338947 /* Embed App Extensions */,
@@ -2284,14 +2284,14 @@
 			dependencies = (
 				DD3567731B6760BF00338947 /* PBXTargetDependency */,
 			);
-			name = "VLC WatchKit App";
+			name = "VLC for watchOS";
 			productName = watchkitapp;
-			productReference = DD3567641B6760BF00338947 /* VLC WatchKit App.app */;
+			productReference = DD3567641B6760BF00338947 /* VLC for watchOS.app */;
 			productType = "com.apple.product-type.application.watchapp2";
 		};
-		DD35676F1B6760BF00338947 /* VLC WatchKit Extension */ = {
+		DD35676F1B6760BF00338947 /* VLC for watchOS Extension */ = {
 			isa = PBXNativeTarget;
-			buildConfigurationList = DD3567851B6760BF00338947 /* Build configuration list for PBXNativeTarget "VLC WatchKit Extension" */;
+			buildConfigurationList = DD3567851B6760BF00338947 /* Build configuration list for PBXNativeTarget "VLC for watchOS Extension" */;
 			buildPhases = (
 				DD35676C1B6760BF00338947 /* Sources */,
 				DD35676D1B6760BF00338947 /* Frameworks */,
@@ -2302,9 +2302,9 @@
 			);
 			dependencies = (
 			);
-			name = "VLC WatchKit Extension";
+			name = "VLC for watchOS Extension";
 			productName = "watchkitapp Extension";
-			productReference = DD3567701B6760BF00338947 /* VLC WatchKit Extension.appex */;
+			productReference = DD3567701B6760BF00338947 /* VLC for watchOS Extension.appex */;
 			productType = "com.apple.product-type.watchkit2-extension";
 		};
 /* End PBXNativeTarget section */
@@ -2431,8 +2431,8 @@
 			projectRoot = "";
 			targets = (
 				7D94FCDA16DE7D1000F2623B /* vlc-ios */,
-				DD35676F1B6760BF00338947 /* VLC WatchKit Extension */,
-				DD3567631B6760BF00338947 /* VLC WatchKit App */,
+				DD35676F1B6760BF00338947 /* VLC for watchOS Extension */,
+				DD3567631B6760BF00338947 /* VLC for watchOS */,
 				7D13293C1BA1F10100BE647E /* VLC-TV */,
 			);
 		};
@@ -2923,7 +2923,7 @@
 		};
 		7D14C3541BF4E498003DDC41 /* PBXTargetDependency */ = {
 			isa = PBXTargetDependency;
-			target = DD35676F1B6760BF00338947 /* VLC WatchKit Extension */;
+			target = DD35676F1B6760BF00338947 /* VLC for watchOS Extension */;
 			targetProxy = 7D14C3531BF4E498003DDC41 /* PBXContainerItemProxy */;
 		};
 		7D5278D51BD7DE7D00D0CA0E /* PBXTargetDependency */ = {
@@ -2943,12 +2943,12 @@
 		};
 		DD3567731B6760BF00338947 /* PBXTargetDependency */ = {
 			isa = PBXTargetDependency;
-			target = DD35676F1B6760BF00338947 /* VLC WatchKit Extension */;
+			target = DD35676F1B6760BF00338947 /* VLC for watchOS Extension */;
 			targetProxy = DD3567721B6760BF00338947 /* PBXContainerItemProxy */;
 		};
 		DD35677D1B6760BF00338947 /* PBXTargetDependency */ = {
 			isa = PBXTargetDependency;
-			target = DD3567631B6760BF00338947 /* VLC WatchKit App */;
+			target = DD3567631B6760BF00338947 /* VLC for watchOS */;
 			targetProxy = DD35677C1B6760BF00338947 /* PBXContainerItemProxy */;
 		};
 /* End PBXTargetDependency section */
@@ -3270,7 +3270,7 @@
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				COPY_PHASE_STRIP = NO;
 				DEAD_CODE_STRIPPING = NO;
-				EMBEDDED_CONTENT_CONTAINS_SWIFT = YES;
+				EMBEDDED_CONTENT_CONTAINS_SWIFT = NO;
 				ENABLE_BITCODE = NO;
 				ENABLE_NS_ASSERTIONS = YES;
 				EXCLUDED_SOURCE_FILE_NAMES = "";
@@ -3323,7 +3323,7 @@
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				COPY_PHASE_STRIP = YES;
 				DEAD_CODE_STRIPPING = NO;
-				EMBEDDED_CONTENT_CONTAINS_SWIFT = YES;
+				EMBEDDED_CONTENT_CONTAINS_SWIFT = NO;
 				ENABLE_BITCODE = NO;
 				ENABLE_NS_ASSERTIONS = NO;
 				EXCLUDED_SOURCE_FILE_NAMES = "";
@@ -3404,7 +3404,7 @@
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				COPY_PHASE_STRIP = YES;
 				DEAD_CODE_STRIPPING = NO;
-				EMBEDDED_CONTENT_CONTAINS_SWIFT = YES;
+				EMBEDDED_CONTENT_CONTAINS_SWIFT = NO;
 				ENABLE_BITCODE = NO;
 				ENABLE_NS_ASSERTIONS = NO;
 				EXCLUDED_SOURCE_FILE_NAMES = "iTunesArtwork*";
@@ -3741,7 +3741,7 @@
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
 		};
-		DD3567851B6760BF00338947 /* Build configuration list for PBXNativeTarget "VLC WatchKit Extension" */ = {
+		DD3567851B6760BF00338947 /* Build configuration list for PBXNativeTarget "VLC for watchOS Extension" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
 				DD3567821B6760BF00338947 /* Debug */,
@@ -3751,7 +3751,7 @@
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
 		};
-		DD3567871B6760BF00338947 /* Build configuration list for PBXNativeTarget "VLC WatchKit App" */ = {
+		DD3567871B6760BF00338947 /* Build configuration list for PBXNativeTarget "VLC for watchOS" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
 				DD35677F1B6760BF00338947 /* Debug */,
