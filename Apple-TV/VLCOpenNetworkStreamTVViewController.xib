@@ -18,7 +18,7 @@
             <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
             <subviews>
                 <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" placeholder="Enter URL to play" textAlignment="center" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="dWa-3n-YCa">
-                    <rect key="frame" x="710" y="524" width="500" height="66"/>
+                    <rect key="frame" x="710" y="193" width="500" height="66"/>
                     <animations/>
                     <constraints>
                         <constraint firstAttribute="width" constant="500" id="3fz-h4-cGU"/>
@@ -31,12 +31,11 @@
                     </connections>
                 </textField>
                 <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" style="plain" separatorStyle="default" rowHeight="66" sectionHeaderHeight="40" sectionFooterHeight="40" translatesAutoresizingMaskIntoConstraints="NO" id="v0o-s0-Xaz">
-                    <rect key="frame" x="183" y="660" width="1555" height="350"/>
+                    <rect key="frame" x="183" y="329" width="1555" height="681"/>
                     <animations/>
                     <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                     <constraints>
                         <constraint firstAttribute="width" constant="1555" id="ELC-Ea-jpC"/>
-                        <constraint firstAttribute="height" constant="350" id="gQs-hK-0At"/>
                     </constraints>
                     <connections>
                         <outlet property="dataSource" destination="-1" id="5xO-BE-h5Q"/>
@@ -46,6 +45,7 @@
             </subviews>
             <animations/>
             <constraints>
+                <constraint firstItem="dWa-3n-YCa" firstAttribute="top" secondItem="iN0-l3-epB" secondAttribute="top" constant="193" id="6FP-0U-Znd"/>
                 <constraint firstItem="v0o-s0-Xaz" firstAttribute="centerX" secondItem="iN0-l3-epB" secondAttribute="centerX" id="elq-bO-Tb3"/>
                 <constraint firstItem="v0o-s0-Xaz" firstAttribute="top" secondItem="dWa-3n-YCa" secondAttribute="bottom" constant="70" id="jCe-Gz-82c"/>
                 <constraint firstItem="dWa-3n-YCa" firstAttribute="centerX" secondItem="iN0-l3-epB" secondAttribute="centerX" id="oFS-xp-QJo"/>
