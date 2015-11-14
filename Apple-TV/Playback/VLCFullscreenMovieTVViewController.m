@@ -39,6 +39,8 @@ typedef NS_ENUM(NSInteger, VLCPlayerScanState)
 @property (nonatomic) MDFHatchetFetcher *audioMetaDataFetcher;
 @property (nonatomic) NSString *lastArtist;
 
+@property (nonatomic, readonly, getter=isSeekable) BOOL seekable;
+
 @end
 
 @implementation VLCFullscreenMovieTVViewController
@@ -194,7 +196,11 @@ typedef NS_ENUM(NSInteger, VLCPlayerScanState)
 
     if (!bar.scrubbing) {
         if (ABS(translation.x) > 150.0) {
-            [self startScrubbing];
+            if (self.isSeekable) {
+                [self startScrubbing];
+            } else {
+                return;
+            }
         } else if (translation.y > 200.0) {
             panGestureRecognizer.enabled = NO;
             panGestureRecognizer.enabled = YES;
@@ -281,6 +287,11 @@ typedef NS_ENUM(NSInteger, VLCPlayerScanState)
 - (void)handleIRPressLeft
 {
     [self showPlaybackControlsIfNeededForUserInteraction];
+
+    if (!self.isSeekable) {
+        return;
+    }
+
     BOOL paused = ![VLCPlaybackController sharedInstance].isPlaying;
     if (paused) {
         [self jumpBackward];
@@ -293,6 +304,11 @@ typedef NS_ENUM(NSInteger, VLCPlayerScanState)
 - (void)handleIRPressRight
 {
     [self showPlaybackControlsIfNeededForUserInteraction];
+
+    if (!self.isSeekable) {
+        return;
+    }
+
     BOOL paused = ![VLCPlaybackController sharedInstance].isPlaying;
     if (paused) {
         [self jumpForward];
@@ -304,12 +320,13 @@ typedef NS_ENUM(NSInteger, VLCPlayerScanState)
 - (void)handleSiriRemote:(VLCSiriRemoteGestureRecognizer *)recognizer
 {
     [self showPlaybackControlsIfNeededForUserInteraction];
+
     VLCTransportBarHint hint = self.transportBar.hint;
     switch (recognizer.state) {
         case UIGestureRecognizerStateBegan:
         case UIGestureRecognizerStateChanged:
             if (recognizer.isLongPress) {
-                if (recognizer.touchLocation == VLCSiriRemoteTouchLocationRight) {
+                if (!self.isSeekable && recognizer.touchLocation == VLCSiriRemoteTouchLocationRight) {
                     [self setScanState:VLCPlayerScanStateForward2];
                     return;
                 }
@@ -340,17 +357,21 @@ typedef NS_ENUM(NSInteger, VLCPlayerScanState)
         default:
             break;
     }
-    self.transportBar.hint = hint;
+    self.transportBar.hint = self.isSeekable ? hint : VLCPlayerScanStateNone;
 }
 
 - (void)handleSiriPressUpAtLocation:(VLCSiriRemoteTouchLocation)location
 {
     switch (location) {
         case VLCSiriRemoteTouchLocationLeft:
-            [self jumpBackward];
+            if (self.isSeekable) {
+                [self jumpBackward];
+            }
             break;
         case VLCSiriRemoteTouchLocationRight:
-            [self jumpForward];
+            if (self.isSeekable) {
+                [self jumpForward];
+            }
             break;
         default:
             [self selectButtonPressed];
@@ -362,6 +383,8 @@ typedef NS_ENUM(NSInteger, VLCPlayerScanState)
 static const NSInteger VLCJumpInterval = 10000; // 10 seconds
 - (void)jumpForward
 {
+    NSAssert(self.isSeekable, @"Tried to seek while not media is not seekable.");
+
     VLCPlaybackController *vpc = [VLCPlaybackController sharedInstance];
     VLCMediaPlayer *player = vpc.mediaPlayer;
 
@@ -373,6 +396,8 @@ static const NSInteger VLCJumpInterval = 10000; // 10 seconds
 }
 - (void)jumpBackward
 {
+    NSAssert(self.isSeekable, @"Tried to seek while not media is not seekable.");
+
     VLCPlaybackController *vpc = [VLCPlaybackController sharedInstance];
     VLCMediaPlayer *player = vpc.mediaPlayer;
 
@@ -385,6 +410,8 @@ static const NSInteger VLCJumpInterval = 10000; // 10 seconds
 
 - (void)jumpInterval:(NSInteger)interval
 {
+    NSAssert(self.isSeekable, @"Tried to seek while not media is not seekable.");
+
     NSInteger duration = [VLCPlaybackController sharedInstance].mediaDuration;
     if (duration==0) {
         return;
@@ -400,6 +427,8 @@ static const NSInteger VLCJumpInterval = 10000; // 10 seconds
 
 - (void)scrubbingJumpInterval:(NSInteger)interval
 {
+    NSAssert(self.isSeekable, @"Tried to seek while not media is not seekable.");
+
     NSInteger duration = [VLCPlaybackController sharedInstance].mediaDuration;
     if (duration==0) {
         return;
@@ -415,6 +444,8 @@ static const NSInteger VLCJumpInterval = 10000; // 10 seconds
 
 - (void)scanForwardNext
 {
+    NSAssert(self.isSeekable, @"Tried to seek while not media is not seekable.");
+
     VLCPlayerScanState nextState = self.scanState;
     switch (self.scanState) {
         case VLCPlayerScanStateNone:
@@ -433,6 +464,8 @@ static const NSInteger VLCJumpInterval = 10000; // 10 seconds
 
 - (void)scanForwardPrevious
 {
+    NSAssert(self.isSeekable, @"Tried to seek while not media is not seekable.");
+
     VLCPlayerScanState nextState = self.scanState;
     switch (self.scanState) {
         case VLCPlayerScanStateNone:
@@ -455,6 +488,8 @@ static const NSInteger VLCJumpInterval = 10000; // 10 seconds
     if (_scanState == scanState) {
         return;
     }
+
+    NSAssert(self.isSeekable || scanState == VLCPlayerScanStateNone, @"Tried to seek while media not seekable.");
 
     if (_scanState == VLCPlayerScanStateNone) {
         self.scanSavedPlaybackRate = @([VLCPlaybackController sharedInstance].playbackRate);
@@ -483,6 +518,12 @@ static const NSInteger VLCJumpInterval = 10000; // 10 seconds
     [VLCPlaybackController sharedInstance].playbackRate = rate;
     [self.transportBar setHint:hint];
 }
+
+- (BOOL)isSeekable
+{
+    return [VLCPlaybackController sharedInstance].mediaPlayer.isSeekable;
+}
+
 #pragma mark -
 
 - (void)updateTimeLabelsForScrubbingFraction:(CGFloat)scrubbingFraction
@@ -499,6 +540,8 @@ static const NSInteger VLCJumpInterval = 10000; // 10 seconds
 
 - (void)startScrubbing
 {
+    NSAssert(self.isSeekable, @"Tried to seek while not media is not seekable.");
+
     VLCPlaybackController *vpc = [VLCPlaybackController sharedInstance];
     self.transportBar.scrubbing = YES;
     [self updateDimmingView];
