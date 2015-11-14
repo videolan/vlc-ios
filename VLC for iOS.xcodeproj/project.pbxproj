@@ -574,7 +574,6 @@
 		7D1AB286179C98D4004CC271 /* sk */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = sk; path = sk.lproj/Localizable.strings; sourceTree = "<group>"; };
 		7D1AB28B179C98DC004CC271 /* tr */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = tr; path = tr.lproj/Localizable.strings; sourceTree = "<group>"; };
 		7D1AB290179C98E3004CC271 /* uk */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = uk; path = uk.lproj/Localizable.strings; sourceTree = "<group>"; };
-		7D1AB295179C98F4004CC271 /* vi */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = vi; path = vi.lproj/Localizable.strings; sourceTree = "<group>"; };
 		7D1AB2A4179C99AE004CC271 /* zh-Hans */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = "zh-Hans"; path = "zh-Hans.lproj/Localizable.strings"; sourceTree = "<group>"; };
 		7D1FEBD31BA3184A00D1058E /* libTVVLCKit.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; name = libTVVLCKit.a; path = "ImportedSources/VLCKit/build/Debug-appletvos/libTVVLCKit.a"; sourceTree = "<group>"; };
 		7D27EB9319DEE11900EF0370 /* Launch Screen.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; name = "Launch Screen.xib"; path = "Resources/Launch Screen.xib"; sourceTree = SOURCE_ROOT; };
@@ -732,6 +731,7 @@
 		7D9289771877467E009108FD /* VLCFirstStepsFourthPageViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = VLCFirstStepsFourthPageViewController.h; path = Sources/VLCFirstStepsFourthPageViewController.h; sourceTree = SOURCE_ROOT; };
 		7D9289781877467E009108FD /* VLCFirstStepsFourthPageViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = VLCFirstStepsFourthPageViewController.m; path = Sources/VLCFirstStepsFourthPageViewController.m; sourceTree = SOURCE_ROOT; };
 		7D9289791877467E009108FD /* VLCFirstStepsFourthPageViewController~iphone.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; name = "VLCFirstStepsFourthPageViewController~iphone.xib"; path = "Resources/VLCFirstStepsFourthPageViewController~iphone.xib"; sourceTree = SOURCE_ROOT; };
+		7D94DDC31BF76A26002DE657 /* nb */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = nb; path = nb.lproj/Localizable.strings; sourceTree = "<group>"; };
 		7D94FCDB16DE7D1000F2623B /* VLC for iOS.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "VLC for iOS.app"; sourceTree = BUILT_PRODUCTS_DIR; };
 		7D94FCDE16DE7D1000F2623B /* UIKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = UIKit.framework; path = System/Library/Frameworks/UIKit.framework; sourceTree = SDKROOT; };
 		7D94FCE016DE7D1000F2623B /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = System/Library/Frameworks/Foundation.framework; sourceTree = SDKROOT; };
@@ -2387,7 +2387,6 @@
 				sk,
 				tr,
 				uk,
-				vi,
 				"zh-Hans",
 				"zh-Hant",
 				mr,
@@ -2418,6 +2417,7 @@
 				"pt-BR",
 				"sr-Latn",
 				Base,
+				nb,
 			);
 			mainGroup = 7D94FCD216DE7D1000F2623B;
 			productRefGroup = 7D94FCDC16DE7D1000F2623B /* Products */;
@@ -2972,7 +2972,6 @@
 				7D1AB286179C98D4004CC271 /* sk */,
 				7D1AB28B179C98DC004CC271 /* tr */,
 				7D1AB290179C98E3004CC271 /* uk */,
-				7D1AB295179C98F4004CC271 /* vi */,
 				7D1AB2A4179C99AE004CC271 /* zh-Hans */,
 				CC87147917A56C05003C7383 /* mr */,
 				CC87147E17A56C61003C7383 /* gl */,
@@ -3002,6 +3001,7 @@
 				7D685AA41AAF7472006CD82A /* pt-PT */,
 				7D685AA91AAF7488006CD82A /* pt-BR */,
 				7D685AAE1AAF74F9006CD82A /* sr-Latn */,
+				7D94DDC31BF76A26002DE657 /* nb */,
 			);
 			name = Localizable.strings;
 			sourceTree = "<group>";

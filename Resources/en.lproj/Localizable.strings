@@ -277,13 +277,16 @@
 "%ld seconds"="%ld seconds";
 
 // accessibility labels for the playlist
-"OBJECT_TYPE_SHOW"="Show";
-"OBJECT_TYPE_SHOW_EPISODE"="Show episode";
-"OBJECT_TYPE_LABEL"="Folder";
+"OBJECT_TYPE_SHOW"="Vis";
+"OBJECT_TYPE_SHOW_EPISODE"="Vis episode";
+"OBJECT_TYPE_LABEL"="Mappe";
 "OBJECT_TYPE_ALBUM"="Album";
-"OBJECT_TYPE_ALBUM_TRACK"="Album track";
-"OBJECT_TYPE_FILE"="File";
-"OBJECT_TYPE_FILE_AUDIO"="Audio file";
+"OBJECT_TYPE_ALBUM_TRACK"="Album spor";
+"OBJECT_TYPE_FILE"="Fil";
+"OBJECT_TYPE_FILE_AUDIO"="Lydfil";
+
+"NOT_CONNECTED_TO_PHONE_TITLE"="Not connected to iPhone";
+"NOT_CONNECTED_TO_PHONE_MESSAGE"="Please connect your iPhone to perform remote control actions.";
 
 "LONGPRESS_TO_STOP"="Long-press to stop playback.";
 
