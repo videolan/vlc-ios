@@ -1,6 +1,6 @@
-diff -ru dropbox-ios-sdk-1.3.13/DropboxSDK/Classes/DBSession+iOS.m Dropbox/DropboxSDK/Classes/DBSession+iOS.m
---- dropbox-ios-sdk-1.3.13/DropboxSDK/Classes/DBSession+iOS.m	2014-09-15 12:51:34.000000000 +0200
-+++ Dropbox/DropboxSDK/Classes/DBSession+iOS.m	2015-10-28 10:53:04.000000000 +0100
+diff -ru Dropbox/DropboxSDK/Classes/DBSession+iOS.m Dropbox/DropboxSDK/Classes/DBSession+iOS.m
+--- Dropbox/DropboxSDK/Classes/DBSession+iOS.m	2014-09-15 12:51:34.000000000 +0200
++++ Dropbox/DropboxSDK/Classes/DBSession+iOS.m	2015-11-12 14:32:51.000000000 +0100
 @@ -10,7 +10,9 @@
  
  #import <CommonCrypto/CommonDigest.h>
@@ -30,9 +30,22 @@ diff -ru dropbox-ios-sdk-1.3.13/DropboxSDK/Classes/DBSession+iOS.m Dropbox/Dropb
  }
  
  - (void)linkFromController:(UIViewController *)rootController {
-diff -ru dropbox-ios-sdk-1.3.13/DropboxSDK/DropboxSDK.xcodeproj/project.pbxproj Dropbox/DropboxSDK/DropboxSDK.xcodeproj/project.pbxproj
---- dropbox-ios-sdk-1.3.13/DropboxSDK/DropboxSDK.xcodeproj/project.pbxproj	2014-09-15 12:51:34.000000000 +0200
-+++ Dropbox/DropboxSDK/DropboxSDK.xcodeproj/project.pbxproj	2015-10-28 12:37:36.000000000 +0100
+diff -ru Dropbox/DropboxSDK/Classes/DropboxSDK-Info.plist Dropbox/DropboxSDK/Classes/DropboxSDK-Info.plist
+--- Dropbox/DropboxSDK/Classes/DropboxSDK-Info.plist	2014-09-15 12:51:34.000000000 +0200
++++ Dropbox/DropboxSDK/Classes/DropboxSDK-Info.plist	2015-11-14 14:52:21.000000000 +0100
+@@ -42,5 +42,9 @@
+ 	<string></string>
+ 	<key>NSHumanReadableCopyright</key>
+ 	<string>Copyright © 2011 Dropbox Inc. All rights reserved.</string>
++	<key>UIRequiredDeviceCapabilities</key>
++	<array>
++		<string>arm64</string>
++	</array>
+ </dict>
+ </plist>
+diff -ru Dropbox/DropboxSDK/DropboxSDK.xcodeproj/project.pbxproj Dropbox/DropboxSDK/DropboxSDK.xcodeproj/project.pbxproj
+--- Dropbox/DropboxSDK/DropboxSDK.xcodeproj/project.pbxproj	2014-09-15 12:51:34.000000000 +0200
++++ Dropbox/DropboxSDK/DropboxSDK.xcodeproj/project.pbxproj	2015-11-14 14:52:21.000000000 +0100
 @@ -7,6 +7,84 @@
  	objects = {
  
