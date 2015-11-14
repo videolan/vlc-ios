@@ -32,10 +32,11 @@ NSString *const VLCRemoteBrowsingTVCellIdentifier = @"VLCRemoteBrowsingTVCell";
     [super awakeFromNib];
     _artworkProvider = [[VLCMDFBrowsingArtworkProvider alloc] init];
     _artworkProvider.artworkReceiver = self;
-    [self prepareForReuse];
     UILayoutGuide *focusedFrameGuide = self.thumbnailImageView.focusedFrameGuide;
-    NSLayoutConstraint *constraint = [self.titleLabel.topAnchor constraintEqualToAnchor:focusedFrameGuide.bottomAnchor];
+    NSLayoutConstraint *constraint = [self.titleLabel.topAnchor constraintEqualToAnchor:focusedFrameGuide.bottomAnchor constant:15];
     [self.contentView addConstraint:constraint];
+
+    [self prepareForReuse];
 }
 
 - (void)prepareForReuse
