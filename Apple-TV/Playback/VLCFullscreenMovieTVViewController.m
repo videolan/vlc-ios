@@ -268,6 +268,11 @@ typedef NS_ENUM(NSInteger, VLCPlayerScanState)
     }
     // TODO: configure with player info
     VLCPlaybackInfoTVViewController *infoViewController = self.infoViewController;
+
+    // prevent repeated presentation when users repeatedly and quickly press the arrow button
+    if (infoViewController.isBeingPresented) {
+        return;
+    }
     infoViewController.transitioningDelegate = self;
     [self presentViewController:infoViewController animated:YES completion:nil];
     [self animatePlaybackControlsToVisibility:NO];
