@@ -241,8 +241,8 @@ typedef NS_ENUM(NSInteger, VLCPlayerScanState)
     VLCTransportBar *bar = self.transportBar;
     if (bar.scrubbing) {
         bar.playbackFraction = bar.scrubbingFraction;
-        [vpc.mediaPlayer setPosition:bar.scrubbingFraction];
         [self stopScrubbing];
+        [vpc.mediaPlayer setPosition:bar.scrubbingFraction];
     } else if(vpc.mediaPlayer.playing) {
         [vpc.mediaPlayer pause];
     }
