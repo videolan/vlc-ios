@@ -366,7 +366,7 @@ static const NSInteger VLCJumpInterval = 10000; // 10 seconds
     VLCMediaPlayer *player = vpc.mediaPlayer;
 
     if (player.isPlaying) {
-        [player jumpForward:VLCJumpInterval];
+        [self jumpInterval:VLCJumpInterval];
     } else {
         [self scrubbingJumpInterval:VLCJumpInterval];
     }
@@ -377,10 +377,25 @@ static const NSInteger VLCJumpInterval = 10000; // 10 seconds
     VLCMediaPlayer *player = vpc.mediaPlayer;
 
     if (player.isPlaying) {
-        [player jumpBackward:VLCJumpInterval];
+        [self jumpInterval:-VLCJumpInterval];
     } else {
         [self scrubbingJumpInterval:-VLCJumpInterval];
     }
+}
+
+- (void)jumpInterval:(NSInteger)interval
+{
+    NSInteger duration = [VLCPlaybackController sharedInstance].mediaDuration;
+    if (duration==0) {
+        return;
+    }
+    VLCPlaybackController *vpc = [VLCPlaybackController sharedInstance];
+    VLCMediaPlayer *player = vpc.mediaPlayer;
+
+    CGFloat intervalFraction = ((CGFloat)interval)/((CGFloat)duration);
+    CGFloat currentFraction = player.position;
+    currentFraction += intervalFraction;
+    player.position = currentFraction;
 }
 
 - (void)scrubbingJumpInterval:(NSInteger)interval
