@@ -66,12 +66,15 @@
 
 - (void)updateSegmentedControl
 {
-    float currentRate = [VLCPlaybackController sharedInstance].playbackRate;
+    VLCPlaybackController *vpc = [VLCPlaybackController sharedInstance];
+    float currentRate = vpc.playbackRate;
 
     NSInteger currentIndex = [self.possibleRates indexOfObjectPassingTest:^BOOL(NSNumber * _Nonnull obj, NSUInteger idx, BOOL * _Nonnull stop) {
         return ABS(obj.floatValue-currentRate)<0.2;
     }];
     self.segmentedControl.selectedSegmentIndex = currentIndex;
+
+    self.segmentedControl.enabled = vpc.mediaPlayer.isSeekable;
 }
 
 - (IBAction)segmentedControlChanged:(UISegmentedControl *)sender
