@@ -119,7 +119,7 @@ $(function() {
         this._progClicked = false;
         this.element = options.element;
         this.socket = options.socket;
-        this.duration = 7200;
+        this.duration = 0;
         this.currentTime = 0;
         this.volume = 0.5;
         this._previousVolume = 1;
@@ -152,7 +152,7 @@ $(function() {
         var y = buttonHeight * this.volume * 10;
         self.updateVolume(y);
         var progWidth = this.element.find('.progress').width();
-        var x = (progWidth / self.duration) * self.currentTime;
+        var x = self.duration ? (progWidth / self.duration) * self.currentTime : 0;
         self.updateProgress(x);
 
         $(window).bind('mouseup', function(e) {
@@ -171,12 +171,18 @@ $(function() {
                     break;
                 case 37: // left
                     var time = self.currentTime - (self.duration / 100);
-                    self.seekTo(true, time);
+                    self.seekTo({
+                        send: true,
+                        currentTime: time
+                    });
                     break;
 
                 case 39: // right
                     var time = self.currentTime + (self.duration / 100);
-                    self.seekTo(true, time);
+                    self.seekTo({
+                        send: true,
+                        currentTime: time
+                    });
                     break;
 
                 case 38: // up
@@ -263,10 +269,14 @@ $(function() {
         }
 
         if (this._playing) {
-            this.pause(true);
+            this.pause({
+                send: true
+            });
         }
         else {
-            this.play(true);
+            this.play({
+                send: true
+            });
         }
     };
 
@@ -297,7 +307,10 @@ $(function() {
         var x = this.getMouseProgressPosition(e);
 
         this.currentTime = Math.round((x / progWidth) * this.duration);
-        this.seekTo(true, this.currentTime);
+        this.seekTo({
+            send: true,
+            currentTime: this.currentTime
+        });
     };
 
     /**
@@ -324,7 +337,10 @@ $(function() {
             progMove = x;
             this.currentTime = Math.round((x / progWidth) * this.duration);
         }
-        this.seekTo(true, this.currentTime);
+        this.seekTo({
+            send: true,
+            currentTime: this.currentTime
+        });
     };
 
     /**
@@ -347,42 +363,24 @@ $(function() {
         this.updateVolume(volMove);
     };
 
+    PlayerControl.prototype.formatTime = function(ms) {
+        var timeMatch = new Date(ms).toUTCString().match(/(\d\d:\d\d:\d\d)/);
+        return timeMatch.length ? timeMatch[0].replace('00:', '') : '00:00';
+    };
+
     /**
      * @method updateTime
      * @param {number} currentTime
      */
     PlayerControl.prototype.updateTime = function(currentTime) {
-        var progWidth = this.element.find('.progress').width();
+        var progWidth, cTime, tTime;
+        progWidth = this.element.find('.progress').width();
         currentTime = currentTime ||
         Math.round(($('.progress-bar').width() / progWidth) * this.duration);
-        currentTime /= 1000;
-        var duration = this.duration / 1000;
-        var seconds = 0,
-            minutes = Math.floor(currentTime / 60),
-            tminutes = Math.round(duration / 60),
-            tseconds = Math.round((duration) - (tminutes * 60));
-
-
-        seconds = Math.round(currentTime) - (60 * minutes);
-
-        if (seconds > 59) {
-            seconds = Math.round(currentTime) - (60 * minutes);
-            if (seconds === 60) {
-                minutes = Math.round(currentTime / 60);
-                seconds = 0;
-            }
-        }
-
-        // Set a zero before the number if less than 10.
-        if (seconds < 10) {
-            seconds = '0' + seconds;
-        }
-        if (tseconds < 10) {
-            tseconds = '0' + tseconds;
-        }
-
-        this.element.find('.ctime').html(minutes + ':' + seconds);
-        this.element.find('.ttime').html(tminutes + ':' + tseconds);
+        cTime = this.formatTime(currentTime);
+        tTime = this.formatTime(this.duration);
+        this.element.find('.ctime').text(cTime);
+        this.element.find('.ttime').text(tTime);
     };
 
     /**
@@ -413,10 +411,17 @@ $(function() {
      * @method play
      * @param {boolean} send
      */
-    PlayerControl.prototype.play = function(send) {
-        var self = this;
-        var progWidth = this.element.find('.progress').width();
-        var delay = 1000;
+    PlayerControl.prototype.play = function(options) {
+        options = options || {};
+        var self = this,
+            send = options.send,
+            currentTime = options.currentTime,
+            delay = 1000,
+            progWidth = this.element.find('.progress').width();
+
+        //update currentTime
+        this.currentTime = typeof currentTime !== 'undefined' ? currentTime : this.currentTime;
+
         if (this.timeInterval) {
             clearInterval(this.timeInterval);
         }
@@ -454,7 +459,13 @@ $(function() {
      * @method pause
      * @param {boolean} send
      */
-    PlayerControl.prototype.pause = function(send) {
+    PlayerControl.prototype.pause = function(options) {
+        options = options || {};
+        var send = options.send,
+            currentTime = options.currentTime;
+        //update currentTime
+        this.currentTime = typeof currentTime !== 'undefined' ? currentTime : this.currentTime;
+
         if (this.timeInterval) {
             clearInterval(this.timeInterval);
         }
@@ -481,18 +492,22 @@ $(function() {
      * @param {boolean} send
      * @param {number} time
      */
-    PlayerControl.prototype.seekTo = function(send, time) {
+    PlayerControl.prototype.seekTo = function(options) {
+        options = options || {};
+        var currentTime = options.currentTime,
+            send = options.send;
+
         //@TODO: make a debounce when dragging & key
         var progWidth = this.element.find('.progress').width();
 
-        if (time < 0) {
-            time = 0;
+        if (currentTime < 0) {
+            currentTime = 0;
         }
-        if (time > this.duration) {
-            time = this.duration;
+        if (currentTime > this.duration) {
+            currentTime = this.duration;
         }
 
-        this.currentTime = time;
+        this.currentTime = currentTime;
 
         if (this._playing) {
             this.play();
@@ -504,30 +519,26 @@ $(function() {
         if (send) {
             this.socket.sendMessage({
                 type: 'seekTo',
-                currentTime: time
+                currentTime: currentTime
             });
         }
-    };
-
-    /**
-     * @method goTo
-     * @param {boolean} send
-     */
-    PlayerControl.prototype.goTo = function(send) {
-        this.socket.sendMessage({
-            type: 'goTo'
-        });
     };
 
     /**
      * @method playing
      * @param {Object} message
      */
-    PlayerControl.prototype.playing = function(message) {
-        this.currentTime = message.currentTime;
-        this.duration = message.media.duration;
-        this.title = message.media.title;
-        this.id = message.media.id;
+    PlayerControl.prototype.playing = function(options) {
+        if (!options) {
+            return;
+        }
+        options = options || {};
+
+        this.currentTime = options.currentTime;
+        this.duration = options.duration;
+        this.title = options.title;
+        this.id = options.id;
+
         var titleElement = this.element.find('.title');
         titleElement.text(this.title);
         this.play();
@@ -554,16 +565,27 @@ $(function() {
      */
     var TYPE_MAP = {
         play: function(message) {
-            playerControl.play(message);
+            playerControl.play({
+                currentTime: message.currentTime
+            });
         },
         pause: function(message) {
-            playerControl.pause(message);
+            playerControl.pause({
+                currentTime: message.currentTime
+            });
         },
         playing: function(message) {
-            playerControl.playing(message);
+            playerControl.playing({
+                currentTime: message.currentTime,
+                duration: message.media.duration,
+                title: message.media.title,
+                id: message.media.id
+            });
         },
         seekTo: function(message) {
-            playerControl.seekTo(null, message.currentTime);
+            playerControl.seekTo({
+                currentTime: message.currentTime
+            });
         }
     };
 
