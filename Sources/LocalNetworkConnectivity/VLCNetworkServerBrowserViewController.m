@@ -60,8 +60,14 @@
     [self update];
 }
 
+- (void)viewWillAppear:(BOOL)animated
+{
+    [super viewWillAppear:animated];
+    [self updateUI];
+}
+
 - (void)networkServerBrowserDidUpdate:(id<VLCNetworkServerBrowser>)networkBrowser {
-    [self.tableView reloadData];
+    [self updateUI];
     [[VLCActivityManager defaultManager] networkActivityStopped];
     [_refreshControl endRefreshing];
 }
@@ -71,6 +77,12 @@
     [self vlc_showAlertWithTitle:NSLocalizedString(@"LOCAL_SERVER_CONNECTION_FAILED_TITLE", nil)
                          message:NSLocalizedString(@"LOCAL_SERVER_CONNECTION_FAILED_MESSAGE", nil)
                      buttonTitle:NSLocalizedString(@"BUTTON_CANCEL", nil)];
+}
+
+- (void)updateUI
+{
+    [self.tableView reloadData];
+    self.title = self.serverBrowser.title;
 }
 
 - (void)update
