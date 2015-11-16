@@ -41,6 +41,8 @@ typedef NS_ENUM(NSInteger, VLCPlayerScanState)
 
 @property (nonatomic, readonly, getter=isSeekable) BOOL seekable;
 
+@property (nonatomic) NSSet<UIGestureRecognizer *> *simultaneousGestureRecognizers;
+
 @end
 
 @implementation VLCFullscreenMovieTVViewController
@@ -77,11 +79,13 @@ typedef NS_ENUM(NSInteger, VLCPlayerScanState)
 
     self.bufferingLabel.text = NSLocalizedString(@"PLEASE_WAIT", nil);
 
-    // Panning and Swiping
+    NSMutableSet<UIGestureRecognizer *> *simultaneousGestureRecognizers = [NSMutableSet set];
 
+    // Panning and Swiping
     UIPanGestureRecognizer *panGestureRecognizer = [[UIPanGestureRecognizer alloc] initWithTarget:self action:@selector(panGesture:)];
     panGestureRecognizer.delegate = self;
     [self.view addGestureRecognizer:panGestureRecognizer];
+    [simultaneousGestureRecognizers addObject:panGestureRecognizer];
 
     // Button presses
     UITapGestureRecognizer *playpauseGesture = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(playPausePressed)];
@@ -110,6 +114,9 @@ typedef NS_ENUM(NSInteger, VLCPlayerScanState)
     VLCSiriRemoteGestureRecognizer *siriArrowRecognizer = [[VLCSiriRemoteGestureRecognizer alloc] initWithTarget:self action:@selector(handleSiriRemote:)];
     siriArrowRecognizer.delegate = self;
     [self.view addGestureRecognizer:siriArrowRecognizer];
+    [simultaneousGestureRecognizers addObject:siriArrowRecognizer];
+
+    self.simultaneousGestureRecognizers = simultaneousGestureRecognizers;
 
     self.audioView.hidden = YES;
     self.audioArtworkImageView.animateImageSetting = YES;
@@ -774,7 +781,7 @@ currentMediaHasTrackToChooseFrom:(BOOL)currentMediaHasTrackToChooseFrom
 }
 - (BOOL)gestureRecognizer:(UIGestureRecognizer *)gestureRecognizer shouldRecognizeSimultaneouslyWithGestureRecognizer:(UIGestureRecognizer *)otherGestureRecognizer
 {
-    return YES;
+    return [self.simultaneousGestureRecognizers containsObject:gestureRecognizer];
 }
 
 #pragma mark - meta data recipient
