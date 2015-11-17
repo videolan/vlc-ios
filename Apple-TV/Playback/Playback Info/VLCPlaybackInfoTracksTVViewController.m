@@ -13,6 +13,7 @@
 #import "VLCPlaybackInfoTrackTVCell.h"
 #import "VLCPlaybackInfoTrackTVTitleView.h"
 
+#define CONTENT_INSET 20.
 
 @interface VLCPlaybackInfoTracksDataSource : NSObject
 @property (nonatomic, readonly) VLCMediaPlayer *mediaPlayer;
@@ -73,7 +74,7 @@
 
 - (CGSize)preferredContentSize
 {
-    CGFloat prefferedHeight = MAX(self.audioTrackCollectionView.contentSize.height, self.subtitleTrackCollectionView.contentSize.height);
+    CGFloat prefferedHeight = MAX(self.audioTrackCollectionView.contentSize.height, self.subtitleTrackCollectionView.contentSize.height) + CONTENT_INSET;
     return CGSizeMake(CGRectGetWidth(self.view.bounds), prefferedHeight);
 }
 
@@ -115,9 +116,16 @@
 - (void)collectionView:(UICollectionView *)collectionView willDisplayCell:(UICollectionViewCell *)cell forItemAtIndexPath:(NSIndexPath *)indexPath
 {
     VLCPlaybackInfoTrackTVCell *trackCell = (VLCPlaybackInfoTrackTVCell*)cell;
-    BOOL isSelected = [self.mediaPlayer.audioTrackIndexes[indexPath.row] intValue] == self.mediaPlayer.currentAudioTrackIndex;
+    NSInteger row = indexPath.row;
+    BOOL isSelected = [self.mediaPlayer.audioTrackIndexes[row] intValue] == self.mediaPlayer.currentAudioTrackIndex;
     trackCell.selectionMarkerVisible = isSelected;
-    trackCell.titleLabel.text = self.mediaPlayer.audioTrackNames[indexPath.row];
+
+    NSString *trackName = self.mediaPlayer.audioTrackNames[row];
+    if (trackName != nil) {
+        if ([trackName isEqualToString:@"Disable"])
+            trackName = NSLocalizedString(@"DISABLE_LABEL", nil);
+    }
+    trackCell.titleLabel.text = trackName;
 }
 
 -(void)collectionView:(UICollectionView *)collectionView didSelectItemAtIndexPath:(NSIndexPath *)indexPath
@@ -136,9 +144,16 @@
 - (void)collectionView:(UICollectionView *)collectionView willDisplayCell:(UICollectionViewCell *)cell forItemAtIndexPath:(NSIndexPath *)indexPath
 {
     VLCPlaybackInfoTrackTVCell *trackCell = (VLCPlaybackInfoTrackTVCell*)cell;
-    BOOL isSelected = [self.mediaPlayer.videoSubTitlesIndexes[indexPath.row] intValue] == self.mediaPlayer.currentVideoSubTitleIndex;
+    NSInteger row = indexPath.row;
+    BOOL isSelected = [self.mediaPlayer.videoSubTitlesIndexes[row] intValue] == self.mediaPlayer.currentVideoSubTitleIndex;
     trackCell.selectionMarkerVisible = isSelected;
-    trackCell.titleLabel.text = self.mediaPlayer.videoSubTitlesNames[indexPath.row];
+
+    NSString *trackName = self.mediaPlayer.videoSubTitlesNames[row];
+    if (trackName != nil) {
+        if ([trackName isEqualToString:@"Disable"])
+            trackName = NSLocalizedString(@"DISABLE_LABEL", nil);
+    }
+    trackCell.titleLabel.text = trackName;
 }
 
 -(void)collectionView:(UICollectionView *)collectionView didSelectItemAtIndexPath:(NSIndexPath *)indexPath
