@@ -1,5 +1,5 @@
 /*****************************************************************************
- * VLCCloudStorageCollectionViewCell.m
+ * VLCRemoteBrowsingTVCell+CloudStorage.m
  * VLC for tvOS
  *****************************************************************************
  * Copyright (c) 2013-2015 VideoLAN. All rights reserved.
@@ -11,52 +11,42 @@
  * Refer to the COPYING file of the official project for license.
  *****************************************************************************/
 
-#import "VLCCloudStorageCollectionViewCell.h"
+#import "VLCRemoteBrowsingTVCell+CloudStorage.h"
 
-@implementation VLCCloudStorageCollectionViewCell
+@implementation VLCRemoteBrowsingTVCell (CloudStorage)
 
 - (void)setDropboxFile:(DBMetadata *)dropboxFile
 {
-    if (dropboxFile != _dropboxFile)
-        _dropboxFile = dropboxFile;
-
-    [self performSelectorOnMainThread:@selector(_updatedDisplayedInformation)
-                           withObject:nil waitUntilDone:NO];
+    [self performSelectorOnMainThread:@selector(_updateDropboxRepresentation:)
+                           withObject:dropboxFile waitUntilDone:NO];
 }
 
 - (void)setBoxFile:(BoxItem *)boxFile
 {
-    if (boxFile != _boxFile)
-        _boxFile = boxFile;
-
-    [self performSelectorOnMainThread:@selector(_updatedDisplayedInformation)
-                           withObject:nil waitUntilDone:NO];
+    [self performSelectorOnMainThread:@selector(_updateBoxRepresentation:)
+                           withObject:boxFile waitUntilDone:NO];
 }
 
 - (void)setOneDriveFile:(VLCOneDriveObject *)oneDriveFile
 {
-    if (oneDriveFile != _oneDriveFile)
-        _oneDriveFile = oneDriveFile;
-
-    [self performSelectorOnMainThread:@selector(_updatedDisplayedInformation)
-                           withObject:nil waitUntilDone:NO];
+    [self performSelectorOnMainThread:@selector(_updateOneDriveRepresentation:)
+                           withObject:oneDriveFile waitUntilDone:NO];
 }
 
-
-- (void)_updatedDisplayedInformation
+- (void)_updateDropboxRepresentation:(DBMetadata *)dropboxFile
 {
-    if (_dropboxFile != nil) {
-        if (self.dropboxFile.isDirectory) {
+    if (dropboxFile != nil) {
+        if (dropboxFile.isDirectory) {
             self.isDirectory = YES;
-            self.title = self.dropboxFile.filename;
+            self.title = dropboxFile.filename;
         } else {
             self.isDirectory = NO;
-            self.subtitle = (self.dropboxFile.totalBytes > 0) ? self.dropboxFile.humanReadableSize : @"";
+            self.subtitle = (dropboxFile.totalBytes > 0) ? dropboxFile.humanReadableSize : @"";
 
         }
-        self.title = self.dropboxFile.filename;
+        self.title = dropboxFile.filename;
 
-        NSString *iconName = self.dropboxFile.icon;
+        NSString *iconName = dropboxFile.icon;
         if ([iconName isEqualToString:@"folder_user"] || [iconName isEqualToString:@"folder"] || [iconName isEqualToString:@"folder_public"] || [iconName isEqualToString:@"folder_photos"] || [iconName isEqualToString:@"package"]) {
             self.thumbnailImage = [UIImage imageNamed:@"folder"];
         } else if ([iconName isEqualToString:@"page_white"] || [iconName isEqualToString:@"page_white_text"])
@@ -67,22 +57,32 @@
             self.thumbnailImage = [UIImage imageNamed:@"audio"];
         else {
             self.thumbnailImage = [UIImage imageNamed:@"blank"];
-            APLog(@"missing icon for type '%@'", self.dropboxFile.icon);
+            APLog(@"missing icon for type '%@'", dropboxFile.icon);
         }
     }
-    else if(_boxFile != nil) {
-        BOOL isDirectory = [self.boxFile.type isEqualToString:@"folder"];
+
+}
+
+- (void)_updateBoxRepresentation:(BoxItem *)boxFile
+{
+    if (boxFile != nil) {
+        BOOL isDirectory = [boxFile.type isEqualToString:@"folder"];
         if (isDirectory) {
             self.isDirectory = YES;
             self.thumbnailImage = [UIImage imageNamed:@"folder"];
         } else {
             self.isDirectory = NO;
-            self.subtitle = (self.boxFile.size > 0) ? [NSByteCountFormatter stringFromByteCount:[self.boxFile.size longLongValue] countStyle:NSByteCountFormatterCountStyleFile]: @"";
+            self.subtitle = (boxFile.size > 0) ? [NSByteCountFormatter stringFromByteCount:[boxFile.size longLongValue] countStyle:NSByteCountFormatterCountStyleFile]: @"";
             self.thumbnailImage = [UIImage imageNamed:@"blank"];
         }
-        self.title = self.boxFile.name;
-    } else if(_oneDriveFile != nil) {
-        if (_oneDriveFile.isFolder) {
+        self.title = boxFile.name;
+    }
+}
+
+- (void)_updateOneDriveRepresentation:(VLCOneDriveObject *)oneDriveFile
+{
+    if (oneDriveFile != nil) {
+        if (oneDriveFile.isFolder) {
             self.isDirectory = YES;
             self.thumbnailImage = [UIImage imageNamed:@"folder"];
         } else {
@@ -90,30 +90,30 @@
 
             NSMutableString *subtitle = [[NSMutableString alloc] init];
 
-            if (self.oneDriveFile.isAudio)
+            if (oneDriveFile.isAudio)
                 self.thumbnailImage = [UIImage imageNamed:@"audio"];
-            else if (self.oneDriveFile.isVideo) {
+            else if (oneDriveFile.isVideo) {
                 self.thumbnailImage = [UIImage imageNamed:@"movie"];
-                NSString *thumbnailURLString = _oneDriveFile.thumbnailURL;
+                NSString *thumbnailURLString = oneDriveFile.thumbnailURL;
                 if (thumbnailURLString) {
                     [self setThumbnailURL:[NSURL URLWithString:thumbnailURLString]];
                 }
             } else
                 self.thumbnailImage = [UIImage imageNamed:@"blank"];
 
-            if (self.oneDriveFile.size > 0) {
-                [subtitle appendString:[NSByteCountFormatter stringFromByteCount:[self.oneDriveFile.size longLongValue] countStyle:NSByteCountFormatterCountStyleFile]];
-                if (self.oneDriveFile.duration > 0) {
-                    VLCTime *time = [VLCTime timeWithNumber:self.oneDriveFile.duration];
+            if (oneDriveFile.size > 0) {
+                [subtitle appendString:[NSByteCountFormatter stringFromByteCount:[oneDriveFile.size longLongValue] countStyle:NSByteCountFormatterCountStyleFile]];
+                if (oneDriveFile.duration > 0) {
+                    VLCTime *time = [VLCTime timeWithNumber:oneDriveFile.duration];
                     [subtitle appendFormat:@" — %@", [time verboseStringValue]];
                 }
-            } else if (self.oneDriveFile.duration > 0) {
-                VLCTime *time = [VLCTime timeWithNumber:self.oneDriveFile.duration];
+            } else if (oneDriveFile.duration > 0) {
+                VLCTime *time = [VLCTime timeWithNumber:oneDriveFile.duration];
                 [subtitle appendString:[time verboseStringValue]];
             }
             self.subtitle = subtitle;
         }
-        self.title = self.oneDriveFile.name;
+        self.title = oneDriveFile.name;
     }
 }
 

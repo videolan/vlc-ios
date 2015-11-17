@@ -10,7 +10,6 @@
  *****************************************************************************/
 
 #import "VLCCloudStorageTVViewController.h"
-#import "VLCCloudStorageCollectionViewCell.h"
 
 @interface VLCCloudStorageTVViewController ()
 

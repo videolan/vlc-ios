@@ -11,7 +11,6 @@
 
 #import "VLCRemoteBrowsingCollectionViewController.h"
 #import "VLCCloudStorageController.h"
-#import "VLCCloudStorageCollectionViewCell.h"
 
 @interface VLCCloudStorageTVViewController : VLCRemoteBrowsingCollectionViewController
 

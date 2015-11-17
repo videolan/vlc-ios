@@ -15,6 +15,7 @@
 #import "VLCBoxController.h"
 #import <SSKeychain/SSKeychain.h>
 #import "VLCPlaybackController.h"
+#import "VLCRemoteBrowsingTVCell+CloudStorage.h"
 
 @interface VLCBoxCollectionViewController () <VLCCloudStorageDelegate, NSURLConnectionDataDelegate>
 {
@@ -92,7 +93,7 @@
 
 - (UICollectionViewCell *)collectionView:(UICollectionView *)collectionView cellForItemAtIndexPath:(NSIndexPath *)indexPath
 {
-    VLCCloudStorageCollectionViewCell *cell = (VLCCloudStorageCollectionViewCell *)[collectionView dequeueReusableCellWithReuseIdentifier:VLCRemoteBrowsingTVCellIdentifier forIndexPath:indexPath];
+    VLCRemoteBrowsingTVCell *cell = (VLCRemoteBrowsingTVCell *)[collectionView dequeueReusableCellWithReuseIdentifier:VLCRemoteBrowsingTVCellIdentifier forIndexPath:indexPath];
 
     NSUInteger index = indexPath.row;
     if (_listOfFiles) {

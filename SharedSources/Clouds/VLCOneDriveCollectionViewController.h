@@ -11,6 +11,8 @@
 
 #import "VLCCloudStorageTVViewController.h"
 
+@class VLCOneDriveObject;
+
 @interface VLCOneDriveCollectionViewController : VLCCloudStorageTVViewController
 
 - (instancetype)initWithOneDriveObject:(VLCOneDriveObject *)object;

@@ -12,6 +12,7 @@
 #import "VLCOneDriveCollectionViewController.h"
 #import "VLCOneDriveController.h"
 #import "VLCRemoteBrowsingTVCell.h"
+#import "VLCRemoteBrowsingTVCell+CloudStorage.h"
 
 @interface VLCOneDriveCollectionViewController ()
 {
@@ -61,7 +62,7 @@
 
 - (UICollectionViewCell *)collectionView:(UICollectionView *)collectionView cellForItemAtIndexPath:(NSIndexPath *)indexPath
 {
-    VLCCloudStorageCollectionViewCell *cell = (VLCCloudStorageCollectionViewCell *)[collectionView dequeueReusableCellWithReuseIdentifier:VLCRemoteBrowsingTVCellIdentifier forIndexPath:indexPath];
+    VLCRemoteBrowsingTVCell *cell = (VLCRemoteBrowsingTVCell *)[collectionView dequeueReusableCellWithReuseIdentifier:VLCRemoteBrowsingTVCellIdentifier forIndexPath:indexPath];
 
     if (_currentFolder == nil)
         _currentFolder = _oneDriveController.rootFolder;

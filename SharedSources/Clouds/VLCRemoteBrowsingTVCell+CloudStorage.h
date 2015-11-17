@@ -1,5 +1,5 @@
 /*****************************************************************************
- * VLCCloudStorageCollectionViewCell.h
+ * VLCRemoteBrowsingTVCell+CloudStorage.h
  * VLC for tvOS
  *****************************************************************************
  * Copyright (c) 2013-2015 VideoLAN. All rights reserved.
@@ -17,10 +17,10 @@
 #import "VLCOneDriveObject.h"
 #import <BoxSDK/BoxSDK.h>
 
-@interface VLCCloudStorageCollectionViewCell : VLCRemoteBrowsingTVCell
+@interface VLCRemoteBrowsingTVCell (CloudStorage)
 
-@property (nonatomic, retain) DBMetadata *dropboxFile;
-@property (nonatomic, retain) VLCOneDriveObject *oneDriveFile;
-@property (nonatomic, retain) BoxItem *boxFile;
+- (void)setDropboxFile:(DBMetadata *)dropboxFile;
+- (void)setBoxFile:(BoxItem *)boxFile;
+- (void)setOneDriveFile:(VLCOneDriveObject *)oneDriveFile;
 
 @end
