@@ -5,6 +5,7 @@
  * $Id$
  *
  * Authors: Felix Paul Kühne <fkuehne # videolan.org>
+ *          Tobias Conradi <videolan # tobias-conradi.de>
  *
  * Refer to the COPYING file of the official project for license.
  *****************************************************************************/
@@ -15,14 +16,20 @@
 #import "VLCMediaFileDiscoverer.h"
 #import "VLCRemoteBrowsingTVCell.h"
 #import "VLCMaskView.h"
+#import "CAAnimation+VLCWiggle.h"
 
 #define remotePlaybackReuseIdentifer @"remotePlaybackReuseIdentifer"
+
+static NSString *const VLCWiggleAnimationKey = @"VLCWiggleAnimation";
 
 @interface VLCRemotePlaybackViewController () <UICollectionViewDataSource, UICollectionViewDelegate, VLCMediaFileDiscovererDelegate>
 {
     Reachability *_reachability;
-    NSMutableArray *_discoveredFiles;
+    NSMutableArray<NSString *> *_discoveredFiles;
 }
+@property (nonatomic) UITapGestureRecognizer *playPausePressRecognizer;
+@property (nonatomic) UITapGestureRecognizer *cancelRecognizer;
+@property (nonatomic) NSIndexPath *currentlyFocusedIndexPath;
 @end
 
 @implementation VLCRemotePlaybackViewController
@@ -62,6 +69,22 @@
     discoverer.directoryPath = [[searchPaths firstObject] stringByAppendingPathComponent:@"Upload"];
     [discoverer addObserver:self];
     [discoverer startDiscovering];
+
+    UILongPressGestureRecognizer *recognizer = [[UILongPressGestureRecognizer alloc] initWithTarget:self action:@selector(startEditMode)];
+    recognizer.allowedPressTypes = @[@(UIPressTypeSelect)];
+    recognizer.minimumPressDuration = 1.0;
+    [self.view addGestureRecognizer:recognizer];
+
+    UITapGestureRecognizer *cancelRecognizer = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(endEditMode)];
+    cancelRecognizer.allowedPressTypes = @[@(UIPressTypeSelect),@(UIPressTypeMenu)];
+    self.cancelRecognizer = cancelRecognizer;
+    [self.view addGestureRecognizer:cancelRecognizer];
+
+    UITapGestureRecognizer *playPauseRecognizer = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(handlePlayPausePress)];
+    playPauseRecognizer.allowedPressTypes = @[@(UIPressTypePlayPause)];
+    self.playPausePressRecognizer = playPauseRecognizer;
+    [self.view addGestureRecognizer:playPauseRecognizer];
+
 }
 
 - (void)viewDidLayoutSubviews
@@ -132,6 +155,83 @@
     [[NSUserDefaults standardUserDefaults] synchronize];
 }
 
+
+- (void)handlePlayPausePress
+{
+    NSIndexPath *indexPathToDelete = self.currentlyFocusedIndexPath;
+    if (!indexPathToDelete) {
+        return;
+    }
+    NSString *fileToDelete = nil;
+    @synchronized(_discoveredFiles) {
+        fileToDelete = _discoveredFiles[indexPathToDelete.item];
+    }
+
+    NSString *title = fileToDelete.lastPathComponent;
+    UIAlertController *alertController = [UIAlertController alertControllerWithTitle:title
+                                                                             message:nil
+                                                                      preferredStyle:UIAlertControllerStyleAlert];
+    UIAlertAction *deleteAction = [UIAlertAction actionWithTitle:NSLocalizedString(@"BUTTON_DELETE", nil)
+                                                           style:UIAlertActionStyleDestructive
+                                                         handler:^(UIAlertAction * _Nonnull action) {
+                                                             [self deleteFileAtIndex:indexPathToDelete];
+                                                         }];
+    UIAlertAction *cancelAction = [UIAlertAction actionWithTitle:NSLocalizedString(@"BUTTON_CANCEL", nil)
+                                                           style:UIAlertActionStyleCancel handler:^(UIAlertAction * _Nonnull action) {
+                                                               self.editing = NO;
+                                                           }];
+
+    [alertController addAction:deleteAction];
+    [alertController addAction:cancelAction];
+    [self presentViewController:alertController animated:YES completion:nil];
+}
+
+- (void)deleteFileAtIndex:(NSIndexPath *)indexPathToDelete
+{
+    if (!indexPathToDelete) {
+        return;
+    }
+    __block NSString *fileToDelete = nil;
+    [self.cachedMediaCollectionView performBatchUpdates:^{
+        @synchronized(_discoveredFiles) {
+            fileToDelete = _discoveredFiles[indexPathToDelete.item];
+            [_discoveredFiles removeObject:fileToDelete];
+        }
+        [self.cachedMediaCollectionView deleteItemsAtIndexPaths:@[indexPathToDelete]];
+
+    } completion:^(BOOL finished) {
+        [[NSFileManager defaultManager] removeItemAtPath:fileToDelete error:nil];
+        self.editing = NO;
+    }];
+
+}
+
+- (void)startEditMode
+{
+    self.editing = YES;
+}
+- (void)endEditMode
+{
+    self.editing = NO;
+}
+
+- (void)setEditing:(BOOL)editing
+{
+    [super setEditing:editing];
+
+    UICollectionViewCell *focusedCell = [self.cachedMediaCollectionView cellForItemAtIndexPath:self.currentlyFocusedIndexPath];
+
+    if (editing) {
+        [focusedCell.layer addAnimation:[CAAnimation vlc_wiggleAnimation]
+                                 forKey:VLCWiggleAnimationKey];
+    } else {
+        [focusedCell.layer removeAnimationForKey:VLCWiggleAnimationKey];
+    }
+
+    self.cancelRecognizer.enabled = editing;
+    self.playPausePressRecognizer.enabled = editing;
+}
+
 #pragma mark - collection view data source
 
 - (UICollectionViewCell *)collectionView:(UICollectionView *)collectionView cellForItemAtIndexPath:(NSIndexPath *)indexPath
@@ -170,6 +270,22 @@
     }
 
     return ret;
+}
+-(BOOL)collectionView:(UICollectionView *)collectionView shouldUpdateFocusInContext:(UICollectionViewFocusUpdateContext *)context
+{
+    if (self.editing) {
+        return context.nextFocusedIndexPath == nil;
+    }
+    return YES;
+}
+
+- (void)collectionView:(UICollectionView *)collectionView didUpdateFocusInContext:(UICollectionViewFocusUpdateContext *)context withAnimationCoordinator:(UIFocusAnimationCoordinator *)coordinator
+{
+    NSIndexPath *nextPath = context.nextFocusedIndexPath;
+    if (!nextPath) {
+        self.editing = NO;
+    }
+    self.currentlyFocusedIndexPath = nextPath;
 }
 
 #pragma mark - collection view delegate

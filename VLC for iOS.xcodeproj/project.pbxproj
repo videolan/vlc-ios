@@ -344,6 +344,7 @@
 		DDAD5C2B1BB999CA006AFD3B /* VLCMovieViewControlPanel.xib in Resources */ = {isa = PBXBuildFile; fileRef = DDAD5C2A1BB999CA006AFD3B /* VLCMovieViewControlPanel.xib */; };
 		DDB7C6A41BAEB28200E6570E /* WKInterfaceController+VLCConnectionAlert.m in Sources */ = {isa = PBXBuildFile; fileRef = DD9FBE761BAD6BB600FFE77A /* WKInterfaceController+VLCConnectionAlert.m */; };
 		DDB959421AFBB30500BB8CFF /* MappingModel_2_5_to_2_6.xcmappingmodel in Sources */ = {isa = PBXBuildFile; fileRef = DDB959411AFBB30500BB8CFF /* MappingModel_2_5_to_2_6.xcmappingmodel */; };
+		DDBE44FF1BFB6A8B00E5D35E /* CAAnimation+VLCWiggle.m in Sources */ = {isa = PBXBuildFile; fileRef = DDBE44FE1BFB6A8B00E5D35E /* CAAnimation+VLCWiggle.m */; };
 		DDC10BE41AEE8EA700890DC3 /* VLCTimeNavigationTitleView.m in Sources */ = {isa = PBXBuildFile; fileRef = DDC10BE31AEE8EA700890DC3 /* VLCTimeNavigationTitleView.m */; };
 		DDDEA6AF1BE027FA000BB7A2 /* VLCServerBrowsingTVViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = DDDEA6AE1BE027FA000BB7A2 /* VLCServerBrowsingTVViewController.m */; };
 		DDEAECBE1BDEBF6700756C83 /* VLCNetworkServerLoginInformation.m in Sources */ = {isa = PBXBuildFile; fileRef = DDEAECBD1BDEBF6700756C83 /* VLCNetworkServerLoginInformation.m */; };
@@ -1029,6 +1030,8 @@
 		DDAD5C2C1BB9A1E6006AFD3B /* VLCMovieViewControlPanelViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = VLCMovieViewControlPanelViewController.h; path = Sources/VLCMovieViewControlPanelViewController.h; sourceTree = SOURCE_ROOT; };
 		DDAD5C2D1BB9A1E6006AFD3B /* VLCMovieViewControlPanelViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = VLCMovieViewControlPanelViewController.m; path = Sources/VLCMovieViewControlPanelViewController.m; sourceTree = SOURCE_ROOT; };
 		DDB959411AFBB30500BB8CFF /* MappingModel_2_5_to_2_6.xcmappingmodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcmappingmodel; name = MappingModel_2_5_to_2_6.xcmappingmodel; path = ../ImportedSources/MediaLibraryKit/MappingModel_2_5_to_2_6.xcmappingmodel; sourceTree = "<group>"; };
+		DDBE44FD1BFB6A8B00E5D35E /* CAAnimation+VLCWiggle.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "CAAnimation+VLCWiggle.h"; sourceTree = "<group>"; };
+		DDBE44FE1BFB6A8B00E5D35E /* CAAnimation+VLCWiggle.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "CAAnimation+VLCWiggle.m"; sourceTree = "<group>"; };
 		DDC10BE21AEE8EA700890DC3 /* VLCTimeNavigationTitleView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = VLCTimeNavigationTitleView.h; path = Sources/VLCTimeNavigationTitleView.h; sourceTree = SOURCE_ROOT; };
 		DDC10BE31AEE8EA700890DC3 /* VLCTimeNavigationTitleView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = VLCTimeNavigationTitleView.m; path = Sources/VLCTimeNavigationTitleView.m; sourceTree = SOURCE_ROOT; };
 		DDDEA6AD1BE027FA000BB7A2 /* VLCServerBrowsingTVViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = VLCServerBrowsingTVViewController.h; sourceTree = "<group>"; };
@@ -2184,6 +2187,8 @@
 				DD3EABFB1BE14C4B003668DA /* UIViewController+VLCAlert.m */,
 				DD3EA62F1AF50CFE007FF096 /* VLCWatchMessage.h */,
 				DD3EA6301AF50CFE007FF096 /* VLCWatchMessage.m */,
+				DDBE44FD1BFB6A8B00E5D35E /* CAAnimation+VLCWiggle.h */,
+				DDBE44FE1BFB6A8B00E5D35E /* CAAnimation+VLCWiggle.m */,
 			);
 			path = SharedSources;
 			sourceTree = "<group>";
@@ -2732,6 +2737,7 @@
 				7D405ED31BEA11CD006ED886 /* VLCHTTPUploaderController.m in Sources */,
 				7DF90B4B1BE7A8110059C0E3 /* IASKSpecifier.m in Sources */,
 				7D0EDE0A1BE7752C00363AA1 /* VLCNetworkServerBrowserFTP.m in Sources */,
+				DDBE44FF1BFB6A8B00E5D35E /* CAAnimation+VLCWiggle.m in Sources */,
 				DD3EFF4E1BDEBCE500B68579 /* VLCNetworkServerBrowserPlex.m in Sources */,
 				7DF90B4A1BE7A8110059C0E3 /* IASKSettingsReader.m in Sources */,
 				DD3EFF3E1BDEBCE500B68579 /* VLCLocalNetworkServiceBrowserHTTP.m in Sources */,
