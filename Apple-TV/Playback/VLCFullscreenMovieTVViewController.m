@@ -650,7 +650,7 @@ static const NSInteger VLCJumpInterval = 10000; // 10 seconds
 
 - (void)prepareForMediaPlayback:(VLCPlaybackController *)controller
 {
-    APLog(@"%s", __PRETTY_FUNCTION__);
+    self.audioView.hidden = YES;
 }
 
 - (void)playbackDidStop:(NSNotification *)aNotification
