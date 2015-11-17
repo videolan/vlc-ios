@@ -55,8 +55,9 @@
     [VLCPlaybackInfoTrackTVTitleView registerInCollectionView:self.audioTrackCollectionView];
     [VLCPlaybackInfoTrackTVTitleView registerInCollectionView:self.subtitleTrackCollectionView];
 
-    self.audioDataSource.title = NSLocalizedString(@"AUDIO", nil);
-    self.subtitleDataSource.title = NSLocalizedString(@"SUBTITLES", nil);
+    NSLocale *currentLocale = [NSLocale currentLocale];
+    self.audioDataSource.title = [NSLocalizedString(@"AUDIO", nil) capitalizedStringWithLocale:currentLocale];
+    self.subtitleDataSource.title = [NSLocalizedString(@"SUBTITLES", nil) capitalizedStringWithLocale:currentLocale];
 
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(mediaPlayerChanged) name:VLCPlaybackControllerPlaybackMetadataDidChange object:nil];
 }
