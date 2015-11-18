@@ -86,7 +86,7 @@ NSString *const VLCPasscode = @"org.videolan.vlc-ios.passcode";
             APLog(@"Move passcode from setting to keychain");
             [self setPasscode:passcode];
             // delete passcode from old setting
-            [defaults setObject:nil forKey:kVLCSettingPasscodeKey];
+            [defaults removeObjectForKey:kVLCSettingPasscodeKey];
             [defaults synchronize];
         }
     }
