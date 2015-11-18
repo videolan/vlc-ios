@@ -11,6 +11,7 @@
 * Added improved UI support for Right-to-Left languages
 * Added support for the split-screen appearance in iOS 9 (#14840)
 * Added support for Touch ID to unlock app (#13378)
+* Added support for WiFi sharing using a personal hotspot (#14865)
 * Added option to configure playback continuation (#14340, #14590)
 * Added option to configure gestures (#15449) 
 * Added support for music albums with more than 1 disk (#14650)

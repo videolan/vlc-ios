@@ -98,23 +98,13 @@
 		</dict>
 		<dict>
 			<key>Type</key>
-			<string>PSMultiValueSpecifier</string>
+			<string>PSToggleSwitchSpecifier</string>
 			<key>Title</key>
 			<string>SETTINGS_DEINTERLACE</string>
 			<key>Key</key>
 			<string>deinterlace</string>
 			<key>DefaultValue</key>
-			<integer>0</integer>
-			<key>Titles</key>
-			<array>
-				<string>SETTINGS_DEINTERLACE_ON</string>
-				<string>SETTINGS_DEINTERLACE_OFF</string>
-			</array>
-			<key>Values</key>
-			<array>
-				<integer>1</integer>
-				<integer>0</integer>
-			</array>
+			<false/>
 		</dict>
 		<dict>
 			<key>Type</key>
