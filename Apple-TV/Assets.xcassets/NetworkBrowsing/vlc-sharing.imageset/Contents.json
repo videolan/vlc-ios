@@ -2,7 +2,7 @@
   "images" : [
     {
       "idiom" : "tv",
-      "filename" : "menuCone@3x.png",
+      "filename" : "vlc-server-icon.png",
       "scale" : "1x"
     }
   ],
@@ -11,6 +11,6 @@
     "author" : "xcode"
   },
   "properties" : {
-    "template-rendering-intent" : "template"
+    "template-rendering-intent" : "original"
   }
 }

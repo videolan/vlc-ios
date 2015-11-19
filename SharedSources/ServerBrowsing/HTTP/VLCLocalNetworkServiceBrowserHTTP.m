@@ -65,7 +65,7 @@
 @implementation VLCLocalNetworkServiceHTTP
 
 - (UIImage *)icon {
-    return [UIImage imageNamed:@"menuCone"];
+    return [UIImage imageNamed:@"vlc-sharing"];
 }
 
 - (id<VLCNetworkServerBrowser>)serverBrowser {

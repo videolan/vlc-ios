@@ -64,7 +64,7 @@
 - (instancetype)init
 {
     self = [self initWithTile:NSLocalizedString(@"CONNECT_TO_SERVER", nil)
-                         icon:[UIImage imageNamed:@"menuCone"]];
+                         icon:[UIImage imageNamed:@"vlc-sharing"]];
     if (self) {
 
     }
