@@ -61,6 +61,13 @@
     if (!self)
         return self;
 
+    [self setupSession];
+
+    return self;
+}
+
+- (void)setupSession
+{
     [self restoreFromSharedCredentials];
 
     _liveScopes = @[@"wl.signin",@"wl.offline_access",@"wl.skydrive"];
@@ -69,8 +76,6 @@
                                                        scopes:_liveScopes
                                                      delegate:self
                                                     userState:@"init"];
-
-    return self;
 }
 
 #pragma mark - authentication
@@ -94,6 +99,11 @@
 - (void)logout
 {
     [_liveClient logoutWithDelegate:self userState:@"logout"];
+
+    NSUbiquitousKeyValueStore *ubiquitousStore = [NSUbiquitousKeyValueStore defaultStore];
+    [ubiquitousStore delete:kVLCStoreOneDriveCredentials];
+    [ubiquitousStore synchronize];
+
     _activeSession = NO;
     _userAuthenticated = NO;
     _currentFolder = nil;
@@ -170,10 +180,12 @@
 
 - (BOOL)restoreFromSharedCredentials
 {
+    NSLog(@"%s", __PRETTY_FUNCTION__);
     LiveAuthStorage *authStorage = [[LiveAuthStorage alloc] initWithClientId:kVLCOneDriveClientID];
     NSUbiquitousKeyValueStore *ubiquitousStore = [NSUbiquitousKeyValueStore defaultStore];
     [ubiquitousStore synchronize];
     NSString *credentials = [ubiquitousStore stringForKey:kVLCStoreOneDriveCredentials];
+    NSLog(@"have credentials %@", credentials);
     if (!credentials)
         return NO;
 
