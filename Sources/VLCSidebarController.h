@@ -18,6 +18,7 @@
 
 - (void)hideSidebar;
 - (void)toggleSidebar;
+- (void)resizeContentView;
 
 - (void)selectRowAtIndexPath:(NSIndexPath *)indexPath scrollPosition:(UITableViewScrollPosition)scrollPosition;
 

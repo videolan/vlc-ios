@@ -20,6 +20,7 @@
     RESideMenu *_sideMenuViewController;
     VLCMenuTableViewController *_menuViewController;
     UIViewController *_contentViewController;
+    BOOL _menuVisible;
 }
 
 @end
@@ -88,15 +89,25 @@
 
 - (void)hideSidebar
 {
+    _menuVisible = NO;
     [_sideMenuViewController hideMenuViewController];
 }
 
 - (void)toggleSidebar
 {
+    _menuVisible = YES;
     if ([UIApplication sharedApplication].userInterfaceLayoutDirection == UIUserInterfaceLayoutDirectionLeftToRight) {
             [_sideMenuViewController presentLeftMenuViewController];
     } else {
             [_sideMenuViewController presentRightMenuViewController];
+    }
+}
+
+- (void)resizeContentView
+{
+    if (_menuVisible) {
+        [self hideSidebar];
+        [self toggleSidebar];
     }
 }
 

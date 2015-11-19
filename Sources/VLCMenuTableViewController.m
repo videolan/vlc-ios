@@ -34,6 +34,8 @@
 #define IPAD_ROW_HEIGHT 65.
 #define HEADER_HEIGHT 22.
 #define MENU_WIDTH 320.
+#define MAX_LEFT_INSET 170.
+#define COMPACT_INSET 20.
 
 static NSString *CellIdentifier = @"VLCMenuCell";
 static NSString *WiFiCellIdentifier = @"VLCMenuWiFiCell";
@@ -47,6 +49,9 @@ static NSString *WiFiCellIdentifier = @"VLCMenuWiFiCell";
     NSMutableSet *_hiddenSettingKeys;
 
     UITableView *_menuTableView;
+
+    NSArray <NSLayoutConstraint *> *_leftTableConstraints;
+    CGFloat _tableViewWidth;
 }
 @property (strong, nonatomic) IASKAppSettingsViewController *settingsViewController;
 @property (strong, nonatomic) VLCSettingsController *settingsController;
@@ -78,21 +83,21 @@ static NSString *WiFiCellIdentifier = @"VLCMenuWiFiCell";
         rowHeight = ROW_HEIGHT;
     CGFloat height = (count * rowHeight) + (3. * HEADER_HEIGHT);
     CGFloat top;
-    if (height > screenDimensions.size.height - 20.) {
-        height = screenDimensions.size.height - 20.;
-        top = 20.;
+    if (height > screenDimensions.size.height - COMPACT_INSET) {
+        height = screenDimensions.size.height - COMPACT_INSET;
+        top = COMPACT_INSET;
     } else
         top = (screenDimensions.size.height - height) / 2.;
     CGFloat left;
     if (UI_USER_INTERFACE_IDIOM() == UIUserInterfaceIdiomPad)
-        left = 170.;
+        left = MAX_LEFT_INSET;
     else
-        left = 20.;
-    CGFloat width = MENU_WIDTH;
-    if (screenDimensions.size.width <= left + width)
-        width = width - (left * 2.);
+        left = COMPACT_INSET;
+    _tableViewWidth = MENU_WIDTH;
+    if (screenDimensions.size.width <= left + _tableViewWidth)
+        _tableViewWidth = _tableViewWidth - (left * 2.);
 
-    _menuTableView = [[UITableView alloc] initWithFrame:CGRectMake(left, top, width, height)
+    _menuTableView = [[UITableView alloc] initWithFrame:CGRectMake(left, top, _tableViewWidth, height)
                                                           style:UITableViewStylePlain];
     _menuTableView.delegate = self;
     _menuTableView.dataSource = self;
@@ -124,7 +129,8 @@ static NSString *WiFiCellIdentifier = @"VLCMenuWiFiCell";
     }
 
     dict = NSDictionaryOfVariableBindings(_menuTableView);
-    [self.view addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:[NSString stringWithFormat:@"H:|-==%0.2f-[_menuTableView(%0.2f)]->=0-|", left, width] options:0 metrics:0 views:dict]];
+    _leftTableConstraints = [NSLayoutConstraint constraintsWithVisualFormat:[NSString stringWithFormat:@"H:|-==%0.2f-[_menuTableView(%0.2f)]->=0-|", left, _tableViewWidth] options:0 metrics:0 views:dict];
+    [self.view addConstraints:_leftTableConstraints];
 
     [_menuTableView selectRowAtIndexPath:[NSIndexPath indexPathForRow:0 inSection:0] animated:NO scrollPosition:UITableViewScrollPositionTop];
 }
@@ -138,6 +144,31 @@ static NSString *WiFiCellIdentifier = @"VLCMenuWiFiCell";
 - (BOOL)canBecomeFirstResponder
 {
     return YES;
+}
+
+- (void)viewWillLayoutSubviews
+{
+    CGFloat viewWidth = self.view.frame.size.width;
+
+    [self.view removeConstraints:_leftTableConstraints];
+
+    CGFloat left;
+    if (viewWidth >= _tableViewWidth) {
+        left = (viewWidth - _tableViewWidth) / 3.;
+        if (left > MAX_LEFT_INSET)
+            left = MAX_LEFT_INSET;
+    } else {
+        _tableViewWidth = MENU_WIDTH;
+        left = 0.;
+    }
+
+    NSDictionary *dict = NSDictionaryOfVariableBindings(_menuTableView);
+    _leftTableConstraints = [NSLayoutConstraint constraintsWithVisualFormat:[NSString stringWithFormat:@"H:|-==%0.2f-[_menuTableView(%0.2f)]->=0-|", left, _tableViewWidth] options:0 metrics:0 views:dict];
+    [self.view addConstraints:_leftTableConstraints];
+
+    [super viewWillLayoutSubviews];
+
+    [[VLCSidebarController sharedInstance] resizeContentView];
 }
 
 #pragma mark - table view data source
