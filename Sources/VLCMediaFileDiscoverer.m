@@ -46,6 +46,7 @@ const float MediaTimerInterval = 2.f;
     static VLCMediaFileDiscoverer *instance;
     dispatch_once(&onceToken, ^{
         instance = [VLCMediaFileDiscoverer new];
+        instance.filterResultsForPlayability = YES;
     });
 
     return instance;
@@ -162,32 +163,37 @@ const float MediaTimerInterval = 2.f;
         NSMutableArray *addedFiles = [NSMutableArray arrayWithArray:[foundFiles filteredArrayUsingPredicate:filterPredicate]];
 
         for (NSString *fileName in addedFiles) {
-            if ([fileName isSupportedMediaFormat] || [fileName isSupportedAudioMediaFormat]) {
-                [_addedFilesMapping setObject:@(0) forKey:fileName];
-                [self notifyFileAdded:fileName loading:YES];
-            } else {
-                BOOL isDirectory = NO;
-                NSString *directoryPath = [self directoryPath];
-                NSString *filePath = [directoryPath stringByAppendingPathComponent:fileName];
-                BOOL exists = [[NSFileManager defaultManager] fileExistsAtPath:filePath isDirectory:&isDirectory];
+            BOOL isDirectory = NO;
+            NSString *directoryPath = [self directoryPath];
+            NSString *filePath = [directoryPath stringByAppendingPathComponent:fileName];
+            BOOL exists = [[NSFileManager defaultManager] fileExistsAtPath:filePath isDirectory:&isDirectory];
 
+            if (exists && !isDirectory) {
+                if (self.filterResultsForPlayability) {
+                    if ([fileName isSupportedMediaFormat] || [fileName isSupportedAudioMediaFormat]) {
+                        [_addedFilesMapping setObject:@(0) forKey:fileName];
+                        [self notifyFileAdded:fileName loading:YES];
+                    }
+                } else {
+                    [_addedFilesMapping setObject:@(0) forKey:fileName];
+                    [self notifyFileAdded:fileName loading:YES];
+                }
+            } else if (exists && isDirectory) {
                 // add folders
-                if (exists && isDirectory) {
-                    NSArray *files = [[NSFileManager defaultManager] contentsOfDirectoryAtPath:filePath error:nil];
-                    for (NSString* file in files) {
-                        NSString *fullFilePath = [directoryPath stringByAppendingPathComponent:file];
-                        isDirectory = NO;
-                        exists = [[NSFileManager defaultManager] fileExistsAtPath:fullFilePath isDirectory:&isDirectory];
-                        //only add folders or files in folders
-                        if ((exists && isDirectory) || ![filePath.lastPathComponent isEqualToString:@"Documents"]) {
-                            NSString *folderpath = [filePath stringByReplacingOccurrencesOfString:directoryPath withString:@""];
-                            if (![folderpath isEqualToString:@""]) {
-                                folderpath = [folderpath stringByAppendingString:@"/"];
-                            }
-                            NSString *path = [folderpath stringByAppendingString:file];
-                            [_addedFilesMapping setObject:@(0) forKey:path];
-                            [self notifyFileAdded:path loading:YES];
+                NSArray *files = [[NSFileManager defaultManager] contentsOfDirectoryAtPath:filePath error:nil];
+                for (NSString* file in files) {
+                    NSString *fullFilePath = [directoryPath stringByAppendingPathComponent:file];
+                    isDirectory = NO;
+                    exists = [[NSFileManager defaultManager] fileExistsAtPath:fullFilePath isDirectory:&isDirectory];
+                    //only add folders or files in folders
+                    if ((exists && isDirectory) || ![filePath.lastPathComponent isEqualToString:@"Documents"]) {
+                        NSString *folderpath = [filePath stringByReplacingOccurrencesOfString:directoryPath withString:@""];
+                        if (![folderpath isEqualToString:@""]) {
+                            folderpath = [folderpath stringByAppendingString:@"/"];
                         }
+                        NSString *path = [folderpath stringByAppendingString:file];
+                        [_addedFilesMapping setObject:@(0) forKey:path];
+                        [self notifyFileAdded:path loading:YES];
                     }
                 }
             }
@@ -195,7 +201,7 @@ const float MediaTimerInterval = 2.f;
 
         if (![_addMediaTimer isValid]) {
             _addMediaTimer = [NSTimer scheduledTimerWithTimeInterval:MediaTimerInterval
-                                          target:self selector:@selector(addFileTimerFired)
+                                                              target:self selector:@selector(addFileTimerFired)
                                                             userInfo:nil repeats:YES];
         }
     }
@@ -262,32 +268,40 @@ const float MediaTimerInterval = 2.f;
         NSString *filePath = [directoryPath stringByAppendingPathComponent:fileName];
         [foundFiles removeObject:fileName];
 
-        if ([fileName isSupportedMediaFormat] || [fileName isSupportedAudioMediaFormat]) {
-            [filePaths addObject:filePath];
+        BOOL isDirectory = NO;
+        BOOL exists = [[NSFileManager defaultManager] fileExistsAtPath:filePath isDirectory:&isDirectory];
 
-            /* exclude media files from backup (QA1719) */
-            fileURL = [NSURL fileURLWithPath:filePath];
-            [fileURL setResourceValue:@YES forKey:NSURLIsExcludedFromBackupKey error:nil];
-        } else {
-            BOOL isDirectory = NO;
-            BOOL exists = [[NSFileManager defaultManager] fileExistsAtPath:filePath isDirectory:&isDirectory];
+        if (exists && !isDirectory) {
+            if (self.filterResultsForPlayability) {
+                if ([fileName isSupportedMediaFormat] || [fileName isSupportedAudioMediaFormat]) {
+                    [filePaths addObject:filePath];
 
+                    /* exclude media files from backup (QA1719) */
+                    fileURL = [NSURL fileURLWithPath:filePath];
+                    [fileURL setResourceValue:@YES forKey:NSURLIsExcludedFromBackupKey error:nil];
+                }
+            } else {
+                [filePaths addObject:filePath];
+
+                /* exclude media files from backup (QA1719) */
+                fileURL = [NSURL fileURLWithPath:filePath];
+                [fileURL setResourceValue:@YES forKey:NSURLIsExcludedFromBackupKey error:nil];
+            }
+        } else if (exists && isDirectory) {
             // add folders
-            if (exists && isDirectory) {
-                NSArray *files = [[NSFileManager defaultManager] contentsOfDirectoryAtPath:filePath error:nil];
-                for (NSString* file in files) {
-                    NSString *fullFilePath = [directoryPath stringByAppendingPathComponent:file];
-                    isDirectory = NO;
-                    exists = [[NSFileManager defaultManager] fileExistsAtPath:fullFilePath isDirectory:&isDirectory];
-                    //only add folders or files in folders
-                    if ((exists && isDirectory) || ![filePath.lastPathComponent isEqualToString:@"Documents"]) {
-                        NSString *folderpath = [filePath stringByReplacingOccurrencesOfString:directoryPath withString:@""];
-                        if (![folderpath isEqualToString:@""]) {
-                            folderpath = [folderpath stringByAppendingString:@"/"];
-                        }
-                        NSString *path = [folderpath stringByAppendingString:file];
-                        [foundFiles addObject:path];
+            NSArray *files = [[NSFileManager defaultManager] contentsOfDirectoryAtPath:filePath error:nil];
+            for (NSString* file in files) {
+                NSString *fullFilePath = [directoryPath stringByAppendingPathComponent:file];
+                isDirectory = NO;
+                exists = [[NSFileManager defaultManager] fileExistsAtPath:fullFilePath isDirectory:&isDirectory];
+                //only add folders or files in folders
+                if ((exists && isDirectory) || ![filePath.lastPathComponent isEqualToString:@"Documents"]) {
+                    NSString *folderpath = [filePath stringByReplacingOccurrencesOfString:directoryPath withString:@""];
+                    if (![folderpath isEqualToString:@""]) {
+                        folderpath = [folderpath stringByAppendingString:@"/"];
                     }
+                    NSString *path = [folderpath stringByAppendingString:file];
+                    [foundFiles addObject:path];
                 }
             }
         }

@@ -1703,7 +1703,6 @@
 				7DF383B41BF20E4600D71A5C /* Network dialogs */,
 				DD2789DF1B67A79700CED769 /* WatchSupport */,
 				7DBB788E1B305D8300894467 /* Keychain & random singletons */,
-				A7D03A4817A4249F0022C16F /* MediaDiscovering */,
 				7D2339AB176DE70E008D223C /* Menu */,
 				7D31002117B676D500E6516D /* Local Network Connectivity */,
 				7D5F7AB9175265B2006CCCFA /* Playback */,
@@ -2109,6 +2108,7 @@
 				7D30F3CF183AB2AC00FFC021 /* VLCMediaFileDiscoverer.m */,
 			);
 			name = MediaDiscovering;
+			path = ../AspenProject;
 			sourceTree = "<group>";
 		};
 		CC1BBC441704936500A20CBF /* External VLC Libraries */ = {
@@ -2311,6 +2311,7 @@
 		DD7110ED1AF38AFD00854776 /* SharedSources */ = {
 			isa = PBXGroup;
 			children = (
+				A7D03A4817A4249F0022C16F /* MediaDiscovering */,
 				7D5F7ABA175265CB006CCCFA /* HTTP Connectivity */,
 				7D4DFEA81BDF982400979881 /* Cloud Integration */,
 				7DEC8BE21BD6880C006E1093 /* UI Elements */,

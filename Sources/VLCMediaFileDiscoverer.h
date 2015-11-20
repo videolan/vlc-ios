@@ -33,6 +33,7 @@
  * \note _MUST_ be set before starting the discovery
  */
 @property (readwrite, retain, nonatomic) NSString *directoryPath;
+@property (readwrite, nonatomic) BOOL filterResultsForPlayability;
 
 - (void)addObserver:(id<VLCMediaFileDiscovererDelegate>)delegate;
 - (void)removeObserver:(id<VLCMediaFileDiscovererDelegate>)delegate;
