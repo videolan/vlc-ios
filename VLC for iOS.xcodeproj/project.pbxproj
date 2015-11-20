@@ -57,6 +57,35 @@
 		7D168F7118D4A21B003FAF59 /* Accelerate.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 7D168F7018D4A21B003FAF59 /* Accelerate.framework */; };
 		7D168F7418D4A33F003FAF59 /* UIImage+Blur.m in Sources */ = {isa = PBXBuildFile; fileRef = 7D168F7318D4A33F003FAF59 /* UIImage+Blur.m */; };
 		7D18F0A21B34522000651A30 /* VLCActivityManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 7D18F0A11B34522000651A30 /* VLCActivityManager.m */; };
+		7D19FC501BFF5D9300A9D19C /* anevia_streams.lua in CopyFiles */ = {isa = PBXBuildFile; fileRef = 7D19FBF21BFF4AD900A9D19C /* anevia_streams.lua */; };
+		7D19FC511BFF5D9300A9D19C /* anevia_xml.lua in CopyFiles */ = {isa = PBXBuildFile; fileRef = 7D19FBF31BFF4AD900A9D19C /* anevia_xml.lua */; };
+		7D19FC521BFF5D9300A9D19C /* appletrailers.lua in CopyFiles */ = {isa = PBXBuildFile; fileRef = 7D19FBF41BFF4AD900A9D19C /* appletrailers.lua */; };
+		7D19FC531BFF5D9300A9D19C /* bbc_co_uk.lua in CopyFiles */ = {isa = PBXBuildFile; fileRef = 7D19FBF51BFF4AD900A9D19C /* bbc_co_uk.lua */; };
+		7D19FC541BFF5D9300A9D19C /* break.lua in CopyFiles */ = {isa = PBXBuildFile; fileRef = 7D19FBF61BFF4AD900A9D19C /* break.lua */; };
+		7D19FC551BFF5D9300A9D19C /* canalplus.lua in CopyFiles */ = {isa = PBXBuildFile; fileRef = 7D19FBF71BFF4AD900A9D19C /* canalplus.lua */; };
+		7D19FC561BFF5D9300A9D19C /* cue.lua in CopyFiles */ = {isa = PBXBuildFile; fileRef = 7D19FBF81BFF4AD900A9D19C /* cue.lua */; };
+		7D19FC571BFF5D9300A9D19C /* dailymotion.lua in CopyFiles */ = {isa = PBXBuildFile; fileRef = 7D19FBF91BFF4AD900A9D19C /* dailymotion.lua */; };
+		7D19FC581BFF5D9300A9D19C /* extreme.lua in CopyFiles */ = {isa = PBXBuildFile; fileRef = 7D19FBFA1BFF4AD900A9D19C /* extreme.lua */; };
+		7D19FC591BFF5D9300A9D19C /* france2.lua in CopyFiles */ = {isa = PBXBuildFile; fileRef = 7D19FBFB1BFF4AD900A9D19C /* france2.lua */; };
+		7D19FC5A1BFF5D9300A9D19C /* googlevideo.lua in CopyFiles */ = {isa = PBXBuildFile; fileRef = 7D19FBFC1BFF4AD900A9D19C /* googlevideo.lua */; };
+		7D19FC5B1BFF5D9300A9D19C /* jamendo.lua in CopyFiles */ = {isa = PBXBuildFile; fileRef = 7D19FBFD1BFF4AD900A9D19C /* jamendo.lua */; };
+		7D19FC5C1BFF5D9300A9D19C /* joox.lua in CopyFiles */ = {isa = PBXBuildFile; fileRef = 7D19FBFE1BFF4AD900A9D19C /* joox.lua */; };
+		7D19FC5D1BFF5D9300A9D19C /* katsomo.lua in CopyFiles */ = {isa = PBXBuildFile; fileRef = 7D19FBFF1BFF4AD900A9D19C /* katsomo.lua */; };
+		7D19FC5E1BFF5D9300A9D19C /* koreus.lua in CopyFiles */ = {isa = PBXBuildFile; fileRef = 7D19FC001BFF4AD900A9D19C /* koreus.lua */; };
+		7D19FC5F1BFF5D9300A9D19C /* lelombrik.lua in CopyFiles */ = {isa = PBXBuildFile; fileRef = 7D19FC011BFF4AD900A9D19C /* lelombrik.lua */; };
+		7D19FC601BFF5D9300A9D19C /* liveleak.lua in CopyFiles */ = {isa = PBXBuildFile; fileRef = 7D19FC021BFF4AD900A9D19C /* liveleak.lua */; };
+		7D19FC611BFF5D9300A9D19C /* metacafe.lua in CopyFiles */ = {isa = PBXBuildFile; fileRef = 7D19FC031BFF4AD900A9D19C /* metacafe.lua */; };
+		7D19FC621BFF5D9300A9D19C /* metachannels.lua in CopyFiles */ = {isa = PBXBuildFile; fileRef = 7D19FC041BFF4AD900A9D19C /* metachannels.lua */; };
+		7D19FC631BFF5D9300A9D19C /* mpora.lua in CopyFiles */ = {isa = PBXBuildFile; fileRef = 7D19FC051BFF4AD900A9D19C /* mpora.lua */; };
+		7D19FC641BFF5D9300A9D19C /* pinkbike.lua in CopyFiles */ = {isa = PBXBuildFile; fileRef = 7D19FC061BFF4AD900A9D19C /* pinkbike.lua */; };
+		7D19FC651BFF5D9300A9D19C /* pluzz.lua in CopyFiles */ = {isa = PBXBuildFile; fileRef = 7D19FC071BFF4AD900A9D19C /* pluzz.lua */; };
+		7D19FC661BFF5D9300A9D19C /* rockbox_fm_presets.lua in CopyFiles */ = {isa = PBXBuildFile; fileRef = 7D19FC091BFF4AD900A9D19C /* rockbox_fm_presets.lua */; };
+		7D19FC671BFF5D9300A9D19C /* satip.lua in CopyFiles */ = {isa = PBXBuildFile; fileRef = 7D19FC0A1BFF4AD900A9D19C /* satip.lua */; };
+		7D19FC681BFF5D9300A9D19C /* soundcloud.lua in CopyFiles */ = {isa = PBXBuildFile; fileRef = 7D19FC0B1BFF4AD900A9D19C /* soundcloud.lua */; };
+		7D19FC691BFF5D9300A9D19C /* vimeo.lua in CopyFiles */ = {isa = PBXBuildFile; fileRef = 7D19FC0C1BFF4AD900A9D19C /* vimeo.lua */; };
+		7D19FC6A1BFF5D9300A9D19C /* youtube.lua in CopyFiles */ = {isa = PBXBuildFile; fileRef = 7D19FC0D1BFF4AD900A9D19C /* youtube.lua */; };
+		7D19FC6B1BFF5D9300A9D19C /* youtube_homepage.lua in CopyFiles */ = {isa = PBXBuildFile; fileRef = 7D19FC0E1BFF4AD900A9D19C /* youtube_homepage.lua */; };
+		7D19FC6C1BFF5D9300A9D19C /* zapiks.lua in CopyFiles */ = {isa = PBXBuildFile; fileRef = 7D19FC0F1BFF4AD900A9D19C /* zapiks.lua */; };
 		7D1A2DB11BF66335002E0962 /* VLCMDFBrowsingArtworkProvider.m in Sources */ = {isa = PBXBuildFile; fileRef = 7D1A2DB01BF66335002E0962 /* VLCMDFBrowsingArtworkProvider.m */; };
 		7D1FEBD41BA3184A00D1058E /* libTVVLCKit.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 7D1FEBD31BA3184A00D1058E /* libTVVLCKit.a */; };
 		7D27EB9419DEE11900EF0370 /* Launch Screen.xib in Resources */ = {isa = PBXBuildFile; fileRef = 7D27EB9319DEE11900EF0370 /* Launch Screen.xib */; };
@@ -450,6 +479,44 @@
 			name = "Embed App Extensions";
 			runOnlyForDeploymentPostprocessing = 0;
 		};
+		7D19FBCE1BFF484E00A9D19C /* CopyFiles */ = {
+			isa = PBXCopyFilesBuildPhase;
+			buildActionMask = 2147483647;
+			dstPath = share/lua/playlist;
+			dstSubfolderSpec = 6;
+			files = (
+				7D19FC501BFF5D9300A9D19C /* anevia_streams.lua in CopyFiles */,
+				7D19FC511BFF5D9300A9D19C /* anevia_xml.lua in CopyFiles */,
+				7D19FC521BFF5D9300A9D19C /* appletrailers.lua in CopyFiles */,
+				7D19FC531BFF5D9300A9D19C /* bbc_co_uk.lua in CopyFiles */,
+				7D19FC541BFF5D9300A9D19C /* break.lua in CopyFiles */,
+				7D19FC551BFF5D9300A9D19C /* canalplus.lua in CopyFiles */,
+				7D19FC561BFF5D9300A9D19C /* cue.lua in CopyFiles */,
+				7D19FC571BFF5D9300A9D19C /* dailymotion.lua in CopyFiles */,
+				7D19FC581BFF5D9300A9D19C /* extreme.lua in CopyFiles */,
+				7D19FC591BFF5D9300A9D19C /* france2.lua in CopyFiles */,
+				7D19FC5A1BFF5D9300A9D19C /* googlevideo.lua in CopyFiles */,
+				7D19FC5B1BFF5D9300A9D19C /* jamendo.lua in CopyFiles */,
+				7D19FC5C1BFF5D9300A9D19C /* joox.lua in CopyFiles */,
+				7D19FC5D1BFF5D9300A9D19C /* katsomo.lua in CopyFiles */,
+				7D19FC5E1BFF5D9300A9D19C /* koreus.lua in CopyFiles */,
+				7D19FC5F1BFF5D9300A9D19C /* lelombrik.lua in CopyFiles */,
+				7D19FC601BFF5D9300A9D19C /* liveleak.lua in CopyFiles */,
+				7D19FC611BFF5D9300A9D19C /* metacafe.lua in CopyFiles */,
+				7D19FC621BFF5D9300A9D19C /* metachannels.lua in CopyFiles */,
+				7D19FC631BFF5D9300A9D19C /* mpora.lua in CopyFiles */,
+				7D19FC641BFF5D9300A9D19C /* pinkbike.lua in CopyFiles */,
+				7D19FC651BFF5D9300A9D19C /* pluzz.lua in CopyFiles */,
+				7D19FC661BFF5D9300A9D19C /* rockbox_fm_presets.lua in CopyFiles */,
+				7D19FC671BFF5D9300A9D19C /* satip.lua in CopyFiles */,
+				7D19FC681BFF5D9300A9D19C /* soundcloud.lua in CopyFiles */,
+				7D19FC691BFF5D9300A9D19C /* vimeo.lua in CopyFiles */,
+				7D19FC6A1BFF5D9300A9D19C /* youtube.lua in CopyFiles */,
+				7D19FC6B1BFF5D9300A9D19C /* youtube_homepage.lua in CopyFiles */,
+				7D19FC6C1BFF5D9300A9D19C /* zapiks.lua in CopyFiles */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 		7D5278E11BD7DF1800D0CA0E /* Embed Frameworks */ = {
 			isa = PBXCopyFilesBuildPhase;
 			buildActionMask = 2147483647;
@@ -568,6 +635,35 @@
 		7D18F0A01B34522000651A30 /* VLCActivityManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = VLCActivityManager.h; path = Sources/VLCActivityManager.h; sourceTree = SOURCE_ROOT; };
 		7D18F0A11B34522000651A30 /* VLCActivityManager.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = VLCActivityManager.m; path = Sources/VLCActivityManager.m; sourceTree = SOURCE_ROOT; };
 		7D19492B17C661A300959800 /* el */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = el; path = el.lproj/Localizable.strings; sourceTree = "<group>"; };
+		7D19FBF21BFF4AD900A9D19C /* anevia_streams.lua */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = anevia_streams.lua; sourceTree = "<group>"; };
+		7D19FBF31BFF4AD900A9D19C /* anevia_xml.lua */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = anevia_xml.lua; sourceTree = "<group>"; };
+		7D19FBF41BFF4AD900A9D19C /* appletrailers.lua */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = appletrailers.lua; sourceTree = "<group>"; };
+		7D19FBF51BFF4AD900A9D19C /* bbc_co_uk.lua */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = bbc_co_uk.lua; sourceTree = "<group>"; };
+		7D19FBF61BFF4AD900A9D19C /* break.lua */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = break.lua; sourceTree = "<group>"; };
+		7D19FBF71BFF4AD900A9D19C /* canalplus.lua */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = canalplus.lua; sourceTree = "<group>"; };
+		7D19FBF81BFF4AD900A9D19C /* cue.lua */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = cue.lua; sourceTree = "<group>"; };
+		7D19FBF91BFF4AD900A9D19C /* dailymotion.lua */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = dailymotion.lua; sourceTree = "<group>"; };
+		7D19FBFA1BFF4AD900A9D19C /* extreme.lua */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = extreme.lua; sourceTree = "<group>"; };
+		7D19FBFB1BFF4AD900A9D19C /* france2.lua */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = france2.lua; sourceTree = "<group>"; };
+		7D19FBFC1BFF4AD900A9D19C /* googlevideo.lua */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = googlevideo.lua; sourceTree = "<group>"; };
+		7D19FBFD1BFF4AD900A9D19C /* jamendo.lua */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = jamendo.lua; sourceTree = "<group>"; };
+		7D19FBFE1BFF4AD900A9D19C /* joox.lua */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = joox.lua; sourceTree = "<group>"; };
+		7D19FBFF1BFF4AD900A9D19C /* katsomo.lua */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = katsomo.lua; sourceTree = "<group>"; };
+		7D19FC001BFF4AD900A9D19C /* koreus.lua */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = koreus.lua; sourceTree = "<group>"; };
+		7D19FC011BFF4AD900A9D19C /* lelombrik.lua */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = lelombrik.lua; sourceTree = "<group>"; };
+		7D19FC021BFF4AD900A9D19C /* liveleak.lua */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = liveleak.lua; sourceTree = "<group>"; };
+		7D19FC031BFF4AD900A9D19C /* metacafe.lua */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = metacafe.lua; sourceTree = "<group>"; };
+		7D19FC041BFF4AD900A9D19C /* metachannels.lua */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = metachannels.lua; sourceTree = "<group>"; };
+		7D19FC051BFF4AD900A9D19C /* mpora.lua */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = mpora.lua; sourceTree = "<group>"; };
+		7D19FC061BFF4AD900A9D19C /* pinkbike.lua */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = pinkbike.lua; sourceTree = "<group>"; };
+		7D19FC071BFF4AD900A9D19C /* pluzz.lua */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = pluzz.lua; sourceTree = "<group>"; };
+		7D19FC091BFF4AD900A9D19C /* rockbox_fm_presets.lua */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = rockbox_fm_presets.lua; sourceTree = "<group>"; };
+		7D19FC0A1BFF4AD900A9D19C /* satip.lua */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = satip.lua; sourceTree = "<group>"; };
+		7D19FC0B1BFF4AD900A9D19C /* soundcloud.lua */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = soundcloud.lua; sourceTree = "<group>"; };
+		7D19FC0C1BFF4AD900A9D19C /* vimeo.lua */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = vimeo.lua; sourceTree = "<group>"; };
+		7D19FC0D1BFF4AD900A9D19C /* youtube.lua */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = youtube.lua; sourceTree = "<group>"; };
+		7D19FC0E1BFF4AD900A9D19C /* youtube_homepage.lua */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = youtube_homepage.lua; sourceTree = "<group>"; };
+		7D19FC0F1BFF4AD900A9D19C /* zapiks.lua */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = zapiks.lua; sourceTree = "<group>"; };
 		7D1A2DAF1BF66335002E0962 /* VLCMDFBrowsingArtworkProvider.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = VLCMDFBrowsingArtworkProvider.h; sourceTree = "<group>"; };
 		7D1A2DB01BF66335002E0962 /* VLCMDFBrowsingArtworkProvider.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = VLCMDFBrowsingArtworkProvider.m; sourceTree = "<group>"; };
 		7D1AB27C179C98BF004CC271 /* he */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = he; path = he.lproj/Localizable.strings; sourceTree = "<group>"; };
@@ -1237,6 +1333,43 @@
 			name = "Supporting Files";
 			sourceTree = "<group>";
 		};
+		7D19FBF11BFF4AD800A9D19C /* lua-playlist-scripts */ = {
+			isa = PBXGroup;
+			children = (
+				7D19FBF21BFF4AD900A9D19C /* anevia_streams.lua */,
+				7D19FBF31BFF4AD900A9D19C /* anevia_xml.lua */,
+				7D19FBF41BFF4AD900A9D19C /* appletrailers.lua */,
+				7D19FBF51BFF4AD900A9D19C /* bbc_co_uk.lua */,
+				7D19FBF61BFF4AD900A9D19C /* break.lua */,
+				7D19FBF71BFF4AD900A9D19C /* canalplus.lua */,
+				7D19FBF81BFF4AD900A9D19C /* cue.lua */,
+				7D19FBF91BFF4AD900A9D19C /* dailymotion.lua */,
+				7D19FBFA1BFF4AD900A9D19C /* extreme.lua */,
+				7D19FBFB1BFF4AD900A9D19C /* france2.lua */,
+				7D19FBFC1BFF4AD900A9D19C /* googlevideo.lua */,
+				7D19FBFD1BFF4AD900A9D19C /* jamendo.lua */,
+				7D19FBFE1BFF4AD900A9D19C /* joox.lua */,
+				7D19FBFF1BFF4AD900A9D19C /* katsomo.lua */,
+				7D19FC001BFF4AD900A9D19C /* koreus.lua */,
+				7D19FC011BFF4AD900A9D19C /* lelombrik.lua */,
+				7D19FC021BFF4AD900A9D19C /* liveleak.lua */,
+				7D19FC031BFF4AD900A9D19C /* metacafe.lua */,
+				7D19FC041BFF4AD900A9D19C /* metachannels.lua */,
+				7D19FC051BFF4AD900A9D19C /* mpora.lua */,
+				7D19FC061BFF4AD900A9D19C /* pinkbike.lua */,
+				7D19FC071BFF4AD900A9D19C /* pluzz.lua */,
+				7D19FC091BFF4AD900A9D19C /* rockbox_fm_presets.lua */,
+				7D19FC0A1BFF4AD900A9D19C /* satip.lua */,
+				7D19FC0B1BFF4AD900A9D19C /* soundcloud.lua */,
+				7D19FC0C1BFF4AD900A9D19C /* vimeo.lua */,
+				7D19FC0D1BFF4AD900A9D19C /* youtube.lua */,
+				7D19FC0E1BFF4AD900A9D19C /* youtube_homepage.lua */,
+				7D19FC0F1BFF4AD900A9D19C /* zapiks.lua */,
+			);
+			name = "lua-playlist-scripts";
+			path = ImportedSources/VLCKit/MobileVLCKit/ImportedSources/vlc/share/lua/playlist;
+			sourceTree = SOURCE_ROOT;
+		};
 		7D2339AB176DE70E008D223C /* Menu */ = {
 			isa = PBXGroup;
 			children = (
@@ -1829,6 +1962,7 @@
 		7DEC8BE61BD688AD006E1093 /* Resources */ = {
 			isa = PBXGroup;
 			children = (
+				7D19FBF11BFF4AD800A9D19C /* lua-playlist-scripts */,
 				6B4E33CC1BF2A35A00A35255 /* web */,
 				7DEDD38B1BE936130053802C /* About Contents.html */,
 				7D2D7FD21BD2F109002D6B6D /* VLC-TV.entitlements */,
@@ -2239,6 +2373,7 @@
 				7D5278E11BD7DF1800D0CA0E /* Embed Frameworks */,
 				B59BF52D7592970355AF1DF4 /* Embed Pods Frameworks */,
 				90E479A81E88C3B5BE981A80 /* Copy Pods Resources */,
+				7D19FBCE1BFF484E00A9D19C /* CopyFiles */,
 			);
 			buildRules = (
 			);
