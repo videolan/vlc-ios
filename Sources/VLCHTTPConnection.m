@@ -41,7 +41,7 @@
     UInt64 _contentLength;
     UInt64 _receivedContent;
 #if TARGET_OS_TV
-    BOOL _playbackStarted;
+    NSMutableArray *_receivedFiles;
 #endif
 }
 @end
@@ -580,12 +580,9 @@
     long long percentage = ((_receivedContent * 100) / _contentLength);
     APLog(@"received %lli kB (%lli %%)", _receivedContent / 1024, percentage);
 #if TARGET_OS_TV
-    if (!_playbackStarted) {
         if (percentage >= 10) {
-            _playbackStarted = YES;
             [self performSelectorOnMainThread:@selector(startPlaybackOfPath:) withObject:_filepath waitUntilDone:NO];
         }
-    }
 #endif
 }
 
@@ -593,13 +590,36 @@
 - (void)startPlaybackOfPath:(NSString *)path
 {
     APLog(@"Starting playback of %@", path);
-    VLCPlaybackController *vpc = [VLCPlaybackController sharedInstance];
-    [vpc playURL:[NSURL fileURLWithPath:path] successCallback:nil errorCallback:nil];
+    if (_receivedFiles == nil)
+        _receivedFiles = [[NSMutableArray alloc] init];
 
-    VLCFullscreenMovieTVViewController *moviewVC = [VLCFullscreenMovieTVViewController fullscreenMovieTVViewController];
-    [[UIApplication sharedApplication].keyWindow.rootViewController presentViewController:moviewVC
-                                                                                 animated:YES
-                                                                               completion:nil];
+    if ([_receivedFiles containsObject:path])
+        return;
+
+    [_receivedFiles addObject:path];
+
+    VLCPlaybackController *vpc = [VLCPlaybackController sharedInstance];
+    BOOL needsMediaList;
+    VLCMediaList *mediaList = vpc.mediaList;
+
+    if (!mediaList) {
+        mediaList = [[VLCMediaList alloc] init];
+        needsMediaList = YES;
+    }
+
+    [mediaList addMedia:[VLCMedia mediaWithURL:[NSURL fileURLWithPath:path]]];
+
+    if (needsMediaList) {
+        [vpc playMediaList:mediaList firstIndex:0];
+    }
+
+    VLCFullscreenMovieTVViewController *movieVC = [VLCFullscreenMovieTVViewController fullscreenMovieTVViewController];
+
+    if (![movieVC isBeingPresented]) {
+        [[UIApplication sharedApplication].keyWindow.rootViewController presentViewController:movieVC
+                                                                                     animated:YES
+                                                                                   completion:nil];
+    }
 }
 #endif
 
@@ -710,8 +730,13 @@
 - (BOOL)shouldDie
 {
     if (_filepath) {
-        if (_filepath.length > 0)
+        if (_filepath.length > 0) {
             [[VLCHTTPUploaderController sharedInstance] moveFileFrom:_filepath];
+
+#if TARGET_OS_TV
+            [_receivedFiles removeObject:_filepath];
+#endif
+        }
     }
     return [super shouldDie];
 }
