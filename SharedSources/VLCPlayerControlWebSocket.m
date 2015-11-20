@@ -81,6 +81,8 @@
         [self _respondToEnded];
     } else if ([type isEqualToString:@"seekTo"]) {
         [self _respondToSeek:receivedDict];
+    } else if ([type isEqualToString:@"openURL"]) {
+        [self _respondToOpenURL:receivedDict];
     } else if ([type isEqualToString:@"volume"]) {
         [self sendMessage:@"VOLUME CONTROL NOT SUPPORTED ON THIS DEVICE"];
     } else
@@ -310,6 +312,31 @@
 
             [self sendData:returnData];
         }
+    }
+}
+
+#pragma mark - openURL
+- (void)_respondToOpenURL:(NSDictionary *)dictionary
+{
+    /*
+     {
+        "type": "OpenURL",
+        "url": "https://vimeo.com/74370512"
+     }
+     */
+    BOOL needsMediaList;
+
+    VLCPlaybackController *vpc = [VLCPlaybackController sharedInstance];
+    VLCMediaList *mediaList = vpc.mediaList;
+    if (!mediaList) {
+        needsMediaList = YES;
+        mediaList = [[VLCMediaList alloc] init];
+    }
+
+    [mediaList addMedia:[VLCMedia mediaWithURL:[NSURL URLWithString:dictionary[@"url"]]]];
+
+    if (needsMediaList) {
+        [vpc playMediaList:mediaList firstIndex:0];
     }
 }
 
