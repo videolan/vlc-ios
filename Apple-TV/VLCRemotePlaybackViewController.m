@@ -62,6 +62,7 @@ static NSString *const VLCWiggleAnimationKey = @"VLCWiggleAnimation";
                              object:nil];
 
     VLCMediaFileDiscoverer *discoverer = [VLCMediaFileDiscoverer sharedInstance];
+    discoverer.filterResultsForPlayability = NO;
 
     _discoveredFiles = [NSMutableArray array];
 
