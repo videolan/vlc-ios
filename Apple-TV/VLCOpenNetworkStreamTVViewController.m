@@ -71,8 +71,8 @@
     _recentURLs = [NSMutableArray arrayWithArray:[[NSUbiquitousKeyValueStore defaultStore] arrayForKey:kVLCRecentURLs]];
 #ifndef NDEBUG
     if (_recentURLs.count == 0) {
-        [_recentURLs addObject:@"http://streams.videolan.org/streams/mp4/Mr_MrsSmith-h264_aac.mp4"];
-        [_recentURLs addObject:@"http://streams.videolan.org/streams/mp4/Mr&MrsSmith.txt"];
+        [_recentURLs addObject:@"https://www.youtube.com/watch?v=13e2GxpqGPY"];
+        [_recentURLs addObject:@"https://vimeo.com/74370512"];
     }
 #endif
     [self.previouslyPlayedStreamsTableView reloadData];
