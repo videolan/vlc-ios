@@ -9,7 +9,8 @@
  * Refer to the COPYING file of the official project for license.
  *****************************************************************************/
 
-#import "VLCSettingsTableViewController.h"
+#import "VLCSettingsViewController.h"
+
 #import "IASKSettingsReader.h"
 #import "IASKSpecifier.h"
 #import "VLCAboutViewController.h"
@@ -17,31 +18,17 @@
 #define SettingsReUseIdentifier @"SettingsReUseIdentifier"
 #define SettingsHeaderReUseIdentifier @"SettingsHeaderReUseIdentifier"
 
-@interface VLCSettingsTableViewController ()
+@interface VLCSettingsViewController () <UITableViewDataSource, UITableViewDelegate>
 {
     NSUserDefaults *_userDefaults;
     IASKSettingsReader *_settingsReader;
 }
 @end
 
-@implementation VLCSettingsTableViewController
-
-- (void)loadView
-{
-    UITableView *tableView = [[UITableView alloc] initWithFrame:[UIScreen mainScreen].bounds style:UITableViewStyleGrouped];
-    tableView.delegate = self;
-    tableView.dataSource = self;
-    [tableView registerClass:[UITableViewHeaderFooterView class] forHeaderFooterViewReuseIdentifier:SettingsHeaderReUseIdentifier];
-    self.view = tableView;
-}
+@implementation VLCSettingsViewController
 
 - (void)viewDidLoad {
     [super viewDidLoad];
-
-    self.clearsSelectionOnViewWillAppear = YES;
-    self.automaticallyAdjustsScrollViewInsets = NO;
-    self.edgesForExtendedLayout = UIRectEdgeAll ^ UIRectEdgeTop;
-
 
     _userDefaults = [NSUserDefaults standardUserDefaults];
     _settingsReader = [[IASKSettingsReader alloc] init];
@@ -117,12 +104,12 @@
         for (NSUInteger i = 0; i < count; i++) {
             id value = [[specifier multipleValues][i] copy];
             UIAlertAction *action = [UIAlertAction actionWithTitle:[_settingsReader titleForStringId:titles[i]]
-                                                                style:UIAlertActionStyleDefault
-                                                              handler:^(UIAlertAction * _Nonnull action) {
-                                                                  [_userDefaults setObject:value forKey:[specifier key]];
-                                                                  [_userDefaults synchronize];
-                                                                  [self.tableView reloadData];
-                                                              }];
+                                                             style:UIAlertActionStyleDefault
+                                                           handler:^(UIAlertAction * _Nonnull action) {
+                                                               [_userDefaults setObject:value forKey:[specifier key]];
+                                                               [_userDefaults synchronize];
+                                                               [self.tableView reloadData];
+                                                           }];
             [alertController addAction:action];
             if (i == indexOfPreferredAction)
                 [alertController setPreferredAction:action];
@@ -146,5 +133,6 @@
                          completion:nil];
     }
 }
+
 
 @end

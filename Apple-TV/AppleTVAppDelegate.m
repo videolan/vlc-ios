@@ -12,7 +12,7 @@
 #import "AppleTVAppDelegate.h"
 #import "VLCServerListTVViewController.h"
 #import "VLCOpenNetworkStreamTVViewController.h"
-#import "VLCSettingsTableViewController.h"
+#import "VLCSettingsViewController.h"
 #import "VLCCloudServicesTVViewController.h"
 #import "VLCHTTPUploaderController.h"
 #import "VLCRemotePlaybackViewController.h"
@@ -25,7 +25,7 @@
     VLCCloudServicesTVViewController *_cloudServicesVC;
     VLCRemotePlaybackViewController *_remotePlaybackVC;
     VLCOpenNetworkStreamTVViewController *_openNetworkVC;
-    VLCSettingsTableViewController *_settingsTableVC;
+    VLCSettingsViewController *_settingsVC;
 }
 
 @end
@@ -61,7 +61,7 @@
     _cloudServicesVC = [[VLCCloudServicesTVViewController alloc] initWithNibName:nil bundle:nil];
     _remotePlaybackVC = [[VLCRemotePlaybackViewController alloc] initWithNibName:nil bundle:nil];
     _openNetworkVC = [[VLCOpenNetworkStreamTVViewController alloc] initWithNibName:nil bundle:nil];
-    _settingsTableVC = [[VLCSettingsTableViewController alloc] initWithNibName:nil bundle:nil];
+    _settingsVC = [[VLCSettingsViewController alloc] initWithNibName:nil bundle:nil];
 
     _mainViewController = [[UITabBarController alloc] init];
     _mainViewController.tabBar.barTintColor = [UIColor VLCOrangeTintColor];
@@ -70,7 +70,7 @@
                                             [[UINavigationController alloc] initWithRootViewController:_cloudServicesVC],
                                             [[UINavigationController alloc] initWithRootViewController:_remotePlaybackVC],
                                             [[UINavigationController alloc] initWithRootViewController:_openNetworkVC],
-                                            [[UINavigationController alloc] initWithRootViewController:_settingsTableVC]];
+                                            [[UINavigationController alloc] initWithRootViewController:_settingsVC]];
 
     self.window.rootViewController = _mainViewController;
 

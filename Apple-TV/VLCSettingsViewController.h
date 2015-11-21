@@ -11,6 +11,8 @@
 
 #import <UIKit/UIKit.h>
 
-@interface VLCSettingsTableViewController : UITableViewController
+@interface VLCSettingsViewController : UIViewController
+
+@property (readwrite, weak, nonatomic) IBOutlet UITableView *tableView;
 
 @end
