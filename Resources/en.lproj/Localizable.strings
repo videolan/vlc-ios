@@ -1,3 +1,7 @@
+"STORE_DESCRIPTION"="VLC for iOS is a port of the free VLC media player to iPad, iPhone and iPod touch.\nIt can play all your movies, shows and music in most formats directly without conversion.\nIt allows file synchronization with Dropbox, GDrive, OneDrive, Box, iCloud Drive, iTunes, direct downloads and through WiFi sharing as well as streaming from SMB, FTP, UPnP/DLNA media servers and the web.\nVLC offers support for advanced subtitles including full SSA compatibility, multi-track audio, and playback speed control.\n\nVLC for iOS is completely free and open source.";
+
+"STORE_DESCRIPTION_TV"="VLC media player is a free and open source cross-platform multimedia player.\nIt can play all your movies, shows and music in most formats directly without conversion.\nIt allows streaming from cloud services (Dropbox, OneDrive, Box), Remote Playback from your Mac or PC via a Web UI as well as streaming from SMB, FTP, UPnP/DLNA media servers and the web.\nVLC offers support for advanced subtitles including full SSA compatibility, multi-track audio, and playback speed control.\n\nVLC for iOS is completely free and open source.\n\nMetadata and artwork are provided by TMDb and Hatchet, which are community maintained movie and music databases.";
+
 "CHOOSE_AUDIO_TRACK"="Choose Audio Track";
 "CHOOSE_SUBTITLE_TRACK"="Choose Subtitle Track";
 "OPEN_TRACK_PANEL"="Open track selection";
@@ -253,6 +257,9 @@
 "WEBINTF_DOWNLOADFILES_LONG"="Just click the file you want to download from your %@.";
 "WEBINTF_TITLE_ATV"="Remote Playback";
 "WEBINTF_DROPFILES_LONG_ATV"="Drop files in the window to play them on your %@.<br>Or click on the \"+\" button to use the file picker dialog.";
+"WEBINTF_URL_SENT"="URL sent successfully.";
+"WEBINTF_URL_EMPTY"="'URL cannot be empty.";
+"WEBINTF_URL_INVALID"="Not a valid URL.";
 
 "CLOUD_DRIVES"="Other Cloud Drives";
 
