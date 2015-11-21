@@ -616,7 +616,7 @@ $(function() {
         } else if (!isURL(url)) {
             return displayMessage('Not a valid URL.');
         }
-        displayMessage('URL sended successfully.');
+        displayMessage('URL sent successfully.');
         playerControl.openURL({
             url: url
         });
