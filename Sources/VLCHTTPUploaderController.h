@@ -19,6 +19,8 @@
 
 + (instancetype)sharedInstance;
 
+@property (nonatomic, readonly) BOOL isReachable;
+
 - (BOOL)changeHTTPServerState:(BOOL)state;
 - (NSString *)httpStatus;
 - (BOOL)isServerRunning;

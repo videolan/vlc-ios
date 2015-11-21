@@ -112,7 +112,7 @@
 {
     [self.serverOnButton setImage:[UIImage imageNamed:@"WifiUp"] forState:UIControlStateNormal];
     
-    BOOL connectedViaWifi = self.reachability.currentReachabilityStatus == ReachableViaWiFi;
+    BOOL connectedViaWifi = [[VLCHTTPUploaderController sharedInstance] isReachable];
     self.serverOnButton.enabled = connectedViaWifi;
     NSString *uploadText = connectedViaWifi ? [[VLCHTTPUploaderController sharedInstance] httpStatus] : NSLocalizedString(@"HTTP_UPLOAD_NO_CONNECTIVITY", nil);
     self.uploadAddressLabel.text = uploadText;

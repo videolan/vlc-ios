@@ -62,6 +62,7 @@
         [center addObserver:self selector:@selector(netReachabilityChanged) name:kReachabilityChangedNotification object:nil];
         
         BOOL isHTTPServerOn = [[NSUserDefaults standardUserDefaults] boolForKey:kVLCSettingSaveHTTPUploadServerStatus];
+        [self netReachabilityChanged];
         [self changeHTTPServerState:isHTTPServerOn];
 
     }
@@ -129,28 +130,11 @@
 
 - (void)netReachabilityChanged
 {
-    if (_reachability.currentReachabilityStatus != ReachableViaWiFi) {
-        [[VLCHTTPUploaderController sharedInstance] changeHTTPServerState:NO];
-    }
-}
-
-- (BOOL)changeHTTPServerState:(BOOL)state
-{
-    if (!state) {
-        [_httpServer stop];
-        return true;
-    }
-#if TARGET_OS_IOS
-    // clean cache before accepting new stuff
-    [self cleanCache];
-#endif
-
-    // Initialize our http server
-    _httpServer = [[HTTPServer alloc] init];
-
     // find an interface to listen on
     struct ifaddrs *listOfInterfaces = NULL;
     struct ifaddrs *anInterface = NULL;
+    BOOL serverWasRunning = self.isServerRunning;
+    [self changeHTTPServerState:NO];
     _nameOfUsedNetworkInterface = nil;
     int ret = getifaddrs(&listOfInterfaces);
     if (ret == 0) {
@@ -158,7 +142,7 @@
 
         while (anInterface != NULL) {
             if (anInterface->ifa_addr->sa_family == AF_INET) {
-                APLog(@"Found interface %s", anInterface->ifa_name);
+                APLog(@"Found interface %s, address %@", anInterface->ifa_name, @(inet_ntoa(((struct sockaddr_in *)anInterface->ifa_addr)->sin_addr)));
 
                 /* check for primary interface first */
                 if (strncmp (anInterface->ifa_name,"en0",strlen("en0")) == 0) {
@@ -177,13 +161,50 @@
                         break;
                     }
                 }
+
+                if (strncmp (anInterface->ifa_name,"bridge100",strlen("bridge100")) == 0) {
+                    unsigned int flags = anInterface->ifa_flags;
+                    if( (flags & 0x1) && (flags & 0x40) && !(flags & 0x8) ) {
+                        _nameOfUsedNetworkInterface = [NSString stringWithUTF8String:anInterface->ifa_name];
+                        break;
+                    }
+                }
             }
             anInterface = anInterface->ifa_next;
         }
     }
     freeifaddrs(listOfInterfaces);
-    if (_nameOfUsedNetworkInterface == nil)
-        return false;
+    if (_nameOfUsedNetworkInterface == nil) {
+        _isReachable = NO;
+        [self changeHTTPServerState:NO];
+        return;
+    }
+    _isReachable = YES;
+    if (serverWasRunning) {
+        [self changeHTTPServerState:YES];
+    }
+}
+
+- (BOOL)changeHTTPServerState:(BOOL)state
+{
+    if (!state) {
+        [_httpServer stop];
+        return true;
+    }
+
+    if (_nameOfUsedNetworkInterface == nil) {
+        APLog(@"No interface to listen on, server not started");
+        _isReachable = NO;
+        return NO;
+    }
+
+#if TARGET_OS_IOS
+    // clean cache before accepting new stuff
+    [self cleanCache];
+#endif
+
+    // Initialize our http server
+    _httpServer = [[HTTPServer alloc] init];
 
     [_httpServer setInterface:_nameOfUsedNetworkInterface];
 
