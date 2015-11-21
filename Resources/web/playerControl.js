@@ -22,10 +22,16 @@ $(function() {
     /**
      * @method init
      */
-    Ws.prototype.init = function() {
+    Ws.prototype.init = function(fn) {
         var self = this;
+        this.init = true;
         this.socket.onopen = function() {
             self._onOpen(this);
+            if (self.init && typeof fn === 'function') {
+                //Should be called only once
+                fn(this);
+            }
+            self.init = false;
         };
 
         this.socket.onmessage = function(e) {
@@ -525,6 +531,16 @@ $(function() {
     };
 
     /**
+     * @method getPlaying
+     */
+    PlayerControl.prototype.getPlaying = function() {
+        //Trigger playing event (from server)
+        this.socket.sendMessage({
+            type: 'playing'
+        });
+    };
+
+    /**
      * @method playing
      * @param {Object} message
      */
@@ -560,13 +576,16 @@ $(function() {
     var socket = new Ws({
         url: URL
     });
-    socket.init();
 
     var playerControl = new PlayerControl({
         socket: socket,
         element: $('.player-control')
     });
+
     playerControl.init();
+    socket.init(function() {
+        playerControl.getPlaying();
+    });
 
     /**
      * Map which method is allowed by event type
