@@ -544,6 +544,14 @@ $(function() {
         this.play();
     }
 
+    PlayerControl.prototype.openURL = function(options) {
+        options = options || {};
+        this.socket.sendMessage({
+            type: 'openURL',
+            url: options.url
+        });
+    };
+
     /**
      * Instanciation of the Ws class
      */
@@ -599,5 +607,52 @@ $(function() {
             return;
         TYPE_MAP[type](message);
     });
+
+    $('form.open-url').on('submit', function(e) {
+        e.preventDefault();
+        var url = $(this).find('input').val();
+        if (!url) {
+            return displayMessage('URL cannot be empty.');
+        } else if (!isURL(url)) {
+            return displayMessage('Not a valid URL.');
+        }
+        displayMessage('URL sended successfully.');
+        playerControl.openURL({
+            url: url
+        });
+        //clear the form
+        $(this).find('input').val('');
+    });
+
+    /**
+     * Check if a given string is a URL
+     * Regex from https://gist.github.com/searls/1033143
+     * @param {string} str
+     * @returns {boolean}
+     */
+    function isURL(str) {
+        var p = /\b((?:https?:\/\/|www\d{0,3}[.]|[a-z0-9.\-]+[.][a-z]{2,4}\/)(?:[^\s()<>]+|\(([^\s()<>]+|(\([^\s()<>]+\)))*\))+(?:\(([^\s()<>]+|(\([^\s()<>]+\)))*\)|[^\s`!()\[\]{};:'".,<>?«»“”‘’]))/i;
+        return p.test(str);
+    }
+    //Display message to the user
+    var TIMEOUT = null;
+    var DELAY = 5000;
+    function displayMessage(message) {
+        $('.display-message').addClass('show');
+        $('.display-message').text(message);
+        if (TIMEOUT) {
+            clearTimeout(TIMEOUT);
+        }
+        TIMEOUT = setTimeout(function() {
+            clearMessage();
+        }, DELAY);
+    }
+
+    function clearMessage() {
+        if (TIMEOUT) {
+            clearTimeout(TIMEOUT);
+        }
+        $('.display-message').removeClass('show');
+    }
 
 });

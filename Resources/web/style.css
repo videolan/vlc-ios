@@ -166,7 +166,7 @@ div.main.drop {
 }
 
 .messageUpload {
-  margin: 100px 0px;
+  margin: 80px 0px;
 }
 .messageUpload h1 {
   font-size: 30px;
@@ -544,4 +544,3 @@ div.main.drop {
 #footer a{
   color: rgb(255, 132, 0);
 }
-
