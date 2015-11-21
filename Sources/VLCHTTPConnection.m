@@ -393,7 +393,8 @@
     NSString *relativePath = [filePath substringFromIndex:[documentRoot length]];
     NSDictionary *replacementDict = @{@"WEBINTF_TITLE" : NSLocalizedString(@"WEBINTF_TITLE_ATV", nil),
                                       @"WEBINTF_DROPFILES" : NSLocalizedString(@"WEBINTF_DROPFILES", nil),
-                                      @"WEBINTF_DROPFILES_LONG" : [NSString stringWithFormat:NSLocalizedString(@"WEBINTF_DROPFILES_LONG_ATV", nil), deviceModel]};
+                                      @"WEBINTF_DROPFILES_LONG" : [NSString stringWithFormat:NSLocalizedString(@"WEBINTF_DROPFILES_LONG_ATV", nil), deviceModel],
+                                      @"WEBINTF_OPEN_URL" : NSLocalizedString(@"ENTER_URL", nil)};
 
     HTTPDynamicFileResponse *fileResponse;
     if ([relativePath isEqualToString:@"/index.html"]) {

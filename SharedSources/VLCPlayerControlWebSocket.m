@@ -82,7 +82,7 @@
     } else if ([type isEqualToString:@"seekTo"]) {
         [self _respondToSeek:receivedDict];
     } else if ([type isEqualToString:@"openURL"]) {
-        [self _respondToOpenURL:receivedDict];
+        [self performSelectorOnMainThread:@selector(_respondToOpenURL:) withObject:receivedDict waitUntilDone:NO];
     } else if ([type isEqualToString:@"volume"]) {
         [self sendMessage:@"VOLUME CONTROL NOT SUPPORTED ON THIS DEVICE"];
     } else
@@ -337,6 +337,20 @@
 
     if (needsMediaList) {
         [vpc playMediaList:mediaList firstIndex:0];
+    }
+
+    VLCFullscreenMovieTVViewController *movieVC = [VLCFullscreenMovieTVViewController fullscreenMovieTVViewController];
+
+    if (![movieVC isBeingPresented]) {
+        if ([[[UIApplication sharedApplication].delegate.window rootViewController] presentedViewController] != nil) {
+            [[[[UIApplication sharedApplication].delegate.window rootViewController] presentedViewController] presentViewController:movieVC
+                                                                                                                           animated:NO
+                                                                                                                         completion:nil];
+        } else {
+            [[[UIApplication sharedApplication].delegate.window rootViewController] presentViewController:movieVC
+                                                                                                 animated:NO
+                                                                                               completion:nil];
+        }
     }
 }
 
