@@ -19,6 +19,7 @@
 
 @property (readwrite, nonatomic, weak) IBOutlet UILabel *cachedMediaLabel;
 @property (readwrite, nonatomic, weak) IBOutlet UICollectionView *cachedMediaCollectionView;
+@property (nonatomic, weak) IBOutlet UIView *deleteHintView;
 
 - (IBAction)toggleHTTPServer:(id)sender;
 

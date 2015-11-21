@@ -306,3 +306,6 @@
 
 "FTP_LONG"="File Transfer Protocol (FTP)";
 "FTP_SHORT"="FTP";
+
+// Insert %@ where play-pause-glyph should be placed
+"DELETE_ITEM_HINT"="Press %@ to Delete";

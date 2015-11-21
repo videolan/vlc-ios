@@ -30,6 +30,8 @@ static NSString *const VLCWiggleAnimationKey = @"VLCWiggleAnimation";
 @property (nonatomic) UITapGestureRecognizer *playPausePressRecognizer;
 @property (nonatomic) UITapGestureRecognizer *cancelRecognizer;
 @property (nonatomic) NSIndexPath *currentlyFocusedIndexPath;
+@property (nonatomic) NSTimer *hintTimer;
+
 @end
 
 @implementation VLCRemotePlaybackViewController
@@ -156,6 +158,7 @@ static NSString *const VLCWiggleAnimationKey = @"VLCWiggleAnimation";
     [[NSUserDefaults standardUserDefaults] synchronize];
 }
 
+#pragma mark - editing
 
 - (void)handlePlayPausePress
 {
@@ -207,6 +210,47 @@ static NSString *const VLCWiggleAnimationKey = @"VLCWiggleAnimation";
 
 }
 
+- (void)animateDeletHintToVisibility:(BOOL)visible
+{
+    const NSTimeInterval duration = 0.5;
+
+    UIView *hintView = self.deleteHintView;
+
+    if (hintView.hidden) {
+        hintView.alpha = 0.0;
+    }
+
+    if (hintView.alpha == 0.0) {
+        hintView.hidden = NO;
+    }
+
+    const CGFloat targetAlpha = visible ? 1.0 : 0.0;
+    [UIView animateWithDuration:duration
+                          delay:0
+                        options:UIViewAnimationOptionBeginFromCurrentState
+                     animations:^{
+                         hintView.alpha = targetAlpha;
+                     }
+                     completion:^(BOOL finished) {
+                         if (hintView.alpha == 0.0) {
+                             hintView.hidden = YES;
+                         }
+                     }];
+}
+
+- (void)hintTimerFired:(NSTimer *)timer
+{
+    const NSTimeInterval waitUntilHideInterval = 5.0;
+
+    NSNumber *userInfo = [timer userInfo];
+    BOOL shouldShow = [userInfo isKindOfClass:[NSNumber class]] && [userInfo boolValue];
+    [self animateDeletHintToVisibility:shouldShow];
+    if (shouldShow) {
+        [self.hintTimer invalidate];
+        self.hintTimer = [NSTimer scheduledTimerWithTimeInterval:waitUntilHideInterval target:self selector:@selector(hintTimerFired:) userInfo:@(NO) repeats:NO];
+    }
+}
+
 - (void)startEditMode
 {
     self.editing = YES;
@@ -225,8 +269,13 @@ static NSString *const VLCWiggleAnimationKey = @"VLCWiggleAnimation";
     if (editing) {
         [focusedCell.layer addAnimation:[CAAnimation vlc_wiggleAnimation]
                                  forKey:VLCWiggleAnimationKey];
+        [self.hintTimer invalidate];
+        self.hintTimer = [NSTimer scheduledTimerWithTimeInterval:3.0 target:self selector:@selector(hintTimerFired:) userInfo:@(YES) repeats:NO];
     } else {
         [focusedCell.layer removeAnimationForKey:VLCWiggleAnimationKey];
+        [self.hintTimer invalidate];
+        self.hintTimer = nil;
+        [self animateDeletHintToVisibility:NO];
     }
 
     self.cancelRecognizer.enabled = editing;

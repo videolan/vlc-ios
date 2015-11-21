@@ -1,13 +1,14 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
-<document type="com.apple.InterfaceBuilder.AppleTV.XIB" version="3.0" toolsVersion="9059" systemVersion="15B42" targetRuntime="AppleTV" propertyAccessControl="none" useAutolayout="YES">
+<document type="com.apple.InterfaceBuilder.AppleTV.XIB" version="3.0" toolsVersion="9060" systemVersion="15B42" targetRuntime="AppleTV" propertyAccessControl="none" useAutolayout="YES">
     <dependencies>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="9049"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="9051"/>
     </dependencies>
     <objects>
         <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner" customClass="VLCRemotePlaybackViewController">
             <connections>
                 <outlet property="cachedMediaCollectionView" destination="VjG-Gw-i36" id="ATe-7D-fDz"/>
                 <outlet property="cachedMediaLabel" destination="77q-qM-GSv" id="gs2-sW-Z17"/>
+                <outlet property="deleteHintView" destination="Hxr-bA-eu2" id="04c-3W-B8K"/>
                 <outlet property="httpServerLabel" destination="mOM-K1-6hX" id="PvM-0r-xq1"/>
                 <outlet property="toggleHTTPServerButton" destination="N4Q-4c-bh0" id="5Je-Lj-ba0"/>
                 <outlet property="view" destination="iN0-l3-epB" id="Eym-vH-oyN"/>
@@ -58,6 +59,10 @@ http://192.168.1.1</string>
                         <outlet property="delegate" destination="-1" id="hUM-OV-Y9o"/>
                     </connections>
                 </collectionView>
+                <view hidden="YES" contentMode="scaleToFill" placeholderIntrinsicWidth="550" placeholderIntrinsicHeight="100" translatesAutoresizingMaskIntoConstraints="NO" id="Hxr-bA-eu2" customClass="VLCDeleteHintTVView">
+                    <rect key="frame" x="685" y="930" width="550" height="100"/>
+                    <animations/>
+                </view>
             </subviews>
             <animations/>
             <constraints>
@@ -67,7 +72,9 @@ http://192.168.1.1</string>
                 <constraint firstItem="mOM-K1-6hX" firstAttribute="top" secondItem="N4Q-4c-bh0" secondAttribute="bottom" constant="36" id="Szw-br-TIc"/>
                 <constraint firstItem="77q-qM-GSv" firstAttribute="centerX" secondItem="VjG-Gw-i36" secondAttribute="centerX" id="Tcb-Jy-an4"/>
                 <constraint firstItem="N4Q-4c-bh0" firstAttribute="centerX" secondItem="iN0-l3-epB" secondAttribute="centerX" id="VFF-HR-rhV"/>
+                <constraint firstAttribute="bottom" secondItem="Hxr-bA-eu2" secondAttribute="bottom" constant="50" id="XV3-Ye-FV9"/>
                 <constraint firstItem="VjG-Gw-i36" firstAttribute="leading" secondItem="iN0-l3-epB" secondAttribute="leading" id="hSa-3P-bGw"/>
+                <constraint firstItem="Hxr-bA-eu2" firstAttribute="centerX" secondItem="iN0-l3-epB" secondAttribute="centerX" id="iND-1n-gnL"/>
                 <constraint firstItem="VjG-Gw-i36" firstAttribute="centerX" secondItem="iN0-l3-epB" secondAttribute="centerX" id="l72-n9-cwb"/>
                 <constraint firstAttribute="trailing" secondItem="VjG-Gw-i36" secondAttribute="trailing" id="lJF-jb-gaz"/>
                 <constraint firstItem="VjG-Gw-i36" firstAttribute="top" secondItem="77q-qM-GSv" secondAttribute="bottom" constant="70" id="nNF-vd-238"/>
