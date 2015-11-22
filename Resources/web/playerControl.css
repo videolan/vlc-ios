@@ -327,7 +327,7 @@
     display: inline-block;
     border-radius: 3px 0 0 3px;
     font-size: 16px;
-    padding: 16px 0 16px 16px;
+    padding-left: 16px;
     width: 90%;
     vertical-align: middle;
     border: none;
