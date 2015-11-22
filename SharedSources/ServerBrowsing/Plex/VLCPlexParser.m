@@ -49,7 +49,7 @@ static NSString *const kPlexVLCDeviceName = @"VLC for iOS";
         }
     }
 
-    mediaServerUrl = [urlComponents URL].absoluteString;
+    mediaServerUrl = [[urlComponents URL].absoluteString stringByReplacingPercentEscapesUsingEncoding:NSUTF8StringEncoding];
 
     VLCPlexWebAPI *PlexWebAPI = [[VLCPlexWebAPI alloc] init];
     NSURL *url = [[NSURL alloc] initWithString:[PlexWebAPI urlAuth:mediaServerUrl authentification:auth]];
