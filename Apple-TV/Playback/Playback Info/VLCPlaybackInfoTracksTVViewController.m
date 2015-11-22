@@ -10,20 +10,16 @@
  *****************************************************************************/
 
 #import "VLCPlaybackInfoTracksTVViewController.h"
-#import "VLCPlaybackInfoTrackTVCell.h"
-#import "VLCPlaybackInfoTrackTVTitleView.h"
+#import "VLCPlaybackInfoTVCollectionViewCell.h"
+#import "VLCPlaybackInfoTVCollectionSectionTitleView.h"
+#import "VLCPlaybackInfoCollectionViewDataSource.h"
 
 #define CONTENT_INSET 20.
 
-@interface VLCPlaybackInfoTracksDataSource : NSObject
-@property (nonatomic, readonly) VLCMediaPlayer *mediaPlayer;
-@property (nonatomic) NSString *title;
-- (UICollectionViewCell *)collectionView:(UICollectionView *)collectionView cellForItemAtIndexPath:(NSIndexPath *)indexPath;
-@end
 
-@interface VLCPlaybackInfoTracksDataSourceAudio : VLCPlaybackInfoTracksDataSource <UICollectionViewDataSource, UICollectionViewDelegate>
+@interface VLCPlaybackInfoTracksDataSourceAudio : VLCPlaybackInfoCollectionViewDataSource <UICollectionViewDataSource, UICollectionViewDelegate>
 @end
-@interface VLCPlaybackInfoTracksDataSourceSubtitle : VLCPlaybackInfoTracksDataSource <UICollectionViewDataSource, UICollectionViewDelegate>
+@interface VLCPlaybackInfoTracksDataSourceSubtitle : VLCPlaybackInfoCollectionViewDataSource <UICollectionViewDataSource, UICollectionViewDelegate>
 @end
 
 
@@ -48,17 +44,18 @@
 - (void)viewDidLoad
 {
     [super viewDidLoad];
-    UINib *nib = [UINib nibWithNibName:@"VLCPlaybackInfoTrackTVCell" bundle:nil];
-    NSString *identifier = [VLCPlaybackInfoTrackTVCell identifier];
+    UINib *nib = [UINib nibWithNibName:@"VLCPlaybackInfoTVCollectionViewCell" bundle:nil];
+    NSString *identifier = [VLCPlaybackInfoTVCollectionViewCell identifier];
     [self.audioTrackCollectionView registerNib:nib forCellWithReuseIdentifier:identifier];
     [self.subtitleTrackCollectionView registerNib:nib forCellWithReuseIdentifier:identifier];
-    [VLCPlaybackInfoTrackTVTitleView registerInCollectionView:self.audioTrackCollectionView];
-    [VLCPlaybackInfoTrackTVTitleView registerInCollectionView:self.subtitleTrackCollectionView];
+    [VLCPlaybackInfoTVCollectionSectionTitleView registerInCollectionView:self.audioTrackCollectionView];
+    [VLCPlaybackInfoTVCollectionSectionTitleView registerInCollectionView:self.subtitleTrackCollectionView];
 
     NSLocale *currentLocale = [NSLocale currentLocale];
     self.audioDataSource.title = [NSLocalizedString(@"AUDIO", nil) uppercaseStringWithLocale:currentLocale];
+    self.audioDataSource.cellIdentifier = [VLCPlaybackInfoTVCollectionViewCell identifier];
     self.subtitleDataSource.title = [NSLocalizedString(@"SUBTITLES", nil) uppercaseStringWithLocale:currentLocale];
-
+    self.subtitleDataSource.cellIdentifier = [VLCPlaybackInfoTVCollectionViewCell identifier];
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(mediaPlayerChanged) name:VLCPlaybackControllerPlaybackMetadataDidChange object:nil];
 }
 
@@ -87,27 +84,6 @@
 
 @end
 
-@implementation VLCPlaybackInfoTracksDataSource
-- (VLCMediaPlayer *)mediaPlayer
-{
-    return [VLCPlaybackController sharedInstance].mediaPlayer;
-}
-
-- (UICollectionReusableView *)collectionView:(UICollectionView *)collectionView viewForSupplementaryElementOfKind:(NSString *)kind atIndexPath:(NSIndexPath *)indexPath
-{
-    VLCPlaybackInfoTrackTVTitleView *header = [collectionView dequeueReusableSupplementaryViewOfKind:UICollectionElementKindSectionHeader withReuseIdentifier:[VLCPlaybackInfoTrackTVTitleView identifier] forIndexPath:indexPath];
-
-    BOOL showTitle = [collectionView numberOfItemsInSection:indexPath.section] != 0;
-    header.titleLabel.text = showTitle ? self.title : nil;
-    return header;
-}
-
-- (UICollectionViewCell *)collectionView:(UICollectionView *)collectionView cellForItemAtIndexPath:(NSIndexPath *)indexPath
-{
-    return [collectionView dequeueReusableCellWithReuseIdentifier:[VLCPlaybackInfoTrackTVCell identifier] forIndexPath:indexPath];
-}
-@end
-
 @implementation VLCPlaybackInfoTracksDataSourceAudio
 - (NSInteger)collectionView:(UICollectionView *)collectionView numberOfItemsInSection:(NSInteger)section
 {
@@ -116,7 +92,7 @@
 
 - (void)collectionView:(UICollectionView *)collectionView willDisplayCell:(UICollectionViewCell *)cell forItemAtIndexPath:(NSIndexPath *)indexPath
 {
-    VLCPlaybackInfoTrackTVCell *trackCell = (VLCPlaybackInfoTrackTVCell*)cell;
+    VLCPlaybackInfoTVCollectionViewCell *trackCell = (VLCPlaybackInfoTVCollectionViewCell*)cell;
     NSInteger row = indexPath.row;
     BOOL isSelected = [self.mediaPlayer.audioTrackIndexes[row] intValue] == self.mediaPlayer.currentAudioTrackIndex;
     trackCell.selectionMarkerVisible = isSelected;
@@ -144,7 +120,7 @@
 }
 - (void)collectionView:(UICollectionView *)collectionView willDisplayCell:(UICollectionViewCell *)cell forItemAtIndexPath:(NSIndexPath *)indexPath
 {
-    VLCPlaybackInfoTrackTVCell *trackCell = (VLCPlaybackInfoTrackTVCell*)cell;
+    VLCPlaybackInfoTVCollectionViewCell *trackCell = (VLCPlaybackInfoTVCollectionViewCell*)cell;
     NSInteger row = indexPath.row;
     BOOL isSelected = [self.mediaPlayer.videoSubTitlesIndexes[row] intValue] == self.mediaPlayer.currentVideoSubTitleIndex;
     trackCell.selectionMarkerVisible = isSelected;

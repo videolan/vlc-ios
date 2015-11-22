@@ -9,12 +9,12 @@
  * Refer to the COPYING file of the official project for license.
  *****************************************************************************/
 
-#import <UIKit/UIKit.h>
+#import <Foundation/Foundation.h>
 
-@interface VLCPlaybackInfoTrackTVTitleView : UICollectionReusableView
-@property (nonatomic) UILabel *titleLabel;
+@interface VLCPlaybackInfoCollectionViewDataSource : NSObject
+@property (nonatomic, readonly) VLCMediaPlayer *mediaPlayer;
+@property (nonatomic) NSString *title;
+@property (nonatomic) NSString *cellIdentifier;
 
-+ (void)registerInCollectionView:(UICollectionView *)collectionView;
-+ (NSString *)identifier;
-
+- (UICollectionViewCell *)collectionView:(UICollectionView *)collectionView cellForItemAtIndexPath:(NSIndexPath *)indexPath;
 @end

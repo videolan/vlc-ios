@@ -9,9 +9,9 @@
  * Refer to the COPYING file of the official project for license.
  *****************************************************************************/
 
-#import "VLCPlaybackInfoTrackTVTitleView.h"
+#import "VLCPlaybackInfoTVCollectionSectionTitleView.h"
 
-@implementation VLCPlaybackInfoTrackTVTitleView
+@implementation VLCPlaybackInfoTVCollectionSectionTitleView
 
 - (instancetype)initWithFrame:(CGRect)frame
 {
@@ -34,7 +34,7 @@
 
 + (NSString *)identifier
 {
-    return @"VLCPlaybackInfoTrackTVTitleView";
+    return @"VLCPlaybackInfoTVCollectionSectionTitleView";
 }
 
 

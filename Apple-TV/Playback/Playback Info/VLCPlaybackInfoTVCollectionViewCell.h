@@ -11,7 +11,7 @@
 
 #import <UIKit/UIKit.h>
 
-@interface VLCPlaybackInfoTrackTVCell : UICollectionViewCell
+@interface VLCPlaybackInfoTVCollectionViewCell : UICollectionViewCell
 @property (nonatomic) IBOutlet UILabel *selectionMarkerView;
 @property (nonatomic) IBOutlet UILabel *titleLabel;
 @property (nonatomic) BOOL selectionMarkerVisible;

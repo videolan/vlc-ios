@@ -9,13 +9,13 @@
  * Refer to the COPYING file of the official project for license.
  *****************************************************************************/
 
-#import "VLCPlaybackInfoTrackTVCell.h"
+#import "VLCPlaybackInfoTVCollectionViewCell.h"
 
-@implementation VLCPlaybackInfoTrackTVCell
+@implementation VLCPlaybackInfoTVCollectionViewCell
 
 + (NSString *)identifier
 {
-    return @"VLCPlaybackInfoTrackTVCell";
+    return @"VLCPlaybackInfoTVCollectionViewCell";
 }
 
 - (void)awakeFromNib
