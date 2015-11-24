@@ -73,6 +73,12 @@ NSString *const VLCNetworkServerProtocolIdentifierSMB = @"smb";
 
 + (instancetype)SMBNetworkServerBrowserWithURL:(NSURL *)url username:(NSString *)username password:(NSString *)password workgroup:(NSString *)workgroup {
 
+    BOOL guestLogin = username.length == 0 && password.length == 0;
+    if (guestLogin) {
+        username = @"Guest";
+        password = @"Guest";
+    }
+
 	VLCMedia *media = [VLCMedia mediaWithURL:url];
 	NSDictionary *mediaOptions = @{@"smb-user" : username ?: @"",
 								   @"smb-pwd" : password ?: @"",
