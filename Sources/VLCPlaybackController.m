@@ -574,9 +574,11 @@ NSString *const VLCPlaybackControllerPlaybackPositionUpdated = @"VLCPlaybackCont
         _mediaPlayer.media.delegate = self;
 
         /* on-the-fly values through hidden API */
-        [_mediaPlayer performSelector:@selector(setTextRendererFont:) withObject:[self _resolveFontName]];
-        [_mediaPlayer performSelector:@selector(setTextRendererFontSize:) withObject:[[NSUserDefaults standardUserDefaults] objectForKey:kVLCSettingSubtitlesFontSize]];
-        [_mediaPlayer performSelector:@selector(setTextRendererFontColor:) withObject:[[NSUserDefaults standardUserDefaults] objectForKey:kVLCSettingSubtitlesFontColor]];
+        NSUserDefaults *defaults = [NSUserDefaults standardUserDefaults];
+        [_mediaPlayer performSelector:@selector(setTextRendererFont:) withObject:[defaults objectForKey:kVLCSettingSubtitlesFont]];
+        [_mediaPlayer performSelector:@selector(setTextRendererFontSize:) withObject:[defaults objectForKey:kVLCSettingSubtitlesFontSize]];
+        [_mediaPlayer performSelector:@selector(setTextRendererFontColor:) withObject:[defaults objectForKey:kVLCSettingSubtitlesFontColor]];
+        [_mediaPlayer performSelector:@selector(setTextRendererFontForceBold:) withObject:[defaults objectForKey:kVLCSettingSubtitlesBoldFont]];
     } else if (currentState == VLCMediaPlayerStateError) {
         APLog(@"Playback failed");
         _playbackFailed = YES;
@@ -1232,45 +1234,6 @@ static inline NSArray * RemoteCommandCenterCommandsToHandle(MPRemoteCommandCente
 }
 
 #pragma mark - helpers
-
-- (NSString *)_resolveFontName
-{
-    NSUserDefaults *defaults = [NSUserDefaults standardUserDefaults];
-    BOOL bold = [[defaults objectForKey:kVLCSettingSubtitlesBoldFont] boolValue];
-    NSString *font = [defaults objectForKey:kVLCSettingSubtitlesFont];
-    NSDictionary *fontMap = @{
-                              @"AmericanTypewriter":   @"AmericanTypewriter-Bold",
-                              @"ArialMT":              @"Arial-BoldMT",
-                              @"ArialHebrew":          @"ArialHebrew-Bold",
-                              @"ChalkboardSE-Regular": @"ChalkboardSE-Bold",
-                              @"CourierNewPSMT":       @"CourierNewPS-BoldMT",
-                              @"Georgia":              @"Georgia-Bold",
-                              @"GillSans":             @"GillSans-Bold",
-                              @"GujaratiSangamMN":     @"GujaratiSangamMN-Bold",
-                              @"STHeitiSC-Light":      @"STHeitiSC-Medium",
-                              @"STHeitiTC-Light":      @"STHeitiTC-Medium",
-                              @"HelveticaNeue":        @"HelveticaNeue-Bold",
-                              @"HiraKakuProN-W3":      @"HiraKakuProN-W6",
-                              @"HiraMinProN-W3":       @"HiraMinProN-W6",
-                              @"HoeflerText-Regular":  @"HoeflerText-Black",
-                              @"Kailasa":              @"Kailasa-Bold",
-                              @"KannadaSangamMN":      @"KannadaSangamMN-Bold",
-                              @"MalayalamSangamMN":    @"MalayalamSangamMN-Bold",
-                              @"OriyaSangamMN":        @"OriyaSangamMN-Bold",
-                              @"SinhalaSangamMN":      @"SinhalaSangamMN-Bold",
-                              @"SnellRoundhand":       @"SnellRoundhand-Bold",
-                              @"TamilSangamMN":        @"TamilSangamMN-Bold",
-                              @"TeluguSangamMN":       @"TeluguSangamMN-Bold",
-                              @"TimesNewRomanPSMT":    @"TimesNewRomanPS-BoldMT",
-                              @"Zapfino":              @"Zapfino"
-                              };
-
-    if (!bold) {
-        return font;
-    } else {
-        return fontMap[font];
-    }
-}
 
 - (NSDictionary *)mediaOptionsDictionary
 {
