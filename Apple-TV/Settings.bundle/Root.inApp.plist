@@ -123,58 +123,67 @@
 			<string>Helvetica Neue</string>
 			<key>Titles</key>
 			<array>
-				<string>American Typewriter</string>
-				<string>Arial</string>
+				<string>Apple SD Gothic Neo</string>
 				<string>Arial Hebrew</string>
-				<string>Chalkboard SE</string>
+				<string>Avenir</string>
+				<string>Avenir Next</string>
+				<string>Courier</string>
 				<string>Courier New</string>
-				<string>Georgia</string>
-				<string>Gill Sans</string>
+				<string>DIN Alternate</string>
+				<string>DIN Condensed</string>
+				<string>Euphemia UCAS</string>
+				<string>Geeza Pro</string>
 				<string>Gujarati Sangam MN</string>
-				<string>Heiti SC</string>
-				<string>Heiti TC</string>
+				<string>Gurmukhi MN</string>
+				<string>Helvetica</string>
 				<string>Helvetica Neue</string>
 				<string>Hiragino Kaku Gothic ProN</string>
-				<string>Hiragino Mincho ProN</string>
-				<string>Hoefler Text</string>
 				<string>Kailasa</string>
 				<string>Kannada Sangam MN</string>
+				<string>Khmer Sangam MN</string>
+				<string>Kohinoor Bangla</string>
+				<string>Kohinoor Telugu</string>
+				<string>Lao Sangam MN</string>
 				<string>Malayalam Sangam MN</string>
 				<string>Oriya Sangam MN</string>
 				<string>Sinhala Sangam MN</string>
-				<string>Snell Roundhand</string>
+				<string>Symbol</string>
 				<string>Tamil Sangam MN</string>
-				<string>Telugu Sangam MN</string>
 				<string>Times New Roman</string>
-				<string>Zapfino</string>
+				<string>Zapf Dingbats</string>
 			</array>
 			<key>Values</key>
 			<array>
-				<string>AmericanTypewriter</string>
-				<string>ArialMT</string>
-				<string>ArialHebrew</string>
-				<string>ChalkboardSE-Regular</string>
-				<string>CourierNewPSMT</string>
-				<string>Georgia</string>
-				<string>GillSans</string>
-				<string>GujaratiSangamMN</string>
-				<string>STHeitiSC-Light</string>
-				<string>STHeitiTC-Light</string>
-				<string>HelveticaNeue</string>
-				<string>HiraKakuProN-W3</string>
-				<string>HiraMinProN-W3</string>
-				<string>HoeflerText-Regular</string>
+				<string>Apple SD Gothic Neo</string>
+				<string>Arial Hebrew</string>
+				<string>Avenir</string>
+				<string>Avenir Next</string>
+				<string>Courier</string>
+				<string>Courier New</string>
+				<string>DIN Alternate</string>
+				<string>DIN Condensed</string>
+				<string>Euphemia UCAS</string>
+				<string>Geeza Pro</string>
+				<string>Gujarati Sangam MN</string>
+				<string>Gurmukhi MN</string>
+				<string>Helvetica</string>
+				<string>Helvetica Neue</string>
+				<string>Hiragino Kaku Gothic ProN</string>
 				<string>Kailasa</string>
-				<string>KannadaSangamMN</string>
-				<string>MalayalamSangamMN</string>
-				<string>OriyaSangamMN</string>
-				<string>SinhalaSangamMN</string>
-				<string>SnellRoundhand</string>
-				<string>TamilSangamMN</string>
-				<string>TeluguSangamMN</string>
-				<string>TimesNewRomanPSMT</string>
-				<string>Zapfino</string>
+				<string>Kannada Sangam MN</string>
+				<string>Khmer Sangam MN</string>
+				<string>Kohinoor Bangla</string>
+				<string>Kohinoor Telugu</string>
+				<string>Lao Sangam MN</string>
+				<string>Malayalam Sangam MN</string>
+				<string>Oriya Sangam MN</string>
+				<string>Sinhala Sangam MN</string>
+				<string>Symbol</string>
+				<string>Tamil Sangam MN</string>
+				<string>Times New Roman</string>
+				<string>Zapf Dingbats</string>
 			</array>
+
 		</dict>
 		<dict>
 			<key>Type</key>
