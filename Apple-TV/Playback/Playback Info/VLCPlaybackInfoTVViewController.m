@@ -22,16 +22,32 @@
 @implementation VLCPlaybackInfoTVTabBarController
 @end
 
+@interface VLCPlaybackInfoTVViewController ()
+{
+    VLCPlaybackInfoMediaInfoTVViewController *_mediaInfoVC;
+    VLCPlaybackInfoChaptersTVViewController *_chaptersVC;
+    VLCPlaybackInfoTracksTVViewController *_tracksVC;
+    VLCPlaybackInfoRateTVViewController *_rateVC;
+}
+@end
+
 @implementation VLCPlaybackInfoTVViewController
 
 - (NSArray<UIViewController*>*)tabViewControllers
 {
-    return @[
-             [[VLCPlaybackInfoMediaInfoTVViewController alloc] initWithNibName:nil bundle:nil],
-             [[VLCPlaybackInfoChaptersTVViewController alloc] initWithNibName:nil bundle:nil],
-             [[VLCPlaybackInfoTracksTVViewController alloc] initWithNibName:nil bundle:nil],
-             [[VLCPlaybackInfoRateTVViewController alloc] initWithNibName:nil bundle:nil],
-             ];
+    VLCPlaybackController *vpc = [VLCPlaybackController sharedInstance];
+    NSMutableArray *vcArray = [NSMutableArray arrayWithObject:_mediaInfoVC];
+
+    if (vpc.mediaPlayer.isSeekable)
+        [vcArray addObject:_rateVC];
+
+    if (vpc.currentMediaHasTrackToChooseFrom)
+        [vcArray addObject:_tracksVC];
+
+    if (vpc.currentMediaHasChapters)
+        [vcArray addObject:_chaptersVC];
+
+    return [vcArray copy];
 }
 
 - (instancetype)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil
@@ -49,9 +65,13 @@
 
     [self setupTabBarItemAppearance];
 
+    _mediaInfoVC = [[VLCPlaybackInfoMediaInfoTVViewController alloc] initWithNibName:nil bundle:nil];
+    _chaptersVC = [[VLCPlaybackInfoChaptersTVViewController alloc] initWithNibName:nil bundle:nil];
+    _tracksVC = [[VLCPlaybackInfoTracksTVViewController alloc] initWithNibName:nil bundle:nil];
+    _rateVC = [[VLCPlaybackInfoRateTVViewController alloc] initWithNibName:nil bundle:nil];
+
     UITabBarController *controller = [[VLCPlaybackInfoTVTabBarController alloc] init];
     controller.delegate = self;
-    controller.viewControllers = [self tabViewControllers];
     self.tabBarController = controller;
 
     [self addChildViewController:controller];
@@ -64,6 +84,12 @@
     swipeUpRecognizer.direction = UISwipeGestureRecognizerDirectionUp;
     swipeUpRecognizer.delegate = self;
     [self.view addGestureRecognizer:swipeUpRecognizer];
+}
+
+- (void)viewWillAppear:(BOOL)animated
+{
+    self.tabBarController.viewControllers = [self tabViewControllers];
+    [super viewWillAppear:animated];
 }
 
 - (BOOL)shouldAutomaticallyForwardAppearanceMethods
