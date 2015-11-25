@@ -88,6 +88,8 @@ static NSString *const VLCWiggleAnimationKey = @"VLCWiggleAnimation";
     self.playPausePressRecognizer = playPauseRecognizer;
     [self.view addGestureRecognizer:playPauseRecognizer];
 
+    self.cachedMediaLabel.text = NSLocalizedString(@"CACHED_MEDIA", nil);
+    self.cachedMediaLongLabel.text = NSLocalizedString(@"CACHED_MEDIA_LONG", nil);
 }
 
 - (void)viewDidLayoutSubviews
