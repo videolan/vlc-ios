@@ -119,6 +119,10 @@ typedef NS_ENUM(NSInteger, VLCPlayerScanState)
     self.simultaneousGestureRecognizers = simultaneousGestureRecognizers;
 
     self.audioView.hidden = YES;
+    self.audioDescriptionTextView.text = nil;
+    self.audioTitleLabel.text = nil;
+    self.audioArtworkImageView.image = [UIImage imageNamed:@"about-app-icon"];
+    self.audioLargeBackgroundImageView.image = [UIImage imageNamed:@"about-app-icon"];
     self.audioArtworkImageView.animateImageSetting = YES;
     self.audioLargeBackgroundImageView.animateImageSetting = YES;
 }
