@@ -546,6 +546,8 @@ typedef NS_ENUM(NSInteger, VLCPanType) {
     _controlsHidden = hidden;
     CGFloat alpha = _controlsHidden? 0.0f: 1.0f;
 
+    [self.controlPanelController beginAppearanceTransition:hidden animated:animated];
+
     if (!_controlsHidden) {
         _controllerPanel.alpha = 0.0f;
         _controllerPanel.hidden = !_videoFiltersHidden;
@@ -602,6 +604,8 @@ typedef NS_ENUM(NSInteger, VLCPanType) {
         _artistNameLabel.hidden = _audioOnly ? NO : _controlsHidden;
         _albumNameLabel.hidden =  _audioOnly ? NO : _controlsHidden;
         _trackNameLabel.hidden =  _audioOnly ? NO : _controlsHidden;
+
+        [self.controlPanelController endAppearanceTransition];
     };
 
     UIStatusBarAnimation animationType = animated? UIStatusBarAnimationFade: UIStatusBarAnimationNone;

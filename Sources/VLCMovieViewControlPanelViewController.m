@@ -65,6 +65,18 @@ static const CGFloat maxCompactWidth = 420.0;
     _compactMode = YES;
     [self setupConstraints:YES];
 }
+- (void)viewWillAppear:(BOOL)animated
+{
+    [super viewWillAppear:animated];
+    self.volumeView.hidden = NO;
+}
+
+- (void)viewDidDisappear:(BOOL)animated
+{
+    [super viewDidDisappear:animated];
+    self.volumeView.hidden = YES;
+}
+
 
 - (void) viewWillLayoutSubviews {
     [super viewWillLayoutSubviews];
