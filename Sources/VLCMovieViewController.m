@@ -546,7 +546,7 @@ typedef NS_ENUM(NSInteger, VLCPanType) {
     _controlsHidden = hidden;
     CGFloat alpha = _controlsHidden? 0.0f: 1.0f;
 
-    [self.controlPanelController beginAppearanceTransition:hidden animated:animated];
+    [self.controlPanelController beginAppearanceTransition:!hidden animated:animated];
 
     if (!_controlsHidden) {
         _controllerPanel.alpha = 0.0f;
