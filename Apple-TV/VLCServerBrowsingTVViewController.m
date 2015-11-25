@@ -17,6 +17,9 @@
 #import "VLCMaskView.h"
 
 @interface VLCServerBrowsingTVViewController ()
+{
+    UILabel *_nothingFoundLabel;
+}
 @property (nonatomic, readonly) id<VLCNetworkServerBrowser>serverBrowser;
 @property (nonatomic) VLCServerBrowsingController *browsingController;
 @end
@@ -33,6 +36,32 @@
         _browsingController = [[VLCServerBrowsingController alloc] initWithViewController:self serverBrowser:serverBrowser];
 
         self.title = serverBrowser.title;
+
+        _nothingFoundLabel = [[UILabel alloc] init];
+        _nothingFoundLabel.text = NSLocalizedString(@"FOLDER_EMPTY", nil);
+        _nothingFoundLabel.textAlignment = NSTextAlignmentCenter;
+        _nothingFoundLabel.textColor = [UIColor VLCLightTextColor];
+        _nothingFoundLabel.font = [UIFont preferredFontForTextStyle:UIFontTextStyleTitle3];
+        [_nothingFoundLabel sizeToFit];
+        [_nothingFoundLabel setTranslatesAutoresizingMaskIntoConstraints:NO];
+        [self.view addSubview:_nothingFoundLabel];
+
+        NSLayoutConstraint *yConstraint = [NSLayoutConstraint constraintWithItem:_nothingFoundLabel
+                                                                       attribute:NSLayoutAttributeCenterY
+                                                                       relatedBy:NSLayoutRelationEqual
+                                                                          toItem:self.view
+                                                                       attribute:NSLayoutAttributeCenterY
+                                                                      multiplier:1.0
+                                                                        constant:0.0];
+        [self.view addConstraint:yConstraint];
+        NSLayoutConstraint *xConstraint = [NSLayoutConstraint constraintWithItem:_nothingFoundLabel
+                                                                       attribute:NSLayoutAttributeCenterX
+                                                                       relatedBy:NSLayoutRelationEqual
+                                                                          toItem:self.view
+                                                                       attribute:NSLayoutAttributeCenterX
+                                                                      multiplier:1.0
+                                                                        constant:0.0];
+        [self.view addConstraint:xConstraint];
     }
     return self;
 }
@@ -56,6 +85,7 @@
 {
     self.title = networkBrowser.title;
     [self.collectionView reloadData];
+    _nothingFoundLabel.hidden = [self.serverBrowser items].count > 0;
 }
 
 - (void)networkServerBrowser:(id<VLCNetworkServerBrowser>)networkBrowser requestDidFailWithError:(NSError *)error {
