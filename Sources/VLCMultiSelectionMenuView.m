@@ -18,7 +18,6 @@
     UIButton *_chapterSelectorButton;
     UIButton *_repeatButton;
     UIButton *_lockButton;
-    UIButton *_shuffleButton;
 
     BOOL _showsEQ;
 }
@@ -55,15 +54,9 @@
         _repeatButton.autoresizingMask = UIViewAutoresizingFlexibleTopMargin;
         [self addSubview:_repeatButton];
 
-        _shuffleButton = [UIButton buttonWithType:UIButtonTypeCustom];
-        [_shuffleButton setTitle:@"S" forState:UIControlStateNormal];
-        _shuffleButton.frame = CGRectMake(spacer, 4. * spacer + buttonHeight * 3., buttonWidth, buttonHeight);
-        [_shuffleButton addTarget:self action:@selector(shuffleAction:) forControlEvents:UIControlEventTouchUpInside];
-        [self addSubview:_shuffleButton];
-
         _lockButton = [UIButton buttonWithType:UIButtonTypeCustom];
         [_lockButton setImage:[UIImage imageNamed:@"lock"] forState:UIControlStateNormal];
-        _lockButton.frame = CGRectMake(spacer, 5. * spacer + buttonHeight * 4., buttonWidth, buttonHeight);
+        _lockButton.frame = CGRectMake(spacer, 4. * spacer + buttonHeight * 3., buttonWidth, buttonHeight);
         [_lockButton addTarget:self action:@selector(lockAction:) forControlEvents:UIControlEventTouchUpInside];
         _lockButton.autoresizingMask = UIViewAutoresizingFlexibleTopMargin;
         [self addSubview:_lockButton];
@@ -93,11 +86,8 @@
             workFrame = _repeatButton.frame;
             workFrame.origin.y = spacer * 3. + buttonHeight * 2.;
             _repeatButton.frame = workFrame;
-            workFrame = _shuffleButton.frame;
-            workFrame.origin.y = spacer * 4. + buttonHeight * 3.;
-            _shuffleButton.frame = workFrame;
             workFrame = _lockButton.frame;
-            workFrame.origin.y = spacer * 5. + buttonHeight * 4.;
+            workFrame.origin.y = spacer * 4. + buttonHeight * 3.;
             _lockButton.frame = workFrame;
         } else {
             height = 4. * spacer + 3. * buttonHeight;
@@ -109,11 +99,8 @@
             workFrame = _repeatButton.frame;
             workFrame.origin.y = spacer * 2. + buttonHeight;
             _repeatButton.frame = workFrame;
-            workFrame = _shuffleButton.frame;
-            workFrame.origin.y = spacer * 3. + buttonHeight * 2.;
-            _shuffleButton.frame = workFrame;
             workFrame = _lockButton.frame;
-            workFrame.origin.y = spacer * 4. + buttonHeight * 3.;
+            workFrame.origin.y = spacer * 3. + buttonHeight * 2.;
             _lockButton.frame = workFrame;
         }
     } else {
@@ -127,11 +114,8 @@
             workFrame = _repeatButton.frame;
             workFrame.origin.y = spacer * 2. + buttonHeight;
             _repeatButton.frame = workFrame;
-            workFrame = _shuffleButton.frame;
-            workFrame.origin.y = spacer * 3. + buttonHeight * 2.;
-            _shuffleButton.frame = workFrame;
             workFrame = _lockButton.frame;
-            workFrame.origin.y = spacer * 4. + buttonHeight * 3.;
+            workFrame.origin.y = spacer * 3. + buttonHeight * 2.;
             _lockButton.frame = workFrame;
         } else {
             height = 3. * spacer + 2. * buttonHeight;
@@ -140,11 +124,8 @@
             workFrame = _repeatButton.frame;
             workFrame.origin.y = spacer;
             _repeatButton.frame = workFrame;
-            workFrame = _shuffleButton.frame;
-            workFrame.origin.y = spacer * 2. + buttonHeight;
-            _shuffleButton.frame = workFrame;
             workFrame = _lockButton.frame;
-            workFrame.origin.y = spacer * 3. + buttonHeight * 2.;
+            workFrame.origin.y = spacer * 2. + buttonHeight;
             _lockButton.frame = workFrame;
         }
     }
@@ -177,15 +158,6 @@
         [_lockButton setBackgroundColor:[UIColor clearColor]];
 }
 
-- (void)setDisplayShuffle:(BOOL)displayShuffle
-{
-    // FIXME: fix icon state
-    if (displayShuffle)
-        [_shuffleButton setBackgroundColor:[UIColor VLCOrangeTintColor]];
-    else
-        [_shuffleButton setBackgroundColor:[UIColor clearColor]];
-}
-
 - (void)equalizerAction:(id)sender
 {
     [self.delegate toggleEqualizer];
@@ -201,11 +173,6 @@
 - (void)repeatAction:(id)sender
 {
     [self.delegate toggleRepeatMode];
-}
-
-- (void)shuffleAction:(id)sender
-{
-    [self.delegate toggleShuffleMode];
 }
 
 - (void)lockAction:(id)sender

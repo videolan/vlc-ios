@@ -97,7 +97,6 @@
 - (void)toggleEqualizer;
 - (void)toggleUILock;
 - (void)toggleChapterAndTitleSelector;
-- (void)toggleShuffleMode;
 - (void)hideMenu;
 
 - (BOOL)rotationIsDisabled;

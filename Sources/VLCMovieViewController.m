@@ -1093,13 +1093,6 @@ currentMediaHasTrackToChooseFrom:(BOOL)currentMediaHasTrackToChooseFrom
     _multiSelectionView.repeatMode = nextRepeatMode;
 }
 
-- (void)toggleShuffleMode
-{
-    LOCKCHECK;
-
-    // FIXME: missing implementation
-}
-
 - (void)hideMenu
 {
     [UIView animateWithDuration:.2

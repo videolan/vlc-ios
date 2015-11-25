@@ -15,7 +15,6 @@
 - (void)toggleEqualizer;
 - (void)toggleChapterAndTitleSelector;
 - (void)toggleRepeatMode;
-- (void)toggleShuffleMode;
 - (void)hideMenu;
 
 @end
@@ -30,7 +29,6 @@
 @property (nonatomic, assign) VLCRepeatMode repeatMode;
 
 - (void)setDisplayLock:(BOOL)displayLock;
-- (void)setDisplayShuffle:(BOOL)displayShuffle;
 - (CGSize)proposedDisplaySize;
 
 @end
