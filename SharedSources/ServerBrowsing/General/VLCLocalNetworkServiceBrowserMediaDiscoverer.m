@@ -44,6 +44,9 @@
     }
     VLCMediaDiscoverer *discoverer = [[VLCMediaDiscoverer alloc] initWithName:self.serviceName];
     self.mediaDiscoverer = discoverer;
+    /* enable this boolean to debug the discovery session
+     * note that this will not necessarily enable debug for playback */
+    self.mediaDiscoverer.libraryInstance.debugLogging = YES;
     [discoverer startDiscoverer];
     discoverer.discoveredMedia.delegate = self;
 
