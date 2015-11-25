@@ -257,16 +257,31 @@
 			<string>Helvetica Neue</string>
 			<key>Titles</key>
 			<array>
+				<string>Al Nile</string>
 				<string>American Typewriter</string>
+				<string>American Typewriter Condensed</string>
+				<string>Apple SD Gothic Neo</string>
 				<string>Arial</string>
 				<string>Arial Hebrew</string>
+				<string>Avenir</string>
+				<string>Avenir Next</string>
+				<string>Bangla Sangam MN</string>
+				<string>Baskerville</string>
 				<string>Chalkboard SE</string>
+				<string>Chalkduster</string>
+				<string>Cochin</string>
+				<string>Copperplate</string>
 				<string>Courier New</string>
+				<string>DIN Alternate</string>
+				<string>Euphemia UCAS</string>
+				<string>Futura</string>
 				<string>Georgia</string>
 				<string>Gill Sans</string>
 				<string>Gujarati Sangam MN</string>
+				<string>Gurmukhi MN</string>
 				<string>Heiti SC</string>
 				<string>Heiti TC</string>
+				<string>Helvetica</string>
 				<string>Helvetica Neue</string>
 				<string>Hiragino Kaku Gothic ProN</string>
 				<string>Hiragino Mincho ProN</string>
@@ -274,39 +289,66 @@
 				<string>Kailasa</string>
 				<string>Kannada Sangam MN</string>
 				<string>Malayalam Sangam MN</string>
+				<string>Marion</string>
+				<string>Menlo</string>
+				<string>Optima</string>
 				<string>Oriya Sangam MN</string>
 				<string>Sinhala Sangam MN</string>
 				<string>Snell Roundhand</string>
+				<string>Superclarendon</string>
 				<string>Tamil Sangam MN</string>
 				<string>Telugu Sangam MN</string>
 				<string>Times New Roman</string>
+				<string>Trebuchet MS</string>
+				<string>Zapf Dingbats</string>
 				<string>Zapfino</string>
 			</array>
 			<key>Values</key>
 			<array>
-				<string>AmericanTypewriter</string>
-				<string>ArialMT</string>
-				<string>ArialHebrew</string>
-				<string>ChalkboardSE-Regular</string>
-				<string>CourierNewPSMT</string>
+				<string>Al Nile</string>
+				<string>American Typewriter</string>
+				<string>American Typewriter Condensed</string>
+				<string>Apple SD Gothic Neo</string>
+				<string>Arial</string>
+				<string>Arial Hebrew</string>
+				<string>Avenir</string>
+				<string>Avenir Next</string>
+				<string>Bangla Sangam MN</string>
+				<string>Baskerville</string>
+				<string>Chalkboard SE</string>
+				<string>Chalkduster</string>
+				<string>Cochin</string>
+				<string>Copperplate</string>
+				<string>Courier New</string>
+				<string>DIN Alternate</string>
+				<string>Euphemia UCAS</string>
+				<string>Futura</string>
 				<string>Georgia</string>
-				<string>GillSans</string>
-				<string>GujaratiSangamMN</string>
-				<string>STHeitiSC-Light</string>
-				<string>STHeitiTC-Light</string>
-				<string>HelveticaNeue</string>
-				<string>HiraKakuProN-W3</string>
-				<string>HiraMinProN-W3</string>
-				<string>HoeflerText-Regular</string>
+				<string>Gill Sans</string>
+				<string>Gujarati Sangam MN</string>
+				<string>Gurmukhi MN</string>
+				<string>Heiti SC</string>
+				<string>Heiti TC</string>
+				<string>Helvetica</string>
+				<string>Helvetica Neue</string>
+				<string>Hiragino Kaku Gothic ProN</string>
+				<string>Hiragino Mincho ProN</string>
+				<string>Hoefler Text</string>
 				<string>Kailasa</string>
-				<string>KannadaSangamMN</string>
-				<string>MalayalamSangamMN</string>
-				<string>OriyaSangamMN</string>
-				<string>SinhalaSangamMN</string>
-				<string>SnellRoundhand</string>
-				<string>TamilSangamMN</string>
-				<string>TeluguSangamMN</string>
-				<string>TimesNewRomanPSMT</string>
+				<string>Kannada Sangam MN</string>
+				<string>Malayalam Sangam MN</string>
+				<string>Marion</string>
+				<string>Menlo</string>
+				<string>Optima</string>
+				<string>Oriya Sangam MN</string>
+				<string>Sinhala Sangam MN</string>
+				<string>Snell Roundhand</string>
+				<string>Superclarendon</string>
+				<string>Tamil Sangam MN</string>
+				<string>Telugu Sangam MN</string>
+				<string>Times New Roman</string>
+				<string>Trebuchet MS</string>
+				<string>Zapf Dingbats</string>
 				<string>Zapfino</string>
 			</array>
 		</dict>
