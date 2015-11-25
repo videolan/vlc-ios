@@ -76,7 +76,7 @@ NSString *const VLCNetworkServerProtocolIdentifierSMB = @"smb";
     BOOL guestLogin = username.length == 0 && password.length == 0;
     if (guestLogin) {
         username = @"Guest";
-        password = @"Guest";
+        password = @"";
     }
 
 	VLCMedia *media = [VLCMedia mediaWithURL:url];
