@@ -20,12 +20,19 @@ PODS:
   - CocoaHTTPServer (2.3)
   - HockeySDK (3.6.4)
   - InAppSettingsKit (2.2.2)
-  - MetaDataFetcherKit (0.1.6):
+  - MetaDataFetcherKit (0.2.0):
     - AFNetworking (= 3.0.0-beta.1)
+    - OROpenSubtitleDownloader
+  - NSData+Base64 (1.0.0)
   - OBSlider (1.1.0)
+  - OROpenSubtitleDownloader (1.2.0):
+    - AFNetworking
+    - xmlrpc
   - RESideMenu (4.0.7)
   - SSKeychain (1.2.3)
   - upnpx (1.3.6)
+  - xmlrpc (2.3.4):
+    - NSData+Base64 (~> 1.0.0)
 
 DEPENDENCIES:
   - box-ios-sdk-v2 (from `git://github.com/fkuehne/box-ios-sdk-v2.git`)
@@ -33,8 +40,9 @@ DEPENDENCIES:
   - HockeySDK (~> 3.6.4)
   - InAppSettingsKit (from `git://github.com/fkuehne/InAppSettingsKit.git`, commit
     `415ea6bb`)
-  - MetaDataFetcherKit (~> 0.1.6)
+  - MetaDataFetcherKit (from `https://code.videolan.org/fkuehne/MetaDataFetcherKit.git`)
   - OBSlider (= 1.1.0)
+  - OROpenSubtitleDownloader (from `https://github.com/fkuehne/OROpenSubtitleDownloader.git`)
   - RESideMenu (~> 4.0.7)
   - SSKeychain (from `git://github.com/fkuehne/sskeychain.git`)
   - upnpx (~> 1.3.6)
@@ -47,6 +55,10 @@ EXTERNAL SOURCES:
   InAppSettingsKit:
     :commit: 415ea6bb
     :git: git://github.com/fkuehne/InAppSettingsKit.git
+  MetaDataFetcherKit:
+    :git: https://code.videolan.org/fkuehne/MetaDataFetcherKit.git
+  OROpenSubtitleDownloader:
+    :git: https://github.com/fkuehne/OROpenSubtitleDownloader.git
   SSKeychain:
     :git: git://github.com/fkuehne/sskeychain.git
 
@@ -60,6 +72,12 @@ CHECKOUT OPTIONS:
   InAppSettingsKit:
     :commit: 415ea6bb
     :git: git://github.com/fkuehne/InAppSettingsKit.git
+  MetaDataFetcherKit:
+    :commit: 314a580a342031f0ebbb1bf9bdf18235a01ec7fa
+    :git: https://code.videolan.org/fkuehne/MetaDataFetcherKit.git
+  OROpenSubtitleDownloader:
+    :commit: af46bf6a046293e2fec0231d7ebb4e5ecf21a555
+    :git: https://github.com/fkuehne/OROpenSubtitleDownloader.git
   SSKeychain:
     :commit: a8e9b21f96adf1ec296e51778ef137f0ea3bd078
     :git: git://github.com/fkuehne/sskeychain.git
@@ -70,10 +88,13 @@ SPEC CHECKSUMS:
   CocoaHTTPServer: 07df8b05a8bde406fe367d22c90a24a2fd4ca49f
   HockeySDK: c07cdd580296737edcd0963e292c19885a53f563
   InAppSettingsKit: 76d5cfbaa3e3f8aa53fe3628516da7eb1aa6a5cb
-  MetaDataFetcherKit: 9d6cf59e60dc8ef49d85b14f87447c52e21b62f3
+  MetaDataFetcherKit: 6cbb2f651c56e16015ec08535e090bc923deb6cb
+  NSData+Base64: 4e84902c4db907a15673474677e57763ef3903e4
   OBSlider: 490f108007bfdd5414a38650b211fe403a95b8a0
+  OROpenSubtitleDownloader: 390c86cd641ff849127cfa19b5cb8c72b715d5b1
   RESideMenu: f24c508404b49c667344c54aba7e590883533958
   SSKeychain: 3f42991739c6c60a9cf1bbd4dff6c0d3694bcf3d
   upnpx: 36b1f70f4e559f35b9e5a76b730deda8f0415104
+  xmlrpc: 109bb21d15ed6d108b2c1ac5973a6a223a50f5f4
 
 COCOAPODS: 0.39.0
