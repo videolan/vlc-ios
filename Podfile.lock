@@ -40,7 +40,8 @@ DEPENDENCIES:
   - HockeySDK (~> 3.6.4)
   - InAppSettingsKit (from `git://github.com/fkuehne/InAppSettingsKit.git`, commit
     `415ea6bb`)
-  - MetaDataFetcherKit (from `https://code.videolan.org/fkuehne/MetaDataFetcherKit.git`)
+  - MetaDataFetcherKit (from `https://code.videolan.org/fkuehne/MetaDataFetcherKit.git`,
+    commit `1aaf8e13`)
   - OBSlider (= 1.1.0)
   - OROpenSubtitleDownloader (from `https://github.com/fkuehne/OROpenSubtitleDownloader.git`)
   - RESideMenu (~> 4.0.7)
@@ -56,6 +57,7 @@ EXTERNAL SOURCES:
     :commit: 415ea6bb
     :git: git://github.com/fkuehne/InAppSettingsKit.git
   MetaDataFetcherKit:
+    :commit: 1aaf8e13
     :git: https://code.videolan.org/fkuehne/MetaDataFetcherKit.git
   OROpenSubtitleDownloader:
     :git: https://github.com/fkuehne/OROpenSubtitleDownloader.git
@@ -73,7 +75,7 @@ CHECKOUT OPTIONS:
     :commit: 415ea6bb
     :git: git://github.com/fkuehne/InAppSettingsKit.git
   MetaDataFetcherKit:
-    :commit: 314a580a342031f0ebbb1bf9bdf18235a01ec7fa
+    :commit: 1aaf8e13
     :git: https://code.videolan.org/fkuehne/MetaDataFetcherKit.git
   OROpenSubtitleDownloader:
     :commit: af46bf6a046293e2fec0231d7ebb4e5ecf21a555
