@@ -20,6 +20,7 @@
 {
     MDFOSOFetcher *_osoFetcher;
     NSArray <MDFSubtitleItem *>* _searchResults;
+    UIActivityIndicatorView *_activityIndicatorView;
 }
 @end
 
@@ -52,6 +53,30 @@
         [defaults synchronize];
     }
     _osoFetcher.subtitleLanguageId = selectedLocale;
+
+    _activityIndicatorView = [[UIActivityIndicatorView alloc] initWithActivityIndicatorStyle:UIActivityIndicatorViewStyleWhiteLarge];
+    [_activityIndicatorView sizeToFit];
+    [_activityIndicatorView setTranslatesAutoresizingMaskIntoConstraints:NO];
+    _activityIndicatorView.hidesWhenStopped = YES;
+    [self.view addSubview:_activityIndicatorView];
+
+    NSLayoutConstraint *yConstraint = [NSLayoutConstraint constraintWithItem:_activityIndicatorView
+                                                                   attribute:NSLayoutAttributeCenterY
+                                                                   relatedBy:NSLayoutRelationEqual
+                                                                      toItem:self.view
+                                                                   attribute:NSLayoutAttributeCenterY
+                                                                  multiplier:1.0
+                                                                    constant:0.0];
+    [self.view addConstraint:yConstraint];
+    NSLayoutConstraint *xConstraint = [NSLayoutConstraint constraintWithItem:_activityIndicatorView
+                                                                   attribute:NSLayoutAttributeCenterX
+                                                                   relatedBy:NSLayoutRelationEqual
+                                                                      toItem:self.view
+                                                                   attribute:NSLayoutAttributeCenterX
+                                                                  multiplier:1.0
+                                                                    constant:0.0];
+    [self.view addConstraint:xConstraint];
+
 }
 
 #pragma mark - OSO Fetcher delegation
@@ -66,6 +91,7 @@
 
 - (void)searchForMedia
 {
+    [self startActivity];
     VLCPlaybackController *vpc = [VLCPlaybackController sharedInstance];
     NSUserDefaults *defaults = [NSUserDefaults standardUserDefaults];
     _osoFetcher.subtitleLanguageId = [defaults stringForKey:kVLCSettingLastUsedSubtitlesSearchLanguage];
@@ -74,21 +100,25 @@
 
 - (void)MDFOSOFetcher:(MDFOSOFetcher *)aFetcher didFindSubtitles:(NSArray<MDFSubtitleItem *> *)subtitles forSearchRequest:(NSString *)searchRequest
 {
+    [self stopActivity];
     _searchResults = subtitles;
     [self.tableView reloadData];
 }
 
 - (void)MDFOSOFetcher:(MDFOSOFetcher *)aFetcher didFailToDownloadForItem:(MDFSubtitleItem *)subtitleItem
 {
+    [self stopActivity];
     // FIXME: missing error handling
     [self dismissViewControllerAnimated:YES completion:nil];
 }
 
 - (void)MDFOSOFetcher:(MDFOSOFetcher *)aFetcher subtitleDownloadSucceededForItem:(MDFSubtitleItem *)subtitleItem atPath:(NSString *)pathToFile
 {
+    [self stopActivity];
     VLCPlaybackController *vpc = [VLCPlaybackController sharedInstance];
     [vpc.mediaPlayer openVideoSubTitlesFromFile:pathToFile];
     [self dismissViewControllerAnimated:YES completion:nil];
+    [[NSNotificationCenter defaultCenter] postNotificationName:VLCPlaybackControllerPlaybackMetadataDidChange object:nil];
 }
 
 #pragma mark - table view datasource
@@ -176,6 +206,7 @@
 
         [self presentViewController:alertController animated:YES completion:nil];
     } else {
+        [self startActivity];
         MDFSubtitleItem *item = _searchResults[indexPath.row];
         NSArray *searchPaths = NSSearchPathForDirectoriesInDomains(NSCachesDirectory, NSUserDomainMask, YES);
         NSString *folderPath = [searchPaths[0] stringByAppendingPathComponent:@"tempsubs"];
@@ -183,6 +214,19 @@
         NSString *subStorageLocation = [folderPath stringByAppendingPathComponent:item.name];
         [_osoFetcher downloadSubtitleItem:item toPath:subStorageLocation];
     }
+}
+
+- (void)startActivity
+{
+    [_activityIndicatorView startAnimating];
+    self.tableView.userInteractionEnabled = NO;
+}
+
+- (void)stopActivity
+{
+    [_activityIndicatorView stopAnimating];
+    self.tableView.userInteractionEnabled = YES;
+
 }
 
 @end
