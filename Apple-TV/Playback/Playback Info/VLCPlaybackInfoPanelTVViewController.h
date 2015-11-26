@@ -11,7 +11,14 @@
 
 #import <UIKit/UIKit.h>
 
-@interface VLCPlaybackInfoPanelTVViewController : UIViewController
+@class VLCPlaybackController;
+@protocol VLCPlaybackInfoPanelTVViewController <NSObject>
+
++ (BOOL)shouldBeVisibleForPlaybackController:(VLCPlaybackController *)vpc;
+
+@end
+
+@interface VLCPlaybackInfoPanelTVViewController : UIViewController <VLCPlaybackInfoPanelTVViewController>
 
 
 // subclasses should override preferred content size to enable

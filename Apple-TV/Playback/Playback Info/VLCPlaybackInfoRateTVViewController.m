@@ -31,6 +31,12 @@
     return CGSizeMake(CGRectGetWidth(self.view.bounds), 100);
 }
 
++ (BOOL)shouldBeVisibleForPlaybackController:(VLCPlaybackController *)vpc
+{
+    return vpc.mediaPlayer.isSeekable;
+}
+
+
 - (void)viewDidLoad
 {
     [super viewDidLoad];

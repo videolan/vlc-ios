@@ -24,10 +24,7 @@
 
 @interface VLCPlaybackInfoTVViewController ()
 {
-    VLCPlaybackInfoMediaInfoTVViewController *_mediaInfoVC;
-    VLCPlaybackInfoChaptersTVViewController *_chaptersVC;
-    VLCPlaybackInfoTracksTVViewController *_tracksVC;
-    VLCPlaybackInfoRateTVViewController *_rateVC;
+    NSArray<UIViewController<VLCPlaybackInfoPanelTVViewController> *> *_allTabViewControllers;
 }
 @end
 
@@ -36,17 +33,9 @@
 - (NSArray<UIViewController*>*)tabViewControllers
 {
     VLCPlaybackController *vpc = [VLCPlaybackController sharedInstance];
-    NSMutableArray *vcArray = [NSMutableArray arrayWithObject:_mediaInfoVC];
-
-    if (vpc.mediaPlayer.isSeekable)
-        [vcArray addObject:_rateVC];
-
-    [vcArray addObject:_tracksVC];
-
-    if (vpc.currentMediaHasChapters)
-        [vcArray addObject:_chaptersVC];
-
-    return [vcArray copy];
+    return [_allTabViewControllers filteredArrayUsingPredicate:[NSPredicate predicateWithBlock:^BOOL(id<VLCPlaybackInfoPanelTVViewController>  _Nonnull evaluatedObject, NSDictionary<NSString *,id> * _Nullable bindings) {
+        return [[evaluatedObject class] shouldBeVisibleForPlaybackController:vpc];
+    }]];
 }
 
 - (instancetype)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil
@@ -64,10 +53,13 @@
 
     [self setupTabBarItemAppearance];
 
-    _mediaInfoVC = [[VLCPlaybackInfoMediaInfoTVViewController alloc] initWithNibName:nil bundle:nil];
-    _chaptersVC = [[VLCPlaybackInfoChaptersTVViewController alloc] initWithNibName:nil bundle:nil];
-    _tracksVC = [[VLCPlaybackInfoTracksTVViewController alloc] initWithNibName:nil bundle:nil];
-    _rateVC = [[VLCPlaybackInfoRateTVViewController alloc] initWithNibName:nil bundle:nil];
+    _allTabViewControllers = @[
+                               [[VLCPlaybackInfoMediaInfoTVViewController alloc] initWithNibName:nil bundle:nil],
+                               [[VLCPlaybackInfoChaptersTVViewController alloc] initWithNibName:nil bundle:nil],
+                               [[VLCPlaybackInfoTracksTVViewController alloc] initWithNibName:nil bundle:nil],
+                               [[VLCPlaybackInfoRateTVViewController alloc] initWithNibName:nil bundle:nil],
+                               ];
+
 
     UITabBarController *controller = [[VLCPlaybackInfoTVTabBarController alloc] init];
     controller.delegate = self;
@@ -87,7 +79,14 @@
 
 - (void)viewWillAppear:(BOOL)animated
 {
-    self.tabBarController.viewControllers = [self tabViewControllers];
+    UITabBarController *tabBarController = self.tabBarController;
+    UIViewController *oldSelectedVC = tabBarController.selectedViewController;
+    tabBarController.viewControllers = [self tabViewControllers];
+    NSUInteger newIndex = [tabBarController.viewControllers indexOfObject:oldSelectedVC];
+    if (newIndex == NSNotFound) {
+        newIndex = 0;
+    }
+    tabBarController.selectedIndex = newIndex;
     [super viewWillAppear:animated];
 }
 

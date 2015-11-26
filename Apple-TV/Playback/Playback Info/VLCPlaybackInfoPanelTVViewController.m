@@ -48,4 +48,9 @@ static inline void sharedSetup(VLCPlaybackInfoPanelTVViewController *self)
     return NO;
 }
 
++ (BOOL)shouldBeVisibleForPlaybackController:(VLCPlaybackController *)vpc
+{
+    return YES;
+}
+
 @end

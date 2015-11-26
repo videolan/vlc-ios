@@ -65,6 +65,12 @@
     [[NSNotificationCenter defaultCenter] removeObserver:self];
 }
 
++ (BOOL)shouldBeVisibleForPlaybackController:(VLCPlaybackController *)vpc
+{
+    return vpc.currentMediaHasChapters;
+}
+
+
 - (void)viewWillAppear:(BOOL)animated
 {
     [super viewWillAppear:animated];
