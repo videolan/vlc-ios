@@ -179,15 +179,12 @@
         UIAlertController *alertController = [UIAlertController alertControllerWithTitle:NSLocalizedString(@"LANGUAGE", nil)
                                                                                  message:nil preferredStyle:UIAlertControllerStyleActionSheet];
 
-        NSArray *languages = _osoFetcher.availableLanguages;
-        NSUInteger count = languages.count;
-        MDFSubtitleLanguage *item;
+        NSArray<MDFSubtitleLanguage *> *languages = _osoFetcher.availableLanguages;
         NSUserDefaults *defaults = [NSUserDefaults standardUserDefaults];
         NSString *currentCode = [defaults stringForKey:kVLCSettingLastUsedSubtitlesSearchLanguage];
 
-        for (NSUInteger i = 0; i < count; i++) {
+        for (MDFSubtitleLanguage *item in languages) {
             NSString *itemID = item.ID;
-            item = languages[i];
             UIAlertAction *action = [UIAlertAction actionWithTitle:item.localizedName
                                                              style:UIAlertActionStyleDefault
                                                            handler:^(UIAlertAction * _Nonnull action) {
