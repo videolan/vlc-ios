@@ -167,6 +167,13 @@ typedef NS_ENUM(NSInteger, VLCPlayerScanState)
 
     [self stopAudioDescriptionAnimation];
 
+    /* delete potentially downloaded subs */
+    NSArray *searchPaths = NSSearchPathForDirectoriesInDomains(NSCachesDirectory, NSUserDomainMask, YES);
+    NSString* tempSubsDirPath = [searchPaths[0] stringByAppendingPathComponent:@"tempsubs"];
+    NSFileManager *fileManager = [NSFileManager defaultManager];
+    if ([fileManager fileExistsAtPath:tempSubsDirPath])
+        [fileManager removeItemAtPath:tempSubsDirPath error:nil];
+
     [super viewWillDisappear:animated];
 }
 

@@ -52,8 +52,6 @@
         [defaults synchronize];
     }
     _osoFetcher.subtitleLanguageId = selectedLocale;
-
-
 }
 
 #pragma mark - OSO Fetcher delegation
@@ -78,6 +76,19 @@
 {
     _searchResults = subtitles;
     [self.tableView reloadData];
+}
+
+- (void)MDFOSOFetcher:(MDFOSOFetcher *)aFetcher didFailToDownloadForItem:(MDFSubtitleItem *)subtitleItem
+{
+    // FIXME: missing error handling
+    [self dismissViewControllerAnimated:YES completion:nil];
+}
+
+- (void)MDFOSOFetcher:(MDFOSOFetcher *)aFetcher subtitleDownloadSucceededForItem:(MDFSubtitleItem *)subtitleItem atPath:(NSString *)pathToFile
+{
+    VLCPlaybackController *vpc = [VLCPlaybackController sharedInstance];
+    [vpc.mediaPlayer openVideoSubTitlesFromFile:pathToFile];
+    [self dismissViewControllerAnimated:YES completion:nil];
 }
 
 #pragma mark - table view datasource
@@ -142,8 +153,6 @@
         MDFSubtitleLanguage *item;
         NSUserDefaults *defaults = [NSUserDefaults standardUserDefaults];
         NSString *currentCode = [defaults stringForKey:kVLCSettingLastUsedSubtitlesSearchLanguage];
-        if (!currentCode)
-            currentCode = @"eng"; // FIXME
 
         for (NSUInteger i = 0; i < count; i++) {
             NSString *itemID = item.ID;
@@ -166,6 +175,13 @@
                                                           handler:nil]];
 
         [self presentViewController:alertController animated:YES completion:nil];
+    } else {
+        MDFSubtitleItem *item = _searchResults[indexPath.row];
+        NSArray *searchPaths = NSSearchPathForDirectoriesInDomains(NSCachesDirectory, NSUserDomainMask, YES);
+        NSString *folderPath = [searchPaths[0] stringByAppendingPathComponent:@"tempsubs"];
+        [[NSFileManager defaultManager] createDirectoryAtPath:folderPath withIntermediateDirectories:YES attributes:nil error:nil];
+        NSString *subStorageLocation = [folderPath stringByAppendingPathComponent:item.name];
+        [_osoFetcher downloadSubtitleItem:item toPath:subStorageLocation];
     }
 }
 
