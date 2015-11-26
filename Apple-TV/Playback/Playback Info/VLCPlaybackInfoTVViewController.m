@@ -41,8 +41,7 @@
     if (vpc.mediaPlayer.isSeekable)
         [vcArray addObject:_rateVC];
 
-    if (vpc.currentMediaHasTrackToChooseFrom)
-        [vcArray addObject:_tracksVC];
+    [vcArray addObject:_tracksVC];
 
     if (vpc.currentMediaHasChapters)
         [vcArray addObject:_chaptersVC];

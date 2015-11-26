@@ -16,7 +16,6 @@
 #import "VLCAboutViewController.h"
 
 #define SettingsReUseIdentifier @"SettingsReUseIdentifier"
-#define SettingsHeaderReUseIdentifier @"SettingsHeaderReUseIdentifier"
 
 @interface VLCSettingsViewController () <UITableViewDataSource, UITableViewDelegate>
 {

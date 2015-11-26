@@ -13,6 +13,7 @@
 #import "VLCPlaybackInfoTVCollectionViewCell.h"
 #import "VLCPlaybackInfoTVCollectionSectionTitleView.h"
 #import "VLCPlaybackInfoCollectionViewDataSource.h"
+#import "VLCPlaybackInfoSubtitlesFetcherViewController.h"
 
 #define CONTENT_INSET 20.
 
@@ -40,7 +41,6 @@
     return self;
 }
 
-
 - (void)viewDidLoad
 {
     [super viewDidLoad];
@@ -56,6 +56,7 @@
     self.audioDataSource.cellIdentifier = [VLCPlaybackInfoTVCollectionViewCell identifier];
     self.subtitleDataSource.title = [NSLocalizedString(@"SUBTITLES", nil) uppercaseStringWithLocale:currentLocale];
     self.subtitleDataSource.cellIdentifier = [VLCPlaybackInfoTVCollectionViewCell identifier];
+    self.subtitleDataSource.parentViewController = self;
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(mediaPlayerChanged) name:VLCPlaybackControllerPlaybackMetadataDidChange object:nil];
 }
 
@@ -80,6 +81,15 @@
 {
     [self.audioTrackCollectionView reloadData];
     [self.subtitleTrackCollectionView reloadData];
+}
+
+- (void)downloadMoreSPU
+{
+    VLCPlaybackInfoSubtitlesFetcherViewController *targetViewController = [[VLCPlaybackInfoSubtitlesFetcherViewController alloc] initWithNibName:nil bundle:nil];
+    targetViewController.title = @"Download subtitles from OpenSubtitles.org...";;
+    [self presentViewController:targetViewController
+                       animated:YES
+                     completion:nil];
 }
 
 @end
@@ -116,27 +126,43 @@
 @implementation VLCPlaybackInfoTracksDataSourceSubtitle
 - (NSInteger)collectionView:(UICollectionView *)collectionView numberOfItemsInSection:(NSInteger)section
 {
-    return self.mediaPlayer.numberOfSubtitlesTracks;
+    return self.mediaPlayer.numberOfSubtitlesTracks + 1;
 }
 - (void)collectionView:(UICollectionView *)collectionView willDisplayCell:(UICollectionViewCell *)cell forItemAtIndexPath:(NSIndexPath *)indexPath
 {
     VLCPlaybackInfoTVCollectionViewCell *trackCell = (VLCPlaybackInfoTVCollectionViewCell*)cell;
     NSInteger row = indexPath.row;
-    BOOL isSelected = [self.mediaPlayer.videoSubTitlesIndexes[row] intValue] == self.mediaPlayer.currentVideoSubTitleIndex;
-    trackCell.selectionMarkerVisible = isSelected;
+    NSArray *spuTitleIndexes = self.mediaPlayer.videoSubTitlesIndexes;
+    NSString *trackName;
+    if (row >= spuTitleIndexes.count) {
+        trackName = @"Download subtitles from OpenSubtitles.org...";
+    } else {
+        BOOL isSelected = [self.mediaPlayer.videoSubTitlesIndexes[row] intValue] == self.mediaPlayer.currentVideoSubTitleIndex;
+        trackCell.selectionMarkerVisible = isSelected;
 
-    NSString *trackName = self.mediaPlayer.videoSubTitlesNames[row];
-    if (trackName != nil) {
-        if ([trackName isEqualToString:@"Disable"])
-            trackName = NSLocalizedString(@"DISABLE_LABEL", nil);
+        trackName = self.mediaPlayer.videoSubTitlesNames[row];
+        if (trackName != nil) {
+            if ([trackName isEqualToString:@"Disable"])
+                trackName = NSLocalizedString(@"DISABLE_LABEL", nil);
+        }
     }
     trackCell.titleLabel.text = trackName;
 }
 
 -(void)collectionView:(UICollectionView *)collectionView didSelectItemAtIndexPath:(NSIndexPath *)indexPath
 {
-    self.mediaPlayer.currentVideoSubTitleIndex = [self.mediaPlayer.videoSubTitlesIndexes[indexPath.row] intValue];
-    [collectionView reloadData];
+    NSArray *spuTitleIndexes = self.mediaPlayer.videoSubTitlesIndexes;
+    NSInteger row = indexPath.row;
+    if (row >= spuTitleIndexes.count) {
+        if (self.parentViewController) {
+            if ([self.parentViewController respondsToSelector:@selector(downloadMoreSPU)]) {
+                [self.parentViewController performSelector:@selector(downloadMoreSPU)];
+            }
+        }
+    } else {
+        self.mediaPlayer.currentVideoSubTitleIndex = [self.mediaPlayer.videoSubTitlesIndexes[row] intValue];
+        [collectionView reloadData];
+    }
 }
 
 @end

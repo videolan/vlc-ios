@@ -15,6 +15,7 @@
 @property (nonatomic, readonly) VLCMediaPlayer *mediaPlayer;
 @property (nonatomic) NSString *title;
 @property (nonatomic) NSString *cellIdentifier;
+@property (nonatomic) UIViewController *parentViewController;
 
 - (UICollectionViewCell *)collectionView:(UICollectionView *)collectionView cellForItemAtIndexPath:(NSIndexPath *)indexPath;
 @end
