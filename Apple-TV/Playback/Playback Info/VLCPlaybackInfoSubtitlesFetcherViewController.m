@@ -40,7 +40,7 @@
     NSString *selectedLocale = [defaults stringForKey:kVLCSettingLastUsedSubtitlesSearchLanguage];
     if (!selectedLocale) {
         NSString *preferredLanguage = [[NSLocale preferredLanguages] firstObject];
-        /* we may receive 'en_GB' so strip that to 'en' */
+        /* we may receive 'en-GB' so strip that to 'en' */
         if ([preferredLanguage containsString:@"-"]) {
             preferredLanguage = [[preferredLanguage componentsSeparatedByString:@"-"] firstObject];
         }
@@ -167,7 +167,7 @@
     if (section == 0)
         return @"";
 
-    return @"Found items";
+    return NSLocalizedString(@"FOUND_SUBS", nil);
 }
 
 #pragma mark - table view delegate
@@ -227,7 +227,6 @@
 {
     [_activityIndicatorView stopAnimating];
     self.tableView.userInteractionEnabled = YES;
-
 }
 
 @end

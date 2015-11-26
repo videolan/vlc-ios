@@ -308,6 +308,8 @@
 "HTTP_SERVER_OFF"="Enable Remote Playback";
 "CACHED_MEDIA"="Cached Media";
 "CACHED_MEDIA_LONG"="Media shown here is stored locally on your Apple TV. Note that contents can be removed by the operating system without prior notice anytime when VLC is not running in case your device runs out of storage.";
+"DOWNLOAD_SUBS_FROM_OSO"="Download subtitles from OpenSubtitles.org...";
+"FOUND_SUBS"="Found subtitles";
 
 // Local Network Service Names
 "UPNP_LONG"="Universal Plug'n'Play (UPnP)";

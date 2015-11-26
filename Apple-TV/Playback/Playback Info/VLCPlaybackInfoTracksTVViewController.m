@@ -86,7 +86,7 @@
 - (void)downloadMoreSPU
 {
     VLCPlaybackInfoSubtitlesFetcherViewController *targetViewController = [[VLCPlaybackInfoSubtitlesFetcherViewController alloc] initWithNibName:nil bundle:nil];
-    targetViewController.title = @"Download subtitles from OpenSubtitles.org...";;
+    targetViewController.title = NSLocalizedString(@"DOWNLOAD_SUBS_FROM_OSO", nil);
     [self presentViewController:targetViewController
                        animated:YES
                      completion:nil];
