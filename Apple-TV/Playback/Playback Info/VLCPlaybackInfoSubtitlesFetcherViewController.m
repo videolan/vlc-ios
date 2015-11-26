@@ -194,6 +194,7 @@
                                                                [defaults setObject:itemID forKey:kVLCSettingLastUsedSubtitlesSearchLanguage];
                                                                [defaults synchronize];
                                                                [self searchForMedia];
+                                                               [self.tableView reloadData];
                                                            }];
             [alertController addAction:action];
             if ([itemID isEqualToString:currentCode])
