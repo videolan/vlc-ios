@@ -155,7 +155,8 @@
     } else {
         NSString *selectedLocale = [[NSUserDefaults standardUserDefaults] objectForKey:kVLCSettingLastUsedSubtitlesSearchLanguage];
         cell.textLabel.text = NSLocalizedString(@"LANGUAGE", nil);
-        cell.detailTextLabel.text = [[selectedLocale twoLetterLanguageKeyForThreeLetterCode] localizedLanguageNameForTwoLetterCode];
+        NSString *detail = [[selectedLocale twoLetterLanguageKeyForThreeLetterCode] localizedLanguageNameForTwoLetterCode];
+        cell.detailTextLabel.text = detail ? detail : selectedLocale;
         cell.accessoryType = UITableViewCellAccessoryDisclosureIndicator;
     }
 
