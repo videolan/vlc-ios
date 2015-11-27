@@ -14,7 +14,7 @@
 
 @implementation NSString (LocaleCodes)
 
-- (NSString *)twoLetterLanguageKeyForThreeLetterCode
+- (NSString *)VLCtwoLetterLanguageKeyForThreeLetterCode
 {
     NSDictionary *searchDict = @{@"alb" : @"sq",
                                  @"ara" : @"ar",
@@ -77,7 +77,7 @@
     return searchDict[self];
 }
 
-- (NSString *)threeLetterLanguageKeyForTwoLetterCode
+- (NSString *)VLCthreeLetterLanguageKeyForTwoLetterCode
 {
     NSDictionary *searchDict = @{@"sq" : @"alb",
                                  @"ar" : @"ara",
@@ -145,7 +145,7 @@
     return searchDict[self];
 }
 
-- (NSString *)localizedLanguageNameForTwoLetterCode
+- (NSString *)VLClocalizedLanguageNameForTwoLetterCode
 {
     return [[NSLocale currentLocale] displayNameForKey:NSLocaleLanguageCode value:self];
 }

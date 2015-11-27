@@ -44,7 +44,7 @@
         if ([preferredLanguage containsString:@"-"]) {
             preferredLanguage = [[preferredLanguage componentsSeparatedByString:@"-"] firstObject];
         }
-        selectedLocale = [preferredLanguage threeLetterLanguageKeyForTwoLetterCode];
+        selectedLocale = [preferredLanguage VLCthreeLetterLanguageKeyForTwoLetterCode];
         /* last resort */
         if (selectedLocale == nil) {
             selectedLocale = @"eng";
@@ -155,7 +155,7 @@
     } else {
         NSString *selectedLocale = [[NSUserDefaults standardUserDefaults] objectForKey:kVLCSettingLastUsedSubtitlesSearchLanguage];
         cell.textLabel.text = NSLocalizedString(@"LANGUAGE", nil);
-        NSString *detail = [[selectedLocale twoLetterLanguageKeyForThreeLetterCode] localizedLanguageNameForTwoLetterCode];
+        NSString *detail = [[selectedLocale VLCtwoLetterLanguageKeyForThreeLetterCode] VLClocalizedLanguageNameForTwoLetterCode];
         cell.detailTextLabel.text = detail ? detail : selectedLocale;
         cell.accessoryType = UITableViewCellAccessoryDisclosureIndicator;
     }

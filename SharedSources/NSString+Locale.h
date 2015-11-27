@@ -13,8 +13,8 @@
 
 @interface NSString (LocaleCodes)
 
-- (NSString *)twoLetterLanguageKeyForThreeLetterCode;
-- (NSString *)threeLetterLanguageKeyForTwoLetterCode;
-- (NSString *)localizedLanguageNameForTwoLetterCode;
+- (NSString *)VLCtwoLetterLanguageKeyForThreeLetterCode;
+- (NSString *)VLCthreeLetterLanguageKeyForTwoLetterCode;
+- (NSString *)VLClocalizedLanguageNameForTwoLetterCode;
 
 @end
