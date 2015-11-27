@@ -92,6 +92,8 @@
 		7D27EC2B19DF310300EF0370 /* VLCFirstStepsSecondPageViewController~ipad.xib in Resources */ = {isa = PBXBuildFile; fileRef = 7D27EC2919DF310300EF0370 /* VLCFirstStepsSecondPageViewController~ipad.xib */; };
 		7D27EC2C19DF310300EF0370 /* VLCFirstStepsSecondPageViewController~iphone.xib in Resources */ = {isa = PBXBuildFile; fileRef = 7D27EC2A19DF310300EF0370 /* VLCFirstStepsSecondPageViewController~iphone.xib */; };
 		7D298F441AD5827E00A0BF68 /* WatchKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = DDF157B31ACB169B00AAFBC6 /* WatchKit.framework */; settings = {ATTRIBUTES = (Weak, ); }; };
+		7D29C7AA1C08C84C00AEC5C4 /* HockeySDK.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 7D29C7A71C08C84000AEC5C4 /* HockeySDK.framework */; };
+		7D29C7AB1C08C84C00AEC5C4 /* HockeySDK.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = 7D29C7A71C08C84000AEC5C4 /* HockeySDK.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
 		7D2AC5CD1B67737C00A8D9DD /* libLiveSDK-static.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 7D2AC5CC1B67737C00A8D9DD /* libLiveSDK-static.a */; };
 		7D2AC5D01B67746700A8D9DD /* LiveAuthDialog_iPad.xib in Resources */ = {isa = PBXBuildFile; fileRef = 7D2AC5CE1B67746700A8D9DD /* LiveAuthDialog_iPad.xib */; };
 		7D2DF7BF1B67757700FB78AB /* libMediaLibraryKit.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 7D2DF7BE1B67757700FB78AB /* libMediaLibraryKit.a */; };
@@ -159,9 +161,6 @@
 		7D5CAA8C1A4AD8E5003F2CBC /* VLCTrackSelectorHeaderView.m in Sources */ = {isa = PBXBuildFile; fileRef = 7D5CAA8B1A4AD8E5003F2CBC /* VLCTrackSelectorHeaderView.m */; };
 		7D5DD5C717590ABF001421E3 /* About Contents.html in Resources */ = {isa = PBXBuildFile; fileRef = 7D5DD5C617590ABF001421E3 /* About Contents.html */; };
 		7D6069691BD92E6900AB765C /* libSDropboxSDK.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 7D5278CD1BD7DE3D00D0CA0E /* libSDropboxSDK.a */; };
-		7D62C8AC1C08B874007A6EF3 /* libHockeySDK.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 7D62C8AB1C08B874007A6EF3 /* libHockeySDK.a */; };
-		7D62C9291C08B9D3007A6EF3 /* CrashReporter.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 7D62C9271C08B9C7007A6EF3 /* CrashReporter.framework */; };
-		7D62C92A1C08B9D3007A6EF3 /* CrashReporter.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = 7D62C9271C08B9C7007A6EF3 /* CrashReporter.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
 		7D63C19018774B1700BD5256 /* VLCFirstStepsSecondPageViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 7D63C18E18774B1700BD5256 /* VLCFirstStepsSecondPageViewController.m */; };
 		7D63C19518774E0100BD5256 /* VLCFirstStepsThirdPageViewController~ipad.xib in Resources */ = {isa = PBXBuildFile; fileRef = 7D63C19418774E0100BD5256 /* VLCFirstStepsThirdPageViewController~ipad.xib */; };
 		7D63C19718774F1000BD5256 /* VLCFirstStepsFourthPageViewController~ipad.xib in Resources */ = {isa = PBXBuildFile; fileRef = 7D63C19618774F1000BD5256 /* VLCFirstStepsFourthPageViewController~ipad.xib */; };
@@ -613,6 +612,48 @@
 			remoteGlobalIDString = DD35676F1B6760BF00338947;
 			remoteInfo = "VLC WatchKit Extension";
 		};
+		7D29C7A01C08C84000AEC5C4 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 7D29C7961C08C84000AEC5C4 /* HockeySDK.xcodeproj */;
+			proxyType = 2;
+			remoteGlobalIDString = 1E8040C31BDE322F007F8794;
+			remoteInfo = HockeySDK;
+		};
+		7D29C7A21C08C84000AEC5C4 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 7D29C7961C08C84000AEC5C4 /* HockeySDK.xcodeproj */;
+			proxyType = 2;
+			remoteGlobalIDString = 1E5A459016F0DFC200B55C04;
+			remoteInfo = HockeySDKTests;
+		};
+		7D29C7A41C08C84000AEC5C4 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 7D29C7961C08C84000AEC5C4 /* HockeySDK.xcodeproj */;
+			proxyType = 2;
+			remoteGlobalIDString = 1E59550A15B6F45800A03429;
+			remoteInfo = HockeySDKResources;
+		};
+		7D29C7A61C08C84000AEC5C4 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 7D29C7961C08C84000AEC5C4 /* HockeySDK.xcodeproj */;
+			proxyType = 2;
+			remoteGlobalIDString = 1EB6173F1B0A30480035A986;
+			remoteInfo = "HockeySDK Framework";
+		};
+		7D29C7A81C08C84000AEC5C4 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 7D29C7961C08C84000AEC5C4 /* HockeySDK.xcodeproj */;
+			proxyType = 2;
+			remoteGlobalIDString = 1EB617491B0A30480035A986;
+			remoteInfo = "HockeySDK FrameworkTests";
+		};
+		7D29C7AC1C08C84C00AEC5C4 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 7D29C7961C08C84000AEC5C4 /* HockeySDK.xcodeproj */;
+			proxyType = 1;
+			remoteGlobalIDString = 1EB6173E1B0A30480035A986;
+			remoteInfo = "HockeySDK Framework";
+		};
 		7D5278CA1BD7DE3D00D0CA0E /* PBXContainerItemProxy */ = {
 			isa = PBXContainerItemProxy;
 			containerPortal = 7D5278C31BD7DE3D00D0CA0E /* DropboxSDK.xcodeproj */;
@@ -740,8 +781,8 @@
 			dstPath = "";
 			dstSubfolderSpec = 10;
 			files = (
+				7D29C7AB1C08C84C00AEC5C4 /* HockeySDK.framework in Embed Frameworks */,
 				7D5278DE1BD7DF1800D0CA0E /* DropboxTVSDK.framework in Embed Frameworks */,
-				7D62C92A1C08B9D3007A6EF3 /* CrashReporter.framework in Embed Frameworks */,
 			);
 			name = "Embed Frameworks";
 			runOnlyForDeploymentPostprocessing = 0;
@@ -894,6 +935,8 @@
 		7D27EB9319DEE11900EF0370 /* Launch Screen.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; name = "Launch Screen.xib"; path = "Resources/Launch Screen.xib"; sourceTree = SOURCE_ROOT; };
 		7D27EC2919DF310300EF0370 /* VLCFirstStepsSecondPageViewController~ipad.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; name = "VLCFirstStepsSecondPageViewController~ipad.xib"; path = "Resources/VLCFirstStepsSecondPageViewController~ipad.xib"; sourceTree = SOURCE_ROOT; };
 		7D27EC2A19DF310300EF0370 /* VLCFirstStepsSecondPageViewController~iphone.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; name = "VLCFirstStepsSecondPageViewController~iphone.xib"; path = "Resources/VLCFirstStepsSecondPageViewController~iphone.xib"; sourceTree = SOURCE_ROOT; };
+		7D29C7941C08C79200AEC5C4 /* libCrashReporter-tvOS-Device.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; name = "libCrashReporter-tvOS-Device.a"; path = "ImportedSources/HockeySDK-tvOS/Vendor/PLCrashReporter-Source/build/Debug-appletvos/libCrashReporter-tvOS-Device.a"; sourceTree = "<group>"; };
+		7D29C7961C08C84000AEC5C4 /* HockeySDK.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = HockeySDK.xcodeproj; path = "ImportedSources/HockeySDK-tvOS/Support/HockeySDK.xcodeproj"; sourceTree = SOURCE_ROOT; };
 		7D2AC5CC1B67737C00A8D9DD /* libLiveSDK-static.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; path = "libLiveSDK-static.a"; sourceTree = BUILT_PRODUCTS_DIR; };
 		7D2AC5CE1B67746700A8D9DD /* LiveAuthDialog_iPad.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; name = LiveAuthDialog_iPad.xib; path = ImportedSources/OneDrive/src/LiveSDK/Library/Internal/LiveAuthDialog_iPad.xib; sourceTree = SOURCE_ROOT; };
 		7D2AC5CF1B67746700A8D9DD /* LiveAuthDialog_iPhone.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; name = LiveAuthDialog_iPhone.xib; path = ImportedSources/OneDrive/src/LiveSDK/Library/Internal/LiveAuthDialog_iPhone.xib; sourceTree = SOURCE_ROOT; };
@@ -1391,17 +1434,16 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				7D62C8AC1C08B874007A6EF3 /* libHockeySDK.a in Frameworks */,
 				7D0C352F1BD97BC50058CD19 /* libLiveTVSDK.a in Frameworks */,
 				7DC71D0E1BC81F70001FACAA /* AVFoundation.framework in Frameworks */,
 				7DF28AE11BA31C580030C944 /* libc++.tbd in Frameworks */,
 				7DF28ADF1BA31C4D0030C944 /* libiconv.tbd in Frameworks */,
-				7D62C9291C08B9D3007A6EF3 /* CrashReporter.framework in Frameworks */,
 				7DF28ADD1BA31C390030C944 /* OpenGLES.framework in Frameworks */,
 				7D5278D81BD7DEF600D0CA0E /* DropboxTVSDK.framework in Frameworks */,
 				7DF28ADB1BA31C2B0030C944 /* CoreText.framework in Frameworks */,
 				7DF28AD71BA31C150030C944 /* AudioToolbox.framework in Frameworks */,
 				7D1FEBD41BA3184A00D1058E /* libTVVLCKit.a in Frameworks */,
+				7D29C7AA1C08C84C00AEC5C4 /* HockeySDK.framework in Frameworks */,
 				690D0AB5E34F29B46839C92E /* libPods-VLC-TV.a in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -1663,6 +1705,18 @@
 			name = Menu;
 			sourceTree = "<group>";
 		};
+		7D29C7971C08C84000AEC5C4 /* Products */ = {
+			isa = PBXGroup;
+			children = (
+				7D29C7A11C08C84000AEC5C4 /* libHockeySDK.a */,
+				7D29C7A31C08C84000AEC5C4 /* HockeySDKTests.xctest */,
+				7D29C7A51C08C84000AEC5C4 /* HockeySDKResources.bundle */,
+				7D29C7A71C08C84000AEC5C4 /* HockeySDK.framework */,
+				7D29C7A91C08C84000AEC5C4 /* HockeySDK FrameworkTests.xctest */,
+			);
+			name = Products;
+			sourceTree = "<group>";
+		};
 		7D2AC5D21B67747000A8D9DD /* OneDrive (Imported) */ = {
 			isa = PBXGroup;
 			children = (
@@ -1917,6 +1971,7 @@
 		7D94FCDD16DE7D1000F2623B /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
+				7D29C7941C08C79200AEC5C4 /* libCrashReporter-tvOS-Device.a */,
 				7D62C9271C08B9C7007A6EF3 /* CrashReporter.framework */,
 				7D62C8AB1C08B874007A6EF3 /* libHockeySDK.a */,
 				7D62C8A51C08B512007A6EF3 /* HockeySDK.framework */,
@@ -2249,6 +2304,7 @@
 		7DEC8BE61BD688AD006E1093 /* Resources */ = {
 			isa = PBXGroup;
 			children = (
+				7D29C7961C08C84000AEC5C4 /* HockeySDK.xcodeproj */,
 				7D19FBF11BFF4AD800A9D19C /* lua-playlist-scripts */,
 				6B4E33CC1BF2A35A00A35255 /* web */,
 				7DEDD38B1BE936130053802C /* About Contents.html */,
@@ -2678,6 +2734,7 @@
 				7D5278D51BD7DE7D00D0CA0E /* PBXTargetDependency */,
 				7D5278DB1BD7DEF600D0CA0E /* PBXTargetDependency */,
 				7D5278E01BD7DF1800D0CA0E /* PBXTargetDependency */,
+				7D29C7AD1C08C84C00AEC5C4 /* PBXTargetDependency */,
 			);
 			name = "VLC-TV";
 			productName = "VLC for Apple TV";
@@ -2885,6 +2942,10 @@
 					ProductGroup = 7D5278C41BD7DE3D00D0CA0E /* Products */;
 					ProjectRef = 7D5278C31BD7DE3D00D0CA0E /* DropboxSDK.xcodeproj */;
 				},
+				{
+					ProductGroup = 7D29C7971C08C84000AEC5C4 /* Products */;
+					ProjectRef = 7D29C7961C08C84000AEC5C4 /* HockeySDK.xcodeproj */;
+				},
 			);
 			projectRoot = "";
 			targets = (
@@ -2898,6 +2959,41 @@
 /* End PBXProject section */
 
 /* Begin PBXReferenceProxy section */
+		7D29C7A11C08C84000AEC5C4 /* libHockeySDK.a */ = {
+			isa = PBXReferenceProxy;
+			fileType = archive.ar;
+			path = libHockeySDK.a;
+			remoteRef = 7D29C7A01C08C84000AEC5C4 /* PBXContainerItemProxy */;
+			sourceTree = BUILT_PRODUCTS_DIR;
+		};
+		7D29C7A31C08C84000AEC5C4 /* HockeySDKTests.xctest */ = {
+			isa = PBXReferenceProxy;
+			fileType = wrapper.cfbundle;
+			path = HockeySDKTests.xctest;
+			remoteRef = 7D29C7A21C08C84000AEC5C4 /* PBXContainerItemProxy */;
+			sourceTree = BUILT_PRODUCTS_DIR;
+		};
+		7D29C7A51C08C84000AEC5C4 /* HockeySDKResources.bundle */ = {
+			isa = PBXReferenceProxy;
+			fileType = wrapper.cfbundle;
+			path = HockeySDKResources.bundle;
+			remoteRef = 7D29C7A41C08C84000AEC5C4 /* PBXContainerItemProxy */;
+			sourceTree = BUILT_PRODUCTS_DIR;
+		};
+		7D29C7A71C08C84000AEC5C4 /* HockeySDK.framework */ = {
+			isa = PBXReferenceProxy;
+			fileType = wrapper.framework;
+			path = HockeySDK.framework;
+			remoteRef = 7D29C7A61C08C84000AEC5C4 /* PBXContainerItemProxy */;
+			sourceTree = BUILT_PRODUCTS_DIR;
+		};
+		7D29C7A91C08C84000AEC5C4 /* HockeySDK FrameworkTests.xctest */ = {
+			isa = PBXReferenceProxy;
+			fileType = wrapper.cfbundle;
+			path = "HockeySDK FrameworkTests.xctest";
+			remoteRef = 7D29C7A81C08C84000AEC5C4 /* PBXContainerItemProxy */;
+			sourceTree = BUILT_PRODUCTS_DIR;
+		};
 		7D5278CB1BD7DE3D00D0CA0E /* DropboxSDK.framework */ = {
 			isa = PBXReferenceProxy;
 			fileType = wrapper.cfbundle;
@@ -3619,6 +3715,11 @@
 			target = DD35676F1B6760BF00338947 /* VLC for watchOS Extension */;
 			targetProxy = 7D14C3531BF4E498003DDC41 /* PBXContainerItemProxy */;
 		};
+		7D29C7AD1C08C84C00AEC5C4 /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			name = "HockeySDK Framework";
+			targetProxy = 7D29C7AC1C08C84C00AEC5C4 /* PBXContainerItemProxy */;
+		};
 		7D5278D51BD7DE7D00D0CA0E /* PBXTargetDependency */ = {
 			isa = PBXTargetDependency;
 			name = DropboxTVSDK;
@@ -3786,6 +3887,7 @@
 					"$(SDKROOT)/usr/lib/system",
 					"$(PROJECT_DIR)/ImportedSources/OneDrive/src/build/Debug-appletvos",
 					"$(PROJECT_DIR)/ImportedSources/HockeySDK-tvOS/Support/build/Debug-appletvos",
+					"$(PROJECT_DIR)/ImportedSources/HockeySDK-tvOS/Vendor/PLCrashReporter-Source/build/Debug-appletvos",
 				);
 				MTL_ENABLE_DEBUG_INFO = YES;
 				PRODUCT_BUNDLE_IDENTIFIER = "${BUNDLE_IDENTIFIER_PREFIX}.vlc-tvos";
@@ -3845,6 +3947,7 @@
 					"$(SDKROOT)/usr/lib/system",
 					"$(PROJECT_DIR)/ImportedSources/OneDrive/src/build/Debug-appletvos",
 					"$(PROJECT_DIR)/ImportedSources/HockeySDK-tvOS/Support/build/Debug-appletvos",
+					"$(PROJECT_DIR)/ImportedSources/HockeySDK-tvOS/Vendor/PLCrashReporter-Source/build/Debug-appletvos",
 				);
 				MTL_ENABLE_DEBUG_INFO = NO;
 				PRODUCT_BUNDLE_IDENTIFIER = "${BUNDLE_IDENTIFIER_PREFIX}.vlc-tvos";
@@ -3904,6 +4007,7 @@
 					"$(SDKROOT)/usr/lib/system",
 					"$(PROJECT_DIR)/ImportedSources/OneDrive/src/build/Debug-appletvos",
 					"$(PROJECT_DIR)/ImportedSources/HockeySDK-tvOS/Support/build/Debug-appletvos",
+					"$(PROJECT_DIR)/ImportedSources/HockeySDK-tvOS/Vendor/PLCrashReporter-Source/build/Debug-appletvos",
 				);
 				MTL_ENABLE_DEBUG_INFO = NO;
 				PRODUCT_BUNDLE_IDENTIFIER = "${BUNDLE_IDENTIFIER_PREFIX}.vlc-tvos";
