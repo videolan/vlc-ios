@@ -159,6 +159,7 @@
 		7D5CAA8C1A4AD8E5003F2CBC /* VLCTrackSelectorHeaderView.m in Sources */ = {isa = PBXBuildFile; fileRef = 7D5CAA8B1A4AD8E5003F2CBC /* VLCTrackSelectorHeaderView.m */; };
 		7D5DD5C717590ABF001421E3 /* About Contents.html in Resources */ = {isa = PBXBuildFile; fileRef = 7D5DD5C617590ABF001421E3 /* About Contents.html */; };
 		7D6069691BD92E6900AB765C /* libSDropboxSDK.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 7D5278CD1BD7DE3D00D0CA0E /* libSDropboxSDK.a */; };
+		7D62C8A61C08B512007A6EF3 /* HockeySDK.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 7D62C8A51C08B512007A6EF3 /* HockeySDK.framework */; };
 		7D63C19018774B1700BD5256 /* VLCFirstStepsSecondPageViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 7D63C18E18774B1700BD5256 /* VLCFirstStepsSecondPageViewController.m */; };
 		7D63C19518774E0100BD5256 /* VLCFirstStepsThirdPageViewController~ipad.xib in Resources */ = {isa = PBXBuildFile; fileRef = 7D63C19418774E0100BD5256 /* VLCFirstStepsThirdPageViewController~ipad.xib */; };
 		7D63C19718774F1000BD5256 /* VLCFirstStepsFourthPageViewController~ipad.xib in Resources */ = {isa = PBXBuildFile; fileRef = 7D63C19618774F1000BD5256 /* VLCFirstStepsFourthPageViewController~ipad.xib */; };
@@ -438,9 +439,6 @@
 		7DEC8BE91BD68BC9006E1093 /* Settings.bundle in Resources */ = {isa = PBXBuildFile; fileRef = 7DEC8BE81BD68BC9006E1093 /* Settings.bundle */; };
 		7DEC8C1F1BD6A113006E1093 /* UIDevice+VLC.m in Sources */ = {isa = PBXBuildFile; fileRef = 7D3784C7183A9972009EE944 /* UIDevice+VLC.m */; };
 		7DEDD38C1BE936130053802C /* About Contents.html in Resources */ = {isa = PBXBuildFile; fileRef = 7DEDD38B1BE936130053802C /* About Contents.html */; };
-		7DEF22151C08759C00DA9789 /* HockeySDK.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 7DEF22141C08759C00DA9789 /* HockeySDK.framework */; };
-		7DEF22171C08778700DA9789 /* HockeySDK.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 7DEF22161C08778700DA9789 /* HockeySDK.framework */; };
-		7DEF22181C08778700DA9789 /* HockeySDK.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = 7DEF22161C08778700DA9789 /* HockeySDK.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
 		7DF04F4D1961F2B8004A5429 /* web-download-fixed.png in Resources */ = {isa = PBXBuildFile; fileRef = 7DF04F491961F2B8004A5429 /* web-download-fixed.png */; };
 		7DF04F4E1961F2B8004A5429 /* web-download.png in Resources */ = {isa = PBXBuildFile; fileRef = 7DF04F4A1961F2B8004A5429 /* web-download.png */; };
 		7DF04F4F1961F2B8004A5429 /* web-open-fixed.png in Resources */ = {isa = PBXBuildFile; fileRef = 7DF04F4B1961F2B8004A5429 /* web-open-fixed.png */; };
@@ -740,7 +738,6 @@
 			dstPath = "";
 			dstSubfolderSpec = 10;
 			files = (
-				7DEF22181C08778700DA9789 /* HockeySDK.framework in Embed Frameworks */,
 				7D5278DE1BD7DF1800D0CA0E /* DropboxTVSDK.framework in Embed Frameworks */,
 			);
 			name = "Embed Frameworks";
@@ -1005,6 +1002,7 @@
 		7D5CAA8A1A4AD8E5003F2CBC /* VLCTrackSelectorHeaderView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = VLCTrackSelectorHeaderView.h; path = Sources/VLCTrackSelectorHeaderView.h; sourceTree = SOURCE_ROOT; };
 		7D5CAA8B1A4AD8E5003F2CBC /* VLCTrackSelectorHeaderView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = VLCTrackSelectorHeaderView.m; path = Sources/VLCTrackSelectorHeaderView.m; sourceTree = SOURCE_ROOT; };
 		7D5DD5C617590ABF001421E3 /* About Contents.html */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.html; path = "About Contents.html"; sourceTree = "<group>"; };
+		7D62C8A51C08B512007A6EF3 /* HockeySDK.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = HockeySDK.framework; path = "ImportedSources/HockeySDK-tvOS/Support/build/Debug-appletvos/HockeySDK.framework"; sourceTree = "<group>"; };
 		7D63C18D18774B1700BD5256 /* VLCFirstStepsSecondPageViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = VLCFirstStepsSecondPageViewController.h; path = Sources/VLCFirstStepsSecondPageViewController.h; sourceTree = SOURCE_ROOT; };
 		7D63C18E18774B1700BD5256 /* VLCFirstStepsSecondPageViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = VLCFirstStepsSecondPageViewController.m; path = Sources/VLCFirstStepsSecondPageViewController.m; sourceTree = SOURCE_ROOT; };
 		7D63C19418774E0100BD5256 /* VLCFirstStepsThirdPageViewController~ipad.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; name = "VLCFirstStepsThirdPageViewController~ipad.xib"; path = "Resources/VLCFirstStepsThirdPageViewController~ipad.xib"; sourceTree = SOURCE_ROOT; };
@@ -1128,7 +1126,6 @@
 		7DEDD38B1BE936130053802C /* About Contents.html */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.html; path = "About Contents.html"; sourceTree = "<group>"; };
 		7DEF22101C08754000DA9789 /* libHockeySDK.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; name = libHockeySDK.a; path = "ImportedSources/HockeySDK-tvOS/Support/build/Debug-appletvos/libHockeySDK.a"; sourceTree = "<group>"; };
 		7DEF22141C08759C00DA9789 /* HockeySDK.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = HockeySDK.framework; path = "ImportedSources/HockeySDK-tvOS/Support/build/Debug-appletvos/HockeySDK.framework"; sourceTree = "<group>"; };
-		7DEF22161C08778700DA9789 /* HockeySDK.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; name = HockeySDK.framework; path = "/Users/fkuehne/Library/Developer/Xcode/DerivedData/VLC_for_iOS-bycjwefmfylktwecihfbktrjsqob/Build/Products/Debug-appletvos/HockeySDK.framework"; sourceTree = "<absolute>"; };
 		7DF04F491961F2B8004A5429 /* web-download-fixed.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "web-download-fixed.png"; path = "Resources/web-download-fixed.png"; sourceTree = SOURCE_ROOT; };
 		7DF04F4A1961F2B8004A5429 /* web-download.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "web-download.png"; path = "Resources/web-download.png"; sourceTree = SOURCE_ROOT; };
 		7DF04F4B1961F2B8004A5429 /* web-open-fixed.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "web-open-fixed.png"; path = "Resources/web-open-fixed.png"; sourceTree = SOURCE_ROOT; };
@@ -1389,7 +1386,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				7DEF22151C08759C00DA9789 /* HockeySDK.framework in Frameworks */,
+				7D62C8A61C08B512007A6EF3 /* HockeySDK.framework in Frameworks */,
 				7D0C352F1BD97BC50058CD19 /* libLiveTVSDK.a in Frameworks */,
 				7DC71D0E1BC81F70001FACAA /* AVFoundation.framework in Frameworks */,
 				7DF28AE11BA31C580030C944 /* libc++.tbd in Frameworks */,
@@ -1397,7 +1394,6 @@
 				7DF28ADD1BA31C390030C944 /* OpenGLES.framework in Frameworks */,
 				7D5278D81BD7DEF600D0CA0E /* DropboxTVSDK.framework in Frameworks */,
 				7DF28ADB1BA31C2B0030C944 /* CoreText.framework in Frameworks */,
-				7DEF22171C08778700DA9789 /* HockeySDK.framework in Frameworks */,
 				7DF28AD71BA31C150030C944 /* AudioToolbox.framework in Frameworks */,
 				7D1FEBD41BA3184A00D1058E /* libTVVLCKit.a in Frameworks */,
 				690D0AB5E34F29B46839C92E /* libPods-VLC-TV.a in Frameworks */,
@@ -1882,7 +1878,6 @@
 		7D94FCD216DE7D1000F2623B = {
 			isa = PBXGroup;
 			children = (
-				7DEF22161C08778700DA9789 /* HockeySDK.framework */,
 				DD29A3E81BF21E3D00A27A91 /* SharedConfig.xcconfig */,
 				7D94FCE416DE7D1000F2623B /* iOS specific classes */,
 				7DADC55C1704FAA8001DAC63 /* XIBs */,
@@ -1916,6 +1911,7 @@
 		7D94FCDD16DE7D1000F2623B /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
+				7D62C8A51C08B512007A6EF3 /* HockeySDK.framework */,
 				7DEF22141C08759C00DA9789 /* HockeySDK.framework */,
 				7DEF22101C08754000DA9789 /* libHockeySDK.a */,
 				7D0C352E1BD97BC50058CD19 /* libLiveTVSDK.a */,
