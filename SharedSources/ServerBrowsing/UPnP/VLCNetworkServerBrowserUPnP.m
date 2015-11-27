@@ -292,7 +292,14 @@
 {
     if (!_URL)
         return nil;
-    return [VLCMedia mediaWithURL:_URL];
+
+    VLCMedia *media = [VLCMedia mediaWithURL:_URL];
+    NSString *title = self.name;
+    if (title.length) {
+        [media setMetadata:self.name forKey:VLCMetaInformationTitle];
+    }
+
+    return media;
 }
 
 @end
@@ -356,7 +363,14 @@
 {
     if (!_URL)
         return nil;
-    return [VLCMedia mediaWithURL:_URL];
+
+    VLCMedia *media = [VLCMedia mediaWithURL:_URL];
+    NSString *title = self.name;
+    if (title.length) {
+        [media setMetadata:self.name forKey:VLCMetaInformationTitle];
+    }
+
+    return media;
 }
 
 @end
