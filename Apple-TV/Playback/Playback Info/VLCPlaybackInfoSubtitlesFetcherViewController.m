@@ -150,7 +150,7 @@
     if (indexPath.section != 0) {
         MDFSubtitleItem *item = _searchResults[indexPath.row];
         cell.textLabel.text = item.name;
-        cell.detailTextLabel.text = [NSString stringWithFormat:@"%@ - %@", item.language, item.format];
+        cell.detailTextLabel.text = [NSString stringWithFormat:@"%@ - %@", item.rating, [item.format uppercaseStringWithLocale:[NSLocale currentLocale]]];
         cell.accessoryType = UITableViewCellAccessoryNone;
     } else {
         NSString *selectedLocale = [[NSUserDefaults standardUserDefaults] objectForKey:kVLCSettingLastUsedSubtitlesSearchLanguage];
