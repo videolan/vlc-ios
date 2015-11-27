@@ -30,6 +30,6 @@ pod 'SSKeychain', :git => 'git://github.com/fkuehne/sskeychain.git' #iCloud Keyc
 pod 'box-ios-sdk-v2', :git => 'git://github.com/fkuehne/box-ios-sdk-v2.git' #has tvOS support added
 pod 'upnpx', '~>1.3.6'
 pod 'CocoaHTTPServer', :git => 'git://github.com/fkuehne/CocoaHTTPServer.git' # has our fixes
-pod 'MetaDataFetcherKit', :git => 'https://code.videolan.org/fkuehne/MetaDataFetcherKit.git', :commit => '1aaf8e13'
-pod "OROpenSubtitleDownloader", :git => 'https://github.com/fkuehne/OROpenSubtitleDownloader.git'
+pod 'MetaDataFetcherKit', :git => 'https://code.videolan.org/fkuehne/MetaDataFetcherKit.git', :commit => '81c45087'
+pod "OROpenSubtitleDownloader", :git => 'https://github.com/orta/OROpenSubtitleDownloader.git', :commit => '0509eac2'
 end
