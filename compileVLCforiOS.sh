@@ -173,6 +173,15 @@ cd ..
 rm dropbox-ios-sdk-${DROPBOXSDKVERSION}.zip
 rm -rf __MACOSX
 fi
+if ! [ -e HockeySDK-tvOS ]; then
+curl -L -O https://www.dropbox.com/s/pie0xxmf6xmj6wl/HockeySDK-tvOS.zip?dl=0
+unzip -q HockeySDK-tvOS.zip?dl=0
+cd HockeySDK-tvOS
+patch -p1 < ../../patches/hockey/hockey.patch
+cd ..
+rm HockeySDK-tvOS.zip?dl=0
+rm -rf __MACOSX
+fi
 if ! [ -e OneDrive ]; then
 git clone git://github.com/liveservices/LiveSDK-for-iOS.git OneDrive
 cd OneDrive && git am ../../patches/onedrive/*.patch && cd ..

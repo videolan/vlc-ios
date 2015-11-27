@@ -20,6 +20,9 @@
       location = "group:ImportedSources/OneDrive/src/LiveSDK.xcodeproj">
    </FileRef>
    <FileRef
+      location = "group:ImportedSources/HockeySDK-tvOS/Support/HockeySDK.xcodeproj">
+   </FileRef>
+   <FileRef
       location = "group:Pods/Pods.xcodeproj">
    </FileRef>
 </Workspace>

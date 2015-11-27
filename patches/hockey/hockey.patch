@@ -1,0 +1,32 @@
+diff -ru HockeySDK-tvOS/Support/HockeySDK.xcodeproj/project.pbxproj HockeySDK-tvOS/Support/HockeySDK.xcodeproj/project.pbxproj
+--- /Users/fkuehne/Desktop/HockeySDK-tvOS/Support/HockeySDK.xcodeproj/project.pbxproj	2015-10-30 12:45:50.000000000 +0100
++++ HockeySDK-tvOS/Support/HockeySDK.xcodeproj/project.pbxproj	2015-11-27 12:34:18.000000000 +0100
+@@ -158,13 +158,11 @@
+ 		1EB617B71B0A31D30035A986 /* BITCrashReportTextFormatterTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 1E566D061A275C4C0070F514 /* BITCrashReportTextFormatterTests.m */; };
+ 		1EB617B81B0A31DB0035A986 /* BITTestHelper.m in Sources */ = {isa = PBXBuildFile; fileRef = 1EA1170616F53B91001C015C /* BITTestHelper.m */; };
+ 		1EB617B91B0A32780035A986 /* HockeySDKResources.bundle in Resources */ = {isa = PBXBuildFile; fileRef = 1E59550A15B6F45800A03429 /* HockeySDKResources.bundle */; };
+-		1EB617BA1B0A32870035A986 /* AssetsLibrary.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 9760F6C318BB4D2D00959B93 /* AssetsLibrary.framework */; };
+ 		1EB617BC1B0A32C90035A986 /* CoreText.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 1EB617BB1B0A32C90035A986 /* CoreText.framework */; };
+ 		1EB617BE1B0A32D00035A986 /* CoreGraphics.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 1EB617BD1B0A32D00035A986 /* CoreGraphics.framework */; };
+ 		1EB617BF1B0A32DC0035A986 /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = E400561D148D79B500EB22B9 /* Foundation.framework */; };
+ 		1EB617C01B0A32E40035A986 /* MobileCoreServices.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 97CC11F81917C0310028768F /* MobileCoreServices.framework */; };
+ 		1EB617C21B0A32EE0035A986 /* QuartzCore.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 1EB617C11B0A32EE0035A986 /* QuartzCore.framework */; };
+-		1EB617C31B0A32F70035A986 /* QuickLook.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 97BD9BD4191109730043FD59 /* QuickLook.framework */; };
+ 		1EB617C51B0A33020035A986 /* Security.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 1EB617C41B0A33020035A986 /* Security.framework */; };
+ 		1EB617C71B0A330C0035A986 /* SystemConfiguration.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 1EB617C61B0A330C0035A986 /* SystemConfiguration.framework */; };
+ 		1EB617C91B0A33140035A986 /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 1EB617C81B0A33140035A986 /* UIKit.framework */; };
+@@ -395,14 +393,12 @@
+ 			isa = PBXFrameworksBuildPhase;
+ 			buildActionMask = 2147483647;
+ 			files = (
+-				1EB617BA1B0A32870035A986 /* AssetsLibrary.framework in Frameworks */,
+ 				1EB617BC1B0A32C90035A986 /* CoreText.framework in Frameworks */,
+ 				1EB617BE1B0A32D00035A986 /* CoreGraphics.framework in Frameworks */,
+ 				1EB617BF1B0A32DC0035A986 /* Foundation.framework in Frameworks */,
+ 				1EB617C01B0A32E40035A986 /* MobileCoreServices.framework in Frameworks */,
+ 				1EB617C21B0A32EE0035A986 /* QuartzCore.framework in Frameworks */,
+ 				1EB617CB1B0A34040035A986 /* CrashReporter.framework in Frameworks */,
+-				1EB617C31B0A32F70035A986 /* QuickLook.framework in Frameworks */,
+ 				1EB617C51B0A33020035A986 /* Security.framework in Frameworks */,
+ 				1EB617C71B0A330C0035A986 /* SystemConfiguration.framework in Frameworks */,
+ 				1EB617C91B0A33140035A986 /* UIKit.framework in Frameworks */,
