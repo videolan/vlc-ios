@@ -849,6 +849,8 @@ static NSString *kUsingTableViewToShowData = @"UsingTableViewToShowData";
         return;
     }
 
+    [collectionView deselectItemAtIndexPath:indexPath animated:NO];
+
     for (NSUInteger x = 0; x < cellCount; x++) {
         VLCPlaylistCollectionViewCell *cell = visibleCells[x];
         if ([cell showsMetaData])
