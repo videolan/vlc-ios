@@ -159,7 +159,9 @@
 		7D5CAA8C1A4AD8E5003F2CBC /* VLCTrackSelectorHeaderView.m in Sources */ = {isa = PBXBuildFile; fileRef = 7D5CAA8B1A4AD8E5003F2CBC /* VLCTrackSelectorHeaderView.m */; };
 		7D5DD5C717590ABF001421E3 /* About Contents.html in Resources */ = {isa = PBXBuildFile; fileRef = 7D5DD5C617590ABF001421E3 /* About Contents.html */; };
 		7D6069691BD92E6900AB765C /* libSDropboxSDK.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 7D5278CD1BD7DE3D00D0CA0E /* libSDropboxSDK.a */; };
-		7D62C8A61C08B512007A6EF3 /* HockeySDK.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 7D62C8A51C08B512007A6EF3 /* HockeySDK.framework */; };
+		7D62C8AC1C08B874007A6EF3 /* libHockeySDK.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 7D62C8AB1C08B874007A6EF3 /* libHockeySDK.a */; };
+		7D62C9291C08B9D3007A6EF3 /* CrashReporter.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 7D62C9271C08B9C7007A6EF3 /* CrashReporter.framework */; };
+		7D62C92A1C08B9D3007A6EF3 /* CrashReporter.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = 7D62C9271C08B9C7007A6EF3 /* CrashReporter.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
 		7D63C19018774B1700BD5256 /* VLCFirstStepsSecondPageViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 7D63C18E18774B1700BD5256 /* VLCFirstStepsSecondPageViewController.m */; };
 		7D63C19518774E0100BD5256 /* VLCFirstStepsThirdPageViewController~ipad.xib in Resources */ = {isa = PBXBuildFile; fileRef = 7D63C19418774E0100BD5256 /* VLCFirstStepsThirdPageViewController~ipad.xib */; };
 		7D63C19718774F1000BD5256 /* VLCFirstStepsFourthPageViewController~ipad.xib in Resources */ = {isa = PBXBuildFile; fileRef = 7D63C19618774F1000BD5256 /* VLCFirstStepsFourthPageViewController~ipad.xib */; };
@@ -739,6 +741,7 @@
 			dstSubfolderSpec = 10;
 			files = (
 				7D5278DE1BD7DF1800D0CA0E /* DropboxTVSDK.framework in Embed Frameworks */,
+				7D62C92A1C08B9D3007A6EF3 /* CrashReporter.framework in Embed Frameworks */,
 			);
 			name = "Embed Frameworks";
 			runOnlyForDeploymentPostprocessing = 0;
@@ -1003,6 +1006,8 @@
 		7D5CAA8B1A4AD8E5003F2CBC /* VLCTrackSelectorHeaderView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = VLCTrackSelectorHeaderView.m; path = Sources/VLCTrackSelectorHeaderView.m; sourceTree = SOURCE_ROOT; };
 		7D5DD5C617590ABF001421E3 /* About Contents.html */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.html; path = "About Contents.html"; sourceTree = "<group>"; };
 		7D62C8A51C08B512007A6EF3 /* HockeySDK.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = HockeySDK.framework; path = "ImportedSources/HockeySDK-tvOS/Support/build/Debug-appletvos/HockeySDK.framework"; sourceTree = "<group>"; };
+		7D62C8AB1C08B874007A6EF3 /* libHockeySDK.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; name = libHockeySDK.a; path = "ImportedSources/HockeySDK-tvOS/Support/build/Debug-appletvos/libHockeySDK.a"; sourceTree = "<group>"; };
+		7D62C9271C08B9C7007A6EF3 /* CrashReporter.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CrashReporter.framework; path = "ImportedSources/HockeySDK-tvOS/Vendor/CrashReporter.framework"; sourceTree = "<group>"; };
 		7D63C18D18774B1700BD5256 /* VLCFirstStepsSecondPageViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = VLCFirstStepsSecondPageViewController.h; path = Sources/VLCFirstStepsSecondPageViewController.h; sourceTree = SOURCE_ROOT; };
 		7D63C18E18774B1700BD5256 /* VLCFirstStepsSecondPageViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = VLCFirstStepsSecondPageViewController.m; path = Sources/VLCFirstStepsSecondPageViewController.m; sourceTree = SOURCE_ROOT; };
 		7D63C19418774E0100BD5256 /* VLCFirstStepsThirdPageViewController~ipad.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; name = "VLCFirstStepsThirdPageViewController~ipad.xib"; path = "Resources/VLCFirstStepsThirdPageViewController~ipad.xib"; sourceTree = SOURCE_ROOT; };
@@ -1386,11 +1391,12 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				7D62C8A61C08B512007A6EF3 /* HockeySDK.framework in Frameworks */,
+				7D62C8AC1C08B874007A6EF3 /* libHockeySDK.a in Frameworks */,
 				7D0C352F1BD97BC50058CD19 /* libLiveTVSDK.a in Frameworks */,
 				7DC71D0E1BC81F70001FACAA /* AVFoundation.framework in Frameworks */,
 				7DF28AE11BA31C580030C944 /* libc++.tbd in Frameworks */,
 				7DF28ADF1BA31C4D0030C944 /* libiconv.tbd in Frameworks */,
+				7D62C9291C08B9D3007A6EF3 /* CrashReporter.framework in Frameworks */,
 				7DF28ADD1BA31C390030C944 /* OpenGLES.framework in Frameworks */,
 				7D5278D81BD7DEF600D0CA0E /* DropboxTVSDK.framework in Frameworks */,
 				7DF28ADB1BA31C2B0030C944 /* CoreText.framework in Frameworks */,
@@ -1911,6 +1917,8 @@
 		7D94FCDD16DE7D1000F2623B /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
+				7D62C9271C08B9C7007A6EF3 /* CrashReporter.framework */,
+				7D62C8AB1C08B874007A6EF3 /* libHockeySDK.a */,
 				7D62C8A51C08B512007A6EF3 /* HockeySDK.framework */,
 				7DEF22141C08759C00DA9789 /* HockeySDK.framework */,
 				7DEF22101C08754000DA9789 /* libHockeySDK.a */,
@@ -3751,6 +3759,7 @@
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
 					"$(PROJECT_DIR)/ImportedSources/HockeySDK-tvOS/Support/build/Debug-appletvos",
+					"$(PROJECT_DIR)/ImportedSources/HockeySDK-tvOS/Vendor",
 				);
 				GCC_NO_COMMON_BLOCKS = YES;
 				GCC_OPTIMIZATION_LEVEL = 0;
@@ -3766,6 +3775,7 @@
 					"$(CONFIGURATION_BUILD_DIR)",
 					"$(SRCROOT)/ImportedSources/Dropbox/DropboxSDK/Classes/**",
 					"$(SRCROOT)/ImportedSources/OneDrive/src/LiveSDK/Library/**",
+					"$(SRCROOT)/ImportedSources/HockeySDK-tvOS/Classes",
 				);
 				INFOPLIST_FILE = "Apple-TV/Info.plist";
 				KEYCHAIN_ACCESS_GROUP = "$(AppIdentifierPrefix)$(BUNDLE_IDENTIFIER_PREFIX).vlc-tvos";
@@ -3809,6 +3819,7 @@
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
 					"$(PROJECT_DIR)/ImportedSources/HockeySDK-tvOS/Support/build/Debug-appletvos",
+					"$(PROJECT_DIR)/ImportedSources/HockeySDK-tvOS/Vendor",
 				);
 				GCC_NO_COMMON_BLOCKS = YES;
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
@@ -3823,6 +3834,7 @@
 					"$(CONFIGURATION_BUILD_DIR)",
 					"$(SRCROOT)/ImportedSources/Dropbox/DropboxSDK/Classes/**",
 					"$(SRCROOT)/ImportedSources/OneDrive/src/LiveSDK/Library/**",
+					"$(SRCROOT)/ImportedSources/HockeySDK-tvOS/Classes",
 				);
 				INFOPLIST_FILE = "Apple-TV/Info.plist";
 				KEYCHAIN_ACCESS_GROUP = "$(AppIdentifierPrefix)$(BUNDLE_IDENTIFIER_PREFIX).vlc-tvos";
@@ -3866,6 +3878,7 @@
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
 					"$(PROJECT_DIR)/ImportedSources/HockeySDK-tvOS/Support/build/Debug-appletvos",
+					"$(PROJECT_DIR)/ImportedSources/HockeySDK-tvOS/Vendor",
 				);
 				GCC_NO_COMMON_BLOCKS = YES;
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
@@ -3880,6 +3893,7 @@
 					"$(CONFIGURATION_BUILD_DIR)",
 					"$(SRCROOT)/ImportedSources/Dropbox/DropboxSDK/Classes/**",
 					"$(SRCROOT)/ImportedSources/OneDrive/src/LiveSDK/Library/**",
+					"$(SRCROOT)/ImportedSources/HockeySDK-tvOS/Classes",
 				);
 				INFOPLIST_FILE = "Apple-TV/Info.plist";
 				KEYCHAIN_ACCESS_GROUP = "$(AppIdentifierPrefix)$(BUNDLE_IDENTIFIER_PREFIX).vlc-tvos";
