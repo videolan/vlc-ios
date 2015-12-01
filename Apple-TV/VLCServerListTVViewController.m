@@ -125,6 +125,8 @@
 
     NSIndexPath *discoveryIndexPath = self.indexPaths[indexPath.row];
     id<VLCLocalNetworkService> service = [self.discoveryController networkServiceForIndexPath:discoveryIndexPath];
+    if (service == nil)
+        return browsingCell;
 
     browsingCell.isDirectory = YES;
     browsingCell.title = service.title;

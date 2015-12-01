@@ -46,7 +46,9 @@
 }
 
 - (id<VLCLocalNetworkService>)networkServiceForIndex:(NSUInteger)index {
-    return _filteredUPNPDevices[index];
+    if (index < _filteredUPNPDevices.count)
+        return _filteredUPNPDevices[index];
+    return nil;
 }
 
 - (void)startDiscovery {

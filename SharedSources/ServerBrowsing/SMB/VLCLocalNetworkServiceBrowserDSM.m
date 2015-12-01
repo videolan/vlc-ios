@@ -28,7 +28,9 @@
 }
 - (id<VLCLocalNetworkService>)networkServiceForIndex:(NSUInteger)index {
     VLCMedia *media = [self.mediaDiscoverer.discoveredMedia mediaAtIndex:index];
-    return [[VLCLocalNetworkServiceDSM alloc] initWithMediaItem:media];
+    if (media)
+        return [[VLCLocalNetworkServiceDSM alloc] initWithMediaItem:media];
+    return nil;
 }
 
 @end

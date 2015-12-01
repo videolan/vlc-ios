@@ -76,7 +76,9 @@
     _discovering = NO;
 }
 - (id<VLCLocalNetworkService>)networkServiceForIndex:(NSUInteger)index {
-    return self.resolvedLocalNetworkServices[index];
+    if (index < _resolvedLocalNetworkServices.count)
+        return self.resolvedLocalNetworkServices[index];
+    return nil;
 }
 
 #pragma mark - NSNetServiceBrowserDelegate
