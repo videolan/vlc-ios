@@ -13,6 +13,10 @@
 #import "VLCNetworkServerBrowserVLCMedia.h"
 
 @interface VLCNetworkServerBrowserVLCMedia () <VLCMediaListDelegate, VLCMediaDelegate>
+{
+    BOOL _needsNotifyDelegate;
+}
+
 @property (nonatomic) VLCMedia *rootMedia;
 @property (nonatomic) VLCMediaList *mediaList;
 @property (nonatomic) NSMutableArray<id<VLCNetworkServerBrowserItem>> *mutableItems;
@@ -90,12 +94,26 @@
 
 - (void)mediaDidFinishParsing:(VLCMedia *)aMedia
 {
-    [self.delegate networkServerBrowserDidUpdate:self];
+    [self setNeedsNotifyDelegateForDidUpdate];
 }
-
 - (void)mediaMetaDataDidChange:(VLCMedia *)aMedia
 {
-    [self.delegate networkServerBrowserDidUpdate:self];
+    [self setNeedsNotifyDelegateForDidUpdate];
+}
+
+- (void)setNeedsNotifyDelegateForDidUpdate
+{
+    if (_needsNotifyDelegate) {
+        return;
+    }
+    _needsNotifyDelegate = YES;
+
+    double amountOfSeconds = 0.1;
+    dispatch_time_t delayTime = dispatch_time(DISPATCH_TIME_NOW, (int64_t)(amountOfSeconds * NSEC_PER_SEC));
+    dispatch_after(delayTime, dispatch_get_main_queue(), ^{
+        _needsNotifyDelegate = NO;
+        [self.delegate networkServerBrowserDidUpdate:self];
+    });
 }
 
 @end
