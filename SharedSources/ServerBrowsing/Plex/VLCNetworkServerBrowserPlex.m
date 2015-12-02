@@ -51,7 +51,7 @@
     if (self) {
         _title = name;
         _plexServerAddress = addressOrName;
-        _plexServerPort = portNumber;
+        _plexServerPort = portNumber.intValue > 0 ? portNumber : @(32400);
         _plexServerPath = path;
 
         _plexAuthentification = auth;
@@ -187,7 +187,6 @@
             thumbPath = [VLCPlexWebAPI urlAuth:thumbPath authentification:auth];
         }
         _thumbnailURL = thumbPath.length ? [NSURL URLWithString:thumbPath] : nil;
-
 
         _duration = dictionary[@"duration"];
         _fileSizeBytes = dictionary[@"size"];
