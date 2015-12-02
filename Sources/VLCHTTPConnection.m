@@ -128,7 +128,7 @@
             @try {
                 mo = [moc existingObjectWithID:[psc managedObjectIDForURIRepresentation:[NSURL URLWithString:filePath]] error:nil];
             }@catch (NSException *exeption) {
-                // somebody gave us a malformed or stale URIRepresentation
+                return [[HTTPErrorResponse alloc] initWithErrorCode:404];
             }
 
             NSData *theData;
@@ -151,6 +151,7 @@
             }
         }
     }
+    return [[HTTPErrorResponse alloc] initWithErrorCode:404];
 }
 
 - (NSObject<HTTPResponse> *)_httpGETLibraryForPath:(NSString *)path
