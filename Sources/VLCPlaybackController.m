@@ -584,7 +584,7 @@ NSString *const VLCPlaybackControllerPlaybackPositionUpdated = @"VLCPlaybackCont
         _playbackFailed = YES;
         self.sessionWillRestart = NO;
         [self stopPlayback];
-    } else if ((currentState == VLCMediaPlayerStateEnded || currentState == VLCMediaPlayerStateStopped) && _listPlayer.repeatMode == VLCDoNotRepeat) {
+    } else if (currentState == VLCMediaPlayerStateEnded || currentState == VLCMediaPlayerStateStopped) {
         [_listPlayer.mediaList lock];
         NSUInteger listCount = _listPlayer.mediaList.count;
         if ([_listPlayer.mediaList indexOfMedia:_mediaPlayer.media] == listCount - 1) {
