@@ -469,6 +469,34 @@
     return [[HTTPDataResponse alloc] initWithData:returnData];
 }
 
+- (NSObject <HTTPResponse> *)_HTTPGETwebResources
+{
+    /* JS response
+     {
+        "WEBINTF_URL_SENT" : "URL sent successfully.",
+        "WEBINTF_URL_EMPTY" :"'URL cannot be empty.",
+        "WEBINTF_URL_INVALID" : "Not a valid URL."
+     }
+     */
+
+    NSString *returnString = [NSString stringWithFormat:
+                              @"var LOCALES = {\n" \
+                                         "PLAYER_CONTROL: {\n" \
+                                         "URL: {\n" \
+                                         "EMPTY: \"%@\",\n" \
+                                         "NOT_VALID: \"%@\",\n" \
+                                         "SENT_SUCCESSFULLY: \"%@\"\n" \
+                                         "}\n" \
+                                         "}\n" \
+                              "}",
+                              NSLocalizedString(@"WEBINTF_URL_EMPTY", nil),
+                              NSLocalizedString(@"WEBINTF_URL_INVALID", nil),
+                              NSLocalizedString(@"WEBINTF_URL_SENT", nil)];
+
+    NSData *returnData = [returnString dataUsingEncoding:NSUTF8StringEncoding allowLossyConversion:YES];
+    return [[HTTPDataResponse alloc] initWithData:returnData];
+}
+
 - (NSObject <HTTPResponse> *)_HTTPGETPlaylist
 {
     /* JSON response:
@@ -537,6 +565,9 @@
     }
     if ([path hasPrefix:@"/playlist"]) {
         return [self _HTTPGETPlaylist];
+    }
+    if ([path hasPrefix:@"/web_resources.js"]) {
+        return [self _HTTPGETwebResources];
     }
 #endif
 

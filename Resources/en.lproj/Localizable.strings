@@ -261,7 +261,7 @@
 "WEBINTF_TITLE_ATV"="Remote Playback";
 "WEBINTF_DROPFILES_LONG_ATV"="Drop files in the window to play them on your %@.<br>Or click on the \"+\" button to use the file picker dialog.";
 "WEBINTF_URL_SENT"="URL sent successfully.";
-"WEBINTF_URL_EMPTY"="'URL cannot be empty.";
+"WEBINTF_URL_EMPTY"="URL cannot be empty.";
 "WEBINTF_URL_INVALID"="Not a valid URL.";
 
 "CLOUD_DRIVES"="Other Cloud Drives";
