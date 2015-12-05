@@ -55,7 +55,6 @@ static NSString *const VLCWiggleAnimationKey = @"VLCWiggleAnimation";
           forCellWithReuseIdentifier:VLCRemoteBrowsingTVCellIdentifier];
 
     _reachability = [Reachability reachabilityForLocalWiFi];
-    self.httpServerLabel.textColor = [UIColor VLCDarkBackgroundColor];
 
     NSNotificationCenter *notificationCenter = [NSNotificationCenter defaultCenter];
     [notificationCenter addObserver:self

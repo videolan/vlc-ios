@@ -58,7 +58,7 @@
     _nothingFoundLabel = [[UILabel alloc] init];
     _nothingFoundLabel.text = NSLocalizedString(@"NO_SERVER_FOUND", nil);
     _nothingFoundLabel.textAlignment = NSTextAlignmentCenter;
-    _nothingFoundLabel.textColor = [UIColor VLCLightTextColor];
+    _nothingFoundLabel.textColor = [UIColor darkGrayColor];
     _nothingFoundLabel.font = [UIFont preferredFontForTextStyle:UIFontTextStyleTitle3];
     [_nothingFoundLabel sizeToFit];
     [_nothingFoundLabel setTranslatesAutoresizingMaskIntoConstraints:NO];
