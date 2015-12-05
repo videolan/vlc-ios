@@ -31,6 +31,9 @@
 
     _userDefaults = [NSUserDefaults standardUserDefaults];
     _settingsReader = [[IASKSettingsReader alloc] init];
+
+    self.automaticallyAdjustsScrollViewInsets = NO;
+    self.edgesForExtendedLayout = UIRectEdgeAll ^ UIRectEdgeTop;
 }
 
 - (NSString *)title
