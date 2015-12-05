@@ -630,12 +630,13 @@ $(function() {
     $('form.open-url').on('submit', function(e) {
         e.preventDefault();
         var url = $(this).find('input').val();
+        var localesURL = LOCALES ? (LOCALES.PLAYER_CONTROL ? LOCALES.PLAYER_CONTROL.URL : {}) : {};
         if (!url) {
-            return displayMessage('URL cannot be empty.');
+            return displayMessage(localesURL.EMPTY);
         } else if (!isURL(url)) {
-            return displayMessage('Not a valid URL.');
+            return displayMessage(localesURL.NOT_VALID);
         }
-        displayMessage('URL sent successfully.');
+        displayMessage(localesURL.SENT_SUCCESSFULLY);
         playerControl.openURL({
             url: url
         });
@@ -657,6 +658,9 @@ $(function() {
     var TIMEOUT = null;
     var DELAY = 5000;
     function displayMessage(message) {
+        if (!message) {
+            return;
+        }
         $('.display-message').addClass('show');
         $('.display-message').text(message);
         if (TIMEOUT) {
