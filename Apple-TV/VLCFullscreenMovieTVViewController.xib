@@ -121,7 +121,7 @@
                 <view userInteractionEnabled="NO" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="SzB-KN-vRr" customClass="VLCFrostedGlasView">
                     <rect key="frame" x="0.0" y="886" width="1920" height="194"/>
                     <subviews>
-                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="epY-iV-5FH">
+                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="" textAlignment="natural" lineBreakMode="middleTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="epY-iV-5FH">
                             <rect key="frame" x="960" y="10" width="0.0" height="69"/>
                             <constraints>
                                 <constraint firstAttribute="height" relation="greaterThanOrEqual" constant="69" id="Cum-M9-lbH"/>
@@ -140,8 +140,10 @@
                     </subviews>
                     <constraints>
                         <constraint firstItem="CO6-ze-V9M" firstAttribute="top" secondItem="epY-iV-5FH" secondAttribute="bottom" constant="15" id="3KL-US-KZa"/>
+                        <constraint firstAttribute="trailing" relation="greaterThanOrEqual" secondItem="epY-iV-5FH" secondAttribute="trailing" constant="20" symbolic="YES" id="6Ty-g5-qUK"/>
                         <constraint firstItem="CO6-ze-V9M" firstAttribute="leading" secondItem="SzB-KN-vRr" secondAttribute="leading" constant="90" id="6fm-9L-qPq"/>
                         <constraint firstItem="epY-iV-5FH" firstAttribute="top" secondItem="SzB-KN-vRr" secondAttribute="top" constant="10" id="92r-mU-afS"/>
+                        <constraint firstItem="epY-iV-5FH" firstAttribute="leading" relation="greaterThanOrEqual" secondItem="SzB-KN-vRr" secondAttribute="leading" constant="20" symbolic="YES" id="DvE-5I-qg7"/>
                         <constraint firstItem="epY-iV-5FH" firstAttribute="centerX" secondItem="SzB-KN-vRr" secondAttribute="centerX" id="HiD-5l-FVo"/>
                         <constraint firstAttribute="trailing" secondItem="CO6-ze-V9M" secondAttribute="trailing" constant="90" id="iA4-Us-HaM"/>
                         <constraint firstAttribute="bottom" secondItem="CO6-ze-V9M" secondAttribute="bottom" constant="90" id="qW9-4Q-Y5z"/>
