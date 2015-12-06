@@ -15,8 +15,8 @@
 
 NS_ASSUME_NONNULL_BEGIN
 @interface VLCNetworkServerLoginInformation : NSObject <VLCNetworkServerLoginInformation>
-@property (nonatomic) NSString *username;
-@property (nonatomic) NSString *password;
+@property (nonatomic, nullable) NSString *username;
+@property (nonatomic, nullable) NSString *password;
 @property (nonatomic) NSString *address;
 @property (nonatomic) NSNumber *port;
 @property (nonatomic) NSString *protocolIdentifier;

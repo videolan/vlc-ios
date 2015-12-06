@@ -233,6 +233,14 @@
                                                           handler:^(UIAlertAction * _Nonnull action) {
                                                               [SSKeychain deletePasswordForService:serviceIdentifier account:accountName];
                                                           }]];
+    } else {
+        [alertController addAction:[UIAlertAction actionWithTitle:NSLocalizedString(@"BUTTON_ANONYMOUS_LOGIN", nil)
+                                                            style:UIAlertActionStyleDefault
+                                                          handler:^(UIAlertAction * _Nonnull action) {
+                                                              login.username = nil;
+                                                              login.password = nil;
+                                                              [self showBrowserWithLogin:login];
+                                                          }]];
     }
 
     [alertController addAction:[UIAlertAction actionWithTitle:NSLocalizedString(@"BUTTON_CANCEL", nil)

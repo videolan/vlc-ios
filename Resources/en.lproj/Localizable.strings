@@ -143,6 +143,7 @@
 "USER_LABEL"="User";
 "PASSWORD_LABEL"="Password";
 "DISABLE_LABEL"="Disable";
+"BUTTON_ANONYMOUS_LOGIN"="Anonymous Login";
 
 "LOCAL_SERVER_REFRESH"="Refresh";
 "LOCAL_SERVER_LAST_UPDATE"="Last Updated on %@";
