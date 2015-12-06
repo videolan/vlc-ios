@@ -128,13 +128,16 @@
 
 - (void)URLEnteredInField:(id)sender
 {
-    [self _openURLStringAndDismiss:self.playURLField.text];
+    NSString *urlString = self.playURLField.text;
+    if (urlString.length) {
+        [self _openURLStringAndDismiss:urlString];
+    }
 }
 
-- (void)_openURLStringAndDismiss:(NSString *)url
+- (void)_openURLStringAndDismiss:(NSString *)urlString
 {
     VLCPlaybackController *vpc = [VLCPlaybackController sharedInstance];
-    [vpc playURL:[NSURL URLWithString:url] subtitlesFilePath:nil];
+    [vpc playURL:[NSURL URLWithString:urlString] subtitlesFilePath:nil];
     [self presentViewController:[VLCFullscreenMovieTVViewController fullscreenMovieTVViewController]
                        animated:YES
                      completion:nil];
