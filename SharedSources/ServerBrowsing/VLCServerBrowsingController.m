@@ -230,6 +230,15 @@
 #if DOWNLOAD_SUPPORTED
 - (BOOL)triggerDownloadForItem:(id<VLCNetworkServerBrowserItem>)item
 {
+    // is item supposed to be not downloadable?
+    if ([item respondsToSelector:@selector(isDownloadable)] && ![item isDownloadable]) {
+        return NO;
+    }
+    // if the item has no URL we can't download it
+    if (!item.URL) {
+        return NO;
+    }
+
     if (item.fileSizeBytes.longLongValue  < [[UIDevice currentDevice] freeDiskspace].longLongValue) {
         [self _downloadItem:item];
         return YES;
