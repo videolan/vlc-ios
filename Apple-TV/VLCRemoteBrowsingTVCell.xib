@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
-<document type="com.apple.InterfaceBuilder.AppleTV.XIB" version="3.0" toolsVersion="9060" systemVersion="15C40a" targetRuntime="AppleTV" propertyAccessControl="none" useAutolayout="YES">
+<document type="com.apple.InterfaceBuilder.AppleTV.XIB" version="3.0" toolsVersion="9060" systemVersion="15B42" targetRuntime="AppleTV" propertyAccessControl="none" useAutolayout="YES">
     <dependencies>
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="9051"/>
         <capability name="Aspect ratio constraints" minToolsVersion="5.1"/>
@@ -14,7 +14,7 @@
                 <rect key="frame" x="0.0" y="0.0" width="308" height="308"/>
                 <autoresizingMask key="autoresizingMask"/>
                 <subviews>
-                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="center" lineBreakMode="wordWrap" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="h3U-B3-AOa">
+                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="2" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="h3U-B3-AOa">
                         <rect key="frame" x="8" y="206" width="292" height="30"/>
                         <animations/>
                         <fontDescription key="fontDescription" style="UICTFontTextStyleCaption1"/>

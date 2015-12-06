@@ -88,7 +88,7 @@
 
         NSString *subtitle = nil;
         if (sizeString && duration) {
-            subtitle = [NSString stringWithFormat:@"%@ (%@)",sizeString, duration];
+            subtitle = [NSString stringWithFormat:@"%@ (%@)",duration, sizeString];
         } else if (sizeString) {
             subtitle = sizeString;
         } else if (duration) {

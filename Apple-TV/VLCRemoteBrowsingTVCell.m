@@ -103,4 +103,13 @@ NSString *const VLCRemoteBrowsingTVCellIdentifier = @"VLCRemoteBrowsingTVCell";
     return self.subtitleLabel.text;
 }
 
+- (void)didUpdateFocusInContext:(UIFocusUpdateContext *)context withAnimationCoordinator:(UIFocusAnimationCoordinator *)coordinator
+{
+    [coordinator addCoordinatedAnimations:^{
+        CGAffineTransform transform = context.nextFocusedView != self ? CGAffineTransformIdentity : CGAffineTransformMakeScale(1.1, 1.1);
+        self.titleLabel.transform = transform;
+        self.subtitleLabel.transform = transform;
+    } completion:nil];
+}
+
 @end
