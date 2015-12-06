@@ -10,7 +10,6 @@
  *****************************************************************************/
 
 #import "VLCServerListTVViewController.h"
-#import "VLCLocalNetworkServerTVCell.h"
 #import "VLCServerBrowsingTVViewController.h"
 #import "VLCNetworkServerLoginInformation.h"
 
