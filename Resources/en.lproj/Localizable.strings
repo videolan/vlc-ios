@@ -305,7 +305,7 @@
 "LOGIN_FAIL"="Login failure";
 "CLOUD_LOGIN_LONG"="To access Cloud Services, sign-in to iCloud on both this Apple TV and an iOS device with the same Apple ID and enable Keychain Sharing in System Settings.\nAfterwards, login to the cloud provider of your choice using the VLC app on your iOS device. Finally, select it on this screen.";
 "ENTER_URL"="Enter URL to play";
-"HTTP_SERVER_ON"="Remote Playback enabled";
+"HTTP_SERVER_ON"="Disable Remote Playback";
 "HTTP_SERVER_OFF"="Enable Remote Playback";
 "CACHED_MEDIA"="Cached Media";
 "CACHED_MEDIA_LONG"="Media shown here is stored locally on your Apple TV. Note that contents can be removed by the operating system without prior notice anytime when VLC is not running in case your device runs out of storage.";
