@@ -174,7 +174,7 @@
             else if (self.oneDriveFile.isVideo) {
                 self.thumbnailView.image = [UIImage imageNamed:@"movie"];
                 NSString *thumbnailURLString = _oneDriveFile.thumbnailURL;
-                if (thumbnailURLString) {
+                if ([thumbnailURLString isKindOfClass:[NSString class]]) {
                     [self.thumbnailView setImageWithURL:[NSURL URLWithString:thumbnailURLString]];
                 }
             } else
