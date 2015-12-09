@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
-<document type="com.apple.InterfaceBuilder.AppleTV.XIB" version="3.0" toolsVersion="9060" systemVersion="15B42" targetRuntime="AppleTV" propertyAccessControl="none" useAutolayout="YES">
+<document type="com.apple.InterfaceBuilder.AppleTV.XIB" version="3.0" toolsVersion="9531" systemVersion="15B42" targetRuntime="AppleTV" propertyAccessControl="none" useAutolayout="YES">
     <dependencies>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="9051"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="9529"/>
     </dependencies>
     <objects>
         <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner" customClass="VLCRemotePlaybackViewController">
@@ -21,34 +21,22 @@
             <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
             <subviews>
                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="3" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="mOM-K1-6hX">
-                    <rect key="frame" x="533" y="315" width="855" height="113"/>
-                    <animations/>
-                    <string key="text">Open either of these URLs in a web browser on your network:
-http://bonjour.local
+                    <rect key="frame" x="756" y="193" width="409" height="115"/>
+                    <string key="text">http://bonjour.local
 http://192.168.1.1</string>
-                    <fontDescription key="fontDescription" style="UICTFontTextStyleCallout"/>
+                    <fontDescription key="fontDescription" style="UICTFontTextStyleTitle3"/>
                     <color key="textColor" white="0.33333333333333331" alpha="1" colorSpace="calibratedWhite"/>
                     <nil key="highlightedColor"/>
+                    <color key="shadowColor" white="0.33333333333333331" alpha="1" colorSpace="calibratedWhite"/>
                 </label>
-                <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="N4Q-4c-bh0">
-                    <rect key="frame" x="710" y="193" width="501" height="86"/>
-                    <animations/>
-                    <inset key="contentEdgeInsets" minX="40" minY="20" maxX="40" maxY="20"/>
-                    <state key="normal" title="Enable Remote Playback"/>
-                    <connections>
-                        <action selector="toggleHTTPServer:" destination="-1" eventType="primaryActionTriggered" id="65K-IM-LdJ"/>
-                    </connections>
-                </button>
                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Cached Media" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="77q-qM-GSv">
                     <rect key="frame" x="837" y="478" width="246" height="46"/>
-                    <animations/>
                     <fontDescription key="fontDescription" style="UICTFontTextStyleHeadline"/>
                     <color key="textColor" white="0.33333333333333331" alpha="1" colorSpace="calibratedWhite"/>
                     <nil key="highlightedColor"/>
                 </label>
                 <collectionView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" dataMode="none" translatesAutoresizingMaskIntoConstraints="NO" id="VjG-Gw-i36">
                     <rect key="frame" x="0.0" y="630" width="1920" height="450"/>
-                    <animations/>
                     <constraints>
                         <constraint firstAttribute="height" constant="450" id="7pU-tA-Gz5"/>
                     </constraints>
@@ -65,27 +53,33 @@ http://192.168.1.1</string>
                 </collectionView>
                 <view hidden="YES" contentMode="scaleToFill" placeholderIntrinsicWidth="550" placeholderIntrinsicHeight="100" translatesAutoresizingMaskIntoConstraints="NO" id="Hxr-bA-eu2" customClass="VLCDeleteHintTVView">
                     <rect key="frame" x="685" y="930" width="550" height="100"/>
-                    <animations/>
                 </view>
                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="JaT-Be-qDp">
                     <rect key="frame" x="246" y="532" width="1428" height="71"/>
-                    <animations/>
                     <string key="text">Media shown here is stored locally on your Apple TV. Note that contents can be removed by the operating system without prior notice anytime when VLC is not running if your device runs out of storage.</string>
                     <fontDescription key="fontDescription" style="UICTFontTextStyleBody"/>
                     <color key="textColor" white="0.33333333333333331" alpha="1" colorSpace="calibratedWhite"/>
                     <nil key="highlightedColor"/>
                 </label>
+                <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="N4Q-4c-bh0">
+                    <rect key="frame" x="762" y="344" width="397" height="75"/>
+                    <fontDescription key="fontDescription" style="UICTFontTextStyleSubhead"/>
+                    <inset key="contentEdgeInsets" minX="40" minY="20" maxX="40" maxY="20"/>
+                    <state key="normal" title="Enable Remote Playback"/>
+                    <connections>
+                        <action selector="toggleHTTPServer:" destination="-1" eventType="primaryActionTriggered" id="65K-IM-LdJ"/>
+                    </connections>
+                </button>
             </subviews>
-            <animations/>
             <constraints>
                 <constraint firstItem="VjG-Gw-i36" firstAttribute="top" secondItem="JaT-Be-qDp" secondAttribute="bottom" constant="27" id="77B-WA-TDW"/>
                 <constraint firstItem="JaT-Be-qDp" firstAttribute="leading" secondItem="iN0-l3-epB" secondAttribute="leading" constant="246" id="Ake-Ya-Nlg"/>
-                <constraint firstItem="N4Q-4c-bh0" firstAttribute="top" secondItem="iN0-l3-epB" secondAttribute="top" constant="193" id="Dsp-yk-pru"/>
                 <constraint firstAttribute="trailing" secondItem="JaT-Be-qDp" secondAttribute="trailing" constant="246" id="LLu-x0-uB6"/>
+                <constraint firstItem="N4Q-4c-bh0" firstAttribute="top" secondItem="mOM-K1-6hX" secondAttribute="bottom" constant="36" id="Qix-Vj-JF1"/>
                 <constraint firstItem="mOM-K1-6hX" firstAttribute="centerX" secondItem="N4Q-4c-bh0" secondAttribute="centerX" id="ScU-iV-uMa"/>
-                <constraint firstItem="mOM-K1-6hX" firstAttribute="top" secondItem="N4Q-4c-bh0" secondAttribute="bottom" constant="36" id="Szw-br-TIc"/>
                 <constraint firstItem="77q-qM-GSv" firstAttribute="centerX" secondItem="VjG-Gw-i36" secondAttribute="centerX" id="Tcb-Jy-an4"/>
                 <constraint firstItem="N4Q-4c-bh0" firstAttribute="centerX" secondItem="iN0-l3-epB" secondAttribute="centerX" id="VFF-HR-rhV"/>
+                <constraint firstItem="mOM-K1-6hX" firstAttribute="top" secondItem="iN0-l3-epB" secondAttribute="top" constant="193" id="WRl-kM-uT3"/>
                 <constraint firstAttribute="bottom" secondItem="Hxr-bA-eu2" secondAttribute="bottom" constant="50" id="XV3-Ye-FV9"/>
                 <constraint firstItem="VjG-Gw-i36" firstAttribute="leading" secondItem="iN0-l3-epB" secondAttribute="leading" id="hSa-3P-bGw"/>
                 <constraint firstItem="Hxr-bA-eu2" firstAttribute="centerX" secondItem="iN0-l3-epB" secondAttribute="centerX" id="iND-1n-gnL"/>
