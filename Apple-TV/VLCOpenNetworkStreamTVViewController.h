@@ -19,6 +19,7 @@
 
 @property (readwrite, nonatomic, weak) IBOutlet UILabel *nothingFoundLabel;
 @property (readwrite, nonatomic, weak) IBOutlet UIView *nothingFoundView;
+@property (readwrite, nonatomic, weak) IBOutlet UIImageView *nothingFoundConeImageView;
 
 - (IBAction)URLEnteredInField:(id)sender;
 

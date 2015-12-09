@@ -29,6 +29,17 @@
           forCellWithReuseIdentifier:VLCRemoteBrowsingTVCellIdentifier];
 
     self.collectionView.maskView = [[VLCMaskView alloc] initWithFrame:self.collectionView.bounds];
+
+    /* After day 354 of the year, the usual VLC cone is replaced by another cone
+     * wearing a Father Xmas hat.
+     * Note: this icon doesn't represent an endorsement of The Coca-Cola Company
+     * and should not be confused with the idea of religious statements or propagation there off
+     */
+    NSCalendar *gregorian =
+    [[NSCalendar alloc] initWithCalendarIdentifier:NSCalendarIdentifierGregorian];
+    NSUInteger dayOfYear = [gregorian ordinalityOfUnit:NSCalendarUnitDay inUnit:NSCalendarUnitYear forDate:[NSDate date]];
+    if (dayOfYear >= 354)
+        self.nothingFoundConeImageView.image = [UIImage imageNamed:@"xmas-cone"];
 }
 
 - (void)viewDidLayoutSubviews

@@ -7,6 +7,7 @@
         <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner" customClass="VLCOpenNetworkStreamTVViewController">
             <connections>
                 <outlet property="deleteHintView" destination="Wa3-IS-ztU" id="ipW-Hx-fMJ"/>
+                <outlet property="nothingFoundConeImageView" destination="aAb-aY-bkT" id="Abp-Yt-oQb"/>
                 <outlet property="nothingFoundLabel" destination="sdc-e1-PSc" id="dvi-jc-vaR"/>
                 <outlet property="nothingFoundView" destination="dvt-CP-ALF" id="lg3-aJ-oHg"/>
                 <outlet property="playURLField" destination="dWa-3n-YCa" id="Eoe-vT-AuM"/>

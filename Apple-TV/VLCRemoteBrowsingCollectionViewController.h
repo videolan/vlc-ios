@@ -16,5 +16,6 @@
 
 @property (readwrite, weak, nonatomic) IBOutlet UIView *nothingFoundView;
 @property (readwrite, weak, nonatomic) IBOutlet UILabel *nothingFoundLabel;
+@property (readwrite, weak, nonatomic) IBOutlet UIImageView *nothingFoundConeImageView;
 
 @end

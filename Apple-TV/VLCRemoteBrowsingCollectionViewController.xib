@@ -7,6 +7,7 @@
         <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner" customClass="VLCRemoteBrowsingCollectionViewController">
             <connections>
                 <outlet property="collectionView" destination="NUi-8f-W1D" id="iDT-ID-8jS"/>
+                <outlet property="nothingFoundConeImageView" destination="Quf-Xw-Yoh" id="2bc-0R-tbC"/>
                 <outlet property="nothingFoundLabel" destination="Mu6-3W-jEj" id="hmc-NZ-fOG"/>
                 <outlet property="nothingFoundView" destination="h3e-OS-Jjb" id="QPG-ls-Fhp"/>
                 <outlet property="preferredFocusedView" destination="NUi-8f-W1D" id="mXv-Wn-Sh7"/>
