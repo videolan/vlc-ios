@@ -20,6 +20,7 @@
 @property (readwrite, nonatomic, weak) IBOutlet UILabel *cachedMediaLabel;
 @property (readwrite, nonatomic, weak) IBOutlet UILabel *cachedMediaLongLabel;
 @property (readwrite, nonatomic, weak) IBOutlet UICollectionView *cachedMediaCollectionView;
+@property (readwrite, nonatomic, weak) IBOutlet UIImageView *cachedMediaConeImageView;
 
 - (IBAction)toggleHTTPServer:(id)sender;
 

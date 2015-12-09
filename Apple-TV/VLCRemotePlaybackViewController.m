@@ -175,6 +175,7 @@
     @synchronized(_discoveredFiles) {
         ret = _discoveredFiles.count;
     }
+    self.cachedMediaConeImageView.hidden = ret > 0;
 
     return ret;
 }

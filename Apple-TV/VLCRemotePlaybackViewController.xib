@@ -7,6 +7,7 @@
         <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner" customClass="VLCRemotePlaybackViewController">
             <connections>
                 <outlet property="cachedMediaCollectionView" destination="VjG-Gw-i36" id="ATe-7D-fDz"/>
+                <outlet property="cachedMediaConeImageView" destination="cJM-e2-mIy" id="GQY-uM-1Uo"/>
                 <outlet property="cachedMediaLabel" destination="77q-qM-GSv" id="gs2-sW-Z17"/>
                 <outlet property="cachedMediaLongLabel" destination="JaT-Be-qDp" id="epp-C0-23T"/>
                 <outlet property="deleteHintView" destination="Hxr-bA-eu2" id="04c-3W-B8K"/>
@@ -51,6 +52,9 @@ http://192.168.1.1</string>
                         <outlet property="delegate" destination="-1" id="hUM-OV-Y9o"/>
                     </connections>
                 </collectionView>
+                <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="cone" translatesAutoresizingMaskIntoConstraints="NO" id="cJM-e2-mIy">
+                    <rect key="frame" x="888" y="776" width="143" height="158"/>
+                </imageView>
                 <view hidden="YES" contentMode="scaleToFill" placeholderIntrinsicWidth="550" placeholderIntrinsicHeight="100" translatesAutoresizingMaskIntoConstraints="NO" id="Hxr-bA-eu2" customClass="VLCDeleteHintTVView">
                     <rect key="frame" x="685" y="930" width="550" height="100"/>
                 </view>
@@ -72,8 +76,10 @@ http://192.168.1.1</string>
                 </button>
             </subviews>
             <constraints>
+                <constraint firstItem="cJM-e2-mIy" firstAttribute="centerY" secondItem="VjG-Gw-i36" secondAttribute="centerY" id="3tr-BA-rpi"/>
                 <constraint firstItem="VjG-Gw-i36" firstAttribute="top" secondItem="JaT-Be-qDp" secondAttribute="bottom" constant="27" id="77B-WA-TDW"/>
                 <constraint firstItem="JaT-Be-qDp" firstAttribute="leading" secondItem="iN0-l3-epB" secondAttribute="leading" constant="246" id="Ake-Ya-Nlg"/>
+                <constraint firstItem="cJM-e2-mIy" firstAttribute="centerX" secondItem="VjG-Gw-i36" secondAttribute="centerX" id="GCV-oF-eIh"/>
                 <constraint firstAttribute="trailing" secondItem="JaT-Be-qDp" secondAttribute="trailing" constant="246" id="LLu-x0-uB6"/>
                 <constraint firstItem="N4Q-4c-bh0" firstAttribute="top" secondItem="mOM-K1-6hX" secondAttribute="bottom" constant="36" id="Qix-Vj-JF1"/>
                 <constraint firstItem="mOM-K1-6hX" firstAttribute="centerX" secondItem="N4Q-4c-bh0" secondAttribute="centerX" id="ScU-iV-uMa"/>
@@ -90,4 +96,7 @@ http://192.168.1.1</string>
             </constraints>
         </view>
     </objects>
+    <resources>
+        <image name="cone" width="143" height="158"/>
+    </resources>
 </document>
