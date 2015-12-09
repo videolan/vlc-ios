@@ -13,12 +13,14 @@
 #import "VLCPlaybackController.h"
 #import "VLCPlayerDisplayController.h"
 #import "VLCFullscreenMovieTVViewController.h"
+#import "CAAnimation+VLCWiggle.h"
 
 @interface VLCOpenNetworkStreamTVViewController ()
 {
     NSMutableArray *_recentURLs;
     UILabel *_noURLsToShowLabel;
 }
+@property (nonatomic) NSIndexPath *currentlyFocusedIndexPath;
 @end
 
 @implementation VLCOpenNetworkStreamTVViewController
@@ -121,6 +123,11 @@
     return _recentURLs.count;
 }
 
+- (void)tableView:(UITableView *)tableView didHighlightRowAtIndexPath:(NSIndexPath *)indexPath
+{
+    self.currentlyFocusedIndexPath = indexPath;
+}
+
 - (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView
 {
     return 1;
@@ -149,6 +156,54 @@
     [self presentViewController:[VLCFullscreenMovieTVViewController fullscreenMovieTVViewController]
                        animated:YES
                      completion:nil];
+}
+
+#pragma mark - editing
+
+- (NSIndexPath *)indexPathToDelete
+{
+    NSIndexPath *indexPathToDelete = self.currentlyFocusedIndexPath;
+    return indexPathToDelete;
+}
+
+- (NSString *)itemToDelete
+{
+    NSIndexPath *indexPathToDelete = self.indexPathToDelete;
+    if (!indexPathToDelete) {
+        return nil;
+    }
+
+    NSString *ret;
+    @synchronized(_recentURLs) {
+        ret = _recentURLs[indexPathToDelete.item];
+    }
+    return ret;
+}
+
+- (void)setEditing:(BOOL)editing
+{
+    [super setEditing:editing];
+
+    UITableViewCell *focusedCell = [self.previouslyPlayedStreamsTableView cellForRowAtIndexPath:self.currentlyFocusedIndexPath];
+    if (editing) {
+        [focusedCell.layer addAnimation:[CAAnimation vlc_wiggleAnimation]
+                                 forKey:VLCWiggleAnimationKey];
+    } else {
+        [focusedCell.layer removeAnimationForKey:VLCWiggleAnimationKey];
+    }
+}
+
+- (void)deleteFileAtIndex:(NSIndexPath *)indexPathToDelete
+{
+    if (!indexPathToDelete) {
+        return;
+    }
+    @synchronized(_recentURLs) {
+        [_recentURLs removeObjectAtIndex:indexPathToDelete.row];
+    }
+    [[NSUbiquitousKeyValueStore defaultStore] setArray:_recentURLs forKey:kVLCRecentURLs];
+
+    [self.previouslyPlayedStreamsTableView reloadData];
 }
 
 @end

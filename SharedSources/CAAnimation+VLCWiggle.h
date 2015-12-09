@@ -11,6 +11,8 @@
 
 #import <QuartzCore/QuartzCore.h>
 
+static NSString *const VLCWiggleAnimationKey = @"VLCWiggleAnimation";
+
 @interface CAAnimation (VLCWiggle)
 + (instancetype)vlc_wiggleAnimation;
 @end

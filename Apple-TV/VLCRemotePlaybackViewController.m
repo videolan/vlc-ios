@@ -20,8 +20,6 @@
 
 #define remotePlaybackReuseIdentifer @"remotePlaybackReuseIdentifer"
 
-static NSString *const VLCWiggleAnimationKey = @"VLCWiggleAnimation";
-
 @interface VLCRemotePlaybackViewController () <UICollectionViewDataSource, UICollectionViewDelegate, VLCMediaFileDiscovererDelegate>
 {
     Reachability *_reachability;

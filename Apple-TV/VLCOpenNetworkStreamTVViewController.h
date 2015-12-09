@@ -10,8 +10,9 @@
  *****************************************************************************/
 
 #import <UIKit/UIKit.h>
+#import "VLCDeletionCapableViewController.h"
 
-@interface VLCOpenNetworkStreamTVViewController : UIViewController <UITableViewDataSource, UITableViewDelegate>
+@interface VLCOpenNetworkStreamTVViewController : VLCDeletionCapableViewController <UITableViewDataSource, UITableViewDelegate>
 
 @property (readwrite, nonatomic, weak) IBOutlet UITextField *playURLField;
 @property (readwrite, nonatomic, weak) IBOutlet UITableView *previouslyPlayedStreamsTableView;
