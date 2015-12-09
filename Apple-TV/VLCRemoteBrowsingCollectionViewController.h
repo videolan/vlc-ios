@@ -14,4 +14,7 @@
 
 @interface VLCRemoteBrowsingCollectionViewController : UICollectionViewController
 
+@property (readwrite, weak, nonatomic) IBOutlet UIView *nothingFoundView;
+@property (readwrite, weak, nonatomic) IBOutlet UILabel *nothingFoundLabel;
+
 @end

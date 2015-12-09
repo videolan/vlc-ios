@@ -54,16 +54,14 @@
     flowLayout.minimumInteritemSpacing = 48.0;
     flowLayout.minimumLineSpacing = 100.0;
 
-    _nothingFoundLabel = [[UILabel alloc] init];
-    _nothingFoundLabel.text = NSLocalizedString(@"NO_SERVER_FOUND", nil);
-    _nothingFoundLabel.textAlignment = NSTextAlignmentCenter;
-    _nothingFoundLabel.textColor = [UIColor darkGrayColor];
-    _nothingFoundLabel.font = [UIFont preferredFontForTextStyle:UIFontTextStyleTitle3];
-    [_nothingFoundLabel sizeToFit];
-    [_nothingFoundLabel setTranslatesAutoresizingMaskIntoConstraints:NO];
-    [self.view addSubview:_nothingFoundLabel];
+    self.nothingFoundLabel.text = NSLocalizedString(@"NO_SERVER_FOUND", nil);
+    [self.nothingFoundLabel sizeToFit];
+    UIView *nothingFoundView = self.nothingFoundView;
+    [nothingFoundView sizeToFit];
+    [nothingFoundView setTranslatesAutoresizingMaskIntoConstraints:NO];
+    [self.view addSubview:nothingFoundView];
 
-    NSLayoutConstraint *yConstraint = [NSLayoutConstraint constraintWithItem:_nothingFoundLabel
+    NSLayoutConstraint *yConstraint = [NSLayoutConstraint constraintWithItem:nothingFoundView
                                                                    attribute:NSLayoutAttributeCenterY
                                                                    relatedBy:NSLayoutRelationEqual
                                                                       toItem:self.view
@@ -71,7 +69,7 @@
                                                                   multiplier:1.0
                                                                     constant:0.0];
     [self.view addConstraint:yConstraint];
-    NSLayoutConstraint *xConstraint = [NSLayoutConstraint constraintWithItem:_nothingFoundLabel
+    NSLayoutConstraint *xConstraint = [NSLayoutConstraint constraintWithItem:nothingFoundView
                                                                    attribute:NSLayoutAttributeCenterX
                                                                    relatedBy:NSLayoutRelationEqual
                                                                       toItem:self.view

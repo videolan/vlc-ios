@@ -7,6 +7,8 @@
         <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner" customClass="VLCRemoteBrowsingCollectionViewController">
             <connections>
                 <outlet property="collectionView" destination="NUi-8f-W1D" id="iDT-ID-8jS"/>
+                <outlet property="nothingFoundLabel" destination="Mu6-3W-jEj" id="hmc-NZ-fOG"/>
+                <outlet property="nothingFoundView" destination="h3e-OS-Jjb" id="QPG-ls-Fhp"/>
                 <outlet property="preferredFocusedView" destination="NUi-8f-W1D" id="mXv-Wn-Sh7"/>
                 <outlet property="view" destination="NUi-8f-W1D" id="oDs-Vy-NyX"/>
             </connections>
@@ -26,5 +28,33 @@
                 <outlet property="delegate" destination="-1" id="Ng7-Ok-jZx"/>
             </connections>
         </collectionView>
+        <view contentMode="scaleToFill" id="h3e-OS-Jjb">
+            <rect key="frame" x="0.0" y="0.0" width="257" height="274"/>
+            <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+            <subviews>
+                <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="cone" translatesAutoresizingMaskIntoConstraints="NO" id="Quf-Xw-Yoh">
+                    <rect key="frame" x="57" y="25" width="143" height="158"/>
+                </imageView>
+                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="nuting found" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Mu6-3W-jEj">
+                    <rect key="frame" x="20" y="213" width="217" height="46"/>
+                    <fontDescription key="fontDescription" style="UICTFontTextStyleHeadline"/>
+                    <color key="textColor" white="0.33333333333333331" alpha="1" colorSpace="calibratedWhite"/>
+                    <nil key="highlightedColor"/>
+                </label>
+            </subviews>
+            <color key="backgroundColor" white="0.66666666666666663" alpha="1" colorSpace="calibratedWhite"/>
+            <constraints>
+                <constraint firstAttribute="bottom" secondItem="Mu6-3W-jEj" secondAttribute="bottom" constant="15" id="58q-ng-MEs"/>
+                <constraint firstItem="Mu6-3W-jEj" firstAttribute="centerX" secondItem="Quf-Xw-Yoh" secondAttribute="centerX" id="Hjw-pa-rCv"/>
+                <constraint firstItem="Quf-Xw-Yoh" firstAttribute="top" secondItem="h3e-OS-Jjb" secondAttribute="top" constant="25" id="Je2-wH-8DG"/>
+                <constraint firstItem="Mu6-3W-jEj" firstAttribute="top" secondItem="Quf-Xw-Yoh" secondAttribute="bottom" constant="30" id="gZY-EA-QXB"/>
+                <constraint firstItem="Quf-Xw-Yoh" firstAttribute="centerX" secondItem="h3e-OS-Jjb" secondAttribute="centerX" id="glb-f5-O9H"/>
+            </constraints>
+            <freeformSimulatedSizeMetrics key="simulatedDestinationMetrics"/>
+            <point key="canvasLocation" x="1128.5" y="1333.5"/>
+        </view>
     </objects>
+    <resources>
+        <image name="cone" width="143" height="158"/>
+    </resources>
 </document>
