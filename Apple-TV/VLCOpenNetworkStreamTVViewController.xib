@@ -7,6 +7,8 @@
         <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner" customClass="VLCOpenNetworkStreamTVViewController">
             <connections>
                 <outlet property="deleteHintView" destination="Wa3-IS-ztU" id="ipW-Hx-fMJ"/>
+                <outlet property="nothingFoundLabel" destination="sdc-e1-PSc" id="dvi-jc-vaR"/>
+                <outlet property="nothingFoundView" destination="dvt-CP-ALF" id="lg3-aJ-oHg"/>
                 <outlet property="playURLField" destination="dWa-3n-YCa" id="Eoe-vT-AuM"/>
                 <outlet property="preferredFocusedView" destination="dWa-3n-YCa" id="0Ez-4Z-KFF"/>
                 <outlet property="previouslyPlayedStreamsTableView" destination="v0o-s0-Xaz" id="I1r-ie-lFf"/>
@@ -41,6 +43,28 @@
                         <outlet property="delegate" destination="-1" id="osW-Kv-1VK"/>
                     </connections>
                 </tableView>
+                <view contentMode="scaleToFill" ambiguous="YES" translatesAutoresizingMaskIntoConstraints="NO" id="dvt-CP-ALF">
+                    <rect key="frame" x="961" y="541" width="0.0" height="274"/>
+                    <subviews>
+                        <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="cone" translatesAutoresizingMaskIntoConstraints="NO" id="aAb-aY-bkT">
+                            <rect key="frame" x="-72" y="25" width="143" height="158"/>
+                        </imageView>
+                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="nuting found" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="sdc-e1-PSc">
+                            <rect key="frame" x="-109" y="213" width="217" height="46"/>
+                            <fontDescription key="fontDescription" style="UICTFontTextStyleHeadline"/>
+                            <color key="textColor" white="0.33333333333333331" alpha="1" colorSpace="calibratedWhite"/>
+                            <nil key="highlightedColor"/>
+                        </label>
+                    </subviews>
+                    <color key="backgroundColor" white="0.66666666666666663" alpha="1" colorSpace="calibratedWhite"/>
+                    <constraints>
+                        <constraint firstItem="aAb-aY-bkT" firstAttribute="centerX" secondItem="dvt-CP-ALF" secondAttribute="centerX" id="T2B-Dd-kNQ"/>
+                        <constraint firstAttribute="bottom" secondItem="sdc-e1-PSc" secondAttribute="bottom" constant="15" id="WnV-66-ihQ"/>
+                        <constraint firstItem="sdc-e1-PSc" firstAttribute="top" secondItem="aAb-aY-bkT" secondAttribute="bottom" constant="30" id="k26-yy-keN"/>
+                        <constraint firstItem="aAb-aY-bkT" firstAttribute="top" secondItem="dvt-CP-ALF" secondAttribute="top" constant="25" id="x0R-Nk-2BI"/>
+                        <constraint firstItem="sdc-e1-PSc" firstAttribute="centerX" secondItem="aAb-aY-bkT" secondAttribute="centerX" id="zmo-g5-Gt7"/>
+                    </constraints>
+                </view>
                 <view hidden="YES" contentMode="scaleToFill" placeholderIntrinsicWidth="550" placeholderIntrinsicHeight="100" translatesAutoresizingMaskIntoConstraints="NO" id="Wa3-IS-ztU" customClass="VLCDeleteHintTVView">
                     <rect key="frame" x="685" y="930" width="550" height="100"/>
                 </view>
@@ -48,12 +72,17 @@
             <constraints>
                 <constraint firstItem="Wa3-IS-ztU" firstAttribute="centerX" secondItem="iN0-l3-epB" secondAttribute="centerX" id="0ms-Lt-g1Q"/>
                 <constraint firstItem="dWa-3n-YCa" firstAttribute="top" secondItem="iN0-l3-epB" secondAttribute="top" constant="193" id="6FP-0U-Znd"/>
+                <constraint firstItem="dvt-CP-ALF" firstAttribute="centerY" secondItem="v0o-s0-Xaz" secondAttribute="centerY" id="GIx-LR-UOF"/>
                 <constraint firstAttribute="bottom" secondItem="Wa3-IS-ztU" secondAttribute="bottom" constant="50" id="ZDa-1f-46j"/>
                 <constraint firstItem="v0o-s0-Xaz" firstAttribute="centerX" secondItem="iN0-l3-epB" secondAttribute="centerX" id="elq-bO-Tb3"/>
                 <constraint firstItem="v0o-s0-Xaz" firstAttribute="top" secondItem="dWa-3n-YCa" secondAttribute="bottom" constant="70" id="jCe-Gz-82c"/>
                 <constraint firstItem="dWa-3n-YCa" firstAttribute="centerX" secondItem="iN0-l3-epB" secondAttribute="centerX" id="oFS-xp-QJo"/>
+                <constraint firstItem="dvt-CP-ALF" firstAttribute="centerX" secondItem="v0o-s0-Xaz" secondAttribute="centerX" id="uSF-XP-xr0"/>
                 <constraint firstAttribute="bottom" secondItem="v0o-s0-Xaz" secondAttribute="bottom" constant="70" id="ydf-eT-5UK"/>
             </constraints>
         </view>
     </objects>
+    <resources>
+        <image name="cone" width="143" height="158"/>
+    </resources>
 </document>

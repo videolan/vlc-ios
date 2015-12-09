@@ -17,6 +17,9 @@
 @property (readwrite, nonatomic, weak) IBOutlet UITextField *playURLField;
 @property (readwrite, nonatomic, weak) IBOutlet UITableView *previouslyPlayedStreamsTableView;
 
+@property (readwrite, nonatomic, weak) IBOutlet UILabel *nothingFoundLabel;
+@property (readwrite, nonatomic, weak) IBOutlet UIView *nothingFoundView;
+
 - (IBAction)URLEnteredInField:(id)sender;
 
 @end

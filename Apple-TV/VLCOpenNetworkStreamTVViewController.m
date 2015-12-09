@@ -18,7 +18,6 @@
 @interface VLCOpenNetworkStreamTVViewController ()
 {
     NSMutableArray *_recentURLs;
-    UILabel *_noURLsToShowLabel;
 }
 @property (nonatomic) NSIndexPath *currentlyFocusedIndexPath;
 @end
@@ -33,31 +32,7 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
 
-    _noURLsToShowLabel = [[UILabel alloc] init];
-    _noURLsToShowLabel.text = NSLocalizedString(@"NO_RECENT_STREAMS", nil);
-    _noURLsToShowLabel.textAlignment = NSTextAlignmentCenter;
-    _noURLsToShowLabel.textColor = [UIColor VLCLightTextColor];
-    _noURLsToShowLabel.font = [UIFont preferredFontForTextStyle:UIFontTextStyleTitle3];
-    [_noURLsToShowLabel sizeToFit];
-    [_noURLsToShowLabel setTranslatesAutoresizingMaskIntoConstraints:NO];
-    [self.view addSubview:_noURLsToShowLabel];
-
-    NSLayoutConstraint *yConstraint = [NSLayoutConstraint constraintWithItem:_noURLsToShowLabel
-                                                                   attribute:NSLayoutAttributeCenterY
-                                                                   relatedBy:NSLayoutRelationEqual
-                                                                      toItem:self.view
-                                                                   attribute:NSLayoutAttributeCenterY
-                                                                  multiplier:1.0
-                                                                    constant:0.0];
-    [self.view addConstraint:yConstraint];
-    NSLayoutConstraint *xConstraint = [NSLayoutConstraint constraintWithItem:_noURLsToShowLabel
-                                                                   attribute:NSLayoutAttributeCenterX
-                                                                   relatedBy:NSLayoutRelationEqual
-                                                                      toItem:self.view
-                                                                   attribute:NSLayoutAttributeCenterX
-                                                                  multiplier:1.0
-                                                                    constant:0.0];
-    [self.view addConstraint:xConstraint];
+    self.nothingFoundLabel.text = NSLocalizedString(@"NO_RECENT_STREAMS", nil);
 
     NSNotificationCenter *notificationCenter = [NSNotificationCenter defaultCenter];
     [notificationCenter addObserver:self
@@ -65,6 +40,11 @@
                                name:NSUbiquitousKeyValueStoreDidChangeExternallyNotification
                              object:[NSUbiquitousKeyValueStore defaultStore]];
 
+    self.playURLField.placeholder = NSLocalizedString(@"ENTER_URL", nil);
+}
+
+- (void)viewWillAppear:(BOOL)animated
+{
     /* force store update */
     NSUbiquitousKeyValueStore *ubiquitousKeyValueStore = [NSUbiquitousKeyValueStore defaultStore];
     [ubiquitousKeyValueStore synchronize];
@@ -77,9 +57,8 @@
         [_recentURLs addObject:@"https://vimeo.com/74370512"];
     }
 #endif
+
     [self.previouslyPlayedStreamsTableView reloadData];
-    _noURLsToShowLabel.hidden = _recentURLs.count != 0;
-    self.playURLField.placeholder = NSLocalizedString(@"ENTER_URL", nil);
 }
 
 - (void)ubiquitousKeyValueStoreDidChange:(NSNotification *)notification
@@ -87,7 +66,6 @@
     /* TODO: don't blindly trust that the Cloud knows best */
     _recentURLs = [NSMutableArray arrayWithArray:[[NSUbiquitousKeyValueStore defaultStore] arrayForKey:kVLCRecentURLs]];
     [self.previouslyPlayedStreamsTableView reloadData];
-    _noURLsToShowLabel.hidden = _recentURLs.count != 0;
 }
 
 - (void)viewWillDisappear:(BOOL)animated
@@ -120,7 +98,9 @@
 
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section
 {
-    return _recentURLs.count;
+    NSInteger count = _recentURLs.count;
+    self.nothingFoundView.hidden = count > 0;
+    return count;
 }
 
 - (void)tableView:(UITableView *)tableView didHighlightRowAtIndexPath:(NSIndexPath *)indexPath
