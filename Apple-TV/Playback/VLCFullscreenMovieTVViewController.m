@@ -54,8 +54,6 @@ typedef NS_ENUM(NSInteger, VLCPlayerScanState)
 
 - (void)viewDidLoad
 {
-    [super viewDidLoad];
-
     self.extendedLayoutIncludesOpaqueBars = YES;
     self.edgesForExtendedLayout = UIRectEdgeAll;
 
@@ -118,13 +116,7 @@ typedef NS_ENUM(NSInteger, VLCPlayerScanState)
 
     self.simultaneousGestureRecognizers = simultaneousGestureRecognizers;
 
-    self.audioView.hidden = YES;
-    self.audioDescriptionTextView.text = nil;
-    self.audioTitleLabel.text = nil;
-    self.audioArtworkImageView.image = [UIImage imageNamed:@"about-app-icon"];
-    self.audioLargeBackgroundImageView.image = [UIImage imageNamed:@"about-app-icon"];
-    self.audioArtworkImageView.animateImageSetting = YES;
-    self.audioLargeBackgroundImageView.animateImageSetting = YES;
+    [super viewDidLoad];
 }
 
 - (void)didReceiveMemoryWarning
@@ -138,6 +130,16 @@ typedef NS_ENUM(NSInteger, VLCPlayerScanState)
 - (void)viewWillAppear:(BOOL)animated
 {
     [super viewWillAppear:animated];
+
+    self.audioView.hidden = YES;
+    self.audioDescriptionTextView.text = @"";
+    self.audioTitleLabel.text = @"";
+    self.audioArtistLabel.text = @"";
+    self.audioAlbumNameLabel.text = @"";
+    self.audioArtworkImageView.image = [UIImage imageNamed:@"about-app-icon"];
+    self.audioLargeBackgroundImageView.image = [UIImage imageNamed:@"about-app-icon"];
+    self.audioArtworkImageView.animateImageSetting = YES;
+    self.audioLargeBackgroundImageView.animateImageSetting = YES;
 
     VLCPlaybackController *vpc = [VLCPlaybackController sharedInstance];
     vpc.delegate = self;
@@ -688,11 +690,6 @@ currentMediaHasTrackToChooseFrom:(BOOL)currentMediaHasTrackToChooseFrom
         [UIView animateWithDuration:.3 animations:^{
             self.bufferingLabel.hidden = YES;
         }];
-        if (controller.audioOnlyPlaybackSession) {
-            [UIView animateWithDuration:.3 animations:^{
-                self.audioView.hidden = NO;
-            }];
-        }
     }
 }
 
@@ -758,6 +755,9 @@ currentMediaHasTrackToChooseFrom:(BOOL)currentMediaHasTrackToChooseFrom
             } else
                 [self.audioMetaDataFetcher searchForArtist:artist];
         }
+        [UIView animateWithDuration:0.3 animations:^{
+            self.audioView.hidden = NO;
+        }];
     } else if (!self.audioView.hidden) {
         [self.audioMetaDataFetcher cancelAllRequests];
         self.audioView.hidden = YES;
@@ -806,7 +806,6 @@ currentMediaHasTrackToChooseFrom:(BOOL)currentMediaHasTrackToChooseFrom
         [self _simplifyMetaDataSearchString:searchRequest];
         return;
     }
-    self.audioArtistLabel.text = artist.name;
     if (artist.biography) {
         [self scrollAudioDescriptionAnimationToTop];
         [UIView animateWithDuration:.3 animations:^{
@@ -845,6 +844,9 @@ currentMediaHasTrackToChooseFrom:(BOOL)currentMediaHasTrackToChooseFrom
 - (void)MDFHatchetFetcher:(MDFHatchetFetcher *)aFetcher didFailToFindAlbum:(NSString *)albumName forArtistName:(NSString *)artistName
 {
     APLog(@"%s: %@ %@", __PRETTY_FUNCTION__, artistName, albumName);
+    UIImage *dummyImage = [UIImage imageNamed:@"about-app-icon"];
+    self.audioArtworkImageView.image = dummyImage;
+    self.audioLargeBackgroundImageView.image = dummyImage;
 }
 
 - (void)MDFHatchetFetcher:(MDFHatchetFetcher *)aFetcher didFindArtist:(MDFArtist *)artist forSearchRequest:(NSString *)searchRequest
@@ -854,7 +856,6 @@ currentMediaHasTrackToChooseFrom:(BOOL)currentMediaHasTrackToChooseFrom
         [self _simplifyMetaDataSearchString:searchRequest];
         return;
     }
-    self.audioArtistLabel.text = artist.name;
     if (artist.biography) {
         [self scrollAudioDescriptionAnimationToTop];
         [UIView animateWithDuration:.3 animations:^{
@@ -894,6 +895,9 @@ currentMediaHasTrackToChooseFrom:(BOOL)currentMediaHasTrackToChooseFrom
 - (void)MDFHatchetFetcher:(MDFHatchetFetcher *)aFetcher didFailToFindArtistForSearchRequest:(NSString *)searchRequest
 {
     APLog(@"%s: %@", __PRETTY_FUNCTION__, searchRequest);
+    UIImage *dummyImage = [UIImage imageNamed:@"about-app-icon"];
+    self.audioArtworkImageView.image = dummyImage;
+    self.audioLargeBackgroundImageView.image = dummyImage;
 }
 
 - (void)scrollAudioDescriptionAnimationToTop
