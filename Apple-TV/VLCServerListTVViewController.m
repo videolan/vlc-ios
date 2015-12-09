@@ -113,7 +113,9 @@
 
 - (NSInteger)collectionView:(UICollectionView *)collectionView numberOfItemsInSection:(NSInteger)section
 {
-    return self.indexPaths.count;
+    NSInteger count = self.indexPaths.count;
+    self.nothingFoundView.hidden = count > 0;
+    return count;
 }
 
 - (UICollectionViewCell *)collectionView:(UICollectionView *)collectionView cellForItemAtIndexPath:(nonnull NSIndexPath *)indexPath

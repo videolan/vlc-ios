@@ -36,32 +36,37 @@
         _browsingController = [[VLCServerBrowsingController alloc] initWithViewController:self serverBrowser:serverBrowser];
 
         self.title = serverBrowser.title;
-
-        self.nothingFoundLabel.text = NSLocalizedString(@"FOLDER_EMPTY", nil);
-        [self.nothingFoundLabel sizeToFit];
-        UIView *nothingFoundView = self.nothingFoundView;
-        [nothingFoundView sizeToFit];
-        [nothingFoundView setTranslatesAutoresizingMaskIntoConstraints:NO];
-        [self.view addSubview:nothingFoundView];
-
-        NSLayoutConstraint *yConstraint = [NSLayoutConstraint constraintWithItem:nothingFoundView
-                                                                       attribute:NSLayoutAttributeCenterY
-                                                                       relatedBy:NSLayoutRelationEqual
-                                                                          toItem:self.view
-                                                                       attribute:NSLayoutAttributeCenterY
-                                                                      multiplier:1.0
-                                                                        constant:0.0];
-        [self.view addConstraint:yConstraint];
-        NSLayoutConstraint *xConstraint = [NSLayoutConstraint constraintWithItem:nothingFoundView
-                                                                       attribute:NSLayoutAttributeCenterX
-                                                                       relatedBy:NSLayoutRelationEqual
-                                                                          toItem:self.view
-                                                                       attribute:NSLayoutAttributeCenterX
-                                                                      multiplier:1.0
-                                                                        constant:0.0];
-        [self.view addConstraint:xConstraint];
     }
     return self;
+}
+
+- (void)viewDidLoad
+{
+    [super viewDidLoad];
+
+    self.nothingFoundLabel.text = NSLocalizedString(@"FOLDER_EMPTY", nil);
+    [self.nothingFoundLabel sizeToFit];
+    UIView *nothingFoundView = self.nothingFoundView;
+    [nothingFoundView sizeToFit];
+    [nothingFoundView setTranslatesAutoresizingMaskIntoConstraints:NO];
+    [self.view addSubview:nothingFoundView];
+
+    NSLayoutConstraint *yConstraint = [NSLayoutConstraint constraintWithItem:nothingFoundView
+                                                                   attribute:NSLayoutAttributeCenterY
+                                                                   relatedBy:NSLayoutRelationEqual
+                                                                      toItem:self.view
+                                                                   attribute:NSLayoutAttributeCenterY
+                                                                  multiplier:1.0
+                                                                    constant:0.0];
+    [self.view addConstraint:yConstraint];
+    NSLayoutConstraint *xConstraint = [NSLayoutConstraint constraintWithItem:nothingFoundView
+                                                                   attribute:NSLayoutAttributeCenterX
+                                                                   relatedBy:NSLayoutRelationEqual
+                                                                      toItem:self.view
+                                                                   attribute:NSLayoutAttributeCenterX
+                                                                  multiplier:1.0
+                                                                    constant:0.0];
+    [self.view addConstraint:xConstraint];
 }
 
 - (void)viewDidAppear:(BOOL)animated
@@ -116,12 +121,14 @@
 
 - (NSInteger)collectionView:(UICollectionView *)collectionView numberOfItemsInSection:(NSInteger)section
 {
-    return [self.serverBrowser items].count;
+    NSInteger count = [self.serverBrowser items].count;
+    self.nothingFoundView.hidden = count > 0;
+    return count;
 }
 
 - (void)collectionView:(UICollectionView *)collectionView willDisplayCell:(UICollectionViewCell *)cell forItemAtIndexPath:(NSIndexPath *)indexPath
 {
-        id<VLCNetworkServerBrowserItem> item = self.serverBrowser.items[indexPath.row];
+    id<VLCNetworkServerBrowserItem> item = self.serverBrowser.items[indexPath.row];
 
     if ([cell conformsToProtocol:@protocol(VLCRemoteBrowsingCell)]) {
         [self.browsingController configureCell:(id<VLCRemoteBrowsingCell>)cell withItem:item];
