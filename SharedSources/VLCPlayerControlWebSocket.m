@@ -324,7 +324,7 @@
         "url": "https://vimeo.com/74370512"
      }
      */
-    BOOL needsMediaList;
+    BOOL needsMediaList = NO;
 
     VLCPlaybackController *vpc = [VLCPlaybackController sharedInstance];
     VLCMediaList *mediaList = vpc.mediaList;
@@ -333,7 +333,29 @@
         mediaList = [[VLCMediaList alloc] init];
     }
 
-    [mediaList addMedia:[VLCMedia mediaWithURL:[NSURL URLWithString:dictionary[@"url"]]]];
+    NSString *urlString = dictionary[@"url"];
+    if (urlString == nil || urlString.length == 0)
+        return;
+
+    /* force store update */
+    NSUbiquitousKeyValueStore *ubiquitousKeyValueStore = [NSUbiquitousKeyValueStore defaultStore];
+    [ubiquitousKeyValueStore synchronize];
+
+    /* fetch data from cloud */
+    NSMutableArray *recentURLs = [NSMutableArray arrayWithArray:[ubiquitousKeyValueStore arrayForKey:kVLCRecentURLs]];
+
+    /* re-order array and add item */
+    if ([recentURLs indexOfObject:urlString] != NSNotFound)
+        [recentURLs removeObject:urlString];
+
+    if (recentURLs.count >= 100)
+        [recentURLs removeLastObject];
+    [recentURLs addObject:urlString];
+
+    /* sync back */
+    [ubiquitousKeyValueStore setArray:recentURLs forKey:kVLCRecentURLs];
+
+    [mediaList addMedia:[VLCMedia mediaWithURL:[NSURL URLWithString:urlString]]];
 
     if (needsMediaList) {
         [vpc playMediaList:mediaList firstIndex:0];
