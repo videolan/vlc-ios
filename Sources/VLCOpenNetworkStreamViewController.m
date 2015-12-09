@@ -169,12 +169,13 @@
 {
     if ([self.urlField.text length] > 0) {
         if (!self.privateToggleSwitch.on) {
-            if ([_recentURLs indexOfObject:self.urlField.text] != NSNotFound)
-                [_recentURLs removeObject:self.urlField.text];
+            NSString *urlString = self.urlField.text;
+            if ([_recentURLs indexOfObject:urlString] != NSNotFound)
+                [_recentURLs removeObject:urlString];
 
             if (_recentURLs.count >= 100)
                 [_recentURLs removeLastObject];
-            [_recentURLs addObject:self.urlField.text];
+            [_recentURLs addObject:urlString];
             [[NSUbiquitousKeyValueStore defaultStore] setArray:_recentURLs forKey:kVLCRecentURLs];
 
             [self.historyTableView reloadData];
