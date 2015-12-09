@@ -132,10 +132,10 @@ typedef NS_ENUM(NSInteger, VLCPlayerScanState)
     [super viewWillAppear:animated];
 
     self.audioView.hidden = YES;
-    self.audioDescriptionTextView.text = @"";
-    self.audioTitleLabel.text = @"";
-    self.audioArtistLabel.text = @"";
-    self.audioAlbumNameLabel.text = @"";
+    self.audioDescriptionTextView.hidden = YES;
+    self.audioTitleLabel.hidden = YES;
+    self.audioArtistLabel.hidden = YES;
+    self.audioAlbumNameLabel.hidden = YES;
     self.audioArtworkImageView.image = [UIImage imageNamed:@"about-app-icon"];
     self.audioLargeBackgroundImageView.image = [UIImage imageNamed:@"about-app-icon"];
     self.audioArtworkImageView.animateImageSetting = YES;
@@ -704,7 +704,7 @@ currentMediaHasTrackToChooseFrom:(BOOL)currentMediaHasTrackToChooseFrom
 
     if (audioOnly) {
         self.audioArtworkImageView.image = nil;
-        self.audioDescriptionTextView.text = nil;
+        self.audioDescriptionTextView.hidden = YES;
         [self stopAudioDescriptionAnimation];
 
         if (!self.audioMetaDataFetcher) {
@@ -717,13 +717,16 @@ currentMediaHasTrackToChooseFrom:(BOOL)currentMediaHasTrackToChooseFrom
         if (artist != nil && album != nil) {
             [UIView animateWithDuration:.3 animations:^{
                 self.audioArtistLabel.text = artist;
+                self.audioArtistLabel.hidden = NO;
                 self.audioAlbumNameLabel.text = album;
+                self.audioAlbumNameLabel.hidden = NO;
             }];
             APLog(@"Audio-only track meta changed, tracing artist '%@' and album '%@'", artist, album);
         } else if (artist != nil) {
             [UIView animateWithDuration:.3 animations:^{
                 self.audioArtistLabel.text = artist;
-                self.audioAlbumNameLabel.text = nil;
+                self.audioArtistLabel.hidden = NO;
+                self.audioAlbumNameLabel.hidden = YES;
             }];
             APLog(@"Audio-only track meta changed, tracing artist '%@'", artist);
         } else if (title != nil) {
@@ -735,8 +738,8 @@ currentMediaHasTrackToChooseFrom:(BOOL)currentMediaHasTrackToChooseFrom
             APLog(@"Audio-only track meta changed, tracing artist '%@'", artist);
             [UIView animateWithDuration:.3 animations:^{
                 self.audioArtistLabel.text = artist;
-                self.audioTitleLabel.text = nil;
-                self.audioAlbumNameLabel.text = nil;
+                self.audioArtistLabel.hidden = NO;
+                self.audioAlbumNameLabel.hidden = YES;
             }];
         }
         if (![self.lastArtist isEqualToString:artist]) {
@@ -748,6 +751,7 @@ currentMediaHasTrackToChooseFrom:(BOOL)currentMediaHasTrackToChooseFrom
         }
         self.lastArtist = artist;
         self.audioTitleLabel.text = title;
+        self.audioTitleLabel.hidden = NO;
 
         if (artist != nil) {
             if (album != nil) {
@@ -809,6 +813,7 @@ currentMediaHasTrackToChooseFrom:(BOOL)currentMediaHasTrackToChooseFrom
     if (artist.biography) {
         [self scrollAudioDescriptionAnimationToTop];
         [UIView animateWithDuration:.3 animations:^{
+            self.audioDescriptionTextView.hidden = NO;
             self.audioDescriptionTextView.text = artist.biography;
         }];
         [self startAudioDescriptionAnimation];
@@ -860,6 +865,7 @@ currentMediaHasTrackToChooseFrom:(BOOL)currentMediaHasTrackToChooseFrom
         [self scrollAudioDescriptionAnimationToTop];
         [UIView animateWithDuration:.3 animations:^{
             self.audioDescriptionTextView.text = artist.biography;
+            self.audioDescriptionTextView.hidden = NO;
         }];
         [self startAudioDescriptionAnimation];
     } else
@@ -937,7 +943,7 @@ currentMediaHasTrackToChooseFrom:(BOOL)currentMediaHasTrackToChooseFrom
     CGFloat viewHeight = CGRectGetHeight(scrollView.frame);
     CGFloat maxOffsetY = scrollView.contentSize.height - viewHeight;
 
-    CFTimeInterval secondsPerPage = 15.0;
+    CFTimeInterval secondsPerPage = 8.0;
     CGFloat offset = link.duration/secondsPerPage * viewHeight;
 
     CGFloat newYOffset = scrollView.contentOffset.y + offset;

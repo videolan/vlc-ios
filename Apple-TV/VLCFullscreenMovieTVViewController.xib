@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
-<document type="com.apple.InterfaceBuilder.AppleTV.XIB" version="3.0" toolsVersion="9527.1" systemVersion="15B42" targetRuntime="AppleTV" propertyAccessControl="none" useAutolayout="YES">
+<document type="com.apple.InterfaceBuilder.AppleTV.XIB" version="3.0" toolsVersion="9531" systemVersion="15B42" targetRuntime="AppleTV" propertyAccessControl="none" useAutolayout="YES">
     <dependencies>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="9525.1"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="9529"/>
     </dependencies>
     <objects>
         <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner" customClass="VLCFullscreenMovieTVViewController">
@@ -48,31 +48,36 @@
                             </view>
                             <blurEffect style="light"/>
                         </visualEffectView>
-                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Ludovico Einaudi" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="uF6-s0-ZW1">
-                            <rect key="frame" x="1106" y="312" width="368" height="58"/>
-                            <fontDescription key="fontDescription" style="UICTFontTextStyleTitle3"/>
-                            <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
-                            <nil key="highlightedColor"/>
-                        </label>
-                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Part 2 Live" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="yY5-l1-Z6Q">
-                            <rect key="frame" x="1106" y="392" width="133" height="35"/>
-                            <fontDescription key="fontDescription" style="UICTFontTextStyleSubhead"/>
-                            <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
-                            <nil key="highlightedColor"/>
-                        </label>
-                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Royal Albert Hall Concert" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="AX0-qH-hQt">
-                            <rect key="frame" x="1106" y="449" width="319" height="35"/>
-                            <fontDescription key="fontDescription" style="UICTFontTextStyleSubhead"/>
-                            <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
-                            <nil key="highlightedColor"/>
-                        </label>
-                        <textView clipsSubviews="YES" multipleTouchEnabled="YES" userInteractionEnabled="NO" contentMode="scaleToFill" bounces="NO" showsHorizontalScrollIndicator="NO" showsVerticalScrollIndicator="NO" editable="NO" textAlignment="natural" selectable="NO" translatesAutoresizingMaskIntoConstraints="NO" id="91t-Cy-Ney">
-                            <rect key="frame" x="1082" y="506" width="548" height="262"/>
-                            <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
-                            <string key="text">Lorem ipsum dolor sit er elit lamet, consectetaur cillium adipisicing pecu, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum. Nam liber te conscient to factor tum poen legum odioque civiuda.</string>
-                            <fontDescription key="fontDescription" style="UICTFontTextStyleBody"/>
-                            <textInputTraits key="textInputTraits" autocapitalizationType="sentences" autocorrectionType="no" spellCheckingType="no"/>
-                        </textView>
+                        <stackView opaque="NO" contentMode="scaleToFill" ambiguous="YES" misplaced="YES" axis="vertical" spacing="10" translatesAutoresizingMaskIntoConstraints="NO" id="2ef-wh-AnZ">
+                            <rect key="frame" x="1106" y="312" width="548" height="420"/>
+                            <subviews>
+                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" ambiguous="YES" misplaced="YES" text="Ludovico Einaudi" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="uF6-s0-ZW1">
+                                    <rect key="frame" x="0.0" y="0.0" width="548" height="58"/>
+                                    <fontDescription key="fontDescription" style="UICTFontTextStyleTitle3"/>
+                                    <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
+                                    <nil key="highlightedColor"/>
+                                </label>
+                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" ambiguous="YES" misplaced="YES" text="Part 2 Live" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="yY5-l1-Z6Q">
+                                    <rect key="frame" x="0.0" y="68" width="548" height="35"/>
+                                    <fontDescription key="fontDescription" style="UICTFontTextStyleSubhead"/>
+                                    <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
+                                    <nil key="highlightedColor"/>
+                                </label>
+                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" ambiguous="YES" misplaced="YES" text="Royal Albert Hall Concert" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="AX0-qH-hQt">
+                                    <rect key="frame" x="0.0" y="113" width="548" height="35"/>
+                                    <fontDescription key="fontDescription" style="UICTFontTextStyleSubhead"/>
+                                    <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
+                                    <nil key="highlightedColor"/>
+                                </label>
+                                <textView clipsSubviews="YES" multipleTouchEnabled="YES" userInteractionEnabled="NO" contentMode="scaleToFill" ambiguous="YES" misplaced="YES" bounces="NO" showsHorizontalScrollIndicator="NO" showsVerticalScrollIndicator="NO" editable="NO" textAlignment="center" selectable="NO" translatesAutoresizingMaskIntoConstraints="NO" id="91t-Cy-Ney">
+                                    <rect key="frame" x="0.0" y="158" width="548" height="262"/>
+                                    <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
+                                    <string key="text">Lorem ipsum dolor sit er elit lamet, consectetaur cillium adipisicing pecu, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum. Nam liber te conscient to factor tum poen legum odioque civiuda.</string>
+                                    <fontDescription key="fontDescription" style="UICTFontTextStyleBody"/>
+                                    <textInputTraits key="textInputTraits" autocapitalizationType="sentences" autocorrectionType="no" spellCheckingType="no"/>
+                                </textView>
+                            </subviews>
+                        </stackView>
                         <imageView userInteractionEnabled="NO" contentMode="center" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="J7W-id-hCi" customClass="VLCNetworkImageView">
                             <rect key="frame" x="314" y="290" width="500" height="500"/>
                             <constraints>
@@ -85,21 +90,13 @@
                     <constraints>
                         <constraint firstItem="GYU-SB-lrM" firstAttribute="centerX" secondItem="9Pa-FT-05g" secondAttribute="centerX" id="53l-bt-9W3"/>
                         <constraint firstItem="Fgv-ZO-u0W" firstAttribute="centerY" secondItem="9Pa-FT-05g" secondAttribute="centerY" id="9QV-ec-M71"/>
+                        <constraint firstItem="2ef-wh-AnZ" firstAttribute="leading" secondItem="J7W-id-hCi" secondAttribute="trailing" constant="292" id="BBq-La-64n"/>
                         <constraint firstItem="J7W-id-hCi" firstAttribute="centerY" secondItem="9Pa-FT-05g" secondAttribute="centerY" id="BkJ-I8-bKO"/>
-                        <constraint firstItem="91t-Cy-Ney" firstAttribute="leading" secondItem="AX0-qH-hQt" secondAttribute="leading" constant="-24" id="DIJ-cM-X7E"/>
-                        <constraint firstItem="91t-Cy-Ney" firstAttribute="width" secondItem="J7W-id-hCi" secondAttribute="width" priority="250" constant="48" id="Fzd-p3-Y0o"/>
                         <constraint firstItem="Fgv-ZO-u0W" firstAttribute="width" secondItem="9Pa-FT-05g" secondAttribute="width" id="Gig-2L-fpR"/>
-                        <constraint firstItem="uF6-s0-ZW1" firstAttribute="top" secondItem="J7W-id-hCi" secondAttribute="top" constant="22" id="Kgc-aR-bwd"/>
-                        <constraint firstItem="91t-Cy-Ney" firstAttribute="top" secondItem="AX0-qH-hQt" secondAttribute="bottom" constant="22" id="L53-Di-vxN"/>
-                        <constraint firstItem="AX0-qH-hQt" firstAttribute="top" secondItem="yY5-l1-Z6Q" secondAttribute="bottom" constant="22" id="LOG-Oo-cRF"/>
-                        <constraint firstItem="uF6-s0-ZW1" firstAttribute="leading" secondItem="J7W-id-hCi" secondAttribute="trailing" constant="292" id="SmU-22-m4O"/>
+                        <constraint firstItem="2ef-wh-AnZ" firstAttribute="centerY" secondItem="J7W-id-hCi" secondAttribute="centerY" id="RyB-fl-Rj0"/>
                         <constraint firstItem="GYU-SB-lrM" firstAttribute="width" secondItem="9Pa-FT-05g" secondAttribute="width" id="ZuZ-16-aUy"/>
                         <constraint firstItem="Fgv-ZO-u0W" firstAttribute="height" secondItem="9Pa-FT-05g" secondAttribute="height" id="cLJ-77-GBW"/>
                         <constraint firstItem="GYU-SB-lrM" firstAttribute="height" secondItem="9Pa-FT-05g" secondAttribute="height" id="fJW-hf-0Ea"/>
-                        <constraint firstItem="yY5-l1-Z6Q" firstAttribute="leading" secondItem="uF6-s0-ZW1" secondAttribute="leading" id="lQT-Sg-lwM"/>
-                        <constraint firstItem="AX0-qH-hQt" firstAttribute="leading" secondItem="yY5-l1-Z6Q" secondAttribute="leading" id="q3d-SR-aRv"/>
-                        <constraint firstItem="yY5-l1-Z6Q" firstAttribute="top" secondItem="uF6-s0-ZW1" secondAttribute="bottom" constant="22" id="sKK-Jf-OK2"/>
-                        <constraint firstItem="91t-Cy-Ney" firstAttribute="bottom" secondItem="J7W-id-hCi" secondAttribute="bottom" constant="-22" id="suM-P7-RHE"/>
                         <constraint firstItem="J7W-id-hCi" firstAttribute="leading" secondItem="9Pa-FT-05g" secondAttribute="leading" constant="314" id="ulU-A9-10q"/>
                         <constraint firstItem="GYU-SB-lrM" firstAttribute="centerY" secondItem="9Pa-FT-05g" secondAttribute="centerY" id="vqq-ve-Gmf"/>
                         <constraint firstItem="Fgv-ZO-u0W" firstAttribute="centerX" secondItem="9Pa-FT-05g" secondAttribute="centerX" id="x6U-7r-SuP"/>
