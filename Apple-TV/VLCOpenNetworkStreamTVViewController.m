@@ -68,7 +68,7 @@
     [ubiquitousKeyValueStore synchronize];
 
     /* fetch data from cloud */
-    _recentURLs = [NSMutableArray arrayWithArray:[[NSUbiquitousKeyValueStore defaultStore] arrayForKey:kVLCRecentURLs]];
+    _recentURLs = [NSMutableArray arrayWithArray:[ubiquitousKeyValueStore arrayForKey:kVLCRecentURLs]];
 #ifndef NDEBUG
     if (_recentURLs.count == 0) {
         [_recentURLs addObject:@"https://www.youtube.com/watch?v=13e2GxpqGPY"];
@@ -130,6 +130,14 @@
 {
     NSString *urlString = self.playURLField.text;
     if (urlString.length) {
+        if ([_recentURLs indexOfObject:urlString] != NSNotFound)
+            [_recentURLs removeObject:urlString];
+
+        if (_recentURLs.count >= 100)
+            [_recentURLs removeLastObject];
+        [_recentURLs addObject:urlString];
+        [[NSUbiquitousKeyValueStore defaultStore] setArray:_recentURLs forKey:kVLCRecentURLs];
+
         [self _openURLStringAndDismiss:urlString];
     }
 }
