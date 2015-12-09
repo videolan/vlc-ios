@@ -89,9 +89,9 @@
 "SELECT_RESOURCE_TO_DOWNLOAD"="Select a resource to download:";
 "SHARED_VLC_IOS_LIBRARY"="Shared VLC for iOS Library";
 "SAP_STREAMS"="Network Streams (SAP)";
-"SMB_CIFS_FILE_SERVERS"="File Servers (SMB/CIFS)";
+"SMB_CIFS_FILE_SERVERS"="File Servers (SMB)";
 
-"SMB_CIFS_FILE_SERVERS_SHORT"="SMB/CIFS";
+"SMB_CIFS_FILE_SERVERS_SHORT"="SMB";
 
 
 "HTTP_DOWNLOAD_FAILED"="Download failed with HTTP code %i";
