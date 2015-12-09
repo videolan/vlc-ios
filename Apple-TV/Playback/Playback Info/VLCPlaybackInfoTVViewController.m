@@ -53,13 +53,11 @@
 
     [self setupTabBarItemAppearance];
 
-    _allTabViewControllers = @[
-                               [[VLCPlaybackInfoMediaInfoTVViewController alloc] initWithNibName:nil bundle:nil],
-                               [[VLCPlaybackInfoChaptersTVViewController alloc] initWithNibName:nil bundle:nil],
+    _allTabViewControllers = @[[[VLCPlaybackInfoChaptersTVViewController alloc] initWithNibName:nil bundle:nil],
                                [[VLCPlaybackInfoTracksTVViewController alloc] initWithNibName:nil bundle:nil],
                                [[VLCPlaybackInfoRateTVViewController alloc] initWithNibName:nil bundle:nil],
+                               [[VLCPlaybackInfoMediaInfoTVViewController alloc] initWithNibName:nil bundle:nil],
                                ];
-
 
     UITabBarController *controller = [[VLCPlaybackInfoTVTabBarController alloc] init];
     controller.delegate = self;
