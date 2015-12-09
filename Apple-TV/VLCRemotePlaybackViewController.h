@@ -10,9 +10,9 @@
  *****************************************************************************/
 
 #import <UIKit/UIKit.h>
-#import "VLCRemoteBrowsingCollectionViewController.h"
+#import "VLCDeletionCapableViewController.h"
 
-@interface VLCRemotePlaybackViewController : UIViewController
+@interface VLCRemotePlaybackViewController : VLCDeletionCapableViewController
 
 @property (readwrite, nonatomic, weak) IBOutlet UILabel *httpServerLabel;
 @property (readwrite, nonatomic, weak) IBOutlet UIButton *toggleHTTPServerButton;
@@ -20,7 +20,6 @@
 @property (readwrite, nonatomic, weak) IBOutlet UILabel *cachedMediaLabel;
 @property (readwrite, nonatomic, weak) IBOutlet UILabel *cachedMediaLongLabel;
 @property (readwrite, nonatomic, weak) IBOutlet UICollectionView *cachedMediaCollectionView;
-@property (nonatomic, weak) IBOutlet UIView *deleteHintView;
 
 - (IBAction)toggleHTTPServer:(id)sender;
 

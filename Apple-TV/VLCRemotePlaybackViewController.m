@@ -27,10 +27,7 @@ static NSString *const VLCWiggleAnimationKey = @"VLCWiggleAnimation";
     Reachability *_reachability;
     NSMutableArray<NSString *> *_discoveredFiles;
 }
-@property (nonatomic) UITapGestureRecognizer *playPausePressRecognizer;
-@property (nonatomic) UITapGestureRecognizer *cancelRecognizer;
 @property (nonatomic) NSIndexPath *currentlyFocusedIndexPath;
-@property (nonatomic) NSTimer *hintTimer;
 
 @end
 
@@ -71,21 +68,6 @@ static NSString *const VLCWiggleAnimationKey = @"VLCWiggleAnimation";
     discoverer.directoryPath = [[searchPaths firstObject] stringByAppendingPathComponent:@"Upload"];
     [discoverer addObserver:self];
     [discoverer startDiscovering];
-
-    UILongPressGestureRecognizer *recognizer = [[UILongPressGestureRecognizer alloc] initWithTarget:self action:@selector(startEditMode)];
-    recognizer.allowedPressTypes = @[@(UIPressTypeSelect)];
-    recognizer.minimumPressDuration = 1.0;
-    [self.view addGestureRecognizer:recognizer];
-
-    UITapGestureRecognizer *cancelRecognizer = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(endEditMode)];
-    cancelRecognizer.allowedPressTypes = @[@(UIPressTypeSelect),@(UIPressTypeMenu)];
-    self.cancelRecognizer = cancelRecognizer;
-    [self.view addGestureRecognizer:cancelRecognizer];
-
-    UITapGestureRecognizer *playPauseRecognizer = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(handlePlayPausePress)];
-    playPauseRecognizer.allowedPressTypes = @[@(UIPressTypePlayPause)];
-    self.playPausePressRecognizer = playPauseRecognizer;
-    [self.view addGestureRecognizer:playPauseRecognizer];
 
     self.cachedMediaLabel.text = NSLocalizedString(@"CACHED_MEDIA", nil);
     self.cachedMediaLongLabel.text = NSLocalizedString(@"CACHED_MEDIA_LONG", nil);
@@ -159,130 +141,6 @@ static NSString *const VLCWiggleAnimationKey = @"VLCWiggleAnimation";
     [[NSUserDefaults standardUserDefaults] synchronize];
 }
 
-#pragma mark - editing
-
-- (void)handlePlayPausePress
-{
-    NSIndexPath *indexPathToDelete = self.currentlyFocusedIndexPath;
-    if (!indexPathToDelete) {
-        return;
-    }
-    NSString *fileToDelete = nil;
-    @synchronized(_discoveredFiles) {
-        fileToDelete = _discoveredFiles[indexPathToDelete.item];
-    }
-
-    NSString *title = fileToDelete.lastPathComponent;
-    UIAlertController *alertController = [UIAlertController alertControllerWithTitle:title
-                                                                             message:nil
-                                                                      preferredStyle:UIAlertControllerStyleAlert];
-    UIAlertAction *deleteAction = [UIAlertAction actionWithTitle:NSLocalizedString(@"BUTTON_DELETE", nil)
-                                                           style:UIAlertActionStyleDestructive
-                                                         handler:^(UIAlertAction * _Nonnull action) {
-                                                             [self deleteFileAtIndex:indexPathToDelete];
-                                                         }];
-    UIAlertAction *cancelAction = [UIAlertAction actionWithTitle:NSLocalizedString(@"BUTTON_CANCEL", nil)
-                                                           style:UIAlertActionStyleCancel handler:^(UIAlertAction * _Nonnull action) {
-                                                               self.editing = NO;
-                                                           }];
-
-    [alertController addAction:deleteAction];
-    [alertController addAction:cancelAction];
-    [self presentViewController:alertController animated:YES completion:nil];
-}
-
-- (void)deleteFileAtIndex:(NSIndexPath *)indexPathToDelete
-{
-    if (!indexPathToDelete) {
-        return;
-    }
-    __block NSString *fileToDelete = nil;
-    [self.cachedMediaCollectionView performBatchUpdates:^{
-        @synchronized(_discoveredFiles) {
-            fileToDelete = _discoveredFiles[indexPathToDelete.item];
-            [_discoveredFiles removeObject:fileToDelete];
-        }
-        [self.cachedMediaCollectionView deleteItemsAtIndexPaths:@[indexPathToDelete]];
-
-    } completion:^(BOOL finished) {
-        [[NSFileManager defaultManager] removeItemAtPath:fileToDelete error:nil];
-        self.editing = NO;
-    }];
-
-}
-
-- (void)animateDeletHintToVisibility:(BOOL)visible
-{
-    const NSTimeInterval duration = 0.5;
-
-    UIView *hintView = self.deleteHintView;
-
-    if (hintView.hidden) {
-        hintView.alpha = 0.0;
-    }
-
-    if (hintView.alpha == 0.0) {
-        hintView.hidden = NO;
-    }
-
-    const CGFloat targetAlpha = visible ? 1.0 : 0.0;
-    [UIView animateWithDuration:duration
-                          delay:0
-                        options:UIViewAnimationOptionBeginFromCurrentState
-                     animations:^{
-                         hintView.alpha = targetAlpha;
-                     }
-                     completion:^(BOOL finished) {
-                         if (hintView.alpha == 0.0) {
-                             hintView.hidden = YES;
-                         }
-                     }];
-}
-
-- (void)hintTimerFired:(NSTimer *)timer
-{
-    const NSTimeInterval waitUntilHideInterval = 5.0;
-
-    NSNumber *userInfo = [timer userInfo];
-    BOOL shouldShow = [userInfo isKindOfClass:[NSNumber class]] && [userInfo boolValue];
-    [self animateDeletHintToVisibility:shouldShow];
-    if (shouldShow) {
-        [self.hintTimer invalidate];
-        self.hintTimer = [NSTimer scheduledTimerWithTimeInterval:waitUntilHideInterval target:self selector:@selector(hintTimerFired:) userInfo:@(NO) repeats:NO];
-    }
-}
-
-- (void)startEditMode
-{
-    self.editing = YES;
-}
-- (void)endEditMode
-{
-    self.editing = NO;
-}
-
-- (void)setEditing:(BOOL)editing
-{
-    [super setEditing:editing];
-
-    UICollectionViewCell *focusedCell = [self.cachedMediaCollectionView cellForItemAtIndexPath:self.currentlyFocusedIndexPath];
-
-    if (editing) {
-        [focusedCell.layer addAnimation:[CAAnimation vlc_wiggleAnimation]
-                                 forKey:VLCWiggleAnimationKey];
-        [self.hintTimer invalidate];
-        self.hintTimer = [NSTimer scheduledTimerWithTimeInterval:3.0 target:self selector:@selector(hintTimerFired:) userInfo:@(YES) repeats:NO];
-    } else {
-        [focusedCell.layer removeAnimationForKey:VLCWiggleAnimationKey];
-        [self.hintTimer invalidate];
-        self.hintTimer = nil;
-        [self animateDeletHintToVisibility:NO];
-    }
-
-    self.cancelRecognizer.enabled = editing;
-    self.playPausePressRecognizer.enabled = editing;
-}
-
 #pragma mark - collection view data source
 
 - (UICollectionViewCell *)collectionView:(UICollectionView *)collectionView cellForItemAtIndexPath:(NSIndexPath *)indexPath
@@ -337,6 +195,59 @@ static NSString *const VLCWiggleAnimationKey = @"VLCWiggleAnimation";
         self.editing = NO;
     }
     self.currentlyFocusedIndexPath = nextPath;
+}
+
+#pragma mark - editing
+
+- (NSIndexPath *)indexPathToDelete
+{
+    NSIndexPath *indexPathToDelete = self.currentlyFocusedIndexPath;
+    return indexPathToDelete;
+}
+
+- (NSString *)itemToDelete
+{
+    NSIndexPath *indexPathToDelete = self.indexPathToDelete;
+    if (!indexPathToDelete) {
+        return nil;
+    }
+
+    NSString *ret;
+    @synchronized(_discoveredFiles) {
+        ret = _discoveredFiles[indexPathToDelete.item];
+    }
+    return ret;
+}
+
+- (void)setEditing:(BOOL)editing
+{
+    [super setEditing:editing];
+
+    UICollectionViewCell *focusedCell = [self.cachedMediaCollectionView cellForItemAtIndexPath:self.currentlyFocusedIndexPath];
+    if (editing) {
+        [focusedCell.layer addAnimation:[CAAnimation vlc_wiggleAnimation]
+                                 forKey:VLCWiggleAnimationKey];
+    } else {
+        [focusedCell.layer removeAnimationForKey:VLCWiggleAnimationKey];
+    }
+}
+
+- (void)deleteFileAtIndex:(NSIndexPath *)indexPathToDelete
+{
+    if (!indexPathToDelete) {
+        return;
+    }
+    __block NSString *fileToDelete = nil;
+    [self.cachedMediaCollectionView performBatchUpdates:^{
+        @synchronized(_discoveredFiles) {
+            fileToDelete = _discoveredFiles[indexPathToDelete.item];
+            [_discoveredFiles removeObject:fileToDelete];
+        }
+        [self.cachedMediaCollectionView deleteItemsAtIndexPaths:@[indexPathToDelete]];
+    } completion:^(BOOL finished) {
+        [[NSFileManager defaultManager] removeItemAtPath:fileToDelete error:nil];
+        self.editing = NO;
+    }];
 }
 
 #pragma mark - collection view delegate

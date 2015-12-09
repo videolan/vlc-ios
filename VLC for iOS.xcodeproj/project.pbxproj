@@ -161,6 +161,7 @@
 		7D5CAA8C1A4AD8E5003F2CBC /* VLCTrackSelectorHeaderView.m in Sources */ = {isa = PBXBuildFile; fileRef = 7D5CAA8B1A4AD8E5003F2CBC /* VLCTrackSelectorHeaderView.m */; };
 		7D5DD5C717590ABF001421E3 /* About Contents.html in Resources */ = {isa = PBXBuildFile; fileRef = 7D5DD5C617590ABF001421E3 /* About Contents.html */; };
 		7D6069691BD92E6900AB765C /* libSDropboxSDK.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 7D5278CD1BD7DE3D00D0CA0E /* libSDropboxSDK.a */; };
+		7D62621A1C18AECD00F7CB24 /* VLCDeletionCapableViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 7D6262191C18AECD00F7CB24 /* VLCDeletionCapableViewController.m */; };
 		7D63C19018774B1700BD5256 /* VLCFirstStepsSecondPageViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 7D63C18E18774B1700BD5256 /* VLCFirstStepsSecondPageViewController.m */; };
 		7D63C19518774E0100BD5256 /* VLCFirstStepsThirdPageViewController~ipad.xib in Resources */ = {isa = PBXBuildFile; fileRef = 7D63C19418774E0100BD5256 /* VLCFirstStepsThirdPageViewController~ipad.xib */; };
 		7D63C19718774F1000BD5256 /* VLCFirstStepsFourthPageViewController~ipad.xib in Resources */ = {isa = PBXBuildFile; fileRef = 7D63C19618774F1000BD5256 /* VLCFirstStepsFourthPageViewController~ipad.xib */; };
@@ -1046,6 +1047,8 @@
 		7D5CAA8A1A4AD8E5003F2CBC /* VLCTrackSelectorHeaderView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = VLCTrackSelectorHeaderView.h; path = Sources/VLCTrackSelectorHeaderView.h; sourceTree = SOURCE_ROOT; };
 		7D5CAA8B1A4AD8E5003F2CBC /* VLCTrackSelectorHeaderView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = VLCTrackSelectorHeaderView.m; path = Sources/VLCTrackSelectorHeaderView.m; sourceTree = SOURCE_ROOT; };
 		7D5DD5C617590ABF001421E3 /* About Contents.html */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.html; path = "About Contents.html"; sourceTree = "<group>"; };
+		7D6262181C18AECD00F7CB24 /* VLCDeletionCapableViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = VLCDeletionCapableViewController.h; sourceTree = "<group>"; };
+		7D6262191C18AECD00F7CB24 /* VLCDeletionCapableViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = VLCDeletionCapableViewController.m; sourceTree = "<group>"; };
 		7D62C8A51C08B512007A6EF3 /* HockeySDK.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = HockeySDK.framework; path = "ImportedSources/HockeySDK-tvOS/Support/build/Debug-appletvos/HockeySDK.framework"; sourceTree = "<group>"; };
 		7D62C8AB1C08B874007A6EF3 /* libHockeySDK.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; name = libHockeySDK.a; path = "ImportedSources/HockeySDK-tvOS/Support/build/Debug-appletvos/libHockeySDK.a"; sourceTree = "<group>"; };
 		7D62C9271C08B9C7007A6EF3 /* CrashReporter.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CrashReporter.framework; path = "ImportedSources/HockeySDK-tvOS/Vendor/CrashReporter.framework"; sourceTree = "<group>"; };
@@ -2332,6 +2335,8 @@
 				7D1A2DB01BF66335002E0962 /* VLCMDFBrowsingArtworkProvider.m */,
 				DD9D8F5D1C00C73F00B4060F /* VLCDeleteHintTVView.h */,
 				DD9D8F5E1C00C73F00B4060F /* VLCDeleteHintTVView.m */,
+				7D6262181C18AECD00F7CB24 /* VLCDeletionCapableViewController.h */,
+				7D6262191C18AECD00F7CB24 /* VLCDeletionCapableViewController.m */,
 			);
 			name = "Common Code";
 			sourceTree = "<group>";
@@ -3411,6 +3416,7 @@
 				7D1334801BE132F10012E919 /* VLCNetworkServerBrowserUPnP.m in Sources */,
 				DD4089FA1BF659030022745E /* VLCPlaybackInfoTVCollectionSectionTitleView.m in Sources */,
 				7DF383D01BF24BB100D71A5C /* VLCBoxCollectionViewController.m in Sources */,
+				7D62621A1C18AECD00F7CB24 /* VLCDeletionCapableViewController.m in Sources */,
 				DDEAECC71BDEC79D00756C83 /* VLCLocalNetworkServiceBrowserSAP.m in Sources */,
 				7D1329441BA1F10100BE647E /* AppleTVAppDelegate.m in Sources */,
 				7D1329411BA1F10100BE647E /* main.m in Sources */,
