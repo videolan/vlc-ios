@@ -933,7 +933,7 @@ currentMediaHasTrackToChooseFrom:(BOOL)currentMediaHasTrackToChooseFrom
     CGFloat viewHeight = CGRectGetHeight(scrollView.frame);
     CGFloat maxOffsetY = scrollView.contentSize.height - viewHeight;
 
-    CFTimeInterval secondsPerPage = 8.0;
+    CFTimeInterval secondsPerPage = 15.0;
     CGFloat offset = link.duration/secondsPerPage * viewHeight;
 
     CGFloat newYOffset = scrollView.contentOffset.y + offset;
