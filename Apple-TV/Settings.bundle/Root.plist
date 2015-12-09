@@ -76,28 +76,6 @@
 		</dict>
 		<dict>
 			<key>Type</key>
-			<string>PSMultiValueSpecifier</string>
-			<key>Title</key>
-			<string>SETTINGS_SKIP_LOOP_FILTER</string>
-			<key>Key</key>
-			<string>avcodec-skiploopfilter</string>
-			<key>DefaultValue</key>
-			<string>3</string>
-			<key>Titles</key>
-			<array>
-				<string>SETTINGS_SKIP_LOOP_FILTER_NONE</string>
-				<string>SETTINGS_SKIP_LOOP_FILTER_NONKEY</string>
-				<string>SETTINGS_SKIP_LOOP_FILTER_NONREF</string>
-			</array>
-			<key>Values</key>
-			<array>
-				<integer>0</integer>
-				<integer>3</integer>
-				<integer>1</integer>
-			</array>
-		</dict>
-		<dict>
-			<key>Type</key>
 			<string>PSToggleSwitchSpecifier</string>
 			<key>Title</key>
 			<string>SETTINGS_DEINTERLACE</string>
