@@ -183,7 +183,6 @@
 				<string>Times New Roman</string>
 				<string>Zapf Dingbats</string>
 			</array>
-
 		</dict>
 		<dict>
 			<key>Type</key>
@@ -367,7 +366,7 @@
 			<key>Key</key>
 			<string>audio-time-stretch</string>
 			<key>DefaultValue</key>
-			<false/>
+			<true/>
 		</dict>
 		<dict>
 			<key>DefaultValue</key>
