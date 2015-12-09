@@ -49,16 +49,8 @@
         NSString *iconName = dropboxFile.icon;
         if ([iconName isEqualToString:@"folder_user"] || [iconName isEqualToString:@"folder"] || [iconName isEqualToString:@"folder_public"] || [iconName isEqualToString:@"folder_photos"] || [iconName isEqualToString:@"package"]) {
             self.thumbnailImage = [UIImage imageNamed:@"folder"];
-        } else if ([iconName isEqualToString:@"page_white"] || [iconName isEqualToString:@"page_white_text"])
+        } else
             self.thumbnailImage = [UIImage imageNamed:@"blank"];
-        else if ([iconName isEqualToString:@"page_white_film"])
-            self.thumbnailImage = [UIImage imageNamed:@"movie"];
-        else if ([iconName isEqualToString:@"page_white_sound"])
-            self.thumbnailImage = [UIImage imageNamed:@"audio"];
-        else {
-            self.thumbnailImage = [UIImage imageNamed:@"blank"];
-            APLog(@"missing icon for type '%@'", dropboxFile.icon);
-        }
     }
 
 }
@@ -89,17 +81,14 @@
             self.isDirectory = NO;
 
             NSMutableString *subtitle = [[NSMutableString alloc] init];
+            self.thumbnailImage = [UIImage imageNamed:@"blank"];
 
-            if (oneDriveFile.isAudio)
-                self.thumbnailImage = [UIImage imageNamed:@"audio"];
-            else if (oneDriveFile.isVideo) {
-                self.thumbnailImage = [UIImage imageNamed:@"movie"];
+            if (oneDriveFile.isVideo) {
                 NSString *thumbnailURLString = oneDriveFile.thumbnailURL;
                 if (thumbnailURLString) {
                     [self setThumbnailURL:[NSURL URLWithString:thumbnailURLString]];
                 }
-            } else
-                self.thumbnailImage = [UIImage imageNamed:@"blank"];
+            }
 
             if (oneDriveFile.size > 0) {
                 [subtitle appendString:[NSByteCountFormatter stringFromByteCount:[oneDriveFile.size longLongValue] countStyle:NSByteCountFormatterCountStyleFile]];
