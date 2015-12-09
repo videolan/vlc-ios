@@ -135,7 +135,7 @@
     NSArray *spuTitleIndexes = self.mediaPlayer.videoSubTitlesIndexes;
     NSString *trackName;
     if (row >= spuTitleIndexes.count) {
-        trackName = @"Download subtitles from OpenSubtitles.org...";
+        trackName = NSLocalizedString(@"DOWNLOAD_SUBS_FROM_OSO", nil);
     } else {
         BOOL isSelected = [self.mediaPlayer.videoSubTitlesIndexes[row] intValue] == self.mediaPlayer.currentVideoSubTitleIndex;
         trackCell.selectionMarkerVisible = isSelected;
