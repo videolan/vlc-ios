@@ -848,7 +848,7 @@ currentMediaHasTrackToChooseFrom:(BOOL)currentMediaHasTrackToChooseFrom
 
 - (void)MDFHatchetFetcher:(MDFHatchetFetcher *)aFetcher didFailToFindAlbum:(NSString *)albumName forArtistName:(NSString *)artistName
 {
-    APLog(@"%s: %@ %@", __PRETTY_FUNCTION__, artistName, albumName);
+    APLog(@"%s: %@ %@", __PRETTY_FUNCTION__, albumName, artistName);
     UIImage *dummyImage = [UIImage imageNamed:@"about-app-icon"];
     self.audioArtworkImageView.image = dummyImage;
     self.audioLargeBackgroundImageView.image = dummyImage;
