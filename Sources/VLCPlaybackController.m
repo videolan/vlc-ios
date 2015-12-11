@@ -237,6 +237,12 @@ NSString *const VLCPlaybackControllerPlaybackPositionUpdated = @"VLCPlaybackCont
     if (self.pathToExternalSubtitlesFile)
         [_mediaPlayer openVideoSubTitlesFromFile:self.pathToExternalSubtitlesFile];
 
+#if TARGET_OS_TV
+    /* set audio delay to the default latency of the output device */
+    self.audioDelay = [[AVAudioSession sharedInstance] outputLatency];
+    APLog(@"Enforcing an audio output latency of %fs", [[AVAudioSession sharedInstance] outputLatency]);
+#endif
+
     VLCMedia *media;
     if (_mediaList) {
         media = [_mediaList mediaAtIndex:_itemInMediaListToBePlayedFirst];
@@ -781,6 +787,12 @@ NSString *const VLCPlaybackControllerPlaybackPositionUpdated = @"VLCPlaybackCont
 {
     NSArray *outputs = [[AVAudioSession sharedInstance] currentRoute].outputs;
     NSString *portName = [[outputs firstObject] portName];
+
+#if TARGET_OS_TV
+    /* adapt audio delay to the default latency of the new output device */
+    self.audioDelay = [[AVAudioSession sharedInstance] outputLatency];
+    APLog(@"newly enforced audio output latency of %fs", [[AVAudioSession sharedInstance] outputLatency]);
+#endif
 
     if (![portName isEqualToString:@"Headphones"] && [_mediaPlayer isPlaying]) {
         [_mediaPlayer pause];
