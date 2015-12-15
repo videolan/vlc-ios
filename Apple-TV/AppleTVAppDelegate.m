@@ -65,7 +65,7 @@
 
     self.window = [[UIWindow alloc] initWithFrame:[[UIScreen mainScreen] bounds]];
     _localNetworkVC = [[VLCServerListTVViewController alloc] initWithNibName:nil bundle:nil];
-    _cloudServicesVC = [[VLCCloudServicesTVViewController alloc] initWithNibName:nil bundle:nil];
+//    _cloudServicesVC = [[VLCCloudServicesTVViewController alloc] initWithNibName:nil bundle:nil];
     _remotePlaybackVC = [[VLCRemotePlaybackViewController alloc] initWithNibName:nil bundle:nil];
     _openNetworkVC = [[VLCOpenNetworkStreamTVViewController alloc] initWithNibName:nil bundle:nil];
     _settingsVC = [[VLCSettingsViewController alloc] initWithNibName:nil bundle:nil];
@@ -74,7 +74,7 @@
     _mainViewController.tabBar.barTintColor = [UIColor VLCOrangeTintColor];
 
     _mainViewController.viewControllers = @[[[UINavigationController alloc] initWithRootViewController:_localNetworkVC],
-                                            [[UINavigationController alloc] initWithRootViewController:_cloudServicesVC],
+//                                            [[UINavigationController alloc] initWithRootViewController:_cloudServicesVC],
                                             [[UINavigationController alloc] initWithRootViewController:_remotePlaybackVC],
                                             [[UINavigationController alloc] initWithRootViewController:_openNetworkVC],
                                             [[UINavigationController alloc] initWithRootViewController:_settingsVC]];
