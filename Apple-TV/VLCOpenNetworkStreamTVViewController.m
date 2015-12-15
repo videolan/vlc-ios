@@ -62,12 +62,6 @@
 
     /* fetch data from cloud */
     _recentURLs = [NSMutableArray arrayWithArray:[ubiquitousKeyValueStore arrayForKey:kVLCRecentURLs]];
-#ifndef NDEBUG
-    if (_recentURLs.count == 0) {
-        [_recentURLs addObject:@"https://www.youtube.com/watch?v=13e2GxpqGPY"];
-        [_recentURLs addObject:@"https://vimeo.com/74370512"];
-    }
-#endif
 
     [self.previouslyPlayedStreamsTableView reloadData];
 }
