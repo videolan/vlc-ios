@@ -64,15 +64,15 @@ static NSString *kUsingTableViewToShowData = @"UsingTableViewToShowData";
     UISearchBar *_searchBar;
     UISearchDisplayController *_searchDisplayController;
 
-    BOOL _usingTableViewToShowData;
-
     UIBarButtonItem *_actionBarButtonItem;
     VLCOpenInActivity *_openInActivity;
 }
 
+@property (nonatomic, strong) UIBarButtonItem *displayModeBarButtonItem;
 @property (nonatomic, strong) UITableView *tableView;
 @property (nonatomic, strong) UICollectionView *collectionView;
 @property (nonatomic, strong) EmptyLibraryView *emptyLibraryView;
+@property (nonatomic) BOOL usingTableViewToShowData;
 
 @end
 
@@ -92,8 +92,7 @@ static NSString *kUsingTableViewToShowData = @"UsingTableViewToShowData";
 
 - (void)loadView
 {
-    _usingTableViewToShowData = [[NSUserDefaults standardUserDefaults] boolForKey:kUsingTableViewToShowData];;
-    [self setupContentViewWithContentInset:NO];
+    [self updateViewsForCurrentDisplayMode];
     _libraryMode = VLCLibraryModeAllFiles;
 
     self.emptyLibraryView = [[[NSBundle mainBundle] loadNibNamed:@"VLCEmptyLibraryView" owner:self options:nil] lastObject];
@@ -108,7 +107,7 @@ static NSString *kUsingTableViewToShowData = @"UsingTableViewToShowData";
     contentView.autoresizingMask = UIViewAutoresizingFlexibleHeight | UIViewAutoresizingFlexibleWidth;
     contentView.backgroundColor = [UIColor VLCDarkBackgroundColor];
 
-    if (_usingTableViewToShowData) {
+    if (self.usingTableViewToShowData) {
         if(!_tableView) {
             _tableView = [[UITableView alloc] initWithFrame:viewDimensions style:UITableViewStylePlain];
             _tableView.backgroundColor = [UIColor VLCDarkBackgroundColor];
@@ -154,7 +153,7 @@ static NSString *kUsingTableViewToShowData = @"UsingTableViewToShowData";
         CGFloat statusBarHeight = MIN(statusBarSize.height, statusBarSize.width);
         CGFloat originY = self.navigationController.navigationBar.frame.size.height + statusBarHeight;
 
-        UIScrollView *playlistView = _usingTableViewToShowData ? _tableView : _collectionView;
+        UIScrollView *playlistView = self.usingTableViewToShowData ? _tableView : _collectionView;
         playlistView.contentInset = UIEdgeInsetsMake(originY, 0, 0, 0);
     }
     self.view = contentView;
@@ -281,7 +280,7 @@ static NSString *kUsingTableViewToShowData = @"UsingTableViewToShowData";
     } else if ([mediaObject isKindOfClass:[MLLabel class]]) {
         MLLabel *folder = (MLLabel*) mediaObject;
         _inFolder = YES;
-        if (!_usingTableViewToShowData) {
+        if (!self.usingTableViewToShowData) {
             if (![self.collectionView.collectionViewLayout isEqual:_reorderLayout]) {
                 for (UIGestureRecognizer *recognizer in _collectionView.gestureRecognizers) {
                     if (recognizer == _folderLayout.panGestureRecognizer || recognizer == _folderLayout.longPressGestureRecognizer || recognizer == _longPressGestureRecognizer)
@@ -449,15 +448,18 @@ static NSString *kUsingTableViewToShowData = @"UsingTableViewToShowData";
         if (UI_USER_INTERFACE_IDIOM() == UIUserInterfaceIdiomPad) {
             UIBarButtonItem *toggleDisplayedView = [[UIBarButtonItem alloc] initWithImage:[UIImage imageNamed:@"tableViewIcon"] style:UIBarButtonItemStylePlain target:self action:@selector(toggleDisplayedView:)];
             self.navigationItem.rightBarButtonItems = @[toggleDisplayedView, self.editButtonItem];
+            self.displayModeBarButtonItem = toggleDisplayedView;
         } else {
             self.navigationItem.rightBarButtonItem = self.editButtonItem;
         }
     }
-    if (_usingTableViewToShowData)
+    if (self.usingTableViewToShowData)
         _tableView.separatorStyle = (_foundMedia.count > 0)? UITableViewCellSeparatorStyleSingleLine:
                                                              UITableViewCellSeparatorStyleNone;
     else
         [self.collectionView.collectionViewLayout invalidateLayout];
+
+    [self updateViewsForCurrentDisplayMode];
 }
 
 - (void)libraryUpgradeComplete
@@ -578,7 +580,7 @@ static NSString *kUsingTableViewToShowData = @"UsingTableViewToShowData";
 - (void)reloadViews
 {
     // Since this gets can get called at any point and wipe away the selections, we update the actionBarButtonItem here because this can happen if you tap "Save Video" in the UIActivityController and a media access alert view takes away focus (the corresponding 'became active' notification of UIApplication will call this). Or simply try bringing down the notification center to trigger this. Any existing UIActivityViewController session should be safe as it would have copies of the selected file references.
-    if (_usingTableViewToShowData) {
+    if (self.usingTableViewToShowData) {
         [self.tableView reloadData];
         [self updateActionBarButtonItemStateWithSelectedIndexPaths:[self.tableView indexPathsForSelectedRows]];
     } else {
@@ -765,7 +767,7 @@ static NSString *kUsingTableViewToShowData = @"UsingTableViewToShowData";
 
 - (void)tapTwiceGestureAction:(UIGestureRecognizer *)recognizer
 {
-    if (!_usingTableViewToShowData)
+    if (!self.usingTableViewToShowData)
         return;
 
     _searchBar.hidden = !_searchBar.hidden;
@@ -945,6 +947,17 @@ static NSString *kUsingTableViewToShowData = @"UsingTableViewToShowData";
     }
 }
 
+#pragma mark - collection/tableView helper
+- (NSArray *)selectedIndexPaths
+{
+    NSArray *indexPaths;
+    if (self.usingTableViewToShowData)
+        indexPaths = [self.tableView indexPathsForSelectedRows];
+    else
+        indexPaths = [self.collectionView indexPathsForSelectedItems];
+
+    return indexPaths ?: [NSArray array];
+}
 #pragma mark - Folder implementation
 
 - (void)rearrangeFolderTrackNumbersForRemovedItem:(MLFile *) mediaObject
@@ -985,22 +998,14 @@ static NSString *kUsingTableViewToShowData = @"UsingTableViewToShowData";
         [self showCreateFolderAlert];
         return;
     }
-    if (!_usingTableViewToShowData)
-        _indexPaths = [NSMutableArray arrayWithArray:[self.collectionView indexPathsForSelectedItems]];
-    else
-        _indexPaths = [NSMutableArray arrayWithArray:[self.tableView indexPathsForSelectedRows]];
+
+    _indexPaths = [NSMutableArray arrayWithArray:[self selectedIndexPaths]];
 
     for (NSInteger i = _indexPaths.count - 1; i >=0; i--) {
         NSIndexPath *path = _indexPaths[i];
         id mediaObject;
-        if (!_usingTableViewToShowData) {
-            @synchronized(self) {
-                mediaObject = _foundMedia[path.item];
-            }
-        } else {
-            @synchronized(self) {
-                mediaObject = _foundMedia[path.row];
-            }
+        @synchronized(self) {
+            mediaObject = _foundMedia[path.row];
         }
         if ([mediaObject isKindOfClass:[MLLabel class]])
             [_indexPaths removeObject:path];
@@ -1026,10 +1031,7 @@ static NSString *kUsingTableViewToShowData = @"UsingTableViewToShowData";
 
 - (void)removeFromFolder
 {
-    if (!_usingTableViewToShowData)
-        _indexPaths = [NSMutableArray arrayWithArray:[self.collectionView indexPathsForSelectedItems]];
-    else
-        _indexPaths = [NSMutableArray arrayWithArray:[self.tableView indexPathsForSelectedRows]];
+    _indexPaths = [NSMutableArray arrayWithArray:[self selectedIndexPaths]];
 
     [_indexPaths sortUsingSelector:@selector(compare:)];
 
@@ -1037,7 +1039,7 @@ static NSString *kUsingTableViewToShowData = @"UsingTableViewToShowData";
         NSIndexPath *path = _indexPaths[i];
         id item;
         @synchronized(self) {
-            item = _foundMedia[_usingTableViewToShowData ? path.row : path.item];
+            item = _foundMedia[path.row];
         }
 
         if ([item isKindOfClass:[MLFile class]]) {
@@ -1149,27 +1151,16 @@ static NSString *kUsingTableViewToShowData = @"UsingTableViewToShowData";
             for (NSInteger i = [_indexPaths count] - 1; i >= 0; i--) {
                 NSIndexPath *path = _indexPaths[i];
                 @synchronized(self) {
-                    if (!_usingTableViewToShowData) {
-                        id item = _foundMedia[path.item];
+                    NSUInteger index = self.usingTableViewToShowData ? path.row : path.item;
+                    if (index < _foundMedia.count) {
+                        id item = _foundMedia[index];
                         if (![item isKindOfClass:[MLFile class]])
                             continue;
 
                         MLFile *file = (MLFile *)item;
                         file.labels = [NSSet setWithObjects:label, nil];
                         file.folderTrackNumber = @([label files].count - 1);
-                        [_foundMedia removeObjectAtIndex:path.item];
-                    } else {
-                        NSUInteger row = path.row;
-                        if (row < _foundMedia.count) {
-                            id item = _foundMedia[row];
-                            if (![item isKindOfClass:[MLFile class]])
-                                continue;
-
-                            MLFile *file = (MLFile *)item;
-                            file.labels = [NSSet setWithObjects:label, nil];
-                            file.folderTrackNumber = @([label files].count - 1);
-                            [_foundMedia removeObjectAtIndex:row];
-                        }
+                        [_foundMedia removeObjectAtIndex:index];
                     }
                 }
             }
@@ -1193,7 +1184,11 @@ static NSString *kUsingTableViewToShowData = @"UsingTableViewToShowData";
     UIBarButtonItem *editButton = self.editButtonItem;
     editButton.tintColor = [UIColor whiteColor];
 
-    if (!_usingTableViewToShowData) {
+    if (self.usingTableViewToShowData) {
+        self.tableView.allowsMultipleSelectionDuringEditing = editing;
+        [self.tableView setEditing:editing animated:YES];
+        [self.editButtonItem setTitle:editing ? NSLocalizedString(@"BUTTON_CANCEL", nil) : NSLocalizedString(@"BUTTON_EDIT", nil)];
+    } else {
         NSArray *visibleCells = self.collectionView.visibleCells;
 
         [visibleCells enumerateObjectsUsingBlock:^(id obj, NSUInteger idx, BOOL *stop) {
@@ -1216,10 +1211,6 @@ static NSString *kUsingTableViewToShowData = @"UsingTableViewToShowData";
                 [self.collectionView deselectItemAtIndexPath:selectedItems[x] animated:NO];
         } else
             [self.collectionView removeGestureRecognizer:_longPressGestureRecognizer];
-    } else {
-        self.tableView.allowsMultipleSelectionDuringEditing = editing;
-        [self.tableView setEditing:editing animated:YES];
-        [self.editButtonItem setTitle:editing ? NSLocalizedString(@"BUTTON_CANCEL", nil) : NSLocalizedString(@"BUTTON_EDIT", nil)];
     }
 
     if (_libraryMode == VLCLibraryModeCreateFolder) {
@@ -1241,10 +1232,8 @@ static NSString *kUsingTableViewToShowData = @"UsingTableViewToShowData";
 
 - (void)toggleDisplayedView:(UIBarButtonItem *)button
 {
-    _usingTableViewToShowData = !_usingTableViewToShowData;
-    [[NSUserDefaults standardUserDefaults] setBool:_usingTableViewToShowData forKey:kUsingTableViewToShowData];
-    [[NSUserDefaults standardUserDefaults] synchronize];
-    UIImage *newButtonImage = [UIImage imageNamed: _usingTableViewToShowData ? @"collectionViewIcon" : @"tableViewIcon"];
+    self.usingTableViewToShowData = !self.usingTableViewToShowData;
+    UIImage *newButtonImage = [UIImage imageNamed: self.usingTableViewToShowData ? @"collectionViewIcon" : @"tableViewIcon"];
     [button setImage:newButtonImage];
     [self setupContentViewWithContentInset:YES];
 }
@@ -1264,7 +1253,7 @@ static NSString *kUsingTableViewToShowData = @"UsingTableViewToShowData";
 
 - (IBAction)backToAllItems:(id)sender
 {
-    if (!_usingTableViewToShowData) {
+    if (!self.usingTableViewToShowData) {
         if (self.editing)
             [self setEditing:NO animated:NO];
     }
@@ -1291,10 +1280,10 @@ static NSString *kUsingTableViewToShowData = @"UsingTableViewToShowData";
 - (void)deleteSelection
 {
     NSArray *indexPaths;
-    if (!_usingTableViewToShowData)
-        indexPaths = [self.collectionView indexPathsForSelectedItems];
-    else
+    if (self.usingTableViewToShowData)
         indexPaths = [self.tableView indexPathsForSelectedRows];
+    else
+        indexPaths = [self.collectionView indexPathsForSelectedItems];
 
     @synchronized(self) {
         NSUInteger count = indexPaths.count;
@@ -1312,11 +1301,7 @@ static NSString *kUsingTableViewToShowData = @"UsingTableViewToShowData";
 
 - (void)renameSelection
 {
-    NSArray *indexPaths;
-    if (!_usingTableViewToShowData)
-        indexPaths = [self.collectionView indexPathsForSelectedItems];
-    else
-        indexPaths = [self.tableView indexPathsForSelectedRows];
+    NSArray *indexPaths = [self selectedIndexPaths];
 
     if (indexPaths.count < 1) {
         [self _endEditingWithHardReset:NO];
@@ -1324,10 +1309,10 @@ static NSString *kUsingTableViewToShowData = @"UsingTableViewToShowData";
     }
 
     NSString *itemName;
-    if (!_usingTableViewToShowData)
-        itemName = [(VLCPlaylistCollectionViewCell *)[self.collectionView cellForItemAtIndexPath:indexPaths[0]] titleLabel].text;
-    else
+    if (self.usingTableViewToShowData)
         itemName = [(VLCPlaylistTableViewCell *)[self.tableView cellForRowAtIndexPath:indexPaths[0]] titleLabel].text;
+    else
+        itemName = [(VLCPlaylistCollectionViewCell *)[self.collectionView cellForItemAtIndexPath:indexPaths[0]] titleLabel].text;
 
     VLCAlertView *alert = [[VLCAlertView alloc] initWithTitle:[NSString stringWithFormat:NSLocalizedString(@"RENAME_MEDIA_TO", nil), itemName] message:nil cancelButtonTitle:NSLocalizedString(@"BUTTON_CANCEL", nil) otherButtonTitles:@[NSLocalizedString(@"BUTTON_RENAME", nil)]];
     [alert setAlertViewStyle:UIAlertViewStylePlainTextInput];
@@ -1347,12 +1332,7 @@ static NSString *kUsingTableViewToShowData = @"UsingTableViewToShowData";
 
 - (void)renameMediaObjectTo:(NSString*)newName
 {
-    NSArray *indexPaths;
-    if (!_usingTableViewToShowData)
-        indexPaths = [self.collectionView indexPathsForSelectedItems];
-    else
-        indexPaths = [self.tableView indexPathsForSelectedRows];
-
+    NSArray *indexPaths = [self selectedIndexPaths];
     if (indexPaths.count < 1)
         return;
 
@@ -1367,15 +1347,22 @@ static NSString *kUsingTableViewToShowData = @"UsingTableViewToShowData";
     else
         [mediaObject setTitle:newName];
 
-    if (!_usingTableViewToShowData)
-        [self.collectionView deselectItemAtIndexPath:indexPaths[0] animated:YES];
-    else
+    if (self.usingTableViewToShowData)
         [self.tableView deselectRowAtIndexPath:indexPaths[0] animated:YES];
+    else
+        [self.collectionView deselectItemAtIndexPath:indexPaths[0] animated:YES];
 
     if (indexPaths.count > 1)
         [self renameSelection];
     else
         [self _endEditingWithHardReset:NO];
+}
+
+- (void)updateViewsForCurrentDisplayMode
+{
+    UIImage *newButtonImage = [UIImage imageNamed: self.usingTableViewToShowData ? @"collectionViewIcon" : @"tableViewIcon"];
+    [self.displayModeBarButtonItem setImage:newButtonImage];
+    [self setupContentViewWithContentInset:YES];
 }
 
 #pragma mark - Sharing
@@ -1409,11 +1396,7 @@ static NSString *kUsingTableViewToShowData = @"UsingTableViewToShowData";
         return;
     }
 
-    NSArray *indexPaths;
-    if (!_usingTableViewToShowData)
-        indexPaths = [self.collectionView indexPathsForSelectedItems];
-    else
-        indexPaths = [self.tableView indexPathsForSelectedRows];
+    NSArray *indexPaths = [self selectedIndexPaths];
 
     NSUInteger count = indexPaths.count;
     if (count) {
@@ -1499,7 +1482,7 @@ static NSString *kUsingTableViewToShowData = @"UsingTableViewToShowData";
     [alertView show];
 }
 
-#pragma mark - coin coin
+#pragma mark - properties
 
 - (void)setLibraryMode:(VLCLibraryMode)mode
 {
@@ -1511,6 +1494,17 @@ static NSString *kUsingTableViewToShowData = @"UsingTableViewToShowData";
         mode == VLCLibraryModeAllFiles) {
         _previousLibraryMode = mode;
     }
+}
+
+- (BOOL)usingTableViewToShowData
+{
+    return [[NSUserDefaults standardUserDefaults] boolForKey:kUsingTableViewToShowData];
+}
+
+- (void)setUsingTableViewToShowData:(BOOL)usingTableViewToShowData
+{
+    [[NSUserDefaults standardUserDefaults] setBool:usingTableViewToShowData forKey:kUsingTableViewToShowData];
+    [self updateViewsForCurrentDisplayMode];
 }
 
 #pragma mark - autorotation
@@ -1537,15 +1531,15 @@ static NSString *kUsingTableViewToShowData = @"UsingTableViewToShowData";
 {
     [super willRotateToInterfaceOrientation:toInterfaceOrientation duration:duration];
 
-    if (!_usingTableViewToShowData)
-        [self.collectionView.collectionViewLayout invalidateLayout];
-    else {
+    if (self.usingTableViewToShowData) {
         NSArray *visibleCells = [self.tableView visibleCells];
         NSUInteger cellCount = visibleCells.count;
         for (NSUInteger x = 0; x < cellCount; x++) {
             if ([visibleCells[x] isExpanded])
                 [visibleCells[x] metaDataLabel].hidden = YES;
         }
+    } else {
+        [self.collectionView.collectionViewLayout invalidateLayout];
     }
 }
 
