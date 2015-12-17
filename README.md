@@ -1,5 +1,12 @@
 # How to start development for VLC for iOS:
 
+## Requirements
+* Xcode 7.0 or later
+* OS X 10.10 or later
+* Command Line Tools package: https://developer.apple.com/downloads/
+* Cocoapods 0.38 or later
+
+## Let's compile!
 1. Run the compilescript with: ```sh compileVLCforiOS.sh```
 
     The first time around this will take roughly an hour and take up 7.5GB of free space.
