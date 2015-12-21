@@ -92,6 +92,7 @@ static NSString *kUsingTableViewToShowData = @"UsingTableViewToShowData";
 
 - (void)loadView
 {
+    [self setupContentViewWithContentInset:NO];
     [self updateViewsForCurrentDisplayMode];
     _libraryMode = VLCLibraryModeAllFiles;
 
@@ -1235,7 +1236,6 @@ static NSString *kUsingTableViewToShowData = @"UsingTableViewToShowData";
     self.usingTableViewToShowData = !self.usingTableViewToShowData;
     UIImage *newButtonImage = [UIImage imageNamed: self.usingTableViewToShowData ? @"collectionViewIcon" : @"tableViewIcon"];
     [button setImage:newButtonImage];
-    [self setupContentViewWithContentInset:YES];
 }
 
 - (UITableViewCellEditingStyle)tableView:(UITableView *)aTableView editingStyleForRowAtIndexPath:(NSIndexPath *)indexPath
