@@ -544,7 +544,12 @@ static NSString *kUsingTableViewToShowData = @"UsingTableViewToShowData";
     /* add all remaining files */
     NSArray *allFiles = [MLFile allFiles];
     for (MLFile *file in allFiles) {
-        if (file.labels.count > 0) continue;
+        if (file.labels != nil) {
+            @synchronized(file.labels) {
+                if (file.labels.count > 0)
+                    continue;
+            }
+        }
 
         if (!file.isShowEpisode && !file.isAlbumTrack) {
             @synchronized(self) {
