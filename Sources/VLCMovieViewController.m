@@ -644,6 +644,11 @@ typedef NS_ENUM(NSInteger, VLCPanType) {
 
 - (void)idleTimerExceeded
 {
+    if (![NSThread isMainThread]) {
+        [self performSelectorOnMainThread:@selector(idleTimerExceeded) withObject:nil waitUntilDone:NO];
+        return;
+    }
+
     _idleTimer = nil;
     if (!_controlsHidden)
         [self toggleControlsVisible];
