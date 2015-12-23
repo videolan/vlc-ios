@@ -1367,7 +1367,6 @@ static NSString *kUsingTableViewToShowData = @"UsingTableViewToShowData";
 {
     UIImage *newButtonImage = [UIImage imageNamed: self.usingTableViewToShowData ? @"collectionViewIcon" : @"tableViewIcon"];
     [self.displayModeBarButtonItem setImage:newButtonImage];
-    [self setupContentViewWithContentInset:YES];
 }
 
 #pragma mark - Sharing
