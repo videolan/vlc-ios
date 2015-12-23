@@ -1,3 +1,9 @@
+2.7.1:
+------
+* Improved SMB compatibility
+* UPnP reliability improvements, notably with Kodi
+* Stability improvements
+
 2.7.0:
 ------
 * Added new app for the 4th gen. Apple TV
