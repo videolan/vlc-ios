@@ -248,6 +248,10 @@ static NSString *const VLCPlayerDisplayControllerDisplayModeKey = @"VLCPlayerDis
 
 - (void)_presentFullscreenPlaybackViewIfNeeded
 {
+    if (![NSThread isMainThread]) {
+        [self performSelectorOnMainThread:@selector(_presentFullscreenPlaybackViewIfNeeded) withObject:nil waitUntilDone:NO];
+        return;
+    }
     if (!self.movieViewController.presentingViewController) {
         [self _presentMovieViewControllerAnimated:[self shouldAnimate]];
     }
