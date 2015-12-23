@@ -101,7 +101,7 @@
     [_liveClient logoutWithDelegate:self userState:@"logout"];
 
     NSUbiquitousKeyValueStore *ubiquitousStore = [NSUbiquitousKeyValueStore defaultStore];
-    [ubiquitousStore delete:kVLCStoreOneDriveCredentials];
+    [ubiquitousStore removeObjectForKey:kVLCStoreOneDriveCredentials];
     [ubiquitousStore synchronize];
 
     _activeSession = NO;
