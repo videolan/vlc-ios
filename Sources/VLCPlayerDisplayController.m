@@ -88,6 +88,8 @@ static NSString *const VLCPlayerDisplayControllerDisplayModeKey = @"VLCPlayerDis
 - (void)setupChildViewController
 {
     UIViewController *childViewController = self.childViewController;
+    if (childViewController == nil)
+        return;
     [self addChildViewController:childViewController];
     [self.view addSubview:childViewController.view];
     [childViewController didMoveToParentViewController:self];
