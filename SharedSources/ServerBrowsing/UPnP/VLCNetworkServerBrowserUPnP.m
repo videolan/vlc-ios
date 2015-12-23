@@ -238,6 +238,9 @@
 
             NSArray<NSString *>* protocolStrings = [[mediaItem uriCollection] allKeys];
             protocolStrings = [protocolStrings filteredArrayUsingPredicate:[NSPredicate predicateWithBlock:^BOOL(NSString * _Nonnull evaluatedObject, NSDictionary<NSString *,id> * _Nullable bindings) {
+                if (evaluatedObject == nil || ![evaluatedObject isKindOfClass:[NSString class]])
+                    return NO;
+
                 if ([evaluatedObject containsString:@"http-get:*:video/"])
                     return YES;
                 if ([evaluatedObject containsString:@"http-get:*:audio/"])
