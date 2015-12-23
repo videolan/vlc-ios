@@ -1188,14 +1188,20 @@ currentMediaHasTrackToChooseFrom:(BOOL)currentMediaHasTrackToChooseFrom
             if ([indexArray indexOfObject:[NSNumber numberWithInt:mediaPlayer.currentAudioTrackIndex]] == row)
                 cellShowsCurrentTrack = YES;
 
-            trackName = mediaPlayer.audioTrackNames[row];
+            NSArray *audioTrackNames = mediaPlayer.audioTrackNames;
+            if (row < audioTrackNames.count) {
+                trackName = audioTrackNames[row];
+            }
         } else {
             indexArray = mediaPlayer.videoSubTitlesIndexes;
 
             if ([indexArray indexOfObject:[NSNumber numberWithInt:mediaPlayer.currentVideoSubTitleIndex]] == row)
                 cellShowsCurrentTrack = YES;
 
-            trackName = mediaPlayer.videoSubTitlesNames[row];
+            NSArray *videoSubtitlesNames = mediaPlayer.videoSubTitlesNames;
+            if (row < videoSubtitlesNames.count) {
+                trackName = mediaPlayer.videoSubTitlesNames[row];
+            }
         }
 
         if (trackName != nil) {
@@ -1206,8 +1212,11 @@ currentMediaHasTrackToChooseFrom:(BOOL)currentMediaHasTrackToChooseFrom
         }
     } else {
         if ([mediaPlayer numberOfTitles] > 1 && section == 0) {
-            NSDictionary *description = mediaPlayer.titleDescriptions[row];
-            cell.textLabel.text = [NSString stringWithFormat:@"%@ (%@)", description[VLCTitleDescriptionName], [[VLCTime timeWithNumber:description[VLCTitleDescriptionDuration]] stringValue]];
+            NSArray *titleDescriptions = mediaPlayer.titleDescriptions;
+            if (row < titleDescriptions.count) {
+                NSDictionary *description = titleDescriptions[row];
+                cell.textLabel.text = [NSString stringWithFormat:@"%@ (%@)", description[VLCTitleDescriptionName], [[VLCTime timeWithNumber:description[VLCTitleDescriptionDuration]] stringValue]];
+            }
 
             if (row == mediaPlayer.currentTitleIndex)
                 cellShowsCurrentTrack = YES;
