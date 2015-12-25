@@ -105,7 +105,6 @@
 
 - (void)boxApiTokenDidRefresh
 {
-    NSLog(@"%s", __PRETTY_FUNCTION__);
     [[NSNotificationCenter defaultCenter] postNotificationName:VLCBoxControllerSessionUpdated object:nil];
 }
 

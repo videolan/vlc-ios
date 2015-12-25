@@ -34,14 +34,6 @@
     }
     else if ([mediaObject isKindOfClass:[MLShowEpisode class]])
         [self configureWithShowEpisode:(MLShowEpisode *)mediaObject];
-
-    if (self.activePlaybackSession) {
-        self.sessionWillRestart = YES;
-        [self stopPlayback];
-    } else {
-        self.sessionWillRestart = NO;
-        [self startPlayback];
-    }
 }
 
 /*
