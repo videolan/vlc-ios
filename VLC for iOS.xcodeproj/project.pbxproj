@@ -400,6 +400,7 @@
 		7DDE418F1BE9225A0065C53A /* VLCAboutViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 7DDE418D1BE9225A0065C53A /* VLCAboutViewController.m */; };
 		7DDE41901BE9225A0065C53A /* VLCAboutViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 7DDE418E1BE9225A0065C53A /* VLCAboutViewController.xib */; };
 		7DDE41931BE925820065C53A /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 7D13294E1BA1F10100BE647E /* Assets.xcassets */; };
+		7DDEB2C51C2D57E200028F27 /* VLC_for_iOS_UITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7DDEB2C41C2D57E200028F27 /* VLC_for_iOS_UITests.swift */; };
 		7DDFF4251BDFD23300913BD1 /* VLCCone512x512.png in Resources */ = {isa = PBXBuildFile; fileRef = 7DDFF4241BDFD23300913BD1 /* VLCCone512x512.png */; };
 		7DE56C1A1AD93F9100E8CA00 /* VLCPlaybackController.m in Sources */ = {isa = PBXBuildFile; fileRef = 7DE56C191AD93F9100E8CA00 /* VLCPlaybackController.m */; };
 		7DEBF3791C075EBC007A4043 /* VLCPlaybackInfoSubtitlesFetcherViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 7DEBF3771C075EBC007A4043 /* VLCPlaybackInfoSubtitlesFetcherViewController.m */; };
@@ -679,6 +680,13 @@
 			proxyType = 1;
 			remoteGlobalIDString = D3933BE4145F12AD00E15FA7;
 			remoteInfo = SDropboxSDK;
+		};
+		7DDEB2C71C2D57E200028F27 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 7D94FCD316DE7D1000F2623B /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = 7DC54FA51C046615007B4E42;
+			remoteInfo = "vlc-ios-no-watch";
 		};
 		DD3567721B6760BF00338947 /* PBXContainerItemProxy */ = {
 			isa = PBXContainerItemProxy;
@@ -1092,6 +1100,9 @@
 		7DDE418C1BE9225A0065C53A /* VLCAboutViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = VLCAboutViewController.h; sourceTree = "<group>"; };
 		7DDE418D1BE9225A0065C53A /* VLCAboutViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = VLCAboutViewController.m; sourceTree = "<group>"; };
 		7DDE418E1BE9225A0065C53A /* VLCAboutViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = VLCAboutViewController.xib; sourceTree = "<group>"; };
+		7DDEB2C21C2D57E200028F27 /* VLC for iOS UITests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = "VLC for iOS UITests.xctest"; sourceTree = BUILT_PRODUCTS_DIR; };
+		7DDEB2C41C2D57E200028F27 /* VLC_for_iOS_UITests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = VLC_for_iOS_UITests.swift; sourceTree = "<group>"; };
+		7DDEB2C61C2D57E200028F27 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		7DDFF4241BDFD23300913BD1 /* VLCCone512x512.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = VLCCone512x512.png; path = Resources/VLCCone512x512.png; sourceTree = SOURCE_ROOT; };
 		7DE56C181AD93F9100E8CA00 /* VLCPlaybackController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = VLCPlaybackController.h; path = Sources/VLCPlaybackController.h; sourceTree = SOURCE_ROOT; };
 		7DE56C191AD93F9100E8CA00 /* VLCPlaybackController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = VLCPlaybackController.m; path = Sources/VLCPlaybackController.m; sourceTree = SOURCE_ROOT; };
@@ -1456,6 +1467,13 @@
 				7DC5503F1C046615007B4E42 /* CoreGraphics.framework in Frameworks */,
 				7DC550401C046615007B4E42 /* libPods-vlc-ios.a in Frameworks */,
 				7DC550411C046615007B4E42 /* libMediaLibraryKit.a in Frameworks */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		7DDEB2BF1C2D57E200028F27 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -1879,6 +1897,7 @@
 				DD3567651B6760BF00338947 /* VLC WatchKit Native */,
 				DD3567741B6760BF00338947 /* VLC WatchKit Native Extension */,
 				7D13293E1BA1F10100BE647E /* VLC-TV */,
+				7DDEB2C31C2D57E200028F27 /* VLC for iOS UITests */,
 				7D94FCDD16DE7D1000F2623B /* Frameworks */,
 				7D94FCDC16DE7D1000F2623B /* Products */,
 				5BC7EE378D444805CA59B5BA /* Pods */,
@@ -1895,6 +1914,7 @@
 				DD3567701B6760BF00338947 /* VLC for watchOS Extension.appex */,
 				7D13293D1BA1F10100BE647E /* VLC-TV.app */,
 				7DC550861C046615007B4E42 /* vlc-ios-no-watch.app */,
+				7DDEB2C21C2D57E200028F27 /* VLC for iOS UITests.xctest */,
 			);
 			name = Products;
 			sourceTree = "<group>";
@@ -2145,6 +2165,15 @@
 				7D3784E6183A99E1009EE944 /* Reachability.m */,
 			);
 			name = Reachability;
+			sourceTree = "<group>";
+		};
+		7DDEB2C31C2D57E200028F27 /* VLC for iOS UITests */ = {
+			isa = PBXGroup;
+			children = (
+				7DDEB2C41C2D57E200028F27 /* VLC_for_iOS_UITests.swift */,
+				7DDEB2C61C2D57E200028F27 /* Info.plist */,
+			);
+			path = "VLC for iOS UITests";
 			sourceTree = "<group>";
 		};
 		7DEC8BE01BD686D3006E1093 /* Playback */ = {
@@ -2716,6 +2745,24 @@
 			productReference = 7DC550861C046615007B4E42 /* vlc-ios-no-watch.app */;
 			productType = "com.apple.product-type.application";
 		};
+		7DDEB2C11C2D57E200028F27 /* VLC for iOS UITests */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = 7DDEB2D41C2D57E200028F27 /* Build configuration list for PBXNativeTarget "VLC for iOS UITests" */;
+			buildPhases = (
+				7DDEB2BE1C2D57E200028F27 /* Sources */,
+				7DDEB2BF1C2D57E200028F27 /* Frameworks */,
+				7DDEB2C01C2D57E200028F27 /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+				7DDEB2C81C2D57E200028F27 /* PBXTargetDependency */,
+			);
+			name = "VLC for iOS UITests";
+			productName = "VLC for iOS UITests";
+			productReference = 7DDEB2C21C2D57E200028F27 /* VLC for iOS UITests.xctest */;
+			productType = "com.apple.product-type.bundle.ui-testing";
+		};
 		DD3567631B6760BF00338947 /* VLC for watchOS */ = {
 			isa = PBXNativeTarget;
 			buildConfigurationList = DD3567871B6760BF00338947 /* Build configuration list for PBXNativeTarget "VLC for watchOS" */;
@@ -2758,7 +2805,7 @@
 			isa = PBXProject;
 			attributes = {
 				CLASSPREFIX = VLC;
-				LastSwiftUpdateCheck = 0700;
+				LastSwiftUpdateCheck = 0720;
 				LastUpgradeCheck = 0710;
 				ORGANIZATIONNAME = VideoLAN;
 				TargetAttributes = {
@@ -2790,6 +2837,10 @@
 								enabled = 1;
 							};
 						};
+					};
+					7DDEB2C11C2D57E200028F27 = {
+						CreatedOnToolsVersion = 7.2;
+						TestTargetID = 7DC54FA51C046615007B4E42;
 					};
 					DD3567631B6760BF00338947 = {
 						CreatedOnToolsVersion = 7.0;
@@ -2883,6 +2934,7 @@
 				DD3567631B6760BF00338947 /* VLC for watchOS */,
 				7D13293C1BA1F10100BE647E /* VLC-TV */,
 				7DC54FA51C046615007B4E42 /* vlc-ios-no-watch */,
+				7DDEB2C11C2D57E200028F27 /* VLC for iOS UITests */,
 			);
 		};
 /* End PBXProject section */
@@ -3113,6 +3165,13 @@
 				7DC5507A1C046615007B4E42 /* VLCFirstStepsSixthPageViewController~ipad.xib in Resources */,
 				7DC5507B1C046615007B4E42 /* web-download-fixed.png in Resources */,
 				7DC5507C1C046615007B4E42 /* VLCDownloadViewController.xib in Resources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		7DDEB2C01C2D57E200028F27 /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -3610,6 +3669,14 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
+		7DDEB2BE1C2D57E200028F27 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				7DDEB2C51C2D57E200028F27 /* VLC_for_iOS_UITests.swift in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 		DD35676C1B6760BF00338947 /* Sources */ = {
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
@@ -3667,6 +3734,11 @@
 			isa = PBXTargetDependency;
 			name = SDropboxSDK;
 			targetProxy = 7DC54FA71C046615007B4E42 /* PBXContainerItemProxy */;
+		};
+		7DDEB2C81C2D57E200028F27 /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = 7DC54FA51C046615007B4E42 /* vlc-ios-no-watch */;
+			targetProxy = 7DDEB2C71C2D57E200028F27 /* PBXContainerItemProxy */;
 		};
 		DD3567731B6760BF00338947 /* PBXTargetDependency */ = {
 			isa = PBXTargetDependency;
@@ -4275,6 +4347,96 @@
 			};
 			name = Distribution;
 		};
+		7DDEB2C91C2D57E200028F27 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				CLANG_ENABLE_MODULES = YES;
+				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_WARN_BOOL_CONVERSION = YES;
+				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
+				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_UNREACHABLE_CODE = YES;
+				DEBUG_INFORMATION_FORMAT = dwarf;
+				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				GCC_NO_COMMON_BLOCKS = YES;
+				GCC_OPTIMIZATION_LEVEL = 0;
+				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
+				GCC_WARN_UNDECLARED_SELECTOR = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
+				GCC_WARN_UNUSED_FUNCTION = YES;
+				INFOPLIST_FILE = "VLC for iOS UITests/Info.plist";
+				IPHONEOS_DEPLOYMENT_TARGET = 9.2;
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
+				MTL_ENABLE_DEBUG_INFO = YES;
+				PRODUCT_BUNDLE_IDENTIFIER = "org.videolan.VLC-for-iOS-UITests";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
+				TEST_TARGET_NAME = "vlc-ios-no-watch";
+				USES_XCTRUNNER = YES;
+			};
+			name = Debug;
+		};
+		7DDEB2CA1C2D57E200028F27 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				CLANG_ENABLE_MODULES = YES;
+				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_WARN_BOOL_CONVERSION = YES;
+				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
+				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_UNREACHABLE_CODE = YES;
+				COPY_PHASE_STRIP = NO;
+				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
+				ENABLE_NS_ASSERTIONS = NO;
+				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				GCC_NO_COMMON_BLOCKS = YES;
+				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
+				GCC_WARN_UNDECLARED_SELECTOR = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
+				GCC_WARN_UNUSED_FUNCTION = YES;
+				INFOPLIST_FILE = "VLC for iOS UITests/Info.plist";
+				IPHONEOS_DEPLOYMENT_TARGET = 9.2;
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
+				MTL_ENABLE_DEBUG_INFO = NO;
+				PRODUCT_BUNDLE_IDENTIFIER = "org.videolan.VLC-for-iOS-UITests";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				TEST_TARGET_NAME = "vlc-ios-no-watch";
+				USES_XCTRUNNER = YES;
+			};
+			name = Release;
+		};
+		7DDEB2CB1C2D57E200028F27 /* Distribution */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				CLANG_ENABLE_MODULES = YES;
+				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_WARN_BOOL_CONVERSION = YES;
+				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
+				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_UNREACHABLE_CODE = YES;
+				COPY_PHASE_STRIP = NO;
+				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
+				ENABLE_NS_ASSERTIONS = NO;
+				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				GCC_NO_COMMON_BLOCKS = YES;
+				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
+				GCC_WARN_UNDECLARED_SELECTOR = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
+				GCC_WARN_UNUSED_FUNCTION = YES;
+				INFOPLIST_FILE = "VLC for iOS UITests/Info.plist";
+				IPHONEOS_DEPLOYMENT_TARGET = 9.2;
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
+				MTL_ENABLE_DEBUG_INFO = NO;
+				PRODUCT_BUNDLE_IDENTIFIER = "org.videolan.VLC-for-iOS-UITests";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				TEST_TARGET_NAME = "vlc-ios-no-watch";
+				USES_XCTRUNNER = YES;
+			};
+			name = Distribution;
+		};
 		A7035BBF174519E40057DFA7 /* Distribution */ = {
 			isa = XCBuildConfiguration;
 			baseConfigurationReference = DD29A3E81BF21E3D00A27A91 /* SharedConfig.xcconfig */;
@@ -4662,6 +4824,16 @@
 				7DC550831C046615007B4E42 /* Debug */,
 				7DC550841C046615007B4E42 /* Release */,
 				7DC550851C046615007B4E42 /* Distribution */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		7DDEB2D41C2D57E200028F27 /* Build configuration list for PBXNativeTarget "VLC for iOS UITests" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				7DDEB2C91C2D57E200028F27 /* Debug */,
+				7DDEB2CA1C2D57E200028F27 /* Release */,
+				7DDEB2CB1C2D57E200028F27 /* Distribution */,
 			);
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
