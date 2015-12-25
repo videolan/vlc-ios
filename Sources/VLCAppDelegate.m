@@ -438,8 +438,10 @@ didFailToContinueUserActivityWithType:(NSString *)userActivityType
         [[VLCPlayerDisplayController sharedInstance] dismissPlaybackView];
 
         [keychainCoordinator validatePasscode];
-    } else
+    } else {
         _passcodeValidated = YES;
+        [self passcodeValidated];
+    }
 }
 
 #pragma mark - download handling

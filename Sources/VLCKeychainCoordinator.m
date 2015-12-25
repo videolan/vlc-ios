@@ -115,7 +115,7 @@ NSString *const VLCPasscode = @"org.videolan.vlc-ios.passcode";
     _inValidation = YES;
 
     NSString *passcode = [self _obtainPasscode];
-    if ([passcode isEqualToString:@""]) {
+    if (passcode == nil || [passcode isEqualToString:@""]) {
         [[NSNotificationCenter defaultCenter] postNotificationName:VLCPasscodeValidated object:self];
     }
 

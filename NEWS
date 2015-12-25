@@ -3,6 +3,7 @@
 * Improved SMB compatibility
 * UPnP reliability improvements, notably with Kodi
 * Stability improvements
+* Fixed issues unlocking the app when a passcode was never set
 
 2.7.0:
 ------
