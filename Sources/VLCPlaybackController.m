@@ -65,6 +65,8 @@ NSString *const VLCPlaybackControllerPlaybackPositionUpdated = @"VLCPlaybackCont
     BOOL _mediaWasJustStarted;
     BOOL _recheckForExistingThumbnail;
     BOOL _activeSession;
+
+    NSLock *_playbackSessionManagementLock;
 }
 
 @end
@@ -103,6 +105,8 @@ NSString *const VLCPlaybackControllerPlaybackPositionUpdated = @"VLCPlaybackCont
                               name:UIApplicationDidBecomeActiveNotification object:nil];
         [defaultCenter addObserver:self selector:@selector(applicationDidEnterBackground:)
                               name:UIApplicationDidEnterBackgroundNotification object:nil];
+
+        _playbackSessionManagementLock = [[NSLock alloc] init];
     }
     return self;
 }
@@ -193,6 +197,13 @@ NSString *const VLCPlaybackControllerPlaybackPositionUpdated = @"VLCPlaybackCont
         APLog(@"%s: player is already setup, bailing out", __PRETTY_FUNCTION__);
         return;
     }
+
+    BOOL ret = [_playbackSessionManagementLock tryLock];
+    if (!ret) {
+        APLog(@"%s: locking failed", __PRETTY_FUNCTION__);
+        return;
+    }
+
     _activeSession = YES;
 
 #if TARGET_OS_IOS
@@ -205,6 +216,7 @@ NSString *const VLCPlaybackControllerPlaybackPositionUpdated = @"VLCPlaybackCont
 
     if (!self.url && !self.mediaList) {
         APLog(@"%s: no URL and no media list set, stopping playback", __PRETTY_FUNCTION__);
+        [_playbackSessionManagementLock unlock];
         [self stopPlayback];
         return;
     }
@@ -261,6 +273,8 @@ NSString *const VLCPlaybackControllerPlaybackPositionUpdated = @"VLCPlaybackCont
     }
     [_listPlayer setRepeatMode:VLCDoNotRepeat];
 
+    [_playbackSessionManagementLock unlock];
+
     if (![self _isMediaSuitableForDevice:media]) {
 #if TARGET_OS_IOS
         VLCAlertView *alert = [[VLCAlertView alloc] initWithTitle:NSLocalizedString(@"DEVICE_TOOSLOW_TITLE", nil)
@@ -295,6 +309,12 @@ NSString *const VLCPlaybackControllerPlaybackPositionUpdated = @"VLCPlaybackCont
 
 - (void)_playNewMedia
 {
+    BOOL ret = [_playbackSessionManagementLock tryLock];
+    if (!ret) {
+        ASLog(@"%s: locking failed", __PRETTY_FUNCTION__);
+        return;
+    }
+
     // Set last selected equalizer profile
     unsigned int profile = (unsigned int)[[[NSUserDefaults standardUserDefaults] objectForKey:kVLCSettingEqualizerProfile] integerValue];
     [_mediaPlayer resetEqualizerFromProfile:profile];
@@ -321,6 +341,7 @@ NSString *const VLCPlaybackControllerPlaybackPositionUpdated = @"VLCPlaybackCont
     _playerIsSetup = YES;
 
     [[NSNotificationCenter defaultCenter] postNotificationName:VLCPlaybackControllerPlaybackDidStart object:self];
+    [_playbackSessionManagementLock unlock];
 }
 
 #if TARGET_OS_IOS
@@ -335,6 +356,12 @@ NSString *const VLCPlaybackControllerPlaybackPositionUpdated = @"VLCPlaybackCont
 
 - (void)stopPlayback
 {
+    BOOL ret = [_playbackSessionManagementLock tryLock];
+    if (!ret) {
+        APLog(@"%s: locking failed", __PRETTY_FUNCTION__);
+        return;
+    }
+
     if (_mediaPlayer) {
         @try {
             [_mediaPlayer removeObserver:self forKeyPath:@"time"];
@@ -379,6 +406,7 @@ NSString *const VLCPlaybackControllerPlaybackPositionUpdated = @"VLCPlaybackCont
     [self unsubscribeFromRemoteCommand];
     _activeSession = NO;
 
+    [_playbackSessionManagementLock unlock];
     if (_playbackFailed) {
         [[NSNotificationCenter defaultCenter] postNotificationName:VLCPlaybackControllerPlaybackDidFail object:self];
     } else if (!_sessionWillRestart) {
