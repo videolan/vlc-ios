@@ -208,15 +208,6 @@ NSString *const VLCPlaybackControllerPlaybackPositionUpdated = @"VLCPlaybackCont
         [self stopPlayback];
         return;
     }
-    if (self.pathToExternalSubtitlesFile)
-        _listPlayer = [[VLCMediaListPlayer alloc] initWithOptions:@[[NSString stringWithFormat:@"--%@=%@", kVLCSettingSubtitlesFilePath, self.pathToExternalSubtitlesFile]]];
-    else
-        _listPlayer = [[VLCMediaListPlayer alloc] init];
-
-    /* to enable debug logging for the playback library instance, switch the boolean below
-     * note that the library instance used for playback may not necessarily match the instance
-     * used for media discovery or thumbnailing */
-    _listPlayer.mediaPlayer.libraryInstance.debugLogging = NO;
 
     /* video decoding permanently fails if we don't provide a UIView to draw into on init
      * hence we provide one which is not attached to any view controller for off-screen drawing
@@ -225,9 +216,18 @@ NSString *const VLCPlaybackControllerPlaybackPositionUpdated = @"VLCPlaybackCont
     _actualVideoOutputView.autoresizingMask = UIViewAutoresizingFlexibleWidth | UIViewAutoresizingFlexibleHeight;
     _actualVideoOutputView.autoresizesSubviews = YES;
 
+    if (self.pathToExternalSubtitlesFile)
+        _listPlayer = [[VLCMediaListPlayer alloc] initWithOptions:@[[NSString stringWithFormat:@"--%@=%@", kVLCSettingSubtitlesFilePath, self.pathToExternalSubtitlesFile]] andDrawable:_actualVideoOutputView];
+    else
+        _listPlayer = [[VLCMediaListPlayer alloc] initWithDrawable:_actualVideoOutputView];
+
+    /* to enable debug logging for the playback library instance, switch the boolean below
+     * note that the library instance used for playback may not necessarily match the instance
+     * used for media discovery or thumbnailing */
+    _listPlayer.mediaPlayer.libraryInstance.debugLogging = NO;
+
     _mediaPlayer = _listPlayer.mediaPlayer;
     [_mediaPlayer setDelegate:self];
-    [_mediaPlayer setDrawable:_actualVideoOutputView];
     if ([[defaults objectForKey:kVLCSettingPlaybackSpeedDefaultValue] floatValue] != 0)
         [_mediaPlayer setRate: [[defaults objectForKey:kVLCSettingPlaybackSpeedDefaultValue] floatValue]];
     if ([[defaults objectForKey:kVLCSettingDeinterlace] intValue] != 0)
