@@ -311,7 +311,7 @@ NSString *const VLCPlaybackControllerPlaybackPositionUpdated = @"VLCPlaybackCont
 {
     BOOL ret = [_playbackSessionManagementLock tryLock];
     if (!ret) {
-        ASLog(@"%s: locking failed", __PRETTY_FUNCTION__);
+        APLog(@"%s: locking failed", __PRETTY_FUNCTION__);
         return;
     }
 
