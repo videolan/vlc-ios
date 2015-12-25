@@ -845,6 +845,8 @@ static NSString *kUsingTableViewToShowData = @"UsingTableViewToShowData";
     NSArray *visibleCells = [collectionView visibleCells];
     NSUInteger cellCount = visibleCells.count;
 
+    [collectionView deselectItemAtIndexPath:indexPath animated:NO];
+
     if (self.editing) {
         if (_libraryMode == VLCLibraryModeCreateFolder) {
             _folderObject = _foundMedia[indexPath.item];

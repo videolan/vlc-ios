@@ -180,12 +180,10 @@
 
 - (BOOL)restoreFromSharedCredentials
 {
-    NSLog(@"%s", __PRETTY_FUNCTION__);
     LiveAuthStorage *authStorage = [[LiveAuthStorage alloc] initWithClientId:kVLCOneDriveClientID];
     NSUbiquitousKeyValueStore *ubiquitousStore = [NSUbiquitousKeyValueStore defaultStore];
     [ubiquitousStore synchronize];
     NSString *credentials = [ubiquitousStore stringForKey:kVLCStoreOneDriveCredentials];
-    NSLog(@"have credentials %@", credentials);
     if (!credentials)
         return NO;
 
