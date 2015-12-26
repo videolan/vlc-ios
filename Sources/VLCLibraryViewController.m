@@ -842,9 +842,6 @@ static NSString *kUsingTableViewToShowData = @"UsingTableViewToShowData";
 
 - (void)collectionView:(UICollectionView *)collectionView didSelectItemAtIndexPath:(NSIndexPath *)indexPath
 {
-    NSArray *visibleCells = [collectionView visibleCells];
-    NSUInteger cellCount = visibleCells.count;
-
     if (self.editing) {
         if (_libraryMode == VLCLibraryModeCreateFolder) {
             _folderObject = _foundMedia[indexPath.item];
@@ -858,6 +855,8 @@ static NSString *kUsingTableViewToShowData = @"UsingTableViewToShowData";
     }
 
     [collectionView deselectItemAtIndexPath:indexPath animated:NO];
+    NSArray *visibleCells = [[collectionView visibleCells] copy];
+    NSUInteger cellCount = visibleCells.count;
 
     for (NSUInteger x = 0; x < cellCount; x++) {
         VLCPlaylistCollectionViewCell *cell = visibleCells[x];
@@ -866,10 +865,13 @@ static NSString *kUsingTableViewToShowData = @"UsingTableViewToShowData";
     }
 
     NSManagedObject *selectedObject;
+    NSInteger row = indexPath.row;
     @synchronized(self) {
-        selectedObject = _foundMedia[indexPath.row];
+        if (row < _foundMedia.count)
+            selectedObject = _foundMedia[row];
     }
-    [self openMediaObject:selectedObject];
+    if (selectedObject != nil)
+        [self openMediaObject:selectedObject];
 }
 
 - (void)collectionView:(UICollectionView *)collectionView didDeselectItemAtIndexPath:(NSIndexPath *)indexPath
