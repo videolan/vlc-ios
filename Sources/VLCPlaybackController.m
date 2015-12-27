@@ -621,7 +621,7 @@ NSString *const VLCPlaybackControllerPlaybackPositionUpdated = @"VLCPlaybackCont
     } else if (currentState == VLCMediaPlayerStateEnded || currentState == VLCMediaPlayerStateStopped) {
         [_listPlayer.mediaList lock];
         NSUInteger listCount = _listPlayer.mediaList.count;
-        if ([_listPlayer.mediaList indexOfMedia:_mediaPlayer.media] == listCount - 1) {
+        if ([_listPlayer.mediaList indexOfMedia:_mediaPlayer.media] == listCount - 1 && self.repeatMode == VLCDoNotRepeat) {
             [_listPlayer.mediaList unlock];
             self.sessionWillRestart = NO;
             [self stopPlayback];
@@ -629,7 +629,8 @@ NSString *const VLCPlaybackControllerPlaybackPositionUpdated = @"VLCPlaybackCont
         } else if (listCount > 1) {
             [_listPlayer.mediaList unlock];
             [_listPlayer next];
-        }
+        } else
+            [_listPlayer.mediaList unlock];
     }
 
     if ([self.delegate respondsToSelector:@selector(mediaPlayerStateChanged:isPlaying:currentMediaHasTrackToChooseFrom:currentMediaHasChapters:forPlaybackController:)])
