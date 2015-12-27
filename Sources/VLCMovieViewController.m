@@ -425,6 +425,7 @@ typedef NS_ENUM(NSInteger, VLCPanType) {
     [vpc recoverDisplayedMetadata];
     vpc.videoOutputView = nil;
     vpc.videoOutputView = self.movieView;
+    _multiSelectionView.repeatMode = vpc.repeatMode;
 }
 
 - (void)viewDidLayoutSubviews
