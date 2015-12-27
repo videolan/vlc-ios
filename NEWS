@@ -4,6 +4,8 @@
 * Fixed issues unlocking the app when a passcode was never set
 * Fixed repeat one / repeat list
 * Fixed saving playback progress for files whose names contain spaces or umlauts
+* Fixed multiplying music album listings
+* Show music albums with 1 track correctly in the music album's list
 * Improved SMB compatibility
 * UPnP reliability improvements, notably with Kodi
 
