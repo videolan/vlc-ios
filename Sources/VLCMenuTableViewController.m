@@ -71,7 +71,7 @@ static NSString *WiFiCellIdentifier = @"VLCMenuWiFiCell";
 
     _sectionHeaderTexts = @[@"SECTION_HEADER_LIBRARY", @"SECTION_HEADER_NETWORK", @"Settings"];
     _menuItemsSectionOne = @[@"LIBRARY_ALL_FILES", @"LIBRARY_MUSIC", @"LIBRARY_SERIES"];
-    _menuItemsSectionTwo = @[@"LOCAL_NETWORK", @"OPEN_NETWORK", @"DOWNLOAD_FROM_HTTP", @"WEBINTF_TITLE", @"CLOUD_SERVICES"];
+    _menuItemsSectionTwo = @[@"LOCAL_NETWORK", @"NETWORK_TITLE", @"DOWNLOAD_FROM_HTTP", @"WEBINTF_TITLE", @"CLOUD_SERVICES"];
     _menuItemsSectionThree = @[@"Settings", @"ABOUT_APP"];
 
     NSUInteger count = _menuItemsSectionOne.count + _menuItemsSectionTwo.count + _menuItemsSectionThree.count;
@@ -223,7 +223,7 @@ static NSString *WiFiCellIdentifier = @"VLCMenuWiFiCell";
     } else if (section == 1) {
         if ([rawTitle isEqualToString:@"LOCAL_NETWORK"])
             cell.imageView.image = [UIImage imageNamed:@"Local"];
-        else if ([rawTitle isEqualToString:@"OPEN_NETWORK"])
+        else if ([rawTitle isEqualToString:@"NETWORK_TITLE"])
             cell.imageView.image = [UIImage imageNamed:@"OpenNetStream"];
         else if ([rawTitle isEqualToString:@"DOWNLOAD_FROM_HTTP"])
             cell.imageView.image = [UIImage imageNamed:@"Downloads"];
