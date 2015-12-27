@@ -1,10 +1,11 @@
 2.7.1:
 ------
-* Improved SMB compatibility
-* UPnP reliability improvements, notably with Kodi
 * Stability improvements
 * Fixed issues unlocking the app when a passcode was never set
 * Fixed repeat one / repeat list
+* Fixed saving playback progress for files whose names contain spaces or umlauts
+* Improved SMB compatibility
+* UPnP reliability improvements, notably with Kodi
 
 2.7.0:
 ------
