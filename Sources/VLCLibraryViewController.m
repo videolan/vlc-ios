@@ -507,9 +507,17 @@ static NSString *kUsingTableViewToShowData = @"UsingTableViewToShowData";
     if (_libraryMode != VLCLibraryModeAllSeries) {
         NSArray *rawAlbums = [MLAlbum allAlbums];
         for (MLAlbum *album in rawAlbums) {
-            if (album.name.length > 0 && album.tracks.count > 1) {
-                @synchronized(self) {
-                    [_foundMedia addObject:album];
+            if (_libraryMode != VLCLibraryModeAllAlbums) {
+                if (album.name.length > 0 && album.tracks.count > 1) {
+                    @synchronized(self) {
+                        [_foundMedia addObject:album];
+                    }
+                }
+            } else {
+                if (album.name.length > 0) {
+                    @synchronized(self) {
+                        [_foundMedia addObject:album];
+                    }
                 }
             }
         }
