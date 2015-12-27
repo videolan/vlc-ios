@@ -27,7 +27,7 @@
     free(answer);
 
     if ([currentMachine hasPrefix:@"iPhone2"] || [currentMachine hasPrefix:@"iPhone3"] || [currentMachine hasPrefix:@"iPad1"] || [currentMachine hasPrefix:@"iPod3"] || [currentMachine hasPrefix:@"iPod4"]) {
-        // iPhone 3GS, iPhone 4, first gen. iPad, 3rd and 4th generation iPod touch
+        // iPhone 4, 4th generation iPod touch
         APLog(@"this is a cat one device");
         return 1;
     } else if ([currentMachine hasPrefix:@"iPhone4"] || [currentMachine hasPrefix:@"iPad3,1"] || [currentMachine hasPrefix:@"iPad3,2"] || [currentMachine hasPrefix:@"iPad3,3"] || [currentMachine hasPrefix:@"iPod4"] || [currentMachine hasPrefix:@"iPad2"] || [currentMachine hasPrefix:@"iPod5"]) {
@@ -39,7 +39,7 @@
         APLog(@"this is a cat three device");
         return 3;
     } else {
-        // iPhone 6, 2014 iPads
+        // iPhone 6 + 6S, 2014+2015 iPads
         APLog(@"this is a cat four device");
         return 4;
     }

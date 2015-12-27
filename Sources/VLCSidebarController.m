@@ -14,6 +14,7 @@
 #import "VLCMenuTableViewController.h"
 #import "UIViewController+RESideMenu.h"
 #import "RESideMenu.h"
+#import "UIDevice+VLC.h"
 
 @interface VLCSidebarController()
 {
@@ -56,6 +57,13 @@
                                                             rightMenuViewController:_menuViewController];
     }
     _sideMenuViewController.backgroundImage = [UIImage imageNamed:@"menu-background"];
+
+    if ([[UIDevice currentDevice] speedCategory] <= 2) {
+        _sideMenuViewController.animationDuration = 0.1f;
+        _sideMenuViewController.parallaxEnabled = NO;
+        _sideMenuViewController.contentViewShadowEnabled = NO;
+        _sideMenuViewController.bouncesHorizontally = NO;
+    }
 
     return self;
 }
