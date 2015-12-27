@@ -432,17 +432,16 @@ NSString *const VLCPlaybackControllerPlaybackPositionUpdated = @"VLCPlaybackCont
     if (files.count > 0)
         fileItem = files.firstObject;
 
-    if (!fileItem)
+    if (!fileItem) {
+        APLog(@"couldn't find file, not saving playback progress");
         return;
+    }
 
     @try {
         float position = _mediaPlayer.position;
         fileItem.lastPosition = @(position);
         fileItem.lastAudioTrack = @(_mediaPlayer.currentAudioTrackIndex);
         fileItem.lastSubtitleTrack = @(_mediaPlayer.currentVideoSubTitleIndex);
-
-        if ([fileItem isKindOfType:kMLFileTypeAudio])
-            return;
 
         if (position > .95)
             return;
