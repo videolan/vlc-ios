@@ -190,6 +190,7 @@
 
         _duration = dictionary[@"duration"];
         _fileSizeBytes = dictionary[@"size"];
+        _filename = dictionary[@"namefile"];
 
         NSString *subtitleURLString = dictionary[@"keySubtitle"];
         if (subtitleURLString) {

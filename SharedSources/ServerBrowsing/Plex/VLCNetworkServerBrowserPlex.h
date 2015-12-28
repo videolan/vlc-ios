@@ -26,6 +26,7 @@ NS_ASSUME_NONNULL_BEGIN
 @interface VLCNetworkServerBrowserItemPlex : NSObject <VLCNetworkServerBrowserItem>
 - (instancetype)initWithDictionary:(NSDictionary *)dictionary currentURL:(NSURL *)currentURL authentificication:(NSString *)auth;
 
+@property (nonatomic, readonly, nullable) NSString *filename;
 @property (nonatomic, readonly, nullable) NSString *duration;
 @property (nonatomic, readonly, nullable) NSURL *subtitleURL;
 @property (nonatomic, readonly, nullable) NSURL *thumbnailURL;

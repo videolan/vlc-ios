@@ -253,7 +253,12 @@
 
 - (void)_downloadItem:(id<VLCNetworkServerBrowserItem>)item
 {
-    NSString *filename = item.name;
+    NSString *filename;
+    if ([item respondsToSelector:@selector(filename)])
+        filename = item.filename;
+    else
+        filename = item.name;
+
     if (filename.pathExtension.length == 0) {
         /* there are few crappy UPnP servers who don't reveal the correct file extension, so we use a generic fake (#11123) */
         NSString *urlExtension = item.URL.pathExtension;
