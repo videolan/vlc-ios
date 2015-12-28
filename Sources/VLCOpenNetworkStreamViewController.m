@@ -209,7 +209,7 @@
         cell.detailTextLabel.highlightedTextColor = [UIColor blackColor];
     }
 
-    NSString *content = _recentURLs[indexPath.row];
+    NSString *content = [_recentURLs[indexPath.row] stringByRemovingPercentEncoding];
     cell.textLabel.text = [content lastPathComponent];
     cell.detailTextLabel.text = content;
 
