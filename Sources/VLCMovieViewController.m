@@ -1222,8 +1222,11 @@ currentMediaHasTrackToChooseFrom:(BOOL)currentMediaHasTrackToChooseFrom
             if (row == mediaPlayer.currentTitleIndex)
                 cellShowsCurrentTrack = YES;
         } else {
-            NSDictionary *description = [mediaPlayer chapterDescriptionsOfTitle:mediaPlayer.currentTitleIndex][row];
-            cell.textLabel.text = [NSString stringWithFormat:@"%@ (%@)", description[VLCChapterDescriptionName], [[VLCTime timeWithNumber:description[VLCChapterDescriptionDuration]] stringValue]];
+            NSArray *chapterDescriptions = [mediaPlayer chapterDescriptionsOfTitle:mediaPlayer.currentTitleIndex];
+            if (row < chapterDescriptions.count) {
+                NSDictionary *description = chapterDescriptions[row];
+                cell.textLabel.text = [NSString stringWithFormat:@"%@ (%@)", description[VLCChapterDescriptionName], [[VLCTime timeWithNumber:description[VLCChapterDescriptionDuration]] stringValue]];
+            }
 
             if (row == mediaPlayer.currentChapterIndex)
                 cellShowsCurrentTrack = YES;
