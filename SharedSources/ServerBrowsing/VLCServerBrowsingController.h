@@ -34,10 +34,6 @@ NS_ASSUME_NONNULL_BEGIN
 @property (nonatomic, nullable) UIImage *folderImage;
 @property (nonatomic, nullable) UIImage *genericFileImage;
 
-#if DOWNLOAD_SUPPORTED
-@property (nonatomic) BOOL allowsFileDownload;
-#endif
-
 @property (nonatomic, readonly) id<VLCNetworkServerBrowser> serverBrowser;
 @property (nonatomic, weak, nullable, readonly) UIViewController *viewController;
 
