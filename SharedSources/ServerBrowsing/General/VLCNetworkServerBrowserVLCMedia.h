@@ -20,6 +20,9 @@ NS_ASSUME_NONNULL_BEGIN
 
 @interface VLCNetworkServerBrowserItemVLCMedia : NSObject <VLCNetworkServerBrowserItem>
 - (instancetype)initWithMedia:(VLCMedia *)media options:(NSDictionary *)mediaOptions;
+
+@property (nonatomic, getter=isDownloadable, readonly) BOOL downloadable;
+
 @end
 
 NS_ASSUME_NONNULL_END

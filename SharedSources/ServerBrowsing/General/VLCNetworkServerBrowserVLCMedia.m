@@ -123,7 +123,7 @@
 
 @end
 @implementation VLCNetworkServerBrowserItemVLCMedia
-@synthesize name = _name, container = _container, fileSizeBytes = _fileSizeBytes, URL = _URL, media = _media;
+@synthesize name = _name, container = _container, fileSizeBytes = _fileSizeBytes, URL = _URL, media = _media, downloadable = _downloadable;
 
 - (instancetype)initWithMedia:(VLCMedia *)media options:(NSDictionary *)mediaOptions;
 {
@@ -144,7 +144,7 @@
         _name = title;
         _URL = media.url;
         _mediaOptions = [mediaOptions copy];
-//        _downloadable = NO; //TODO: add property for downloadable?
+        _downloadable = NO;
     }
     return self;
 }
