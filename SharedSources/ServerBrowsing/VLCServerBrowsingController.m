@@ -96,7 +96,10 @@
         }
         cell.subtitle = subtitle;
 #if DOWNLOAD_SUPPORTED
-        cell.isDownloadable = self.allowsFileDownload;
+        if ([item respondsToSelector:@selector(isDownloadable)])
+            cell.isDownloadable = item.isDownloadable;
+        else
+            cell.isDownloadable = NO;
 #endif
     }
     cell.title = item.name;
