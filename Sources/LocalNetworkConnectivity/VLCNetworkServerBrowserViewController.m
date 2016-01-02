@@ -41,7 +41,6 @@
         _serverBrowser = browser;
         browser.delegate = self;
         _browsingController = [[VLCServerBrowsingController alloc] initWithViewController:self serverBrowser:browser];
-        _browsingController.allowsFileDownload = YES;
     }
     return self;
 }
