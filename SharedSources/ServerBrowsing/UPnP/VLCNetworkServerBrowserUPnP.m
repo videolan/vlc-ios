@@ -86,15 +86,17 @@
 
 - (VLCMediaList *)mediaList
 {
-    VLCMediaList *mediaList = [[VLCMediaList alloc] init];
+    NSMutableArray *mediaArray;
     @synchronized(_items) {
         NSUInteger count = _items.count;
+        mediaArray = [NSMutableArray arrayWithCapacity:count];
         for (NSInteger i = count - 1; i >= 0; i--) {
             VLCMedia *media = [_items[i] media];
             if (media)
-                [mediaList addMedia:media];
+                [mediaArray addObject:media];
         }
     }
+    VLCMediaList *mediaList = [[VLCMediaList alloc] initWithArray:mediaArray];
     return mediaList;
 }
 
@@ -247,12 +249,10 @@
                     return YES;
                 return NO;
             }]];
-            if (protocolStrings.count == 1) {
-                _URL = [NSURL URLWithString:[mediaItem uri]];
-            } else if (protocolStrings.count > 1) {
-                // withh multiple playable resources we simulate to be a container
-                _container = YES;
-            }
+            /* FIXME: on some servers, we can have more than 1 protocol string as different transcoding schemes are offered
+             * in previous versions, we offered a selector - maybe re-add? */
+
+            _URL = [NSURL URLWithString:[mediaItem uri]];
         }
     }
     return self;

@@ -2,6 +2,7 @@
 ------
 * Stability improvements
 * Improved HTTP connectivity
+* Improved UPnP reliability, notably with Twonky
 
 2.7.1:
 ------
