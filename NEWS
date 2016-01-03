@@ -1,3 +1,9 @@
+2.7.2:
+------
+* Stability improvements
+* Improved HTTP connectivity
+* Improved UPnP reliability, notably with Twonky
+
 2.7.1:
 ------
 * Stability improvements

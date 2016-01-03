@@ -105,9 +105,7 @@
     [self update];
 }
 
-
 #pragma mark - server browser item specifics
-
 
 - (void)didSelectItem:(id<VLCNetworkServerBrowserItem>)item index:(NSUInteger)index singlePlayback:(BOOL)singlePlayback
 {
@@ -124,8 +122,6 @@
         }
     }
 }
-
-
 
 #pragma mark - table view data source, for more see super
 
