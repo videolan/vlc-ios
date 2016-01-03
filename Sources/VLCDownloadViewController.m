@@ -187,9 +187,12 @@
                 [_currentDownloadFilename removeObjectAtIndex:0];
             }
             downloadWasStarted = YES;
-        } else
+        } else {
             APLog(@"Unknown download scheme '%@'", downloadScheme);
-
+            [_currentDownloads removeObjectAtIndex:0];
+            _currentDownloadType = 0;
+            return;
+        }
 
         if (downloadWasStarted) {
             if (!_backgroundTaskIdentifier || _backgroundTaskIdentifier == UIBackgroundTaskInvalid) {
