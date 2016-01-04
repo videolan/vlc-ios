@@ -4,6 +4,8 @@
 * Improved HTTP connectivity
 * Improved UPnP reliability, notably with Twonky
 * Fixed issues unlocking the app when a passcode was never set
+* Fixed custom subtitles font sizes
+* Fixed UPnP playback on iOS 7
 
 2.7.1:
 ------

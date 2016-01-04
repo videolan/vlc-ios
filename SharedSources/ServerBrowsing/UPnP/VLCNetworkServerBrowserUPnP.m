@@ -243,10 +243,19 @@
                 if (evaluatedObject == nil || ![evaluatedObject isKindOfClass:[NSString class]])
                     return NO;
 
-                if ([evaluatedObject containsString:@"http-get:*:video/"])
-                    return YES;
-                if ([evaluatedObject containsString:@"http-get:*:audio/"])
-                    return YES;
+                if ([evaluatedObject respondsToSelector:@selector(containsString:)]) {
+                    if ([evaluatedObject containsString:@"http-get:*:video/"])
+                        return YES;
+                    if ([evaluatedObject containsString:@"http-get:*:audio/"])
+                        return YES;
+                } else {
+                    NSRange foundRange = [evaluatedObject rangeOfString:@"http-get:*:video/"];
+                    if (foundRange.location != NSNotFound)
+                        return YES;
+                    foundRange = [evaluatedObject rangeOfString:@"http-get:*:audio/"];
+                    if (foundRange.location != NSNotFound)
+                        return YES;
+                }
                 return NO;
             }]];
             /* FIXME: on some servers, we can have more than 1 protocol string as different transcoding schemes are offered
