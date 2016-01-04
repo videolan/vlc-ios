@@ -305,9 +305,9 @@ static NSString *kUsingTableViewToShowData = @"UsingTableViewToShowData";
                 }
                 _reorderLayout = [[LXReorderableCollectionViewFlowLayout alloc] init];
                 [self.collectionView setCollectionViewLayout:_reorderLayout animated:NO];
-                _libraryMode = VLCLibraryModeFolder;
             }
         }
+        _libraryMode = VLCLibraryModeFolder;
         @synchronized(self) {
             _foundMedia = [NSMutableArray arrayWithArray:[folder sortedFolderItems]];
         }
