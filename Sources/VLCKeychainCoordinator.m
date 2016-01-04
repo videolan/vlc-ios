@@ -77,20 +77,6 @@ NSString *const VLCPasscode = @"org.videolan.vlc-ios.passcode";
 - (NSString *)_obtainPasscode
 {
     NSString *passcode = [SSKeychain passwordForService:VLCPasscode account:VLCPasscode];
-
-    if (!passcode) {
-        /* legacy passcode conversion to keychain - only do that once */
-        NSUserDefaults *defaults = [NSUserDefaults standardUserDefaults];
-        passcode = [defaults objectForKey:kVLCSettingPasscodeKey];
-        if (passcode && passcode.length > 0) {
-            APLog(@"Move passcode from setting to keychain");
-            [self setPasscode:passcode];
-            // delete passcode from old setting
-            [defaults removeObjectForKey:kVLCSettingPasscodeKey];
-            [defaults synchronize];
-        }
-    }
-
     return passcode;
 }
 
@@ -117,6 +103,7 @@ NSString *const VLCPasscode = @"org.videolan.vlc-ios.passcode";
     NSString *passcode = [self _obtainPasscode];
     if (passcode == nil || [passcode isEqualToString:@""]) {
         [[NSNotificationCenter defaultCenter] postNotificationName:VLCPasscodeValidated object:self];
+        return;
     }
 
     _passcodeLockController = [[PAPasscodeViewController alloc] initForAction:PasscodeActionEnter];
