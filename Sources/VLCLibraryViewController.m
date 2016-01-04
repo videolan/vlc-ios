@@ -2,7 +2,7 @@
  * VLCLibraryViewController.m
  * VLC for iOS
  *****************************************************************************
- * Copyright (c) 2013-2015 VideoLAN. All rights reserved.
+ * Copyright (c) 2013-2016 VideoLAN. All rights reserved.
  * $Id$
  *
  * Authors: Felix Paul Kühne <fkuehne # videolan.org>
@@ -64,7 +64,9 @@ static NSString *kUsingTableViewToShowData = @"UsingTableViewToShowData";
     UISearchBar *_searchBar;
     UISearchDisplayController *_searchDisplayController;
 
-    UIBarButtonItem *_actionBarButtonItem;
+    UIBarButtonItem *_createFolderBarButtonItem;
+    UIBarButtonItem *_openInActivityBarButtonItem;
+    UIBarButtonItem *_removeFromFolderBarButtonItem;
     VLCOpenInActivity *_openInActivity;
 }
 
@@ -176,24 +178,38 @@ static NSString *kUsingTableViewToShowData = @"UsingTableViewToShowData";
     _emptyLibraryView.emptyLibraryLongDescriptionLabel.text = NSLocalizedString(@"EMPTY_LIBRARY_LONG", nil);
     [_emptyLibraryView.emptyLibraryLongDescriptionLabel sizeToFit];
     [_emptyLibraryView.learnMoreButton setTitle:NSLocalizedString(@"BUTTON_LEARN_MORE", nil) forState:UIControlStateNormal];
-    UIBarButtonItem *createFolderItem = [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemOrganize target:self action:@selector(createFolder)];
+    _createFolderBarButtonItem = [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemOrganize target:self action:@selector(createFolder)];
 
     // Better visual alignment with the action button
-    createFolderItem.imageInsets = UIEdgeInsetsMake(4, 0, -4, 0);
-    createFolderItem.landscapeImagePhoneInsets = UIEdgeInsetsMake(3, 0, -3, 0);
+    _createFolderBarButtonItem.imageInsets = UIEdgeInsetsMake(4, 0, -4, 0);
+    _createFolderBarButtonItem.landscapeImagePhoneInsets = UIEdgeInsetsMake(3, 0, -3, 0);
 
-    _actionBarButtonItem = [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemAction target:self action:@selector(actOnSelection:)];
-    _actionBarButtonItem.enabled = NO;
+    _removeFromFolderBarButtonItem = [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemReply target:self action:@selector(removeFromFolder)];
+    _removeFromFolderBarButtonItem.imageInsets = UIEdgeInsetsMake(4, 0, -4, 0);
+    _removeFromFolderBarButtonItem.landscapeImagePhoneInsets = UIEdgeInsetsMake(3, 0, -3, 0);
+    _removeFromFolderBarButtonItem.enabled = NO;
 
-    // If you find strange issues with multiple Edit/Cancel actions causing UIToolbar spacing corruption, use a flexible space instead of a fixed space.
+    _openInActivityBarButtonItem = [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemAction target:self action:@selector(actOnSelection:)];
+    _openInActivityBarButtonItem.enabled = NO;
+
     UIBarButtonItem *fixedSpace = [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemFixedSpace target:nil action:nil];
+    fixedSpace.width = 20;
+    UIBarButtonItem *secondFixedSpace = [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemFixedSpace target:nil action:nil];
     fixedSpace.width = 20;
 
     if (UI_USER_INTERFACE_IDIOM() == UIUserInterfaceIdiomPad) {
         fixedSpace.width *= 2;
     }
 
-    [self setToolbarItems:@[_actionBarButtonItem, fixedSpace, createFolderItem, [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemFlexibleSpace target:nil action:nil], [UIBarButtonItem themedDarkToolbarButtonWithTitle:NSLocalizedString(@"BUTTON_RENAME", nil) target:self andSelector:@selector(renameSelection)], [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemFlexibleSpace target:nil action:nil], [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemTrash target:self action:@selector(deleteSelection)]]];
+    [self setToolbarItems:@[_openInActivityBarButtonItem,
+                            fixedSpace,
+                            _createFolderBarButtonItem,
+                            [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemFlexibleSpace target:nil action:nil],
+                            [UIBarButtonItem themedDarkToolbarButtonWithTitle:NSLocalizedString(@"BUTTON_RENAME", nil) target:self andSelector:@selector(renameSelection)],
+                            [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemFlexibleSpace target:nil action:nil],
+                            _removeFromFolderBarButtonItem,
+                            secondFixedSpace,
+                            [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemTrash target:self action:@selector(deleteSelection)]]];
     self.navigationController.toolbar.barStyle = UIBarStyleBlack;
     self.navigationController.toolbar.tintColor = [UIColor whiteColor];
     [UIApplication sharedApplication].statusBarStyle = UIStatusBarStyleLightContent;
@@ -299,10 +315,8 @@ static NSString *kUsingTableViewToShowData = @"UsingTableViewToShowData";
         self.navigationItem.leftBarButtonItem.title = NSLocalizedString(@"BUTTON_BACK", nil);
         self.title = [folder name];
 
-        UIBarButtonItem *removeFromFolder = [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemReply target:self action:@selector(removeFromFolder)];
-        NSMutableArray *toolbarItems = [self.toolbarItems mutableCopy];
-        toolbarItems[2] = removeFromFolder;
-        self.toolbarItems = toolbarItems;
+        _removeFromFolderBarButtonItem.enabled = YES;
+        _createFolderBarButtonItem.enabled = NO;
 
         [self reloadViews];
         return;
@@ -495,13 +509,8 @@ static NSString *kUsingTableViewToShowData = @"UsingTableViewToShowData";
     else
         self.title = NSLocalizedString(@"LIBRARY_ALL_FILES", nil);
 
-    NSMutableArray *toolbarItems = [self.toolbarItems mutableCopy];
-    if (toolbarItems.count >= 3) {
-        UIBarButtonItem *createFolderButton = toolbarItems[2];
-        createFolderButton.enabled = (_libraryMode == VLCLibraryModeAllAlbums || _libraryMode == VLCLibraryModeAllSeries) ? NO : YES;
-        toolbarItems[2] = createFolderButton;
-        self.toolbarItems = toolbarItems;
-    }
+    _createFolderBarButtonItem.enabled = (_libraryMode == VLCLibraryModeAllAlbums || _libraryMode == VLCLibraryModeAllSeries) ? NO : YES;
+    _removeFromFolderBarButtonItem.enabled = NO;
 
     /* add all albums */
     if (_libraryMode != VLCLibraryModeAllSeries) {
@@ -1386,7 +1395,7 @@ static NSString *kUsingTableViewToShowData = @"UsingTableViewToShowData";
 {
     NSUInteger count = [indexPaths count];
     if (!indexPaths || count == 0) {
-        _actionBarButtonItem.enabled = NO;
+        _openInActivityBarButtonItem.enabled = NO;
     } else {
         // Look for at least one MLFile
         @synchronized(self) {
@@ -1394,7 +1403,7 @@ static NSString *kUsingTableViewToShowData = @"UsingTableViewToShowData";
                 id mediaItem = _foundMedia[[indexPaths[x] row]];
 
                 if ([mediaItem isKindOfClass:[MLFile class]] || [mediaItem isKindOfClass:[MLAlbumTrack class]] | [mediaItem isKindOfClass:[MLShowEpisode class]]) {
-                    _actionBarButtonItem.enabled = YES;
+                    _openInActivityBarButtonItem.enabled = YES;
                     return;
                 }
             }
