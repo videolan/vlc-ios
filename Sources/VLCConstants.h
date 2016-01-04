@@ -13,7 +13,6 @@
 
 #define kVLCVersionCodename @"All Along the Watchtower"
 
-#define kVLCSettingPasscodeKey @"Passcode"
 #define kVLCSettingPasscodeOnKey @"PasscodeProtection"
 #define kVLCSettingPasscodeAllowTouchID @"AllowTouchID"
 #define kVLCSettingContinueAudioInBackgroundKey @"BackgroundAudioPlayback"

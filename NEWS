@@ -3,6 +3,7 @@
 * Stability improvements
 * Improved HTTP connectivity
 * Improved UPnP reliability, notably with Twonky
+* Fixed issues unlocking the app when a passcode was never set
 
 2.7.1:
 ------
