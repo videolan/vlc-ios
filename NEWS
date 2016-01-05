@@ -6,6 +6,7 @@
 * Fixed issues unlocking the app when a passcode was never set
 * Fixed custom subtitles font sizes
 * Fixed UPnP playback on iOS 7
+* Note: when installing this update, a potentially configured passcode is reset.
 
 2.7.1:
 ------

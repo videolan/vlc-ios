@@ -76,8 +76,18 @@ NSString *const VLCPasscode = @"org.videolan.vlc-ios.passcode";
 
 - (NSString *)_obtainPasscode
 {
-    NSString *passcode = [SSKeychain passwordForService:VLCPasscode account:VLCPasscode];
-    return passcode;
+    NSUserDefaults *defaults = [NSUserDefaults standardUserDefaults];
+    BOOL wasReset = [defaults boolForKey:kVLCSettingPasscodeResetOnUpgrade];
+    if (wasReset) {
+        NSString *passcode = [SSKeychain passwordForService:VLCPasscode account:VLCPasscode];
+        return passcode;
+    }
+
+    [SSKeychain deletePasswordForService:VLCPasscode account:VLCPasscode];
+    [defaults setBool:YES forKey:kVLCSettingPasscodeResetOnUpgrade];
+    [defaults synchronize];
+
+    return nil;
 }
 
 - (BOOL)passcodeLockEnabled
