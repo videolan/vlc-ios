@@ -59,8 +59,12 @@ typedef NS_ENUM(NSInteger, VLCPlayerScanState)
 
     NSNotificationCenter *center = [NSNotificationCenter defaultCenter];
     [center addObserver:self
-               selector:@selector(playbackDidStop:)
+               selector:@selector(playbackDidStop)
                    name:VLCPlaybackControllerPlaybackDidStop
+                 object:nil];
+    [center addObserver:self
+               selector:@selector(playbackDidStop)
+                   name:VLCPlaybackControllerPlaybackDidFail
                  object:nil];
 
     _movieView.userInteractionEnabled = NO;
@@ -154,8 +158,6 @@ typedef NS_ENUM(NSInteger, VLCPlayerScanState)
     [vpc recoverDisplayedMetadata];
     vpc.videoOutputView = nil;
     vpc.videoOutputView = self.movieView;
-
-    [[NSNotificationCenter defaultCenter] removeObserver:self];
 }
 
 - (void)viewWillDisappear:(BOOL)animated
@@ -177,6 +179,7 @@ typedef NS_ENUM(NSInteger, VLCPlayerScanState)
         [fileManager removeItemAtPath:tempSubsDirPath error:nil];
 
     [super viewWillDisappear:animated];
+    [[NSNotificationCenter defaultCenter] removeObserver:self];
 }
 
 - (BOOL)canBecomeFirstResponder
@@ -666,7 +669,7 @@ static const NSInteger VLCJumpInterval = 10000; // 10 seconds
     self.audioView.hidden = YES;
 }
 
-- (void)playbackDidStop:(NSNotification *)aNotification
+- (void)playbackDidStop
 {
     [self dismissViewControllerAnimated:YES completion:nil];
 }
