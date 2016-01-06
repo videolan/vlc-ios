@@ -684,6 +684,11 @@ currentMediaHasTrackToChooseFrom:(BOOL)currentMediaHasTrackToChooseFrom
     [self updateActivityIndicatorForState:currentState];
 
     if (controller.isPlaying) {
+        // we sometimes don't set the vout correctly if playback stops and restarts without dismising and redisplaying the VC
+        // hence, manually reset the vout container here if it doesn't have sufficient children
+        if (self.movieView.subviews.count < 2) {
+            controller.videoOutputView = self.movieView;
+        }
         [self hidePlaybackControlsIfNeededAfterDelay];
     } else {
         [self showPlaybackControlsIfNeededForUserInteraction];
