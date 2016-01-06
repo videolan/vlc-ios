@@ -356,14 +356,10 @@
     [ubiquitousKeyValueStore setArray:recentURLs forKey:kVLCRecentURLs];
 
     [mediaList addMedia:[VLCMedia mediaWithURL:[NSURL URLWithString:urlString]]];
-
     if (needsMediaList) {
         [vpc playMediaList:mediaList firstIndex:0];
-    }
 
-    VLCFullscreenMovieTVViewController *movieVC = [VLCFullscreenMovieTVViewController fullscreenMovieTVViewController];
-
-    if (![movieVC isBeingPresented]) {
+        VLCFullscreenMovieTVViewController *movieVC = [VLCFullscreenMovieTVViewController fullscreenMovieTVViewController];
         if ([[[UIApplication sharedApplication].delegate.window rootViewController] presentedViewController] != nil) {
             [[[[UIApplication sharedApplication].delegate.window rootViewController] presentedViewController] presentViewController:movieVC
                                                                                                                            animated:NO
