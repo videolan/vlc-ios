@@ -222,9 +222,12 @@
         return nil;
     }
 
-    NSString *ret;
+    NSString *ret = nil;
     @synchronized(_discoveredFiles) {
-        ret = _discoveredFiles[indexPathToDelete.item];
+        NSInteger index = indexPathToDelete.item;
+        if (index < _discoveredFiles.count) {
+            ret = _discoveredFiles[index];
+        }
     }
     return ret;
 }

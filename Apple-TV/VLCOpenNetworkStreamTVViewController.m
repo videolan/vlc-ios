@@ -158,9 +158,12 @@
         return nil;
     }
 
-    NSString *ret;
+    NSString *ret = nil;
     @synchronized(_recentURLs) {
-        ret = _recentURLs[indexPathToDelete.item];
+        NSInteger index = indexPathToDelete.item;
+        if (index < _recentURLs.count) {
+            ret = _recentURLs[index];
+        }
     }
     return ret;
 }
