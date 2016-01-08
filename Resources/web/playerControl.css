@@ -85,6 +85,7 @@
 }
 
 .player-control .play, .player-control .pause-button {
+    transition: all 0.2s ease-out;
     -webkit-transition: all 0.2s ease-out;
 }
 
@@ -266,9 +267,13 @@
 
 .player-control .title {
     position: absolute;
-    line-height: 40px;
+    line-height: 36px;
     text-align: center;
     width: 100%;
+    white-space: nowrap;
+    overflow: hidden;
+    padding: 0 80px;
+    text-overflow: ellipsis;
 }
 
 .player-control .volume:hover {
