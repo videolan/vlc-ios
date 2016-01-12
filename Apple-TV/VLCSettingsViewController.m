@@ -34,6 +34,9 @@
 
     self.automaticallyAdjustsScrollViewInsets = NO;
     self.edgesForExtendedLayout = UIRectEdgeAll ^ UIRectEdgeTop;
+
+    self.tableView.opaque = NO;
+    self.tableView.backgroundColor = [UIColor clearColor];
 }
 
 - (NSString *)title
