@@ -14,5 +14,5 @@
 static NSString *const VLCWiggleAnimationKey = @"VLCWiggleAnimation";
 
 @interface CAAnimation (VLCWiggle)
-+ (instancetype)vlc_wiggleAnimation;
++ (instancetype)vlc_wiggleAnimationwithSoftMode:(BOOL)softmode;
 @end

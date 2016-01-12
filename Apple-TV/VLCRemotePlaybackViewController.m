@@ -238,7 +238,7 @@
 
     UICollectionViewCell *focusedCell = [self.cachedMediaCollectionView cellForItemAtIndexPath:self.currentlyFocusedIndexPath];
     if (editing) {
-        [focusedCell.layer addAnimation:[CAAnimation vlc_wiggleAnimation]
+        [focusedCell.layer addAnimation:[CAAnimation vlc_wiggleAnimationwithSoftMode:NO]
                                  forKey:VLCWiggleAnimationKey];
     } else {
         [focusedCell.layer removeAnimationForKey:VLCWiggleAnimationKey];
