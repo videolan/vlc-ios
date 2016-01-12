@@ -183,6 +183,7 @@
 
 - (void)deleteFileAtIndex:(NSIndexPath *)indexPathToDelete
 {
+    [super deleteFileAtIndex:indexPathToDelete];
     if (!indexPathToDelete) {
         return;
     }

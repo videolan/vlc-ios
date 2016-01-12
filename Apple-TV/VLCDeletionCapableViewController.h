@@ -14,8 +14,10 @@
 
 @interface VLCDeletionCapableViewController : UIViewController
 
-@property (nonatomic, weak) IBOutlet UIView *deleteHintView;
+@property (nonatomic, weak, nullable) IBOutlet UIView *deleteHintView;
 @property (nonatomic, readonly, nullable) NSIndexPath *indexPathToDelete;
 @property (nonatomic, readonly, nullable) NSString *itemToDelete;
+
+- (void)deleteFileAtIndex:(NSIndexPath * _Nullable)indexPathToDelete;
 
 @end

@@ -70,7 +70,9 @@
 
 - (void)deleteFileAtIndex:(NSIndexPath *)indexPathToDelete
 {
-    // NO-OP, implemented by subclass
+    [self.hintTimer invalidate];
+    self.hintTimer = nil;
+    [self animateDeletHintToVisibility:NO];
 }
 
 - (void)animateDeletHintToVisibility:(BOOL)visible
