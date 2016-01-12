@@ -12,7 +12,7 @@
 #import "CAAnimation+VLCWiggle.h"
 
 @implementation CAAnimation (VLCWiggle)
-+ (instancetype)vlc_wiggleAnimation
++ (instancetype)vlc_wiggleAnimationwithSoftMode:(BOOL)softmode
 {
     CAKeyframeAnimation *position = [CAKeyframeAnimation animation];
     position.keyPath = @"position";
@@ -32,12 +32,21 @@
 
     CAKeyframeAnimation *rotation = [CAKeyframeAnimation animation];
     rotation.keyPath = @"transform.rotation";
-    rotation.values = @[
-                        @0,
-                        @0.03,
-                        @0,
-                        [NSNumber numberWithFloat:-0.02]
-                        ];
+    if (softmode) {
+        rotation.values = @[
+                            @0,
+                            @0.005,
+                            @0,
+                            [NSNumber numberWithFloat:-0.004]
+                            ];
+    } else {
+        rotation.values = @[
+                            @0,
+                            @0.03,
+                            @0,
+                            [NSNumber numberWithFloat:-0.02]
+                            ];
+    }
     rotation.timingFunctions = @[
                                  [CAMediaTimingFunction functionWithName:kCAMediaTimingFunctionEaseInEaseOut],
                                  [CAMediaTimingFunction functionWithName:kCAMediaTimingFunctionEaseInEaseOut]

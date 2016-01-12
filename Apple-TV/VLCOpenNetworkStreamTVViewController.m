@@ -174,7 +174,7 @@
 
     UITableViewCell *focusedCell = [self.previouslyPlayedStreamsTableView cellForRowAtIndexPath:self.currentlyFocusedIndexPath];
     if (editing) {
-        [focusedCell.layer addAnimation:[CAAnimation vlc_wiggleAnimation]
+        [focusedCell.layer addAnimation:[CAAnimation vlc_wiggleAnimationwithSoftMode:YES]
                                  forKey:VLCWiggleAnimationKey];
     } else {
         [focusedCell.layer removeAnimationForKey:VLCWiggleAnimationKey];
