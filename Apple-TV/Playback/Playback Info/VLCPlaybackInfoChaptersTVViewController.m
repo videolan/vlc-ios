@@ -138,9 +138,12 @@
     BOOL isSelected = player.currentChapterIndex == row;
     trackCell.selectionMarkerVisible = isSelected;
 
-    NSDictionary *description = [player chapterDescriptionsOfTitle:player.currentTitleIndex][row];
-    NSString *chapterTitle = [NSString stringWithFormat:@"%@ (%@)", description[VLCChapterDescriptionName], [[VLCTime timeWithNumber:description[VLCChapterDescriptionDuration]] stringValue]];
-    trackCell.titleLabel.text = chapterTitle;
+    NSArray *chapterDescriptions = [player chapterDescriptionsOfTitle:player.currentTitleIndex];
+    if (row < chapterDescriptions.count) {
+        NSDictionary *description = chapterDescriptions[row];
+        NSString *chapterTitle = [NSString stringWithFormat:@"%@ (%@)", description[VLCChapterDescriptionName], [[VLCTime timeWithNumber:description[VLCChapterDescriptionDuration]] stringValue]];
+        trackCell.titleLabel.text = chapterTitle;
+    }
 }
 
 -(void)collectionView:(UICollectionView *)collectionView didSelectItemAtIndexPath:(NSIndexPath *)indexPath
