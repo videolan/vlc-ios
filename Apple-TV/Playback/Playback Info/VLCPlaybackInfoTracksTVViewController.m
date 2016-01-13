@@ -117,7 +117,11 @@
 
 -(void)collectionView:(UICollectionView *)collectionView didSelectItemAtIndexPath:(NSIndexPath *)indexPath
 {
-    self.mediaPlayer.currentAudioTrackIndex = [self.mediaPlayer.audioTrackIndexes[indexPath.row] intValue];
+    NSArray *audioTrackIndexes = self.mediaPlayer.audioTrackIndexes;
+    NSInteger row = indexPath.row;
+    if (row < audioTrackIndexes.count) {
+        self.mediaPlayer.currentAudioTrackIndex = [audioTrackIndexes[row] intValue];
+    }
     [collectionView reloadData];
 }
 
