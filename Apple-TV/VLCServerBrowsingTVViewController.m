@@ -128,10 +128,14 @@
 
 - (void)collectionView:(UICollectionView *)collectionView willDisplayCell:(UICollectionViewCell *)cell forItemAtIndexPath:(NSIndexPath *)indexPath
 {
-    id<VLCNetworkServerBrowserItem> item = self.serverBrowser.items[indexPath.row];
+    NSArray *items = self.serverBrowser.items;
+    NSInteger row = indexPath.row;
+    if (row < items.count) {
+        id<VLCNetworkServerBrowserItem> item = items[row];
 
-    if ([cell conformsToProtocol:@protocol(VLCRemoteBrowsingCell)]) {
-        [self.browsingController configureCell:(id<VLCRemoteBrowsingCell>)cell withItem:item];
+        if ([cell conformsToProtocol:@protocol(VLCRemoteBrowsingCell)]) {
+            [self.browsingController configureCell:(id<VLCRemoteBrowsingCell>)cell withItem:item];
+        }
     }
 }
 
