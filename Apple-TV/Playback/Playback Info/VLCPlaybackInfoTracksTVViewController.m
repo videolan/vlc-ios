@@ -104,7 +104,11 @@
 {
     VLCPlaybackInfoTVCollectionViewCell *trackCell = (VLCPlaybackInfoTVCollectionViewCell*)cell;
     NSInteger row = indexPath.row;
-    BOOL isSelected = [self.mediaPlayer.audioTrackIndexes[row] intValue] == self.mediaPlayer.currentAudioTrackIndex;
+    BOOL isSelected = NO;
+    NSArray *audioTrackIndexes = self.mediaPlayer.audioTrackIndexes;
+    if (row < audioTrackIndexes.count) {
+        isSelected = [audioTrackIndexes[row] intValue] == self.mediaPlayer.currentAudioTrackIndex;
+    }
     trackCell.selectionMarkerVisible = isSelected;
 
     NSString *trackName = self.mediaPlayer.audioTrackNames[row];
