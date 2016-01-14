@@ -12,8 +12,8 @@ NONETWORK=no
 SKIPLIBVLCCOMPILATION=no
 TVOS=no
 
-TESTEDVLCKITHASH=6012c098
-TESTEDMEDIALIBRARYKITHASH=ba9b544c
+TESTEDVLCKITHASH=2ce09e72
+TESTEDMEDIALIBRARYKITHASH=2ce64152
 
 usage()
 {
@@ -132,8 +132,7 @@ fi
 if ! [ -e VLCKit ]; then
 git clone http://code.videolan.org/videolan/VLCKit.git
 cd VLCKit
-git checkout -B iOS-2.7 ${TESTEDVLCKITHASH}
-git branch --set-upstream-to=origin/iOS-2.7 iOS-2.7
+git reset --hard ${TESTEDVLCKITHASH}
 cd ..
 else
 cd VLCKit
