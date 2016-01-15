@@ -110,8 +110,11 @@
     trackCell.selectionMarkerVisible = isSelected;
 
     NSDictionary *description = self.mediaPlayer.titleDescriptions[row];
-    NSString *tileName = [NSString stringWithFormat:@"%@ (%@)", description[VLCTitleDescriptionName], [[VLCTime timeWithNumber:description[VLCTitleDescriptionDuration]] stringValue]];
-    trackCell.titleLabel.text = tileName;
+    NSString *title = description[VLCTitleDescriptionName];
+    if (title == nil)
+        title = [NSString stringWithFormat:@"%@ %li", NSLocalizedString(@"TITLE", nil), row];
+    NSString *titleName = [NSString stringWithFormat:@"%@ (%@)", title, [[VLCTime timeWithNumber:description[VLCTitleDescriptionDuration]] stringValue]];
+    trackCell.titleLabel.text = titleName;
 }
 
 -(void)collectionView:(UICollectionView *)collectionView didSelectItemAtIndexPath:(NSIndexPath *)indexPath
@@ -141,7 +144,10 @@
     NSArray *chapterDescriptions = [player chapterDescriptionsOfTitle:player.currentTitleIndex];
     if (row < chapterDescriptions.count) {
         NSDictionary *description = chapterDescriptions[row];
-        NSString *chapterTitle = [NSString stringWithFormat:@"%@ (%@)", description[VLCChapterDescriptionName], [[VLCTime timeWithNumber:description[VLCChapterDescriptionDuration]] stringValue]];
+        NSString *chapter = description[VLCChapterDescriptionName];
+        if (chapter == nil)
+            chapter = [NSString stringWithFormat:@"%@ %li", NSLocalizedString(@"CHAPTER", nil), row];
+        NSString *chapterTitle = [NSString stringWithFormat:@"%@ (%@)", chapter, [[VLCTime timeWithNumber:description[VLCChapterDescriptionDuration]] stringValue]];
         trackCell.titleLabel.text = chapterTitle;
     }
 }
