@@ -62,6 +62,10 @@
         location = VLCSiriRemoteTouchLocationLeft;
     } else if (0.8 <= digitizerLocation.x) {
         location = VLCSiriRemoteTouchLocationRight;
+    } else if (digitizerLocation.y <= 0.2) {
+        location = VLCSiriRemoteTouchLocationDown;
+    } else if (0.8 <= digitizerLocation.y) {
+        location = VLCSiriRemoteTouchLocationUp;
     }
     [self updateTouchLocation:location];
 }

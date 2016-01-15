@@ -15,6 +15,8 @@ typedef NS_ENUM(NSInteger, VLCSiriRemoteTouchLocation){
     VLCSiriRemoteTouchLocationUnknown,
     VLCSiriRemoteTouchLocationLeft,
     VLCSiriRemoteTouchLocationRight,
+    VLCSiriRemoteTouchLocationUp,
+    VLCSiriRemoteTouchLocationDown
 };
 
 @interface VLCSiriRemoteGestureRecognizer : UIGestureRecognizer
