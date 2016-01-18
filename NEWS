@@ -1,15 +1,23 @@
 iOS 2.7.3:
 ----------
 * General stability improvements and bug fixes
+* Improved SMB reliability
+* Fixed contrast video filter
+* Fixed downloads from certain UPnP servers
 
 tvOS 1.0.2:
 -----------
 * General stability improvements and bug fixes
+* Improved SMB reliability
 
 tvOS 1.0.1:
 -----------
 * General stability improvements and bug fixes
 * Improved UPnP reliability, notably with Twonky, KooRaRoo, PlayOn
+
+tvOS 1.0.0:
+-----------
+* Initial release
 
 2.7.2:
 ------
