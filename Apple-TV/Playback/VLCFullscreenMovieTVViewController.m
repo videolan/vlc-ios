@@ -208,6 +208,16 @@ typedef NS_ENUM(NSInteger, VLCPlayerScanState)
 
 - (void)panGesture:(UIPanGestureRecognizer *)panGestureRecognizer
 {
+    VLCMediaPlayer *mediaPlayer = [VLCPlaybackController sharedInstance].mediaPlayer;
+    NSInteger currentTitle = mediaPlayer.currentTitleIndex;
+    NSArray *titles = mediaPlayer.titleDescriptions;
+    if (currentTitle < titles.count) {
+        NSDictionary *title = titles[currentTitle];
+        if ([[title objectForKey:VLCTitleDescriptionIsMenu] boolValue]) {
+            return;
+        }
+    }
+
     switch (panGestureRecognizer.state) {
         case UIGestureRecognizerStateCancelled:
         case UIGestureRecognizerStateFailed:
@@ -415,6 +425,11 @@ typedef NS_ENUM(NSInteger, VLCPlayerScanState)
                     if (recognizer.isLongPress) {
                         [mediaPlayer performNavigationAction:VLCMediaPlaybackNavigationActionActivate];
                         break;
+                    }
+                    break;
+                case UIGestureRecognizerStateEnded:
+                    if (recognizer.isClick && !recognizer.isLongPress) {
+                        [mediaPlayer performNavigationAction:VLCMediaPlaybackNavigationActionActivate];
                     } else {
                         switch (recognizer.touchLocation) {
                             case VLCSiriRemoteTouchLocationLeft:
@@ -432,11 +447,6 @@ typedef NS_ENUM(NSInteger, VLCPlayerScanState)
                             case VLCSiriRemoteTouchLocationUnknown:
                                 break;
                         }
-                    }
-                    break;
-                case UIGestureRecognizerStateEnded:
-                    if (recognizer.isClick && !recognizer.isLongPress) {
-                        [mediaPlayer performNavigationAction:VLCMediaPlaybackNavigationActionActivate];
                     }
                     break;
                 default:
@@ -725,6 +735,16 @@ static const NSInteger VLCJumpInterval = 10000; // 10 seconds
 }
 - (void)showPlaybackControlsIfNeededForUserInteraction
 {
+    VLCMediaPlayer *mediaPlayer = [VLCPlaybackController sharedInstance].mediaPlayer;
+    NSInteger currentTitle = mediaPlayer.currentTitleIndex;
+    NSArray *titles = mediaPlayer.titleDescriptions;
+    if (currentTitle < titles.count) {
+        NSDictionary *title = titles[currentTitle];
+        if ([[title objectForKey:VLCTitleDescriptionIsMenu] boolValue]) {
+            return;
+        }
+    }
+
     if (self.bottomOverlayView.alpha == 0.0) {
         [self animatePlaybackControlsToVisibility:YES];
     }
