@@ -43,15 +43,18 @@
 }
 - (void)touchesMoved:(NSSet<UITouch *> *)touches withEvent:(UIEvent *)event
 {
+    self.state = UIGestureRecognizerStateChanged;
     [self updateTouchLocationWithEvent:event];
 }
 - (void)touchesCancelled:(NSSet<UITouch *> *)touches withEvent:(UIEvent *)event
 {
+    self.state = UIGestureRecognizerStateCancelled;
     [self updateTouchLocation:VLCSiriRemoteTouchLocationUnknown];
 }
 - (void)touchesEnded:(NSSet<UITouch *> *)touches withEvent:(UIEvent *)event
 {
-    [self updateTouchLocation:VLCSiriRemoteTouchLocationUnknown];
+    self.state = UIGestureRecognizerStateEnded;
+    [self updateTouchLocationWithEvent:event];
 }
 
 - (void)updateTouchLocationWithEvent:(UIEvent *)event
@@ -63,9 +66,9 @@
     } else if (0.8 <= digitizerLocation.x) {
         location = VLCSiriRemoteTouchLocationRight;
     } else if (digitizerLocation.y <= 0.2) {
-        location = VLCSiriRemoteTouchLocationDown;
-    } else if (0.8 <= digitizerLocation.y) {
         location = VLCSiriRemoteTouchLocationUp;
+    } else if (0.8 <= digitizerLocation.y) {
+        location = VLCSiriRemoteTouchLocationDown;
     }
     [self updateTouchLocation:location];
 }
@@ -77,8 +80,6 @@
 	}
 
 	_touchLocation = location;
-
-    self.state = UIGestureRecognizerStateChanged;
 }
 
 - (void)reset
