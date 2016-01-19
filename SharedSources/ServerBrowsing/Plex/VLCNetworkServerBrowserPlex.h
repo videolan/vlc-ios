@@ -30,6 +30,7 @@ NS_ASSUME_NONNULL_BEGIN
 @property (nonatomic, readonly, nullable) NSString *duration;
 @property (nonatomic, readonly, nullable) NSURL *subtitleURL;
 @property (nonatomic, readonly, nullable) NSURL *thumbnailURL;
+@property (nonatomic, getter=isDownloadable, readonly) BOOL downloadable;
 
 @end
 
