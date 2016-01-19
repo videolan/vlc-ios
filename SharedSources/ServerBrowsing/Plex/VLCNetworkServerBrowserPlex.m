@@ -202,6 +202,12 @@
     return self;
 }
 
+- (BOOL)isDownloadable
+{
+    //VLC also needs an extension in the filename for this to work.
+    return YES;
+}
+
 - (VLCMedia *)media
 {
     if (!_URL)
