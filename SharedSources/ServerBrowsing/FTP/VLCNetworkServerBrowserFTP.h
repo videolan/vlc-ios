@@ -27,6 +27,7 @@ NS_ASSUME_NONNULL_BEGIN
 - (instancetype)initWithDictionary:(NSDictionary *)dict baseURL:(NSURL *)baseURL;
 
 @property (nonatomic, readwrite) NSArray<id<VLCNetworkServerBrowserItem>> *items;
+@property (nonatomic, getter=isDownloadable, readonly) BOOL downloadable;
 
 @end
 
