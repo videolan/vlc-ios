@@ -12,7 +12,7 @@
 
 #import "VLCLocalNetworkServiceBrowserFTP.h"
 #import "VLCNetworkServerLoginInformation.h"
-
+#import "SSKeychain.h"
 
 @implementation VLCLocalNetworkServiceBrowserFTP
 - (instancetype)init {
@@ -42,7 +42,21 @@ NSString *const VLCNetworkServerProtocolIdentifierFTP = @"ftp";
 {
     VLCNetworkServerLoginInformation *login = [[VLCNetworkServerLoginInformation alloc] init];
     login.address = self.netService.hostName;
+    login.port = [NSNumber numberWithInteger:self.netService.port];
     login.protocolIdentifier = VLCNetworkServerProtocolIdentifierFTP;
+
+    NSString *serviceString = [NSString stringWithFormat:@"ftp://%@", login.address];
+    NSArray *accounts = [SSKeychain accountsForService:serviceString];
+    if (!accounts) {
+        login.username = login.password = @"";
+        return login;
+    }
+
+    NSDictionary *account = [accounts firstObject];
+    NSString *username = [account objectForKey:@"acct"];
+    login.username = username;
+    login.password = [SSKeychain passwordForService:serviceString account:username];
+
     return login;
 }
 @end
