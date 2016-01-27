@@ -205,6 +205,7 @@
 "FWD_BUTTON"="Jump Forwards";
 "PLAY_BUTTON"="Play";
 "PAUSE_BUTTON"="Pause";
+"PLAY_ALL_BUTTON"="Play all";
 
 "VERSION_FORMAT"="Version: %@";
 "BASED_ON_FORMAT"="Based on:<br />%@";
