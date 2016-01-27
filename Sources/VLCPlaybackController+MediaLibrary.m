@@ -82,6 +82,12 @@ Open a file in the libraryViewController without changing the playstate
 
 - (void)configureWithShowEpisode:(MLShowEpisode *)showEpisode
 {
+    NSUserDefaults *defaults = [NSUserDefaults standardUserDefaults];
+    if (![defaults boolForKey:kVLCAutomaticallyPlayNextItem]) {
+        [self playMediaLibraryObject:showEpisode.files.anyObject];
+        return;
+    }
+
     NSArray *episodes = [[showEpisode show] sortedEpisodes];
     NSMutableArray *files = [NSMutableArray arrayWithCapacity:episodes.count];
     for (MLShowEpisode *episode in episodes) {
@@ -95,6 +101,12 @@ Open a file in the libraryViewController without changing the playstate
 
 - (void)configureWithAlbumTrack:(MLAlbumTrack *)albumTrack
 {
+    NSUserDefaults *defaults = [NSUserDefaults standardUserDefaults];
+    if (![defaults boolForKey:kVLCAutomaticallyPlayNextItem]) {
+        [self playMediaLibraryObject:albumTrack.anyFileFromTrack];
+        return;
+    }
+
     NSArray *tracks = [[albumTrack album] sortedTracks];
     NSMutableArray *files = [NSMutableArray arrayWithCapacity:tracks.count];
     for (MLAlbumTrack *track in tracks) {
