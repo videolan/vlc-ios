@@ -18,6 +18,7 @@ extern NSString *VLCNetworkListCellIdentifier;
 
 @property (nonatomic, strong) UITableView *tableView;
 
+- (IBAction)playAllAction:(id)sender;
 - (void)tableView:(UITableView *)tableView willDisplayCell:(VLCNetworkListCell *)cell forRowAtIndexPath:(NSIndexPath *)indexPath;
 
 @end
