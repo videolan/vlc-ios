@@ -119,4 +119,18 @@
     }
 }
 
+- (void)performActionForShortcutItem:(UIApplicationShortcutItem *)shortcutItem
+{
+    NSString *itemType = shortcutItem.type;
+    if ([itemType isEqualToString:kVLCApplicationShortcutLocalLibrary]) {
+        [self selectRowAtIndexPath:[NSIndexPath indexPathForRow:0 inSection:0] scrollPosition:UITableViewScrollPositionNone];
+    } else if ([itemType isEqualToString:kVLCApplicationShortcutLocalServers]) {
+        [self selectRowAtIndexPath:[NSIndexPath indexPathForRow:0 inSection:1] scrollPosition:UITableViewScrollPositionNone];
+    } else if ([itemType isEqualToString:kVLCApplicationShortcutOpenNetworkStream]) {
+        [self selectRowAtIndexPath:[NSIndexPath indexPathForRow:1 inSection:1] scrollPosition:UITableViewScrollPositionNone];
+    } else if ([itemType isEqualToString:kVLCApplicationShortcutClouds]) {
+        [self selectRowAtIndexPath:[NSIndexPath indexPathForRow:4 inSection:1] scrollPosition:UITableViewScrollPositionNone];
+    }
+}
+
 @end

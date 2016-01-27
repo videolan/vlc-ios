@@ -22,6 +22,8 @@
 
 - (void)selectRowAtIndexPath:(NSIndexPath *)indexPath scrollPosition:(UITableViewScrollPosition)scrollPosition;
 
+- (void)performActionForShortcutItem:(UIApplicationShortcutItem *)shortcutItem;
+
 @property (readonly) UIViewController *fullViewController;
 @property (readwrite, retain) UIViewController *contentViewController;
 

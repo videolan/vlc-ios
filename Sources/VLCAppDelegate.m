@@ -183,6 +183,33 @@ NSString *const VLCDropboxSessionWasAuthorized = @"VLCDropboxSessionWasAuthorize
         [_watchCommunication startRelayingNotificationName:VLCPlaybackControllerPlaybackMetadataDidChange object:nil];
     }
 
+    /* add our static shortcut items the dynamic way to ease l10n and dynamic elements to be introduced later */
+    if ([UIApplicationShortcutItem class] != nil) {
+        if (application.shortcutItems == nil || application.shortcutItems.count < 4) {
+            UIApplicationShortcutItem *localLibraryItem = [[UIApplicationShortcutItem alloc] initWithType:kVLCApplicationShortcutLocalLibrary
+                                                                                           localizedTitle:NSLocalizedString(@"SECTION_HEADER_LIBRARY",nil)
+                                                                                        localizedSubtitle:nil
+                                                                                                     icon:[UIApplicationShortcutIcon iconWithTemplateImageName:@"AllFiles"]
+                                                                                                 userInfo:nil];
+            UIApplicationShortcutItem *localServerItem = [[UIApplicationShortcutItem alloc] initWithType:kVLCApplicationShortcutLocalServers
+                                                                                           localizedTitle:NSLocalizedString(@"LOCAL_NETWORK",nil)
+                                                                                        localizedSubtitle:nil
+                                                                                                     icon:[UIApplicationShortcutIcon iconWithTemplateImageName:@"Local"]
+                                                                                                 userInfo:nil];
+            UIApplicationShortcutItem *openNetworkStreamItem = [[UIApplicationShortcutItem alloc] initWithType:kVLCApplicationShortcutOpenNetworkStream
+                                                                                           localizedTitle:NSLocalizedString(@"OPEN_NETWORK",nil)
+                                                                                        localizedSubtitle:nil
+                                                                                                     icon:[UIApplicationShortcutIcon iconWithTemplateImageName:@"OpenNetStream"]
+                                                                                                 userInfo:nil];
+            UIApplicationShortcutItem *cloudsItem = [[UIApplicationShortcutItem alloc] initWithType:kVLCApplicationShortcutClouds
+                                                                                           localizedTitle:NSLocalizedString(@"CLOUD_SERVICES",nil)
+                                                                                        localizedSubtitle:nil
+                                                                                                     icon:[UIApplicationShortcutIcon iconWithTemplateImageName:@"iCloudIcon"]
+                                                                                                 userInfo:nil];
+            application.shortcutItems = @[localLibraryItem, localServerItem, openNetworkStreamItem, cloudsItem];
+        }
+    }
+
     return YES;
 }
 
@@ -383,6 +410,11 @@ didFailToContinueUserActivityWithType:(NSString *)userActivityType
 {
     _passcodeValidated = NO;
     [[NSUserDefaults standardUserDefaults] synchronize];
+}
+
+- (void)application:(UIApplication *)application performActionForShortcutItem:(UIApplicationShortcutItem *)shortcutItem completionHandler:(void (^)(BOOL))completionHandler
+{
+    [[VLCSidebarController sharedInstance] performActionForShortcutItem:shortcutItem];
 }
 
 #pragma mark - media discovering
