@@ -77,7 +77,11 @@ NSString *VLCNetworkListCellIdentifier = @"VLCNetworkListCellIdentifier";
     _tapTwiceGestureRecognizer = [[UITapGestureRecognizer alloc] initWithTarget:self  action:@selector(tapTwiceGestureAction:)];
     [_tapTwiceGestureRecognizer setNumberOfTapsRequired:2];
 
-    self.navigationItem.rightBarButtonItem = [UIBarButtonItem themedRevealMenuButtonWithTarget:self andSelector:@selector(menuButtonAction:)];
+    UIBarButtonItem *playAllButton = [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemPlay target:self action:@selector(playAllAction:)];
+    playAllButton.accessibilityLabel = NSLocalizedString(@"PLAY_ALL_BUTTON", nil);
+    playAllButton.isAccessibilityElement = YES;
+    self.navigationItem.rightBarButtonItems = @[[UIBarButtonItem themedRevealMenuButtonWithTarget:self andSelector:@selector(menuButtonAction:)],
+                                                playAllButton];
 
     _searchData = [[NSMutableArray alloc] init];
     [_searchData removeAllObjects];
@@ -106,6 +110,11 @@ NSString *VLCNetworkListCellIdentifier = @"VLCNetworkListCellIdentifier";
 
     if (self.isEditing)
         [self setEditing:NO animated:YES];
+}
+
+- (IBAction)playAllAction:(id)sender
+{
+    // to be implemented by subclass
 }
 
 #pragma mark - Table view data source

@@ -123,6 +123,26 @@
     }
 }
 
+- (void)playAllAction:(id)sender
+{
+    VLCMediaList *fullMediaList = self.serverBrowser.mediaList;
+    NSUInteger count = fullMediaList.count;
+    NSMutableArray *fileList = [[NSMutableArray alloc] init];
+    for (NSUInteger x = count - 1; x > 0; x--) {
+        VLCMedia *media = [fullMediaList mediaAtIndex:x];
+        VLCMediaType mediaType = media.mediaType;
+        if (mediaType == VLCMediaTypeFile || mediaType == VLCMediaTypeStream || mediaType == VLCMediaTypeUnknown) {
+            [fileList addObject:media];
+        }
+    }
+
+    if (fileList.count > 0) {
+        VLCMediaList *fileMediaList = [[VLCMediaList alloc] initWithArray:fileList];
+        [self.browsingController configureSubtitlesInMediaList:fileMediaList];
+        [self.browsingController streamMediaList:fileMediaList startingAtIndex:0];
+    }
+}
+
 #pragma mark - table view data source, for more see super
 
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section
