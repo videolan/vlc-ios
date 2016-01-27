@@ -324,8 +324,10 @@ static NSString *WiFiCellIdentifier = @"VLCMenuWiFiCell";
         [(VLCLibraryViewController *)viewController setLibraryMode:(int)itemIndex];
     }
 
-    if (!viewController)
+    if (!viewController) {
+        APLog(@"no view controller found for menu item");
         return;
+    }
 
     VLCSidebarController *sidebarController = [VLCSidebarController sharedInstance];
     if ([sidebarController.contentViewController isKindOfClass:[UINavigationController class]]) {
