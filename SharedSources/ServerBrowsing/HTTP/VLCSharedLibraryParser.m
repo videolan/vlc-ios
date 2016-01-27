@@ -66,7 +66,6 @@ NSString *const VLCSharedLibraryParserDeterminedNetserviceAsVLCInstance = @"VLCS
 - (NSArray *)downloadAndProcessDataFromServer:(NSString *)hostnamePort
 {
     _containerInfo = [[NSMutableArray alloc] init];
-    [_containerInfo removeAllObjects];
     _dicoInfo = [[NSMutableDictionary alloc] init];
     NSString *serverURL = [NSString stringWithFormat:@"http://%@/%@", hostnamePort, kLibraryXmlFile];
 
@@ -79,7 +78,7 @@ NSString *const VLCSharedLibraryParserDeterminedNetserviceAsVLCInstance = @"VLCS
         return [NSArray array];
     }
 
-    return [NSArray arrayWithArray:_containerInfo];
+    return [_containerInfo copy];
 }
 
 - (void)parser:(NSXMLParser *)parser didStartElement:(NSString *)elementName namespaceURI:(NSString *)namespaceURI qualifiedName:(NSString *)qualifiedName attributes:(NSDictionary *)attributeDict
