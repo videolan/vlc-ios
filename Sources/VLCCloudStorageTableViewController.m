@@ -190,7 +190,12 @@
 
 - (void)updateViewAfterSessionChange
 {
-    self.navigationItem.rightBarButtonItem = _logoutButton;
+    if (self.controller.canPlayAll) {
+        self.navigationItem.rightBarButtonItems = @[_logoutButton, [UIBarButtonItem themedPlayAllButtonWithTarget:self andSelector:@selector(playAllAction:)]];
+    } else {
+        self.navigationItem.rightBarButtonItem = _logoutButton;
+    }
+
     if(_authorizationInProgress) {
         if (self.loginToCloudStorageView.superview) {
         [self.loginToCloudStorageView removeFromSuperview];
@@ -221,5 +226,8 @@
 {
 }
 
+- (IBAction)playAllAction:(id)sender
+{
+}
 
 @end

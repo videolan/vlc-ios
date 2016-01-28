@@ -27,6 +27,7 @@
 @property (nonatomic, weak) id<VLCCloudStorageDelegate> delegate;
 @property (nonatomic, readwrite) BOOL isAuthorized;
 @property (nonatomic, readonly) NSArray *currentListFiles;
+@property (nonatomic, readonly) BOOL canPlayAll;
 
 + (instancetype)sharedInstance;
 

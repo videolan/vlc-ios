@@ -111,13 +111,60 @@
         [_oneDriveController loadCurrentFolder];
         self.title = selectedObject.name;
     } else {
-        /* stream file */
-        NSURL *url = [NSURL URLWithString:selectedObject.downloadPath];
         VLCPlaybackController *vpc = [VLCPlaybackController sharedInstance];
-        [vpc playURL:url successCallback:nil errorCallback:nil];
+
+        if (![[NSUserDefaults standardUserDefaults] boolForKey:kVLCAutomaticallyPlayNextItem]) {
+            /* stream file */
+            NSURL *url = [NSURL URLWithString:selectedObject.downloadPath];
+            [vpc playURL:url successCallback:nil errorCallback:nil];
+        } else {
+            NSUInteger count = folderItems.count;
+            NSMutableArray *mediaItems = [[NSMutableArray alloc] init];
+            NSInteger firstIndex = 0;
+            for (NSInteger x = count - 1; x > -1; x--) {
+                VLCOneDriveObject *iter = folderItems[x];
+                if (iter.isFolder)
+                    continue;
+                NSURL *url = [NSURL URLWithString:iter.downloadPath];
+                if (url) {
+                    [mediaItems addObject:[VLCMedia mediaWithURL:url]];
+
+                    if (iter == selectedObject) {
+                        firstIndex = mediaItems.count;
+                    }
+                }
+            }
+
+            if (mediaItems.count > 0) {
+                NSLog(@"%s: %@ %li", __PRETTY_FUNCTION__, mediaItems, firstIndex);
+                [vpc playMediaList:[[VLCMediaList alloc] initWithArray:mediaItems] firstIndex:firstIndex];
+            }
+        }
     }
 
     [self.tableView deselectRowAtIndexPath:indexPath animated:NO];
+}
+
+- (void)playAllAction:(id)sender
+{
+    VLCPlaybackController *vpc = [VLCPlaybackController sharedInstance];
+    NSArray *folderItems = _oneDriveController.currentFolder.items;
+    NSUInteger count = folderItems.count;
+    NSMutableArray *mediaItems = [[NSMutableArray alloc] init];
+    for (NSInteger x = count - 1; x > -1; x--) {
+        VLCOneDriveObject *iter = folderItems[x];
+        if (iter.isFolder)
+            continue;
+
+        NSURL *url = [NSURL URLWithString:iter.downloadPath];
+        if (url) {
+            [mediaItems addObject:[VLCMedia mediaWithURL:url]];
+        }
+    }
+
+    if (mediaItems.count > 0) {
+        [vpc playMediaList:[[VLCMediaList alloc] initWithArray:mediaItems] firstIndex:0];
+    }
 }
 
 #pragma mark - login dialog
