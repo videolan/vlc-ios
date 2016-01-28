@@ -77,11 +77,8 @@ NSString *VLCNetworkListCellIdentifier = @"VLCNetworkListCellIdentifier";
     _tapTwiceGestureRecognizer = [[UITapGestureRecognizer alloc] initWithTarget:self  action:@selector(tapTwiceGestureAction:)];
     [_tapTwiceGestureRecognizer setNumberOfTapsRequired:2];
 
-    UIBarButtonItem *playAllButton = [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemPlay target:self action:@selector(playAllAction:)];
-    playAllButton.accessibilityLabel = NSLocalizedString(@"PLAY_ALL_BUTTON", nil);
-    playAllButton.isAccessibilityElement = YES;
     self.navigationItem.rightBarButtonItems = @[[UIBarButtonItem themedRevealMenuButtonWithTarget:self andSelector:@selector(menuButtonAction:)],
-                                                playAllButton];
+                                                [UIBarButtonItem themedPlayAllButtonWithTarget:self andSelector:@selector(playAllAction:)]];
 
     _searchData = [[NSMutableArray alloc] init];
     [_searchData removeAllObjects];

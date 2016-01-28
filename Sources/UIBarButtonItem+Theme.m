@@ -57,4 +57,14 @@
 
     return button;
 }
+
++ (UIBarButtonItem *)themedPlayAllButtonWithTarget:(id)target andSelector:(SEL)selector
+{
+    UIBarButtonItem *playAllButton = [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemPlay target:target action:selector];
+    playAllButton.accessibilityLabel = NSLocalizedString(@"PLAY_ALL_BUTTON", nil);
+    playAllButton.isAccessibilityElement = YES;
+
+    return playAllButton;
+}
+
 @end
