@@ -126,9 +126,9 @@
 - (void)playAllAction:(id)sender
 {
     VLCMediaList *fullMediaList = self.serverBrowser.mediaList;
-    NSUInteger count = fullMediaList.count;
+    NSInteger count = fullMediaList.count;
     NSMutableArray *fileList = [[NSMutableArray alloc] init];
-    for (NSUInteger x = count - 1; x > 0; x--) {
+    for (NSInteger x = count - 1; x > -1; x--) {
         VLCMedia *media = [fullMediaList mediaAtIndex:x];
         VLCMediaType mediaType = media.mediaType;
         if (mediaType == VLCMediaTypeFile || mediaType == VLCMediaTypeStream || mediaType == VLCMediaTypeUnknown) {
