@@ -114,6 +114,12 @@
 }
 
 #pragma mark - file management
+
+- (BOOL)canPlayAll
+{
+    return NO;
+}
+
 - (void)requestDirectoryListingAtPath:(NSString *)path
 {
     //we entered a different folder so discard all current files

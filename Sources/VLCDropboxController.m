@@ -110,6 +110,12 @@
 }
 
 #pragma mark - file management
+
+- (BOOL)canPlayAll
+{
+    return NO;
+}
+
 - (void)requestDirectoryListingAtPath:(NSString *)path
 {
     if (self.isAuthorized)

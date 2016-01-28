@@ -233,6 +233,11 @@
 
 #pragma mark - file handling
 
+- (BOOL)canPlayAll
+{
+    return YES;
+}
+
 - (void)downloadObject:(VLCOneDriveObject *)object
 {
     if (object == nil)

@@ -28,6 +28,7 @@
 @property (nonatomic, strong) UIActivityIndicatorView *activityIndicator;
 
 - (IBAction)loginAction:(id)sender;
+- (IBAction)playAllAction:(id)sender;
 
 - (void)requestInformationForCurrentPath;
 - (void)showLoginPanel;
