@@ -125,14 +125,13 @@
 
 - (void)playAllAction:(id)sender
 {
-    VLCMediaList *fullMediaList = self.serverBrowser.mediaList;
-    NSInteger count = fullMediaList.count;
+    NSArray *items = self.serverBrowser.items;
+    NSInteger count = items.count;
     NSMutableArray *fileList = [[NSMutableArray alloc] init];
     for (NSInteger x = count - 1; x > -1; x--) {
-        VLCMedia *media = [fullMediaList mediaAtIndex:x];
-        VLCMediaType mediaType = media.mediaType;
-        if (mediaType == VLCMediaTypeFile || mediaType == VLCMediaTypeStream || mediaType == VLCMediaTypeUnknown) {
-            [fileList addObject:media];
+        id<VLCNetworkServerBrowserItem> iter = items[x];
+        if (![iter isContainer]) {
+            [fileList addObject:[iter media]];
         }
     }
 
