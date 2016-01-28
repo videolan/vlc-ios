@@ -49,7 +49,7 @@
     if (fileName)
         _fileName = fileName;
     else
-        _fileName = url.lastPathComponent;
+        _fileName = [url.lastPathComponent stringByRemovingPercentEncoding];
     _filePath = [basePath stringByAppendingPathComponent:_fileName];
     NSFileManager *fileManager = [NSFileManager defaultManager];
     if (![fileManager fileExistsAtPath:basePath])
@@ -82,7 +82,7 @@
 
         NSArray *searchPaths = NSSearchPathForDirectoriesInDomains(NSCachesDirectory, NSUserDomainMask, YES);
         NSString *basePath = [searchPaths[0] stringByAppendingPathComponent:@"Upload"];
-        _fileName = [URL lastPathComponent];
+        _fileName = [[URL lastPathComponent] stringByRemovingPercentEncoding];
         _filePath = [basePath stringByAppendingPathComponent:_fileName];
         if (![fileManager fileExistsAtPath:basePath])
             [fileManager createDirectoryAtPath:basePath withIntermediateDirectories:YES attributes:nil error:nil];

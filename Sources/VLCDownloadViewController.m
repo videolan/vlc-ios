@@ -166,8 +166,8 @@
             if (!_httpDownloader.downloadInProgress) {
                 _currentDownloadType = kVLCDownloadViaHTTP;
                 if (![_currentDownloadFilename.firstObject isEqualToString:@""]) {
-                    [_httpDownloader downloadFileFromURL:_currentDownloads.firstObject withFileName:_currentDownloadFilename.firstObject];
-                    _humanReadableFilename = [_currentDownloadFilename objectAtIndex:0];
+                    _humanReadableFilename = [[_currentDownloadFilename firstObject] stringByRemovingPercentEncoding];
+                    [_httpDownloader downloadFileFromURL:_currentDownloads.firstObject withFileName:_humanReadableFilename];
                 } else {
                     [_httpDownloader downloadFileFromURL:_currentDownloads.firstObject];
                     _humanReadableFilename = _httpDownloader.userReadableDownloadName;
@@ -386,9 +386,9 @@
 
     NSInteger row = indexPath.row;
     if ([_currentDownloadFilename[row] isEqualToString:@""])
-        cell.textLabel.text = [_currentDownloads[row] lastPathComponent];
+        cell.textLabel.text = [[_currentDownloads[row] lastPathComponent] stringByRemovingPercentEncoding];
     else
-        cell.textLabel.text = [_currentDownloadFilename[row] lastPathComponent];
+        cell.textLabel.text = [[_currentDownloadFilename[row] lastPathComponent] stringByRemovingPercentEncoding];
 
     cell.detailTextLabel.text = [_currentDownloads[row] absoluteString];
 
