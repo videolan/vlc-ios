@@ -817,6 +817,12 @@ currentMediaHasTrackToChooseFrom:(BOOL)currentMediaHasTrackToChooseFrom
         [self hidePlaybackControlsIfNeededAfterDelay];
     } else {
         [self showPlaybackControlsIfNeededForUserInteraction];
+
+        // We need an additional update here in case the playback was paused because the transport bar is only updated when it
+        // is visible and if the playback is paused, no updates of the transport bar are triggered.
+        if (currentState == VLCMediaPlayerStatePaused) {
+            [self updateTransportBarPosition:controller];
+        }
     }
 
     if (controller.isPlaying && !self.bufferingLabel.hidden) {
@@ -905,17 +911,22 @@ currentMediaHasTrackToChooseFrom:(BOOL)currentMediaHasTrackToChooseFrom
 
 #pragma mark -
 
-- (void)playbackPositionUpdated:(VLCPlaybackController *)controller
+- (void)updateTransportBarPosition:(VLCPlaybackController *)controller
 {
     VLCMediaPlayer *mediaPlayer = controller.mediaPlayer;
+    VLCTransportBar *transportBar = self.transportBar;
+    transportBar.remainingTimeLabel.text = [[mediaPlayer remainingTime] stringValue];
+    transportBar.markerTimeLabel.text = [[mediaPlayer time] stringValue];
+    transportBar.playbackFraction = mediaPlayer.position;
+}
+
+- (void)playbackPositionUpdated:(VLCPlaybackController *)controller
+{
     // FIXME: hard coded state since the state in mediaPlayer is incorrectly still buffering
     [self updateActivityIndicatorForState:VLCMediaPlayerStatePlaying];
 
     if (self.bottomOverlayView.alpha != 0.0) {
-        VLCTransportBar *transportBar = self.transportBar;
-        transportBar.remainingTimeLabel.text = [[mediaPlayer remainingTime] stringValue];
-        transportBar.markerTimeLabel.text = [[mediaPlayer time] stringValue];
-        transportBar.playbackFraction = mediaPlayer.position;
+        [self updateTransportBarPosition:controller];
     }
 }
 
