@@ -36,6 +36,8 @@
         _browsingController = [[VLCServerBrowsingController alloc] initWithViewController:self serverBrowser:serverBrowser];
 
         self.title = serverBrowser.title;
+
+        self.downloadArtwork = [[NSUserDefaults standardUserDefaults] boolForKey:kVLCSettingDownloadArtwork];
     }
     return self;
 }
@@ -132,6 +134,10 @@
     NSInteger row = indexPath.row;
     if (row < items.count) {
         id<VLCNetworkServerBrowserItem> item = items[row];
+
+        if([cell isKindOfClass:[VLCRemoteBrowsingTVCell class]]) {
+            ((VLCRemoteBrowsingTVCell *) cell).downloadArtwork = self.downloadArtwork;
+        }
 
         if ([cell conformsToProtocol:@protocol(VLCRemoteBrowsingCell)]) {
             [self.browsingController configureCell:(id<VLCRemoteBrowsingCell>)cell withItem:item];
