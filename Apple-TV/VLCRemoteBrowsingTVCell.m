@@ -46,6 +46,7 @@ NSString *const VLCRemoteBrowsingTVCellIdentifier = @"VLCRemoteBrowsingTVCell";
     [self.thumbnailImageView cancelLoading];
     self.title = nil;
     self.subtitle = nil;
+    self.downloadArtwork = false;
 }
 
 - (void)setCouldBeAudioOnlyMedia:(BOOL)couldBeAudioOnlyMedia
@@ -64,7 +65,7 @@ NSString *const VLCRemoteBrowsingTVCellIdentifier = @"VLCRemoteBrowsingTVCell";
         [self.thumbnailImageView setImageWithURL:thumbnailURL];
     } else {
         NSString *searchString = self.title;
-        if (searchString != nil && !_isDirectory) {
+        if (searchString != nil && !_isDirectory && _downloadArtwork) {
             [_artworkProvider searchForArtworkForVideoRelatedString:searchString];
         }
     }
@@ -83,7 +84,7 @@ NSString *const VLCRemoteBrowsingTVCellIdentifier = @"VLCRemoteBrowsingTVCell";
 - (void)setTitle:(NSString *)title
 {
     self.titleLabel.text = title;
-    if (title != nil && !_isDirectory) {
+    if (title != nil && !_isDirectory && _downloadArtwork) {
         [_artworkProvider searchForArtworkForVideoRelatedString:title];
     }
 }

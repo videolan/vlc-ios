@@ -52,7 +52,8 @@
                                   kVLCSettingPlaybackBackwardSkipLength : kVLCSettingPlaybackBackwardSkipLengthDefaultValue,
                                   kVLCSettingFTPTextEncoding : kVLCSettingFTPTextEncodingDefaultValue,
                                   kVLCSettingWiFiSharingIPv6 : kVLCSettingWiFiSharingIPv6DefaultValue,
-                                  kVLCAutomaticallyPlayNextItem : @(YES)};
+                                  kVLCAutomaticallyPlayNextItem : @(YES),
+                                  kVLCSettingDownloadArtwork : @(YES)};
     [defaults registerDefaults:appDefaults];
 }
 
