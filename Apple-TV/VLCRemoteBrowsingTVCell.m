@@ -46,7 +46,7 @@ NSString *const VLCRemoteBrowsingTVCellIdentifier = @"VLCRemoteBrowsingTVCell";
     [self.thumbnailImageView cancelLoading];
     self.title = nil;
     self.subtitle = nil;
-    self.downloadArtwork = false;
+    self.downloadArtwork = NO;
 }
 
 - (void)setCouldBeAudioOnlyMedia:(BOOL)couldBeAudioOnlyMedia

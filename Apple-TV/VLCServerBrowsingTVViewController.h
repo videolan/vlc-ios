@@ -16,7 +16,7 @@
 
 @interface VLCServerBrowsingTVViewController : VLCRemoteBrowsingCollectionViewController <VLCNetworkServerBrowserDelegate>
 
-@property (nonatomic) bool downloadArtwork;
+@property (nonatomic) BOOL downloadArtwork;
 
 - (instancetype)initWithServerBrowser:(id<VLCNetworkServerBrowser>)serverBrowser;
 
