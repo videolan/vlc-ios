@@ -28,7 +28,7 @@
 @end
 
 @implementation VLCNetworkServerBrowserUPnP
-@synthesize title = _title, delegate = _delegate, items = _items;
+@synthesize title = _title, delegate = _delegate, items = _items, mediaList = _mediaList;
 
 - (instancetype)initWithUPNPDevice:(MediaServer1Device *)device header:(NSString *)header andRootID:(NSString *)upnpRootID
 {
@@ -78,13 +78,14 @@
         @synchronized(_items) {
             _items = [itemsArray copy];
         }
+        _mediaList = [self buildMediaList];
         [[NSOperationQueue mainQueue] addOperationWithBlock:^{
             [self.delegate networkServerBrowserDidUpdate:self];
         }];
     }];
 }
 
-- (VLCMediaList *)mediaList
+- (VLCMediaList *)buildMediaList
 {
     NSMutableArray *mediaArray;
     @synchronized(_items) {
@@ -319,7 +320,7 @@
 #pragma mark - Multi Ressource
 
 @implementation VLCNetworkServerBrowserUPnPMultiRessource
-@synthesize items = _items, title = _title, delegate = _delegate;
+@synthesize items = _items, title = _title, delegate = _delegate, mediaList = _mediaList;
 
 - (instancetype)initWithItem:(MediaServer1ItemObject *)itemObject device:(MediaServer1Device *)device
 {
@@ -327,6 +328,7 @@
     if (self) {
         _title = [itemObject title];
         _items = [itemObject vlc_ressourceItemsForDevice:device];
+        _mediaList = [self buildMediaList];
     }
     return self;
 }
@@ -335,7 +337,7 @@
     [self.delegate networkServerBrowserDidUpdate:self];
 }
 
-- (VLCMediaList *)mediaList
+- (VLCMediaList *)buildMediaList
 {
     VLCMediaList *mediaList = [[VLCMediaList alloc] init];
     @synchronized(_items) {

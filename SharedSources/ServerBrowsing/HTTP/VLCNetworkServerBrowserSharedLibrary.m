@@ -21,7 +21,7 @@
 @end
 
 @implementation VLCNetworkServerBrowserSharedLibrary
-@synthesize title = _title, delegate = _delegate, items = _items;
+@synthesize title = _title, delegate = _delegate, items = _items, mediaList = _mediaList;
 
 - (instancetype)initWithName:(NSString *)name host:(NSString *)addressOrName portNumber:(NSUInteger)portNumber
 {
@@ -56,13 +56,14 @@
         _items = [items copy];
     }
 
+    _mediaList = [self buildMediaList];
     [[NSOperationQueue mainQueue] addOperationWithBlock:^{
         [self.delegate networkServerBrowserDidUpdate:self];
 
     }];
 }
 
-- (VLCMediaList *)mediaList
+- (VLCMediaList *)buildMediaList
 {
     VLCMediaList *mediaList = [[VLCMediaList alloc] init];
     @synchronized(_items) {
