@@ -34,7 +34,7 @@
 @end
 
 @implementation VLCNetworkServerBrowserPlex
-@synthesize title = _title, delegate = _delegate, items = _items;
+@synthesize title = _title, delegate = _delegate, items = _items, mediaList = _mediaList;
 
 - (instancetype)initWithLogin:(VLCNetworkServerLoginInformation *)login
 {
@@ -115,12 +115,13 @@
     @synchronized(_items) {
         _items = [newItems copy];
     }
+    _mediaList = [self buildMediaList];
     [[NSOperationQueue mainQueue] addOperationWithBlock:^{
         [self.delegate networkServerBrowserDidUpdate:self];
     }];
 }
 
-- (VLCMediaList *)mediaList
+- (VLCMediaList *)buildMediaList
 {
     VLCMediaList *mediaList = [[VLCMediaList alloc] init];
     @synchronized(_items) {

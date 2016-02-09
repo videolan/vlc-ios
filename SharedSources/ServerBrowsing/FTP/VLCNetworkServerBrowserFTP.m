@@ -21,7 +21,7 @@
 @end
 
 @implementation VLCNetworkServerBrowserFTP
-@synthesize delegate = _delegate, items = _items;
+@synthesize delegate = _delegate, items = _items, mediaList = _mediaList;
 
 #pragma mark - Protocol conformance
 - (NSString *)title {
@@ -76,7 +76,7 @@
     return self;
 }
 
-- (VLCMediaList *)mediaList
+- (VLCMediaList *)buildMediaList
 {
     VLCMediaList *mediaList = [[VLCMediaList alloc] init];
     @synchronized(_items) {
@@ -139,6 +139,7 @@
             @synchronized(_items) {
                 _items = [NSArray arrayWithArray:filteredList];
             }
+            _mediaList = [self buildMediaList];
             [self.delegate networkServerBrowserDidUpdate:self];
         }];
     } else
