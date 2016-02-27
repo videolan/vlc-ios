@@ -171,7 +171,7 @@
         NSString *URLofSubtitle = nil;
         NSURL *remoteSubtitleURL = nil;
         if ([loopItem respondsToSelector:@selector(subtitleURL)]) {
-            [loopItem subtitleURL];
+            remoteSubtitleURL = [loopItem subtitleURL];
         }
         if (remoteSubtitleURL == nil) {
             NSArray *subtitlesList = [self _searchSubtitle:loopItem.URL.lastPathComponent];

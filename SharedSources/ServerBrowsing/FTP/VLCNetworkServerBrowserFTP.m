@@ -12,6 +12,7 @@
 
 #import "VLCNetworkServerBrowserFTP.h"
 #import "WhiteRaccoon.h"
+#import "NSString+SupportedMedia.h"
 
 @interface VLCNetworkServerBrowserFTP () <WRRequestDelegate>
 @property (nonatomic) NSURL *url;
@@ -91,17 +92,48 @@
 
 #pragma mark - white raccoon delegation
 
+- (NSURL*)searchSubtitleForFile:(NSString *)filename inSubtitleList:(NSArray *)subtitleList
+{
+    NSString *filenameNoExt = [[filename lastPathComponent] stringByDeletingPathExtension];
+
+    for (NSString *subtitle in subtitleList) {
+        if ([[[subtitle lastPathComponent] stringByDeletingPathExtension] isEqualToString:filenameNoExt])
+            return [self.url URLByAppendingPathComponent:subtitle];
+    }
+
+    return nil;
+}
+
 - (void)requestCompleted:(WRRequest *)request
 {
     if (request == _FTPListDirRequest) {
+        NSMutableArray *subtitleList = [[NSMutableArray alloc] init];
         NSMutableArray *filteredList = [[NSMutableArray alloc] init];
         NSArray *rawList = [(WRRequestListDirectory*)request filesInfo];
         NSUInteger count = rawList.count;
 
         for (NSUInteger x = 0; x < count; x++) {
             NSDictionary *dict = rawList[x];
-            if (![[dict objectForKey:(id)kCFFTPResourceName] hasPrefix:@"."])
-                [filteredList addObject:[[VLCNetworkServerBrowserItemFTP alloc] initWithDictionary:dict baseURL:self.url]];
+            if ([[dict objectForKey:(id)kCFFTPResourceName] isSupportedSubtitleFormat])
+                [subtitleList addObject:[dict objectForKey:(id)kCFFTPResourceName]];
+        }
+
+        for (NSUInteger x = 0; x < count; x++) {
+            NSDictionary *dict = rawList[x];
+            NSString *filename = [dict objectForKey:(id)kCFFTPResourceName];
+            BOOL container = [[dict objectForKey:(id)kCFFTPResourceType] intValue] == 4;
+
+            if (![filename hasPrefix:@"."])
+            {
+                NSURL *subtitleURL = nil;
+
+                if ([filename isSupportedAudioMediaFormat] || [filename isSupportedMediaFormat])
+                    subtitleURL = [self searchSubtitleForFile:filename inSubtitleList:subtitleList];
+                else if (!container)
+                    continue;
+
+                [filteredList addObject:[[VLCNetworkServerBrowserItemFTP alloc] initWithDictionary:dict baseURL:self.url subtitleURL:subtitleURL]];
+            }
         }
         [[NSOperationQueue mainQueue] addOperationWithBlock:^{
             @synchronized(_items) {
@@ -131,7 +163,7 @@
 @implementation VLCNetworkServerBrowserItemFTP
 @synthesize name = _name, container = _container, fileSizeBytes = _fileSizeBytes, URL = _URL;
 
-- (instancetype)initWithDictionary:(NSDictionary *)dict baseURL:(NSURL *)baseURL
+- (instancetype)initWithDictionary:(NSDictionary *)dict baseURL:(NSURL *)baseURL subtitleURL:(NSURL *)subtitleURL
 {
     self = [super init];
     if (self) {
@@ -146,6 +178,7 @@
             _container = [dict[(id)kCFFTPResourceType] intValue] == 4;
             _fileSizeBytes = dict[(id)kCFFTPResourceSize];
             _URL = [baseURL URLByAppendingPathComponent:_name];
+            _subtitleURL = subtitleURL;
         }
     }
     return self;
