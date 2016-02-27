@@ -12,6 +12,7 @@
 
 #import "VLCNetworkServerBrowserFTP.h"
 #import "WhiteRaccoon.h"
+#import "NSString+SupportedMedia.h"
 
 @interface VLCNetworkServerBrowserFTP () <WRRequestDelegate>
 @property (nonatomic) NSURL *url;
@@ -91,9 +92,22 @@
 
 #pragma mark - white raccoon delegation
 
+- (NSURL*)searchSubtitleForFile:(NSString *)filename inSubtitleList:(NSArray *)subtitleList
+{
+    NSString *filenameNoExt = [[filename lastPathComponent] stringByDeletingPathExtension];
+
+    for (NSString *subtitle in subtitleList) {
+        if ([[[subtitle lastPathComponent] stringByDeletingPathExtension] isEqualToString:filenameNoExt])
+            return [self.url URLByAppendingPathComponent:subtitle];
+    }
+
+    return nil;
+}
+
 - (void)requestCompleted:(WRRequest *)request
 {
     if (request == _FTPListDirRequest) {
+        NSMutableArray *subtitleList = [[NSMutableArray alloc] init];
         NSMutableArray *filteredList = [[NSMutableArray alloc] init];
         NSArray *rawList = [(WRRequestListDirectory*)request filesInfo];
         NSUInteger count = rawList.count;
@@ -151,7 +165,7 @@
 @implementation VLCNetworkServerBrowserItemFTP
 @synthesize name = _name, container = _container, fileSizeBytes = _fileSizeBytes, URL = _URL;
 
-- (instancetype)initWithDictionary:(NSDictionary *)dict baseURL:(NSURL *)baseURL
+- (instancetype)initWithDictionary:(NSDictionary *)dict baseURL:(NSURL *)baseURL subtitleURL:(NSURL *)subtitleURL
 {
     self = [super init];
     if (self) {
@@ -166,6 +180,7 @@
             _container = [dict[(id)kCFFTPResourceType] intValue] == 4;
             _fileSizeBytes = dict[(id)kCFFTPResourceSize];
             _URL = [baseURL URLByAppendingPathComponent:_name];
+            _subtitleURL = subtitleURL;
         }
     }
     return self;
