@@ -3,16 +3,16 @@
     {
       "size" : "24x24",
       "idiom" : "watch",
-      "scale" : "2x",
       "filename" : "AppIcon24@2x.png",
+      "scale" : "2x",
       "role" : "notificationCenter",
       "subtype" : "38mm"
     },
     {
       "size" : "27.5x27.5",
       "idiom" : "watch",
-      "scale" : "2x",
       "filename" : "AppIcon27.5@2x.png",
+      "scale" : "2x",
       "role" : "notificationCenter",
       "subtype" : "42mm"
     },
@@ -33,32 +33,32 @@
     {
       "size" : "40x40",
       "idiom" : "watch",
+      "filename" : "AppIcon40x40@2x.png",
       "scale" : "2x",
-      "filename" : "AppIcon40@2x.png",
       "role" : "appLauncher",
       "subtype" : "38mm"
     },
     {
       "size" : "44x44",
       "idiom" : "watch",
-      "scale" : "2x",
       "filename" : "AppIcon44@2x.png",
+      "scale" : "2x",
       "role" : "longLook",
       "subtype" : "42mm"
     },
     {
       "size" : "86x86",
       "idiom" : "watch",
-      "scale" : "2x",
       "filename" : "AppIcon86@2x.png",
+      "scale" : "2x",
       "role" : "quickLook",
       "subtype" : "38mm"
     },
     {
       "size" : "98x98",
       "idiom" : "watch",
-      "scale" : "2x",
       "filename" : "AppIcon98@2x.png",
+      "scale" : "2x",
       "role" : "quickLook",
       "subtype" : "42mm"
     }
