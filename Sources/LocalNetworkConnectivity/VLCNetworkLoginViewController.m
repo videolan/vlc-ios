@@ -143,6 +143,7 @@
     }
 
     [self.storedServersTableView reloadData];
+    [self protocolSelectionChanged:nil];
 }
 
 - (void)viewWillDisappear:(BOOL)animated
