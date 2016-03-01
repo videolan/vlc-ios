@@ -97,24 +97,27 @@
 @implementation VLCPlaybackInfoTracksDataSourceAudio
 - (NSInteger)collectionView:(UICollectionView *)collectionView numberOfItemsInSection:(NSInteger)section
 {
-    return self.mediaPlayer.numberOfAudioTracks;
+    return self.mediaPlayer.numberOfAudioTracks + 1;
 }
 
 - (void)collectionView:(UICollectionView *)collectionView willDisplayCell:(UICollectionViewCell *)cell forItemAtIndexPath:(NSIndexPath *)indexPath
 {
     VLCPlaybackInfoTVCollectionViewCell *trackCell = (VLCPlaybackInfoTVCollectionViewCell*)cell;
     NSInteger row = indexPath.row;
-    BOOL isSelected = NO;
     NSArray *audioTrackIndexes = self.mediaPlayer.audioTrackIndexes;
-    if (row < audioTrackIndexes.count) {
-        isSelected = [audioTrackIndexes[row] intValue] == self.mediaPlayer.currentAudioTrackIndex;
-    }
-    trackCell.selectionMarkerVisible = isSelected;
+    NSString *trackName;
+    if (row >= audioTrackIndexes.count) {
+        trackName = NSLocalizedString(@"USE_SPDIF", nil);
+        trackCell.selectionMarkerVisible = [[NSUserDefaults standardUserDefaults] boolForKey:kVLCSettingUseSPDIF];
+    } else {
+        BOOL isSelected = [audioTrackIndexes[row] intValue] == self.mediaPlayer.currentVideoSubTitleIndex;
+        trackCell.selectionMarkerVisible = isSelected;
 
-    NSString *trackName = self.mediaPlayer.audioTrackNames[row];
-    if (trackName != nil) {
-        if ([trackName isEqualToString:@"Disable"])
-            trackName = NSLocalizedString(@"DISABLE_LABEL", nil);
+        trackName = self.mediaPlayer.audioTrackNames[row];
+        if (trackName != nil) {
+            if ([trackName isEqualToString:@"Disable"])
+                trackName = NSLocalizedString(@"DISABLE_LABEL", nil);
+        }
     }
     trackCell.titleLabel.text = trackName;
 }
@@ -123,7 +126,17 @@
 {
     NSArray *audioTrackIndexes = self.mediaPlayer.audioTrackIndexes;
     NSInteger row = indexPath.row;
-    if (row < audioTrackIndexes.count) {
+    if (row >= audioTrackIndexes.count) {
+        NSUserDefaults *defaults = [NSUserDefaults standardUserDefaults];
+        BOOL bValue = ![defaults boolForKey:kVLCSettingUseSPDIF];
+        [[VLCPlaybackController sharedInstance].mediaPlayer performSelector:@selector(setPassthroughAudio:) withObject:@(bValue)];
+        [defaults setBool:bValue forKey:kVLCSettingUseSPDIF];
+        [defaults synchronize];
+        /* restart the audio output */
+        int currentAudioTrackIndex = self.mediaPlayer.currentAudioTrackIndex;
+        self.mediaPlayer.currentAudioTrackIndex = -1;
+        self.mediaPlayer.currentAudioTrackIndex = currentAudioTrackIndex;
+    } else {
         self.mediaPlayer.currentAudioTrackIndex = [audioTrackIndexes[row] intValue];
     }
     [collectionView reloadData];
@@ -145,7 +158,7 @@
     if (row >= spuTitleIndexes.count) {
         trackName = NSLocalizedString(@"DOWNLOAD_SUBS_FROM_OSO", nil);
     } else {
-        BOOL isSelected = [self.mediaPlayer.videoSubTitlesIndexes[row] intValue] == self.mediaPlayer.currentVideoSubTitleIndex;
+        BOOL isSelected = [spuTitleIndexes[row] intValue] == self.mediaPlayer.currentVideoSubTitleIndex;
         trackCell.selectionMarkerVisible = isSelected;
 
         trackName = self.mediaPlayer.videoSubTitlesNames[row];

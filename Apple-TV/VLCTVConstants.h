@@ -58,6 +58,7 @@
 #define kVLCSettingSaveHTTPUploadServerStatus @"isHTTPServerOn"
 #define kVLCAutomaticallyPlayNextItem @"AutomaticallyPlayNextItem"
 #define kVLCSettingDownloadArtwork @"download-artwork"
+#define kVLCSettingUseSPDIF @"kVLCSettingUseSPDIF"
 
 #define kVLCSettingLastUsedSubtitlesSearchLanguage @"kVLCSettingLastUsedSubtitlesSearchLanguage"
 #define kVLCSettingWiFiSharingIPv6 @"wifi-sharing-ipv6"

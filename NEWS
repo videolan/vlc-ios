@@ -15,6 +15,7 @@ iOS 2.7.3:
 tvOS 1.0.3:
 -----------
 * General stability improvements and bug fixes
+* Added S/PDIF pass-through option
 * Added option to disable artwork retrieval
 * Added automatic finding of external subtitles on HTTP, FTP, PLEX and UPnP
   - Note that SMB shares are not supported yet.
