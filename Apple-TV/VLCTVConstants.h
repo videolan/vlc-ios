@@ -57,6 +57,7 @@
 #define kVLCSettingFTPTextEncodingDefaultValue @(5) // ISO Latin 1
 #define kVLCSettingSaveHTTPUploadServerStatus @"isHTTPServerOn"
 #define kVLCAutomaticallyPlayNextItem @"AutomaticallyPlayNextItem"
+#define kVLCSettingUseSPDIF @"kVLCSettingUseSPDIF"
 
 #define kVLCSettingLastUsedSubtitlesSearchLanguage @"kVLCSettingLastUsedSubtitlesSearchLanguage"
 #define kVLCSettingWiFiSharingIPv6 @"wifi-sharing-ipv6"
