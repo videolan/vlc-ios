@@ -10,6 +10,7 @@ iOS 2.7.3:
 * Improved SMB reliability
 * Fixed contrast video filter
 * Fixed downloads from certain UPnP, PLEX and ftp servers
+* Fixed switching library display modes on iPad
 
 tvOS 1.0.3:
 -----------

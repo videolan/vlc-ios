@@ -1260,6 +1260,7 @@ static NSString *kUsingTableViewToShowData = @"UsingTableViewToShowData";
     self.usingTableViewToShowData = !self.usingTableViewToShowData;
     UIImage *newButtonImage = [UIImage imageNamed: self.usingTableViewToShowData ? @"collectionViewIcon" : @"tableViewIcon"];
     [button setImage:newButtonImage];
+    [self updateViewsForCurrentDisplayMode];
 }
 
 - (UITableViewCellEditingStyle)tableView:(UITableView *)aTableView editingStyleForRowAtIndexPath:(NSIndexPath *)indexPath
@@ -1528,6 +1529,7 @@ static NSString *kUsingTableViewToShowData = @"UsingTableViewToShowData";
 {
     [[NSUserDefaults standardUserDefaults] setBool:usingTableViewToShowData forKey:kUsingTableViewToShowData];
     [self updateViewsForCurrentDisplayMode];
+    [self setupContentViewWithContentInset:usingTableViewToShowData];
 }
 
 #pragma mark - autorotation
