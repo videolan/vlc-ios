@@ -747,6 +747,11 @@ static const NSInteger VLCJumpInterval = 10000; // 10 seconds
 
     if (self.bottomOverlayView.alpha == 0.0) {
         [self animatePlaybackControlsToVisibility:YES];
+
+        // We need an additional update here because in some cases (e.g. when the playback was
+        // paused or started buffering), the transport bar is only updated when it is visible
+        // and if the playback is interrupted, no updates of the transport bar are triggered.
+        [self updateTransportBarPosition];
     }
     [self hidePlaybackControlsIfNeededAfterDelay];
 }
@@ -817,12 +822,6 @@ currentMediaHasTrackToChooseFrom:(BOOL)currentMediaHasTrackToChooseFrom
         [self hidePlaybackControlsIfNeededAfterDelay];
     } else {
         [self showPlaybackControlsIfNeededForUserInteraction];
-
-        // We need an additional update here in case the playback was paused because the transport bar is only updated when it
-        // is visible and if the playback is paused, no updates of the transport bar are triggered.
-        if (currentState == VLCMediaPlayerStatePaused) {
-            [self updateTransportBarPosition:controller];
-        }
     }
 
     if (controller.isPlaying && !self.bufferingLabel.hidden) {
@@ -911,8 +910,9 @@ currentMediaHasTrackToChooseFrom:(BOOL)currentMediaHasTrackToChooseFrom
 
 #pragma mark -
 
-- (void)updateTransportBarPosition:(VLCPlaybackController *)controller
+- (void)updateTransportBarPosition
 {
+    VLCPlaybackController *controller = [VLCPlaybackController sharedInstance];
     VLCMediaPlayer *mediaPlayer = controller.mediaPlayer;
     VLCTransportBar *transportBar = self.transportBar;
     transportBar.remainingTimeLabel.text = [[mediaPlayer remainingTime] stringValue];
@@ -926,7 +926,7 @@ currentMediaHasTrackToChooseFrom:(BOOL)currentMediaHasTrackToChooseFrom
     [self updateActivityIndicatorForState:VLCMediaPlayerStatePlaying];
 
     if (self.bottomOverlayView.alpha != 0.0) {
-        [self updateTransportBarPosition:controller];
+        [self updateTransportBarPosition];
     }
 }
 
