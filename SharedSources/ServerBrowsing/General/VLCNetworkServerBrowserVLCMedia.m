@@ -11,6 +11,7 @@
  *****************************************************************************/
 
 #import "VLCNetworkServerBrowserVLCMedia.h"
+#import "NSString+SupportedMedia.h"
 
 @interface VLCNetworkServerBrowserVLCMedia () <VLCMediaListDelegate, VLCMediaDelegate>
 {
@@ -19,6 +20,7 @@
 
 @property (nonatomic) VLCMedia *rootMedia;
 @property (nonatomic) VLCMediaList *mediaList;
+@property (nonatomic) VLCMediaList *mediaListUnfiltered;
 @property (nonatomic) NSMutableArray<id<VLCNetworkServerBrowserItem>> *mutableItems;
 @property (nonatomic, readonly) NSDictionary *mediaOptions;
 
@@ -31,15 +33,23 @@
     self = [super init];
     if (self) {
         _mutableItems = [[NSMutableArray alloc] init];
+        _mediaList = [[VLCMediaList alloc] init];
         _rootMedia = media;
         _rootMedia.delegate = self;
         [media parseWithOptions:VLCMediaParseNetwork];
-        _mediaList = [_rootMedia subitems];
-        _mediaList.delegate = self;
-        _mediaOptions = [mediaOptions copy];
+        _mediaListUnfiltered = [_rootMedia subitems];
+        _mediaListUnfiltered.delegate = self;
+        NSMutableDictionary *mediaOptionsNoFilter = [mediaOptions mutableCopy];
+        [mediaOptionsNoFilter setObject:@" " forKey:@":ignore-filetypes"];
+        _mediaOptions = [mediaOptionsNoFilter copy];
         [self _addMediaListRootItemsToList];
     }
     return self;
+}
+
+- (BOOL)shouldFilterMedia:(VLCMedia *)media
+{
+    return ![media.url.absoluteString isSupportedAudioMediaFormat] && ![media.url.absoluteString isSupportedMediaFormat] && media.mediaType != VLCMediaTypeDirectory;
 }
 
 - (void)_addMediaListRootItemsToList
@@ -53,7 +63,11 @@
         newMedia.delegate = self;
         [newMedia addOptions:self.mediaOptions];
         [newMedia parseWithOptions:VLCMediaParseNetwork];
-        [self.mutableItems addObject:[[VLCNetworkServerBrowserItemVLCMedia alloc] initWithMedia:newMedia options:self.mediaOptions]];
+        if (![self shouldFilterMedia:media]) {
+            NSInteger mediaIndex = self.mutableItems.count;
+            [self.mediaList insertMedia:media atIndex:mediaIndex];
+            [self.mutableItems insertObject:[[VLCNetworkServerBrowserItemVLCMedia alloc] initWithMedia:media options:self.mediaOptions] atIndex:mediaIndex];
+        }
     }
     [rootItems unlock];
 }
@@ -80,13 +94,21 @@
 - (void)mediaList:(VLCMediaList *)aMediaList mediaAdded:(VLCMedia *)media atIndex:(NSInteger)index
 {
     [media addOptions:self.mediaOptions];
-    [self.mutableItems addObject:[[VLCNetworkServerBrowserItemVLCMedia alloc] initWithMedia:media options:self.mediaOptions]];
+    if (![self shouldFilterMedia:media]) {
+        NSInteger mediaIndex = self.mutableItems.count;
+        [self.mediaList insertMedia:media atIndex:mediaIndex];
+        [self.mutableItems insertObject:[[VLCNetworkServerBrowserItemVLCMedia alloc] initWithMedia:media options:self.mediaOptions] atIndex:mediaIndex];
+    }
+
     [self.delegate networkServerBrowserDidUpdate:self];
 }
 
 - (void)mediaList:(VLCMediaList *)aMediaList mediaRemovedAtIndex:(NSInteger)index
 {
-    [self.mutableItems removeObjectAtIndex:index];
+    VLCMedia *media = [self.mediaListUnfiltered mediaAtIndex:index];
+    NSInteger mediaIndex = [self.mediaList indexOfMedia:media];
+    [self.mediaList removeMediaAtIndex:mediaIndex];
+    [self.mutableItems removeObjectAtIndex:mediaIndex];
     [self.delegate networkServerBrowserDidUpdate:self];
 }
 
