@@ -158,10 +158,10 @@
             title = [media metadataForKey:VLCMetaInformationTitle];
         }
         if (!title) {
-            title = media.url.lastPathComponent;
+            title = [media.url.lastPathComponent stringByRemovingPercentEncoding];
         }
         if (!title) {
-            title = media.url.absoluteString;
+            title = [media.url.absoluteString stringByRemovingPercentEncoding];
         }
         _name = title;
         _URL = media.url;
