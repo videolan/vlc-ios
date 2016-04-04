@@ -59,10 +59,6 @@
     NSUInteger count = rootItems.count;
     for (NSUInteger i = 0; i < count; i++) {
         VLCMedia *media = [rootItems mediaAtIndex:i];
-        VLCMedia *newMedia = [VLCMedia mediaWithURL:media.url];
-        newMedia.delegate = self;
-        [newMedia addOptions:self.mediaOptions];
-        [newMedia parseWithOptions:VLCMediaParseNetwork];
         if (![self shouldFilterMedia:media]) {
             NSInteger mediaIndex = self.mutableItems.count;
             [self.mediaList insertMedia:media atIndex:mediaIndex];
