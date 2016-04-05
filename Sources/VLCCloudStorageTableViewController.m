@@ -110,7 +110,6 @@
 {
     [_activityIndicator startAnimating];
     [self.controller requestDirectoryListingAtPath:self.currentPath];
-    [_activityIndicator stopAnimating];
 }
 
 - (void)mediaListUpdated
@@ -196,7 +195,7 @@
         self.navigationItem.rightBarButtonItem = _logoutButton;
     }
 
-    if(_authorizationInProgress) {
+    if(_authorizationInProgress || [self.controller isAuthorized]) {
         if (self.loginToCloudStorageView.superview) {
         [self.loginToCloudStorageView removeFromSuperview];
             }
