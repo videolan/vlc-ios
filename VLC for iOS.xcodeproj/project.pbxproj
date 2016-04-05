@@ -1086,7 +1086,6 @@
 		7DC19B0A1868D21800810BF7 /* VLCFirstStepsSixthPageViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = VLCFirstStepsSixthPageViewController.m; path = Sources/VLCFirstStepsSixthPageViewController.m; sourceTree = SOURCE_ROOT; };
 		7DC222771773AB0900371B5C /* es */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; lineEnding = 0; name = es; path = es.lproj/Localizable.strings; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = xcode.lang.simpleColoring; };
 		7DC550861C046615007B4E42 /* vlc-ios-no-watch.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "vlc-ios-no-watch.app"; sourceTree = BUILT_PRODUCTS_DIR; };
-		7DC550871C046615007B4E42 /* vlc-ios copy-Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; name = "vlc-ios copy-Info.plist"; path = "/Users/fkuehne/Desktop/videolan/gits/ios-2.7/vlc-ios copy-Info.plist"; sourceTree = "<absolute>"; };
 		7DC5A3E41BF6370800CFEBA8 /* VLCRemotePlaybackViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = VLCRemotePlaybackViewController.h; sourceTree = "<group>"; };
 		7DC5A3E51BF6370800CFEBA8 /* VLCRemotePlaybackViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = VLCRemotePlaybackViewController.m; sourceTree = "<group>"; };
 		7DC5A3E61BF6370800CFEBA8 /* VLCRemotePlaybackViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = VLCRemotePlaybackViewController.xib; sourceTree = "<group>"; };
@@ -1901,7 +1900,6 @@
 				7D94FCDD16DE7D1000F2623B /* Frameworks */,
 				7D94FCDC16DE7D1000F2623B /* Products */,
 				5BC7EE378D444805CA59B5BA /* Pods */,
-				7DC550871C046615007B4E42 /* vlc-ios copy-Info.plist */,
 			);
 			sourceTree = "<group>";
 			usesTabs = 0;

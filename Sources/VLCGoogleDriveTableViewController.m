@@ -79,11 +79,13 @@
 {
     self.authorizationInProgress = NO;
     if (error != nil) {
+        APLog(@"%s: error: %@", __PRETTY_FUNCTION__, error);
         _googleDriveController.driveService.authorizer = nil;
     } else {
         _googleDriveController.driveService.authorizer = authResult;
     }
     [self updateViewAfterSessionChange];
+    [self.activityIndicator startAnimating];
 }
 
 - (void)viewWillDisappear:(BOOL)animated
