@@ -17,6 +17,7 @@ tvOS 1.0.3:
 * General stability improvements and bug fixes
 * Added S/PDIF pass-through option
 * Added option to disable artwork retrieval
+* Improved SMB reliability
 * Added automatic finding of external subtitles on HTTP, FTP, PLEX and UPnP
   - Note that SMB shares are not supported yet.
 * Added filtering of files found on FTP servers to only show playable media
