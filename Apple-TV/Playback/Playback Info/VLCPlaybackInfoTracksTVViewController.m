@@ -106,11 +106,17 @@
     NSInteger row = indexPath.row;
     NSArray *audioTrackIndexes = self.mediaPlayer.audioTrackIndexes;
     NSString *trackName;
+
+    trackCell.titleLabel.font = [UIFont boldSystemFontOfSize:29.];
+
     if (row >= audioTrackIndexes.count) {
-        trackName = NSLocalizedString(@"USE_SPDIF", nil);
-        trackCell.selectionMarkerVisible = [[NSUserDefaults standardUserDefaults] boolForKey:kVLCSettingUseSPDIF];
+        if ([[NSUserDefaults standardUserDefaults] boolForKey:kVLCSettingUseSPDIF]) {
+            trackName = [@"✓ " stringByAppendingString:NSLocalizedString(@"USE_SPDIF", nil)];
+            trackCell.titleLabel.font = [UIFont boldSystemFontOfSize:29.];
+        } else
+            trackName = NSLocalizedString(@"USE_SPDIF", nil);
     } else {
-        BOOL isSelected = [audioTrackIndexes[row] intValue] == self.mediaPlayer.currentVideoSubTitleIndex;
+        BOOL isSelected = [audioTrackIndexes[row] intValue] == self.mediaPlayer.currentAudioTrackIndex;
         trackCell.selectionMarkerVisible = isSelected;
 
         trackName = self.mediaPlayer.audioTrackNames[row];
@@ -149,6 +155,7 @@
 {
     return self.mediaPlayer.numberOfSubtitlesTracks + 1;
 }
+
 - (void)collectionView:(UICollectionView *)collectionView willDisplayCell:(UICollectionViewCell *)cell forItemAtIndexPath:(NSIndexPath *)indexPath
 {
     VLCPlaybackInfoTVCollectionViewCell *trackCell = (VLCPlaybackInfoTVCollectionViewCell*)cell;
