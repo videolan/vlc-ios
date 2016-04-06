@@ -67,6 +67,8 @@ NSString *const VLCPlaybackControllerPlaybackPositionUpdated = @"VLCPlaybackCont
     BOOL _activeSession;
 
     NSLock *_playbackSessionManagementLock;
+
+    VLCDialogProvider *_dialogProvider;
 }
 
 @end
@@ -89,6 +91,7 @@ NSString *const VLCPlaybackControllerPlaybackPositionUpdated = @"VLCPlaybackCont
 
 - (void)dealloc
 {
+    _dialogProvider = nil;
     [[NSNotificationCenter defaultCenter] removeObserver:self];
 }
 
@@ -105,6 +108,8 @@ NSString *const VLCPlaybackControllerPlaybackPositionUpdated = @"VLCPlaybackCont
                               name:UIApplicationDidBecomeActiveNotification object:nil];
         [defaultCenter addObserver:self selector:@selector(applicationDidEnterBackground:)
                               name:UIApplicationDidEnterBackgroundNotification object:nil];
+
+        _dialogProvider = [[VLCDialogProvider alloc] initWithLibrary:[VLCLibrary sharedLibrary] customUI:NO];
 
         _playbackSessionManagementLock = [[NSLock alloc] init];
     }
