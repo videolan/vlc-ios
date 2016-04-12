@@ -1,8 +1,12 @@
+iOS 2.7.5:
+----------
+* Improved SMB reliability
+
 tvOS 1.0.4:
 -----------
 * Improved SMB reliability
 
-iOS 2.7.3:
+iOS 2.7.4:
 ----------
 * General stability improvements and bug fixes
 * Added 3D Touch Quick Actions for iPhone 6S
@@ -15,6 +19,10 @@ iOS 2.7.3:
 * Fixed contrast video filter
 * Fixed downloads from certain UPnP, PLEX and ftp servers
 * Fixed switching library display modes on iPad
+
+iOS 2.7.3:
+----------
+(never released, lost in iTunes Connect)
 
 tvOS 1.0.3:
 -----------
