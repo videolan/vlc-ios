@@ -131,7 +131,10 @@
     for (NSInteger x = count - 1; x > -1; x--) {
         id<VLCNetworkServerBrowserItem> iter = items[x];
         if (![iter isContainer]) {
-            [fileList addObject:[iter media]];
+            VLCMedia *iterMedia = [iter media];
+            if (iterMedia != nil) {
+                [fileList addObject:iterMedia];
+            }
         }
     }
 
