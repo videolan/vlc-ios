@@ -123,15 +123,17 @@
 
 - (VLCMediaList *)buildMediaList
 {
-    VLCMediaList *mediaList = [[VLCMediaList alloc] init];
+    NSMutableArray *mediaArray;
     @synchronized(_items) {
         NSUInteger count = _items.count;
+        mediaArray = [NSMutableArray arrayWithCapacity:count];
         for (NSInteger i = count - 1; i >= 0; i--) {
             VLCMedia *media = [_items[i] media];
             if (media)
-                [mediaList addMedia:media];
+                [mediaArray addObject:media];
         }
     }
+    VLCMediaList *mediaList = [[VLCMediaList alloc] initWithArray:mediaArray];
     return mediaList;
 }
 
