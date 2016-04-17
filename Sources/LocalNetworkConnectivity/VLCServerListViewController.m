@@ -34,6 +34,7 @@
 #import "VLCLocalNetworkServiceBrowserHTTP.h"
 #import "VLCLocalNetworkServiceBrowserSAP.h"
 #import "VLCLocalNetworkServiceBrowserDSM.h"
+#import "VLCLocalNetworkServiceBrowserBonjour.h"
 
 @interface VLCServerListViewController () <UITableViewDataSource, UITableViewDelegate, VLCLocalServerDiscoveryControllerDelegate>
 {
@@ -84,6 +85,7 @@
                                 [VLCLocalNetworkServiceBrowserSAP class],
 #endif
                                 [VLCLocalNetworkServiceBrowserDSM class],
+                                [VLCLocalNetworkServiceBrowserBonjour class],
                                 ];
 
     _discoveryController = [[VLCLocalServerDiscoveryController alloc] initWithServiceBrowserClasses:browserClasses];

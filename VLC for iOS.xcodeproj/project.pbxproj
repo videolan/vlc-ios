@@ -104,6 +104,9 @@
 		7D3784C9183A9972009EE944 /* UIDevice+VLC.m in Sources */ = {isa = PBXBuildFile; fileRef = 7D3784C7183A9972009EE944 /* UIDevice+VLC.m */; };
 		7D3784CC183A99BA009EE944 /* PAPasscodeViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 7D3784CB183A99BA009EE944 /* PAPasscodeViewController.m */; };
 		7D3784E9183A9A15009EE944 /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 7D3784E8183A9A15009EE944 /* main.m */; };
+		7D398DC11CC3E709002C999A /* VLCLocalNetworkServiceBrowserBonjour.m in Sources */ = {isa = PBXBuildFile; fileRef = 7D398DC01CC3E709002C999A /* VLCLocalNetworkServiceBrowserBonjour.m */; };
+		7D398DC21CC3E709002C999A /* VLCLocalNetworkServiceBrowserBonjour.m in Sources */ = {isa = PBXBuildFile; fileRef = 7D398DC01CC3E709002C999A /* VLCLocalNetworkServiceBrowserBonjour.m */; };
+		7D398DC31CC3E709002C999A /* VLCLocalNetworkServiceBrowserBonjour.m in Sources */ = {isa = PBXBuildFile; fileRef = 7D398DC01CC3E709002C999A /* VLCLocalNetworkServiceBrowserBonjour.m */; };
 		7D3E528B1BD7B5E100309D15 /* VLCCloudServicesTVViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 7D3E52891BD7B5E100309D15 /* VLCCloudServicesTVViewController.m */; };
 		7D3E528C1BD7B5E100309D15 /* VLCCloudServicesTVViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 7D3E528A1BD7B5E100309D15 /* VLCCloudServicesTVViewController.xib */; };
 		7D3EB014174A353E002062C2 /* SystemConfiguration.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 7D3EB013174A353E002062C2 /* SystemConfiguration.framework */; };
@@ -964,6 +967,8 @@
 		7D3784E8183A9A15009EE944 /* main.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = main.m; path = Sources/main.m; sourceTree = SOURCE_ROOT; };
 		7D3784EA183A9A1E009EE944 /* VLC for iOS-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; name = "VLC for iOS-Info.plist"; path = "Sources/VLC for iOS-Info.plist"; sourceTree = SOURCE_ROOT; };
 		7D3784EB183A9A1E009EE944 /* VLC for iOS-Prefix.pch */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = "VLC for iOS-Prefix.pch"; path = "Sources/VLC for iOS-Prefix.pch"; sourceTree = SOURCE_ROOT; };
+		7D398DBF1CC3E709002C999A /* VLCLocalNetworkServiceBrowserBonjour.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = VLCLocalNetworkServiceBrowserBonjour.h; path = Bonjour/VLCLocalNetworkServiceBrowserBonjour.h; sourceTree = "<group>"; };
+		7D398DC01CC3E709002C999A /* VLCLocalNetworkServiceBrowserBonjour.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = VLCLocalNetworkServiceBrowserBonjour.m; path = Bonjour/VLCLocalNetworkServiceBrowserBonjour.m; sourceTree = "<group>"; };
 		7D3E52881BD7B5E100309D15 /* VLCCloudServicesTVViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = VLCCloudServicesTVViewController.h; sourceTree = "<group>"; };
 		7D3E52891BD7B5E100309D15 /* VLCCloudServicesTVViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = VLCCloudServicesTVViewController.m; sourceTree = "<group>"; };
 		7D3E528A1BD7B5E100309D15 /* VLCCloudServicesTVViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = VLCCloudServicesTVViewController.xib; sourceTree = "<group>"; };
@@ -1720,6 +1725,15 @@
 				DD1CB0591BBAC549006EDDE6 /* VLCVolumeView.m */,
 			);
 			name = "UI Elements";
+			sourceTree = "<group>";
+		};
+		7D398DB11CC3DDDF002C999A /* Bonjour */ = {
+			isa = PBXGroup;
+			children = (
+				7D398DBF1CC3E709002C999A /* VLCLocalNetworkServiceBrowserBonjour.h */,
+				7D398DC01CC3E709002C999A /* VLCLocalNetworkServiceBrowserBonjour.m */,
+			);
+			name = Bonjour;
 			sourceTree = "<group>";
 		};
 		7D3E528D1BD7B5E600309D15 /* Cloud */ = {
@@ -2495,6 +2509,7 @@
 				DD3EFEF71BDEBCE500B68579 /* General */,
 				DD3EFF021BDEBCE500B68579 /* HTTP */,
 				DD3EFF0B1BDEBCE500B68579 /* ManualConnect */,
+				7D398DB11CC3DDDF002C999A /* Bonjour */,
 				DD3EFF101BDEBCE500B68579 /* Plex */,
 				DD3EFF1B1BDEBCE500B68579 /* SAP */,
 				DD3EFF1E1BDEBCE500B68579 /* SMB/DSM */,
@@ -3391,6 +3406,7 @@
 				7DC0B5701C0094370027BFAD /* VLCSettingsViewController.m in Sources */,
 				7DEC8BDA1BD67112006E1093 /* VLCFrostedGlasView.m in Sources */,
 				DD8095EB1BE4F04E0065D8E1 /* VLCPlaybackInfoRateTVViewController.m in Sources */,
+				7D398DC21CC3E709002C999A /* VLCLocalNetworkServiceBrowserBonjour.m in Sources */,
 				DD3EAC051BE153B4003668DA /* VLCNetworkImageView.m in Sources */,
 				7DF383B91BF21E4400D71A5C /* VLCPlayerControlWebSocket.m in Sources */,
 				7D0C35341BD97C7B0058CD19 /* VLCOneDriveObject.m in Sources */,
@@ -3517,6 +3533,7 @@
 				DD1CB05A1BBAC549006EDDE6 /* VLCVolumeView.m in Sources */,
 				7D5CAA8C1A4AD8E5003F2CBC /* VLCTrackSelectorHeaderView.m in Sources */,
 				4171D35018A2C19000A16EF9 /* VLCFolderCollectionViewFlowLayout.m in Sources */,
+				7D398DC11CC3E709002C999A /* VLCLocalNetworkServiceBrowserBonjour.m in Sources */,
 				7D30F3CA183AB27A00FFC021 /* VLCDownloadViewController.m in Sources */,
 				DDEAECC61BDEC79D00756C83 /* VLCLocalNetworkServiceBrowserSAP.m in Sources */,
 				DD3EFF491BDEBCE500B68579 /* VLCLocalNetworkServiceBrowserPlex.m in Sources */,
@@ -3638,6 +3655,7 @@
 				7DC550031C046615007B4E42 /* VLCVolumeView.m in Sources */,
 				7DC550041C046615007B4E42 /* VLCTrackSelectorHeaderView.m in Sources */,
 				7DC550051C046615007B4E42 /* VLCFolderCollectionViewFlowLayout.m in Sources */,
+				7D398DC31CC3E709002C999A /* VLCLocalNetworkServiceBrowserBonjour.m in Sources */,
 				7DC550061C046615007B4E42 /* VLCDownloadViewController.m in Sources */,
 				7DC550071C046615007B4E42 /* VLCLocalNetworkServiceBrowserSAP.m in Sources */,
 				7DC550081C046615007B4E42 /* VLCLocalNetworkServiceBrowserPlex.m in Sources */,

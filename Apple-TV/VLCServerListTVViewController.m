@@ -26,6 +26,7 @@
 #import "VLCLocalNetworkServiceBrowserSAP.h"
 #endif
 #import "VLCLocalNetworkServiceBrowserDSM.h"
+#import "VLCLocalNetworkServiceBrowserBonjour.h"
 #import "VLCLocalNetworkServiceBrowserHTTP.h"
 
 #import "VLCRemoteBrowsingTVCell.h"
@@ -85,6 +86,7 @@
                          [VLCLocalNetworkServiceBrowserDSM class],
                          [VLCLocalNetworkServiceBrowserPlex class],
                          [VLCLocalNetworkServiceBrowserFTP class],
+                         [VLCLocalNetworkServiceBrowserBonjour class],
 #ifndef NDEBUG
                          [VLCLocalNetworkServiceBrowserSAP class],
 #endif

@@ -136,7 +136,6 @@
             }
 
             if (mediaItems.count > 0) {
-                NSLog(@"%s: %@ %li", __PRETTY_FUNCTION__, mediaItems, firstIndex);
                 [vpc playMediaList:[[VLCMediaList alloc] initWithArray:mediaItems] firstIndex:firstIndex];
             }
         }
