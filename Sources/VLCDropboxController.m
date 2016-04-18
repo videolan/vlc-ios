@@ -140,7 +140,9 @@
 {
     if (!file.isDirectory) {
         _lastKnownNavigationController = navigationController;
-        [[self restClient] loadStreamableURLForFile:file.path];
+        NSString *path = file.path;
+        if (path != nil)
+            [[self restClient] loadStreamableURLForFile:path];
     }
 }
 
