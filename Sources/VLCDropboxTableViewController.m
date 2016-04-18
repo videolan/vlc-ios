@@ -121,7 +121,8 @@
 - (void)mediaListUpdated
 {
     _mediaList = [self.controller.currentListFiles copy];
-    [self.tableView reloadData];
+
+    [super mediaListUpdated];
 }
 
 #pragma mark - Table view delegate
