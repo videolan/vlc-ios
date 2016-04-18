@@ -235,7 +235,9 @@ static NSString *kUsingTableViewToShowData = @"UsingTableViewToShowData";
     [_tapTwiceGestureRecognizer setNumberOfTapsRequired:2];
     [self.navigationController.navigationBar addGestureRecognizer:_tapTwiceGestureRecognizer];
 
-    _searchData = [[NSMutableArray alloc] init];
+    @synchronized (self) {
+        _searchData = [[NSMutableArray alloc] init];
+    }
 }
 
 - (void)viewWillAppear:(BOOL)animated
@@ -284,7 +286,7 @@ static NSString *kUsingTableViewToShowData = @"UsingTableViewToShowData";
 
         BOOL isAlbum = [mediaObject isKindOfClass:[MLAlbum class]];
         NSArray* array =  isAlbum ? [(MLAlbum *)mediaObject sortedTracks] : [(MLShow *)mediaObject sortedEpisodes];
-        @synchronized(self) {
+        @synchronized(_foundMedia) {
             _foundMedia = [NSMutableArray arrayWithArray:array];
         }
         self.navigationItem.leftBarButtonItem = [UIBarButtonItem themedBackButtonWithTarget:self andSelector:@selector(backToAllItems:)];
@@ -308,7 +310,7 @@ static NSString *kUsingTableViewToShowData = @"UsingTableViewToShowData";
             }
         }
         _libraryMode = VLCLibraryModeFolder;
-        @synchronized(self) {
+        @synchronized(_foundMedia) {
             _foundMedia = [NSMutableArray arrayWithArray:[folder sortedFolderItems]];
         }
         self.navigationItem.leftBarButtonItem = [UIBarButtonItem themedBackButtonWithTarget:self andSelector:@selector(backToAllItems:)];
@@ -518,13 +520,13 @@ static NSString *kUsingTableViewToShowData = @"UsingTableViewToShowData";
         for (MLAlbum *album in rawAlbums) {
             if (_libraryMode != VLCLibraryModeAllAlbums) {
                 if (album.name.length > 0 && album.tracks.count > 1) {
-                    @synchronized(self) {
+                    @synchronized(_foundMedia) {
                         [_foundMedia addObject:album];
                     }
                 }
             } else {
                 if (album.name.length > 0) {
-                    @synchronized(self) {
+                    @synchronized(_foundMedia) {
                         [_foundMedia addObject:album];
                     }
                 }
@@ -540,7 +542,7 @@ static NSString *kUsingTableViewToShowData = @"UsingTableViewToShowData";
     NSArray *rawShows = [MLShow allShows];
     for (MLShow *show in rawShows) {
         if (show.name.length > 0 && show.episodes.count > 1) {
-            @synchronized(self) {
+            @synchronized(_foundMedia) {
                 [_foundMedia addObject:show];
             }
         }
@@ -553,7 +555,7 @@ static NSString *kUsingTableViewToShowData = @"UsingTableViewToShowData";
     /* add all folders*/
     NSArray *allFolders = [MLLabel allLabels];
     for (MLLabel *folder in allFolders) {
-        @synchronized(self) {
+        @synchronized(_foundMedia) {
             [_foundMedia addObject:folder];
         }
     }
@@ -569,13 +571,13 @@ static NSString *kUsingTableViewToShowData = @"UsingTableViewToShowData";
         }
 
         if (!file.isShowEpisode && !file.isAlbumTrack) {
-            @synchronized(self) {
+            @synchronized(_foundMedia) {
                 [_foundMedia addObject:file];
             }
         }
         else if (file.isShowEpisode) {
             if (file.showEpisode.show.episodes.count < 2) {
-                @synchronized(self) {
+                @synchronized(_foundMedia) {
                     [_foundMedia addObject:file];
                 }
             }
@@ -590,7 +592,7 @@ static NSString *kUsingTableViewToShowData = @"UsingTableViewToShowData";
             }
         } else if (file.isAlbumTrack) {
             if (file.albumTrack.album.tracks.count < 2) {
-                @synchronized(self) {
+                @synchronized(_foundMedia) {
                     [_foundMedia addObject:file];
                 }
             }
@@ -657,13 +659,15 @@ static NSString *kUsingTableViewToShowData = @"UsingTableViewToShowData";
     [swipeRight setDirection:(UISwipeGestureRecognizerDirectionRight)];
     [cell addGestureRecognizer:swipeRight];
 
-    @synchronized(self) {
-        NSInteger row = indexPath.row;
+    NSInteger row = indexPath.row;
 
-        if (tableView == self.searchDisplayController.searchResultsTableView) {
+    if (tableView == self.searchDisplayController.searchResultsTableView) {
+        @synchronized (_searchData) {
             if (row < _searchData.count)
                 cell.mediaObject = _searchData[row];
-        } else {
+        }
+    } else {
+        @synchronized (_foundMedia) {
             if (row < _foundMedia.count)
                 cell.mediaObject = _foundMedia[row];
         }
@@ -674,7 +678,7 @@ static NSString *kUsingTableViewToShowData = @"UsingTableViewToShowData";
 
 - (void)tableView:(UITableView *)tableView moveRowAtIndexPath:(NSIndexPath *)fromIndexPath toIndexPath:(NSIndexPath *)toIndexPath
 {
-    @synchronized(self) {
+    @synchronized(_foundMedia) {
         MLFile* object = _foundMedia[fromIndexPath.item];
         [_foundMedia removeObjectAtIndex:fromIndexPath.item];
         [_foundMedia insertObject:object atIndex:toIndexPath.item];
@@ -751,11 +755,15 @@ static NSString *kUsingTableViewToShowData = @"UsingTableViewToShowData";
 
     NSUInteger row = indexPath.row;
     if (tableView == self.searchDisplayController.searchResultsTableView) {
-        if (row < _searchData.count)
-            selectedObject = _searchData[row];
+        @synchronized (_searchData) {
+            if (row < _searchData.count)
+                selectedObject = _searchData[row];
+        }
     } else {
-        if (row < _foundMedia.count)
-            selectedObject = _foundMedia[row];
+        @synchronized (_foundMedia) {
+            if (row < _foundMedia.count)
+                selectedObject = _foundMedia[row];
+        }
     }
 
     if (_searchDisplayController.active)
@@ -812,9 +820,11 @@ static NSString *kUsingTableViewToShowData = @"UsingTableViewToShowData";
 - (UICollectionViewCell*)collectionView:(UICollectionView *)collectionView cellForItemAtIndexPath:(NSIndexPath *)indexPath
 {
     VLCPlaylistCollectionViewCell *cell = [collectionView dequeueReusableCellWithReuseIdentifier:@"PlaylistCell" forIndexPath:indexPath];
-    NSUInteger row = indexPath.row;
-    if (row < _foundMedia.count)
-        cell.mediaObject = _foundMedia[row];
+    @synchronized (_foundMedia) {
+        NSUInteger row = indexPath.row;
+        if (row < _foundMedia.count)
+            cell.mediaObject = _foundMedia[row];
+    }
 
     cell.collectionView = _collectionView;
 
@@ -883,7 +893,7 @@ static NSString *kUsingTableViewToShowData = @"UsingTableViewToShowData";
 
     NSManagedObject *selectedObject;
     NSInteger row = indexPath.row;
-    @synchronized(self) {
+    @synchronized(_foundMedia) {
         if (row < _foundMedia.count)
             selectedObject = _foundMedia[row];
     }
@@ -903,7 +913,7 @@ static NSString *kUsingTableViewToShowData = @"UsingTableViewToShowData";
 - (void)collectionView:(UICollectionView *)collectionView removeItemFromFolderAtIndexPathIfNeeded:(NSIndexPath *)indexPath
 {
     id mediaObject;
-    @synchronized(self) {
+    @synchronized(_foundMedia) {
         mediaObject = _foundMedia[indexPath.item];
     }
     if (![mediaObject isKindOfClass:[MLFile class]])
@@ -919,7 +929,7 @@ static NSString *kUsingTableViewToShowData = @"UsingTableViewToShowData";
 
 - (void)collectionView:(UICollectionView *)collectionView itemAtIndexPath:(NSIndexPath *)fromIndexPath willMoveToIndexPath:(NSIndexPath *)toIndexPath
 {
-    @synchronized(self) {
+    @synchronized(_foundMedia) {
         id object = _foundMedia[fromIndexPath.item];
         if (![object isKindOfClass:[MLFile class]])
             return;
@@ -937,7 +947,7 @@ static NSString *kUsingTableViewToShowData = @"UsingTableViewToShowData";
 {
     id folderPathItem;
     id itemPathItem;
-    @synchronized(self) {
+    @synchronized(_foundMedia) {
         folderPathItem = _foundMedia[folderPath.item];
         itemPathItem = _foundMedia[itemPath.item];
     }
@@ -961,7 +971,7 @@ static NSString *kUsingTableViewToShowData = @"UsingTableViewToShowData";
         MLFile *file = itemPathItem;
         [file setLabels:[[NSSet alloc] initWithObjects:folder, nil]];
         file.folderTrackNumber = @([folder.files count] - 1);
-        @synchronized(self) {
+        @synchronized(_foundMedia) {
             [_foundMedia removeObjectAtIndex:itemPath.item];
         }
         [self updateViewContents];
@@ -1029,7 +1039,7 @@ static NSString *kUsingTableViewToShowData = @"UsingTableViewToShowData";
     for (NSInteger i = _indexPaths.count - 1; i >=0; i--) {
         NSIndexPath *path = _indexPaths[i];
         id mediaObject;
-        @synchronized(self) {
+        @synchronized(_foundMedia) {
             mediaObject = _foundMedia[path.row];
         }
         if ([mediaObject isKindOfClass:[MLLabel class]])
@@ -1063,7 +1073,7 @@ static NSString *kUsingTableViewToShowData = @"UsingTableViewToShowData";
     for (NSInteger i = [_indexPaths count] - 1; i >= 0; i--) {
         NSIndexPath *path = _indexPaths[i];
         id item;
-        @synchronized(self) {
+        @synchronized(_foundMedia) {
             item = _foundMedia[path.row];
         }
 
@@ -1073,7 +1083,7 @@ static NSString *kUsingTableViewToShowData = @"UsingTableViewToShowData";
             file.labels = nil;
             file.folderTrackNumber = nil;
         }
-        @synchronized(self) {
+        @synchronized(_foundMedia) {
             [_foundMedia removeObject:item];
         }
     }
@@ -1100,7 +1110,7 @@ static NSString *kUsingTableViewToShowData = @"UsingTableViewToShowData";
     if (_folderObject != nil) {
         id mediaObject;
         NSUInteger folderIndex;
-        @synchronized(self) {
+        @synchronized(_foundMedia) {
             folderIndex = [_foundMedia indexOfObject:_folderObject];
             mediaObject = _foundMedia[folderIndex];
         }
@@ -1116,7 +1126,7 @@ static NSString *kUsingTableViewToShowData = @"UsingTableViewToShowData";
             file.folderTrackNumber = folderTrackNumber;
 
             id item;
-            @synchronized(self) {
+            @synchronized(_foundMedia) {
                 [_foundMedia removeObjectAtIndex:folderIndex];
                 [_foundMedia insertObject:label atIndex:folderIndex];
 
@@ -1127,19 +1137,19 @@ static NSString *kUsingTableViewToShowData = @"UsingTableViewToShowData";
 
             MLFile *itemFile = (MLFile *)item;
             itemFile.labels = file.labels;
-            @synchronized(self) {
+            @synchronized(_foundMedia) {
                 [_foundMedia removeObjectAtIndex:((NSIndexPath *)_indexPaths[0]).item];
             }
             itemFile.folderTrackNumber = @([label files].count - 1);
         } else {
             //item got dragged onto folder or items should be added to folder
             MLLabel *label;
-            @synchronized(self) {
+            @synchronized(_foundMedia) {
                 label = _foundMedia[folderIndex];
             }
             [_indexPaths sortUsingSelector:@selector(compare:)];
 
-            @synchronized(self) {
+            @synchronized(_foundMedia) {
                 NSUInteger count = _foundMedia.count;
                 for (NSInteger i = [_indexPaths count] - 1; i >= 0; i--) {
                     NSIndexPath *path = _indexPaths[i];
@@ -1175,7 +1185,7 @@ static NSString *kUsingTableViewToShowData = @"UsingTableViewToShowData";
 
             for (NSInteger i = [_indexPaths count] - 1; i >= 0; i--) {
                 NSIndexPath *path = _indexPaths[i];
-                @synchronized(self) {
+                @synchronized(_foundMedia) {
                     NSUInteger index = self.usingTableViewToShowData ? path.row : path.item;
                     if (index < _foundMedia.count) {
                         id item = _foundMedia[index];
@@ -1310,7 +1320,7 @@ static NSString *kUsingTableViewToShowData = @"UsingTableViewToShowData";
     else
         indexPaths = [self.collectionView indexPathsForSelectedItems];
 
-    @synchronized(self) {
+    @synchronized(_foundMedia) {
         NSUInteger count = indexPaths.count;
         NSMutableArray *objects = [[NSMutableArray alloc] initWithCapacity:count];
 
@@ -1361,11 +1371,15 @@ static NSString *kUsingTableViewToShowData = @"UsingTableViewToShowData";
     if (indexPaths.count < 1)
         return;
 
-    NSUInteger row = [indexPaths[0] row];
-    if (row >= _foundMedia.count)
-        return;
+    id mediaObject;
 
-    id mediaObject = _foundMedia[row];
+    @synchronized (_foundMedia) {
+        NSUInteger row = [indexPaths[0] row];
+        if (row >= _foundMedia.count)
+            return;
+
+        mediaObject = _foundMedia[row];
+    }
 
     if ([mediaObject isKindOfClass:[MLAlbum class]] || [mediaObject isKindOfClass:[MLShowEpisode class]] || [mediaObject isKindOfClass:[MLShow class]] || [mediaObject isKindOfClass:[MLLabel class]] )
         [mediaObject setName:newName];
@@ -1399,7 +1413,7 @@ static NSString *kUsingTableViewToShowData = @"UsingTableViewToShowData";
         _openInActivityBarButtonItem.enabled = NO;
     } else {
         // Look for at least one MLFile
-        @synchronized(self) {
+        @synchronized(_foundMedia) {
             for (NSUInteger x = 0; x < count; x++) {
                 id mediaItem = _foundMedia[[indexPaths[x] row]];
 
@@ -1428,7 +1442,7 @@ static NSString *kUsingTableViewToShowData = @"UsingTableViewToShowData";
 
         for (NSUInteger x = 0; x < count; x++) {
             id mediaItem;
-            @synchronized (self) {
+            @synchronized (_foundMedia) {
                 mediaItem = _foundMedia[[indexPaths[x] row]];
             }
             NSURL *fileURL;
@@ -1572,11 +1586,13 @@ static NSString *kUsingTableViewToShowData = @"UsingTableViewToShowData";
 
 - (BOOL)searchDisplayController:(UISearchDisplayController *)controller shouldReloadTableForSearchString:(NSString *)searchString
 {
-    [_searchData removeAllObjects];
+    @synchronized (_searchData) {
+        [_searchData removeAllObjects];
+    }
     NSManagedObject *item;
     NSRange nameRange;
 
-    @synchronized(self) {
+    @synchronized(_foundMedia) {
         NSInteger listCount = _foundMedia.count;
         for (int i = 0; i < listCount; i++) {
             item = _foundMedia[i];
@@ -1594,8 +1610,10 @@ static NSString *kUsingTableViewToShowData = @"UsingTableViewToShowData";
             else // simple file
                 nameRange = [self _searchFile:(MLFile*)item forString:searchString];
 
-            if (nameRange.location != NSNotFound)
-                [_searchData addObject:item];
+            @synchronized (_searchData) {
+                if (nameRange.location != NSNotFound)
+                    [_searchData addObject:item];
+            }
         }
     }
 
@@ -1787,7 +1805,7 @@ static NSString *kUsingTableViewToShowData = @"UsingTableViewToShowData";
         if (!folderPath) return;
         NSURL *folderURL = [NSURL URLWithString:folderPath];
 
-        @synchronized(self) {
+        @synchronized(_foundMedia) {
             NSUInteger count = _foundMedia.count;
             for (NSUInteger i = 0; i < count; i++) {
                 NSManagedObject *object = _foundMedia[i];
