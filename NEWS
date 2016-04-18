@@ -8,6 +8,7 @@ iOS 2.7.6:
 * Prevent playing the wrong file on PLEX shares
 * Fix hue video filter
 * Improved stability when unlocking app using Touch ID
+* Improved Dropbox stability
 
 iOS 2.7.5:
 ----------
