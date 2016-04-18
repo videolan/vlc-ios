@@ -259,6 +259,10 @@ static NSString *const VLCPlayerDisplayControllerDisplayModeKey = @"VLCPlayerDis
 
 - (void)_closeFullscreenPlayback
 {
+    if (![NSThread isMainThread]) {
+        [self performSelectorOnMainThread:@selector(_closeFullscreenPlayback) withObject:nil waitUntilDone:NO];
+        return;
+    }
     BOOL animated = [self shouldAnimate];
     [self.movieViewController dismissViewControllerAnimated:animated completion:nil];
     [self _showHideMiniPlaybackView];
