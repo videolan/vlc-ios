@@ -157,6 +157,11 @@ NSString *const VLCPasscode = @"org.videolan.vlc-ios.passcode";
 
 - (void)PAPasscodeViewControllerDidEnterPasscode:(PAPasscodeViewController *)controller
 {
+    if (![NSThread isMainThread]) {
+        [self performSelectorOnMainThread:@selector(PAPasscodeViewControllerDidEnterPasscode:) withObject:controller waitUntilDone:NO];
+        return;
+    }
+
     [[NSNotificationCenter defaultCenter] postNotificationName:VLCPasscodeValidated object:self];
 
     VLCAppDelegate *appDelegate = (VLCAppDelegate *)[UIApplication sharedApplication].delegate;

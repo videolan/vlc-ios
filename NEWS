@@ -3,6 +3,20 @@ iOS 2.8.0:
 * Added support for NFS shares
 * Added Bonjour discovery for SMB shares
 
+iOS 2.7.6:
+----------
+* Prevent playing the wrong file on PLEX shares
+* Fix hue video filter
+* Improved stability when unlocking app using Touch ID
+
+iOS 2.7.5:
+----------
+* Improved SMB reliability
+
+tvOS 1.0.4:
+-----------
+* Improved SMB reliability
+
 iOS 2.7.3:
 ----------
 * General stability improvements and bug fixes
