@@ -4,6 +4,7 @@ iOS 2.7.6:
 * Fix hue video filter
 * Improved stability when unlocking app using Touch ID
 * Improved Dropbox stability
+* Prevent ghosting of media downloaded from UPnP servers
 
 iOS 2.7.5:
 ----------
