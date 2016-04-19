@@ -214,7 +214,7 @@
 - (VLCMedia *)media
 {
     if (!_URL)
-        return nil;
+        return [VLCMedia mediaAsNodeWithName:self.name];
 
     VLCMedia *media =  [VLCMedia mediaWithURL:_URL];
     NSString *title = self.name;

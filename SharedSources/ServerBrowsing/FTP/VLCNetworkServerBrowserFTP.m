@@ -166,7 +166,7 @@
 {
     if (_URL)
         return [VLCMedia mediaWithURL:_URL];
-    return nil;
+    return [VLCMedia mediaAsNodeWithName:self.name];
 }
 
 @end
