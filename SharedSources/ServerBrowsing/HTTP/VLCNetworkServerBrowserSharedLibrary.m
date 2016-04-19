@@ -110,7 +110,7 @@
 - (VLCMedia *)media
 {
     if (!_URL)
-        return nil;
+        return [VLCMedia mediaAsNodeWithName:self.name];
     return [VLCMedia mediaWithURL:_URL];
 }
 
