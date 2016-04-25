@@ -67,6 +67,7 @@
 
 #define kVLCShowRemainingTime @"show-remaining-time"
 #define kVLCRecentURLs @"recent-urls"
+#define kVLCRecentURLTitles @"recent-url-titles"
 #define kVLCPrivateWebStreaming @"private-streaming"
 #define kVLChttpScanSubtitle @"http-scan-subtitle"
 

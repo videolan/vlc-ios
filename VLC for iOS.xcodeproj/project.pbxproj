@@ -451,6 +451,8 @@
 		CC1BBC56170493C100A20CBF /* QuartzCore.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = CC1BBC55170493C100A20CBF /* QuartzCore.framework */; };
 		CC1BBC58170493E100A20CBF /* CoreData.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = CC1BBC57170493E100A20CBF /* CoreData.framework */; };
 		CCE2A22E17A5859E00D9EAAD /* CoreText.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = CCE2A22D17A5859E00D9EAAD /* CoreText.framework */; };
+		D6E034ED1CC284FC0037F516 /* VLCStreamingHistoryCell.m in Sources */ = {isa = PBXBuildFile; fileRef = D6E034EC1CC284FC0037F516 /* VLCStreamingHistoryCell.m */; };
+		D6E034F71CC287760037F516 /* VLCStreamingHistoryCell.m in Sources */ = {isa = PBXBuildFile; fileRef = D6E034EC1CC284FC0037F516 /* VLCStreamingHistoryCell.m */; };
 		D9C52A9E9D4D5AFA7EF1B45A /* libPods-vlc-ios.a in Frameworks */ = {isa = PBXBuildFile; fileRef = DAF8927B0BE9C328466C0EA7 /* libPods-vlc-ios.a */; };
 		DD13A37B1BEE2FAA00A35554 /* VLCMaskView.m in Sources */ = {isa = PBXBuildFile; fileRef = DD13A37A1BEE2FAA00A35554 /* VLCMaskView.m */; };
 		DD1A45FD1B676BAC00086F57 /* Localizable.strings in Resources */ = {isa = PBXBuildFile; fileRef = DDE1BCE41B676B8800A4B9CE /* Localizable.strings */; };
@@ -1184,6 +1186,8 @@
 		CC87148317A56C85003C7383 /* ca */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; lineEnding = 0; name = ca; path = ca.lproj/Localizable.strings; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = xcode.lang.simpleColoring; };
 		CCAF837E17DE46D800E3578F /* pl */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = pl; path = pl.lproj/Localizable.strings; sourceTree = "<group>"; };
 		CCE2A22D17A5859E00D9EAAD /* CoreText.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreText.framework; path = System/Library/Frameworks/CoreText.framework; sourceTree = SDKROOT; };
+		D6E034EB1CC284FC0037F516 /* VLCStreamingHistoryCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = VLCStreamingHistoryCell.h; path = Sources/VLCStreamingHistoryCell.h; sourceTree = SOURCE_ROOT; };
+		D6E034EC1CC284FC0037F516 /* VLCStreamingHistoryCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = VLCStreamingHistoryCell.m; path = Sources/VLCStreamingHistoryCell.m; sourceTree = SOURCE_ROOT; };
 		DAF8927B0BE9C328466C0EA7 /* libPods-vlc-ios.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-vlc-ios.a"; sourceTree = BUILT_PRODUCTS_DIR; };
 		DD13A3791BEE2FAA00A35554 /* VLCMaskView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = VLCMaskView.h; path = "UI Elements/VLCMaskView.h"; sourceTree = "<group>"; };
 		DD13A37A1BEE2FAA00A35554 /* VLCMaskView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = VLCMaskView.m; path = "UI Elements/VLCMaskView.m"; sourceTree = "<group>"; };
@@ -2306,6 +2310,8 @@
 			children = (
 				7D30F3C5183AB26F00FFC021 /* VLCOpenNetworkStreamViewController.h */,
 				7D30F3C6183AB26F00FFC021 /* VLCOpenNetworkStreamViewController.m */,
+				D6E034EB1CC284FC0037F516 /* VLCStreamingHistoryCell.h */,
+				D6E034EC1CC284FC0037F516 /* VLCStreamingHistoryCell.m */,
 				7D30F3C8183AB27A00FFC021 /* VLCDownloadViewController.h */,
 				7D30F3C9183AB27A00FFC021 /* VLCDownloadViewController.m */,
 			);
@@ -3439,6 +3445,7 @@
 				4171D35818A2D90200A16EF9 /* LXReorderableCollectionViewFlowLayout.m in Sources */,
 				DD3EFF391BDEBCE500B68579 /* VLCLocalNetworkServiceVLCMedia.m in Sources */,
 				DD3EFF5D1BDEBCE500B68579 /* VLCLocalServerDiscoveryController.m in Sources */,
+				D6E034ED1CC284FC0037F516 /* VLCStreamingHistoryCell.m in Sources */,
 				7DC19B0C1868D21800810BF7 /* VLCFirstStepsSixthPageViewController.m in Sources */,
 				DD3EFEED1BDEBA3800B68579 /* VLCNetworkServerBrowserViewController.m in Sources */,
 				DD3EABFC1BE14C4B003668DA /* UIViewController+VLCAlert.m in Sources */,
@@ -3560,6 +3567,7 @@
 				7DC54FB51C046615007B4E42 /* LXReorderableCollectionViewFlowLayout.m in Sources */,
 				7DC54FB61C046615007B4E42 /* VLCLocalNetworkServiceVLCMedia.m in Sources */,
 				7DC54FB71C046615007B4E42 /* VLCLocalServerDiscoveryController.m in Sources */,
+				D6E034F71CC287760037F516 /* VLCStreamingHistoryCell.m in Sources */,
 				7DC54FB81C046615007B4E42 /* VLCFirstStepsSixthPageViewController.m in Sources */,
 				7DC54FB91C046615007B4E42 /* VLCNetworkServerBrowserViewController.m in Sources */,
 				7DC54FBA1C046615007B4E42 /* UIViewController+VLCAlert.m in Sources */,

@@ -8,7 +8,7 @@
  * Authors: Felix Paul Kühne <fkuehne # videolan.org>
  *          Gleb Pinigin <gpinigin # gmail.com>
  *          Pierre Sagaspe <pierre.sagaspe # me.com>
- *
+ *          Adam Viaud <mcnight # mcnight.fr>
  * Refer to the COPYING file of the official project for license.
  *****************************************************************************/
 
@@ -16,11 +16,13 @@
 #import "VLCPlaybackController.h"
 #import "VLCLibraryViewController.h"
 #import "VLCMenuTableViewController.h"
+#import "VLCStreamingHistoryCell.h"
 #import "UIDevice+VLC.h"
 
-@interface VLCOpenNetworkStreamViewController () <UITableViewDataSource, UITableViewDelegate, UITextFieldDelegate>
+@interface VLCOpenNetworkStreamViewController () <UITableViewDataSource, UITableViewDelegate, UITextFieldDelegate, UIAlertViewDelegate, VLCStreamingHistoryCellMenuItemProtocol>
 {
     NSMutableArray *_recentURLs;
+    NSMutableDictionary *_recentURLTitles;
 }
 @end
 
@@ -30,7 +32,7 @@
 {
     NSUserDefaults *defaults = [NSUserDefaults standardUserDefaults];
 
-    NSDictionary *appDefaults = @{kVLCRecentURLs : @[], kVLCPrivateWebStreaming : @(NO)};
+    NSDictionary *appDefaults = @{kVLCRecentURLs : @[], kVLCRecentURLTitles : @{}, kVLCPrivateWebStreaming : @(NO)};
 
     [defaults registerDefaults:appDefaults];
 }
@@ -44,6 +46,7 @@
 {
     /* TODO: don't blindly trust that the Cloud knows best */
     _recentURLs = [NSMutableArray arrayWithArray:[[NSUbiquitousKeyValueStore defaultStore] arrayForKey:kVLCRecentURLs]];
+    _recentURLTitles = [NSMutableDictionary dictionaryWithDictionary:[[NSUbiquitousKeyValueStore defaultStore] dictionaryForKey:kVLCRecentURLTitles]];
     [self.historyTableView reloadData];
 }
 
@@ -68,6 +71,7 @@
 
     /* fetch data from cloud */
     _recentURLs = [NSMutableArray arrayWithArray:[[NSUbiquitousKeyValueStore defaultStore] arrayForKey:kVLCRecentURLs]];
+    _recentURLTitles = [NSMutableDictionary dictionaryWithDictionary:[[NSUbiquitousKeyValueStore defaultStore] dictionaryForKey:kVLCRecentURLTitles]];
 
     /* merge data from local storage (aka legacy VLC versions) */
     NSUserDefaults *defaults = [NSUserDefaults standardUserDefaults];
@@ -111,6 +115,14 @@
 
     // This will be called every time this VC is opened by the side menu controller
     [self updatePasteboardTextInURLField];
+
+    // Registering a custom menu item for renaming streams
+    NSString *renameTitle = NSLocalizedString(@"BUTTON_RENAME", nil);
+    SEL renameStreamSelector = @selector(renameStream:);
+    UIMenuItem *renameItem = [[UIMenuItem alloc] initWithTitle:renameTitle action:renameStreamSelector];
+    UIMenuController *sharedMenuController = [UIMenuController sharedMenuController];
+    [sharedMenuController setMenuItems:@[renameItem]];
+    [sharedMenuController update];
 }
 
 - (void)updatePasteboardTextInURLField
@@ -185,6 +197,69 @@
     }
 }
 
+- (void)renameStreamFromCell:(UITableViewCell *)cell {
+    NSIndexPath *cellIndexPath = [self.historyTableView indexPathForCell:cell];
+    NSString *renameString = NSLocalizedString(@"BUTTON_RENAME", nil);
+    NSString *cancelString = NSLocalizedString(@"BUTTON_CANCEL", nil);
+
+    if ([UIAlertController class])
+    {
+        UIAlertController *alertController = [UIAlertController alertControllerWithTitle:renameString
+                                                                                 message:nil
+                                                                          preferredStyle:UIAlertControllerStyleAlert];
+
+        UIAlertAction *cancelAction = [UIAlertAction actionWithTitle:cancelString
+                                                        style:UIAlertActionStyleCancel
+                                                             handler:nil];
+        UIAlertAction *okAction = [UIAlertAction actionWithTitle:@"OK" style:UIAlertActionStyleDefault handler:^(UIAlertAction * _Nonnull action) {
+            NSString *streamTitle = alertController.textFields.firstObject.text;
+            [self renameStreamWithTitle:streamTitle atIndex:cellIndexPath.row];
+        }];
+
+        [alertController addTextFieldWithConfigurationHandler:^(UITextField * _Nonnull textField) {
+            textField.text = cell.textLabel.text;
+
+            [[NSNotificationCenter defaultCenter] addObserverForName:UITextFieldTextDidChangeNotification
+                                                              object:textField
+                                                               queue:[NSOperationQueue mainQueue]
+                                                          usingBlock:^(NSNotification * _Nonnull note) {
+                okAction.enabled = (textField.text.length != 0);
+            }];
+        }];
+
+        [alertController addAction:cancelAction];
+        [alertController addAction:okAction];
+
+        [self presentViewController:alertController animated:YES completion:nil];
+    }
+    else
+    {
+        UIAlertView *alertView = [[UIAlertView alloc] init];
+        alertView.delegate = self;
+        alertView.alertViewStyle = UIAlertViewStylePlainTextInput;
+        alertView.title = renameString;
+        alertView.tag = cellIndexPath.row; // Dirty...
+        [alertView addButtonWithTitle:cancelString];
+        [alertView addButtonWithTitle:@"OK"];
+        [alertView show];
+    }
+}
+
+- (void)renameStreamWithTitle:(NSString *)title atIndex:(NSInteger)index {
+    [_recentURLTitles setObject:title forKey:[@(index) stringValue]];
+    [[NSUbiquitousKeyValueStore defaultStore] setDictionary:_recentURLTitles forKey:kVLCRecentURLTitles];
+    [[NSOperationQueue mainQueue] addOperationWithBlock:^{
+        [self.historyTableView reloadSections:[NSIndexSet indexSetWithIndex:0] withRowAnimation:UITableViewRowAnimationAutomatic];
+    }];
+}
+
+#pragma mark - alert view delegate (iOS 7)
+
+- (void)alertView:(UIAlertView *)alertView clickedButtonAtIndex:(NSInteger)buttonIndex {
+    NSString *streamTitle = [alertView textFieldAtIndex:0].text;
+    [self renameStreamWithTitle:streamTitle atIndex:alertView.tag]; // Dirty...
+}
+
 #pragma mark - table view data source
 - (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView
 {
@@ -200,18 +275,18 @@
 {
     static NSString *CellIdentifier = @"StreamingHistoryCell";
 
-    UITableViewCell *cell = (UITableViewCell *)[tableView dequeueReusableCellWithIdentifier:CellIdentifier];
+    VLCStreamingHistoryCell *cell = (VLCStreamingHistoryCell *)[tableView dequeueReusableCellWithIdentifier:CellIdentifier];
     if (cell == nil) {
-        cell = [[UITableViewCell alloc] initWithStyle:UITableViewCellStyleSubtitle reuseIdentifier:CellIdentifier];
-        cell.textLabel.textColor = [UIColor whiteColor];
-        cell.textLabel.highlightedTextColor = [UIColor blackColor];
-        cell.detailTextLabel.textColor = [UIColor VLCLightTextColor];
-        cell.detailTextLabel.highlightedTextColor = [UIColor blackColor];
+        cell = [[VLCStreamingHistoryCell alloc] initWithStyle:UITableViewCellStyleSubtitle reuseIdentifier:CellIdentifier];
+        cell.delegate = self;
+        [cell customizeAppearance];
     }
 
     NSString *content = [_recentURLs[indexPath.row] stringByRemovingPercentEncoding];
-    cell.textLabel.text = [content lastPathComponent];
+    NSString *possibleTitle = _recentURLTitles[[@(indexPath.row) stringValue]];
+
     cell.detailTextLabel.text = content;
+    cell.textLabel.text = (possibleTitle != nil) ? possibleTitle : [content lastPathComponent];
 
     return cell;
 }
@@ -232,7 +307,9 @@
 {
     if (editingStyle == UITableViewCellEditingStyleDelete) {
         [_recentURLs removeObjectAtIndex:indexPath.row];
+        [_recentURLTitles removeObjectForKey:@(indexPath.row)];
         [[NSUbiquitousKeyValueStore defaultStore] setArray:_recentURLs forKey:kVLCRecentURLs];
+        [[NSUbiquitousKeyValueStore defaultStore] setDictionary:_recentURLTitles forKey:kVLCRecentURLTitles];
         [tableView reloadData];
     }
 }
