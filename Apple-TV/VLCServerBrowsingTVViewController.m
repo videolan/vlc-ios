@@ -22,11 +22,11 @@
     NSIndexPath *_currentFocus;
     BOOL _focusChangeAllowed;
 }
-@property (nonatomic, readonly) id<VLCNetworkServerBrowser>serverBrowser;
 @property (nonatomic) VLCServerBrowsingController *browsingController;
 @end
 
 @implementation VLCServerBrowsingTVViewController
+@synthesize subdirectoryBrowserClass = _subdirectoryBrowserClass;
 
 - (instancetype)initWithServerBrowser:(id<VLCNetworkServerBrowser>)serverBrowser
 {
@@ -82,6 +82,17 @@
     [self.serverBrowser update];
 }
 
+- (void)setSubdirectoryBrowserClass:(Class)subdirectoryBrowserClass
+{
+    NSParameterAssert([subdirectoryBrowserClass isSubclassOfClass:[VLCServerBrowsingTVViewController class]]);
+    _subdirectoryBrowserClass = subdirectoryBrowserClass;
+}
+
+- (Class)subdirectoryBrowserClass
+{
+    return _subdirectoryBrowserClass ?: [self class];
+}
+
 #pragma mark -
 
 - (void)reloadData
@@ -89,7 +100,7 @@
     [self.serverBrowser update];
 }
 
-#pragma mark -
+#pragma mark - VLCNetworkServerBrowserDelegate
 
 - (void)networkServerBrowserDidUpdate:(id<VLCNetworkServerBrowser>)networkBrowser
 {
@@ -110,8 +121,8 @@
 - (void)didSelectItem:(id<VLCNetworkServerBrowserItem>)item index:(NSUInteger)index singlePlayback:(BOOL)singlePlayback
 {
     if (item.isContainer) {
-        VLCServerBrowsingTVViewController *targetViewController = [[VLCServerBrowsingTVViewController alloc] initWithServerBrowser:item.containerBrowser];
-        [self.navigationController pushViewController:targetViewController animated:YES];
+        VLCServerBrowsingTVViewController *targetViewController = [[self.subdirectoryBrowserClass alloc] initWithServerBrowser:item.containerBrowser];
+        [self showViewController:targetViewController sender:self];
     } else {
         if (singlePlayback) {
             [self.browsingController streamFileForItem:item];

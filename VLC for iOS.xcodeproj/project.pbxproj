@@ -170,6 +170,9 @@
 		7D9870691A3E03D5009CF27D /* papasscode_marker@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 7D9870631A3E03D5009CF27D /* papasscode_marker@2x.png */; };
 		7D9CB9DC1A4C55EF00BB74B4 /* VLCPlaybackNavigationController.m in Sources */ = {isa = PBXBuildFile; fileRef = 7D9CB9DB1A4C55EF00BB74B4 /* VLCPlaybackNavigationController.m */; };
 		7DAE0C371B2EF85B00C53996 /* VLCSidebarController.m in Sources */ = {isa = PBXBuildFile; fileRef = 7DAE0C361B2EF85B00C53996 /* VLCSidebarController.m */; };
+		7DB174A71CD20D7B0085BCF0 /* VLCSearchableServerBrowsingTVViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 7DB174A61CD20D7B0085BCF0 /* VLCSearchableServerBrowsingTVViewController.m */; };
+		7DB174B41CD20DC00085BCF0 /* VLCNetworkServerSearchBrowser.m in Sources */ = {isa = PBXBuildFile; fileRef = 7DB174B11CD20DC00085BCF0 /* VLCNetworkServerSearchBrowser.m */; };
+		7DB174B51CD20DC00085BCF0 /* VLCSearchController.m in Sources */ = {isa = PBXBuildFile; fileRef = 7DB174B31CD20DC00085BCF0 /* VLCSearchController.m */; };
 		7DB638AB185BC0890003887C /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 7DB638AA185BC0890003887C /* Images.xcassets */; };
 		7DB847D71A5871570002DC30 /* VLCOneDriveObject.m in Sources */ = {isa = PBXBuildFile; fileRef = 7DB847D61A5871570002DC30 /* VLCOneDriveObject.m */; };
 		7DBB788A1B30423B00894467 /* VLCKeychainCoordinator.m in Sources */ = {isa = PBXBuildFile; fileRef = 7DBB78891B30423B00894467 /* VLCKeychainCoordinator.m */; };
@@ -1061,6 +1064,12 @@
 		7D9CB9DB1A4C55EF00BB74B4 /* VLCPlaybackNavigationController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = VLCPlaybackNavigationController.m; path = Sources/VLCPlaybackNavigationController.m; sourceTree = SOURCE_ROOT; };
 		7DAE0C351B2EF85B00C53996 /* VLCSidebarController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = VLCSidebarController.h; path = Sources/VLCSidebarController.h; sourceTree = SOURCE_ROOT; };
 		7DAE0C361B2EF85B00C53996 /* VLCSidebarController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = VLCSidebarController.m; path = Sources/VLCSidebarController.m; sourceTree = SOURCE_ROOT; };
+		7DB174A51CD20D7B0085BCF0 /* VLCSearchableServerBrowsingTVViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = VLCSearchableServerBrowsingTVViewController.h; sourceTree = "<group>"; };
+		7DB174A61CD20D7B0085BCF0 /* VLCSearchableServerBrowsingTVViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = VLCSearchableServerBrowsingTVViewController.m; sourceTree = "<group>"; };
+		7DB174B01CD20DC00085BCF0 /* VLCNetworkServerSearchBrowser.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = VLCNetworkServerSearchBrowser.h; path = "Apple-TV/VLCNetworkServerSearchBrowser.h"; sourceTree = SOURCE_ROOT; };
+		7DB174B11CD20DC00085BCF0 /* VLCNetworkServerSearchBrowser.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = VLCNetworkServerSearchBrowser.m; path = "Apple-TV/VLCNetworkServerSearchBrowser.m"; sourceTree = SOURCE_ROOT; };
+		7DB174B21CD20DC00085BCF0 /* VLCSearchController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = VLCSearchController.h; path = "Apple-TV/VLCSearchController.h"; sourceTree = SOURCE_ROOT; };
+		7DB174B31CD20DC00085BCF0 /* VLCSearchController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = VLCSearchController.m; path = "Apple-TV/VLCSearchController.m"; sourceTree = SOURCE_ROOT; };
 		7DB2486E18EA1D6D0097ADD2 /* ro */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = ro; path = ro.lproj/Localizable.strings; sourceTree = "<group>"; };
 		7DB638AA185BC0890003887C /* Images.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; name = Images.xcassets; path = "../vlc-ios/Images.xcassets"; sourceTree = "<group>"; };
 		7DB847D51A5871570002DC30 /* VLCOneDriveObject.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = VLCOneDriveObject.h; path = Sources/VLCOneDriveObject.h; sourceTree = SOURCE_ROOT; };
@@ -2240,6 +2249,8 @@
 				DDDEA6AE1BE027FA000BB7A2 /* VLCServerBrowsingTVViewController.m */,
 				7D7EF3D71BD56B5900CD4CEE /* VLCOpenNetworkStreamTVViewController.h */,
 				7D7EF3D81BD56B5900CD4CEE /* VLCOpenNetworkStreamTVViewController.m */,
+				7DB174A51CD20D7B0085BCF0 /* VLCSearchableServerBrowsingTVViewController.h */,
+				7DB174A61CD20D7B0085BCF0 /* VLCSearchableServerBrowsingTVViewController.m */,
 			);
 			name = "Network UI";
 			sourceTree = "<group>";
@@ -2527,6 +2538,10 @@
 				DD3EFF2C1BDEBCE500B68579 /* VLCNetworkServerBrowser-Protocol.h */,
 				DD3EAC071BE2192A003668DA /* VLCServerBrowsingController.h */,
 				DD3EAC081BE2192A003668DA /* VLCServerBrowsingController.m */,
+				7DB174B01CD20DC00085BCF0 /* VLCNetworkServerSearchBrowser.h */,
+				7DB174B11CD20DC00085BCF0 /* VLCNetworkServerSearchBrowser.m */,
+				7DB174B21CD20DC00085BCF0 /* VLCSearchController.h */,
+				7DB174B31CD20DC00085BCF0 /* VLCSearchController.m */,
 			);
 			path = ServerBrowsing;
 			sourceTree = "<group>";
@@ -3382,6 +3397,7 @@
 				DD4089F51BF6556F0022745E /* VLCFullWidthCollectionViewFlowLayout.m in Sources */,
 				DD3EFF3A1BDEBCE500B68579 /* VLCLocalNetworkServiceVLCMedia.m in Sources */,
 				7D7EF3DA1BD56B5900CD4CEE /* VLCOpenNetworkStreamTVViewController.m in Sources */,
+				7DB174B41CD20DC00085BCF0 /* VLCNetworkServerSearchBrowser.m in Sources */,
 				DD3EFF521BDEBCE500B68579 /* VLCPlexWebAPI.m in Sources */,
 				7D0EDE091BE7752800363AA1 /* VLCLocalNetworkServiceBrowserFTP.m in Sources */,
 				7DF383C11BF231BC00D71A5C /* VLCCloudStorageTVViewController.m in Sources */,
@@ -3391,6 +3407,7 @@
 				DD3EABFD1BE14C4B003668DA /* UIViewController+VLCAlert.m in Sources */,
 				7D7EF3DD1BD5779F00CD4CEE /* VLCPlaybackController.m in Sources */,
 				DD3EFF361BDEBCE500B68579 /* VLCLocalNetworkServiceBrowserNetService.m in Sources */,
+				7DB174A71CD20D7B0085BCF0 /* VLCSearchableServerBrowsingTVViewController.m in Sources */,
 				7D51B3B01BF0EEF4005AF4D5 /* VLCPlaybackInfoMediaInfoTVViewController.m in Sources */,
 				7D13347C1BE132EA0012E919 /* VLCLocalNetworkServiceBrowserUPnP.m in Sources */,
 				7DC5A3E71BF6370800CFEBA8 /* VLCRemotePlaybackViewController.m in Sources */,
@@ -3418,6 +3435,7 @@
 				7D0C35341BD97C7B0058CD19 /* VLCOneDriveObject.m in Sources */,
 				7D0C35331BD97C100058CD19 /* VLCOneDriveController.m in Sources */,
 				7D0EDE061BE774BF00363AA1 /* WhiteRaccoon.m in Sources */,
+				7DB174B51CD20DC00085BCF0 /* VLCSearchController.m in Sources */,
 				DD13A37B1BEE2FAA00A35554 /* VLCMaskView.m in Sources */,
 				7DF383AC1BF206F100D71A5C /* VLCRemoteBrowsingCollectionViewController.m in Sources */,
 				DD9D8F5F1C00C73F00B4060F /* VLCDeleteHintTVView.m in Sources */,
