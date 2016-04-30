@@ -30,12 +30,14 @@
 #import "VLCLocalNetworkServiceBrowserHTTP.h"
 
 #import "VLCRemoteBrowsingTVCell.h"
+#import "GRKArrayDiff+UICollectionView.h"
 
 @interface VLCServerListTVViewController ()
 {
     UILabel *_nothingFoundLabel;
 }
-@property (nonatomic) NSArray <NSIndexPath *> *indexPaths;
+@property (nonatomic, copy) NSMutableArray<id<VLCLocalNetworkService>> *networkServices;
+
 @end
 
 @implementation VLCServerListTVViewController
@@ -115,7 +117,7 @@
 
 - (NSInteger)collectionView:(UICollectionView *)collectionView numberOfItemsInSection:(NSInteger)section
 {
-    NSInteger count = self.indexPaths.count;
+    NSInteger count = self.networkServices.count;
     self.nothingFoundView.hidden = count > 0;
     return count;
 }
@@ -124,8 +126,7 @@
 {
     VLCRemoteBrowsingTVCell *browsingCell = (VLCRemoteBrowsingTVCell *) [collectionView dequeueReusableCellWithReuseIdentifier:VLCRemoteBrowsingTVCellIdentifier forIndexPath:indexPath];
 
-    NSIndexPath *discoveryIndexPath = self.indexPaths[indexPath.row];
-    id<VLCLocalNetworkService> service = [self.discoveryController networkServiceForIndexPath:discoveryIndexPath];
+    id<VLCLocalNetworkService> service = self.networkServices[indexPath.row];
     if (service == nil)
         return browsingCell;
 
@@ -142,8 +143,7 @@
 
 - (void)collectionView:(UICollectionView *)collectionView didSelectItemAtIndexPath:(NSIndexPath *)indexPath
 {
-    NSIndexPath *discoveryIndexPath = self.indexPaths[indexPath.row];
-    id<VLCLocalNetworkService> service = [self.discoveryController networkServiceForIndexPath:discoveryIndexPath];
+    id<VLCLocalNetworkService> service = self.networkServices[indexPath.row];
     [self didSelectService:service];
 }
 
@@ -275,19 +275,32 @@
 #pragma mark - VLCLocalServerDiscoveryController
 - (void)discoveryFoundSomethingNew
 {
-    NSMutableArray<NSIndexPath *> *indexPaths = [NSMutableArray array];
+
+    NSMutableArray<id<VLCLocalNetworkService>> *newNetworkServices = [NSMutableArray array];
     VLCLocalServerDiscoveryController *discoveryController = self.discoveryController;
     NSUInteger sectionCount = [discoveryController numberOfSections];
     for (NSUInteger section = 0; section < sectionCount; ++section) {
         NSUInteger itemsCount = [discoveryController numberOfItemsInSection:section];
         for (NSUInteger index = 0; index < itemsCount; ++index) {
             NSIndexPath *indexPath = [NSIndexPath indexPathForItem:index inSection:section];
-            [indexPaths addObject:indexPath];
+            id<VLCLocalNetworkService> service = [discoveryController networkServiceForIndexPath:indexPath];
+            [newNetworkServices addObject:service];
         }
     }
-    self.indexPaths = [indexPaths copy];
 
-    [self.collectionView reloadData];
+    NSArray *oldNetworkServices = self.networkServices;
+    GRKArrayDiff *diff = [[GRKArrayDiff alloc] initWithPreviousArray:oldNetworkServices
+                                                        currentArray:newNetworkServices
+                                                       identityBlock:^NSString * _Nullable(id <VLCLocalNetworkService> service) {
+                                                           return [NSString stringWithFormat:@"%@: %@", service.serviceName, service.title];
+                                                       }
+                                                       modifiedBlock:nil];
+
+    [diff performBatchUpdatesWithCollectionView:self.collectionView
+                                        section:0
+                               dataSourceUpdate:^{
+                                   self.networkServices = newNetworkServices;
+                               } completion:nil];
 
     _nothingFoundLabel.hidden = self.discoveryController.foundAnythingAtAll;
 }
