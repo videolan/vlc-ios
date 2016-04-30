@@ -108,7 +108,7 @@
     [self addResolvedLocalNetworkService:localNetworkService];
 }
 - (VLCLocalNetworkServiceNetService *)localServiceForNetService:(NSNetService *)netService {
-    return [[VLCLocalNetworkServiceNetService alloc] initWithNetService:netService];
+    return [[VLCLocalNetworkServiceNetService alloc] initWithNetService:netService serviceName:self.name];
 }
 
 #pragma mark -

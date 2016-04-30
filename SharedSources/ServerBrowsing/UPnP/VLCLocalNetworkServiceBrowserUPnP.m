@@ -120,7 +120,7 @@
     for (NSUInteger x = 0; x < count; x++) {
         device = _UPNPdevices[x];
         if ([[device urn] isEqualToString:@"urn:schemas-upnp-org:device:MediaServer:1"])
-            [mutArray addObject:[[VLCLocalNetworkServiceUPnP alloc] initWithUPnPDevice:device]];
+            [mutArray addObject:[[VLCLocalNetworkServiceUPnP alloc] initWithUPnPDevice:device serviceName:self.name]];
         else
             APLog(@"found device '%@' with unsupported urn '%@'", [device friendlyName], [device urn]);
     }

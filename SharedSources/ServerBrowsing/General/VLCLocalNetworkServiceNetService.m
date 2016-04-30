@@ -18,12 +18,13 @@
 @property (nonatomic, strong) NSNetService *netService;
 @end
 @implementation VLCLocalNetworkServiceNetService
-
-- (instancetype)initWithNetService:(NSNetService *)service
+@synthesize serviceName = _serviceName;
+- (instancetype)initWithNetService:(NSNetService *)service serviceName:(nonnull NSString *)serviceName
 {
     self = [super init];
     if (self) {
         _netService = service;
+        _serviceName = serviceName;
     }
     return self;
 }

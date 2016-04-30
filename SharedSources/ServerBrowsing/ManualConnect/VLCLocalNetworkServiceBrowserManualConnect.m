@@ -26,7 +26,7 @@
     self = [super init];
     if (self) {
         _name = @"Generic";
-        _loginItem = [[VLCLocalNetworkServiceItemLogin alloc] init];;
+        _loginItem = [[VLCLocalNetworkServiceItemLogin alloc] init];
     }
     return self;
 }
@@ -51,20 +51,23 @@
 @end
 
 @implementation VLCLocalNetworkServiceItemLogin
-- (instancetype)initWithTile:(NSString *)title icon:(UIImage *)icon
+@synthesize serviceName = _serviceName;
+- (instancetype)initWithTile:(NSString *)title icon:(UIImage *)icon serviceName:(NSString *)serviceName
 {
     self = [super init];
     if (self) {
         _title = title;
         _icon = icon;
+        _serviceName = serviceName;
     }
     return self;
 }
 
-- (instancetype)init
+- (instancetype)initWithServiceName:(NSString *)serviceName
 {
     self = [self initWithTile:NSLocalizedString(@"CONNECT_TO_SERVER", nil)
-                         icon:[UIImage imageNamed:@"vlc-sharing"]];
+                         icon:[UIImage imageNamed:@"vlc-sharing"]
+                  serviceName:serviceName];
     if (self) {
 
     }

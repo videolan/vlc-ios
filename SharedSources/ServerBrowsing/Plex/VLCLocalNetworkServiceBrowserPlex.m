@@ -25,7 +25,7 @@
                         domain:@""];
 }
 - (VLCLocalNetworkServiceNetService *)localServiceForNetService:(NSNetService *)netService {
-    return [[VLCLocalNetworkServicePlex alloc] initWithNetService:netService];
+    return [[VLCLocalNetworkServicePlex alloc] initWithNetService:netService serviceName:self.name];
 }
 @end
 

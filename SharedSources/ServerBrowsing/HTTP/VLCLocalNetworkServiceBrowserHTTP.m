@@ -56,7 +56,7 @@
 }
 
 - (VLCLocalNetworkServiceNetService *)localServiceForNetService:(NSNetService *)netService {
-    return [[VLCLocalNetworkServiceHTTP alloc] initWithNetService:netService];
+    return [[VLCLocalNetworkServiceHTTP alloc] initWithNetService:netService serviceName:self.name];
 }
 @end
 

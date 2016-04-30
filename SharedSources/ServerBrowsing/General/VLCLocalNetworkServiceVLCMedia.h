@@ -14,7 +14,7 @@
 NS_ASSUME_NONNULL_BEGIN
 
 @interface VLCLocalNetworkServiceVLCMedia : NSObject <VLCLocalNetworkService>
-- (instancetype)initWithMediaItem:(VLCMedia *)mediaItem;
+- (instancetype)initWithMediaItem:(VLCMedia *)mediaItem serviceName:(NSString *)serviceName;
 @property (nonatomic, readonly) VLCMedia *mediaItem;
 @end
 

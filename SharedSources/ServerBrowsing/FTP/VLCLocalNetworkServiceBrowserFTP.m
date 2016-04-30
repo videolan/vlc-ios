@@ -26,7 +26,7 @@
                         domain:@""];
 }
 - (VLCLocalNetworkServiceNetService *)localServiceForNetService:(NSNetService *)netService {
-    return [[VLCLocalNetworkServiceFTP alloc] initWithNetService:netService];
+    return [[VLCLocalNetworkServiceFTP alloc] initWithNetService:netService serviceName:self.self.name];
 }
 @end
 

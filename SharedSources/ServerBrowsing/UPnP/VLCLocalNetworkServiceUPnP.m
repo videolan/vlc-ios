@@ -21,12 +21,13 @@
 @end
 
 @implementation VLCLocalNetworkServiceUPnP
-
-- (instancetype)initWithUPnPDevice:(BasicUPnPDevice *)device
+@synthesize serviceName = _serviceName;
+- (instancetype)initWithUPnPDevice:(BasicUPnPDevice *)device serviceName:(NSString *)serviceName
 {
     self = [super init];
     if (self) {
         _device = device;
+        _serviceName = serviceName;
     }
     return self;
 }

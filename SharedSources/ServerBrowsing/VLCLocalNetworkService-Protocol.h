@@ -27,6 +27,7 @@ NS_ASSUME_NONNULL_BEGIN
 @required
 @property (nonatomic, readonly, nullable) UIImage *icon;
 @property (nonatomic, readonly) NSString *title;
+@property (nonatomic, readonly) NSString *serviceName;
 
 @optional
 - (nullable id<VLCNetworkServerBrowser>)serverBrowser;

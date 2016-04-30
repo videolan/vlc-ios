@@ -14,7 +14,7 @@ NS_ASSUME_NONNULL_BEGIN
 
 @class BasicUPnPDevice;
 @interface VLCLocalNetworkServiceUPnP : NSObject <VLCLocalNetworkService>
-- (instancetype)initWithUPnPDevice:(BasicUPnPDevice *)device;
+- (instancetype)initWithUPnPDevice:(BasicUPnPDevice *)device serviceName:(NSString *)serviceName;
 @end
 
 NS_ASSUME_NONNULL_END

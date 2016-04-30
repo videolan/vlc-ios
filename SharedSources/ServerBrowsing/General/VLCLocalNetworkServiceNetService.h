@@ -16,7 +16,7 @@ NS_ASSUME_NONNULL_BEGIN
 #pragma mark - NetService based services
 @interface VLCLocalNetworkServiceNetService : NSObject <VLCLocalNetworkService>
 @property (nonatomic, readonly, strong) NSNetService *netService;
-- (instancetype)initWithNetService:(NSNetService *)service;
+- (instancetype)initWithNetService:(NSNetService *)service serviceName:(NSString *)serviceName;
 @end
 
 

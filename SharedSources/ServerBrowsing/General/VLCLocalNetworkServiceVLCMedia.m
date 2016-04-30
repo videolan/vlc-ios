@@ -17,11 +17,13 @@
 @end
 
 @implementation VLCLocalNetworkServiceVLCMedia
-- (instancetype)initWithMediaItem:(VLCMedia *)mediaItem
+@synthesize serviceName = _serviceName;
+- (instancetype)initWithMediaItem:(VLCMedia *)mediaItem serviceName:(nonnull NSString *)serviceName
 {
     self = [super init];
     if (self) {
         _mediaItem = mediaItem;
+        _serviceName = serviceName;
     }
     return self;
 }
