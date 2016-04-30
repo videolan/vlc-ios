@@ -15,6 +15,7 @@
 #import "VLCPlaybackController.h"
 #import "VLCServerBrowsingController.h"
 #import "VLCMaskView.h"
+#import "GRKArrayDiff+UICollectionView.h"
 
 @interface VLCServerBrowsingTVViewController ()
 {
@@ -23,6 +24,7 @@
     BOOL _focusChangeAllowed;
 }
 @property (nonatomic) VLCServerBrowsingController *browsingController;
+@property (nonatomic) NSArray<id <VLCNetworkServerBrowserItem>> *items;
 @end
 
 @implementation VLCServerBrowsingTVViewController
@@ -105,8 +107,23 @@
 - (void)networkServerBrowserDidUpdate:(id<VLCNetworkServerBrowser>)networkBrowser
 {
     self.title = networkBrowser.title;
-    [self.collectionView reloadData];
-    _nothingFoundLabel.hidden = [self.serverBrowser items].count > 0;
+
+    NSArray *oldItems = self.items;
+    NSArray *newItems = networkBrowser.items;
+    GRKArrayDiff *diff = [[GRKArrayDiff alloc] initWithPreviousArray:oldItems
+                                                        currentArray:newItems
+                                                       identityBlock:^NSString * _Nullable(id <VLCNetworkServerBrowserItem> item) {
+                                                           return [NSString stringWithFormat:@"%@#%@",item.URL.absoluteString ?: @"", item.name];
+                                                       }
+                                                       modifiedBlock:nil];
+
+    [diff performBatchUpdatesWithCollectionView:self.collectionView
+                                        section:0
+                               dataSourceUpdate:^{
+                                   self.items = newItems;
+                               } completion:nil];
+
+    _nothingFoundLabel.hidden = self.items.count > 0;
 }
 
 - (void)networkServerBrowser:(id<VLCNetworkServerBrowser>)networkBrowser requestDidFailWithError:(NSError *)error {
@@ -139,14 +156,14 @@
 
 - (NSInteger)collectionView:(UICollectionView *)collectionView numberOfItemsInSection:(NSInteger)section
 {
-    NSInteger count = [self.serverBrowser items].count;
+    NSInteger count = self.items.count;
     self.nothingFoundView.hidden = count > 0;
     return count;
 }
 
 - (void)collectionView:(UICollectionView *)collectionView willDisplayCell:(UICollectionViewCell *)cell forItemAtIndexPath:(NSIndexPath *)indexPath
 {
-    NSArray *items = self.serverBrowser.items;
+    NSArray *items = self.items;
     NSInteger row = indexPath.row;
     if (row < items.count) {
         id<VLCNetworkServerBrowserItem> item = items[row];
@@ -164,7 +181,7 @@
 - (void)collectionView:(UICollectionView *)collectionView didSelectItemAtIndexPath:(NSIndexPath *)indexPath
 {
     NSInteger row = indexPath.row;
-    id<VLCNetworkServerBrowserItem> item = self.serverBrowser.items[row];
+    id<VLCNetworkServerBrowserItem> item = self.items[row];
 
     // would make sence if item came from search which isn't
     // currently the case on the TV

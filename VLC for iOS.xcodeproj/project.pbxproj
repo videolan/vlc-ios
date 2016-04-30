@@ -560,6 +560,7 @@
 		DD9D8F651C01F96700B4060F /* VLCPlaybackInfoChaptersTVViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = DD9D8F631C01F96700B4060F /* VLCPlaybackInfoChaptersTVViewController.m */; };
 		DD9D8F681C01FAB500B4060F /* VLCPlaybackInfoChaptersTVViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = DD9D8F671C01FAB500B4060F /* VLCPlaybackInfoChaptersTVViewController.xib */; };
 		DD9D8F6B1C01FE5B00B4060F /* VLCPlaybackInfoCollectionViewDataSource.m in Sources */ = {isa = PBXBuildFile; fileRef = DD9D8F6A1C01FE5B00B4060F /* VLCPlaybackInfoCollectionViewDataSource.m */; };
+		DDA1B8EE1CD4DC2A0076BC45 /* GRKArrayDiff+UICollectionView.m in Sources */ = {isa = PBXBuildFile; fileRef = DDA1B8ED1CD4DC2A0076BC45 /* GRKArrayDiff+UICollectionView.m */; };
 		DDAD5C2B1BB999CA006AFD3B /* VLCMovieViewControlPanel.xib in Resources */ = {isa = PBXBuildFile; fileRef = DDAD5C2A1BB999CA006AFD3B /* VLCMovieViewControlPanel.xib */; };
 		DDB7C6A41BAEB28200E6570E /* WKInterfaceController+VLCConnectionAlert.m in Sources */ = {isa = PBXBuildFile; fileRef = DD9FBE761BAD6BB600FFE77A /* WKInterfaceController+VLCConnectionAlert.m */; };
 		DDB959421AFBB30500BB8CFF /* MappingModel_2_5_to_2_6.xcmappingmodel in Sources */ = {isa = PBXBuildFile; fileRef = DDB959411AFBB30500BB8CFF /* MappingModel_2_5_to_2_6.xcmappingmodel */; };
@@ -1363,6 +1364,8 @@
 		DD9FBE751BAD6BB600FFE77A /* WKInterfaceController+VLCConnectionAlert.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "WKInterfaceController+VLCConnectionAlert.h"; sourceTree = "<group>"; };
 		DD9FBE761BAD6BB600FFE77A /* WKInterfaceController+VLCConnectionAlert.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "WKInterfaceController+VLCConnectionAlert.m"; sourceTree = "<group>"; };
 		DD9FBE791BADA8E300FFE77A /* VLC WatchKit Extension.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.xml; name = "VLC WatchKit Extension.entitlements"; path = "../VLC WatchKit Extension.entitlements"; sourceTree = "<group>"; };
+		DDA1B8EC1CD4DC2A0076BC45 /* GRKArrayDiff+UICollectionView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "GRKArrayDiff+UICollectionView.h"; sourceTree = "<group>"; };
+		DDA1B8ED1CD4DC2A0076BC45 /* GRKArrayDiff+UICollectionView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "GRKArrayDiff+UICollectionView.m"; sourceTree = "<group>"; };
 		DDAD5C2A1BB999CA006AFD3B /* VLCMovieViewControlPanel.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; name = VLCMovieViewControlPanel.xib; path = Resources/VLCMovieViewControlPanel.xib; sourceTree = SOURCE_ROOT; };
 		DDAD5C2C1BB9A1E6006AFD3B /* VLCMovieViewControlPanelViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = VLCMovieViewControlPanelViewController.h; path = Sources/VLCMovieViewControlPanelViewController.h; sourceTree = SOURCE_ROOT; };
 		DDAD5C2D1BB9A1E6006AFD3B /* VLCMovieViewControlPanelViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = VLCMovieViewControlPanelViewController.m; path = Sources/VLCMovieViewControlPanelViewController.m; sourceTree = SOURCE_ROOT; };
@@ -2326,6 +2329,8 @@
 				DD9D8F5E1C00C73F00B4060F /* VLCDeleteHintTVView.m */,
 				7D6262181C18AECD00F7CB24 /* VLCDeletionCapableViewController.h */,
 				7D6262191C18AECD00F7CB24 /* VLCDeletionCapableViewController.m */,
+				DDA1B8EC1CD4DC2A0076BC45 /* GRKArrayDiff+UICollectionView.h */,
+				DDA1B8ED1CD4DC2A0076BC45 /* GRKArrayDiff+UICollectionView.m */,
 			);
 			name = "Common Code";
 			sourceTree = "<group>";
@@ -3401,6 +3406,7 @@
 				DD3EFF521BDEBCE500B68579 /* VLCPlexWebAPI.m in Sources */,
 				7D0EDE091BE7752800363AA1 /* VLCLocalNetworkServiceBrowserFTP.m in Sources */,
 				7DF383C11BF231BC00D71A5C /* VLCCloudStorageTVViewController.m in Sources */,
+				DDA1B8EE1CD4DC2A0076BC45 /* GRKArrayDiff+UICollectionView.m in Sources */,
 				DD8095F91BE6268A0065D8E1 /* VLCPlaybackInfoPanelTVViewController.m in Sources */,
 				DD3EABE91BE13D5B003668DA /* VLCRemoteBrowsingTVCell.m in Sources */,
 				7DEBF3791C075EBC007A4043 /* VLCPlaybackInfoSubtitlesFetcherViewController.m in Sources */,

@@ -32,4 +32,5 @@ pod 'upnpx', '~>1.3.6'
 pod 'CocoaHTTPServer', :git => 'git://github.com/fkuehne/CocoaHTTPServer.git' # has our fixes
 pod 'MetaDataFetcherKit', :git => 'https://code.videolan.org/fkuehne/MetaDataFetcherKit.git', :commit => '81c45087'
 pod "OROpenSubtitleDownloader", :git => 'https://github.com/orta/OROpenSubtitleDownloader.git', :commit => '0509eac2'
+pod 'GRKArrayDiff', :git => 'https://github.com/vlcone/GRKArrayDiff.git', :branch => 'patch-1' # added tvOS target
 end
