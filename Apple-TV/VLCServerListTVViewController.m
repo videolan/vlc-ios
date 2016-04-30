@@ -88,7 +88,7 @@
                          [VLCLocalNetworkServiceBrowserDSM class],
                          [VLCLocalNetworkServiceBrowserPlex class],
                          [VLCLocalNetworkServiceBrowserFTP class],
-                         [VLCLocalNetworkServiceBrowserBonjour class],
+//                         [VLCLocalNetworkServiceBrowserBonjour class],
 #ifndef NDEBUG
                          [VLCLocalNetworkServiceBrowserSAP class],
 #endif
