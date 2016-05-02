@@ -10,7 +10,7 @@
  *****************************************************************************/
 
 #import "VLCPlaybackInfoTVViewController.h"
-#import "VLCPlaybackInfoRateTVViewController.h"
+#import "VLCPlaybackInfoPlaybackTVViewController.h"
 #import "VLCPlaybackInfoMediaInfoTVViewController.h"
 #import "VLCPlaybackInfoTVAnimators.h"
 #import "VLCPlaybackInfoTracksTVViewController.h"
@@ -55,7 +55,7 @@
 
     _allTabViewControllers = @[[[VLCPlaybackInfoChaptersTVViewController alloc] initWithNibName:nil bundle:nil],
                                [[VLCPlaybackInfoTracksTVViewController alloc] initWithNibName:nil bundle:nil],
-                               [[VLCPlaybackInfoRateTVViewController alloc] initWithNibName:nil bundle:nil],
+                               [[VLCPlaybackInfoPlaybackTVViewController alloc] initWithNibName:nil bundle:nil],
                                [[VLCPlaybackInfoMediaInfoTVViewController alloc] initWithNibName:nil bundle:nil],
                                ];
 

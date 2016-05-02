@@ -11,7 +11,12 @@
 
 #import "VLCPlaybackInfoPanelTVViewController.h"
 
-@interface VLCPlaybackInfoRateTVViewController : VLCPlaybackInfoPanelTVViewController
-@property (nonatomic, weak) IBOutlet UISegmentedControl *segmentedControl;
-- (IBAction)segmentedControlChanged:(UISegmentedControl *)sender;
+@interface VLCPlaybackInfoPlaybackTVViewController : VLCPlaybackInfoPanelTVViewController
+@property (nonatomic, weak) IBOutlet UISegmentedControl *rateControl;
+@property (nonatomic, weak) IBOutlet UILabel *rateLabel;
+@property (nonatomic, weak) IBOutlet UISegmentedControl *repeatControl;
+@property (nonatomic, weak) IBOutlet UILabel *repeatLabel;
+
+- (IBAction)rateControlChanged:(UISegmentedControl *)sender;
+- (IBAction)repeatControlChanged:(UISegmentedControl *)sender;
 @end
