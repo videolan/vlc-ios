@@ -1023,7 +1023,7 @@ setstuff:
 
         if (lastPosition < .95 && _mediaPlayer.position < lastPosition && (duration * lastPosition - duration) < -50000) {
             NSInteger continuePlayback;
-            if (!_mediaPlayer.hasVideoOut)
+            if ([item isAlbumTrack] || [item isSupportedAudioFile])
                 continuePlayback = [[[NSUserDefaults standardUserDefaults] objectForKey:kVLCSettingContinueAudioPlayback] integerValue];
             else
                 continuePlayback = [[[NSUserDefaults standardUserDefaults] objectForKey:kVLCSettingContinuePlayback] integerValue];
