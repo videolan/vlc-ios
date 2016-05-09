@@ -47,26 +47,6 @@ info()
      echo "[${green}info${normal}] $1"
 }
 
-buildxcworkspace()
-{
-    local target="$2"
-    if [ "x$target" = "x" ]; then
-    target="$1"
-    fi
-
-    info "Building the workspace $1 ($target, ${CONFIGURATION})"
-
-    local architectures=""
-    architectures="armv7 armv7s arm64"
-
-    xcodebuild -workspace "$1.xcworkspace" \
-    -scheme "Pods-vlc-ios" \
-    -sdk iphoneos$SDK \
-    -configuration ${CONFIGURATION} \
-    ARCHS="${architectures}" \
-    IPHONEOS_DEPLOYMENT_TARGET=${SDK_MIN} > ${out}
-}
-
 while getopts "hvsdtnluk:" OPTION
 do
      case $OPTION in
@@ -226,11 +206,5 @@ spopd # ImportedSources
 #install pods
 info "installing pods"
 pod install
-
-# Build the VLC for iOS workspace now
-if [ "$TVOS" = "no" ]; then
-    buildxcworkspace "VLC for iOS" "VLC for iOS"
-fi
-
 
 info "Build completed"
