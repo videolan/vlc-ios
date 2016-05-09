@@ -312,7 +312,7 @@
 "CACHED_MEDIA_LONG"="Media shown here is stored locally on your Apple TV. Note that contents can be removed by the operating system without prior notice anytime when VLC is not running in case your device runs out of storage.";
 "DOWNLOAD_SUBS_FROM_OSO"="Download subtitles from OpenSubtitles.org...";
 "FOUND_SUBS"="Found subtitles";
-"USE_SPDIF"="Use S/PDIF";
+"USE_SPDIF"="Use Pass-through (S/PDIF)";
 
 "PLAYBACK"="Playback";
 "REPEAT_MODE"="Repeat";
