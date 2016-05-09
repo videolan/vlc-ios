@@ -1,3 +1,13 @@
+iOS 2.7.7:
+----------
+* Updated decoders
+* Added ability to rename network streams
+
+tvOS 1.0.6:
+-----------
+* Updated decoders
+* Added repeat mode for playback
+
 iOS 2.7.6:
 ----------
 * General stability improvements and bug fixes
