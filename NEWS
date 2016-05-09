@@ -3,16 +3,35 @@ iOS 2.8.0:
 * Added support for NFS shares
 * Added Bonjour discovery for SMB shares
 
+iOS 2.7.7:
+----------
+* Updated decoders
+* Added ability to rename network streams
+
+tvOS 1.0.6:
+-----------
+* Updated decoders
+* Added repeat mode for playback
+
 iOS 2.7.6:
 ----------
-* Prevent playing the wrong file on PLEX shares
+* General stability improvements and bug fixes
 * Fix hue video filter
 * Improved stability when unlocking app using Touch ID
 * Improved Dropbox stability
+* Prevent ghosting of media downloaded from UPnP servers
+* Prevent playing the wrong file on some UPnP, PLEX or FTP shares
+
+tvOS 1.0.5:
+-----------
+* General stability improvements and bug fixes
+* Prevent ghosting of media downloaded from UPnP servers
+* Prevent playing the wrong file on some UPnP, PLEX or FTP shares
 
 iOS 2.7.5:
 ----------
 * Improved SMB reliability
+* Stability improvements for iOS 7
 
 tvOS 1.0.4:
 -----------
