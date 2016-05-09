@@ -517,6 +517,12 @@ NSString *const VLCPlaybackControllerPlaybackPositionUpdated = @"VLCPlaybackCont
             item = matches.firstObject;
             [self _recoverLastPlaybackStateOfItem:item];
         }
+#else
+        NSUserDefaults *defaults = [NSUserDefaults standardUserDefaults];
+        BOOL bValue = [defaults boolForKey:kVLCSettingUseSPDIF];
+        if (bValue) {
+            [_mediaPlayer performSelector:@selector(setPassthroughAudio:) withObject:@(bValue)];
+        }
 #endif
     }
 
