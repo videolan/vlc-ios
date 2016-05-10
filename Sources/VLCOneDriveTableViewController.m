@@ -129,6 +129,7 @@
             NSUInteger count = folderItems.count;
             NSMutableArray *mediaItems = [[NSMutableArray alloc] init];
             NSInteger firstIndex = 0;
+            NSInteger posIndex = 0;
             for (NSInteger x = count - 1; x > -1; x--) {
                 VLCOneDriveObject *iter = folderItems[x];
                 if (iter.isFolder)
@@ -138,12 +139,13 @@
                     [mediaItems addObject:[VLCMedia mediaWithURL:url]];
 
                     if (iter == selectedObject) {
-                        firstIndex = mediaItems.count;
+                        posIndex = mediaItems.count;
                     }
                 }
             }
 
             if (mediaItems.count > 0) {
+                firstIndex = mediaItems.count - posIndex;
                 [vpc playMediaList:[[VLCMediaList alloc] initWithArray:mediaItems] firstIndex:firstIndex];
             }
         }
