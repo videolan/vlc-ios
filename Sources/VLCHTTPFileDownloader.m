@@ -50,6 +50,11 @@
         _fileName = fileName;
     else
         _fileName = [url.lastPathComponent stringByRemovingPercentEncoding];
+
+    if (_fileName.pathExtension.length == 0 || ![_fileName isSupportedFormat]) {
+        _fileName = [_fileName stringByAppendingPathExtension:@"vlc"];
+    }
+
     _filePath = [basePath stringByAppendingPathComponent:_fileName];
     NSFileManager *fileManager = [NSFileManager defaultManager];
     if (![fileManager fileExistsAtPath:basePath])
@@ -98,34 +103,19 @@
 {
     _statusCode = [response statusCode];
     if (_statusCode == 200) {
-        if (![[response suggestedFilename] isSupportedFormat]) {
-            VLCAlertView *alert = [[VLCAlertView alloc] initWithTitle:NSLocalizedString(@"FILE_NOT_SUPPORTED", nil)
-                                                              message:[NSString stringWithFormat:NSLocalizedString(@"FILE_NOT_SUPPORTED_LONG", nil), [response suggestedFilename]]
+        _expectedDownloadSize = [response expectedContentLength];
+        APLog(@"expected download size: %lli", _expectedDownloadSize);
+        if (_expectedDownloadSize  < [[UIDevice currentDevice] freeDiskspace].longLongValue)
+            [self.delegate downloadStarted];
+        else {
+            [_urlConnection cancel];
+            [self _downloadEnded];
+            VLCAlertView *alert = [[VLCAlertView alloc] initWithTitle:NSLocalizedString(@"DISK_FULL", nil)
+                                                             message:[NSString stringWithFormat:NSLocalizedString(@"DISK_FULL_FORMAT", nil), _fileName, [[UIDevice currentDevice] model]]
                                                              delegate:self
-                                                    cancelButtonTitle:NSLocalizedString(@"BUTTON_CANCEL", nil)
+                                                    cancelButtonTitle:NSLocalizedString(@"BUTTON_OK", nil)
                                                     otherButtonTitles:nil];
             [alert show];
-
-            [_urlConnection cancel];
-            NSFileManager *fileManager = [NSFileManager defaultManager];
-            if ([fileManager fileExistsAtPath:_filePath])
-                [fileManager removeItemAtPath:_filePath error:nil];
-            [self _downloadEnded];
-        } else {
-            _expectedDownloadSize = [response expectedContentLength];
-            APLog(@"expected download size: %lli", _expectedDownloadSize);
-            if (_expectedDownloadSize  < [[UIDevice currentDevice] freeDiskspace].longLongValue)
-                [self.delegate downloadStarted];
-            else {
-                [_urlConnection cancel];
-                [self _downloadEnded];
-                VLCAlertView *alert = [[VLCAlertView alloc] initWithTitle:NSLocalizedString(@"DISK_FULL", nil)
-                                                                 message:[NSString stringWithFormat:NSLocalizedString(@"DISK_FULL_FORMAT", nil), _fileName, [[UIDevice currentDevice] model]]
-                                                                 delegate:self
-                                                        cancelButtonTitle:NSLocalizedString(@"BUTTON_OK", nil)
-                                                        otherButtonTitles:nil];
-                [alert show];
-            }
         }
     } else {
         APLog(@"unhandled status code %lu", (unsigned long)_statusCode);
