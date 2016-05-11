@@ -33,6 +33,12 @@
     return ([self rangeOfString:kSupportedSubtitleFileExtensions options:options].location != NSNotFound);
 }
 
+- (BOOL)isSupportedPlaylistFormat
+{
+    NSUInteger options = NSRegularExpressionSearch | NSCaseInsensitiveSearch;
+    return ([self rangeOfString:kSupportedPlaylistFileExtensions options:options].location != NSNotFound);
+}
+
 - (BOOL)isSupportedFormat
 {
     NSUInteger options = NSRegularExpressionSearch | NSCaseInsensitiveSearch;

@@ -18,6 +18,7 @@
 - (BOOL)isSupportedMediaFormat;
 - (BOOL)isSupportedAudioMediaFormat;
 - (BOOL)isSupportedSubtitleFormat;
+- (BOOL)isSupportedPlaylistFormat;
 
 - (BOOL)isSupportedFormat;
 
