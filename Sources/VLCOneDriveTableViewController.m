@@ -135,7 +135,7 @@
             NSInteger posIndex = 0;
             for (NSInteger x = count - 1; x > -1; x--) {
                 VLCOneDriveObject *iter = folderItems[x];
-                if (iter.isFolder)
+                if ((iter.isFolder) || [iter.name isSupportedSubtitleFormat])
                     continue;
                 NSURL *url = [NSURL URLWithString:iter.downloadPath];
                 if (url) {
@@ -215,7 +215,7 @@
     NSMutableArray *mediaItems = [[NSMutableArray alloc] init];
     for (NSInteger x = count - 1; x > -1; x--) {
         VLCOneDriveObject *iter = folderItems[x];
-        if (iter.isFolder)
+        if ((iter.isFolder) || [iter.name isSupportedSubtitleFormat])
             continue;
 
         NSURL *url = [NSURL URLWithString:iter.downloadPath];
