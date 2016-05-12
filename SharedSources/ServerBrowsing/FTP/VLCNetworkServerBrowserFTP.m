@@ -100,8 +100,27 @@
 
         for (NSUInteger x = 0; x < count; x++) {
             NSDictionary *dict = rawList[x];
-            if (![[dict objectForKey:(id)kCFFTPResourceName] hasPrefix:@"."])
-                [filteredList addObject:[[VLCNetworkServerBrowserItemFTP alloc] initWithDictionary:dict baseURL:self.url]];
+
+            if ([[dict objectForKey:(id)kCFFTPResourceName] isSupportedSubtitleFormat])
+                [subtitleList addObject:[dict objectForKey:(id)kCFFTPResourceName]];
+        }
+
+        for (NSUInteger x = 0; x < count; x++) {
+            NSDictionary *dict = rawList[x];
+            NSString *filename = [dict objectForKey:(id)kCFFTPResourceName];
+            BOOL container = [[dict objectForKey:(id)kCFFTPResourceType] intValue] == 4;
+
+            if (![filename hasPrefix:@"."])
+            {
+                NSURL *subtitleURL = nil;
+
+                if ([filename isSupportedAudioMediaFormat] || [filename isSupportedMediaFormat])
+                    subtitleURL = [self searchSubtitleForFile:filename inSubtitleList:subtitleList];
+                else if ((!container) && ![filename isSupportedSubtitleFormat])
+                    continue;
+
+                [filteredList addObject:[[VLCNetworkServerBrowserItemFTP alloc] initWithDictionary:dict baseURL:self.url subtitleURL:subtitleURL]];
+            }
         }
         [[NSOperationQueue mainQueue] addOperationWithBlock:^{
             @synchronized(_items) {
