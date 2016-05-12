@@ -129,7 +129,7 @@
 
                 if ([filename isSupportedAudioMediaFormat] || [filename isSupportedMediaFormat])
                     subtitleURL = [self searchSubtitleForFile:filename inSubtitleList:subtitleList];
-                else if (!container)
+                else if ((!container) && ![filename isSupportedSubtitleFormat])
                     continue;
 
                 [filteredList addObject:[[VLCNetworkServerBrowserItemFTP alloc] initWithDictionary:dict baseURL:self.url subtitleURL:subtitleURL]];
