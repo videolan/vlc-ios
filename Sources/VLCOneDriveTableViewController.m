@@ -16,6 +16,7 @@
 #import "VLCPlaybackController.h"
 #import "VLCProgressView.h"
 #import "UIDevice+VLC.h"
+#import "NSString+SupportedMedia.h"
 
 @interface VLCOneDriveTableViewController () <VLCCloudStorageDelegate>
 {
@@ -123,8 +124,10 @@
 
         if (![[NSUserDefaults standardUserDefaults] boolForKey:kVLCAutomaticallyPlayNextItem]) {
             /* stream file */
+            NSString *subtitlePath = [self _searchSubtitle:selectedObject.name];
+            subtitlePath = [self _getFileSubtitleFromServer:[NSURL URLWithString:subtitlePath]];
             NSURL *url = [NSURL URLWithString:selectedObject.downloadPath];
-            [vpc playURL:url successCallback:nil errorCallback:nil];
+            [vpc playURL:url subtitlesFilePath:subtitlePath];
         } else {
             NSUInteger count = folderItems.count;
             NSMutableArray *mediaItems = [[NSMutableArray alloc] init];
@@ -153,6 +156,56 @@
     }
 
     [self.tableView deselectRowAtIndexPath:indexPath animated:NO];
+}
+
+- (NSString *)_searchSubtitle:(NSString *)url
+{
+    NSString *urlTemp = [[url lastPathComponent] stringByDeletingPathExtension];
+    NSArray *folderItems = _oneDriveController.currentFolder.items;
+    NSString *itemPath = nil;
+
+    NSPredicate *predicate = [NSPredicate predicateWithFormat:@"name contains[c] %@", urlTemp];
+    NSArray *results = [folderItems filteredArrayUsingPredicate:predicate];
+
+    for (int cnt = 0; cnt < results.count; cnt++) {
+        VLCOneDriveObject *iter = results[cnt];
+        NSString *itemName = iter.name;
+        if ([itemName isSupportedSubtitleFormat])
+            itemPath = iter.downloadPath;
+    }
+    return itemPath;
+}
+
+- (NSString *)_getFileSubtitleFromServer:(NSURL *)subtitleURL
+{
+    NSString *FileSubtitlePath = nil;
+    NSData *receivedSub = [NSData dataWithContentsOfURL:subtitleURL]; // TODO: fix synchronous load
+
+    if (receivedSub.length < [[UIDevice currentDevice] freeDiskspace].longLongValue) {
+        NSArray *searchPaths = NSSearchPathForDirectoriesInDomains(NSCachesDirectory, NSUserDomainMask, YES);
+        NSString *directoryPath = searchPaths[0];
+        FileSubtitlePath = [directoryPath stringByAppendingPathComponent:[subtitleURL lastPathComponent]];
+
+        NSFileManager *fileManager = [NSFileManager defaultManager];
+        if (![fileManager fileExistsAtPath:FileSubtitlePath]) {
+            //create local subtitle file
+            [fileManager createFileAtPath:FileSubtitlePath contents:nil attributes:nil];
+            if (![fileManager fileExistsAtPath:FileSubtitlePath]) {
+                APLog(@"file creation failed, no data was saved");
+                return nil;
+            }
+        }
+        [receivedSub writeToFile:FileSubtitlePath atomically:YES];
+    } else {
+        VLCAlertView *alert = [[VLCAlertView alloc] initWithTitle:NSLocalizedString(@"DISK_FULL", nil)
+                                                          message:[NSString stringWithFormat:NSLocalizedString(@"DISK_FULL_FORMAT", nil), [subtitleURL lastPathComponent], [[UIDevice currentDevice] model]]
+                                                         delegate:self
+                                                cancelButtonTitle:NSLocalizedString(@"BUTTON_OK", nil)
+                                                otherButtonTitles:nil];
+        [alert show];
+    }
+
+    return FileSubtitlePath;
 }
 
 - (void)playAllAction:(id)sender
