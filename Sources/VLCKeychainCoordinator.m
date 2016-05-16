@@ -13,7 +13,7 @@
 #import "VLCKeychainCoordinator.h"
 #import "PAPasscodeViewController.h"
 #import "VLCAppDelegate.h"
-#import "SSKeychain.h"
+#import <XKKeychain/XKKeychainGenericPasswordItem.h>
 #import <LocalAuthentication/LocalAuthentication.h>
 
 NSString *const VLCPasscodeValidated = @"VLCPasscodeValidated";
@@ -79,11 +79,12 @@ NSString *const VLCPasscode = @"org.videolan.vlc-ios.passcode";
     NSUserDefaults *defaults = [NSUserDefaults standardUserDefaults];
     BOOL wasReset = [defaults boolForKey:kVLCSettingPasscodeResetOnUpgrade];
     if (wasReset) {
-        NSString *passcode = [SSKeychain passwordForService:VLCPasscode account:VLCPasscode];
+        XKKeychainGenericPasswordItem *item = [XKKeychainGenericPasswordItem itemForService:VLCPasscode account:VLCPasscode error:nil];
+        NSString *passcode = item.secret.stringValue;
         return passcode;
     }
 
-    [SSKeychain deletePasswordForService:VLCPasscode account:VLCPasscode];
+    [XKKeychainGenericPasswordItem removeItemsForService:VLCPasscode error:nil];
     [defaults setBool:YES forKey:kVLCSettingPasscodeResetOnUpgrade];
     [defaults synchronize];
 
@@ -178,11 +179,15 @@ NSString *const VLCPasscode = @"org.videolan.vlc-ios.passcode";
 - (void)setPasscode:(NSString *)passcode
 {
     if (!passcode) {
-        [SSKeychain deletePasswordForService:VLCPasscode account:VLCPasscode];
+        [XKKeychainGenericPasswordItem removeItemsForService:VLCPasscode error:nil];
         return;
     }
 
-    [SSKeychain setPassword:passcode forService:VLCPasscode account:VLCPasscode];
+    XKKeychainGenericPasswordItem *keychainItem = [[XKKeychainGenericPasswordItem alloc] init];
+    keychainItem.service = VLCPasscode;
+    keychainItem.account = VLCPasscode;
+    keychainItem.secret.stringValue = passcode;
+    [keychainItem saveWithError:nil];
 }
 
 @end

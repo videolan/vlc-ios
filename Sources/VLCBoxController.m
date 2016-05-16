@@ -14,7 +14,7 @@
 #import "NSString+SupportedMedia.h"
 #import "VLCPlaybackController.h"
 #import "VLCMediaFileDiscoverer.h"
-#import <SSKeychain/SSKeychain.h>
+#import <XKKeychain/XKKeychainGenericPasswordItem.h>
 
 @interface VLCBoxController ()
 {
@@ -73,7 +73,8 @@
 
     [BoxSDK sharedSDK].OAuth2Session.clientID = kVLCBoxClientID;
     [BoxSDK sharedSDK].OAuth2Session.clientSecret = kVLCBoxClientSecret;
-    NSString *token = [SSKeychain passwordForService:kVLCBoxService account:kVLCBoxAccount];
+
+    NSString *token = [XKKeychainGenericPasswordItem itemForService:kVLCBoxService account:kVLCBoxAccount error:nil].secret.stringValue;
     if (!token) {
         NSUbiquitousKeyValueStore *ubiquitousStore = [NSUbiquitousKeyValueStore defaultStore];
         [ubiquitousStore synchronize];
@@ -93,7 +94,11 @@
 
 - (void)logout
 {
-    [SSKeychain deletePasswordForService:kVLCBoxService account:kVLCBoxAccount];
+    XKKeychainGenericPasswordItem *keychainItem = [[XKKeychainGenericPasswordItem alloc] init];
+    keychainItem.service = kVLCBoxService;
+    keychainItem.account = kVLCBoxAccount;
+    [keychainItem deleteWithError:nil];
+
     [[BoxSDK sharedSDK].OAuth2Session logout];
     NSUbiquitousKeyValueStore *ubiquitousStore = [NSUbiquitousKeyValueStore defaultStore];
     [ubiquitousStore setString:nil forKey:kVLCStoreBoxCredentials];

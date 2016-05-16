@@ -15,7 +15,7 @@
 #import "NSString+SupportedMedia.h"
 #import "VLCPlaybackController.h"
 #import "VLCMediaFileDiscoverer.h"
-#import "SSKeychain.h"
+#import <XKKeychain/XKKeychain.h>
 
 @interface VLCGoogleDriveController ()
 {
@@ -94,7 +94,8 @@
 - (void)shareCredentials
 {
     /* share our credentials */
-    NSString *credentials = [SSKeychain passwordForService:kKeychainItemName account:@"OAuth"]; // kGTMOAuth2AccountName
+    XKKeychainGenericPasswordItem *item = [XKKeychainGenericPasswordItem itemForService:kKeychainItemName account:@"OAuth" error:nil]; // kGTMOAuth2AccountName
+    NSString *credentials = item.secret.stringValue;
     if (credentials == nil)
         return;
 
@@ -111,7 +112,12 @@
     if (!credentials)
         return NO;
 
-    [SSKeychain setPassword:credentials forService:kKeychainItemName account:@"OAuth"]; // kGTMOAuth2AccountName
+    XKKeychainGenericPasswordItem *keychainItem = [[XKKeychainGenericPasswordItem alloc] init];
+    keychainItem.service = kKeychainItemName;
+    keychainItem.account = @"OAuth"; // kGTMOAuth2AccountName
+    keychainItem.secret.stringValue = credentials;
+    [keychainItem saveWithError:nil];
+
     return YES;
 }
 

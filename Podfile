@@ -9,7 +9,7 @@ pod 'OBSlider', '1.1.0'
 pod 'InAppSettingsKit', :git => 'git://github.com/fkuehne/InAppSettingsKit.git', :commit => '415ea6bb' #tvOS fix
 pod 'upnpx', '~>1.3.6'
 pod 'HockeySDK', '~>3.6.4'
-pod 'SSKeychain', :git => 'git://github.com/fkuehne/sskeychain.git' #iCloud Keychain sync
+pod 'XKKeychain', '~>1.0'
 pod 'box-ios-sdk-v2', :git => 'git://github.com/fkuehne/box-ios-sdk-v2.git' #has a logout function added
 pod 'CocoaHTTPServer', :git => 'git://github.com/fkuehne/CocoaHTTPServer.git' # has our fixes
 pod 'RESideMenu', '~>4.0.7'
@@ -26,11 +26,12 @@ end
 
 target 'VLC-TV' do
 platform :tvos, '9.0'
-pod 'SSKeychain', :git => 'git://github.com/fkuehne/sskeychain.git' #iCloud Keychain Sync
+pod 'XKKeychain', '~>1.0'
 pod 'box-ios-sdk-v2', :git => 'git://github.com/fkuehne/box-ios-sdk-v2.git' #has tvOS support added
 pod 'upnpx', '~>1.3.6'
 pod 'CocoaHTTPServer', :git => 'git://github.com/fkuehne/CocoaHTTPServer.git' # has our fixes
 pod 'MetaDataFetcherKit', :git => 'https://code.videolan.org/fkuehne/MetaDataFetcherKit.git', :commit => '81c45087'
 pod "OROpenSubtitleDownloader", :git => 'https://github.com/orta/OROpenSubtitleDownloader.git', :commit => '0509eac2'
-pod 'GRKArrayDiff', :git => 'https://github.com/vlcone/GRKArrayDiff.git', :branch => 'patch-1' # added tvOS target
+pod 'GRKArrayDiff', '~> 2.1'
+
 end

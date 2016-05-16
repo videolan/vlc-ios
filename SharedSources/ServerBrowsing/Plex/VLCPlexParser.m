@@ -11,7 +11,7 @@
 
 #import "VLCPlexParser.h"
 #import "VLCPlexWebAPI.h"
-#import "SSKeychain.h"
+#import <XKKeychain/XKKeychainGenericPasswordItem.h>
 
 static NSString *const kPlexMediaServerDirInit = @"/library/sections";
 static NSString *const kPlexVLCDeviceName = @"VLC for iOS";
@@ -63,15 +63,14 @@ static NSString *const kPlexVLCDeviceName = @"VLC for iOS";
         NSString *responseString = [[NSString alloc] initWithData:data encoding:NSUTF8StringEncoding];
         if([responseString rangeOfString:@"Unauthorized"].location != NSNotFound) {
             NSString *serviceString = [NSString stringWithFormat:@"plex://%@%@", address, port];
-            NSArray *accounts = [SSKeychain accountsForService:serviceString];
-            if (!accounts) {
+            XKKeychainGenericPasswordItem *keychainItem = [XKKeychainGenericPasswordItem itemsForService:serviceString error:nil].firstObject;
+            if (!keychainItem) {
                 serviceString = @"plex://Account";
-                accounts = [SSKeychain accountsForService:serviceString];
+                keychainItem = [XKKeychainGenericPasswordItem itemsForService:serviceString error:nil].firstObject;
             }
-            if (accounts) {
-                NSDictionary *account = [accounts firstObject];
-                NSString *username = [account objectForKey:@"acct"];
-                NSString *password = [SSKeychain passwordForService:serviceString account:username];
+            if (keychainItem) {
+                NSString *username = keychainItem.account;
+                NSString *password = keychainItem.secret.stringValue;
 
                 auth = [PlexWebAPI PlexAuthentification:username password:password];
                 url = [NSURL URLWithString:[PlexWebAPI urlAuth:mediaServerUrl authentification:auth]];

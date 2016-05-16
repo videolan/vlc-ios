@@ -13,7 +13,7 @@
 
 #import "VLCNetworkLoginViewController.h"
 #import "VLCPlexWebAPI.h"
-#import "SSKeychain.h"
+#import <XKKeychain/XKKeychainGenericPasswordItem.h>
 
 @interface VLCNetworkLoginViewController () <UITableViewDataSource, UITableViewDelegate, UITextFieldDelegate>
 {
@@ -123,7 +123,11 @@
 
         if (count > 0) {
             for (NSUInteger i = 0; i < count; i++) {
-                [SSKeychain setPassword:ftpPasswordList[i] forService:ftpServerList[i] account:ftpLoginList[i]];
+                XKKeychainGenericPasswordItem *keychainItem = [[XKKeychainGenericPasswordItem alloc] init];
+                keychainItem.service = ftpServerList[i];
+                keychainItem.account = ftpLoginList[i];
+                keychainItem.secret.stringValue = ftpPasswordList[i];
+                [keychainItem saveWithError:nil];
                 [_serverList addObject:ftpServerList[i]];
             }
         }
@@ -283,8 +287,13 @@
     NSString *username = self.usernameField.text;
     NSString *password = self.passwordField.text;
 
-    if (username || password)
-        [SSKeychain setPassword:password forService:service account:username];
+    if (username || password) {
+        XKKeychainGenericPasswordItem *keychainItem = [[XKKeychainGenericPasswordItem alloc] init];
+        keychainItem.service = service;
+        keychainItem.account = username;
+        keychainItem.secret.stringValue = password;
+        [keychainItem saveWithError:nil];
+    }
 
     [self.storedServersTableView reloadData];
 }
@@ -363,10 +372,9 @@
     NSString *serviceString = _serverList[row];
     NSURL *service = [NSURL URLWithString:serviceString];
     cell.textLabel.text = [NSString stringWithFormat:@"%@ [%@]", service.host, [service.scheme uppercaseString]];
-    NSArray *accounts = [SSKeychain accountsForService:serviceString];
-    if (accounts.count > 0) {
-        NSDictionary *account = [accounts firstObject];
-        cell.detailTextLabel.text = [account objectForKey:@"acct"];
+    XKKeychainGenericPasswordItem *keychainItem = [XKKeychainGenericPasswordItem itemsForService:serviceString error:nil].firstObject;
+    if (keychainItem) {
+        cell.detailTextLabel.text = keychainItem.account;
     } else
         cell.detailTextLabel.text = @"";
 
@@ -391,12 +399,7 @@ forRowAtIndexPath:(NSIndexPath *)indexPath
 {
     if (editingStyle == UITableViewCellEditingStyleDelete) {
         NSString *serviceString = _serverList[indexPath.row];
-        NSArray *accounts = [SSKeychain accountsForService:serviceString];
-        NSUInteger count = accounts.count;
-        for (NSUInteger i = 0; i < count; i++) {
-            NSString *username = [accounts[i] objectForKey:@"acct"];
-            [SSKeychain deletePasswordForService:serviceString account:username];
-        }
+        [XKKeychainGenericPasswordItem removeItemsForService:serviceString error:nil];
         [_serverList removeObject:serviceString];
         NSUserDefaults *defaults = [NSUserDefaults standardUserDefaults];
         [defaults removeObjectForKey:serviceString];
@@ -428,17 +431,14 @@ forRowAtIndexPath:(NSIndexPath *)indexPath
         self.serverField.text = service.host;
     self.portField.text = [service.port stringValue];
 
-    NSArray *accounts = [SSKeychain accountsForService:serviceString];
-    if (!accounts) {
+    XKKeychainGenericPasswordItem *keychainItem = [XKKeychainGenericPasswordItem itemsForService:serviceString error:nil].firstObject;
+    if (!keychainItem) {
         self.usernameField.text = self.passwordField.text = @"";
         return;
     }
 
-    NSDictionary *account = [accounts firstObject];
-
-    NSString *username = [account objectForKey:@"acct"];
-    self.usernameField.text = username;
-    self.passwordField.text = [SSKeychain passwordForService:serviceString account:username];
+    self.usernameField.text = keychainItem.account;
+    self.passwordField.text = keychainItem.secret.stringValue;
 }
 
 - (void)setHostname:(NSString *)theHostname

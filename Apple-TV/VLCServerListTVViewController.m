@@ -16,7 +16,6 @@
 #import "VLCNetworkServerBrowserPlex.h"
 #import "VLCNetworkServerBrowserVLCMedia.h"
 #import "VLCNetworkServerBrowserFTP.h"
-#import <SSKeychain/SSKeychain.h>
 
 #import "VLCLocalNetworkServiceBrowserManualConnect.h"
 #import "VLCLocalNetworkServiceBrowserPlex.h"
@@ -28,6 +27,8 @@
 #import "VLCLocalNetworkServiceBrowserDSM.h"
 #import "VLCLocalNetworkServiceBrowserBonjour.h"
 #import "VLCLocalNetworkServiceBrowserHTTP.h"
+
+#import "VLCNetworkServerLoginInformation+Keychain.h"
 
 #import "VLCRemoteBrowsingTVCell.h"
 #import "GRKArrayDiff+UICollectionView.h"
@@ -165,8 +166,14 @@
     if ([service respondsToSelector:@selector(loginInformation)]) {
         VLCNetworkServerLoginInformation *login = service.loginInformation;
         if (!login) return;
-        [self showLoginAlertWithLogin:login];
 
+        NSError *error = nil;
+        if ([login loadLoginInformationFromKeychainWithError:&error])
+        {
+            [self showLoginAlertWithLogin:login];
+        } else {
+            [self showKeychainLoadError:error forLogin:login];
+        }
         return;
     }
 
@@ -184,55 +191,108 @@
     }
 }
 
+- (void)showKeychainLoadError:(NSError *)error forLogin:(VLCNetworkServerLoginInformation *)login
+{
+    UIAlertController *alertController = [UIAlertController alertControllerWithTitle:error.localizedDescription
+                                                                             message:error.localizedFailureReason preferredStyle:UIAlertControllerStyleAlert];
+    [alertController addAction:[UIAlertAction actionWithTitle:NSLocalizedString(@"BUTTON_OK", nil)
+                                                        style:UIAlertActionStyleDefault
+                                                      handler:^(UIAlertAction * _Nonnull action) {
+                                                          [self showLoginAlertWithLogin:login];
+                                                      }]];
+    [self presentViewController:alertController animated:YES completion:nil];
+}
+
+- (void)showKeychainSaveError:(NSError *)error forLogin:(VLCNetworkServerLoginInformation *)login
+{
+    UIAlertController *alertController = [UIAlertController alertControllerWithTitle:error.localizedDescription
+                                                                             message:error.localizedFailureReason preferredStyle:UIAlertControllerStyleAlert];
+    [alertController addAction:[UIAlertAction actionWithTitle:NSLocalizedString(@"BUTTON_OK", nil)
+                                                        style:UIAlertActionStyleDefault
+                                                      handler:nil]];
+    [self presentViewController:alertController animated:YES completion:nil];
+}
+- (void)showKeychainDeleteError:(NSError *)error
+{
+    UIAlertController *alertController = [UIAlertController alertControllerWithTitle:error.localizedDescription
+                                                                             message:error.localizedFailureReason preferredStyle:UIAlertControllerStyleAlert];
+    [alertController addAction:[UIAlertAction actionWithTitle:NSLocalizedString(@"BUTTON_OK", nil)
+                                                        style:UIAlertActionStyleDefault
+                                                      handler:nil]];
+    [self presentViewController:alertController animated:YES completion:nil];
+}
 - (void)showLoginAlertWithLogin:(nonnull VLCNetworkServerLoginInformation *)login
 {
     UIAlertController *alertController = [UIAlertController alertControllerWithTitle:NSLocalizedString(@"CONNECT_TO_SERVER", nil)
                                                                              message:login.address preferredStyle:UIAlertControllerStyleAlert];
 
-    NSURLComponents *components = [[NSURLComponents alloc] init];
-    components.scheme = login.protocolIdentifier;
-    components.host = login.address;
-    components.port = login.port;
-    NSString *serviceIdentifier = components.URL.absoluteString;
-    NSString *accountName = [SSKeychain accountsForService:serviceIdentifier].firstObject[kSSKeychainAccountKey];
-    NSString *password = [SSKeychain passwordForService:serviceIdentifier account:accountName];
-
     __block UITextField *usernameField = nil;
     __block UITextField *passwordField = nil;
     [alertController addTextFieldWithConfigurationHandler:^(UITextField * _Nonnull textField) {
         textField.placeholder = NSLocalizedString(@"USER_LABEL", nil);
-        textField.text = accountName;
+        textField.text = login.username;
         usernameField = textField;
     }];
     [alertController addTextFieldWithConfigurationHandler:^(UITextField * _Nonnull textField) {
         textField.secureTextEntry = YES;
         textField.placeholder = NSLocalizedString(@"PASSWORD_LABEL", nil);
-        textField.text = password;
+        textField.text = login.password;
         passwordField = textField;
     }];
+
+    NSMutableDictionary *additionalFieldsDict = [NSMutableDictionary dictionaryWithCapacity:login.additionalFields.count];
+    for (VLCNetworkServerLoginInformationField *fieldInfo in login.additionalFields) {
+        [alertController addTextFieldWithConfigurationHandler:^(UITextField * _Nonnull textField) {
+            switch (fieldInfo.type) {
+                case VLCNetworkServerLoginInformationFieldTypeNumber:
+                    textField.keyboardType = UIKeyboardTypeNumberPad;
+                    break;
+                case VLCNetworkServerLoginInformationFieldTypeText:
+                default:
+                    textField.keyboardType = UIKeyboardTypeDefault;
+                    break;
+            }
+            textField.placeholder = fieldInfo.localizedLabel;
+            textField.text = fieldInfo.textValue;
+            additionalFieldsDict[fieldInfo.identifier] = textField;
+        }];
+    }
+
+    void(^loginBlock)(BOOL) = ^(BOOL save) {
+        login.username = usernameField.text;
+        login.password = passwordField.text;
+        for (VLCNetworkServerLoginInformationField *fieldInfo in login.additionalFields) {
+            UITextField *textField = additionalFieldsDict[fieldInfo.identifier];
+            fieldInfo.textValue = textField.text;
+        }
+        if (save) {
+            NSError *error = nil;
+            if (![login saveLoginInformationToKeychainWithError:&error]) {
+                [self showKeychainSaveError:error forLogin:login];
+            }
+        }
+        [self showBrowserWithLogin:login];
+    };
+
     [alertController addAction:[UIAlertAction actionWithTitle:NSLocalizedString(@"LOGIN", nil)
                                                         style:UIAlertActionStyleDefault
                                                       handler:^(UIAlertAction * _Nonnull action) {
-                                                          login.username = usernameField.text;
-                                                          login.password = passwordField.text;
-                                                          [self showBrowserWithLogin:login];
+                                                          loginBlock(NO);
                                                       }]];
 
     [alertController addAction:[UIAlertAction actionWithTitle:NSLocalizedString(@"BUTTON_SAVE", nil)
                                                         style:UIAlertActionStyleDefault
                                                       handler:^(UIAlertAction * _Nonnull action) {
-                                                          NSString *accountName = usernameField.text;
-                                                          NSString *password = passwordField.text;
-                                                          [SSKeychain setPassword:password forService:serviceIdentifier account:accountName];
-                                                          login.username = accountName;
-                                                          login.password = password;
-                                                          [self showBrowserWithLogin:login];
+                                                          loginBlock(YES);
                                                       }]];
-    if (accountName.length && password.length) {
+    if (login.username.length || login.password.length) {
         [alertController addAction:[UIAlertAction actionWithTitle:NSLocalizedString(@"BUTTON_DELETE", nil)
                                                             style:UIAlertActionStyleDestructive
                                                           handler:^(UIAlertAction * _Nonnull action) {
-                                                              [SSKeychain deletePasswordForService:serviceIdentifier account:accountName];
+                                                              NSError *error = nil;
+                                                              if (![login deleteFromKeychainWithError:&error]){
+                                                                  [self showKeychainDeleteError:error];
+                                                              }
                                                           }]];
     } else {
         [alertController addAction:[UIAlertAction actionWithTitle:NSLocalizedString(@"BUTTON_ANONYMOUS_LOGIN", nil)

@@ -13,7 +13,6 @@
 #import "VLCLocalNetworkServiceBrowserDSM.h"
 #import "VLCNetworkServerLoginInformation.h"
 
-
 @implementation VLCLocalNetworkServiceBrowserDSM
 
 - (instancetype)init {
@@ -37,6 +36,8 @@
 
 
 NSString *const VLCNetworkServerProtocolIdentifierSMB = @"smb";
+static NSString *const VLCLocalNetworkServiceDSMWorkgroupIdentifier = @"VLCLocalNetworkServiceDSMWorkgroup";
+
 @implementation VLCLocalNetworkServiceDSM
 - (UIImage *)icon {
     return [UIImage imageNamed:@"serverIcon"];
@@ -50,7 +51,11 @@ NSString *const VLCNetworkServerProtocolIdentifierSMB = @"smb";
     VLCNetworkServerLoginInformation *login = [[VLCNetworkServerLoginInformation alloc] init];
     login.address = self.mediaItem.url.host;
     login.protocolIdentifier = VLCNetworkServerProtocolIdentifierSMB;
-
+    VLCNetworkServerLoginInformationField *workgroupField = [[VLCNetworkServerLoginInformationField alloc] initWithType:VLCNetworkServerLoginInformationFieldTypeText
+                                                                                                             identifier:VLCLocalNetworkServiceDSMWorkgroupIdentifier
+                                                                                                                  label:NSLocalizedString(@"DSM_WORKGROUP", nil)
+                                                                                                              textValue:@"WORKGROUP"];
+    login.additionalFields = @[workgroupField];
     return login;
 }
 
@@ -66,12 +71,20 @@ NSString *const VLCNetworkServerProtocolIdentifierSMB = @"smb";
     components.host = login.address;
     components.port = login.port;
     NSURL *url = components.URL;
+
+    __block NSString *workgroup = nil;
+    [login.additionalFields enumerateObjectsUsingBlock:^(VLCNetworkServerLoginInformationField * _Nonnull obj, NSUInteger idx, BOOL * _Nonnull stop) {
+        if ([obj.identifier isEqualToString:VLCLocalNetworkServiceDSMWorkgroupIdentifier])
+        {
+            workgroup = obj.textValue;
+        }
+    }];
+
     return [self SMBNetworkServerBrowserWithURL:url
                                        username:login.username
                                        password:login.password
-                                      workgroup:nil];
+                                      workgroup:workgroup];
 }
-
 
 + (instancetype)SMBNetworkServerBrowserWithURL:(NSURL *)url username:(NSString *)username password:(NSString *)password workgroup:(NSString *)workgroup
 {

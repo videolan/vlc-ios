@@ -13,7 +13,7 @@
 #import "VLCBoxTableViewController.h"
 #import "VLCCloudStorageTableViewCell.h"
 #import "VLCBoxController.h"
-#import <SSKeychain/SSKeychain.h>
+#import <XKKeychain/XKKeychainGenericPasswordItem.h>
 #import "UIDevice+VLC.h"
 #import "VLCPlaybackController.h"
 
@@ -257,7 +257,13 @@
 - (void)boxApiTokenDidRefresh
 {
     NSString *token = [BoxSDK sharedSDK].OAuth2Session.refreshToken;
-    [SSKeychain setPassword:token forService:kVLCBoxService account:kVLCBoxAccount];
+
+    XKKeychainGenericPasswordItem *keychainItem = [[XKKeychainGenericPasswordItem alloc] init];
+    keychainItem.service = kVLCBoxService;
+    keychainItem.account = kVLCBoxAccount;
+    keychainItem.secret.stringValue = token;
+    [keychainItem saveWithError:nil];
+
     NSUbiquitousKeyValueStore *ubiquitousStore = [NSUbiquitousKeyValueStore defaultStore];
     [ubiquitousStore setString:token forKey:kVLCStoreBoxCredentials];
     [ubiquitousStore synchronize];
