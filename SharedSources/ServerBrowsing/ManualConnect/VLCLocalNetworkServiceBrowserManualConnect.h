@@ -20,7 +20,7 @@ NS_ASSUME_NONNULL_BEGIN
 
 
 @interface VLCLocalNetworkServiceItemLogin : NSObject <VLCLocalNetworkService>
-- (instancetype)init;
+- (instancetype)initWithServiceName:(NSString *)serviceName;
 @end
 
 NS_ASSUME_NONNULL_END
