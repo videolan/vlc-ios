@@ -18,6 +18,7 @@
 @interface VLCOpenNetworkStreamTVViewController ()
 {
     NSMutableArray *_recentURLs;
+    NSMutableDictionary *_recentURLTitles;
 }
 @property (nonatomic) NSIndexPath *currentlyFocusedIndexPath;
 @end
@@ -62,14 +63,17 @@
 
     /* fetch data from cloud */
     _recentURLs = [NSMutableArray arrayWithArray:[ubiquitousKeyValueStore arrayForKey:kVLCRecentURLs]];
+    _recentURLTitles = [NSMutableDictionary dictionaryWithDictionary:[ubiquitousKeyValueStore dictionaryForKey:kVLCRecentURLTitles]];
 
     [self.previouslyPlayedStreamsTableView reloadData];
+    [super viewWillAppear:animated];
 }
 
 - (void)ubiquitousKeyValueStoreDidChange:(NSNotification *)notification
 {
     /* TODO: don't blindly trust that the Cloud knows best */
     _recentURLs = [NSMutableArray arrayWithArray:[[NSUbiquitousKeyValueStore defaultStore] arrayForKey:kVLCRecentURLs]];
+    _recentURLTitles = [NSMutableDictionary dictionaryWithDictionary:[[NSUbiquitousKeyValueStore defaultStore] dictionaryForKey:kVLCRecentURLTitles]];
     [self.previouslyPlayedStreamsTableView reloadData];
 }
 
@@ -88,9 +92,11 @@
         cell = [[UITableViewCell alloc] initWithStyle:UITableViewCellStyleSubtitle reuseIdentifier:@"RecentlyPlayedURLsTableViewCell"];
     }
 
-    NSString *content = _recentURLs[indexPath.row];
-    cell.textLabel.text = [content lastPathComponent];
+    NSString *content = [_recentURLs[indexPath.row] stringByRemovingPercentEncoding];
+    NSString *possibleTitle = _recentURLTitles[[@(indexPath.row) stringValue]];
+
     cell.detailTextLabel.text = content;
+    cell.textLabel.text = (possibleTitle != nil) ? possibleTitle : [content lastPathComponent];
 
     return cell;
 }
