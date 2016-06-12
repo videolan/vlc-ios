@@ -307,7 +307,7 @@
 {
     if (editingStyle == UITableViewCellEditingStyleDelete) {
         [_recentURLs removeObjectAtIndex:indexPath.row];
-        [_recentURLTitles removeObjectForKey:@(indexPath.row)];
+        [_recentURLTitles removeObjectForKey:[@(indexPath.row) stringValue]];
         [[NSUbiquitousKeyValueStore defaultStore] setArray:_recentURLs forKey:kVLCRecentURLs];
         [[NSUbiquitousKeyValueStore defaultStore] setDictionary:_recentURLTitles forKey:kVLCRecentURLTitles];
         [tableView reloadData];
