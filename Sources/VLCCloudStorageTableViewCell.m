@@ -102,13 +102,13 @@
     else if(_driveFile != nil){
         BOOL isDirectory = [self.driveFile.mimeType isEqualToString:@"application/vnd.google-apps.folder"];
         if (isDirectory) {
-            self.folderTitleLabel.text = self.driveFile.title;
+            self.folderTitleLabel.text = self.driveFile.name;
             self.titleLabel.hidden = self.subtitleLabel.hidden = YES;
             self.folderTitleLabel.hidden = NO;
         } else {
-            NSString *title = self.driveFile.title;
+            NSString *title = self.driveFile.name;
             self.titleLabel.text = title;
-            self.subtitleLabel.text = (self.driveFile.fileSize > 0) ? [NSByteCountFormatter stringFromByteCount:[self.driveFile.fileSize longLongValue] countStyle:NSByteCountFormatterCountStyleFile]: @"";
+            self.subtitleLabel.text = (self.driveFile.size > 0) ? [NSByteCountFormatter stringFromByteCount:[self.driveFile.size longLongValue] countStyle:NSByteCountFormatterCountStyleFile]: @"";
             self.titleLabel.hidden = self.subtitleLabel.hidden = NO;
             self.folderTitleLabel.hidden = YES;
 

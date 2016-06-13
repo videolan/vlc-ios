@@ -13,6 +13,8 @@ pod 'XKKeychain', '~>1.0'
 pod 'box-ios-sdk-v2', :git => 'git://github.com/fkuehne/box-ios-sdk-v2.git' #has a logout function added
 pod 'CocoaHTTPServer', :git => 'git://github.com/fkuehne/CocoaHTTPServer.git' # has our fixes
 pod 'RESideMenu', '~>4.0.7'
+pod 'GoogleAPIClient/Drive'
+pod 'GTMOAuth2'
 
 end
 post_install do |installer_representation|
@@ -30,7 +32,7 @@ pod 'XKKeychain', '~>1.0'
 pod 'box-ios-sdk-v2', :git => 'git://github.com/fkuehne/box-ios-sdk-v2.git' #has tvOS support added
 pod 'upnpx', '~>1.3.6'
 pod 'CocoaHTTPServer', :git => 'git://github.com/fkuehne/CocoaHTTPServer.git' # has our fixes
-pod 'MetaDataFetcherKit', :git => 'https://code.videolan.org/fkuehne/MetaDataFetcherKit.git', :commit => '81c45087'
+pod 'MetaDataFetcherKit', '~>0.1.8'
 pod "OROpenSubtitleDownloader", :git => 'https://github.com/orta/OROpenSubtitleDownloader.git', :commit => '0509eac2'
 pod 'GRKArrayDiff', '~> 2.1'
 

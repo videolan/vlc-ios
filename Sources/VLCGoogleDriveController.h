@@ -12,7 +12,6 @@
  *****************************************************************************/
 
 #import "GTLDrive.h"
-#import "GTMOAuth2ViewControllerTouch.h"
 #import "VLCCloudStorageController.h"
 #import "VLCGoogleDriveConstants.h"
 

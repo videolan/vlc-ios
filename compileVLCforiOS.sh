@@ -120,20 +120,6 @@ git pull --rebase
 git reset --hard ${TESTEDVLCKITHASH}
 cd ..
 fi
-if ! [ -e GDrive ]; then
-svn checkout http://google-api-objectivec-client.googlecode.com/svn/trunk/Source GDrive
-cd GDrive
-patch -p0 < ../../patches/gdrive/gdrive-base.diff
-cd ..
-cd GDrive/HTTPFetcher && patch -p0 < ../../../patches/gdrive/gdrive-session-fetcher.diff
-cd ../..
-cd GDrive/OAuth2 && patch -p0 < ../../../patches/gdrive/gdrive-oauth.diff
-cd ../..
-else
-cd GDrive
-svn up
-cd ..
-fi
 if ! [ -e LXReorderableCollectionViewFlowLayout ]; then
 git clone git://github.com/fkuehne/LXReorderableCollectionViewFlowLayout.git
 else

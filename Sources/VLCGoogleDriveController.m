@@ -17,6 +17,9 @@
 #import "VLCMediaFileDiscoverer.h"
 #import <XKKeychain/XKKeychain.h>
 
+#import "GTMOAuth2ViewControllerTouch.h"
+#import "GTMOAuth2SignIn.h"
+
 @interface VLCGoogleDriveController ()
 {
     GTLDriveFileList *_fileList;
@@ -179,8 +182,11 @@
 
     query = [GTLQueryDrive queryForFilesList];
     query.pageToken = _nextPageToken;
-    //the results don't come in alphabetical order when paging. So the maxresult (default 100) is set to INT_max in order to get all files at once.
-    query.maxResults = INT_MAX;
+    //the results don't come in alphabetical order when paging. So the maxresult (default 100) is set to 1000 in order to get a few more files at once.
+    //query.pageSize = 1000;
+    query.includeDeleted = NO;
+    query.includeRemoved = NO;
+    query.restrictToMyDrive = YES;
     if (![_folderId isEqualToString:@""]) {
         query.q = [NSString stringWithFormat:@"'%@' in parents", [_folderId lastPathComponent]];
     }
@@ -202,9 +208,11 @@
 - (void)streamFile:(GTLDriveFile *)file
 {
     NSString *token = ((GTMOAuth2Authentication *)self.driveService.authorizer).accessToken;
-    NSString *downloadString = [file.downloadUrl stringByAppendingString:[NSString stringWithFormat:@"&access_token=%@",token]];
+    NSString *urlString = [NSString stringWithFormat:@"https://www.googleapis.com/drive/v3/files/%@?alt=media&access_token=%@",
+                     file.identifier, token];
+
     VLCPlaybackController *vpc = [VLCPlaybackController sharedInstance];
-    [vpc playURL:[NSURL URLWithString:downloadString] successCallback:nil errorCallback:nil];
+    [vpc playURL:[NSURL URLWithString:urlString] successCallback:nil errorCallback:nil];
 }
 
 - (void)_triggerNextDownload
@@ -243,20 +251,19 @@
 {
     NSMutableArray *listOfGoodFilesAndFolders = [[NSMutableArray alloc] init];
 
-    for (GTLDriveFile *driveFile in _fileList.items)
-    {
-        BOOL isDirectory = [driveFile.mimeType isEqualToString:@"application/vnd.google-apps.folder"];
+    for (GTLDriveFile *iter in _fileList.files) {
+        BOOL isDirectory = [iter.mimeType isEqualToString:@"application/vnd.google-apps.folder"];
         BOOL inDirectory = NO;
-        if (driveFile.parents.count > 0) {
-            GTLDriveParentReference *parent = (GTLDriveParentReference *)driveFile.parents[0];
+        if (iter.parents.count > 0) {
+            GTLDriveFile *parent = [iter.parents firstObject];
             //since there is no rootfolder display the files right away
-            if (![parent.isRoot boolValue])
+            if (parent.parents == nil)
                 inDirectory = ![parent.identifier isEqualToString:[_folderId lastPathComponent]];
         }
-        BOOL supportedFile = [self _supportedFileExtension:[NSString stringWithFormat:@".%@",driveFile.fileExtension]];
+        BOOL supportedFile = [self _supportedFileExtension:iter.name];
 
         if ((isDirectory || supportedFile) && !inDirectory)
-            [listOfGoodFilesAndFolders addObject:driveFile];
+            [listOfGoodFilesAndFolders addObject:iter];
     }
     _currentFileList = [_currentFileList count] ? [_currentFileList arrayByAddingObjectsFromArray:listOfGoodFilesAndFolders] : [NSArray arrayWithArray:listOfGoodFilesAndFolders];
 
@@ -269,8 +276,8 @@
 
     //the files come in a chaotic order so we order alphabetically
      NSArray *sortedArray = [_currentFileList sortedArrayUsingComparator:^NSComparisonResult(id a, id b) {
-        NSString *first = [(GTLDriveFile *)a title];
-        NSString *second = [(GTLDriveFile *)b title];
+        NSString *first = [(GTLDriveFile *)a name];
+        NSString *second = [(GTLDriveFile *)b name];
         return [first compare:second];
     }];
     _currentFileList = sortedArray;
@@ -281,27 +288,28 @@
 
 - (void)loadFile:(GTLDriveFile*)file intoPath:(NSString*)destinationPath
 {
-    NSString *exportURLStr = file.downloadUrl;
+    NSString *exportURLStr =  [NSString stringWithFormat:@"https://www.googleapis.com/drive/v3/files/%@?alt=media",
+                           file.identifier];
 
     if ([exportURLStr length] > 0) {
-        NSURL *url = [NSURL URLWithString:exportURLStr];
-        NSURLRequest *request = [NSURLRequest requestWithURL:url];
-        GTMHTTPFetcher *fetcher = [GTMHTTPFetcher fetcherWithRequest:request];
-
+        GTMSessionFetcher *fetcher = [self.driveService.fetcherService fetcherWithURLString:exportURLStr];
         fetcher.authorizer = self.driveService.authorizer;
-        fetcher.downloadPath = destinationPath;
+
+        fetcher.destinationFileURL = [NSURL fileURLWithPath:destinationPath isDirectory:YES];
 
         // Fetcher logging can include comments.
-        [fetcher setCommentWithFormat:@"Downloading \"%@\"", file.title];
-        __weak GTMHTTPFetcher *weakFetcher = fetcher;
+        [fetcher setCommentWithFormat:@"Downloading \"%@\"", file.name];
+        __weak GTMSessionFetcher *weakFetcher = fetcher;
         _startDL = [NSDate timeIntervalSinceReferenceDate];
-        fetcher.receivedDataBlock = ^(NSData *receivedData) {
+        fetcher.downloadProgressBlock = ^(int64_t bytesWritten,
+                                          int64_t totalBytesWritten,
+                                          int64_t totalBytesExpectedToWrite) {
             if ((_lastStatsUpdate > 0 && ([NSDate timeIntervalSinceReferenceDate] - _lastStatsUpdate > .5)) || _lastStatsUpdate <= 0) {
-                [self calculateRemainingTime:weakFetcher.downloadedLength expectedDownloadSize:[file.fileSize floatValue]];
+                [self calculateRemainingTime:totalBytesWritten expectedDownloadSize:totalBytesExpectedToWrite];
                 _lastStatsUpdate = [NSDate timeIntervalSinceReferenceDate];
             }
 
-            CGFloat progress = (CGFloat)weakFetcher.downloadedLength / (CGFloat)[file.fileSize unsignedLongValue];
+            CGFloat progress = (CGFloat)weakFetcher.downloadedLength / (CGFloat)[file.size unsignedLongValue];
             if ([self.delegate respondsToSelector:@selector(currentProgressInformation:)])
                 [self.delegate currentProgressInformation:progress];
         };
