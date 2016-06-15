@@ -38,6 +38,7 @@
     _checkboxEmptyImage = [UIImage imageNamed:@"checkboxEmpty"];
     _checkboxImage = [UIImage imageNamed:@"checkbox"];
     self.metaDataLabel.hidden = YES;
+    [super awakeFromNib];
 }
 
 - (void)setEditing:(BOOL)editing animated:(BOOL)animated
