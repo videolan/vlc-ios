@@ -40,6 +40,8 @@
     }
 
     [self setNeedsLayout];
+
+    [super awakeFromNib];
 }
 
 - (void)layoutSubviews

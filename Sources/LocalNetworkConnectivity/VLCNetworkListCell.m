@@ -37,6 +37,7 @@
     self.folderTitleLabel.highlightedTextColor = [UIColor blackColor];
     self.subtitleLabel.highlightedTextColor = [UIColor blackColor];
     self.statusLabel.highlightedTextColor = [UIColor blackColor];
+    [super awakeFromNib];
 }
 
 - (void)setTitleLabelCentered:(BOOL)titleLabelCentered
@@ -114,6 +115,9 @@
 
 
 @implementation VLCNetworkListCell (CellConfigurator)
+
+@dynamic couldBeAudioOnlyMedia;
+
 - (void)setThumbnailImage:(UIImage *)thumbnailImage {
     self.icon = thumbnailImage;
 }
