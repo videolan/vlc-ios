@@ -14,13 +14,15 @@
 #import "VLCFrostedGlasView.h"
 
 @interface VLCFrostedGlasView ()
+{
+    BOOL _usingToolbarHack;
+}
 
 #if TARGET_OS_IOS
 @property (nonatomic) UIToolbar *toolbar;
 @property (nonatomic) UIImageView *imageview;
-#else
-@property (nonatomic)  UIVisualEffectView *effectView;
 #endif
+@property (nonatomic)  UIVisualEffectView *effectView;
 
 @end
 
@@ -50,10 +52,19 @@
     [self setClipsToBounds:YES];
 
 #if TARGET_OS_IOS
-    if (![self toolbar]) {
-        [self setToolbar:[[UIToolbar alloc] initWithFrame:[self bounds]]];
-        [self.layer insertSublayer:[self.toolbar layer] atIndex:0];
-        [self.toolbar setBarStyle:UIBarStyleBlack];
+    if ([UIVisualEffectView class] != nil) {
+        _effectView = [[UIVisualEffectView alloc] initWithEffect:[UIBlurEffect effectWithStyle:UIBlurEffectStyleDark]];
+        _effectView.frame = self.bounds;
+        _effectView.clipsToBounds = YES;
+        _effectView.autoresizingMask = UIViewAutoresizingFlexibleWidth | UIViewAutoresizingFlexibleHeight;
+        [self insertSubview:_effectView atIndex:0];
+    } else {
+        _usingToolbarHack = YES;
+        if (![self toolbar]) {
+            [self setToolbar:[[UIToolbar alloc] initWithFrame:[self bounds]]];
+            [self.layer insertSublayer:[self.toolbar layer] atIndex:0];
+            [self.toolbar setBarStyle:UIBarStyleBlack];
+        }
     }
 #else
     _effectView = [[UIVisualEffectView alloc] initWithEffect:[UIBlurEffect effectWithStyle:UIBlurEffectStyleDark]];
@@ -67,7 +78,9 @@
 #if TARGET_OS_IOS
 - (void)layoutSubviews {
     [super layoutSubviews];
-    [self.toolbar setFrame:[self bounds]];
+    if (_usingToolbarHack) {
+        [self.toolbar setFrame:[self bounds]];
+    }
 }
 #endif
 
