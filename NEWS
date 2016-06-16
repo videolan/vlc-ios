@@ -1,12 +1,14 @@
 iOS 2.7.8:
 ----------
-* Fix listing of playlist files on remote shares
-* Fix downloading some media from http servers
-* Fix start index of multiple media playback in OneDrive
+* Fixed listing of playlist files on remote shares
+* Fixed downloading some media from http servers
+* Fixed start index of multiple media playback in OneDrive
+* Fixed playback of XDCAM media files (requires a 64bit iOS device)
 
 tvOS 1.0.7:
 -----------
 * Fix listing of playlist files on remote shares
+* Fixed playback of XDCAM media files
 
 iOS 2.7.7:
 ----------
