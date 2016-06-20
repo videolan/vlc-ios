@@ -205,14 +205,6 @@
 }
 #endif
 
-- (BOOL)_supportedFileExtension:(NSString *)filename
-{
-    if ([filename isSupportedMediaFormat] || [filename isSupportedAudioMediaFormat] || [filename isSupportedSubtitleFormat])
-        return YES;
-
-    return NO;
-}
-
 //just pick out Directories and supported formats.
 //if the resulting list contains less than 10 items try to get more
 
@@ -230,7 +222,7 @@
         BOOL supportedFile = NO;
         if (!isDirectory) {
             BoxFile * file = (BoxFile *)boxFile;
-            supportedFile = [self _supportedFileExtension:[NSString stringWithFormat:@".%@",file.name.lastPathComponent]];
+            supportedFile = [[NSString stringWithFormat:@".%@",file.name.lastPathComponent] isSupportedFormat];
         }
 
        if (isDirectory || supportedFile)
