@@ -14,6 +14,17 @@
 
 @implementation VLCNetworkServerLoginInformation (Keychain)
 
+
++ (instancetype)loginInformationWithKeychainIdentifier:(NSString *)keychainIdentifier
+{
+    NSURLComponents *components = [NSURLComponents componentsWithString:keychainIdentifier];
+
+    VLCNetworkServerLoginInformation *login = [VLCNetworkServerLoginInformation newLoginInformationForProtocol:components.scheme];
+    login.address = components.host;
+    login.port = components.port;
+    return login;
+}
+
 - (NSString *)keychainServiceIdentifier
 {
     NSURLComponents *components = [[NSURLComponents alloc] init];

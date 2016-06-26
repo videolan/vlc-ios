@@ -12,6 +12,10 @@
 #import "VLCNetworkServerLoginInformation.h"
 NS_ASSUME_NONNULL_BEGIN
 @interface VLCNetworkServerLoginInformation (Keychain)
+@property (nonatomic, readonly) NSString *keychainServiceIdentifier;
+
++ (instancetype)loginInformationWithKeychainIdentifier:(NSString *)keychainIdentifier;
+
 - (BOOL)loadLoginInformationFromKeychainWithError:(NSError * _Nullable __autoreleasing *)error;
 - (BOOL)saveLoginInformationToKeychainWithError:(NSError * _Nullable __autoreleasing *)error;
 - (BOOL)deleteFromKeychainWithError:(NSError * _Nullable __autoreleasing *)error;

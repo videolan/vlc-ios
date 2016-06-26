@@ -13,6 +13,10 @@
 #import "VLCLocalNetworkServiceBrowserDSM.h"
 #import "VLCNetworkServerLoginInformation.h"
 
+@interface VLCLocalNetworkServiceDSM ()
++ (void)registerLoginInformation;
+@end
+
 @implementation VLCLocalNetworkServiceBrowserDSM
 
 - (instancetype)init {
@@ -32,6 +36,12 @@
     return nil;
 }
 
++ (void)initialize
+{
+    [super initialize];
+    [VLCLocalNetworkServiceDSM registerLoginInformation];
+}
+
 @end
 
 
@@ -39,6 +49,22 @@ NSString *const VLCNetworkServerProtocolIdentifierSMB = @"smb";
 static NSString *const VLCLocalNetworkServiceDSMWorkgroupIdentifier = @"VLCLocalNetworkServiceDSMWorkgroup";
 
 @implementation VLCLocalNetworkServiceDSM
+
+
++ (void)registerLoginInformation
+{
+    VLCNetworkServerLoginInformation *login = [[VLCNetworkServerLoginInformation alloc] init];
+    login.protocolIdentifier = VLCNetworkServerProtocolIdentifierSMB;
+    VLCNetworkServerLoginInformationField *workgroupField = [[VLCNetworkServerLoginInformationField alloc] initWithType:VLCNetworkServerLoginInformationFieldTypeText
+                                                                                                             identifier:VLCLocalNetworkServiceDSMWorkgroupIdentifier
+                                                                                                                  label:NSLocalizedString(@"DSM_WORKGROUP", nil)
+                                                                                                              textValue:@"WORKGROUP"];
+    login.additionalFields = @[workgroupField];
+
+
+    [VLCNetworkServerLoginInformation registerTemplateLoginInformation:login];
+}
+
 - (UIImage *)icon {
     return [UIImage imageNamed:@"serverIcon"];
 }
@@ -48,14 +74,8 @@ static NSString *const VLCLocalNetworkServiceDSMWorkgroupIdentifier = @"VLCLocal
     if (media.mediaType != VLCMediaTypeDirectory)
         return nil;
 
-    VLCNetworkServerLoginInformation *login = [[VLCNetworkServerLoginInformation alloc] init];
+    VLCNetworkServerLoginInformation *login = [VLCNetworkServerLoginInformation newLoginInformationForProtocol:VLCNetworkServerProtocolIdentifierSMB];
     login.address = self.mediaItem.url.host;
-    login.protocolIdentifier = VLCNetworkServerProtocolIdentifierSMB;
-    VLCNetworkServerLoginInformationField *workgroupField = [[VLCNetworkServerLoginInformationField alloc] initWithType:VLCNetworkServerLoginInformationFieldTypeText
-                                                                                                             identifier:VLCLocalNetworkServiceDSMWorkgroupIdentifier
-                                                                                                                  label:NSLocalizedString(@"DSM_WORKGROUP", nil)
-                                                                                                              textValue:@"WORKGROUP"];
-    login.additionalFields = @[workgroupField];
     return login;
 }
 

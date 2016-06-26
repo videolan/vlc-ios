@@ -15,7 +15,7 @@
 
 NS_ASSUME_NONNULL_BEGIN
 
-@interface VLCNetworkServerLoginInformationField : NSObject <VLCNetworkServerLoginInformationField>
+@interface VLCNetworkServerLoginInformationField : NSObject <NSCopying, VLCNetworkServerLoginInformationField>
 @property (nonatomic, readonly) VLCNetworkServerLoginInformationFieldType type;
 @property (nonatomic, readonly) NSString *identifier;
 @property (nonatomic, readonly) NSString *localizedLabel;
@@ -28,12 +28,15 @@ NS_ASSUME_NONNULL_BEGIN
 - (instancetype)init NS_UNAVAILABLE;
 @end
 
-@interface VLCNetworkServerLoginInformation : NSObject <VLCNetworkServerLoginInformation>
+@interface VLCNetworkServerLoginInformation : NSObject <NSCopying, VLCNetworkServerLoginInformation>
 @property (nonatomic, copy, nullable) NSString *username;
 @property (nonatomic, copy, nullable) NSString *password;
 @property (nonatomic, copy) NSString *address;
 @property (nonatomic, copy) NSNumber *port;
 @property (nonatomic, copy) NSString *protocolIdentifier;
 @property (nonatomic, copy) NSArray<VLCNetworkServerLoginInformationField *> *additionalFields;
+
++ (instancetype)newLoginInformationForProtocol:(NSString *)protocolIdentifier;
++ (void)registerTemplateLoginInformation:(VLCNetworkServerLoginInformation *)loginInformation;
 @end
 NS_ASSUME_NONNULL_END

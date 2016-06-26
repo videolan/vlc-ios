@@ -9,6 +9,7 @@
  *          Pierre SAGASPE <pierre.sagaspe # me.com>
  *          Gleb Pinigin <gpinigin # gmail.com>
  *          Tobias Conradi <videolan # tobias-conradi.de>
+ *          Vincent L. Cone <vincent.l.cone # tuta.io>
  *
  * Refer to the COPYING file of the official project for license.
  *****************************************************************************/
@@ -21,7 +22,7 @@
 #import "VLCNetworkLoginViewController.h"
 #import "VLCNetworkServerBrowserViewController.h"
 
-#import "VLCNetworkServerLoginInformation.h"
+#import "VLCNetworkServerLoginInformation+Keychain.h"
 
 #import "VLCNetworkServerBrowserFTP.h"
 #import "VLCNetworkServerBrowserVLCMedia.h"
@@ -36,7 +37,7 @@
 #import "VLCLocalNetworkServiceBrowserDSM.h"
 #import "VLCLocalNetworkServiceBrowserBonjour.h"
 
-@interface VLCServerListViewController () <UITableViewDataSource, UITableViewDelegate, VLCLocalServerDiscoveryControllerDelegate>
+@interface VLCServerListViewController () <UITableViewDataSource, UITableViewDelegate, VLCLocalServerDiscoveryControllerDelegate, VLCNetworkLoginViewControllerDelegate>
 {
     VLCLocalServerDiscoveryController *_discoveryController;
 
@@ -201,23 +202,11 @@
         login = [service loginInformation];
     }
 
+    [login loadLoginInformationFromKeychainWithError:nil];
+
     VLCNetworkLoginViewController *loginViewController = [[VLCNetworkLoginViewController alloc] initWithNibName:@"VLCNetworkLoginViewController" bundle:nil];
 
-    VLCServerProtocol protocol = VLCServerProtocolUndefined;
-    NSString *protocolIdentifier = login.protocolIdentifier;
-    if ([protocolIdentifier isEqualToString:VLCNetworkServerProtocolIdentifierFTP]) {
-        protocol = VLCServerProtocolFTP;
-    } else if ([protocolIdentifier isEqualToString:VLCNetworkServerProtocolIdentifierPlex]) {
-        protocol = VLCServerProtocolPLEX;
-    } else if ([protocolIdentifier isEqualToString:VLCNetworkServerProtocolIdentifierSMB]) {
-        protocol = VLCServerProtocolSMB;
-    }
-
-    loginViewController.serverProtocol = protocol;
-    loginViewController.hostname = login.address;
-    loginViewController.username = login.username;
-    loginViewController.password = login.password;
-    loginViewController.port = login.port.stringValue;
+    loginViewController.loginInformation = login;
     loginViewController.delegate = self;
     if (UI_USER_INTERFACE_IDIOM() == UIUserInterfaceIdiomPad) {
         UINavigationController *navCon = [[VLCNavigationController alloc] initWithRootViewController:loginViewController];
@@ -226,10 +215,18 @@
         [self presentViewController:navCon animated:YES completion:nil];
 
         if (loginViewController.navigationItem.leftBarButtonItem == nil)
-            loginViewController.navigationItem.leftBarButtonItem = [UIBarButtonItem themedDarkToolbarButtonWithTitle:NSLocalizedString(@"BUTTON_DONE", nil) target:loginViewController andSelector:@selector(_dismiss)];
+            loginViewController.navigationItem.leftBarButtonItem = [UIBarButtonItem themedDarkToolbarButtonWithTitle:NSLocalizedString(@"BUTTON_DONE", nil) target:self andSelector:@selector(_dismissLogin)];
     } else {
         [self.navigationController pushViewController:loginViewController animated:YES];
     }
+}
+
+- (void)_dismissLogin
+{
+    if (UI_USER_INTERFACE_IDIOM() == UIUserInterfaceIdiomPhone)
+        [self.navigationController popViewControllerAnimated:YES];
+    else
+        [self dismissViewControllerAnimated:YES completion:nil];
 }
 
 #pragma mark - Refresh
@@ -252,54 +249,25 @@
     [_refreshControl endRefreshing];
 }
 
-#pragma mark - login panel protocol
+#pragma mark - VLCNetworkLoginViewControllerDelegate
 
-- (void)loginToServer:(NSString *)server
-                 port:(NSString *)port
-             protocol:(VLCServerProtocol)protocol
-confirmedWithUsername:(NSString *)username
-          andPassword:(NSString *)password
+- (void)loginWithLoginViewController:(VLCNetworkLoginViewController *)loginViewController loginInfo:(VLCNetworkServerLoginInformation *)loginInformation
 {
-
     id<VLCNetworkServerBrowser> serverBrowser = nil;
-    switch (protocol) {
-        case VLCServerProtocolFTP:
-        {
-            serverBrowser = [[VLCNetworkServerBrowserFTP alloc]initWithFTPServer:server
-                                                                        userName:username
-                                                                     andPassword:password atPath:@"/"];
-            break;
-        }
-        case VLCServerProtocolPLEX:
-        {
+    NSString *identifier = loginInformation.protocolIdentifier;
 
-            NSNumber *portNumber;
-            NSUInteger portInteger = 0;
-            if (port.length) {
-                portInteger = [port integerValue];
-            }
-            portNumber = portInteger != 0 ? @(portInteger) : @(32400);
-
-            serverBrowser = [[VLCNetworkServerBrowserPlex alloc] initWithName:server
-                                                                         host:server
-                                                                   portNumber:@([port integerValue])
-                                                                         path:@""
-                                                           authentificication:@""];
-            break;
-        }
-        case VLCServerProtocolSMB:
-        {
-            NSURL *url = [NSURL URLWithString:[NSString stringWithFormat:@"smb://%@", server]];
-            serverBrowser = [VLCNetworkServerBrowserVLCMedia SMBNetworkServerBrowserWithURL:url
-                                                                                   username:username
-                                                                                   password:password
-                                                                                  workgroup:nil];
-        }
-
-        default:
-            APLog(@"Unsupported URL Scheme requested %ld", (long)protocol);
-            break;
+    if ([identifier isEqualToString:VLCNetworkServerProtocolIdentifierFTP]) {
+        serverBrowser = [[VLCNetworkServerBrowserFTP alloc] initWithLogin:loginInformation];
+    } else if ([identifier isEqualToString:VLCNetworkServerProtocolIdentifierPlex]) {
+        serverBrowser = [[VLCNetworkServerBrowserPlex alloc] initWithLogin:loginInformation];
+    } else if ([identifier isEqualToString:VLCNetworkServerProtocolIdentifierSMB]) {
+        serverBrowser = [VLCNetworkServerBrowserVLCMedia SMBNetworkServerBrowserWithLogin:loginInformation];
+    } else {
+        APLog(@"Unsupported URL Scheme requested %@", identifier);
     }
+
+    [self _dismissLogin];
+
     if (serverBrowser) {
         VLCNetworkServerBrowserViewController *targetViewController = [[VLCNetworkServerBrowserViewController alloc] initWithServerBrowser:serverBrowser];
         [self.navigationController pushViewController:targetViewController animated:YES];
