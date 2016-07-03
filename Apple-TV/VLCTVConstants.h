@@ -14,6 +14,7 @@
 #define kVLCVersionCodename @"All Along the Watchtower"
 
 #define kVLCRecentURLs @"recent-urls"
+#define kVLCRecentURLTitles @"recent-url-titles"
 #define kVLCStoreDropboxCredentials @"kVLCStoreDropboxCredentials"
 #define kVLCStoreOneDriveCredentials @"kVLCStoreOneDriveCredentials"
 #define kVLCStoreBoxCredentials @"kVLCStoreBoxCredentials"
