@@ -7,7 +7,14 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		2678432A1D3D5B9500BF36EE /* VLCNetworkLoginViewFieldCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = DDF908DB1CF4CEE700108B70 /* VLCNetworkLoginViewFieldCell.xib */; };
 		268BDA7E1B4FE1E200D622DD /* backArrow_black.png in Resources */ = {isa = PBXBuildFile; fileRef = 268BDA7D1B4FE1E200D622DD /* backArrow_black.png */; };
+		26D2F0651D3D3CC8003F7417 /* VLCNetworkLoginDataSource.m in Sources */ = {isa = PBXBuildFile; fileRef = DD846BDE1D1FCCCD00699D17 /* VLCNetworkLoginDataSource.m */; };
+		26D2F06E1D3D3CCE003F7417 /* VLCNetworkLoginDataSourceProtocol.m in Sources */ = {isa = PBXBuildFile; fileRef = DDF908E31CFCD97400108B70 /* VLCNetworkLoginDataSourceProtocol.m */; };
+		26D2F06F1D3D3CD4003F7417 /* VLCNetworkLoginDataSourceLogin.m in Sources */ = {isa = PBXBuildFile; fileRef = DD870E941CEF78D800BBD4FE /* VLCNetworkLoginDataSourceLogin.m */; };
+		26D2F0701D3D3CD8003F7417 /* VLCNetworkLoginViewFieldCell.m in Sources */ = {isa = PBXBuildFile; fileRef = DD870E991CEF929A00BBD4FE /* VLCNetworkLoginViewFieldCell.m */; };
+		26D2F0711D3D3CDC003F7417 /* VLCNetworkLoginViewButtonCell.m in Sources */ = {isa = PBXBuildFile; fileRef = DDF908CF1CF4CCAA00108B70 /* VLCNetworkLoginViewButtonCell.m */; };
+		26D2F0721D3D3CDF003F7417 /* VLCNetworkLoginDataSourceSavedLogins.m in Sources */ = {isa = PBXBuildFile; fileRef = DDF908DF1CF4E04A00108B70 /* VLCNetworkLoginDataSourceSavedLogins.m */; };
 		26F1BFD01A770408001DF30C /* libMediaVLC.xml in Resources */ = {isa = PBXBuildFile; fileRef = 26F1BFCF1A770408001DF30C /* libMediaVLC.xml */; };
 		29125E5617492219003F03E5 /* index.html in Resources */ = {isa = PBXBuildFile; fileRef = 29125E5417492219003F03E5 /* index.html */; };
 		2915544317490D4A00B86CAD /* Security.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 2915544217490D4A00B86CAD /* Security.framework */; };
@@ -3928,6 +3935,7 @@
 				7DC550591C046615007B4E42 /* papasscode_marker@2x.png in Resources */,
 				7DC5505A1C046615007B4E42 /* About Contents.html in Resources */,
 				7DC5505B1C046615007B4E42 /* VLCCloudStorageTableViewCell~iphone.xib in Resources */,
+				2678432A1D3D5B9500BF36EE /* VLCNetworkLoginViewFieldCell.xib in Resources */,
 				7DC5505C1C046615007B4E42 /* LiveAuthDialog_iPhone.xib in Resources */,
 				7DC5505D1C046615007B4E42 /* VLCFirstStepsFourthPageViewController~iphone.xib in Resources */,
 				7DC5505E1C046615007B4E42 /* VLCFirstStepsSixthPageViewController~iphone.xib in Resources */,
@@ -4627,6 +4635,7 @@
 				7DC54FBA1C046615007B4E42 /* UIViewController+VLCAlert.m in Sources */,
 				7DC54FBB1C046615007B4E42 /* VLCFirstStepsThirdPageViewController.m in Sources */,
 				7DC54FBC1C046615007B4E42 /* MediaLibrary.xcdatamodeld in Sources */,
+				26D2F0701D3D3CD8003F7417 /* VLCNetworkLoginViewFieldCell.m in Sources */,
 				7DC54FBD1C046615007B4E42 /* VLCMiniPlaybackView.m in Sources */,
 				7DC54FBE1C046615007B4E42 /* VLCLocalNetworkServiceBrowserManualConnect.m in Sources */,
 				7DC54FBF1C046615007B4E42 /* VLCFirstStepsFifthPageViewController.m in Sources */,
@@ -4640,6 +4649,7 @@
 				7DC54FC71C046615007B4E42 /* VLCProgressView.m in Sources */,
 				7DC54FC81C046615007B4E42 /* VLCCloudServicesTableViewController.m in Sources */,
 				7DC54FC91C046615007B4E42 /* UIImage+Blur.m in Sources */,
+				26D2F0651D3D3CC8003F7417 /* VLCNetworkLoginDataSource.m in Sources */,
 				7DC54FCB1C046615007B4E42 /* VLCFirstStepsViewController.m in Sources */,
 				7DC54FCC1C046615007B4E42 /* VLCLocalNetworkServiceBrowserMediaDiscoverer.m in Sources */,
 				7DC54FCD1C046615007B4E42 /* VLCPlaybackController.m in Sources */,
@@ -4649,6 +4659,7 @@
 				7DC54FD11C046615007B4E42 /* VLCFirstStepsSecondPageViewController.m in Sources */,
 				7DC54FD21C046615007B4E42 /* VLCOpenInActivity.m in Sources */,
 				7DC54FD31C046615007B4E42 /* VLCMovieViewController.m in Sources */,
+				26D2F0721D3D3CDF003F7417 /* VLCNetworkLoginDataSourceSavedLogins.m in Sources */,
 				7DC54FD41C046615007B4E42 /* VLCNetworkServerBrowserPlex.m in Sources */,
 				7DC54FD51C046615007B4E42 /* VLCExternalDisplayController.m in Sources */,
 				7DC54FD61C046615007B4E42 /* VLCPlaylistCollectionViewCell.m in Sources */,
@@ -4658,6 +4669,7 @@
 				7DC54FDA1C046615007B4E42 /* VLCLibraryViewController.m in Sources */,
 				7DC54FDB1C046615007B4E42 /* VLCThumbnailsCache.m in Sources */,
 				7DC54FDC1C046615007B4E42 /* VLCNetworkServerBrowserSharedLibrary.m in Sources */,
+				26D2F0711D3D3CDC003F7417 /* VLCNetworkLoginViewButtonCell.m in Sources */,
 				7DC54FDD1C046615007B4E42 /* VLCBugreporter.m in Sources */,
 				7DC54FDE1C046615007B4E42 /* VLCAboutViewController.m in Sources */,
 				7DC54FDF1C046615007B4E42 /* VLCSettingsController.m in Sources */,
@@ -4674,6 +4686,7 @@
 				7DC54FEA1C046615007B4E42 /* VLCLinearProgressIndicator.m in Sources */,
 				7DC54FEB1C046615007B4E42 /* VLCWatchMessage.m in Sources */,
 				7DC54FEC1C046615007B4E42 /* VLCBoxTableViewController.m in Sources */,
+				26D2F06F1D3D3CD4003F7417 /* VLCNetworkLoginDataSourceLogin.m in Sources */,
 				7DC54FED1C046615007B4E42 /* VLCPlexParser.m in Sources */,
 				7DC54FEE1C046615007B4E42 /* VLCMenuButton.m in Sources */,
 				7DC54FEF1C046615007B4E42 /* VLCBoxController.m in Sources */,
@@ -4718,6 +4731,7 @@
 				7DC550151C046615007B4E42 /* VLCSidebarController.m in Sources */,
 				7DC550161C046615007B4E42 /* VLCNetworkLoginViewController.m in Sources */,
 				7DC550171C046615007B4E42 /* MappingModel_2_5_to_2_6.xcmappingmodel in Sources */,
+				26D2F06E1D3D3CCE003F7417 /* VLCNetworkLoginDataSourceProtocol.m in Sources */,
 				7DC550181C046615007B4E42 /* VLCWiFiUploadTableViewCell.m in Sources */,
 				7DC550191C046615007B4E42 /* VLCNavigationController.m in Sources */,
 				7DC5501A1C046615007B4E42 /* VLCSidebarViewCell.m in Sources */,
