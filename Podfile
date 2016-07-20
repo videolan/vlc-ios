@@ -1,5 +1,7 @@
 source 'https://github.com/CocoaPods/Specs.git'
 
+install! 'cocoapods', :deterministic_uuids => false
+
 inhibit_all_warnings!
 
 target 'VLC-iOS' do
