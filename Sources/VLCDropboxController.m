@@ -17,8 +17,10 @@
 #import "VLCActivityManager.h"
 #if !TARGET_OS_TV
 #import "VLCMediaFileDiscoverer.h"
-#endif
+#import <DropboxSDK/DBKeychain.h>
+#else
 #import "DBKeychain.h"
+#endif
 #import "VLCDropboxConstants.h"
 
 @interface VLCDropboxController ()

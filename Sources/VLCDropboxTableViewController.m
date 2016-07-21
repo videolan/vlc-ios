@@ -18,9 +18,11 @@
 #import "VLCDropboxController.h"
 #import "VLCCloudStorageTableViewCell.h"
 #import "UIDevice+VLC.h"
-#import "DBKeychain.h"
 #if TARGET_OS_IOS
+#import <DropboxSDK/DBKeychain.h>
 #import "VLCAppDelegate.h"
+#else
+#import "DBKeychain.h"
 #endif
 
 
