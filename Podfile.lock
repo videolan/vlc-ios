@@ -33,16 +33,23 @@ PODS:
     - GTMSessionFetcher/Core (= 1.1.4)
   - HockeySDK (3.6.4)
   - InAppSettingsKit (2.2.2)
+  - MediaLibraryKit-unstable (2.6.4):
+    - MobileVLCKit-unstable (~> 3.0.0a8)
   - MetaDataFetcherKit (0.1.8):
     - AFNetworking (= 3.1.0)
     - OROpenSubtitleDownloader
+  - MobileVLCKit-unstable (3.0.0a8)
   - NSData+Base64 (1.0.0)
   - OBSlider (1.1.0)
   - OROpenSubtitleDownloader (1.2.0):
     - AFNetworking
     - xmlrpc
   - RESideMenu (4.0.7)
-  - upnpx (1.3.6)
+  - upnpx (1.4.0a2)
+  - VLC-Dropbox-v1-SDK (1.3.14w)
+  - VLC-LiveSDK (5.7.0x)
+  - VLC-LXReorderableCollectionViewFlowLayout (0.1.3v)
+  - VLC-WhiteRaccoon (1.0.0)
   - XKKeychain (1.0.1)
   - xmlrpc (2.3.4):
     - NSData+Base64 (~> 1.0.0)
@@ -55,11 +62,17 @@ DEPENDENCIES:
   - GTMOAuth2
   - HockeySDK (~> 3.6.4)
   - InAppSettingsKit (from `git://github.com/fkuehne/InAppSettingsKit.git`, commit `415ea6bb`)
+  - MediaLibraryKit-unstable
   - MetaDataFetcherKit (~> 0.1.8)
+  - MobileVLCKit-unstable (= 3.0.0a8)
   - OBSlider (= 1.1.0)
   - OROpenSubtitleDownloader (from `https://github.com/orta/OROpenSubtitleDownloader.git`, commit `0509eac2`)
   - RESideMenu (~> 4.0.7)
-  - upnpx (~> 1.3.6)
+  - upnpx (~> 1.4.0a2)
+  - VLC-Dropbox-v1-SDK (= 1.3.14w)
+  - VLC-LiveSDK (= 5.7.0x)
+  - VLC-LXReorderableCollectionViewFlowLayout (= 0.1.3v)
+  - VLC-WhiteRaccoon
   - XKKeychain (~> 1.0)
 
 EXTERNAL SOURCES:
@@ -98,15 +111,21 @@ SPEC CHECKSUMS:
   GTMSessionFetcher: 174bc61d5238f81f9ddb807b0b0170420f67de85
   HockeySDK: c07cdd580296737edcd0963e292c19885a53f563
   InAppSettingsKit: 76d5cfbaa3e3f8aa53fe3628516da7eb1aa6a5cb
+  MediaLibraryKit-unstable: b4834ad57d5d2f49f30b9edd2d7650d151fc5534
   MetaDataFetcherKit: 44c90defa89b3a72cef60e07ad9de37821dd7c5d
+  MobileVLCKit-unstable: f26a69fa76366dadbc9badcba5923ac18d3b82d6
   NSData+Base64: 4e84902c4db907a15673474677e57763ef3903e4
   OBSlider: 490f108007bfdd5414a38650b211fe403a95b8a0
   OROpenSubtitleDownloader: 154b8c08acbf8836b77ac259018dc8b5baef907e
   RESideMenu: f24c508404b49c667344c54aba7e590883533958
-  upnpx: 36b1f70f4e559f35b9e5a76b730deda8f0415104
+  upnpx: 7cb9b092595086cdfeac2a670bd47ba5f5bd30c8
+  VLC-Dropbox-v1-SDK: 2c44006d149162697a6b10eb86455ea249c6b0b5
+  VLC-LiveSDK: c9566a9edde968f969138f84cfd40b540a109b3f
+  VLC-LXReorderableCollectionViewFlowLayout: 0204946967b746ca183835e854826290be06e2f4
+  VLC-WhiteRaccoon: 1e7e59b0568959135a89d09c416d1e11a5d9a986
   XKKeychain: 852ef663c56a7194c73d3c68e8d9d4f07b121d4f
   xmlrpc: 109bb21d15ed6d108b2c1ac5973a6a223a50f5f4
 
-PODFILE CHECKSUM: 6a11375d66f0078dc062fadfac82742bd14d15c6
+PODFILE CHECKSUM: b423d5092c0f5b847c1a33b5a0712d379aed330d
 
 COCOAPODS: 1.0.1
