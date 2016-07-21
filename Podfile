@@ -2,7 +2,7 @@ source 'https://github.com/CocoaPods/Specs.git'
 
 inhibit_all_warnings!
 
-target 'vlc-ios' do
+target 'VLC-iOS' do
 platform :ios, '7.0'
 
 pod 'OBSlider', '1.1.0'
