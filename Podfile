@@ -105,7 +105,7 @@ post_install do |installer_representation|
   end
 end
 
-target 'VLC-TV' do
+target 'VLC-tvOS' do
 platform :tvos, '9.0'
 pod 'XKKeychain', '~>1.0'
 pod 'box-ios-sdk-v2', :git => 'git://github.com/fkuehne/box-ios-sdk-v2.git' #has tvOS support added
@@ -117,5 +117,24 @@ pod 'GRKArrayDiff', '~> 2.1'
 pod 'VLC-WhiteRaccoon'
 pod 'VLC-LiveSDK', '5.7.0x'
 pod 'VLC-Dropbox-v1-SDK', '1.3.14w'
+pod 'HockeySDK-tvOS', '4.1.0-beta.1'
+pod 'TVVLCKit-unstable', '3.0.0a9'
 
 end
+
+target 'VLC-tvOS-Debug' do
+platform :tvos, '9.0'
+pod 'XKKeychain', '~>1.0'
+pod 'box-ios-sdk-v2', :git => 'git://github.com/fkuehne/box-ios-sdk-v2.git' #has tvOS support added
+pod 'upnpx', '~>1.4.0a2'
+pod 'CocoaHTTPServer', :git => 'git://github.com/fkuehne/CocoaHTTPServer.git' # has our fixes
+pod 'MetaDataFetcherKit', '~>0.1.8'
+pod "OROpenSubtitleDownloader", :git => 'https://github.com/orta/OROpenSubtitleDownloader.git', :commit => '0509eac2'
+pod 'GRKArrayDiff', '~> 2.1'
+pod 'VLC-WhiteRaccoon'
+pod 'VLC-LiveSDK', '5.7.0x'
+pod 'VLC-Dropbox-v1-SDK', '1.3.14w'
+pod 'HockeySDK-tvOS', '4.1.0-beta.1'
+
+end
+
