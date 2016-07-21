@@ -120,27 +120,6 @@ git pull --rebase
 git reset --hard ${TESTEDVLCKITHASH}
 cd ..
 fi
-if ! [ -e LXReorderableCollectionViewFlowLayout ]; then
-git clone git://github.com/fkuehne/LXReorderableCollectionViewFlowLayout.git
-else
-cd LXReorderableCollectionViewFlowLayout && git pull --rebase && cd ..
-fi
-if ! [ -e WhiteRaccoon ]; then
-git clone git://github.com/fkuehne/WhiteRaccoon.git
-else
-cd WhiteRaccoon && git pull --rebase && cd ..
-fi
-if ! [ -e Dropbox ]; then
-DROPBOXSDKVERSION=1.3.13
-curl -L -O https://www.dropbox.com/static/developers/dropbox-ios-sdk-${DROPBOXSDKVERSION}.zip
-unzip -q dropbox-ios-sdk-${DROPBOXSDKVERSION}.zip
-mv dropbox-ios-sdk-${DROPBOXSDKVERSION} Dropbox
-cd Dropbox
-patch -p1 < ../../patches/dropbox/DropboxTV.patch
-cd ..
-rm dropbox-ios-sdk-${DROPBOXSDKVERSION}.zip
-rm -rf __MACOSX
-fi
 if ! [ -e HockeySDK-tvOS ]; then
 curl -L -O https://www.dropbox.com/s/pie0xxmf6xmj6wl/HockeySDK-tvOS.zip?dl=0
 unzip -q HockeySDK-tvOS.zip?dl=0
@@ -149,13 +128,6 @@ patch -p1 < ../../patches/hockey/hockey.patch
 cd ..
 rm HockeySDK-tvOS.zip?dl=0
 rm -rf __MACOSX
-fi
-if ! [ -e OneDrive ]; then
-git clone git://github.com/liveservices/LiveSDK-for-iOS.git OneDrive
-cd OneDrive && git am ../../patches/onedrive/*.patch && cd ..
-else
-cd OneDrive && git pull --rebase && cd ..
-fi
 fi
 
 spopd #ImportedSources
