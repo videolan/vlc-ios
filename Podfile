@@ -64,19 +64,6 @@ post_install do |installer_representation|
   end
 end
 
-target 'VLC-watchOS-Extension' do
-platform :watchos, '2.0'
-
-pod 'MediaLibraryKit-unstable'
-
-end
-post_install do |installer_representation|
-  installer_representation.pods_project.build_configurations.each do |config|
-            config.build_settings['SKIP_INSTALL'] = 'YES'
-            config.build_settings['CLANG_CXX_LIBRARY'] = 'libc++'
-  end
-end
-
 target 'VLC-iOS-no-watch-Debug' do
 platform :ios, '7.0'
 
@@ -138,3 +125,15 @@ pod 'HockeySDK-tvOS', '4.1.0-beta.1'
 
 end
 
+target 'VLC-watchOS-Extension' do
+platform :watchos, '2.0'
+
+pod 'MediaLibraryKit-unstable'
+
+end
+post_install do |installer_representation|
+  installer_representation.pods_project.build_configurations.each do |config|
+            config.build_settings['SKIP_INSTALL'] = 'YES'
+            config.build_settings['CLANG_CXX_LIBRARY'] = 'libc++'
+  end
+end
