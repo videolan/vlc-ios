@@ -9,7 +9,6 @@
 /* Begin PBXBuildFile section */
 		1D72DC00CD4A06E8789BD8F7 /* libPods-VLC-tvOS.a in Frameworks */ = {isa = PBXBuildFile; fileRef = FE1DEC7096649D63A308D86C /* libPods-VLC-tvOS.a */; };
 		2678432A1D3D5B9500BF36EE /* VLCNetworkLoginViewFieldCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = DDF908DB1CF4CEE700108B70 /* VLCNetworkLoginViewFieldCell.xib */; };
-		268BDA7E1B4FE1E200D622DD /* backArrow_black.png in Resources */ = {isa = PBXBuildFile; fileRef = 268BDA7D1B4FE1E200D622DD /* backArrow_black.png */; };
 		26D2F0651D3D3CC8003F7417 /* VLCNetworkLoginDataSource.m in Sources */ = {isa = PBXBuildFile; fileRef = DD846BDE1D1FCCCD00699D17 /* VLCNetworkLoginDataSource.m */; };
 		26D2F06E1D3D3CCE003F7417 /* VLCNetworkLoginDataSourceProtocol.m in Sources */ = {isa = PBXBuildFile; fileRef = DDF908E31CFCD97400108B70 /* VLCNetworkLoginDataSourceProtocol.m */; };
 		26D2F06F1D3D3CD4003F7417 /* VLCNetworkLoginDataSourceLogin.m in Sources */ = {isa = PBXBuildFile; fileRef = DD870E941CEF78D800BBD4FE /* VLCNetworkLoginDataSourceLogin.m */; };
@@ -40,7 +39,6 @@
 		7AC862A91765E9510011611A /* jquery.ui.widget.js in Resources */ = {isa = PBXBuildFile; fileRef = 7AC862A11765E90C0011611A /* jquery.ui.widget.js */; };
 		7D00161C177056B700649F27 /* main.js in Resources */ = {isa = PBXBuildFile; fileRef = 7D00161A17704DAC00649F27 /* main.js */; };
 		7D0117F1187F4BA400C5671C /* VLCFirstStepsFirstPageViewController~ipad.xib in Resources */ = {isa = PBXBuildFile; fileRef = 7D0117F0187F4BA400C5671C /* VLCFirstStepsFirstPageViewController~ipad.xib */; };
-		7D0363AC1B2F325500CC0343 /* MediaLibrary.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = 7D0363A71B2F325500CC0343 /* MediaLibrary.xcdatamodeld */; };
 		7D0C34E71BD951080058CD19 /* NSString+SupportedMedia.m in Sources */ = {isa = PBXBuildFile; fileRef = 7D3784C5183A9972009EE944 /* NSString+SupportedMedia.m */; };
 		7D0C35331BD97C100058CD19 /* VLCOneDriveController.m in Sources */ = {isa = PBXBuildFile; fileRef = 7D1052ED1A4DCD1E00295F08 /* VLCOneDriveController.m */; };
 		7D0C35341BD97C7B0058CD19 /* VLCOneDriveObject.m in Sources */ = {isa = PBXBuildFile; fileRef = 7DB847D61A5871570002DC30 /* VLCOneDriveObject.m */; };
@@ -67,7 +65,6 @@
 		7D27EC2C19DF310300EF0370 /* VLCFirstStepsSecondPageViewController~iphone.xib in Resources */ = {isa = PBXBuildFile; fileRef = 7D27EC2A19DF310300EF0370 /* VLCFirstStepsSecondPageViewController~iphone.xib */; };
 		7D298F441AD5827E00A0BF68 /* WatchKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = DDF157B31ACB169B00AAFBC6 /* WatchKit.framework */; settings = {ATTRIBUTES = (Weak, ); }; };
 		7D29C7AB1C08C84C00AEC5C4 /* HockeySDK.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = 7D29C7A71C08C84000AEC5C4 /* HockeySDK.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
-		7D2AC5D01B67746700A8D9DD /* LiveAuthDialog_iPad.xib in Resources */ = {isa = PBXBuildFile; fileRef = 7D2AC5CE1B67746700A8D9DD /* LiveAuthDialog_iPad.xib */; };
 		7D2DF7C31B67777D00FB78AB /* libc++.tbd in Frameworks */ = {isa = PBXBuildFile; fileRef = 7D2DF7C21B67777D00FB78AB /* libc++.tbd */; };
 		7D30F3C2183AB24C00FFC021 /* VLCHTTPConnection.m in Sources */ = {isa = PBXBuildFile; fileRef = 7D30F3BD183AB24C00FFC021 /* VLCHTTPConnection.m */; };
 		7D30F3C3183AB24C00FFC021 /* VLCHTTPFileDownloader.m in Sources */ = {isa = PBXBuildFile; fileRef = 7D30F3BF183AB24C00FFC021 /* VLCHTTPFileDownloader.m */; };
@@ -514,7 +511,6 @@
 		7DBBF1A4183AB4300009A339 /* VLCNetworkListCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 7DBBF18F183AB4300009A339 /* VLCNetworkListCell.xib */; };
 		7DBBF1A5183AB4300009A339 /* VLCMovieViewController~ipad.xib in Resources */ = {isa = PBXBuildFile; fileRef = 7DBBF190183AB4300009A339 /* VLCMovieViewController~ipad.xib */; };
 		7DBBF1A6183AB4300009A339 /* VLCMovieViewController~iphone.xib in Resources */ = {isa = PBXBuildFile; fileRef = 7DBBF191183AB4300009A339 /* VLCMovieViewController~iphone.xib */; };
-		7DBC85641A50B8860098D388 /* LiveAuthDialog_iPhone.xib in Resources */ = {isa = PBXBuildFile; fileRef = 7DBC85621A50B8860098D388 /* LiveAuthDialog_iPhone.xib */; };
 		7DC0B5701C0094370027BFAD /* VLCSettingsViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 7DC0B56E1C0094370027BFAD /* VLCSettingsViewController.m */; };
 		7DC0B5711C0094370027BFAD /* VLCSettingsViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 7DC0B56F1C0094370027BFAD /* VLCSettingsViewController.xib */; };
 		7DC19ADF1868C7BB00810BF7 /* VLCFirstStepsViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 7DC19ADD1868C7BB00810BF7 /* VLCFirstStepsViewController.m */; };
@@ -534,7 +530,6 @@
 		7DC54FB91C046615007B4E42 /* VLCNetworkServerBrowserViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = DD3EFEEA1BDEBA3800B68579 /* VLCNetworkServerBrowserViewController.m */; };
 		7DC54FBA1C046615007B4E42 /* UIViewController+VLCAlert.m in Sources */ = {isa = PBXBuildFile; fileRef = DD3EABFB1BE14C4B003668DA /* UIViewController+VLCAlert.m */; };
 		7DC54FBB1C046615007B4E42 /* VLCFirstStepsThirdPageViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 7D9289731877459B009108FD /* VLCFirstStepsThirdPageViewController.m */; };
-		7DC54FBC1C046615007B4E42 /* MediaLibrary.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = 7D0363A71B2F325500CC0343 /* MediaLibrary.xcdatamodeld */; };
 		7DC54FBD1C046615007B4E42 /* VLCMiniPlaybackView.m in Sources */ = {isa = PBXBuildFile; fileRef = 7D95610A1AF3E9E800779745 /* VLCMiniPlaybackView.m */; };
 		7DC54FBE1C046615007B4E42 /* VLCLocalNetworkServiceBrowserManualConnect.m in Sources */ = {isa = PBXBuildFile; fileRef = DD3EFF0D1BDEBCE500B68579 /* VLCLocalNetworkServiceBrowserManualConnect.m */; };
 		7DC54FBF1C046615007B4E42 /* VLCFirstStepsFifthPageViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 7DC19B031868D1C400810BF7 /* VLCFirstStepsFifthPageViewController.m */; };
@@ -623,7 +618,6 @@
 		7DC550141C046615007B4E42 /* VLCOneDriveController.m in Sources */ = {isa = PBXBuildFile; fileRef = 7D1052ED1A4DCD1E00295F08 /* VLCOneDriveController.m */; };
 		7DC550151C046615007B4E42 /* VLCSidebarController.m in Sources */ = {isa = PBXBuildFile; fileRef = 7DAE0C361B2EF85B00C53996 /* VLCSidebarController.m */; };
 		7DC550161C046615007B4E42 /* VLCNetworkLoginViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 7D30F3DB183AB2F900FFC021 /* VLCNetworkLoginViewController.m */; };
-		7DC550171C046615007B4E42 /* MappingModel_2_5_to_2_6.xcmappingmodel in Sources */ = {isa = PBXBuildFile; fileRef = DDB959411AFBB30500BB8CFF /* MappingModel_2_5_to_2_6.xcmappingmodel */; };
 		7DC550181C046615007B4E42 /* VLCWiFiUploadTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 7D30F3DE183AB31E00FFC021 /* VLCWiFiUploadTableViewCell.m */; };
 		7DC550191C046615007B4E42 /* VLCNavigationController.m in Sources */ = {isa = PBXBuildFile; fileRef = 7D7417791AE2D3CE001F1997 /* VLCNavigationController.m */; };
 		7DC5501A1C046615007B4E42 /* VLCSidebarViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 7D30F3E1183AB33200FFC021 /* VLCSidebarViewCell.m */; };
@@ -669,7 +663,6 @@
 		7DC550491C046615007B4E42 /* VLCNetworkLoginViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 9B9231C3185A703700F89498 /* VLCNetworkLoginViewController.xib */; };
 		7DC5504A1C046615007B4E42 /* VLCFirstStepsFirstPageViewController~iphone.xib in Resources */ = {isa = PBXBuildFile; fileRef = 7D15163C1868D7E0004B18F3 /* VLCFirstStepsFirstPageViewController~iphone.xib */; };
 		7DC5504B1C046615007B4E42 /* web-download.png in Resources */ = {isa = PBXBuildFile; fileRef = 7DF04F4A1961F2B8004A5429 /* web-download.png */; };
-		7DC5504C1C046615007B4E42 /* LiveAuthDialog_iPad.xib in Resources */ = {isa = PBXBuildFile; fileRef = 7D2AC5CE1B67746700A8D9DD /* LiveAuthDialog_iPad.xib */; };
 		7DC5504E1C046615007B4E42 /* VLCCloudServiceCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 41B93C071A53853B00102E8B /* VLCCloudServiceCell.xib */; };
 		7DC5504F1C046615007B4E42 /* index.html in Resources */ = {isa = PBXBuildFile; fileRef = 29125E5417492219003F03E5 /* index.html */; };
 		7DC550501C046615007B4E42 /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 7DB638AA185BC0890003887C /* Images.xcassets */; };
@@ -678,13 +671,11 @@
 		7DC550531C046615007B4E42 /* VLCNetworkListCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 7DBBF18F183AB4300009A339 /* VLCNetworkListCell.xib */; };
 		7DC550541C046615007B4E42 /* web-open.png in Resources */ = {isa = PBXBuildFile; fileRef = 7DF04F4C1961F2B8004A5429 /* web-open.png */; };
 		7DC550551C046615007B4E42 /* papasscode_failed_bg.png in Resources */ = {isa = PBXBuildFile; fileRef = 7D9870601A3E03D5009CF27D /* papasscode_failed_bg.png */; };
-		7DC550561C046615007B4E42 /* backArrow_black.png in Resources */ = {isa = PBXBuildFile; fileRef = 268BDA7D1B4FE1E200D622DD /* backArrow_black.png */; };
 		7DC550571C046615007B4E42 /* papasscode_marker.png in Resources */ = {isa = PBXBuildFile; fileRef = 7D9870621A3E03D5009CF27D /* papasscode_marker.png */; };
 		7DC550581C046615007B4E42 /* Raleway.woff in Resources */ = {isa = PBXBuildFile; fileRef = 7D32B383185E293D006CA474 /* Raleway.woff */; };
 		7DC550591C046615007B4E42 /* papasscode_marker@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 7D9870631A3E03D5009CF27D /* papasscode_marker@2x.png */; };
 		7DC5505A1C046615007B4E42 /* About Contents.html in Resources */ = {isa = PBXBuildFile; fileRef = 7D5DD5C617590ABF001421E3 /* About Contents.html */; };
 		7DC5505B1C046615007B4E42 /* VLCCloudStorageTableViewCell~iphone.xib in Resources */ = {isa = PBXBuildFile; fileRef = 7DBBF186183AB4300009A339 /* VLCCloudStorageTableViewCell~iphone.xib */; };
-		7DC5505C1C046615007B4E42 /* LiveAuthDialog_iPhone.xib in Resources */ = {isa = PBXBuildFile; fileRef = 7DBC85621A50B8860098D388 /* LiveAuthDialog_iPhone.xib */; };
 		7DC5505D1C046615007B4E42 /* VLCFirstStepsFourthPageViewController~iphone.xib in Resources */ = {isa = PBXBuildFile; fileRef = 7D9289791877467E009108FD /* VLCFirstStepsFourthPageViewController~iphone.xib */; };
 		7DC5505E1C046615007B4E42 /* VLCFirstStepsSixthPageViewController~iphone.xib in Resources */ = {isa = PBXBuildFile; fileRef = 7D15163F1868D7E0004B18F3 /* VLCFirstStepsSixthPageViewController~iphone.xib */; };
 		7DC5505F1C046615007B4E42 /* VLCMigrationViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 41273A3B1A955C4100A2EF77 /* VLCMigrationViewController.xib */; };
@@ -889,7 +880,6 @@
 		DDA1B90A1CE902EE0076BC45 /* VLCNetworkServerLoginInformation+Keychain.m in Sources */ = {isa = PBXBuildFile; fileRef = DDA1B9081CE902EE0076BC45 /* VLCNetworkServerLoginInformation+Keychain.m */; };
 		DDAD5C2B1BB999CA006AFD3B /* VLCMovieViewControlPanel.xib in Resources */ = {isa = PBXBuildFile; fileRef = DDAD5C2A1BB999CA006AFD3B /* VLCMovieViewControlPanel.xib */; };
 		DDB7C6A41BAEB28200E6570E /* WKInterfaceController+VLCConnectionAlert.m in Sources */ = {isa = PBXBuildFile; fileRef = DD9FBE761BAD6BB600FFE77A /* WKInterfaceController+VLCConnectionAlert.m */; };
-		DDB959421AFBB30500BB8CFF /* MappingModel_2_5_to_2_6.xcmappingmodel in Sources */ = {isa = PBXBuildFile; fileRef = DDB959411AFBB30500BB8CFF /* MappingModel_2_5_to_2_6.xcmappingmodel */; };
 		DDBE44FF1BFB6A8B00E5D35E /* CAAnimation+VLCWiggle.m in Sources */ = {isa = PBXBuildFile; fileRef = DDBE44FE1BFB6A8B00E5D35E /* CAAnimation+VLCWiggle.m */; };
 		DDC10BE41AEE8EA700890DC3 /* VLCTimeNavigationTitleView.m in Sources */ = {isa = PBXBuildFile; fileRef = DDC10BE31AEE8EA700890DC3 /* VLCTimeNavigationTitleView.m */; };
 		DDDEA6AF1BE027FA000BB7A2 /* VLCServerBrowsingTVViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = DDDEA6AE1BE027FA000BB7A2 /* VLCServerBrowsingTVViewController.m */; };
@@ -3706,7 +3696,6 @@
 				9B9231C4185A703700F89498 /* VLCNetworkLoginViewController.xib in Resources */,
 				7D1516431868D7E0004B18F3 /* VLCFirstStepsFirstPageViewController~iphone.xib in Resources */,
 				7DF04F4E1961F2B8004A5429 /* web-download.png in Resources */,
-				7D2AC5D01B67746700A8D9DD /* LiveAuthDialog_iPad.xib in Resources */,
 				41B93C081A53853B00102E8B /* VLCCloudServiceCell.xib in Resources */,
 				29125E5617492219003F03E5 /* index.html in Resources */,
 				7DB638AB185BC0890003887C /* Images.xcassets in Resources */,
@@ -3715,14 +3704,12 @@
 				7DBBF1A4183AB4300009A339 /* VLCNetworkListCell.xib in Resources */,
 				7DF04F501961F2B8004A5429 /* web-open.png in Resources */,
 				7D9870661A3E03D5009CF27D /* papasscode_failed_bg.png in Resources */,
-				268BDA7E1B4FE1E200D622DD /* backArrow_black.png in Resources */,
 				7D9870681A3E03D5009CF27D /* papasscode_marker.png in Resources */,
 				7D32B384185E293D006CA474 /* Raleway.woff in Resources */,
 				7D9870691A3E03D5009CF27D /* papasscode_marker@2x.png in Resources */,
 				7D5DD5C717590ABF001421E3 /* About Contents.html in Resources */,
 				7DBBF19B183AB4300009A339 /* VLCCloudStorageTableViewCell~iphone.xib in Resources */,
 				DDF908DC1CF4CEE700108B70 /* VLCNetworkLoginViewFieldCell.xib in Resources */,
-				7DBC85641A50B8860098D388 /* LiveAuthDialog_iPhone.xib in Resources */,
 				7D92897B1877467E009108FD /* VLCFirstStepsFourthPageViewController~iphone.xib in Resources */,
 				7D1516461868D7E0004B18F3 /* VLCFirstStepsSixthPageViewController~iphone.xib in Resources */,
 				41273A3D1A955C4100A2EF77 /* VLCMigrationViewController.xib in Resources */,
@@ -3769,7 +3756,6 @@
 				7DC550491C046615007B4E42 /* VLCNetworkLoginViewController.xib in Resources */,
 				7DC5504A1C046615007B4E42 /* VLCFirstStepsFirstPageViewController~iphone.xib in Resources */,
 				7DC5504B1C046615007B4E42 /* web-download.png in Resources */,
-				7DC5504C1C046615007B4E42 /* LiveAuthDialog_iPad.xib in Resources */,
 				7DC5504E1C046615007B4E42 /* VLCCloudServiceCell.xib in Resources */,
 				7DC5504F1C046615007B4E42 /* index.html in Resources */,
 				7DC550501C046615007B4E42 /* Images.xcassets in Resources */,
@@ -3778,14 +3764,12 @@
 				7DC550531C046615007B4E42 /* VLCNetworkListCell.xib in Resources */,
 				7DC550541C046615007B4E42 /* web-open.png in Resources */,
 				7DC550551C046615007B4E42 /* papasscode_failed_bg.png in Resources */,
-				7DC550561C046615007B4E42 /* backArrow_black.png in Resources */,
 				7DC550571C046615007B4E42 /* papasscode_marker.png in Resources */,
 				7DC550581C046615007B4E42 /* Raleway.woff in Resources */,
 				7DC550591C046615007B4E42 /* papasscode_marker@2x.png in Resources */,
 				7DC5505A1C046615007B4E42 /* About Contents.html in Resources */,
 				7DC5505B1C046615007B4E42 /* VLCCloudStorageTableViewCell~iphone.xib in Resources */,
 				2678432A1D3D5B9500BF36EE /* VLCNetworkLoginViewFieldCell.xib in Resources */,
-				7DC5505C1C046615007B4E42 /* LiveAuthDialog_iPhone.xib in Resources */,
 				7DC5505D1C046615007B4E42 /* VLCFirstStepsFourthPageViewController~iphone.xib in Resources */,
 				7DC5505E1C046615007B4E42 /* VLCFirstStepsSixthPageViewController~iphone.xib in Resources */,
 				7DC5505F1C046615007B4E42 /* VLCMigrationViewController.xib in Resources */,
@@ -4456,7 +4440,6 @@
 				DD3EFEED1BDEBA3800B68579 /* VLCNetworkServerBrowserViewController.m in Sources */,
 				DD3EABFC1BE14C4B003668DA /* UIViewController+VLCAlert.m in Sources */,
 				7D9289751877459B009108FD /* VLCFirstStepsThirdPageViewController.m in Sources */,
-				7D0363AC1B2F325500CC0343 /* MediaLibrary.xcdatamodeld in Sources */,
 				7D95610B1AF3E9E800779745 /* VLCMiniPlaybackView.m in Sources */,
 				DD3EFF451BDEBCE500B68579 /* VLCLocalNetworkServiceBrowserManualConnect.m in Sources */,
 				7DC19B051868D1C400810BF7 /* VLCFirstStepsFifthPageViewController.m in Sources */,
@@ -4550,7 +4533,6 @@
 				7D1052EE1A4DCD1E00295F08 /* VLCOneDriveController.m in Sources */,
 				7DAE0C371B2EF85B00C53996 /* VLCSidebarController.m in Sources */,
 				7D30F3DC183AB2F900FFC021 /* VLCNetworkLoginViewController.m in Sources */,
-				DDB959421AFBB30500BB8CFF /* MappingModel_2_5_to_2_6.xcmappingmodel in Sources */,
 				DDA1B9091CE902EE0076BC45 /* VLCNetworkServerLoginInformation+Keychain.m in Sources */,
 				7D30F3DF183AB31E00FFC021 /* VLCWiFiUploadTableViewCell.m in Sources */,
 				7D74177A1AE2D3CE001F1997 /* VLCNavigationController.m in Sources */,
@@ -4581,7 +4563,6 @@
 				7DC54FB91C046615007B4E42 /* VLCNetworkServerBrowserViewController.m in Sources */,
 				7DC54FBA1C046615007B4E42 /* UIViewController+VLCAlert.m in Sources */,
 				7DC54FBB1C046615007B4E42 /* VLCFirstStepsThirdPageViewController.m in Sources */,
-				7DC54FBC1C046615007B4E42 /* MediaLibrary.xcdatamodeld in Sources */,
 				26D2F0701D3D3CD8003F7417 /* VLCNetworkLoginViewFieldCell.m in Sources */,
 				7DC54FBD1C046615007B4E42 /* VLCMiniPlaybackView.m in Sources */,
 				7DC54FBE1C046615007B4E42 /* VLCLocalNetworkServiceBrowserManualConnect.m in Sources */,
@@ -4676,7 +4657,6 @@
 				7DC550141C046615007B4E42 /* VLCOneDriveController.m in Sources */,
 				7DC550151C046615007B4E42 /* VLCSidebarController.m in Sources */,
 				7DC550161C046615007B4E42 /* VLCNetworkLoginViewController.m in Sources */,
-				7DC550171C046615007B4E42 /* MappingModel_2_5_to_2_6.xcmappingmodel in Sources */,
 				26D2F06E1D3D3CCE003F7417 /* VLCNetworkLoginDataSourceProtocol.m in Sources */,
 				7DC550181C046615007B4E42 /* VLCWiFiUploadTableViewCell.m in Sources */,
 				7DC550191C046615007B4E42 /* VLCNavigationController.m in Sources */,
