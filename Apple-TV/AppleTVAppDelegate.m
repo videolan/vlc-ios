@@ -16,7 +16,7 @@
 #import "VLCCloudServicesTVViewController.h"
 #import "VLCHTTPUploaderController.h"
 #import "VLCRemotePlaybackViewController.h"
-#import "HockeySDK.h"
+#import <HockeySDK/HockeySDK.h>
 
 @interface AppleTVAppDelegate ()
 {

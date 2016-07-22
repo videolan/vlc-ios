@@ -19,7 +19,7 @@
 #import "VLCMediaFileDiscoverer.h"
 #import <DropboxSDK/DBKeychain.h>
 #else
-#import "DBKeychain.h"
+#import <DropboxTVSDK/DBKeychain.h>
 #endif
 #import "VLCDropboxConstants.h"
 

@@ -64,7 +64,6 @@
 		7D27EC2B19DF310300EF0370 /* VLCFirstStepsSecondPageViewController~ipad.xib in Resources */ = {isa = PBXBuildFile; fileRef = 7D27EC2919DF310300EF0370 /* VLCFirstStepsSecondPageViewController~ipad.xib */; };
 		7D27EC2C19DF310300EF0370 /* VLCFirstStepsSecondPageViewController~iphone.xib in Resources */ = {isa = PBXBuildFile; fileRef = 7D27EC2A19DF310300EF0370 /* VLCFirstStepsSecondPageViewController~iphone.xib */; };
 		7D298F441AD5827E00A0BF68 /* WatchKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = DDF157B31ACB169B00AAFBC6 /* WatchKit.framework */; settings = {ATTRIBUTES = (Weak, ); }; };
-		7D29C7AB1C08C84C00AEC5C4 /* HockeySDK.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = 7D29C7A71C08C84000AEC5C4 /* HockeySDK.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
 		7D2DF7C31B67777D00FB78AB /* libc++.tbd in Frameworks */ = {isa = PBXBuildFile; fileRef = 7D2DF7C21B67777D00FB78AB /* libc++.tbd */; };
 		7D30F3C2183AB24C00FFC021 /* VLCHTTPConnection.m in Sources */ = {isa = PBXBuildFile; fileRef = 7D30F3BD183AB24C00FFC021 /* VLCHTTPConnection.m */; };
 		7D30F3C3183AB24C00FFC021 /* VLCHTTPFileDownloader.m in Sources */ = {isa = PBXBuildFile; fileRef = 7D30F3BF183AB24C00FFC021 /* VLCHTTPFileDownloader.m */; };
@@ -123,7 +122,6 @@
 		7D50903218F41C7900180139 /* VLCAlertView.m in Sources */ = {isa = PBXBuildFile; fileRef = 7D50903118F41C7900180139 /* VLCAlertView.m */; };
 		7D51B3B01BF0EEF4005AF4D5 /* VLCPlaybackInfoMediaInfoTVViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 7D51B3AE1BF0EEF4005AF4D5 /* VLCPlaybackInfoMediaInfoTVViewController.m */; };
 		7D51B3B11BF0EEF4005AF4D5 /* VLCPlaybackInfoMediaInfoTVViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 7D51B3AF1BF0EEF4005AF4D5 /* VLCPlaybackInfoMediaInfoTVViewController.xib */; };
-		7D5278DE1BD7DF1800D0CA0E /* DropboxTVSDK.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = 7D5278D11BD7DE3D00D0CA0E /* DropboxTVSDK.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
 		7D5278E21BD7E06E00D0CA0E /* VLCDropboxController.m in Sources */ = {isa = PBXBuildFile; fileRef = 7D3784AA183A9906009EE944 /* VLCDropboxController.m */; };
 		7D5278E41BD7E37300D0CA0E /* VLCCloudStorageController.m in Sources */ = {isa = PBXBuildFile; fileRef = 4184AA141A5492070063DF5A /* VLCCloudStorageController.m */; };
 		7D5CAA891A4AD763003F2CBC /* VLCTrackSelectorTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 7D5CAA881A4AD763003F2CBC /* VLCTrackSelectorTableViewCell.m */; };
@@ -221,7 +219,6 @@
 		7D63BBE41D414212003C60D3 /* VLCCloudServicesTVViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 7D3E52891BD7B5E100309D15 /* VLCCloudServicesTVViewController.m */; };
 		7D63BBE51D414212003C60D3 /* VLCPlaybackInfoCollectionViewDataSource.m in Sources */ = {isa = PBXBuildFile; fileRef = DD9D8F6A1C01FE5B00B4060F /* VLCPlaybackInfoCollectionViewDataSource.m */; };
 		7D63BBE61D414212003C60D3 /* VLCActivityManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 7D18F0A11B34522000651A30 /* VLCActivityManager.m */; };
-		7D63BBE81D414212003C60D3 /* libLiveTVSDK.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 7D0C352E1BD97BC50058CD19 /* libLiveTVSDK.a */; };
 		7D63BBE91D414212003C60D3 /* AVFoundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 7DC71D0D1BC81F70001FACAA /* AVFoundation.framework */; };
 		7D63BBEA1D414212003C60D3 /* libc++.tbd in Frameworks */ = {isa = PBXBuildFile; fileRef = 7DF28AE01BA31C580030C944 /* libc++.tbd */; };
 		7D63BBEB1D414212003C60D3 /* libiconv.tbd in Frameworks */ = {isa = PBXBuildFile; fileRef = 7DF28ADE1BA31C4D0030C944 /* libiconv.tbd */; };
@@ -231,7 +228,6 @@
 		7D63BBEF1D414212003C60D3 /* AudioToolbox.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 7DF28AD61BA31C150030C944 /* AudioToolbox.framework */; };
 		7D63BBF01D414212003C60D3 /* libTVVLCKit.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 7D1FEBD31BA3184A00D1058E /* libTVVLCKit.a */; };
 		7D63BBF11D414212003C60D3 /* HockeySDK.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 7D29C7A71C08C84000AEC5C4 /* HockeySDK.framework */; };
-		7D63BBF21D414212003C60D3 /* libPods-VLC-TV.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 8939257D0D04F9AFF766DEA5 /* libPods-VLC-TV.a */; };
 		7D63BBF41D414212003C60D3 /* main.js in Resources */ = {isa = PBXBuildFile; fileRef = 7D00161A17704DAC00649F27 /* main.js */; };
 		7D63BBF51D414212003C60D3 /* VLCPlaybackInfoTVViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = DD8095E41BE3F4240065D8E1 /* VLCPlaybackInfoTVViewController.xib */; };
 		7D63BBF61D414212003C60D3 /* jquery.ui.widget.js in Resources */ = {isa = PBXBuildFile; fileRef = 7AC862A11765E90C0011611A /* jquery.ui.widget.js */; };
@@ -261,8 +257,6 @@
 		7D63BC0E1D414212003C60D3 /* playerControl.css in Resources */ = {isa = PBXBuildFile; fileRef = 6B4E33CF1BF2A39400A35255 /* playerControl.css */; };
 		7D63BC0F1D414212003C60D3 /* index.html in Resources */ = {isa = PBXBuildFile; fileRef = 7D405EE11BEA1FAD006ED886 /* index.html */; };
 		7D63BC101D414212003C60D3 /* VLCPlaybackInfoMediaInfoTVViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 7D51B3AF1BF0EEF4005AF4D5 /* VLCPlaybackInfoMediaInfoTVViewController.xib */; };
-		7D63BC121D414212003C60D3 /* HockeySDK.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = 7D29C7A71C08C84000AEC5C4 /* HockeySDK.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
-		7D63BC131D414212003C60D3 /* DropboxTVSDK.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = 7D5278D11BD7DE3D00D0CA0E /* DropboxTVSDK.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
 		7D63C19018774B1700BD5256 /* VLCFirstStepsSecondPageViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 7D63C18E18774B1700BD5256 /* VLCFirstStepsSecondPageViewController.m */; };
 		7D63C19518774E0100BD5256 /* VLCFirstStepsThirdPageViewController~ipad.xib in Resources */ = {isa = PBXBuildFile; fileRef = 7D63C19418774E0100BD5256 /* VLCFirstStepsThirdPageViewController~ipad.xib */; };
 		7D63C19718774F1000BD5256 /* VLCFirstStepsFourthPageViewController~ipad.xib in Resources */ = {isa = PBXBuildFile; fileRef = 7D63C19618774F1000BD5256 /* VLCFirstStepsFourthPageViewController~ipad.xib */; };
@@ -895,7 +889,6 @@
 		DDF908E01CF4E04A00108B70 /* VLCNetworkLoginDataSourceSavedLogins.m in Sources */ = {isa = PBXBuildFile; fileRef = DDF908DF1CF4E04A00108B70 /* VLCNetworkLoginDataSourceSavedLogins.m */; };
 		DDF908E41CFCD97400108B70 /* VLCNetworkLoginDataSourceProtocol.m in Sources */ = {isa = PBXBuildFile; fileRef = DDF908E31CFCD97400108B70 /* VLCNetworkLoginDataSourceProtocol.m */; };
 		E0C04F951A25B4410080331A /* VLCDocumentPickerController.m in Sources */ = {isa = PBXBuildFile; fileRef = E0C04F941A25B4410080331A /* VLCDocumentPickerController.m */; };
-		E81F552E7F32B4E830915E29 /* libPods-VLC-TV.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 8939257D0D04F9AFF766DEA5 /* libPods-VLC-TV.a */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -1036,30 +1029,6 @@
 			files = (
 			);
 			name = "Embed App Extensions";
-			runOnlyForDeploymentPostprocessing = 0;
-		};
-		7D5278E11BD7DF1800D0CA0E /* Embed Frameworks */ = {
-			isa = PBXCopyFilesBuildPhase;
-			buildActionMask = 2147483647;
-			dstPath = "";
-			dstSubfolderSpec = 10;
-			files = (
-				7D29C7AB1C08C84C00AEC5C4 /* HockeySDK.framework in Embed Frameworks */,
-				7D5278DE1BD7DF1800D0CA0E /* DropboxTVSDK.framework in Embed Frameworks */,
-			);
-			name = "Embed Frameworks";
-			runOnlyForDeploymentPostprocessing = 0;
-		};
-		7D63BC111D414212003C60D3 /* Embed Frameworks */ = {
-			isa = PBXCopyFilesBuildPhase;
-			buildActionMask = 2147483647;
-			dstPath = "";
-			dstSubfolderSpec = 10;
-			files = (
-				7D63BC121D414212003C60D3 /* HockeySDK.framework in Embed Frameworks */,
-				7D63BC131D414212003C60D3 /* DropboxTVSDK.framework in Embed Frameworks */,
-			);
-			name = "Embed Frameworks";
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 		DD3567861B6760BF00338947 /* Embed App Extensions */ = {
@@ -1771,7 +1740,6 @@
 				7DF28ADD1BA31C390030C944 /* OpenGLES.framework in Frameworks */,
 				7DF28ADB1BA31C2B0030C944 /* CoreText.framework in Frameworks */,
 				7DF28AD71BA31C150030C944 /* AudioToolbox.framework in Frameworks */,
-				E81F552E7F32B4E830915E29 /* libPods-VLC-TV.a in Frameworks */,
 				1D72DC00CD4A06E8789BD8F7 /* libPods-VLC-tvOS.a in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -1780,7 +1748,6 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				7D63BBE81D414212003C60D3 /* libLiveTVSDK.a in Frameworks */,
 				7D63BBE91D414212003C60D3 /* AVFoundation.framework in Frameworks */,
 				7D63BBEA1D414212003C60D3 /* libc++.tbd in Frameworks */,
 				7D63BBEB1D414212003C60D3 /* libiconv.tbd in Frameworks */,
@@ -1790,7 +1757,6 @@
 				7D63BBEF1D414212003C60D3 /* AudioToolbox.framework in Frameworks */,
 				7D63BBF01D414212003C60D3 /* libTVVLCKit.a in Frameworks */,
 				7D63BBF11D414212003C60D3 /* HockeySDK.framework in Frameworks */,
-				7D63BBF21D414212003C60D3 /* libPods-VLC-TV.a in Frameworks */,
 				DD729EB7E7F949CBECE29930 /* libPods-VLC-tvOS-Debug.a in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -3179,7 +3145,6 @@
 				7D1329391BA1F10100BE647E /* Sources */,
 				7D13293A1BA1F10100BE647E /* Frameworks */,
 				7D13293B1BA1F10100BE647E /* Resources */,
-				7D5278E11BD7DF1800D0CA0E /* Embed Frameworks */,
 				12FBF6B8DF68C968D9AD05E3 /* [CP] Embed Pods Frameworks */,
 				0452CD613294910CB73B58CB /* [CP] Copy Pods Resources */,
 			);
@@ -3200,7 +3165,6 @@
 				7D63BB8B1D414212003C60D3 /* Sources */,
 				7D63BBE71D414212003C60D3 /* Frameworks */,
 				7D63BBF31D414212003C60D3 /* Resources */,
-				7D63BC111D414212003C60D3 /* Embed Frameworks */,
 				7D63BC141D414212003C60D3 /* [CP] Embed Pods Frameworks */,
 				7D63BC151D414212003C60D3 /* [CP] Copy Pods Resources */,
 			);

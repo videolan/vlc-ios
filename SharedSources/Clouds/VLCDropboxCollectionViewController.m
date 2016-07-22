@@ -12,7 +12,7 @@
 #import "VLCDropboxCollectionViewController.h"
 #import "VLCDropboxController.h"
 #import "UIDevice+VLC.h"
-#import "DBKeychain.h"
+#import <DropboxTVSDK/DBKeychain.h>
 #import "VLCRemoteBrowsingTVCell.h"
 #import "VLCRemoteBrowsingTVCell+CloudStorage.h"
 
