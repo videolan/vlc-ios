@@ -13,10 +13,16 @@
 #import "UIDevice+VLC.h"
 #import <sys/sysctl.h> // for sysctlbyname
 
+int _currentSpeedCategory;
+
 @implementation UIDevice (VLC)
 
 - (int)VLCSpeedCategory
 {
+    if (_currentSpeedCategory != 0) {
+        return _currentSpeedCategory;
+    }
+
     size_t size;
     sysctlbyname("hw.machine", NULL, &size, NULL, 0);
 
@@ -29,20 +35,22 @@
     if ([currentMachine hasPrefix:@"iPhone2"] || [currentMachine hasPrefix:@"iPhone3"] || [currentMachine hasPrefix:@"iPad1"] || [currentMachine hasPrefix:@"iPod3"] || [currentMachine hasPrefix:@"iPod4"]) {
         // iPhone 4, 4th generation iPod touch
         APLog(@"this is a cat one device");
-        return 1;
+        _currentSpeedCategory = 1;
     } else if ([currentMachine hasPrefix:@"iPhone4"] || [currentMachine hasPrefix:@"iPad3,1"] || [currentMachine hasPrefix:@"iPad3,2"] || [currentMachine hasPrefix:@"iPad3,3"] || [currentMachine hasPrefix:@"iPod4"] || [currentMachine hasPrefix:@"iPad2"] || [currentMachine hasPrefix:@"iPod5"]) {
         // iPhone 4S, iPad 2 and 3, iPod 4 and 5
         APLog(@"this is a cat two device");
-        return 2;
+        _currentSpeedCategory = 2;
     } else if ([currentMachine hasPrefix:@"iPhone5"] || [currentMachine hasPrefix:@"iPhone6"] || [currentMachine hasPrefix:@"iPad4"]) {
         // iPhone 5 + 5S, iPad 4, iPad Air, iPad mini 2G
         APLog(@"this is a cat three device");
-        return 3;
+        _currentSpeedCategory = 3;
     } else {
         // iPhone 6 + 6S, 2014+2015 iPads
         APLog(@"this is a cat four device");
-        return 4;
+        _currentSpeedCategory = 4;
     }
+
+    return _currentSpeedCategory;
 }
 
 - (NSNumber *)VLCFreeDiskSpace
