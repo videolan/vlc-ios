@@ -135,7 +135,12 @@
     if (row >= audioTrackIndexes.count) {
         NSUserDefaults *defaults = [NSUserDefaults standardUserDefaults];
         BOOL bValue = ![defaults boolForKey:kVLCSettingUseSPDIF];
+/* we are using private API of VLCKit here, nothing to warning about */
+#pragma clang diagnostic push
+#pragma clang diagnostic ignored "-Wundeclared-selector"
         [[VLCPlaybackController sharedInstance].mediaPlayer performSelector:@selector(setPassthroughAudio:) withObject:@(bValue)];
+#pragma clang diagnostic pop
+
         [defaults setBool:bValue forKey:kVLCSettingUseSPDIF];
         [defaults synchronize];
         /* restart the audio output */
