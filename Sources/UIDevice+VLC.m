@@ -15,7 +15,7 @@
 
 @implementation UIDevice (VLC)
 
-- (int)speedCategory
+- (int)VLCSpeedCategory
 {
     size_t size;
     sysctlbyname("hw.machine", NULL, &size, NULL, 0);
@@ -45,7 +45,7 @@
     }
 }
 
-- (NSNumber *)freeDiskspace
+- (NSNumber *)VLCFreeDiskSpace
 {
     NSNumber *totalSpace;
     NSNumber *totalFreeSpace;
@@ -65,7 +65,7 @@
     return totalFreeSpace;
 }
 
-- (BOOL)hasExternalDisplay
+- (BOOL)VLCHasExternalDisplay
 {
     return ([[UIScreen screens] count] > 1);
 }

@@ -134,7 +134,7 @@ NSString *const VLCPlaybackControllerPlaybackPositionUpdated = @"VLCPlaybackCont
 
     NSUInteger totalNumberOfPixels = width * height;
 
-    NSInteger speedCategory = [[UIDevice currentDevice] speedCategory];
+    NSInteger speedCategory = [[UIDevice currentDevice] VLCSpeedCategory];
 
     if (speedCategory == 1) {
         // iPhone 3GS, iPhone 4, first gen. iPad, 3rd and 4th generation iPod touch
@@ -708,7 +708,7 @@ NSString *const VLCPlaybackControllerPlaybackPositionUpdated = @"VLCPlaybackCont
 
         if ([_aspectRatios[_currentAspectRatioMask] isEqualToString:@"FILL_TO_SCREEN"]) {
             UIScreen *screen;
-            if (![[UIDevice currentDevice] hasExternalDisplay])
+            if (![[UIDevice currentDevice] VLCHasExternalDisplay])
                 screen = [UIScreen mainScreen];
             else
                 screen = [UIScreen screens][1];

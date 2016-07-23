@@ -14,8 +14,8 @@
 
 @interface UIDevice (VLC)
 
-- (int)speedCategory;
-- (NSNumber *)freeDiskspace;
-- (BOOL)hasExternalDisplay;
+@property (readonly) int VLCSpeedCategory;
+@property (readonly) NSNumber *VLCFreeDiskSpace;
+@property (readonly) BOOL VLCHasExternalDisplay;
 
 @end

@@ -149,6 +149,8 @@ typedef NS_ENUM(NSInteger, VLCPanType) {
     [super viewDidLoad];
     CGRect rect;
 
+    int deviceSpeedCategory = [[UIDevice currentDevice] VLCSpeedCategory];
+
     self.extendedLayoutIncludesOpaqueBars = YES;
     self.edgesForExtendedLayout = UIRectEdgeAll;
 
@@ -214,7 +216,7 @@ typedef NS_ENUM(NSInteger, VLCPanType) {
 
     _playingExternallyTitle.text = NSLocalizedString(@"PLAYING_EXTERNALLY_TITLE", nil);
     _playingExternallyDescription.text = NSLocalizedString(@"PLAYING_EXTERNALLY_DESC", nil);
-    if ([[UIDevice currentDevice] hasExternalDisplay])
+    if ([[UIDevice currentDevice] VLCHasExternalDisplay])
         [self showOnExternalDisplay];
 
     self.trackNameLabel.text = self.artistNameLabel.text = self.albumNameLabel.text = @"";
@@ -223,8 +225,6 @@ typedef NS_ENUM(NSInteger, VLCPanType) {
     _tapOnVideoRecognizer = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(toggleControlsVisible)];
     _tapOnVideoRecognizer.delegate = self;
     [self.view addGestureRecognizer:_tapOnVideoRecognizer];
-
-
 
     _pinchRecognizer = [[UIPinchGestureRecognizer alloc] initWithTarget:self action:@selector(handlePinchGesture:)];
     _pinchRecognizer.delegate = self;
@@ -312,7 +312,7 @@ typedef NS_ENUM(NSInteger, VLCPanType) {
     _trackSelectorContainer.autoresizingMask = UIViewAutoresizingFlexibleRightMargin | UIViewAutoresizingFlexibleLeftMargin | UIViewAutoresizingFlexibleBottomMargin | UIViewAutoresizingFlexibleHeight;
     _trackSelectorContainer.hidden = YES;
 
-    if ([[UIDevice currentDevice] speedCategory] >= 3) {
+    if (deviceSpeedCategory >= 3) {
         _trackSelectorTableView.opaque = NO;
         _trackSelectorTableView.backgroundColor = [UIColor clearColor];
     } else
@@ -334,7 +334,7 @@ typedef NS_ENUM(NSInteger, VLCPanType) {
     _sleepTimerContainer.autoresizingMask = UIViewAutoresizingFlexibleRightMargin | UIViewAutoresizingFlexibleLeftMargin | UIViewAutoresizingFlexibleBottomMargin | UIViewAutoresizingFlexibleTopMargin;
 
     _sleepTimeDatePicker = [[UIDatePicker alloc] init];
-    if ([[UIDevice currentDevice] speedCategory] >= 3) {
+    if (deviceSpeedCategory >= 3) {
         _sleepTimeDatePicker.opaque = NO;
         _sleepTimeDatePicker.backgroundColor = [UIColor clearColor];
     } else
@@ -807,7 +807,7 @@ typedef NS_ENUM(NSInteger, VLCPanType) {
     self.timeNavigationTitleView.positionSlider.value = 0.;
     [self.timeNavigationTitleView.timeDisplayButton setTitle:@"" forState:UIControlStateNormal];
     self.timeNavigationTitleView.timeDisplayButton.accessibilityLabel = @"";
-    if (![[UIDevice currentDevice] hasExternalDisplay])
+    if (![[UIDevice currentDevice] VLCHasExternalDisplay])
         self.brightnessSlider.value = [UIScreen mainScreen].brightness * 2.;
     [_equalizerView reloadData];
 
@@ -1487,7 +1487,7 @@ currentMediaHasTrackToChooseFrom:(BOOL)currentMediaHasTrackToChooseFrom
     else if (sender == self.contrastSlider)
         mediaPlayer.contrast = self.contrastSlider.value;
     else if (sender == self.brightnessSlider) {
-        if ([[UIDevice currentDevice] hasExternalDisplay])
+        if ([[UIDevice currentDevice] VLCHasExternalDisplay])
             mediaPlayer.brightness = self.brightnessSlider.value;
         else
             [[UIScreen mainScreen] setBrightness:(self.brightnessSlider.value / 2.)];
@@ -1511,7 +1511,7 @@ currentMediaHasTrackToChooseFrom:(BOOL)currentMediaHasTrackToChooseFrom
 {
     if (notification)
         self.brightnessSlider.value = [(UIScreen *)notification.object brightness] * 2.;
-    else if (![[UIDevice currentDevice] hasExternalDisplay])
+    else if (![[UIDevice currentDevice] VLCHasExternalDisplay])
         self.brightnessSlider.value = [(UIScreen *)[[UIScreen screens] firstObject] brightness] * 2.;
 }
 

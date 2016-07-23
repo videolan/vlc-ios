@@ -395,7 +395,7 @@ forRowAtIndexPath:(NSIndexPath *)indexPath
     NSString *fileName = [[url path] lastPathComponent];
     NSData *receivedSub = [NSData dataWithContentsOfURL:url];
 
-    if (receivedSub.length < [[UIDevice currentDevice] freeDiskspace].longLongValue) {
+    if (receivedSub.length < [[UIDevice currentDevice] VLCFreeDiskSpace].longLongValue) {
         NSArray *searchPaths = NSSearchPathForDirectoriesInDomains(NSCachesDirectory, NSUserDomainMask, YES);
         NSString *directoryPath = [searchPaths objectAtIndex:0];
         fileSubtitlePath = [directoryPath stringByAppendingPathComponent:fileName];

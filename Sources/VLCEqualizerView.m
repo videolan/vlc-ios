@@ -260,7 +260,7 @@
     _tableView.sectionHeaderHeight = 28.;
     [_tableView registerClass:[VLCTrackSelectorHeaderView class] forHeaderFooterViewReuseIdentifier:PROFILE_SELECTOR_TABLEVIEW_SECTIONHEADER];
     [_tableView registerClass:[VLCTrackSelectorTableViewCell class] forCellReuseIdentifier:PROFILE_SELECTOR_TABLEVIEW_CELL];
-    if ([[UIDevice currentDevice] speedCategory] >= 3) {
+    if ([[UIDevice currentDevice] VLCSpeedCategory] >= 3) {
         _tableView.opaque = NO;
         _tableView.backgroundColor = [UIColor clearColor];
     } else

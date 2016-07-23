@@ -136,7 +136,7 @@
 
             /* devices category 3 and faster include HW accelerated JPEG encoding
              * so we can make our transfers faster by using waaay smaller images */
-            if ([[UIDevice currentDevice] speedCategory] < 3) {
+            if ([[UIDevice currentDevice] VLCSpeedCategory] < 3) {
                 theData = UIImagePNGRepresentation([VLCThumbnailsCache thumbnailForManagedObject:mo]);
                 contentType = @"image/png";
             } else {
@@ -685,7 +685,7 @@
 
     _filepath = [uploadDirPath stringByAppendingPathComponent: filename];
 
-    NSNumber *freeSpace = [[UIDevice currentDevice] freeDiskspace];
+    NSNumber *freeSpace = [[UIDevice currentDevice] VLCFreeDiskSpace];
     if (_contentLength >= freeSpace.longLongValue) {
         /* avoid deadlock since we are on a background thread */
         [self performSelectorOnMainThread:@selector(notifyUserAboutEndOfFreeStorage:) withObject:filename waitUntilDone:NO];

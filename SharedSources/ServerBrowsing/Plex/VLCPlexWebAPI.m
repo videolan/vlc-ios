@@ -201,7 +201,7 @@
 
     NSData *receivedSub = [NSData dataWithContentsOfURL:url];
 
-    if (receivedSub.length < [[UIDevice currentDevice] freeDiskspace].longLongValue) {
+    if (receivedSub.length < [[UIDevice currentDevice] VLCFreeDiskSpace].longLongValue) {
         NSArray *searchPaths =  nil;
         if (modeStream)
             searchPaths = NSSearchPathForDirectoriesInDomains(NSCachesDirectory, NSUserDomainMask, YES);

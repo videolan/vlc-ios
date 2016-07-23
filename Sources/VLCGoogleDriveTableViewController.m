@@ -150,7 +150,7 @@
 {
     _selectedFile = _googleDriveController.currentListFiles[[self.tableView indexPathForCell:cell].row];
 
-    if (_selectedFile.size.longLongValue < [[UIDevice currentDevice] freeDiskspace].longLongValue) {
+    if (_selectedFile.size.longLongValue < [[UIDevice currentDevice] VLCFreeDiskSpace].longLongValue) {
         /* selected item is a proper file, ask the user if s/he wants to download it */
         VLCAlertView *alert = [[VLCAlertView alloc] initWithTitle:NSLocalizedString(@"DROPBOX_DOWNLOAD", nil)
                                                           message:[NSString stringWithFormat:NSLocalizedString(@"DROPBOX_DL_LONG", nil), _selectedFile.name, [[UIDevice currentDevice] model]]

@@ -135,7 +135,7 @@
     NSString *FileSubtitlePath = nil;
     NSData *receivedSub = [NSData dataWithContentsOfURL:subtitleURL]; // TODO: fix synchronous load
 
-    if (receivedSub.length < [[UIDevice currentDevice] freeDiskspace].longLongValue) {
+    if (receivedSub.length < [[UIDevice currentDevice] VLCFreeDiskSpace].longLongValue) {
         NSArray *searchPaths = NSSearchPathForDirectoriesInDomains(NSCachesDirectory, NSUserDomainMask, YES);
         NSString *directoryPath = searchPaths[0];
         FileSubtitlePath = [directoryPath stringByAppendingPathComponent:[subtitleURL lastPathComponent]];
@@ -242,7 +242,7 @@
         return NO;
     }
 
-    if (item.fileSizeBytes.longLongValue  < [[UIDevice currentDevice] freeDiskspace].longLongValue) {
+    if (item.fileSizeBytes.longLongValue  < [[UIDevice currentDevice] VLCFreeDiskSpace].longLongValue) {
         [self _downloadItem:item];
         return YES;
     } else {

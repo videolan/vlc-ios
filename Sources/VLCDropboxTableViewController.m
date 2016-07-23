@@ -171,7 +171,7 @@
 {
     _selectedFile = _mediaList[[self.tableView indexPathForCell:cell].row];
 
-    if (_selectedFile.totalBytes < [[UIDevice currentDevice] freeDiskspace].longLongValue) {
+    if (_selectedFile.totalBytes < [[UIDevice currentDevice] VLCFreeDiskSpace].longLongValue) {
         /* selected item is a proper file, ask the user if s/he wants to download it */
         VLCAlertView *alert = [[VLCAlertView alloc] initWithTitle:NSLocalizedString(@"DROPBOX_DOWNLOAD", nil)
                                                           message:[NSString stringWithFormat:NSLocalizedString(@"DROPBOX_DL_LONG", nil), _selectedFile.filename, [[UIDevice currentDevice] model]]

@@ -55,7 +55,7 @@ NSString *const VLCDropboxSessionWasAuthorized = @"VLCDropboxSessionWasAuthorize
     NSUserDefaults *defaults = [NSUserDefaults standardUserDefaults];
 
     NSNumber *skipLoopFilterDefaultValue;
-    int deviceSpeedCategory = [[UIDevice currentDevice] speedCategory];
+    int deviceSpeedCategory = [[UIDevice currentDevice] VLCSpeedCategory];
     if (deviceSpeedCategory < 3)
         skipLoopFilterDefaultValue = kVLCSettingSkipLoopFilterNonKey;
     else

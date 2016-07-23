@@ -105,7 +105,7 @@
     if (_statusCode == 200) {
         _expectedDownloadSize = [response expectedContentLength];
         APLog(@"expected download size: %lli", _expectedDownloadSize);
-        if (_expectedDownloadSize  < [[UIDevice currentDevice] freeDiskspace].longLongValue)
+        if (_expectedDownloadSize  < [[UIDevice currentDevice] VLCFreeDiskSpace].longLongValue)
             [self.delegate downloadStarted];
         else {
             [_urlConnection cancel];

@@ -25,7 +25,7 @@
     self.contentView.backgroundColor = [UIColor VLCDarkBackgroundColor];
     self.textLabel.textColor = [UIColor whiteColor];
 
-    if ([[UIDevice currentDevice] speedCategory] >= 3) {
+    if ([[UIDevice currentDevice] VLCSpeedCategory] >= 3) {
         self.opaque = NO;
         self.alpha = .8;
     }

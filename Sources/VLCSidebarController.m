@@ -58,7 +58,7 @@
     }
     _sideMenuViewController.backgroundImage = [UIImage imageNamed:@"menu-background"];
 
-    if ([[UIDevice currentDevice] speedCategory] <= 2) {
+    if ([[UIDevice currentDevice] VLCSpeedCategory] <= 2) {
         _sideMenuViewController.animationDuration = 0.1f;
         _sideMenuViewController.parallaxEnabled = NO;
         _sideMenuViewController.contentViewShadowEnabled = NO;
