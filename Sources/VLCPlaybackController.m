@@ -38,7 +38,11 @@ NSString *const VLCPlaybackControllerPlaybackMetadataDidChange = @"VLCPlaybackCo
 NSString *const VLCPlaybackControllerPlaybackDidFail = @"VLCPlaybackControllerPlaybackDidFail";
 NSString *const VLCPlaybackControllerPlaybackPositionUpdated = @"VLCPlaybackControllerPlaybackPositionUpdated";
 
-@interface VLCPlaybackController () <VLCMediaPlayerDelegate, VLCMediaDelegate, AVAudioSessionDelegate>
+@interface VLCPlaybackController () <VLCMediaPlayerDelegate,
+#if TARGET_OS_IOS
+AVAudioSessionDelegate,
+#endif
+VLCMediaDelegate>
 {
     BOOL _playerIsSetup;
     BOOL _playbackFailed;
