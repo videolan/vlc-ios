@@ -123,6 +123,7 @@ NSString *const VLCPlaybackControllerPlaybackPositionUpdated = @"VLCPlaybackCont
     NSArray *tracksInfo = media.tracksInformation;
     double width = 0.0, height = 0.0;
     NSDictionary *track;
+
     for (NSUInteger x = 0; x < tracksInfo.count; x++) {
         track = tracksInfo[x];
         if ([track[VLCMediaTracksInformationType] isEqualToString:VLCMediaTracksInformationTypeVideo]) {
@@ -263,14 +264,15 @@ NSString *const VLCPlaybackControllerPlaybackPositionUpdated = @"VLCPlaybackCont
     VLCMedia *media;
     if (_mediaList) {
         media = [_mediaList mediaAtIndex:_itemInMediaListToBePlayedFirst];
+        [media parseWithOptions:VLCMediaParseLocal];
         media.delegate = self;
     } else {
         media = [VLCMedia mediaWithURL:self.url];
         media.delegate = self;
-        [media synchronousParse];
+        [media parseWithOptions:VLCMediaParseLocal];
         [media addOptions:self.mediaOptionsDictionary];
     }
-    
+
     if (self.mediaList) {
         [_listPlayer setMediaList:self.mediaList];
     } else {
