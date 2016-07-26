@@ -120,6 +120,7 @@ git pull --rebase
 git reset --hard ${TESTEDVLCKITHASH}
 cd ..
 fi
+fi
 
 spopd #ImportedSources
 
