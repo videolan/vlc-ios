@@ -4,37 +4,15 @@
 * Xcode 7.0 or later
 * OS X 10.10 or later
 * Command Line Tools package: https://developer.apple.com/downloads/
-* Cocoapods 0.38 or later
+* Cocoapods 1.0 or later
 
 ## Let's compile!
-1. Run the compilescript with: ```sh compileVLCforiOS.sh```
-
-    The first time around this will take roughly an hour and take up 7.5GB of free space.
-
+1. Run ```pod update```
 2. Open `VLC for iOS.xcworkspace`.
 3. Change `BUNDLE_IDENTIFIER_PREFIX` in `SharedConfig.xcconfig` to your domain name in reverse DNS style.
 4. Hit "Build and Run".
 
-If it compiled and ran in your simulator, throw confetti, celebrate or just cheers to that. 
-You got further than a lot of people before you!
-
 ## Errors you might encounter on the way
-
-### Ambiguous argument followed by some hash
-
-If you look at the compilescript you see that VLCKit and Medialibrary are checked out by hash references. 
-These are repositories within the VLC-iOS repo and if you encounter this error chances are you just need to go into the subfolders ImportedSources/MediaLibrarykit or ImportedSources/VLCKit and pull the latest commits
-then go back and run the script again.
-It just didn't know the hash because your repository was not up to date
-
-### Connection timed out 
-
-VLC has _many_ dependencies. It can happen that when you initially try to build vlc that some libraries are temporarily unavailable.
-You have two options:
- 
-1. either you wait until the library is available again (often the server is just down) and start the script again
-or 
-2. you try to figure out which file couldn't be downloaded and try to find that resource somewhere else and put in the right place. Looking at the compile scripts helps here :)
 
 ### Build errors in Xcode
 
