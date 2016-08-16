@@ -124,6 +124,14 @@
 		7D51B3B11BF0EEF4005AF4D5 /* VLCPlaybackInfoMediaInfoTVViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 7D51B3AF1BF0EEF4005AF4D5 /* VLCPlaybackInfoMediaInfoTVViewController.xib */; };
 		7D5278E21BD7E06E00D0CA0E /* VLCDropboxController.m in Sources */ = {isa = PBXBuildFile; fileRef = 7D3784AA183A9906009EE944 /* VLCDropboxController.m */; };
 		7D5278E41BD7E37300D0CA0E /* VLCCloudStorageController.m in Sources */ = {isa = PBXBuildFile; fileRef = 4184AA141A5492070063DF5A /* VLCCloudStorageController.m */; };
+		7D5B26641D6350BF00FE7B4D /* gradient-cell.png in Resources */ = {isa = PBXBuildFile; fileRef = 7D5B26631D6350BF00FE7B4D /* gradient-cell.png */; };
+		7D5B26651D6350BF00FE7B4D /* gradient-cell.png in Resources */ = {isa = PBXBuildFile; fileRef = 7D5B26631D6350BF00FE7B4D /* gradient-cell.png */; };
+		7D5B26661D6350BF00FE7B4D /* gradient-cell.png in Resources */ = {isa = PBXBuildFile; fileRef = 7D5B26631D6350BF00FE7B4D /* gradient-cell.png */; };
+		7D5B26671D6350BF00FE7B4D /* gradient-cell.png in Resources */ = {isa = PBXBuildFile; fileRef = 7D5B26631D6350BF00FE7B4D /* gradient-cell.png */; };
+		7D5B266E1D63511700FE7B4D /* favicon.ico in Resources */ = {isa = PBXBuildFile; fileRef = 7D5B266D1D63511700FE7B4D /* favicon.ico */; };
+		7D5B266F1D63511700FE7B4D /* favicon.ico in Resources */ = {isa = PBXBuildFile; fileRef = 7D5B266D1D63511700FE7B4D /* favicon.ico */; };
+		7D5B26701D63511700FE7B4D /* favicon.ico in Resources */ = {isa = PBXBuildFile; fileRef = 7D5B266D1D63511700FE7B4D /* favicon.ico */; };
+		7D5B26711D63511700FE7B4D /* favicon.ico in Resources */ = {isa = PBXBuildFile; fileRef = 7D5B266D1D63511700FE7B4D /* favicon.ico */; };
 		7D5CAA891A4AD763003F2CBC /* VLCTrackSelectorTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 7D5CAA881A4AD763003F2CBC /* VLCTrackSelectorTableViewCell.m */; };
 		7D5CAA8C1A4AD8E5003F2CBC /* VLCTrackSelectorHeaderView.m in Sources */ = {isa = PBXBuildFile; fileRef = 7D5CAA8B1A4AD8E5003F2CBC /* VLCTrackSelectorHeaderView.m */; };
 		7D5DD5C717590ABF001421E3 /* About Contents.html in Resources */ = {isa = PBXBuildFile; fileRef = 7D5DD5C617590ABF001421E3 /* About Contents.html */; };
@@ -1287,6 +1295,8 @@
 		7D51B3AE1BF0EEF4005AF4D5 /* VLCPlaybackInfoMediaInfoTVViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = VLCPlaybackInfoMediaInfoTVViewController.m; sourceTree = "<group>"; };
 		7D51B3AF1BF0EEF4005AF4D5 /* VLCPlaybackInfoMediaInfoTVViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; name = VLCPlaybackInfoMediaInfoTVViewController.xib; path = "Playback/Playback Info/VLCPlaybackInfoMediaInfoTVViewController.xib"; sourceTree = "<group>"; };
 		7D5278C31BD7DE3D00D0CA0E /* DropboxSDK.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = DropboxSDK.xcodeproj; path = ImportedSources/Dropbox/DropboxSDK/DropboxSDK.xcodeproj; sourceTree = SOURCE_ROOT; };
+		7D5B26631D6350BF00FE7B4D /* gradient-cell.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "gradient-cell.png"; sourceTree = "<group>"; };
+		7D5B266D1D63511700FE7B4D /* favicon.ico */ = {isa = PBXFileReference; lastKnownFileType = image.ico; path = favicon.ico; sourceTree = "<group>"; };
 		7D5C204D17999A74004F9443 /* da */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = da; path = da.lproj/Localizable.strings; sourceTree = "<group>"; };
 		7D5CAA871A4AD763003F2CBC /* VLCTrackSelectorTableViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = VLCTrackSelectorTableViewCell.h; path = Sources/VLCTrackSelectorTableViewCell.h; sourceTree = SOURCE_ROOT; };
 		7D5CAA881A4AD763003F2CBC /* VLCTrackSelectorTableViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = VLCTrackSelectorTableViewCell.m; path = Sources/VLCTrackSelectorTableViewCell.m; sourceTree = SOURCE_ROOT; };
@@ -1893,6 +1903,8 @@
 		29125E5317492219003F03E5 /* web */ = {
 			isa = PBXGroup;
 			children = (
+				7D5B26631D6350BF00FE7B4D /* gradient-cell.png */,
+				7D5B266D1D63511700FE7B4D /* favicon.ico */,
 				26F1BFCF1A770408001DF30C /* libMediaVLC.xml */,
 				7D32B383185E293D006CA474 /* Raleway.woff */,
 				7AC8629E1765E90C0011611A /* jquery-1.10.1.min.js */,
@@ -3515,6 +3527,7 @@
 				DD4089E91BF63AD00022745E /* VLCPlaybackInfoTracksTVViewController.xib in Resources */,
 				7DEC8BDF1BD67899006E1093 /* VLCFullscreenMovieTVViewController.xib in Resources */,
 				7DEDD38C1BE936130053802C /* About Contents.html in Resources */,
+				7D5B26651D6350BF00FE7B4D /* gradient-cell.png in Resources */,
 				7DF383AE1BF206FB00D71A5C /* VLCRemoteBrowsingCollectionViewController.xib in Resources */,
 				7DDE41931BE925820065C53A /* Assets.xcassets in Resources */,
 				DD29A3E91BF223D000A27A91 /* Localizable.strings in Resources */,
@@ -3531,6 +3544,7 @@
 				7D3E528C1BD7B5E100309D15 /* VLCCloudServicesTVViewController.xib in Resources */,
 				7D405EDA1BEA1F56006ED886 /* style.css in Resources */,
 				7DEBF37A1C075EBC007A4043 /* VLCPlaybackInfoSubtitlesFetcherViewController.xib in Resources */,
+				7D5B266F1D63511700FE7B4D /* favicon.ico in Resources */,
 				7D7EF3DB1BD56B5900CD4CEE /* VLCOpenNetworkStreamTVViewController.xib in Resources */,
 				7DC5A3E81BF6370800CFEBA8 /* VLCRemotePlaybackViewController.xib in Resources */,
 				7DDE41901BE9225A0065C53A /* VLCAboutViewController.xib in Resources */,
@@ -3600,6 +3614,7 @@
 				7D787FC61D40FDE70003CFA1 /* papasscode_marker.png in Resources */,
 				7D787FC71D40FDE70003CFA1 /* Raleway.woff in Resources */,
 				7D787FC81D40FDE70003CFA1 /* papasscode_marker@2x.png in Resources */,
+				7D5B26711D63511700FE7B4D /* favicon.ico in Resources */,
 				7D787FC91D40FDE70003CFA1 /* About Contents.html in Resources */,
 				7D787FCA1D40FDE70003CFA1 /* VLCCloudStorageTableViewCell~iphone.xib in Resources */,
 				7D787FCC1D40FDE70003CFA1 /* VLCFirstStepsFourthPageViewController~iphone.xib in Resources */,
@@ -3622,6 +3637,7 @@
 				7D787FDD1D40FDE70003CFA1 /* VLCPlaylistCollectionViewCell.xib in Resources */,
 				7D787FDE1D40FDE70003CFA1 /* VLCMovieViewControlPanel.xib in Resources */,
 				7D787FDF1D40FDE70003CFA1 /* VLCCloudServicesTableViewController.xib in Resources */,
+				7D5B26671D6350BF00FE7B4D /* gradient-cell.png in Resources */,
 				7D787FE01D40FDE70003CFA1 /* papasscode_failed_bg@2x.png in Resources */,
 				7D787FE11D40FDE70003CFA1 /* VLCCone512x512.png in Resources */,
 				7D787FE21D40FDE70003CFA1 /* web-open-fixed.png in Resources */,
@@ -3668,8 +3684,10 @@
 				7DBBF19D183AB4300009A339 /* VLCCloudStorageTableViewController.xib in Resources */,
 				7D9289761877459B009108FD /* VLCFirstStepsThirdPageViewController~iphone.xib in Resources */,
 				7DBBF19E183AB4300009A339 /* VLCEmptyLibraryView.xib in Resources */,
+				7D5B266E1D63511700FE7B4D /* favicon.ico in Resources */,
 				7D63C19518774E0100BD5256 /* VLCFirstStepsThirdPageViewController~ipad.xib in Resources */,
 				7D9870651A3E03D5009CF27D /* papasscode_background@2x.png in Resources */,
+				7D5B26641D6350BF00FE7B4D /* gradient-cell.png in Resources */,
 				7DBBF1A1183AB4300009A339 /* VLCPlaylistTableViewCell.xib in Resources */,
 				7D63C19718774F1000BD5256 /* VLCFirstStepsFourthPageViewController~ipad.xib in Resources */,
 				7DBBF1A5183AB4300009A339 /* VLCMovieViewController~ipad.xib in Resources */,
@@ -3728,8 +3746,10 @@
 				7DC550601C046615007B4E42 /* VLCCloudStorageTableViewController.xib in Resources */,
 				7DC550611C046615007B4E42 /* VLCFirstStepsThirdPageViewController~iphone.xib in Resources */,
 				7DC550621C046615007B4E42 /* VLCEmptyLibraryView.xib in Resources */,
+				7D5B26701D63511700FE7B4D /* favicon.ico in Resources */,
 				7DC550631C046615007B4E42 /* VLCFirstStepsThirdPageViewController~ipad.xib in Resources */,
 				7DC550641C046615007B4E42 /* papasscode_background@2x.png in Resources */,
+				7D5B26661D6350BF00FE7B4D /* gradient-cell.png in Resources */,
 				7DC550651C046615007B4E42 /* VLCPlaylistTableViewCell.xib in Resources */,
 				7DC550661C046615007B4E42 /* VLCFirstStepsFourthPageViewController~ipad.xib in Resources */,
 				7DC550671C046615007B4E42 /* VLCMovieViewController~ipad.xib in Resources */,

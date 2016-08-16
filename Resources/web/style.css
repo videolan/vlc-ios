@@ -300,7 +300,7 @@ div.main.drop {
 
 .downloads .inner {
   display: block;
-  background-image: url("gradient-cell-ios7~ipad.png");
+  background-image: url("gradient-cell.png");
   background-position: bottom center;
   background-repeat: repeat-x;
   position: relative;
