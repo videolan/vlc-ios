@@ -218,6 +218,10 @@ typedef NS_ENUM(NSInteger, VLCPlayerScanState)
         }
     }
 
+    if (!self.canScrub) {
+        return;
+    }
+
     switch (panGestureRecognizer.state) {
         case UIGestureRecognizerStateCancelled:
         case UIGestureRecognizerStateFailed:
@@ -469,16 +473,20 @@ typedef NS_ENUM(NSInteger, VLCPlayerScanState)
                     return;
                 }
             } else {
-                switch (recognizer.touchLocation) {
-                    case VLCSiriRemoteTouchLocationLeft:
-                        hint = VLCTransportBarHintJumpBackward10;
-                        break;
-                    case VLCSiriRemoteTouchLocationRight:
-                        hint = VLCTransportBarHintJumpForward10;
-                        break;
-                    default:
-                        hint = VLCTransportBarHintNone;
-                        break;
+                if (self.canJump) {
+                    switch (recognizer.touchLocation) {
+                        case VLCSiriRemoteTouchLocationLeft:
+                            hint = VLCTransportBarHintJumpBackward10;
+                            break;
+                        case VLCSiriRemoteTouchLocationRight:
+                            hint = VLCTransportBarHintJumpForward10;
+                            break;
+                        default:
+                            hint = VLCTransportBarHintNone;
+                            break;
+                    }
+                } else {
+                    hint = VLCTransportBarHintNone;
                 }
             }
             break;
@@ -500,14 +508,15 @@ typedef NS_ENUM(NSInteger, VLCPlayerScanState)
 
 - (void)handleSiriPressUpAtLocation:(VLCSiriRemoteTouchLocation)location
 {
+    BOOL canJump = [self canJump];
     switch (location) {
         case VLCSiriRemoteTouchLocationLeft:
-            if (self.isSeekable) {
+            if (canJump && self.isSeekable) {
                 [self jumpBackward];
             }
             break;
         case VLCSiriRemoteTouchLocationRight:
-            if (self.isSeekable) {
+            if (canJump && self.isSeekable) {
                 [self jumpForward];
             }
             break;
@@ -660,6 +669,17 @@ static const NSInteger VLCJumpInterval = 10000; // 10 seconds
 - (BOOL)isSeekable
 {
     return [VLCPlaybackController sharedInstance].mediaPlayer.isSeekable;
+}
+
+- (BOOL)canJump
+{
+    // to match the AVPlayerViewController behavior only allow jumping when playing.
+    return [VLCPlaybackController sharedInstance].isPlaying;
+}
+- (BOOL)canScrub
+{
+    // to match the AVPlayerViewController behavior only allow scrubbing when paused.
+    return ![VLCPlaybackController sharedInstance].isPlaying;
 }
 
 #pragma mark -

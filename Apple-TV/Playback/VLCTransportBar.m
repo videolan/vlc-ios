@@ -139,9 +139,7 @@ static inline void sharedSetup(VLCTransportBar *self) {
 			break;
 	}
     if (imageName) {
-        // FIXME: TODO: don't use the images from AVKit
-        NSBundle *bundle = [NSBundle bundleWithPath:@"/System/Library/Frameworks/AVKit.framework"];
-        return [UIImage imageNamed:imageName inBundle:bundle compatibleWithTraitCollection:nil];
+        return [UIImage imageNamed:imageName];
     }
     return nil;
 }
