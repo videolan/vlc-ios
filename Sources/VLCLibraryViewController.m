@@ -57,6 +57,7 @@ static NSString *kUsingTableViewToShowData = @"UsingTableViewToShowData";
     VLCFolderCollectionViewFlowLayout *_folderLayout;
     LXReorderableCollectionViewFlowLayout *_reorderLayout;
     BOOL _inFolder;
+    BOOL _isSelected;
     UILongPressGestureRecognizer *_longPressGestureRecognizer;
     UITapGestureRecognizer *_tapTwiceGestureRecognizer;
 
@@ -64,6 +65,7 @@ static NSString *kUsingTableViewToShowData = @"UsingTableViewToShowData";
     UISearchBar *_searchBar;
     UISearchDisplayController *_searchDisplayController;
 
+    UIBarButtonItem *_selectAllBarButtonItem;
     UIBarButtonItem *_createFolderBarButtonItem;
     UIBarButtonItem *_openInActivityBarButtonItem;
     UIBarButtonItem *_removeFromFolderBarButtonItem;
@@ -173,6 +175,12 @@ static NSString *kUsingTableViewToShowData = @"UsingTableViewToShowData";
 
     self.editButtonItem.title = NSLocalizedString(@"BUTTON_EDIT", nil);
     self.editButtonItem.tintColor = [UIColor whiteColor];
+
+    _selectAllBarButtonItem = [[UIBarButtonItem alloc] initWithTitle:NSLocalizedString(@"BUTTON_ALL", nil) style:UIBarButtonItemStylePlain target:self action:@selector(handleSelection)];
+    _selectAllBarButtonItem.tintColor = [UIColor whiteColor];
+    UIFont *font = [UIFont boldSystemFontOfSize:17];
+    NSDictionary *attributes = @{NSFontAttributeName: font};
+    [_selectAllBarButtonItem setTitleTextAttributes:attributes forState:UIControlStateNormal];
 
     _emptyLibraryView.emptyLibraryLabel.text = NSLocalizedString(@"EMPTY_LIBRARY", nil);
     _emptyLibraryView.emptyLibraryLongDescriptionLabel.text = NSLocalizedString(@"EMPTY_LIBRARY_LONG", nil);
@@ -1212,12 +1220,50 @@ static NSString *kUsingTableViewToShowData = @"UsingTableViewToShowData";
 }
 
 #pragma mark - UI implementation
+- (void)handleSelection
+{
+    if (self.usingTableViewToShowData) {
+        NSInteger numberOfSections = [self.tableView numberOfSections];
+
+        for (NSInteger section = 0; section < numberOfSections; section++) {
+            NSInteger numberOfRowInSection = [self.tableView numberOfRowsInSection:section];
+
+            for (NSInteger row = 0; row < numberOfRowInSection; row++) {
+                if (!_isSelected)
+                    [self.tableView selectRowAtIndexPath:[NSIndexPath indexPathForRow:row inSection:section] animated:NO scrollPosition:UITableViewScrollPositionNone];
+                else
+                    [self.tableView deselectRowAtIndexPath:[NSIndexPath indexPathForRow:row inSection:section] animated:NO];
+            }
+        }
+    } else {
+        NSInteger numberOfItems = [self.collectionView numberOfItemsInSection:0];
+
+        for (NSInteger item = 0; item < numberOfItems; item++) {
+            NSIndexPath *indexPath = [NSIndexPath indexPathForRow:item inSection:0];
+
+            if (!_isSelected)
+                [self.collectionView selectItemAtIndexPath:indexPath animated:NO scrollPosition:UICollectionViewScrollPositionNone];
+            else
+                [self.collectionView deselectItemAtIndexPath:indexPath animated:NO];
+            [(VLCPlaylistCollectionViewCell *)[self.collectionView cellForItemAtIndexPath:indexPath] selectionUpdate];
+        }
+    }
+    _isSelected = !_isSelected;
+}
+
 - (void)setEditing:(BOOL)editing animated:(BOOL)animated
 {
     [super setEditing:editing animated:animated];
 
+    _isSelected = NO;
+
     UIBarButtonItem *editButton = self.editButtonItem;
     editButton.tintColor = [UIColor whiteColor];
+
+    if (!editing && self.navigationItem.rightBarButtonItems.lastObject == _selectAllBarButtonItem)
+        [self.navigationItem setRightBarButtonItems: [self.navigationItem.rightBarButtonItems subarrayWithRange:NSMakeRange(0, self.navigationItem.rightBarButtonItems.count - 1)]];
+    else
+        [self.navigationItem setRightBarButtonItems:editing ? [self.navigationItem.rightBarButtonItems arrayByAddingObject:_selectAllBarButtonItem] : [self.navigationItem rightBarButtonItems] animated:YES];
 
     if (self.usingTableViewToShowData) {
         self.tableView.allowsMultipleSelectionDuringEditing = editing;
