@@ -58,6 +58,7 @@ static NSString *kUsingTableViewToShowData = @"UsingTableViewToShowData";
     LXReorderableCollectionViewFlowLayout *_reorderLayout;
     BOOL _inFolder;
     BOOL _isSelected;
+    BOOL _deleteFromTableView;
     UILongPressGestureRecognizer *_longPressGestureRecognizer;
     UITapGestureRecognizer *_tapTwiceGestureRecognizer;
 
@@ -69,6 +70,7 @@ static NSString *kUsingTableViewToShowData = @"UsingTableViewToShowData";
     UIBarButtonItem *_createFolderBarButtonItem;
     UIBarButtonItem *_openInActivityBarButtonItem;
     UIBarButtonItem *_removeFromFolderBarButtonItem;
+    UIBarButtonItem *_deleteSelectedBarButtonItem;
     VLCOpenInActivity *_openInActivity;
 }
 
@@ -200,6 +202,9 @@ static NSString *kUsingTableViewToShowData = @"UsingTableViewToShowData";
     _openInActivityBarButtonItem = [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemAction target:self action:@selector(actOnSelection:)];
     _openInActivityBarButtonItem.enabled = NO;
 
+    _deleteSelectedBarButtonItem = [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemTrash target:self action:@selector(deleteSelection:)];
+    _deleteFromTableView = NO;
+
     UIBarButtonItem *fixedSpace = [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemFixedSpace target:nil action:nil];
     fixedSpace.width = 20;
     UIBarButtonItem *secondFixedSpace = [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemFixedSpace target:nil action:nil];
@@ -217,7 +222,7 @@ static NSString *kUsingTableViewToShowData = @"UsingTableViewToShowData";
                             [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemFlexibleSpace target:nil action:nil],
                             _removeFromFolderBarButtonItem,
                             secondFixedSpace,
-                            [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemTrash target:self action:@selector(deleteSelection)]]];
+                            _deleteSelectedBarButtonItem]];
     self.navigationController.toolbar.barStyle = UIBarStyleBlack;
     self.navigationController.toolbar.tintColor = [UIColor whiteColor];
     [UIApplication sharedApplication].statusBarStyle = UIStatusBarStyleLightContent;
@@ -616,6 +621,7 @@ static NSString *kUsingTableViewToShowData = @"UsingTableViewToShowData";
     if (self.usingTableViewToShowData) {
         [self.tableView reloadData];
         [self updateActionBarButtonItemStateWithSelectedIndexPaths:[self.tableView indexPathsForSelectedRows]];
+        _isSelected = NO;
     } else {
         [self.collectionView reloadData];
         [self updateActionBarButtonItemStateWithSelectedIndexPaths:[self.collectionView indexPathsForSelectedItems]];
@@ -720,8 +726,9 @@ static NSString *kUsingTableViewToShowData = @"UsingTableViewToShowData";
 {
     if (editingStyle == UITableViewCellEditingStyleDelete) {
         NSInteger row = indexPath.row;
+        _deleteFromTableView = YES;
         if (row < _foundMedia.count)
-            [self removeMediaObject: _foundMedia[row] updateDatabase:YES];
+            [self deleteSelection:indexPath];
     }
 }
 
@@ -1358,7 +1365,49 @@ static NSString *kUsingTableViewToShowData = @"UsingTableViewToShowData";
     [self setEditing:NO animated:YES];
 }
 
-- (void)deleteSelection
+- (void)deleteSelection:(id)sender
+{
+    NSArray *indexPaths = [self usingTableViewToShowData] ? [self.tableView indexPathsForSelectedRows] : [self.collectionView indexPathsForSelectedItems];
+
+    if (!indexPaths && !_deleteFromTableView) {
+        UIAlertController *invalidSelection = [UIAlertController alertControllerWithTitle:NSLocalizedString(@"DELETE_INVALID_TITLE", nil) message:NSLocalizedString(@"DELETE_INVALID_MESSAGE", nil) preferredStyle:UIAlertControllerStyleAlert];
+        UIAlertAction *doneAction = [UIAlertAction actionWithTitle:NSLocalizedString(@"BUTTON_OK", nil) style:UIAlertActionStyleDefault handler:nil];
+
+        [invalidSelection addAction:doneAction];
+        [self presentViewController:invalidSelection animated:YES completion:nil];
+    } else {
+        UIAlertController *alert = [UIAlertController alertControllerWithTitle:nil message:nil preferredStyle:UIAlertControllerStyleActionSheet];
+        UIAlertAction *deleteAction = [UIAlertAction actionWithTitle:NSLocalizedString(@"BUTTON_DELETE", nil) style:UIAlertActionStyleDestructive handler:^(UIAlertAction * _Nonnull action) {
+            if (_deleteFromTableView) {
+                @synchronized (_foundMedia) {
+                    NSIndexPath *indexPath = (NSIndexPath *)sender;
+                    if (indexPath && indexPath.row < _foundMedia.count)
+                        [self removeMediaObject: _foundMedia[indexPath.row] updateDatabase:YES];
+                }
+            } else
+                [self deletionAfterConfirmation];
+            _deleteFromTableView = NO;
+        }];
+        UIAlertAction *cancelAction = [UIAlertAction actionWithTitle:NSLocalizedString(@"BUTTON_CANCEL", nil) style:UIAlertActionStyleCancel handler:^(UIAlertAction * _Nonnull action) {
+            _deleteFromTableView ? [self setEditing:NO animated:YES] : [self reloadViews];
+            _deleteFromTableView = NO;
+        }];
+        [alert addAction:deleteAction];
+        [alert addAction:cancelAction];
+
+        if (UI_USER_INTERFACE_IDIOM() == UIUserInterfaceIdiomPad) {
+            CGRect tmpBounds = self.view.bounds;
+            [alert setTitle:NSLocalizedString(@"DELETE_TITLE", nil)];
+            [alert setMessage:NSLocalizedString(@"DELETE_MESSAGE", nil)];
+            [alert.popoverPresentationController setPermittedArrowDirections:0];
+            [alert.popoverPresentationController setSourceView:self.view];
+            [alert.popoverPresentationController setSourceRect:CGRectMake(tmpBounds.size.width / 2.0, tmpBounds.size.height / 2.0, 1.0, 1.0)];
+        }
+        [self presentViewController:alert animated:YES completion:nil];
+    }
+}
+
+- (void)deletionAfterConfirmation
 {
     NSArray *indexPaths;
     if (self.usingTableViewToShowData)
