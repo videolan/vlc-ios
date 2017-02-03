@@ -24,13 +24,13 @@ PODS:
     - GoogleAPIClient/Core
     - GTMSessionFetcher (~> 1.1)
   - GRKArrayDiff (2.1)
-  - GTMOAuth2 (1.1.2):
+  - GTMOAuth2 (1.1.4):
     - GTMSessionFetcher (~> 1.1)
-  - GTMSessionFetcher (1.1.5):
-    - GTMSessionFetcher/Full (= 1.1.5)
-  - GTMSessionFetcher/Core (1.1.5)
-  - GTMSessionFetcher/Full (1.1.5):
-    - GTMSessionFetcher/Core (= 1.1.5)
+  - GTMSessionFetcher (1.1.8):
+    - GTMSessionFetcher/Full (= 1.1.8)
+  - GTMSessionFetcher/Core (1.1.8)
+  - GTMSessionFetcher/Full (1.1.8):
+    - GTMSessionFetcher/Core (= 1.1.8)
   - HockeySDK (3.6.4)
   - HockeySDK-tvOS (4.1.0-beta.1)
   - InAppSettingsKit (2.2.2)
@@ -111,8 +111,8 @@ SPEC CHECKSUMS:
   CocoaHTTPServer: 07df8b05a8bde406fe367d22c90a24a2fd4ca49f
   GoogleAPIClient: 4a6b0b807de8b1115a2835180b25dd93dc60f1ea
   GRKArrayDiff: cf743e6b30f6b72a3763e1f16cc5d9da39af86a5
-  GTMOAuth2: 1707e2f7fe3a6d7240223c23c473ba5a2d104474
-  GTMSessionFetcher: f984cf6f77d36a3590b7923cf74e2c08fd4dd774
+  GTMOAuth2: 7fc9c10f5c745f4d9850419ea88889fe3baa6b7d
+  GTMSessionFetcher: 6f8d8b28b7e345549ac471071608170b31cb4977
   HockeySDK: c07cdd580296737edcd0963e292c19885a53f563
   HockeySDK-tvOS: fe5373e9a6e70aeca464f8491eb32b60b04fb322
   InAppSettingsKit: 76d5cfbaa3e3f8aa53fe3628516da7eb1aa6a5cb
@@ -132,6 +132,6 @@ SPEC CHECKSUMS:
   XKKeychain: 852ef663c56a7194c73d3c68e8d9d4f07b121d4f
   xmlrpc: 109bb21d15ed6d108b2c1ac5973a6a223a50f5f4
 
-PODFILE CHECKSUM: 00b1575423ced2f8a1b8da67eccd8c9c70058ca7
+PODFILE CHECKSUM: 0a1627919830b727ebfc648e8125651911a60afe
 
-COCOAPODS: 1.0.1
+COCOAPODS: 1.2.0
