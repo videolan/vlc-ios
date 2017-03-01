@@ -833,6 +833,12 @@ VLCMediaDelegate>
 
 - (void)audioSessionRouteChange:(NSNotification *)notification
 {
+    NSDictionary *userInfo = notification.userInfo;
+    NSInteger routeChangeReason = [[userInfo valueForKey:AVAudioSessionRouteChangeReasonKey] integerValue];
+
+    if (routeChangeReason == AVAudioSessionRouteChangeReasonRouteConfigurationChange)
+        return;
+
     BOOL headphonesPlugged = [self areHeadphonesPlugged];
 
     if (_headphonesWasPlugged && !headphonesPlugged && [_mediaPlayer isPlaying]) {
