@@ -69,6 +69,7 @@ VLCMediaDelegate>
     BOOL _mediaWasJustStarted;
     BOOL _recheckForExistingThumbnail;
     BOOL _activeSession;
+    BOOL _headphonesWasPlugged;
 
     NSLock *_playbackSessionManagementLock;
 
@@ -103,6 +104,7 @@ VLCMediaDelegate>
 {
     self = [super init];
     if (self) {
+        _headphonesWasPlugged = [self areHeadphonesPlugged];
         NSNotificationCenter *defaultCenter = [NSNotificationCenter defaultCenter];
         [defaultCenter addObserver:self selector:@selector(audioSessionRouteChange:)
                               name:AVAudioSessionRouteChangeNotification object:nil];
@@ -822,18 +824,25 @@ VLCMediaDelegate>
     }
 }
 
-- (void)audioSessionRouteChange:(NSNotification *)notification
+- (BOOL)areHeadphonesPlugged
 {
     NSArray *outputs = [[AVAudioSession sharedInstance] currentRoute].outputs;
     NSString *portName = [[outputs firstObject] portName];
+    return [portName isEqualToString:@"Headphones"];
+}
 
-    if (![portName isEqualToString:@"Headphones"] && [_mediaPlayer isPlaying]) {
+- (void)audioSessionRouteChange:(NSNotification *)notification
+{
+    BOOL headphonesPlugged = [self areHeadphonesPlugged];
+
+    if (_headphonesWasPlugged && !headphonesPlugged && [_mediaPlayer isPlaying]) {
         [_mediaPlayer pause];
 #if TARGET_OS_IOS
         [self _savePlaybackState];
 #endif
         [[NSNotificationCenter defaultCenter] postNotificationName:VLCPlaybackControllerPlaybackDidPause object:self];
     }
+    _headphonesWasPlugged = headphonesPlugged;
 }
 
 #pragma mark - Managing the media item
