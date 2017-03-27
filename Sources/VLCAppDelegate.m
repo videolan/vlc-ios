@@ -33,6 +33,7 @@
 #import "VLCSidebarController.h"
 #import "VLCKeychainCoordinator.h"
 #import "VLCActivityManager.h"
+#import "GTScrollNavigationBar.h"
 
 NSString *const VLCDropboxSessionWasAuthorized = @"VLCDropboxSessionWasAuthorized";
 
@@ -127,7 +128,9 @@ NSString *const VLCDropboxSessionWasAuthorized = @"VLCDropboxSessionWasAuthorize
     void (^setupBlock)() = ^{
         _libraryViewController = [[VLCLibraryViewController alloc] init];
         VLCSidebarController *sidebarVC = [VLCSidebarController sharedInstance];
-        VLCNavigationController *navCon = [[VLCNavigationController alloc] initWithRootViewController:_libraryViewController];
+        VLCNavigationController *navCon = [[VLCNavigationController alloc] initWithNavigationBarClass: [GTScrollNavigationBar class] toolbarClass:nil];
+        [navCon setViewControllers:@[_libraryViewController] animated:NO];
+
         sidebarVC.contentViewController = navCon;
 
         VLCPlayerDisplayController *playerDisplayController = [VLCPlayerDisplayController sharedInstance];
