@@ -2,6 +2,7 @@ iOS 2.8.0:
 ----------
 * Added support for NFS shares
 * Added Bonjour discovery for SMB shares
+* Improved search bar discovery method
 
 iOS 2.7.7:
 ----------

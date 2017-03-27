@@ -60,7 +60,6 @@ static NSString *kUsingTableViewToShowData = @"UsingTableViewToShowData";
     BOOL _isSelected;
     BOOL _deleteFromTableView;
     UILongPressGestureRecognizer *_longPressGestureRecognizer;
-    UITapGestureRecognizer *_tapTwiceGestureRecognizer;
 
     NSMutableArray *_searchData;
     UISearchBar *_searchBar;
@@ -86,7 +85,6 @@ static NSString *kUsingTableViewToShowData = @"UsingTableViewToShowData";
 
 - (void)dealloc
 {
-    [_tapTwiceGestureRecognizer removeTarget:self action:NULL];
 }
 
 + (void)initialize
@@ -130,6 +128,7 @@ static NSString *kUsingTableViewToShowData = @"UsingTableViewToShowData";
             _tableView.opaque = YES;
             _tableView.indicatorStyle = UIScrollViewIndicatorStyleWhite;
             _tableView.autoresizingMask = UIViewAutoresizingFlexibleHeight | UIViewAutoresizingFlexibleWidth;
+            _tableView.tableHeaderView = _searchBar;
         }
         _tableView.frame = contentView.bounds;
         [contentView addSubview:_tableView];
@@ -242,11 +241,8 @@ static NSString *kUsingTableViewToShowData = @"UsingTableViewToShowData";
     _searchDisplayController.searchResultsTableView.separatorStyle = UITableViewCellSeparatorStyleNone;
     _searchDisplayController.searchResultsTableView.indicatorStyle = UIScrollViewIndicatorStyleWhite;
     _searchBar.delegate = self;
-    _searchBar.hidden = YES;
 
-    _tapTwiceGestureRecognizer = [[UITapGestureRecognizer alloc] initWithTarget:self  action:@selector(tapTwiceGestureAction:)];
-    [_tapTwiceGestureRecognizer setNumberOfTapsRequired:2];
-    [self.navigationController.navigationBar addGestureRecognizer:_tapTwiceGestureRecognizer];
+    [self setSearchBar:YES resetContent:YES];
 
     @synchronized (self) {
         _searchData = [[NSMutableArray alloc] init];
@@ -490,6 +486,17 @@ static NSString *kUsingTableViewToShowData = @"UsingTableViewToShowData";
         [self.collectionView.collectionViewLayout invalidateLayout];
 
     [self updateViewsForCurrentDisplayMode];
+}
+
+- (void)setSearchBar:(BOOL)enable resetContent:(BOOL)resetContent
+{
+    self.tableView.tableHeaderView = enable ? _searchBar : nil;
+
+    if (resetContent) {
+        CGPoint contentOffset = self.tableView.contentOffset;
+        contentOffset.y += CGRectGetHeight(self.tableView.tableHeaderView.frame);
+        self.tableView.contentOffset = contentOffset;
+    }
 }
 
 - (void)libraryUpgradeComplete
@@ -809,21 +816,6 @@ static NSString *kUsingTableViewToShowData = @"UsingTableViewToShowData";
     NSIndexPath *path = [self.collectionView indexPathForItemAtPoint:[recognizer locationInView:self.collectionView]];
     VLCPlaylistCollectionViewCell *cell = (VLCPlaylistCollectionViewCell *)[self.collectionView cellForItemAtIndexPath:path];
     [cell showMetadata:!cell.showsMetaData];
-}
-
-- (void)tapTwiceGestureAction:(UIGestureRecognizer *)recognizer
-{
-    if (!self.usingTableViewToShowData)
-        return;
-
-    _searchBar.hidden = !_searchBar.hidden;
-
-    if (_searchBar.hidden)
-        self.tableView.tableHeaderView = nil;
-    else
-        self.tableView.tableHeaderView = _searchBar;
-
-    [self.tableView setContentOffset:CGPointMake(0.0f, -self.tableView.contentInset.top) animated:NO];
 }
 
 #pragma mark - Collection View
@@ -1273,6 +1265,7 @@ static NSString *kUsingTableViewToShowData = @"UsingTableViewToShowData";
         [self.navigationItem setRightBarButtonItems:editing ? [self.navigationItem.rightBarButtonItems arrayByAddingObject:_selectAllBarButtonItem] : [self.navigationItem rightBarButtonItems] animated:YES];
 
     if (self.usingTableViewToShowData) {
+        [self setSearchBar:!editing resetContent:!editing];
         self.tableView.allowsMultipleSelectionDuringEditing = editing;
         [self.tableView setEditing:editing animated:YES];
         [self.editButtonItem setTitle:editing ? NSLocalizedString(@"BUTTON_CANCEL", nil) : NSLocalizedString(@"BUTTON_EDIT", nil)];
@@ -1351,6 +1344,9 @@ static NSString *kUsingTableViewToShowData = @"UsingTableViewToShowData";
     toolbarItems[2] = createFolderItem;
     self.toolbarItems = toolbarItems;
     [self setLibraryMode:_previousLibraryMode];
+    if (!self.isEditing) {
+        [self setSearchBar:YES resetContent:NO];
+    }
     [self updateViewContents];
 }
 

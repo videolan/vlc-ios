@@ -30,7 +30,6 @@ NSString *VLCNetworkListCellIdentifier = @"VLCNetworkListCellIdentifier";
 
 - (void)dealloc
 {
-    [_tapTwiceGestureRecognizer removeTarget:self action:NULL];
 }
 
 - (void)loadView
@@ -72,10 +71,8 @@ NSString *VLCNetworkListCellIdentifier = @"VLCNetworkListCellIdentifier";
     _searchDisplayController.searchResultsTableView.indicatorStyle = UIScrollViewIndicatorStyleWhite;
     _searchDisplayController.searchBar.searchBarStyle = UIBarStyleBlack;
     _searchBar.delegate = self;
-    _searchBar.hidden = YES;
 
-    _tapTwiceGestureRecognizer = [[UITapGestureRecognizer alloc] initWithTarget:self  action:@selector(tapTwiceGestureAction:)];
-    [_tapTwiceGestureRecognizer setNumberOfTapsRequired:2];
+    self.tableView.tableHeaderView = _searchBar;
 
     self.navigationItem.rightBarButtonItems = @[[UIBarButtonItem themedRevealMenuButtonWithTarget:self andSelector:@selector(menuButtonAction:)],
                                                 [UIBarButtonItem themedPlayAllButtonWithTarget:self andSelector:@selector(playAllAction:)]];
@@ -84,13 +81,19 @@ NSString *VLCNetworkListCellIdentifier = @"VLCNetworkListCellIdentifier";
     [_searchData removeAllObjects];
 }
 
+- (void)viewWillAppear:(BOOL)animated
+{
+    [super viewWillAppear:animated];
+    CGPoint contentOffset = self.tableView.contentOffset;
+    contentOffset.y += CGRectGetHeight(self.tableView.tableHeaderView.frame);
+    self.tableView.contentOffset = contentOffset;
+}
+
 - (void)viewDidAppear:(BOOL)animated {
     [super viewDidAppear:animated];
-    [self.navigationController.navigationBar addGestureRecognizer:_tapTwiceGestureRecognizer];
 }
 - (void)viewWillDisappear:(BOOL)animated {
     [super viewDidDisappear:animated];
-    [self.navigationController.navigationBar removeGestureRecognizer:_tapTwiceGestureRecognizer];
 }
 
 - (BOOL)shouldAutorotate
@@ -149,19 +152,6 @@ NSString *VLCNetworkListCellIdentifier = @"VLCNetworkListCellIdentifier";
         tableView.rowHeight = 68.0f;
 
     tableView.backgroundColor = [UIColor blackColor];
-}
-
-#pragma mark - Gesture Action
-
-- (void)tapTwiceGestureAction:(UIGestureRecognizer *)recognizer
-{
-    _searchBar.hidden = !_searchBar.hidden;
-    if (_searchBar.hidden)
-        self.tableView.tableHeaderView = nil;
-    else
-        self.tableView.tableHeaderView = _searchBar;
-
-    [self.tableView setContentOffset:CGPointMake(0.0f, -self.tableView.contentInset.top) animated:NO];
 }
 
 @end
