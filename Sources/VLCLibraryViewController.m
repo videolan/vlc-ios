@@ -130,6 +130,7 @@ static NSString *kUsingTableViewToShowData = @"UsingTableViewToShowData";
             _tableView.indicatorStyle = UIScrollViewIndicatorStyleWhite;
             _tableView.autoresizingMask = UIViewAutoresizingFlexibleHeight | UIViewAutoresizingFlexibleWidth;
             _tableView.tableHeaderView = _searchBar;
+            _tableView.tableFooterView = [UIView new];
         }
         _tableView.frame = contentView.bounds;
         [contentView addSubview:_tableView];
