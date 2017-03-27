@@ -34,6 +34,7 @@
 #import "VLCStatusLabel.h"
 #import "VLCMovieViewControlPanelViewController.h"
 #import "VLCSlider.h"
+#import "VLCLibraryViewController.h"
 
 #define FORWARD_SWIPE_DURATION 30
 #define BACKWARD_SWIPE_DURATION 10
@@ -1592,6 +1593,8 @@ currentMediaHasTrackToChooseFrom:(BOOL)currentMediaHasTrackToChooseFrom
     [super willRotateToInterfaceOrientation:toInterfaceOrientation duration:duration];
 
     if (UI_USER_INTERFACE_IDIOM() == UIUserInterfaceIdiomPhone) {
+
+        [[(VLCAppDelegate *)[UIApplication sharedApplication].delegate libraryViewController] willRotateToInterfaceOrientation:toInterfaceOrientation duration:duration];
         if (self.artworkImageView.image)
             self.trackNameLabel.hidden = UIInterfaceOrientationIsLandscape(toInterfaceOrientation);
 

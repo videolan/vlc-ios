@@ -97,6 +97,7 @@ static NSString *kUsingTableViewToShowData = @"UsingTableViewToShowData";
 - (void)loadView
 {
     [self setupContentViewWithContentInset:NO];
+    [self setViewFromDeviceOrientation];
     [self updateViewsForCurrentDisplayMode];
     _libraryMode = VLCLibraryModeAllFiles;
 
@@ -152,20 +153,17 @@ static NSString *kUsingTableViewToShowData = @"UsingTableViewToShowData";
         [contentView addSubview:_collectionView];
         [_collectionView reloadData];
     }
-
-    if (setInset) {
-        CGSize statusBarSize = [UIApplication sharedApplication].statusBarFrame.size;
-        // Status bar frame doesn't change correctly on rotation
-        CGFloat statusBarHeight = MIN(statusBarSize.height, statusBarSize.width);
-        CGFloat originY = self.navigationController.navigationBar.frame.size.height + statusBarHeight;
-
-        UIScrollView *playlistView = self.usingTableViewToShowData ? _tableView : _collectionView;
-        playlistView.contentInset = UIEdgeInsetsMake(originY, 0, 0, 0);
-    }
     self.view = contentView;
 }
 
 #pragma mark -
+
+- (void)viewWillLayoutSubviews {
+    UIScrollView *dataView = self.usingTableViewToShowData ? _tableView : _collectionView;
+
+    [[UIApplication sharedApplication] setStatusBarHidden:NO withAnimation:UIStatusBarAnimationNone];
+    [dataView setContentInset:UIEdgeInsetsZero];
+}
 
 - (void)viewDidLoad
 {
@@ -243,6 +241,7 @@ static NSString *kUsingTableViewToShowData = @"UsingTableViewToShowData";
     _searchBar.delegate = self;
 
     [self setSearchBar:YES resetContent:YES];
+    self.edgesForExtendedLayout = UIRectEdgeNone;
 
     @synchronized (self) {
         _searchData = [[NSMutableArray alloc] init];
@@ -488,10 +487,22 @@ static NSString *kUsingTableViewToShowData = @"UsingTableViewToShowData";
     [self updateViewsForCurrentDisplayMode];
 }
 
+- (void)setViewFromDeviceOrientation
+{
+    if (UI_USER_INTERFACE_IDIOM() == UIUserInterfaceIdiomPhone) {
+        UIDevice *currentDevice = [UIDevice currentDevice];
+        BOOL isPortrait = UIDeviceOrientationIsPortrait(currentDevice.orientation);
+
+        [self setUsingTableViewToShowData:isPortrait];
+    }
+}
+
 - (void)setSearchBar:(BOOL)enable resetContent:(BOOL)resetContent
 {
-    self.tableView.tableHeaderView = enable ? _searchBar : nil;
-
+    if (enable)
+        self.tableView.tableHeaderView = _searchBar;
+    else
+        self.tableView.tableHeaderView = [[UIView alloc] initWithFrame:CGRectMake(0.0f, 0.0f, self.tableView.bounds.size.width, CGFLOAT_MIN)];
     if (resetContent) {
         CGPoint contentOffset = self.tableView.contentOffset;
         contentOffset.y += CGRectGetHeight(self.tableView.tableHeaderView.frame);
@@ -846,7 +857,7 @@ static NSString *kUsingTableViewToShowData = @"UsingTableViewToShowData";
 
 - (CGSize)collectionView:(UICollectionView *)collectionView layout:(UICollectionViewLayout *)collectionViewLayout sizeForItemAtIndexPath:(NSIndexPath *)indexPath
 {
-    const CGFloat maxCellWidth = 300.0;
+    const CGFloat maxCellWidth = [UIScreen mainScreen].bounds.size.width / 3;
     const CGFloat aspectRatio = 9.0/16.0;
 
     CGRect windowFrame = [UIApplication sharedApplication].keyWindow.frame;
@@ -854,19 +865,19 @@ static NSString *kUsingTableViewToShowData = @"UsingTableViewToShowData";
 
     int numberOfCellsPerRow = ceil(windowWidth/maxCellWidth);
     CGFloat cellWidth = windowWidth/numberOfCellsPerRow;
+    cellWidth -= 5;
 
     return CGSizeMake(cellWidth, cellWidth * aspectRatio);
-
 }
 
 - (UIEdgeInsets)collectionView:(UICollectionView *)collectionView layout:(UICollectionViewLayout *)collectionViewLayout insetForSectionAtIndex:(NSInteger)section
 {
-    return UIEdgeInsetsZero;
+    return UIEdgeInsetsMake(5, 5, 5, 5);
 }
 
 - (CGFloat)collectionView:(UICollectionView *)collectionView layout:(UICollectionViewLayout*)collectionViewLayout minimumLineSpacingForSectionAtIndex:(NSInteger)section
 {
-    return 0.;
+    return 2.5;
 }
 
 - (CGFloat)collectionView:(UICollectionView *)collectionView layout:(UICollectionViewLayout*)collectionViewLayout minimumInteritemSpacingForSectionAtIndex:(NSInteger)section
@@ -1662,6 +1673,7 @@ static NSString *kUsingTableViewToShowData = @"UsingTableViewToShowData";
 {
     [super willRotateToInterfaceOrientation:toInterfaceOrientation duration:duration];
 
+    [self setViewFromDeviceOrientation];
     if (self.usingTableViewToShowData) {
         NSArray *visibleCells = [self.tableView visibleCells];
         NSUInteger cellCount = visibleCells.count;
