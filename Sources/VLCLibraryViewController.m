@@ -1215,7 +1215,8 @@ static NSString *kUsingTableViewToShowData = @"UsingTableViewToShowData";
 
 - (void)_collectionViewHandleLongPressGesture:(UIGestureRecognizer *) sender
 {
-    [self setEditing:YES animated:YES];
+    if (sender.state == UIGestureRecognizerStateBegan && !self.isEditing)
+        [self setEditing:YES animated:YES];
 }
 
 #pragma mark - UI implementation
