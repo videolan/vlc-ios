@@ -158,6 +158,16 @@
         displayedImage = computedImage;
     }
 
+    if (!displayedImage) {
+        if ([mediaFile isKindOfType:@"audio"]) {
+            displayedImage = [UIImage imageNamed:@"no-artwork"];
+        } else if ([mediaFile isKindOfType:@"movie"] ||
+                   [mediaFile isKindOfType:@"tvShowEpisode"] ||
+                   [mediaFile isKindOfType:@"clip"]) {
+            displayedImage = [UIImage imageNamed:@"tvShow"];
+        }
+    }
+
     if (displayedImage)
         [_thumbnailCache setObject:displayedImage forKey:objID];
 
