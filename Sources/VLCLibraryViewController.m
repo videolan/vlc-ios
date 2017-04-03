@@ -1404,7 +1404,7 @@ static NSString *kUsingTableViewToShowData = @"UsingTableViewToShowData";
 {
     NSArray *indexPaths = [self usingTableViewToShowData] ? [self.tableView indexPathsForSelectedRows] : [self.collectionView indexPathsForSelectedItems];
 
-    if (!indexPaths && !_deleteFromTableView) {
+    if ((!indexPaths || [indexPaths count] == 0) && !_deleteFromTableView) {
         UIAlertController *invalidSelection = [UIAlertController alertControllerWithTitle:NSLocalizedString(@"DELETE_INVALID_TITLE", nil) message:NSLocalizedString(@"DELETE_INVALID_MESSAGE", nil) preferredStyle:UIAlertControllerStyleAlert];
         UIAlertAction *doneAction = [UIAlertAction actionWithTitle:NSLocalizedString(@"BUTTON_OK", nil) style:UIAlertActionStyleDefault handler:nil];
 
