@@ -913,6 +913,7 @@ static NSString *kUsingTableViewToShowData = @"UsingTableViewToShowData";
     if (self.editing) {
         if (_libraryMode == VLCLibraryModeCreateFolder) {
             _folderObject = _foundMedia[indexPath.item];
+            [self updateViewContents];
             [self createFolderWithName:nil];
              _libraryMode = _previousLibraryMode;
         } else {
