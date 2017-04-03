@@ -670,12 +670,11 @@ static NSString *kUsingTableViewToShowData = @"UsingTableViewToShowData";
         if (_libraryMode == VLCLibraryModeAllFiles) {
             if (self.collectionView.collectionViewLayout != _folderLayout) {
                 for (UIGestureRecognizer *recognizer in _collectionView.gestureRecognizers) {
-                    if (recognizer != _folderLayout.panGestureRecognizer ||
-                        recognizer != _folderLayout.longPressGestureRecognizer ||
-                        recognizer != _longPressGestureRecognizer)
+                    if (recognizer == _reorderLayout.panGestureRecognizer ||
+                        recognizer == _reorderLayout.longPressGestureRecognizer) {
                         [self.collectionView removeGestureRecognizer:recognizer];
+                    }
                 }
-
                 [self.collectionView setCollectionViewLayout:_folderLayout animated:NO];
                 [self.collectionView addGestureRecognizer:_longPressGestureRecognizer];
             }
