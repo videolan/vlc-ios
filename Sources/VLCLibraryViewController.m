@@ -1589,9 +1589,6 @@ static NSString *kUsingTableViewToShowData = @"UsingTableViewToShowData";
         }
 
         if ([fileURLobjects count]) {
-            // Provide some basic user feedback as UIActivityController lags in presentation sometimes (blocking the main thread).
-            [self.navigationController.toolbar.items makeObjectsPerformSelector:@selector(setEnabled:) withObject:@(NO)];
-
             // Just in case, since we are facing a possible delay from code we do not control (UIActivityViewController), disable any possible changes to selection (or exit from this screen)
             [[UIApplication sharedApplication] beginIgnoringInteractionEvents];
 
