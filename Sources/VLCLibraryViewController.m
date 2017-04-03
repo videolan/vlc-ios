@@ -832,9 +832,9 @@ static NSString *kUsingTableViewToShowData = @"UsingTableViewToShowData";
 #pragma mark - Gesture Action
 - (void)swipeRightOnTableViewCellGestureAction:(UIGestureRecognizer *)recognizer
 {
-    if ([[self.editButtonItem title] isEqualToString:NSLocalizedString(@"BUTTON_CANCEL", nil)])
+    if (self.tableView.isEditing) {
         [self setEditing:NO animated:YES];
-    else {
+    } else {
         [self setEditing:YES animated:YES];
 
         NSIndexPath *path = [self.tableView indexPathForRowAtPoint:[recognizer locationInView:self.tableView]];
