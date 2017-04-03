@@ -1305,7 +1305,6 @@ static NSString *kUsingTableViewToShowData = @"UsingTableViewToShowData";
         [self setSearchBar:!editing resetContent:!editing];
         self.tableView.allowsMultipleSelectionDuringEditing = editing;
         [self.tableView setEditing:editing animated:YES];
-        [self.editButtonItem setTitle:editing ? NSLocalizedString(@"BUTTON_CANCEL", nil) : NSLocalizedString(@"BUTTON_EDIT", nil)];
     } else {
         NSArray *visibleCells = self.collectionView.visibleCells;
 
@@ -1336,8 +1335,11 @@ static NSString *kUsingTableViewToShowData = @"UsingTableViewToShowData";
         _indexPaths = nil;
         [self updateViewContents];
     }
-
     self.navigationController.toolbarHidden = !editing;
+
+    [UIView performWithoutAnimation:^{
+        [editButton setTitle:editing ? NSLocalizedString(@"BUTTON_CANCEL", nil) : NSLocalizedString(@"BUTTON_EDIT", nil)];
+    }];
 
     if (UI_USER_INTERFACE_IDIOM() == UIUserInterfaceIdiomPad) {
         NSMutableArray *rightBarButtonItems = [self.navigationItem.rightBarButtonItems mutableCopy];
