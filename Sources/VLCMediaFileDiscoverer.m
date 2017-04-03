@@ -23,6 +23,7 @@ const float MediaTimerInterval = 2.f;
     NSArray *_directoryFiles;
     NSMutableDictionary *_addedFilesMapping;
     NSTimer *_addMediaTimer;
+    NSArray *_discoveredFilePath;
 }
 
 @end
@@ -306,9 +307,12 @@ const float MediaTimerInterval = 2.f;
             }
         }
     }
-    for (id<VLCMediaFileDiscovererDelegate> delegate in _observers) {
-        if ([delegate respondsToSelector:@selector(mediaFilesFoundRequiringAdditionToStorageBackend:)]) {
-            [delegate mediaFilesFoundRequiringAdditionToStorageBackend:[filePaths copy]];
+    if (![_discoveredFilePath isEqualToArray:filePaths]) {
+        _discoveredFilePath = filePaths;
+        for (id<VLCMediaFileDiscovererDelegate> delegate in _observers) {
+            if ([delegate respondsToSelector:@selector(mediaFilesFoundRequiringAdditionToStorageBackend:)]) {
+                [delegate mediaFilesFoundRequiringAdditionToStorageBackend:[filePaths copy]];
+            }
         }
     }
 }
