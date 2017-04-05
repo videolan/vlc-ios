@@ -1599,6 +1599,9 @@ static NSString *kUsingTableViewToShowData = @"UsingTableViewToShowData";
                     // Strangely makeObjectsPerformSelector:withObject has trouble here (when called from presentViewController:animated:completion:)
                     // [self.navigationController.toolbar.items makeObjectsPerformSelector:@selector(setEnabled:) withObject:@(YES)];
                     for (UIBarButtonItem *item in self.navigationController.toolbar.items) {
+                        if (_removeFromFolderBarButtonItem && !_inFolder) {
+                            continue;
+                        }
                         item.enabled = YES;
                     }
 
