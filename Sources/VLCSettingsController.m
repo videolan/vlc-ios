@@ -71,12 +71,6 @@
     }
 }
 
-- (void)settingsViewControllerDidEnd:(IASKAppSettingsViewController*)sender
-{
-    [[VLCSidebarController sharedInstance] toggleSidebar];
-}
-
-
 - (void)didChangePasscodeStatus:(BOOL)passcodeEnabled
 {
     [self filterCellsWithAnimation:YES];
@@ -87,6 +81,13 @@
         // delete whole index for VLC
         [[CSSearchableIndex defaultSearchableIndex] deleteAllSearchableItemsWithCompletionHandler:nil];
     }
+}
+
+#pragma mark - IASKSettings delegate
+
+- (void)settingsViewControllerDidEnd:(IASKAppSettingsViewController*)sender
+{
+    [[VLCSidebarController sharedInstance] toggleSidebar];
 }
 
 #pragma mark - PAPasscode delegate
