@@ -94,6 +94,9 @@
 - (void)PAPasscodeViewControllerDidCancel:(PAPasscodeViewController *)controller
 {
     [[VLCKeychainCoordinator defaultCoordinator] setPasscode:nil];
+
+    //Set manually the value to NO to disable the UISwitch.
+    [[NSUserDefaults standardUserDefaults] setBool:NO forKey:kVLCSettingPasscodeOnKey];
     [self didChangePasscodeStatus:NO];
 
     [controller dismissViewControllerAnimated:YES completion:nil];
