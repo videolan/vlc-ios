@@ -95,6 +95,8 @@ typedef NS_ENUM(NSInteger, VLCPanType) {
     VLCEqualizerView *_equalizerView;
     VLCMultiSelectionMenuView *_multiSelectionView;
 
+    VLCPlaybackController *_vpc;
+
     UIView *_sleepTimerContainer;
     UIDatePicker *_sleepTimeDatePicker;
     NSTimer *_sleepCountDownTimer;
@@ -405,9 +407,9 @@ typedef NS_ENUM(NSInteger, VLCPanType) {
 
     [self.navigationController setNavigationBarHidden:YES animated:animated];
 
-    VLCPlaybackController *vpc = [VLCPlaybackController sharedInstance];
-    vpc.delegate = self;
-    [vpc recoverPlaybackState];
+    _vpc = [VLCPlaybackController sharedInstance];
+    _vpc.delegate = self;
+    [_vpc recoverPlaybackState];
 
     [self screenBrightnessChanged:nil];
     [self setControlsHidden:NO animated:animated];
@@ -422,11 +424,10 @@ typedef NS_ENUM(NSInteger, VLCPanType) {
     [super viewDidAppear:animated];
     _viewAppeared = YES;
 
-    VLCPlaybackController *vpc = [VLCPlaybackController sharedInstance];
-    [vpc recoverDisplayedMetadata];
-    vpc.videoOutputView = nil;
-    vpc.videoOutputView = self.movieView;
-    _multiSelectionView.repeatMode = vpc.repeatMode;
+    [_vpc recoverDisplayedMetadata];
+    _vpc.videoOutputView = nil;
+    _vpc.videoOutputView = self.movieView;
+    _multiSelectionView.repeatMode = _vpc.repeatMode;
 }
 
 - (void)viewDidLayoutSubviews
@@ -464,9 +465,8 @@ typedef NS_ENUM(NSInteger, VLCPanType) {
 
 - (void)viewWillDisappear:(BOOL)animated
 {
-    VLCPlaybackController *vpc = [VLCPlaybackController sharedInstance];
-    if (vpc.videoOutputView == self.movieView) {
-        vpc.videoOutputView = nil;
+    if (_vpc.videoOutputView == self.movieView) {
+        _vpc.videoOutputView = nil;
     }
 
     _viewAppeared = NO;
@@ -679,7 +679,7 @@ typedef NS_ENUM(NSInteger, VLCPanType) {
 - (IBAction)closePlayback:(id)sender
 {
     LOCKCHECK;
-    [[VLCPlaybackController sharedInstance] stopPlayback];
+    [_vpc stopPlayback];
 }
 
 - (IBAction)minimizePlayback:(id)sender
@@ -709,9 +709,8 @@ typedef NS_ENUM(NSInteger, VLCPanType) {
 - (void)_setPositionForReal
 {
     if (!_positionSet) {
-        VLCPlaybackController *vpc = [VLCPlaybackController sharedInstance];
-        vpc.mediaPlayer.position = self.timeNavigationTitleView.positionSlider.value;
-        [vpc setNeedsMetadataUpdate];
+        _vpc.mediaPlayer.position = self.timeNavigationTitleView.positionSlider.value;
+        [_vpc setNeedsMetadataUpdate];
         _positionSet = YES;
     }
 }
@@ -764,7 +763,7 @@ typedef NS_ENUM(NSInteger, VLCPanType) {
 
 - (void)updateTimeDisplayButton
 {
-    VLCMediaPlayer *mediaPlayer = [VLCPlaybackController sharedInstance].mediaPlayer;
+    VLCMediaPlayer *mediaPlayer = _vpc.mediaPlayer;
     UIButton *timeDisplayButton = self.timeNavigationTitleView.timeDisplayButton;
     if (_displayRemainingTime)
         [timeDisplayButton setTitle:[[mediaPlayer remainingTime] stringValue] forState:UIControlStateNormal];
@@ -776,9 +775,8 @@ typedef NS_ENUM(NSInteger, VLCPanType) {
 - (void)updateSleepTimerButton
 {
     NSMutableString *title = [NSMutableString stringWithString:NSLocalizedString(@"BUTTON_SLEEP_TIMER", nil)];
-    VLCPlaybackController *vpc = [VLCPlaybackController sharedInstance];
-    if (vpc.sleepTimer != nil && vpc.sleepTimer.valid) {
-        int remainSeconds = (int)[vpc.sleepTimer.fireDate timeIntervalSinceNow];
+    if (_vpc.sleepTimer != nil && _vpc.sleepTimer.valid) {
+        int remainSeconds = (int)[_vpc.sleepTimer.fireDate timeIntervalSinceNow];
         int hour = remainSeconds / 3600;
         int minute = (remainSeconds - hour * 3600) / 60;
         int second = remainSeconds % 60;
@@ -884,21 +882,21 @@ currentMediaHasTrackToChooseFrom:(BOOL)currentMediaHasTrackToChooseFrom
 {
     LOCKCHECK;
 
-    [[VLCPlaybackController sharedInstance] playPause];
+    [_vpc playPause];
 }
 
+//bubu cached
 - (IBAction)forward:(id)sender
 {
     LOCKCHECK;
-
-    [[VLCPlaybackController sharedInstance] forward];
+    [_vpc forward];
 }
 
 - (IBAction)backward:(id)sender
 {
     LOCKCHECK;
 
-    [[VLCPlaybackController sharedInstance] backward];
+    [_vpc backward];
 }
 
 - (IBAction)switchTrack:(id)sender
@@ -969,8 +967,7 @@ currentMediaHasTrackToChooseFrom:(BOOL)currentMediaHasTrackToChooseFrom
 
 - (IBAction)sleepTimerAction:(id)sender
 {
-    VLCPlaybackController *vpc = [VLCPlaybackController sharedInstance];
-    [vpc scheduleSleepTimerWithInterval:_sleepTimeDatePicker.countDownDuration];
+    [_vpc scheduleSleepTimerWithInterval:_sleepTimeDatePicker.countDownDuration];
 
     if (_sleepCountDownTimer == nil || _sleepCountDownTimer.valid == NO) {
         _sleepCountDownTimer = [NSTimer scheduledTimerWithTimeInterval:1
@@ -1087,7 +1084,7 @@ currentMediaHasTrackToChooseFrom:(BOOL)currentMediaHasTrackToChooseFrom
 {
     LOCKCHECK;
 
-    VLCMediaListPlayer *listPlayer = [VLCPlaybackController sharedInstance].listPlayer;
+    VLCMediaListPlayer *listPlayer = _vpc.listPlayer;
     VLCRepeatMode nextRepeatMode = VLCDoNotRepeat;
     switch (listPlayer.repeatMode) {
         case VLCDoNotRepeat:
@@ -1119,7 +1116,7 @@ currentMediaHasTrackToChooseFrom:(BOOL)currentMediaHasTrackToChooseFrom
 - (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView
 {
     NSInteger ret = 0;
-    VLCMediaPlayer *mediaPlayer = [VLCPlaybackController sharedInstance].mediaPlayer;
+    VLCMediaPlayer *mediaPlayer = _vpc.mediaPlayer;
 
     if (_switchingTracksNotChapters == YES) {
         if (mediaPlayer.audioTrackIndexes.count > 2)
@@ -1150,7 +1147,7 @@ currentMediaHasTrackToChooseFrom:(BOOL)currentMediaHasTrackToChooseFrom
 
 - (NSString *)tableView:(UITableView *)tableView titleForHeaderInSection:(NSInteger)section
 {
-    VLCMediaPlayer *mediaPlayer = [VLCPlaybackController sharedInstance].mediaPlayer;
+    VLCMediaPlayer *mediaPlayer = _vpc.mediaPlayer;
 
     if (_switchingTracksNotChapters == YES) {
         if (mediaPlayer.audioTrackIndexes.count > 2 && section == 0)
@@ -1178,7 +1175,7 @@ currentMediaHasTrackToChooseFrom:(BOOL)currentMediaHasTrackToChooseFrom
 
     NSInteger row = indexPath.row;
     NSInteger section = indexPath.section;
-    VLCMediaPlayer *mediaPlayer = [VLCPlaybackController sharedInstance].mediaPlayer;
+    VLCMediaPlayer *mediaPlayer = _vpc.mediaPlayer;
     BOOL cellShowsCurrentTrack = NO;
 
     if (_switchingTracksNotChapters == YES) {
@@ -1240,7 +1237,7 @@ currentMediaHasTrackToChooseFrom:(BOOL)currentMediaHasTrackToChooseFrom
 
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section
 {
-    VLCMediaPlayer *mediaPlayer = [VLCPlaybackController sharedInstance].mediaPlayer;
+    VLCMediaPlayer *mediaPlayer = _vpc.mediaPlayer;
 
     if (_switchingTracksNotChapters == YES) {
         NSInteger audioTrackCount = mediaPlayer.audioTrackIndexes.count;
@@ -1261,7 +1258,7 @@ currentMediaHasTrackToChooseFrom:(BOOL)currentMediaHasTrackToChooseFrom
 {
     [tableView deselectRowAtIndexPath:indexPath animated:NO];
     NSInteger index = indexPath.row;
-    VLCMediaPlayer *mediaPlayer = [VLCPlaybackController sharedInstance].mediaPlayer;
+    VLCMediaPlayer *mediaPlayer = _vpc.mediaPlayer;
 
     if (_switchingTracksNotChapters == YES) {
         NSArray *indexArray;
@@ -1308,13 +1305,12 @@ currentMediaHasTrackToChooseFrom:(BOOL)currentMediaHasTrackToChooseFrom
     if (!_playPauseGestureEnabled)
         return;
 
-    VLCPlaybackController *vpc = [VLCPlaybackController sharedInstance];
 
-    if ([vpc.mediaPlayer isPlaying]) {
-        [vpc.listPlayer pause];
+    if ([_vpc.mediaPlayer isPlaying]) {
+        [_vpc.listPlayer pause];
         [self.statusLabel showStatusMessage:@"  ▌▌"];
     } else {
-        [vpc.listPlayer play];
+        [_vpc.listPlayer play];
         [self.statusLabel showStatusMessage:@" ►"];
     }
 }
@@ -1352,7 +1348,7 @@ currentMediaHasTrackToChooseFrom:(BOOL)currentMediaHasTrackToChooseFrom
     if (_currentPanType == VLCPanTypeSeek) {
         if (!_seekGestureEnabled)
             return;
-        VLCMediaPlayer *mediaPlayer = [VLCPlaybackController sharedInstance].mediaPlayer;
+        VLCMediaPlayer *mediaPlayer = _vpc.mediaPlayer;
         double timeRemainingDouble = (-mediaPlayer.remainingTime.intValue*0.001);
         int timeRemaining = timeRemainingDouble;
 
@@ -1400,10 +1396,9 @@ currentMediaHasTrackToChooseFrom:(BOOL)currentMediaHasTrackToChooseFrom
     }
 
     if (panRecognizer.state == UIGestureRecognizerStateEnded) {
-        VLCPlaybackController *vpc = [VLCPlaybackController sharedInstance];
         _currentPanType = VLCPanTypeNone;
-        if ([vpc.mediaPlayer isPlaying])
-            [vpc.listPlayer play];
+        if ([_vpc.mediaPlayer isPlaying])
+            [_vpc.listPlayer play];
     }
 }
 
@@ -1415,8 +1410,7 @@ currentMediaHasTrackToChooseFrom:(BOOL)currentMediaHasTrackToChooseFrom
         return;
 
     NSString * hudString = @" ";
-    VLCPlaybackController *vpc = [VLCPlaybackController sharedInstance];
-    VLCMediaPlayer *mediaPlayer = vpc.mediaPlayer;
+    VLCMediaPlayer *mediaPlayer = _vpc.mediaPlayer;
     int swipeForwardDuration = (_variableJumpDurationEnabled) ? ((int)(_mediaDuration*0.001*0.05)) : FORWARD_SWIPE_DURATION;
     int swipeBackwardDuration = (_variableJumpDurationEnabled) ? ((int)(_mediaDuration*0.001*0.05)) : BACKWARD_SWIPE_DURATION;
 
@@ -1446,7 +1440,7 @@ currentMediaHasTrackToChooseFrom:(BOOL)currentMediaHasTrackToChooseFrom
 
     if (swipeRecognizer.state == UIGestureRecognizerStateEnded) {
         if ([mediaPlayer isPlaying])
-            [vpc.listPlayer play];
+            [_vpc.listPlayer play];
 
         [self.statusLabel showStatusMessage:hudString];
     }
@@ -1481,7 +1475,7 @@ currentMediaHasTrackToChooseFrom:(BOOL)currentMediaHasTrackToChooseFrom
 
 - (IBAction)videoFilterSliderAction:(id)sender
 {
-    VLCMediaPlayer *mediaPlayer = [VLCPlaybackController sharedInstance].mediaPlayer;
+    VLCMediaPlayer *mediaPlayer = _vpc.mediaPlayer;
 
     if (sender == self.hueSlider)
         mediaPlayer.hue = (int)self.hueSlider.value;
@@ -1520,11 +1514,10 @@ currentMediaHasTrackToChooseFrom:(BOOL)currentMediaHasTrackToChooseFrom
 {
     VLCPlayerDisplayController *pdc = [VLCPlayerDisplayController sharedInstance];
     if (pdc.displayMode == VLCPlayerDisplayControllerDisplayModeFullscreen) {
-        VLCPlaybackController *vpc = [VLCPlaybackController sharedInstance];
-        [vpc recoverDisplayedMetadata];
-        if (vpc.videoOutputView != self.movieView) {
-            vpc.videoOutputView = nil;
-            vpc.videoOutputView = self.movieView;
+        [_vpc recoverDisplayedMetadata];
+        if (_vpc.videoOutputView != self.movieView) {
+            _vpc.videoOutputView = nil;
+            _vpc.videoOutputView = self.movieView;
         }
     }
 }
@@ -1533,19 +1526,18 @@ currentMediaHasTrackToChooseFrom:(BOOL)currentMediaHasTrackToChooseFrom
 - (IBAction)playbackSliderAction:(UISlider *)sender
 {
     LOCKCHECK;
-    VLCPlaybackController *vpc = [VLCPlaybackController sharedInstance];
 
     if (sender == _playbackSpeedSlider) {
         double speed = exp2(sender.value);
-        vpc.playbackRate = speed;
+        _vpc.playbackRate = speed;
         self.playbackSpeedIndicator.text = [NSString stringWithFormat:@"%.2fx", speed];
     } else if (sender == _audioDelaySlider) {
         double delay = sender.value;
-        vpc.audioDelay = delay;
+        _vpc.audioDelay = delay;
         _audioDelayIndicator.text = [NSString stringWithFormat:@"%1.2f s", delay];
     } else if (sender == _spuDelaySlider) {
         double delay = sender.value;
-        vpc.subtitleDelay = delay;
+        _vpc.subtitleDelay = delay;
         _spuDelayIndicator.text = [NSString stringWithFormat:@"%1.00f s", delay];
     }
 
