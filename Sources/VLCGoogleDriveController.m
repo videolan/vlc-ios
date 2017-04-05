@@ -7,6 +7,7 @@
  *
  * Authors: Carola Nitz <nitz.carola # googlemail.com>
  *          Felix Paul Kühne <fkuehne # videolan.org>
+ *          Soomin Lee <TheHungryBu # gmail.com>
  *
  * Refer to the COPYING file of the official project for license.
  *****************************************************************************/
@@ -17,8 +18,8 @@
 #import "VLCMediaFileDiscoverer.h"
 #import <XKKeychain/XKKeychain.h>
 
-#import "GTMOAuth2ViewControllerTouch.h"
-#import "GTMOAuth2SignIn.h"
+#import <AppAuth/AppAuth.h>
+#import <GTMAppAuth/GTMAppAuth.h>
 
 @interface VLCGoogleDriveController ()
 {
@@ -60,7 +61,7 @@
 {
     [self restoreFromSharedCredentials];
     self.driveService = [GTLServiceDrive new];
-    self.driveService.authorizer = [GTMOAuth2ViewControllerTouch authForGoogleFromKeychainForName:kKeychainItemName clientID:kVLCGoogleDriveClientID clientSecret:kVLCGoogleDriveClientSecret];
+    self.driveService.authorizer = [GTMAppAuthFetcherAuthorization authorizationFromKeychainForName:kKeychainItemName];
 }
 
 - (void)stopSession
@@ -72,7 +73,6 @@
 
 - (void)logout
 {
-    [GTMOAuth2ViewControllerTouch removeAuthFromKeychainForName:kKeychainItemName];
     self.driveService.authorizer = nil;
     NSUbiquitousKeyValueStore *ubiquitousStore = [NSUbiquitousKeyValueStore defaultStore];
     [ubiquitousStore setString:nil forKey:kVLCStoreGDriveCredentials];
@@ -87,7 +87,9 @@
     if (!self.driveService) {
         [self startSession];
     }
-    BOOL ret = [((GTMOAuth2Authentication *)self.driveService.authorizer) canAuthorize];
+
+    BOOL ret = [(GTMAppAuthFetcherAuthorization *)self.driveService.authorizer canAuthorize];
+
     if (ret) {
         [self shareCredentials];
     }
@@ -207,7 +209,7 @@
 
 - (void)streamFile:(GTLDriveFile *)file
 {
-    NSString *token = ((GTMOAuth2Authentication *)self.driveService.authorizer).accessToken;
+    NSString *token = [((GTMAppAuthFetcherAuthorization *)self.driveService.authorizer).authState.lastTokenResponse accessToken];
     NSString *urlString = [NSString stringWithFormat:@"https://www.googleapis.com/drive/v3/files/%@?alt=media&access_token=%@",
                      file.identifier, token];
 

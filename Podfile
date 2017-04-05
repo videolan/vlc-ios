@@ -16,13 +16,13 @@ pod 'box-ios-sdk-v2', :git => 'git://github.com/fkuehne/box-ios-sdk-v2.git' #has
 pod 'CocoaHTTPServer', :git => 'git://github.com/fkuehne/CocoaHTTPServer.git' # has our fixes
 pod 'RESideMenu', '~>4.0.7'
 pod 'GoogleAPIClient/Drive'
-pod 'GTMOAuth2'
 pod 'VLC-LXReorderableCollectionViewFlowLayout', '0.1.3v'
 pod 'VLC-WhiteRaccoon'
 pod 'VLC-LiveSDK', '5.7.0x'
 pod 'VLC-Dropbox-v1-SDK', '1.3.14w'
 pod 'MediaLibraryKit-unstable'
 pod 'MobileVLCKit-unstable', '3.0.0a10'
+pod 'GTMAppAuth'
 
 end
 
@@ -38,7 +38,6 @@ pod 'box-ios-sdk-v2', :git => 'git://github.com/fkuehne/box-ios-sdk-v2.git' #has
 pod 'CocoaHTTPServer', :git => 'git://github.com/fkuehne/CocoaHTTPServer.git' # has our fixes
 pod 'RESideMenu', '~>4.0.7'
 pod 'GoogleAPIClient/Drive'
-pod 'GTMOAuth2'
 pod 'VLC-LXReorderableCollectionViewFlowLayout', '0.1.3v'
 pod 'VLC-WhiteRaccoon'
 pod 'VLC-LiveSDK', '5.7.0x'
@@ -60,7 +59,6 @@ pod 'box-ios-sdk-v2', :git => 'git://github.com/fkuehne/box-ios-sdk-v2.git' #has
 pod 'CocoaHTTPServer', :git => 'git://github.com/fkuehne/CocoaHTTPServer.git' # has our fixes
 pod 'RESideMenu', '~>4.0.7'
 pod 'GoogleAPIClient/Drive'
-pod 'GTMOAuth2'
 pod 'VLC-LXReorderableCollectionViewFlowLayout', '0.1.3v'
 pod 'VLC-WhiteRaccoon'
 pod 'VLC-LiveSDK', '5.7.0x'

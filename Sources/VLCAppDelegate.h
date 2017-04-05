@@ -17,6 +17,7 @@
 #import "VLCMenuTableViewController.h"
 #import "VLCDownloadViewController.h"
 #import "VLCWatchCommunication.h"
+#import <AppAuth/AppAuth.h>
 
 @class VLCLibraryViewController;
 
@@ -31,5 +32,7 @@ extern NSString *const VLCDropboxSessionWasAuthorized;
 @property (nonatomic, strong) UIWindow *window;
 
 @property (nonatomic, readonly) BOOL passcodeValidated;
+
+@property (atomic, strong) id<OIDAuthorizationFlowSession> currentGoogleAuthorizationFlow;
 
 @end

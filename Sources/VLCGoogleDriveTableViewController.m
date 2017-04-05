@@ -7,6 +7,7 @@
  *
  * Authors: Carola Nitz <nitz.carola # googlemail.com>
  *          Felix Paul Kühne <fkuehne # videolan.org>
+ *          Soomin Lee <TheHungryBu # gmail.com>
  *
  * Refer to the COPYING file of the official project for license.
  *****************************************************************************/
@@ -17,15 +18,14 @@
 #import "UIDevice+VLC.h"
 #import "VLCCloudStorageTableViewCell.h"
 
-#import "GTMOAuth2ViewControllerTouch.h"
-#import "GTMOAuth2SignIn.h"
+#import <AppAuth/AppAuth.h>
+#import <GTMAppAuth/GTMAppAuth.h>
 
 @interface VLCGoogleDriveTableViewController () <VLCCloudStorageTableViewCell>
 {
     VLCGoogleDriveController *_googleDriveController;
 
     GTLDriveFile *_selectedFile;
-    GTMOAuth2ViewControllerTouch *_authController;
 }
 
 @end
@@ -64,31 +64,6 @@
             [self requestInformationForCurrentPath];
         }
     }
-}
-
-- (GTMOAuth2ViewControllerTouch *)createAuthController
-{
-    _authController = [GTMOAuth2ViewControllerTouch controllerWithScope:kGTLAuthScopeDrive
-                                                               clientID:kVLCGoogleDriveClientID
-                                                           clientSecret:kVLCGoogleDriveClientSecret
-                                                       keychainItemName:kKeychainItemName
-                                                               delegate:self
-                                                       finishedSelector:@selector(viewController:finishedWithAuth:error:)];
-
-    return _authController;
-}
-
-- (void)viewController:(GTMOAuth2ViewControllerTouch *)viewController finishedWithAuth:(GTMOAuth2Authentication *)authResult error:(NSError *)error
-{
-    self.authorizationInProgress = NO;
-    if (error != nil) {
-        APLog(@"%s: error: %@", __PRETTY_FUNCTION__, error);
-        _googleDriveController.driveService.authorizer = nil;
-    } else {
-        _googleDriveController.driveService.authorizer = authResult;
-    }
-    [self updateViewAfterSessionChange];
-    [self.activityIndicator startAnimating];
 }
 
 - (void)viewWillDisappear:(BOOL)animated
@@ -180,8 +155,33 @@
 - (IBAction)loginAction:(id)sender
 {
     if (![_googleDriveController isAuthorized]) {
+
         self.authorizationInProgress = YES;
-        [self.navigationController pushViewController:[self createAuthController] animated:YES];
+
+        // Build the request with the clientID and scopes.
+        OIDAuthorizationRequest *request = [[OIDAuthorizationRequest alloc] initWithConfiguration:[GTMAppAuthFetcherAuthorization configurationForGoogle]
+                                                                                         clientId:kVLCGoogleDriveClientID
+                                                                                     clientSecret:kVLCGoogleDriveClientSecret
+                                                                                           scopes:@[OIDScopeOpenID, kGTLAuthScopeDrive]
+                                                                                      redirectURL:[NSURL URLWithString:kVLCGoogleRedirectURI]
+                                                                                     responseType:OIDResponseTypeCode
+                                                                             additionalParameters:nil];
+
+        // Perform the previously built request and saving the current authorization flow.
+        ((VLCAppDelegate *)[UIApplication sharedApplication].delegate).currentGoogleAuthorizationFlow = [OIDAuthState authStateByPresentingAuthorizationRequest:request presentingViewController:self
+           callback:^(OIDAuthState *_Nullable authState, NSError *_Nullable error) {
+
+               self.authorizationInProgress = NO;
+               if (authState) {
+                   // Upon successful completion...
+                   _googleDriveController.driveService.authorizer = [[GTMAppAuthFetcherAuthorization alloc] initWithAuthState:authState];
+                   [self updateViewAfterSessionChange];
+                   [self.activityIndicator startAnimating];
+               } else {
+                   _googleDriveController.driveService.authorizer = nil;
+               }
+           }];
+
     } else {
         [_googleDriveController logout];
     }

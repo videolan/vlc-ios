@@ -12,6 +12,7 @@
  *          Carola Nitz <nitz.carola # googlemail.com>
  *          Tamas Timar <ttimar.vlc # gmail.com>
  *          Tobias Conradi <videolan # tobias-conradi.de>
+ *          Soomin Lee <TheHungryBu # gmail.com>
  *
  * Refer to the COPYING file of the official project for license.
  *****************************************************************************/
@@ -293,6 +294,12 @@ didFailToContinueUserActivityWithType:(NSString *)userActivityType
 {
     if ([[DBSession sharedSession] handleOpenURL:url]) {
         [[NSNotificationCenter defaultCenter] postNotificationName:VLCDropboxSessionWasAuthorized object:nil];
+        return YES;
+    }
+
+    //Handles Google Authorization flow.
+    if ([_currentGoogleAuthorizationFlow resumeAuthorizationFlowWithURL:url]) {
+        _currentGoogleAuthorizationFlow = nil;
         return YES;
     }
 
