@@ -181,6 +181,7 @@
     _fileList = nil;
     _folderId = folderId;
     GTLQueryDrive *query;
+    NSString *parentName = @"root";
 
     query = [GTLQueryDrive queryForFilesList];
     query.pageToken = _nextPageToken;
@@ -189,9 +190,13 @@
     query.includeDeleted = NO;
     query.includeRemoved = NO;
     query.restrictToMyDrive = YES;
+    query.fields = @"files(*)";
+
     if (![_folderId isEqualToString:@""]) {
-        query.q = [NSString stringWithFormat:@"'%@' in parents", [_folderId lastPathComponent]];
+        parentName = [_folderId lastPathComponent];
     }
+    query.q = [NSString stringWithFormat:@"'%@' in parents", parentName];
+
     _fileListTicket = [self.driveService executeQuery:query
                           completionHandler:^(GTLServiceTicket *ticket,
                                               GTLDriveFileList *fileList,
@@ -255,16 +260,9 @@
 
     for (GTLDriveFile *iter in _fileList.files) {
         BOOL isDirectory = [iter.mimeType isEqualToString:@"application/vnd.google-apps.folder"];
-        BOOL inDirectory = NO;
-        if (iter.parents.count > 0) {
-            GTLDriveFile *parent = [iter.parents firstObject];
-            //since there is no rootfolder display the files right away
-            if (parent.parents == nil)
-                inDirectory = ![parent.identifier isEqualToString:[_folderId lastPathComponent]];
-        }
         BOOL supportedFile = [self _supportedFileExtension:iter.name];
 
-        if ((isDirectory || supportedFile) && !inDirectory)
+        if (isDirectory || supportedFile)
             [listOfGoodFilesAndFolders addObject:iter];
     }
     _currentFileList = [_currentFileList count] ? [_currentFileList arrayByAddingObjectsFromArray:listOfGoodFilesAndFolders] : [NSArray arrayWithArray:listOfGoodFilesAndFolders];
