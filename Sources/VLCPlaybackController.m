@@ -765,6 +765,29 @@ VLCMediaDelegate>
     return _videoOutputViewWrapper;
 }
 
+#pragma mark - 360 Support
+
+- (BOOL)updateViewpoint:(CGFloat)yaw pitch:(CGFloat)pitch roll:(CGFloat)roll fov:(CGFloat)fov absolute:(BOOL)absolute
+{
+    return [_mediaPlayer updateViewpoint:yaw pitch:pitch roll:roll fov:fov absolute:absolute];
+}
+
+- (NSInteger)currentMediaProjection
+{
+    VLCMedia *media = [_mediaPlayer media];
+    NSInteger currentVideoTrackIndex = [_mediaPlayer currentVideoTrackIndex];
+
+    if (media && currentVideoTrackIndex >= 0) {
+        NSArray *tracksInfo = media.tracksInformation;
+        NSDictionary *track = tracksInfo[currentVideoTrackIndex];
+
+        if ([track[VLCMediaTracksInformationType] isEqualToString:VLCMediaTracksInformationTypeVideo]) {
+            return [track[VLCMediaTracksInformationVideoProjection] integerValue];
+        }
+    }
+    return -1;
+}
+
 #pragma mark - equalizer
 
 - (void)setAmplification:(CGFloat)amplification forBand:(unsigned int)index
