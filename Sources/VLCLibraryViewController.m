@@ -687,6 +687,14 @@ static NSString *kUsingTableViewToShowData = @"UsingTableViewToShowData";
     [self _displayEmptyLibraryViewIfNeeded];
 }
 
+
+#pragma mark - Scroll View Delegate
+
+- (void)scrollViewDidScrollToTop:(UIScrollView *)scrollView
+{
+    [self.navigationController.scrollNavigationBar resetToDefaultPositionWithAnimation:YES];
+}
+
 #pragma mark - Table View
 
 - (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView
