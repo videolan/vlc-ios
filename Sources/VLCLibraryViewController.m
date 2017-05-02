@@ -504,6 +504,7 @@ static NSString *kUsingTableViewToShowData = @"UsingTableViewToShowData";
             [self setEditing:NO animated:NO];
         }
         [self setUsingTableViewToShowData:isPortrait];
+        [self _displayEmptyLibraryViewIfNeeded];
         [self enableNavigationBarAnimation:YES resetPositionWithAnimation:YES];
     }
 }
