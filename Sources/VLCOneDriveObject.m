@@ -12,6 +12,7 @@
 
 #import "VLCOneDriveObject.h"
 #import "VLCHTTPFileDownloader.h"
+#import "NSString+SupportedMedia.h"
 
 #if TARGET_OS_IOS
 @interface VLCOneDriveObject () <VLCHTTPFileDownloader>
@@ -133,7 +134,11 @@
                 oneDriveObject.duration = rawObject[@"duration"];
                 [folderFiles addObject:oneDriveObject];
             }
-            [items addObject:oneDriveObject];
+
+            //Display only folders and supported files.
+            if (oneDriveObject.isFolder || [oneDriveObject.name isSupportedFormat])
+                [items addObject:oneDriveObject];
+
         }
 
         self.folders = subFolders;
