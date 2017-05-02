@@ -39,6 +39,11 @@
 #define FORWARD_SWIPE_DURATION 30
 #define BACKWARD_SWIPE_DURATION 10
 
+#define ZOOM_SENSITIVITY 2.99f
+#define DEFAULT_FOV 80.f
+#define MAX_FOV 150.f
+#define MIN_FOV 20.f
+
 #define TRACK_SELECTOR_TABLEVIEW_CELL @"track selector table view cell"
 #define TRACK_SELECTOR_TABLEVIEW_SECTIONHEADER @"track selector table view section header"
 
@@ -51,6 +56,7 @@ typedef NS_ENUM(NSInteger, VLCPanType) {
   VLCPanTypeBrightness,
   VLCPanTypeSeek,
   VLCPanTypeVolume,
+  VLCPanTypeProjection
 };
 
 @interface VLCMovieViewController () <UIGestureRecognizerDelegate, UITableViewDataSource, UITableViewDelegate, VLCMultiSelectionViewDelegate, VLCEqualizerViewUIDelegate>
@@ -79,6 +85,8 @@ typedef NS_ENUM(NSInteger, VLCPanType) {
     BOOL _seekGestureEnabled;
     BOOL _closeGestureEnabled;
     BOOL _variableJumpDurationEnabled;
+    BOOL _mediaHasProjection;
+
     UIPinchGestureRecognizer *_pinchRecognizer;
     VLCPanType _currentPanType;
     UIPanGestureRecognizer *_panRecognizer;
@@ -102,6 +110,10 @@ typedef NS_ENUM(NSInteger, VLCPanType) {
     NSTimer *_sleepCountDownTimer;
 
     NSInteger _mediaDuration;
+
+    CGFloat _fov;
+    CGPoint _saveLocation;
+    CGSize _screenSizePixel;
 }
 
 @property (nonatomic, strong) UIPopoverController *masterPopoverController;
@@ -393,6 +405,11 @@ typedef NS_ENUM(NSInteger, VLCPanType) {
     [panelVC didMoveToParentViewController:self];
     self.controlPanelController = panelVC;
     self.controllerPanel = panelVC.view;
+
+    CGRect screenBounds = [[UIScreen mainScreen] bounds];
+    CGFloat screenScale = [[UIScreen mainScreen] scale];
+    _screenSizePixel = CGSizeMake(screenBounds.size.width * screenScale, screenBounds.size.height * screenScale);
+    _saveLocation = CGPointMake(-1.f, -1.f);
 }
 
 - (void)viewWillAppear:(BOOL)animated
@@ -416,6 +433,9 @@ typedef NS_ENUM(NSInteger, VLCPanType) {
 
     [self updateDefaults];
     [NSUserDefaults standardUserDefaults];
+
+    //Disabling video gestures, media not init in the player yet.
+    [self enableNormalVideoGestures:NO];
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(updateDefaults) name:NSUserDefaultsDidChangeNotification object:nil];
 }
 
@@ -428,6 +448,16 @@ typedef NS_ENUM(NSInteger, VLCPanType) {
     _vpc.videoOutputView = nil;
     _vpc.videoOutputView = self.movieView;
     _multiSelectionView.repeatMode = _vpc.repeatMode;
+
+    //Media is loaded in the media player, checking the projection type and configuring accordingly.
+    _fov = 0.f;
+    _mediaHasProjection = NO;
+    if ([_vpc currentMediaProjection] == VLCMediaProjectionEquiRectangular) {
+        _fov = DEFAULT_FOV;
+        _mediaHasProjection = YES;
+    }
+
+    [self enableNormalVideoGestures:!_mediaHasProjection];
 }
 
 - (void)viewDidLayoutSubviews
@@ -523,11 +553,19 @@ typedef NS_ENUM(NSInteger, VLCPanType) {
 {
     LOCKCHECK;
 
-    if (!_closeGestureEnabled)
+    if (!_closeGestureEnabled || isnan(recognizer.velocity))
         return;
 
-    if (recognizer.velocity < 0.)
+    CGFloat diff = DEFAULT_FOV * -(ZOOM_SENSITIVITY * recognizer.velocity / _screenSizePixel.width);
+
+    if (_mediaHasProjection) {
+        if ([_vpc updateViewpoint:0 pitch:0 roll:0 fov:diff absolute:NO]) {
+            //Checking for fov value in case of
+            _fov = MAX(MIN(_fov + diff, MAX_FOV), MIN_FOV);
+        }
+    } else if (recognizer.velocity < 0.) {
         [self minimizePlayback:nil];
+    }
 }
 
 - (BOOL)gestureRecognizer:(UIGestureRecognizer *)gestureRecognizer shouldReceiveTouch:(UITouch *)touch
@@ -672,6 +710,15 @@ typedef NS_ENUM(NSInteger, VLCPanType) {
 {
     [self _resetIdleTimer];
     return [super nextResponder];
+}
+
+- (void)enableNormalVideoGestures:(BOOL)enable
+{
+    [_tapRecognizer setEnabled:enable];
+    [_swipeRecognizerUp setEnabled:enable];
+    [_swipeRecognizerDown setEnabled:enable];
+    [_swipeRecognizerLeft setEnabled:enable];
+    [_swipeRecognizerRight setEnabled:enable];
 }
 
 #pragma mark - controls
@@ -1342,8 +1389,9 @@ currentMediaHasTrackToChooseFrom:(BOOL)currentMediaHasTrackToChooseFrom
     CGFloat panDirectionX = [panRecognizer velocityInView:self.view].x;
     CGFloat panDirectionY = [panRecognizer velocityInView:self.view].y;
 
-    if (panRecognizer.state == UIGestureRecognizerStateBegan) // Only detect panType when began to allow more freedom
-        _currentPanType = [self detectPanTypeForPan:panRecognizer];
+    if (panRecognizer.state == UIGestureRecognizerStateBegan) {
+        _currentPanType = _mediaHasProjection ? VLCPanTypeProjection : [self detectPanTypeForPan:panRecognizer];
+    }
 
     if (_currentPanType == VLCPanTypeSeek) {
         if (!_seekGestureEnabled)
@@ -1393,10 +1441,32 @@ currentMediaHasTrackToChooseFrom:(BOOL)currentMediaHasTrackToChooseFrom
 
         NSString *brightnessHUD = [NSString stringWithFormat:@"%@: %@ %%", NSLocalizedString(@"VFILTER_BRIGHTNESS", nil), [[[NSString stringWithFormat:@"%f",(brightness*100)] componentsSeparatedByString:@"."] objectAtIndex:0]];
         [self.statusLabel showStatusMessage:brightnessHUD];
+    } else if (_currentPanType == VLCPanTypeProjection) {
+
+        CGPoint tmp = [panRecognizer locationInView:self.view];
+        CGFloat changeX = 0.f;
+        CGFloat changeY = 0.f;
+
+        if (_saveLocation.x != -1.f && _saveLocation.y != -1.f) {
+            changeX = tmp.x - _saveLocation.x;
+            changeY = tmp.y - _saveLocation.y;
+        }
+
+        _saveLocation = [panRecognizer locationInView:self.view];
+
+        //screenSizePixel width is used twice to get a constant speed on the movement.
+        CGFloat yaw = _fov * -changeX / _screenSizePixel.width;
+        CGFloat pitch = _fov * -changeY / _screenSizePixel.width;
+
+        [_vpc updateViewpoint:yaw pitch:pitch roll:0 fov:0 absolute:NO];
     }
 
     if (panRecognizer.state == UIGestureRecognizerStateEnded) {
         _currentPanType = VLCPanTypeNone;
+
+        //Invalidate saved location when the gesture is ended
+        if (_mediaHasProjection)
+            _saveLocation = CGPointMake(-1.f, -1.f);
         if ([_vpc.mediaPlayer isPlaying])
             [_vpc.listPlayer play];
     }
