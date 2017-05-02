@@ -779,10 +779,11 @@ VLCMediaDelegate>
 
     if (media && currentVideoTrackIndex >= 0) {
         NSArray *tracksInfo = media.tracksInformation;
-        NSDictionary *track = tracksInfo[currentVideoTrackIndex];
 
-        if ([track[VLCMediaTracksInformationType] isEqualToString:VLCMediaTracksInformationTypeVideo]) {
-            return [track[VLCMediaTracksInformationVideoProjection] integerValue];
+        for (NSDictionary *track in tracksInfo) {
+            if ([track[VLCMediaTracksInformationType] isEqualToString:VLCMediaTracksInformationTypeVideo]) {
+                return [track[VLCMediaTracksInformationVideoProjection] integerValue];
+            }
         }
     }
     return -1;
