@@ -498,7 +498,9 @@ static NSString *kUsingTableViewToShowData = @"UsingTableViewToShowData";
 {
     if (UI_USER_INTERFACE_IDIOM() == UIUserInterfaceIdiomPhone) {
         UIDevice *currentDevice = [UIDevice currentDevice];
-        BOOL isPortrait = UIDeviceOrientationIsPortrait(currentDevice.orientation);
+        UIDeviceOrientation orientation = currentDevice.orientation;
+
+        BOOL isPortrait = (orientation == UIDeviceOrientationUnknown) ? self.usingTableViewToShowData : UIDeviceOrientationIsPortrait(orientation);
 
         if (self.isEditing) {
             [self setEditing:NO animated:NO];
