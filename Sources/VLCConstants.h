@@ -39,6 +39,8 @@
 #define kVLCSettingSubtitlesFilePath @"sub-file"
 #define kVLCSettingDeinterlace @"deinterlace"
 #define kVLCSettingDeinterlaceDefaultValue @(0)
+#define kVLCSettingHWDecoding @"codec"
+#define kVLCSettingHWDecodingDefault @""
 #define kVLCSettingNetworkCaching @"network-caching"
 #define kVLCSettingNetworkCachingDefaultValue @(999)
 #define kVLCSettingsDecrapifyTitles @"MLDecrapifyTitles"

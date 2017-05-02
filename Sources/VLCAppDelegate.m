@@ -72,6 +72,7 @@ NSString *const VLCDropboxSessionWasAuthorized = @"VLCDropboxSessionWasAuthorize
                                   kVLCSettingSubtitlesFontSize : kVLCSettingSubtitlesFontSizeDefaultValue,
                                   kVLCSettingSubtitlesBoldFont: kVLCSettingSubtitlesBoldFontDefaultValue,
                                   kVLCSettingDeinterlace : kVLCSettingDeinterlaceDefaultValue,
+                                  kVLCSettingHWDecoding : kVLCSettingHWDecodingDefault,
                                   kVLCSettingNetworkCaching : kVLCSettingNetworkCachingDefaultValue,
                                   kVLCSettingVolumeGesture : @(YES),
                                   kVLCSettingPlayPauseGesture : @(YES),

@@ -1322,9 +1322,10 @@ static inline NSArray * RemoteCommandCenterCommandsToHandle(MPRemoteCommandCente
 {
     NSUserDefaults *defaults = [NSUserDefaults standardUserDefaults];
     return @{ kVLCSettingNetworkCaching : [defaults objectForKey:kVLCSettingNetworkCaching],
-                                       kVLCSettingStretchAudio : [[defaults objectForKey:kVLCSettingStretchAudio] boolValue] ? kVLCSettingStretchAudioOnValue : kVLCSettingStretchAudioOffValue,
-                                       kVLCSettingTextEncoding : [defaults objectForKey:kVLCSettingTextEncoding],
-                                       kVLCSettingSkipLoopFilter : [defaults objectForKey:kVLCSettingSkipLoopFilter] };
+              kVLCSettingStretchAudio : [[defaults objectForKey:kVLCSettingStretchAudio] boolValue] ? kVLCSettingStretchAudioOnValue : kVLCSettingStretchAudioOffValue,
+              kVLCSettingTextEncoding : [defaults objectForKey:kVLCSettingTextEncoding],
+              kVLCSettingSkipLoopFilter : [defaults objectForKey:kVLCSettingSkipLoopFilter],
+              kVLCSettingHWDecoding : [defaults objectForKey:kVLCSettingHWDecoding]};
 }
 
 @end
