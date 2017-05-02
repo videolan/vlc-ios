@@ -938,7 +938,6 @@ currentMediaHasTrackToChooseFrom:(BOOL)currentMediaHasTrackToChooseFrom
     [_vpc playPause];
 }
 
-//bubu cached
 - (IBAction)forward:(id)sender
 {
     LOCKCHECK;
