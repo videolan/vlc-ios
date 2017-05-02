@@ -90,6 +90,7 @@
         for (NSUInteger x = 0; x < count; x++) {
             VLCOneDriveObject *folder = self.folders[x];
             if (!folder.hasFullFolderTree) {
+                folder.delegate = self.delegate;
                 [folder loadFolderContent];
                 return;
             }

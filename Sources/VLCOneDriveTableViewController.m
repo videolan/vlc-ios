@@ -91,20 +91,6 @@
 
 #pragma mark - table view delegate
 
-- (void)mediaListUpdated
-{
-    [self.tableView reloadData];
-    [self.activityIndicator stopAnimating];
-
-    NSUInteger count = self.controller.currentListFiles.count;
-    if (count == 0)
-        self.numberOfFilesBarButtonItem.title = NSLocalizedString(@"NO_FILES", nil);
-    else if (count != 1)
-        self.numberOfFilesBarButtonItem.title = [NSString stringWithFormat:NSLocalizedString(@"NUM_OF_FILES", nil), count];
-    else
-        self.numberOfFilesBarButtonItem.title = NSLocalizedString(@"ONE_FILE", nil);
-}
-
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
 {
     NSArray *folderItems = _oneDriveController.currentFolder.items;
