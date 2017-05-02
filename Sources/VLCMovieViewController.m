@@ -86,6 +86,7 @@ typedef NS_ENUM(NSInteger, VLCPanType) {
     BOOL _closeGestureEnabled;
     BOOL _variableJumpDurationEnabled;
     BOOL _mediaHasProjection;
+    BOOL _playbackWillClose;
 
     UIPinchGestureRecognizer *_pinchRecognizer;
     VLCPanType _currentPanType;
@@ -443,6 +444,7 @@ typedef NS_ENUM(NSInteger, VLCPanType) {
 {
     [super viewDidAppear:animated];
     _viewAppeared = YES;
+    _playbackWillClose = NO;
 
     [_vpc recoverDisplayedMetadata];
     _vpc.videoOutputView = nil;
@@ -533,11 +535,14 @@ typedef NS_ENUM(NSInteger, VLCPanType) {
     [super dismissViewControllerAnimated:flag completion:completion];
 }
 
-- (void) updateDefaults
+- (void)updateDefaults
 {
     NSUserDefaults *defaults = [NSUserDefaults standardUserDefaults];
-    _displayRemainingTime = [[defaults objectForKey:kVLCShowRemainingTime] boolValue];
-    [self updateTimeDisplayButton];
+
+    if (!_playbackWillClose) {
+        _displayRemainingTime = [[defaults objectForKey:kVLCShowRemainingTime] boolValue];
+        [self updateTimeDisplayButton];
+    }
 
     _volumeGestureEnabled = [[defaults objectForKey:kVLCSettingVolumeGesture] boolValue];
     _playPauseGestureEnabled = [[defaults objectForKey:kVLCSettingPlayPauseGesture] boolValue];
@@ -726,6 +731,7 @@ typedef NS_ENUM(NSInteger, VLCPanType) {
 - (IBAction)closePlayback:(id)sender
 {
     LOCKCHECK;
+    _playbackWillClose = YES;
     [_vpc stopPlayback];
 }
 
