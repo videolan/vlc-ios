@@ -94,6 +94,7 @@
 - (IBAction)videoDimensionAction:(id)sender;
 
 - (void)toggleRepeatMode;
+- (void)toggleShuffleMode;
 - (void)toggleEqualizer;
 - (void)toggleUILock;
 - (void)toggleChapterAndTitleSelector;

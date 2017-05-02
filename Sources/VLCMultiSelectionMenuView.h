@@ -15,6 +15,7 @@
 - (void)toggleEqualizer;
 - (void)toggleChapterAndTitleSelector;
 - (void)toggleRepeatMode;
+- (void)toggleShuffleMode;
 - (void)hideMenu;
 
 @end
@@ -27,6 +28,8 @@
 @property (readwrite, assign) BOOL mediaHasChapters;
 
 @property (nonatomic, assign) VLCRepeatMode repeatMode;
+@property (nonatomic, assign) BOOL shuffleMode;
+
 
 - (void)setDisplayLock:(BOOL)displayLock;
 - (CGSize)proposedDisplaySize;

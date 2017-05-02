@@ -74,6 +74,8 @@ VLCMediaDelegate>
     NSLock *_playbackSessionManagementLock;
 
     VLCDialogProvider *_dialogProvider;
+
+    NSMutableArray *_shuffleStack;
 }
 
 @end
@@ -118,6 +120,8 @@ VLCMediaDelegate>
         _dialogProvider = [[VLCDialogProvider alloc] initWithLibrary:[VLCLibrary sharedLibrary] customUI:NO];
 
         _playbackSessionManagementLock = [[NSLock alloc] init];
+        _shuffleMode = NO;
+        _shuffleStack = [[NSMutableArray alloc] init];
     }
     return self;
 }
@@ -403,6 +407,7 @@ VLCMediaDelegate>
         }
     }
     _playerIsSetup = NO;
+    [_shuffleStack removeAllObjects];
 
     if (self.errorCallback && _playbackFailed && !_sessionWillRestart)
         [[UIApplication sharedApplication] openURL:self.errorCallback];
@@ -672,7 +677,32 @@ VLCMediaDelegate>
 
 - (void)forward
 {
-    if (_mediaList.count > 1) {
+    NSInteger mediaListCount = _mediaList.count;
+
+    if (mediaListCount > 2 && _shuffleMode) {
+
+        NSNumber *nextIndex;
+        NSUInteger currentIndex = [_mediaList indexOfMedia:_listPlayer.mediaPlayer.media];
+
+        //Reached end of playlist
+        if (_shuffleStack.count + 1 == mediaListCount) {
+            if ([self repeatMode] == VLCDoNotRepeat)
+                return;
+            [_shuffleStack removeAllObjects];
+        }
+
+        [_shuffleStack addObject:[NSNumber numberWithUnsignedInteger:currentIndex]];
+        do {
+            nextIndex = [NSNumber numberWithUnsignedInt:arc4random_uniform((uint32_t)mediaListCount)];
+        } while (currentIndex == nextIndex.unsignedIntegerValue || [_shuffleStack containsObject:nextIndex]);
+
+        [_listPlayer playItemAtNumber:[NSNumber numberWithUnsignedInteger:nextIndex.unsignedIntegerValue]];
+        [[NSNotificationCenter defaultCenter] postNotificationName:VLCPlaybackControllerPlaybackMetadataDidChange object:self];
+
+        return;
+    }
+
+    if (mediaListCount > 1) {
         [_listPlayer next];
         [[NSNotificationCenter defaultCenter] postNotificationName:VLCPlaybackControllerPlaybackMetadataDidChange object:self];
     } else {

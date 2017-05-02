@@ -18,6 +18,7 @@
     UIButton *_chapterSelectorButton;
     UIButton *_repeatButton;
     UIButton *_lockButton;
+    UIButton *_shuffleButton;
 
     BOOL _showsEQ;
 }
@@ -60,6 +61,13 @@
         [_lockButton addTarget:self action:@selector(lockAction:) forControlEvents:UIControlEventTouchUpInside];
         _lockButton.autoresizingMask = UIViewAutoresizingFlexibleTopMargin;
         [self addSubview:_lockButton];
+
+        _shuffleButton = [UIButton buttonWithType:UIButtonTypeCustom];
+        [_shuffleButton setImage:[UIImage imageNamed:@"shuffle"] forState:UIControlStateNormal];
+        _shuffleButton.frame = CGRectMake(spacer, spacer * 3 + buttonHeight * 3, buttonWidth, buttonHeight);
+        [_shuffleButton addTarget:self action:@selector(shuffleAction:) forControlEvents:UIControlEventTouchUpInside];
+        _shuffleButton.autoresizingMask = UIViewAutoresizingFlexibleTopMargin;
+        [self addSubview:_shuffleButton];
     }
     return self;
 }
@@ -74,7 +82,7 @@
 
     if (_showsEqualizer) {
         if (_mediaHasChapters) {
-            height = 6. * spacer + 5. * buttonHeight;
+            height = 7. * spacer + 6. * buttonHeight;
             workFrame = _equalizerButton.frame;
             workFrame.origin.y = spacer;
             _equalizerButton.frame = workFrame;
@@ -89,8 +97,11 @@
             workFrame = _lockButton.frame;
             workFrame.origin.y = spacer * 4. + buttonHeight * 3.;
             _lockButton.frame = workFrame;
+            workFrame = _shuffleButton.frame;
+            workFrame.origin.y = spacer * 5. + buttonHeight * 4.;
+            _shuffleButton.frame = workFrame;
         } else {
-            height = 4. * spacer + 3. * buttonHeight;
+            height = 5. * spacer + 4. * buttonHeight;
             workFrame = _equalizerButton.frame;
             workFrame.origin.y = spacer;
             _equalizerButton.frame = workFrame;
@@ -102,10 +113,13 @@
             workFrame = _lockButton.frame;
             workFrame.origin.y = spacer * 3. + buttonHeight * 2.;
             _lockButton.frame = workFrame;
+            workFrame = _shuffleButton.frame;
+            workFrame.origin.y = spacer * 4. + buttonHeight * 3;
+            _shuffleButton.frame = workFrame;
         }
     } else {
         if (_mediaHasChapters) {
-            height = 4. * spacer + 3. * buttonHeight;
+            height = 5. * spacer + 4. * buttonHeight;
             _equalizerButton.hidden = YES;
             workFrame = _chapterSelectorButton.frame;
             workFrame.origin.y = spacer;
@@ -117,8 +131,11 @@
             workFrame = _lockButton.frame;
             workFrame.origin.y = spacer * 3. + buttonHeight * 2.;
             _lockButton.frame = workFrame;
+            workFrame = _shuffleButton.frame;
+            workFrame.origin.y = spacer * 4. + buttonHeight * 3;
+            _shuffleButton.frame = workFrame;
         } else {
-            height = 3. * spacer + 2. * buttonHeight;
+            height = 4. * spacer + 3. * buttonHeight;
             _equalizerButton.hidden = YES;
             _chapterSelectorButton.hidden = YES;
             workFrame = _repeatButton.frame;
@@ -127,6 +144,9 @@
             workFrame = _lockButton.frame;
             workFrame.origin.y = spacer * 2. + buttonHeight;
             _lockButton.frame = workFrame;
+            workFrame = _shuffleButton.frame;
+            workFrame.origin.y = spacer * 3. + buttonHeight * 2;
+            _shuffleButton.frame = workFrame;
         }
     }
 
@@ -158,6 +178,14 @@
         [_lockButton setBackgroundColor:[UIColor clearColor]];
 }
 
+- (void)setShuffleMode:(BOOL)shuffleMode
+{
+    if (shuffleMode)
+        [_shuffleButton setBackgroundColor:[UIColor VLCOrangeTintColor]];
+    else
+        [_shuffleButton setBackgroundColor:[UIColor clearColor]];
+}
+
 - (void)equalizerAction:(id)sender
 {
     [self.delegate toggleEqualizer];
@@ -178,6 +206,11 @@
 - (void)lockAction:(id)sender
 {
     [self.delegate toggleUILock];
+}
+
+- (void)shuffleAction:(id)sender
+{
+    [self.delegate toggleShuffleMode];
 }
 
 @end

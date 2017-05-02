@@ -450,6 +450,7 @@ typedef NS_ENUM(NSInteger, VLCPanType) {
     _vpc.videoOutputView = nil;
     _vpc.videoOutputView = self.movieView;
     _multiSelectionView.repeatMode = _vpc.repeatMode;
+    _multiSelectionView.shuffleMode = _vpc.isShuffleMode;
 
     //Media is loaded in the media player, checking the projection type and configuring accordingly.
     _fov = 0.f;
@@ -1151,6 +1152,13 @@ currentMediaHasTrackToChooseFrom:(BOOL)currentMediaHasTrackToChooseFrom
     }
     listPlayer.repeatMode = nextRepeatMode;
     _multiSelectionView.repeatMode = nextRepeatMode;
+}
+
+- (void)toggleShuffleMode
+{
+    LOCKCHECK;
+    _vpc.shuffleMode = !_vpc.isShuffleMode;
+    _multiSelectionView.shuffleMode = _vpc.isShuffleMode;
 }
 
 - (void)hideMenu
