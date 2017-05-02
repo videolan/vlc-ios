@@ -16,7 +16,7 @@
 #import "RESideMenu.h"
 #import "UIDevice+VLC.h"
 
-@interface VLCSidebarController()
+@interface VLCSidebarController() <RESideMenuDelegate>
 {
     RESideMenu *_sideMenuViewController;
     VLCMenuTableViewController *_menuViewController;
@@ -57,6 +57,8 @@
                                                             rightMenuViewController:_menuViewController];
     }
     _sideMenuViewController.backgroundImage = [UIImage imageNamed:@"menu-background"];
+
+    _sideMenuViewController.delegate = self;
 
     if ([[UIDevice currentDevice] VLCSpeedCategory] <= 2) {
         _sideMenuViewController.animationDuration = 0.1f;
@@ -131,6 +133,13 @@
     } else if ([itemType isEqualToString:kVLCApplicationShortcutClouds]) {
         [self selectRowAtIndexPath:[NSIndexPath indexPathForRow:4 inSection:1] scrollPosition:UITableViewScrollPositionNone];
     }
+}
+
+#pragma mark - RESideMenu Delegate
+
+- (void)sideMenu:(RESideMenu *)sideMenu willHideMenuViewController:(UIViewController *)menuViewController
+{
+    _menuVisible = NO;
 }
 
 @end
