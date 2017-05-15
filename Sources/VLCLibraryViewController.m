@@ -193,12 +193,12 @@ static NSString *kUsingTableViewToShowData = @"UsingTableViewToShowData";
     _createFolderBarButtonItem = [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemOrganize target:self action:@selector(createFolder)];
 
     // Better visual alignment with the action button
-    _createFolderBarButtonItem.imageInsets = UIEdgeInsetsMake(4, 0, -4, 0);
-    _createFolderBarButtonItem.landscapeImagePhoneInsets = UIEdgeInsetsMake(3, 0, -3, 0);
+    _createFolderBarButtonItem.imageInsets = UIEdgeInsetsMake(3, 0, -3, 0);
+    _createFolderBarButtonItem.landscapeImagePhoneInsets = UIEdgeInsetsMake(2, 0, -2, 0);
 
     _removeFromFolderBarButtonItem = [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemReply target:self action:@selector(removeFromFolder)];
-    _removeFromFolderBarButtonItem.imageInsets = UIEdgeInsetsMake(4, 0, -4, 0);
-    _removeFromFolderBarButtonItem.landscapeImagePhoneInsets = UIEdgeInsetsMake(3, 0, -3, 0);
+    _removeFromFolderBarButtonItem.imageInsets = UIEdgeInsetsMake(2, 0, -2, 0);
+    _removeFromFolderBarButtonItem.landscapeImagePhoneInsets = UIEdgeInsetsMake(1, 0, -1, 0);
     _removeFromFolderBarButtonItem.enabled = NO;
 
     _openInActivityBarButtonItem = [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemAction target:self action:@selector(actOnSelection:)];
