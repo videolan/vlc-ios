@@ -209,8 +209,6 @@ static NSString *kUsingTableViewToShowData = @"UsingTableViewToShowData";
 
     UIBarButtonItem *fixedSpace = [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemFixedSpace target:nil action:nil];
     fixedSpace.width = 20;
-    UIBarButtonItem *secondFixedSpace = [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemFixedSpace target:nil action:nil];
-    fixedSpace.width = 20;
 
     if (UI_USER_INTERFACE_IDIOM() == UIUserInterfaceIdiomPad) {
         fixedSpace.width *= 2;
@@ -223,7 +221,7 @@ static NSString *kUsingTableViewToShowData = @"UsingTableViewToShowData";
                             [UIBarButtonItem themedDarkToolbarButtonWithTitle:NSLocalizedString(@"BUTTON_RENAME", nil) target:self andSelector:@selector(renameSelection)],
                             [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemFlexibleSpace target:nil action:nil],
                             _removeFromFolderBarButtonItem,
-                            secondFixedSpace,
+                            fixedSpace,
                             _deleteSelectedBarButtonItem]];
     self.navigationController.toolbar.barStyle = UIBarStyleBlack;
     self.navigationController.toolbar.tintColor = [UIColor whiteColor];
