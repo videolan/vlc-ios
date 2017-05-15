@@ -1345,7 +1345,8 @@ static NSString *kUsingTableViewToShowData = @"UsingTableViewToShowData";
         _indexPaths = nil;
         [self updateViewContents];
     }
-    self.navigationController.toolbarHidden = !editing;
+
+    [self.navigationController setToolbarHidden:!editing animated:YES];
 
     [UIView performWithoutAnimation:^{
         [editButton setTitle:editing ? NSLocalizedString(@"BUTTON_CANCEL", nil) : NSLocalizedString(@"BUTTON_EDIT", nil)];
