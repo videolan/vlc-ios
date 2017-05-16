@@ -1678,6 +1678,12 @@ currentMediaHasTrackToChooseFrom:(BOOL)currentMediaHasTrackToChooseFrom
     }
 }
 
+- (void)didRotateFromInterfaceOrientation:(UIInterfaceOrientation)fromInterfaceOrientation
+{
+    if (_vpc.activePlaybackSession && _controlsHidden)
+        [self setControlsHidden:NO animated:YES];
+}
+
 #pragma mark - External Display
 
 - (void)showOnExternalDisplay
