@@ -8,7 +8,7 @@
 
 #import "VLCMultiSelectionMenuView.h"
 
-#define buttonWidth 32.
+#define buttonWidth 35.
 #define buttonHeight 35.
 #define spacer 8.
 
@@ -60,6 +60,8 @@
         _lockButton.frame = CGRectMake(spacer, 4. * spacer + buttonHeight * 3., buttonWidth, buttonHeight);
         [_lockButton addTarget:self action:@selector(lockAction:) forControlEvents:UIControlEventTouchUpInside];
         _lockButton.autoresizingMask = UIViewAutoresizingFlexibleTopMargin;
+        _lockButton.clipsToBounds = YES;
+        _lockButton.layer.cornerRadius = buttonWidth / 2;
         [self addSubview:_lockButton];
 
         _shuffleButton = [UIButton buttonWithType:UIButtonTypeCustom];
@@ -67,6 +69,8 @@
         _shuffleButton.frame = CGRectMake(spacer, spacer * 3 + buttonHeight * 3, buttonWidth, buttonHeight);
         [_shuffleButton addTarget:self action:@selector(shuffleAction:) forControlEvents:UIControlEventTouchUpInside];
         _shuffleButton.autoresizingMask = UIViewAutoresizingFlexibleTopMargin;
+        _shuffleButton.clipsToBounds = YES;
+        _shuffleButton.layer.cornerRadius = buttonWidth / 2;
         [self addSubview:_shuffleButton];
     }
     return self;
