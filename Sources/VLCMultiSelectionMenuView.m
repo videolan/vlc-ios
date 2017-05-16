@@ -49,7 +49,7 @@
         [self addSubview:_chapterSelectorButton];
 
         _repeatButton = [UIButton buttonWithType:UIButtonTypeCustom];
-        [_repeatButton setImage:[UIImage imageNamed:@"repeat"] forState:UIControlStateNormal];
+        [_repeatButton setImage:[UIImage imageNamed:@"no-repeat"] forState:UIControlStateNormal];
         _repeatButton.frame = CGRectMake(spacer, spacer + buttonHeight + spacer + buttonHeight + spacer, buttonWidth, buttonHeight);
         [_repeatButton addTarget:self action:@selector(repeatAction:) forControlEvents:UIControlEventTouchUpInside];
         _repeatButton.autoresizingMask = UIViewAutoresizingFlexibleTopMargin;
@@ -161,11 +161,11 @@
             [_repeatButton setImage:[UIImage imageNamed:@"repeatOne"] forState:UIControlStateNormal];
             break;
         case VLCRepeatAllItems:
-            [_repeatButton setImage:[UIImage imageNamed:@"repeatList"] forState:UIControlStateNormal];
+            [_repeatButton setImage:[UIImage imageNamed:@"repeat"] forState:UIControlStateNormal];
             break;
         case VLCDoNotRepeat:
         default:
-            [_repeatButton setImage:[UIImage imageNamed:@"repeat"] forState:UIControlStateNormal];
+            [_repeatButton setImage:[UIImage imageNamed:@"no-repeat"] forState:UIControlStateNormal];
             break;
     }
 }
