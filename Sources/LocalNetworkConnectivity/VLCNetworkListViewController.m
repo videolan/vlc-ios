@@ -92,8 +92,9 @@ NSString *VLCNetworkListCellIdentifier = @"VLCNetworkListCellIdentifier";
 - (void)viewDidAppear:(BOOL)animated {
     [super viewDidAppear:animated];
 }
+
 - (void)viewWillDisappear:(BOOL)animated {
-    [super viewDidDisappear:animated];
+    [super viewWillDisappear:animated];
 }
 
 - (BOOL)shouldAutorotate
