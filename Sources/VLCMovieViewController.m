@@ -38,6 +38,7 @@
 
 #define FORWARD_SWIPE_DURATION 30
 #define BACKWARD_SWIPE_DURATION 10
+#define SHORT_JUMP_DURATION 10
 
 #define ZOOM_SENSITIVITY 2.99f
 #define DEFAULT_FOV 80.f
@@ -87,6 +88,8 @@ typedef NS_ENUM(NSInteger, VLCPanType) {
     BOOL _variableJumpDurationEnabled;
     BOOL _mediaHasProjection;
     BOOL _playbackWillClose;
+    BOOL _isTapSeeking;
+    VLCMovieJumpState _previousJumpState;
 
     UIPinchGestureRecognizer *_pinchRecognizer;
     VLCPanType _currentPanType;
@@ -97,6 +100,7 @@ typedef NS_ENUM(NSInteger, VLCPanType) {
     UISwipeGestureRecognizer *_swipeRecognizerDown;
     UITapGestureRecognizer *_tapRecognizer;
     UITapGestureRecognizer *_tapOnVideoRecognizer;
+    UITapGestureRecognizer *_tapToSeekRecognizer;
 
     UIView *_trackSelectorContainer;
     UITableView *_trackSelectorTableView;
@@ -111,6 +115,7 @@ typedef NS_ENUM(NSInteger, VLCPanType) {
     NSTimer *_sleepCountDownTimer;
 
     NSInteger _mediaDuration;
+    NSInteger _numberOfTapSeek;
 
     CGFloat _fov;
     CGPoint _saveLocation;
@@ -148,6 +153,8 @@ typedef NS_ENUM(NSInteger, VLCPanType) {
         [self.view removeGestureRecognizer:_panRecognizer];
     if (_pinchRecognizer)
         [self.view removeGestureRecognizer:_pinchRecognizer];
+    if (_tapToSeekRecognizer)
+        [self.view removeGestureRecognizer:_tapToSeekRecognizer];
     [self.view removeGestureRecognizer:_tapOnVideoRecognizer];
 
     _tapRecognizer = nil;
@@ -158,6 +165,7 @@ typedef NS_ENUM(NSInteger, VLCPanType) {
     _panRecognizer = nil;
     _pinchRecognizer = nil;
     _tapOnVideoRecognizer = nil;
+    _tapToSeekRecognizer = nil;
 }
 
 - (void)viewDidLoad
@@ -242,6 +250,9 @@ typedef NS_ENUM(NSInteger, VLCPanType) {
     _tapOnVideoRecognizer.delegate = self;
     [self.view addGestureRecognizer:_tapOnVideoRecognizer];
 
+    _tapToSeekRecognizer = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(tapToSeekRecognized:)];
+    [_tapToSeekRecognizer setNumberOfTapsRequired:2];
+
     _pinchRecognizer = [[UIPinchGestureRecognizer alloc] initWithTarget:self action:@selector(handlePinchGesture:)];
     _pinchRecognizer.delegate = self;
     [self.view addGestureRecognizer:_pinchRecognizer];
@@ -254,6 +265,8 @@ typedef NS_ENUM(NSInteger, VLCPanType) {
     [_panRecognizer setMinimumNumberOfTouches:1];
     [_panRecognizer setMaximumNumberOfTouches:1];
 
+    [_tapOnVideoRecognizer requireGestureRecognizerToFail:_tapToSeekRecognizer];
+
     _swipeRecognizerLeft = [[UISwipeGestureRecognizer alloc] initWithTarget:self action:@selector(swipeRecognized:)];
     _swipeRecognizerLeft.direction = UISwipeGestureRecognizerDirectionLeft;
     _swipeRecognizerRight = [[UISwipeGestureRecognizer alloc] initWithTarget:self action:@selector(swipeRecognized:)];
@@ -265,12 +278,15 @@ typedef NS_ENUM(NSInteger, VLCPanType) {
     _swipeRecognizerDown.direction = UISwipeGestureRecognizerDirectionDown;
     _swipeRecognizerDown.numberOfTouchesRequired = 2;
 
+
     [self.view addGestureRecognizer:_swipeRecognizerLeft];
     [self.view addGestureRecognizer:_swipeRecognizerRight];
     [self.view addGestureRecognizer:_swipeRecognizerUp];
     [self.view addGestureRecognizer:_swipeRecognizerDown];
     [self.view addGestureRecognizer:_panRecognizer];
     [self.view addGestureRecognizer:_tapRecognizer];
+    [self.view addGestureRecognizer:_tapToSeekRecognizer];
+
     [_panRecognizer requireGestureRecognizerToFail:_swipeRecognizerLeft];
     [_panRecognizer requireGestureRecognizerToFail:_swipeRecognizerRight];
     [_panRecognizer requireGestureRecognizerToFail:_swipeRecognizerUp];
@@ -282,6 +298,11 @@ typedef NS_ENUM(NSInteger, VLCPanType) {
     _swipeRecognizerUp.delegate = self;
     _swipeRecognizerDown.delegate = self;
     _tapRecognizer.delegate = self;
+    _tapToSeekRecognizer.delegate = self;
+
+    _isTapSeeking = NO;
+    _previousJumpState = VLCMovieJumpStateDefault;
+    _numberOfTapSeek = 0;
 
     self.backButton.tintColor = [UIColor colorWithRed:(190.0f/255.0f) green:(190.0f/255.0f) blue:(190.0f/255.0f) alpha:1.];
     self.toolbar.tintColor = [UIColor whiteColor];
@@ -521,6 +542,11 @@ typedef NS_ENUM(NSInteger, VLCPanType) {
     if (!_playbackSpeedViewHidden)
         _playbackSpeedViewHidden = YES;
 
+    // reset tap to seek values
+    _isTapSeeking = NO;
+    _previousJumpState = VLCMovieJumpStateDefault;
+    _numberOfTapSeek = 0;
+
     [[NSNotificationCenter defaultCenter] removeObserver:self name:NSUserDefaultsDidChangeNotification object:nil];
     [[NSUserDefaults standardUserDefaults] setBool:_displayRemainingTime forKey:kVLCShowRemainingTime];
 }
@@ -671,6 +697,9 @@ typedef NS_ENUM(NSInteger, VLCPanType) {
     if (_controlsHidden && !_videoFiltersHidden)
         _videoFiltersHidden = YES;
 
+    if (_isTapSeeking)
+        _numberOfTapSeek = 0;
+
     [self setControlsHidden:!_controlsHidden animated:YES];
 }
 
@@ -688,6 +717,36 @@ typedef NS_ENUM(NSInteger, VLCPanType) {
     }
 }
 
+- (NSString *)_stringInTimeFormatFrom:(int)duration
+{
+    if (duration < 60) {
+        return [NSString stringWithFormat:@"%is", duration];
+    } else {
+        return [NSString stringWithFormat:@"%im%is", duration / 60, duration % 60];
+    }
+}
+
+- (void)_seekFromTap
+{
+    NSMutableString *hudString = [NSMutableString string];
+    VLCMediaPlayer *mediaPlayer = _vpc.mediaPlayer;
+    int seekDuration = (int)_numberOfTapSeek * SHORT_JUMP_DURATION;
+
+    if (seekDuration > 0) {
+        [mediaPlayer shortJumpForward];
+        [hudString appendString:@"⇒ "];
+        _previousJumpState = VLCMovieJumpStateForward;
+    } else {
+        [mediaPlayer shortJumpBackward];
+        [hudString appendString:@"⇐ "];
+        _previousJumpState = VLCMovieJumpStateBackward;
+    }
+    [hudString appendString: [self _stringInTimeFormatFrom:abs(seekDuration)]];
+    [self.statusLabel showStatusMessage:[NSString stringWithString:hudString]];
+    if (_controlsHidden)
+        [self setControlsHidden:NO animated:NO];
+}
+
 - (void)idleTimerExceeded
 {
     if (![NSThread isMainThread]) {
@@ -698,6 +757,11 @@ typedef NS_ENUM(NSInteger, VLCPanType) {
     _idleTimer = nil;
     if (!_controlsHidden)
         [self toggleControlsVisible];
+
+    if (_isTapSeeking) {
+        _isTapSeeking = NO;
+        _numberOfTapSeek = 0;
+    }
 
     if (!_videoFiltersHidden)
         _videoFiltersHidden = YES;
@@ -1527,6 +1591,32 @@ currentMediaHasTrackToChooseFrom:(BOOL)currentMediaHasTrackToChooseFrom
 
         [self.statusLabel showStatusMessage:hudString];
     }
+}
+
+- (void)tapToSeekRecognized:(UITapGestureRecognizer *)tapRecognizer
+{
+    LOCKCHECK;
+
+    if (!_seekGestureEnabled)
+        return;
+
+    CGFloat screenHalf;
+    CGFloat tmpPosition;
+    CGSize size = self.view.frame.size;
+    CGPoint tapPosition = [tapRecognizer locationInView:self.view];
+
+    screenHalf = size.width / 2;
+    tmpPosition = tapPosition.x;
+
+    //Handling seek reset if tap orientation changes.
+    if (tmpPosition < screenHalf) {
+        _numberOfTapSeek = _previousJumpState == VLCMovieJumpStateForward ? -1 : _numberOfTapSeek - 1;
+    } else {
+        _numberOfTapSeek = _previousJumpState == VLCMovieJumpStateBackward ? 1 : _numberOfTapSeek + 1;
+    }
+
+    _isTapSeeking = YES;
+    [self _seekFromTap];
 }
 
 - (void)equalizerViewReceivedUserInput

@@ -22,6 +22,12 @@
 @class VLCTimeNavigationTitleView;
 @class VLCMovieViewControlPanelViewController;
 
+typedef NS_ENUM(NSInteger, VLCMovieJumpState) {
+    VLCMovieJumpStateDefault,
+    VLCMovieJumpStateForward,
+    VLCMovieJumpStateBackward
+};
+
 @interface VLCMovieViewController : UIViewController <UIActionSheetDelegate, VLCPlaybackControllerDelegate>
 
 @property (nonatomic, strong) IBOutlet UIView *movieView;
