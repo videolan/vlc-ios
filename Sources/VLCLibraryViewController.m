@@ -1418,7 +1418,7 @@ static NSString *kUsingTableViewToShowData = @"UsingTableViewToShowData";
         [invalidSelection addAction:doneAction];
         [self presentViewController:invalidSelection animated:YES completion:nil];
     } else {
-        UIAlertController *alert = [UIAlertController alertControllerWithTitle:nil message:nil preferredStyle:UIAlertControllerStyleActionSheet];
+        UIAlertController *alert = [UIAlertController alertControllerWithTitle:NSLocalizedString(@"DELETE_TITLE", nil) message:nil preferredStyle:UIAlertControllerStyleActionSheet];
         UIAlertAction *deleteAction = [UIAlertAction actionWithTitle:NSLocalizedString(@"BUTTON_DELETE", nil) style:UIAlertActionStyleDestructive handler:^(UIAlertAction * _Nonnull action) {
             if (_deleteFromTableView) {
                 @synchronized (_foundMedia) {
