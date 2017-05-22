@@ -1429,14 +1429,9 @@ currentMediaHasTrackToChooseFrom:(BOOL)currentMediaHasTrackToChooseFrom
     if (!_playPauseGestureEnabled)
         return;
 
-
-    if ([_vpc.mediaPlayer isPlaying]) {
-        [_vpc.listPlayer pause];
-        [self.statusLabel showStatusMessage:@"  ▌▌"];
-    } else {
-        [_vpc.listPlayer play];
-        [self.statusLabel showStatusMessage:@" ►"];
-    }
+    [_vpc.mediaPlayer isPlaying] ? [_vpc.listPlayer pause] : [_vpc.listPlayer play];
+    if (_controlsHidden)
+        [self setControlsHidden:NO animated:YES];
 }
 
 - (VLCPanType)detectPanTypeForPan:(UIPanGestureRecognizer*)panRecognizer
