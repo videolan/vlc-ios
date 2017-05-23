@@ -255,7 +255,8 @@ static NSString *kUsingTableViewToShowData = @"UsingTableViewToShowData";
 {
     [super viewWillAppear:animated];
     [self.collectionView.collectionViewLayout invalidateLayout];
-    [self _displayEmptyLibraryViewIfNeeded];
+    [self setViewFromDeviceOrientation];
+    [self updateViewsForCurrentDisplayMode];
     [self enableNavigationBarAnimation:YES resetPositionWithAnimation:YES];
 }
 
@@ -495,10 +496,15 @@ static NSString *kUsingTableViewToShowData = @"UsingTableViewToShowData";
 - (void)setViewFromDeviceOrientation
 {
     if (UI_USER_INTERFACE_IDIOM() == UIUserInterfaceIdiomPhone) {
-        UIDevice *currentDevice = [UIDevice currentDevice];
-        UIDeviceOrientation orientation = currentDevice.orientation;
+        BOOL isPortrait = YES;
 
-        BOOL isPortrait = (orientation == UIDeviceOrientationUnknown) ? self.usingTableViewToShowData : UIDeviceOrientationIsPortrait(orientation);
+        if (SYSTEM_RUNS_IOS8_OR_LATER) {
+            if (self.traitCollection.verticalSizeClass == UIUserInterfaceSizeClassCompact)
+                isPortrait = NO;
+        } else {
+            if (UIInterfaceOrientationIsLandscape([[UIApplication sharedApplication] statusBarOrientation]))
+                isPortrait = NO;
+        }
 
         if (self.isEditing) {
             [self setEditing:NO animated:NO];
