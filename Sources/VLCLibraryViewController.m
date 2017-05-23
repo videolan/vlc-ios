@@ -1738,6 +1738,18 @@ static NSString *kUsingTableViewToShowData = @"UsingTableViewToShowData";
     } completion:nil];
 }
 
+#pragma mark - UISearchBar Delegate
+
+- (void)searchBarTextDidEndEditing:(UISearchBar *)searchBar
+{
+    if (!self.usingTableViewToShowData) {
+        [self.collectionView.collectionViewLayout invalidateLayout];
+    }
+    [self.searchDisplayController setActive:NO];
+    [self enableNavigationBarAnimation:YES resetPositionWithAnimation:YES];
+    [self.navigationController setNavigationBarHidden:NO animated:NO];
+}
+
 #pragma mark - Search Display Controller Delegate
 
 - (BOOL)searchDisplayController:(UISearchDisplayController *)controller shouldReloadTableForSearchString:(NSString *)searchString
