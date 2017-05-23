@@ -1706,7 +1706,6 @@ static NSString *kUsingTableViewToShowData = @"UsingTableViewToShowData";
 - (void)willRotateToInterfaceOrientation:(UIInterfaceOrientation)toInterfaceOrientation duration:(NSTimeInterval)duration
 {
     [super willRotateToInterfaceOrientation:toInterfaceOrientation duration:duration];
-
     [self setViewFromDeviceOrientation];
     if (self.usingTableViewToShowData) {
         NSArray *visibleCells = [self.tableView visibleCells];
@@ -1718,6 +1717,19 @@ static NSString *kUsingTableViewToShowData = @"UsingTableViewToShowData";
     } else {
         [self.collectionView.collectionViewLayout invalidateLayout];
     }
+}
+
+// >= iOS 8
+- (void)viewWillTransitionToSize:(CGSize)size withTransitionCoordinator:(id<UIViewControllerTransitionCoordinator>)coordinator
+{
+    [super viewWillTransitionToSize:size withTransitionCoordinator:coordinator];
+
+    [coordinator animateAlongsideTransition:^(id<UIViewControllerTransitionCoordinatorContext>  _Nonnull context) {
+        [self setViewFromDeviceOrientation];
+        if (!self.usingTableViewToShowData) {
+            [self.collectionView.collectionViewLayout invalidateLayout];
+        }
+    } completion:nil];
 }
 
 #pragma mark - Search Display Controller Delegate

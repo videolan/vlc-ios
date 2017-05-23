@@ -1748,22 +1748,41 @@ currentMediaHasTrackToChooseFrom:(BOOL)currentMediaHasTrackToChooseFrom
            || toInterfaceOrientation != UIInterfaceOrientationPortraitUpsideDown;
 }
 
+// < iOS 8
 - (void)willRotateToInterfaceOrientation:(UIInterfaceOrientation)toInterfaceOrientation duration:(NSTimeInterval)duration
 {
     [super willRotateToInterfaceOrientation:toInterfaceOrientation duration:duration];
+    if (self.artworkImageView.image)
+        self.trackNameLabel.hidden = UIInterfaceOrientationIsLandscape(toInterfaceOrientation);
 
-    if (UI_USER_INTERFACE_IDIOM() == UIUserInterfaceIdiomPhone) {
-
-        [[(VLCAppDelegate *)[UIApplication sharedApplication].delegate libraryViewController] willRotateToInterfaceOrientation:toInterfaceOrientation duration:duration];
-        if (self.artworkImageView.image)
-            self.trackNameLabel.hidden = UIInterfaceOrientationIsLandscape(toInterfaceOrientation);
-
-        if (!_equalizerView.hidden)
-            _equalizerView.hidden = YES;
-    }
+    if (!_equalizerView.hidden)
+        _equalizerView.hidden = YES;
 }
 
 - (void)didRotateFromInterfaceOrientation:(UIInterfaceOrientation)fromInterfaceOrientation
+{
+    if (_vpc.activePlaybackSession && _controlsHidden)
+        [self setControlsHidden:NO animated:YES];
+}
+
+// >= iOS 8
+- (void)viewWillTransitionToSize:(CGSize)size withTransitionCoordinator:(id<UIViewControllerTransitionCoordinator>)coordinator
+{
+    [super viewWillTransitionToSize:size withTransitionCoordinator:coordinator];
+
+    if (UI_USER_INTERFACE_IDIOM() == UIUserInterfaceIdiomPhone) {
+
+        [coordinator animateAlongsideTransition:^(id<UIViewControllerTransitionCoordinatorContext>  _Nonnull context) {
+                if (self.artworkImageView.image)
+                    self.trackNameLabel.hidden = YES;
+
+                if (!_equalizerView.hidden)
+                    _equalizerView.hidden = YES;
+        } completion:nil];
+    }
+}
+
+- (void)traitCollectionDidChange:(UITraitCollection *)previousTraitCollection
 {
     if (_vpc.activePlaybackSession && _controlsHidden)
         [self setControlsHidden:NO animated:YES];
