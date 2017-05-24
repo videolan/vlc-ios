@@ -549,6 +549,8 @@ typedef NS_ENUM(NSInteger, VLCPanType) {
     /* add sleep timer UI */
     _sleepTimerContainer = [[VLCFrostedGlasView alloc] initWithFrame:CGRectMake(0., 0., 300., 200.)];
     _sleepTimerContainer.center = self.view.center;
+    _sleepTimerContainer.clipsToBounds = YES;
+    _sleepTimerContainer.layer.cornerRadius = 5;
     _sleepTimerContainer.autoresizingMask = UIViewAutoresizingFlexibleRightMargin | UIViewAutoresizingFlexibleLeftMargin | UIViewAutoresizingFlexibleBottomMargin | UIViewAutoresizingFlexibleTopMargin;
 
     _sleepTimeDatePicker = [[UIDatePicker alloc] init];
