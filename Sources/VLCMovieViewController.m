@@ -365,46 +365,8 @@ typedef NS_ENUM(NSInteger, VLCPanType) {
     _equalizerView.hidden = YES;
     [self.view addSubview:_equalizerView];
 
-    /* add sleep timer UI */
-    _sleepTimerContainer = [[VLCFrostedGlasView alloc] initWithFrame:CGRectMake(0., 0., 300., 162.)];
-    _sleepTimerContainer.center = self.view.center;
-    _sleepTimerContainer.autoresizingMask = UIViewAutoresizingFlexibleRightMargin | UIViewAutoresizingFlexibleLeftMargin | UIViewAutoresizingFlexibleBottomMargin | UIViewAutoresizingFlexibleTopMargin;
-
-    _sleepTimeDatePicker = [[UIDatePicker alloc] init];
-    if (deviceSpeedCategory >= 3) {
-        _sleepTimeDatePicker.opaque = NO;
-        _sleepTimeDatePicker.backgroundColor = [UIColor clearColor];
-    } else
-        _sleepTimeDatePicker.backgroundColor = [UIColor blackColor];
-    _sleepTimeDatePicker.tintColor = [UIColor VLCLightTextColor];
-    _sleepTimeDatePicker.frame = CGRectMake(0., 0., 300., 162.);
-    _sleepTimeDatePicker.autoresizingMask = UIViewAutoresizingFlexibleRightMargin | UIViewAutoresizingFlexibleLeftMargin | UIViewAutoresizingFlexibleBottomMargin | UIViewAutoresizingFlexibleTopMargin;
-    [_sleepTimerContainer addSubview:_sleepTimeDatePicker];
-
-    /* adapt the date picker style to suit our needs */
-    [_sleepTimeDatePicker setValue:[UIColor whiteColor] forKeyPath:@"textColor"];
-    SEL selector = NSSelectorFromString(@"setHighlightsToday:");
-    NSInvocation *invocation = [NSInvocation invocationWithMethodSignature:[UIDatePicker instanceMethodSignatureForSelector:selector]];
-    BOOL no = NO;
-    [invocation setSelector:selector];
-    [invocation setArgument:&no atIndex:2];
-    [invocation invokeWithTarget:_sleepTimeDatePicker];
-
-    if (_sleepTimerContainer.subviews.count > 0) {
-        NSArray *subviewsOfSubview = [_sleepTimeDatePicker.subviews[0] subviews];
-        NSUInteger subviewCount = subviewsOfSubview.count;
-        for (NSUInteger x = 0; x < subviewCount; x++) {
-            if ([subviewsOfSubview[x] isKindOfClass:[UILabel class]])
-                [subviewsOfSubview[x] setTextColor:[UIColor VLCLightTextColor]];
-        }
-    }
-    _sleepTimeDatePicker.datePickerMode = UIDatePickerModeCountDownTimer;
-    _sleepTimeDatePicker.minuteInterval = 1;
-    _sleepTimeDatePicker.minimumDate = [NSDate date];
-    _sleepTimeDatePicker.countDownDuration = 1200.;
-    [_sleepTimeDatePicker addTarget:self action:@selector(sleepTimerAction:) forControlEvents:UIControlEventValueChanged];
-
-    [self.view addSubview:_sleepTimerContainer];
+    //Sleep Timer initialization
+    [self sleepTimerInitializer:deviceSpeedCategory];
 
     VLCMovieViewControlPanelViewController *panelVC = [[VLCMovieViewControlPanelViewController alloc] initWithNibName:@"VLCMovieViewControlPanel"
                                                                                                                bundle:nil];
@@ -577,6 +539,53 @@ typedef NS_ENUM(NSInteger, VLCPanType) {
     _seekGestureEnabled = [[defaults objectForKey:kVLCSettingSeekGesture] boolValue];
     _closeGestureEnabled = [[defaults objectForKey:kVLCSettingCloseGesture] boolValue];
     _variableJumpDurationEnabled = [[defaults objectForKey:kVLCSettingVariableJumpDuration] boolValue];
+}
+
+#pragma mark - Initializer helper
+
+- (void)sleepTimerInitializer:(int)deviceSpeedCategory
+{
+
+    /* add sleep timer UI */
+    _sleepTimerContainer = [[VLCFrostedGlasView alloc] initWithFrame:CGRectMake(0., 0., 300., 200.)];
+    _sleepTimerContainer.center = self.view.center;
+    _sleepTimerContainer.autoresizingMask = UIViewAutoresizingFlexibleRightMargin | UIViewAutoresizingFlexibleLeftMargin | UIViewAutoresizingFlexibleBottomMargin | UIViewAutoresizingFlexibleTopMargin;
+
+    _sleepTimeDatePicker = [[UIDatePicker alloc] init];
+    if (deviceSpeedCategory >= 3) {
+        _sleepTimeDatePicker.opaque = NO;
+        _sleepTimeDatePicker.backgroundColor = [UIColor clearColor];
+    } else
+        _sleepTimeDatePicker.backgroundColor = [UIColor blackColor];
+    _sleepTimeDatePicker.tintColor = [UIColor VLCLightTextColor];
+    _sleepTimeDatePicker.frame = CGRectMake(0., 0., 300., 162.);
+    _sleepTimeDatePicker.autoresizingMask = UIViewAutoresizingFlexibleRightMargin | UIViewAutoresizingFlexibleLeftMargin | UIViewAutoresizingFlexibleBottomMargin | UIViewAutoresizingFlexibleTopMargin;
+
+    [_sleepTimerContainer addSubview:_sleepTimeDatePicker];
+
+    /* adapt the date picker style to suit our needs */
+    [_sleepTimeDatePicker setValue:[UIColor whiteColor] forKeyPath:@"textColor"];
+    SEL selector = NSSelectorFromString(@"setHighlightsToday:");
+    NSInvocation *invocation = [NSInvocation invocationWithMethodSignature:[UIDatePicker instanceMethodSignatureForSelector:selector]];
+    BOOL no = NO;
+    [invocation setSelector:selector];
+    [invocation setArgument:&no atIndex:2];
+    [invocation invokeWithTarget:_sleepTimeDatePicker];
+
+    if (_sleepTimerContainer.subviews.count > 0) {
+        NSArray *subviewsOfSubview = [_sleepTimeDatePicker.subviews[0] subviews];
+        NSUInteger subviewCount = subviewsOfSubview.count;
+        for (NSUInteger x = 0; x < subviewCount; x++) {
+            if ([subviewsOfSubview[x] isKindOfClass:[UILabel class]])
+                [subviewsOfSubview[x] setTextColor:[UIColor VLCLightTextColor]];
+        }
+    }
+    _sleepTimeDatePicker.datePickerMode = UIDatePickerModeCountDownTimer;
+    _sleepTimeDatePicker.minuteInterval = 1;
+    _sleepTimeDatePicker.minimumDate = [NSDate date];
+    _sleepTimeDatePicker.countDownDuration = 1200.;
+
+    [self.view addSubview:_sleepTimerContainer];
 }
 
 #pragma mark - controls visibility
