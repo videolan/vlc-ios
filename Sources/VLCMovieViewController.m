@@ -553,6 +553,15 @@ typedef NS_ENUM(NSInteger, VLCPanType) {
     _sleepTimerContainer.layer.cornerRadius = 5;
     _sleepTimerContainer.autoresizingMask = UIViewAutoresizingFlexibleRightMargin | UIViewAutoresizingFlexibleLeftMargin | UIViewAutoresizingFlexibleBottomMargin | UIViewAutoresizingFlexibleTopMargin;
 
+    //Layers used to create a separator for the buttons.
+    CALayer *horizontalSeparator = [CALayer layer];
+    horizontalSeparator.frame = CGRectMake(0., 162., 300., 1.);
+    horizontalSeparator.backgroundColor = [UIColor VLCLightTextColor].CGColor;
+
+    CALayer *verticalSeparator = [CALayer layer];
+    verticalSeparator.frame = CGRectMake(150., 162., 1., 48.);
+    verticalSeparator.backgroundColor = [UIColor VLCLightTextColor].CGColor;
+
     _sleepTimeDatePicker = [[UIDatePicker alloc] init];
     if (deviceSpeedCategory >= 3) {
         _sleepTimeDatePicker.opaque = NO;
@@ -564,6 +573,26 @@ typedef NS_ENUM(NSInteger, VLCPanType) {
     _sleepTimeDatePicker.autoresizingMask = UIViewAutoresizingFlexibleRightMargin | UIViewAutoresizingFlexibleLeftMargin | UIViewAutoresizingFlexibleBottomMargin | UIViewAutoresizingFlexibleTopMargin;
 
     [_sleepTimerContainer addSubview:_sleepTimeDatePicker];
+    [_sleepTimerContainer.layer addSublayer:horizontalSeparator];
+    [_sleepTimerContainer.layer addSublayer:verticalSeparator];
+
+    UIButton *cancelSleepTimer = [[UIButton alloc] initWithFrame:CGRectMake(0., 162., 150., 48.)];
+    cancelSleepTimer.backgroundColor = [UIColor clearColor];
+    [cancelSleepTimer setTitle:NSLocalizedString(@"BUTTON_CANCEL", nil) forState:UIControlStateNormal];
+    [cancelSleepTimer setTintColor:[UIColor VLCLightTextColor]];
+    [cancelSleepTimer setTitleColor:[UIColor VLCDarkTextShadowColor] forState:UIControlStateHighlighted];
+    [cancelSleepTimer addTarget:self action:@selector(sleepTimerCancel:) forControlEvents:UIControlEventTouchDown];
+    cancelSleepTimer.contentEdgeInsets = UIEdgeInsetsMake(0, 0, 10, 0);
+    [_sleepTimerContainer addSubview:cancelSleepTimer];
+
+    UIButton *confirmSleepTimer = [[UIButton alloc] initWithFrame:CGRectMake(150., 162., 150., 48.)];
+    confirmSleepTimer.backgroundColor = [UIColor clearColor];
+    [confirmSleepTimer setTitle:NSLocalizedString(@"BUTTON_DONE", nil) forState:UIControlStateNormal];
+    [confirmSleepTimer setTintColor:[UIColor VLCLightTextColor]];
+    [confirmSleepTimer setTitleColor:[UIColor VLCDarkTextShadowColor] forState:UIControlStateHighlighted];
+    [confirmSleepTimer addTarget:self action:@selector(sleepTimerAction:) forControlEvents:UIControlEventTouchDown];
+    confirmSleepTimer.contentEdgeInsets = UIEdgeInsetsMake(0, 0, 10, 0);
+    [_sleepTimerContainer addSubview:confirmSleepTimer];
 
     /* adapt the date picker style to suit our needs */
     [_sleepTimeDatePicker setValue:[UIColor whiteColor] forKeyPath:@"textColor"];
@@ -1093,6 +1122,18 @@ currentMediaHasTrackToChooseFrom:(BOOL)currentMediaHasTrackToChooseFrom
     _sleepTimerContainer.hidden = NO;
 }
 
+- (IBAction)sleepTimerCancel:(id)sender
+{
+    NSTimer *sleepTimer = [_vpc sleepTimer];
+
+    if (sleepTimer) {
+        [sleepTimer invalidate];
+        sleepTimer = nil;
+    }
+    [self.statusLabel showStatusMessage:NSLocalizedString(@"SLEEP_TIMER_UPDATED", nil)];
+    [self setControlsHidden:YES animated:YES];
+}
+
 - (IBAction)sleepTimerAction:(id)sender
 {
     [_vpc scheduleSleepTimerWithInterval:_sleepTimeDatePicker.countDownDuration];
@@ -1104,6 +1145,8 @@ currentMediaHasTrackToChooseFrom:(BOOL)currentMediaHasTrackToChooseFrom
                                                                  userInfo:nil
                                                                   repeats:YES];
     }
+    [self.statusLabel showStatusMessage:NSLocalizedString(@"SLEEP_TIMER_UPDATED", nil)];
+    [self setControlsHidden:YES animated:YES];
 }
 
 - (void)moreActions:(UIButton *)sender
