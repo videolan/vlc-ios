@@ -44,6 +44,7 @@ pod 'VLC-LiveSDK', '5.7.0x'
 pod 'VLC-Dropbox-v1-SDK', '1.3.14w'
 pod 'MediaLibraryKit-unstable'
 pod 'MobileVLCKit-unstable', '3.0.0a10'
+pod 'GTMAppAuth'
 
 end
 
