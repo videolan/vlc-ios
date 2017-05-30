@@ -39,7 +39,7 @@
     [self addConstraint:[NSLayoutConstraint constraintWithItem:self attribute:NSLayoutAttributeCenterX relatedBy:NSLayoutRelationEqual toItem:_progressLabel attribute:NSLayoutAttributeCenterX multiplier:1.0f constant:0.0f]];
     [self addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"H:[_progressBar(200)]" options:0 metrics:nil views:NSDictionaryOfVariableBindings(_progressBar)]];
     [self addConstraint:[NSLayoutConstraint constraintWithItem:self.progressBar attribute:NSLayoutAttributeCenterX relatedBy:NSLayoutRelationEqual toItem:self attribute:NSLayoutAttributeCenterX multiplier:1.0f constant:0.0f]];
-    [self addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"V:|-[_progressBar]-[_progressLabel]-|" options:0 metrics:nil views:NSDictionaryOfVariableBindings(_progressBar, _progressLabel)]];
+    [self addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"V:|-[_progressBar]-[_progressLabel(8)]-|" options:0 metrics:nil views:NSDictionaryOfVariableBindings(_progressBar, _progressLabel)]];
 }
 
 - (void)updateTime:(NSString *)time
