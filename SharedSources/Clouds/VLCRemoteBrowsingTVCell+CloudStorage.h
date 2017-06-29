@@ -19,7 +19,7 @@
 
 @interface VLCRemoteBrowsingTVCell (CloudStorage)
 
-- (void)setDropboxFile:(DBMetadata *)dropboxFile;
+- (void)setDropboxFile:(DBFILESMetadata *)dropboxFile;
 - (void)setBoxFile:(BoxItem *)boxFile;
 - (void)setOneDriveFile:(VLCOneDriveObject *)oneDriveFile;
 

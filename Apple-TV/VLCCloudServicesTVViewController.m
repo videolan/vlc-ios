@@ -10,7 +10,6 @@
  *****************************************************************************/
 
 #import "VLCCloudServicesTVViewController.h"
-#import <DropboxTVSDK/DropboxSDK.h>
 #import "VLCDropboxController.h"
 #import "VLCDropboxCollectionViewController.h"
 #import "VLCPlayerDisplayController.h"

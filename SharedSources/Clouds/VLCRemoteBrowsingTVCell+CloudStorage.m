@@ -15,7 +15,7 @@
 
 @implementation VLCRemoteBrowsingTVCell (CloudStorage)
 
-- (void)setDropboxFile:(DBMetadata *)dropboxFile
+- (void)setDropboxFile:(DBFILESMetadata *)dropboxFile
 {
     [self performSelectorOnMainThread:@selector(_updateDropboxRepresentation:)
                            withObject:dropboxFile waitUntilDone:NO];
@@ -33,26 +33,21 @@
                            withObject:oneDriveFile waitUntilDone:NO];
 }
 
-- (void)_updateDropboxRepresentation:(DBMetadata *)dropboxFile
+- (void)_updateDropboxRepresentation:(DBFILESMetadata *)dropboxFile
 {
     if (dropboxFile != nil) {
-        if (dropboxFile.isDirectory) {
+        if ([dropboxFile isKindOfClass: [DBFILESFolderMetadata class]]) {
             self.isDirectory = YES;
-            self.title = dropboxFile.filename;
-        } else {
-            self.isDirectory = NO;
-            self.subtitle = (dropboxFile.totalBytes > 0) ? dropboxFile.humanReadableSize : @"";
-
-        }
-        self.title = dropboxFile.filename;
-
-        NSString *iconName = dropboxFile.icon;
-        if ([iconName isEqualToString:@"folder_user"] || [iconName isEqualToString:@"folder"] || [iconName isEqualToString:@"folder_public"] || [iconName isEqualToString:@"folder_photos"] || [iconName isEqualToString:@"package"]) {
             self.thumbnailImage = [UIImage imageNamed:@"folder"];
-        } else
-            self.thumbnailImage = [UIImage imageNamed:@"blank"];
-    }
+        } else {
+            DBFILESFileMetadata *file = (DBFILESFileMetadata *)dropboxFile;
 
+            self.isDirectory = NO;
+            self.subtitle = (file.size.integerValue > 0) ? [NSByteCountFormatter stringFromByteCount:file.size.longLongValue countStyle:NSByteCountFormatterCountStyleFile] : @"";
+            self.thumbnailImage = [UIImage imageNamed:@"folder"];
+        }
+        self.title = dropboxFile.name;
+    }
 }
 
 - (void)_updateBoxRepresentation:(BoxItem *)boxFile
