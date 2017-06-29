@@ -680,6 +680,7 @@ VLCMediaDelegate>
 {
     NSInteger mediaListCount = _mediaList.count;
 
+#if TARGET_OS_IOS
     if (mediaListCount > 2 && _shuffleMode) {
 
         NSNumber *nextIndex;
@@ -702,6 +703,7 @@ VLCMediaDelegate>
 
         return;
     }
+#endif
 
     if (mediaListCount > 1) {
         [_listPlayer next];
@@ -797,7 +799,7 @@ VLCMediaDelegate>
 }
 
 #pragma mark - 360 Support
-
+#if !TARGET_OS_TV
 - (BOOL)updateViewpoint:(CGFloat)yaw pitch:(CGFloat)pitch roll:(CGFloat)roll fov:(CGFloat)fov absolute:(BOOL)absolute
 {
     return [_mediaPlayer updateViewpoint:yaw pitch:pitch roll:roll fov:fov absolute:absolute];
@@ -819,6 +821,7 @@ VLCMediaDelegate>
     }
     return -1;
 }
+#endif
 
 #pragma mark - equalizer
 
@@ -1357,7 +1360,11 @@ static inline NSArray * RemoteCommandCenterCommandsToHandle(MPRemoteCommandCente
               kVLCSettingStretchAudio : [[defaults objectForKey:kVLCSettingStretchAudio] boolValue] ? kVLCSettingStretchAudioOnValue : kVLCSettingStretchAudioOffValue,
               kVLCSettingTextEncoding : [defaults objectForKey:kVLCSettingTextEncoding],
               kVLCSettingSkipLoopFilter : [defaults objectForKey:kVLCSettingSkipLoopFilter],
+#if TARGET_OS_IOS
               kVLCSettingHWDecoding : [defaults objectForKey:kVLCSettingHWDecoding]};
+#else
+                };
+#endif
 }
 
 @end
