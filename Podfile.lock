@@ -41,7 +41,7 @@ PODS:
   - MetaDataFetcherKit (0.1.8):
     - AFNetworking (= 3.1.0)
     - OROpenSubtitleDownloader
-  - MobileVLCKit-unstable (3.0.0a10)
+  - MobileVLCKit-unstable (3.0.0a31)
   - NSData+Base64 (1.0.0)
   - OBSlider (1.1.0)
   - OROpenSubtitleDownloader (1.2.0):
@@ -69,7 +69,7 @@ DEPENDENCIES:
   - InAppSettingsKit (from `git://github.com/fkuehne/InAppSettingsKit.git`, commit `415ea6bb`)
   - MediaLibraryKit-unstable
   - MetaDataFetcherKit (~> 0.1.8)
-  - MobileVLCKit-unstable (= 3.0.0a10)
+  - MobileVLCKit-unstable (= 3.0.0a31)
   - OBSlider (= 1.1.0)
   - OROpenSubtitleDownloader (from `https://github.com/orta/OROpenSubtitleDownloader.git`, commit `0509eac2`)
   - RESideMenu (~> 4.0.7)
@@ -121,7 +121,7 @@ SPEC CHECKSUMS:
   InAppSettingsKit: 76d5cfbaa3e3f8aa53fe3628516da7eb1aa6a5cb
   MediaLibraryKit-unstable: b4834ad57d5d2f49f30b9edd2d7650d151fc5534
   MetaDataFetcherKit: 44c90defa89b3a72cef60e07ad9de37821dd7c5d
-  MobileVLCKit-unstable: 1ed12f123496d537670e205169a2b44f856cfc5a
+  MobileVLCKit-unstable: 4aad34f7ce764dc1b0113264efdbf25d2f7250f4
   NSData+Base64: 4e84902c4db907a15673474677e57763ef3903e4
   OBSlider: 490f108007bfdd5414a38650b211fe403a95b8a0
   OROpenSubtitleDownloader: 154b8c08acbf8836b77ac259018dc8b5baef907e
@@ -135,6 +135,6 @@ SPEC CHECKSUMS:
   XKKeychain: 852ef663c56a7194c73d3c68e8d9d4f07b121d4f
   xmlrpc: 109bb21d15ed6d108b2c1ac5973a6a223a50f5f4
 
-PODFILE CHECKSUM: 7ba52b504768a46b54bd9b364c8da82f8563b03f
+PODFILE CHECKSUM: 5636af312723eb4100c3ff4e53dda9db7d88822a
 
 COCOAPODS: 1.2.1
