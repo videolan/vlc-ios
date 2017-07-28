@@ -14,6 +14,7 @@ PODS:
   - AFNetworking/Serialization (3.1.0)
   - AFNetworking/UIKit (3.1.0):
     - AFNetworking/NSURLSession
+  - AppAuth (0.9.1)
   - box-ios-sdk-v2 (1.2.3):
     - box-ios-sdk-v2/no-arc (= 1.2.3)
   - box-ios-sdk-v2/no-arc (1.2.3)
@@ -24,13 +25,14 @@ PODS:
     - GoogleAPIClient/Core
     - GTMSessionFetcher (~> 1.1)
   - GRKArrayDiff (2.1)
-  - GTMOAuth2 (1.1.4):
+  - GTMAppAuth (0.6.1):
+    - AppAuth (~> 0.9.0)
     - GTMSessionFetcher (~> 1.1)
-  - GTMSessionFetcher (1.1.8):
-    - GTMSessionFetcher/Full (= 1.1.8)
-  - GTMSessionFetcher/Core (1.1.8)
-  - GTMSessionFetcher/Full (1.1.8):
-    - GTMSessionFetcher/Core (= 1.1.8)
+  - GTMSessionFetcher (1.1.11):
+    - GTMSessionFetcher/Full (= 1.1.11)
+  - GTMSessionFetcher/Core (1.1.11)
+  - GTMSessionFetcher/Full (1.1.11):
+    - GTMSessionFetcher/Core (= 1.1.11)
   - HockeySDK (3.6.4)
   - HockeySDK-tvOS (4.1.0-beta.1)
   - InAppSettingsKit (2.2.2)
@@ -61,7 +63,7 @@ DEPENDENCIES:
   - CocoaHTTPServer (from `git://github.com/fkuehne/CocoaHTTPServer.git`)
   - GoogleAPIClient/Drive
   - GRKArrayDiff (~> 2.1)
-  - GTMOAuth2
+  - GTMAppAuth
   - HockeySDK (~> 3.6.4)
   - HockeySDK-tvOS (= 4.1.0-beta.1)
   - InAppSettingsKit (from `git://github.com/fkuehne/InAppSettingsKit.git`, commit `415ea6bb`)
@@ -107,12 +109,13 @@ CHECKOUT OPTIONS:
 
 SPEC CHECKSUMS:
   AFNetworking: 5e0e199f73d8626b11e79750991f5d173d1f8b67
+  AppAuth: f7d9a2ce4ffe79a62a8b0c1d0938e88d9809b846
   box-ios-sdk-v2: 9423bd75373350ea40b92f3d2d6e89f81d96d634
   CocoaHTTPServer: 07df8b05a8bde406fe367d22c90a24a2fd4ca49f
-  GoogleAPIClient: 4a6b0b807de8b1115a2835180b25dd93dc60f1ea
+  GoogleAPIClient: 77df755d41d70ee5a99b7b752614fbb439f19438
   GRKArrayDiff: cf743e6b30f6b72a3763e1f16cc5d9da39af86a5
-  GTMOAuth2: 7fc9c10f5c745f4d9850419ea88889fe3baa6b7d
-  GTMSessionFetcher: 6f8d8b28b7e345549ac471071608170b31cb4977
+  GTMAppAuth: ae710e1e53431e2bcdd57f9f92daa16a58a2947d
+  GTMSessionFetcher: 5ad62e8200fa00ed011fe5e08d27fef72c5b1429
   HockeySDK: c07cdd580296737edcd0963e292c19885a53f563
   HockeySDK-tvOS: fe5373e9a6e70aeca464f8491eb32b60b04fb322
   InAppSettingsKit: 76d5cfbaa3e3f8aa53fe3628516da7eb1aa6a5cb
@@ -132,6 +135,6 @@ SPEC CHECKSUMS:
   XKKeychain: 852ef663c56a7194c73d3c68e8d9d4f07b121d4f
   xmlrpc: 109bb21d15ed6d108b2c1ac5973a6a223a50f5f4
 
-PODFILE CHECKSUM: 0a1627919830b727ebfc648e8125651911a60afe
+PODFILE CHECKSUM: 7ba52b504768a46b54bd9b364c8da82f8563b03f
 
-COCOAPODS: 1.2.0
+COCOAPODS: 1.2.1
