@@ -22,6 +22,7 @@
 #import <AVFoundation/AVFoundation.h>
 #import <MediaPlayer/MediaPlayer.h>
 #import "VLCPlayerDisplayController.h"
+#import "VLCConstants.h"
 
 #if TARGET_OS_IOS
 #import "VLCKeychainCoordinator.h"

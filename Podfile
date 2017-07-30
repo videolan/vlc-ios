@@ -68,7 +68,7 @@ pod 'VLC-Dropbox-v1-SDK', '1.3.14w'
 end
 
 target 'VLC-tvOS' do
-platform :tvos, '9.0'
+platform :tvos, '10.2'
 pod 'XKKeychain', '~>1.0'
 pod 'box-ios-sdk-v2', :git => 'git://github.com/fkuehne/box-ios-sdk-v2.git' #has tvOS support added
 pod 'upnpx', '~>1.4.0a2'
@@ -80,7 +80,7 @@ pod 'VLC-WhiteRaccoon'
 pod 'VLC-LiveSDK', '5.7.0x'
 pod 'VLC-Dropbox-v1-SDK', '1.3.14w'
 pod 'HockeySDK-tvOS', '4.1.0-beta.1'
-pod 'TVVLCKit-unstable', '3.0.0a10'
+pod 'TVVLCKit-unstable', '3.0.0a31'
 
 end
 
