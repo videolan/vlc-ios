@@ -2,7 +2,7 @@
  * VLCLibraryViewController.m
  * VLC for iOS
  *****************************************************************************
- * Copyright (c) 2013-2016 VideoLAN. All rights reserved.
+ * Copyright (c) 2013-2017 VideoLAN. All rights reserved.
  * $Id$
  *
  * Authors: Felix Paul Kühne <fkuehne # videolan.org>
@@ -15,22 +15,23 @@
  *****************************************************************************/
 
 #import "VLCLibraryViewController.h"
-#import "VLCMovieViewController.h"
-#import "VLCPlaylistTableViewCell.h"
-#import "VLCPlaylistCollectionViewCell.h"
-#import "NSString+SupportedMedia.h"
-#import "VLCBugreporter.h"
+
+#import "GTScrollNavigationBar.h"
+#import "LXReorderableCollectionViewFlowLayout.h"
+#import "VLCActivityViewControllerVendor.h"
 #import "VLCAppDelegate.h"
+#import "VLCBugreporter.h"
 #import "VLCFirstStepsViewController.h"
 #import "VLCFolderCollectionViewFlowLayout.h"
-#import "LXReorderableCollectionViewFlowLayout.h"
-#import "VLCOpenInActivity.h"
-#import "VLCNavigationController.h"
-#import "VLCPlaybackController+MediaLibrary.h"
 #import "VLCKeychainCoordinator.h"
-#import "GTScrollNavigationBar.h"
+#import "VLCMovieViewController.h"
+#import "VLCNavigationController.h"
+#import "VLCPlaylistCollectionViewCell.h"
+#import "VLCPlaylistTableViewCell.h"
 
-#import <AssetsLibrary/AssetsLibrary.h>
+#import "NSString+SupportedMedia.h"
+#import "VLCPlaybackController+MediaLibrary.h"
+
 #import <CoreSpotlight/CoreSpotlight.h>
 
 /* prefs keys */
@@ -68,10 +69,9 @@ static NSString *kUsingTableViewToShowData = @"UsingTableViewToShowData";
 
     UIBarButtonItem *_selectAllBarButtonItem;
     UIBarButtonItem *_createFolderBarButtonItem;
-    UIBarButtonItem *_openInActivityBarButtonItem;
+    UIBarButtonItem *_shareBarButtonItem;
     UIBarButtonItem *_removeFromFolderBarButtonItem;
     UIBarButtonItem *_deleteSelectedBarButtonItem;
-    VLCOpenInActivity *_openInActivity;
 }
 
 @property (nonatomic, strong) UIBarButtonItem *displayModeBarButtonItem;
@@ -201,8 +201,8 @@ static NSString *kUsingTableViewToShowData = @"UsingTableViewToShowData";
     _removeFromFolderBarButtonItem.landscapeImagePhoneInsets = UIEdgeInsetsMake(1, 0, -1, 0);
     _removeFromFolderBarButtonItem.enabled = NO;
 
-    _openInActivityBarButtonItem = [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemAction target:self action:@selector(actOnSelection:)];
-    _openInActivityBarButtonItem.enabled = NO;
+    _shareBarButtonItem = [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemAction target:self action:@selector(share:)];
+    _shareBarButtonItem.enabled = NO;
 
     _deleteSelectedBarButtonItem = [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemTrash target:self action:@selector(deleteSelection:)];
     _deleteFromTableView = NO;
@@ -214,7 +214,7 @@ static NSString *kUsingTableViewToShowData = @"UsingTableViewToShowData";
         fixedSpace.width *= 2;
     }
 
-    [self setToolbarItems:@[_openInActivityBarButtonItem,
+    [self setToolbarItems:@[_shareBarButtonItem,
                             fixedSpace,
                             _createFolderBarButtonItem,
                             [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemFlexibleSpace target:nil action:nil],
@@ -1553,7 +1553,7 @@ static NSString *kUsingTableViewToShowData = @"UsingTableViewToShowData";
 {
     NSUInteger count = [indexPaths count];
     if (!indexPaths || count == 0) {
-        _openInActivityBarButtonItem.enabled = NO;
+        _shareBarButtonItem.enabled = NO;
     } else {
         // Look for at least one MLFile
         @synchronized(_foundMedia) {
@@ -1561,7 +1561,7 @@ static NSString *kUsingTableViewToShowData = @"UsingTableViewToShowData";
                 id mediaItem = _foundMedia[[indexPaths[x] row]];
 
                 if ([mediaItem isKindOfClass:[MLFile class]] || [mediaItem isKindOfClass:[MLAlbumTrack class]] | [mediaItem isKindOfClass:[MLShowEpisode class]]) {
-                    _openInActivityBarButtonItem.enabled = YES;
+                    _shareBarButtonItem.enabled = YES;
                     return;
                 }
             }
@@ -1569,98 +1569,56 @@ static NSString *kUsingTableViewToShowData = @"UsingTableViewToShowData";
     }
 }
 
-- (void)actOnSelection:(UIBarButtonItem *)barButtonItem
+- (NSArray *)fileURLsFromSelection
+{
+    NSArray *indexPaths = [self selectedIndexPaths];
+
+    if (indexPaths.count == 0) return nil;
+
+    NSMutableArray<NSURL*> *fileURLObjects = [[NSMutableArray alloc] initWithCapacity:indexPaths.count];
+
+    for (NSIndexPath *indexpath in indexPaths) {
+        id mediaItem;
+        @synchronized (_foundMedia) {
+            mediaItem = _foundMedia[[indexpath row]];
+        }
+        NSURL *fileURL;
+
+        if ([mediaItem isKindOfClass:[MLFile class]]) {
+            fileURL = [(MLFile *) mediaItem url];
+        } else if ([mediaItem isKindOfClass:[MLAlbumTrack class]]) {
+            fileURL = [[(MLAlbumTrack *) mediaItem anyFileFromTrack] url];
+        } else if ([mediaItem isKindOfClass:[MLShowEpisode class]]) {
+            fileURL = [[(MLShowEpisode *) mediaItem anyFileFromEpisode] url];
+        }
+        if ([fileURL isFileURL]) {
+            [fileURLObjects addObject:fileURL];
+        }
+    }
+    return [fileURLObjects copy];
+}
+
+- (void)share:(UIBarButtonItem *)barButtonItem
 {
     NSParameterAssert(barButtonItem);
     if (!barButtonItem) {
         APLog(@"Missing a UIBarButtonItem to present from");
         return;
     }
+    //disable any possible changes to selection (or exit from this screen)
+    [[UIApplication sharedApplication] beginIgnoringInteractionEvents];
 
-    NSArray *indexPaths = [self selectedIndexPaths];
-
-    NSUInteger count = indexPaths.count;
-    if (count) {
-        NSMutableArray /* NSURL */ *fileURLobjects = [[NSMutableArray alloc] initWithCapacity:count];
-
-        for (NSUInteger x = 0; x < count; x++) {
-            id mediaItem;
-            @synchronized (_foundMedia) {
-                mediaItem = _foundMedia[[indexPaths[x] row]];
-            }
-            NSURL *fileURL;
-
-            if ([mediaItem isKindOfClass:[MLFile class]])
-                fileURL = [(MLFile *) mediaItem url];
-            else if ([mediaItem isKindOfClass:[MLAlbumTrack class]])
-                fileURL = [[(MLAlbumTrack *) mediaItem anyFileFromTrack] url];
-            else if ([mediaItem isKindOfClass:[MLShowEpisode class]])
-                fileURL = [[(MLShowEpisode *) mediaItem anyFileFromEpisode] url];
-
-            if ([fileURL isFileURL])
-                [fileURLobjects addObject:fileURL];
+    UIActivityViewController *controller = [VLCActivityViewControllerVendor activityViewControllerForFiles:[self fileURLsFromSelection] presentingButton:barButtonItem presentingViewController:self];
+    if (!controller) {
+        [[UIApplication sharedApplication] endIgnoringInteractionEvents];
+    } else {
+        if (SYSTEM_RUNS_IOS8_OR_LATER) {
+            controller.popoverPresentationController.sourceView = self.navigationController.toolbar;
         }
-
-        if ([fileURLobjects count]) {
-            // Just in case, since we are facing a possible delay from code we do not control (UIActivityViewController), disable any possible changes to selection (or exit from this screen)
-            [[UIApplication sharedApplication] beginIgnoringInteractionEvents];
-
-            // The reason we do a dispatch_async to the main queue here even though we are already on the main queue is because UIActivityViewController blocks the main thread at some point (either during creation or presentation), which won't let UIKit draw our call to disable the toolbar items in time. On an actual device (where the lag can be seen when UIActivityViewController is presented for the first time during an applications lifetime) this makes for a much better user experience. If you have more items to share the lag may be greater.
-            dispatch_async(dispatch_get_main_queue(), ^{
-                _openInActivity = [[VLCOpenInActivity alloc] init];
-                _openInActivity.presentingViewController = self;
-                _openInActivity.presentingBarButtonItem = barButtonItem;
-
-                dispatch_block_t enableInteractionBlock = ^{
-                    // Strangely makeObjectsPerformSelector:withObject has trouble here (when called from presentViewController:animated:completion:)
-                    // [self.navigationController.toolbar.items makeObjectsPerformSelector:@selector(setEnabled:) withObject:@(YES)];
-                    for (UIBarButtonItem *item in self.navigationController.toolbar.items) {
-                        if (_removeFromFolderBarButtonItem && !_inFolder) {
-                            continue;
-                        }
-                        item.enabled = YES;
-                    }
-
-                    if ([[UIApplication sharedApplication] isIgnoringInteractionEvents]) {
-                        [[UIApplication sharedApplication] endIgnoringInteractionEvents];
-                    }
-                };
-
-                UIActivityViewController *controller = [[UIActivityViewController alloc] initWithActivityItems:fileURLobjects applicationActivities:@[_openInActivity]];
-                if (SYSTEM_RUNS_IOS8_OR_LATER)
-                    controller.popoverPresentationController.sourceView = self.navigationController.toolbar;
-
-                controller.completionHandler = ^(NSString *activityType, BOOL completed) {
-                    APLog(@"UIActivityViewController finished with activity type: %@, completed: %i", activityType, completed);
-
-                    // Provide some feedback if saving media to the Camera Roll. Note that this could cause a false positive if the user chooses "Don't Allow" in the permissions dialog, and UIActivityViewController does not inform us of that, so check the authorization status.
-
-                    // By the time this is called, the user has not had time to choose whether to allow access to the Photos library, so only display the message if we are truly sure we got authorization. The first time the user saves to the camera roll he won't see the confirmation because of this timing issue. This is better than showing a success message when the user had denied access. A timing workaround could be developed if needed through UIApplicationDidBecomeActiveNotification (to know when the security alert view was dismissed) or through other ALAssets APIs.
-                    if (completed && [activityType isEqualToString:UIActivityTypeSaveToCameraRoll] && [ALAssetsLibrary authorizationStatus] == ALAuthorizationStatusAuthorized) {
-                        VLCAlertView *alertView = [[VLCAlertView alloc] initWithTitle:NSLocalizedString(@"SHARING_SUCCESS_CAMERA_ROLL", nil)
-                                                                              message:nil
-                                                                             delegate:nil
-                                                                    cancelButtonTitle:NSLocalizedString(@"BUTTON_OK", nil)
-                                                                    otherButtonTitles:nil];
-                        [alertView show];
-                    }
-                    _openInActivity = nil;
-
-                    // Just in case, we could call enableInteractionBlock here. Since we are disabling touch interaction for the entire UI, to be safe that we return to the proper state: re-enable everything (if presentViewController:animated:completion: failed for some reason). But UIApplication gives us a warning even if we check isIgnoringInteractionEvents, so do not call it for now.
-                    // enableInteractionBlock();
-                };
-                [self.navigationController presentViewController:controller animated:YES completion:enableInteractionBlock];
-            });
-            return;
-        }
+        [self.navigationController presentViewController:controller animated:YES completion:^{
+            [[UIApplication sharedApplication] endIgnoringInteractionEvents];
+        }];
     }
-
-    VLCAlertView *alertView = [[VLCAlertView alloc] initWithTitle:NSLocalizedString(@"SHARING_ERROR_NO_FILES", nil)
-                                                          message:nil
-                                                         delegate:nil
-                                                cancelButtonTitle:NSLocalizedString(@"BUTTON_OK", nil)
-                                                otherButtonTitles:nil];
-    [alertView show];
 }
 
 #pragma mark - properties

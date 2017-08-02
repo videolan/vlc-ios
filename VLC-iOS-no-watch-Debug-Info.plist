@@ -252,6 +252,10 @@
 		<key>NSAllowsArbitraryLoads</key>
 		<true/>
 	</dict>
+    <key>NSPhotoLibraryAddUsageDescription</key>
+    <string>In order to save the video we will need access to your camera roll</string>
+    <key>NSPhotoLibraryUsageDescription</key>
+    <string>In order to save the video we will need access to your camera roll</string>
 	<key>NSUserActivityTypes</key>
 	<array>
 		<string>org.videolan.vlc-ios.librarymode</string>

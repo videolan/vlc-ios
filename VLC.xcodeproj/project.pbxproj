@@ -24,6 +24,16 @@
 		4171D35018A2C19000A16EF9 /* VLCFolderCollectionViewFlowLayout.m in Sources */ = {isa = PBXBuildFile; fileRef = 4171D34F18A2C19000A16EF9 /* VLCFolderCollectionViewFlowLayout.m */; };
 		417CDA231A48D1F300D9ACE7 /* VLCCloudServicesTableViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 417CDA211A48D1F300D9ACE7 /* VLCCloudServicesTableViewController.m */; };
 		417CDA241A48D1F300D9ACE7 /* VLCCloudServicesTableViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 417CDA221A48D1F300D9ACE7 /* VLCCloudServicesTableViewController.xib */; };
+		417E68691F307D8F00DB9BB2 /* InfoPlist.strings in Resources */ = {isa = PBXBuildFile; fileRef = 417E68711F307D8F00DB9BB2 /* InfoPlist.strings */; };
+		417E686A1F307D8F00DB9BB2 /* InfoPlist.strings in Resources */ = {isa = PBXBuildFile; fileRef = 417E68711F307D8F00DB9BB2 /* InfoPlist.strings */; };
+		417E686B1F307D8F00DB9BB2 /* InfoPlist.strings in Resources */ = {isa = PBXBuildFile; fileRef = 417E68711F307D8F00DB9BB2 /* InfoPlist.strings */; };
+		417E686C1F307D8F00DB9BB2 /* InfoPlist.strings in Resources */ = {isa = PBXBuildFile; fileRef = 417E68711F307D8F00DB9BB2 /* InfoPlist.strings */; };
+		417E686D1F307D8F00DB9BB2 /* InfoPlist.strings in Resources */ = {isa = PBXBuildFile; fileRef = 417E68711F307D8F00DB9BB2 /* InfoPlist.strings */; };
+		417E686E1F307D8F00DB9BB2 /* InfoPlist.strings in Resources */ = {isa = PBXBuildFile; fileRef = 417E68711F307D8F00DB9BB2 /* InfoPlist.strings */; };
+		417E686F1F307D8F00DB9BB2 /* InfoPlist.strings in Resources */ = {isa = PBXBuildFile; fileRef = 417E68711F307D8F00DB9BB2 /* InfoPlist.strings */; };
+		417E68B91F321EFF00DB9BB2 /* VLCActivityViewControllerVendor.m in Sources */ = {isa = PBXBuildFile; fileRef = 417E68B81F321EFF00DB9BB2 /* VLCActivityViewControllerVendor.m */; };
+		417E68BA1F321EFF00DB9BB2 /* VLCActivityViewControllerVendor.m in Sources */ = {isa = PBXBuildFile; fileRef = 417E68B81F321EFF00DB9BB2 /* VLCActivityViewControllerVendor.m */; };
+		417E68BB1F321EFF00DB9BB2 /* VLCActivityViewControllerVendor.m in Sources */ = {isa = PBXBuildFile; fileRef = 417E68B81F321EFF00DB9BB2 /* VLCActivityViewControllerVendor.m */; };
 		4184AA151A5492070063DF5A /* VLCCloudStorageController.m in Sources */ = {isa = PBXBuildFile; fileRef = 4184AA141A5492070063DF5A /* VLCCloudStorageController.m */; };
 		41B93C011A53833B00102E8B /* VLCProgressView.m in Sources */ = {isa = PBXBuildFile; fileRef = 41B93C001A53833B00102E8B /* VLCProgressView.m */; };
 		41B93C051A53835300102E8B /* VLCCloudServiceCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 41B93C031A53835300102E8B /* VLCCloudServiceCell.m */; };
@@ -1079,6 +1089,53 @@
 		417CDA201A48D1F300D9ACE7 /* VLCCloudServicesTableViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = VLCCloudServicesTableViewController.h; path = Sources/VLCCloudServicesTableViewController.h; sourceTree = SOURCE_ROOT; };
 		417CDA211A48D1F300D9ACE7 /* VLCCloudServicesTableViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = VLCCloudServicesTableViewController.m; path = Sources/VLCCloudServicesTableViewController.m; sourceTree = SOURCE_ROOT; };
 		417CDA221A48D1F300D9ACE7 /* VLCCloudServicesTableViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; name = VLCCloudServicesTableViewController.xib; path = Resources/VLCCloudServicesTableViewController.xib; sourceTree = SOURCE_ROOT; };
+		417E68701F307D8F00DB9BB2 /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/InfoPlist.strings; sourceTree = "<group>"; };
+		417E68721F307DA900DB9BB2 /* ru */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = ru; path = ru.lproj/InfoPlist.strings; sourceTree = "<group>"; };
+		417E68731F307DAA00DB9BB2 /* de */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = de; path = de.lproj/InfoPlist.strings; sourceTree = "<group>"; };
+		417E68741F307DAD00DB9BB2 /* fr */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = fr; path = fr.lproj/InfoPlist.strings; sourceTree = "<group>"; };
+		417E68751F307DAF00DB9BB2 /* it */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = it; path = it.lproj/InfoPlist.strings; sourceTree = "<group>"; };
+		417E68761F307DB100DB9BB2 /* ja */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = ja; path = ja.lproj/InfoPlist.strings; sourceTree = "<group>"; };
+		417E68771F307DB100DB9BB2 /* fi */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = fi; path = fi.lproj/InfoPlist.strings; sourceTree = "<group>"; };
+		417E68781F307DB200DB9BB2 /* id */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = id; path = id.lproj/InfoPlist.strings; sourceTree = "<group>"; };
+		417E68791F307DB500DB9BB2 /* es */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = es; path = es.lproj/InfoPlist.strings; sourceTree = "<group>"; };
+		417E687A1F307DB600DB9BB2 /* da */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = da; path = da.lproj/InfoPlist.strings; sourceTree = "<group>"; };
+		417E687B1F307DB700DB9BB2 /* he */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = he; path = he.lproj/InfoPlist.strings; sourceTree = "<group>"; };
+		417E687C1F307DB800DB9BB2 /* nl */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = nl; path = nl.lproj/InfoPlist.strings; sourceTree = "<group>"; };
+		417E687D1F307DB900DB9BB2 /* sk */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = sk; path = sk.lproj/InfoPlist.strings; sourceTree = "<group>"; };
+		417E687E1F307DBA00DB9BB2 /* tr */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = tr; path = tr.lproj/InfoPlist.strings; sourceTree = "<group>"; };
+		417E687F1F307DBA00DB9BB2 /* uk */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = uk; path = uk.lproj/InfoPlist.strings; sourceTree = "<group>"; };
+		417E68801F307DBC00DB9BB2 /* zh-Hans */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = "zh-Hans"; path = "zh-Hans.lproj/InfoPlist.strings"; sourceTree = "<group>"; };
+		417E68811F307DBD00DB9BB2 /* zh-Hant */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = "zh-Hant"; path = "zh-Hant.lproj/InfoPlist.strings"; sourceTree = "<group>"; };
+		417E68821F307DBE00DB9BB2 /* mr */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = mr; path = mr.lproj/InfoPlist.strings; sourceTree = "<group>"; };
+		417E68831F307DBF00DB9BB2 /* ca */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = ca; path = ca.lproj/InfoPlist.strings; sourceTree = "<group>"; };
+		417E68841F307DBF00DB9BB2 /* gl */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = gl; path = gl.lproj/InfoPlist.strings; sourceTree = "<group>"; };
+		417E68851F307DC000DB9BB2 /* bs */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = bs; path = bs.lproj/InfoPlist.strings; sourceTree = "<group>"; };
+		417E68861F307DC100DB9BB2 /* el */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = el; path = el.lproj/InfoPlist.strings; sourceTree = "<group>"; };
+		417E68871F307DC300DB9BB2 /* sl */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = sl; path = sl.lproj/InfoPlist.strings; sourceTree = "<group>"; };
+		417E68881F307DC400DB9BB2 /* pl */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = pl; path = pl.lproj/InfoPlist.strings; sourceTree = "<group>"; };
+		417E68891F307DC500DB9BB2 /* ar */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = ar; path = ar.lproj/InfoPlist.strings; sourceTree = "<group>"; };
+		417E688A1F307DC500DB9BB2 /* ko */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = ko; path = ko.lproj/InfoPlist.strings; sourceTree = "<group>"; };
+		417E688B1F307DC600DB9BB2 /* sv */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = sv; path = sv.lproj/InfoPlist.strings; sourceTree = "<group>"; };
+		417E688C1F307DC700DB9BB2 /* hu */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = hu; path = hu.lproj/InfoPlist.strings; sourceTree = "<group>"; };
+		417E688D1F307DC700DB9BB2 /* cs */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = cs; path = cs.lproj/InfoPlist.strings; sourceTree = "<group>"; };
+		417E688E1F307DC800DB9BB2 /* fa */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = fa; path = fa.lproj/InfoPlist.strings; sourceTree = "<group>"; };
+		417E688F1F307DC900DB9BB2 /* es-MX */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = "es-MX"; path = "es-MX.lproj/InfoPlist.strings"; sourceTree = "<group>"; };
+		417E68901F307DC900DB9BB2 /* ms */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = ms; path = ms.lproj/InfoPlist.strings; sourceTree = "<group>"; };
+		417E68911F307DCA00DB9BB2 /* si */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = si; path = si.lproj/InfoPlist.strings; sourceTree = "<group>"; };
+		417E68921F307DCB00DB9BB2 /* lv */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = lv; path = lv.lproj/InfoPlist.strings; sourceTree = "<group>"; };
+		417E68931F307DCB00DB9BB2 /* en-GB */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = "en-GB"; path = "en-GB.lproj/InfoPlist.strings"; sourceTree = "<group>"; };
+		417E68941F307DCC00DB9BB2 /* ro */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = ro; path = ro.lproj/InfoPlist.strings; sourceTree = "<group>"; };
+		417E68951F307E0200DB9BB2 /* af */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = af; path = af.lproj/InfoPlist.strings; sourceTree = "<group>"; };
+		417E68961F307E0400DB9BB2 /* be */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = be; path = be.lproj/InfoPlist.strings; sourceTree = "<group>"; };
+		417E68971F307E0700DB9BB2 /* fo */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = fo; path = fo.lproj/InfoPlist.strings; sourceTree = "<group>"; };
+		417E68981F307E0900DB9BB2 /* km */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = km; path = km.lproj/InfoPlist.strings; sourceTree = "<group>"; };
+		417E68991F307E0A00DB9BB2 /* ta */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = ta; path = ta.lproj/InfoPlist.strings; sourceTree = "<group>"; };
+		417E689A1F307E0D00DB9BB2 /* pt-PT */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = "pt-PT"; path = "pt-PT.lproj/InfoPlist.strings"; sourceTree = "<group>"; };
+		417E689B1F307E0E00DB9BB2 /* pt-BR */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = "pt-BR"; path = "pt-BR.lproj/InfoPlist.strings"; sourceTree = "<group>"; };
+		417E689C1F307E0F00DB9BB2 /* sr-Latn */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = "sr-Latn"; path = "sr-Latn.lproj/InfoPlist.strings"; sourceTree = "<group>"; };
+		417E689D1F307E1000DB9BB2 /* nb */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = nb; path = nb.lproj/InfoPlist.strings; sourceTree = "<group>"; };
+		417E68B71F321EFF00DB9BB2 /* VLCActivityViewControllerVendor.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = VLCActivityViewControllerVendor.h; sourceTree = "<group>"; };
+		417E68B81F321EFF00DB9BB2 /* VLCActivityViewControllerVendor.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = VLCActivityViewControllerVendor.m; sourceTree = "<group>"; };
 		4184AA131A5492070063DF5A /* VLCCloudStorageController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = VLCCloudStorageController.h; path = Sources/VLCCloudStorageController.h; sourceTree = SOURCE_ROOT; };
 		4184AA141A5492070063DF5A /* VLCCloudStorageController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = VLCCloudStorageController.m; path = Sources/VLCCloudStorageController.m; sourceTree = SOURCE_ROOT; };
 		41B93BFF1A53833B00102E8B /* VLCProgressView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = VLCProgressView.h; path = Sources/VLCProgressView.h; sourceTree = SOURCE_ROOT; };
@@ -2781,6 +2838,7 @@
 				7DDFF4241BDFD23300913BD1 /* VLCCone512x512.png */,
 				7DEB3B5F17647DE30038FC70 /* iTunesArtwork@2x */,
 				7D5DD5C617590ABF001421E3 /* About Contents.html */,
+				417E68711F307D8F00DB9BB2 /* InfoPlist.strings */,
 				A79246C6170F11DF0036AAF2 /* Localizable.strings */,
 				7D2AC5D21B67747000A8D9DD /* OneDrive (Imported) */,
 			);
@@ -3038,6 +3096,8 @@
 				DD3EA6301AF50CFE007FF096 /* VLCWatchMessage.m */,
 				DDBE44FD1BFB6A8B00E5D35E /* CAAnimation+VLCWiggle.h */,
 				DDBE44FE1BFB6A8B00E5D35E /* CAAnimation+VLCWiggle.m */,
+				417E68B71F321EFF00DB9BB2 /* VLCActivityViewControllerVendor.h */,
+				417E68B81F321EFF00DB9BB2 /* VLCActivityViewControllerVendor.m */,
 			);
 			path = SharedSources;
 			sourceTree = "<group>";
@@ -3470,6 +3530,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				7D405EDB1BEA1F56006ED886 /* main.js in Resources */,
+				417E686C1F307D8F00DB9BB2 /* InfoPlist.strings in Resources */,
 				DD8095E51BE3F4240065D8E1 /* VLCPlaybackInfoTVViewController.xib in Resources */,
 				7D405ED91BEA1F56006ED886 /* jquery.ui.widget.js in Resources */,
 				7D405ED71BEA1F56006ED886 /* jquery.fileupload.js in Resources */,
@@ -3526,6 +3587,7 @@
 				7D63BC041D414212003C60D3 /* VLCSettingsViewController.xib in Resources */,
 				7D63BC051D414212003C60D3 /* jquery.iframe-transport.js in Resources */,
 				7D63BC061D414212003C60D3 /* VLCPlaybackInfoTVCollectionViewCell.xib in Resources */,
+				417E686F1F307D8F00DB9BB2 /* InfoPlist.strings in Resources */,
 				7D63BC071D414212003C60D3 /* VLCRemoteBrowsingTVCell.xib in Resources */,
 				7D63BC081D414212003C60D3 /* VLCCloudServicesTVViewController.xib in Resources */,
 				7D63BC091D414212003C60D3 /* style.css in Resources */,
@@ -3552,6 +3614,7 @@
 				7D787FB91D40FDE70003CFA1 /* VLCNetworkLoginViewController.xib in Resources */,
 				7D787FBA1D40FDE70003CFA1 /* VLCFirstStepsFirstPageViewController~iphone.xib in Resources */,
 				7D787FBB1D40FDE70003CFA1 /* web-download.png in Resources */,
+				417E686E1F307D8F00DB9BB2 /* InfoPlist.strings in Resources */,
 				7D787FBD1D40FDE70003CFA1 /* VLCCloudServiceCell.xib in Resources */,
 				7D787FBE1D40FDE70003CFA1 /* index.html in Resources */,
 				7D787FBF1D40FDE70003CFA1 /* Images.xcassets in Resources */,
@@ -3604,6 +3667,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				7D00161C177056B700649F27 /* main.js in Resources */,
+				417E68691F307D8F00DB9BB2 /* InfoPlist.strings in Resources */,
 				7AC862A61765E9510011611A /* jquery-1.10.1.min.js in Resources */,
 				7AC862A71765E9510011611A /* jquery.fileupload.js in Resources */,
 				7AC862A81765E9510011611A /* jquery.iframe-transport.js in Resources */,
@@ -3665,6 +3729,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				7DC550431C046615007B4E42 /* main.js in Resources */,
+				417E686D1F307D8F00DB9BB2 /* InfoPlist.strings in Resources */,
 				7DC550441C046615007B4E42 /* jquery-1.10.1.min.js in Resources */,
 				7DC550451C046615007B4E42 /* jquery.fileupload.js in Resources */,
 				7DC550461C046615007B4E42 /* jquery.iframe-transport.js in Resources */,
@@ -3726,6 +3791,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				DD35676A1B6760BF00338947 /* Assets.xcassets in Resources */,
+				417E686B1F307D8F00DB9BB2 /* InfoPlist.strings in Resources */,
 				DD3567681B6760BF00338947 /* Interface.storyboard in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -3735,6 +3801,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				DD35677A1B6760BF00338947 /* Assets.xcassets in Resources */,
+				417E686A1F307D8F00DB9BB2 /* InfoPlist.strings in Resources */,
 				DD1A45FD1B676BAC00086F57 /* Localizable.strings in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -4238,6 +4305,7 @@
 				7D787F331D40FDE70003CFA1 /* VLCFrostedGlasView.m in Sources */,
 				7D787F341D40FDE70003CFA1 /* VLCTimeNavigationTitleView.m in Sources */,
 				7D787F351D40FDE70003CFA1 /* VLCNetworkImageView.m in Sources */,
+				417E68BB1F321EFF00DB9BB2 /* VLCActivityViewControllerVendor.m in Sources */,
 				7D787F361D40FDE70003CFA1 /* VLCDocumentPickerController.m in Sources */,
 				7D787F371D40FDE70003CFA1 /* VLCWatchCommunication.m in Sources */,
 				7D787F381D40FDE70003CFA1 /* VLCLocalNetworkServiceBrowserNetService.m in Sources */,
@@ -4416,6 +4484,7 @@
 				7D3784C3183A9938009EE944 /* VLCStatusLabel.m in Sources */,
 				7D1276621AADA0E600F0260C /* VLCMultiSelectionMenuView.m in Sources */,
 				7D3784C8183A9972009EE944 /* NSString+SupportedMedia.m in Sources */,
+				417E68B91F321EFF00DB9BB2 /* VLCActivityViewControllerVendor.m in Sources */,
 				DD3EFF5B1BDEBCE500B68579 /* VLCNetworkServerBrowserUPnP.m in Sources */,
 				DD3EABF81BE14BD6003668DA /* BasicUPnPDevice+VLC.m in Sources */,
 				DD3EAC091BE2192A003668DA /* VLCServerBrowsingController.m in Sources */,
@@ -4545,6 +4614,7 @@
 				7DC54FF41C046615007B4E42 /* VLCNetworkServerBrowserUPnP.m in Sources */,
 				7DC54FF51C046615007B4E42 /* BasicUPnPDevice+VLC.m in Sources */,
 				7DC54FF61C046615007B4E42 /* VLCServerBrowsingController.m in Sources */,
+				417E68BA1F321EFF00DB9BB2 /* VLCActivityViewControllerVendor.m in Sources */,
 				7DC54FF71C046615007B4E42 /* UIDevice+VLC.m in Sources */,
 				7DC54FF81C046615007B4E42 /* PAPasscodeViewController.m in Sources */,
 				7DC54FF91C046615007B4E42 /* VLCNetworkListViewController.m in Sources */,
@@ -4656,6 +4726,58 @@
 /* End PBXTargetDependency section */
 
 /* Begin PBXVariantGroup section */
+		417E68711F307D8F00DB9BB2 /* InfoPlist.strings */ = {
+			isa = PBXVariantGroup;
+			children = (
+				417E68701F307D8F00DB9BB2 /* en */,
+				417E68721F307DA900DB9BB2 /* ru */,
+				417E68731F307DAA00DB9BB2 /* de */,
+				417E68741F307DAD00DB9BB2 /* fr */,
+				417E68751F307DAF00DB9BB2 /* it */,
+				417E68761F307DB100DB9BB2 /* ja */,
+				417E68771F307DB100DB9BB2 /* fi */,
+				417E68781F307DB200DB9BB2 /* id */,
+				417E68791F307DB500DB9BB2 /* es */,
+				417E687A1F307DB600DB9BB2 /* da */,
+				417E687B1F307DB700DB9BB2 /* he */,
+				417E687C1F307DB800DB9BB2 /* nl */,
+				417E687D1F307DB900DB9BB2 /* sk */,
+				417E687E1F307DBA00DB9BB2 /* tr */,
+				417E687F1F307DBA00DB9BB2 /* uk */,
+				417E68801F307DBC00DB9BB2 /* zh-Hans */,
+				417E68811F307DBD00DB9BB2 /* zh-Hant */,
+				417E68821F307DBE00DB9BB2 /* mr */,
+				417E68831F307DBF00DB9BB2 /* ca */,
+				417E68841F307DBF00DB9BB2 /* gl */,
+				417E68851F307DC000DB9BB2 /* bs */,
+				417E68861F307DC100DB9BB2 /* el */,
+				417E68871F307DC300DB9BB2 /* sl */,
+				417E68881F307DC400DB9BB2 /* pl */,
+				417E68891F307DC500DB9BB2 /* ar */,
+				417E688A1F307DC500DB9BB2 /* ko */,
+				417E688B1F307DC600DB9BB2 /* sv */,
+				417E688C1F307DC700DB9BB2 /* hu */,
+				417E688D1F307DC700DB9BB2 /* cs */,
+				417E688E1F307DC800DB9BB2 /* fa */,
+				417E688F1F307DC900DB9BB2 /* es-MX */,
+				417E68901F307DC900DB9BB2 /* ms */,
+				417E68911F307DCA00DB9BB2 /* si */,
+				417E68921F307DCB00DB9BB2 /* lv */,
+				417E68931F307DCB00DB9BB2 /* en-GB */,
+				417E68941F307DCC00DB9BB2 /* ro */,
+				417E68951F307E0200DB9BB2 /* af */,
+				417E68961F307E0400DB9BB2 /* be */,
+				417E68971F307E0700DB9BB2 /* fo */,
+				417E68981F307E0900DB9BB2 /* km */,
+				417E68991F307E0A00DB9BB2 /* ta */,
+				417E689A1F307E0D00DB9BB2 /* pt-PT */,
+				417E689B1F307E0E00DB9BB2 /* pt-BR */,
+				417E689C1F307E0F00DB9BB2 /* sr-Latn */,
+				417E689D1F307E1000DB9BB2 /* nb */,
+			);
+			name = InfoPlist.strings;
+			sourceTree = "<group>";
+		};
 		A79246C6170F11DF0036AAF2 /* Localizable.strings */ = {
 			isa = PBXVariantGroup;
 			children = (
