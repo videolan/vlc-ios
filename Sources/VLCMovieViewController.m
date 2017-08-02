@@ -2,7 +2,7 @@
  * VLCMovieViewController.m
  * VLC for iOS
  *****************************************************************************
- * Copyright (c) 2013-2015 VideoLAN. All rights reserved.
+ * Copyright (c) 2013-2017 VideoLAN. All rights reserved.
  * $Id$
  *
  * Authors: Felix Paul Kühne <fkuehne # videolan.org>
@@ -32,7 +32,7 @@
 #import "VLCPlayerDisplayController.h"
 #import "VLCAppDelegate.h"
 #import "VLCStatusLabel.h"
-#import "VLCMovieViewControlPanelViewController.h"
+#import "VLCMovieViewControlPanelView.h"
 #import "VLCSlider.h"
 #import "VLCLibraryViewController.h"
 
@@ -367,33 +367,55 @@ typedef NS_ENUM(NSInteger, VLCPanType) {
 
     //Sleep Timer initialization
     [self sleepTimerInitializer:deviceSpeedCategory];
-
-    VLCMovieViewControlPanelViewController *panelVC = [[VLCMovieViewControlPanelViewController alloc] initWithNibName:@"VLCMovieViewControlPanel"
-                                                                                                               bundle:nil];
-    [self addChildViewController:panelVC];
-    [self.view addSubview:panelVC.view];
-    panelVC.view.translatesAutoresizingMaskIntoConstraints = NO;
-    NSArray *hConstraints = [NSLayoutConstraint constraintsWithVisualFormat:@"H:|[panel]|"
-                                                                    options:0
-                                                                    metrics:nil
-                                                                      views:@{@"panel":panelVC.view}];
-
-    NSArray *vConstraints = [NSLayoutConstraint constraintsWithVisualFormat:@"V:[panel]|"
-                                                                    options:0
-                                                                    metrics:nil
-                                                                      views:@{@"panel":panelVC.view}];
-    [self.view addConstraints:hConstraints];
-    [self.view addConstraints:vConstraints];
-
-
-    [panelVC didMoveToParentViewController:self];
-    self.controlPanelController = panelVC;
-    self.controllerPanel = panelVC.view;
+    [self setupControlPanel];
 
     CGRect screenBounds = [[UIScreen mainScreen] bounds];
     CGFloat screenScale = [[UIScreen mainScreen] scale];
     _screenSizePixel = CGSizeMake(screenBounds.size.width * screenScale, screenBounds.size.height * screenScale);
     _saveLocation = CGPointMake(-1.f, -1.f);
+
+    [self setupConstraints];
+}
+
+- (void)setupControlPanel
+{
+    _controllerPanel = [[VLCMovieViewControlPanelView alloc] initWithFrame:CGRectZero];
+    [_controllerPanel.bwdButton addTarget:self action:@selector(backward:) forControlEvents:UIControlEventTouchUpInside];
+    [_controllerPanel.fwdButton addTarget:self action:@selector(forward:) forControlEvents:UIControlEventTouchUpInside];
+    [_controllerPanel.playPauseButton addTarget:self action:@selector(playPause) forControlEvents:UIControlEventTouchUpInside];
+    [_controllerPanel.moreActionsButton addTarget:self action:@selector(moreActions:) forControlEvents:UIControlEventTouchUpInside];
+    [_controllerPanel.playbackSpeedButton addTarget:self action:@selector(showPlaybackSpeedView) forControlEvents:UIControlEventTouchUpInside];
+    [_controllerPanel.trackSwitcherButton addTarget:self action:@selector(switchTrack:) forControlEvents:UIControlEventTouchUpInside];
+    [_controllerPanel.videoFilterButton addTarget:self action:@selector(videoFilterToggle:) forControlEvents:UIControlEventTouchUpInside];
+
+    // HACK: get the slider from volume view
+    UISlider *volumeSlider = nil;
+    for (id aView in _controllerPanel.volumeView.subviews){
+        if ([aView isKindOfClass:[UISlider class]]){
+            volumeSlider = (UISlider *)aView;
+            break;
+        }
+    }
+    [volumeSlider addTarget:self action:@selector(volumeSliderAction:) forControlEvents:UIControlEventValueChanged];
+
+    _controllerPanel.translatesAutoresizingMaskIntoConstraints = NO;
+
+    [self.view addSubview:_controllerPanel];
+}
+
+- (void)setupConstraints
+{
+    NSArray *hConstraints = [NSLayoutConstraint constraintsWithVisualFormat:@"H:|[panel]|"
+                                                                    options:0
+                                                                    metrics:nil
+                                                                      views:@{@"panel":_controllerPanel}];
+
+    NSArray *vConstraints = [NSLayoutConstraint constraintsWithVisualFormat:@"V:[panel]|"
+                                                                    options:0
+                                                                    metrics:nil
+                                                                      views:@{@"panel":_controllerPanel}];
+    [self.view addConstraints:hConstraints];
+    [self.view addConstraints:vConstraints];
 }
 
 - (void)viewWillAppear:(BOOL)animated
@@ -545,7 +567,6 @@ typedef NS_ENUM(NSInteger, VLCPanType) {
 
 - (void)sleepTimerInitializer:(int)deviceSpeedCategory
 {
-
     /* add sleep timer UI */
     _sleepTimerContainer = [[VLCFrostedGlasView alloc] initWithFrame:CGRectMake(0., 0., 300., 200.)];
     _sleepTimerContainer.center = self.view.center;
@@ -658,8 +679,6 @@ typedef NS_ENUM(NSInteger, VLCPanType) {
     _controlsHidden = hidden;
     CGFloat alpha = _controlsHidden? 0.0f: 1.0f;
 
-    [self.controlPanelController beginAppearanceTransition:!hidden animated:animated];
-
     if (!_controlsHidden) {
         _controllerPanel.alpha = 0.0f;
         _controllerPanel.hidden = !_videoFiltersHidden;
@@ -716,8 +735,6 @@ typedef NS_ENUM(NSInteger, VLCPanType) {
         _artistNameLabel.hidden = _audioOnly ? NO : _controlsHidden;
         _albumNameLabel.hidden =  _audioOnly ? NO : _controlsHidden;
         _trackNameLabel.hidden =  _audioOnly ? NO : _controlsHidden;
-
-        [self.controlPanelController endAppearanceTransition];
     };
 
     UIStatusBarAnimation animationType = animated? UIStatusBarAnimationFade: UIStatusBarAnimationNone;
@@ -912,7 +929,7 @@ typedef NS_ENUM(NSInteger, VLCPanType) {
     [self _updateScrubLabel];
 }
 
-- (IBAction)volumeSliderAction:(id)sender
+- (void)volumeSliderAction:(id)sender
 {
     LOCKCHECK;
 
@@ -1000,7 +1017,7 @@ currentMediaHasTrackToChooseFrom:(BOOL)currentMediaHasTrackToChooseFrom
     if (currentState == VLCMediaPlayerStateError)
         [self.statusLabel showStatusMessage:NSLocalizedString(@"PLAYBACK_FAILED", nil)];
 
-    [self.controlPanelController updateButtons];
+    [_controllerPanel updateButtons];
 
     _multiSelectionView.mediaHasChapters = currentMediaHasChapters;
 }
@@ -1031,7 +1048,7 @@ currentMediaHasTrackToChooseFrom:(BOOL)currentMediaHasTrackToChooseFrom
     self.timeNavigationTitleView.hideAspectRatio = audioOnly;
     self.timeNavigationTitleView.positionSlider.hidden = NO;
 
-    [[self controlPanelController] updateButtons];
+    [_controllerPanel updateButtons];
     
     _audioOnly = audioOnly;
 }

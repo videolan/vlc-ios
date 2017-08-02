@@ -2,7 +2,7 @@
  * VLCMovieViewController.h
  * VLC for iOS
  *****************************************************************************
- * Copyright (c) 2013-2015 VideoLAN. All rights reserved.
+ * Copyright (c) 2013-2017 VideoLAN. All rights reserved.
  * $Id$
  *
  * Authors: Felix Paul Kühne <fkuehne # videolan.org>
@@ -20,7 +20,7 @@
 @class VLCHorizontalSwipeGestureRecognizer;
 @class VLCVerticalSwipeGestureRecognizer;
 @class VLCTimeNavigationTitleView;
-@class VLCMovieViewControlPanelViewController;
+@class VLCMovieViewControlPanelView;
 
 typedef NS_ENUM(NSInteger, VLCMovieJumpState) {
     VLCMovieJumpStateDefault,
@@ -35,7 +35,7 @@ typedef NS_ENUM(NSInteger, VLCMovieJumpState) {
 @property (nonatomic, strong) IBOutlet VLCTimeNavigationTitleView *timeNavigationTitleView;
 @property (nonatomic, strong) IBOutlet UIButton *sleepTimerButton;
 @property (nonatomic, strong) IBOutlet UINavigationBar *toolbar;
-@property (nonatomic, strong) IBOutlet UIView *controllerPanel;
+@property (nonatomic, strong) IBOutlet VLCMovieViewControlPanelView *controllerPanel;
 @property (nonatomic, strong) IBOutlet VLCStatusLabel *statusLabel;
 
 @property (nonatomic, strong) IBOutlet UIView *playingExternallyView;
@@ -75,8 +75,6 @@ typedef NS_ENUM(NSInteger, VLCMovieJumpState) {
 @property (nonatomic, strong) IBOutlet UILabel *trackNameLabel;
 @property (nonatomic, strong) IBOutlet UIImageView *artworkImageView;
 
-@property (nonatomic, weak) VLCMovieViewControlPanelViewController *controlPanelController;
-
 - (IBAction)closePlayback:(id)sender;
 - (IBAction)minimizePlayback:(id)sender;
 
@@ -86,14 +84,8 @@ typedef NS_ENUM(NSInteger, VLCMovieJumpState) {
 - (IBAction)positionSliderDrag:(id)sender;
 - (IBAction)toggleTimeDisplay:(id)sender;
 
-- (IBAction)playPause;
-- (IBAction)backward:(id)sender;
-- (IBAction)forward:(id)sender;
-- (IBAction)switchTrack:(id)sender;
 - (IBAction)sleepTimer:(id)sender;
-- (IBAction)moreActions:(id)sender;
 
-- (IBAction)videoFilterToggle:(id)sender;
 - (IBAction)videoFilterSliderAction:(id)sender;
 
 - (IBAction)playbackSliderAction:(id)sender;

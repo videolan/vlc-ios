@@ -276,7 +276,7 @@
 		7D787F1F1D40FDE70003CFA1 /* Reachability.m in Sources */ = {isa = PBXBuildFile; fileRef = 7D3784E6183A99E1009EE944 /* Reachability.m */; };
 		7D787F201D40FDE70003CFA1 /* VLCCloudStorageController.m in Sources */ = {isa = PBXBuildFile; fileRef = 4184AA141A5492070063DF5A /* VLCCloudStorageController.m */; };
 		7D787F211D40FDE70003CFA1 /* VLCCloudStorageTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 7D3784B0183A990F009EE944 /* VLCCloudStorageTableViewCell.m */; };
-		7D787F221D40FDE70003CFA1 /* VLCMovieViewControlPanelViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = DDAD5C2D1BB9A1E6006AFD3B /* VLCMovieViewControlPanelViewController.m */; };
+		7D787F221D40FDE70003CFA1 /* VLCMovieViewControlPanelView.m in Sources */ = {isa = PBXBuildFile; fileRef = DDAD5C2D1BB9A1E6006AFD3B /* VLCMovieViewControlPanelView.m */; };
 		7D787F231D40FDE70003CFA1 /* VLCLocalNetworkServiceBrowserHTTP.m in Sources */ = {isa = PBXBuildFile; fileRef = DD3EFF041BDEBCE500B68579 /* VLCLocalNetworkServiceBrowserHTTP.m */; };
 		7D787F241D40FDE70003CFA1 /* VLCNetworkServerLoginInformation.m in Sources */ = {isa = PBXBuildFile; fileRef = DDEAECBD1BDEBF6700756C83 /* VLCNetworkServerLoginInformation.m */; };
 		7D787F251D40FDE70003CFA1 /* VLCFirstStepsFourthPageViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 7D9289781877467E009108FD /* VLCFirstStepsFourthPageViewController.m */; };
@@ -455,7 +455,6 @@
 		7D787FDB1D40FDE70003CFA1 /* style.css in Resources */ = {isa = PBXBuildFile; fileRef = 7AC8629B1765DC560011611A /* style.css */; };
 		7D787FDC1D40FDE70003CFA1 /* VLCFirstStepsSecondPageViewController~ipad.xib in Resources */ = {isa = PBXBuildFile; fileRef = 7D27EC2919DF310300EF0370 /* VLCFirstStepsSecondPageViewController~ipad.xib */; };
 		7D787FDD1D40FDE70003CFA1 /* VLCPlaylistCollectionViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 7DBBF18B183AB4300009A339 /* VLCPlaylistCollectionViewCell.xib */; };
-		7D787FDE1D40FDE70003CFA1 /* VLCMovieViewControlPanel.xib in Resources */ = {isa = PBXBuildFile; fileRef = DDAD5C2A1BB999CA006AFD3B /* VLCMovieViewControlPanel.xib */; };
 		7D787FDF1D40FDE70003CFA1 /* VLCCloudServicesTableViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 417CDA221A48D1F300D9ACE7 /* VLCCloudServicesTableViewController.xib */; };
 		7D787FE01D40FDE70003CFA1 /* papasscode_failed_bg@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 7D9870611A3E03D5009CF27D /* papasscode_failed_bg@2x.png */; };
 		7D787FE11D40FDE70003CFA1 /* VLCCone512x512.png in Resources */ = {isa = PBXBuildFile; fileRef = 7DDFF4241BDFD23300913BD1 /* VLCCone512x512.png */; };
@@ -518,7 +517,7 @@
 		7DC54FAE1C046615007B4E42 /* Reachability.m in Sources */ = {isa = PBXBuildFile; fileRef = 7D3784E6183A99E1009EE944 /* Reachability.m */; };
 		7DC54FAF1C046615007B4E42 /* VLCCloudStorageController.m in Sources */ = {isa = PBXBuildFile; fileRef = 4184AA141A5492070063DF5A /* VLCCloudStorageController.m */; };
 		7DC54FB01C046615007B4E42 /* VLCCloudStorageTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 7D3784B0183A990F009EE944 /* VLCCloudStorageTableViewCell.m */; };
-		7DC54FB11C046615007B4E42 /* VLCMovieViewControlPanelViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = DDAD5C2D1BB9A1E6006AFD3B /* VLCMovieViewControlPanelViewController.m */; };
+		7DC54FB11C046615007B4E42 /* VLCMovieViewControlPanelView.m in Sources */ = {isa = PBXBuildFile; fileRef = DDAD5C2D1BB9A1E6006AFD3B /* VLCMovieViewControlPanelView.m */; };
 		7DC54FB21C046615007B4E42 /* VLCLocalNetworkServiceBrowserHTTP.m in Sources */ = {isa = PBXBuildFile; fileRef = DD3EFF041BDEBCE500B68579 /* VLCLocalNetworkServiceBrowserHTTP.m */; };
 		7DC54FB31C046615007B4E42 /* VLCNetworkServerLoginInformation.m in Sources */ = {isa = PBXBuildFile; fileRef = DDEAECBD1BDEBF6700756C83 /* VLCNetworkServerLoginInformation.m */; };
 		7DC54FB41C046615007B4E42 /* VLCFirstStepsFourthPageViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 7D9289781877467E009108FD /* VLCFirstStepsFourthPageViewController.m */; };
@@ -692,7 +691,6 @@
 		7DC5506C1C046615007B4E42 /* style.css in Resources */ = {isa = PBXBuildFile; fileRef = 7AC8629B1765DC560011611A /* style.css */; };
 		7DC5506E1C046615007B4E42 /* VLCFirstStepsSecondPageViewController~ipad.xib in Resources */ = {isa = PBXBuildFile; fileRef = 7D27EC2919DF310300EF0370 /* VLCFirstStepsSecondPageViewController~ipad.xib */; };
 		7DC5506F1C046615007B4E42 /* VLCPlaylistCollectionViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 7DBBF18B183AB4300009A339 /* VLCPlaylistCollectionViewCell.xib */; };
-		7DC550701C046615007B4E42 /* VLCMovieViewControlPanel.xib in Resources */ = {isa = PBXBuildFile; fileRef = DDAD5C2A1BB999CA006AFD3B /* VLCMovieViewControlPanel.xib */; };
 		7DC550721C046615007B4E42 /* VLCCloudServicesTableViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 417CDA221A48D1F300D9ACE7 /* VLCCloudServicesTableViewController.xib */; };
 		7DC550731C046615007B4E42 /* papasscode_failed_bg@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 7D9870611A3E03D5009CF27D /* papasscode_failed_bg@2x.png */; };
 		7DC550741C046615007B4E42 /* VLCCone512x512.png in Resources */ = {isa = PBXBuildFile; fileRef = 7DDFF4241BDFD23300913BD1 /* VLCCone512x512.png */; };
@@ -781,7 +779,7 @@
 		DD13A37B1BEE2FAA00A35554 /* VLCMaskView.m in Sources */ = {isa = PBXBuildFile; fileRef = DD13A37A1BEE2FAA00A35554 /* VLCMaskView.m */; };
 		DD1A45FD1B676BAC00086F57 /* Localizable.strings in Resources */ = {isa = PBXBuildFile; fileRef = DDE1BCE41B676B8800A4B9CE /* Localizable.strings */; };
 		DD1B31F41BF637D500A369B6 /* VLCPlaybackInfoTracksTVViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = DD1B31F21BF637D500A369B6 /* VLCPlaybackInfoTracksTVViewController.m */; };
-		DD1CB0321BB9E005006EDDE6 /* VLCMovieViewControlPanelViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = DDAD5C2D1BB9A1E6006AFD3B /* VLCMovieViewControlPanelViewController.m */; };
+		DD1CB0321BB9E005006EDDE6 /* VLCMovieViewControlPanelView.m in Sources */ = {isa = PBXBuildFile; fileRef = DDAD5C2D1BB9A1E6006AFD3B /* VLCMovieViewControlPanelView.m */; };
 		DD1CB05A1BBAC549006EDDE6 /* VLCVolumeView.m in Sources */ = {isa = PBXBuildFile; fileRef = DD1CB0591BBAC549006EDDE6 /* VLCVolumeView.m */; };
 		DD2789DD1B67A5C400CED769 /* VLCThumbnailsCache.m in Sources */ = {isa = PBXBuildFile; fileRef = 7D37849D183A98DD009EE944 /* VLCThumbnailsCache.m */; };
 		DD2789DE1B67A5CD00CED769 /* VLCWatchMessage.m in Sources */ = {isa = PBXBuildFile; fileRef = DD3EA6301AF50CFE007FF096 /* VLCWatchMessage.m */; };
@@ -881,7 +879,6 @@
 		DDA1B8EE1CD4DC2A0076BC45 /* GRKArrayDiff+UICollectionView.m in Sources */ = {isa = PBXBuildFile; fileRef = DDA1B8ED1CD4DC2A0076BC45 /* GRKArrayDiff+UICollectionView.m */; };
 		DDA1B9091CE902EE0076BC45 /* VLCNetworkServerLoginInformation+Keychain.m in Sources */ = {isa = PBXBuildFile; fileRef = DDA1B9081CE902EE0076BC45 /* VLCNetworkServerLoginInformation+Keychain.m */; };
 		DDA1B90A1CE902EE0076BC45 /* VLCNetworkServerLoginInformation+Keychain.m in Sources */ = {isa = PBXBuildFile; fileRef = DDA1B9081CE902EE0076BC45 /* VLCNetworkServerLoginInformation+Keychain.m */; };
-		DDAD5C2B1BB999CA006AFD3B /* VLCMovieViewControlPanel.xib in Resources */ = {isa = PBXBuildFile; fileRef = DDAD5C2A1BB999CA006AFD3B /* VLCMovieViewControlPanel.xib */; };
 		DDB7C6A41BAEB28200E6570E /* WKInterfaceController+VLCConnectionAlert.m in Sources */ = {isa = PBXBuildFile; fileRef = DD9FBE761BAD6BB600FFE77A /* WKInterfaceController+VLCConnectionAlert.m */; };
 		DDBE44FF1BFB6A8B00E5D35E /* CAAnimation+VLCWiggle.m in Sources */ = {isa = PBXBuildFile; fileRef = DDBE44FE1BFB6A8B00E5D35E /* CAAnimation+VLCWiggle.m */; };
 		DDC10BE41AEE8EA700890DC3 /* VLCTimeNavigationTitleView.m in Sources */ = {isa = PBXBuildFile; fileRef = DDC10BE31AEE8EA700890DC3 /* VLCTimeNavigationTitleView.m */; };
@@ -1685,9 +1682,8 @@
 		DDA1B8ED1CD4DC2A0076BC45 /* GRKArrayDiff+UICollectionView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "GRKArrayDiff+UICollectionView.m"; sourceTree = "<group>"; };
 		DDA1B9071CE902EE0076BC45 /* VLCNetworkServerLoginInformation+Keychain.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "VLCNetworkServerLoginInformation+Keychain.h"; sourceTree = "<group>"; };
 		DDA1B9081CE902EE0076BC45 /* VLCNetworkServerLoginInformation+Keychain.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "VLCNetworkServerLoginInformation+Keychain.m"; sourceTree = "<group>"; };
-		DDAD5C2A1BB999CA006AFD3B /* VLCMovieViewControlPanel.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; name = VLCMovieViewControlPanel.xib; path = Resources/VLCMovieViewControlPanel.xib; sourceTree = SOURCE_ROOT; };
-		DDAD5C2C1BB9A1E6006AFD3B /* VLCMovieViewControlPanelViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = VLCMovieViewControlPanelViewController.h; path = Sources/VLCMovieViewControlPanelViewController.h; sourceTree = SOURCE_ROOT; };
-		DDAD5C2D1BB9A1E6006AFD3B /* VLCMovieViewControlPanelViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = VLCMovieViewControlPanelViewController.m; path = Sources/VLCMovieViewControlPanelViewController.m; sourceTree = SOURCE_ROOT; };
+		DDAD5C2C1BB9A1E6006AFD3B /* VLCMovieViewControlPanelView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = VLCMovieViewControlPanelView.h; path = Sources/VLCMovieViewControlPanelView.h; sourceTree = SOURCE_ROOT; };
+		DDAD5C2D1BB9A1E6006AFD3B /* VLCMovieViewControlPanelView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = VLCMovieViewControlPanelView.m; path = Sources/VLCMovieViewControlPanelView.m; sourceTree = SOURCE_ROOT; };
 		DDB959411AFBB30500BB8CFF /* MappingModel_2_5_to_2_6.xcmappingmodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcmappingmodel; name = MappingModel_2_5_to_2_6.xcmappingmodel; path = ../ImportedSources/MediaLibraryKit/MappingModel_2_5_to_2_6.xcmappingmodel; sourceTree = "<group>"; };
 		DDBE44FD1BFB6A8B00E5D35E /* CAAnimation+VLCWiggle.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "CAAnimation+VLCWiggle.h"; sourceTree = "<group>"; };
 		DDBE44FE1BFB6A8B00E5D35E /* CAAnimation+VLCWiggle.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "CAAnimation+VLCWiggle.m"; sourceTree = "<group>"; };
@@ -2210,8 +2206,8 @@
 				7D5CAA8B1A4AD8E5003F2CBC /* VLCTrackSelectorHeaderView.m */,
 				7D1276601AADA0E600F0260C /* VLCMultiSelectionMenuView.h */,
 				7D1276611AADA0E600F0260C /* VLCMultiSelectionMenuView.m */,
-				DDAD5C2C1BB9A1E6006AFD3B /* VLCMovieViewControlPanelViewController.h */,
-				DDAD5C2D1BB9A1E6006AFD3B /* VLCMovieViewControlPanelViewController.m */,
+				DDAD5C2C1BB9A1E6006AFD3B /* VLCMovieViewControlPanelView.h */,
+				DDAD5C2D1BB9A1E6006AFD3B /* VLCMovieViewControlPanelView.m */,
 			);
 			name = Playback;
 			sourceTree = "<group>";
@@ -2441,7 +2437,6 @@
 				7D6BEF1D19E027A100DF3972 /* Cloud */,
 				7D6BEF1F19E027DA00DF3972 /* Download & Network */,
 				7D6BEF1E19E027BE00DF3972 /* Library */,
-				DDAD5C2A1BB999CA006AFD3B /* VLCMovieViewControlPanel.xib */,
 				7DBBF190183AB4300009A339 /* VLCMovieViewController~ipad.xib */,
 				7DBBF191183AB4300009A339 /* VLCMovieViewController~iphone.xib */,
 				7D27EB9319DEE11900EF0370 /* Launch Screen.xib */,
@@ -3589,7 +3584,6 @@
 				7D787FDB1D40FDE70003CFA1 /* style.css in Resources */,
 				7D787FDC1D40FDE70003CFA1 /* VLCFirstStepsSecondPageViewController~ipad.xib in Resources */,
 				7D787FDD1D40FDE70003CFA1 /* VLCPlaylistCollectionViewCell.xib in Resources */,
-				7D787FDE1D40FDE70003CFA1 /* VLCMovieViewControlPanel.xib in Resources */,
 				7D787FDF1D40FDE70003CFA1 /* VLCCloudServicesTableViewController.xib in Resources */,
 				7D5B26671D6350BF00FE7B4D /* gradient-cell.png in Resources */,
 				7D787FE01D40FDE70003CFA1 /* papasscode_failed_bg@2x.png in Resources */,
@@ -3652,7 +3646,6 @@
 				7AC8629D1765DC560011611A /* style.css in Resources */,
 				7D27EC2B19DF310300EF0370 /* VLCFirstStepsSecondPageViewController~ipad.xib in Resources */,
 				7DBBF1A0183AB4300009A339 /* VLCPlaylistCollectionViewCell.xib in Resources */,
-				DDAD5C2B1BB999CA006AFD3B /* VLCMovieViewControlPanel.xib in Resources */,
 				417CDA241A48D1F300D9ACE7 /* VLCCloudServicesTableViewController.xib in Resources */,
 				7D9870671A3E03D5009CF27D /* papasscode_failed_bg@2x.png in Resources */,
 				7DDFF4251BDFD23300913BD1 /* VLCCone512x512.png in Resources */,
@@ -3714,7 +3707,6 @@
 				7DC5506C1C046615007B4E42 /* style.css in Resources */,
 				7DC5506E1C046615007B4E42 /* VLCFirstStepsSecondPageViewController~ipad.xib in Resources */,
 				7DC5506F1C046615007B4E42 /* VLCPlaylistCollectionViewCell.xib in Resources */,
-				7DC550701C046615007B4E42 /* VLCMovieViewControlPanel.xib in Resources */,
 				7DC550721C046615007B4E42 /* VLCCloudServicesTableViewController.xib in Resources */,
 				7DC550731C046615007B4E42 /* papasscode_failed_bg@2x.png in Resources */,
 				7DC550741C046615007B4E42 /* VLCCone512x512.png in Resources */,
@@ -4226,7 +4218,7 @@
 				7D787F1F1D40FDE70003CFA1 /* Reachability.m in Sources */,
 				7D787F201D40FDE70003CFA1 /* VLCCloudStorageController.m in Sources */,
 				7D787F211D40FDE70003CFA1 /* VLCCloudStorageTableViewCell.m in Sources */,
-				7D787F221D40FDE70003CFA1 /* VLCMovieViewControlPanelViewController.m in Sources */,
+				7D787F221D40FDE70003CFA1 /* VLCMovieViewControlPanelView.m in Sources */,
 				7D787F231D40FDE70003CFA1 /* VLCLocalNetworkServiceBrowserHTTP.m in Sources */,
 				7D787F241D40FDE70003CFA1 /* VLCNetworkServerLoginInformation.m in Sources */,
 				7D787F251D40FDE70003CFA1 /* VLCFirstStepsFourthPageViewController.m in Sources */,
@@ -4355,7 +4347,7 @@
 				DD846BDF1D1FCCCD00699D17 /* VLCNetworkLoginDataSource.m in Sources */,
 				4184AA151A5492070063DF5A /* VLCCloudStorageController.m in Sources */,
 				9BE4D1CE183D76950006346C /* VLCCloudStorageTableViewCell.m in Sources */,
-				DD1CB0321BB9E005006EDDE6 /* VLCMovieViewControlPanelViewController.m in Sources */,
+				DD1CB0321BB9E005006EDDE6 /* VLCMovieViewControlPanelView.m in Sources */,
 				DDF908D01CF4CCAA00108B70 /* VLCNetworkLoginViewButtonCell.m in Sources */,
 				DD3EFF3D1BDEBCE500B68579 /* VLCLocalNetworkServiceBrowserHTTP.m in Sources */,
 				DDEAECBE1BDEBF6700756C83 /* VLCNetworkServerLoginInformation.m in Sources */,
@@ -4481,7 +4473,7 @@
 				7DC54FAE1C046615007B4E42 /* Reachability.m in Sources */,
 				7DC54FAF1C046615007B4E42 /* VLCCloudStorageController.m in Sources */,
 				7DC54FB01C046615007B4E42 /* VLCCloudStorageTableViewCell.m in Sources */,
-				7DC54FB11C046615007B4E42 /* VLCMovieViewControlPanelViewController.m in Sources */,
+				7DC54FB11C046615007B4E42 /* VLCMovieViewControlPanelView.m in Sources */,
 				7DC54FB21C046615007B4E42 /* VLCLocalNetworkServiceBrowserHTTP.m in Sources */,
 				7DC54FB31C046615007B4E42 /* VLCNetworkServerLoginInformation.m in Sources */,
 				7DC54FB41C046615007B4E42 /* VLCFirstStepsFourthPageViewController.m in Sources */,
