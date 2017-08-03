@@ -252,6 +252,7 @@
 	<key>LSApplicationQueriesSchemes</key>
 	<array>
 		<string>dbapi-2</string>
+		<string>dbapi-8-emm</string>
 	</array>
 	<key>LSRequiresIPhoneOS</key>
 	<true/>

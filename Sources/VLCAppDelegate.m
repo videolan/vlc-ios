@@ -29,12 +29,13 @@
 #import "VLCPlaybackController+MediaLibrary.h"
 #import "VLCPlayerDisplayController.h"
 #import <MediaPlayer/MediaPlayer.h>
-#import <DropboxSDK/DropboxSDK.h>
 #import <HockeySDK/HockeySDK.h>
 #import "VLCSidebarController.h"
 #import "VLCKeychainCoordinator.h"
 #import "VLCActivityManager.h"
 #import "GTScrollNavigationBar.h"
+#import "VLCDropboxConstants.h"
+#import <ObjectiveDropboxOfficial/ObjectiveDropboxOfficial.h>
 
 NSString *const VLCDropboxSessionWasAuthorized = @"VLCDropboxSessionWasAuthorized";
 
@@ -100,6 +101,9 @@ NSString *const VLCDropboxSessionWasAuthorized = @"VLCDropboxSessionWasAuthorize
     [hockeyManager configureWithBetaIdentifier:@"0114ca8e265244ce588d2ebd035c3577"
                                 liveIdentifier:@"c95f4227dff96c61f8b3a46a25edc584"
                                       delegate:nil];
+
+    // Configure Dropbox
+    [DBClientsManager setupWithAppKey:kVLCDropboxAppKey];
 
     // Configure the SDK in here only!
     [hockeyManager startManager];
@@ -292,9 +296,12 @@ didFailToContinueUserActivityWithType:(NSString *)userActivityType
   sourceApplication:(NSString *)sourceApplication
          annotation:(id)annotation
 {
-    if ([[DBSession sharedSession] handleOpenURL:url]) {
-        [[NSNotificationCenter defaultCenter] postNotificationName:VLCDropboxSessionWasAuthorized object:nil];
-        return YES;
+    //Handles Dropbox Authorization flow.
+    DBOAuthResult *authResult = [DBClientsManager handleRedirectURL:url];
+    if (authResult != nil) {
+        if ([authResult isSuccess]) {
+            return YES;
+        }
     }
 
     //Handles Google Authorization flow.

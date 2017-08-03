@@ -15,26 +15,18 @@
 #import "NSString+SupportedMedia.h"
 #import "VLCPlaybackController.h"
 #import "VLCActivityManager.h"
-#if !TARGET_OS_TV
 #import "VLCMediaFileDiscoverer.h"
-#import <DropboxSDK/DBKeychain.h>
-#else
-#import <DropboxTVSDK/DBKeychain.h>
-#endif
 #import "VLCDropboxConstants.h"
 
 @interface VLCDropboxController ()
 {
-    DBRestClient *_restClient;
+    DBUserClient *_client;
     NSArray *_currentFileList;
 
     NSMutableArray *_listOfDropboxFilesToDownload;
     BOOL _downloadInProgress;
 
-    NSInteger _outstandingNetworkRequests;
-
     CGFloat _averageSpeed;
-    CGFloat _fileSize;
     NSTimeInterval _startDL;
     NSTimeInterval _lastStatsUpdate;
 
@@ -55,10 +47,6 @@
     dispatch_once(&pred, ^{
         sharedInstance = [VLCDropboxController new];
         [sharedInstance shareCredentials];
-
-        DBSession* dbSession = [[DBSession alloc] initWithAppKey:kVLCDropboxAppKey appSecret:kVLCDropboxPrivateKey root:kDBRootDropbox];
-        [DBSession setSharedSession:dbSession];
-        [DBRequest setNetworkRequestDelegate:sharedInstance];
     });
 
     return sharedInstance;
@@ -67,12 +55,12 @@
 - (void)shareCredentials
 {
     /* share our credentials */
-    NSDictionary *credentials = [DBKeychain credentials];
+    NSArray *credentials = [DBSDKKeychain retrieveAllTokenIds];
     if (credentials == nil)
         return;
 
     NSUbiquitousKeyValueStore *ubiquitousStore = [NSUbiquitousKeyValueStore defaultStore];
-    [ubiquitousStore setDictionary:credentials forKey:kVLCStoreDropboxCredentials];
+    [ubiquitousStore setArray:credentials forKey:kVLCStoreDropboxCredentials];
     [ubiquitousStore synchronize];
 }
 
@@ -80,38 +68,68 @@
 {
     NSUbiquitousKeyValueStore *ubiquitousStore = [NSUbiquitousKeyValueStore defaultStore];
     [ubiquitousStore synchronize];
-    NSDictionary *credentials = [ubiquitousStore dictionaryForKey:kVLCStoreDropboxCredentials];
+    NSArray *credentials = [ubiquitousStore arrayForKey:kVLCStoreDropboxCredentials];
     if (!credentials)
         return NO;
-
-    [DBKeychain setCredentials:credentials];
+    for (NSString *tmp in credentials) {
+        [DBSDKKeychain storeValueWithKey:kVLCStoreDropboxCredentials value:tmp];
+    }
     return YES;
 }
 
 - (void)startSession
 {
-    [[DBSession sharedSession] isLinked];
+    [DBClientsManager authorizedClient];
 }
 
 - (void)logout
 {
-    [[DBSession sharedSession] unlinkAll];
+    [DBClientsManager unlinkAndResetClients];
 }
 
 - (BOOL)isAuthorized
 {
-    return [[DBSession sharedSession] isLinked];
+    return [DBClientsManager authorizedClient];
 }
 
-- (DBRestClient *)restClient {
-    if (!_restClient) {
-        _restClient = [[DBRestClient alloc] initWithSession:[DBSession sharedSession]];
-        _restClient.delegate = self;
+- (DBUserClient *)client {
+    if (!_client) {
+        _client = [DBClientsManager authorizedClient];
     }
-    return _restClient;
+    return _client;
 }
+
 
 #pragma mark - file management
+
+- (BOOL)_supportedFileExtension:(NSString *)filename
+{
+    if ([filename isSupportedMediaFormat] || [filename isSupportedAudioMediaFormat] || [filename isSupportedSubtitleFormat])
+        return YES;
+
+    return NO;
+}
+
+- (NSString *)_createPotentialNameFrom:(NSString *)path
+{
+    NSFileManager *fileManager = [NSFileManager defaultManager];
+
+    NSString *fileName = [path lastPathComponent];
+    NSString *finalFilePath = [path stringByDeletingLastPathComponent];
+
+    if ([fileManager fileExistsAtPath:path]) {
+        NSString *potentialFilename;
+        NSString *fileExtension = [fileName pathExtension];
+        NSString *rawFileName = [fileName stringByDeletingPathExtension];
+        for (NSUInteger x = 1; x < 100; x++) {
+            potentialFilename = [NSString stringWithFormat:@"%@_%lu.%@", rawFileName, (unsigned long)x, fileExtension];
+            if (![fileManager fileExistsAtPath:[finalFilePath stringByAppendingPathComponent:potentialFilename]])
+                break;
+        }
+        return [finalFilePath stringByAppendingPathComponent:potentialFilename];
+    }
+    return path;
+}
 
 - (BOOL)canPlayAll
 {
@@ -121,12 +139,12 @@
 - (void)requestDirectoryListingAtPath:(NSString *)path
 {
     if (self.isAuthorized)
-        [[self restClient] loadMetadata:path];
+        [self listFiles:path];
 }
 
-- (void)downloadFileToDocumentFolder:(DBMetadata *)file
+- (void)downloadFileToDocumentFolder:(DBFILESMetadata *)file
 {
-    if (!file.isDirectory) {
+    if (![file isKindOfClass:[DBFILESFolderMetadata class]]) {
         if (!_listOfDropboxFilesToDownload)
             _listOfDropboxFilesToDownload = [[NSMutableArray alloc] init];
         [_listOfDropboxFilesToDownload addObject:file];
@@ -135,16 +153,6 @@
             [self.delegate numberOfFilesWaitingToBeDownloadedChanged];
 
         [self _triggerNextDownload];
-    }
-}
-
-- (void)streamFile:(DBMetadata *)file currentNavigationController:(UINavigationController *)navigationController
-{
-    if (!file.isDirectory) {
-        _lastKnownNavigationController = navigationController;
-        NSString *path = file.path;
-        if (path != nil)
-            [[self restClient] loadStreamableURLForFile:path];
     }
 }
 
@@ -159,13 +167,13 @@
     }
 }
 
-- (void)_reallyDownloadFileToDocumentFolder:(DBMetadata *)file
+- (void)_reallyDownloadFileToDocumentFolder:(DBFILESFileMetadata *)file
 {
     NSArray *searchPaths = NSSearchPathForDirectoriesInDomains(NSDocumentDirectory, NSUserDomainMask, YES);
-    NSString *filePath = [searchPaths[0] stringByAppendingFormat:@"/%@", file.filename];
+    NSString *filePath = [searchPaths[0] stringByAppendingFormat:@"/%@", file.name];
     _startDL = [NSDate timeIntervalSinceReferenceDate];
-    _fileSize = file.totalBytes;
-    [[self restClient] loadFile:file.path intoPath:filePath];
+
+    [self downloadFileFrom:file.pathDisplay to:filePath];
 
     if ([self.delegate respondsToSelector:@selector(operationWithProgressInformationStarted)])
         [self.delegate operationWithProgressInformationStarted];
@@ -173,111 +181,103 @@
     _downloadInProgress = YES;
 }
 
-#pragma mark - restClient delegate
-- (BOOL)_supportedFileExtension:(NSString *)filename
+
+- (void)streamFile:(DBFILESMetadata *)file currentNavigationController:(UINavigationController *)navigationController
 {
-    if ([filename isSupportedMediaFormat] || [filename isSupportedAudioMediaFormat] || [filename isSupportedSubtitleFormat])
-        return YES;
-
-    return NO;
-}
-
-- (void)restClient:(DBRestClient *)client loadedMetadata:(DBMetadata *)metadata
-{
-    _currentFileList = [NSArray arrayWithArray:metadata.contents];
-
-    APLog(@"found filtered metadata for %lu files", (unsigned long)_currentFileList.count);
-    if ([self.delegate respondsToSelector:@selector(mediaListUpdated)])
-        [self.delegate mediaListUpdated];
-}
-
-- (void)restClient:(DBRestClient *)client loadMetadataFailedWithError:(NSError *)error
-{
-    APLog(@"DBMetadata download failed with error %li", (long)error.code);
-    [self _handleError:error];
-}
-
-- (void)restClient:(DBRestClient*)client loadedFile:(NSString*)localPath
-{
-#if TARGET_OS_IOS
-    /* update library now that we got a file */
-    [[VLCMediaFileDiscoverer sharedInstance] performSelectorOnMainThread:@selector(updateMediaList) withObject:nil waitUntilDone:NO];
-
-    if ([self.delegate respondsToSelector:@selector(operationWithProgressInformationStopped)])
-        [self.delegate operationWithProgressInformationStopped];
-    _downloadInProgress = NO;
-
-    [self _triggerNextDownload];
-#endif
-}
-
-- (void)restClient:(DBRestClient*)client loadFileFailedWithError:(NSError*)error
-{
-    APLog(@"DBFile download failed with error %li", (long)error.code);
-    [self _handleError:error];
-    if ([self.delegate respondsToSelector:@selector(operationWithProgressInformationStopped)])
-        [self.delegate operationWithProgressInformationStopped];
-    _downloadInProgress = NO;
-    [self _triggerNextDownload];
-}
-
-- (void)restClient:(DBRestClient*)client loadProgress:(CGFloat)progress forFile:(NSString*)destPath
-{
-    if ((_lastStatsUpdate > 0 && ([NSDate timeIntervalSinceReferenceDate] - _lastStatsUpdate > .5)) || _lastStatsUpdate <= 0) {
-        [self calculateRemainingTime:progress * _fileSize expectedDownloadSize:_fileSize];
-        _lastStatsUpdate = [NSDate timeIntervalSinceReferenceDate];
-    }
-
-    if ([self.delegate respondsToSelector:@selector(currentProgressInformation:)])
-        [self.delegate currentProgressInformation:progress];
-}
-
-- (void)restClient:(DBRestClient*)restClient loadedStreamableURL:(NSURL*)url forFile:(NSString*)path
-{
-    VLCPlaybackController *vpc = [VLCPlaybackController sharedInstance];
-    [vpc playURL:url successCallback:nil errorCallback:nil];
-#if TARGET_OS_TV
-    if (_lastKnownNavigationController) {
-        VLCFullscreenMovieTVViewController *movieVC = [VLCFullscreenMovieTVViewController fullscreenMovieTVViewController];
-        [_lastKnownNavigationController presentViewController:movieVC
-                                                     animated:YES
-                                                   completion:nil];
-    }
-#endif
-}
-
-- (void)restClient:(DBRestClient*)restClient loadStreamableURLFailedWithError:(NSError*)error
-{
-    APLog(@"loadStreamableURL failed with error %li", (long)error.code);
-    [self _handleError:error];
-}
-
-#pragma mark - DBSession delegate
-
-- (void)sessionDidReceiveAuthorizationFailure:(DBSession *)session userId:(NSString *)userId
-{
-    APLog(@"DBSession received authorization failure with user ID %@", userId);
-}
-
-#pragma mark - DBNetworkRequest delegate
-- (void)networkRequestStarted
-{
-    _outstandingNetworkRequests++;
-    if (_outstandingNetworkRequests == 1) {
-        VLCActivityManager *activityManager = [VLCActivityManager defaultManager];
-        [activityManager networkActivityStarted];
-        [activityManager disableIdleTimer];
+    if (![file isKindOfClass:[DBFILESFolderMetadata class]]) {
+        _lastKnownNavigationController = navigationController;
+        NSString *path = file.pathLower;
+        if (path != nil)
+            [self loadStreamFrom:path];
     }
 }
 
-- (void)networkRequestStopped
+
+# pragma mark - Dropbox API Request
+
+- (void)listFiles:(NSString *)path
 {
-    _outstandingNetworkRequests--;
-    if (_outstandingNetworkRequests == 0) {
-        VLCActivityManager *activityManager = [VLCActivityManager defaultManager];
-        [activityManager networkActivityStopped];
-        [activityManager activateIdleTimer];
+    // DropBox API prefers an empty path than a '/'
+    if ([path isEqualToString:@"/"]) {
+        path = @"";
     }
+    [[[self client].filesRoutes listFolder:path] setResponseBlock:^(DBFILESListFolderResult * _Nullable result, DBFILESListFolderError * _Nullable routeError, DBRequestError * _Nullable networkError) {
+        if (result) {
+            _currentFileList = [NSArray arrayWithArray:result.entries];
+            APLog(@"found filtered metadata for %lu files", (unsigned long)_currentFileList.count);
+            if ([self.delegate respondsToSelector:@selector(mediaListUpdated)])
+                [self.delegate mediaListUpdated];
+        } else {
+            APLog(@"listFiles failed with network error %li and error tag %li", (long)networkError.statusCode, (long)networkError.tag);
+            [self _handleError:[NSError errorWithDomain:networkError.description code:networkError.statusCode.integerValue userInfo:nil]];
+        }
+    }];
+}
+
+- (void)downloadFileFrom:(NSString *)path to:(NSString *)destination
+{
+    if (![self _supportedFileExtension:[path lastPathComponent]]) {
+        [self _handleError:[NSError errorWithDomain:NSLocalizedString(@"FILE_NOT_SUPPORTED", nil) code:415 userInfo:nil]];
+        return;
+    }
+
+
+    // Need to replace all ' ' by '_' because it causes a `NSInvalidArgumentException ... destination path is nil` in the dropbox library.
+    if ([destination containsString:@" "])
+        destination = [destination stringByReplacingOccurrencesOfString:@" " withString:@"_"];
+
+    destination = [self _createPotentialNameFrom:destination];
+
+    [[[_client.filesRoutes downloadUrl:path overwrite:YES destination:[NSURL URLWithString:destination]]
+        setResponseBlock:^(DBFILESFileMetadata * _Nullable result, DBFILESDownloadError * _Nullable routeError, DBRequestError * _Nullable networkError, NSURL * _Nonnull destination) {
+
+            if ([self.delegate respondsToSelector:@selector(operationWithProgressInformationStopped)]) {
+                [self.delegate operationWithProgressInformationStopped];
+            }
+
+            _downloadInProgress = NO;
+            [self _triggerNextDownload];
+            if (!result) {
+                APLog(@"downloadFile failed with network error %li and error tag %li", (long)networkError.statusCode, (long)networkError.tag);
+                [self _handleError:[NSError errorWithDomain:networkError.description code:networkError.statusCode.integerValue userInfo:nil]];
+            }
+        }] setProgressBlock:^(int64_t bytesWritten, int64_t totalBytesWritten, int64_t totalBytesExpectedToWrite) {
+            if ((_lastStatsUpdate > 0 && ([NSDate timeIntervalSinceReferenceDate] - _lastStatsUpdate > .5)) || _lastStatsUpdate <= 0) {
+                [self calculateRemainingTime:(CGFloat)totalBytesWritten expectedDownloadSize:(CGFloat)totalBytesExpectedToWrite];
+                _lastStatsUpdate = [NSDate timeIntervalSinceReferenceDate];
+            }
+
+            if ([self.delegate respondsToSelector:@selector(currentProgressInformation:)])
+                [self.delegate currentProgressInformation:(CGFloat)totalBytesWritten / (CGFloat)totalBytesExpectedToWrite];
+        }];
+
+}
+
+- (void)loadStreamFrom:(NSString *)path
+{
+    if (![self _supportedFileExtension:[path lastPathComponent]]) {
+        [self _handleError:[NSError errorWithDomain:NSLocalizedString(@"FILE_NOT_SUPPORTED", nil) code:415 userInfo:nil]];
+        return;
+    }
+
+    [[_client.filesRoutes getTemporaryLink:path] setResponseBlock:^(DBFILESGetTemporaryLinkResult * _Nullable result, DBFILESGetTemporaryLinkError * _Nullable routeError, DBRequestError * _Nullable networkError) {
+
+        if (result) {
+            VLCPlaybackController *vpc = [VLCPlaybackController sharedInstance];
+            [vpc playURL:[NSURL URLWithString:result.link ] successCallback:nil errorCallback:nil];
+            #if TARGET_OS_TV
+            if (_lastKnownNavigationController) {
+                VLCFullscreenMovieTVViewController *movieVC = [VLCFullscreenMovieTVViewController fullscreenMovieTVViewController];
+                [_lastKnownNavigationController presentViewController:movieVC
+                                                             animated:YES
+                                                           completion:nil];
+            }
+            #endif
+        } else {
+            APLog(@"loadStream failed with network error %li and error tag %li", (long)networkError.statusCode, (long)networkError.tag);
+            [self _handleError:[NSError errorWithDomain:networkError.description code:networkError.statusCode.integerValue userInfo:nil]];
+        }
+    }];
 }
 
 #pragma mark - VLC internal communication and delegate
@@ -341,7 +341,6 @@
 
 - (void)reset
 {
-    [_restClient cancelAllRequests];
     _currentFileList = nil;
 }
 

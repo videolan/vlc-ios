@@ -18,18 +18,12 @@
 #import "VLCDropboxController.h"
 #import "VLCCloudStorageTableViewCell.h"
 #import "UIDevice+VLC.h"
-#if TARGET_OS_IOS
-#import <DropboxSDK/DBKeychain.h>
 #import "VLCAppDelegate.h"
-#else
-#import "DBKeychain.h"
-#endif
-
 
 @interface VLCDropboxTableViewController () <VLCCloudStorageTableViewCell, VLCCloudStorageDelegate>
 {
     VLCDropboxController *_dropboxController;
-    DBMetadata *_selectedFile;
+    DBFILESMetadata *_selectedFile;
     NSArray *_mediaList;
 }
 
@@ -87,6 +81,7 @@
         self.title = self.currentPath.lastPathComponent;
 
     [self updateViewAfterSessionChange];
+    [self.tableView reloadData];
 }
 
 #pragma mark - interface interaction
@@ -132,11 +127,11 @@
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
 {
     _selectedFile = _mediaList[indexPath.row];
-    if (!_selectedFile.isDirectory)
+    if (![_selectedFile isKindOfClass:[DBFILESFolderMetadata class]])
         [_dropboxController streamFile:_selectedFile currentNavigationController:self.navigationController];
     else {
         /* dive into subdirectory */
-        NSString *futurePath = [self.currentPath stringByAppendingFormat:@"/%@", _selectedFile.filename];
+        NSString *futurePath = [self.currentPath stringByAppendingFormat:@"/%@", _selectedFile.name];
         self.currentPath = futurePath;
         [self requestInformationForCurrentPath];
     }
@@ -151,7 +146,12 @@
 {
     if (!_dropboxController.isAuthorized) {
         self.authorizationInProgress = YES;
-        [[DBSession sharedSession] linkFromController:self];
+
+        [DBClientsManager authorizeFromController:[UIApplication sharedApplication]
+                                       controller:self
+                                          openURL:^(NSURL *url) {
+                                              [[UIApplication sharedApplication] openURL:url];
+                                          }];
     } else
         [_dropboxController logout];
 }
@@ -171,17 +171,17 @@
 {
     _selectedFile = _mediaList[[self.tableView indexPathForCell:cell].row];
 
-    if (_selectedFile.totalBytes < [[UIDevice currentDevice] VLCFreeDiskSpace].longLongValue) {
+    if (((DBFILESFileMetadata *)_selectedFile).size.longLongValue < [[UIDevice currentDevice] VLCFreeDiskSpace].longLongValue) {
         /* selected item is a proper file, ask the user if s/he wants to download it */
         VLCAlertView *alert = [[VLCAlertView alloc] initWithTitle:NSLocalizedString(@"DROPBOX_DOWNLOAD", nil)
-                                                          message:[NSString stringWithFormat:NSLocalizedString(@"DROPBOX_DL_LONG", nil), _selectedFile.filename, [[UIDevice currentDevice] model]]
+                                                          message:[NSString stringWithFormat:NSLocalizedString(@"DROPBOX_DL_LONG", nil), _selectedFile.name, [[UIDevice currentDevice] model]]
                                                          delegate:self
                                                 cancelButtonTitle:NSLocalizedString(@"BUTTON_CANCEL", nil)
                                                 otherButtonTitles:NSLocalizedString(@"BUTTON_DOWNLOAD", nil), nil];
         [alert show];
     } else {
         VLCAlertView *alert = [[VLCAlertView alloc] initWithTitle:NSLocalizedString(@"DISK_FULL", nil)
-                                                          message:[NSString stringWithFormat:NSLocalizedString(@"DISK_FULL_FORMAT", nil), _selectedFile.filename, [[UIDevice currentDevice] model]]
+                                                          message:[NSString stringWithFormat:NSLocalizedString(@"DISK_FULL_FORMAT", nil), _selectedFile.name, [[UIDevice currentDevice] model]]
                                                          delegate:self
                                                 cancelButtonTitle:NSLocalizedString(@"BUTTON_OK", nil)
                                                 otherButtonTitles:nil];

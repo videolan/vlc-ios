@@ -197,8 +197,8 @@
 
     if(_authorizationInProgress || [self.controller isAuthorized]) {
         if (self.loginToCloudStorageView.superview) {
-        [self.loginToCloudStorageView removeFromSuperview];
-            }
+            [self.loginToCloudStorageView removeFromSuperview];
+        }
     }
 
     if (![self.controller isAuthorized]) {

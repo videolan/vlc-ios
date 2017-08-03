@@ -19,11 +19,10 @@ pod 'GoogleAPIClient/Drive'
 pod 'VLC-LXReorderableCollectionViewFlowLayout', '0.1.3v'
 pod 'VLC-WhiteRaccoon'
 pod 'VLC-LiveSDK', '5.7.0x'
-pod 'VLC-Dropbox-v1-SDK', '1.3.14w'
 pod 'MediaLibraryKit-unstable'
 pod 'MobileVLCKit-unstable', '3.0.0a31'
 pod 'GTMAppAuth'
-
+pod 'ObjectiveDropboxOfficial', :git => 'git@github.com:TheHungryBu/dropbox-sdk-obj-c.git' #update ios platform version
 end
 
 target 'VLC-iOS-no-watch' do
@@ -41,11 +40,10 @@ pod 'GoogleAPIClient/Drive'
 pod 'VLC-LXReorderableCollectionViewFlowLayout', '0.1.3v'
 pod 'VLC-WhiteRaccoon'
 pod 'VLC-LiveSDK', '5.7.0x'
-pod 'VLC-Dropbox-v1-SDK', '1.3.14w'
 pod 'MediaLibraryKit-unstable'
 pod 'MobileVLCKit-unstable', '3.0.0a31'
+pod 'ObjectiveDropboxOfficial', :git => 'git@github.com:TheHungryBu/dropbox-sdk-obj-c.git' #update ios platform version
 pod 'GTMAppAuth'
-
 end
 
 target 'VLC-iOS-no-watch-Debug' do
@@ -63,7 +61,7 @@ pod 'GoogleAPIClient/Drive'
 pod 'VLC-LXReorderableCollectionViewFlowLayout', '0.1.3v'
 pod 'VLC-WhiteRaccoon'
 pod 'VLC-LiveSDK', '5.7.0x'
-pod 'VLC-Dropbox-v1-SDK', '1.3.14w'
+pod 'ObjectiveDropboxOfficial', :git => 'git@github.com:TheHungryBu/dropbox-sdk-obj-c.git' #update ios platform version
 
 end
 
@@ -78,7 +76,7 @@ pod "OROpenSubtitleDownloader", :git => 'https://github.com/orta/OROpenSubtitleD
 pod 'GRKArrayDiff', '~> 2.1'
 pod 'VLC-WhiteRaccoon'
 pod 'VLC-LiveSDK', '5.7.0x'
-pod 'VLC-Dropbox-v1-SDK', '1.3.14w'
+pod 'ObjectiveDropboxOfficial', :git => 'git@github.com:TheHungryBu/dropbox-sdk-obj-c.git' #update ios platform version
 pod 'HockeySDK-tvOS', '4.1.0-beta.1'
 pod 'TVVLCKit-unstable', '3.0.0a31'
 
@@ -95,7 +93,7 @@ pod "OROpenSubtitleDownloader", :git => 'https://github.com/orta/OROpenSubtitleD
 pod 'GRKArrayDiff', '~> 2.1'
 pod 'VLC-WhiteRaccoon'
 pod 'VLC-LiveSDK', '5.7.0x'
-pod 'VLC-Dropbox-v1-SDK', '1.3.14w'
+pod 'ObjectiveDropboxOfficial', :git => 'git@github.com:TheHungryBu/dropbox-sdk-obj-c.git' #update ios platform version
 pod 'HockeySDK-tvOS', '4.1.0-beta.1'
 
 end

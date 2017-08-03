@@ -21,7 +21,6 @@
 #import "VLCDocumentPickerController.h"
 #import "VLCCloudServiceCell.h"
 
-#import <DropboxSDK/DropboxSDK.h>
 #import <BoxSDK/BoxSDK.h>
 #import "VLCGoogleDriveController.h"
 

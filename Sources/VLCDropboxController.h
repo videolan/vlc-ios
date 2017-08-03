@@ -10,14 +10,10 @@
  * Refer to the COPYING file of the official project for license.
  *****************************************************************************/
 
-#if TARGET_OS_IOS
-#import <DropboxSDK/DropboxSDK.h>
-#else
-#import <DropboxTVSDK/DropboxSDK.h>
-#endif
 #import "VLCCloudStorageController.h"
+#import <ObjectiveDropboxOfficial/ObjectiveDropboxOfficial.h>
 
-@interface VLCDropboxController : VLCCloudStorageController <DBRestClientDelegate, DBSessionDelegate, DBNetworkRequestDelegate>
+@interface VLCDropboxController : VLCCloudStorageController
 
 @property (nonatomic, readonly) NSInteger numberOfFilesWaitingToBeDownloaded;
 
@@ -26,8 +22,8 @@
 - (void)shareCredentials;
 - (BOOL)restoreFromSharedCredentials;
 
-- (void)downloadFileToDocumentFolder:(DBMetadata *)file;
-- (void)streamFile:(DBMetadata *)file currentNavigationController:(UINavigationController *)navigationController;
+- (void)downloadFileToDocumentFolder:(DBFILESMetadata *)file;
+- (void)streamFile:(DBFILESMetadata *)file currentNavigationController:(UINavigationController *)navigationController;
 
 - (void)reset;
 

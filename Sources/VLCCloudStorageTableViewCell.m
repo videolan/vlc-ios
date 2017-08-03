@@ -30,7 +30,7 @@
     return cell;
 }
 
-- (void)setDropboxFile:(DBMetadata *)dropboxFile
+- (void)setDropboxFile:(DBFILESMetadata *)dropboxFile
 {
     if (dropboxFile != _dropboxFile)
         _dropboxFile = dropboxFile;
@@ -71,31 +71,21 @@
 - (void)_updatedDisplayedInformation
 {
     if (_dropboxFile != nil) {
-        if (self.dropboxFile.isDirectory) {
-            self.folderTitleLabel.text = self.dropboxFile.filename;
+        if ([_dropboxFile isKindOfClass:[DBFILESFolderMetadata class]]) {
+            self.folderTitleLabel.text = self.dropboxFile.name;
             self.titleLabel.hidden = self.subtitleLabel.hidden = YES;
             self.folderTitleLabel.hidden = NO;
-        } else {
-            NSString *title = self.dropboxFile.filename;
+            self.downloadButton.hidden = YES;
+            self.thumbnailView.image = [UIImage imageNamed:@"folder"];
+        } else if ([_dropboxFile isKindOfClass:[DBFILESFileMetadata class]]) {
+            DBFILESFileMetadata *file = (DBFILESFileMetadata *)_dropboxFile;
+            NSString *title = file.name;
             self.titleLabel.text = title;
-            self.subtitleLabel.text = (self.dropboxFile.totalBytes > 0) ? self.dropboxFile.humanReadableSize : @"";
+            self.subtitleLabel.text = (file.size.integerValue > 0) ? [NSByteCountFormatter stringFromByteCount:file.size.longLongValue countStyle:NSByteCountFormatterCountStyleFile] : @"";
             self.titleLabel.hidden = self.subtitleLabel.hidden = NO;
             self.folderTitleLabel.hidden = YES;
-        }
-
-        NSString *iconName = self.dropboxFile.icon;
-        if ([iconName isEqualToString:@"folder_user"] || [iconName isEqualToString:@"folder"] || [iconName isEqualToString:@"folder_public"] || [iconName isEqualToString:@"folder_photos"] || [iconName isEqualToString:@"package"]) {
-            self.thumbnailView.image = [UIImage imageNamed:@"folder"];
-            self.downloadButton.hidden = YES;
-        } else if ([iconName isEqualToString:@"page_white"] || [iconName isEqualToString:@"page_white_text"])
+            self.downloadButton.hidden = NO;
             self.thumbnailView.image = [UIImage imageNamed:@"blank"];
-        else if ([iconName isEqualToString:@"page_white_film"])
-            self.thumbnailView.image = [UIImage imageNamed:@"movie"];
-        else if ([iconName isEqualToString:@"page_white_sound"])
-            self.thumbnailView.image = [UIImage imageNamed:@"audio"];
-        else {
-            self.thumbnailView.image = [UIImage imageNamed:@"blank"];
-            APLog(@"missing icon for type '%@'", self.dropboxFile.icon);
         }
     }
 #if TARGET_OS_IOS

@@ -30,7 +30,7 @@
 @property (nonatomic, strong) IBOutlet VLCNetworkImageView *thumbnailView;
 @property (nonatomic, strong) IBOutlet UIButton *downloadButton;
 
-@property (nonatomic, retain) DBMetadata *dropboxFile;
+@property (nonatomic, retain) DBFILESMetadata *dropboxFile;
 @property (nonatomic, retain) VLCOneDriveObject *oneDriveFile;
 @property (nonatomic, retain) BoxItem *boxFile;
 #if TARGET_OS_IOS
