@@ -21,6 +21,7 @@
 		41273A3C1A955C4100A2EF77 /* VLCMigrationViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 41273A3A1A955C4100A2EF77 /* VLCMigrationViewController.m */; };
 		41273A3D1A955C4100A2EF77 /* VLCMigrationViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 41273A3B1A955C4100A2EF77 /* VLCMigrationViewController.xib */; };
 		4144C4661A0ED6C700918C89 /* Reachability.m in Sources */ = {isa = PBXBuildFile; fileRef = 7D3784E6183A99E1009EE944 /* Reachability.m */; };
+		415908F71F34ED4000C6A831 /* VLCNetworkServerLoginInformation+Keychain.m in Sources */ = {isa = PBXBuildFile; fileRef = DDA1B9081CE902EE0076BC45 /* VLCNetworkServerLoginInformation+Keychain.m */; };
 		4171D35018A2C19000A16EF9 /* VLCFolderCollectionViewFlowLayout.m in Sources */ = {isa = PBXBuildFile; fileRef = 4171D34F18A2C19000A16EF9 /* VLCFolderCollectionViewFlowLayout.m */; };
 		417CDA231A48D1F300D9ACE7 /* VLCCloudServicesTableViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 417CDA211A48D1F300D9ACE7 /* VLCCloudServicesTableViewController.m */; };
 		417CDA241A48D1F300D9ACE7 /* VLCCloudServicesTableViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 417CDA221A48D1F300D9ACE7 /* VLCCloudServicesTableViewController.xib */; };
@@ -4644,6 +4645,7 @@
 				7DC550101C046615007B4E42 /* VLCOneDriveTableViewController.m in Sources */,
 				7DC550111C046615007B4E42 /* VLCKeychainCoordinator.m in Sources */,
 				7DC550121C046615007B4E42 /* VLCLocalNetworkServiceUPnP.m in Sources */,
+				415908F71F34ED4000C6A831 /* VLCNetworkServerLoginInformation+Keychain.m in Sources */,
 				7DC550131C046615007B4E42 /* VLCNetworkListCell.m in Sources */,
 				7DC550141C046615007B4E42 /* VLCOneDriveController.m in Sources */,
 				7DC550151C046615007B4E42 /* VLCSidebarController.m in Sources */,

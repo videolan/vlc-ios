@@ -177,8 +177,6 @@
 
     id<VLCLocalNetworkService> service = [_discoveryController networkServiceForIndexPath:indexPath];
 
-
-
     if ([service respondsToSelector:@selector(serverBrowser)]) {
         id<VLCNetworkServerBrowser> serverBrowser = [service serverBrowser];
         if (serverBrowser) {
