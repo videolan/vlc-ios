@@ -184,7 +184,7 @@
 {
     self.loginToCloudStorageView.frame = self.tableView.frame;
     self.navigationItem.rightBarButtonItem = nil;
-    [self.view addSubview:self.loginToCloudStorageView];
+    [self.tableView addSubview:self.loginToCloudStorageView];
 }
 
 - (void)updateViewAfterSessionChange
