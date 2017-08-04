@@ -43,6 +43,7 @@ PODS:
     - OROpenSubtitleDownloader
   - MobileVLCKit-unstable (3.0.0a31)
   - NSData+Base64 (1.0.0)
+  - ObjectiveDropboxOfficial (1.0)
   - OBSlider (1.1.0)
   - OROpenSubtitleDownloader (1.2.0):
     - AFNetworking
@@ -50,7 +51,6 @@ PODS:
   - RESideMenu (4.0.7)
   - TVVLCKit-unstable (3.0.0a31)
   - upnpx (1.4.0a2)
-  - VLC-Dropbox-v1-SDK (1.3.14w)
   - VLC-LiveSDK (5.7.0x)
   - VLC-LXReorderableCollectionViewFlowLayout (0.1.3v)
   - VLC-WhiteRaccoon (1.0.0)
@@ -70,12 +70,12 @@ DEPENDENCIES:
   - MediaLibraryKit-unstable
   - MetaDataFetcherKit (~> 0.1.8)
   - MobileVLCKit-unstable (= 3.0.0a31)
+  - ObjectiveDropboxOfficial (from `git@github.com:TheHungryBu/dropbox-sdk-obj-c.git`)
   - OBSlider (= 1.1.0)
   - OROpenSubtitleDownloader (from `https://github.com/orta/OROpenSubtitleDownloader.git`, commit `0509eac2`)
   - RESideMenu (~> 4.0.7)
   - TVVLCKit-unstable (= 3.0.0a31)
   - upnpx (~> 1.4.0a2)
-  - VLC-Dropbox-v1-SDK (= 1.3.14w)
   - VLC-LiveSDK (= 5.7.0x)
   - VLC-LXReorderableCollectionViewFlowLayout (= 0.1.3v)
   - VLC-WhiteRaccoon
@@ -89,6 +89,8 @@ EXTERNAL SOURCES:
   InAppSettingsKit:
     :commit: 415ea6bb
     :git: git://github.com/fkuehne/InAppSettingsKit.git
+  ObjectiveDropboxOfficial:
+    :git: git@github.com:TheHungryBu/dropbox-sdk-obj-c.git
   OROpenSubtitleDownloader:
     :commit: 0509eac2
     :git: https://github.com/orta/OROpenSubtitleDownloader.git
@@ -103,6 +105,9 @@ CHECKOUT OPTIONS:
   InAppSettingsKit:
     :commit: 415ea6bb
     :git: git://github.com/fkuehne/InAppSettingsKit.git
+  ObjectiveDropboxOfficial:
+    :commit: 26eb3491426dfe621ecaa33931f81d0fade60978
+    :git: git@github.com:TheHungryBu/dropbox-sdk-obj-c.git
   OROpenSubtitleDownloader:
     :commit: 0509eac2
     :git: https://github.com/orta/OROpenSubtitleDownloader.git
@@ -123,18 +128,18 @@ SPEC CHECKSUMS:
   MetaDataFetcherKit: 44c90defa89b3a72cef60e07ad9de37821dd7c5d
   MobileVLCKit-unstable: 4aad34f7ce764dc1b0113264efdbf25d2f7250f4
   NSData+Base64: 4e84902c4db907a15673474677e57763ef3903e4
+  ObjectiveDropboxOfficial: bd00111d92dda8a269c6ff502c97eddd4363d681
   OBSlider: 490f108007bfdd5414a38650b211fe403a95b8a0
   OROpenSubtitleDownloader: 154b8c08acbf8836b77ac259018dc8b5baef907e
   RESideMenu: f24c508404b49c667344c54aba7e590883533958
   TVVLCKit-unstable: faba736b80c96056fe15b95bbd59bd8771a73bfc
   upnpx: 7cb9b092595086cdfeac2a670bd47ba5f5bd30c8
-  VLC-Dropbox-v1-SDK: 2c44006d149162697a6b10eb86455ea249c6b0b5
   VLC-LiveSDK: c9566a9edde968f969138f84cfd40b540a109b3f
   VLC-LXReorderableCollectionViewFlowLayout: 0204946967b746ca183835e854826290be06e2f4
   VLC-WhiteRaccoon: 1e7e59b0568959135a89d09c416d1e11a5d9a986
   XKKeychain: 852ef663c56a7194c73d3c68e8d9d4f07b121d4f
   xmlrpc: 109bb21d15ed6d108b2c1ac5973a6a223a50f5f4
 
-PODFILE CHECKSUM: 3b44843e2e928703f00ccf18a3cd816a9aa0403b
+PODFILE CHECKSUM: b05f5c34457e42711cea4ec78ea48f9d0207dec6
 
 COCOAPODS: 1.2.1

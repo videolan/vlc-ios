@@ -79,8 +79,7 @@
             self.thumbnailView.image = [UIImage imageNamed:@"folder"];
         } else if ([_dropboxFile isKindOfClass:[DBFILESFileMetadata class]]) {
             DBFILESFileMetadata *file = (DBFILESFileMetadata *)_dropboxFile;
-            NSString *title = file.name;
-            self.titleLabel.text = title;
+            self.titleLabel.text = file.name;
             self.subtitleLabel.text = (file.size.integerValue > 0) ? [NSByteCountFormatter stringFromByteCount:file.size.longLongValue countStyle:NSByteCountFormatterCountStyleFile] : @"";
             self.titleLabel.hidden = self.subtitleLabel.hidden = NO;
             self.folderTitleLabel.hidden = YES;

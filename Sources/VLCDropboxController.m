@@ -104,10 +104,9 @@
 
 - (BOOL)_supportedFileExtension:(NSString *)filename
 {
-    if ([filename isSupportedMediaFormat] || [filename isSupportedAudioMediaFormat] || [filename isSupportedSubtitleFormat])
-        return YES;
-
-    return NO;
+    return [filename isSupportedMediaFormat]
+        || [filename isSupportedAudioMediaFormat]
+        || [filename isSupportedSubtitleFormat];
 }
 
 - (NSString *)_createPotentialNameFrom:(NSString *)path
@@ -181,17 +180,13 @@
     _downloadInProgress = YES;
 }
 
-
 - (void)streamFile:(DBFILESMetadata *)file currentNavigationController:(UINavigationController *)navigationController
 {
     if (![file isKindOfClass:[DBFILESFolderMetadata class]]) {
         _lastKnownNavigationController = navigationController;
-        NSString *path = file.pathLower;
-        if (path != nil)
-            [self loadStreamFrom:path];
+        [self loadStreamFrom:file.pathLower];
     }
 }
-
 
 # pragma mark - Dropbox API Request
 
@@ -221,10 +216,8 @@
         return;
     }
 
-
     // Need to replace all ' ' by '_' because it causes a `NSInvalidArgumentException ... destination path is nil` in the dropbox library.
-    if ([destination containsString:@" "])
-        destination = [destination stringByReplacingOccurrencesOfString:@" " withString:@"_"];
+    destination = [destination stringByReplacingOccurrencesOfString:@" " withString:@"_"];
 
     destination = [self _createPotentialNameFrom:destination];
 
@@ -255,7 +248,7 @@
 
 - (void)loadStreamFrom:(NSString *)path
 {
-    if (![self _supportedFileExtension:[path lastPathComponent]]) {
+    if (!path || ![self _supportedFileExtension:[path lastPathComponent]]) {
         [self _handleError:[NSError errorWithDomain:NSLocalizedString(@"FILE_NOT_SUPPORTED", nil) code:415 userInfo:nil]];
         return;
     }
@@ -265,14 +258,14 @@
         if (result) {
             VLCPlaybackController *vpc = [VLCPlaybackController sharedInstance];
             [vpc playURL:[NSURL URLWithString:result.link ] successCallback:nil errorCallback:nil];
-            #if TARGET_OS_TV
+#if TARGET_OS_TV
             if (_lastKnownNavigationController) {
                 VLCFullscreenMovieTVViewController *movieVC = [VLCFullscreenMovieTVViewController fullscreenMovieTVViewController];
                 [_lastKnownNavigationController presentViewController:movieVC
                                                              animated:YES
                                                            completion:nil];
             }
-            #endif
+#endif
         } else {
             APLog(@"loadStream failed with network error %li and error tag %li", (long)networkError.statusCode, (long)networkError.tag);
             [self _handleError:[NSError errorWithDomain:networkError.description code:networkError.statusCode.integerValue userInfo:nil]];
