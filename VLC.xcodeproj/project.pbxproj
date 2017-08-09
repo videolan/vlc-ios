@@ -46,6 +46,7 @@
 		41B93C011A53833B00102E8B /* VLCProgressView.m in Sources */ = {isa = PBXBuildFile; fileRef = 41B93C001A53833B00102E8B /* VLCProgressView.m */; };
 		41B93C051A53835300102E8B /* VLCCloudServiceCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 41B93C031A53835300102E8B /* VLCCloudServiceCell.m */; };
 		41B93C081A53853B00102E8B /* VLCCloudServiceCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 41B93C071A53853B00102E8B /* VLCCloudServiceCell.xib */; };
+		41BBDCBD1F3BAFF000B89A9C /* UIImage+Blur.m in Sources */ = {isa = PBXBuildFile; fileRef = 7D168F7318D4A33F003FAF59 /* UIImage+Blur.m */; };
 		41CD695C1A29D72600E60BCE /* VLCBoxController.m in Sources */ = {isa = PBXBuildFile; fileRef = 41CD69591A29D72600E60BCE /* VLCBoxController.m */; };
 		41CD695D1A29D72600E60BCE /* VLCBoxTableViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 41CD695B1A29D72600E60BCE /* VLCBoxTableViewController.m */; };
 		6A804FA9706D38FB40A4136A /* libPods-VLC-watchOS-Extension.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 7F82CE64560C0AD3059DAAFC /* libPods-VLC-watchOS-Extension.a */; };
@@ -4896,6 +4897,7 @@
 				DD2789DE1B67A5CD00CED769 /* VLCWatchMessage.m in Sources */,
 				DD3567F71B6768FC00338947 /* VLCRowController.m in Sources */,
 				DD3567F21B6768FC00338947 /* VLCBaseInterfaceController.m in Sources */,
+				41BBDCBD1F3BAFF000B89A9C /* UIImage+Blur.m in Sources */,
 				DD2789DD1B67A5C400CED769 /* VLCThumbnailsCache.m in Sources */,
 				DD3567F51B6768FC00338947 /* VLCNowPlayingInterfaceController.m in Sources */,
 			);
