@@ -2045,7 +2045,6 @@
 				41CD695B1A29D72600E60BCE /* VLCBoxTableViewController.m */,
 			);
 			name = Box;
-			path = AspenProject;
 			sourceTree = "<group>";
 		};
 		6B4E33CC1BF2A35A00A35255 /* web */ = {
@@ -2071,7 +2070,6 @@
 				7DB847D61A5871570002DC30 /* VLCOneDriveObject.m */,
 			);
 			name = OneDrive;
-			path = AspenProject;
 			sourceTree = "<group>";
 		};
 		7D13293E1BA1F10100BE647E /* VLC-TV */ = {
@@ -2356,7 +2354,6 @@
 				7DF383B81BF21E4400D71A5C /* VLCPlayerControlWebSocket.m */,
 			);
 			name = "HTTP Connectivity";
-			path = ../AspenProject;
 			sourceTree = "<group>";
 		};
 		7D6BEF1D19E027A100DF3972 /* Cloud */ = {
@@ -2530,7 +2527,6 @@
 				7DADC5601704FACC001DAC63 /* Imported */,
 			);
 			name = "iOS specific classes";
-			path = AspenProject;
 			sourceTree = "<group>";
 		};
 		7D94FCE516DE7D1000F2623B /* iOS Supporting Files */ = {
@@ -2577,7 +2573,6 @@
 				7D27EB9319DEE11900EF0370 /* Launch Screen.xib */,
 			);
 			name = XIBs;
-			path = AspenProject;
 			sourceTree = "<group>";
 		};
 		7DADC5601704FACC001DAC63 /* Imported */ = {
@@ -2858,7 +2853,6 @@
 				7DF383C31BF2329500D71A5C /* VLCDropboxCollectionViewController.m */,
 			);
 			name = Dropbox;
-			path = AspenProject;
 			sourceTree = "<group>";
 		};
 		9B51719A17EDEC8900F8FBA7 /* GoogleDrive */ = {
@@ -2871,7 +2865,6 @@
 				7D30F3E9183AB34200FFC021 /* VLCGoogleDriveTableViewController.m */,
 			);
 			name = GoogleDrive;
-			path = AspenProject;
 			sourceTree = "<group>";
 		};
 		A77803FFDA800BD6A3DAED0C /* Pods */ = {
@@ -2934,7 +2927,6 @@
 				7D3784CB183A99BA009EE944 /* PAPasscodeViewController.m */,
 			);
 			name = PAPasscode;
-			path = ../PAPasscode;
 			sourceTree = "<group>";
 		};
 		A7C3025A175A538700AD4388 /* Extensions */ = {
@@ -2961,7 +2953,6 @@
 				7D30F3CF183AB2AC00FFC021 /* VLCMediaFileDiscoverer.m */,
 			);
 			name = MediaDiscovering;
-			path = ../AspenProject;
 			sourceTree = "<group>";
 		};
 		CC1BBC441704936500A20CBF /* External VLC Libraries */ = {
