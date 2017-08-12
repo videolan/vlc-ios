@@ -326,8 +326,12 @@
 
     if (!blurImage)
         return clusterThumb;
-
+// TODO: When we move to watch os 4.0 we can include the blurcategory and remove the if else block
+#ifndef TARGET_OS_WATCH
     return [UIImage applyBlurOnImage:clusterThumb withRadius:0.1];
+#else
+    return clusterThumb;
+#endif
 }
 
 @end
