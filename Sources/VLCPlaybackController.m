@@ -528,8 +528,9 @@ VLCMediaDelegate>
 #else
         NSUserDefaults *defaults = [NSUserDefaults standardUserDefaults];
         BOOL bValue = [defaults boolForKey:kVLCSettingUseSPDIF];
+
         if (bValue) {
-            [_mediaPlayer performSelector:@selector(setPassthroughAudio:) withObject:@(bValue)];
+           _mediaPlayer.audio.passthrough = bValue;
         }
 #endif
     }
