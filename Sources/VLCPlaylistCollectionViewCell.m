@@ -45,7 +45,7 @@
 {
     self.isSelectedView.hidden = !editing;
 
-    if (!([_mediaObject isKindOfClass:[MLFile class]] && [_mediaObject.labels count] > 0))
+    if (!([_mediaObject isKindOfClass:[MLFile class]] && [((MLFile *)_mediaObject).labels count] > 0))
         [self shake:editing];
     [self selectionUpdate];
     [self _updatedDisplayedInformationForKeyPath:@"editing"];
@@ -198,7 +198,7 @@
 {
     self.thumbnailView.contentMode = UIViewContentModeScaleAspectFill;
     if ([self.mediaObject isKindOfClass:[MLFile class]]) {
-        [self _configureForMLFile:self.mediaObject];
+        [self _configureForMLFile:(MLFile *)self.mediaObject];
     } else if ([self.mediaObject isKindOfClass:[MLLabel class]]) {
         [self _configureForFolder:(MLLabel *)self.mediaObject];
     } else if ([self.mediaObject isKindOfClass:[MLAlbum class]]) {

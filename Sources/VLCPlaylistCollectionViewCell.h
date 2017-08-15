@@ -26,7 +26,7 @@
 @property (nonatomic, strong) IBOutlet UIImageView *folderIconView;
 @property (nonatomic, strong) IBOutlet UILabel *metaDataLabel;
 
-@property (nonatomic, retain) MLFile *mediaObject;
+@property (nonatomic, retain) NSManagedObject *mediaObject;
 
 @property (nonatomic, weak) UICollectionView *collectionView;
 @property (readonly) BOOL showsMetaData;

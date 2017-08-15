@@ -48,6 +48,11 @@
 		41CD695C1A29D72600E60BCE /* VLCBoxController.m in Sources */ = {isa = PBXBuildFile; fileRef = 41CD69591A29D72600E60BCE /* VLCBoxController.m */; };
 		41CD695D1A29D72600E60BCE /* VLCBoxTableViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 41CD695B1A29D72600E60BCE /* VLCBoxTableViewController.m */; };
 		41F5C0781F41ED55005EB9CB /* VLCLibrarySearchDisplayDataSource.m in Sources */ = {isa = PBXBuildFile; fileRef = 41F5C0771F41ED55005EB9CB /* VLCLibrarySearchDisplayDataSource.m */; };
+		41F5C07B1F42E567005EB9CB /* VLCMediaDataSource.m in Sources */ = {isa = PBXBuildFile; fileRef = 41F5C07A1F42E567005EB9CB /* VLCMediaDataSource.m */; };
+		41F5C07C1F42E567005EB9CB /* VLCMediaDataSource.m in Sources */ = {isa = PBXBuildFile; fileRef = 41F5C07A1F42E567005EB9CB /* VLCMediaDataSource.m */; };
+		41F5C07D1F42E567005EB9CB /* VLCMediaDataSource.m in Sources */ = {isa = PBXBuildFile; fileRef = 41F5C07A1F42E567005EB9CB /* VLCMediaDataSource.m */; };
+		41F5C07E1F42E572005EB9CB /* VLCLibrarySearchDisplayDataSource.m in Sources */ = {isa = PBXBuildFile; fileRef = 41F5C0771F41ED55005EB9CB /* VLCLibrarySearchDisplayDataSource.m */; };
+		41F5C07F1F42E573005EB9CB /* VLCLibrarySearchDisplayDataSource.m in Sources */ = {isa = PBXBuildFile; fileRef = 41F5C0771F41ED55005EB9CB /* VLCLibrarySearchDisplayDataSource.m */; };
 		6A804FA9706D38FB40A4136A /* libPods-VLC-watchOS-Extension.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 7F82CE64560C0AD3059DAAFC /* libPods-VLC-watchOS-Extension.a */; };
 		6B4E33D11BF2A39400A35255 /* playerControl.css in Resources */ = {isa = PBXBuildFile; fileRef = 6B4E33CF1BF2A39400A35255 /* playerControl.css */; };
 		6B4E33D21BF2A39400A35255 /* playerControl.js in Resources */ = {isa = PBXBuildFile; fileRef = 6B4E33D01BF2A39400A35255 /* playerControl.js */; };
@@ -1161,6 +1166,8 @@
 		41CD695B1A29D72600E60BCE /* VLCBoxTableViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = VLCBoxTableViewController.m; path = Sources/VLCBoxTableViewController.m; sourceTree = SOURCE_ROOT; };
 		41F5C0761F41ED55005EB9CB /* VLCLibrarySearchDisplayDataSource.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = VLCLibrarySearchDisplayDataSource.h; path = Sources/VLCLibrarySearchDisplayDataSource.h; sourceTree = SOURCE_ROOT; };
 		41F5C0771F41ED55005EB9CB /* VLCLibrarySearchDisplayDataSource.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; name = VLCLibrarySearchDisplayDataSource.m; path = Sources/VLCLibrarySearchDisplayDataSource.m; sourceTree = SOURCE_ROOT; };
+		41F5C0791F42E567005EB9CB /* VLCMediaDataSource.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = VLCMediaDataSource.h; sourceTree = SOURCE_ROOT; };
+		41F5C07A1F42E567005EB9CB /* VLCMediaDataSource.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = VLCMediaDataSource.m; sourceTree = SOURCE_ROOT; };
 		4EB2A836EBC6DE6E89855975 /* Pods-VLC-watchOS-Extension.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-VLC-watchOS-Extension.debug.xcconfig"; path = "Pods/Target Support Files/Pods-VLC-watchOS-Extension/Pods-VLC-watchOS-Extension.debug.xcconfig"; sourceTree = "<group>"; };
 		5B343E4F4D971F5A169EB864 /* Pods-VLC-iOS.distribution.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-VLC-iOS.distribution.xcconfig"; path = "Pods/Target Support Files/Pods-VLC-iOS/Pods-VLC-iOS.distribution.xcconfig"; sourceTree = "<group>"; };
 		633AEC92459BCABEC8671A34 /* Pods-VLC-tvOS-Debug.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-VLC-tvOS-Debug.debug.xcconfig"; path = "Pods/Target Support Files/Pods-VLC-tvOS-Debug/Pods-VLC-tvOS-Debug.debug.xcconfig"; sourceTree = "<group>"; };
@@ -2267,6 +2274,8 @@
 				8F91EC78195CEC7900F5BCBA /* VLCOpenInActivity.m */,
 				41F5C0761F41ED55005EB9CB /* VLCLibrarySearchDisplayDataSource.h */,
 				41F5C0771F41ED55005EB9CB /* VLCLibrarySearchDisplayDataSource.m */,
+				41F5C0791F42E567005EB9CB /* VLCMediaDataSource.h */,
+				41F5C07A1F42E567005EB9CB /* VLCMediaDataSource.m */,
 			);
 			name = "Everything Playlist";
 			sourceTree = "<group>";
@@ -3987,7 +3996,7 @@
 			);
 			inputPaths = (
 				"${SRCROOT}/Pods/Target Support Files/Pods-VLC-iOS-no-watch-Debug/Pods-VLC-iOS-no-watch-Debug-resources.sh",
-				"$PODS_CONFIGURATION_BUILD_DIR/HockeySDK/HockeySDKResources.bundle",
+				$PODS_CONFIGURATION_BUILD_DIR/HockeySDK/HockeySDKResources.bundle,
 				"${PODS_ROOT}/InAppSettingsKit/InAppSettingsKit/Resources/Base.lproj",
 				"${PODS_ROOT}/InAppSettingsKit/InAppSettingsKit/Resources/de.lproj",
 				"${PODS_ROOT}/InAppSettingsKit/InAppSettingsKit/Resources/el.lproj",
@@ -4077,7 +4086,7 @@
 			);
 			inputPaths = (
 				"${SRCROOT}/Pods/Target Support Files/Pods-VLC-iOS/Pods-VLC-iOS-resources.sh",
-				"$PODS_CONFIGURATION_BUILD_DIR/HockeySDK/HockeySDKResources.bundle",
+				$PODS_CONFIGURATION_BUILD_DIR/HockeySDK/HockeySDKResources.bundle,
 				"${PODS_ROOT}/InAppSettingsKit/InAppSettingsKit/Resources/Base.lproj",
 				"${PODS_ROOT}/InAppSettingsKit/InAppSettingsKit/Resources/de.lproj",
 				"${PODS_ROOT}/InAppSettingsKit/InAppSettingsKit/Resources/el.lproj",
@@ -4182,7 +4191,7 @@
 			);
 			inputPaths = (
 				"${SRCROOT}/Pods/Target Support Files/Pods-VLC-iOS-no-watch/Pods-VLC-iOS-no-watch-resources.sh",
-				"$PODS_CONFIGURATION_BUILD_DIR/HockeySDK/HockeySDKResources.bundle",
+				$PODS_CONFIGURATION_BUILD_DIR/HockeySDK/HockeySDKResources.bundle,
 				"${PODS_ROOT}/InAppSettingsKit/InAppSettingsKit/Resources/Base.lproj",
 				"${PODS_ROOT}/InAppSettingsKit/InAppSettingsKit/Resources/de.lproj",
 				"${PODS_ROOT}/InAppSettingsKit/InAppSettingsKit/Resources/el.lproj",
@@ -4500,6 +4509,7 @@
 				7D787F481D40FDE70003CFA1 /* VLCPlaybackController+MediaLibrary.m in Sources */,
 				7D787F491D40FDE70003CFA1 /* VLCLocalNetworkServiceBrowserDSM.m in Sources */,
 				7D787F4A1D40FDE70003CFA1 /* VLCPlaylistTableViewCell.m in Sources */,
+				41F5C07F1F42E573005EB9CB /* VLCLibrarySearchDisplayDataSource.m in Sources */,
 				7D787F4B1D40FDE70003CFA1 /* VLCLibraryViewController.m in Sources */,
 				7D787F4C1D40FDE70003CFA1 /* VLCThumbnailsCache.m in Sources */,
 				7D787F4D1D40FDE70003CFA1 /* VLCNetworkServerBrowserSharedLibrary.m in Sources */,
@@ -4579,6 +4589,7 @@
 				7D787F8F1D40FDE70003CFA1 /* VLCSharedLibraryParser.m in Sources */,
 				7D787F901D40FDE70003CFA1 /* VLCCloudStorageTableViewController.m in Sources */,
 				7D787F911D40FDE70003CFA1 /* VLCGoogleDriveTableViewController.m in Sources */,
+				41F5C07D1F42E567005EB9CB /* VLCMediaDataSource.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -4590,6 +4601,7 @@
 				DD846BDF1D1FCCCD00699D17 /* VLCNetworkLoginDataSource.m in Sources */,
 				4184AA151A5492070063DF5A /* VLCCloudStorageController.m in Sources */,
 				9BE4D1CE183D76950006346C /* VLCCloudStorageTableViewCell.m in Sources */,
+				41F5C07B1F42E567005EB9CB /* VLCMediaDataSource.m in Sources */,
 				DD1CB0321BB9E005006EDDE6 /* VLCMovieViewControlPanelView.m in Sources */,
 				DDF908D01CF4CCAA00108B70 /* VLCNetworkLoginViewButtonCell.m in Sources */,
 				DD3EFF3D1BDEBCE500B68579 /* VLCLocalNetworkServiceBrowserHTTP.m in Sources */,
@@ -4722,6 +4734,7 @@
 				7DC54FB11C046615007B4E42 /* VLCMovieViewControlPanelView.m in Sources */,
 				7DC54FB21C046615007B4E42 /* VLCLocalNetworkServiceBrowserHTTP.m in Sources */,
 				7DC54FB31C046615007B4E42 /* VLCNetworkServerLoginInformation.m in Sources */,
+				41F5C07C1F42E567005EB9CB /* VLCMediaDataSource.m in Sources */,
 				7DC54FB41C046615007B4E42 /* VLCFirstStepsFourthPageViewController.m in Sources */,
 				7DC54FB61C046615007B4E42 /* VLCLocalNetworkServiceVLCMedia.m in Sources */,
 				7DC54FB71C046615007B4E42 /* VLCLocalServerDiscoveryController.m in Sources */,
@@ -4757,6 +4770,7 @@
 				7DC54FD41C046615007B4E42 /* VLCNetworkServerBrowserPlex.m in Sources */,
 				7DC54FD51C046615007B4E42 /* VLCExternalDisplayController.m in Sources */,
 				7DC54FD61C046615007B4E42 /* VLCPlaylistCollectionViewCell.m in Sources */,
+				41F5C07E1F42E572005EB9CB /* VLCLibrarySearchDisplayDataSource.m in Sources */,
 				7DC54FD71C046615007B4E42 /* VLCPlaybackController+MediaLibrary.m in Sources */,
 				7DC54FD81C046615007B4E42 /* VLCLocalNetworkServiceBrowserDSM.m in Sources */,
 				7DC54FD91C046615007B4E42 /* VLCPlaylistTableViewCell.m in Sources */,
