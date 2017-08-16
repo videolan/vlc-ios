@@ -338,7 +338,7 @@ VLCMediaDelegate>
     [_mediaPlayer addObserver:self forKeyPath:@"remainingTime" options:0 context:nil];
 
     if (self.mediaList)
-        [_listPlayer playItemAtIndex:self.itemInMediaListToBePlayedFirst];
+        [_listPlayer playItemAtNumber:@(self.itemInMediaListToBePlayedFirst)];
     else
         [_listPlayer playMedia:_listPlayer.rootMedia];
 
