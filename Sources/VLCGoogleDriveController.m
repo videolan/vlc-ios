@@ -265,7 +265,7 @@
         if (isDirectory || supportedFile)
             [listOfGoodFilesAndFolders addObject:iter];
     }
-    _currentFileList = [_currentFileList count] ? [_currentFileList arrayByAddingObjectsFromArray:listOfGoodFilesAndFolders] : [NSArray arrayWithArray:listOfGoodFilesAndFolders];
+    _currentFileList = [NSArray arrayWithArray:listOfGoodFilesAndFolders];
 
     if ([_currentFileList count] <= 10 && [self hasMoreFiles]) {
         [self listFilesWithID:_folderId];
