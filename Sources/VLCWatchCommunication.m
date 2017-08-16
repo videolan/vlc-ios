@@ -155,7 +155,7 @@ static VLCWatchCommunication *_singeltonInstance = nil;
 - (NSDictionary *)nowPlayingResponseDict {
     NSMutableDictionary *response = [NSMutableDictionary new];
     NSMutableDictionary *nowPlayingInfo = [[MPNowPlayingInfoCenter defaultCenter].nowPlayingInfo mutableCopy];
-    NSNumber *playbackTime = [VLCPlaybackController sharedInstance].mediaPlayer.time.numberValue;
+    NSNumber *playbackTime = [VLCPlaybackController sharedInstance].mediaPlayer.time.value;
     if (playbackTime) {
         nowPlayingInfo[MPNowPlayingInfoPropertyElapsedPlaybackTime] = @(playbackTime.floatValue/1000);
     }
