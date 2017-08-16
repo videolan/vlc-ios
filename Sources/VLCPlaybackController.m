@@ -264,7 +264,7 @@ VLCMediaDelegate>
     else
         [_mediaPlayer setDeinterlaceFilter:nil];
     if (self.pathToExternalSubtitlesFile)
-        [_mediaPlayer openVideoSubTitlesFromFile:self.pathToExternalSubtitlesFile];
+        [_mediaPlayer addPlaybackSlave:[NSURL fileURLWithPath:self.pathToExternalSubtitlesFile] type:VLCMediaPlaybackSlaveTypeSubtitle enforce:YES];
 
     VLCMedia *media;
     if (_mediaList) {
