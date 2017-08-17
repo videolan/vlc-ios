@@ -17,6 +17,8 @@
 @interface VLCMovieViewControlPanelView ()
 
 @property (nonatomic, strong) UIView *playbackControls;
+@property (nonatomic, strong) UIView *spacer1;
+@property (nonatomic, strong) UIView *spacer2;
 @property (nonatomic, strong) NSMutableArray *constraints;
 @property (nonatomic, assign) BOOL compactMode;
 @property (nonatomic, strong) VLCPlaybackController *playbackController;
@@ -58,6 +60,16 @@ static const CGFloat maxCompactWidth = 420.0;
     [_bwdButton setImage:[UIImage imageNamed:@"backIcon"] forState:UIControlStateNormal];
     _bwdButton.translatesAutoresizingMaskIntoConstraints = NO;
     [_playbackControls addSubview:_bwdButton];
+
+    _spacer1 = [UIView new];
+    _spacer1.backgroundColor = [UIColor clearColor];
+    _spacer1.translatesAutoresizingMaskIntoConstraints = NO;
+    [_playbackControls addSubview:_spacer1];
+
+    _spacer2 = [UIView new];
+    _spacer2.backgroundColor = [UIColor clearColor];
+    _spacer2.translatesAutoresizingMaskIntoConstraints = NO;
+    [_playbackControls addSubview:_spacer2];
 
     _playPauseButton = [[UIButton alloc] initWithFrame:CGRectZero];
     [_playPauseButton setImage:[UIImage imageNamed:@"playIcon"] forState:UIControlStateNormal];
@@ -108,9 +120,12 @@ static const CGFloat maxCompactWidth = 420.0;
                                 @"more" : self.moreActionsButton,
                                 @"filter" : self.videoFilterButton,
                                 @"volume" : self.volumeView,
+                                @"spacer1" : _spacer1,
+                                @"spacer2" : _spacer2,
                                 };
     NSMutableArray *staticConstraints = [NSMutableArray new];
-    [staticConstraints addObjectsFromArray:[NSLayoutConstraint constraintsWithVisualFormat:@"H:|[backward(40)]-(margin@750)-[playpause(40)]-(margin@750)-[forward(40)]|"
+
+    [staticConstraints addObjectsFromArray:[NSLayoutConstraint constraintsWithVisualFormat:@"H:|[backward(40)][spacer1(margin@750)][playpause(40)][spacer2(==spacer1)][forward(40)]|"
                                                                               options:NSLayoutFormatAlignAllCenterY
                                                                               metrics:@{@"margin": @15.0}
                                                                                 views:viewsDict]];
