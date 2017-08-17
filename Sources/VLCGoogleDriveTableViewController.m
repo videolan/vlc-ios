@@ -175,6 +175,8 @@
                if (authState) {
                    // Upon successful completion...
                    _googleDriveController.driveService.authorizer = [[GTMAppAuthFetcherAuthorization alloc] initWithAuthState:authState];
+                   [GTMAppAuthFetcherAuthorization saveAuthorization:(GTMAppAuthFetcherAuthorization *)_googleDriveController.driveService.authorizer
+                                                   toKeychainForName:kKeychainItemName];
                    [self updateViewAfterSessionChange];
                    [self.activityIndicator startAnimating];
                } else {
