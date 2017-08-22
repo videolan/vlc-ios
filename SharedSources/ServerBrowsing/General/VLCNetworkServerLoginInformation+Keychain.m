@@ -91,7 +91,7 @@
 
 - (BOOL)deleteFromKeychainWithError:(NSError *__autoreleasing  _Nullable *)error
 {
-    XKKeychainGenericPasswordItem *keychainItem = [XKKeychainGenericPasswordItem init];
+    XKKeychainGenericPasswordItem *keychainItem = [[XKKeychainGenericPasswordItem alloc] init];
     keychainItem.service = self.keychainServiceIdentifier;
     keychainItem.account = self.username;
 
