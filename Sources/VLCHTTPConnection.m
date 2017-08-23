@@ -106,10 +106,26 @@
     return [[HTTPDataResponse alloc] initWithData:[@"\"OK\"" dataUsingEncoding:NSUTF8StringEncoding]];
 }
 
+- (BOOL)fileIsInDocumentFolder:(NSString*)filepath
+{
+    NSError *error;
+    NSURLRelationship relationship;
+
+    NSArray *searchPaths = NSSearchPathForDirectoriesInDomains(NSDocumentDirectory, NSUserDomainMask, YES);
+    NSString *directoryPath = [searchPaths firstObject];
+
+    [[NSFileManager defaultManager] getRelationship:&relationship ofDirectoryAtURL:[NSURL fileURLWithPath:directoryPath] toItemAtURL:[NSURL fileURLWithPath:filepath] error:&error];
+    return relationship == NSURLRelationshipContains;
+}
+
 #if TARGET_OS_IOS
 - (NSObject<HTTPResponse> *)_httpGETDownloadForPath:(NSString *)path
 {
     NSString *filePath = [[path stringByReplacingOccurrencesOfString:@"/download/" withString:@""]stringByReplacingPercentEscapesUsingEncoding:NSUTF8StringEncoding];
+    if (![self fileIsInDocumentFolder:filePath]) {
+       //return nil which gets handled as resource not found
+        return nil;
+    }
     HTTPFileResponse *fileResponse = [[HTTPFileResponse alloc] initWithFilePath:filePath forConnection:self];
     fileResponse.contentType = @"application/octet-stream";
     return fileResponse;
