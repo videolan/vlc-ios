@@ -21,15 +21,11 @@
     if (UI_USER_INTERFACE_IDIOM() == UIUserInterfaceIdiomPad)
         self.positionSlider.scrubbingSpeedChangePositions = @[@(0.), @(100.), @(200.), @(300)];
 
-    self.timeDisplayButton.isAccessibilityElement = YES;
-
     self.aspectRatioButton.accessibilityLabel = NSLocalizedString(@"VIDEO_ASPECT_RATIO_BUTTON", nil);
-    self.aspectRatioButton.isAccessibilityElement = YES;
 
     [self.aspectRatioButton setImage:[UIImage imageNamed:@"ratioIcon"] forState:UIControlStateNormal];
 
     self.minimizePlaybackButton.accessibilityLabel = NSLocalizedString(@"MINIMIZE_PLAYBACK_VIEW", nil);
-    self.minimizePlaybackButton.isAccessibilityElement = YES;
 
     // workaround for radar://22897614 ( http://www.openradar.me/22897614 )
     UISlider *slider = self.positionSlider;

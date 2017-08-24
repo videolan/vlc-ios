@@ -45,7 +45,6 @@
     UIBarButtonItem *menuButton = [[UIBarButtonItem alloc] initWithImage:icon style:UIBarButtonItemStyleBordered target:target action:selector];
     menuButton.tintColor = [UIColor whiteColor];
     menuButton.accessibilityLabel = NSLocalizedString(@"OPEN_VLC_MENU", nil);
-    menuButton.isAccessibilityElement = YES;
 
     return menuButton;
 }
@@ -62,7 +61,6 @@
 {
     UIBarButtonItem *playAllButton = [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemPlay target:target action:selector];
     playAllButton.accessibilityLabel = NSLocalizedString(@"PLAY_ALL_BUTTON", nil);
-    playAllButton.isAccessibilityElement = YES;
 
     return playAllButton;
 }

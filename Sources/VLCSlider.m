@@ -17,7 +17,6 @@
 - (void)awakeFromNib
 {
     self.accessibilityLabel = NSLocalizedString(@"PLAYBACK_POSITION", nil);
-    self.isAccessibilityElement = YES;
     [self setThumbImage:[UIImage imageNamed:@"sliderKnob"] forState:UIControlStateNormal];
     [super awakeFromNib];
 }

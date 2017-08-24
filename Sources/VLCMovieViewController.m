@@ -182,33 +182,23 @@ typedef NS_ENUM(NSInteger, VLCPanType) {
     _videoFiltersHidden = YES;
     _hueLabel.text = NSLocalizedString(@"VFILTER_HUE", nil);
     _hueSlider.accessibilityLabel = _hueLabel.text;
-    _hueSlider.isAccessibilityElement = YES;
     _contrastLabel.text = NSLocalizedString(@"VFILTER_CONTRAST", nil);
     _contrastSlider.accessibilityLabel = _contrastLabel.text;
-    _contrastSlider.isAccessibilityElement = YES;
     _brightnessLabel.text = NSLocalizedString(@"VFILTER_BRIGHTNESS", nil);
     _brightnessSlider.accessibilityLabel = _brightnessLabel.text;
-    _brightnessSlider.isAccessibilityElement = YES;
     _saturationLabel.text = NSLocalizedString(@"VFILTER_SATURATION", nil);
     _saturationSlider.accessibilityLabel = _saturationLabel.text;
-    _saturationSlider.isAccessibilityElement = YES;
     _gammaLabel.text = NSLocalizedString(@"VFILTER_GAMMA", nil);
     _gammaSlider.accessibilityLabel = _gammaLabel.text;
-    _gammaSlider.isAccessibilityElement = YES;
     _playbackSpeedLabel.text = NSLocalizedString(@"PLAYBACK_SPEED", nil);
     _playbackSpeedSlider.accessibilityLabel = _playbackSpeedLabel.text;
-    _playbackSpeedSlider.isAccessibilityElement = YES;
     _audioDelayLabel.text = NSLocalizedString(@"AUDIO_DELAY", nil);
     _audioDelaySlider.accessibilityLabel = _audioDelayLabel.text;
-    _audioDelaySlider.isAccessibilityElement = YES;
     _spuDelayLabel.text = NSLocalizedString(@"SPU_DELAY", nil);
     _spuDelaySlider.accessibilityLabel = _spuDelayLabel.text;
-    _spuDelaySlider.isAccessibilityElement = YES;
 
     _resetVideoFilterButton.accessibilityLabel = NSLocalizedString(@"VIDEO_FILTER_RESET_BUTTON", nil);
-    _resetVideoFilterButton.isAccessibilityElement = YES;
     _sleepTimerButton.accessibilityLabel = NSLocalizedString(@"BUTTON_SLEEP_TIMER", nil);
-    _sleepTimerButton.isAccessibilityElement = YES;
     [_sleepTimerButton setTitle:NSLocalizedString(@"BUTTON_SLEEP_TIMER", nil) forState:UIControlStateNormal];
 
     _multiSelectionView = [[VLCMultiSelectionMenuView alloc] init];
