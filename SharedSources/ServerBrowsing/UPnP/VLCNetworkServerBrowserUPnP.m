@@ -113,7 +113,7 @@
 
     // Provide users with a descriptive action sheet for them to choose based on the multiple resources advertised by DLNA devices (HDHomeRun for example)
 
-    NSRange position = [key rangeOfString:@"http-get:*:video/"];
+    NSRange position = [key rangeOfString:kVLCUPnPVideoProtocolKey];
 
     if (position.location == NSNotFound)
         return nil;
@@ -245,23 +245,29 @@
                     return NO;
 
                 if ([evaluatedObject respondsToSelector:@selector(containsString:)]) {
-                    if ([evaluatedObject containsString:@"http-get:*:video/"])
+                    if ([evaluatedObject containsString:kVLCUPnPVideoProtocolKey])
                         return YES;
-                    if ([evaluatedObject containsString:@"http-get:*:audio/"])
+                    if ([evaluatedObject containsString:kVLCUPnPAudioProtocolKey])
                         return YES;
                 } else {
-                    NSRange foundRange = [evaluatedObject rangeOfString:@"http-get:*:video/"];
+                    NSRange foundRange = [evaluatedObject rangeOfString:kVLCUPnPVideoProtocolKey];
                     if (foundRange.location != NSNotFound)
                         return YES;
-                    foundRange = [evaluatedObject rangeOfString:@"http-get:*:audio/"];
+                    foundRange = [evaluatedObject rangeOfString:kVLCUPnPAudioProtocolKey];
                     if (foundRange.location != NSNotFound)
                         return YES;
                 }
                 return NO;
             }]];
-            /* FIXME: on some servers, we can have more than 1 protocol string as different transcoding schemes are offered
-             * in previous versions, we offered a selector - maybe re-add? */
 
+            // Check for multiple URIs.
+            if ([mediaItem.uriCollection count] > 1) {
+                for (NSString *key in mediaItem.uriCollection) {
+                    if ([key containsString:kVLCUPnPVideoProtocolKey] || [key containsString:kVLCUPnPAudioProtocolKey]) {
+                        mediaItem.uri = [mediaItem.uriCollection objectForKey:key];
+                    }
+                }
+            }
             _URL = [NSURL URLWithString:[mediaItem uri]];
         }
     }
