@@ -138,34 +138,6 @@ typedef NS_ENUM(NSInteger, VLCPanType) {
 - (void)dealloc
 {
     [[NSNotificationCenter defaultCenter] removeObserver:self];
-
-    if (_tapRecognizer)
-        [self.view removeGestureRecognizer:_tapRecognizer];
-    if (_swipeRecognizerLeft)
-        [self.view removeGestureRecognizer:_swipeRecognizerLeft];
-    if (_swipeRecognizerRight)
-        [self.view removeGestureRecognizer:_swipeRecognizerRight];
-    if (_swipeRecognizerUp)
-        [self.view removeGestureRecognizer:_swipeRecognizerUp];
-    if (_swipeRecognizerDown)
-        [self.view removeGestureRecognizer:_swipeRecognizerDown];
-    if (_panRecognizer)
-        [self.view removeGestureRecognizer:_panRecognizer];
-    if (_pinchRecognizer)
-        [self.view removeGestureRecognizer:_pinchRecognizer];
-    if (_tapToSeekRecognizer)
-        [self.view removeGestureRecognizer:_tapToSeekRecognizer];
-    [self.view removeGestureRecognizer:_tapOnVideoRecognizer];
-
-    _tapRecognizer = nil;
-    _swipeRecognizerLeft = nil;
-    _swipeRecognizerRight = nil;
-    _swipeRecognizerUp = nil;
-    _swipeRecognizerDown = nil;
-    _panRecognizer = nil;
-    _pinchRecognizer = nil;
-    _tapOnVideoRecognizer = nil;
-    _tapToSeekRecognizer = nil;
 }
 
 - (void)viewDidLoad
