@@ -259,6 +259,10 @@
     NSMutableArray *listOfGoodFilesAndFolders = [[NSMutableArray alloc] init];
 
     for (GTLDriveFile *iter in _fileList.files) {
+        if (iter.trashed.boolValue) {
+            continue;
+        }
+
         BOOL isDirectory = [iter.mimeType isEqualToString:@"application/vnd.google-apps.folder"];
         BOOL supportedFile = [self _supportedFileExtension:iter.name];
 
