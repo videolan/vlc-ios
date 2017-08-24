@@ -12,6 +12,9 @@
 
 #import "VLCNetworkServerBrowser-Protocol.h"
 
+#define kVLCUPnPVideoProtocolKey @"http-get:*:video/"
+#define kVLCUPnPAudioProtocolKey @"http-get:*:audio/"
+
 NS_ASSUME_NONNULL_BEGIN
 @class MediaServer1Device;
 @interface VLCNetworkServerBrowserUPnP : NSObject <VLCNetworkServerBrowser>
