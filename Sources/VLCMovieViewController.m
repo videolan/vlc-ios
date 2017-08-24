@@ -449,7 +449,7 @@ typedef NS_ENUM(NSInteger, VLCPanType) {
         return;
     }
 
-    if (UIDeviceOrientationIsLandscape([UIDevice currentDevice].orientation)) {
+    if (UIInterfaceOrientationIsLandscape([[UIApplication sharedApplication] statusBarOrientation])) {
         _multiSelectionView.showsEqualizer = YES;
         multiSelectionFrame = (CGRect){CGPointMake(0., 0.), [_multiSelectionView proposedDisplaySize]};
         multiSelectionFrame.origin.x = controllerPanelFrame.size.width - multiSelectionFrame.size.width;
@@ -1141,10 +1141,11 @@ currentMediaHasTrackToChooseFrom:(BOOL)currentMediaHasTrackToChooseFrom
     }
 
     if (UI_USER_INTERFACE_IDIOM() == UIUserInterfaceIdiomPhone) {
-        if (UIDeviceOrientationIsLandscape([UIDevice currentDevice].orientation))
+        if (UIInterfaceOrientationIsLandscape([[UIApplication sharedApplication] statusBarOrientation])) {
             _multiSelectionView.showsEqualizer = YES;
-        else
+        } else {
             _multiSelectionView.showsEqualizer = NO;
+        }
     }
 
     CGRect workFrame = _multiSelectionView.frame;
