@@ -771,7 +771,6 @@
 		7DF90B4B1BE7A8110059C0E3 /* IASKSpecifier.m in Sources */ = {isa = PBXBuildFile; fileRef = 7DF90B491BE7A8110059C0E3 /* IASKSpecifier.m */; };
 		7DF9352F1958AB0600E60FD4 /* UIColor+Presets.m in Sources */ = {isa = PBXBuildFile; fileRef = 7DF9352E1958AB0600E60FD4 /* UIColor+Presets.m */; };
 		7DFFD4071D42436B00A41B0A /* VLCExtensionDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 7DFFD4061D42436B00A41B0A /* VLCExtensionDelegate.m */; };
-		8DDE705F1E49DAD400452F85 /* GTScrollNavigationBar.m in Sources */ = {isa = PBXBuildFile; fileRef = 8DDE705E1E49DAD400452F85 /* GTScrollNavigationBar.m */; };
 		8F91EC79195CEC7900F5BCBA /* VLCOpenInActivity.m in Sources */ = {isa = PBXBuildFile; fileRef = 8F91EC78195CEC7900F5BCBA /* VLCOpenInActivity.m */; };
 		8F91EC7F195E1DAB00F5BCBA /* AssetsLibrary.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 8F91EC7E195E1DAB00F5BCBA /* AssetsLibrary.framework */; };
 		9B088308183D7BEC004B5C2A /* VLCCloudStorageTableViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 9B088307183D7BEC004B5C2A /* VLCCloudStorageTableViewController.m */; };
@@ -912,7 +911,7 @@
 		DDF908E01CF4E04A00108B70 /* VLCNetworkLoginDataSourceSavedLogins.m in Sources */ = {isa = PBXBuildFile; fileRef = DDF908DF1CF4E04A00108B70 /* VLCNetworkLoginDataSourceSavedLogins.m */; };
 		DDF908E41CFCD97400108B70 /* VLCNetworkLoginDataSourceProtocol.m in Sources */ = {isa = PBXBuildFile; fileRef = DDF908E31CFCD97400108B70 /* VLCNetworkLoginDataSourceProtocol.m */; };
 		E0C04F951A25B4410080331A /* VLCDocumentPickerController.m in Sources */ = {isa = PBXBuildFile; fileRef = E0C04F941A25B4410080331A /* VLCDocumentPickerController.m */; };
-		E27EF0BC1E9CEF9F0055C7CF /* GTScrollNavigationBar.m in Sources */ = {isa = PBXBuildFile; fileRef = 8DDE705E1E49DAD400452F85 /* GTScrollNavigationBar.m */; };
+		E27EF0BC1E9CEF9F0055C7CF /* BuildFile in Sources */ = {isa = PBXBuildFile; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -1541,8 +1540,6 @@
 		8939257D0D04F9AFF766DEA5 /* libPods-VLC-TV.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-VLC-TV.a"; sourceTree = BUILT_PRODUCTS_DIR; };
 		8B9DD09C453D2346D109D586 /* Pods-VLC-TV.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-VLC-TV.debug.xcconfig"; path = "Pods/Target Support Files/Pods-VLC-TV/Pods-VLC-TV.debug.xcconfig"; sourceTree = "<group>"; };
 		8C707B9BB2C5681D50CC9B99 /* Pods-VLC-tvOS-Debug.distribution.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-VLC-tvOS-Debug.distribution.xcconfig"; path = "Pods/Target Support Files/Pods-VLC-tvOS-Debug/Pods-VLC-tvOS-Debug.distribution.xcconfig"; sourceTree = "<group>"; };
-		8DDE705E1E49DAD400452F85 /* GTScrollNavigationBar.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = GTScrollNavigationBar.m; path = Sources/GTScrollNavigationBar.m; sourceTree = SOURCE_ROOT; };
-		8DDE70601E49DAF800452F85 /* GTScrollNavigationBar.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = GTScrollNavigationBar.h; path = Sources/GTScrollNavigationBar.h; sourceTree = SOURCE_ROOT; };
 		8DEAD87A672248D0A6790405 /* libPods-vlc-ios.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-vlc-ios.a"; sourceTree = BUILT_PRODUCTS_DIR; };
 		8F91EC77195CEC7900F5BCBA /* VLCOpenInActivity.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = VLCOpenInActivity.h; path = Sources/VLCOpenInActivity.h; sourceTree = SOURCE_ROOT; };
 		8F91EC78195CEC7900F5BCBA /* VLCOpenInActivity.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = VLCOpenInActivity.m; path = Sources/VLCOpenInActivity.m; sourceTree = SOURCE_ROOT; };
@@ -2165,8 +2162,6 @@
 				DDC10BE31AEE8EA700890DC3 /* VLCTimeNavigationTitleView.m */,
 				DD1CB0581BBAC549006EDDE6 /* VLCVolumeView.h */,
 				DD1CB0591BBAC549006EDDE6 /* VLCVolumeView.m */,
-				8DDE70601E49DAF800452F85 /* GTScrollNavigationBar.h */,
-				8DDE705E1E49DAD400452F85 /* GTScrollNavigationBar.m */,
 			);
 			name = "UI Elements";
 			sourceTree = "<group>";
@@ -4595,7 +4590,6 @@
 				D6E034ED1CC284FC0037F516 /* VLCStreamingHistoryCell.m in Sources */,
 				7DC19B0C1868D21800810BF7 /* VLCFirstStepsSixthPageViewController.m in Sources */,
 				DD3EFEED1BDEBA3800B68579 /* VLCNetworkServerBrowserViewController.m in Sources */,
-				8DDE705F1E49DAD400452F85 /* GTScrollNavigationBar.m in Sources */,
 				DD3EABFC1BE14C4B003668DA /* UIViewController+VLCAlert.m in Sources */,
 				7D9289751877459B009108FD /* VLCFirstStepsThirdPageViewController.m in Sources */,
 				7D95610B1AF3E9E800779745 /* VLCMiniPlaybackView.m in Sources */,
@@ -4709,7 +4703,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				E27EF0BC1E9CEF9F0055C7CF /* GTScrollNavigationBar.m in Sources */,
+				E27EF0BC1E9CEF9F0055C7CF /* BuildFile in Sources */,
 				7DC54FAE1C046615007B4E42 /* Reachability.m in Sources */,
 				7DC54FAF1C046615007B4E42 /* VLCCloudStorageController.m in Sources */,
 				7DC54FB01C046615007B4E42 /* VLCCloudStorageTableViewCell.m in Sources */,
