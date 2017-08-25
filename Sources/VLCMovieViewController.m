@@ -22,8 +22,6 @@
 
 #import "VLCMovieViewController.h"
 #import "VLCExternalDisplayController.h"
-#import "VLCTrackSelectorTableViewCell.h"
-#import "VLCTrackSelectorHeaderView.h"
 #import "VLCEqualizerView.h"
 #import "VLCMultiSelectionMenuView.h"
 #import "VLCPlaybackController.h"
@@ -35,6 +33,7 @@
 #import "VLCMovieViewControlPanelView.h"
 #import "VLCSlider.h"
 #import "VLCLibraryViewController.h"
+#import "VLCTrackSelectorView.h"
 
 #define FORWARD_SWIPE_DURATION 30
 #define BACKWARD_SWIPE_DURATION 10
@@ -44,9 +43,6 @@
 #define DEFAULT_FOV 80.f
 #define MAX_FOV 150.f
 #define MIN_FOV 20.f
-
-#define TRACK_SELECTOR_TABLEVIEW_CELL @"track selector table view cell"
-#define TRACK_SELECTOR_TABLEVIEW_SECTIONHEADER @"track selector table view section header"
 
 #define LOCKCHECK \
 if (_interfaceIsLocked) \
@@ -60,7 +56,7 @@ typedef NS_ENUM(NSInteger, VLCPanType) {
   VLCPanTypeProjection
 };
 
-@interface VLCMovieViewController () <UIGestureRecognizerDelegate, UITableViewDataSource, UITableViewDelegate, VLCMultiSelectionViewDelegate, VLCEqualizerViewUIDelegate>
+@interface VLCMovieViewController () <UIGestureRecognizerDelegate, VLCMultiSelectionViewDelegate, VLCEqualizerViewUIDelegate>
 {
     BOOL _controlsHidden;
     BOOL _videoFiltersHidden;
@@ -77,7 +73,6 @@ typedef NS_ENUM(NSInteger, VLCPanType) {
     BOOL _playerIsSetup;
     BOOL _isScrubbing;
     BOOL _interfaceIsLocked;
-    BOOL _switchingTracksNotChapters;
     BOOL _audioOnly;
 
     BOOL _volumeGestureEnabled;
@@ -102,8 +97,7 @@ typedef NS_ENUM(NSInteger, VLCPanType) {
     UITapGestureRecognizer *_tapOnVideoRecognizer;
     UITapGestureRecognizer *_tapToSeekRecognizer;
 
-    UIView *_trackSelectorContainer;
-    UITableView *_trackSelectorTableView;
+    VLCTrackSelectorView *_trackSelectorContainer;
 
     VLCEqualizerView *_equalizerView;
     VLCMultiSelectionMenuView *_multiSelectionView;
@@ -208,6 +202,62 @@ typedef NS_ENUM(NSInteger, VLCPanType) {
     self.trackNameLabel.text = self.artistNameLabel.text = self.albumNameLabel.text = @"";
 
     _movieView.userInteractionEnabled = NO;
+
+    [self setupGestureRecognizers];
+
+    _isTapSeeking = NO;
+    _previousJumpState = VLCMovieJumpStateDefault;
+    _numberOfTapSeek = 0;
+
+    self.backButton.tintColor = [UIColor colorWithRed:(190.0f/255.0f) green:(190.0f/255.0f) blue:(190.0f/255.0f) alpha:1.];
+    self.toolbar.tintColor = [UIColor whiteColor];
+    self.toolbar.barStyle = UIBarStyleBlack;
+
+    rect = self.resetVideoFilterButton.frame;
+    rect.origin.y = rect.origin.y + 5.;
+    self.resetVideoFilterButton.frame = rect;
+    rect = self.toolbar.frame;
+    rect.size.height = rect.size.height + rect.origin.y;
+    rect.origin.y = 0;
+    self.toolbar.frame = rect;
+
+    _playerIsSetup = NO;
+
+    [self.movieView setAccessibilityLabel:NSLocalizedString(@"VO_VIDEOPLAYER_TITLE", nil)];
+    [self.movieView setAccessibilityHint:NSLocalizedString(@"VO_VIDEOPLAYER_DOUBLETAP", nil)];
+
+    _trackSelectorContainer = [[VLCTrackSelectorView alloc] initWithFrame:CGRectZero];
+    _trackSelectorContainer.hidden = YES;
+    void (^completionBlock)(BOOL finished) = ^(BOOL finished) {
+        for (UIGestureRecognizer *recognizer in self.view.gestureRecognizers)
+            [recognizer setEnabled:YES];
+        _trackSelectorContainer.hidden = YES;
+    };
+    _trackSelectorContainer.completionHandler = completionBlock;
+    _trackSelectorContainer.translatesAutoresizingMaskIntoConstraints = NO;
+    [self.view addSubview:_trackSelectorContainer];
+
+    _equalizerView = [[VLCEqualizerView alloc] initWithFrame:CGRectMake(0, 0, 450., 240.)];
+    _equalizerView.delegate = [VLCPlaybackController sharedInstance];
+    _equalizerView.UIdelegate = self;
+    _equalizerView.autoresizingMask = UIViewAutoresizingFlexibleRightMargin | UIViewAutoresizingFlexibleLeftMargin | UIViewAutoresizingFlexibleTopMargin;
+    _equalizerView.hidden = YES;
+    [self.view addSubview:_equalizerView];
+
+    //Sleep Timer initialization
+    [self sleepTimerInitializer:deviceSpeedCategory];
+    [self setupControlPanel];
+
+    CGRect screenBounds = [[UIScreen mainScreen] bounds];
+    CGFloat screenScale = [[UIScreen mainScreen] scale];
+    _screenSizePixel = CGSizeMake(screenBounds.size.width * screenScale, screenBounds.size.height * screenScale);
+    _saveLocation = CGPointMake(-1.f, -1.f);
+
+    [self setupConstraints];
+}
+
+- (void)setupGestureRecognizers
+{
     _tapOnVideoRecognizer = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(toggleControlsVisible)];
     _tapOnVideoRecognizer.delegate = self;
     [self.view addGestureRecognizer:_tapOnVideoRecognizer];
@@ -240,7 +290,6 @@ typedef NS_ENUM(NSInteger, VLCPanType) {
     _swipeRecognizerDown.direction = UISwipeGestureRecognizerDirectionDown;
     _swipeRecognizerDown.numberOfTouchesRequired = 2;
 
-
     [self.view addGestureRecognizer:_swipeRecognizerLeft];
     [self.view addGestureRecognizer:_swipeRecognizerRight];
     [self.view addGestureRecognizer:_swipeRecognizerUp];
@@ -261,82 +310,6 @@ typedef NS_ENUM(NSInteger, VLCPanType) {
     _swipeRecognizerDown.delegate = self;
     _tapRecognizer.delegate = self;
     _tapToSeekRecognizer.delegate = self;
-
-    _isTapSeeking = NO;
-    _previousJumpState = VLCMovieJumpStateDefault;
-    _numberOfTapSeek = 0;
-
-    self.backButton.tintColor = [UIColor colorWithRed:(190.0f/255.0f) green:(190.0f/255.0f) blue:(190.0f/255.0f) alpha:1.];
-    self.toolbar.tintColor = [UIColor whiteColor];
-    self.toolbar.barStyle = UIBarStyleBlack;
-
-    rect = self.resetVideoFilterButton.frame;
-    rect.origin.y = rect.origin.y + 5.;
-    self.resetVideoFilterButton.frame = rect;
-    rect = self.toolbar.frame;
-    rect.size.height = rect.size.height + rect.origin.y;
-    rect.origin.y = 0;
-    self.toolbar.frame = rect;
-
-    _playerIsSetup = NO;
-
-    [self.movieView setAccessibilityLabel:NSLocalizedString(@"VO_VIDEOPLAYER_TITLE", nil)];
-    [self.movieView setAccessibilityHint:NSLocalizedString(@"VO_VIDEOPLAYER_DOUBLETAP", nil)];
-
-    rect = self.view.frame;
-    CGFloat width;
-    CGFloat height;
-    if (UI_USER_INTERFACE_IDIOM() == UIUserInterfaceIdiomPhone) {
-        width = 300.;
-        height = 320.;
-    } else {
-        width = 420.;
-        height = 470.;
-    }
-
-    _trackSelectorTableView = [[UITableView alloc] initWithFrame:CGRectMake(0., 0., width, height) style:UITableViewStylePlain];
-    _trackSelectorTableView.delegate = self;
-    _trackSelectorTableView.dataSource = self;
-    _trackSelectorTableView.separatorColor = [UIColor clearColor];
-    _trackSelectorTableView.indicatorStyle = UIScrollViewIndicatorStyleWhite;
-    _trackSelectorTableView.rowHeight = 44.;
-    _trackSelectorTableView.separatorStyle = UITableViewCellSeparatorStyleNone;
-    _trackSelectorTableView.sectionHeaderHeight = 28.;
-    [_trackSelectorTableView registerClass:[VLCTrackSelectorTableViewCell class] forCellReuseIdentifier:TRACK_SELECTOR_TABLEVIEW_CELL];
-    [_trackSelectorTableView registerClass:[VLCTrackSelectorHeaderView class] forHeaderFooterViewReuseIdentifier:TRACK_SELECTOR_TABLEVIEW_SECTIONHEADER];
-    _trackSelectorTableView.autoresizingMask = UIViewAutoresizingFlexibleHeight | UIViewAutoresizingFlexibleWidth;
-
-    _trackSelectorContainer = [[VLCFrostedGlasView alloc] initWithFrame:CGRectMake((rect.size.width - width) / 2., (rect.size.height - height) / 2., width, height)];
-    [_trackSelectorContainer addSubview:_trackSelectorTableView];
-    _trackSelectorContainer.autoresizingMask = UIViewAutoresizingFlexibleRightMargin | UIViewAutoresizingFlexibleLeftMargin | UIViewAutoresizingFlexibleBottomMargin | UIViewAutoresizingFlexibleHeight;
-    _trackSelectorContainer.hidden = YES;
-
-    if (deviceSpeedCategory >= 3) {
-        _trackSelectorTableView.opaque = NO;
-        _trackSelectorTableView.backgroundColor = [UIColor clearColor];
-    } else
-        _trackSelectorTableView.backgroundColor = [UIColor blackColor];
-    _trackSelectorTableView.allowsMultipleSelection = YES;
-
-    [self.view addSubview:_trackSelectorContainer];
-
-    _equalizerView = [[VLCEqualizerView alloc] initWithFrame:CGRectMake(0, 0, 450., 240.)];
-    _equalizerView.delegate = [VLCPlaybackController sharedInstance];
-    _equalizerView.UIdelegate = self;
-    _equalizerView.autoresizingMask = UIViewAutoresizingFlexibleRightMargin | UIViewAutoresizingFlexibleLeftMargin | UIViewAutoresizingFlexibleTopMargin;
-    _equalizerView.hidden = YES;
-    [self.view addSubview:_equalizerView];
-
-    //Sleep Timer initialization
-    [self sleepTimerInitializer:deviceSpeedCategory];
-    [self setupControlPanel];
-
-    CGRect screenBounds = [[UIScreen mainScreen] bounds];
-    CGFloat screenScale = [[UIScreen mainScreen] scale];
-    _screenSizePixel = CGSizeMake(screenBounds.size.width * screenScale, screenBounds.size.height * screenScale);
-    _saveLocation = CGPointMake(-1.f, -1.f);
-
-    [self setupConstraints];
 }
 
 - (void)setupControlPanel
@@ -378,6 +351,16 @@ typedef NS_ENUM(NSInteger, VLCPanType) {
                                                                       views:@{@"panel":_controllerPanel}];
     [self.view addConstraints:hConstraints];
     [self.view addConstraints:vConstraints];
+
+    CGFloat width = UI_USER_INTERFACE_IDIOM() == UIUserInterfaceIdiomPhone ? 300.0 : 420.0;
+    //constraint within _trackSelectorContainer is setting it's height to the tableviews contentview
+    NSArray *constraints = @[
+                             [NSLayoutConstraint constraintWithItem:_trackSelectorContainer attribute:NSLayoutAttributeCenterX relatedBy:NSLayoutRelationEqual toItem:self.view attribute:NSLayoutAttributeCenterX multiplier:1 constant:0],
+                             [NSLayoutConstraint constraintWithItem:_trackSelectorContainer attribute:NSLayoutAttributeCenterY relatedBy:NSLayoutRelationEqual toItem:self.view attribute:NSLayoutAttributeCenterY multiplier:1 constant:0],
+                             [NSLayoutConstraint constraintWithItem:_trackSelectorContainer attribute:NSLayoutAttributeWidth relatedBy:NSLayoutRelationEqual toItem:nil attribute:NSLayoutAttributeWidth multiplier:1 constant:width],
+                             [NSLayoutConstraint constraintWithItem:_trackSelectorContainer attribute:NSLayoutAttributeHeight relatedBy:NSLayoutRelationLessThanOrEqual toItem:self.view attribute:NSLayoutAttributeHeight multiplier:2.0/3.0 constant:0],
+                             ];
+    [NSLayoutConstraint activateConstraints:constraints];
 }
 
 - (void)viewWillAppear:(BOOL)animated
@@ -1039,13 +1022,13 @@ currentMediaHasTrackToChooseFrom:(BOOL)currentMediaHasTrackToChooseFrom
 {
     LOCKCHECK;
 
-    if (_trackSelectorContainer.hidden == YES || _switchingTracksNotChapters == NO) {
-        _switchingTracksNotChapters = YES;
+    if (_trackSelectorContainer.hidden == YES || _trackSelectorContainer.switchingTracksNotChapters == NO) {
+        _trackSelectorContainer.switchingTracksNotChapters = YES;
 
         _trackSelectorContainer.hidden = NO;
         _trackSelectorContainer.alpha = 1.;
 
-        [_trackSelectorTableView reloadData];
+        [_trackSelectorContainer updateView];
 
         if (_equalizerView.hidden == NO)
             _equalizerView.hidden = YES;
@@ -1068,7 +1051,7 @@ currentMediaHasTrackToChooseFrom:(BOOL)currentMediaHasTrackToChooseFrom
 
     } else {
         _trackSelectorContainer.hidden = YES;
-        _switchingTracksNotChapters = NO;
+        _trackSelectorContainer.switchingTracksNotChapters = NO;
     }
 }
 
@@ -1204,10 +1187,10 @@ currentMediaHasTrackToChooseFrom:(BOOL)currentMediaHasTrackToChooseFrom
 {
     LOCKCHECK;
 
-    if (_trackSelectorContainer.hidden == YES || _switchingTracksNotChapters == YES) {
-        _switchingTracksNotChapters = NO;
+    if (_trackSelectorContainer.hidden == YES || _trackSelectorContainer.switchingTracksNotChapters == YES) {
+        _trackSelectorContainer.switchingTracksNotChapters = NO;
+        [_trackSelectorContainer updateView];
 
-        [_trackSelectorTableView reloadData];
         _trackSelectorContainer.hidden = NO;
         _trackSelectorContainer.alpha = 1.;
 
@@ -1268,190 +1251,6 @@ currentMediaHasTrackToChooseFrom:(BOOL)currentMediaHasTrackToChooseFrom
                      completion:^(BOOL finished){
                      }];
     [self _resetIdleTimer];
-}
-
-#pragma mark - track selector table view
-- (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView
-{
-    NSInteger ret = 0;
-    VLCMediaPlayer *mediaPlayer = _vpc.mediaPlayer;
-
-    if (_switchingTracksNotChapters == YES) {
-        if (mediaPlayer.audioTrackIndexes.count > 2)
-            ret++;
-
-        if (mediaPlayer.videoSubTitlesIndexes.count > 1)
-            ret++;
-    } else {
-        if ([mediaPlayer numberOfTitles] > 1)
-            ret++;
-
-        if ([mediaPlayer numberOfChaptersForTitle:mediaPlayer.currentTitleIndex] > 1)
-            ret++;
-    }
-
-    return ret;
-}
-
-- (UIView *)tableView:(UITableView *)tableView viewForHeaderInSection:(NSInteger)section
-{
-    UITableViewHeaderFooterView *view = [tableView dequeueReusableHeaderFooterViewWithIdentifier:TRACK_SELECTOR_TABLEVIEW_SECTIONHEADER];
-
-    if (!view)
-        view = [[VLCTrackSelectorHeaderView alloc] initWithReuseIdentifier:TRACK_SELECTOR_TABLEVIEW_SECTIONHEADER];
-
-    return view;
-}
-
-- (NSString *)tableView:(UITableView *)tableView titleForHeaderInSection:(NSInteger)section
-{
-    VLCMediaPlayer *mediaPlayer = _vpc.mediaPlayer;
-
-    if (_switchingTracksNotChapters == YES) {
-        if (mediaPlayer.audioTrackIndexes.count > 2 && section == 0)
-            return NSLocalizedString(@"CHOOSE_AUDIO_TRACK", nil);
-
-        if (mediaPlayer.videoSubTitlesIndexes.count > 1)
-            return NSLocalizedString(@"CHOOSE_SUBTITLE_TRACK", nil);
-    } else {
-        if ([mediaPlayer numberOfTitles] > 1 && section == 0)
-            return NSLocalizedString(@"CHOOSE_TITLE", nil);
-
-        if ([mediaPlayer numberOfChaptersForTitle:mediaPlayer.currentTitleIndex] > 1)
-            return NSLocalizedString(@"CHOOSE_CHAPTER", nil);
-    }
-
-    return @"unknown track type";
-}
-
-- (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
-{
-    VLCTrackSelectorTableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:TRACK_SELECTOR_TABLEVIEW_CELL];
-
-    if (!cell)
-        cell = [[VLCTrackSelectorTableViewCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:TRACK_SELECTOR_TABLEVIEW_CELL];
-
-    NSInteger row = indexPath.row;
-    NSInteger section = indexPath.section;
-    VLCMediaPlayer *mediaPlayer = _vpc.mediaPlayer;
-    BOOL cellShowsCurrentTrack = NO;
-
-    if (_switchingTracksNotChapters == YES) {
-        NSArray *indexArray;
-        NSString *trackName;
-        if ([mediaPlayer numberOfAudioTracks] > 2 && section == 0) {
-            indexArray = mediaPlayer.audioTrackIndexes;
-
-            if ([indexArray indexOfObject:[NSNumber numberWithInt:mediaPlayer.currentAudioTrackIndex]] == row)
-                cellShowsCurrentTrack = YES;
-
-            NSArray *audioTrackNames = mediaPlayer.audioTrackNames;
-            if (row < audioTrackNames.count) {
-                trackName = audioTrackNames[row];
-            }
-        } else {
-            indexArray = mediaPlayer.videoSubTitlesIndexes;
-
-            if ([indexArray indexOfObject:[NSNumber numberWithInt:mediaPlayer.currentVideoSubTitleIndex]] == row)
-                cellShowsCurrentTrack = YES;
-
-            NSArray *videoSubtitlesNames = mediaPlayer.videoSubTitlesNames;
-            if (row < videoSubtitlesNames.count) {
-                trackName = mediaPlayer.videoSubTitlesNames[row];
-            }
-        }
-
-        if (trackName != nil) {
-            if ([trackName isEqualToString:@"Disable"])
-                cell.textLabel.text = NSLocalizedString(@"DISABLE_LABEL", nil);
-            else
-                cell.textLabel.text = trackName;
-        }
-    } else {
-        if ([mediaPlayer numberOfTitles] > 1 && section == 0) {
-            NSArray *titleDescriptions = mediaPlayer.titleDescriptions;
-            if (row < titleDescriptions.count) {
-                NSDictionary *description = titleDescriptions[row];
-                cell.textLabel.text = [NSString stringWithFormat:@"%@ (%@)", description[VLCTitleDescriptionName], [[VLCTime timeWithNumber:description[VLCTitleDescriptionDuration]] stringValue]];
-            }
-
-            if (row == mediaPlayer.currentTitleIndex)
-                cellShowsCurrentTrack = YES;
-        } else {
-            NSArray *chapterDescriptions = [mediaPlayer chapterDescriptionsOfTitle:mediaPlayer.currentTitleIndex];
-            if (row < chapterDescriptions.count) {
-                NSDictionary *description = chapterDescriptions[row];
-                cell.textLabel.text = [NSString stringWithFormat:@"%@ (%@)", description[VLCChapterDescriptionName], [[VLCTime timeWithNumber:description[VLCChapterDescriptionDuration]] stringValue]];
-            }
-
-            if (row == mediaPlayer.currentChapterIndex)
-                cellShowsCurrentTrack = YES;
-        }
-    }
-    [cell setShowsCurrentTrack:cellShowsCurrentTrack];
-
-    return cell;
-}
-
-- (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section
-{
-    VLCMediaPlayer *mediaPlayer = _vpc.mediaPlayer;
-
-    if (_switchingTracksNotChapters == YES) {
-        NSInteger audioTrackCount = mediaPlayer.audioTrackIndexes.count;
-
-        if (audioTrackCount > 2 && section == 0)
-            return audioTrackCount;
-
-        return mediaPlayer.videoSubTitlesIndexes.count;
-    } else {
-        if ([mediaPlayer numberOfTitles] > 1 && section == 0)
-            return [mediaPlayer numberOfTitles];
-        else
-            return [mediaPlayer numberOfChaptersForTitle:mediaPlayer.currentTitleIndex];
-    }
-}
-
-- (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
-{
-    [tableView deselectRowAtIndexPath:indexPath animated:NO];
-    NSInteger index = indexPath.row;
-    VLCMediaPlayer *mediaPlayer = _vpc.mediaPlayer;
-
-    if (_switchingTracksNotChapters == YES) {
-        NSArray *indexArray;
-        if (mediaPlayer.audioTrackIndexes.count > 2 && indexPath.section == 0) {
-            indexArray = mediaPlayer.audioTrackIndexes;
-            if (index <= indexArray.count)
-                mediaPlayer.currentAudioTrackIndex = [indexArray[index] intValue];
-
-        } else {
-            indexArray = mediaPlayer.videoSubTitlesIndexes;
-            if (index <= indexArray.count)
-                mediaPlayer.currentVideoSubTitleIndex = [indexArray[index] intValue];
-        }
-    } else {
-        if ([mediaPlayer numberOfTitles] > 1 && indexPath.section == 0)
-            mediaPlayer.currentTitleIndex = (int)index;
-        else
-            mediaPlayer.currentChapterIndex = (int)index;
-    }
-
-    CGFloat alpha = 0.0f;
-    _trackSelectorContainer.alpha = 1.0f;
-
-    void (^animationBlock)() = ^() {
-        _trackSelectorContainer.alpha = alpha;
-    };
-
-    void (^completionBlock)(BOOL finished) = ^(BOOL finished) {
-        for (UIGestureRecognizer *recognizer in self.view.gestureRecognizers)
-            [recognizer setEnabled:YES];
-        _trackSelectorContainer.hidden = YES;
-    };
-
-    NSTimeInterval animationDuration = .3;
-    [UIView animateWithDuration:animationDuration animations:animationBlock completion:completionBlock];
 }
 
 #pragma mark - multi-touch gestures

@@ -53,6 +53,9 @@
 		41F5C07D1F42E567005EB9CB /* VLCMediaDataSource.m in Sources */ = {isa = PBXBuildFile; fileRef = 41F5C07A1F42E567005EB9CB /* VLCMediaDataSource.m */; };
 		41F5C07E1F42E572005EB9CB /* VLCLibrarySearchDisplayDataSource.m in Sources */ = {isa = PBXBuildFile; fileRef = 41F5C0771F41ED55005EB9CB /* VLCLibrarySearchDisplayDataSource.m */; };
 		41F5C07F1F42E573005EB9CB /* VLCLibrarySearchDisplayDataSource.m in Sources */ = {isa = PBXBuildFile; fileRef = 41F5C0771F41ED55005EB9CB /* VLCLibrarySearchDisplayDataSource.m */; };
+		41F9BC7C1F4F20E400268461 /* VLCTrackSelectorView.m in Sources */ = {isa = PBXBuildFile; fileRef = 41F9BC7B1F4F20E400268461 /* VLCTrackSelectorView.m */; };
+		41FF73C11F50526400B6CF0B /* VLCTrackSelectorView.m in Sources */ = {isa = PBXBuildFile; fileRef = 41F9BC7B1F4F20E400268461 /* VLCTrackSelectorView.m */; };
+		41FF73C21F50526400B6CF0B /* VLCTrackSelectorView.m in Sources */ = {isa = PBXBuildFile; fileRef = 41F9BC7B1F4F20E400268461 /* VLCTrackSelectorView.m */; };
 		6A804FA9706D38FB40A4136A /* libPods-VLC-watchOS-Extension.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 7F82CE64560C0AD3059DAAFC /* libPods-VLC-watchOS-Extension.a */; };
 		6B4E33D11BF2A39400A35255 /* playerControl.css in Resources */ = {isa = PBXBuildFile; fileRef = 6B4E33CF1BF2A39400A35255 /* playerControl.css */; };
 		6B4E33D21BF2A39400A35255 /* playerControl.js in Resources */ = {isa = PBXBuildFile; fileRef = 6B4E33D01BF2A39400A35255 /* playerControl.js */; };
@@ -1168,6 +1171,8 @@
 		41F5C0771F41ED55005EB9CB /* VLCLibrarySearchDisplayDataSource.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; name = VLCLibrarySearchDisplayDataSource.m; path = Sources/VLCLibrarySearchDisplayDataSource.m; sourceTree = SOURCE_ROOT; };
 		41F5C0791F42E567005EB9CB /* VLCMediaDataSource.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = VLCMediaDataSource.h; sourceTree = SOURCE_ROOT; };
 		41F5C07A1F42E567005EB9CB /* VLCMediaDataSource.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = VLCMediaDataSource.m; sourceTree = SOURCE_ROOT; };
+		41F9BC7A1F4F20E400268461 /* VLCTrackSelectorView.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = VLCTrackSelectorView.h; sourceTree = SOURCE_ROOT; };
+		41F9BC7B1F4F20E400268461 /* VLCTrackSelectorView.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = VLCTrackSelectorView.m; sourceTree = SOURCE_ROOT; };
 		4EB2A836EBC6DE6E89855975 /* Pods-VLC-watchOS-Extension.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-VLC-watchOS-Extension.debug.xcconfig"; path = "Pods/Target Support Files/Pods-VLC-watchOS-Extension/Pods-VLC-watchOS-Extension.debug.xcconfig"; sourceTree = "<group>"; };
 		5B343E4F4D971F5A169EB864 /* Pods-VLC-iOS.distribution.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-VLC-iOS.distribution.xcconfig"; path = "Pods/Target Support Files/Pods-VLC-iOS/Pods-VLC-iOS.distribution.xcconfig"; sourceTree = "<group>"; };
 		633AEC92459BCABEC8671A34 /* Pods-VLC-tvOS-Debug.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-VLC-tvOS-Debug.debug.xcconfig"; path = "Pods/Target Support Files/Pods-VLC-tvOS-Debug/Pods-VLC-tvOS-Debug.debug.xcconfig"; sourceTree = "<group>"; };
@@ -2299,6 +2304,8 @@
 				7D1276611AADA0E600F0260C /* VLCMultiSelectionMenuView.m */,
 				DDAD5C2C1BB9A1E6006AFD3B /* VLCMovieViewControlPanelView.h */,
 				DDAD5C2D1BB9A1E6006AFD3B /* VLCMovieViewControlPanelView.m */,
+				41F9BC7A1F4F20E400268461 /* VLCTrackSelectorView.h */,
+				41F9BC7B1F4F20E400268461 /* VLCTrackSelectorView.m */,
 			);
 			name = Playback;
 			sourceTree = "<group>";
@@ -4558,6 +4565,7 @@
 				7D787F731D40FDE70003CFA1 /* VLCOpenNetworkStreamViewController.m in Sources */,
 				7D787F741D40FDE70003CFA1 /* VLCVolumeView.m in Sources */,
 				7D787F751D40FDE70003CFA1 /* VLCTrackSelectorHeaderView.m in Sources */,
+				41FF73C21F50526400B6CF0B /* VLCTrackSelectorView.m in Sources */,
 				7DE7D2CD1D42900200B3AD27 /* VLCNetworkLoginDataSource.m in Sources */,
 				7D787F761D40FDE70003CFA1 /* VLCFolderCollectionViewFlowLayout.m in Sources */,
 				7D787F771D40FDE70003CFA1 /* VLCLocalNetworkServiceBrowserBonjour.m in Sources */,
@@ -4641,6 +4649,7 @@
 				DD3EFF4D1BDEBCE500B68579 /* VLCNetworkServerBrowserPlex.m in Sources */,
 				DDF908E41CFCD97400108B70 /* VLCNetworkLoginDataSourceProtocol.m in Sources */,
 				7D378492183A98BF009EE944 /* VLCExternalDisplayController.m in Sources */,
+				41F9BC7C1F4F20E400268461 /* VLCTrackSelectorView.m in Sources */,
 				7D378499183A98D1009EE944 /* VLCPlaylistCollectionViewCell.m in Sources */,
 				DD8F84311B00EB3B0009138A /* VLCPlaybackController+MediaLibrary.m in Sources */,
 				DD3EFF551BDEBCE500B68579 /* VLCLocalNetworkServiceBrowserDSM.m in Sources */,
@@ -4770,6 +4779,7 @@
 				7DC54FD41C046615007B4E42 /* VLCNetworkServerBrowserPlex.m in Sources */,
 				7DC54FD51C046615007B4E42 /* VLCExternalDisplayController.m in Sources */,
 				7DC54FD61C046615007B4E42 /* VLCPlaylistCollectionViewCell.m in Sources */,
+				41FF73C11F50526400B6CF0B /* VLCTrackSelectorView.m in Sources */,
 				41F5C07E1F42E572005EB9CB /* VLCLibrarySearchDisplayDataSource.m in Sources */,
 				7DC54FD71C046615007B4E42 /* VLCPlaybackController+MediaLibrary.m in Sources */,
 				7DC54FD81C046615007B4E42 /* VLCLocalNetworkServiceBrowserDSM.m in Sources */,
