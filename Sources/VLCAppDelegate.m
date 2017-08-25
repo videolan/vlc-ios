@@ -33,7 +33,6 @@
 #import "VLCSidebarController.h"
 #import "VLCKeychainCoordinator.h"
 #import "VLCActivityManager.h"
-#import "GTScrollNavigationBar.h"
 #import "VLCDropboxConstants.h"
 #import <ObjectiveDropboxOfficial/ObjectiveDropboxOfficial.h>
 
@@ -134,9 +133,7 @@ NSString *const VLCDropboxSessionWasAuthorized = @"VLCDropboxSessionWasAuthorize
     void (^setupBlock)() = ^{
         _libraryViewController = [[VLCLibraryViewController alloc] init];
         VLCSidebarController *sidebarVC = [VLCSidebarController sharedInstance];
-        VLCNavigationController *navCon = [[VLCNavigationController alloc] initWithNavigationBarClass: [GTScrollNavigationBar class] toolbarClass:nil];
-        [navCon setViewControllers:@[_libraryViewController] animated:NO];
-
+        VLCNavigationController *navCon = [[VLCNavigationController alloc] initWithRootViewController:_libraryViewController];
         sidebarVC.contentViewController = navCon;
 
         VLCPlayerDisplayController *playerDisplayController = [VLCPlayerDisplayController sharedInstance];

@@ -16,7 +16,6 @@
 
 #import "VLCLibraryViewController.h"
 
-#import "GTScrollNavigationBar.h"
 #import "LXReorderableCollectionViewFlowLayout.h"
 #import "VLCActivityViewControllerVendor.h"
 #import "VLCAppDelegate.h"
@@ -136,7 +135,6 @@ static NSString *kUsingTableViewToShowData = @"UsingTableViewToShowData";
             _tableView.autoresizingMask = UIViewAutoresizingFlexibleHeight | UIViewAutoresizingFlexibleWidth;
             _tableView.tableHeaderView = _searchBar;
             _tableView.tableFooterView = [UIView new];
-            self.navigationController.scrollNavigationBar.scrollView = self.tableView;
         }
         _tableView.frame = contentView.bounds;
         [contentView addSubview:_tableView];
@@ -155,7 +153,6 @@ static NSString *kUsingTableViewToShowData = @"UsingTableViewToShowData";
             _longPressGestureRecognizer = [[UILongPressGestureRecognizer alloc] initWithTarget:self action:@selector(_collectionViewHandleLongPressGesture:)];
             [_collectionView addGestureRecognizer:_longPressGestureRecognizer];
             [_collectionView registerNib:[UINib nibWithNibName:@"VLCPlaylistCollectionViewCell" bundle:nil] forCellWithReuseIdentifier:@"PlaylistCell"];
-            self.navigationController.scrollNavigationBar.scrollView = self.collectionView;
         }
         _collectionView.frame = contentView.bounds;
         [contentView addSubview:_collectionView];
@@ -258,7 +255,6 @@ static NSString *kUsingTableViewToShowData = @"UsingTableViewToShowData";
     [self.collectionView.collectionViewLayout invalidateLayout];
     [self setViewFromDeviceOrientation];
     [self updateViewsForCurrentDisplayMode];
-    [self enableNavigationBarAnimation:YES resetPositionWithAnimation:YES];
 }
 
 - (void)viewDidAppear:(BOOL)animated
@@ -310,7 +306,6 @@ static NSString *kUsingTableViewToShowData = @"UsingTableViewToShowData";
     } else if ([mediaObject isKindOfClass:[MLLabel class]]) {
         [_mediaDataSource updateContentsForSelection:mediaObject];
         _inFolder = YES;
-        [self.navigationController.scrollNavigationBar resetToDefaultPositionWithAnimation:YES];
         if (!self.usingTableViewToShowData) {
             if (![self.collectionView.collectionViewLayout isEqual:_reorderLayout]) {
                 for (UIGestureRecognizer *recognizer in _collectionView.gestureRecognizers) {
@@ -418,12 +413,9 @@ static NSString *kUsingTableViewToShowData = @"UsingTableViewToShowData";
                 isPortrait = NO;
         }
 
-        if (self.isEditing) {
-            [self setEditing:NO animated:NO];
-        }
         [self setUsingTableViewToShowData:isPortrait];
         [self _displayEmptyLibraryViewIfNeeded];
-        [self enableNavigationBarAnimation:YES resetPositionWithAnimation:YES];
+
     }
 }
 
@@ -437,19 +429,6 @@ static NSString *kUsingTableViewToShowData = @"UsingTableViewToShowData";
         CGPoint contentOffset = self.tableView.contentOffset;
         contentOffset.y += CGRectGetHeight(self.tableView.tableHeaderView.frame);
         self.tableView.contentOffset = contentOffset;
-    }
-}
-
-- (void)enableNavigationBarAnimation:(BOOL)enable resetPositionWithAnimation:(BOOL)resetPositionWithAnimation
-{
-    if (!enable) {
-        self.navigationController.scrollNavigationBar.scrollView = nil;
-    } else {
-        self.navigationController.scrollNavigationBar.scrollView = self.usingTableViewToShowData ? self.tableView : self.collectionView;
-    }
-
-    if (resetPositionWithAnimation) {
-        [self.navigationController.scrollNavigationBar resetToDefaultPositionWithAnimation:YES];
     }
 }
 
@@ -529,14 +508,6 @@ static NSString *kUsingTableViewToShowData = @"UsingTableViewToShowData";
     }
 
     [self _displayEmptyLibraryViewIfNeeded];
-}
-
-
-#pragma mark - Scroll View Delegate
-
-- (void)scrollViewDidScrollToTop:(UIScrollView *)scrollView
-{
-    [self.navigationController.scrollNavigationBar resetToDefaultPositionWithAnimation:YES];
 }
 
 #pragma mark - Table View
@@ -1035,8 +1006,6 @@ static NSString *kUsingTableViewToShowData = @"UsingTableViewToShowData";
     UIBarButtonItem *editButton = self.editButtonItem;
     editButton.tintColor = [UIColor whiteColor];
 
-    [self enableNavigationBarAnimation:!editing resetPositionWithAnimation:NO];
-
     if (!editing && self.navigationItem.rightBarButtonItems.lastObject == _selectAllBarButtonItem)
         [self.navigationItem setRightBarButtonItems: [self.navigationItem.rightBarButtonItems subarrayWithRange:NSMakeRange(0, self.navigationItem.rightBarButtonItems.count - 1)]];
     else
@@ -1415,7 +1384,6 @@ static NSString *kUsingTableViewToShowData = @"UsingTableViewToShowData";
         [self.collectionView.collectionViewLayout invalidateLayout];
     }
     [self.searchDisplayController setActive:NO];
-    [self enableNavigationBarAnimation:YES resetPositionWithAnimation:YES];
     [self.navigationController setNavigationBarHidden:NO animated:NO];
 }
 
