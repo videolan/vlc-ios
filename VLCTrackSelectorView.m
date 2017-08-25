@@ -61,6 +61,7 @@
     }
     _trackSelectorTableView.allowsMultipleSelection = YES;
 }
+
 - (void)layoutSubviews
 {
     CGFloat height = _trackSelectorTableView.contentSize.height;
@@ -70,7 +71,7 @@
 
 - (void)setupConstraints
 {
-    _heightConstraint = [NSLayoutConstraint constraintWithItem:self attribute:NSLayoutAttributeHeight relatedBy:NSLayoutRelationEqual toItem:nil attribute:NSLayoutAttributeHeight multiplier:1.0 constant:0];
+    _heightConstraint = [NSLayoutConstraint constraintWithItem:self attribute:NSLayoutAttributeHeight relatedBy:NSLayoutRelationEqual toItem:nil attribute:NSLayoutAttributeHeight multiplier:1.0 constant:44];
     _heightConstraint.priority = UILayoutPriorityDefaultHigh;
     NSArray *constraints = @[
                              [NSLayoutConstraint constraintWithItem:_trackSelectorTableView attribute:NSLayoutAttributeTop relatedBy:NSLayoutRelationEqual toItem:self attribute:NSLayoutAttributeTop multiplier:1 constant:0],
