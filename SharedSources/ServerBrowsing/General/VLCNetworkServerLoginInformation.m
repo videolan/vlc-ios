@@ -66,6 +66,7 @@ static NSMutableDictionary<NSString *, VLCNetworkServerLoginInformation *> *VLCN
     VLCNetworkServerLoginInformation *loginInformation  = [VLCNetworkServerLoginInformationRegistry[protocolIdentifier] copy];
     if (!loginInformation) {
         loginInformation = [[VLCNetworkServerLoginInformation alloc] init];
+        loginInformation.protocolIdentifier = protocolIdentifier;
     }
     return loginInformation;
 }
