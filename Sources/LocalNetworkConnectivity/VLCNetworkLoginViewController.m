@@ -182,7 +182,6 @@
     login.username = self.loginInformation.username;
     login.password = self.loginInformation.password;
     self.loginDataSource.loginInformation = login;
-;
 }
 
 #pragma mark - VLCNetworkLoginDataSourceLoginDelegate
@@ -193,10 +192,10 @@
     // TODO: move somewere else?
     // Normalize Plex login
     if ([login.protocolIdentifier isEqualToString:@"plex"]) {
-        if ([login.address isEqualToString:@""]) {
+        if (!login.address.length) {
             login.address = @"Account";
         }
-        if (login.port) {
+        if (!login.port) {
             login.port = @32400;
         }
     }
@@ -211,6 +210,7 @@
 
     [self.tableView deselectRowAtIndexPath:self.tableView.indexPathForSelectedRow animated:YES];
 }
+
 - (void)connectLoginDataSource:(VLCNetworkLoginDataSourceLogin *)dataSource
 {
     VLCNetworkServerLoginInformation *loginInformation = dataSource.loginInformation;
