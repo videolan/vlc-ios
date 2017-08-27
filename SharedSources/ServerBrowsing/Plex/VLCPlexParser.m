@@ -2,7 +2,7 @@
  * VLCPlexParser.m
  * VLC for iOS
  *****************************************************************************
- * Copyright (c) 2014-2015 VideoLAN. All rights reserved.
+ * Copyright (c) 2014-2017 VideoLAN. All rights reserved.
  *
  * Authors: Pierre Sagaspe <pierre.sagaspe # me.com>
  *
@@ -62,10 +62,10 @@ static NSString *const kPlexVLCDeviceName = @"VLC for iOS";
     if ([response statusCode] != 200) {
         NSString *responseString = [[NSString alloc] initWithData:data encoding:NSUTF8StringEncoding];
         if([responseString rangeOfString:@"Unauthorized"].location != NSNotFound) {
-            NSString *serviceString = [NSString stringWithFormat:@"plex://%@%@", address, port];
+            NSString *serviceString = [NSString stringWithFormat:@"plex://%@:%@", address, port];
             XKKeychainGenericPasswordItem *keychainItem = [XKKeychainGenericPasswordItem itemsForService:serviceString error:nil].firstObject;
             if (!keychainItem) {
-                serviceString = @"plex://Account";
+                serviceString = [NSString stringWithFormat:@"plex://Account:%@", port];
                 keychainItem = [XKKeychainGenericPasswordItem itemsForService:serviceString error:nil].firstObject;
             }
             if (keychainItem) {

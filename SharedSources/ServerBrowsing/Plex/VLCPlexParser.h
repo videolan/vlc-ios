@@ -2,7 +2,7 @@
  * VLCPlexParser.h
  * VLC for iOS
  *****************************************************************************
- * Copyright (c) 2014-2015 VideoLAN. All rights reserved.
+ * Copyright (c) 2014-2017 VideoLAN. All rights reserved.
  *
  * Authors: Pierre Sagaspe <pierre.sagaspe # me.com>
  *
