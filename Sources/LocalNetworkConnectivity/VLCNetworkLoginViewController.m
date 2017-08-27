@@ -188,6 +188,9 @@
 
 - (void)saveLoginDataSource:(VLCNetworkLoginDataSourceLogin *)dataSource
 {
+    if (!self.protocolSelected)
+        return;
+
     VLCNetworkServerLoginInformation *login = dataSource.loginInformation;
     // TODO: move somewere else?
     // Normalize Plex login
@@ -213,6 +216,9 @@
 
 - (void)connectLoginDataSource:(VLCNetworkLoginDataSourceLogin *)dataSource
 {
+    if (!self.protocolSelected)
+        return;
+
     VLCNetworkServerLoginInformation *loginInformation = dataSource.loginInformation;
     self.loginInformation = loginInformation;
 
@@ -222,13 +228,27 @@
         _activityBackgroundView.hidden = NO;
         [_activityIndicator startAnimating];
 
-        [self performSelectorInBackground:@selector(_plexLogin)
-                               withObject:nil];
+        [self performSelectorInBackground:@selector(_plexLogin) withObject:nil];
     } else {
         [self.delegate loginWithLoginViewController:self loginInfo:dataSource.loginInformation];
     }
 
     [self.tableView deselectRowAtIndexPath:self.tableView.indexPathForSelectedRow animated:YES];
+}
+
+- (BOOL)protocolSelected
+{
+    if (self.protocolDataSource.protocol == VLCServerProtocolUndefined) {
+        VLCAlertView *alertView = [[VLCAlertView alloc] initWithTitle:NSLocalizedString(@"PROTOCOL_NOT_SELECTED", nil)
+                                                              message:NSLocalizedString(@"PROTOCOL_NOT_SELECTED", nil)
+                                                    cancelButtonTitle:NSLocalizedString(@"BUTTON_OK", nil)
+                                                    otherButtonTitles:nil];
+        [alertView performSelectorOnMainThread:@selector(show) withObject:nil waitUntilDone:NO];
+        [self.tableView deselectRowAtIndexPath:self.tableView.indexPathForSelectedRow animated:YES];
+        return NO;
+    }
+
+    return YES;
 }
 
 #pragma mark - VLCNetworkLoginDataSourceSavedLoginsDelegate
