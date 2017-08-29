@@ -1,11 +1,11 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="13178.6" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" colorMatched="YES">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="13189.4" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" colorMatched="YES">
     <device id="retina4_7" orientation="portrait">
         <adaptation id="fullscreen"/>
     </device>
     <dependencies>
         <deployment identifier="iOS"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="13156.2"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="13165.3"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
     <objects>
@@ -17,7 +17,6 @@
                 <outlet property="audioDelayIndicator" destination="SDv-JW-DMi" id="Krq-0k-T6o"/>
                 <outlet property="audioDelayLabel" destination="8cb-fw-YeF" id="KWQ-n9-3mr"/>
                 <outlet property="audioDelaySlider" destination="oQe-Uu-1HY" id="6Me-OE-Dpl"/>
-                <outlet property="backButton" destination="85" id="96"/>
                 <outlet property="brightnessLabel" destination="130" id="233"/>
                 <outlet property="brightnessSlider" destination="128" id="232"/>
                 <outlet property="contrastLabel" destination="132" id="141"/>
@@ -45,97 +44,12 @@
                 <outlet property="spuDelayLabel" destination="KeW-Xp-9I6" id="LMS-pz-Ajj"/>
                 <outlet property="spuDelaySlider" destination="JRI-0m-C0M" id="f8j-Iq-sH3"/>
                 <outlet property="statusLabel" destination="210" id="211"/>
-                <outlet property="timeNavigationTitleView" destination="260" id="gcy-M6-dw8"/>
-                <outlet property="toolbar" destination="250" id="272"/>
                 <outlet property="trackNameLabel" destination="282" id="284"/>
                 <outlet property="videoFilterView" destination="117" id="147"/>
                 <outlet property="view" destination="1" id="105"/>
             </connections>
         </placeholder>
         <placeholder placeholderIdentifier="IBFirstResponder" id="-2" customClass="UIResponder"/>
-        <view contentMode="scaleToFill" id="260" userLabel="Time view" customClass="VLCTimeNavigationTitleView">
-            <rect key="frame" x="0.0" y="0.0" width="300" height="40"/>
-            <autoresizingMask key="autoresizingMask" widthSizable="YES" flexibleMaxY="YES"/>
-            <subviews>
-                <slider opaque="NO" contentMode="scaleToFill" semanticContentAttribute="playback" contentHorizontalAlignment="center" contentVerticalAlignment="center" value="0.5" minValue="0.0" maxValue="1" id="262" userLabel="Position Slider" customClass="VLCOBSlider">
-                    <rect key="frame" x="44" y="7" width="148" height="29"/>
-                    <autoresizingMask key="autoresizingMask" widthSizable="YES" flexibleMaxY="YES"/>
-                    <accessibility key="accessibilityConfiguration">
-                        <accessibilityTraits key="traits" updatesFrequently="YES"/>
-                    </accessibility>
-                    <connections>
-                        <action selector="positionSliderAction:" destination="-1" eventType="valueChanged" id="263"/>
-                        <action selector="positionSliderDrag:" destination="-1" eventType="touchDragInside" id="266"/>
-                        <action selector="positionSliderDrag:" destination="-1" eventType="touchDragOutside" id="268"/>
-                        <action selector="positionSliderTouchDown:" destination="-1" eventType="touchDown" id="267"/>
-                        <action selector="positionSliderTouchUp:" destination="-1" eventType="touchUpOutside" id="264"/>
-                        <action selector="positionSliderTouchUp:" destination="-1" eventType="touchUpInside" id="265"/>
-                    </connections>
-                </slider>
-                <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" id="202">
-                    <rect key="frame" x="241" y="6" width="59" height="29"/>
-                    <autoresizingMask key="autoresizingMask" flexibleMinX="YES" flexibleMaxY="YES"/>
-                    <fontDescription key="fontDescription" type="boldSystem" pointSize="15"/>
-                    <inset key="contentEdgeInsets" minX="5" minY="0.0" maxX="5" maxY="0.0"/>
-                    <state key="normal" image="ratioIcon.png">
-                        <color key="titleColor" red="0.19607843459999999" green="0.30980393290000002" blue="0.52156865600000002" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
-                        <color key="titleShadowColor" red="0.5" green="0.5" blue="0.5" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
-                    </state>
-                    <state key="highlighted">
-                        <color key="titleColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
-                    </state>
-                    <connections>
-                        <action selector="videoDimensionAction:" destination="-1" eventType="touchUpInside" id="221"/>
-                    </connections>
-                </button>
-                <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" id="276">
-                    <rect key="frame" x="195" y="7" width="52" height="28"/>
-                    <autoresizingMask key="autoresizingMask" flexibleMinX="YES" flexibleMaxY="YES"/>
-                    <fontDescription key="fontDescription" type="boldSystem" pointSize="13"/>
-                    <inset key="contentEdgeInsets" minX="5" minY="0.0" maxX="5" maxY="0.0"/>
-                    <state key="normal" title="--:--">
-                        <color key="titleColor" red="0.74659199620000005" green="0.74659199620000005" blue="0.74659199620000005" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
-                        <color key="titleShadowColor" red="0.5" green="0.5" blue="0.5" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
-                    </state>
-                    <state key="highlighted">
-                        <color key="titleColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
-                    </state>
-                    <connections>
-                        <action selector="toggleTimeDisplay:" destination="-1" eventType="touchUpInside" id="278"/>
-                    </connections>
-                </button>
-                <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" id="1XT-gb-oGz">
-                    <rect key="frame" x="8" y="11" width="30" height="18"/>
-                    <autoresizingMask key="autoresizingMask" flexibleMinX="YES" flexibleMinY="YES" flexibleMaxY="YES"/>
-                    <fontDescription key="fontDescription" type="boldSystem" pointSize="15"/>
-                    <inset key="contentEdgeInsets" minX="5" minY="0.0" maxX="5" maxY="0.0"/>
-                    <state key="normal" image="minimizePlayback">
-                        <color key="titleColor" red="0.19607843459999999" green="0.30980393290000002" blue="0.52156865600000002" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
-                        <color key="titleShadowColor" red="0.5" green="0.5" blue="0.5" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
-                    </state>
-                    <state key="highlighted">
-                        <color key="titleColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
-                    </state>
-                    <connections>
-                        <action selector="minimizePlayback:" destination="-1" eventType="touchUpInside" id="LBk-8c-yjG"/>
-                    </connections>
-                </button>
-            </subviews>
-            <color key="backgroundColor" red="0.0" green="0.0" blue="0.0" alpha="0.0" colorSpace="custom" customColorSpace="sRGB"/>
-            <nil key="simulatedStatusBarMetrics"/>
-            <freeformSimulatedSizeMetrics key="simulatedDestinationMetrics"/>
-            <connections>
-                <outlet property="aspectRatioButton" destination="202" id="IWW-5X-Bf0"/>
-                <outlet property="minimizePlaybackButton" destination="1XT-gb-oGz" id="BAx-Rb-ayD"/>
-                <outlet property="positionSlider" destination="262" id="UPM-uz-5Ix"/>
-                <outlet property="timeDisplayButton" destination="276" id="xvv-Ga-gWA"/>
-            </connections>
-        </view>
-        <barButtonItem systemItem="done" id="85">
-            <connections>
-                <action selector="closePlayback:" destination="-1" id="89"/>
-            </connections>
-        </barButtonItem>
         <view contentMode="scaleToFill" id="1">
             <rect key="frame" x="0.0" y="0.0" width="320" height="568"/>
             <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
@@ -231,18 +145,6 @@
                     </subviews>
                     <color key="backgroundColor" red="0.0" green="0.0" blue="0.0" alpha="0.60999999999999999" colorSpace="custom" customColorSpace="sRGB"/>
                 </view>
-                <navigationBar contentMode="scaleToFill" barStyle="blackTranslucent" id="250">
-                    <rect key="frame" x="0.0" y="18" width="320" height="44"/>
-                    <autoresizingMask key="autoresizingMask" widthSizable="YES" flexibleMaxY="YES"/>
-                    <items>
-                        <navigationItem title="Title" id="261">
-                            <connections>
-                                <outlet property="leftBarButtonItem" destination="85" id="270"/>
-                                <outlet property="titleView" destination="260" id="271"/>
-                            </connections>
-                        </navigationItem>
-                    </items>
-                </navigationBar>
                 <view hidden="YES" contentMode="scaleToFill" id="117" userLabel="video filters view" customClass="VLCFrostedGlasView">
                     <rect key="frame" x="0.0" y="342" width="320" height="198"/>
                     <autoresizingMask key="autoresizingMask" flexibleMinX="YES" flexibleMaxX="YES" flexibleMinY="YES"/>
@@ -440,8 +342,6 @@
     </objects>
     <resources>
         <image name="PlayingExternally.png" width="122" height="91"/>
-        <image name="minimizePlayback" width="15" height="5"/>
-        <image name="ratioIcon.png" width="15" height="15"/>
         <image name="resetIcon.png" width="24" height="30"/>
     </resources>
 </document>

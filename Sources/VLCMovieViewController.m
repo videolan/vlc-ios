@@ -121,7 +121,7 @@ typedef NS_ENUM(NSInteger, VLCPanType) {
     CGPoint _saveLocation;
     CGSize _screenSizePixel;
 }
-
+@property (nonatomic, strong) VLCMovieViewControlPanelView *controllerPanel;
 @property (nonatomic, strong) UIPopoverController *masterPopoverController;
 @property (nonatomic, strong) UIWindow *externalWindow;
 @end
@@ -221,7 +221,6 @@ typedef NS_ENUM(NSInteger, VLCPanType) {
 
     self.playbackSpeedView.hidden = YES;
     _playbackSpeedViewHidden = YES;
-
     NSNotificationCenter *center = [NSNotificationCenter defaultCenter];
     [center addObserver:self selector:@selector(handleExternalScreenDidConnect:)
                    name:UIScreenDidConnectNotification object:nil];
@@ -304,17 +303,9 @@ typedef NS_ENUM(NSInteger, VLCPanType) {
     _previousJumpState = VLCMovieJumpStateDefault;
     _numberOfTapSeek = 0;
 
-    self.backButton.tintColor = [UIColor colorWithRed:(190.0f/255.0f) green:(190.0f/255.0f) blue:(190.0f/255.0f) alpha:1.];
-    self.toolbar.tintColor = [UIColor whiteColor];
-    self.toolbar.barStyle = UIBarStyleBlack;
-
     rect = self.resetVideoFilterButton.frame;
     rect.origin.y = rect.origin.y + 5.;
     self.resetVideoFilterButton.frame = rect;
-    rect = self.toolbar.frame;
-    rect.size.height = rect.size.height + rect.origin.y;
-    rect.origin.y = 0;
-    self.toolbar.frame = rect;
 
     _playerIsSetup = NO;
 
@@ -418,17 +409,41 @@ typedef NS_ENUM(NSInteger, VLCPanType) {
     [self.view addConstraints:vConstraints];
 }
 
+- (void)setupNavigationbar
+{
+    UIButton *doneButton = [[UIButton alloc] initWithFrame:CGRectZero];
+    [doneButton addTarget:self action:@selector(closePlayback:) forControlEvents:UIControlEventTouchUpInside];
+    [doneButton setTitle:NSLocalizedString(@"BUTTON_DONE", nil) forState:UIControlStateNormal];
+    doneButton.translatesAutoresizingMaskIntoConstraints = NO;
+
+    self.timeNavigationTitleView = [[[NSBundle mainBundle] loadNibNamed:@"VLCTimeNavigationTitleView" owner:self options:nil] objectAtIndex:0];
+    self.timeNavigationTitleView.translatesAutoresizingMaskIntoConstraints = NO;
+
+    [self.navigationController.navigationBar addSubview:self.timeNavigationTitleView];
+    [self.navigationController.navigationBar addSubview:doneButton];
+
+    [NSLayoutConstraint activateConstraints: @[
+                                               [NSLayoutConstraint constraintWithItem:doneButton attribute:NSLayoutAttributeLeft relatedBy:NSLayoutRelationEqual toItem:self.navigationController.navigationBar attribute:NSLayoutAttributeLeft multiplier:1 constant:8],
+                                               [NSLayoutConstraint constraintWithItem:doneButton attribute:NSLayoutAttributeCenterY relatedBy:NSLayoutRelationEqual toItem:self.navigationController.navigationBar attribute:NSLayoutAttributeCenterY multiplier:1 constant:0],
+                                               [NSLayoutConstraint constraintWithItem:self.timeNavigationTitleView attribute:NSLayoutAttributeLeft relatedBy:NSLayoutRelationEqual toItem:doneButton attribute:NSLayoutAttributeRight multiplier:1 constant:0],
+                                               [NSLayoutConstraint constraintWithItem:self.timeNavigationTitleView attribute:NSLayoutAttributeRight relatedBy:NSLayoutRelationEqual toItem:self.navigationController.navigationBar attribute:NSLayoutAttributeRight multiplier:1 constant:0],
+                                               [NSLayoutConstraint constraintWithItem:self.timeNavigationTitleView attribute:NSLayoutAttributeTop relatedBy:NSLayoutRelationEqual toItem:self.navigationController.navigationBar attribute:NSLayoutAttributeTop multiplier:1 constant:0],
+                                               [NSLayoutConstraint constraintWithItem:self.timeNavigationTitleView attribute:NSLayoutAttributeBottom relatedBy:NSLayoutRelationEqual toItem:self.navigationController.navigationBar attribute:NSLayoutAttributeBottom multiplier:1 constant:0],
+                                               ]];
+}
+
 - (void)viewWillAppear:(BOOL)animated
 {
     [super viewWillAppear:animated];
 
+    self.navigationController.navigationBar.barStyle = UIBarStyleBlack;
+    self.navigationController.navigationBar.tintColor = [UIColor whiteColor];
+    [self setupNavigationbar];
     /* reset audio meta data views */
     self.artworkImageView.image = nil;
     self.trackNameLabel.text = nil;
     self.artistNameLabel.text = nil;
     self.albumNameLabel.text = nil;
-
-    [self.navigationController setNavigationBarHidden:YES animated:animated];
 
     _vpc = [VLCPlaybackController sharedInstance];
     _vpc.delegate = self;
@@ -438,7 +453,6 @@ typedef NS_ENUM(NSInteger, VLCPanType) {
     [self setControlsHidden:NO animated:animated];
 
     [self updateDefaults];
-    [NSUserDefaults standardUserDefaults];
 
     //Disabling video gestures, media not init in the player yet.
     [self enableNormalVideoGestures:NO];
@@ -466,6 +480,7 @@ typedef NS_ENUM(NSInteger, VLCPanType) {
     }
 
     [self enableNormalVideoGestures:!_mediaHasProjection];
+
 }
 
 - (void)viewDidLayoutSubviews
@@ -512,7 +527,7 @@ typedef NS_ENUM(NSInteger, VLCPanType) {
         [_idleTimer invalidate];
         _idleTimer = nil;
     }
-    [self.navigationController setNavigationBarHidden:NO animated:YES];
+
     [[UIApplication sharedApplication] setStatusBarHidden:NO withAnimation:UIStatusBarAnimationFade];
     [super viewWillDisappear:animated];
 
@@ -680,10 +695,10 @@ typedef NS_ENUM(NSInteger, VLCPanType) {
     CGFloat alpha = _controlsHidden? 0.0f: 1.0f;
 
     if (!_controlsHidden) {
+        self.navigationController.navigationBar.alpha = 0.0;
+        self.navigationController.navigationBar.hidden = NO;
         _controllerPanel.alpha = 0.0f;
         _controllerPanel.hidden = !_videoFiltersHidden;
-        _toolbar.alpha = 0.0f;
-        _toolbar.hidden = NO;
         _videoFilterView.alpha = 0.0f;
         _videoFilterView.hidden = _videoFiltersHidden;
         _playbackSpeedView.alpha = 0.0f;
@@ -705,8 +720,8 @@ typedef NS_ENUM(NSInteger, VLCPanType) {
     }
 
     void (^animationBlock)() = ^() {
+        self.navigationController.navigationBar.alpha = alpha;
         _controllerPanel.alpha = alpha;
-        _toolbar.alpha = alpha;
         _videoFilterView.alpha = alpha;
         _playbackSpeedView.alpha = alpha;
         _trackSelectorContainer.alpha = alpha;
@@ -723,9 +738,9 @@ typedef NS_ENUM(NSInteger, VLCPanType) {
 
     void (^completionBlock)(BOOL finished) = ^(BOOL finished) {
         _controllerPanel.hidden = _videoFiltersHidden ? _controlsHidden : NO;
-        _toolbar.hidden = _controlsHidden;
         _videoFilterView.hidden = _videoFiltersHidden;
         _playbackSpeedView.hidden = _playbackSpeedViewHidden;
+        self.navigationController.navigationBar.hidden = _controlsHidden;
         _trackSelectorContainer.hidden = YES;
         _equalizerView.hidden = YES;
         if (_sleepTimerContainer)
@@ -1027,6 +1042,15 @@ currentMediaHasTrackToChooseFrom:(BOOL)currentMediaHasTrackToChooseFrom
     [self.statusLabel showStatusMessage:statusMessage];
 }
 
+- (void)hideShowAspectratioButton:(BOOL)hide
+{
+    [UIView animateWithDuration:.3
+                     animations:^{
+                         self.widthConstraint.constant = hide ? 0 : 30;
+                         self.timeNavigationTitleView.aspectRatioButton.hidden = hide;
+                     }];
+}
+
 - (void)displayMetadataForPlaybackController:(VLCPlaybackController *)controller
                                        title:(NSString *)title
                                      artwork:(UIImage *)artwork
@@ -1045,9 +1069,7 @@ currentMediaHasTrackToChooseFrom:(BOOL)currentMediaHasTrackToChooseFrom
     } else
         self.artistNameLabel.text = self.albumNameLabel.text = nil;
 
-    self.timeNavigationTitleView.hideAspectRatio = audioOnly;
-    self.timeNavigationTitleView.positionSlider.hidden = NO;
-
+    [self hideShowAspectratioButton:audioOnly];
     [_controllerPanel updateButtons];
     
     _audioOnly = audioOnly;
@@ -1094,7 +1116,7 @@ currentMediaHasTrackToChooseFrom:(BOOL)currentMediaHasTrackToChooseFrom
         if (UI_USER_INTERFACE_IDIOM() == UIUserInterfaceIdiomPhone) {
             if (!_controlsHidden) {
                 self.controllerPanel.hidden = _controlsHidden = YES;
-                self.toolbar.hidden = YES;
+                self.navigationController.navigationBar.hidden = YES;
             }
         }
 
@@ -1211,7 +1233,6 @@ currentMediaHasTrackToChooseFrom:(BOOL)currentMediaHasTrackToChooseFrom
     _interfaceIsLocked = !_interfaceIsLocked;
 
     _multiSelectionView.displayLock = _interfaceIsLocked;
-    self.backButton.enabled = !_interfaceIsLocked;
 }
 
 - (void)toggleEqualizer
@@ -1225,7 +1246,7 @@ currentMediaHasTrackToChooseFrom:(BOOL)currentMediaHasTrackToChooseFrom
         if (UI_USER_INTERFACE_IDIOM() == UIUserInterfaceIdiomPhone) {
             if (!_controlsHidden) {
                 self.controllerPanel.hidden = _controlsHidden = YES;
-                self.toolbar.hidden = YES;
+                self.navigationController.navigationBar.hidden = YES;
             }
         }
 

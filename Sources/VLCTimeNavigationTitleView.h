@@ -19,6 +19,4 @@
 @property (weak, nonatomic) IBOutlet VLCOBSlider *positionSlider;
 @property (weak, nonatomic) IBOutlet UIButton *timeDisplayButton;
 @property (weak, nonatomic) IBOutlet UIButton *aspectRatioButton;
-
-@property (nonatomic) BOOL hideAspectRatio;
 @end

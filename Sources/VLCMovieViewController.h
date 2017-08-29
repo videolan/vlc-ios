@@ -31,11 +31,8 @@ typedef NS_ENUM(NSInteger, VLCMovieJumpState) {
 @interface VLCMovieViewController : UIViewController <UIActionSheetDelegate, VLCPlaybackControllerDelegate>
 
 @property (nonatomic, strong) IBOutlet UIView *movieView;
-@property (nonatomic, strong) IBOutlet UIBarButtonItem *backButton;
 @property (nonatomic, strong) IBOutlet VLCTimeNavigationTitleView *timeNavigationTitleView;
 @property (nonatomic, strong) IBOutlet UIButton *sleepTimerButton;
-@property (nonatomic, strong) IBOutlet UINavigationBar *toolbar;
-@property (nonatomic, strong) IBOutlet VLCMovieViewControlPanelView *controllerPanel;
 @property (nonatomic, strong) IBOutlet VLCStatusLabel *statusLabel;
 
 @property (nonatomic, strong) IBOutlet UIView *playingExternallyView;
@@ -74,6 +71,7 @@ typedef NS_ENUM(NSInteger, VLCMovieJumpState) {
 @property (nonatomic, strong) IBOutlet UILabel *albumNameLabel;
 @property (nonatomic, strong) IBOutlet UILabel *trackNameLabel;
 @property (nonatomic, strong) IBOutlet UIImageView *artworkImageView;
+@property (nonatomic, strong) IBOutlet NSLayoutConstraint *widthConstraint;
 
 - (IBAction)closePlayback:(id)sender;
 - (IBAction)minimizePlayback:(id)sender;
