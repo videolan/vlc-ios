@@ -1,2 +1,2 @@
-"NSPhotoLibraryUsageDescription" = "In order to save the video we will need access to your camera roll";
-"NSPhotoLibraryAddUsageDescription" = "In order to save the video we will need access to your camera roll";
+"NSPhotoLibraryUsageDescription" = "لحفظ الفيديو نحتاج للوصول للكاميرا";
+"NSPhotoLibraryAddUsageDescription" = "لحفظ الفيديو سوف نحتاج صلاحية الدخول للكاميرا";
