@@ -1328,7 +1328,6 @@ static inline NSArray * RemoteCommandCenterCommandsToHandle(MPRemoteCommandCente
 - (void)applicationDidEnterBackground:(NSNotification *)notification
 {
     _preBackgroundWrapperView = _videoOutputViewWrapper;
-    [self setVideoOutputView:nil];
 
     if (_mediaPlayer.audioTrackIndexes.count > 0)
         _mediaPlayer.currentVideoTrackIndex = -1;
