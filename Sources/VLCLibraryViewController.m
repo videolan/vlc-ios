@@ -1392,34 +1392,56 @@ static NSString *kUsingTableViewToShowData = @"UsingTableViewToShowData";
         [invalidSelection addAction:doneAction];
         [self presentViewController:invalidSelection animated:YES completion:nil];
     } else {
-        UIAlertController *alert = [UIAlertController alertControllerWithTitle:NSLocalizedString(@"DELETE_TITLE", nil) message:nil preferredStyle:UIAlertControllerStyleActionSheet];
-        UIAlertAction *deleteAction = [UIAlertAction actionWithTitle:NSLocalizedString(@"BUTTON_DELETE", nil) style:UIAlertActionStyleDestructive handler:^(UIAlertAction * _Nonnull action) {
-            if (_deleteFromTableView) {
-                @synchronized (_foundMedia) {
-                    NSIndexPath *indexPath = (NSIndexPath *)sender;
-                    if (indexPath && indexPath.row < _foundMedia.count)
-                        [self removeMediaObject: _foundMedia[indexPath.row] updateDatabase:YES];
+        if ([UIAlertController class]) {
+            UIAlertController *alert = [UIAlertController alertControllerWithTitle:NSLocalizedString(@"DELETE_TITLE", nil) message:nil preferredStyle:UIAlertControllerStyleActionSheet];
+            UIAlertAction *deleteAction = [UIAlertAction actionWithTitle:NSLocalizedString(@"BUTTON_DELETE", nil) style:UIAlertActionStyleDestructive handler:^(UIAlertAction * _Nonnull action) {
+                if (_deleteFromTableView) {
+                    @synchronized (_foundMedia) {
+                        NSIndexPath *indexPath = (NSIndexPath *)sender;
+                        if (indexPath && indexPath.row < _foundMedia.count)
+                            [self removeMediaObject: _foundMedia[indexPath.row] updateDatabase:YES];
+                    }
+                } else
+                    [self deletionAfterConfirmation];
+                _deleteFromTableView = NO;
+            }];
+            UIAlertAction *cancelAction = [UIAlertAction actionWithTitle:NSLocalizedString(@"BUTTON_CANCEL", nil) style:UIAlertActionStyleCancel handler:^(UIAlertAction * _Nonnull action) {
+                _deleteFromTableView ? [self setEditing:NO animated:YES] : [self reloadViews];
+                _deleteFromTableView = NO;
+            }];
+            [alert addAction:deleteAction];
+            [alert addAction:cancelAction];
+            
+            if (UI_USER_INTERFACE_IDIOM() == UIUserInterfaceIdiomPad) {
+                CGRect tmpBounds = self.view.bounds;
+                [alert setTitle:NSLocalizedString(@"DELETE_TITLE", nil)];
+                [alert setMessage:NSLocalizedString(@"DELETE_MESSAGE", nil)];
+                [alert.popoverPresentationController setPermittedArrowDirections:0];
+                [alert.popoverPresentationController setSourceView:self.view];
+                [alert.popoverPresentationController setSourceRect:CGRectMake(tmpBounds.size.width / 2.0, tmpBounds.size.height / 2.0, 1.0, 1.0)];
+            }
+            [self presentViewController:alert animated:YES completion:nil];
+        } else {
+            //TODO remove when we drop iOS7
+            VLCAlertView *alert = [[VLCAlertView alloc] initWithTitle:NSLocalizedString(@"DELETE_TITLE", nil) message:nil cancelButtonTitle:NSLocalizedString(@"BUTTON_CANCEL", nil) otherButtonTitles:@[NSLocalizedString(@"BUTTON_DELETE", nil)]];
+            alert.completion = ^(BOOL cancelled, NSInteger buttonIndex) {
+                if (cancelled) {
+                    _deleteFromTableView ? [self setEditing:NO animated:YES] : [self reloadViews];
+                    _deleteFromTableView = NO;
+                } else {
+                    if (_deleteFromTableView) {
+                        @synchronized (_foundMedia) {
+                            NSIndexPath *indexPath = (NSIndexPath *)sender;
+                            if (indexPath && indexPath.row < _foundMedia.count)
+                                [self removeMediaObject: _foundMedia[indexPath.row] updateDatabase:YES];
+                        }
+                    } else
+                        [self deletionAfterConfirmation];
+                    _deleteFromTableView = NO;
                 }
-            } else
-                [self deletionAfterConfirmation];
-            _deleteFromTableView = NO;
-        }];
-        UIAlertAction *cancelAction = [UIAlertAction actionWithTitle:NSLocalizedString(@"BUTTON_CANCEL", nil) style:UIAlertActionStyleCancel handler:^(UIAlertAction * _Nonnull action) {
-            _deleteFromTableView ? [self setEditing:NO animated:YES] : [self reloadViews];
-            _deleteFromTableView = NO;
-        }];
-        [alert addAction:deleteAction];
-        [alert addAction:cancelAction];
-
-        if (UI_USER_INTERFACE_IDIOM() == UIUserInterfaceIdiomPad) {
-            CGRect tmpBounds = self.view.bounds;
-            [alert setTitle:NSLocalizedString(@"DELETE_TITLE", nil)];
-            [alert setMessage:NSLocalizedString(@"DELETE_MESSAGE", nil)];
-            [alert.popoverPresentationController setPermittedArrowDirections:0];
-            [alert.popoverPresentationController setSourceView:self.view];
-            [alert.popoverPresentationController setSourceRect:CGRectMake(tmpBounds.size.width / 2.0, tmpBounds.size.height / 2.0, 1.0, 1.0)];
+            };
+            [alert show];
         }
-        [self presentViewController:alert animated:YES completion:nil];
     }
 }
 
