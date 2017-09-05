@@ -96,6 +96,7 @@
 }
 
 - (void)prepareForReuse {
+    [super prepareForReuse];
     [self.thumbnailView cancelLoading];
     self.isDownloadable = NO;
     self.subtitle = nil;
