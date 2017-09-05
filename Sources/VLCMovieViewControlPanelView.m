@@ -142,7 +142,7 @@ static const CGFloat maxCompactWidth = 420.0;
                                                                                        metrics:nil
                                                                                          views:viewsDict]];
     }
-    [NSLayoutConstraint activateConstraints:staticConstraints];
+    [self addConstraints:staticConstraints];
 }
 
 - (void)updateViewConstraints
