@@ -193,7 +193,7 @@
 - (void)listFiles:(NSString *)path
 {
     // DropBox API prefers an empty path than a '/'
-    if ([path isEqualToString:@"/"]) {
+    if (!path || [path isEqualToString:@"/"]) {
         path = @"";
     }
     [[[self client].filesRoutes listFolder:path] setResponseBlock:^(DBFILESListFolderResult * _Nullable result, DBFILESListFolderError * _Nullable routeError, DBRequestError * _Nullable networkError) {
