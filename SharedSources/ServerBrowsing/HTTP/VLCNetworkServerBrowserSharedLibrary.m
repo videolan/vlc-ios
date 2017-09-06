@@ -2,7 +2,7 @@
  * VLCNetworkServerBrowserSharedLibrary.m
  * VLC for iOS
  *****************************************************************************
- * Copyright (c) 2015 VideoLAN. All rights reserved.
+ * Copyright (c) 2015-2017 VideoLAN. All rights reserved.
  * $Id$
  *
  * Authors: Tobias Conradi <videolan # tobias-conradi.de>
@@ -105,6 +105,12 @@
 
 - (id<VLCNetworkServerBrowser>)containerBrowser {
     return nil;
+}
+
+- (BOOL)isDownloadable
+{
+    //VLC also needs an extension in the filename for this to work.
+    return YES;
 }
 
 - (VLCMedia *)media
