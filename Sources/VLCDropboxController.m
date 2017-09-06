@@ -216,6 +216,11 @@
         return;
     }
 
+    if (!destination) {
+        [self _handleError:[NSError errorWithDomain:NSLocalizedString(@"GDRIVE_ERROR_DOWNLOADING_FILE", nil) code:415 userInfo:nil]];
+        return;
+    }
+
     // Need to replace all ' ' by '_' because it causes a `NSInvalidArgumentException ... destination path is nil` in the dropbox library.
     destination = [destination stringByReplacingOccurrencesOfString:@" " withString:@"_"];
 
