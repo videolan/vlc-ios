@@ -2,7 +2,7 @@
  * VLCNetworkServerBrowserSharedLibrary.h
  * VLC for iOS
  *****************************************************************************
- * Copyright (c) 2015 VideoLAN. All rights reserved.
+ * Copyright (c) 2015-2017 VideoLAN. All rights reserved.
  * $Id$
  *
  * Authors: Tobias Conradi <videolan # tobias-conradi.de>
@@ -24,6 +24,7 @@ NS_ASSUME_NONNULL_BEGIN
 @property (nonatomic, readonly, nullable) NSURL *subtitleURL;
 @property (nonatomic, readonly, nullable) NSString *duration;
 @property (nonatomic, readonly, nullable) NSURL *thumbnailURL;
+@property (nonatomic, getter=isDownloadable, readonly) BOOL downloadable;
 
 @end
 
