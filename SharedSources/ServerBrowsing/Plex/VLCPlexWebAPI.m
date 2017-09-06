@@ -2,7 +2,7 @@
  * VLCPlexWebAPI.m
  * VLC for iOS
  *****************************************************************************
- * Copyright (c) 2014-2015 VideoLAN. All rights reserved.
+ * Copyright (c) 2014-2017 VideoLAN. All rights reserved.
  *
  * Authors: Pierre Sagaspe <pierre.sagaspe # me.com>
  *
@@ -24,7 +24,12 @@
 - (NSArray *)PlexBasicAuthentification:(NSString *)username password:(NSString *)password
 {
     NSArray *authToken = nil;
+
     NSURL *url = [NSURL URLWithString:kPlexMediaServerSignIn];
+
+    NSArray *cookies = [[NSHTTPCookieStorage sharedHTTPCookieStorage] cookiesForURL:url];
+    if ([cookies count])
+        return cookies;
 
     NSString *authString = [NSString stringWithFormat:@"%@:%@", username, password];
     NSData *authData = [authString dataUsingEncoding:NSASCIIStringEncoding];
@@ -42,6 +47,7 @@
     [NSURLConnection sendSynchronousRequest:request returningResponse:&response error:&error];
 
     authToken = [NSHTTPCookie cookiesWithResponseHeaderFields:[response allHeaderFields] forURL:[NSURL URLWithString:@""]];
+    [[NSHTTPCookieStorage sharedHTTPCookieStorage] setCookies:authToken forURL:url mainDocumentURL:nil];
 
     return authToken;
 }
