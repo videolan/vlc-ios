@@ -84,16 +84,17 @@ NSString *VLCNetworkListCellIdentifier = @"VLCNetworkListCellIdentifier";
 - (void)viewWillAppear:(BOOL)animated
 {
     [super viewWillAppear:animated];
-    CGPoint contentOffset = self.tableView.contentOffset;
-    contentOffset.y += CGRectGetHeight(self.tableView.tableHeaderView.frame);
-    self.tableView.contentOffset = contentOffset;
+    CGPoint contentOffset = CGPointMake(0, _searchBar.bounds.size.height);
+    [self.tableView setContentOffset:contentOffset animated:NO];
 }
 
-- (void)viewDidAppear:(BOOL)animated {
+- (void)viewDidAppear:(BOOL)animated
+{
     [super viewDidAppear:animated];
 }
 
-- (void)viewWillDisappear:(BOOL)animated {
+- (void)viewWillDisappear:(BOOL)animated
+{
     [super viewWillDisappear:animated];
 }
 
