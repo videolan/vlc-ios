@@ -98,35 +98,6 @@
     [self.tableView reloadData];
 }
 
-#pragma mark - PLEX stuff
-
-// TODO: can we move this Plex stuff to the Plex server browser?
-
-- (void)_plexLogin
-{
-    VLCPlexWebAPI *PlexWebAPI = [[VLCPlexWebAPI alloc] init];
-    NSString *auth = [PlexWebAPI PlexAuthentification:self.loginInformation.username password:self.loginInformation.password];
-
-    [self performSelectorOnMainThread:@selector(_stopActivity) withObject:nil waitUntilDone:YES];
-
-    if ([auth isEqualToString:@""]) {
-        VLCAlertView *alertView = [[VLCAlertView alloc] initWithTitle:NSLocalizedString(@"PLEX_ERROR_ACCOUNT", nil)
-                                                              message:NSLocalizedString(@"PLEX_CHECK_ACCOUNT", nil)
-                                                    cancelButtonTitle:NSLocalizedString(@"BUTTON_OK", nil)
-                                                    otherButtonTitles:nil];
-        [alertView performSelectorOnMainThread:@selector(show) withObject:nil waitUntilDone:NO];
-        return;
-    }
-
-    [self.delegate loginWithLoginViewController:self loginInfo:self.loginInformation];
-}
-
-- (void)_stopActivity
-{
-    _activityBackgroundView.hidden = YES;
-    [_activityIndicator stopAnimating];
-}
-
 #pragma mark -
 
 - (VLCServerProtocol)protocolForProtocolIdentifier:(NSString *)protocolIdentifier
@@ -222,16 +193,7 @@
     VLCNetworkServerLoginInformation *loginInformation = dataSource.loginInformation;
     self.loginInformation = loginInformation;
 
-    // TODO: can we move this Plex stuff to the Plex server browser?
-    if ([loginInformation.protocolIdentifier isEqualToString:@"plex"] &&
-        (loginInformation.username.length > 0 || loginInformation.password.length > 0)) {
-        _activityBackgroundView.hidden = NO;
-        [_activityIndicator startAnimating];
-
-        [self performSelectorInBackground:@selector(_plexLogin) withObject:nil];
-    } else {
-        [self.delegate loginWithLoginViewController:self loginInfo:dataSource.loginInformation];
-    }
+    [self.delegate loginWithLoginViewController:self loginInfo:dataSource.loginInformation];
 
     [self.tableView deselectRowAtIndexPath:self.tableView.indexPathForSelectedRow animated:YES];
 }
