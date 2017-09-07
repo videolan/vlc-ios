@@ -39,6 +39,14 @@ NSString *const VLCPlaybackControllerPlaybackMetadataDidChange = @"VLCPlaybackCo
 NSString *const VLCPlaybackControllerPlaybackDidFail = @"VLCPlaybackControllerPlaybackDidFail";
 NSString *const VLCPlaybackControllerPlaybackPositionUpdated = @"VLCPlaybackControllerPlaybackPositionUpdated";
 
+typedef NS_ENUM(NSUInteger, VLCAspectRatio) {
+    VLCAspectRatioDefault = 0,
+    VLCAspectRatioFillToScreen,
+    VLCAspectRatioFourToThree,
+    VLCAspectRatioSixteenToNine,
+    VLCAspectRatioSixteenToTen,
+};
+
 @interface VLCPlaybackController () <VLCMediaPlayerDelegate,
 #if TARGET_OS_IOS
 AVAudioSessionDelegate,
@@ -51,8 +59,7 @@ VLCMediaDelegate>
     BOOL _shouldResumePlayingAfterInteruption;
     NSTimer *_sleepTimer;
 
-    NSArray *_aspectRatios;
-    NSUInteger _currentAspectRatioMask;
+    NSUInteger _currentAspectRatio;
 
     float _currentPlaybackRate;
     UIView *_videoOutputViewWrapper;
@@ -229,8 +236,6 @@ VLCMediaDelegate>
 
     NSUserDefaults *defaults = [NSUserDefaults standardUserDefaults];
 
-    _aspectRatios = @[@"DEFAULT", @"FILL_TO_SCREEN", @"4:3", @"16:9", @"16:10", @"2.21:1"];
-
     if (!self.url && !self.mediaList) {
         APLog(@"%s: no URL and no media list set, stopping playback", __PRETTY_FUNCTION__);
         [_playbackSessionManagementLock unlock];
@@ -345,8 +350,9 @@ VLCMediaDelegate>
     if ([self.delegate respondsToSelector:@selector(prepareForMediaPlayback:)])
         [self.delegate prepareForMediaPlayback:self];
 
-    _currentAspectRatioMask = 0;
+    _currentAspectRatio = VLCAspectRatioDefault;
     _mediaPlayer.videoAspectRatio = NULL;
+    _mediaPlayer.scaleFactor = 0;
 
     [self subscribeRemoteCommands];
 
@@ -729,18 +735,14 @@ VLCMediaDelegate>
 
 - (void)switchAspectRatio
 {
-    NSUInteger count = [_aspectRatios count];
-
-    if (_currentAspectRatioMask + 1 > count - 1) {
+    if (_currentAspectRatio == VLCAspectRatioSixteenToTen) {
         _mediaPlayer.videoAspectRatio = NULL;
-        _mediaPlayer.videoCropGeometry = NULL;
-        _currentAspectRatioMask = 0;
-        if ([self.delegate respondsToSelector:@selector(showStatusMessage:forPlaybackController:)])
-            [self.delegate showStatusMessage:[NSString stringWithFormat:NSLocalizedString(@"AR_CHANGED", nil), NSLocalizedString(@"DEFAULT", nil)] forPlaybackController:self];
+        _mediaPlayer.scaleFactor = 0;
+        _currentAspectRatio = VLCAspectRatioDefault;
     } else {
-        _currentAspectRatioMask++;
+        _currentAspectRatio++;
 
-        if ([_aspectRatios[_currentAspectRatioMask] isEqualToString:@"FILL_TO_SCREEN"]) {
+        if (_currentAspectRatio == VLCAspectRatioFillToScreen) {
             UIScreen *screen;
             if (![[UIDevice currentDevice] VLCHasExternalDisplay])
                 screen = [UIScreen mainScreen];
@@ -749,27 +751,41 @@ VLCMediaDelegate>
 
             float f_ar = screen.bounds.size.width / screen.bounds.size.height;
 
-            if (f_ar == (float)(640./1136.)) // iPhone 5 aka 16:9.01
-                _mediaPlayer.videoCropGeometry = "16:9";
-            else if (f_ar == (float)(2./3.)) // all other iPhones
-                _mediaPlayer.videoCropGeometry = "16:10"; // libvlc doesn't support 2:3 crop
-            else if (f_ar == (float)(1. + (1./3.))) // all iPads
-                _mediaPlayer.videoCropGeometry = "4:3";
-            else if (f_ar == .5625) // AirPlay
-                _mediaPlayer.videoCropGeometry = "16:9";
-            else
+            if (f_ar == (float)(640./1136.)) {// iPhone 5 aka 16:9.01
+                _mediaPlayer.videoAspectRatio = "16:9";
+            } else if (f_ar == (float)(2./3.)) {// all other iPhones
+                _mediaPlayer.videoAspectRatio = "16:10"; // libvlc doesn't support 2:3 crop
+            } else if (f_ar == (float)(1. + (1./3.))) {// all iPads
+                _mediaPlayer.videoAspectRatio = "4:3";
+            } else if (f_ar == .5625) {// AirPlay
+                _mediaPlayer.videoAspectRatio = "16:9";
+            } else
                 APLog(@"unknown screen format %f, can't crop", f_ar);
-
-            if ([self.delegate respondsToSelector:@selector(showStatusMessage:forPlaybackController:)])
-                [self.delegate showStatusMessage:NSLocalizedString(@"FILL_TO_SCREEN", nil) forPlaybackController:self];
-            return;
+        } else {
+            _mediaPlayer.videoAspectRatio = (char *)[[self stringForAspectRatio:_currentAspectRatio] UTF8String];
+            _mediaPlayer.scaleFactor = 0;
         }
+    }
+    if ([self.delegate respondsToSelector:@selector(showStatusMessage:forPlaybackController:)]) {
+        [self.delegate showStatusMessage:[NSString stringWithFormat:NSLocalizedString(@"AR_CHANGED", nil), [self stringForAspectRatio:_currentAspectRatio]] forPlaybackController:self];
+    }
+}
 
-        _mediaPlayer.videoCropGeometry = NULL;
-        _mediaPlayer.videoAspectRatio = (char *)[_aspectRatios[_currentAspectRatioMask] UTF8String];
-
-        if ([self.delegate respondsToSelector:@selector(showStatusMessage:forPlaybackController:)])
-            [self.delegate showStatusMessage:[NSString stringWithFormat:NSLocalizedString(@"AR_CHANGED", nil), _aspectRatios[_currentAspectRatioMask]] forPlaybackController:self];
+- (NSString *)stringForAspectRatio:(VLCAspectRatio)ratio
+{
+    switch (ratio) {
+            case VLCAspectRatioFillToScreen:
+            return NSLocalizedString(@"FILL_TO_SCREEN", nil);
+            case VLCAspectRatioDefault:
+            return NSLocalizedString(@"DEFAULT", nil);
+            case VLCAspectRatioFourToThree:
+            return NSLocalizedString(@"4:3", nil);
+            case VLCAspectRatioSixteenToTen:
+            return NSLocalizedString(@"16:10", nil);
+            case VLCAspectRatioSixteenToNine:
+            return NSLocalizedString(@"16:9", nil);
+        default:
+            NSAssert(NO, @"this shouldn't happen");
     }
 }
 

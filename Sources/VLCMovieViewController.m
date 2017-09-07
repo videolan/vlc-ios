@@ -466,7 +466,6 @@ typedef NS_ENUM(NSInteger, VLCPanType) {
     _playbackWillClose = NO;
 
     [_vpc recoverDisplayedMetadata];
-    _vpc.videoOutputView = nil;
     _vpc.videoOutputView = self.movieView;
     _multiSelectionView.repeatMode = _vpc.repeatMode;
     _multiSelectionView.shuffleMode = _vpc.isShuffleMode;
@@ -1777,7 +1776,6 @@ currentMediaHasTrackToChooseFrom:(BOOL)currentMediaHasTrackToChooseFrom
     if (pdc.displayMode == VLCPlayerDisplayControllerDisplayModeFullscreen) {
         [_vpc recoverDisplayedMetadata];
         if (_vpc.videoOutputView != self.movieView) {
-            _vpc.videoOutputView = nil;
             _vpc.videoOutputView = self.movieView;
         }
     }
