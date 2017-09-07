@@ -1,3 +1,13 @@
+# VLC iOS
+
+The best open source player ported to iOS!
+
+This repository has the source code of the iOS/AppleTV application and mostly the interface.
+
+It's currently written in Obj-C and uses libVLC for the playback.
+
+It's completely open source.
+
 # How to start development for VLC for iOS:
 
 ## Requirements
