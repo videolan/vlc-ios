@@ -12,6 +12,18 @@
 3. Change `BUNDLE_IDENTIFIER_PREFIX` in `SharedConfig.xcconfig` to your domain name in reverse DNS style.
 4. Hit "Build and Run".
 
+## Compile with your own VLCKit's build
+1. Clone a VLCKit repository: `git clone https://code.videolan.org/videolan/VLCKit.git`
+2. Inside your VLCKit folder, run the following command: `./buildMobileVLCKit.sh -a ${MYARCH}`
+MYARCH can be `i386` `x86_64` `armv7` `armv7s` or `aarch64`.
+Add `-d` for a debug build (to have valid stack straces and asserts).
+Add `-n` if you want to use you own VLC repository for VLCKit (See VLCKit README.md).
+3. Replace the MobileVLCKit.framework with the one you just build. Inside your vlc-ios folder, after a `podate update`, do:
+`cd Pods/MobileVLCKit-unstable/MobileVLCKit-binary`
+`rm -rf MobileVLCKit.framework`
+`ln -s ${VLCKit}/build/MobileVLCKit.framework`
+4. Hit "Build and Run".
+
 ## Errors you might encounter on the way
 
 ### Build errors in Xcode
@@ -38,3 +50,4 @@ or look here: http://www.videolan.org/support/
 For fast replies, IRC is probably the best way. We hang out in the #videolan channel on the freenode network. There is also a web interface: http://webchat.freenode.net/
 
 We're happy to help!
+
