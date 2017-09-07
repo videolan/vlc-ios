@@ -20,7 +20,7 @@ pod 'VLC-LXReorderableCollectionViewFlowLayout', '0.1.3v'
 pod 'VLC-WhiteRaccoon'
 pod 'VLC-LiveSDK', '5.7.0x'
 pod 'MediaLibraryKit-unstable'
-pod 'MobileVLCKit-unstable', '3.0.0a34'
+pod 'MobileVLCKit-unstable', '3.0.0a35’
 pod 'GTMAppAuth'
 pod 'ObjectiveDropboxOfficial', :git => 'git://github.com/TheHungryBu/dropbox-sdk-obj-c.git' #update ios platform version
 end
@@ -41,7 +41,7 @@ pod 'VLC-LXReorderableCollectionViewFlowLayout', '0.1.3v'
 pod 'VLC-WhiteRaccoon'
 pod 'VLC-LiveSDK', '5.7.0x'
 pod 'MediaLibraryKit-unstable'
-pod 'MobileVLCKit-unstable', '3.0.0a34'
+pod 'MobileVLCKit-unstable', '3.0.0a35’
 pod 'ObjectiveDropboxOfficial', :git => 'git://github.com/TheHungryBu/dropbox-sdk-obj-c.git' #update ios platform version
 pod 'GTMAppAuth'
 end
@@ -78,7 +78,7 @@ pod 'VLC-WhiteRaccoon'
 pod 'VLC-LiveSDK', '5.7.0x'
 pod 'ObjectiveDropboxOfficial', :git => 'git://github.com/TheHungryBu/dropbox-sdk-obj-c.git' #update ios platform version
 pod 'HockeySDK-tvOS', '4.1.0-beta.1'
-pod 'TVVLCKit-unstable', '3.0.0a34'
+pod 'TVVLCKit-unstable', '3.0.0a35’
 
 end
 
