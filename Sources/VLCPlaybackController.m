@@ -779,11 +779,11 @@ VLCMediaDelegate>
             case VLCAspectRatioDefault:
             return NSLocalizedString(@"DEFAULT", nil);
             case VLCAspectRatioFourToThree:
-            return NSLocalizedString(@"4:3", nil);
+            return @"4:3";
             case VLCAspectRatioSixteenToTen:
-            return NSLocalizedString(@"16:10", nil);
+            return @"16:10";
             case VLCAspectRatioSixteenToNine:
-            return NSLocalizedString(@"16:9", nil);
+            return @"16:9";
         default:
             NSAssert(NO, @"this shouldn't happen");
     }
