@@ -12,7 +12,7 @@ Christoph Miebach can give you access if you don't have access yet.
 
 Get Testers for Testflight with this document :
 
-https://drive.google.com/open?id=1UZYJbv_71P2APFYGB8teUvNEXDMvWQlxmI6_clT-5_I
+https://docs.google.com/forms/d/e/1FAIpQLSfHQFm4O6t2Bn2zqbFv_nVh4H1XtdDjlI1RS1pGdHlTWR85jg/viewform
 
 ## Test different video file formats with video files from here:
 
