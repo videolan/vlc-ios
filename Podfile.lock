@@ -41,7 +41,7 @@ PODS:
   - MetaDataFetcherKit (0.1.8):
     - AFNetworking (= 3.1.0)
     - OROpenSubtitleDownloader
-  - MobileVLCKit-unstable (3.0.0a35)
+  - MobileVLCKit-unstable (3.0.0a36)
   - NSData+Base64 (1.0.0)
   - ObjectiveDropboxOfficial (1.1)
   - OBSlider (1.1.0)
@@ -49,7 +49,7 @@ PODS:
     - AFNetworking
     - xmlrpc
   - RESideMenu (4.0.7)
-  - TVVLCKit-unstable (3.0.0a35)
+  - TVVLCKit-unstable (3.0.0a36)
   - upnpx (1.4.0a2)
   - TVVLCKit-unstable (3.0.0a36)
   - upnpx (1.4.0)
@@ -71,7 +71,7 @@ DEPENDENCIES:
   - InAppSettingsKit (from `git://github.com/fkuehne/InAppSettingsKit.git`, commit `415ea6bb`)
   - MediaLibraryKit-unstable
   - MetaDataFetcherKit (~> 0.1.8)
-  - MobileVLCKit-unstable (= 3.0.0a35)
+  - MobileVLCKit-unstable (= 3.0.0a36)
   - ObjectiveDropboxOfficial (from `git://github.com/TheHungryBu/dropbox-sdk-obj-c.git`)
   - OBSlider (= 1.1.0)
   - OROpenSubtitleDownloader (from `https://github.com/orta/OROpenSubtitleDownloader.git`, commit `0509eac2`)
@@ -128,7 +128,7 @@ SPEC CHECKSUMS:
   InAppSettingsKit: 76d5cfbaa3e3f8aa53fe3628516da7eb1aa6a5cb
   MediaLibraryKit-unstable: b4834ad57d5d2f49f30b9edd2d7650d151fc5534
   MetaDataFetcherKit: 44c90defa89b3a72cef60e07ad9de37821dd7c5d
-  MobileVLCKit-unstable: 9ce0ee3a0e99faa394d3b6442a2bc4f235ad2b5c
+  MobileVLCKit-unstable: 7c94264c2463dd1dec7845c7689370f6554f0ee5
   NSData+Base64: 4e84902c4db907a15673474677e57763ef3903e4
   ObjectiveDropboxOfficial: e11cdf40e8965a6c24c6d6ff64905f2df43ab653
   OBSlider: 490f108007bfdd5414a38650b211fe403a95b8a0
