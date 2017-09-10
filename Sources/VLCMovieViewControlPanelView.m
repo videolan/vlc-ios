@@ -156,8 +156,10 @@ static const CGFloat maxCompactWidth = 420.0;
 
 - (void)setupConstraints:(BOOL)compactMode
 {
-    [self removeConstraints:_constraints];
-    
+    if (_constraints != nil) {
+        [self removeConstraints:_constraints];
+    }
+
     NSDictionary *viewsDict = @{@"speed" : self.playbackSpeedButton,
                                 @"track" : self.trackSwitcherButton,
                                 @"playback" : self.playbackControls,
