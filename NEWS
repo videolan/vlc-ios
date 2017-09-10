@@ -1,3 +1,10 @@
+iOS 2.8.1:
+----------
+* General stability improvements and bug fixes
+* Fixes a crash for Local Network for versions < iOS 10
+* Fixes issues with .mov playback
+* Fixes aspect ratio not being applied
+
 iOS 2.8.0:
 ----------
 * A new Network Login view
