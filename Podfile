@@ -22,7 +22,7 @@ pod 'VLC-LiveSDK', '5.7.0x'
 pod 'MediaLibraryKit-unstable'
 pod 'MobileVLCKit-unstable', '3.0.0a36’
 pod 'GTMAppAuth'
-pod 'ObjectiveDropboxOfficial', :git => 'git@://github.com/carolanitz/dropbox-sdk-obj-c.git' #update ios platform version
+pod 'ObjectiveDropboxOfficial', :git => 'git://github.com/carolanitz/dropbox-sdk-obj-c.git' #update ios platform version
 end
 
 target 'VLC-iOS-no-watch' do
