@@ -9,7 +9,7 @@ platform :ios, '7.0'
 
 pod 'OBSlider', '1.1.0'
 pod 'InAppSettingsKit', :git => 'git://github.com/fkuehne/InAppSettingsKit.git', :commit => '415ea6bb' #tvOS fix
-pod 'upnpx', '~>1.4.0a2'
+pod 'upnpx', '~>1.4.0'
 pod 'HockeySDK', '~>3.6.4'
 pod 'XKKeychain', '~>1.0'
 pod 'box-ios-sdk-v2', :git => 'git://github.com/fkuehne/box-ios-sdk-v2.git' #has a logout function added
@@ -30,7 +30,7 @@ platform :ios, '7.0'
 
 pod 'OBSlider', '1.1.0'
 pod 'InAppSettingsKit', :git => 'git://github.com/fkuehne/InAppSettingsKit.git', :commit => '415ea6bb' #tvOS fix
-pod 'upnpx', '~>1.4.0a2'
+pod 'upnpx', '~>1.4.0'
 pod 'HockeySDK', '~>3.6.4'
 pod 'XKKeychain', '~>1.0'
 pod 'box-ios-sdk-v2', :git => 'git://github.com/fkuehne/box-ios-sdk-v2.git' #has a logout function added
@@ -51,7 +51,7 @@ platform :ios, '7.0'
 
 pod 'OBSlider', '1.1.0'
 pod 'InAppSettingsKit', :git => 'git://github.com/fkuehne/InAppSettingsKit.git', :commit => '415ea6bb' #tvOS fix
-pod 'upnpx', '~>1.4.0a2'
+pod 'upnpx', '~>1.4.0'
 pod 'HockeySDK', '~>3.6.4'
 pod 'XKKeychain', '~>1.0'
 pod 'box-ios-sdk-v2', :git => 'git://github.com/fkuehne/box-ios-sdk-v2.git' #has a logout function added
@@ -69,7 +69,7 @@ target 'VLC-tvOS' do
 platform :tvos, '10.2'
 pod 'XKKeychain', '~>1.0'
 pod 'box-ios-sdk-v2', :git => 'git://github.com/fkuehne/box-ios-sdk-v2.git' #has tvOS support added
-pod 'upnpx', '~>1.4.0a2'
+pod 'upnpx', '~>1.4.0'
 pod 'CocoaHTTPServer', :git => 'git://github.com/fkuehne/CocoaHTTPServer.git' # has our fixes
 pod 'MetaDataFetcherKit', '~>0.1.8'
 pod "OROpenSubtitleDownloader", :git => 'https://github.com/orta/OROpenSubtitleDownloader.git', :commit => '0509eac2'
@@ -86,7 +86,7 @@ target 'VLC-tvOS-Debug' do
 platform :tvos, '9.0'
 pod 'XKKeychain', '~>1.0'
 pod 'box-ios-sdk-v2', :git => 'git://github.com/fkuehne/box-ios-sdk-v2.git' #has tvOS support added
-pod 'upnpx', '~>1.4.0a2'
+pod 'upnpx', '~>1.4.0'
 pod 'CocoaHTTPServer', :git => 'git://github.com/fkuehne/CocoaHTTPServer.git' # has our fixes
 pod 'MetaDataFetcherKit', '~>0.1.8'
 pod "OROpenSubtitleDownloader", :git => 'https://github.com/orta/OROpenSubtitleDownloader.git', :commit => '0509eac2'
