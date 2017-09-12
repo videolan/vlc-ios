@@ -198,7 +198,11 @@
     }
     [[[self client].filesRoutes listFolder:path] setResponseBlock:^(DBFILESListFolderResult * _Nullable result, DBFILESListFolderError * _Nullable routeError, DBRequestError * _Nullable networkError) {
         if (result) {
-            _currentFileList = [NSArray arrayWithArray:result.entries];
+            _currentFileList = [result.entries sortedArrayUsingComparator:^NSComparisonResult(id a, id b) {
+                NSString *first = [(DBFILESMetadata*)a name];
+                NSString *second = [(DBFILESMetadata*)b name];
+                return [first caseInsensitiveCompare:second];
+            }];
             APLog(@"found filtered metadata for %lu files", (unsigned long)_currentFileList.count);
             if ([self.delegate respondsToSelector:@selector(mediaListUpdated)])
                 [self.delegate mediaListUpdated];
