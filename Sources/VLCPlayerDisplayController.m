@@ -248,20 +248,24 @@ static NSString *const VLCPlayerDisplayControllerDisplayModeKey = @"VLCPlayerDis
 
 - (void)_presentFullscreenPlaybackViewIfNeeded
 {
-    dispatch_async(dispatch_get_main_queue(), ^{
-        if (!self.movieViewController.presentingViewController) {
-            [self _presentMovieViewControllerAnimated:[self shouldAnimate]];
-        }
-    });
+    if (![NSThread isMainThread]) {
+        [self performSelectorOnMainThread:@selector(_presentFullscreenPlaybackViewIfNeeded) withObject:nil waitUntilDone:NO];
+        return;
+    }
+    if (!self.movieViewController.presentingViewController) {
+        [self _presentMovieViewControllerAnimated:[self shouldAnimate]];
+    }
 }
 
 - (void)_closeFullscreenPlayback
 {
-    dispatch_async(dispatch_get_main_queue(), ^{
-        BOOL animated = [self shouldAnimate];
-        [self.movieViewController dismissViewControllerAnimated:animated completion:nil];
-        [self _showHideMiniPlaybackView];
-    });
+    if (![NSThread isMainThread]) {
+        [self performSelectorOnMainThread:@selector(_closeFullscreenPlayback) withObject:nil waitUntilDone:NO];
+        return;
+    }
+    BOOL animated = [self shouldAnimate];
+    [self.movieViewController dismissViewControllerAnimated:animated completion:nil];
+    [self _showHideMiniPlaybackView];
 }
 
 - (void)_presentMovieViewControllerAnimated:(BOOL)animated
@@ -270,6 +274,7 @@ static NSString *const VLCPlayerDisplayControllerDisplayModeKey = @"VLCPlayerDis
     UINavigationController *navCon = [[VLCPlaybackNavigationController alloc] initWithRootViewController:movieViewController];
     [movieViewController prepareForMediaPlayback:self.playbackController];
 
+    navCon.modalPresentationStyle = UIModalPresentationFullScreen;
     UIWindow *window = [[UIApplication sharedApplication] keyWindow];
     [window.rootViewController presentViewController:navCon animated:animated completion:nil];
 }

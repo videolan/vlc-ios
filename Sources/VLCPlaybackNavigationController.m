@@ -15,6 +15,10 @@
 #import "VLCMovieViewController.h"
 #endif
 
+@interface VLCPlaybackNavigationController ()
+
+@end
+
 @implementation VLCPlaybackNavigationController
 
 - (UIInterfaceOrientationMask)supportedInterfaceOrientations
