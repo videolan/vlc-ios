@@ -1,3 +1,12 @@
+iOS 2.8.2:
+----------
+· Fixes an unexpected playback termination of H.264 content after a few minutes
+· Fixes playback of 10bit H.264 content
+· Fixes a crash when discovering UPnP devices on the local network
+· Restored playback on iOS 7
+· Dropbox support is no longer an option on iOS 7 and iOS 8
+· General stability improvements and bug fixes
+
 iOS 2.8.1:
 ----------
 · General stability improvements and bug fixes
@@ -8,7 +17,7 @@ iOS 2.8.1:
 iOS 2.8.0:
 ----------
 · A new Network Login view
-· Hardware decoding of H264/HEVC
+· Hardware decoding of H.264/HEVC
 · Added support for NFS shares
 · Added Bonjour discovery for SMB shares
 · Improved search bar discovery method
