@@ -759,6 +759,8 @@ VLCMediaDelegate>
                 _mediaPlayer.videoAspectRatio = "4:3";
             } else if (f_ar == .5625) {// AirPlay
                 _mediaPlayer.videoAspectRatio = "16:9";
+            } else if (f_ar == 1.5) { //iPhone 4
+                _mediaPlayer.videoAspectRatio = "3:2";
             } else
                 APLog(@"unknown screen format %f, can't crop", f_ar);
         } else {
