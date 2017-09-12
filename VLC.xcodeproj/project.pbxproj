@@ -923,7 +923,7 @@
 		DDF908E01CF4E04A00108B70 /* VLCNetworkLoginDataSourceSavedLogins.m in Sources */ = {isa = PBXBuildFile; fileRef = DDF908DF1CF4E04A00108B70 /* VLCNetworkLoginDataSourceSavedLogins.m */; };
 		DDF908E41CFCD97400108B70 /* VLCNetworkLoginDataSourceProtocol.m in Sources */ = {isa = PBXBuildFile; fileRef = DDF908E31CFCD97400108B70 /* VLCNetworkLoginDataSourceProtocol.m */; };
 		E0C04F951A25B4410080331A /* VLCDocumentPickerController.m in Sources */ = {isa = PBXBuildFile; fileRef = E0C04F941A25B4410080331A /* VLCDocumentPickerController.m */; };
-		E27EF0BC1E9CEF9F0055C7CF /* BuildFile in Sources */ = {isa = PBXBuildFile; };
+		E27EF0BC1E9CEF9F0055C7CF /* (null) in Sources */ = {isa = PBXBuildFile; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -3407,6 +3407,9 @@
 							};
 						};
 					};
+					7DC54FA51C046615007B4E42 = {
+						DevelopmentTeam = 75GAHG3SZQ;
+					};
 					DD3567631B6760BF00338947 = {
 						CreatedOnToolsVersion = 7.0;
 						DevelopmentTeam = 75GAHG3SZQ;
@@ -4006,7 +4009,7 @@
 			);
 			inputPaths = (
 				"${SRCROOT}/Pods/Target Support Files/Pods-VLC-iOS-no-watch-Debug/Pods-VLC-iOS-no-watch-Debug-resources.sh",
-				"$PODS_CONFIGURATION_BUILD_DIR/HockeySDK/HockeySDKResources.bundle",
+				$PODS_CONFIGURATION_BUILD_DIR/HockeySDK/HockeySDKResources.bundle,
 				"${PODS_ROOT}/InAppSettingsKit/InAppSettingsKit/Resources/Base.lproj",
 				"${PODS_ROOT}/InAppSettingsKit/InAppSettingsKit/Resources/de.lproj",
 				"${PODS_ROOT}/InAppSettingsKit/InAppSettingsKit/Resources/el.lproj",
@@ -4096,7 +4099,7 @@
 			);
 			inputPaths = (
 				"${SRCROOT}/Pods/Target Support Files/Pods-VLC-iOS/Pods-VLC-iOS-resources.sh",
-				"$PODS_CONFIGURATION_BUILD_DIR/HockeySDK/HockeySDKResources.bundle",
+				$PODS_CONFIGURATION_BUILD_DIR/HockeySDK/HockeySDKResources.bundle,
 				"${PODS_ROOT}/InAppSettingsKit/InAppSettingsKit/Resources/Base.lproj",
 				"${PODS_ROOT}/InAppSettingsKit/InAppSettingsKit/Resources/de.lproj",
 				"${PODS_ROOT}/InAppSettingsKit/InAppSettingsKit/Resources/el.lproj",
@@ -4201,7 +4204,7 @@
 			);
 			inputPaths = (
 				"${SRCROOT}/Pods/Target Support Files/Pods-VLC-iOS-no-watch/Pods-VLC-iOS-no-watch-resources.sh",
-				"$PODS_CONFIGURATION_BUILD_DIR/HockeySDK/HockeySDKResources.bundle",
+				$PODS_CONFIGURATION_BUILD_DIR/HockeySDK/HockeySDKResources.bundle,
 				"${PODS_ROOT}/InAppSettingsKit/InAppSettingsKit/Resources/Base.lproj",
 				"${PODS_ROOT}/InAppSettingsKit/InAppSettingsKit/Resources/de.lproj",
 				"${PODS_ROOT}/InAppSettingsKit/InAppSettingsKit/Resources/el.lproj",
@@ -4738,7 +4741,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				E27EF0BC1E9CEF9F0055C7CF /* BuildFile in Sources */,
+				E27EF0BC1E9CEF9F0055C7CF /* (null) in Sources */,
 				7DC54FAE1C046615007B4E42 /* Reachability.m in Sources */,
 				7DC54FAF1C046615007B4E42 /* VLCCloudStorageController.m in Sources */,
 				7DC54FB01C046615007B4E42 /* VLCCloudStorageTableViewCell.m in Sources */,
@@ -5699,6 +5702,7 @@
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				COPY_PHASE_STRIP = NO;
 				DEAD_CODE_STRIPPING = NO;
+				DEVELOPMENT_TEAM = 75GAHG3SZQ;
 				EMBEDDED_CONTENT_CONTAINS_SWIFT = NO;
 				ENABLE_BITCODE = NO;
 				ENABLE_NS_ASSERTIONS = YES;
@@ -5741,6 +5745,7 @@
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				COPY_PHASE_STRIP = YES;
 				DEAD_CODE_STRIPPING = NO;
+				DEVELOPMENT_TEAM = 75GAHG3SZQ;
 				EMBEDDED_CONTENT_CONTAINS_SWIFT = NO;
 				ENABLE_BITCODE = NO;
 				ENABLE_NS_ASSERTIONS = NO;
@@ -5784,6 +5789,7 @@
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				COPY_PHASE_STRIP = YES;
 				DEAD_CODE_STRIPPING = NO;
+				DEVELOPMENT_TEAM = 75GAHG3SZQ;
 				EMBEDDED_CONTENT_CONTAINS_SWIFT = NO;
 				ENABLE_BITCODE = NO;
 				ENABLE_NS_ASSERTIONS = NO;
