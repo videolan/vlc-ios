@@ -751,23 +751,30 @@ VLCMediaDelegate>
 
             float f_ar = screen.bounds.size.width / screen.bounds.size.height;
 
-            if (f_ar == (float)(640./1136.)) {// iPhone 5 aka 16:9.01
-                _mediaPlayer.videoAspectRatio = "16:9";
-            } else if (f_ar == (float)(2./3.)) {// all other iPhones
-                _mediaPlayer.videoAspectRatio = "16:10"; // libvlc doesn't support 2:3 crop
-            } else if (f_ar == (float)(4.0/3.0)) {// all iPads
-                _mediaPlayer.videoAspectRatio = "4:3";
-            } else if (f_ar == .5625) {// AirPlay
-                _mediaPlayer.videoAspectRatio = "16:9";
-            } else if (f_ar == 1.5) { //iPhone 4
-                _mediaPlayer.videoAspectRatio = "3:2";
+            if (f_ar == (float)(4.0/3.0) ||
+                f_ar == (float)(1366./1024.)) {
+                // all iPads
+                _mediaPlayer.videoCropGeometry = "4:3";
+            } else if (f_ar == (float)(2./3.) || f_ar == (float)(480./320.)) {
+                // all other iPhones
+                _mediaPlayer.videoCropGeometry = "16:10"; // libvlc doesn't support 2:3 crop
+            } else if (f_ar == .5625) {
+                // AirPlay
+                _mediaPlayer.videoCropGeometry = "16:9";
+            } else if (f_ar == (float)(640./1136.) ||
+                       f_ar == (float)(568./320.) ||
+                       f_ar == (float)(667./375.) ||
+                       f_ar == (float)(736./414.)) {
+                // iPhone 5 and 6 and 6+
+                _mediaPlayer.videoCropGeometry = "16:9";
             } else
                 APLog(@"unknown screen format %f, can't crop", f_ar);
         } else {
             _mediaPlayer.videoAspectRatio = (char *)[[self stringForAspectRatio:_currentAspectRatio] UTF8String];
-            _mediaPlayer.scaleFactor = 0;
+            _mediaPlayer.videoCropGeometry = NULL;
         }
     }
+
     if ([self.delegate respondsToSelector:@selector(showStatusMessage:forPlaybackController:)]) {
         [self.delegate showStatusMessage:[NSString stringWithFormat:NSLocalizedString(@"AR_CHANGED", nil), [self stringForAspectRatio:_currentAspectRatio]] forPlaybackController:self];
     }
