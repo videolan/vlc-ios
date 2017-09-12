@@ -5,6 +5,7 @@ iOS 2.8.2:
 · Fixes a crash when discovering UPnP devices on the local network
 · Restored playback on iOS 7
 · Dropbox support is no longer an option on iOS 7 and iOS 8
+· More options for default playback speed matching the tvOS version
 · General stability improvements and bug fixes
 
 iOS 2.8.1:
