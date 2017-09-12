@@ -755,7 +755,7 @@ VLCMediaDelegate>
                 _mediaPlayer.videoAspectRatio = "16:9";
             } else if (f_ar == (float)(2./3.)) {// all other iPhones
                 _mediaPlayer.videoAspectRatio = "16:10"; // libvlc doesn't support 2:3 crop
-            } else if (f_ar == (float)(1. + (1./3.))) {// all iPads
+            } else if (f_ar == (float)(4.0/3.0)) {// all iPads
                 _mediaPlayer.videoAspectRatio = "4:3";
             } else if (f_ar == .5625) {// AirPlay
                 _mediaPlayer.videoAspectRatio = "16:9";
