@@ -45,7 +45,9 @@
     self.tableView.separatorColor = [UIColor VLCDarkBackgroundColor];
     self.tableView.backgroundColor = [UIColor VLCDarkBackgroundColor];
 
-    self.dropboxTableViewController = [[VLCDropboxTableViewController alloc] initWithNibName:@"VLCCloudStorageTableViewController" bundle:nil];
+    if (SYSTEM_RUNS_IOS9_OR_LATER) {
+        self.dropboxTableViewController = [[VLCDropboxTableViewController alloc] initWithNibName:@"VLCCloudStorageTableViewController" bundle:nil];
+    }
     self.googleDriveTableViewController = [[VLCGoogleDriveTableViewController alloc] initWithNibName:@"VLCCloudStorageTableViewController" bundle:nil];
     [[VLCBoxController sharedInstance] startSession];
     self.boxTableViewController = [[VLCBoxTableViewController alloc] initWithNibName:@"VLCCloudStorageTableViewController" bundle:nil];
@@ -75,7 +77,16 @@
 
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section
 {
-    return [UIDocumentPickerViewController class] ? 5 : 4;// on iOS 8+ add document picker option
+    if (SYSTEM_RUNS_IOS9_OR_LATER) {
+        return 5;
+    }
+    // on iOS 8+ add document picker option, but keep Dropbox disabled
+    if ([UIDocumentPickerViewController class]) {
+        return 4;
+    }
+
+    // iOS 7, neither document picker nor Dropbox
+    return 3;
 }
 
 - (void)tableView:(UITableView *)tableView willDisplayCell:(UITableViewCell *)cell forRowAtIndexPath:(NSIndexPath *)indexPath
@@ -98,7 +109,13 @@
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
 
     VLCCloudServiceCell *cell = [tableView dequeueReusableCellWithIdentifier:@"CloudServiceCell" forIndexPath:indexPath];
-    switch (indexPath.row) {
+    NSInteger row = indexPath.row;
+
+    if (!SYSTEM_RUNS_IOS9_OR_LATER) {
+        row++;
+    }
+
+    switch (row) {
         case 0: {
             //Dropbox
             BOOL isAuthorized = [[VLCDropboxController sharedInstance] isAuthorized];
@@ -152,17 +169,19 @@
 
 - (NSIndexPath *)tableView:(UITableView *)tableView willSelectRowAtIndexPath:(NSIndexPath *)indexPath
 {
-    // don't let select CLOUD_DRIVES menu item since there is no view controller to reveal
-    if (indexPath.row == 4) {
-        [tableView deselectRowAtIndexPath:indexPath animated:YES];
-        if (UI_USER_INTERFACE_IDIOM() == UIUserInterfaceIdiomPad)
-            [self.documentPickerController showDocumentMenuViewController:[(VLCCloudServiceCell *)[self.tableView cellForRowAtIndexPath:indexPath] icon]];
-        else
-            [self.documentPickerController showDocumentMenuViewController:nil];
+    if (SYSTEM_RUNS_IOS8_OR_LATER) {
+        // don't let select CLOUD_DRIVES menu item since there is no view controller to reveal
+        if (indexPath.row == [self tableView:tableView numberOfRowsInSection:indexPath.section] - 1) {
+            [tableView deselectRowAtIndexPath:indexPath animated:YES];
+            if (UI_USER_INTERFACE_IDIOM() == UIUserInterfaceIdiomPad)
+                [self.documentPickerController showDocumentMenuViewController:[(VLCCloudServiceCell *)[self.tableView cellForRowAtIndexPath:indexPath] icon]];
+            else
+                [self.documentPickerController showDocumentMenuViewController:nil];
 
-        return nil;
-    } else
-        return indexPath;
+            return nil;
+        }
+    }
+    return indexPath;
 }
 
 - (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath
@@ -170,9 +189,15 @@
     return 66.0;
 }
 
-- (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
+- (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
+{
+    NSInteger row = indexPath.row;
 
-    switch (indexPath.row) {
+    if (!SYSTEM_RUNS_IOS9_OR_LATER) {
+        row++;
+    }
+
+    switch (row) {
         case 0:
             //dropBox
             [self.navigationController pushViewController:self.dropboxTableViewController animated:YES];
