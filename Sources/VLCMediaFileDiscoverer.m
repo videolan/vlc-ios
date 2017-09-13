@@ -171,7 +171,7 @@ const float MediaTimerInterval = 2.f;
 
             if (exists && !isDirectory) {
                 if (self.filterResultsForPlayability) {
-                    if ([fileName isSupportedMediaFormat] || [fileName isSupportedAudioMediaFormat]) {
+                    if ([fileName isSupportedMediaFormat] || [fileName isSupportedAudioMediaFormat] || [fileName isSupportedPlaylistFormat]) {
                         [_addedFilesMapping setObject:@(0) forKey:fileName];
                         [self notifyFileAdded:fileName loading:YES];
                     }
