@@ -239,9 +239,9 @@
 
             _downloadInProgress = NO;
             [self _triggerNextDownload];
-            if (!result) {
+            if (networkError) {
                 APLog(@"downloadFile failed with network error %li and error tag %li", (long)networkError.statusCode, (long)networkError.tag);
-                [self _handleError:[NSError errorWithDomain:networkError.description code:networkError.statusCode.integerValue userInfo:nil]];
+                [self _handleError:networkError.nsError];
             }
         }] setProgressBlock:^(int64_t bytesWritten, int64_t totalBytesWritten, int64_t totalBytesExpectedToWrite) {
             if ((_lastStatsUpdate > 0 && ([NSDate timeIntervalSinceReferenceDate] - _lastStatsUpdate > .5)) || _lastStatsUpdate <= 0) {
