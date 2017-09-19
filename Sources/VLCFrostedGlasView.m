@@ -76,8 +76,10 @@
 }
 
 #if TARGET_OS_IOS
-- (void)layoutSubviews {
+- (void)layoutSubviews
+{
     [super layoutSubviews];
+
     if (_usingToolbarHack) {
         [self.toolbar setFrame:[self bounds]];
     }

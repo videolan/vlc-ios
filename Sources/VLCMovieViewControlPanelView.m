@@ -209,8 +209,8 @@ static const CGFloat maxCompactWidth = 420.0;
 
 - (void)layoutSubviews
 {
-    [super layoutSubviews];
     [self updateViewConstraints];
+    [super layoutSubviews];
 }
 
 - (VLCPlaybackController *)playbackController
