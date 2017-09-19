@@ -20,7 +20,7 @@ pod 'VLC-LXReorderableCollectionViewFlowLayout', '0.1.3v'
 pod 'VLC-WhiteRaccoon'
 pod 'VLC-LiveSDK', '5.7.0x'
 pod 'MediaLibraryKit-unstable'
-pod 'MobileVLCKit-unstable', '3.0.0a38’
+pod 'MobileVLCKit-unstable', '3.0.0a39'
 pod 'GTMAppAuth'
 pod 'ObjectiveDropboxOfficial', :git => 'git://github.com/carolanitz/dropbox-sdk-obj-c.git' #update ios platform version
 end
@@ -41,7 +41,7 @@ pod 'VLC-LXReorderableCollectionViewFlowLayout', '0.1.3v'
 pod 'VLC-WhiteRaccoon'
 pod 'VLC-LiveSDK', '5.7.0x'
 pod 'MediaLibraryKit-unstable'
-pod 'MobileVLCKit-unstable', '3.0.0a38’
+pod 'MobileVLCKit-unstable', '3.0.0a39'
 pod 'ObjectiveDropboxOfficial', :git => 'git://github.com/carolanitz/dropbox-sdk-obj-c.git' #update ios platform version
 pod 'GTMAppAuth'
 end
@@ -72,13 +72,13 @@ pod 'box-ios-sdk-v2', :git => 'git://github.com/fkuehne/box-ios-sdk-v2.git' #has
 pod 'upnpx', '~>1.4.0'
 pod 'CocoaHTTPServer', :git => 'git://github.com/fkuehne/CocoaHTTPServer.git' # has our fixes
 pod 'MetaDataFetcherKit', '~>0.1.8'
-pod "OROpenSubtitleDownloader", :git => 'https://github.com/orta/OROpenSubtitleDownloader.git', :commit => '0509eac2'
+pod 'OROpenSubtitleDownloader', :git => 'https://github.com/orta/OROpenSubtitleDownloader.git', :commit => '0509eac2'
 pod 'GRKArrayDiff', '~> 2.1'
 pod 'VLC-WhiteRaccoon'
 pod 'VLC-LiveSDK', '5.7.0x'
 pod 'ObjectiveDropboxOfficial', :git => 'git://github.com/carolanitz/dropbox-sdk-obj-c.git' #update ios platform version
 pod 'HockeySDK-tvOS', '4.1.0-beta.1'
-pod 'TVVLCKit-unstable', '3.0.0a36’
+pod 'TVVLCKit-unstable', '3.0.0a39'
 
 end
 
@@ -89,7 +89,7 @@ pod 'box-ios-sdk-v2', :git => 'git://github.com/fkuehne/box-ios-sdk-v2.git' #has
 pod 'upnpx', '~>1.4.0'
 pod 'CocoaHTTPServer', :git => 'git://github.com/fkuehne/CocoaHTTPServer.git' # has our fixes
 pod 'MetaDataFetcherKit', '~>0.1.8'
-pod "OROpenSubtitleDownloader", :git => 'https://github.com/orta/OROpenSubtitleDownloader.git', :commit => '0509eac2'
+pod 'OROpenSubtitleDownloader', :git => 'https://github.com/orta/OROpenSubtitleDownloader.git', :commit => '0509eac2'
 pod 'GRKArrayDiff', '~> 2.1'
 pod 'VLC-WhiteRaccoon'
 pod 'VLC-LiveSDK', '5.7.0x'
