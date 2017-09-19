@@ -1,3 +1,10 @@
+iOS 2.8.3:
+----------
+· Hardware accelerated video filtering reducing CPU load by 30% to the previous software filters (iOS 9 or later only)
+· Fixes FTP playback
+· Fixes crash when playback of a H.264 encoded video ends whose dimensions are not multiples of 16
+· General stability improvements and bug fixes
+
 iOS 2.8.2:
 ----------
 · Fixes an unexpected playback termination of H.264 content after a few minutes
