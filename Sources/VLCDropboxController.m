@@ -244,6 +244,10 @@
                 [self _handleError:networkError.nsError];
             }
         }] setProgressBlock:^(int64_t bytesWritten, int64_t totalBytesWritten, int64_t totalBytesExpectedToWrite) {
+            if (totalBytesWritten == totalBytesExpectedToWrite) {
+                UIAccessibilityPostNotification(UIAccessibilityAnnouncementNotification, NSLocalizedString(@"GDRIVE_DOWNLOAD_SUCCESSFUL", nil));
+            }
+
             if ((_lastStatsUpdate > 0 && ([NSDate timeIntervalSinceReferenceDate] - _lastStatsUpdate > .5)) || _lastStatsUpdate <= 0) {
                 [self calculateRemainingTime:(CGFloat)totalBytesWritten expectedDownloadSize:(CGFloat)totalBytesExpectedToWrite];
                 _lastStatsUpdate = [NSDate timeIntervalSinceReferenceDate];

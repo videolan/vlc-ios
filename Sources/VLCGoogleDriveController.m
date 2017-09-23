@@ -353,6 +353,7 @@
 {
     /* update library now that we got a file */
     APLog(@"DriveFile download was successful");
+    UIAccessibilityPostNotification(UIAccessibilityAnnouncementNotification, NSLocalizedString(@"GDRIVE_DOWNLOAD_SUCCESSFUL", nil));
     [[VLCMediaFileDiscoverer sharedInstance] performSelectorOnMainThread:@selector(updateMediaList) withObject:nil waitUntilDone:NO];
 
     if ([self.delegate respondsToSelector:@selector(operationWithProgressInformationStopped)])
