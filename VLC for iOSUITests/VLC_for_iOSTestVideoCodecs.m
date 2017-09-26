@@ -79,7 +79,7 @@
     
     [app.cells.staticTexts[@"Network Stream"] tap];
 
-    XCUIElement *httpMyserverComFileMkvTextField = app.textFields.firstMatch;
+    XCUIElement *httpMyserverComFileMkvTextField = app.textFields.allElementsBoundByIndex.firstObject;
 
     [httpMyserverComFileMkvTextField clearAndEnterText:filename];
     [[[XCUIApplication alloc] init].buttons[@"Open Network Stream"] tap];
