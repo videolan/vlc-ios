@@ -193,7 +193,7 @@
             [self.historyTableView reloadData];
         }
         [self.urlField resignFirstResponder];
-        [self performSelectorInBackground:@selector(_openURLStringAndDismiss:) withObject:self.urlField.text];
+        [self _openURLStringAndDismiss:self.urlField.text];
     }
 }
 
@@ -317,7 +317,7 @@
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
 {
     [self.historyTableView deselectRowAtIndexPath:indexPath animated:NO];
-    [self performSelectorInBackground:@selector(_openURLStringAndDismiss:) withObject:_recentURLs[indexPath.row]];
+    [self _openURLStringAndDismiss:_recentURLs[indexPath.row]];
 }
 
 - (void)tableView:(UITableView *)tableView
@@ -355,9 +355,9 @@ forRowAtIndexPath:(NSIndexPath *)indexPath
     NSURL *URLscheme = [NSURL URLWithString:url];
     NSString *URLofSubtitle = nil;
 
-    if ([URLscheme.scheme isEqualToString:@"http"])
-        if (self.ScanSubToggleSwitch.on)
-            URLofSubtitle = [self _checkURLofSubtitle:url];
+    if ([URLscheme.scheme isEqualToString:@"http"] && self.ScanSubToggleSwitch.on) {
+        URLofSubtitle = [self _checkURLofSubtitle:url];
+    }
 
     VLCPlaybackController *vpc = [VLCPlaybackController sharedInstance];
     [vpc playURL:[NSURL URLWithString:url] subtitlesFilePath:URLofSubtitle];

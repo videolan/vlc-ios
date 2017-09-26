@@ -211,7 +211,9 @@ VLCMediaDelegate>
         [self stopPlayback];
     } else {
         self.sessionWillRestart = NO;
-        [self startPlayback];
+        dispatch_async(dispatch_get_main_queue(), ^{
+            [self startPlayback];
+        });
     }
 }
 
