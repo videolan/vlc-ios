@@ -53,7 +53,7 @@
 }
 
 - (void)configureForDeviceCategory {
-    if ([[UIDevice currentDevice] VLCSpeedCategory] >= 3) {
+    if ([[UIDevice currentDevice] vlcSpeedCategory] >= VLCSpeedCategoryThreeDevices) {
         _trackSelectorTableView.opaque = NO;
         _trackSelectorTableView.backgroundColor = [UIColor clearColor];
     } else {

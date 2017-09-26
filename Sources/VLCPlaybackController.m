@@ -152,19 +152,13 @@ VLCMediaDelegate>
 
     NSUInteger totalNumberOfPixels = width * height;
 
-    NSInteger speedCategory = [[UIDevice currentDevice] VLCSpeedCategory];
+    VLCSpeedCategory speedCategory = [[UIDevice currentDevice] vlcSpeedCategory];
 
-    if (speedCategory == 1) {
-        // iPhone 3GS, iPhone 4, first gen. iPad, 3rd and 4th generation iPod touch
-        return (totalNumberOfPixels < 600000); // between 480p and 720p
-    } else if (speedCategory == 2) {
-        // iPhone 4S, iPad 2 and 3, iPod 4 and 5
+    if (speedCategory == VLCSpeedCategoryTwoDevices) {
         return (totalNumberOfPixels < 922000); // 720p
-    } else if (speedCategory == 3) {
-        // iPhone 5, iPad 4
+    } else if (speedCategory == VLCSpeedCategoryThreeDevices) {
         return (totalNumberOfPixels < 2074000); // 1080p
-    } else if (speedCategory == 4) {
-        // iPhone 6, 2014 iPads
+    } else if (speedCategory == VLCSpeedCategoryFourDevices) {
         return (totalNumberOfPixels < 8850000); // 4K
     }
 

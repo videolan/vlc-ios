@@ -139,8 +139,6 @@ typedef NS_ENUM(NSInteger, VLCPanType) {
     [super viewDidLoad];
     CGRect rect;
 
-    int deviceSpeedCategory = [[UIDevice currentDevice] VLCSpeedCategory];
-
     self.extendedLayoutIncludesOpaqueBars = YES;
     self.edgesForExtendedLayout = UIRectEdgeAll;
 
@@ -236,7 +234,7 @@ typedef NS_ENUM(NSInteger, VLCPanType) {
     [self.view addSubview:_equalizerView];
 
     //Sleep Timer initialization
-    [self sleepTimerInitializer:deviceSpeedCategory];
+    [self sleepTimerInitializer];
     [self setupControlPanel];
 
     CGRect screenBounds = [[UIScreen mainScreen] bounds];
@@ -526,7 +524,7 @@ typedef NS_ENUM(NSInteger, VLCPanType) {
 
 #pragma mark - Initializer helper
 
-- (void)sleepTimerInitializer:(int)deviceSpeedCategory
+- (void)sleepTimerInitializer
 {
     /* add sleep timer UI */
     _sleepTimerContainer = [[VLCFrostedGlasView alloc] initWithFrame:CGRectMake(0., 0., 300., 200.)];
@@ -545,7 +543,7 @@ typedef NS_ENUM(NSInteger, VLCPanType) {
     verticalSeparator.backgroundColor = [UIColor VLCLightTextColor].CGColor;
 
     _sleepTimeDatePicker = [[UIDatePicker alloc] init];
-    if (deviceSpeedCategory >= 3) {
+    if ([[UIDevice currentDevice] vlcSpeedCategory] >= VLCSpeedCategoryThreeDevices) {
         _sleepTimeDatePicker.opaque = NO;
         _sleepTimeDatePicker.backgroundColor = [UIColor clearColor];
     } else

@@ -60,7 +60,7 @@
 
     _sideMenuViewController.delegate = self;
 
-    if ([[UIDevice currentDevice] VLCSpeedCategory] <= 2) {
+    if ([[UIDevice currentDevice] vlcSpeedCategory] <= VLCSpeedCategoryTwoDevices) {
         _sideMenuViewController.animationDuration = 0.1f;
         _sideMenuViewController.parallaxEnabled = NO;
         _sideMenuViewController.contentViewShadowEnabled = NO;

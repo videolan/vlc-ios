@@ -159,7 +159,7 @@
 
             /* devices category 3 and faster include HW accelerated JPEG encoding
              * so we can make our transfers faster by using waaay smaller images */
-            if ([[UIDevice currentDevice] VLCSpeedCategory] < 3) {
+            if ([[UIDevice currentDevice] vlcSpeedCategory] < VLCSpeedCategoryThreeDevices) {
                 theData = UIImagePNGRepresentation([VLCThumbnailsCache thumbnailForManagedObject:mo]);
                 contentType = @"image/png";
             } else {
