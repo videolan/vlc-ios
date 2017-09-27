@@ -1324,7 +1324,7 @@ static inline NSArray * RemoteCommandCenterCommandsToHandle(MPRemoteCommandCente
               kVLCSettingTextEncoding : [defaults objectForKey:kVLCSettingTextEncoding],
               kVLCSettingSkipLoopFilter : [defaults objectForKey:kVLCSettingSkipLoopFilter],
 #if TARGET_OS_IOS
-              kVLCSettingHWDecoding : [defaults objectForKey:kVLCSettingHWDecoding]};
+              kVLCSettingHardwareDecoding : [defaults objectForKey:kVLCSettingHardwareDecoding]};
 #else
                 };
 #endif
