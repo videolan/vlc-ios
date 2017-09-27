@@ -29,6 +29,18 @@ iOS 2.8.0:
 · Double tap to seek in videos
 · Shuffle functionality
 
+iOS 2.7.8:
+----------
+· Fixed listing of playlist files on remote shares
+· Fixed downloading some media from http servers
+· Fixed start index of multiple media playback in OneDrive
+· Fixed playback of XDCAM media files (requires a 64bit iOS device)
+
+tvOS 1.0.7:
+-----------
+· Fix listing of playlist files on remote shares
+· Fixed playback of XDCAM media files
+
 iOS 2.7.7:
 ----------
 · Updated decoders
