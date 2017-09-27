@@ -154,18 +154,8 @@
                 return [[HTTPErrorResponse alloc] initWithErrorCode:404];
             }
 
-            NSData *theData;
-            NSString *contentType;
-
-            /* devices category 3 and faster include HW accelerated JPEG encoding
-             * so we can make our transfers faster by using waaay smaller images */
-            if ([[UIDevice currentDevice] vlcSpeedCategory] < VLCSpeedCategoryThreeDevices) {
-                theData = UIImagePNGRepresentation([VLCThumbnailsCache thumbnailForManagedObject:mo]);
-                contentType = @"image/png";
-            } else {
-                theData = UIImageJPEGRepresentation([VLCThumbnailsCache thumbnailForManagedObject:mo], .9);
-                contentType = @"image/jpg";
-            }
+            NSData *theData = UIImageJPEGRepresentation([VLCThumbnailsCache thumbnailForManagedObject:mo], .9);
+            NSString *contentType = @"image/jpg";
 
             if (theData) {
                 HTTPDataResponse *dataResponse = [[HTTPDataResponse alloc] initWithData:theData];

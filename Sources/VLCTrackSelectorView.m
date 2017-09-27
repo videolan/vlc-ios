@@ -53,12 +53,8 @@
 }
 
 - (void)configureForDeviceCategory {
-    if ([[UIDevice currentDevice] vlcSpeedCategory] >= VLCSpeedCategoryThreeDevices) {
-        _trackSelectorTableView.opaque = NO;
-        _trackSelectorTableView.backgroundColor = [UIColor clearColor];
-    } else {
-        _trackSelectorTableView.backgroundColor = [UIColor blackColor];
-    }
+    _trackSelectorTableView.opaque = NO;
+    _trackSelectorTableView.backgroundColor = [UIColor clearColor];
     _trackSelectorTableView.allowsMultipleSelection = YES;
 }
 

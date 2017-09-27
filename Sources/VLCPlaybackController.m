@@ -136,35 +136,6 @@ VLCMediaDelegate>
 
 #pragma mark - playback management
 
-- (BOOL)_isMediaSuitableForDevice:(VLCMedia *)media
-{
-    NSArray *tracksInfo = media.tracksInformation;
-    double width = 0.0, height = 0.0;
-    NSDictionary *track;
-
-    for (NSUInteger x = 0; x < tracksInfo.count; x++) {
-        track = tracksInfo[x];
-        if ([track[VLCMediaTracksInformationType] isEqualToString:VLCMediaTracksInformationTypeVideo]) {
-            width = [track[VLCMediaTracksInformationVideoWidth] doubleValue];
-            height = [track[VLCMediaTracksInformationVideoHeight] doubleValue];
-        }
-    }
-
-    NSUInteger totalNumberOfPixels = width * height;
-
-    VLCSpeedCategory speedCategory = [[UIDevice currentDevice] vlcSpeedCategory];
-
-    if (speedCategory == VLCSpeedCategoryTwoDevices) {
-        return (totalNumberOfPixels < 922000); // 720p
-    } else if (speedCategory == VLCSpeedCategoryThreeDevices) {
-        return (totalNumberOfPixels < 2074000); // 1080p
-    } else if (speedCategory == VLCSpeedCategoryFourDevices) {
-        return (totalNumberOfPixels < 8850000); // 4K
-    }
-
-    return YES;
-}
-
 - (void)playMediaList:(VLCMediaList *)mediaList firstIndex:(NSInteger)index
 {
     self.mediaList = mediaList;
@@ -288,36 +259,7 @@ VLCMediaDelegate>
 
     [_playbackSessionManagementLock unlock];
 
-    if (![self _isMediaSuitableForDevice:media]) {
-#if TARGET_OS_IOS
-        VLCAlertView *alert = [[VLCAlertView alloc] initWithTitle:NSLocalizedString(@"DEVICE_TOOSLOW_TITLE", nil)
-                                                          message:[NSString stringWithFormat:NSLocalizedString(@"DEVICE_TOOSLOW", nil), [[UIDevice currentDevice] model], media.url.lastPathComponent]
-                                                         delegate:self
-                                                cancelButtonTitle:NSLocalizedString(@"BUTTON_CANCEL", nil)
-                                                otherButtonTitles:NSLocalizedString(@"BUTTON_OPEN", nil), nil];
-        [alert show];
-#else
-        UIAlertController *alert = [UIAlertController alertControllerWithTitle:NSLocalizedString(@"DEVICE_TOOSLOW_TITLE", nil)
-                                                                       message:[NSString stringWithFormat:NSLocalizedString(@"DEVICE_TOOSLOW", nil), [[UIDevice currentDevice] model], media.url.lastPathComponent]
-                                                                preferredStyle:UIAlertControllerStyleAlert];
-
-        UIAlertAction *defaultAction = [UIAlertAction actionWithTitle:NSLocalizedString(@"BUTTON_OPEN", nil)
-                                                                style:UIAlertActionStyleDefault
-                                                              handler:^(UIAlertAction * action) {
-                                                                      [self _playNewMedia];
-                                                              }];
-
-        UIAlertAction *cancelAction = [UIAlertAction actionWithTitle:NSLocalizedString(@"BUTTON_CANCEL", nil)
-                                                               style:UIAlertActionStyleDestructive
-                                                            handler:^(UIAlertAction * action) {
-                                                                [self stopPlayback];
-                                                            }];
-        [alert addAction:defaultAction];
-        [alert addAction:cancelAction];
-        [[UIApplication sharedApplication].keyWindow.rootViewController presentViewController:alert animated:YES completion:nil];
-#endif
-    } else
-        [self _playNewMedia];
+    [self _playNewMedia];
 }
 
 - (void)_playNewMedia
@@ -357,16 +299,6 @@ VLCMediaDelegate>
     [[NSNotificationCenter defaultCenter] postNotificationName:VLCPlaybackControllerPlaybackDidStart object:self];
     [_playbackSessionManagementLock unlock];
 }
-
-#if TARGET_OS_IOS
-- (void)alertView:(UIAlertView *)alertView clickedButtonAtIndex:(NSInteger)buttonIndex
-{
-    if (buttonIndex == 1)
-        [self _playNewMedia];
-    else
-        [self stopPlayback];
-}
-#endif
 
 - (void)stopPlayback
 {

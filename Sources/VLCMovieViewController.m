@@ -543,11 +543,8 @@ typedef NS_ENUM(NSInteger, VLCPanType) {
     verticalSeparator.backgroundColor = [UIColor VLCLightTextColor].CGColor;
 
     _sleepTimeDatePicker = [[UIDatePicker alloc] init];
-    if ([[UIDevice currentDevice] vlcSpeedCategory] >= VLCSpeedCategoryThreeDevices) {
-        _sleepTimeDatePicker.opaque = NO;
-        _sleepTimeDatePicker.backgroundColor = [UIColor clearColor];
-    } else
-        _sleepTimeDatePicker.backgroundColor = [UIColor blackColor];
+    _sleepTimeDatePicker.opaque = NO;
+    _sleepTimeDatePicker.backgroundColor = [UIColor clearColor];
     _sleepTimeDatePicker.tintColor = [UIColor VLCLightTextColor];
     _sleepTimeDatePicker.frame = CGRectMake(0., 0., 300., 162.);
     _sleepTimeDatePicker.autoresizingMask = UIViewAutoresizingFlexibleRightMargin | UIViewAutoresizingFlexibleLeftMargin | UIViewAutoresizingFlexibleBottomMargin | UIViewAutoresizingFlexibleTopMargin;

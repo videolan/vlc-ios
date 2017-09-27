@@ -14,7 +14,6 @@
 #import "VLCEqualizerView.h"
 #import "VLCTrackSelectorTableViewCell.h"
 #import "VLCTrackSelectorHeaderView.h"
-#import "UIDevice+VLC.h"
 #import "VLCSlider.h"
 
 #define PROFILE_SELECTOR_TABLEVIEW_SECTIONHEADER @"profile selector table section header"
@@ -260,11 +259,8 @@
     _tableView.sectionHeaderHeight = 28.;
     [_tableView registerClass:[VLCTrackSelectorHeaderView class] forHeaderFooterViewReuseIdentifier:PROFILE_SELECTOR_TABLEVIEW_SECTIONHEADER];
     [_tableView registerClass:[VLCTrackSelectorTableViewCell class] forCellReuseIdentifier:PROFILE_SELECTOR_TABLEVIEW_CELL];
-    if ([[UIDevice currentDevice] vlcSpeedCategory] >= VLCSpeedCategoryThreeDevices) {
-        _tableView.opaque = NO;
-        _tableView.backgroundColor = [UIColor clearColor];
-    } else
-        _tableView.backgroundColor = [UIColor blackColor];
+    _tableView.opaque = NO;
+    _tableView.backgroundColor = [UIColor clearColor];
     [self addSubview:_tableView];
     return self;
 }

@@ -56,17 +56,11 @@ NSString *const VLCDropboxSessionWasAuthorized = @"VLCDropboxSessionWasAuthorize
 {
     NSUserDefaults *defaults = [NSUserDefaults standardUserDefaults];
 
-    NSNumber *skipLoopFilterDefaultValue;
-    if ([[UIDevice currentDevice] vlcSpeedCategory] < VLCSpeedCategoryThreeDevices)
-        skipLoopFilterDefaultValue = kVLCSettingSkipLoopFilterNonKey;
-    else
-        skipLoopFilterDefaultValue = kVLCSettingSkipLoopFilterNonRef;
-
     NSDictionary *appDefaults = @{kVLCSettingPasscodeAllowTouchID : @(1),
                                   kVLCSettingContinueAudioInBackgroundKey : @(YES),
                                   kVLCSettingStretchAudio : @(NO),
                                   kVLCSettingTextEncoding : kVLCSettingTextEncodingDefaultValue,
-                                  kVLCSettingSkipLoopFilter : skipLoopFilterDefaultValue,
+                                  kVLCSettingSkipLoopFilter : kVLCSettingSkipLoopFilterNonRef,
                                   kVLCSettingSubtitlesFont : kVLCSettingSubtitlesFontDefaultValue,
                                   kVLCSettingSubtitlesFontColor : kVLCSettingSubtitlesFontColorDefaultValue,
                                   kVLCSettingSubtitlesFontSize : kVLCSettingSubtitlesFontSizeDefaultValue,

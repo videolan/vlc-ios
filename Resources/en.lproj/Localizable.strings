@@ -42,8 +42,6 @@
 "AR_CHANGED" = "Aspect Ratio: %@";
 "DEFAULT" = "Default";
 "FILL_TO_SCREEN" = "Crop to fill screen";
-"DEVICE_TOOSLOW_TITLE" = "Device too slow";
-"DEVICE_TOOSLOW" = "Your %@ is likely too slow to play \"%@\". Open anyway?";
 "PLAYBACK_SPEED" = "Playback speed";
 "SPU_DELAY" = "Subtitles delay";
 "AUDIO_DELAY" = "Audio delay";
@@ -56,7 +54,6 @@
 "BUTTON_BACK" = "Back";
 "BUTTON_EDIT" = "Edit";
 "BUTTON_DONE" = "Done";
-"BUTTON_OPEN" = "Open";
 "BUTTON_CANCEL" = "Cancel";
 "BUTTON_SAVE" = "Save";
 "BUTTON_DOWNLOAD" = "Download";

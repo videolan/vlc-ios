@@ -26,7 +26,6 @@
 #define kVLCSettingSkipLoopFilter @"avcodec-skiploopfilter"
 #define kVLCSettingSkipLoopFilterNone @(0)
 #define kVLCSettingSkipLoopFilterNonRef @(1)
-#define kVLCSettingSkipLoopFilterNonKey @(3)
 #define kVLCSettingSaveHTTPUploadServerStatus @"isHTTPServerOn"
 #define kVLCSettingSubtitlesFont @"quartztext-font"
 #define kVLCSettingSubtitlesFontDefaultValue @"HelveticaNeue"
