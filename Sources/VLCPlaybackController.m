@@ -23,6 +23,7 @@
 #import <MediaPlayer/MediaPlayer.h>
 #import "VLCPlayerDisplayController.h"
 #import "VLCConstants.h"
+#import "VLCRemoteControlService.h"
 
 #if TARGET_OS_IOS
 #import "VLCKeychainCoordinator.h"
@@ -51,8 +52,9 @@ typedef NS_ENUM(NSUInteger, VLCAspectRatio) {
 #if TARGET_OS_IOS
 AVAudioSessionDelegate,
 #endif
-VLCMediaDelegate>
+VLCMediaDelegate, VLCRemoteControlServiceDelegate>
 {
+    VLCRemoteControlService *_remoteControlService;
     BOOL _playerIsSetup;
     BOOL _playbackFailed;
     BOOL _shouldResumePlaying;
@@ -134,6 +136,14 @@ VLCMediaDelegate>
     return self;
 }
 
+- (VLCRemoteControlService *)remoteControlService
+{
+    if (!_remoteControlService) {
+        _remoteControlService = [[VLCRemoteControlService alloc] init];
+        _remoteControlService.remoteControlServiceDelegate = self;
+    }
+    return _remoteControlService;
+}
 #pragma mark - playback management
 
 - (void)playMediaList:(VLCMediaList *)mediaList firstIndex:(NSInteger)index
@@ -292,7 +302,7 @@ VLCMediaDelegate>
     _mediaPlayer.videoAspectRatio = NULL;
     _mediaPlayer.scaleFactor = 0;
 
-    [self subscribeRemoteCommands];
+    [[self remoteControlService] subscribeToRemoteCommands];
 
     _playerIsSetup = YES;
 
@@ -349,8 +359,7 @@ VLCMediaDelegate>
     else if (self.successCallback && !_sessionWillRestart)
         [[UIApplication sharedApplication] openURL:self.successCallback];
 
-    [MPNowPlayingInfoCenter defaultCenter].nowPlayingInfo = nil;
-    [self unsubscribeFromRemoteCommand];
+    [[self remoteControlService] unsubscribeFromRemoteCommands];
     _activeSession = NO;
 
     [_playbackSessionManagementLock unlock];
@@ -1120,161 +1129,6 @@ setstuff:
     _sleepTimer = [NSTimer scheduledTimerWithTimeInterval:timeInterval target:self selector:@selector(stopPlayback) userInfo:nil repeats:NO];
 }
 
-#pragma mark - remote events
-
-static inline NSArray * RemoteCommandCenterCommandsToHandle(MPRemoteCommandCenter *cc)
-{
-    /* commmented out other available commands which we don't support now but may
-     * support at some point in the future */
-    return @[cc.pauseCommand, cc.playCommand, cc.stopCommand, cc.togglePlayPauseCommand,
-             cc.nextTrackCommand, cc.previousTrackCommand,
-             cc.skipForwardCommand, cc.skipBackwardCommand,
-             //             cc.seekForwardCommand, cc.seekBackwardCommand,
-             //             cc.ratingCommand,
-             cc.changePlaybackRateCommand,
-             //             cc.likeCommand,cc.dislikeCommand,cc.bookmarkCommand,
-             ];
-}
-
-- (void)subscribeRemoteCommands
-{
-    /* pre iOS 7.1 */
-    if (![MPRemoteCommandCenter class]) {
-        [[UIApplication sharedApplication] beginReceivingRemoteControlEvents];
-        return;
-    }
-    /* for iOS 7.1 and above: */
-
-    MPRemoteCommandCenter *commandCenter = [MPRemoteCommandCenter sharedCommandCenter];
-
-    /*
-     * since the control center and lockscreen shows only either skipForward/Backward
-     * or next/previousTrack buttons but prefers skip buttons,
-     * we only enable skip buttons if we have a no medialist
-     */
-    BOOL enableSkip = [VLCPlaybackController sharedInstance].mediaList.count <= 1;
-    commandCenter.skipForwardCommand.enabled = enableSkip;
-    commandCenter.skipBackwardCommand.enabled = enableSkip;
-
-    NSUserDefaults *defaults = [NSUserDefaults standardUserDefaults];
-    NSNumber *forwardSkip = [defaults valueForKey:kVLCSettingPlaybackForwardSkipLength];
-    commandCenter.skipForwardCommand.preferredIntervals = @[forwardSkip];
-    NSNumber *backwardSkip = [defaults valueForKey:kVLCSettingPlaybackBackwardSkipLength];
-    commandCenter.skipBackwardCommand.preferredIntervals = @[backwardSkip];
-
-    NSArray *supportedPlaybackRates = @[@(0.5),@(0.75),@(1.0),@(1.25),@(1.5),@(1.75),@(2.0)];
-    commandCenter.changePlaybackRateCommand.supportedPlaybackRates = supportedPlaybackRates;
-
-    NSArray *commandsToSubscribe = RemoteCommandCenterCommandsToHandle(commandCenter);
-    for (MPRemoteCommand *command in commandsToSubscribe) {
-        [command addTarget:self action:@selector(remoteCommandEvent:)];
-    }
-}
-
-- (void)unsubscribeFromRemoteCommand
-{
-    /* pre iOS 7.1 */
-    if (![MPRemoteCommandCenter class]) {
-        [[UIApplication sharedApplication] endReceivingRemoteControlEvents];
-        return;
-    }
-
-    /* for iOS 7.1 and above: */
-    MPRemoteCommandCenter *cc = [MPRemoteCommandCenter sharedCommandCenter];
-    NSArray *commmandsToRemoveFrom = RemoteCommandCenterCommandsToHandle(cc);
-    for (MPRemoteCommand *command in commmandsToRemoveFrom) {
-        [command removeTarget:self];
-    }
-}
-
-- (MPRemoteCommandHandlerStatus )remoteCommandEvent:(MPRemoteCommandEvent *)event
-{
-    MPRemoteCommandCenter *cc = [MPRemoteCommandCenter sharedCommandCenter];
-    MPRemoteCommandHandlerStatus result = MPRemoteCommandHandlerStatusSuccess;
-
-    if (event.command == cc.pauseCommand) {
-        [_listPlayer pause];
-    } else if (event.command == cc.playCommand) {
-        [_listPlayer play];
-    } else if (event.command == cc.stopCommand) {
-        [_listPlayer stop];
-    } else if (event.command == cc.togglePlayPauseCommand) {
-        [self playPause];
-    } else if (event.command == cc.nextTrackCommand) {
-        result = [_listPlayer next] ? MPRemoteCommandHandlerStatusSuccess : MPRemoteCommandHandlerStatusNoSuchContent;
-    } else if (event.command == cc.previousTrackCommand) {
-        result = [_listPlayer previous] ? MPRemoteCommandHandlerStatusSuccess : MPRemoteCommandHandlerStatusNoSuchContent;
-    } else if (event.command == cc.skipForwardCommand) {
-        if ([event isKindOfClass:[MPSkipIntervalCommandEvent class]]) {
-            MPSkipIntervalCommandEvent *skipEvent = (MPSkipIntervalCommandEvent *)event;
-            [_mediaPlayer jumpForward:skipEvent.interval];
-        } else {
-            result = MPRemoteCommandHandlerStatusCommandFailed;
-        }
-    } else if (event.command == cc.skipBackwardCommand) {
-        if ([event isKindOfClass:[MPSkipIntervalCommandEvent class]]) {
-            MPSkipIntervalCommandEvent *skipEvent = (MPSkipIntervalCommandEvent *)event;
-            [_mediaPlayer jumpBackward:skipEvent.interval];
-        } else {
-            result = MPRemoteCommandHandlerStatusCommandFailed;
-        }
-    } else if (event.command == cc.changePlaybackRateCommand) {
-        if ([event isKindOfClass:[MPChangePlaybackRateCommandEvent class]]) {
-            MPChangePlaybackRateCommandEvent *rateEvent = (MPChangePlaybackRateCommandEvent *)event;
-            [_mediaPlayer setRate:rateEvent.playbackRate];
-        } else {
-            result = MPRemoteCommandHandlerStatusCommandFailed;
-        }
-        /* stubs for when we want to support the other available commands */
-        //    } else if (event.command == cc.seekForwardCommand) {
-        //    } else if (event.command == cc.seekBackwardCommand) {
-        //    } else if (event.command == cc.ratingCommand) {
-        //    } else if (event.command == cc.likeCommand) {
-        //    } else if (event.command == cc.dislikeCommand) {
-        //    } else if (event.command == cc.bookmarkCommand) {
-    } else {
-        APLog(@"%s Unsupported remote control event: %@",__PRETTY_FUNCTION__,event);
-        result = MPRemoteCommandHandlerStatusCommandFailed;
-    }
-
-    if (result == MPRemoteCommandHandlerStatusCommandFailed)
-        APLog(@"%s Wasn't able to handle remote control event: %@",__PRETTY_FUNCTION__,event);
-
-    return result;
-}
-
-- (void)remoteControlReceivedWithEvent:(UIEvent *)event
-{
-    switch (event.subtype) {
-        case UIEventSubtypeRemoteControlPlay:
-            [_listPlayer play];
-            break;
-
-        case UIEventSubtypeRemoteControlPause:
-            [_listPlayer pause];
-            break;
-
-        case UIEventSubtypeRemoteControlTogglePlayPause:
-            [self playPause];
-            break;
-
-        case UIEventSubtypeRemoteControlNextTrack:
-            [self forward];
-            break;
-
-        case UIEventSubtypeRemoteControlPreviousTrack:
-            [self backward];
-            break;
-
-        case UIEventSubtypeRemoteControlStop:
-            [self stopPlayback];
-            break;
-
-        default:
-            break;
-    }
-}
-
 #pragma mark - background interaction
 
 - (void)applicationWillResignActive:(NSNotification *)aNotification
@@ -1313,7 +1167,60 @@ static inline NSArray * RemoteCommandCenterCommandsToHandle(MPRemoteCommandCente
         [_listPlayer play];
     }
 }
+#pragma mark - remoteControlDelegate
 
+- (void)remoteControlServiceHitPause:(VLCRemoteControlService *)rcs
+{
+    [_listPlayer pause];
+}
+
+- (void)remoteControlServiceHitPlay:(VLCRemoteControlService *)rcs
+{
+    [_listPlayer play];
+}
+
+- (void)remoteControlServiceTogglePlayPause:(VLCRemoteControlService *)rcs
+{
+    [self playPause];
+}
+
+- (void)remoteControlServiceHitStop:(VLCRemoteControlService *)rcs
+{
+    //TODO handle stop playback entirely
+    [_listPlayer stop];
+}
+
+- (BOOL)remoteControlServiceHitPlayNextIfPossible:(VLCRemoteControlService *)rcs
+{
+    //TODO This doesn't handle shuffle or repeat yet
+    return [_listPlayer next];
+}
+
+- (BOOL)remoteControlServiceHitPlayPreviousIfPossible:(VLCRemoteControlService *)rcs
+{
+    //TODO This doesn't handle shuffle or repeat yet
+    return [_listPlayer previous];
+}
+
+- (void)remoteControlService:(VLCRemoteControlService *)rcs jumpForwardInSeconds:(NSTimeInterval)seconds
+{
+    [_mediaPlayer jumpForward:seconds];
+}
+
+- (void)remoteControlService:(VLCRemoteControlService *)rcs jumpBackwardInSeconds:(NSTimeInterval)seconds
+{
+    [_mediaPlayer jumpBackward:seconds];
+}
+
+- (NSInteger)remoteControlServiceNumberOfMediaItemsinList:(VLCRemoteControlService *)rcs
+{
+    return _mediaList.count;
+}
+
+- (void)remoteControlService:(VLCRemoteControlService *)rcs setPlaybackRate:(CGFloat)playbackRate
+{
+    self.playbackRate = playbackRate;
+}
 #pragma mark - helpers
 
 - (NSDictionary *)mediaOptionsDictionary
