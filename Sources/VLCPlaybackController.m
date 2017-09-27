@@ -726,6 +726,20 @@ VLCMediaDelegate>
     }
 }
 
+- (void)setVideoTrackEnabled:(BOOL)enabled
+{
+    if (!enabled)
+        _mediaPlayer.currentVideoTrackIndex = -1;
+    else if (_mediaPlayer.currentVideoTrackIndex == -1) {
+        for (NSNumber *trackId in _mediaPlayer.videoTrackIndexes) {
+            if ([trackId intValue] != -1) {
+                _mediaPlayer.currentVideoTrackIndex = [trackId intValue];
+                break;
+            }
+        }
+    }
+}
+
 - (void)setVideoOutputView:(UIView *)videoOutputView
 {
     if (videoOutputView) {
@@ -734,8 +748,7 @@ VLCMediaDelegate>
 
         _actualVideoOutputView.frame = (CGRect){CGPointZero, videoOutputView.frame.size};
 
-        if (_mediaPlayer.currentVideoTrackIndex == -1)
-            _mediaPlayer.currentVideoTrackIndex = 0;
+        [self setVideoTrackEnabled:true];
 
         [videoOutputView addSubview:_actualVideoOutputView];
         [_actualVideoOutputView layoutSubviews];
@@ -1283,7 +1296,7 @@ static inline NSArray * RemoteCommandCenterCommandsToHandle(MPRemoteCommandCente
     _preBackgroundWrapperView = _videoOutputViewWrapper;
 
     if (_mediaPlayer.audioTrackIndexes.count > 0)
-        _mediaPlayer.currentVideoTrackIndex = -1;
+        [self setVideoTrackEnabled:false];
 }
 
 - (void)applicationDidBecomeActive:(NSNotification *)notification
@@ -1293,10 +1306,7 @@ static inline NSArray * RemoteCommandCenterCommandsToHandle(MPRemoteCommandCente
         _preBackgroundWrapperView = nil;
     }
 
-    if (_mediaPlayer.numberOfVideoTracks > 0) {
-        /* re-enable video decoding */
-        _mediaPlayer.currentVideoTrackIndex = 1;
-    }
+    [self setVideoTrackEnabled:true];
 
     if (_shouldResumePlaying) {
         _shouldResumePlaying = NO;
