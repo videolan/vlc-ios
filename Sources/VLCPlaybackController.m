@@ -1323,11 +1323,7 @@ static inline NSArray * RemoteCommandCenterCommandsToHandle(MPRemoteCommandCente
               kVLCSettingStretchAudio : [[defaults objectForKey:kVLCSettingStretchAudio] boolValue] ? kVLCSettingStretchAudioOnValue : kVLCSettingStretchAudioOffValue,
               kVLCSettingTextEncoding : [defaults objectForKey:kVLCSettingTextEncoding],
               kVLCSettingSkipLoopFilter : [defaults objectForKey:kVLCSettingSkipLoopFilter],
-#if TARGET_OS_IOS
               kVLCSettingHardwareDecoding : [defaults objectForKey:kVLCSettingHardwareDecoding]};
-#else
-                };
-#endif
 }
 
 @end

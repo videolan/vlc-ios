@@ -86,6 +86,26 @@
 		</dict>
 		<dict>
 			<key>Type</key>
+			<string>PSMultiValueSpecifier</string>
+			<key>Title</key>
+			<string>SETTINGS_HWDECODING</string>
+			<key>Key</key>
+			<string>codec</string>
+			<key>DefaultValue</key>
+			<string></string>
+			<key>Titles</key>
+			<array>
+				<string>SETTINGS_HWDECODING_ON</string>
+				<string>SETTINGS_HWDECODING_OFF</string>
+			</array>
+			<key>Values</key>
+			<array>
+				<string></string>
+				<string>avcodec,all</string>
+			</array>
+		</dict>
+		<dict>
+			<key>Type</key>
 			<string>PSGroupSpecifier</string>
 			<key>Title</key>
 			<string>SETTINGS_SUBTITLES_TITLE</string>
