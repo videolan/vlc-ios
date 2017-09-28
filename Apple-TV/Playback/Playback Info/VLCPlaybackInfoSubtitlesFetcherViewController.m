@@ -12,6 +12,7 @@
 #import "VLCPlaybackInfoSubtitlesFetcherViewController.h"
 #import "MetadataFetcherKit.h"
 #import "NSString+Locale.h"
+#import "VLCMetadata.h"
 
 #define SPUDownloadReUseIdentifier @"SPUDownloadReUseIdentifier"
 #define SPUDownloadHeaderReUseIdentifier @"SPUDownloadHeaderReUseIdentifier"
@@ -95,7 +96,7 @@
     VLCPlaybackController *vpc = [VLCPlaybackController sharedInstance];
     NSUserDefaults *defaults = [NSUserDefaults standardUserDefaults];
     _osoFetcher.subtitleLanguageId = [defaults stringForKey:kVLCSettingLastUsedSubtitlesSearchLanguage];
-    [_osoFetcher searchForSubtitlesWithQuery:vpc.mediaTitle];
+    [_osoFetcher searchForSubtitlesWithQuery:vpc.metadata.title];
 }
 
 - (void)MDFOSOFetcher:(MDFOSOFetcher *)aFetcher didFindSubtitles:(NSArray<MDFSubtitleItem *> *)subtitles forSearchRequest:(NSString *)searchRequest

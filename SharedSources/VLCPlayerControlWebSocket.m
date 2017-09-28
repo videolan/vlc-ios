@@ -11,6 +11,7 @@
  *****************************************************************************/
 
 #import "VLCPlayerControlWebSocket.h"
+#import "VLCMetadata.h"
 
 @implementation VLCPlayerControlWebSocket
 
@@ -122,7 +123,7 @@
 
             if (media) {
                 NSURL *url = media.url;
-                NSString *mediaTitle = vpc.mediaTitle;
+                NSString *mediaTitle = vpc.metadata.title;
                 if (!mediaTitle)
                     mediaTitle = url.lastPathComponent;
                 NSDictionary *mediaDict = @{ @"id" : url.absoluteString,

@@ -20,17 +20,10 @@
 #import <CommonCrypto/CommonDigest.h>
 #import "UIDevice+VLC.h"
 #import <AVFoundation/AVFoundation.h>
-#import <MediaPlayer/MediaPlayer.h>
 #import "VLCPlayerDisplayController.h"
 #import "VLCConstants.h"
 #import "VLCRemoteControlService.h"
-
-#if TARGET_OS_IOS
-#import "VLCKeychainCoordinator.h"
-#import "VLCThumbnailsCache.h"
-#import "VLCLibraryViewController.h"
-#import <WatchKit/WatchKit.h>
-#endif
+#import "VLCMetadata.h"
 
 NSString *const VLCPlaybackControllerPlaybackDidStart = @"VLCPlaybackControllerPlaybackDidStart";
 NSString *const VLCPlaybackControllerPlaybackDidPause = @"VLCPlaybackControllerPlaybackDidPause";
@@ -63,17 +56,9 @@ VLCMediaDelegate, VLCRemoteControlServiceDelegate>
 
     NSUInteger _currentAspectRatio;
 
-    float _currentPlaybackRate;
     UIView *_videoOutputViewWrapper;
     UIView *_actualVideoOutputView;
     UIView *_preBackgroundWrapperView;
-
-    /* cached stuff for the VC */
-    NSString *_title;
-    UIImage *_artworkImage;
-    NSString *_artist;
-    NSString *_albumName;
-    BOOL _mediaIsAudioOnly;
 
     BOOL _needsMetadataUpdate;
     BOOL _mediaWasJustStarted;
@@ -127,6 +112,7 @@ VLCMediaDelegate, VLCRemoteControlServiceDelegate>
         [defaultCenter addObserver:self selector:@selector(applicationDidEnterBackground:)
                               name:UIApplicationDidEnterBackgroundNotification object:nil];
 
+        _metadata = [VLCMetaData new];
         _dialogProvider = [[VLCDialogProvider alloc] initWithLibrary:[VLCLibrary sharedLibrary] customUI:NO];
 
         _playbackSessionManagementLock = [[NSLock alloc] init];
@@ -487,7 +473,7 @@ VLCMediaDelegate, VLCRemoteControlServiceDelegate>
 
 - (NSInteger)mediaDuration
 {
-    return _listPlayer.mediaPlayer.media.length.intValue;;
+    return _mediaPlayer.media.length.intValue;;
 }
 
 - (BOOL)isPlaying
@@ -520,38 +506,27 @@ VLCMediaDelegate, VLCRemoteControlServiceDelegate>
     return _activeSession;
 }
 
-- (BOOL)audioOnlyPlaybackSession
-{
-    return _mediaIsAudioOnly;
-}
-
-- (NSString *)mediaTitle
-{
-    return _title;
-}
-
 - (float)playbackRate
 {
-    float f_rate = _mediaPlayer.rate;
-    _currentPlaybackRate = f_rate;
-    return f_rate;
+    return _mediaPlayer.rate;
 }
 
 - (void)setPlaybackRate:(float)playbackRate
 {
-    if (_currentPlaybackRate != playbackRate)
-        [_mediaPlayer setRate:playbackRate];
-    _currentPlaybackRate = playbackRate;
+    [_mediaPlayer setRate:playbackRate];
+    _metadata.playbackRate = @(_mediaPlayer.rate);
 }
 
 - (void)setAudioDelay:(float)audioDelay
 {
     _mediaPlayer.currentAudioPlaybackDelay = 1000000.*audioDelay;
 }
+
 - (float)audioDelay
 {
     return _mediaPlayer.currentAudioPlaybackDelay/1000000.;
 }
+
 -(void)setSubtitleDelay:(float)subtitleDeleay
 {
     _mediaPlayer.currentVideoSubTitleDelay = 1000000.*subtitleDeleay;
@@ -914,140 +889,12 @@ VLCMediaDelegate, VLCRemoteControlServiceDelegate>
     if (_needsMetadataUpdate == NO) {
         _needsMetadataUpdate = YES;
         dispatch_async(dispatch_get_main_queue(), ^{
-            [self _updateDisplayedMetadata];
+            [_metadata updateMetadataFromMediaPlayer:_mediaPlayer];
+            _needsMetadataUpdate = NO;
+            if ([self.delegate respondsToSelector:@selector(displayMetadataForPlaybackController:metadata:)])
+                [self.delegate displayMetadataForPlaybackController:self metadata:_metadata];
         });
     }
-}
-
-- (void)_updateDisplayedMetadata
-{
-    _needsMetadataUpdate = NO;
-
-    NSNumber *trackNumber;
-
-    NSString *title;
-    NSString *artist;
-    NSString *albumName;
-    UIImage* artworkImage;
-    BOOL mediaIsAudioOnly = NO;
-
-#if TARGET_OS_IOS
-    MLFile *item;
-
-    if (self.mediaList) {
-        NSArray *matches = [MLFile fileForURL:_mediaPlayer.media.url];
-        item = matches.firstObject;
-    }
-
-    if (item) {
-        if (item.isAlbumTrack) {
-            title = item.albumTrack.title;
-            artist = item.albumTrack.artist;
-            albumName = item.albumTrack.album.name;
-        } else
-            title = item.title;
-
-        /* MLKit knows better than us if this thing is audio only or not */
-        mediaIsAudioOnly = [item isSupportedAudioFile];
-    } else {
-#endif
-        NSDictionary * metaDict = _mediaPlayer.media.metaDictionary;
-
-        if (metaDict) {
-            title = metaDict[VLCMetaInformationNowPlaying] ? metaDict[VLCMetaInformationNowPlaying] : metaDict[VLCMetaInformationTitle];
-            artist = metaDict[VLCMetaInformationArtist];
-            albumName = metaDict[VLCMetaInformationAlbum];
-            trackNumber = metaDict[VLCMetaInformationTrackNumber];
-        }
-#if TARGET_OS_IOS
-    }
-#endif
-
-    if (!mediaIsAudioOnly) {
-        /* either what we are playing is not a file known to MLKit or
-         * MLKit fails to acknowledge that it is audio-only.
-         * Either way, do a more expensive check to see if it is really audio-only */
-        NSArray *tracks = _mediaPlayer.media.tracksInformation;
-        NSUInteger trackCount = tracks.count;
-        mediaIsAudioOnly = YES;
-        for (NSUInteger x = 0 ; x < trackCount; x++) {
-            if ([[tracks[x] objectForKey:VLCMediaTracksInformationType] isEqualToString:VLCMediaTracksInformationTypeVideo]) {
-                mediaIsAudioOnly = NO;
-                break;
-            }
-        }
-    }
-
-    if (mediaIsAudioOnly) {
-#if TARGET_OS_IOS
-        artworkImage = [VLCThumbnailsCache thumbnailForManagedObject:item];
-
-        if (artworkImage) {
-            if (artist)
-                title = [title stringByAppendingFormat:@" — %@", artist];
-            if (albumName)
-                title = [title stringByAppendingFormat:@" — %@", albumName];
-        }
-#endif
-
-        if (title.length < 1)
-            title = [[_mediaPlayer.media url] lastPathComponent];
-    }
-
-    /* populate delegate with metadata info */
-    if ([self.delegate respondsToSelector:@selector(displayMetadataForPlaybackController:title:artwork:artist:album:audioOnly:)])
-        [self.delegate displayMetadataForPlaybackController:self
-                                                      title:title
-                                                    artwork:artworkImage
-                                                     artist:artist
-                                                      album:albumName
-                                                  audioOnly:mediaIsAudioOnly];
-
-    /* populate now playing info center with metadata information */
-    NSMutableDictionary *currentlyPlayingTrackInfo = [NSMutableDictionary dictionary];
-    currentlyPlayingTrackInfo[MPMediaItemPropertyPlaybackDuration] = @(_mediaPlayer.media.length.intValue / 1000.);
-    currentlyPlayingTrackInfo[MPNowPlayingInfoPropertyElapsedPlaybackTime] =  @(_mediaPlayer.time.intValue / 1000.);
-    currentlyPlayingTrackInfo[MPNowPlayingInfoPropertyPlaybackRate] = @(_mediaPlayer.isPlaying ? _mediaPlayer.rate : 0.0);
-
-    /* don't leak sensitive information to the OS, if passcode lock is enabled */
-#if TARGET_OS_IOS
-    if (![[VLCKeychainCoordinator defaultCoordinator] passcodeLockEnabled]) {
-#endif
-        if (title)
-            currentlyPlayingTrackInfo[MPMediaItemPropertyTitle] = title;
-        if (artist.length > 0)
-            currentlyPlayingTrackInfo[MPMediaItemPropertyArtist] = artist;
-        if (albumName.length > 0)
-            currentlyPlayingTrackInfo[MPMediaItemPropertyAlbumTitle] = albumName;
-
-        if ([trackNumber intValue] > 0)
-            currentlyPlayingTrackInfo[MPMediaItemPropertyAlbumTrackNumber] = trackNumber;
-
-#if TARGET_OS_IOS
-        /* FIXME: UGLY HACK
-         * iOS 8.2 and 8.3 include an issue which will lead to a termination of the client app if we set artwork
-         * when the playback initialized through the watch extension
-         * radar://pending */
-        if ([WKInterfaceDevice class] != nil) {
-            if ([WKInterfaceDevice currentDevice] != nil)
-                goto setstuff;
-        }
-        if (artworkImage) {
-            MPMediaItemArtwork *mpartwork = [[MPMediaItemArtwork alloc] initWithImage:artworkImage];
-            currentlyPlayingTrackInfo[MPMediaItemPropertyArtwork] = mpartwork;
-        }
-    }
-#endif
-
-setstuff:
-    [MPNowPlayingInfoCenter defaultCenter].nowPlayingInfo = currentlyPlayingTrackInfo;
-    [[NSNotificationCenter defaultCenter] postNotificationName:VLCPlaybackControllerPlaybackMetadataDidChange object:self];
-
-    _title = title;
-    _artist = artist;
-    _albumName = albumName;
-    _artworkImage = artworkImage;
-    _mediaIsAudioOnly = mediaIsAudioOnly;
 }
 
 #if TARGET_OS_IOS
@@ -1099,13 +946,8 @@ setstuff:
 
 - (void)recoverDisplayedMetadata
 {
-    if ([self.delegate respondsToSelector:@selector(displayMetadataForPlaybackController:title:artwork:artist:album:audioOnly:)])
-        [self.delegate displayMetadataForPlaybackController:self
-                                                      title:_title
-                                                    artwork:_artworkImage
-                                                     artist:_artist
-                                                      album:_albumName
-                                                  audioOnly:_mediaIsAudioOnly];
+    if ([self.delegate respondsToSelector:@selector(displayMetadataForPlaybackController:metadata:)])
+        [self.delegate displayMetadataForPlaybackController:self metadata:_metadata];
 }
 
 - (void)recoverPlaybackState

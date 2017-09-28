@@ -13,6 +13,7 @@
 
 #import "VLCMovieViewControlPanelView.h"
 #import "VLCPlaybackController.h"
+#import "VLCMetadata.h"
 
 @interface VLCMovieViewControlPanelView ()
 
@@ -246,7 +247,7 @@ static const CGFloat maxCompactWidth = 420.0;
     [self updatePlayPauseButton];
 
     self.trackSwitcherButton.hidden = !self.playbackController.currentMediaHasTrackToChooseFrom;
-    self.videoFilterButton.hidden = self.playbackController.audioOnlyPlaybackSession;
+    self.videoFilterButton.hidden = self.playbackController.metadata.isAudioOnly;
 }
 
 - (void)updatePlayPauseButton

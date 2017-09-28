@@ -13,6 +13,7 @@
 #import "VLCMiniPlaybackView.h"
 #import "VLCPlaybackController.h"
 #import "VLCPlayerDisplayController.h"
+#import "VLCMetadata.h"
 
 #if TARGET_OS_IOS
 #import "VLCLibraryViewController.h"
@@ -208,16 +209,11 @@ currentMediaHasTrackToChooseFrom:(BOOL)currentMediaHasTrackToChooseFrom
     [self updatePlayPauseButton];
 }
 
-- (void)displayMetadataForPlaybackController:(VLCPlaybackController *)controller
-                                       title:(NSString *)title
-                                     artwork:(UIImage *)artwork
-                                      artist:(NSString *)artist
-                                       album:(NSString *)album
-                                   audioOnly:(BOOL)audioOnly
+- (void)displayMetadataForPlaybackController:(VLCPlaybackController *)controller metadata:(VLCMetaData *)metadata
 {
-    if (audioOnly) {
+    if (metadata.isAudioOnly) {
         _artworkView.contentMode = UIViewContentModeScaleAspectFill;
-        _artworkView.image = artwork ? artwork : [UIImage imageNamed:@"no-artwork"];
+        _artworkView.image = metadata.artworkImage?: [UIImage imageNamed:@"no-artwork"];
         if (_videoView) {
             [_videoView removeFromSuperview];
             _videoView = nil;
@@ -242,14 +238,14 @@ currentMediaHasTrackToChooseFrom:(BOOL)currentMediaHasTrackToChooseFrom
     }
 
     NSString *metaDataString;
-    if (artist)
-        metaDataString = artist;
-    if (album)
-        metaDataString = [metaDataString stringByAppendingFormat:@" — %@", album];
+    if (metadata.artist)
+        metaDataString = metadata.artist;
+    if (metadata.albumName)
+        metaDataString = [metaDataString stringByAppendingFormat:@" — %@", metadata.albumName];
     if (metaDataString)
-        metaDataString = [metaDataString stringByAppendingFormat:@"\n%@", title];
+        metaDataString = [metaDataString stringByAppendingFormat:@"\n%@", metadata.title];
     else
-        metaDataString = title;
+        metaDataString = metadata.title;
 
     _metaDataLabel.text = metaDataString;
 }

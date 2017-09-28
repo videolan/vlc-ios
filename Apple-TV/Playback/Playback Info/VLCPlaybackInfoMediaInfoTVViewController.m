@@ -10,6 +10,7 @@
  *****************************************************************************/
 
 #import "VLCPlaybackInfoMediaInfoTVViewController.h"
+#import "VLCMetadata.h"
 
 @interface VLCPlaybackInfoMediaInfoTVViewController ()
 
@@ -46,7 +47,7 @@
 - (void)viewWillAppear:(BOOL)animated
 {
     VLCPlaybackController *vpc = [VLCPlaybackController sharedInstance];
-    self.titleLabel.text = vpc.mediaTitle;
+    self.titleLabel.text = vpc.metadata.title;
 
     VLCMediaPlayer *player = vpc.mediaPlayer;
     VLCMedia *media = player.media;
@@ -104,7 +105,7 @@
          NSLocalizedString(@"DURATION", nil),
          media.length.verboseStringValue];
     }
-    if (!vpc.audioOnlyPlaybackSession) {
+    if (!vpc.metadata.isAudioOnly) {
         metaDataString = [metaDataString stringByAppendingFormat:@"%@: %@ (%@)\n",
                           NSLocalizedString(@"VIDEO_DIMENSIONS", nil),
                           [NSString stringWithFormat:NSLocalizedString(@"FORMAT_VIDEO_DIMENSIONS", nil),
@@ -144,7 +145,7 @@
 
 - (void)updateMediaTitle
 {
-    self.titleLabel.text = [VLCPlaybackController sharedInstance].mediaTitle;
+    self.titleLabel.text = [VLCPlaybackController sharedInstance].metadata.title;
 }
 
 @end

@@ -25,6 +25,7 @@
 #import "NSString+SupportedMedia.h"
 #import "UIDevice+VLC.h"
 #import "VLCHTTPUploaderController.h"
+#import "VLCMetaData.h"
 
 #if TARGET_OS_IOS
 #import "VLCThumbnailsCache.h"
@@ -463,7 +464,7 @@
         return [[HTTPErrorResponse alloc] initWithErrorCode:404];
     }
 
-    NSString *mediaTitle = vpc.mediaTitle;
+    NSString *mediaTitle = vpc.metadata.title;
     if (!mediaTitle)
         mediaTitle = @"";
     NSDictionary *mediaDict = @{ @"id" : media.url.absoluteString,

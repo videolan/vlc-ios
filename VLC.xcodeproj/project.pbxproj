@@ -57,6 +57,11 @@
 		41EB91D81F7BE6F700821AA5 /* VLCRemoteControlService.m in Sources */ = {isa = PBXBuildFile; fileRef = 417D7F5F1F7BA26200DDF36A /* VLCRemoteControlService.m */; };
 		41EB91D91F7BE6F900821AA5 /* VLCRemoteControlService.m in Sources */ = {isa = PBXBuildFile; fileRef = 417D7F5F1F7BA26200DDF36A /* VLCRemoteControlService.m */; };
 		41EB91DA1F7BE6F900821AA5 /* VLCRemoteControlService.m in Sources */ = {isa = PBXBuildFile; fileRef = 417D7F5F1F7BA26200DDF36A /* VLCRemoteControlService.m */; };
+		41EB91DD1F7BFF8500821AA5 /* VLCMetadata.m in Sources */ = {isa = PBXBuildFile; fileRef = 41EB91DC1F7BFF8400821AA5 /* VLCMetadata.m */; };
+		41EB91DE1F7BFF8500821AA5 /* VLCMetadata.m in Sources */ = {isa = PBXBuildFile; fileRef = 41EB91DC1F7BFF8400821AA5 /* VLCMetadata.m */; };
+		41EB91DF1F7BFF8500821AA5 /* VLCMetadata.m in Sources */ = {isa = PBXBuildFile; fileRef = 41EB91DC1F7BFF8400821AA5 /* VLCMetadata.m */; };
+		41EB91E01F7BFF8500821AA5 /* VLCMetadata.m in Sources */ = {isa = PBXBuildFile; fileRef = 41EB91DC1F7BFF8400821AA5 /* VLCMetadata.m */; };
+		41EB91E11F7C0A7F00821AA5 /* VLCMetadata.m in Sources */ = {isa = PBXBuildFile; fileRef = 41EB91DC1F7BFF8400821AA5 /* VLCMetadata.m */; };
 		41F5C0781F41ED55005EB9CB /* VLCLibrarySearchDisplayDataSource.m in Sources */ = {isa = PBXBuildFile; fileRef = 41F5C0771F41ED55005EB9CB /* VLCLibrarySearchDisplayDataSource.m */; };
 		41F5C07B1F42E567005EB9CB /* VLCMediaDataSource.m in Sources */ = {isa = PBXBuildFile; fileRef = 41F5C07A1F42E567005EB9CB /* VLCMediaDataSource.m */; };
 		41F5C07C1F42E567005EB9CB /* VLCMediaDataSource.m in Sources */ = {isa = PBXBuildFile; fileRef = 41F5C07A1F42E567005EB9CB /* VLCMediaDataSource.m */; };
@@ -1190,6 +1195,8 @@
 		41CD69591A29D72600E60BCE /* VLCBoxController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = VLCBoxController.m; path = Sources/VLCBoxController.m; sourceTree = SOURCE_ROOT; };
 		41CD695A1A29D72600E60BCE /* VLCBoxTableViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = VLCBoxTableViewController.h; path = Sources/VLCBoxTableViewController.h; sourceTree = SOURCE_ROOT; };
 		41CD695B1A29D72600E60BCE /* VLCBoxTableViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = VLCBoxTableViewController.m; path = Sources/VLCBoxTableViewController.m; sourceTree = SOURCE_ROOT; };
+		41EB91DB1F7BFF8400821AA5 /* VLCMetadata.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = VLCMetadata.h; sourceTree = "<group>"; };
+		41EB91DC1F7BFF8400821AA5 /* VLCMetadata.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = VLCMetadata.m; sourceTree = "<group>"; };
 		41F5C0761F41ED55005EB9CB /* VLCLibrarySearchDisplayDataSource.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = VLCLibrarySearchDisplayDataSource.h; path = Sources/VLCLibrarySearchDisplayDataSource.h; sourceTree = SOURCE_ROOT; };
 		41F5C0771F41ED55005EB9CB /* VLCLibrarySearchDisplayDataSource.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; name = VLCLibrarySearchDisplayDataSource.m; path = Sources/VLCLibrarySearchDisplayDataSource.m; sourceTree = SOURCE_ROOT; };
 		41F5C0791F42E567005EB9CB /* VLCMediaDataSource.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = VLCMediaDataSource.h; path = Sources/VLCMediaDataSource.h; sourceTree = SOURCE_ROOT; };
@@ -3183,6 +3190,8 @@
 				DDBE44FE1BFB6A8B00E5D35E /* CAAnimation+VLCWiggle.m */,
 				417E68B71F321EFF00DB9BB2 /* VLCActivityViewControllerVendor.h */,
 				417E68B81F321EFF00DB9BB2 /* VLCActivityViewControllerVendor.m */,
+				41EB91DB1F7BFF8400821AA5 /* VLCMetadata.h */,
+				41EB91DC1F7BFF8400821AA5 /* VLCMetadata.m */,
 			);
 			path = SharedSources;
 			sourceTree = "<group>";
@@ -4378,6 +4387,7 @@
 				DDEAECBF1BDEBF6700756C83 /* VLCNetworkServerLoginInformation.m in Sources */,
 				DD3EFF381BDEBCE500B68579 /* VLCLocalNetworkServiceNetService.m in Sources */,
 				DD8095D61BE3C3BA0065D8E1 /* VLCTransportBar.m in Sources */,
+				41EB91DE1F7BFF8500821AA5 /* VLCMetadata.m in Sources */,
 				DDDEA6AF1BE027FA000BB7A2 /* VLCServerBrowsingTVViewController.m in Sources */,
 				DD3EFF461BDEBCE500B68579 /* VLCLocalNetworkServiceBrowserManualConnect.m in Sources */,
 				7D13347F1BE132ED0012E919 /* VLCLocalNetworkServiceUPnP.m in Sources */,
@@ -4470,6 +4480,7 @@
 				7D63BB911D414212003C60D3 /* Reachability.m in Sources */,
 				7D63BB921D414212003C60D3 /* VLCDropboxCollectionViewController.m in Sources */,
 				7D63BB931D414212003C60D3 /* VLCLocalNetworkServiceBrowserDSM.m in Sources */,
+				41EB91E11F7C0A7F00821AA5 /* VLCMetadata.m in Sources */,
 				7D63BB941D414212003C60D3 /* VLCNetworkServerLoginInformation+Keychain.m in Sources */,
 				7D63BB951D414212003C60D3 /* BasicUPnPDevice+VLC.m in Sources */,
 				7D63BB961D414212003C60D3 /* VLCAboutViewController.m in Sources */,
@@ -4678,6 +4689,7 @@
 				7DE7D2CE1D42900700B3AD27 /* VLCNetworkLoginDataSourceLogin.m in Sources */,
 				7D787F871D40FDE70003CFA1 /* VLCSidebarController.m in Sources */,
 				7D787F881D40FDE70003CFA1 /* VLCNetworkLoginViewController.m in Sources */,
+				41EB91E01F7BFF8500821AA5 /* VLCMetadata.m in Sources */,
 				7D787F891D40FDE70003CFA1 /* MappingModel_2_5_to_2_6.xcmappingmodel in Sources */,
 				7DE7D2CF1D42900C00B3AD27 /* VLCNetworkLoginDataSourceProtocol.m in Sources */,
 				7D787F8A1D40FDE70003CFA1 /* VLCWiFiUploadTableViewCell.m in Sources */,
@@ -4742,6 +4754,7 @@
 				41F9BC7C1F4F20E400268461 /* VLCTrackSelectorView.m in Sources */,
 				7D378499183A98D1009EE944 /* VLCPlaylistCollectionViewCell.m in Sources */,
 				DD8F84311B00EB3B0009138A /* VLCPlaybackController+MediaLibrary.m in Sources */,
+				41EB91DD1F7BFF8500821AA5 /* VLCMetadata.m in Sources */,
 				DD3EFF551BDEBCE500B68579 /* VLCLocalNetworkServiceBrowserDSM.m in Sources */,
 				7D37849A183A98D1009EE944 /* VLCPlaylistTableViewCell.m in Sources */,
 				7D37849B183A98D1009EE944 /* VLCLibraryViewController.m in Sources */,
@@ -4951,6 +4964,7 @@
 				7DC5501C1C046615007B4E42 /* VLCPlayerDisplayController.m in Sources */,
 				7DC5501D1C046615007B4E42 /* VLCSharedLibraryParser.m in Sources */,
 				7DC5501E1C046615007B4E42 /* VLCCloudStorageTableViewController.m in Sources */,
+				41EB91DF1F7BFF8500821AA5 /* VLCMetadata.m in Sources */,
 				7DC5501F1C046615007B4E42 /* VLCGoogleDriveTableViewController.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

@@ -34,6 +34,7 @@
 #import "VLCSlider.h"
 #import "VLCLibraryViewController.h"
 #import "VLCTrackSelectorView.h"
+#import "VLCMetadata.h"
 
 #define FORWARD_SWIPE_DURATION 30
 #define BACKWARD_SWIPE_DURATION 10
@@ -992,28 +993,23 @@ currentMediaHasTrackToChooseFrom:(BOOL)currentMediaHasTrackToChooseFrom
                      }];
 }
 
-- (void)displayMetadataForPlaybackController:(VLCPlaybackController *)controller
-                                       title:(NSString *)title
-                                     artwork:(UIImage *)artwork
-                                      artist:(NSString *)artist
-                                       album:(NSString *)album
-                                   audioOnly:(BOOL)audioOnly
+- (void)displayMetadataForPlaybackController:(VLCPlaybackController *)controller metadata:(VLCMetaData *)metadata
 {
     if (!_viewAppeared)
         return;
 
-    self.trackNameLabel.text = title;
-    self.artworkImageView.image = artwork;
-    if (!artwork) {
-        self.artistNameLabel.text = artist;
-        self.albumNameLabel.text = album;
+    self.trackNameLabel.text = metadata.title;
+    self.artworkImageView.image = metadata.artworkImage;
+    if (!metadata.artworkImage) {
+        self.artistNameLabel.text = metadata.artist;
+        self.albumNameLabel.text = metadata.albumName;
     } else
         self.artistNameLabel.text = self.albumNameLabel.text = nil;
 
-    [self hideShowAspectratioButton:audioOnly];
+    [self hideShowAspectratioButton:metadata.isAudioOnly];
     [_controllerPanel updateButtons];
     
-    _audioOnly = audioOnly;
+    _audioOnly = metadata.isAudioOnly;
 }
 
 - (IBAction)playPause

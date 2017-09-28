@@ -22,6 +22,7 @@ extern NSString *const VLCPlaybackControllerPlaybackMetadataDidChange;
 extern NSString *const VLCPlaybackControllerPlaybackPositionUpdated;
 
 @class VLCPlaybackController;
+@class VLCMetaData;
 
 @protocol VLCPlaybackControllerDelegate <NSObject>
 @optional
@@ -33,12 +34,7 @@ currentMediaHasTrackToChooseFrom:(BOOL)currentMediaHasTrackToChooseFrom
           forPlaybackController:(VLCPlaybackController *)controller;
 - (void)prepareForMediaPlayback:(VLCPlaybackController *)controller;
 - (void)showStatusMessage:(NSString *)statusMessage forPlaybackController:(VLCPlaybackController *)controller;
-- (void)displayMetadataForPlaybackController:(VLCPlaybackController *)controller
-                                       title:(NSString *)title
-                                     artwork:(UIImage *)artwork
-                                      artist:(NSString *)artist
-                                       album:(NSString *)album
-                                   audioOnly:(BOOL)audioOnly;
+- (void)displayMetadataForPlaybackController:(VLCPlaybackController *)controller metadata:(VLCMetaData *)metadata;
 
 @end
 
@@ -67,6 +63,8 @@ currentMediaHasTrackToChooseFrom:(BOOL)currentMediaHasTrackToChooseFrom
 @property (nonatomic, weak) id<VLCPlaybackControllerDelegate> delegate;
 
 @property (nonatomic, readonly) VLCMediaPlayerState mediaPlayerState;
+@property (nonatomic, readonly) VLCMetaData *metadata;
+
 @property (nonatomic, readonly) NSInteger mediaDuration;
 @property (nonatomic, readonly) BOOL isPlaying;
 @property (nonatomic, readwrite) VLCRepeatMode repeatMode;
@@ -77,8 +75,6 @@ currentMediaHasTrackToChooseFrom:(BOOL)currentMediaHasTrackToChooseFrom
 @property (nonatomic, readonly) BOOL currentMediaHasChapters;
 @property (nonatomic, readonly) BOOL currentMediaHasTrackToChooseFrom;
 @property (nonatomic, readonly) BOOL activePlaybackSession;
-@property (nonatomic, readonly) BOOL audioOnlyPlaybackSession;
-@property (nonatomic, readonly) NSString *mediaTitle;
 @property (nonatomic, readwrite) BOOL fullscreenSessionRequested;
 @property (nonatomic, readonly) NSDictionary *mediaOptionsDictionary;
 @property (nonatomic, readonly) NSTimer* sleepTimer;
