@@ -182,12 +182,14 @@
         NSURL *url = service.directPlaybackURL;
         if (!url) return;
 
-        VLCPlaybackController *vpc = [VLCPlaybackController sharedInstance];
-        [vpc playURL:url subtitlesFilePath:nil];
+        VLCMediaList *medialist = [[VLCMediaList alloc] init];
+        [medialist addMedia:[VLCMedia mediaWithURL:url]];
+
+        [[VLCPlaybackController sharedInstance] playMediaList:medialist firstIndex:0 subtitlesFilePath:nil];
+
         [self presentViewController:[VLCFullscreenMovieTVViewController fullscreenMovieTVViewController]
                            animated:YES
                          completion:nil];
-        return;
     }
 }
 

@@ -646,18 +646,16 @@
     [_receivedFiles addObject:path];
 
     VLCPlaybackController *vpc = [VLCPlaybackController sharedInstance];
-    BOOL needsMediaList;
     VLCMediaList *mediaList = vpc.mediaList;
 
     if (!mediaList) {
         mediaList = [[VLCMediaList alloc] init];
-        needsMediaList = YES;
     }
 
     [mediaList addMedia:[VLCMedia mediaWithURL:[NSURL fileURLWithPath:path]]];
 
-    if (needsMediaList) {
-        [vpc playMediaList:mediaList firstIndex:0];
+    if (!vpc.mediaList) {
+        [vpc playMediaList:mediaList firstIndex:0 subtitlesFilePath:nil];
     }
 
     VLCFullscreenMovieTVViewController *movieVC = [VLCFullscreenMovieTVViewController fullscreenMovieTVViewController];

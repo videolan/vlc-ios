@@ -358,7 +358,7 @@
 
     [mediaList addMedia:[VLCMedia mediaWithURL:[NSURL URLWithString:urlString]]];
     if (needsMediaList) {
-        [vpc playMediaList:mediaList firstIndex:0];
+        [vpc playMediaList:mediaList firstIndex:0 subtitlesFilePath:nil];
 
         VLCFullscreenMovieTVViewController *movieVC = [VLCFullscreenMovieTVViewController fullscreenMovieTVViewController];
         if ([[[UIApplication sharedApplication].delegate.window rootViewController] presentedViewController] != nil) {

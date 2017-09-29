@@ -143,7 +143,11 @@
 - (void)_openURLStringAndDismiss:(NSString *)urlString
 {
     VLCPlaybackController *vpc = [VLCPlaybackController sharedInstance];
-    [vpc playURL:[NSURL URLWithString:urlString] subtitlesFilePath:nil];
+    VLCMedia *media = [VLCMedia mediaWithURL:[NSURL URLWithString:urlString]];
+    VLCMediaList *medialist = [[VLCMediaList alloc] init];
+    [medialist addMedia:media];
+
+    [vpc playMediaList:medialist firstIndex:0 subtitlesFilePath:nil];
     [self presentViewController:[VLCFullscreenMovieTVViewController fullscreenMovieTVViewController]
                        animated:YES
                      completion:nil];

@@ -269,8 +269,10 @@
     [[_client.filesRoutes getTemporaryLink:path] setResponseBlock:^(DBFILESGetTemporaryLinkResult * _Nullable result, DBFILESGetTemporaryLinkError * _Nullable routeError, DBRequestError * _Nullable networkError) {
 
         if (result) {
-            VLCPlaybackController *vpc = [VLCPlaybackController sharedInstance];
-            [vpc playURL:[NSURL URLWithString:result.link ] successCallback:nil errorCallback:nil];
+            VLCMedia *media = [VLCMedia mediaWithURL:[NSURL URLWithString:result.link]];
+            VLCMediaList *medialist = [[VLCMediaList alloc] init];
+            [medialist addMedia:media];
+            [[VLCPlaybackController sharedInstance] playMediaList:medialist firstIndex:0 subtitlesFilePath:nil];
 #if TARGET_OS_TV
             if (_lastKnownNavigationController) {
                 VLCFullscreenMovieTVViewController *movieVC = [VLCFullscreenMovieTVViewController fullscreenMovieTVViewController];

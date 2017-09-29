@@ -221,7 +221,10 @@
 
         /* now ask VLC to stream the URL we were just passed */
         VLCPlaybackController *vpc = [VLCPlaybackController sharedInstance];
-        [vpc playURL:theActualURL successCallback:nil errorCallback:nil];
+        VLCMedia *media = [VLCMedia mediaWithURL:theActualURL];
+        VLCMediaList *medialist = [[VLCMediaList alloc] init];
+        [medialist addMedia:media];
+        [[VLCPlaybackController sharedInstance] playMediaList:medialist firstIndex:0 subtitlesFilePath:nil];
     }
 
     return request;

@@ -132,8 +132,7 @@ Open a file in the libraryViewController without changing the playstate
 
 - (void)configureMediaList:(VLCMediaList *)list atIndex:(int)index
 {
-    self.pathToExternalSubtitlesFile = nil;
-    [self playMediaList:list firstIndex:index];
+    [self playMediaList:list firstIndex:index subtitlesFilePath:nil];
 }
 
 @end

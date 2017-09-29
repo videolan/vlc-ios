@@ -219,7 +219,10 @@
                      file.identifier, token];
 
     VLCPlaybackController *vpc = [VLCPlaybackController sharedInstance];
-    [vpc playURL:[NSURL URLWithString:urlString] successCallback:nil errorCallback:nil];
+    VLCMedia *media = [VLCMedia mediaWithURL:[NSURL URLWithString:urlString]];
+    VLCMediaList *medialist = [[VLCMediaList alloc] init];
+    [medialist addMedia:media];
+    [vpc playMediaList:medialist firstIndex:0 subtitlesFilePath:nil];
 }
 
 - (void)_triggerNextDownload

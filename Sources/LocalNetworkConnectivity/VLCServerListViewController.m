@@ -189,8 +189,10 @@
     if ([service respondsToSelector:@selector(directPlaybackURL)]) {
         NSURL *playbackURL = [service directPlaybackURL];
         if (playbackURL) {
-            VLCPlaybackController *vpc = [VLCPlaybackController sharedInstance];
-            [vpc playURL:playbackURL successCallback:nil errorCallback:nil];
+
+            VLCMediaList *medialist = [[VLCMediaList alloc] init];
+            [medialist addMedia:[VLCMedia mediaWithURL:playbackURL]];
+            [[VLCPlaybackController sharedInstance] playMediaList:medialist firstIndex:0 subtitlesFilePath:nil];
             return;
         }
     }

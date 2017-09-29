@@ -268,12 +268,15 @@
 
 - (void)collectionView:(UICollectionView *)collectionView didSelectItemAtIndexPath:(NSIndexPath *)indexPath
 {
-    VLCPlaybackController *vpc = [VLCPlaybackController sharedInstance];
     NSURL *url;
     @synchronized(_discoveredFiles) {
         url = [NSURL fileURLWithPath:_discoveredFiles[indexPath.row]];
     }
-    [vpc playURL:url subtitlesFilePath:nil];
+
+    VLCMediaList *medialist = [[VLCMediaList alloc] init];
+    [medialist addMedia:[VLCMedia mediaWithURL:url]];
+
+    [[VLCPlaybackController sharedInstance] playMediaList:medialist firstIndex:0 subtitlesFilePath:nil];
     [self presentViewController:[VLCFullscreenMovieTVViewController fullscreenMovieTVViewController]
                        animated:YES
                      completion:nil];

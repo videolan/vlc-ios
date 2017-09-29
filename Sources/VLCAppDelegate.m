@@ -340,7 +340,13 @@ didFailToContinueUserActivityWithType:(NSString *)userActivityType
             if ([action isEqualToString:@"stream"] && movieURL) {
                 VLCPlaybackController *vpc = [VLCPlaybackController sharedInstance];
                 vpc.fullscreenSessionRequested = YES;
-                [vpc playURL:movieURL successCallback:successCallback errorCallback:errorCallback];
+
+                VLCMediaList *medialist = [[VLCMediaList alloc] init];
+                [medialist addMedia:[VLCMedia mediaWithURL:movieURL]];
+                vpc.successCallback = successCallback;
+                vpc.errorCallback = errorCallback;
+                [vpc playMediaList:medialist firstIndex:0 subtitlesFilePath:nil];
+
             }
             else if ([action isEqualToString:@"download"] && movieURL) {
                 [self downloadMovieFromURL:movieURL fileNameOfMedia:fileName];
@@ -375,15 +381,19 @@ didFailToContinueUserActivityWithType:(NSString *)userActivityType
                     if (cancelled)
                         [self downloadMovieFromURL:url fileNameOfMedia:nil];
                     else {
-                        VLCPlaybackController *vpc = [VLCPlaybackController sharedInstance];
-                        [vpc playURL:url successCallback:nil errorCallback:nil];
+                        VLCMedia *media = [VLCMedia mediaWithURL:url];
+                        VLCMediaList *medialist = [[VLCMediaList alloc] init];
+                        [medialist addMedia:media];
+                        [[VLCPlaybackController sharedInstance] playMediaList:medialist firstIndex:0 subtitlesFilePath:nil];
                     }
                 };
                 [alert show];
             } else {
                 VLCPlaybackController *vpc = [VLCPlaybackController sharedInstance];
                 vpc.fullscreenSessionRequested = YES;
-                [vpc playURL:url successCallback:nil errorCallback:nil];
+                VLCMediaList *medialist = [[VLCMediaList alloc] init];
+                [medialist addMedia:[VLCMedia mediaWithURL:url]];
+                [vpc playMediaList:medialist firstIndex:0 subtitlesFilePath:nil];
             }
         }
         return YES;

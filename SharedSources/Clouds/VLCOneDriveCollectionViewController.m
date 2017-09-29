@@ -96,8 +96,11 @@
     } else {
         /* stream file */
         NSURL *url = [NSURL URLWithString:selectedObject.downloadPath];
-        VLCPlaybackController *vpc = [VLCPlaybackController sharedInstance];
-        [vpc playURL:url successCallback:nil errorCallback:nil];
+
+        VLCMediaList *medialist = [[VLCMediaList alloc] init];
+        [medialist addMedia:[VLCMedia mediaWithURL:url]];
+        [[VLCPlaybackController sharedInstance] playMediaList:medialist firstIndex:0 subtitlesFilePath:nil];
+
         VLCFullscreenMovieTVViewController *movieVC = [VLCFullscreenMovieTVViewController fullscreenMovieTVViewController];
         [self presentViewController:movieVC
                            animated:YES

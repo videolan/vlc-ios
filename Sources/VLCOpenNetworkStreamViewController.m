@@ -359,8 +359,10 @@ forRowAtIndexPath:(NSIndexPath *)indexPath
         URLofSubtitle = [self _checkURLofSubtitle:url];
     }
 
-    VLCPlaybackController *vpc = [VLCPlaybackController sharedInstance];
-    [vpc playURL:[NSURL URLWithString:url] subtitlesFilePath:URLofSubtitle];
+    VLCMedia *media = [VLCMedia mediaWithURL:[NSURL URLWithString:url]];
+    VLCMediaList *medialist = [[VLCMediaList alloc] init];
+    [medialist addMedia:media];
+    [[VLCPlaybackController sharedInstance] playMediaList:medialist firstIndex:0 subtitlesFilePath:URLofSubtitle];
 }
 
 - (NSString *)_checkURLofSubtitle:(NSString *)url

@@ -47,7 +47,6 @@ currentMediaHasTrackToChooseFrom:(BOOL)currentMediaHasTrackToChooseFrom
 
 @property (nonatomic, readwrite) BOOL sessionWillRestart;
 
-@property (nonatomic, strong) NSURL *url;
 @property (nonatomic, strong) NSURL *successCallback;
 @property (nonatomic, strong) NSURL *errorCallback;
 
@@ -96,8 +95,6 @@ currentMediaHasTrackToChooseFrom:(BOOL)currentMediaHasTrackToChooseFrom
 - (void)setNeedsMetadataUpdate;
 - (void)scheduleSleepTimerWithInterval:(NSTimeInterval)timeInterval;
 
-- (void)playMediaList:(VLCMediaList *)mediaList firstIndex:(NSInteger)index;
-- (void)playURL:(NSURL *)url successCallback:(NSURL*)successCallback errorCallback:(NSURL *)errorCallback;
-- (void)playURL:(NSURL *)url subtitlesFilePath:(NSString *)subsFilePath;
+- (void)playMediaList:(VLCMediaList *)mediaList firstIndex:(NSInteger)index subtitlesFilePath:(NSString *)subsFilePath;
 
 @end

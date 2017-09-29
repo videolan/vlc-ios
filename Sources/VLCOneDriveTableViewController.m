@@ -113,7 +113,10 @@
             NSString *subtitlePath = [self _searchSubtitle:selectedObject.name];
             subtitlePath = [self _getFileSubtitleFromServer:[NSURL URLWithString:subtitlePath]];
             NSURL *url = [NSURL URLWithString:selectedObject.downloadPath];
-            [vpc playURL:url subtitlesFilePath:subtitlePath];
+
+            VLCMediaList *medialist = [[VLCMediaList alloc] init];
+            [medialist addMedia: [VLCMedia mediaWithURL:url]];
+            [[VLCPlaybackController sharedInstance] playMediaList:medialist firstIndex:0 subtitlesFilePath:subtitlePath];
         } else {
             NSUInteger count = folderItems.count;
             NSMutableArray *mediaItems = [[NSMutableArray alloc] init];
@@ -135,7 +138,7 @@
 
             if (mediaItems.count > 0) {
                 firstIndex = mediaItems.count - posIndex;
-                [vpc playMediaList:[[VLCMediaList alloc] initWithArray:mediaItems] firstIndex:firstIndex];
+                [vpc playMediaList:[[VLCMediaList alloc] initWithArray:mediaItems] firstIndex:firstIndex subtitlesFilePath:nil];
             }
         }
     }
@@ -211,7 +214,7 @@
     }
 
     if (mediaItems.count > 0) {
-        [vpc playMediaList:[[VLCMediaList alloc] initWithArray:mediaItems] firstIndex:0];
+        [vpc playMediaList:[[VLCMediaList alloc] initWithArray:mediaItems] firstIndex:0 subtitlesFilePath:nil];
     }
 }
 

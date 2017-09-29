@@ -17,7 +17,6 @@
  *****************************************************************************/
 
 #import "VLCPlaybackController.h"
-#import <CommonCrypto/CommonDigest.h>
 #import "UIDevice+VLC.h"
 #import <AVFoundation/AVFoundation.h>
 #import "VLCPlayerDisplayController.h"
@@ -101,10 +100,13 @@ VLCMediaDelegate, VLCRemoteControlServiceDelegate>
 {
     self = [super init];
     if (self) {
+        // listen to audiosessions and appkit callback
         _headphonesWasPlugged = [self areHeadphonesPlugged];
         NSNotificationCenter *defaultCenter = [NSNotificationCenter defaultCenter];
         [defaultCenter addObserver:self selector:@selector(audioSessionRouteChange:)
                               name:AVAudioSessionRouteChangeNotification object:nil];
+
+        // appkit because we neeed to know when we go to background in order to stop the video, so that we don't crash
         [defaultCenter addObserver:self selector:@selector(applicationWillResignActive:)
                               name:UIApplicationWillResignActiveNotification object:nil];
         [defaultCenter addObserver:self selector:@selector(applicationDidBecomeActive:)
@@ -132,50 +134,14 @@ VLCMediaDelegate, VLCRemoteControlServiceDelegate>
 }
 #pragma mark - playback management
 
-- (void)playMediaList:(VLCMediaList *)mediaList firstIndex:(NSInteger)index
+- (void)playMediaList:(VLCMediaList *)mediaList firstIndex:(NSInteger)index subtitlesFilePath:(NSString *)subsFilePath
 {
     self.mediaList = mediaList;
     self.itemInMediaListToBePlayedFirst = (int)index;
-    self.pathToExternalSubtitlesFile = nil;
-
-    if (self.activePlaybackSession) {
-        self.sessionWillRestart = YES;
-        [self stopPlayback];
-    } else {
-        self.sessionWillRestart = NO;
-        [self startPlayback];
-    }
-}
-
-- (void)playURL:(NSURL *)url successCallback:(NSURL*)successCallback errorCallback:(NSURL *)errorCallback
-{
-    self.url = url;
-    self.successCallback = successCallback;
-    self.errorCallback = errorCallback;
-
-    if (self.activePlaybackSession) {
-        self.sessionWillRestart = YES;
-        [self stopPlayback];
-    } else {
-        self.sessionWillRestart = NO;
-        [self startPlayback];
-    }
-}
-
-- (void)playURL:(NSURL *)url subtitlesFilePath:(NSString *)subsFilePath
-{
-    self.url = url;
     self.pathToExternalSubtitlesFile = subsFilePath;
 
-    if (self.activePlaybackSession) {
-        self.sessionWillRestart = YES;
-        [self stopPlayback];
-    } else {
-        self.sessionWillRestart = NO;
-        dispatch_async(dispatch_get_main_queue(), ^{
-            [self startPlayback];
-        });
-    }
+    self.sessionWillRestart = self.activePlaybackSession;
+    self.activePlaybackSession ?  [self stopPlayback] : [self startPlayback];
 }
 
 - (void)startPlayback
@@ -199,7 +165,7 @@ VLCMediaDelegate, VLCRemoteControlServiceDelegate>
 
     NSUserDefaults *defaults = [NSUserDefaults standardUserDefaults];
 
-    if (!self.url && !self.mediaList) {
+    if (!self.mediaList) {
         APLog(@"%s: no URL and no media list set, stopping playback", __PRETTY_FUNCTION__);
         [_playbackSessionManagementLock unlock];
         [self stopPlayback];
@@ -234,23 +200,13 @@ VLCMediaDelegate, VLCRemoteControlServiceDelegate>
     if (self.pathToExternalSubtitlesFile)
         [_mediaPlayer addPlaybackSlave:[NSURL fileURLWithPath:self.pathToExternalSubtitlesFile] type:VLCMediaPlaybackSlaveTypeSubtitle enforce:YES];
 
-    VLCMedia *media;
-    if (_mediaList) {
-        media = [_mediaList mediaAtIndex:_itemInMediaListToBePlayedFirst];
-        [media parseWithOptions:VLCMediaParseLocal];
-        media.delegate = self;
-    } else {
-        media = [VLCMedia mediaWithURL:self.url];
-        media.delegate = self;
-        [media parseWithOptions:VLCMediaParseLocal];
-        [media addOptions:self.mediaOptionsDictionary];
-    }
+    VLCMedia *media = [_mediaList mediaAtIndex:_itemInMediaListToBePlayedFirst];
+    [media parseWithOptions:VLCMediaParseLocal];
+    media.delegate = self;
+    [media addOptions:self.mediaOptionsDictionary];
 
-    if (self.mediaList) {
-        [_listPlayer setMediaList:self.mediaList];
-    } else {
-        [_listPlayer setRootMedia:media];
-    }
+    [_listPlayer setMediaList:self.mediaList];
+
     [_listPlayer setRepeatMode:VLCDoNotRepeat];
 
     [_playbackSessionManagementLock unlock];
@@ -276,10 +232,7 @@ VLCMediaDelegate, VLCRemoteControlServiceDelegate>
     [_mediaPlayer addObserver:self forKeyPath:@"time" options:0 context:nil];
     [_mediaPlayer addObserver:self forKeyPath:@"remainingTime" options:0 context:nil];
 
-    if (self.mediaList)
-        [_listPlayer playItemAtNumber:@(self.itemInMediaListToBePlayedFirst)];
-    else
-        [_listPlayer playMedia:_listPlayer.rootMedia];
+    [_listPlayer playItemAtNumber:@(self.itemInMediaListToBePlayedFirst)];
 
     if ([self.delegate respondsToSelector:@selector(prepareForMediaPlayback:)])
         [self.delegate prepareForMediaPlayback:self];
@@ -320,16 +273,11 @@ VLCMediaDelegate, VLCRemoteControlServiceDelegate>
 #endif
             [_mediaPlayer stop];
         }
-        if (_mediaPlayer)
-            _mediaPlayer = nil;
-        if (_listPlayer)
-            _listPlayer = nil;
+        _mediaPlayer = nil;
+        _listPlayer = nil;
     }
     if (!_sessionWillRestart) {
-        if (_mediaList)
-            _mediaList = nil;
-        if (_url)
-            _url = nil;
+        _mediaList = nil;
         if (_pathToExternalSubtitlesFile) {
             NSFileManager *fileManager = [NSFileManager defaultManager];
             if ([fileManager fileExistsAtPath:_pathToExternalSubtitlesFile])
@@ -340,10 +288,10 @@ VLCMediaDelegate, VLCRemoteControlServiceDelegate>
     _playerIsSetup = NO;
     [_shuffleStack removeAllObjects];
 
-    if (self.errorCallback && _playbackFailed && !_sessionWillRestart)
-        [[UIApplication sharedApplication] openURL:self.errorCallback];
-    else if (self.successCallback && !_sessionWillRestart)
-        [[UIApplication sharedApplication] openURL:self.successCallback];
+    if (_errorCallback && _playbackFailed && !_sessionWillRestart)
+        [[UIApplication sharedApplication] openURL:_errorCallback];
+    else if (_successCallback && !_sessionWillRestart)
+        [[UIApplication sharedApplication] openURL:_successCallback];
 
     [[self remoteControlService] unsubscribeFromRemoteCommands];
     _activeSession = NO;
@@ -369,10 +317,8 @@ VLCMediaDelegate, VLCRemoteControlServiceDelegate>
         APLog(@"saving playback state failed");
     }
 
-    MLFile *fileItem;
     NSArray *files = [MLFile fileForURL:_mediaPlayer.media.url];
-    if (files.count > 0)
-        fileItem = files.firstObject;
+    MLFile *fileItem = files.firstObject;
 
     if (!fileItem) {
         APLog(@"couldn't find file, not saving playback progress");
@@ -449,9 +395,8 @@ VLCMediaDelegate, VLCRemoteControlServiceDelegate>
         _mediaWasJustStarted = NO;
 #if TARGET_OS_IOS
         if (self.mediaList) {
-            MLFile *item;
             NSArray *matches = [MLFile fileForURL:_mediaPlayer.media.url];
-            item = matches.firstObject;
+            MLFile *item = matches.firstObject;
             [self _recoverLastPlaybackStateOfItem:item];
         }
 #else
