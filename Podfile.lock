@@ -28,11 +28,11 @@ PODS:
   - GTMAppAuth (0.6.1):
     - AppAuth (~> 0.9.0)
     - GTMSessionFetcher (~> 1.1)
-  - GTMSessionFetcher (1.1.11):
-    - GTMSessionFetcher/Full (= 1.1.11)
-  - GTMSessionFetcher/Core (1.1.11)
-  - GTMSessionFetcher/Full (1.1.11):
-    - GTMSessionFetcher/Core (= 1.1.11)
+  - GTMSessionFetcher (1.1.12):
+    - GTMSessionFetcher/Full (= 1.1.12)
+  - GTMSessionFetcher/Core (1.1.12)
+  - GTMSessionFetcher/Full (1.1.12):
+    - GTMSessionFetcher/Core (= 1.1.12)
   - HockeySDK (3.6.4)
   - HockeySDK-tvOS (4.1.0-beta.1)
   - InAppSettingsKit (2.2.2)
@@ -41,7 +41,7 @@ PODS:
   - MetaDataFetcherKit (0.1.8):
     - AFNetworking (= 3.1.0)
     - OROpenSubtitleDownloader
-  - MobileVLCKit-unstable (3.0.0a41)
+  - MobileVLCKit-unstable (3.0.0a42)
   - NSData+Base64 (1.0.0)
   - ObjectiveDropboxOfficial (1.1)
   - OBSlider (1.1.0)
@@ -69,7 +69,7 @@ DEPENDENCIES:
   - InAppSettingsKit (from `git://github.com/fkuehne/InAppSettingsKit.git`, commit `415ea6bb`)
   - MediaLibraryKit-unstable
   - MetaDataFetcherKit (~> 0.1.8)
-  - MobileVLCKit-unstable (= 3.0.0a41)
+  - MobileVLCKit-unstable (= 3.0.0a42)
   - ObjectiveDropboxOfficial (from `git://github.com/carolanitz/dropbox-sdk-obj-c.git`)
   - OBSlider (= 1.1.0)
   - OROpenSubtitleDownloader (from `https://github.com/orta/OROpenSubtitleDownloader.git`, commit `0509eac2`)
@@ -120,13 +120,13 @@ SPEC CHECKSUMS:
   GoogleAPIClient: 77df755d41d70ee5a99b7b752614fbb439f19438
   GRKArrayDiff: cf743e6b30f6b72a3763e1f16cc5d9da39af86a5
   GTMAppAuth: ae710e1e53431e2bcdd57f9f92daa16a58a2947d
-  GTMSessionFetcher: 5ad62e8200fa00ed011fe5e08d27fef72c5b1429
+  GTMSessionFetcher: ebaa1f79a5366922c1735f1566901f50beba23b7
   HockeySDK: c07cdd580296737edcd0963e292c19885a53f563
   HockeySDK-tvOS: fe5373e9a6e70aeca464f8491eb32b60b04fb322
   InAppSettingsKit: 76d5cfbaa3e3f8aa53fe3628516da7eb1aa6a5cb
   MediaLibraryKit-unstable: b4834ad57d5d2f49f30b9edd2d7650d151fc5534
   MetaDataFetcherKit: 44c90defa89b3a72cef60e07ad9de37821dd7c5d
-  MobileVLCKit-unstable: 58ebc3a907249609c39aba84530a9d6f9c94b9da
+  MobileVLCKit-unstable: 077bf4ee2cf2487bbcae2b2412fc44b6a51a6fb0
   NSData+Base64: 4e84902c4db907a15673474677e57763ef3903e4
   ObjectiveDropboxOfficial: e11cdf40e8965a6c24c6d6ff64905f2df43ab653
   OBSlider: 490f108007bfdd5414a38650b211fe403a95b8a0
@@ -140,6 +140,6 @@ SPEC CHECKSUMS:
   XKKeychain: 852ef663c56a7194c73d3c68e8d9d4f07b121d4f
   xmlrpc: 109bb21d15ed6d108b2c1ac5973a6a223a50f5f4
 
-PODFILE CHECKSUM: 59ad766138d75cf7a189b67145bd9bfc1588f564
+PODFILE CHECKSUM: ef41ca60735f793829438c00e0bde679168f2fcc
 
-COCOAPODS: 1.3.1
+COCOAPODS: 1.2.1

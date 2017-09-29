@@ -17,11 +17,11 @@
 	<key>CFBundlePackageType</key>
 	<string>XPC!</string>
 	<key>CFBundleShortVersionString</key>
-	<string>2.8.3</string>
+	<string>2.8.4</string>
 	<key>CFBundleSignature</key>
 	<string>????</string>
 	<key>CFBundleVersion</key>
-	<string>283.2</string>
+	<string>284.1</string>
 	<key>MLKitGroupIdentifier</key>
 	<string>$(GROUP_IDENTIFIER)</string>
 	<key>NSExtension</key>

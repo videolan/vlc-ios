@@ -1,3 +1,10 @@
+iOS 2.8.4:
+----------
+· Fixes a not responsive UI after scrubbing the Video
+· Fixes iOS 11 issues with deinterlaced videos 
+· Fixes instances where the Video would be black
+· General stability improvements and bug fixes
+
 iOS 2.8.3:
 ----------
 · Hardware accelerated video filtering reducing CPU load by 30% to the previous software filters (iOS 9 or later only)
