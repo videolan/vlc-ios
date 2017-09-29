@@ -326,7 +326,3 @@
 "DELETE_INVALID_TITLE" = "Invalid Selection";
 "DELETE_MESSAGE" = "Confirm the deletion of the selected files";
 "DELETE_TITLE" = "Delete Selected Files";
-
-/* New strings */
-"Settings" = "Settings";
-"PROTOCOL_NOT_SELECTED" = "No Protocol selected";
