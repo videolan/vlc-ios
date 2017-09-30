@@ -87,8 +87,12 @@
 - (void)viewWillAppear:(BOOL)animated
 {
     UIPasteboard *pasteboard = [UIPasteboard generalPasteboard];
-    if ([pasteboard containsPasteboardTypes:@[@"public.url"]])
-        self.urlField.text = [[pasteboard valueForPasteboardType:@"public.url"] absoluteString];
+    if ([pasteboard containsPasteboardTypes:@[@"public.url"]]) {
+        id pasteboardValue = [pasteboard valueForPasteboardType:@"public.url"];
+        if ([pasteboardValue respondsToSelector:@selector(absoluteString)]) {
+            self.urlField.text = [pasteboardValue absoluteString];
+        }
+    }
     [self _updateUI];
     [super viewWillAppear:animated];
 }
