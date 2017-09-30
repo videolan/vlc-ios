@@ -263,8 +263,20 @@
             // Check for multiple URIs.
             if ([mediaItem.uriCollection count] > 1) {
                 for (NSString *key in mediaItem.uriCollection) {
-                    if ([key containsString:kVLCUPnPVideoProtocolKey] || [key containsString:kVLCUPnPAudioProtocolKey]) {
-                        mediaItem.uri = [mediaItem.uriCollection objectForKey:key];
+                    if ([key respondsToSelector:@selector(containsString:)]) {
+                        if ([key containsString:kVLCUPnPVideoProtocolKey] || [key containsString:kVLCUPnPAudioProtocolKey]) {
+                            mediaItem.uri = [mediaItem.uriCollection objectForKey:key];
+                        }
+                    } else {
+                        NSRange foundRage = [key rangeOfString:kVLCUPnPVideoProtocolKey];
+                        if (foundRage.location != NSNotFound) {
+                            mediaItem.uri = [mediaItem.uriCollection objectForKey:key];
+                        } else {
+                            foundRage = [key rangeOfString:kVLCUPnPAudioProtocolKey];
+                            if (foundRage.location != NSNotFound) {
+                                mediaItem.uri = [mediaItem.uriCollection objectForKey:key];
+                            }
+                        }
                     }
                 }
             }
