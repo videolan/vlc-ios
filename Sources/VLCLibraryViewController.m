@@ -871,9 +871,11 @@ static NSString *kUsingTableViewToShowData = @"UsingTableViewToShowData";
     }
 
     if (_folderObject != nil) {
-        //could be NSNotFound
+        id mediaObject;
         NSUInteger folderIndex = [_mediaDataSource indexOfObject:_folderObject];
-        id mediaObject = [_mediaDataSource objectAtIndex:folderIndex];
+        if (folderIndex != NSNotFound) {
+            mediaObject = [_mediaDataSource objectAtIndex:folderIndex];
+        }
 
         //item got dragged onto item
         if ([mediaObject isKindOfClass:[MLFile class]]) {
