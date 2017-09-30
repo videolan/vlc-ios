@@ -1139,7 +1139,9 @@ static NSString *kUsingTableViewToShowData = @"UsingTableViewToShowData";
         NSUInteger folderIndex;
         @synchronized(_foundMedia) {
             folderIndex = [_foundMedia indexOfObject:_folderObject];
-            mediaObject = _foundMedia[folderIndex];
+            if (folderIndex != NSNotFound) {
+                mediaObject = _foundMedia[folderIndex];
+            }
         }
 
         //item got dragged onto item
