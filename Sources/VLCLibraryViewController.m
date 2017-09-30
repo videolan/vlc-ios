@@ -1114,11 +1114,21 @@ static NSString *kUsingTableViewToShowData = @"UsingTableViewToShowData";
     NSArray *indexPaths = [self usingTableViewToShowData] ? [self.tableView indexPathsForSelectedRows] : [self.collectionView indexPathsForSelectedItems];
 
     if ((!indexPaths || [indexPaths count] == 0) && !_deleteFromTableView) {
-        UIAlertController *invalidSelection = [UIAlertController alertControllerWithTitle:NSLocalizedString(@"DELETE_INVALID_TITLE", nil) message:NSLocalizedString(@"DELETE_INVALID_MESSAGE", nil) preferredStyle:UIAlertControllerStyleAlert];
-        UIAlertAction *doneAction = [UIAlertAction actionWithTitle:NSLocalizedString(@"BUTTON_OK", nil) style:UIAlertActionStyleDefault handler:nil];
+        if ([UIAlertController class]) {
+            UIAlertController *invalidSelection = [UIAlertController alertControllerWithTitle:NSLocalizedString(@"DELETE_INVALID_TITLE", nil) message:NSLocalizedString(@"DELETE_INVALID_MESSAGE", nil) preferredStyle:UIAlertControllerStyleAlert];
+            UIAlertAction *doneAction = [UIAlertAction actionWithTitle:NSLocalizedString(@"BUTTON_OK", nil) style:UIAlertActionStyleDefault handler:nil];
 
-        [invalidSelection addAction:doneAction];
-        [self presentViewController:invalidSelection animated:YES completion:nil];
+            [invalidSelection addAction:doneAction];
+            [self presentViewController:invalidSelection animated:YES completion:nil];
+        } else {
+            //TODO remove when we drop iOS7
+            VLCAlertView *alert = [[VLCAlertView alloc] initWithTitle:NSLocalizedString(@"DELETE_INVALID_TITLE", nil)
+                                                              message:NSLocalizedString(@"DELETE_INVALID_MESSAGE", nil)
+                                                    cancelButtonTitle:NSLocalizedString(@"BUTTON_OK", nil)
+                                                    otherButtonTitles:nil];
+            alert.completion = nil;
+            [alert show];
+        }
     } else {
         UIAlertController *alert = [UIAlertController alertControllerWithTitle:NSLocalizedString(@"DELETE_TITLE", nil) message:nil preferredStyle:UIAlertControllerStyleActionSheet];
         UIAlertAction *deleteAction = [UIAlertAction actionWithTitle:NSLocalizedString(@"BUTTON_DELETE", nil) style:UIAlertActionStyleDestructive handler:^(UIAlertAction * _Nonnull action) {
