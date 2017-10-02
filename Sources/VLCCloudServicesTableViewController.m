@@ -150,28 +150,14 @@
 
 #pragma mark - Table view delegate
 
-- (NSIndexPath *)tableView:(UITableView *)tableView willSelectRowAtIndexPath:(NSIndexPath *)indexPath
-{
-    // don't let select CLOUD_DRIVES menu item since there is no view controller to reveal
-    if (indexPath.row == 4) {
-        [tableView deselectRowAtIndexPath:indexPath animated:YES];
-        if (UI_USER_INTERFACE_IDIOM() == UIUserInterfaceIdiomPad)
-            [self.documentPickerController showDocumentMenuViewController:[(VLCCloudServiceCell *)[self.tableView cellForRowAtIndexPath:indexPath] icon]];
-        else
-            [self.documentPickerController showDocumentMenuViewController:nil];
-
-        return nil;
-    } else
-        return indexPath;
-}
-
 - (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath
 {
     return 66.0;
 }
 
-- (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
-
+- (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
+{
+    [tableView deselectRowAtIndexPath:indexPath animated:YES];
     switch (indexPath.row) {
         case 0:
             //dropBox
@@ -189,7 +175,12 @@
             //OneDrive
             [self.navigationController pushViewController:self.oneDriveTableViewController animated:YES];
             break;
-
+        case 4:
+            if (UI_USER_INTERFACE_IDIOM() == UIUserInterfaceIdiomPad)
+                [self.documentPickerController showDocumentMenuViewController:[(VLCCloudServiceCell *)[self.tableView cellForRowAtIndexPath:indexPath] icon]];
+            else
+                [self.documentPickerController showDocumentMenuViewController:nil];
+            break;
         default:
             break;
     }
