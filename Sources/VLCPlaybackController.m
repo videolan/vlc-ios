@@ -50,7 +50,6 @@ typedef NS_ENUM(NSUInteger, VLCAspectRatio) {
 @interface VLCPlaybackController () <VLCMediaPlayerDelegate, VLCMediaDelegate>
 {
     BOOL _playerIsSetup;
-    BOOL _playbackFailed;
     BOOL _shouldResumePlaying;
     NSTimer *_sleepTimer;
 
@@ -409,7 +408,7 @@ typedef NS_ENUM(NSUInteger, VLCAspectRatio) {
     _playerIsSetup = NO;
     [_shuffleStack removeAllObjects];
 
-    if (self.errorCallback && _playbackFailed && !_sessionWillRestart)
+    if (self.errorCallback && _mediaPlayer.state == VLCMediaPlayerStateError && !_sessionWillRestart)
         [[UIApplication sharedApplication] openURL:self.errorCallback];
     else if (self.successCallback && !_sessionWillRestart)
         [[UIApplication sharedApplication] openURL:self.successCallback];
@@ -419,9 +418,7 @@ typedef NS_ENUM(NSUInteger, VLCAspectRatio) {
     _activeSession = NO;
 
     [_playbackSessionManagementLock unlock];
-    if (_playbackFailed) {
-        [[NSNotificationCenter defaultCenter] postNotificationName:VLCPlaybackControllerPlaybackDidFail object:self];
-    } else if (!_sessionWillRestart) {
+    if (!_sessionWillRestart) {
         [[NSNotificationCenter defaultCenter] postNotificationName:VLCPlaybackControllerPlaybackDidStop object:self];
     } else {
         self.sessionWillRestart = NO;
@@ -633,7 +630,9 @@ typedef NS_ENUM(NSUInteger, VLCAspectRatio) {
         [_mediaPlayer performSelector:@selector(setTextRendererFontForceBold:) withObject:[defaults objectForKey:kVLCSettingSubtitlesBoldFont]];
     } else if (currentState == VLCMediaPlayerStateError) {
         APLog(@"Playback failed");
-        _playbackFailed = YES;
+        dispatch_async(dispatch_get_main_queue(),^{
+            [[NSNotificationCenter defaultCenter] postNotificationName:VLCPlaybackControllerPlaybackDidFail object:self];
+        });
         self.sessionWillRestart = NO;
         [self stopPlayback];
     } else if (currentState == VLCMediaPlayerStateEnded || currentState == VLCMediaPlayerStateStopped) {
