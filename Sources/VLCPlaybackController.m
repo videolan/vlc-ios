@@ -48,7 +48,6 @@ VLCMediaDelegate, VLCRemoteControlServiceDelegate>
 {
     VLCRemoteControlService *_remoteControlService;
     BOOL _playerIsSetup;
-    BOOL _playbackFailed;
     BOOL _shouldResumePlaying;
     BOOL _sessionWillRestart;
     BOOL _shouldResumePlayingAfterInteruption;
@@ -292,7 +291,7 @@ VLCMediaDelegate, VLCRemoteControlServiceDelegate>
     _playerIsSetup = NO;
     [_shuffleStack removeAllObjects];
 
-    if (_errorCallback && _playbackFailed && !_sessionWillRestart)
+    if (_errorCallback && _mediaPlayer.state == VLCMediaPlayerStateError &&  !_sessionWillRestart)
         [[UIApplication sharedApplication] openURL:_errorCallback];
     else if (_successCallback && !_sessionWillRestart)
         [[UIApplication sharedApplication] openURL:_successCallback];
@@ -301,9 +300,7 @@ VLCMediaDelegate, VLCRemoteControlServiceDelegate>
     _activeSession = NO;
 
     [_playbackSessionManagementLock unlock];
-    if (_playbackFailed) {
-        [[NSNotificationCenter defaultCenter] postNotificationName:VLCPlaybackControllerPlaybackDidFail object:self];
-    } else if (!_sessionWillRestart) {
+    if (!_sessionWillRestart) {
         [[NSNotificationCenter defaultCenter] postNotificationName:VLCPlaybackControllerPlaybackDidStop object:self];
     } else {
         _sessionWillRestart = NO;
@@ -501,7 +498,9 @@ VLCMediaDelegate, VLCRemoteControlServiceDelegate>
         [_mediaPlayer performSelector:@selector(setTextRendererFontForceBold:) withObject:[defaults objectForKey:kVLCSettingSubtitlesBoldFont]];
     } else if (currentState == VLCMediaPlayerStateError) {
         APLog(@"Playback failed");
-        _playbackFailed = YES;
+        dispatch_async(dispatch_get_main_queue(),^{
+            [[NSNotificationCenter defaultCenter] postNotificationName:VLCPlaybackControllerPlaybackDidFail object:self];
+        });
         _sessionWillRestart = NO;
         [self stopPlayback];
     } else if (currentState == VLCMediaPlayerStateEnded || currentState == VLCMediaPlayerStateStopped) {
