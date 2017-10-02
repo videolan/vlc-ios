@@ -50,7 +50,11 @@ VLCMediaDelegate, VLCRemoteControlServiceDelegate>
     BOOL _playerIsSetup;
     BOOL _playbackFailed;
     BOOL _shouldResumePlaying;
+    BOOL _sessionWillRestart;
     BOOL _shouldResumePlayingAfterInteruption;
+
+    NSString *_pathToExternalSubtitlesFile;
+    int _itemInMediaListToBePlayedFirst;
     NSTimer *_sleepTimer;
 
     NSUInteger _currentAspectRatio;
@@ -137,10 +141,10 @@ VLCMediaDelegate, VLCRemoteControlServiceDelegate>
 - (void)playMediaList:(VLCMediaList *)mediaList firstIndex:(NSInteger)index subtitlesFilePath:(NSString *)subsFilePath
 {
     self.mediaList = mediaList;
-    self.itemInMediaListToBePlayedFirst = (int)index;
-    self.pathToExternalSubtitlesFile = subsFilePath;
+    _itemInMediaListToBePlayedFirst = (int)index;
+    _pathToExternalSubtitlesFile = subsFilePath;
 
-    self.sessionWillRestart = self.activePlaybackSession;
+    _sessionWillRestart = self.activePlaybackSession;
     self.activePlaybackSession ?  [self stopPlayback] : [self startPlayback];
 }
 
@@ -179,8 +183,8 @@ VLCMediaDelegate, VLCRemoteControlServiceDelegate>
     _actualVideoOutputView.autoresizingMask = UIViewAutoresizingFlexibleWidth | UIViewAutoresizingFlexibleHeight;
     _actualVideoOutputView.autoresizesSubviews = YES;
 
-    if (self.pathToExternalSubtitlesFile)
-        _listPlayer = [[VLCMediaListPlayer alloc] initWithOptions:@[[NSString stringWithFormat:@"--%@=%@", kVLCSettingSubtitlesFilePath, self.pathToExternalSubtitlesFile]] andDrawable:_actualVideoOutputView];
+    if (_pathToExternalSubtitlesFile)
+        _listPlayer = [[VLCMediaListPlayer alloc] initWithOptions:@[[NSString stringWithFormat:@"--%@=%@", kVLCSettingSubtitlesFilePath, _pathToExternalSubtitlesFile]] andDrawable:_actualVideoOutputView];
     else
         _listPlayer = [[VLCMediaListPlayer alloc] initWithDrawable:_actualVideoOutputView];
 
@@ -197,8 +201,8 @@ VLCMediaDelegate, VLCRemoteControlServiceDelegate>
         [_mediaPlayer setDeinterlaceFilter:@"blend"];
     else
         [_mediaPlayer setDeinterlaceFilter:nil];
-    if (self.pathToExternalSubtitlesFile)
-        [_mediaPlayer addPlaybackSlave:[NSURL fileURLWithPath:self.pathToExternalSubtitlesFile] type:VLCMediaPlaybackSlaveTypeSubtitle enforce:YES];
+    if (_pathToExternalSubtitlesFile)
+        [_mediaPlayer addPlaybackSlave:[NSURL fileURLWithPath:_pathToExternalSubtitlesFile] type:VLCMediaPlaybackSlaveTypeSubtitle enforce:YES];
 
     VLCMedia *media = [_mediaList mediaAtIndex:_itemInMediaListToBePlayedFirst];
     [media parseWithOptions:VLCMediaParseLocal];
@@ -232,7 +236,7 @@ VLCMediaDelegate, VLCRemoteControlServiceDelegate>
     [_mediaPlayer addObserver:self forKeyPath:@"time" options:0 context:nil];
     [_mediaPlayer addObserver:self forKeyPath:@"remainingTime" options:0 context:nil];
 
-    [_listPlayer playItemAtNumber:@(self.itemInMediaListToBePlayedFirst)];
+    [_listPlayer playItemAtNumber:@(_itemInMediaListToBePlayedFirst)];
 
     if ([self.delegate respondsToSelector:@selector(prepareForMediaPlayback:)])
         [self.delegate prepareForMediaPlayback:self];
@@ -302,7 +306,7 @@ VLCMediaDelegate, VLCRemoteControlServiceDelegate>
     } else if (!_sessionWillRestart) {
         [[NSNotificationCenter defaultCenter] postNotificationName:VLCPlaybackControllerPlaybackDidStop object:self];
     } else {
-        self.sessionWillRestart = NO;
+        _sessionWillRestart = NO;
         [self startPlayback];
     }
 }
@@ -498,14 +502,14 @@ VLCMediaDelegate, VLCRemoteControlServiceDelegate>
     } else if (currentState == VLCMediaPlayerStateError) {
         APLog(@"Playback failed");
         _playbackFailed = YES;
-        self.sessionWillRestart = NO;
+        _sessionWillRestart = NO;
         [self stopPlayback];
     } else if (currentState == VLCMediaPlayerStateEnded || currentState == VLCMediaPlayerStateStopped) {
         [_listPlayer.mediaList lock];
         NSUInteger listCount = _listPlayer.mediaList.count;
         if ([_listPlayer.mediaList indexOfMedia:_mediaPlayer.media] == listCount - 1 && self.repeatMode == VLCDoNotRepeat) {
             [_listPlayer.mediaList unlock];
-            self.sessionWillRestart = NO;
+            _sessionWillRestart = NO;
             [self stopPlayback];
             return;
         } else if (listCount > 1) {

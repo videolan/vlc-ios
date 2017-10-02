@@ -45,14 +45,10 @@ currentMediaHasTrackToChooseFrom:(BOOL)currentMediaHasTrackToChooseFrom
 
 @property (nonatomic, strong) UIView *videoOutputView;
 
-@property (nonatomic, readwrite) BOOL sessionWillRestart;
-
 @property (nonatomic, strong) NSURL *successCallback;
 @property (nonatomic, strong) NSURL *errorCallback;
 
-@property (nonatomic, strong) NSString *pathToExternalSubtitlesFile;
 @property (nonatomic, retain) VLCMediaList *mediaList;
-@property (nonatomic, readwrite) int itemInMediaListToBePlayedFirst;
 
 #if TARGET_OS_IOS
 /* returns nil if currently playing item is not a MLFile, e.g. a url */
