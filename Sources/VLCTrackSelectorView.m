@@ -33,7 +33,7 @@
 - (instancetype)initWithFrame:(CGRect)frame
 {
     self = [super initWithFrame:frame];
-    if(self){
+    if (self) {
         _trackSelectorTableView = [[UITableView alloc] initWithFrame:CGRectZero style:UITableViewStylePlain];
         _trackSelectorTableView.delegate = self;
         _trackSelectorTableView.dataSource = self;
@@ -52,7 +52,8 @@
     return self;
 }
 
-- (void)configureForDeviceCategory {
+- (void)configureForDeviceCategory
+{
     _trackSelectorTableView.opaque = NO;
     _trackSelectorTableView.backgroundColor = [UIColor clearColor];
     _trackSelectorTableView.allowsMultipleSelection = YES;
@@ -105,6 +106,8 @@
 - (void)updateView
 {
     [_trackSelectorTableView reloadData];
+    [self setNeedsLayout];
+    [self layoutIfNeeded];
 }
 
 - (UIView *)tableView:(UITableView *)tableView viewForHeaderInSection:(NSInteger)section
