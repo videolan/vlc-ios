@@ -65,7 +65,6 @@ VLCMediaDelegate, VLCRemoteControlServiceDelegate>
     BOOL _needsMetadataUpdate;
     BOOL _mediaWasJustStarted;
     BOOL _recheckForExistingThumbnail;
-    BOOL _activeSession;
     BOOL _headphonesWasPlugged;
 
     NSLock *_playbackSessionManagementLock;
@@ -143,8 +142,8 @@ VLCMediaDelegate, VLCRemoteControlServiceDelegate>
     _itemInMediaListToBePlayedFirst = (int)index;
     _pathToExternalSubtitlesFile = subsFilePath;
 
-    _sessionWillRestart = self.activePlaybackSession;
-    self.activePlaybackSession ?  [self stopPlayback] : [self startPlayback];
+    _sessionWillRestart = self.isPlaying;
+    self.isPlaying ?  [self stopPlayback] : [self startPlayback];
 }
 
 - (void)startPlayback
@@ -159,8 +158,6 @@ VLCMediaDelegate, VLCRemoteControlServiceDelegate>
         APLog(@"%s: locking failed", __PRETTY_FUNCTION__);
         return;
     }
-
-    _activeSession = YES;
 
 #if TARGET_OS_IOS
     [[AVAudioSession sharedInstance] setDelegate:self];
@@ -297,7 +294,6 @@ VLCMediaDelegate, VLCRemoteControlServiceDelegate>
         [[UIApplication sharedApplication] openURL:_successCallback];
 
     [[self remoteControlService] unsubscribeFromRemoteCommands];
-    _activeSession = NO;
 
     [_playbackSessionManagementLock unlock];
     if (!_sessionWillRestart) {
@@ -445,11 +441,6 @@ VLCMediaDelegate, VLCRemoteControlServiceDelegate>
 - (BOOL)currentMediaHasTrackToChooseFrom
 {
     return [[_mediaPlayer audioTrackIndexes] count] > 2 || [[_mediaPlayer videoSubTitlesIndexes] count] > 1;
-}
-
-- (BOOL)activePlaybackSession
-{
-    return _activeSession;
 }
 
 - (float)playbackRate

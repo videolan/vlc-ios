@@ -69,7 +69,6 @@ currentMediaHasTrackToChooseFrom:(BOOL)currentMediaHasTrackToChooseFrom
 @property (nonatomic, readwrite) float subtitleDelay; // in seconds, default = 0.0
 @property (nonatomic, readonly) BOOL currentMediaHasChapters;
 @property (nonatomic, readonly) BOOL currentMediaHasTrackToChooseFrom;
-@property (nonatomic, readonly) BOOL activePlaybackSession;
 @property (nonatomic, readwrite) BOOL fullscreenSessionRequested;
 @property (nonatomic, readonly) NSDictionary *mediaOptionsDictionary;
 @property (nonatomic, readonly) NSTimer* sleepTimer;

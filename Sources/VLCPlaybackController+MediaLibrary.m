@@ -45,7 +45,7 @@ Open a file in the libraryViewController without changing the playstate
 
 - (void)openMediaLibraryObject:(NSManagedObject *)mediaObject
 {
-    if (self.activePlaybackSession) {
+    if (self.isPlaying) {
         NSArray *files = [MLFile fileForURL:self.mediaPlayer.media.url];
         MLFile *nowPlayingFile = (MLFile *)(NSManagedObject *)files.firstObject;
         MLFile *newFile;

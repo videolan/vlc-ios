@@ -1606,7 +1606,7 @@ currentMediaHasTrackToChooseFrom:(BOOL)currentMediaHasTrackToChooseFrom
 
 - (void)didRotateFromInterfaceOrientation:(UIInterfaceOrientation)fromInterfaceOrientation
 {
-    if (_vpc.activePlaybackSession && _controlsHidden)
+    if (_vpc.isPlaying && _controlsHidden)
         [self setControlsHidden:NO animated:YES];
 }
 
@@ -1629,7 +1629,7 @@ currentMediaHasTrackToChooseFrom:(BOOL)currentMediaHasTrackToChooseFrom
 
 - (void)traitCollectionDidChange:(UITraitCollection *)previousTraitCollection
 {
-    if (_vpc.activePlaybackSession && _controlsHidden)
+    if (_vpc.isPlaying && _controlsHidden)
         [self setControlsHidden:NO animated:YES];
 }
 
