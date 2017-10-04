@@ -479,6 +479,106 @@ VLCMediaDelegate, VLCRemoteControlServiceDelegate>
     return _mediaPlayer.currentVideoSubTitleDelay/1000000.;
 }
 
+- (NSInteger)indexOfCurrentAudioTrack
+{
+    return [_mediaPlayer.audioTrackIndexes indexOfObject:@(_mediaPlayer.currentAudioTrackIndex)];
+}
+
+- (NSInteger)indexOfCurrentSubtitleTrack
+{
+    return [_mediaPlayer.videoSubTitlesIndexes indexOfObject:@(_mediaPlayer.currentVideoSubTitleIndex)];
+}
+
+- (NSInteger)indexOfCurrentChapter
+{
+    return _mediaPlayer.currentChapterIndex;
+}
+
+- (NSInteger)indexOfCurrentTitle
+{
+    return _mediaPlayer.currentTitleIndex;
+}
+
+- (NSInteger)numberOfAudioTracks
+{
+    return _mediaPlayer.audioTrackIndexes.count;
+}
+
+- (NSInteger)numberOfVideoSubtitlesIndexes
+{
+    return _mediaPlayer.videoSubTitlesIndexes.count;
+}
+
+- (NSInteger)numberOfTitles
+{
+    return  [_mediaPlayer numberOfTitles];
+}
+
+- (NSInteger)numberOfChaptersForCurrentTitle
+{
+    return [_mediaPlayer numberOfChaptersForTitle:_mediaPlayer.currentTitleIndex];
+}
+
+- (NSString *)videoSubtitleNameAtIndex:(NSInteger)index
+{
+    if (index >= 0 && index < _mediaPlayer.videoSubTitlesNames.count)
+        return _mediaPlayer.videoSubTitlesNames[index];
+    return nil;
+}
+
+- (NSString *)audioTrackNameAtIndex:(NSInteger)index
+{
+    if (index >= 0 && index < _mediaPlayer.audioTrackNames.count)
+        return _mediaPlayer.audioTrackNames[index];
+    return nil;
+}
+
+- (NSDictionary *)titleDescriptionsDictAtIndex:(NSInteger)index
+{
+    if (index >= 0 && index < _mediaPlayer.titleDescriptions.count)
+        return _mediaPlayer.titleDescriptions[index];
+    return nil;
+}
+
+- (NSDictionary *)chapterDescriptionsDictAtIndex:(NSInteger)index
+{
+    NSArray *chapterDescriptions = [_mediaPlayer chapterDescriptionsOfTitle:_mediaPlayer.currentTitleIndex];
+    if (index >= 0 && index < chapterDescriptions.count)
+        return chapterDescriptions[index];
+    return nil;
+}
+
+- (void)selectAudioTrackAtIndex:(NSInteger)index
+{
+    if (index >= 0 && index < _mediaPlayer.audioTrackIndexes.count) {
+        //we can cast this cause we won't have more than 2 million audiotracks
+        _mediaPlayer.currentAudioTrackIndex = [_mediaPlayer.audioTrackIndexes[index] intValue];
+    }
+}
+
+- (void)selectVideoSubtitleAtIndex:(NSInteger)index
+{
+    if (index >= 0 && index < _mediaPlayer.videoSubTitlesIndexes.count) {
+        _mediaPlayer.currentVideoSubTitleIndex = [_mediaPlayer.videoSubTitlesIndexes[index] intValue];
+    }
+}
+
+- (void)selectTitleAtIndex:(NSInteger)index
+{
+    if (index >= 0 && index < [_mediaPlayer numberOfTitles]) {
+        //we can cast this cause we won't have more than 2 million titles
+        _mediaPlayer.currentTitleIndex = (int)index;
+    }
+}
+
+- (void)selectChapterAtIndex:(NSInteger)index
+{
+    if (index >= 0 && index < [self numberOfChaptersForCurrentTitle]) {
+        //we can cast this cause we won't have more than 2 million chapters
+        _mediaPlayer.currentChapterIndex = (int)index;
+    }
+}
+
 - (void)mediaPlayerStateChanged:(NSNotification *)aNotification
 {
     VLCMediaPlayerState currentState = _mediaPlayer.state;
@@ -1008,6 +1108,7 @@ VLCMediaDelegate, VLCRemoteControlServiceDelegate>
 {
     self.playbackRate = playbackRate;
 }
+
 #pragma mark - helpers
 
 - (NSDictionary *)mediaOptionsDictionary

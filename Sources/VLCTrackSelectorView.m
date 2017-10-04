@@ -82,24 +82,24 @@
 
 - (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView
 {
-    NSInteger ret = 0;
-    VLCMediaPlayer *mediaPlayer = [VLCPlaybackController sharedInstance].mediaPlayer;
+    NSInteger sections = 0;
+    VLCPlaybackController *playbackController = [VLCPlaybackController sharedInstance];
 
     if (_switchingTracksNotChapters) {
-        if (mediaPlayer.audioTrackIndexes.count > 2)
-            ret++;
+        if([playbackController numberOfAudioTracks] > 2)
+            sections++;
 
-        if (mediaPlayer.videoSubTitlesIndexes.count > 1)
-            ret++;
+        if ([playbackController numberOfVideoSubtitlesIndexes] > 1)
+            sections++;
     } else {
-        if ([mediaPlayer numberOfTitles] > 1)
-            ret++;
+        if ([playbackController numberOfTitles] > 1)
+            sections++;
 
-        if ([mediaPlayer numberOfChaptersForTitle:mediaPlayer.currentTitleIndex] > 1)
-            ret++;
+        if ([playbackController numberOfChaptersForCurrentTitle] > 1)
+            sections++;
     }
 
-    return ret;
+    return sections;
 }
 
 - (void)updateView
@@ -119,19 +119,19 @@
 
 - (NSString *)tableView:(UITableView *)tableView titleForHeaderInSection:(NSInteger)section
 {
-    VLCMediaPlayer *mediaPlayer =  [VLCPlaybackController sharedInstance].mediaPlayer;
+    VLCPlaybackController *playbackController = [VLCPlaybackController sharedInstance];
 
-    if (_switchingTracksNotChapters == YES) {
-        if (mediaPlayer.audioTrackIndexes.count > 2 && section == 0)
+    if (_switchingTracksNotChapters) {
+        if ([playbackController numberOfAudioTracks] > 2 && section == 0)
             return NSLocalizedString(@"CHOOSE_AUDIO_TRACK", nil);
 
-        if (mediaPlayer.videoSubTitlesIndexes.count > 1)
+        if ([playbackController numberOfVideoSubtitlesIndexes] > 1)
             return NSLocalizedString(@"CHOOSE_SUBTITLE_TRACK", nil);
     } else {
-        if ([mediaPlayer numberOfTitles] > 1 && section == 0)
+        if ([playbackController numberOfTitles] > 1 && section == 0)
             return NSLocalizedString(@"CHOOSE_TITLE", nil);
 
-        if ([mediaPlayer numberOfChaptersForTitle:mediaPlayer.currentTitleIndex] > 1)
+        if ([playbackController numberOfChaptersForCurrentTitle] > 1)
             return NSLocalizedString(@"CHOOSE_CHAPTER", nil);
     }
 
@@ -140,67 +140,52 @@
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
 {
-    VLCTrackSelectorTableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:TRACK_SELECTOR_TABLEVIEW_CELL];
+    VLCTrackSelectorTableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:TRACK_SELECTOR_TABLEVIEW_CELL forIndexPath:indexPath];
 
-    if (!cell) {
-        cell = [[VLCTrackSelectorTableViewCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:TRACK_SELECTOR_TABLEVIEW_CELL];
-    }
     NSInteger row = indexPath.row;
     NSInteger section = indexPath.section;
-    VLCMediaPlayer *mediaPlayer =  [VLCPlaybackController sharedInstance].mediaPlayer;
+    VLCPlaybackController *playbackController = [VLCPlaybackController sharedInstance];
 
     if (_switchingTracksNotChapters) {
-        NSArray *indexArray;
         NSString *trackName;
-        if ([mediaPlayer numberOfAudioTracks] > 2 && section == 0) {
-            indexArray = mediaPlayer.audioTrackIndexes;
-
-            if ([indexArray indexOfObject:[NSNumber numberWithInt:mediaPlayer.currentAudioTrackIndex]] == row)
+        if ([playbackController numberOfAudioTracks] > 2 && section == 0) {
+            if ([playbackController indexOfCurrentAudioTrack] == row) {
                 [cell setShowsCurrentTrack];
-
-            NSArray *audioTrackNames = mediaPlayer.audioTrackNames;
-            if (row < audioTrackNames.count) {
-                trackName = audioTrackNames[row];
             }
+
+            trackName = [playbackController audioTrackNameAtIndex:row];
         } else {
-            indexArray = mediaPlayer.videoSubTitlesIndexes;
-
-            if ([indexArray indexOfObject:[NSNumber numberWithInt:mediaPlayer.currentVideoSubTitleIndex]] == row)
+            if ([playbackController indexOfCurrentSubtitleTrack] == row) {
                 [cell setShowsCurrentTrack];
-
-            NSArray *videoSubtitlesNames = mediaPlayer.videoSubTitlesNames;
-            if (row < videoSubtitlesNames.count) {
-                trackName = mediaPlayer.videoSubTitlesNames[row];
             }
+
+            trackName = [playbackController videoSubtitleNameAtIndex:row];
         }
 
-        if (trackName != nil) {
-            if ([trackName isEqualToString:@"Disable"]) {
-                cell.textLabel.text = NSLocalizedString(@"DISABLE_LABEL", nil);
-            } else {
-                cell.textLabel.text = trackName;
-            }
+        if ([trackName isEqualToString:@"Disable"]) {
+            cell.textLabel.text = NSLocalizedString(@"DISABLE_LABEL", nil);
+        } else {
+            cell.textLabel.text = trackName;
         }
     } else {
-        if ([mediaPlayer numberOfTitles] > 1 && section == 0) {
-            NSArray *titleDescriptions = mediaPlayer.titleDescriptions;
-            if (row < titleDescriptions.count) {
-                NSDictionary *description = titleDescriptions[row];
+        if ([playbackController numberOfTitles] > 1 && section == 0) {
+
+            NSDictionary *description = [playbackController titleDescriptionsDictAtIndex:row];
+            if(description != nil) {
                 cell.textLabel.text = [NSString stringWithFormat:@"%@ (%@)", description[VLCTitleDescriptionName], [[VLCTime timeWithNumber:description[VLCTitleDescriptionDuration]] stringValue]];
             }
 
-            if (row == mediaPlayer.currentTitleIndex)
+            if (row == [playbackController indexOfCurrentTitle]) {
                 [cell setShowsCurrentTrack];
-        } else {
-            NSArray *chapterDescriptions = [mediaPlayer chapterDescriptionsOfTitle:mediaPlayer.currentTitleIndex];
-            if (row < chapterDescriptions.count) {
-                NSDictionary *description = chapterDescriptions[row];
-                cell.textLabel.text = [NSString stringWithFormat:@"%@ (%@)", description[VLCChapterDescriptionName], [[VLCTime timeWithNumber:description[VLCChapterDescriptionDuration]] stringValue]];
             }
-
-            if (row == mediaPlayer.currentChapterIndex)
-                [cell setShowsCurrentTrack];
+        } else {
+            NSDictionary *description = [playbackController chapterDescriptionsDictAtIndex:row];
+            if (description != nil)
+                cell.textLabel.text = [NSString stringWithFormat:@"%@ (%@)", description[VLCChapterDescriptionName], [[VLCTime timeWithNumber:description[VLCChapterDescriptionDuration]] stringValue]];
         }
+
+        if (row == [playbackController indexOfCurrentChapter])
+            [cell setShowsCurrentTrack];
     }
 
     return cell;
@@ -208,20 +193,18 @@
 
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section
 {
-    VLCMediaPlayer *mediaPlayer =  [VLCPlaybackController sharedInstance].mediaPlayer;
+    VLCPlaybackController *playbackController = [VLCPlaybackController sharedInstance];
 
-    if (_switchingTracksNotChapters == YES) {
-        NSInteger audioTrackCount = mediaPlayer.audioTrackIndexes.count;
+    if (_switchingTracksNotChapters) {
+        if ([playbackController numberOfAudioTracks] > 2 && section == 0)
+            return [playbackController numberOfAudioTracks];
 
-        if (audioTrackCount > 2 && section == 0)
-            return audioTrackCount;
-
-        return mediaPlayer.videoSubTitlesIndexes.count;
+        return [playbackController numberOfVideoSubtitlesIndexes];
     } else {
-        if ([mediaPlayer numberOfTitles] > 1 && section == 0)
-            return [mediaPlayer numberOfTitles];
+        if ([playbackController numberOfTitles] > 1 && section == 0)
+            return [playbackController numberOfTitles];
         else
-            return [mediaPlayer numberOfChaptersForTitle:mediaPlayer.currentTitleIndex];
+            return [playbackController numberOfChaptersForCurrentTitle];
     }
 }
 
@@ -229,25 +212,20 @@
 {
     [tableView deselectRowAtIndexPath:indexPath animated:NO];
     NSInteger index = indexPath.row;
-    VLCMediaPlayer *mediaPlayer =  [VLCPlaybackController sharedInstance].mediaPlayer;
+    VLCPlaybackController *playbackController = [VLCPlaybackController sharedInstance];
 
     if (_switchingTracksNotChapters) {
-        NSArray *indexArray;
-        if (mediaPlayer.audioTrackIndexes.count > 2 && indexPath.section == 0) {
-            indexArray = mediaPlayer.audioTrackIndexes;
-            if (index <= indexArray.count)
-                mediaPlayer.currentAudioTrackIndex = [indexArray[index] intValue];
+        if ([playbackController numberOfAudioTracks] > 2 && indexPath.section == 0) {
+            [playbackController selectAudioTrackAtIndex:index];
 
-        } else {
-            indexArray = mediaPlayer.videoSubTitlesIndexes;
-            if (index <= indexArray.count)
-                mediaPlayer.currentVideoSubTitleIndex = [indexArray[index] intValue];
+        } else if (index <= [playbackController numberOfVideoSubtitlesIndexes]) {
+            [playbackController selectVideoSubtitleAtIndex:index];
         }
     } else {
-        if ([mediaPlayer numberOfTitles] > 1 && indexPath.section == 0)
-            mediaPlayer.currentTitleIndex = (int)index;
+        if ([playbackController numberOfTitles] > 1 && indexPath.section == 0)
+            [playbackController selectTitleAtIndex:index];
         else
-            mediaPlayer.currentChapterIndex = (int)index;
+            [playbackController selectChapterAtIndex:index];
     }
 
     self.alpha = 1.0f;

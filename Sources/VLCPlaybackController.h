@@ -67,7 +67,14 @@ currentMediaHasTrackToChooseFrom:(BOOL)currentMediaHasTrackToChooseFrom
 @property (nonatomic, readwrite) float playbackRate; // default = 1.0
 @property (nonatomic, readwrite) float audioDelay; // in seconds, default = 0.0
 @property (nonatomic, readwrite) float subtitleDelay; // in seconds, default = 0.0
-@property (nonatomic, readonly) BOOL currentMediaHasChapters;
+@property (readonly) NSInteger indexOfCurrentAudioTrack;
+@property (readonly) NSInteger indexOfCurrentSubtitleTrack;
+@property (readonly) NSInteger indexOfCurrentTitle;
+@property (readonly) NSInteger indexOfCurrentChapter;
+@property (readonly) NSInteger numberOfAudioTracks;
+@property (readonly) NSInteger numberOfVideoSubtitlesIndexes;
+@property (readonly) NSInteger numberOfTitles;
+@property (readonly) NSInteger numberOfChaptersForCurrentTitle;
 @property (nonatomic, readonly) BOOL currentMediaHasTrackToChooseFrom;
 @property (nonatomic, readwrite) BOOL fullscreenSessionRequested;
 @property (readonly) NSNumber *playbackTime;
@@ -81,6 +88,16 @@ currentMediaHasTrackToChooseFrom:(BOOL)currentMediaHasTrackToChooseFrom
 - (void)playPause;
 - (void)next;
 - (void)previous;
+
+- (NSString *)audioTrackNameAtIndex:(NSInteger)index;
+- (NSString *)videoSubtitleNameAtIndex:(NSInteger)index;
+- (NSDictionary *)titleDescriptionsDictAtIndex:(NSInteger)index;
+- (NSDictionary *)chapterDescriptionsDictAtIndex:(NSInteger)index;
+- (void)selectAudioTrackAtIndex:(NSInteger)index;
+- (void)selectVideoSubtitleAtIndex:(NSInteger)index;
+- (void)selectTitleAtIndex:(NSInteger)index;
+- (void)selectChapterAtIndex:(NSInteger)index;
+
 - (void)switchAspectRatio;
 - (BOOL)updateViewpoint:(CGFloat)yaw pitch:(CGFloat)pitch roll:(CGFloat)roll fov:(CGFloat)fov absolute:(BOOL)absolute;
 - (NSInteger)currentMediaProjection;
