@@ -540,7 +540,7 @@ VLCMediaDelegate, VLCRemoteControlServiceDelegate>
     }
 }
 
-- (void)forward
+- (void)next
 {
     NSInteger mediaListCount = _mediaList.count;
 
@@ -578,7 +578,7 @@ VLCMediaDelegate, VLCRemoteControlServiceDelegate>
     }
 }
 
-- (void)backward
+- (void)previous
 {
     if (_mediaList.count > 1) {
         [_listPlayer previous];

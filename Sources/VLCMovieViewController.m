@@ -1022,14 +1022,13 @@ currentMediaHasTrackToChooseFrom:(BOOL)currentMediaHasTrackToChooseFrom
 - (IBAction)forward:(id)sender
 {
     LOCKCHECK;
-    [_vpc forward];
+    [_vpc next];
 }
 
 - (IBAction)backward:(id)sender
 {
     LOCKCHECK;
-
-    [_vpc backward];
+    [_vpc previous];
 }
 
 - (IBAction)switchTrack:(id)sender

@@ -98,9 +98,9 @@ static VLCWatchCommunication *_singeltonInstance = nil;
         [[VLCPlaybackController sharedInstance] playPause];
         responseDict = @{@"playing": @([VLCPlaybackController sharedInstance].isPlaying)};
     } else if ([name isEqualToString:VLCWatchMessageNameSkipForward]) {
-        [[VLCPlaybackController sharedInstance] forward];
+        [[VLCPlaybackController sharedInstance] next];
     } else if ([name isEqualToString:VLCWatchMessageNameSkipBackward]) {
-        [[VLCPlaybackController sharedInstance] backward];
+        [[VLCPlaybackController sharedInstance] previous];
     } else if ([name isEqualToString:VLCWatchMessageNamePlayFile]) {
         [self playFileFromWatch:message];
     } else if ([name isEqualToString:VLCWatchMessageNameSetVolume]) {

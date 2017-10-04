@@ -79,8 +79,8 @@ currentMediaHasTrackToChooseFrom:(BOOL)currentMediaHasTrackToChooseFrom
 - (void)startPlayback;
 - (void)stopPlayback;
 - (void)playPause;
-- (void)forward;
-- (void)backward;
+- (void)next;
+- (void)previous;
 - (void)switchAspectRatio;
 - (BOOL)updateViewpoint:(CGFloat)yaw pitch:(CGFloat)pitch roll:(CGFloat)roll fov:(CGFloat)fov absolute:(BOOL)absolute;
 - (NSInteger)currentMediaProjection;

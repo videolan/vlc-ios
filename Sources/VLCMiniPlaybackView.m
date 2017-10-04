@@ -149,7 +149,7 @@
 
 - (void)previousAction:(id)sender
 {
-    [[VLCPlaybackController sharedInstance] backward];
+    [[VLCPlaybackController sharedInstance] previous];
 }
 
 - (void)playPauseAction:(id)sender
@@ -177,7 +177,7 @@
 
 - (void)nextAction:(id)sender
 {
-    [[VLCPlaybackController sharedInstance] forward];
+    [[VLCPlaybackController sharedInstance] next];
 }
 
 - (void)pushFullPlaybackView:(id)sender
