@@ -443,6 +443,11 @@ VLCMediaDelegate, VLCRemoteControlServiceDelegate>
     return [[_mediaPlayer audioTrackIndexes] count] > 2 || [[_mediaPlayer videoSubTitlesIndexes] count] > 1;
 }
 
+- (NSNumber *)playbackTime
+{
+    return _mediaPlayer.time.value;
+}
+
 - (float)playbackRate
 {
     return _mediaPlayer.rate;
@@ -468,6 +473,7 @@ VLCMediaDelegate, VLCRemoteControlServiceDelegate>
 {
     _mediaPlayer.currentVideoSubTitleDelay = 1000000.*subtitleDeleay;
 }
+
 - (float)subtitleDelay
 {
     return _mediaPlayer.currentVideoSubTitleDelay/1000000.;
