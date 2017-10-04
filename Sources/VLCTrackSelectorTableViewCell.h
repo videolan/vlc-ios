@@ -14,6 +14,6 @@
 
 @interface VLCTrackSelectorTableViewCell : UITableViewCell
 
-- (void)setShowsCurrentTrack:(BOOL)value;
+- (void)setShowsCurrentTrack;
 
 @end

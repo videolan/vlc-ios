@@ -148,7 +148,6 @@
     NSInteger row = indexPath.row;
     NSInteger section = indexPath.section;
     VLCMediaPlayer *mediaPlayer =  [VLCPlaybackController sharedInstance].mediaPlayer;
-    BOOL cellShowsCurrentTrack = NO;
 
     if (_switchingTracksNotChapters) {
         NSArray *indexArray;
@@ -157,7 +156,7 @@
             indexArray = mediaPlayer.audioTrackIndexes;
 
             if ([indexArray indexOfObject:[NSNumber numberWithInt:mediaPlayer.currentAudioTrackIndex]] == row)
-                cellShowsCurrentTrack = YES;
+                [cell setShowsCurrentTrack];
 
             NSArray *audioTrackNames = mediaPlayer.audioTrackNames;
             if (row < audioTrackNames.count) {
@@ -167,7 +166,7 @@
             indexArray = mediaPlayer.videoSubTitlesIndexes;
 
             if ([indexArray indexOfObject:[NSNumber numberWithInt:mediaPlayer.currentVideoSubTitleIndex]] == row)
-                cellShowsCurrentTrack = YES;
+                [cell setShowsCurrentTrack];
 
             NSArray *videoSubtitlesNames = mediaPlayer.videoSubTitlesNames;
             if (row < videoSubtitlesNames.count) {
@@ -191,7 +190,7 @@
             }
 
             if (row == mediaPlayer.currentTitleIndex)
-                cellShowsCurrentTrack = YES;
+                [cell setShowsCurrentTrack];
         } else {
             NSArray *chapterDescriptions = [mediaPlayer chapterDescriptionsOfTitle:mediaPlayer.currentTitleIndex];
             if (row < chapterDescriptions.count) {
@@ -200,10 +199,9 @@
             }
 
             if (row == mediaPlayer.currentChapterIndex)
-                cellShowsCurrentTrack = YES;
+                [cell setShowsCurrentTrack];
         }
     }
-    [cell setShowsCurrentTrack:cellShowsCurrentTrack];
 
     return cell;
 }

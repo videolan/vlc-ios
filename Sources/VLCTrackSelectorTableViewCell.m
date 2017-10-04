@@ -14,15 +14,17 @@
 
 @implementation VLCTrackSelectorTableViewCell
 
-- (void)setShowsCurrentTrack:(BOOL)value
+- (void)setShowsCurrentTrack
 {
-    if (value) {
-        self.backgroundColor = [UIColor VLCLightTextColor];
-        self.textLabel.textColor = [UIColor VLCDarkBackgroundColor];
-    } else {
-        self.backgroundColor = [UIColor clearColor];
-        self.textLabel.textColor = [UIColor VLCLightTextColor];
-    }
+    self.backgroundColor = [UIColor VLCLightTextColor];
+    self.textLabel.textColor = [UIColor VLCDarkBackgroundColor];
 }
 
+- (void)prepareForReuse
+{
+    [super prepareForReuse];
+
+    self.backgroundColor = [UIColor clearColor];
+    self.textLabel.textColor = [UIColor VLCLightTextColor];
+}
 @end
