@@ -14,11 +14,6 @@
 
 @implementation VLCPlaybackInfoCollectionViewDataSource
 
-- (VLCMediaPlayer *)mediaPlayer
-{
-    return [VLCPlaybackController sharedInstance].mediaPlayer;
-}
-
 - (UICollectionReusableView *)collectionView:(UICollectionView *)collectionView viewForSupplementaryElementOfKind:(NSString *)kind atIndexPath:(NSIndexPath *)indexPath
 {
     VLCPlaybackInfoTVCollectionSectionTitleView *header = [collectionView dequeueReusableSupplementaryViewOfKind:UICollectionElementKindSectionHeader withReuseIdentifier:[VLCPlaybackInfoTVCollectionSectionTitleView identifier] forIndexPath:indexPath];

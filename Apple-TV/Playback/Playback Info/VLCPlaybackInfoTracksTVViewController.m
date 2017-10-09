@@ -97,29 +97,29 @@
 @implementation VLCPlaybackInfoTracksDataSourceAudio
 - (NSInteger)collectionView:(UICollectionView *)collectionView numberOfItemsInSection:(NSInteger)section
 {
-    return self.mediaPlayer.numberOfAudioTracks + 1;
+    return [[VLCPlaybackController sharedInstance] numberOfAudioTracks] + 1;
 }
 
 - (void)collectionView:(UICollectionView *)collectionView willDisplayCell:(UICollectionViewCell *)cell forItemAtIndexPath:(NSIndexPath *)indexPath
 {
     VLCPlaybackInfoTVCollectionViewCell *trackCell = (VLCPlaybackInfoTVCollectionViewCell*)cell;
+    VLCPlaybackController *vpc = [VLCPlaybackController sharedInstance];
     NSInteger row = indexPath.row;
-    NSArray *audioTrackIndexes = self.mediaPlayer.audioTrackIndexes;
     NSString *trackName;
 
     trackCell.titleLabel.font = [UIFont boldSystemFontOfSize:29.];
 
-    if (row >= audioTrackIndexes.count) {
+    if (row >= [vpc numberOfAudioTracks]) {
         if ([[NSUserDefaults standardUserDefaults] boolForKey:kVLCSettingUseSPDIF]) {
             trackName = [@"✓ " stringByAppendingString:NSLocalizedString(@"USE_SPDIF", nil)];
             trackCell.titleLabel.font = [UIFont boldSystemFontOfSize:29.];
         } else
             trackName = NSLocalizedString(@"USE_SPDIF", nil);
     } else {
-        BOOL isSelected = [audioTrackIndexes[row] intValue] == self.mediaPlayer.currentAudioTrackIndex;
+        BOOL isSelected = row == [vpc indexOfCurrentAudioTrack];
         trackCell.selectionMarkerVisible = isSelected;
 
-        trackName = self.mediaPlayer.audioTrackNames[row];
+        trackName = [vpc audioTrackNameAtIndex:row];
         if (trackName != nil) {
             if ([trackName isEqualToString:@"Disable"])
                 trackName = NSLocalizedString(@"DISABLE_LABEL", nil);
@@ -128,23 +128,23 @@
     trackCell.titleLabel.text = trackName;
 }
 
--(void)collectionView:(UICollectionView *)collectionView didSelectItemAtIndexPath:(NSIndexPath *)indexPath
+- (void)collectionView:(UICollectionView *)collectionView didSelectItemAtIndexPath:(NSIndexPath *)indexPath
 {
-    NSArray *audioTrackIndexes = self.mediaPlayer.audioTrackIndexes;
+    VLCPlaybackController *vpc = [VLCPlaybackController sharedInstance];
     NSInteger row = indexPath.row;
-    if (row >= audioTrackIndexes.count) {
+    if (row >= [vpc numberOfAudioTracks]) {
         NSUserDefaults *defaults = [NSUserDefaults standardUserDefaults];
         BOOL bValue = ![defaults boolForKey:kVLCSettingUseSPDIF];
-        self.mediaPlayer.audio.passthrough = bValue;
+        [vpc setAudioPassthrough:bValue];
 
         [defaults setBool:bValue forKey:kVLCSettingUseSPDIF];
         [defaults synchronize];
         /* restart the audio output */
-        int currentAudioTrackIndex = self.mediaPlayer.currentAudioTrackIndex;
-        self.mediaPlayer.currentAudioTrackIndex = -1;
-        self.mediaPlayer.currentAudioTrackIndex = currentAudioTrackIndex;
+        NSInteger currentAudioTrackIndex = [vpc indexOfCurrentAudioTrack];
+        [vpc selectAudioTrackAtIndex:0];
+        [vpc selectAudioTrackAtIndex:currentAudioTrackIndex];
     } else {
-        self.mediaPlayer.currentAudioTrackIndex = [audioTrackIndexes[row] intValue];
+        [vpc selectAudioTrackAtIndex:row];
     }
     [collectionView reloadData];
 }
@@ -154,22 +154,22 @@
 @implementation VLCPlaybackInfoTracksDataSourceSubtitle
 - (NSInteger)collectionView:(UICollectionView *)collectionView numberOfItemsInSection:(NSInteger)section
 {
-    return self.mediaPlayer.numberOfSubtitlesTracks + 1;
+    return [[VLCPlaybackController sharedInstance] numberOfVideoSubtitlesIndexes] + 1;
 }
 
 - (void)collectionView:(UICollectionView *)collectionView willDisplayCell:(UICollectionViewCell *)cell forItemAtIndexPath:(NSIndexPath *)indexPath
 {
     VLCPlaybackInfoTVCollectionViewCell *trackCell = (VLCPlaybackInfoTVCollectionViewCell*)cell;
+    VLCPlaybackController *vpc = [VLCPlaybackController sharedInstance];
     NSInteger row = indexPath.row;
-    NSArray *spuTitleIndexes = self.mediaPlayer.videoSubTitlesIndexes;
     NSString *trackName;
-    if (row >= spuTitleIndexes.count) {
+    if (row >= [vpc numberOfVideoSubtitlesIndexes]) {
         trackName = NSLocalizedString(@"DOWNLOAD_SUBS_FROM_OSO", nil);
     } else {
-        BOOL isSelected = [spuTitleIndexes[row] intValue] == self.mediaPlayer.currentVideoSubTitleIndex;
+        BOOL isSelected = [vpc indexOfCurrentSubtitleTrack] == row;
         trackCell.selectionMarkerVisible = isSelected;
 
-        trackName = self.mediaPlayer.videoSubTitlesNames[row];
+        trackName = [vpc videoSubtitleNameAtIndex:row];
         if (trackName != nil) {
             if ([trackName isEqualToString:@"Disable"])
                 trackName = NSLocalizedString(@"DISABLE_LABEL", nil);
@@ -180,16 +180,16 @@
 
 -(void)collectionView:(UICollectionView *)collectionView didSelectItemAtIndexPath:(NSIndexPath *)indexPath
 {
-    NSArray *spuTitleIndexes = self.mediaPlayer.videoSubTitlesIndexes;
+    VLCPlaybackController *vpc = [VLCPlaybackController sharedInstance];
     NSInteger row = indexPath.row;
-    if (row >= spuTitleIndexes.count) {
+    if (row >= [vpc numberOfVideoSubtitlesIndexes]) {
         if (self.parentViewController) {
             if ([self.parentViewController respondsToSelector:@selector(downloadMoreSPU)]) {
                 [self.parentViewController performSelector:@selector(downloadMoreSPU)];
             }
         }
     } else {
-        self.mediaPlayer.currentVideoSubTitleIndex = [self.mediaPlayer.videoSubTitlesIndexes[row] intValue];
+        [vpc selectVideoSubtitleAtIndex:row];
         [collectionView reloadData];
     }
 }

@@ -12,7 +12,6 @@
 #import <Foundation/Foundation.h>
 
 @interface VLCPlaybackInfoCollectionViewDataSource : NSObject
-@property (nonatomic, readonly) VLCMediaPlayer *mediaPlayer;
 @property (nonatomic) NSString *title;
 @property (nonatomic) NSString *cellIdentifier;
 @property (nonatomic) UIViewController *parentViewController;

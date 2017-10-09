@@ -97,18 +97,19 @@
 @implementation VLCPlaybackInfoTitlesDataSource
 - (NSInteger)collectionView:(UICollectionView *)collectionView numberOfItemsInSection:(NSInteger)section
 {
-    return self.mediaPlayer.numberOfTitles;
+    return [[VLCPlaybackController sharedInstance] numberOfTitles];
 }
 
 - (void)collectionView:(UICollectionView *)collectionView willDisplayCell:(UICollectionViewCell *)cell forItemAtIndexPath:(NSIndexPath *)indexPath
 {
     VLCPlaybackInfoTVCollectionViewCell *trackCell = (VLCPlaybackInfoTVCollectionViewCell*)cell;
     NSInteger row = indexPath.row;
+    VLCPlaybackController *vpc = [VLCPlaybackController sharedInstance];
 
-    BOOL isSelected = self.mediaPlayer.currentTitleIndex == row;
+    BOOL isSelected = [vpc indexOfCurrentTitle] == row;
     trackCell.selectionMarkerVisible = isSelected;
 
-    NSDictionary *description = self.mediaPlayer.titleDescriptions[row];
+    NSDictionary *description = [vpc titleDescriptionsDictAtIndex:row];
     NSString *title = description[VLCTitleDescriptionName];
     if (title == nil)
         title = [NSString stringWithFormat:@"%@ %li", NSLocalizedString(@"TITLE", nil), row];
@@ -118,7 +119,7 @@
 
 -(void)collectionView:(UICollectionView *)collectionView didSelectItemAtIndexPath:(NSIndexPath *)indexPath
 {
-    self.mediaPlayer.currentTitleIndex = (int)indexPath.row;
+    [[VLCPlaybackController sharedInstance] selectTitleAtIndex:indexPath.row];
     [collectionView reloadData];
     [self.dependendCollectionView reloadData];
 }
@@ -127,33 +128,30 @@
 @implementation VLCPlaybackInfoChaptersDataSource
 - (NSInteger)collectionView:(UICollectionView *)collectionView numberOfItemsInSection:(NSInteger)section
 {
-    VLCMediaPlayer *player = self.mediaPlayer;
-    return [player numberOfChaptersForTitle:player.currentTitleIndex];
+    return [[VLCPlaybackController sharedInstance] numberOfChaptersForCurrentTitle];
 }
 
 - (void)collectionView:(UICollectionView *)collectionView willDisplayCell:(UICollectionViewCell *)cell forItemAtIndexPath:(NSIndexPath *)indexPath
 {
     VLCPlaybackInfoTVCollectionViewCell *trackCell = (VLCPlaybackInfoTVCollectionViewCell*)cell;
     NSInteger row = indexPath.row;
-    VLCMediaPlayer *player = self.mediaPlayer;
 
-    BOOL isSelected = player.currentChapterIndex == row;
+    BOOL isSelected = [[VLCPlaybackController sharedInstance] indexOfCurrentChapter] == row;
     trackCell.selectionMarkerVisible = isSelected;
 
-    NSArray *chapterDescriptions = [player chapterDescriptionsOfTitle:player.currentTitleIndex];
-    if (row < chapterDescriptions.count) {
-        NSDictionary *description = chapterDescriptions[row];
-        NSString *chapter = description[VLCChapterDescriptionName];
-        if (chapter == nil)
-            chapter = [NSString stringWithFormat:@"%@ %li", NSLocalizedString(@"CHAPTER", nil), row];
-        NSString *chapterTitle = [NSString stringWithFormat:@"%@ (%@)", chapter, [[VLCTime timeWithNumber:description[VLCChapterDescriptionDuration]] stringValue]];
-        trackCell.titleLabel.text = chapterTitle;
-    }
+    VLCPlaybackController *vpc = [VLCPlaybackController sharedInstance];
+    NSDictionary *description = [vpc chapterDescriptionsDictAtIndex:[vpc indexOfCurrentTitle]];
+
+    NSString *chapter = description[VLCChapterDescriptionName];
+    if (chapter == nil)
+        chapter = [NSString stringWithFormat:@"%@ %li", NSLocalizedString(@"CHAPTER", nil), row];
+    NSString *chapterTitle = [NSString stringWithFormat:@"%@ (%@)", chapter, [[VLCTime timeWithNumber:description[VLCChapterDescriptionDuration]] stringValue]];
+    trackCell.titleLabel.text = chapterTitle;
 }
 
--(void)collectionView:(UICollectionView *)collectionView didSelectItemAtIndexPath:(NSIndexPath *)indexPath
+- (void)collectionView:(UICollectionView *)collectionView didSelectItemAtIndexPath:(NSIndexPath *)indexPath
 {
-    self.mediaPlayer.currentChapterIndex = (int)indexPath.row;
+    [[VLCPlaybackController sharedInstance] selectChapterAtIndex:indexPath.row];
     [collectionView reloadData];
 }
 

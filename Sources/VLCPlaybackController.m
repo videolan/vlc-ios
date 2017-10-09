@@ -688,6 +688,11 @@ VLCMediaDelegate, VLCRemoteControlServiceDelegate>
     return [_mediaPlayer remainingTime];
 }
 
+- (void)setAudioPassthrough:(BOOL)shouldPass
+{
+    _mediaPlayer.audio.passthrough = shouldPass;
+}
+
 - (void)mediaPlayerStateChanged:(NSNotification *)aNotification
 {
     VLCMediaPlayerState currentState = _mediaPlayer.state;

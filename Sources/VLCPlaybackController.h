@@ -41,7 +41,6 @@ currentMediaHasTrackToChooseFrom:(BOOL)currentMediaHasTrackToChooseFrom
 @interface VLCPlaybackController : NSObject <VLCEqualizerViewDelegate>
 
 @property (nonatomic, readonly) VLCMediaListPlayer *listPlayer;
-@property (nonatomic, readonly) VLCMediaPlayer *mediaPlayer;
 
 @property (nonatomic, strong) UIView *videoOutputView;
 
@@ -111,6 +110,7 @@ currentMediaHasTrackToChooseFrom:(BOOL)currentMediaHasTrackToChooseFrom
 - (void)selectVideoSubtitleAtIndex:(NSInteger)index;
 - (void)selectTitleAtIndex:(NSInteger)index;
 - (void)selectChapterAtIndex:(NSInteger)index;
+- (void)setAudioPassthrough:(BOOL)shouldPass;
 
 - (void)switchAspectRatio;
 - (BOOL)updateViewpoint:(CGFloat)yaw pitch:(CGFloat)pitch roll:(CGFloat)roll fov:(CGFloat)fov absolute:(BOOL)absolute;
