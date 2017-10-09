@@ -45,27 +45,27 @@ Open a file in the libraryViewController without changing the playstate
 
 - (void)openMediaLibraryObject:(NSManagedObject *)mediaObject
 {
-    if (self.isPlaying) {
-        NSArray *files = [MLFile fileForURL:self.mediaPlayer.media.url];
-        MLFile *nowPlayingFile = (MLFile *)(NSManagedObject *)files.firstObject;
-        MLFile *newFile;
-        if ([mediaObject isKindOfClass:[MLAlbumTrack class]]) {
-            newFile = ((MLAlbumTrack *)mediaObject).anyFileFromTrack;
-        } else if ([mediaObject isKindOfClass:[MLShowEpisode class]]) {
-            newFile = ((MLShowEpisode *)mediaObject).anyFileFromEpisode;
-        } else if ([mediaObject isKindOfClass:[MLFile class]]) {
-            newFile = (MLFile *)mediaObject;
-        }
-
-        //if the newfile is not the currently playing one, stop and start the new one else do nothing
-        if (![nowPlayingFile isEqual:newFile]) {
-            [self stopPlayback];
-            [self playMediaLibraryObject:mediaObject];
-        }
+    if (!self.isPlaying) {
+        //if nothing is playing start playing
+        [self playMediaLibraryObject:mediaObject];
         return;
     }
-    //if nothing is playing start playing
-    [self playMediaLibraryObject:mediaObject];
+    MLFile *newFile;
+    if ([mediaObject isKindOfClass:[MLAlbumTrack class]]) {
+        newFile = ((MLAlbumTrack *)mediaObject).anyFileFromTrack;
+    } else if ([mediaObject isKindOfClass:[MLShowEpisode class]]) {
+        newFile = ((MLShowEpisode *)mediaObject).anyFileFromEpisode;
+    } else if ([mediaObject isKindOfClass:[MLFile class]]) {
+        newFile = (MLFile *)mediaObject;
+    }
+
+    //if the newfile is not the currently playing one, stop and start the new one else do nothing
+    VLCMedia *currentlyPlayingFile = self.currentlyPlayingMedia;
+    MLFile *currentMLFile = [MLFile fileForURL:currentlyPlayingFile.url].firstObject;
+    if (![currentMLFile isEqual:newFile]) {
+        [self stopPlayback];
+        [self playMediaLibraryObject:mediaObject];
+    }
 }
 
 - (void)configureWithFile:(MLFile *)file

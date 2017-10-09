@@ -49,8 +49,7 @@
     VLCPlaybackController *vpc = [VLCPlaybackController sharedInstance];
     self.titleLabel.text = vpc.metadata.title;
 
-    VLCMediaPlayer *player = vpc.mediaPlayer;
-    VLCMedia *media = player.media;
+    VLCMedia *media = [vpc currentlyPlayingMedia];
 
     NSArray *mediaTrackData = media.tracksInformation;
     NSUInteger trackDataCount = mediaTrackData.count;

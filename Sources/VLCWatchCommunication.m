@@ -162,8 +162,9 @@ static VLCWatchCommunication *_singeltonInstance = nil;
     if (nowPlayingInfo) {
         response[@"nowPlayingInfo"] = nowPlayingInfo;
     }
-    MLFile *currentFile = [VLCPlaybackController sharedInstance].currentlyPlayingMediaFile;
-    NSString *URIString = currentFile.objectID.URIRepresentation.absoluteString;
+    VLCMedia *currentFile = [VLCPlaybackController sharedInstance].currentlyPlayingMedia;
+    MLFile *mediaFile = [MLFile fileForURL:currentFile.url].firstObject;
+    NSString *URIString = mediaFile.objectID.URIRepresentation.absoluteString;
     if (URIString) {
         response[VLCWatchMessageKeyURIRepresentation] = URIString;
     }

@@ -47,6 +47,7 @@ AVAudioSessionDelegate,
 VLCMediaDelegate, VLCRemoteControlServiceDelegate>
 {
     VLCRemoteControlService *_remoteControlService;
+    VLCMediaPlayer *_mediaPlayer;
     BOOL _playerIsSetup;
     BOOL _shouldResumePlaying;
     BOOL _sessionWillRestart;
@@ -907,18 +908,16 @@ VLCMediaDelegate, VLCRemoteControlServiceDelegate>
 
 #pragma mark - Managing the media item
 
-#if TARGET_OS_IOS
-- (MLFile *)currentlyPlayingMediaFile {
-    if (self.mediaList) {
-        NSArray *results = [MLFile fileForURL:_mediaPlayer.media.url];
-        return results.firstObject;
-    }
-
-    return nil;
+- (VLCMedia *)currentlyPlayingMedia
+{
+    return _mediaPlayer.media;
 }
-#endif
 
 #pragma mark - metadata handling
+- (void)performNavigationAction:(VLCMediaPlaybackNavigationAction)action
+{
+    [_mediaPlayer performNavigationAction:action];
+}
 - (void)mediaDidFinishParsing:(VLCMedia *)aMedia
 {
     [self setNeedsMetadataUpdate];
@@ -1108,7 +1107,6 @@ VLCMediaDelegate, VLCRemoteControlServiceDelegate>
 {
     self.playbackRate = playbackRate;
 }
-
 #pragma mark - helpers
 
 - (NSDictionary *)mediaOptionsDictionary

@@ -50,10 +50,9 @@ currentMediaHasTrackToChooseFrom:(BOOL)currentMediaHasTrackToChooseFrom
 
 @property (nonatomic, retain) VLCMediaList *mediaList;
 
-#if TARGET_OS_IOS
-/* returns nil if currently playing item is not a MLFile, e.g. a url */
-@property (nonatomic, strong, readonly) MLFile *currentlyPlayingMediaFile;
-#endif
+/* returns nil if currently playing item is not available,*/
+
+@property (nonatomic, strong, readonly) VLCMedia *currentlyPlayingMedia;
 
 @property (nonatomic, weak) id<VLCPlaybackControllerDelegate> delegate;
 
