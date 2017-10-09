@@ -67,9 +67,8 @@
 
 + (BOOL)shouldBeVisibleForPlaybackController:(VLCPlaybackController *)vpc
 {
-    return vpc.currentMediaHasChapters;
+    return [vpc numberOfChaptersForCurrentTitle] > 1;
 }
-
 
 - (void)viewWillAppear:(BOOL)animated
 {
