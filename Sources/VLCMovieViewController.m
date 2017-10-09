@@ -743,15 +743,15 @@ typedef NS_ENUM(NSInteger, VLCPanType) {
 - (void)_seekFromTap
 {
     NSMutableString *hudString = [NSMutableString string];
-    VLCMediaPlayer *mediaPlayer = _vpc.mediaPlayer;
+
     int seekDuration = (int)_numberOfTapSeek * SHORT_JUMP_DURATION;
 
     if (seekDuration > 0) {
-        [mediaPlayer shortJumpForward];
+        [_vpc jumpForward:10];
         [hudString appendString:@"⇒ "];
         _previousJumpState = VLCMovieJumpStateForward;
     } else {
-        [mediaPlayer shortJumpBackward];
+        [_vpc jumpBackward:10];
         [hudString appendString:@"⇐ "];
         _previousJumpState = VLCMovieJumpStateBackward;
     }
@@ -841,7 +841,7 @@ typedef NS_ENUM(NSInteger, VLCPanType) {
 - (void)_setPositionForReal
 {
     if (!_positionSet) {
-        _vpc.mediaPlayer.position = self.timeNavigationTitleView.positionSlider.value;
+        [_vpc setPlaybackPosition:self.timeNavigationTitleView.positionSlider.value];
         [_vpc setNeedsMetadataUpdate];
         _positionSet = YES;
     }
@@ -895,12 +895,11 @@ typedef NS_ENUM(NSInteger, VLCPanType) {
 
 - (void)updateTimeDisplayButton
 {
-    VLCMediaPlayer *mediaPlayer = _vpc.mediaPlayer;
     UIButton *timeDisplayButton = self.timeNavigationTitleView.timeDisplayButton;
     if (_displayRemainingTime)
-        [timeDisplayButton setTitle:[[mediaPlayer remainingTime] stringValue] forState:UIControlStateNormal];
+        [timeDisplayButton setTitle:[[_vpc remainingTime] stringValue] forState:UIControlStateNormal];
     else
-        [timeDisplayButton setTitle:[[mediaPlayer time] stringValue] forState:UIControlStateNormal];
+        [timeDisplayButton setTitle:[[_vpc playedTime] stringValue] forState:UIControlStateNormal];
     [self.timeNavigationTitleView setNeedsLayout];
 }
 
@@ -924,9 +923,8 @@ typedef NS_ENUM(NSInteger, VLCPanType) {
 
 - (void)playbackPositionUpdated:(VLCPlaybackController *)controller
 {
-    VLCMediaPlayer *mediaPlayer = controller.mediaPlayer;
     if (!_isScrubbing) {
-        self.timeNavigationTitleView.positionSlider.value = [mediaPlayer position];
+        self.timeNavigationTitleView.positionSlider.value = [controller playbackPosition];
     }
 
     [self updateTimeDisplayButton];
@@ -1274,7 +1272,7 @@ currentMediaHasTrackToChooseFrom:(BOOL)currentMediaHasTrackToChooseFrom
     if (!_playPauseGestureEnabled)
         return;
 
-    [_vpc.mediaPlayer isPlaying] ? [_vpc.listPlayer pause] : [_vpc.listPlayer play];
+    [_vpc playPause];
     if (_controlsHidden)
         [self setControlsHidden:NO animated:YES];
 }
@@ -1313,15 +1311,14 @@ currentMediaHasTrackToChooseFrom:(BOOL)currentMediaHasTrackToChooseFrom
     if (_currentPanType == VLCPanTypeSeek) {
         if (!_seekGestureEnabled)
             return;
-        VLCMediaPlayer *mediaPlayer = _vpc.mediaPlayer;
-        double timeRemainingDouble = (-mediaPlayer.remainingTime.intValue*0.001);
+        double timeRemainingDouble = (-[_vpc remainingTime].intValue*0.001);
         int timeRemaining = timeRemainingDouble;
 
         if (panDirectionX > 0) {
             if (timeRemaining > 2 ) // to not go outside duration , video will stop
-                [mediaPlayer jumpForward:1];
+                [_vpc jumpForward:1];
         } else
-            [mediaPlayer jumpBackward:1];
+            [_vpc jumpBackward:1];
     } else if (_currentPanType == VLCPanTypeVolume) {
         if (!_volumeGestureEnabled)
             return;
@@ -1384,7 +1381,7 @@ currentMediaHasTrackToChooseFrom:(BOOL)currentMediaHasTrackToChooseFrom
         //Invalidate saved location when the gesture is ended
         if (_mediaHasProjection)
             _saveLocation = CGPointMake(-1.f, -1.f);
-        if ([_vpc.mediaPlayer isPlaying])
+        if ([_vpc isPlaying])
             [_vpc.listPlayer play];
     }
 }
@@ -1397,26 +1394,26 @@ currentMediaHasTrackToChooseFrom:(BOOL)currentMediaHasTrackToChooseFrom
         return;
 
     NSString * hudString = @" ";
-    VLCMediaPlayer *mediaPlayer = _vpc.mediaPlayer;
+
     int swipeForwardDuration = (_variableJumpDurationEnabled) ? ((int)(_mediaDuration*0.001*0.05)) : FORWARD_SWIPE_DURATION;
     int swipeBackwardDuration = (_variableJumpDurationEnabled) ? ((int)(_mediaDuration*0.001*0.05)) : BACKWARD_SWIPE_DURATION;
 
     if (swipeRecognizer.direction == UISwipeGestureRecognizerDirectionRight) {
-        double timeRemainingDouble = (-mediaPlayer.remainingTime.intValue*0.001);
+        double timeRemainingDouble = (-[_vpc remainingTime].intValue*0.001);
         int timeRemaining = timeRemainingDouble;
 
         if (swipeForwardDuration < timeRemaining) {
             if (swipeForwardDuration < 1)
                 swipeForwardDuration = 1;
-            [mediaPlayer jumpForward:swipeForwardDuration];
+            [_vpc jumpForward:swipeForwardDuration];
             hudString = [NSString stringWithFormat:@"⇒ %is", swipeForwardDuration];
         } else {
-            [mediaPlayer jumpForward:(timeRemaining - 5)];
+            [_vpc jumpForward:(timeRemaining - 5)];
             hudString = [NSString stringWithFormat:@"⇒ %is",(timeRemaining - 5)];
         }
     }
     else if (swipeRecognizer.direction == UISwipeGestureRecognizerDirectionLeft) {
-        [mediaPlayer jumpBackward:swipeBackwardDuration];
+        [_vpc jumpBackward:swipeBackwardDuration];
         hudString = [NSString stringWithFormat:@"⇐ %is",swipeBackwardDuration];
     }else if (swipeRecognizer.direction == UISwipeGestureRecognizerDirectionUp) {
         [self backward:self];
@@ -1426,7 +1423,7 @@ currentMediaHasTrackToChooseFrom:(BOOL)currentMediaHasTrackToChooseFrom
     }
 
     if (swipeRecognizer.state == UIGestureRecognizerStateEnded) {
-        if ([mediaPlayer isPlaying])
+        if ([_vpc isPlaying])
             [_vpc.listPlayer play];
 
         [self.statusLabel showStatusMessage:hudString];
@@ -1488,28 +1485,24 @@ currentMediaHasTrackToChooseFrom:(BOOL)currentMediaHasTrackToChooseFrom
 
 - (IBAction)videoFilterSliderAction:(id)sender
 {
-    VLCMediaPlayer *mediaPlayer = _vpc.mediaPlayer;
-
     if (sender == self.hueSlider)
-        mediaPlayer.hue = (int)self.hueSlider.value;
-    else if (sender == self.contrastSlider)
-        mediaPlayer.contrast = self.contrastSlider.value;
-    else if (sender == self.brightnessSlider) {
-        if ([[UIDevice currentDevice] VLCHasExternalDisplay])
-            mediaPlayer.brightness = self.brightnessSlider.value;
-        else
-            [[UIScreen mainScreen] setBrightness:(self.brightnessSlider.value / 2.)];
-    } else if (sender == self.saturationSlider)
-        mediaPlayer.saturation = self.saturationSlider.value;
-    else if (sender == self.gammaSlider)
-        mediaPlayer.gamma = self.gammaSlider.value;
+        _vpc.hue = self.hueSlider.value;
+    if (sender == self.contrastSlider)
+        _vpc.contrast = self.contrastSlider.value;
+    if (sender == self.brightnessSlider)
+        _vpc.brightness = self.brightnessSlider.value;
+    if (sender == self.saturationSlider)
+        _vpc.saturation = self.saturationSlider.value;
+    if (sender == self.gammaSlider)
+        _vpc.gamma = self.gammaSlider.value;
+
     else if (sender == self.resetVideoFilterButton) {
-        mediaPlayer.hue = self.hueSlider.value = 0.;
-        mediaPlayer.contrast = self.contrastSlider.value = 1.;
-        mediaPlayer.brightness = self.brightnessSlider.value = 1.;
-        [[UIScreen mainScreen] setBrightness:(self.brightnessSlider.value / 2.)];
-        mediaPlayer.saturation = self.saturationSlider.value = 1.;
-        mediaPlayer.gamma = self.gammaSlider.value = 1.;
+        self.hueSlider.value = 0.;
+        self.contrastSlider.value = 1.;
+        self.brightnessSlider.value = 1.;
+        self.saturationSlider.value = 1.;
+        self.gammaSlider.value = 1.;
+        [_vpc resetFilters];
     } else
         APLog(@"unknown sender for videoFilterSliderAction");
     [self _resetIdleTimer];

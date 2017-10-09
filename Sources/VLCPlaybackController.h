@@ -67,6 +67,13 @@ currentMediaHasTrackToChooseFrom:(BOOL)currentMediaHasTrackToChooseFrom
 @property (nonatomic, readwrite) float audioDelay; // in seconds, default = 0.0
 @property (nonatomic, readwrite) float playbackPosition; // in seconds, default = 0.0
 @property (nonatomic, readwrite) float subtitleDelay; // in seconds, default = 0.0
+
+@property (nonatomic, readwrite) float hue; // default = 0.0
+@property (nonatomic, readwrite) float contrast; // default = 1.0
+@property (nonatomic, readwrite) float brightness; // default = 1.0
+@property (nonatomic, readwrite) float saturation; // default = 1.0
+@property (nonatomic, readwrite) float gamma; // default = 1.0
+
 @property (readonly) NSInteger indexOfCurrentAudioTrack;
 @property (readonly) NSInteger indexOfCurrentSubtitleTrack;
 @property (readonly) NSInteger indexOfCurrentTitle;
@@ -90,6 +97,11 @@ currentMediaHasTrackToChooseFrom:(BOOL)currentMediaHasTrackToChooseFrom
 - (void)playPause;
 - (void)next;
 - (void)previous;
+- (void)jumpForward:(int)interval;
+- (void)jumpBackward:(int)interval;
+
+- (void)resetFilters;
+- (VLCTime *)remainingTime;
 
 - (NSString *)audioTrackNameAtIndex:(NSInteger)index;
 - (NSString *)videoSubtitleNameAtIndex:(NSInteger)index;
@@ -108,7 +120,7 @@ currentMediaHasTrackToChooseFrom:(BOOL)currentMediaHasTrackToChooseFrom
 
 - (void)setNeedsMetadataUpdate;
 - (void)scheduleSleepTimerWithInterval:(NSTimeInterval)timeInterval;
-
+- (void)performNavigationAction:(VLCMediaPlaybackNavigationAction)action;
 - (void)playMediaList:(VLCMediaList *)mediaList firstIndex:(NSInteger)index subtitlesFilePath:(NSString *)subsFilePath;
 - (void)openVideoSubTitlesFromFile:(NSString *)pathToFile;
 

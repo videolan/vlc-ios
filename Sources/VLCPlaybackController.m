@@ -505,6 +505,74 @@ VLCMediaDelegate, VLCRemoteControlServiceDelegate>
     return _mediaPlayer.currentVideoSubTitleDelay/1000000.;
 }
 
+- (float)hue
+{
+    return _mediaPlayer.hue;
+}
+
+- (void)setHue:(float)hue
+{
+    _mediaPlayer.hue = hue;
+}
+
+- (float)contrast
+{
+    return _mediaPlayer.contrast;
+}
+
+- (void)setConstrast:(float)contrast
+{
+    _mediaPlayer.hue = contrast;
+}
+
+- (float)brightness
+{
+    return _mediaPlayer.brightness;
+}
+#if TARGET_OS_IOS
+- (void)setBrightness:(float)brightness
+{
+    if (![[UIDevice currentDevice] VLCHasExternalDisplay])
+        _mediaPlayer.brightness = brightness;
+    else
+        [[UIScreen mainScreen] setBrightness:(brightness / 2.)];
+}
+#else
+- (void)setBrightness:(float)brightness
+{
+    _mediaPlayer.brightness = brightness;
+}
+#endif
+- (float)saturation
+{
+    return _mediaPlayer.saturation;
+}
+
+- (void)setSaturation:(float)saturation
+{
+    _mediaPlayer.saturation = saturation;
+}
+
+- (void)setGamma:(float)gamma
+{
+    _mediaPlayer.gamma = gamma;
+}
+
+- (float)gamma
+{
+    return _mediaPlayer.gamma;
+}
+
+- (void)resetFilters
+{
+    _mediaPlayer.hue = 0.;
+    _mediaPlayer.contrast = 1.;
+    _mediaPlayer.brightness = 1.;
+    [self setBrightness:(1/2.)];
+    _mediaPlayer.saturation = 1.;
+    _mediaPlayer.gamma = 1.;
+}
+
 - (NSInteger)indexOfCurrentAudioTrack
 {
     return [_mediaPlayer.audioTrackIndexes indexOfObject:@(_mediaPlayer.currentAudioTrackIndex)];
@@ -603,6 +671,21 @@ VLCMediaDelegate, VLCRemoteControlServiceDelegate>
         //we can cast this cause we won't have more than 2 million chapters
         _mediaPlayer.currentChapterIndex = (int)index;
     }
+}
+
+- (void)shortJumpForward
+{
+    [_mediaPlayer shortJumpForward];
+}
+
+- (void)shortJumpBackward
+{
+    [_mediaPlayer shortJumpBackward];
+}
+
+- (VLCTime *)remainingTime
+{
+    return [_mediaPlayer remainingTime];
 }
 
 - (void)mediaPlayerStateChanged:(NSNotification *)aNotification
@@ -714,6 +797,16 @@ VLCMediaDelegate, VLCRemoteControlServiceDelegate>
         NSNumber *skipLength = [[NSUserDefaults standardUserDefaults] valueForKey:kVLCSettingPlaybackBackwardSkipLength];
         [_mediaPlayer jumpBackward:skipLength.intValue];
     }
+}
+
+- (void)jumpForward:(int)interval
+{
+    [_mediaPlayer jumpForward:interval];
+}
+
+- (void)jumpBackward:(int)interval
+{
+    [_mediaPlayer jumpBackward:interval];
 }
 
 - (void)switchAspectRatio

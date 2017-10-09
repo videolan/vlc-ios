@@ -208,11 +208,10 @@ typedef NS_ENUM(NSInteger, VLCPlayerScanState)
 
 - (void)panGesture:(UIPanGestureRecognizer *)panGestureRecognizer
 {
-    VLCMediaPlayer *mediaPlayer = [VLCPlaybackController sharedInstance].mediaPlayer;
-    NSInteger currentTitle = mediaPlayer.currentTitleIndex;
-    NSArray *titles = mediaPlayer.titleDescriptions;
-    if (currentTitle < titles.count) {
-        NSDictionary *title = titles[currentTitle];
+    VLCPlaybackController *vpc = [VLCPlaybackController sharedInstance];
+    NSInteger currentTitle = [vpc indexOfCurrentTitle];
+    if (currentTitle < [vpc numberOfTitles]) {
+        NSDictionary *title = [vpc titleDescriptionsDictAtIndex:currentTitle];
         if ([[title objectForKey:VLCTitleDescriptionIsMenu] boolValue]) {
             return;
         }
@@ -281,13 +280,12 @@ typedef NS_ENUM(NSInteger, VLCPlayerScanState)
 
 - (void)selectButtonPressed
 {
-    VLCMediaPlayer *mediaPlayer = [VLCPlaybackController sharedInstance].mediaPlayer;
-    NSInteger currentTitle = mediaPlayer.currentTitleIndex;
-    NSArray *titles = mediaPlayer.titleDescriptions;
-    if (currentTitle < titles.count) {
-        NSDictionary *title = titles[currentTitle];
+    VLCPlaybackController *vpc = [VLCPlaybackController sharedInstance];
+    NSInteger currentTitle = [vpc indexOfCurrentTitle];
+    if (currentTitle < [vpc numberOfTitles]) {
+        NSDictionary *title = [vpc titleDescriptionsDictAtIndex:currentTitle];
         if ([[title objectForKey:VLCTitleDescriptionIsMenu] boolValue]) {
-            [mediaPlayer performNavigationAction:VLCMediaPlaybackNavigationActionActivate];
+            [vpc performNavigationAction:VLCMediaPlaybackNavigationActionActivate];
             return;
         }
     }
@@ -295,14 +293,13 @@ typedef NS_ENUM(NSInteger, VLCPlayerScanState)
     [self showPlaybackControlsIfNeededForUserInteraction];
     [self setScanState:VLCPlayerScanStateNone];
 
-    VLCPlaybackController *vpc = [VLCPlaybackController sharedInstance];
     VLCTransportBar *bar = self.transportBar;
     if (bar.scrubbing) {
         bar.playbackFraction = bar.scrubbingFraction;
         [self stopScrubbing];
-        [vpc.mediaPlayer setPosition:bar.scrubbingFraction];
-    } else if(vpc.mediaPlayer.playing) {
-        [vpc.mediaPlayer pause];
+        [vpc setPlaybackPosition:bar.scrubbingFraction];
+    } else if(vpc.isPlaying) {
+        [vpc playPause];
     }
 }
 - (void)menuButtonPressed:(UITapGestureRecognizer *)recognizer
@@ -321,13 +318,12 @@ typedef NS_ENUM(NSInteger, VLCPlayerScanState)
 
 - (void)showInfoVCIfNotScrubbing
 {
-    VLCMediaPlayer *mediaPlayer = [VLCPlaybackController sharedInstance].mediaPlayer;
-    NSInteger currentTitle = mediaPlayer.currentTitleIndex;
-    NSArray *titles = mediaPlayer.titleDescriptions;
-    if (currentTitle < titles.count) {
-        NSDictionary *title = titles[currentTitle];
+    VLCPlaybackController *vpc = [VLCPlaybackController sharedInstance];
+    NSInteger currentTitle = [vpc indexOfCurrentTitle];
+    if (currentTitle < [vpc numberOfTitles]) {
+        NSDictionary *title = [vpc titleDescriptionsDictAtIndex:currentTitle];
         if ([[title objectForKey:VLCTitleDescriptionIsMenu] boolValue]) {
-            [mediaPlayer performNavigationAction:VLCMediaPlaybackNavigationActionDown];
+            [vpc performNavigationAction:VLCMediaPlaybackNavigationActionDown];
             return;
         }
     }
@@ -349,26 +345,24 @@ typedef NS_ENUM(NSInteger, VLCPlayerScanState)
 
 - (void)handleIRPressUp
 {
-    VLCMediaPlayer *mediaPlayer = [VLCPlaybackController sharedInstance].mediaPlayer;
-    NSInteger currentTitle = mediaPlayer.currentTitleIndex;
-    NSArray *titles = mediaPlayer.titleDescriptions;
-    if (currentTitle < titles.count) {
-        NSDictionary *title = titles[currentTitle];
+    VLCPlaybackController *vpc = [VLCPlaybackController sharedInstance];
+    NSInteger currentTitle = [vpc indexOfCurrentTitle];
+    if (currentTitle < [vpc numberOfTitles]) {
+        NSDictionary *title = [vpc titleDescriptionsDictAtIndex:currentTitle];
         if ([[title objectForKey:VLCTitleDescriptionIsMenu] boolValue]) {
-            [mediaPlayer performNavigationAction:VLCMediaPlaybackNavigationActionUp];
+            [vpc performNavigationAction:VLCMediaPlaybackNavigationActionUp];
         }
     }
 }
 
 - (void)handleIRPressLeft
 {
-    VLCMediaPlayer *mediaPlayer = [VLCPlaybackController sharedInstance].mediaPlayer;
-    NSInteger currentTitle = mediaPlayer.currentTitleIndex;
-    NSArray *titles = mediaPlayer.titleDescriptions;
-    if (currentTitle < titles.count) {
-        NSDictionary *title = titles[currentTitle];
+    VLCPlaybackController *vpc = [VLCPlaybackController sharedInstance];
+    NSInteger currentTitle = [vpc indexOfCurrentTitle];
+    if (currentTitle < [vpc numberOfTitles]) {
+        NSDictionary *title = [vpc titleDescriptionsDictAtIndex:currentTitle];
         if ([[title objectForKey:VLCTitleDescriptionIsMenu] boolValue]) {
-            [mediaPlayer performNavigationAction:VLCMediaPlaybackNavigationActionLeft];
+            [vpc performNavigationAction:VLCMediaPlaybackNavigationActionLeft];
             return;
         }
     }
@@ -390,13 +384,12 @@ typedef NS_ENUM(NSInteger, VLCPlayerScanState)
 
 - (void)handleIRPressRight
 {
-    VLCMediaPlayer *mediaPlayer = [VLCPlaybackController sharedInstance].mediaPlayer;
-    NSInteger currentTitle = mediaPlayer.currentTitleIndex;
-    NSArray *titles = mediaPlayer.titleDescriptions;
-    if (currentTitle < titles.count) {
-        NSDictionary *title = titles[currentTitle];
+    VLCPlaybackController *vpc = [VLCPlaybackController sharedInstance];
+    NSInteger currentTitle = [vpc indexOfCurrentTitle];
+    if (currentTitle < [vpc numberOfTitles]) {
+        NSDictionary *title = [vpc titleDescriptionsDictAtIndex:currentTitle];
         if ([[title objectForKey:VLCTitleDescriptionIsMenu] boolValue]) {
-            [mediaPlayer performNavigationAction:VLCMediaPlaybackNavigationActionRight];
+            [vpc performNavigationAction:VLCMediaPlaybackNavigationActionRight];
             return;
         }
     }
@@ -417,36 +410,35 @@ typedef NS_ENUM(NSInteger, VLCPlayerScanState)
 
 - (void)handleSiriRemote:(VLCSiriRemoteGestureRecognizer *)recognizer
 {
-    VLCMediaPlayer *mediaPlayer = [VLCPlaybackController sharedInstance].mediaPlayer;
-    NSInteger currentTitle = mediaPlayer.currentTitleIndex;
-    NSArray *titles = mediaPlayer.titleDescriptions;
-    if (currentTitle < titles.count) {
-        NSDictionary *title = titles[currentTitle];
+    VLCPlaybackController *vpc = [VLCPlaybackController sharedInstance];
+    NSInteger currentTitle = [vpc indexOfCurrentTitle];
+    if (currentTitle < [vpc numberOfTitles]) {
+        NSDictionary *title = [vpc titleDescriptionsDictAtIndex:currentTitle];
         if ([[title objectForKey:VLCTitleDescriptionIsMenu] boolValue]) {
             switch (recognizer.state) {
                 case UIGestureRecognizerStateBegan:
                 case UIGestureRecognizerStateChanged:
                     if (recognizer.isLongPress) {
-                        [mediaPlayer performNavigationAction:VLCMediaPlaybackNavigationActionActivate];
+                        [vpc performNavigationAction:VLCMediaPlaybackNavigationActionActivate];
                         break;
                     }
                     break;
                 case UIGestureRecognizerStateEnded:
                     if (recognizer.isClick && !recognizer.isLongPress) {
-                        [mediaPlayer performNavigationAction:VLCMediaPlaybackNavigationActionActivate];
+                        [vpc performNavigationAction:VLCMediaPlaybackNavigationActionActivate];
                     } else {
                         switch (recognizer.touchLocation) {
                             case VLCSiriRemoteTouchLocationLeft:
-                                [mediaPlayer performNavigationAction:VLCMediaPlaybackNavigationActionLeft];
+                                [vpc performNavigationAction:VLCMediaPlaybackNavigationActionLeft];
                                 break;
                             case VLCSiriRemoteTouchLocationRight:
-                                [mediaPlayer performNavigationAction:VLCMediaPlaybackNavigationActionRight];
+                                [vpc performNavigationAction:VLCMediaPlaybackNavigationActionRight];
                                 break;
                             case VLCSiriRemoteTouchLocationUp:
-                                [mediaPlayer performNavigationAction:VLCMediaPlaybackNavigationActionUp];
+                                [vpc performNavigationAction:VLCMediaPlaybackNavigationActionUp];
                                 break;
                             case VLCSiriRemoteTouchLocationDown:
-                                [mediaPlayer performNavigationAction:VLCMediaPlaybackNavigationActionDown];
+                                [vpc performNavigationAction:VLCMediaPlaybackNavigationActionDown];
                                 break;
                             case VLCSiriRemoteTouchLocationUnknown:
                                 break;
@@ -533,9 +525,8 @@ static const NSInteger VLCJumpInterval = 10000; // 10 seconds
     NSAssert(self.isSeekable, @"Tried to seek while not media is not seekable.");
 
     VLCPlaybackController *vpc = [VLCPlaybackController sharedInstance];
-    VLCMediaPlayer *player = vpc.mediaPlayer;
 
-    if (player.isPlaying) {
+    if (vpc.isPlaying) {
         [self jumpInterval:VLCJumpInterval];
     } else {
         [self scrubbingJumpInterval:VLCJumpInterval];
@@ -546,9 +537,8 @@ static const NSInteger VLCJumpInterval = 10000; // 10 seconds
     NSAssert(self.isSeekable, @"Tried to seek while not media is not seekable.");
 
     VLCPlaybackController *vpc = [VLCPlaybackController sharedInstance];
-    VLCMediaPlayer *player = vpc.mediaPlayer;
 
-    if (player.isPlaying) {
+    if (vpc.isPlaying) {
         [self jumpInterval:-VLCJumpInterval];
     } else {
         [self scrubbingJumpInterval:-VLCJumpInterval];
@@ -564,12 +554,11 @@ static const NSInteger VLCJumpInterval = 10000; // 10 seconds
         return;
     }
     VLCPlaybackController *vpc = [VLCPlaybackController sharedInstance];
-    VLCMediaPlayer *player = vpc.mediaPlayer;
 
     CGFloat intervalFraction = ((CGFloat)interval)/((CGFloat)duration);
-    CGFloat currentFraction = player.position;
+    CGFloat currentFraction = vpc.playbackPosition;
     currentFraction += intervalFraction;
-    player.position = currentFraction;
+    vpc.playbackPosition = currentFraction;
 }
 
 - (void)scrubbingJumpInterval:(NSInteger)interval
@@ -668,7 +657,7 @@ static const NSInteger VLCJumpInterval = 10000; // 10 seconds
 
 - (BOOL)isSeekable
 {
-    return [VLCPlaybackController sharedInstance].mediaPlayer.isSeekable;
+    return [[VLCPlaybackController sharedInstance] isSeekable];
 }
 
 - (BOOL)canJump
@@ -712,7 +701,7 @@ static const NSInteger VLCJumpInterval = 10000; // 10 seconds
     self.transportBar.scrubbing = NO;
     [self updateDimmingView];
     VLCPlaybackController *vpc = [VLCPlaybackController sharedInstance];
-    [vpc.mediaPlayer play];
+    [vpc playPause];
 }
 
 - (void)updateDimmingView
@@ -755,11 +744,10 @@ static const NSInteger VLCJumpInterval = 10000; // 10 seconds
 }
 - (void)showPlaybackControlsIfNeededForUserInteraction
 {
-    VLCMediaPlayer *mediaPlayer = [VLCPlaybackController sharedInstance].mediaPlayer;
-    NSInteger currentTitle = mediaPlayer.currentTitleIndex;
-    NSArray *titles = mediaPlayer.titleDescriptions;
-    if (currentTitle < titles.count) {
-        NSDictionary *title = titles[currentTitle];
+    VLCPlaybackController *vpc = [VLCPlaybackController sharedInstance];
+    NSInteger currentTitle = [vpc indexOfCurrentTitle];
+    if (currentTitle < [vpc numberOfTitles]) {
+        NSDictionary *title = [vpc titleDescriptionsDictAtIndex:currentTitle];
         if ([[title objectForKey:VLCTitleDescriptionIsMenu] boolValue]) {
             return;
         }
@@ -933,11 +921,10 @@ currentMediaHasTrackToChooseFrom:(BOOL)currentMediaHasTrackToChooseFrom
 - (void)updateTransportBarPosition
 {
     VLCPlaybackController *controller = [VLCPlaybackController sharedInstance];
-    VLCMediaPlayer *mediaPlayer = controller.mediaPlayer;
     VLCTransportBar *transportBar = self.transportBar;
-    transportBar.remainingTimeLabel.text = [[mediaPlayer remainingTime] stringValue];
-    transportBar.markerTimeLabel.text = [[mediaPlayer time] stringValue];
-    transportBar.playbackFraction = mediaPlayer.position;
+    transportBar.remainingTimeLabel.text = [[controller remainingTime] stringValue];
+    transportBar.markerTimeLabel.text = [[controller playedTime] stringValue];
+    transportBar.playbackFraction = controller.playbackPosition;
 }
 
 - (void)playbackPositionUpdated:(VLCPlaybackController *)controller
