@@ -33,7 +33,7 @@
 
 + (BOOL)shouldBeVisibleForPlaybackController:(VLCPlaybackController *)vpc
 {
-    return vpc.mediaPlayer.isSeekable;
+    return [vpc isSeekable];
 }
 
 
@@ -94,7 +94,7 @@
     }];
     UISegmentedControl *rateControl = self.rateControl;
     rateControl.selectedSegmentIndex = currentIndex;
-    rateControl.enabled = vpc.mediaPlayer.isSeekable;
+    rateControl.enabled = [vpc isSeekable];
 }
 
 - (IBAction)rateControlChanged:(UISegmentedControl *)sender

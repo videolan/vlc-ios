@@ -77,6 +77,7 @@ currentMediaHasTrackToChooseFrom:(BOOL)currentMediaHasTrackToChooseFrom
 @property (readonly) NSInteger numberOfChaptersForCurrentTitle;
 @property (nonatomic, readonly) BOOL currentMediaHasTrackToChooseFrom;
 @property (nonatomic, readwrite) BOOL fullscreenSessionRequested;
+@property (nonatomic, readonly) BOOL isSeekable;
 @property (readonly) NSNumber *playbackTime;
 @property (nonatomic, readonly) NSDictionary *mediaOptionsDictionary;
 @property (nonatomic, readonly) NSTimer* sleepTimer;
@@ -109,5 +110,6 @@ currentMediaHasTrackToChooseFrom:(BOOL)currentMediaHasTrackToChooseFrom
 - (void)scheduleSleepTimerWithInterval:(NSTimeInterval)timeInterval;
 
 - (void)playMediaList:(VLCMediaList *)mediaList firstIndex:(NSInteger)index subtitlesFilePath:(NSString *)subsFilePath;
+- (void)openVideoSubTitlesFromFile:(NSString *)pathToFile;
 
 @end

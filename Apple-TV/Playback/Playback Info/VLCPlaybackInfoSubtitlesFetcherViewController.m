@@ -117,7 +117,7 @@
 {
     [self stopActivity];
     VLCPlaybackController *vpc = [VLCPlaybackController sharedInstance];
-    [vpc.mediaPlayer openVideoSubTitlesFromFile:pathToFile];
+    [vpc openVideoSubTitlesFromFile:pathToFile];
     [self dismissViewControllerAnimated:YES completion:nil];
     [[NSNotificationCenter defaultCenter] postNotificationName:VLCPlaybackControllerPlaybackMetadataDidChange object:nil];
 }

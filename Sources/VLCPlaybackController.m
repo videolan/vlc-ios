@@ -137,6 +137,11 @@ VLCMediaDelegate, VLCRemoteControlServiceDelegate>
 }
 #pragma mark - playback management
 
+- (void)openVideoSubTitlesFromFile:(NSString *)pathToFile
+{
+    [_mediaPlayer openVideoSubTitlesFromFile:pathToFile];
+}
+
 - (void)playMediaList:(VLCMediaList *)mediaList firstIndex:(NSInteger)index subtitlesFilePath:(NSString *)subsFilePath
 {
     self.mediaList = mediaList;
@@ -447,6 +452,11 @@ VLCMediaDelegate, VLCRemoteControlServiceDelegate>
 - (BOOL)currentMediaHasTrackToChooseFrom
 {
     return [[_mediaPlayer audioTrackIndexes] count] > 2 || [[_mediaPlayer videoSubTitlesIndexes] count] > 1;
+}
+
+- (BOOL) isSeekable
+{
+    return _mediaPlayer.isSeekable;
 }
 
 - (NSNumber *)playbackTime
