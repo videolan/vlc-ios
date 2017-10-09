@@ -455,11 +455,10 @@
      */
 
     VLCPlaybackController *vpc = [VLCPlaybackController sharedInstance];
-    if (!vpc.activePlaybackSession) {
+    if (!vpc.isPlaying) {
         return [[HTTPErrorResponse alloc] initWithErrorCode:404];
     }
-    VLCMediaPlayer *player = vpc.mediaPlayer;
-    VLCMedia *media = player.media;
+    VLCMedia *media = [vpc currentlyPlayingMedia];
     if (!media) {
         return [[HTTPErrorResponse alloc] initWithErrorCode:404];
     }
@@ -469,8 +468,8 @@
         mediaTitle = @"";
     NSDictionary *mediaDict = @{ @"id" : media.url.absoluteString,
                                  @"title" : mediaTitle,
-                                 @"duration" : @(media.length.intValue)};
-    NSDictionary *returnDict = @{ @"currentTime" : @(player.time.intValue),
+                                 @"duration" : @([vpc mediaDuration])};
+    NSDictionary *returnDict = @{ @"currentTime" : @([vpc playedTime].intValue),
                                   @"media" : mediaDict };
 
     NSError *error;
@@ -526,7 +525,7 @@
      */
 
     VLCPlaybackController *vpc = [VLCPlaybackController sharedInstance];
-    if (!vpc.activePlaybackSession || !vpc.mediaList) {
+    if (!vpc.isPlaying || !vpc.mediaList) {
         return [[HTTPErrorResponse alloc] initWithErrorCode:404];
     }
 

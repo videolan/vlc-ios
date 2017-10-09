@@ -111,7 +111,7 @@
                           videoWidth, videoHeight],
                           videoCodec];
     }
-    NSInteger audioTrackCount = player.numberOfAudioTracks - 1; // minus fake disable track
+    NSInteger audioTrackCount = [vpc numberOfAudioTracks] -1; // minus fake disable track
     if (audioTrackCount > 0) {
         if (audioTrackCount > 1) {
             metaDataString = [metaDataString stringByAppendingFormat:NSLocalizedString(@"FORMAT_AUDIO_TRACKS", nil),
@@ -121,7 +121,7 @@
         }
         metaDataString = [metaDataString stringByAppendingFormat:@" (%@)\n", audioCodecs];
     }
-    NSInteger spuTrackCount = player.numberOfSubtitlesTracks - 1; // minus fake disable track
+    NSInteger spuTrackCount = [vpc numberOfVideoSubtitlesIndexes] - 1; // minus fake disable track
     if (spuTrackCount > 0) {
         if (spuTrackCount > 1) {
             metaDataString = [metaDataString stringByAppendingFormat:NSLocalizedString(@"FORMAT_SPU_TRACKS", nil),

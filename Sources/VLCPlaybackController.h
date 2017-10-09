@@ -65,6 +65,7 @@ currentMediaHasTrackToChooseFrom:(BOOL)currentMediaHasTrackToChooseFrom
 @property (nonatomic, assign, getter=isShuffleMode) BOOL shuffleMode;
 @property (nonatomic, readwrite) float playbackRate; // default = 1.0
 @property (nonatomic, readwrite) float audioDelay; // in seconds, default = 0.0
+@property (nonatomic, readwrite) float playbackPosition; // in seconds, default = 0.0
 @property (nonatomic, readwrite) float subtitleDelay; // in seconds, default = 0.0
 @property (readonly) NSInteger indexOfCurrentAudioTrack;
 @property (readonly) NSInteger indexOfCurrentSubtitleTrack;
@@ -81,7 +82,8 @@ currentMediaHasTrackToChooseFrom:(BOOL)currentMediaHasTrackToChooseFrom
 @property (nonatomic, readonly) NSTimer* sleepTimer;
 
 + (VLCPlaybackController *)sharedInstance;
-
+- (VLCTime *)playedTime;
+#pragma mark - playback
 - (void)startPlayback;
 - (void)stopPlayback;
 - (void)playPause;

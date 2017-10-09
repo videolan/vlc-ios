@@ -147,6 +147,11 @@ VLCMediaDelegate, VLCRemoteControlServiceDelegate>
     self.isPlaying ?  [self stopPlayback] : [self startPlayback];
 }
 
+- (VLCTime *)playedTime
+{
+    return [_mediaPlayer time];
+}
+
 - (void)startPlayback
 {
     if (_playerIsSetup) {
@@ -470,7 +475,17 @@ VLCMediaDelegate, VLCRemoteControlServiceDelegate>
     return _mediaPlayer.currentAudioPlaybackDelay/1000000.;
 }
 
--(void)setSubtitleDelay:(float)subtitleDeleay
+- (float)playbackPosition
+{
+    return [_mediaPlayer position];
+}
+
+- (void)setPlaybackPosition:(float)position
+{
+    _mediaPlayer.position = position;
+}
+
+- (void)setSubtitleDelay:(float)subtitleDeleay
 {
     _mediaPlayer.currentVideoSubTitleDelay = 1000000.*subtitleDeleay;
 }

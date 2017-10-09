@@ -116,36 +116,27 @@
     VLCPlaybackController *vpc = [VLCPlaybackController sharedInstance];
     NSDictionary *returnDict;
 
-    if (vpc.activePlaybackSession) {
-        VLCMediaPlayer *player = vpc.mediaPlayer;
-        if (player) {
-            VLCMedia *media = player.media;
+    if (vpc.isPlaying) {
+        VLCMedia *media = [vpc currentlyPlayingMedia];
 
-            if (media) {
-                NSURL *url = media.url;
-                NSString *mediaTitle = vpc.metadata.title;
-                if (!mediaTitle)
-                    mediaTitle = url.lastPathComponent;
-                NSDictionary *mediaDict = @{ @"id" : url.absoluteString,
-                                             @"title" : mediaTitle,
-                                             @"duration" : @(media.length.intValue)};
-                returnDict = @{ @"currentTime" : @(player.time.intValue),
-                                @"type" : @"playing",
-                                @"media" : mediaDict };
+        if (media) {
+            NSURL *url = media.url;
+            NSString *mediaTitle = vpc.metadata.title;
+            if (!mediaTitle) {
+                mediaTitle = url.lastPathComponent;
             }
+            NSDictionary *mediaDict = @{ @"id" : url.absoluteString,
+                                         @"title" : mediaTitle,
+                                         @"duration" : @([vpc mediaDuration])};
+            returnDict = @{ @"currentTime" : @([vpc playedTime].intValue),
+                            @"type" : @"playing",
+                            @"media" : mediaDict };
         }
     }
     if (!returnDict) {
         returnDict = [NSDictionary dictionary];
     }
-
-    NSError *error;
-    NSData *returnData = [NSJSONSerialization dataWithJSONObject:returnDict options:0 error:&error];
-    if (error != nil) {
-        APLog(@"%s: JSON serialization failed %@", __PRETTY_FUNCTION__, error);
-    }
-
-    [self sendData:returnData];
+    [self sendDataWithDict:returnDict];
 }
 
 #pragma mark - play
@@ -167,24 +158,11 @@
         "currentTime": 42
      }
      */
+     VLCPlaybackController *vpc = [VLCPlaybackController sharedInstance];
+    NSDictionary *dict = @{ @"currentTime" : @([vpc playedTime].intValue),
+                                  @"type" : @"play" };
+    [self sendDataWithDict:dict];
 
-    VLCPlaybackController *vpc = [VLCPlaybackController sharedInstance];
-    VLCMediaPlayer *player = vpc.mediaPlayer;
-    if (player) {
-        VLCMedia *media = player.media;
-        if (media) {
-            NSDictionary *returnDict = @{ @"currentTime" : @(player.time.intValue),
-                                          @"type" : @"play" };
-
-            NSError *error;
-            NSData *returnData = [NSJSONSerialization dataWithJSONObject:returnDict options:0 error:&error];
-            if (error != nil) {
-                APLog(@"%s: JSON serialization failed %@", __PRETTY_FUNCTION__, error);
-            }
-
-            [self sendData:returnData];
-        }
-    }
 }
 
 #pragma mark - pause
@@ -206,23 +184,25 @@
         "currentTime": 42,
      }
      */
+     VLCPlaybackController *vpc = [VLCPlaybackController sharedInstance];
+    NSDictionary *dict = @{ @"currentTime" : @([vpc playedTime].intValue),
+                            @"type" : @"pause" };
+    [self sendDataWithDict:dict];
+}
 
+- (void)sendDataWithDict:(NSDictionary *)dict
+{
     VLCPlaybackController *vpc = [VLCPlaybackController sharedInstance];
-    VLCMediaPlayer *player = vpc.mediaPlayer;
-    if (player) {
-        VLCMedia *media = player.media;
-        if (media) {
-            NSDictionary *returnDict = @{ @"currentTime" : @(player.time.intValue),
-                                          @"type" : @"pause" };
 
-            NSError *error;
-            NSData *returnData = [NSJSONSerialization dataWithJSONObject:returnDict options:0 error:&error];
-            if (error != nil) {
-                APLog(@"%s: JSON serialization failed %@", __PRETTY_FUNCTION__, error);
-            }
-
-            [self sendData:returnData];
+    VLCMedia *media = [vpc currentlyPlayingMedia];
+    if (media) {
+        NSError *error;
+        NSData *returnData = [NSJSONSerialization dataWithJSONObject:dict options:0 error:&error];
+        if (error != nil) {
+            APLog(@"%s: JSON serialization failed %@", __PRETTY_FUNCTION__, error);
         }
+
+        [self sendData:returnData];
     }
 }
 
@@ -241,23 +221,8 @@
         "type": "ended"
      }
      */
-
-    VLCPlaybackController *vpc = [VLCPlaybackController sharedInstance];
-    VLCMediaPlayer *player = vpc.mediaPlayer;
-    if (player) {
-        VLCMedia *media = player.media;
-        if (media) {
-            NSDictionary *returnDict = @{ @"type" : @"ended" };
-
-            NSError *error;
-            NSData *returnData = [NSJSONSerialization dataWithJSONObject:returnDict options:0 error:&error];
-            if (error != nil) {
-                APLog(@"%s: JSON serialization failed %@", __PRETTY_FUNCTION__, error);
-            }
-
-            [self sendData:returnData];
-        }
-    }
+    NSDictionary *dict = @{ @"type" : @"ended" };
+    [self sendDataWithDict:dict];
 }
 
 #pragma mark - seek
@@ -271,16 +236,12 @@
      }
      */
     VLCPlaybackController *vpc = [VLCPlaybackController sharedInstance];
-    VLCMediaPlayer *player = vpc.mediaPlayer;
 
-    if (!player)
-        return;
-
-    VLCMedia *media = player.media;
+    VLCMedia *media = [vpc currentlyPlayingMedia];
     if (!media)
         return;
 
-    player.position = [dictionary[@"currentTime"] floatValue] / (CGFloat)media.length.intValue;
+    vpc.playbackPosition = [dictionary[@"currentTime"] floatValue] / (CGFloat)media.length.intValue;
 }
 
 - (void)playbackSeekTo
@@ -296,24 +257,12 @@
      */
 
     VLCPlaybackController *vpc = [VLCPlaybackController sharedInstance];
-    VLCMediaPlayer *player = vpc.mediaPlayer;
-    if (player) {
-        VLCMedia *media = player.media;
-        if (media) {
-            NSDictionary *mediaDict = @{ @"id" : media.url.absoluteString};
-            NSDictionary *returnDict = @{ @"currentTime" : @(player.time.intValue),
-                                          @"type" : @"seekTo",
-                                          @"media" : mediaDict };
-
-            NSError *error;
-            NSData *returnData = [NSJSONSerialization dataWithJSONObject:returnDict options:0 error:&error];
-            if (error != nil) {
-                APLog(@"%s: JSON serialization failed %@", __PRETTY_FUNCTION__, error);
-            }
-
-            [self sendData:returnData];
-        }
-    }
+    VLCMedia *media = [vpc currentlyPlayingMedia];
+    NSDictionary *mediaDict = @{ @"id" : media.url.absoluteString};
+    NSDictionary *dict = @{ @"currentTime" : @([vpc playedTime].intValue),
+                                  @"type" : @"seekTo",
+                                  @"media" : mediaDict };
+    [self sendDataWithDict:dict];
 }
 
 #pragma mark - openURL
