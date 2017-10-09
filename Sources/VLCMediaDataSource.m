@@ -237,12 +237,10 @@
 
     /* stop playback if needed */
     VLCPlaybackController *vpc = [VLCPlaybackController sharedInstance];
-    if (vpc.isPlaying) {
-        MLFile *currentlyPlayingFile = [[MLFile fileForURL:vpc.mediaPlayer.media.url] firstObject];
-        if (currentlyPlayingFile) {
-            if (currentlyPlayingFile == mediaObject)
-                [vpc stopPlayback];
-        }
+    VLCMedia *media = [vpc currentlyPlayingMedia];
+    MLFile *currentlyPlayingFile = [MLFile fileForURL:media.url].firstObject;
+    if (currentlyPlayingFile && currentlyPlayingFile == mediaObject) {
+        [vpc stopPlayback];
     }
 
     NSFileManager *fileManager = [NSFileManager defaultManager];
