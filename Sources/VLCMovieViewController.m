@@ -1227,22 +1227,8 @@ currentMediaHasTrackToChooseFrom:(BOOL)currentMediaHasTrackToChooseFrom
 - (void)toggleRepeatMode
 {
     LOCKCHECK;
-
-    VLCMediaListPlayer *listPlayer = _vpc.listPlayer;
-    VLCRepeatMode nextRepeatMode = VLCDoNotRepeat;
-    switch (listPlayer.repeatMode) {
-        case VLCDoNotRepeat:
-            nextRepeatMode = VLCRepeatCurrentItem;
-            break;
-        case VLCRepeatCurrentItem:
-            nextRepeatMode = VLCRepeatAllItems;
-            break;
-        default:
-            nextRepeatMode = VLCDoNotRepeat;
-            break;
-    }
-    listPlayer.repeatMode = nextRepeatMode;
-    _multiSelectionView.repeatMode = nextRepeatMode;
+    [[VLCPlaybackController sharedInstance] toggleRepeatMode];
+    _multiSelectionView.repeatMode = [VLCPlaybackController sharedInstance].repeatMode;
 }
 
 - (void)toggleShuffleMode
@@ -1381,8 +1367,6 @@ currentMediaHasTrackToChooseFrom:(BOOL)currentMediaHasTrackToChooseFrom
         //Invalidate saved location when the gesture is ended
         if (_mediaHasProjection)
             _saveLocation = CGPointMake(-1.f, -1.f);
-        if ([_vpc isPlaying])
-            [_vpc.listPlayer play];
     }
 }
 
@@ -1423,8 +1407,6 @@ currentMediaHasTrackToChooseFrom:(BOOL)currentMediaHasTrackToChooseFrom
     }
 
     if (swipeRecognizer.state == UIGestureRecognizerStateEnded) {
-        if ([_vpc isPlaying])
-            [_vpc.listPlayer play];
 
         [self.statusLabel showStatusMessage:hudString];
     }

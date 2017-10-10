@@ -144,10 +144,7 @@
 - (void)_respondToPlay
 {
     VLCPlaybackController *vpc = [VLCPlaybackController sharedInstance];
-    VLCMediaListPlayer *listPlayer = vpc.listPlayer;
-    if (listPlayer) {
-        [listPlayer play];
-    }
+    [vpc play];
 }
 
 - (void)playbackStarted
@@ -170,10 +167,7 @@
 - (void)_respondToPause
 {
     VLCPlaybackController *vpc = [VLCPlaybackController sharedInstance];
-    VLCMediaListPlayer *listPlayer = vpc.listPlayer;
-    if (listPlayer) {
-        [listPlayer pause];
-    }
+    [vpc pause];
 }
 
 - (void)playbackPaused

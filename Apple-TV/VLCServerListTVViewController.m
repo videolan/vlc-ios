@@ -83,13 +83,11 @@
     [self.view addConstraint:xConstraint];
 
     NSArray *classes = @[
-                         //                         [VLCLocalNetworkServiceBrowserManualConnect class],
                          [VLCLocalNetworkServiceBrowserHTTP class],
                          [VLCLocalNetworkServiceBrowserUPnP class],
                          [VLCLocalNetworkServiceBrowserDSM class],
                          [VLCLocalNetworkServiceBrowserPlex class],
                          [VLCLocalNetworkServiceBrowserFTP class],
-//                         [VLCLocalNetworkServiceBrowserBonjour class],
 #ifndef NDEBUG
                          [VLCLocalNetworkServiceBrowserSAP class],
 #endif

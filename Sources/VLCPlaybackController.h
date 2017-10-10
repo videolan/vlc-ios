@@ -40,8 +40,6 @@ currentMediaHasTrackToChooseFrom:(BOOL)currentMediaHasTrackToChooseFrom
 
 @interface VLCPlaybackController : NSObject <VLCEqualizerViewDelegate>
 
-@property (nonatomic, readonly) VLCMediaListPlayer *listPlayer;
-
 @property (nonatomic, strong) UIView *videoOutputView;
 
 @property (nonatomic, strong) NSURL *successCallback;
@@ -94,11 +92,13 @@ currentMediaHasTrackToChooseFrom:(BOOL)currentMediaHasTrackToChooseFrom
 - (void)startPlayback;
 - (void)stopPlayback;
 - (void)playPause;
+- (void)play;
+- (void)pause;
 - (void)next;
 - (void)previous;
 - (void)jumpForward:(int)interval;
 - (void)jumpBackward:(int)interval;
-
+- (void)toggleRepeatMode;
 - (void)resetFilters;
 - (VLCTime *)remainingTime;
 

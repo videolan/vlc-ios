@@ -48,6 +48,7 @@ VLCMediaDelegate, VLCRemoteControlServiceDelegate>
 {
     VLCRemoteControlService *_remoteControlService;
     VLCMediaPlayer *_mediaPlayer;
+    VLCMediaListPlayer *_listPlayer;
     BOOL _playerIsSetup;
     BOOL _shouldResumePlaying;
     BOOL _sessionWillRestart;
@@ -573,6 +574,23 @@ VLCMediaDelegate, VLCRemoteControlServiceDelegate>
     _mediaPlayer.gamma = 1.;
 }
 
+- (void)toggleRepeatMode
+{
+    VLCRepeatMode nextRepeatMode = VLCDoNotRepeat;
+    switch (_listPlayer.repeatMode) {
+        case VLCDoNotRepeat:
+            nextRepeatMode = VLCRepeatCurrentItem;
+            break;
+        case VLCRepeatCurrentItem:
+            nextRepeatMode = VLCRepeatAllItems;
+            break;
+        default:
+            nextRepeatMode = VLCDoNotRepeat;
+            break;
+    }
+    _listPlayer.repeatMode = nextRepeatMode;
+}
+
 - (NSInteger)indexOfCurrentAudioTrack
 {
     return [_mediaPlayer.audioTrackIndexes indexOfObject:@(_mediaPlayer.currentAudioTrackIndex)];
@@ -742,16 +760,22 @@ VLCMediaDelegate, VLCRemoteControlServiceDelegate>
 #pragma mark - playback controls
 - (void)playPause
 {
-    if ([_mediaPlayer isPlaying]) {
-        [_listPlayer pause];
+    [_mediaPlayer isPlaying] ? [self pause] : [self play];
+}
+
+- (void)play
+{
+    [_listPlayer play];
+    [[NSNotificationCenter defaultCenter] postNotificationName:VLCPlaybackControllerPlaybackDidResume object:self];
+}
+
+- (void)pause
+{
+    [_listPlayer pause];
 #if TARGET_OS_IOS
-        [self _savePlaybackState];
+    [self _savePlaybackState];
 #endif
-        [[NSNotificationCenter defaultCenter] postNotificationName:VLCPlaybackControllerPlaybackDidPause object:self];
-    } else {
-        [_listPlayer play];
-        [[NSNotificationCenter defaultCenter] postNotificationName:VLCPlaybackControllerPlaybackDidResume object:self];
-    }
+    [[NSNotificationCenter defaultCenter] postNotificationName:VLCPlaybackControllerPlaybackDidPause object:self];
 }
 
 - (void)next
