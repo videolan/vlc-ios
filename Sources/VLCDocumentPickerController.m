@@ -72,14 +72,20 @@
     NSString *documentsPath = [NSSearchPathForDirectoriesInDomains(NSDocumentDirectory, NSUserDomainMask, YES) firstObject];
     NSString *filePath = [documentsPath stringByAppendingPathComponent:[url lastPathComponent]];
 
-    if (![fileManager fileExistsAtPath:filePath]) {
-        NSError *error = nil;
-        BOOL success = [fileManager moveItemAtPath:[url path] toPath:filePath error:&error];
-
-        if (success) {
-            [[VLCMediaFileDiscoverer sharedInstance] updateMediaList];
-        }
+    NSError *error = nil;
+    BOOL success = [fileManager moveItemAtPath:[url path] toPath:filePath error:&error];
+    if (!error) {
+        [[VLCMediaFileDiscoverer sharedInstance] updateMediaList];
+    } else {
+        UIAlertController *alert = [UIAlertController alertControllerWithTitle:NSLocalizedString(@"GDRIVE_ERROR_DOWNLOADING_FILE_TITLE", nil) message:error.description preferredStyle:UIAlertControllerStyleAlert];
+        UIViewController *rootVC = [UIApplication sharedApplication].keyWindow.rootViewController;
+        UIAlertAction *okAction = [UIAlertAction actionWithTitle:@"OK" style:UIAlertActionStyleDefault handler:^(UIAlertAction * _Nonnull action) {
+            [rootVC dismissViewControllerAnimated:true completion:nil];
+        }];
+        [alert addAction:okAction];
+        [rootVC presentViewController:alert animated:true completion:nil];
     }
+
 }
 
 @end
