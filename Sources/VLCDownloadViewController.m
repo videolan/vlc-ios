@@ -19,13 +19,16 @@
 #import "NSString+SupportedMedia.h"
 #import "VLCHTTPFileDownloader.h"
 
-#define kVLCDownloadViaHTTP 1
-#define kVLCDownloadViaFTP 2
+typedef NS_ENUM(NSUInteger, VLCDownloadScheme) {
+    VLCDownloadSchemeNone,
+    VLCDownloadSchemeHTTP,
+    VLCDownloadSchemeFTP
+};
 
 @interface VLCDownloadViewController () <WRRequestDelegate, UITableViewDataSource, UITableViewDelegate, VLCHTTPFileDownloader, UITextFieldDelegate>
 {
     NSMutableArray *_currentDownloads;
-    NSUInteger _currentDownloadType;
+    VLCDownloadScheme _currentDownloadType;
     NSString *_humanReadableFilename;
     NSMutableArray *_currentDownloadFilename;
     NSTimeInterval _startDL;
@@ -136,102 +139,110 @@
 
 - (void)_updateUI
 {
-    if (_currentDownloadType != 0)
-        [self downloadStarted];
-    else
-        [self downloadEnded];
-
+    _currentDownloadType != VLCDownloadSchemeNone ? [self downloadStarted] : [self downloadEnded];
     [self.downloadsTable reloadData];
 }
 
-#pragma mark - download management
+- (VLCHTTPFileDownloader *)httpDownloader
+{
+    if (!_httpDownloader) {
+        _httpDownloader = [[VLCHTTPFileDownloader alloc] init];
+        _httpDownloader.delegate = self;
+    }
+    return _httpDownloader;
+}
+
+#pragma mark - Download management
+
+- (void)_startDownload
+{
+    [_currentDownloads removeObjectAtIndex:0];
+    [_currentDownloadFilename removeObjectAtIndex:0];
+    [self _beginBackgroundDownload];
+    [self _updateUI];
+}
+
+- (void)_downloadSchemeHttp
+{
+    if (self.httpDownloader.downloadInProgress) {
+        return;
+    }
+    _currentDownloadType = VLCDownloadSchemeHTTP;
+    if (![_currentDownloadFilename.firstObject isEqualToString:@""]) {
+        _humanReadableFilename = [[_currentDownloadFilename firstObject] stringByRemovingPercentEncoding];
+    } else {
+        [self.httpDownloader downloadFileFromURL:_currentDownloads.firstObject];
+        _humanReadableFilename = self.httpDownloader.userReadableDownloadName;
+    }
+    [self _startDownload];
+}
+
+- (void)_downloadSchemeFtp
+{
+    if (_FTPDownloadRequest) {
+        return;
+    }
+    _currentDownloadType = VLCDownloadSchemeFTP;
+    [self _downloadFTPFile:_currentDownloads.firstObject];
+    _humanReadableFilename = [_currentDownloads.firstObject lastPathComponent];
+    [self _startDownload];
+}
+
+- (void)_beginBackgroundDownload
+{
+    if (!_backgroundTaskIdentifier || _backgroundTaskIdentifier == UIBackgroundTaskInvalid) {
+        dispatch_block_t expirationHandler = ^{
+            APLog(@"Downloads were interrupted after being in background too long, time remaining: %f", [[UIApplication sharedApplication] backgroundTimeRemaining]);
+            [[UIApplication sharedApplication] endBackgroundTask:_backgroundTaskIdentifier];
+            _backgroundTaskIdentifier = 0;
+        };
+
+        _backgroundTaskIdentifier = [[UIApplication sharedApplication] beginBackgroundTaskWithName:@"VLCDownloader" expirationHandler:expirationHandler];
+        if (_backgroundTaskIdentifier == UIBackgroundTaskInvalid) {
+            APLog(@"Unable to download");
+        }
+    }
+}
+
 - (void)_triggerNextDownload
 {
-    BOOL downloadWasStarted = NO;
-
-    if ([_currentDownloads count] > 0) {
-        [self.activityIndicator startAnimating];
-        NSString *downloadScheme = [_currentDownloads.firstObject scheme];
-        if ([downloadScheme isEqualToString:@"http"] || [downloadScheme isEqualToString:@"https"]) {
-            if (!_httpDownloader) {
-                _httpDownloader = [[VLCHTTPFileDownloader alloc] init];
-                _httpDownloader.delegate = self;
-            }
-
-            if (!_httpDownloader.downloadInProgress) {
-                _currentDownloadType = kVLCDownloadViaHTTP;
-                if (![_currentDownloadFilename.firstObject isEqualToString:@""]) {
-                    _humanReadableFilename = [[_currentDownloadFilename firstObject] stringByRemovingPercentEncoding];
-                    [_httpDownloader downloadFileFromURL:_currentDownloads.firstObject withFileName:_humanReadableFilename];
-                } else {
-                    [_httpDownloader downloadFileFromURL:_currentDownloads.firstObject];
-                    _humanReadableFilename = _httpDownloader.userReadableDownloadName;
-                }
-
-                [_currentDownloads removeObjectAtIndex:0];
-                [_currentDownloadFilename removeObjectAtIndex:0];
-
-                downloadWasStarted = YES;
-            }
-        } else if ([downloadScheme isEqualToString:@"ftp"]) {
-            if (!_FTPDownloadRequest) {
-                _currentDownloadType = kVLCDownloadViaFTP;
-                [self _downloadFTPFile:_currentDownloads.firstObject];
-                _humanReadableFilename = [_currentDownloads.firstObject lastPathComponent];
-                [_currentDownloads removeObjectAtIndex:0];
-                [_currentDownloadFilename removeObjectAtIndex:0];
-            }
-            downloadWasStarted = YES;
-        } else {
-            APLog(@"Unknown download scheme '%@'", downloadScheme);
-            [_currentDownloads removeObjectAtIndex:0];
-            _currentDownloadType = 0;
-            return;
-        }
-
-        if (downloadWasStarted) {
-            if (!_backgroundTaskIdentifier || _backgroundTaskIdentifier == UIBackgroundTaskInvalid) {
-                dispatch_block_t expirationHandler = ^{
-                    APLog(@"Downloads were interrupted after being in background too long, time remaining: %f", [[UIApplication sharedApplication] backgroundTimeRemaining]);
-                    [[UIApplication sharedApplication] endBackgroundTask:_backgroundTaskIdentifier];
-                    _backgroundTaskIdentifier = 0;
-                };
-
-                if ([[UIApplication sharedApplication] respondsToSelector:@selector(beginBackgroundTaskWithName:expirationHandler:)]) {
-                    _backgroundTaskIdentifier = [[UIApplication sharedApplication] beginBackgroundTaskWithName:@"VLCDownloader" expirationHandler:expirationHandler];
-                } else {
-                    _backgroundTaskIdentifier = [[UIApplication sharedApplication] beginBackgroundTaskWithExpirationHandler:expirationHandler];
-                }
-            }
-        }
-
-        [self _updateUI];
-    } else {
-        _currentDownloadType = 0;
+    if ([_currentDownloads count] == 0) {
+        _currentDownloadType = VLCDownloadSchemeNone;
 
         if (_backgroundTaskIdentifier && _backgroundTaskIdentifier != UIBackgroundTaskInvalid) {
             [[UIApplication sharedApplication] endBackgroundTask:_backgroundTaskIdentifier];
             _backgroundTaskIdentifier = 0;
         }
+        return;
+    }
+
+    [self.activityIndicator startAnimating];
+    NSString *downloadScheme = [_currentDownloads.firstObject scheme];
+
+    if ([downloadScheme isEqualToString:@"http"] || [downloadScheme isEqualToString:@"https"]) {
+        [self _downloadSchemeHttp];
+    } else if ([downloadScheme isEqualToString:@"ftp"]) {
+        [self _downloadSchemeFtp];
+    } else {
+        APLog(@"Unknown download scheme '%@'", downloadScheme);
+        [_currentDownloads removeObjectAtIndex:0];
+        _currentDownloadType = VLCDownloadSchemeNone;
     }
 }
 
 - (IBAction)cancelDownload:(id)sender
 {
-    if (_currentDownloadType == kVLCDownloadViaHTTP) {
-        if (_httpDownloader.downloadInProgress)
-            [_httpDownloader cancelDownload];
-    } else if (_currentDownloadType == kVLCDownloadViaFTP) {
-        if (_FTPDownloadRequest) {
-            NSURL *target = _FTPDownloadRequest.downloadLocation;
-            [_FTPDownloadRequest destroy];
-            [self requestCompleted:_FTPDownloadRequest];
+    if (_currentDownloadType == VLCDownloadSchemeHTTP && self.httpDownloader.downloadInProgress) {
+        [self.httpDownloader cancelDownload];
+    } else if (_currentDownloadType == VLCDownloadSchemeFTP && _FTPDownloadRequest) {
+        NSURL *target = _FTPDownloadRequest.downloadLocation;
+        [_FTPDownloadRequest destroy];
+        [self requestCompleted:_FTPDownloadRequest];
 
-            /* remove partially downloaded content */
-            NSFileManager *fileManager = [NSFileManager defaultManager];
-            if ([fileManager fileExistsAtPath:target.path])
-                [fileManager removeItemAtPath:target.path error:nil];
-        }
+        /* remove partially downloaded content */
+        NSFileManager *fileManager = [NSFileManager defaultManager];
+        if ([fileManager fileExistsAtPath:target.path])
+            [fileManager removeItemAtPath:target.path error:nil];
     }
 }
 
@@ -259,7 +270,7 @@
 - (void)downloadEnded
 {
     [[VLCActivityManager defaultManager] networkActivityStopped];
-    _currentDownloadType = 0;
+    _currentDownloadType = VLCDownloadSchemeNone;
     APLog(@"download ended");
     self.progressContainer.hidden = YES;
 
