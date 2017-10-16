@@ -107,16 +107,7 @@ NSString *const VLCDropboxSessionWasAuthorized = @"VLCDropboxSessionWasAuthorize
                                                  name:VLCPasscodeValidated
                                                object:nil];
 
-    // Change the keyboard for UISearchBar
-    [[UITextField appearance] setKeyboardAppearance:UIKeyboardAppearanceDark];
-    // For the cursor
-    [[UITextField appearance] setTintColor:[UIColor VLCOrangeTintColor]];
-    // Don't override the 'Cancel' button color in the search bar with the previous UITextField call. Use the default blue color
-    [[UIBarButtonItem appearanceWhenContainedIn:[UISearchBar class], nil] setTitleTextAttributes:@{NSForegroundColorAttributeName: [UIColor colorWithRed:0.0 green:122.0/255.0 blue:1.0 alpha:1.0]} forState:UIControlStateNormal];
-    // For the edit selection indicators
-    [[UITableView appearance] setTintColor:[UIColor VLCOrangeTintColor]];
-
-    [[UISwitch appearance] setOnTintColor:[UIColor VLCOrangeTintColor]];
+    [self setupAppearence];
 
     // Init the HTTP Server and clean its cache
     [[VLCHTTPUploaderController sharedInstance] cleanCache];
@@ -210,6 +201,21 @@ NSString *const VLCDropboxSessionWasAuthorized = @"VLCDropboxSessionWasAuthorize
     }
 
     return YES;
+}
+
+- (void)setupAppearence
+{
+    // Change the keyboard for UISearchBar
+    [[UITextField appearance] setKeyboardAppearance:UIKeyboardAppearanceDark];
+    // For the cursor
+    [[UITextField appearance] setTintColor:[UIColor VLCOrangeTintColor]];
+    // Don't override the 'Cancel' button color in the search bar with the previous UITextField call. Use the default blue color
+    [[UIBarButtonItem appearanceWhenContainedIn:[UISearchBar class], nil] setTitleTextAttributes:[NSDictionary dictionaryWithObjectsAndKeys:[UIColor whiteColor], NSForegroundColorAttributeName, nil] forState:UIControlStateNormal];
+
+    // For the edit selection indicators
+    [[UITableView appearance] setTintColor:[UIColor VLCOrangeTintColor]];
+    [[UISwitch appearance] setOnTintColor:[UIColor VLCOrangeTintColor]];
+    [[UISearchBar appearance] setBarTintColor:[UIColor VLCOrangeTintColor]];
 }
 
 - (void)dealloc
