@@ -13,8 +13,6 @@
 #import "VLCLibrarySearchDisplayDataSource.h"
 #import "VLCPlaylistTableViewCell.h"
 
-static NSString *PlaylistCellIdentifier = @"PlaylistCell";
-
 @interface VLCLibrarySearchDisplayDataSource() <UITableViewDataSource>
 {
     NSMutableArray *_searchData;
@@ -32,63 +30,36 @@ static NSString *PlaylistCellIdentifier = @"PlaylistCell";
     return self;
 }
 
-- (NSString *)cellIdentifier
-{
-    return PlaylistCellIdentifier;
-}
-
-- (UINib *)nibclass
-{
-    return [UINib nibWithNibName:@"VLCPlaylistTableViewCell" bundle:nil];
-}
-
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section
 {
-    @synchronized (_searchData) {
-        return _searchData.count;
-    }
+    return _searchData.count;
 }
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
 {
-    VLCPlaylistTableViewCell *cell = (VLCPlaylistTableViewCell *)[tableView dequeueReusableCellWithIdentifier:PlaylistCellIdentifier forIndexPath:indexPath];
-
-    [cell collapsWithAnimation:NO];
+    VLCPlaylistTableViewCell *cell = (VLCPlaylistTableViewCell *)[tableView dequeueReusableCellWithIdentifier:kPlaylistCellIdentifier forIndexPath:indexPath];
 
     NSInteger row = indexPath.row;
 
-    @synchronized (_searchData) {
-        if (row < _searchData.count)
-            cell.mediaObject = _searchData[row];
-    }
+    if (row < _searchData.count)
+        cell.mediaObject = _searchData[row];
 
     return cell;
 }
 
 - (NSManagedObject *)objectAtIndex:(NSUInteger)index
 {
-    @synchronized (_searchData) {
-        return index < _searchData.count ? _searchData[index] : nil;
-    }
-}
-
-- (void)removeAllObjects
-{
-    @synchronized (_searchData) {
-        [_searchData removeAllObjects];
-    }
-}
-
-- (void)addObject:(NSManagedObject *)object
-{
-    @synchronized (_searchData) {
-        [_searchData addObject:object];
-    }
+    return index < _searchData.count ? _searchData[index] : nil;
 }
 
 - (void)shouldReloadTableForSearchString:(NSString *)searchString searchableFiles:(NSArray *)files
 {
-    [self removeAllObjects];
+    if (!searchString || [searchString isEqualToString:@""]) {
+        _searchData = [files mutableCopy];
+        return;
+    }
+
+    [_searchData removeAllObjects];
     NSRange nameRange;
 
     for (NSManagedObject *item in files) {
@@ -107,7 +78,7 @@ static NSString *PlaylistCellIdentifier = @"PlaylistCell";
             nameRange = [self _searchFile:(MLFile*)item forString:searchString];
 
         if (nameRange.location != NSNotFound)
-            [self addObject:item];
+            [_searchData addObject:item];
     }
 }
 
@@ -282,4 +253,5 @@ static NSString *PlaylistCellIdentifier = @"PlaylistCell";
 
     return nameRange;
 }
+
 @end

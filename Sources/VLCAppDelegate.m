@@ -415,7 +415,6 @@ didFailToContinueUserActivityWithType:(NSString *)userActivityType
 - (void)applicationWillResignActive:(UIApplication *)application
 {
     _passcodeValidated = NO;
-    [self.libraryViewController setEditing:NO animated:NO];
     [self validatePasscode];
     [[MLMediaLibrary sharedMediaLibrary] applicationWillExit];
 }

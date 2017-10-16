@@ -11,7 +11,7 @@
  * Refer to the COPYING file of the official project for license.
  *****************************************************************************/
 
-#import <Foundation/Foundation.h>
+static NSString *kPlaylistCellIdentifier = @"PlaylistCell";
 
 @class VLCLinearProgressIndicator;
 @interface VLCPlaylistTableViewCell : UITableViewCell

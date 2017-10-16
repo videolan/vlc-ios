@@ -44,6 +44,12 @@
     return cell;
 }
 
+- (void)prepareForReuse
+{
+    [super prepareForReuse];
+    [self collapsWithAnimation:NO];
+}
+
 - (void)setNeedsDisplay
 {
     [self collapsWithAnimation:NO];

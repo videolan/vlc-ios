@@ -12,8 +12,6 @@
 
 @interface VLCLibrarySearchDisplayDataSource : NSObject<UITableViewDataSource>
 
-- (NSString *)cellIdentifier;
-- (UINib *)nibclass;
 - (NSManagedObject *)objectAtIndex:(NSUInteger)index;
 - (void)shouldReloadTableForSearchString:(NSString *)searchString searchableFiles:(NSArray *)files;
 

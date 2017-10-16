@@ -49,7 +49,7 @@ static NSString *kUsingTableViewToShowData = @"UsingTableViewToShowData";
 
 @end
 
-@interface VLCLibraryViewController () <VLCFolderCollectionViewDelegateFlowLayout, LXReorderableCollectionViewDataSource, LXReorderableCollectionViewDelegateFlowLayout, UITableViewDataSource, UITableViewDelegate, MLMediaLibrary, VLCMediaListDelegate, UISearchBarDelegate, UISearchDisplayDelegate> {
+@interface VLCLibraryViewController () <VLCFolderCollectionViewDelegateFlowLayout, LXReorderableCollectionViewDataSource, LXReorderableCollectionViewDelegateFlowLayout, UITableViewDataSource, UITableViewDelegate, MLMediaLibrary, VLCMediaListDelegate, UISearchResultsUpdating, UISearchControllerDelegate> {
     VLCLibraryMode _libraryMode;
     VLCLibraryMode _previousLibraryMode;
     UIBarButtonItem *_menuButton;
@@ -65,8 +65,7 @@ static NSString *kUsingTableViewToShowData = @"UsingTableViewToShowData";
     VLCLibrarySearchDisplayDataSource *_searchDataSource;
     VLCMediaDataSource *_mediaDataSource;
 
-    UISearchBar *_searchBar;
-    UISearchDisplayController *_searchDisplayController;
+    UISearchController *_searchController;
 
     UIBarButtonItem *_selectAllBarButtonItem;
     UIBarButtonItem *_createFolderBarButtonItem;
@@ -98,7 +97,7 @@ static NSString *kUsingTableViewToShowData = @"UsingTableViewToShowData";
 
 - (void)loadView
 {
-    [self setupContentViewWithContentInset:NO];
+    [self setupContentView];
     [self setViewFromDeviceOrientation];
     [self updateViewsForCurrentDisplayMode];
     _libraryMode = VLCLibraryModeAllFiles;
@@ -110,7 +109,7 @@ static NSString *kUsingTableViewToShowData = @"UsingTableViewToShowData";
     _emptyLibraryView.emptyLibraryLongDescriptionLabel.numberOfLines = 0;
 }
 
-- (void)setupContentViewWithContentInset:(BOOL)setInset
+- (void)setupContentView
 {
     CGRect viewDimensions = [UIApplication sharedApplication].keyWindow.bounds;
     UIView *contentView = [[UIView alloc] initWithFrame:viewDimensions];
@@ -118,7 +117,7 @@ static NSString *kUsingTableViewToShowData = @"UsingTableViewToShowData";
     contentView.backgroundColor = [UIColor VLCDarkBackgroundColor];
 
     if (self.usingTableViewToShowData) {
-        if(!_tableView) {
+        if (!_tableView) {
             _tableView = [[UITableView alloc] initWithFrame:viewDimensions style:UITableViewStylePlain];
             _tableView.backgroundColor = [UIColor VLCDarkBackgroundColor];
             CGRect frame = _tableView.bounds;
@@ -130,11 +129,11 @@ static NSString *kUsingTableViewToShowData = @"UsingTableViewToShowData";
             _tableView.separatorColor = [UIColor VLCDarkBackgroundColor];
             _tableView.delegate = self;
             _tableView.dataSource = self;
-            _tableView.opaque = YES;
             _tableView.indicatorStyle = UIScrollViewIndicatorStyleWhite;
             _tableView.autoresizingMask = UIViewAutoresizingFlexibleHeight | UIViewAutoresizingFlexibleWidth;
-            _tableView.tableHeaderView = _searchBar;
-            _tableView.tableFooterView = [UIView new];
+            _tableView.tableHeaderView = _searchController.searchBar;
+            UINib *nib = [UINib nibWithNibName:@"VLCPlaylistTableViewCell" bundle:nil];
+            [_tableView registerNib:nib forCellReuseIdentifier:kPlaylistCellIdentifier];
         }
         _tableView.frame = contentView.bounds;
         [contentView addSubview:_tableView];
@@ -147,16 +146,17 @@ static NSString *kUsingTableViewToShowData = @"UsingTableViewToShowData";
             _collectionView.indicatorStyle = UIScrollViewIndicatorStyleWhite;
             _collectionView.delegate = self;
             _collectionView.dataSource = self;
-            _collectionView.opaque = YES;
             _collectionView.backgroundColor = [UIColor VLCDarkBackgroundColor];
             _collectionView.autoresizingMask = UIViewAutoresizingFlexibleHeight | UIViewAutoresizingFlexibleWidth;
             _longPressGestureRecognizer = [[UILongPressGestureRecognizer alloc] initWithTarget:self action:@selector(_collectionViewHandleLongPressGesture:)];
             [_collectionView addGestureRecognizer:_longPressGestureRecognizer];
             [_collectionView registerNib:[UINib nibWithNibName:@"VLCPlaylistCollectionViewCell" bundle:nil] forCellWithReuseIdentifier:@"PlaylistCell"];
+
         }
         _collectionView.frame = contentView.bounds;
         [contentView addSubview:_collectionView];
         [_collectionView reloadData];
+        [_searchController setActive:NO];
     }
     self.view = contentView;
 }
@@ -227,26 +227,18 @@ static NSString *kUsingTableViewToShowData = @"UsingTableViewToShowData";
     self.navigationController.toolbar.tintColor = [UIColor whiteColor];
     [UIApplication sharedApplication].statusBarStyle = UIStatusBarStyleLightContent;
 
-    _searchBar = [[UISearchBar alloc] initWithFrame:CGRectMake(0, 0, 320, 44)];
-    UINavigationBar *navBar = self.navigationController.navigationBar;
-    _searchBar.barTintColor = navBar.barTintColor;
-    // cancel button tint color of UISearchBar with white color
-    [[UIBarButtonItem appearanceWhenContainedIn:[UISearchBar class], nil] setTitleTextAttributes:[NSDictionary dictionaryWithObjectsAndKeys:[UIColor whiteColor], NSForegroundColorAttributeName, nil] forState:UIControlStateNormal];
-    _searchBar.tintColor = navBar.tintColor;
-    _searchBar.translucent = navBar.translucent;
-    _searchBar.opaque = navBar.opaque;
-    _searchDisplayController = [[UISearchDisplayController alloc] initWithSearchBar:_searchBar contentsController:self];
-    _searchDisplayController.delegate = self;
-    _searchDisplayController.searchResultsDataSource = _searchDataSource;
-    _searchDisplayController.searchResultsDelegate = self;
-    _searchDisplayController.searchResultsTableView.separatorStyle = UITableViewCellSeparatorStyleNone;
-    _searchDisplayController.searchResultsTableView.indicatorStyle = UIScrollViewIndicatorStyleWhite;
-    [_searchDisplayController.searchResultsTableView registerNib:[_searchDataSource nibclass] forCellReuseIdentifier:[_searchDataSource cellIdentifier]];
-    _searchBar.delegate = self;
-
-    [self setSearchBar:YES resetContent:YES];
     self.edgesForExtendedLayout = UIRectEdgeNone;
 
+    [self setupSearchController];
+}
+
+- (void)setupSearchController
+{
+    _searchController = [[UISearchController alloc] initWithSearchResultsController:nil];
+    _searchController.searchResultsUpdater = self;
+    _searchController.dimsBackgroundDuringPresentation = NO;
+    _searchController.delegate = self;
+    [self setSearchBar:YES resetContent:YES];
 }
 
 - (void)viewWillAppear:(BOOL)animated
@@ -421,14 +413,11 @@ static NSString *kUsingTableViewToShowData = @"UsingTableViewToShowData";
 
 - (void)setSearchBar:(BOOL)enable resetContent:(BOOL)resetContent
 {
-    if (enable)
-        self.tableView.tableHeaderView = _searchBar;
-    else
-        self.tableView.tableHeaderView = [[UIView alloc] initWithFrame:CGRectMake(0.0f, 0.0f, self.tableView.bounds.size.width, CGFLOAT_MIN)];
+    _tableView.tableHeaderView = enable ? _searchController.searchBar : nil;
     if (resetContent) {
-        CGPoint contentOffset = self.tableView.contentOffset;
-        contentOffset.y += CGRectGetHeight(self.tableView.tableHeaderView.frame);
-        self.tableView.contentOffset = contentOffset;
+        CGPoint contentOffset = _tableView.contentOffset;
+        contentOffset.y += CGRectGetHeight(_tableView.tableHeaderView.frame);
+        _tableView.contentOffset = contentOffset;
     }
 }
 
@@ -523,10 +512,6 @@ static NSString *kUsingTableViewToShowData = @"UsingTableViewToShowData";
     static NSString *CellIdentifier = @"PlaylistCell";
 
     VLCPlaylistTableViewCell *cell = (VLCPlaylistTableViewCell *)[tableView dequeueReusableCellWithIdentifier:CellIdentifier];
-    if (cell == nil)
-        cell = [VLCPlaylistTableViewCell cellWithReuseIdentifier:CellIdentifier];
-    else
-        [cell collapsWithAnimation:NO];
 
     UISwipeGestureRecognizer *swipeRight = [[UISwipeGestureRecognizer alloc] initWithTarget:self action:@selector(swipeRightOnTableViewCellGestureAction:)];
     [swipeRight setDirection:(UISwipeGestureRecognizerDirectionRight)];
@@ -596,16 +581,6 @@ static NSString *kUsingTableViewToShowData = @"UsingTableViewToShowData";
 
     [tableView deselectRowAtIndexPath:indexPath animated:YES];
     NSManagedObject *selectedObject;
-
-    NSUInteger row = indexPath.row;
-    if (tableView == self.searchDisplayController.searchResultsTableView) {
-        selectedObject = [_searchDataSource objectAtIndex:row];
-    } else {
-        selectedObject = [_mediaDataSource objectAtIndex:row];
-    }
-
-    if (_searchDisplayController.active)
-        [_searchDisplayController setActive:NO animated:NO];
 
     if (selectedObject != nil)
         [self openMediaObject:selectedObject];
@@ -1336,7 +1311,7 @@ static NSString *kUsingTableViewToShowData = @"UsingTableViewToShowData";
 {
     [[NSUserDefaults standardUserDefaults] setBool:usingTableViewToShowData forKey:kUsingTableViewToShowData];
     [self updateViewsForCurrentDisplayMode];
-    [self setupContentViewWithContentInset:usingTableViewToShowData];
+    [self setupContentView];
 }
 
 #pragma mark - autorotation
@@ -1388,23 +1363,24 @@ static NSString *kUsingTableViewToShowData = @"UsingTableViewToShowData";
     } completion:nil];
 }
 
-#pragma mark - UISearchBar Delegate
+#pragma mark - SearchController Delegate
 
-- (void)searchBarTextDidEndEditing:(UISearchBar *)searchBar
+- (void)didPresentSearchController:(UISearchController *)searchController
 {
-    if (!self.usingTableViewToShowData) {
-        [self.collectionView.collectionViewLayout invalidateLayout];
-    }
-    [self.searchDisplayController setActive:NO];
-    [self.navigationController setNavigationBarHidden:NO animated:NO];
+    _tableView.dataSource = _searchDataSource;
 }
 
-#pragma mark - Search Display Controller Delegate
-
-- (BOOL)searchDisplayController:(UISearchDisplayController *)controller shouldReloadTableForSearchString:(NSString *)searchString
+- (void)didDismissSearchController:(UISearchController *)searchController
 {
-    [_searchDataSource shouldReloadTableForSearchString:searchString searchableFiles:[_mediaDataSource allObjects]];
-    return YES;
+    _tableView.dataSource = self;
+}
+
+#pragma mark - Search Research Updater
+
+- (void)updateSearchResultsForSearchController:(UISearchController *)searchController
+{
+    [_searchDataSource shouldReloadTableForSearchString:searchController.searchBar.text searchableFiles:[_mediaDataSource allObjects]];
+    [_tableView reloadData];
 }
 
 #pragma mark - handoff
@@ -1429,12 +1405,6 @@ static NSString *kUsingTableViewToShowData = @"UsingTableViewToShowData";
             }
         }
     }
-}
-
-- (void)searchDisplayController:(UISearchDisplayController *)controller didLoadSearchResultsTableView:(UITableView *)tableView
-{
-    tableView.rowHeight = 90.;
-    tableView.backgroundColor = [UIColor blackColor];
 }
 
 @end
