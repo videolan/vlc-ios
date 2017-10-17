@@ -205,17 +205,18 @@ NSString *const VLCDropboxSessionWasAuthorized = @"VLCDropboxSessionWasAuthorize
 
 - (void)setupAppearence
 {
+    UIColor *vlcOrange = [UIColor VLCOrangeTintColor];
     // Change the keyboard for UISearchBar
     [[UITextField appearance] setKeyboardAppearance:UIKeyboardAppearanceDark];
     // For the cursor
-    [[UITextField appearance] setTintColor:[UIColor VLCOrangeTintColor]];
+    [[UITextField appearance] setTintColor:vlcOrange];
     // Don't override the 'Cancel' button color in the search bar with the previous UITextField call. Use the default blue color
-    [[UIBarButtonItem appearanceWhenContainedIn:[UISearchBar class], nil] setTitleTextAttributes:[NSDictionary dictionaryWithObjectsAndKeys:[UIColor whiteColor], NSForegroundColorAttributeName, nil] forState:UIControlStateNormal];
+    [[UIBarButtonItem appearanceWhenContainedInInstancesOfClasses:@[[UISearchBar class]]] setTitleTextAttributes:@{[UIColor whiteColor] : NSForegroundColorAttributeName} forState:UIControlStateNormal];
 
     // For the edit selection indicators
-    [[UITableView appearance] setTintColor:[UIColor VLCOrangeTintColor]];
-    [[UISwitch appearance] setOnTintColor:[UIColor VLCOrangeTintColor]];
-    [[UISearchBar appearance] setBarTintColor:[UIColor VLCOrangeTintColor]];
+    [[UITableView appearance] setTintColor:vlcOrange];
+    [[UISwitch appearance] setOnTintColor:vlcOrange];
+    [[UISearchBar appearance] setBarTintColor:vlcOrange];
 }
 
 - (void)dealloc
