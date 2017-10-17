@@ -1362,6 +1362,14 @@ static NSString *kUsingTableViewToShowData = @"UsingTableViewToShowData";
     } completion:nil];
 }
 
+#pragma mark - UIScrollViewDelegate
+
+- (void)scrollViewWillBeginDragging:(UIScrollView *)scrollView
+{
+    if ([_searchController.searchBar isFirstResponder])
+        [_searchController.searchBar resignFirstResponder];
+}
+
 #pragma mark - SearchController Delegate
 
 - (void)didPresentSearchController:(UISearchController *)searchController
