@@ -754,11 +754,11 @@ typedef NS_ENUM(NSInteger, VLCPanType) {
     int seekDuration = (int)_numberOfTapSeek * SHORT_JUMP_DURATION;
 
     if (seekDuration > 0) {
-        [_vpc jumpForward:10];
+        [_vpc jumpForward:SHORT_JUMP_DURATION];
         [hudString appendString:@"⇒ "];
         _previousJumpState = VLCMovieJumpStateForward;
     } else {
-        [_vpc jumpBackward:10];
+        [_vpc jumpBackward:SHORT_JUMP_DURATION];
         [hudString appendString:@"⇐ "];
         _previousJumpState = VLCMovieJumpStateBackward;
     }
