@@ -240,9 +240,7 @@ typedef NS_ENUM(NSUInteger, VLCDownloadScheme) {
         [self requestCompleted:_FTPDownloadRequest];
 
         /* remove partially downloaded content */
-        NSFileManager *fileManager = [NSFileManager defaultManager];
-        if ([fileManager fileExistsAtPath:target.path])
-            [fileManager removeItemAtPath:target.path error:nil];
+        [[NSFileManager defaultManager] removeItemAtPath:target.path error:nil];
     }
 }
 
