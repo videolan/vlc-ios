@@ -655,7 +655,7 @@
     [_receivedFiles addObject:path];
 
     VLCPlaybackController *vpc = [VLCPlaybackController sharedInstance];
-    BOOL needsMediaList;
+    BOOL needsMediaList = NO;
     VLCMediaList *mediaList = vpc.mediaList;
 
     if (!mediaList) {
