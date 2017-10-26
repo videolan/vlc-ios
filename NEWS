@@ -1,3 +1,16 @@
+tvOS 1.1.0:
+-----------
+· Full support for tvOS 11
+· Hardware decoding of H.264
+· Greatly improved playback engine
+· Improved support for pass-through audio playback and multi-channel audio
+· Fixes an unexpected app termination when uploading specifically crafted files through Remote Playback
+
+iOS 2.8.5:
+----------
+· Fixes an unexpected app termination when uploading specifically crafted files through WiFi Upload
+· iOS 7 stability improvements, notably when browsing servers via UPnP or deleting locally stored media
+
 iOS 2.8.4:
 ----------
 · Fixes a not responsive UI after scrubbing the Video
