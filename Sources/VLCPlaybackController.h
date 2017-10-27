@@ -92,8 +92,10 @@ currentMediaHasTrackToChooseFrom:(BOOL)currentMediaHasTrackToChooseFrom
 - (void)forward;
 - (void)backward;
 - (void)switchAspectRatio;
+#if !TARGET_OS_TV
 - (BOOL)updateViewpoint:(CGFloat)yaw pitch:(CGFloat)pitch roll:(CGFloat)roll fov:(CGFloat)fov absolute:(BOOL)absolute;
 - (NSInteger)currentMediaProjection;
+#endif
 - (void)recoverDisplayedMetadata;
 - (void)recoverPlaybackState;
 
