@@ -198,9 +198,6 @@
 
 - (void)scrollViewDidScroll:(UIScrollView *)scrollView
 {
-    NSInteger currentOffset = scrollView.contentOffset.y;
-    NSInteger maximumOffset = scrollView.contentSize.height - scrollView.frame.size.height;
-
     if (_boxController.hasMoreFiles && !self.activityIndicator.isAnimating) {
         [self requestInformationForCurrentPath];
     }

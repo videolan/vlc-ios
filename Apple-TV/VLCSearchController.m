@@ -19,7 +19,6 @@
 }
 - (void)showViewController:(UIViewController *)vc sender:(id)sender
 {
-    UIViewController *presentingControllerController = self.presentingViewController;
     [self.presentingViewController showViewController:vc sender:sender];
     [self dismissViewControllerAnimated:YES completion:nil];
 }
