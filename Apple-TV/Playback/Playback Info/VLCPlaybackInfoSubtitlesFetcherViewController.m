@@ -30,6 +30,7 @@
     [super viewDidLoad];
 
     self.titleLabel.text = self.title;
+    self.tableView.backgroundColor = [UIColor clearColor];
 
     _osoFetcher = [[MDFOSOFetcher alloc] init];
     _osoFetcher.userAgentKey = @"VLSub 0.9";
