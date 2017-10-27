@@ -116,7 +116,7 @@
 {
     [self stopActivity];
     VLCPlaybackController *vpc = [VLCPlaybackController sharedInstance];
-    [vpc.mediaPlayer openVideoSubTitlesFromFile:pathToFile];
+    [vpc.mediaPlayer addPlaybackSlave:[NSURL fileURLWithPath:pathToFile] type:VLCMediaPlaybackSlaveTypeSubtitle enforce:YES];
     [self dismissViewControllerAnimated:YES completion:nil];
     [[NSNotificationCenter defaultCenter] postNotificationName:VLCPlaybackControllerPlaybackMetadataDidChange object:nil];
 }
