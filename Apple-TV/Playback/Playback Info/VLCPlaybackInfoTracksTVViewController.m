@@ -107,7 +107,7 @@
     NSArray *audioTrackIndexes = self.mediaPlayer.audioTrackIndexes;
     NSString *trackName;
 
-    trackCell.titleLabel.font = [UIFont boldSystemFontOfSize:29.];
+    trackCell.titleLabel.font = [UIFont systemFontOfSize:29.];
 
     if (row >= audioTrackIndexes.count) {
         if ([[NSUserDefaults standardUserDefaults] boolForKey:kVLCSettingUseSPDIF]) {
@@ -118,6 +118,9 @@
     } else {
         BOOL isSelected = [audioTrackIndexes[row] intValue] == self.mediaPlayer.currentAudioTrackIndex;
         trackCell.selectionMarkerVisible = isSelected;
+        if (isSelected) {
+            trackCell.titleLabel.font = [UIFont boldSystemFontOfSize:29.];
+        }
 
         trackName = self.mediaPlayer.audioTrackNames[row];
         if (trackName != nil) {
