@@ -107,7 +107,7 @@
     NSInteger row = indexPath.row;
     NSString *trackName;
 
-    trackCell.titleLabel.font = [UIFont boldSystemFontOfSize:29.];
+    trackCell.titleLabel.font = [UIFont systemFontOfSize:29.];
 
     if (row >= [vpc numberOfAudioTracks]) {
         if ([[NSUserDefaults standardUserDefaults] boolForKey:kVLCSettingUseSPDIF]) {
@@ -118,6 +118,9 @@
     } else {
         BOOL isSelected = row == [vpc indexOfCurrentAudioTrack];
         trackCell.selectionMarkerVisible = isSelected;
+        if (isSelected) {
+            trackCell.titleLabel.font = [UIFont boldSystemFontOfSize:29.];
+        }
 
         trackName = [vpc audioTrackNameAtIndex:row];
         if (trackName != nil) {
