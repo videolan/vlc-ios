@@ -546,7 +546,7 @@
     for (NSUInteger x = 0; x < mediaCount; x++) {
         VLCMedia *media = [mediaList mediaAtIndex:x];
         NSString *mediaTitle;
-        if (media.isParsed) {
+        if (media.parsedStatus == VLCMediaParsedStatusDone) {
             mediaTitle = [media metadataForKey:VLCMetaInformationTitle];
         } else {
             mediaTitle = media.url.lastPathComponent;
