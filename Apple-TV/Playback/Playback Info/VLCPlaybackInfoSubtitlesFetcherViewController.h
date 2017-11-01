@@ -14,6 +14,7 @@
 
 @interface VLCPlaybackInfoSubtitlesFetcherViewController : VLCPlaybackInfoPanelTVViewController
 
+@property (readwrite, weak, nonatomic) IBOutlet UIVisualEffectView *visualEffectView;
 @property (readwrite, weak, nonatomic) IBOutlet UITableView *tableView;
 @property (readwrite, weak, nonatomic) IBOutlet UILabel *titleLabel;
 

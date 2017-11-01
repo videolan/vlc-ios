@@ -14,6 +14,7 @@
 @interface VLCPlaybackInfoTVViewController : UIViewController <UITabBarControllerDelegate, UIGestureRecognizerDelegate>
 
 @property (nonatomic) IBOutlet UIView *containerView;
+@property (nonatomic) IBOutlet UIVisualEffectView *visualEffectView;
 @property (nonatomic) IBOutlet UIView *dimmingView;
 @property (nonatomic) IBOutlet NSLayoutConstraint *tabBarRegiomHeightConstraint;
 @property (nonatomic) IBOutlet NSLayoutConstraint *containerHeightConstraint;

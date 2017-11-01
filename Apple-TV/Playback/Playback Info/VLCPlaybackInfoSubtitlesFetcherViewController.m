@@ -77,7 +77,19 @@
                                                                   multiplier:1.0
                                                                     constant:0.0];
     [self.view addConstraint:xConstraint];
+}
 
+- (void)viewWillAppear:(BOOL)animated
+{
+    if ([UIScreen mainScreen].traitCollection.userInterfaceStyle == UIUserInterfaceStyleDark) {
+        self.visualEffectView.effect = [UIBlurEffect effectWithStyle:UIBlurEffectStyleDark];
+        self.titleLabel.textColor = [UIColor VLCLightTextColor];
+    } else {
+        self.visualEffectView.effect = [UIBlurEffect effectWithStyle:UIBlurEffectStyleLight];
+        self.titleLabel.textColor = [UIColor VLCDarkTextColor];
+    }
+
+    [super viewWillAppear:animated];
 }
 
 #pragma mark - OSO Fetcher delegation

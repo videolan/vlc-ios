@@ -29,6 +29,11 @@
     return [UIColor colorWithWhite:.72 alpha:1.];
 }
 
++ (UIColor *)VLCDarkTextColor
+{
+    return [UIColor colorWithWhite:.28 alpha:1.];
+}
+
 + (UIColor *)VLCDarkTextShadowColor
 {
     return [UIColor colorWithWhite:0. alpha:.25f];

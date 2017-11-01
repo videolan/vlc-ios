@@ -77,6 +77,10 @@
 
 - (void)viewWillAppear:(BOOL)animated
 {
+    if ([UIScreen mainScreen].traitCollection.userInterfaceStyle == UIUserInterfaceStyleDark) {
+        self.visualEffectView.effect = [UIBlurEffect effectWithStyle:UIBlurEffectStyleDark];
+    }
+
     UITabBarController *tabBarController = self.tabBarController;
     UIViewController *oldSelectedVC = tabBarController.selectedViewController;
     tabBarController.viewControllers = [self tabViewControllers];
