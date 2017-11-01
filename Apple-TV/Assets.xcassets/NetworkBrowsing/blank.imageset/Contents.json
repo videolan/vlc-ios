@@ -2,11 +2,12 @@
   "images" : [
     {
       "idiom" : "tv",
-      "filename" : "doc-icon.png",
+      "filename" : "Doc.png",
       "scale" : "1x"
     },
     {
       "idiom" : "tv",
+      "filename" : "Doc@2x.png",
       "scale" : "2x"
     }
   ],
