@@ -39,8 +39,15 @@
     [super prepareForReuse];
     self.selectionMarkerVisible = NO;
     self.titleLabel.text = nil;
-    self.selectionMarkerView.textColor = [UIColor darkGrayColor];
-    self.titleLabel.textColor = [UIColor darkGrayColor];
+
+    UIColor *textColor;
+    if ([UIScreen mainScreen].traitCollection.userInterfaceStyle == UIUserInterfaceStyleDark) {
+        textColor = [UIColor VLCLightTextColor];
+    } else {
+        textColor = [UIColor VLCDarkTextColor];
+    }
+    self.selectionMarkerView.textColor = textColor;
+    self.titleLabel.textColor = textColor;
 }
 
 - (void)didUpdateFocusInContext:(UIFocusUpdateContext *)context withAnimationCoordinator:(UIFocusAnimationCoordinator *)coordinator

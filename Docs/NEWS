@@ -3,6 +3,7 @@ tvOS 1.1.0:
 · Full support for tvOS 11 and Apple TV 4K
 · Hardware decoding of H.264
 · Greatly improved playback engine
+· Added support for dark user interface style
 · Improved support for pass-through audio playback and multi-channel audio
 · Fixes an unexpected app termination when uploading specifically crafted files through Remote Playback
 

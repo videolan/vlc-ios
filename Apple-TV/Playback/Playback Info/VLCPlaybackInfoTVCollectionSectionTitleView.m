@@ -19,7 +19,11 @@
     if (self) {
         UILabel *label = [[UILabel alloc] initWithFrame:frame];
         label.font = [UIFont preferredFontForTextStyle:UIFontTextStyleSubheadline];
-        label.textColor = [UIColor darkGrayColor];
+        if ([UIScreen mainScreen].traitCollection.userInterfaceStyle == UIUserInterfaceStyleDark) {
+            label.textColor = [UIColor VLCLightTextColor];
+        } else {
+            label.textColor = [UIColor VLCDarkTextColor];
+        }
         label.autoresizingMask = UIViewAutoresizingFlexibleWidth | UIViewAutoresizingFlexibleHeight;
         [self addSubview:label];
         _titleLabel = label;

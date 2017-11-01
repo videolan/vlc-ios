@@ -46,6 +46,16 @@
 
 - (void)viewWillAppear:(BOOL)animated
 {
+    if ([UIScreen mainScreen].traitCollection.userInterfaceStyle == UIUserInterfaceStyleDark) {
+        UIColor *lightColor = [UIColor VLCLightTextColor];
+        self.titleLabel.textColor = lightColor;
+        self.metaDataLabel.textColor = lightColor;
+    } else {
+        UIColor *darkColor = [UIColor VLCDarkTextColor];
+        self.titleLabel.textColor = darkColor;
+        self.metaDataLabel.textColor = darkColor;
+    }
+
     VLCPlaybackController *vpc = [VLCPlaybackController sharedInstance];
     self.titleLabel.text = vpc.metadata.title;
 

@@ -29,15 +29,20 @@
     self.titleLabel.text = self.title;
     self.titleLabel.textColor = [UIColor colorWithWhite:0.5 alpha:1.];
 
+    NSMutableAttributedString *aboutContents = [[NSMutableAttributedString alloc] initWithData:[[NSString stringWithContentsOfFile:[[NSBundle mainBundle]
+                                                                                                                                    pathForResource:@"About Contents" ofType:@"html"]
+                                                                                                                          encoding:NSUTF8StringEncoding
+                                                                                                                             error:nil]
+                                                                                                dataUsingEncoding:NSUTF8StringEncoding]
+                                                                                       options:@{NSDocumentTypeDocumentAttribute: NSHTMLTextDocumentType,
+                                                                                                 NSCharacterEncodingDocumentAttribute: @(NSUTF8StringEncoding)}
+                                                                            documentAttributes:nil error:nil];
+    if ([UIScreen mainScreen].traitCollection.userInterfaceStyle == UIUserInterfaceStyleDark) {
+        [aboutContents addAttribute:NSForegroundColorAttributeName value:[UIColor VLCLightTextColor] range:NSMakeRange(0., aboutContents.length)];
+    }
+
     UITextView *textView = self.blablaTextView;
-    textView.attributedText = [[NSAttributedString alloc] initWithData:[[NSString stringWithContentsOfFile:[[NSBundle mainBundle]
-                                                                                                                       pathForResource:@"About Contents" ofType:@"html"]
-                                                                                                             encoding:NSUTF8StringEncoding
-                                                                                                                error:nil]
-                                                                                   dataUsingEncoding:NSUTF8StringEncoding]
-                                                                          options:@{NSDocumentTypeDocumentAttribute: NSHTMLTextDocumentType,
-                                                                                    NSCharacterEncodingDocumentAttribute: @(NSUTF8StringEncoding)}
-                                                               documentAttributes:nil error:nil];
+    textView.attributedText = aboutContents;
     textView.scrollEnabled = YES;
     textView.panGestureRecognizer.allowedTouchTypes = @[ @(UITouchTypeIndirect) ];
     [textView.panGestureRecognizer addTarget:self action:@selector(scrollViewPan:)];
