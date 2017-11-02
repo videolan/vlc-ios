@@ -10,7 +10,7 @@ platform :ios, '7.0'
 pod 'OBSlider', '1.1.0'
 pod 'InAppSettingsKit', :git => 'git://github.com/fkuehne/InAppSettingsKit.git', :commit => '415ea6bb' #tvOS fix
 pod 'upnpx', '~>1.4.0'
-pod 'HockeySDK', '~>3.6.4'
+pod 'HockeySDK', '~>4.1.6', :subspecs => ['CrashOnlyLib']
 pod 'XKKeychain', '~>1.0'
 pod 'box-ios-sdk-v2', :git => 'git://github.com/fkuehne/box-ios-sdk-v2.git' #has a logout function added
 pod 'CocoaHTTPServer', :git => 'git://github.com/fkuehne/CocoaHTTPServer.git' # has our fixes
@@ -31,7 +31,7 @@ platform :ios, '7.0'
 pod 'OBSlider', '1.1.0'
 pod 'InAppSettingsKit', :git => 'git://github.com/fkuehne/InAppSettingsKit.git', :commit => '415ea6bb' #tvOS fix
 pod 'upnpx', '~>1.4.0'
-pod 'HockeySDK', '~>3.6.4'
+pod 'HockeySDK', '~>4.1.6', :subspecs => ['CrashOnlyLib']
 pod 'XKKeychain', '~>1.0'
 pod 'box-ios-sdk-v2', :git => 'git://github.com/fkuehne/box-ios-sdk-v2.git' #has a logout function added
 pod 'CocoaHTTPServer', :git => 'git://github.com/fkuehne/CocoaHTTPServer.git' # has our fixes
@@ -52,7 +52,7 @@ platform :ios, '7.0'
 pod 'OBSlider', '1.1.0'
 pod 'InAppSettingsKit', :git => 'git://github.com/fkuehne/InAppSettingsKit.git', :commit => '415ea6bb' #tvOS fix
 pod 'upnpx', '~>1.4.0'
-pod 'HockeySDK', '~>3.6.4'
+pod 'HockeySDK', '~>4.1.6', :subspecs => ['CrashOnlyLib']
 pod 'XKKeychain', '~>1.0'
 pod 'box-ios-sdk-v2', :git => 'git://github.com/fkuehne/box-ios-sdk-v2.git' #has a logout function added
 pod 'CocoaHTTPServer', :git => 'git://github.com/fkuehne/CocoaHTTPServer.git' # has our fixes
@@ -77,13 +77,13 @@ pod 'GRKArrayDiff', '~> 2.1'
 pod 'VLC-WhiteRaccoon'
 pod 'VLC-LiveSDK', '5.7.0x'
 pod 'ObjectiveDropboxOfficial', :git => 'git://github.com/carolanitz/dropbox-sdk-obj-c.git' #update ios platform version
-pod 'HockeySDK-tvOS', '4.1.0-beta.1'
+pod 'HockeySDK-tvOS', '~>5.0.0'
 pod 'TVVLCKit-unstable', '3.0.0a43'
 
 end
 
 target 'VLC-tvOS-Debug' do
-platform :tvos, '9.0'
+platform :tvos, '10.2'
 pod 'XKKeychain', '~>1.0'
 pod 'box-ios-sdk-v2', :git => 'git://github.com/fkuehne/box-ios-sdk-v2.git' #has tvOS support added
 pod 'upnpx', '~>1.4.0'
@@ -94,7 +94,7 @@ pod 'GRKArrayDiff', '~> 2.1'
 pod 'VLC-WhiteRaccoon'
 pod 'VLC-LiveSDK', '5.7.0x'
 pod 'ObjectiveDropboxOfficial', :git => 'git://github.com/carolanitz/dropbox-sdk-obj-c.git' #update ios platform version
-pod 'HockeySDK-tvOS', '4.1.0-beta.1'
+pod 'HockeySDK-tvOS', '~>5.0.0'
 
 end
 
