@@ -28,13 +28,13 @@ PODS:
   - GTMAppAuth (0.6.1):
     - AppAuth (~> 0.9.0)
     - GTMSessionFetcher (~> 1.1)
-  - GTMSessionFetcher (1.1.11):
-    - GTMSessionFetcher/Full (= 1.1.11)
-  - GTMSessionFetcher/Core (1.1.11)
-  - GTMSessionFetcher/Full (1.1.11):
-    - GTMSessionFetcher/Core (= 1.1.11)
-  - HockeySDK (3.6.4)
-  - HockeySDK-tvOS (4.1.0-beta.1)
+  - GTMSessionFetcher (1.1.12):
+    - GTMSessionFetcher/Full (= 1.1.12)
+  - GTMSessionFetcher/Core (1.1.12)
+  - GTMSessionFetcher/Full (1.1.12):
+    - GTMSessionFetcher/Core (= 1.1.12)
+  - HockeySDK-tvOS (5.0.0)
+  - HockeySDK/CrashOnlyLib (4.1.6)
   - InAppSettingsKit (2.2.2)
   - MediaLibraryKit-unstable (2.6.4):
     - MobileVLCKit-unstable (~> 3.0.0a8)
@@ -64,8 +64,8 @@ DEPENDENCIES:
   - GoogleAPIClient/Drive
   - GRKArrayDiff (~> 2.1)
   - GTMAppAuth
-  - HockeySDK (~> 3.6.4)
-  - HockeySDK-tvOS (= 4.1.0-beta.1)
+  - HockeySDK-tvOS (~> 5.0.0)
+  - HockeySDK/CrashOnlyLib (~> 4.1.6)
   - InAppSettingsKit (from `git://github.com/fkuehne/InAppSettingsKit.git`, commit `415ea6bb`)
   - MediaLibraryKit-unstable
   - MetaDataFetcherKit (~> 0.1.8)
@@ -100,7 +100,7 @@ CHECKOUT OPTIONS:
     :commit: 180f009b3b22d813ca40e4c88074e0ef228c357b
     :git: git://github.com/fkuehne/box-ios-sdk-v2.git
   CocoaHTTPServer:
-    :commit: 03eb78052d2c096686880031f6320131e7ced3a5
+    :commit: a73589dbb4c67a3a6e6441e1981ba1b5b70a77ad
     :git: git://github.com/fkuehne/CocoaHTTPServer.git
   InAppSettingsKit:
     :commit: 415ea6bb
@@ -120,9 +120,9 @@ SPEC CHECKSUMS:
   GoogleAPIClient: 77df755d41d70ee5a99b7b752614fbb439f19438
   GRKArrayDiff: cf743e6b30f6b72a3763e1f16cc5d9da39af86a5
   GTMAppAuth: ae710e1e53431e2bcdd57f9f92daa16a58a2947d
-  GTMSessionFetcher: 5ad62e8200fa00ed011fe5e08d27fef72c5b1429
-  HockeySDK: c07cdd580296737edcd0963e292c19885a53f563
-  HockeySDK-tvOS: fe5373e9a6e70aeca464f8491eb32b60b04fb322
+  GTMSessionFetcher: ebaa1f79a5366922c1735f1566901f50beba23b7
+  HockeySDK: 95db557d54489a570dcdefae0d02f98eecc279a3
+  HockeySDK-tvOS: 6b2a69f86419ebaf23225f59a64e5761ed3a0d8a
   InAppSettingsKit: 76d5cfbaa3e3f8aa53fe3628516da7eb1aa6a5cb
   MediaLibraryKit-unstable: b4834ad57d5d2f49f30b9edd2d7650d151fc5534
   MetaDataFetcherKit: 44c90defa89b3a72cef60e07ad9de37821dd7c5d
@@ -140,6 +140,6 @@ SPEC CHECKSUMS:
   XKKeychain: 852ef663c56a7194c73d3c68e8d9d4f07b121d4f
   xmlrpc: 109bb21d15ed6d108b2c1ac5973a6a223a50f5f4
 
-PODFILE CHECKSUM: 243857e265a7512adbb44cf17f641372e72e2810
+PODFILE CHECKSUM: 63212d6234937e583e165dcdc386dd5b515694c1
 
 COCOAPODS: 1.3.1
