@@ -344,7 +344,9 @@
         for (NSUInteger index = 0; index < itemsCount; ++index) {
             NSIndexPath *indexPath = [NSIndexPath indexPathForItem:index inSection:section];
             id<VLCLocalNetworkService> service = [discoveryController networkServiceForIndexPath:indexPath];
-            [newNetworkServices addObject:service];
+            if (service != nil) {
+                [newNetworkServices addObject:service];
+            }
         }
     }
 
