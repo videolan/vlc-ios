@@ -44,7 +44,7 @@
 
     NSHTTPURLResponse *response = nil;
     NSError *error = nil;
-    [NSURLConnection sendSynchronousRequest:request returningResponse:&response error:&error];
+    [self sendSynchronousRequest:request returningResponse:&response error:&error];
 
     authToken = [NSHTTPCookie cookiesWithResponseHeaderFields:[response allHeaderFields] forURL:[NSURL URLWithString:@""]];
     [[NSHTTPCookieStorage sharedHTTPCookieStorage] setCookies:authToken forURL:url mainDocumentURL:nil];
@@ -78,7 +78,7 @@
 
     NSHTTPURLResponse *response = nil;
     NSError *error = nil;
-    [NSURLConnection sendSynchronousRequest:request returningResponse:&response error:&error];
+    [self sendSynchronousRequest:request returningResponse:&response error:&error];
 
     if ([response statusCode] == 201)
         return YES;
@@ -100,7 +100,7 @@
 
     NSHTTPURLResponse *response = nil;
     NSError *error = nil;
-    NSData *urlData = [NSURLConnection sendSynchronousRequest:request returningResponse:&response error:&error];
+    NSData *urlData = [self sendSynchronousRequest:request returningResponse:&response error:&error];
 
     // for debug
     //NSString *debugStr = [[NSString alloc] initWithData:urlData encoding:NSUTF8StringEncoding];
@@ -184,7 +184,7 @@
     NSURLRequest *request = [[NSURLRequest alloc] initWithURL:[NSURL URLWithString:[[[VLCPlexWebAPI alloc] init] urlAuth:url authentification:auth]] cachePolicy:NSURLRequestReloadIgnoringLocalAndRemoteCacheData timeoutInterval:20];
     NSURLResponse *response = nil;
     NSError *error = nil;
-    [NSURLConnection sendSynchronousRequest:request returningResponse:&response error:&error];
+    [self sendSynchronousRequest:request returningResponse:&response error:&error];
 
     NSInteger httpStatus = [(NSHTTPURLResponse *)response statusCode];
 
@@ -274,7 +274,7 @@
     NSURLRequest *request = [NSURLRequest requestWithURL:url cachePolicy:NSURLRequestUseProtocolCachePolicy timeoutInterval:5.0];
     NSHTTPURLResponse *response = nil;
     NSError *error = nil;
-    [NSURLConnection sendSynchronousRequest:request returningResponse:&response error:&error];
+    [self sendSynchronousRequest:request returningResponse:&response error:&error];
 
     if ([response statusCode] != 200)
         APLog(@"Plex stop Session %@ : %@", session, [response allHeaderFields]);
@@ -292,6 +292,29 @@
 {
     NSURL *url = [NSURL URLWithString:kPlexURLdeviceInfo];
     NSData *data = [self HttpRequestWithCookie:url cookies:cookies HTTPMethod:@"GET"];
+    return data;
+}
+
+- (NSData *)sendSynchronousRequest:(NSURLRequest *)request returningResponse:(NSURLResponse **)response error:(NSError **)error
+{
+    NSError __block *erreur = NULL;
+    NSData __block *data;
+    BOOL __block reqProcessed = false;
+    NSURLResponse __block *urlResponse;
+
+    [[[NSURLSession sharedSession] dataTaskWithRequest:request completionHandler:^(NSData * _Nullable _data, NSURLResponse * _Nullable _response, NSError * _Nullable _error) {
+        urlResponse = _response;
+        erreur = _error;
+        data = _data;
+        reqProcessed = true;
+    }] resume];
+
+    while (!reqProcessed) {
+        [NSThread sleepForTimeInterval:0];
+    }
+
+    *response = urlResponse;
+    *error = erreur;
     return data;
 }
 

@@ -49,7 +49,7 @@ static NSString *const kPlexVLCDeviceName = @"VLC for iOS";
         }
     }
 
-    mediaServerUrl = [[urlComponents URL].absoluteString stringByReplacingPercentEscapesUsingEncoding:NSUTF8StringEncoding];
+    mediaServerUrl = [[urlComponents URL].absoluteString stringByRemovingPercentEncoding];
 
     VLCPlexWebAPI *PlexWebAPI = [[VLCPlexWebAPI alloc] init];
     NSURL *url = [[NSURL alloc] initWithString:[PlexWebAPI urlAuth:mediaServerUrl authentification:auth]];
@@ -57,7 +57,7 @@ static NSString *const kPlexVLCDeviceName = @"VLC for iOS";
     NSURLRequest *request = [NSURLRequest requestWithURL:url cachePolicy:NSURLRequestUseProtocolCachePolicy timeoutInterval:5.0];
     NSHTTPURLResponse *response = nil;
     NSError *error = nil;
-    NSData *data = [NSURLConnection sendSynchronousRequest:request returningResponse:&response error:&error];
+    NSData *data = [self sendSynchronousRequest:request returningResponse:&response error:&error];
 
     if ([response statusCode] != 200) {
         NSString *responseString = [[NSString alloc] initWithData:data encoding:NSUTF8StringEncoding];
@@ -77,7 +77,7 @@ static NSString *const kPlexVLCDeviceName = @"VLC for iOS";
                 request = [NSURLRequest requestWithURL:url cachePolicy:NSURLRequestUseProtocolCachePolicy timeoutInterval:5.0];
                 response = nil;
                 error = nil;
-                data = [NSURLConnection sendSynchronousRequest:request returningResponse:&response error:&error];
+                data = [self sendSynchronousRequest:request returningResponse:&response error:&error];
                 if ([response statusCode] != 200) {
                     if (outError) {
 
@@ -229,6 +229,29 @@ static NSString *const kPlexVLCDeviceName = @"VLC for iOS";
         [_containerInfo addObject:_dicoInfo];
         _dicoInfo = [[NSMutableDictionary alloc] init];
     }
+}
+
+- (NSData *)sendSynchronousRequest:(NSURLRequest *)request returningResponse:(NSURLResponse **)response error:(NSError **)error
+{
+    NSError __block *erreur = NULL;
+    NSData __block *data;
+    BOOL __block reqProcessed = false;
+    NSURLResponse __block *urlResponse;
+
+    [[[NSURLSession sharedSession] dataTaskWithRequest:request completionHandler:^(NSData * _Nullable _data, NSURLResponse * _Nullable _response, NSError * _Nullable _error) {
+        urlResponse = _response;
+        erreur = _error;
+        data = _data;
+        reqProcessed = true;
+    }] resume];
+
+    while (!reqProcessed) {
+        [NSThread sleepForTimeInterval:0];
+    }
+
+    *response = urlResponse;
+    *error = erreur;
+    return data;
 }
 
 @end
