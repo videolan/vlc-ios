@@ -43,14 +43,14 @@
 			</array>
 		</dict>
 		<dict>
-			<key>DefaultValue</key>
-			<true/>
-			<key>Key</key>
-			<string>AutomaticallyPlayNextItem</string>
-			<key>Title</key>
-			<string>SETTINGS_NETWORK_PLAY_ALL</string>
 			<key>Type</key>
 			<string>PSToggleSwitchSpecifier</string>
+			<key>Title</key>
+			<string>SETTINGS_NETWORK_PLAY_ALL</string>
+			<key>Key</key>
+			<string>AutomaticallyPlayNextItem</string>
+			<key>DefaultValue</key>
+			<true/>
 		</dict>
 		<dict>
 			<key>Type</key>
