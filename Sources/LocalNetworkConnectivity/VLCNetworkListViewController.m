@@ -2,7 +2,7 @@
  * VLCLocalNetworkListViewController
  * VLC for iOS
  *****************************************************************************
- * Copyright (c) 2013-2015 VideoLAN. All rights reserved.
+ * Copyright (c) 2013-2017 VideoLAN. All rights reserved.
  * $Id$
  *
  * Authors: Felix Paul Kühne <fkuehne # videolan.org>
@@ -16,11 +16,9 @@
 
 NSString *VLCNetworkListCellIdentifier = @"VLCNetworkListCellIdentifier";
 
-@interface VLCNetworkListViewController () <UITableViewDataSource, UITableViewDelegate, UISearchBarDelegate, UISearchDisplayDelegate>
+@interface VLCNetworkListViewController () <UITableViewDataSource, UITableViewDelegate, UISearchBarDelegate, UISearchControllerDelegate, UISearchResultsUpdating>
 {
     NSMutableArray *_searchData;
-    UISearchBar *_searchBar;
-    UISearchDisplayController *_searchDisplayController;
     UITapGestureRecognizer *_tapTwiceGestureRecognizer;
 }
 
@@ -57,22 +55,21 @@ NSString *VLCNetworkListCellIdentifier = @"VLCNetworkListCellIdentifier";
     self.tableView.separatorColor = [UIColor VLCDarkBackgroundColor];
     self.view.backgroundColor = [UIColor VLCDarkBackgroundColor];
 
-    _searchBar = [[UISearchBar alloc] initWithFrame:CGRectMake(0, 0, 320, 44)];
     UINavigationBar *navBar = self.navigationController.navigationBar;
-    _searchBar.barTintColor = navBar.barTintColor;
-    _searchBar.tintColor = navBar.tintColor;
-    _searchBar.translucent = navBar.translucent;
-    _searchBar.opaque = navBar.opaque;
-    _searchDisplayController = [[UISearchDisplayController alloc] initWithSearchBar:_searchBar contentsController:self];
-    _searchDisplayController.delegate = self;
-    _searchDisplayController.searchResultsDataSource = self;
-    _searchDisplayController.searchResultsDelegate = self;
-    _searchDisplayController.searchResultsTableView.separatorStyle = UITableViewCellSeparatorStyleNone;
-    _searchDisplayController.searchResultsTableView.indicatorStyle = UIScrollViewIndicatorStyleWhite;
-    _searchDisplayController.searchBar.searchBarStyle = UIBarStyleBlack;
-    _searchBar.delegate = self;
+    _searchController = [[UISearchController alloc] initWithSearchResultsController:nil];
+    _searchController.searchResultsUpdater = self;
+    _searchController.delegate = self;
+    _searchController.dimsBackgroundDuringPresentation = NO;
 
-    self.tableView.tableHeaderView = _searchBar;
+    _searchController.searchBar.delegate = self;
+    _searchController.searchBar.barTintColor = navBar.barTintColor;
+    _searchController.searchBar.tintColor = navBar.tintColor;
+    _searchController.searchBar.translucent = navBar.translucent;
+    _searchController.searchBar.opaque = navBar.opaque;
+    [_searchController.searchBar sizeToFit];
+    
+    _tableView.tableHeaderView = _searchController.searchBar;
+    self.definesPresentationContext = YES;
 
     self.navigationItem.rightBarButtonItems = @[[UIBarButtonItem themedRevealMenuButtonWithTarget:self andSelector:@selector(menuButtonAction:)],
                                                 [UIBarButtonItem themedPlayAllButtonWithTarget:self andSelector:@selector(playAllAction:)]];
@@ -84,7 +81,7 @@ NSString *VLCNetworkListCellIdentifier = @"VLCNetworkListCellIdentifier";
 - (void)viewWillAppear:(BOOL)animated
 {
     [super viewWillAppear:animated];
-    CGPoint contentOffset = CGPointMake(0, _searchBar.bounds.size.height);
+    CGPoint contentOffset = CGPointMake(0, _tableView.tableHeaderView.bounds.size.height);
     [self.tableView setContentOffset:contentOffset animated:NO];
 }
 
@@ -144,16 +141,22 @@ NSString *VLCNetworkListCellIdentifier = @"VLCNetworkListCellIdentifier";
     cell.contentView.backgroundColor = cell.titleLabel.backgroundColor = cell.folderTitleLabel.backgroundColor = cell.subtitleLabel.backgroundColor =  color;
 }
 
-#pragma mark - Search Display Controller Delegate
+#pragma mark - Search Controller Delegate
 
-- (void)searchDisplayController:(UISearchDisplayController *)controller didLoadSearchResultsTableView:(UITableView *)tableView
+- (void)willPresentSearchController:(UISearchController *)searchController
 {
     if ([[UIDevice currentDevice] userInterfaceIdiom] == UIUserInterfaceIdiomPad)
-        tableView.rowHeight = 80.0f;
+        _tableView.rowHeight = 80.0f;
     else
-        tableView.rowHeight = 68.0f;
+        _tableView.rowHeight = 68.0f;
 
-    tableView.backgroundColor = [UIColor blackColor];
+    _tableView.backgroundColor = [UIColor blackColor];
+}
+
+#pragma mark - Search Research Updater
+
+- (void)updateSearchResultsForSearchController:(UISearchController *)searchController
+{
 }
 
 @end

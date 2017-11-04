@@ -2,7 +2,7 @@
  * VLCNetworkServerBrowserViewController.m
  * VLC for iOS
  *****************************************************************************
- * Copyright (c) 2013-2015 VideoLAN. All rights reserved.
+ * Copyright (c) 2013-2017 VideoLAN. All rights reserved.
  * $Id$
  *
  * Authors: Felix Paul Kühne <fkuehne # videolan.org>
@@ -146,7 +146,7 @@
 
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section
 {
-    if (tableView == self.searchDisplayController.searchResultsTableView)
+    if (self.searchController.isActive)
         return _searchArray.count;
 
     return self.serverBrowser.items.count;
@@ -160,7 +160,7 @@
 
 
     id<VLCNetworkServerBrowserItem> item;
-    if (tableView == self.searchDisplayController.searchResultsTableView) {
+    if (self.searchController.isActive) {
         item = _searchArray[indexPath.row];
     } else {
         item = self.serverBrowser.items[indexPath.row];
@@ -189,7 +189,7 @@
     id<VLCNetworkServerBrowserItem> item;
     NSInteger row = indexPath.row;
     BOOL singlePlayback = ![[NSUserDefaults standardUserDefaults] boolForKey:kVLCAutomaticallyPlayNextItem];
-    if (tableView == self.searchDisplayController.searchResultsTableView) {
+    if (self.searchController.isActive) {
         item = _searchArray[row];
         singlePlayback = YES;
     } else {
@@ -205,8 +205,8 @@
 - (void)triggerDownloadForCell:(VLCNetworkListCell *)cell
 {
     id<VLCNetworkServerBrowserItem> item;
-    if ([self.searchDisplayController isActive])
-        item = _searchArray[[self.searchDisplayController.searchResultsTableView indexPathForCell:cell].row];
+    if (self.searchController.isActive)
+        item = _searchArray[[self.tableView indexPathForCell:cell].row];
     else
         item = self.serverBrowser.items[[self.tableView indexPathForCell:cell].row];
 
@@ -215,14 +215,19 @@
     }
 }
 
+#pragma mark - Search Research Updater
 
-#pragma mark - search
+- (void)updateSearchResultsForSearchController:(UISearchController *)_searchController
+{
+    NSString *searchString = _searchController.searchBar.text;
+    [self searchForText:searchString];
+    [self.tableView reloadData];
+}
 
-- (BOOL)searchDisplayController:(UISearchDisplayController *)controller shouldReloadTableForSearchString:(NSString *)searchString
+- (void)searchForText:(NSString *)searchString
 {
     NSPredicate *predicate = [NSPredicate predicateWithFormat:@"name contains[c] %@",searchString];
-    self.searchArray = [self.serverBrowser.items filteredArrayUsingPredicate:predicate];
-    return YES;
+    _searchArray = [self.serverBrowser.items filteredArrayUsingPredicate:predicate];
 }
 
 @end
