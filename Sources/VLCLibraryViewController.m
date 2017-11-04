@@ -580,7 +580,7 @@ static NSString *kUsingTableViewToShowData = @"UsingTableViewToShowData";
     }
 
     [tableView deselectRowAtIndexPath:indexPath animated:YES];
-    NSManagedObject *selectedObject;
+    NSManagedObject *selectedObject = [_mediaDataSource objectAtIndex:indexPath.row];
 
     if (selectedObject != nil)
         [self openMediaObject:selectedObject];
