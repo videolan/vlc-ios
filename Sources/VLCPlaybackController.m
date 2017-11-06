@@ -688,7 +688,7 @@ VLCMediaDelegate>
     NSInteger mediaListCount = _mediaList.count;
 
 #if TARGET_OS_IOS
-    if (mediaListCount > 2 && _shuffleMode) {
+    if (self.repeatMode != VLCRepeatCurrentItem && mediaListCount > 2 && _shuffleMode) {
 
         NSNumber *nextIndex;
         NSUInteger currentIndex = [_mediaList indexOfMedia:_listPlayer.mediaPlayer.media];
