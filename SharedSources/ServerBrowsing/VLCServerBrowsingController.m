@@ -201,7 +201,9 @@
 
 - (void)streamMediaList:(VLCMediaList *)mediaList startingAtIndex:(NSInteger)startIndex
 {
-    [[VLCPlaybackController sharedInstance] playMediaList:mediaList firstIndex:startIndex subtitlesFilePath:nil];
+    VLCPlaybackController *vpc = [VLCPlaybackController sharedInstance];
+    vpc.fullscreenSessionRequested = YES;
+    [vpc playMediaList:mediaList firstIndex:startIndex subtitlesFilePath:nil];
     [self showMovieViewController];
 }
 
@@ -221,6 +223,7 @@
         URLofSubtitle = [self _getFileSubtitleFromServer:remoteSubtitleURL];
 
     VLCPlaybackController *vpc = [VLCPlaybackController sharedInstance];
+    vpc.fullscreenSessionRequested = YES;
     VLCMediaList *medialist = [[VLCMediaList alloc] init];
     [medialist addMedia:[VLCMedia mediaWithURL:item.URL]];
     [vpc playMediaList:medialist firstIndex:0 subtitlesFilePath:URLofSubtitle];
