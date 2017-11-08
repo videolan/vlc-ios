@@ -435,6 +435,11 @@ VLCMediaDelegate, VLCRemoteControlServiceDelegate>
     return _mediaPlayer.isPlaying;
 }
 
+- (BOOL)willPlay
+{
+    return _mediaPlayer.willPlay;
+}
+
 - (VLCRepeatMode)repeatMode
 {
     return _listPlayer.repeatMode;

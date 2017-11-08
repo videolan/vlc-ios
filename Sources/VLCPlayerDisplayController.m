@@ -289,7 +289,7 @@ static NSString *const VLCPlayerDisplayControllerDisplayModeKey = @"VLCPlayerDis
     VLCPlaybackController *playbackController = [VLCPlaybackController sharedInstance];
     UIView<VLCPlaybackControllerDelegate, VLCMiniPlaybackViewInterface> *miniPlaybackView = self.miniPlaybackView;
     const NSTimeInterval animationDuration = 0.25;
-    const BOOL activePlaybackSession = playbackController.isPlaying;
+    const BOOL activePlaybackSession = playbackController.isPlaying || playbackController.willPlay;
     const BOOL miniPlayerVisible = miniPlaybackView.visible;
 
     const CGRect viewRect = self.view.bounds;
