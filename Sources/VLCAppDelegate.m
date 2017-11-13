@@ -35,6 +35,7 @@
 #import "VLCActivityManager.h"
 #import "VLCDropboxConstants.h"
 #import <ObjectiveDropboxOfficial/ObjectiveDropboxOfficial.h>
+#import "VLCPlaybackNavigationController.h"
 
 NSString *const VLCDropboxSessionWasAuthorized = @"VLCDropboxSessionWasAuthorized";
 
@@ -211,6 +212,7 @@ NSString *const VLCDropboxSessionWasAuthorized = @"VLCDropboxSessionWasAuthorize
     [[UIBarButtonItem appearanceWhenContainedInInstancesOfClasses:@[[UISearchBar class]]] setTitleTextAttributes:@{[UIColor whiteColor] : NSForegroundColorAttributeName} forState:UIControlStateNormal];
 
     [[UINavigationBar appearance] setBarTintColor:vlcOrange];
+    [[UINavigationBar appearanceWhenContainedInInstancesOfClasses:@[[VLCPlaybackNavigationController class]]] setBarTintColor: nil];
     [[UINavigationBar appearance] setTintColor:[UIColor whiteColor]];
     [[UINavigationBar appearance] setTitleTextAttributes: @{ NSForegroundColorAttributeName : [UIColor whiteColor] }];
     // For the edit selection indicators
