@@ -11,6 +11,7 @@ iOS 2.8.5:
 ----------
 · Fixes an unexpected app termination when uploading specifically crafted files through WiFi Upload
 · iOS 7 stability improvements, notably when browsing servers via UPnP or deleting locally stored media
+· Fixes H.264 high level hardware decoding on devices with A10 or A11
 
 iOS 2.8.4:
 ----------
