@@ -34,6 +34,8 @@
 #define IPAD_ROW_HEIGHT 65.
 #define HEADER_HEIGHT 22.
 #define MENU_WIDTH 320.
+#define TOP_PADDING 20.
+#define STANDARD_PADDING 8.
 #define MAX_LEFT_INSET 170.
 #define COMPACT_INSET 20.
 
@@ -46,12 +48,10 @@ static NSString *WiFiCellIdentifier = @"VLCMenuWiFiCell";
     NSArray *_menuItemsSectionOne;
     NSArray *_menuItemsSectionTwo;
     NSArray *_menuItemsSectionThree;
-    NSMutableSet *_hiddenSettingKeys;
 
     UITableView *_menuTableView;
-
-    NSArray <NSLayoutConstraint *> *_leftTableConstraints;
-    CGFloat _tableViewWidth;
+    NSLayoutConstraint *_heightConstraint;
+    NSLayoutConstraint *_leftTableConstraint;
 }
 @property (strong, nonatomic) IASKAppSettingsViewController *settingsViewController;
 @property (strong, nonatomic) VLCSettingsController *settingsController;
@@ -59,11 +59,6 @@ static NSString *WiFiCellIdentifier = @"VLCMenuWiFiCell";
 @end
 
 @implementation VLCMenuTableViewController
-
-- (void)dealloc
-{
-    [[NSNotificationCenter defaultCenter] removeObserver:self];
-}
 
 - (void)viewDidLoad
 {
@@ -74,63 +69,43 @@ static NSString *WiFiCellIdentifier = @"VLCMenuWiFiCell";
     _menuItemsSectionTwo = @[@"LOCAL_NETWORK", @"NETWORK_TITLE", @"DOWNLOAD_FROM_HTTP", @"WEBINTF_TITLE", @"CLOUD_SERVICES"];
     _menuItemsSectionThree = @[@"Settings", @"ABOUT_APP"];
 
-    NSUInteger count = _menuItemsSectionOne.count + _menuItemsSectionTwo.count + _menuItemsSectionThree.count;
-    CGRect screenDimensions = [UIScreen mainScreen].bounds;
-    CGFloat rowHeight;
-    if (UI_USER_INTERFACE_IDIOM() == UIUserInterfaceIdiomPad)
-        rowHeight = IPAD_ROW_HEIGHT;
-    else
-        rowHeight = ROW_HEIGHT;
-    CGFloat height = (count * rowHeight) + (3. * HEADER_HEIGHT);
-    CGFloat top;
-    if (height > screenDimensions.size.height - COMPACT_INSET) {
-        height = screenDimensions.size.height - COMPACT_INSET;
-        top = COMPACT_INSET;
-    } else
-        top = (screenDimensions.size.height - height) / 2.;
-    CGFloat left;
-    if (UI_USER_INTERFACE_IDIOM() == UIUserInterfaceIdiomPad)
-        left = MAX_LEFT_INSET;
-    else
-        left = COMPACT_INSET;
-    _tableViewWidth = MENU_WIDTH;
-    if (screenDimensions.size.width <= left + _tableViewWidth)
-        _tableViewWidth = _tableViewWidth - (left * 2.);
-
-    _menuTableView = [[UITableView alloc] initWithFrame:CGRectMake(left, top, _tableViewWidth, height)
-                                                          style:UITableViewStylePlain];
+    _menuTableView = [[UITableView alloc] initWithFrame:CGRectZero style:UITableViewStylePlain];
     _menuTableView.delegate = self;
     _menuTableView.dataSource = self;
     _menuTableView.backgroundColor = [UIColor VLCMenuBackgroundColor];
     _menuTableView.separatorStyle = UITableViewCellSeparatorStyleNone;
     _menuTableView.indicatorStyle = UIScrollViewIndicatorStyleWhite;
-    _menuTableView.rowHeight = rowHeight;
+    _menuTableView.rowHeight = UITableViewAutomaticDimension;
+    _menuTableView.sectionHeaderHeight = UITableViewAutomaticDimension;
+    _menuTableView.estimatedSectionHeaderHeight = HEADER_HEIGHT;
+    _menuTableView.estimatedRowHeight = UI_USER_INTERFACE_IDIOM() == UIUserInterfaceIdiomPad ? IPAD_ROW_HEIGHT : ROW_HEIGHT;
     _menuTableView.scrollsToTop = NO;
     _menuTableView.translatesAutoresizingMaskIntoConstraints = NO;
     _menuTableView.showsHorizontalScrollIndicator = NO;
     _menuTableView.showsVerticalScrollIndicator = NO;
+    [_menuTableView registerClass:[VLCWiFiUploadTableViewCell class] forCellReuseIdentifier:WiFiCellIdentifier];
+    [_menuTableView registerClass:[VLCSidebarViewCell class] forCellReuseIdentifier:CellIdentifier];
 
     [self.view addSubview:_menuTableView];
 
     NSDictionary *dict;
 
-    if (UI_USER_INTERFACE_IDIOM() == UIUserInterfaceIdiomPad) {
-        UIView *spacer1 = [UIView new];
-        UIView *spacer2 = [UIView new];
-        spacer1.translatesAutoresizingMaskIntoConstraints = NO;
-        spacer2.translatesAutoresizingMaskIntoConstraints = NO;
-        [self.view addSubview:spacer1];
-        [self.view addSubview:spacer2];
-        dict = NSDictionaryOfVariableBindings(_menuTableView, spacer1, spacer2);
-        [self.view addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:[NSString stringWithFormat:@"V:|[spacer1][_menuTableView(==%0.2f)][spacer2(==spacer1)]|", height] options:0 metrics:0 views:dict]];
-    } else {
-        dict = NSDictionaryOfVariableBindings(_menuTableView);
-        [self.view addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:[NSString stringWithFormat:@"V:|-==%0.2f-[_menuTableView(<=%0.2f)]-==%0.2f-|", top, height, top] options:0 metrics:0 views:dict]];
-    }
-
     dict = NSDictionaryOfVariableBindings(_menuTableView);
-    _leftTableConstraints = [NSLayoutConstraint constraintsWithVisualFormat:[NSString stringWithFormat:@"H:|-==%0.2f-[_menuTableView(%0.2f)]->=0-|", left, _tableViewWidth] options:0 metrics:0 views:dict];
-    [self.view addConstraints:_leftTableConstraints];
+    NSDictionary *metrics = @{@"TopPadding": @(TOP_PADDING),
+                              @"Standard": @(STANDARD_PADDING),
+                              @"menuWidth" : @(MENU_WIDTH)
+                              };
+    // 20 to avoid seeing the tableview above the first sectionheader
+    [self.view addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"V:|->=TopPadding-[_menuTableView]->=Standard-|" options:0 metrics:metrics views:dict]];
+    _heightConstraint = [NSLayoutConstraint constraintWithItem:_menuTableView attribute:NSLayoutAttributeHeight relatedBy:NSLayoutRelationEqual toItem:nil attribute:0 multiplier:1.0 constant:0];
+    _heightConstraint.priority = UILayoutPriorityRequired -1;
+    [self.view addConstraint:_heightConstraint];
+
+    [self.view addConstraint:[NSLayoutConstraint constraintWithItem:_menuTableView attribute:NSLayoutAttributeCenterY relatedBy:NSLayoutRelationEqual toItem:self.view attribute:NSLayoutAttributeCenterY multiplier:1.0 constant:0]];
+
+    _leftTableConstraint = [NSLayoutConstraint constraintWithItem:_menuTableView attribute:NSLayoutAttributeLeading relatedBy:NSLayoutRelationEqual toItem:self.view attribute:NSLayoutAttributeLeading multiplier:1.0 constant:0];
+    [self.view addConstraint:_leftTableConstraint];
+    [self.view addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"H:|->=0-[_menuTableView(==menuWidth)]" options:0 metrics:metrics views:dict]];
 
     [_menuTableView selectRowAtIndexPath:[NSIndexPath indexPathForRow:0 inSection:0] animated:NO scrollPosition:UITableViewScrollPositionTop];
 }
@@ -146,31 +121,12 @@ static NSString *WiFiCellIdentifier = @"VLCMenuWiFiCell";
     return YES;
 }
 
-- (void)viewWillLayoutSubviews
+- (void)viewDidLayoutSubviews
 {
-    CGFloat viewWidth = self.view.frame.size.width;
-
-    [self.view removeConstraints:_leftTableConstraints];
-
-    CGFloat left;
-    if (viewWidth >= _tableViewWidth) {
-        left = (viewWidth - _tableViewWidth) / 3.;
-        if (left > MAX_LEFT_INSET)
-            left = MAX_LEFT_INSET;
-    } else {
-        _tableViewWidth = MENU_WIDTH;
-        left = 0.;
-    }
-
-    NSDictionary *dict = NSDictionaryOfVariableBindings(_menuTableView);
-    _leftTableConstraints = [NSLayoutConstraint constraintsWithVisualFormat:[NSString stringWithFormat:@"H:|-==%0.2f-[_menuTableView(%0.2f)]->=0-|", left, _tableViewWidth] options:0 metrics:0 views:dict];
-    [self.view addConstraints:_leftTableConstraints];
-
-    [super viewWillLayoutSubviews];
-
-    [[VLCSidebarController sharedInstance] resizeContentView];
+    [super viewDidLayoutSubviews];
+    _heightConstraint.constant = MIN(_menuTableView.contentSize.height, self.view.frame.size.height-TOP_PADDING-STANDARD_PADDING);
+    _leftTableConstraint.constant = MAX((self.view.frame.size.width*2 /3.0  - _menuTableView.frame.size.width)/2.0, STANDARD_PADDING);
 }
-
 #pragma mark - table view data source
 
 - (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView
@@ -204,13 +160,8 @@ static NSString *WiFiCellIdentifier = @"VLCMenuWiFiCell";
     UITableViewCell *cell;
     if ([rawTitle isEqualToString:@"WEBINTF_TITLE"]) {
         cell = (VLCWiFiUploadTableViewCell *)[tableView dequeueReusableCellWithIdentifier:WiFiCellIdentifier];
-        if (cell == nil) {
-            cell = [[VLCWiFiUploadTableViewCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:WiFiCellIdentifier];
-        }
     } else {
         cell = (VLCSidebarViewCell *)[tableView dequeueReusableCellWithIdentifier:CellIdentifier];
-        if (cell == nil)
-            cell = [[VLCSidebarViewCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:CellIdentifier];
     }
 
     if (section == 0) {
@@ -243,19 +194,13 @@ static NSString *WiFiCellIdentifier = @"VLCMenuWiFiCell";
 }
 
 #pragma mark - table view delegation
-- (CGFloat)tableView:(UITableView *)tableView heightForHeaderInSection:(NSInteger)section
-{
-    if (section < 3)
-        return 22.f;
-    return 0.;
-}
 
 - (UIView *)tableView:(UITableView *)tableView viewForHeaderInSection:(NSInteger)section
 {
     NSString *headerText = NSLocalizedString(_sectionHeaderTexts[section], nil);
     UIView *headerView = nil;
     if (headerText) {
-        headerView = [[UIView alloc] initWithFrame:CGRectMake(0.0f, 0.0f, [UIScreen mainScreen].bounds.size.height, HEADER_HEIGHT)];
+        headerView = [[UIView alloc] initWithFrame:CGRectZero];
         headerView.backgroundColor = [UIColor VLCMenuBackgroundColor];
 
         UILabel *textLabel = [UILabel new];
@@ -275,7 +220,7 @@ static NSString *WiFiCellIdentifier = @"VLCMenuWiFiCell";
         NSDictionary *dict = NSDictionaryOfVariableBindings(textLabel,bottomLine);
         [headerView addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"H:|[bottomLine]|" options:0 metrics:0 views:dict]];
         [headerView addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"H:|-(12)-[textLabel]" options:0 metrics:0 views:dict]];
-        [headerView addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"V:|->=0-[textLabel]->=0-[bottomLine(0.5)]|" options:0 metrics:0 views:dict]];
+        [headerView addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"V:|->=0-[textLabel(==22)]->=0-[bottomLine(0.5)]|" options:0 metrics:0 views:dict]];
     }
     return headerView;
 }
