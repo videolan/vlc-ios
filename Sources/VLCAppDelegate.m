@@ -93,13 +93,10 @@ NSString *const VLCDropboxSessionWasAuthorized = @"VLCDropboxSessionWasAuthorize
     [hockeyManager configureWithBetaIdentifier:@"0114ca8e265244ce588d2ebd035c3577"
                                 liveIdentifier:@"c95f4227dff96c61f8b3a46a25edc584"
                                       delegate:nil];
+    [hockeyManager startManager];
 
     // Configure Dropbox
     [DBClientsManager setupWithAppKey:kVLCDropboxAppKey];
-
-    // Configure the SDK in here only!
-    [hockeyManager startManager];
-    [hockeyManager.authenticator authenticateInstallation];
 
     /* listen to validation notification */
     [[NSNotificationCenter defaultCenter] addObserver:self
