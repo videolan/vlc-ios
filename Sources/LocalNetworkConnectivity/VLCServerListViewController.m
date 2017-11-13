@@ -209,7 +209,7 @@
     loginViewController.loginInformation = login;
     loginViewController.delegate = self;
     if (UI_USER_INTERFACE_IDIOM() == UIUserInterfaceIdiomPad) {
-        UINavigationController *navCon = [[VLCNavigationController alloc] initWithRootViewController:loginViewController];
+        UINavigationController *navCon = [[UINavigationController alloc] initWithRootViewController:loginViewController];
         navCon.navigationBarHidden = NO;
         navCon.modalPresentationStyle = UIModalPresentationFormSheet;
         [self presentViewController:navCon animated:YES completion:nil];

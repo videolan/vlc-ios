@@ -26,7 +26,6 @@
 #import "VLCMediaDataSource.h"
 #import "VLCLibrarySearchDisplayDataSource.h"
 #import "VLCMovieViewController.h"
-#import "VLCNavigationController.h"
 #import "VLCPlaylistCollectionViewCell.h"
 #import "VLCPlaylistTableViewCell.h"
 
@@ -42,7 +41,7 @@ static NSString *kUsingTableViewToShowData = @"UsingTableViewToShowData";
 - (IBAction)learnMore:(id)sender
 {
     UIViewController *firstStepsVC = [[VLCFirstStepsViewController alloc] initWithNibName:nil bundle:nil];
-    UINavigationController *navCon = [[VLCNavigationController alloc] initWithRootViewController:firstStepsVC];
+    UINavigationController *navCon = [[UINavigationController alloc] initWithRootViewController:firstStepsVC];
     navCon.modalPresentationStyle = UIModalPresentationFormSheet;
     [self.window.rootViewController presentViewController:navCon animated:YES completion:nil];
 }

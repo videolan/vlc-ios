@@ -114,7 +114,7 @@ NSString *const VLCDropboxSessionWasAuthorized = @"VLCDropboxSessionWasAuthorize
     void (^setupBlock)() = ^{
         _libraryViewController = [[VLCLibraryViewController alloc] init];
         VLCSidebarController *sidebarVC = [VLCSidebarController sharedInstance];
-        VLCNavigationController *navCon = [[VLCNavigationController alloc] initWithRootViewController:_libraryViewController];
+        UINavigationController *navCon = [[UINavigationController alloc] initWithRootViewController:_libraryViewController];
         sidebarVC.contentViewController = navCon;
 
         VLCPlayerDisplayController *playerDisplayController = [VLCPlayerDisplayController sharedInstance];
@@ -210,6 +210,9 @@ NSString *const VLCDropboxSessionWasAuthorized = @"VLCDropboxSessionWasAuthorize
     // Don't override the 'Cancel' button color in the search bar with the previous UITextField call. Use the default blue color
     [[UIBarButtonItem appearanceWhenContainedInInstancesOfClasses:@[[UISearchBar class]]] setTitleTextAttributes:@{[UIColor whiteColor] : NSForegroundColorAttributeName} forState:UIControlStateNormal];
 
+    [[UINavigationBar appearance] setBarTintColor:vlcOrange];
+    [[UINavigationBar appearance] setTintColor:[UIColor whiteColor]];
+    [[UINavigationBar appearance] setTitleTextAttributes: @{ NSForegroundColorAttributeName : [UIColor whiteColor] }];
     // For the edit selection indicators
     [[UITableView appearance] setTintColor:vlcOrange];
     [[UISwitch appearance] setOnTintColor:vlcOrange];

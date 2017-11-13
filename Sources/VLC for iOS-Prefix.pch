@@ -28,7 +28,6 @@
 #import "UIColor+Presets.h"
 #import "UIBarButtonItem+Theme.h"
 #import "VLCAlertView.h"
-#import "VLCNavigationController.h"
 #import "VLCSidebarController.h"
 #import "UIViewController+VLCAlert.h"
 

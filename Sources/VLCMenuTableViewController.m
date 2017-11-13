@@ -28,7 +28,6 @@
 #import "VLCLibraryViewController.h"
 #import "VLCBugreporter.h"
 #import "VLCCloudServicesTableViewController.h"
-#import "VLCNavigationController.h"
 
 #define ROW_HEIGHT 50.
 #define IPAD_ROW_HEIGHT 65.
@@ -279,7 +278,7 @@ static NSString *WiFiCellIdentifier = @"VLCMenuWiFiCell";
         UINavigationController *navCon = (UINavigationController*)sidebarController.contentViewController;
         navCon.viewControllers = @[viewController];
     } else
-        sidebarController.contentViewController = [[VLCNavigationController alloc] initWithRootViewController:viewController];
+        sidebarController.contentViewController = [[UINavigationController alloc] initWithRootViewController:viewController];
     [sidebarController hideSidebar];
 }
 
