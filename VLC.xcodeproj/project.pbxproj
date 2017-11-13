@@ -41,6 +41,9 @@
 		419A2C691F37A4B70069D224 /* VLCStringsForLocalization.m in Sources */ = {isa = PBXBuildFile; fileRef = 419A2C651F37A4B70069D224 /* VLCStringsForLocalization.m */; };
 		419A2C6A1F37A4B70069D224 /* VLCStringsForLocalization.m in Sources */ = {isa = PBXBuildFile; fileRef = 419A2C651F37A4B70069D224 /* VLCStringsForLocalization.m */; };
 		419A2C6B1F37A4B70069D224 /* VLCStringsForLocalization.m in Sources */ = {isa = PBXBuildFile; fileRef = 419A2C651F37A4B70069D224 /* VLCStringsForLocalization.m */; };
+		419D7F051F54176900AF69A2 /* VLCTimeNavigationTitleView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 419D7F041F54176900AF69A2 /* VLCTimeNavigationTitleView.xib */; };
+		419D7F071F54176900AF69A2 /* VLCTimeNavigationTitleView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 419D7F041F54176900AF69A2 /* VLCTimeNavigationTitleView.xib */; };
+		419D7F081F54176900AF69A2 /* VLCTimeNavigationTitleView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 419D7F041F54176900AF69A2 /* VLCTimeNavigationTitleView.xib */; };
 		41B93C011A53833B00102E8B /* VLCProgressView.m in Sources */ = {isa = PBXBuildFile; fileRef = 41B93C001A53833B00102E8B /* VLCProgressView.m */; };
 		41B93C051A53835300102E8B /* VLCCloudServiceCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 41B93C031A53835300102E8B /* VLCCloudServiceCell.m */; };
 		41B93C081A53853B00102E8B /* VLCCloudServiceCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 41B93C071A53853B00102E8B /* VLCCloudServiceCell.xib */; };
@@ -1144,6 +1147,7 @@
 		4184AA131A5492070063DF5A /* VLCCloudStorageController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = VLCCloudStorageController.h; path = Sources/VLCCloudStorageController.h; sourceTree = SOURCE_ROOT; };
 		4184AA141A5492070063DF5A /* VLCCloudStorageController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = VLCCloudStorageController.m; path = Sources/VLCCloudStorageController.m; sourceTree = SOURCE_ROOT; };
 		419A2C651F37A4B70069D224 /* VLCStringsForLocalization.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = VLCStringsForLocalization.m; sourceTree = "<group>"; };
+		419D7F041F54176900AF69A2 /* VLCTimeNavigationTitleView.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = VLCTimeNavigationTitleView.xib; path = Resources/VLCTimeNavigationTitleView.xib; sourceTree = SOURCE_ROOT; };
 		41B93BFF1A53833B00102E8B /* VLCProgressView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = VLCProgressView.h; path = Sources/VLCProgressView.h; sourceTree = SOURCE_ROOT; };
 		41B93C001A53833B00102E8B /* VLCProgressView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = VLCProgressView.m; path = Sources/VLCProgressView.m; sourceTree = SOURCE_ROOT; };
 		41B93C021A53835300102E8B /* VLCCloudServiceCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = VLCCloudServiceCell.h; path = Sources/VLCCloudServiceCell.h; sourceTree = SOURCE_ROOT; };
@@ -2318,6 +2322,7 @@
 				7DBBF189183AB4300009A339 /* VLCEmptyLibraryView.xib */,
 				7DBBF18B183AB4300009A339 /* VLCPlaylistCollectionViewCell.xib */,
 				7DBBF18C183AB4300009A339 /* VLCPlaylistTableViewCell.xib */,
+				419D7F041F54176900AF69A2 /* VLCTimeNavigationTitleView.xib */,
 			);
 			name = Library;
 			sourceTree = "<group>";
@@ -3653,6 +3658,7 @@
 				7D787FCC1D40FDE70003CFA1 /* VLCFirstStepsFourthPageViewController~iphone.xib in Resources */,
 				7D787FCD1D40FDE70003CFA1 /* VLCFirstStepsSixthPageViewController~iphone.xib in Resources */,
 				7D787FCE1D40FDE70003CFA1 /* VLCMigrationViewController.xib in Resources */,
+				419D7F081F54176900AF69A2 /* VLCTimeNavigationTitleView.xib in Resources */,
 				7D787FCF1D40FDE70003CFA1 /* VLCCloudStorageTableViewController.xib in Resources */,
 				7D787FD01D40FDE70003CFA1 /* VLCFirstStepsThirdPageViewController~iphone.xib in Resources */,
 				7D787FD11D40FDE70003CFA1 /* VLCEmptyLibraryView.xib in Resources */,
@@ -3695,6 +3701,7 @@
 				7AC862A91765E9510011611A /* jquery.ui.widget.js in Resources */,
 				A79246C8170F11DF0036AAF2 /* Localizable.strings in Resources */,
 				9B9231C4185A703700F89498 /* VLCNetworkLoginViewController.xib in Resources */,
+				419D7F051F54176900AF69A2 /* VLCTimeNavigationTitleView.xib in Resources */,
 				7D1516431868D7E0004B18F3 /* VLCFirstStepsFirstPageViewController~iphone.xib in Resources */,
 				7DF04F4E1961F2B8004A5429 /* web-download.png in Resources */,
 				41B93C081A53853B00102E8B /* VLCCloudServiceCell.xib in Resources */,
@@ -3756,6 +3763,7 @@
 				7DC550471C046615007B4E42 /* jquery.ui.widget.js in Resources */,
 				7DC550481C046615007B4E42 /* Localizable.strings in Resources */,
 				7DC550491C046615007B4E42 /* VLCNetworkLoginViewController.xib in Resources */,
+				419D7F071F54176900AF69A2 /* VLCTimeNavigationTitleView.xib in Resources */,
 				7DC5504A1C046615007B4E42 /* VLCFirstStepsFirstPageViewController~iphone.xib in Resources */,
 				7DC5504B1C046615007B4E42 /* web-download.png in Resources */,
 				7DC5504E1C046615007B4E42 /* VLCCloudServiceCell.xib in Resources */,
