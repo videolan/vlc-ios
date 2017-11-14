@@ -1258,13 +1258,15 @@ currentMediaHasTrackToChooseFrom:(BOOL)currentMediaHasTrackToChooseFrom
 - (void)tapRecognized
 {
     LOCKCHECK;
-
     if (!_playPauseGestureEnabled)
         return;
 
-    [_vpc playPause];
-    if (_controlsHidden)
+    if (_vpc.isPlaying) {
+        [_vpc pause];
         [self setControlsHidden:NO animated:YES];
+    } else {
+        [_vpc play];
+    }
 }
 
 - (VLCPanType)detectPanTypeForPan:(UIPanGestureRecognizer*)panRecognizer
