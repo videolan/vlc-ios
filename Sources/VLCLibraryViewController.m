@@ -1361,9 +1361,8 @@ static NSString *kUsingTableViewToShowData = @"UsingTableViewToShowData";
 - (IBAction)backToAllItems:(id)sender
 {
     _inFolder = NO;
-    UIBarButtonItem *createFolderItem = [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemOrganize target:self action:@selector(createFolder)];
     NSMutableArray *toolbarItems = [self.toolbarItems mutableCopy];
-    toolbarItems[2] = createFolderItem;
+    toolbarItems[2] = _createFolderBarButtonItem;
     self.toolbarItems = toolbarItems;
     [self setLibraryMode:_previousLibraryMode];
     if (!self.isEditing) {
