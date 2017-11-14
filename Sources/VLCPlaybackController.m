@@ -343,18 +343,19 @@ VLCMediaDelegate, VLCRemoteControlServiceDelegate>
         if (position > .95)
             return;
 
-        NSArray *searchPaths = NSSearchPathForDirectoriesInDomains(NSCachesDirectory, NSUserDomainMask, YES);
-        NSString* newThumbnailPath = [searchPaths[0] stringByAppendingPathComponent:@"VideoSnapshots"];
-        NSFileManager *fileManager = [NSFileManager defaultManager];
+        if (_mediaPlayer.hasVideoOut) {
+            NSArray *searchPaths = NSSearchPathForDirectoriesInDomains(NSCachesDirectory, NSUserDomainMask, YES);
+            NSString *newThumbnailPath = [searchPaths.firstObject stringByAppendingPathComponent:@"VideoSnapshots"];
+            NSError *error;
 
-        if (![fileManager fileExistsAtPath:newThumbnailPath])
-            [fileManager createDirectoryAtPath:newThumbnailPath withIntermediateDirectories:YES attributes:nil error:nil];
-
-        newThumbnailPath = [newThumbnailPath stringByAppendingPathComponent:fileItem.objectID.URIRepresentation.lastPathComponent];
-        [_mediaPlayer saveVideoSnapshotAt:newThumbnailPath withWidth:0 andHeight:0];
-
-        _recheckForExistingThumbnail = YES;
-        [self performSelector:@selector(_updateStoredThumbnailForFile:) withObject:fileItem afterDelay:.25];
+            [[NSFileManager defaultManager] createDirectoryAtPath:newThumbnailPath withIntermediateDirectories:YES attributes:nil error:&error];
+            if (error == nil) {
+                newThumbnailPath = [newThumbnailPath stringByAppendingPathComponent:fileItem.objectID.URIRepresentation.lastPathComponent];
+                [_mediaPlayer saveVideoSnapshotAt:newThumbnailPath withWidth:0 andHeight:0];
+                _recheckForExistingThumbnail = YES;
+                [self performSelector:@selector(_updateStoredThumbnailForFile:) withObject:fileItem afterDelay:.25];
+            }
+        }
     }
     @catch (NSException *exception) {
         APLog(@"failed to save current media state - file removed?");
