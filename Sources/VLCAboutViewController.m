@@ -45,7 +45,7 @@
 
     self.navigationItem.titleView = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"title"]];
 
-    UIBarButtonItem *contributeButton = [[UIBarButtonItem alloc] initWithTitle:NSLocalizedString(@"BUTTON_CONTRIBUTE", nil) style:UIBarButtonItemStyleBordered target:self action:@selector(openContributePage:)];
+    UIBarButtonItem *contributeButton = [[UIBarButtonItem alloc] initWithTitle:NSLocalizedString(@"BUTTON_CONTRIBUTE", nil) style:UIBarButtonItemStylePlain target:self action:@selector(openContributePage:)];
     contributeButton.tintColor = [UIColor whiteColor];
 
     self.navigationItem.rightBarButtonItem = contributeButton;
