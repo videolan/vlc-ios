@@ -9,7 +9,6 @@
  * Refer to the COPYING file of the official project for license.
  *****************************************************************************/
 
-
 #import "VLCNetworkLoginViewFieldCell.h"
 NSString * const kVLCNetworkLoginViewFieldCellIdentifier = @"VLCNetworkLoginViewFieldCellIdentifier";
 
@@ -18,11 +17,42 @@ NSString * const kVLCNetworkLoginViewFieldCellIdentifier = @"VLCNetworkLoginView
 
 @implementation VLCNetworkLoginViewFieldCell
 
-- (void)awakeFromNib
+- (instancetype)initWithStyle:(UITableViewCellStyle)style reuseIdentifier:(NSString *)reuseIdentifier
 {
-    [super awakeFromNib];
-    self.contentView.backgroundColor = [UIColor VLCDarkBackgroundColor];
+    self = [super initWithStyle:style reuseIdentifier:reuseIdentifier];
+    if (self) {
+        self.backgroundColor = [UIColor blackColor];
+        [self setupSubviews];
+    }
+    return self;
+}
+
+- (void)setupSubviews
+{
+    UIView *darkView = [[UIView alloc] init];
+    darkView.translatesAutoresizingMaskIntoConstraints = NO;
+    [self addSubview:darkView];
+    darkView.backgroundColor = [UIColor colorWithRed:57.0/256.0 green:57.0/256.0 blue:57.0/256.0 alpha:1.0];
+    self.textField = [[UITextField alloc] initWithFrame:CGRectZero];
+    self.textField.translatesAutoresizingMaskIntoConstraints = NO;
     self.textField.delegate = self;
+    self.textField.textColor = [UIColor whiteColor];
+    [self addSubview:_textField];
+    
+    UILayoutGuide *guide = self.layoutGuides.firstObject;
+    if (@available(iOS 11.0, *)) {
+        guide = self.safeAreaLayoutGuide;
+    }
+    [NSLayoutConstraint activateConstraints:@[
+                                              [darkView.leftAnchor constraintEqualToAnchor:self.leftAnchor],
+                                              [darkView.topAnchor constraintEqualToAnchor:self.topAnchor],
+                                              [darkView.rightAnchor constraintEqualToAnchor:self.rightAnchor],
+                                              [darkView.bottomAnchor constraintEqualToAnchor:self.bottomAnchor constant:-1],
+                                              [self.textField.leftAnchor constraintEqualToAnchor:guide.leftAnchor constant:8.0],
+                                              [self.textField.topAnchor constraintEqualToAnchor:guide.topAnchor],
+                                              [self.textField.rightAnchor constraintEqualToAnchor:guide.rightAnchor constant:8.0],
+                                              [self.textField.bottomAnchor constraintEqualToAnchor:guide.bottomAnchor],
+                                              ]];
 }
 
 - (void)prepareForReuse

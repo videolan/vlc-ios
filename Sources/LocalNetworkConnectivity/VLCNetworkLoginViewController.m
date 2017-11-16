@@ -55,7 +55,7 @@
     self.title = NSLocalizedString(@"CONNECT_TO_SERVER", nil);
 
     self.tableView.backgroundColor = [UIColor VLCDarkBackgroundColor];
-    self.tableView.separatorColor = [UIColor VLCLightTextColor];
+    self.tableView.separatorColor = [UIColor blackColor];
 
     self.protocolDataSource = [[VLCNetworkLoginDataSourceProtocol alloc] init];
     self.protocolDataSource.delegate = self;

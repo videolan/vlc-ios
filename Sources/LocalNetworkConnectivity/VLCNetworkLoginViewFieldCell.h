@@ -19,7 +19,7 @@ extern NSString * const kVLCNetworkLoginViewFieldCellIdentifier;
 
 @interface VLCNetworkLoginViewFieldCell : UITableViewCell
 @property (nonatomic, weak) id<VLCNetworkLoginViewFieldCellDelegate> delegate;
-@property (nonatomic, weak) IBOutlet UITextField *textField;
+@property (nonatomic, retain) UITextField *textField;
 @property (nonatomic, nullable, copy) NSString *placeholderString;
 @end
 
