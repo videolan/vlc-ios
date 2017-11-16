@@ -20,7 +20,6 @@
 #import <QuartzCore/QuartzCore.h>
 #import "VLCWiFiUploadTableViewCell.h"
 #import "VLCAppDelegate.h"
-#import "IASKAppSettingsViewController.h"
 #import "VLCServerListViewController.h"
 #import "VLCOpenNetworkStreamViewController.h"
 #import "VLCSettingsController.h"
@@ -51,9 +50,8 @@ static NSString *WiFiCellIdentifier = @"VLCMenuWiFiCell";
     UITableView *_menuTableView;
     NSLayoutConstraint *_heightConstraint;
     NSLayoutConstraint *_leftTableConstraint;
+    VLCSettingsController *_settingsController;
 }
-@property (strong, nonatomic) IASKAppSettingsViewController *settingsViewController;
-@property (strong, nonatomic) VLCSettingsController *settingsController;
 
 @end
 
@@ -225,6 +223,13 @@ static NSString *WiFiCellIdentifier = @"VLCMenuWiFiCell";
 }
 
 #pragma mark - menu implementation
+- (VLCSettingsController *)settingsController
+{
+    if (!_settingsController){
+        _settingsController = [[VLCSettingsController alloc] initWithStyle:UITableViewStyleGrouped];
+    }
+    return _settingsController;
+}
 
 - (void)_revealItem:(NSUInteger)itemIndex inSection:(NSUInteger)sectionNumber
 {
@@ -243,24 +248,7 @@ static NSString *WiFiCellIdentifier = @"VLCMenuWiFiCell";
             viewController = [[VLCCloudServicesTableViewController alloc] initWithNibName:@"VLCCloudServicesTableViewController" bundle:nil];
     } else if (sectionNumber == 2) {
         if (itemIndex == 0) {
-            if (!self.settingsController)
-                self.settingsController = [[VLCSettingsController alloc] init];
-            VLCSettingsController *settingsController = self.settingsController;
-
-            if (!self.settingsViewController) {
-                self.settingsViewController = [[IASKAppSettingsViewController alloc] initWithStyle:UITableViewStyleGrouped];
-                settingsController.viewController = self.settingsViewController;
-                self.settingsViewController.navigationItem.leftBarButtonItem = [UIBarButtonItem themedRevealMenuButtonWithTarget:self.settingsController.viewController andSelector:@selector(dismiss:)];
-            }
-
-            IASKAppSettingsViewController *settingsVC = self.settingsViewController;
-            settingsVC.modalPresentationStyle = UIModalPresentationFormSheet;
-            settingsVC.delegate = self.settingsController;
-            settingsVC.showDoneButton = NO;
-            settingsVC.showCreditsFooter = NO;
-
-            viewController = settingsVC;
-            [self.settingsController willShow];
+            viewController = self.settingsController;
         } else if (itemIndex == 1)
             viewController = [[VLCAboutViewController alloc] init];
     } else {

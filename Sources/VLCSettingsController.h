@@ -11,11 +11,7 @@
  * Refer to the COPYING file of the official project for license.
  *****************************************************************************/
 
-@class IASKAppSettingsViewController;
-@interface VLCSettingsController : NSObject
-
-@property (nonatomic, retain) IASKAppSettingsViewController *viewController;
-
-- (void)willShow;
+#import "IASKAppSettingsViewController.h"
+@interface VLCSettingsController : IASKAppSettingsViewController
 
 @end
