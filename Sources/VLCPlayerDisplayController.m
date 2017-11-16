@@ -107,6 +107,16 @@ static NSString *const VLCPlayerDisplayControllerDisplayModeKey = @"VLCPlayerDis
     [[NSUserDefaults standardUserDefaults] setInteger:displayMode forKey:VLCPlayerDisplayControllerDisplayModeKey];
 }
 
+- (void)viewSafeAreaInsetsDidChange
+{
+    if (@available(iOS 11.0, *)) {
+        [super viewSafeAreaInsetsDidChange];
+        CGRect frame = _miniPlaybackView.frame;
+        frame.size.height = 60.0 + self.view.safeAreaInsets.bottom;
+        _miniPlaybackView.frame = frame;
+    }
+}
+
 - (VLCPlaybackController *)playbackController {
     if (_playbackController == nil) {
         _playbackController = [VLCPlaybackController sharedInstance];
@@ -293,7 +303,11 @@ static NSString *const VLCPlayerDisplayControllerDisplayModeKey = @"VLCPlayerDis
     const BOOL miniPlayerVisible = miniPlaybackView.visible;
 
     const CGRect viewRect = self.view.bounds;
-    const CGFloat miniPlayerHeight = 60.;
+
+    CGFloat miniPlayerHeight = 60.;
+    if (@available(iOS 11.0, *)) {
+        miniPlayerHeight += self.view.safeAreaInsets.bottom;
+    }
     const CGRect miniPlayerFrameIn =  CGRectMake(0., viewRect.size.height-miniPlayerHeight, viewRect.size.width, miniPlayerHeight);
     const CGRect miniPlayerFrameOut = CGRectMake(0., viewRect.size.height, viewRect.size.width, miniPlayerHeight);
 
