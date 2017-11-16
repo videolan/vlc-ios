@@ -15,7 +15,6 @@
 #import "VLCPlayerDisplayController.h"
 
 #if TARGET_OS_IOS
-#import "VLCLibraryViewController.h"
 #import "VLCKeychainCoordinator.h"
 #endif
 
@@ -28,110 +27,151 @@
     UIButton *_nextButton;
     UIButton *_expandButton;
     UILabel *_metaDataLabel;
-    UITapGestureRecognizer *_labelTapRecognizer;
-    UITapGestureRecognizer *_artworkTapRecognizer;
+    UITapGestureRecognizer *_tapRecognizer;
 }
 
 @end
 
 @implementation VLCMiniPlaybackView
 
-- (void)dealloc
-{
-    [[NSNotificationCenter defaultCenter] removeObserver:self];
-}
-
 - (instancetype)initWithFrame:(CGRect)viewFrame
 {
     self = [super initWithFrame:viewFrame];
-    if (!self)
-        return self;
+    if (self) {
+        [self setupSubviews];
 
-    CGRect previousRect;
+        NSNotificationCenter *center = [NSNotificationCenter defaultCenter];
+        [center addObserver:self
+                   selector:@selector(appBecameActive:)
+                       name:UIApplicationDidBecomeActiveNotification
+                     object:nil];
+#if TARGET_OS_IOS
+        [center addObserver:self
+                   selector:@selector(appBecameActive:)
+                       name:VLCPasscodeValidated
+                     object:nil];
+#endif
+    }
+    return self;
+}
+
+- (void)setupSubviews
+{
     CGFloat buttonSize = 44.;
+    CGFloat videoSize = 60.;
+    CGFloat padding = 10.;
+    CGFloat buttonPadding = 5.;
 
-    _artworkView = [[UIImageView alloc] initWithFrame:CGRectMake(0., 0., 60., 60.)];
-    _artworkView.autoresizingMask = UIViewAutoresizingFlexibleRightMargin;
+    _artworkView = [[UIImageView alloc] initWithFrame:CGRectZero];
+    _artworkView.translatesAutoresizingMaskIntoConstraints = NO;
+    _artworkView.clipsToBounds = YES;
     _artworkView.backgroundColor = [UIColor VLCDarkBackgroundColor];
     _artworkView.opaque = YES;
     [self addSubview:_artworkView];
 
-    /* build buttons from right to left */
+    _videoView = [[UIView alloc] initWithFrame:CGRectZero];
+    [_videoView setClipsToBounds:YES];
+    _videoView.userInteractionEnabled = NO;
+    _videoView.translatesAutoresizingMaskIntoConstraints = NO;
+    [self addSubview:_videoView];
+
     _expandButton = [UIButton buttonWithType:UIButtonTypeCustom];
     [_expandButton setImage:[UIImage imageNamed:@"ratioIcon"] forState:UIControlStateNormal];
-    _expandButton.autoresizingMask = UIViewAutoresizingFlexibleLeftMargin;
+    _expandButton.translatesAutoresizingMaskIntoConstraints = NO;
     [_expandButton addTarget:self action:@selector(pushFullPlaybackView:) forControlEvents:UIControlEventTouchUpInside];
-    _expandButton.frame = previousRect = CGRectMake(viewFrame.size.width - buttonSize, (viewFrame.size.height - buttonSize) / 2., buttonSize, buttonSize);
     _expandButton.accessibilityLabel = NSLocalizedString(@"FULLSCREEN_PLAYBACK", nil);
-    [self addSubview:_expandButton];
 
     _nextButton = [UIButton buttonWithType:UIButtonTypeCustom];
     [_nextButton setImage:[UIImage imageNamed:@"forwardIcon"] forState:UIControlStateNormal];
-    [_nextButton sizeToFit];
-    _nextButton.autoresizingMask = UIViewAutoresizingFlexibleLeftMargin;
+    _nextButton.translatesAutoresizingMaskIntoConstraints = NO;
     [_nextButton addTarget:self action:@selector(nextAction:) forControlEvents:UIControlEventTouchUpInside];
-    _nextButton.frame = previousRect = CGRectMake(previousRect.origin.x - buttonSize, (viewFrame.size.height - buttonSize) / 2., buttonSize, buttonSize);
     _nextButton.accessibilityLabel = NSLocalizedString(@"FWD_BUTTON", nil);
-    [self addSubview:_nextButton];
 
     _playPauseButton = [UIButton buttonWithType:UIButtonTypeCustom];
     [_playPauseButton setImage:[UIImage imageNamed:@"playIcon"] forState:UIControlStateNormal];
-    [_playPauseButton sizeToFit];
-    _playPauseButton.autoresizingMask = UIViewAutoresizingFlexibleLeftMargin;
+    _playPauseButton.translatesAutoresizingMaskIntoConstraints = NO;
     [_playPauseButton addTarget:self action:@selector(playPauseAction:) forControlEvents:UIControlEventTouchUpInside];
     _playPauseButton.accessibilityLabel = NSLocalizedString(@"PLAY_PAUSE_BUTTON", nil);
     _playPauseButton.accessibilityHint = NSLocalizedString(@"LONGPRESS_TO_STOP", nil);
-    _playPauseButton.isAccessibilityElement = YES;
-    _playPauseButton.frame = previousRect = CGRectMake(previousRect.origin.x - buttonSize, (viewFrame.size.height - buttonSize) / 2., buttonSize, buttonSize);
     UILongPressGestureRecognizer *longPressRecognizer = [[UILongPressGestureRecognizer alloc] initWithTarget:self action:@selector(playPauseLongPress:)];
     [_playPauseButton addGestureRecognizer:longPressRecognizer];
-    [self addSubview:_playPauseButton];
 
     _previousButton = [UIButton buttonWithType:UIButtonTypeCustom];
     [_previousButton setImage:[UIImage imageNamed:@"backIcon"] forState:UIControlStateNormal];
     [_previousButton sizeToFit];
-    _previousButton.autoresizingMask = UIViewAutoresizingFlexibleLeftMargin;
+    _previousButton.translatesAutoresizingMaskIntoConstraints = NO;
     [_previousButton addTarget:self action:@selector(previousAction:) forControlEvents:UIControlEventTouchUpInside];
-    _previousButton.frame = previousRect = CGRectMake(previousRect.origin.x - buttonSize, (viewFrame.size.height - buttonSize) / 2., buttonSize, buttonSize);
     _previousButton.accessibilityLabel = NSLocalizedString(@"BWD_BUTTON", nil);
-    [self addSubview:_previousButton];
 
-    CGFloat artworkViewWidth = _artworkView.frame.size.width;
-    _metaDataLabel = [[UILabel alloc] initWithFrame:CGRectMake(artworkViewWidth + 10., 0., previousRect.origin.x - artworkViewWidth - 10., viewFrame.size.height)];
+    _metaDataLabel = [[UILabel alloc] initWithFrame:CGRectZero];
     _metaDataLabel.font = [UIFont systemFontOfSize:12.];
     _metaDataLabel.textColor = [UIColor VLCLightTextColor];
     _metaDataLabel.numberOfLines = 0;
-    _metaDataLabel.autoresizingMask = UIViewAutoresizingFlexibleWidth;
+    _metaDataLabel.translatesAutoresizingMaskIntoConstraints = NO;
     [self addSubview:_metaDataLabel];
 
-    _labelTapRecognizer = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(tapRecognized)];
-    _labelTapRecognizer.delegate = self;
-    [_metaDataLabel addGestureRecognizer:_labelTapRecognizer];
-    _metaDataLabel.userInteractionEnabled = YES;
+    [self addSubview:_previousButton];
+    [self addSubview:_playPauseButton];
+    [self addSubview:_nextButton];
+    [self addSubview:_expandButton];
 
-    _artworkTapRecognizer = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(tapRecognized)];
-    _artworkTapRecognizer.delegate = self;
-    [_artworkView addGestureRecognizer:_artworkTapRecognizer];
-    _artworkView.userInteractionEnabled = YES;
+    NSObject *guide = self;
+    if (@available(iOS 11.0, *)) {
+        guide = self.safeAreaLayoutGuide;
+    }
+
+    [self addConstraints:@[
+                             [NSLayoutConstraint constraintWithItem:_artworkView attribute:NSLayoutAttributeTop relatedBy:NSLayoutRelationEqual toItem:self attribute:NSLayoutAttributeTop multiplier:1 constant:0],
+                             [NSLayoutConstraint constraintWithItem:_artworkView attribute:NSLayoutAttributeLeft relatedBy:NSLayoutRelationEqual toItem:self attribute:NSLayoutAttributeLeft multiplier:1 constant:0],
+                             [NSLayoutConstraint constraintWithItem:_artworkView attribute:NSLayoutAttributeRight relatedBy:NSLayoutRelationEqual toItem:_metaDataLabel attribute:NSLayoutAttributeLeft multiplier:1 constant:-padding],
+                             [NSLayoutConstraint constraintWithItem:_artworkView attribute:NSLayoutAttributeBottom relatedBy:NSLayoutRelationEqual toItem:self attribute:NSLayoutAttributeBottom multiplier:1 constant:0],
+                             [NSLayoutConstraint constraintWithItem:_artworkView attribute:NSLayoutAttributeWidth relatedBy:NSLayoutRelationEqual toItem:nil attribute:NSLayoutAttributeNotAnAttribute multiplier:1 constant:videoSize],
+                             [NSLayoutConstraint constraintWithItem:_artworkView attribute:NSLayoutAttributeHeight relatedBy:NSLayoutRelationEqual toItem:_artworkView attribute:NSLayoutAttributeWidth multiplier:1 constant:0],
+
+                             [NSLayoutConstraint constraintWithItem:_videoView attribute:NSLayoutAttributeTop relatedBy:NSLayoutRelationEqual toItem:self attribute:NSLayoutAttributeTop multiplier:1 constant:0],
+                             [NSLayoutConstraint constraintWithItem:_videoView attribute:NSLayoutAttributeLeft relatedBy:NSLayoutRelationEqual toItem:self attribute:NSLayoutAttributeLeft multiplier:1 constant:0],
+                             [NSLayoutConstraint constraintWithItem:_videoView attribute:NSLayoutAttributeRight relatedBy:NSLayoutRelationEqual toItem:_metaDataLabel attribute:NSLayoutAttributeLeft multiplier:1 constant:-padding],
+                             [NSLayoutConstraint constraintWithItem:_videoView attribute:NSLayoutAttributeBottom relatedBy:NSLayoutRelationEqual toItem:self attribute:NSLayoutAttributeBottom multiplier:1 constant:0],
+                             [NSLayoutConstraint constraintWithItem:_videoView attribute:NSLayoutAttributeWidth relatedBy:NSLayoutRelationEqual toItem:nil attribute:NSLayoutAttributeNotAnAttribute multiplier:1 constant:videoSize],
+                             [NSLayoutConstraint constraintWithItem:_videoView attribute:NSLayoutAttributeHeight relatedBy:NSLayoutRelationEqual toItem:_videoView attribute:NSLayoutAttributeWidth multiplier:1 constant:0],
+
+                             [NSLayoutConstraint constraintWithItem:_metaDataLabel attribute:NSLayoutAttributeTop relatedBy:NSLayoutRelationEqual toItem:self attribute:NSLayoutAttributeTop multiplier:1 constant:0],
+                             [NSLayoutConstraint constraintWithItem:_metaDataLabel attribute:NSLayoutAttributeRight relatedBy:NSLayoutRelationLessThanOrEqual toItem:_previousButton attribute:NSLayoutAttributeLeft multiplier:1 constant:-padding],
+                             [NSLayoutConstraint constraintWithItem:_metaDataLabel attribute:NSLayoutAttributeBottom relatedBy:NSLayoutRelationEqual toItem:self attribute:NSLayoutAttributeBottom multiplier:1 constant:0],
+
+                             [NSLayoutConstraint constraintWithItem:_previousButton attribute:NSLayoutAttributeWidth relatedBy:NSLayoutRelationEqual toItem:nil attribute:NSLayoutAttributeNotAnAttribute multiplier:1 constant:buttonSize],
+                             [NSLayoutConstraint constraintWithItem:_previousButton attribute:NSLayoutAttributeTop relatedBy:NSLayoutRelationEqual toItem:self attribute:NSLayoutAttributeTop multiplier:1 constant:padding],
+                             [NSLayoutConstraint constraintWithItem:_previousButton attribute:NSLayoutAttributeBottom relatedBy:NSLayoutRelationEqual toItem:self attribute:NSLayoutAttributeBottom multiplier:1 constant:-padding],
+                             [NSLayoutConstraint constraintWithItem:_previousButton attribute:NSLayoutAttributeRight relatedBy:NSLayoutRelationEqual toItem:_playPauseButton attribute:NSLayoutAttributeLeft multiplier:1 constant:-buttonPadding],
+
+                             [NSLayoutConstraint constraintWithItem:_playPauseButton attribute:NSLayoutAttributeWidth relatedBy:NSLayoutRelationEqual toItem:nil attribute:NSLayoutAttributeNotAnAttribute multiplier:1 constant:buttonSize],
+                             [NSLayoutConstraint constraintWithItem:_playPauseButton attribute:NSLayoutAttributeTop relatedBy:NSLayoutRelationEqual toItem:self attribute:NSLayoutAttributeTop multiplier:1 constant:padding],
+                             [NSLayoutConstraint constraintWithItem:_playPauseButton attribute:NSLayoutAttributeBottom relatedBy:NSLayoutRelationEqual toItem:self attribute:NSLayoutAttributeBottom multiplier:1 constant:-padding],
+                             [NSLayoutConstraint constraintWithItem:_playPauseButton attribute:NSLayoutAttributeRight relatedBy:NSLayoutRelationEqual toItem:_nextButton attribute:NSLayoutAttributeLeft multiplier:1 constant:-buttonPadding],
+
+                             [NSLayoutConstraint constraintWithItem:_nextButton attribute:NSLayoutAttributeWidth relatedBy:NSLayoutRelationEqual toItem:nil attribute:NSLayoutAttributeNotAnAttribute multiplier:1 constant:buttonSize],
+                             [NSLayoutConstraint constraintWithItem:_nextButton attribute:NSLayoutAttributeTop relatedBy:NSLayoutRelationEqual toItem:self attribute:NSLayoutAttributeTop multiplier:1 constant:padding],
+                             [NSLayoutConstraint constraintWithItem:_nextButton attribute:NSLayoutAttributeBottom relatedBy:NSLayoutRelationEqual toItem:self attribute:NSLayoutAttributeBottom multiplier:1 constant:-padding],
+                             [NSLayoutConstraint constraintWithItem:_nextButton attribute:NSLayoutAttributeRight relatedBy:NSLayoutRelationEqual toItem:_expandButton attribute:NSLayoutAttributeLeft multiplier:1 constant:-buttonPadding],
+
+                             [NSLayoutConstraint constraintWithItem:_expandButton attribute:NSLayoutAttributeWidth relatedBy:NSLayoutRelationEqual toItem:nil attribute:NSLayoutAttributeNotAnAttribute multiplier:1 constant:buttonSize],
+                             [NSLayoutConstraint constraintWithItem:_expandButton attribute:NSLayoutAttributeTop relatedBy:NSLayoutRelationEqual toItem:self attribute:NSLayoutAttributeTop multiplier:1 constant:padding],
+                             [NSLayoutConstraint constraintWithItem:_expandButton attribute:NSLayoutAttributeBottom relatedBy:NSLayoutRelationEqual toItem:self attribute:NSLayoutAttributeBottom multiplier:1 constant:-padding],
+                             [NSLayoutConstraint constraintWithItem:_expandButton attribute:NSLayoutAttributeRight relatedBy:NSLayoutRelationEqual toItem:self attribute:NSLayoutAttributeRight multiplier:1 constant:-buttonPadding],
+                             ]];
+
+    _tapRecognizer = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(tapRecognized)];
+    _tapRecognizer.delegate = self;
+    [self addGestureRecognizer:_tapRecognizer];
 
 #if TARGET_OS_IOS
-    _labelTapRecognizer.numberOfTouchesRequired = 1;
-    _artworkTapRecognizer.numberOfTouchesRequired = 1;
+    _tapRecognizer.numberOfTouchesRequired = 1;
 #endif
+}
 
-    NSNotificationCenter *center = [NSNotificationCenter defaultCenter];
-    [center addObserver:self
-               selector:@selector(appBecameActive:)
-                   name:UIApplicationDidBecomeActiveNotification
-                 object:nil];
-#if TARGET_OS_IOS
-    [center addObserver:self
-               selector:@selector(appBecameActive:)
-                   name:VLCPasscodeValidated
-                 object:nil];
-#endif
-
-    return self;
+- (void)dealloc
+{
+    [[NSNotificationCenter defaultCenter] removeObserver:self];
 }
 
 - (void)appBecameActive:(NSNotification *)aNotification
@@ -185,7 +225,6 @@
     [[UIApplication sharedApplication] sendAction:@selector(showFullscreenPlayback) to:nil from:self forEvent:nil];
 }
 
-
 - (void)updatePlayPauseButton
 {
     const BOOL isPlaying = [VLCPlaybackController sharedInstance].isPlaying;
@@ -216,28 +255,15 @@ currentMediaHasTrackToChooseFrom:(BOOL)currentMediaHasTrackToChooseFrom
                                        album:(NSString *)album
                                    audioOnly:(BOOL)audioOnly
 {
+    _videoView.hidden = YES;
     if (audioOnly) {
         _artworkView.contentMode = UIViewContentModeScaleAspectFill;
-        _artworkView.image = artwork ? artwork : [UIImage imageNamed:@"no-artwork"];
-        if (_videoView) {
-            [_videoView removeFromSuperview];
-            _videoView = nil;
-        }
-        [_artworkView addGestureRecognizer:_artworkTapRecognizer];
+        _artworkView.image = artwork?: [UIImage imageNamed:@"no-artwork"];
     } else {
         _artworkView.image = nil;
-        if (_videoView) {
-            [_videoView removeFromSuperview];
-            _videoView = nil;
-        }
-
         VLCPlayerDisplayController *pdc = [VLCPlayerDisplayController sharedInstance];
         if (pdc.displayMode == VLCPlayerDisplayControllerDisplayModeMiniplayer) {
-            _videoView = [[UIView alloc] initWithFrame:_artworkView.frame];
-            [_videoView setClipsToBounds:YES];
-            [_videoView addGestureRecognizer:_artworkTapRecognizer];
-            _videoView.userInteractionEnabled = YES;
-            [self addSubview:_videoView];
+            _videoView.hidden = false;
             controller.videoOutputView = _videoView;
         }
     }
