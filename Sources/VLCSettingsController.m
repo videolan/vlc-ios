@@ -15,7 +15,6 @@
 #import "VLCSettingsController.h"
 #import "VLCLibraryViewController.h"
 #import "IASKSettingsReader.h"
-#import "IASKAppSettingsViewController.h"
 #import "PAPasscodeViewController.h"
 #import "VLCKeychainCoordinator.h"
 
@@ -25,22 +24,28 @@
 
 @implementation VLCSettingsController
 
-- (id)init
+- (instancetype)initWithStyle:(UITableViewStyle)style
 {
-    self = [super init];
-    if (self)
+    self = [super initWithStyle:style];
+    if (self) {
         [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(settingDidChange:) name:kIASKAppSettingChanged object:nil];
+    }
 
     return self;
 }
 
-- (void)dealloc
+- (void)viewDidLoad
 {
-    [[NSNotificationCenter defaultCenter] removeObserver:self];
+    self.navigationItem.leftBarButtonItem = [UIBarButtonItem themedRevealMenuButtonWithTarget:self andSelector:@selector(dismiss:)];
+    self.modalPresentationStyle = UIModalPresentationFormSheet;
+    self.delegate = self;
+    self.showDoneButton = NO;
+    self.showCreditsFooter = NO;
 }
 
-- (void)willShow
+- (void)viewWillAppear:(BOOL)animated
 {
+    [super viewWillAppear:animated];
     [self filterCellsWithAnimation:NO];
 }
 
@@ -52,7 +57,7 @@
     if (![keychainCoordinator passcodeLockEnabled])
         [hideKeys addObject:kVLCSettingPasscodeAllowTouchID];
 
-    [self.viewController setHiddenKeys:hideKeys animated:shouldAnimate];
+    [self setHiddenKeys:hideKeys animated:shouldAnimate];
 }
 
 - (void)settingDidChange:(NSNotification*)notification
@@ -63,7 +68,7 @@
         if (passcodeOn) {
             PAPasscodeViewController *passcodeLockController = [[PAPasscodeViewController alloc] initForAction:PasscodeActionSet];
             passcodeLockController.delegate = self;
-            [self.viewController presentViewController:passcodeLockController animated:YES completion:nil];
+            [self presentViewController:passcodeLockController animated:YES completion:nil];
         } else {
             [self updateForPasscode:nil];
         }
