@@ -35,6 +35,7 @@
 #import "VLCLibraryViewController.h"
 #import "VLCTrackSelectorView.h"
 #import "VLCMetadata.h"
+#import "UIDevice+VLC.h"
 
 #define FORWARD_SWIPE_DURATION 30
 #define BACKWARD_SWIPE_DURATION 10
@@ -71,7 +72,6 @@ typedef NS_ENUM(NSInteger, VLCPanType) {
     BOOL _viewAppeared;
     BOOL _displayRemainingTime;
     BOOL _positionSet;
-    BOOL _playerIsSetup;
     BOOL _isScrubbing;
     BOOL _interfaceIsLocked;
     BOOL _audioOnly;
@@ -96,6 +96,7 @@ typedef NS_ENUM(NSInteger, VLCPanType) {
     UISwipeGestureRecognizer *_swipeRecognizerDown;
     UITapGestureRecognizer *_tapRecognizer;
     UITapGestureRecognizer *_tapOnVideoRecognizer;
+    UITapGestureRecognizer *_tapToToggleiPhoneXRatioRecognizer;
     UITapGestureRecognizer *_tapToSeekRecognizer;
 
     VLCTrackSelectorView *_trackSelectorContainer;
@@ -211,8 +212,6 @@ typedef NS_ENUM(NSInteger, VLCPanType) {
     rect.origin.y = rect.origin.y + 5.;
     self.resetVideoFilterButton.frame = rect;
 
-    _playerIsSetup = NO;
-
     [self.movieView setAccessibilityLabel:NSLocalizedString(@"VO_VIDEOPLAYER_TITLE", nil)];
     [self.movieView setAccessibilityHint:NSLocalizedString(@"VO_VIDEOPLAYER_DOUBLETAP", nil)];
 
@@ -253,14 +252,19 @@ typedef NS_ENUM(NSInteger, VLCPanType) {
     _tapOnVideoRecognizer.delegate = self;
     [self.view addGestureRecognizer:_tapOnVideoRecognizer];
 
-    _tapToSeekRecognizer = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(tapToSeekRecognized:)];
-    [_tapToSeekRecognizer setNumberOfTapsRequired:2];
-
     _pinchRecognizer = [[UIPinchGestureRecognizer alloc] initWithTarget:self action:@selector(handlePinchGesture:)];
     _pinchRecognizer.delegate = self;
-    [self.view addGestureRecognizer:_pinchRecognizer];
 
-    _tapRecognizer = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(tapRecognized)];
+    if ([[UIDevice currentDevice] isiPhoneX]) {
+        _tapToToggleiPhoneXRatioRecognizer = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(toggleiPhoneXAspectRatio)];
+        _tapToToggleiPhoneXRatioRecognizer.numberOfTapsRequired = 2;
+        [self.view addGestureRecognizer:_tapToToggleiPhoneXRatioRecognizer];
+    } else {
+        _tapToSeekRecognizer = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(tapToSeekRecognized:)];
+        [_tapToSeekRecognizer setNumberOfTapsRequired:2];
+        [self.view addGestureRecognizer:_tapToSeekRecognizer];
+    }
+    _tapRecognizer = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(togglePlayPause)];
     [_tapRecognizer setNumberOfTouchesRequired:2];
 
     _currentPanType = VLCPanTypeNone;
@@ -281,13 +285,13 @@ typedef NS_ENUM(NSInteger, VLCPanType) {
     _swipeRecognizerDown.direction = UISwipeGestureRecognizerDirectionDown;
     _swipeRecognizerDown.numberOfTouchesRequired = 2;
 
+    [self.view addGestureRecognizer:_pinchRecognizer];
     [self.view addGestureRecognizer:_swipeRecognizerLeft];
     [self.view addGestureRecognizer:_swipeRecognizerRight];
     [self.view addGestureRecognizer:_swipeRecognizerUp];
     [self.view addGestureRecognizer:_swipeRecognizerDown];
     [self.view addGestureRecognizer:_panRecognizer];
     [self.view addGestureRecognizer:_tapRecognizer];
-    [self.view addGestureRecognizer:_tapToSeekRecognizer];
 
     [_panRecognizer requireGestureRecognizerToFail:_swipeRecognizerLeft];
     [_panRecognizer requireGestureRecognizerToFail:_swipeRecognizerRight];
@@ -1255,9 +1259,10 @@ currentMediaHasTrackToChooseFrom:(BOOL)currentMediaHasTrackToChooseFrom
 
 #pragma mark - multi-touch gestures
 
-- (void)tapRecognized
+- (void)togglePlayPause
 {
     LOCKCHECK;
+
     if (!_playPauseGestureEnabled)
         return;
 
@@ -1267,6 +1272,23 @@ currentMediaHasTrackToChooseFrom:(BOOL)currentMediaHasTrackToChooseFrom
     } else {
         [_vpc play];
     }
+}
+
+- (void)toggleiPhoneXAspectRatio
+{
+    if (@available(iOS 11.0, *)) {
+        BOOL isFullScreen = CGRectEqualToRect(_movieView.frame , self.view.frame);
+
+        CGRect frameWithoutNotch = self.view.safeAreaLayoutGuide.layoutFrame;
+        [UIView animateWithDuration:0.3 animations:^{
+            _movieView.frame = isFullScreen ? frameWithoutNotch : self.view.frame;
+        }];
+    }
+}
+
+- (BOOL)prefersHomeIndicatorAutoHidden
+{
+    return YES;
 }
 
 - (VLCPanType)detectPanTypeForPan:(UIPanGestureRecognizer*)panRecognizer
