@@ -263,6 +263,7 @@ typedef NS_ENUM(NSInteger, VLCPanType) {
         _tapToSeekRecognizer = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(tapToSeekRecognized:)];
         [_tapToSeekRecognizer setNumberOfTapsRequired:2];
         [self.view addGestureRecognizer:_tapToSeekRecognizer];
+        [_tapOnVideoRecognizer requireGestureRecognizerToFail:_tapToSeekRecognizer];
     }
     _tapRecognizer = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(togglePlayPause)];
     [_tapRecognizer setNumberOfTouchesRequired:2];
@@ -271,8 +272,6 @@ typedef NS_ENUM(NSInteger, VLCPanType) {
     _panRecognizer = [[UIPanGestureRecognizer alloc] initWithTarget:self action:@selector(panRecognized:)];
     [_panRecognizer setMinimumNumberOfTouches:1];
     [_panRecognizer setMaximumNumberOfTouches:1];
-
-    [_tapOnVideoRecognizer requireGestureRecognizerToFail:_tapToSeekRecognizer];
 
     _swipeRecognizerLeft = [[UISwipeGestureRecognizer alloc] initWithTarget:self action:@selector(swipeRecognized:)];
     _swipeRecognizerLeft.direction = UISwipeGestureRecognizerDirectionLeft;
