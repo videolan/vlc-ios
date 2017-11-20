@@ -13,6 +13,7 @@
 
 #import "UIDevice+VLC.h"
 #import <sys/sysctl.h> // for sysctlbyname
+#import <sys/utsname.h>
 
 @implementation UIDevice (VLC)
 
