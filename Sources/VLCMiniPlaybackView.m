@@ -121,43 +121,43 @@
     }
 
     [self addConstraints:@[
-                             [NSLayoutConstraint constraintWithItem:_artworkView attribute:NSLayoutAttributeTop relatedBy:NSLayoutRelationEqual toItem:self attribute:NSLayoutAttributeTop multiplier:1 constant:0],
-                             [NSLayoutConstraint constraintWithItem:_artworkView attribute:NSLayoutAttributeLeft relatedBy:NSLayoutRelationEqual toItem:self attribute:NSLayoutAttributeLeft multiplier:1 constant:0],
+                             [NSLayoutConstraint constraintWithItem:_artworkView attribute:NSLayoutAttributeTop relatedBy:NSLayoutRelationEqual toItem:guide attribute:NSLayoutAttributeTop multiplier:1 constant:0],
+                             [NSLayoutConstraint constraintWithItem:_artworkView attribute:NSLayoutAttributeLeft relatedBy:NSLayoutRelationEqual toItem:guide attribute:NSLayoutAttributeLeft multiplier:1 constant:0],
                              [NSLayoutConstraint constraintWithItem:_artworkView attribute:NSLayoutAttributeRight relatedBy:NSLayoutRelationEqual toItem:_metaDataLabel attribute:NSLayoutAttributeLeft multiplier:1 constant:-padding],
-                             [NSLayoutConstraint constraintWithItem:_artworkView attribute:NSLayoutAttributeBottom relatedBy:NSLayoutRelationEqual toItem:self attribute:NSLayoutAttributeBottom multiplier:1 constant:0],
+                             [NSLayoutConstraint constraintWithItem:_artworkView attribute:NSLayoutAttributeBottom relatedBy:NSLayoutRelationEqual toItem:guide attribute:NSLayoutAttributeBottom multiplier:1 constant:0],
                              [NSLayoutConstraint constraintWithItem:_artworkView attribute:NSLayoutAttributeWidth relatedBy:NSLayoutRelationEqual toItem:nil attribute:NSLayoutAttributeNotAnAttribute multiplier:1 constant:videoSize],
                              [NSLayoutConstraint constraintWithItem:_artworkView attribute:NSLayoutAttributeHeight relatedBy:NSLayoutRelationEqual toItem:_artworkView attribute:NSLayoutAttributeWidth multiplier:1 constant:0],
 
-                             [NSLayoutConstraint constraintWithItem:_videoView attribute:NSLayoutAttributeTop relatedBy:NSLayoutRelationEqual toItem:self attribute:NSLayoutAttributeTop multiplier:1 constant:0],
-                             [NSLayoutConstraint constraintWithItem:_videoView attribute:NSLayoutAttributeLeft relatedBy:NSLayoutRelationEqual toItem:self attribute:NSLayoutAttributeLeft multiplier:1 constant:0],
+                             [NSLayoutConstraint constraintWithItem:_videoView attribute:NSLayoutAttributeTop relatedBy:NSLayoutRelationEqual toItem:guide attribute:NSLayoutAttributeTop multiplier:1 constant:0],
+                             [NSLayoutConstraint constraintWithItem:_videoView attribute:NSLayoutAttributeLeft relatedBy:NSLayoutRelationEqual toItem:guide attribute:NSLayoutAttributeLeft multiplier:1 constant:0],
                              [NSLayoutConstraint constraintWithItem:_videoView attribute:NSLayoutAttributeRight relatedBy:NSLayoutRelationEqual toItem:_metaDataLabel attribute:NSLayoutAttributeLeft multiplier:1 constant:-padding],
-                             [NSLayoutConstraint constraintWithItem:_videoView attribute:NSLayoutAttributeBottom relatedBy:NSLayoutRelationEqual toItem:self attribute:NSLayoutAttributeBottom multiplier:1 constant:0],
+                             [NSLayoutConstraint constraintWithItem:_videoView attribute:NSLayoutAttributeBottom relatedBy:NSLayoutRelationEqual toItem:guide attribute:NSLayoutAttributeBottom multiplier:1 constant:0],
                              [NSLayoutConstraint constraintWithItem:_videoView attribute:NSLayoutAttributeWidth relatedBy:NSLayoutRelationEqual toItem:nil attribute:NSLayoutAttributeNotAnAttribute multiplier:1 constant:videoSize],
                              [NSLayoutConstraint constraintWithItem:_videoView attribute:NSLayoutAttributeHeight relatedBy:NSLayoutRelationEqual toItem:_videoView attribute:NSLayoutAttributeWidth multiplier:1 constant:0],
 
-                             [NSLayoutConstraint constraintWithItem:_metaDataLabel attribute:NSLayoutAttributeTop relatedBy:NSLayoutRelationEqual toItem:self attribute:NSLayoutAttributeTop multiplier:1 constant:0],
+                             [NSLayoutConstraint constraintWithItem:_metaDataLabel attribute:NSLayoutAttributeTop relatedBy:NSLayoutRelationEqual toItem:guide attribute:NSLayoutAttributeTop multiplier:1 constant:0],
                              [NSLayoutConstraint constraintWithItem:_metaDataLabel attribute:NSLayoutAttributeRight relatedBy:NSLayoutRelationLessThanOrEqual toItem:_previousButton attribute:NSLayoutAttributeLeft multiplier:1 constant:-padding],
-                             [NSLayoutConstraint constraintWithItem:_metaDataLabel attribute:NSLayoutAttributeBottom relatedBy:NSLayoutRelationEqual toItem:self attribute:NSLayoutAttributeBottom multiplier:1 constant:0],
+                             [NSLayoutConstraint constraintWithItem:_metaDataLabel attribute:NSLayoutAttributeBottom relatedBy:NSLayoutRelationEqual toItem:guide attribute:NSLayoutAttributeBottom multiplier:1 constant:0],
 
                              [NSLayoutConstraint constraintWithItem:_previousButton attribute:NSLayoutAttributeWidth relatedBy:NSLayoutRelationEqual toItem:nil attribute:NSLayoutAttributeNotAnAttribute multiplier:1 constant:buttonSize],
-                             [NSLayoutConstraint constraintWithItem:_previousButton attribute:NSLayoutAttributeTop relatedBy:NSLayoutRelationEqual toItem:self attribute:NSLayoutAttributeTop multiplier:1 constant:padding],
-                             [NSLayoutConstraint constraintWithItem:_previousButton attribute:NSLayoutAttributeBottom relatedBy:NSLayoutRelationEqual toItem:self attribute:NSLayoutAttributeBottom multiplier:1 constant:-padding],
+                             [NSLayoutConstraint constraintWithItem:_previousButton attribute:NSLayoutAttributeTop relatedBy:NSLayoutRelationEqual toItem:guide attribute:NSLayoutAttributeTop multiplier:1 constant:padding],
+                             [NSLayoutConstraint constraintWithItem:_previousButton attribute:NSLayoutAttributeBottom relatedBy:NSLayoutRelationEqual toItem:guide attribute:NSLayoutAttributeBottom multiplier:1 constant:-padding],
                              [NSLayoutConstraint constraintWithItem:_previousButton attribute:NSLayoutAttributeRight relatedBy:NSLayoutRelationEqual toItem:_playPauseButton attribute:NSLayoutAttributeLeft multiplier:1 constant:-buttonPadding],
 
                              [NSLayoutConstraint constraintWithItem:_playPauseButton attribute:NSLayoutAttributeWidth relatedBy:NSLayoutRelationEqual toItem:nil attribute:NSLayoutAttributeNotAnAttribute multiplier:1 constant:buttonSize],
-                             [NSLayoutConstraint constraintWithItem:_playPauseButton attribute:NSLayoutAttributeTop relatedBy:NSLayoutRelationEqual toItem:self attribute:NSLayoutAttributeTop multiplier:1 constant:padding],
-                             [NSLayoutConstraint constraintWithItem:_playPauseButton attribute:NSLayoutAttributeBottom relatedBy:NSLayoutRelationEqual toItem:self attribute:NSLayoutAttributeBottom multiplier:1 constant:-padding],
+                             [NSLayoutConstraint constraintWithItem:_playPauseButton attribute:NSLayoutAttributeTop relatedBy:NSLayoutRelationEqual toItem:guide attribute:NSLayoutAttributeTop multiplier:1 constant:padding],
+                             [NSLayoutConstraint constraintWithItem:_playPauseButton attribute:NSLayoutAttributeBottom relatedBy:NSLayoutRelationEqual toItem:guide attribute:NSLayoutAttributeBottom multiplier:1 constant:-padding],
                              [NSLayoutConstraint constraintWithItem:_playPauseButton attribute:NSLayoutAttributeRight relatedBy:NSLayoutRelationEqual toItem:_nextButton attribute:NSLayoutAttributeLeft multiplier:1 constant:-buttonPadding],
 
                              [NSLayoutConstraint constraintWithItem:_nextButton attribute:NSLayoutAttributeWidth relatedBy:NSLayoutRelationEqual toItem:nil attribute:NSLayoutAttributeNotAnAttribute multiplier:1 constant:buttonSize],
-                             [NSLayoutConstraint constraintWithItem:_nextButton attribute:NSLayoutAttributeTop relatedBy:NSLayoutRelationEqual toItem:self attribute:NSLayoutAttributeTop multiplier:1 constant:padding],
-                             [NSLayoutConstraint constraintWithItem:_nextButton attribute:NSLayoutAttributeBottom relatedBy:NSLayoutRelationEqual toItem:self attribute:NSLayoutAttributeBottom multiplier:1 constant:-padding],
+                             [NSLayoutConstraint constraintWithItem:_nextButton attribute:NSLayoutAttributeTop relatedBy:NSLayoutRelationEqual toItem:guide attribute:NSLayoutAttributeTop multiplier:1 constant:padding],
+                             [NSLayoutConstraint constraintWithItem:_nextButton attribute:NSLayoutAttributeBottom relatedBy:NSLayoutRelationEqual toItem:guide attribute:NSLayoutAttributeBottom multiplier:1 constant:-padding],
                              [NSLayoutConstraint constraintWithItem:_nextButton attribute:NSLayoutAttributeRight relatedBy:NSLayoutRelationEqual toItem:_expandButton attribute:NSLayoutAttributeLeft multiplier:1 constant:-buttonPadding],
 
                              [NSLayoutConstraint constraintWithItem:_expandButton attribute:NSLayoutAttributeWidth relatedBy:NSLayoutRelationEqual toItem:nil attribute:NSLayoutAttributeNotAnAttribute multiplier:1 constant:buttonSize],
-                             [NSLayoutConstraint constraintWithItem:_expandButton attribute:NSLayoutAttributeTop relatedBy:NSLayoutRelationEqual toItem:self attribute:NSLayoutAttributeTop multiplier:1 constant:padding],
-                             [NSLayoutConstraint constraintWithItem:_expandButton attribute:NSLayoutAttributeBottom relatedBy:NSLayoutRelationEqual toItem:self attribute:NSLayoutAttributeBottom multiplier:1 constant:-padding],
-                             [NSLayoutConstraint constraintWithItem:_expandButton attribute:NSLayoutAttributeRight relatedBy:NSLayoutRelationEqual toItem:self attribute:NSLayoutAttributeRight multiplier:1 constant:-buttonPadding],
+                             [NSLayoutConstraint constraintWithItem:_expandButton attribute:NSLayoutAttributeTop relatedBy:NSLayoutRelationEqual toItem:guide attribute:NSLayoutAttributeTop multiplier:1 constant:padding],
+                             [NSLayoutConstraint constraintWithItem:_expandButton attribute:NSLayoutAttributeBottom relatedBy:NSLayoutRelationEqual toItem:guide attribute:NSLayoutAttributeBottom multiplier:1 constant:-padding],
+                             [NSLayoutConstraint constraintWithItem:_expandButton attribute:NSLayoutAttributeRight relatedBy:NSLayoutRelationEqual toItem:guide attribute:NSLayoutAttributeRight multiplier:1 constant:-buttonPadding],
                              ]];
 
     _tapRecognizer = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(tapRecognized)];

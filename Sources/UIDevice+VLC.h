@@ -17,5 +17,6 @@
 @property (readonly) int VLCSpeedCategory;
 @property (readonly) NSNumber *VLCFreeDiskSpace;
 @property (readonly) BOOL VLCHasExternalDisplay;
+@property (readonly) BOOL isiPhoneX;
 
 @end

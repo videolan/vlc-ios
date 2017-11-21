@@ -12,6 +12,7 @@
 
 #import "UIDevice+VLC.h"
 #import <sys/sysctl.h> // for sysctlbyname
+#import <sys/utsname.h>
 
 int _currentSpeedCategory;
 
@@ -76,6 +77,24 @@ int _currentSpeedCategory;
 - (BOOL)VLCHasExternalDisplay
 {
     return ([[UIScreen screens] count] > 1);
+}
+
+- (BOOL)isiPhoneX
+{
+    static BOOL isiPhoneX = NO;
+    static dispatch_once_t onceToken;
+
+    dispatch_once(&onceToken, ^{
+#if TARGET_IPHONE_SIMULATOR
+    NSString *model = NSProcessInfo.processInfo.environment[@"SIMULATOR_MODEL_IDENTIFIER"];
+#else
+    struct utsname systemInfo;
+    uname(&systemInfo);
+    NSString *model = [NSString stringWithCString:systemInfo.machine encoding:NSUTF8StringEncoding];
+#endif
+        isiPhoneX = [model isEqualToString:@"iPhone10,3"] || [model isEqualToString:@"iPhone10,6"];
+    });
+    return isiPhoneX;
 }
 
 @end

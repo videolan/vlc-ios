@@ -35,6 +35,7 @@
 #import "VLCMovieViewControlPanelView.h"
 #import "VLCSlider.h"
 #import "VLCLibraryViewController.h"
+#import "UIDevice+VLC.h"
 
 #define FORWARD_SWIPE_DURATION 30
 #define BACKWARD_SWIPE_DURATION 10
@@ -101,6 +102,7 @@ typedef NS_ENUM(NSInteger, VLCPanType) {
     UITapGestureRecognizer *_tapRecognizer;
     UITapGestureRecognizer *_tapOnVideoRecognizer;
     UITapGestureRecognizer *_tapToSeekRecognizer;
+    UITapGestureRecognizer *_tapToToggleiPhoneXRatioRecognizer;
 
     UIView *_trackSelectorContainer;
     UITableView *_trackSelectorTableView;
@@ -250,14 +252,20 @@ typedef NS_ENUM(NSInteger, VLCPanType) {
     _tapOnVideoRecognizer.delegate = self;
     [self.view addGestureRecognizer:_tapOnVideoRecognizer];
 
-    _tapToSeekRecognizer = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(tapToSeekRecognized:)];
-    [_tapToSeekRecognizer setNumberOfTapsRequired:2];
-
     _pinchRecognizer = [[UIPinchGestureRecognizer alloc] initWithTarget:self action:@selector(handlePinchGesture:)];
     _pinchRecognizer.delegate = self;
-    [self.view addGestureRecognizer:_pinchRecognizer];
 
-    _tapRecognizer = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(tapRecognized)];
+    if ([[UIDevice currentDevice] isiPhoneX]) {
+        _tapToToggleiPhoneXRatioRecognizer = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(toggleiPhoneXAspectRatio)];
+        _tapToToggleiPhoneXRatioRecognizer.numberOfTapsRequired = 2;
+        [self.view addGestureRecognizer:_tapToToggleiPhoneXRatioRecognizer];
+     } else {
+        _tapToSeekRecognizer = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(tapToSeekRecognized:)];
+        [_tapToSeekRecognizer setNumberOfTapsRequired:2];
+        [_tapOnVideoRecognizer requireGestureRecognizerToFail:_tapToSeekRecognizer];
+        [self.view addGestureRecognizer:_tapToSeekRecognizer];
+    }
+    _tapRecognizer = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(togglePlayPause)];
     [_tapRecognizer setNumberOfTouchesRequired:2];
 
     _currentPanType = VLCPanTypeNone;
@@ -265,7 +273,6 @@ typedef NS_ENUM(NSInteger, VLCPanType) {
     [_panRecognizer setMinimumNumberOfTouches:1];
     [_panRecognizer setMaximumNumberOfTouches:1];
 
-    [_tapOnVideoRecognizer requireGestureRecognizerToFail:_tapToSeekRecognizer];
 
     _swipeRecognizerLeft = [[UISwipeGestureRecognizer alloc] initWithTarget:self action:@selector(swipeRecognized:)];
     _swipeRecognizerLeft.direction = UISwipeGestureRecognizerDirectionLeft;
@@ -278,14 +285,13 @@ typedef NS_ENUM(NSInteger, VLCPanType) {
     _swipeRecognizerDown.direction = UISwipeGestureRecognizerDirectionDown;
     _swipeRecognizerDown.numberOfTouchesRequired = 2;
 
-
+    [self.view addGestureRecognizer:_pinchRecognizer];
     [self.view addGestureRecognizer:_swipeRecognizerLeft];
     [self.view addGestureRecognizer:_swipeRecognizerRight];
     [self.view addGestureRecognizer:_swipeRecognizerUp];
     [self.view addGestureRecognizer:_swipeRecognizerDown];
     [self.view addGestureRecognizer:_panRecognizer];
     [self.view addGestureRecognizer:_tapRecognizer];
-    [self.view addGestureRecognizer:_tapToSeekRecognizer];
 
     [_panRecognizer requireGestureRecognizerToFail:_swipeRecognizerLeft];
     [_panRecognizer requireGestureRecognizerToFail:_swipeRecognizerRight];
@@ -1493,7 +1499,7 @@ currentMediaHasTrackToChooseFrom:(BOOL)currentMediaHasTrackToChooseFrom
 
 #pragma mark - multi-touch gestures
 
-- (void)tapRecognized
+- (void)togglePlayPause
 {
     LOCKCHECK;
 
@@ -1803,6 +1809,22 @@ currentMediaHasTrackToChooseFrom:(BOOL)currentMediaHasTrackToChooseFrom
     [self _resetIdleTimer];
 }
 
+- (void)toggleiPhoneXAspectRatio
+{
+    if (@available(iOS 11.0, *)) {
+        BOOL isFullScreen = CGRectEqualToRect(_movieView.frame , self.view.frame);
+
+        CGRect frameWithoutNotch = self.view.safeAreaLayoutGuide.layoutFrame;
+        [UIView animateWithDuration:0.3 animations:^{
+                _movieView.frame = isFullScreen ? frameWithoutNotch : self.view.frame;
+        }];
+    }
+}
+
+- (BOOL)prefersHomeIndicatorAutoHidden
+{
+    return YES;
+}
 
 #pragma mark - autorotation
 
