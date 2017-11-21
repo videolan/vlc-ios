@@ -37,10 +37,7 @@ typedef NS_ENUM(NSUInteger, VLCNetworkServerLoginIndex) {
 - (void)registerCellsInTableView:(UITableView *)tableView
 {
     [tableView registerClass:[VLCNetworkLoginViewButtonCell class] forCellReuseIdentifier:kVLCNetworkLoginViewButtonCellIdentifier];
-
-    Class fieldClass = [VLCNetworkLoginViewFieldCell class];
-    [tableView registerNib:[UINib nibWithNibName:NSStringFromClass(fieldClass) bundle:[NSBundle bundleForClass:fieldClass]]
-    forCellReuseIdentifier:kVLCNetworkLoginViewFieldCellIdentifier];
+    [tableView registerClass:[VLCNetworkLoginViewFieldCell class] forCellReuseIdentifier:kVLCNetworkLoginViewFieldCellIdentifier];
 }
 
 - (void)setLoginInformation:(VLCNetworkServerLoginInformation *)loginInformation
@@ -152,7 +149,7 @@ typedef NS_ENUM(NSUInteger, VLCNetworkServerLoginIndex) {
 
 
 #pragma mark - VLCNetworkLoginDataSourceSection
--(void)configureWithTableView:(UITableView *)tableView
+- (void)configureWithTableView:(UITableView *)tableView
 {
     [self registerCellsInTableView:tableView];
     self.tableView = tableView;
