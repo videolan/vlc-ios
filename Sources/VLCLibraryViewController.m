@@ -1671,6 +1671,7 @@ static NSString *kUsingTableViewToShowData = @"UsingTableViewToShowData";
 - (void)willRotateToInterfaceOrientation:(UIInterfaceOrientation)toInterfaceOrientation duration:(NSTimeInterval)duration
 {
     [super willRotateToInterfaceOrientation:toInterfaceOrientation duration:duration];
+    [self setEditing:NO];
     [self setViewFromDeviceOrientation];
     if (self.usingTableViewToShowData) {
         NSArray *visibleCells = [self.tableView visibleCells];
@@ -1688,7 +1689,7 @@ static NSString *kUsingTableViewToShowData = @"UsingTableViewToShowData";
 - (void)viewWillTransitionToSize:(CGSize)size withTransitionCoordinator:(id<UIViewControllerTransitionCoordinator>)coordinator
 {
     [super viewWillTransitionToSize:size withTransitionCoordinator:coordinator];
-
+    [self setEditing:NO];
     [coordinator animateAlongsideTransition:^(id<UIViewControllerTransitionCoordinatorContext>  _Nonnull context) {
         [self setViewFromDeviceOrientation];
         if (!self.usingTableViewToShowData) {
