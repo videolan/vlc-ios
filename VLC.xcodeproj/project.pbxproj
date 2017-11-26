@@ -2969,7 +2969,6 @@
 					7D94FCDA16DE7D1000F2623B = {
 						DevelopmentTeam = 75GAHG3SZQ;
 						LastSwiftMigration = 0920;
-						ProvisioningStyle = Automatic;
 						SystemCapabilities = {
 							com.apple.ApplicationGroups.iOS = {
 								enabled = 1;
