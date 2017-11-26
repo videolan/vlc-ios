@@ -349,7 +349,7 @@
 
         MLFile *theFile;
         if ([self.mediaObject isKindOfClass:[MLFile class]])
-            theFile = self.mediaObject;
+            theFile = (MLFile *)self.mediaObject;
         else if ([self.mediaObject isKindOfClass:[MLShowEpisode class]])
             theFile = [[(MLShowEpisode *)self.mediaObject files]anyObject];
         else if ([self.mediaObject isKindOfClass:[MLAlbumTrack class]])
@@ -521,4 +521,19 @@
     self.thumbnailView.image = [VLCThumbnailsCache thumbnailForManagedObject:self.mediaObject refreshCache:YES];
 }
 
+- (void)prepareForReuse
+{
+    [super prepareForReuse];
+    self.mediaObject = nil;
+    self.thumbnailView.image = nil;
+    self.titleLabel.text = @"";
+    self.subtitleLabel.text = @"";
+    self.mediaIsUnreadView.hidden = YES;
+    self.progressView.hidden = YES;
+    self.metaDataLabel.hidden = YES;
+    self.folderIconView.hidden = YES;
+    self.isSelectedView.hidden = YES;
+    self.metaDataLabel.hidden = YES;
+    self.mediaIsUnreadView.hidden = YES;
+}
 @end

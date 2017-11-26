@@ -17,4 +17,8 @@ NSLocalizedString(@"STORE_DESCRIPTION", nil);
 NSLocalizedString(@"STORE_DESCRIPTION_TV", nil);
 NSLocalizedString(@"ABOUT_APP", nil);
 NSLocalizedString(@"SECTION_HEADER_NETWORK", nil);
+NSLocalizedString(@"THIS_FILE", nil);
+NSLocalizedString(@"NOT_SUPPORTED_FILETYPE", nil);
+NSLocalizedString(@"FILE_EXISTS", nil);
+
 }

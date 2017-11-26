@@ -30,12 +30,14 @@
 #import "VLCPlaylistTableViewCell.h"
 
 #import "VLCPlaybackController+MediaLibrary.h"
+#import "VLC_iOS-Swift.h"
 
 #import <CoreSpotlight/CoreSpotlight.h>
 
 /* prefs keys */
 static NSString *kDisplayedFirstSteps = @"Did we display the first steps tutorial?";
 static NSString *kUsingTableViewToShowData = @"UsingTableViewToShowData";
+
 @implementation EmptyLibraryView
 
 - (IBAction)learnMore:(id)sender
@@ -71,6 +73,8 @@ static NSString *kUsingTableViewToShowData = @"UsingTableViewToShowData";
     UIBarButtonItem *_shareBarButtonItem;
     UIBarButtonItem *_removeFromFolderBarButtonItem;
     UIBarButtonItem *_deleteSelectedBarButtonItem;
+    
+    NSObject *dragAndDropManager;
 }
 
 @property (nonatomic, strong) UIBarButtonItem *displayModeBarButtonItem;
@@ -83,9 +87,6 @@ static NSString *kUsingTableViewToShowData = @"UsingTableViewToShowData";
 
 @implementation VLCLibraryViewController
 
-- (void)dealloc
-{
-}
 
 + (void)initialize
 {
@@ -96,16 +97,21 @@ static NSString *kUsingTableViewToShowData = @"UsingTableViewToShowData";
 
 - (void)loadView
 {
+    _mediaDataSource = [VLCMediaDataSource new];
+    _searchDataSource = [VLCLibrarySearchDisplayDataSource new];
+    self.emptyLibraryView = [[[NSBundle mainBundle] loadNibNamed:@"VLCEmptyLibraryView" owner:self options:nil] lastObject];
+    _emptyLibraryView.emptyLibraryLongDescriptionLabel.lineBreakMode = NSLineBreakByWordWrapping;
+    _emptyLibraryView.emptyLibraryLongDescriptionLabel.numberOfLines = 0;
+    if (@available(iOS 11.0, *)) {
+        dragAndDropManager = [VLCDragAndDropManager new];
+        ((VLCDragAndDropManager *)dragAndDropManager).delegate = _mediaDataSource;
+        UIDropInteraction *dropInteraction = [[UIDropInteraction alloc] initWithDelegate:(VLCDragAndDropManager *)dragAndDropManager];
+        [_emptyLibraryView addInteraction:dropInteraction];
+    }
     [self setupContentView];
     [self setViewFromDeviceOrientation];
     [self updateViewsForCurrentDisplayMode];
     _libraryMode = VLCLibraryModeAllFiles;
-    _searchDataSource = [VLCLibrarySearchDisplayDataSource new];
-    _mediaDataSource = [VLCMediaDataSource new];
-
-    self.emptyLibraryView = [[[NSBundle mainBundle] loadNibNamed:@"VLCEmptyLibraryView" owner:self options:nil] lastObject];
-    _emptyLibraryView.emptyLibraryLongDescriptionLabel.lineBreakMode = NSLineBreakByWordWrapping;
-    _emptyLibraryView.emptyLibraryLongDescriptionLabel.numberOfLines = 0;
 }
 
 - (void)setupContentView
@@ -114,7 +120,6 @@ static NSString *kUsingTableViewToShowData = @"UsingTableViewToShowData";
     UIView *contentView = [[UIView alloc] initWithFrame:viewDimensions];
     contentView.autoresizingMask = UIViewAutoresizingFlexibleHeight | UIViewAutoresizingFlexibleWidth;
     contentView.backgroundColor = [UIColor VLCDarkBackgroundColor];
-
     if (self.usingTableViewToShowData) {
         if (!_tableView) {
             _tableView = [[UITableView alloc] initWithFrame:viewDimensions style:UITableViewStylePlain];
@@ -128,6 +133,10 @@ static NSString *kUsingTableViewToShowData = @"UsingTableViewToShowData";
             _tableView.separatorColor = [UIColor VLCDarkBackgroundColor];
             _tableView.delegate = self;
             _tableView.dataSource = self;
+            if (@available(iOS 11.0, *)) {
+                _tableView.dragDelegate = ((VLCDragAndDropManager *)dragAndDropManager);
+                _tableView.dropDelegate = ((VLCDragAndDropManager *)dragAndDropManager);
+            }
             _tableView.indicatorStyle = UIScrollViewIndicatorStyleWhite;
             _tableView.autoresizingMask = UIViewAutoresizingFlexibleHeight | UIViewAutoresizingFlexibleWidth;
             _tableView.tableHeaderView = _searchController.searchBar;
@@ -142,6 +151,10 @@ static NSString *kUsingTableViewToShowData = @"UsingTableViewToShowData";
             _folderLayout = [[VLCFolderCollectionViewFlowLayout alloc] init];
             _collectionView = [[UICollectionView alloc] initWithFrame:viewDimensions collectionViewLayout:_folderLayout];
             _collectionView.alwaysBounceVertical = YES;
+            if (@available(iOS 11.0, *)) {
+                _collectionView.dragDelegate = ((VLCDragAndDropManager *)dragAndDropManager);
+                _collectionView.dropDelegate = ((VLCDragAndDropManager *)dragAndDropManager);
+            }
             _collectionView.indicatorStyle = UIScrollViewIndicatorStyleWhite;
             _collectionView.delegate = self;
             _collectionView.dataSource = self;
@@ -440,7 +453,7 @@ static NSString *kUsingTableViewToShowData = @"UsingTableViewToShowData";
     }
 
     self.navigationItem.leftBarButtonItem = _menuButton;
-    [_mediaDataSource removeAllObjects];
+    [_mediaDataSource updateContentsForSelection:nil];
     _removeFromFolderBarButtonItem.enabled = NO;
 
     switch (_libraryMode) {
@@ -480,6 +493,7 @@ static NSString *kUsingTableViewToShowData = @"UsingTableViewToShowData";
         _isSelected = NO;
     } else {
         [self.collectionView reloadData];
+
         [self updateActionBarButtonItemStateWithSelectedIndexPaths:[self.collectionView indexPathsForSelectedItems]];
         if (_libraryMode == VLCLibraryModeAllFiles) {
             if (self.collectionView.collectionViewLayout != _folderLayout) {
@@ -528,6 +542,17 @@ static NSString *kUsingTableViewToShowData = @"UsingTableViewToShowData";
 
 - (BOOL)tableView:(UITableView *)tableView canMoveRowAtIndexPath:(NSIndexPath *)indexPath
 {
+    if (@available(iOS 11.0, *)) {
+        return true;
+    }
+    return _inFolder;
+}
+
+- (BOOL)collectionView:(UICollectionView *)collectionView canMoveItemAtIndexPath:(NSIndexPath *)indexPath
+{
+    if (@available(iOS 11.0, *)) {
+        return true;
+    }
     return _inFolder;
 }
 
@@ -712,6 +737,12 @@ static NSString *kUsingTableViewToShowData = @"UsingTableViewToShowData";
     [_mediaDataSource moveObjectFromIndex:fromIndexPath.item toIndex:toIndexPath.item];
 }
 
+- (BOOL)collectionView:(UICollectionView *)collectionView shouldSpringLoadItemAtIndexPath:(NSIndexPath *)indexPath withContext:(id<UISpringLoadedInteractionContext>)context NS_AVAILABLE_IOS(11.0)
+{
+    id mediaObject = [_mediaDataSource objectAtIndex:indexPath.item];
+    return [mediaObject isKindOfClass:[MLLabel class]];
+}
+
 - (void)collectionView:(UICollectionView *)collectionView requestToMoveItemAtIndexPath:(NSIndexPath *)itemPath intoFolderAtIndexPath:(NSIndexPath *)folderPath
 {
     id folderPathItem = [_mediaDataSource objectAtIndex:folderPath.item];
@@ -798,7 +829,7 @@ static NSString *kUsingTableViewToShowData = @"UsingTableViewToShowData";
         NSArray *folder = [MLLabel allLabels];
         //if we already have folders display them
         if ([folder count] > 0) {
-            [_mediaDataSource removeAllObjects];
+            [_mediaDataSource updateContentsForSelection:nil];
             [_mediaDataSource addAllFolders];
             self.title = NSLocalizedString(@"SELECT_FOLDER", nil);
             _previousLibraryMode = _libraryMode;

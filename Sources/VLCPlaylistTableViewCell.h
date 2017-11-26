@@ -10,6 +10,7 @@
  *
  * Refer to the COPYING file of the official project for license.
  *****************************************************************************/
+#import <UIKit/UIKit.h>
 
 static NSString *kPlaylistCellIdentifier = @"PlaylistCell";
 

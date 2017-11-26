@@ -10,6 +10,8 @@
 
 @interface VLCMediaDataSource : NSObject
 
+- (NSManagedObject *)currentSelection;
+
 - (void)updateContentsForSelection:(NSManagedObject *)selection;
 - (NSUInteger)numberOfFiles;
 - (NSManagedObject *)objectAtIndex:(NSUInteger)index;
@@ -18,7 +20,6 @@
 - (void)insertObject:(NSManagedObject *)object atIndex:(NSUInteger)index;
 - (void)removeObjectAtIndex:(NSUInteger)index;
 - (void)moveObjectFromIndex:(NSUInteger)fromIdx toIndex:(NSUInteger)toIdx;
-- (void)removeAllObjects;
 
 //this always creates a copy that might not be good
 - (NSArray *)allObjects;

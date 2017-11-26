@@ -324,6 +324,12 @@
 "DELETE_MESSAGE" = "Confirm the deletion of the selected files";
 "DELETE_TITLE" = "Delete Selected Files";
 
+//Drag and Drop
+"THIS_FILE" = "This file";
+"NOT_SUPPORTED_FILETYPE" = "%@ is not a supported filetype by VLC";
+"FILE_EXISTS" = "%@ already exists";
+
 /* New strings */
 "PROTOCOL_NOT_SELECTED" = "PROTOCOL_NOT_SELECTED";
 "Settings" = "Settings";
+

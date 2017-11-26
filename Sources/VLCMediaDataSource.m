@@ -13,6 +13,7 @@
 @interface VLCMediaDataSource ()
 {
     NSMutableArray *_foundMedia;
+    NSManagedObject *_currentSelection;
 }
 @end
 
@@ -20,7 +21,7 @@
 
 - (void)updateContentsForSelection:(NSManagedObject *)selection
 {
-    NSArray *array;
+    NSArray *array = [NSMutableArray new];
     if ([selection isKindOfClass:[MLAlbum class]]) {
         array = [(MLAlbum *)selection sortedTracks];
     } else if ([selection isKindOfClass:[MLShow class]]) {
@@ -28,9 +29,15 @@
     } else if ([selection isKindOfClass:[MLLabel class]]) {
         array = [(MLLabel *)selection sortedFolderItems];
     }
+    _currentSelection = selection;
     @synchronized(_foundMedia) {
         _foundMedia = [NSMutableArray arrayWithArray:array];
     }
+}
+
+- (NSManagedObject *)currentSelection
+{
+    return _currentSelection;
 }
 
 - (NSUInteger)numberOfFiles
@@ -169,7 +176,7 @@
 
 - (void)removeMediaObjectFromFolder:(NSManagedObject *)managedObject
 {
-    NSAssert([managedObject isKindOfClass:[MLFile class]], @"All media in a folder should be of type MLFile");
+    NSAssert(([managedObject isKindOfClass:[MLFile class]] && ((MLFile *)managedObject).labels.count > 0), @"All media in a folder should be of type MLFile and it should be in a folder");
 
     if (![managedObject isKindOfClass:[MLFile class]]) return;
 
