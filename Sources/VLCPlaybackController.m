@@ -1114,7 +1114,7 @@ VLCMediaDelegate, VLCRemoteControlServiceDelegate>
             lastPosition = item.lastPosition.floatValue;
         duration = item.duration.intValue;
 
-        if (lastPosition < .95 && _mediaPlayer.position < lastPosition && (duration * lastPosition - duration) < -50000) {
+        if (lastPosition < .95 && _mediaPlayer.position < lastPosition) {
             NSInteger continuePlayback;
             if ([item isAlbumTrack] || [item isSupportedAudioFile])
                 continuePlayback = [[[NSUserDefaults standardUserDefaults] objectForKey:kVLCSettingContinueAudioPlayback] integerValue];
