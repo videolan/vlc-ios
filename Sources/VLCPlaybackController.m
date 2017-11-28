@@ -149,8 +149,8 @@ VLCMediaDelegate, VLCRemoteControlServiceDelegate>
     _itemInMediaListToBePlayedFirst = (int)index;
     _pathToExternalSubtitlesFile = subsFilePath;
 
-    _sessionWillRestart = self.isPlaying;
-    self.isPlaying ?  [self stopPlayback] : [self startPlayback];
+    _sessionWillRestart = _playerIsSetup;
+    _playerIsSetup ? [self stopPlayback] : [self startPlayback];
 }
 
 - (VLCTime *)playedTime
