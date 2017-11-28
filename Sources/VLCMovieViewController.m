@@ -1267,7 +1267,7 @@ currentMediaHasTrackToChooseFrom:(BOOL)currentMediaHasTrackToChooseFrom
 
     if (_vpc.isPlaying) {
         [_vpc pause];
-        [self setControlsHidden:NO animated:YES];
+        [self setControlsHidden:NO animated:_controlsHidden];
     } else {
         [_vpc play];
     }
