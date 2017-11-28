@@ -130,7 +130,6 @@ class VLCDragAndDropManager: NSObject, UICollectionViewDragDelegate, UITableView
                 delegate?.dragAndDropManagerRemoveFileFromFolder(manager:self, file:mlFile)
             }, completion:nil)
         }
-        assert(false, "we shouldn't call move when the object is not from within vlc")
     }
 
     private func addDragItem(tableView:UITableView, dragItem item:UITableViewDropItem, toFolderAt index:IndexPath) {
