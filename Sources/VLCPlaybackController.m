@@ -47,16 +47,11 @@ typedef NS_ENUM(NSUInteger, VLCAspectRatio) {
     VLCAspectRatioSixteenToTen,
 };
 
-@interface VLCPlaybackController () <VLCMediaPlayerDelegate,
-#if TARGET_OS_IOS
-AVAudioSessionDelegate,
-#endif
-VLCMediaDelegate>
+@interface VLCPlaybackController () <VLCMediaPlayerDelegate, VLCMediaDelegate>
 {
     BOOL _playerIsSetup;
     BOOL _playbackFailed;
     BOOL _shouldResumePlaying;
-    BOOL _shouldResumePlayingAfterInteruption;
     NSTimer *_sleepTimer;
 
     NSUInteger _currentAspectRatio;
@@ -118,6 +113,8 @@ VLCMediaDelegate>
         NSNotificationCenter *defaultCenter = [NSNotificationCenter defaultCenter];
         [defaultCenter addObserver:self selector:@selector(audioSessionRouteChange:)
                               name:AVAudioSessionRouteChangeNotification object:nil];
+        [defaultCenter addObserver:self selector:@selector(handleInterruption:)
+                              name:AVAudioSessionInterruptionNotification object:[AVAudioSession sharedInstance]];
         [defaultCenter addObserver:self selector:@selector(applicationWillResignActive:)
                               name:UIApplicationWillResignActiveNotification object:nil];
         [defaultCenter addObserver:self selector:@selector(applicationDidBecomeActive:)
@@ -229,10 +226,6 @@ VLCMediaDelegate>
     }
 
     _activeSession = YES;
-
-#if TARGET_OS_IOS
-    [[AVAudioSession sharedInstance] setDelegate:self];
-#endif
 
     NSUserDefaults *defaults = [NSUserDefaults standardUserDefaults];
 
@@ -896,20 +889,23 @@ VLCMediaDelegate>
     return [_mediaPlayer preAmplification];
 }
 
-#pragma mark - AVSession delegate
-- (void)beginInterruption
-{
-    if ([_mediaPlayer isPlaying]) {
-        [_mediaPlayer pause];
-        _shouldResumePlayingAfterInteruption = YES;
-    }
-}
+#pragma mark - AVAudioSession Notification Observers
 
-- (void)endInterruption
+- (void)handleInterruption:(NSNotification *)notification
 {
-    if (_shouldResumePlayingAfterInteruption) {
+    NSDictionary *userInfo = notification.userInfo;
+
+    if (!userInfo || !userInfo[AVAudioSessionInterruptionTypeKey]) {
+        return;
+    }
+
+    NSUInteger interruptionType = [userInfo[AVAudioSessionInterruptionTypeKey] unsignedIntegerValue];
+
+    if (interruptionType == AVAudioSessionInterruptionTypeBegan) {
+        [_mediaPlayer pause];
+    } else if (interruptionType == AVAudioSessionInterruptionTypeEnded
+               && [userInfo[AVAudioSessionInterruptionOptionKey] unsignedIntegerValue] == AVAudioSessionInterruptionOptionShouldResume) {
         [_mediaPlayer play];
-        _shouldResumePlayingAfterInteruption = NO;
     }
 }
 
