@@ -40,11 +40,7 @@ typedef NS_ENUM(NSUInteger, VLCAspectRatio) {
     VLCAspectRatioSixteenToTen,
 };
 
-@interface VLCPlaybackController () <VLCMediaPlayerDelegate,
-#if TARGET_OS_IOS
-AVAudioSessionDelegate,
-#endif
-VLCMediaDelegate, VLCRemoteControlServiceDelegate>
+@interface VLCPlaybackController () <VLCMediaPlayerDelegate, VLCMediaDelegate, VLCRemoteControlServiceDelegate>
 {
     VLCRemoteControlService *_remoteControlService;
     VLCMediaPlayer *_mediaPlayer;
@@ -52,7 +48,6 @@ VLCMediaDelegate, VLCRemoteControlServiceDelegate>
     BOOL _playerIsSetup;
     BOOL _shouldResumePlaying;
     BOOL _sessionWillRestart;
-    BOOL _shouldResumePlayingAfterInteruption;
 
     NSString *_pathToExternalSubtitlesFile;
     int _itemInMediaListToBePlayedFirst;
@@ -109,6 +104,9 @@ VLCMediaDelegate, VLCRemoteControlServiceDelegate>
         NSNotificationCenter *defaultCenter = [NSNotificationCenter defaultCenter];
         [defaultCenter addObserver:self selector:@selector(audioSessionRouteChange:)
                               name:AVAudioSessionRouteChangeNotification object:nil];
+
+        [defaultCenter addObserver:self selector:@selector(handleInterruption:)
+                              name:AVAudioSessionInterruptionNotification object:[AVAudioSession sharedInstance]];
 
         // appkit because we neeed to know when we go to background in order to stop the video, so that we don't crash
         [defaultCenter addObserver:self selector:@selector(applicationWillResignActive:)
@@ -170,10 +168,6 @@ VLCMediaDelegate, VLCRemoteControlServiceDelegate>
         APLog(@"%s: locking failed", __PRETTY_FUNCTION__);
         return;
     }
-
-#if TARGET_OS_IOS
-    [[AVAudioSession sharedInstance] setDelegate:self];
-#endif
 
     NSUserDefaults *defaults = [NSUserDefaults standardUserDefaults];
 
@@ -1008,20 +1002,23 @@ VLCMediaDelegate, VLCRemoteControlServiceDelegate>
     return [_mediaPlayer preAmplification];
 }
 
-#pragma mark - AVSession delegate
-- (void)beginInterruption
-{
-    if ([_mediaPlayer isPlaying]) {
-        [_mediaPlayer pause];
-        _shouldResumePlayingAfterInteruption = YES;
-    }
-}
+#pragma mark - AVAudioSession Notification Observers
 
-- (void)endInterruption
+- (void)handleInterruption:(NSNotification *)notification
 {
-    if (_shouldResumePlayingAfterInteruption) {
+    NSDictionary *userInfo = notification.userInfo;
+
+    if (!userInfo || !userInfo[AVAudioSessionInterruptionTypeKey]) {
+        return;
+    }
+
+    NSUInteger interruptionType = [userInfo[AVAudioSessionInterruptionTypeKey] unsignedIntegerValue];
+
+    if (interruptionType == AVAudioSessionInterruptionTypeBegan) {
+        [_mediaPlayer pause];
+    } else if (interruptionType == AVAudioSessionInterruptionTypeEnded
+               && [userInfo[AVAudioSessionInterruptionOptionKey] unsignedIntegerValue] == AVAudioSessionInterruptionOptionShouldResume) {
         [_mediaPlayer play];
-        _shouldResumePlayingAfterInteruption = NO;
     }
 }
 
