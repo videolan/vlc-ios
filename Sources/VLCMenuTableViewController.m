@@ -126,6 +126,11 @@ static NSString *WiFiCellIdentifier = @"VLCMenuWiFiCell";
     [super viewDidLayoutSubviews];
     _heightConstraint.constant = MIN(_menuTableView.contentSize.height, self.view.frame.size.height-TOP_PADDING-STANDARD_PADDING);
     _leftTableConstraint.constant = MAX((self.view.frame.size.width*2 /3.0  - _menuTableView.frame.size.width)/2.0, STANDARD_PADDING);
+
+    if (SYSTEM_RUNS_IOS7) {
+        [_menuTableView layoutIfNeeded];
+        [self.view layoutIfNeeded];
+    }
 }
 #pragma mark - table view data source
 
@@ -223,6 +228,16 @@ static NSString *WiFiCellIdentifier = @"VLCMenuWiFiCell";
         [headerView addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"V:|->=0-[textLabel(==22)]->=0-[bottomLine(0.5)]|" options:0 metrics:0 views:dict]];
     }
     return headerView;
+}
+
+- (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath
+{
+    return UI_USER_INTERFACE_IDIOM() == UIUserInterfaceIdiomPad ? IPAD_ROW_HEIGHT : ROW_HEIGHT;
+}
+
+- (CGFloat)tableView:(UITableView *)tableView heightForHeaderInSection:(NSInteger)section
+{
+    return HEADER_HEIGHT;
 }
 
 #pragma mark - menu implementation

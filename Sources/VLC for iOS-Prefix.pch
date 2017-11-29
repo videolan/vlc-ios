@@ -38,6 +38,8 @@
 
 #define SYSTEM_RUNS_IOS9_OR_LATER SYSTEM_VERSION_GREATER_THAN_OR_EQUAL_TO(@"9.0")
 
+#define SYSTEM_RUNS_IOS7 ([[UIDevice currentDevice] systemVersion].floatValue < 8.)
+
 #ifndef NDEBUG
 #define APLog(format, ...) NSLog(format, ## __VA_ARGS__)
 #else
