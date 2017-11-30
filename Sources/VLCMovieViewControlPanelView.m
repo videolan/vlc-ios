@@ -27,7 +27,7 @@
 
 @implementation VLCMovieViewControlPanelView
 
-static const CGFloat maxCompactWidth = 420.0;
+static const CGFloat maxControlsWidth = 474.0;
 
 - (instancetype)initWithFrame:(CGRect)frame
 {
@@ -148,7 +148,7 @@ static const CGFloat maxCompactWidth = 420.0;
 
 - (void)updateViewConstraints
 {
-    BOOL compactMode = CGRectGetWidth(self.frame) <= maxCompactWidth;
+    BOOL compactMode = CGRectGetWidth(self.frame) <= maxControlsWidth;
     if (self.compactMode != compactMode) {
         self.compactMode = compactMode;
         [self setupConstraints:compactMode];
