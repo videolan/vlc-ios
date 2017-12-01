@@ -30,7 +30,6 @@
 #import "VLCPlayerDisplayController.h"
 #import <MediaPlayer/MediaPlayer.h>
 #import <HockeySDK/HockeySDK.h>
-#import "VLCSidebarController.h"
 #import "VLCActivityManager.h"
 #import "VLCDropboxConstants.h"
 #import <ObjectiveDropboxOfficial/ObjectiveDropboxOfficial.h>
@@ -48,6 +47,7 @@ NSString *const VLCDropboxSessionWasAuthorized = @"VLCDropboxSessionWasAuthorize
     BOOL _isComingFromHandoff;
     VLCWatchCommunication *_watchCommunication;
     VLCKeychainCoordinator *_keychainCoordinator;
+    AppCoordinator *appCoordinator;
 }
 
 @end
@@ -111,16 +111,10 @@ NSString *const VLCDropboxSessionWasAuthorized = @"VLCDropboxSessionWasAuthorize
     void (^setupBlock)() = ^{
         __weak typeof(self) weakSelf = self;
         void (^setupLibraryBlock)() = ^{
+
             _libraryViewController = [[VLCLibraryViewController alloc] init];
-            UINavigationController *navCon = [[UINavigationController alloc] initWithRootViewController:_libraryViewController];
-
-            VLCSidebarController *sidebarVC = [VLCSidebarController sharedInstance];
-            sidebarVC.contentViewController = navCon;
-
-            VLCPlayerDisplayController *playerDisplayController = [VLCPlayerDisplayController sharedInstance];
-            playerDisplayController.childViewController = sidebarVC.fullViewController;
-
-            weakSelf.window.rootViewController = playerDisplayController;
+            appCoordinator = [[AppCoordinator alloc] initWithWindow:weakSelf.window];
+            [appCoordinator start];
         };
         UINavigationController *navCon = [[UINavigationController alloc] initWithRootViewController:[[UIViewController alloc] init]];
         self.window.rootViewController = navCon;

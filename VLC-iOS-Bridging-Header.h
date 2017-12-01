@@ -4,8 +4,11 @@
 
 #import <MediaLibraryKit/MediaLibraryKit.h>
 #import "VLCPlaylistTableViewCell.h"
+#import "VLCPlaylistCollectionViewCell.h"
 #import "VLCMediaDataSource.h"
-#import "VLCLibraryViewController.h"
 #import <PAPasscode/PAPasscodeViewController.h>
 #import <XKKeychain/XKKeychain.h>
 #import "VLCConstants.h"
+#import "UIBarButtonItem+Theme.h"
+#import "VLCSidebarController.h"
+#import "VLCPlayerDisplayController.h"

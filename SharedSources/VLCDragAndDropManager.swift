@@ -35,7 +35,6 @@ struct DropError: Error {
 @available(iOS 11.0, *)
 class VLCDragAndDropManager: NSObject, UICollectionViewDragDelegate, UITableViewDragDelegate, UICollectionViewDropDelegate, UITableViewDropDelegate, UIDropInteractionDelegate
 {
-
     @objc weak var delegate:VLCDragAndDropManagerDelegate?
 
     let utiTypeIdentifiers:[String] = VLCDragAndDropManager.supportedTypeIdentifiers()
