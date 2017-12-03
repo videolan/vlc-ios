@@ -14,7 +14,6 @@
 #import "VLCPlaybackController.h"
 #import "VLCMiniPlaybackView.h"
 #import "VLCPlaybackNavigationController.h"
-#import "VLCAppDelegate.h"
 #import "VLC_iOS-Swift.h"
 
 #if TARGET_OS_IOS
@@ -72,10 +71,6 @@ static NSString *const VLCPlayerDisplayControllerDisplayModeKey = @"VLCPlayerDis
     [super viewDidLoad];
 
     VLCSidebarController *sidebarVC = [VLCSidebarController sharedInstance];
-    VLCVideoViewController *libCon = ((VLCAppDelegate *)[UIApplication sharedApplication].delegate).videoViewController;
-    UINavigationController *navCon = [[UINavigationController alloc] initWithRootViewController:libCon];
-    sidebarVC.contentViewController = navCon;
-
     _childViewController = sidebarVC.fullViewController;
 
     [self setupChildViewController];

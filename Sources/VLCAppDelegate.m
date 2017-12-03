@@ -21,7 +21,6 @@
 #import "VLCMediaFileDiscoverer.h"
 #import "NSString+SupportedMedia.h"
 #import "UIDevice+VLC.h"
-#import "VLCLibraryViewController.h"
 #import "VLCHTTPUploaderController.h"
 #import "VLCMigrationViewController.h"
 #import <BoxSDK/BoxSDK.h>
@@ -31,6 +30,7 @@
 #import <HockeySDK/HockeySDK.h>
 #import "VLCActivityManager.h"
 #import "VLCDropboxConstants.h"
+#import "VLCDownloadViewController.h"
 #import <ObjectiveDropboxOfficial/ObjectiveDropboxOfficial.h>
 #import "VLCPlaybackNavigationController.h"
 #import "PAPasscodeViewController.h"
@@ -110,7 +110,6 @@ NSString *const VLCDropboxSessionWasAuthorized = @"VLCDropboxSessionWasAuthorize
     void (^setupBlock)() = ^{
         __weak typeof(self) weakSelf = self;
         void (^setupLibraryBlock)() = ^{
-            _videoViewController = [[VLCVideoViewController alloc] initWithCollectionViewLayout:[UICollectionViewFlowLayout new]];
             appCoordinator = [[AppCoordinator alloc] initWithWindow:weakSelf.window];
             [appCoordinator start];
         };
