@@ -13,7 +13,6 @@
  *****************************************************************************/
 
 #import "VLCSettingsController.h"
-#import "VLCLibraryViewController.h"
 #import "IASKSettingsReader.h"
 #import "PAPasscodeViewController.h"
 #import <LocalAuthentication/LocalAuthentication.h>

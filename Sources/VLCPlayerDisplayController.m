@@ -72,7 +72,7 @@ static NSString *const VLCPlayerDisplayControllerDisplayModeKey = @"VLCPlayerDis
     [super viewDidLoad];
 
     VLCSidebarController *sidebarVC = [VLCSidebarController sharedInstance];
-    VLCLibraryViewController *libCon = ((VLCAppDelegate *)[UIApplication sharedApplication].delegate).libraryViewController;
+    VLCVideoViewController *libCon = ((VLCAppDelegate *)[UIApplication sharedApplication].delegate).videoViewController;
     UINavigationController *navCon = [[UINavigationController alloc] initWithRootViewController:libCon];
     sidebarVC.contentViewController = navCon;
 

@@ -27,7 +27,6 @@
 #import <BoxSDK/BoxSDK.h>
 #import "VLCPlaybackController.h"
 #import "VLCPlaybackController+MediaLibrary.h"
-#import "VLCPlayerDisplayController.h"
 #import <MediaPlayer/MediaPlayer.h>
 #import <HockeySDK/HockeySDK.h>
 #import "VLCActivityManager.h"
@@ -111,8 +110,7 @@ NSString *const VLCDropboxSessionWasAuthorized = @"VLCDropboxSessionWasAuthorize
     void (^setupBlock)() = ^{
         __weak typeof(self) weakSelf = self;
         void (^setupLibraryBlock)() = ^{
-
-            _libraryViewController = [[VLCLibraryViewController alloc] init];
+            _videoViewController = [[VLCVideoViewController alloc] initWithCollectionViewLayout:[UICollectionViewFlowLayout new]];
             appCoordinator = [[AppCoordinator alloc] initWithWindow:weakSelf.window];
             [appCoordinator start];
         };
@@ -243,15 +241,7 @@ continueUserActivity:(NSUserActivity *)userActivity
     if([userActivityType isEqualToString:kVLCUserActivityLibraryMode] ||
        [userActivityType isEqualToString:kVLCUserActivityLibrarySelection]) {
 
-        VLCLibraryMode libraryMode = (VLCLibraryMode)[(NSNumber *)dict[@"state"] integerValue];
-
-        if (libraryMode <= VLCLibraryModeAllSeries) {
-            [[VLCSidebarController sharedInstance] selectRowAtIndexPath:[NSIndexPath indexPathForRow:libraryMode inSection:0]
-                                                         scrollPosition:UITableViewScrollPositionTop];
-            [self.libraryViewController setLibraryMode:libraryMode];
-        }
-
-        [self.libraryViewController restoreUserActivityState:userActivity];
+       // [self.libraryViewController restoreUserActivityState:userActivity];
         _isComingFromHandoff = YES;
         return YES;
     } else {
@@ -302,96 +292,104 @@ didFailToContinueUserActivityWithType:(NSString *)userActivityType
         return YES;
     }
 
-    if (_libraryViewController && url != nil) {
-        APLog(@"requested %@ to be opened", url);
-
-        if (url.isFileURL) {
-            NSArray *searchPaths = NSSearchPathForDirectoriesInDomains(NSDocumentDirectory, NSUserDomainMask, YES);
-            NSString *directoryPath = searchPaths.firstObject;
-            NSURL *destinationURL = [NSURL fileURLWithPath:[NSString stringWithFormat:@"%@/%@", directoryPath, url.lastPathComponent]];
-            NSError *theError;
-            NSFileManager *manager = [NSFileManager defaultManager];
-            [[NSFileManager defaultManager] moveItemAtURL:url toURL:destinationURL error:&theError];
-            if (theError.code != noErr)
-                APLog(@"saving the file failed (%li): %@", (long)theError.code, theError.localizedDescription);
-
-            [[VLCMediaFileDiscoverer sharedInstance] updateMediaList];
-
-            NSURLRelationship relationship;
-            [manager getRelationship:&relationship ofDirectoryAtURL:[NSURL fileURLWithPath:directoryPath] toItemAtURL:url error:&theError];
-            if (relationship == NSURLRelationshipContains) {
-                [self playWithURL:url successCallback:nil errorCallback:nil];
-            }
-        } else if ([url.scheme isEqualToString:@"vlc-x-callback"] || [url.host isEqualToString:@"x-callback-url"]) {
-            // URL confirmes to the x-callback-url specification
-            // vlc-x-callback://x-callback-url/action?param=value&x-success=callback
-            APLog(@"x-callback-url with host '%@' path '%@' parameters '%@'", url.host, url.path, url.query);
-            NSString *action = [url.path stringByReplacingOccurrencesOfString:@"/" withString:@""];
-            NSURL *movieURL;
-            NSURL *successCallback;
-            NSURL *errorCallback;
-            NSString *fileName;
-            for (NSString *entry in [url.query componentsSeparatedByString:@"&"]) {
-                NSArray *keyvalue = [entry componentsSeparatedByString:@"="];
-                if (keyvalue.count < 2) continue;
-                NSString *key = keyvalue[0];
-                NSString *value = [keyvalue[1] stringByReplacingPercentEscapesUsingEncoding:NSUTF8StringEncoding];
-
-                if ([key isEqualToString:@"url"])
-                    movieURL = [NSURL URLWithString:value];
-                else if ([key isEqualToString:@"filename"])
-                    fileName = value;
-                else if ([key isEqualToString:@"x-success"])
-                    successCallback = [NSURL URLWithString:value];
-                else if ([key isEqualToString:@"x-error"])
-                    errorCallback = [NSURL URLWithString:value];
-            }
-            if ([action isEqualToString:@"stream"] && movieURL) {
-                [self playWithURL:movieURL successCallback:successCallback errorCallback:errorCallback];
-            }
-            else if ([action isEqualToString:@"download"] && movieURL) {
-                [self downloadMovieFromURL:movieURL fileNameOfMedia:fileName];
-            }
-        } else {
-            NSString *receivedUrl = [url absoluteString];
-            if ([receivedUrl length] > 6) {
-                NSString *verifyVlcUrl = [receivedUrl substringToIndex:6];
-                if ([verifyVlcUrl isEqualToString:@"vlc://"]) {
-                    NSString *parsedString = [receivedUrl substringFromIndex:6];
-                    NSUInteger location = [parsedString rangeOfString:@"//"].location;
-
-                    /* Safari & al mangle vlc://http:// so fix this */
-                    if (location != NSNotFound && [parsedString characterAtIndex:location - 1] != 0x3a) { // :
-                            parsedString = [NSString stringWithFormat:@"%@://%@", [parsedString substringToIndex:location], [parsedString substringFromIndex:location+2]];
-                    } else {
-                        parsedString = [receivedUrl substringFromIndex:6];
-                        if (![parsedString hasPrefix:@"http://"] && ![parsedString hasPrefix:@"https://"] && ![parsedString hasPrefix:@"ftp://"]) {
-                            parsedString = [@"http://" stringByAppendingString:[receivedUrl substringFromIndex:6]];
-                        }
-                    }
-                    url = [NSURL URLWithString:parsedString];
-                }
-            }
-            [[VLCSidebarController sharedInstance] selectRowAtIndexPath:[NSIndexPath indexPathForRow:0 inSection:0]
-                                                         scrollPosition:UITableViewScrollPositionNone];
-
-            NSString *scheme = url.scheme;
-            if ([scheme isEqualToString:@"http"] || [scheme isEqualToString:@"https"] || [scheme isEqualToString:@"ftp"]) {
-                VLCAlertView *alert = [[VLCAlertView alloc] initWithTitle:NSLocalizedString(@"OPEN_STREAM_OR_DOWNLOAD", nil) message:url.absoluteString cancelButtonTitle:NSLocalizedString(@"BUTTON_DOWNLOAD", nil) otherButtonTitles:@[NSLocalizedString(@"PLAY_BUTTON", nil)]];
-                alert.completion = ^(BOOL cancelled, NSInteger buttonIndex) {
-                    if (cancelled)
-                        [self downloadMovieFromURL:url fileNameOfMedia:nil];
-                    else {
-                        [self playWithURL:url successCallback:nil errorCallback:nil];
-                    }
-                };
-                [alert show];
-            } else {
-                [self playWithURL:url successCallback:nil errorCallback:nil];
-            }
-        }
-        return YES;
-    }
+//    if (_libraryViewController && url != nil) {
+//        APLog(@"%@ requested %@ to be opened", sourceApplication, url);
+//
+//        if (url.isFileURL) {
+//            NSArray *searchPaths = NSSearchPathForDirectoriesInDomains(NSDocumentDirectory, NSUserDomainMask, YES);
+//            NSString *directoryPath = searchPaths[0];
+//            NSURL *destinationURL = [NSURL fileURLWithPath:[NSString stringWithFormat:@"%@/%@", directoryPath, url.lastPathComponent]];
+//            NSError *theError;
+//            [[NSFileManager defaultManager] moveItemAtURL:url toURL:destinationURL error:&theError];
+//            if (theError.code != noErr)
+//                APLog(@"saving the file failed (%li): %@", (long)theError.code, theError.localizedDescription);
+//
+//            [[VLCMediaFileDiscoverer sharedInstance] updateMediaList];
+//        } else if ([url.scheme isEqualToString:@"vlc-x-callback"] || [url.host isEqualToString:@"x-callback-url"]) {
+//            // URL confirmes to the x-callback-url specification
+//            // vlc-x-callback://x-callback-url/action?param=value&x-success=callback
+//            APLog(@"x-callback-url with host '%@' path '%@' parameters '%@'", url.host, url.path, url.query);
+//            NSString *action = [url.path stringByReplacingOccurrencesOfString:@"/" withString:@""];
+//            NSURL *movieURL;
+//            NSURL *successCallback;
+//            NSURL *errorCallback;
+//            NSString *fileName;
+//            for (NSString *entry in [url.query componentsSeparatedByString:@"&"]) {
+//                NSArray *keyvalue = [entry componentsSeparatedByString:@"="];
+//                if (keyvalue.count < 2) continue;
+//                NSString *key = keyvalue[0];
+//                NSString *value = [keyvalue[1] stringByReplacingPercentEscapesUsingEncoding:NSUTF8StringEncoding];
+//
+//                if ([key isEqualToString:@"url"])
+//                    movieURL = [NSURL URLWithString:value];
+//                else if ([key isEqualToString:@"filename"])
+//                    fileName = value;
+//                else if ([key isEqualToString:@"x-success"])
+//                    successCallback = [NSURL URLWithString:value];
+//                else if ([key isEqualToString:@"x-error"])
+//                    errorCallback = [NSURL URLWithString:value];
+//            }
+//            if ([action isEqualToString:@"stream"] && movieURL) {
+//                VLCPlaybackController *vpc = [VLCPlaybackController sharedInstance];
+//                vpc.fullscreenSessionRequested = YES;
+//
+//                VLCMediaList *medialist = [[VLCMediaList alloc] init];
+//                [medialist addMedia:[VLCMedia mediaWithURL:movieURL]];
+//                vpc.successCallback = successCallback;
+//                vpc.errorCallback = errorCallback;
+//                [vpc playMediaList:medialist firstIndex:0 subtitlesFilePath:nil];
+//
+//            }
+//            else if ([action isEqualToString:@"download"] && movieURL) {
+//                [self downloadMovieFromURL:movieURL fileNameOfMedia:fileName];
+//            }
+//        } else {
+//            NSString *receivedUrl = [url absoluteString];
+//            if ([receivedUrl length] > 6) {
+//                NSString *verifyVlcUrl = [receivedUrl substringToIndex:6];
+//                if ([verifyVlcUrl isEqualToString:@"vlc://"]) {
+//                    NSString *parsedString = [receivedUrl substringFromIndex:6];
+//                    NSUInteger location = [parsedString rangeOfString:@"//"].location;
+//
+//                    /* Safari & al mangle vlc://http:// so fix this */
+//                    if (location != NSNotFound && [parsedString characterAtIndex:location - 1] != 0x3a) { // :
+//                            parsedString = [NSString stringWithFormat:@"%@://%@", [parsedString substringToIndex:location], [parsedString substringFromIndex:location+2]];
+//                    } else {
+//                        parsedString = [receivedUrl substringFromIndex:6];
+//                        if (![parsedString hasPrefix:@"http://"] && ![parsedString hasPrefix:@"https://"] && ![parsedString hasPrefix:@"ftp://"]) {
+//                            parsedString = [@"http://" stringByAppendingString:[receivedUrl substringFromIndex:6]];
+//                        }
+//                    }
+//                    url = [NSURL URLWithString:parsedString];
+//                }
+//            }
+//            [[VLCSidebarController sharedInstance] selectRowAtIndexPath:[NSIndexPath indexPathForRow:0 inSection:0]
+//                                                         scrollPosition:UITableViewScrollPositionNone];
+//
+//            NSString *scheme = url.scheme;
+//            if ([scheme isEqualToString:@"http"] || [scheme isEqualToString:@"https"] || [scheme isEqualToString:@"ftp"]) {
+//                VLCAlertView *alert = [[VLCAlertView alloc] initWithTitle:NSLocalizedString(@"OPEN_STREAM_OR_DOWNLOAD", nil) message:url.absoluteString cancelButtonTitle:NSLocalizedString(@"BUTTON_DOWNLOAD", nil) otherButtonTitles:@[NSLocalizedString(@"PLAY_BUTTON", nil)]];
+//                alert.completion = ^(BOOL cancelled, NSInteger buttonIndex) {
+//                    if (cancelled)
+//                        [self downloadMovieFromURL:url fileNameOfMedia:nil];
+//                    else {
+//                        VLCMedia *media = [VLCMedia mediaWithURL:url];
+//                        VLCMediaList *medialist = [[VLCMediaList alloc] init];
+//                        [medialist addMedia:media];
+//                        [[VLCPlaybackController sharedInstance] playMediaList:medialist firstIndex:0 subtitlesFilePath:nil];
+//                    }
+//                };
+//                [alert show];
+//            } else {
+//                VLCPlaybackController *vpc = [VLCPlaybackController sharedInstance];
+//                vpc.fullscreenSessionRequested = YES;
+//                VLCMediaList *medialist = [[VLCMediaList alloc] init];
+//                [medialist addMedia:[VLCMedia mediaWithURL:url]];
+//                [vpc playMediaList:medialist firstIndex:0 subtitlesFilePath:nil];
+//            }
+//        }
+//        return YES;
+//    }
     return NO;
 }
 
@@ -411,7 +409,7 @@ didFailToContinueUserActivityWithType:(NSString *)userActivityType
     }
     __weak typeof(self) weakself = self;
     [self validatePasscodeIfNeededWithCompletion:^{
-        [weakself.libraryViewController updateViewContents];
+        //[weakself.libraryViewController updateViewContents];
         if ([VLCPlaybackController sharedInstance].isPlaying){
             [[VLCPlayerDisplayController sharedInstance] pushPlaybackView];
         }
@@ -423,7 +421,7 @@ didFailToContinueUserActivityWithType:(NSString *)userActivityType
 {
     if (!_isRunningMigration && !_isComingFromHandoff) {
         [[MLMediaLibrary sharedMediaLibrary] updateMediaDatabase];
-        [[VLCMediaFileDiscoverer sharedInstance] updateMediaList];
+      //  [[VLCMediaFileDiscoverer sharedInstance] updateMediaList];
     } else if(_isComingFromHandoff) {
         _isComingFromHandoff = NO;
     }
@@ -448,20 +446,20 @@ didFailToContinueUserActivityWithType:(NSString *)userActivityType
 
         // TODO Should we update media db after adding new files?
         [sharedLibrary updateMediaDatabase];
-        [_libraryViewController updateViewContents];
+       // [_libraryViewController updateViewContents];
     }
 }
 
 - (void)mediaFileDeleted:(NSString *)name
 {
     [[MLMediaLibrary sharedMediaLibrary] updateMediaDatabase];
-    [_libraryViewController updateViewContents];
+   // [_libraryViewController updateViewContents];
 }
 
 - (void)mediaFilesFoundRequiringAdditionToStorageBackend:(NSArray<NSString *> *)foundFiles
 {
     [[MLMediaLibrary sharedMediaLibrary] addFilePaths:foundFiles];
-    [[(VLCAppDelegate *)[UIApplication sharedApplication].delegate libraryViewController] updateViewContents];
+  //  [[(VLCAppDelegate *)[UIApplication sharedApplication].delegate libraryViewController] updateViewContents];
 }
 
 #pragma mark - pass code validation

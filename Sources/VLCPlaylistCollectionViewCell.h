@@ -35,5 +35,6 @@
 - (void)selectionUpdate;
 - (void)shake:(BOOL)shake;
 - (void)showMetadata:(BOOL)showMeta;
++ (NSString *)cellIdentifier;
 
 @end

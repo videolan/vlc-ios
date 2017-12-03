@@ -32,7 +32,7 @@
 #import "VLCStatusLabel.h"
 #import "VLCMovieViewControlPanelView.h"
 #import "VLCSlider.h"
-#import "VLCLibraryViewController.h"
+
 #import "VLCTrackSelectorView.h"
 #import "VLCMetadata.h"
 #import "UIDevice+VLC.h"

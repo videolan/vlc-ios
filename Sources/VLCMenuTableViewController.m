@@ -252,7 +252,7 @@ static NSString *WiFiCellIdentifier = @"VLCMenuWiFiCell";
         } else if (itemIndex == 1)
             viewController = [[VLCAboutViewController alloc] init];
     } else {
-        viewController = appDelegate.libraryViewController;
+        viewController = appDelegate.videoViewController;
         [(VLCLibraryViewController *)viewController setLibraryMode:(int)itemIndex];
     }
 
