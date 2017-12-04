@@ -749,26 +749,8 @@ VLCMediaDelegate>
             else
                 screen = [UIScreen screens][1];
 
-            float f_ar = screen.bounds.size.width / screen.bounds.size.height;
-
-            if (f_ar == (float)(4.0/3.0) ||
-                f_ar == (float)(1366./1024.)) {
-                // all iPads
-                _mediaPlayer.videoCropGeometry = "4:3";
-            } else if (f_ar == (float)(2./3.) || f_ar == (float)(480./320.)) {
-                // all other iPhones
-                _mediaPlayer.videoCropGeometry = "16:10"; // libvlc doesn't support 2:3 crop
-            } else if (f_ar == .5625) {
-                // AirPlay
-                _mediaPlayer.videoCropGeometry = "16:9";
-            } else if (f_ar == (float)(640./1136.) ||
-                       f_ar == (float)(568./320.) ||
-                       f_ar == (float)(667./375.) ||
-                       f_ar == (float)(736./414.)) {
-                // iPhone 5 and 6 and 6+
-                _mediaPlayer.videoCropGeometry = "16:9";
-            } else
-                APLog(@"unknown screen format %f, can't crop", f_ar);
+            NSString *aspectRatio = [NSString stringWithFormat:@"%d:%d", (int)screen.bounds.size.width, (int)screen.bounds.size.height];
+            _mediaPlayer.videoCropGeometry = (char *)[aspectRatio UTF8String];
         } else {
             _mediaPlayer.videoAspectRatio = (char *)[[self stringForAspectRatio:_currentAspectRatio] UTF8String];
             _mediaPlayer.videoCropGeometry = NULL;
