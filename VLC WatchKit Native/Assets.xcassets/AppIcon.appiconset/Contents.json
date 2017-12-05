@@ -61,6 +61,12 @@
       "scale" : "2x",
       "role" : "quickLook",
       "subtype" : "42mm"
+    },
+    {
+      "size" : "1024x1024",
+      "idiom" : "watch-marketing",
+      "filename" : "AppIcon1024@1x.png",
+      "scale" : "1x"
     }
   ],
   "info" : {
