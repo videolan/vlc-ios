@@ -311,13 +311,16 @@ static NSString *kUsingTableViewToShowData = @"UsingTableViewToShowData";
         [_mediaDataSource updateContentsForSelection:mediaObject];
         _inFolder = YES;
         if (!self.usingTableViewToShowData) {
-            if (![self.collectionView.collectionViewLayout isEqual:_reorderLayout]) {
-                for (UIGestureRecognizer *recognizer in _collectionView.gestureRecognizers) {
-                    if (recognizer == _folderLayout.panGestureRecognizer || recognizer == _folderLayout.longPressGestureRecognizer || recognizer == _longPressGestureRecognizer)
-                        [self.collectionView removeGestureRecognizer:recognizer];
+            if (@available(iOS 11.0, *)) {
+            } else {
+                if (![self.collectionView.collectionViewLayout isEqual:_reorderLayout]) {
+                    for (UIGestureRecognizer *recognizer in _collectionView.gestureRecognizers) {
+                        if (recognizer == _folderLayout.panGestureRecognizer || recognizer == _folderLayout.longPressGestureRecognizer || recognizer == _longPressGestureRecognizer)
+                            [self.collectionView removeGestureRecognizer:recognizer];
+                    }
+                    _reorderLayout = [[LXReorderableCollectionViewFlowLayout alloc] init];
+                    [self.collectionView setCollectionViewLayout:_reorderLayout animated:NO];
                 }
-                _reorderLayout = [[LXReorderableCollectionViewFlowLayout alloc] init];
-                [self.collectionView setCollectionViewLayout:_reorderLayout animated:NO];
             }
         }
         _libraryMode = VLCLibraryModeFolder;

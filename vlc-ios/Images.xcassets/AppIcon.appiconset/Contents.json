@@ -99,8 +99,14 @@
     {
       "size" : "83.5x83.5",
       "idiom" : "ipad",
-      "filename" : "AppIcon83.5@2x-1.png",
+      "filename" : "AppIcon83.5@2x.png",
       "scale" : "2x"
+    },
+    {
+      "size" : "1024x1024",
+      "idiom" : "ios-marketing",
+      "filename" : "AppIcon1024x1024.png",
+      "scale" : "1x"
     },
     {
       "size" : "24x24",
@@ -168,12 +174,6 @@
       "size" : "1024x1024",
       "idiom" : "watch-marketing",
       "filename" : "AppIcon1024@1x.png",
-      "scale" : "1x"
-    },
-    {
-      "size" : "1024x1024",
-      "idiom" : "ios-marketing",
-      "filename" : "AppIcon1024x1024.png",
       "scale" : "1x"
     }
   ],

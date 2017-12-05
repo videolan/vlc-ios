@@ -74,7 +74,7 @@ class VLCDragAndDropManager: NSObject, UICollectionViewDragDelegate, UITableView
     }
 
     func tableView(_ tableView: UITableView, dropSessionDidUpdate session: UIDropSession, withDestinationIndexPath destinationIndexPath: IndexPath?) -> UITableViewDropProposal {
-        let operation = dropOperation(hasActiveDrag: tableView.hasActiveDrag, firtSessionItem: session.items.first, withDestinationIndexPath: destinationIndexPath)
+        let operation = dropOperation(hasActiveDrag: tableView.hasActiveDrag, firstSessionItem: session.items.first, withDestinationIndexPath: destinationIndexPath)
         return UITableViewDropProposal(operation: operation, intent: .insertIntoDestinationIndexPath)
     }
 
@@ -138,8 +138,8 @@ class VLCDragAndDropManager: NSObject, UICollectionViewDragDelegate, UITableView
     private func addDragItem(tableView:UITableView, dragItem item:UITableViewDropItem, toFolderAt index:IndexPath) {
         if let sourcepath = item.sourceIndexPath { //local file that just needs to be moved
             tableView.performBatchUpdates({
-                tableView.deleteRows(at: [sourcepath], with: .automatic)
                 if let file = delegate?.dragAndDropManagerRequestsFile(manager:self, atIndexPath: sourcepath) as? MLFile {
+                    tableView.deleteRows(at: [sourcepath], with: .automatic)
                     addFile(file:file, toFolderAt:index)
                     delegate?.dragAndDropManagerDeleteItem(manager: self, atIndexPath:sourcepath)
                 }
@@ -170,7 +170,7 @@ class VLCDragAndDropManager: NSObject, UICollectionViewDragDelegate, UITableView
     }
 
     func collectionView(_ collectionView: UICollectionView, dropSessionDidUpdate session: UIDropSession, withDestinationIndexPath destinationIndexPath: IndexPath?) -> UICollectionViewDropProposal {
-        let operation = dropOperation(hasActiveDrag: collectionView.hasActiveDrag, firtSessionItem: session.items.first, withDestinationIndexPath: destinationIndexPath)
+        let operation = dropOperation(hasActiveDrag: collectionView.hasActiveDrag, firstSessionItem: session.items.first, withDestinationIndexPath: destinationIndexPath)
         return UICollectionViewDropProposal(operation: operation, intent: .insertIntoDestinationIndexPath)
     }
 
@@ -227,8 +227,8 @@ class VLCDragAndDropManager: NSObject, UICollectionViewDragDelegate, UITableView
         if let sourcepath = item.sourceIndexPath {
             //local file that just needs to be moved
             collectionView.performBatchUpdates({
-                collectionView.deleteItems(at:[sourcepath])
                 if let file = delegate?.dragAndDropManagerRequestsFile(manager:self, atIndexPath: sourcepath) as? MLFile {
+                    collectionView.deleteItems(at:[sourcepath])
                     addFile(file:file, toFolderAt:index)
                     delegate?.dragAndDropManagerDeleteItem(manager: self, atIndexPath:sourcepath)
                 }
@@ -281,12 +281,15 @@ class VLCDragAndDropManager: NSObject, UICollectionViewDragDelegate, UITableView
     ///   - hasActiveDrag: State if the drag started within the app
     ///   - item: UIDragItem from session
     /// - Returns: UIDropOperation
-    private func dropOperation(hasActiveDrag: Bool, firtSessionItem item: AnyObject?, withDestinationIndexPath destinationIndexPath:IndexPath?) -> UIDropOperation {
+    private func dropOperation(hasActiveDrag: Bool, firstSessionItem item: AnyObject?, withDestinationIndexPath destinationIndexPath:IndexPath?) -> UIDropOperation {
         let inAlbum = delegate?.dragAndDropManagerCurrentSelection(manager: self) as? MLAlbum != nil
         let inShow = delegate?.dragAndDropManagerCurrentSelection(manager: self) as? MLShow != nil
-
         //you can move files into a folder or copy from anothr app into a folder
         if fileIsFolder(atIndexPath:destinationIndexPath) {
+            //no dragging entire shows and albums into folders
+            if let dragItem = item, let mlFile = dragItem.localObject as? MLFile, mlFile.isAlbumTrack() ||  mlFile.isShowEpisode() {
+                return .forbidden
+            }
             return hasActiveDrag ? .move : .copy
         }
         //you can't reorder
@@ -377,8 +380,8 @@ class VLCDragAndDropManager: NSObject, UICollectionViewDragDelegate, UITableView
             }
         } else if let show = file as? MLShow {
             for episode in show.episodes {
-                if let mlfile = (episode as? MLShowEpisode)?.files.first {
-                    _ = set.insert(mlfile)
+                if let mlfile = (episode as? MLShowEpisode)?.files {
+                    set = set.union(mlfile)
                 }
             }
         } else {
