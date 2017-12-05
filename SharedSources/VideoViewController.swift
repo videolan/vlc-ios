@@ -8,16 +8,18 @@
 
 import Foundation
 
-
-public protocol VLCVideoControllerDelegate: class {
+@objc public protocol VLCVideoControllerDelegate: class {
     func videoViewControllerDidSelectMediaObject(VLCVideoViewController: VLCVideoViewController, mediaObject:NSManagedObject)
+    func videoViewControllerDidSelectBackbutton(VLCVideoViewController: VLCVideoViewController)
 }
 
-public class VLCVideoViewController: UICollectionViewController, UICollectionViewDelegateFlowLayout
+public class VLCVideoViewController: UICollectionViewController, UICollectionViewDelegateFlowLayout, UISearchResultsUpdating, UISearchControllerDelegate
 {
     private var mediaDataSource: VLCMediaDataSource
     private let cellPadding:CGFloat = 5.0
-    public weak var delegate: VLCVideoControllerDelegate?
+    private var searchController: UISearchController?
+    private let searchDataSource = VLCLibrarySearchDisplayDataSource()
+    @objc public weak var delegate: VLCVideoControllerDelegate?
 
     @available(iOS 11.0, *)
     lazy var dragAndDropManager:VLCDragAndDropManager = {
@@ -45,10 +47,11 @@ public class VLCVideoViewController: UICollectionViewController, UICollectionVie
 
         setupCollectionView()
         setupNavigationbar()
+        setupSearchController()
 
         _ = (MLMediaLibrary.sharedMediaLibrary() as AnyObject).perform(#selector(MLMediaLibrary.libraryDidAppear))
         mediaDataSource.updateContents(forSelection: nil)
-        DispatchQueue.main.asyncAfter(deadline: .now() + 3.0) {
+        DispatchQueue.main.asyncAfter(deadline: .now() + 2.0) {
             self.mediaDataSource.addAllFolders()
             self.mediaDataSource.addRemainingFiles()
             self.collectionView?.reloadData()
@@ -59,6 +62,7 @@ public class VLCVideoViewController: UICollectionViewController, UICollectionVie
         let playlistnib = UINib(nibName: "VLCPlaylistCollectionViewCell", bundle:nil)
         collectionView?.register(playlistnib, forCellWithReuseIdentifier: VLCPlaylistCollectionViewCell.cellIdentifier())
         collectionView?.backgroundColor = .white
+        collectionView?.alwaysBounceVertical = true
         if #available(iOS 11.0, *) {
             collectionView?.dragDelegate = dragAndDropManager
             collectionView?.dropDelegate = dragAndDropManager
@@ -72,15 +76,35 @@ public class VLCVideoViewController: UICollectionViewController, UICollectionVie
             let attributes = [NSAttributedStringKey.foregroundColor : UIColor.white]
             navigationController?.navigationBar.largeTitleTextAttributes = attributes
         }
-        self.navigationItem.leftBarButtonItem  = UIBarButtonItem.themedRevealMenuButton(withTarget: self, andSelector: #selector(revealMenu))
+        self.navigationItem.leftBarButtonItem = UIBarButtonItem.themedRevealMenuButton(withTarget: self, andSelector: #selector(backbutton))
     }
 
-    @objc func revealMenu() {
-        VLCSidebarController.sharedInstance().toggleSidebar()
+    func setupSearchController() {
+        searchController = UISearchController(searchResultsController: nil)
+        searchController?.searchResultsUpdater = self
+        searchController?.dimsBackgroundDuringPresentation = false
+        searchController?.delegate = self
+        if let textfield = searchController?.searchBar.value(forKey: "searchField") as? UITextField {
+            if let backgroundview = textfield.subviews.first {
+                backgroundview.backgroundColor = UIColor.white
+                backgroundview.layer.cornerRadius = 10;
+                backgroundview.clipsToBounds = true;
+            }
+        }
+        if #available(iOS 11.0, *) {
+            navigationItem.searchController = searchController
+        } else {
+            navigationItem.titleView = searchController?.searchBar
+            searchController?.hidesNavigationBarDuringPresentation = false
+        }
     }
 
+    @objc func backbutton() {
+        delegate?.videoViewControllerDidSelectBackbutton(VLCVideoViewController: self)
+    }
+
+    //MARK: - CollectionViewDelegate & DataSource
     override public func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
-        print(Int(mediaDataSource.numberOfFiles()))
         return Int(mediaDataSource.numberOfFiles())
     }
 
@@ -120,5 +144,19 @@ public class VLCVideoViewController: UICollectionViewController, UICollectionVie
 
     override public func viewWillTransition(to size: CGSize, with coordinator: UIViewControllerTransitionCoordinator) {
         collectionView?.collectionViewLayout.invalidateLayout()
+    }
+
+    //MARK: - Search
+    public func updateSearchResults(for searchController: UISearchController) {
+        searchDataSource.shouldReloadTable(forSearch: searchController.searchBar.text, searchableFiles: mediaDataSource.allObjects())
+        collectionView?.reloadData()
+    }
+
+    public func didPresentSearchController(_ searchController: UISearchController) {
+        collectionView?.dataSource = searchDataSource
+    }
+
+    public func didDismissSearchController(_ searchController: UISearchController) {
+        collectionView?.dataSource = self
     }
 }

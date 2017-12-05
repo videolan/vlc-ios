@@ -40,7 +40,7 @@
 static NSString *CellIdentifier = @"VLCMenuCell";
 static NSString *WiFiCellIdentifier = @"VLCMenuWiFiCell";
 
-@interface VLCMenuTableViewController () <UITableViewDataSource, UITableViewDelegate>
+@interface VLCMenuTableViewController () <UITableViewDataSource, UITableViewDelegate, VLCVideoControllerDelegate>
 {
     NSArray *_sectionHeaderTexts;
     NSArray *_menuItemsSectionOne;
@@ -234,8 +234,9 @@ static NSString *WiFiCellIdentifier = @"VLCMenuWiFiCell";
 
 - (VLCVideoViewController *)videoViewController
 {
-    if (!_videoViewController){
+    if (!_videoViewController) {
         _videoViewController = [[VLCVideoViewController alloc] initWithCollectionViewLayout:[UICollectionViewFlowLayout new]];
+        _videoViewController.delegate = self;
     }
     return _videoViewController;
 }
@@ -298,5 +299,14 @@ static NSString *WiFiCellIdentifier = @"VLCMenuWiFiCell";
     if (motion == UIEventSubtypeMotionShake)
         [[VLCBugreporter sharedInstance] handleBugreportRequest];
 }
+#pragma mark - VLCVideoControllerDelegate
 
+- (void)videoViewControllerDidSelectMediaObjectWithVLCVideoViewController:(VLCVideoViewController *)VLCVideoViewController mediaObject:(NSManagedObject *)mediaObject
+{
+    
+}
+
+- (void)videoViewControllerDidSelectBackbuttonWithVLCVideoViewController:(VLCVideoViewController *)VLCVideoViewController {
+    [[VLCSidebarController sharedInstance] toggleSidebar];
+}
 @end

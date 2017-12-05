@@ -12,6 +12,7 @@
 
 #import "VLCLibrarySearchDisplayDataSource.h"
 #import "VLCPlaylistTableViewCell.h"
+#import "VLCPlaylistCollectionViewCell.h"
 
 @interface VLCLibrarySearchDisplayDataSource() <UITableViewDataSource>
 {
@@ -45,6 +46,21 @@
         cell.mediaObject = _searchData[row];
 
     return cell;
+}
+
+- (nonnull __kindof UICollectionViewCell *)collectionView:(nonnull UICollectionView *)collectionView cellForItemAtIndexPath:(nonnull NSIndexPath *)indexPath {
+    VLCPlaylistCollectionViewCell *cell = (VLCPlaylistCollectionViewCell *)[collectionView dequeueReusableCellWithReuseIdentifier:kPlaylistCellIdentifier forIndexPath:indexPath];
+
+    NSInteger row = indexPath.row;
+
+    if (row < _searchData.count)
+        cell.mediaObject = _searchData[row];
+
+    return cell;
+}
+
+- (NSInteger)collectionView:(nonnull UICollectionView *)collectionView numberOfItemsInSection:(NSInteger)section {
+    return _searchData.count;
 }
 
 - (NSManagedObject *)objectAtIndex:(NSUInteger)index

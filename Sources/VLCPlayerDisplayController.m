@@ -138,7 +138,7 @@ static NSString *const VLCPlayerDisplayControllerDisplayModeKey = @"VLCPlayerDis
 #else
         _movieViewController = [[VLCFullscreenMovieTVViewController alloc] initWithNibName:nil bundle:nil];
 #endif
-        [VLCPlaybackController sharedInstance].delegate = _movieViewController;
+        self.playbackController.delegate = _movieViewController;
     }
     return _movieViewController;
 }
@@ -150,8 +150,7 @@ static NSString *const VLCPlayerDisplayControllerDisplayModeKey = @"VLCPlayerDis
     NSUserDefaults *defaults = [NSUserDefaults standardUserDefaults];
     BOOL enforceFullscreen = [[defaults objectForKey:kVLCSettingVideoFullscreenPlayback] boolValue];
 
-    VLCPlaybackController *vpc = [VLCPlaybackController sharedInstance];
-    if (vpc.fullscreenSessionRequested && enforceFullscreen) {
+    if (self.playbackController.fullscreenSessionRequested && enforceFullscreen) {
         [self showFullscreenPlayback];
         return;
     }

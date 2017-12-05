@@ -12,3 +12,4 @@
 #import "UIBarButtonItem+Theme.h"
 #import "VLCSidebarController.h"
 #import "VLCPlayerDisplayController.h"
+#import "VLCLibrarySearchDisplayDataSource.h"

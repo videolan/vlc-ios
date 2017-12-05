@@ -210,8 +210,7 @@ NSString *const VLCDropboxSessionWasAuthorized = @"VLCDropboxSessionWasAuthorize
     // For the edit selection indicators
     [[UITableView appearance] setTintColor:vlcOrange];
     [[UISwitch appearance] setOnTintColor:vlcOrange];
-    [[UISearchBar appearance] setBarTintColor:vlcOrange];
-    [[UISearchBar appearance] setTintColor:[UIColor whiteColor]];
+    [[UISearchBar appearance] setBarTintColor:[UIColor whiteColor]];
 }
 
 - (void)dealloc
