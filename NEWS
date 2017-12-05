@@ -1,3 +1,10 @@
+iOS 2.8.6:
+-----------
+· Adjusted the UI for iPhone X
+· Fixes the app termination on devices for iOS 7 and iOS 8
+· Adds Full support for HEVC 4k videos
+· General bug fixes
+
 tvOS 1.1.0:
 -----------
 · Full support for tvOS 11 and Apple TV 4K
