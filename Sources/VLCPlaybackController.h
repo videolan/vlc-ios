@@ -114,6 +114,7 @@ currentMediaHasTrackToChooseFrom:(BOOL)currentMediaHasTrackToChooseFrom
 - (void)setAudioPassthrough:(BOOL)shouldPass;
 
 - (void)switchAspectRatio;
+- (void)switchIPhoneXFullScreen;
 #if !TARGET_OS_TV
 - (BOOL)updateViewpoint:(CGFloat)yaw pitch:(CGFloat)pitch roll:(CGFloat)roll fov:(CGFloat)fov absolute:(BOOL)absolute;
 - (NSInteger)currentMediaProjection;

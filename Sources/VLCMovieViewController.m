@@ -141,6 +141,10 @@ typedef NS_ENUM(NSInteger, VLCPanType) {
     [super viewDidLoad];
     CGRect rect;
 
+    _vpc = [VLCPlaybackController sharedInstance];
+    _vpc.delegate = self;
+    [_vpc recoverPlaybackState];
+
     self.extendedLayoutIncludesOpaqueBars = YES;
     self.edgesForExtendedLayout = UIRectEdgeAll;
 
@@ -256,7 +260,7 @@ typedef NS_ENUM(NSInteger, VLCPanType) {
     _pinchRecognizer.delegate = self;
 
     if ([[UIDevice currentDevice] isiPhoneX]) {
-        _tapToToggleiPhoneXRatioRecognizer = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(toggleiPhoneXAspectRatio)];
+        _tapToToggleiPhoneXRatioRecognizer = [[UITapGestureRecognizer alloc] initWithTarget:_vpc action:@selector(switchIPhoneXFullScreen)];
         _tapToToggleiPhoneXRatioRecognizer.numberOfTapsRequired = 2;
         [self.view addGestureRecognizer:_tapToToggleiPhoneXRatioRecognizer];
     } else {
@@ -399,10 +403,6 @@ typedef NS_ENUM(NSInteger, VLCPanType) {
     self.trackNameLabel.text = nil;
     self.artistNameLabel.text = nil;
     self.albumNameLabel.text = nil;
-
-    _vpc = [VLCPlaybackController sharedInstance];
-    _vpc.delegate = self;
-    [_vpc recoverPlaybackState];
 
     [self screenBrightnessChanged:nil];
     [self setControlsHidden:NO animated:animated];
@@ -1580,7 +1580,6 @@ currentMediaHasTrackToChooseFrom:(BOOL)currentMediaHasTrackToChooseFrom
     _playbackSpeedViewHidden = self.playbackSpeedView.hidden;
     [self _resetIdleTimer];
 }
-
 
 #pragma mark - autorotation
 

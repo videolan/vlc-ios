@@ -251,7 +251,7 @@ VLCMediaDelegate, VLCRemoteControlServiceDelegate>
 
     _currentAspectRatio = VLCAspectRatioDefault;
     _mediaPlayer.videoAspectRatio = NULL;
-    _mediaPlayer.scaleFactor = 0;
+    _mediaPlayer.videoCropGeometry = NULL;
 
     [[self remoteControlService] subscribeToRemoteCommands];
 
@@ -834,6 +834,7 @@ VLCMediaDelegate, VLCRemoteControlServiceDelegate>
     }
 }
 
+
 - (void)jumpForward:(int)interval
 {
     [_mediaPlayer jumpForward:interval];
@@ -844,28 +845,38 @@ VLCMediaDelegate, VLCRemoteControlServiceDelegate>
     [_mediaPlayer jumpBackward:interval];
 }
 
+- (NSString *)screenAspectRatio
+{
+    UIScreen *screen = [[UIDevice currentDevice] VLCHasExternalDisplay] ? [UIScreen screens][1] : [UIScreen mainScreen];
+    return [NSString stringWithFormat:@"%d:%d", (int)screen.bounds.size.width, (int)screen.bounds.size.height];
+}
+
+- (void)switchIPhoneXFullScreen
+{
+    BOOL inFullScreen = _mediaPlayer.videoCropGeometry && [[NSString stringWithUTF8String:_mediaPlayer.videoCropGeometry] isEqualToString:[self screenAspectRatio]];
+    if (inFullScreen) {
+        const char *previousAspectRatio = _currentAspectRatio == VLCAspectRatioDefault ? NULL : [[self stringForAspectRatio:_currentAspectRatio] UTF8String];
+        _mediaPlayer.videoAspectRatio = (char *)previousAspectRatio;
+    }
+    _mediaPlayer.videoCropGeometry = inFullScreen ? NULL : (char *)[[self screenAspectRatio] UTF8String];
+}
+
 - (void)switchAspectRatio
 {
-    if (_currentAspectRatio == VLCAspectRatioSixteenToTen) {
-        _mediaPlayer.videoAspectRatio = NULL;
-        _mediaPlayer.scaleFactor = 0;
-        _currentAspectRatio = VLCAspectRatioDefault;
-    } else {
-        _currentAspectRatio++;
-
-        if (_currentAspectRatio == VLCAspectRatioFillToScreen) {
-            UIScreen *screen;
-            if (![[UIDevice currentDevice] VLCHasExternalDisplay])
-                screen = [UIScreen mainScreen];
-            else
-                screen = [UIScreen screens][1];
-
-            NSString *aspectRatio = [NSString stringWithFormat:@"%d:%d", (int)screen.bounds.size.width, (int)screen.bounds.size.height];
-            _mediaPlayer.videoCropGeometry = (char *)[aspectRatio UTF8String];
-        } else {
-            _mediaPlayer.videoAspectRatio = (char *)[[self stringForAspectRatio:_currentAspectRatio] UTF8String];
+    _currentAspectRatio = _currentAspectRatio == VLCAspectRatioSixteenToTen ? VLCAspectRatioDefault : _currentAspectRatio + 1;
+    switch (_currentAspectRatio) {
+        case VLCAspectRatioDefault:
+            _mediaPlayer.videoAspectRatio = NULL;
             _mediaPlayer.videoCropGeometry = NULL;
-        }
+            break;
+        case VLCAspectRatioFillToScreen:
+            _mediaPlayer.videoCropGeometry = (char *)[[self screenAspectRatio] UTF8String];
+            break;
+        case VLCAspectRatioFourToThree:
+        case VLCAspectRatioSixteenToTen:
+        case VLCAspectRatioSixteenToNine:
+            _mediaPlayer.videoCropGeometry = NULL;
+            _mediaPlayer.videoAspectRatio = (char *)[[self stringForAspectRatio:_currentAspectRatio] UTF8String];
     }
 
     if ([self.delegate respondsToSelector:@selector(showStatusMessage:forPlaybackController:)]) {
