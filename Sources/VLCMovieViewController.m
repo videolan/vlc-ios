@@ -157,6 +157,9 @@ typedef NS_ENUM(NSInteger, VLCPanType) {
         [self.view removeGestureRecognizer:_pinchRecognizer];
     if (_tapToSeekRecognizer)
         [self.view removeGestureRecognizer:_tapToSeekRecognizer];
+    if (_tapToToggleiPhoneXRatioRecognizer) {
+        [self.view removeGestureRecognizer:_tapToToggleiPhoneXRatioRecognizer];
+    }
     [self.view removeGestureRecognizer:_tapOnVideoRecognizer];
 
     _tapRecognizer = nil;
@@ -168,12 +171,17 @@ typedef NS_ENUM(NSInteger, VLCPanType) {
     _pinchRecognizer = nil;
     _tapOnVideoRecognizer = nil;
     _tapToSeekRecognizer = nil;
+    _tapToToggleiPhoneXRatioRecognizer = nil;
 }
 
 - (void)viewDidLoad
 {
     [super viewDidLoad];
     CGRect rect;
+
+    _vpc = [VLCPlaybackController sharedInstance];
+    _vpc.delegate = self;
+    [_vpc recoverPlaybackState];
 
     int deviceSpeedCategory = [[UIDevice currentDevice] VLCSpeedCategory];
 
@@ -256,7 +264,7 @@ typedef NS_ENUM(NSInteger, VLCPanType) {
     _pinchRecognizer.delegate = self;
 
     if ([[UIDevice currentDevice] isiPhoneX]) {
-        _tapToToggleiPhoneXRatioRecognizer = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(toggleiPhoneXAspectRatio)];
+        _tapToToggleiPhoneXRatioRecognizer = [[UITapGestureRecognizer alloc] initWithTarget:_vpc action:@selector(switchIPhoneXFullScreen)];
         _tapToToggleiPhoneXRatioRecognizer.numberOfTapsRequired = 2;
         [self.view addGestureRecognizer:_tapToToggleiPhoneXRatioRecognizer];
      } else {
@@ -451,10 +459,6 @@ typedef NS_ENUM(NSInteger, VLCPanType) {
     self.trackNameLabel.text = nil;
     self.artistNameLabel.text = nil;
     self.albumNameLabel.text = nil;
-
-    _vpc = [VLCPlaybackController sharedInstance];
-    _vpc.delegate = self;
-    [_vpc recoverPlaybackState];
 
     [self screenBrightnessChanged:nil];
     [self setControlsHidden:NO animated:animated];
@@ -1829,18 +1833,6 @@ currentMediaHasTrackToChooseFrom:(BOOL)currentMediaHasTrackToChooseFrom
     self.playbackSpeedView.hidden = !_playbackSpeedViewHidden;
     _playbackSpeedViewHidden = self.playbackSpeedView.hidden;
     [self _resetIdleTimer];
-}
-
-- (void)toggleiPhoneXAspectRatio
-{
-    if (@available(iOS 11.0, *)) {
-        BOOL isFullScreen = CGRectEqualToRect(_movieView.frame , self.view.frame);
-
-        CGRect frameWithoutNotch = self.view.safeAreaLayoutGuide.layoutFrame;
-        [UIView animateWithDuration:0.3 animations:^{
-                _movieView.frame = isFullScreen ? frameWithoutNotch : self.view.frame;
-        }];
-    }
 }
 
 - (BOOL)prefersHomeIndicatorAutoHidden
