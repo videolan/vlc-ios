@@ -142,8 +142,6 @@ typedef NS_ENUM(NSInteger, VLCPanType) {
     CGRect rect;
 
     _vpc = [VLCPlaybackController sharedInstance];
-    _vpc.delegate = self;
-    [_vpc recoverPlaybackState];
 
     self.extendedLayoutIncludesOpaqueBars = YES;
     self.edgesForExtendedLayout = UIRectEdgeAll;
@@ -394,6 +392,11 @@ typedef NS_ENUM(NSInteger, VLCPanType) {
 - (void)viewWillAppear:(BOOL)animated
 {
     [super viewWillAppear:animated];
+
+    _vpc.delegate = self;
+    [_vpc recoverPlaybackState];
+
+    [self setupNavigationbar];
 
     self.navigationController.navigationBar.barStyle = UIBarStyleBlack;
     self.navigationController.navigationBar.tintColor = [UIColor whiteColor];
