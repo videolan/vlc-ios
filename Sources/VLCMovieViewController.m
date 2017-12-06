@@ -396,8 +396,6 @@ typedef NS_ENUM(NSInteger, VLCPanType) {
     _vpc.delegate = self;
     [_vpc recoverPlaybackState];
 
-    [self setupNavigationbar];
-
     self.navigationController.navigationBar.barStyle = UIBarStyleBlack;
     self.navigationController.navigationBar.tintColor = [UIColor whiteColor];
     [self setupNavigationbar];
