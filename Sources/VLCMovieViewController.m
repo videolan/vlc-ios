@@ -180,8 +180,6 @@ typedef NS_ENUM(NSInteger, VLCPanType) {
     CGRect rect;
 
     _vpc = [VLCPlaybackController sharedInstance];
-    _vpc.delegate = self;
-    [_vpc recoverPlaybackState];
 
     int deviceSpeedCategory = [[UIDevice currentDevice] VLCSpeedCategory];
 
@@ -450,6 +448,9 @@ typedef NS_ENUM(NSInteger, VLCPanType) {
 - (void)viewWillAppear:(BOOL)animated
 {
     [super viewWillAppear:animated];
+
+    _vpc.delegate = self;
+    [_vpc recoverPlaybackState];
 
     [self setupNavigationbar];
     self.navigationController.navigationBar.barStyle = UIBarStyleBlack;
