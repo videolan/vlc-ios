@@ -170,6 +170,7 @@ typedef NS_ENUM(NSUInteger, VLCDownloadScheme) {
     _currentDownloadType = VLCDownloadSchemeHTTP;
     if (![_currentDownloadFilename.firstObject isEqualToString:@""]) {
         _humanReadableFilename = [[_currentDownloadFilename firstObject] stringByRemovingPercentEncoding];
+        [self.httpDownloader downloadFileFromURL:_currentDownloads.firstObject withFileName:_humanReadableFilename];
     } else {
         [self.httpDownloader downloadFileFromURL:_currentDownloads.firstObject];
         _humanReadableFilename = self.httpDownloader.userReadableDownloadName;
