@@ -291,6 +291,12 @@ didFailToContinueUserActivityWithType:(NSString *)userActivityType
     }
 }
 
+- (BOOL)application:(UIApplication *)app openURL:(NSURL *)url options:(NSDictionary<UIApplicationOpenURLOptionsKey,id> *)options
+{
+    [self playWithUrl:url successCallback:nil errorCallback:nil];
+    return YES;
+}
+
 - (BOOL)application:(UIApplication *)application
             openURL:(NSURL *)url
   sourceApplication:(NSString *)sourceApplication
@@ -348,15 +354,7 @@ didFailToContinueUserActivityWithType:(NSString *)userActivityType
                     errorCallback = [NSURL URLWithString:value];
             }
             if ([action isEqualToString:@"stream"] && movieURL) {
-                VLCPlaybackController *vpc = [VLCPlaybackController sharedInstance];
-                vpc.fullscreenSessionRequested = YES;
-
-                VLCMediaList *medialist = [[VLCMediaList alloc] init];
-                [medialist addMedia:[VLCMedia mediaWithURL:movieURL]];
-                vpc.successCallback = successCallback;
-                vpc.errorCallback = errorCallback;
-                [vpc playMediaList:medialist firstIndex:0 subtitlesFilePath:nil];
-
+                [self playWithUrl:movieURL successCallback:successCallback errorCallback:errorCallback];
             }
             else if ([action isEqualToString:@"download"] && movieURL) {
                 [self downloadMovieFromURL:movieURL fileNameOfMedia:fileName];
@@ -391,19 +389,12 @@ didFailToContinueUserActivityWithType:(NSString *)userActivityType
                     if (cancelled)
                         [self downloadMovieFromURL:url fileNameOfMedia:nil];
                     else {
-                        VLCMedia *media = [VLCMedia mediaWithURL:url];
-                        VLCMediaList *medialist = [[VLCMediaList alloc] init];
-                        [medialist addMedia:media];
-                        [[VLCPlaybackController sharedInstance] playMediaList:medialist firstIndex:0 subtitlesFilePath:nil];
+                        [self playWithUrl:url successCallback:nil errorCallback:nil];
                     }
                 };
                 [alert show];
             } else {
-                VLCPlaybackController *vpc = [VLCPlaybackController sharedInstance];
-                vpc.fullscreenSessionRequested = YES;
-                VLCMediaList *medialist = [[VLCMediaList alloc] init];
-                [medialist addMedia:[VLCMedia mediaWithURL:url]];
-                [vpc playMediaList:medialist firstIndex:0 subtitlesFilePath:nil];
+                [self playWithUrl:url successCallback:nil errorCallback:nil];
             }
         }
         return YES;
@@ -513,6 +504,17 @@ didFailToContinueUserActivityWithType:(NSString *)userActivityType
                                                  scrollPosition:UITableViewScrollPositionNone];
 }
 
+#pragma mark - playback
+- (void)playWithUrl:(NSURL *)url successCallback:(NSURL *)successCallback errorCallback:(NSURL *)errorCallback
+{
+    VLCPlaybackController *vpc = [VLCPlaybackController sharedInstance];
+    vpc.fullscreenSessionRequested = YES;
+    vpc.successCallback = successCallback;
+    vpc.errorCallback = errorCallback;
+    VLCMediaList *mediaList = [[VLCMediaList alloc] initWithArray:@[[VLCMedia mediaWithURL:url]]];
+    [vpc playMediaList:mediaList firstIndex:0 subtitlesFilePath:nil];
+}
+
 #pragma mark - watch stuff
 - (void)application:(UIApplication *)application
 handleWatchKitExtensionRequest:(NSDictionary *)userInfo
@@ -522,7 +524,5 @@ handleWatchKitExtensionRequest:(NSDictionary *)userInfo
         [self.watchCommunication session:[WCSession defaultSession] didReceiveMessage:userInfo replyHandler:reply];
     }
 }
-
-
 
 @end
