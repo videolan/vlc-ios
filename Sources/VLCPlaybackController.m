@@ -521,7 +521,7 @@ typedef NS_ENUM(NSUInteger, VLCAspectRatio) {
     return _mediaPlayer.contrast;
 }
 
-- (void)setConstrast:(float)contrast
+- (void)setContrast:(float)contrast
 {
     _mediaPlayer.contrast = contrast;
 }
