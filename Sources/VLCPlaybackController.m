@@ -523,7 +523,7 @@ typedef NS_ENUM(NSUInteger, VLCAspectRatio) {
 
 - (void)setConstrast:(float)contrast
 {
-    _mediaPlayer.hue = contrast;
+    _mediaPlayer.contrast = contrast;
 }
 
 - (float)brightness
@@ -569,7 +569,7 @@ typedef NS_ENUM(NSUInteger, VLCAspectRatio) {
     _mediaPlayer.hue = 0.;
     _mediaPlayer.contrast = 1.;
     _mediaPlayer.brightness = 1.;
-    [self setBrightness:(1/2.)];
+    [self setBrightness:1.];
     _mediaPlayer.saturation = 1.;
     _mediaPlayer.gamma = 1.;
 }
