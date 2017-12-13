@@ -1057,13 +1057,6 @@ currentMediaHasTrackToChooseFrom:(BOOL)currentMediaHasTrackToChooseFrom
         if (!_playbackSpeedViewHidden)
             self.playbackSpeedView.hidden = _playbackSpeedViewHidden = YES;
 
-        if (UI_USER_INTERFACE_IDIOM() == UIUserInterfaceIdiomPhone) {
-            if (!_controlsHidden) {
-                self.controllerPanel.hidden = _controlsHidden = YES;
-                self.navigationController.navigationBar.hidden = YES;
-            }
-        }
-
         self.videoFilterView.hidden = _videoFiltersHidden = YES;
 
         for (UIGestureRecognizer *recognizer in self.view.gestureRecognizers)
