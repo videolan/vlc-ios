@@ -387,13 +387,21 @@ typedef NS_ENUM(NSInteger, VLCPanType) {
                                                       ]];
 }
 
+- (void)resetVideoFiltersSliders
+{
+    _brightnessSlider.value = 1.;
+    _contrastSlider.value = 1.;
+    _hueSlider.value = 0.;
+    _saturationSlider.value = 1.;
+    _gammaSlider.value = 1.;
+}
+
 - (void)viewWillAppear:(BOOL)animated
 {
     [super viewWillAppear:animated];
 
     _vpc.delegate = self;
     [_vpc recoverPlaybackState];
-
     self.navigationController.navigationBar.barStyle = UIBarStyleBlack;
     self.navigationController.navigationBar.tintColor = [UIColor whiteColor];
     [self setupNavigationbar];
@@ -419,6 +427,7 @@ typedef NS_ENUM(NSInteger, VLCPanType) {
     _playbackWillClose = NO;
 
     [_vpc recoverDisplayedMetadata];
+    [self resetVideoFiltersSliders];
     _vpc.videoOutputView = self.movieView;
     _multiSelectionView.repeatMode = _vpc.repeatMode;
     _multiSelectionView.shuffleMode = _vpc.isShuffleMode;
@@ -432,7 +441,6 @@ typedef NS_ENUM(NSInteger, VLCPanType) {
     }
 
     [self enableNormalVideoGestures:!_mediaHasProjection];
-
 }
 
 - (void)viewDidLayoutSubviews
@@ -1495,11 +1503,7 @@ currentMediaHasTrackToChooseFrom:(BOOL)currentMediaHasTrackToChooseFrom
     else if (sender == self.gammaSlider)
         _vpc.gamma = self.gammaSlider.value;
     else if (sender == self.resetVideoFilterButton) {
-        self.hueSlider.value = 0.;
-        self.contrastSlider.value = 1.;
-        self.brightnessSlider.value = 1.;
-        self.saturationSlider.value = 1.;
-        self.gammaSlider.value = 1.;
+        [self resetVideoFiltersSliders];
         [_vpc resetFilters];
     } else
         APLog(@"unknown sender for videoFilterSliderAction");
