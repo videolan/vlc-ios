@@ -30,6 +30,13 @@
 #if TARGET_OS_IOS
     MLFile *item;
 
+    self.trackNumber = nil;
+    self.title = @"";
+    self.artist = @"";
+    self.albumName = @"";
+    self.artworkImage = nil;
+    self.isAudioOnly = NO;
+
     if ([VLCPlaybackController sharedInstance].mediaList) {
         NSArray *matches = [MLFile fileForURL:mediaPlayer.media.url];
         item = matches.firstObject;
