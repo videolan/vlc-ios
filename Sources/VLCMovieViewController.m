@@ -184,8 +184,6 @@ typedef NS_ENUM(NSInteger, VLCPanType) {
                    name:UIScreenDidConnectNotification object:nil];
     [center addObserver:self selector:@selector(handleExternalScreenDidDisconnect:)
                    name:UIScreenDidDisconnectNotification object:nil];
-    [center addObserver:self selector:@selector(screenBrightnessChanged:)
-                   name:UIScreenBrightnessDidChangeNotification object:nil];
     [center addObserver:self
                selector:@selector(appBecameActive:)
                    name:UIApplicationDidBecomeActiveNotification
@@ -405,7 +403,6 @@ typedef NS_ENUM(NSInteger, VLCPanType) {
     self.artistNameLabel.text = nil;
     self.albumNameLabel.text = nil;
 
-    [self screenBrightnessChanged:nil];
     [self setControlsHidden:NO animated:animated];
 
     [self updateDefaults];
@@ -946,8 +943,6 @@ typedef NS_ENUM(NSInteger, VLCPanType) {
     self.timeNavigationTitleView.positionSlider.value = 0.;
     [self.timeNavigationTitleView.timeDisplayButton setTitle:@"" forState:UIControlStateNormal];
     self.timeNavigationTitleView.timeDisplayButton.accessibilityLabel = @"";
-    if (![[UIDevice currentDevice] VLCHasExternalDisplay])
-        self.brightnessSlider.value = [UIScreen mainScreen].brightness * 2.;
     [_equalizerView reloadData];
 
     double playbackRate = controller.playbackRate;
@@ -1492,15 +1487,14 @@ currentMediaHasTrackToChooseFrom:(BOOL)currentMediaHasTrackToChooseFrom
 {
     if (sender == self.hueSlider)
         _vpc.hue = self.hueSlider.value;
-    if (sender == self.contrastSlider)
+    else if (sender == self.contrastSlider)
         _vpc.contrast = self.contrastSlider.value;
-    if (sender == self.brightnessSlider)
+    else if (sender == self.brightnessSlider)
         _vpc.brightness = self.brightnessSlider.value;
-    if (sender == self.saturationSlider)
+    else if (sender == self.saturationSlider)
         _vpc.saturation = self.saturationSlider.value;
-    if (sender == self.gammaSlider)
+    else if (sender == self.gammaSlider)
         _vpc.gamma = self.gammaSlider.value;
-
     else if (sender == self.resetVideoFilterButton) {
         self.hueSlider.value = 0.;
         self.contrastSlider.value = 1.;
@@ -1511,14 +1505,6 @@ currentMediaHasTrackToChooseFrom:(BOOL)currentMediaHasTrackToChooseFrom
     } else
         APLog(@"unknown sender for videoFilterSliderAction");
     [self _resetIdleTimer];
-}
-
-- (void)screenBrightnessChanged:(NSNotification *)notification
-{
-    if (notification)
-        self.brightnessSlider.value = [(UIScreen *)notification.object brightness] * 2.;
-    else if (![[UIDevice currentDevice] VLCHasExternalDisplay])
-        self.brightnessSlider.value = [(UIScreen *)[[UIScreen screens] firstObject] brightness] * 2.;
 }
 
 - (void)appBecameActive:(NSNotification *)aNotification

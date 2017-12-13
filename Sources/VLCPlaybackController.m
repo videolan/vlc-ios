@@ -530,20 +530,12 @@ typedef NS_ENUM(NSUInteger, VLCAspectRatio) {
 {
     return _mediaPlayer.brightness;
 }
-#if TARGET_OS_IOS
-- (void)setBrightness:(float)brightness
-{
-    if (![[UIDevice currentDevice] VLCHasExternalDisplay])
-        _mediaPlayer.brightness = brightness;
-    else
-        [[UIScreen mainScreen] setBrightness:(brightness / 2.)];
-}
-#else
+
 - (void)setBrightness:(float)brightness
 {
     _mediaPlayer.brightness = brightness;
 }
-#endif
+
 - (float)saturation
 {
     return _mediaPlayer.saturation;
@@ -569,7 +561,6 @@ typedef NS_ENUM(NSUInteger, VLCAspectRatio) {
     _mediaPlayer.hue = 0.;
     _mediaPlayer.contrast = 1.;
     _mediaPlayer.brightness = 1.;
-    [self setBrightness:1.];
     _mediaPlayer.saturation = 1.;
     _mediaPlayer.gamma = 1.;
 }
