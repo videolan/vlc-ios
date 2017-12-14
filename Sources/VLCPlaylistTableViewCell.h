@@ -29,7 +29,6 @@ static NSString *kPlaylistCellIdentifier = @"PlaylistCell";
 
 @property (nonatomic, strong) NSManagedObject *mediaObject;
 
-+ (VLCPlaylistTableViewCell *)cellWithReuseIdentifier:(NSString *)ident;
 + (CGFloat)heightOfCell;
 
 - (void)collapsWithAnimation:(BOOL)animate;

@@ -26,22 +26,17 @@
 
 @implementation VLCPlaylistTableViewCell
 
+- (void)awakeFromNib
+{
+    [super awakeFromNib];
+    UIView *bgColorView = [[UIView alloc] init];
+    bgColorView.backgroundColor = [UIColor clearColor];
+    [self setSelectedBackgroundView:bgColorView];
+}
+
 - (void)dealloc
 {
     [self _removeObserver];
-}
-
-+ (VLCPlaylistTableViewCell *)cellWithReuseIdentifier:(NSString *)ident
-{
-    NSArray *nibContentArray;
-    nibContentArray = [[NSBundle mainBundle] loadNibNamed:@"VLCPlaylistTableViewCell" owner:nil options:nil];
-    NSAssert([nibContentArray count] == 1, @"meh");
-    NSAssert([[nibContentArray lastObject] isKindOfClass:[VLCPlaylistTableViewCell class]], @"meh meh");
-    VLCPlaylistTableViewCell *cell = (VLCPlaylistTableViewCell *)[nibContentArray lastObject];
-    cell.multipleSelectionBackgroundView = [[UIView alloc] initWithFrame:cell.frame];
-    cell.metaDataLabel.hidden = YES;
-
-    return cell;
 }
 
 - (void)prepareForReuse
