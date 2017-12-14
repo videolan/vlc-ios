@@ -293,15 +293,6 @@ didFailToContinueUserActivityWithType:(NSString *)userActivityType
 
 - (BOOL)application:(UIApplication *)app openURL:(NSURL *)url options:(NSDictionary<UIApplicationOpenURLOptionsKey,id> *)options
 {
-    [self playWithUrl:url successCallback:nil errorCallback:nil];
-    return YES;
-}
-
-- (BOOL)application:(UIApplication *)application
-            openURL:(NSURL *)url
-  sourceApplication:(NSString *)sourceApplication
-         annotation:(id)annotation
-{
     //Handles Dropbox Authorization flow.
     DBOAuthResult *authResult = [DBClientsManager handleRedirectURL:url];
     if (authResult != nil) {
@@ -317,7 +308,7 @@ didFailToContinueUserActivityWithType:(NSString *)userActivityType
     }
 
     if (_libraryViewController && url != nil) {
-        APLog(@"%@ requested %@ to be opened", sourceApplication, url);
+        APLog(@"requested %@ to be opened", url);
 
         if (url.isFileURL) {
             NSArray *searchPaths = NSSearchPathForDirectoriesInDomains(NSDocumentDirectory, NSUserDomainMask, YES);
