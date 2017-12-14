@@ -97,7 +97,7 @@
     }
     self.playbackDuration = @(mediaPlayer.media.length.intValue / 1000.);
     self.playbackRate = @(mediaPlayer.rate);
-    self.elapsedPlaybackTime = @(mediaPlayer.media.length.intValue / 1000.);
+    self.elapsedPlaybackTime = @(mediaPlayer.time.value.floatValue / 1000.);
     [[NSNotificationCenter defaultCenter] postNotificationName:VLCPlaybackControllerPlaybackMetadataDidChange object:self];
 #if TARGET_OS_IOS
     if ([[VLCKeychainCoordinator defaultCoordinator] passcodeLockEnabled]) return;
