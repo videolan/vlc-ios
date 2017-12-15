@@ -1,5 +1,15 @@
-iOS 2.8.6:
+iOS 2.8.7:
+----------
+· Audio resumes after getting calls or playing content from other media apps again
+· Fixes an issue were SSA subtitles were not displayed
+· Google Drive login works again
+
+tvOS 1.1.1:
 -----------
+· Stability improvements and bug fixes
+
+iOS 2.8.6:
+----------
 · Adjusted the UI for iPhone X
 · Fixes the app termination on devices for iOS 7 and iOS 8
 · Adds Full support for HEVC 4k videos
