@@ -39,7 +39,7 @@ NSString * const kVLCNetworkLoginViewFieldCellIdentifier = @"VLCNetworkLoginView
     self.textField.textColor = [UIColor whiteColor];
     [self addSubview:_textField];
     
-    UILayoutGuide *guide = self.layoutGuides.firstObject;
+    UILayoutGuide *guide = self;
     if (@available(iOS 11.0, *)) {
         guide = self.safeAreaLayoutGuide;
     }
