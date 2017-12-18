@@ -116,7 +116,7 @@
     _stackView.distribution = UIStackViewDistributionFillEqually;
     [self addSubview:_stackView];
 
-    UILayoutGuide *guide = self.layoutGuides.firstObject;
+    UILayoutGuide *guide = self;
     if (@available(iOS 11.0, *)) {
         guide = self.safeAreaLayoutGuide;
     }
