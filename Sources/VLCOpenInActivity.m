@@ -2,10 +2,11 @@
  * VLCOpenInActivity.m
  * VLC for iOS
  *****************************************************************************
- * Copyright (c) 2014 VideoLAN. All rights reserved.
+ * Copyright (c) 2017 VideoLAN. All rights reserved.
  * $Id$
  *
  * Authors: Marc Etcheverry <marc # taplightsoftware com>
+ *          Carola Nitz <caro # videolan org>
  *
  * Refer to the COPYING file of the official project for license.
  *****************************************************************************/
@@ -14,7 +15,7 @@
 
 #import <MobileCoreServices/MobileCoreServices.h>
 
-@interface VLCOpenInActivity () <UIActionSheetDelegate, UIDocumentInteractionControllerDelegate>
+@interface VLCOpenInActivity () <UIDocumentInteractionControllerDelegate>
 @end
 
 @implementation VLCOpenInActivity
@@ -24,11 +25,6 @@
 }
 
 #pragma mark - UIActivity
-
-- (void)dealloc
-{
-    _documentInteractionController.delegate = nil;
-}
 
 + (UIActivityCategory)activityCategory
 {
@@ -83,7 +79,7 @@
     NSUInteger count = [_fileURLs count];
 
     if (count > 1) {
-        [self presentFileSelectionActionSheet];
+        [self presentFileSelectionActionController];
     } else if (count == 1) {
         [self presentDocumentInteractionControllerWithFileURL:[_fileURLs firstObject]];
     } else {
@@ -153,40 +149,33 @@
 - (void)documentInteractionControllerDidDismissOpenInMenu:(UIDocumentInteractionController *)controller
 {
     [self activityDidFinish:YES];
-    _documentInteractionController.delegate = nil;
     _documentInteractionController = nil;
 }
 
-#pragma mark - UIActionSheet
+#pragma mark - UIAlertController
 
-- (void)presentFileSelectionActionSheet
+- (void)presentFileSelectionActionController
 {
-    [self.presentingViewController dismissViewControllerAnimated:YES completion:^{
-        UIActionSheet *actionSheet = [[UIActionSheet alloc] initWithTitle:NSLocalizedString(@"SHARING_ACTION_SHEET_TITLE_CHOOSE_FILE", nil)
-                                                                 delegate:self
-                                                        cancelButtonTitle:nil
-                                                   destructiveButtonTitle:nil
-                                                        otherButtonTitles:nil];
+    UIAlertController *actionController = [UIAlertController alertControllerWithTitle:NSLocalizedString(@"SHARING_ACTION_SHEET_TITLE_CHOOSE_FILE", nil)
+                                                                              message:nil
+                                                                       preferredStyle:UIAlertControllerStyleActionSheet];
 
-        for (NSURL *fileURL in _fileURLs) {
-            [actionSheet addButtonWithTitle:[fileURL lastPathComponent]];
-        }
 
-        actionSheet.cancelButtonIndex = [actionSheet addButtonWithTitle:NSLocalizedString(@"BUTTON_CANCEL", nil)];
-
-        [actionSheet showFromBarButtonItem:self.presentingBarButtonItem animated:YES];
-    }];
-}
-
-#pragma mark - UIActionSheetDelegate
-
-- (void)actionSheet:(UIActionSheet *)actionSheet didDismissWithButtonIndex:(NSInteger)buttonIndex
-{
-    if (actionSheet.cancelButtonIndex != buttonIndex) {
-        [self presentDocumentInteractionControllerWithFileURL:_fileURLs[buttonIndex]];
-    } else {
-	    [self activityDidFinish:NO];
+    for (NSURL *fileURL in _fileURLs) {
+        UIAlertAction *action = [UIAlertAction actionWithTitle:[fileURL lastPathComponent]
+                                                         style:UIAlertActionStyleDefault
+                                                       handler:^(UIAlertAction * _Nonnull action) {
+                                                           [self presentDocumentInteractionControllerWithFileURL:fileURL];
+                                                       }];
+        [actionController addAction:action];
     }
+    UIAlertAction *cancelAction = [UIAlertAction actionWithTitle:NSLocalizedString(@"BUTTON_CANCEL", nil)
+                                                           style:UIAlertActionStyleCancel
+                                                         handler:^(UIAlertAction * _Nonnull action) {
+                                                             [self activityDidFinish:NO];
+                                                         }];
+    [actionController addAction:cancelAction];
+    [self.presentingViewController presentViewController:actionController animated:YES completion:nil];
 }
 
 @end
