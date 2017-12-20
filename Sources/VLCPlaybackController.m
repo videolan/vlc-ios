@@ -251,6 +251,7 @@ typedef NS_ENUM(NSUInteger, VLCAspectRatio) {
 
     _playerIsSetup = YES;
 
+    [[NSNotificationCenter defaultCenter] postNotificationName:VLCPlaybackControllerPlaybackDidStart object:self];
     [_playbackSessionManagementLock unlock];
 }
 
@@ -301,7 +302,9 @@ typedef NS_ENUM(NSUInteger, VLCAspectRatio) {
     [[self remoteControlService] unsubscribeFromRemoteCommands];
 
     [_playbackSessionManagementLock unlock];
-    if (_sessionWillRestart) {
+    if (!_sessionWillRestart) {
+        [[NSNotificationCenter defaultCenter] postNotificationName:VLCPlaybackControllerPlaybackDidStop object:self];
+    } else {
         _sessionWillRestart = NO;
         [self startPlayback];
     }
@@ -701,57 +704,42 @@ typedef NS_ENUM(NSUInteger, VLCAspectRatio) {
 
 - (void)mediaPlayerStateChanged:(NSNotification *)aNotification
 {
-    switch (_mediaPlayer.state) {
-        case VLCMediaPlayerStateBuffering: {
-            _mediaPlayer.media.delegate = self;
+    VLCMediaPlayerState currentState = _mediaPlayer.state;
 
-            /* on-the-fly values through hidden API */
-            NSUserDefaults *defaults = [NSUserDefaults standardUserDefaults];
-            [_mediaPlayer performSelector:@selector(setTextRendererFont:) withObject:[defaults objectForKey:kVLCSettingSubtitlesFont]];
-            [_mediaPlayer performSelector:@selector(setTextRendererFontSize:) withObject:[defaults objectForKey:kVLCSettingSubtitlesFontSize]];
-            [_mediaPlayer performSelector:@selector(setTextRendererFontColor:) withObject:[defaults objectForKey:kVLCSettingSubtitlesFontColor]];
-            [_mediaPlayer performSelector:@selector(setTextRendererFontForceBold:) withObject:[defaults objectForKey:kVLCSettingSubtitlesBoldFont]];
-            break;
-        }
-        case VLCMediaPlayerStateError: {
-            APLog(@"Playback failed");
-            dispatch_async(dispatch_get_main_queue(),^{
-                [[NSNotificationCenter defaultCenter] postNotificationName:VLCPlaybackControllerPlaybackDidFail object:self];
-            });
+    if (currentState == VLCMediaPlayerStateBuffering) {
+        /* attach delegate */
+        _mediaPlayer.media.delegate = self;
+
+        /* on-the-fly values through hidden API */
+        NSUserDefaults *defaults = [NSUserDefaults standardUserDefaults];
+        [_mediaPlayer performSelector:@selector(setTextRendererFont:) withObject:[defaults objectForKey:kVLCSettingSubtitlesFont]];
+        [_mediaPlayer performSelector:@selector(setTextRendererFontSize:) withObject:[defaults objectForKey:kVLCSettingSubtitlesFontSize]];
+        [_mediaPlayer performSelector:@selector(setTextRendererFontColor:) withObject:[defaults objectForKey:kVLCSettingSubtitlesFontColor]];
+        [_mediaPlayer performSelector:@selector(setTextRendererFontForceBold:) withObject:[defaults objectForKey:kVLCSettingSubtitlesBoldFont]];
+    } else if (currentState == VLCMediaPlayerStateError) {
+        APLog(@"Playback failed");
+        dispatch_async(dispatch_get_main_queue(),^{
+            [[NSNotificationCenter defaultCenter] postNotificationName:VLCPlaybackControllerPlaybackDidFail object:self];
+        });
+        _sessionWillRestart = NO;
+        [self stopPlayback];
+    } else if (currentState == VLCMediaPlayerStateEnded || currentState == VLCMediaPlayerStateStopped) {
+        [_listPlayer.mediaList lock];
+        NSUInteger listCount = _listPlayer.mediaList.count;
+        if ([_listPlayer.mediaList indexOfMedia:_mediaPlayer.media] == listCount - 1 && self.repeatMode == VLCDoNotRepeat) {
+            [_listPlayer.mediaList unlock];
             _sessionWillRestart = NO;
             [self stopPlayback];
-        }
-        case VLCMediaPlayerStateEnded:
-        case VLCMediaPlayerStateStopped: {
-            [_listPlayer.mediaList lock];
-            NSUInteger listCount = _listPlayer.mediaList.count;
-            if ([_listPlayer.mediaList indexOfMedia:_mediaPlayer.media] == listCount - 1 && self.repeatMode == VLCDoNotRepeat) {
-                [_listPlayer.mediaList unlock];
-                _sessionWillRestart = NO;
-                [self stopPlayback];
-                return;
-            } else if (listCount > 1) {
-                [_listPlayer.mediaList unlock];
-                [_listPlayer next];
-            } else
-                [_listPlayer.mediaList unlock];
-            dispatch_async(dispatch_get_main_queue(),^{
-                [[NSNotificationCenter defaultCenter] postNotificationName:VLCPlaybackControllerPlaybackDidStop object:self];
-            });
-        } break;
-        case VLCMediaPlayerStatePlaying: {
-            dispatch_async(dispatch_get_main_queue(),^{
-                [[NSNotificationCenter defaultCenter] postNotificationName:VLCPlaybackControllerPlaybackDidStart object:self];
-            });
-            break;
-        }
-        case VLCMediaPlayerStateOpening:
-        case VLCMediaPlayerStatePaused:
-            break;
-
+            return;
+        } else if (listCount > 1) {
+            [_listPlayer.mediaList unlock];
+            [_listPlayer next];
+        } else
+            [_listPlayer.mediaList unlock];
     }
+
     if ([self.delegate respondsToSelector:@selector(mediaPlayerStateChanged:isPlaying:currentMediaHasTrackToChooseFrom:currentMediaHasChapters:forPlaybackController:)])
-        [self.delegate mediaPlayerStateChanged:_mediaPlayer.state
+        [self.delegate mediaPlayerStateChanged:currentState
                                      isPlaying:_mediaPlayer.isPlaying
               currentMediaHasTrackToChooseFrom:self.currentMediaHasTrackToChooseFrom
                        currentMediaHasChapters:self.currentMediaHasChapters
