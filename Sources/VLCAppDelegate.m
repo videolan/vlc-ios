@@ -312,14 +312,21 @@ didFailToContinueUserActivityWithType:(NSString *)userActivityType
 
         if (url.isFileURL) {
             NSArray *searchPaths = NSSearchPathForDirectoriesInDomains(NSDocumentDirectory, NSUserDomainMask, YES);
-            NSString *directoryPath = searchPaths[0];
+            NSString *directoryPath = searchPaths.firstObject;
             NSURL *destinationURL = [NSURL fileURLWithPath:[NSString stringWithFormat:@"%@/%@", directoryPath, url.lastPathComponent]];
             NSError *theError;
+            NSFileManager *manager = [NSFileManager defaultManager];
             [[NSFileManager defaultManager] moveItemAtURL:url toURL:destinationURL error:&theError];
             if (theError.code != noErr)
                 APLog(@"saving the file failed (%li): %@", (long)theError.code, theError.localizedDescription);
 
             [[VLCMediaFileDiscoverer sharedInstance] updateMediaList];
+
+            NSURLRelationship relationship;
+            [manager getRelationship:&relationship ofDirectoryAtURL:[NSURL fileURLWithPath:directoryPath] toItemAtURL:url error:&theError];
+            if (relationship == NSURLRelationshipContains) {
+                [self playWithURL:url successCallback:nil errorCallback:nil];
+            }
         } else if ([url.scheme isEqualToString:@"vlc-x-callback"] || [url.host isEqualToString:@"x-callback-url"]) {
             // URL confirmes to the x-callback-url specification
             // vlc-x-callback://x-callback-url/action?param=value&x-success=callback
@@ -345,7 +352,7 @@ didFailToContinueUserActivityWithType:(NSString *)userActivityType
                     errorCallback = [NSURL URLWithString:value];
             }
             if ([action isEqualToString:@"stream"] && movieURL) {
-                [self playWithUrl:movieURL successCallback:successCallback errorCallback:errorCallback];
+                [self playWithURL:movieURL successCallback:successCallback errorCallback:errorCallback];
             }
             else if ([action isEqualToString:@"download"] && movieURL) {
                 [self downloadMovieFromURL:movieURL fileNameOfMedia:fileName];
@@ -380,12 +387,12 @@ didFailToContinueUserActivityWithType:(NSString *)userActivityType
                     if (cancelled)
                         [self downloadMovieFromURL:url fileNameOfMedia:nil];
                     else {
-                        [self playWithUrl:url successCallback:nil errorCallback:nil];
+                        [self playWithURL:url successCallback:nil errorCallback:nil];
                     }
                 };
                 [alert show];
             } else {
-                [self playWithUrl:url successCallback:nil errorCallback:nil];
+                [self playWithURL:url successCallback:nil errorCallback:nil];
             }
         }
         return YES;
@@ -496,7 +503,7 @@ didFailToContinueUserActivityWithType:(NSString *)userActivityType
 }
 
 #pragma mark - playback
-- (void)playWithUrl:(NSURL *)url successCallback:(NSURL *)successCallback errorCallback:(NSURL *)errorCallback
+- (void)playWithURL:(NSURL *)url successCallback:(NSURL *)successCallback errorCallback:(NSURL *)errorCallback
 {
     VLCPlaybackController *vpc = [VLCPlaybackController sharedInstance];
     vpc.fullscreenSessionRequested = YES;
