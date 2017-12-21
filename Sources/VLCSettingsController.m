@@ -70,19 +70,17 @@
             passcodeLockController.delegate = self;
             [self presentViewController:passcodeLockController animated:YES completion:nil];
         } else {
-            [[VLCKeychainCoordinator defaultCoordinator] setPasscode:nil];
-            [self didChangePasscodeStatus:NO];
+            [self updateForPasscode:nil];
         }
     }
 }
 
-- (void)didChangePasscodeStatus:(BOOL)passcodeEnabled
+- (void)updateUIAndCoreSpotlightForPasscodeSetting:(BOOL)passcodeOn
 {
     [self filterCellsWithAnimation:YES];
 
-    BOOL spotlightEnabled = !passcodeEnabled;
-    [[MLMediaLibrary sharedMediaLibrary] setSpotlightIndexingEnabled:spotlightEnabled];
-    if (!spotlightEnabled) {
+    [[MLMediaLibrary sharedMediaLibrary] setSpotlightIndexingEnabled:!passcodeOn];
+    if (passcodeOn) {
         // delete whole index for VLC
         [[CSSearchableIndex defaultSearchableIndex] deleteAllSearchableItemsWithCompletionHandler:nil];
     }
@@ -99,21 +97,24 @@
 
 - (void)PAPasscodeViewControllerDidCancel:(PAPasscodeViewController *)controller
 {
-    [[VLCKeychainCoordinator defaultCoordinator] setPasscode:nil];
-
-    //Set manually the value to NO to disable the UISwitch.
-    [[NSUserDefaults standardUserDefaults] setBool:NO forKey:kVLCSettingPasscodeOnKey];
-    [self didChangePasscodeStatus:NO];
-
-    [controller dismissViewControllerAnimated:YES completion:nil];
+    [self updateForPasscode:nil];
 }
 
 - (void)PAPasscodeViewControllerDidSetPasscode:(PAPasscodeViewController *)controller
 {
-    [[VLCKeychainCoordinator defaultCoordinator] setPasscode:controller.passcode];
-    [self didChangePasscodeStatus:YES];
-
-    [controller dismissViewControllerAnimated:YES completion:nil];
+    [self updateForPasscode:controller.passcode];
 }
 
+- (void)updateForPasscode:(NSString *)passcode
+{
+    if (passcode == nil) {
+        //Set manually the value to NO to disable the UISwitch.
+        [[NSUserDefaults standardUserDefaults] setBool:NO forKey:kVLCSettingPasscodeOnKey];
+    }
+    [[VLCKeychainCoordinator defaultCoordinator] setPasscode:passcode];
+    [self updateUIAndCoreSpotlightForPasscodeSetting:passcode != nil];
+    if ([self.navigationController.presentedViewController isKindOfClass:[PAPasscodeViewController class]]) {
+        [self.navigationController.presentedViewController dismissViewControllerAnimated:YES completion:nil];
+    }
+}
 @end
