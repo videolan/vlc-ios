@@ -112,7 +112,6 @@
                                                              style:UIAlertActionStyleDefault
                                                            handler:^(UIAlertAction * _Nonnull action) {
                                                                [_userDefaults setObject:value forKey:[specifier key]];
-                                                               [_userDefaults synchronize];
                                                                [self.tableView reloadData];
                                                            }];
             [alertController addAction:action];
@@ -128,7 +127,6 @@
     } else if ([specifierType isEqualToString:kIASKPSToggleSwitchSpecifier]) {
         NSString *specifierKey = [specifier key];
         [_userDefaults setBool:![_userDefaults boolForKey:specifierKey] forKey:specifierKey];
-        [_userDefaults synchronize];
         [self.tableView reloadData];
     } else {
         VLCAboutViewController *targetViewController = [[VLCAboutViewController alloc] initWithNibName:nil bundle:nil];

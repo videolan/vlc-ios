@@ -150,7 +150,6 @@
     NSUserDefaults *defaults = [NSUserDefaults standardUserDefaults];
     [defaults setBool:self.privateToggleSwitch.on forKey:kVLCPrivateWebStreaming];
     [defaults setBool:self.ScanSubToggleSwitch.on forKey:kVLChttpScanSubtitle];
-    [defaults synchronize];
 
     /* force update before we leave */
     [[NSUbiquitousKeyValueStore defaultStore] synchronize];

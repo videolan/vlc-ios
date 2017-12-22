@@ -52,7 +52,6 @@
             selectedLocale = @"eng";
         }
         [defaults setObject:selectedLocale forKey:kVLCSettingLastUsedSubtitlesSearchLanguage];
-        [defaults synchronize];
     }
     _osoFetcher.subtitleLanguageId = selectedLocale;
 
@@ -204,7 +203,6 @@
                                                            handler:^(UIAlertAction * _Nonnull action) {
                                                                _osoFetcher.subtitleLanguageId = itemID;
                                                                [defaults setObject:itemID forKey:kVLCSettingLastUsedSubtitlesSearchLanguage];
-                                                               [defaults synchronize];
                                                                [self searchForMedia];
                                                                [self.tableView reloadData];
                                                            }];

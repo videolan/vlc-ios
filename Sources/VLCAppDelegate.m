@@ -433,11 +433,6 @@ didFailToContinueUserActivityWithType:(NSString *)userActivityType
     }
 }
 
-- (void)applicationWillTerminate:(UIApplication *)application
-{
-    [[NSUserDefaults standardUserDefaults] synchronize];
-}
-
 - (void)application:(UIApplication *)application performActionForShortcutItem:(UIApplicationShortcutItem *)shortcutItem completionHandler:(void (^)(BOOL))completionHandler
 {
     [[VLCSidebarController sharedInstance] performActionForShortcutItem:shortcutItem];

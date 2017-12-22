@@ -269,7 +269,6 @@ static NSString *kUsingTableViewToShowData = @"UsingTableViewToShowData";
     if (![[defaults objectForKey:kDisplayedFirstSteps] boolValue]) {
         [self.emptyLibraryView performSelector:@selector(learnMore:) withObject:nil afterDelay:1.];
         [defaults setObject:[NSNumber numberWithBool:YES] forKey:kDisplayedFirstSteps];
-        [defaults synchronize];
     }
 
     if ([_mediaDataSource numberOfFiles] < 1)
