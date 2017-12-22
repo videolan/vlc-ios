@@ -12,10 +12,6 @@
 
 #import <Availability.h>
 
-#ifndef __IPHONE_9_0
-#error "This project uses features only available in iOS SDK 9.0 and later."
-#endif
-
 #ifdef __OBJC__
     #import <UIKit/UIKit.h>
     #import <Foundation/Foundation.h>
@@ -32,8 +28,6 @@
 #import "UIViewController+VLCAlert.h"
 
 #define SYSTEM_VERSION_GREATER_THAN_OR_EQUAL_TO(v)  ([[UIDevice currentDevice] systemVersion].floatValue >= [v floatValue])
-
-#define SYSTEM_RUNS_IOS8_OR_LATER SYSTEM_VERSION_GREATER_THAN_OR_EQUAL_TO(@"8.0")
 
 #ifndef NDEBUG
 #define APLog(format, ...) NSLog(format, ## __VA_ARGS__)

@@ -411,13 +411,8 @@ static NSString *kUsingTableViewToShowData = @"UsingTableViewToShowData";
     if (UI_USER_INTERFACE_IDIOM() == UIUserInterfaceIdiomPhone) {
         BOOL isPortrait = YES;
 
-        if (SYSTEM_RUNS_IOS8_OR_LATER) {
-            if (self.traitCollection.verticalSizeClass == UIUserInterfaceSizeClassCompact)
-                isPortrait = NO;
-        } else {
-            if (UIInterfaceOrientationIsLandscape([[UIApplication sharedApplication] statusBarOrientation]))
-                isPortrait = NO;
-        }
+        if (self.traitCollection.verticalSizeClass == UIUserInterfaceSizeClassCompact)
+            isPortrait = NO;
 
         [self setUsingTableViewToShowData:isPortrait];
         [self _displayEmptyLibraryViewIfNeeded];
@@ -1305,9 +1300,9 @@ static NSString *kUsingTableViewToShowData = @"UsingTableViewToShowData";
     if (!controller) {
         [[UIApplication sharedApplication] endIgnoringInteractionEvents];
     } else {
-        if (SYSTEM_RUNS_IOS8_OR_LATER) {
-            controller.popoverPresentationController.sourceView = self.navigationController.toolbar;
-        }
+
+        controller.popoverPresentationController.sourceView = self.navigationController.toolbar;
+
         [self.navigationController presentViewController:controller animated:YES completion:^{
             [[UIApplication sharedApplication] endIgnoringInteractionEvents];
         }];

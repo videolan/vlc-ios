@@ -1578,17 +1578,6 @@ currentMediaHasTrackToChooseFrom:(BOOL)currentMediaHasTrackToChooseFrom
            || toInterfaceOrientation != UIInterfaceOrientationPortraitUpsideDown;
 }
 
-// < iOS 8
-- (void)willRotateToInterfaceOrientation:(UIInterfaceOrientation)toInterfaceOrientation duration:(NSTimeInterval)duration
-{
-    [super willRotateToInterfaceOrientation:toInterfaceOrientation duration:duration];
-    if (self.artworkImageView.image)
-        self.trackNameLabel.hidden = UIInterfaceOrientationIsLandscape(toInterfaceOrientation);
-
-    if (!_equalizerView.hidden)
-        _equalizerView.hidden = YES;
-}
-
 - (void)didRotateFromInterfaceOrientation:(UIInterfaceOrientation)fromInterfaceOrientation
 {
     if (_vpc.isPlaying && _controlsHidden)
