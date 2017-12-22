@@ -20,7 +20,7 @@ NSString *const VLCPasscode = @"org.videolan.vlc-ios.passcode";
 @interface VLCKeychainCoordinator () <PAPasscodeViewControllerDelegate>
 {
     PAPasscodeViewController *_passcodeLockController;
-    __weak void (^_completion)(void);
+    void (^_completion)(void);
     BOOL _avoidPromptingTouchID;
 }
 
@@ -136,6 +136,7 @@ NSString *const VLCPasscode = @"org.videolan.vlc-ios.passcode";
                                     if (success) {
                                         [[UIApplication sharedApplication].delegate.window.rootViewController dismissViewControllerAnimated:YES completion:^{
                                             _completion();
+                                            _completion = nil;
                                         }];
                                     }
                                 });
@@ -148,6 +149,7 @@ NSString *const VLCPasscode = @"org.videolan.vlc-ios.passcode";
     _avoidPromptingTouchID = NO;
     [[UIApplication sharedApplication].delegate.window.rootViewController dismissViewControllerAnimated:YES completion:^{
         _completion();
+        _completion = nil;
     }];
 }
 
