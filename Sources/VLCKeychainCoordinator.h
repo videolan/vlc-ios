@@ -10,15 +10,13 @@
  * Refer to the COPYING file of the official project for license.
  *****************************************************************************/
 
-extern NSString *const VLCPasscodeValidated;
-
 @interface VLCKeychainCoordinator : NSObject
 
 + (instancetype)defaultCoordinator;
 
 @property (readonly) BOOL passcodeLockEnabled;
 
-- (void)validatePasscode;
+- (void)validatePasscodeWithCompletion:(void(^)(void))completion;
 - (void)setPasscode:(NSString *)passcode;
 
 @end

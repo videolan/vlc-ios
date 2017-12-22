@@ -536,12 +536,6 @@ static NSString *kUsingTableViewToShowData = @"UsingTableViewToShowData";
     @synchronized(self) {
         _foundMedia = [[NSMutableArray alloc] init];
     }
-
-    if (![(VLCAppDelegate *)[UIApplication sharedApplication].delegate passcodeValidated]) {
-        APLog(@"library is locked, won't show contents");
-        return;
-    }
-
     self.navigationItem.leftBarButtonItem = _menuButton;
 
     if (_libraryMode == VLCLibraryModeAllAlbums)
