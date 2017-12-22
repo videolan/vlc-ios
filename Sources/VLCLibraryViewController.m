@@ -450,11 +450,6 @@ static NSString *kUsingTableViewToShowData = @"UsingTableViewToShowData";
 
 - (void)updateViewContents
 {
-    if (![(VLCAppDelegate *)[UIApplication sharedApplication].delegate passcodeValidated]) {
-        APLog(@"library is locked, won't show contents");
-        return;
-    }
-
     self.navigationItem.leftBarButtonItem = _menuButton;
     [_mediaDataSource updateContentsForSelection:nil];
     _removeFromFolderBarButtonItem.enabled = NO;

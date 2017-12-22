@@ -31,8 +31,6 @@ extern NSString *const VLCDropboxSessionWasAuthorized;
 
 @property (nonatomic, strong) UIWindow *window;
 
-@property (nonatomic, readonly) BOOL passcodeValidated;
-
 @property (atomic, strong) id<OIDAuthorizationFlowSession> currentGoogleAuthorizationFlow;
 
 @end

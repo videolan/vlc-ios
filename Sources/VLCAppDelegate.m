@@ -36,6 +36,7 @@
 #import "VLCDropboxConstants.h"
 #import <ObjectiveDropboxOfficial/ObjectiveDropboxOfficial.h>
 #import "VLCPlaybackNavigationController.h"
+#import "PAPasscodeViewController.h"
 
 NSString *const VLCDropboxSessionWasAuthorized = @"VLCDropboxSessionWasAuthorized";
 
@@ -43,7 +44,6 @@ NSString *const VLCDropboxSessionWasAuthorized = @"VLCDropboxSessionWasAuthorize
 
 @interface VLCAppDelegate () <VLCMediaFileDiscovererDelegate>
 {
-    BOOL _passcodeValidated;
     BOOL _isRunningMigration;
     BOOL _isComingFromHandoff;
     VLCWatchCommunication *_watchCommunication;
@@ -99,12 +99,6 @@ NSString *const VLCDropboxSessionWasAuthorized = @"VLCDropboxSessionWasAuthorize
     // Configure Dropbox
     [DBClientsManager setupWithAppKey:kVLCDropboxAppKey];
 
-    /* listen to validation notification */
-    [[NSNotificationCenter defaultCenter] addObserver:self
-                                             selector:@selector(passcodeWasValidated:)
-                                                 name:VLCPasscodeValidated
-                                               object:nil];
-
     [self setupAppearence];
 
     // Init the HTTP Server and clean its cache
@@ -113,18 +107,23 @@ NSString *const VLCDropboxSessionWasAuthorized = @"VLCDropboxSessionWasAuthorize
     self.window = [[UIWindow alloc] initWithFrame:[[UIScreen mainScreen] bounds]];
     // enable crash preventer
     void (^setupBlock)() = ^{
-        _libraryViewController = [[VLCLibraryViewController alloc] init];
-        VLCSidebarController *sidebarVC = [VLCSidebarController sharedInstance];
-        UINavigationController *navCon = [[UINavigationController alloc] initWithRootViewController:_libraryViewController];
-        sidebarVC.contentViewController = navCon;
+        __weak typeof(self) weakSelf = self;
+        void (^setupLibraryBlock)() = ^{
+            _libraryViewController = [[VLCLibraryViewController alloc] init];
+            UINavigationController *navCon = [[UINavigationController alloc] initWithRootViewController:_libraryViewController];
 
-        VLCPlayerDisplayController *playerDisplayController = [VLCPlayerDisplayController sharedInstance];
-        playerDisplayController.childViewController = sidebarVC.fullViewController;
+            VLCSidebarController *sidebarVC = [VLCSidebarController sharedInstance];
+            sidebarVC.contentViewController = navCon;
 
-        self.window.rootViewController = playerDisplayController;
+            VLCPlayerDisplayController *playerDisplayController = [VLCPlayerDisplayController sharedInstance];
+            playerDisplayController.childViewController = sidebarVC.fullViewController;
+
+            weakSelf.window.rootViewController = playerDisplayController;
+        };
+        UINavigationController *navCon = [[UINavigationController alloc] initWithRootViewController:[[UIViewController alloc] init]];
+        self.window.rootViewController = navCon;
         [self.window makeKeyAndVisible];
-
-        [self validatePasscode];
+        [self validatePasscodeIfNeededWithCompletion:setupLibraryBlock];
 
         BOOL spotlightEnabled = ![[VLCKeychainCoordinator defaultCoordinator] passcodeLockEnabled];
         [[MLMediaLibrary sharedMediaLibrary] setSpotlightIndexingEnabled:spotlightEnabled];
@@ -407,8 +406,20 @@ didFailToContinueUserActivityWithType:(NSString *)userActivityType
 
 - (void)applicationWillResignActive:(UIApplication *)application
 {
-    _passcodeValidated = NO;
-    [self validatePasscode];
+    //Touch ID is shown 
+    if ([_window.rootViewController.presentedViewController isKindOfClass:[UINavigationController class]]){
+        UINavigationController *navCon = (UINavigationController *)_window.rootViewController.presentedViewController;
+        if ([navCon.topViewController isKindOfClass:[PAPasscodeViewController class]]){
+            return;
+        }
+    }
+    __weak typeof(self) weakself = self;
+    [self validatePasscodeIfNeededWithCompletion:^{
+        [weakself.libraryViewController updateViewContents];
+        if ([VLCPlaybackController sharedInstance].isPlaying){
+            [[VLCPlayerDisplayController sharedInstance] pushPlaybackView];
+        }
+    }];
     [[MLMediaLibrary sharedMediaLibrary] applicationWillExit];
 }
 
@@ -424,7 +435,6 @@ didFailToContinueUserActivityWithType:(NSString *)userActivityType
 
 - (void)applicationWillTerminate:(UIApplication *)application
 {
-    _passcodeValidated = NO;
     [[NSUserDefaults standardUserDefaults] synchronize];
 }
 
@@ -465,30 +475,15 @@ didFailToContinueUserActivityWithType:(NSString *)userActivityType
 
 #pragma mark - pass code validation
 
-- (void)passcodeWasValidated:(NSNotification *)aNotifcation
-{
-    _passcodeValidated = YES;
-    [self.libraryViewController updateViewContents];
-    if ([VLCPlaybackController sharedInstance].isPlaying)
-        [[VLCPlayerDisplayController sharedInstance] pushPlaybackView];
-}
-
-- (BOOL)passcodeValidated
-{
-    return _passcodeValidated;
-}
-
-- (void)validatePasscode
+- (void)validatePasscodeIfNeededWithCompletion:(void(^)(void))completion
 {
     VLCKeychainCoordinator *keychainCoordinator = [VLCKeychainCoordinator defaultCoordinator];
 
-    if (!_passcodeValidated && [keychainCoordinator passcodeLockEnabled]) {
+    if ([keychainCoordinator passcodeLockEnabled]) {
         [[VLCPlayerDisplayController sharedInstance] dismissPlaybackView];
-
-        [keychainCoordinator validatePasscode];
+        [keychainCoordinator validatePasscodeWithCompletion:completion];
     } else {
-        _passcodeValidated = YES;
-        [self passcodeValidated];
+        completion();
     }
 }
 

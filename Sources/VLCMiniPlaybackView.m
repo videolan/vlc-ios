@@ -47,12 +47,6 @@
                    selector:@selector(appBecameActive:)
                        name:UIApplicationDidBecomeActiveNotification
                      object:nil];
-#if TARGET_OS_IOS
-        [center addObserver:self
-                   selector:@selector(appBecameActive:)
-                       name:VLCPasscodeValidated
-                     object:nil];
-#endif
     }
     return self;
 }
