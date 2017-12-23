@@ -36,24 +36,19 @@ class VLCDragAndDropManager: NSObject, UICollectionViewDragDelegate, UITableView
 {
     @objc weak var delegate:VLCDragAndDropManagerDelegate?
 
-    lazy var utiTypeIdentifiers:[String] = {
-        self.supportedTypeIdentifiers()
-    }()
+    let utiTypeIdentifiers:[String] = VLCDragAndDropManager.supportedTypeIdentifiers()
 
     /// Returns the supported type identifiers that VLC can process.
     /// It fetches the identifiers in LSItemContentTypes from all the CFBundleDocumentTypes in the info.plist.
     /// Video, Audio and Subtitle formats
     ///
     /// - Returns: Array of UTITypeIdentifiers
-    private func supportedTypeIdentifiers() -> [String] {
+    private class func supportedTypeIdentifiers() -> [String] {
         var typeIdentifiers:[String] = []
-        let documentTypes = Bundle.main.object(forInfoDictionaryKey: "CFBundleDocumentTypes")
-        if let documents = documentTypes as? Array<AnyObject> {
-            for item in documents  {
-                if let object = item as? [NSString:Any] {
-                    for (key, value) in object where key == "LSItemContentTypes"{
-                        typeIdentifiers.append(contentsOf: value as! Array)
-                    }
+        if let documents = Bundle.main.infoDictionary?["CFBundleDocumentTypes"] as? [[String:Any]] {
+            for item in documents {
+                if let value = item["LSItemContentTypes"] as? Array<String> {
+                    typeIdentifiers.append(contentsOf: value)
                 }
             }
         }
