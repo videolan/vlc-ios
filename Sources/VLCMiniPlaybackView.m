@@ -14,6 +14,7 @@
 #import "VLCPlaybackController.h"
 #import "VLCPlayerDisplayController.h"
 #import "VLCMetadata.h"
+#import "VLC_iOS-Swift.h"
 
 #if TARGET_OS_IOS
 #import "VLCKeychainCoordinator.h"
@@ -110,7 +111,7 @@
     _stackView.distribution = UIStackViewDistributionFillEqually;
     [self addSubview:_stackView];
 
-    UILayoutGuide *guide = self;
+    id<VLCLayoutAnchorContainer> guide = self;
     if (@available(iOS 11.0, *)) {
         guide = self.safeAreaLayoutGuide;
     }

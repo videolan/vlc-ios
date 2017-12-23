@@ -10,6 +10,8 @@
  *****************************************************************************/
 
 #import "VLCNetworkLoginViewFieldCell.h"
+#import "VLC_iOS-Swift.h"
+
 NSString * const kVLCNetworkLoginViewFieldCellIdentifier = @"VLCNetworkLoginViewFieldCellIdentifier";
 
 @interface VLCNetworkLoginViewFieldCell () <UITextFieldDelegate>
@@ -39,7 +41,7 @@ NSString * const kVLCNetworkLoginViewFieldCellIdentifier = @"VLCNetworkLoginView
     self.textField.textColor = [UIColor whiteColor];
     [self addSubview:_textField];
     
-    UILayoutGuide *guide = self;
+    id<VLCLayoutAnchorContainer> guide = self;
     if (@available(iOS 11.0, *)) {
         guide = self.safeAreaLayoutGuide;
     }

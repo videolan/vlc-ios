@@ -22,6 +22,8 @@
 		412BE7531FC4947400ACCC42 /* VLCMediaData+VLCDragAndDrop.swift in Sources */ = {isa = PBXBuildFile; fileRef = 412BE7521FC4947400ACCC42 /* VLCMediaData+VLCDragAndDrop.swift */; };
 		4144C4661A0ED6C700918C89 /* Reachability.m in Sources */ = {isa = PBXBuildFile; fileRef = 7D3784E6183A99E1009EE944 /* Reachability.m */; };
 		415908F71F34ED4000C6A831 /* VLCNetworkServerLoginInformation+Keychain.m in Sources */ = {isa = PBXBuildFile; fileRef = DDA1B9081CE902EE0076BC45 /* VLCNetworkServerLoginInformation+Keychain.m */; };
+		416DEFF61FEEA76A00F4FC59 /* LayoutAnchorContainer.swift in Sources */ = {isa = PBXBuildFile; fileRef = 416DEFF51FEEA76A00F4FC59 /* LayoutAnchorContainer.swift */; };
+		416DEFF71FEEA76A00F4FC59 /* LayoutAnchorContainer.swift in Sources */ = {isa = PBXBuildFile; fileRef = 416DEFF51FEEA76A00F4FC59 /* LayoutAnchorContainer.swift */; };
 		4171D35018A2C19000A16EF9 /* VLCFolderCollectionViewFlowLayout.m in Sources */ = {isa = PBXBuildFile; fileRef = 4171D34F18A2C19000A16EF9 /* VLCFolderCollectionViewFlowLayout.m */; };
 		417CDA231A48D1F300D9ACE7 /* VLCCloudServicesTableViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 417CDA211A48D1F300D9ACE7 /* VLCCloudServicesTableViewController.m */; };
 		417CDA241A48D1F300D9ACE7 /* VLCCloudServicesTableViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 417CDA221A48D1F300D9ACE7 /* VLCCloudServicesTableViewController.xib */; };
@@ -739,6 +741,7 @@
 		41273A3A1A955C4100A2EF77 /* VLCMigrationViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = VLCMigrationViewController.m; path = Sources/VLCMigrationViewController.m; sourceTree = SOURCE_ROOT; };
 		41273A3B1A955C4100A2EF77 /* VLCMigrationViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; name = VLCMigrationViewController.xib; path = Sources/VLCMigrationViewController.xib; sourceTree = SOURCE_ROOT; };
 		412BE7521FC4947400ACCC42 /* VLCMediaData+VLCDragAndDrop.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "VLCMediaData+VLCDragAndDrop.swift"; sourceTree = SOURCE_ROOT; };
+		416DEFF51FEEA76A00F4FC59 /* LayoutAnchorContainer.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LayoutAnchorContainer.swift; sourceTree = "<group>"; };
 		4171D34E18A2C19000A16EF9 /* VLCFolderCollectionViewFlowLayout.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = VLCFolderCollectionViewFlowLayout.h; path = Sources/VLCFolderCollectionViewFlowLayout.h; sourceTree = SOURCE_ROOT; };
 		4171D34F18A2C19000A16EF9 /* VLCFolderCollectionViewFlowLayout.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = VLCFolderCollectionViewFlowLayout.m; path = Sources/VLCFolderCollectionViewFlowLayout.m; sourceTree = SOURCE_ROOT; };
 		417CDA201A48D1F300D9ACE7 /* VLCCloudServicesTableViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = VLCCloudServicesTableViewController.h; path = Sources/VLCCloudServicesTableViewController.h; sourceTree = SOURCE_ROOT; };
@@ -2511,6 +2514,7 @@
 				7DF9352E1958AB0600E60FD4 /* UIColor+Presets.m */,
 				7DEBF37D1C076ECE007A4043 /* NSString+Locale.h */,
 				7DEBF37E1C076EE8007A4043 /* NSString+Locale.m */,
+				416DEFF51FEEA76A00F4FC59 /* LayoutAnchorContainer.swift */,
 			);
 			name = Extensions;
 			sourceTree = "<group>";
@@ -2987,6 +2991,7 @@
 					};
 					7DC54FA51C046615007B4E42 = {
 						DevelopmentTeam = 75GAHG3SZQ;
+						LastSwiftMigration = 0920;
 					};
 					DD3567631B6760BF00338947 = {
 						CreatedOnToolsVersion = 7.0;
@@ -3823,6 +3828,7 @@
 				7D3784CC183A99BA009EE944 /* PAPasscodeViewController.m in Sources */,
 				DDEAECCD1BDECCB800756C83 /* VLCNetworkListViewController.m in Sources */,
 				7D3784E9183A9A15009EE944 /* main.m in Sources */,
+				416DEFF61FEEA76A00F4FC59 /* LayoutAnchorContainer.swift in Sources */,
 				7D30F3C2183AB24C00FFC021 /* VLCHTTPConnection.m in Sources */,
 				DD3EFF371BDEBCE500B68579 /* VLCLocalNetworkServiceNetService.m in Sources */,
 				DD3EFF511BDEBCE500B68579 /* VLCPlexWebAPI.m in Sources */,
@@ -3899,6 +3905,7 @@
 				7DC54FC51C046615007B4E42 /* VLCWatchCommunication.m in Sources */,
 				7DC54FC61C046615007B4E42 /* VLCLocalNetworkServiceBrowserNetService.m in Sources */,
 				7DC54FC71C046615007B4E42 /* VLCProgressView.m in Sources */,
+				416DEFF71FEEA76A00F4FC59 /* LayoutAnchorContainer.swift in Sources */,
 				7DC54FC81C046615007B4E42 /* VLCCloudServicesTableViewController.m in Sources */,
 				7DC54FC91C046615007B4E42 /* UIImage+Blur.m in Sources */,
 				26D2F0651D3D3CC8003F7417 /* VLCNetworkLoginDataSource.m in Sources */,
@@ -4484,7 +4491,8 @@
 				OTHER_LDFLAGS = "-ObjC";
 				PRODUCT_MODULE_NAME = VLC_iOS;
 				SDKROOT = iphoneos;
-				SWIFT_VERSION = 2.3;
+				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
+				SWIFT_VERSION = 4.0;
 				TARGETED_DEVICE_FAMILY = "1,2";
 				VALID_ARCHS = "arm64 armv7 armv7s";
 			};
@@ -4515,7 +4523,7 @@
 				OTHER_LDFLAGS = "-ObjC";
 				PRODUCT_MODULE_NAME = VLC_iOS;
 				SDKROOT = iphoneos;
-				SWIFT_VERSION = 2.3;
+				SWIFT_VERSION = 4.0;
 				TARGETED_DEVICE_FAMILY = "1,2";
 				VALIDATE_PRODUCT = YES;
 				VALID_ARCHS = "arm64 armv7 armv7s";
@@ -4562,8 +4570,6 @@
 				PROVISIONING_PROFILE = "";
 				SKIP_INSTALL = NO;
 				SWIFT_OBJC_BRIDGING_HEADER = "VLC-iOS-Bridging-Header.h";
-				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
-				SWIFT_VERSION = 3.0;
 				VALID_ARCHS = "arm64 armv7 armv7s";
 			};
 			name = Debug;
@@ -4608,8 +4614,6 @@
 				"PROVISIONING_PROFILE[sdk=iphoneos*]" = "";
 				SKIP_INSTALL = NO;
 				SWIFT_OBJC_BRIDGING_HEADER = "VLC-iOS-Bridging-Header.h";
-				SWIFT_OPTIMIZATION_LEVEL = "-O";
-				SWIFT_VERSION = 3.0;
 				VALID_ARCHS = "arm64 armv7 armv7s";
 			};
 			name = Release;
@@ -4643,6 +4647,7 @@
 				GCC_PREFIX_HEADER = "Sources/VLC for iOS-Prefix.pch";
 				INFOPLIST_FILE = "Sources/VLC for iOS-Info.plist";
 				IPHONEOS_DEPLOYMENT_TARGET = 9.0;
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				LIBRARY_SEARCH_PATHS = "$(inherited)";
 				ONLY_ACTIVE_ARCH = YES;
 				OTHER_LDFLAGS = (
@@ -4686,6 +4691,7 @@
 				GCC_PREFIX_HEADER = "Sources/VLC for iOS-Prefix.pch";
 				INFOPLIST_FILE = "Sources/VLC for iOS-Info.plist";
 				IPHONEOS_DEPLOYMENT_TARGET = 9.0;
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				LIBRARY_SEARCH_PATHS = "$(inherited)";
 				ONLY_ACTIVE_ARCH = NO;
 				OTHER_LDFLAGS = (
@@ -4730,6 +4736,7 @@
 				GCC_PREFIX_HEADER = "Sources/VLC for iOS-Prefix.pch";
 				INFOPLIST_FILE = "Sources/VLC for iOS-Info.plist";
 				IPHONEOS_DEPLOYMENT_TARGET = 9.0;
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				LIBRARY_SEARCH_PATHS = "$(inherited)";
 				ONLY_ACTIVE_ARCH = NO;
 				OTHER_LDFLAGS = (
@@ -4770,7 +4777,7 @@
 				OTHER_LDFLAGS = "-ObjC";
 				PRODUCT_MODULE_NAME = VLC_iOS;
 				SDKROOT = iphoneos;
-				SWIFT_VERSION = 2.3;
+				SWIFT_VERSION = 4.0;
 				TARGETED_DEVICE_FAMILY = "1,2";
 				VALIDATE_PRODUCT = YES;
 				VALID_ARCHS = "arm64 armv7 armv7s";
@@ -4817,7 +4824,6 @@
 				"PROVISIONING_PROFILE[sdk=iphoneos*]" = "";
 				SKIP_INSTALL = NO;
 				SWIFT_OBJC_BRIDGING_HEADER = "VLC-iOS-Bridging-Header.h";
-				SWIFT_VERSION = 3.0;
 				VALID_ARCHS = "arm64 armv7 armv7s";
 			};
 			name = Distribution;
@@ -4853,7 +4859,6 @@
 				PROVISIONING_PROFILE = "";
 				SDKROOT = watchos;
 				SKIP_INSTALL = YES;
-				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
 				TARGETED_DEVICE_FAMILY = 4;
 				WATCHOS_DEPLOYMENT_TARGET = 2.0;
 			};
@@ -4969,7 +4974,6 @@
 				SDKROOT = watchos;
 				SKIP_INSTALL = YES;
 				SWIFT_OBJC_BRIDGING_HEADER = "VLC WatchKit Native Extension/VLC WatchKit Extension-Bridging-Header.h";
-				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
 				TARGETED_DEVICE_FAMILY = 4;
 				VALID_ARCHS = "arm64 armv7 armv7s i386 armv7k";
 				WATCHOS_DEPLOYMENT_TARGET = 2.0;
