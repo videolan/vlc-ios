@@ -65,20 +65,11 @@ NSString *const VLCPasscode = @"org.videolan.vlc-ios.passcode";
     }
 }
 
-- (NSString *)_obtainPasscode
+- (NSString *)passcodeFromKeychain
 {
-    NSUserDefaults *defaults = [NSUserDefaults standardUserDefaults];
-    BOOL wasReset = [defaults boolForKey:kVLCSettingPasscodeResetOnUpgrade];
-    if (wasReset) {
-        XKKeychainGenericPasswordItem *item = [XKKeychainGenericPasswordItem itemForService:VLCPasscode account:VLCPasscode error:nil];
-        NSString *passcode = item.secret.stringValue;
-        return passcode;
-    }
-
-    [XKKeychainGenericPasswordItem removeItemsForService:VLCPasscode error:nil];
-    [defaults setBool:YES forKey:kVLCSettingPasscodeResetOnUpgrade];
-
-    return nil;
+    XKKeychainGenericPasswordItem *item = [XKKeychainGenericPasswordItem itemForService:VLCPasscode account:VLCPasscode error:nil];
+    NSString *passcode = item.secret.stringValue;
+    return passcode;
 }
 
 - (BOOL)touchIDEnabled
@@ -93,15 +84,9 @@ NSString *const VLCPasscode = @"org.videolan.vlc-ios.passcode";
 
 - (void)validatePasscodeWithCompletion:(void(^)(void))completion
 {
-    NSString *passcode = [self _obtainPasscode];
-    if (passcode == nil || [passcode isEqualToString:@""]) {
-        completion();
-        return;
-    }
-
     _passcodeLockController = [[PAPasscodeViewController alloc] initForAction:PasscodeActionEnter];
     _passcodeLockController.delegate = self;
-    _passcodeLockController.passcode = passcode;
+    _passcodeLockController.passcode = [self passcodeFromKeychain];
     _completion = completion;
 
     UIViewController *rootViewController = [UIApplication sharedApplication].delegate.window.rootViewController;
@@ -121,7 +106,7 @@ NSString *const VLCPasscode = @"org.videolan.vlc-ios.passcode";
 - (void)_touchIDQuery
 {
     //if we just entered background don't show TouchID
-    if (_avoidPromptingTouchID || [UIApplication sharedApplication].applicationState == UIApplicationStateInactive)
+    if (_avoidPromptingTouchID || [UIApplication sharedApplication].applicationState != UIApplicationStateActive)
         return;
 
     LAContext *myContext = [[LAContext alloc] init];
@@ -132,12 +117,15 @@ NSString *const VLCPasscode = @"org.videolan.vlc-ios.passcode";
                             reply:^(BOOL success, NSError *error) {
                                 //if we cancel we don't want to show TouchID again
                                 dispatch_async(dispatch_get_main_queue(), ^{
-                                    _avoidPromptingTouchID = !success;
                                     if (success) {
                                         [[UIApplication sharedApplication].delegate.window.rootViewController dismissViewControllerAnimated:YES completion:^{
                                             _completion();
                                             _completion = nil;
+                                            _avoidPromptingTouchID = NO;
                                         }];
+                                    } else {
+                                        //user hit cancel and wants to enter the passcode
+                                        _avoidPromptingTouchID = YES;
                                     }
                                 });
                             }];
