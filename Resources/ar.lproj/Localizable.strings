@@ -176,7 +176,7 @@
 "PASSCODES_DID_NOT_MATCH" = "رمزا المرور غير متطابقين. حاول مُجدّدًا.";
 "PASSCODE_FAILED_1" = "محاولة رمز مرور فاشلة واحدة";
 "PASSCODE_FAILED_FORMAT" = "%d محاولة رمز مرور فاشلة";
-"TOUCHID_UNLOCK" = "فتح مكتبة الوسائط\nإلغِ لإدخال الرقم السري";
+"BIOMETRIC_UNLOCK" = "فتح مكتبة الوسائط\nإلغِ لإدخال الرقم السري";
 
 "Settings" = "الإعدادات"; // plain text key to keep compatibility with InAppSettingsKit's upstream
 "ON" = "مفعل";

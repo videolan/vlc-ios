@@ -21,7 +21,7 @@ NSString *const VLCPasscode = @"org.videolan.vlc-ios.passcode";
 {
     PAPasscodeViewController *_passcodeLockController;
     void (^_completion)(void);
-    BOOL _avoidPromptingTouchID;
+    BOOL _avoidPromptingTouchOrFaceID;
 }
 
 @end
@@ -60,7 +60,7 @@ NSString *const VLCPasscode = @"org.videolan.vlc-ios.passcode";
     if ([rootViewController.presentedViewController isKindOfClass:[UINavigationController class]]){
         UINavigationController *navCon = (UINavigationController *)rootViewController.presentedViewController;
         if ([navCon.topViewController isKindOfClass:[PAPasscodeViewController class]] && [self touchIDEnabled]){
-            [self _touchIDQuery];
+            [self _touchOrFaceIDQuery];
         }
     }
 }
@@ -75,6 +75,11 @@ NSString *const VLCPasscode = @"org.videolan.vlc-ios.passcode";
 - (BOOL)touchIDEnabled
 {
     return [[NSUserDefaults standardUserDefaults] boolForKey:kVLCSettingPasscodeAllowTouchID];
+}
+
+- (BOOL)faceIDEnabled
+{
+    return [[NSUserDefaults standardUserDefaults] boolForKey:kVLCSettingPasscodeAllowFaceID];
 }
 
 - (BOOL)passcodeLockEnabled
@@ -97,23 +102,24 @@ NSString *const VLCPasscode = @"org.videolan.vlc-ios.passcode";
     UINavigationController *navCon = [[UINavigationController alloc] initWithRootViewController:_passcodeLockController];
     navCon.modalPresentationStyle = UIModalPresentationFullScreen;
     [rootViewController presentViewController:navCon animated:YES completion:^{
-        if ([[NSUserDefaults standardUserDefaults] boolForKey:kVLCSettingPasscodeAllowTouchID]) {
-            [self _touchIDQuery];
+        if ([self touchIDEnabled] || [self faceIDEnabled]) {
+            [self _touchOrFaceIDQuery];
         }
     }];
 }
 
-- (void)_touchIDQuery
+- (void)_touchOrFaceIDQuery
 {
     //if we just entered background don't show TouchID
-    if (_avoidPromptingTouchID || [UIApplication sharedApplication].applicationState != UIApplicationStateActive)
+    if (_avoidPromptingTouchOrFaceID || [UIApplication sharedApplication].applicationState != UIApplicationStateActive)
         return;
 
-    LAContext *myContext = [[LAContext alloc] init];
-    if ([myContext canEvaluatePolicy:LAPolicyDeviceOwnerAuthenticationWithBiometrics error:nil]) {
-        _avoidPromptingTouchID = YES;
-        [myContext evaluatePolicy:LAPolicyDeviceOwnerAuthenticationWithBiometrics
-                  localizedReason:NSLocalizedString(@"TOUCHID_UNLOCK", nil)
+    LAContext *laContext = [[LAContext alloc] init];
+    if ([laContext canEvaluatePolicy:LAPolicyDeviceOwnerAuthenticationWithBiometrics error:nil]) {
+        _avoidPromptingTouchOrFaceID = YES;
+
+        [laContext evaluatePolicy:LAPolicyDeviceOwnerAuthenticationWithBiometrics
+                  localizedReason:NSLocalizedString(@"BIOMETRIC_UNLOCK", nil)
                             reply:^(BOOL success, NSError *error) {
                                 //if we cancel we don't want to show TouchID again
                                 dispatch_async(dispatch_get_main_queue(), ^{
@@ -121,11 +127,11 @@ NSString *const VLCPasscode = @"org.videolan.vlc-ios.passcode";
                                         [[UIApplication sharedApplication].delegate.window.rootViewController dismissViewControllerAnimated:YES completion:^{
                                             _completion();
                                             _completion = nil;
-                                            _avoidPromptingTouchID = NO;
+                                            _avoidPromptingTouchOrFaceID = NO;
                                         }];
                                     } else {
                                         //user hit cancel and wants to enter the passcode
-                                        _avoidPromptingTouchID = YES;
+                                        _avoidPromptingTouchOrFaceID = YES;
                                     }
                                 });
                             }];
@@ -134,7 +140,7 @@ NSString *const VLCPasscode = @"org.videolan.vlc-ios.passcode";
 
 - (void)PAPasscodeViewControllerDidEnterPasscode:(PAPasscodeViewController *)controller
 {
-    _avoidPromptingTouchID = NO;
+    _avoidPromptingTouchOrFaceID = NO;
     [[UIApplication sharedApplication].delegate.window.rootViewController dismissViewControllerAnimated:YES completion:^{
         _completion();
         _completion = nil;

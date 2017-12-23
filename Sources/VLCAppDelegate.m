@@ -57,7 +57,8 @@ NSString *const VLCDropboxSessionWasAuthorized = @"VLCDropboxSessionWasAuthorize
 {
     NSUserDefaults *defaults = [NSUserDefaults standardUserDefaults];
 
-    NSDictionary *appDefaults = @{kVLCSettingPasscodeAllowTouchID : @(1),
+    NSDictionary *appDefaults = @{kVLCSettingPasscodeAllowFaceID : @(1),
+                                  kVLCSettingPasscodeAllowTouchID : @(1),
                                   kVLCSettingContinueAudioInBackgroundKey : @(YES),
                                   kVLCSettingStretchAudio : @(NO),
                                   kVLCSettingTextEncoding : kVLCSettingTextEncodingDefaultValue,

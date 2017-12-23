@@ -15,6 +15,7 @@
 
 #define kVLCSettingPasscodeOnKey @"PasscodeProtection"
 #define kVLCSettingPasscodeAllowTouchID @"AllowTouchID"
+#define kVLCSettingPasscodeAllowFaceID @"AllowFaceID"
 #define kVLCAutomaticallyPlayNextItem @"AutomaticallyPlayNextItem"
 #define kVLCSettingContinueAudioInBackgroundKey @"BackgroundAudioPlayback"
 #define kVLCSettingStretchAudio @"audio-time-stretch"

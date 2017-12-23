@@ -176,7 +176,7 @@
 "PASSCODES_DID_NOT_MATCH" = "Passcodes did not match. Try again.";
 "PASSCODE_FAILED_1" = "1 Failed Passcode Attempt";
 "PASSCODE_FAILED_FORMAT" = "%d Failed Passcode Attempts";
-"TOUCHID_UNLOCK" = "Unlock Media Library\nCancel to enter Passcode";
+"BIOMETRIC_UNLOCK" = "Unlock Media Library\nCancel to enter Passcode";
 
 "Settings" = "Settings"; // plain text key to keep compatibility with InAppSettingsKit's upstream
 "ON" = "On";

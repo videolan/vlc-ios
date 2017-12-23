@@ -17,6 +17,7 @@
 #import "IASKSettingsReader.h"
 #import "PAPasscodeViewController.h"
 #import "VLCKeychainCoordinator.h"
+#import <LocalAuthentication/LocalAuthentication.h>
 
 @interface VLCSettingsController ()<PAPasscodeViewControllerDelegate, IASKSettingsDelegate>
 
@@ -49,15 +50,36 @@
     [self filterCellsWithAnimation:NO];
 }
 
+- (NSSet *)hiddenBiometryKeys
+{
+    if (@available(iOS 11.0, *)) {
+        LAContext *laContext = [[LAContext alloc] init];
+        if ([laContext canEvaluatePolicy:LAPolicyDeviceOwnerAuthenticationWithBiometrics error:nil]) {
+            switch (laContext.biometryType) {
+                case LABiometryTypeFaceID:
+                    return [NSSet setWithObject:kVLCSettingPasscodeAllowTouchID];
+                case LABiometryTypeTouchID:
+                    return [NSSet setWithObject:kVLCSettingPasscodeAllowFaceID];
+                case LABiometryNone:
+                    return [NSSet setWithObjects:kVLCSettingPasscodeAllowFaceID, kVLCSettingPasscodeAllowTouchID, nil];
+            }
+        }
+        return [NSSet setWithObjects:kVLCSettingPasscodeAllowFaceID, kVLCSettingPasscodeAllowTouchID, nil];
+    }
+    return [NSSet setWithObject:kVLCSettingPasscodeAllowFaceID];
+}
+
 - (void)filterCellsWithAnimation:(BOOL)shouldAnimate
 {
     NSMutableSet *hideKeys = [[NSMutableSet alloc] init];
-
     VLCKeychainCoordinator *keychainCoordinator = [VLCKeychainCoordinator defaultCoordinator];
-    if (![keychainCoordinator passcodeLockEnabled])
+    if (![keychainCoordinator passcodeLockEnabled]) {
         [hideKeys addObject:kVLCSettingPasscodeAllowTouchID];
-
-    [self setHiddenKeys:hideKeys animated:shouldAnimate];
+        [hideKeys addObject:kVLCSettingPasscodeAllowFaceID];
+        [self setHiddenKeys:hideKeys animated:shouldAnimate];
+        return;
+    }
+    [self setHiddenKeys:[self hiddenBiometryKeys] animated:shouldAnimate];
 }
 
 - (void)settingDidChange:(NSNotification*)notification
