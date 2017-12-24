@@ -16,8 +16,8 @@
 #import "VLCLibraryViewController.h"
 #import "IASKSettingsReader.h"
 #import "PAPasscodeViewController.h"
-#import "VLCKeychainCoordinator.h"
 #import <LocalAuthentication/LocalAuthentication.h>
+#import "VLC_iOS-Swift.h"
 
 @interface VLCSettingsController ()<PAPasscodeViewControllerDelegate, IASKSettingsDelegate>
 
@@ -72,8 +72,7 @@
 - (void)filterCellsWithAnimation:(BOOL)shouldAnimate
 {
     NSMutableSet *hideKeys = [[NSMutableSet alloc] init];
-    VLCKeychainCoordinator *keychainCoordinator = [VLCKeychainCoordinator defaultCoordinator];
-    if (![keychainCoordinator passcodeLockEnabled]) {
+    if (![VLCKeychainCoordinator passcodeLockEnabled]) {
         [hideKeys addObject:kVLCSettingPasscodeAllowTouchID];
         [hideKeys addObject:kVLCSettingPasscodeAllowFaceID];
         [self setHiddenKeys:hideKeys animated:shouldAnimate];
@@ -133,7 +132,7 @@
         //Set manually the value to NO to disable the UISwitch.
         [[NSUserDefaults standardUserDefaults] setBool:NO forKey:kVLCSettingPasscodeOnKey];
     }
-    [[VLCKeychainCoordinator defaultCoordinator] setPasscode:passcode];
+    [VLCKeychainCoordinator setPasscodeWithPasscode:passcode];
     [self updateUIAndCoreSpotlightForPasscodeSetting:passcode != nil];
     if ([self.navigationController.presentedViewController isKindOfClass:[PAPasscodeViewController class]]) {
         [self.navigationController.presentedViewController dismissViewControllerAnimated:YES completion:nil];

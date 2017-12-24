@@ -16,10 +16,6 @@
 #import "VLCMetadata.h"
 #import "VLC_iOS-Swift.h"
 
-#if TARGET_OS_IOS
-#import "VLCKeychainCoordinator.h"
-#endif
-
 @interface VLCMiniPlaybackView () <UIGestureRecognizerDelegate>
 {
     UIImageView *_artworkView;

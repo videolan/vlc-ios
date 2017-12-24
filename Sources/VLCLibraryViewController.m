@@ -22,7 +22,6 @@
 #import "VLCBugreporter.h"
 #import "VLCFirstStepsViewController.h"
 #import "VLCFolderCollectionViewFlowLayout.h"
-#import "VLCKeychainCoordinator.h"
 #import "VLCMediaDataSource.h"
 #import "VLCLibrarySearchDisplayDataSource.h"
 #import "VLCMovieViewController.h"
@@ -343,7 +342,7 @@ static NSString *kUsingTableViewToShowData = @"UsingTableViewToShowData";
 
 - (void)createSpotlightItem:(nonnull NSManagedObject *)mediaObject
 {
-    if ([CSSearchableItemAttributeSet class] != nil && ![[VLCKeychainCoordinator defaultCoordinator] passcodeLockEnabled]) {
+    if ([CSSearchableItemAttributeSet class] != nil && ![VLCKeychainCoordinator passcodeLockEnabled]) {
         self.userActivity = [[NSUserActivity alloc] initWithActivityType:kVLCUserActivityPlaying];
 
         MLFile *file = nil;

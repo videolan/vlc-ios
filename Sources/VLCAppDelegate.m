@@ -31,12 +31,12 @@
 #import <MediaPlayer/MediaPlayer.h>
 #import <HockeySDK/HockeySDK.h>
 #import "VLCSidebarController.h"
-#import "VLCKeychainCoordinator.h"
 #import "VLCActivityManager.h"
 #import "VLCDropboxConstants.h"
 #import <ObjectiveDropboxOfficial/ObjectiveDropboxOfficial.h>
 #import "VLCPlaybackNavigationController.h"
 #import "PAPasscodeViewController.h"
+#import "VLC_iOS-Swift.h"
 
 NSString *const VLCDropboxSessionWasAuthorized = @"VLCDropboxSessionWasAuthorized";
 
@@ -47,6 +47,7 @@ NSString *const VLCDropboxSessionWasAuthorized = @"VLCDropboxSessionWasAuthorize
     BOOL _isRunningMigration;
     BOOL _isComingFromHandoff;
     VLCWatchCommunication *_watchCommunication;
+    VLCKeychainCoordinator *_keychainCoordinator;
 }
 
 @end
@@ -126,7 +127,7 @@ NSString *const VLCDropboxSessionWasAuthorized = @"VLCDropboxSessionWasAuthorize
         [self.window makeKeyAndVisible];
         [self validatePasscodeIfNeededWithCompletion:setupLibraryBlock];
 
-        BOOL spotlightEnabled = ![[VLCKeychainCoordinator defaultCoordinator] passcodeLockEnabled];
+        BOOL spotlightEnabled = ![VLCKeychainCoordinator passcodeLockEnabled];
         [[MLMediaLibrary sharedMediaLibrary] setSpotlightIndexingEnabled:spotlightEnabled];
         [[MLMediaLibrary sharedMediaLibrary] applicationWillStart];
 
@@ -470,14 +471,19 @@ didFailToContinueUserActivityWithType:(NSString *)userActivityType
 }
 
 #pragma mark - pass code validation
+- (VLCKeychainCoordinator *)keychainCoordinator
+{
+    if (!_keychainCoordinator) {
+        _keychainCoordinator = [[VLCKeychainCoordinator alloc] init];
+    }
+    return _keychainCoordinator;
+}
 
 - (void)validatePasscodeIfNeededWithCompletion:(void(^)(void))completion
 {
-    VLCKeychainCoordinator *keychainCoordinator = [VLCKeychainCoordinator defaultCoordinator];
-
-    if ([keychainCoordinator passcodeLockEnabled]) {
+    if ([VLCKeychainCoordinator passcodeLockEnabled]) {
         [[VLCPlayerDisplayController sharedInstance] dismissPlaybackView];
-        [keychainCoordinator validatePasscodeWithCompletion:completion];
+        [self.keychainCoordinator validatePasscodeWithCompletion:completion];
     } else {
         completion();
     }

@@ -11,7 +11,7 @@
 #import "VLCPlaybackController.h"
 
 #if TARGET_OS_IOS
-#import "VLCKeychainCoordinator.h"
+#import "VLC_iOS-Swift.h"
 #import "VLCThumbnailsCache.h"
 #endif
 
@@ -100,7 +100,7 @@
     self.elapsedPlaybackTime = @(mediaPlayer.time.value.floatValue / 1000.);
     [[NSNotificationCenter defaultCenter] postNotificationName:VLCPlaybackControllerPlaybackMetadataDidChange object:self];
 #if TARGET_OS_IOS
-    if ([[VLCKeychainCoordinator defaultCoordinator] passcodeLockEnabled]) return;
+    if ([VLCKeychainCoordinator passcodeLockEnabled]) return;
 #endif
     [self populateInfoCenterFromMetadata];
 }
