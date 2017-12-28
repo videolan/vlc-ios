@@ -86,7 +86,7 @@
 
     if (_showsEqualizer) {
         if (_mediaHasChapters) {
-            height = 7. * spacer + 6. * buttonHeight;
+            height = 6. * spacer + 5. * buttonHeight;
             workFrame = _equalizerButton.frame;
             workFrame.origin.y = spacer;
             _equalizerButton.frame = workFrame;
