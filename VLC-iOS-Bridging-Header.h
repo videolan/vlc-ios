@@ -6,6 +6,6 @@
 #import "VLCPlaylistTableViewCell.h"
 #import "VLCMediaDataSource.h"
 #import "VLCLibraryViewController.h"
-#import "PAPasscodeViewController.h"
+#import <PAPasscode/PAPasscodeViewController.h>
 #import <XKKeychain/XKKeychain.h>
 #import "VLCConstants.h"

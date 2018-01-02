@@ -128,12 +128,15 @@
 
 - (void)updateForPasscode:(NSString *)passcode
 {
-    if (passcode == nil) {
-        //Set manually the value to NO to disable the UISwitch.
-        [[NSUserDefaults standardUserDefaults] setBool:NO forKey:kVLCSettingPasscodeOnKey];
+    NSError *error = nil;
+    [VLCKeychainCoordinator setPasscodeWithPasscode:passcode error:&error];
+    if (error == nil) {
+        if (passcode == nil) {
+            //Set manually the value to NO to disable the UISwitch.
+            [[NSUserDefaults standardUserDefaults] setBool:NO forKey:kVLCSettingPasscodeOnKey];
+        }
+        [self updateUIAndCoreSpotlightForPasscodeSetting:passcode != nil];
     }
-    [VLCKeychainCoordinator setPasscodeWithPasscode:passcode];
-    [self updateUIAndCoreSpotlightForPasscodeSetting:passcode != nil];
     if ([self.navigationController.presentedViewController isKindOfClass:[PAPasscodeViewController class]]) {
         [self.navigationController.presentedViewController dismissViewControllerAnimated:YES completion:nil];
     }

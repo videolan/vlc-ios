@@ -59,7 +59,6 @@
 "BUTTON_DOWNLOAD" = "Download";
 "BUTTON_DELETE" = "Delete";
 "BUTTON_OK" = "OK";
-"BUTTON_NEXT" = "Next";
 "BUTTON_CONTRIBUTE" = "Contribute";
 "BUTTON_CONNECT" = "Connect";
 "BUTTON_RENAME" = "Rename";
@@ -163,17 +162,22 @@
 "NO_FILES" = "No supported files";
 "DOWNLOADING" = "Downloading...";
 "REMAINING_TIME" = "Remaining time: %@";
-"ENTER_PASSCODE" = "Enter Passcode";
-"REENTER_PASSCODE" = "Re-enter Passcode";
-"PASSCODE_SET" = "Set Passcode";
-"PASSCODE_CHANGE" = "Change Passcode";
-"PASSCODE_ENTER_OLD" = "Enter your old passcode";
-"PASSCODE_ENTER_NEW" = "Enter your new passcode";
-"PASSCODE_REENTER_NEW" = "Re-enter your new passcode";
-"PASSCODES_DID_NOT_MATCH" = "Passcodes did not match. Try again.";
-"PASSCODE_FAILED_1" = "1 Failed Passcode Attempt";
-"PASSCODE_FAILED_FORMAT" = "%d Failed Passcode Attempts";
 "BIOMETRIC_UNLOCK" = "Unlock Media Library\nCancel to enter Passcode";
+
+//PAPasscode Strings that we need to localize for them
+"%d Failed Passcode Attempts" = "%d Failed Passcode Attempts";
+"1 Failed Passcode Attempt" = "1 Failed Passcode Attempt";
+"Change Passcode" = "Change Passcode";
+"Enter Passcode" = "Enter Passcode";
+"Enter a passcode" = "Enter a passcode";
+"Enter your new passcode" = "Enter your new passcode";
+"Enter your old passcode" = "Enter your old passcode";
+"Enter your passcode" = "Enter your passcode";
+"Next" = "Next";
+"Passcodes did not match. Try again." = "Passcodes did not match. Try again.";
+"Re-enter your new passcode" = "Re-enter your new passcode";
+"Re-enter your passcode" = "Re-enter your passcode";
+"Set Passcode" = "Set Passcode";
 
 "Settings" = "Settings"; // plain text key to keep compatibility with InAppSettingsKit's upstream
 "ON" = "On";
@@ -332,4 +336,3 @@
 /* New strings */
 "PROTOCOL_NOT_SELECTED" = "PROTOCOL_NOT_SELECTED";
 "Settings" = "Settings";
-

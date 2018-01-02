@@ -33,27 +33,35 @@ class KeychainCoordinator:NSObject, PAPasscodeViewControllerDelegate {
 
     private var avoidPromptingTouchOrFaceID = false
 
-    private var passcodeLockController:PAPasscodeViewController {
-        let passcodeController = PAPasscodeViewController()
-        passcodeController.delegate = self
-        return passcodeController
-    }
+    private lazy var passcodeLockController:PAPasscodeViewController = {
+        let passcodeController = PAPasscodeViewController(for: PasscodeActionEnter)
+        passcodeController!.delegate = self
+        return passcodeController!
+    }()
 
     override init() {
         super.init()
         NotificationCenter.default.addObserver(self, selector: #selector(appInForeground), name: .UIApplicationDidBecomeActive, object: nil)
     }
 
-    @objc class func setPasscode(passcode:String?) {
+    @objc class func setPasscode(passcode:String?) throws {
         guard let passcode = passcode else {
-            try? XKKeychainGenericPasswordItem.removeItems(forService: passcodeService)
+            do {
+                try XKKeychainGenericPasswordItem.removeItems(forService: passcodeService)
+            } catch let error {
+                throw error
+            }
             return
         }
         let keychainItem = XKKeychainGenericPasswordItem()
         keychainItem.service = passcodeService
         keychainItem.account = passcodeService
         keychainItem.secret.stringValue = passcode
-        try? keychainItem.save()
+        do {
+            try keychainItem.save()
+        } catch let error {
+            throw error
+        }
     }
 
     @objc func validatePasscode(completion:@escaping ()->()) {
@@ -68,6 +76,7 @@ class KeychainCoordinator:NSObject, PAPasscodeViewControllerDelegate {
 
         let navigationController = UINavigationController(rootViewController: passcodeLockController)
         navigationController.modalPresentationStyle = .fullScreen
+        navigationController.modalTransitionStyle = .crossDissolve
 
         rootViewController.present(navigationController, animated: true) {
             [weak self] in
@@ -111,8 +120,11 @@ class KeychainCoordinator:NSObject, PAPasscodeViewControllerDelegate {
     }
 
     private func passcodeFromKeychain() -> String {
-        let item = try? XKKeychainGenericPasswordItem(forService: KeychainCoordinator.passcodeService, account: KeychainCoordinator.passcodeService)
-        return item?.secret?.stringValue ?? ""
+        if let item = try? XKKeychainGenericPasswordItem(forService: KeychainCoordinator.passcodeService, account: KeychainCoordinator.passcodeService) {
+            return item.secret.stringValue
+        }
+        assert(false, "Couldn't retrieve item from Keychain! If passcodeLockEnabled we should have an item and secret")
+        return ""
     }
 
     //MARK: PAPassCodeDelegate

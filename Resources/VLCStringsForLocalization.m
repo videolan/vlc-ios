@@ -20,5 +20,21 @@ NSLocalizedString(@"SECTION_HEADER_NETWORK", nil);
 NSLocalizedString(@"THIS_FILE", nil);
 NSLocalizedString(@"NOT_SUPPORTED_FILETYPE", nil);
 NSLocalizedString(@"FILE_EXISTS", nil);
+NSLocalizedString(@"BIOMETRIC_UNLOCK", nil);
 
+//These Strings are in PAPasscode and we need to translate them
+NSLocalizedString(@"Set Passcode", nil);
+NSLocalizedString(@"Enter a passcode", nil);
+NSLocalizedString(@"Re-enter your passcode", nil);
+NSLocalizedString(@"Enter Passcode", nil);
+NSLocalizedString(@"Enter your passcode", nil);
+NSLocalizedString(@"Passcodes did not match. Try again.", nil);
+NSLocalizedString(@"Change Passcode", nil);
+NSLocalizedString(@"Enter your old passcode", nil);
+NSLocalizedString(@"Enter your new passcode", nil);
+NSLocalizedString(@"Re-enter your new passcode", nil);
+NSLocalizedString(@"Passcodes did not match. Try again.", nil);
+NSLocalizedString(@"1 Failed Passcode Attempt", nil);
+NSLocalizedString(@"%d Failed Passcode Attempts", nil);
+NSLocalizedString(@"Next", nil);
 }
