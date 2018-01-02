@@ -618,36 +618,52 @@ typedef NS_ENUM(NSUInteger, VLCAspectRatio) {
 {
     VLCMediaPlayerState currentState = _mediaPlayer.state;
 
-    if (currentState == VLCMediaPlayerStateBuffering) {
-        /* attach delegate */
-        _mediaPlayer.media.delegate = self;
+    switch (currentState) {
+        case VLCMediaPlayerStateBuffering: {
+            /* attach delegate */
+            _mediaPlayer.media.delegate = self;
 
-        /* on-the-fly values through hidden API */
-        NSUserDefaults *defaults = [NSUserDefaults standardUserDefaults];
-        [_mediaPlayer performSelector:@selector(setTextRendererFont:) withObject:[defaults objectForKey:kVLCSettingSubtitlesFont]];
-        [_mediaPlayer performSelector:@selector(setTextRendererFontSize:) withObject:[defaults objectForKey:kVLCSettingSubtitlesFontSize]];
-        [_mediaPlayer performSelector:@selector(setTextRendererFontColor:) withObject:[defaults objectForKey:kVLCSettingSubtitlesFontColor]];
-        [_mediaPlayer performSelector:@selector(setTextRendererFontForceBold:) withObject:[defaults objectForKey:kVLCSettingSubtitlesBoldFont]];
-    } else if (currentState == VLCMediaPlayerStateError) {
-        APLog(@"Playback failed");
-        dispatch_async(dispatch_get_main_queue(),^{
-            [[NSNotificationCenter defaultCenter] postNotificationName:VLCPlaybackControllerPlaybackDidFail object:self];
-        });
-        self.sessionWillRestart = NO;
-        [self stopPlayback];
-    } else if (currentState == VLCMediaPlayerStateEnded || currentState == VLCMediaPlayerStateStopped) {
-        [_listPlayer.mediaList lock];
-        NSUInteger listCount = _listPlayer.mediaList.count;
-        if ([_listPlayer.mediaList indexOfMedia:_mediaPlayer.media] == listCount - 1 && self.repeatMode == VLCDoNotRepeat) {
-            [_listPlayer.mediaList unlock];
+            /* on-the-fly values through hidden API */
+            NSUserDefaults *defaults = [NSUserDefaults standardUserDefaults];
+            [_mediaPlayer performSelector:@selector(setTextRendererFont:) withObject:[defaults objectForKey:kVLCSettingSubtitlesFont]];
+            [_mediaPlayer performSelector:@selector(setTextRendererFontSize:) withObject:[defaults objectForKey:kVLCSettingSubtitlesFontSize]];
+            [_mediaPlayer performSelector:@selector(setTextRendererFontColor:) withObject:[defaults objectForKey:kVLCSettingSubtitlesFontColor]];
+            [_mediaPlayer performSelector:@selector(setTextRendererFontForceBold:) withObject:[defaults objectForKey:kVLCSettingSubtitlesBoldFont]];
+        } break;
+
+        case VLCMediaPlayerStateError: {
+            APLog(@"Playback failed");
+            dispatch_async(dispatch_get_main_queue(),^{
+                [[NSNotificationCenter defaultCenter] postNotificationName:VLCPlaybackControllerPlaybackDidFail object:self];
+            });
             self.sessionWillRestart = NO;
             [self stopPlayback];
-            return;
-        } else if (listCount > 1) {
-            [_listPlayer.mediaList unlock];
-            [_listPlayer next];
-        } else
-            [_listPlayer.mediaList unlock];
+        } break;
+        case VLCMediaPlayerStateEnded:
+        case VLCMediaPlayerStateStopped: {
+            [_listPlayer.mediaList lock];
+            NSUInteger listCount = _listPlayer.mediaList.count;
+            if ([_listPlayer.mediaList indexOfMedia:_mediaPlayer.media] == listCount - 1 && self.repeatMode == VLCDoNotRepeat) {
+                [_listPlayer.mediaList unlock];
+                _sessionWillRestart = NO;
+                [self stopPlayback];
+                return;
+            } else if (listCount > 1) {
+                [_listPlayer.mediaList unlock];
+                [_listPlayer next];
+            } else
+                [_listPlayer.mediaList unlock];
+        } break;
+        case VLCMediaPlayerStateESAdded: {
+            MLFile *item = [MLFile fileForURL:_mediaPlayer.media.url].firstObject;
+
+            if (item) {
+                _mediaPlayer.currentAudioTrackIndex = item.lastAudioTrack.intValue;
+                _mediaPlayer.currentVideoSubTitleIndex = item.lastSubtitleTrack.intValue;
+            }
+        } break;
+        default:
+            break;
     }
 
     if ([self.delegate respondsToSelector:@selector(mediaPlayerStateChanged:isPlaying:currentMediaHasTrackToChooseFrom:currentMediaHasChapters:forPlaybackController:)])
@@ -1104,15 +1120,6 @@ setstuff:
 - (void)_recoverLastPlaybackStateOfItem:(MLFile *)item
 {
     if (item) {
-        if (_mediaPlayer.numberOfAudioTracks > 2) {
-            if (item.lastAudioTrack.intValue > 0)
-                _mediaPlayer.currentAudioTrackIndex = item.lastAudioTrack.intValue;
-        }
-        if (_mediaPlayer.numberOfSubtitlesTracks > 2) {
-            if (item.lastSubtitleTrack.intValue > 0)
-                _mediaPlayer.currentVideoSubTitleIndex = item.lastSubtitleTrack.intValue;
-        }
-
         CGFloat lastPosition = .0;
         NSInteger duration = 0;
 
