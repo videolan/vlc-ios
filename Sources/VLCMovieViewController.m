@@ -571,7 +571,7 @@ typedef NS_ENUM(NSInteger, VLCPanType) {
 
     UIButton *cancelSleepTimer = [[UIButton alloc] initWithFrame:CGRectMake(0., 162., 150., 48.)];
     cancelSleepTimer.backgroundColor = [UIColor clearColor];
-    [cancelSleepTimer setTitle:NSLocalizedString(@"BUTTON_CANCEL", nil) forState:UIControlStateNormal];
+    [cancelSleepTimer setTitle:NSLocalizedString(@"BUTTON_RESET", nil) forState:UIControlStateNormal];
     [cancelSleepTimer setTintColor:[UIColor VLCLightTextColor]];
     [cancelSleepTimer setTitleColor:[UIColor VLCDarkTextShadowColor] forState:UIControlStateHighlighted];
     [cancelSleepTimer addTarget:self action:@selector(sleepTimerCancel:) forControlEvents:UIControlEventTouchDown];
@@ -580,7 +580,7 @@ typedef NS_ENUM(NSInteger, VLCPanType) {
 
     UIButton *confirmSleepTimer = [[UIButton alloc] initWithFrame:CGRectMake(150., 162., 150., 48.)];
     confirmSleepTimer.backgroundColor = [UIColor clearColor];
-    [confirmSleepTimer setTitle:NSLocalizedString(@"BUTTON_DONE", nil) forState:UIControlStateNormal];
+    [confirmSleepTimer setTitle:NSLocalizedString(@"BUTTON_SET", nil) forState:UIControlStateNormal];
     [confirmSleepTimer setTintColor:[UIColor VLCLightTextColor]];
     [confirmSleepTimer setTitleColor:[UIColor VLCDarkTextShadowColor] forState:UIControlStateHighlighted];
     [confirmSleepTimer addTarget:self action:@selector(sleepTimerAction:) forControlEvents:UIControlEventTouchDown];

@@ -65,6 +65,8 @@
 "BUTTON_LEARN_MORE" = "Learn More";
 "BUTTON_LOGOUT" = "Logout";
 "BUTTON_CONTINUE" = "Continue";
+"BUTTON_SET" = "Set";
+"BUTTON_RESET" = "Reset";
 "PRIVATE_PLAYBACK_TOGGLE" = "Private Playback";
 "SCAN_SUBTITLE_TOGGLE" = "Scan for Subtitles (http-only)";
 
