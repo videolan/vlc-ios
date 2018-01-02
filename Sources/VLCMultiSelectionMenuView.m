@@ -14,12 +14,6 @@
 
 @interface VLCMultiSelectionMenuView ()
 {
-    UIButton *_equalizerButton;
-    UIButton *_chapterSelectorButton;
-    UIButton *_repeatButton;
-    UIButton *_lockButton;
-    UIButton *_shuffleButton;
-
     BOOL _showsEQ;
 }
 

@@ -46,10 +46,6 @@
 #define MAX_FOV 150.f
 #define MIN_FOV 20.f
 
-#define LOCKCHECK \
-if (_interfaceIsLocked) \
-return
-
 typedef NS_ENUM(NSInteger, VLCPanType) {
   VLCPanTypeNone,
   VLCPanTypeBrightness,
@@ -98,6 +94,8 @@ typedef NS_ENUM(NSInteger, VLCPanType) {
     UITapGestureRecognizer *_tapOnVideoRecognizer;
     UITapGestureRecognizer *_tapToToggleiPhoneXRatioRecognizer;
     UITapGestureRecognizer *_tapToSeekRecognizer;
+
+    UIButton *_doneButton;
 
     VLCTrackSelectorView *_trackSelectorContainer;
 
@@ -362,25 +360,27 @@ typedef NS_ENUM(NSInteger, VLCPanType) {
 
 - (void)setupNavigationbar
 {
-    UIButton *doneButton = [[UIButton alloc] initWithFrame:CGRectZero];
-    [doneButton addTarget:self action:@selector(closePlayback:) forControlEvents:UIControlEventTouchUpInside];
-    [doneButton setTitle:NSLocalizedString(@"BUTTON_DONE", nil) forState:UIControlStateNormal];
-    doneButton.translatesAutoresizingMaskIntoConstraints = NO;
+    //Needs to be a UIButton since we need it to work with constraints
+    _doneButton = [[UIButton alloc] initWithFrame:CGRectZero];
+    [_doneButton addTarget:self action:@selector(closePlayback:) forControlEvents:UIControlEventTouchUpInside];
+    [_doneButton setTitle:NSLocalizedString(@"BUTTON_DONE", nil) forState:UIControlStateNormal];
+    [_doneButton setTitleColor:[UIColor grayColor] forState:UIControlStateDisabled];
+    _doneButton.translatesAutoresizingMaskIntoConstraints = NO;
 
     self.timeNavigationTitleView = [[[NSBundle mainBundle] loadNibNamed:@"VLCTimeNavigationTitleView" owner:self options:nil] objectAtIndex:0];
     self.timeNavigationTitleView.translatesAutoresizingMaskIntoConstraints = NO;
 
     [self.navigationController.navigationBar addSubview:self.timeNavigationTitleView];
-    [self.navigationController.navigationBar addSubview:doneButton];
+    [self.navigationController.navigationBar addSubview:_doneButton];
 
     NSObject *guide = self.navigationController.navigationBar;
     if (@available(iOS 11.0, *)) {
         guide = self.navigationController.navigationBar.safeAreaLayoutGuide;
     }
     [self.navigationController.view addConstraints: @[
-                                                      [NSLayoutConstraint constraintWithItem:doneButton attribute:NSLayoutAttributeLeft relatedBy:NSLayoutRelationEqual toItem:guide attribute:NSLayoutAttributeLeft multiplier:1 constant:8],
-                                                      [NSLayoutConstraint constraintWithItem:doneButton attribute:NSLayoutAttributeCenterY relatedBy:NSLayoutRelationEqual toItem:self.navigationController.navigationBar attribute:NSLayoutAttributeCenterY multiplier:1 constant:0],
-                                                      [NSLayoutConstraint constraintWithItem:self.timeNavigationTitleView attribute:NSLayoutAttributeLeft relatedBy:NSLayoutRelationEqual toItem:doneButton attribute:NSLayoutAttributeRight multiplier:1 constant:0],
+                                                      [NSLayoutConstraint constraintWithItem:_doneButton attribute:NSLayoutAttributeLeft relatedBy:NSLayoutRelationEqual toItem:guide attribute:NSLayoutAttributeLeft multiplier:1 constant:8],
+                                                      [NSLayoutConstraint constraintWithItem:_doneButton attribute:NSLayoutAttributeCenterY relatedBy:NSLayoutRelationEqual toItem:self.navigationController.navigationBar attribute:NSLayoutAttributeCenterY multiplier:1 constant:0],
+                                                      [NSLayoutConstraint constraintWithItem:self.timeNavigationTitleView attribute:NSLayoutAttributeLeft relatedBy:NSLayoutRelationEqual toItem:_doneButton attribute:NSLayoutAttributeRight multiplier:1 constant:0],
                                                       [NSLayoutConstraint constraintWithItem:self.timeNavigationTitleView attribute:NSLayoutAttributeRight relatedBy:NSLayoutRelationEqual toItem:guide attribute:NSLayoutAttributeRight multiplier:1 constant:0],
                                                       [NSLayoutConstraint constraintWithItem:self.timeNavigationTitleView attribute:NSLayoutAttributeTop relatedBy:NSLayoutRelationEqual toItem:self.navigationController.navigationBar attribute:NSLayoutAttributeTop multiplier:1 constant:0],
                                                       [NSLayoutConstraint constraintWithItem:self.timeNavigationTitleView attribute:NSLayoutAttributeBottom relatedBy:NSLayoutRelationEqual toItem:self.navigationController.navigationBar attribute:NSLayoutAttributeBottom multiplier:1 constant:0],
@@ -501,6 +501,8 @@ typedef NS_ENUM(NSInteger, VLCPanType) {
     if (!_playbackSpeedViewHidden)
         _playbackSpeedViewHidden = YES;
 
+    if (_interfaceIsLocked)
+        [self toggleUILock];
     // reset tap to seek values
     _isTapSeeking = NO;
     _previousJumpState = VLCMovieJumpStateDefault;
@@ -614,10 +616,31 @@ typedef NS_ENUM(NSInteger, VLCPanType) {
 
 #pragma mark - controls visibility
 
+- (NSArray *)itemsForInterfaceLock
+{
+    return @[_pinchRecognizer,
+             _panRecognizer,
+             _tapToSeekRecognizer,
+             _tapRecognizer,
+             _doneButton,
+             _timeNavigationTitleView.minimizePlaybackButton,
+             _timeNavigationTitleView.positionSlider,
+             _timeNavigationTitleView.aspectRatioButton,
+             _controllerPanel.playbackSpeedButton,
+             _controllerPanel.trackSwitcherButton,
+             _controllerPanel.bwdButton,
+             _controllerPanel.playPauseButton,
+             _controllerPanel.fwdButton,
+             _controllerPanel.videoFilterButton,
+             _multiSelectionView.equalizerButton,
+             _multiSelectionView.chapterSelectorButton,
+             _multiSelectionView.repeatButton,
+             _multiSelectionView.shuffleButton,
+             _controllerPanel.volumeView];
+}
+
 - (void)handlePinchGesture:(UIPinchGestureRecognizer *)recognizer
 {
-    LOCKCHECK;
-
     if (!_closeGestureEnabled || isnan(recognizer.velocity))
         return;
 
@@ -824,21 +847,17 @@ typedef NS_ENUM(NSInteger, VLCPanType) {
 
 - (IBAction)closePlayback:(id)sender
 {
-    LOCKCHECK;
     _playbackWillClose = YES;
     [_vpc stopPlayback];
 }
 
 - (IBAction)minimizePlayback:(id)sender
 {
-    LOCKCHECK;
     [[UIApplication sharedApplication] sendAction:@selector(closeFullscreenPlayback) to:nil from:self forEvent:nil];
 }
 
 - (IBAction)positionSliderAction:(UISlider *)sender
 {
-    LOCKCHECK;
-
     /* we need to limit the number of events sent by the slider, since otherwise, the user
      * wouldn't see the I-frames when seeking on current mobile devices. This isn't a problem
      * within the Simulator, but especially on older ARMv7 devices, it's clearly noticeable. */
@@ -864,8 +883,6 @@ typedef NS_ENUM(NSInteger, VLCPanType) {
 
 - (IBAction)positionSliderTouchDown:(id)sender
 {
-    LOCKCHECK;
-
     [self _updateScrubLabel];
     self.scrubIndicatorView.hidden = NO;
     _isScrubbing = YES;
@@ -873,8 +890,6 @@ typedef NS_ENUM(NSInteger, VLCPanType) {
 
 - (IBAction)positionSliderTouchUp:(id)sender
 {
-    LOCKCHECK;
-
     self.scrubIndicatorView.hidden = YES;
     _isScrubbing = NO;
 }
@@ -896,15 +911,11 @@ typedef NS_ENUM(NSInteger, VLCPanType) {
 
 - (IBAction)positionSliderDrag:(id)sender
 {
-    LOCKCHECK;
-
     [self _updateScrubLabel];
 }
 
 - (void)volumeSliderAction:(id)sender
 {
-    LOCKCHECK;
-
     [self _resetIdleTimer];
 }
 
@@ -1025,27 +1036,21 @@ currentMediaHasTrackToChooseFrom:(BOOL)currentMediaHasTrackToChooseFrom
 
 - (IBAction)playPause
 {
-    LOCKCHECK;
-
     [_vpc playPause];
 }
 
 - (IBAction)forward:(id)sender
 {
-    LOCKCHECK;
     [_vpc next];
 }
 
 - (IBAction)backward:(id)sender
 {
-    LOCKCHECK;
     [_vpc previous];
 }
 
 - (IBAction)switchTrack:(id)sender
 {
-    LOCKCHECK;
-
     if (_trackSelectorContainer.hidden == YES || _trackSelectorContainer.switchingTracksNotChapters == NO) {
         _trackSelectorContainer.switchingTracksNotChapters = YES;
 
@@ -1074,8 +1079,6 @@ currentMediaHasTrackToChooseFrom:(BOOL)currentMediaHasTrackToChooseFrom
 
 - (IBAction)toggleTimeDisplay:(id)sender
 {
-    LOCKCHECK;
-
     _displayRemainingTime = !_displayRemainingTime;
     [self updateTimeDisplayButton];
 
@@ -1172,13 +1175,29 @@ currentMediaHasTrackToChooseFrom:(BOOL)currentMediaHasTrackToChooseFrom
 {
     _interfaceIsLocked = !_interfaceIsLocked;
 
+    NSArray *items = [self itemsForInterfaceLock];
+
+    for (NSObject *item in items) {
+        if ([item isKindOfClass:[UIControl class]]) {
+            UIControl *control = (UIControl *)item;
+            control.enabled = !_interfaceIsLocked;
+        } else if ([item isKindOfClass:[UIGestureRecognizer class]]){
+            UIGestureRecognizer *gestureRecognizer = (UIGestureRecognizer *)item;
+            gestureRecognizer.enabled = !_interfaceIsLocked;
+        } else if ([item isKindOfClass:[VLCVolumeView class]]) {
+            //The MPVolumeview doesn't adjust it's UI when disabled so we need to set the alpha by hand
+            VLCVolumeView *view = (VLCVolumeView *)item;
+            view.userInteractionEnabled = !_interfaceIsLocked;
+            view.alpha = _interfaceIsLocked ? 0.5 : 1;
+        } else {
+            NSAssert(NO, @"class not handled");
+        }
+    }
     _multiSelectionView.displayLock = _interfaceIsLocked;
 }
 
 - (void)toggleEqualizer
 {
-    LOCKCHECK;
-
     if (_equalizerView.hidden) {
         if (!_playbackSpeedViewHidden)
             self.playbackSpeedView.hidden = _playbackSpeedViewHidden = YES;
@@ -1201,8 +1220,6 @@ currentMediaHasTrackToChooseFrom:(BOOL)currentMediaHasTrackToChooseFrom
 
 - (void)toggleChapterAndTitleSelector
 {
-    LOCKCHECK;
-
     if (_trackSelectorContainer.hidden == YES || _trackSelectorContainer.switchingTracksNotChapters == YES) {
         _trackSelectorContainer.switchingTracksNotChapters = NO;
         [_trackSelectorContainer updateView];
@@ -1232,14 +1249,12 @@ currentMediaHasTrackToChooseFrom:(BOOL)currentMediaHasTrackToChooseFrom
 
 - (void)toggleRepeatMode
 {
-    LOCKCHECK;
     [[VLCPlaybackController sharedInstance] toggleRepeatMode];
     _multiSelectionView.repeatMode = [VLCPlaybackController sharedInstance].repeatMode;
 }
 
 - (void)toggleShuffleMode
 {
-    LOCKCHECK;
     _vpc.shuffleMode = !_vpc.isShuffleMode;
     _multiSelectionView.shuffleMode = _vpc.isShuffleMode;
 }
@@ -1259,8 +1274,6 @@ currentMediaHasTrackToChooseFrom:(BOOL)currentMediaHasTrackToChooseFrom
 
 - (void)togglePlayPause
 {
-    LOCKCHECK;
-
     if (!_playPauseGestureEnabled)
         return;
 
@@ -1311,8 +1324,6 @@ currentMediaHasTrackToChooseFrom:(BOOL)currentMediaHasTrackToChooseFrom
 
 - (void)panRecognized:(UIPanGestureRecognizer*)panRecognizer
 {
-    LOCKCHECK;
-
     CGFloat panDirectionX = [panRecognizer velocityInView:self.view].x;
     CGFloat panDirectionY = [panRecognizer velocityInView:self.view].y;
 
@@ -1397,8 +1408,6 @@ currentMediaHasTrackToChooseFrom:(BOOL)currentMediaHasTrackToChooseFrom
 
 - (void)swipeRecognized:(UISwipeGestureRecognizer*)swipeRecognizer
 {
-    LOCKCHECK;
-
     if (!_seekGestureEnabled)
         return;
 
@@ -1439,8 +1448,6 @@ currentMediaHasTrackToChooseFrom:(BOOL)currentMediaHasTrackToChooseFrom
 
 - (void)tapToSeekRecognized:(UITapGestureRecognizer *)tapRecognizer
 {
-    LOCKCHECK;
-
     if (!_seekGestureEnabled)
         return;
 
@@ -1472,8 +1479,6 @@ currentMediaHasTrackToChooseFrom:(BOOL)currentMediaHasTrackToChooseFrom
 
 - (IBAction)videoFilterToggle:(id)sender
 {
-    LOCKCHECK;
-
     if (!_playbackSpeedViewHidden)
         self.playbackSpeedView.hidden = _playbackSpeedViewHidden = YES;
 
@@ -1524,8 +1529,6 @@ currentMediaHasTrackToChooseFrom:(BOOL)currentMediaHasTrackToChooseFrom
 #pragma mark - playback view
 - (IBAction)playbackSliderAction:(UISlider *)sender
 {
-    LOCKCHECK;
-
     if (sender == _playbackSpeedSlider) {
         double speed = exp2(sender.value);
         _vpc.playbackRate = speed;
@@ -1551,8 +1554,6 @@ currentMediaHasTrackToChooseFrom:(BOOL)currentMediaHasTrackToChooseFrom
 }
 
 - (IBAction)showPlaybackSpeedView {
-    LOCKCHECK;
-
     if (!_videoFiltersHidden)
         self.videoFilterView.hidden = _videoFiltersHidden = YES;
 

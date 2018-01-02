@@ -30,6 +30,11 @@
 @property (nonatomic, assign) VLCRepeatMode repeatMode;
 @property (nonatomic, assign) BOOL shuffleMode;
 
+@property (nonatomic, strong) UIButton *equalizerButton;
+@property (nonatomic, strong) UIButton *chapterSelectorButton;
+@property (nonatomic, strong) UIButton *repeatButton;
+@property (nonatomic, strong) UIButton *lockButton;
+@property (nonatomic, strong) UIButton *shuffleButton;
 
 - (void)setDisplayLock:(BOOL)displayLock;
 - (CGSize)proposedDisplaySize;
