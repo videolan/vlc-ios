@@ -34,9 +34,7 @@
         array = [(MLLabel *)selection sortedFolderItems];
     }
     _currentSelection = selection;
-    @synchronized(_foundMedia) {
-        _foundMedia = [NSMutableArray arrayWithArray:array];
-    }
+    _foundMedia = [NSMutableArray arrayWithArray:array];
 }
 
 - (NSManagedObject *)currentSelection
@@ -46,76 +44,58 @@
 
 - (NSUInteger)numberOfFiles
 {
-    @synchronized (_foundMedia) {
-        return [_foundMedia count];
-    }
+    return [_foundMedia count];
 }
 
 - (NSManagedObject *)objectAtIndex:(NSUInteger)index
 {
-    @synchronized (_foundMedia) {
-        if (index < _foundMedia.count)
-            return  _foundMedia[index];
-    }
+    if (index < _foundMedia.count)
+        return  _foundMedia[index];
     return nil;
 }
 
 - (NSUInteger)indexOfObject:(NSManagedObject *)object
 {
-    @synchronized(_foundMedia) {
-        return [_foundMedia indexOfObject:object];
-    }
+    return [_foundMedia indexOfObject:object];
 }
 
 - (void)insertObject:(NSManagedObject *)object atIndex:(NSUInteger)index
 {
-    @synchronized(_foundMedia) {
-        [_foundMedia insertObject:object atIndex:index];
-    }
+    [_foundMedia insertObject:object atIndex:index];
 }
 
 - (void)removeObjectAtIndex:(NSUInteger)index
 {
-    @synchronized(_foundMedia) {
-        [_foundMedia removeObjectAtIndex:index];
-    }
+    [_foundMedia removeObjectAtIndex:index];
 }
 
 - (void)moveObjectFromIndex:(NSUInteger)fromIdx toIndex:(NSUInteger)toIdx
 {
-    @synchronized(_foundMedia) {
-        MLFile* object = _foundMedia[fromIdx];
-        if (![object isKindOfClass:[MLFile class]])
-            return;
-        [_foundMedia removeObjectAtIndex:fromIdx];
-        [_foundMedia insertObject:object atIndex:toIdx];
-        object.folderTrackNumber = @(toIdx - 1);
-        object = [_foundMedia objectAtIndex:fromIdx];
-        if (![object isKindOfClass:[MLFile class]])
-            return;
-        object.folderTrackNumber = @(fromIdx - 1);
-    }
+    MLFile* object = _foundMedia[fromIdx];
+    if (![object isKindOfClass:[MLFile class]])
+        return;
+    [_foundMedia removeObjectAtIndex:fromIdx];
+    [_foundMedia insertObject:object atIndex:toIdx];
+    object.folderTrackNumber = @(toIdx - 1);
+    object = [_foundMedia objectAtIndex:fromIdx];
+    if (![object isKindOfClass:[MLFile class]])
+        return;
+    object.folderTrackNumber = @(fromIdx - 1);
 }
 
 - (void)removeAllObjects
 {
-    @synchronized(_foundMedia) {
-        _foundMedia = [NSMutableArray new];
-    }
+    _foundMedia = [NSMutableArray new];
 }
 
 - (NSArray *)allObjects
 {
-    @synchronized(_foundMedia) {
-        return [_foundMedia copy];
-    }
+    return [_foundMedia copy];
 }
 
 - (void)addObject:(NSManagedObject *)object
 {
-    @synchronized (_foundMedia) {
-        [_foundMedia addObject:object];
-    }
+    [_foundMedia addObject:object];
 }
 
 - (void)addAlbumsInAllAlbumMode:(BOOL)isAllAlbumMode;
@@ -151,10 +131,8 @@
 {
     for (MLFile *file in [MLFile allFiles]) {
         if (file.labels != nil) {
-            @synchronized(file.labels) {
-                if (file.labels.count > 0)
-                    continue;
-            }
+            if (file.labels.count > 0)
+                continue;
         }
 
         if (!file.isShowEpisode && !file.isAlbumTrack) {
