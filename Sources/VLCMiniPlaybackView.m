@@ -6,13 +6,12 @@
  * $Id$
  *
  * Author: Felix Paul Kühne <fkuehne # videolan.org>
+ *         Carola Nitz <caro # videolan.org>
  *
  * Refer to the COPYING file of the official project for license.
  *****************************************************************************/
 
 #import "VLCMiniPlaybackView.h"
-#import "VLCPlaybackController.h"
-#import "VLCPlayerDisplayController.h"
 #import "VLCMetadata.h"
 #import "VLC_iOS-Swift.h"
 
@@ -38,12 +37,6 @@
     self = [super initWithFrame:viewFrame];
     if (self) {
         [self setupSubviews];
-
-        NSNotificationCenter *center = [NSNotificationCenter defaultCenter];
-        [center addObserver:self
-                   selector:@selector(appBecameActive:)
-                       name:UIApplicationDidBecomeActiveNotification
-                     object:nil];
     }
     return self;
 }
@@ -146,14 +139,6 @@
 #endif
 }
 
-- (void)appBecameActive:(NSNotification *)aNotification
-{
-    VLCPlayerDisplayController *pdc = [VLCPlayerDisplayController sharedInstance];
-    if (pdc.displayMode == VLCPlayerDisplayControllerDisplayModeMiniplayer) {
-        [[VLCPlaybackController sharedInstance] recoverDisplayedMetadata];
-    }
-}
-
 - (void)tapRecognized
 {
     [self pushFullPlaybackView:nil];
@@ -209,6 +194,8 @@
     [self updatePlayPauseButton];
     controller.delegate = self;
     [controller recoverDisplayedMetadata];
+    _videoView.hidden = false;
+    controller.videoOutputView = _videoView;
 }
 
 - (void)mediaPlayerStateChanged:(VLCMediaPlayerState)currentState
@@ -228,11 +215,6 @@ currentMediaHasTrackToChooseFrom:(BOOL)currentMediaHasTrackToChooseFrom
         _artworkView.image = metadata.artworkImage?: [UIImage imageNamed:@"no-artwork"];
     } else {
         _artworkView.image = nil;
-        VLCPlayerDisplayController *pdc = [VLCPlayerDisplayController sharedInstance];
-        if (pdc.displayMode == VLCPlayerDisplayControllerDisplayModeMiniplayer) {
-            _videoView.hidden = false;
-            controller.videoOutputView = _videoView;
-        }
     }
 
     NSString *metaDataString;

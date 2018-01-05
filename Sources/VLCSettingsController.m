@@ -13,7 +13,6 @@
  *****************************************************************************/
 
 #import "VLCSettingsController.h"
-#import "VLCLibraryViewController.h"
 #import "IASKSettingsReader.h"
 #import "PAPasscodeViewController.h"
 #import <LocalAuthentication/LocalAuthentication.h>
@@ -37,11 +36,18 @@
 
 - (void)viewDidLoad
 {
-    self.navigationItem.leftBarButtonItem = [UIBarButtonItem themedRevealMenuButtonWithTarget:self andSelector:@selector(dismiss:)];
     self.modalPresentationStyle = UIModalPresentationFormSheet;
     self.delegate = self;
     self.showDoneButton = NO;
     self.showCreditsFooter = NO;
+    [self themeDidChange];
+}
+
+- (void)themeDidChange
+{
+    self.view.backgroundColor = PresentationTheme.current.colors.settingsBackground;
+    self.tableView.separatorColor = PresentationTheme.current.colors.settingsSeparatorColor;
+    [self.tableView reloadData];
 }
 
 - (void)viewWillAppear:(BOOL)animated
@@ -94,6 +100,11 @@
             [self updateForPasscode:nil];
         }
     }
+    if ([notification.object isEqual:kVLCSettingAppTheme]) {
+        BOOL darkTheme = [[notification.userInfo objectForKey:kVLCSettingAppTheme] boolValue];
+        PresentationTheme.current = darkTheme ? PresentationTheme.darkTheme : PresentationTheme.brightTheme;
+        [self themeDidChange];
+    }
 }
 
 - (void)updateUIAndCoreSpotlightForPasscodeSetting:(BOOL)passcodeOn
@@ -124,6 +135,15 @@
 - (void)PAPasscodeViewControllerDidSetPasscode:(PAPasscodeViewController *)controller
 {
     [self updateForPasscode:controller.passcode];
+}
+
+- (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
+{
+    UITableViewCell *cell = [super tableView:tableView cellForRowAtIndexPath:indexPath];
+    cell.backgroundColor = PresentationTheme.current.colors.settingsCellBackground;
+    cell.textLabel.textColor = PresentationTheme.current.colors.cellTextColor;
+    cell.detailTextLabel.textColor = PresentationTheme.current.colors.cellDetailTextColor;
+    return cell;
 }
 
 - (void)updateForPasscode:(NSString *)passcode

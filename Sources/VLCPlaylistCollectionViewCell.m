@@ -2,7 +2,7 @@
  * VLCPlaylistCollectionViewCell.m
  * VLC for iOS
  *****************************************************************************
- * Copyright (c) 2013-2015 VideoLAN. All rights reserved.
+ * Copyright (c) 2013-2018 VideoLAN. All rights reserved.
  * $Id$
  *
  * Authors: Felix Paul Kühne <fkuehne # videolan.org>
@@ -14,7 +14,6 @@
  *****************************************************************************/
 
 #import "VLCPlaylistCollectionViewCell.h"
-#import "VLCLibraryViewController.h"
 #import "VLCThumbnailsCache.h"
 #import "NSString+SupportedMedia.h"
 
@@ -22,6 +21,7 @@
 {
     UIImage *_checkboxEmptyImage;
     UIImage *_checkboxImage;
+    BOOL _editing;
 }
 
 @end
@@ -41,11 +41,17 @@
     [super awakeFromNib];
 }
 
++ (NSString *)cellIdentifier
+{
+    return @"VLCPlaylistCollectionViewCell";
+}
+
 - (void)setEditing:(BOOL)editing animated:(BOOL)animated
 {
-    self.isSelectedView.hidden = !editing;
+    _editing = editing;
+    self.isSelectedView.hidden = !_editing;
 
-    [self shake:editing];
+    [self shake];
     [self selectionUpdate];
     [self _updatedDisplayedInformationForKeyPath:@"editing"];
 }
@@ -58,9 +64,9 @@
         self.isSelectedView.image = _checkboxEmptyImage;
 }
 
-- (void)shake:(BOOL)shake
+- (void)shake
 {
-    if (shake) {
+    if (_editing) {
         [UIView animateWithDuration:0.3 animations:^{
             self.contentView.transform = CGAffineTransformMakeScale(0.9f, 0.9f);
         }];
@@ -125,7 +131,6 @@
             [_mediaObject removeObserver:self forKeyPath:@"album"];
             [_mediaObject removeObserver:self forKeyPath:@"artist"];
             [_mediaObject removeObserver:self forKeyPath:@"genre"];
-            [[NSNotificationCenter defaultCenter] removeObserver:self];
             [(MLFile*)_mediaObject didHide];
         }
     }
@@ -306,9 +311,7 @@
     } else
         self.titleLabel.text = mediaFile.title;
 
-    VLCLibraryViewController *delegate = (VLCLibraryViewController*)self.collectionView.delegate;
-
-    if (delegate.isEditing)
+    if (_editing)
         self.subtitleLabel.text = [NSString stringWithFormat:@"%@ — %@", [VLCTime timeWithNumber:[mediaFile duration]], [NSByteCountFormatter stringFromByteCount:[mediaFile fileSizeInBytes] countStyle:NSByteCountFormatterCountStyleFile]];
     else {
         self.subtitleLabel.text = [NSString stringWithFormat:@"%@", [VLCTime timeWithNumber:[mediaFile duration]]];

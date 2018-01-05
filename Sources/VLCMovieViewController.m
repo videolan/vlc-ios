@@ -27,12 +27,11 @@
 #import "VLCPlaybackController.h"
 #import "UIDevice+VLC.h"
 #import "VLCTimeNavigationTitleView.h"
-#import "VLCPlayerDisplayController.h"
 #import "VLCAppDelegate.h"
 #import "VLCStatusLabel.h"
 #import "VLCMovieViewControlPanelView.h"
 #import "VLCSlider.h"
-#import "VLCLibraryViewController.h"
+
 #import "VLCTrackSelectorView.h"
 #import "VLCMetadata.h"
 #import "UIDevice+VLC.h"
@@ -127,11 +126,6 @@ typedef NS_ENUM(NSInteger, VLCPanType) {
     NSUserDefaults *defaults = [NSUserDefaults standardUserDefaults];
     NSDictionary *appDefaults = @{kVLCShowRemainingTime : @(YES)};
     [defaults registerDefaults:appDefaults];
-}
-
-- (void)dealloc
-{
-    [[NSNotificationCenter defaultCenter] removeObserver:self];
 }
 
 - (void)viewDidLoad
@@ -857,7 +851,7 @@ typedef NS_ENUM(NSInteger, VLCPanType) {
 
 - (IBAction)minimizePlayback:(id)sender
 {
-    [[UIApplication sharedApplication] sendAction:@selector(closeFullscreenPlayback) to:nil from:self forEvent:nil];
+    [_delegate movieViewControllerDidSelectMinimize:self];
 }
 
 - (IBAction)positionSliderAction:(UISlider *)sender
@@ -1521,8 +1515,7 @@ currentMediaHasTrackToChooseFrom:(BOOL)currentMediaHasTrackToChooseFrom
 
 - (void)appBecameActive:(NSNotification *)aNotification
 {
-    VLCPlayerDisplayController *pdc = [VLCPlayerDisplayController sharedInstance];
-    if (pdc.displayMode == VLCPlayerDisplayControllerDisplayModeFullscreen) {
+    if ([_delegate movieViewControllerShouldBeDisplayed:self]) {
         [_vpc recoverDisplayedMetadata];
         if (_vpc.videoOutputView != self.movieView) {
             _vpc.videoOutputView = self.movieView;

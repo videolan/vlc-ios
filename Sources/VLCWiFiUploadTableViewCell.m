@@ -40,7 +40,11 @@
 - (void)dealloc
 {
     [self.reachability stopNotifier];
-    [[NSNotificationCenter defaultCenter] removeObserver:self];
+}
+
++ (NSString *)cellIdentifier
+{
+    return @"VLCWiFiUploadTableViewCell";
 }
 
 - (void)setupCell

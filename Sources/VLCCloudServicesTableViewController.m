@@ -22,6 +22,7 @@
 #import "VLCCloudServiceCell.h"
 
 #import "VLCGoogleDriveController.h"
+#import "VLC_iOS-Swift.h"
 
 @interface VLCCloudServicesTableViewController ()
 
@@ -38,12 +39,9 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
 
-    self.title = NSLocalizedString(@"CLOUD_SERVICES", "");
-
     [self.tableView registerNib:[UINib nibWithNibName:@"VLCCloudServiceCell" bundle:nil] forCellReuseIdentifier:@"CloudServiceCell"];
-    self.navigationItem.leftBarButtonItem = [UIBarButtonItem themedRevealMenuButtonWithTarget:self andSelector:@selector(goBack)];
-    self.tableView.separatorColor = [UIColor VLCDarkBackgroundColor];
-    self.tableView.backgroundColor = [UIColor VLCDarkBackgroundColor];
+    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(themeDidChange) name:kVLCThemeDidChangeNotification object:nil];
+    [self themeDidChange];
 
     self.dropboxTableViewController = [[VLCDropboxTableViewController alloc] initWithNibName:@"VLCCloudStorageTableViewController" bundle:nil];
     self.googleDriveTableViewController = [[VLCGoogleDriveTableViewController alloc] initWithNibName:@"VLCCloudStorageTableViewController" bundle:nil];
@@ -53,17 +51,17 @@
     self.documentPickerController = [VLCDocumentPickerController new];
 }
 
+- (void)themeDidChange
+{
+    self.tableView.separatorColor = PresentationTheme.current.colors.background;
+    self.tableView.backgroundColor = PresentationTheme.current.colors.background;
+}
+
 - (void)viewWillAppear:(BOOL)animated
 {
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(authenticationSessionsChanged:) name:VLCOneDriveControllerSessionUpdated object:nil];
     [self.tableView reloadData];
     [super viewWillAppear:animated];
-}
-
-- (void)goBack
-{
-    [[NSNotificationCenter defaultCenter] removeObserver:self];
-    [[VLCSidebarController sharedInstance] toggleSidebar];
 }
 
 - (void)authenticationSessionsChanged:(NSNotification *)notification
@@ -80,24 +78,17 @@
 
 - (void)tableView:(UITableView *)tableView willDisplayCell:(UITableViewCell *)cell forRowAtIndexPath:(NSIndexPath *)indexPath
 {
-    cell.backgroundColor = (indexPath.row % 2 == 0)? [UIColor blackColor]: [UIColor VLCDarkBackgroundColor];
-
-    if ([cell respondsToSelector:@selector(setSeparatorInset:)]) {
-        [cell setSeparatorInset:UIEdgeInsetsZero];
-    }
-
-    if ([cell respondsToSelector:@selector(setPreservesSuperviewLayoutMargins:)]) {
-        [cell setPreservesSuperviewLayoutMargins:NO];
-    }
-
-    if ([cell respondsToSelector:@selector(setLayoutMargins:)]) {
-        [cell setLayoutMargins:UIEdgeInsetsZero];
-    }
+    cell.backgroundColor = (indexPath.row % 2 == 0)? PresentationTheme.current.colors.cellBackgroundA: PresentationTheme.current.colors.cellBackgroundB;
+    [cell setSeparatorInset:UIEdgeInsetsZero];
+    [cell setPreservesSuperviewLayoutMargins:NO];
+    [cell setLayoutMargins:UIEdgeInsetsZero];
 }
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
 
     VLCCloudServiceCell *cell = [tableView dequeueReusableCellWithIdentifier:@"CloudServiceCell" forIndexPath:indexPath];
+    cell.cloudTitle.textColor = cell.cloudInformation.textColor = cell.lonesomeCloudTitle.textColor = PresentationTheme.current.colors.cellTextColor;
+    cell.icon.tintColor = PresentationTheme.current.colors.cellTextColor;
     switch (indexPath.row) {
         case 0: {
             //Dropbox

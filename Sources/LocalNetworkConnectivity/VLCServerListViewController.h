@@ -15,6 +15,4 @@
 
 @interface VLCServerListViewController : UIViewController
 
-@property (nonatomic, strong) UITableView *tableView;
-
 @end

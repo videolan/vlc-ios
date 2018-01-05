@@ -18,6 +18,7 @@
 #import "WhiteRaccoon.h"
 #import "NSString+SupportedMedia.h"
 #import "VLCHTTPFileDownloader.h"
+#import "VLC_iOS-Swift.h"
 
 typedef NS_ENUM(NSUInteger, VLCDownloadScheme) {
     VLCDownloadSchemeNone,
@@ -63,6 +64,7 @@ typedef NS_ENUM(NSUInteger, VLCDownloadScheme) {
     if (self){
         _currentDownloads = [[NSMutableArray alloc] init];
         _currentDownloadFilename = [[NSMutableArray alloc] init];
+        [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(updateForTheme) name:kVLCThemeDidChangeNotification object:nil];
     }
     return self;
 }
@@ -71,20 +73,16 @@ typedef NS_ENUM(NSUInteger, VLCDownloadScheme) {
 {
     [super viewDidLoad];
 
-    NSAttributedString *coloredAttributedPlaceholder = [[NSAttributedString alloc] initWithString:@"http://myserver.com/file.mkv" attributes:@{NSForegroundColorAttributeName: [UIColor VLCLightTextColor]}];
-    self.urlField.attributedPlaceholder = coloredAttributedPlaceholder;
-
     [self.downloadButton setTitle:NSLocalizedString(@"BUTTON_DOWNLOAD", nil) forState:UIControlStateNormal];
-    self.navigationItem.leftBarButtonItem = [UIBarButtonItem themedRevealMenuButtonWithTarget:self andSelector:@selector(goBack:)];
-    self.title = NSLocalizedString(@"DOWNLOAD_FROM_HTTP", nil);
     self.whatToDownloadHelpLabel.text = [NSString stringWithFormat:NSLocalizedString(@"DOWNLOAD_FROM_HTTP_HELP", nil), [[UIDevice currentDevice] model]];
     self.urlField.delegate = self;
     self.urlField.keyboardType = UIKeyboardTypeURL;
     self.progressContainer.hidden = YES;
-    self.downloadsTable.backgroundColor = [UIColor VLCDarkBackgroundColor];
     self.downloadsTable.hidden = YES;
+    self.whatToDownloadHelpLabel.backgroundColor = [UIColor clearColor];
 
     self.edgesForExtendedLayout = UIRectEdgeNone;
+    [self updateForTheme];
 }
 
 - (void)viewWillAppear:(BOOL)animated
@@ -100,6 +98,30 @@ typedef NS_ENUM(NSUInteger, VLCDownloadScheme) {
     [super viewWillAppear:animated];
 }
 
+- (void)updateForTheme
+{
+    NSAttributedString *coloredAttributedPlaceholder = [[NSAttributedString alloc] initWithString:@"http://myserver.com/file.mkv" attributes:@{NSForegroundColorAttributeName: PresentationTheme.current.colors.lightTextColor}];
+    self.urlField.attributedPlaceholder = coloredAttributedPlaceholder;
+    self.urlField.backgroundColor = PresentationTheme.current.colors.cellBackgroundB;
+    self.urlField.textColor = PresentationTheme.current.colors.cellTextColor;
+    self.downloadsTable.backgroundColor = PresentationTheme.current.colors.background;
+    self.view.backgroundColor = PresentationTheme.current.colors.background;
+    self.downloadButton.backgroundColor = PresentationTheme.current.colors.orangeUI;
+    self.whatToDownloadHelpLabel.textColor = PresentationTheme.current.colors.lightTextColor;
+    self.progressContainer.backgroundColor = PresentationTheme.current.colors.cellBackgroundB;
+    self.currentDownloadLabel.textColor =  PresentationTheme.current.colors.cellBackgroundB;
+    self.progressPercent.textColor =  PresentationTheme.current.colors.cellBackgroundB;
+    self.speedRate.textColor =  PresentationTheme.current.colors.cellBackgroundB;
+    self.timeDL.textColor = PresentationTheme.current.colors.cellTextColor;
+    [self.downloadsTable reloadData];
+}
+
+- (void)viewWillDisappear:(BOOL)animated
+{
+    [super viewWillDisappear:animated];
+    [self.view endEditing:YES];
+}
+
 #pragma mark - UI interaction
 
 - (BOOL)shouldAutorotate
@@ -108,12 +130,6 @@ typedef NS_ENUM(NSUInteger, VLCDownloadScheme) {
     if (UI_USER_INTERFACE_IDIOM() == UIUserInterfaceIdiomPhone && toInterfaceOrientation == UIInterfaceOrientationPortraitUpsideDown)
         return NO;
     return YES;
-}
-
-- (IBAction)goBack:(id)sender
-{
-    [self.view endEditing:YES];
-    [[VLCSidebarController sharedInstance] toggleSidebar];
 }
 
 - (IBAction)downloadAction:(id)sender
@@ -396,8 +412,8 @@ typedef NS_ENUM(NSUInteger, VLCDownloadScheme) {
     UITableViewCell *cell = (UITableViewCell *)[tableView dequeueReusableCellWithIdentifier:CellIdentifier];
     if (cell == nil) {
         cell = [[UITableViewCell alloc] initWithStyle:UITableViewCellStyleSubtitle reuseIdentifier:CellIdentifier];
-        cell.textLabel.textColor = [UIColor whiteColor];
-        cell.detailTextLabel.textColor = [UIColor VLCLightTextColor];
+        cell.textLabel.textColor = PresentationTheme.current.colors.cellTextColor;
+        cell.detailTextLabel.textColor = PresentationTheme.current.colors.cellDetailTextColor;
     }
 
     NSInteger row = indexPath.row;
@@ -415,7 +431,7 @@ typedef NS_ENUM(NSUInteger, VLCDownloadScheme) {
 
 - (void)tableView:(UITableView *)tableView willDisplayCell:(UITableViewCell *)cell forRowAtIndexPath:(NSIndexPath *)indexPath
 {
-    cell.backgroundColor = (indexPath.row % 2 == 0)? [UIColor blackColor]: [UIColor VLCDarkBackgroundColor];
+    cell.backgroundColor = (indexPath.row % 2 == 0)? PresentationTheme.current.colors.cellBackgroundA : PresentationTheme.current.colors.cellBackgroundB;
 }
 
 - (BOOL)tableView:(UITableView *)tableView canEditRowAtIndexPath:(NSIndexPath *)indexPath

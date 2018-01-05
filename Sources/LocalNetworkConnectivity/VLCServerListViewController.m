@@ -2,7 +2,7 @@
  * VLCLocalServerListViewController.m
  * VLC for iOS
  *****************************************************************************
- * Copyright (c) 2013-2015 VideoLAN. All rights reserved.
+ * Copyright (c) 2013-2018 VideoLAN. All rights reserved.
  * $Id$
  *
  * Authors: Felix Paul Kühne <fkuehne # videolan.org>
@@ -10,6 +10,7 @@
  *          Gleb Pinigin <gpinigin # gmail.com>
  *          Tobias Conradi <videolan # tobias-conradi.de>
  *          Vincent L. Cone <vincent.l.cone # tuta.io>
+ *          Carola Nitz <caro # videolan.org>
  *
  * Refer to the COPYING file of the official project for license.
  *****************************************************************************/
@@ -37,44 +38,86 @@
 #import "VLCLocalNetworkServiceBrowserDSM.h"
 #import "VLCLocalNetworkServiceBrowserBonjour.h"
 
+#import "VLCWiFiUploadTableViewCell.h"
+
+#import "VLC_iOS-Swift.h"
+
 @interface VLCServerListViewController () <UITableViewDataSource, UITableViewDelegate, VLCLocalServerDiscoveryControllerDelegate, VLCNetworkLoginViewControllerDelegate>
 {
     VLCLocalServerDiscoveryController *_discoveryController;
 
-    UIBarButtonItem *_backToMenuButton;
-
     UIRefreshControl *_refreshControl;
     UIActivityIndicatorView *_activityIndicator;
+    UITableView *_localNetworkTableView;
+    UITableView *_remoteNetworkTableView;
+    VLCRemoteNetworkDataSource *_remoteNetworkDatasource;
 }
 
 @end
 
 @implementation VLCServerListViewController
 
-- (void)dealloc
-{
-    [[NSNotificationCenter defaultCenter] removeObserver:self];
-}
-
 - (void)loadView
 {
-    _tableView = [[UITableView alloc] initWithFrame:[UIScreen mainScreen].bounds style:UITableViewStylePlain];
-    _tableView.backgroundColor = [UIColor VLCDarkBackgroundColor];
-    _tableView.delegate = self;
-    _tableView.dataSource = self;
-    _tableView.indicatorStyle = UIScrollViewIndicatorStyleWhite;
-    _tableView.separatorStyle = UITableViewCellSeparatorStyleNone;
-    self.view = _tableView;
+    [super loadView];
+
+    _remoteNetworkDatasource = [VLCRemoteNetworkDataSource new];
+
+    _localNetworkTableView = [[UITableView alloc] initWithFrame:[UIScreen mainScreen].bounds style:UITableViewStylePlain];
+    _localNetworkTableView.translatesAutoresizingMaskIntoConstraints = NO;
+    _localNetworkTableView.backgroundColor = PresentationTheme.current.colors.background;
+    _localNetworkTableView.delegate = self;
+    _localNetworkTableView.dataSource = self;
+    _localNetworkTableView.indicatorStyle = UIScrollViewIndicatorStyleWhite;
+    _localNetworkTableView.separatorStyle = UITableViewCellSeparatorStyleNone;
+    _localNetworkTableView.bounces = NO;
+    _localNetworkTableView.rowHeight = [VLCNetworkListCell heightOfCell];
+    _localNetworkTableView.separatorColor = PresentationTheme.current.colors.background;
+
+    //TODO: this is very much work in progress we need to accomodate the wificell for now
+    //When we know how many cells go above the the local servers we should create and move this into a headerview of the localNetworkTable
+    _remoteNetworkTableView = [[UITableView alloc] initWithFrame:[UIScreen mainScreen].bounds style:UITableViewStylePlain];
+    _remoteNetworkTableView.translatesAutoresizingMaskIntoConstraints = NO;
+    _remoteNetworkTableView.backgroundColor = PresentationTheme.current.colors.background;
+    _remoteNetworkTableView.delegate = self;
+    _remoteNetworkTableView.dataSource = _remoteNetworkDatasource;
+    _remoteNetworkTableView.indicatorStyle = UIScrollViewIndicatorStyleWhite;
+    _remoteNetworkTableView.separatorStyle = UITableViewCellSeparatorStyleNone;
+    _remoteNetworkTableView.bounces = NO;
+    [_remoteNetworkTableView registerClass:[VLCWiFiUploadTableViewCell class] forCellReuseIdentifier:[VLCWiFiUploadTableViewCell cellIdentifier]];
+
+    _refreshControl = [[UIRefreshControl alloc] init];
+    _refreshControl.backgroundColor = PresentationTheme.current.colors.background;
+    _refreshControl.tintColor = [UIColor whiteColor];
+    [_refreshControl addTarget:self action:@selector(handleRefresh) forControlEvents:UIControlEventValueChanged];
+    [_localNetworkTableView addSubview:_refreshControl];
+
     _activityIndicator = [[UIActivityIndicatorView alloc] initWithActivityIndicatorStyle:UIActivityIndicatorViewStyleWhiteLarge];
-    _activityIndicator.center = _tableView.center;
+    _activityIndicator.center = _localNetworkTableView.center;
     _activityIndicator.autoresizingMask = UIViewAutoresizingFlexibleBottomMargin | UIViewAutoresizingFlexibleLeftMargin | UIViewAutoresizingFlexibleRightMargin | UIViewAutoresizingFlexibleTopMargin;
     _activityIndicator.hidesWhenStopped = YES;
-    [self.view addSubview:_activityIndicator];
+    [_localNetworkTableView addSubview:_activityIndicator];
+
+    [self.view addSubview:_localNetworkTableView];
+    [self.view addSubview:_remoteNetworkTableView];
+    [NSLayoutConstraint activateConstraints:@[
+                                              [_remoteNetworkTableView.leftAnchor constraintEqualToAnchor:self.view.leftAnchor],
+                                              [_remoteNetworkTableView.rightAnchor constraintEqualToAnchor:self.view.rightAnchor],
+                                              [_remoteNetworkTableView.topAnchor constraintEqualToAnchor:self.topLayoutGuide.bottomAnchor],
+                                              [_remoteNetworkTableView.heightAnchor constraintEqualToConstant:50],
+                                              [_localNetworkTableView.topAnchor constraintEqualToAnchor:_remoteNetworkTableView.bottomAnchor],
+                                              [_localNetworkTableView.leftAnchor constraintEqualToAnchor:self.view.leftAnchor],
+                                              [_localNetworkTableView.rightAnchor constraintEqualToAnchor:self.view.rightAnchor],
+                                              [_localNetworkTableView.bottomAnchor constraintEqualToAnchor:self.view.bottomAnchor],
+                                              ]];
+    self.view.backgroundColor = PresentationTheme.current.colors.background;
 }
 
 - (void)viewDidLoad
 {
     [super viewDidLoad];
+
+    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(themeDidChange) name:kVLCThemeDidChangeNotification object:nil];
 
     NSArray *browserClasses = @[
                                 [VLCLocalNetworkServiceBrowserManualConnect class],
@@ -91,21 +134,6 @@
 
     _discoveryController = [[VLCLocalServerDiscoveryController alloc] initWithServiceBrowserClasses:browserClasses];
     _discoveryController.delegate = self;
-
-    _backToMenuButton = [UIBarButtonItem themedRevealMenuButtonWithTarget:self andSelector:@selector(goBack:)];
-    self.navigationItem.leftBarButtonItem = _backToMenuButton;
-
-    self.tableView.rowHeight = [VLCNetworkListCell heightOfCell];
-    self.tableView.separatorColor = [UIColor VLCDarkBackgroundColor];
-    self.view.backgroundColor = [UIColor VLCDarkBackgroundColor];
-
-    self.title = NSLocalizedString(@"LOCAL_NETWORK", nil);
-
-    _refreshControl = [[UIRefreshControl alloc] init];
-    _refreshControl.backgroundColor = [UIColor VLCDarkBackgroundColor];
-    _refreshControl.tintColor = [UIColor whiteColor];
-    [_refreshControl addTarget:self action:@selector(handleRefresh) forControlEvents:UIControlEventValueChanged];
-    [self.tableView addSubview:_refreshControl];
 }
 
 - (void)viewWillDisappear:(BOOL)animated
@@ -120,12 +148,6 @@
 {
     [super viewWillAppear:animated];
     [_discoveryController startDiscovery];
-}
-
-- (IBAction)goBack:(id)sender
-{
-    [_discoveryController stopDiscovery];
-    [[VLCSidebarController sharedInstance] toggleSidebar];
 }
 
 - (BOOL)shouldAutorotate
@@ -150,18 +172,20 @@
 
 - (void)tableView:(UITableView *)tableView willDisplayCell:(VLCNetworkListCell *)cell forRowAtIndexPath:(NSIndexPath *)indexPath
 {
-    UIColor *color = (indexPath.row % 2 == 0)? [UIColor blackColor]: [UIColor VLCDarkBackgroundColor];
+    if (tableView == _remoteNetworkTableView) return;
+    UIColor *color = (indexPath.row % 2 == 0)? PresentationTheme.current.colors.cellBackgroundB : PresentationTheme.current.colors.cellBackgroundA;
     cell.backgroundColor = cell.titleLabel.backgroundColor = cell.folderTitleLabel.backgroundColor = cell.subtitleLabel.backgroundColor = color;
+    cell.titleLabel.textColor = cell.folderTitleLabel.textColor = cell.subtitleLabel.textColor = cell.thumbnailView.tintColor = PresentationTheme.current.colors.cellTextColor;
 }
 
 - (void)tableView:(UITableView *)tableView willDisplayHeaderView:(UIView *)view forSection:(NSInteger)section
 {
     // Text Color
     UITableViewHeaderFooterView *header = (UITableViewHeaderFooterView *)view;
-    [header.textLabel setTextColor:[UIColor colorWithRed:(130.0f/255.0f) green:(130.0f/255.0f) blue:(130.0f/255.0f) alpha:1.0f]];
+    header.textLabel.textColor = PresentationTheme.current.colors.sectionHeaderTextColor;
     header.textLabel.font = [UIFont boldSystemFontOfSize:([UIFont systemFontSize] * 0.8f)];
 
-    header.tintColor = [UIColor colorWithRed:(60.0f/255.0f) green:(60.0f/255.0f) blue:(60.0f/255.0f) alpha:1.0f];
+    header.tintColor = PresentationTheme.current.colors.sectionHeaderTintColor;
 }
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
@@ -179,6 +203,11 @@
     [cell setTitle:service.title];
 
     return cell;
+}
+
+- (NSIndexPath *)tableView:(UITableView *)tableView willSelectRowAtIndexPath:(NSIndexPath *)indexPath
+{
+    return tableView == _remoteNetworkTableView ? nil : indexPath;
 }
 
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
@@ -230,6 +259,13 @@
         [self.navigationController pushViewController:loginViewController animated:YES];
     }
 }
+#pragma mark -
+- (void)themeDidChange
+{
+    _localNetworkTableView.backgroundColor = PresentationTheme.current.colors.background;
+    _localNetworkTableView.separatorColor = PresentationTheme.current.colors.background;
+    _refreshControl.backgroundColor = PresentationTheme.current.colors.background;
+}
 
 - (void)_dismissLogin
 {
@@ -254,7 +290,7 @@
     //end the refreshing
 
     if ([_discoveryController refreshDiscoveredData])
-        [self.tableView reloadData];
+        [_localNetworkTableView reloadData];
 
     [_refreshControl endRefreshing];
 }
@@ -286,7 +322,7 @@
 
 - (void)discoveryFoundSomethingNew
 {
-    [self.tableView reloadData];
+    [_localNetworkTableView reloadData];
 }
 
 #pragma mark - custom table view appearance

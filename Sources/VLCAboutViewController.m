@@ -13,6 +13,7 @@
  *****************************************************************************/
 
 #import "VLCAboutViewController.h"
+#import "VLC_iOS-Swift.h"
 
 @interface VLCAboutViewController ()
 {
@@ -26,7 +27,7 @@
 - (void)loadView
 {
     self.view = [[UIView alloc] initWithFrame:[UIScreen mainScreen].bounds];
-    self.view.backgroundColor = [UIColor VLCDarkBackgroundColor];
+    self.view.backgroundColor = PresentationTheme.current.colors.background;
     self.view.autoresizingMask = UIViewAutoresizingFlexibleHeight | UIViewAutoresizingFlexibleWidth;
 
     _webView = [[UIWebView alloc] initWithFrame:self.view.frame];
@@ -37,6 +38,8 @@
     _webView.scrollView.indicatorStyle = UIScrollViewIndicatorStyleWhite;
     _webView.autoresizingMask = UIViewAutoresizingFlexibleWidth | UIViewAutoresizingFlexibleHeight;
     [self.view addSubview:_webView];
+
+    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(themeDidChange) name:kVLCThemeDidChangeNotification object:nil];
 }
 
 - (void)viewDidLoad
@@ -49,14 +52,31 @@
     contributeButton.tintColor = [UIColor whiteColor];
 
     self.navigationItem.rightBarButtonItem = contributeButton;
-    self.navigationItem.leftBarButtonItem = [UIBarButtonItem themedRevealMenuButtonWithTarget:self andSelector:@selector(goBack:)];
+    [self loadWebContent];
+}
 
+- (void)loadWebContent
+{
     NSBundle *mainBundle = [NSBundle mainBundle];
-    NSMutableString *htmlContent = [NSMutableString stringWithContentsOfFile:[[NSBundle mainBundle] pathForResource:@"About Contents" ofType:@"html"] encoding:NSUTF8StringEncoding error:nil];
-    [htmlContent replaceOccurrencesOfString:@"VLCFORIOSVERSION" withString:[[NSString stringWithFormat:NSLocalizedString(@"VERSION_FORMAT", nil), [mainBundle objectForInfoDictionaryKey:@"CFBundleShortVersionString"]] stringByAppendingFormat:@" (%@)<br /><i>%@</i>", [mainBundle objectForInfoDictionaryKey:@"CFBundleVersion"], kVLCVersionCodename] options:NSLiteralSearch range:NSMakeRange(800, 1000)];
-    [htmlContent replaceOccurrencesOfString:@"MOBILEVLCKITVERSION" withString:[NSString stringWithFormat:NSLocalizedString(@"BASED_ON_FORMAT", nil),[[VLCLibrary sharedLibrary] version]] options:NSLiteralSearch range:NSMakeRange(800, 1100)];
-    [_webView loadHTMLString:[NSString stringWithString:htmlContent] baseURL:[NSURL fileURLWithPath:[[NSBundle mainBundle] bundlePath]]];
-    htmlContent = nil;
+    NSString *textColor = PresentationTheme.current.colors.cellTextColor.toHex;
+    NSString *backgroundColor = PresentationTheme.current.colors.background.toHex;
+    NSString *version = [NSString stringWithFormat:NSLocalizedString(@"VERSION_FORMAT", nil), [mainBundle objectForInfoDictionaryKey:@"CFBundleShortVersionString"]];
+    NSString *versionBuildNumberAndCodeName = [version stringByAppendingFormat:@" (%@)<br /><i>%@</i>", [mainBundle objectForInfoDictionaryKey:@"CFBundleVersion"], kVLCVersionCodename];
+    NSString *vlcLibraryVersion = [NSString stringWithFormat:NSLocalizedString(@"BASED_ON_FORMAT", nil),[[VLCLibrary sharedLibrary] version]];
+    NSString *htmlFilePath = [mainBundle pathForResource:@"About Contents" ofType:@"html"];
+    NSMutableString *htmlContent = [NSMutableString stringWithContentsOfFile:htmlFilePath encoding:NSUTF8StringEncoding error:nil];
+    [htmlContent replaceOccurrencesOfString:@"VLCFORIOSVERSION" withString:versionBuildNumberAndCodeName options:NSLiteralSearch range:NSMakeRange(0, [htmlContent length])];
+    [htmlContent replaceOccurrencesOfString:@"TEXTCOLOR" withString:textColor options:NSLiteralSearch range:NSMakeRange(0, [htmlContent length])];
+    [htmlContent replaceOccurrencesOfString:@"BACKGROUNDCOLOR" withString:backgroundColor options:NSLiteralSearch range:NSMakeRange(0, [htmlContent length])];
+    [htmlContent replaceOccurrencesOfString:@"MOBILEVLCKITVERSION" withString:vlcLibraryVersion options:NSLiteralSearch range:NSMakeRange(0, [htmlContent length])];
+    [_webView loadHTMLString:htmlContent baseURL:[NSURL fileURLWithPath:[mainBundle bundlePath]]];
+}
+
+- (void)themeDidChange
+{
+    self.view.backgroundColor = PresentationTheme.current.colors.background;
+    _webView.backgroundColor = PresentationTheme.current.colors.background;
+    [self loadWebContent];
 }
 
 - (BOOL)shouldAutorotate
@@ -65,11 +85,6 @@
     if (UI_USER_INTERFACE_IDIOM() == UIUserInterfaceIdiomPhone && toInterfaceOrientation == UIInterfaceOrientationPortraitUpsideDown)
         return NO;
     return YES;
-}
-
-- (IBAction)goBack:(id)sender
-{
-    [[VLCSidebarController sharedInstance] toggleSidebar];
 }
 
 - (BOOL)webView:(UIWebView *)webView shouldStartLoadWithRequest:(NSURLRequest *)request navigationType:(UIWebViewNavigationType)navigationType
@@ -83,7 +98,7 @@
 
 - (void)webViewDidFinishLoad:(UIWebView *)webView
 {
-    _webView.backgroundColor = [UIColor VLCDarkBackgroundColor];
+    _webView.backgroundColor = PresentationTheme.current.colors.background;
     _webView.opaque = YES;
 }
 

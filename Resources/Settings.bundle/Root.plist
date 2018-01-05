@@ -14,6 +14,16 @@
 			<key>DefaultValue</key>
 			<true/>
 			<key>Key</key>
+			<string>SETTINGS_USE_DARKTHEME</string>
+			<key>Title</key>
+			<string>SETTINGS_APPTHEME</string>
+			<key>Type</key>
+			<string>PSToggleSwitchSpecifier</string>
+		</dict>
+		<dict>
+			<key>DefaultValue</key>
+			<true/>
+			<key>Key</key>
 			<string>MLDecrapifyTitles</string>
 			<key>Title</key>
 			<string>SETTINGS_DECRAPIFY</string>

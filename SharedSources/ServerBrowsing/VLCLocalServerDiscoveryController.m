@@ -69,8 +69,6 @@
 
 - (void)dealloc
 {
-    [[NSNotificationCenter defaultCenter] removeObserver:self];
-
     [_reachability stopNotifier];
     [self stopDiscovery];
 }

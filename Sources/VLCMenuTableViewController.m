@@ -19,14 +19,14 @@
 #import "VLCSidebarViewCell.h"
 #import <QuartzCore/QuartzCore.h>
 #import "VLCWiFiUploadTableViewCell.h"
-#import "VLCAppDelegate.h"
+#import "VLCDownloadViewController.h"
 #import "VLCServerListViewController.h"
 #import "VLCOpenNetworkStreamViewController.h"
 #import "VLCSettingsController.h"
 #import "VLCAboutViewController.h"
-#import "VLCLibraryViewController.h"
 #import "VLCBugreporter.h"
 #import "VLCCloudServicesTableViewController.h"
+#import "VLC_iOS-Swift.h"
 
 #define ROW_HEIGHT 50.
 #define IPAD_ROW_HEIGHT 65.
@@ -40,7 +40,7 @@
 static NSString *CellIdentifier = @"VLCMenuCell";
 static NSString *WiFiCellIdentifier = @"VLCMenuWiFiCell";
 
-@interface VLCMenuTableViewController () <UITableViewDataSource, UITableViewDelegate>
+@interface VLCMenuTableViewController () <UITableViewDataSource, UITableViewDelegate, VLCMediaViewControllerDelegate>
 {
     NSArray *_sectionHeaderTexts;
     NSArray *_menuItemsSectionOne;
@@ -51,6 +51,7 @@ static NSString *WiFiCellIdentifier = @"VLCMenuWiFiCell";
     NSLayoutConstraint *_heightConstraint;
     NSLayoutConstraint *_leftTableConstraint;
     VLCSettingsController *_settingsController;
+    VLCMediaViewController *_videoViewController;
 }
 
 @end
@@ -104,7 +105,7 @@ static NSString *WiFiCellIdentifier = @"VLCMenuWiFiCell";
     [self.view addConstraint:_leftTableConstraint];
     [self.view addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"H:|->=0-[_menuTableView(==menuWidth)]" options:0 metrics:metrics views:dict]];
 
-    [_menuTableView selectRowAtIndexPath:[NSIndexPath indexPathForRow:0 inSection:0] animated:NO scrollPosition:UITableViewScrollPositionTop];
+    [self selectRowAtIndexPath:[NSIndexPath indexPathForRow:0 inSection:0] animated:NO scrollPosition:UITableViewScrollPositionTop];
 }
 
 - (BOOL)shouldAutorotate
@@ -231,10 +232,17 @@ static NSString *WiFiCellIdentifier = @"VLCMenuWiFiCell";
     return _settingsController;
 }
 
+- (VLCMediaViewController *)videoViewController
+{
+    if (!_videoViewController) {
+        _videoViewController = [[VLCMediaViewController alloc] initWithCollectionViewLayout:[UICollectionViewFlowLayout new]];
+    }
+    return _videoViewController;
+}
+
 - (void)_revealItem:(NSUInteger)itemIndex inSection:(NSUInteger)sectionNumber
 {
     UIViewController *viewController;
-    VLCAppDelegate *appDelegate = [[UIApplication sharedApplication] delegate];
     if (sectionNumber == 1) {
         if (itemIndex == 0)
             viewController = [[VLCServerListViewController alloc] init];
@@ -252,8 +260,7 @@ static NSString *WiFiCellIdentifier = @"VLCMenuWiFiCell";
         } else if (itemIndex == 1)
             viewController = [[VLCAboutViewController alloc] init];
     } else {
-        viewController = appDelegate.libraryViewController;
-        [(VLCLibraryViewController *)viewController setLibraryMode:(int)itemIndex];
+        viewController = self.videoViewController;
     }
 
     if (!viewController) {
@@ -291,5 +298,14 @@ static NSString *WiFiCellIdentifier = @"VLCMenuWiFiCell";
     if (motion == UIEventSubtypeMotionShake)
         [[VLCBugreporter sharedInstance] handleBugreportRequest];
 }
+#pragma mark - VLCMediaViewControllerDelegate
 
+- (void)videoViewControllerDidSelectMediaObjectWithVLCMediaViewController:(VLCMediaViewController *)VLCMediaViewController mediaObject:(NSManagedObject *)mediaObject
+{
+    
+}
+
+- (void)videoViewControllerDidSelectBackbuttonWithVLCMediaViewController:(VLCMediaViewController *)VLCMediaViewController {
+    [[VLCSidebarController sharedInstance] toggleSidebar];
+}
 @end

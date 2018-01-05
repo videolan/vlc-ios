@@ -140,7 +140,7 @@ static NSString *kUsingTableViewToShowData = @"UsingTableViewToShowData";
             _tableView.tableHeaderView = _searchController.searchBar;
         }
         UINib *nib = [UINib nibWithNibName:@"VLCPlaylistTableViewCell" bundle:nil];
-        [_tableView registerNib:nib forCellReuseIdentifier:kPlaylistCellIdentifier];
+        [_tableView registerNib:nib forCellReuseIdentifier:VLCPlaylistTableViewCell.cellIdentifier];
     }
     _tableView.frame = contentView.bounds;
     [_tableView reloadData];
@@ -161,7 +161,7 @@ static NSString *kUsingTableViewToShowData = @"UsingTableViewToShowData";
         _collectionView.autoresizingMask = UIViewAutoresizingFlexibleHeight | UIViewAutoresizingFlexibleWidth;
         _longPressGestureRecognizer = [[UILongPressGestureRecognizer alloc] initWithTarget:self action:@selector(_collectionViewHandleLongPressGesture:)];
         [_collectionView addGestureRecognizer:_longPressGestureRecognizer];
-        [_collectionView registerNib:[UINib nibWithNibName:@"VLCPlaylistCollectionViewCell" bundle:nil] forCellWithReuseIdentifier:@"PlaylistCell"];
+        [_collectionView registerNib:[UINib nibWithNibName:@"VLCPlaylistCollectionViewCell" bundle:nil] forCellWithReuseIdentifier:VLCPlaylistCollectionViewCell.cellIdentifier];
     }
     _collectionView.frame = contentView.bounds;
     [_collectionView reloadData];
@@ -191,7 +191,6 @@ static NSString *kUsingTableViewToShowData = @"UsingTableViewToShowData";
 {
     [super viewDidLoad];
     self.title = NSLocalizedString(@"LIBRARY_ALL_FILES", nil);
-    _menuButton = [UIBarButtonItem themedRevealMenuButtonWithTarget:self andSelector:@selector(leftButtonAction:)];
     self.navigationItem.leftBarButtonItem = _menuButton;
 
     self.editButtonItem.title = NSLocalizedString(@"BUTTON_EDIT", nil);
@@ -486,7 +485,7 @@ static NSString *kUsingTableViewToShowData = @"UsingTableViewToShowData";
             _createFolderBarButtonItem.enabled = NO;
             [_mediaDataSource addAllShows];
         } break;
-        //Todo: I'm not sure if updateViewContents should be called in VLCLibraryModeFolder
+        //TODO: I'm not sure if updateViewContents should be called in VLCLibraryModeFolder
         //Here should maybe be an NSAssert to prevent this but for now due to refactoring these calls would've been made in that case
         case VLCLibraryModeAllFiles:
         case VLCLibraryModeFolder:
@@ -541,9 +540,7 @@ static NSString *kUsingTableViewToShowData = @"UsingTableViewToShowData";
 // Customize the appearance of table view cells.
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
 {
-    static NSString *CellIdentifier = @"PlaylistCell";
-
-    VLCPlaylistTableViewCell *cell = (VLCPlaylistTableViewCell *)[tableView dequeueReusableCellWithIdentifier:CellIdentifier];
+    VLCPlaylistTableViewCell *cell = (VLCPlaylistTableViewCell *)[tableView dequeueReusableCellWithIdentifier:VLCPlaylistTableViewCell.cellIdentifier];
 
     UISwipeGestureRecognizer *swipeRight = [[UISwipeGestureRecognizer alloc] initWithTarget:self action:@selector(swipeRightOnTableViewCellGestureAction:)];
     [swipeRight setDirection:(UISwipeGestureRecognizerDirectionRight)];
@@ -656,7 +653,7 @@ static NSString *kUsingTableViewToShowData = @"UsingTableViewToShowData";
 
 - (UICollectionViewCell*)collectionView:(UICollectionView *)collectionView cellForItemAtIndexPath:(NSIndexPath *)indexPath
 {
-    VLCPlaylistCollectionViewCell *cell = [collectionView dequeueReusableCellWithReuseIdentifier:@"PlaylistCell" forIndexPath:indexPath];
+    VLCPlaylistCollectionViewCell *cell = [collectionView dequeueReusableCellWithReuseIdentifier:VLCPlaylistCollectionViewCell.cellIdentifier forIndexPath:indexPath];
 
     cell.mediaObject = [_mediaDataSource objectAtIndex:indexPath.row];
 
@@ -1096,8 +1093,6 @@ static NSString *kUsingTableViewToShowData = @"UsingTableViewToShowData";
 
 - (IBAction)leftButtonAction:(id)sender
 {
-    [[VLCSidebarController sharedInstance] toggleSidebar];
-
     if (self.isEditing)
         [self setEditing:NO animated:YES];
 }

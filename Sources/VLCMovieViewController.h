@@ -17,16 +17,21 @@
 
 @class OBSlider;
 @class VLCStatusLabel;
-@class VLCHorizontalSwipeGestureRecognizer;
 @class VLCVerticalSwipeGestureRecognizer;
 @class VLCTimeNavigationTitleView;
 @class VLCMovieViewControlPanelView;
+@class VLCMovieViewController;
 
 typedef NS_ENUM(NSInteger, VLCMovieJumpState) {
     VLCMovieJumpStateDefault,
     VLCMovieJumpStateForward,
     VLCMovieJumpStateBackward
 };
+
+@protocol VLCMovieViewControllerDelegate
+- (void)movieViewControllerDidSelectMinimize:(VLCMovieViewController *)movieViewController;
+- (BOOL)movieViewControllerShouldBeDisplayed:(VLCMovieViewController *)movieViewController;
+@end
 
 @interface VLCMovieViewController : UIViewController <UIActionSheetDelegate, VLCPlaybackControllerDelegate>
 
@@ -72,6 +77,8 @@ typedef NS_ENUM(NSInteger, VLCMovieJumpState) {
 @property (nonatomic, strong) IBOutlet UILabel *trackNameLabel;
 @property (nonatomic, strong) IBOutlet UIImageView *artworkImageView;
 @property (nonatomic, strong) IBOutlet NSLayoutConstraint *widthConstraint;
+
+@property (nonatomic, weak) id<VLCMovieViewControllerDelegate> delegate;
 
 - (IBAction)closePlayback:(id)sender;
 - (IBAction)minimizePlayback:(id)sender;

@@ -34,6 +34,11 @@
     [self setSelectedBackgroundView:bgColorView];
 }
 
++ (NSString *)cellIdentifier
+{
+    return @"VLCPlaylistTableViewCell";
+}
+
 - (void)dealloc
 {
     [self _removeObserver];
@@ -92,7 +97,6 @@
             [_mediaObject removeObserver:self forKeyPath:@"album"];
             [_mediaObject removeObserver:self forKeyPath:@"artist"];
             [_mediaObject removeObserver:self forKeyPath:@"genre"];
-            [[NSNotificationCenter defaultCenter] removeObserver:self];
             [(MLFile*)_mediaObject didHide];
         }
     }

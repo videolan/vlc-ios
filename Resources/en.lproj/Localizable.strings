@@ -77,8 +77,7 @@
 "OPEN_NETWORK" = "Open Network Stream";
 "NETWORK_TITLE" = "Network Stream";
 "OPEN_NETWORK_HELP" = "Enter any HTTP, RTSP, RTMP, MMS, FTP or UDP/RTP address to open the stream directly.";
-"ABOUT_APP" = "About VLC for iOS";
-"OPEN_VLC_MENU" = "Open VLC sidebar menu";
+"ABOUT_APP" = "About";
 "HTTP_UPLOAD_SERVER_OFF" = "Inactive Server";
 "HTTP_UPLOAD_NO_CONNECTIVITY" = "No active WiFi connection";
 "OPEN_STREAM_OR_DOWNLOAD" = "Would you like to download or play this URL?";
@@ -340,3 +339,6 @@
 /* New strings */
 "PROTOCOL_NOT_SELECTED" = "Protocol not selected";
 "Settings" = "Settings";
+
+/* New strings */
+"FILE_NOT_SUPPORTED_LONG" = "FILE_NOT_SUPPORTED_LONG";

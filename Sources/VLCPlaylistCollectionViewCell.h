@@ -2,12 +2,13 @@
  * VLCPlaylistCollectionViewCell.h
  * VLC for iOS
  *****************************************************************************
- * Copyright (c) 2013-2015 VideoLAN. All rights reserved.
+ * Copyright (c) 2013-2018 VideoLAN. All rights reserved.
  * $Id$
  *
  * Authors: Felix Paul Kühne <fkuehne # videolan.org>
  *          Tamas Timar <ttimar.vlc # gmail.com>
  *          Gleb Pinigin <gpinigin # gmail.com>
+ *          Carola Nitz <nitz.carola # gmail.com>
  *
  * Refer to the COPYING file of the official project for license.
  *****************************************************************************/
@@ -33,7 +34,7 @@
 
 - (void)setEditing:(BOOL)editing animated:(BOOL)animated;
 - (void)selectionUpdate;
-- (void)shake:(BOOL)shake;
 - (void)showMetadata:(BOOL)showMeta;
++ (NSString *)cellIdentifier;
 
 @end

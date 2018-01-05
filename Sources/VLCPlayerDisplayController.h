@@ -24,11 +24,11 @@ typedef NS_ENUM(NSUInteger, VLCPlayerDisplayControllerDisplayMode) {
 
 @end
 
+@protocol VLCPlayerDisplayControllerDelegate
+
+@end
+
 @interface VLCPlayerDisplayController : UIViewController
-
-+ (VLCPlayerDisplayController *)sharedInstance;
-
-@property (nonatomic, strong) UIViewController *childViewController;
 
 @property (nonatomic, assign) VLCPlayerDisplayControllerDisplayMode displayMode;
 @property (nonatomic, weak) VLCPlaybackController *playbackController;

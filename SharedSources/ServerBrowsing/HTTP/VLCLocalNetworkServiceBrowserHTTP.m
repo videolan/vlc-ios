@@ -24,9 +24,6 @@
                    serviceType:@"_http._tcp."
                         domain:@""];
 }
-- (void)dealloc {
-    [[NSNotificationCenter defaultCenter] removeObserver:self];
-}
 
 - (VLCSharedLibraryParser *)httpParser {
     if (!_httpParser) {

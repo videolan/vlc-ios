@@ -15,17 +15,12 @@
  *****************************************************************************/
 
 #import "VLCMenuTableViewController.h"
-#import "VLCDownloadViewController.h"
 #import "VLCWatchCommunication.h"
 #import <AppAuth/AppAuth.h>
-
-@class VLCLibraryViewController;
 
 extern NSString *const VLCDropboxSessionWasAuthorized;
 
 @interface VLCAppDelegate : UIResponder <UIApplicationDelegate>
-
-@property (nonatomic, readonly) VLCLibraryViewController *libraryViewController;
 
 @property (nonatomic, readonly) VLCWatchCommunication *watchCommunication;
 

@@ -5,12 +5,22 @@
 	<key>PreferenceSpecifiers</key>
 	<array>
 		<dict>
-            <key>Type</key>
-            <string>PSGroupSpecifier</string>
-            <key>Title</key>
-            <string>SETTINGS_GENERIC_TITLE</string>
-        </dict>
-        <dict>
+			<key>Type</key>
+			<string>PSGroupSpecifier</string>
+			<key>Title</key>
+			<string>SETTINGS_GENERIC_TITLE</string>
+		</dict>
+		<dict>
+			<key>DefaultValue</key>
+			<string>NO</string>
+			<key>Key</key>
+			<string>darkMode</string>
+			<key>Title</key>
+			<string>SETTINGS_DARKTHEME</string>
+			<key>Type</key>
+			<string>PSToggleSwitchSpecifier</string>
+		</dict>
+		<dict>
 			<key>DefaultValue</key>
 			<string>NO</string>
 			<key>Key</key>
