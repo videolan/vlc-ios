@@ -80,7 +80,6 @@ static NSString *kUsingTableViewToShowData = @"UsingTableViewToShowData";
 @property (nonatomic, strong) UITableView *tableView;
 @property (nonatomic, strong) UICollectionView *collectionView;
 @property (nonatomic, strong) EmptyLibraryView *emptyLibraryView;
-@property (nonatomic) BOOL usingTableViewToShowData;
 
 @end
 
@@ -119,54 +118,55 @@ static NSString *kUsingTableViewToShowData = @"UsingTableViewToShowData";
     UIView *contentView = [[UIView alloc] initWithFrame:viewDimensions];
     contentView.autoresizingMask = UIViewAutoresizingFlexibleHeight | UIViewAutoresizingFlexibleWidth;
     contentView.backgroundColor = [UIColor VLCDarkBackgroundColor];
-    if (self.usingTableViewToShowData) {
-        if (!_tableView) {
-            _tableView = [[UITableView alloc] initWithFrame:viewDimensions style:UITableViewStylePlain];
-            _tableView.backgroundColor = [UIColor VLCDarkBackgroundColor];
-            CGRect frame = _tableView.bounds;
-            frame.origin.y = -frame.size.height;
-            UIView *topView = [[UIView alloc] initWithFrame:frame];
-            topView.backgroundColor = [UIColor VLCDarkBackgroundColor];
-            [_tableView addSubview:topView];
-            _tableView.rowHeight = [VLCPlaylistTableViewCell heightOfCell];
-            _tableView.separatorColor = [UIColor VLCDarkBackgroundColor];
-            _tableView.delegate = self;
-            _tableView.dataSource = self;
-            if (@available(iOS 11.0, *)) {
-                _tableView.dragDelegate = ((VLCDragAndDropManager *)dragAndDropManager);
-                _tableView.dropDelegate = ((VLCDragAndDropManager *)dragAndDropManager);
-            }
-            _tableView.indicatorStyle = UIScrollViewIndicatorStyleWhite;
-            _tableView.autoresizingMask = UIViewAutoresizingFlexibleHeight | UIViewAutoresizingFlexibleWidth;
-            _tableView.tableHeaderView = _searchController.searchBar;
-            UINib *nib = [UINib nibWithNibName:@"VLCPlaylistTableViewCell" bundle:nil];
-            [_tableView registerNib:nib forCellReuseIdentifier:kPlaylistCellIdentifier];
-        }
-        _tableView.frame = contentView.bounds;
-        [contentView addSubview:_tableView];
-        [_tableView reloadData];
-    } else {
-        if (!_collectionView) {
-            _folderLayout = [[VLCFolderCollectionViewFlowLayout alloc] init];
-            _collectionView = [[UICollectionView alloc] initWithFrame:viewDimensions collectionViewLayout:_folderLayout];
-            _collectionView.alwaysBounceVertical = YES;
-            if (@available(iOS 11.0, *)) {
-                _collectionView.dragDelegate = ((VLCDragAndDropManager *)dragAndDropManager);
-                _collectionView.dropDelegate = ((VLCDragAndDropManager *)dragAndDropManager);
-            }
-            _collectionView.indicatorStyle = UIScrollViewIndicatorStyleWhite;
-            _collectionView.delegate = self;
-            _collectionView.dataSource = self;
-            _collectionView.backgroundColor = [UIColor VLCDarkBackgroundColor];
-            _collectionView.autoresizingMask = UIViewAutoresizingFlexibleHeight | UIViewAutoresizingFlexibleWidth;
-            _longPressGestureRecognizer = [[UILongPressGestureRecognizer alloc] initWithTarget:self action:@selector(_collectionViewHandleLongPressGesture:)];
-            [_collectionView addGestureRecognizer:_longPressGestureRecognizer];
-            [_collectionView registerNib:[UINib nibWithNibName:@"VLCPlaylistCollectionViewCell" bundle:nil] forCellWithReuseIdentifier:@"PlaylistCell"];
 
+    if (!_tableView) {
+        _tableView = [[UITableView alloc] initWithFrame:viewDimensions style:UITableViewStylePlain];
+        _tableView.backgroundColor = [UIColor VLCDarkBackgroundColor];
+        CGRect frame = _tableView.bounds;
+        frame.origin.y = -frame.size.height;
+        UIView *topView = [[UIView alloc] initWithFrame:frame];
+        topView.backgroundColor = [UIColor VLCDarkBackgroundColor];
+        [_tableView addSubview:topView];
+        _tableView.rowHeight = [VLCPlaylistTableViewCell heightOfCell];
+        _tableView.separatorColor = [UIColor VLCDarkBackgroundColor];
+        _tableView.delegate = self;
+        _tableView.dataSource = self;
+        if (@available(iOS 11.0, *)) {
+            _tableView.dragDelegate = ((VLCDragAndDropManager *)dragAndDropManager);
+            _tableView.dropDelegate = ((VLCDragAndDropManager *)dragAndDropManager);
         }
-        _collectionView.frame = contentView.bounds;
+        _tableView.indicatorStyle = UIScrollViewIndicatorStyleWhite;
+        _tableView.autoresizingMask = UIViewAutoresizingFlexibleHeight | UIViewAutoresizingFlexibleWidth;
+        _tableView.tableHeaderView = _searchController.searchBar;
+        UINib *nib = [UINib nibWithNibName:@"VLCPlaylistTableViewCell" bundle:nil];
+        [_tableView registerNib:nib forCellReuseIdentifier:kPlaylistCellIdentifier];
+    }
+    _tableView.frame = contentView.bounds;
+    [_tableView reloadData];
+
+    if (!_collectionView) {
+        _folderLayout = [[VLCFolderCollectionViewFlowLayout alloc] init];
+        _collectionView = [[UICollectionView alloc] initWithFrame:viewDimensions collectionViewLayout:_folderLayout];
+        _collectionView.alwaysBounceVertical = YES;
+        if (@available(iOS 11.0, *)) {
+            _collectionView.dragDelegate = ((VLCDragAndDropManager *)dragAndDropManager);
+            _collectionView.dropDelegate = ((VLCDragAndDropManager *)dragAndDropManager);
+        }
+        _collectionView.indicatorStyle = UIScrollViewIndicatorStyleWhite;
+        _collectionView.delegate = self;
+        _collectionView.dataSource = self;
+        _collectionView.backgroundColor = [UIColor VLCDarkBackgroundColor];
+        _collectionView.autoresizingMask = UIViewAutoresizingFlexibleHeight | UIViewAutoresizingFlexibleWidth;
+        _longPressGestureRecognizer = [[UILongPressGestureRecognizer alloc] initWithTarget:self action:@selector(_collectionViewHandleLongPressGesture:)];
+        [_collectionView addGestureRecognizer:_longPressGestureRecognizer];
+        [_collectionView registerNib:[UINib nibWithNibName:@"VLCPlaylistCollectionViewCell" bundle:nil] forCellWithReuseIdentifier:@"PlaylistCell"];
+    }
+    _collectionView.frame = contentView.bounds;
+    [_collectionView reloadData];
+    if (self.usingTableViewToShowData) {
+        [contentView addSubview:_tableView];
+    } else {
         [contentView addSubview:_collectionView];
-        [_collectionView reloadData];
         [_searchController setActive:NO];
     }
     self.view = contentView;
@@ -415,7 +415,6 @@ static NSString *kUsingTableViewToShowData = @"UsingTableViewToShowData";
 
         [self setUsingTableViewToShowData:isPortrait];
         [self _displayEmptyLibraryViewIfNeeded];
-
     }
 }
 
@@ -1009,34 +1008,29 @@ static NSString *kUsingTableViewToShowData = @"UsingTableViewToShowData";
     else
         [self.navigationItem setRightBarButtonItems:editing ? [self.navigationItem.rightBarButtonItems arrayByAddingObject:_selectAllBarButtonItem] : [self.navigationItem rightBarButtonItems] animated:YES];
 
-    if (self.usingTableViewToShowData) {
-        [self setSearchBar:!editing resetContent:!editing];
-        self.tableView.allowsMultipleSelectionDuringEditing = editing;
-        [self.tableView setEditing:editing animated:YES];
-    } else {
-        NSArray *visibleCells = self.collectionView.visibleCells;
+    [self setSearchBar:!editing resetContent:!editing];
+    self.tableView.allowsMultipleSelectionDuringEditing = editing;
+    [self.tableView setEditing:editing animated:YES];
 
-        [visibleCells enumerateObjectsUsingBlock:^(id obj, NSUInteger idx, BOOL *stop) {
-            VLCPlaylistCollectionViewCell *aCell = (VLCPlaylistCollectionViewCell*)obj;
+    NSArray *visibleCells = self.collectionView.visibleCells;
+    [visibleCells enumerateObjectsUsingBlock:^(id obj, NSUInteger idx, BOOL *stop) {
+        VLCPlaylistCollectionViewCell *aCell = (VLCPlaylistCollectionViewCell*)obj;
+        [aCell setEditing:editing animated:animated];
+    }];
 
-            // always clear selection when enter edit mode
-            aCell.selected = NO;
-            [aCell setEditing:editing animated:animated];
-        }];
-        self.collectionView.allowsMultipleSelection = editing;
+    self.collectionView.allowsMultipleSelection = editing;
 
-        /* UIKit doesn't clear the selection automagically if we leave the editing mode
-         * so we need to do so manually */
-        if (!editing) {
-            [self.collectionView addGestureRecognizer:_longPressGestureRecognizer];
-            NSArray *selectedItems = [self.collectionView indexPathsForSelectedItems];
-            NSUInteger count = selectedItems.count;
+    /* UIKit doesn't clear the selection automagically if we leave the editing mode
+     * so we need to do so manually */
+    if (!editing) {
+        [self.collectionView addGestureRecognizer:_longPressGestureRecognizer];
+        NSArray *selectedItems = [self.collectionView indexPathsForSelectedItems];
+        NSUInteger count = selectedItems.count;
 
-            for (NSUInteger x = 0; x < count; x++)
-                [self.collectionView deselectItemAtIndexPath:selectedItems[x] animated:NO];
-        } else
-            [self.collectionView removeGestureRecognizer:_longPressGestureRecognizer];
-    }
+        for (NSUInteger x = 0; x < count; x++)
+            [self.collectionView deselectItemAtIndexPath:selectedItems[x] animated:NO];
+    } else
+        [self.collectionView removeGestureRecognizer:_longPressGestureRecognizer];
 
     if (_libraryMode == VLCLibraryModeCreateFolder) {
         _libraryMode = _previousLibraryMode;
@@ -1357,30 +1351,23 @@ static NSString *kUsingTableViewToShowData = @"UsingTableViewToShowData";
 - (void)willRotateToInterfaceOrientation:(UIInterfaceOrientation)toInterfaceOrientation duration:(NSTimeInterval)duration
 {
     [super willRotateToInterfaceOrientation:toInterfaceOrientation duration:duration];
-    [self setEditing:NO];
     [self setViewFromDeviceOrientation];
-    if (self.usingTableViewToShowData) {
-        NSArray *visibleCells = [self.tableView visibleCells];
-        NSUInteger cellCount = visibleCells.count;
-        for (NSUInteger x = 0; x < cellCount; x++) {
-            if ([visibleCells[x] isExpanded])
-                [visibleCells[x] metaDataLabel].hidden = YES;
-        }
-    } else {
-        [self.collectionView.collectionViewLayout invalidateLayout];
+    NSArray *visibleCells = [self.tableView visibleCells];
+    NSUInteger cellCount = visibleCells.count;
+    for (NSUInteger x = 0; x < cellCount; x++) {
+        if ([visibleCells[x] isExpanded])
+            [visibleCells[x] metaDataLabel].hidden = YES;
     }
+    [self.collectionView.collectionViewLayout invalidateLayout];
 }
 
 // >= iOS 8
 - (void)viewWillTransitionToSize:(CGSize)size withTransitionCoordinator:(id<UIViewControllerTransitionCoordinator>)coordinator
 {
     [super viewWillTransitionToSize:size withTransitionCoordinator:coordinator];
-    [self setEditing:NO];
     [coordinator animateAlongsideTransition:^(id<UIViewControllerTransitionCoordinatorContext>  _Nonnull context) {
         [self setViewFromDeviceOrientation];
-        if (!self.usingTableViewToShowData) {
-            [self.collectionView.collectionViewLayout invalidateLayout];
-        }
+        [self.collectionView.collectionViewLayout invalidateLayout];
     } completion:nil];
 }
 
