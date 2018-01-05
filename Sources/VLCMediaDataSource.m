@@ -1,10 +1,14 @@
-//
-//  VLCMediaDatasource.m
-//  VLC
-//
-//  Created by Carola Nitz on 8/15/17.
-//  Copyright © 2017 VideoLAN. All rights reserved.
-//
+/*****************************************************************************
+ * VLCMediaDataSource.m
+ * VLC for iOS
+ *****************************************************************************
+ * Copyright (c) 2017 VideoLAN. All rights reserved.
+ * $Id$
+ *
+ * Authors:Carola Nitz <caro # videolan.org>
+ *
+ * Refer to the COPYING file of the official project for license.
+ *****************************************************************************/
 
 #import "VLCMediaDataSource.h"
 #import "VLCPlaybackController.h"
@@ -166,7 +170,7 @@
              * syndrome (see #10435, #10464, #10432 et al) */
             if (file.showEpisode.show.name.length == 0) {
                 file.showEpisode.show.name = NSLocalizedString(@"UNTITLED_SHOW", nil);
-                [self performSelector:@selector(updateViewContents) withObject:nil afterDelay:0.1];
+                [self updateContentsForSelection:_currentSelection];
             }
         } else if (file.isAlbumTrack && file.albumTrack.album.tracks.count < 2) {
             [self addObject:file];
