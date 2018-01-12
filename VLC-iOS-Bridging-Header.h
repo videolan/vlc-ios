@@ -9,7 +9,11 @@
 #import <PAPasscode/PAPasscodeViewController.h>
 #import <XKKeychain/XKKeychain.h>
 #import "VLCConstants.h"
-#import "UIBarButtonItem+Theme.h"
-#import "VLCSidebarController.h"
 #import "VLCPlayerDisplayController.h"
 #import "VLCLibrarySearchDisplayDataSource.h"
+#import "VLCServerListViewController.h"
+#import "VLCSettingsController.h"
+#import "VLCCloudServicesTableViewController.h"
+#import "VLCDownloadViewController.h"
+#import "VLCOpenNetworkStreamViewController.h"
+#import "VLCAboutViewController.h"

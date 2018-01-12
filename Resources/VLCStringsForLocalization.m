@@ -37,4 +37,5 @@ NSLocalizedString(@"Passcodes did not match. Try again.", nil);
 NSLocalizedString(@"1 Failed Passcode Attempt", nil);
 NSLocalizedString(@"%d Failed Passcode Attempts", nil);
 NSLocalizedString(@"Next", nil);
+NSLocalizedString(@"DOWNLOAD_FROM_HTTP", nil);
 }

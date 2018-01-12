@@ -99,8 +99,6 @@
     self.tableView.separatorColor = [UIColor VLCDarkBackgroundColor];
     self.view.backgroundColor = [UIColor VLCDarkBackgroundColor];
 
-    self.title = NSLocalizedString(@"LOCAL_NETWORK", nil);
-
     _refreshControl = [[UIRefreshControl alloc] init];
     _refreshControl.backgroundColor = [UIColor VLCDarkBackgroundColor];
     _refreshControl.tintColor = [UIColor whiteColor];

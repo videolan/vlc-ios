@@ -13,16 +13,15 @@ import Foundation
     var childCoordinators: [Coordinator] = []
 
     var rootViewController: UIViewController {
-        return self.navigationController
+        return self.tabbarController
     }
 
     /// Window to manage
     let window: UIWindow
 
-    private lazy var navigationController: UINavigationController = {
-        let navigationController = UINavigationController()
-        navigationController.isNavigationBarHidden = true
-        return navigationController
+    private lazy var tabbarController:VLCTabbarController = {
+        let tabBarController = VLCTabbarController()
+        return tabBarController
     }()
 
     @objc public init(window: UIWindow) {
@@ -32,14 +31,6 @@ import Foundation
         self.window.rootViewController = self.rootViewController
         self.window.makeKeyAndVisible()
     }
-
     @objc public func start() {
-        showPlayerDisplayController()
-    }
-
-    private func showPlayerDisplayController() {
-        if let playerDisplayController = VLCPlayerDisplayController.sharedInstance() {
-            navigationController.setViewControllers([playerDisplayController], animated: true)
-        }
     }
 }

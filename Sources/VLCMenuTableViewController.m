@@ -236,7 +236,6 @@ static NSString *WiFiCellIdentifier = @"VLCMenuWiFiCell";
 {
     if (!_videoViewController) {
         _videoViewController = [[VLCVideoViewController alloc] initWithCollectionViewLayout:[UICollectionViewFlowLayout new]];
-        _videoViewController.delegate = self;
     }
     return _videoViewController;
 }

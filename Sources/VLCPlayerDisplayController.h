@@ -11,6 +11,7 @@
  *****************************************************************************/
 
 @class VLCPlaybackController;
+@protocol VLCVideoControllerDelegate;
 
 typedef NS_ENUM(NSUInteger, VLCPlayerDisplayControllerDisplayMode) {
     VLCPlayerDisplayControllerDisplayModeFullscreen,
@@ -28,7 +29,7 @@ typedef NS_ENUM(NSUInteger, VLCPlayerDisplayControllerDisplayMode) {
 
 @end
 
-@interface VLCPlayerDisplayController : UIViewController
+@interface VLCPlayerDisplayController : UIViewController <VLCVideoControllerDelegate>
 
 + (VLCPlayerDisplayController *)sharedInstance;
 

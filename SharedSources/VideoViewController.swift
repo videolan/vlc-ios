@@ -10,7 +10,6 @@ import Foundation
 
 @objc public protocol VLCVideoControllerDelegate: class {
     func videoViewControllerDidSelectMediaObject(VLCVideoViewController: VLCVideoViewController, mediaObject:NSManagedObject)
-    func videoViewControllerDidSelectBackbutton(VLCVideoViewController: VLCVideoViewController)
 }
 
 public class VLCVideoViewController: UICollectionViewController, UICollectionViewDelegateFlowLayout, UISearchResultsUpdating, UISearchControllerDelegate
@@ -19,7 +18,7 @@ public class VLCVideoViewController: UICollectionViewController, UICollectionVie
     private let cellPadding:CGFloat = 5.0
     private var searchController: UISearchController?
     private let searchDataSource = VLCLibrarySearchDisplayDataSource()
-    @objc public weak var delegate: VLCVideoControllerDelegate?
+    public weak var delegate: VLCVideoControllerDelegate?
 
     @available(iOS 11.0, *)
     lazy var dragAndDropManager:VLCDragAndDropManager = {
@@ -71,13 +70,11 @@ public class VLCVideoViewController: UICollectionViewController, UICollectionVie
     }
 
     func setupNavigationbar() {
-        title = "Videos"
         if #available(iOS 11.0, *) {
             navigationController?.navigationBar.prefersLargeTitles = true
             let attributes = [NSAttributedStringKey.foregroundColor : UIColor.white]
             navigationController?.navigationBar.largeTitleTextAttributes = attributes
         }
-        self.navigationItem.leftBarButtonItem = UIBarButtonItem.themedRevealMenuButton(withTarget: self, andSelector: #selector(backbutton))
     }
 
     func setupSearchController() {
@@ -98,10 +95,6 @@ public class VLCVideoViewController: UICollectionViewController, UICollectionVie
             navigationItem.titleView = searchController?.searchBar
             searchController?.hidesNavigationBarDuringPresentation = false
         }
-    }
-
-    @objc func backbutton() {
-        delegate?.videoViewControllerDidSelectBackbutton(VLCVideoViewController: self)
     }
 
     //MARK: - CollectionViewDelegate & DataSource
