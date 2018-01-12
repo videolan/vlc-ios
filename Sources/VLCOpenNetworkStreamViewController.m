@@ -102,8 +102,7 @@
     [scanSubModelabel setText:NSLocalizedString(@"SCAN_SUBTITLE_TOGGLE", nil)];
     [scanSubModelabel setAdjustsFontSizeToFitWidth:YES];
     [scanSubModelabel setNumberOfLines:0];
-    self.title = NSLocalizedString(@"OPEN_NETWORK", nil);
-    self.navigationItem.leftBarButtonItem = [UIBarButtonItem themedRevealMenuButtonWithTarget:self andSelector:@selector(goBack:)];
+
     [self.whatToOpenHelpLabel setText:NSLocalizedString(@"OPEN_NETWORK_HELP", nil)];
     self.urlField.delegate = self;
     self.urlField.keyboardType = UIKeyboardTypeURL;
@@ -150,6 +149,7 @@
     NSUserDefaults *defaults = [NSUserDefaults standardUserDefaults];
     [defaults setBool:self.privateToggleSwitch.on forKey:kVLCPrivateWebStreaming];
     [defaults setBool:self.ScanSubToggleSwitch.on forKey:kVLChttpScanSubtitle];
+    [self.view endEditing:YES];
 
     /* force update before we leave */
     [[NSUbiquitousKeyValueStore defaultStore] synchronize];
@@ -168,12 +168,6 @@
     if (UI_USER_INTERFACE_IDIOM() == UIUserInterfaceIdiomPhone && toInterfaceOrientation == UIInterfaceOrientationPortraitUpsideDown)
         return NO;
     return YES;
-}
-
-- (IBAction)goBack:(id)sender
-{
-    [self.view endEditing:YES];
-    [[VLCSidebarController sharedInstance] toggleSidebar];
 }
 
 - (IBAction)openButtonAction:(id)sender

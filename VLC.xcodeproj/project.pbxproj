@@ -39,6 +39,8 @@
 		419D7F071F54176900AF69A2 /* VLCTimeNavigationTitleView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 419D7F041F54176900AF69A2 /* VLCTimeNavigationTitleView.xib */; };
 		41A7FE5F2008C9BE009E0820 /* VLCTabbarController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 41A7FE5E2008C9BE009E0820 /* VLCTabbarController.swift */; };
 		41A7FE602008C9BE009E0820 /* VLCTabbarController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 41A7FE5E2008C9BE009E0820 /* VLCTabbarController.swift */; };
+		41A9D81420098B9B00FCF6A5 /* UINavigationController+VLC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 41A9D81320098B9B00FCF6A5 /* UINavigationController+VLC.swift */; };
+		41A9D81520098B9B00FCF6A5 /* UINavigationController+VLC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 41A9D81320098B9B00FCF6A5 /* UINavigationController+VLC.swift */; };
 		41B0BC931F73EF1B0063BA26 /* VLC_for_IOSTestMenu.m in Sources */ = {isa = PBXBuildFile; fileRef = 41B0BC911F73EF1B0063BA26 /* VLC_for_IOSTestMenu.m */; };
 		41B93C011A53833B00102E8B /* VLCProgressView.m in Sources */ = {isa = PBXBuildFile; fileRef = 41B93C001A53833B00102E8B /* VLCProgressView.m */; };
 		41B93C051A53835300102E8B /* VLCCloudServiceCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 41B93C031A53835300102E8B /* VLCCloudServiceCell.m */; };
@@ -815,6 +817,7 @@
 		419A2C651F37A4B70069D224 /* VLCStringsForLocalization.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = VLCStringsForLocalization.m; sourceTree = "<group>"; };
 		419D7F041F54176900AF69A2 /* VLCTimeNavigationTitleView.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = VLCTimeNavigationTitleView.xib; path = Resources/VLCTimeNavigationTitleView.xib; sourceTree = SOURCE_ROOT; };
 		41A7FE5E2008C9BE009E0820 /* VLCTabbarController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = VLCTabbarController.swift; sourceTree = "<group>"; };
+		41A9D81320098B9B00FCF6A5 /* UINavigationController+VLC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UINavigationController+VLC.swift"; sourceTree = "<group>"; };
 		41B0BC861F73ED7D0063BA26 /* VLC for iOSUITests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = "VLC for iOSUITests.xctest"; sourceTree = BUILT_PRODUCTS_DIR; };
 		41B0BC8A1F73ED7D0063BA26 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		41B0BC911F73EF1B0063BA26 /* VLC_for_IOSTestMenu.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = VLC_for_IOSTestMenu.m; sourceTree = "<group>"; };
@@ -2528,6 +2531,7 @@
 				7DEBF37D1C076ECE007A4043 /* NSString+Locale.h */,
 				7DEBF37E1C076EE8007A4043 /* NSString+Locale.m */,
 				416DEFF51FEEA76A00F4FC59 /* LayoutAnchorContainer.swift */,
+				41A9D81320098B9B00FCF6A5 /* UINavigationController+VLC.swift */,
 			);
 			name = Extensions;
 			sourceTree = "<group>";
@@ -4037,6 +4041,7 @@
 				4171D35018A2C19000A16EF9 /* VLCFolderCollectionViewFlowLayout.m in Sources */,
 				DD870E951CEF78D800BBD4FE /* VLCNetworkLoginDataSourceLogin.m in Sources */,
 				7D398DC11CC3E709002C999A /* VLCLocalNetworkServiceBrowserBonjour.m in Sources */,
+				41A9D81420098B9B00FCF6A5 /* UINavigationController+VLC.swift in Sources */,
 				7D30F3CA183AB27A00FFC021 /* VLCDownloadViewController.m in Sources */,
 				DDEAECC61BDEC79D00756C83 /* VLCLocalNetworkServiceBrowserSAP.m in Sources */,
 				DD3EFF491BDEBCE500B68579 /* VLCLocalNetworkServiceBrowserPlex.m in Sources */,

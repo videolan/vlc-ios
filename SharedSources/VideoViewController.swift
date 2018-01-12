@@ -45,7 +45,6 @@ public class VLCVideoViewController: UICollectionViewController, UICollectionVie
     override public func viewDidLoad() {
 
         setupCollectionView()
-        setupNavigationbar()
         setupSearchController()
 
         _ = (MLMediaLibrary.sharedMediaLibrary() as AnyObject).perform(#selector(MLMediaLibrary.libraryDidAppear))
@@ -66,14 +65,6 @@ public class VLCVideoViewController: UICollectionViewController, UICollectionVie
         if #available(iOS 11.0, *) {
             collectionView?.dragDelegate = dragAndDropManager
             collectionView?.dropDelegate = dragAndDropManager
-        }
-    }
-
-    func setupNavigationbar() {
-        if #available(iOS 11.0, *) {
-            navigationController?.navigationBar.prefersLargeTitles = true
-            let attributes = [NSAttributedStringKey.foregroundColor : UIColor.white]
-            navigationController?.navigationBar.largeTitleTextAttributes = attributes
         }
     }
 

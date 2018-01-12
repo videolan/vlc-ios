@@ -11,7 +11,6 @@
  *****************************************************************************/
 @interface UIBarButtonItem (ThemedButtons)
 + (UIBarButtonItem *)themedBackButtonWithTarget:(id)target andSelector:(SEL)selector;
-+ (UIBarButtonItem *)themedRevealMenuButtonWithTarget:(id)target andSelector:(SEL)selector;
 + (UIBarButtonItem *)themedDarkToolbarButtonWithTitle: (NSString*) title target:(id)target andSelector:(SEL)selector;
 + (UIBarButtonItem *)themedPlayAllButtonWithTarget:(id)target andSelector:(SEL)selector;
 @end

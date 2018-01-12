@@ -75,7 +75,6 @@ typedef NS_ENUM(NSUInteger, VLCDownloadScheme) {
     self.urlField.attributedPlaceholder = coloredAttributedPlaceholder;
 
     [self.downloadButton setTitle:NSLocalizedString(@"BUTTON_DOWNLOAD", nil) forState:UIControlStateNormal];
-    self.navigationItem.leftBarButtonItem = [UIBarButtonItem themedRevealMenuButtonWithTarget:self andSelector:@selector(goBack:)];
     self.whatToDownloadHelpLabel.text = [NSString stringWithFormat:NSLocalizedString(@"DOWNLOAD_FROM_HTTP_HELP", nil), [[UIDevice currentDevice] model]];
     self.urlField.delegate = self;
     self.urlField.keyboardType = UIKeyboardTypeURL;
@@ -99,6 +98,11 @@ typedef NS_ENUM(NSUInteger, VLCDownloadScheme) {
     [super viewWillAppear:animated];
 }
 
+- (void)viewWillDisappear:(BOOL)animated
+{
+    [self.view endEditing:YES];
+}
+
 #pragma mark - UI interaction
 
 - (BOOL)shouldAutorotate
@@ -107,12 +111,6 @@ typedef NS_ENUM(NSUInteger, VLCDownloadScheme) {
     if (UI_USER_INTERFACE_IDIOM() == UIUserInterfaceIdiomPhone && toInterfaceOrientation == UIInterfaceOrientationPortraitUpsideDown)
         return NO;
     return YES;
-}
-
-- (IBAction)goBack:(id)sender
-{
-    [self.view endEditing:YES];
-    [[VLCSidebarController sharedInstance] toggleSidebar];
 }
 
 - (IBAction)downloadAction:(id)sender

@@ -84,13 +84,22 @@ class VLCTabbarController:UITabBarController
         //About
         let aboutVC = VLCAboutViewController()
         aboutVC.title = NSLocalizedString("ABOUT_APP",comment: "")
+
         aboutVC.tabBarItem = UITabBarItem(
             title: NSLocalizedString("ABOUT_APP",comment: ""),
-            image: UIImage(named: "menuCone"),
-            selectedImage: UIImage(named: "menuCone"))
+            image: coneIcon(),
+            selectedImage: coneIcon())
 
         let controllers = [audioVC, serverVC, videoVC, settingsVC, cloudVC, downloadVC, streamVC, aboutVC]
         self.viewControllers = controllers.map { UINavigationController(rootViewController: $0)}
+    }
+
+    func coneIcon() -> UIImage? {
+        let calendar = NSCalendar(calendarIdentifier: .gregorian)
+        if let dayOfYear = calendar?.ordinality(of: .day, in: .year, for: Date()) {
+            return dayOfYear >= 354 ? UIImage(named: "vlc-xmas") : UIImage(named: "menuCone")
+        }
+        return nil
     }
 
 }

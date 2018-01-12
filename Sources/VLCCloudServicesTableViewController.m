@@ -39,7 +39,6 @@
     [super viewDidLoad];
 
     [self.tableView registerNib:[UINib nibWithNibName:@"VLCCloudServiceCell" bundle:nil] forCellReuseIdentifier:@"CloudServiceCell"];
-    self.navigationItem.leftBarButtonItem = [UIBarButtonItem themedRevealMenuButtonWithTarget:self andSelector:@selector(goBack)];
     self.tableView.separatorColor = [UIColor VLCDarkBackgroundColor];
     self.tableView.backgroundColor = [UIColor VLCDarkBackgroundColor];
 
@@ -56,12 +55,6 @@
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(authenticationSessionsChanged:) name:VLCOneDriveControllerSessionUpdated object:nil];
     [self.tableView reloadData];
     [super viewWillAppear:animated];
-}
-
-- (void)goBack
-{
-    [[NSNotificationCenter defaultCenter] removeObserver:self];
-    [[VLCSidebarController sharedInstance] toggleSidebar];
 }
 
 - (void)authenticationSessionsChanged:(NSNotification *)notification

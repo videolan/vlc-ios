@@ -41,8 +41,6 @@
 {
     VLCLocalServerDiscoveryController *_discoveryController;
 
-    UIBarButtonItem *_backToMenuButton;
-
     UIRefreshControl *_refreshControl;
     UIActivityIndicatorView *_activityIndicator;
 }
@@ -92,9 +90,6 @@
     _discoveryController = [[VLCLocalServerDiscoveryController alloc] initWithServiceBrowserClasses:browserClasses];
     _discoveryController.delegate = self;
 
-    _backToMenuButton = [UIBarButtonItem themedRevealMenuButtonWithTarget:self andSelector:@selector(goBack:)];
-    self.navigationItem.leftBarButtonItem = _backToMenuButton;
-
     self.tableView.rowHeight = [VLCNetworkListCell heightOfCell];
     self.tableView.separatorColor = [UIColor VLCDarkBackgroundColor];
     self.view.backgroundColor = [UIColor VLCDarkBackgroundColor];
@@ -118,12 +113,6 @@
 {
     [super viewWillAppear:animated];
     [_discoveryController startDiscovery];
-}
-
-- (IBAction)goBack:(id)sender
-{
-    [_discoveryController stopDiscovery];
-    [[VLCSidebarController sharedInstance] toggleSidebar];
 }
 
 - (BOOL)shouldAutorotate

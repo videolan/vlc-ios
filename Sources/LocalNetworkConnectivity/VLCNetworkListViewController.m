@@ -92,8 +92,7 @@ NSString *VLCNetworkListCellIdentifier = @"VLCNetworkListCellIdentifier";
     }
     self.definesPresentationContext = YES;
 
-    self.navigationItem.rightBarButtonItems = @[[UIBarButtonItem themedRevealMenuButtonWithTarget:self andSelector:@selector(menuButtonAction:)],
-                                                [UIBarButtonItem themedPlayAllButtonWithTarget:self andSelector:@selector(playAllAction:)]];
+    self.navigationItem.rightBarButtonItems = @[[UIBarButtonItem themedPlayAllButtonWithTarget:self andSelector:@selector(playAllAction:)]];
 
     _searchData = [[NSMutableArray alloc] init];
     [_searchData removeAllObjects];
@@ -118,6 +117,8 @@ NSString *VLCNetworkListCellIdentifier = @"VLCNetworkListCellIdentifier";
 - (void)viewWillDisappear:(BOOL)animated
 {
     [super viewWillDisappear:animated];
+    if (self.isEditing)
+        [self setEditing:NO animated:YES];
 }
 
 - (BOOL)shouldAutorotate
@@ -126,14 +127,6 @@ NSString *VLCNetworkListCellIdentifier = @"VLCNetworkListCellIdentifier";
     if (UI_USER_INTERFACE_IDIOM() == UIUserInterfaceIdiomPhone && toInterfaceOrientation == UIInterfaceOrientationPortraitUpsideDown)
         return NO;
     return YES;
-}
-
-- (IBAction)menuButtonAction:(id)sender
-{
-    [[VLCSidebarController sharedInstance] toggleSidebar];
-
-    if (self.isEditing)
-        [self setEditing:NO animated:YES];
 }
 
 - (IBAction)playAllAction:(id)sender

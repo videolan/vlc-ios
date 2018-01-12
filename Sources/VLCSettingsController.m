@@ -36,7 +36,6 @@
 
 - (void)viewDidLoad
 {
-    self.navigationItem.leftBarButtonItem = [UIBarButtonItem themedRevealMenuButtonWithTarget:self andSelector:@selector(dismiss:)];
     self.modalPresentationStyle = UIModalPresentationFormSheet;
     self.delegate = self;
     self.showDoneButton = NO;

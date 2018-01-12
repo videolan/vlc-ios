@@ -191,7 +191,6 @@ static NSString *kUsingTableViewToShowData = @"UsingTableViewToShowData";
 {
     [super viewDidLoad];
     self.title = NSLocalizedString(@"LIBRARY_ALL_FILES", nil);
-    _menuButton = [UIBarButtonItem themedRevealMenuButtonWithTarget:self andSelector:@selector(leftButtonAction:)];
     self.navigationItem.leftBarButtonItem = _menuButton;
 
     self.editButtonItem.title = NSLocalizedString(@"BUTTON_EDIT", nil);
@@ -1096,8 +1095,6 @@ static NSString *kUsingTableViewToShowData = @"UsingTableViewToShowData";
 
 - (IBAction)leftButtonAction:(id)sender
 {
-    [[VLCSidebarController sharedInstance] toggleSidebar];
-
     if (self.isEditing)
         [self setEditing:NO animated:YES];
 }

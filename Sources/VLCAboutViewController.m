@@ -49,7 +49,6 @@
     contributeButton.tintColor = [UIColor whiteColor];
 
     self.navigationItem.rightBarButtonItem = contributeButton;
-    self.navigationItem.leftBarButtonItem = [UIBarButtonItem themedRevealMenuButtonWithTarget:self andSelector:@selector(goBack:)];
 
     NSBundle *mainBundle = [NSBundle mainBundle];
     NSMutableString *htmlContent = [NSMutableString stringWithContentsOfFile:[[NSBundle mainBundle] pathForResource:@"About Contents" ofType:@"html"] encoding:NSUTF8StringEncoding error:nil];
@@ -65,11 +64,6 @@
     if (UI_USER_INTERFACE_IDIOM() == UIUserInterfaceIdiomPhone && toInterfaceOrientation == UIInterfaceOrientationPortraitUpsideDown)
         return NO;
     return YES;
-}
-
-- (IBAction)goBack:(id)sender
-{
-    [[VLCSidebarController sharedInstance] toggleSidebar];
 }
 
 - (BOOL)webView:(UIWebView *)webView shouldStartLoadWithRequest:(NSURLRequest *)request navigationType:(UIWebViewNavigationType)navigationType
