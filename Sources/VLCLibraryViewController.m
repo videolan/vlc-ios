@@ -571,8 +571,9 @@ static NSString *kUsingTableViewToShowData = @"UsingTableViewToShowData";
 
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
 {
-    if ([(VLCPlaylistTableViewCell *)[tableView cellForRowAtIndexPath:indexPath] isExpanded]) {
-        [(VLCPlaylistTableViewCell *)[tableView cellForRowAtIndexPath:indexPath] collapsWithAnimation:YES];
+    VLCPlaylistTableViewCell *playlistTableViewCell = (VLCPlaylistTableViewCell *)[tableView cellForRowAtIndexPath:indexPath];
+    if ([playlistTableViewCell isExpanded]) {
+        [playlistTableViewCell collapsWithAnimation:YES];
         return;
     }
 
@@ -594,10 +595,8 @@ static NSString *kUsingTableViewToShowData = @"UsingTableViewToShowData";
     }
 
     [tableView deselectRowAtIndexPath:indexPath animated:YES];
-    NSManagedObject *selectedObject = [_mediaDataSource objectAtIndex:indexPath.row];
 
-    if (selectedObject != nil)
-        [self openMediaObject:selectedObject];
+    [self openMediaObject:playlistTableViewCell.mediaObject];
 }
 
 #pragma mark - Gesture Action
