@@ -99,6 +99,7 @@
 "ERROR_NUMBER" = "Error %i occured";
 "DOWNLOAD_FAILED" = "Download failed";
 "FILE_NOT_SUPPORTED" = "File format not supported";
+"FILE_NOT_SUPPORTED_LONG" = "The file format used by %@ is not supported by this version of VLC for iOS.";
 "SCHEME_NOT_SUPPORTED" = "Address scheme not supported";
 "SCHEME_NOT_SUPPORTED_LONG" = "The address scheme (%@) is not supported. Please use an address starting with HTTP, HTTPS or FTP.";
 "LIBRARY_ALL_FILES" = "All Files";

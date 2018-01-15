@@ -117,20 +117,31 @@
 {
     if ([self.urlField.text length] > 0) {
         NSURL *URLtoSave = [NSURL URLWithString:self.urlField.text];
-        if (([URLtoSave.scheme isEqualToString:@"http"] || [URLtoSave.scheme isEqualToString:@"https"] || [URLtoSave.scheme isEqualToString:@"ftp"])) {
-            [_currentDownloads addObject:URLtoSave];
-            [_currentDownloadFilename addObject:@""];
-            self.urlField.text = @"";
-            [self.downloadsTable reloadData];
-            [self _triggerNextDownload];
-        } else {
+        if (![URLtoSave.lastPathComponent isSupportedFormat] && ![URLtoSave.lastPathComponent.pathExtension isEqualToString:@""]) {
+            VLCAlertView *alert = [[VLCAlertView alloc] initWithTitle:NSLocalizedString(@"FILE_NOT_SUPPORTED", nil)
+                                                              message:[NSString stringWithFormat:NSLocalizedString(@"FILE_NOT_SUPPORTED_LONG", nil), URLtoSave.lastPathComponent]
+                                                             delegate:self
+                                                    cancelButtonTitle:NSLocalizedString(@"BUTTON_CANCEL", nil)
+                                                    otherButtonTitles:nil];
+            [alert show];
+            return;
+        }
+        if (![URLtoSave.scheme isEqualToString:@"http"] & ![URLtoSave.scheme isEqualToString:@"https"] && ![URLtoSave.scheme isEqualToString:@"ftp"]) {
             VLCAlertView *alert = [[VLCAlertView alloc] initWithTitle:NSLocalizedString(@"SCHEME_NOT_SUPPORTED", nil)
                                                               message:[NSString stringWithFormat:NSLocalizedString(@"SCHEME_NOT_SUPPORTED_LONG", nil), URLtoSave.scheme]
                                                              delegate:self
                                                     cancelButtonTitle:NSLocalizedString(@"BUTTON_CANCEL", nil)
                                                     otherButtonTitles:nil];
             [alert show];
+            return;
         }
+
+        [_currentDownloads addObject:URLtoSave];
+        [_currentDownloadFilename addObject:@""];
+        self.urlField.text = @"";
+        [self.downloadsTable reloadData];
+        [self _triggerNextDownload];
+
     }
 }
 
