@@ -105,18 +105,28 @@
     if (_statusCode == 200) {
         _expectedDownloadSize = [response expectedContentLength];
         APLog(@"expected download size: %lli", _expectedDownloadSize);
-        if (_expectedDownloadSize  < [[UIDevice currentDevice] VLCFreeDiskSpace].longLongValue)
-            [self.delegate downloadStarted];
-        else {
+        if (![[response suggestedFilename] isSupportedFormat]) { //handle unsupported format
+            VLCAlertView *alert = [[VLCAlertView alloc] initWithTitle:NSLocalizedString(@"FILE_NOT_SUPPORTED", nil)
+                                                              message:[NSString stringWithFormat:NSLocalizedString(@"FILE_NOT_SUPPORTED_LONG", nil), [response suggestedFilename]]
+                                                    cancelButtonTitle:NSLocalizedString(@"BUTTON_OK", nil)
+                                                    otherButtonTitles:nil];
+            [alert show];
             [_urlConnection cancel];
             [self _downloadEnded];
+            return;
+        }
+        if (_expectedDownloadSize  > [[UIDevice currentDevice] VLCFreeDiskSpace].longLongValue) { //handle too big a download
             VLCAlertView *alert = [[VLCAlertView alloc] initWithTitle:NSLocalizedString(@"DISK_FULL", nil)
                                                              message:[NSString stringWithFormat:NSLocalizedString(@"DISK_FULL_FORMAT", nil), _fileName, [[UIDevice currentDevice] model]]
                                                              delegate:self
                                                     cancelButtonTitle:NSLocalizedString(@"BUTTON_OK", nil)
                                                     otherButtonTitles:nil];
             [alert show];
+            [_urlConnection cancel];
+            [self _downloadEnded];
+            return;
         }
+        [self.delegate downloadStarted];
     } else {
         APLog(@"unhandled status code %lu", (unsigned long)_statusCode);
         if ([self.delegate respondsToSelector:@selector(downloadFailedWithErrorDescription:)])
