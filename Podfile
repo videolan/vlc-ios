@@ -61,7 +61,7 @@ pod 'VLC-WhiteRaccoon'
 pod 'VLC-LiveSDK', '5.7.0x'
 pod 'ObjectiveDropboxOfficial', :git => 'git://github.com/carolanitz/dropbox-sdk-obj-c.git' #update ios platform version
 pod 'HockeySDK-tvOS', '~>5.0.0'
-pod 'TVVLCKit-unstable', '3.0.0a49'
+pod 'TVVLCKit-unstable', '3.0.0a51'
 
 end
 
