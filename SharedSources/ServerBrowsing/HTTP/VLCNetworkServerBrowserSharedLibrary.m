@@ -91,7 +91,7 @@
         _duration = dictionary[@"duration"];
         NSString *subtitleURLString = dictionary[@"pathSubtitle"];
         if ([subtitleURLString isEqualToString:@"(null)"]) subtitleURLString = nil;
-        subtitleURLString = [subtitleURLString stringByAddingPercentEscapesUsingEncoding:NSUTF8StringEncoding];
+        subtitleURLString = [subtitleURLString stringByAddingPercentEncodingWithAllowedCharacters:NSCharacterSet.URLHostAllowedCharacterSet];
         _subtitleURL = subtitleURLString.length ? [NSURL URLWithString:subtitleURLString] : nil;
         _URL = [NSURL URLWithString:dictionary[@"pathfile"]];
         _container = NO;
