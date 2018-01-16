@@ -53,6 +53,11 @@ NSString *const VLCPasscode = @"org.videolan.vlc-ios.passcode";
     return self;
 }
 
+- (void)dealloc
+{
+    [[NSNotificationCenter defaultCenter] removeObserver:self];
+}
+
 - (void)appInForeground:(NSNotification *)notification
 {
     /* our touch ID session is killed by the OS if the app moves to background, so re-init */
@@ -60,7 +65,9 @@ NSString *const VLCPasscode = @"org.videolan.vlc-ios.passcode";
     if ([rootViewController.presentedViewController isKindOfClass:[UINavigationController class]]){
         UINavigationController *navCon = (UINavigationController *)rootViewController.presentedViewController;
         if ([navCon.topViewController isKindOfClass:[PAPasscodeViewController class]] && [self touchIDEnabled]){
-            [self _touchIDQuery];
+            if (@available(iOS 8_0,*)) {
+                [self _touchIDQuery];
+            }
         }
     }
 }
@@ -112,8 +119,10 @@ NSString *const VLCPasscode = @"org.videolan.vlc-ios.passcode";
     UINavigationController *navCon = [[UINavigationController alloc] initWithRootViewController:_passcodeLockController];
     navCon.modalPresentationStyle = UIModalPresentationFullScreen;
     [rootViewController presentViewController:navCon animated:YES completion:^{
-        if ([[NSUserDefaults standardUserDefaults] boolForKey:kVLCSettingPasscodeAllowTouchID]) {
-            [self _touchIDQuery];
+        if (@available(iOS 8_0,*)) {
+            if ([self touchIDEnabled]) {
+                [self _touchIDQuery];
+            }
         }
     }];
 }
