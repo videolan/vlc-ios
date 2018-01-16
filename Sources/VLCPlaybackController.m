@@ -295,9 +295,9 @@ typedef NS_ENUM(NSUInteger, VLCAspectRatio) {
     [_shuffleStack removeAllObjects];
 
     if (_errorCallback && _mediaPlayer.state == VLCMediaPlayerStateError &&  !_sessionWillRestart)
-        [[UIApplication sharedApplication] openURL:_errorCallback];
+        [[UIApplication sharedApplication] openURL:_errorCallback options:@{} completionHandler:nil];
     else if (_successCallback && !_sessionWillRestart)
-        [[UIApplication sharedApplication] openURL:_successCallback];
+        [[UIApplication sharedApplication] openURL:_successCallback options:@{} completionHandler:nil];
 
     [[self remoteControlService] unsubscribeFromRemoteCommands];
 
