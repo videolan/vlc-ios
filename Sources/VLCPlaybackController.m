@@ -311,6 +311,17 @@ typedef NS_ENUM(NSUInteger, VLCAspectRatio) {
 }
 
 #if TARGET_OS_IOS
+
+- (void)restoreAudioAndSubtitleTrack
+{
+    MLFile *item = [MLFile fileForURL:_mediaPlayer.media.url].firstObject;
+
+    if (item) {
+        _mediaPlayer.currentAudioTrackIndex = item.lastAudioTrack.intValue;
+        _mediaPlayer.currentVideoSubTitleIndex = item.lastSubtitleTrack.intValue;
+    }
+}
+
 - (void)_savePlaybackState
 {
     @try {
@@ -743,12 +754,9 @@ typedef NS_ENUM(NSUInteger, VLCAspectRatio) {
                 [_listPlayer.mediaList unlock];
         } break;
         case VLCMediaPlayerStateESAdded: {
-            MLFile *item = [MLFile fileForURL:_mediaPlayer.media.url].firstObject;
-
-            if (item) {
-                _mediaPlayer.currentAudioTrackIndex = item.lastAudioTrack.intValue;
-                _mediaPlayer.currentVideoSubTitleIndex = item.lastSubtitleTrack.intValue;
-            }
+#if TARGET_OS_IOS
+            [self restoreAudioAndSubtitleTrack];
+#endif
         } break;
         default:
             break;
