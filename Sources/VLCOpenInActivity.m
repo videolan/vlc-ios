@@ -156,26 +156,47 @@
 
 - (void)presentFileSelectionActionController
 {
-    UIAlertController *actionController = [UIAlertController alertControllerWithTitle:NSLocalizedString(@"SHARING_ACTION_SHEET_TITLE_CHOOSE_FILE", nil)
-                                                                              message:nil
-                                                                       preferredStyle:UIAlertControllerStyleActionSheet];
+    if (@available(iOS 8_0, *)){
+        UIAlertController *actionController = [UIAlertController alertControllerWithTitle:NSLocalizedString(@"SHARING_ACTION_SHEET_TITLE_CHOOSE_FILE", nil)
+                                                                                  message:nil
+                                                                           preferredStyle:UIAlertControllerStyleActionSheet];
 
 
-    for (NSURL *fileURL in _fileURLs) {
-        UIAlertAction *action = [UIAlertAction actionWithTitle:[fileURL lastPathComponent]
-                                                         style:UIAlertActionStyleDefault
-                                                       handler:^(UIAlertAction * _Nonnull action) {
-                                                           [self presentDocumentInteractionControllerWithFileURL:fileURL];
-                                                       }];
-        [actionController addAction:action];
+        for (NSURL *fileURL in _fileURLs) {
+            UIAlertAction *action = [UIAlertAction actionWithTitle:[fileURL lastPathComponent]
+                                                             style:UIAlertActionStyleDefault
+                                                           handler:^(UIAlertAction * _Nonnull action) {
+                                                               [self presentDocumentInteractionControllerWithFileURL:fileURL];
+                                                           }];
+            [actionController addAction:action];
+        }
+        UIAlertAction *cancelAction = [UIAlertAction actionWithTitle:NSLocalizedString(@"BUTTON_CANCEL", nil)
+                                                               style:UIAlertActionStyleCancel
+                                                             handler:^(UIAlertAction * _Nonnull action) {
+                                                                 [self activityDidFinish:NO];
+                                                             }];
+        [actionController addAction:cancelAction];
+        [self.presentingViewController presentViewController:actionController animated:YES completion:nil];
+
+    } else {
+        NSMutableArray *fileURLTitles = [NSMutableArray new];
+        for (NSURL *fileURL in _fileURLs) {
+            [fileURLTitles addObject:[fileURL lastPathComponent]];
+        }
+        VLCAlertView *alert = [[VLCAlertView alloc] initWithTitle:NSLocalizedString(@"SHARING_ACTION_SHEET_TITLE_CHOOSE_FILE", nil)
+                                                          message:nil
+                                                cancelButtonTitle:NSLocalizedString(@"BUTTON_CANCEL", nil)
+                                                otherButtonTitles:fileURLTitles];
+        alert.completion = ^(BOOL cancelled, NSInteger buttonIndex) {
+            if (cancelled) {
+                [self activityDidFinish:NO];
+            } else {
+                [self presentDocumentInteractionControllerWithFileURL:_fileURLs[buttonIndex-1]];
+            }
+        };
+        [alert show];
     }
-    UIAlertAction *cancelAction = [UIAlertAction actionWithTitle:NSLocalizedString(@"BUTTON_CANCEL", nil)
-                                                           style:UIAlertActionStyleCancel
-                                                         handler:^(UIAlertAction * _Nonnull action) {
-                                                             [self activityDidFinish:NO];
-                                                         }];
-    [actionController addAction:cancelAction];
-    [self.presentingViewController presentViewController:actionController animated:YES completion:nil];
+
 }
 
 @end

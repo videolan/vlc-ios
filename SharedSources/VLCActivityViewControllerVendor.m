@@ -35,9 +35,10 @@
                                             UIActivityTypePrint,
                                             UIActivityTypeAssignToContact,
                                             UIActivityTypeAddToReadingList,
-                                            UIActivityTypeOpenInIBooks
                                             ] mutableCopy];
-
+    if (@available(iOS 9_0, *)) {
+        [excludedActivities addObject:UIActivityTypeOpenInIBooks];
+    }
     if (@available(iOS 11_0, *)) {
         [excludedActivities addObject:UIActivityTypeMarkupAsPDF];
     }
