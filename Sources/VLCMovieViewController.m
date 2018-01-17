@@ -857,7 +857,7 @@ typedef NS_ENUM(NSInteger, VLCPanType) {
 
 - (IBAction)minimizePlayback:(id)sender
 {
-    [[UIApplication sharedApplication] sendAction:@selector(closeFullscreenPlayback) to:nil from:self forEvent:nil];
+    [[VLCPlayerDisplayController sharedInstance] closeFullscreenPlayback];
 }
 
 - (IBAction)positionSliderAction:(UISlider *)sender

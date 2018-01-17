@@ -303,7 +303,7 @@ static NSString *const VLCPlayerDisplayControllerDisplayModeKey = @"VLCPlayerDis
     if (@available(iOS 11.0, *)) {
         miniPlayerHeight += self.view.safeAreaInsets.bottom;
     }
-    const CGRect miniPlayerFrameIn =  CGRectMake(0., viewRect.size.height-miniPlayerHeight, viewRect.size.width, miniPlayerHeight);
+    const CGRect miniPlayerFrameIn =  CGRectMake(0., viewRect.size.height-miniPlayerHeight-self.view.layoutMargins.bottom, viewRect.size.width, miniPlayerHeight);
     const CGRect miniPlayerFrameOut = CGRectMake(0., viewRect.size.height, viewRect.size.width, miniPlayerHeight);
 
     BOOL needsShow = activePlaybackSession && !miniPlayerVisible;

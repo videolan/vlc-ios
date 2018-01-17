@@ -112,6 +112,13 @@ class VLCTabbarCooordinator: NSObject, VLCVideoControllerDelegate {
     }
 
     func videoViewControllerDidSelectMediaObject(VLCVideoViewController: VLCVideoViewController, mediaObject: NSManagedObject) {
+        //that should go into a Coordinator itself
+        let displayController = VLCPlayerDisplayController()
+        tabBarController.addChildViewController(displayController)
+        tabBarController.view.addSubview(displayController.view)
+        displayController.view.layoutMargins = UIEdgeInsets(top:0, left:0, bottom:tabBarController.tabBar.frame.size.height, right:0)
+        displayController.didMove(toParentViewController: tabBarController)
+        displayController.displayMode = .miniplayer
         let vpc = VLCPlaybackController.sharedInstance()
         vpc?.playMediaLibraryObject(mediaObject)
 

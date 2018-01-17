@@ -339,3 +339,6 @@
 /* New strings */
 "PROTOCOL_NOT_SELECTED" = "Protocol not selected";
 "Settings" = "Settings";
+
+/* New strings */
+"FILE_NOT_SUPPORTED_LONG" = "FILE_NOT_SUPPORTED_LONG";
