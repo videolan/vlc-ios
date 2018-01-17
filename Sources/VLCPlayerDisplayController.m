@@ -15,7 +15,6 @@
 #import "VLCMiniPlaybackView.h"
 #import "VLCPlaybackNavigationController.h"
 #import "VLCPlaybackController+MediaLibrary.h"
-#import "VLC_iOS-Swift.h"
 
 #if TARGET_OS_IOS
 #import "VLCMovieViewController.h"
@@ -359,11 +358,4 @@ static NSString *const VLCPlayerDisplayControllerDisplayModeKey = @"VLCPlayerDis
 #endif
 }
 
-- (void)videoViewControllerDidSelectMediaObjectWithVLCVideoViewController:(VLCVideoViewController *)VLCVideoViewController mediaObject:(NSManagedObject *)mediaObject
-{
-    VLCPlaybackController *vpc = [VLCPlaybackController sharedInstance];
-    [vpc playMediaLibraryObject:mediaObject];
-
-   // [self createSpotlightItem:mediaObject];
-}
 @end

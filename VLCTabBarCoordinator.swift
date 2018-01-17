@@ -16,7 +16,7 @@ protocol VLCTabbarCooordinatorDelegate {
 
 }
 
-class VLCTabbarCooordinator: NSObject {
+class VLCTabbarCooordinator: NSObject, VLCVideoControllerDelegate {
 
     private var childCoordinators: [NSObject] = []
     private var tabBarController:UITabBarController
@@ -33,7 +33,7 @@ class VLCTabbarCooordinator: NSObject {
     public func setupViewControllers() {
         let videoVC = VLCVideoViewController(collectionViewLayout: UICollectionViewFlowLayout())
         //this should probably not be the delegate
-        videoVC.delegate = VLCPlayerDisplayController.sharedInstance()
+        videoVC.delegate = self
         videoVC.title = NSLocalizedString("Video",comment: "")
         videoVC.tabBarItem = UITabBarItem(
             title: NSLocalizedString("Video",comment: ""),
@@ -43,7 +43,7 @@ class VLCTabbarCooordinator: NSObject {
         // Audio
         let audioVC = VLCVideoViewController(collectionViewLayout: UICollectionViewFlowLayout())
         //this should probably not be the delegate
-        audioVC.delegate = VLCPlayerDisplayController.sharedInstance()
+        audioVC.delegate = self
         audioVC.title = NSLocalizedString("Audio",comment: "")
         audioVC.tabBarItem = UITabBarItem(
             title: NSLocalizedString("Audio",comment: ""),
@@ -109,5 +109,12 @@ class VLCTabbarCooordinator: NSObject {
             return dayOfYear >= 354 ? UIImage(named: "vlc-xmas") : UIImage(named: "menuCone")
         }
         return nil
+    }
+
+    func videoViewControllerDidSelectMediaObject(VLCVideoViewController: VLCVideoViewController, mediaObject: NSManagedObject) {
+        let vpc = VLCPlaybackController.sharedInstance()
+        vpc?.playMediaLibraryObject(mediaObject)
+
+        // [self createSpotlightItem:mediaObject];
     }
 }
