@@ -1,5 +1,5 @@
 /*****************************************************************************
- * VLCTabbarController.swift
+ * VLCTabbarCooordinator.swift
  * VLC for iOS
  *****************************************************************************
  * Copyright (c) 2018 VideoLAN. All rights reserved.
@@ -10,18 +10,27 @@
  * Refer to the COPYING file of the official project for license.
  *****************************************************************************/
 
+import Foundation
 
-class VLCTabbarController:UITabBarController
-{
-    override func viewDidLoad() {
-        super.viewDidLoad()
+protocol VLCTabbarCooordinatorDelegate {
+
+}
+
+class VLCTabbarCooordinator: NSObject {
+
+    private var childCoordinators: [NSObject] = []
+    private var tabBarController:UITabBarController
+    var delegate:VLCTabbarCooordinatorDelegate?
+
+    public init(tabBarController: UITabBarController) {
+        self.tabBarController = tabBarController
+    }
+
+    public func start() {
         setupViewControllers()
     }
 
-    func setupViewControllers() {
-
-        //The title needs to be set on the VC here because otherwise it won't appear in the tabbar on first start
-        // video
+    public func setupViewControllers() {
         let videoVC = VLCVideoViewController(collectionViewLayout: UICollectionViewFlowLayout())
         //this should probably not be the delegate
         videoVC.delegate = VLCPlayerDisplayController.sharedInstance()
@@ -91,7 +100,7 @@ class VLCTabbarController:UITabBarController
             selectedImage: coneIcon())
 
         let controllers = [audioVC, serverVC, videoVC, settingsVC, cloudVC, downloadVC, streamVC, aboutVC]
-        self.viewControllers = controllers.map { UINavigationController(rootViewController: $0)}
+        tabBarController.viewControllers = controllers.map { UINavigationController(rootViewController: $0)}
     }
 
     func coneIcon() -> UIImage? {
@@ -101,5 +110,4 @@ class VLCTabbarController:UITabBarController
         }
         return nil
     }
-
 }

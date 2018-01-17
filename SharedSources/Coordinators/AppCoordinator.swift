@@ -8,29 +8,20 @@
 
 import Foundation
 
-@objc class AppCoordinator : NSObject, Coordinator {
-    let services: Services
-    var childCoordinators: [Coordinator] = []
+@objc class AppCoordinator : NSObject, VLCTabbarCooordinatorDelegate {
+    var childCoordinators: [NSObject] = []
 
-    var rootViewController: UIViewController {
-        return self.tabbarController
-    }
+    private var tabBarController:UITabBarController
 
-    /// Window to manage
-    let window: UIWindow
-
-    private lazy var tabbarController:VLCTabbarController = {
-        let tabBarController = VLCTabbarController()
-        return tabBarController
-    }()
-
-    @objc public init(window: UIWindow) {
-        self.services = Services()
-        self.window = window
+    @objc public init(tabBarController: UITabBarController) {
+        self.tabBarController = tabBarController
         super.init()
-        self.window.rootViewController = self.rootViewController
-        self.window.makeKeyAndVisible()
     }
+
     @objc public func start() {
+        let tabbarCoordinator = VLCTabbarCooordinator(tabBarController: self.tabBarController)
+        tabbarCoordinator.delegate = self
+        tabbarCoordinator.start()
+        childCoordinators.append(tabbarCoordinator)
     }
 }

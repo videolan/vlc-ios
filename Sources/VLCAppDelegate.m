@@ -47,6 +47,7 @@ NSString *const VLCDropboxSessionWasAuthorized = @"VLCDropboxSessionWasAuthorize
     VLCWatchCommunication *_watchCommunication;
     VLCKeychainCoordinator *_keychainCoordinator;
     AppCoordinator *appCoordinator;
+    UITabBarController *rootViewController;
 }
 
 @end
@@ -106,16 +107,16 @@ NSString *const VLCDropboxSessionWasAuthorized = @"VLCDropboxSessionWasAuthorize
     [[VLCHTTPUploaderController sharedInstance] cleanCache];
 
     self.window = [[UIWindow alloc] initWithFrame:[[UIScreen mainScreen] bounds]];
+    rootViewController = [UITabBarController new];
+    self.window.rootViewController = rootViewController;
+    [self.window makeKeyAndVisible];
     // enable crash preventer
     void (^setupBlock)() = ^{
         __weak typeof(self) weakSelf = self;
         void (^setupLibraryBlock)() = ^{
-            appCoordinator = [[AppCoordinator alloc] initWithWindow:weakSelf.window];
+            appCoordinator = [[AppCoordinator alloc] initWithTabBarController:rootViewController];
             [appCoordinator start];
         };
-        UINavigationController *navCon = [[UINavigationController alloc] initWithRootViewController:[[UIViewController alloc] init]];
-        self.window.rootViewController = navCon;
-        [self.window makeKeyAndVisible];
         [self validatePasscodeIfNeededWithCompletion:setupLibraryBlock];
 
         BOOL spotlightEnabled = ![VLCKeychainCoordinator passcodeLockEnabled];
