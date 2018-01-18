@@ -1,3 +1,16 @@
+tvOS 1.1.2:
+-----------
+· Fix a crash on start when there are two devices with the same name in the network
+
+iOS 2.8.8:
+----------
+· This version will not reboot your iPhone X when playing HEVC files
+· We stopped the madness of doubling files!
+· When passcode is enabled Touch Id won't pop up multiple times when you enter the background
+· SMB Servers will show up again and are accessible
+· Sharing your Media with other Services and saving to Camera Roll works again
+· And as always - Stability improvements and bug fixes
+
 iOS 2.8.7:
 ----------
 · Audio resumes after getting calls or playing content from other media apps again
