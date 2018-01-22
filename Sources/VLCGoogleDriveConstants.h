@@ -19,6 +19,3 @@
 #define kVLCGoogleRedirectURI @""
 #warning Google Drive app secret missing, login will fail
 #define kVLCGoogleDriveClientSecret @""
-//#define kVLCGoogleDriveAppKey @"a60fc6qj9zdg7bw"
-#warning Google Drive app private key missing, login will fail
-#define kVLCGoogleDrivePrivateKey @""

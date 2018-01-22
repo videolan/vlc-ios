@@ -40,8 +40,6 @@
 
 NSString *const VLCDropboxSessionWasAuthorized = @"VLCDropboxSessionWasAuthorized";
 
-#define BETA_DISTRIBUTION 1
-
 @interface VLCAppDelegate () <VLCMediaFileDiscovererDelegate>
 {
     BOOL _isRunningMigration;
