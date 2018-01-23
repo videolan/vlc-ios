@@ -10,6 +10,7 @@ import Foundation
 
 @objc public protocol VLCVideoControllerDelegate: class {
     func videoViewControllerDidSelectMediaObject(VLCVideoViewController: VLCVideoViewController, mediaObject:NSManagedObject)
+    func videoViewControllerDidSelectSort(VLCVideoViewController: VLCVideoViewController)
 }
 
 public class VLCVideoViewController: UICollectionViewController, UICollectionViewDelegateFlowLayout, UISearchResultsUpdating, UISearchControllerDelegate
@@ -46,7 +47,7 @@ public class VLCVideoViewController: UICollectionViewController, UICollectionVie
 
         setupCollectionView()
         setupSearchController()
-
+        setupNavigationBar()
         _ = (MLMediaLibrary.sharedMediaLibrary() as AnyObject).perform(#selector(MLMediaLibrary.libraryDidAppear))
         mediaDataSource.updateContents(forSelection: nil)
         DispatchQueue.main.asyncAfter(deadline: .now() + 2.0) {
@@ -59,7 +60,6 @@ public class VLCVideoViewController: UICollectionViewController, UICollectionVie
     func setupCollectionView(){
         let playlistnib = UINib(nibName: "VLCPlaylistCollectionViewCell", bundle:nil)
         collectionView?.register(playlistnib, forCellWithReuseIdentifier: VLCPlaylistCollectionViewCell.cellIdentifier())
-        collectionView?.register(PresentationOptionsView.self, forSupplementaryViewOfKind: UICollectionElementKindSectionHeader, withReuseIdentifier: PresentationOptionsView.reuseIdentifier)
         collectionView?.backgroundColor = .white
         collectionView?.alwaysBounceVertical = true
         if #available(iOS 11.0, *) {
@@ -88,6 +88,13 @@ public class VLCVideoViewController: UICollectionViewController, UICollectionVie
         }
     }
 
+    func setupNavigationBar() {
+        navigationItem.leftBarButtonItem = UIBarButtonItem(title: NSLocalizedString("Sort", comment: ""), style: .plain, target: self, action: #selector(sort))
+    }
+
+    @objc func sort() {
+        delegate?.videoViewControllerDidSelectSort(VLCVideoViewController: self)
+    }
     //MARK: - CollectionViewDelegate & DataSource
     override public func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
         return Int(mediaDataSource.numberOfFiles())
@@ -131,14 +138,6 @@ public class VLCVideoViewController: UICollectionViewController, UICollectionVie
         collectionView?.collectionViewLayout.invalidateLayout()
     }
 
-    public override func collectionView(_ collectionView: UICollectionView, viewForSupplementaryElementOfKind kind: String, at indexPath: IndexPath) -> UICollectionReusableView {
-        let presentationOptions = collectionView.dequeueReusableSupplementaryView(ofKind: UICollectionElementKindSectionHeader, withReuseIdentifier: PresentationOptionsView.reuseIdentifier, for: indexPath)
-        return presentationOptions
-
-    }
-    public func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, referenceSizeForHeaderInSection section: Int) -> CGSize {
-        return CGSize(width: view.bounds.size.width, height: 44.0)
-    }
     //MARK: - Search
     public func updateSearchResults(for searchController: UISearchController) {
         searchDataSource.shouldReloadTable(forSearch: searchController.searchBar.text, searchableFiles: mediaDataSource.allObjects())

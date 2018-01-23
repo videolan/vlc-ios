@@ -121,7 +121,8 @@ class VLCTabbarCooordinator: NSObject, VLCVideoControllerDelegate {
         displayController.displayMode = .miniplayer
         let vpc = VLCPlaybackController.sharedInstance()
         vpc?.playMediaLibraryObject(mediaObject)
+    }
 
-        // [self createSpotlightItem:mediaObject];
+    func videoViewControllerDidSelectSort(VLCVideoViewController: VLCVideoViewController) {
     }
 }
