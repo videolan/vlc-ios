@@ -126,10 +126,9 @@
 - (void)playAllAction:(id)sender
 {
     NSArray *items = self.serverBrowser.items;
-    NSInteger count = items.count;
+
     NSMutableArray *fileList = [[NSMutableArray alloc] init];
-    for (NSInteger x = count - 1; x > -1; x--) {
-        id<VLCNetworkServerBrowserItem> iter = items[x];
+    for (id<VLCNetworkServerBrowserItem> iter in items) {
         if (![iter isContainer]) {
             [fileList addObject:[iter media]];
         }
