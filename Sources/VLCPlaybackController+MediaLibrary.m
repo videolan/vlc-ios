@@ -122,7 +122,7 @@ Open a file in the libraryViewController without changing the playstate
 {
     VLCMediaList *list = [[VLCMediaList alloc] init];
     VLCMedia *media;
-    for (MLFile *file in files.reverseObjectEnumerator) {
+    for (MLFile *file in files) {
         media = [VLCMedia mediaWithURL:file.url];
         [media addOptions:self.mediaOptionsDictionary];
         [list addMedia:media];
