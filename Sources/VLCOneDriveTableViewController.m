@@ -118,27 +118,23 @@
             [medialist addMedia: [VLCMedia mediaWithURL:url]];
             [[VLCPlaybackController sharedInstance] playMediaList:medialist firstIndex:0 subtitlesFilePath:subtitlePath];
         } else {
-            NSUInteger count = folderItems.count;
             NSMutableArray *mediaItems = [[NSMutableArray alloc] init];
-            NSInteger firstIndex = 0;
             NSInteger posIndex = 0;
-            for (NSInteger x = count - 1; x > -1; x--) {
-                VLCOneDriveObject *iter = folderItems[x];
-                if ((iter.isFolder) || [iter.name isSupportedSubtitleFormat])
+            for (VLCOneDriveObject *item in folderItems) {
+                if ((item.isFolder) || [item.name isSupportedSubtitleFormat])
                     continue;
-                NSURL *url = [NSURL URLWithString:iter.downloadPath];
+                NSURL *url = [NSURL URLWithString:item.downloadPath];
                 if (url) {
                     [mediaItems addObject:[VLCMedia mediaWithURL:url]];
 
-                    if (iter == selectedObject) {
-                        posIndex = mediaItems.count;
+                    if (item == selectedObject) {
+                        posIndex = mediaItems.count -1;
                     }
                 }
             }
 
             if (mediaItems.count > 0) {
-                firstIndex = mediaItems.count - posIndex;
-                [vpc playMediaList:[[VLCMediaList alloc] initWithArray:mediaItems] firstIndex:firstIndex subtitlesFilePath:nil];
+                [vpc playMediaList:[[VLCMediaList alloc] initWithArray:mediaItems] firstIndex:posIndex subtitlesFilePath:nil];
             }
         }
     }
@@ -200,14 +196,12 @@
 {
     VLCPlaybackController *vpc = [VLCPlaybackController sharedInstance];
     NSArray *folderItems = _oneDriveController.currentFolder.items;
-    NSUInteger count = folderItems.count;
     NSMutableArray *mediaItems = [[NSMutableArray alloc] init];
-    for (NSInteger x = count - 1; x > -1; x--) {
-        VLCOneDriveObject *iter = folderItems[x];
-        if ((iter.isFolder) || [iter.name isSupportedSubtitleFormat])
+    for (VLCOneDriveObject *item in folderItems) {
+        if ((item.isFolder) || [item.name isSupportedSubtitleFormat])
             continue;
 
-        NSURL *url = [NSURL URLWithString:iter.downloadPath];
+        NSURL *url = [NSURL URLWithString:item.downloadPath];
         if (url) {
             [mediaItems addObject:[VLCMedia mediaWithURL:url]];
         }
