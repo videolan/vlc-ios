@@ -67,9 +67,8 @@
 {
     VLCMediaList *mediaList = [[VLCMediaList alloc] init];
     @synchronized(_items) {
-        NSUInteger count = _items.count;
-        for (NSInteger i = count - 1; i >= 0; i--) {
-            VLCMedia *media = [_items[i] media];
+        for (id<VLCNetworkServerBrowserItem> browseritem in _items) {
+            VLCMedia *media = [browseritem media];
             if (media)
                 [mediaList addMedia:media];
         }

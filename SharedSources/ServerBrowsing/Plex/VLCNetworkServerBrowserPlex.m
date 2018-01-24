@@ -125,10 +125,9 @@
 {
     NSMutableArray *mediaArray;
     @synchronized(_items) {
-        NSUInteger count = _items.count;
-        mediaArray = [NSMutableArray arrayWithCapacity:count];
-        for (NSInteger i = count - 1; i >= 0; i--) {
-            VLCMedia *media = [_items[i] media];
+        mediaArray = [NSMutableArray new];
+        for (id<VLCNetworkServerBrowserItem> browseritem in _items) {
+            VLCMedia *media = [browseritem media];
             if (media)
                 [mediaArray addObject:media];
         }
