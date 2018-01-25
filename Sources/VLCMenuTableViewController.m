@@ -40,7 +40,7 @@
 static NSString *CellIdentifier = @"VLCMenuCell";
 static NSString *WiFiCellIdentifier = @"VLCMenuWiFiCell";
 
-@interface VLCMenuTableViewController () <UITableViewDataSource, UITableViewDelegate, VLCVideoControllerDelegate>
+@interface VLCMenuTableViewController () <UITableViewDataSource, UITableViewDelegate, VLCMediaViewControllerDelegate>
 {
     NSArray *_sectionHeaderTexts;
     NSArray *_menuItemsSectionOne;
@@ -51,7 +51,7 @@ static NSString *WiFiCellIdentifier = @"VLCMenuWiFiCell";
     NSLayoutConstraint *_heightConstraint;
     NSLayoutConstraint *_leftTableConstraint;
     VLCSettingsController *_settingsController;
-    VLCVideoViewController *_videoViewController;
+    VLCMediaViewController *_videoViewController;
 }
 
 @end
@@ -232,10 +232,10 @@ static NSString *WiFiCellIdentifier = @"VLCMenuWiFiCell";
     return _settingsController;
 }
 
-- (VLCVideoViewController *)videoViewController
+- (VLCMediaViewController *)videoViewController
 {
     if (!_videoViewController) {
-        _videoViewController = [[VLCVideoViewController alloc] initWithCollectionViewLayout:[UICollectionViewFlowLayout new]];
+        _videoViewController = [[VLCMediaViewController alloc] initWithCollectionViewLayout:[UICollectionViewFlowLayout new]];
     }
     return _videoViewController;
 }
@@ -298,14 +298,14 @@ static NSString *WiFiCellIdentifier = @"VLCMenuWiFiCell";
     if (motion == UIEventSubtypeMotionShake)
         [[VLCBugreporter sharedInstance] handleBugreportRequest];
 }
-#pragma mark - VLCVideoControllerDelegate
+#pragma mark - VLCMediaViewControllerDelegate
 
-- (void)videoViewControllerDidSelectMediaObjectWithVLCVideoViewController:(VLCVideoViewController *)VLCVideoViewController mediaObject:(NSManagedObject *)mediaObject
+- (void)videoViewControllerDidSelectMediaObjectWithVLCMediaViewController:(VLCMediaViewController *)VLCMediaViewController mediaObject:(NSManagedObject *)mediaObject
 {
     
 }
 
-- (void)videoViewControllerDidSelectBackbuttonWithVLCVideoViewController:(VLCVideoViewController *)VLCVideoViewController {
+- (void)videoViewControllerDidSelectBackbuttonWithVLCMediaViewController:(VLCMediaViewController *)VLCMediaViewController {
     [[VLCSidebarController sharedInstance] toggleSidebar];
 }
 @end

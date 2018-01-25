@@ -16,7 +16,7 @@ protocol VLCTabbarCooordinatorDelegate {
 
 }
 
-class VLCTabbarCooordinator: NSObject, VLCVideoControllerDelegate {
+class VLCTabbarCooordinator: NSObject, VLCMediaViewControllerDelegate {
 
     private var childCoordinators: [NSObject] = []
     private var tabBarController:UITabBarController
@@ -31,7 +31,7 @@ class VLCTabbarCooordinator: NSObject, VLCVideoControllerDelegate {
     }
 
     public func setupViewControllers() {
-        let videoVC = VLCVideoViewController(collectionViewLayout: UICollectionViewFlowLayout())
+        let videoVC = VLCMediaViewController(collectionViewLayout: UICollectionViewFlowLayout())
         //this should probably not be the delegate
         videoVC.delegate = self
         videoVC.title = NSLocalizedString("Video",comment: "")
@@ -41,7 +41,7 @@ class VLCTabbarCooordinator: NSObject, VLCVideoControllerDelegate {
             selectedImage: UIImage(named: "TVShowsIcon"))
 
         // Audio
-        let audioVC = VLCVideoViewController(collectionViewLayout: UICollectionViewFlowLayout())
+        let audioVC = VLCMediaViewController(collectionViewLayout: UICollectionViewFlowLayout())
         //this should probably not be the delegate
         audioVC.delegate = self
         audioVC.title = NSLocalizedString("Audio",comment: "")
@@ -111,7 +111,16 @@ class VLCTabbarCooordinator: NSObject, VLCVideoControllerDelegate {
         return nil
     }
 
-    func videoViewControllerDidSelectMediaObject(VLCVideoViewController: VLCVideoViewController, mediaObject: NSManagedObject) {
+    //MARK - VLCMediaViewControllerDelegate
+    func videoViewControllerDidSelectMediaObject(VLCMediaViewController: VLCMediaViewController, mediaObject: NSManagedObject) {
+        playMedia(media:mediaObject)
+    }
+
+    func videoViewControllerDidSelectSort(VLCMediaViewController: VLCMediaViewController) {
+        showSortOptions()
+    }
+
+    func playMedia(media: NSManagedObject) {
         //that should go into a Coordinator itself
         let displayController = VLCPlayerDisplayController()
         tabBarController.addChildViewController(displayController)
@@ -120,11 +129,7 @@ class VLCTabbarCooordinator: NSObject, VLCVideoControllerDelegate {
         displayController.didMove(toParentViewController: tabBarController)
         displayController.displayMode = .miniplayer
         let vpc = VLCPlaybackController.sharedInstance()
-        vpc?.playMediaLibraryObject(mediaObject)
-    }
-
-    func videoViewControllerDidSelectSort(VLCVideoViewController: VLCVideoViewController) {
-        showSortOptions()
+        vpc?.playMediaLibraryObject(media)
     }
 
     func showSortOptions() {

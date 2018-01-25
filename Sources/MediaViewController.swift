@@ -8,18 +8,18 @@
 
 import Foundation
 
-@objc public protocol VLCVideoControllerDelegate: class {
-    func videoViewControllerDidSelectMediaObject(VLCVideoViewController: VLCVideoViewController, mediaObject:NSManagedObject)
-    func videoViewControllerDidSelectSort(VLCVideoViewController: VLCVideoViewController)
+@objc public protocol VLCMediaViewControllerDelegate: class {
+    func videoViewControllerDidSelectMediaObject(VLCMediaViewController: VLCMediaViewController, mediaObject:NSManagedObject)
+    func videoViewControllerDidSelectSort(VLCMediaViewController: VLCMediaViewController)
 }
 
-public class VLCVideoViewController: UICollectionViewController, UICollectionViewDelegateFlowLayout, UISearchResultsUpdating, UISearchControllerDelegate
+public class VLCMediaViewController: UICollectionViewController, UICollectionViewDelegateFlowLayout, UISearchResultsUpdating, UISearchControllerDelegate
 {
     private var mediaDataSource: VLCMediaDataSource
     private let cellPadding:CGFloat = 5.0
     private var searchController: UISearchController?
     private let searchDataSource = VLCLibrarySearchDisplayDataSource()
-    public weak var delegate: VLCVideoControllerDelegate?
+    public weak var delegate: VLCMediaViewControllerDelegate?
 
     @available(iOS 11.0, *)
     lazy var dragAndDropManager:VLCDragAndDropManager = {
@@ -93,7 +93,7 @@ public class VLCVideoViewController: UICollectionViewController, UICollectionVie
     }
 
     @objc func sort() {
-        delegate?.videoViewControllerDidSelectSort(VLCVideoViewController: self)
+        delegate?.videoViewControllerDidSelectSort(VLCMediaViewController: self)
     }
     //MARK: - CollectionViewDelegate & DataSource
     override public func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
@@ -101,7 +101,7 @@ public class VLCVideoViewController: UICollectionViewController, UICollectionVie
     }
 
     override public func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
-        delegate?.videoViewControllerDidSelectMediaObject(VLCVideoViewController: self, mediaObject:mediaDataSource.object(at: UInt(indexPath.row)))
+        delegate?.videoViewControllerDidSelectMediaObject(VLCMediaViewController: self, mediaObject:mediaDataSource.object(at: UInt(indexPath.row)))
     }
 
     override public func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
