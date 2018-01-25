@@ -1,0 +1,26 @@
+/*****************************************************************************
+ * SortOption.swift
+ * VLC for iOS
+ *****************************************************************************
+ * Copyright (c) 2018 VideoLAN. All rights reserved.
+ * $Id$
+ *
+ * Authors: Carola Nitz <nitz.carola # gmail.com>
+ *
+ * Refer to the COPYING file of the official project for license.
+ *****************************************************************************/
+
+public enum SortOption:Int {
+    case alphabetically
+    case insertonDate
+    case size
+
+    static let mapper: [SortOption: String] = [
+        .alphabetically: NSLocalizedString("Name", comment: ""),
+        .insertonDate: NSLocalizedString("Date", comment: ""),
+        .size: NSLocalizedString("Size", comment: "")
+    ]
+    var string: String {
+        return SortOption.mapper[self]!
+    }
+}

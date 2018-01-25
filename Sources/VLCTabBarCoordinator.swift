@@ -124,5 +124,24 @@ class VLCTabbarCooordinator: NSObject, VLCVideoControllerDelegate {
     }
 
     func videoViewControllerDidSelectSort(VLCVideoViewController: VLCVideoViewController) {
+        showSortOptions()
+    }
+
+    func showSortOptions() {
+        //should probably be in a coordinator as well
+        let sortOptionsAlertController = UIAlertController(title: NSLocalizedString("Sort by",comment: ""), message: nil, preferredStyle: .actionSheet)
+        let sortByNameAction = UIAlertAction(title: SortOption.alphabetically.string, style: .default) { action in
+        }
+        let sortBySizeAction = UIAlertAction(title: SortOption.size.string, style: .default) { action in
+        }
+        let sortbyDateAction = UIAlertAction(title: SortOption.insertonDate.string, style: .default) { action in
+        }
+        let cancelAction = UIAlertAction(title: NSLocalizedString("Cancel",comment:""), style: .cancel, handler: nil)
+        sortOptionsAlertController.addAction(sortByNameAction)
+        sortOptionsAlertController.addAction(sortbyDateAction)
+        sortOptionsAlertController.addAction(sortBySizeAction)
+        sortOptionsAlertController.addAction(cancelAction)
+        sortOptionsAlertController.view.tintColor = UIColor.vlcOrangeTint()
+        tabBarController.present(sortOptionsAlertController, animated: true)
     }
 }
