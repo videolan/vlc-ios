@@ -213,7 +213,6 @@ NSString *const VLCDropboxSessionWasAuthorized = @"VLCDropboxSessionWasAuthorize
         [[UINavigationBar appearanceWhenContainedInInstancesOfClasses:@[[VLCPlaybackNavigationController class]]] setPrefersLargeTitles: @NO];
     }
     // For the edit selection indicators
-    [[UITabBar appearance] setTintColor:vlcOrange];
     [[UITableView appearance] setTintColor:vlcOrange];
     [[UISegmentedControl appearance] setTintColor:vlcOrange];
     [[UISwitch appearance] setOnTintColor:vlcOrange];

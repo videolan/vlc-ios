@@ -15,7 +15,7 @@ import Foundation
 
 public class VLCMediaViewController: UICollectionViewController, UICollectionViewDelegateFlowLayout, UISearchResultsUpdating, UISearchControllerDelegate
 {
-    private var mediaDataSource: VLCMediaDataSource
+    private var services: Services
     private let cellPadding:CGFloat = 5.0
     private var searchController: UISearchController?
     private let searchDataSource = VLCLibrarySearchDisplayDataSource()
@@ -24,17 +24,18 @@ public class VLCMediaViewController: UICollectionViewController, UICollectionVie
     @available(iOS 11.0, *)
     lazy var dragAndDropManager:VLCDragAndDropManager = {
         let dragAndDropManager = VLCDragAndDropManager()
-        dragAndDropManager.delegate = mediaDataSource
+        dragAndDropManager.delegate = services.mediaDataSource
         return dragAndDropManager
     }()
 
-    public convenience init(mediaDataSource:VLCMediaDataSource) {
+    public convenience init(services:Services) {
         self.init(collectionViewLayout: UICollectionViewFlowLayout())
-        self.mediaDataSource = mediaDataSource
+        self.services = services
+        NotificationCenter.default.addObserver(self, selector: #selector(themeDidChange), name: VLCThemeDidChangeNotification, object: nil)
     }
 
     public override init(collectionViewLayout layout: UICollectionViewLayout) {
-        self.mediaDataSource = VLCMediaDataSource()
+        self.services = Services()
         super.init(collectionViewLayout: layout)
     }
 
@@ -49,18 +50,22 @@ public class VLCMediaViewController: UICollectionViewController, UICollectionVie
         setupSearchController()
         setupNavigationBar()
         _ = (MLMediaLibrary.sharedMediaLibrary() as AnyObject).perform(#selector(MLMediaLibrary.libraryDidAppear))
-        mediaDataSource.updateContents(forSelection: nil)
+        services.mediaDataSource.updateContents(forSelection: nil)
         DispatchQueue.main.asyncAfter(deadline: .now() + 2.0) {
-            self.mediaDataSource.addAllFolders()
-            self.mediaDataSource.addRemainingFiles()
+            self.services.mediaDataSource.addAllFolders()
+            self.services.mediaDataSource.addRemainingFiles()
             self.collectionView?.reloadData()
         }
+    }
+
+    @objc func themeDidChange() {
+        collectionView?.backgroundColor = PresentationTheme.current.colors.background
     }
 
     func setupCollectionView(){
         let playlistnib = UINib(nibName: "VLCPlaylistCollectionViewCell", bundle:nil)
         collectionView?.register(playlistnib, forCellWithReuseIdentifier: VLCPlaylistCollectionViewCell.cellIdentifier())
-        collectionView?.backgroundColor = .white
+        collectionView?.backgroundColor = PresentationTheme.current.colors.background
         collectionView?.alwaysBounceVertical = true
         if #available(iOS 11.0, *) {
             collectionView?.dragDelegate = dragAndDropManager
@@ -97,16 +102,16 @@ public class VLCMediaViewController: UICollectionViewController, UICollectionVie
     }
     //MARK: - CollectionViewDelegate & DataSource
     override public func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
-        return Int(mediaDataSource.numberOfFiles())
+        return Int(services.mediaDataSource.numberOfFiles())
     }
 
     override public func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
-        delegate?.videoViewControllerDidSelectMediaObject(VLCMediaViewController: self, mediaObject:mediaDataSource.object(at: UInt(indexPath.row)))
+        delegate?.videoViewControllerDidSelectMediaObject(VLCMediaViewController: self, mediaObject:services.mediaDataSource.object(at: UInt(indexPath.row)))
     }
 
     override public func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         if let playlistCell = collectionView.dequeueReusableCell(withReuseIdentifier: VLCPlaylistCollectionViewCell.cellIdentifier(), for: indexPath) as? VLCPlaylistCollectionViewCell {
-            playlistCell.mediaObject = mediaDataSource.object(at: UInt(indexPath.row))
+            playlistCell.mediaObject = services.mediaDataSource.object(at: UInt(indexPath.row))
             return playlistCell
         }
         return UICollectionViewCell()
@@ -140,7 +145,7 @@ public class VLCMediaViewController: UICollectionViewController, UICollectionVie
 
     //MARK: - Search
     public func updateSearchResults(for searchController: UISearchController) {
-        searchDataSource.shouldReloadTable(forSearch: searchController.searchBar.text, searchableFiles: mediaDataSource.allObjects())
+        searchDataSource.shouldReloadTable(forSearch: searchController.searchBar.text, searchableFiles: services.mediaDataSource.allObjects())
         collectionView?.reloadData()
     }
 

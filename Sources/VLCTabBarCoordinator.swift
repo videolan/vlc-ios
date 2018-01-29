@@ -12,26 +12,35 @@
 
 import Foundation
 
-protocol VLCTabbarCooordinatorDelegate {
-
-}
-
 class VLCTabbarCooordinator: NSObject, VLCMediaViewControllerDelegate {
 
     private var childCoordinators: [NSObject] = []
     private var tabBarController:UITabBarController
-    var delegate:VLCTabbarCooordinatorDelegate?
+    private var services:Services
 
-    public init(tabBarController: UITabBarController) {
+    public init(tabBarController: UITabBarController, services:Services) {
         self.tabBarController = tabBarController
+        self.services = services
+        super.init()
+        NotificationCenter.default.addObserver(self, selector: #selector(themeDidChange), name: VLCThemeDidChangeNotification, object: nil)
     }
 
-    public func start() {
+    @objc public func start() {
         setupViewControllers()
+        setupAppearance()
     }
 
-    public func setupViewControllers() {
-        let videoVC = VLCMediaViewController(collectionViewLayout: UICollectionViewFlowLayout())
+    @objc func themeDidChange() {
+        tabBarController.tabBar.barTintColor = PresentationTheme.current.colors.tabBarColor
+    }
+
+    func setupAppearance() {
+        tabBarController.tabBar.tintColor = PresentationTheme.current.colors.orangeUI
+        tabBarController.tabBar.barTintColor = PresentationTheme.current.colors.tabBarColor
+    }
+
+    func setupViewControllers() {
+        let videoVC = VLCMediaViewController(services: services)
         //this should probably not be the delegate
         videoVC.delegate = self
         videoVC.title = NSLocalizedString("Video",comment: "")
@@ -41,7 +50,7 @@ class VLCTabbarCooordinator: NSObject, VLCMediaViewControllerDelegate {
             selectedImage: UIImage(named: "TVShowsIcon"))
 
         // Audio
-        let audioVC = VLCMediaViewController(collectionViewLayout: UICollectionViewFlowLayout())
+        let audioVC = VLCMediaViewController(services: services)
         //this should probably not be the delegate
         audioVC.delegate = self
         audioVC.title = NSLocalizedString("Audio",comment: "")
@@ -52,7 +61,7 @@ class VLCTabbarCooordinator: NSObject, VLCMediaViewControllerDelegate {
 
         //Serverlist
         let serverVC = VLCServerListViewController()
-        serverVC.title = NSLocalizedString("LOCAL_NETWORK", comment: "");
+        serverVC.title = NSLocalizedString("LOCAL_NETWORK", comment: "")
         serverVC.tabBarItem = UITabBarItem(
             title: NSLocalizedString("LOCAL_NETWORK",comment: ""),
             image: UIImage(named: "Local"),

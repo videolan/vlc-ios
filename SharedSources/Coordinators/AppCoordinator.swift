@@ -8,10 +8,16 @@
 
 import Foundation
 
-@objc class AppCoordinator : NSObject, VLCTabbarCooordinatorDelegate {
-    var childCoordinators: [NSObject] = []
+@objc(VLCService)
+public class Services:NSObject {
+    @objc let mediaDataSource = VLCMediaDataSource()
+}
 
+@objc class AppCoordinator : NSObject {
+
+    var childCoordinators: [NSObject] = []
     private var tabBarController:UITabBarController
+    private var services = Services()
 
     @objc public init(tabBarController: UITabBarController) {
         self.tabBarController = tabBarController
@@ -19,8 +25,7 @@ import Foundation
     }
 
     @objc public func start() {
-        let tabbarCoordinator = VLCTabbarCooordinator(tabBarController: self.tabBarController)
-        tabbarCoordinator.delegate = self
+        let tabbarCoordinator = VLCTabbarCooordinator(tabBarController: self.tabBarController, services:services)
         tabbarCoordinator.start()
         childCoordinators.append(tabbarCoordinator)
     }

@@ -36,6 +36,7 @@
 #import "VLCLocalNetworkServiceBrowserSAP.h"
 #import "VLCLocalNetworkServiceBrowserDSM.h"
 #import "VLCLocalNetworkServiceBrowserBonjour.h"
+#import "VLC_iOS-Swift.h"
 
 @interface VLCServerListViewController () <UITableViewDataSource, UITableViewDelegate, VLCLocalServerDiscoveryControllerDelegate, VLCNetworkLoginViewControllerDelegate>
 {
@@ -49,15 +50,11 @@
 
 @implementation VLCServerListViewController
 
-- (void)dealloc
-{
-    [[NSNotificationCenter defaultCenter] removeObserver:self];
-}
-
 - (void)loadView
 {
+    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(themeDidChange) name:kVLCThemeDidChangeNotification object:nil];
     _tableView = [[UITableView alloc] initWithFrame:[UIScreen mainScreen].bounds style:UITableViewStylePlain];
-    _tableView.backgroundColor = [UIColor VLCDarkBackgroundColor];
+    _tableView.backgroundColor = PresentationTheme.current.colors.background;
     _tableView.delegate = self;
     _tableView.dataSource = self;
     _tableView.indicatorStyle = UIScrollViewIndicatorStyleWhite;
@@ -91,11 +88,11 @@
     _discoveryController.delegate = self;
 
     self.tableView.rowHeight = [VLCNetworkListCell heightOfCell];
-    self.tableView.separatorColor = [UIColor VLCDarkBackgroundColor];
-    self.view.backgroundColor = [UIColor VLCDarkBackgroundColor];
+    self.tableView.separatorColor = PresentationTheme.current.colors.background;
+    self.view.backgroundColor = PresentationTheme.current.colors.background;
 
     _refreshControl = [[UIRefreshControl alloc] init];
-    _refreshControl.backgroundColor = [UIColor VLCDarkBackgroundColor];
+    _refreshControl.backgroundColor = PresentationTheme.current.colors.background;
     _refreshControl.tintColor = [UIColor whiteColor];
     [_refreshControl addTarget:self action:@selector(handleRefresh) forControlEvents:UIControlEventValueChanged];
     [self.tableView addSubview:_refreshControl];
@@ -137,18 +134,19 @@
 
 - (void)tableView:(UITableView *)tableView willDisplayCell:(VLCNetworkListCell *)cell forRowAtIndexPath:(NSIndexPath *)indexPath
 {
-    UIColor *color = (indexPath.row % 2 == 0)? [UIColor blackColor]: [UIColor VLCDarkBackgroundColor];
+    UIColor *color = (indexPath.row % 2 == 0)? PresentationTheme.current.colors.cellBackgroundB : PresentationTheme.current.colors.cellBackgroundA;
     cell.backgroundColor = cell.titleLabel.backgroundColor = cell.folderTitleLabel.backgroundColor = cell.subtitleLabel.backgroundColor = color;
+    cell.titleLabel.textColor = cell.folderTitleLabel.textColor = cell.subtitleLabel.textColor = cell.thumbnailView.tintColor = PresentationTheme.current.colors.cellTextColor;
 }
 
 - (void)tableView:(UITableView *)tableView willDisplayHeaderView:(UIView *)view forSection:(NSInteger)section
 {
     // Text Color
     UITableViewHeaderFooterView *header = (UITableViewHeaderFooterView *)view;
-    [header.textLabel setTextColor:[UIColor colorWithRed:(130.0f/255.0f) green:(130.0f/255.0f) blue:(130.0f/255.0f) alpha:1.0f]];
+    header.textLabel.textColor = PresentationTheme.current.colors.sectionHeaderTextColor;
     header.textLabel.font = [UIFont boldSystemFontOfSize:([UIFont systemFontSize] * 0.8f)];
 
-    header.tintColor = [UIColor colorWithRed:(60.0f/255.0f) green:(60.0f/255.0f) blue:(60.0f/255.0f) alpha:1.0f];
+    header.tintColor = PresentationTheme.current.colors.sectionHeaderTintColor;
 }
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
@@ -216,6 +214,13 @@
     } else {
         [self.navigationController pushViewController:loginViewController animated:YES];
     }
+}
+#pragma mark -
+- (void)themeDidChange
+{
+    _tableView.backgroundColor = PresentationTheme.current.colors.background;
+    _tableView.separatorColor = PresentationTheme.current.colors.background;
+    _refreshControl.backgroundColor = PresentationTheme.current.colors.background;
 }
 
 - (void)_dismissLogin
