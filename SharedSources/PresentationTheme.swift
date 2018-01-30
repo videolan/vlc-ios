@@ -22,6 +22,7 @@ public final class ColorPalette : NSObject {
     @objc public let cellBackgroundB:UIColor
     @objc public let cellDetailTextColor:UIColor
     @objc public let cellTextColor:UIColor
+    @objc public let lightTextColor:UIColor
     @objc public let sectionHeaderTextColor:UIColor
     @objc public let sectionHeaderTintColor:UIColor
     @objc public let settingsBackground:UIColor
@@ -37,6 +38,7 @@ public final class ColorPalette : NSObject {
                 cellBackgroundB:UIColor,
                 cellDetailTextColor:UIColor,
                 cellTextColor:UIColor,
+                lightTextColor:UIColor,
                 sectionHeaderTextColor:UIColor,
                 sectionHeaderTintColor:UIColor,
                 settingsBackground:UIColor,
@@ -51,6 +53,7 @@ public final class ColorPalette : NSObject {
         self.cellBackgroundB = cellBackgroundB
         self.cellDetailTextColor = cellDetailTextColor
         self.cellTextColor = cellTextColor
+        self.lightTextColor = lightTextColor
         self.sectionHeaderTextColor = sectionHeaderTextColor
         self.sectionHeaderTintColor = sectionHeaderTintColor
         self.settingsBackground = settingsBackground
@@ -121,13 +124,14 @@ public let whitePalette = ColorPalette(isDark: false,
                                        cellBackgroundB: UIColor(0xe5e5e3),
                                        cellDetailTextColor: .lightGray,
                                        cellTextColor: UIColor(0x000000),
+                                       lightTextColor: UIColor(0x888888),
                                        sectionHeaderTextColor: UIColor(0xf9f9f7),
                                        sectionHeaderTintColor: UIColor(0xe5efe3),
                                        settingsBackground:UIColor(0xdcdcdc),
                                        settingsCellBackground:UIColor(0xf9f9f7),
                                        settingsSeparatorColor:.lightGray,
                                        tabBarColor: UIColor(0x000000),
-                                       orangeUI: UIColor(0xff8400))
+                                       orangeUI: UIColor(0xee8400))
 
 public let darkPalette = ColorPalette(isDark: true,
                                       name: "Dark",
@@ -136,10 +140,11 @@ public let darkPalette = ColorPalette(isDark: true,
                                       cellBackgroundB: UIColor(0x000000),
                                       cellDetailTextColor: .lightGray,
                                       cellTextColor:UIColor(0xffffff),
+                                      lightTextColor: UIColor(0xb8b8b8),
                                       sectionHeaderTextColor: UIColor(0x828282),
                                       sectionHeaderTintColor:UIColor(0x3c3c3c),
                                       settingsBackground:UIColor(0x292b36),
                                       settingsCellBackground:UIColor(0x3d3f40),
                                       settingsSeparatorColor:.darkGray,
                                       tabBarColor: UIColor(0xffffff),
-                                      orangeUI: UIColor(0xff8400))
+                                      orangeUI: UIColor(0xee8400))
