@@ -2,7 +2,7 @@
  * VLCLocalNetworkListViewController
  * VLC for iOS
  *****************************************************************************
- * Copyright (c) 2013-2017 VideoLAN. All rights reserved.
+ * Copyright (c) 2013-2018 VideoLAN. All rights reserved.
  * $Id$
  *
  * Authors: Felix Paul Kühne <fkuehne # videolan.org>
@@ -81,8 +81,12 @@ NSString *VLCNetworkListCellIdentifier = @"VLCNetworkListCellIdentifier";
 - (void)viewWillAppear:(BOOL)animated
 {
     [super viewWillAppear:animated];
-    CGPoint contentOffset = CGPointMake(0, _tableView.tableHeaderView.bounds.size.height);
-    [self.tableView setContentOffset:contentOffset animated:NO];
+    if (@available(iOS 11.0, *)) {
+        [self.tableView setContentOffset:CGPointZero animated:NO];
+    } else {
+        CGPoint contentOffset = CGPointMake(0, _tableView.tableHeaderView.bounds.size.height);
+        [self.tableView setContentOffset:contentOffset animated:NO];
+    }
 }
 
 - (void)viewDidAppear:(BOOL)animated
