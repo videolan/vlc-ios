@@ -41,7 +41,7 @@ PODS:
   - MetaDataFetcherKit (0.1.8):
     - AFNetworking (= 3.1.0)
     - OROpenSubtitleDownloader
-  - MobileVLCKit-unstable (3.0.0a51)
+  - MobileVLCKit-unstable (3.0.0a55)
   - NSData+Base64 (1.0.0)
   - ObjectiveDropboxOfficial (1.1)
   - OBSlider (1.1.0)
@@ -50,7 +50,7 @@ PODS:
     - xmlrpc
   - PAPasscode (1.0)
   - RESideMenu (4.0.7)
-  - TVVLCKit-unstable (3.0.0a51)
+  - TVVLCKit-unstable (3.0.0a55)
   - upnpx (1.4.0)
   - VLC-LiveSDK (5.7.0x)
   - VLC-LXReorderableCollectionViewFlowLayout (0.1.3v)
@@ -70,13 +70,13 @@ DEPENDENCIES:
   - InAppSettingsKit (from `git://github.com/fkuehne/InAppSettingsKit.git`, commit `415ea6bb`)
   - MediaLibraryKit-unstable
   - MetaDataFetcherKit (~> 0.1.8)
-  - MobileVLCKit-unstable (= 3.0.0a51)
+  - MobileVLCKit-unstable (= 3.0.0a55)
   - ObjectiveDropboxOfficial (from `git://github.com/carolanitz/dropbox-sdk-obj-c.git`)
   - OBSlider (= 1.1.0)
   - OROpenSubtitleDownloader (from `https://github.com/orta/OROpenSubtitleDownloader.git`, commit `0509eac2`)
   - PAPasscode (~> 1.0)
   - RESideMenu (~> 4.0.7)
-  - TVVLCKit-unstable (= 3.0.0a51)
+  - TVVLCKit-unstable (= 3.0.0a55)
   - upnpx (~> 1.4.0)
   - VLC-LiveSDK (= 5.7.0x)
   - VLC-LXReorderableCollectionViewFlowLayout (= 0.1.3v)
@@ -128,14 +128,14 @@ SPEC CHECKSUMS:
   InAppSettingsKit: 76d5cfbaa3e3f8aa53fe3628516da7eb1aa6a5cb
   MediaLibraryKit-unstable: b4834ad57d5d2f49f30b9edd2d7650d151fc5534
   MetaDataFetcherKit: 44c90defa89b3a72cef60e07ad9de37821dd7c5d
-  MobileVLCKit-unstable: 5db5ee4077bbb83d6f9b7e6f434c0230299fc495
+  MobileVLCKit-unstable: 32d2a5efe53a9005c39d21e2deb3838c53d9156d
   NSData+Base64: 4e84902c4db907a15673474677e57763ef3903e4
   ObjectiveDropboxOfficial: e11cdf40e8965a6c24c6d6ff64905f2df43ab653
   OBSlider: 490f108007bfdd5414a38650b211fe403a95b8a0
   OROpenSubtitleDownloader: 154b8c08acbf8836b77ac259018dc8b5baef907e
   PAPasscode: b408fb87c530cad58a554e26482e87dbb14b7bc2
   RESideMenu: f24c508404b49c667344c54aba7e590883533958
-  TVVLCKit-unstable: 671762f6bea2d3fb75a3bbbb4b483f5ff2c5deaa
+  TVVLCKit-unstable: 8fae94b3637277926f1aadd4b58d899505be934f
   upnpx: c695b99229e08154d23abe5c252cb64f1600f35d
   VLC-LiveSDK: c9566a9edde968f969138f84cfd40b540a109b3f
   VLC-LXReorderableCollectionViewFlowLayout: 0204946967b746ca183835e854826290be06e2f4
@@ -143,6 +143,6 @@ SPEC CHECKSUMS:
   XKKeychain: 852ef663c56a7194c73d3c68e8d9d4f07b121d4f
   xmlrpc: 109bb21d15ed6d108b2c1ac5973a6a223a50f5f4
 
-PODFILE CHECKSUM: cbdaa257ff5a735a2e58c62a4d7f1eee5595092a
+PODFILE CHECKSUM: 7daf0a2c136452f4359726951032b38ac32c2247
 
 COCOAPODS: 1.3.1

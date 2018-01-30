@@ -2,6 +2,15 @@ iOS 3.0.0:
 -----------
 · Added support for Drag and Drop
 · Added Files integration
+· Added FaceID support
+
+iOS 2.8.9:
+----------
+· .srt subtitles are being displayed again
+
+tvOS 1.1.3:
+----------
+· .srt subtitles are being displayed again
 
 tvOS 1.1.2:
 -----------
