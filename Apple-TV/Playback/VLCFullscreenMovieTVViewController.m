@@ -689,13 +689,19 @@ static const NSInteger VLCJumpInterval = 10000; // 10 seconds
 {
     NSAssert(self.isSeekable, @"Tried to seek while not media is not seekable.");
 
+    VLCPlaybackController *vpc = [VLCPlaybackController sharedInstance];
     self.transportBar.scrubbing = YES;
     [self updateDimmingView];
+    if (vpc.isPlaying) {
+        [vpc playPause];
+    }
 }
 - (void)stopScrubbing
 {
     self.transportBar.scrubbing = NO;
     [self updateDimmingView];
+    VLCPlaybackController *vpc = [VLCPlaybackController sharedInstance];
+    [vpc playPause];
 }
 
 - (void)updateDimmingView
