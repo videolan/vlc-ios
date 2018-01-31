@@ -18,6 +18,7 @@
 #import "VLCMenuTableViewController.h"
 #import "VLCStreamingHistoryCell.h"
 #import "UIDevice+VLC.h"
+#import "VLC_iOS-Swift.h"
 
 @interface VLCOpenNetworkStreamViewController () <UITableViewDataSource, UITableViewDelegate, UITextFieldDelegate, VLCStreamingHistoryCellMenuItemProtocol>
 {
@@ -65,6 +66,10 @@
                                name:NSUbiquitousKeyValueStoreDidChangeExternallyNotification
                              object:[NSUbiquitousKeyValueStore defaultStore]];
 
+    [[NSNotificationCenter defaultCenter] addObserver:self
+                                             selector:@selector(updateForTheme)
+                                                 name:kVLCThemeDidChangeNotification
+                                               object:nil];
     /* force store update */
     NSUbiquitousKeyValueStore *ubiquitousKeyValueStore = [NSUbiquitousKeyValueStore defaultStore];
     [ubiquitousKeyValueStore synchronize];
@@ -106,10 +111,7 @@
     [self.whatToOpenHelpLabel setText:NSLocalizedString(@"OPEN_NETWORK_HELP", nil)];
     self.urlField.delegate = self;
     self.urlField.keyboardType = UIKeyboardTypeURL;
-    self.historyTableView.backgroundColor = [UIColor VLCDarkBackgroundColor];
 
-    NSAttributedString *coloredAttributedPlaceholder = [[NSAttributedString alloc] initWithString:@"http://myserver.com/file.mkv" attributes:@{NSForegroundColorAttributeName: [UIColor VLCLightTextColor]}];
-    self.urlField.attributedPlaceholder = coloredAttributedPlaceholder;
     self.edgesForExtendedLayout = UIRectEdgeNone;
 
     // This will be called every time this VC is opened by the side menu controller
@@ -122,6 +124,22 @@
     UIMenuController *sharedMenuController = [UIMenuController sharedMenuController];
     [sharedMenuController setMenuItems:@[renameItem]];
     [sharedMenuController update];
+    [self updateForTheme];
+}
+
+- (void)updateForTheme
+{
+    self.historyTableView.backgroundColor = PresentationTheme.current.colors.background;
+    self.view.backgroundColor = PresentationTheme.current.colors.background;
+    NSAttributedString *coloredAttributedPlaceholder = [[NSAttributedString alloc] initWithString:@"http://myserver.com/file.mkv" attributes:@{NSForegroundColorAttributeName: PresentationTheme.current.colors.lightTextColor}];
+    self.urlField.attributedPlaceholder = coloredAttributedPlaceholder;
+    self.urlField.backgroundColor = PresentationTheme.current.colors.cellBackgroundB;
+    self.urlField.textColor = PresentationTheme.current.colors.cellTextColor;
+    self.privateModeLabel.textColor = PresentationTheme.current.colors.lightTextColor;
+    self.ScanSubModeLabel.textColor = PresentationTheme.current.colors.lightTextColor;
+    self.whatToOpenHelpLabel.textColor = PresentationTheme.current.colors.lightTextColor;
+    self.openButton.backgroundColor = PresentationTheme.current.colors.orangeUI;
+    [self.historyTableView reloadData];
 }
 
 - (void)updatePasteboardTextInURLField
@@ -270,7 +288,7 @@
     NSString *possibleTitle = _recentURLTitles[[@(indexPath.row) stringValue]];
 
     cell.detailTextLabel.text = content;
-    cell.textLabel.text = (possibleTitle != nil) ? possibleTitle : [content lastPathComponent];
+    cell.textLabel.text = possibleTitle ?: [content lastPathComponent];
 
     return cell;
 }
@@ -279,7 +297,9 @@
 
 - (void)tableView:(UITableView *)tableView willDisplayCell:(UITableViewCell *)cell forRowAtIndexPath:(NSIndexPath *)indexPath
 {
-    cell.backgroundColor = (indexPath.row % 2 == 0)? [UIColor blackColor]: [UIColor VLCDarkBackgroundColor];
+    cell.backgroundColor = (indexPath.row % 2 == 0)? PresentationTheme.current.colors.cellBackgroundB : PresentationTheme.current.colors.cellBackgroundA;
+    cell.textLabel.textColor =  PresentationTheme.current.colors.cellTextColor;
+    cell.detailTextLabel.textColor =  PresentationTheme.current.colors.cellDetailTextColor;
 }
 
 - (BOOL)tableView:(UITableView *)tableView canEditRowAtIndexPath:(NSIndexPath *)indexPath

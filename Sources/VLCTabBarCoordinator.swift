@@ -22,7 +22,7 @@ class VLCTabbarCooordinator: NSObject, VLCMediaViewControllerDelegate {
         self.tabBarController = tabBarController
         self.services = services
         super.init()
-        NotificationCenter.default.addObserver(self, selector: #selector(themeDidChange), name: VLCThemeDidChangeNotification, object: nil)
+        NotificationCenter.default.addObserver(self, selector: #selector(updateTheme), name: VLCThemeDidChangeNotification, object: nil)
     }
 
     @objc public func start() {
@@ -30,7 +30,7 @@ class VLCTabbarCooordinator: NSObject, VLCMediaViewControllerDelegate {
         setupAppearance()
     }
 
-    @objc func themeDidChange() {
+    @objc func updateTheme() {
         tabBarController.tabBar.barTintColor = PresentationTheme.current.colors.tabBarColor
     }
 

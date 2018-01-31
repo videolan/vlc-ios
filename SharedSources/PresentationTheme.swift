@@ -131,7 +131,7 @@ public let whitePalette = ColorPalette(isDark: false,
                                        settingsCellBackground:UIColor(0xf9f9f7),
                                        settingsSeparatorColor:.lightGray,
                                        tabBarColor: UIColor(0x000000),
-                                       orangeUI: UIColor(0xee8400))
+                                       orangeUI: UIColor(0xff8800))
 
 public let darkPalette = ColorPalette(isDark: true,
                                       name: "Dark",
@@ -147,4 +147,4 @@ public let darkPalette = ColorPalette(isDark: true,
                                       settingsCellBackground:UIColor(0x3d3f40),
                                       settingsSeparatorColor:.darkGray,
                                       tabBarColor: UIColor(0xffffff),
-                                      orangeUI: UIColor(0xee8400))
+                                      orangeUI: UIColor(0xff8800))
