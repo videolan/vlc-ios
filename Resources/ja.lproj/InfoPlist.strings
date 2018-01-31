@@ -1,2 +1,4 @@
 "NSPhotoLibraryUsageDescription" = "ビデオを保存するためにカメラロールにアクセスが必要です";
 "NSPhotoLibraryAddUsageDescription" = "ビデオを保存するためにカメラロールにアクセスが必要です";
+"NSFaceIDUsageDescription" = "VLCをアンロックするためにFace IDを使用";
+

@@ -1,2 +1,4 @@
 "NSPhotoLibraryUsageDescription" = "Pour enregistrer la vidéo, l'accès à la phototèque est nécessaire";
 "NSPhotoLibraryAddUsageDescription" = "Pour enregistrer la vidéo, l'accès à la phototèque est nécessaire";
+"NSFaceIDUsageDescription" = "Enable access to Face ID to unlock VLC";
+

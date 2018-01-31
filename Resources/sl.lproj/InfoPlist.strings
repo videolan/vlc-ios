@@ -1,2 +1,4 @@
-"NSPhotoLibraryUsageDescription" = "In order to save the video we will need access to your camera roll";
-"NSPhotoLibraryAddUsageDescription" = "In order to save the video we will need access to your camera roll";
+"NSPhotoLibraryUsageDescription" = "Če želite shraniti video, mora biti omogočen dostop do mape posnetkov kamere";
+"NSPhotoLibraryAddUsageDescription" = "Če želite shraniti video, mora biti omogočen dostop do mape posnetkov kamere";
+"NSFaceIDUsageDescription" = "Omogoči dostop do ID Obraza za odklepanje programa VLC";
+

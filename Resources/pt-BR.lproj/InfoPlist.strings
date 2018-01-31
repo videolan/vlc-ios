@@ -1,2 +1,4 @@
-"NSPhotoLibraryUsageDescription" = "In order to save the video we will need access to your camera roll";
-"NSPhotoLibraryAddUsageDescription" = "In order to save the video we will need access to your camera roll";
+"NSPhotoLibraryUsageDescription" = "Para salvar o vídeo precisamos acessar as Imagens da Câmera";
+"NSPhotoLibraryAddUsageDescription" = "Para salvar o vídeo precisamos acessar as Imagens da Câmera";
+"NSFaceIDUsageDescription" = "Habilitar acesso ao Face ID para desbloquear o VLC";
+

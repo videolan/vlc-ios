@@ -1,2 +1,4 @@
 "NSPhotoLibraryUsageDescription" = "Aby zapisać film, potrzebujemy dostępu do rolki aparatu";
 "NSPhotoLibraryAddUsageDescription" = "Aby zapisać film, potrzebujemy dostępu do rolki aparatu";
+"NSFaceIDUsageDescription" = "Włącz dostęp do Face ID, aby odblokować VLC";
+

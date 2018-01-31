@@ -1,2 +1,4 @@
-"NSPhotoLibraryUsageDescription" = "In order to save the video we will need access to your camera roll";
-"NSPhotoLibraryAddUsageDescription" = "In order to save the video we will need access to your camera roll";
+"NSPhotoLibraryUsageDescription" = "Untuk menyimpan video, kami perlu capaian ke gulungan kamera anda";
+"NSPhotoLibraryAddUsageDescription" = "Untuk menyimpan video, kami perlu capaian ke gulungan kamera anda";
+"NSFaceIDUsageDescription" = "Benarkan capaian ke ID Wajah untuk membuka VLC";
+

@@ -42,8 +42,6 @@
 "AR_CHANGED" = "نسبة الأبعاد: %@";
 "DEFAULT" = "الافتراضي";
 "FILL_TO_SCREEN" = "حاول ملء الشّاشة";
-"DEVICE_TOOSLOW_TITLE" = "الجهاز بطيء جدًا";
-"DEVICE_TOOSLOW" = "يبدو %@ بطيئًا جدًا لتشغيل \"%@\". أأفتح على أي حال؟";
 "PLAYBACK_SPEED" = "سرعة التّشغيل";
 "SPU_DELAY" = "تأخير الترجمات";
 "AUDIO_DELAY" = "تأخير الصوت";
@@ -56,19 +54,19 @@
 "BUTTON_BACK" = "الخلف";
 "BUTTON_EDIT" = "حرّر";
 "BUTTON_DONE" = "تمّ";
-"BUTTON_OPEN" = "افتح";
 "BUTTON_CANCEL" = "ألغِ";
 "BUTTON_SAVE" = "احفظ";
 "BUTTON_DOWNLOAD" = "نزّل";
 "BUTTON_DELETE" = "احذف";
 "BUTTON_OK" = "حسنا";
-"BUTTON_NEXT" = "التّالي";
 "BUTTON_CONTRIBUTE" = "شارك";
 "BUTTON_CONNECT" = "اتّصل";
 "BUTTON_RENAME" = "اعادة التسمية";
 "BUTTON_LEARN_MORE" = "لمزيدٍ من المعلومات";
 "BUTTON_LOGOUT" = "تسجيل الخروج";
 "BUTTON_CONTINUE" = "استمرار";
+"BUTTON_SET" = "Set";
+"BUTTON_RESET" = "Reset";
 "PRIVATE_PLAYBACK_TOGGLE" = "تشغيل خاص";
 "SCAN_SUBTITLE_TOGGLE" = "البحث عن ملفات ترجمة (خدمة http فقط)";
 
@@ -166,17 +164,22 @@
 "NO_FILES" = "ملفات غير مدعومة";
 "DOWNLOADING" = "يجري التّنزيل";
 "REMAINING_TIME" = "الوقت المتبقي : %@";
-"ENTER_PASSCODE" = "أدخل رمز المرور";
-"REENTER_PASSCODE" = "أعِد إدخال رمز المرور";
-"PASSCODE_SET" = "اضبط رمز المرور";
-"PASSCODE_CHANGE" = "غيّر رمز المرور";
-"PASSCODE_ENTER_OLD" = "أدخل رمز المرور القديم";
-"PASSCODE_ENTER_NEW" = "أدخل رمز المرور الجديد";
-"PASSCODE_REENTER_NEW" = "أعِد إدخال رمز المرور الجديد";
-"PASSCODES_DID_NOT_MATCH" = "رمزا المرور غير متطابقين. حاول مُجدّدًا.";
-"PASSCODE_FAILED_1" = "محاولة رمز مرور فاشلة واحدة";
-"PASSCODE_FAILED_FORMAT" = "%d محاولة رمز مرور فاشلة";
-"BIOMETRIC_UNLOCK" = "فتح مكتبة الوسائط\nإلغِ لإدخال الرقم السري";
+"BIOMETRIC_UNLOCK" = "Unlock Media Library\nCancel to enter Passcode";
+
+//PAPasscode Strings that we need to localize for them
+"%d Failed Passcode Attempts" = "%d Failed Passcode Attempts";
+"1 Failed Passcode Attempt" = "1 Failed Passcode Attempt";
+"Change Passcode" = "Change Passcode";
+"Enter Passcode" = "Enter Passcode";
+"Enter a passcode" = "Enter a passcode";
+"Enter your new passcode" = "Enter your new passcode";
+"Enter your old passcode" = "Enter your old passcode";
+"Enter your passcode" = "Enter your passcode";
+"Next" = "Next";
+"Passcodes did not match. Try again." = "Passcodes did not match. Try again.";
+"Re-enter your new passcode" = "Re-enter your new passcode";
+"Re-enter your passcode" = "Re-enter your passcode";
+"Set Passcode" = "Set Passcode";
 
 "Settings" = "الإعدادات"; // plain text key to keep compatibility with InAppSettingsKit's upstream
 "ON" = "مفعل";
@@ -326,3 +329,13 @@
 "DELETE_INVALID_TITLE" = "Invalid Selection";
 "DELETE_MESSAGE" = "Confirm the deletion of the selected files";
 "DELETE_TITLE" = "Delete Selected Files";
+
+//Drag and Drop
+"THIS_FILE" = "This file";
+"NOT_SUPPORTED_FILETYPE" = "%@ is not a supported filetype by VLC";
+"FILE_EXISTS" = "%@ already exists";
+
+/* New strings */
+"PROTOCOL_NOT_SELECTED" = "لم يتم تحديد البروتوكول";
+"Settings" = "الإعدادات";
+

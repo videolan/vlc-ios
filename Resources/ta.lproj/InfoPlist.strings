@@ -1,2 +1,4 @@
-"NSPhotoLibraryUsageDescription" = "In order to save the video we will need access to your camera roll";
-"NSPhotoLibraryAddUsageDescription" = "In order to save the video we will need access to your camera roll";
+"NSPhotoLibraryUsageDescription" = "இந்த காணொளியை பதிவு செய்ய உங்களின் நிழற்படக் கருவியைப் பயன்படுத்த அனுமதி வேண்டும்.";
+"NSPhotoLibraryAddUsageDescription" = "இந்த காணொளியை பதிவு செய்ய உங்களின் நிழற்படக் கருவியைப் பயன்படுத்த அனுமதி வேண்டும்.";
+"NSFaceIDUsageDescription" = "Enable access to Face ID to unlock VLC";
+
