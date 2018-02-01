@@ -15,6 +15,7 @@
 #import "VLCCloudStorageTableViewController.h"
 #import "VLCCloudStorageTableViewCell.h"
 #import "VLCProgressView.h"
+#import "VLC_iOS-Swift.h"
 
 @interface VLCCloudStorageTableViewController()
 {
@@ -37,7 +38,7 @@
 
     self.modalPresentationStyle = UIModalPresentationFormSheet;
 
-    UIBarButtonItem *backButton = [UIBarButtonItem themedBackButtonWithTarget:self andSelector:@selector(goBack)];
+    UIBarButtonItem *backButton = [[UIBarButtonItem alloc] initWithTitle:NSLocalizedString(@"BUTTON_BACK", nil) style:UIBarButtonItemStylePlain target:self action:@selector(goBack)];
     self.navigationItem.leftBarButtonItem = backButton;
 
     _logoutButton = [[UIBarButtonItem alloc] initWithTitle:NSLocalizedString(@"BUTTON_LOGOUT", "") style:UIBarButtonItemStylePlain target:self action:@selector(logout)];
@@ -46,12 +47,9 @@
 
     [self.navigationController.toolbar setBackgroundImage:[UIImage imageNamed:@"sudHeaderBg"] forToolbarPosition:UIToolbarPositionAny barMetrics:UIBarMetricsDefault];
 
-    self.tableView.separatorColor = [UIColor VLCDarkBackgroundColor];
-    self.tableView.backgroundColor = [UIColor VLCDarkBackgroundColor];
-    self.view.backgroundColor = [UIColor VLCDarkBackgroundColor];
+    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(updateForTheme) name:kVLCThemeDidChangeNotification object:nil];
 
     _refreshControl = [[UIRefreshControl alloc] init];
-    _refreshControl.backgroundColor = [UIColor VLCDarkBackgroundColor];
     _refreshControl.tintColor = [UIColor whiteColor];
     [_refreshControl addTarget:self action:@selector(handleRefresh) forControlEvents:UIControlEventValueChanged];
     [self.tableView addSubview:_refreshControl];
@@ -62,6 +60,7 @@
 
     _numberOfFilesBarButtonItem = [[UIBarButtonItem alloc] initWithTitle:[NSString stringWithFormat:NSLocalizedString(@"NUM_OF_FILES", nil), 0] style:UIBarButtonItemStylePlain target:nil action:nil];
     [_numberOfFilesBarButtonItem setTitleTextAttributes:@{ NSFontAttributeName : [UIFont systemFontOfSize:11.] } forState:UIControlStateNormal];
+    _numberOfFilesBarButtonItem.tintColor = PresentationTheme.current.colors.orangeUI;
 
     _activityIndicator = [[UIActivityIndicatorView alloc] initWithActivityIndicatorStyle:UIActivityIndicatorViewStyleWhiteLarge];
     _activityIndicator.hidesWhenStopped = YES;
@@ -74,8 +73,19 @@
 
     _progressView = [VLCProgressView new];
     _progressBarButtonItem = [[UIBarButtonItem alloc] initWithCustomView:_progressView];
+    _progressView.tintColor = PresentationTheme.current.colors.orangeUI;
 
     [self _showProgressInToolbar:NO];
+    [self updateForTheme];
+}
+
+- (void)updateForTheme
+{
+    self.tableView.separatorColor = PresentationTheme.current.colors.background;
+    self.tableView.backgroundColor = PresentationTheme.current.colors.background;
+    self.view.backgroundColor = PresentationTheme.current.colors.background;
+    _refreshControl.backgroundColor = PresentationTheme.current.colors.background;
+    _activityIndicator.activityIndicatorViewStyle = PresentationTheme.current == PresentationTheme.whiteTheme ? UIActivityIndicatorViewStyleGray : UIActivityIndicatorViewStyleWhiteLarge;
 }
 
 - (void)viewWillAppear:(BOOL)animated
@@ -168,7 +178,13 @@
 
 - (void)tableView:(UITableView *)tableView willDisplayCell:(UITableViewCell *)cell forRowAtIndexPath:(NSIndexPath *)indexPath
 {
-    cell.backgroundColor = (indexPath.row % 2 == 0)? [UIColor blackColor]: [UIColor VLCDarkBackgroundColor];
+    if ([cell isKindOfClass:[VLCCloudStorageTableViewCell class]]) {
+        VLCCloudStorageTableViewCell *cloudcell = (VLCCloudStorageTableViewCell *)cell;
+        cloudcell.backgroundColor = (indexPath.row % 2 == 0)? PresentationTheme.current.colors.cellBackgroundB : PresentationTheme.current.colors.cellBackgroundA;
+        cloudcell.titleLabel.textColor = PresentationTheme.current.colors.cellTextColor;
+        cloudcell.folderTitleLabel.textColor = PresentationTheme.current.colors.cellTextColor;
+        cloudcell.subtitleLabel.textColor = PresentationTheme.current.colors.cellDetailTextColor;
+    }
 }
 
 - (void)goBack
