@@ -79,6 +79,7 @@ public class PresentationTheme : NSObject {
         {
         didSet {
             NotificationCenter.default.post(name: VLCThemeDidChangeNotification, object: self)
+            AppearanceManager.setupAppearance(theme: self.current)
         }
     }
 }

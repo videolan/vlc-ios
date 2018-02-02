@@ -21,7 +21,6 @@
 {
     VLCProgressView *_progressView;
     UIRefreshControl *_refreshControl;
-
     UIBarButtonItem *_progressBarButtonItem;
     UIBarButtonItem *_logoutButton;
 }
@@ -86,6 +85,7 @@
     self.view.backgroundColor = PresentationTheme.current.colors.background;
     _refreshControl.backgroundColor = PresentationTheme.current.colors.background;
     _activityIndicator.activityIndicatorViewStyle = PresentationTheme.current == PresentationTheme.whiteTheme ? UIActivityIndicatorViewStyleGray : UIActivityIndicatorViewStyleWhiteLarge;
+    self.loginToCloudStorageView.backgroundColor = PresentationTheme.current.colors.background;
 }
 
 - (void)viewWillAppear:(BOOL)animated

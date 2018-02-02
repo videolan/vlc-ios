@@ -12,7 +12,7 @@
 
 import Foundation
 
-class VLCTabbarCooordinator: NSObject, VLCMediaViewControllerDelegate {
+class VLCTabbarCooordinator: NSObject, VLCMediaViewControllerDelegate, UITabBarControllerDelegate {
 
     private var childCoordinators: [NSObject] = []
     private var tabBarController:UITabBarController
@@ -22,21 +22,31 @@ class VLCTabbarCooordinator: NSObject, VLCMediaViewControllerDelegate {
         self.tabBarController = tabBarController
         self.services = services
         super.init()
+        self.tabBarController.delegate = self
         NotificationCenter.default.addObserver(self, selector: #selector(updateTheme), name: VLCThemeDidChangeNotification, object: nil)
     }
 
     @objc public func start() {
         setupViewControllers()
-        setupAppearance()
+        updateTheme()
     }
 
     @objc func updateTheme() {
         tabBarController.tabBar.barTintColor = PresentationTheme.current.colors.tabBarColor
+        customizeMoreViewController()
     }
 
-    func setupAppearance() {
-        tabBarController.tabBar.tintColor = PresentationTheme.current.colors.orangeUI
-        tabBarController.tabBar.barTintColor = PresentationTheme.current.colors.tabBarColor
+    func customizeMoreViewController() {
+        if let UITabBarCustomizeViewClass = NSClassFromString("UITabBarCustomizeView") {
+            for subview in tabBarController.view.subviews where subview.isKind(of: UITabBarCustomizeViewClass) {
+                subview.backgroundColor = PresentationTheme.current.colors.background
+                subview.tintColor = PresentationTheme.current.colors.orangeUI
+            }
+        }
+    }
+
+    func tabBarController(_ tabBarController: UITabBarController, willBeginCustomizing viewControllers: [UIViewController]) {
+       customizeMoreViewController()
     }
 
     func setupViewControllers() {

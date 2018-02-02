@@ -101,7 +101,7 @@ NSString *const VLCDropboxSessionWasAuthorized = @"VLCDropboxSessionWasAuthorize
     // Configure Dropbox
     [DBClientsManager setupWithAppKey:kVLCDropboxAppKey];
 
-    [self setupAppearence];
+    [VLCApperanceManager setupAppearanceWithTheme:PresentationTheme.current];
 
     // Init the HTTP Server and clean its cache
     [[VLCHTTPUploaderController sharedInstance] cleanCache];
@@ -192,31 +192,6 @@ NSString *const VLCDropboxSessionWasAuthorized = @"VLCDropboxSessionWasAuthorize
     }
 
     return YES;
-}
-
-- (void)setupAppearence
-{
-    UIColor *vlcOrange = [UIColor VLCOrangeTintColor];
-    // Change the keyboard for UISearchBar
-    [[UITextField appearance] setKeyboardAppearance:UIKeyboardAppearanceDark];
-    // For the cursor
-    [[UITextField appearance] setTintColor:vlcOrange];
-    // Don't override the 'Cancel' button color in the search bar with the previous UITextField call. Use the default blue color
-    [[UIBarButtonItem appearanceWhenContainedInInstancesOfClasses:@[[UISearchBar class]]] setTitleTextAttributes:@{[UIColor whiteColor] : NSForegroundColorAttributeName} forState:UIControlStateNormal];
-
-    [[UINavigationBar appearance] setBarTintColor:vlcOrange];
-    [[UINavigationBar appearanceWhenContainedInInstancesOfClasses:@[[VLCPlaybackNavigationController class]]] setBarTintColor: nil];
-    [[UINavigationBar appearance] setTintColor:[UIColor whiteColor]];
-    [[UINavigationBar appearance] setTitleTextAttributes: @{ NSForegroundColorAttributeName : [UIColor whiteColor] }];
-    if (@available(iOS 11.0, *)) {
-        [[UINavigationBar appearance] setPrefersLargeTitles:@YES];
-        [[UINavigationBar appearanceWhenContainedInInstancesOfClasses:@[[VLCPlaybackNavigationController class]]] setPrefersLargeTitles: @NO];
-    }
-    // For the edit selection indicators
-    [[UITableView appearance] setTintColor:vlcOrange];
-    [[UISegmentedControl appearance] setTintColor:vlcOrange];
-    [[UISwitch appearance] setOnTintColor:vlcOrange];
-    [[UISearchBar appearance] setBarTintColor:[UIColor whiteColor]];
 }
 
 - (void)dealloc
