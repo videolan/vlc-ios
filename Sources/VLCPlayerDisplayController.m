@@ -57,6 +57,7 @@ static NSString *const VLCPlayerDisplayControllerDisplayModeKey = @"VLCPlayerDis
         [notificationCenter addObserver:self selector:@selector(playbackDidStart:) name:VLCPlaybackControllerPlaybackDidStart object:nil];
         [notificationCenter addObserver:self selector:@selector(playbackDidFail:) name:VLCPlaybackControllerPlaybackDidFail object:nil];
         [notificationCenter addObserver:self selector:@selector(playbackDidStop:) name:VLCPlaybackControllerPlaybackDidStop object:nil];
+        self.view.userInteractionEnabled = NO;
     }
     return self;
 }
