@@ -11,7 +11,9 @@
 
 #import "VLCPlaybackInfoTVCollectionViewCell.h"
 
-@implementation VLCPlaybackInfoTVCollectionViewCell
+@implementation VLCPlaybackInfoTVCollectionViewCell {
+    UIColor *textColor;
+}
 
 + (NSString *)identifier
 {
@@ -39,10 +41,8 @@
     [super prepareForReuse];
     self.selectionMarkerVisible = NO;
     self.titleLabel.text = nil;
-
-    UIColor *textColor;
     if ([UIScreen mainScreen].traitCollection.userInterfaceStyle == UIUserInterfaceStyleDark) {
-        textColor = [UIColor VLCLightTextColor];
+        textColor = [UIColor VLCDarkFadedTextColor];
     } else {
         textColor = [UIColor VLCDarkTextColor];
     }
@@ -54,7 +54,7 @@
 {
     [super didUpdateFocusInContext:context withAnimationCoordinator:coordinator];
     [coordinator addCoordinatedAnimations:^{
-        self.titleLabel.textColor = self.focused ? [UIColor whiteColor] : [UIColor darkGrayColor];
+        self.titleLabel.textColor = self.focused ? [UIColor whiteColor] : textColor;
     } completion:nil];
 }
 

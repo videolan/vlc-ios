@@ -29,6 +29,10 @@
     return [UIColor colorWithWhite:.72 alpha:1.];
 }
 
++ (UIColor *)VLCDarkFadedTextColor {
+    return [UIColor colorWithRed:0.33 green:0.33 blue:0.33 alpha:1.0];
+}
+
 + (UIColor *)VLCDarkTextColor
 {
     return [UIColor colorWithWhite:.28 alpha:1.];
