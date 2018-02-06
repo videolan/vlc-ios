@@ -17,11 +17,13 @@
 {
     return self;
 }
+
 - (void)showViewController:(UIViewController *)vc sender:(id)sender
 {
+    // Setting to active to NO otherwise, it will perform a default presentation which led to an `NSInvalidArgumentException`.
+    self.active = NO;
     [self.presentingViewController showViewController:vc sender:sender];
     [self dismissViewControllerAnimated:YES completion:nil];
 }
-
 
 @end
