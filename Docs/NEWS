@@ -4,6 +4,14 @@ iOS 3.0.0:
 · Added Files integration
 · Added FaceID support
 
+tvOS 3.0.0:
+----------
+· Stability improvements and bug fixes
+
+iOS 2.9.0:
+----------
+· Stability improvements and bug fixes
+
 iOS 2.8.9:
 ----------
 · .srt subtitles are being displayed again
