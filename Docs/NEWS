@@ -6,7 +6,7 @@ iOS 3.0.0:
 
 tvOS 3.0.0:
 ----------
-· Stability improvements and bug fixes
+· Crash fixes when browsing or searching the local network
 
 iOS 2.9.0:
 ----------
