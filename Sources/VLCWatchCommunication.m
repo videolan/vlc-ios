@@ -27,7 +27,7 @@
 @implementation VLCWatchCommunication
 
 + (BOOL)isSupported {
-    return [WCSession class] != nil && [WCSession isSupported];
+    return @available(iOS 9, *) && [WCSession isSupported];
 }
 
 - (instancetype)init

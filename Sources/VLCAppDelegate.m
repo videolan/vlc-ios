@@ -173,7 +173,7 @@ NSString *const VLCDropboxSessionWasAuthorized = @"VLCDropboxSessionWasAuthorize
     }
 
     /* add our static shortcut items the dynamic way to ease l10n and dynamic elements to be introduced later */
-    if ([UIApplicationShortcutItem class] != nil) {
+    if (@available(iOS 9, *)) {
         if (application.shortcutItems == nil || application.shortcutItems.count < 4) {
             UIApplicationShortcutItem *localLibraryItem = [[UIApplicationShortcutItem alloc] initWithType:kVLCApplicationShortcutLocalLibrary
                                                                                            localizedTitle:NSLocalizedString(@"SECTION_HEADER_LIBRARY",nil)

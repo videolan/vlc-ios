@@ -52,7 +52,7 @@
     [self setClipsToBounds:YES];
 
 #if TARGET_OS_IOS
-    if ([UIVisualEffectView class] != nil) {
+    if (@available(iOS 8, *)) {
         _effectView = [[UIVisualEffectView alloc] initWithEffect:[UIBlurEffect effectWithStyle:UIBlurEffectStyleDark]];
         _effectView.frame = self.bounds;
         _effectView.clipsToBounds = YES;

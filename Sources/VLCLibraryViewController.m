@@ -342,7 +342,7 @@ static NSString *kUsingTableViewToShowData = @"UsingTableViewToShowData";
 
 - (void)createSpotlightItem:(nonnull NSManagedObject *)mediaObject
 {
-    if ([CSSearchableItemAttributeSet class] != nil && ![VLCKeychainCoordinator passcodeLockEnabled]) {
+    if (@available(iOS 9.0, *) && ![VLCKeychainCoordinator passcodeLockEnabled]) {
         self.userActivity = [[NSUserActivity alloc] initWithActivityType:kVLCUserActivityPlaying];
 
         MLFile *file = nil;
@@ -1102,7 +1102,7 @@ static NSString *kUsingTableViewToShowData = @"UsingTableViewToShowData";
     NSArray *indexPaths = [self usingTableViewToShowData] ? [self.tableView indexPathsForSelectedRows] : [self.collectionView indexPathsForSelectedItems];
 
     if ((!indexPaths || [indexPaths count] == 0) && !_deleteFromTableView) {
-        if ([UIAlertController class]) {
+        if (@available(iOS 8, *)) {
             UIAlertController *invalidSelection = [UIAlertController alertControllerWithTitle:NSLocalizedString(@"DELETE_INVALID_TITLE", nil) message:NSLocalizedString(@"DELETE_INVALID_MESSAGE", nil) preferredStyle:UIAlertControllerStyleAlert];
             UIAlertAction *doneAction = [UIAlertAction actionWithTitle:NSLocalizedString(@"BUTTON_OK", nil) style:UIAlertActionStyleDefault handler:nil];
 
