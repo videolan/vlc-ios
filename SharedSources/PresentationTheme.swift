@@ -11,9 +11,11 @@
 
 import Foundation
 
-let VLCThemeDidChangeNotification = Notification.Name("themeDidChangeNotfication")
+extension Notification.Name {
+    static let VLCThemeDidChangeNotification = Notification.Name("themeDidChangeNotfication")
+}
 
-public final class ColorPalette : NSObject {
+public class ColorPalette : NSObject {
 
     @objc public let isDark: Bool
     @objc public let name: String
@@ -66,22 +68,24 @@ public final class ColorPalette : NSObject {
 
 public class PresentationTheme : NSObject {
 
-    @objc public let colors:ColorPalette
     @objc public static let whiteTheme = PresentationTheme(colors: whitePalette)
     @objc public static let darkTheme = PresentationTheme(colors: darkPalette)
-    public init(colors: ColorPalette) {
-        self.colors = colors
-    }
+
     @objc static var current: PresentationTheme = {
-        let darkTheme = UserDefaults.standard.bool(forKey: kVLCSettingAppTheme)
-        return darkTheme ? PresentationTheme.darkTheme : PresentationTheme.whiteTheme
+        let isDarkTheme = UserDefaults.standard.bool(forKey: kVLCSettingAppTheme)
+        return isDarkTheme ? PresentationTheme.darkTheme : PresentationTheme.whiteTheme
         }()
         {
         didSet {
-            NotificationCenter.default.post(name: VLCThemeDidChangeNotification, object: self)
+            NotificationCenter.default.post(name: .VLCThemeDidChangeNotification, object: self)
             AppearanceManager.setupAppearance(theme: self.current)
         }
     }
+    public init(colors: ColorPalette) {
+        self.colors = colors
+    }
+
+    @objc public let colors: ColorPalette
 }
 
 @objc public extension UIColor {
@@ -93,8 +97,9 @@ public class PresentationTheme : NSObject {
         self.init(red: r, green: g, blue: b, alpha: 1.0)
     }
 
-    func toHex(alpha: Bool = false) -> String? {
+    private func toHex(alpha: Bool = false) -> String? {
         guard let components = cgColor.components, components.count >= 3 else {
+            assertionFailure()
             return nil
         }
         let r = Float(components[0])
@@ -118,34 +123,34 @@ public class PresentationTheme : NSObject {
     }
 }
 
-public let whitePalette = ColorPalette(isDark: false,
-                                       name: "Default",
-                                       background: UIColor(0xf9f9f7),
-                                       cellBackgroundA: UIColor(0xf9f9f7),
-                                       cellBackgroundB: UIColor(0xe5e5e3),
-                                       cellDetailTextColor: .lightGray,
-                                       cellTextColor: UIColor(0x000000),
-                                       lightTextColor: UIColor(0x888888),
-                                       sectionHeaderTextColor: UIColor(0xf9f9f7),
-                                       sectionHeaderTintColor: UIColor(0xe5efe3),
-                                       settingsBackground:UIColor(0xdcdcdc),
-                                       settingsCellBackground:UIColor(0xf9f9f7),
-                                       settingsSeparatorColor:.lightGray,
-                                       tabBarColor: UIColor(0xffffff),
-                                       orangeUI: UIColor(0xff8800))
+let whitePalette = ColorPalette(isDark: false,
+                                name: "Default",
+                                background: UIColor(0xf9f9f7),
+                                cellBackgroundA: UIColor(0xf9f9f7),
+                                cellBackgroundB: UIColor(0xe5e5e3),
+                                cellDetailTextColor: .lightGray,
+                                cellTextColor: UIColor(0x000000),
+                                lightTextColor: UIColor(0x888888),
+                                sectionHeaderTextColor: UIColor(0xf9f9f7),
+                                sectionHeaderTintColor: UIColor(0xe5efe3),
+                                settingsBackground:UIColor(0xdcdcdc),
+                                settingsCellBackground:UIColor(0xf9f9f7),
+                                settingsSeparatorColor:.lightGray,
+                                tabBarColor: UIColor(0xffffff),
+                                orangeUI: UIColor(0xff8800))
 
-public let darkPalette = ColorPalette(isDark: true,
-                                      name: "Dark",
-                                      background: UIColor(0x292b36),
-                                      cellBackgroundA: UIColor(0x292b36),
-                                      cellBackgroundB: UIColor(0x000000),
-                                      cellDetailTextColor: .lightGray,
-                                      cellTextColor:UIColor(0xffffff),
-                                      lightTextColor: UIColor(0xb8b8b8),
-                                      sectionHeaderTextColor: UIColor(0x828282),
-                                      sectionHeaderTintColor:UIColor(0x3c3c3c),
-                                      settingsBackground:UIColor(0x292b36),
-                                      settingsCellBackground:UIColor(0x3d3f40),
-                                      settingsSeparatorColor:.darkGray,
-                                      tabBarColor: UIColor(0xffffff),
-                                      orangeUI: UIColor(0xff8800))
+let darkPalette = ColorPalette(isDark: true,
+                               name: "Dark",
+                               background: UIColor(0x292b36),
+                               cellBackgroundA: UIColor(0x292b36),
+                               cellBackgroundB: UIColor(0x000000),
+                               cellDetailTextColor: .lightGray,
+                               cellTextColor:UIColor(0xffffff),
+                               lightTextColor: UIColor(0xb8b8b8),
+                               sectionHeaderTextColor: UIColor(0x828282),
+                               sectionHeaderTintColor:UIColor(0x3c3c3c),
+                               settingsBackground:UIColor(0x292b36),
+                               settingsCellBackground:UIColor(0x3d3f40),
+                               settingsSeparatorColor:.darkGray,
+                               tabBarColor: UIColor(0xffffff),
+                               orangeUI: UIColor(0xff8800))

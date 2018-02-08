@@ -31,7 +31,7 @@ public class VLCMediaViewController: UICollectionViewController, UICollectionVie
     public convenience init(services:Services) {
         self.init(collectionViewLayout: UICollectionViewFlowLayout())
         self.services = services
-        NotificationCenter.default.addObserver(self, selector: #selector(themeDidChange), name: VLCThemeDidChangeNotification, object: nil)
+        NotificationCenter.default.addObserver(self, selector: #selector(themeDidChange), name: .VLCThemeDidChangeNotification, object: nil)
     }
 
     public override init(collectionViewLayout layout: UICollectionViewLayout) {
