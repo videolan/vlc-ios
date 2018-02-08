@@ -20,6 +20,7 @@ NSString *const VLCRemoteBrowsingTVCellIdentifier = @"VLCRemoteBrowsingTVCell";
     VLCMDFBrowsingArtworkProvider *_artworkProvider;
 }
 @property (nonatomic) IBOutlet NSLayoutConstraint *aspectRationConstraint;
+@property (nonatomic) NSLayoutConstraint *titleThumbnailConstraint;
 
 @end
 
@@ -32,9 +33,8 @@ NSString *const VLCRemoteBrowsingTVCellIdentifier = @"VLCRemoteBrowsingTVCell";
     [super awakeFromNib];
     _artworkProvider = [[VLCMDFBrowsingArtworkProvider alloc] init];
     _artworkProvider.artworkReceiver = self;
-    UILayoutGuide *focusedFrameGuide = self.thumbnailImageView.focusedFrameGuide;
-    NSLayoutConstraint *constraint = [self.titleLabel.topAnchor constraintEqualToAnchor:focusedFrameGuide.bottomAnchor constant:15];
-    [self.contentView addConstraint:constraint];
+    _titleThumbnailConstraint = [self.titleLabel.topAnchor constraintEqualToAnchor:self.thumbnailImageView.bottomAnchor constant:15];
+    [self.contentView addConstraint:_titleThumbnailConstraint];
 
     [self prepareForReuse];
 }
@@ -110,6 +110,7 @@ NSString *const VLCRemoteBrowsingTVCellIdentifier = @"VLCRemoteBrowsingTVCell";
         CGAffineTransform transform = context.nextFocusedView != self ? CGAffineTransformIdentity : CGAffineTransformMakeScale(1.1, 1.1);
         self.titleLabel.transform = transform;
         self.subtitleLabel.transform = transform;
+        self.titleThumbnailConstraint.constant = context.nextFocusedView != self ? 15 : 40;
     } completion:nil];
 }
 
