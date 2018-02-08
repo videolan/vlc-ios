@@ -293,7 +293,7 @@
     } else
 #endif
     {
-        if ([WKInterfaceDevice class]) {
+        if (@available(iOS 8.2, *)) {
             if (WKInterfaceDevice.currentDevice != nil) {
                 CGRect screenRect = WKInterfaceDevice.currentDevice.screenBounds;
                 imageSize = CGSizeMake(screenRect.size.width * WKInterfaceDevice.currentDevice.screenScale, 120.);

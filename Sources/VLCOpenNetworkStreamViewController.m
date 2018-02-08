@@ -201,7 +201,7 @@
     NSString *renameString = NSLocalizedString(@"BUTTON_RENAME", nil);
     NSString *cancelString = NSLocalizedString(@"BUTTON_CANCEL", nil);
 
-    if ([UIAlertController class])
+    if (@available(iOS 8, *))
     {
         UIAlertController *alertController = [UIAlertController alertControllerWithTitle:renameString
                                                                                  message:nil

@@ -25,7 +25,7 @@
 
 - (void)showDocumentMenuViewController:(id)sender
 {
-    if (![UIDocumentMenuViewController class])
+    if (!@available(iOS 8, *))
         return;
 
     UIDocumentMenuViewController *importMenu = [[UIDocumentMenuViewController alloc] initWithDocumentTypes:@[(id)kUTTypeAudiovisualContent] inMode:UIDocumentPickerModeImport];

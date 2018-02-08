@@ -75,7 +75,7 @@
 
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section
 {
-    return [UIDocumentPickerViewController class] ? 5 : 4;// on iOS 8+ add document picker option
+    return @available(iOS 8.0, *) ? 5 : 4; // on iOS 8+ add document picker option
 }
 
 - (void)tableView:(UITableView *)tableView willDisplayCell:(UITableViewCell *)cell forRowAtIndexPath:(NSIndexPath *)indexPath
