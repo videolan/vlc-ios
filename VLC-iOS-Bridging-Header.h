@@ -7,6 +7,7 @@
 #import "VLCPlaylistCollectionViewCell.h"
 #import "VLCMediaDataSource.h"
 #import <PAPasscode/PAPasscodeViewController.h>
+#import <MobileVLCKit/MobileVLCKit.h>
 #import <XKKeychain/XKKeychain.h>
 #import "VLCConstants.h"
 #import "VLCPlayerDisplayController.h"
