@@ -386,11 +386,10 @@ didFailToContinueUserActivityWithType:(NSString *)userActivityType
             return;
         }
     }
-    __weak typeof(self) weakself = self;
     [self validatePasscodeIfNeededWithCompletion:^{
-        //[weakself.libraryViewController updateViewContents];
+        //TODO: handle updating the videoview and
         if ([VLCPlaybackController sharedInstance].isPlaying){
-            [[VLCPlayerDisplayController sharedInstance] pushPlaybackView];
+            //TODO: push playback
         }
     }];
     [[MLMediaLibrary sharedMediaLibrary] applicationWillExit];
@@ -401,6 +400,7 @@ didFailToContinueUserActivityWithType:(NSString *)userActivityType
     if (!_isRunningMigration && !_isComingFromHandoff) {
         [[MLMediaLibrary sharedMediaLibrary] updateMediaDatabase];
       //  [[VLCMediaFileDiscoverer sharedInstance] updateMediaList];
+        [[VLCPlaybackController sharedInstance] recoverDisplayedMetadata];
     } else if(_isComingFromHandoff) {
         _isComingFromHandoff = NO;
     }
@@ -453,7 +453,7 @@ didFailToContinueUserActivityWithType:(NSString *)userActivityType
 - (void)validatePasscodeIfNeededWithCompletion:(void(^)(void))completion
 {
     if ([VLCKeychainCoordinator passcodeLockEnabled]) {
-        [[VLCPlayerDisplayController sharedInstance] dismissPlaybackView];
+        //TODO: Dimiss playback
         [self.keychainCoordinator validatePasscodeWithCompletion:completion];
     } else {
         completion();

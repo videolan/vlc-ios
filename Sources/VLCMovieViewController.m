@@ -27,7 +27,6 @@
 #import "VLCPlaybackController.h"
 #import "UIDevice+VLC.h"
 #import "VLCTimeNavigationTitleView.h"
-#import "VLCPlayerDisplayController.h"
 #import "VLCAppDelegate.h"
 #import "VLCStatusLabel.h"
 #import "VLCMovieViewControlPanelView.h"
@@ -857,7 +856,7 @@ typedef NS_ENUM(NSInteger, VLCPanType) {
 
 - (IBAction)minimizePlayback:(id)sender
 {
-    [[VLCPlayerDisplayController sharedInstance] closeFullscreenPlayback];
+    [_delegate movieViewControllerDidSelectMinimize:self];
 }
 
 - (IBAction)positionSliderAction:(UISlider *)sender
@@ -1521,8 +1520,7 @@ currentMediaHasTrackToChooseFrom:(BOOL)currentMediaHasTrackToChooseFrom
 
 - (void)appBecameActive:(NSNotification *)aNotification
 {
-    VLCPlayerDisplayController *pdc = [VLCPlayerDisplayController sharedInstance];
-    if (pdc.displayMode == VLCPlayerDisplayControllerDisplayModeFullscreen) {
+    if ([_delegate movieViewControllerShouldBeDisplayed:self]) {
         [_vpc recoverDisplayedMetadata];
         if (_vpc.videoOutputView != self.movieView) {
             _vpc.videoOutputView = self.movieView;

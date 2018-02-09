@@ -51,6 +51,12 @@ class VLCTabbarCooordinator: NSObject, VLCMediaViewControllerDelegate, UITabBarC
     }
 
     func setupViewControllers() {
+
+        tabBarController.addChildViewController(displayController)
+        tabBarController.view.addSubview(displayController.view)
+        displayController.view.layoutMargins = UIEdgeInsets(top:0, left:0, bottom:tabBarController.tabBar.frame.size.height, right:0)
+        displayController.didMove(toParentViewController: tabBarController)
+
         let videoVC = VLCMediaViewController(services: services)
         //this should probably not be the delegate
         videoVC.delegate = self
@@ -142,18 +148,12 @@ class VLCTabbarCooordinator: NSObject, VLCMediaViewControllerDelegate, UITabBarC
 
     func playMedia(media: NSManagedObject) {
         //that should go into a Coordinator itself
-        let displayController = VLCPlayerDisplayController()
-        tabBarController.addChildViewController(displayController)
-        tabBarController.view.addSubview(displayController.view)
-        displayController.view.layoutMargins = UIEdgeInsets(top:0, left:0, bottom:tabBarController.tabBar.frame.size.height, right:0)
-        displayController.didMove(toParentViewController: tabBarController)
-        displayController.displayMode = .miniplayer
         let vpc = VLCPlaybackController.sharedInstance()
         vpc?.playMediaLibraryObject(media)
     }
 
     func showSortOptions() {
-        //should probably be in a coordinator as well
+        //This should be in a subclass
         let sortOptionsAlertController = UIAlertController(title: NSLocalizedString("Sort by",comment: ""), message: nil, preferredStyle: .actionSheet)
         let sortByNameAction = UIAlertAction(title: SortOption.alphabetically.string, style: .default) { action in
         }

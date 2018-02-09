@@ -485,7 +485,7 @@ static NSString *kUsingTableViewToShowData = @"UsingTableViewToShowData";
             _createFolderBarButtonItem.enabled = NO;
             [_mediaDataSource addAllShows];
         } break;
-        //Todo: I'm not sure if updateViewContents should be called in VLCLibraryModeFolder
+        //TODO: I'm not sure if updateViewContents should be called in VLCLibraryModeFolder
         //Here should maybe be an NSAssert to prevent this but for now due to refactoring these calls would've been made in that case
         case VLCLibraryModeAllFiles:
         case VLCLibraryModeFolder:
