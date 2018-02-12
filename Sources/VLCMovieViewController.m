@@ -618,25 +618,29 @@ typedef NS_ENUM(NSInteger, VLCPanType) {
 
 - (NSArray *)itemsForInterfaceLock
 {
-    return @[_pinchRecognizer,
-             _panRecognizer,
-             _tapToSeekRecognizer,
-             _tapRecognizer,
-             _doneButton,
-             _timeNavigationTitleView.minimizePlaybackButton,
-             _timeNavigationTitleView.positionSlider,
-             _timeNavigationTitleView.aspectRatioButton,
-             _controllerPanel.playbackSpeedButton,
-             _controllerPanel.trackSwitcherButton,
-             _controllerPanel.bwdButton,
-             _controllerPanel.playPauseButton,
-             _controllerPanel.fwdButton,
-             _controllerPanel.videoFilterButton,
-             _multiSelectionView.equalizerButton,
-             _multiSelectionView.chapterSelectorButton,
-             _multiSelectionView.repeatButton,
-             _multiSelectionView.shuffleButton,
-             _controllerPanel.volumeView];
+    NSMutableArray *items = [[NSMutableArray alloc] initWithArray: @[_pinchRecognizer,
+                                                                     _panRecognizer,
+                                                                     _tapRecognizer,
+                                                                     _doneButton,
+                                                                     _timeNavigationTitleView.minimizePlaybackButton,
+                                                                     _timeNavigationTitleView.positionSlider,
+                                                                     _timeNavigationTitleView.aspectRatioButton,
+                                                                     _controllerPanel.playbackSpeedButton,
+                                                                     _controllerPanel.trackSwitcherButton,
+                                                                     _controllerPanel.bwdButton,
+                                                                     _controllerPanel.playPauseButton,
+                                                                     _controllerPanel.fwdButton,
+                                                                     _controllerPanel.videoFilterButton,
+                                                                     _multiSelectionView.equalizerButton,
+                                                                     _multiSelectionView.chapterSelectorButton,
+                                                                     _multiSelectionView.repeatButton,
+                                                                     _multiSelectionView.shuffleButton,
+                                                                     _controllerPanel.volumeView]];
+
+    [[UIDevice currentDevice] isiPhoneX] ? [items addObject:_tapToToggleiPhoneXRatioRecognizer]
+                                         : [items addObject:_tapToSeekRecognizer];
+
+    return [items copy];
 }
 
 - (void)handlePinchGesture:(UIPinchGestureRecognizer *)recognizer
