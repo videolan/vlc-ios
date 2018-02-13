@@ -77,7 +77,7 @@ class VLCTabbarCooordinator: NSObject, VLCMediaViewControllerDelegate, UITabBarC
             selectedImage:UIImage(named: "MusicAlbums"))
 
         //Serverlist
-        let serverVC = VLCServerListViewController()
+        let serverVC = VLCServerListViewController(nibName: nil, bundle: nil)
         serverVC.title = NSLocalizedString("LOCAL_NETWORK", comment: "")
         serverVC.tabBarItem = UITabBarItem(
             title: NSLocalizedString("LOCAL_NETWORK",comment: ""),
