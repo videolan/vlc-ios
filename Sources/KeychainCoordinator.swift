@@ -19,12 +19,20 @@ class KeychainCoordinator:NSObject, PAPasscodeViewControllerDelegate {
     @objc class var passcodeLockEnabled:Bool {
         return UserDefaults.standard.bool(forKey:kVLCSettingPasscodeOnKey)
     }
-
+    private var laContext = LAContext()
     private var touchIDEnabled:Bool {
-        return UserDefaults.standard.bool(forKey:kVLCSettingPasscodeAllowTouchID)
+        var touchIDEnabled = UserDefaults.standard.bool(forKey:kVLCSettingPasscodeAllowTouchID)
+        if #available(iOS 11.0, *) {
+            touchIDEnabled = touchIDEnabled && laContext.biometryType == .touchID
+        }
+        return touchIDEnabled
     }
     private var faceIDEnabled:Bool {
-        return UserDefaults.standard.bool(forKey:kVLCSettingPasscodeAllowFaceID)
+        var faceIDEnabled = UserDefaults.standard.bool(forKey:kVLCSettingPasscodeAllowFaceID)
+        if #available(iOS 11.0, *) {
+            faceIDEnabled = faceIDEnabled && laContext.biometryType == .faceID
+        }
+        return faceIDEnabled
     }
 
     static let passcodeService = "org.videolan.vlc-ios.passcode"
@@ -96,7 +104,7 @@ class KeychainCoordinator:NSObject, PAPasscodeViewControllerDelegate {
         if (avoidPromptingTouchOrFaceID || UIApplication.shared.applicationState != .active) {
             return
         }
-        let laContext = LAContext()
+
         if laContext.canEvaluatePolicy(.deviceOwnerAuthenticationWithBiometrics, error: nil){
             avoidPromptingTouchOrFaceID = true
             laContext.evaluatePolicy(.deviceOwnerAuthenticationWithBiometrics,
