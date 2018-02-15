@@ -1,3 +1,9 @@
+iOS 3.0.1:
+-----------
+· Fixes a crash browsing files on local file servers
+· the "use TouchID setting" is now respected
+· Fixes a crash when locking your UI on iPhone X
+
 iOS 3.0.0:
 -----------
 · Added support for Drag and Drop

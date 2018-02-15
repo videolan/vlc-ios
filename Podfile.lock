@@ -24,7 +24,7 @@ PODS:
   - GoogleAPIClient/Drive (1.0.5):
     - GoogleAPIClient/Core
     - GTMSessionFetcher (~> 1.1)
-  - GRKArrayDiff (2.1)
+  - GRKArrayDiff (2.1.1)
   - GTMAppAuth (0.7.0):
     - AppAuth (~> 0.92.0)
     - GTMSessionFetcher (~> 1.1)
@@ -120,7 +120,7 @@ SPEC CHECKSUMS:
   box-ios-sdk-v2: 9423bd75373350ea40b92f3d2d6e89f81d96d634
   CocoaHTTPServer: 07df8b05a8bde406fe367d22c90a24a2fd4ca49f
   GoogleAPIClient: 77df755d41d70ee5a99b7b752614fbb439f19438
-  GRKArrayDiff: cf743e6b30f6b72a3763e1f16cc5d9da39af86a5
+  GRKArrayDiff: d24cb2d9694985b7032dee96d0d55b917d7b400c
   GTMAppAuth: 8d724be29ab8f2f6d35b2bf929d76340c9d1f1b1
   GTMSessionFetcher: 5bb1eae636127de695590f50e7d248483eb891e6
   HockeySDK: 95db557d54489a570dcdefae0d02f98eecc279a3
