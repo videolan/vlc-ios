@@ -20,16 +20,20 @@ class KeychainCoordinator:NSObject, PAPasscodeViewControllerDelegate {
         return UserDefaults.standard.bool(forKey:kVLCSettingPasscodeOnKey)
     }
     private var laContext = LAContext()
+
+    //Since FaceID and TouchID are both set to 1 when the defaults are registered
+    //we have to double check for the biometry type to not return true even though the setting is not visible
+    //and that type is not supported by the device
     private var touchIDEnabled:Bool {
         var touchIDEnabled = UserDefaults.standard.bool(forKey:kVLCSettingPasscodeAllowTouchID)
-        if #available(iOS 11.0, *) {
+        if #available(iOS 11.0, *), laContext.canEvaluatePolicy(.deviceOwnerAuthenticationWithBiometrics, error: nil) {
             touchIDEnabled = touchIDEnabled && laContext.biometryType == .touchID
         }
         return touchIDEnabled
     }
     private var faceIDEnabled:Bool {
         var faceIDEnabled = UserDefaults.standard.bool(forKey:kVLCSettingPasscodeAllowFaceID)
-        if #available(iOS 11.0, *) {
+        if #available(iOS 11.0, *), laContext.canEvaluatePolicy(.deviceOwnerAuthenticationWithBiometrics, error: nil) {
             faceIDEnabled = faceIDEnabled && laContext.biometryType == .faceID
         }
         return faceIDEnabled
@@ -95,7 +99,8 @@ class KeychainCoordinator:NSObject, PAPasscodeViewControllerDelegate {
     }
 
     @objc private func appInForeground(notification:Notification) {
-        if let navigationController = UIApplication.shared.delegate?.window??.rootViewController?.presentedViewController as? UINavigationController, navigationController.topViewController is PAPasscodeViewController, touchIDEnabled {
+        if let navigationController = UIApplication.shared.delegate?.window??.rootViewController?.presentedViewController as? UINavigationController, navigationController.topViewController is PAPasscodeViewController,
+            touchIDEnabled || faceIDEnabled {
             touchOrFaceIDQuery()
         }
     }
