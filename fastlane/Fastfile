@@ -1,0 +1,92 @@
+def ensure_git_status_clean
+  gitstatus = `xcrun git status --porcelain`
+  if gitstatus != "?? 0001-privateConstants.patch\n"
+    puts("⚠️ There are local changes. Please commit, stash or reset before continuing.\n#{gitstatus}")
+    exit(-2)
+  end
+end
+
+def git_apply_private_constants
+  Dir.chdir("..") do
+    gitapply = `xcrun git apply 0001-privateConstants.patch`
+    if gitapply != ""
+      puts("⚠️ There are conflicts. Please resolve the conflicts and update the privateConstants.patch before continuing.\n#{gitapply}")
+      exit(-2)
+    end
+  end
+end
+
+def changelog 
+    #splits the News by -------- get out the top notes
+    changelog = File.read("../Docs/NEWS").split("-----------")[1].split("-----------").first
+    tempChangelog = changelog.split("iOS")
+    if (tempChangelog.count <= 1)
+      tempChangelog = changelog.split("tvOS")
+    end
+    changelog = tempChangelog[0..-2].join.strip
+    set_changelog(app_identifier: "org.videolan.vlc-ios", changelog: changelog, username: "*", team_name:"VideoLAN")
+end
+
+def build_app
+    project_file = 'VLC.xcodeproj'
+
+    increment_version_number(
+      bump_type: "patch",
+      xcodeproj: project_file
+    )
+
+    increment_build_number(
+      xcodeproj: project_file)
+
+    commit_version_bump(
+      message: 'Version Bump by fastlane',
+      xcodeproj: project_file,
+      force: true)
+end
+# Uncomment the line if you want fastlane to automatically update itself
+# update_fastlane
+
+default_platform(:ios)
+
+platform :ios do
+	
+  before_all do 
+     clear_derived_data
+  end
+
+desc "Release a new version to the App Store"
+desc "This action does the following:"
+desc ""
+desc "- Ensures a clean git status"
+desc "- Increment the version and build number and commit the change"
+desc "- Apply the privateConstants which include the credentials"
+desc "- Build and sign the app"
+desc "- Update the changelog from the NEWS file"
+desc "- Push the version bump"
+  lane :release do
+
+    # Make sure we start off with a clean slate
+    ensure_git_status_clean
+
+    # Bumps the version, commits it and builds the app
+    build_app
+
+    #apply the private keys for
+    git_apply_private_constants
+
+    #Build VLC for iOS
+    gym(workspace: 'VLC.xcworkspace',
+        scheme: 'VLC-iOS',
+        clean:true)
+
+    # uploads the app to the app store
+    upload_to_app_store(skip_metadata: true,
+                        skip_screenshots: true)
+
+    # updates the changelog from the NEWS file
+    changelog
+
+    push_to_git_remote
+
+  end
+end
