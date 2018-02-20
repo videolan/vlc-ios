@@ -19,13 +19,14 @@ class KeychainCoordinator:NSObject, PAPasscodeViewControllerDelegate {
     @objc class var passcodeLockEnabled:Bool {
         return UserDefaults.standard.bool(forKey:kVLCSettingPasscodeOnKey)
     }
-    private var laContext = LAContext()
 
     //Since FaceID and TouchID are both set to 1 when the defaults are registered
     //we have to double check for the biometry type to not return true even though the setting is not visible
     //and that type is not supported by the device
     private var touchIDEnabled:Bool {
         var touchIDEnabled = UserDefaults.standard.bool(forKey:kVLCSettingPasscodeAllowTouchID)
+        let laContext = LAContext()
+
         if #available(iOS 11.0, *), laContext.canEvaluatePolicy(.deviceOwnerAuthenticationWithBiometrics, error: nil) {
             touchIDEnabled = touchIDEnabled && laContext.biometryType == .touchID
         }
@@ -33,6 +34,8 @@ class KeychainCoordinator:NSObject, PAPasscodeViewControllerDelegate {
     }
     private var faceIDEnabled:Bool {
         var faceIDEnabled = UserDefaults.standard.bool(forKey:kVLCSettingPasscodeAllowFaceID)
+        let laContext = LAContext()
+
         if #available(iOS 11.0, *), laContext.canEvaluatePolicy(.deviceOwnerAuthenticationWithBiometrics, error: nil) {
             faceIDEnabled = faceIDEnabled && laContext.biometryType == .faceID
         }
@@ -110,6 +113,8 @@ class KeychainCoordinator:NSObject, PAPasscodeViewControllerDelegate {
             return
         }
 
+        let laContext = LAContext()
+
         if laContext.canEvaluatePolicy(.deviceOwnerAuthenticationWithBiometrics, error: nil){
             avoidPromptingTouchOrFaceID = true
             laContext.evaluatePolicy(.deviceOwnerAuthenticationWithBiometrics,
@@ -127,7 +132,6 @@ class KeychainCoordinator:NSObject, PAPasscodeViewControllerDelegate {
                                                 self?.avoidPromptingTouchOrFaceID = true
                                             }
                                         }
-
             })
         }
     }
