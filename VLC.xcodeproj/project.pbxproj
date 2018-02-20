@@ -3496,8 +3496,8 @@
 				"${PODS_ROOT}/InAppSettingsKit/InAppSettingsKit/Resources/sv.lproj",
 				"${PODS_ROOT}/InAppSettingsKit/InAppSettingsKit/Resources/th.lproj",
 				"${PODS_ROOT}/InAppSettingsKit/InAppSettingsKit/Resources/tr.lproj",
-				"${PODS_ROOT}/MediaLibraryKit-unstable/MappingModel_2_5_to_2_6.xcmappingmodel",
-				"${PODS_ROOT}/MediaLibraryKit-unstable/MediaLibrary.xcdatamodeld",
+				"${PODS_ROOT}/MediaLibraryKit-prod/MappingModel_2_5_to_2_6.xcmappingmodel",
+				"${PODS_ROOT}/MediaLibraryKit-prod/MediaLibrary.xcdatamodeld",
 				"${PODS_ROOT}/VLC-LiveSDK/src/LiveSDK/Library/Internal/Resources/backArrow_black.png",
 				"${PODS_ROOT}/VLC-LiveSDK/src/LiveSDK/Library/Internal/LiveAuthDialog_iPad.xib",
 				"${PODS_ROOT}/VLC-LiveSDK/src/LiveSDK/Library/Internal/LiveAuthDialog_iPhone.xib",
@@ -3589,8 +3589,8 @@
 				"${PODS_ROOT}/InAppSettingsKit/InAppSettingsKit/Resources/sv.lproj",
 				"${PODS_ROOT}/InAppSettingsKit/InAppSettingsKit/Resources/th.lproj",
 				"${PODS_ROOT}/InAppSettingsKit/InAppSettingsKit/Resources/tr.lproj",
-				"${PODS_ROOT}/MediaLibraryKit-unstable/MappingModel_2_5_to_2_6.xcmappingmodel",
-				"${PODS_ROOT}/MediaLibraryKit-unstable/MediaLibrary.xcdatamodeld",
+				"${PODS_ROOT}/MediaLibraryKit-prod/MappingModel_2_5_to_2_6.xcmappingmodel",
+				"${PODS_ROOT}/MediaLibraryKit-prod/MediaLibrary.xcdatamodeld",
 				"${PODS_ROOT}/VLC-LiveSDK/src/LiveSDK/Library/Internal/Resources/backArrow_black.png",
 				"${PODS_ROOT}/VLC-LiveSDK/src/LiveSDK/Library/Internal/LiveAuthDialog_iPad.xib",
 				"${PODS_ROOT}/VLC-LiveSDK/src/LiveSDK/Library/Internal/LiveAuthDialog_iPhone.xib",
@@ -3633,8 +3633,8 @@
 			);
 			inputPaths = (
 				"${SRCROOT}/Pods/Target Support Files/Pods-VLC-watchOS-Extension/Pods-VLC-watchOS-Extension-resources.sh",
-				"${PODS_ROOT}/MediaLibraryKit-unstable/MappingModel_2_5_to_2_6.xcmappingmodel",
-				"${PODS_ROOT}/MediaLibraryKit-unstable/MediaLibrary.xcdatamodeld",
+				"${PODS_ROOT}/MediaLibraryKit-prod/MappingModel_2_5_to_2_6.xcmappingmodel",
+				"${PODS_ROOT}/MediaLibraryKit-prod/MediaLibrary.xcdatamodeld",
 			);
 			name = "[CP] Copy Pods Resources";
 			outputPaths = (
