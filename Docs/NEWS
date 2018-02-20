@@ -1,3 +1,8 @@
+iOS 3.0.2:
+-----------
+· Fixes issues with TouchID and FaceID
+· Fixes a crash when opening a Folder
+
 tvOS 3.0.1:
 ----------
 · Fixes a crash browsing files on local file servers
