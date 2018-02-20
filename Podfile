@@ -10,7 +10,7 @@ platform :ios, '9.0'
 pod 'OBSlider', '1.1.0'
 pod 'InAppSettingsKit', :git => 'git://github.com/fkuehne/InAppSettingsKit.git', :commit => '415ea6bb' #tvOS fix
 pod 'upnpx', '~>1.4.0'
-pod 'HockeySDK', '~>4.1.6', :subspecs => ['CrashOnlyLib']
+pod 'HockeySDK', '~>5.1.2', :subspecs => ['CrashOnlyLib']
 pod 'XKKeychain', '~>1.0'
 pod 'box-ios-sdk-v2', :git => 'git://github.com/fkuehne/box-ios-sdk-v2.git' #has a logout function added
 pod 'CocoaHTTPServer', :git => 'git://github.com/fkuehne/CocoaHTTPServer.git' # has our fixes
@@ -32,7 +32,7 @@ platform :ios, '9.0'
 pod 'OBSlider', '1.1.0'
 pod 'InAppSettingsKit', :git => 'git://github.com/fkuehne/InAppSettingsKit.git', :commit => '415ea6bb' #tvOS fix
 pod 'upnpx', '~>1.4.0'
-pod 'HockeySDK', '~>4.1.6', :subspecs => ['CrashOnlyLib']
+pod 'HockeySDK', '~>5.1.2', :subspecs => ['CrashOnlyLib']
 pod 'XKKeychain', '~>1.0'
 pod 'box-ios-sdk-v2', :git => 'git://github.com/fkuehne/box-ios-sdk-v2.git' #has a logout function added
 pod 'CocoaHTTPServer', :git => 'git://github.com/fkuehne/CocoaHTTPServer.git' # has our fixes
