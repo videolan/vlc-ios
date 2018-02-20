@@ -146,6 +146,7 @@ static NSString *kUsingTableViewToShowData = @"UsingTableViewToShowData";
 
     if (!_collectionView) {
         _folderLayout = [[VLCFolderCollectionViewFlowLayout alloc] init];
+        _reorderLayout = [[LXReorderableCollectionViewFlowLayout alloc] init];
         _collectionView = [[UICollectionView alloc] initWithFrame:viewDimensions collectionViewLayout:_folderLayout];
         _collectionView.alwaysBounceVertical = YES;
         if (@available(iOS 11.0, *)) {
@@ -316,7 +317,8 @@ static NSString *kUsingTableViewToShowData = @"UsingTableViewToShowData";
                         if (recognizer == _folderLayout.panGestureRecognizer || recognizer == _folderLayout.longPressGestureRecognizer || recognizer == _longPressGestureRecognizer)
                             [self.collectionView removeGestureRecognizer:recognizer];
                     }
-                    _reorderLayout = [[LXReorderableCollectionViewFlowLayout alloc] init];
+                    //reloadData before setting a new layout avoids a crash deep in UIKits UICollectionViewData layoutattributs
+                    [self.collectionView reloadData];
                     [self.collectionView setCollectionViewLayout:_reorderLayout animated:NO];
                 }
             }
