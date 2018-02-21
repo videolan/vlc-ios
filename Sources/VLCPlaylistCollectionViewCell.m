@@ -45,8 +45,7 @@
 {
     self.isSelectedView.hidden = !editing;
 
-    if (!([_mediaObject isKindOfClass:[MLFile class]] && [((MLFile *)_mediaObject).labels count] > 0))
-        [self shake:editing];
+    [self shake:editing];
     [self selectionUpdate];
     [self _updatedDisplayedInformationForKeyPath:@"editing"];
 }
