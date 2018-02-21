@@ -39,7 +39,7 @@
     _FTPListDirRequest.delegate = self;
     _FTPListDirRequest.hostname = _url.host;
     _FTPListDirRequest.username = _url.user;
-    _FTPListDirRequest.password = _url.password;
+    _FTPListDirRequest.password = [_url.password stringByRemovingPercentEncoding];
     _FTPListDirRequest.path = _url.path;
     _FTPListDirRequest.passive = YES;
 
