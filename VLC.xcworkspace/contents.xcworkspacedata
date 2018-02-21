@@ -5,12 +5,6 @@
       location = "group:VLC.xcodeproj">
    </FileRef>
    <FileRef
-      location = "group:ImportedSources/MediaLibraryKit/MediaLibraryKit.xcodeproj">
-   </FileRef>
-   <FileRef
-      location = "group:ImportedSources/VLCKit/MobileVLCKit.xcodeproj">
-   </FileRef>
-   <FileRef
       location = "group:Pods/Pods.xcodeproj">
    </FileRef>
 </Workspace>
