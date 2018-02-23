@@ -18,7 +18,7 @@ It's completely open source.
 
 ## Let's compile!
 1. Run ```pod update```
-2. Open `VLC for iOS.xcworkspace`.
+2. Open `VLC.xcworkspace`.
 3. Change `BUNDLE_IDENTIFIER_PREFIX` in `SharedConfig.xcconfig` to your domain name in reverse DNS style.
 4. Hit "Build and Run".
 
