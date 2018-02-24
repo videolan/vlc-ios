@@ -17,7 +17,7 @@ fastlane/test_output
 Pods
 
 # Private Constants
-apply 0001-privateConstants.patch
+0001-privateConstants.patch
 
 # Others
 !Makefile
