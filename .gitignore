@@ -1,22 +1,28 @@
-!Makefile
-*.mode*
-*.pbxuser
+# Xcode
 xcuserdata
+*.xccheckout
+*.pbxuser
+*.mode*
+
+# macOS
 .DS_Store
-build
-External
-ImportedSources
-DerivedData
-Pods
 
-# fastlane
-#
-# It is recommended to not store the screenshots in the git repo. Instead, use fastlane to re-generate the
-# screenshots whenever they are needed.
-# For more information about the recommended setup visit:
-# https://docs.fastlane.tools/best-practices/source-control/#source-control
-
+# Fastlane
 fastlane/report.xml
 fastlane/Preview.html
 fastlane/screenshots
 fastlane/test_output
+
+# CocoaPods
+Pods
+
+# Private Constants
+apply 0001-privateConstants.patch
+
+# Others
+!Makefile
+build
+External
+ImportedSources
+DerivedData
+
