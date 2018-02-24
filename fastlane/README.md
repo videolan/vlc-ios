@@ -15,20 +15,25 @@ Install _fastlane_ using
 or alternatively using `brew cask install fastlane`
 
 # Available Actions
-## iOS
-### ios release
+### release
 ```
-fastlane ios release
+fastlane release
 ```
-Release a new version to the App Store
+Release a new version of VLC to the App Store
+
+
+
+This action requires the following parameters:
+
+- platform (iOS or tvOS)
+
+
 
 This action does the following:
 
+- Ensure a clean git status
 
-
-- Ensures a clean git status
-
-- Increment the version and build number and commit the change
+- Increment the version and build number and commit the change (only for iOS releases)
 
 - Apply the privateConstants which include the credentials
 
