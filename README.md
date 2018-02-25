@@ -65,7 +65,7 @@ Also, if you haven't yet, you might want to subscribe to this mailinglist: https
 
 ## Release
 
-The process of releasing new builds of VLC to iTunes Connect is automatized with Fastlane.
+The process of releasing new builds of VLC to iTunes Connect is automated with fastlane.
 
 To release a new version of VLC for iOS, run the following command:
 ```
