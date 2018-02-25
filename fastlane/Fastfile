@@ -47,7 +47,6 @@ private_lane :update_changelog do |options|
     temp_changelog = changelog.split('tvOS')
   end
   changelog = temp_changelog[0..-2].join.strip
-  puts changelog
   set_changelog(app_identifier: 'org.videolan.vlc-ios', changelog: changelog, username: '*', team_name: 'VideoLAN')
 end
 
