@@ -25,21 +25,21 @@ It's completely open source.
 ## Compile with your own VLCKit build
 1. Clone a VLCKit repository: `git clone https://code.videolan.org/videolan/VLCKit.git`
 2. Inside the VLCKit folder, run the following command: `./buildMobileVLCKit.sh -a ${MYARCH}`
-    
+
     MYARCH can be `i386` `x86_64` `armv7` `armv7s` or `aarch64`.
-    
+
     Add `-d` for a debug build (to have valid stack straces and asserts).
-    
+
     Add `-n` if you want to use you own VLC repository for VLCKit (See VLCKit README.md).
 
 3. Replace the MobileVLCKit.framework with the one you just build.
-    
+
     Inside your vlc-ios folder, after a `podate update`, do:
-    
+
     `cd Pods/MobileVLCKit-unstable/MobileVLCKit-binary`
-    
+
     `rm -rf MobileVLCKit.framework`
-    
+
     `ln -s ${VLCKit}/build/MobileVLCKit.framework`
 
 4. Hit "Build and Run".
@@ -62,6 +62,22 @@ Soo *cough* we work with patches and Mailinglists like any good open source proj
 You should take a look at this: https://wiki.videolan.org/Sending_Patches_VLC/ but finally send the patch to ios@videolan.org.
 
 Also, if you haven't yet, you might want to subscribe to this mailinglist: https://mailman.videolan.org/listinfo/ios
+
+## Release
+
+The process of releasing new builds of VLC to iTunes Connect is automatized with Fastlane.
+
+To release a new version of VLC for iOS, run the following command:
+```
+bundle exec fastlane release platform:iOS
+```
+
+To release a new version of VLC for tvOS, run the following command:
+```
+bundle exec fastlane release platform:tvOS
+```
+
+Please find further information about this process in [fastlane/README.md](./fastlane/README.md)
 
 ## Notes
 
