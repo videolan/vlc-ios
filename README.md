@@ -1,30 +1,46 @@
-# VLC iOS
+# VLC for iOS & tvOS
 
-The best open source player ported to iOS!
+This repository has the source code of VLC for iOS and tvOS application.
 
-This repository has the source code of the iOS/AppleTV application and mostly the interface.
+It's currently written in Objective-C / Swift and uses VLCKit a libvlc wrapper.
 
-It's currently written in Obj-C and uses libVLC for the playback.
-
-It's completely open source.
-
-# How to start development for VLC for iOS:
+- [Requirements](#requirements)
+- [Building](#building)
+    - [VLC-iOS](#vlc-ios)
+    - [Custom VLCKit](#custom-vlckit)
+- [Contribute](#contribute)
+- [Communication](#communication)
+    - [Forum](#forum)
+    - [Issues](#issues)
+    - [IRC](#irc)
+- [License](#license)
+- [More](#more)
 
 ## Requirements
-* Xcode 7.0 or later
-* OS X 10.10 or later
-* Command Line Tools package: https://developer.apple.com/downloads/
-* Cocoapods 1.0 or later
+* Xcode 9.0+
+* macOS 10.12+
+* Cocoapods 1.4+
 
-## Let's compile!
-1. Run ```pod update```
+## Building
+
+### VLC-iOS
+
+1. Run `pod update`
 2. Open `VLC.xcworkspace`.
-3. Change `BUNDLE_IDENTIFIER_PREFIX` in `SharedConfig.xcconfig` to your domain name in reverse DNS style.
-4. Hit "Build and Run".
+3. Hit "Build and Run".
 
-## Compile with your own VLCKit build
-1. Clone a VLCKit repository: `git clone https://code.videolan.org/videolan/VLCKit.git`
-2. Inside the VLCKit folder, run the following command: `./buildMobileVLCKit.sh -a ${MYARCH}`
+### Custom VLCkit
+
+Mostly for debugging or advance users, you might want to have a custom local VLCKit build.
+
+1. Clone VLCKit:
+
+    `git clone https://code.videolan.org/videolan/VLCKit.git`
+
+
+2. Inside the VLCKit folder, run the following command:
+
+    `./buildMobileVLCKit.sh -a ${MYARCH}`
 
     MYARCH can be `i386` `x86_64` `armv7` `armv7s` or `aarch64`.
 
@@ -42,48 +58,51 @@ It's completely open source.
 
     `ln -s ${VLCKit}/build/MobileVLCKit.framework`
 
-4. Hit "Build and Run".
+4. Hit "Build and Run.
 
-## Errors you might encounter on the way
+## Contribute
 
-### Build errors in Xcode
+### Pull request
 
-Are you sure you opened the workspace? 
-We use cocoapods and it creates a workspace with all the integrated libraries. 
-Chances are you opened the project file. 
+If you want to submit a pull request, please make sure to use a descriptive title and description.
 
-If you have opened the workspace and still get errors you should check out the Notes section
+### Gitlab issues
 
-## Submitting A Patch
+You can look through issues we currently have on the [VideoLAN Gitlab](https://code.videolan.org/videolan/vlc-ios/issues).
 
-So you added some code and are ready to contribute your commits but you don't see a way to make a pull request?
-Soo *cough* we work with patches and Mailinglists like any good open source project! 
+We even have a [Beginner friendly](https://code.videolan.org/videolan/vlc-ios/issues?label_name%5B%5D=Beginner+friendly) tag if you don't know were to start!
 
-You should take a look at this: https://wiki.videolan.org/Sending_Patches_VLC/ but finally send the patch to ios@videolan.org.
+## Communication
 
-Also, if you haven't yet, you might want to subscribe to this mailinglist: https://mailman.videolan.org/listinfo/ios
+### Forum
 
-## Release
+If you have any question or you're not sure it's an issue please visit our [forum](https://forum.videolan.org/).
 
-The process of releasing new builds of VLC to iTunes Connect is automated with fastlane.
+### Issues
 
-To release a new version of VLC for iOS, run the following command:
-```
-bundle exec fastlane release platform:iOS
-```
+You have encountered an issue and wish to report it to the VLC dev team?
 
-To release a new version of VLC for tvOS, run the following command:
-```
-bundle exec fastlane release platform:tvOS
-```
+You can create an issue on our [Gitlab](https://code.videolan.org/videolan/vlc-ios/issues) or on our [bug tracker](https://trac.videolan.org/vlc/).
 
-Please find further information about this process in [fastlane/README.md](./fastlane/README.md)
+Before creating an issue or ticket, please double check of duplicates!
 
-## Notes
+### IRC
 
-For everything else, check: https://wiki.videolan.org/IOSCompile/
+Want to quickly get in touch with us for a question, or even just to talk?
+
+You will alawys find someone of the VLC team on IRC, __#videolan__ channel on the freenode network.
+If you don't have an IRC client, you can always use the [freenode webchat](https://webchat.freenode.net/).
+
+## License
+
+VLC-iOS is under the GPLv2 (or later) and the MPLv2 license.
+
+See [COPYING](./COPYING) for more license info.
+
+## More
+
+For everything else, check: https://wiki.videolan.org/
 or look here: http://www.videolan.org/support/
-For fast replies, IRC is probably the best way. We hang out in the #videolan channel on the freenode network. There is also a web interface: http://webchat.freenode.net/
 
 We're happy to help!
 
