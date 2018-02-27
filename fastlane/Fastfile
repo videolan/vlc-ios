@@ -1,7 +1,7 @@
 fastlane_version '2.82.0'
 
 require './helpers/VLC.rb'
-require './helpers/increment_version.rb'
+require './helpers/version.rb'
 
 #### Release ####
 
