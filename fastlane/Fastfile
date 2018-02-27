@@ -26,14 +26,13 @@ lane :release do |options|
 
    ensure_git_status_clean
    clear_derived_data
-   bump_version_and_commit
+   set_version_bump_build_and_commit(platform: platform, version: version)
    git_apply_private_constants
    cocoapods(repo_update: true)
    gym(scheme: "VLC-#{platform}")
    pilot(app_platform: platform == 'tvOS' ? 'appletvos' : 'ios')
    update_changelog
    push_to_git_remote
-   set_version_bump_build_and_commit(platform: platform, version: version)
 end
 
 #### Private ####
