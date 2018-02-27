@@ -32,9 +32,9 @@ end
 #### Private ####
 
 desc 'Bump and commit app version and build number'
-private_lane :bump_version_and_commit do
-  increment_version_number(bump_type: 'patch')
-  increment_build_number
+private_lane :set_version_bump_build_and_commit do |options|
+  increment_build_number_in_a_single_target(options[:platform] == 'tvOS' ? VLC::InfoPlistPath::TVOS : VLC::InfoPlistPath::IOS)
+  set_version_number_in_a_single_target(options[:platform] == 'tvOS' ? VLC::InfoPlistPath::TVOS : VLC::InfoPlistPath::IOS, options[:version])
   commit_version_bump(message: 'Version Bump by fastlane', force: true)
 end
 
