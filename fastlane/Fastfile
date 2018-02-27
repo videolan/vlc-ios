@@ -1,11 +1,15 @@
 fastlane_version '2.82.0'
 
+require './helpers/VLC.rb'
+require './helpers/increment_version.rb'
+
 #### Release ####
 
 desc 'Release a new version of VLC to the App Store'
 desc ''
 desc 'This action requires the following parameters:'
 desc '- platform (iOS or tvOS)'
+desc '- version'
 desc ''
 desc 'This action does the following:'
 desc '- Ensure a clean git status'
@@ -17,25 +21,28 @@ desc '- Build and sign the app'
 desc '- Update the changelog from the NEWS file'
 desc '- Push the version bump'
 lane :release do |options|
-  platform = get_platform options
-  ensure_git_status_clean
-  clear_derived_data
-  bump_version_and_commit if platform == 'iOS'
-  git_apply_private_constants
-  cocoapods(repo_update: true)
-  gym(scheme: "VLC-#{platform}")
-  pilot(app_platform: platform == 'tvOS' ? 'appletvos' : 'ios')
-  update_changelog
-  push_to_git_remote
+   platform = get_platform options
+   version = get_version options
+
+   ensure_git_status_clean
+   clear_derived_data
+   bump_version_and_commit
+   git_apply_private_constants
+   cocoapods(repo_update: true)
+   gym(scheme: "VLC-#{platform}")
+   pilot(app_platform: platform == 'tvOS' ? 'appletvos' : 'ios')
+   update_changelog
+   push_to_git_remote
+   set_version_bump_build_and_commit(platform: platform, version: version)
 end
 
 #### Private ####
 
 desc 'Bump and commit app version and build number'
-private_lane :bump_version_and_commit do
-  increment_version_number(bump_type: 'patch')
-  increment_build_number
-  commit_version_bump(message: 'Version Bump by fastlane', force: true)
+private_lane :set_version_bump_build_and_commit do |options|
+  increment_build_number_in_a_single_target(options[:platform] == 'tvOS' ? VLC::InfoPlistPath::TVOS : VLC::InfoPlistPath::IOS)
+  set_version_number_in_a_single_target(options[:platform] == 'tvOS' ? VLC::InfoPlistPath::TVOS : VLC::InfoPlistPath::IOS, options[:version])
+#  commit_version_bump(message: 'Version Bump by fastlane', force: true)
 end
 
 desc 'Update changelog in iTunes Connect with the content from Docs/NEWS'
@@ -73,3 +80,13 @@ private_lane :get_platform do |options|
   end
   platform
 end
+
+desc 'Return the version received as parameter, or ask for it if missing'
+private_lane :get_version do |options|
+  version = options[:version]
+  if !version || version.empty?
+    version = ask("Enter a new version number: ")
+  end
+  version
+end
+

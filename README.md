@@ -69,12 +69,12 @@ The process of releasing new builds of VLC to iTunes Connect is automated with f
 
 To release a new version of VLC for iOS, run the following command:
 ```
-bundle exec fastlane release platform:iOS
+bundle exec fastlane release platform:iOS version:3.1.0
 ```
 
 To release a new version of VLC for tvOS, run the following command:
 ```
-bundle exec fastlane release platform:tvOS
+bundle exec fastlane release platform:tvOS version:3.1.0
 ```
 
 Please find further information about this process in [fastlane/README.md](./fastlane/README.md)

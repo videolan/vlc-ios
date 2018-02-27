@@ -27,15 +27,21 @@ This action requires the following parameters:
 
 - platform (iOS or tvOS)
 
+- version
+
 
 
 This action does the following:
 
 - Ensure a clean git status
 
+- Clear derived data
+
 - Increment the version and build number and commit the change (only for iOS releases)
 
 - Apply the privateConstants which include the credentials
+
+- Install cocoapods dependencies
 
 - Build and sign the app
 
