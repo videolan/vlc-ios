@@ -31,7 +31,7 @@ It's currently written in Objective-C / Swift and uses VLCKit a libvlc wrapper.
 
 ### Custom VLCkit
 
-Mostly for debugging or advance users, you might want to have a custom local VLCKit build.
+Mostly for debugging or advanced users, you might want to have a custom local VLCKit build.
 
 1. Clone VLCKit:
 
