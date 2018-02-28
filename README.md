@@ -46,11 +46,11 @@ Mostly for debugging or advanced users, you might want to have a custom local VL
 
     Add `-d` for a debug build (to have valid stack straces and asserts).
 
-    Add `-n` if you want to use you own VLC repository for VLCKit (See VLCKit README.md).
+    Add `-n` if you want to use you own VLC repository for VLCKit (See [VLCKit README.md](https://code.videolan.org/videolan/VLCKit/blob/master/README.md)).
 
 3. Replace the MobileVLCKit.framework with the one you just build.
 
-    Inside your vlc-ios folder, after a `podate update`, do:
+    Inside your vlc-ios folder, after a `pod update`, do:
 
     `cd Pods/MobileVLCKit-unstable/MobileVLCKit-binary`
 
@@ -58,7 +58,7 @@ Mostly for debugging or advanced users, you might want to have a custom local VL
 
     `ln -s ${VLCKit}/build/MobileVLCKit.framework`
 
-4. Hit "Build and Run.
+4. Hit "Build and Run".
 
 ## Contribute
 
@@ -90,7 +90,7 @@ Before creating an issue or ticket, please double check of duplicates!
 
 Want to quickly get in touch with us for a question, or even just to talk?
 
-You will alawys find someone of the VLC team on IRC, __#videolan__ channel on the freenode network.
+You will always find someone of the VLC team on IRC, __#videolan__ channel on the freenode network.
 If you don't have an IRC client, you can always use the [freenode webchat](https://webchat.freenode.net/).
 
 ## License
@@ -105,4 +105,3 @@ For everything else, check: https://wiki.videolan.org/
 or look here: http://www.videolan.org/support/
 
 We're happy to help!
-
