@@ -36,6 +36,7 @@
 #import "VLCTrackSelectorView.h"
 #import "VLCMetadata.h"
 #import "UIDevice+VLC.h"
+#import "VLC_iOS-Swift.h"
 
 #define FORWARD_SWIPE_DURATION 30
 #define BACKWARD_SWIPE_DURATION 10
@@ -54,7 +55,7 @@ typedef NS_ENUM(NSInteger, VLCPanType) {
   VLCPanTypeProjection
 };
 
-@interface VLCMovieViewController () <UIGestureRecognizerDelegate, VLCMultiSelectionViewDelegate, VLCEqualizerViewUIDelegate>
+@interface VLCMovieViewController () <UIGestureRecognizerDelegate, VLCMultiSelectionViewDelegate, VLCEqualizerViewUIDelegate, VLCPlaybackControllerDelegate, VLCDeviceMotionDelegate>
 {
     BOOL _controlsHidden;
     BOOL _videoFiltersHidden;
@@ -78,7 +79,6 @@ typedef NS_ENUM(NSInteger, VLCPanType) {
     BOOL _seekGestureEnabled;
     BOOL _closeGestureEnabled;
     BOOL _variableJumpDurationEnabled;
-    BOOL _mediaHasProjection;
     BOOL _playbackWillClose;
     BOOL _isTapSeeking;
     VLCMovieJumpState _previousJumpState;
@@ -111,6 +111,7 @@ typedef NS_ENUM(NSInteger, VLCPanType) {
     NSInteger _mediaDuration;
     NSInteger _numberOfTapSeek;
 
+    VLCDeviceMotion *_deviceMotion;
     CGFloat _fov;
     CGPoint _saveLocation;
     CGSize _screenSizePixel;
@@ -415,8 +416,6 @@ typedef NS_ENUM(NSInteger, VLCPanType) {
 
     [self updateDefaults];
 
-    //Disabling video gestures, media not init in the player yet.
-    [self enableNormalVideoGestures:NO];
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(updateDefaults) name:NSUserDefaultsDidChangeNotification object:nil];
 }
 
@@ -433,14 +432,7 @@ typedef NS_ENUM(NSInteger, VLCPanType) {
     _multiSelectionView.shuffleMode = _vpc.isShuffleMode;
 
     //Media is loaded in the media player, checking the projection type and configuring accordingly.
-    _fov = 0.f;
-    _mediaHasProjection = NO;
-    if ([_vpc currentMediaProjection] == VLCMediaProjectionEquiRectangular) {
-        _fov = DEFAULT_FOV;
-        _mediaHasProjection = YES;
-    }
-
-    [self enableNormalVideoGestures:!_mediaHasProjection];
+    [self setupForMediaProjection];
 }
 
 - (void)viewDidLayoutSubviews
@@ -510,6 +502,12 @@ typedef NS_ENUM(NSInteger, VLCPanType) {
 
     [[NSNotificationCenter defaultCenter] removeObserver:self name:NSUserDefaultsDidChangeNotification object:nil];
     [[NSUserDefaults standardUserDefaults] setBool:_displayRemainingTime forKey:kVLCShowRemainingTime];
+}
+
+- (void)viewDidDisappear:(BOOL)animated
+{
+    [super viewDidDisappear:animated];
+    [self.deviceMotion stopDeviceMotion];
 }
 
 - (BOOL)canBecomeFirstResponder
@@ -650,7 +648,7 @@ typedef NS_ENUM(NSInteger, VLCPanType) {
 
     CGFloat diff = DEFAULT_FOV * -(ZOOM_SENSITIVITY * recognizer.velocity / _screenSizePixel.width);
 
-    if (_mediaHasProjection) {
+    if ([_vpc currentMediaProjection] == VLCMediaProjectionEquiRectangular) {
         if ([_vpc updateViewpoint:0 pitch:0 roll:0 fov:diff absolute:NO]) {
             //Checking for fov value in case of
             _fov = MAX(MIN(_fov + diff, MAX_FOV), MIN_FOV);
@@ -838,15 +836,35 @@ typedef NS_ENUM(NSInteger, VLCPanType) {
     return [super nextResponder];
 }
 
-- (void)enableNormalVideoGestures:(BOOL)enable
+- (VLCDeviceMotion *)deviceMotion
 {
-    [_tapRecognizer setEnabled:enable];
-    [_swipeRecognizerUp setEnabled:enable];
-    [_swipeRecognizerDown setEnabled:enable];
-    [_swipeRecognizerLeft setEnabled:enable];
-    [_swipeRecognizerRight setEnabled:enable];
+    if (!_deviceMotion) {
+        _deviceMotion = [VLCDeviceMotion new];
+        _deviceMotion.delegate = self;
+    }
+    return _deviceMotion;
 }
 
+- (void)setupForMediaProjection
+{
+    BOOL mediaHasProjection = [_vpc currentMediaProjection] == VLCMediaProjectionEquiRectangular;
+    _fov = mediaHasProjection ? DEFAULT_FOV : 0.f;
+
+    [_panRecognizer setEnabled:mediaHasProjection];
+    [_swipeRecognizerUp setEnabled:!mediaHasProjection];
+    [_swipeRecognizerDown setEnabled:!mediaHasProjection];
+    [_swipeRecognizerLeft setEnabled:!mediaHasProjection];
+    [_swipeRecognizerRight setEnabled:!mediaHasProjection];
+
+    if (mediaHasProjection) {
+        [self.deviceMotion startDeviceMotion];
+    }
+}
+
+- (void)deviceMotionHasAttitudeWithDeviceMotion:(VLCDeviceMotion *)deviceMotion pitch:(double)pitch yaw:(double)yaw roll:(double)roll
+{
+    [_vpc updateViewpoint:yaw pitch:pitch roll:roll fov:_fov absolute:YES];
+}
 #pragma mark - controls
 
 - (IBAction)closePlayback:(id)sender
@@ -1318,22 +1336,21 @@ currentMediaHasTrackToChooseFrom:(BOOL)currentMediaHasTrackToChooseFrom
         panType = VLCPanTypeBrightness;
 
     // only check for seeking gesture if on iPad , will overwrite last statements if true
-    if ([deviceType isEqualToString:@"iPad"]) {
-        if (location.y < 110)
+    if ([deviceType isEqualToString:@"iPad"] && location.y < 110) {
             panType = VLCPanTypeSeek;
     }
 
-    return panType;
+    if ([_vpc currentMediaProjection] == VLCMediaProjectionEquiRectangular) {
+        panType = VLCPanTypeProjection;
+    }
+
+        return panType;
 }
 
 - (void)panRecognized:(UIPanGestureRecognizer*)panRecognizer
 {
     CGFloat panDirectionX = [panRecognizer velocityInView:self.view].x;
     CGFloat panDirectionY = [panRecognizer velocityInView:self.view].y;
-
-    if (panRecognizer.state == UIGestureRecognizerStateBegan) {
-        _currentPanType = _mediaHasProjection ? VLCPanTypeProjection : [self detectPanTypeForPan:panRecognizer];
-    }
 
     if (_currentPanType == VLCPanTypeSeek) {
         if (!_seekGestureEnabled)
@@ -1405,7 +1422,7 @@ currentMediaHasTrackToChooseFrom:(BOOL)currentMediaHasTrackToChooseFrom
         _currentPanType = VLCPanTypeNone;
 
         //Invalidate saved location when the gesture is ended
-        if (_mediaHasProjection)
+        if ([_vpc currentMediaProjection] == VLCMediaProjectionEquiRectangular)
             _saveLocation = CGPointMake(-1.f, -1.f);
     }
 }
