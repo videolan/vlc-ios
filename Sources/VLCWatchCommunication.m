@@ -175,7 +175,11 @@ static VLCWatchCommunication *_singeltonInstance = nil;
 }
 
 - (void)requestThumnail:(VLCWatchMessage *)message {
-    NSString *uriString = message.payload[VLCWatchMessageKeyURIRepresentation];
+    NSAssert([message.payload isKindOfClass:[NSDictionary class]], @"the payload needs to be an NSDictionary");
+    if (![message.payload isKindOfClass:[NSDictionary class]]) return;
+
+    NSDictionary *payload = (NSDictionary *)message.payload;
+    NSString *uriString = payload[VLCWatchMessageKeyURIRepresentation];
     NSURL *url = [NSURL URLWithString:uriString];
     NSManagedObject *object = [[MLMediaLibrary sharedMediaLibrary] objectForURIRepresentation:url];
     if (object) {
