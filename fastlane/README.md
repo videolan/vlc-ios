@@ -37,7 +37,7 @@ This action does the following:
 
 - Clear derived data
 
-- Increment the version and build number and commit the change (only for iOS releases)
+- Set the version, bump the build number and commit the change
 
 - Apply the privateConstants which include the credentials
 
