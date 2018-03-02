@@ -82,7 +82,9 @@ class KeychainCoordinator:NSObject, PAPasscodeViewControllerDelegate {
     @objc func validatePasscode(completion:@escaping ()->()) {
         passcodeLockController.passcode = passcodeFromKeychain()
         self.completion = completion
-        guard let rootViewController = UIApplication.shared.delegate?.window??.rootViewController else {
+        guard let rootViewController = UIApplication.shared.delegate?.window??.rootViewController, passcodeLockController.passcode != "" else {
+            self.completion?()
+            self.completion = nil
             return
         }
         if rootViewController.presentedViewController != nil {
