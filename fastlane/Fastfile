@@ -17,24 +17,35 @@ desc '- Build and sign the app'
 desc '- Update the changelog from the NEWS file'
 desc '- Push the version bump'
 lane :release do |options|
-  platform = get_platform options
-  ensure_git_status_clean
-  clear_derived_data
-  bump_version_and_commit if platform == 'iOS'
-  git_apply_private_constants
-  cocoapods(repo_update: true)
-  gym(scheme: "VLC-#{platform}")
-  pilot(app_platform: platform == 'tvOS' ? 'appletvos' : 'ios')
-  update_changelog
-  push_to_git_remote
+   platform = get_platform options
+   version = get_version options
+   ensure_git_status_clean
+   clear_derived_data
+   set_version_bump_build_and_commit(platform: platform, version: version)
+   git_apply_private_constants
+   cocoapods(repo_update: true)
+   gym(scheme: "VLC-#{platform}")
+   pilot(app_platform: platform == 'tvOS' ? 'appletvos' : 'ios')
+   update_changelog
+   push_to_git_remote
 end
 
 #### Private ####
 
 desc 'Bump and commit app version and build number'
 private_lane :set_version_bump_build_and_commit do |options|
-  increment_build_number_in_a_single_target(options[:platform] == 'tvOS' ? VLC::InfoPlistPath::TVOS : VLC::InfoPlistPath::IOS)
-  set_version_number_in_a_single_target(options[:platform] == 'tvOS' ? VLC::InfoPlistPath::TVOS : VLC::InfoPlistPath::IOS, options[:version])
+  if options[:platform] == 'tvOS'
+    increment_build_number_in_plist(VLC::infoPlistPath[:tvOS])
+    set_version_number_in_plist(VLC::infoPlistPath[:tvOS], options[:version])
+  elsif options[:platform] == 'iOS'
+    increment_build_number_in_plist(VLC::infoPlistPath[:iOS])
+    increment_build_number_in_plist(VLC::infoPlistPath[:watchKitExtension])
+    increment_build_number_in_plist(VLC::infoPlistPath[:watchOS])
+    set_version_number_in_plist(VLC::infoPlistPath[:iOS], options[:version])
+    set_version_number_in_plist(VLC::infoPlistPath[:watchKitExtension], options[:version])
+    set_version_number_in_plist(VLC::infoPlistPath[:watchOS], options[:version])
+  end
+
   commit_version_bump(message: 'Version Bump by fastlane', force: true)
 end
 
