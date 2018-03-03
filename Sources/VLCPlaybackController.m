@@ -1106,8 +1106,10 @@ typedef NS_ENUM(NSUInteger, VLCAspectRatio) {
         CGFloat lastPosition = .0;
         NSInteger duration = 0;
 
-        if (item.lastPosition)
+        if (item.lastPosition) {
             lastPosition = item.lastPosition.floatValue;
+        }
+        
         duration = item.duration.intValue;
 
         if (lastPosition < .95 && _mediaPlayer.position < lastPosition) {
@@ -1118,7 +1120,7 @@ typedef NS_ENUM(NSUInteger, VLCAspectRatio) {
                 continuePlayback = [[[NSUserDefaults standardUserDefaults] objectForKey:kVLCSettingContinuePlayback] integerValue];
 
             if (continuePlayback == 1) {
-                _mediaPlayer.position = lastPosition;
+                [self jumpForward:(duration * lastPosition) / 1000.];
             } else if (continuePlayback == 0) {
                 VLCAlertView *alert = [[VLCAlertView alloc] initWithTitle:NSLocalizedString(@"CONTINUE_PLAYBACK", nil)
                                                                   message:[NSString stringWithFormat:NSLocalizedString(@"CONTINUE_PLAYBACK_LONG", nil), item.title]
@@ -1127,7 +1129,7 @@ typedef NS_ENUM(NSUInteger, VLCAspectRatio) {
                                                         otherButtonTitles:NSLocalizedString(@"BUTTON_CONTINUE", nil), nil];
                 alert.completion = ^(BOOL cancelled, NSInteger buttonIndex) {
                     if (!cancelled) {
-                        _mediaPlayer.position = lastPosition;
+                        [self setPlaybackPosition:lastPosition];
                     }
                 };
                 [alert show];
