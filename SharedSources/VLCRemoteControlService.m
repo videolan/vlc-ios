@@ -18,17 +18,21 @@
 static inline NSArray * RemoteCommandCenterCommandsToHandle()
 {
     MPRemoteCommandCenter *cc = [MPRemoteCommandCenter sharedCommandCenter];
-    return @[cc.pauseCommand,
-             cc.playCommand,
-             cc.stopCommand,
-             cc.togglePlayPauseCommand,
-             cc.nextTrackCommand,
-             cc.previousTrackCommand,
-             cc.skipForwardCommand,
-             cc.skipBackwardCommand,
-             cc.changePlaybackRateCommand,
-             cc.changePlaybackPositionCommand,
-             ];
+    NSMutableArray *commands = [NSMutableArray arrayWithObjects:
+                                cc.pauseCommand,
+                                cc.playCommand,
+                                cc.stopCommand,
+                                cc.togglePlayPauseCommand,
+                                cc.nextTrackCommand,
+                                cc.previousTrackCommand,
+                                cc.skipForwardCommand,
+                                cc.skipBackwardCommand,
+                                cc.changePlaybackRateCommand,
+                                nil];
+    if (@available(iOS 9.1, *)) {
+        [commands addObject:cc.changePlaybackPositionCommand];
+    }
+    return commands;
 }
 
 - (void)subscribeToRemoteCommands
@@ -57,7 +61,6 @@ static inline NSArray * RemoteCommandCenterCommandsToHandle()
     commandCenter.changeShuffleModeCommand.enabled = NO;
     commandCenter.seekForwardCommand.enabled = NO;
     commandCenter.seekBackwardCommand.enabled = NO;
-    commandCenter.changePlaybackPositionCommand.enabled = YES;
 
     NSUserDefaults *defaults = [NSUserDefaults standardUserDefaults];
     NSNumber *forwardSkip = [defaults valueForKey:kVLCSettingPlaybackForwardSkipLength];

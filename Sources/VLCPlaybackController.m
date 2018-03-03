@@ -504,7 +504,10 @@ typedef NS_ENUM(NSUInteger, VLCAspectRatio) {
 
 - (void)setPlaybackPosition:(float)position
 {
-    _mediaPlayer.position = position;
+#warning Should use `position` to change position. This is a hack!
+    float oldPosition = _mediaPlayer.position;
+    float diff = position - oldPosition;
+    [_mediaPlayer jumpForward:(diff * self.mediaDuration)/1000.];
 }
 
 - (void)setSubtitleDelay:(float)subtitleDeleay
