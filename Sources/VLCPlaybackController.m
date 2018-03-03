@@ -1260,6 +1260,13 @@ typedef NS_ENUM(NSUInteger, VLCAspectRatio) {
 {
     self.playbackRate = playbackRate;
 }
+
+- (void)remoteControlService:(VLCRemoteControlService *)rcs setCurrentPlaybackTime:(NSTimeInterval)playbackTime
+{
+    float positionDiff = playbackTime - [self.metadata.elapsedPlaybackTime floatValue];
+    [_mediaPlayer jumpForward:positionDiff];
+}
+
 #pragma mark - helpers
 
 - (NSDictionary *)mediaOptionsDictionary

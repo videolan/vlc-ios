@@ -27,6 +27,7 @@ static inline NSArray * RemoteCommandCenterCommandsToHandle()
              cc.skipForwardCommand,
              cc.skipBackwardCommand,
              cc.changePlaybackRateCommand,
+             cc.changePlaybackPositionCommand,
              ];
 }
 
@@ -56,7 +57,7 @@ static inline NSArray * RemoteCommandCenterCommandsToHandle()
     commandCenter.changeShuffleModeCommand.enabled = NO;
     commandCenter.seekForwardCommand.enabled = NO;
     commandCenter.seekBackwardCommand.enabled = NO;
-    commandCenter.changePlaybackPositionCommand.enabled = NO;
+    commandCenter.changePlaybackPositionCommand.enabled = YES;
 
     NSUserDefaults *defaults = [NSUserDefaults standardUserDefaults];
     NSNumber *forwardSkip = [defaults valueForKey:kVLCSettingPlaybackForwardSkipLength];
@@ -123,6 +124,11 @@ static inline NSArray * RemoteCommandCenterCommandsToHandle()
     if (event.command == cc.changePlaybackRateCommand) {
         MPChangePlaybackRateCommandEvent *rateEvent = (MPChangePlaybackRateCommandEvent *)event;
         [_remoteControlServiceDelegate remoteControlService:self setPlaybackRate:rateEvent.playbackRate];
+        return MPRemoteCommandHandlerStatusSuccess;
+    }
+    if (event.command == cc.changePlaybackPositionCommand) {
+        MPChangePlaybackPositionCommandEvent *positionEvent = (MPChangePlaybackPositionCommandEvent *)event;
+        [_remoteControlServiceDelegate remoteControlService:self setCurrentPlaybackTime:positionEvent.positionTime];
         return MPRemoteCommandHandlerStatusSuccess;
     }
     NSAssert(NO, @"remote control event not handled");
