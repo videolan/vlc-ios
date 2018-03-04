@@ -2,7 +2,7 @@
  * VLCOpenNetworkStreamViewController.m
  * VLC for iOS
  *****************************************************************************
- * Copyright (c) 2013-2015 VideoLAN. All rights reserved.
+ * Copyright (c) 2013-2018 VideoLAN. All rights reserved.
  * $Id$
  *
  * Authors: Felix Paul Kühne <fkuehne # videolan.org>
@@ -379,7 +379,8 @@ forRowAtIndexPath:(NSIndexPath *)indexPath
         request.HTTPMethod = @"HEAD";
 
         NSURLResponse *response = nil;
-        [NSURLConnection sendSynchronousRequest:request returningResponse:&response error:nil];
+        NSError *error = nil;
+        [self sendSynchronousRequest:request returningResponse:&response error:&error];
         NSInteger httpStatus = [(NSHTTPURLResponse *)response statusCode];
 
         if (httpStatus == 200) {
@@ -417,6 +418,29 @@ forRowAtIndexPath:(NSIndexPath *)indexPath
     }
 
     return fileSubtitlePath;
+}
+
+- (NSData *)sendSynchronousRequest:(NSURLRequest *)request returningResponse:(NSURLResponse **)response error:(NSError **)error
+{
+    NSError __block *erreur = NULL;
+    NSData __block *data;
+    BOOL __block reqProcessed = false;
+    NSURLResponse __block *urlResponse;
+
+    [[[NSURLSession sharedSession] dataTaskWithRequest:request completionHandler:^(NSData * _Nullable _data, NSURLResponse * _Nullable _response, NSError * _Nullable _error) {
+        urlResponse = _response;
+        erreur = _error;
+        data = _data;
+        reqProcessed = true;
+    }] resume];
+
+    while (!reqProcessed) {
+        [NSThread sleepForTimeInterval:0];
+    }
+
+    *response = urlResponse;
+    *error = erreur;
+    return data;
 }
 
 #pragma mark - text view delegate
