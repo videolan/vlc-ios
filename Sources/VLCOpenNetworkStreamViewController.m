@@ -178,22 +178,33 @@
 
 - (IBAction)openButtonAction:(id)sender
 {
-    if ([self.urlField.text length] > 0) {
-        if (!self.privateToggleSwitch.on) {
-            NSString *urlString = self.urlField.text;
-            if ([_recentURLs indexOfObject:urlString] != NSNotFound)
-                [_recentURLs removeObject:urlString];
+    if ([self.urlField.text length] <= 0 || [NSURL URLWithString:self.urlField.text] == nil) {
+        UIAlertController *alertController = [UIAlertController alertControllerWithTitle:NSLocalizedString(@"URL_NOT_SUPPORTED", nil)
+                                                                                 message:nil
+                                                                          preferredStyle:UIAlertControllerStyleAlert];
 
-            if (_recentURLs.count >= 100)
-                [_recentURLs removeLastObject];
-            [_recentURLs addObject:urlString];
-            [[NSUbiquitousKeyValueStore defaultStore] setArray:_recentURLs forKey:kVLCRecentURLs];
+        UIAlertAction *okAction = [UIAlertAction actionWithTitle:NSLocalizedString(@"BUTTON_OK", nil)
+                                                           style:UIAlertActionStyleCancel
+                                                         handler:nil];
 
-            [self.historyTableView reloadData];
-        }
-        [self.urlField resignFirstResponder];
-        [self _openURLStringAndDismiss:self.urlField.text];
+        [alertController addAction:okAction];
+        [self presentViewController:alertController animated:YES completion:nil];
+        return;
     }
+    if (!self.privateToggleSwitch.on) {
+        NSString *urlString = self.urlField.text;
+        if ([_recentURLs indexOfObject:urlString] != NSNotFound)
+            [_recentURLs removeObject:urlString];
+
+        if (_recentURLs.count >= 100)
+            [_recentURLs removeLastObject];
+        [_recentURLs addObject:urlString];
+        [[NSUbiquitousKeyValueStore defaultStore] setArray:_recentURLs forKey:kVLCRecentURLs];
+
+        [self.historyTableView reloadData];
+    }
+    [self.urlField resignFirstResponder];
+    [self _openURLStringAndDismiss:self.urlField.text];
 }
 
 - (void)renameStreamFromCell:(UITableViewCell *)cell {

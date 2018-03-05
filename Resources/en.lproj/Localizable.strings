@@ -322,6 +322,8 @@
 "BONJOUR_FILE_SERVERS" = "BONJOUR File Server";
 "DSM_WORKGROUP" = "Workgroup";
 
+"URL_NOT_SUPPORTED" = "The URL can't be opened";
+
 // Insert %@ where play-pause-glyph should be placed
 "DELETE_ITEM_HINT" = "Press %@ to Delete"; /* Insert %@ where play-pause-glyph should be placed */
 
