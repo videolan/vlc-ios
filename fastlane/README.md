@@ -27,6 +27,8 @@ This action requires the following parameters:
 
 - platform (iOS or tvOS)
 
+- version
+
 
 
 This action does the following:
