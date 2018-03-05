@@ -19,7 +19,7 @@
 #import "VLCStreamingHistoryCell.h"
 #import "UIDevice+VLC.h"
 
-@interface VLCOpenNetworkStreamViewController () <UITableViewDataSource, UITableViewDelegate, UITextFieldDelegate, UIAlertViewDelegate, VLCStreamingHistoryCellMenuItemProtocol>
+@interface VLCOpenNetworkStreamViewController () <UITableViewDataSource, UITableViewDelegate, UITextFieldDelegate, VLCStreamingHistoryCellMenuItemProtocol>
 {
     NSMutableArray *_recentURLs;
     NSMutableDictionary *_recentURLTitles;
@@ -201,62 +201,42 @@
     NSString *renameString = NSLocalizedString(@"BUTTON_RENAME", nil);
     NSString *cancelString = NSLocalizedString(@"BUTTON_CANCEL", nil);
 
-    if (@available(iOS 8, *))
-    {
-        UIAlertController *alertController = [UIAlertController alertControllerWithTitle:renameString
-                                                                                 message:nil
-                                                                          preferredStyle:UIAlertControllerStyleAlert];
+    UIAlertController *alertController = [UIAlertController alertControllerWithTitle:renameString
+                                                                             message:nil
+                                                                      preferredStyle:UIAlertControllerStyleAlert];
 
-        UIAlertAction *cancelAction = [UIAlertAction actionWithTitle:cancelString
-                                                        style:UIAlertActionStyleCancel
-                                                             handler:nil];
-        UIAlertAction *okAction = [UIAlertAction actionWithTitle:@"OK" style:UIAlertActionStyleDefault handler:^(UIAlertAction * _Nonnull action) {
-            NSString *streamTitle = alertController.textFields.firstObject.text;
-            [self renameStreamWithTitle:streamTitle atIndex:cellIndexPath.row];
-        }];
+    UIAlertAction *cancelAction = [UIAlertAction actionWithTitle:cancelString
+                                                           style:UIAlertActionStyleCancel
+                                                         handler:nil];
+    UIAlertAction *okAction = [UIAlertAction actionWithTitle:@"OK" style:UIAlertActionStyleDefault handler:^(UIAlertAction * _Nonnull action) {
+        NSString *streamTitle = alertController.textFields.firstObject.text;
+        [self renameStreamWithTitle:streamTitle atIndex:cellIndexPath.row];
+    }];
 
-        [alertController addTextFieldWithConfigurationHandler:^(UITextField * _Nonnull textField) {
-            textField.text = cell.textLabel.text;
+    [alertController addTextFieldWithConfigurationHandler:^(UITextField * _Nonnull textField) {
+        textField.text = cell.textLabel.text;
 
-            [[NSNotificationCenter defaultCenter] addObserverForName:UITextFieldTextDidChangeNotification
-                                                              object:textField
-                                                               queue:[NSOperationQueue mainQueue]
-                                                          usingBlock:^(NSNotification * _Nonnull note) {
-                okAction.enabled = (textField.text.length != 0);
-            }];
-        }];
+        [[NSNotificationCenter defaultCenter] addObserverForName:UITextFieldTextDidChangeNotification
+                                                          object:textField
+                                                           queue:[NSOperationQueue mainQueue]
+                                                      usingBlock:^(NSNotification * _Nonnull note) {
+                                                          okAction.enabled = (textField.text.length != 0);
+                                                      }];
+    }];
 
-        [alertController addAction:cancelAction];
-        [alertController addAction:okAction];
+    [alertController addAction:cancelAction];
+    [alertController addAction:okAction];
 
-        [self presentViewController:alertController animated:YES completion:nil];
-    }
-    else
-    {
-        UIAlertView *alertView = [[UIAlertView alloc] init];
-        alertView.delegate = self;
-        alertView.alertViewStyle = UIAlertViewStylePlainTextInput;
-        alertView.title = renameString;
-        alertView.tag = cellIndexPath.row; // Dirty...
-        [alertView addButtonWithTitle:cancelString];
-        [alertView addButtonWithTitle:@"OK"];
-        [alertView show];
-    }
+    [self presentViewController:alertController animated:YES completion:nil];
 }
 
-- (void)renameStreamWithTitle:(NSString *)title atIndex:(NSInteger)index {
+- (void)renameStreamWithTitle:(NSString *)title atIndex:(NSInteger)index
+{
     [_recentURLTitles setObject:title forKey:[@(index) stringValue]];
     [[NSUbiquitousKeyValueStore defaultStore] setDictionary:_recentURLTitles forKey:kVLCRecentURLTitles];
     [[NSOperationQueue mainQueue] addOperationWithBlock:^{
         [self.historyTableView reloadSections:[NSIndexSet indexSetWithIndex:0] withRowAnimation:UITableViewRowAnimationAutomatic];
     }];
-}
-
-#pragma mark - alert view delegate (iOS 7)
-
-- (void)alertView:(UIAlertView *)alertView clickedButtonAtIndex:(NSInteger)buttonIndex {
-    NSString *streamTitle = [alertView textFieldAtIndex:0].text;
-    [self renameStreamWithTitle:streamTitle atIndex:alertView.tag]; // Dirty...
 }
 
 #pragma mark - table view data source
