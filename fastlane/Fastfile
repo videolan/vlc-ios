@@ -34,7 +34,7 @@ lane :release do |options|
 end
 
 lane :ci do
-  gym(scheme: "VLC-iOS")
+  gym(scheme: "VLC-iOS", configuration: "Debug")
 end
 
 #### Private ####
