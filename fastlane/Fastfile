@@ -33,6 +33,29 @@ lane :release do |options|
    push_to_git_remote
 end
 
+lane :ci do
+  xcversion(version: "9.2.0")
+  xcode_select "/Applications/Xcode.app"
+  #Ideally we have iOS 9 support here but this is not yet added
+  #https://discuss.circleci.com/t/please-add-simulators-for-ios-9-10-to-xcode-9-image/16530
+  xcodebuild(
+    workspace: "VLC.xcworkspace",
+    scheme: "VLC-iOS",
+    configuration: "Debug",
+    clean: true,
+    build: true,
+    destination: "platform=iOS Simulator,name=iPhone 6s,OS=10.3.1"
+  )
+  xcodebuild(
+    workspace: "VLC.xcworkspace",
+    scheme: "VLC-tvOS",
+    configuration: "Debug",
+    clean: true,
+    build: true,
+    destination: "platform=tvOS Simulator,name=Apple TV 1080p,OS=10.2"
+  )
+end
+
 #### Private ####
 
 desc 'Bump and commit app version and build number'
