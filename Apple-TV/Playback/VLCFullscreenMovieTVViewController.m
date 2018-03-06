@@ -296,7 +296,7 @@ typedef NS_ENUM(NSInteger, VLCPlayerScanState)
         bar.playbackFraction = bar.scrubbingFraction;
         [self stopScrubbing];
         [vpc setPlaybackPosition:bar.scrubbingFraction];
-    } else if(vpc.isPlaying) {
+    } else {
         [vpc playPause];
     }
 }
