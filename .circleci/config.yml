@@ -1,0 +1,34 @@
+version: 2
+
+jobs:
+  build:
+    macos:
+      xcode: "9.2.0"
+    environment:
+      LC_ALL: en_US.UTF-8
+      LANG: en_US.UTF-8
+    shell: /bin/bash --login -eo pipefail
+    steps:
+      - checkout
+      - run: echo "2.3.5" > .ruby-version
+      - restore_cache:
+          key: v1-gems-{{ checksum "Gemfile.lock" }}
+      - run: bundle check || bundle install --path .bundle
+      - save_cache:
+          key: v1-gems-{{ checksum "Gemfile.lock" }}
+          paths:
+            - .bundle
+      - restore_cache:
+          key: v1-pods-{{ checksum "Podfile.lock" }}
+      - run:
+          name: Install CocoaPods
+          command: |
+            curl https://cocoapods-specs.circleci.com/fetch-cocoapods-repo-from-s3.sh | bash -s cf
+            pod install
+      - save_cache:
+          key: v1-pods-{{ checksum "Podfile.lock" }}
+          paths:
+            - Pods
+      - run: bundle exec fastlane ci
+      - store_artifacts:
+          path: /Users/distiller/Library/Logs/gym
