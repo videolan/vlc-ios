@@ -30,3 +30,5 @@ jobs:
           paths:
             - Pods
       - run: bundle exec fastlane ci
+      - store_artifacts:
+          path: /Users/distiller/Library/Logs/gym
