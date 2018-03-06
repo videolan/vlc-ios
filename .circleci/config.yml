@@ -13,7 +13,7 @@ jobs:
       - run: echo "2.3.5" > .ruby-version
       - restore_cache:
           key: v1-gems-{{ checksum "Gemfile.lock" }}
-      - run: bundle install --path .bundle
+      - run: bundle check || bundle install --path .bundle
       - save_cache:
           key: v1-gems-{{ checksum "Gemfile.lock" }}
           paths:
