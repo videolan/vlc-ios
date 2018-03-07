@@ -21,38 +21,87 @@ protocol DeviceMotionDelegate:NSObjectProtocol {
 
 }
 
+struct EulerAngles {
+    var yaw: Double = 0
+    var pitch: Double = 0
+    var roll: Double = 0
+}
+
 @objc(VLCDeviceMotion)
 class DeviceMotion:NSObject {
 
     let motion = CMMotionManager()
-    var referenceAttitude:CMAttitude? = nil
+    let sqrt2 = 0.5.squareRoot()
+
     @objc weak var delegate: DeviceMotionDelegate? = nil
 
-    @objc func startDeviceMotion() {
+    private func multQuaternion(q1: CMQuaternion, q2: CMQuaternion) -> CMQuaternion {
+        var ret = CMQuaternion()
 
+        ret.x = q1.x * q2.x - q1.y * q2.y - q1.z * q2.z - q1.w * q2.w
+        ret.y = q1.x * q2.y + q1.y * q2.x + q1.z * q2.w - q1.w * q2.z
+        ret.z = q1.x * q2.z + q1.z * q2.x - q1.y * q2.w + q1.w * q2.y
+        ret.w = q1.w * q2.x + q1.x * q2.w + q1.y * q2.z - q1.z * q2.y
+
+        return ret
+    }
+
+    private func quaternionToEuler(qIn: CMQuaternion) -> EulerAngles {
+        // Change the axes
+        var q = CMQuaternion(x:qIn.y, y:qIn.z, z:qIn.x, w:qIn.w)
+
+        // Rotation of 90°
+        let qRot = CMQuaternion(x: 0, y: 0, z: -sqrt2 / 2, w: sqrt2 / 2)
+
+        // Perform the rotation
+        q = multQuaternion(q1:qRot, q2:q)
+
+        // Now, we can perform the conversion and manage ourself the singularities
+
+        let sqx = q.x * q.x
+        let sqy = q.y * q.y
+        let sqz = q.z * q.z
+        let sqw = q.w * q.w
+
+        let unit = sqx + sqy + sqz + sqw // if normalised is one, otherwise is correction factor
+        let test = q.x * q.y + q.z * q.w
+
+        var vp = EulerAngles()
+
+        if (test > 0.499 * unit) {
+            // singularity at north pole
+            vp.yaw = 2 * atan2(q.x, q.w)
+            vp.pitch = Double.pi / 2
+            vp.roll = 0
+        } else if (test < -0.499 * unit) {
+            // singularity at south pole
+            vp.yaw = -2 * atan2(q.x, q.w)
+            vp.pitch = -Double.pi / 2
+            vp.roll = 0
+        } else {
+            vp.yaw = atan2(2 * q.y * q.w - 2 * q.x * q.z, sqx - sqy - sqz + sqw)
+            vp.pitch = asin(2 * test / unit)
+            vp.roll = atan2(2 * q.x * q.w - 2 * q.y * q.z, -sqx + sqy - sqz + sqw)
+        }
+
+        vp.yaw = -vp.yaw * 180 / Double.pi
+        vp.pitch = vp.pitch * 180 / Double.pi
+        vp.roll = vp.roll * 180 / Double.pi
+
+        return vp
+    }
+
+    @objc func startDeviceMotion() {
         if motion.isDeviceMotionAvailable {
             motion.gyroUpdateInterval = 1.0 / 60.0  // 60 Hz
-            motion.startDeviceMotionUpdates(using: .xTrueNorthZVertical, to: .main) {
+            motion.startDeviceMotionUpdates(using: .xArbitraryZVertical, to: .main) {
                 [weak self] (data, error) in
                 guard let strongSelf = self, let data = data else {
                     return
                 }
 
-                //We're using the initial angle of phone as 0.0.0 reference for all axis
-                //we need to create a copy here, otherwise we just have a reference which is being changed in the next line
-                if strongSelf.referenceAttitude == nil {
-                    strongSelf.referenceAttitude = data.attitude.copy() as? CMAttitude
-                }
-                // this line basically substracts the reference attitude so that we have yaw, pitch and roll changes in
-                // relation to the very first angle
-                data.attitude.multiply(byInverseOf: strongSelf.referenceAttitude!)
-
-                let pitch = -(180/Double.pi)*data.attitude.pitch // -90; 90
-                let yaw = -(180/Double.pi)*data.attitude.yaw // -180; 180
-                let roll = -(180/Double.pi)*data.attitude.roll// -180; 180
-
-                //print(pitch,yaw,roll)
-                strongSelf.delegate?.deviceMotionHasAttitude(deviceMotion:strongSelf, pitch:pitch, yaw:yaw, roll:roll)
+                let euler = strongSelf.quaternionToEuler(qIn: data.attitude.quaternion)
+                strongSelf.delegate?.deviceMotionHasAttitude(deviceMotion:strongSelf, pitch:euler.pitch, yaw:euler.yaw, roll:euler.roll)
             }
         }
     }
@@ -60,7 +109,6 @@ class DeviceMotion:NSObject {
     @objc func stopDeviceMotion() {
         if motion.isDeviceMotionActive {
             motion.stopDeviceMotionUpdates()
-            self.referenceAttitude = nil
         }
     }
 }
