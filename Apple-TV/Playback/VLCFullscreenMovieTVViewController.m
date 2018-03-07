@@ -827,15 +827,12 @@ currentMediaHasTrackToChooseFrom:(BOOL)currentMediaHasTrackToChooseFrom
         if (self.movieView.subviews.count < 2) {
             controller.videoOutputView = self.movieView;
         }
-        [self hidePlaybackControlsIfNeededAfterDelay];
-    } else {
-        [self showPlaybackControlsIfNeededForUserInteraction];
-    }
 
-    if (controller.isPlaying && !self.bufferingLabel.hidden) {
-        [UIView animateWithDuration:.3 animations:^{
-            self.bufferingLabel.hidden = YES;
-        }];
+        if (!self.bufferingLabel.hidden) {
+            [UIView animateWithDuration:.3 animations:^{
+                self.bufferingLabel.hidden = YES;
+            }];
+        }
     }
 }
 
