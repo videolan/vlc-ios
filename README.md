@@ -13,6 +13,7 @@ It's currently written in Objective-C / Swift and uses [VLCKit](https://code.vid
     - [Forum](#forum)
     - [Issues](#issues)
     - [IRC](#irc)
+- [Code of Conduct](#code-of-conduct)
 - [License](#license)
 - [More](#more)
 
@@ -92,6 +93,10 @@ Want to quickly get in touch with us for a question, or even just to talk?
 
 You will always find someone of the VLC team on IRC, __#videolan__ channel on the freenode network.
 If you don't have an IRC client, you can always use the [freenode webchat](https://webchat.freenode.net/).
+
+## Code of Conduct
+
+Please read and follow the [VideoLAN CoC](https://wiki.videolan.org/Code_of_Conduct/).
 
 ## License
 
