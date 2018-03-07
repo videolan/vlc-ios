@@ -2,7 +2,7 @@
 
 This repository has the source code of VLC for iOS and tvOS application.
 
-It's currently written in Objective-C / Swift and uses VLCKit a libvlc wrapper.
+It's currently written in Objective-C / Swift and uses [VLCKit](https://code.videolan.org/videolan/VLCKit), a libvlc wrapper.
 
 - [Requirements](#requirements)
 - [Building](#building)
@@ -64,13 +64,13 @@ Mostly for debugging or advanced users, you might want to have a custom local VL
 
 ### Pull request
 
-If you want to submit a pull request, please make sure to use a descriptive title and description.
+Pull request are more then welcome! If you do submit one, please make sure to use a descriptive title and description.
 
 ### Gitlab issues
 
 You can look through issues we currently have on the [VideoLAN Gitlab](https://code.videolan.org/videolan/vlc-ios/issues).
 
-We even have a [Beginner friendly](https://code.videolan.org/videolan/vlc-ios/issues?label_name%5B%5D=Beginner+friendly) tag if you don't know were to start!
+A [beginner friendly](https://code.videolan.org/videolan/vlc-ios/issues?label_name%5B%5D=Beginner+friendly) tag is available if you don't know where to start.
 
 ## Communication
 
@@ -101,7 +101,6 @@ See [COPYING](./COPYING) for more license info.
 
 ## More
 
-For everything else, check: https://wiki.videolan.org/
-or look here: http://www.videolan.org/support/
+For everything else, check our [wiki](https://wiki.videolan.org/) or our [support page](http://www.videolan.org/support/).
 
 We're happy to help!
