@@ -1,3 +1,11 @@
+iOS 3.0.3:
+-----------
+· Hitting play after backgrounding VLC is finally fixed
+· Opening a txt file on iOS won't jump into VLC anymore (we obviously still support this subtitle format)
+· Instead of a black screen, when opening certain HEVC files, we now have a playing video
+· Fixes an issue were users were prompted to enter a passcode without ever setting one
+· We also fixed multiple crashes
+
 iOS 3.0.2:
 -----------
 · Fixes issues with TouchID and FaceID
