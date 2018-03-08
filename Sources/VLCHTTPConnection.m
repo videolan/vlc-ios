@@ -2,7 +2,7 @@
  * VLCHTTPConnection.m
  * VLC for iOS
  *****************************************************************************
- * Copyright (c) 2013-2015 VideoLAN. All rights reserved.
+ * Copyright (c) 2013-2018 VideoLAN. All rights reserved.
  * $Id$
  *
  * Authors: Felix Paul Kühne <fkuehne # videolan.org>
@@ -129,7 +129,7 @@
 #if TARGET_OS_IOS
 - (NSObject<HTTPResponse> *)_httpGETDownloadForPath:(NSString *)path
 {
-    NSString *filePath = [[path stringByReplacingOccurrencesOfString:@"/download/" withString:@""]stringByReplacingPercentEscapesUsingEncoding:NSUTF8StringEncoding];
+    NSString *filePath = [[path stringByReplacingOccurrencesOfString:@"/download/" withString:@""] stringByAddingPercentEncodingWithAllowedCharacters:NSCharacterSet.URLFragmentAllowedCharacterSet];
     if (![self fileIsInDocumentFolder:filePath]) {
        //return nil which gets handled as resource not found
         return nil;
@@ -141,7 +141,7 @@
 
 - (NSObject<HTTPResponse> *)_httpGETThumbnailForPath:(NSString *)path
 {
-    NSString *filePath = [[path stringByReplacingOccurrencesOfString:@"/thumbnail/" withString:@""]stringByReplacingPercentEscapesUsingEncoding:NSUTF8StringEncoding];
+    NSString *filePath = [[path stringByReplacingOccurrencesOfString:@"/thumbnail/" withString:@""] stringByAddingPercentEncodingWithAllowedCharacters:NSCharacterSet.URLFragmentAllowedCharacterSet];
     filePath = [filePath stringByReplacingOccurrencesOfString:@".png" withString:@""];
 
     NSManagedObjectContext *moc = [[MLMediaLibrary sharedMediaLibrary] managedObjectContext];
@@ -233,14 +233,14 @@
                                     </a> \
                                     </div>",
                                     file.objectID.URIRepresentation,
-                                    [file.url.path stringByAddingPercentEscapesUsingEncoding:NSUTF8StringEncoding],
+                                    [file.url.path stringByAddingPercentEncodingWithAllowedCharacters:NSCharacterSet.URLFragmentAllowedCharacterSet],
                                     file.title,
                                     duration, (float)(file.fileSizeInBytes / 1e6)]];
             if (shouldReturnLibVLCXML) {
                 NSString *pathSub = [self _checkIfSubtitleWasFound:file.path];
                 if (pathSub)
                     pathSub = [NSString stringWithFormat:@"http://%@/download/%@", hostName, pathSub];
-                [mediaInXml addObject:[NSString stringWithFormat:@"<Media title=\"%@\" thumb=\"http://%@/thumbnail/%@.png\" duration=\"%@\" size=\"%li\" pathfile=\"http://%@/download/%@\" pathSubtitle=\"%@\"/>", file.title, hostName, file.objectID.URIRepresentation.absoluteString, duration, file.fileSizeInBytes, hostName, [file.url.path stringByAddingPercentEscapesUsingEncoding:NSUTF8StringEncoding], pathSub]];
+                [mediaInXml addObject:[NSString stringWithFormat:@"<Media title=\"%@\" thumb=\"http://%@/thumbnail/%@.png\" duration=\"%@\" size=\"%li\" pathfile=\"http://%@/download/%@\" pathSubtitle=\"%@\"/>", file.title, hostName, file.objectID.URIRepresentation.absoluteString, duration, file.fileSizeInBytes, hostName, [file.url.path stringByAddingPercentEncodingWithAllowedCharacters:NSCharacterSet.URLFragmentAllowedCharacterSet], pathSub]];
             }
         }
         else if ([mo isKindOfClass:[MLShow class]]) {
@@ -273,7 +273,7 @@
                                         </a> \
                                         </div>",
                                         showEp.objectID.URIRepresentation,
-                                        [anyFileFromEpisode.url.path stringByAddingPercentEscapesUsingEncoding:NSUTF8StringEncoding],
+                                        [anyFileFromEpisode.url.path stringByAddingPercentEncodingWithAllowedCharacters:NSCharacterSet.URLFragmentAllowedCharacterSet],
                                         showEp.seasonNumber,
                                         showEp.episodeNumber,
                                         showEp.name,
@@ -282,7 +282,7 @@
                     NSString *pathSub = [self _checkIfSubtitleWasFound:[anyFileFromEpisode path]];
                     if (![pathSub isEqualToString:@""])
                         pathSub = [NSString stringWithFormat:@"http://%@/download/%@", hostName, pathSub];
-                    [mediaInXml addObject:[NSString stringWithFormat:@"<Media title=\"%@ - S%@E%@\" thumb=\"http://%@/thumbnail/%@.png\" duration=\"%@\" size=\"%li\" pathfile=\"http://%@/download/%@\" pathSubtitle=\"%@\"/>", show.name, showEp.seasonNumber, showEp.episodeNumber, hostName, showEp.objectID.URIRepresentation, duration, [anyFileFromEpisode fileSizeInBytes], hostName, [anyFileFromEpisode.url.path stringByAddingPercentEscapesUsingEncoding:NSUTF8StringEncoding], pathSub]];
+                    [mediaInXml addObject:[NSString stringWithFormat:@"<Media title=\"%@ - S%@E%@\" thumb=\"http://%@/thumbnail/%@.png\" duration=\"%@\" size=\"%li\" pathfile=\"http://%@/download/%@\" pathSubtitle=\"%@\"/>", show.name, showEp.seasonNumber, showEp.episodeNumber, hostName, showEp.objectID.URIRepresentation, duration, [anyFileFromEpisode fileSizeInBytes], hostName, [anyFileFromEpisode.url.path stringByAddingPercentEncodingWithAllowedCharacters:NSCharacterSet.URLFragmentAllowedCharacterSet], pathSub]];
                 }
             }
             [mediaInHtml addObject:@"</div></div>"];
@@ -315,14 +315,14 @@
                                         </a> \
                                         </div>",
                                         file.objectID.URIRepresentation,
-                                        [file.url.path stringByAddingPercentEscapesUsingEncoding:NSUTF8StringEncoding],
+                                        [file.url.path stringByAddingPercentEncodingWithAllowedCharacters:NSCharacterSet.URLFragmentAllowedCharacterSet],
                                         file.title,
                                         duration, (float)(file.fileSizeInBytes / 1e6)]];
                 if (shouldReturnLibVLCXML) {
                     NSString *pathSub = [self _checkIfSubtitleWasFound:file.path];
                     if (pathSub)
                         pathSub = [NSString stringWithFormat:@"http://%@/download/%@", hostName, pathSub];
-                    [mediaInXml addObject:[NSString stringWithFormat:@"<Media title=\"%@\" thumb=\"http://%@/thumbnail/%@.png\" duration=\"%@\" size=\"%li\" pathfile=\"http://%@/download/%@\" pathSubtitle=\"%@\"/>", file.title, hostName, file.objectID.URIRepresentation, duration, file.fileSizeInBytes, hostName, [file.url.path stringByAddingPercentEscapesUsingEncoding:NSUTF8StringEncoding], pathSub]];
+                    [mediaInXml addObject:[NSString stringWithFormat:@"<Media title=\"%@\" thumb=\"http://%@/thumbnail/%@.png\" duration=\"%@\" size=\"%li\" pathfile=\"http://%@/download/%@\" pathSubtitle=\"%@\"/>", file.title, hostName, file.objectID.URIRepresentation, duration, file.fileSizeInBytes, hostName, [file.url.path stringByAddingPercentEncodingWithAllowedCharacters:NSCharacterSet.URLFragmentAllowedCharacterSet], pathSub]];
                 }
             }
             [mediaInHtml addObject:@"</div></div>"];
@@ -356,11 +356,11 @@
                                         </a> \
                                         </div>",
                                         track.objectID.URIRepresentation,
-                                        [anyFileFromTrack.url.path stringByAddingPercentEscapesUsingEncoding:NSUTF8StringEncoding],
+                                        [anyFileFromTrack.url.path stringByAddingPercentEncodingWithAllowedCharacters:NSCharacterSet.URLFragmentAllowedCharacterSet],
                                         track.title,
                                         duration, (float)([anyFileFromTrack fileSizeInBytes] / 1e6)]];
                 if (shouldReturnLibVLCXML)
-                    [mediaInXml addObject:[NSString stringWithFormat:@"<Media title=\"%@\" thumb=\"http://%@/thumbnail/%@.png\" duration=\"%@\" size=\"%li\" pathfile=\"http://%@/download/%@\" pathSubtitle=\"\"/>", track.title, hostName, track.objectID.URIRepresentation, duration, [anyFileFromTrack fileSizeInBytes], hostName, [anyFileFromTrack.url.path stringByAddingPercentEscapesUsingEncoding:NSUTF8StringEncoding]]];
+                    [mediaInXml addObject:[NSString stringWithFormat:@"<Media title=\"%@\" thumb=\"http://%@/thumbnail/%@.png\" duration=\"%@\" size=\"%li\" pathfile=\"http://%@/download/%@\" pathSubtitle=\"\"/>", track.title, hostName, track.objectID.URIRepresentation, duration, [anyFileFromTrack fileSizeInBytes], hostName, [anyFileFromTrack.url.path stringByAddingPercentEncodingWithAllowedCharacters:NSCharacterSet.URLFragmentAllowedCharacterSet]]];
             }
             [mediaInHtml addObject:@"</div></div>"];
         }
