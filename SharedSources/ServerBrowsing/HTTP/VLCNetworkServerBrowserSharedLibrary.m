@@ -2,7 +2,7 @@
  * VLCNetworkServerBrowserSharedLibrary.m
  * VLC for iOS
  *****************************************************************************
- * Copyright (c) 2015-2017 VideoLAN. All rights reserved.
+ * Copyright (c) 2015-2018 VideoLAN. All rights reserved.
  * $Id$
  *
  * Authors: Tobias Conradi <videolan # tobias-conradi.de>
@@ -89,8 +89,9 @@
         _fileSizeBytes = dictionary[@"size"];
         _duration = dictionary[@"duration"];
         NSString *subtitleURLString = dictionary[@"pathSubtitle"];
-        if ([subtitleURLString isEqualToString:@"(null)"]) subtitleURLString = nil;
-        subtitleURLString = [subtitleURLString stringByAddingPercentEncodingWithAllowedCharacters:NSCharacterSet.URLHostAllowedCharacterSet];
+        if ([subtitleURLString isEqualToString:@"(null)"])
+            subtitleURLString = nil;
+        subtitleURLString = [subtitleURLString stringByAddingPercentEncodingWithAllowedCharacters:NSCharacterSet.URLFragmentAllowedCharacterSet];
         _subtitleURL = subtitleURLString.length ? [NSURL URLWithString:subtitleURLString] : nil;
         _URL = [NSURL URLWithString:dictionary[@"pathfile"]];
         _container = NO;
@@ -102,7 +103,8 @@
     return self;
 }
 
-- (id<VLCNetworkServerBrowser>)containerBrowser {
+- (id<VLCNetworkServerBrowser>)containerBrowser
+{
     return nil;
 }
 
