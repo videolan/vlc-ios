@@ -27,8 +27,6 @@
 #import "VLCSidebarController.h"
 #import "UIViewController+VLCAlert.h"
 
-#define SYSTEM_VERSION_GREATER_THAN_OR_EQUAL_TO(v)  ([[UIDevice currentDevice] systemVersion].floatValue >= [v floatValue])
-
 #ifndef NDEBUG
 #define APLog(format, ...) NSLog(format, ## __VA_ARGS__)
 #else
