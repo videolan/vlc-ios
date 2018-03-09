@@ -5,6 +5,7 @@ iOS 3.0.3:
 · Instead of a black screen, when opening certain HEVC files, we now have a playing video
 · Fixes an issue were users were prompted to enter a passcode without ever setting one
 · We also fixed multiple crashes
+· Scrubbing in the lock screen was added
 
 iOS 3.0.2:
 -----------
