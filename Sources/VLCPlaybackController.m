@@ -728,10 +728,13 @@ typedef NS_ENUM(NSUInteger, VLCAspectRatio) {
 
             /* on-the-fly values through hidden API */
             NSUserDefaults *defaults = [NSUserDefaults standardUserDefaults];
+#pragma clang diagnostic push
+#pragma clang diagnostic ignored "-Wundeclared-selector"
             [_mediaPlayer performSelector:@selector(setTextRendererFont:) withObject:[defaults objectForKey:kVLCSettingSubtitlesFont]];
             [_mediaPlayer performSelector:@selector(setTextRendererFontSize:) withObject:[defaults objectForKey:kVLCSettingSubtitlesFontSize]];
             [_mediaPlayer performSelector:@selector(setTextRendererFontColor:) withObject:[defaults objectForKey:kVLCSettingSubtitlesFontColor]];
             [_mediaPlayer performSelector:@selector(setTextRendererFontForceBold:) withObject:[defaults objectForKey:kVLCSettingSubtitlesBoldFont]];
+#pragma clang diagnostic pop
         } break;
 
         case VLCMediaPlayerStateError: {

@@ -73,11 +73,11 @@
 }
 
 #pragma mark - VLCMediaListDelegate
-- (void)mediaList:(VLCMediaList *)aMediaList mediaAdded:(VLCMedia *)media atIndex:(NSInteger)index
+- (void)mediaList:(VLCMediaList *)aMediaList mediaAdded:(VLCMedia *)media atIndex:(NSUInteger)index
 {
     [self.delegate localNetworkServiceBrowserDidUpdateServices:self];
 }
-- (void)mediaList:(VLCMediaList *)aMediaList mediaRemovedAtIndex:(NSInteger)index
+- (void)mediaList:(VLCMediaList *)aMediaList mediaRemovedAtIndex:(NSUInteger)index
 {
     [self.delegate localNetworkServiceBrowserDidUpdateServices:self];
 }

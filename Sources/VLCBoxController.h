@@ -19,7 +19,9 @@
 @interface VLCBoxController : VLCCloudStorageController
 
 - (void)stopSession;
-- (void)downloadFileToDocumentFolder:(BoxFile *)file;
 - (BOOL)hasMoreFiles;
+#if TARGET_OS_IOS
+- (void)downloadFileToDocumentFolder:(BoxFile *)file;
+#endif
 
 @end

@@ -86,7 +86,7 @@
 
 #pragma mark - media list delegate
 
-- (void)mediaList:(VLCMediaList *)aMediaList mediaAdded:(VLCMedia *)media atIndex:(NSInteger)index
+- (void)mediaList:(VLCMediaList *)aMediaList mediaAdded:(VLCMedia *)media atIndex:(NSUInteger)index
 {
     [media addOptions:self.mediaOptions];
     if (![self shouldFilterMedia:media]) {
@@ -98,7 +98,7 @@
     [self.delegate networkServerBrowserDidUpdate:self];
 }
 
-- (void)mediaList:(VLCMediaList *)aMediaList mediaRemovedAtIndex:(NSInteger)index
+- (void)mediaList:(VLCMediaList *)aMediaList mediaRemovedAtIndex:(NSUInteger)index
 {
     VLCMedia *media = [self.mediaListUnfiltered mediaAtIndex:index];
     NSInteger mediaIndex = [self.mediaList indexOfMedia:media];
