@@ -138,7 +138,7 @@ typedef NS_ENUM(NSUInteger, VLCAspectRatio) {
 
 - (void)openVideoSubTitlesFromFile:(NSString *)pathToFile
 {
-    [_mediaPlayer openVideoSubTitlesFromFile:pathToFile];
+    [_mediaPlayer addPlaybackSlave:[NSURL fileURLWithPath:pathToFile] type:VLCMediaPlaybackSlaveTypeSubtitle enforce:YES];
 }
 
 - (void)playMediaList:(VLCMediaList *)mediaList firstIndex:(NSInteger)index subtitlesFilePath:(NSString *)subsFilePath
