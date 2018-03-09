@@ -150,13 +150,6 @@
     NSString *profileTitle;
     if ([transcodeValue length] && [orgPNValue length]) {
         profileTitle = [NSString stringWithFormat:@"%@ (%@)", transcodeValue, orgPNValue];
-
-        // The extra whitespace is to get UIActionSheet to render the text better (this bug has been fixed in iOS 8)
-        if (UI_USER_INTERFACE_IDIOM() == UIUserInterfaceIdiomPhone) {
-            if (!SYSTEM_VERSION_GREATER_THAN_OR_EQUAL_TO(@"8.0")) {
-                profileTitle = [NSString stringWithFormat:@" %@ ", profileTitle];
-            }
-        }
     } else if ([transcodeValue length]) {
         profileTitle = transcodeValue;
     } else if ([orgPNValue length]) {

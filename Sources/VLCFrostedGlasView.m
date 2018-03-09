@@ -52,20 +52,11 @@
     [self setClipsToBounds:YES];
 
 #if TARGET_OS_IOS
-    if (@available(iOS 8, *)) {
-        _effectView = [[UIVisualEffectView alloc] initWithEffect:[UIBlurEffect effectWithStyle:UIBlurEffectStyleDark]];
-        _effectView.frame = self.bounds;
-        _effectView.clipsToBounds = YES;
-        _effectView.autoresizingMask = UIViewAutoresizingFlexibleWidth | UIViewAutoresizingFlexibleHeight;
-        [self insertSubview:_effectView atIndex:0];
-    } else {
-        _usingToolbarHack = YES;
-        if (![self toolbar]) {
-            [self setToolbar:[[UIToolbar alloc] initWithFrame:[self bounds]]];
-            [self.layer insertSublayer:[self.toolbar layer] atIndex:0];
-            [self.toolbar setBarStyle:UIBarStyleBlack];
-        }
-    }
+    _effectView = [[UIVisualEffectView alloc] initWithEffect:[UIBlurEffect effectWithStyle:UIBlurEffectStyleDark]];
+    _effectView.frame = self.bounds;
+    _effectView.clipsToBounds = YES;
+    _effectView.autoresizingMask = UIViewAutoresizingFlexibleWidth | UIViewAutoresizingFlexibleHeight;
+    [self insertSubview:_effectView atIndex:0];
 #else
     _effectView = [[UIVisualEffectView alloc] initWithEffect:[UIBlurEffect effectWithStyle:UIBlurEffectStyleDark]];
     _effectView.frame = self.bounds;

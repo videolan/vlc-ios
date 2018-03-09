@@ -344,7 +344,7 @@ static NSString *kUsingTableViewToShowData = @"UsingTableViewToShowData";
 
 - (void)createSpotlightItem:(nonnull NSManagedObject *)mediaObject
 {
-    if (@available(iOS 9.0, *) && ![VLCKeychainCoordinator passcodeLockEnabled]) {
+    if (![VLCKeychainCoordinator passcodeLockEnabled]) {
         self.userActivity = [[NSUserActivity alloc] initWithActivityType:kVLCUserActivityPlaying];
 
         MLFile *file = nil;
@@ -1104,21 +1104,11 @@ static NSString *kUsingTableViewToShowData = @"UsingTableViewToShowData";
     NSArray *indexPaths = [self usingTableViewToShowData] ? [self.tableView indexPathsForSelectedRows] : [self.collectionView indexPathsForSelectedItems];
 
     if ((!indexPaths || [indexPaths count] == 0) && !_deleteFromTableView) {
-        if (@available(iOS 8, *)) {
-            UIAlertController *invalidSelection = [UIAlertController alertControllerWithTitle:NSLocalizedString(@"DELETE_INVALID_TITLE", nil) message:NSLocalizedString(@"DELETE_INVALID_MESSAGE", nil) preferredStyle:UIAlertControllerStyleAlert];
-            UIAlertAction *doneAction = [UIAlertAction actionWithTitle:NSLocalizedString(@"BUTTON_OK", nil) style:UIAlertActionStyleDefault handler:nil];
+        UIAlertController *invalidSelection = [UIAlertController alertControllerWithTitle:NSLocalizedString(@"DELETE_INVALID_TITLE", nil) message:NSLocalizedString(@"DELETE_INVALID_MESSAGE", nil) preferredStyle:UIAlertControllerStyleAlert];
+        UIAlertAction *doneAction = [UIAlertAction actionWithTitle:NSLocalizedString(@"BUTTON_OK", nil) style:UIAlertActionStyleDefault handler:nil];
 
-            [invalidSelection addAction:doneAction];
-            [self presentViewController:invalidSelection animated:YES completion:nil];
-        } else {
-            //TODO remove when we drop iOS7
-            VLCAlertView *alert = [[VLCAlertView alloc] initWithTitle:NSLocalizedString(@"DELETE_INVALID_TITLE", nil)
-                                                              message:NSLocalizedString(@"DELETE_INVALID_MESSAGE", nil)
-                                                    cancelButtonTitle:NSLocalizedString(@"BUTTON_OK", nil)
-                                                    otherButtonTitles:nil];
-            alert.completion = nil;
-            [alert show];
-        }
+        [invalidSelection addAction:doneAction];
+        [self presentViewController:invalidSelection animated:YES completion:nil];
     } else {
         UIAlertController *alert = [UIAlertController alertControllerWithTitle:NSLocalizedString(@"DELETE_TITLE", nil) message:nil preferredStyle:UIAlertControllerStyleActionSheet];
         UIAlertAction *deleteAction = [UIAlertAction actionWithTitle:NSLocalizedString(@"BUTTON_DELETE", nil) style:UIAlertActionStyleDestructive handler:^(UIAlertAction * _Nonnull action) {
@@ -1362,7 +1352,6 @@ static NSString *kUsingTableViewToShowData = @"UsingTableViewToShowData";
     [self.collectionView.collectionViewLayout invalidateLayout];
 }
 
-// >= iOS 8
 - (void)viewWillTransitionToSize:(CGSize)size withTransitionCoordinator:(id<UIViewControllerTransitionCoordinator>)coordinator
 {
     [super viewWillTransitionToSize:size withTransitionCoordinator:coordinator];
