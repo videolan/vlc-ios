@@ -129,10 +129,12 @@ static inline NSArray * RemoteCommandCenterCommandsToHandle()
         [_remoteControlServiceDelegate remoteControlService:self setPlaybackRate:rateEvent.playbackRate];
         return MPRemoteCommandHandlerStatusSuccess;
     }
-    if (event.command == cc.changePlaybackPositionCommand) {
-        MPChangePlaybackPositionCommandEvent *positionEvent = (MPChangePlaybackPositionCommandEvent *)event;
-        [_remoteControlServiceDelegate remoteControlService:self setCurrentPlaybackTime:positionEvent.positionTime];
-        return MPRemoteCommandHandlerStatusSuccess;
+    if (@available(iOS 9.1, *)) {
+        if (event.command == cc.changePlaybackPositionCommand) {
+            MPChangePlaybackPositionCommandEvent *positionEvent = (MPChangePlaybackPositionCommandEvent *)event;
+            [_remoteControlServiceDelegate remoteControlService:self setCurrentPlaybackTime:positionEvent.positionTime];
+            return MPRemoteCommandHandlerStatusSuccess;
+        }
     }
     NSAssert(NO, @"remote control event not handled");
     APLog(@"%s Wasn't able to handle remote control event: %@",__PRETTY_FUNCTION__,event);
