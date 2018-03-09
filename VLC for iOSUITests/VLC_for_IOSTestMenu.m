@@ -34,14 +34,14 @@
 - (void)testMenuTabAllFiles
 {
     [self.application.navigationBars[@"All Files"].buttons[@"Open VLC sidebar menu"] tap];
-    [self.application.cells/*@START_MENU_TOKEN@*/.staticTexts[@"All Files"]/*[[".cells.staticTexts[@\"All Files\"]",".staticTexts[@\"All Files\"]"],[[[-1,1],[-1,0]]],[0]]@END_MENU_TOKEN@*/ tap];
+    [self.application.cells.staticTexts[@"All Files"] tap];
     XCTAssertNotNil(self.application.navigationBars[@"All Files"]);
 }
 
 - (void)testMenuTabMusicAlbums
 {
     [self.application.navigationBars[@"All Files"].buttons[@"Open VLC sidebar menu"] tap];
-    [self.application.cells/*@START_MENU_TOKEN@*/.staticTexts[@"Music Albums"]/*[[".cells.staticTexts[@\"Music Albums\"]",".staticTexts[@\"Music Albums\"]"],[[[-1,1],[-1,0]]],[0]]@END_MENU_TOKEN@*/ tap];
+    [self.application.cells.staticTexts[@"Music Albums"] tap];
 
     XCTAssertNotNil(self.application.navigationBars[@"Music Albums"]);
 }

@@ -1,5 +1,5 @@
 /*****************************************************************************
- * VLC_for_IOSTestMenu.m
+ * VLC_for_iOSTestVideoCodecs.m
  * VLC for iOS
  *****************************************************************************
  * Copyright (c) 2018 VideoLAN. All rights reserved.
