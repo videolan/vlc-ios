@@ -508,10 +508,7 @@ typedef NS_ENUM(NSUInteger, VLCAspectRatio) {
 
 - (void)setPlaybackPosition:(float)position
 {
-#warning Should use `position` to change position. This is a hack!
-    float oldPosition = _mediaPlayer.position;
-    float diff = position - oldPosition;
-    [_mediaPlayer jumpForward:(diff * self.mediaDuration)/1000.];
+    _mediaPlayer.position = position;
 }
 
 - (void)setSubtitleDelay:(float)subtitleDeleay
@@ -1127,7 +1124,7 @@ typedef NS_ENUM(NSUInteger, VLCAspectRatio) {
                 continuePlayback = [[[NSUserDefaults standardUserDefaults] objectForKey:kVLCSettingContinuePlayback] integerValue];
 
             if (continuePlayback == 1) {
-                [self jumpForward:(duration * lastPosition) / 1000.];
+                [self setPlaybackPosition:lastPosition];
             } else if (continuePlayback == 0) {
                 VLCAlertView *alert = [[VLCAlertView alloc] initWithTitle:NSLocalizedString(@"CONTINUE_PLAYBACK", nil)
                                                                   message:[NSString stringWithFormat:NSLocalizedString(@"CONTINUE_PLAYBACK_LONG", nil), item.title]
