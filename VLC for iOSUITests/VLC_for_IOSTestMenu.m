@@ -25,6 +25,10 @@
     self.application = [[XCUIApplication alloc] init];
     [self.application launch];
     [[XCUIDevice sharedDevice] setOrientation:UIDeviceOrientationFaceUp];
+
+    if (self.application.navigationBars[@"Welcome"].exists) {
+        [self.application.navigationBars[@"Welcome"].buttons[@"Done"] tap];
+    }
 }
 
 - (void)testMenuTabAllFiles
