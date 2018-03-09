@@ -1,10 +1,14 @@
-//
-//  VLCTestLibrary.m
-//  VLC
-//
-//  Created by Carola Nitz on 9/21/17.
-//  Copyright © 2017 VideoLAN. All rights reserved.
-//
+/*****************************************************************************
+ * VLC_for_IOSTestMenu.m
+ * VLC for iOS
+ *****************************************************************************
+ * Copyright (c) 2018 VideoLAN. All rights reserved.
+ * $Id$
+ *
+ * Author: Carola Nitz <caro # videolan.org>
+ *
+ * Refer to the COPYING file of the official project for license.
+ *****************************************************************************/
 
 #import <XCTest/XCTest.h>
 
