@@ -56,6 +56,14 @@ lane :ci do
   )
 end
 
+#### Tests ####
+
+desc 'Run Tests'
+lane :test do
+  cocoapods(repo_update: true)
+  scan(scheme: 'VLC-iOS')
+end
+
 #### Private ####
 
 desc 'Bump and commit app version and build number'
