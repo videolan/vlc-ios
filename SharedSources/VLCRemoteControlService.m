@@ -32,7 +32,7 @@ static inline NSArray * RemoteCommandCenterCommandsToHandle()
     if (@available(iOS 9.1, *)) {
         [commands addObject:cc.changePlaybackPositionCommand];
     }
-    return commands;
+    return [commands copy];
 }
 
 - (void)subscribeToRemoteCommands
