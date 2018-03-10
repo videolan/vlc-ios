@@ -2,7 +2,7 @@
  * VLCHTTPFileDownloader.m
  * VLC for iOS
  *****************************************************************************
- * Copyright (c) 2013 VideoLAN. All rights reserved.
+ * Copyright (c) 2013-2018 VideoLAN. All rights reserved.
  * $Id$
  *
  * Authors: Felix Paul Kühne <fkuehne # videolan.org>
@@ -17,13 +17,13 @@
 #import "UIDevice+VLC.h"
 #import "VLCMediaFileDiscoverer.h"
 
-@interface VLCHTTPFileDownloader ()
+@interface VLCHTTPFileDownloader () <NSURLSessionDelegate>
 {
     NSString *_filePath;
     long long _expectedDownloadSize;
     NSUInteger _receivedDataSize;
     NSString *_fileName;
-    NSURLConnection *_urlConnection;
+    NSURLSessionTask *_sessionTask;
     NSMutableURLRequest *_originalRequest;
     NSUInteger _statusCode;
 }
@@ -63,8 +63,11 @@
     NSMutableURLRequest *theRequest = [NSMutableURLRequest requestWithURL:url];
     [theRequest addValue:[NSString stringWithFormat:@"Mozilla/5.0 (%@; CPU OS 7_0 like Mac OS X) AppleWebKit/537.51.1 (KHTML, like Gecko) Version/%@ Mobile/11A465 Safari/9537.53 VLC for iOS/%@", UI_USER_INTERFACE_IDIOM() == UIUserInterfaceIdiomPad ? @"iPad" : @"iPhone", [[UIDevice currentDevice] systemVersion], [[NSBundle mainBundle] objectForInfoDictionaryKey:@"CFBundleShortVersionString"]] forHTTPHeaderField:@"User-Agent"];
     _originalRequest = [theRequest mutableCopy];
-    _urlConnection = [[NSURLConnection alloc] initWithRequest:theRequest delegate:self];
-    if (!_urlConnection) {
+
+    NSURLSession *urlSession = [NSURLSession sessionWithConfiguration:[NSURLSessionConfiguration defaultSessionConfiguration] delegate:self delegateQueue:[NSOperationQueue mainQueue]];
+    _sessionTask = [urlSession dataTaskWithRequest:theRequest];
+    [_sessionTask resume];
+    if (!_sessionTask) {
         APLog(@"failed to establish connection");
         _downloadInProgress = NO;
     } else {
@@ -99,9 +102,11 @@
         return request;
 }
 
-- (void)connection:(NSURLConnection *)connection didReceiveResponse:(NSHTTPURLResponse *)response
+- (void)URLSession:(NSURLSession *)session dataTask:(NSURLSessionDataTask *)dataTask didReceiveResponse:(NSURLResponse *)response completionHandler:(void (^)(NSURLSessionResponseDisposition))completionHandler
 {
-    _statusCode = [response statusCode];
+    completionHandler(NSURLSessionResponseAllow);
+    NSHTTPURLResponse *httpResponse = (NSHTTPURLResponse *)response;
+    _statusCode = [httpResponse statusCode];
     if (_statusCode == 200) {
         _expectedDownloadSize = [response expectedContentLength];
         APLog(@"expected download size: %lli", _expectedDownloadSize);
@@ -111,7 +116,7 @@
                                                     cancelButtonTitle:NSLocalizedString(@"BUTTON_OK", nil)
                                                     otherButtonTitles:nil];
             [alert show];
-            [_urlConnection cancel];
+            [_sessionTask cancel];
             [self _downloadEnded];
             return;
         }
@@ -122,7 +127,7 @@
                                                     cancelButtonTitle:NSLocalizedString(@"BUTTON_OK", nil)
                                                     otherButtonTitles:nil];
             [alert show];
-            [_urlConnection cancel];
+            [_sessionTask cancel];
             [self _downloadEnded];
             return;
         }
@@ -134,7 +139,7 @@
     }
 }
 
--(void)connection:(NSURLConnection *)connection didReceiveData:(NSData *)data
+- (void)URLSession:(NSURLSession *)session dataTask:(NSURLSessionDataTask *)dataTask didReceiveData:(NSData *)data
 {
     NSFileHandle *fileHandle = [NSFileHandle fileHandleForWritingAtPath:_filePath];
     if (!fileHandle && _statusCode != 404) {
@@ -165,27 +170,25 @@
     [fileHandle closeFile];
 }
 
-- (void)connectionDidFinishLoading:(NSURLConnection *)connection
+- (void)URLSession:(NSURLSession *)session task:(NSURLSessionTask *)task didCompleteWithError:(NSError *)error
 {
-    APLog(@"http file download complete");
-
-    [self _downloadEnded];
-}
-
-- (void)connection:(NSURLConnection *)connection didFailWithError:(NSError *)error
-{
-    APLog(@"http file download failed (%li)", (long)error.code);
-
-    if ([self.delegate respondsToSelector:@selector(downloadFailedWithErrorDescription:)])
-        [self.delegate downloadFailedWithErrorDescription:error.description];
-
-    [self _downloadEnded];
+    if (error.code != -999) {
+        if (error) {
+            APLog(@"http file download failed (%li)", (long)error.code);
+            if ([self.delegate respondsToSelector:@selector(downloadFailedWithErrorDescription:)])
+                [self.delegate downloadFailedWithErrorDescription:error.description];
+        } else {
+            APLog(@"http file download complete");
+        }
+        [self _downloadEnded];
+    } else {
+        APLog(@"http file download canceled");
+    }
 }
 
 - (void)cancelDownload
 {
-    [_urlConnection cancel];
-
+    [_sessionTask cancel];
     /* remove partially downloaded content */
     NSFileManager *fileManager = [NSFileManager defaultManager];
     if ([fileManager fileExistsAtPath:_filePath])
