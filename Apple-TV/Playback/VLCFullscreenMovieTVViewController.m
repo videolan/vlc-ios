@@ -15,7 +15,6 @@
 #import "VLCIRTVTapGestureRecognizer.h"
 #import "VLCHTTPUploaderController.h"
 #import "VLCSiriRemoteGestureRecognizer.h"
-#import "MetaDataFetcherKit.h"
 #import "VLCNetworkImageView.h"
 
 typedef NS_ENUM(NSInteger, VLCPlayerScanState)
@@ -28,7 +27,7 @@ typedef NS_ENUM(NSInteger, VLCPlayerScanState)
 @interface VLCFullscreenMovieTVViewController (UIViewControllerTransitioningDelegate) <UIViewControllerTransitioningDelegate, UIGestureRecognizerDelegate>
 @end
 
-@interface VLCFullscreenMovieTVViewController () <MDFHatchetFetcherDataRecipient>
+@interface VLCFullscreenMovieTVViewController ()
 
 @property (nonatomic) CADisplayLink *displayLink;
 @property (nonatomic) NSTimer *audioDescriptionScrollTimer;
@@ -36,7 +35,6 @@ typedef NS_ENUM(NSInteger, VLCPlayerScanState)
 @property (nonatomic) VLCPlaybackInfoTVViewController *infoViewController;
 @property (nonatomic) NSNumber *scanSavedPlaybackRate;
 @property (nonatomic) VLCPlayerScanState scanState;
-@property (nonatomic) MDFHatchetFetcher *audioMetaDataFetcher;
 @property (nonatomic) NSString *lastArtist;
 
 @property (nonatomic, readonly, getter=isSeekable) BOOL seekable;
@@ -850,13 +848,6 @@ currentMediaHasTrackToChooseFrom:(BOOL)currentMediaHasTrackToChooseFrom
         self.audioDescriptionTextView.hidden = YES;
         [self stopAudioDescriptionAnimation];
 
-        if (!self.audioMetaDataFetcher) {
-            self.audioMetaDataFetcher = [[MDFHatchetFetcher alloc] init];
-            self.audioMetaDataFetcher.dataRecipient = self;
-        }
-
-        [self.audioMetaDataFetcher cancelAllRequests];
-
         if (artist != nil && album != nil) {
             [UIView animateWithDuration:.3 animations:^{
                 self.audioArtistLabel.text = artist;
@@ -896,17 +887,10 @@ currentMediaHasTrackToChooseFrom:(BOOL)currentMediaHasTrackToChooseFrom
         self.audioTitleLabel.text = title;
         self.audioTitleLabel.hidden = NO;
 
-        if (artist != nil) {
-            if (album != nil) {
-                [self.audioMetaDataFetcher searchForAlbum:album ofArtist:artist];
-            } else
-                [self.audioMetaDataFetcher searchForArtist:artist];
-        }
         [UIView animateWithDuration:0.3 animations:^{
             self.audioView.hidden = NO;
         }];
     } else if (!self.audioView.hidden) {
-        [self.audioMetaDataFetcher cancelAllRequests];
         self.audioView.hidden = YES;
         self.audioArtworkImageView.image = nil;
         [self.audioLargeBackgroundImageView stopAnimating];
@@ -945,113 +929,6 @@ currentMediaHasTrackToChooseFrom:(BOOL)currentMediaHasTrackToChooseFrom
 - (BOOL)gestureRecognizer:(UIGestureRecognizer *)gestureRecognizer shouldRecognizeSimultaneouslyWithGestureRecognizer:(UIGestureRecognizer *)otherGestureRecognizer
 {
     return [self.simultaneousGestureRecognizers containsObject:gestureRecognizer];
-}
-
-#pragma mark - meta data recipient
-- (void)MDFHatchetFetcher:(MDFHatchetFetcher * _Nonnull)aFetcher
-             didFindAlbum:(MDFMusicAlbum * _Nonnull)album
-                 byArtist:(MDFArtist * _Nullable)artist
-         forSearchRequest:(NSString *)searchRequest
-{
-    /* we have no match */
-    if (!artist) {
-        [self _simplifyMetaDataSearchString:searchRequest];
-        return;
-    }
-    if (artist.biography) {
-        [self scrollAudioDescriptionAnimationToTop];
-        [UIView animateWithDuration:.3 animations:^{
-            self.audioDescriptionTextView.hidden = NO;
-            self.audioDescriptionTextView.text = artist.biography;
-        }];
-        [self startAudioDescriptionAnimation];
-    } else
-        [self stopAudioDescriptionAnimation];
-
-    NSString *imageURLString = album.artworkImage;
-    if (!imageURLString) {
-        NSArray *imageURLStrings = album.largeSizedArtistImages;
-
-        if (imageURLStrings.count > 0) {
-            imageURLString = imageURLStrings.firstObject;
-        } else {
-            imageURLStrings = artist.mediumSizedImages;
-            if (imageURLStrings.count > 0) {
-                imageURLString = imageURLStrings.firstObject;
-            }
-        }
-    }
-
-    if (imageURLString) {
-        [self.audioArtworkImageView setImageWithURL:[NSURL URLWithString:[NSString stringWithFormat:@"%@?height=500&width=500", imageURLString]]];
-        [self.audioLargeBackgroundImageView setImageWithURL:[NSURL URLWithString:imageURLString]];
-    } else {
-        UIImage *dummyImage = [UIImage imageNamed:@"about-app-icon"];
-        self.audioArtworkImageView.image = dummyImage;
-        self.audioLargeBackgroundImageView.image = dummyImage;
-
-        [self _simplifyMetaDataSearchString:searchRequest];
-    }
-}
-
-- (void)MDFHatchetFetcher:(MDFHatchetFetcher *)aFetcher didFailToFindAlbum:(NSString *)albumName forArtistName:(NSString *)artistName
-{
-    APLog(@"%s: %@ %@", __PRETTY_FUNCTION__, albumName, artistName);
-    UIImage *dummyImage = [UIImage imageNamed:@"about-app-icon"];
-    self.audioArtworkImageView.image = dummyImage;
-    self.audioLargeBackgroundImageView.image = dummyImage;
-}
-
-- (void)MDFHatchetFetcher:(MDFHatchetFetcher *)aFetcher didFindArtist:(MDFArtist *)artist forSearchRequest:(NSString *)searchRequest
-{
-    /* we have no match */
-    if (!artist) {
-        [self _simplifyMetaDataSearchString:searchRequest];
-        return;
-    }
-    if (artist.biography) {
-        [self scrollAudioDescriptionAnimationToTop];
-        [UIView animateWithDuration:.3 animations:^{
-            self.audioDescriptionTextView.text = artist.biography;
-            self.audioDescriptionTextView.hidden = NO;
-        }];
-        [self startAudioDescriptionAnimation];
-    } else
-        [self stopAudioDescriptionAnimation];
-
-    NSArray *imageURLStrings = artist.largeSizedImages;
-    NSString *imageURLString;
-
-    if (imageURLStrings.count > 0) {
-        imageURLString = imageURLStrings.firstObject;
-    } else {
-        imageURLStrings = artist.mediumSizedImages;
-        if (imageURLStrings.count > 0) {
-            imageURLString = imageURLStrings.firstObject;
-        }
-    }
-
-    if (imageURLString) {
-        [self.audioArtworkImageView setImageWithURL:[NSURL URLWithString:[NSString stringWithFormat:@"%@?height=500&width=500",imageURLString]]];
-        [self.audioLargeBackgroundImageView setImageWithURL:[NSURL URLWithString:imageURLString]];
-    } else {
-        [self _simplifyMetaDataSearchString:searchRequest];
-    }
-}
-
-- (void)_simplifyMetaDataSearchString:(NSString *)searchString
-{
-    NSRange lastRange = [searchString rangeOfString:@" " options:NSBackwardsSearch];
-    if (lastRange.location != NSNotFound)
-        [self.audioMetaDataFetcher searchForArtist:[searchString substringToIndex:lastRange.location]];
-}
-
-- (void)MDFHatchetFetcher:(MDFHatchetFetcher *)aFetcher didFailToFindArtistForSearchRequest:(NSString *)searchRequest
-{
-    APLog(@"%s: %@", __PRETTY_FUNCTION__, searchRequest);
-    UIImage *dummyImage = [UIImage imageNamed:@"about-app-icon"];
-    self.audioArtworkImageView.image = dummyImage;
-    self.audioLargeBackgroundImageView.image = dummyImage;
 }
 
 - (void)scrollAudioDescriptionAnimationToTop
