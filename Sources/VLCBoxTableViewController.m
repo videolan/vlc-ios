@@ -220,7 +220,6 @@
         [connection cancel];
 
         /* now ask VLC to stream the URL we were just passed */
-        VLCPlaybackController *vpc = [VLCPlaybackController sharedInstance];
         VLCMedia *media = [VLCMedia mediaWithURL:theActualURL];
         VLCMediaList *medialist = [[VLCMediaList alloc] init];
         [medialist addMedia:media];

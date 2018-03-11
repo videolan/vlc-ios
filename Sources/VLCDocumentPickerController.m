@@ -70,7 +70,7 @@
     NSString *filePath = [documentsPath stringByAppendingPathComponent:[url lastPathComponent]];
 
     NSError *error = nil;
-    BOOL success = [fileManager moveItemAtPath:[url path] toPath:filePath error:&error];
+    [fileManager moveItemAtPath:[url path] toPath:filePath error:&error];
     if (!error) {
         [[VLCMediaFileDiscoverer sharedInstance] updateMediaList];
     } else {
