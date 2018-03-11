@@ -471,6 +471,7 @@
 		CCE2A22E17A5859E00D9EAAD /* CoreText.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = CCE2A22D17A5859E00D9EAAD /* CoreText.framework */; };
 		D6E034ED1CC284FC0037F516 /* VLCStreamingHistoryCell.m in Sources */ = {isa = PBXBuildFile; fileRef = D6E034EC1CC284FC0037F516 /* VLCStreamingHistoryCell.m */; };
 		D7FBC862832B766D0E814251 /* libPods-VLC-iOS.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 402E6F0E5362B530B7909338 /* libPods-VLC-iOS.a */; };
+		DAF4B8CF7784F29411211CA0 /* libPods-VLC-iOS-no-watch.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 3DD533B1D45EEA70099433D8 /* libPods-VLC-iOS-no-watch.a */; };
 		DD13A37B1BEE2FAA00A35554 /* VLCMaskView.m in Sources */ = {isa = PBXBuildFile; fileRef = DD13A37A1BEE2FAA00A35554 /* VLCMaskView.m */; };
 		DD1A45FD1B676BAC00086F57 /* Localizable.strings in Resources */ = {isa = PBXBuildFile; fileRef = DDE1BCE41B676B8800A4B9CE /* Localizable.strings */; };
 		DD1B31F41BF637D500A369B6 /* VLCPlaybackInfoTracksTVViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = DD1B31F21BF637D500A369B6 /* VLCPlaybackInfoTracksTVViewController.m */; };
@@ -1499,6 +1500,7 @@
 				7D3CF84A2050265B00FA0C1F /* Foundation.framework in Frameworks */,
 				7D3CF84B2050265B00FA0C1F /* CoreGraphics.framework in Frameworks */,
 				7D3CF84C2050265B00FA0C1F /* libPods-VLC-iOS.a in Frameworks */,
+				DAF4B8CF7784F29411211CA0 /* libPods-VLC-iOS-no-watch.a in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -3455,7 +3457,7 @@
 			);
 			name = "[CP] Check Pods Manifest.lock";
 			outputPaths = (
-				"$(DERIVED_FILE_DIR)/Pods-VLC-iOS-checkManifestLockResult.txt",
+				"$(DERIVED_FILE_DIR)/Pods-VLC-iOS-no-watch-checkManifestLockResult.txt",
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
@@ -3474,7 +3476,7 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
-			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods-VLC-iOS/Pods-VLC-iOS-frameworks.sh\"\n";
+			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods-VLC-iOS-no-watch/Pods-VLC-iOS-no-watch-frameworks.sh\"\n";
 			showEnvVarsInLog = 0;
 		};
 		7D3CF8892050265B00FA0C1F /* [CP] Copy Pods Resources */ = {
@@ -3483,7 +3485,7 @@
 			files = (
 			);
 			inputPaths = (
-				"${SRCROOT}/Pods/Target Support Files/Pods-VLC-iOS/Pods-VLC-iOS-resources.sh",
+				"${SRCROOT}/Pods/Target Support Files/Pods-VLC-iOS-no-watch/Pods-VLC-iOS-no-watch-resources.sh",
 				"${PODS_CONFIGURATION_BUILD_DIR}/HockeySDK/HockeySDKResources.bundle",
 				"${PODS_ROOT}/InAppSettingsKit/InAppSettingsKit/Resources/Base.lproj",
 				"${PODS_ROOT}/InAppSettingsKit/InAppSettingsKit/Resources/de.lproj",
@@ -3534,7 +3536,7 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
-			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods-VLC-iOS/Pods-VLC-iOS-resources.sh\"\n";
+			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods-VLC-iOS-no-watch/Pods-VLC-iOS-no-watch-resources.sh\"\n";
 			showEnvVarsInLog = 0;
 		};
 		7D3CF88A2050265B00FA0C1F /* ShellScript */ = {
@@ -4499,7 +4501,7 @@
 		};
 		7D3CF88C2050265B00FA0C1F /* Debug */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = 3B75A76DF6589FE678357D42 /* Pods-VLC-iOS.debug.xcconfig */;
+			baseConfigurationReference = 1C7724AABC40B96010E01F65 /* Pods-VLC-iOS-no-watch.debug.xcconfig */;
 			buildSettings = {
 				ARCHS = (
 					"$(ARCHS_STANDARD)",
@@ -4545,7 +4547,7 @@
 		};
 		7D3CF88D2050265B00FA0C1F /* Release */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = C6872E7B396534F3DAF4E48F /* Pods-VLC-iOS.release.xcconfig */;
+			baseConfigurationReference = 090F2933E962C424E9A80ABB /* Pods-VLC-iOS-no-watch.release.xcconfig */;
 			buildSettings = {
 				ARCHS = (
 					"$(ARCHS_STANDARD)",
@@ -4591,7 +4593,7 @@
 		};
 		7D3CF88E2050265B00FA0C1F /* Distribution */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = 5B343E4F4D971F5A169EB864 /* Pods-VLC-iOS.distribution.xcconfig */;
+			baseConfigurationReference = 88E35CB83D336559A656FDA3 /* Pods-VLC-iOS-no-watch.distribution.xcconfig */;
 			buildSettings = {
 				ARCHS = (
 					"$(ARCHS_STANDARD)",
