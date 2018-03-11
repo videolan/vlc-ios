@@ -294,14 +294,21 @@ typedef NS_ENUM(NSUInteger, VLCAspectRatio) {
     _playerIsSetup = NO;
     [_shuffleStack removeAllObjects];
 
+    if (@available(iOS 10, *)) {
+        if (_errorCallback && _mediaPlayer.state == VLCMediaPlayerStateError &&  !_sessionWillRestart)
+            [[UIApplication sharedApplication] openURL:_errorCallback options:@{} completionHandler:nil];
+        else if (_successCallback && !_sessionWillRestart)
+            [[UIApplication sharedApplication] openURL:_successCallback options:@{} completionHandler:nil];
+    } else {
 #pragma clang diagnostic push
 #pragma clang diagnostic ignored "-Wdeprecated-declarations"
-    /* UIApplication's replacement calls require iOS 10 or later, which we can't enforce as of yet */
-    if (_errorCallback && _mediaPlayer.state == VLCMediaPlayerStateError &&  !_sessionWillRestart)
-        [[UIApplication sharedApplication] openURL:_errorCallback];
-    else if (_successCallback && !_sessionWillRestart)
-        [[UIApplication sharedApplication] openURL:_successCallback];
+        /* UIApplication's replacement calls require iOS 10 or later, which we can't enforce as of yet */
+        if (_errorCallback && _mediaPlayer.state == VLCMediaPlayerStateError &&  !_sessionWillRestart)
+            [[UIApplication sharedApplication] openURL:_errorCallback];
+        else if (_successCallback && !_sessionWillRestart)
+            [[UIApplication sharedApplication] openURL:_successCallback];
 #pragma clang diagnostic pop
+    }
 
     [[self remoteControlService] unsubscribeFromRemoteCommands];
 
