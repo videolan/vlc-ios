@@ -1,5 +1,8 @@
 fastlane_version '2.82.0'
 
+require './helpers/VLC.rb'
+require './helpers/version.rb'
+
 #### Release ####
 
 desc 'Release a new version of VLC to the App Store'
@@ -83,4 +86,13 @@ private_lane :get_platform do |options|
     exit 1
   end
   platform
+end
+
+desc 'Return the version received as parameter, or ask for it if missing'
+private_lane :get_version do |options|
+  version = options[:version]
+  if !version || version.empty?
+    version = ask("Enter a new version number: ")
+  end
+  version
 end
