@@ -2,10 +2,11 @@
  * VLCNetworkServerBrowserPlex.m
  * VLC for iOS
  *****************************************************************************
- * Copyright (c) 2015 VideoLAN. All rights reserved.
+ * Copyright (c) 2015-2018 VideoLAN. All rights reserved.
  * $Id$
  *
  * Authors: Tobias Conradi <videolan # tobias-conradi.de>
+ *          Pierre Sagaspe <pierre.sagaspe # me.com>
  *
  * Refer to the COPYING file of the official project for license.
  *****************************************************************************/
@@ -104,7 +105,16 @@
     NSMutableArray *newItems = [NSMutableArray new];
     for (NSDictionary *dict in dicts) {
         VLCNetworkServerBrowserItemPlex *item = [[VLCNetworkServerBrowserItemPlex alloc] initWithDictionary:dict currentURL:url authentificication:newAuth];
-        [newItems addObject:item];
+        /* warning: we make a http request per item and if the library is big or a weak network, it can slow down the process. */
+        if (item.URLcontainer) {
+            NSArray *dictItem = [self.plexParser PlexMediaServerParser:self.plexServerAddress port:self.plexServerPort navigationPath:item.URLcontainer.path authentification:self.plexAuthentification error:&error];
+            for (NSDictionary *dictx in dictItem) {
+                item = [[VLCNetworkServerBrowserItemPlex alloc] initWithDictionary:dictx currentURL:url authentificication:newAuth];
+                [newItems addObject:item];
+            }
+        } else {
+            [newItems addObject:item];
+        }
     }
 
     NSString *titleValue = firstObject[@"libTitle"];
@@ -168,15 +178,28 @@
         if (_container) {
             NSString *keyPath = nil;
             NSString *keyValue = dictionary[@"key"];
-            if ([keyValue rangeOfString:@"library"].location == NSNotFound) {
+            if ([keyValue rangeOfString:@"library"].location == NSNotFound)
                 keyPath = [path stringByAppendingPathComponent:keyValue];
-            } else {
+            else
                 keyPath = keyValue;
-            }
-            if (keyPath) {
+
+            if (keyPath)
                 urlPath = [baseURL URLByAppendingPathComponent:keyPath].absoluteString;
-            }
+
         } else {
+            NSString *keyPath = nil;
+            NSString *keyValue = dictionary[@"key"];
+            if ([keyValue rangeOfString:@"library"].location == NSNotFound)
+                keyPath = [path stringByAppendingPathComponent:keyValue];
+            else
+                keyPath = keyValue;
+
+            if (keyPath)
+                urlPath = [baseURL URLByAppendingPathComponent:keyPath].absoluteString;
+
+            urlPath = [VLCPlexWebAPI urlAuth:urlPath authentification:auth];
+            _URLcontainer = [NSURL URLWithString:urlPath];
+
             urlPath = dictionary[@"keyMedia"];
         }
 
@@ -195,11 +218,10 @@
         _filename = dictionary[@"namefile"];
 
         NSString *subtitleURLString = dictionary[@"keySubtitle"];
-        if (subtitleURLString) {
+        if (subtitleURLString)
             subtitleURLString = [VLCPlexWebAPI urlAuth:subtitleURLString authentification:auth];
-        }
 
-        _subtitleURL = subtitleURLString.length ? [baseURL URLByAppendingPathComponent:subtitleURLString] : nil;
+        _subtitleURL = subtitleURLString.length ? [NSURL URLWithString:subtitleURLString] : nil;
     }
     return self;
 }
