@@ -2,10 +2,11 @@
  * VLCOneDriveObject.h
  * VLC for iOS
  *****************************************************************************
- * Copyright (c) 2015 VideoLAN. All rights reserved.
+ * Copyright (c) 2015-2018 VideoLAN. All rights reserved.
  * $Id$
  *
  * Authors: Felix Paul Kühne <fkuehne # videolan.org>
+ *          Pierre Sagaspe <pierre.sagaspe # me.com>
  *
  * Refer to the COPYING file of the official project for license.
  *****************************************************************************/
@@ -51,6 +52,7 @@
 
 @property (readonly, nonatomic) NSString *filesPath;
 @property (strong, nonatomic) NSString *downloadPath;
+@property (strong, nonatomic) NSString *subtitleURL;
 @property (readonly, nonatomic) BOOL hasFullFolderTree;
 
 @property (strong, nonatomic) LiveConnectClient *liveClient;

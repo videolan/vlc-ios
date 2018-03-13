@@ -2,10 +2,11 @@
  * VLCOneDriveObject.h
  * VLC for iOS
  *****************************************************************************
- * Copyright (c) 2015 VideoLAN. All rights reserved.
+ * Copyright (c) 2015-2018 VideoLAN. All rights reserved.
  * $Id$
  *
  * Authors: Felix Paul Kühne <fkuehne # videolan.org>
+ *          Pierre Sagaspe <pierre.sagaspe # me.com>
  *
  * Refer to the COPYING file of the official project for license.
  *****************************************************************************/
@@ -13,6 +14,7 @@
 #import "VLCOneDriveObject.h"
 #import "VLCHTTPFileDownloader.h"
 #import "NSString+SupportedMedia.h"
+#import "UIDevice+VLC.h"
 
 #if TARGET_OS_IOS
 @interface VLCOneDriveObject () <VLCHTTPFileDownloader>
@@ -132,6 +134,10 @@
                 oneDriveObject.size = rawObject[@"size"];
                 oneDriveObject.thumbnailURL = rawObject[@"picture"];
                 oneDriveObject.downloadPath = rawObject[@"source"];
+
+                if (oneDriveObject.isVideo)
+                    oneDriveObject.subtitleURL = [self configureSubtitle:oneDriveObject.name folderItems:rawFolderObjects];
+
                 oneDriveObject.duration = rawObject[@"duration"];
                 [folderFiles addObject:oneDriveObject];
             }
@@ -157,6 +163,68 @@
 
     if ([userState isEqualToString:@"load-folder-content"])
         [self.delegate folderContentLoadingFailed:error sender:self];
+}
+
+#pragma - subtitle
+
+- (NSString *)configureSubtitle:(NSString *)fileName folderItems:(NSArray *)folderItems
+{
+    NSString *subtitleURL = nil;
+    NSString *subtitlePath = [self _searchSubtitle:fileName folderItems:folderItems];
+
+    if (subtitlePath)
+        subtitleURL = [self _getFileSubtitleFromServer:[NSURL URLWithString:subtitlePath]];
+
+    return subtitleURL;
+}
+
+- (NSString *)_searchSubtitle:(NSString *)fileName folderItems:(NSArray *)folderItems
+{
+    NSString *urlTemp = [[fileName lastPathComponent] stringByDeletingPathExtension];
+    NSString *itemPath = nil;
+
+    NSPredicate *predicate = [NSPredicate predicateWithFormat:@"name contains[c] %@", urlTemp];
+    NSArray *results = [folderItems filteredArrayUsingPredicate:predicate];
+
+    for (int cnt = 0; cnt < results.count; cnt++) {
+        NSDictionary *dictObject = results[cnt];
+        NSString *itemName = dictObject[@"name"];
+        if ([itemName isSupportedSubtitleFormat])
+            itemPath = dictObject[@"source"];
+    }
+    return itemPath;
+}
+
+- (NSString *)_getFileSubtitleFromServer:(NSURL *)subtitleURL
+{
+    NSString *FileSubtitlePath = nil;
+    NSData *receivedSub = [NSData dataWithContentsOfURL:subtitleURL]; // TODO: fix synchronous load
+
+    if (receivedSub.length < [[UIDevice currentDevice] VLCFreeDiskSpace].longLongValue) {
+        NSArray *searchPaths = NSSearchPathForDirectoriesInDomains(NSCachesDirectory, NSUserDomainMask, YES);
+        NSString *directoryPath = searchPaths[0];
+        FileSubtitlePath = [directoryPath stringByAppendingPathComponent:[subtitleURL lastPathComponent]];
+
+        NSFileManager *fileManager = [NSFileManager defaultManager];
+        if (![fileManager fileExistsAtPath:FileSubtitlePath]) {
+            //create local subtitle file
+            [fileManager createFileAtPath:FileSubtitlePath contents:nil attributes:nil];
+            if (![fileManager fileExistsAtPath:FileSubtitlePath]) {
+                APLog(@"file creation failed, no data was saved");
+                return nil;
+            }
+        }
+        [receivedSub writeToFile:FileSubtitlePath atomically:YES];
+    } else {
+        VLCAlertView *alert = [[VLCAlertView alloc] initWithTitle:NSLocalizedString(@"DISK_FULL", nil)
+                                                          message:[NSString stringWithFormat:NSLocalizedString(@"DISK_FULL_FORMAT", nil), [subtitleURL lastPathComponent], [[UIDevice currentDevice] model]]
+                                                         delegate:self
+                                                cancelButtonTitle:NSLocalizedString(@"BUTTON_OK", nil)
+                                                otherButtonTitles:nil];
+        [alert show];
+    }
+
+    return FileSubtitlePath;
 }
 
 #pragma mark - delegation
