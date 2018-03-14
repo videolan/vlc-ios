@@ -67,8 +67,21 @@ NSString *VLCNetworkListCellIdentifier = @"VLCNetworkListCellIdentifier";
     _searchController.searchBar.translucent = navBar.translucent;
     _searchController.searchBar.opaque = navBar.opaque;
     [_searchController.searchBar sizeToFit];
-    
-    _tableView.tableHeaderView = _searchController.searchBar;
+    if (@available(iOS 11.0, *)) {
+        // search bar text field background color
+        UITextField *searchTextField = [_searchController.searchBar valueForKey:@"searchField"];
+        UIView *backgroundView = searchTextField.subviews.firstObject;
+        backgroundView.backgroundColor = UIColor.whiteColor;
+        backgroundView.layer.cornerRadius = 10;
+        backgroundView.clipsToBounds = YES;
+
+        //_searchController.hidesNavigationBarDuringPresentation = NO;
+        _searchController.obscuresBackgroundDuringPresentation = NO;
+        self.navigationItem.hidesSearchBarWhenScrolling = YES;
+        self.navigationItem.searchController = _searchController;
+    } else {
+        _tableView.tableHeaderView = _searchController.searchBar;
+    }
     self.definesPresentationContext = YES;
 
     self.navigationItem.rightBarButtonItems = @[[UIBarButtonItem themedRevealMenuButtonWithTarget:self andSelector:@selector(menuButtonAction:)],
@@ -82,7 +95,7 @@ NSString *VLCNetworkListCellIdentifier = @"VLCNetworkListCellIdentifier";
 {
     [super viewWillAppear:animated];
     if (@available(iOS 11.0, *)) {
-        [self.tableView setContentOffset:CGPointZero animated:NO];
+        //iOS 11
     } else {
         CGPoint contentOffset = CGPointMake(0, _tableView.tableHeaderView.bounds.size.height);
         [self.tableView setContentOffset:contentOffset animated:NO];
