@@ -84,7 +84,7 @@
     self.tableView.backgroundColor = PresentationTheme.current.colors.background;
     self.view.backgroundColor = PresentationTheme.current.colors.background;
     _refreshControl.backgroundColor = PresentationTheme.current.colors.background;
-    _activityIndicator.activityIndicatorViewStyle = PresentationTheme.current == PresentationTheme.whiteTheme ? UIActivityIndicatorViewStyleGray : UIActivityIndicatorViewStyleWhiteLarge;
+    _activityIndicator.activityIndicatorViewStyle = PresentationTheme.current == PresentationTheme.brightTheme ? UIActivityIndicatorViewStyleGray : UIActivityIndicatorViewStyleWhiteLarge;
     self.loginToCloudStorageView.backgroundColor = PresentationTheme.current.colors.background;
 }
 

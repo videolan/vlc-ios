@@ -1,10 +1,14 @@
-//
-//  VideoViewController.swift
-//  VLC-iOS
-//
-//  Created by Carola Nitz on 11/28/17.
-//  Copyright © 2017 VideoLAN. All rights reserved.
-//
+/*****************************************************************************
+ * MediaViewController.swift
+ * VLC for iOS
+ *****************************************************************************
+ * Copyright (c) 2018 VideoLAN. All rights reserved.
+ * $Id$
+ *
+ * Authors: Carola Nitz <nitz.carola # gmail.com>
+ *
+ * Refer to the COPYING file of the official project for license.
+ *****************************************************************************/
 
 import Foundation
 
@@ -45,7 +49,7 @@ public class VLCMediaViewController: UICollectionViewController, UICollectionVie
     }
 
     override public func viewDidLoad() {
-
+        super.viewDidLoad()
         setupCollectionView()
         setupSearchController()
         setupNavigationBar()
@@ -119,11 +123,14 @@ public class VLCMediaViewController: UICollectionViewController, UICollectionVie
 
     public func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
 
-        let numberofCells:CGFloat =  self.traitCollection.horizontalSizeClass == .regular ? 3.0 : 2.0
+        let numberOfCells:CGFloat =  self.traitCollection.horizontalSizeClass == .regular ? 3.0 : 2.0
         let aspectRatio:CGFloat = 10.0 / 16.0
 
-        var cellWidth = view.bounds.size.width / numberofCells
-        cellWidth = cellWidth - ceil(((numberofCells + 1) * cellPadding) / numberofCells)
+        // We have the number of cells and we always have numberofCells + 1 padding spaces. -pad-[Cell]-pad-[Cell]-pad-
+        // we then have the entire padding, we divide the entire padding by the number of Cells to know how much needs to be substracted from ech cell
+        // since this might be an uneven number we ceil
+        var cellWidth = view.bounds.size.width / numberOfCells
+        cellWidth = cellWidth - ceil(((numberOfCells + 1) * cellPadding) / numberOfCells)
 
         return CGSize(width:cellWidth, height:cellWidth * aspectRatio)
     }

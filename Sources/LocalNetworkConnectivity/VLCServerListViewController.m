@@ -2,7 +2,7 @@
  * VLCLocalServerListViewController.m
  * VLC for iOS
  *****************************************************************************
- * Copyright (c) 2013-2015 VideoLAN. All rights reserved.
+ * Copyright (c) 2013-2018 VideoLAN. All rights reserved.
  * $Id$
  *
  * Authors: Felix Paul Kühne <fkuehne # videolan.org>
@@ -10,6 +10,7 @@
  *          Gleb Pinigin <gpinigin # gmail.com>
  *          Tobias Conradi <videolan # tobias-conradi.de>
  *          Vincent L. Cone <vincent.l.cone # tuta.io>
+ *          Carola Nitz <caro # videolan.org>
  *
  * Refer to the COPYING file of the official project for license.
  *****************************************************************************/

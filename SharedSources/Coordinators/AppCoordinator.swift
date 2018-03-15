@@ -1,11 +1,14 @@
-//
-//  AppCoordinator.swift
-//  VLC-iOS
-//
-//  Created by Carola Nitz on 11/30/17.
-//  Copyright © 2017 VideoLAN. All rights reserved.
-//
-
+/*****************************************************************************
+ * AppCoordinator.swift
+ * VLC for iOS
+ *****************************************************************************
+ * Copyright (c) 2018 VideoLAN. All rights reserved.
+ * $Id$
+ *
+ * Authors: Carola Nitz <nitz.carola # gmail.com>
+ *
+ * Refer to the COPYING file of the official project for license.
+ *****************************************************************************/
 import Foundation
 
 @objc(VLCService)

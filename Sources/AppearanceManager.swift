@@ -1,5 +1,5 @@
 /*****************************************************************************
- * SortOption.swift
+ * AppearanceManager.swift
  * VLC for iOS
  *****************************************************************************
  * Copyright (c) 2018 VideoLAN. All rights reserved.

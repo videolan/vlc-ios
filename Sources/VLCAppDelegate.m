@@ -112,7 +112,6 @@ NSString *const VLCDropboxSessionWasAuthorized = @"VLCDropboxSessionWasAuthorize
     [self.window makeKeyAndVisible];
     // enable crash preventer
     void (^setupBlock)() = ^{
-        __weak typeof(self) weakSelf = self;
         void (^setupLibraryBlock)() = ^{
             appCoordinator = [[AppCoordinator alloc] initWithTabBarController:rootViewController];
             [appCoordinator start];
@@ -219,8 +218,7 @@ continueUserActivity:(NSUserActivity *)userActivity
     NSDictionary *dict = userActivity.userInfo;
     if([userActivityType isEqualToString:kVLCUserActivityLibraryMode] ||
        [userActivityType isEqualToString:kVLCUserActivityLibrarySelection]) {
-
-       // [self.libraryViewController restoreUserActivityState:userActivity];
+        //TODO: Add restoreUserActivityState to the mediaviewcontroller
         _isComingFromHandoff = YES;
         return YES;
     } else {
@@ -270,6 +268,8 @@ didFailToContinueUserActivityWithType:(NSString *)userActivityType
         _currentGoogleAuthorizationFlow = nil;
         return YES;
     }
+
+    //TODO: we need to handle openURL requests in the new MediaViewController
 
 //    if (_libraryViewController && url != nil) {
 //        APLog(@"%@ requested %@ to be opened", sourceApplication, url);
@@ -425,20 +425,20 @@ didFailToContinueUserActivityWithType:(NSString *)userActivityType
 
         // TODO Should we update media db after adding new files?
         [sharedLibrary updateMediaDatabase];
-       // [_libraryViewController updateViewContents];
+        // TODO: update the VideoViewController
     }
 }
 
 - (void)mediaFileDeleted:(NSString *)name
 {
     [[MLMediaLibrary sharedMediaLibrary] updateMediaDatabase];
-   // [_libraryViewController updateViewContents];
+   // TODO: update the VideoViewController
 }
 
 - (void)mediaFilesFoundRequiringAdditionToStorageBackend:(NSArray<NSString *> *)foundFiles
 {
     [[MLMediaLibrary sharedMediaLibrary] addFilePaths:foundFiles];
-  //  [[(VLCAppDelegate *)[UIApplication sharedApplication].delegate libraryViewController] updateViewContents];
+  // TODO: update the VideoViewController
 }
 
 #pragma mark - pass code validation

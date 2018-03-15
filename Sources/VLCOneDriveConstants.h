@@ -10,5 +10,5 @@
  * Refer to the COPYING file of the official project for license.
  *****************************************************************************/
 
-#define kVLCOneDriveClientID @"00000000400FA33D"
-#define kVLCOneDriveClientSecret @"I1Z-2bYw6q-m9RbzFVY2enQdgOHoHfx2"
+#define kVLCOneDriveClientID @"000000004808C307"
+#define kVLCOneDriveClientSecret @""

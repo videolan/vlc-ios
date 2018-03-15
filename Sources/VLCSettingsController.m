@@ -102,7 +102,7 @@
     }
     if ([notification.object isEqual:kVLCSettingAppTheme]) {
         BOOL darkTheme = [[notification.userInfo objectForKey:kVLCSettingAppTheme] boolValue];
-        PresentationTheme.current = darkTheme ? PresentationTheme.darkTheme : PresentationTheme.whiteTheme;
+        PresentationTheme.current = darkTheme ? PresentationTheme.darkTheme : PresentationTheme.brightTheme;
         [self themeDidChange];
     }
 }
