@@ -54,7 +54,7 @@ pod 'XKKeychain', '~>1.0'
 pod 'box-ios-sdk-v2', :git => 'git://github.com/fkuehne/box-ios-sdk-v2.git' #has tvOS support added
 pod 'upnpx', '~>1.4.0'
 pod 'CocoaHTTPServer', :git => 'git://github.com/fkuehne/CocoaHTTPServer.git' # has our fixes
-pod 'MetaDataFetcherKit', '~>0.1.8'
+pod 'MetaDataFetcherKit', '~>0.3.1'
 pod "OROpenSubtitleDownloader", :git => 'https://github.com/orta/OROpenSubtitleDownloader.git', :commit => '0509eac2'
 pod 'GRKArrayDiff', '~> 2.1'
 pod 'VLC-WhiteRaccoon'

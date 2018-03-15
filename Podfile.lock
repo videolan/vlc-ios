@@ -40,7 +40,7 @@ PODS:
     - MobileVLCKit (~> 3.0.1)
   - MediaLibraryKit-unstable (2.6.5):
     - MobileVLCKit-unstable (~> 3.0.0a8)
-  - MetaDataFetcherKit (0.1.8):
+  - MetaDataFetcherKit (0.3.1):
     - AFNetworking (= 3.1.0)
     - OROpenSubtitleDownloader
   - MobileVLCKit (3.0.2)
@@ -72,7 +72,7 @@ DEPENDENCIES:
   - InAppSettingsKit (from `git://github.com/fkuehne/InAppSettingsKit.git`, commit `415ea6bb`)
   - MediaLibraryKit-prod
   - MediaLibraryKit-unstable
-  - MetaDataFetcherKit (~> 0.1.8)
+  - MetaDataFetcherKit (~> 0.3.1)
   - MobileVLCKit (= 3.0.2)
   - ObjectiveDropboxOfficial (from `git://github.com/carolanitz/dropbox-sdk-obj-c.git`)
   - OBSlider (= 1.1.0)
@@ -131,7 +131,7 @@ SPEC CHECKSUMS:
   InAppSettingsKit: 76d5cfbaa3e3f8aa53fe3628516da7eb1aa6a5cb
   MediaLibraryKit-prod: 095dce5faa59e2bb0a537646ac09fe57eaf3fbdf
   MediaLibraryKit-unstable: aaf147005a2e024ed2f4c45440bfcc19225ca776
-  MetaDataFetcherKit: 44c90defa89b3a72cef60e07ad9de37821dd7c5d
+  MetaDataFetcherKit: d1d61b061bf74268aaffb6bf08a70396672163df
   MobileVLCKit: a9e06de53e7a7fd43d7b04bcab4f2e68868f768a
   NSData+Base64: 4e84902c4db907a15673474677e57763ef3903e4
   ObjectiveDropboxOfficial: e11cdf40e8965a6c24c6d6ff64905f2df43ab653
@@ -147,6 +147,6 @@ SPEC CHECKSUMS:
   XKKeychain: 852ef663c56a7194c73d3c68e8d9d4f07b121d4f
   xmlrpc: 109bb21d15ed6d108b2c1ac5973a6a223a50f5f4
 
-PODFILE CHECKSUM: e47a4c09de9c4d759602e8e43ce7adf681fca3d2
+PODFILE CHECKSUM: 4972a676a706c2425e6457b5f4cd1588f7ae1681
 
 COCOAPODS: 1.4.0
