@@ -1,0 +1,1 @@
+../../../upnpx/src/api/SoapActionsDigitalSecurityCameraSettings1.h

@@ -1,0 +1,28 @@
+GRKArrayDiff
+https://github.com/levigroker/GRKArrayDiff
+Provides diffs between two NSArrays with details about deletions, insertions, moves, and
+modifications.
+
+Copyright (c) 2015-2018 Levi Brown <mailto:levigroker@gmail.com> This work is
+licensed under the Creative Commons Attribution 4.0 International License. To
+view a copy of this license, visit https://creativecommons.org/licenses/by/4.0/
+
+The above attribution and this license must accompany any version of the source
+code, binary distributable, or derivatives.
+
+1. DISCLAIMER OF WARRANTY.  ALL EXPRESS OR IMPLIED CONDITIONS, REPRESENTATIONS
+AND WARRANTIES, INCLUDING ANY IMPLIED WARRANTY OF MERCHANTABILITY, FITNESS FOR A
+PARTICULAR PURPOSE OR NON-INFRINGEMENT ARE DISCLAIMED, EXCEPT TO THE EXTENT THAT
+THESE DISCLAIMERS ARE HELD TO BE LEGALLY INVALID.
+
+2. LIMITATION OF LIABILITY.  TO THE EXTENT NOT PROHIBITED BY LAW, IN NO EVENT
+WILL THE AUTHOR OR THE AUTHOR'S LICENSORS BE LIABLE FOR ANY LOST REVENUE, PROFIT
+OR DATA, OR FOR SPECIAL, INDIRECT, CONSEQUENTIAL, INCIDENTAL OR PUNITIVE
+DAMAGES, HOWEVER CAUSED REGARDLESS OF THE THEORY OF LIABILITY, ARISING OUT OF OR
+RELATED TO THE USE OF OR INABILITY TO USE SOFTWARE, EVEN IF THE AUTHOR HAS BEEN
+ADVISED OF THE POSSIBILITY OF SUCH DAMAGES.  In no event will the author's
+liability to you, whether in contract, tort (including negligence), or
+otherwise, exceed the amount paid by you for Software under this Agreement. The
+foregoing limitations will apply even if the above stated warranty fails of its
+essential purpose. Some states do not allow the exclusion of incidental or
+consequential damages, so some of the terms above may not be applicable to you.

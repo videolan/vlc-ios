@@ -1,0 +1,10 @@
+CONFIGURATION_BUILD_DIR = ${PODS_CONFIGURATION_BUILD_DIR}/VLC-WhiteRaccoon-iOS
+GCC_PREPROCESSOR_DEFINITIONS = $(inherited) COCOAPODS=1
+HEADER_SEARCH_PATHS = "${PODS_ROOT}/Headers/Private" "${PODS_ROOT}/Headers/Private/VLC-WhiteRaccoon" "${PODS_ROOT}/Headers/Public" "${PODS_ROOT}/Headers/Public/AppAuth" "${PODS_ROOT}/Headers/Public/CocoaHTTPServer" "${PODS_ROOT}/Headers/Public/GTMAppAuth" "${PODS_ROOT}/Headers/Public/GTMSessionFetcher" "${PODS_ROOT}/Headers/Public/GoogleAPIClient" "${PODS_ROOT}/Headers/Public/HockeySDK" "${PODS_ROOT}/Headers/Public/InAppSettingsKit" "${PODS_ROOT}/Headers/Public/MediaLibraryKit-prod" "${PODS_ROOT}/Headers/Public/MobileVLCKit" "${PODS_ROOT}/Headers/Public/OBSlider" "${PODS_ROOT}/Headers/Public/ObjectiveDropboxOfficial" "${PODS_ROOT}/Headers/Public/PAPasscode" "${PODS_ROOT}/Headers/Public/RESideMenu" "${PODS_ROOT}/Headers/Public/VLC-LXReorderableCollectionViewFlowLayout" "${PODS_ROOT}/Headers/Public/VLC-LiveSDK" "${PODS_ROOT}/Headers/Public/VLC-WhiteRaccoon" "${PODS_ROOT}/Headers/Public/XKKeychain" "${PODS_ROOT}/Headers/Public/box-ios-sdk-v2" "${PODS_ROOT}/Headers/Public/upnpx"
+OTHER_LDFLAGS = -framework "Foundation"
+PODS_BUILD_DIR = ${BUILD_DIR}
+PODS_CONFIGURATION_BUILD_DIR = ${PODS_BUILD_DIR}/$(CONFIGURATION)$(EFFECTIVE_PLATFORM_NAME)
+PODS_ROOT = ${SRCROOT}
+PODS_TARGET_SRCROOT = ${PODS_ROOT}/VLC-WhiteRaccoon
+PRODUCT_BUNDLE_IDENTIFIER = org.cocoapods.${PRODUCT_NAME:rfc1034identifier}
+SKIP_INSTALL = YES

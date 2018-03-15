@@ -1,0 +1,1 @@
+../../../MetaDataFetcherKit/Pod/Classes/MDFOSOFetcher.h

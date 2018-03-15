@@ -13,9 +13,6 @@ fastlane/Preview.html
 fastlane/screenshots
 fastlane/test_output
 
-# CocoaPods
-Pods
-
 # Private Constants
 0001-privateConstants.patch
 

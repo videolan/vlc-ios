@@ -1,0 +1,1 @@
+../../../../TVVLCKit/TVVLCKit.framework/Headers/VLCDialogProvider.h

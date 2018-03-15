@@ -1,0 +1,1 @@
+../../../../HockeySDK/HockeySDK-iOS/HockeySDKCrashOnly/HockeySDK.framework/Headers/HockeySDKFeatureConfig.h
