@@ -34,6 +34,8 @@ lane :release do |options|
 end
 
 lane :ci do
+  xcversion(version: "9.2.0")
+  xcode_select "/Applications/Xcode.app"
   gym(scheme: "VLC-iOS", configuration: "Debug", destination: "platform=iOS Simulator,name=iPhone 7,OS=latest")
 end
 
