@@ -1,7 +1,7 @@
 /*****************************************************************************
  * VLC for iOS
  *****************************************************************************
- * Copyright (c) 2015 VideoLAN. All rights reserved.
+ * Copyright (c) 2015-2018 VideoLAN. All rights reserved.
  * $Id$
  *
  * Authors: Tobias Conradi <videolan # tobias-conradi.de>
@@ -270,10 +270,45 @@
         NSString *extension = urlExtension.length != 0 ? urlExtension : @"vlc";
         filename = [filename stringByAppendingPathExtension:extension];
     }
-    [[VLCDownloadViewController sharedInstance] addURLToDownloadList:item.URL
-                                                     fileNameOfMedia:filename];
+    [[VLCDownloadViewController sharedInstance] addURLToDownloadList:item.URL fileNameOfMedia:filename];
+    if (item.subtitleURL)
+        [self getFileSubtitleFromServer:item];
+}
+
+- (void)getFileSubtitleFromServer:(id<VLCNetworkServerBrowserItem>)item
+{
+    NSString *filename = nil;
+    if ([item respondsToSelector:@selector(filename)])
+        filename = item.filename;
+    else
+        filename = item.name;
+
+    NSString *FileSubtitlePath = nil;
+    NSURL *subtitleURL = item.subtitleURL;
+    NSString *extension = [subtitleURL pathExtension];
+    if ([extension isEqualToString:@""])
+        extension = item.subtitleType;
+
+    filename = [NSString stringWithFormat:@"%@.%@", [filename stringByDeletingPathExtension], extension];
+
+    NSData *receivedSub = [NSData dataWithContentsOfURL:subtitleURL]; // TODO: fix synchronous load
+
+    if (receivedSub.length < [[UIDevice currentDevice] VLCFreeDiskSpace].longLongValue) {
+        NSArray *searchPaths = NSSearchPathForDirectoriesInDomains(NSDocumentDirectory, NSUserDomainMask, YES);
+        NSString *directoryPath = searchPaths[0];
+        FileSubtitlePath = [directoryPath stringByAppendingPathComponent:filename];
+
+        NSFileManager *fileManager = [NSFileManager defaultManager];
+        if (![fileManager fileExistsAtPath:FileSubtitlePath]) {
+            //create local subtitle file
+            [fileManager createFileAtPath:FileSubtitlePath contents:nil attributes:nil];
+            if (![fileManager fileExistsAtPath:FileSubtitlePath])
+                APLog(@"file creation failed, no data was saved");
+        }
+        [receivedSub writeToFile:FileSubtitlePath atomically:YES];
+    } else
+        APLog(@"Disk full");
 }
 
 #endif
-
 @end
