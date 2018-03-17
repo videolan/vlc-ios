@@ -131,13 +131,14 @@ static NSString *kUsingTableViewToShowData = @"UsingTableViewToShowData";
         _tableView.separatorColor = [UIColor VLCDarkBackgroundColor];
         _tableView.delegate = self;
         _tableView.dataSource = self;
+        _tableView.indicatorStyle = UIScrollViewIndicatorStyleWhite;
+        _tableView.autoresizingMask = UIViewAutoresizingFlexibleHeight | UIViewAutoresizingFlexibleWidth;
         if (@available(iOS 11.0, *)) {
             _tableView.dragDelegate = ((VLCDragAndDropManager *)dragAndDropManager);
             _tableView.dropDelegate = ((VLCDragAndDropManager *)dragAndDropManager);
+        } else {
+            _tableView.tableHeaderView = _searchController.searchBar;
         }
-        _tableView.indicatorStyle = UIScrollViewIndicatorStyleWhite;
-        _tableView.autoresizingMask = UIViewAutoresizingFlexibleHeight | UIViewAutoresizingFlexibleWidth;
-        _tableView.tableHeaderView = _searchController.searchBar;
         UINib *nib = [UINib nibWithNibName:@"VLCPlaylistTableViewCell" bundle:nil];
         [_tableView registerNib:nib forCellReuseIdentifier:kPlaylistCellIdentifier];
     }
@@ -166,9 +167,13 @@ static NSString *kUsingTableViewToShowData = @"UsingTableViewToShowData";
     [_collectionView reloadData];
     if (self.usingTableViewToShowData) {
         [contentView addSubview:_tableView];
+        if (@available(iOS 11.0, *))
+            [self setSearchBar:YES resetContent:NO];
     } else {
         [contentView addSubview:_collectionView];
         [_searchController setActive:NO];
+        if (@available(iOS 11.0, *))
+            [self setSearchBar:NO resetContent:NO];
     }
     self.view = contentView;
 }
@@ -422,11 +427,29 @@ static NSString *kUsingTableViewToShowData = @"UsingTableViewToShowData";
 
 - (void)setSearchBar:(BOOL)enable resetContent:(BOOL)resetContent
 {
-    _tableView.tableHeaderView = enable ? _searchController.searchBar : nil;
-    if (resetContent) {
-        CGPoint contentOffset = _tableView.contentOffset;
-        contentOffset.y += CGRectGetHeight(_tableView.tableHeaderView.frame);
-        _tableView.contentOffset = contentOffset;
+    if (@available(iOS 11.0, *)) {
+        _searchController.dimsBackgroundDuringPresentation = NO;
+        [_searchController.searchBar sizeToFit];
+
+        // search bar text field background color
+        UITextField *searchTextField = [_searchController.searchBar valueForKey:@"searchField"];
+        UIView *backgroundView = searchTextField.subviews.firstObject;
+        backgroundView.backgroundColor = UIColor.whiteColor;
+        backgroundView.layer.cornerRadius = 10;
+        backgroundView.clipsToBounds = YES;
+
+        _searchController.hidesNavigationBarDuringPresentation = NO;
+        _searchController.obscuresBackgroundDuringPresentation = NO;
+        self.navigationItem.hidesSearchBarWhenScrolling = YES;
+        self.navigationItem.searchController = enable ? _searchController : nil;
+        self.definesPresentationContext = YES;
+    } else {
+        _tableView.tableHeaderView = enable ? _searchController.searchBar : nil;
+        if (resetContent) {
+            CGPoint contentOffset = _tableView.contentOffset;
+            contentOffset.y += CGRectGetHeight(_tableView.tableHeaderView.frame);
+            _tableView.contentOffset = contentOffset;
+        }
     }
 }
 
