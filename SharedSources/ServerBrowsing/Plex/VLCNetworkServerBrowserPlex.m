@@ -222,6 +222,9 @@
             subtitleURLString = [VLCPlexWebAPI urlAuth:subtitleURLString authentification:auth];
 
         _subtitleURL = subtitleURLString.length ? [NSURL URLWithString:subtitleURLString] : nil;
+
+        NSString *subType = dictionary[@"codecSubtitle"];
+        _subtitleType = subType.length ? subType : nil;
     }
     return self;
 }
