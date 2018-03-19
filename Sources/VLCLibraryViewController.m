@@ -256,6 +256,10 @@ static NSString *kUsingTableViewToShowData = @"UsingTableViewToShowData";
     _searchController.dimsBackgroundDuringPresentation = NO;
     _searchController.delegate = self;
     [self setSearchBar:YES resetContent:YES];
+    if (!self.usingTableViewToShowData) {
+        if (@available(iOS 11.0, *))
+            [self setSearchBar:NO resetContent:NO];
+    }
 }
 
 - (void)viewWillAppear:(BOOL)animated
