@@ -20,6 +20,7 @@ NSString *VLCNetworkListCellIdentifier = @"VLCNetworkListCellIdentifier";
 {
     NSMutableArray *_searchData;
     UITapGestureRecognizer *_tapTwiceGestureRecognizer;
+    UIActivityIndicatorView *_activityIndicator;
 }
 
 @end
@@ -46,6 +47,13 @@ NSString *VLCNetworkListCellIdentifier = @"VLCNetworkListCellIdentifier";
     _tableView.separatorStyle = UITableViewCellSeparatorStyleNone;
     _tableView.indicatorStyle = UIScrollViewIndicatorStyleWhite;
     self.view = _tableView;
+
+    _activityIndicator = [[UIActivityIndicatorView alloc] initWithActivityIndicatorStyle:UIActivityIndicatorViewStyleWhiteLarge];
+    _activityIndicator.center = _tableView.center;
+    _activityIndicator.autoresizingMask = UIViewAutoresizingFlexibleBottomMargin | UIViewAutoresizingFlexibleLeftMargin | UIViewAutoresizingFlexibleRightMargin | UIViewAutoresizingFlexibleTopMargin;
+    _activityIndicator.hidesWhenStopped = YES;
+    [_activityIndicator startAnimating];
+    [self.view addSubview:_activityIndicator];
 }
 
 - (void)viewDidLoad
@@ -156,6 +164,9 @@ NSString *VLCNetworkListCellIdentifier = @"VLCNetworkListCellIdentifier";
 {
     UIColor *color = (indexPath.row % 2 == 0)? [UIColor blackColor]: [UIColor VLCDarkBackgroundColor];
     cell.backgroundColor = cell.titleLabel.backgroundColor = cell.folderTitleLabel.backgroundColor = cell.subtitleLabel.backgroundColor =  color;
+
+    if ([indexPath row] == ((NSIndexPath *)[[tableView indexPathsForVisibleRows] lastObject]).row)
+        [_activityIndicator stopAnimating];
 }
 
 #pragma mark - Search Controller Delegate
