@@ -36,7 +36,22 @@ end
 lane :ci do
   xcversion(version: "9.2.0")
   xcode_select "/Applications/Xcode.app"
-  gym(scheme: "VLC-iOS", configuration: "Debug", destination: "platform=iOS Simulator,name=iPhone 7,OS=latest")
+  xcodebuild(
+    workspace: "VLC.xcworkspace",
+    scheme: "VLC-iOS",
+    configuration: "Debug",
+    clean: true,
+    build: true,
+    destination: "platform=iOS Simulator,name=iPhone 6s,OS=9.0"
+  )
+  xcodebuild(
+    workspace: "VLC.xcworkspace",
+    scheme: "VLC-iOS",
+    configuration: "Debug",
+    clean: true,
+    build: true,
+    destination: "platform=iOS Simulator,name=iPhone X,OS=11.2"
+  )
 end
 
 #### Private ####
