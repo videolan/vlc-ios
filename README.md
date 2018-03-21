@@ -25,7 +25,7 @@ It's currently written in Objective-C / Swift and uses VLCKit a libvlc wrapper.
 
 ### VLC-iOS
 
-1. Run `pod update`
+1. Run `pod install`
 2. Open `VLC.xcworkspace`.
 3. Hit "Build and Run".
 
