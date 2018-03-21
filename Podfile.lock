@@ -36,14 +36,12 @@ PODS:
   - HockeySDK-tvOS (5.0.0)
   - HockeySDK/CrashOnlyLib (5.1.2)
   - InAppSettingsKit (2.2.2)
-  - MediaLibraryKit-prod (2.6.5):
-    - MobileVLCKit (~> 3.0.1)
   - MediaLibraryKit-unstable (2.6.5):
     - MobileVLCKit-unstable (~> 3.0.0a8)
-  - MetaDataFetcherKit (0.3.1):
+  - MetaDataFetcherKit (0.1.8):
     - AFNetworking (= 3.1.0)
     - OROpenSubtitleDownloader
-  - MobileVLCKit (3.0.2)
+  - MobileVLCKit-unstable (3.0.0a56)
   - NSData+Base64 (1.0.0)
   - ObjectiveDropboxOfficial (1.1)
   - OBSlider (1.1.0)
@@ -52,7 +50,7 @@ PODS:
     - xmlrpc
   - PAPasscode (1.0)
   - RESideMenu (4.0.7)
-  - TVVLCKit (3.0.2)
+  - TVVLCKit-unstable (3.0.0a56)
   - upnpx (1.4.0)
   - VLC-LiveSDK (5.7.0x)
   - VLC-LXReorderableCollectionViewFlowLayout (0.1.3v)
@@ -70,16 +68,15 @@ DEPENDENCIES:
   - HockeySDK-tvOS (~> 5.0.0)
   - HockeySDK/CrashOnlyLib (~> 5.1.2)
   - InAppSettingsKit (from `git://github.com/fkuehne/InAppSettingsKit.git`, commit `415ea6bb`)
-  - MediaLibraryKit-prod
   - MediaLibraryKit-unstable
-  - MetaDataFetcherKit (~> 0.3.1)
-  - MobileVLCKit (= 3.0.2)
+  - MetaDataFetcherKit (~> 0.1.8)
+  - MobileVLCKit-unstable (= 3.0.0a56)
   - ObjectiveDropboxOfficial (from `git://github.com/carolanitz/dropbox-sdk-obj-c.git`)
   - OBSlider (= 1.1.0)
   - OROpenSubtitleDownloader (from `https://github.com/orta/OROpenSubtitleDownloader.git`, commit `0509eac2`)
   - PAPasscode (~> 1.0)
   - RESideMenu (~> 4.0.7)
-  - TVVLCKit (= 3.0.2)
+  - TVVLCKit-unstable (= 3.0.0a56)
   - upnpx (~> 1.4.0)
   - VLC-LiveSDK (= 5.7.0x)
   - VLC-LXReorderableCollectionViewFlowLayout (= 0.1.3v)
@@ -129,17 +126,16 @@ SPEC CHECKSUMS:
   HockeySDK: 38b7e2726af1ea86ae97ce4b5de33ab0817e3500
   HockeySDK-tvOS: 6b2a69f86419ebaf23225f59a64e5761ed3a0d8a
   InAppSettingsKit: 76d5cfbaa3e3f8aa53fe3628516da7eb1aa6a5cb
-  MediaLibraryKit-prod: 095dce5faa59e2bb0a537646ac09fe57eaf3fbdf
   MediaLibraryKit-unstable: aaf147005a2e024ed2f4c45440bfcc19225ca776
-  MetaDataFetcherKit: d1d61b061bf74268aaffb6bf08a70396672163df
-  MobileVLCKit: a9e06de53e7a7fd43d7b04bcab4f2e68868f768a
+  MetaDataFetcherKit: 44c90defa89b3a72cef60e07ad9de37821dd7c5d
+  MobileVLCKit-unstable: 970a43f97af623c4c1d0b9fb4f0d56ac48b21f2c
   NSData+Base64: 4e84902c4db907a15673474677e57763ef3903e4
   ObjectiveDropboxOfficial: e11cdf40e8965a6c24c6d6ff64905f2df43ab653
   OBSlider: 490f108007bfdd5414a38650b211fe403a95b8a0
   OROpenSubtitleDownloader: 154b8c08acbf8836b77ac259018dc8b5baef907e
   PAPasscode: b408fb87c530cad58a554e26482e87dbb14b7bc2
   RESideMenu: f24c508404b49c667344c54aba7e590883533958
-  TVVLCKit: 178e4f82f8b57320774821384e42eaac403d2faa
+  TVVLCKit-unstable: cee6dd81fbb0af080dc439dd9859db51869fd2f1
   upnpx: c695b99229e08154d23abe5c252cb64f1600f35d
   VLC-LiveSDK: c9566a9edde968f969138f84cfd40b540a109b3f
   VLC-LXReorderableCollectionViewFlowLayout: 0204946967b746ca183835e854826290be06e2f4
@@ -147,6 +143,6 @@ SPEC CHECKSUMS:
   XKKeychain: 852ef663c56a7194c73d3c68e8d9d4f07b121d4f
   xmlrpc: 109bb21d15ed6d108b2c1ac5973a6a223a50f5f4
 
-PODFILE CHECKSUM: 4972a676a706c2425e6457b5f4cd1588f7ae1681
+PODFILE CHECKSUM: 48d0a3551490bc36bfe634186ba0dad1bac7028f
 
 COCOAPODS: 1.4.0
