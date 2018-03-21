@@ -48,11 +48,11 @@ lane :ci do
   )
   xcodebuild(
     workspace: "VLC.xcworkspace",
-    scheme: "VLC-iOS",
+    scheme: "VLC-tvOS",
     configuration: "Debug",
     clean: true,
     build: true,
-    destination: "platform=iOS Simulator,name=iPhone X,OS=11.2"
+    destination: "platform=tvOS Simulator,name=Apple TV 1080p,OS=10.2"
   )
 end
 
