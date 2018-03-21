@@ -1,0 +1,1 @@
+../../../VLC-LiveSDK/src/LiveSDK/Library/Internal/LiveAuthDialogDelegate.h

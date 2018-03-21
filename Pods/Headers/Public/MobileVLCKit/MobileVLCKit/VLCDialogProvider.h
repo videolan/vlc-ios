@@ -1,0 +1,1 @@
+../../../../MobileVLCKit/MobileVLCKit.framework/Headers/VLCDialogProvider.h

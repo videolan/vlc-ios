@@ -1,0 +1,1 @@
+../../../MetaDataFetcherKit/Pod/Classes/MDFMovieDBSessionManager.h

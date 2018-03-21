@@ -1,0 +1,71 @@
+/*****************************************************************************
+ * MobileMediaLibraryKit_Prefix.pch
+ * MobileMediaLibraryKit
+ *****************************************************************************
+ * Copyright (C) 2010 Pierre d'Herbemont
+ * Copyright (C) 2010-2013 VLC authors and VideoLAN
+ * $Id$
+ *
+ * Authors: Pierre d'Herbemont <pdherbemont # videolan.org>
+ *
+ * This program is free software; you can redistribute it and/or modify it
+ * under the terms of the GNU Lesser General Public License as published by
+ * the Free Software Foundation; either version 2.1 of the License, or
+ * (at your option) any later version.
+ *
+ * This program is distributed in the hope that it will be useful,
+ * but WITHOUT ANY WARRANTY; without even the implied warranty of
+ * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the
+ * GNU Lesser General Public License for more details.
+ *
+ * You should have received a copy of the GNU Lesser General Public License
+ * along with this program; if not, write to the Free Software Foundation,
+ * Inc., 51 Franklin Street, Fifth Floor, Boston MA 02110-1301, USA.
+ *****************************************************************************/
+
+#ifdef __OBJC__
+    #import <Foundation/Foundation.h>
+#endif
+
+#import <CoreData/CoreData.h>
+
+#if TARGET_OS_IPHONE
+
+#ifndef __IPHONE_9_0
+#error "This project uses features only available in iOS SDK 9.0 and later."
+#endif
+
+// FIXME
+#define HAVE_BLOCK 0
+
+#import <UIKit/UIKit.h>
+#ifndef MLKIT_READONLY_TARGET
+#if !TARGET_OS_WATCH
+#import <MobileVLCKit/MobileVLCKit.h>
+#endif
+#endif
+
+#else
+#define HAVE_BLOCK 1
+#import <VLCKit/VLCKit.h>
+#import "NSXMLNode_Additions.h"
+
+#endif
+
+#import "UIImage+MLKit.h"
+
+#ifndef NDEBUG
+#define APLog(format, ...) NSLog(format, ## __VA_ARGS__)
+#else
+#define APLog(format, ...)
+#endif
+
+#define SYSTEM_VERSION_GREATER_THAN_OR_EQUAL_TO(v)  ([[[UIDevice currentDevice] systemVersion] compare:v options:NSNumericSearch] != NSOrderedAscending)
+
+#define SYSTEM_RUNS_IOS9 SYSTEM_VERSION_GREATER_THAN_OR_EQUAL_TO(@"9.0")
+
+#ifdef __IPHONE_7_0
+#define SYSTEM_RUNS_IOS7 SYSTEM_VERSION_GREATER_THAN_OR_EQUAL_TO(@"7.0")
+#else
+#define SYSTEM_RUNS_IOS7 NO
+#endif
