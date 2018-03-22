@@ -92,6 +92,9 @@ Before creating an issue or ticket, please double check of duplicates!
 Want to quickly get in touch with us for a question, or even just to talk?
 
 You will always find someone of the VLC team on IRC, __#videolan__ channel on the freenode network.
+
+For VLC-iOS specific questions you can find us on __#vlc-ios__.
+
 If you don't have an IRC client, you can always use the [freenode webchat](https://webchat.freenode.net/).
 
 ## Code of Conduct
