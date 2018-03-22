@@ -33,6 +33,14 @@ lane :release do |options|
    push_to_git_remote
 end
 
+#### Tests ####
+
+desc 'Run Tests'
+lane :test do
+  cocoapods(repo_update: true)
+  scan(scheme: 'VLC-iOS')
+end
+
 #### Private ####
 
 desc 'Bump and commit app version and build number'
