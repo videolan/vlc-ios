@@ -10,17 +10,12 @@
  * Refer to the COPYING file of the official project for license.
  *****************************************************************************/
 
-public enum SortOption:Int {
-    case alphabetically
-    case insertonDate
-    case size
+public enum SortOption:String {
+    case alphabetically = "Name"
+    case insertonDate = "Date"
+    case size = "Size"
 
-    static let mapper: [SortOption: String] = [
-        .alphabetically: NSLocalizedString("Name", comment: ""),
-        .insertonDate: NSLocalizedString("Date", comment: ""),
-        .size: NSLocalizedString("Size", comment: "")
-    ]
-    var string: String {
-        return SortOption.mapper[self]!
+    var localizedDescription: String {
+        return NSLocalizedString(self.rawValue, comment: "")
     }
 }
