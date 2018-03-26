@@ -57,33 +57,11 @@ static NSString *VLCWiFiCellIdentifier = @"VLCMenuWiFiCell";
 
 @implementation VLCServerListViewController
 
-- (void)viewDidLoad
+
+- (void)loadView
 {
-    [super viewDidLoad];
+    [super loadView];
 
-    [self setupSubviews];
-
-    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(themeDidChange) name:kVLCThemeDidChangeNotification object:nil];
-
-    NSArray *browserClasses = @[
-                                [VLCLocalNetworkServiceBrowserManualConnect class],
-                                [VLCLocalNetworkServiceBrowserUPnP class],
-                                [VLCLocalNetworkServiceBrowserPlex class],
-                                [VLCLocalNetworkServiceBrowserFTP class],
-                                [VLCLocalNetworkServiceBrowserHTTP class],
-#ifndef NDEBUG
-                                [VLCLocalNetworkServiceBrowserSAP class],
-#endif
-                                [VLCLocalNetworkServiceBrowserDSM class],
-                                [VLCLocalNetworkServiceBrowserBonjour class],
-                                ];
-
-    _discoveryController = [[VLCLocalServerDiscoveryController alloc] initWithServiceBrowserClasses:browserClasses];
-    _discoveryController.delegate = self;
-}
-
-- (void)setupSubviews
-{
     _localNetworkTableView = [[UITableView alloc] initWithFrame:[UIScreen mainScreen].bounds style:UITableViewStylePlain];
     _localNetworkTableView.translatesAutoresizingMaskIntoConstraints = NO;
     _localNetworkTableView.backgroundColor = PresentationTheme.current.colors.background;
@@ -104,7 +82,7 @@ static NSString *VLCWiFiCellIdentifier = @"VLCMenuWiFiCell";
     _remoteNetworkTableView.dataSource = self;
     _remoteNetworkTableView.indicatorStyle = UIScrollViewIndicatorStyleWhite;
     _remoteNetworkTableView.separatorStyle = UITableViewCellSeparatorStyleNone;
-   _remoteNetworkTableView.bounces = NO;
+    _remoteNetworkTableView.bounces = NO;
     [_remoteNetworkTableView registerClass:[VLCWiFiUploadTableViewCell class] forCellReuseIdentifier:VLCWiFiCellIdentifier];
 
     _refreshControl = [[UIRefreshControl alloc] init];
@@ -132,7 +110,29 @@ static NSString *VLCWiFiCellIdentifier = @"VLCMenuWiFiCell";
                                               [_localNetworkTableView.bottomAnchor constraintEqualToAnchor:self.view.bottomAnchor],
                                               ]];
     self.view.backgroundColor = PresentationTheme.current.colors.background;
+}
 
+- (void)viewDidLoad
+{
+    [super viewDidLoad];
+
+    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(themeDidChange) name:kVLCThemeDidChangeNotification object:nil];
+
+    NSArray *browserClasses = @[
+                                [VLCLocalNetworkServiceBrowserManualConnect class],
+                                [VLCLocalNetworkServiceBrowserUPnP class],
+                                [VLCLocalNetworkServiceBrowserPlex class],
+                                [VLCLocalNetworkServiceBrowserFTP class],
+                                [VLCLocalNetworkServiceBrowserHTTP class],
+#ifndef NDEBUG
+                                [VLCLocalNetworkServiceBrowserSAP class],
+#endif
+                                [VLCLocalNetworkServiceBrowserDSM class],
+                                [VLCLocalNetworkServiceBrowserBonjour class],
+                                ];
+
+    _discoveryController = [[VLCLocalServerDiscoveryController alloc] initWithServiceBrowserClasses:browserClasses];
+    _discoveryController.delegate = self;
 }
 
 - (void)viewWillDisappear:(BOOL)animated
