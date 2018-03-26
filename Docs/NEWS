@@ -1,3 +1,8 @@
+tvOS 3.0.2:
+-----------
+· Fixes issues with not being able to resume playback
+· Fixes issues with no subtitles after selection
+
 iOS 3.0.3:
 -----------
 · Hitting play after backgrounding VLC is finally fixed
