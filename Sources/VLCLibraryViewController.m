@@ -161,7 +161,7 @@ static NSString *kUsingTableViewToShowData = @"UsingTableViewToShowData";
         _collectionView.autoresizingMask = UIViewAutoresizingFlexibleHeight | UIViewAutoresizingFlexibleWidth;
         _longPressGestureRecognizer = [[UILongPressGestureRecognizer alloc] initWithTarget:self action:@selector(_collectionViewHandleLongPressGesture:)];
         [_collectionView addGestureRecognizer:_longPressGestureRecognizer];
-        [_collectionView registerNib:[UINib nibWithNibName:@"VLCPlaylistCollectionViewCell" bundle:nil] forCellWithReuseIdentifier:@"PlaylistCell"];
+        [_collectionView registerNib:[UINib nibWithNibName:@"VLCPlaylistCollectionViewCell" bundle:nil] forCellWithReuseIdentifier:[VLCPlaylistCollectionViewCell cellIdentifier]];
     }
     _collectionView.frame = contentView.bounds;
     [_collectionView reloadData];
