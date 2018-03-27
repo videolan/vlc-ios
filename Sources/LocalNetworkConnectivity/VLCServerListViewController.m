@@ -50,16 +50,18 @@
     UIActivityIndicatorView *_activityIndicator;
     UITableView *_localNetworkTableView;
     UITableView *_remoteNetworkTableView;
+    VLCRemoteNetworkDataSource *_remoteNetworkDatasource;
 }
 
 @end
-static NSString *VLCWiFiCellIdentifier = @"VLCMenuWiFiCell";
 
 @implementation VLCServerListViewController
 
 - (void)loadView
 {
     [super loadView];
+
+    _remoteNetworkDatasource = [VLCRemoteNetworkDataSource new];
 
     _localNetworkTableView = [[UITableView alloc] initWithFrame:[UIScreen mainScreen].bounds style:UITableViewStylePlain];
     _localNetworkTableView.translatesAutoresizingMaskIntoConstraints = NO;
@@ -78,11 +80,11 @@ static NSString *VLCWiFiCellIdentifier = @"VLCMenuWiFiCell";
     _remoteNetworkTableView.translatesAutoresizingMaskIntoConstraints = NO;
     _remoteNetworkTableView.backgroundColor = PresentationTheme.current.colors.background;
     _remoteNetworkTableView.delegate = self;
-    _remoteNetworkTableView.dataSource = self;
+    _remoteNetworkTableView.dataSource = _remoteNetworkDatasource;
     _remoteNetworkTableView.indicatorStyle = UIScrollViewIndicatorStyleWhite;
     _remoteNetworkTableView.separatorStyle = UITableViewCellSeparatorStyleNone;
     _remoteNetworkTableView.bounces = NO;
-    [_remoteNetworkTableView registerClass:[VLCWiFiUploadTableViewCell class] forCellReuseIdentifier:VLCWiFiCellIdentifier];
+    [_remoteNetworkTableView registerClass:[VLCWiFiUploadTableViewCell class] forCellReuseIdentifier:[VLCWiFiUploadTableViewCell cellIdentifier]];
 
     _refreshControl = [[UIRefreshControl alloc] init];
     _refreshControl.backgroundColor = PresentationTheme.current.colors.background;
@@ -160,12 +162,12 @@ static NSString *VLCWiFiCellIdentifier = @"VLCMenuWiFiCell";
 
 - (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView
 {
-    return tableView == _localNetworkTableView ? _discoveryController.numberOfSections : 1;
+    return _discoveryController.numberOfSections;
 }
 
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section
 {
-    return tableView == _localNetworkTableView ? [_discoveryController numberOfItemsInSection:section] : 1;
+    return [_discoveryController numberOfItemsInSection:section];
 }
 
 - (void)tableView:(UITableView *)tableView willDisplayCell:(VLCNetworkListCell *)cell forRowAtIndexPath:(NSIndexPath *)indexPath
@@ -188,25 +190,19 @@ static NSString *VLCWiFiCellIdentifier = @"VLCMenuWiFiCell";
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
 {
-    if (tableView == _localNetworkTableView) {
-        static NSString *CellIdentifier = @"LocalNetworkCell";
+    static NSString *CellIdentifier = @"LocalNetworkCell";
 
-        VLCNetworkListCell *cell = (VLCNetworkListCell *)[tableView dequeueReusableCellWithIdentifier:CellIdentifier];
-        if (cell == nil)
-            cell = [VLCNetworkListCell cellWithReuseIdentifier:CellIdentifier];
+    VLCNetworkListCell *cell = (VLCNetworkListCell *)[tableView dequeueReusableCellWithIdentifier:CellIdentifier];
+    if (cell == nil)
+        cell = [VLCNetworkListCell cellWithReuseIdentifier:CellIdentifier];
 
-        id<VLCLocalNetworkService> service = [_discoveryController networkServiceForIndexPath:indexPath];
+    id<VLCLocalNetworkService> service = [_discoveryController networkServiceForIndexPath:indexPath];
 
-        [cell setIsDirectory:YES];
-        [cell setIcon:service.icon];
-        [cell setTitle:service.title];
+    [cell setIsDirectory:YES];
+    [cell setIcon:service.icon];
+    [cell setTitle:service.title];
 
-        return cell;
-    } else {
-
-        UITableViewCell *cell = (VLCWiFiUploadTableViewCell *)[tableView dequeueReusableCellWithIdentifier:VLCWiFiCellIdentifier];
-        return cell;
-    }
+    return cell;
 }
 
 - (NSIndexPath *)tableView:(UITableView *)tableView willSelectRowAtIndexPath:(NSIndexPath *)indexPath

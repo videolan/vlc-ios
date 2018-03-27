@@ -42,6 +42,11 @@
     [self.reachability stopNotifier];
 }
 
++ (NSString *)cellIdentifier
+{
+    return @"VLCWiFiUploadTableViewCell";
+}
+
 - (void)setupCell
 {
     self.reachability = [Reachability reachabilityForLocalWiFi];

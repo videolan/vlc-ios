@@ -15,5 +15,6 @@
 @interface VLCWiFiUploadTableViewCell : UITableViewCell
 
 - (void)toggleHTTPServer;
++ (NSString *)cellIdentifier;
 
 @end

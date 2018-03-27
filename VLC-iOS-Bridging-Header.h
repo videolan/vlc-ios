@@ -1,3 +1,8 @@
+#import <MediaLibraryKit/MediaLibraryKit.h>
+#import <MobileVLCKit/MobileVLCKit.h>
+#import <PAPasscode/PAPasscodeViewController.h>
+#import <XKKeychain/XKKeychain.h>
+
 #import "UIColor+Presets.h"
 #import "VLCAboutViewController.h"
 #import "VLCCloudServicesTableViewController.h"
@@ -13,8 +18,4 @@
 #import "VLCPlaylistCollectionViewCell.h"
 #import "VLCServerListViewController.h"
 #import "VLCSettingsController.h"
-
-#import <MediaLibraryKit/MediaLibraryKit.h>
-#import <MobileVLCKit/MobileVLCKit.h>
-#import <PAPasscode/PAPasscodeViewController.h>
-#import <XKKeychain/XKKeychain.h>
+#import "VLCWiFiUploadTableViewCell.h"
