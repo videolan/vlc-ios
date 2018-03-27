@@ -12,9 +12,6 @@
  *****************************************************************************/
 
 #import "VLCEqualizerView.h"
-#if TARGET_OS_iOS
-#import <MobileVLCKit/MobileVLCKit.h>
-#endif
 extern NSString *const VLCPlaybackControllerPlaybackDidStart;
 extern NSString *const VLCPlaybackControllerPlaybackDidPause;
 extern NSString *const VLCPlaybackControllerPlaybackDidResume;
