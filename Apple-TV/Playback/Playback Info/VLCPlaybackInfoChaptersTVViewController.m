@@ -60,11 +60,6 @@
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(mediaPlayerChanged) name:VLCPlaybackControllerPlaybackMetadataDidChange object:nil];
 }
 
-- (void)dealloc
-{
-    [[NSNotificationCenter defaultCenter] removeObserver:self];
-}
-
 + (BOOL)shouldBeVisibleForPlaybackController:(VLCPlaybackController *)vpc
 {
     return [vpc numberOfChaptersForCurrentTitle] > 1;

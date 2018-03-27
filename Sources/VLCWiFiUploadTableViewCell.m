@@ -40,7 +40,6 @@
 - (void)dealloc
 {
     [self.reachability stopNotifier];
-    [[NSNotificationCenter defaultCenter] removeObserver:self];
 }
 
 - (void)setupCell

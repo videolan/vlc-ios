@@ -57,7 +57,6 @@ static NSString *VLCWiFiCellIdentifier = @"VLCMenuWiFiCell";
 
 @implementation VLCServerListViewController
 
-
 - (void)loadView
 {
     [super loadView];

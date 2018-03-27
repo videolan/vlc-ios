@@ -15,11 +15,6 @@
 
 @implementation VLCPlayerControlWebSocket
 
-- (void)dealloc
-{
-    [[NSNotificationCenter defaultCenter] removeObserver:self];
-}
-
 - (void)didOpen
 {
     NSNotificationCenter *notificationCenter = [NSNotificationCenter defaultCenter];

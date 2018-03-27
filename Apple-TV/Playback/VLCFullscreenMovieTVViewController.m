@@ -181,7 +181,6 @@ typedef NS_ENUM(NSInteger, VLCPlayerScanState)
         [fileManager removeItemAtPath:tempSubsDirPath error:nil];
 
     [super viewWillDisappear:animated];
-    [[NSNotificationCenter defaultCenter] removeObserver:self];
 }
 
 - (BOOL)canBecomeFirstResponder

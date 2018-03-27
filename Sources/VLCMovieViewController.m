@@ -128,11 +128,6 @@ typedef NS_ENUM(NSInteger, VLCPanType) {
     [defaults registerDefaults:appDefaults];
 }
 
-- (void)dealloc
-{
-    [[NSNotificationCenter defaultCenter] removeObserver:self];
-}
-
 - (void)viewDidLoad
 {
     [super viewDidLoad];

@@ -70,11 +70,6 @@
     return self;
 }
 
-- (void)dealloc
-{
-    [[NSNotificationCenter defaultCenter] removeObserver:self];
-}
-
 - (void)applicationDidBecomeActive: (NSNotification *)notification
 {
     if (!_httpServer.isRunning)

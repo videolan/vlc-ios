@@ -92,7 +92,6 @@ typedef NS_ENUM(NSUInteger, VLCAspectRatio) {
 - (void)dealloc
 {
     _dialogProvider = nil;
-    [[NSNotificationCenter defaultCenter] removeObserver:self];
 }
 
 - (instancetype)init

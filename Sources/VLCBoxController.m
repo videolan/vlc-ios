@@ -53,11 +53,6 @@
     return sharedInstance;
 }
 
-- (void)dealloc
-{
-    [[NSNotificationCenter defaultCenter] removeObserver:self];
-}
-
 - (void)startSession
 {
     NSNotificationCenter *defaultCenter = [NSNotificationCenter defaultCenter];

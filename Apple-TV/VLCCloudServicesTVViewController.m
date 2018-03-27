@@ -53,11 +53,6 @@
     [self performSelector:@selector(updateDropbox) withObject:nil afterDelay:0.1];
 }
 
-- (void)dealloc
-{
-    [[NSNotificationCenter defaultCenter] removeObserver:self];
-}
-
 - (NSString *)title
 {
     return NSLocalizedString(@"CLOUD_SERVICES", nil);
