@@ -118,6 +118,7 @@ typedef NS_ENUM(NSUInteger, VLCDownloadScheme) {
 
 - (void)viewWillDisappear:(BOOL)animated
 {
+    [super viewWillDisappear:animated];
     [self.view endEditing:YES];
 }
 
