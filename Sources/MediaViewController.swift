@@ -13,8 +13,8 @@
 import Foundation
 
 @objc public protocol VLCMediaViewControllerDelegate: class {
-    func videoViewControllerDidSelectMediaObject(VLCMediaViewController: VLCMediaViewController, mediaObject:NSManagedObject)
-    func videoViewControllerDidSelectSort(VLCMediaViewController: VLCMediaViewController)
+    func videoViewControllerDidSelectMediaObject(_ mediaViewController: VLCMediaViewController, mediaObject:NSManagedObject)
+    func videoViewControllerDidSelectSort(_ mediaViewController: VLCMediaViewController)
 }
 
 public class VLCMediaViewController: UICollectionViewController, UICollectionViewDelegateFlowLayout, UISearchResultsUpdating, UISearchControllerDelegate
@@ -102,7 +102,7 @@ public class VLCMediaViewController: UICollectionViewController, UICollectionVie
     }
 
     @objc func sort() {
-        delegate?.videoViewControllerDidSelectSort(VLCMediaViewController: self)
+        delegate?.videoViewControllerDidSelectSort(self)
     }
     //MARK: - CollectionViewDelegate & DataSource
     override public func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
@@ -110,7 +110,7 @@ public class VLCMediaViewController: UICollectionViewController, UICollectionVie
     }
 
     override public func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
-        delegate?.videoViewControllerDidSelectMediaObject(VLCMediaViewController: self, mediaObject:services.mediaDataSource.object(at: UInt(indexPath.row)))
+        delegate?.videoViewControllerDidSelectMediaObject(self, mediaObject:services.mediaDataSource.object(at: UInt(indexPath.row)))
     }
 
     override public func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
