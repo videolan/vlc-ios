@@ -21,6 +21,7 @@
 {
     UIImage *_checkboxEmptyImage;
     UIImage *_checkboxImage;
+    BOOL _editing;
 }
 
 @end
@@ -47,9 +48,10 @@
 
 - (void)setEditing:(BOOL)editing animated:(BOOL)animated
 {
-    self.isSelectedView.hidden = !editing;
+    _editing = editing;
+    self.isSelectedView.hidden = !_editing;
 
-    [self shake:editing];
+    [self shake];
     [self selectionUpdate];
     [self _updatedDisplayedInformationForKeyPath:@"editing"];
 }
@@ -62,30 +64,30 @@
         self.isSelectedView.image = _checkboxEmptyImage;
 }
 
-- (void)shake:(BOOL)shake
+- (void)shake
 {
-//    if (shake) {
-//        [UIView animateWithDuration:0.3 animations:^{
-//            self.contentView.transform = CGAffineTransformMakeScale(0.9f, 0.9f);
-//        }];
-//        CAKeyframeAnimation* animation = [CAKeyframeAnimation animationWithKeyPath:@"transform.rotation.z"];
-//        CGFloat shakeAngle = 0.02f;
-//        animation.values = @[@(-shakeAngle), @(shakeAngle)];
-//        animation.autoreverses = YES;
-//        animation.duration = 0.125;
-//        animation.repeatCount = HUGE_VALF;
-//
-//        [[self layer] addAnimation:animation forKey:@"shakeAnimation"];
-//        self.contentView.layer.cornerRadius = 10.0;
-//        self.contentView.clipsToBounds = YES;
-//    } else {
-//        [UIView animateWithDuration:0.3 animations:^{
-//            self.contentView.transform = CGAffineTransformMakeScale(1.0f, 1.0f);
-//            self.contentView.layer.cornerRadius = 0.0;
-//            self.contentView.clipsToBounds = NO;
-//        }];
-//        [[self layer] removeAnimationForKey:@"shakeAnimation"];
-//    }
+    if (_editing) {
+        [UIView animateWithDuration:0.3 animations:^{
+            self.contentView.transform = CGAffineTransformMakeScale(0.9f, 0.9f);
+        }];
+        CAKeyframeAnimation* animation = [CAKeyframeAnimation animationWithKeyPath:@"transform.rotation.z"];
+        CGFloat shakeAngle = 0.02f;
+        animation.values = @[@(-shakeAngle), @(shakeAngle)];
+        animation.autoreverses = YES;
+        animation.duration = 0.125;
+        animation.repeatCount = HUGE_VALF;
+
+        [[self layer] addAnimation:animation forKey:@"shakeAnimation"];
+        self.contentView.layer.cornerRadius = 10.0;
+        self.contentView.clipsToBounds = YES;
+    } else {
+        [UIView animateWithDuration:0.3 animations:^{
+            self.contentView.transform = CGAffineTransformMakeScale(1.0f, 1.0f);
+            self.contentView.layer.cornerRadius = 0.0;
+            self.contentView.clipsToBounds = NO;
+        }];
+        [[self layer] removeAnimationForKey:@"shakeAnimation"];
+    }
 }
 
 - (void)observeValueForKeyPath:(NSString *)keyPath ofObject:(id)object change:(NSDictionary *)change context:(void *)context
@@ -309,11 +311,9 @@
     } else
         self.titleLabel.text = mediaFile.title;
 
-   // VLCLibraryViewController *delegate = (VLCLibraryViewController*)self.collectionView.delegate;
-
-//    if (delegate.isEditing)
-//        self.subtitleLabel.text = [NSString stringWithFormat:@"%@ — %@", [VLCTime timeWithNumber:[mediaFile duration]], [NSByteCountFormatter stringFromByteCount:[mediaFile fileSizeInBytes] countStyle:NSByteCountFormatterCountStyleFile]];
-//    else {
+    if (_editing)
+        self.subtitleLabel.text = [NSString stringWithFormat:@"%@ — %@", [VLCTime timeWithNumber:[mediaFile duration]], [NSByteCountFormatter stringFromByteCount:[mediaFile fileSizeInBytes] countStyle:NSByteCountFormatterCountStyleFile]];
+    else {
         self.subtitleLabel.text = [NSString stringWithFormat:@"%@", [VLCTime timeWithNumber:[mediaFile duration]]];
         if (mediaFile.videoTrack) {
             NSString *width = [[mediaFile videoTrack] valueForKey:@"width"];
@@ -321,7 +321,7 @@
             if (width.intValue > 0 && height.intValue > 0)
                 self.subtitleLabel.text = [self.subtitleLabel.text stringByAppendingFormat:@" — %@x%@", width, height];
         }
-//    }
+    }
     [self _showPositionOfItem:mediaFile];
     self.folderIconView.hidden = YES;
 }

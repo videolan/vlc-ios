@@ -34,7 +34,6 @@
 
 - (void)setEditing:(BOOL)editing animated:(BOOL)animated;
 - (void)selectionUpdate;
-- (void)shake:(BOOL)shake;
 - (void)showMetadata:(BOOL)showMeta;
 + (NSString *)cellIdentifier;
 
