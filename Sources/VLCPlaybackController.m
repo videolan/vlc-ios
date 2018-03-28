@@ -968,6 +968,11 @@ typedef NS_ENUM(NSUInteger, VLCAspectRatio) {
     return [_mediaPlayer updateViewpoint:yaw pitch:pitch roll:roll fov:fov absolute:absolute];
 }
 
+- (BOOL)currentMediaIs360Video
+{
+    return [self currentMediaProjection] == VLCMediaProjectionEquiRectangular;
+}
+
 - (NSInteger)currentMediaProjection
 {
     VLCMedia *media = [_mediaPlayer media];
