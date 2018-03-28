@@ -176,15 +176,13 @@
 
 #pragma mark - UITableViewDelegate
 
-- (void)tableView:(UITableView *)tableView willDisplayCell:(UITableViewCell *)cell forRowAtIndexPath:(NSIndexPath *)indexPath
+- (void)tableView:(UITableView *)tableView willDisplayCell:(__kindof UITableViewCell *)cell forRowAtIndexPath:(NSIndexPath *)indexPath
 {
-    if ([cell isKindOfClass:[VLCCloudStorageTableViewCell class]]) {
-        VLCCloudStorageTableViewCell *cloudcell = (VLCCloudStorageTableViewCell *)cell;
-        cloudcell.backgroundColor = (indexPath.row % 2 == 0)? PresentationTheme.current.colors.cellBackgroundB : PresentationTheme.current.colors.cellBackgroundA;
-        cloudcell.titleLabel.textColor = PresentationTheme.current.colors.cellTextColor;
-        cloudcell.folderTitleLabel.textColor = PresentationTheme.current.colors.cellTextColor;
-        cloudcell.subtitleLabel.textColor = PresentationTheme.current.colors.cellDetailTextColor;
-    }
+    VLCCloudStorageTableViewCell *cloudcell = [cell isKindOfClass:VLCCloudStorageTableViewCell.class] ? (id)cell : nil;
+    cloudcell.backgroundColor = (indexPath.row % 2 == 0)? PresentationTheme.current.colors.cellBackgroundB : PresentationTheme.current.colors.cellBackgroundA;
+    cloudcell.titleLabel.textColor = PresentationTheme.current.colors.cellTextColor;
+    cloudcell.folderTitleLabel.textColor = PresentationTheme.current.colors.cellTextColor;
+    cloudcell.subtitleLabel.textColor = PresentationTheme.current.colors.cellDetailTextColor;
 }
 
 - (void)goBack
