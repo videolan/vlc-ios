@@ -264,8 +264,14 @@ didFailToContinueUserActivityWithType:(NSString *)userActivityType
         return YES;
     }
 
-    //TODO: we need to handle openURL requests in the new MediaViewController
-
+    //TODO: we need a model of URLHandlers that registers with the VLCAppdelegate
+    // then we can go through the list of handlers ask if they can handle the url and the first to say yes handles the call.
+    // that way internal if elses get encapsulated
+    /*
+    protocol VLCURLHandler {
+        func canHandleOpen(url: URL, options:[UIApplicationOpenURLOptionsKey:AnyObject]=[:]()) -> bool
+        func performOpen(url: URL, options:[UIApplicationOpenURLOptionsKey:AnyObject]=[:]()) -> bool
+    } */
 //    if (_libraryViewController && url != nil) {
 //        APLog(@"%@ requested %@ to be opened", sourceApplication, url);
 //
