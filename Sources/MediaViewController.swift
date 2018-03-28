@@ -53,13 +53,7 @@ public class VLCMediaViewController: UICollectionViewController, UICollectionVie
         setupCollectionView()
         setupSearchController()
         setupNavigationBar()
-        _ = (MLMediaLibrary.sharedMediaLibrary() as AnyObject).perform(#selector(MLMediaLibrary.libraryDidAppear))
-        services.mediaDataSource.updateContents(forSelection: nil)
-        DispatchQueue.main.asyncAfter(deadline: .now() + 2.0) {
-            self.services.mediaDataSource.addAllFolders()
-            self.services.mediaDataSource.addRemainingFiles()
-            self.collectionView?.reloadData()
-        }
+        _ = (MLMediaLibrary.sharedMediaLibrary() as! MLMediaLibrary).libraryDidAppear()
     }
 
     @objc func themeDidChange() {
@@ -77,6 +71,14 @@ public class VLCMediaViewController: UICollectionViewController, UICollectionVie
         }
     }
 
+    override public func viewDidAppear(_ animated: Bool) {
+        super.viewDidAppear(animated)
+        services.mediaDataSource.updateContents(forSelection: nil)
+        services.mediaDataSource.addAllFolders()
+        services.mediaDataSource.addRemainingFiles()
+        collectionView?.reloadData()
+
+    }
     func setupSearchController() {
         searchController = UISearchController(searchResultsController: nil)
         searchController?.searchResultsUpdater = self
