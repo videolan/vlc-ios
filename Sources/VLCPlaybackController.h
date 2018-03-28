@@ -79,9 +79,10 @@ currentMediaHasTrackToChooseFrom:(BOOL)currentMediaHasTrackToChooseFrom
 @property (readonly) NSInteger numberOfVideoSubtitlesIndexes;
 @property (readonly) NSInteger numberOfTitles;
 @property (readonly) NSInteger numberOfChaptersForCurrentTitle;
-@property (nonatomic, readonly) BOOL currentMediaHasTrackToChooseFrom;
-@property (nonatomic, readwrite) BOOL fullscreenSessionRequested;
-@property (nonatomic, readonly) BOOL isSeekable;
+@property (assign, readonly) BOOL currentMediaHasTrackToChooseFrom;
+@property (assign, readwrite) BOOL fullscreenSessionRequested;
+@property (assign, readonly) BOOL isSeekable;
+@property (assign, readonly) BOOL currentMediaIs360Video;
 @property (readonly) NSNumber *playbackTime;
 @property (nonatomic, readonly) NSDictionary *mediaOptionsDictionary;
 @property (nonatomic, readonly) NSTimer* sleepTimer;

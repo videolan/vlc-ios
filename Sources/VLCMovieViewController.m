@@ -639,18 +639,20 @@ typedef NS_ENUM(NSInteger, VLCPanType) {
 
 - (void)handlePinchGesture:(UIPinchGestureRecognizer *)recognizer
 {
-    if (!_closeGestureEnabled || isnan(recognizer.velocity))
-        return;
-
     CGFloat diff = DEFAULT_FOV * -(ZOOM_SENSITIVITY * recognizer.velocity / _screenSizePixel.width);
 
-    if ([_vpc currentMediaProjection] == VLCMediaProjectionEquiRectangular) {
-        if ([_vpc updateViewpoint:0 pitch:0 roll:0 fov:diff absolute:NO]) {
-            //Checking for fov value in case of
-            _fov = MAX(MIN(_fov + diff, MAX_FOV), MIN_FOV);
-        }
-    } else if (recognizer.velocity < 0.) {
+    if ([_vpc currentMediaIs360Video]) {
+        [self zoom360Video:diff];
+    } else if (recognizer.velocity < 0. && _closeGestureEnabled) {
         [self minimizePlayback:nil];
+    }
+}
+
+- (void)zoom360Video:(CGFloat)zoom
+{
+    if ([_vpc updateViewpoint:0 pitch:0 roll:0 fov:zoom absolute:NO]) {
+        //Checking for fov value in case of
+        _fov = MAX(MIN(_fov + zoom, MAX_FOV), MIN_FOV);
     }
 }
 
@@ -843,7 +845,7 @@ typedef NS_ENUM(NSInteger, VLCPanType) {
 
 - (void)setupForMediaProjection
 {
-    BOOL mediaHasProjection = [_vpc currentMediaProjection] == VLCMediaProjectionEquiRectangular;
+    BOOL mediaHasProjection = [_vpc currentMediaIs360Video];
     _fov = mediaHasProjection ? DEFAULT_FOV : 0.f;
 
     [_panRecognizer setEnabled:mediaHasProjection];
@@ -1333,14 +1335,14 @@ currentMediaHasTrackToChooseFrom:(BOOL)currentMediaHasTrackToChooseFrom
 
     // only check for seeking gesture if on iPad , will overwrite last statements if true
     if ([deviceType isEqualToString:@"iPad"] && location.y < 110) {
-            panType = VLCPanTypeSeek;
+        panType = VLCPanTypeSeek;
     }
 
-    if ([_vpc currentMediaProjection] == VLCMediaProjectionEquiRectangular) {
+    if ([_vpc currentMediaIs360Video]) {
         panType = VLCPanTypeProjection;
     }
 
-        return panType;
+    return panType;
 }
 
 - (void)panRecognized:(UIPanGestureRecognizer*)panRecognizer
@@ -1418,7 +1420,7 @@ currentMediaHasTrackToChooseFrom:(BOOL)currentMediaHasTrackToChooseFrom
         _currentPanType = VLCPanTypeNone;
 
         //Invalidate saved location when the gesture is ended
-        if ([_vpc currentMediaProjection] == VLCMediaProjectionEquiRectangular)
+        if ([_vpc currentMediaIs360Video])
             _saveLocation = CGPointMake(-1.f, -1.f);
     }
 }
@@ -1587,7 +1589,7 @@ currentMediaHasTrackToChooseFrom:(BOOL)currentMediaHasTrackToChooseFrom
 
 - (BOOL)rotationIsDisabled
 {
-    return _interfaceIsLocked;
+    return _interfaceIsLocked || [_vpc currentMediaIs360Video];
 }
 
 - (BOOL)shouldAutorotate
