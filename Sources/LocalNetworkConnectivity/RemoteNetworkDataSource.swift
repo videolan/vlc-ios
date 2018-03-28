@@ -25,4 +25,3 @@ public class RemoteNetworkDataSource:NSObject, UITableViewDataSource {
         return UITableViewCell()
     }
 }
-
