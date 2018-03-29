@@ -38,7 +38,7 @@
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
 {
-    VLCPlaylistTableViewCell *cell = (VLCPlaylistTableViewCell *)[tableView dequeueReusableCellWithIdentifier:kPlaylistCellIdentifier forIndexPath:indexPath];
+    VLCPlaylistTableViewCell *cell = (VLCPlaylistTableViewCell *)[tableView dequeueReusableCellWithIdentifier:VLCPlaylistTableViewCell.cellIdentifier forIndexPath:indexPath];
 
     NSInteger row = indexPath.row;
 
@@ -49,7 +49,7 @@
 }
 
 - (nonnull __kindof UICollectionViewCell *)collectionView:(nonnull UICollectionView *)collectionView cellForItemAtIndexPath:(nonnull NSIndexPath *)indexPath {
-    VLCPlaylistCollectionViewCell *cell = (VLCPlaylistCollectionViewCell *)[collectionView dequeueReusableCellWithReuseIdentifier:kPlaylistCellIdentifier forIndexPath:indexPath];
+    VLCPlaylistCollectionViewCell *cell = (VLCPlaylistCollectionViewCell *)[collectionView dequeueReusableCellWithReuseIdentifier:VLCPlaylistCollectionViewCell.cellIdentifier forIndexPath:indexPath];
 
     NSInteger row = indexPath.row;
 

@@ -12,8 +12,6 @@
  *****************************************************************************/
 #import <UIKit/UIKit.h>
 
-static NSString *kPlaylistCellIdentifier = @"PlaylistCell";
-
 @class VLCLinearProgressIndicator;
 @interface VLCPlaylistTableViewCell : UITableViewCell
 
@@ -30,6 +28,7 @@ static NSString *kPlaylistCellIdentifier = @"PlaylistCell";
 @property (nonatomic, strong) NSManagedObject *mediaObject;
 
 + (CGFloat)heightOfCell;
++ (NSString *)cellIdentifier;
 
 - (void)collapsWithAnimation:(BOOL)animate;
 

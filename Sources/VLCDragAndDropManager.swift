@@ -95,7 +95,7 @@ class VLCDragAndDropManager: NSObject, UICollectionViewDragDelegate, UITableView
                 continue
             }
             //Element dragging from another App
-            let placeholder = UITableViewDropPlaceholder(insertionIndexPath: destinationPath, reuseIdentifier: VLCPlaylistCollectionViewCell.cellIdentifier(), rowHeight: VLCPlaylistTableViewCell.heightOfCell())
+            let placeholder = UITableViewDropPlaceholder(insertionIndexPath: destinationPath, reuseIdentifier: VLCPlaylistTableViewCell.cellIdentifier(), rowHeight: VLCPlaylistTableViewCell.heightOfCell())
             let placeholderContext = coordinator.drop(item.dragItem, to: placeholder)
             createFileWith(itemProvider:itemProvider) {
                 [weak self] file, error in

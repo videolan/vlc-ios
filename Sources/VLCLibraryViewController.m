@@ -140,7 +140,7 @@ static NSString *kUsingTableViewToShowData = @"UsingTableViewToShowData";
             _tableView.tableHeaderView = _searchController.searchBar;
         }
         UINib *nib = [UINib nibWithNibName:@"VLCPlaylistTableViewCell" bundle:nil];
-        [_tableView registerNib:nib forCellReuseIdentifier:kPlaylistCellIdentifier];
+        [_tableView registerNib:nib forCellReuseIdentifier:VLCPlaylistTableViewCell.cellIdentifier];
     }
     _tableView.frame = contentView.bounds;
     [_tableView reloadData];
@@ -161,7 +161,7 @@ static NSString *kUsingTableViewToShowData = @"UsingTableViewToShowData";
         _collectionView.autoresizingMask = UIViewAutoresizingFlexibleHeight | UIViewAutoresizingFlexibleWidth;
         _longPressGestureRecognizer = [[UILongPressGestureRecognizer alloc] initWithTarget:self action:@selector(_collectionViewHandleLongPressGesture:)];
         [_collectionView addGestureRecognizer:_longPressGestureRecognizer];
-        [_collectionView registerNib:[UINib nibWithNibName:@"VLCPlaylistCollectionViewCell" bundle:nil] forCellWithReuseIdentifier:[VLCPlaylistCollectionViewCell cellIdentifier]];
+        [_collectionView registerNib:[UINib nibWithNibName:@"VLCPlaylistCollectionViewCell" bundle:nil] forCellWithReuseIdentifier:VLCPlaylistCollectionViewCell.cellIdentifier];
     }
     _collectionView.frame = contentView.bounds;
     [_collectionView reloadData];
@@ -540,9 +540,7 @@ static NSString *kUsingTableViewToShowData = @"UsingTableViewToShowData";
 // Customize the appearance of table view cells.
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
 {
-    static NSString *CellIdentifier = @"PlaylistCell";
-
-    VLCPlaylistTableViewCell *cell = (VLCPlaylistTableViewCell *)[tableView dequeueReusableCellWithIdentifier:CellIdentifier];
+    VLCPlaylistTableViewCell *cell = (VLCPlaylistTableViewCell *)[tableView dequeueReusableCellWithIdentifier:VLCPlaylistTableViewCell.cellIdentifier];
 
     UISwipeGestureRecognizer *swipeRight = [[UISwipeGestureRecognizer alloc] initWithTarget:self action:@selector(swipeRightOnTableViewCellGestureAction:)];
     [swipeRight setDirection:(UISwipeGestureRecognizerDirectionRight)];
@@ -655,7 +653,7 @@ static NSString *kUsingTableViewToShowData = @"UsingTableViewToShowData";
 
 - (UICollectionViewCell*)collectionView:(UICollectionView *)collectionView cellForItemAtIndexPath:(NSIndexPath *)indexPath
 {
-    VLCPlaylistCollectionViewCell *cell = [collectionView dequeueReusableCellWithReuseIdentifier:@"PlaylistCell" forIndexPath:indexPath];
+    VLCPlaylistCollectionViewCell *cell = [collectionView dequeueReusableCellWithReuseIdentifier:VLCPlaylistCollectionViewCell.cellIdentifier forIndexPath:indexPath];
 
     cell.mediaObject = [_mediaDataSource objectAtIndex:indexPath.row];
 

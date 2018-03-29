@@ -34,6 +34,11 @@
     [self setSelectedBackgroundView:bgColorView];
 }
 
++ (NSString *)cellIdentifier
+{
+    return @"VLCPlaylistTableViewCell";
+}
+
 - (void)dealloc
 {
     [self _removeObserver];
