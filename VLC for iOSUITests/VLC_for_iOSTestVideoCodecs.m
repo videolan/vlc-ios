@@ -51,11 +51,6 @@
     [[XCUIDevice sharedDevice] setOrientation:UIDeviceOrientationFaceUp];
 }
 
-- (void)tearDown {
-    // Put teardown code here. This method is called after the invocation of each test method in the class.
-    [super tearDown];
-}
-
 - (void)testMovCodec
 {
     [self playWithFilename:@"rtsp://184.72.239.149/vod/mp4:BigBuckBunny_175k.mov"];
@@ -79,13 +74,14 @@
 - (void)playWithFilename:(NSString *)filename
 {
     XCUIApplication *app = [[XCUIApplication alloc] init];
-    [app.navigationBars[@"All Files"].buttons[@"Open VLC sidebar menu"] tap];
-    
-    [app.cells.staticTexts[@"Network Stream"] tap];
 
-    XCUIElement *httpMyserverComFileMkvTextField = app.textFields.allElementsBoundByIndex.firstObject;
+    [app.tabBars.buttons[@"More"] tap];
+    [app/*@START_MENU_TOKEN@*/.staticTexts[@"Open Network Stream"]/*[[".cells.staticTexts[@\"Open Network Stream\"]",".staticTexts[@\"Open Network Stream\"]"],[[[-1,1],[-1,0]]],[0]]@END_MENU_TOKEN@*/ tap];
 
+    XCUIElement *httpMyserverComFileMkvTextField = app.textFields[@"http://myserver.com/file.mkv"];
+    [httpMyserverComFileMkvTextField tap];
     [httpMyserverComFileMkvTextField clearAndEnterText:filename];
+
     [[[XCUIApplication alloc] init].buttons[@"Open Network Stream"] tap];
     
     XCUIElement *displayTime = app.buttons[@"--:--"];
