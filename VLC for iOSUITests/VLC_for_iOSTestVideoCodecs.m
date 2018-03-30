@@ -11,34 +11,10 @@
  *****************************************************************************/
 
 #import <XCTest/XCTest.h>
-
-@interface XCUIElement(Test)
-
-- (void)clearAndEnterText:(NSString *)text;
-
-@end
-
-@implementation XCUIElement(Test)
-
-- (void)clearAndEnterText:(NSString *)text {
-    if( ![[self value] isKindOfClass:[NSString class]]) {
-        XCTFail("Tried to clear and enter text into a non string value");
-        return;
-    }
-
-    [self tap];
-    NSString *deleteString = @"";
-    for (int i = 0; i < [(NSString *)[self value] length]; i++){
-        deleteString = [deleteString stringByAppendingString:XCUIKeyboardKeyDelete];
-    }
-
-    [self typeText:deleteString];
-    [self typeText:text];
-}
-@end
+#import "XCUIElement+Helpers.h"
 
 @interface VLC_for_iOSTestVideoCodecs : XCTestCase
-
+@property (nonatomic, strong) XCUIApplication *application;
 @end
 
 @implementation VLC_for_iOSTestVideoCodecs
@@ -47,13 +23,9 @@
     [super setUp];
     self.continueAfterFailure = YES;
 
-    [[[XCUIApplication alloc] init] launch];
+    self.application = [[XCUIApplication alloc] init];
+    [self.application launch];
     [[XCUIDevice sharedDevice] setOrientation:UIDeviceOrientationFaceUp];
-}
-
-- (void)tearDown {
-    // Put teardown code here. This method is called after the invocation of each test method in the class.
-    [super tearDown];
 }
 
 - (void)testMovCodec
@@ -76,27 +48,28 @@
     [self playWithFilename:@"http://jell.yfish.us/media/jellyfish-25-mbps-hd-h264.mkv"];
 }
 
+#pragma mark - Private
+
 - (void)playWithFilename:(NSString *)filename
 {
-    XCUIApplication *app = [[XCUIApplication alloc] init];
-    [app.navigationBars[@"All Files"].buttons[@"Open VLC sidebar menu"] tap];
-    
-    [app.cells.staticTexts[@"Network Stream"] tap];
+    [self.application.tabBars.buttons[@"More"] tap];
+    [self.application.staticTexts[@"Open Network Stream"] tap];
 
-    XCUIElement *httpMyserverComFileMkvTextField = app.textFields.allElementsBoundByIndex.firstObject;
-
+    XCUIElement *httpMyserverComFileMkvTextField = self.application.textFields[@"http://myserver.com/file.mkv"];
+    [httpMyserverComFileMkvTextField tap];
     [httpMyserverComFileMkvTextField clearAndEnterText:filename];
+
     [[[XCUIApplication alloc] init].buttons[@"Open Network Stream"] tap];
     
-    XCUIElement *displayTime = app.buttons[@"--:--"];
+    XCUIElement *displayTime = self.application.buttons[@"--:--"];
     __block NSPredicate *predicate = [NSPredicate predicateWithFormat:@"exists == 0"];
 
     [self expectationForPredicate:predicate evaluatedWithObject:displayTime handler:nil];
     //we wait for the displaytime to change
     [self waitForExpectationsWithTimeout:20.0 handler:^(NSError * _Nullable error) {
         //once it changes we tap the videoplayer to bring up the playelements
-        [app.otherElements[@"Video Player"] doubleTap];
-        XCUIElement *playpause = app.buttons[@"Play or Pause current playback"];
+        [self.application.otherElements[@"Video Player"] doubleTap];
+        XCUIElement *playpause = self.application.buttons[@"Play or Pause current playback"];
         predicate = [NSPredicate predicateWithFormat:@"exists == 1"];
         [self expectationForPredicate:predicate evaluatedWithObject:playpause handler:nil];
         [self waitForExpectationsWithTimeout:20.0 handler:nil];

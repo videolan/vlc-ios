@@ -597,6 +597,7 @@
 		DDF908E41CFCD97400108B70 /* VLCNetworkLoginDataSourceProtocol.m in Sources */ = {isa = PBXBuildFile; fileRef = DDF908E31CFCD97400108B70 /* VLCNetworkLoginDataSourceProtocol.m */; };
 		E0C04F951A25B4410080331A /* VLCDocumentPickerController.m in Sources */ = {isa = PBXBuildFile; fileRef = E0C04F941A25B4410080331A /* VLCDocumentPickerController.m */; };
 		F05B5506E9C799574711E71B /* libPods-VLC-iOS-no-watch.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 3DD533B1D45EEA70099433D8 /* libPods-VLC-iOS-no-watch.a */; };
+		FFB5393D206EE642005FAD90 /* XCUIElement+Helpers.m in Sources */ = {isa = PBXBuildFile; fileRef = FFB5393C206EE642005FAD90 /* XCUIElement+Helpers.m */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -1457,6 +1458,8 @@
 		F99C6A3A1B6B1C77D41D4172 /* Pods-VLC-tvOS-Debug.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-VLC-tvOS-Debug.release.xcconfig"; path = "Pods/Target Support Files/Pods-VLC-tvOS-Debug/Pods-VLC-tvOS-Debug.release.xcconfig"; sourceTree = "<group>"; };
 		FE1DEC7096649D63A308D86C /* libPods-VLC-tvOS.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-VLC-tvOS.a"; sourceTree = BUILT_PRODUCTS_DIR; };
 		FF73F10D7535681155A87975 /* libPods-VLC-watchOS.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-VLC-watchOS.a"; sourceTree = BUILT_PRODUCTS_DIR; };
+		FFB5393B206EE60C005FAD90 /* XCUIElement+Helpers.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "XCUIElement+Helpers.h"; sourceTree = "<group>"; };
+		FFB5393C206EE642005FAD90 /* XCUIElement+Helpers.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = "XCUIElement+Helpers.m"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -1623,6 +1626,7 @@
 		41B0BC871F73ED7D0063BA26 /* VLC for iOSUITests */ = {
 			isa = PBXGroup;
 			children = (
+				FFB5393A206EE5EE005FAD90 /* Helpers */,
 				4187112A1F78F87200317B1A /* VLC_for_iOSTestVideoCodecs.m */,
 				41B0BC911F73EF1B0063BA26 /* VLC_for_IOSTestMenu.m */,
 				41B0BC8A1F73ED7D0063BA26 /* Info.plist */,
@@ -2842,6 +2846,15 @@
 			name = "Document Picker";
 			sourceTree = "<group>";
 		};
+		FFB5393A206EE5EE005FAD90 /* Helpers */ = {
+			isa = PBXGroup;
+			children = (
+				FFB5393B206EE60C005FAD90 /* XCUIElement+Helpers.h */,
+				FFB5393C206EE642005FAD90 /* XCUIElement+Helpers.m */,
+			);
+			path = Helpers;
+			sourceTree = "<group>";
+		};
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
@@ -3704,6 +3717,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				FFB5393D206EE642005FAD90 /* XCUIElement+Helpers.m in Sources */,
 				4187112B1F78F87200317B1A /* VLC_for_iOSTestVideoCodecs.m in Sources */,
 				41B0BC931F73EF1B0063BA26 /* VLC_for_IOSTestMenu.m in Sources */,
 			);

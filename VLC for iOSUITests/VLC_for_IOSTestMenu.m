@@ -25,87 +25,71 @@
     self.application = [[XCUIApplication alloc] init];
     [self.application launch];
     [[XCUIDevice sharedDevice] setOrientation:UIDeviceOrientationFaceUp];
-
-    if (self.application.navigationBars[@"Welcome"].exists) {
-        [self.application.navigationBars[@"Welcome"].buttons[@"Done"] tap];
-    }
 }
 
-- (void)testMenuTabAllFiles
+- (void)testNavigationToTabAudio
 {
-    [self.application.navigationBars[@"All Files"].buttons[@"Open VLC sidebar menu"] tap];
-    [self.application.cells.staticTexts[@"All Files"] tap];
-    XCTAssertNotNil(self.application.navigationBars[@"All Files"]);
+    [self.application.tabBars.buttons[@"Audio"] tap];
+
+    XCTAssertNotNil(self.application.navigationBars[@"Audio"]);
 }
 
-- (void)testMenuTabMusicAlbums
+- (void)testNavigationToLocalNetwork
 {
-    [self.application.navigationBars[@"All Files"].buttons[@"Open VLC sidebar menu"] tap];
-    [self.application.cells.staticTexts[@"Music Albums"] tap];
-
-    XCTAssertNotNil(self.application.navigationBars[@"Music Albums"]);
-}
-
-- (void)testMenuTabTVShows
-{
-    [self.application.navigationBars[@"All Files"].buttons[@"Open VLC sidebar menu"] tap];
-    [self.application.cells.staticTexts[@"TV Shows"] tap];
-
-    XCTAssertNotNil(self.application.navigationBars[@"TV Shows"]);
-}
-
-- (void)testMenuTabLocalNetwork
-{
-    [self.application.navigationBars[@"All Files"].buttons[@"Open VLC sidebar menu"] tap];
-    [self.application.cells.staticTexts[@"Local Network"] tap];
+    [self.application.tabBars.buttons[@"Local Network"] tap];
 
     XCTAssertNotNil(self.application.navigationBars[@"Local Network"]);
 }
 
-- (void)testMenuTabNetworkStream
+- (void)testNavigationToTabVideo
 {
-    [self.application.navigationBars[@"All Files"].buttons[@"Open VLC sidebar menu"] tap];
-    [self.application.cells.staticTexts[@"Network Stream"] tap];
+    [self.application.tabBars.buttons[@"Video"] tap];
 
-    XCTAssertNotNil(self.application.navigationBars[@"Network Stream"]);
+    XCTAssertNotNil(self.application.navigationBars[@"Video"]);
 }
 
-- (void)testMenuTabDownloads
+- (void)testNavigationToTabSettings
 {
-    [self.application.navigationBars[@"All Files"].buttons[@"Open VLC sidebar menu"] tap];
-    [self.application.cells.staticTexts[@"Downloads"] tap];
-
-    XCTAssertNotNil(self.application.navigationBars[@"Downloads"]);
-}
-
-- (void)testMenuTabWifi
-{
-    [self.application.navigationBars[@"All Files"].buttons[@"Open VLC sidebar menu"] tap];
-    [self.application.cells.staticTexts[@"Sharing via WiFi"] tap];
-
-    XCTAssertFalse(self.application.tables.staticTexts[@"Inactive Server"].exists);
-}
-
-- (void)testMenuTabCloudServices
-{
-    [self.application.navigationBars[@"All Files"].buttons[@"Open VLC sidebar menu"] tap];
-    [self.application.cells.staticTexts[@"Cloud Services"] tap];
-
-    XCTAssertNotNil(self.application.navigationBars[@"Cloud Services"]);
-}
-
-- (void)testMenuTabSettings
-{
-    [self.application.navigationBars[@"All Files"].buttons[@"Open VLC sidebar menu"] tap];
-    [self.application.cells.staticTexts[@"Settings"] tap];
+    [self.application.tabBars.buttons[@"Settings"] tap];
 
     XCTAssertNotNil(self.application.navigationBars[@"Settings"]);
 }
 
-- (void)testMenuTabAbout
+- (void)testNavigationToTabMore
 {
-    [self.application.navigationBars[@"All Files"].buttons[@"Open VLC sidebar menu"] tap];
-    [self.application.cells.staticTexts[@"About VLC for iOS"] tap];
+    [self.application.tabBars.buttons[@"More"] tap];
+
+    XCTAssertNotNil(self.application.navigationBars[@"More"]);
+}
+
+- (void)testNavigationToCloudServices
+{
+    [self.application.tabBars.buttons[@"More"] tap];
+    [self.application.staticTexts[@"Cloud Services"] tap];
+
+    XCTAssertNotNil(self.application.navigationBars[@"Cloud Services"]);
+}
+
+- (void)testNavigationToDownloads
+{
+    [self.application.tabBars.buttons[@"More"] tap];
+    [self.application.staticTexts[@"Downloads"] tap];
+
+    XCTAssertNotNil(self.application.navigationBars[@"Downloads"]);
+}
+
+- (void)testNavigationToOpenNetworkStream
+{
+    [self.application.tabBars.buttons[@"More"] tap];
+    [self.application.staticTexts[@"Open Network Stream"] tap];
+
+    XCTAssertNotNil(self.application.navigationBars[@"Open Network Stream"]);
+}
+
+- (void)testNavigationToAbout
+{
+    [self.application.tabBars.buttons[@"More"] tap];
+    [self.application.staticTexts[@"About"] tap];
 
     XCTAssertNotNil(self.application.navigationBars[@"About"]);
 }
