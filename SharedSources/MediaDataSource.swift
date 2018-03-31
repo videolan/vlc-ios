@@ -10,13 +10,13 @@
  * Refer to the COPYING file of the official project for license.
  *****************************************************************************/
 
-public class MediaDataSourceAndDelegate:NSObject, UICollectionViewDataSource, UICollectionViewDelegateFlowLayout {
+public class MediaDataSourceAndDelegate: NSObject, UICollectionViewDataSource, UICollectionViewDelegateFlowLayout {
 
-    private let cellPadding:CGFloat = 5.0
+    private let cellPadding: CGFloat = 5.0
     private var services: Services
     public weak var delegate: UICollectionViewDelegate?
 
-    public convenience init(services:Services) {
+    public convenience init(services: Services) {
         self.init()
         self.services = services
     }
@@ -44,8 +44,8 @@ public class MediaDataSourceAndDelegate:NSObject, UICollectionViewDataSource, UI
 
     public func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
 
-        let numberOfCells:CGFloat =  collectionView.traitCollection.horizontalSizeClass == .regular ? 3.0 : 2.0
-        let aspectRatio:CGFloat = 10.0 / 16.0
+        let numberOfCells: CGFloat = collectionView.traitCollection.horizontalSizeClass == .regular ? 3.0 : 2.0
+        let aspectRatio: CGFloat = 10.0 / 16.0
 
         // We have the number of cells and we always have numberofCells + 1 padding spaces. -pad-[Cell]-pad-[Cell]-pad-
         // we then have the entire padding, we divide the entire padding by the number of Cells to know how much needs to be substracted from ech cell
@@ -57,7 +57,7 @@ public class MediaDataSourceAndDelegate:NSObject, UICollectionViewDataSource, UI
     }
 
     public func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, insetForSectionAt section: Int) -> UIEdgeInsets {
-        return UIEdgeInsetsMake(cellPadding, cellPadding, cellPadding, cellPadding);
+        return UIEdgeInsets(top: cellPadding, left: cellPadding, bottom: cellPadding, right: cellPadding)
     }
 
     public func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, minimumLineSpacingForSectionAt section: Int) -> CGFloat {

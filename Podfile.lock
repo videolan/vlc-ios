@@ -52,6 +52,7 @@ PODS:
     - xmlrpc
   - PAPasscode (1.0)
   - RESideMenu (4.0.7)
+  - SwiftLint (0.25.0)
   - TVVLCKit (3.0.2)
   - upnpx (1.4.0)
   - VLC-LiveSDK (5.7.0x)
@@ -79,6 +80,7 @@ DEPENDENCIES:
   - OROpenSubtitleDownloader (from `https://github.com/orta/OROpenSubtitleDownloader.git`, commit `0509eac2`)
   - PAPasscode (~> 1.0)
   - RESideMenu (~> 4.0.7)
+  - SwiftLint (~> 0.25.0)
   - TVVLCKit (= 3.0.2)
   - upnpx (~> 1.4.0)
   - VLC-LiveSDK (= 5.7.0x)
@@ -139,6 +141,7 @@ SPEC CHECKSUMS:
   OROpenSubtitleDownloader: 154b8c08acbf8836b77ac259018dc8b5baef907e
   PAPasscode: b408fb87c530cad58a554e26482e87dbb14b7bc2
   RESideMenu: f24c508404b49c667344c54aba7e590883533958
+  SwiftLint: e14651157288e9e01d6e1a71db7014fb5744a8ea
   TVVLCKit: 178e4f82f8b57320774821384e42eaac403d2faa
   upnpx: c695b99229e08154d23abe5c252cb64f1600f35d
   VLC-LiveSDK: c9566a9edde968f969138f84cfd40b540a109b3f

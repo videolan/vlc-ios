@@ -1,0 +1,26 @@
+AllCops:
+  Include:
+    - '**/fastlane/Fastfile'
+  Exclude:
+    - Gemfile
+    - Podfile
+    - '**/Pods'
+    - '**/fastlane/Snapfile'
+
+Documentation:
+  Enabled: false
+
+Style/FrozenStringLiteralComment:
+  Enabled: false
+
+Metrics/AbcSize:
+  Max: 20
+
+Metrics/MethodLength:
+  Max: 30
+
+Metrics/BlockLength:
+  Max: 30
+
+Metrics/LineLength:
+  Max: 250

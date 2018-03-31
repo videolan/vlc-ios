@@ -23,20 +23,19 @@ struct DropError: Error {
     let kind: ErrorKind
 }
 @available(iOS 11.0, *)
-@objc protocol VLCDragAndDropManagerDelegate : NSObjectProtocol {
-    func dragAndDropManagerRequestsFile(manager:VLCDragAndDropManager, atIndexPath indexPath:IndexPath) -> AnyObject?
-    func dragAndDropManagerInsertItem(manager:VLCDragAndDropManager, item:NSManagedObject, atIndexPath indexPath:IndexPath)
-    func dragAndDropManagerDeleteItem(manager:VLCDragAndDropManager, atIndexPath indexPath:IndexPath)
-    func dragAndDropManagerRemoveFileFromFolder(manager:VLCDragAndDropManager, file:NSManagedObject)
-    func dragAndDropManagerCurrentSelection(manager:VLCDragAndDropManager) -> AnyObject?
+@objc protocol VLCDragAndDropManagerDelegate: NSObjectProtocol {
+    func dragAndDropManagerRequestsFile(manager: VLCDragAndDropManager, atIndexPath indexPath: IndexPath) -> AnyObject?
+    func dragAndDropManagerInsertItem(manager: VLCDragAndDropManager, item: NSManagedObject, atIndexPath indexPath: IndexPath)
+    func dragAndDropManagerDeleteItem(manager: VLCDragAndDropManager, atIndexPath indexPath: IndexPath)
+    func dragAndDropManagerRemoveFileFromFolder(manager: VLCDragAndDropManager, file: NSManagedObject)
+    func dragAndDropManagerCurrentSelection(manager: VLCDragAndDropManager) -> AnyObject?
 }
 
 @available(iOS 11.0, *)
-class VLCDragAndDropManager: NSObject, UICollectionViewDragDelegate, UITableViewDragDelegate, UICollectionViewDropDelegate, UITableViewDropDelegate, UIDropInteractionDelegate
-{
-    @objc weak var delegate:VLCDragAndDropManagerDelegate?
+class VLCDragAndDropManager: NSObject, UICollectionViewDragDelegate, UITableViewDragDelegate, UICollectionViewDropDelegate, UITableViewDropDelegate, UIDropInteractionDelegate {
+    @objc weak var delegate: VLCDragAndDropManagerDelegate?
 
-    let utiTypeIdentifiers:[String] = VLCDragAndDropManager.supportedTypeIdentifiers()
+    let utiTypeIdentifiers: [String] = VLCDragAndDropManager.supportedTypeIdentifiers()
 
     /// Returns the supported type identifiers that VLC can process.
     /// It fetches the identifiers in LSItemContentTypes from all the CFBundleDocumentTypes in the info.plist.
@@ -44,10 +43,10 @@ class VLCDragAndDropManager: NSObject, UICollectionViewDragDelegate, UITableView
     ///
     /// - Returns: Array of UTITypeIdentifiers
     private class func supportedTypeIdentifiers() -> [String] {
-        var typeIdentifiers:[String] = []
-        if let documents = Bundle.main.infoDictionary?["CFBundleDocumentTypes"] as? [[String:Any]] {
+        var typeIdentifiers: [String] = []
+        if let documents = Bundle.main.infoDictionary?["CFBundleDocumentTypes"] as? [[String: Any]] {
             for item in documents {
-                if let value = item["LSItemContentTypes"] as? Array<String> {
+                if let value = item["LSItemContentTypes"] as? [String] {
                     typeIdentifiers.append(contentsOf: value)
                 }
             }
@@ -55,17 +54,17 @@ class VLCDragAndDropManager: NSObject, UICollectionViewDragDelegate, UITableView
         return typeIdentifiers
     }
 
-    //MARK: - TableView
+    // MARK: - TableView
     func tableView(_ tableView: UITableView, canHandle session: UIDropSession) -> Bool {
         return canHandleDropSession(session: session)
     }
 
     func tableView(_ tableView: UITableView, itemsForAddingTo session: UIDragSession, at indexPath: IndexPath, point: CGPoint) -> [UIDragItem] {
-        return dragItems(forIndexPath:indexPath)
+        return dragItems(forIndexPath: indexPath)
     }
 
     func tableView(_ tableView: UITableView, itemsForBeginning session: UIDragSession, at indexPath: IndexPath) -> [UIDragItem] {
-         return dragItems(forIndexPath:indexPath)
+         return dragItems(forIndexPath: indexPath)
     }
 
     func tableView(_ tableView: UITableView, dropSessionDidUpdate session: UIDropSession, withDestinationIndexPath destinationIndexPath: IndexPath?) -> UITableViewDropProposal {
@@ -120,8 +119,8 @@ class VLCDragAndDropManager: NSObject, UICollectionViewDragDelegate, UITableView
         return delegate?.dragAndDropManagerCurrentSelection(manager: self) as? MLLabel != nil
     }
 
-    private func moveItem(tableView:UITableView, item:UITableViewDropItem, toIndexPath destinationPath:IndexPath) {
-        if let mlFile = item.dragItem.localObject as? MLFile, mlFile.labels.count > 0 && !inFolder() {
+    private func moveItem(tableView: UITableView, item: UITableViewDropItem, toIndexPath destinationPath: IndexPath) {
+        if let mlFile = item.dragItem.localObject as? MLFile, !mlFile.labels.isEmpty && !inFolder() {
             tableView.performBatchUpdates({
                 tableView.insertRows(at: [destinationPath], with: .automatic)
                 delegate?.dragAndDropManagerInsertItem(manager: self, item: mlFile, atIndexPath: destinationPath)
@@ -130,7 +129,7 @@ class VLCDragAndDropManager: NSObject, UICollectionViewDragDelegate, UITableView
         }
     }
 
-    private func addDragItem(tableView:UITableView, dragItem item:UITableViewDropItem, toFolderAt index:IndexPath) {
+    private func addDragItem(tableView: UITableView, dragItem item: UITableViewDropItem, toFolderAt index: IndexPath) {
         if let sourcepath = item.sourceIndexPath { //local file that just needs to be moved
             tableView.performBatchUpdates({
                 if let file = delegate?.dragAndDropManagerRequestsFile(manager:self, atIndexPath: sourcepath) as? MLFile {
@@ -151,7 +150,7 @@ class VLCDragAndDropManager: NSObject, UICollectionViewDragDelegate, UITableView
         }
     }
 
-    //MARK: - Collectionview
+    // MARK: - Collectionview
     func collectionView(_ collectionView: UICollectionView, canHandle session: UIDropSession) -> Bool {
         return canHandleDropSession(session: session)
     }
@@ -208,8 +207,8 @@ class VLCDragAndDropManager: NSObject, UICollectionViewDragDelegate, UITableView
         }
     }
 
-    private func moveItem(collectionView:UICollectionView, item:UICollectionViewDropItem, toIndexPath destinationPath:IndexPath) {
-        if let mlFile = item.dragItem.localObject as? MLFile, mlFile.labels.count > 0 && !inFolder() {
+    private func moveItem(collectionView: UICollectionView, item: UICollectionViewDropItem, toIndexPath destinationPath: IndexPath) {
+        if let mlFile = item.dragItem.localObject as? MLFile, !mlFile.labels.isEmpty && !inFolder() {
             collectionView.performBatchUpdates({
                 collectionView.insertItems(at: [destinationPath])
                 delegate?.dragAndDropManagerInsertItem(manager: self, item: mlFile, atIndexPath: destinationPath)
@@ -218,7 +217,7 @@ class VLCDragAndDropManager: NSObject, UICollectionViewDragDelegate, UITableView
         }
     }
 
-    private func addDragItem(collectionView:UICollectionView, dragItem item:UICollectionViewDropItem, toFolderAt index:IndexPath) {
+    private func addDragItem(collectionView: UICollectionView, dragItem item: UICollectionViewDropItem, toFolderAt index: IndexPath) {
         if let sourcepath = item.sourceIndexPath {
             //local file that just needs to be moved
             collectionView.performBatchUpdates({
@@ -239,7 +238,7 @@ class VLCDragAndDropManager: NSObject, UICollectionViewDragDelegate, UITableView
         }
     }
 
-    //MARK: - DropInteractionDelegate for EmptyView
+    // MARK: - DropInteractionDelegate for EmptyView
 
     func dropInteraction(_ interaction: UIDropInteraction, canHandle session: UIDropSession) -> Bool {
         return canHandleDropSession(session: session)
@@ -261,10 +260,10 @@ class VLCDragAndDropManager: NSObject, UICollectionViewDragDelegate, UITableView
         }
     }
 
-    //MARK: - Shared Methods
-    //Checks if the session has items conforming to typeidentifiers
-    private func canHandleDropSession(session:UIDropSession) -> Bool {
-        if (session.localDragSession != nil) {
+    // MARK: - Shared Methods
+    // Checks if the session has items conforming to typeidentifiers
+    private func canHandleDropSession(session: UIDropSession) -> Bool {
+        if session.localDragSession != nil {
             return true
         }
         return session.hasItemsConforming(toTypeIdentifiers: utiTypeIdentifiers)
@@ -276,7 +275,7 @@ class VLCDragAndDropManager: NSObject, UICollectionViewDragDelegate, UITableView
     ///   - hasActiveDrag: State if the drag started within the app
     ///   - item: UIDragItem from session
     /// - Returns: UIDropOperation
-    private func dropOperation(hasActiveDrag: Bool, firstSessionItem item: AnyObject?, withDestinationIndexPath destinationIndexPath:IndexPath?) -> UIDropOperation {
+    private func dropOperation(hasActiveDrag: Bool, firstSessionItem item: AnyObject?, withDestinationIndexPath destinationIndexPath: IndexPath?) -> UIDropOperation {
         let inAlbum = delegate?.dragAndDropManagerCurrentSelection(manager: self) as? MLAlbum != nil
         let inShow = delegate?.dragAndDropManagerCurrentSelection(manager: self) as? MLShow != nil
         //you can move files into a folder or copy from anothr app into a folder
@@ -296,7 +295,7 @@ class VLCDragAndDropManager: NSObject, UICollectionViewDragDelegate, UITableView
             return .cancel
         }
         //we're dragging a file out of a folder
-        if let dragItem = item, let mlFile = dragItem.localObject as? MLFile, mlFile.labels.count > 0 {
+        if let dragItem = item, let mlFile = dragItem.localObject as? MLFile, !mlFile.labels.isEmpty {
             return .copy
         }
         //no reorder from another app into the top layer
@@ -311,7 +310,7 @@ class VLCDragAndDropManager: NSObject, UICollectionViewDragDelegate, UITableView
     private func handleError(error: DropError, itemProvider: NSItemProvider) {
         let message: String
         let filename = itemProvider.suggestedName ?? NSLocalizedString("THIS_FILE", comment:"")
-        switch (error.kind) {
+        switch error.kind {
         case .loadFileRepresentationFailed:
             message = String(format: NSLocalizedString("NOT_SUPPORTED_FILETYPE", comment: ""), filename)
         case .moveFileToDocuments:
@@ -322,7 +321,7 @@ class VLCDragAndDropManager: NSObject, UICollectionViewDragDelegate, UITableView
         UIApplication.shared.keyWindow?.rootViewController?.present(alert, animated: true, completion: nil)
     }
 
-    private func fileIsFolder(atIndexPath indexPath:IndexPath?) -> Bool {
+    private func fileIsFolder(atIndexPath indexPath: IndexPath?) -> Bool {
         if let indexPath = indexPath {
             let file = delegate?.dragAndDropManagerRequestsFile(manager: self, atIndexPath: indexPath)
             return file as? MLLabel != nil
@@ -330,14 +329,14 @@ class VLCDragAndDropManager: NSObject, UICollectionViewDragDelegate, UITableView
         return false
     }
 
-    private func fileIsCollection(file:AnyObject?) -> Bool {
+    private func fileIsCollection(file: AnyObject?) -> Bool {
         let isFolder = file as? MLLabel != nil
         let isAlbum = file as? MLAlbum != nil
         let isShow = file as? MLShow != nil
         return isFolder || isAlbum || isShow
     }
 
-    private func fileIsCollection(atIndexPath indexPath:IndexPath?) -> Bool {
+    private func fileIsCollection(atIndexPath indexPath: IndexPath?) -> Bool {
         if let indexPath = indexPath {
             let file = delegate?.dragAndDropManagerRequestsFile(manager: self, atIndexPath: indexPath)
             return fileIsCollection(file:file)
@@ -346,7 +345,7 @@ class VLCDragAndDropManager: NSObject, UICollectionViewDragDelegate, UITableView
     }
 
     //creating dragItems for the file at indexpath
-    private func dragItems(forIndexPath indexPath:IndexPath) -> [UIDragItem] {
+    private func dragItems(forIndexPath indexPath: IndexPath) -> [UIDragItem] {
         if let file = delegate?.dragAndDropManagerRequestsFile(manager: self, atIndexPath: indexPath) {
             if fileIsCollection(atIndexPath: indexPath) {
                 return dragItemsforCollection(file: file)
@@ -391,7 +390,7 @@ class VLCDragAndDropManager: NSObject, UICollectionViewDragDelegate, UITableView
     }
 
     //Provides an item for other applications
-    private func dragItem(fromFile file:AnyObject) -> [UIDragItem] {
+    private func dragItem(fromFile file: AnyObject) -> [UIDragItem] {
         guard let file = mlFile(from: file), let path = file.url else {
             assert(false, "can't create a dragitem if there is no file or the file has no url")
             return []
@@ -415,12 +414,12 @@ class VLCDragAndDropManager: NSObject, UICollectionViewDragDelegate, UITableView
         return []
     }
 
-    private func mlFile(from file:AnyObject) -> MLFile? {
-        if let episode = file as? MLShowEpisode, let convertedfile = episode.files.first as? MLFile{
+    private func mlFile(from file: AnyObject) -> MLFile? {
+        if let episode = file as? MLShowEpisode, let convertedfile = episode.files.first as? MLFile {
             return convertedfile
         }
 
-        if let track = file as? MLAlbumTrack, let convertedfile = track.files.first as? MLFile{
+        if let track = file as? MLAlbumTrack, let convertedfile = track.files.first as? MLFile {
             return convertedfile
         }
 
@@ -430,7 +429,7 @@ class VLCDragAndDropManager: NSObject, UICollectionViewDragDelegate, UITableView
         return nil
     }
 
-    private func addFile(file:MLFile, toFolderAt folderIndex:IndexPath) {
+    private func addFile(file: MLFile, toFolderAt folderIndex: IndexPath) {
         let label = delegate?.dragAndDropManagerRequestsFile(manager: self, atIndexPath: folderIndex) as! MLLabel
         DispatchQueue.main.async {
             _ = label.files.insert(file)
@@ -444,8 +443,7 @@ class VLCDragAndDropManager: NSObject, UICollectionViewDragDelegate, UITableView
     /// - Parameters:
     ///   - itemProvider: itemprovider which is used to load the files from
     ///   - completion: callback with the successfully created file or error if it failed
-    private func createFileWith(itemProvider:NSItemProvider, completion: @escaping ((MLFile?, Error?) -> Void))
-    {
+    private func createFileWith(itemProvider: NSItemProvider, completion: @escaping ((MLFile?, Error?) -> Void)) {
         itemProvider.loadFileRepresentation(forTypeIdentifier: kUTTypeData as String) {
             [weak self] (url, error) in
             guard let strongSelf = self else { return }
@@ -480,7 +478,7 @@ class VLCDragAndDropManager: NSObject, UICollectionViewDragDelegate, UITableView
         }
     }
 
-    private func moveFileToDocuments(fromURL filepath:URL?) -> URL? {
+    private func moveFileToDocuments(fromURL filepath: URL?) -> URL? {
         let searchPaths = NSSearchPathForDirectoriesInDomains(.documentDirectory, .userDomainMask, true)
         let newDirectoryPath = searchPaths.first
         guard let directoryPath = newDirectoryPath, let url = filepath else {
