@@ -13,26 +13,25 @@
 import Foundation
 
 @objc public protocol VLCMediaViewControllerDelegate: class {
-    func mediaViewControllerDidSelectMediaObject(_ mediaViewController: VLCMediaViewController, mediaObject:NSManagedObject)
+    func mediaViewControllerDidSelectMediaObject(_ mediaViewController: VLCMediaViewController, mediaObject: NSManagedObject)
     func mediaViewControllerDidSelectSort(_ mediaViewController: VLCMediaViewController)
 }
 
-public class VLCMediaViewController: UICollectionViewController, UISearchResultsUpdating, UISearchControllerDelegate
-{
+public class VLCMediaViewController: UICollectionViewController, UISearchResultsUpdating, UISearchControllerDelegate {
     private var services: Services
-    private var mediaDatasourceAndDelegate:MediaDataSourceAndDelegate?
+    private var mediaDatasourceAndDelegate: MediaDataSourceAndDelegate?
     private var searchController: UISearchController?
     private let searchDataSource = VLCLibrarySearchDisplayDataSource()
     public weak var delegate: VLCMediaViewControllerDelegate?
 
     @available(iOS 11.0, *)
-    lazy var dragAndDropManager:VLCDragAndDropManager = {
+    lazy var dragAndDropManager: VLCDragAndDropManager = {
         let dragAndDropManager = VLCDragAndDropManager()
         dragAndDropManager.delegate = services.mediaDataSource
         return dragAndDropManager
     }()
 
-    public convenience init(services:Services) {
+    public convenience init(services: Services) {
         self.init(collectionViewLayout: UICollectionViewFlowLayout())
         self.services = services
         NotificationCenter.default.addObserver(self, selector: #selector(themeDidChange), name: .VLCThemeDidChangeNotification, object: nil)
@@ -60,7 +59,7 @@ public class VLCMediaViewController: UICollectionViewController, UISearchResults
         collectionView?.backgroundColor = PresentationTheme.current.colors.background
     }
 
-    func setupCollectionView(){
+    func setupCollectionView() {
         mediaDatasourceAndDelegate = MediaDataSourceAndDelegate(services: services)
         mediaDatasourceAndDelegate?.delegate = self
         let playlistnib = UINib(nibName: "VLCPlaylistCollectionViewCell", bundle:nil)
@@ -91,8 +90,8 @@ public class VLCMediaViewController: UICollectionViewController, UISearchResults
         if let textfield = searchController?.searchBar.value(forKey: "searchField") as? UITextField {
             if let backgroundview = textfield.subviews.first {
                 backgroundview.backgroundColor = UIColor.white
-                backgroundview.layer.cornerRadius = 10;
-                backgroundview.clipsToBounds = true;
+                backgroundview.layer.cornerRadius = 10
+                backgroundview.clipsToBounds = true
             }
         }
         if #available(iOS 11.0, *) {
@@ -115,12 +114,12 @@ public class VLCMediaViewController: UICollectionViewController, UISearchResults
         collectionView?.collectionViewLayout.invalidateLayout()
     }
 
-    //MARK: - MediaDatasourceAndDelegate
+    // MARK: - MediaDatasourceAndDelegate
     override public func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
         delegate?.mediaViewControllerDidSelectMediaObject(self, mediaObject:services.mediaDataSource.object(at: UInt(indexPath.row)))
     }
 
-    //MARK: - Search
+    // MARK: - Search
     public func updateSearchResults(for searchController: UISearchController) {
         searchDataSource.shouldReloadTable(forSearch: searchController.searchBar.text, searchableFiles: services.mediaDataSource.allObjects())
         collectionView?.reloadData()
