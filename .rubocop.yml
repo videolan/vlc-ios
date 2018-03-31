@@ -10,6 +10,9 @@ AllCops:
 Documentation:
   Enabled: false
 
+Style/FrozenStringLiteralComment:
+  Enabled: false
+
 Metrics/AbcSize:
   Max: 20
 
