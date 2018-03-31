@@ -33,6 +33,12 @@ lane :release do |options|
   push_to_git_remote
 end
 
+desc 'Check style and conventions'
+lane :lint do
+  rubocop
+  swiftlint(strict: true)
+end
+
 lane :ci do
   xcversion(version: '9.2.0')
   xcode_select '/Applications/Xcode.app'
