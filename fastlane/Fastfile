@@ -20,39 +20,39 @@ desc '- Build and sign the app'
 desc '- Update the changelog from the NEWS file'
 desc '- Push the version bump'
 lane :release do |options|
-   platform = get_platform options
-   version = get_version options
-   ensure_git_status_clean
-   clear_derived_data
-   set_version_bump_build_and_commit(platform: platform, version: version)
-   git_apply_private_constants
-   cocoapods(repo_update: true)
-   gym(scheme: "VLC-#{platform}")
-   pilot(app_platform: platform == 'tvOS' ? 'appletvos' : 'ios')
-   update_changelog
-   push_to_git_remote
+  platform = get_platform options
+  version = get_version options
+  ensure_git_status_clean
+  clear_derived_data
+  set_version_bump_build_and_commit(platform: platform, version: version)
+  git_apply_private_constants
+  cocoapods(repo_update: true)
+  gym(scheme: "VLC-#{platform}")
+  pilot(app_platform: platform == 'tvOS' ? 'appletvos' : 'ios')
+  update_changelog
+  push_to_git_remote
 end
 
 lane :ci do
-  xcversion(version: "9.2.0")
-  xcode_select "/Applications/Xcode.app"
-  #Ideally we have iOS 9 support here but this is not yet added
-  #https://discuss.circleci.com/t/please-add-simulators-for-ios-9-10-to-xcode-9-image/16530
+  xcversion(version: '9.2.0')
+  xcode_select '/Applications/Xcode.app'
+  # Ideally we have iOS 9 support here but this is not yet added
+  # https://discuss.circleci.com/t/please-add-simulators-for-ios-9-10-to-xcode-9-image/16530
   xcodebuild(
-    workspace: "VLC.xcworkspace",
-    scheme: "VLC-iOS",
-    configuration: "Debug",
+    workspace: 'VLC.xcworkspace',
+    scheme: 'VLC-iOS',
+    configuration: 'Debug',
     clean: true,
     build: true,
-    destination: "platform=iOS Simulator,name=iPhone 6s,OS=10.3.1"
+    destination: 'platform=iOS Simulator,name=iPhone 6s,OS=10.3.1'
   )
   xcodebuild(
-    workspace: "VLC.xcworkspace",
-    scheme: "VLC-tvOS",
-    configuration: "Debug",
+    workspace: 'VLC.xcworkspace',
+    scheme: 'VLC-tvOS',
+    configuration: 'Debug',
     clean: true,
     build: true,
-    destination: "platform=tvOS Simulator,name=Apple TV 1080p,OS=10.2"
+    destination: 'platform=tvOS Simulator,name=Apple TV 1080p,OS=10.2'
   )
 end
 
@@ -69,28 +69,26 @@ end
 desc 'Bump and commit app version and build number'
 private_lane :set_version_bump_build_and_commit do |options|
   if options[:platform] == 'tvOS'
-    increment_build_number_in_plist(VLC::infoPlistPath[:tvOS])
-    set_version_number_in_plist(VLC::infoPlistPath[:tvOS], options[:version])
+    increment_build_number_in_plist(VLC.info_plist_path[:tvOS])
+    set_version_number_in_plist(VLC.info_plist_path[:tvOS], options[:version])
   elsif options[:platform] == 'iOS'
-    increment_build_number_in_plist(VLC::infoPlistPath[:iOS])
-    increment_build_number_in_plist(VLC::infoPlistPath[:watchKitExtension])
-    increment_build_number_in_plist(VLC::infoPlistPath[:watchOS])
-    set_version_number_in_plist(VLC::infoPlistPath[:iOS], options[:version])
-    set_version_number_in_plist(VLC::infoPlistPath[:watchKitExtension], options[:version])
-    set_version_number_in_plist(VLC::infoPlistPath[:watchOS], options[:version])
+    increment_build_number_in_plist(VLC.info_plist_path[:iOS])
+    increment_build_number_in_plist(VLC.info_plist_path[:watchKitExtension])
+    increment_build_number_in_plist(VLC.info_plist_path[:watchOS])
+    set_version_number_in_plist(VLC.info_plist_path[:iOS], options[:version])
+    set_version_number_in_plist(VLC.info_plist_path[:watchKitExtension], options[:version])
+    set_version_number_in_plist(VLC.info_plist_path[:watchOS], options[:version])
   end
 
   commit_version_bump(message: 'Version Bump by fastlane', force: true)
 end
 
 desc 'Update changelog in iTunes Connect with the content from Docs/NEWS'
-private_lane :update_changelog do |options|
+private_lane :update_changelog do |_options|
   # Splits the News by -------- get out the top notes
   changelog = File.read('../Docs/NEWS').split('-----------')[1].split('-----------').first
-  temp_changelog = changelog.split("${options[:platform]}")
-  if temp_changelog.count <= 1
-    temp_changelog = changelog.split("tvOS")
-  end
+  temp_changelog = changelog.split('${options[:platform]}')
+  temp_changelog = changelog.split('tvOS') if temp_changelog.count <= 1
   changelog = temp_changelog[0..-2].join.strip
   set_changelog(app_identifier: 'org.videolan.vlc-ios', changelog: changelog, username: '*', team_name: 'VideoLAN')
 end
@@ -109,9 +107,7 @@ end
 desc 'Return the platform received as parameter, or ask for it if missing'
 private_lane :get_platform do |options|
   platform = options[:platform]
-  if !platform || platform.empty?
-    platform = prompt(text: 'Platform [iOS, tvOS]: ')
-  end
+  platform = prompt(text: 'Platform [iOS, tvOS]: ') if !platform || platform.empty?
   if platform != 'iOS' && platform != 'tvOS'
     puts("⚠️  Platform '#{platform}' not supported")
     exit 1
@@ -122,8 +118,6 @@ end
 desc 'Return the version received as parameter, or ask for it if missing'
 private_lane :get_version do |options|
   version = options[:version]
-  if !version || version.empty?
-    version = ask("Enter a new version number: ")
-  end
+  version = ask('Enter a new version number: ') if !version || version.empty?
   version
 end

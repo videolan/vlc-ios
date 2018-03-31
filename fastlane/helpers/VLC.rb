@@ -1,8 +1,8 @@
 #!/usr/bin/ruby
 
 class VLC
-  def self.infoPlistPath
-    return {
+  def self.info_plist_path
+    {
       iOS: '../Sources/VLC for iOS-Info.plist',
       tvOS: '../Apple-TV/Info.plist',
       watchKitExtension: '../VLC WatchKit Native Extension/Info.plist',
