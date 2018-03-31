@@ -16,39 +16,39 @@ extension Notification.Name {
     static let VLCThemeDidChangeNotification = Notification.Name("themeDidChangeNotfication")
 }
 
-@objcMembers public class ColorPalette : NSObject {
+@objcMembers public class ColorPalette: NSObject {
 
     public let isDark: Bool
     public let name: String
-    public let background:UIColor
-    public let cellBackgroundA:UIColor
-    public let cellBackgroundB:UIColor
-    public let cellDetailTextColor:UIColor
-    public let cellTextColor:UIColor
-    public let lightTextColor:UIColor
-    public let sectionHeaderTextColor:UIColor
-    public let sectionHeaderTintColor:UIColor
-    public let settingsBackground:UIColor
-    public let settingsCellBackground:UIColor
-    public let settingsSeparatorColor:UIColor
-    public let tabBarColor:UIColor
-    public let orangeUI:UIColor
+    public let background: UIColor
+    public let cellBackgroundA: UIColor
+    public let cellBackgroundB: UIColor
+    public let cellDetailTextColor: UIColor
+    public let cellTextColor: UIColor
+    public let lightTextColor: UIColor
+    public let sectionHeaderTextColor: UIColor
+    public let sectionHeaderTintColor: UIColor
+    public let settingsBackground: UIColor
+    public let settingsCellBackground: UIColor
+    public let settingsSeparatorColor: UIColor
+    public let tabBarColor: UIColor
+    public let orangeUI: UIColor
 
     public init(isDark: Bool,
                 name: String,
-                background:UIColor,
-                cellBackgroundA:UIColor,
-                cellBackgroundB:UIColor,
-                cellDetailTextColor:UIColor,
-                cellTextColor:UIColor,
-                lightTextColor:UIColor,
-                sectionHeaderTextColor:UIColor,
-                sectionHeaderTintColor:UIColor,
-                settingsBackground:UIColor,
-                settingsCellBackground:UIColor,
-                settingsSeparatorColor:UIColor,
-                tabBarColor:UIColor,
-                orangeUI:UIColor) {
+                background: UIColor,
+                cellBackgroundA: UIColor,
+                cellBackgroundB: UIColor,
+                cellDetailTextColor: UIColor,
+                cellTextColor: UIColor,
+                lightTextColor: UIColor,
+                sectionHeaderTextColor: UIColor,
+                sectionHeaderTintColor: UIColor,
+                settingsBackground: UIColor,
+                settingsCellBackground: UIColor,
+                settingsSeparatorColor: UIColor,
+                tabBarColor: UIColor,
+                orangeUI: UIColor) {
         self.isDark = isDark
         self.name = name
         self.background = background
@@ -67,7 +67,7 @@ extension Notification.Name {
     }
 }
 
-@objcMembers public class PresentationTheme : NSObject {
+@objcMembers public class PresentationTheme: NSObject {
 
     public static let brightTheme = PresentationTheme(colors: brightPalette)
     public static let darkTheme = PresentationTheme(colors: darkPalette)
@@ -75,8 +75,7 @@ extension Notification.Name {
     static var current: PresentationTheme = {
         let isDarkTheme = UserDefaults.standard.bool(forKey: kVLCSettingAppTheme)
         return isDarkTheme ? PresentationTheme.darkTheme : PresentationTheme.brightTheme
-        }()
-        {
+        }() {
         didSet {
             NotificationCenter.default.post(name: .VLCThemeDidChangeNotification, object: self)
             AppearanceManager.setupAppearance(theme: self.current)
@@ -91,7 +90,7 @@ extension Notification.Name {
 
 @objc public extension UIColor {
 
-    public convenience init(_ rgbValue:UInt32, _ alpha:CGFloat = 1.0) {
+    public convenience init(_ rgbValue: UInt32, _ alpha: CGFloat = 1.0) {
         let r = CGFloat((rgbValue & 0xFF0000) >> 16)/255.0
         let g = CGFloat((rgbValue & 0xFF00) >> 8)/255.0
         let b = CGFloat(rgbValue & 0xFF)/255.0

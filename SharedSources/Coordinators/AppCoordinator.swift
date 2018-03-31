@@ -12,14 +12,14 @@
 import Foundation
 
 @objc(VLCService)
-public class Services:NSObject {
+public class Services: NSObject {
     @objc let mediaDataSource = VLCMediaDataSource()
 }
 
-@objc class AppCoordinator : NSObject {
+@objc class AppCoordinator: NSObject {
 
     var childCoordinators: [NSObject] = []
-    private var tabBarController:UITabBarController
+    private var tabBarController: UITabBarController
     private var services = Services()
 
     @objc public init(tabBarController: UITabBarController) {

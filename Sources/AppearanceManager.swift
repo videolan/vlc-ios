@@ -12,10 +12,9 @@
 import UIKit
 
 @objc(VLCApperanceManager)
-class AppearanceManager:NSObject
-{
-    @objc class func setupAppearance(theme:PresentationTheme = PresentationTheme.current)
-    {
+class AppearanceManager: NSObject {
+
+    @objc class func setupAppearance(theme: PresentationTheme = PresentationTheme.current) {
         // Change the keyboard for UISearchBar
         UITextField.appearance().keyboardAppearance = theme == PresentationTheme.darkTheme ? .dark : .light
         // For the cursor

@@ -25,6 +25,6 @@ import Foundation
     var centerYAnchor: NSLayoutYAxisAnchor { get }
 }
 
-extension UIView:LayoutAnchorContainer {}
+extension UIView: LayoutAnchorContainer {}
 
-extension UILayoutGuide:LayoutAnchorContainer {}
+extension UILayoutGuide: LayoutAnchorContainer {}
