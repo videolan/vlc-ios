@@ -1,0 +1,13 @@
+ devices([
+   "iPhone X",
+   "iPhone 8"
+ ])
+
+ languages([
+   "en",
+   "de",
+   "fr",
+ ])
+
+clear_previous_screenshots(true)
+

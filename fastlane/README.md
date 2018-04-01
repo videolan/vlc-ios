@@ -46,15 +46,23 @@ This action does the following:
 - Update the changelog from the NEWS file
 
 - Push the version bump
+
 ### lint
 ```
 fastlane lint
 ```
 Check style and conventions
+
 ### ci
 ```
 fastlane ci
 ```
+
+### screenshots
+```
+fastlane screenshots
+```
+Take screenshots
 
 ### test
 ```
