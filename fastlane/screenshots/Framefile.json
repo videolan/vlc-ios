@@ -1,0 +1,50 @@
+{
+  "default": {
+    "keyword": {
+      "fonts": [
+        {
+          "font": "./fonts/SF-Pro-Display-Regular.otf",
+          "supported": ["en", "de", "fr", "ko"]
+        }
+      ]
+    },
+    "title": {
+      "fonts": [
+        {
+          "font": "./fonts/SF-Pro-Display-Regular.otf",
+          "supported": ["en", "de", "fr", "ko"]
+        }
+      ],
+      "color": "#000000"
+    },
+    "background": "./background.jpg",
+    "padding": 50
+  },
+
+  "data": [
+    {
+      "filter": "playback",
+      "keyword": {
+        "color": "#ff8800"
+      }
+    },
+    {
+      "filter": "audio",
+      "keyword": {
+        "color": "#ff8800"
+      }
+    },
+    {
+      "filter": "network",
+      "keyword": {
+        "color": "#ff8800"
+      }
+    },
+    {
+      "filter": "video",
+      "keyword": {
+        "color": "#ff8800"
+      }
+    }
+  ]
+}
