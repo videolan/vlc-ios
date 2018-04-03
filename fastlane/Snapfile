@@ -1,12 +1,28 @@
  devices([
-   "iPhone X",
-   "iPhone 8"
+   "iPhone 5s",
+   "iPhone 6",
+   "iPhone 6 Plus", 
+   "iPhone 6s", 
+   "iPhone 6s Plus", 
+   "iPhone 7",
+   "iPhone 7 Plus", 
+   "iPhone 8", 
+   "iPhone 8 Plus", 
+   "iPhone SE", 
+   "iPhone X", 
+   "iPad Air", 
+   "iPad Air 2", 
+   "iPad (5th generation)", 
+   "iPad Pro (9.7-inch)", 
+   "iPad Pro (12.9-inch)", 
+   "iPad Pro (12.9-inch) (2nd generation)", 
+   "iPad Pro (10.5-inch)"
  ])
 
  languages([
    "en",
    "de",
-   "fr",
+   "fr"
  ])
 
 clear_previous_screenshots(true)

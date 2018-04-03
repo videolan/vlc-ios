@@ -15,22 +15,23 @@ import XCTest
 
 class VLCiOSTestVideoCodecs: XCTestCase {
     let app = XCUIApplication()
-    let helper = LocaleHelper(lang: deviceLanguage, target: VLCiOSTestVideoCodecs.self)
-    let moreTab = XCUIApplication().tabBars.buttons.element(boundBy: 4)
-
+    var helper: TestHelper!
+    
     override func setUp() {
         super.setUp()
 
         XCUIDevice.shared.orientation = .portrait
         setupSnapshot(app)
+        helper = TestHelper(lang: deviceLanguage, target: VLCiOSTestVideoCodecs.self)
         app.launch()
     }
 
     func testDownload() {
         download(name: "http://jell.yfish.us/media/jellyfish-10-mbps-hd-h264.mkv")
-        app.tabBars.buttons["Video"].tap()
+        helper.tap(tabDescription: "Video", app: app)
         app.collectionViews.cells.element(boundBy: 0).tap()
         app.navigationBars["VLCMovieView"].buttons[helper.localized(key: "VIDEO_ASPECT_RATIO_BUTTON")].tap()
+        
         snapshot("playback")
     }
 
@@ -51,8 +52,8 @@ class VLCiOSTestVideoCodecs: XCTestCase {
     }
 
     func download(name fileName: String) {
-        moreTab.tap()
-        app.staticTexts[helper.localized(key: "DOWNLOAD_FROM_HTTP")].tap()
+        let download = helper.localized(key: "DOWNLOAD_FROM_HTTP")
+        helper.tap(tabDescription: download, app: app)
 
         let downloadTextfield = app.textFields["http://myserver.com/file.mkv"]
         downloadTextfield.clearAndEnter(text: fileName)
@@ -69,14 +70,13 @@ class VLCiOSTestVideoCodecs: XCTestCase {
     }
 
     func stream(named fileName: String) {
-        moreTab.tap()
-        app.staticTexts[helper.localized(key: "OPEN_NETWORK")].tap()
+        let stream = helper.localized(key: "OPEN_NETWORK")
+        helper.tap(tabDescription: stream, app: app)
 
         let addressTextField = app.textFields["http://myserver.com/file.mkv"]
         addressTextField.clearAndEnter(text: fileName)
-
-        app.buttons[helper.localized(key: "OPEN_NETWORK")].tap()
-
+        app.otherElements.children(matching: .button)[helper.localized(key: "OPEN_NETWORK")].tap()
+        
         let displayTime = app.navigationBars["VLCMovieView"].buttons["--:--"]
         let zeroPredicate = NSPredicate(format: "exists == 0")
         expectation(for: zeroPredicate, evaluatedWith: displayTime, handler: nil)

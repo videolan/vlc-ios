@@ -1,5 +1,5 @@
 /*****************************************************************************
- * LocaleHelper.swift
+ * TestHelper.swift
  * VLC for iOSUITests
  *****************************************************************************
  * Copyright (c) 2018 VideoLAN. All rights reserved.
@@ -13,21 +13,34 @@
 import Foundation
 import XCTest
 
-struct LocaleHelper {
+struct TestHelper {
     let localizationBundle: Bundle
     let inherantBundle = Bundle(for: UIApplication.self)
 
     init(lang: String, target: AnyClass) {
-        localizationBundle = LocaleHelper.loadLocalizables(lang: lang, target: target)
+        localizationBundle = TestHelper.loadLocalizables(lang: lang, target: target)
     }
 
     func localized(key: String) -> String {
         let res = NSLocalizedString(key, bundle: localizationBundle, comment: "")
         return res
     }
+    
+    func tap(tabDescription: String, app: XCUIApplication) {
+        let target = app.tabBars.buttons.element(matching: .button, identifier: tabDescription)
+        
+        if target.exists {
+            target.tap()
+        } else if app.tabBars.buttons.count == 5 {
+            // 5 tabBar buttons for iPhone
+            let moreTab = app.tabBars.buttons.element(boundBy: 4)
+            moreTab.tap()
+            app.cells.staticTexts[tabDescription].tap()
+        }
+    }
 }
 
-extension LocaleHelper {
+extension TestHelper {
     static func loadLocalizables(lang: String, target: AnyClass) -> Bundle {
         let mainBundle = Bundle(for: target.self)
         guard let path = mainBundle.path(forResource: lang, ofType: ".lproj") else {

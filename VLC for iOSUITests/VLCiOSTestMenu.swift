@@ -15,20 +15,20 @@ import XCTest
 
 class VLCiOSTestMenu: XCTestCase {
     let app = XCUIApplication()
-    let helper = LocaleHelper(lang: deviceLanguage, target: VLCiOSTestVideoCodecs.self)
-    let moreTab = XCUIApplication().tabBars.buttons.element(boundBy: 4)
+    var helper: TestHelper!
 
     override func setUp() {
         super.setUp()
 
         XCUIDevice.shared.orientation = .portrait
         setupSnapshot(app)
+        helper = TestHelper(lang: deviceLanguage, target: VLCiOSTestMenu.self)
         app.launch()
     }
 
     func testNavigationToAudioTab() {
         let audio = helper.localized(key: "AUDIO")
-        app.tabBars.buttons[audio].tap()
+        helper.tap(tabDescription: audio, app: app)
         XCTAssertNotNil(app.navigationBars[audio])
 
         snapshot("audio_tab")
@@ -36,54 +36,46 @@ class VLCiOSTestMenu: XCTestCase {
 
     func testNavigationToNetworkTab() {
         let localNetwork = helper.localized(key: "LOCAL_NETWORK")
-        app.tabBars.buttons[localNetwork].tap()
+        helper.tap(tabDescription: localNetwork, app: app)
         XCTAssertNotNil(app.navigationBars[localNetwork])
 
         snapshot("network_tab")
     }
 
     func testNavigationToVideoTab() {
-        app.tabBars.buttons["Video"].tap()
+        helper.tap(tabDescription: "Video", app: app)
         XCTAssertNotNil(app.navigationBars["Video"])
-
+        
         snapshot("video_tab")
     }
 
     func testNavigationToSettingsTab() {
         let settings = helper.localized(key: "Settings")
-        app.tabBars.buttons[settings].tap()
+        helper.tap(tabDescription: settings, app: app)
         XCTAssertNotNil(app.navigationBars[settings])
     }
 
     func testNavigationToCloudServices() {
-        moreTab.tap()
-
         let cloudServices = helper.localized(key: "CLOUD_SERVICES")
-        app.cells.staticTexts[cloudServices].tap()
+        helper.tap(tabDescription: cloudServices, app: app)
         XCTAssertNotNil(app.navigationBars[cloudServices])
     }
 
     func testNavigationToDownloads() {
-        moreTab.tap()
-
         let downloads = helper.localized(key: "DOWNLOAD_FROM_HTTP")
-        app.cells.staticTexts[downloads].tap()
+        helper.tap(tabDescription: downloads, app: app)
         XCTAssertNotNil(app.navigationBars[downloads])
     }
 
     func testNavigationToNetworkStream() {
-        moreTab.tap()
-
         let network = helper.localized(key: "OPEN_NETWORK")
-        app.cells.staticTexts[network].tap()
+        helper.tap(tabDescription: network, app: app)
         XCTAssertNotNil(app.navigationBars[network])
     }
 
     func testNavigationToAbout() {
-        moreTab.tap()
-
         let about = helper.localized(key: "ABOUT_APP")
-        app.cells.staticTexts[about].tap()
+        helper.tap(tabDescription: about, app: app)
         XCTAssertNotNil(app.navigationBars[about])
     }
 }
