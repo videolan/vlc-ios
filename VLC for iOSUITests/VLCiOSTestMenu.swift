@@ -20,36 +20,27 @@ class VLCiOSTestMenu: XCTestCase {
     override func setUp() {
         super.setUp()
 
-        TestHelper.prepare(app)
+        XCUIDevice.shared.orientation = .portrait
+        setupSnapshot(app)
         helper = TestHelper(lang: deviceLanguage, target: VLCiOSTestMenu.self)
         app.launch()
-    }
-    
-    override func tearDown() {
-        SDStatusBarManager.sharedInstance().disableOverrides()
     }
 
     func testNavigationToAudioTab() {
         let audio = helper.localized(key: "AUDIO")
         helper.tap(tabDescription: audio, app: app)
         XCTAssertNotNil(app.navigationBars[audio])
-
-        snapshot("audio_tab")
     }
 
     func testNavigationToNetworkTab() {
         let localNetwork = helper.localized(key: "LOCAL_NETWORK")
         helper.tap(tabDescription: localNetwork, app: app)
         XCTAssertNotNil(app.navigationBars[localNetwork])
-
-        snapshot("network_tab")
     }
 
     func testNavigationToVideoTab() {
         helper.tap(tabDescription: "Video", app: app)
         XCTAssertNotNil(app.navigationBars["Video"])
-        
-        snapshot("video_tab")
     }
 
     func testNavigationToSettingsTab() {

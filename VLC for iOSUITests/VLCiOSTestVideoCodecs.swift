@@ -20,22 +20,11 @@ class VLCiOSTestVideoCodecs: XCTestCase {
     override func setUp() {
         super.setUp()
         
-        TestHelper.prepare(app)
+        XCUIDevice.shared.orientation = .portrait
+        setupSnapshot(app)
         helper = TestHelper(lang: deviceLanguage, target: VLCiOSTestVideoCodecs.self)
+        setupSnapshot(app)
         app.launch()
-    }
-    
-    override func tearDown() {
-        SDStatusBarManager.sharedInstance().disableOverrides()
-    }
-
-    func testDownload() {
-        download(name: "http://jell.yfish.us/media/jellyfish-10-mbps-hd-h264.mkv")
-        helper.tap(tabDescription: "Video", app: app)
-        app.collectionViews.cells.element(boundBy: 0).tap()
-        app.navigationBars["VLCMovieView"].buttons[helper.localized(key: "VIDEO_ASPECT_RATIO_BUTTON")].tap()
-        
-        snapshot("playback")
     }
 
     func testMovCodec() {
@@ -52,24 +41,6 @@ class VLCiOSTestVideoCodecs: XCTestCase {
 
     func testH264Codec() {
         stream(named: "http://jell.yfish.us/media/jellyfish-25-mbps-hd-h264.mkv")
-    }
-
-    func download(name fileName: String) {
-        let download = helper.localized(key: "DOWNLOAD_FROM_HTTP")
-        helper.tap(tabDescription: download, app: app)
-
-        let downloadTextfield = app.textFields["http://myserver.com/file.mkv"]
-        downloadTextfield.clearAndEnter(text: fileName)
-        app.buttons[helper.localized(key: "BUTTON_DOWNLOAD")].tap()
-
-        let cancelDownloadButton = app.buttons["flatDeleteButton"]
-        let predicate = NSPredicate(format: "exists == 0")
-        expectation(for: predicate, evaluatedWith: cancelDownloadButton, handler: nil)
-
-        waitForExpectations(timeout: 20.0) { err in
-            XCTAssertNil(err)
-            downloadTextfield.typeText("\n")
-        }
     }
 
     func stream(named fileName: String) {

@@ -15,15 +15,13 @@ import XCTest
 
 struct TestHelper {
     let localizationBundle: Bundle
-    let inherantBundle = Bundle(for: UIApplication.self)
 
     init(lang: String, target: AnyClass) {
         localizationBundle = TestHelper.loadLocalizables(lang: lang, target: target)
     }
 
     func localized(key: String) -> String {
-        let res = NSLocalizedString(key, bundle: localizationBundle, comment: "")
-        return res
+        return NSLocalizedString(key, bundle: localizationBundle, comment: "")
     }
     
     func tap(tabDescription: String, app: XCUIApplication) {
@@ -41,12 +39,6 @@ struct TestHelper {
 }
 
 extension TestHelper {
-    static func prepare(_ app: XCUIApplication) {
-        XCUIDevice.shared.orientation = .portrait
-        SDStatusBarManager.sharedInstance().enableOverrides()
-        setupSnapshot(app)
-    }
-    
     static func loadLocalizables(lang: String, target: AnyClass) -> Bundle {
         let mainBundle = Bundle(for: target.self)
         guard let path = mainBundle.path(forResource: lang, ofType: ".lproj") else {

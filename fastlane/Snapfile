@@ -1,3 +1,5 @@
+ scheme("VLC for iOSUITests")
+
  devices([
    "iPhone 5s",
    "iPhone 6",
