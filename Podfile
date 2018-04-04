@@ -25,7 +25,9 @@ target 'VLC-iOS' do
   pod 'MediaLibraryKit-prod'
   pod 'MobileVLCKit', '3.0.2'
   pod 'GTMAppAuth'
-  pod 'SimulatorStatusMagic', :configurations => ['Debug']
+  target 'VLC for iOSUITests' do
+    pod 'SimulatorStatusMagic'
+  end
 end
 
 target 'VLC-tvOS' do

@@ -244,6 +244,7 @@
 		9BADAF45185FBD9D00108BD8 /* VLCFrostedGlasView.m in Sources */ = {isa = PBXBuildFile; fileRef = 9BADAF44185FBD9D00108BD8 /* VLCFrostedGlasView.m */; };
 		9BE4D1CE183D76950006346C /* VLCCloudStorageTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 7D3784B0183A990F009EE944 /* VLCCloudStorageTableViewCell.m */; };
 		A79246C8170F11DF0036AAF2 /* Localizable.strings in Resources */ = {isa = PBXBuildFile; fileRef = A79246C6170F11DF0036AAF2 /* Localizable.strings */; };
+		C91ABE4F469FB899168F35C0 /* libPods-VLC for iOSUITests.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 260624EB5BF9F1FBE58BF816 /* libPods-VLC for iOSUITests.a */; };
 		CAA0B0ED2072651000B9274E /* VLCiOSTestMenu.swift in Sources */ = {isa = PBXBuildFile; fileRef = CAF76D8F20709C4100E2AD7B /* VLCiOSTestMenu.swift */; };
 		CAA0B0EE2072651500B9274E /* SnapshotHelper.swift in Sources */ = {isa = PBXBuildFile; fileRef = CAF76D8D20709BE400E2AD7B /* SnapshotHelper.swift */; };
 		CAA0B0EF2072651800B9274E /* VLCiOSTestVideoCodecs.swift in Sources */ = {isa = PBXBuildFile; fileRef = CAF76D9120709C7000E2AD7B /* VLCiOSTestVideoCodecs.swift */; };
@@ -357,6 +358,7 @@
 		DDF908E01CF4E04A00108B70 /* VLCNetworkLoginDataSourceSavedLogins.m in Sources */ = {isa = PBXBuildFile; fileRef = DDF908DF1CF4E04A00108B70 /* VLCNetworkLoginDataSourceSavedLogins.m */; };
 		DDF908E41CFCD97400108B70 /* VLCNetworkLoginDataSourceProtocol.m in Sources */ = {isa = PBXBuildFile; fileRef = DDF908E31CFCD97400108B70 /* VLCNetworkLoginDataSourceProtocol.m */; };
 		E0C04F951A25B4410080331A /* VLCDocumentPickerController.m in Sources */ = {isa = PBXBuildFile; fileRef = E0C04F941A25B4410080331A /* VLCDocumentPickerController.m */; };
+		FBFA7376B199F363082AFE4A /* libPods-VLC-iOS-VLC for iOSUITests.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 31FB5C5DBFDA9DD74867E2D1 /* libPods-VLC-iOS-VLC for iOSUITests.a */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -459,18 +461,22 @@
 		018698905AC809BE4496D84D /* Pods-vlc-ios.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-vlc-ios.debug.xcconfig"; path = "Pods/Target Support Files/Pods-vlc-ios/Pods-vlc-ios.debug.xcconfig"; sourceTree = "<group>"; };
 		090F2933E962C424E9A80ABB /* Pods-VLC-iOS-no-watch.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-VLC-iOS-no-watch.release.xcconfig"; path = "Pods/Target Support Files/Pods-VLC-iOS-no-watch/Pods-VLC-iOS-no-watch.release.xcconfig"; sourceTree = "<group>"; };
 		1C7724AABC40B96010E01F65 /* Pods-VLC-iOS-no-watch.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-VLC-iOS-no-watch.debug.xcconfig"; path = "Pods/Target Support Files/Pods-VLC-iOS-no-watch/Pods-VLC-iOS-no-watch.debug.xcconfig"; sourceTree = "<group>"; };
+		260624EB5BF9F1FBE58BF816 /* libPods-VLC for iOSUITests.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-VLC for iOSUITests.a"; sourceTree = BUILT_PRODUCTS_DIR; };
 		268BDA7D1B4FE1E200D622DD /* backArrow_black.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = backArrow_black.png; path = ImportedSources/OneDrive/src/LiveSDK/Library/Internal/Resources/backArrow_black.png; sourceTree = SOURCE_ROOT; };
 		26F1BFCF1A770408001DF30C /* libMediaVLC.xml */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xml; path = libMediaVLC.xml; sourceTree = "<group>"; };
+		27E1FE5B2995E84315076C45 /* Pods-VLC-iOS-VLC for iOSUITests.distribution.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-VLC-iOS-VLC for iOSUITests.distribution.xcconfig"; path = "Pods/Target Support Files/Pods-VLC-iOS-VLC for iOSUITests/Pods-VLC-iOS-VLC for iOSUITests.distribution.xcconfig"; sourceTree = "<group>"; };
 		29125E5417492219003F03E5 /* index.html */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.html; path = index.html; sourceTree = "<group>"; };
 		2915544217490D4A00B86CAD /* Security.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Security.framework; path = System/Library/Frameworks/Security.framework; sourceTree = SDKROOT; };
 		2B1BC34A3BC4BCE7588BD68A /* Pods-VLC-tvOS.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-VLC-tvOS.release.xcconfig"; path = "Pods/Target Support Files/Pods-VLC-tvOS/Pods-VLC-tvOS.release.xcconfig"; sourceTree = "<group>"; };
 		2CD27DA5256F95F3B8594C53 /* Pods-VLC-watchOS-Extension.distribution.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-VLC-watchOS-Extension.distribution.xcconfig"; path = "Pods/Target Support Files/Pods-VLC-watchOS-Extension/Pods-VLC-watchOS-Extension.distribution.xcconfig"; sourceTree = "<group>"; };
 		31BBF816A2507AA02CD551A5 /* Pods-vlc-ios.distribution.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-vlc-ios.distribution.xcconfig"; path = "Pods/Target Support Files/Pods-vlc-ios/Pods-vlc-ios.distribution.xcconfig"; sourceTree = "<group>"; };
+		31FB5C5DBFDA9DD74867E2D1 /* libPods-VLC-iOS-VLC for iOSUITests.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-VLC-iOS-VLC for iOSUITests.a"; sourceTree = BUILT_PRODUCTS_DIR; };
 		34DC96A915665AE9EABD30E8 /* Pods-VLC-iOS-Debug.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-VLC-iOS-Debug.release.xcconfig"; path = "Pods/Target Support Files/Pods-VLC-iOS-Debug/Pods-VLC-iOS-Debug.release.xcconfig"; sourceTree = "<group>"; };
 		39DA271F3BEEFE045489B542 /* Pods-VLC-TV.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-VLC-TV.release.xcconfig"; path = "Pods/Target Support Files/Pods-VLC-TV/Pods-VLC-TV.release.xcconfig"; sourceTree = "<group>"; };
 		3B75A76DF6589FE678357D42 /* Pods-VLC-iOS.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-VLC-iOS.debug.xcconfig"; path = "Pods/Target Support Files/Pods-VLC-iOS/Pods-VLC-iOS.debug.xcconfig"; sourceTree = "<group>"; };
 		3C12F87F27BDCE3D0A58354E /* Pods-VLC-iOS-no-watch-Debug.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-VLC-iOS-no-watch-Debug.debug.xcconfig"; path = "Pods/Target Support Files/Pods-VLC-iOS-no-watch-Debug/Pods-VLC-iOS-no-watch-Debug.debug.xcconfig"; sourceTree = "<group>"; };
 		3DD533B1D45EEA70099433D8 /* libPods-VLC-iOS-no-watch.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-VLC-iOS-no-watch.a"; sourceTree = BUILT_PRODUCTS_DIR; };
+		3F75F8B10E83F8F1DD9FD11D /* Pods-VLC for iOSUITests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-VLC for iOSUITests.release.xcconfig"; path = "Pods/Target Support Files/Pods-VLC for iOSUITests/Pods-VLC for iOSUITests.release.xcconfig"; sourceTree = "<group>"; };
 		402E6F0E5362B530B7909338 /* libPods-VLC-iOS.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-VLC-iOS.a"; sourceTree = BUILT_PRODUCTS_DIR; };
 		41251ECB1FD0C5C100099110 /* VLC-iOS-Bridging-Header.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "VLC-iOS-Bridging-Header.h"; sourceTree = SOURCE_ROOT; };
 		41251ECE1FD0CF7900099110 /* AppCoordinator.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = AppCoordinator.swift; path = SharedSources/Coordinators/AppCoordinator.swift; sourceTree = SOURCE_ROOT; };
@@ -581,6 +587,7 @@
 		7AC8629F1765E90C0011611A /* jquery.fileupload.js */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.javascript; path = jquery.fileupload.js; sourceTree = "<group>"; };
 		7AC862A01765E90C0011611A /* jquery.iframe-transport.js */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.javascript; path = "jquery.iframe-transport.js"; sourceTree = "<group>"; };
 		7AC862A11765E90C0011611A /* jquery.ui.widget.js */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.javascript; path = jquery.ui.widget.js; sourceTree = "<group>"; };
+		7B32CB1592DF0DB485E7D8F7 /* Pods-VLC for iOSUITests.distribution.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-VLC for iOSUITests.distribution.xcconfig"; path = "Pods/Target Support Files/Pods-VLC for iOSUITests/Pods-VLC for iOSUITests.distribution.xcconfig"; sourceTree = "<group>"; };
 		7D00161A17704DAC00649F27 /* main.js */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.javascript; path = main.js; sourceTree = "<group>"; };
 		7D0117F0187F4BA400C5671C /* VLCFirstStepsFirstPageViewController~ipad.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; name = "VLCFirstStepsFirstPageViewController~ipad.xib"; path = "Resources/VLCFirstStepsFirstPageViewController~ipad.xib"; sourceTree = SOURCE_ROOT; };
 		7D0363A81B2F325500CC0343 /* MediaLibrary-2.1.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = "MediaLibrary-2.1.xcdatamodel"; sourceTree = "<group>"; };
@@ -943,8 +950,10 @@
 		A7924695170F0BA90036AAF2 /* libMediaLibraryKit.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; name = libMediaLibraryKit.a; path = External/MediaLibraryKit/libMediaLibraryKit.a; sourceTree = "<group>"; };
 		A79246C7170F11DF0036AAF2 /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; lineEnding = 0; name = en; path = en.lproj/Localizable.strings; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = xcode.lang.simpleColoring; };
 		A79246C9170F11E40036AAF2 /* ru */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = ru; path = ru.lproj/Localizable.strings; sourceTree = "<group>"; };
+		A945E02675B76197DEFE0486 /* Pods-VLC-iOS-VLC for iOSUITests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-VLC-iOS-VLC for iOSUITests.debug.xcconfig"; path = "Pods/Target Support Files/Pods-VLC-iOS-VLC for iOSUITests/Pods-VLC-iOS-VLC for iOSUITests.debug.xcconfig"; sourceTree = "<group>"; };
 		AC40202FFE42CEDCEB37E50D /* Pods-VLC-tvOS.distribution.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-VLC-tvOS.distribution.xcconfig"; path = "Pods/Target Support Files/Pods-VLC-tvOS/Pods-VLC-tvOS.distribution.xcconfig"; sourceTree = "<group>"; };
 		C6872E7B396534F3DAF4E48F /* Pods-VLC-iOS.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-VLC-iOS.release.xcconfig"; path = "Pods/Target Support Files/Pods-VLC-iOS/Pods-VLC-iOS.release.xcconfig"; sourceTree = "<group>"; };
+		CA6FB8222074601900FC9BF2 /* VLC-iOSUITest-Bridging-Header.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "VLC-iOSUITest-Bridging-Header.h"; sourceTree = "<group>"; };
 		CAA0B0F620726A0E00B9274E /* TestHelper.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TestHelper.swift; sourceTree = "<group>"; };
 		CAF76D8D20709BE400E2AD7B /* SnapshotHelper.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = SnapshotHelper.swift; path = fastlane/SnapshotHelper.swift; sourceTree = SOURCE_ROOT; };
 		CAF76D8F20709C4100E2AD7B /* VLCiOSTestMenu.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = VLCiOSTestMenu.swift; sourceTree = "<group>"; };
@@ -972,6 +981,7 @@
 		D2711C77E8DF23DB7347ADC9 /* Pods-VLC-watchOS-Extension.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-VLC-watchOS-Extension.release.xcconfig"; path = "Pods/Target Support Files/Pods-VLC-watchOS-Extension/Pods-VLC-watchOS-Extension.release.xcconfig"; sourceTree = "<group>"; };
 		D6E034EB1CC284FC0037F516 /* VLCStreamingHistoryCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = VLCStreamingHistoryCell.h; path = Sources/VLCStreamingHistoryCell.h; sourceTree = SOURCE_ROOT; };
 		D6E034EC1CC284FC0037F516 /* VLCStreamingHistoryCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = VLCStreamingHistoryCell.m; path = Sources/VLCStreamingHistoryCell.m; sourceTree = SOURCE_ROOT; };
+		DBC5BA0F8557B462B1A1DF71 /* Pods-VLC for iOSUITests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-VLC for iOSUITests.debug.xcconfig"; path = "Pods/Target Support Files/Pods-VLC for iOSUITests/Pods-VLC for iOSUITests.debug.xcconfig"; sourceTree = "<group>"; };
 		DD13A3791BEE2FAA00A35554 /* VLCMaskView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = VLCMaskView.h; path = "UI Elements/VLCMaskView.h"; sourceTree = "<group>"; };
 		DD13A37A1BEE2FAA00A35554 /* VLCMaskView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = VLCMaskView.m; path = "UI Elements/VLCMaskView.m"; sourceTree = "<group>"; };
 		DD1B31F11BF637D500A369B6 /* VLCPlaybackInfoTracksTVViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = VLCPlaybackInfoTracksTVViewController.h; sourceTree = "<group>"; };
@@ -1121,6 +1131,7 @@
 		E0C04F931A25B4410080331A /* VLCDocumentPickerController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = VLCDocumentPickerController.h; path = Sources/VLCDocumentPickerController.h; sourceTree = SOURCE_ROOT; };
 		E0C04F941A25B4410080331A /* VLCDocumentPickerController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = VLCDocumentPickerController.m; path = Sources/VLCDocumentPickerController.m; sourceTree = SOURCE_ROOT; };
 		E579A52AEDA803047C751011 /* Pods-VLC-iOS-no-watch-Debug.distribution.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-VLC-iOS-no-watch-Debug.distribution.xcconfig"; path = "Pods/Target Support Files/Pods-VLC-iOS-no-watch-Debug/Pods-VLC-iOS-no-watch-Debug.distribution.xcconfig"; sourceTree = "<group>"; };
+		E8DB9015F858FF86D1419F2C /* Pods-VLC-iOS-VLC for iOSUITests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-VLC-iOS-VLC for iOSUITests.release.xcconfig"; path = "Pods/Target Support Files/Pods-VLC-iOS-VLC for iOSUITests/Pods-VLC-iOS-VLC for iOSUITests.release.xcconfig"; sourceTree = "<group>"; };
 		EA4CCE915F660D75AB23F0E7 /* Pods-VLC-iOS-Debug.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-VLC-iOS-Debug.debug.xcconfig"; path = "Pods/Target Support Files/Pods-VLC-iOS-Debug/Pods-VLC-iOS-Debug.debug.xcconfig"; sourceTree = "<group>"; };
 		F25DF68DCD1A8FA89D1933B3 /* Pods-VLC-tvOS.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-VLC-tvOS.debug.xcconfig"; path = "Pods/Target Support Files/Pods-VLC-tvOS/Pods-VLC-tvOS.debug.xcconfig"; sourceTree = "<group>"; };
 		F99C6A3A1B6B1C77D41D4172 /* Pods-VLC-tvOS-Debug.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-VLC-tvOS-Debug.release.xcconfig"; path = "Pods/Target Support Files/Pods-VLC-tvOS-Debug/Pods-VLC-tvOS-Debug.release.xcconfig"; sourceTree = "<group>"; };
@@ -1133,6 +1144,8 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				C91ABE4F469FB899168F35C0 /* libPods-VLC for iOSUITests.a in Frameworks */,
+				FBFA7376B199F363082AFE4A /* libPods-VLC-iOS-VLC for iOSUITests.a in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -1241,6 +1254,7 @@
 				CAF76D9120709C7000E2AD7B /* VLCiOSTestVideoCodecs.swift */,
 				CAA0B0F620726A0E00B9274E /* TestHelper.swift */,
 				CAF76D9320709C9500E2AD7B /* XCUIElement+Helpers.swift */,
+				CA6FB8222074601900FC9BF2 /* VLC-iOSUITest-Bridging-Header.h */,
 			);
 			path = "VLC for iOSUITests";
 			sourceTree = "<group>";
@@ -1699,6 +1713,8 @@
 				FE1DEC7096649D63A308D86C /* libPods-VLC-tvOS.a */,
 				6FB3C4D1992DBF2B53F985CE /* libPods-VLC-tvOS-Debug.a */,
 				FF73F10D7535681155A87975 /* libPods-VLC-watchOS.a */,
+				260624EB5BF9F1FBE58BF816 /* libPods-VLC for iOSUITests.a */,
+				31FB5C5DBFDA9DD74867E2D1 /* libPods-VLC-iOS-VLC for iOSUITests.a */,
 			);
 			name = Frameworks;
 			sourceTree = "<group>";
@@ -2095,6 +2111,12 @@
 				4EB2A836EBC6DE6E89855975 /* Pods-VLC-watchOS-Extension.debug.xcconfig */,
 				D2711C77E8DF23DB7347ADC9 /* Pods-VLC-watchOS-Extension.release.xcconfig */,
 				2CD27DA5256F95F3B8594C53 /* Pods-VLC-watchOS-Extension.distribution.xcconfig */,
+				DBC5BA0F8557B462B1A1DF71 /* Pods-VLC for iOSUITests.debug.xcconfig */,
+				3F75F8B10E83F8F1DD9FD11D /* Pods-VLC for iOSUITests.release.xcconfig */,
+				7B32CB1592DF0DB485E7D8F7 /* Pods-VLC for iOSUITests.distribution.xcconfig */,
+				A945E02675B76197DEFE0486 /* Pods-VLC-iOS-VLC for iOSUITests.debug.xcconfig */,
+				E8DB9015F858FF86D1419F2C /* Pods-VLC-iOS-VLC for iOSUITests.release.xcconfig */,
+				27E1FE5B2995E84315076C45 /* Pods-VLC-iOS-VLC for iOSUITests.distribution.xcconfig */,
 			);
 			name = Pods;
 			sourceTree = "<group>";
@@ -2387,9 +2409,12 @@
 			isa = PBXNativeTarget;
 			buildConfigurationList = 41B0BC901F73ED7D0063BA26 /* Build configuration list for PBXNativeTarget "VLC for iOSUITests" */;
 			buildPhases = (
+				01B87BDF6C0149CEE5DF21FA /* [CP] Check Pods Manifest.lock */,
 				41B0BC821F73ED7D0063BA26 /* Sources */,
 				41B0BC831F73ED7D0063BA26 /* Frameworks */,
 				41B0BC841F73ED7D0063BA26 /* Resources */,
+				44F337CA2691C62D5F99325D /* [CP] Embed Pods Frameworks */,
+				D769DE60C2006D222216D63D /* [CP] Copy Pods Resources */,
 			);
 			buildRules = (
 			);
@@ -2748,6 +2773,24 @@
 /* End PBXResourcesBuildPhase section */
 
 /* Begin PBXShellScriptBuildPhase section */
+		01B87BDF6C0149CEE5DF21FA /* [CP] Check Pods Manifest.lock */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+				"${PODS_PODFILE_DIR_PATH}/Podfile.lock",
+				"${PODS_ROOT}/Manifest.lock",
+			);
+			name = "[CP] Check Pods Manifest.lock";
+			outputPaths = (
+				"$(DERIVED_FILE_DIR)/Pods-VLC-iOS-VLC for iOSUITests-checkManifestLockResult.txt",
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "diff \"${PODS_PODFILE_DIR_PATH}/Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n# This output is used by Xcode 'outputs' to avoid re-running this script phase.\necho \"SUCCESS\" > \"${SCRIPT_OUTPUT_FILE_0}\"\n";
+			showEnvVarsInLog = 0;
+		};
 		0452CD613294910CB73B58CB /* [CP] Copy Pods Resources */ = {
 			isa = PBXShellScriptBuildPhase;
 			buildActionMask = 2147483647;
@@ -2815,6 +2858,21 @@
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
 			shellScript = "python Tools/update_strings.py Resources/en.lproj/Localizable.strings";
+		};
+		44F337CA2691C62D5F99325D /* [CP] Embed Pods Frameworks */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+			);
+			name = "[CP] Embed Pods Frameworks";
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods-VLC-iOS-VLC for iOSUITests/Pods-VLC-iOS-VLC for iOSUITests-frameworks.sh\"\n";
+			showEnvVarsInLog = 0;
 		};
 		50F88350D33999B9CF48A5E2 /* [CP] Embed Pods Frameworks */ = {
 			isa = PBXShellScriptBuildPhase;
@@ -2909,11 +2967,68 @@
 			shellScript = "diff \"${PODS_PODFILE_DIR_PATH}/Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n# This output is used by Xcode 'outputs' to avoid re-running this script phase.\necho \"SUCCESS\" > \"${SCRIPT_OUTPUT_FILE_0}\"\n";
 			showEnvVarsInLog = 0;
 		};
-/* End PBXShellScriptBuildPhase section */
-
-/* Begin PBXSourcesBuildPhase section */
-		41B0BC821F73ED7D0063BA26 /* Sources */ = {
-			isa = PBXSourcesBuildPhase;
+		D769DE60C2006D222216D63D /* [CP] Copy Pods Resources */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+				"${SRCROOT}/Pods/Target Support Files/Pods-VLC-iOS-VLC for iOSUITests/Pods-VLC-iOS-VLC for iOSUITests-resources.sh",
+				"${PODS_CONFIGURATION_BUILD_DIR}/HockeySDK/HockeySDKResources.bundle",
+				"${PODS_ROOT}/InAppSettingsKit/InAppSettingsKit/Resources/Base.lproj",
+				"${PODS_ROOT}/InAppSettingsKit/InAppSettingsKit/Resources/de.lproj",
+				"${PODS_ROOT}/InAppSettingsKit/InAppSettingsKit/Resources/el.lproj",
+				"${PODS_ROOT}/InAppSettingsKit/InAppSettingsKit/Resources/en.lproj",
+				"${PODS_ROOT}/InAppSettingsKit/InAppSettingsKit/Resources/es.lproj",
+				"${PODS_ROOT}/InAppSettingsKit/InAppSettingsKit/Resources/fr.lproj",
+				"${PODS_ROOT}/InAppSettingsKit/InAppSettingsKit/Resources/it.lproj",
+				"${PODS_ROOT}/InAppSettingsKit/InAppSettingsKit/Resources/ja.lproj",
+				"${PODS_ROOT}/InAppSettingsKit/InAppSettingsKit/Resources/nl.lproj",
+				"${PODS_ROOT}/InAppSettingsKit/InAppSettingsKit/Resources/pt-PT.lproj",
+				"${PODS_ROOT}/InAppSettingsKit/InAppSettingsKit/Resources/pt.lproj",
+				"${PODS_ROOT}/InAppSettingsKit/InAppSettingsKit/Resources/ru.lproj",
+				"${PODS_ROOT}/InAppSettingsKit/InAppSettingsKit/Resources/sv.lproj",
+				"${PODS_ROOT}/InAppSettingsKit/InAppSettingsKit/Resources/th.lproj",
+				"${PODS_ROOT}/InAppSettingsKit/InAppSettingsKit/Resources/tr.lproj",
+				"${PODS_ROOT}/MediaLibraryKit-prod/MappingModel_2_5_to_2_6.xcmappingmodel",
+				"${PODS_ROOT}/MediaLibraryKit-prod/MediaLibrary.xcdatamodeld",
+				"${PODS_ROOT}/VLC-LiveSDK/src/LiveSDK/Library/Internal/Resources/backArrow_black.png",
+				"${PODS_ROOT}/VLC-LiveSDK/src/LiveSDK/Library/Internal/LiveAuthDialog_iPad.xib",
+				"${PODS_ROOT}/VLC-LiveSDK/src/LiveSDK/Library/Internal/LiveAuthDialog_iPhone.xib",
+				"${PODS_CONFIGURATION_BUILD_DIR}/XKKeychain-iOS/XKKeychain.bundle",
+			);
+			name = "[CP] Copy Pods Resources";
+			outputPaths = (
+				"${TARGET_BUILD_DIR}/${UNLOCALIZED_RESOURCES_FOLDER_PATH}/HockeySDKResources.bundle",
+				"${TARGET_BUILD_DIR}/${UNLOCALIZED_RESOURCES_FOLDER_PATH}/Base.lproj",
+				"${TARGET_BUILD_DIR}/${UNLOCALIZED_RESOURCES_FOLDER_PATH}/de.lproj",
+				"${TARGET_BUILD_DIR}/${UNLOCALIZED_RESOURCES_FOLDER_PATH}/el.lproj",
+				"${TARGET_BUILD_DIR}/${UNLOCALIZED_RESOURCES_FOLDER_PATH}/en.lproj",
+				"${TARGET_BUILD_DIR}/${UNLOCALIZED_RESOURCES_FOLDER_PATH}/es.lproj",
+				"${TARGET_BUILD_DIR}/${UNLOCALIZED_RESOURCES_FOLDER_PATH}/fr.lproj",
+				"${TARGET_BUILD_DIR}/${UNLOCALIZED_RESOURCES_FOLDER_PATH}/it.lproj",
+				"${TARGET_BUILD_DIR}/${UNLOCALIZED_RESOURCES_FOLDER_PATH}/ja.lproj",
+				"${TARGET_BUILD_DIR}/${UNLOCALIZED_RESOURCES_FOLDER_PATH}/nl.lproj",
+				"${TARGET_BUILD_DIR}/${UNLOCALIZED_RESOURCES_FOLDER_PATH}/pt-PT.lproj",
+				"${TARGET_BUILD_DIR}/${UNLOCALIZED_RESOURCES_FOLDER_PATH}/pt.lproj",
+				"${TARGET_BUILD_DIR}/${UNLOCALIZED_RESOURCES_FOLDER_PATH}/ru.lproj",
+				"${TARGET_BUILD_DIR}/${UNLOCALIZED_RESOURCES_FOLDER_PATH}/sv.lproj",
+				"${TARGET_BUILD_DIR}/${UNLOCALIZED_RESOURCES_FOLDER_PATH}/th.lproj",
+				"${TARGET_BUILD_DIR}/${UNLOCALIZED_RESOURCES_FOLDER_PATH}/tr.lproj",
+				"${TARGET_BUILD_DIR}/${UNLOCALIZED_RESOURCES_FOLDER_PATH}/MappingModel_2_5_to_2_6.cdm",
+				"${TARGET_BUILD_DIR}/${UNLOCALIZED_RESOURCES_FOLDER_PATH}/MediaLibrary.momd",
+				"${TARGET_BUILD_DIR}/${UNLOCALIZED_RESOURCES_FOLDER_PATH}/backArrow_black.png",
+				"${TARGET_BUILD_DIR}/${UNLOCALIZED_RESOURCES_FOLDER_PATH}/LiveAuthDialog_iPad.nib",
+				"${TARGET_BUILD_DIR}/${UNLOCALIZED_RESOURCES_FOLDER_PATH}/LiveAuthDialog_iPhone.nib",
+				"${TARGET_BUILD_DIR}/${UNLOCALIZED_RESOURCES_FOLDER_PATH}/XKKeychain.bundle",
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods-VLC-iOS-VLC for iOSUITests/Pods-VLC-iOS-VLC for iOSUITests-resources.sh\"\n";
+			showEnvVarsInLog = 0;
+		};
+		E83630DE168FA377CB2B8C84 /* [CP] Copy Pods Resources */ = {
+			isa = PBXShellScriptBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
 				4187112B1F78F87200317B1A /* VLC_for_iOSTestVideoCodecs.m in Sources */,
@@ -3311,6 +3426,7 @@
 /* Begin XCBuildConfiguration section */
 		41B0BC8D1F73ED7D0063BA26 /* Debug */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = A945E02675B76197DEFE0486 /* Pods-VLC-iOS-VLC for iOSUITests.debug.xcconfig */;
 			buildSettings = {
 				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
 				CLANG_ANALYZER_NONNULL = YES;
@@ -3351,6 +3467,8 @@
 				MTL_ENABLE_DEBUG_INFO = YES;
 				PRODUCT_BUNDLE_IDENTIFIER = "org.example.com.VLC-for-iOSUITests";
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_OBJC_BRIDGING_HEADER = "VLC for iOSUITests/VLC-iOSUITest-Bridging-Header.h";
+				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
 				TARGETED_DEVICE_FAMILY = "1,2";
 				TEST_TARGET_NAME = "VLC-iOS";
 			};
@@ -3358,6 +3476,7 @@
 		};
 		41B0BC8E1F73ED7D0063BA26 /* Release */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = E8DB9015F858FF86D1419F2C /* Pods-VLC-iOS-VLC for iOSUITests.release.xcconfig */;
 			buildSettings = {
 				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
 				CLANG_ANALYZER_NONNULL = YES;
@@ -3399,6 +3518,8 @@
 				MTL_ENABLE_DEBUG_INFO = NO;
 				PRODUCT_BUNDLE_IDENTIFIER = "org.example.com.VLC-for-iOSUITests";
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_OBJC_BRIDGING_HEADER = "VLC for iOSUITests/VLC-iOSUITest-Bridging-Header.h";
+				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
 				TARGETED_DEVICE_FAMILY = "1,2";
 				TEST_TARGET_NAME = "VLC-iOS";
 			};
@@ -3406,6 +3527,7 @@
 		};
 		41B0BC8F1F73ED7D0063BA26 /* Distribution */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = 27E1FE5B2995E84315076C45 /* Pods-VLC-iOS-VLC for iOSUITests.distribution.xcconfig */;
 			buildSettings = {
 				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
 				CLANG_ANALYZER_NONNULL = YES;
@@ -3447,6 +3569,8 @@
 				MTL_ENABLE_DEBUG_INFO = NO;
 				PRODUCT_BUNDLE_IDENTIFIER = "org.example.com.VLC-for-iOSUITests";
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_OBJC_BRIDGING_HEADER = "VLC for iOSUITests/VLC-iOSUITest-Bridging-Header.h";
+				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
 				TARGETED_DEVICE_FAMILY = "1,2";
 				TEST_TARGET_NAME = "VLC-iOS";
 			};

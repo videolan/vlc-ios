@@ -49,9 +49,9 @@ PODS:
     - AFNetworking
     - xmlrpc
   - PAPasscode (1.0)
+  - SimulatorStatusMagic (2.1)
   - SwiftLint (0.25.0)
   - TVVLCKit (3.0.2)
-  - SimulatorStatusMagic (2.1)
   - upnpx (1.4.0)
   - VLC-LiveSDK (5.7.0x)
   - VLC-LXReorderableCollectionViewFlowLayout (0.1.3v)
@@ -76,9 +76,9 @@ DEPENDENCIES:
   - OBSlider (= 1.1.0)
   - OROpenSubtitleDownloader (from `https://github.com/orta/OROpenSubtitleDownloader.git`, commit `0509eac2`)
   - PAPasscode (~> 1.0)
+  - SimulatorStatusMagic
   - SwiftLint (~> 0.25.0)
   - TVVLCKit (= 3.0.2)
-  - SimulatorStatusMagic
   - upnpx (~> 1.4.0)
   - VLC-LiveSDK (= 5.7.0x)
   - VLC-LXReorderableCollectionViewFlowLayout (= 0.1.3v)
@@ -136,9 +136,9 @@ SPEC CHECKSUMS:
   OBSlider: 490f108007bfdd5414a38650b211fe403a95b8a0
   OROpenSubtitleDownloader: 154b8c08acbf8836b77ac259018dc8b5baef907e
   PAPasscode: b408fb87c530cad58a554e26482e87dbb14b7bc2
+  SimulatorStatusMagic: 481558caf2b9ccb2ceba2cc193728d4db3dcac07
   SwiftLint: e14651157288e9e01d6e1a71db7014fb5744a8ea
   TVVLCKit: 178e4f82f8b57320774821384e42eaac403d2faa
-  SimulatorStatusMagic: 481558caf2b9ccb2ceba2cc193728d4db3dcac07
   upnpx: c695b99229e08154d23abe5c252cb64f1600f35d
   VLC-LiveSDK: c9566a9edde968f969138f84cfd40b540a109b3f
   VLC-LXReorderableCollectionViewFlowLayout: 0204946967b746ca183835e854826290be06e2f4
@@ -146,6 +146,6 @@ SPEC CHECKSUMS:
   XKKeychain: 852ef663c56a7194c73d3c68e8d9d4f07b121d4f
   xmlrpc: 109bb21d15ed6d108b2c1ac5973a6a223a50f5f4
 
-PODFILE CHECKSUM: 1db4a441715ef12947bbe7bfdcfdbb86d52919fb
+PODFILE CHECKSUM: 370bc7ee6bd5a15fdfe602027f7e63241e8d1c1a
 
 COCOAPODS: 1.4.0

@@ -35,7 +35,6 @@
 #import "VLCPlaybackNavigationController.h"
 #import "PAPasscodeViewController.h"
 #import "VLC_iOS-Swift.h"
-#import "SDStatusBarManager.h"
 
 NSString *const VLCDropboxSessionWasAuthorized = @"VLCDropboxSessionWasAuthorized";
 
@@ -56,9 +55,6 @@ NSString *const VLCDropboxSessionWasAuthorized = @"VLCDropboxSessionWasAuthorize
 
 + (void)initialize
 {
-#if DEBUG
-    [[SDStatusBarManager sharedInstance] enableOverrides];
-#endif
     NSUserDefaults *defaults = [NSUserDefaults standardUserDefaults];
 
     NSDictionary *appDefaults = @{kVLCSettingPasscodeAllowFaceID : @(1),

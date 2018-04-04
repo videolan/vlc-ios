@@ -19,11 +19,14 @@ class VLCiOSTestVideoCodecs: XCTestCase {
     
     override func setUp() {
         super.setUp()
-
-        XCUIDevice.shared.orientation = .portrait
-        setupSnapshot(app)
+        
+        TestHelper.prepare(app)
         helper = TestHelper(lang: deviceLanguage, target: VLCiOSTestVideoCodecs.self)
         app.launch()
+    }
+    
+    override func tearDown() {
+        SDStatusBarManager.sharedInstance().disableOverrides()
     }
 
     func testDownload() {
