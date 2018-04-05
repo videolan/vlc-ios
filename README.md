@@ -1,4 +1,10 @@
-# VLC for iOS & tvOS
+<h3 align="center">
+  <a href="https://www.videolan.org/images/vlc-ios/readme_banner.png">
+  <img src="https://www.videolan.org/images/vlc-ios/readme_banner.png?raw=true" alt="VLC-iOS banner">
+  </a>
+</h3>
+
+#
 
 This is the official mirror repository of VLC for iOS and tvOS application.
 
