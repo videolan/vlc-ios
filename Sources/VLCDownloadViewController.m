@@ -74,6 +74,7 @@ typedef NS_ENUM(NSUInteger, VLCDownloadScheme) {
     [super viewDidLoad];
 
     [self.downloadButton setTitle:NSLocalizedString(@"BUTTON_DOWNLOAD", nil) forState:UIControlStateNormal];
+    [self.downloadButton setAccessibilityIdentifier:@"Download"];
     self.whatToDownloadHelpLabel.text = [NSString stringWithFormat:NSLocalizedString(@"DOWNLOAD_FROM_HTTP_HELP", nil), [[UIDevice currentDevice] model]];
     self.urlField.delegate = self;
     self.urlField.keyboardType = UIKeyboardTypeURL;

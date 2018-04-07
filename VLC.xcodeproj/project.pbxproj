@@ -244,7 +244,6 @@
 		9BADAF45185FBD9D00108BD8 /* VLCFrostedGlasView.m in Sources */ = {isa = PBXBuildFile; fileRef = 9BADAF44185FBD9D00108BD8 /* VLCFrostedGlasView.m */; };
 		9BE4D1CE183D76950006346C /* VLCCloudStorageTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 7D3784B0183A990F009EE944 /* VLCCloudStorageTableViewCell.m */; };
 		A79246C8170F11DF0036AAF2 /* Localizable.strings in Resources */ = {isa = PBXBuildFile; fileRef = A79246C6170F11DF0036AAF2 /* Localizable.strings */; };
-		C91ABE4F469FB899168F35C0 /* libPods-VLC for iOSUITests.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 260624EB5BF9F1FBE58BF816 /* libPods-VLC for iOSUITests.a */; };
 		CAA0B0ED2072651000B9274E /* VLCiOSTestMenu.swift in Sources */ = {isa = PBXBuildFile; fileRef = CAF76D8F20709C4100E2AD7B /* VLCiOSTestMenu.swift */; };
 		CAA0B0EF2072651800B9274E /* VLCiOSTestVideoCodecs.swift in Sources */ = {isa = PBXBuildFile; fileRef = CAF76D9120709C7000E2AD7B /* VLCiOSTestVideoCodecs.swift */; };
 		CAA0B0F02072651A00B9274E /* XCUIElement+Helpers.swift in Sources */ = {isa = PBXBuildFile; fileRef = CAF76D9320709C9500E2AD7B /* XCUIElement+Helpers.swift */; };
@@ -1146,7 +1145,6 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				C91ABE4F469FB899168F35C0 /* libPods-VLC for iOSUITests.a in Frameworks */,
 				FBFA7376B199F363082AFE4A /* libPods-VLC-iOS-VLC for iOSUITests.a in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

@@ -22,7 +22,7 @@ class VLCiOSTestVideoCodecs: XCTestCase {
         
         XCUIDevice.shared.orientation = .portrait
         setupSnapshot(app)
-        helper = TestHelper(lang: deviceLanguage, target: VLCiOSTestVideoCodecs.self)
+        helper = TestHelper(app)
         setupSnapshot(app)
         app.launch()
     }
@@ -44,12 +44,11 @@ class VLCiOSTestVideoCodecs: XCTestCase {
     }
 
     func stream(named fileName: String) {
-        let stream = helper.localized(key: "OPEN_NETWORK")
-        helper.tap(tabDescription: stream, app: app)
+        helper.tap(.Stream)
 
         let addressTextField = app.textFields["http://myserver.com/file.mkv"]
         addressTextField.clearAndEnter(text: fileName)
-        app.otherElements.children(matching: .button)[helper.localized(key: "OPEN_NETWORK")].tap()
+        app.buttons["Open Network Stream"].tap()
         
         let displayTime = app.navigationBars["VLCMovieView"].buttons["--:--"]
         let zeroPredicate = NSPredicate(format: "exists == 0")
@@ -57,10 +56,10 @@ class VLCiOSTestVideoCodecs: XCTestCase {
 
         waitForExpectations(timeout: 20.0) { err in
             XCTAssertNil(err)
-            if !(self.app.buttons[self.helper.localized(key: "BUTTON_DONE")].exists) {
-                self.app.otherElements[self.helper.localized(key: "VO_VIDEOPLAYER_TITLE")].tap()
+            if !(self.app.buttons["Done"].exists) {
+                self.app.otherElements["Video Player Title"].tap()
             }
-            let playPause = self.app.buttons[self.helper.localized(key: "PLAY_PAUSE_BUTTON")]
+            let playPause = self.app.buttons["Play Pause"]
             let onePredicate = NSPredicate(format: "exists == 1")
             self.expectation(for: onePredicate, evaluatedWith: playPause, handler: nil)
             self.waitForExpectations(timeout: 20.0, handler: nil)

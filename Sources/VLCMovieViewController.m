@@ -204,6 +204,7 @@ typedef NS_ENUM(NSInteger, VLCPanType) {
     rect.origin.y = rect.origin.y + 5.;
     self.resetVideoFilterButton.frame = rect;
 
+    [self.movieView setAccessibilityIdentifier:@"Video Player Title"];
     [self.movieView setAccessibilityLabel:NSLocalizedString(@"VO_VIDEOPLAYER_TITLE", nil)];
     [self.movieView setAccessibilityHint:NSLocalizedString(@"VO_VIDEOPLAYER_DOUBLETAP", nil)];
 
@@ -356,6 +357,7 @@ typedef NS_ENUM(NSInteger, VLCPanType) {
 {
     //Needs to be a UIButton since we need it to work with constraints
     _doneButton = [[UIButton alloc] initWithFrame:CGRectZero];
+    [_doneButton setAccessibilityIdentifier:@"Done"];
     [_doneButton addTarget:self action:@selector(closePlayback:) forControlEvents:UIControlEventTouchUpInside];
     [_doneButton setTitle:NSLocalizedString(@"BUTTON_DONE", nil) forState:UIControlStateNormal];
     [_doneButton setTitleColor:[UIColor grayColor] forState:UIControlStateDisabled];

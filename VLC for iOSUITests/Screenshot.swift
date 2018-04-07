@@ -23,7 +23,7 @@ class Screenshot: XCTestCase {
         XCUIDevice.shared.orientation = .portrait
         SDStatusBarManager.sharedInstance().enableOverrides()
         setupSnapshot(app)
-        helper = TestHelper(lang: deviceLanguage, target: VLCiOSTestMenu.self)
+        helper = TestHelper(app)
         
         app.launch()
     }
@@ -34,37 +34,34 @@ class Screenshot: XCTestCase {
     
     func testCaptureVideoPlayback() {
         download(name: "http://jell.yfish.us/media/jellyfish-10-mbps-hd-h264.mkv")
-        helper.tap(tabDescription: "Video", app: app)
+        helper.tap(.Video)
         app.collectionViews.cells.element(boundBy: 0).tap()
-        app.navigationBars["VLCMovieView"].buttons[helper.localized(key: "VIDEO_ASPECT_RATIO_BUTTON")].tap()
+        XCUIDevice.shared.orientation = .landscapeLeft
         
         snapshot("playback")
     }
     
     func testCaptureAudioTab() {
-        let audio = helper.localized(key: "AUDIO")
-        helper.tap(tabDescription: audio, app: app)
+        helper.tap(.Audio)
         snapshot("audio_tab")
     }
     
     func testCaptureNetworkTab() {
-        let localNetwork = helper.localized(key: "LOCAL_NETWORK")
-        helper.tap(tabDescription: localNetwork, app: app)
+        helper.tap(.Server)
         snapshot("network_tab")
     }
     
     func testCaptureVideoTab() {
-        helper.tap(tabDescription: "Video", app: app)
+        helper.tap(.Video)
         snapshot("video_tab")
     }
     
     func download(name fileName: String) {
-        let download = helper.localized(key: "DOWNLOAD_FROM_HTTP")
-        helper.tap(tabDescription: download, app: app)
+        helper.tap(.Downloads)
         
         let downloadTextfield = app.textFields["http://myserver.com/file.mkv"]
         downloadTextfield.clearAndEnter(text: fileName)
-        app.buttons[helper.localized(key: "BUTTON_DOWNLOAD")].tap()
+        app.buttons["Download"].tap()
         
         let cancelDownloadButton = app.buttons["flatDeleteButton"]
         let predicate = NSPredicate(format: "exists == 0")

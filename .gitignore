@@ -1,19 +1,18 @@
 # Xcode
+*.mode*
+*.pbxuser
 xcuserdata
 *.xccheckout
-*.pbxuser
-*.mode*
 
 # macOS
 .DS_Store
 
 # Fastlane
-fastlane/report.xml
 fastlane/Preview.html
-fastlane/test_output
-
+fastlane/report.xml
 fastlane/screenshots/*/*.png
 fastlane/screenshots/screenshots.html
+fastlane/test_output
 
 # CocoaPods
 Pods
@@ -22,9 +21,9 @@ Pods
 0001-privateConstants.patch
 
 # Others
-!Makefile
 build
+DerivedData
 External
 ImportedSources
-DerivedData
+!Makefile
 

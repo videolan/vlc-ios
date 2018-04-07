@@ -13,44 +13,19 @@
 import Foundation
 import XCTest
 
-struct TestHelper {
-    let localizationBundle: Bundle
-
-    init(lang: String, target: AnyClass) {
-        localizationBundle = TestHelper.loadLocalizables(lang: lang, target: target)
-    }
-
-    func localized(key: String) -> String {
-        return NSLocalizedString(key, bundle: localizationBundle, comment: "")
-    }
-    
-    func tap(tabDescription: String, app: XCUIApplication) {
-        let target = app.tabBars.buttons.element(matching: .button, identifier: tabDescription)
-        
-        if target.exists {
-            target.tap()
-        } else if app.tabBars.buttons.count == 5 {
-            // 5 tabBar buttons for iPhone
-            let moreTab = app.tabBars.buttons.element(boundBy: 4)
-            moreTab.tap()
-            app.cells.staticTexts[tabDescription].tap()
-        }
-    }
+enum Tab: String {
+    case Video, Audio, Server, Cloud
+    case Settings, Downloads, Stream, About
 }
 
-extension TestHelper {
-    static func loadLocalizables(lang: String, target: AnyClass) -> Bundle {
-        let mainBundle = Bundle(for: target.self)
-        guard let path = mainBundle.path(forResource: lang, ofType: ".lproj") else {
-            XCTFail("Could not resolve localization file for \(lang)")
-            return Bundle()
-        }
+struct TestHelper {
+    let app: XCUIApplication
 
-        guard let bundle = Bundle(path: path) else {
-            XCTFail("Could not load bundle at \(path)")
-            return Bundle()
-        }
+    init(_ app: XCUIApplication) {
+        self.app = app
+    }
 
-        return bundle
+    func tap(_ type: Tab) {
+        app.tabBars.buttons[type.rawValue].tap()
     }
 }

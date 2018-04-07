@@ -96,6 +96,7 @@
                              object:[UIApplication sharedApplication]];
 
     [self.openButton setTitle:NSLocalizedString(@"OPEN_NETWORK", nil) forState:UIControlStateNormal];
+    [self.openButton setAccessibilityIdentifier:@"Open Network Stream"];
     [self.privateModeLabel setText:NSLocalizedString(@"PRIVATE_PLAYBACK_TOGGLE", nil)];
     UILabel *scanSubModelabel = self.ScanSubModeLabel;
     [scanSubModelabel setText:NSLocalizedString(@"SCAN_SUBTITLE_TOGGLE", nil)];
