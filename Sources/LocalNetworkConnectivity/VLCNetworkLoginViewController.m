@@ -14,7 +14,6 @@
 
 #import "VLCNetworkLoginViewController.h"
 #import "VLCPlexWebAPI.h"
-#import <XKKeychain/XKKeychainGenericPasswordItem.h>
 
 #import "VLCNetworkLoginDataSource.h"
 #import "VLCNetworkLoginDataSourceProtocol.h"
