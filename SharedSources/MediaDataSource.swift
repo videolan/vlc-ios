@@ -28,10 +28,7 @@ public class MediaDataSourceAndDelegate: NSObject, UICollectionViewDataSource, U
     }
 
     public func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
-        let numItems = Int(services.mediaDataSource.numberOfFiles())
-        let hasMedia = numItems > 0
-        collectionView.backgroundView?.isHidden = hasMedia
-        return numItems
+        return Int(services.mediaDataSource.numberOfFiles())
     }
 
     public func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
