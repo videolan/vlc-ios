@@ -23,7 +23,6 @@
 #import "VLCConstants.h"
 #import "UIColor+Presets.h"
 #import "UIBarButtonItem+Theme.h"
-#import "VLCAlertView.h"
 #import "VLCSidebarController.h"
 #import "UIViewController+VLCAlert.h"
 #import "VLC_iOS-Swift.h"
