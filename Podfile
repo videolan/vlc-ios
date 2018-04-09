@@ -10,6 +10,7 @@ def shared_pods
   pod 'VLC-WhiteRaccoon'
   pod 'VLC-LiveSDK', '5.7.0x'
   pod 'ObjectiveDropboxOfficial', :git => 'git://github.com/carolanitz/dropbox-sdk-obj-c.git' #update ios platform version
+  pod 'SwiftLint', '~> 0.25.0'
 end
 
 def iOS_pods
