@@ -22,30 +22,28 @@
                         <constraint firstAttribute="height" constant="128" id="m2Z-Tl-hAc"/>
                     </constraints>
                 </imageView>
-                <label clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" text="Empty Media Library" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="114">
+                <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" text="Empty Media Library" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="114">
                     <rect key="frame" x="103" y="395.66666666666669" width="169" height="20.666666666666686"/>
-                    <color key="backgroundColor" red="0.1215686275" green="0.1215686275" blue="0.1215686275" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                     <fontDescription key="fontDescription" type="boldSystem" pointSize="17"/>
-                    <color key="textColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                    <nil key="textColor"/>
                     <nil key="highlightedColor"/>
                 </label>
                 <activityIndicatorView hidden="YES" contentMode="scaleToFill" hidesWhenStopped="YES" style="whiteLarge" translatesAutoresizingMaskIntoConstraints="NO" id="122">
                     <rect key="frame" x="169" y="387.66666666666669" width="37" height="37"/>
                 </activityIndicatorView>
-                <label clipsSubviews="YES" userInteractionEnabled="NO" contentMode="center" textAlignment="center" lineBreakMode="wordWrap" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" preferredMaxLayoutWidth="300" translatesAutoresizingMaskIntoConstraints="NO" id="vqV-xO-9Ez">
-                    <rect key="frame" x="37" y="425.66666666666669" width="300" height="101.66666666666669"/>
-                    <color key="backgroundColor" red="0.1215686275" green="0.1215686275" blue="0.1215686275" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="center" textAlignment="center" lineBreakMode="wordWrap" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" preferredMaxLayoutWidth="300" translatesAutoresizingMaskIntoConstraints="NO" id="vqV-xO-9Ez">
+                    <rect key="frame" x="38" y="425.66666666666669" width="298.33333333333331" height="89.666666666666686"/>
                     <string key="text">For playback, you can stream media from a server on your local network, from the cloud or synchronize media to your device using iTunes, WiFi Upload or Cloud services.</string>
-                    <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                    <fontDescription key="fontDescription" type="system" pointSize="15"/>
                     <color key="textColor" red="0.72000002861022949" green="0.72000002861022949" blue="0.72000002861022949" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                     <nil key="highlightedColor"/>
                 </label>
                 <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="A78-83-MhQ">
-                    <rect key="frame" x="124" y="535.33333333333337" width="126" height="42"/>
+                    <rect key="frame" x="124" y="523.33333333333337" width="126" height="34"/>
                     <constraints>
                         <constraint firstAttribute="width" relation="greaterThanOrEqual" constant="126" id="ISw-i5-3Bn"/>
                     </constraints>
-                    <fontDescription key="fontDescription" type="system" pointSize="25"/>
+                    <fontDescription key="fontDescription" type="system" pointSize="18"/>
                     <state key="normal" title="Learn More">
                         <color key="titleColor" red="0.0" green="0.37647058820000001" blue="0.99607843139999996" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                         <color key="titleShadowColor" red="0.5" green="0.5" blue="0.5" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
@@ -55,7 +53,6 @@
                     </connections>
                 </button>
             </subviews>
-            <color key="backgroundColor" red="0.11999999731779099" green="0.11999999731779099" blue="0.11999999731779099" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
             <constraints>
                 <constraint firstItem="114" firstAttribute="centerY" secondItem="112" secondAttribute="centerY" id="098-OL-ugD"/>
                 <constraint firstItem="115" firstAttribute="top" secondItem="112" secondAttribute="top" constant="100" id="0iO-j4-F4t"/>
@@ -70,7 +67,6 @@
                 <constraint firstItem="114" firstAttribute="top" secondItem="115" secondAttribute="bottom" constant="20" id="pbA-T9-jI3"/>
                 <constraint firstItem="vqV-xO-9Ez" firstAttribute="top" secondItem="114" secondAttribute="bottom" constant="9.5" id="w3w-k2-PUH"/>
             </constraints>
-            <freeformSimulatedSizeMetrics key="simulatedDestinationMetrics"/>
             <variation key="default">
                 <mask key="constraints">
                     <exclude reference="0iO-j4-F4t"/>
