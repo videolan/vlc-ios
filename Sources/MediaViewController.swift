@@ -6,6 +6,7 @@
  * $Id$
  *
  * Authors: Carola Nitz <nitz.carola # gmail.com>
+ *          Mike JS. Choi <mkchoi212 # icloud.com>
  *
  * Refer to the COPYING file of the official project for license.
  *****************************************************************************/
@@ -29,6 +30,14 @@ public class VLCMediaViewController: UICollectionViewController, UISearchResults
         let dragAndDropManager = VLCDragAndDropManager()
         dragAndDropManager.delegate = services.mediaDataSource
         return dragAndDropManager
+    }()
+    
+    lazy var emptyView: VLCEmptyLibraryView = {
+        let name = String(describing: VLCEmptyLibraryView.self)
+        let nib = Bundle.main.loadNibNamed(name, owner: self, options: nil)
+        guard let emptyView = nib?.first as? VLCEmptyLibraryView else { fatalError("Can't find nib for \(name)") }
+        emptyView.frame = view.bounds
+        return emptyView
     }()
 
     public convenience init(services: Services) {
@@ -76,12 +85,13 @@ public class VLCMediaViewController: UICollectionViewController, UISearchResults
 
     override public func viewDidAppear(_ animated: Bool) {
         super.viewDidAppear(animated)
+        displayEmptyViewIfNeeded()
         services.mediaDataSource.updateContents(forSelection: nil)
         services.mediaDataSource.addAllFolders()
         services.mediaDataSource.addRemainingFiles()
         collectionView?.reloadData()
-
     }
+    
     func setupSearchController() {
         searchController = UISearchController(searchResultsController: nil)
         searchController?.searchResultsUpdater = self
@@ -104,6 +114,10 @@ public class VLCMediaViewController: UICollectionViewController, UISearchResults
 
     func setupNavigationBar() {
         navigationItem.leftBarButtonItem = UIBarButtonItem(title: NSLocalizedString("SORT", comment: ""), style: .plain, target: self, action: #selector(sort))
+    }
+    
+    func displayEmptyViewIfNeeded() {
+        collectionView?.backgroundView = collectionView?.numberOfItems(inSection: 0) == 0 ? emptyView : nil
     }
 
     @objc func sort() {

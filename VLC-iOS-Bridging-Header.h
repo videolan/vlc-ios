@@ -8,6 +8,7 @@
 #import "VLCCloudServicesTableViewController.h"
 #import "VLCConstants.h"
 #import "VLCDownloadViewController.h"
+#import "VLCEmptyLibraryView.h"
 #import "VLCLibrarySearchDisplayDataSource.h"
 #import "VLCMediaDataSource.h"
 #import "VLCOpenNetworkStreamViewController.h"

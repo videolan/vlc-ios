@@ -10,6 +10,7 @@
  *          Tamas Timar <ttimar.vlc # gmail.com>
  *          Carola Nitz <nitz.carola # gmail.com>
  *          Tobias Conradi <videolan # tobias-conradi.de>
+ *          Mike JS. Choi <mkchoi212 # icloud.com>
  *
  * Refer to the COPYING file of the official project for license.
  *****************************************************************************/
@@ -20,7 +21,7 @@
 #import "VLCActivityViewControllerVendor.h"
 #import "VLCAppDelegate.h"
 #import "VLCBugreporter.h"
-#import "VLCFirstStepsViewController.h"
+#import "VLCEmptyLibraryView.h"
 #import "VLCFolderCollectionViewFlowLayout.h"
 #import "VLCMediaDataSource.h"
 #import "VLCLibrarySearchDisplayDataSource.h"
@@ -36,18 +37,6 @@
 /* prefs keys */
 static NSString *kDisplayedFirstSteps = @"Did we display the first steps tutorial?";
 static NSString *kUsingTableViewToShowData = @"UsingTableViewToShowData";
-
-@implementation EmptyLibraryView
-
-- (IBAction)learnMore:(id)sender
-{
-    UIViewController *firstStepsVC = [[VLCFirstStepsViewController alloc] initWithNibName:nil bundle:nil];
-    UINavigationController *navCon = [[UINavigationController alloc] initWithRootViewController:firstStepsVC];
-    navCon.modalPresentationStyle = UIModalPresentationFormSheet;
-    [self.window.rootViewController presentViewController:navCon animated:YES completion:nil];
-}
-
-@end
 
 @interface VLCLibraryViewController () <VLCFolderCollectionViewDelegateFlowLayout, LXReorderableCollectionViewDataSource, LXReorderableCollectionViewDelegateFlowLayout, UITableViewDataSource, UITableViewDelegate, MLMediaLibrary, VLCMediaListDelegate, UISearchResultsUpdating, UISearchControllerDelegate> {
     VLCLibraryMode _libraryMode;
@@ -79,7 +68,7 @@ static NSString *kUsingTableViewToShowData = @"UsingTableViewToShowData";
 @property (nonatomic, strong) UIBarButtonItem *displayModeBarButtonItem;
 @property (nonatomic, strong) UITableView *tableView;
 @property (nonatomic, strong) UICollectionView *collectionView;
-@property (nonatomic, strong) EmptyLibraryView *emptyLibraryView;
+@property (nonatomic, strong) VLCEmptyLibraryView *emptyLibraryView;
 
 @end
 

@@ -253,6 +253,7 @@
 		CAD925792075536300F88496 /* Screenshot.swift in Sources */ = {isa = PBXBuildFile; fileRef = CAD925782075536300F88496 /* Screenshot.swift */; };
 		CAD925812075613200F88496 /* SnapshotHelper.swift in Sources */ = {isa = PBXBuildFile; fileRef = CAD925802075613100F88496 /* SnapshotHelper.swift */; };
 		CAF76D9520709CDE00E2AD7B /* Localizable.strings in Resources */ = {isa = PBXBuildFile; fileRef = A79246C6170F11DF0036AAF2 /* Localizable.strings */; };
+		CADFAD08207D128200103F33 /* VLCEmptyLibraryView.m in Sources */ = {isa = PBXBuildFile; fileRef = CADFAD07207D128200103F33 /* VLCEmptyLibraryView.m */; };
 		CC1BBC461704938300A20CBF /* libiconv.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = CC1BBC451704938300A20CBF /* libiconv.dylib */; };
 		CC1BBC4C1704939B00A20CBF /* libsqlite3.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = CC1BBC4B1704939B00A20CBF /* libsqlite3.dylib */; };
 		CC1BBC4E170493A300A20CBF /* libbz2.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = CC1BBC4D170493A300A20CBF /* libbz2.dylib */; };
@@ -962,6 +963,8 @@
 		CAF76D8F20709C4100E2AD7B /* VLCiOSTestMenu.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = VLCiOSTestMenu.swift; sourceTree = "<group>"; };
 		CAF76D9120709C7000E2AD7B /* VLCiOSTestVideoCodecs.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = VLCiOSTestVideoCodecs.swift; sourceTree = "<group>"; };
 		CAF76D9320709C9500E2AD7B /* XCUIElement+Helpers.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "XCUIElement+Helpers.swift"; sourceTree = "<group>"; };
+		CADFAD06207D128200103F33 /* VLCEmptyLibraryView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = VLCEmptyLibraryView.h; path = Sources/VLCEmptyLibraryView.h; sourceTree = "<group>"; };
+		CADFAD07207D128200103F33 /* VLCEmptyLibraryView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = VLCEmptyLibraryView.m; path = Sources/VLCEmptyLibraryView.m; sourceTree = "<group>"; };
 		CC1BBC451704938300A20CBF /* libiconv.dylib */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.dylib"; name = libiconv.dylib; path = usr/lib/libiconv.dylib; sourceTree = SDKROOT; };
 		CC1BBC471704938B00A20CBF /* libstdc++.dylib */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.dylib"; name = "libstdc++.dylib"; path = "usr/lib/libstdc++.dylib"; sourceTree = SDKROOT; };
 		CC1BBC491704939300A20CBF /* libz.dylib */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.dylib"; name = libz.dylib; path = usr/lib/libz.dylib; sourceTree = SDKROOT; };
@@ -1532,6 +1535,8 @@
 				7D378496183A98D1009EE944 /* VLCPlaylistTableViewCell.m */,
 				7D378497183A98D1009EE944 /* VLCLibraryViewController.h */,
 				7D378498183A98D1009EE944 /* VLCLibraryViewController.m */,
+				CADFAD06207D128200103F33 /* VLCEmptyLibraryView.h */,
+				CADFAD07207D128200103F33 /* VLCEmptyLibraryView.m */,
 				8F91EC77195CEC7900F5BCBA /* VLCOpenInActivity.h */,
 				8F91EC78195CEC7900F5BCBA /* VLCOpenInActivity.m */,
 				41F5C0761F41ED55005EB9CB /* VLCLibrarySearchDisplayDataSource.h */,
@@ -3214,6 +3219,7 @@
 				7D3784A1183A98EB009EE944 /* VLCBugreporter.m in Sources */,
 				7D3784A6183A98F5009EE944 /* VLCAboutViewController.m in Sources */,
 				7D3784A7183A98F5009EE944 /* VLCSettingsController.m in Sources */,
+				CADFAD08207D128200103F33 /* VLCEmptyLibraryView.m in Sources */,
 				7DC19AE41868C8EC00810BF7 /* VLCFirstStepsFirstPageViewController.m in Sources */,
 				7D3784AD183A9906009EE944 /* VLCDropboxController.m in Sources */,
 				7D3784AE183A9906009EE944 /* VLCDropboxTableViewController.m in Sources */,
