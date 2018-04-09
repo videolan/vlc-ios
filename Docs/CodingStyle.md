@@ -1,4 +1,17 @@
+# Coding Rules
+
+This document defines Swift and Objective-C code style rules for this project.
+
+## Table of Contents
+* [Swift](#swift)
+* [Objective-C](#objective-c)
 # Objective-c code style
+
+## Swift
+
+The swift code style rules are defined by [this set of swiftlint rules](../.swiftlint.yml)
+
+## Objective-C
 
 Variable names should use capitalization on all word expect the first, and never '_' ie
 
@@ -155,4 +168,3 @@ NSArray *array = @[obj1, obj2, obj3];
 ```objc-c
 NSArray *array = [NSArray arrayWithObjects: obj1, obj2, obj3, nil];
 ```
-
