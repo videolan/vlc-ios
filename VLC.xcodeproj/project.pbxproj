@@ -9,6 +9,7 @@
 /* Begin PBXBuildFile section */
 		1D72DC00CD4A06E8789BD8F7 /* libPods-VLC-tvOS.a in Frameworks */ = {isa = PBXBuildFile; fileRef = FE1DEC7096649D63A308D86C /* libPods-VLC-tvOS.a */; };
 		26F1BFD01A770408001DF30C /* libMediaVLC.xml in Resources */ = {isa = PBXBuildFile; fileRef = 26F1BFCF1A770408001DF30C /* libMediaVLC.xml */; };
+		26FE2060207A42FD006FCBCB /* VLCAlertControllerExtension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 26FE205F207A42FC006FCBCB /* VLCAlertControllerExtension.swift */; };
 		29125E5617492219003F03E5 /* index.html in Resources */ = {isa = PBXBuildFile; fileRef = 29125E5417492219003F03E5 /* index.html */; };
 		2915544317490D4A00B86CAD /* Security.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 2915544217490D4A00B86CAD /* Security.framework */; };
 		41251ED01FD0CF7900099110 /* AppCoordinator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 41251ECE1FD0CF7900099110 /* AppCoordinator.swift */; };
@@ -734,6 +735,7 @@
 		1C7724AABC40B96010E01F65 /* Pods-VLC-iOS-no-watch.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-VLC-iOS-no-watch.debug.xcconfig"; path = "Pods/Target Support Files/Pods-VLC-iOS-no-watch/Pods-VLC-iOS-no-watch.debug.xcconfig"; sourceTree = "<group>"; };
 		268BDA7D1B4FE1E200D622DD /* backArrow_black.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = backArrow_black.png; path = ImportedSources/OneDrive/src/LiveSDK/Library/Internal/Resources/backArrow_black.png; sourceTree = SOURCE_ROOT; };
 		26F1BFCF1A770408001DF30C /* libMediaVLC.xml */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xml; path = libMediaVLC.xml; sourceTree = "<group>"; };
+		26FE205F207A42FC006FCBCB /* VLCAlertControllerExtension.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = VLCAlertControllerExtension.swift; path = Sources/VLCAlertControllerExtension.swift; sourceTree = "<group>"; };
 		29125E5417492219003F03E5 /* index.html */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.html; path = index.html; sourceTree = "<group>"; };
 		2915544217490D4A00B86CAD /* Security.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Security.framework; path = System/Library/Frameworks/Security.framework; sourceTree = SDKROOT; };
 		2B1BC34A3BC4BCE7588BD68A /* Pods-VLC-tvOS.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-VLC-tvOS.release.xcconfig"; path = "Pods/Target Support Files/Pods-VLC-tvOS/Pods-VLC-tvOS.release.xcconfig"; sourceTree = "<group>"; };
@@ -1803,6 +1805,7 @@
 				7D3784BB183A9938009EE944 /* VLCSlider.m */,
 				7D3784BC183A9938009EE944 /* VLCStatusLabel.h */,
 				7D3784BD183A9938009EE944 /* VLCStatusLabel.m */,
+				26FE205F207A42FC006FCBCB /* VLCAlertControllerExtension.swift */,
 				7D50903018F41C7900180139 /* VLCAlertView.h */,
 				7D50903118F41C7900180139 /* VLCAlertView.m */,
 				7D9CB9DA1A4C55EF00BB74B4 /* VLCPlaybackNavigationController.h */,
@@ -3986,6 +3989,7 @@
 				418B145920179E50000447AA /* VLCDragAndDropManager.swift in Sources */,
 				7D168F7418D4A33F003FAF59 /* UIImage+Blur.m in Sources */,
 				7DC19ADF1868C7BB00810BF7 /* VLCFirstStepsViewController.m in Sources */,
+				26FE2060207A42FD006FCBCB /* VLCAlertControllerExtension.swift in Sources */,
 				DD3EFF331BDEBCE500B68579 /* VLCLocalNetworkServiceBrowserMediaDiscoverer.m in Sources */,
 				7DE56C1A1AD93F9100E8CA00 /* VLCPlaybackController.m in Sources */,
 				4152F1621FEF19BD00F1908B /* KeychainCoordinator.swift in Sources */,
