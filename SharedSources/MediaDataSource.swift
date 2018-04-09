@@ -6,6 +6,7 @@
  * $Id$
  *
  * Authors: Carola Nitz <nitz.carola # gmail.com>
+ *          Mike JS. Choi <mkchoi212 # icloud.com>
  *
  * Refer to the COPYING file of the official project for license.
  *****************************************************************************/
@@ -27,7 +28,10 @@ public class MediaDataSourceAndDelegate: NSObject, UICollectionViewDataSource, U
     }
 
     public func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
-        return Int(services.mediaDataSource.numberOfFiles())
+        let numItems = Int(services.mediaDataSource.numberOfFiles())
+        let hasMedia = numItems > 0
+        collectionView.backgroundView?.isHidden = hasMedia
+        return numItems
     }
 
     public func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
