@@ -20,7 +20,6 @@ jobs:
             - .bundle
       - restore_cache:
           key: v1-pods-{{ checksum "Podfile.lock" }}
-      - run: brew install swiftlint
       - run:
           name: Install CocoaPods
           command: |
