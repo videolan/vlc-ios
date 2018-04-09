@@ -41,6 +41,7 @@ end
 
 lane :ci do
   lint
+  test
   xcversion(version: '9.2.0')
   xcode_select '/Applications/Xcode.app'
   # Ideally we have iOS 9 support here but this is not yet added
