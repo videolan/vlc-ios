@@ -83,12 +83,15 @@
     } else if (count == 1) {
         [self presentDocumentInteractionControllerWithFileURL:[_fileURLs firstObject]];
     } else {
-        VLCAlertView *alertView = [[VLCAlertView alloc] initWithTitle:NSLocalizedString(@"SHARING_ERROR_NO_FILES", nil)
-                                                              message:nil
-                                                             delegate:nil
-                                                    cancelButtonTitle:NSLocalizedString(@"BUTTON_OK", nil)
-                                                    otherButtonTitles:nil];
-        [alertView show];
+        [UIAlertController showAlertInViewController:[UIApplication sharedApplication].keyWindow.rootViewController
+                                               title:NSLocalizedString(@"SHARING_ERROR_NO_FILES", nil)
+                                             message:nil
+                                   cancelButtonTitle:NSLocalizedString(@"BUTTON_OK", nil)
+                                   otherButtonTitles:nil
+                              destructiveButtonTitle:nil
+                                            tapBlock:^(UIAlertController *alertController, NSInteger buttonIndex) {
+                                                [alertController dismissViewControllerAnimated:YES completion:nil];
+                                            }];
 
         [self activityDidFinish:NO];
     }
@@ -126,12 +129,15 @@
         controllerWasPresentedSuccessfully = [_documentInteractionController presentOpenInMenuFromBarButtonItem:self.presentingBarButtonItem animated:YES];
 
         if (!controllerWasPresentedSuccessfully) {
-            VLCAlertView *alertView = [[VLCAlertView alloc] initWithTitle:NSLocalizedString(@"SHARING_ERROR_NO_APPLICATIONS", nil)
-                                                                  message:nil
-                                                                 delegate:nil
-                                                        cancelButtonTitle:NSLocalizedString(@"BUTTON_OK", nil)
-                                                        otherButtonTitles:nil];
-            [alertView show];
+            [UIAlertController showAlertInViewController:[UIApplication sharedApplication].keyWindow.rootViewController
+                                                   title:NSLocalizedString(@"SHARING_ERROR_NO_APPLICATIONS", nil)
+                                                 message:nil
+                                       cancelButtonTitle:NSLocalizedString(@"BUTTON_OK", nil)
+                                       otherButtonTitles:nil
+                                  destructiveButtonTitle:nil
+                                                tapBlock:^(UIAlertController *alertController, NSInteger buttonIndex) {
+                                                    [alertController dismissViewControllerAnimated:YES completion:nil];
+                                                }];
 
             [self activityDidFinish:NO];
         }

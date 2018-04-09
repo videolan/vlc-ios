@@ -26,6 +26,7 @@
 #import "VLCAlertView.h"
 #import "VLCSidebarController.h"
 #import "UIViewController+VLCAlert.h"
+#import "VLC_iOS-Swift.h"
 
 #ifndef NDEBUG
 #define APLog(format, ...) NSLog(format, ## __VA_ARGS__)

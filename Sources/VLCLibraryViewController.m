@@ -246,6 +246,7 @@ static NSString *kUsingTableViewToShowData = @"UsingTableViewToShowData";
     self.edgesForExtendedLayout = UIRectEdgeNone;
 
     [self setupSearchController];
+
 }
 
 - (void)setupSearchController
@@ -766,12 +767,16 @@ static NSString *kUsingTableViewToShowData = @"UsingTableViewToShowData";
     BOOL validFileTypeAtFolderPath = ([folderPathItem isKindOfClass:[MLFile class]] || [folderPathItem isKindOfClass:[MLLabel class]]) && [itemPathItem isKindOfClass:[MLFile class]];
 
     if (!validFileTypeAtFolderPath) {
-        VLCAlertView *alert = [[VLCAlertView alloc] initWithTitle:NSLocalizedString(@"FOLDER_INVALID_TYPE_TITLE", nil) message:NSLocalizedString(@"FOLDER_INVALID_TYPE_MESSAGE", nil) cancelButtonTitle:nil otherButtonTitles:@[NSLocalizedString(@"BUTTON_OK", nil)]];
-
-        alert.completion = ^(BOOL cancelled, NSInteger buttonIndex) {
-            [self updateViewContents];
-        };
-        [alert show];
+        [UIAlertController showAlertInViewController:self
+                                               title:NSLocalizedString(@"FOLDER_INVALID_TYPE_TITLE", nil)
+                                             message:NSLocalizedString(@"FOLDER_INVALID_TYPE_MESSAGE", nil)
+                                   cancelButtonTitle:NSLocalizedString(@"BUTTON_OK", nil)
+                                   otherButtonTitles:nil
+                              destructiveButtonTitle:nil
+                                            tapBlock:^(UIAlertController *alertController, NSInteger buttonIndex) {
+                                                [self updateViewContents];
+                                                [alertController dismissViewControllerAnimated:YES completion:nil];
+                                            }];
         return;
     }
 
@@ -806,20 +811,21 @@ static NSString *kUsingTableViewToShowData = @"UsingTableViewToShowData";
 
 - (void)showCreateFolderAlert
 {
-    VLCAlertView *alert = [[VLCAlertView alloc] initWithTitle:NSLocalizedString(@"FOLDER_CHOOSE_NAME_TITLE", nil) message:NSLocalizedString(@"FOLDER_CHOOSE_NAME_MESSAGE", nil) cancelButtonTitle:NSLocalizedString(@"BUTTON_CANCEL", nil) otherButtonTitles:@[NSLocalizedString(@"BUTTON_SAVE", nil)]];
-    [alert setAlertViewStyle:UIAlertViewStylePlainTextInput];
-    UITextField *zeroTextField = [alert textFieldAtIndex:0];
-    [zeroTextField setText:NSLocalizedString(@"FOLDER_NAME_PLACEHOLDER", nil)];
-    [zeroTextField setClearButtonMode:UITextFieldViewModeAlways];
+    [UIAlertController showAlertTextFieldInViewController:self
+                                                    title:NSLocalizedString(@"FOLDER_CHOOSE_NAME_TITLE", nil)
+                                                  message:NSLocalizedString(@"FOLDER_CHOOSE_NAME_MESSAGE", nil)
+                                            textFieldText:nil
+                                     textFieldPlaceholder:NSLocalizedString(@"FOLDER_NAME_PLACEHOLDER", nil)
+                                        cancelButtonTitle:NSLocalizedString(@"BUTTON_CANCEL", nil)
+                                        otherButtonTitles:NSLocalizedString(@"BUTTON_SAVE", nil)
+                                                 tapBlock:^(UIAlertController *alertController, NSInteger buttonIndex, NSString *text) {
+                                                     if (buttonIndex == alertController.cancelButtonIndex)
+                                                         [self updateViewContents];
+                                                     else
+                                                          [self createFolderWithName:text];
 
-    __weak VLCAlertView *weakAlert = alert;
-    alert.completion = ^(BOOL cancelled, NSInteger buttonIndex) {
-        if (cancelled)
-            [self updateViewContents];
-        else
-            [self createFolderWithName:[weakAlert textFieldAtIndex:0].text];
-    };
-    [alert show];
+                                                     [alertController dismissViewControllerAnimated:YES completion:nil];
+                                                 }];
 }
 
 - (void)createFolder
@@ -880,12 +886,16 @@ static NSString *kUsingTableViewToShowData = @"UsingTableViewToShowData";
         if ([label.name isEqualToString:folderName]) {
             _folderObject = nil;
             _indexPaths = nil;
-            VLCAlertView *alert = [[VLCAlertView alloc] initWithTitle:NSLocalizedString(@"FOLDER_NAME_DUPLICATE_TITLE", nil) message:NSLocalizedString(@"FOLDER_NAME_DUPLICATE_MESSAGE", nil) cancelButtonTitle:nil otherButtonTitles:@[NSLocalizedString(@"BUTTON_OK", nil)]];
-
-            alert.completion = ^(BOOL cancelled, NSInteger buttonIndex) {
-                [self updateViewContents];
-            };
-            [alert show];
+            [UIAlertController showAlertInViewController:self
+                                                   title:NSLocalizedString(@"FOLDER_NAME_DUPLICATE_TITLE", nil)
+                                                 message:NSLocalizedString(@"FOLDER_NAME_DUPLICATE_MESSAGE", nil)
+                                       cancelButtonTitle:NSLocalizedString(@"BUTTON_OK", nil)
+                                       otherButtonTitles:nil
+                                  destructiveButtonTitle:nil
+                                                tapBlock:^(UIAlertController *alertController, NSInteger buttonIndex) {
+                                                    [self updateViewContents];
+                                                    [alertController dismissViewControllerAnimated:YES completion:nil];
+                                                }];
             return;
         }
     }
@@ -1196,20 +1206,21 @@ static NSString *kUsingTableViewToShowData = @"UsingTableViewToShowData";
     else
         itemName = [(VLCPlaylistCollectionViewCell *)[self.collectionView cellForItemAtIndexPath:indexPaths[0]] titleLabel].text;
 
-    VLCAlertView *alert = [[VLCAlertView alloc] initWithTitle:[NSString stringWithFormat:NSLocalizedString(@"RENAME_MEDIA_TO", nil), itemName] message:nil cancelButtonTitle:NSLocalizedString(@"BUTTON_CANCEL", nil) otherButtonTitles:@[NSLocalizedString(@"BUTTON_RENAME", nil)]];
-    [alert setAlertViewStyle:UIAlertViewStylePlainTextInput];
-    [[alert textFieldAtIndex:0] setText:itemName];
-    [[alert textFieldAtIndex:0] setClearButtonMode:UITextFieldViewModeAlways];
+    [UIAlertController showAlertTextFieldInViewController:self
+                                                    title:[NSString stringWithFormat:NSLocalizedString(@"RENAME_MEDIA_TO", nil), itemName]
+                                                  message:nil
+                                            textFieldText:itemName
+                                     textFieldPlaceholder:NSLocalizedString(@"RENAME_MEDIA_TO", nil)
+                                        cancelButtonTitle:NSLocalizedString(@"BUTTON_CANCEL", nil)
+                                        otherButtonTitles:NSLocalizedString(@"BUTTON_RENAME", nil)
+                                                 tapBlock:^(UIAlertController *alertController, NSInteger buttonIndex, NSString *text) {
+                                                     if (buttonIndex == alertController.cancelButtonIndex)
+                                                         [self _endEditingWithHardReset:NO];
+                                                     else
+                                                         [self renameMediaObjectTo:text];
 
-    __weak VLCAlertView *weakAlert = alert;
-    alert.completion = ^(BOOL cancelled, NSInteger buttonIndex) {
-        if (cancelled)
-            [self _endEditingWithHardReset:NO];
-        else
-            [self renameMediaObjectTo:[weakAlert textFieldAtIndex:0].text];
-
-    };
-    [alert show];
+                                                     [alertController dismissViewControllerAnimated:YES completion:nil];
+                                                 }];
 }
 
 - (void)renameMediaObjectTo:(NSString*)newName

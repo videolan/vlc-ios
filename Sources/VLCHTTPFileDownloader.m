@@ -111,22 +111,29 @@
         _expectedDownloadSize = [response expectedContentLength];
         APLog(@"expected download size: %lli", _expectedDownloadSize);
         if (![[response suggestedFilename] isSupportedFormat]) { //handle unsupported format
-            VLCAlertView *alert = [[VLCAlertView alloc] initWithTitle:NSLocalizedString(@"FILE_NOT_SUPPORTED", nil)
-                                                              message:[NSString stringWithFormat:NSLocalizedString(@"FILE_NOT_SUPPORTED_LONG", nil), [response suggestedFilename]]
-                                                    cancelButtonTitle:NSLocalizedString(@"BUTTON_OK", nil)
-                                                    otherButtonTitles:nil];
-            [alert show];
+            [UIAlertController showAlertInViewController:self
+                                                   title:NSLocalizedString(@"FILE_NOT_SUPPORTED", nil)
+                                                 message:[NSString stringWithFormat:NSLocalizedString(@"FILE_NOT_SUPPORTED_LONG", nil), [response suggestedFilename]]
+                                       cancelButtonTitle:NSLocalizedString(@"BUTTON_OK", nil)
+                                       otherButtonTitles:nil
+                                  destructiveButtonTitle:nil
+                                                tapBlock:^(UIAlertController *alertController, NSInteger buttonIndex) {
+                                                    [alertController dismissViewControllerAnimated:YES completion:nil];
+                                                }];
             [_sessionTask cancel];
             [self _downloadEnded];
             return;
         }
         if (_expectedDownloadSize  > [[UIDevice currentDevice] VLCFreeDiskSpace].longLongValue) { //handle too big a download
-            VLCAlertView *alert = [[VLCAlertView alloc] initWithTitle:NSLocalizedString(@"DISK_FULL", nil)
-                                                             message:[NSString stringWithFormat:NSLocalizedString(@"DISK_FULL_FORMAT", nil), _fileName, [[UIDevice currentDevice] model]]
-                                                             delegate:self
-                                                    cancelButtonTitle:NSLocalizedString(@"BUTTON_OK", nil)
-                                                    otherButtonTitles:nil];
-            [alert show];
+            [UIAlertController showAlertInViewController:self
+                                                   title:NSLocalizedString(@"DISK_FULL", nil)
+                                                 message:[NSString stringWithFormat:NSLocalizedString(@"DISK_FULL_FORMAT", nil), _fileName, [[UIDevice currentDevice] model]]
+                                       cancelButtonTitle:NSLocalizedString(@"BUTTON_OK", nil)
+                                       otherButtonTitles:nil
+                                  destructiveButtonTitle:nil
+                                                tapBlock:^(UIAlertController *alertController, NSInteger buttonIndex) {
+                                                    [alertController dismissViewControllerAnimated:YES completion:nil];
+                                                }];
             [_sessionTask cancel];
             [self _downloadEnded];
             return;

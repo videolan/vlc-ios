@@ -269,12 +269,15 @@
 
 - (void)showAlert:(NSString *)title message:(NSString *)message
 {
-    VLCAlertView *alert = [[VLCAlertView alloc] initWithTitle:title
-                                                      message:message
-                                                     delegate:nil
-                                            cancelButtonTitle:NSLocalizedString(@"BUTTON_OK", nil)
-                                            otherButtonTitles:nil];
-    [alert show];
+    [UIAlertController showAlertInViewController:[UIApplication sharedApplication].keyWindow.rootViewController
+                                           title:title
+                                         message:message
+                               cancelButtonTitle:NSLocalizedString(@"BUTTON_OK", nil)
+                               otherButtonTitles:nil
+                          destructiveButtonTitle:nil
+                                        tapBlock:^(UIAlertController *alertController, NSInteger buttonIndex) {
+                                            [alertController dismissViewControllerAnimated:YES completion:nil];
+                                        }];
 }
 
 - (void)calculateRemainingTime:(CGFloat)receivedDataSize expectedDownloadSize:(CGFloat)expectedDownloadSize

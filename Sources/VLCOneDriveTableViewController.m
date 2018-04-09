@@ -197,28 +197,31 @@
 
     if (_selectedFile.size.longLongValue < [[UIDevice currentDevice] VLCFreeDiskSpace].longLongValue) {
         /* selected item is a proper file, ask the user if s/he wants to download it */
-        VLCAlertView *alert = [[VLCAlertView alloc] initWithTitle:NSLocalizedString(@"DROPBOX_DOWNLOAD", nil)
-                                                          message:[NSString stringWithFormat:NSLocalizedString(@"DROPBOX_DL_LONG", nil), _selectedFile.name, [[UIDevice currentDevice] model]]
-                                                         delegate:self
-                                                cancelButtonTitle:NSLocalizedString(@"BUTTON_CANCEL", nil)
-                                                otherButtonTitles:NSLocalizedString(@"BUTTON_DOWNLOAD", nil), nil];
-        [alert show];
+        [UIAlertController showAlertInViewController:self
+                                               title:NSLocalizedString(@"DROPBOX_DOWNLOAD", nil)
+                                             message:[NSString stringWithFormat:NSLocalizedString(@"DROPBOX_DL_LONG", nil), _selectedFile.name, [[UIDevice currentDevice] model]]
+                                   cancelButtonTitle:NSLocalizedString(@"BUTTON_CANCEL", nil)
+                                   otherButtonTitles:NSLocalizedString(@"BUTTON_DOWNLOAD", nil)
+                              destructiveButtonTitle:nil
+                                            tapBlock:^(UIAlertController *alertController, NSInteger buttonIndex) {
+                                                if (buttonIndex == alertController.otherButtonIndex)
+                                                    [_oneDriveController downloadObject:_selectedFile];
+
+                                                _selectedFile = nil;
+                                                [alertController dismissViewControllerAnimated:YES completion:nil];
+                                            }];
     } else {
-        VLCAlertView *alert = [[VLCAlertView alloc] initWithTitle:NSLocalizedString(@"DISK_FULL", nil)
-                                                          message:[NSString stringWithFormat:NSLocalizedString(@"DISK_FULL_FORMAT", nil), _selectedFile.name, [[UIDevice currentDevice] model]]
-                                                         delegate:self
-                                                cancelButtonTitle:NSLocalizedString(@"BUTTON_OK", nil)
-                                                otherButtonTitles:nil];
-        [alert show];
+        [UIAlertController showAlertInViewController:self
+                                               title:NSLocalizedString(@"DISK_FULL", nil)
+                                             message:[NSString stringWithFormat:NSLocalizedString(@"DISK_FULL_FORMAT", nil), _selectedFile.name, [[UIDevice currentDevice] model]]
+                                   cancelButtonTitle:NSLocalizedString(@"BUTTON_OK", nil)
+                                   otherButtonTitles:nil
+                              destructiveButtonTitle:nil
+                                            tapBlock:^(UIAlertController *alertController, NSInteger buttonIndex) {
+                                                _selectedFile = nil;
+                                                [alertController dismissViewControllerAnimated:YES completion:nil];
+                                            }];
     }
-}
-
-- (void)alertView:(UIAlertView *)alertView clickedButtonAtIndex:(NSInteger)buttonIndex
-{
-    if (buttonIndex == 1)
-        [_oneDriveController downloadObject:_selectedFile];
-
-    _selectedFile = nil;
 }
 #endif
 

@@ -12,22 +12,18 @@
 #import "UIViewController+VLCAlert.h"
 
 @implementation UIViewController (UIViewController_VLCAlert)
-#if TARGET_OS_TV
+
 - (void)vlc_showAlertWithTitle:(NSString *)title message:(NSString *)message buttonTitle:(NSString *)buttonTitle
 {
-    UIAlertController *alertController = [UIAlertController alertControllerWithTitle:title message:message preferredStyle:UIAlertControllerStyleAlert];
-    [alertController addAction:[UIAlertAction actionWithTitle:buttonTitle style:UIAlertActionStyleDefault handler:nil]];
-    [self presentViewController:alertController animated:YES completion:nil];
+    [UIAlertController showAlertInViewController:self
+                                           title:title
+                                         message:message
+                               cancelButtonTitle:buttonTitle
+                               otherButtonTitles:nil
+                          destructiveButtonTitle:nil
+                                        tapBlock:^(UIAlertController *alertController, NSInteger buttonIndex) {
+                                            [alertController dismissViewControllerAnimated:YES completion:nil];
+                                        }];
 }
-#else
-- (void)vlc_showAlertWithTitle:(NSString *)title message:(NSString *)message buttonTitle:(NSString *)buttonTitle
-    {
-    VLCAlertView *alert = [[VLCAlertView alloc] initWithTitle:title
-                                                      message:message
-                                                     delegate:self
-                                            cancelButtonTitle:buttonTitle
-                                            otherButtonTitles:nil];
-    [alert show];
-}
-#endif
+
 @end

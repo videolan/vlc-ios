@@ -190,25 +190,27 @@ static NSString *const VLCPlayerDisplayControllerDisplayModeKey = @"VLCPlayerDis
             break;
         case VLCPlayerDisplayControllerDisplayModeMiniplayer:
         default:
-
-            [[[VLCAlertView alloc] initWithTitle:failedString
-                                         message:nil
-                                        delegate:nil
-                               cancelButtonTitle:NSLocalizedString(@"BUTTON_OK", nil)
-                               otherButtonTitles:nil] show];
+            [UIAlertController showAlertInViewController:[UIApplication sharedApplication].keyWindow.rootViewController
+                                                   title:failedString
+                                                 message:nil
+                                       cancelButtonTitle:NSLocalizedString(@"BUTTON_OK", nil)
+                                       otherButtonTitles:nil
+                                  destructiveButtonTitle:nil
+                                                tapBlock:^(UIAlertController *alertController, NSInteger buttonIndex) {
+                                                    [alertController dismissViewControllerAnimated:YES completion:nil];
+                                                }];
             break;
     }
 #else
-    UIAlertController *alert = [UIAlertController alertControllerWithTitle:failedString
-                                                                   message:@""
-                                                            preferredStyle:UIAlertControllerStyleAlert];
-
-    UIAlertAction* defaultAction = [UIAlertAction actionWithTitle:NSLocalizedString(@"BUTTON_OK", nil)
-                                                            style:UIAlertActionStyleDefault
-                                                          handler:^(UIAlertAction * action) {}];
-
-    [alert addAction:defaultAction];
-    [self presentViewController:alert animated:YES completion:nil];
+    [UIAlertController showAlertInViewController:[UIApplication sharedApplication].keyWindow.rootViewController
+                                           title:failedString
+                                         message:nil
+                               cancelButtonTitle:NSLocalizedString(@"BUTTON_OK", nil)
+                               otherButtonTitles:nil
+                          destructiveButtonTitle:nil
+                                        tapBlock:^(UIAlertController *alertController, NSInteger buttonIndex) {
+                                            [alertController dismissViewControllerAnimated:YES completion:nil];
+                                        }];
 #endif
 }
 

@@ -33,19 +33,19 @@
 
 - (void)handleBugreportRequest
 {
-    VLCAlertView *alert = [[VLCAlertView alloc] initWithTitle:NSLocalizedString(@"BUG_REPORT_TITLE", nil)
-                                                      message:NSLocalizedString(@"BUG_REPORT_MESSAGE", nil) delegate:self
-                                            cancelButtonTitle:NSLocalizedString(@"BUTTON_CANCEL", nil)
-                                            otherButtonTitles:NSLocalizedString(@"BUG_REPORT_BUTTON", nil), nil];;
-    [alert show];
-}
-
-- (void)alertView:(UIAlertView *)alertView clickedButtonAtIndex:(NSInteger)buttonIndex
-{
-    if (buttonIndex == 1) {
-        NSURL *url = [NSURL URLWithString:@"https://trac.videolan.org/vlc/newticket"];
-        [[UIApplication sharedApplication] openURL:url];
-    }
+    [UIAlertController showAlertInViewController:[UIApplication sharedApplication].keyWindow.rootViewController
+                                           title:NSLocalizedString(@"BUG_REPORT_TITLE", nil)
+                                         message:NSLocalizedString(@"BUG_REPORT_MESSAGE", nil)
+                               cancelButtonTitle:NSLocalizedString(@"BUTTON_CANCEL", nil)
+                               otherButtonTitles:NSLocalizedString(@"BUG_REPORT_BUTTON", nil)
+                          destructiveButtonTitle:nil
+                                        tapBlock:^(UIAlertController *alertController, NSInteger buttonIndex) {
+                                            if (buttonIndex == alertController.otherButtonIndex) {
+                                                NSURL *url = [NSURL URLWithString:@"https://trac.videolan.org/vlc/newticket"];
+                                                [[UIApplication sharedApplication] openURL:url];
+                                            }
+                                            [alertController dismissViewControllerAnimated:YES completion:nil];
+                                        }];
 }
 
 @end

@@ -721,28 +721,15 @@
 
 - (void)notifyUserAboutEndOfFreeStorage:(NSString *)filename
 {
-#if TARGET_OS_IOS
-    VLCAlertView *alert = [[VLCAlertView alloc] initWithTitle:NSLocalizedString(@"DISK_FULL", nil)
-                                                      message:[NSString stringWithFormat:
-                                                               NSLocalizedString(@"DISK_FULL_FORMAT", nil),
-                                                               filename,
-                                                               [[UIDevice currentDevice] model]]
-                                                     delegate:self
-                                            cancelButtonTitle:NSLocalizedString(@"BUTTON_OK", nil)
-                                            otherButtonTitles:nil];
-    [alert show];
-#else
-    UIAlertController *alertController = [UIAlertController alertControllerWithTitle:NSLocalizedString(@"DISK_FULL", nil)
-                                                                             message:[NSString stringWithFormat:
-                                                                                      NSLocalizedString(@"DISK_FULL_FORMAT", nil),
-                                                                                      filename,
-                                                                                      [[UIDevice currentDevice] model]]
-                                                                      preferredStyle:UIAlertControllerStyleAlert];
-    [alertController addAction:[UIAlertAction actionWithTitle:NSLocalizedString(@"BUTTON_CANCEL", nil)
-                                                        style:UIAlertActionStyleCancel
-                                                      handler:nil]];
-    [[UIApplication sharedApplication].keyWindow.rootViewController presentViewController:alertController animated:YES completion:nil];
-#endif
+    [UIAlertController showAlertInViewController:[UIApplication sharedApplication].keyWindow.rootViewController
+                                           title:NSLocalizedString(@"DISK_FULL", nil)
+                                         message:[NSString stringWithFormat:NSLocalizedString(@"DISK_FULL_FORMAT", nil), filename, [[UIDevice currentDevice] model]]
+                               cancelButtonTitle:NSLocalizedString(@"BUTTON_OK", nil)
+                               otherButtonTitles:nil
+                          destructiveButtonTitle:nil
+                                        tapBlock:^(UIAlertController *alertController, NSInteger buttonIndex) {
+                                            [alertController dismissViewControllerAnimated:YES completion:nil];
+                                        }];
 }
 
 - (void)processContent:(NSData*)data WithHeader:(MultipartMessageHeader*) header

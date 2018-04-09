@@ -171,9 +171,15 @@
     self.loginInformation = login;
     NSError *error = nil;
     if (![self.savedLoginsDataSource saveLogin:login error:&error]) {
-        [[[VLCAlertView alloc] initWithTitle:error.localizedDescription
-                                    message:error.localizedFailureReason
-                          cancelButtonTitle:NSLocalizedString(@"BUTTON_OK", nil) otherButtonTitles:nil] show];
+        [UIAlertController showAlertInViewController:self
+                                               title:error.localizedDescription
+                                             message:error.localizedFailureReason
+                                   cancelButtonTitle:NSLocalizedString(@"BUTTON_OK", nil)
+                                   otherButtonTitles:nil
+                              destructiveButtonTitle:nil
+                                            tapBlock:^(UIAlertController *alertController, NSInteger buttonIndex) {
+                                                [alertController dismissViewControllerAnimated:YES completion:nil];
+                                            }];
     }
 
     [self.tableView deselectRowAtIndexPath:self.tableView.indexPathForSelectedRow animated:YES];
@@ -195,11 +201,15 @@
 - (BOOL)protocolSelected
 {
     if (self.protocolDataSource.protocol == VLCServerProtocolUndefined) {
-        VLCAlertView *alertView = [[VLCAlertView alloc] initWithTitle:NSLocalizedString(@"PROTOCOL_NOT_SELECTED", nil)
-                                                              message:NSLocalizedString(@"PROTOCOL_NOT_SELECTED", nil)
-                                                    cancelButtonTitle:NSLocalizedString(@"BUTTON_OK", nil)
-                                                    otherButtonTitles:nil];
-        [alertView performSelectorOnMainThread:@selector(show) withObject:nil waitUntilDone:NO];
+        [UIAlertController showAlertInViewController:self
+                                               title:NSLocalizedString(@"PROTOCOL_NOT_SELECTED", nil)
+                                             message:NSLocalizedString(@"PROTOCOL_NOT_SELECTED", nil)
+                                   cancelButtonTitle:NSLocalizedString(@"BUTTON_OK", nil)
+                                   otherButtonTitles:nil
+                              destructiveButtonTitle:nil
+                                            tapBlock:^(UIAlertController *alertController, NSInteger buttonIndex) {
+                                                [alertController dismissViewControllerAnimated:YES completion:nil];
+                                            }];
         [self.tableView deselectRowAtIndexPath:self.tableView.indexPathForSelectedRow animated:YES];
         return NO;
     }

@@ -409,12 +409,15 @@ forRowAtIndexPath:(NSIndexPath *)indexPath
         }
         [receivedSub writeToFile:fileSubtitlePath atomically:YES];
     } else {
-        VLCAlertView *alert = [[VLCAlertView alloc] initWithTitle:NSLocalizedString(@"DISK_FULL", nil)
-                                                          message:[NSString stringWithFormat:NSLocalizedString(@"DISK_FULL_FORMAT", nil), fileName, [[UIDevice currentDevice] model]]
-                                                         delegate:self
-                                                cancelButtonTitle:NSLocalizedString(@"BUTTON_OK", nil)
-                                                otherButtonTitles:nil];
-        [alert performSelectorOnMainThread:@selector(show) withObject:nil waitUntilDone:NO];
+        [UIAlertController showAlertInViewController:self
+                                               title:NSLocalizedString(@"DISK_FULL", nil)
+                                             message:[NSString stringWithFormat:NSLocalizedString(@"DISK_FULL_FORMAT", nil), fileName, [[UIDevice currentDevice] model]]
+                                   cancelButtonTitle:NSLocalizedString(@"BUTTON_OK", nil)
+                                   otherButtonTitles:nil
+                              destructiveButtonTitle:nil
+                                            tapBlock:^(UIAlertController *alertController, NSInteger buttonIndex) {
+                                                [alertController dismissViewControllerAnimated:YES completion:nil];
+                                            }];
     }
 
     return fileSubtitlePath;

@@ -128,12 +128,15 @@
 
 - (void)showAlert:(NSString *)title message:(NSString *)message
 {
-    VLCAlertView *alert = [[VLCAlertView alloc] initWithTitle: title
-                                                      message: message
-                                                     delegate: nil
-                                            cancelButtonTitle: @"OK"
-                                            otherButtonTitles: nil];
-    [alert show];
+    [UIAlertController showAlertInViewController:[UIApplication sharedApplication].keyWindow.rootViewController
+                                           title:title
+                                         message:message
+                               cancelButtonTitle:NSLocalizedString(@"BUTTON_OK", nil)
+                               otherButtonTitles:nil
+                          destructiveButtonTitle:nil
+                                        tapBlock:^(UIAlertController *alertController, NSInteger buttonIndex) {
+                                            [alertController dismissViewControllerAnimated:YES completion:nil];
+                                        }];
 }
 
 #pragma mark - file management

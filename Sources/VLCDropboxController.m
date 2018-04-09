@@ -324,27 +324,15 @@
 #pragma mark - user feedback
 - (void)_handleError:(NSError *)error
 {
-#if TARGET_OS_IOS
-    VLCAlertView *alert = [[VLCAlertView alloc] initWithTitle:[NSString stringWithFormat:NSLocalizedString(@"ERROR_NUMBER", nil), error.code]
-                                                      message:error.localizedDescription
-                                                     delegate:self
-                                            cancelButtonTitle:NSLocalizedString(@"BUTTON_CANCEL", nil)
-                                            otherButtonTitles:nil];
-    [alert show];
-#else
-    UIAlertController *alert = [UIAlertController alertControllerWithTitle:[NSString stringWithFormat:NSLocalizedString(@"ERROR_NUMBER", nil), error.code]
-                                                                   message:error.localizedDescription
-                                                            preferredStyle:UIAlertControllerStyleAlert];
-
-    UIAlertAction *defaultAction = [UIAlertAction actionWithTitle:NSLocalizedString(@"BUTTON_CANCEL", nil)
-                                                            style:UIAlertActionStyleDestructive
-                                                          handler:^(UIAlertAction *action) {
-                                                          }];
-
-    [alert addAction:defaultAction];
-
-    [[UIApplication sharedApplication].keyWindow.rootViewController presentViewController:alert animated:YES completion:nil];
-#endif
+    [UIAlertController showAlertInViewController:[UIApplication sharedApplication].keyWindow.rootViewController
+                                           title:[NSString stringWithFormat:NSLocalizedString(@"ERROR_NUMBER", nil), error.code]
+                                         message:error.localizedDescription
+                               cancelButtonTitle:NSLocalizedString(@"BUTTON_OK", nil)
+                               otherButtonTitles:nil
+                          destructiveButtonTitle:nil
+                                        tapBlock:^(UIAlertController *alertController, NSInteger buttonIndex) {
+                                            [alertController dismissViewControllerAnimated:YES completion:nil];
+                                        }];
 }
 
 - (void)reset

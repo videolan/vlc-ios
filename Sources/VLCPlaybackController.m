@@ -1135,17 +1135,18 @@ typedef NS_ENUM(NSUInteger, VLCAspectRatio) {
             if (continuePlayback == 1) {
                 [self setPlaybackPosition:lastPosition];
             } else if (continuePlayback == 0) {
-                VLCAlertView *alert = [[VLCAlertView alloc] initWithTitle:NSLocalizedString(@"CONTINUE_PLAYBACK", nil)
-                                                                  message:[NSString stringWithFormat:NSLocalizedString(@"CONTINUE_PLAYBACK_LONG", nil), item.title]
-                                                                 delegate:self
-                                                        cancelButtonTitle:NSLocalizedString(@"BUTTON_CANCEL", nil)
-                                                        otherButtonTitles:NSLocalizedString(@"BUTTON_CONTINUE", nil), nil];
-                alert.completion = ^(BOOL cancelled, NSInteger buttonIndex) {
-                    if (!cancelled) {
-                        [self setPlaybackPosition:lastPosition];
-                    }
-                };
-                [alert show];
+                [UIAlertController showAlertInViewController:[UIApplication sharedApplication].keyWindow.rootViewController
+                                                       title:NSLocalizedString(@"CONTINUE_PLAYBACK", nil)
+                                                     message:[NSString stringWithFormat:NSLocalizedString(@"CONTINUE_PLAYBACK_LONG", nil), item.title]
+                                           cancelButtonTitle:NSLocalizedString(@"BUTTON_CANCEL", nil)
+                                           otherButtonTitles:NSLocalizedString(@"BUTTON_CONTINUE", nil)
+                                      destructiveButtonTitle:nil
+                                                    tapBlock:^(UIAlertController *alertController, NSInteger buttonIndex) {
+                                                        if (buttonIndex == alertController.otherButtonIndex)
+                                                            [self setPlaybackPosition:lastPosition];
+
+                                                        [alertController dismissViewControllerAnimated:YES completion:nil];
+                                                    }];
             }
         }
     }
