@@ -967,7 +967,28 @@ typedef NS_ENUM(NSUInteger, VLCAspectRatio) {
 #if !TARGET_OS_TV
 - (BOOL)updateViewpoint:(CGFloat)yaw pitch:(CGFloat)pitch roll:(CGFloat)roll fov:(CGFloat)fov absolute:(BOOL)absolute
 {
+    NSLog(@"update with yaw:%f pitch:%f roll:%f, fov:%f", yaw, pitch, roll, fov);
     return [_mediaPlayer updateViewpoint:yaw pitch:pitch roll:roll fov:fov absolute:absolute];
+}
+
+- (CGFloat)yaw
+{
+    return _mediaPlayer.yaw;
+}
+
+- (CGFloat)pitch
+{
+    return _mediaPlayer.pitch;
+}
+
+- (CGFloat)roll
+{
+    return _mediaPlayer.roll;
+}
+
+- (CGFloat)fov
+{
+    return _mediaPlayer.fov;
 }
 
 - (BOOL)currentMediaIs360Video
