@@ -41,7 +41,6 @@ end
 
 lane :ci do
   lint
-  test
   xcversion(version: '9.2.0')
   xcode_select '/Applications/Xcode.app'
   # Ideally we have iOS 9 support here but this is not yet added
@@ -62,6 +61,7 @@ lane :ci do
     build: true,
     destination: 'platform=tvOS Simulator,name=Apple TV 1080p,OS=10.2'
   )
+  test
 end
 
 #### Tests ####
