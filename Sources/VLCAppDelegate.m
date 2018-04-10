@@ -44,7 +44,6 @@ NSString *const VLCDropboxSessionWasAuthorized = @"VLCDropboxSessionWasAuthorize
 {
     BOOL _isRunningMigration;
     BOOL _isComingFromHandoff;
-    VLCWatchCommunication *_watchCommunication;
     VLCKeychainCoordinator *_keychainCoordinator;
     AppCoordinator *appCoordinator;
     UITabBarController *rootViewController;
@@ -154,13 +153,6 @@ NSString *const VLCDropboxSessionWasAuthorized = @"VLCDropboxSessionWasAuthorize
             [[NSFileManager defaultManager] removeItemAtURL:storeURL error:&error];
         }
         setupBlock();
-    }
-
-    if ([VLCWatchCommunication isSupported]) {
-        _watchCommunication = [VLCWatchCommunication sharedInstance];
-        // TODO: push DB changes instead
-        //    [_watchCommunication startRelayingNotificationName:NSManagedObjectContextDidSaveNotification object:nil];
-        [_watchCommunication startRelayingNotificationName:VLCPlaybackControllerPlaybackMetadataDidChange object:nil];
     }
 
     /* add our static shortcut items the dynamic way to ease l10n and dynamic elements to be introduced later */
@@ -480,16 +472,6 @@ didFailToContinueUserActivityWithType:(NSString *)userActivityType
     vpc.errorCallback = errorCallback;
     VLCMediaList *mediaList = [[VLCMediaList alloc] initWithArray:@[[VLCMedia mediaWithURL:url]]];
     [vpc playMediaList:mediaList firstIndex:0 subtitlesFilePath:nil];
-}
-
-#pragma mark - watch stuff
-- (void)application:(UIApplication *)application
-handleWatchKitExtensionRequest:(NSDictionary *)userInfo
-              reply:(void (^)(NSDictionary *))reply
-{
-    if ([VLCWatchCommunication isSupported]) {
-        [self.watchCommunication session:[WCSession defaultSession] didReceiveMessage:userInfo replyHandler:reply];
-    }
 }
 
 @end

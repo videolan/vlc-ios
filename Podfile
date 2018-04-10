@@ -31,12 +31,6 @@ target 'VLC-iOS' do
   iOS_pods
 end
 
-target 'VLC-iOS-no-watch' do
-  platform :ios, '9.0'
-  shared_pods
-  iOS_pods
-end
-
 target 'VLC-tvOS' do
   platform :tvos, '10.2'
   shared_pods
@@ -47,27 +41,13 @@ target 'VLC-tvOS' do
   pod 'TVVLCKit', '3.0.2'
 end
 
-target 'VLC-watchOS-Extension' do
-  platform :watchos, '2.0'
-  pod 'MediaLibraryKit-unstable'
-end
-
 post_install do |installer_representation|
   installer_representation.pods_project.targets.each do |target|
-    if target.name == 'VLC-watchOS-Extension'
-      installer_representation.pods_project.build_configurations.each do |config|
-        config.build_settings['SKIP_INSTALL'] = 'YES'
-        config.build_settings['CLANG_CXX_LIBRARY'] = 'libc++'
-        config.build_settings['VALID_ARCHS'] = 'armv7 armv7s arm64 i386 armv7k'
-        config.build_settings['ARCHS'] = 'armv7 armv7s arm64 i386 armv7k'
-      end
-    else
-      installer_representation.pods_project.build_configurations.each do |config|
-        config.build_settings['SKIP_INSTALL'] = 'YES'
-        config.build_settings['VALID_ARCHS'] = 'armv7 armv7s arm64 i386 armv7k'
-        config.build_settings['ARCHS'] = 'armv7 armv7s arm64 i386 armv7k'
-        config.build_settings['CLANG_CXX_LIBRARY'] = 'libc++'
-      end
-    end
+     installer_representation.pods_project.build_configurations.each do |config|
+       config.build_settings['SKIP_INSTALL'] = 'YES'
+       config.build_settings['VALID_ARCHS'] = 'armv7 armv7s arm64 i386 armv7k'
+       config.build_settings['ARCHS'] = 'armv7 armv7s arm64 i386 armv7k'
+       config.build_settings['CLANG_CXX_LIBRARY'] = 'libc++'
+     end
   end
 end
