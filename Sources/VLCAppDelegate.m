@@ -409,7 +409,7 @@ didFailToContinueUserActivityWithType:(NSString *)userActivityType
 
 - (void)application:(UIApplication *)application performActionForShortcutItem:(UIApplicationShortcutItem *)shortcutItem completionHandler:(void (^)(BOOL))completionHandler
 {
-    [[VLCSidebarController sharedInstance] performActionForShortcutItem:shortcutItem];
+    //TODO: shortcutItem should be implemented
 }
 
 #pragma mark - media discovering
@@ -467,8 +467,7 @@ didFailToContinueUserActivityWithType:(NSString *)userActivityType
              fileNameOfMedia:(NSString *)fileName
 {
     [[VLCDownloadViewController sharedInstance] addURLToDownloadList:url fileNameOfMedia:fileName];
-    [[VLCSidebarController sharedInstance] selectRowAtIndexPath:[NSIndexPath indexPathForRow:2 inSection:1]
-                                                 scrollPosition:UITableViewScrollPositionNone];
+    //TODO: open DownloadViewController
 }
 
 #pragma mark - playback

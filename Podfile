@@ -17,7 +17,6 @@ def iOS_pods
   pod 'OBSlider', '1.1.0'
   pod 'InAppSettingsKit', :git => 'git://github.com/fkuehne/InAppSettingsKit.git', :commit => '415ea6bb' #tvOS fix
   pod 'HockeySDK', '~>5.1.2', :subspecs => ['CrashOnlyLib']
-  pod 'RESideMenu', '~>4.0.7'
   pod 'PAPasscode', '~>1.0'
   pod 'GoogleAPIClient/Drive'
   pod 'VLC-LXReorderableCollectionViewFlowLayout', '0.1.3v'
