@@ -114,7 +114,7 @@ typedef NS_ENUM(NSInteger, VLCPanType) {
     VLCDeviceMotion *_deviceMotion;
     CGFloat _fov;
     CGPoint _saveLocation;
-    CGSize _screenSizePixel;
+    CGSize _screenPixelSize;
 }
 @property (nonatomic, strong) VLCMovieViewControlPanelView *controllerPanel;
 @property (nonatomic, strong) UIPopoverController *masterPopoverController;
@@ -238,8 +238,7 @@ typedef NS_ENUM(NSInteger, VLCPanType) {
 
     CGRect screenBounds = [[UIScreen mainScreen] bounds];
     CGFloat screenScale = [[UIScreen mainScreen] scale];
-    _screenSizePixel = CGSizeMake(screenBounds.size.width * screenScale, screenBounds.size.height * screenScale);
-    _saveLocation = CGPointMake(-1.f, -1.f);
+    _screenPixelSize = CGSizeMake(screenBounds.size.width * screenScale, screenBounds.size.height * screenScale);
 
     [self setupConstraints];
 
@@ -643,7 +642,7 @@ typedef NS_ENUM(NSInteger, VLCPanType) {
 
 - (void)handlePinchGesture:(UIPinchGestureRecognizer *)recognizer
 {
-    CGFloat diff = DEFAULT_FOV * -(ZOOM_SENSITIVITY * recognizer.velocity / _screenSizePixel.width);
+    CGFloat diff = DEFAULT_FOV * -(ZOOM_SENSITIVITY * recognizer.velocity / _screenPixelSize.width);
 
     if ([_vpc currentMediaIs360Video]) {
         [self zoom360Video:diff];
@@ -655,7 +654,7 @@ typedef NS_ENUM(NSInteger, VLCPanType) {
 - (void)zoom360Video:(CGFloat)zoom
 {
     if ([_vpc updateViewpoint:0 pitch:0 roll:0 fov:zoom absolute:NO]) {
-        //Checking for fov value in case of
+        //clamp Fov between min and max fov
         _fov = MAX(MIN(_fov + zoom, MAX_FOV), MIN_FOV);
     }
 }
@@ -865,7 +864,9 @@ typedef NS_ENUM(NSInteger, VLCPanType) {
 
 - (void)deviceMotionHasAttitudeWithDeviceMotion:(VLCDeviceMotion *)deviceMotion pitch:(double)pitch yaw:(double)yaw roll:(double)roll
 {
-    [_vpc updateViewpoint:yaw pitch:pitch roll:roll fov:_fov absolute:YES];
+    if (_panRecognizer.state != UIGestureRecognizerStateChanged || UIGestureRecognizerStateBegan) {
+        [_vpc updateViewpoint:yaw pitch:pitch roll:roll fov:_fov absolute:YES];
+    }
 }
 #pragma mark - controls
 
@@ -1353,80 +1354,98 @@ currentMediaHasTrackToChooseFrom:(BOOL)currentMediaHasTrackToChooseFrom
 {
     CGFloat panDirectionX = [panRecognizer velocityInView:self.view].x;
     CGFloat panDirectionY = [panRecognizer velocityInView:self.view].y;
+    if (panRecognizer.state == UIGestureRecognizerStateBegan) {
+        _currentPanType = [self detectPanTypeForPan:panRecognizer];
+        if ([_vpc currentMediaIs360Video]) {
+            _saveLocation =  [panRecognizer locationInView:self.view];
+            [_deviceMotion stopDeviceMotion];
+        }
+    }
+    
+    switch (_currentPanType) {
+        case VLCPanTypeSeek: {
+            if (!_seekGestureEnabled)
+                return;
+            double timeRemainingDouble = (-[_vpc remainingTime].intValue*0.001);
+            int timeRemaining = timeRemainingDouble;
 
-    if (_currentPanType == VLCPanTypeSeek) {
-        if (!_seekGestureEnabled)
-            return;
-        double timeRemainingDouble = (-[_vpc remainingTime].intValue*0.001);
-        int timeRemaining = timeRemainingDouble;
+            if (panDirectionX > 0) {
+                if (timeRemaining > 2 ) // to not go outside duration , video will stop
+                    [_vpc jumpForward:1];
+            } else
+                [_vpc jumpBackward:1];
 
-        if (panDirectionX > 0) {
-            if (timeRemaining > 2 ) // to not go outside duration , video will stop
-                [_vpc jumpForward:1];
-        } else
-            [_vpc jumpBackward:1];
-    } else if (_currentPanType == VLCPanTypeVolume) {
-        if (!_volumeGestureEnabled)
-            return;
-        MPMusicPlayerController *musicPlayer = [MPMusicPlayerController applicationMusicPlayer];
+            break;
+        case VLCPanTypeVolume:
+
+            if (!_volumeGestureEnabled)
+                return;
+            MPMusicPlayerController *musicPlayer = [MPMusicPlayerController applicationMusicPlayer];
 #pragma clang diagnostic push
 #pragma clang diagnostic ignored "-Wdeprecated"
-        // there is no replacement for .volume which we want to use since Apple's susggestion is to not use their overlays
-        // but switch to the volume slider exclusively. meh.
-        if (panDirectionY > 0)
-            musicPlayer.volume -= 0.01;
-        else
-            musicPlayer.volume += 0.01;
+            // there is no replacement for .volume which we want to use since Apple's susggestion is to not use their overlays
+            // but switch to the volume slider exclusively. meh.
+            if (panDirectionY > 0)
+                musicPlayer.volume -= 0.01;
+            else
+                musicPlayer.volume += 0.01;
 #pragma clang diagnostic pop
-    } else if (_currentPanType == VLCPanTypeBrightness) {
-        if (!_brightnessGestureEnabled)
-            return;
-        CGFloat brightness = [UIScreen mainScreen].brightness;
+        } break;
+        case VLCPanTypeBrightness: {
+            if (!_brightnessGestureEnabled)
+                return;
+            CGFloat brightness = [UIScreen mainScreen].brightness;
 
-        if (panDirectionY > 0)
-            brightness = brightness - 0.01;
-        else
-            brightness = brightness + 0.01;
+            if (panDirectionY > 0)
+                brightness = brightness - 0.01;
+            else
+                brightness = brightness + 0.01;
 
-        // Sanity check since -[UIScreen brightness] does not go by 0.01 steps
-        if (brightness > 1.0)
-            brightness = 1.0;
-        else if (brightness < 0.0)
-            brightness = 0.0;
+            // Sanity check since -[UIScreen brightness] does not go by 0.01 steps
+            if (brightness > 1.0)
+                brightness = 1.0;
+            else if (brightness < 0.0)
+                brightness = 0.0;
 
-        NSAssert(brightness >= 0 && brightness <= 1, @"Brightness must be within 0 and 1 (it is %f)", brightness);
+            NSAssert(brightness >= 0 && brightness <= 1, @"Brightness must be within 0 and 1 (it is %f)", brightness);
 
-        [[UIScreen mainScreen] setBrightness:brightness];
+            [[UIScreen mainScreen] setBrightness:brightness];
 
-        NSString *brightnessHUD = [NSString stringWithFormat:@"%@: %@ %%", NSLocalizedString(@"VFILTER_BRIGHTNESS", nil), [[[NSString stringWithFormat:@"%f",(brightness*100)] componentsSeparatedByString:@"."] objectAtIndex:0]];
-        [self.statusLabel showStatusMessage:brightnessHUD];
-    } else if (_currentPanType == VLCPanTypeProjection) {
-
-        CGPoint tmp = [panRecognizer locationInView:self.view];
-        CGFloat changeX = 0.f;
-        CGFloat changeY = 0.f;
-
-        if (_saveLocation.x != -1.f && _saveLocation.y != -1.f) {
-            changeX = tmp.x - _saveLocation.x;
-            changeY = tmp.y - _saveLocation.y;
-        }
-
-        _saveLocation = [panRecognizer locationInView:self.view];
-
-        //screenSizePixel width is used twice to get a constant speed on the movement.
-        CGFloat yaw = _fov * -changeX / _screenSizePixel.width;
-        CGFloat pitch = _fov * -changeY / _screenSizePixel.width;
-
-        [_vpc updateViewpoint:yaw pitch:pitch roll:0 fov:0 absolute:NO];
+            NSString *brightnessHUD = [NSString stringWithFormat:@"%@: %@ %%", NSLocalizedString(@"VFILTER_BRIGHTNESS", nil), [[[NSString stringWithFormat:@"%f",(brightness*100)] componentsSeparatedByString:@"."] objectAtIndex:0]];
+            [self.statusLabel showStatusMessage:brightnessHUD];
+        } break;
+        case VLCPanTypeProjection: {
+            [self updateProjectionWithPanRecognizer:panRecognizer];
+        } break;
+        case VLCPanTypeNone: {
+        } break;
     }
 
     if (panRecognizer.state == UIGestureRecognizerStateEnded) {
         _currentPanType = VLCPanTypeNone;
-
-        //Invalidate saved location when the gesture is ended
-        if ([_vpc currentMediaIs360Video])
-            _saveLocation = CGPointMake(-1.f, -1.f);
+        if ([_vpc currentMediaIs360Video]) {
+            [_deviceMotion lastAngleWithYaw:_vpc.yaw pitch:_vpc.pitch roll:_vpc.roll];
+            [_deviceMotion startDeviceMotion];
+        }
     }
+}
+
+- (void)updateProjectionWithPanRecognizer:(UIPanGestureRecognizer *)panGestureRecognizer
+{
+    CGPoint newLocationInView = [panGestureRecognizer locationInView:self.view];
+    
+    CGFloat diffX = newLocationInView.x - _saveLocation.x;
+    CGFloat diffY = newLocationInView.y - _saveLocation.y;
+    _saveLocation = newLocationInView;
+
+    //screenSizePixel width is used twice to get a constant speed on the movement.
+    CGFloat yaw = _fov * -diffX / _screenPixelSize.width;
+    CGFloat pitch = _fov * -diffY / _screenPixelSize.width;
+
+    CGFloat newYaw = _vpc.yaw + yaw;
+    CGFloat newPitch = _vpc.pitch + pitch;
+
+    [_vpc updateViewpoint:newYaw pitch:newPitch roll:_vpc.roll fov:_vpc.fov absolute:YES];
 }
 
 - (void)swipeRecognized:(UISwipeGestureRecognizer*)swipeRecognizer

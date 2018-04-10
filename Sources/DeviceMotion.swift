@@ -32,6 +32,8 @@ class DeviceMotion:NSObject {
 
     let motion = CMMotionManager()
     let sqrt2 = 0.5.squareRoot()
+    var lastEulerAngle = EulerAngles()
+    var lastQuaternion: CMQuaternion? = nil
 
     @objc weak var delegate: DeviceMotionDelegate? = nil
 
@@ -100,14 +102,31 @@ class DeviceMotion:NSObject {
                     return
                 }
 
-                let euler = strongSelf.quaternionToEuler(qIn: data.attitude.quaternion)
+                var euler = strongSelf.quaternionToEuler(qIn: data.attitude.quaternion)
+                if let lastQuaternion = strongSelf.lastQuaternion {
+                    let lastEuler = strongSelf.quaternionToEuler(qIn: lastQuaternion)
+                    let diffYaw = euler.yaw - lastEuler.yaw
+                    let diffPitch = euler.pitch - lastEuler.pitch
+                    let diffRoll = euler.roll - lastEuler.roll
+
+                    euler.yaw = strongSelf.lastEulerAngle.yaw + diffYaw
+                    euler.pitch = strongSelf.lastEulerAngle.pitch + diffPitch
+                    euler.pitch = strongSelf.lastEulerAngle.roll + diffRoll
+                }
                 strongSelf.delegate?.deviceMotionHasAttitude(deviceMotion:strongSelf, pitch:euler.pitch, yaw:euler.yaw, roll:euler.roll)
             }
         }
     }
 
+    @objc func lastAngle(yaw:Double, pitch:Double, roll:Double) {
+        lastEulerAngle.yaw = yaw
+        lastEulerAngle.pitch = pitch
+        lastEulerAngle.roll = roll
+    }
+
     @objc func stopDeviceMotion() {
         if motion.isDeviceMotionActive {
+            lastQuaternion = motion.deviceMotion?.attitude.quaternion
             motion.stopDeviceMotionUpdates()
         }
     }

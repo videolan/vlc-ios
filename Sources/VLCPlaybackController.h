@@ -72,6 +72,11 @@ currentMediaHasTrackToChooseFrom:(BOOL)currentMediaHasTrackToChooseFrom
 @property (nonatomic, readwrite) float saturation; // default = 1.0
 @property (nonatomic, readwrite) float gamma; // default = 1.0
 
+@property (nonatomic, readonly) CGFloat yaw; //  between ]-180;180]
+@property (nonatomic, readonly) CGFloat pitch; // ]-90;90]
+@property (nonatomic, readonly) CGFloat roll; // ]-180;180]
+@property (nonatomic, readonly) CGFloat fov; // ]0;180[ (default 80.)
+
 @property (readonly) NSInteger indexOfCurrentAudioTrack;
 @property (readonly) NSInteger indexOfCurrentSubtitleTrack;
 @property (readonly) NSInteger indexOfCurrentTitle;
