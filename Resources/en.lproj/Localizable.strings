@@ -200,7 +200,6 @@
 "BWD_BUTTON" = "Jump Backwards";
 "FWD_BUTTON" = "Jump Forwards";
 "PLAY_BUTTON" = "Play";
-"PAUSE_BUTTON" = "Pause";
 "PLAY_ALL_BUTTON" = "Play all";
 
 "VERSION_FORMAT" = "Version: %@";
@@ -257,36 +256,15 @@
 "WEBINTF_URL_INVALID" = "Not a valid URL.";
 
 
-"NOW_PLAYING" = "Now Playing";
-"PLAY_NOW" = "Play Now";
-"PLAYING" = "Playing";
-"DETAIL" = "Detail";
 
 "VOLUME" = "Volume";
 "DURATION" = "Duration";
 "TITLE" = "Title";
 
 // strings from VLCKit
-"%ld hours %ld minutes remaining" = "%1$ld hours %2$ld minutes remaining";
-"%ld hours %ld minutes" = "%1$ld hours %2$ld minutes";
-"%ld minutes remaining" = "%ld minutes remaining";
-"%ld minutes" = "%ld minutes";
-"%ld minutes %ld seconds remaining" = "%1$ld minutes %2$ld seconds remaining";
-"%ld minutes %ld seconds" = "%1$ld minutes %2$ld seconds";
-"%ld seconds remaining" = "%ld seconds remaining";
-"%ld seconds" = "%ld seconds";
 
 // accessibility labels for the playlist
-"OBJECT_TYPE_SHOW" = "Show";
-"OBJECT_TYPE_SHOW_EPISODE" = "Show episode";
-"OBJECT_TYPE_LABEL" = "Folder";
-"OBJECT_TYPE_ALBUM" = "Album";
-"OBJECT_TYPE_ALBUM_TRACK" = "Album track";
-"OBJECT_TYPE_FILE" = "File";
-"OBJECT_TYPE_FILE_AUDIO" = "Audio file";
 
-"NOT_CONNECTED_TO_PHONE_TITLE" = "Not connected to iPhone";
-"NOT_CONNECTED_TO_PHONE_MESSAGE" = "Please connect your iPhone to perform remote control actions.";
 
 "LONGPRESS_TO_STOP" = "Long-press to stop playback.";
 
