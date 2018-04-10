@@ -20,8 +20,6 @@ extern NSString *const VLCDropboxSessionWasAuthorized;
 
 @interface VLCAppDelegate : UIResponder <UIApplicationDelegate>
 
-@property (nonatomic, readonly) VLCWatchCommunication *watchCommunication;
-
 @property (nonatomic, strong) UIWindow *window;
 
 @property (atomic, strong) id<OIDAuthorizationFlowSession> currentGoogleAuthorizationFlow;

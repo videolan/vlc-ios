@@ -16,7 +16,6 @@
 #import "VLCThumbnailsCache.h"
 #import <CommonCrypto/CommonDigest.h>
 #import "UIImage+Blur.h"
-#import <WatchKit/WatchKit.h>
 #import <CoreData/CoreData.h>
 #import <MediaLibraryKit/MediaLibraryKit.h>
 #import <MediaLibraryKit/UIImage+MLKit.h>
@@ -36,14 +35,11 @@
 
 #define MAX_CACHE_SIZE_IPHONE 21  // three times the number of items shown on iPhone 5
 #define MAX_CACHE_SIZE_IPAD   27  // three times the number of items shown on iPad
-#define MAX_CACHE_SIZE_WATCH  15  // three times the number of items shown on 42mm Watch
 
 - (instancetype)init
 {
     self = [super init];
     if (self) {
-// TODO: correct for watch
-#if TARGET_OS_IOS
         _currentDeviceIdiom = [[UIDevice currentDevice] userInterfaceIdiom];
         MaxCacheSize = 0;
 
@@ -54,14 +50,7 @@
             case UIUserInterfaceIdiomPhone:
                 MaxCacheSize = MAX_CACHE_SIZE_IPHONE;
                 break;
-
-            default:
-                MaxCacheSize = MAX_CACHE_SIZE_WATCH;
-                break;
         }
-#else
-        MaxCacheSize = MAX_CACHE_SIZE_WATCH;
-#endif
         _thumbnailCache = [[NSCache alloc] init];
         _thumbnailCacheMetadata = [[NSCache alloc] init];
         [_thumbnailCache setCountLimit: MaxCacheSize];
@@ -278,8 +267,6 @@
 {
     UIImage *clusterThumb;
     CGSize imageSize = CGSizeZero;
-    // TODO: correct for watch
-#ifndef TARGET_OS_WATCH
     if (_currentDeviceIdiom == UIUserInterfaceIdiomPad) {
         if ([UIScreen mainScreen].scale==2.0)
             imageSize = CGSizeMake(682., 384.);
@@ -290,13 +277,6 @@
             imageSize = CGSizeMake(480., 270.);
         else
             imageSize = CGSizeMake(720., 405.);
-    } else
-#endif
-    {
-        if (WKInterfaceDevice.currentDevice != nil) {
-            CGRect screenRect = WKInterfaceDevice.currentDevice.screenBounds;
-            imageSize = CGSizeMake(screenRect.size.width * WKInterfaceDevice.currentDevice.screenScale, 120.);
-        }
     }
 
     UIGraphicsBeginImageContext(imageSize);
@@ -324,12 +304,7 @@
 
     if (!blurImage)
         return clusterThumb;
-// TODO: When we move to watch os 4.0 we can include the blurcategory and remove the if else block
-#ifndef TARGET_OS_WATCH
     return [UIImage applyBlurOnImage:clusterThumb withRadius:0.1];
-#else
-    return clusterThumb;
-#endif
 }
 
 @end

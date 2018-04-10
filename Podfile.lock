@@ -38,8 +38,6 @@ PODS:
   - InAppSettingsKit (2.2.2)
   - MediaLibraryKit-prod (2.6.5):
     - MobileVLCKit (~> 3.0.1)
-  - MediaLibraryKit-unstable (2.6.5):
-    - MobileVLCKit-unstable (~> 3.0.0a8)
   - MetaDataFetcherKit (0.3.1):
     - AFNetworking (= 3.1.0)
     - OROpenSubtitleDownloader
@@ -71,7 +69,6 @@ DEPENDENCIES:
   - HockeySDK/CrashOnlyLib (~> 5.1.2)
   - InAppSettingsKit (from `git://github.com/fkuehne/InAppSettingsKit.git`, commit `415ea6bb`)
   - MediaLibraryKit-prod
-  - MediaLibraryKit-unstable
   - MetaDataFetcherKit (~> 0.3.1)
   - MobileVLCKit (= 3.0.2)
   - ObjectiveDropboxOfficial (from `git://github.com/carolanitz/dropbox-sdk-obj-c.git`)
@@ -130,7 +127,6 @@ SPEC CHECKSUMS:
   HockeySDK-tvOS: 6b2a69f86419ebaf23225f59a64e5761ed3a0d8a
   InAppSettingsKit: 76d5cfbaa3e3f8aa53fe3628516da7eb1aa6a5cb
   MediaLibraryKit-prod: 095dce5faa59e2bb0a537646ac09fe57eaf3fbdf
-  MediaLibraryKit-unstable: aaf147005a2e024ed2f4c45440bfcc19225ca776
   MetaDataFetcherKit: d1d61b061bf74268aaffb6bf08a70396672163df
   MobileVLCKit: a9e06de53e7a7fd43d7b04bcab4f2e68868f768a
   NSData+Base64: 4e84902c4db907a15673474677e57763ef3903e4
@@ -147,7 +143,6 @@ SPEC CHECKSUMS:
   XKKeychain: 852ef663c56a7194c73d3c68e8d9d4f07b121d4f
   xmlrpc: 109bb21d15ed6d108b2c1ac5973a6a223a50f5f4
 
-PODFILE CHECKSUM: 6a912f6ba8819dae74bb05d7a721fd2430785700
-PODFILE CHECKSUM: c8dbb4c0b180876fb032d297e7e1ca3dbf736b6b
+PODFILE CHECKSUM: 128c4dd51d6a55501344d82c11406117870ef460
 
 COCOAPODS: 1.4.0
