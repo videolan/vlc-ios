@@ -51,7 +51,6 @@ PODS:
     - AFNetworking
     - xmlrpc
   - PAPasscode (1.0)
-  - RESideMenu (4.0.7)
   - TVVLCKit (3.0.2)
   - upnpx (1.4.0)
   - VLC-LiveSDK (5.7.0x)
@@ -78,7 +77,6 @@ DEPENDENCIES:
   - OBSlider (= 1.1.0)
   - OROpenSubtitleDownloader (from `https://github.com/orta/OROpenSubtitleDownloader.git`, commit `0509eac2`)
   - PAPasscode (~> 1.0)
-  - RESideMenu (~> 4.0.7)
   - TVVLCKit (= 3.0.2)
   - upnpx (~> 1.4.0)
   - VLC-LiveSDK (= 5.7.0x)
@@ -138,7 +136,6 @@ SPEC CHECKSUMS:
   OBSlider: 490f108007bfdd5414a38650b211fe403a95b8a0
   OROpenSubtitleDownloader: 154b8c08acbf8836b77ac259018dc8b5baef907e
   PAPasscode: b408fb87c530cad58a554e26482e87dbb14b7bc2
-  RESideMenu: f24c508404b49c667344c54aba7e590883533958
   TVVLCKit: 178e4f82f8b57320774821384e42eaac403d2faa
   upnpx: c695b99229e08154d23abe5c252cb64f1600f35d
   VLC-LiveSDK: c9566a9edde968f969138f84cfd40b540a109b3f
@@ -147,6 +144,6 @@ SPEC CHECKSUMS:
   XKKeychain: 852ef663c56a7194c73d3c68e8d9d4f07b121d4f
   xmlrpc: 109bb21d15ed6d108b2c1ac5973a6a223a50f5f4
 
-PODFILE CHECKSUM: 6a912f6ba8819dae74bb05d7a721fd2430785700
+PODFILE CHECKSUM: 3d5097fd32e08abe47a054d67d25d88dd181e259
 
 COCOAPODS: 1.4.0
