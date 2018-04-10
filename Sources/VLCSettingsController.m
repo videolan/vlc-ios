@@ -18,7 +18,7 @@
 #import <LocalAuthentication/LocalAuthentication.h>
 #import "VLC_iOS-Swift.h"
 
-@interface VLCSettingsController ()<PAPasscodeViewControllerDelegate, IASKSettingsDelegate>
+@interface VLCSettingsController ()<PAPasscodeViewControllerDelegate>
 
 @end
 
@@ -120,10 +120,6 @@
 
 #pragma mark - IASKSettings delegate
 
-- (void)settingsViewControllerDidEnd:(IASKAppSettingsViewController*)sender
-{
-    [[VLCSidebarController sharedInstance] toggleSidebar];
-}
 
 #pragma mark - PAPasscode delegate
 

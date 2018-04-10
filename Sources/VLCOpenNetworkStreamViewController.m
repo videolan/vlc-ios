@@ -15,7 +15,6 @@
 #import "VLCOpenNetworkStreamViewController.h"
 #import "VLCPlaybackController.h"
 #import "VLCLibraryViewController.h"
-#import "VLCMenuTableViewController.h"
 #import "VLCStreamingHistoryCell.h"
 #import "UIDevice+VLC.h"
 #import "VLC_iOS-Swift.h"

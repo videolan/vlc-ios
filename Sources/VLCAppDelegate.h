@@ -14,7 +14,6 @@
  * Refer to the COPYING file of the official project for license.
  *****************************************************************************/
 
-#import "VLCMenuTableViewController.h"
 #import "VLCWatchCommunication.h"
 #import <AppAuth/AppAuth.h>
 
