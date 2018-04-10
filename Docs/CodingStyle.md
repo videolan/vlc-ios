@@ -19,7 +19,7 @@ Variable names should use capitalization on all word expect the first, and never
 ```obj-c
 BOOL isFirstTimeReading;
 int age;
-Array *myArray;
+NSArray *myArray;
 ```
 
 **Wrong:**
