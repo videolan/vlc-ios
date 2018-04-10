@@ -2,7 +2,7 @@
  * VLCAppDelegate.h
  * VLC for iOS
  *****************************************************************************
- * Copyright (c) 2013-2015 VideoLAN. All rights reserved.
+ * Copyright (c) 2013-2018 VideoLAN. All rights reserved.
  * $Id$
  *
  * Authors: Felix Paul Kühne <fkuehne # videolan.org>
@@ -14,14 +14,11 @@
  * Refer to the COPYING file of the official project for license.
  *****************************************************************************/
 
-#import "VLCWatchCommunication.h"
 #import <AppAuth/AppAuth.h>
 
 extern NSString *const VLCDropboxSessionWasAuthorized;
 
 @interface VLCAppDelegate : UIResponder <UIApplicationDelegate>
-
-@property (nonatomic, readonly) VLCWatchCommunication *watchCommunication;
 
 @property (nonatomic, strong) UIWindow *window;
 
