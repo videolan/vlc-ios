@@ -13,7 +13,9 @@ def shared_pods
   pod 'SwiftLint', '~> 0.25.0'
 end
 
-def iOS_pods
+target 'VLC-iOS' do
+  platform :ios, '9.0'
+  shared_pods
   pod 'OBSlider', '1.1.0'
   pod 'InAppSettingsKit', :git => 'git://github.com/fkuehne/InAppSettingsKit.git', :commit => '415ea6bb' #tvOS fix
   pod 'HockeySDK', '~>5.1.2', :subspecs => ['CrashOnlyLib']
@@ -23,12 +25,6 @@ def iOS_pods
   pod 'MediaLibraryKit-prod'
   pod 'MobileVLCKit', '3.0.2'
   pod 'GTMAppAuth'
-end
-
-target 'VLC-iOS' do
-  platform :ios, '9.0'
-  shared_pods
-  iOS_pods
 end
 
 target 'VLC-tvOS' do
