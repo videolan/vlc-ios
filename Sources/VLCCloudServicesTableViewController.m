@@ -51,6 +51,15 @@
     self.documentPickerController = [VLCDocumentPickerController new];
 }
 
+- (instancetype)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil
+{
+    self = [super initWithNibName:nibNameOrNil bundle:nibBundleOrNil];
+    if (self) {
+        self.title = NSLocalizedString(@"CLOUD_SERVICES", @"");
+    }
+    return self;
+}
+
 - (void)themeDidChange
 {
     self.tableView.separatorColor = PresentationTheme.current.colors.background;
@@ -67,6 +76,30 @@
 - (void)authenticationSessionsChanged:(NSNotification *)notification
 {
     [self.tableView reloadData];
+}
+
+- (NSString *)detailText
+{
+    int services = [self numberOfAuthorizedServices];
+    if (services == 1) {
+        return NSLocalizedString(@"LOGGED_IN_SERVICE", nil);
+    } else {
+        return [NSString stringWithFormat:NSLocalizedString(@"LOGGED_IN_SERVICES", ""), services];
+    }
+}
+
+- (int)numberOfAuthorizedServices
+{
+    int i = [[VLCDropboxController sharedInstance] isAuthorized] ? 1 : 0;
+    i += [[VLCGoogleDriveController sharedInstance] isAuthorized] ? 1 : 0;
+    i += [[BoxSDK sharedSDK].OAuth2Session isAuthorized] ? 1 : 0;
+    i += [[VLCOneDriveController sharedInstance] isAuthorized] ? 1 : 0;
+    return i;
+}
+
+- (UIImage *)cellImage
+{
+    return [UIImage imageNamed:@"iCloudIcon"];
 }
 
 #pragma mark - Table view data source
