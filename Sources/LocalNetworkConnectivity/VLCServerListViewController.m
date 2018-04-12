@@ -42,7 +42,7 @@
 
 #import "VLC_iOS-Swift.h"
 
-@interface VLCServerListViewController () <UITableViewDataSource, UITableViewDelegate, VLCLocalServerDiscoveryControllerDelegate, VLCNetworkLoginViewControllerDelegate>
+@interface VLCServerListViewController () <UITableViewDataSource, UITableViewDelegate, VLCLocalServerDiscoveryControllerDelegate, VLCNetworkLoginViewControllerDelegate, VLCRemoteNetworkDataSourceDelegate>
 {
     VLCLocalServerDiscoveryController *_discoveryController;
 
@@ -50,7 +50,7 @@
     UIActivityIndicatorView *_activityIndicator;
     UITableView *_localNetworkTableView;
     UITableView *_remoteNetworkTableView;
-    VLCRemoteNetworkDataSource *_remoteNetworkDatasource;
+    VLCRemoteNetworkDataSourceAndDelegate *_remoteNetworkDataSourceAndDelegate;
 }
 
 @end
@@ -61,7 +61,8 @@
 {
     [super loadView];
 
-    _remoteNetworkDatasource = [VLCRemoteNetworkDataSource new];
+    _remoteNetworkDataSourceAndDelegate = [VLCRemoteNetworkDataSourceAndDelegate new];
+    _remoteNetworkDataSourceAndDelegate.delegate = self;
 
     _localNetworkTableView = [[UITableView alloc] initWithFrame:[UIScreen mainScreen].bounds style:UITableViewStylePlain];
     _localNetworkTableView.translatesAutoresizingMaskIntoConstraints = NO;
@@ -79,12 +80,14 @@
     _remoteNetworkTableView = [[UITableView alloc] initWithFrame:[UIScreen mainScreen].bounds style:UITableViewStylePlain];
     _remoteNetworkTableView.translatesAutoresizingMaskIntoConstraints = NO;
     _remoteNetworkTableView.backgroundColor = PresentationTheme.current.colors.background;
-    _remoteNetworkTableView.delegate = self;
-    _remoteNetworkTableView.dataSource = _remoteNetworkDatasource;
+    _remoteNetworkTableView.delegate = _remoteNetworkDataSourceAndDelegate;
+    _remoteNetworkTableView.dataSource = _remoteNetworkDataSourceAndDelegate;
     _remoteNetworkTableView.indicatorStyle = UIScrollViewIndicatorStyleWhite;
     _remoteNetworkTableView.separatorStyle = UITableViewCellSeparatorStyleNone;
     _remoteNetworkTableView.bounces = NO;
+
     [_remoteNetworkTableView registerClass:[VLCWiFiUploadTableViewCell class] forCellReuseIdentifier:[VLCWiFiUploadTableViewCell cellIdentifier]];
+    [_remoteNetworkTableView registerClass:[VLCRemoteNetworkCell class] forCellReuseIdentifier:VLCRemoteNetworkCell.cellIdentifier];
 
     _refreshControl = [[UIRefreshControl alloc] init];
     _refreshControl.backgroundColor = PresentationTheme.current.colors.background;
@@ -104,7 +107,8 @@
                                               [_remoteNetworkTableView.leftAnchor constraintEqualToAnchor:self.view.leftAnchor],
                                               [_remoteNetworkTableView.rightAnchor constraintEqualToAnchor:self.view.rightAnchor],
                                               [_remoteNetworkTableView.topAnchor constraintEqualToAnchor:self.topLayoutGuide.bottomAnchor],
-                                              [_remoteNetworkTableView.heightAnchor constraintEqualToConstant:50],
+                                              //TODO: this should be rather be done dynamically with contenthugging of the tableview since the cellheights might vary
+                                              [_remoteNetworkTableView.heightAnchor constraintEqualToConstant:_remoteNetworkDataSourceAndDelegate.height],
                                               [_localNetworkTableView.topAnchor constraintEqualToAnchor:_remoteNetworkTableView.bottomAnchor],
                                               [_localNetworkTableView.leftAnchor constraintEqualToAnchor:self.view.leftAnchor],
                                               [_localNetworkTableView.rightAnchor constraintEqualToAnchor:self.view.rightAnchor],
@@ -205,11 +209,6 @@
     return cell;
 }
 
-- (NSIndexPath *)tableView:(UITableView *)tableView willSelectRowAtIndexPath:(NSIndexPath *)indexPath
-{
-    return tableView == _remoteNetworkTableView ? nil : indexPath;
-}
-
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
 {
     [tableView deselectRowAtIndexPath:indexPath animated:YES];
@@ -259,6 +258,12 @@
         [self.navigationController pushViewController:loginViewController animated:YES];
     }
 }
+
+- (void)showViewController:(UIViewController *)viewController
+{
+    [self.navigationController pushViewController:viewController animated:YES];
+}
+
 #pragma mark -
 - (void)themeDidChange
 {

@@ -87,15 +87,6 @@ class VLCTabbarCooordinator: NSObject, VLCMediaViewControllerDelegate, UITabBarC
             selectedImage: UIImage(named: "Local"))
         serverVC.tabBarItem.accessibilityIdentifier = "Server"
 
-        //CloudServices
-        let cloudVC = VLCCloudServicesTableViewController(nibName: "VLCCloudServicesTableViewController", bundle: Bundle.main)
-        cloudVC.title = NSLocalizedString("CLOUD_SERVICES", comment: "")
-        cloudVC.tabBarItem = UITabBarItem(
-            title: NSLocalizedString("CLOUD_SERVICES", comment: ""),
-            image: UIImage(named: "iCloudIcon"),
-            selectedImage: UIImage(named: "iCloudIcon"))
-        cloudVC.tabBarItem.accessibilityIdentifier = "Cloud"
-
         //Settings
         let settingsVC = VLCSettingsController()
         settingsVC.title = NSLocalizedString("Settings", comment: "")
@@ -123,7 +114,7 @@ class VLCTabbarCooordinator: NSObject, VLCMediaViewControllerDelegate, UITabBarC
             selectedImage: UIImage(named: "OpenNetStream"))
         streamVC.tabBarItem.accessibilityIdentifier = "Stream"
 
-        let controllers = [audioVC, serverVC, videoVC, settingsVC, cloudVC, downloadVC, streamVC]
+        let controllers = [audioVC, serverVC, videoVC, settingsVC, downloadVC, streamVC]
         tabBarController.viewControllers = controllers.map { UINavigationController(rootViewController: $0)}
     }
 

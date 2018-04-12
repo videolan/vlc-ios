@@ -14,4 +14,7 @@
 
 @interface VLCCloudServicesTableViewController : UITableViewController
 
+@property (nonatomic, readonly, copy) NSString *detailText;
+@property (nonatomic, readonly) UIImage *cellImage;
+
 @end

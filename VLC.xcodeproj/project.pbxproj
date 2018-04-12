@@ -42,6 +42,7 @@
 		41B93C081A53853B00102E8B /* VLCCloudServiceCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 41B93C071A53853B00102E8B /* VLCCloudServiceCell.xib */; };
 		41CD695C1A29D72600E60BCE /* VLCBoxController.m in Sources */ = {isa = PBXBuildFile; fileRef = 41CD69591A29D72600E60BCE /* VLCBoxController.m */; };
 		41CD695D1A29D72600E60BCE /* VLCBoxTableViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 41CD695B1A29D72600E60BCE /* VLCBoxTableViewController.m */; };
+		41E6BECD207E64E900E158BA /* RemoteNetworkCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 41E6BECC207E64E900E158BA /* RemoteNetworkCell.swift */; };
 		41EB91D71F7BE6F500821AA5 /* VLCRemoteControlService.m in Sources */ = {isa = PBXBuildFile; fileRef = 417D7F5F1F7BA26200DDF36A /* VLCRemoteControlService.m */; };
 		41EB91DD1F7BFF8500821AA5 /* VLCMetadata.m in Sources */ = {isa = PBXBuildFile; fileRef = 41EB91DC1F7BFF8400821AA5 /* VLCMetadata.m */; };
 		41EB91DE1F7BFF8500821AA5 /* VLCMetadata.m in Sources */ = {isa = PBXBuildFile; fileRef = 41EB91DC1F7BFF8400821AA5 /* VLCMetadata.m */; };
@@ -567,6 +568,7 @@
 		41CD69591A29D72600E60BCE /* VLCBoxController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = VLCBoxController.m; path = Sources/VLCBoxController.m; sourceTree = SOURCE_ROOT; };
 		41CD695A1A29D72600E60BCE /* VLCBoxTableViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = VLCBoxTableViewController.h; path = Sources/VLCBoxTableViewController.h; sourceTree = SOURCE_ROOT; };
 		41CD695B1A29D72600E60BCE /* VLCBoxTableViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = VLCBoxTableViewController.m; path = Sources/VLCBoxTableViewController.m; sourceTree = SOURCE_ROOT; };
+		41E6BECC207E64E900E158BA /* RemoteNetworkCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RemoteNetworkCell.swift; sourceTree = "<group>"; };
 		41EB91DB1F7BFF8400821AA5 /* VLCMetadata.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = VLCMetadata.h; sourceTree = "<group>"; };
 		41EB91DC1F7BFF8400821AA5 /* VLCMetadata.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = VLCMetadata.m; sourceTree = "<group>"; };
 		41F5C0761F41ED55005EB9CB /* VLCLibrarySearchDisplayDataSource.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = VLCLibrarySearchDisplayDataSource.h; path = Sources/VLCLibrarySearchDisplayDataSource.h; sourceTree = SOURCE_ROOT; };
@@ -1407,6 +1409,7 @@
 				DD3EFEEB1BDEBA3800B68579 /* VLCServerListViewController.h */,
 				DD3EFEEC1BDEBA3800B68579 /* VLCServerListViewController.m */,
 				4195747C206A92ED00393A42 /* RemoteNetworkDataSource.swift */,
+				41E6BECC207E64E900E158BA /* RemoteNetworkCell.swift */,
 			);
 			name = "Local Network Connectivity";
 			path = Sources/LocalNetworkConnectivity;
@@ -3248,6 +3251,7 @@
 				41273A3C1A955C4100A2EF77 /* VLCMigrationViewController.m in Sources */,
 				7D30F3C4183AB24C00FFC021 /* VLCHTTPUploaderController.m in Sources */,
 				7D30F3C7183AB26F00FFC021 /* VLCOpenNetworkStreamViewController.m in Sources */,
+				41E6BECD207E64E900E158BA /* RemoteNetworkCell.swift in Sources */,
 				DD1CB05A1BBAC549006EDDE6 /* VLCVolumeView.m in Sources */,
 				7D5CAA8C1A4AD8E5003F2CBC /* VLCTrackSelectorHeaderView.m in Sources */,
 				4171D35018A2C19000A16EF9 /* VLCFolderCollectionViewFlowLayout.m in Sources */,
