@@ -141,10 +141,6 @@
         [vpc setAudioPassthrough:bValue];
 
         [defaults setBool:bValue forKey:kVLCSettingUseSPDIF];
-        /* restart the audio output */
-        NSInteger currentAudioTrackIndex = [vpc indexOfCurrentAudioTrack];
-        [vpc selectAudioTrackAtIndex:0];
-        [vpc selectAudioTrackAtIndex:currentAudioTrackIndex];
     } else {
         [vpc selectAudioTrackAtIndex:row];
     }
