@@ -3,16 +3,14 @@
     "keyword": {
       "fonts": [
         {
-          "font": "./fonts/SF-Pro-Display-Regular.otf",
-          "supported": ["en", "de", "fr", "ko"]
+          "font": "./fonts/SF-Pro-Display-Regular.otf"
         }
       ]
     },
     "title": {
       "fonts": [
         {
-          "font": "./fonts/SF-Pro-Display-Regular.otf",
-          "supported": ["en", "de", "fr", "ko"]
+          "font": "./fonts/SF-Pro-Display-Regular.otf"
         }
       ],
       "color": "#000000"
