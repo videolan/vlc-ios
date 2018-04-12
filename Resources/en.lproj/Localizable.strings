@@ -108,8 +108,6 @@
 "LIBRARY_MINUTES_LEFT" = "%@m left";
 "RENAME_MEDIA_TO" = "Enter new name for %@";
 
-"FOLDER_EMPTY" = "Empty Folder";
-"FOLDER_EMPTY_LONG" = "To add files tap Edit, choose the files you want, click the folder-button and select this folder.";
 "FOLDER_INVALID_TYPE_TITLE" = "Invalid file types";
 "FOLDER_INVALID_TYPE_MESSAGE" = "You can only take two files to form a folder or add a single file to an existing folder.";
 "FOLDER_CHOOSE_NAME_TITLE" = "New Folder";
