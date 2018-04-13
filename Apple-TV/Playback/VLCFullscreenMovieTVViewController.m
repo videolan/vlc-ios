@@ -215,10 +215,6 @@ typedef NS_ENUM(NSInteger, VLCPlayerScanState)
         }
     }
 
-    if (!self.canScrub) {
-        return;
-    }
-
     switch (panGestureRecognizer.state) {
         case UIGestureRecognizerStateCancelled:
         case UIGestureRecognizerStateFailed:
@@ -231,10 +227,11 @@ typedef NS_ENUM(NSInteger, VLCPlayerScanState)
 
     UIView *view = self.view;
     CGPoint translation = [panGestureRecognizer translationInView:view];
+    BOOL canScrub = self.canScrub;
 
     if (!bar.scrubbing) {
         if (ABS(translation.x) > 150.0) {
-            if (self.isSeekable) {
+            if (self.isSeekable && canScrub) {
                 [self startScrubbing];
             } else {
                 return;
@@ -249,15 +246,16 @@ typedef NS_ENUM(NSInteger, VLCPlayerScanState)
         }
     }
 
+    if (!canScrub) {
+        return;
+    }
+
     [self showPlaybackControlsIfNeededForUserInteraction];
     [self setScanState:VLCPlayerScanStateNone];
 
-
     const CGFloat scaleFactor = 8.0;
-    CGFloat fractionInView = translation.x/CGRectGetWidth(view.bounds)/scaleFactor;
-
+    CGFloat fractionInView = translation.x / CGRectGetWidth(view.bounds) / scaleFactor;
     CGFloat scrubbingFraction = MAX(0.0, MIN(bar.scrubbingFraction + fractionInView,1.0));
-
 
     if (ABS(scrubbingFraction - bar.playbackFraction)<0.005) {
         scrubbingFraction = bar.playbackFraction;
