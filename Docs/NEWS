@@ -1,3 +1,9 @@
+tvOS 3.0.3:
+-----------
+· Improved audio passthrough behavior
+· Audio / Subtitles track selector now appears without pausing first
+· Greatly improved hardware decoding performance for H.264 and H.265 (Apple TV 4K only)
+
 tvOS 3.0.2:
 -----------
 · Fixes issues with not being able to resume playback
