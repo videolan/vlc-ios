@@ -79,7 +79,7 @@ A [beginner friendly](https://code.videolan.org/videolan/vlc-ios/issues?label_na
 
 ### Forum
 
-If you have any question or you're not sure it's an issue please visit our [forum](https://forum.videolan.org/).
+If you have any question or if you're not sure it's actually an issue, please visit our [forum](https://forum.videolan.org/).
 
 ### Issues
 
@@ -87,15 +87,15 @@ You have encountered an issue and wish to report it to the VLC dev team?
 
 You can create one on our [Gitlab](https://code.videolan.org/videolan/vlc-ios/issues) or on our [bug tracker](https://trac.videolan.org/vlc/).
 
-Before creating an issue or ticket, please double check of duplicates!
+Before creating an issue or ticket, please double check for duplicates!
 
 ### IRC
 
 Want to quickly get in touch with us for a question, or even just to talk?
 
-You will always find someone of the VLC team on IRC, __#videolan__ channel on the freenode network.
+You will always find someone from the VLC team on IRC, __#videolan__ channel on the freenode network.
 
-For VLC-iOS specific questions you can find us on __#vlc-ios__.
+For VLC-iOS specific questions, you can find us on __#vlc-ios__.
 
 If you don't have an IRC client, you can always use the [freenode webchat](https://webchat.freenode.net/).
 
