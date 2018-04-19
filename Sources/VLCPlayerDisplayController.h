@@ -11,6 +11,7 @@
  *****************************************************************************/
 
 @class VLCPlaybackController;
+@class VLCService;
 
 typedef NS_ENUM(NSUInteger, VLCPlayerDisplayControllerDisplayMode) {
     VLCPlayerDisplayControllerDisplayModeFullscreen,
@@ -32,6 +33,13 @@ typedef NS_ENUM(NSUInteger, VLCPlayerDisplayControllerDisplayMode) {
 
 @property (nonatomic, assign) VLCPlayerDisplayControllerDisplayMode displayMode;
 @property (nonatomic, weak) VLCPlaybackController *playbackController;
+
+- (instancetype)init NS_UNAVAILABLE;
+- (instancetype)initWithNibName:(NSString *)nibNameOrNil
+                         bundle:(NSBundle *)nibBundleOrNil NS_UNAVAILABLE;
+- (instancetype)initWithCoder:(NSCoder *)aDecoder NS_UNAVAILABLE;
+
+- (instancetype)initWithServices:(id)services NS_DESIGNATED_INITIALIZER;
 
 - (void)showFullscreenPlayback;
 - (void)closeFullscreenPlayback;

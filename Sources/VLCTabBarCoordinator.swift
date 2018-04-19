@@ -17,11 +17,12 @@ class VLCTabbarCooordinator: NSObject, VLCMediaViewControllerDelegate {
     private var childCoordinators: [NSObject] = []
     private var tabBarController: UITabBarController
     private var services: Services
-    private let displayController = VLCPlayerDisplayController()
+    private var displayController: VLCPlayerDisplayController
 
     public init(tabBarController: UITabBarController, services: Services) {
         self.tabBarController = tabBarController
         self.services = services
+        self.displayController = VLCPlayerDisplayController(services: services)
         super.init()
         NotificationCenter.default.addObserver(self, selector: #selector(updateTheme), name: .VLCThemeDidChangeNotification, object: nil)
     }
