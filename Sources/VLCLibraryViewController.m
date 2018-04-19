@@ -72,6 +72,7 @@ static NSString *kUsingTableViewToShowData = @"UsingTableViewToShowData";
     UIBarButtonItem *_shareBarButtonItem;
     UIBarButtonItem *_removeFromFolderBarButtonItem;
     UIBarButtonItem *_deleteSelectedBarButtonItem;
+    UIBarButtonItem *_rendererBarButton;
     
     NSObject *dragAndDropManager;
 }
@@ -247,6 +248,7 @@ static NSString *kUsingTableViewToShowData = @"UsingTableViewToShowData";
     self.edgesForExtendedLayout = UIRectEdgeNone;
 
     [self setupSearchController];
+    _rendererBarButton = [[UIBarButtonItem alloc] initWithCustomView:[VLCRendererDiscovererManager.sharedInstance setupRendererButton]];
 }
 
 - (void)setupSearchController
@@ -268,6 +270,13 @@ static NSString *kUsingTableViewToShowData = @"UsingTableViewToShowData";
     [self.collectionView.collectionViewLayout invalidateLayout];
     [self setViewFromDeviceOrientation];
     [self updateViewsForCurrentDisplayMode];
+
+    VLCRendererDiscovererManager *manager = VLCRendererDiscovererManager.sharedInstance;
+    if (manager.discoverers || manager.discoverers.count) {
+        // No discoverers has yet been started
+        [manager start];
+    }
+    manager.presentingViewController = self;
 }
 
 - (void)viewDidAppear:(BOOL)animated
@@ -408,7 +417,7 @@ static NSString *kUsingTableViewToShowData = @"UsingTableViewToShowData";
             self.navigationItem.rightBarButtonItems = @[toggleDisplayedView, self.editButtonItem];
             self.displayModeBarButtonItem = toggleDisplayedView;
         } else {
-            self.navigationItem.rightBarButtonItem = self.editButtonItem;
+            self.navigationItem.rightBarButtonItems = @[self.editButtonItem, _rendererBarButton];
         }
     }
     if (self.usingTableViewToShowData) {
@@ -1032,13 +1041,20 @@ static NSString *kUsingTableViewToShowData = @"UsingTableViewToShowData";
 
     _isSelected = NO;
 
+
     UIBarButtonItem *editButton = self.editButtonItem;
     editButton.tintColor = [UIColor whiteColor];
 
-    if (!editing && self.navigationItem.rightBarButtonItems.lastObject == _selectAllBarButtonItem)
+    if (!editing && self.navigationItem.rightBarButtonItems.lastObject == _selectAllBarButtonItem) {
         [self.navigationItem setRightBarButtonItems: [self.navigationItem.rightBarButtonItems subarrayWithRange:NSMakeRange(0, self.navigationItem.rightBarButtonItems.count - 1)]];
-    else
+        [self.navigationItem setRightBarButtonItems: [self.navigationItem.rightBarButtonItems arrayByAddingObject:_rendererBarButton]];
+    }
+    else {
+        // ugly workaround since the stackview doesn't seems to be working properly
+        // setRightBarButtonItem doesn't reset it correctly
+        [self.navigationItem setRightBarButtonItems:@[editButton]];
         [self.navigationItem setRightBarButtonItems:editing ? [self.navigationItem.rightBarButtonItems arrayByAddingObject:_selectAllBarButtonItem] : [self.navigationItem rightBarButtonItems] animated:YES];
+    }
 
     [self setSearchBar:!editing resetContent:!editing];
     self.tableView.allowsMultipleSelectionDuringEditing = editing;

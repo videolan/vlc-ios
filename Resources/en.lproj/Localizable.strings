@@ -25,6 +25,7 @@
 "ONE_SPU_TRACK" = "One subtitles track";
 
 "PLAYING_EXTERNALLY_TITLE" = "TV Connected";
+"PLAYING_EXTERNALLY_TITLE_CHROMECAST" = "Chromecast Connected";
 "PLAYING_EXTERNALLY_DESC" = "This video is playing on the TV";
 
 "VFILTER_HUE" = "Hue";
@@ -69,6 +70,9 @@
 "BUTTON_RESET" = "Reset";
 "PRIVATE_PLAYBACK_TOGGLE" = "Private Playback";
 "SCAN_SUBTITLE_TOGGLE" = "Scan for Subtitles (http-only)";
+
+"BUTTON_RENDERER" = "Casting devices";
+"BUTTON_RENDERER_HINT" = "Show a menu of available casting devices";
 
 "UPGRADING_LIBRARY" = "Upgrading Media Library";
 "UNTITLED_SHOW" = "Untitled Show";
@@ -128,6 +132,7 @@
 "SHARING_SUCCESS_CAMERA_ROLL" = "File was successfully saved to the Camera Roll";
 
 "SECTION_HEADER_LIBRARY" = "Media Library";
+"HEADER_TITLE_RENDERER" = "Select a casting device";
 "SECTION_HEADER_NETWORK" = "Network";
 
 "LOCAL_NETWORK" = "Local Network";

@@ -238,6 +238,8 @@ typedef NS_ENUM(NSUInteger, VLCAspectRatio) {
     [_mediaPlayer addObserver:self forKeyPath:@"time" options:0 context:nil];
     [_mediaPlayer addObserver:self forKeyPath:@"remainingTime" options:0 context:nil];
 
+    [_mediaPlayer setRendererItem:_renderer];
+
     [_listPlayer playItemAtNumber:@(_itemInMediaListToBePlayedFirst)];
 
     if ([self.delegate respondsToSelector:@selector(prepareForMediaPlayback:)])
@@ -1232,7 +1234,7 @@ typedef NS_ENUM(NSUInteger, VLCAspectRatio) {
 {
     _preBackgroundWrapperView = _videoOutputViewWrapper;
 
-    if (_mediaPlayer.audioTrackIndexes.count > 0)
+    if (!_renderer && _mediaPlayer.audioTrackIndexes.count > 0)
         [self setVideoTrackEnabled:false];
 }
 
@@ -1321,6 +1323,13 @@ typedef NS_ENUM(NSUInteger, VLCAspectRatio) {
               kVLCSettingTextEncoding : [defaults objectForKey:kVLCSettingTextEncoding],
               kVLCSettingSkipLoopFilter : [defaults objectForKey:kVLCSettingSkipLoopFilter],
               kVLCSettingHardwareDecoding : [defaults objectForKey:kVLCSettingHardwareDecoding]};
+}
+
+#pragma mark - Renderer
+
+- (void)mediaPlayerSetRenderer:(VLCRendererItem *)renderer
+{
+    [_mediaPlayer setRendererItem:renderer];
 }
 
 @end
