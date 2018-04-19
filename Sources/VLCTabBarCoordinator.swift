@@ -60,9 +60,9 @@ class VLCTabbarCooordinator: NSObject, VLCMediaViewControllerDelegate, UITabBarC
         let videoVC = VLCMediaViewController(services: services)
         //this should probably not be the delegate
         videoVC.delegate = self
-        videoVC.title = NSLocalizedString("Video", comment: "")
+        videoVC.title = NSLocalizedString("VIDEO", comment: "")
         videoVC.tabBarItem = UITabBarItem(
-            title: NSLocalizedString("Video", comment: ""),
+            title: NSLocalizedString("VIDEO", comment: ""),
             image: UIImage(named: "TVShowsIcon"),
             selectedImage: UIImage(named: "TVShowsIcon"))
         videoVC.tabBarItem.accessibilityIdentifier = "Video"
@@ -71,9 +71,9 @@ class VLCTabbarCooordinator: NSObject, VLCMediaViewControllerDelegate, UITabBarC
         let audioVC = VLCMediaViewController(services: services)
         //this should probably not be the delegate
         audioVC.delegate = self
-        audioVC.title = NSLocalizedString("Audio", comment: "")
+        audioVC.title = NSLocalizedString("AUDIO", comment: "")
         audioVC.tabBarItem = UITabBarItem(
-            title: NSLocalizedString("Audio", comment: ""),
+            title: NSLocalizedString("AUDIO", comment: ""),
             image: UIImage(named: "MusicAlbums"),
             selectedImage:UIImage(named: "MusicAlbums"))
         audioVC.tabBarItem.accessibilityIdentifier = "Audio"
@@ -135,14 +135,14 @@ class VLCTabbarCooordinator: NSObject, VLCMediaViewControllerDelegate, UITabBarC
 
     func showSortOptions() {
         //This should be in a subclass
-        let sortOptionsAlertController = UIAlertController(title: NSLocalizedString("Sort by", comment: ""), message: nil, preferredStyle: .actionSheet)
+        let sortOptionsAlertController = UIAlertController(title: NSLocalizedString("SORT_BY", comment: ""), message: nil, preferredStyle: .actionSheet)
         let sortByNameAction = UIAlertAction(title: SortOption.alphabetically.localizedDescription, style: .default) { action in
         }
         let sortBySizeAction = UIAlertAction(title: SortOption.size.localizedDescription, style: .default) { action in
         }
         let sortbyDateAction = UIAlertAction(title: SortOption.insertonDate.localizedDescription, style: .default) { action in
         }
-        let cancelAction = UIAlertAction(title: NSLocalizedString("Cancel", comment: ""), style: .cancel, handler: nil)
+        let cancelAction = UIAlertAction(title: NSLocalizedString("CANCEL", comment: ""), style: .cancel, handler: nil)
         sortOptionsAlertController.addAction(sortByNameAction)
         sortOptionsAlertController.addAction(sortbyDateAction)
         sortOptionsAlertController.addAction(sortBySizeAction)
