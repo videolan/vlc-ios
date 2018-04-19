@@ -23,6 +23,8 @@ public class VLCMediaViewController: UICollectionViewController, UISearchResults
     private var mediaDatasourceAndDelegate: MediaDataSourceAndDelegate?
     private var searchController: UISearchController?
     private let searchDataSource = VLCLibrarySearchDisplayDataSource()
+    private var rendererButtton: UIButton
+
     public weak var delegate: VLCMediaViewControllerDelegate?
 
     @available(iOS 11.0, *)
@@ -47,6 +49,7 @@ public class VLCMediaViewController: UICollectionViewController, UISearchResults
 
     init(services: Services) {
         self.services = services
+        self.rendererButtton = VLCRendererDiscovererManager.sharedInstance.setupRendererButton()
         super.init(collectionViewLayout: UICollectionViewFlowLayout())
         NotificationCenter.default.addObserver(self, selector: #selector(themeDidChange), name: .VLCThemeDidChangeNotification, object: nil)
     }
@@ -61,7 +64,19 @@ public class VLCMediaViewController: UICollectionViewController, UISearchResults
         setupCollectionView()
         setupSearchController()
         setupNavigationBar()
+        setupRendererDiscovererManager()
         _ = (MLMediaLibrary.sharedMediaLibrary() as! MLMediaLibrary).libraryDidAppear()
+    }
+
+    public override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
+        let manager = VLCRendererDiscovererManager.sharedInstance
+        manager.start()
+        manager.presentingViewController = self
+    }
+
+    public override func viewDidDisappear(_ animated: Bool) {
+        super.viewDidDisappear(animated)
     }
 
     @objc func themeDidChange() {
@@ -120,6 +135,11 @@ public class VLCMediaViewController: UICollectionViewController, UISearchResults
         collectionView?.backgroundView = collectionView?.numberOfItems(inSection: 0) == 0 ? emptyView : nil
     }
 
+    // MARK: Renderer
+    private func setupRendererDiscovererManager() {
+        navigationItem.rightBarButtonItem = UIBarButtonItem(customView: rendererButtton)
+    }
+
     @objc func sort() {
         delegate?.mediaViewControllerDidSelectSort(self)
     }
@@ -146,5 +166,4 @@ public class VLCMediaViewController: UICollectionViewController, UISearchResults
     public func didDismissSearchController(_ searchController: UISearchController) {
         collectionView?.dataSource = mediaDatasourceAndDelegate
     }
-
 }

@@ -1,11 +1,11 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="13189.4" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" colorMatched="YES">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="14109" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" colorMatched="YES">
     <device id="retina4_7" orientation="portrait">
         <adaptation id="fullscreen"/>
     </device>
     <dependencies>
         <deployment identifier="iOS"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="13165.3"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="14088"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
     <objects>
@@ -21,7 +21,7 @@
             <autoresizingMask key="autoresizingMask" flexibleMinX="YES" flexibleMaxX="YES" flexibleMinY="YES" flexibleMaxY="YES"/>
             <subviews>
                 <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Sdb-a5-RTT">
-                    <rect key="frame" x="662" y="5" width="30" height="30"/>
+                    <rect key="frame" x="670" y="5" width="30" height="30"/>
                     <constraints>
                         <constraint firstAttribute="height" constant="30" id="Ap6-VL-6UH"/>
                         <constraint firstAttribute="width" constant="30" id="dEx-l7-vH3"/>
@@ -40,7 +40,7 @@
                     </connections>
                 </button>
                 <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="x1t-3m-s0G">
-                    <rect key="frame" x="618" y="5" width="44" height="30"/>
+                    <rect key="frame" x="626" y="5" width="44" height="30"/>
                     <constraints>
                         <constraint firstAttribute="height" constant="30" id="fv5-Cp-MOv"/>
                     </constraints>
@@ -76,7 +76,7 @@
                     </connections>
                 </button>
                 <slider opaque="NO" contentMode="scaleToFill" semanticContentAttribute="playback" insetsLayoutMarginsFromSafeArea="NO" contentHorizontalAlignment="center" contentVerticalAlignment="center" value="0.5" minValue="0.0" maxValue="1" translatesAutoresizingMaskIntoConstraints="NO" id="axb-6M-lSX" userLabel="Position Slider" customClass="VLCOBSlider">
-                    <rect key="frame" x="28" y="5" width="584" height="31"/>
+                    <rect key="frame" x="28" y="5" width="592" height="31"/>
                     <accessibility key="accessibilityConfiguration">
                         <accessibilityTraits key="traits" updatesFrequently="YES"/>
                     </accessibility>
@@ -99,7 +99,7 @@
                 <constraint firstItem="axb-6M-lSX" firstAttribute="trailing" secondItem="x1t-3m-s0G" secondAttribute="leading" constant="-8" id="l05-q4-Dha"/>
                 <constraint firstItem="x1t-3m-s0G" firstAttribute="centerY" secondItem="SbC-6V-aXT" secondAttribute="centerY" id="mIZ-5x-1r6"/>
                 <constraint firstItem="SBq-Am-6MD" firstAttribute="leading" secondItem="SbC-6V-aXT" secondAttribute="leading" id="mf3-NF-cwy"/>
-                <constraint firstAttribute="trailing" secondItem="Sdb-a5-RTT" secondAttribute="trailing" constant="8" id="uI1-3o-gyT"/>
+                <constraint firstAttribute="trailing" secondItem="Sdb-a5-RTT" secondAttribute="trailing" id="uI1-3o-gyT"/>
                 <constraint firstItem="axb-6M-lSX" firstAttribute="leading" secondItem="SBq-Am-6MD" secondAttribute="trailing" id="zQP-Wv-QPC"/>
             </constraints>
             <nil key="simulatedStatusBarMetrics"/>

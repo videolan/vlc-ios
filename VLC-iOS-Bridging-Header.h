@@ -20,3 +20,4 @@
 #import "VLCServerListViewController.h"
 #import "VLCSettingsController.h"
 #import "VLCWiFiUploadTableViewCell.h"
+#import "VLCMovieViewController.h"
