@@ -19,7 +19,6 @@
 #import "VLC_iOS-Swift.h"
 
 @interface VLCSettingsController ()<PAPasscodeViewControllerDelegate>
-
 @end
 
 @implementation VLCSettingsController
@@ -120,6 +119,11 @@
 
 #pragma mark - IASKSettings delegate
 
+- (void)settingsViewController:(IASKAppSettingsViewController*)sender buttonTappedForSpecifier:(IASKSpecifier*)specifier
+{
+    VLCAboutViewController *aboutVC = [[VLCAboutViewController alloc] init];
+    [self.navigationController pushViewController:aboutVC animated:YES];
+}
 
 #pragma mark - PAPasscode delegate
 

@@ -123,26 +123,8 @@ class VLCTabbarCooordinator: NSObject, VLCMediaViewControllerDelegate, UITabBarC
             selectedImage: UIImage(named: "OpenNetStream"))
         streamVC.tabBarItem.accessibilityIdentifier = "Stream"
 
-        //About
-        let aboutVC = VLCAboutViewController()
-        aboutVC.title = NSLocalizedString("ABOUT_APP", comment: "")
-
-        aboutVC.tabBarItem = UITabBarItem(
-            title: NSLocalizedString("ABOUT_APP", comment: ""),
-            image: coneIcon(),
-            selectedImage: coneIcon())
-        aboutVC.tabBarItem.accessibilityIdentifier = "About"
-
-        let controllers = [audioVC, serverVC, videoVC, settingsVC, cloudVC, downloadVC, streamVC, aboutVC]
+        let controllers = [audioVC, serverVC, videoVC, settingsVC, cloudVC, downloadVC, streamVC]
         tabBarController.viewControllers = controllers.map { UINavigationController(rootViewController: $0)}
-    }
-
-    func coneIcon() -> UIImage? {
-        let calendar = NSCalendar(calendarIdentifier: .gregorian)
-        if let dayOfYear = calendar?.ordinality(of: .day, in: .year, for: Date()) {
-            return dayOfYear >= 354 ? UIImage(named: "vlc-xmas") : UIImage(named: "menuCone")
-        }
-        return nil
     }
 
     // MARK: - VLCMediaViewControllerDelegate
