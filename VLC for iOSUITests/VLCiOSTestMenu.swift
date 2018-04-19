@@ -62,7 +62,8 @@ class VLCiOSTestMenu: XCTestCase {
     }
 
     func testNavigationToAbout() {
-        helper.tap(.About)
+        helper.tap(.Settings)
+        app.cells["About"].tap()
         XCTAssertNotNil(app.navigationBars[Tab.About.rawValue])
     }
 }

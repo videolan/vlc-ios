@@ -139,10 +139,14 @@
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
 {
+    IASKSpecifier *specifier  = [self.settingsReader specifierForIndexPath:indexPath];
     UITableViewCell *cell = [super tableView:tableView cellForRowAtIndexPath:indexPath];
     cell.backgroundColor = PresentationTheme.current.colors.settingsCellBackground;
     cell.textLabel.textColor = PresentationTheme.current.colors.cellTextColor;
     cell.detailTextLabel.textColor = PresentationTheme.current.colors.cellDetailTextColor;
+    if ([specifier.key isEqualToString:@"about"]) {
+        cell.accessibilityIdentifier = @"About";
+    }
     return cell;
 }
 
