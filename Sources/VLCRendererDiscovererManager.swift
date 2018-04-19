@@ -1,0 +1,265 @@
+/*****************************************************************************
+ * VLCRendererDiscovererManager.swift
+ *
+ * Copyright © 2018 VLC authors and VideoLAN
+ * Copyright © 2018 Videolabs
+ *
+ * Authors: Soomin Lee <bubu@mikan.io>
+ *
+ * Refer to the COPYING file of the official project for license.
+ *****************************************************************************/
+
+class VLCRendererDiscovererManager: NSObject {
+    @objc static let sharedInstance = VLCRendererDiscovererManager(presentingViewController: nil)
+
+    // Array of RendererDiscoverers(Chromecast, UPnP, ...)
+    @objc var discoverers: [VLCRendererDiscoverer] = [VLCRendererDiscoverer]()
+
+    @objc lazy var actionSheet: VLCActionSheet = {
+        let actionSheet = VLCActionSheet()
+        actionSheet.delegate = self
+        actionSheet.dataSource = self
+        actionSheet.modalPresentationStyle = .custom
+        actionSheet.setAction { [weak self] (item) in
+            if let rendererItem = item as? VLCRendererItem {
+                self?.setRendererItem(rendererItem: rendererItem)
+            }
+        }
+        return actionSheet
+    }()
+
+    @objc var presentingViewController: UIViewController?
+
+    @objc var rendererButtons: [UIButton] = [UIButton]()
+
+    fileprivate init(presentingViewController: UIViewController?) {
+        self.presentingViewController = presentingViewController
+        super.init()
+    }
+
+    // Returns renderers of *all* discoverers
+    @objc func getAllRenderers() -> [VLCRendererItem] {
+        return discoverers.flatMap { $0.renderers }
+    }
+
+    fileprivate func isDuplicateDiscoverer(with description: VLCRendererDiscovererDescription) -> Bool {
+        for discoverer in discoverers {
+            if discoverer.name == description.name {
+                return true
+            }
+        }
+        return false
+    }
+
+    @objc func start() {
+        // Gather potential renderer discoverers
+        guard let tmpDiscoverersDescription: [VLCRendererDiscovererDescription] = VLCRendererDiscoverer.list() else {
+            print("VLCRendererDiscovererManager: Unable to retrieve list of VLCRendererDiscovererDescription")
+            return
+        }
+        for discovererDescription in tmpDiscoverersDescription {
+            if !isDuplicateDiscoverer(with: discovererDescription) {
+                if let rendererDiscoverer = VLCRendererDiscoverer(name: discovererDescription.name) {
+                    if rendererDiscoverer.start() {
+                        rendererDiscoverer.delegate = self
+                        discoverers.append(rendererDiscoverer)
+                    } else {
+                        print("VLCRendererDiscovererManager: Unable to start renderer discoverer with name: \(rendererDiscoverer.name)")
+                    }
+                } else {
+                    print("VLCRendererDiscovererManager: Unable to instanciate renderer discoverer with name: \(discovererDescription.name)")
+                }
+            }
+        }
+    }
+
+    @objc func stop() {
+        for discoverer in discoverers {
+            discoverer.stop()
+        }
+        discoverers.removeAll()
+    }
+
+    // MARK: VLCActionSheet
+    @objc fileprivate func displayActionSheet() {
+        if let presentingViewController = presentingViewController {
+            // If only one renderer, choose it automatically
+            if getAllRenderers().count == 1 {
+                let indexPath = IndexPath(row: 0, section: 0)
+                if let rendererItem = getAllRenderers().first {
+                    actionSheet.collectionView.selectItem(at: indexPath, animated: false, scrollPosition: .centeredVertically)
+                    actionSheet(collectionView: actionSheet.collectionView, didSelectItem: rendererItem, At: indexPath)
+                    setRendererItem(rendererItem: rendererItem)
+
+                    if let movieViewController = presentingViewController as? VLCMovieViewController {
+                        movieViewController.setupCastWithCurrentRenderer()
+                    }
+                }
+            } else {
+                presentingViewController.present(actionSheet, animated: false, completion: nil)
+            }
+        } else {
+            assertionFailure("VLCRendererDiscovererManager: Cannot display actionSheet, no viewController setted")
+        }
+    }
+
+    fileprivate func setRendererItem(rendererItem: VLCRendererItem) {
+        let vpcRenderer = VLCPlaybackController.sharedInstance().renderer
+
+        if vpcRenderer != rendererItem {
+            VLCPlaybackController.sharedInstance().renderer = rendererItem
+            for button in rendererButtons {
+                button.isSelected = true
+            }
+        } else {
+            // Same renderer selected, removing selection
+            VLCPlaybackController.sharedInstance().renderer = nil
+            for button in rendererButtons {
+                button.isSelected = false
+            }
+        }
+    }
+
+    @objc func addSelectionHandler(selectionHandler: ((_ rendererItem: VLCRendererItem) -> Void)?) {
+        actionSheet.setAction { [weak self] (item) in
+            if let rendererItem = item as? VLCRendererItem {
+                self?.setRendererItem(rendererItem: rendererItem)
+                if let handler = selectionHandler {
+                    handler(rendererItem)
+                }
+            }
+        }
+    }
+
+    /// Add the given button to VLCRendererDiscovererManager.
+    /// The button state will be handled by the manager.
+    ///
+    /// - Returns: New `UIButton`
+    @objc func setupRendererButton() -> UIButton {
+        let button = UIButton()
+        button.isHidden = getAllRenderers().isEmpty
+        button.setImage(UIImage(named: "renderer"), for: .normal)
+        button.setImage(UIImage(named: "rendererFull"), for: .selected)
+        button.addTarget(self, action: #selector(displayActionSheet), for: .touchUpInside)
+        button.accessibilityLabel = NSLocalizedString("BUTTON_RENDERER", comment: "")
+        button.accessibilityHint = NSLocalizedString("BUTTON_RENDERER_HINT", comment: "")
+        rendererButtons.append(button)
+        return button
+    }
+}
+
+// MARK: VLCRendererDiscovererDelegate
+extension VLCRendererDiscovererManager: VLCRendererDiscovererDelegate {
+    func rendererDiscovererItemAdded(_ rendererDiscoverer: VLCRendererDiscoverer, item: VLCRendererItem) {
+        for button in rendererButtons {
+            UIView.animate(withDuration: 0.1) {
+                button.isHidden = false
+            }
+        }
+
+        if actionSheet.viewIfLoaded?.window != nil {
+            actionSheet.collectionView.reloadData()
+            actionSheet.updateViewConstraints()
+        }
+    }
+
+    func rendererDiscovererItemDeleted(_ rendererDiscoverer: VLCRendererDiscoverer, item: VLCRendererItem) {
+        if let playbackController = VLCPlaybackController.sharedInstance() {
+            // Current renderer has been removed
+            if playbackController.renderer == item {
+                playbackController.renderer = nil
+                if playbackController.isPlaying {
+                    // If playing, fall back to local playback
+                    playbackController.mediaPlayerSetRenderer(nil)
+                }
+                if let movieViewController = presentingViewController as? VLCMovieViewController {
+                    movieViewController.playingExternallyView.isHidden = true
+                }
+                // Reset buttons state
+                for button in rendererButtons {
+                    button.isSelected = false
+                }
+            }
+            if actionSheet.viewIfLoaded?.window != nil {
+                actionSheet.collectionView.reloadData()
+                actionSheet.updateViewConstraints()
+            }
+        }
+
+        // No more renderers to show
+        if getAllRenderers().isEmpty {
+            for button in rendererButtons {
+                UIView.animate(withDuration: 0.1) {
+                    button.isHidden = true
+                }
+            }
+            actionSheet.removeActionSheet()
+        }
+    }
+
+    fileprivate func updateCollectionViewCellApparence(cell: VLCActionSheetCell, highlighted: Bool) {
+        if highlighted {
+            cell.icon.image = UIImage(named: "rendererOrangeFull")
+            cell.name.textColor = UIColor.vlcOrangeTint()
+        } else {
+            cell.icon.image = UIImage(named: "rendererGray")
+            cell.name.textColor = .black
+        }
+    }
+}
+
+// MARK: VLCActionSheetDelegate
+extension VLCRendererDiscovererManager: VLCActionSheetDelegate {
+    func headerViewTitle() -> String? {
+        return NSLocalizedString("HEADER_TITLE_RENDERER", comment: "")
+    }
+
+    func itemAtIndexPath(_ indexPath: IndexPath) -> Any? {
+        let renderers = getAllRenderers()
+        if indexPath.row < renderers.count {
+            return renderers[indexPath.row]
+        }
+        assertionFailure("VLCRendererDiscovererManager: VLCActionSheetDelegate: IndexPath out of range")
+        return nil
+    }
+
+    func actionSheet(collectionView: UICollectionView, didSelectItem item: Any, At indexPath: IndexPath) {
+        guard let renderer = item as? VLCRendererItem,
+            let cell = collectionView.cellForItem(at: indexPath) as? VLCActionSheetCell else {
+                assertionFailure("VLCRendererDiscovererManager: VLCActionSheetDelegate: Cell is not a VLCActionSheetCell")
+                return
+        }
+        // Handles the case when the same renderer is selected
+        if renderer == VLCPlaybackController.sharedInstance().renderer {
+            updateCollectionViewCellApparence(cell: cell, highlighted: false)
+        } else {
+            // Reset all cells
+            collectionView.reloadData()
+            updateCollectionViewCellApparence(cell: cell, highlighted: true)
+        }
+    }
+}
+
+// MARK: VLCActionSheetDataSource
+extension VLCRendererDiscovererManager: VLCActionSheetDataSource {
+    func numberOfRows() -> Int {
+        return getAllRenderers().count
+    }
+
+    func actionSheet(collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
+        guard let cell = collectionView.dequeueReusableCell(
+            withReuseIdentifier: VLCActionSheetCell.identifier, for: indexPath) as? VLCActionSheetCell else {
+                assertionFailure("VLCRendererDiscovererManager: VLCActionSheetDataSource: Unable to dequeue reusable cell")
+                return UICollectionViewCell()
+        }
+        let renderers = getAllRenderers()
+        if indexPath.row < renderers.count {
+            cell.name.text = renderers[indexPath.row].name
+            let highlighted = renderers[indexPath.row] == VLCPlaybackController.sharedInstance().renderer ? true : false
+            updateCollectionViewCellApparence(cell: cell, highlighted: highlighted)
+        } else {
+            assertionFailure("VLCRendererDiscovererManager: VLCActionSheetDataSource: IndexPath out of range")
+        }
+        return cell
+    }
+}

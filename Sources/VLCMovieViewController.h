@@ -98,4 +98,6 @@ typedef NS_ENUM(NSInteger, VLCMovieJumpState) {
 
 - (BOOL)rotationIsDisabled;
 
+- (void)setupCastWithCurrentRenderer;
+
 @end
