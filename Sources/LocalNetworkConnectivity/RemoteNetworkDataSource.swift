@@ -12,8 +12,14 @@
 import Foundation
 
 enum RemoteNetworkCellType: Int {
-    case cloud = 0, wifi
-    static let count: Int = 2
+    case cloud
+    case streaming
+    case wifi
+    static let count: Int = {
+        var max: Int = 0
+        while let _ = RemoteNetworkCellType(rawValue: max) { max += 1 }
+        return max
+    }()
 }
 
 @objc(VLCRemoteNetworkDataSourceDelegate)
@@ -23,6 +29,8 @@ protocol RemoteNetworkDataSourceDelegate {
 @objc(VLCRemoteNetworkDataSourceAndDelegate)
 public class RemoteNetworkDataSource: NSObject, UITableViewDataSource, UITableViewDelegate {
     let cloudVC = VLCCloudServicesTableViewController(nibName: "VLCCloudServicesTableViewController", bundle: Bundle.main)
+    let streamingVC = VLCOpenNetworkStreamViewController(nibName: "VLCOpenNetworkStreamViewController", bundle: Bundle.main)
+
     @objc weak var delegate: RemoteNetworkDataSourceDelegate?
 
     @objc public let height = RemoteNetworkCellType.count * 55
@@ -45,7 +53,14 @@ public class RemoteNetworkDataSource: NSObject, UITableViewDataSource, UITableVi
                 networkCell.imageView?.image = cloudVC.cellImage
                 return networkCell
             }
-
+        case .streaming:
+            if let networkCell = tableView.dequeueReusableCell(withIdentifier: VLCRemoteNetworkCell.cellIdentifier) {
+                networkCell.textLabel?.text = streamingVC.title
+                networkCell.detailTextLabel?.text = streamingVC.detailText
+                networkCell.imageView?.image = streamingVC.cellImage
+                networkCell.accessibilityIdentifier = "Stream"
+                return networkCell
+            }
         case .wifi:
             if let wifiCell = tableView.dequeueReusableCell(withIdentifier: VLCWiFiUploadTableViewCell.cellIdentifier()) {
                 return wifiCell
@@ -75,6 +90,8 @@ public class RemoteNetworkDataSource: NSObject, UITableViewDataSource, UITableVi
         switch cellType {
         case .cloud:
             return cloudVC
+        case .streaming:
+            return streamingVC
         case .wifi:
             assertionFailure("We shouldn't get in here since we return nil in willSelect")
             return nil

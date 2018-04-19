@@ -33,8 +33,16 @@
     NSUserDefaults *defaults = [NSUserDefaults standardUserDefaults];
 
     NSDictionary *appDefaults = @{kVLCRecentURLs : @[], kVLCRecentURLTitles : @{}, kVLCPrivateWebStreaming : @(NO)};
-
     [defaults registerDefaults:appDefaults];
+}
+
+- (instancetype)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil
+{
+    self = [super initWithNibName:nibNameOrNil bundle:nibBundleOrNil];
+    if (self) {
+        self.title = NSLocalizedString(@"OPEN_NETWORK", comment: "");
+    }
+    return self;
 }
 
 - (void)applicationDidBecomeActive:(NSNotification *)notification
@@ -60,10 +68,10 @@
                                name:NSUbiquitousKeyValueStoreDidChangeExternallyNotification
                              object:[NSUbiquitousKeyValueStore defaultStore]];
 
-    [[NSNotificationCenter defaultCenter] addObserver:self
-                                             selector:@selector(updateForTheme)
-                                                 name:kVLCThemeDidChangeNotification
-                                               object:nil];
+    [notificationCenter addObserver:self
+                           selector:@selector(updateForTheme)
+                               name:kVLCThemeDidChangeNotification
+                             object:nil];
     /* force store update */
     NSUbiquitousKeyValueStore *ubiquitousKeyValueStore = [NSUbiquitousKeyValueStore defaultStore];
     [ubiquitousKeyValueStore synchronize];
@@ -120,6 +128,16 @@
     [sharedMenuController setMenuItems:@[renameItem]];
     [sharedMenuController update];
     [self updateForTheme];
+}
+
+- (NSString *)detailText
+{
+    return NSLocalizedString(@"STREAMVC_DETAILTEXT", nil);
+}
+
+- (UIImage *)cellImage
+{
+    return [UIImage imageNamed:@"OpenNetStream"];
 }
 
 - (void)updateForTheme

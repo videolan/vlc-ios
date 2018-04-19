@@ -14,7 +14,7 @@ import Foundation
 import XCTest
 
 enum Tab: String {
-    case Video, Audio, Server, Cloud
+    case Video, Audio, LocalNetwork, Cloud
     case Settings, Downloads, Stream, About
 }
 
@@ -25,7 +25,7 @@ struct TestHelper {
         self.app = app
     }
 
-    func tap(_ type: Tab) {
+    func tapTabBarItem(_ type: Tab) {
         app.tabBars.buttons[type.rawValue].tap()
     }
 }

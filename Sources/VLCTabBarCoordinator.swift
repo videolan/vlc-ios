@@ -85,7 +85,7 @@ class VLCTabbarCooordinator: NSObject, VLCMediaViewControllerDelegate, UITabBarC
             title: NSLocalizedString("LOCAL_NETWORK", comment: ""),
             image: UIImage(named: "Local"),
             selectedImage: UIImage(named: "Local"))
-        serverVC.tabBarItem.accessibilityIdentifier = "Server"
+        serverVC.tabBarItem.accessibilityIdentifier = "LocalNetwork"
 
         //Settings
         let settingsVC = VLCSettingsController()
@@ -105,16 +105,7 @@ class VLCTabbarCooordinator: NSObject, VLCMediaViewControllerDelegate, UITabBarC
             selectedImage:  UIImage(named: "Downloads"))
         downloadVC.tabBarItem.accessibilityIdentifier = "Downloads"
 
-        //Streaming
-        let streamVC = VLCOpenNetworkStreamViewController(nibName: "VLCOpenNetworkStreamViewController", bundle: Bundle.main)
-        streamVC.title = NSLocalizedString("OPEN_NETWORK", comment: "")
-        streamVC.tabBarItem = UITabBarItem(
-            title:  NSLocalizedString("OPEN_NETWORK", comment: ""),
-            image: UIImage(named: "OpenNetStream"),
-            selectedImage: UIImage(named: "OpenNetStream"))
-        streamVC.tabBarItem.accessibilityIdentifier = "Stream"
-
-        let controllers = [audioVC, serverVC, videoVC, settingsVC, downloadVC, streamVC]
+        let controllers = [audioVC, serverVC, videoVC, settingsVC, downloadVC]
         tabBarController.viewControllers = controllers.map { UINavigationController(rootViewController: $0)}
     }
 
