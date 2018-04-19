@@ -77,7 +77,6 @@
 "OPEN_NETWORK" = "Open Network Stream";
 "NETWORK_TITLE" = "Network Stream";
 "OPEN_NETWORK_HELP" = "Enter any HTTP, RTSP, RTMP, MMS, FTP or UDP/RTP address to open the stream directly.";
-"ABOUT_APP" = "About";
 "HTTP_UPLOAD_SERVER_OFF" = "Inactive Server";
 "HTTP_UPLOAD_NO_CONNECTIVITY" = "No active WiFi connection";
 "OPEN_STREAM_OR_DOWNLOAD" = "Would you like to download or play this URL?";
@@ -127,7 +126,6 @@
 "SHARING_SUCCESS_CAMERA_ROLL" = "File was successfully saved to the Camera Roll";
 
 "SECTION_HEADER_LIBRARY" = "Media Library";
-"SECTION_HEADER_NETWORK" = "Network";
 
 "LOCAL_NETWORK" = "Local Network";
 "CONNECT_TO_SERVER" = "Connect to Server";
@@ -168,19 +166,6 @@
 "BIOMETRIC_UNLOCK" = "Unlock Media Library\nCancel to enter Passcode";
 
 //PAPasscode Strings that we need to localize for them
-"%d Failed Passcode Attempts" = "%d Failed Passcode Attempts";
-"1 Failed Passcode Attempt" = "1 Failed Passcode Attempt";
-"Change Passcode" = "Change Passcode";
-"Enter Passcode" = "Enter Passcode";
-"Enter a passcode" = "Enter a passcode";
-"Enter your new passcode" = "Enter your new passcode";
-"Enter your old passcode" = "Enter your old passcode";
-"Enter your passcode" = "Enter your passcode";
-"Next" = "Next";
-"Passcodes did not match. Try again." = "Passcodes did not match. Try again.";
-"Re-enter your new passcode" = "Re-enter your new passcode";
-"Re-enter your passcode" = "Re-enter your passcode";
-"Set Passcode" = "Set Passcode";
 
 "Settings" = "Settings"; // plain text key to keep compatibility with InAppSettingsKit's upstream
 "ON" = "On";
