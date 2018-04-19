@@ -103,7 +103,7 @@ public class VLCMediaViewController: UICollectionViewController, UISearchResults
     }
 
     func setupNavigationBar() {
-        navigationItem.leftBarButtonItem = UIBarButtonItem(title: NSLocalizedString("Sort", comment: ""), style: .plain, target: self, action: #selector(sort))
+        navigationItem.leftBarButtonItem = UIBarButtonItem(title: NSLocalizedString("SORT", comment: ""), style: .plain, target: self, action: #selector(sort))
     }
 
     @objc func sort() {
