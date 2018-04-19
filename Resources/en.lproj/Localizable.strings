@@ -126,6 +126,7 @@
 "SHARING_SUCCESS_CAMERA_ROLL" = "File was successfully saved to the Camera Roll";
 
 "SECTION_HEADER_LIBRARY" = "Media Library";
+"STREAMVC_DETAILTEXT" = "Play streams directly without downloading";
 
 "LOCAL_NETWORK" = "Local Network";
 "CONNECT_TO_SERVER" = "Connect to Server";
@@ -303,7 +304,6 @@
 
 "PROTOCOL_NOT_SELECTED" = "Protocol not selected";
 "Settings" = "Settings";
-
 "FILE_NOT_SUPPORTED_LONG" = "FILE_NOT_SUPPORTED_LONG";
 
 "CANCEL" = "Cancel";

@@ -22,6 +22,9 @@
 @property (strong, nonatomic) IBOutlet UITableView *historyTableView;
 @property (strong, nonatomic) IBOutlet UILabel *whatToOpenHelpLabel;
 
+@property (nonatomic, readonly, copy) NSString *detailText;
+@property (nonatomic, readonly) UIImage *cellImage;
+
 - (IBAction)openButtonAction:(id)sender;
 
 @end

@@ -27,42 +27,43 @@ class VLCiOSTestMenu: XCTestCase {
     }
 
     func testNavigationToAudioTab() {
-        helper.tap(.Audio)
+        helper.tapTabBarItem(.Audio)
         XCTAssertNotNil(app.navigationBars[Tab.Audio.rawValue])
     }
 
     func testNavigationToNetworkTab() {
-        helper.tap(.Server)
-        XCTAssertNotNil(app.navigationBars[Tab.Server.rawValue])
+        helper.tapTabBarItem(.LocalNetwork)
+        XCTAssertNotNil(app.navigationBars[Tab.LocalNetwork.rawValue])
     }
 
     func testNavigationToVideoTab() {
-        helper.tap(.Video)
+        helper.tapTabBarItem(.Video)
         XCTAssertNotNil(app.navigationBars[Tab.Video.rawValue])
     }
 
     func testNavigationToSettingsTab() {
-        helper.tap(.Settings)
+        helper.tapTabBarItem(.Settings)
         XCTAssertNotNil(app.navigationBars[Tab.Settings.rawValue])
     }
 
     func testNavigationToCloudServices() {
-        helper.tap(.Cloud)
+        helper.tapTabBarItem(.Cloud)
         XCTAssertNotNil(app.navigationBars[Tab.Cloud.rawValue])
     }
 
     func testNavigationToDownloads() {
-        helper.tap(.Downloads)
+        helper.tapTabBarItem(.Downloads)
         XCTAssertNotNil(app.navigationBars[Tab.Downloads.rawValue])
     }
 
     func testNavigationToNetworkStream() {
-        helper.tap(.Stream)
+        helper.tapTabBarItem(.LocalNetwork)
+        app.cells["Stream"].tap()
         XCTAssertNotNil(app.navigationBars[Tab.Stream.rawValue])
     }
 
     func testNavigationToAbout() {
-        helper.tap(.Settings)
+        helper.tapTabBarItem(.Settings)
         app.cells["About"].tap()
         XCTAssertNotNil(app.navigationBars[Tab.About.rawValue])
     }
