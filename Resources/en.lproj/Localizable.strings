@@ -301,9 +301,14 @@
 "NOT_SUPPORTED_FILETYPE" = "%@ is not a supported filetype by VLC";
 "FILE_EXISTS" = "%@ already exists";
 
-/* New strings */
 "PROTOCOL_NOT_SELECTED" = "Protocol not selected";
 "Settings" = "Settings";
 
-/* New strings */
 "FILE_NOT_SUPPORTED_LONG" = "FILE_NOT_SUPPORTED_LONG";
+
+"CANCEL" = "Cancel";
+"ERROR" = "Error";
+"OK" = "Ok";
+"SORT" = "Sort";
+"SORT_BY" = "Sort by";
+"VIDEO" = "Video";
