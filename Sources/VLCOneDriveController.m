@@ -91,9 +91,6 @@
                 scopes:_liveScopes
               delegate:self
              userState:@"login"];
-#if TARGET_OS_IOS
-    [[UIApplication sharedApplication] setStatusBarStyle:UIStatusBarStyleDefault animated:YES];
-#endif
 }
 
 - (void)logout
@@ -123,10 +120,6 @@
 
 - (void)authCompleted:(LiveConnectSessionStatus)status session:(LiveConnectSession *)session userState:(id)userState
 {
-#if TARGET_OS_IOS
-    [[UIApplication sharedApplication] setStatusBarStyle:UIStatusBarStyleLightContent animated:YES];
-#endif
-
     APLog(@"OneDrive: authCompleted, status %i, state %@", status, userState);
 
     if (session != NULL && [userState isEqualToString:@"init"] && status == 1)
@@ -151,10 +144,6 @@
 
 - (void)authFailed:(NSError *)error userState:(id)userState
 {
-#if TARGET_OS_IOS
-    [[UIApplication sharedApplication] setStatusBarStyle:UIStatusBarStyleLightContent animated:YES];
-#endif
-
     APLog(@"OneDrive auth failed: %@, %@", error, userState);
     _activeSession = NO;
 
