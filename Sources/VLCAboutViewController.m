@@ -62,13 +62,19 @@
     NSString *backgroundColor = PresentationTheme.current.colors.background.toHex;
     NSString *version = [NSString stringWithFormat:NSLocalizedString(@"VERSION_FORMAT", nil), [mainBundle objectForInfoDictionaryKey:@"CFBundleShortVersionString"]];
     NSString *versionBuildNumberAndCodeName = [version stringByAppendingFormat:@" (%@)<br /><i>%@</i>", [mainBundle objectForInfoDictionaryKey:@"CFBundleVersion"], kVLCVersionCodename];
-    NSString *vlcLibraryVersion = [NSString stringWithFormat:NSLocalizedString(@"BASED_ON_FORMAT", nil),[[VLCLibrary sharedLibrary] version]];
+    NSString *vlcLibraryVersion = [NSString stringWithFormat:NSLocalizedString(@"BASED_ON_FORMAT", nil), [[VLCLibrary sharedLibrary] version]];
     NSString *htmlFilePath = [mainBundle pathForResource:@"About Contents" ofType:@"html"];
+
     NSMutableString *htmlContent = [NSMutableString stringWithContentsOfFile:htmlFilePath encoding:NSUTF8StringEncoding error:nil];
-    [htmlContent replaceOccurrencesOfString:@"VLCFORIOSVERSION" withString:versionBuildNumberAndCodeName options:NSLiteralSearch range:NSMakeRange(0, [htmlContent length])];
-    [htmlContent replaceOccurrencesOfString:@"TEXTCOLOR" withString:textColor options:NSLiteralSearch range:NSMakeRange(0, [htmlContent length])];
-    [htmlContent replaceOccurrencesOfString:@"BACKGROUNDCOLOR" withString:backgroundColor options:NSLiteralSearch range:NSMakeRange(0, [htmlContent length])];
-    [htmlContent replaceOccurrencesOfString:@"MOBILEVLCKITVERSION" withString:vlcLibraryVersion options:NSLiteralSearch range:NSMakeRange(0, [htmlContent length])];
+
+    NSRange rangeOfLastStringToReplace = [htmlContent rangeOfString:@"MOBILEVLCKITVERSION"];
+    NSUInteger lengthOfStringToSearch = rangeOfLastStringToReplace.location + rangeOfLastStringToReplace.length + versionBuildNumberAndCodeName.length + textColor.length + backgroundColor.length + vlcLibraryVersion.length;
+    NSRange searchRange = NSMakeRange(0, lengthOfStringToSearch);
+    [htmlContent replaceOccurrencesOfString:@"VLCFORIOSVERSION" withString:versionBuildNumberAndCodeName options:NSLiteralSearch range:searchRange];
+    [htmlContent replaceOccurrencesOfString:@"TEXTCOLOR" withString:textColor options:NSLiteralSearch range:searchRange];
+    [htmlContent replaceOccurrencesOfString:@"BACKGROUNDCOLOR" withString:backgroundColor options:NSLiteralSearch range:searchRange];
+    [htmlContent replaceOccurrencesOfString:@"MOBILEVLCKITVERSION" withString:vlcLibraryVersion options:NSLiteralSearch range:searchRange];
+
     [_webView loadHTMLString:htmlContent baseURL:[NSURL fileURLWithPath:[mainBundle bundlePath]]];
 }
 
