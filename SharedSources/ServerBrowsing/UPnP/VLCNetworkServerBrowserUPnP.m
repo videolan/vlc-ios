@@ -236,39 +236,19 @@
                 if (evaluatedObject == nil || ![evaluatedObject isKindOfClass:[NSString class]])
                     return NO;
 
-                if ([evaluatedObject respondsToSelector:@selector(containsString:)]) {
-                    if ([evaluatedObject containsString:kVLCUPnPVideoProtocolKey])
-                        return YES;
-                    if ([evaluatedObject containsString:kVLCUPnPAudioProtocolKey])
-                        return YES;
-                } else {
-                    NSRange foundRange = [evaluatedObject rangeOfString:kVLCUPnPVideoProtocolKey];
-                    if (foundRange.location != NSNotFound)
-                        return YES;
-                    foundRange = [evaluatedObject rangeOfString:kVLCUPnPAudioProtocolKey];
-                    if (foundRange.location != NSNotFound)
-                        return YES;
-                }
+                if ([evaluatedObject containsString:kVLCUPnPVideoProtocolKey])
+                    return YES;
+                if ([evaluatedObject containsString:kVLCUPnPAudioProtocolKey])
+                    return YES;
+
                 return NO;
             }]];
 
             // Check for multiple URIs.
             if ([mediaItem.uriCollection count] > 1) {
                 for (NSString *key in mediaItem.uriCollection) {
-                    if ([key respondsToSelector:@selector(containsString:)]) {
-                        if ([key containsString:kVLCUPnPVideoProtocolKey] || [key containsString:kVLCUPnPAudioProtocolKey]) {
-                            mediaItem.uri = [mediaItem.uriCollection objectForKey:key];
-                        }
-                    } else {
-                        NSRange foundRage = [key rangeOfString:kVLCUPnPVideoProtocolKey];
-                        if (foundRage.location != NSNotFound) {
-                            mediaItem.uri = [mediaItem.uriCollection objectForKey:key];
-                        } else {
-                            foundRage = [key rangeOfString:kVLCUPnPAudioProtocolKey];
-                            if (foundRage.location != NSNotFound) {
-                                mediaItem.uri = [mediaItem.uriCollection objectForKey:key];
-                            }
-                        }
+                    if ([key containsString:kVLCUPnPVideoProtocolKey] || [key containsString:kVLCUPnPAudioProtocolKey]) {
+                        mediaItem.uri = [mediaItem.uriCollection objectForKey:key];
                     }
                 }
             }
