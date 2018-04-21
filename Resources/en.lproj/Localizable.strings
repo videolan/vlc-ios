@@ -204,7 +204,7 @@
 "FIRST_STEPS_WELCOME" = "Welcome";
 "FIRST_STEPS_WELCOME_DETAIL" = "First steps to Sync and Play Your Media.";
 "FIRST_STEPS_ITUNES" = "iTunes File Sync";
-"FIRST_STEPS_ITUNES_DETAILS" = "Connect your %@ to your Mac or PC using the cable.\nOpen iTunes.\nSelect your %@.\nSwitch to the \"Apps\" tab, scroll down and look for VLC.\nTransfer your files.";
+"FIRST_STEPS_ITUNES_DETAILS" = "Connect your %@ to your Mac or PC using the cable.\nOpen iTunes.\nSelect your %@.\nSelect \"File Sharing\" on the left side menu and look for VLC.\nTransfer your files.";
 "FIRST_STEPS_WIFI_CONNECT_DETAILS" = "Connect your %@ to the same network as your Mac or PC.";
 "FIRST_STEPS_WIFI_UPLOAD_DETAILS" = "Switch the toggle in the sidebar, enter the URL to the web browser and upload your files.";
 "FIRST_STEPS_CLOUDS" = "Clouds";
