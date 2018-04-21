@@ -366,11 +366,14 @@ static NSString *kUsingTableViewToShowData = @"UsingTableViewToShowData";
         }
         self.userActivity.title = file.title;
         self.userActivity.contentAttributeSet = file.coreSpotlightAttributeSet;
-        self.userActivity.userInfo = @{@"playingmedia":mediaObject.objectID.URIRepresentation};
+
+        NSURL *uriRepresentation = mediaObject.objectID.URIRepresentation;
+        if (uriRepresentation != nil) {
+            self.userActivity.userInfo = @{ @"playingmedia": uriRepresentation};
+        }
 
         self.userActivity.eligibleForSearch = YES;
         self.userActivity.eligibleForHandoff = YES;
-        //self.userActivity.contentUserAction = NSUserActivityContentUserActionPlay;
         [self.userActivity becomeCurrent];
     }
 }
