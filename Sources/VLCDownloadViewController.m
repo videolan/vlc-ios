@@ -65,6 +65,7 @@ typedef NS_ENUM(NSUInteger, VLCDownloadScheme) {
         _currentDownloads = [[NSMutableArray alloc] init];
         _currentDownloadFilename = [[NSMutableArray alloc] init];
         [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(updateForTheme) name:kVLCThemeDidChangeNotification object:nil];
+        self.title = NSLocalizedString(@"DOWNLOAD_FROM_HTTP", comment:@"");
     }
     return self;
 }
@@ -178,6 +179,16 @@ typedef NS_ENUM(NSUInteger, VLCDownloadScheme) {
         _httpDownloader.delegate = self;
     }
     return _httpDownloader;
+}
+
+- (NSString *)detailText
+{
+    return NSLocalizedString(@"DOWNLOADVC_DETAILTEXT", nil);
+}
+
+- (UIImage *)cellImage
+{
+    return [UIImage imageNamed:@"Downloads"];
 }
 
 #pragma mark - Download management

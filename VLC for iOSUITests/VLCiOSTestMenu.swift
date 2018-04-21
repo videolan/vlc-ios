@@ -52,7 +52,8 @@ class VLCiOSTestMenu: XCTestCase {
     }
 
     func testNavigationToDownloads() {
-        helper.tapTabBarItem(.Downloads)
+        helper.tapTabBarItem(.LocalNetwork)
+        app.cells["Downloads"].tap()
         XCTAssertNotNil(app.navigationBars[Tab.Downloads.rawValue])
     }
 

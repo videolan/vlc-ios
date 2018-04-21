@@ -96,16 +96,7 @@ class VLCTabbarCooordinator: NSObject, VLCMediaViewControllerDelegate, UITabBarC
             selectedImage: UIImage(named: "Settings"))
         settingsVC.tabBarItem.accessibilityIdentifier = "Settings"
 
-        //Download
-        let downloadVC = VLCDownloadViewController()
-        downloadVC.title = NSLocalizedString("DOWNLOAD_FROM_HTTP", comment:"")
-        downloadVC.tabBarItem = UITabBarItem(
-            title: NSLocalizedString("DOWNLOAD_FROM_HTTP", comment: ""),
-            image: UIImage(named: "Downloads"),
-            selectedImage:  UIImage(named: "Downloads"))
-        downloadVC.tabBarItem.accessibilityIdentifier = "Downloads"
-
-        let controllers = [audioVC, serverVC, videoVC, settingsVC, downloadVC]
+        let controllers = [audioVC, serverVC, videoVC, settingsVC]
         tabBarController.viewControllers = controllers.map { UINavigationController(rootViewController: $0)}
     }
 
