@@ -35,5 +35,9 @@
 - (IBAction)downloadAction:(id)sender;
 - (IBAction)cancelDownload:(id)sender;
 
-- (void)addURLToDownloadList:(NSURL *)aURL fileNameOfMedia:(NSString*) fileName;;
+- (void)addURLToDownloadList:(NSURL *)aURL fileNameOfMedia:(NSString*) fileName;
+
+@property (nonatomic, readonly, copy) NSString *detailText;
+@property (nonatomic, readonly) UIImage *cellImage;
+
 @end

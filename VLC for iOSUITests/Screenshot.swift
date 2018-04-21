@@ -57,7 +57,8 @@ class Screenshot: XCTestCase {
     }
     
     func download(name fileName: String) {
-        helper.tapTabBarItem(.Downloads)
+        helper.tapTabBarItem(.LocalNetwork)
+        app.cells["Downloads"].tap()
         
         let downloadTextfield = app.textFields["http://myserver.com/file.mkv"]
         downloadTextfield.clearAndEnter(text: fileName)

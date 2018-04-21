@@ -127,6 +127,7 @@
 
 "SECTION_HEADER_LIBRARY" = "Media Library";
 "STREAMVC_DETAILTEXT" = "Play streams directly without downloading";
+"DOWNLOADVC_DETAILTEXT" = "Download files directly to your device";
 
 "LOCAL_NETWORK" = "Local Network";
 "CONNECT_TO_SERVER" = "Connect to Server";
