@@ -354,6 +354,11 @@ static NSString *kUsingTableViewToShowData = @"UsingTableViewToShowData";
 - (void)createSpotlightItem:(nonnull NSManagedObject *)mediaObject
 {
     if (![VLCKeychainCoordinator passcodeLockEnabled]) {
+        NSURL *uriRepresentation = mediaObject.objectID.URIRepresentation;
+        if (uriRepresentation == nil) {
+            return;
+        }
+
         self.userActivity = [[NSUserActivity alloc] initWithActivityType:kVLCUserActivityPlaying];
 
         MLFile *file = nil;
@@ -364,14 +369,10 @@ static NSString *kUsingTableViewToShowData = @"UsingTableViewToShowData";
         } else if ([mediaObject isKindOfClass:[MLFile class]]){
             file = (MLFile *)mediaObject;
         }
+
         self.userActivity.title = file.title;
         self.userActivity.contentAttributeSet = file.coreSpotlightAttributeSet;
-
-        NSURL *uriRepresentation = mediaObject.objectID.URIRepresentation;
-        if (uriRepresentation != nil) {
-            self.userActivity.userInfo = @{ @"playingmedia": uriRepresentation};
-        }
-
+        self.userActivity.userInfo = @{ @"playingmedia": uriRepresentation};
         self.userActivity.eligibleForSearch = YES;
         self.userActivity.eligibleForHandoff = YES;
         [self.userActivity becomeCurrent];
