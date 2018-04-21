@@ -47,7 +47,8 @@ class VLCiOSTestMenu: XCTestCase {
     }
 
     func testNavigationToCloudServices() {
-        helper.tapTabBarItem(.Cloud)
+        helper.tapTabBarItem(.LocalNetwork)
+        app.cells["Cloud"].tap()
         XCTAssertNotNil(app.navigationBars[Tab.Cloud.rawValue])
     }
 

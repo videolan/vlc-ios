@@ -53,6 +53,7 @@ public class RemoteNetworkDataSource: NSObject, UITableViewDataSource, UITableVi
                 networkCell.textLabel?.text = cloudVC.title
                 networkCell.detailTextLabel?.text = cloudVC.detailText
                 networkCell.imageView?.image = cloudVC.cellImage
+                networkCell.accessibilityIdentifier = "Cloud"
                 return networkCell
             }
         case .streaming:
