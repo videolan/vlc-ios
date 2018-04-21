@@ -14,8 +14,8 @@ import Foundation
 import XCTest
 
 enum Tab: String {
-    case Video, Audio, LocalNetwork, Cloud
-    case Settings, Downloads, Stream, About
+    case video, audio, localNetwork, cloud
+    case settings, downloads, stream, about
 }
 
 struct TestHelper {

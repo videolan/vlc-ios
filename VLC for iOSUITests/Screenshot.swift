@@ -34,7 +34,7 @@ class Screenshot: XCTestCase {
     
     func testCaptureVideoPlayback() {
         download(name: "http://jell.yfish.us/media/jellyfish-10-mbps-hd-h264.mkv")
-        helper.tapTabBarItem(.Video)
+        helper.tapTabBarItem(.video)
         app.collectionViews.cells.element(boundBy: 0).tap()
         XCUIDevice.shared.orientation = .landscapeLeft
         
@@ -42,22 +42,22 @@ class Screenshot: XCTestCase {
     }
     
     func testCaptureAudioTab() {
-        helper.tapTabBarItem(.Audio)
+        helper.tapTabBarItem(.audio)
         snapshot("audio_tab")
     }
     
     func testCaptureNetworkTab() {
-        helper.tapTabBarItem(.LocalNetwork)
+        helper.tapTabBarItem(.localNetwork)
         snapshot("network_tab")
     }
     
     func testCaptureVideoTab() {
-        helper.tapTabBarItem(.Video)
+        helper.tapTabBarItem(.video)
         snapshot("video_tab")
     }
     
     func download(name fileName: String) {
-        helper.tapTabBarItem(.LocalNetwork)
+        helper.tapTabBarItem(.localNetwork)
         app.cells["Downloads"].tap()
         
         let downloadTextfield = app.textFields["http://myserver.com/file.mkv"]

@@ -44,7 +44,7 @@ class VLCiOSTestVideoCodecs: XCTestCase {
     }
 
     func stream(named fileName: String) {
-        helper.tapTabBarItem(.LocalNetwork)
+        helper.tapTabBarItem(.localNetwork)
         app.cells["Stream"].tap()
 
         let addressTextField = app.textFields["http://myserver.com/file.mkv"]

@@ -27,46 +27,46 @@ class VLCiOSTestMenu: XCTestCase {
     }
 
     func testNavigationToAudioTab() {
-        helper.tapTabBarItem(.Audio)
-        XCTAssertNotNil(app.navigationBars[Tab.Audio.rawValue])
+        helper.tapTabBarItem(.audio)
+        XCTAssertNotNil(app.navigationBars[Tab.audio.rawValue])
     }
 
     func testNavigationToNetworkTab() {
-        helper.tapTabBarItem(.LocalNetwork)
-        XCTAssertNotNil(app.navigationBars[Tab.LocalNetwork.rawValue])
+        helper.tapTabBarItem(.localNetwork)
+        XCTAssertNotNil(app.navigationBars[Tab.localNetwork.rawValue])
     }
 
     func testNavigationToVideoTab() {
-        helper.tapTabBarItem(.Video)
-        XCTAssertNotNil(app.navigationBars[Tab.Video.rawValue])
+        helper.tapTabBarItem(.video)
+        XCTAssertNotNil(app.navigationBars[Tab.video.rawValue])
     }
 
     func testNavigationToSettingsTab() {
-        helper.tapTabBarItem(.Settings)
-        XCTAssertNotNil(app.navigationBars[Tab.Settings.rawValue])
+        helper.tapTabBarItem(.settings)
+        XCTAssertNotNil(app.navigationBars[Tab.settings.rawValue])
     }
 
     func testNavigationToCloudServices() {
-        helper.tapTabBarItem(.LocalNetwork)
+        helper.tapTabBarItem(.localNetwork)
         app.cells["Cloud"].tap()
-        XCTAssertNotNil(app.navigationBars[Tab.Cloud.rawValue])
+        XCTAssertNotNil(app.navigationBars[Tab.cloud.rawValue])
     }
 
     func testNavigationToDownloads() {
-        helper.tapTabBarItem(.LocalNetwork)
+        helper.tapTabBarItem(.localNetwork)
         app.cells["Downloads"].tap()
-        XCTAssertNotNil(app.navigationBars[Tab.Downloads.rawValue])
+        XCTAssertNotNil(app.navigationBars[Tab.downloads.rawValue])
     }
 
     func testNavigationToNetworkStream() {
-        helper.tapTabBarItem(.LocalNetwork)
+        helper.tapTabBarItem(.localNetwork)
         app.cells["Stream"].tap()
-        XCTAssertNotNil(app.navigationBars[Tab.Stream.rawValue])
+        XCTAssertNotNil(app.navigationBars[Tab.stream.rawValue])
     }
 
     func testNavigationToAbout() {
-        helper.tapTabBarItem(.Settings)
+        helper.tapTabBarItem(.settings)
         app.cells["About"].tap()
-        XCTAssertNotNil(app.navigationBars[Tab.About.rawValue])
+        XCTAssertNotNil(app.navigationBars[Tab.about.rawValue])
     }
 }
