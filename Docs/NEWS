@@ -1,3 +1,10 @@
+iOS 3.0.4:
+----------
+· Stability and performance improvements when decoding H.264/H.265 in hardware
+· Improved audio playback quality
+· Fixed a regression preventing the download of certain media files via http
+· Fixed a regression where downloaded files might disappear
+
 tvOS 3.0.3:
 -----------
 · Improved audio passthrough behavior
