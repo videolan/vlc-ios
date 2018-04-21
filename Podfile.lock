@@ -28,11 +28,11 @@ PODS:
   - GTMAppAuth (0.7.0):
     - AppAuth (~> 0.92.0)
     - GTMSessionFetcher (~> 1.1)
-  - GTMSessionFetcher (1.1.14):
-    - GTMSessionFetcher/Full (= 1.1.14)
-  - GTMSessionFetcher/Core (1.1.14)
-  - GTMSessionFetcher/Full (1.1.14):
-    - GTMSessionFetcher/Core (= 1.1.14)
+  - GTMSessionFetcher (1.1.15):
+    - GTMSessionFetcher/Full (= 1.1.15)
+  - GTMSessionFetcher/Core (1.1.15)
+  - GTMSessionFetcher/Full (1.1.15):
+    - GTMSessionFetcher/Core (= 1.1.15)
   - HockeySDK-tvOS (5.0.0)
   - HockeySDK/CrashOnlyLib (5.1.2)
   - InAppSettingsKit (2.2.2)
@@ -125,7 +125,7 @@ SPEC CHECKSUMS:
   GoogleAPIClient: 77df755d41d70ee5a99b7b752614fbb439f19438
   GRKArrayDiff: d24cb2d9694985b7032dee96d0d55b917d7b400c
   GTMAppAuth: 8d724be29ab8f2f6d35b2bf929d76340c9d1f1b1
-  GTMSessionFetcher: 390ea358e5a0d0133153806f744662dad933d06b
+  GTMSessionFetcher: 5fa5b80fd20e439ef5f545fb2cb3ca6c6714caa2
   HockeySDK: 38b7e2726af1ea86ae97ce4b5de33ab0817e3500
   HockeySDK-tvOS: 6b2a69f86419ebaf23225f59a64e5761ed3a0d8a
   InAppSettingsKit: 76d5cfbaa3e3f8aa53fe3628516da7eb1aa6a5cb

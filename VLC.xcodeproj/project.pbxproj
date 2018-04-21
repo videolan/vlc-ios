@@ -3629,8 +3629,8 @@
 			);
 			inputPaths = (
 				"${SRCROOT}/Pods/Target Support Files/Pods-VLC-watchOS-Extension/Pods-VLC-watchOS-Extension-resources.sh",
-				"${PODS_ROOT}/MediaLibraryKit-prod/MappingModel_2_5_to_2_6.xcmappingmodel",
-				"${PODS_ROOT}/MediaLibraryKit-prod/MediaLibrary.xcdatamodeld",
+				"${PODS_ROOT}/MediaLibraryKit-unstable/MappingModel_2_5_to_2_6.xcmappingmodel",
+				"${PODS_ROOT}/MediaLibraryKit-unstable/MediaLibrary.xcdatamodeld",
 			);
 			name = "[CP] Copy Pods Resources";
 			outputPaths = (
