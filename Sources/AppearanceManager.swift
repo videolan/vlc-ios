@@ -41,14 +41,5 @@ class AppearanceManager: NSObject {
         UISearchBar.appearance().barTintColor = .white
 
         UITabBar.appearance().tintColor = theme.colors.orangeUI
-        //customization of MoreViewController
-        //Since there is no clean way to customize the Morecontroller appearance we're getting the class
-        if let moreListControllerClass = NSClassFromString("UIMoreListController") as? UIAppearanceContainer.Type {
-            UITableViewCell.appearance(whenContainedInInstancesOf: [moreListControllerClass.self]).backgroundColor = theme.colors.cellBackgroundA
-            UITableViewCell.appearance(whenContainedInInstancesOf: [moreListControllerClass.self]).textLabel?.textColor = theme.colors.cellTextColor
-            UITableView.appearance(whenContainedInInstancesOf: [moreListControllerClass.self]).backgroundColor = theme.colors.background
-            UITableView.appearance(whenContainedInInstancesOf: [moreListControllerClass.self]).separatorColor = .lightGray
-            UILabel.appearance(whenContainedInInstancesOf: [moreListControllerClass.self]).textColor = theme.colors.cellTextColor
-        }
     }
 }
