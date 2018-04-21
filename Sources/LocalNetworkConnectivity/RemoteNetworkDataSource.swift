@@ -53,6 +53,7 @@ public class RemoteNetworkDataSource: NSObject, UITableViewDataSource, UITableVi
                 networkCell.textLabel?.text = cloudVC.title
                 networkCell.detailTextLabel?.text = cloudVC.detailText
                 networkCell.imageView?.image = cloudVC.cellImage
+                networkCell.accessibilityIdentifier = VLCAccessibilityIdentifier.cloud
                 return networkCell
             }
         case .streaming:
@@ -60,7 +61,7 @@ public class RemoteNetworkDataSource: NSObject, UITableViewDataSource, UITableVi
                 networkCell.textLabel?.text = streamingVC.title
                 networkCell.detailTextLabel?.text = streamingVC.detailText
                 networkCell.imageView?.image = streamingVC.cellImage
-                networkCell.accessibilityIdentifier = "Stream"
+                networkCell.accessibilityIdentifier = VLCAccessibilityIdentifier.stream
                 return networkCell
             }
         case .download:
@@ -68,7 +69,7 @@ public class RemoteNetworkDataSource: NSObject, UITableViewDataSource, UITableVi
                 networkCell.textLabel?.text = downloadVC.title
                 networkCell.detailTextLabel?.text = downloadVC.detailText
                 networkCell.imageView?.image = downloadVC.cellImage
-                networkCell.accessibilityIdentifier = "Downloads"
+                networkCell.accessibilityIdentifier = VLCAccessibilityIdentifier.downloads
                 return networkCell
             }
         case .wifi:

@@ -50,7 +50,7 @@ class VLCTabbarCooordinator: NSObject, VLCMediaViewControllerDelegate {
             title: NSLocalizedString("VIDEO", comment: ""),
             image: UIImage(named: "TVShowsIcon"),
             selectedImage: UIImage(named: "TVShowsIcon"))
-        videoVC.tabBarItem.accessibilityIdentifier = "Video"
+        videoVC.tabBarItem.accessibilityIdentifier = VLCAccessibilityIdentifier.video
 
         // Audio
         let audioVC = VLCMediaViewController(services: services)
@@ -61,7 +61,7 @@ class VLCTabbarCooordinator: NSObject, VLCMediaViewControllerDelegate {
             title: NSLocalizedString("AUDIO", comment: ""),
             image: UIImage(named: "MusicAlbums"),
             selectedImage:UIImage(named: "MusicAlbums"))
-        audioVC.tabBarItem.accessibilityIdentifier = "Audio"
+        audioVC.tabBarItem.accessibilityIdentifier = VLCAccessibilityIdentifier.audio
 
         //Serverlist
         let serverVC = VLCServerListViewController(nibName: nil, bundle: nil)
@@ -70,7 +70,7 @@ class VLCTabbarCooordinator: NSObject, VLCMediaViewControllerDelegate {
             title: NSLocalizedString("LOCAL_NETWORK", comment: ""),
             image: UIImage(named: "Local"),
             selectedImage: UIImage(named: "Local"))
-        serverVC.tabBarItem.accessibilityIdentifier = "LocalNetwork"
+        serverVC.tabBarItem.accessibilityIdentifier = VLCAccessibilityIdentifier.localNetwork
 
         //Settings
         let settingsVC = VLCSettingsController()
@@ -79,7 +79,7 @@ class VLCTabbarCooordinator: NSObject, VLCMediaViewControllerDelegate {
             title: NSLocalizedString("Settings", comment: ""),
             image: UIImage(named: "Settings"),
             selectedImage: UIImage(named: "Settings"))
-        settingsVC.tabBarItem.accessibilityIdentifier = "Settings"
+        settingsVC.tabBarItem.accessibilityIdentifier = VLCAccessibilityIdentifier.settings
 
         let controllers = [audioVC, serverVC, videoVC, settingsVC]
         tabBarController.viewControllers = controllers.map { UINavigationController(rootViewController: $0)}

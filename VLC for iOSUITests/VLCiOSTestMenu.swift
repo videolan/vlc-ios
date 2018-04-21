@@ -27,45 +27,46 @@ class VLCiOSTestMenu: XCTestCase {
     }
 
     func testNavigationToAudioTab() {
-        helper.tapTabBarItem(.Audio)
-        XCTAssertNotNil(app.navigationBars[Tab.Audio.rawValue])
+        helper.tapTabBarItem(VLCAccessibilityIdentifier.audio)
+        XCTAssertNotNil(app.navigationBars[VLCAccessibilityIdentifier.audio])
     }
 
     func testNavigationToNetworkTab() {
-        helper.tapTabBarItem(.LocalNetwork)
-        XCTAssertNotNil(app.navigationBars[Tab.LocalNetwork.rawValue])
+        helper.tapTabBarItem(VLCAccessibilityIdentifier.localNetwork)
+        XCTAssertNotNil(app.navigationBars[VLCAccessibilityIdentifier.localNetwork])
     }
 
     func testNavigationToVideoTab() {
-        helper.tapTabBarItem(.Video)
-        XCTAssertNotNil(app.navigationBars[Tab.Video.rawValue])
+        helper.tapTabBarItem(VLCAccessibilityIdentifier.video)
+        XCTAssertNotNil(app.navigationBars[VLCAccessibilityIdentifier.video])
     }
 
     func testNavigationToSettingsTab() {
-        helper.tapTabBarItem(.Settings)
-        XCTAssertNotNil(app.navigationBars[Tab.Settings.rawValue])
+        helper.tapTabBarItem(VLCAccessibilityIdentifier.settings)
+        XCTAssertNotNil(app.navigationBars[VLCAccessibilityIdentifier.settings])
     }
 
     func testNavigationToCloudServices() {
-        helper.tapTabBarItem(.Cloud)
-        XCTAssertNotNil(app.navigationBars[Tab.Cloud.rawValue])
+        helper.tapTabBarItem(VLCAccessibilityIdentifier.localNetwork)
+        app.cells[VLCAccessibilityIdentifier.cloud].tap()
+        XCTAssertNotNil(app.navigationBars[VLCAccessibilityIdentifier.cloud])
     }
 
     func testNavigationToDownloads() {
-        helper.tapTabBarItem(.LocalNetwork)
-        app.cells["Downloads"].tap()
-        XCTAssertNotNil(app.navigationBars[Tab.Downloads.rawValue])
+        helper.tapTabBarItem(VLCAccessibilityIdentifier.localNetwork)
+        app.cells[VLCAccessibilityIdentifier.downloads].tap()
+        XCTAssertNotNil(app.navigationBars[VLCAccessibilityIdentifier.downloads])
     }
 
     func testNavigationToNetworkStream() {
-        helper.tapTabBarItem(.LocalNetwork)
-        app.cells["Stream"].tap()
-        XCTAssertNotNil(app.navigationBars[Tab.Stream.rawValue])
+        helper.tapTabBarItem(VLCAccessibilityIdentifier.localNetwork)
+        app.cells[VLCAccessibilityIdentifier.stream].tap()
+        XCTAssertNotNil(app.navigationBars[VLCAccessibilityIdentifier.stream])
     }
 
     func testNavigationToAbout() {
-        helper.tapTabBarItem(.Settings)
-        app.cells["About"].tap()
-        XCTAssertNotNil(app.navigationBars[Tab.About.rawValue])
+        helper.tapTabBarItem(VLCAccessibilityIdentifier.settings)
+        app.cells[VLCAccessibilityIdentifier.about].tap()
+        XCTAssertNotNil(app.navigationBars[VLCAccessibilityIdentifier.about])
     }
 }
