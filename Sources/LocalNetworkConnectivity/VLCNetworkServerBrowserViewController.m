@@ -188,14 +188,19 @@
     id<VLCNetworkServerBrowserItem> item;
     NSInteger row = indexPath.row;
     BOOL singlePlayback = ![[NSUserDefaults standardUserDefaults] boolForKey:kVLCAutomaticallyPlayNextItem];
-    if (self.searchController.isActive) {
+    if (self.searchController.isActive && row < _searchArray.count) {
         item = _searchArray[row];
         singlePlayback = YES;
     } else {
-        item = self.serverBrowser.items[row];
+        NSArray *items = self.serverBrowser.items;
+        if (row < items.count) {
+            item = items[row];
+        }
     }
 
-    [self didSelectItem:item index:row singlePlayback:singlePlayback];
+    if (item) {
+        [self didSelectItem:item index:row singlePlayback:singlePlayback];
+    }
 
     [tableView deselectRowAtIndexPath:indexPath animated:NO];
 }
