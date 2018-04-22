@@ -974,11 +974,11 @@ typedef NS_ENUM(NSInteger, VLCPanType) {
 
     float audioDelay = controller.audioDelay;
     self.audioDelaySlider.value = audioDelay;
-    self.audioDelayIndicator.text = [NSString stringWithFormat:@"%1.2f s", audioDelay];
+    self.audioDelayIndicator.text = [NSString stringWithFormat:@"%d ms", (int) audioDelay];
 
     float subtitleDelay = controller.subtitleDelay;
     self.spuDelaySlider.value = subtitleDelay;
-    self.spuDelayIndicator.text = [NSString stringWithFormat:@"%1.00f s", subtitleDelay];
+    self.spuDelayIndicator.text = [NSString stringWithFormat:@"%d ms", (int) subtitleDelay];
 
     [self _resetIdleTimer];
 }
@@ -1538,13 +1538,15 @@ currentMediaHasTrackToChooseFrom:(BOOL)currentMediaHasTrackToChooseFrom
         _vpc.playbackRate = speed;
         self.playbackSpeedIndicator.text = [NSString stringWithFormat:@"%.2fx", speed];
     } else if (sender == _audioDelaySlider) {
-        double delay = sender.value;
+        int delay = ((int) round(sender.value / 50.)) * 50;
         _vpc.audioDelay = delay;
-        _audioDelayIndicator.text = [NSString stringWithFormat:@"%1.2f s", delay];
+        [sender setValue:delay animated:NO];
+        _audioDelayIndicator.text = [NSString stringWithFormat:@"%d ms", delay];
     } else if (sender == _spuDelaySlider) {
-        double delay = sender.value;
+        int delay = (int) (round(sender.value / 50.)) * 50;
         _vpc.subtitleDelay = delay;
-        _spuDelayIndicator.text = [NSString stringWithFormat:@"%1.00f s", delay];
+        [sender setValue:delay animated:NO];
+        _spuDelayIndicator.text = [NSString stringWithFormat:@"%d ms", delay];
     }
 
     [self _resetIdleTimer];

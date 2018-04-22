@@ -62,9 +62,9 @@ currentMediaHasTrackToChooseFrom:(BOOL)currentMediaHasTrackToChooseFrom
 @property (nonatomic, readwrite) VLCRepeatMode repeatMode;
 @property (nonatomic, assign, getter=isShuffleMode) BOOL shuffleMode;
 @property (nonatomic, readwrite) float playbackRate; // default = 1.0
-@property (nonatomic, readwrite) float audioDelay; // in seconds, default = 0.0
+@property (nonatomic, readwrite) float audioDelay; // in milliseconds, default = 0.0
 @property (nonatomic, readwrite) float playbackPosition; // in seconds, default = 0.0
-@property (nonatomic, readwrite) float subtitleDelay; // in seconds, default = 0.0
+@property (nonatomic, readwrite) float subtitleDelay; // in milliseconds, default = 0.0
 
 @property (nonatomic, readwrite) float hue; // default = 0.0
 @property (nonatomic, readwrite) float contrast; // default = 1.0
