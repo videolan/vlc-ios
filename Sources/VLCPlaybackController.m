@@ -499,12 +499,12 @@ typedef NS_ENUM(NSUInteger, VLCAspectRatio) {
 
 - (void)setAudioDelay:(float)audioDelay
 {
-    _mediaPlayer.currentAudioPlaybackDelay = 1000000.*audioDelay;
+    _mediaPlayer.currentAudioPlaybackDelay = 1000.*audioDelay;
 }
 
 - (float)audioDelay
 {
-    return _mediaPlayer.currentAudioPlaybackDelay/1000000.;
+    return _mediaPlayer.currentAudioPlaybackDelay/1000.;
 }
 
 - (float)playbackPosition
@@ -519,12 +519,12 @@ typedef NS_ENUM(NSUInteger, VLCAspectRatio) {
 
 - (void)setSubtitleDelay:(float)subtitleDeleay
 {
-    _mediaPlayer.currentVideoSubTitleDelay = 1000000.*subtitleDeleay;
+    _mediaPlayer.currentVideoSubTitleDelay = 1000.*subtitleDeleay;
 }
 
 - (float)subtitleDelay
 {
-    return _mediaPlayer.currentVideoSubTitleDelay/1000000.;
+    return _mediaPlayer.currentVideoSubTitleDelay/1000.;
 }
 
 - (float)hue
