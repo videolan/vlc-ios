@@ -13,11 +13,6 @@
 import Foundation
 import XCTest
 
-enum Tab: String {
-    case video, audio, localNetwork, cloud
-    case settings, downloads, stream, about
-}
-
 struct TestHelper {
     let app: XCUIApplication
 
@@ -25,7 +20,7 @@ struct TestHelper {
         self.app = app
     }
 
-    func tapTabBarItem(_ type: Tab) {
-        app.tabBars.buttons[type.rawValue].tap()
+    func tapTabBarItem(_ identifier: String) {
+        app.tabBars.buttons[identifier].tap()
     }
 }

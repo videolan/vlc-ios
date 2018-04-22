@@ -44,8 +44,8 @@ class VLCiOSTestVideoCodecs: XCTestCase {
     }
 
     func stream(named fileName: String) {
-        helper.tapTabBarItem(.localNetwork)
-        app.cells["Stream"].tap()
+        helper.tapTabBarItem(VLCAccessibilityIdentifier.localNetwork)
+        app.cells[VLCAccessibilityIdentifier.stream].tap()
 
         let addressTextField = app.textFields["http://myserver.com/file.mkv"]
         addressTextField.clearAndEnter(text: fileName)
@@ -60,7 +60,7 @@ class VLCiOSTestVideoCodecs: XCTestCase {
             if !(self.app.buttons["Done"].exists) {
                 self.app.otherElements["Video Player Title"].tap()
             }
-            let playPause = self.app.buttons["Play Pause"]
+            let playPause = self.app.buttons[VLCAccessibilityIdentifier.playPause]
             let onePredicate = NSPredicate(format: "exists == 1")
             self.expectation(for: onePredicate, evaluatedWith: playPause, handler: nil)
             self.waitForExpectations(timeout: 20.0, handler: nil)

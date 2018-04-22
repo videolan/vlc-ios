@@ -238,6 +238,8 @@
 		7DF90B4A1BE7A8110059C0E3 /* IASKSettingsReader.m in Sources */ = {isa = PBXBuildFile; fileRef = 7DF90B471BE7A8110059C0E3 /* IASKSettingsReader.m */; };
 		7DF90B4B1BE7A8110059C0E3 /* IASKSpecifier.m in Sources */ = {isa = PBXBuildFile; fileRef = 7DF90B491BE7A8110059C0E3 /* IASKSpecifier.m */; };
 		7DF9352F1958AB0600E60FD4 /* UIColor+Presets.m in Sources */ = {isa = PBXBuildFile; fileRef = 7DF9352E1958AB0600E60FD4 /* UIColor+Presets.m */; };
+		8DD6516F208C89BC0052EE68 /* VLCAccessibilityIdentifier.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8DD6516E208C89BC0052EE68 /* VLCAccessibilityIdentifier.swift */; };
+		8DD65170208C89C00052EE68 /* VLCAccessibilityIdentifier.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8DD6516E208C89BC0052EE68 /* VLCAccessibilityIdentifier.swift */; };
 		8F91EC79195CEC7900F5BCBA /* VLCOpenInActivity.m in Sources */ = {isa = PBXBuildFile; fileRef = 8F91EC78195CEC7900F5BCBA /* VLCOpenInActivity.m */; };
 		8F91EC7F195E1DAB00F5BCBA /* AssetsLibrary.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 8F91EC7E195E1DAB00F5BCBA /* AssetsLibrary.framework */; };
 		9B088308183D7BEC004B5C2A /* VLCCloudStorageTableViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 9B088307183D7BEC004B5C2A /* VLCCloudStorageTableViewController.m */; };
@@ -936,6 +938,7 @@
 		8939257D0D04F9AFF766DEA5 /* libPods-VLC-TV.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-VLC-TV.a"; sourceTree = BUILT_PRODUCTS_DIR; };
 		8B9DD09C453D2346D109D586 /* Pods-VLC-TV.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-VLC-TV.debug.xcconfig"; path = "Pods/Target Support Files/Pods-VLC-TV/Pods-VLC-TV.debug.xcconfig"; sourceTree = "<group>"; };
 		8C707B9BB2C5681D50CC9B99 /* Pods-VLC-tvOS-Debug.distribution.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-VLC-tvOS-Debug.distribution.xcconfig"; path = "Pods/Target Support Files/Pods-VLC-tvOS-Debug/Pods-VLC-tvOS-Debug.distribution.xcconfig"; sourceTree = "<group>"; };
+		8DD6516E208C89BC0052EE68 /* VLCAccessibilityIdentifier.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = VLCAccessibilityIdentifier.swift; sourceTree = "<group>"; };
 		8DEAD87A672248D0A6790405 /* libPods-vlc-ios.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-vlc-ios.a"; sourceTree = BUILT_PRODUCTS_DIR; };
 		8F91EC77195CEC7900F5BCBA /* VLCOpenInActivity.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = VLCOpenInActivity.h; path = Sources/VLCOpenInActivity.h; sourceTree = SOURCE_ROOT; };
 		8F91EC78195CEC7900F5BCBA /* VLCOpenInActivity.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = VLCOpenInActivity.m; path = Sources/VLCOpenInActivity.m; sourceTree = SOURCE_ROOT; };
@@ -1258,6 +1261,7 @@
 				CAA0B0F620726A0E00B9274E /* TestHelper.swift */,
 				CAF76D9320709C9500E2AD7B /* XCUIElement+Helpers.swift */,
 				CA6FB8222074601900FC9BF2 /* VLC-iOSUITest-Bridging-Header.h */,
+				8DD6516E208C89BC0052EE68 /* VLCAccessibilityIdentifier.swift */,
 			);
 			path = "VLC for iOSUITests";
 			sourceTree = "<group>";
@@ -3040,6 +3044,7 @@
 			files = (
 				CAA0B0F720726A0E00B9274E /* TestHelper.swift in Sources */,
 				CAD925792075536300F88496 /* Screenshot.swift in Sources */,
+				8DD6516F208C89BC0052EE68 /* VLCAccessibilityIdentifier.swift in Sources */,
 				CAA0B0EF2072651800B9274E /* VLCiOSTestVideoCodecs.swift in Sources */,
 				CAA0B0F02072651A00B9274E /* XCUIElement+Helpers.swift in Sources */,
 				CAA0B0ED2072651000B9274E /* VLCiOSTestMenu.swift in Sources */,
@@ -3206,6 +3211,7 @@
 				DD8F84311B00EB3B0009138A /* VLCPlaybackController+MediaLibrary.m in Sources */,
 				418B144720179C00000447AA /* MediaViewController.swift in Sources */,
 				41EB91DD1F7BFF8500821AA5 /* VLCMetadata.m in Sources */,
+				8DD65170208C89C00052EE68 /* VLCAccessibilityIdentifier.swift in Sources */,
 				DD3EFF551BDEBCE500B68579 /* VLCLocalNetworkServiceBrowserDSM.m in Sources */,
 				7D37849A183A98D1009EE944 /* VLCPlaylistTableViewCell.m in Sources */,
 				7D37849B183A98D1009EE944 /* VLCLibraryViewController.m in Sources */,

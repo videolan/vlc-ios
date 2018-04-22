@@ -144,8 +144,8 @@
     cell.backgroundColor = PresentationTheme.current.colors.settingsCellBackground;
     cell.textLabel.textColor = PresentationTheme.current.colors.cellTextColor;
     cell.detailTextLabel.textColor = PresentationTheme.current.colors.cellDetailTextColor;
-    if ([specifier.key isEqualToString:@"about"]) {
-        cell.accessibilityIdentifier = @"About";
+    if ([specifier.key isEqualToString:VLCAccessibilityIdentifier.about]) {
+        cell.accessibilityIdentifier = VLCAccessibilityIdentifier.about;
     }
     return cell;
 }
