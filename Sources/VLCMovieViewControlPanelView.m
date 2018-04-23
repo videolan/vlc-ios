@@ -14,6 +14,7 @@
 #import "VLCMovieViewControlPanelView.h"
 #import "VLCPlaybackController.h"
 #import "VLCMetadata.h"
+#import "VLC_iOS-Swift.h"
 
 @interface VLCMovieViewControlPanelView ()
 
@@ -100,7 +101,7 @@ static const CGFloat maxControlsWidth = 474.0;
     _trackSwitcherButton.accessibilityLabel = NSLocalizedString(@"OPEN_TRACK_PANEL", nil);
     _bwdButton.accessibilityLabel = NSLocalizedString(@"BWD_BUTTON", nil);
     _playPauseButton.accessibilityLabel = NSLocalizedString(@"PLAY_PAUSE_BUTTON", nil);
-    _playPauseButton.accessibilityIdentifier = @"Play Pause";
+    _playPauseButton.accessibilityIdentifier = VLCAccessibilityIdentifier.playPause;
     _playPauseButton.accessibilityHint = NSLocalizedString(@"LONGPRESS_TO_STOP", nil);
     _fwdButton.accessibilityLabel = NSLocalizedString(@"FWD_BUTTON", nil);
     _videoFilterButton.accessibilityLabel = NSLocalizedString(@"VIDEO_FILTER", nil);
