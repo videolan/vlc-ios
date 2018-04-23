@@ -43,7 +43,7 @@ Mostly for debugging or advanced users, you might want to have a custom local VL
 
 2. Inside the VLCKit folder, run the following command:
 
-    `./buildMobileVLCKit.sh -a ${MYARCH}`
+    `./compileAndBuildVLCKit.sh -a ${MYARCH}`
 
     MYARCH can be `i386` `x86_64` `armv7` `armv7s` or `aarch64`.
 
