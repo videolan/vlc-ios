@@ -1680,7 +1680,6 @@ currentMediaHasTrackToChooseFrom:(BOOL)currentMediaHasTrackToChooseFrom
     // TODO: Have a better/prettier transition between local playback frame and playingExternallyView
     _playingExternallyView.hidden = NO;
     _playingExternallyTitle.text = NSLocalizedString(@"PLAYING_EXTERNALLY_TITLE_CHROMECAST", nil);
-    _playingExternallyTitle.text = @"Chromecast connected";
     _playingExternallyDescription.text = name;
 }
 
