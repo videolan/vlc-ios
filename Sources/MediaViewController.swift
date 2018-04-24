@@ -64,7 +64,7 @@ public class VLCMediaViewController: UICollectionViewController, UISearchResults
         setupCollectionView()
         setupSearchController()
         setupNavigationBar()
-        setupRendererDiscovererManager()
+        setupRendererButton()
         _ = (MLMediaLibrary.sharedMediaLibrary() as! MLMediaLibrary).libraryDidAppear()
     }
 
@@ -136,7 +136,7 @@ public class VLCMediaViewController: UICollectionViewController, UISearchResults
     }
 
     // MARK: Renderer
-    private func setupRendererDiscovererManager() {
+    private func setupRendererButton() {
         navigationItem.rightBarButtonItem = UIBarButtonItem(customView: rendererButton)
     }
 
