@@ -100,7 +100,7 @@ class VLCRendererDiscovererManager: NSObject {
                 presentingViewController.present(actionSheet, animated: false, completion: nil)
             }
         } else {
-            print("VLCRendererDiscovererManager: Cannot display actionSheet, no viewController setted")
+            assertionFailure("VLCRendererDiscovererManager: Cannot display actionSheet, no viewController setted")
         }
     }
 
