@@ -175,7 +175,6 @@ class VLCActionSheet: UIViewController {
         backgroundView.isHidden = true
         backgroundView.autoresizingMask = [.flexibleHeight, .flexibleWidth]
         backgroundView.backgroundColor = UIColor.black.withAlphaComponent(0.6)
-        backgroundView.isUserInteractionEnabled = true
         backgroundView.addGestureRecognizer(UITapGestureRecognizer(target: self, action: #selector(self.removeActionSheet)))
         return backgroundView
     }()
