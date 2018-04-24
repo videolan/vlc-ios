@@ -39,12 +39,7 @@ class VLCRendererDiscovererManager: NSObject {
 
     // Returns renderers of *all* discoverers
     @objc func getAllRenderers() -> [VLCRendererItem] {
-        var renderers = [VLCRendererItem]()
-
-        for discoverer in discoverers {
-            renderers += discoverer.renderers
-        }
-        return renderers
+        return discoverers.flatMap { $0.renderers }
     }
 
     fileprivate func isDuplicateDiscoverer(with description: VLCRendererDiscovererDescription) -> Bool {
