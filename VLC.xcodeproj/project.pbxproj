@@ -938,7 +938,7 @@
 		8C707B9BB2C5681D50CC9B99 /* Pods-VLC-tvOS-Debug.distribution.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-VLC-tvOS-Debug.distribution.xcconfig"; path = "Pods/Target Support Files/Pods-VLC-tvOS-Debug/Pods-VLC-tvOS-Debug.distribution.xcconfig"; sourceTree = "<group>"; };
 		8DD6516E208C89BC0052EE68 /* VLCAccessibilityIdentifier.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = VLCAccessibilityIdentifier.swift; sourceTree = "<group>"; };
 		8D43712C2056AF1600F36458 /* VLCRendererDiscovererManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = VLCRendererDiscovererManager.swift; path = Sources/VLCRendererDiscovererManager.swift; sourceTree = "<group>"; };
-		8D437153205808FF00F36458 /* VLCActionSheet.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = VLCActionSheet.swift; path = Sources/VLCActionSheet.swift; sourceTree = "<group>"; };
+		8D437153205808FF00F36458 /* VLCActionSheet.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = VLCActionSheet.swift; sourceTree = "<group>"; };
 		8DEAD87A672248D0A6790405 /* libPods-vlc-ios.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-vlc-ios.a"; sourceTree = BUILT_PRODUCTS_DIR; };
 		8F91EC77195CEC7900F5BCBA /* VLCOpenInActivity.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = VLCOpenInActivity.h; path = Sources/VLCOpenInActivity.h; sourceTree = SOURCE_ROOT; };
 		8F91EC78195CEC7900F5BCBA /* VLCOpenInActivity.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = VLCOpenInActivity.m; path = Sources/VLCOpenInActivity.m; sourceTree = SOURCE_ROOT; };
@@ -1442,7 +1442,7 @@
 				DDC10BE31AEE8EA700890DC3 /* VLCTimeNavigationTitleView.m */,
 				DD1CB0581BBAC549006EDDE6 /* VLCVolumeView.h */,
 				DD1CB0591BBAC549006EDDE6 /* VLCVolumeView.m */,
-				8D437153205808FF00F36458 /* VLCActionSheet.swift */,
+				8DD651B0208F62B70052EE68 /* VLCActionSheet */,
 			);
 			name = "UI Elements";
 			sourceTree = "<group>";
@@ -2077,6 +2077,15 @@
 				7DF383C31BF2329500D71A5C /* VLCDropboxCollectionViewController.m */,
 			);
 			name = Dropbox;
+			sourceTree = "<group>";
+		};
+		8DD651B0208F62B70052EE68 /* VLCActionSheet */ = {
+			isa = PBXGroup;
+			children = (
+				8D437153205808FF00F36458 /* VLCActionSheet.swift */,
+			);
+			name = VLCActionSheet;
+			path = Sources/VLCActionSheet;
 			sourceTree = "<group>";
 		};
 		9B51719A17EDEC8900F8FBA7 /* GoogleDrive */ = {
