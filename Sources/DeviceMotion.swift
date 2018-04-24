@@ -15,9 +15,9 @@ import Foundation
 import CoreMotion
 
 @objc(VLCDeviceMotionDelegate)
-protocol DeviceMotionDelegate:NSObjectProtocol {
+protocol DeviceMotionDelegate: NSObjectProtocol {
 
-    func deviceMotionHasAttitude(deviceMotion:DeviceMotion, pitch:Double, yaw:Double, roll:Double)
+    func deviceMotionHasAttitude(deviceMotion: DeviceMotion, pitch: Double, yaw: Double, roll: Double)
 
 }
 
@@ -28,12 +28,12 @@ struct EulerAngles {
 }
 
 @objc(VLCDeviceMotion)
-class DeviceMotion:NSObject {
+class DeviceMotion: NSObject {
 
     let motion = CMMotionManager()
     let sqrt2 = 0.5.squareRoot()
-    var lastEulerAngle = EulerAngles()
-    var lastQuaternion: CMQuaternion? = nil
+    var lastEulerAngle: EulerAngles? = nil
+    var beginningQuaternion: CMQuaternion? = nil
 
     @objc weak var delegate: DeviceMotionDelegate? = nil
 
@@ -70,12 +70,12 @@ class DeviceMotion:NSObject {
 
         var vp = EulerAngles()
 
-        if (test > 0.499 * unit) {
+        if test > 0.499 * unit {
             // singularity at north pole
             vp.yaw = 2 * atan2(q.x, q.w)
             vp.pitch = Double.pi / 2
             vp.roll = 0
-        } else if (test < -0.499 * unit) {
+        } else if test < -0.499 * unit {
             // singularity at south pole
             vp.yaw = -2 * atan2(q.x, q.w)
             vp.pitch = -Double.pi / 2
@@ -101,32 +101,43 @@ class DeviceMotion:NSObject {
                 guard let strongSelf = self, let data = data else {
                     return
                 }
-
-                var euler = strongSelf.quaternionToEuler(qIn: data.attitude.quaternion)
-                if let lastQuaternion = strongSelf.lastQuaternion {
-                    let lastEuler = strongSelf.quaternionToEuler(qIn: lastQuaternion)
-                    let diffYaw = euler.yaw - lastEuler.yaw
-                    let diffPitch = euler.pitch - lastEuler.pitch
-                    let diffRoll = euler.roll - lastEuler.roll
-
-                    euler.yaw = strongSelf.lastEulerAngle.yaw + diffYaw
-                    euler.pitch = strongSelf.lastEulerAngle.pitch + diffPitch
-                    euler.pitch = strongSelf.lastEulerAngle.roll + diffRoll
+                //get the first quaternion that we started with
+                if strongSelf.beginningQuaternion == nil {
+                    strongSelf.beginningQuaternion = data.attitude.quaternion
                 }
-                strongSelf.delegate?.deviceMotionHasAttitude(deviceMotion:strongSelf, pitch:euler.pitch, yaw:euler.yaw, roll:euler.roll)
+                var currentEuler = strongSelf.quaternionToEuler(qIn: data.attitude.quaternion)
+
+                // if we panned we will have a lastEuler value that we need to take as beginning angle
+                if let lastEulerAngle = strongSelf.lastEulerAngle {
+                    //we get the devicemotion diff between start and currentangle
+                    let beginningEuler = strongSelf.quaternionToEuler(qIn: strongSelf.beginningQuaternion!)
+                    let diffYaw = currentEuler.yaw - beginningEuler.yaw
+                    let diffPitch = currentEuler.pitch - beginningEuler.pitch
+                    let diffRoll = currentEuler.roll - beginningEuler.roll
+
+                    //and add that to the angle that we had after we lifted our finger
+                    currentEuler.yaw = lastEulerAngle.yaw + diffYaw
+                    currentEuler.pitch = lastEulerAngle.pitch + diffPitch
+                    currentEuler.roll = lastEulerAngle.roll + diffRoll
+                }
+                strongSelf.delegate?.deviceMotionHasAttitude(deviceMotion:strongSelf, pitch:currentEuler.pitch, yaw:currentEuler.yaw, roll:currentEuler.roll)
             }
         }
     }
 
-    @objc func lastAngle(yaw:Double, pitch:Double, roll:Double) {
-        lastEulerAngle.yaw = yaw
-        lastEulerAngle.pitch = pitch
-        lastEulerAngle.roll = roll
+    @objc func lastAngle(yaw: Double, pitch: Double, roll: Double) {
+        if lastEulerAngle == nil {
+            lastEulerAngle = EulerAngles()
+        }
+        lastEulerAngle?.yaw = yaw
+        lastEulerAngle?.pitch = pitch
+        lastEulerAngle?.roll = roll
     }
 
     @objc func stopDeviceMotion() {
         if motion.isDeviceMotionActive {
-            lastQuaternion = motion.deviceMotion?.attitude.quaternion
+            beginningQuaternion = nil
+            lastEulerAngle = nil
             motion.stopDeviceMotionUpdates()
         }
     }

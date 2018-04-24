@@ -42,7 +42,7 @@
 #define BACKWARD_SWIPE_DURATION 10
 #define SHORT_JUMP_DURATION 10
 
-#define ZOOM_SENSITIVITY 2.99f
+#define ZOOM_SENSITIVITY 5.f
 #define DEFAULT_FOV 80.f
 #define MAX_FOV 150.f
 #define MIN_FOV 20.f
@@ -237,8 +237,7 @@ typedef NS_ENUM(NSInteger, VLCPanType) {
     [self setupControlPanel];
 
     CGRect screenBounds = [[UIScreen mainScreen] bounds];
-    CGFloat screenScale = [[UIScreen mainScreen] scale];
-    _screenPixelSize = CGSizeMake(screenBounds.size.width * screenScale, screenBounds.size.height * screenScale);
+    _screenPixelSize = CGSizeMake(screenBounds.size.width, screenBounds.size.height);
 
     [self setupConstraints];
 
