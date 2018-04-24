@@ -254,8 +254,8 @@
 		CAA0B0F720726A0E00B9274E /* TestHelper.swift in Sources */ = {isa = PBXBuildFile; fileRef = CAA0B0F620726A0E00B9274E /* TestHelper.swift */; };
 		CAD925792075536300F88496 /* Screenshot.swift in Sources */ = {isa = PBXBuildFile; fileRef = CAD925782075536300F88496 /* Screenshot.swift */; };
 		CAD925812075613200F88496 /* SnapshotHelper.swift in Sources */ = {isa = PBXBuildFile; fileRef = CAD925802075613100F88496 /* SnapshotHelper.swift */; };
-		CAF76D9520709CDE00E2AD7B /* Localizable.strings in Resources */ = {isa = PBXBuildFile; fileRef = A79246C6170F11DF0036AAF2 /* Localizable.strings */; };
 		CADFAD08207D128200103F33 /* VLCEmptyLibraryView.m in Sources */ = {isa = PBXBuildFile; fileRef = CADFAD07207D128200103F33 /* VLCEmptyLibraryView.m */; };
+		CAF76D9520709CDE00E2AD7B /* Localizable.strings in Resources */ = {isa = PBXBuildFile; fileRef = A79246C6170F11DF0036AAF2 /* Localizable.strings */; };
 		CC1BBC461704938300A20CBF /* libiconv.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = CC1BBC451704938300A20CBF /* libiconv.dylib */; };
 		CC1BBC4C1704939B00A20CBF /* libsqlite3.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = CC1BBC4B1704939B00A20CBF /* libsqlite3.dylib */; };
 		CC1BBC4E170493A300A20CBF /* libbz2.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = CC1BBC4D170493A300A20CBF /* libbz2.dylib */; };
@@ -963,11 +963,11 @@
 		CAA0B0F620726A0E00B9274E /* TestHelper.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TestHelper.swift; sourceTree = "<group>"; };
 		CAD925782075536300F88496 /* Screenshot.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Screenshot.swift; sourceTree = "<group>"; };
 		CAD925802075613100F88496 /* SnapshotHelper.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = SnapshotHelper.swift; path = fastlane/SnapshotHelper.swift; sourceTree = SOURCE_ROOT; };
+		CADFAD06207D128200103F33 /* VLCEmptyLibraryView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = VLCEmptyLibraryView.h; path = Sources/VLCEmptyLibraryView.h; sourceTree = "<group>"; };
+		CADFAD07207D128200103F33 /* VLCEmptyLibraryView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = VLCEmptyLibraryView.m; path = Sources/VLCEmptyLibraryView.m; sourceTree = "<group>"; };
 		CAF76D8F20709C4100E2AD7B /* VLCiOSTestMenu.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = VLCiOSTestMenu.swift; sourceTree = "<group>"; };
 		CAF76D9120709C7000E2AD7B /* VLCiOSTestVideoCodecs.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = VLCiOSTestVideoCodecs.swift; sourceTree = "<group>"; };
 		CAF76D9320709C9500E2AD7B /* XCUIElement+Helpers.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "XCUIElement+Helpers.swift"; sourceTree = "<group>"; };
-		CADFAD06207D128200103F33 /* VLCEmptyLibraryView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = VLCEmptyLibraryView.h; path = Sources/VLCEmptyLibraryView.h; sourceTree = "<group>"; };
-		CADFAD07207D128200103F33 /* VLCEmptyLibraryView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = VLCEmptyLibraryView.m; path = Sources/VLCEmptyLibraryView.m; sourceTree = "<group>"; };
 		CC1BBC451704938300A20CBF /* libiconv.dylib */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.dylib"; name = libiconv.dylib; path = usr/lib/libiconv.dylib; sourceTree = SDKROOT; };
 		CC1BBC471704938B00A20CBF /* libstdc++.dylib */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.dylib"; name = "libstdc++.dylib"; path = "usr/lib/libstdc++.dylib"; sourceTree = SDKROOT; };
 		CC1BBC491704939300A20CBF /* libz.dylib */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.dylib"; name = libz.dylib; path = usr/lib/libz.dylib; sourceTree = SDKROOT; };
@@ -1253,7 +1253,7 @@
 			path = Coordinators;
 			sourceTree = "<group>";
 		};
-		41B0BC871F73ED7D0063BA26 /* VLC for iOSUITests */ = {
+		41B0BC871F73ED7D0063BA26 /* VLC-iOS-UITests */ = {
 			isa = PBXGroup;
 			children = (
 				CAD925782075536300F88496 /* Screenshot.swift */,
@@ -1266,7 +1266,7 @@
 				CA6FB8222074601900FC9BF2 /* VLC-iOSUITest-Bridging-Header.h */,
 				8DD6516E208C89BC0052EE68 /* VLCAccessibilityIdentifier.swift */,
 			);
-			path = "VLC for iOSUITests";
+			path = "VLC-iOS-UITests";
 			sourceTree = "<group>";
 		};
 		41CD69561A29D71B00E60BCE /* Box */ = {
@@ -1639,7 +1639,7 @@
 				CC1BBC441704936500A20CBF /* External VLC Libraries */,
 				DD7110ED1AF38AFD00854776 /* SharedSources */,
 				7D13293E1BA1F10100BE647E /* VLC-TV */,
-				41B0BC871F73ED7D0063BA26 /* VLC for iOSUITests */,
+				41B0BC871F73ED7D0063BA26 /* VLC-iOS-UITests */,
 				7D94FCDD16DE7D1000F2623B /* Frameworks */,
 				7D94FCDC16DE7D1000F2623B /* Products */,
 				A77803FFDA800BD6A3DAED0C /* Pods */,
@@ -3451,13 +3451,13 @@
 				GCC_WARN_UNDECLARED_SELECTOR = YES;
 				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
 				GCC_WARN_UNUSED_FUNCTION = YES;
-				INFOPLIST_FILE = "VLC for iOSUITests/Info.plist";
+				INFOPLIST_FILE = "VLC-iOS-UITests/Info.plist";
 				IPHONEOS_DEPLOYMENT_TARGET = 9.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
 				MTL_ENABLE_DEBUG_INFO = YES;
 				PRODUCT_BUNDLE_IDENTIFIER = "org.example.com.VLC-for-iOSUITests";
 				PRODUCT_NAME = "$(TARGET_NAME)";
-				SWIFT_OBJC_BRIDGING_HEADER = "VLC for iOSUITests/VLC-iOSUITest-Bridging-Header.h";
+				SWIFT_OBJC_BRIDGING_HEADER = "VLC-iOS-UITests/VLC-iOSUITest-Bridging-Header.h";
 				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
 				TARGETED_DEVICE_FAMILY = "1,2";
 				TEST_TARGET_NAME = "VLC-iOS";
@@ -3501,13 +3501,13 @@
 				GCC_WARN_UNDECLARED_SELECTOR = YES;
 				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
 				GCC_WARN_UNUSED_FUNCTION = YES;
-				INFOPLIST_FILE = "VLC for iOSUITests/Info.plist";
+				INFOPLIST_FILE = "VLC-iOS-UITests/Info.plist";
 				IPHONEOS_DEPLOYMENT_TARGET = 9.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
 				MTL_ENABLE_DEBUG_INFO = NO;
 				PRODUCT_BUNDLE_IDENTIFIER = "org.example.com.VLC-for-iOSUITests";
 				PRODUCT_NAME = "$(TARGET_NAME)";
-				SWIFT_OBJC_BRIDGING_HEADER = "VLC for iOSUITests/VLC-iOSUITest-Bridging-Header.h";
+				SWIFT_OBJC_BRIDGING_HEADER = "VLC-iOS-UITests/VLC-iOSUITest-Bridging-Header.h";
 				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
 				TARGETED_DEVICE_FAMILY = "1,2";
 				TEST_TARGET_NAME = "VLC-iOS";
@@ -3551,13 +3551,13 @@
 				GCC_WARN_UNDECLARED_SELECTOR = YES;
 				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
 				GCC_WARN_UNUSED_FUNCTION = YES;
-				INFOPLIST_FILE = "VLC for iOSUITests/Info.plist";
+				INFOPLIST_FILE = "VLC-iOS-UITests/Info.plist";
 				IPHONEOS_DEPLOYMENT_TARGET = 9.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
 				MTL_ENABLE_DEBUG_INFO = NO;
 				PRODUCT_BUNDLE_IDENTIFIER = "org.example.com.VLC-for-iOSUITests";
 				PRODUCT_NAME = "$(TARGET_NAME)";
-				SWIFT_OBJC_BRIDGING_HEADER = "VLC for iOSUITests/VLC-iOSUITest-Bridging-Header.h";
+				SWIFT_OBJC_BRIDGING_HEADER = "VLC-iOS-UITests/VLC-iOSUITest-Bridging-Header.h";
 				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
 				TARGETED_DEVICE_FAMILY = "1,2";
 				TEST_TARGET_NAME = "VLC-iOS";
