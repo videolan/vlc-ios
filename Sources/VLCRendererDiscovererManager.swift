@@ -20,7 +20,7 @@ class VLCRendererDiscovererManager: NSObject {
         actionSheet.delegate = self
         actionSheet.dataSource = self
         actionSheet.modalPresentationStyle = .custom
-        actionSheet.addAction { [weak self] (item) in
+        actionSheet.setAction { [weak self] (item) in
             if let rendererItem = item as? VLCRendererItem {
                 self?.setRendererItem(rendererItem: rendererItem)
             }
@@ -127,7 +127,7 @@ class VLCRendererDiscovererManager: NSObject {
     }
 
     @objc func addSelectionHandler(selectionHandler: ((_ rendererItem: VLCRendererItem) -> Void)?) {
-        actionSheet.addAction { [weak self] (item) in
+        actionSheet.setAction { [weak self] (item) in
             if let rendererItem = item as? VLCRendererItem {
                 self?.setRendererItem(rendererItem: rendererItem)
                 if let handler = selectionHandler {

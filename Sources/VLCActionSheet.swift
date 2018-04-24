@@ -381,7 +381,7 @@ class VLCActionSheet: UIViewController {
         collectionView.collectionViewLayout.invalidateLayout()
     }
 
-    @objc func addAction(closure action: @escaping (_ item: Any) -> Void) {
+    @objc func setAction(closure action: @escaping (_ item: Any) -> Void) {
         self.action = action
     }
 }
