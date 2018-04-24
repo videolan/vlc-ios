@@ -116,7 +116,7 @@ typedef NS_ENUM(NSInteger, VLCPanType) {
     CGSize _screenSizePixel;
 
     UIStackView *_navigationBarStackView;
-    UIButton *_rendererButtton;
+    UIButton *_rendererButton;
 }
 @property (nonatomic, strong) VLCMovieViewControlPanelView *controllerPanel;
 @property (nonatomic, strong) UIPopoverController *masterPopoverController;
@@ -368,7 +368,7 @@ typedef NS_ENUM(NSInteger, VLCPanType) {
     self.timeNavigationTitleView.translatesAutoresizingMaskIntoConstraints = NO;
 
     if (_vpc.renderer != nil) {
-        [_rendererButtton setSelected:YES];
+        [_rendererButton setSelected:YES];
     }
 
     _navigationBarStackView = [[UIStackView alloc] init];
@@ -378,7 +378,7 @@ typedef NS_ENUM(NSInteger, VLCPanType) {
     _navigationBarStackView.alignment = UIStackViewAlignmentCenter;
     [_navigationBarStackView addArrangedSubview:_doneButton];
     [_navigationBarStackView addArrangedSubview:_timeNavigationTitleView];
-    [_navigationBarStackView addArrangedSubview:_rendererButtton];
+    [_navigationBarStackView addArrangedSubview:_rendererButton];
 
     [self.navigationController.navigationBar addSubview:_navigationBarStackView];
 
@@ -652,7 +652,7 @@ typedef NS_ENUM(NSInteger, VLCPanType) {
                                                                      _multiSelectionView.repeatButton,
                                                                      _multiSelectionView.shuffleButton,
                                                                      _controllerPanel.volumeView,
-                                                                     _rendererButtton]];
+                                                                     _rendererButton]];
 
     [[UIDevice currentDevice] isiPhoneX] ? [items addObject:_tapToToggleiPhoneXRatioRecognizer]
                                          : [items addObject:_tapToSeekRecognizer];
@@ -1699,7 +1699,7 @@ currentMediaHasTrackToChooseFrom:(BOOL)currentMediaHasTrackToChooseFrom
 - (void)setupRendererDiscovererManager
 {
     // Create a renderer button for VLCMovieViewController
-    _rendererButtton = [VLCRendererDiscovererManager.sharedInstance setupRendererButton];
+    _rendererButton = [VLCRendererDiscovererManager.sharedInstance setupRendererButton];
     [VLCRendererDiscovererManager.sharedInstance addSelectionHandlerWithSelectionHandler:^(VLCRendererItem * _Nonnull item) {
         [self setupCastWithCurrentRenderer];
     }];

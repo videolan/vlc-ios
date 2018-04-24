@@ -30,7 +30,7 @@ class VLCRendererDiscovererManager: NSObject {
 
     @objc var presentingViewController: UIViewController?
 
-    @objc var rendererButttons: [UIButton] = [UIButton]()
+    @objc var rendererButtons: [UIButton] = [UIButton]()
 
     fileprivate init(presentingViewController: UIViewController?) {
         self.presentingViewController = presentingViewController
@@ -114,13 +114,13 @@ class VLCRendererDiscovererManager: NSObject {
 
         if vpcRenderer != rendererItem {
             VLCPlaybackController.sharedInstance().renderer = rendererItem
-            for button in rendererButttons {
+            for button in rendererButtons {
                 button.isSelected = true
             }
         } else {
             // Same renderer selected, removing selection
             VLCPlaybackController.sharedInstance().renderer = nil
-            for button in rendererButttons {
+            for button in rendererButtons {
                 button.isSelected = false
             }
         }
@@ -149,7 +149,7 @@ class VLCRendererDiscovererManager: NSObject {
         button.addTarget(self, action: #selector(displayActionSheet), for: .touchUpInside)
         button.accessibilityLabel = NSLocalizedString("BUTTON_RENDERER", comment: "")
         button.accessibilityHint = NSLocalizedString("BUTTON_RENDERER_HINT", comment: "")
-        rendererButttons.append(button)
+        rendererButtons.append(button)
         return button
     }
 }
@@ -157,7 +157,7 @@ class VLCRendererDiscovererManager: NSObject {
 // MARK: VLCRendererDiscovererDelegate
 extension VLCRendererDiscovererManager: VLCRendererDiscovererDelegate {
     func rendererDiscovererItemAdded(_ rendererDiscoverer: VLCRendererDiscoverer, item: VLCRendererItem) {
-        for button in rendererButttons {
+        for button in rendererButtons {
             if button.isHidden {
                 UIView.animate(withDuration: 0.1) {
                     button.isHidden = false
@@ -181,7 +181,7 @@ extension VLCRendererDiscovererManager: VLCRendererDiscovererDelegate {
                     playbackController.mediaPlayerSetRenderer(nil)
                 }
                 // Reset buttons state
-                for button in rendererButttons {
+                for button in rendererButtons {
                     button.isSelected = false
                 }
             }
@@ -191,7 +191,7 @@ extension VLCRendererDiscovererManager: VLCRendererDiscovererDelegate {
 
         // No more renderers to show
         if getAllRenderers().isEmpty {
-            for button in rendererButttons {
+            for button in rendererButtons {
                 button.isHidden = true
             }
         }

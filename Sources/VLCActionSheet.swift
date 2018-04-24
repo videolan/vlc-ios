@@ -241,7 +241,7 @@ class VLCActionSheet: UIViewController {
 
     fileprivate lazy var collectionViewHeightConstraint: NSLayoutConstraint = {
         guard let dataSource = dataSource else {
-            preconditionFailure("VLCActionSheet: Data source not setted correctly!")
+            preconditionFailure("VLCActionSheet: Data source not set correctly!")
         }
 
         let collectionViewHeightConstraint = collectionView.heightAnchor.constraint(
