@@ -97,9 +97,6 @@
 "FILE_NOT_SUPPORTED" = "File format not supported";
 "SCHEME_NOT_SUPPORTED" = "Address scheme not supported";
 "SCHEME_NOT_SUPPORTED_LONG" = "The address scheme (%@) is not supported. Please use an address starting with HTTP, HTTPS or FTP.";
-"LIBRARY_ALL_FILES" = "All Files";
-"LIBRARY_MUSIC" = "Music Albums";
-"LIBRARY_SERIES" = "TV Shows";
 "LIBRARY_TRACKS" = "%i Tracks";
 "LIBRARY_SINGLE_TRACK" = "%i Track";
 "LIBRARY_EPISODES" = "%i Episodes, %i unread";
@@ -108,14 +105,6 @@
 "LIBRARY_MINUTES_LEFT" = "%@m left";
 "RENAME_MEDIA_TO" = "Enter new name for %@";
 
-"FOLDER_INVALID_TYPE_TITLE" = "Invalid file types";
-"FOLDER_INVALID_TYPE_MESSAGE" = "You can only take two files to form a folder or add a single file to an existing folder.";
-"FOLDER_CHOOSE_NAME_TITLE" = "New Folder";
-"FOLDER_CHOOSE_NAME_MESSAGE" = "Enter a title for your folder";
-"FOLDER_NAME_PLACEHOLDER" = "Folder Title";
-"FOLDER_NAME_DUPLICATE_TITLE" = "Title exists";
-"FOLDER_NAME_DUPLICATE_MESSAGE" = "Please choose a different title";
-"SELECT_FOLDER" = "Select a Folder";
 
 "SHARING_ACTION_SHEET_TITLE_CHOOSE_FILE" = "Choose a file to open:";
 "SHARING_ACTIVITY_OPEN_IN_TITLE" = "Open In...";

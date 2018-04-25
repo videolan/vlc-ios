@@ -13,7 +13,6 @@
 #import "VLCDocumentPickerController.h"
 #import <MobileCoreServices/MobileCoreServices.h>
 #import "VLCMediaFileDiscoverer.h"
-#import "VLCLibraryViewController.h"
 
 @interface VLCDocumentPickerController () <UIDocumentMenuDelegate, UIDocumentPickerDelegate>
 

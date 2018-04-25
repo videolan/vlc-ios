@@ -21,7 +21,6 @@ target 'VLC-iOS' do
   pod 'HockeySDK', '~>5.1.2', :subspecs => ['CrashOnlyLib']
   pod 'PAPasscode', '~>1.0'
   pod 'GoogleAPIClient/Drive'
-  pod 'VLC-LXReorderableCollectionViewFlowLayout', '0.1.3v'
   pod 'MediaLibraryKit-prod'
   pod 'MobileVLCKit', '3.0.2'
   pod 'GTMAppAuth'
