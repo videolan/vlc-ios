@@ -214,12 +214,11 @@ extension VLCRendererDiscovererManager: VLCActionSheetDelegate {
         }
         // Handles the case when the same renderer is selected
         if renderer == VLCPlaybackController.sharedInstance().renderer {
-            cell.icon.image = UIImage(named: "rendererBlack")
+            cell.icon.image = UIImage(named: "rendererGray")
         } else {
             // Reset all cells
             collectionView.reloadData()
-            cell.icon.image = UIImage(named: "rendererBlackFull")
-            collectionView.layoutIfNeeded()
+            cell.icon.image = UIImage(named: "rendererOrangeFull")
         }
     }
 }
@@ -242,7 +241,7 @@ extension VLCRendererDiscovererManager: VLCActionSheetDataSource {
 
             cell.icon.image = UIImage(named: "rendererGray")
             if renderers[indexPath.row] == VLCPlaybackController.sharedInstance().renderer {
-                cell.icon.image = UIImage(named: "rendererFullOrange")
+                cell.icon.image = UIImage(named: "rendererOrangeFull")
             }
         } else {
             assertionFailure("VLCRendererDiscovererManager: cellForItemAt: IndexPath out of range")
