@@ -106,7 +106,7 @@ private_lane :update_changelog do |options|
                   team: 'VideoLAN',
                   platform: platform == 'tvOS' ? 'appletvos' : 'ios')
   else
-    puts("Changelog not found for: #{platform} [#{version}]")
+    puts("⚠️  Changelog not found for: #{platform} [#{version}]")
     exit 1
   end
 end
