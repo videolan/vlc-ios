@@ -16,6 +16,7 @@
 #import "VLCPlaybackController.h"
 
 @class OBSlider;
+@class VLCService;
 @class VLCStatusLabel;
 @class VLCVerticalSwipeGestureRecognizer;
 @class VLCTimeNavigationTitleView;
@@ -79,6 +80,8 @@ typedef NS_ENUM(NSInteger, VLCMovieJumpState) {
 @property (nonatomic, strong) IBOutlet NSLayoutConstraint *widthConstraint;
 
 @property (nonatomic, weak) id<VLCMovieViewControllerDelegate> delegate;
+
+- (instancetype)initWithServices:(VLCService *)services;
 
 - (IBAction)closePlayback:(id)sender;
 - (IBAction)minimizePlayback:(id)sender;

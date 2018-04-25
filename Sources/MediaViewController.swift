@@ -49,7 +49,7 @@ public class VLCMediaViewController: UICollectionViewController, UISearchResults
 
     init(services: Services) {
         self.services = services
-        self.rendererButton = VLCRendererDiscovererManager.sharedInstance.setupRendererButton()
+        self.rendererButton = services.rendererDiscovererManager.setupRendererButton()
         super.init(collectionViewLayout: UICollectionViewFlowLayout())
         NotificationCenter.default.addObserver(self, selector: #selector(themeDidChange), name: .VLCThemeDidChangeNotification, object: nil)
     }
@@ -70,7 +70,7 @@ public class VLCMediaViewController: UICollectionViewController, UISearchResults
 
     public override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
-        let manager = VLCRendererDiscovererManager.sharedInstance
+        let manager = services.rendererDiscovererManager
         manager.start()
         manager.presentingViewController = self
     }

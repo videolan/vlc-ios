@@ -121,6 +121,8 @@ typedef NS_ENUM(NSInteger, VLCPanType) {
 @property (nonatomic, strong) VLCMovieViewControlPanelView *controllerPanel;
 @property (nonatomic, strong) UIPopoverController *masterPopoverController;
 @property (nonatomic, strong) UIWindow *externalWindow;
+@property (nonatomic, strong) VLCService *services;
+
 @end
 
 @implementation VLCMovieViewController
@@ -130,6 +132,16 @@ typedef NS_ENUM(NSInteger, VLCPanType) {
     NSUserDefaults *defaults = [NSUserDefaults standardUserDefaults];
     NSDictionary *appDefaults = @{kVLCShowRemainingTime : @(YES)};
     [defaults registerDefaults:appDefaults];
+}
+
+- (instancetype)initWithServices:(VLCService *)services
+{
+    self = [super initWithNibName:nil bundle:nil];
+    if (self) {
+        NSAssert([services isKindOfClass:[VLCService class]], @"VLCPlayerDisplayController: Injected services class issue");
+        _services = services;
+    }
+    return self;
 }
 
 - (void)viewDidLoad
@@ -428,7 +440,8 @@ typedef NS_ENUM(NSInteger, VLCPanType) {
     //Disabling video gestures, media not init in the player yet.
     [self enableNormalVideoGestures:NO];
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(updateDefaults) name:NSUserDefaultsDidChangeNotification object:nil];
-    [VLCRendererDiscovererManager sharedInstance].presentingViewController = self;
+    _services.rendererDiscovererManager.presentingViewController = self;
+
     if (_vpc.renderer && _playingExternallyView.hidden) {
         [self playingExternallyViewWithRendererName:_vpc.renderer.name];
     }
@@ -455,7 +468,7 @@ typedef NS_ENUM(NSInteger, VLCPanType) {
     }
 
     [self enableNormalVideoGestures:!_mediaHasProjection];
-    [VLCRendererDiscovererManager.sharedInstance start];
+    [_services.rendererDiscovererManager start];
 }
 
 - (void)viewDidLayoutSubviews
@@ -525,7 +538,7 @@ typedef NS_ENUM(NSInteger, VLCPanType) {
 
     [[NSNotificationCenter defaultCenter] removeObserver:self name:NSUserDefaultsDidChangeNotification object:nil];
     [[NSUserDefaults standardUserDefaults] setBool:_displayRemainingTime forKey:kVLCShowRemainingTime];
-    [[VLCRendererDiscovererManager sharedInstance] stop];
+    [_services.rendererDiscovererManager stop];
 }
 
 - (BOOL)canBecomeFirstResponder
@@ -1699,9 +1712,10 @@ currentMediaHasTrackToChooseFrom:(BOOL)currentMediaHasTrackToChooseFrom
 - (void)setupRendererDiscovererManager
 {
     // Create a renderer button for VLCMovieViewController
-    _rendererButton = [VLCRendererDiscovererManager.sharedInstance setupRendererButton];
-    [VLCRendererDiscovererManager.sharedInstance addSelectionHandlerWithSelectionHandler:^(VLCRendererItem * _Nonnull item) {
-        [self setupCastWithCurrentRenderer];
+    _rendererButton = [_services.rendererDiscovererManager setupRendererButton];
+    __weak typeof(self) weakSelf = self;
+    [_services.rendererDiscovererManager addSelectionHandlerWithSelectionHandler:^(VLCRendererItem * _Nonnull item) {
+        [weakSelf setupCastWithCurrentRenderer];
     }];
 }
 

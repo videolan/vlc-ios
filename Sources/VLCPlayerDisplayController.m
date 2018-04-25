@@ -17,6 +17,7 @@
 #import "VLCPlaybackController+MediaLibrary.h"
 
 #if TARGET_OS_IOS
+#import "VLC_iOS-Swift.h"
 #import "VLCMovieViewController.h"
 #else
 #import "VLCFullscreenMovieTVViewController.h"
@@ -41,14 +42,19 @@ static NSString *const VLCPlayerDisplayControllerDisplayModeKey = @"VLCPlayerDis
 @property (nonatomic, strong) UIViewController<VLCPlaybackControllerDelegate> *movieViewController;
 @property (nonatomic, strong) UIView<VLCPlaybackControllerDelegate, VLCMiniPlaybackViewInterface> *miniPlaybackView;
 @property (nonatomic, strong) NSLayoutConstraint *bottomConstraint;
+@property (nonatomic, strong) VLCService *services;
 @end
 
 @implementation VLCPlayerDisplayController
 
-- (instancetype)init
+- (instancetype)initWithServices:(id)services
 {
-    self = [super init];
+    self = [super initWithNibName:nil bundle:nil];
     if (self) {
+        NSAssert([services isKindOfClass:[VLCService class]], @"VLCPlayerDisplayController: Injected services class issue");
+
+        _services = services;
+
         NSNotificationCenter *notificationCenter = [NSNotificationCenter defaultCenter];
         [notificationCenter addObserver:self selector:@selector(playbackDidStart:) name:VLCPlaybackControllerPlaybackDidStart object:nil];
         [notificationCenter addObserver:self selector:@selector(playbackDidFail:) name:VLCPlaybackControllerPlaybackDidFail object:nil];
@@ -86,7 +92,7 @@ static NSString *const VLCPlayerDisplayControllerDisplayModeKey = @"VLCPlayerDis
 {
     if (!_movieViewController) {
 #if TARGET_OS_IOS
-        _movieViewController = [[VLCMovieViewController alloc] initWithNibName:nil bundle:nil];
+        _movieViewController = [[VLCMovieViewController alloc] initWithServices:_services];
         ((VLCMovieViewController *)_movieViewController).delegate = self;
 #else
         _movieViewController = [[VLCFullscreenMovieTVViewController alloc] initWithNibName:nil bundle:nil];

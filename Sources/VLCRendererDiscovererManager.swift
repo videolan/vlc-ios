@@ -10,8 +10,6 @@
  *****************************************************************************/
 
 class VLCRendererDiscovererManager: NSObject {
-    @objc static let sharedInstance = VLCRendererDiscovererManager(presentingViewController: nil)
-
     // Array of RendererDiscoverers(Chromecast, UPnP, ...)
     @objc dynamic var discoverers: [VLCRendererDiscoverer] = [VLCRendererDiscoverer]()
 
@@ -32,7 +30,7 @@ class VLCRendererDiscovererManager: NSObject {
 
     @objc var rendererButtons: [UIButton] = [UIButton]()
 
-    fileprivate init(presentingViewController: UIViewController?) {
+    @objc init(presentingViewController: UIViewController?) {
         self.presentingViewController = presentingViewController
         super.init()
     }
