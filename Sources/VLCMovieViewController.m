@@ -869,6 +869,7 @@ typedef NS_ENUM(NSInteger, VLCPanType) {
 - (IBAction)closePlayback:(id)sender
 {
     _playbackWillClose = YES;
+    _playingExternallyView.hidden = YES;
     [_vpc stopPlayback];
 }
 
