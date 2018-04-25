@@ -104,14 +104,14 @@
     if (_httpServer.isRunning) {
         if (_httpServer.listeningPort != 80) {
             return [NSString stringWithFormat:@"http://%@:%i\nhttp://%@:%i",
-                    [self currentIPAddress],
-                    _httpServer.listeningPort,
                     [self hostname],
+                    _httpServer.listeningPort,
+                    [self currentIPAddress],
                     _httpServer.listeningPort];
         } else {
             return [NSString stringWithFormat:@"http://%@\nhttp://%@",
-                    [self currentIPAddress],
-                    [self hostname]];
+                    [self hostname],
+                    [self currentIPAddress]];
         }
     } else {
         return NSLocalizedString(@"HTTP_UPLOAD_SERVER_OFF", nil);
