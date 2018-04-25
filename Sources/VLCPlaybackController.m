@@ -1296,9 +1296,6 @@ typedef NS_ENUM(NSUInteger, VLCAspectRatio) {
 
 - (void)mediaPlayerSetRenderer:(VLCRendererItem *)renderer
 {
-    if (_renderer != renderer) {
-        _renderer = renderer;
-    }
     [_mediaPlayer setRendererItem:renderer];
 }
 
