@@ -98,7 +98,7 @@ private_lane :update_changelog do |options|
   version = options[:version]
 
   regex = /## #{platform} \[#{version}\](.*?)^##/m
-  if match = File.read('../Docs/NEWS').match(regex)
+  if (match = File.read('../Docs/NEWS').match(regex))
     changelog = match.captures
     set_changelog(app_identifier: 'org.videolan.vlc-ios',
                   changelog: changelog,
