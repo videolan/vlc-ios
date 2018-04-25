@@ -53,12 +53,12 @@ class VLCRendererDiscovererManager: NSObject {
 
     @discardableResult @objc func start() -> Bool {
         // Gather potential renderer discoverers
-        guard let tmpDiscoverers: [VLCRendererDiscovererDescription] = VLCRendererDiscoverer.list() else {
+        guard let tmpDiscoverersDescription: [VLCRendererDiscovererDescription] = VLCRendererDiscoverer.list() else {
             return false
         }
-        for discoverer in tmpDiscoverers {
-            if !isDuplicateDiscoverer(with: discoverer) {
-                if let rendererDiscoverer = VLCRendererDiscoverer(name: discoverer.name) {
+        for discovererDescription in tmpDiscoverersDescription {
+            if !isDuplicateDiscoverer(with: discovererDescription) {
+                if let rendererDiscoverer = VLCRendererDiscoverer(name: discovererDescription.name) {
                     if rendererDiscoverer.start() {
                         rendererDiscoverer.delegate = self
                         discoverers.append(rendererDiscoverer)
@@ -66,7 +66,7 @@ class VLCRendererDiscovererManager: NSObject {
                         assertionFailure("Unable to start renderer discoverer with name: \(rendererDiscoverer.name)")
                     }
                 } else {
-                    assertionFailure("Unable to instanciate renderer discoverer with name: \(discoverer.name)")
+                    assertionFailure("Unable to instanciate renderer discoverer with name: \(discovererDescription.name)")
                 }
             }
         }
