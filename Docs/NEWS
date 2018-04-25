@@ -1,582 +1,592 @@
-tvOS 3.0.2:
------------
-· Fixes issues with not being able to resume playback
-· Fixes issues with no subtitles after selection
+# Changelog
+All notable changes to this project will be documented in this file.
 
-iOS 3.0.3:
------------
-· Hitting play after backgrounding VLC is finally fixed
-· Opening a txt file on iOS won't jump into VLC anymore (we obviously still support this subtitle format)
-· Instead of a black screen, when opening certain HEVC files, we now have a playing video
-· Fixes an issue were users were prompted to enter a passcode without ever setting one
-· We also fixed multiple crashes
-· Scrubbing in the lock screen was added
+The format is based on [Keep a Changelog](http://keepachangelog.com/en/1.0.0/)
+and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.html).
 
-iOS 3.0.2:
------------
-· Fixes issues with TouchID and FaceID
-· Fixes a crash when opening a Folder
+## tvOS [Unreleased]
 
-tvOS 3.0.1:
-----------
-· Fixes a crash browsing files on local file servers
+## iOS [Unreleased]
 
-iOS 3.0.1:
------------
-· Fixes a crash browsing files on local file servers
-· the "use TouchID setting" is now respected
-· Fixes a crash when locking your UI on iPhone X
+## tvOS [3.0.2]
 
-iOS 3.0.0:
------------
-· Added support for Drag and Drop
-· Added Files integration
-· Added FaceID support
+- Fixes issues with not being able to resume playback
+- Fixes issues with no subtitles after selection
 
-tvOS 3.0.0:
-----------
-· Crash fixes when browsing or searching the local network
+## iOS [3.0.3]
 
-iOS 2.9.0:
-----------
-· Stability improvements and bug fixes
+- Hitting play after backgrounding VLC is finally fixed
+- Opening a txt file on iOS won't jump into VLC anymore (we obviously still support this subtitle format)
+- Instead of a black screen, when opening certain HEVC files, we now have a playing video
+- Fixes an issue were users were prompted to enter a passcode without ever setting one
+- We also fixed multiple crashes
+- Scrubbing in the lock screen was added
 
-iOS 2.8.9:
-----------
-· .srt subtitles are being displayed again
+## iOS [3.0.2]
 
-tvOS 1.1.3:
-----------
-· .srt subtitles are being displayed again
+- Fixes issues with TouchID and FaceID
+- Fixes a crash when opening a Folder
 
-tvOS 1.1.2:
------------
-· Fix a crash on start when there are two devices with the same name in the network
+## tvOS [3.0.1]
 
-iOS 2.8.8:
-----------
-· This version will not reboot your iPhone X when playing HEVC files
-· We stopped the madness of doubling files!
-· When passcode is enabled Touch Id won't pop up multiple times when you enter the background
-· SMB Servers will show up again and are accessible
-· Sharing your Media with other Services and saving to Camera Roll works again
-· And as always - Stability improvements and bug fixes
+- Fixes a crash browsing files on local file servers
 
-iOS 2.8.7:
-----------
-· Audio resumes after getting calls or playing content from other media apps again
-· Fixes an issue were SSA subtitles were not displayed
-· Google Drive login works again
+## iOS [3.0.1]
 
-tvOS 1.1.1:
------------
-· Stability improvements and bug fixes
+- Fixes a crash browsing files on local file servers
+- the "use TouchID setting" is now respected
+- Fixes a crash when locking your UI on iPhone X
 
-iOS 2.8.6:
------------
-· Adjusted the UI for iPhone X
-· Fixes the app termination on devices for iOS 7 and iOS 8
-· Adds Full support for HEVC 4k videos
-· General bug fixes
+## iOS [3.0.0]
 
-tvOS 1.1.0:
------------
-· Full support for tvOS 11 and Apple TV 4K
-· Hardware decoding of H.264
-· Greatly improved playback engine
-· Added support for dark user interface style
-· Improved support for pass-through audio playback and multi-channel audio
-· Fixes an unexpected app termination when uploading specifically crafted files through Remote Playback
+- Added support for Drag and Drop
+- Added Files integration
+- Added FaceID support
 
-iOS 2.8.5:
-----------
-· Fixes an unexpected app termination when uploading specifically crafted files through WiFi Upload
-· iOS 7 stability improvements, notably when browsing servers via UPnP or deleting locally stored media
+## tvOS [3.0.0]
 
-iOS 2.8.4:
-----------
-· Fixes a not responsive UI after scrubbing the Video
-· Fixes iOS 11 issues with deinterlaced videos 
-· Fixes instances where the Video would be black
-· General stability improvements and bug fixes
+- Crash fixes when browsing or searching the local network
 
-iOS 2.8.3:
-----------
-· Hardware accelerated video filtering reducing CPU load by 30% to the previous software filters (iOS 9 or later only)
-· Fixes FTP playback
-· Fixes crash when playback of a H.264 encoded video ends whose dimensions are not multiples of 16
-· General stability improvements and bug fixes
+## iOS [2.9.0]
 
-iOS 2.8.2:
-----------
-· Fixes an unexpected playback termination of H.264 content after a few minutes
-· Fixes playback of 10bit H.264 content
-· Fixes a crash when discovering UPnP devices on the local network
-· Restored playback on iOS 7
-· Dropbox support is no longer an option on iOS 7 and iOS 8
-· File listings in Dropbox are now alphabetically sorted (again)
-· More options for default playback speed matching the tvOS version
-· Fixed aspect ratio switch and crop
-· General stability improvements and bug fixes
+- Stability improvements and bug fixes
 
-iOS 2.8.1:
-----------
-· General stability improvements and bug fixes
-· Fixes a crash for Local Network for versions < iOS 10
-· Fixes issues with .mov playback
-· Fixes aspect ratio not being applied
+## iOS [2.8.9]
 
-iOS 2.8.0:
-----------
-· A new Network Login view
-· Hardware decoding of H.264/HEVC
-· Added support for NFS shares
-· Added Bonjour discovery for SMB shares
-· Improved search bar discovery method
-· Improved sleep timer
-· Edit "Select All"
-· Double tap to seek in videos
-· Shuffle functionality
+- .srt subtitles are being displayed again
 
-iOS 2.7.8:
-----------
-· Fixed listing of playlist files on remote shares
-· Fixed downloading some media from http servers
-· Fixed start index of multiple media playback in OneDrive
-· Fixed playback of XDCAM media files (requires a 64bit iOS device)
+## tvOS [1.1.3]
 
-tvOS 1.0.7:
------------
-· Fix listing of playlist files on remote shares
-· Fixed playback of XDCAM media files
+- .srt subtitles are being displayed again
 
-iOS 2.7.7:
-----------
-· Updated decoders
-· Added ability to rename network streams
+## tvOS [1.1.2]
 
-tvOS 1.0.6:
------------
-· Updated decoders
-· Added repeat mode for playback
+- Fix a crash on start when there are two devices with the same name in the network
 
-iOS 2.7.6:
-----------
-· General stability improvements and bug fixes
-· Fix hue video filter
-· Improved stability when unlocking app using Touch ID
-· Improved Dropbox stability
-· Prevent ghosting of media downloaded from UPnP servers
-· Prevent playing the wrong file on some UPnP, PLEX or FTP shares
+## iOS [2.8.8]
 
-tvOS 1.0.5:
------------
-· General stability improvements and bug fixes
-· Prevent ghosting of media downloaded from UPnP servers
-· Prevent playing the wrong file on some UPnP, PLEX or FTP shares
+- This version will not reboot your iPhone X when playing HEVC files
+- We stopped the madness of doubling files!
+- When passcode is enabled Touch Id won't pop up multiple times when you enter the background
+- SMB Servers will show up again and are accessible
+- Sharing your Media with other Services and saving to Camera Roll works again
+- And as always - Stability improvements and bug fixes
 
-iOS 2.7.5:
-----------
-· Improved SMB reliability
-· Stability improvements for iOS 7
+## iOS [2.8.7]
 
-tvOS 1.0.4:
------------
-· Improved SMB reliability
+- Audio resumes after getting calls or playing content from other media apps again
+- Fixes an issue were SSA subtitles were not displayed
+- Google Drive login works again
 
-iOS 2.7.3:
-----------
-· General stability improvements and bug fixes
-· Added 3D Touch Quick Actions for iPhone 6S
-· Added 'Play all' feature to OneDrive
-· Added 'Play all' feature to local network shares
-· Added automatic finding of external subtitles on HTTP, FTP, PLEX and UPnP
+## tvOS [1.1.1]
+
+- Stability improvements and bug fixes
+
+## iOS [2.8.6]
+
+- Adjusted the UI for iPhone X
+- Fixes the app termination on devices for iOS 7 and iOS 8
+- Adds Full support for HEVC 4k videos
+- General bug fixes
+
+## tvOS [1.1.0]
+
+- Full support for tvOS 11 and Apple TV 4K
+- Hardware decoding of H.264
+- Greatly improved playback engine
+- Added support for dark user interface style
+- Improved support for pass-through audio playback and multi-channel audio
+- Fixes an unexpected app termination when uploading specifically crafted files through Remote Playback
+
+## iOS [2.8.5]
+
+- Fixes an unexpected app termination when uploading specifically crafted files through WiFi Upload
+- iOS 7 stability improvements, notably when browsing servers via UPnP or deleting locally stored media
+
+## iOS [2.8.4]
+
+- Fixes a not responsive UI after scrubbing the Video
+- Fixes iOS 11 issues with deinterlaced videos 
+- Fixes instances where the Video would be black
+- General stability improvements and bug fixes
+
+## iOS [2.8.3]
+
+- Hardware accelerated video filtering reducing CPU load by 30% to the previous software filters (iOS 9 or later only)
+- Fixes FTP playback
+- Fixes crash when playback of a H.264 encoded video ends whose dimensions are not multiples of 16
+- General stability improvements and bug fixes
+
+## iOS [2.8.2]
+
+- Fixes an unexpected playback termination of H.264 content after a few minutes
+- Fixes playback of 10bit H.264 content
+- Fixes a crash when discovering UPnP devices on the local network
+- Restored playback on iOS 7
+- Dropbox support is no longer an option on iOS 7 and iOS 8
+- File listings in Dropbox are now alphabetically sorted (again)
+- More options for default playback speed matching the tvOS version
+- Fixed aspect ratio switch and crop
+- General stability improvements and bug fixes
+
+## iOS [2.8.1]
+
+- General stability improvements and bug fixes
+- Fixes a crash for Local Network for versions < iOS 10
+- Fixes issues with .mov playback
+- Fixes aspect ratio not being applied
+
+## iOS [2.8.0]
+
+- A new Network Login view
+- Hardware decoding of H.264/HEVC
+- Added support for NFS shares
+- Added Bonjour discovery for SMB shares
+- Improved search bar discovery method
+- Improved sleep timer
+- Edit "Select All"
+- Double tap to seek in videos
+- Shuffle functionality
+
+## iOS [2.7.8]
+
+- Fixed listing of playlist files on remote shares
+- Fixed downloading some media from http servers
+- Fixed start index of multiple media playback in OneDrive
+- Fixed playback of XDCAM media files (requires a 64bit iOS device)
+
+## tvOS [1.0.7]
+
+- Fix listing of playlist files on remote shares
+- Fixed playback of XDCAM media files
+
+## iOS [2.7.7]
+
+- Updated decoders
+- Added ability to rename network streams
+
+## tvOS [1.0.6]
+
+- Updated decoders
+- Added repeat mode for playback
+
+## iOS [2.7.6]
+
+- General stability improvements and bug fixes
+- Fix hue video filter
+- Improved stability when unlocking app using Touch ID
+- Improved Dropbox stability
+- Prevent ghosting of media downloaded from UPnP servers
+- Prevent playing the wrong file on some UPnP, PLEX or FTP shares
+
+## tvOS [1.0.5]
+
+- General stability improvements and bug fixes
+- Prevent ghosting of media downloaded from UPnP servers
+- Prevent playing the wrong file on some UPnP, PLEX or FTP shares
+
+## iOS [2.7.5]
+
+- Improved SMB reliability
+- Stability improvements for iOS 7
+
+## tvOS [1.0.4]
+
+- Improved SMB reliability
+
+## iOS [2.7.3]
+
+- General stability improvements and bug fixes
+- Added 3D Touch Quick Actions for iPhone 6S
+- Added 'Play all' feature to OneDrive
+- Added 'Play all' feature to local network shares
+- Added automatic finding of external subtitles on HTTP, FTP, PLEX and UPnP
   - Note that SMB shares are not supported yet.
-· Added filtering of files found on FTP servers to only show playable media
-· Improved SMB reliability
-· Fixed contrast video filter
-· Fixed downloads from certain UPnP, PLEX and ftp servers
-· Fixed switching library display modes on iPad
+- Added filtering of files found on FTP servers to only show playable media
+- Improved SMB reliability
+- Fixed contrast video filter
+- Fixed downloads from certain UPnP, PLEX and ftp servers
+- Fixed switching library display modes on iPad
 
-tvOS 1.0.3:
------------
-· General stability improvements and bug fixes
-· Added S/PDIF pass-through option
-· Added option to disable artwork retrieval
-· Added automatic finding of external subtitles on HTTP, FTP, PLEX and UPnP
+## tvOS [1.0.3]
+
+- General stability improvements and bug fixes
+- Added S/PDIF pass-through option
+- Added option to disable artwork retrieval
+- Added automatic finding of external subtitles on HTTP, FTP, PLEX and UPnP
   - Note that SMB shares are not supported yet.
-· Added filtering of files found on FTP servers to only show playable media
+- Added filtering of files found on FTP servers to only show playable media
 
-tvOS 1.0.2:
------------
-· General stability improvements and bug fixe
-· Improved SMB reliability
+## tvOS [1.0.2]
 
-tvOS 1.0.1:
------------
-· General stability improvements and bug fixes
-· Improved UPnP reliability, notably with Twonky, KooRaRoo, PlayOn
+- General stability improvements and bug fixe
+- Improved SMB reliability
 
-tvOS 1.0.0:
------------
-· Initial release
+## tvOS [1.0.1]
 
-2.7.2:
-------
-· Stability improvements
-· Improved HTTP connectivity
-· Improved UPnP reliability, notably with Twonky
-· Fixed issues unlocking the app when a passcode was never set
-· Fixed custom subtitles font sizes
-· Fixed UPnP playback on iOS 7
-· Note: when installing this update, a potentially configured passcode is reset.
+- General stability improvements and bug fixes
+- Improved UPnP reliability, notably with Twonky, KooRaRoo, PlayOn
 
-2.7.1:
-------
-· Stability improvements
-· Fixed issues unlocking the app when a passcode was never set
-· Fixed repeat one / repeat list
-· Fixed saving playback progress for files whose names contain spaces or umlauts
-· Fixed multiplying music album listings
-· Show music albums with 1 track correctly in the music album's list
-· Improved SMB compatibility
-· UPnP reliability improvements, notably with Kodi
+## tvOS [1.0.0]
 
-2.7.0:
-------
-· Added new app for the 4th gen. Apple TV
-· Dropped support for iOS 6.1. VLC requires iOS 7.0 now
-· Added support for SMB file sharing (#8879)
-· Added support for music albums with more than 1 disk (#14650)
-· Re-wrote Apple Watch extension for watchOS 2
-· Media stored in folders on remote servers is now played as a list
-· Reworked networking UI
-· Added support for system-wide search "CoreSpotlight"
-· Added improved UI support for Right-to-Left languages
-· Added support for the split-screen appearance in iOS 9 (#14840)
-· Added support for Touch ID to unlock app (#13378)
-· Added support for WiFi sharing using a personal hotspot (#14865)
-· Added option to configure playback continuation (#14340, #14590)
-· Added option to configure gestures (#15449) 
-· Added support for music albums with more than 1 disk (#14650)
-· Display chapter duration in playback UI (#14718)
-· Recently played network stream URL are now shared across all devices
-· Stored login information is now shared across all devices
-· Cloud login credentials are now shared across all devices
+- Initial release
 
-2.6.6:
-------
-· Desktop quality SSA subtitles rendering (finally!, #11297, #13365, #14112)
-· Stability improvements
-· New translations to Lao and Kabyle
+## iOS [2.7.2]
 
-2.6.5:
-------
-· Fixed playback of streams opened through the legacy vlc:// pseudo protocol
-· Minor improvements (#14080, #14836, #14881, #15118)
-· New translation to Norwegian Bokmål
-· Updated translations to Afrikaans, Arabic, Bosnian, Czech, Danish, English (GB),
+- Stability improvements
+- Improved HTTP connectivity
+- Improved UPnP reliability, notably with Twonky
+- Fixed issues unlocking the app when a passcode was never set
+- Fixed custom subtitles font sizes
+- Fixed UPnP playback on iOS 7
+- Note: when installing this update, a potentially configured passcode is reset.
+
+## iOS [2.7.1]
+
+- Stability improvements
+- Fixed issues unlocking the app when a passcode was never set
+- Fixed repeat one / repeat list
+- Fixed saving playback progress for files whose names contain spaces or umlauts
+- Fixed multiplying music album listings
+- Show music albums with 1 track correctly in the music album's list
+- Improved SMB compatibility
+- UPnP reliability improvements, notably with Kodi
+
+## iOS [2.7.0]
+
+- Added new app for the 4th gen. Apple TV
+- Dropped support for iOS 6.1. VLC requires iOS 7.0 now
+- Added support for SMB file sharing (#8879)
+- Added support for music albums with more than 1 disk (#14650)
+- Re-wrote Apple Watch extension for watchOS 2
+- Media stored in folders on remote servers is now played as a list
+- Reworked networking UI
+- Added support for system-wide search "CoreSpotlight"
+- Added improved UI support for Right-to-Left languages
+- Added support for the split-screen appearance in iOS 9 (#14840)
+- Added support for Touch ID to unlock app (#13378)
+- Added support for WiFi sharing using a personal hotspot (#14865)
+- Added option to configure playback continuation (#14340, #14590)
+- Added option to configure gestures (#15449) 
+- Added support for music albums with more than 1 disk (#14650)
+- Display chapter duration in playback UI (#14718)
+- Recently played network stream URL are now shared across all devices
+- Stored login information is now shared across all devices
+- Cloud login credentials are now shared across all devices
+
+## iOS [2.6.6]
+
+- Desktop quality SSA subtitles rendering (finally!, #11297, #13365, #14112)
+- Stability improvements
+- New translations to Lao and Kabyle
+
+## iOS [2.6.5]
+
+- Fixed playback of streams opened through the legacy vlc:// pseudo protocol
+- Minor improvements (#14080, #14836, #14881, #15118)
+- New translation to Norwegian Bokmål
+- Updated translations to Afrikaans, Arabic, Bosnian, Czech, Danish, English (GB),
   Spanish (Mexico), Persian, Hungarian, Korean, Latvian, Malay, Polish, Portuguese (Brazil),
   Portuguese (Portugal), Slovenian, Turkish and Traditional Chinese
 
-2.6.4:
-------
-· Fixed playback of UPnP streams broken in previous update
+## iOS [2.6.4]
 
-2.6.3:
-------
-· Stability improvements and minor bug fixes (#13601, #14154, #14611, #14852, #14860, #14864)
-· Fixed video playback for URLs open via third party apps (#15075)
+- Fixed playback of UPnP streams broken in previous update
 
-2.6.2:
-------
-· Improved playback reliability (#15000 et al)
-· Added minimize button to fullscreen playback so 'Done' stops playback again
-· Added option to always play video in fullscreen, on by default (#14985)
-· Fixed subtitles rendering which produced incorrect umlauts or pixelated fonts (#14978 et al.,
+## iOS [2.6.3]
+
+- Stability improvements and minor bug fixes (#13601, #14154, #14611, #14852, #14860, #14864)
+- Fixed video playback for URLs open via third party apps (#15075)
+
+## iOS [2.6.2]
+
+- Improved playback reliability (#15000 et al)
+- Added minimize button to fullscreen playback so 'Done' stops playback again
+- Added option to always play video in fullscreen, on by default (#14985)
+- Fixed subtitles rendering which produced incorrect umlauts or pixelated fonts (#14978 et al.,
   #14883, #14919, #14929)
-· Fixed major playback issue on iOS 7 on iPad (#14977)
-· Fixed remove control events on iOS 6 (#14996)
-· Fixed x-callback-url on playback close (#14984)
-· Improved accessibility (#15012)
+- Fixed major playback issue on iOS 7 on iPad (#14977)
+- Fixed remove control events on iOS 6 (#14996)
+- Fixed x-callback-url on playback close (#14984)
+- Improved accessibility (#15012)
 
-2.6.1:
-------
-· Reduced Apple Watch extension file size by 90%
-· Minor bug fix (#14942)
+## iOS [2.6.1]
 
-2.6.0:
-------
-· Added support for Apple Watch - control VLC from your watch!
+- Reduced Apple Watch extension file size by 90%
+- Minor bug fix (#14942)
+
+## iOS [2.6.0]
+
+- Added support for Apple Watch - control VLC from your watch!
   - playback control
   - media info
   - library browsing
-· Added mini-player to browse the library during playback (#13367)
-· Added support for looping playlists
-· New ingest mechanism for audio files
-· Improved remote command support
-· Improved thumbnail generation
-· Improved thumbnail and web interface performance on devices with A5 CPU and above
-· Fixed crash when playing media from a folder or music album on iPad (#14394, #14706)
-· Fixed crash when app goes to background while a video is playing (#14643)
-· Fixed privacy leak when using a passcode to protect the library (#14159, #14615)
-· Removed stray popup announcing VLC's crash all the time while it actually
+- Added mini-player to browse the library during playback (#13367)
+- Added support for looping playlists
+- New ingest mechanism for audio files
+- Improved remote command support
+- Improved thumbnail generation
+- Improved thumbnail and web interface performance on devices with A5 CPU and above
+- Fixed crash when playing media from a folder or music album on iPad (#14394, #14706)
+- Fixed crash when app goes to background while a video is playing (#14643)
+- Fixed privacy leak when using a passcode to protect the library (#14159, #14615)
+- Removed stray popup announcing VLC's crash all the time while it actually
   didn't crash before, but terminated by the user (#13194)
-· Added support for the PLEX Web API
-· Thumbnails displayed in the media library are updated to the last playback position (#14462)
-· Improved reliability when sharing media library on the local network
-· Improved media library search delivering more accurate results (#14593)
-· Fixed 'crop to fill screen' on iPad (#14575)
-· Fixed issue which prevented downloading of a few files via UPnP (#11123)
-· Fixed crash when screen is being locked during playback (#14610)
-· A large number of bug fixes affecting most parts of the app (#13194, #14056,
+- Added support for the PLEX Web API
+- Thumbnails displayed in the media library are updated to the last playback position (#14462)
+- Improved reliability when sharing media library on the local network
+- Improved media library search delivering more accurate results (#14593)
+- Fixed 'crop to fill screen' on iPad (#14575)
+- Fixed issue which prevented downloading of a few files via UPnP (#11123)
+- Fixed crash when screen is being locked during playback (#14610)
+- A large number of bug fixes affecting most parts of the app (#13194, #14056,
   #14270, #14284, #14355, #14477, #14588, #14589, #14609, #14623, #14624,
   #14628, #14629, #14635, #14638, #14641, #14642, #14654, #14663, #14687,
   #14688, #14713, #14715, #14716, #14733, #14736, #14795, #14800, #14801, #14829)
 
-2.5.1:
-------
-· Fixed playback on iOS 6.1
+## iOS [2.5.1]
 
-2.5:
-----
-· Added support for iCloud Drive (#8688)
-· Added support for box.com (#11301)
-· Added support for OneDrive (#13413)
-· Added a lock button to the playback view, supporting both orientation and
+- Fixed playback on iOS 6.1
+
+## iOS [2.5]
+
+- Added support for iCloud Drive (#8688)
+- Added support for box.com (#11301)
+- Added support for OneDrive (#13413)
+- Added a lock button to the playback view, supporting both orientation and
   controls (#11293, #11292)
-· Added 10-band equalizer (#9032)
-· Added sharing of the media library between multiple iOS devices
+- Added 10-band equalizer (#9032)
+- Added sharing of the media library between multiple iOS devices
   on the local network
-· Added support for chapters and titles to the playback dialog (#11560)
-· Cleaned-up playback view appearance with more features and less clutter
-· Added enhanced media information to the library view (#13564)
-· Added notifications about missing storage space when syncing media (#11474)
-· Added timer to automatically stop playback (#8640)
-· Improved WiFi sharing reliability with web browsers on Linux (#14083)
-· Improved Plex support with optional direct connections if detection fails
-· x-callback-url: added support for the x-error parameter (#14092)
-· A few minor UI improvements (#13892)
-· New translations to Portuguese (Portugal), Portuguese (Brazil), Khmer,
+- Added support for chapters and titles to the playback dialog (#11560)
+- Cleaned-up playback view appearance with more features and less clutter
+- Added enhanced media information to the library view (#13564)
+- Added notifications about missing storage space when syncing media (#11474)
+- Added timer to automatically stop playback (#8640)
+- Improved WiFi sharing reliability with web browsers on Linux (#14083)
+- Improved Plex support with optional direct connections if detection fails
+- x-callback-url: added support for the x-error parameter (#14092)
+- A few minor UI improvements (#13892)
+- New translations to Portuguese (Portugal), Portuguese (Brazil), Khmer,
   Faroese, Belarusian, Serbian (Latin), Tamil and Afrikaans
 
-2.4.1:
-------
-· Fixed subtitles downloading in some corner cases
-· Appearance fixes for playback speed selector and download view on iPhone
-· Improved WiFi Sharing reliability by disabling IPv6 support by default
-· Improved UPnP reliability and speed
-· Various minor UI improvements
-· Fixed regression leading to incomplete library listings on iPad
-· Improved decoding reliability by deploying FFmpeg instead of libav
+## iOS [2.4.1]
 
-2.4:
-----
-· Added support for iPhone 6 and 6+
-· Download of currently stored media via WiFi in addition to upload (#11289)
-· Detection of external subtitles when streaming media via http or ftp (#10668)
-· Folder support for GDrive (#11019)
-· Support for streaming from GDrive
-· Native support for Plex media servers
-· Support for file sharing with further apps installed on device (#11302)
-· Option to download media from http/ftp/https instead of direct playback when
+- Fixed subtitles downloading in some corner cases
+- Appearance fixes for playback speed selector and download view on iPhone
+- Improved WiFi Sharing reliability by disabling IPv6 support by default
+- Improved UPnP reliability and speed
+- Various minor UI improvements
+- Fixed regression leading to incomplete library listings on iPad
+- Improved decoding reliability by deploying FFmpeg instead of libav
+
+## iOS [2.4]
+
+- Added support for iPhone 6 and 6+
+- Download of currently stored media via WiFi in addition to upload (#11289)
+- Detection of external subtitles when streaming media via http or ftp (#10668)
+- Folder support for GDrive (#11019)
+- Support for streaming from GDrive
+- Native support for Plex media servers
+- Support for file sharing with further apps installed on device (#11302)
+- Option to download media from http/ftp/https instead of direct playback when
   requested through third-party app (#11147)
-· Folders synced through iTunes are correctly parsed now (#9158)
-· Option to set text encoding used for FTP connections (#10611)
-· Option to set default playback speed (#10595)
-· Media library search (#11303)
-· Improved reliability when a call comes in during playback
-· Improved subtitles playback reliability (#11225)
-· Support for redirected downloads via HTTP (#10639)
-· Support for audio playback and subtitles delay for manual sync (#11236)
-· Added improved interaction with third party apps through a x-callback-url
+- Folders synced through iTunes are correctly parsed now (#9158)
+- Option to set text encoding used for FTP connections (#10611)
+- Option to set default playback speed (#10595)
+- Media library search (#11303)
+- Improved reliability when a call comes in during playback
+- Improved subtitles playback reliability (#11225)
+- Support for redirected downloads via HTTP (#10639)
+- Support for audio playback and subtitles delay for manual sync (#11236)
+- Added improved interaction with third party apps through a x-callback-url
   based mechanism
   URL scheme: vlc-x-callback://x-callback-url/stream?url=...&x-success=...
   The 'stream' path component overwrites the "Download or Stream?" dialog
   displayed when third party URLs are being opened.
-· Media Library is no longer reset on upgrade (#11330)
+- Media Library is no longer reset on upgrade (#11330)
   - no further thumbnail mismatch (#9158 et al)
   - playback states are retained
   - improved first launch after upgrade reliability
-· Fix browsing of a number of UPnP devices such as HDHomeRun without sorting
+- Fix browsing of a number of UPnP devices such as HDHomeRun without sorting
   capabilities (#11667)
-· Fix pseudo-random playback starts (#11993)
-· Improved passcode lock appearance (#13166)
-· Minor UI improvements (#11296, #11637, #13165, #13169)
-· Network stream history allows copying URLs
-· Improved reliability when syncing media via WiFi or iTunes (#13128)
-· Stability improvements for iOS 6.1
-· New translation to Traditional Chinese
+- Fix pseudo-random playback starts (#11993)
+- Improved passcode lock appearance (#13166)
+- Minor UI improvements (#11296, #11637, #13165, #13169)
+- Network stream history allows copying URLs
+- Improved reliability when syncing media via WiFi or iTunes (#13128)
+- Stability improvements for iOS 6.1
+- New translation to Traditional Chinese
 
-2.3:
-----
-· New ability to organize media in folders (#9043)
-· Support for password protected HTTP streams (#9028)
-· WiFi uploads and HTTP downloads continue in the background
+## iOS [2.3]
+
+- New ability to organize media in folders (#9043)
+- Support for password protected HTTP streams (#9028)
+- WiFi uploads and HTTP downloads continue in the background
   (2 min on iOS 7, 10 min on iOS 6)
-· Added option to disable playback control gestures (#10592)
-· Added option to use bold subtitles (#10882)
-· Modified behavior: when passcode lock is enabled, playback will be stopped
+- Added option to disable playback control gestures (#10592)
+- Added option to use bold subtitles (#10882)
+- Modified behavior: when passcode lock is enabled, playback will be stopped
   when VLC enters the background state (#10630, #10747)
-· Fixed serial ftp downloads
-· Fixed downloads from Twonky UPnP servers (#10631)
-· Fixed playback control through lock screen, headphones or multi-tasking view
+- Fixed serial ftp downloads
+- Fixed downloads from Twonky UPnP servers (#10631)
+- Fixed playback control through lock screen, headphones or multi-tasking view
   (#10932)
-· Playback is paused when headphones are unplugged (#11041)
-· Improved UPnP discovery speed with some servers (#10811)
-· Improved memory consumption (#9505)
-· Added support for m4b, caf, oma, w64 audio and mxg video files
-· Caches for WiFi upload and HTTP downloads are emptied more often to
+- Playback is paused when headphones are unplugged (#11041)
+- Improved UPnP discovery speed with some servers (#10811)
+- Improved memory consumption (#9505)
+- Added support for m4b, caf, oma, w64 audio and mxg video files
+- Caches for WiFi upload and HTTP downloads are emptied more often to
   keep storage impact reasonable
-· Stability improvements and UX tweaks (amongst others #10601, #10518)
-· New translations to Latvian, Romanian and British English
+- Stability improvements and UX tweaks (amongst others #10601, #10518)
+- New translations to Latvian, Romanian and British English
 
-2.2.2:
-------
-· Fixed audio playback regression introduced in previous update (#10597)
-· Updated translations to Arabic, Chinese (Hans), Dutch, Galician, Hungarian,
+## iOS [2.2.2]
+
+- Fixed audio playback regression introduced in previous update (#10597)
+- Updated translations to Arabic, Chinese (Hans), Dutch, Galician, Hungarian,
   Portuguese
 
-2.2.1:
-------
-· Added initial support for ARM64 aka AArch64 aka ARMv8
-· Improved reliability for Dropbox streaming (#10489)
-· Added option to adapt network caching (#10388)
-· Compatibility fixes for multiple UPnP servers (notably Twonky 7, Serviio 1.4,
-  XBMC 12)
-· Fixed an issue where always the same file in a UPnP folder was played (#10441)
-· Fixed a ftp streaming issue from connected servers if file name contains
-  non-ASCII characters or the path contains spaces (#10469)
-· Improved meta data readability within the iPad library view (#10471)
-· Improved stability on iOS 6
-· Improved Thumbnails
-· Misc stability improvements (#10490)
+## iOS [2.2.1]
 
-2.2.0:
-------
+- Added initial support for ARM64 aka AArch64 aka ARMv8
+- Improved reliability for Dropbox streaming (#10489)
+- Added option to adapt network caching (#10388)
+- Compatibility fixes for multiple UPnP servers (notably Twonky 7, Serviio 1.4,
+  XBMC 12)
+- Fixed an issue where always the same file in a UPnP folder was played (#10441)
+- Fixed a ftp streaming issue from connected servers if file name contains
+  non-ASCII characters or the path contains spaces (#10469)
+- Improved meta data readability within the iPad library view (#10471)
+- Improved stability on iOS 6
+- Improved Thumbnails
+- Misc stability improvements (#10490)
+
+## iOS [2.2.0]
+
 NB: This release removes support for iOS 5 and therefore the first generation
 iPad. iOS 6 and the iPhone 3GS remain supported.
 
 Interface:
-· New Interface for iOS 7
-· Add tutorial to introduce the user to the app
-· Improved feedback for media download progress including data bitrate,
+- New Interface for iOS 7
+- Add tutorial to introduce the user to the app
+- Improved feedback for media download progress including data bitrate,
   procentual progress and estimated remaining download time
-· Opening network streams no longer leads to a collapsed file system hierachy
+- Opening network streams no longer leads to a collapsed file system hierachy
   on the remote system. After playback, you can continue where you left off.
-· Added bookmarks for FTP servers
-· Added support for multi-touch gestures based upon the VLC Gestures haxie
+- Added bookmarks for FTP servers
+- Added support for multi-touch gestures based upon the VLC Gestures haxie
   - horizontal swipe for playback position
   - tap with 2 fingers to play/pause
   - vertical swipe in the right half of the video to adapt volume
   - vertical swipe in the left half of the video to adapt screen brightness
-· Previously removed episodes and tracks no longer show up in the respective
+- Previously removed episodes and tracks no longer show up in the respective
   group listings (#9705)
-· Improved privacy by requesting the passcode immediately after leaving the
+- Improved privacy by requesting the passcode immediately after leaving the
   app and by obfuscating playback metadata if passcode lock is enabled
-· Added support to endlessly repeat the currently playing item (#9793)
-· Added option to disable file name display optimizations (#10050)
-· TV Shows are sorted by Season number / Episode number and Music Albums
+- Added support to endlessly repeat the currently playing item (#9793)
+- Added option to disable file name display optimizations (#10050)
+- TV Shows are sorted by Season number / Episode number and Music Albums
   respectively by track number
-· Added ability to rename any media item in the library view
-· Added deletion of multiple media items in one step
-· If your media was recognized as part of a music album, the next track
+- Added ability to rename any media item in the library view
+- Added deletion of multiple media items in one step
+- If your media was recognized as part of a music album, the next track
   will automatically start playing afterwards
-· New translations to Czech, Malay, Persian, Spanish (Mexico)
+- New translations to Czech, Malay, Persian, Spanish (Mexico)
 
 Cloud interaction:
-· Added support for downloads from Google Drive (#8690)
-· Added support for streaming files from Dropbox in addition to download
+- Added support for downloads from Google Drive (#8690)
+- Added support for streaming files from Dropbox in addition to download
   to device (#9784)
 
 Local network:
-· Added support for downloading from UPnP multimedia servers
-· Added cover-art and duration to UPnP server item lists
-· UPnP stability improvements
-· Fix incorrect displayed size for files stored on UPnP multimedia servers
+- Added support for downloading from UPnP multimedia servers
+- Added cover-art and duration to UPnP server item lists
+- UPnP stability improvements
+- Fix incorrect displayed size for files stored on UPnP multimedia servers
   larger than 2147.48 MB (#9641)
-· Improved WiFi Upload reliability, especially when uploading multiple
+- Improved WiFi Upload reliability, especially when uploading multiple
   items at the same time
 
 Global networks:
-· Added support for HTTP Live Streaming (HLS) (#9174)
-· Added support for https playback
-· Added support for system-wide HTTP proxy settings
-· Added support for m3u streams
+- Added support for HTTP Live Streaming (HLS) (#9174)
+- Added support for https playback
+- Added support for system-wide HTTP proxy settings
+- Added support for m3u streams
 
 Misc:
-· Improved audio playback performance and reliability
-· Improved metadata detection
-· Improved vlc:// handling (#9542)
-· Improved TV show handling for shows with more than 100 episodes
+- Improved audio playback performance and reliability
+- Improved metadata detection
+- Improved vlc:// handling (#9542)
+- Improved TV show handling for shows with more than 100 episodes
 
-2.1.3:
-------
-· Fixed crashes with files whose names are less than 6 characters long after
+## iOS [2.1.3]
+
+- Fixed crashes with files whose names are less than 6 characters long after
   removing the file extension
 
-2.1.2:
-------
-· Stability improvements (#9393, #9431, #9432, #9433, #9434, #9435, #9556)
-· Improved Closed Caption rendering (#9369)
-· Minor UI fixes (#9454)
-· New translations to Hungarian and Swedish
+## iOS [2.1.2]
 
-2.1.1:
-------
-· Stability improvements
-· Improved UPnP handling
-· Improved interaction with third party apps
-· Improved visual appearance on iPad
-· Added support for Teletext-based DVB subtitles
-· New translations to Arabic, Polish, and Korean
+- Stability improvements (#9393, #9431, #9432, #9433, #9434, #9435, #9556)
+- Improved Closed Caption rendering (#9369)
+- Minor UI fixes (#9454)
+- New translations to Hungarian and Swedish
 
-2.1:
-----
-· Improved overall stability (#8989, #9031, #9048, #9089, #9092)
-· Add support for subtitles in non-western languages (#8991)
-· Improved Subtitles support with options to choose font, size, and color
-· Add UPnP discovery and streaming (#8880)
-· Add FTP server discovery, streaming and downloading (#9064)
-· Add Bonjour announcements for the WiFi Uploader's website (#8741)
-· Add playback of audio-only media (#9044)
-· Newly implemented menu and application flow (#9045)
-· Improved VoiceOver and accessibility support (#9017)
-· Add Deinterlace option (off by default, #8813)
-· Device no longer goes to sleep during media downloads (#9062)
-· Improved video output on external screens (#9055, #9079)
-· Improved Passcode Lock behavior (#9252)
-· Minor usability improvements (#9122, #9125, #9225)
-· New translations to Bosnian, Catalan, Galician, Greek, Marathi, Portuguese,
+## iOS [2.1.1]
+
+- Stability improvements
+- Improved UPnP handling
+- Improved interaction with third party apps
+- Improved visual appearance on iPad
+- Added support for Teletext-based DVB subtitles
+- New translations to Arabic, Polish, and Korean
+
+## iOS [2.1]
+
+- Improved overall stability (#8989, #9031, #9048, #9089, #9092)
+- Add support for subtitles in non-western languages (#8991)
+- Improved Subtitles support with options to choose font, size, and color
+- Add UPnP discovery and streaming (#8880)
+- Add FTP server discovery, streaming and downloading (#9064)
+- Add Bonjour announcements for the WiFi Uploader's website (#8741)
+- Add playback of audio-only media (#9044)
+- Newly implemented menu and application flow (#9045)
+- Improved VoiceOver and accessibility support (#9017)
+- Add Deinterlace option (off by default, #8813)
+- Device no longer goes to sleep during media downloads (#9062)
+- Improved video output on external screens (#9055, #9079)
+- Improved Passcode Lock behavior (#9252)
+- Minor usability improvements (#9122, #9125, #9225)
+- New translations to Bosnian, Catalan, Galician, Greek, Marathi, Portuguese,
   Slovenian
 
-2.0.2:
-------
-· Fix MP2 and MP3 decoding (#8986)
-· Add vlc:// protocol handler (#8988)
+## iOS [2.0.2]
+
+- Fix MP2 and MP3 decoding (#8986)
+- Add vlc:// protocol handler (#8988)
   - vlc://anyprotocol:// allows you to force any URL to open in VLC
   - vlc://server/path will assume http://
-· Fix Dropbox hierarchy navigation (#8993)
-· Fix major leak of data when opening files in VLC from other apps (#9011)
-· Retain last audio and subtitles tracks when for played media (#8987)
-· Fix CSS rendering issue in the WiFi Uploader's web interface
-· Switch Default Subtitles Font from SourceSans-Pro to Open Sans
+- Fix Dropbox hierarchy navigation (#8993)
+- Fix major leak of data when opening files in VLC from other apps (#9011)
+- Retain last audio and subtitles tracks when for played media (#8987)
+- Fix CSS rendering issue in the WiFi Uploader's web interface
+- Switch Default Subtitles Font from SourceSans-Pro to Open Sans
   to support Greek, Cyrillic and Vietnamese (#8991)
-· Shake device to create a bug report (#7788)
-· Export meta data about current playback item to multitasking view (#8883)
-· Fix crash when opening network streams from within third party apps while
+- Shake device to create a bug report (#7788)
+- Export meta data about current playback item to multitasking view (#8883)
+- Fix crash when opening network streams from within third party apps while
   playing content local to VLC (#9013)
-· Fix VoiceOver support for Dropbox login (#8997)
-· Fix dialog rotation on iOS 5 (#8992)
-· New translations to Chinese, Danish, Dutch, Hebrew, Slovak, Turkish,
+- Fix VoiceOver support for Dropbox login (#8997)
+- Fix dialog rotation on iOS 5 (#8992)
+- New translations to Chinese, Danish, Dutch, Hebrew, Slovak, Turkish,
   Ukrainian, Vietnamese
 
-2.0.1:
-------
-· Update of Russian and Spanish translations.
-· Minor crash fix (#8739) and interface fix for iPhone 4.
-· Add option for skipping loop filtering (#8814)
+## iOS [2.0.1]
 
-2.0.0:
-------
+- Update of Russian and Spanish translations.
+- Minor crash fix (#8739) and interface fix for iPhone 4.
+- Add option for skipping loop filtering (#8814)
+
+## iOS [2.0.0]
+
 First project release.
