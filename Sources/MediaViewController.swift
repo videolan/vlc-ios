@@ -85,11 +85,11 @@ public class VLCMediaViewController: UICollectionViewController, UISearchResults
 
     override public func viewDidAppear(_ animated: Bool) {
         super.viewDidAppear(animated)
-        displayEmptyViewIfNeeded()
         services.mediaDataSource.updateContents(forSelection: nil)
         services.mediaDataSource.addAllFolders()
         services.mediaDataSource.addRemainingFiles()
         collectionView?.reloadData()
+        displayEmptyViewIfNeeded()
     }
     
     func setupSearchController() {
