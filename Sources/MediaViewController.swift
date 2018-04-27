@@ -40,6 +40,11 @@ public class VLCMediaViewController: UICollectionViewController, UISearchResults
         return emptyView
     }()
 
+    @available(*, unavailable)
+    init() {
+        fatalError()
+    }
+
     init(services: Services) {
         self.services = services
         super.init(collectionViewLayout: UICollectionViewFlowLayout())

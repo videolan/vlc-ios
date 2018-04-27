@@ -17,6 +17,11 @@ public class MediaDataSourceAndDelegate: NSObject, UICollectionViewDataSource, U
     private var services: Services
     public weak var delegate: UICollectionViewDelegate?
 
+    @available(*, unavailable)
+    override init() {
+        fatalError()
+    }
+
     init(services: Services) {
         self.services = services
         super.init()
