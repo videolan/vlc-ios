@@ -51,6 +51,7 @@ public class VLCMediaViewController: UICollectionViewController, UISearchResults
         self.services = services
         mediaType = type
         rendererButton = services.rendererDiscovererManager.setupRendererButton()
+
         super.init(collectionViewLayout: UICollectionViewFlowLayout())
         NotificationCenter.default.addObserver(self, selector: #selector(themeDidChange), name: .VLCThemeDidChangeNotification, object: nil)
         if mediaType.category == .video {
@@ -70,7 +71,7 @@ public class VLCMediaViewController: UICollectionViewController, UISearchResults
     }
 
     @available(*, unavailable)
-    public required init?(coder aDecoder: NSCoder) {
+    required public init?(coder aDecoder: NSCoder) {
         fatalError("init(coder: ) has not been implemented")
     }
 
@@ -169,7 +170,7 @@ public class VLCMediaViewController: UICollectionViewController, UISearchResults
 
     // MARK: - MediaDatasourceAndDelegate
 
-    public override func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
+    override public func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
         delegate?.mediaViewControllerDidSelectMediaObject(self, mediaObject: services.mediaDataSource.object(at: indexPath.row, subcategory: mediaType.subcategory))
     }
 
