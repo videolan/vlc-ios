@@ -19,10 +19,7 @@ import Foundation
 }
 
 public class VLCMediaViewController: UICollectionViewController, UISearchResultsUpdating, UISearchControllerDelegate {
-    private lazy var services: Services = {
-        assertionFailure()
-        return Services()
-    }()
+    private var services: Services!
     private var mediaDatasourceAndDelegate: MediaDataSourceAndDelegate?
     private var searchController: UISearchController?
     private let searchDataSource = VLCLibrarySearchDisplayDataSource()

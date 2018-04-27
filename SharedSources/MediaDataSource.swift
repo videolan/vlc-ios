@@ -14,10 +14,7 @@
 public class MediaDataSourceAndDelegate: NSObject, UICollectionViewDataSource, UICollectionViewDelegateFlowLayout {
 
     private let cellPadding: CGFloat = 5.0
-    private lazy var services: Services = {
-        assertionFailure()
-        return Services()
-    }()
+    private var services: Services!
     public weak var delegate: UICollectionViewDelegate?
 
     public convenience init(services: Services) {

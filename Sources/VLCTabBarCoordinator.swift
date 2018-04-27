@@ -16,10 +16,7 @@ class VLCTabbarCooordinator: NSObject, VLCMediaViewControllerDelegate {
 
     private var childCoordinators: [NSObject] = []
     private var tabBarController: UITabBarController
-    private lazy var services: Services = {
-        assertionFailure()
-        return Services()
-    }()
+    private var services: Services!
     private let displayController = VLCPlayerDisplayController()
 
     public init(tabBarController: UITabBarController, services: Services) {
