@@ -33,6 +33,7 @@ class VLCRendererDiscovererManager: NSObject {
     @objc init(presentingViewController: UIViewController?) {
         self.presentingViewController = presentingViewController
         super.init()
+        NotificationCenter.default.addObserver(self, selector: #selector(updateTheme), name: .VLCThemeDidChangeNotification, object: nil)
     }
 
     // Returns renderers of *all* discoverers
@@ -190,6 +191,29 @@ extension VLCRendererDiscovererManager: VLCRendererDiscovererDelegate {
             }
         }
     }
+
+    fileprivate func updateCollectionViewCellApparence(cell: VLCActionSheetCell, highlighted: Bool) {
+        if (highlighted) {
+            cell.icon.image = UIImage(named: "rendererOrangeFull")
+            cell.name.textColor = PresentationTheme.current.colors.orangeUI
+        } else {
+            cell.icon.image = UIImage(named: "rendererGray")
+            cell.name.textColor = PresentationTheme.current.colors.cellTextColor
+        }
+    }
+
+    @objc fileprivate func updateTheme() {
+        actionSheet.collectionView.backgroundColor = PresentationTheme.current.colors.background
+        actionSheet.headerView.backgroundColor = PresentationTheme.current.colors.background
+        actionSheet.headerView.title.textColor = PresentationTheme.current.colors.cellTextColor
+        for cell in actionSheet.collectionView.visibleCells {
+            if let cell = cell as? VLCActionSheetCell {
+                cell.backgroundColor = PresentationTheme.current.colors.background
+                cell.name.textColor = PresentationTheme.current.colors.cellTextColor
+            }
+        }
+        actionSheet.collectionView.layoutIfNeeded()
+    }
 }
 
 // MARK: VLCActionSheetDelegate
@@ -215,11 +239,11 @@ extension VLCRendererDiscovererManager: VLCActionSheetDelegate {
         }
         // Handles the case when the same renderer is selected
         if renderer == VLCPlaybackController.sharedInstance().renderer {
-            cell.icon.image = UIImage(named: "rendererGray")
+            updateCollectionViewCellApparence(cell: cell, highlighted: false)
         } else {
             // Reset all cells
             collectionView.reloadData()
-            cell.icon.image = UIImage(named: "rendererOrangeFull")
+            updateCollectionViewCellApparence(cell: cell, highlighted: true)
         }
     }
 }
@@ -240,10 +264,9 @@ extension VLCRendererDiscovererManager: VLCActionSheetDataSource {
         if indexPath.row < renderers.count {
             let rendererName = renderers[indexPath.row].name
             cell.name.text = rendererName
-
-            cell.icon.image = UIImage(named: "rendererGray")
+            updateCollectionViewCellApparence(cell: cell, highlighted: false)
             if renderers[indexPath.row] == VLCPlaybackController.sharedInstance().renderer {
-                cell.icon.image = UIImage(named: "rendererOrangeFull")
+                updateCollectionViewCellApparence(cell: cell, highlighted: true)
             }
         } else {
             assertionFailure("VLCRendererDiscovererManager: VLCActionSheetDataSource: IndexPath out of range")

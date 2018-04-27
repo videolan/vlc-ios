@@ -73,7 +73,7 @@ class VLCActionSheet: UIViewController {
         let collectionView = UICollectionView(frame: UIScreen.main.bounds, collectionViewLayout: collectionViewLayout)
         collectionView.delegate = self
         collectionView.dataSource = self
-        collectionView.backgroundColor = .white
+        collectionView.backgroundColor = PresentationTheme.current.colors.background
         collectionView.alwaysBounceVertical = true
         collectionView.showsVerticalScrollIndicator = false
         collectionView.register(VLCActionSheetCell.self, forCellWithReuseIdentifier: VLCActionSheetCell.identifier)
@@ -95,8 +95,8 @@ class VLCActionSheet: UIViewController {
     lazy var headerView: VLCActionSheetSectionHeader = {
         let headerView = VLCActionSheetSectionHeader()
         headerView.title.text = delegate?.headerViewTitle?() ?? "Default header title"
-        headerView.title.textColor = .black
-        headerView.backgroundColor = .white
+        headerView.title.textColor = PresentationTheme.current.colors.cellTextColor
+        headerView.backgroundColor = PresentationTheme.current.colors.background
         headerView.translatesAutoresizingMaskIntoConstraints = false
         return headerView
     }()
