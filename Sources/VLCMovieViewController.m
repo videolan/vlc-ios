@@ -538,7 +538,6 @@ typedef NS_ENUM(NSInteger, VLCPanType) {
 
     [[NSNotificationCenter defaultCenter] removeObserver:self name:NSUserDefaultsDidChangeNotification object:nil];
     [[NSUserDefaults standardUserDefaults] setBool:_displayRemainingTime forKey:kVLCShowRemainingTime];
-    [_services.rendererDiscovererManager stop];
 }
 
 - (BOOL)canBecomeFirstResponder
