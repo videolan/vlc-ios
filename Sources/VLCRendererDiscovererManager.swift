@@ -168,10 +168,10 @@ extension VLCRendererDiscovererManager: VLCRendererDiscovererDelegate {
                 playbackController.renderer = nil
                 if playbackController.isPlaying {
                     // If playing, fall back to local playback
-                    if let movieViewController = presentingViewController as? VLCMovieViewController {
-                        movieViewController.playingExternallyView.isHidden = true
-                    }
                     playbackController.mediaPlayerSetRenderer(nil)
+                }
+                if let movieViewController = presentingViewController as? VLCMovieViewController {
+                    movieViewController.playingExternallyView.isHidden = true
                 }
                 // Reset buttons state
                 for button in rendererButtons {
