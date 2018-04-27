@@ -19,7 +19,7 @@ import Foundation
 }
 
 public class VLCMediaViewController: UICollectionViewController, UISearchResultsUpdating, UISearchControllerDelegate {
-    private var services: Services!
+    private var services: Services
     private var mediaDatasourceAndDelegate: MediaDataSourceAndDelegate?
     private var searchController: UISearchController?
     private let searchDataSource = VLCLibrarySearchDisplayDataSource()
@@ -40,14 +40,10 @@ public class VLCMediaViewController: UICollectionViewController, UISearchResults
         return emptyView
     }()
 
-    public convenience init(services: Services) {
-        self.init(collectionViewLayout: UICollectionViewFlowLayout())
+    init(services: Services) {
         self.services = services
+        super.init(collectionViewLayout: UICollectionViewFlowLayout())
         NotificationCenter.default.addObserver(self, selector: #selector(themeDidChange), name: .VLCThemeDidChangeNotification, object: nil)
-    }
-
-    public override init(collectionViewLayout layout: UICollectionViewLayout) {
-        super.init(collectionViewLayout: layout)
     }
 
     @available(*, unavailable)

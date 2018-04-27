@@ -14,12 +14,12 @@
 public class MediaDataSourceAndDelegate: NSObject, UICollectionViewDataSource, UICollectionViewDelegateFlowLayout {
 
     private let cellPadding: CGFloat = 5.0
-    private var services: Services!
+    private var services: Services
     public weak var delegate: UICollectionViewDelegate?
 
-    public convenience init(services: Services) {
-        self.init()
+    init(services: Services) {
         self.services = services
+        super.init()
     }
 
     public func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
