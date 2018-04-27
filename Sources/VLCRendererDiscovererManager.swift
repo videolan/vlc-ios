@@ -136,7 +136,7 @@ class VLCRendererDiscovererManager: NSObject {
     /// - Returns: New `UIButton`
     @objc func setupRendererButton() -> UIButton {
         let button = UIButton()
-        button.isHidden = getAllRenderers().isEmpty ? true : false
+        button.isHidden = getAllRenderers().isEmpty
         button.setImage(UIImage(named: "renderer"), for: .normal)
         button.setImage(UIImage(named: "rendererFull"), for: .selected)
         button.addTarget(self, action: #selector(displayActionSheet), for: .touchUpInside)
