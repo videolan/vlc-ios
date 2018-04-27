@@ -61,10 +61,10 @@ class VLCRendererDiscovererManager: NSObject {
                         rendererDiscoverer.delegate = self
                         discoverers.append(rendererDiscoverer)
                     } else {
-                        assertionFailure("Unable to start renderer discoverer with name: \(rendererDiscoverer.name)")
+                        print("VLCRendererDiscovererManager: Unable to start renderer discoverer with name: \(rendererDiscoverer.name)")
                     }
                 } else {
-                    assertionFailure("Unable to instanciate renderer discoverer with name: \(discovererDescription.name)")
+                    print("VLCRendererDiscovererManager: Unable to instanciate renderer discoverer with name: \(discovererDescription.name)")
                 }
             }
         }
