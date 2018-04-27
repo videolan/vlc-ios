@@ -19,7 +19,10 @@ import Foundation
 }
 
 public class VLCMediaViewController: UICollectionViewController, UISearchResultsUpdating, UISearchControllerDelegate {
-    private var services: Services
+    private lazy var services: Services = {
+        assertionFailure()
+        return Services()
+    }()
     private var mediaDatasourceAndDelegate: MediaDataSourceAndDelegate?
     private var searchController: UISearchController?
     private let searchDataSource = VLCLibrarySearchDisplayDataSource()
@@ -47,7 +50,6 @@ public class VLCMediaViewController: UICollectionViewController, UISearchResults
     }
 
     public override init(collectionViewLayout layout: UICollectionViewLayout) {
-        self.services = Services()
         super.init(collectionViewLayout: layout)
     }
 
