@@ -11,7 +11,7 @@
 
 class VLCRendererDiscovererManager: NSObject {
     // Array of RendererDiscoverers(Chromecast, UPnP, ...)
-    @objc dynamic var discoverers: [VLCRendererDiscoverer] = [VLCRendererDiscoverer]()
+    @objc var discoverers: [VLCRendererDiscoverer] = [VLCRendererDiscoverer]()
 
     @objc lazy var actionSheet: VLCActionSheet = {
         let actionSheet = VLCActionSheet()
