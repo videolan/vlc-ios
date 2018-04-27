@@ -20,14 +20,15 @@ import Foundation
 
 public class VLCMediaViewController: UICollectionViewController, UISearchResultsUpdating, UISearchControllerDelegate {
     private var services: Services
-    private var mediaDatasourceAndDelegate: MediaDataSourceAndDelegate?
+    private var mediaDataSourceAndDelegate: MediaDataSourceAndDelegate?
     private var searchController: UISearchController?
     private let searchDataSource = VLCLibrarySearchDisplayDataSource()
+    private var mediaType: VLCMediaType
     public weak var delegate: VLCMediaViewControllerDelegate?
 
     @available(iOS 11.0, *)
     lazy var dragAndDropManager: VLCDragAndDropManager = {
-        let dragAndDropManager = VLCDragAndDropManager()
+        let dragAndDropManager = VLCDragAndDropManager(type: mediaType)
         dragAndDropManager.delegate = services.mediaDataSource
         return dragAndDropManager
     }()
@@ -45,15 +46,26 @@ public class VLCMediaViewController: UICollectionViewController, UISearchResults
         fatalError()
     }
 
-    init(services: Services) {
+    init(services: Services, type: VLCMediaType) {
         self.services = services
+        mediaType = type
         super.init(collectionViewLayout: UICollectionViewFlowLayout())
         NotificationCenter.default.addObserver(self, selector: #selector(themeDidChange), name: .VLCThemeDidChangeNotification, object: nil)
+        if mediaType.category == .video {
+            NotificationCenter.default.addObserver(self, selector: #selector(reloadData), name: .VLCAllVideosDidChangeNotification, object: nil)
+        } else {
+            NotificationCenter.default.addObserver(self, selector: #selector(reloadData), name: .VLCTracksDidChangeNotification, object: nil)
+        }
+    }
+
+    @objc func reloadData() {
+        collectionView?.reloadData()
+        displayEmptyViewIfNeeded()
     }
 
     @available(*, unavailable)
     required public init?(coder aDecoder: NSCoder) {
-        fatalError("init(coder:) has not been implemented")
+        fatalError("init(coder: ) has not been implemented")
     }
 
     override public func viewDidLoad() {
@@ -69,14 +81,14 @@ public class VLCMediaViewController: UICollectionViewController, UISearchResults
     }
 
     func setupCollectionView() {
-        mediaDatasourceAndDelegate = MediaDataSourceAndDelegate(services: services)
-        mediaDatasourceAndDelegate?.delegate = self
+        mediaDataSourceAndDelegate = MediaDataSourceAndDelegate(services: services, type:mediaType)
+        mediaDataSourceAndDelegate?.delegate = self
         let playlistnib = UINib(nibName: "VLCPlaylistCollectionViewCell", bundle:nil)
         collectionView?.register(playlistnib, forCellWithReuseIdentifier: VLCPlaylistCollectionViewCell.cellIdentifier())
         collectionView?.backgroundColor = PresentationTheme.current.colors.background
         collectionView?.alwaysBounceVertical = true
-        collectionView?.dataSource = mediaDatasourceAndDelegate
-        collectionView?.delegate = mediaDatasourceAndDelegate
+        collectionView?.dataSource = mediaDataSourceAndDelegate
+        collectionView?.delegate = mediaDataSourceAndDelegate
         if #available(iOS 11.0, *) {
             collectionView?.dragDelegate = dragAndDropManager
             collectionView?.dropDelegate = dragAndDropManager
@@ -85,11 +97,7 @@ public class VLCMediaViewController: UICollectionViewController, UISearchResults
 
     override public func viewDidAppear(_ animated: Bool) {
         super.viewDidAppear(animated)
-        services.mediaDataSource.updateContents(forSelection: nil)
-        services.mediaDataSource.addAllFolders()
-        services.mediaDataSource.addRemainingFiles()
-        collectionView?.reloadData()
-        displayEmptyViewIfNeeded()
+        reloadData()
     }
     
     func setupSearchController() {
@@ -130,12 +138,12 @@ public class VLCMediaViewController: UICollectionViewController, UISearchResults
 
     // MARK: - MediaDatasourceAndDelegate
     override public func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
-        delegate?.mediaViewControllerDidSelectMediaObject(self, mediaObject:services.mediaDataSource.object(at: UInt(indexPath.row)))
+        delegate?.mediaViewControllerDidSelectMediaObject(self, mediaObject: services.mediaDataSource.object(at: indexPath.row, subcategory: mediaType.subcategory))
     }
 
     // MARK: - Search
     public func updateSearchResults(for searchController: UISearchController) {
-        searchDataSource.shouldReloadTable(forSearch: searchController.searchBar.text, searchableFiles: services.mediaDataSource.allObjects())
+        searchDataSource.shouldReloadTable(forSearch: searchController.searchBar.text, searchableFiles: services.mediaDataSource.allObjects(for: mediaType.subcategory))
         collectionView?.reloadData()
     }
 
@@ -144,7 +152,7 @@ public class VLCMediaViewController: UICollectionViewController, UISearchResults
     }
 
     public func didDismissSearchController(_ searchController: UISearchController) {
-        collectionView?.dataSource = mediaDatasourceAndDelegate
+        collectionView?.dataSource = mediaDataSourceAndDelegate
     }
 
 }
