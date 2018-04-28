@@ -142,7 +142,7 @@
 - (NSObject<HTTPResponse> *)_httpGETThumbnailForPath:(NSString *)path
 {
     NSString *filePath = [[path stringByReplacingOccurrencesOfString:@"/thumbnail/" withString:@""] stringByAddingPercentEncodingWithAllowedCharacters:NSCharacterSet.URLFragmentAllowedCharacterSet];
-    filePath = [filePath stringByReplacingOccurrencesOfString:@".png" withString:@""];
+    filePath = [filePath stringByReplacingOccurrencesOfString:@".jpg" withString:@""];
 
     NSManagedObjectContext *moc = [[MLMediaLibrary sharedMediaLibrary] managedObjectContext];
     if (moc) {
@@ -223,7 +223,7 @@
             MLFile *file = (MLFile *)mo;
             duration = [[VLCTime timeWithNumber:file.duration] stringValue];
             [mediaInHtml addObject:[NSString stringWithFormat:
-                                    @"<div style=\"background-image:url('thumbnail/%@.png')\"> \
+                                    @"<div style=\"background-image:url('thumbnail/%@.jpg')\"> \
                                     <a href=\"download/%@\" class=\"inner\"> \
                                     <div class=\"down icon\"></div> \
                                     <div class=\"infos\"> \
@@ -240,14 +240,14 @@
                 NSString *pathSub = [self _checkIfSubtitleWasFound:file.path];
                 if (pathSub)
                     pathSub = [NSString stringWithFormat:@"http://%@/download/%@", hostName, pathSub];
-                [mediaInXml addObject:[NSString stringWithFormat:@"<Media title=\"%@\" thumb=\"http://%@/thumbnail/%@.png\" duration=\"%@\" size=\"%li\" pathfile=\"http://%@/download/%@\" pathSubtitle=\"%@\"/>", file.title, hostName, file.objectID.URIRepresentation.absoluteString, duration, file.fileSizeInBytes, hostName, [file.url.path stringByAddingPercentEncodingWithAllowedCharacters:NSCharacterSet.URLFragmentAllowedCharacterSet], pathSub]];
+                [mediaInXml addObject:[NSString stringWithFormat:@"<Media title=\"%@\" thumb=\"http://%@/thumbnail/%@.jpg\" duration=\"%@\" size=\"%li\" pathfile=\"http://%@/download/%@\" pathSubtitle=\"%@\"/>", file.title, hostName, file.objectID.URIRepresentation.absoluteString, duration, file.fileSizeInBytes, hostName, [file.url.path stringByAddingPercentEncodingWithAllowedCharacters:NSCharacterSet.URLFragmentAllowedCharacterSet], pathSub]];
             }
         }
         else if ([mo isKindOfClass:[MLShow class]]) {
             MLShow *show = (MLShow *)mo;
             NSArray *episodes = [show sortedEpisodes];
             [mediaInHtml addObject:[NSString stringWithFormat:
-                                    @"<div style=\"background-image:url('thumbnail/%@.png')\"> \
+                                    @"<div style=\"background-image:url('thumbnail/%@.jpg')\"> \
                                     <a href=\"#\" class=\"inner folder\"> \
                                     <div class=\"open icon\"></div> \
                                     <div class=\"infos\"> \
@@ -263,7 +263,7 @@
                 MLFile *anyFileFromEpisode = (MLFile *)[[showEp files] anyObject];
                 duration = [[VLCTime timeWithNumber:[anyFileFromEpisode duration]] stringValue];
                 [mediaInHtml addObject:[NSString stringWithFormat:
-                                        @"<div style=\"background-image:url('thumbnail/%@.png')\"> \
+                                        @"<div style=\"background-image:url('thumbnail/%@.jpg')\"> \
                                         <a href=\"download/%@\" class=\"inner\"> \
                                         <div class=\"down icon\"></div> \
                                         <div class=\"infos\"> \
@@ -282,7 +282,7 @@
                     NSString *pathSub = [self _checkIfSubtitleWasFound:[anyFileFromEpisode path]];
                     if (![pathSub isEqualToString:@""])
                         pathSub = [NSString stringWithFormat:@"http://%@/download/%@", hostName, pathSub];
-                    [mediaInXml addObject:[NSString stringWithFormat:@"<Media title=\"%@ - S%@E%@\" thumb=\"http://%@/thumbnail/%@.png\" duration=\"%@\" size=\"%li\" pathfile=\"http://%@/download/%@\" pathSubtitle=\"%@\"/>", show.name, showEp.seasonNumber, showEp.episodeNumber, hostName, showEp.objectID.URIRepresentation, duration, [anyFileFromEpisode fileSizeInBytes], hostName, [anyFileFromEpisode.url.path stringByAddingPercentEncodingWithAllowedCharacters:NSCharacterSet.URLFragmentAllowedCharacterSet], pathSub]];
+                    [mediaInXml addObject:[NSString stringWithFormat:@"<Media title=\"%@ - S%@E%@\" thumb=\"http://%@/thumbnail/%@.jpg\" duration=\"%@\" size=\"%li\" pathfile=\"http://%@/download/%@\" pathSubtitle=\"%@\"/>", show.name, showEp.seasonNumber, showEp.episodeNumber, hostName, showEp.objectID.URIRepresentation, duration, [anyFileFromEpisode fileSizeInBytes], hostName, [anyFileFromEpisode.url.path stringByAddingPercentEncodingWithAllowedCharacters:NSCharacterSet.URLFragmentAllowedCharacterSet], pathSub]];
                 }
             }
             [mediaInHtml addObject:@"</div></div>"];
@@ -290,7 +290,7 @@
             MLLabel *label = (MLLabel *)mo;
             NSArray *folderItems = [label sortedFolderItems];
             [mediaInHtml addObject:[NSString stringWithFormat:
-                                    @"<div style=\"background-image:url('thumbnail/%@.png')\"> \
+                                    @"<div style=\"background-image:url('thumbnail/%@.jpg')\"> \
                                     <a href=\"#\" class=\"inner folder\"> \
                                     <div class=\"open icon\"></div> \
                                     <div class=\"infos\"> \
@@ -305,7 +305,7 @@
             for (MLFile *file in folderItems) {
                 duration = [[VLCTime timeWithNumber:[file duration]] stringValue];
                 [mediaInHtml addObject:[NSString stringWithFormat:
-                                        @"<div style=\"background-image:url('thumbnail/%@.png')\"> \
+                                        @"<div style=\"background-image:url('thumbnail/%@.jpg')\"> \
                                         <a href=\"download/%@\" class=\"inner\"> \
                                         <div class=\"down icon\"></div> \
                                         <div class=\"infos\"> \
@@ -322,7 +322,7 @@
                     NSString *pathSub = [self _checkIfSubtitleWasFound:file.path];
                     if (pathSub)
                         pathSub = [NSString stringWithFormat:@"http://%@/download/%@", hostName, pathSub];
-                    [mediaInXml addObject:[NSString stringWithFormat:@"<Media title=\"%@\" thumb=\"http://%@/thumbnail/%@.png\" duration=\"%@\" size=\"%li\" pathfile=\"http://%@/download/%@\" pathSubtitle=\"%@\"/>", file.title, hostName, file.objectID.URIRepresentation, duration, file.fileSizeInBytes, hostName, [file.url.path stringByAddingPercentEncodingWithAllowedCharacters:NSCharacterSet.URLFragmentAllowedCharacterSet], pathSub]];
+                    [mediaInXml addObject:[NSString stringWithFormat:@"<Media title=\"%@\" thumb=\"http://%@/thumbnail/%@.jpg\" duration=\"%@\" size=\"%li\" pathfile=\"http://%@/download/%@\" pathSubtitle=\"%@\"/>", file.title, hostName, file.objectID.URIRepresentation, duration, file.fileSizeInBytes, hostName, [file.url.path stringByAddingPercentEncodingWithAllowedCharacters:NSCharacterSet.URLFragmentAllowedCharacterSet], pathSub]];
                 }
             }
             [mediaInHtml addObject:@"</div></div>"];
@@ -330,7 +330,7 @@
             MLAlbum *album = (MLAlbum *)mo;
             NSArray *albumTracks = [album sortedTracks];
             [mediaInHtml addObject:[NSString stringWithFormat:
-                                    @"<div style=\"background-image:url('thumbnail/%@.png')\"> \
+                                    @"<div style=\"background-image:url('thumbnail/%@.jpg')\"> \
                                     <a href=\"#\" class=\"inner folder\"> \
                                     <div class=\"open icon\"></div> \
                                     <div class=\"infos\"> \
@@ -346,7 +346,7 @@
                 MLFile *anyFileFromTrack = [track anyFileFromTrack];
                 duration = [[VLCTime timeWithNumber:[anyFileFromTrack duration]] stringValue];
                 [mediaInHtml addObject:[NSString stringWithFormat:
-                                        @"<div style=\"background-image:url('thumbnail/%@.png')\"> \
+                                        @"<div style=\"background-image:url('thumbnail/%@.jpg')\"> \
                                         <a href=\"download/%@\" class=\"inner\"> \
                                         <div class=\"down icon\"></div> \
                                         <div class=\"infos\"> \
@@ -360,7 +360,7 @@
                                         track.title,
                                         duration, (float)([anyFileFromTrack fileSizeInBytes] / 1e6)]];
                 if (shouldReturnLibVLCXML)
-                    [mediaInXml addObject:[NSString stringWithFormat:@"<Media title=\"%@\" thumb=\"http://%@/thumbnail/%@.png\" duration=\"%@\" size=\"%li\" pathfile=\"http://%@/download/%@\" pathSubtitle=\"\"/>", track.title, hostName, track.objectID.URIRepresentation, duration, [anyFileFromTrack fileSizeInBytes], hostName, [anyFileFromTrack.url.path stringByAddingPercentEncodingWithAllowedCharacters:NSCharacterSet.URLFragmentAllowedCharacterSet]]];
+                    [mediaInXml addObject:[NSString stringWithFormat:@"<Media title=\"%@\" thumb=\"http://%@/thumbnail/%@.jpg\" duration=\"%@\" size=\"%li\" pathfile=\"http://%@/download/%@\" pathSubtitle=\"\"/>", track.title, hostName, track.objectID.URIRepresentation, duration, [anyFileFromTrack fileSizeInBytes], hostName, [anyFileFromTrack.url.path stringByAddingPercentEncodingWithAllowedCharacters:NSCharacterSet.URLFragmentAllowedCharacterSet]]];
             }
             [mediaInHtml addObject:@"</div></div>"];
         }
