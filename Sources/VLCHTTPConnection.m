@@ -129,7 +129,7 @@
 #if TARGET_OS_IOS
 - (NSObject<HTTPResponse> *)_httpGETDownloadForPath:(NSString *)path
 {
-    NSString *filePath = [[path stringByReplacingOccurrencesOfString:@"/download/" withString:@""] stringByAddingPercentEncodingWithAllowedCharacters:NSCharacterSet.URLFragmentAllowedCharacterSet];
+    NSString *filePath = [[path stringByReplacingOccurrencesOfString:@"/download/" withString:@""] stringByRemovingPercentEncoding];
     if (![self fileIsInDocumentFolder:filePath]) {
        //return nil which gets handled as resource not found
         return nil;
