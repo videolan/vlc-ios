@@ -1,10 +1,12 @@
-tvOS 3.0.2:
------------
+# Changelog
+
+## tvOS [3.0.2]
+
 · Fixes issues with not being able to resume playback
 · Fixes issues with no subtitles after selection
 
-iOS 3.0.3:
------------
+## iOS [3.0.3]
+
 · Hitting play after backgrounding VLC is finally fixed
 · Opening a txt file on iOS won't jump into VLC anymore (we obviously still support this subtitle format)
 · Instead of a black screen, when opening certain HEVC files, we now have a playing video
@@ -12,75 +14,75 @@ iOS 3.0.3:
 · We also fixed multiple crashes
 · Scrubbing in the lock screen was added
 
-iOS 3.0.2:
------------
+## iOS [3.0.2]
+
 · Fixes issues with TouchID and FaceID
 · Fixes a crash when opening a Folder
 
-tvOS 3.0.1:
-----------
+## tvOS [3.0.1]
+
 · Fixes a crash browsing files on local file servers
 
-iOS 3.0.1:
------------
+## iOS [3.0.1]
+
 · Fixes a crash browsing files on local file servers
 · the "use TouchID setting" is now respected
 · Fixes a crash when locking your UI on iPhone X
 
-iOS 3.0.0:
------------
+## iOS [3.0.0]
+
 · Added support for Drag and Drop
 · Added Files integration
 · Added FaceID support
 
-tvOS 3.0.0:
-----------
+## tvOS [3.0.0]
+
 · Crash fixes when browsing or searching the local network
 
-iOS 2.9.0:
-----------
+## iOS [2.9.0]
+
 · Stability improvements and bug fixes
 
-iOS 2.8.9:
-----------
+## iOS [2.8.9]
+
 · .srt subtitles are being displayed again
 
-tvOS 1.1.3:
-----------
+## tvOS [1.1.3]
+
 · .srt subtitles are being displayed again
 
-tvOS 1.1.2:
------------
+## tvOS [1.1.2]
+
 · Fix a crash on start when there are two devices with the same name in the network
 
-iOS 2.8.8:
-----------
+## iOS [2.8.8]
+
 · This version will not reboot your iPhone X when playing HEVC files
 · We stopped the madness of doubling files!
 · When passcode is enabled Touch Id won't pop up multiple times when you enter the background
 · SMB Servers will show up again and are accessible
 · Sharing your Media with other Services and saving to Camera Roll works again
-· And as always - Stability improvements and bug fixes
+· And as always · Stability improvements and bug fixes
 
-iOS 2.8.7:
-----------
+## iOS [2.8.7]
+
 · Audio resumes after getting calls or playing content from other media apps again
 · Fixes an issue were SSA subtitles were not displayed
 · Google Drive login works again
 
-tvOS 1.1.1:
------------
+## tvOS [1.1.1]
+
 · Stability improvements and bug fixes
 
-iOS 2.8.6:
------------
+## iOS [2.8.6]
+
 · Adjusted the UI for iPhone X
 · Fixes the app termination on devices for iOS 7 and iOS 8
 · Adds Full support for HEVC 4k videos
 · General bug fixes
 
-tvOS 1.1.0:
------------
+## tvOS [1.1.0]
+
 · Full support for tvOS 11 and Apple TV 4K
 · Hardware decoding of H.264
 · Greatly improved playback engine
@@ -88,27 +90,27 @@ tvOS 1.1.0:
 · Improved support for pass-through audio playback and multi-channel audio
 · Fixes an unexpected app termination when uploading specifically crafted files through Remote Playback
 
-iOS 2.8.5:
-----------
+## iOS [2.8.5]
+
 · Fixes an unexpected app termination when uploading specifically crafted files through WiFi Upload
 · iOS 7 stability improvements, notably when browsing servers via UPnP or deleting locally stored media
 
-iOS 2.8.4:
-----------
+## iOS [2.8.4]
+
 · Fixes a not responsive UI after scrubbing the Video
 · Fixes iOS 11 issues with deinterlaced videos 
 · Fixes instances where the Video would be black
 · General stability improvements and bug fixes
 
-iOS 2.8.3:
-----------
+## iOS [2.8.3]
+
 · Hardware accelerated video filtering reducing CPU load by 30% to the previous software filters (iOS 9 or later only)
 · Fixes FTP playback
 · Fixes crash when playback of a H.264 encoded video ends whose dimensions are not multiples of 16
 · General stability improvements and bug fixes
 
-iOS 2.8.2:
-----------
+## iOS [2.8.2]
+
 · Fixes an unexpected playback termination of H.264 content after a few minutes
 · Fixes playback of 10bit H.264 content
 · Fixes a crash when discovering UPnP devices on the local network
@@ -119,15 +121,15 @@ iOS 2.8.2:
 · Fixed aspect ratio switch and crop
 · General stability improvements and bug fixes
 
-iOS 2.8.1:
-----------
+## iOS [2.8.1]
+
 · General stability improvements and bug fixes
 · Fixes a crash for Local Network for versions < iOS 10
 · Fixes issues with .mov playback
 · Fixes aspect ratio not being applied
 
-iOS 2.8.0:
-----------
+## iOS [2.8.0]
+
 · A new Network Login view
 · Hardware decoding of H.264/HEVC
 · Added support for NFS shares
@@ -138,30 +140,30 @@ iOS 2.8.0:
 · Double tap to seek in videos
 · Shuffle functionality
 
-iOS 2.7.8:
-----------
+## iOS [2.7.8]
+
 · Fixed listing of playlist files on remote shares
 · Fixed downloading some media from http servers
 · Fixed start index of multiple media playback in OneDrive
 · Fixed playback of XDCAM media files (requires a 64bit iOS device)
 
-tvOS 1.0.7:
------------
+## tvOS [1.0.7]
+
 · Fix listing of playlist files on remote shares
 · Fixed playback of XDCAM media files
 
-iOS 2.7.7:
-----------
+## iOS [2.7.7]
+
 · Updated decoders
 · Added ability to rename network streams
 
-tvOS 1.0.6:
------------
+## tvOS [1.0.6]
+
 · Updated decoders
 · Added repeat mode for playback
 
-iOS 2.7.6:
-----------
+## iOS [2.7.6]
+
 · General stability improvements and bug fixes
 · Fix hue video filter
 · Improved stability when unlocking app using Touch ID
@@ -169,23 +171,23 @@ iOS 2.7.6:
 · Prevent ghosting of media downloaded from UPnP servers
 · Prevent playing the wrong file on some UPnP, PLEX or FTP shares
 
-tvOS 1.0.5:
------------
+## tvOS [1.0.5]
+
 · General stability improvements and bug fixes
 · Prevent ghosting of media downloaded from UPnP servers
 · Prevent playing the wrong file on some UPnP, PLEX or FTP shares
 
-iOS 2.7.5:
-----------
+## iOS [2.7.5]
+
 · Improved SMB reliability
 · Stability improvements for iOS 7
 
-tvOS 1.0.4:
------------
+## tvOS [1.0.4]
+
 · Improved SMB reliability
 
-iOS 2.7.3:
-----------
+## iOS [2.7.3]
+
 · General stability improvements and bug fixes
 · Added 3D Touch Quick Actions for iPhone 6S
 · Added 'Play all' feature to OneDrive
@@ -198,8 +200,8 @@ iOS 2.7.3:
 · Fixed downloads from certain UPnP, PLEX and ftp servers
 · Fixed switching library display modes on iPad
 
-tvOS 1.0.3:
------------
+## tvOS [1.0.3]
+
 · General stability improvements and bug fixes
 · Added S/PDIF pass-through option
 · Added option to disable artwork retrieval
@@ -207,22 +209,22 @@ tvOS 1.0.3:
   - Note that SMB shares are not supported yet.
 · Added filtering of files found on FTP servers to only show playable media
 
-tvOS 1.0.2:
------------
+## tvOS [1.0.2]
+
 · General stability improvements and bug fixe
 · Improved SMB reliability
 
-tvOS 1.0.1:
------------
+## tvOS [1.0.1]
+
 · General stability improvements and bug fixes
 · Improved UPnP reliability, notably with Twonky, KooRaRoo, PlayOn
 
-tvOS 1.0.0:
------------
+## tvOS [1.0.0]
+
 · Initial release
 
-2.7.2:
-------
+## iOS [2.7.2]
+
 · Stability improvements
 · Improved HTTP connectivity
 · Improved UPnP reliability, notably with Twonky
@@ -231,8 +233,8 @@ tvOS 1.0.0:
 · Fixed UPnP playback on iOS 7
 · Note: when installing this update, a potentially configured passcode is reset.
 
-2.7.1:
-------
+## iOS [2.7.1]
+
 · Stability improvements
 · Fixed issues unlocking the app when a passcode was never set
 · Fixed repeat one / repeat list
@@ -242,8 +244,8 @@ tvOS 1.0.0:
 · Improved SMB compatibility
 · UPnP reliability improvements, notably with Kodi
 
-2.7.0:
-------
+## iOS [2.7.0]
+
 · Added new app for the 4th gen. Apple TV
 · Dropped support for iOS 6.1. VLC requires iOS 7.0 now
 · Added support for SMB file sharing (#8879)
@@ -264,14 +266,14 @@ tvOS 1.0.0:
 · Stored login information is now shared across all devices
 · Cloud login credentials are now shared across all devices
 
-2.6.6:
-------
+## iOS [2.6.6]
+
 · Desktop quality SSA subtitles rendering (finally!, #11297, #13365, #14112)
 · Stability improvements
 · New translations to Lao and Kabyle
 
-2.6.5:
-------
+## iOS [2.6.5]
+
 · Fixed playback of streams opened through the legacy vlc:// pseudo protocol
 · Minor improvements (#14080, #14836, #14881, #15118)
 · New translation to Norwegian Bokmål
@@ -279,17 +281,17 @@ tvOS 1.0.0:
   Spanish (Mexico), Persian, Hungarian, Korean, Latvian, Malay, Polish, Portuguese (Brazil),
   Portuguese (Portugal), Slovenian, Turkish and Traditional Chinese
 
-2.6.4:
-------
+## iOS [2.6.4]
+
 · Fixed playback of UPnP streams broken in previous update
 
-2.6.3:
-------
+## iOS [2.6.3]
+
 · Stability improvements and minor bug fixes (#13601, #14154, #14611, #14852, #14860, #14864)
 · Fixed video playback for URLs open via third party apps (#15075)
 
-2.6.2:
-------
+## iOS [2.6.2]
+
 · Improved playback reliability (#15000 et al)
 · Added minimize button to fullscreen playback so 'Done' stops playback again
 · Added option to always play video in fullscreen, on by default (#14985)
@@ -300,14 +302,14 @@ tvOS 1.0.0:
 · Fixed x-callback-url on playback close (#14984)
 · Improved accessibility (#15012)
 
-2.6.1:
-------
+## iOS [2.6.1]
+
 · Reduced Apple Watch extension file size by 90%
 · Minor bug fix (#14942)
 
-2.6.0:
-------
-· Added support for Apple Watch - control VLC from your watch!
+## iOS [2.6.0]
+
+· Added support for Apple Watch · control VLC from your watch!
   - playback control
   - media info
   - library browsing
@@ -334,12 +336,12 @@ tvOS 1.0.0:
   #14628, #14629, #14635, #14638, #14641, #14642, #14654, #14663, #14687,
   #14688, #14713, #14715, #14716, #14733, #14736, #14795, #14800, #14801, #14829)
 
-2.5.1:
-------
+## iOS [2.5.1]
+
 · Fixed playback on iOS 6.1
 
-2.5:
-----
+## iOS [2.5]
+
 · Added support for iCloud Drive (#8688)
 · Added support for box.com (#11301)
 · Added support for OneDrive (#13413)
@@ -360,8 +362,8 @@ tvOS 1.0.0:
 · New translations to Portuguese (Portugal), Portuguese (Brazil), Khmer,
   Faroese, Belarusian, Serbian (Latin), Tamil and Afrikaans
 
-2.4.1:
-------
+## iOS [2.4.1]
+
 · Fixed subtitles downloading in some corner cases
 · Appearance fixes for playback speed selector and download view on iPhone
 · Improved WiFi Sharing reliability by disabling IPv6 support by default
@@ -370,8 +372,8 @@ tvOS 1.0.0:
 · Fixed regression leading to incomplete library listings on iPad
 · Improved decoding reliability by deploying FFmpeg instead of libav
 
-2.4:
-----
+## iOS [2.4]
+
 · Added support for iPhone 6 and 6+
 · Download of currently stored media via WiFi in addition to upload (#11289)
 · Detection of external subtitles when streaming media via http or ftp (#10668)
@@ -408,8 +410,8 @@ tvOS 1.0.0:
 · Stability improvements for iOS 6.1
 · New translation to Traditional Chinese
 
-2.3:
-----
+## iOS [2.3]
+
 · New ability to organize media in folders (#9043)
 · Support for password protected HTTP streams (#9028)
 · WiFi uploads and HTTP downloads continue in the background
@@ -431,14 +433,14 @@ tvOS 1.0.0:
 · Stability improvements and UX tweaks (amongst others #10601, #10518)
 · New translations to Latvian, Romanian and British English
 
-2.2.2:
-------
+## iOS [2.2.2]
+
 · Fixed audio playback regression introduced in previous update (#10597)
 · Updated translations to Arabic, Chinese (Hans), Dutch, Galician, Hungarian,
   Portuguese
 
-2.2.1:
-------
+## iOS [2.2.1]
+
 · Added initial support for ARM64 aka AArch64 aka ARMv8
 · Improved reliability for Dropbox streaming (#10489)
 · Added option to adapt network caching (#10388)
@@ -452,8 +454,8 @@ tvOS 1.0.0:
 · Improved Thumbnails
 · Misc stability improvements (#10490)
 
-2.2.0:
-------
+## iOS [2.2.0]
+
 NB: This release removes support for iOS 5 and therefore the first generation
 iPad. iOS 6 and the iPhone 3GS remain supported.
 
@@ -510,20 +512,20 @@ Misc:
 · Improved vlc:// handling (#9542)
 · Improved TV show handling for shows with more than 100 episodes
 
-2.1.3:
-------
+## iOS [2.1.3]
+
 · Fixed crashes with files whose names are less than 6 characters long after
   removing the file extension
 
-2.1.2:
-------
+## iOS [2.1.2]
+
 · Stability improvements (#9393, #9431, #9432, #9433, #9434, #9435, #9556)
 · Improved Closed Caption rendering (#9369)
 · Minor UI fixes (#9454)
 · New translations to Hungarian and Swedish
 
-2.1.1:
-------
+## iOS [2.1.1]
+
 · Stability improvements
 · Improved UPnP handling
 · Improved interaction with third party apps
@@ -531,8 +533,8 @@ Misc:
 · Added support for Teletext-based DVB subtitles
 · New translations to Arabic, Polish, and Korean
 
-2.1:
-----
+## iOS [2.1]
+
 · Improved overall stability (#8989, #9031, #9048, #9089, #9092)
 · Add support for subtitles in non-western languages (#8991)
 · Improved Subtitles support with options to choose font, size, and color
@@ -550,8 +552,8 @@ Misc:
 · New translations to Bosnian, Catalan, Galician, Greek, Marathi, Portuguese,
   Slovenian
 
-2.0.2:
-------
+## iOS [2.0.2]
+
 · Fix MP2 and MP3 decoding (#8986)
 · Add vlc:// protocol handler (#8988)
   - vlc://anyprotocol:// allows you to force any URL to open in VLC
@@ -571,12 +573,12 @@ Misc:
 · New translations to Chinese, Danish, Dutch, Hebrew, Slovak, Turkish,
   Ukrainian, Vietnamese
 
-2.0.1:
-------
+## iOS [2.0.1]
+
 · Update of Russian and Spanish translations.
 · Minor crash fix (#8739) and interface fix for iPhone 4.
 · Add option for skipping loop filtering (#8814)
 
-2.0.0:
-------
+## iOS [2.0.0]
+
 First project release.
