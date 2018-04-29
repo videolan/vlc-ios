@@ -193,7 +193,7 @@
 · Added 'Play all' feature to OneDrive
 · Added 'Play all' feature to local network shares
 · Added automatic finding of external subtitles on HTTP, FTP, PLEX and UPnP
-  · Note that SMB shares are not supported yet.
+  - Note that SMB shares are not supported yet.
 · Added filtering of files found on FTP servers to only show playable media
 · Improved SMB reliability
 · Fixed contrast video filter
@@ -206,7 +206,7 @@
 · Added S/PDIF pass-through option
 · Added option to disable artwork retrieval
 · Added automatic finding of external subtitles on HTTP, FTP, PLEX and UPnP
-  · Note that SMB shares are not supported yet.
+  - Note that SMB shares are not supported yet.
 · Added filtering of files found on FTP servers to only show playable media
 
 ## tvOS [1.0.2]
@@ -310,9 +310,9 @@
 ## iOS [2.6.0]
 
 · Added support for Apple Watch · control VLC from your watch!
-  · playback control
-  · media info
-  · library browsing
+  - playback control
+  - media info
+  - library browsing
 · Added mini-player to browse the library during playback (#13367)
 · Added support for looping playlists
 · New ingest mechanism for audio files
@@ -397,9 +397,9 @@
   The 'stream' path component overwrites the "Download or Stream?" dialog
   displayed when third party URLs are being opened.
 · Media Library is no longer reset on upgrade (#11330)
-  · no further thumbnail mismatch (#9158 et al)
-  · playback states are retained
-  · improved first launch after upgrade reliability
+  - no further thumbnail mismatch (#9158 et al)
+  - playback states are retained
+  - improved first launch after upgrade reliability
 · Fix browsing of a number of UPnP devices such as HDHomeRun without sorting
   capabilities (#11667)
 · Fix pseudo-random playback starts (#11993)
@@ -468,10 +468,10 @@ Interface:
   on the remote system. After playback, you can continue where you left off.
 · Added bookmarks for FTP servers
 · Added support for multi-touch gestures based upon the VLC Gestures haxie
-  · horizontal swipe for playback position
-  · tap with 2 fingers to play/pause
-  · vertical swipe in the right half of the video to adapt volume
-  · vertical swipe in the left half of the video to adapt screen brightness
+  - horizontal swipe for playback position
+  - tap with 2 fingers to play/pause
+  - vertical swipe in the right half of the video to adapt volume
+  - vertical swipe in the left half of the video to adapt screen brightness
 · Previously removed episodes and tracks no longer show up in the respective
   group listings (#9705)
 · Improved privacy by requesting the passcode immediately after leaving the
@@ -556,8 +556,8 @@ Misc:
 
 · Fix MP2 and MP3 decoding (#8986)
 · Add vlc:// protocol handler (#8988)
-  · vlc://anyprotocol:// allows you to force any URL to open in VLC
-  · vlc://server/path will assume http://
+  - vlc://anyprotocol:// allows you to force any URL to open in VLC
+  - vlc://server/path will assume http://
 · Fix Dropbox hierarchy navigation (#8993)
 · Fix major leak of data when opening files in VLC from other apps (#9011)
 · Retain last audio and subtitles tracks when for played media (#8987)
