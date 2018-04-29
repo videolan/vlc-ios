@@ -56,6 +56,8 @@
 
     self.textLabel.text = NSLocalizedString(@"WEBINTF_TITLE", nil);
     self.detailTextLabel.text = NSLocalizedString(@"HTTP_UPLOAD_SERVER_OFF", nil);
+    self.detailTextLabel.translatesAutoresizingMaskIntoConstraints = NO;
+    self.detailTextLabel.numberOfLines = 0;
 
     self.serverToggle = [[UISwitch alloc] init];
     [self.serverToggle addTarget:self action:@selector(toggleHTTPServer) forControlEvents:UIControlEventTouchUpInside];
@@ -71,7 +73,6 @@
     self.textLabel.textColor = PresentationTheme.current.colors.cellTextColor;
     self.detailTextLabel.textColor = PresentationTheme.current.colors.cellDetailTextColor;
     self.backgroundColor = PresentationTheme.current.colors.background;
-    self.serverToggle.thumbTintColor = PresentationTheme.current.colors.background;
 }
 
 - (void)netReachabilityChanged
