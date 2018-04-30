@@ -35,8 +35,6 @@ public class RemoteNetworkDataSource: NSObject, UITableViewDataSource, UITableVi
 
     @objc weak var delegate: RemoteNetworkDataSourceDelegate?
 
-    @objc public let height = RemoteNetworkCellType.count * 55
-
     // MARK: - DataSource
     public func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         return RemoteNetworkCellType.count

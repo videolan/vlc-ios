@@ -50,7 +50,9 @@
     UIActivityIndicatorView *_activityIndicator;
     UITableView *_localNetworkTableView;
     UITableView *_remoteNetworkTableView;
+    UIScrollView *_scrollView;
     VLCRemoteNetworkDataSourceAndDelegate *_remoteNetworkDataSourceAndDelegate;
+    NSLayoutConstraint* _localNetworkHeight;
 }
 
 @end
@@ -60,6 +62,17 @@
 - (void)loadView
 {
     [super loadView];
+
+    _scrollView = [[UIScrollView alloc] init];
+    _scrollView.translatesAutoresizingMaskIntoConstraints = NO;
+    [self.view addSubview:_scrollView];
+
+    [NSLayoutConstraint activateConstraints:@[
+                                              [_scrollView.leftAnchor constraintEqualToAnchor:self.view.leftAnchor],
+                                              [_scrollView.rightAnchor constraintEqualToAnchor:self.view.rightAnchor],
+                                              [_scrollView.topAnchor constraintEqualToAnchor:self.topLayoutGuide.bottomAnchor],
+                                              [_scrollView.bottomAnchor constraintEqualToAnchor:self.view.bottomAnchor],
+                                              ]];
 
     _remoteNetworkDataSourceAndDelegate = [VLCRemoteNetworkDataSourceAndDelegate new];
     _remoteNetworkDataSourceAndDelegate.delegate = self;
@@ -71,12 +84,9 @@
     _localNetworkTableView.dataSource = self;
     _localNetworkTableView.indicatorStyle = UIScrollViewIndicatorStyleWhite;
     _localNetworkTableView.separatorStyle = UITableViewCellSeparatorStyleNone;
-    _localNetworkTableView.bounces = NO;
     _localNetworkTableView.rowHeight = [VLCNetworkListCell heightOfCell];
     _localNetworkTableView.separatorColor = PresentationTheme.current.colors.background;
 
-    //TODO: this is very much work in progress we need to accomodate the wificell for now
-    //When we know how many cells go above the the local servers we should create and move this into a headerview of the localNetworkTable
     _remoteNetworkTableView = [[UITableView alloc] initWithFrame:[UIScreen mainScreen].bounds style:UITableViewStylePlain];
     _remoteNetworkTableView.translatesAutoresizingMaskIntoConstraints = NO;
     _remoteNetworkTableView.backgroundColor = PresentationTheme.current.colors.background;
@@ -101,20 +111,25 @@
     _activityIndicator.hidesWhenStopped = YES;
     [_localNetworkTableView addSubview:_activityIndicator];
 
-    [self.view addSubview:_localNetworkTableView];
-    [self.view addSubview:_remoteNetworkTableView];
+    [_scrollView addSubview:_localNetworkTableView];
+    [_scrollView addSubview:_remoteNetworkTableView];
+
+    [_remoteNetworkTableView layoutIfNeeded];
+    CGSize contentSize = [_remoteNetworkTableView contentSize];
+    _localNetworkHeight = [_localNetworkTableView.heightAnchor constraintEqualToConstant:_localNetworkTableView.contentSize.height];
+
     [NSLayoutConstraint activateConstraints:@[
                                               [_remoteNetworkTableView.leftAnchor constraintEqualToAnchor:self.view.leftAnchor],
                                               [_remoteNetworkTableView.rightAnchor constraintEqualToAnchor:self.view.rightAnchor],
-                                              [_remoteNetworkTableView.topAnchor constraintEqualToAnchor:self.topLayoutGuide.bottomAnchor],
-                                              //TODO: this should be rather be done dynamically with contenthugging of the tableview since the cellheights might vary
-                                              [_remoteNetworkTableView.heightAnchor constraintEqualToConstant:_remoteNetworkDataSourceAndDelegate.height],
+                                              [_remoteNetworkTableView.topAnchor constraintEqualToAnchor:_scrollView.topAnchor],
+                                              [_remoteNetworkTableView.heightAnchor constraintEqualToConstant:contentSize.height],
                                               [_localNetworkTableView.topAnchor constraintEqualToAnchor:_remoteNetworkTableView.bottomAnchor],
                                               [_localNetworkTableView.leftAnchor constraintEqualToAnchor:self.view.leftAnchor],
                                               [_localNetworkTableView.rightAnchor constraintEqualToAnchor:self.view.rightAnchor],
-                                              [_localNetworkTableView.bottomAnchor constraintEqualToAnchor:self.view.bottomAnchor],
+                                              [_localNetworkTableView.bottomAnchor constraintEqualToAnchor:_scrollView.bottomAnchor],
+                                              _localNetworkHeight
                                               ]];
-    self.view.backgroundColor = PresentationTheme.current.colors.background;
+    _scrollView.backgroundColor = PresentationTheme.current.colors.background;
 }
 
 - (void)viewDidLoad
@@ -268,6 +283,8 @@
 - (void)themeDidChange
 {
     _localNetworkTableView.backgroundColor = PresentationTheme.current.colors.background;
+    _remoteNetworkTableView.backgroundColor = PresentationTheme.current.colors.background;
+    _scrollView.backgroundColor = PresentationTheme.current.colors.background;
     _localNetworkTableView.separatorColor = PresentationTheme.current.colors.background;
     _refreshControl.backgroundColor = PresentationTheme.current.colors.background;
 }
@@ -282,7 +299,7 @@
 
 #pragma mark - Refresh
 
--(void)handleRefresh
+- (void)handleRefresh
 {
     //set the title while refreshing
     _refreshControl.attributedTitle = [[NSAttributedString alloc]initWithString:NSLocalizedString(@"LOCAL_SERVER_REFRESH",nil)];
@@ -328,6 +345,8 @@
 - (void)discoveryFoundSomethingNew
 {
     [_localNetworkTableView reloadData];
+    [_localNetworkTableView layoutIfNeeded];
+    _localNetworkHeight.constant = _localNetworkTableView.contentSize.height;
 }
 
 #pragma mark - custom table view appearance
