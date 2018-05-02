@@ -268,12 +268,9 @@ extension VLCRendererDiscovererManager: VLCActionSheetDataSource {
         }
         let renderers = getAllRenderers()
         if indexPath.row < renderers.count {
-            let rendererName = renderers[indexPath.row].name
-            cell.name.text = rendererName
-            updateCollectionViewCellApparence(cell: cell, highlighted: false)
-            if renderers[indexPath.row] == VLCPlaybackController.sharedInstance().renderer {
-                updateCollectionViewCellApparence(cell: cell, highlighted: true)
-            }
+            cell.name.text = renderers[indexPath.row].name
+            let highlighted = renderers[indexPath.row] == VLCPlaybackController.sharedInstance().renderer ? true : false
+            updateCollectionViewCellApparence(cell: cell, highlighted: highlighted)
         } else {
             assertionFailure("VLCRendererDiscovererManager: VLCActionSheetDataSource: IndexPath out of range")
         }
