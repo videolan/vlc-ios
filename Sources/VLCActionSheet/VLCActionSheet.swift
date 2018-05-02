@@ -83,7 +83,7 @@ class VLCActionSheet: UIViewController {
 
     lazy var bottomBackgroundView: UIView = {
         let bottomBackgroundView = UIView()
-        bottomBackgroundView.backgroundColor = UIColor(red:1.00, green:0.59, blue:0.13, alpha:1.0)
+        bottomBackgroundView.backgroundColor = PresentationTheme.current.colors.background
         bottomBackgroundView.translatesAutoresizingMaskIntoConstraints = false
         return bottomBackgroundView
     }()

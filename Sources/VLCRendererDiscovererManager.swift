@@ -212,6 +212,7 @@ extension VLCRendererDiscovererManager: VLCRendererDiscovererDelegate {
         actionSheet.collectionView.backgroundColor = PresentationTheme.current.colors.background
         actionSheet.headerView.backgroundColor = PresentationTheme.current.colors.background
         actionSheet.headerView.title.textColor = PresentationTheme.current.colors.cellTextColor
+        actionSheet.bottomBackgroundView.backgroundColor = PresentationTheme.current.colors.background
         for cell in actionSheet.collectionView.visibleCells {
             if let cell = cell as? VLCActionSheetCell {
                 cell.backgroundColor = PresentationTheme.current.colors.background
