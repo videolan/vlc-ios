@@ -444,6 +444,8 @@ typedef NS_ENUM(NSInteger, VLCPanType) {
 
     if (_vpc.renderer && _playingExternallyView.hidden) {
         [self playingExternallyViewWithRendererName:_vpc.renderer.name];
+    } else if (!_vpc.renderer) {
+        _playingExternallyView.hidden = YES;
     }
 }
 
