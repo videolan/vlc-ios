@@ -27,32 +27,41 @@ class VLCActionSheetSectionHeader: UIView {
         return separator
     }()
 
+    lazy var guide: LayoutAnchorContainer = {
+        var guide: LayoutAnchorContainer = self
+
+        if #available(iOS 11.0, *) {
+            guide = safeAreaLayoutGuide
+        }
+        return guide
+    }()
+
     override init(frame: CGRect) {
         super.init(frame: frame)
-        setupView()
+        setupTitle()
         setupSeparator()
     }
 
     required init?(coder aDecoder: NSCoder) {
         super.init(coder: aDecoder)
-        setupView()
+        setupTitle()
         setupSeparator()
     }
 
     fileprivate func setupSeparator() {
         addSubview(separator)
         NSLayoutConstraint.activate([
-            separator.leadingAnchor.constraint(equalTo: leadingAnchor, constant: 20),
-            separator.trailingAnchor.constraint(equalTo: trailingAnchor, constant: -20),
+            separator.leadingAnchor.constraint(equalTo: guide.leadingAnchor, constant: 20),
+            separator.trailingAnchor.constraint(equalTo: guide.trailingAnchor, constant: -20),
             separator.heightAnchor.constraint(equalToConstant: 0.5),
             separator.topAnchor.constraint(equalTo: bottomAnchor, constant: -1)
             ])
     }
 
-    fileprivate func setupView() {
+    fileprivate func setupTitle() {
         addSubview(title)
         NSLayoutConstraint.activate([
-            title.leadingAnchor.constraint(equalTo: leadingAnchor, constant: 20),
+            title.leadingAnchor.constraint(equalTo: guide.leadingAnchor, constant: 20),
             title.centerYAnchor.constraint(equalTo: centerYAnchor),
             title.centerXAnchor.constraint(equalTo: centerXAnchor),
             title.topAnchor.constraint(equalTo: topAnchor)
