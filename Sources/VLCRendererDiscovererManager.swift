@@ -159,8 +159,11 @@ extension VLCRendererDiscovererManager: VLCRendererDiscovererDelegate {
                 }
             }
         }
-        actionSheet.collectionView.reloadData()
-        actionSheet.updateViewConstraints()
+
+        if actionSheet.viewIfLoaded?.window != nil {
+            actionSheet.collectionView.reloadData()
+            actionSheet.updateViewConstraints()
+        }
     }
 
     func rendererDiscovererItemDeleted(_ rendererDiscoverer: VLCRendererDiscoverer, item: VLCRendererItem) {
@@ -180,8 +183,10 @@ extension VLCRendererDiscovererManager: VLCRendererDiscovererDelegate {
                     button.isSelected = false
                 }
             }
-            actionSheet.collectionView.reloadData()
-            actionSheet.updateViewConstraints()
+            if actionSheet.viewIfLoaded?.window != nil {
+                actionSheet.collectionView.reloadData()
+                actionSheet.updateViewConstraints()
+            }
         }
 
         // No more renderers to show
