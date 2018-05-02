@@ -75,10 +75,6 @@ public class VLCMediaViewController: UICollectionViewController, UISearchResults
         manager.presentingViewController = self
     }
 
-    public override func viewDidDisappear(_ animated: Bool) {
-        super.viewDidDisappear(animated)
-    }
-
     @objc func themeDidChange() {
         collectionView?.backgroundColor = PresentationTheme.current.colors.background
     }
