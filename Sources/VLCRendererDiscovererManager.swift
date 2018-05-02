@@ -195,7 +195,7 @@ extension VLCRendererDiscovererManager: VLCRendererDiscovererDelegate {
     }
 
     fileprivate func updateCollectionViewCellApparence(cell: VLCActionSheetCell, highlighted: Bool) {
-        if (highlighted) {
+        if highlighted {
             cell.icon.image = UIImage(named: "rendererOrangeFull")
             cell.name.textColor = PresentationTheme.current.colors.orangeUI
         } else {
