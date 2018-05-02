@@ -12,28 +12,6 @@
 import Foundation
 import UIKit
 
-// MARK: VLCRendererCollectionViewLayout
-class VLCRendererCollectionViewLayout: UICollectionViewFlowLayout {
-    override init() {
-        super.init()
-        setupLayout()
-    }
-
-    required init?(coder aDecoder: NSCoder) {
-        super.init(coder: aDecoder)
-        setupLayout()
-    }
-
-    fileprivate func setupLayout() {
-        minimumLineSpacing = 1
-        minimumInteritemSpacing = 0
-    }
-
-    override func shouldInvalidateLayout(forBoundsChange newBounds: CGRect) -> Bool {
-        return true
-    }
-}
-
 @objc protocol VLCActionSheetDataSource: class {
     @objc func numberOfRows() -> Int
     @objc func actionSheet(collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell
@@ -64,8 +42,10 @@ class VLCActionSheet: UIViewController {
         return backgroundView
     }()
 
-    lazy var collectionViewLayout: VLCRendererCollectionViewLayout = {
-        let collectionViewLayout = VLCRendererCollectionViewLayout()
+    lazy var collectionViewLayout: UICollectionViewFlowLayout = {
+        let collectionViewLayout = UICollectionViewFlowLayout()
+        collectionViewLayout.minimumLineSpacing = 1
+        collectionViewLayout.minimumInteritemSpacing = 0
         return collectionViewLayout
     }()
 
