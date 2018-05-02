@@ -153,10 +153,8 @@ class VLCRendererDiscovererManager: NSObject {
 extension VLCRendererDiscovererManager: VLCRendererDiscovererDelegate {
     func rendererDiscovererItemAdded(_ rendererDiscoverer: VLCRendererDiscoverer, item: VLCRendererItem) {
         for button in rendererButtons {
-            if button.isHidden {
-                UIView.animate(withDuration: 0.1) {
-                    button.isHidden = false
-                }
+            UIView.animate(withDuration: 0.1) {
+                button.isHidden = false
             }
         }
 
