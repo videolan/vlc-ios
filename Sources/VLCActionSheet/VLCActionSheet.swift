@@ -209,6 +209,7 @@ class VLCActionSheet: UIViewController {
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
         mainStackView.isHidden = true
+        collectionView.reloadData()
         updateViewConstraints()
     }
 
