@@ -196,6 +196,7 @@ extension VLCRendererDiscovererManager: VLCRendererDiscovererDelegate {
                     button.isHidden = true
                 }
             }
+            actionSheet.removeActionSheet()
         }
     }
 

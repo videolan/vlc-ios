@@ -119,8 +119,7 @@ class VLCActionSheet: UIViewController {
         return bottomBackgroundViewHeightConstraint
     }()
 
-    // MARK: Private methods
-    @objc fileprivate func removeActionSheet() {
+    @objc func removeActionSheet() {
         UIView.transition(with: backgroundView, duration: 0.01, options: .transitionCrossDissolve, animations: {
             [weak self] in
             self?.backgroundView.isHidden = true
@@ -129,6 +128,7 @@ class VLCActionSheet: UIViewController {
         })
     }
 
+    // MARK: Private methods
     fileprivate func setupCancelButtonConstraints() {
         NSLayoutConstraint.activate([
             cancelButton.widthAnchor.constraint(equalTo: view.widthAnchor),
