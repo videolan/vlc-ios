@@ -187,7 +187,9 @@ extension VLCRendererDiscovererManager: VLCRendererDiscovererDelegate {
         // No more renderers to show
         if getAllRenderers().isEmpty {
             for button in rendererButtons {
-                button.isHidden = true
+                UIView.animate(withDuration: 0.1) {
+                    button.isHidden = true
+                }
             }
         }
     }
