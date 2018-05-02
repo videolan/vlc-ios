@@ -123,8 +123,8 @@ class VLCActionSheet: UIViewController {
         UIView.transition(with: backgroundView, duration: 0.01, options: .transitionCrossDissolve, animations: {
             [weak self] in
             self?.backgroundView.isHidden = true
-            }, completion: { finished in
-                super.presentingViewController?.dismiss(animated: true, completion: nil)
+            }, completion: { [weak self] finished in
+                self?.presentingViewController?.dismiss(animated: true, completion: nil)
         })
     }
 
