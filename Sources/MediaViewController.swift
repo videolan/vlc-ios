@@ -71,7 +71,10 @@ public class VLCMediaViewController: UICollectionViewController, UISearchResults
     public override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
         let manager = services.rendererDiscovererManager
-        manager.start()
+        if manager.discoverers.isEmpty {
+            // Either didn't start or stopped before
+            manager.start()
+        }
         manager.presentingViewController = self
     }
 
