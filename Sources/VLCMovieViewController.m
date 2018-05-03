@@ -470,7 +470,6 @@ typedef NS_ENUM(NSInteger, VLCPanType) {
     }
 
     [self enableNormalVideoGestures:!_mediaHasProjection];
-    [_services.rendererDiscovererManager start];
 }
 
 - (void)viewDidLayoutSubviews
