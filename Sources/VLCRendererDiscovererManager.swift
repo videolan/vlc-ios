@@ -50,11 +50,11 @@ class VLCRendererDiscovererManager: NSObject {
         return false
     }
 
-    @discardableResult @objc func start() -> Bool {
+    @objc func start() {
         // Gather potential renderer discoverers
         guard let tmpDiscoverersDescription: [VLCRendererDiscovererDescription] = VLCRendererDiscoverer.list() else {
             print("VLCRendererDiscovererManager: Unable to retrieve list of VLCRendererDiscovererDescription")
-            return false
+            return
         }
         for discovererDescription in tmpDiscoverersDescription {
             if !isDuplicateDiscoverer(with: discovererDescription) {
@@ -70,8 +70,6 @@ class VLCRendererDiscovererManager: NSObject {
                 }
             }
         }
-
-        return true
     }
 
     @objc func stop() {
