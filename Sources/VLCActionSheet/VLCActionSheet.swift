@@ -61,17 +61,6 @@ class VLCActionSheet: UIViewController {
         return collectionView
     }()
 
-    lazy var cancelButton: UIButton = {
-        let cancelButton = UIButton()
-        cancelButton.setTitle(NSLocalizedString("CANCEL", comment: ""), for: .normal)
-        cancelButton.setTitleColor(.white, for: .normal)
-        cancelButton.titleLabel?.font = UIFont.systemFont(ofSize: 16)
-        cancelButton.addTarget(self, action: #selector(self.removeActionSheet), for: .touchDown)
-        cancelButton.backgroundColor = UIColor(red:1.00, green:0.59, blue:0.13, alpha:1.0)
-        cancelButton.translatesAutoresizingMaskIntoConstraints = false
-        return cancelButton
-    }()
-
     lazy var headerView: VLCActionSheetSectionHeader = {
         let headerView = VLCActionSheetSectionHeader()
         headerView.title.text = delegate?.headerViewTitle?() ?? "Default header title"
@@ -129,13 +118,6 @@ class VLCActionSheet: UIViewController {
     }
 
     // MARK: Private methods
-    fileprivate func setupCancelButtonConstraints() {
-        NSLayoutConstraint.activate([
-            cancelButton.widthAnchor.constraint(equalTo: view.widthAnchor),
-            cancelButton.heightAnchor.constraint(equalToConstant: cellHeight)
-            ])
-    }
-
     fileprivate func setuplHeaderViewConstraints() {
         NSLayoutConstraint.activate([
             headerView.heightAnchor.constraint(equalToConstant: cellHeight),
@@ -190,18 +172,14 @@ class VLCActionSheet: UIViewController {
         view.addSubview(backgroundView)
         view.addSubview(mainStackView)
 
-        // wip: Currently adapting to new UI
-        //       option to hide cancelbutton
         mainStackView.addArrangedSubview(headerView)
         mainStackView.addArrangedSubview(collectionView)
-//        mainStackView.addArrangedSubview(cancelButton)
         mainStackView.addArrangedSubview(bottomBackgroundView)
 
         backgroundView.frame = UIScreen.main.bounds
 
         setupMainStackViewConstraints()
         setupCollectionViewConstraints()
-//        setupCancelButtonConstraints()
         setuplHeaderViewConstraints()
         setupBottomBackgroundView()
     }
