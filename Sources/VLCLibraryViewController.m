@@ -274,7 +274,7 @@ static NSString *kUsingTableViewToShowData = @"UsingTableViewToShowData";
     VLCRendererDiscovererManager *manager = VLCRendererDiscovererManager.sharedInstance;
     if (manager.discoverers || manager.discoverers.count) {
         // No discoverers has yet been started
-        [VLCRendererDiscovererManager.sharedInstance start];
+        [manager start];
     }
     manager.presentingViewController = self;
 }
