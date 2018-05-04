@@ -1067,6 +1067,10 @@ currentMediaHasTrackToChooseFrom:(BOOL)currentMediaHasTrackToChooseFrom
     [_controllerPanel updateButtons];
     
     _audioOnly = metadata.isAudioOnly;
+    if (_audioOnly) {
+        // fixme: _playingExternallyView should be shown in audioOnly as well
+        _playingExternallyView.hidden = YES;
+    }
 }
 
 - (IBAction)playPause
