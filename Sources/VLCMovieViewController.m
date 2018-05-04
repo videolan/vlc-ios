@@ -461,7 +461,6 @@ typedef NS_ENUM(NSInteger, VLCPanType) {
     }
 
     [self enableNormalVideoGestures:!_mediaHasProjection];
-    [VLCRendererDiscovererManager.sharedInstance start];
 }
 
 - (void)viewDidLayoutSubviews
@@ -531,7 +530,6 @@ typedef NS_ENUM(NSInteger, VLCPanType) {
 
     [[NSNotificationCenter defaultCenter] removeObserver:self name:NSUserDefaultsDidChangeNotification object:nil];
     [[NSUserDefaults standardUserDefaults] setBool:_displayRemainingTime forKey:kVLCShowRemainingTime];
-    [[VLCRendererDiscovererManager sharedInstance] stop];
 }
 
 - (BOOL)canBecomeFirstResponder
