@@ -133,6 +133,7 @@
 
 "SECTION_HEADER_LIBRARY" = "Media Library";
 "HEADER_TITLE_RENDERER" = "Select a casting device";
+"SECTION_HEADER_NETWORK" = "Network";
 
 "LOCAL_NETWORK" = "Local Network";
 "CONNECT_TO_SERVER" = "Connect to Server";
