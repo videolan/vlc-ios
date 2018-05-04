@@ -43,10 +43,8 @@ class VLCRendererDiscovererManager: NSObject {
     }
 
     fileprivate func isDuplicateDiscoverer(with description: VLCRendererDiscovererDescription) -> Bool {
-        for discoverer in discoverers {
-            if discoverer.name == description.name {
-                return true
-            }
+        for discoverer in discoverers where discoverer.name == description.name {
+            return true
         }
         return false
     }
@@ -57,19 +55,17 @@ class VLCRendererDiscovererManager: NSObject {
             print("VLCRendererDiscovererManager: Unable to retrieve list of VLCRendererDiscovererDescription")
             return
         }
-        for discovererDescription in tmpDiscoverersDescription {
-            if !isDuplicateDiscoverer(with: discovererDescription) {
-                if let rendererDiscoverer = VLCRendererDiscoverer(name: discovererDescription.name) {
-                    if rendererDiscoverer.start() {
-                        rendererDiscoverer.delegate = self
-                        discoverers.append(rendererDiscoverer)
-                    } else {
-                        print("VLCRendererDiscovererManager: Unable to start renderer discoverer with name: \(rendererDiscoverer.name)")
-                    }
-                } else {
-                    print("VLCRendererDiscovererManager: Unable to instanciate renderer discoverer with name: \(discovererDescription.name)")
-                }
+        for discovererDescription in tmpDiscoverersDescription where !isDuplicateDiscoverer(with: discovererDescription) {
+            guard let rendererDiscoverer = VLCRendererDiscoverer(name: discovererDescription.name) else {
+                print("VLCRendererDiscovererManager: Unable to instanciate renderer discoverer with name: \(discovererDescription.name)")
+                continue
             }
+            guard rendererDiscoverer.start() else {
+                print("VLCRendererDiscovererManager: Unable to start renderer discoverer with name: \(rendererDiscoverer.name)")
+                continue
+            }
+            rendererDiscoverer.delegate = self
+            discoverers.append(rendererDiscoverer)
         }
     }
 
@@ -82,41 +78,38 @@ class VLCRendererDiscovererManager: NSObject {
 
     // MARK: VLCActionSheet
     @objc fileprivate func displayActionSheet() {
-        if let presentingViewController = presentingViewController {
-            // If only one renderer, choose it automatically
-            if getAllRenderers().count == 1 {
-                let indexPath = IndexPath(row: 0, section: 0)
-                if let rendererItem = getAllRenderers().first {
-                    actionSheet.collectionView.selectItem(at: indexPath, animated: false, scrollPosition: .centeredVertically)
-                    actionSheet(collectionView: actionSheet.collectionView, didSelectItem: rendererItem, At: indexPath)
-                    setRendererItem(rendererItem: rendererItem)
+        guard let presentingViewController = presentingViewController else {
+            assertionFailure("VLCRendererDiscovererManager: Cannot display actionSheet, no viewController setted")
+            return
+        }
+        // If only one renderer, choose it automatically
+        if getAllRenderers().count == 1, let rendererItem = getAllRenderers().first {
+            let indexPath = IndexPath(row: 0, section: 0)
+            actionSheet.collectionView.selectItem(at: indexPath, animated: false, scrollPosition: .centeredVertically)
+            actionSheet(collectionView: actionSheet.collectionView, didSelectItem: rendererItem, At: indexPath)
+            setRendererItem(rendererItem: rendererItem)
 
-                    if let movieViewController = presentingViewController as? VLCMovieViewController {
-                        movieViewController.setupCastWithCurrentRenderer()
-                    }
-                }
-            } else {
-                presentingViewController.present(actionSheet, animated: false, completion: nil)
+            if let movieViewController = presentingViewController as? VLCMovieViewController {
+                movieViewController.setupCastWithCurrentRenderer()
             }
         } else {
-            assertionFailure("VLCRendererDiscovererManager: Cannot display actionSheet, no viewController setted")
+            presentingViewController.present(actionSheet, animated: false, completion: nil)
         }
     }
 
     fileprivate func setRendererItem(rendererItem: VLCRendererItem) {
         let vpcRenderer = VLCPlaybackController.sharedInstance().renderer
+        var finalRendererItem: VLCRendererItem? = nil
+        var isSelected: Bool = false
 
         if vpcRenderer != rendererItem {
-            VLCPlaybackController.sharedInstance().renderer = rendererItem
-            for button in rendererButtons {
-                button.isSelected = true
-            }
-        } else {
-            // Same renderer selected, removing selection
-            VLCPlaybackController.sharedInstance().renderer = nil
-            for button in rendererButtons {
-                button.isSelected = false
-            }
+            finalRendererItem = rendererItem
+            isSelected = true
+        }
+
+        VLCPlaybackController.sharedInstance().renderer = finalRendererItem
+        for button in rendererButtons {
+            button.isSelected = isSelected
         }
     }
 
@@ -198,13 +191,16 @@ extension VLCRendererDiscovererManager: VLCRendererDiscovererDelegate {
     }
 
     fileprivate func updateCollectionViewCellApparence(cell: VLCActionSheetCell, highlighted: Bool) {
+        var image = UIImage(named: "rendererGray")
+        var textColor: UIColor = .black
+
         if highlighted {
-            cell.icon.image = UIImage(named: "rendererOrangeFull")
-            cell.name.textColor = UIColor.vlcOrangeTint()
-        } else {
-            cell.icon.image = UIImage(named: "rendererGray")
-            cell.name.textColor = .black
+            image = UIImage(named: "rendererOrangeFull")
+            textColor = UIColor.vlcOrangeTint()
         }
+
+        cell.icon.image = image
+        cell.name.textColor = textColor
     }
 }
 
@@ -229,14 +225,12 @@ extension VLCRendererDiscovererManager: VLCActionSheetDelegate {
                 assertionFailure("VLCRendererDiscovererManager: VLCActionSheetDelegate: Cell is not a VLCActionSheetCell")
                 return
         }
-        // Handles the case when the same renderer is selected
-        if renderer == VLCPlaybackController.sharedInstance().renderer {
-            updateCollectionViewCellApparence(cell: cell, highlighted: false)
-        } else {
-            // Reset all cells
+        let isCurrentlySelectedRenderer = renderer == VLCPlaybackController.sharedInstance().renderer
+
+        if !isCurrentlySelectedRenderer {
             collectionView.reloadData()
-            updateCollectionViewCellApparence(cell: cell, highlighted: true)
         }
+        updateCollectionViewCellApparence(cell: cell, highlighted: isCurrentlySelectedRenderer)
     }
 }
 
@@ -255,8 +249,8 @@ extension VLCRendererDiscovererManager: VLCActionSheetDataSource {
         let renderers = getAllRenderers()
         if indexPath.row < renderers.count {
             cell.name.text = renderers[indexPath.row].name
-            let highlighted = renderers[indexPath.row] == VLCPlaybackController.sharedInstance().renderer ? true : false
-            updateCollectionViewCellApparence(cell: cell, highlighted: highlighted)
+            let isSelectedRenderer = renderers[indexPath.row] == VLCPlaybackController.sharedInstance().renderer ? true : false
+            updateCollectionViewCellApparence(cell: cell, highlighted: isSelectedRenderer)
         } else {
             assertionFailure("VLCRendererDiscovererManager: VLCActionSheetDataSource: IndexPath out of range")
         }
