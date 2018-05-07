@@ -54,7 +54,7 @@ typedef NS_ENUM(NSInteger, VLCPanType) {
   VLCPanTypeProjection
 };
 
-@interface VLCMovieViewController () <UIGestureRecognizerDelegate, VLCMultiSelectionViewDelegate, VLCEqualizerViewUIDelegate>
+@interface VLCMovieViewController () <UIGestureRecognizerDelegate, VLCMultiSelectionViewDelegate, VLCEqualizerViewUIDelegate, VLCRendererDiscovererManagerDelegate>
 {
     BOOL _controlsHidden;
     BOOL _videoFiltersHidden;
@@ -440,13 +440,13 @@ typedef NS_ENUM(NSInteger, VLCPanType) {
     //Disabling video gestures, media not init in the player yet.
     [self enableNormalVideoGestures:NO];
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(updateDefaults) name:NSUserDefaultsDidChangeNotification object:nil];
-    _services.rendererDiscovererManager.presentingViewController = self;
 
-    if (_vpc.renderer && _playingExternallyView.hidden) {
-        [self playingExternallyViewWithRendererName:_vpc.renderer.name];
-    } else if (!_vpc.renderer) {
-        _playingExternallyView.hidden = YES;
-    }
+    VLCRendererDiscovererManager *manager = _services.rendererDiscovererManager;
+
+    manager.presentingViewController = self;
+    manager.delegate = self;
+
+    [self hidePlayingExternallyViewForRendererIfNeeded];
 }
 
 - (void)viewDidAppear:(BOOL)animated
@@ -882,7 +882,7 @@ typedef NS_ENUM(NSInteger, VLCPanType) {
 - (IBAction)closePlayback:(id)sender
 {
     _playbackWillClose = YES;
-    _playingExternallyView.hidden = YES;
+    [self hidePlayingExternallyViewForRendererIfNeeded];
     [_vpc stopPlayback];
 }
 
@@ -1693,24 +1693,29 @@ currentMediaHasTrackToChooseFrom:(BOOL)currentMediaHasTrackToChooseFrom
 
 #pragma mark - Renderers
 
-- (void)playingExternallyViewWithRendererName:(NSString *)name
-{
-    // TODO: Have a better/prettier transition between local playback frame and playingExternallyView
-    _playingExternallyView.hidden = NO;
-    _playingExternallyTitle.text = NSLocalizedString(@"PLAYING_EXTERNALLY_TITLE_CHROMECAST", nil);
-    _playingExternallyDescription.text = name;
-}
 
-- (void)setupCastWithCurrentRenderer
+/**
+ * Checks if playingExternallyView needs to be hidden.
+ * If not, playingExternallyView will be shown with the current renderer name
+ */
+- (void)hidePlayingExternallyViewForRendererIfNeeded
 {
     VLCRendererItem *renderer = _vpc.renderer;
 
     if (renderer != nil) {
-        [self playingExternallyViewWithRendererName:renderer.name];
+        // TODO: Have a better/prettier transition between local playback frame and playingExternallyView
+        _playingExternallyView.hidden = NO;
+        _playingExternallyTitle.text = NSLocalizedString(@"PLAYING_EXTERNALLY_TITLE_CHROMECAST", nil);
+        _playingExternallyDescription.text = renderer.name;
     } else {
         _playingExternallyView.hidden = YES;
     }
-    [_vpc mediaPlayerSetRenderer:renderer];
+}
+
+- (void)setupCastWithCurrentRenderer
+{
+    [self hidePlayingExternallyViewForRendererIfNeeded];
+    [_vpc mediaPlayerSetRenderer:_vpc.renderer];
 }
 
 - (void)setupRendererDiscovererManager
@@ -1721,6 +1726,13 @@ currentMediaHasTrackToChooseFrom:(BOOL)currentMediaHasTrackToChooseFrom
     [_services.rendererDiscovererManager addSelectionHandlerWithSelectionHandler:^(VLCRendererItem * _Nonnull item) {
         [weakSelf setupCastWithCurrentRenderer];
     }];
+}
+
+#pragma mark - VLCRendererDiscovererManagerDelegate
+
+- (void)removedCurrentRendererItem:(VLCRendererItem *)item
+{
+    [self hidePlayingExternallyViewForRendererIfNeeded];
 }
 
 @end
