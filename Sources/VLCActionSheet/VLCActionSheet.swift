@@ -12,12 +12,12 @@
 import Foundation
 import UIKit
 
-@objc protocol VLCActionSheetDataSource: class {
+@objc protocol VLCActionSheetDataSource {
     @objc func numberOfRows() -> Int
     @objc func actionSheet(collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell
 }
 
-@objc protocol VLCActionSheetDelegate: class {
+@objc protocol VLCActionSheetDelegate {
     @objc optional func headerViewTitle() -> String?
     @objc func itemAtIndexPath(_ indexPath: IndexPath) -> Any?
     @objc func actionSheet(collectionView: UICollectionView, didSelectItem item: Any, At indexPath: IndexPath)
